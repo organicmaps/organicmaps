@@ -1,7 +1,9 @@
-• Datos de OSM al 14 de julio
-• Los nombres de paradas, transbordos y estaciones de transporte público ahora tienen un contorno blanco.
-• Visualización mejorada del horario de apertura.
-• Se corrigieron direcciones incorrectas o faltantes
-• Los marcadores y pistas editados ahora se guardan automáticamente
-• Las advertencias de ruta (peajes, ferries, caminos sin pavimentar, escaleras, etc.) ahora se muestran para todas las rutas alternativas.
-…más en omaps.org/es/news
+• OSM: 28 de septiembre; Wikipedia: 21 de septiembre
+• Mejores rutas alternativas y estimaciones de llegada
+• Una nueva configuración optimiza el orden de las paradas
+• Los nuevos botones permiten agregar o reemplazar paradas en las rutas planificadas
+• La ruta alternativa elegida se mantiene durante la navegación
+• Correcciones y mejoras en la grabación de trazas
+• Se corrigió la importación de KMB
+• Correcciones y mejoras en la interfaz de usuario
+…más información en omaps.org/es/news

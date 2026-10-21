@@ -1,110 +1,120 @@
 #include "map/gps_track.hpp"
 
 #include "base/assert.hpp"
-#include "base/logging.hpp"
 
-GpsTrack::GpsTrack(std::string const & filePath, std::unique_ptr<IGpsTrackFilter> && filter)
-  : m_filePath(filePath)
-  , m_needClear(false)
-  , m_needSendSnapshop(false)
+GpsTrack::GpsTrack(std::string const & filePath, std::unique_ptr<IGpsTrackFilter> && filter,
+                   std::chrono::milliseconds backupInterval)
+  : m_backupInterval(backupInterval)
+  , m_storage(filePath)
   , m_filter(std::move(filter))
-  , m_threadExit(false)
-  , m_threadWakeup(false)
 {
+  ASSERT(!filePath.empty(), ());
+  ASSERT_GREATER(m_backupInterval.count(), 0, ());
   if (!m_filter)
     m_filter = std::make_unique<GpsTrackNullFilter>();
-
-  ASSERT(!m_filePath.empty(), ());
 }
 
 GpsTrack::~GpsTrack()
 {
-  if (m_thread.joinable())
   {
-    {
-      std::lock_guard lg(m_threadGuard);
-      m_threadExit = true;
-      m_cv.notify_one();
-    }
-    m_thread.join();
+    std::lock_guard lg(m_callbackGuard);
+    m_callback = nullptr;
+    m_statisticsCallback = nullptr;
   }
+  Finalize();
+}
+
+void GpsTrack::Start()
+{
+  std::lock_guard lg(m_threadGuard);
+  if (m_recording)
+    return;
+
+  m_recording = true;
+  m_needRestore = true;
+  ScheduleTask();
 }
 
 void GpsTrack::AddPoint(location::GpsInfo const & point)
 {
-  {
-    std::lock_guard lg(m_dataGuard);
-    m_points.emplace_back(point);
-  }
+  std::lock_guard lg(m_threadGuard);
+  if (!m_recording)
+    return;
+  m_points.push_back(point);
   ScheduleTask();
 }
 
 void GpsTrack::AddPoints(std::vector<location::GpsInfo> const & points)
 {
-  {
-    std::lock_guard lg(m_dataGuard);
-    m_points.insert(m_points.end(), points.begin(), points.end());
-  }
+  std::lock_guard lg(m_threadGuard);
+  if (!m_recording)
+    return;
+  m_points.insert(m_points.end(), points.begin(), points.end());
   ScheduleTask();
 }
 
-/// @note These functions are called during recording, so should be synchronized with Collection writer thread.
-/// @{
 TrackStatistics GpsTrack::GetTrackStatistics() const
 {
   std::lock_guard lg(m_threadGuard);
-  return m_collection ? m_collection->GetTrackStatistics() : TrackStatistics();
+  return m_collection.GetTrackStatistics();
 }
 
-ElevationInfo const & GpsTrack::GetElevationInfo() const
+ElevationInfo const & GpsTrack::GetElevationInfo()
 {
   std::lock_guard lg(m_threadGuard);
-  CHECK(m_collection, ());
-  return m_collection->UpdateAndGetElevationInfo();
+  return m_collection.UpdateAndGetElevationInfo();
 }
-/// @}
 
 void GpsTrack::Clear()
 {
-  {
-    std::lock_guard lg(m_dataGuard);
-    m_points.clear();
-    m_needClear = true;
-  }
+  std::lock_guard lg(m_threadGuard);
+  m_points.clear();
+  m_needClear = true;
   ScheduleTask();
 }
 
 bool GpsTrack::IsEmpty() const
 {
   std::lock_guard lg(m_threadGuard);
-  if (!m_collection)
-    return true;
-  return m_collection->IsEmpty();
+  return m_collection.IsEmpty();
 }
 
 void GpsTrack::SetCallback(TGpsTrackDiffCallback callback)
 {
   {
     std::lock_guard lg(m_callbackGuard);
-    m_callback = callback;
-    m_needSendSnapshop = true;
+    m_callback = std::move(callback);
+    m_needSendSnapshot = true;
   }
+  std::lock_guard lg(m_threadGuard);
+  ScheduleTask();
+}
+
+void GpsTrack::SetStatisticsCallback(TGpsTrackStatisticsCallback callback)
+{
+  {
+    std::lock_guard lg(m_callbackGuard);
+    m_statisticsCallback = std::move(callback);
+    m_needSendStatistics = true;
+  }
+  std::lock_guard lg(m_threadGuard);
   ScheduleTask();
 }
 
 void GpsTrack::ScheduleTask()
 {
-  std::lock_guard lg(m_threadGuard);
-
-  /// @todo Replace with !m_thread.joinable() ?
-  if (m_thread.get_id() == std::thread::id())
+  if (!m_thread.joinable())
   {
     m_thread = threads::SimpleThread([this]()
     {
       std::unique_lock ul(m_threadGuard);
       while (true)
       {
-        m_cv.wait(ul, [this]() { return m_threadExit || m_threadWakeup; });
+        auto const hasTask = [this]() { return m_threadExit || m_threadWakeup; };
+        if (m_backupPoints.empty())
+          m_cv.wait(ul, hasTask);
+        else
+          m_cv.wait_until(ul, m_nextBackup, hasTask);
 
         if (m_threadWakeup)
         {
@@ -114,9 +124,10 @@ void GpsTrack::ScheduleTask()
 
         if (m_threadExit)
           break;
-      }
 
-      m_storage.reset();
+        if (!m_backupPoints.empty() && Clock::now() >= m_nextBackup)
+          SaveBackup();
+      }
     });
   }
 
@@ -124,218 +135,109 @@ void GpsTrack::ScheduleTask()
   m_cv.notify_one();
 }
 
-void GpsTrack::InitStorageIfNeed()
-{
-  if (m_storage)
-    return;
-
-  try
-  {
-    m_storage = std::make_unique<GpsTrackStorage>(m_filePath);
-  }
-  catch (RootException const & e)
-  {
-    LOG(LWARNING, ("Track storage creation error:", e.Msg()));
-  }
-}
-
-void GpsTrack::InitCollection()
-{
-  ASSERT(m_collection == nullptr, ());
-
-  m_collection = std::make_unique<GpsTrackCollection>();
-
-  InitStorageIfNeed();
-  if (!m_storage)
-    return;
-
-  try
-  {
-    // All origin points have been written in the storage,
-    // and filtered points are inserted in the runtime collection.
-
-    std::vector<location::GpsInfo> originPoints;
-    originPoints.reserve(GpsTrackStorage::kItemBlockSize);
-
-    m_storage->ForEach([this, &originPoints](location::GpsInfo const & originPoint) -> bool
-    {
-      originPoints.emplace_back(originPoint);
-      if (originPoints.size() == originPoints.capacity())
-      {
-        std::vector<location::GpsInfo> points;
-        m_filter->Process(originPoints, points);
-
-        m_collection->Add(points);
-
-        originPoints.clear();
-      }
-      return true;
-    });
-
-    if (!originPoints.empty())
-    {
-      std::vector<location::GpsInfo> points;
-      m_filter->Process(originPoints, points);
-
-      m_collection->Add(points);
-    }
-  }
-  catch (RootException const & e)
-  {
-    LOG(LWARNING, ("Track storage exception:", e.Msg()));
-    m_collection->Clear();
-    m_storage.reset();
-  }
-}
-
 void GpsTrack::ProcessPoints()
 {
-  std::vector<location::GpsInfo> originPoints;
-  bool needClear;
-  // Steal data for processing
+  auto evictedIds = std::make_pair(kInvalidId, kInvalidId);
+  std::vector<location::GpsInfo> points;
+  bool const needReset = m_needClear || m_needRestore;
+  if (needReset)
   {
-    std::lock_guard lg(m_dataGuard);
-    originPoints.swap(m_points);
-    needClear = m_needClear;
-    m_needClear = false;
+    evictedIds = m_collection.Clear(false /* resetIds */);
+    m_filter->Reset();
+    m_backupPoints.clear();
+    if (m_needClear)
+      ClearBackup();
+    else
+      m_filter->Process(m_storage.Load(), points);
+    m_needClear = m_needRestore = false;
   }
 
-  // Create collection only if callback appears
-  if (!m_collection && HasCallback())
-    InitCollection();
+  m_filter->Process(m_points, points);
+  auto const addedIds = m_collection.Add(points);
 
-  // All origin points are written in the storage,
-  // and filtered points are inserted in the runtime collection.
-
-  UpdateStorage(needClear, originPoints);
-
-  if (!m_collection)
-    return;
-
-  if (needClear)
-    m_filter->Reset();
-
-  std::vector<location::GpsInfo> points;
-  m_filter->Process(originPoints, points);
-
-  std::pair<size_t, size_t> addedIds, evictedIds;
-  UpdateCollection(needClear, points, addedIds, evictedIds);
+  if (m_backupPoints.empty())
+    m_nextBackup = Clock::now() + m_backupInterval;
+  m_backupPoints.insert(m_backupPoints.end(), m_points.begin(), m_points.end());
+  m_points.clear();
 
   NotifyCallback(addedIds, evictedIds);
+  NotifyStatisticsCallback(needReset || addedIds.first != kInvalidId);
+}
+
+void GpsTrack::SaveBackup()
+{
+  if (m_backupPoints.empty())
+    return;
+  if (m_storage.Append(m_backupPoints))
+    m_backupPoints.clear();
+  else
+    m_nextBackup = Clock::now() + m_backupInterval;
+}
+
+void GpsTrack::ClearBackup()
+{
+  m_backupPoints.clear();
+  m_storage.Clear();
 }
 
 size_t GpsTrack::Finalize()
 {
+  std::unique_lock ul(m_threadGuard);
+  m_recording = false;
   if (m_thread.joinable())
   {
-    {
-      std::lock_guard lg(m_threadGuard);
-      m_threadWakeup = m_threadExit = true;
-      m_cv.notify_one();
-    }
+    m_threadWakeup = m_threadExit = true;
+    m_cv.notify_one();
+    ul.unlock();
     m_thread.join();
+    ul.lock();
 
-    // Initialize from scratch.
     m_thread = {};
     m_threadWakeup = m_threadExit = false;
   }
 
+  SaveBackup();
   std::vector<location::GpsInfo> points;
   m_filter->Finalize(points);
-
-  if (!m_collection)  // If no worker thread was started.
-    return 0;
-
-  if (!points.empty())
-    m_collection->Add(points);
-
-  return m_collection->GetSize();
-}
-
-bool GpsTrack::HasCallback()
-{
-  std::lock_guard lg(m_callbackGuard);
-  return m_callback != nullptr;
-}
-
-void GpsTrack::UpdateStorage(bool needClear, std::vector<location::GpsInfo> const & points)
-{
-  InitStorageIfNeed();
-  if (!m_storage)
-    return;
-
-  try
-  {
-    if (needClear)
-      m_storage->Clear();
-
-    m_storage->Append(points);
-  }
-  catch (RootException const & e)
-  {
-    LOG(LWARNING, ("Track storage exception:", e.Msg()));
-    m_storage.reset();
-  }
-}
-
-void GpsTrack::UpdateCollection(bool needClear, std::vector<location::GpsInfo> const & points,
-                                std::pair<size_t, size_t> & addedIds, std::pair<size_t, size_t> & evictedIds)
-{
-  // Apply Clear and Add points
-  // Clear points from collection, if need.
-  evictedIds = needClear ? m_collection->Clear(false /* resetIds */) : std::make_pair(kInvalidId, kInvalidId);
-  ;
-
-  // Add points to the collection, if need
-  if (!points.empty())
-    addedIds = m_collection->Add(points);
-  else
-    addedIds = std::make_pair(kInvalidId, kInvalidId);
+  m_collection.Add(points);
+  return m_collection.GetSize();
 }
 
 void GpsTrack::NotifyCallback(std::pair<size_t, size_t> const & addedIds, std::pair<size_t, size_t> const & evictedIds)
 {
   std::lock_guard lg(m_callbackGuard);
-
   if (!m_callback)
     return;
 
-  if (m_needSendSnapshop)
+  size_t addedCount = 0;
+  auto toRemove = evictedIds;
+  if (m_needSendSnapshot)
   {
-    m_needSendSnapshop = false;
-
-    std::vector<std::pair<size_t, location::GpsInfo>> toAdd;
-    toAdd.reserve(m_collection->GetSize());
-    m_collection->ForEach([&toAdd](location::GpsInfo const & point, size_t id) -> bool
-    {
-      toAdd.emplace_back(id, point);
-      return true;
-    });
-
-    if (toAdd.empty())
-      return;  // nothing to send
-
-    m_callback(std::move(toAdd), std::make_pair(kInvalidId, kInvalidId), m_collection->GetTrackStatistics());
+    m_needSendSnapshot = false;
+    addedCount = m_collection.GetSize();
+    toRemove = std::make_pair(kInvalidId, kInvalidId);
   }
-  else
+  else if (addedIds.first != kInvalidId)
+    addedCount = addedIds.second - addedIds.first + 1;
+
+  if (addedCount == 0 && toRemove.first == kInvalidId)
+    return;
+
+  ASSERT_LESS_OR_EQUAL(addedCount, m_collection.GetSize(), ());
+  std::vector<std::pair<size_t, location::GpsInfo>> toAdd;
+  toAdd.reserve(addedCount);
+  m_collection.ForEach([&toAdd](location::GpsInfo const & point, size_t id)
   {
-    std::vector<std::pair<size_t, location::GpsInfo>> toAdd;
-    if (addedIds.first != kInvalidId)
-    {
-      size_t const addedCount = addedIds.second - addedIds.first + 1;
-      ASSERT_GREATER_OR_EQUAL(m_collection->GetSize(), addedCount, ());
-      toAdd.reserve(addedCount);
-      m_collection->ForEach([&toAdd](location::GpsInfo const & point, size_t id) -> bool
-      {
-        toAdd.emplace_back(id, point);
-        return true;
-      }, m_collection->GetSize() - addedCount);
-      ASSERT_EQUAL(toAdd.size(), addedCount, ());
-    }
+    toAdd.emplace_back(id, point);
+    return true;
+  }, m_collection.GetSize() - addedCount);
+  m_callback(std::move(toAdd), toRemove);
+}
 
-    if (toAdd.empty() && evictedIds.first == kInvalidId)
-      return;  // nothing to send
-
-    m_callback(std::move(toAdd), evictedIds, m_collection->GetTrackStatistics());
-  }
+void GpsTrack::NotifyStatisticsCallback(bool changed)
+{
+  std::lock_guard lg(m_callbackGuard);
+  if (m_statisticsCallback && (changed || m_needSendStatistics))
+    m_statisticsCallback(m_collection.GetTrackStatistics());
+  m_needSendStatistics = false;
 }

@@ -1,28 +1,33 @@
-• La nuova impostazione “Salva cronologia ricerche” ti aiuta a mantenere privata la cronologia delle ricerche, se necessario
+## Calcolo del percorso
+• Miglioramento dei percorsi alternativi e dei relativi tempi di arrivo stimati
+• Aggiunti pulsanti per aggiungere o sostituire una tappa in un percorso pianificato
+• Aggiunta un’impostazione per ottimizzare l’ordine delle tappe intermedie del percorso
+• Il percorso alternativo selezionato viene ora mantenuto quando la navigazione ricalcola il percorso
+• L’ordine delle tappe del percorso viene ora ripristinato dopo il riavvio dell’app
 
-## Mappa e luoghi
-• Dati OpenStreetMap aggiornati al 14 luglio
-• Le note di OpenStreetMap vengono ora posizionate nel punto esatto selezionato, anziché nel mezzo del bosco
-• Migliorata la selezione delle mappe per le regioni che attraversano l’antimeridiano a 180°
-• I profili altimetrici dei tracciati non mostrano più grafici obsoleti o vuoti dopo la rimozione di un tracciato
-• Migliorato il grafico altimetrico vuoto per i tracciati registrati
-• Il pulsante per rimuovere i segnalibri è più facile da trovare
-• Salvataggio automatico dei segnalibri quando si esce dalla schermata di modifica
-• La tavolozza dei colori include colori predefiniti e consente di scegliere qualsiasi colore personalizzato
-• Altri miglioramenti all’interfaccia utente
+## Mappa
+• Dati OpenStreetMap aggiornati al 28 settembre
+• Dati di Wikipedia aggiornati al 21 settembre
+• I bacini idrici sono ora visibili quando si allarga ulteriormente la visuale
+• I tunnel idrici non vengono più visualizzati sulla mappa
+• Corrette le icone delle stazioni e degli ingressi della metropolitana di Suzhou
+• Sono stati risolti rari casi in cui le etichette si spostavano fuori posizione sul livello della mappa della metropolitana
 
-## Trasporto pubblico
-• I nomi delle fermate, dei cambi e delle stazioni ora utilizzano un contorno bianco per rimanere leggibili sia nel tema chiaro che in quello scuro
-• Il livello della metropolitana riappare correttamente dopo aver chiuso l’anteprima di un percorso con i mezzi pubblici
+## CarPlay
+• Aggiunte le istruzioni di manovra sugli head-up display (HUD) delle auto supportate e sulla dashboard di CarPlay
+• Corretto il funzionamento dei pulsanti e della ricerca in CarPlay
 
-## Calcolo del percorso e navigazione
-• Risolti i problemi relativi a indicazioni errate o mancanti
-• Gli avvisi sul percorso (pedaggi, traghetti, strade non asfaltate, scale, ecc.) vengono ora visualizzati per tutti i percorsi alternativi
-• Risolto un raro blocco durante la creazione di un percorso e migliorata la gestione dei vicoli ciechi e dei punti di partenza/arrivo su una strada con limitazioni
-• Migliorata l’indicazione dell’avanzamento del percorso sul pulsante di avvio
-• Il riordino delle tappe del percorso non provoca più lo spostamento irregolare dell’elenco
+## Tracce
+• Aggiunta un'icona a forma di occhio per nascondere singole tracce
+• Correzione di bug e miglioramento della registrazione dei tracciati
+• Risolto il problema di importazione dei file KMB
 
-## Traduzioni
-• Migliorata la formulazione in cinese
-• Aggiornate le traduzioni in ucraino
-• Corrette le traduzioni delle regioni della mappa in italiano
+## Cerca
+• Risolto il problema delle ricerche quando l’area visibile della mappa attraversa il meridiano dei 180° (longitudine ±180°)
+• Ripristinata la ricerca per categoria in Spotlight
+
+## Interfaccia utente
+• Gli orari di apertura ora mostrano «Mezzogiorno» per le 12:00 e «Mezzanotte» per le 00:00 o le 24:00
+• Sono stati corretti vari bug e migliorata l’interfaccia utente
+• Traduzioni corrette in inglese, francese e asturiano
+• Aggiunta la possibilità di selezionare una voce di navigazione installata e ascoltarne un’anteprima

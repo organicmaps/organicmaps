@@ -209,7 +209,8 @@
 "type.barrier.chain" = "Zincir";
 "type.barrier.city_wall" = "Şehir Duvarı";
 "type.barrier.cycle_barrier" = "Bisiklet Bariyeri";
-"type.waterway.ditch" = "Drenaj Çukuru";
+"type.waterway.ditch" = "Drenaj hendeği";
+"type.waterway.ditch.intermittent" = "Geçici drenaj hendeği";
 "type.natural.water.moat" = "Hendek";
 "type.natural.water.wastewater" = "Atık Su";
 "type.barrier.entrance" = "Giriş";
@@ -407,28 +408,28 @@
 "type.highway" = "Otoyol";
 "type.highway.bridleway" = "Atlı Yolu";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.bridleway.bridge" = "Köprü";
 "type.highway.bridleway.permissive" = "Atlı Yolu";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.bridleway.tunnel" = "Tünel";
 "type.highway.busway" = "Ayrık Otobüs Yolu";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.busway.bridge" = "Köprü";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.busway.tunnel" = "Tünel";
 "type.highway.bus_stop" = "Otobüs Durağı";
 "type.highway.construction" = "Yapım Aşamasında Yol";
 "type.highway.cycleway" = "Bisiklet Yolu";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.cycleway.bridge" = "Köprü";
 "type.highway.cycleway.permissive" = "Bisiklet Yolu";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.cycleway.tunnel" = "Tünel";
 "type.highway.elevator" = "Asansör";
 "type.highway.footway" = "Yaya Yolu";
@@ -436,33 +437,33 @@
 "type.highway.footway.crossing" = "Yaya Geçidi";
 "type.highway.footway.area" = "Yaya Alanı";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.footway.bridge" = "Yaya Köprüsü";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.footway.tunnel" = "Yaya Tüneli";
 "type.highway.ford" = "Sığ Geçit";
 "type.highway.living_street" = "Cadde";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.living_street.bridge" = "Köprü";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.living_street.tunnel" = "Tünel";
 "type.highway.motorway" = "Otoyol";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.motorway.bridge" = "Otoyol Köprüsü";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.motorway.tunnel" = "Otoyol Tüneli";
 "type.highway.motorway_junction" = "Yol Çıkışı";
 "type.highway.motorway_link" = "Otoyol Rampası";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.motorway_link.bridge" = "Köprü";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.motorway_link.tunnel" = "Tünel";
 "type.highway.path" = "Yol";
 
@@ -474,135 +475,135 @@
 "type.highway.path.bicycle" = "Bisiklet ve Yürüyüş Yolu";
 "type.highway.footway.bicycle" = "Bisiklet ve Yürüyüş Yolu";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.path.bridge" = "Köprü";
 "type.highway.path.horse" = "Atlı Yolu";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.path.tunnel" = "Tünel";
 "type.highway.pedestrian" = "Yaya Caddesi";
 "type.highway.pedestrian.area" = "Yaya Alanı";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.pedestrian.bridge" = "Yaya Köprüsü";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.pedestrian.tunnel" = "Yaya Tüneli";
 "type.highway.platform" = "Platform";
 "type.highway.primary" = "Ana Yol";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.primary.bridge" = "Köprü";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.primary.tunnel" = "Tünel";
 "type.highway.primary_link" = "Ana Yol Rampası";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.primary_link.bridge" = "Köprü";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.primary_link.tunnel" = "Tünel";
 "type.highway.raceway" = "Yarış Pisti";
 "type.highway.residential" = "Sokak";
 "type.highway.residential.area" = "Sokak";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.residential.bridge" = "Köprü";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.residential.tunnel" = "Tünel";
 "type.highway.rest_area" = "Dinlenme Alanı";
 "type.highway.road" = "Yol";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.road.bridge" = "Köprü";
 
 /* A bridge structure outline. */
 "type.man_made.bridge" = "Köprü";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.road.tunnel" = "Tünel";
 "type.highway.secondary" = "Tali Yol";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.secondary.bridge" = "Köprü";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.secondary.tunnel" = "Tünel";
 "type.highway.secondary_link" = "Tali Yol Rampası";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.secondary_link.bridge" = "Köprü";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.secondary_link.tunnel" = "Tünel";
 "type.highway.service" = "Servis Yolu";
 "type.highway.service.area" = "Servis Yolu";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.service.bridge" = "Köprü";
 "type.highway.service.driveway" = "Servis Yolu";
 "type.highway.service.parking_aisle" = "Park Koridoru";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.service.tunnel" = "Tünel";
 "type.highway.services" = "Servis Alanı";
 "type.highway.speed_camera" = "Hız Kamerası";
 "type.highway.steps" = "Merdiven";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.steps.bridge" = "Köprü";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.steps.tunnel" = "Tünel";
 "type.highway.ladder" = "Basamak";
 "type.highway.tertiary" = "Üçüncül Yol";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.tertiary.bridge" = "Köprü";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.tertiary.tunnel" = "Tünel";
 "type.highway.tertiary_link" = "Üçüncül Yol Rampası";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.tertiary_link.bridge" = "Köprü";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.tertiary_link.tunnel" = "Tünel";
 "type.highway.track" = "Pist";
 "type.highway.track.area" = "Pist";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.track.bridge" = "Köprü";
 "type.highway.track.grade1" = "Pist";
 "type.highway.track.no.access" = "Pist";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.track.tunnel" = "Tünel";
 "type.highway.traffic_signals" = "Trafik Işıkları";
 "type.highway.trunk" = "Devlet Yolu";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.trunk.bridge" = "Köprü";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.trunk.tunnel" = "Tünel";
 "type.highway.trunk_link" = "Devlet Yolu Rampası";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.trunk_link.bridge" = "Köprü";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.trunk_link.tunnel" = "Tünel";
 "type.highway.unclassified" = "Tali Yol";
 "type.highway.unclassified.area" = "Tali Yol";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.unclassified.bridge" = "Köprü";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.unclassified.tunnel" = "Tünel";
 "type.area_highway.cycleway" = "Bisiklet Yolu";
 "type.area_highway.footway" = "Yaya Yolu";
@@ -1519,23 +1520,26 @@
 "type.waterway" = "Su Yolu";
 "type.waterway.access_point" = "Su Yolu Erişim Noktası";
 "type.waterway.canal" = "Kanal";
+"type.waterway.canal.intermittent" = "Geçici kanal";
 "type.waterway.canal.tunnel" = "Kanal";
 "type.waterway.fish_pass" = "Balık Geçidi";
+"type.waterway.fish_pass.intermittent" = "Geçici balık geçidi";
 "type.waterway.dam" = "Baraj";
 "type.barrier.ditch" = "Hendek";
-"type.natural.water.ditch" = "Drenaj çukuru";
+"type.natural.water.ditch" = "Drenaj hendeği";
 "type.waterway.ditch.tunnel" = "Menfez";
 "type.waterway.dock" = "Rıhtım";
-"type.waterway.drain" = "Lağım";
-"type.natural.water.drain" = "Lağım";
+"type.waterway.drain" = "Drenaj kanalı";
+"type.waterway.drain.intermittent" = "Geçici drenaj kanalı";
+"type.natural.water.drain" = "Drenaj kanalı";
 "type.waterway.drain.tunnel" = "Menfez";
 "type.waterway.lock_gate" = "Eklüz Kapağı";
 "type.waterway.river" = "Nehir";
+"type.waterway.river.intermittent" = "Geçici nehir";
 "type.waterway.river.tunnel" = "Nehir";
-"type.waterway.stream" = "Nehir";
-"type.waterway.stream.ephemeral" = "Nehir";
-"type.waterway.stream.intermittent" = "Nehir";
-"type.waterway.stream.tunnel" = "Nehir";
+"type.waterway.stream" = "Dere";
+"type.waterway.stream.intermittent" = "Geçici dere";
+"type.waterway.stream.tunnel" = "Dere";
 "type.waterway.waterfall" = "Şelale";
 "type.waterway.weir" = "Su Bendi";
 "type.wheelchair" = "Tekerlekli sandalye";

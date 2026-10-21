@@ -2,6 +2,7 @@ protocol SearchOnMapView: AnyObject {
   func render(_ viewModel: SearchOnMap.ViewModel)
   func show()
   func close()
+  func showMapPointPicker(title: String)
 }
 
 @objc
@@ -37,6 +38,7 @@ final class SearchOnMapViewController: UIViewController {
   private var internalScrollViewContentOffset: CGFloat = .zero
   private var presentationStepsController: StepsController!
   private var searchResults = SearchOnMap.SearchResults([])
+  private weak var mapPointPickerViewController: MapPointPickerViewController?
 
   // MARK: - Init
 
@@ -55,11 +57,13 @@ final class SearchOnMapViewController: UIViewController {
                                           currentStep: .hidden,
                                           didUpdateHandler: presentationUpdateHandler)
     presentationStepsController = stepsController
-    mapViewController.searchContainer.addSubview(view)
     mapViewController.addChild(self)
     view.frame = mapViewController.searchContainer.bounds
     view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    mapViewController.searchContainer.addSubview(view)
     didMove(toParent: mapViewController)
+    // Attachment lets UIKit supply the safe area used to position the landscape sheet.
+    updateFrameOfPresentedViewInContainerView()
   }
 
   @available(*, unavailable)
@@ -83,6 +87,12 @@ final class SearchOnMapViewController: UIViewController {
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     headerView.setIsSearching(false)
+  }
+
+  override func viewSafeAreaInsetsDidChange() {
+    super.viewSafeAreaInsetsDidChange()
+    guard availableAreaView.superview != nil else { return }
+    updateFrameOfPresentedViewInContainerView()
   }
 
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -210,6 +220,7 @@ final class SearchOnMapViewController: UIViewController {
   }
 
   private func layoutHistoryAndCategoryTabView() {
+    addChild(historyAndCategoryTabViewController)
     searchResultsView.addSubview(historyAndCategoryTabViewController.view)
     historyAndCategoryTabViewController.view.translatesAutoresizingMaskIntoConstraints = false
 
@@ -219,6 +230,7 @@ final class SearchOnMapViewController: UIViewController {
       historyAndCategoryTabViewController.view.trailingAnchor.constraint(equalTo: searchResultsView.trailingAnchor),
       historyAndCategoryTabViewController.view.bottomAnchor.constraint(equalTo: searchResultsView.bottomAnchor),
     ])
+    historyAndCategoryTabViewController.didMove(toParent: self)
   }
 
   private func layoutSearchNoResultsView() {
@@ -367,6 +379,7 @@ final class SearchOnMapViewController: UIViewController {
 
 extension SearchOnMapViewController: SearchOnMapView {
   func render(_ viewModel: ViewModel) {
+    headerView.setRoutePointActions(viewModel.routePointActions)
     setContent(viewModel.contentState)
     setIsSearching(viewModel.isTyping)
     setSearchText(viewModel.searchingText)
@@ -378,6 +391,8 @@ extension SearchOnMapViewController: SearchOnMapView {
   }
 
   func close() {
+    mapPointPickerViewController?.close()
+    mapPointPickerViewController = nil
     headerView.setIsSearching(false)
     updateDimView(for: presentationStepsController.hiddenFrame)
     willMove(toParent: nil)
@@ -385,6 +400,29 @@ extension SearchOnMapViewController: SearchOnMapView {
       self?.view.removeFromSuperview()
       self?.removeFromParent()
     }
+  }
+
+  func showMapPointPicker(title: String) {
+    guard mapPointPickerViewController == nil else { return }
+    guard let mapViewController = parent else {
+      fatalError("SearchOnMapViewController is detached from its map controller")
+    }
+
+    let picker = MapPointPickerViewController(title: title,
+                                              hint: L("choose_point_on_map_hint"),
+                                              enableBounds: false,
+                                              initialMercatorPosition: nil,
+                                              shouldChangeViewport: false)
+    picker.doneHandler = { [weak self] point in
+      self?.mapPointPickerViewController = nil
+      self?.interactor?.handle(.didSelectMapPoint(point))
+    }
+    picker.cancelHandler = { [weak self] in
+      self?.mapPointPickerViewController = nil
+      self?.interactor?.handle(.didCancelMapPoint)
+    }
+    mapPointPickerViewController = picker
+    picker.present(in: mapViewController)
   }
 }
 
@@ -465,6 +503,14 @@ extension SearchOnMapViewController: SearchOnMapHeaderViewDelegate {
 
   func grabberDidTap() {
     interactor?.handle(.didUpdatePresentationStep(.expanded))
+  }
+
+  func currentLocationButtonDidTap() {
+    interactor?.handle(.currentLocationButtonDidTap)
+  }
+
+  func chooseOnMapButtonDidTap() {
+    interactor?.handle(.chooseOnMapButtonDidTap)
   }
 }
 

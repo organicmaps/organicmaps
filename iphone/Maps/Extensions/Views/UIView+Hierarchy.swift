@@ -1,8 +1,4 @@
 extension UIView {
-  @objc func hasSubview(viewClass: AnyClass) -> Bool {
-    !subviews.filter { type(of: $0) == viewClass }.isEmpty
-  }
-
   func alignToSuperview(_ insets: UIEdgeInsets = .zero) {
     translatesAutoresizingMaskIntoConstraints = false
     NSLayoutConstraint.activate([

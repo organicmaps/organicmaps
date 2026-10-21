@@ -202,6 +202,7 @@
     <string name="type.barrier.city_wall">Stadtmauer</string>
     <string name="type.barrier.cycle_barrier">Umlaufschranke</string>
     <string name="type.waterway.ditch">Entwässerungsgraben</string>
+    <string name="type.waterway.ditch.intermittent">Entwässerungsgraben (zeitweise)</string>
     <string name="type.natural.water.moat">Graben</string>
     <string name="type.natural.water.wastewater">Abwasser</string>
     <string name="type.barrier.entrance">Durchgang</string>
@@ -387,49 +388,49 @@
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Straße</string>
     <string name="type.highway.bridleway">Reitweg</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.bridleway.bridge">Brücke</string>
     <string name="type.highway.bridleway.permissive">Reitweg</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.bridleway.tunnel">Tunnel</string>
     <string name="type.highway.busway">Eigene Busstraße</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.busway.bridge">Brücke</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.busway.tunnel">Tunnel</string>
     <string name="type.highway.bus_stop">Bushaltestelle</string>
     <string name="type.highway.construction">Straße im Bau</string>
     <string name="type.highway.cycleway">Radweg</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.cycleway.bridge">Brücke</string>
     <string name="type.highway.cycleway.permissive">Radweg</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.cycleway.tunnel">Tunnel</string>
     <string name="type.highway.elevator">Aufzug</string>
     <string name="type.highway.footway">Fußweg</string>
     <string name="type.highway.footway.sidewalk">Bürgersteig</string>
     <string name="type.highway.footway.crossing">Fußgängerübergang</string>
     <string name="type.highway.footway.area">Fußweg</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.footway.bridge">Brücke</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.footway.tunnel">Fußgängertunnel</string>
     <string name="type.highway.ford">Furt</string>
     <string name="type.highway.living_street">Spielstraße</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.living_street.bridge">Brücke</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.living_street.tunnel">Spielstraßentunnel</string>
     <string name="type.highway.motorway">Autobahn</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.motorway.bridge">Autobahnbrücke</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.motorway.tunnel">Autobahntunnel</string>
     <string name="type.highway.motorway_junction">Autobahnausfahrt</string>
     <string name="type.highway.motorway_link">Autobahnauffahrt</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.motorway_link.bridge">Brücke</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.motorway_link.tunnel">Tunnel</string>
     <string name="type.highway.path">Pfad</string>
     <!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
@@ -438,103 +439,103 @@
     <string name="type.highway.path.expert">Alpinwanderweg oder wegloser Pfad</string>
     <string name="type.highway.path.bicycle">Rad- und Fußweg</string>
     <string name="type.highway.footway.bicycle">Rad- und Fußweg</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.path.bridge">Brücke</string>
     <string name="type.highway.path.horse">Reitweg</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.path.tunnel">Tunnel</string>
     <string name="type.highway.pedestrian">Fußgängerzone</string>
     <string name="type.highway.pedestrian.area">Fußgängerzone</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.pedestrian.bridge">Brücke</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.pedestrian.tunnel">Fußgängertunnel</string>
     <string name="type.highway.platform">Plattform</string>
     <string name="type.highway.primary">Hauptstraße</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.primary.bridge">Brücke</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.primary.tunnel">Hauptstraßentunnel</string>
     <string name="type.highway.primary_link">Hauptstraße</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.primary_link.bridge">Brücke</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.primary_link.tunnel">Tunnel</string>
     <string name="type.highway.raceway">Rennbahn</string>
     <string name="type.highway.residential">Wohnstraße</string>
     <string name="type.highway.residential.area">Wohnstraße</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.residential.bridge">Brücke</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.residential.tunnel">Wohnstraßentunnel</string>
     <string name="type.highway.rest_area">Rastplatz</string>
     <string name="type.highway.road">Straße</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.road.bridge">Brücke</string>
     <!-- A bridge structure outline. -->
     <string name="type.man_made.bridge">Brücke</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.road.tunnel">Tunnel</string>
     <string name="type.highway.secondary">Straße</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.secondary.bridge">Brücke</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.secondary.tunnel">Straßentunnel</string>
     <string name="type.highway.secondary_link">Straße</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.secondary_link.bridge">Brücke</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.secondary_link.tunnel">Straßentunnel</string>
     <string name="type.highway.service">Zufahrtsweg</string>
     <string name="type.highway.service.area">Zufahrtsweg</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.service.bridge">Brücke</string>
     <string name="type.highway.service.driveway">Grundstückszufahrt</string>
     <string name="type.highway.service.parking_aisle">Zufahrtsweg</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.service.tunnel">Straßentunnel</string>
     <string name="type.highway.services">Raststätte</string>
     <string name="type.highway.speed_camera">Blitzer</string>
     <string name="type.highway.steps">Treppe</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.steps.bridge">Brücke</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.steps.tunnel">Tunnel</string>
     <string name="type.highway.ladder">Leiter</string>
     <string name="type.highway.tertiary">Straße</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.tertiary.bridge">Brücke</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.tertiary.tunnel">Straßentunnel</string>
     <string name="type.highway.tertiary_link">Straße</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.tertiary_link.bridge">Brücke</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.tertiary_link.tunnel">Straßentunnel</string>
     <string name="type.highway.track">Forst-/Feldweg</string>
     <string name="type.highway.track.area">Forst-/Feldweg</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.track.bridge">Brücke</string>
     <string name="type.highway.track.grade1">Forst-/Feldweg</string>
     <string name="type.highway.track.no.access">Forst-/Feldweg</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.track.tunnel">Straßentunnel</string>
     <string name="type.highway.traffic_signals">Ampel</string>
     <string name="type.highway.trunk">Schnellstraße</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.trunk.bridge">Brücke</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.trunk.tunnel">Schnellstraßentunnel</string>
     <string name="type.highway.trunk_link">Schnellstraße</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.trunk_link.bridge">Brücke</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.trunk_link.tunnel">Straßentunnel</string>
     <string name="type.highway.unclassified">Nebenstraße</string>
     <string name="type.highway.unclassified.area">Nebenstraße</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.unclassified.bridge">Brücke</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.unclassified.tunnel">Tunnel</string>
     <string name="type.area_highway.cycleway">Radweg</string>
     <string name="type.area_highway.footway">Fußweg</string>
@@ -1376,21 +1377,24 @@
     <string name="type.waterway">Wasserweg</string>
     <string name="type.waterway.access_point">Wasserstraßenzugangspunkt</string>
     <string name="type.waterway.canal">Kanal</string>
+    <string name="type.waterway.canal.intermittent">Kanal (zeitweise)</string>
     <string name="type.waterway.canal.tunnel">Kanal</string>
     <string name="type.waterway.fish_pass">Fischtreppe</string>
+    <string name="type.waterway.fish_pass.intermittent">Fischtreppe (zeitweise)</string>
     <string name="type.waterway.dam">Staudamm</string>
     <string name="type.barrier.ditch">Graben</string>
     <string name="type.natural.water.ditch">Entwässerungsgraben</string>
     <string name="type.waterway.ditch.tunnel">Durchlass</string>
     <string name="type.waterway.dock">Dock</string>
     <string name="type.waterway.drain">Abfluss</string>
+    <string name="type.waterway.drain.intermittent">Abfluss (zeitweise)</string>
     <string name="type.natural.water.drain">Abfluss</string>
     <string name="type.waterway.drain.tunnel">Durchlass</string>
     <string name="type.waterway.lock_gate">Schleusentor</string>
     <string name="type.waterway.river">Fluss</string>
+    <string name="type.waterway.river.intermittent">Fluss (zeitweise)</string>
     <string name="type.waterway.river.tunnel">Fluss</string>
     <string name="type.waterway.stream">Bach</string>
-    <string name="type.waterway.stream.ephemeral">Bach (episodisch)</string>
     <string name="type.waterway.stream.intermittent">Bach (zeitweise)</string>
     <string name="type.waterway.stream.tunnel">Bach</string>
     <string name="type.waterway.waterfall">Wasserfall</string>

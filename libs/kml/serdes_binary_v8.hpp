@@ -30,12 +30,8 @@ public:
       sink.Write(m_data.m_deviceId.data(), sz);
     }
 
-    // Write server id.
-    {
-      auto const sz = static_cast<uint32_t>(m_data.m_serverId.size());
-      WriteVarUint(sink, sz);
-      sink.Write(m_data.m_serverId.data(), sz);
-    }
+    // Keep the unused server id slot for compatibility with older readers.
+    WriteVarUint(sink, 0U);
 
     // Write bits count in double number.
     WriteToSink(sink, kDoubleBits);
@@ -58,9 +54,9 @@ public:
     header.m_tracksOffset = sink.Pos() - startPos;
     SerializeTracks(sink);
 
-    // Serialize compilations.
+    // Serialize the (always empty) compilations section, see SerializeEmptyCompilations.
     header.m_compilationsOffset = sink.Pos() - startPos;
-    SerializeCompilations(sink);
+    SerializeEmptyCompilations(sink);
 
     // Serialize strings.
     header.m_stringsOffset = sink.Pos() - startPos;

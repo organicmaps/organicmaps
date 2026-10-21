@@ -22,9 +22,30 @@ public class MwmActivityTest
   public void consumedStateSurvivesCoreRestart()
   {
     final Intent intent = mock(Intent.class);
+    when(intent.hasExtra(MwmActivity.EXTRA_CONSUMED)).thenReturn(true);
     when(intent.getBooleanExtra(MwmActivity.EXTRA_CONSUMED, false)).thenReturn(true);
 
     assertTrue(MwmActivity.isIntentConsumed(null, intent));
+  }
+
+  @Test
+  public void relaunchFromRecentsIsConsumed()
+  {
+    final Intent intent = mock(Intent.class);
+    when(intent.getFlags()).thenReturn(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
+
+    assertTrue(MwmActivity.isIntentConsumed(null, intent));
+  }
+
+  @Test
+  public void explicitMarkWinsOverRecents()
+  {
+    final Intent intent = mock(Intent.class);
+    when(intent.hasExtra(MwmActivity.EXTRA_CONSUMED)).thenReturn(true);
+    when(intent.getBooleanExtra(MwmActivity.EXTRA_CONSUMED, false)).thenReturn(false);
+    when(intent.getFlags()).thenReturn(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
+
+    assertFalse(MwmActivity.isIntentConsumed(null, intent));
   }
 
   /**

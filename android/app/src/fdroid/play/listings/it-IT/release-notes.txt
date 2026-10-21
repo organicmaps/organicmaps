@@ -1,7 +1,9 @@
-• Dati OSM aggiornati al 14 luglio
-• I nomi delle fermate dei mezzi pubblici, dei cambi e delle stazioni sono ora contornati di bianco
-• Migliorata la visualizzazione degli orari di apertura
-• Corrette indicazioni errate o mancanti
-• I segnalibri e i percorsi modificati vengono ora salvati automaticamente
-• Gli avvisi sul percorso (pedaggi, traghetti, strade non asfaltate, scale, ecc.) vengono ora visualizzati per tutti i percorsi alternativi
-…continua su omaps.org/it/news
+• OSM: 28 settembre; Wikipedia: 21 settembre
+• Percorsi alternativi e orari d’arrivo stimati migliorati
+• Nuova impostazione per ottimizzare l’ordine delle tappe
+• Pulsanti per aggiungere o sostituire tappe su un percorso pianificato
+• Il percorso alternativo scelto resta selezionato durante la navigazione
+• Registrazione dei tracciati corretta e migliorata
+• Importazione dei file KMB corretta
+• Interfaccia migliorata e bug corretti
+…altro su omaps.org/it/news

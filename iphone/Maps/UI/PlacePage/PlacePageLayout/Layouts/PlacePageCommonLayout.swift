@@ -73,10 +73,9 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     let vc = storyboard.instantiateViewController(ofType: ActionBarViewController.self)
     let navigationManager = MWMNavigationDashboardManager.shared()
     vc.placePageData = placePageData
-    vc.isRoutePlanning = navigationManager.state != .closed
     vc.canAddStop = MWMRouter.canAddIntermediatePoint()
     vc.canReplaceStop = navigationManager.selectedRoutePoint != nil
-    vc.canRouteToAndFrom = !navigationManager.shouldAppendNewPoints && navigationManager.selectedRoutePoint == nil
+    vc.shouldAppendNewPoints = navigationManager.shouldAppendNewPoints
     vc.delegate = interactor
     return vc
   }()

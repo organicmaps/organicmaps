@@ -1,7 +1,9 @@
-• OSM data noong Hulyo 14
-• Ang mga pangalan ng hintuan ng pampublikong sasakyan, transfer, at istasyon ay may puting balangkas na ngayon
-• Pinahusay na pagpapakita ng oras ng pagbubukas
-• Inayos ang maling o nawawalang direksyon
-• Ang mga binagong bookmark at track ay awtomatikong nai-save na ngayon
-• Ang mga babala sa ruta (bayad-tambalan, ferry, hindi sementadong kalsada, hagdan, atbp.) ay ipinapakita na ngayon para sa lahat ng alternatibong ruta
-…marami pa sa omaps.org/news
+• OSM: 28 Setyembre; Wikipedia: 21 Setyembre
+• Mas mahusay na alternatibong ruta at pagtataya ng pagdating
+• Bagong setting na nag-o-optimize sa pagkakasunod-sunod ng mga hintuan
+• Ang mga bagong pindutan ay nagdaragdag o pumapalit ng mga hintuan sa mga planadong ruta
+• Ang napiling alternatibong ruta ay pinananatili habang nagna-navigate
+• Mga pag-aayos at pagpapabuti sa pagre-record ng track
+• Naayos ang pag-import ng KMB
+• Pag-aayos at pagpapabuti ng UI
+…mas marami sa omaps.org/news

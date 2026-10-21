@@ -156,6 +156,7 @@ uint32_t RouteMarkPoint::GetIndex() const
 void RouteMarkPoint::SetMarkData(RouteMarkData && data)
 {
   SetDirty();
+  m_ptOrg = data.m_position;
   m_markData = std::move(data);
   m_titleDecl.m_primaryText = m_markData.m_title;
   if (!m_titleDecl.m_primaryText.empty())
@@ -244,11 +245,12 @@ RoutePointsLayout::RoutePointsLayout(BookmarkManager & manager)
   , m_editSession(manager.GetEditSession())
 {}
 
-void RoutePointsLayout::AddRoutePoint(RouteMarkData && data)
+RouteMarkPoint * RoutePointsLayout::AddRoutePoint(RouteMarkData && data)
 {
   auto const count = m_manager.GetUserMarkIds(UserMark::Type::ROUTING).size();
-  if (count == kMaxRoutePointsCount)
-    return;
+  ASSERT_LESS_OR_EQUAL(count, kMaxRoutePointsCount, ());
+  if (count >= kMaxRoutePointsCount)
+    return nullptr;
 
   RouteMarkPoint * sameTypePoint = GetRoutePointForEdit(data.m_pointType, data.m_intermediateIndex);
   if (sameTypePoint != nullptr)
@@ -286,6 +288,7 @@ void RoutePointsLayout::AddRoutePoint(RouteMarkData && data)
   }
   auto * newPoint = m_editSession.CreateUserMark<RouteMarkPoint>(data.m_position);
   newPoint->SetMarkData(std::move(data));
+  return newPoint;
 }
 
 bool RoutePointsLayout::RemoveRoutePoint(RouteMarkType type, size_t intermediateIndex)

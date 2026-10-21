@@ -94,14 +94,4 @@ static UIColor * NamedColor(NSString * name)
   return NamedColor(@"blackOpaque");
 }
 
-+ (UIColor *)bookingBackground
-{
-  return NamedColor(@"bookingBackground");
-}
-
-+ (UIColor *)opentableBackground
-{
-  return NamedColor(@"opentableBackground");
-}
-
 @end

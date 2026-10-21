@@ -308,38 +308,6 @@
     <string name="enable_location_services">位置情報サービスを有効化してください</string>
     <string name="save">保存</string>
     <string name="create">作成</string>
-    <!-- red color -->
-    <string name="red">赤</string>
-    <!-- yellow color -->
-    <string name="yellow">黄色</string>
-    <!-- blue color -->
-    <string name="blue">青</string>
-    <!-- green color -->
-    <string name="green">緑</string>
-    <!-- purple color -->
-    <string name="purple">紫</string>
-    <!-- orange color -->
-    <string name="orange">オレンジ</string>
-    <!-- brown color -->
-    <string name="brown">茶色</string>
-    <!-- pink color -->
-    <string name="pink">ピンク</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">濃い紫</string>
-    <!-- light blue color -->
-    <string name="light_blue">空色</string>
-    <!-- cyan color -->
-    <string name="cyan">青緑</string>
-    <!-- teal color -->
-    <string name="teal">ティール</string>
-    <!-- lime color -->
-    <string name="lime">ライム</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">濃いオレンジ</string>
-    <!-- gray color -->
-    <string name="gray">灰色</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">青灰色</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">外観</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -409,13 +377,7 @@
     <string name="editor_example_values">値の例</string>
     <string name="editor_correct_mistake">間違いの訂正</string>
     <string name="editor_add_select_location">場所を選択</string>
-    <string name="editor_report_problem_desription_1">OpenStreetMapコミュニティがエラーを修正できるように、問題の詳細を説明してください。</string>
-    <string name="editor_report_problem_desription_2">または、このURLでご自身で修正してください https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">送信</string>
-    <string name="editor_report_problem_title">問題</string>
-    <string name="editor_report_problem_no_place_title">この場所は存在しません</string>
-    <string name="editor_report_problem_under_construction_title">メンテナンスのため使えません</string>
-    <string name="editor_report_problem_duplicate_place_title">重複している場所</string>
     <string name="autodownload">自動ダウンロード</string>
     <!-- Place Page opening hours text -->
     <string name="daily">毎日</string>
@@ -424,7 +386,6 @@
     <string name="day_off">終業</string>
     <string name="midnight">午前0時</string>
     <string name="noon">正午</string>
-    <string name="today">今日は</string>
     <string name="opens_in">あと %s に営業</string>
     <string name="closes_in">あと %s に閉店</string>
     <string name="closed">閉店</string>
@@ -467,7 +428,6 @@
     <string name="downloader_no_space_title">十分な空き容量がありません</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">不要データを削除してください</string>
-    <string name="editor_login_error_dialog">ログインエラー。</string>
     <string name="editor_profile_changes">確認された変更</string>
     <string name="editor_focus_map_on_location">地図をドラッグして、場所や企業の場所に十字を配置します。</string>
     <string name="editor_edit_place_title">編集中</string>
@@ -476,8 +436,6 @@
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">現地の言葉でこう書かれている。</string>
     <string name="editor_edit_place_category_title">カテゴリ</string>
-    <string name="detailed_problem_description">問題の詳細な説明</string>
-    <string name="editor_report_problem_other_title">異なる問題</string>
     <string name="placepage_add_business_button">ビジネスを追加</string>
     <string name="message_invalid_feature_position">ここにはオブジェクトを配置できません</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
@@ -520,7 +478,7 @@
     <string name="day">日</string>
     <string name="second">秒</string>
     <string name="placepage_more_button">さらに詳しく</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">ブックマークを編集</string>
     <string name="placepage_personal_notes_hint">パーソナルメモ（テキストまたはHTML）</string>
     <string name="editor_comment_hint">コメント…</string>
@@ -549,7 +507,7 @@
     <string name="editor_share_to_all_dialog_message_1">個人情報を入力していないことを確認してください。</string>
     <string name="editor_share_to_all_dialog_message_2">OpenStreetMap の編集者が変更を確認し、質問があれば連絡します。</string>
     <string name="navigation_stop_button">停止</string>
-    <!-- Shown as toast when starting the recent track recording -->
+    <!-- Shown while a track is being recorded: the start toast, the notification title and the home screen widget status. -->
     <string name="track_recording">トラックの記録</string>
     <!-- For the first routing -->
     <string name="accept">了解</string>
@@ -573,12 +531,12 @@
     <string name="prefs_languages_information_off_link">詳細については、このガイドをご確認ください。</string>
     <string name="transliteration_title">ラテン文字への翻字</string>
     <string name="learn_more">詳細情報</string>
-    <string name="planning_route_manage_route">ルートを編集</string>
-    <string name="button_plan">プラン</string>
     <string name="placepage_remove_stop">停留所を削除</string>
-    <string name="placepage_add_stop">中間地点を追加</string>
+    <!-- Keep it short: route planner button below the destination, PlacePage button, search field hint and full-screen map point picker title shown while choosing another destination. The picked place becomes the new destination, the previous one becomes a stop. -->
+    <string name="route_add_destination">目的地を追加</string>
+    <!-- Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. -->
+    <string name="placepage_add_stop">経由地を追加</string>
     <string name="drag_to_reorder">並べ替え</string>
-    <string name="saved">保存</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">すべてのマップ編集を自動的にアップロードするには、OpenStreetMapにログインしてください。詳しくは <a href="https://github.com/organicmaps/organicmaps/issues/6144">こちら</a>.</string>
     <string name="dialog_error_storage_title">ストレージアクセスの問題</string>
@@ -663,7 +621,19 @@
     <string name="show_to_the_right">右に表示</string>
     <string name="show_at_the_bottom">下部に表示</string>
     <string name="enable_logging_warning_message">このオプションは診断目的でのデータ記録を有効にします。これはこのアプリケーションのトラブルシューティングを担当する当社のサポートスタッフの助けになります。このオプションはOrganic Mapsにリクエストされた場合にのみ有効にしてください。</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">車</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">自転車</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">徒歩</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">すべての移動手段</string>
     <string name="driving_options_title">経路オプション</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">経路の最適化</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">より効率的な経路になるよう、中間地点を自動的に並べ替えます。</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">有料道路を避ける</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -673,8 +643,6 @@
     <string name="avoid_motorways">高速道路を避ける</string>
     <string name="unable_to_calc_alert_title">ルートを計算できません</string>
     <string name="unable_to_calc_alert_subtitle">ルートが計算できませんでした。 これは、経路オプションまたは不完全な OpenStreetMap データが原因である可能性があります。 経路オプションを変更して再試行してください。</string>
-    <string name="define_to_avoid_btn">迂回ルートを設定する</string>
-    <string name="change_driving_options_btn">経路オプションは有効になっています</string>
     <string name="toll_road">有料道路</string>
     <string name="unpaved_road">未舗装道路</string>
     <string name="ferry_crossing">フェリー</string>
@@ -759,8 +727,6 @@
     <string name="elevation_profile_min_elevation">最小標高</string>
     <string name="elevation_profile_max_elevation">最大標高</string>
     <string name="elevation_profile_difficulty">難易度</string>
-    <string name="elevation_profile_distance">距離：</string>
-    <string name="elevation_profile_time">時間：</string>
     <string name="isolines_toast_zooms_1_10">等高線を調べるようにズームインしてください</string>
     <string name="downloader_loading_ios">ダウンロード中</string>
     <string name="download_map_title">おおまかな世界地図をダウンロード</string>
@@ -861,14 +827,8 @@
     <string name="start_track_recording">トラックを記録する</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">トラック記録を停止しますか</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <!-- Subtitle of the place page of the track being recorded, and the name and title of the home screen widget. -->
     <string name="track_recording_title">トラック記録</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">保存せずに停止</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">録画を続ける</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">ブックマークとトラックに保存しますか？</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">ルートが空です - 保存するものがありません</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -876,8 +836,6 @@
     <string name="choose_color">色を選択</string>
     <string name="edit_track">ルートを編集</string>
     <string name="uri_open_location_failed">場所を開けるアプリがインストールされていません</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">ナビゲーションオート</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">システムに従う</string>
     <!-- Title of the bottom sheet when sharing the track -->
@@ -901,11 +859,11 @@
     <!-- Text for the showing track. -->
     <string name="show_track">ルートを表示</string>
 
+    <!-- SECTION: Uncategorized -->
+    <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
+    <string name="you">現在地</string>
+
     <!-- SECTION: gps strings -->
-    <!-- Login to OSM button text -->
-    <string name="login_osm_credentials">パスワードでログイン</string>
-    <!-- Login to OSM button text -->
-    <string name="login_osm_browser">ブラウザでログイン</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">最近使用</string>
     <!-- Toast message shown when bookmark colors are changed in category settings -->
@@ -928,6 +886,26 @@
     <string name="color_picker_grid">グリッド</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">音声検索</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">地図上で選択</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">出発地</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">目的地</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">出発地を変更</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">目的地を変更</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">経由地を変更</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">経由地の最大数に達しました</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">地図を移動・拡大縮小して、十字を配置してください</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">停止して保存</string>
+    <!-- Track recording home screen widget button: opens the app to save or delete the recorded track. -->
+    <string name="track_recording_finish">終了</string>
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">ルートを逆にする</string>
 </resources>

@@ -46,10 +46,12 @@ else()
   add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/../../../3party/googletest" "${CMAKE_CURRENT_BINARY_DIR}/googletest")
   # Same treatment as for libs under 3party/CMakeLists.txt: undo -ffinite-math-only
   # (gtest uses inf for ULP math) and silence the char8_t -> char32_t cast in
-  # gtest-printers.h (Clang 19+ flags it).
+  # gtest-printers.h when the compiler provides the corresponding diagnostic.
+  include(CheckCXXCompilerFlag)
+  check_cxx_compiler_flag(-Wcharacter-conversion OMIM_HAS_CHARACTER_CONVERSION_WARNING)
   target_compile_options(gtest PRIVATE
     $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-fno-finite-math-only>
-    $<$<CXX_COMPILER_ID:AppleClang,Clang>:-Wno-character-conversion>)
+    $<$<BOOL:${OMIM_HAS_CHARACTER_CONVERSION_WARNING}>:-Wno-character-conversion>)
   target_include_directories(${PROJECT_NAME} PUBLIC ${OMIM_ROOT}/3party/glm)
 endif()
 

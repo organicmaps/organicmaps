@@ -57,7 +57,12 @@ std::string_view IsHatchingTerritoryChecker::GetHatch(feature::TypesHolder const
 }
 
 IsAreaPatternChecker::Stipple::Stipple()
-  : ftypes::BaseCheckerEx({{"natural", "beach"}, {"natural", "desert"}})  // natural=sand is a beach subtype
+  : ftypes::BaseCheckerEx({{"natural", "beach"},  // natural=sand is a beach subtype
+                           {"natural", "desert"}})
+{}
+
+IsAreaPatternChecker::IntermittentWater::IntermittentWater()
+  : ftypes::BaseCheckerEx({{"natural", "water", "intermittent"}, {"landuse", "basin", "intermittent"}})
 {}
 
 IsAreaPatternChecker::Speckle::Speckle() : ftypes::BaseCheckerEx({{"natural", "scree"}, {"natural", "bare_rock"}}) {}
@@ -66,7 +71,7 @@ IsAreaPatternChecker::Grid::Grid() : ftypes::BaseCheckerEx({{"landuse", "orchard
 
 std::string_view IsAreaPatternChecker::GetPattern(uint32_t type) const
 {
-  if (m_stipple(type))
+  if (m_stipple(type) || IsIntermittentWater(type))
     return dp::kStipplePattern;
   if (m_speckle(type))
     return dp::kSpecklePattern;
@@ -239,6 +244,11 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, bool for
   }
 
   auto const & hatchingChecker = IsHatchingTerritoryChecker::Instance();
+  auto const & areaPatternChecker = IsAreaPatternChecker::Instance();
+  // BG-top style groups give intermittent water drawing priority 20, permanent water 40, and
+  // ditch/drain/wastewater 50. A 25-point selection boost places intermittent water between the latter
+  // two without changing its drawing depth.
+  int constexpr kIntermittentWaterSelectionBoost = 25;
   auto const geomType = types.GetGeomType();
 
   drule::KeysT keys;
@@ -250,6 +260,10 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, bool for
 
     for (auto & k : typeKeys)
     {
+      // The intermittent fill wins on the same feature, while separate permanent-water polygons draw above it.
+      if (types.Size() > 1 && k.m_type == drule::area && areaPatternChecker.IsIntermittentWater(t))
+        k.m_priority += kIntermittentWaterSelectionBoost;
+
       // Take overlay drules from the main type only.
       if (t == mainOverlayType || (k.m_type != drule::caption && k.m_type != drule::symbol &&
                                    k.m_type != drule::shield && k.m_type != drule::pathtext))

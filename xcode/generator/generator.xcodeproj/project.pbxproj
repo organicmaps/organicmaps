@@ -101,7 +101,6 @@
 		FACB7B0C26B913F400810C9C /* filter_collection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACB79BC26B913F300810C9C /* filter_collection.cpp */; };
 		FACB7B0D26B913F400810C9C /* processor_coastline.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FACB79BD26B913F300810C9C /* processor_coastline.hpp */; };
 		FACB7B0E26B913F400810C9C /* osm_element_helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FACB79BE26B913F300810C9C /* osm_element_helpers.hpp */; };
-		FACB7B0F26B913F400810C9C /* processor_booking.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FACB79BF26B913F300810C9C /* processor_booking.hpp */; };
 		FACB7B1026B913F400810C9C /* cells_merger.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FACB79C026B913F300810C9C /* cells_merger.hpp */; };
 		FACB7B1126B913F400810C9C /* translators_pool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACB79C126B913F300810C9C /* translators_pool.cpp */; };
 		FACB7B1226B913F400810C9C /* srtm_parser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FACB79C226B913F300810C9C /* srtm_parser.hpp */; };
@@ -387,7 +386,6 @@
 		FACB79BC26B913F300810C9C /* filter_collection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = filter_collection.cpp; sourceTree = "<group>"; };
 		FACB79BD26B913F300810C9C /* processor_coastline.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = processor_coastline.hpp; sourceTree = "<group>"; };
 		FACB79BE26B913F300810C9C /* osm_element_helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osm_element_helpers.hpp; sourceTree = "<group>"; };
-		FACB79BF26B913F300810C9C /* processor_booking.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = processor_booking.hpp; sourceTree = "<group>"; };
 		FACB79C026B913F300810C9C /* cells_merger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cells_merger.hpp; sourceTree = "<group>"; };
 		FACB79C126B913F300810C9C /* translators_pool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = translators_pool.cpp; sourceTree = "<group>"; };
 		FACB79C226B913F300810C9C /* srtm_parser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = srtm_parser.hpp; sourceTree = "<group>"; };
@@ -847,7 +845,6 @@
 				FACB79C426B913F300810C9C /* popular_places_section_builder.hpp */,
 				FACB79DE26B913F300810C9C /* postcode_points_builder.cpp */,
 				FACB7A6226B913F300810C9C /* postcode_points_builder.hpp */,
-				FACB79BF26B913F300810C9C /* processor_booking.hpp */,
 				FACB7ACF26B913F400810C9C /* processor_coastline.cpp */,
 				FACB79BD26B913F300810C9C /* processor_coastline.hpp */,
 				FACB7A7126B913F300810C9C /* processor_complex.cpp */,
@@ -1014,7 +1011,6 @@
 				FACB7C0126B913F400810C9C /* restriction_generator.hpp in Headers */,
 				FACB7B9E26B913F400810C9C /* feature_processing_layers.hpp in Headers */,
 				FACB7B4526B913F400810C9C /* processor_country.hpp in Headers */,
-				FACB7B0F26B913F400810C9C /* processor_booking.hpp in Headers */,
 				FACB7ADA26B913F400810C9C /* translator_interface.hpp in Headers */,
 				FACB7BFD26B913F400810C9C /* traffic_generator.hpp in Headers */,
 				FAA6D8D32921189A00E8D50D /* water_boundary_checker.hpp in Headers */,

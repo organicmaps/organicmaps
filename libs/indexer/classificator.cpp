@@ -416,6 +416,9 @@ uint32_t Classificator::GetTypeByPath(base::StringIL const & lst) const
 uint32_t Classificator::GetTypeByReadableObjectName(std::string const & name) const
 {
   ASSERT(!name.empty(), ());
+  // KML bookmarks store readable type names, so they need the same replacement as numeric map indices.
+  if (name == "waterway-stream-ephemeral")
+    return GetTypeByPath({"waterway", "stream", "intermittent"});
   return GetTypeByPathSafe(strings::Tokenize(name, "-"));
 }
 

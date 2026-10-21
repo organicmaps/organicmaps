@@ -6,6 +6,7 @@
 #include "storage/country.hpp"
 #include "storage/country_decl.hpp"
 #include "storage/country_info_getter.hpp"
+#include "storage/country_info_reader_light.hpp"
 #include "storage/storage.hpp"
 #include "storage/storage_helpers.hpp"
 
@@ -126,10 +127,8 @@ UNIT_TEST(CountryInfoGetter_GetRegionsCountryIdByRect_Antimeridian)
 {
   auto const getter = CreateCountryInfoGetter();
 
-  // US_Alaska's bound rect crosses the antimeridian (stored as [-190.22 .. -129.97]); its Aleutian
-  // polygons live in the canonical [170, 180) and (-180, -170] ranges. A wrapped viewport rect that
-  // crosses 180 must still match them via the precise polygon test (rough == false ->
-  // IsIntersectedByRegion -> CountryDef::ForEachRectSideWrapped).
+  // Alaska's compact bounds cross the antimeridian. Precise rectangle lookup must check both
+  // canonical longitude parts against its country polygons.
   auto hasAlaska = [&](m2::RectD const & r)
   {
     auto const cs = getter->GetRegionsCountryIdByRect(r, false /* rough */);
@@ -148,6 +147,28 @@ UNIT_TEST(CountryInfoGetter_GetRegionsCountryIdByRect_Antimeridian)
   TEST(hasAlaska({mercator::FromLatLon(65.74, 170), mercator::FromLatLon(65.78, 192)}), ());
 }
 
+UNIT_TEST(CountryInfoGetter_GetRegionsCountryIdByRect_ContainedPolygons)
+{
+  auto const reader = CountryInfoReader::CreateCountryInfoReader(GetPlatform());
+  TEST(reader, ());
+  auto const & countries = reader->GetCountries();
+  for (size_t id = 0; id < countries.size(); ++id)
+  {
+    auto const regions = reader->LoadRegionsFromDisk(id);
+    if (regions.size() < 2)
+      continue;
+
+    // Enclosing one polygon need not enclose the country bounds or put the query center inside that polygon.
+    for (auto const & region : regions)
+    {
+      auto const rect = m2::Inflate(region.GetRect(), 1e-4, 1e-4);
+      auto const matches = reader->GetRegionsCountryIdByRect(rect, false /* rough */);
+      TEST(find(matches.begin(), matches.end(), countries[id].m_countryId) != matches.end(),
+           (countries[id].m_countryId, rect));
+    }
+  }
+}
+
 UNIT_TEST(CountryInfoGetter_GetByPoint_Smoke)
 {
   auto const getter = CreateCountryInfoGetter();
@@ -163,6 +184,31 @@ UNIT_TEST(CountryInfoGetter_GetByPoint_Smoke)
 
   getter->GetRegionInfo(mercator::FromLatLon(34.6509, 135.5018), info);
   TEST_EQUAL(info.m_name, "Japan, Kinki Region_Osaka_Osaka", ());
+}
+
+using LightweightCountryInfoReader = lightweight::CountryInfoReader;
+
+UNIT_CLASS_TEST(LightweightCountryInfoReader, FractionalLookup)
+{
+  auto const getter = CreateCountryInfoGetter();
+  struct TestCase
+  {
+    ms::LatLon point;
+    char const * countryId;
+  };
+  TestCase const testCases[] = {
+      {{-16.8415, -179.9747}, "Fiji"},
+      {{52.7600266, 173.8999264}, "US_Alaska"},
+      {{-16.8415, -178.0}, ""},        // Pacific Ocean east of Fiji.
+      {{59.1444374, 174.793276}, ""},  // Bering Sea north of the Aleutians.
+      {{35.51914613092363, 46.01312669564558}, "Iran_North"},
+  };
+  for (auto const & test : testCases)
+  {
+    auto const point = mercator::FromLatLon(test.point);
+    TEST_EQUAL(GetRegionCountryId(point), test.countryId, (test.point));
+    TEST_EQUAL(getter->GetRegionCountryId(point), test.countryId, (test.point));
+  }
 }
 
 UNIT_TEST(CountryInfoGetter_GetRegionsCountryIdByRect_Smoke)
@@ -189,12 +235,11 @@ UNIT_TEST(CountryInfoGetter_GetRegionsCountryIdByRect_Smoke)
 
   // Inside mwm (rough).
   auto const countries4 = getter->GetRegionsCountryIdByRect(m2::RectD(p - halfSize, p + halfSize), true /* rough */);
-  TEST_EQUAL(countries, vector<storage::CountryId>{"Russia_Bryansk Oblast"}, ());
+  TEST_EQUAL(countries4, vector<storage::CountryId>{"Russia_Bryansk Oblast"}, ());
 
   // Several countries (rough).
   auto const countries5 = getter->GetRegionsCountryIdByRect(m2::RectD(p - halfSize2, p + halfSize2), true /* rough */);
-  // US_Alaska was in the old expected list because its rect was [-180, 180] (intersected everything).
-  // With extended rects, Alaska's rect is compact and no longer intersects Belarus area.
+  // Alaska's compact extended rectangle excludes this viewport.
   auto const expected2 = vector<storage::CountryId>{"Belarus_Homiel Region", "Belarus_Maglieu Region",
                                                     "Russia_Bryansk Oblast", "Ukraine_Chernihiv Oblast"};
   TEST_EQUAL(countries5, expected2, ());
@@ -258,6 +303,18 @@ UNIT_TEST(CountryInfoGetter_GetLimitRectForLeafSingleMwm)
                                          -4.393187 /* maxY */};
 
   TEST(AlmostEqualAbs(boundingBox, expectedBoundingBox, kRectCompareEpsilon), ());
+}
+
+UNIT_TEST(CountryInfoGetterForTesting_GetLimitRectForLeaf)
+{
+  m2::RectD const first(10, 20, 30, 40), second(50, 60, 70, 80);
+  CountryInfoGetterForTesting getter({{"First", first}});
+  TEST_EQUAL(getter.GetLimitRectForLeaf("First"), first, ());
+
+  getter.AddCountry({"Second", second});
+  TEST_EQUAL(getter.GetLimitRectForLeaf("Second"), second, ());
+  TEST_EQUAL(getter.GetLimitRectForLeaf("World"), mercator::Bounds::FullRect(), ());
+  TEST_EQUAL(getter.GetLimitRectForLeaf("Unknown"), mercator::Bounds::FullRect(), ());
 }
 
 // This is a test for consistency between data/countries.json and data/packed_polygons.bin.
@@ -492,7 +549,7 @@ UNIT_TEST(CountryInfoGetter_ExtendedRect_WestExtended)
   // Point inside western portion (canonical coords [-180, -160]).
   TEST_EQUAL(getter.GetRegionCountryId({-170.0, -15.0}), "WestCountry", ());
 
-  // Point inside eastern portion [166, 180] — wrapped by WrapX to [-175, ...], matches via -360 shift.
+  // Canonical longitude 175 matches the west-extended rectangle via the -360 shift.
   TEST_EQUAL(getter.GetRegionCountryId({175.0, -15.0}), "WestCountry", ());
 
   // Point outside.

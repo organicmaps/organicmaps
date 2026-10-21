@@ -58,14 +58,11 @@ public:
   // Should match codes in the array below.
   static int8_t constexpr kEnglishCode = 1;
   static int8_t constexpr kUnsupportedLocaleCode = -1;
-  static int8_t constexpr kSimplifiedChineseCode = 46;
-  static int8_t constexpr kTraditionalChineseCode = 47;
-  // *NOTE* These constants should be updated when adding new
-  // translation to categories.txt. When editing, keep in mind to check
-  // CategoriesHolder::MapLocaleToInteger() and
-  // CategoriesHolder::MapIntegerToLocale() as their implementations
-  // strongly depend on the contents of the variable.
-  // TODO: Refactor for more flexibility and to avoid breaking rules in two methods mentioned above.
+  static int8_t constexpr kSimplifiedChineseCode = 47;
+  static int8_t constexpr kTraditionalChineseCode = 48;
+  // Codes are the 1-based array indices used by MapIntegerToLocale(); English must remain first.
+  // Append new locales with the next code. Regional and script variants must follow their base locale
+  // so reverse lookup prefers them. The named constants above must match their corresponding entries.
   static auto constexpr kLocaleMapping = std::to_array<CategoriesHolder::Mapping>({
       {"en", kEnglishCode},
       {"en-AU", 2},
@@ -76,42 +73,43 @@ public:
       {"bg", 7},
       {"ca", 8},
       {"cs", 9},
-      {"da", 10},
-      {"de", 11},
-      {"el", 12},
-      {"es", 13},
-      {"es-MX", 14},
-      {"et", 15},
-      {"eu", 16},
-      {"fa", 17},
-      {"fi", 18},
-      {"fr", 19},
-      {"he", 20},
-      {"hi", 21},
-      {"hu", 22},
-      {"id", 23},
-      {"it", 24},
-      {"ja", 25},
-      {"ko", 26},
-      {"lt", 27},
-      {"lv", 28},
-      {"mr", 29},
-      {"nb", 30},
-      {"nl", 31},
-      {"pl", 32},
-      {"pt", 33},
-      {"pt-BR", 34},
-      {"ro", 35},
-      {"ru", 36},
-      {"sk", 37},
-      {"sl", 38},
-      {"sr", 39},
-      {"sv", 40},
-      {"sw", 41},
-      {"th", 42},
-      {"tr", 43},
-      {"uk", 44},
-      {"vi", 45},
+      {"cy", 10},
+      {"da", 11},
+      {"de", 12},
+      {"el", 13},
+      {"es", 14},
+      {"es-MX", 15},
+      {"et", 16},
+      {"eu", 17},
+      {"fa", 18},
+      {"fi", 19},
+      {"fr", 20},
+      {"he", 21},
+      {"hi", 22},
+      {"hu", 23},
+      {"id", 24},
+      {"it", 25},
+      {"ja", 26},
+      {"ko", 27},
+      {"lt", 28},
+      {"lv", 29},
+      {"mr", 30},
+      {"nb", 31},
+      {"nl", 32},
+      {"pl", 33},
+      {"pt", 34},
+      {"pt-BR", 35},
+      {"ro", 36},
+      {"ru", 37},
+      {"sk", 38},
+      {"sl", 39},
+      {"sr", 40},
+      {"sv", 41},
+      {"sw", 42},
+      {"th", 43},
+      {"tr", 44},
+      {"uk", 45},
+      {"vi", 46},
       {"zh-Hans", kSimplifiedChineseCode},
       {"zh-Hant", kTraditionalChineseCode},
   });
@@ -151,11 +149,11 @@ public:
   template <class ToDo>
   void ForEachNameByType(uint32_t type, ToDo && toDo) const
   {
-    auto it = m_type2cat.find(type);
-    if (it == m_type2cat.end())
-      return;
-    for (auto const & name : it->second->m_synonyms)
-      toDo(name);
+    // A type can appear in multiple category records with different synonyms.
+    auto const [begin, end] = m_type2cat.equal_range(type);
+    for (auto it = begin; it != end; ++it)
+      for (auto const & name : it->second->m_synonyms)
+        toDo(name);
   }
 
   template <class ToDo>

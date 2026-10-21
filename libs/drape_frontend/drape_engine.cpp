@@ -685,7 +685,7 @@ void DrapeEngine::ClearGpsTrackPoints()
 }
 
 void DrapeEngine::EnableChoosePositionMode(bool enable, std::vector<m2::TriangleD> && boundAreaTriangles,
-                                           m2::PointD const * optionalPosition)
+                                           m2::PointD const * optionalPosition, bool shouldChangeViewport)
 {
   m_choosePositionMode = enable;
   bool kineticScroll = m_kineticScrollEnabled;
@@ -702,7 +702,8 @@ void DrapeEngine::EnableChoosePositionMode(bool enable, std::vector<m2::Triangle
   }
   m_threadCommutator->PostMessage(
       ThreadsCommutator::RenderThread,
-      make_unique_dp<SetAddNewPlaceModeMessage>(enable, std::move(boundAreaTriangles), kineticScroll, optionalPosition),
+      make_unique_dp<SetAddNewPlaceModeMessage>(enable, std::move(boundAreaTriangles), kineticScroll, optionalPosition,
+                                                shouldChangeViewport),
       MessagePriority::Normal);
 }
 
@@ -988,13 +989,13 @@ void DrapeEngine::SetCustomArrow3d(std::optional<Arrow3dCustomDecl> arrow3dCusto
                                   MessagePriority::High);
 }
 
-void DrapeEngine::AddTileBackgroundImage(std::string const & uid, uint32_t width, uint32_t height,
-                                         dp::TextureFormat format, dp::BackgroundMode mode,
+void DrapeEngine::AddTileBackgroundImage(TileKey const & tileKey, std::string const & uid, uint32_t width,
+                                         uint32_t height, dp::TextureFormat format, dp::BackgroundMode mode,
                                          std::vector<uint8_t> && bytes)
 {
   m_threadCommutator->PostMessage(
       ThreadsCommutator::ResourceUploadThread,
-      make_unique_dp<AddTileBackgroundImageMessage>(uid, width, height, format, mode, std::move(bytes)),
+      make_unique_dp<AddTileBackgroundImageMessage>(tileKey, uid, width, height, format, mode, std::move(bytes)),
       MessagePriority::Normal);
 }
 

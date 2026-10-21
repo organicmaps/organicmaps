@@ -1,28 +1,33 @@
-• Noua setare „Salvare istoric de căutare” vă ajută să vă păstrați istoricul căutărilor privat, dacă este necesar
+## Calcularea traseului
+• Rute alternative îmbunătățite și timpii de sosire estimați ai acestora
+• Au fost adăugate butoane pentru adăugarea sau înlocuirea unei opriri într-un traseu planificat
+• S-a adăugat o setare pentru optimizarea ordinii punctelor de oprire intermediare de-a lungul traseului
+• Traseul alternativ selectat este acum păstrat atunci când sistemul de navigație recalculează traseul
+• Ordinea opririlor de pe traseu este acum restabilită după repornirea aplicației
 
-## Hărți și locuri
-• Date OpenStreetMap actualizate la 14 iulie
-• Notele OpenStreetMap sunt acum plasate exact în locația selectată de dvs., în loc să apară în mijlocul pădurii
-• Selecție îmbunătățită a hărții pentru regiunile care traversează antimeridianul de 180°
-• Profilurile de altitudine ale traseelor nu mai afișează grafice învechite sau goale după ce un traseu este șters
-• S-a îmbunătățit graficul de altitudine gol pentru traseele înregistrate
-• Butonul pentru ștergerea marcajelor este mai ușor de găsit
-• Salvarea automată a marcajelor atunci când părăsiți ecranul de editare
-• Paleta de culori include culori predefinite și vă permite să alegeți orice culoare personalizată
-• Alte îmbunătățiri ale interfeței utilizatorului
+## Hartă
+• Date OpenStreetMap la data de 28 septembrie
+• Date din Wikipedia la data de 21 septembrie
+• Rezervoarele de apă sunt acum vizibile când harta este micșorată mai mult
+• Tunelurile de apă nu mai sunt afișate pe hartă
+• S-au corectat pictogramele stațiilor și intrărilor din metroul din Suzhou
+• S-au remediat cazuri rare în care etichetele se deplasau din poziția lor pe stratul hărții metroului
 
-## Transportul public
-• Numele stațiilor, ale punctelor de transfer și ale stațiilor de metrou au acum un contur alb pentru a rămâne lizibile atât în tema deschisă, cât și în cea întunecată
-• Stratul de metrou reapare corect după ce închideți previzualizarea unui traseu de transport public
+## CarPlay
+• Au fost adăugate instrucțiuni de manevră pe afișajele head-up (HUD) compatibile ale autovehiculelor și pe tabloul de bord CarPlay
+• S-au remediat problemele legate de butoanele CarPlay și de funcția de căutare
 
-## Calcularea traseului și navigarea
-• S-au remediat problemele legate de indicații de direcție greșite sau lipsă
-• Avertismentele privind traseul (taxe de drum, feriboturi, drumuri neasfaltate, scări etc.) sunt acum afișate pentru toate traseele alternative
-• S-a remediat o blocare rară care apărea în timpul creării unui traseu și s-a îmbunătățit gestionarea străzilor fără ieșire și a punctelor de start/sosire pe un drum cu acces restricționat
-• S-a îmbunătățit afișarea progresului traseului pe butonul de pornire
-• Reordonarea opririlor de pe traseu nu mai provoacă salturi ale listei
+## Trasee
+• S-a adăugat o pictogramă în formă de ochi pentru a ascunde traseele individuale
+• S-au remediat erorile și s-a îmbunătățit înregistrarea traseelor
+• S-a remediat problema importării fișierelor KMB
 
-## Traduceri
-• S-a îmbunătățit formularea în limba chineză
-• S-au actualizat traducerile în limba ucraineană
-• S-au remediat traducerile regiunilor de pe hartă în limba italiană
+## Căutare
+• S-au remediat problemele legate de căutări atunci când zona vizibilă a hărții traversează meridianul de 180° (longitudine ±180°)
+• S-a restabilit căutarea pe categorii în Spotlight
+
+## Interfața utilizatorului
+• Programul de funcționare afișează acum „Amiază” pentru ora 12:00 și „Miezul nopții” pentru ora 00:00 sau 24:00
+• S-au remediat diverse erori și s-a îmbunătățit interfața cu utilizatorul
+• Traduceri corectate în engleză, franceză și asturiană
+• S-a adăugat posibilitatea de a alege o voce de navigație instalată și de a asculta o mostră

@@ -210,6 +210,7 @@
 "type.barrier.city_wall" = "शहराची भिंत";
 "type.barrier.cycle_barrier" = "सायकल अडथळा";
 "type.waterway.ditch" = "ड्रेनेज खंदक";
+"type.waterway.ditch.intermittent" = "तात्पुरता ड्रेनेज खंदक";
 "type.natural.water.moat" = "Moat";
 "type.natural.water.wastewater" = "सांडपाणी";
 "type.barrier.entrance" = "प्रवेशद्वार";
@@ -407,28 +408,28 @@
 "type.highway" = "महामार्ग";
 "type.highway.bridleway" = "Bridle Path";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.bridleway.bridge" = "पूल";
 "type.highway.bridleway.permissive" = "Bridle Path";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.bridleway.tunnel" = "बोगदा";
 "type.highway.busway" = "समर्पित बस रस्ता";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.busway.bridge" = "पूल";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.busway.tunnel" = "बोगदा";
 "type.highway.bus_stop" = "बस थांबा";
 "type.highway.construction" = "बांधकामाधीन रस्ता";
 "type.highway.cycleway" = "सायकल वाट";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.cycleway.bridge" = "पूल";
 "type.highway.cycleway.permissive" = "सायकल वाट";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.cycleway.tunnel" = "बोगदा";
 "type.highway.elevator" = "उद्वाहक(लिफ्ट)";
 "type.highway.footway" = "पादचारी मार्ग";
@@ -436,33 +437,33 @@
 "type.highway.footway.crossing" = "पादचारी ओलांडणे";
 "type.highway.footway.area" = "पादचारी झोन";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.footway.bridge" = "पादचारी पूल";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.footway.tunnel" = "पादचारी बोगदा";
 "type.highway.ford" = "Ford";
 "type.highway.living_street" = "वस्ती मार्ग";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.living_street.bridge" = "पूल";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.living_street.tunnel" = "बोगदा";
 "type.highway.motorway" = "महामार्ग";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.motorway.bridge" = "महामार्ग पूल";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.motorway.tunnel" = "महामार्ग बोगदा";
 "type.highway.motorway_junction" = "रस्ता निर्गमन";
 "type.highway.motorway_link" = "महामार्ग उतार";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.motorway_link.bridge" = "पूल";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.motorway_link.tunnel" = "बोगदा";
 "type.highway.path" = "पथ";
 
@@ -474,135 +475,135 @@
 "type.highway.path.bicycle" = "सायकल आणि पाऊलवाट";
 "type.highway.footway.bicycle" = "सायकल आणि पाऊलवाट";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.path.bridge" = "पूल";
 "type.highway.path.horse" = "पथ";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.path.tunnel" = "बोगदा";
 "type.highway.pedestrian" = "पादचारी मार्ग";
 "type.highway.pedestrian.area" = "पादचारी झोन";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.pedestrian.bridge" = "पादचारी पूल";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.pedestrian.tunnel" = "पादचारी बोगदा";
 "type.highway.platform" = "फलाट";
 "type.highway.primary" = "प्राथमिक मार्ग";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.primary.bridge" = "पूल";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.primary.tunnel" = "बोगदा";
 "type.highway.primary_link" = "प्राथमिक मार्ग उतार";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.primary_link.bridge" = "पूल";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.primary_link.tunnel" = "बोगदा";
 "type.highway.raceway" = "शर्यतीचा मार्ग";
 "type.highway.residential" = "रस्ता";
 "type.highway.residential.area" = "रस्ता";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.residential.bridge" = "पूल";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.residential.tunnel" = "बोगदा";
 "type.highway.rest_area" = "विश्रांती क्षेत्र";
 "type.highway.road" = "रस्ता";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.road.bridge" = "पूल";
 
 /* A bridge structure outline. */
 "type.man_made.bridge" = "पूल";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.road.tunnel" = "बोगदा";
 "type.highway.secondary" = "दुय्यम मार्ग";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.secondary.bridge" = "पूल";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.secondary.tunnel" = "बोगदा";
 "type.highway.secondary_link" = "दुय्यम मार्ग उतार";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.secondary_link.bridge" = "पूल";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.secondary_link.tunnel" = "बोगदा";
 "type.highway.service" = "सेवा मार्ग";
 "type.highway.service.area" = "सेवा मार्ग";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.service.bridge" = "पूल";
 "type.highway.service.driveway" = "चालकमार्ग";
 "type.highway.service.parking_aisle" = "पार्किंग गल्ली";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.service.tunnel" = "बोगदा";
 "type.highway.services" = "सेवा क्षेत्र";
 "type.highway.speed_camera" = "वेग कॅमेरा";
 "type.highway.steps" = "पायऱ्या";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.steps.bridge" = "पूल";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.steps.tunnel" = "बोगदा";
 "type.highway.ladder" = "Ladder";
 "type.highway.tertiary" = "तृतीयक मार्ग";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.tertiary.bridge" = "पूल";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.tertiary.tunnel" = "बोगदा";
 "type.highway.tertiary_link" = "तृतीयक मार्ग उतार";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.tertiary_link.bridge" = "पूल";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.tertiary_link.tunnel" = "बोगदा";
 "type.highway.track" = "ट्रॅक";
 "type.highway.track.area" = "ट्रॅक";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.track.bridge" = "पूल";
 "type.highway.track.grade1" = "ट्रॅक";
 "type.highway.track.no.access" = "ट्रॅक";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.track.tunnel" = "बोगदा";
 "type.highway.traffic_signals" = "वाहतूक दिवे";
 "type.highway.trunk" = "राष्ट्रीय महामार्ग";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.trunk.bridge" = "पूल";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.trunk.tunnel" = "बोगदा";
 "type.highway.trunk_link" = "राष्ट्रीय महामार्ग उतार";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.trunk_link.bridge" = "पूल";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.trunk_link.tunnel" = "बोगदा";
 "type.highway.unclassified" = "किरकोळ रस्ता";
 "type.highway.unclassified.area" = "किरकोळ रस्ता";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.unclassified.bridge" = "पूल";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.unclassified.tunnel" = "बोगदा";
 "type.area_highway.cycleway" = "सायकल वाट";
 "type.area_highway.footway" = "पादचारी मार्ग";
@@ -1519,23 +1520,26 @@
 "type.waterway" = "जलमार्ग";
 "type.waterway.access_point" = "जलमार्ग प्रवेश बिंदू";
 "type.waterway.canal" = "कालवा";
+"type.waterway.canal.intermittent" = "तात्पुरता कालवा";
 "type.waterway.canal.tunnel" = "कालवा";
 "type.waterway.fish_pass" = "मासे शिडी";
+"type.waterway.fish_pass.intermittent" = "तात्पुरती मासे शिडी";
 "type.waterway.dam" = "धरण";
 "type.barrier.ditch" = "खंदक";
 "type.natural.water.ditch" = "ड्रेनेज खंदक";
 "type.waterway.ditch.tunnel" = "कल्व्हर्ट";
 "type.waterway.dock" = "जलमार्ग गोद";
 "type.waterway.drain" = "नाला";
+"type.waterway.drain.intermittent" = "तात्पुरता नाला";
 "type.natural.water.drain" = "नाला";
 "type.waterway.drain.tunnel" = "कल्व्हर्ट";
 "type.waterway.lock_gate" = "जलद्वार";
 "type.waterway.river" = "नदी";
+"type.waterway.river.intermittent" = "तात्पुरती नदी";
 "type.waterway.river.tunnel" = "नदी";
-"type.waterway.stream" = "नदी";
-"type.waterway.stream.ephemeral" = "नदी";
-"type.waterway.stream.intermittent" = "नदी";
-"type.waterway.stream.tunnel" = "नदी";
+"type.waterway.stream" = "ओढा";
+"type.waterway.stream.intermittent" = "तात्पुरता ओढा";
+"type.waterway.stream.tunnel" = "ओढा";
 "type.waterway.waterfall" = "धबधबा";
 "type.waterway.weir" = "अल्प धरण";
 "type.wheelchair" = "चाकखुर्ची";

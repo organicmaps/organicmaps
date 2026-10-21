@@ -239,8 +239,7 @@ class EditBookmarkFragment :
 
     private fun saveAndDismiss() {
         saveIfNotDeleted()
-        // Hiding the selected track may already have closed the Place Page hosting this dialog.
-        if (isAdded) dismiss()
+        dismiss()
     }
 
     private fun saveIfNotDeleted() {
@@ -250,25 +249,29 @@ class EditBookmarkFragment :
         val newDescription = etDescription.text.toString()
         if (!t.isDirty(newName, newDescription, bookmarkCategory)) return
         val movedFromCategory = t.save(newName, newDescription, bookmarkCategory)
+        setEditResult(t, ACTION_SAVED, movedFromCategory)
+        trackTarget?.applyStagedVisibility()
+    }
+
+    private fun setEditResult(t: EditTarget, action: String, movedFromCategory: Boolean = false) {
         parentFragmentManager.setFragmentResult(
             REQUEST_KEY,
             bundleOf(
-                RESULT_ACTION to ACTION_SAVED,
-                RESULT_SAVED_ID to t.id,
+                RESULT_ACTION to action,
+                RESULT_TARGET_ID to t.id,
+                RESULT_TARGET_IS_TRACK to (t is TrackEditTarget),
                 RESULT_MOVED_FROM_CATEGORY to movedFromCategory,
             ),
         )
-        trackTarget?.applyStagedVisibility()
     }
 
     private fun deleteAndDismiss() {
         deleted = true
-        target?.delete()
-        if (!isAdded) return
-        parentFragmentManager.setFragmentResult(
-            REQUEST_KEY,
-            bundleOf(RESULT_ACTION to ACTION_DELETED),
-        )
+        val t = target
+        if (t != null) {
+            t.delete()
+            setEditResult(t, ACTION_DELETED)
+        }
         dismiss()
     }
 
@@ -331,7 +334,8 @@ class EditBookmarkFragment :
         const val RESULT_ACTION = "action"
         const val ACTION_SAVED = "saved"
         const val ACTION_DELETED = "deleted"
-        const val RESULT_SAVED_ID = "savedId"
+        const val RESULT_TARGET_ID = "targetId"
+        const val RESULT_TARGET_IS_TRACK = "targetIsTrack"
         const val RESULT_MOVED_FROM_CATEGORY = "movedFromCategory"
 
         private const val EXTRA_CATEGORY_ID = "CategoryId"

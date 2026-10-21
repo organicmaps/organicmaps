@@ -742,6 +742,11 @@ node|z12-[railway=station][transport=subway][city=stockholm] {icon-image: subway
 node|z15-[railway=station][transport=subway][city=stockholm] {icon-image: subway-stockholm-m.svg;}
 node|z16-[railway=subway_entrance][city=stockholm] {icon-image: subway-stockholm-s.svg;}
 
+/* Suzhou Subway Station */
+node|z13-[railway=station][transport=subway][city=suzhou] {icon-image: subway-suzhou-s.svg;}
+node|z15-[railway=station][transport=subway][city=suzhou] {icon-image: subway-suzhou-m.svg;}
+node|z16-[railway=subway_entrance][city=suzhou] {icon-image: subway-suzhou-s.svg;}
+
 /* Tabriz Subway Station */
 node|z13-[railway=station][transport=subway][city=tabriz] {icon-image: subway-tabriz-s.svg;}
 node|z15-[railway=station][transport=subway][city=tabriz] {icon-image: subway-tabriz-m.svg;}

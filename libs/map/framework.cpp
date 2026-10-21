@@ -62,6 +62,7 @@
 #include "geometry/mercator.hpp"
 #include "geometry/rect2d.hpp"
 
+#include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 #include "base/math.hpp"
 #include "base/string_utils.hpp"
@@ -1514,6 +1515,8 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
     return;
   }
 
+  StopLocationFollow();
+  DeactivateHotelSearchMark();
   m_currentPlacePageInfo = BuildPlacePageInfo(info);
 
   if (result.GetResultType() == Result::Type::Postcode)
@@ -1533,7 +1536,6 @@ void Framework::SelectSearchResult(search::Result const & result, bool animation
 void Framework::ShowSearchResult(search::Result const & res, bool animation)
 {
   GetSearchAPI().CancelAllSearches();
-  StopLocationFollow();
   SelectSearchResult(res, animation);
 }
 
@@ -1858,7 +1860,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   {
     auto & tracker = GpsTracker::Instance();
     if (tracker.IsEnabled())
-      tracker.Connect(std::bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2, _3));
+      tracker.Connect(std::bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2));
   }
 
   GetBookmarkManager().SetDrapeEngine(make_ref(m_drapeEngine));
@@ -1971,15 +1973,17 @@ void Framework::StartTrackRecording()
   if (m_drapeEngine)
   {
     m_drapeEngine->ClearGpsTrackPoints();
-    tracker.Connect(std::bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2, _3));
+    tracker.Connect(std::bind(&Framework::OnUpdateGpsTrackPointsCallback, this, _1, _2));
   }
 }
 
 void Framework::SetTrackRecordingUpdateHandler(TrackRecordingUpdateHandler && trackRecordingDidUpdate)
 {
-  m_trackRecordingUpdateHandler = std::move(trackRecordingDidUpdate);
-  if (m_trackRecordingUpdateHandler)
-    m_trackRecordingUpdateHandler(GpsTracker::Instance().GetTrackStatistics());
+  // Converting an empty std::function gives a non-empty one.
+  GpsTrack::TGpsTrackStatisticsCallback callback;
+  if (trackRecordingDidUpdate)
+    callback = std::move(trackRecordingDidUpdate);
+  GpsTracker::Instance().SetStatisticsCallback(callback);
 }
 
 ElevationInfo const & Framework::GetTrackRecordingElevationInfo()
@@ -1994,6 +1998,12 @@ void Framework::StopTrackRecording()
   tracker.SetEnabled(false);
   if (m_drapeEngine)
     m_drapeEngine->ClearGpsTrackPoints();
+}
+
+void Framework::DiscardTrackRecording()
+{
+  StopTrackRecording();
+  GpsTracker::Instance().Clear();
 }
 
 void Framework::SaveTrackRecordingWithName(std::string const & name)
@@ -2023,8 +2033,7 @@ void Framework::SaveRoute()
 }
 
 void Framework::OnUpdateGpsTrackPointsCallback(std::vector<std::pair<size_t, location::GpsInfo>> && toAdd,
-                                               std::pair<size_t, size_t> const & toRemove,
-                                               TrackStatistics const & trackStatistics)
+                                               std::pair<size_t, size_t> const & toRemove)
 {
   ASSERT(m_drapeEngine, ());
 
@@ -2047,13 +2056,10 @@ void Framework::OnUpdateGpsTrackPointsCallback(std::vector<std::pair<size_t, loc
     ASSERT_LESS_OR_EQUAL(toRemove.first, toRemove.second, ());
     indicesRemove.reserve(toRemove.second - toRemove.first + 1);
     for (size_t i = toRemove.first; i <= toRemove.second; ++i)
-      indicesRemove.emplace_back(i);
+      indicesRemove.emplace_back(base::asserted_cast<uint32_t>(i));
   }
 
   m_drapeEngine->UpdateGpsTrackPoints(std::move(pointsAdd), std::move(indicesRemove));
-
-  if (m_trackRecordingUpdateHandler)
-    m_trackRecordingUpdateHandler(trackStatistics);
 }
 
 void Framework::MarkMapStyle(MapStyle mapStyle)
@@ -2301,21 +2307,8 @@ void Framework::InvalidateUserMarks()
 
 void Framework::DeactivateHotelSearchMark()
 {
-  if (!m_currentPlacePageInfo)
-    return;
-
-  if (m_currentPlacePageInfo->IsHotel())
-  {
-    auto const & featureId = m_currentPlacePageInfo->GetID();
-    if (m_searchMarks.IsThereSearchMarkForFeature(featureId))
-    {
-      m_searchMarks.SetVisited(featureId);
-      m_searchMarks.OnDeactivate(featureId);
-    }
-
-    if (!GetSearchAPI().IsViewportSearchActive())
-      GetBookmarkManager().GetEditSession().ClearGroup(UserMark::Type::SEARCH);
-  }
+  if (m_currentPlacePageInfo && m_currentPlacePageInfo->IsHotel())
+    m_searchMarks.OnDeactivate(m_currentPlacePageInfo->GetID());
 }
 
 void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
@@ -2805,7 +2798,6 @@ void Framework::CreateBackgroundTilesProvider(std::string const & url, uint32_t 
 {
   RasterTileProvider::Params rp;
   rp.m_urlTemplate = url;
-  rp.m_cacheSubdir = "bg_tiles";
   rp.m_maxZoom = 19;  // standard web-mercator detail; deeper OM tiles reuse the ancestor sub-rect.
   rp.m_maxCacheBytes = static_cast<uint64_t>(cacheSizeMB) * 1024 * 1024;
   // Global coverage (whole world) — min zoom and the lat/lon box keep their defaults.
@@ -2818,7 +2810,10 @@ void Framework::CreateBackgroundTilesProvider(std::string const & url, uint32_t 
     // messages, so they are safe to call from any thread.
     if (m_drapeEngine)
     {
-      m_drapeEngine->AddTileBackgroundImage(imageUid, width, height, dp::TextureFormat::RGBA8, mode, std::move(rgba));
+      // Report failed reads without an upload so the renderer can retain fallback imagery.
+      if (!imageUid.empty())
+        m_drapeEngine->AddTileBackgroundImage(tileKey, imageUid, width, height, dp::TextureFormat::RGBA8, mode,
+                                              std::move(rgba));
       m_drapeEngine->SetTileBackgroundData(tileKey, imageUid, rect);
     }
   });
@@ -3141,12 +3136,14 @@ void Framework::SetCyclingEnabled(bool enabled)
   Invalidate();
 }
 
-void Framework::EnableChoosePositionMode(bool enable, bool enableBounds, m2::PointD const * optionalPosition)
+void Framework::EnableChoosePositionMode(bool enable, bool enableBounds, m2::PointD const * optionalPosition,
+                                         bool shouldChangeViewport)
 {
   if (m_drapeEngine != nullptr)
   {
-    m_drapeEngine->EnableChoosePositionMode(
-        enable, enableBounds ? GetSelectedFeatureTriangles() : std::vector<m2::TriangleD>(), optionalPosition);
+    m_drapeEngine->EnableChoosePositionMode(enable,
+                                            enableBounds ? GetSelectedFeatureTriangles() : std::vector<m2::TriangleD>(),
+                                            optionalPosition, shouldChangeViewport);
   }
 }
 

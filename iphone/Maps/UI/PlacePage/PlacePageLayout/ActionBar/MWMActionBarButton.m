@@ -10,9 +10,6 @@ NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
   switch (type)
   {
   case MWMActionBarButtonTypeDownload: return L(@"download");
-  case MWMActionBarButtonTypeBooking:
-  case MWMActionBarButtonTypeOpentable: return L(@"book_button");
-  case MWMActionBarButtonTypeBookingSearch: return L(@"booking_search");
   case MWMActionBarButtonTypeCall: return L(@"placepage_call_button");
   case MWMActionBarButtonTypeBookmark: return L(isSelected ? @"delete" : @"save");
   case MWMActionBarButtonTypeTrack: return L(@"delete");
@@ -22,6 +19,7 @@ NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
   case MWMActionBarButtonTypeRouteTo: return L(@"p2p_to_here");
   case MWMActionBarButtonTypeMore: return L(@"placepage_more_button");
   case MWMActionBarButtonTypeRouteAddStop: return L(@"placepage_add_stop");
+  case MWMActionBarButtonTypeRouteAddDestination: return L(@"route_add_destination");
   case MWMActionBarButtonTypeRouteReplaceStop: return L(@"placepage_replace_stop");
   case MWMActionBarButtonTypeRouteRemoveStop: return L(@"placepage_remove_stop");
   case MWMActionBarButtonTypeAvoidToll: return L(@"avoid_tolls");
@@ -36,7 +34,6 @@ NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
 @property(nonatomic) MWMCircularProgress * mapDownloadProgress;
 @property(weak, nonatomic) IBOutlet MWMButton * button;
 @property(weak, nonatomic) IBOutlet UILabel * label;
-@property(weak, nonatomic) IBOutlet UIView * extraBackground;
 @property(weak, nonatomic) id<MWMActionBarButtonDelegate> delegate;
 
 @end
@@ -46,7 +43,6 @@ NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
 - (void)configButton:(BOOL)isSelected enabled:(BOOL)isEnabled
 {
   self.label.text = titleForButton(self.type, isSelected);
-  self.extraBackground.hidden = YES;
   self.button.coloring = MWMButtonColoringBlack;
   [self.button.imageView setContentMode:UIViewContentModeScaleAspectFit];
 
@@ -67,36 +63,6 @@ NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
     [self.mapDownloadProgress setColoring:MWMButtonColoringBlue forStates:affectedStates];
     break;
   }
-  case MWMActionBarButtonTypeBooking:
-    [self.button setImage:[UIImage imageNamed:@"ic_booking_logo"] forState:UIControlStateNormal];
-    self.label.styleName = @"PPActionBarTitlePartner";
-    self.backgroundColor = [UIColor bookingBackground];
-    if (!IPAD)
-    {
-      self.extraBackground.backgroundColor = [UIColor bookingBackground];
-      self.extraBackground.hidden = NO;
-    }
-    break;
-  case MWMActionBarButtonTypeBookingSearch:
-    [self.button setImage:[UIImage imageNamed:@"ic_booking_search"] forState:UIControlStateNormal];
-    self.label.styleName = @"PPActionBarTitlePartner";
-    self.backgroundColor = [UIColor bookingBackground];
-    if (!IPAD)
-    {
-      self.extraBackground.backgroundColor = [UIColor bookingBackground];
-      self.extraBackground.hidden = NO;
-    }
-    break;
-  case MWMActionBarButtonTypeOpentable:
-    [self.button setImage:[UIImage imageNamed:@"ic_opentable"] forState:UIControlStateNormal];
-    self.label.styleName = @"PPActionBarTitlePartner";
-    self.backgroundColor = [UIColor opentableBackground];
-    if (!IPAD)
-    {
-      self.extraBackground.backgroundColor = [UIColor opentableBackground];
-      self.extraBackground.hidden = NO;
-    }
-    break;
   case MWMActionBarButtonTypeCall:
     [self.button setImage:[UIImage imageNamed:@"ic_placepage_phone_number"] forState:UIControlStateNormal];
     break;
@@ -129,6 +95,9 @@ NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
     [self.button setImage:[UIImage imageNamed:@"ic_route_to"] forState:UIControlStateNormal];
     if ([self needsToHighlightRouteToButton])
       self.button.coloring = MWMButtonColoringBlue;
+    break;
+  case MWMActionBarButtonTypeRouteAddDestination:
+    [self.button setImage:[UIImage imageNamed:@"ic_route_to"] forState:UIControlStateNormal];
     break;
   case MWMActionBarButtonTypeMore:
     [self.button setImage:[UIImage imageNamed:@"ic_placepage_more"] forState:UIControlStateNormal];

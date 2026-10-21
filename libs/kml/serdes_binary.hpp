@@ -12,6 +12,9 @@
 
 #include "coding/text_storage.hpp"
 
+#include "base/logging.hpp"
+
+#include <algorithm>
 #include <string>
 #include <vector>
 
@@ -22,6 +25,8 @@ namespace binary
 class SerializerKml
 {
 public:
+  DECLARE_EXCEPTION(SerializeException, RootException);
+
   explicit SerializerKml(FileData const & data);
   ~SerializerKml();
 
@@ -40,12 +45,8 @@ public:
       sink.Write(m_data.m_deviceId.data(), sz);
     }
 
-    // Write server id.
-    {
-      auto const sz = static_cast<uint32_t>(m_data.m_serverId.size());
-      WriteVarUint(sink, sz);
-      sink.Write(m_data.m_serverId.data(), sz);
-    }
+    // Keep the unused server id slot for compatibility with older readers.
+    WriteVarUint(sink, 0U);
 
     // Write bits count in double number.
     WriteToSink(sink, kDoubleBits);
@@ -68,9 +69,9 @@ public:
     header.m_tracksOffset = sink.Pos() - startPos;
     SerializeTracks(sink);
 
-    // Serialize compilations.
+    // Serialize the (always empty) compilations section, see SerializeEmptyCompilations.
     header.m_compilationsOffset = sink.Pos() - startPos;
-    SerializeCompilations(sink);
+    SerializeEmptyCompilations(sink);
 
     // Serialize strings.
     header.m_stringsOffset = sink.Pos() - startPos;
@@ -86,6 +87,8 @@ public:
   template <typename Sink>
   void SerializeCategory(Sink & sink)
   {
+    ASSERT_EQUAL(m_data.m_categoryData.m_unusedCompilationId, kUnusedCompilationId, ());
+    ASSERT_EQUAL(m_data.m_categoryData.m_unusedCompilationType, kUnusedCompilationType, ());
     CategorySerializerVisitor<Sink> visitor(sink, kDoubleBits);
     visitor(m_data.m_categoryData);
   }
@@ -93,6 +96,10 @@ public:
   template <typename Sink>
   void SerializeBookmarks(Sink & sink)
   {
+    ASSERT(std::all_of(m_data.m_bookmarksData.begin(), m_data.m_bookmarksData.end(),
+                       [](auto const & bookmark) { return bookmark.m_unusedCompilations.empty(); }),
+           ());
+
     BookmarkSerializerVisitor<Sink> visitor(sink, kDoubleBits);
     visitor(m_data.m_bookmarksData);
   }
@@ -104,11 +111,12 @@ public:
     visitor(m_data.m_tracksData);
   }
 
+  // Collections (MAPS.ME compilations) are not supported, but V8/V9 files must still have the
+  // section: an empty one is just a zero element count.
   template <typename Sink>
-  void SerializeCompilations(Sink & sink)
+  void SerializeEmptyCompilations(Sink & sink)
   {
-    CategorySerializerVisitor<Sink> visitor(sink, kDoubleBits);
-    visitor(m_data.m_compilationsData);
+    WriteVarUint(sink, 0U);
   }
 
   // Serializes texts in a compressed storage with block access.
@@ -125,15 +133,6 @@ protected:
   std::vector<std::string> m_strings;
 };
 
-template <typename T, typename = void>
-struct HasCompilationsData : std::false_type
-{};
-
-template <typename T>
-struct HasCompilationsData<T, std::void_t<decltype(T::m_compilationsData)>>
-  : std::is_same<decltype(T::m_compilationsData), std::vector<CategoryData>>
-{};
-
 class DeserializerKml
 {
 public:
@@ -144,19 +143,25 @@ public:
   template <typename ReaderType>
   void Deserialize(ReaderType const & reader)
   {
-    // Check version.
+    // Wire versions and internal MapsMe variant identifiers are different.
     NonOwningReaderSource source(reader);
-    m_header.m_version = ReadPrimitiveFromSource<Version>(source);
-
-    if (m_header.m_version != Version::V2 && m_header.m_version != Version::V3 && m_header.m_version != Version::V4 &&
-        m_header.m_version != Version::V5 && m_header.m_version != Version::V6 && m_header.m_version != Version::V7 &&
-        m_header.m_version != Version::V8 && m_header.m_version != Version::V9)
+    auto const version = ReadPrimitiveFromSource<uint8_t>(source);
+    if (version == 10)
     {
-      MYTHROW(DeserializeException, ("Incorrect file version."));
+      m_header.m_version = Version::V10MM;
+    }
+    else if (version >= 2 && version <= 9)
+    {
+      m_header.m_version = static_cast<Version>(version);
+      ReadDeviceId(source);
+      // Skip the unused server id in the V2-V9 preamble.
+      source.Skip(ReadVarUint<uint32_t>(source));
+    }
+    else
+    {
+      MYTHROW(DeserializeException, ("Incorrect file version:", static_cast<unsigned>(version)));
     }
 
-    ReadDeviceId(source);
-    ReadServerId(source);
     ReadBitsCountInDouble(source);
 
     auto subReader = reader.CreateSubReader(source.Pos(), source.Size());
@@ -173,7 +178,6 @@ public:
     {
       FileDataV8 dataV8;
       dataV8.m_deviceId = m_data.m_deviceId;
-      dataV8.m_serverId = m_data.m_serverId;
       DeserializeFileData(subReader, dataV8);
 
       m_data = dataV8.ConvertToLatestVersion();
@@ -183,7 +187,6 @@ public:
     {
       FileDataV8MM dataV8MM;
       dataV8MM.m_deviceId = m_data.m_deviceId;
-      dataV8MM.m_serverId = m_data.m_serverId;
       DeserializeFileData(subReader, dataV8MM);
 
       m_data = dataV8MM.ConvertToLatestVersion();
@@ -193,17 +196,20 @@ public:
     {
       FileDataV9MM dataV9MM;
       dataV9MM.m_deviceId = m_data.m_deviceId;
-      dataV9MM.m_serverId = m_data.m_serverId;
       DeserializeFileData(subReader, dataV9MM);
 
       m_data = dataV9MM.ConvertToLatestVersion();
+      break;
+    }
+    case Version::V10MM:
+    {
+      DeserializeV10MM(subReader);
       break;
     }
     case Version::V7:
     {
       FileDataV7 dataV7;
       dataV7.m_deviceId = m_data.m_deviceId;
-      dataV7.m_serverId = m_data.m_serverId;
       DeserializeFileData(subReader, dataV7);
 
       m_data = dataV7.ConvertToLatestVersion();
@@ -216,7 +222,6 @@ public:
       // NOTE: v.4, v.5 and v.6 are binary compatible.
       FileDataV6 dataV6;
       dataV6.m_deviceId = m_data.m_deviceId;
-      dataV6.m_serverId = m_data.m_serverId;
       DeserializeFileData(subReader, dataV6);
 
       m_data = dataV6.ConvertToLatestVersion();
@@ -228,7 +233,6 @@ public:
       // NOTE: v.2 and v.3 are binary compatible.
       FileDataV3 dataV3;
       dataV3.m_deviceId = m_data.m_deviceId;
-      dataV3.m_serverId = m_data.m_serverId;
       DeserializeFileData(subReader, dataV3);
 
       // Migrate bookmarks (it's necessary ony for v.2).
@@ -243,9 +247,16 @@ public:
       UNREACHABLE();
     }
     }
+
+    DropCompilationReferences();
   }
 
 private:
+  void DeserializeV10MM(std::unique_ptr<Reader> & reader);
+  void DeserializeCategoryV10MM(Reader const & reader, coding::BlockedTextStorage<Reader> & strings, FileData & data);
+  void DeserializeBookmarksV10MM(Reader const & reader, coding::BlockedTextStorage<Reader> & strings, FileData & data);
+  void DeserializeTracksV10MM(Reader const & reader, coding::BlockedTextStorage<Reader> & strings, FileData & data);
+
   template <typename ReaderType>
   void InitializeIfNeeded(ReaderType const & reader)
   {
@@ -321,13 +332,6 @@ private:
     source.Read(&m_data.m_deviceId[0], sz);
   }
 
-  void ReadServerId(NonOwningReaderSource & source)
-  {
-    auto const sz = ReadVarUint<uint32_t>(source);
-    m_data.m_serverId.resize(sz);
-    source.Read(&m_data.m_serverId[0], sz);
-  }
-
   void ReadBitsCountInDouble(NonOwningReaderSource & source)
   {
     m_doubleBits = ReadPrimitiveFromSource<uint8_t>(source);
@@ -344,8 +348,8 @@ private:
     DeserializeCategory(subReader, data);
     DeserializeBookmarks(subReader, data);
     DeserializeTracks(subReader, data);
-    if constexpr (HasCompilationsData<FileDataType>::value)
-      DeserializeCompilations(subReader, data);
+    if (m_header.HasCompilationsSection())
+      WarnAboutDroppedCompilations(*subReader);
     DeserializeStrings(subReader, data);
   }
 
@@ -382,13 +386,25 @@ private:
     visitor(data.m_tracksData);
   }
 
-  template <typename FileDataType>
-  void DeserializeCompilations(std::unique_ptr<Reader> & subReader, FileDataType & data)
+  // Collections are not supported: the section is skipped, only its element count is read to log
+  // what was dropped.
+  template <typename ReaderType>
+  void WarnAboutDroppedCompilations(ReaderType const & reader)
   {
-    auto compilationsSubReader = CreateCompilationsSubReader(*subReader);
+    auto compilationsSubReader = CreateCompilationsSubReader(reader);
     NonOwningReaderSource src(*compilationsSubReader);
-    CategoryDeserializerVisitor<decltype(src)> visitor(src, m_doubleBits);
-    visitor(data.m_compilationsData);
+    if (auto const count = ReadVarUint<uint32_t>(src); count > 0)
+      LOG(LWARNING, ("Ignored", count, "unsupported collections in a KMB file"));
+  }
+
+  // Forgets the references to the skipped section, so that a file we save later does not keep ids
+  // pointing into the empty compilations section we write.
+  void DropCompilationReferences()
+  {
+    m_data.m_categoryData.m_unusedCompilationId = kUnusedCompilationId;
+    m_data.m_categoryData.m_unusedCompilationType = kUnusedCompilationType;
+    for (auto & bookmark : m_data.m_bookmarksData)
+      bookmark.m_unusedCompilations = {};
   }
 
   template <typename FileDataType>

@@ -13,6 +13,7 @@
 
 #include "platform/localization.hpp"
 #include "platform/platform.hpp"
+#include "platform/preferred_languages.hpp"
 #include "platform/settings.hpp"
 
 #include "geometry/mercator.hpp"
@@ -31,7 +32,6 @@
 #include <algorithm>
 #include <chrono>
 #include <limits>
-#include <unordered_map>
 #include <unordered_set>
 
 namespace
@@ -348,8 +348,6 @@ Bookmark * BookmarkManager::CreateBookmark(kml::BookmarkData && bmData, kml::Mar
   {
     bookmark = AddBookmark(std::move(m_recentlyDeletedBookmark));
     ResetRecentlyDeletedBookmark();
-    // Sets a "dirty" flag checked in one of the containers.
-    bookmark->SetIsVisible(true);
 
     if (HasBmCategory(bookmark->GetGroupId()))
       groupId = bookmark->GetGroupId();
@@ -486,15 +484,7 @@ void BookmarkManager::DeleteRecentlyDeletedCategoriesAtPaths(std::vector<std::st
 void BookmarkManager::DetachUserMark(kml::MarkId bmId, kml::MarkGroupId catId)
 {
   GetGroup(catId)->DetachUserMark(bmId);
-  for (auto const compilationId : GetCategoryData(catId).m_compilationIds)
-    GetGroup(compilationId)->DetachUserMark(bmId);
   m_changesTracker.OnDetachBookmark(bmId, catId);
-}
-
-void BookmarkManager::DeleteCompilations(kml::GroupIdCollection const & compilations)
-{
-  for (auto const compilationId : compilations)
-    m_compilations.erase(compilationId);
 }
 
 Track * BookmarkManager::CreateTrack(kml::TrackData && trackData)
@@ -1111,48 +1101,6 @@ void BookmarkManager::OnTrackDeselected()
   m_selectedTrackId = kml::kInvalidTrackId;
 }
 
-kml::GroupIdCollection BookmarkManager::GetChildrenCategories(kml::MarkGroupId parentId) const
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  return GetCompilationOfType(parentId, kml::CompilationType::Category);
-}
-
-kml::GroupIdCollection BookmarkManager::GetChildrenCollections(kml::MarkGroupId parentId) const
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  return GetCompilationOfType(parentId, kml::CompilationType::Collection);
-}
-
-kml::GroupIdCollection BookmarkManager::GetCompilationOfType(kml::MarkGroupId parentId, kml::CompilationType type) const
-{
-  kml::GroupIdCollection result;
-  auto const & compilations = GetCategoryData(parentId).m_compilationIds;
-  std::copy_if(compilations.cbegin(), compilations.cend(), std::back_inserter(result), [this, type](auto const groupId)
-  {
-    auto const compilation = m_compilations.find(groupId);
-    CHECK(compilation != m_compilations.end(), ());
-    auto const & child = *compilation->second;
-    return child.GetCategoryData().m_type == type;
-  });
-
-  return result;
-}
-
-bool BookmarkManager::IsCompilation(kml::MarkGroupId id) const
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  return m_compilations.find(id) != m_compilations.cend();
-}
-
-kml::CompilationType BookmarkManager::GetCompilationType(kml::MarkGroupId id) const
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-
-  auto const compilation = m_compilations.find(id);
-  CHECK(compilation != m_compilations.cend(), ());
-  return compilation->second->GetCategoryData().m_type;
-}
-
 kml::TrackId BookmarkManager::SaveTrackRecording(std::string trackName)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -1172,8 +1120,9 @@ kml::TrackId BookmarkManager::SaveTrackRecording(std::string trackName)
   tracker.ForEachTrackPoint([&line, &timestamps](location::GpsInfo const & pt, size_t id)
   {
     /// @todo pt.HasAltitude() ?
-    line.emplace_back(mercator::FromLatLon(pt.m_latitude, pt.m_longitude), pt.m_altitude);
-    timestamps.emplace_back(pt.m_timestamp);
+    line.emplace_back(mercator::FromLatLon(pt.m_latitude, pt.m_longitude),
+                      static_cast<geometry::Altitude>(pt.m_altitude));
+    timestamps.emplace_back(static_cast<kml::MultiGeometry::TimeInt>(pt.m_timestamp));
     return true;
   });
 
@@ -1361,13 +1310,6 @@ void BookmarkManager::SortTracksByTime(std::vector<SortTrackData> & tracks)
             [](SortTrackData const & lbm, SortTrackData const & rbm) { return lbm.m_timestamp > rbm.m_timestamp; });
 }
 
-// static
-void BookmarkManager::SortTracksByName(std::vector<SortTrackData> & tracks)
-{
-  std::sort(tracks.begin(), tracks.end(),
-            [](SortTrackData const & lbm, SortTrackData const & rbm) { return lbm.m_name < rbm.m_name; });
-}
-
 void BookmarkManager::SortByDistance(std::vector<SortBookmarkData> const & bookmarksForSort,
                                      std::vector<SortTrackData> const & tracksForSort, m2::PointD const & myPosition,
                                      SortedBlocksCollection & sortedBlocks)
@@ -1548,11 +1490,18 @@ void BookmarkManager::SortByType(std::vector<SortBookmarkData> const & bookmarks
 }
 
 void BookmarkManager::SortByName(std::vector<SortBookmarkData> const & bookmarksForSort,
-                                 std::vector<SortTrackData> const & tracksForSort,
+                                 std::vector<SortTrackData> const & tracksForSort, std::string const & locale,
                                  SortedBlocksCollection & sortedBlocks)
 {
+  auto const collator = platform::CreateStringCollator(locale);
+
+  auto const lessByName = [&collator](std::string const & lhs, std::string const & rhs)
+  { return collator->Less(lhs, rhs); };
+
   std::vector<SortTrackData> sortedTracks = tracksForSort;
-  SortTracksByName(sortedTracks);
+  std::sort(sortedTracks.begin(), sortedTracks.end(),
+            [&lessByName](SortTrackData const & lhs, SortTrackData const & rhs)
+  { return lessByName(lhs.m_name, rhs.m_name); });
   AddTracksSortedBlock(sortedTracks, sortedBlocks);
 
   std::vector<SortBookmarkData const *> sortedMarks;
@@ -1561,7 +1510,8 @@ void BookmarkManager::SortByName(std::vector<SortBookmarkData> const & bookmarks
     sortedMarks.push_back(&mark);
 
   std::sort(sortedMarks.begin(), sortedMarks.end(),
-            [](SortBookmarkData const * lbm, SortBookmarkData const * rbm) { return lbm->m_name < rbm->m_name; });
+            [&lessByName](SortBookmarkData const * lhs, SortBookmarkData const * rhs)
+  { return lessByName(lhs->m_name, rhs->m_name); });
 
   // Put all bookmarks into one block
   SortedBlock bookmarkBlock;
@@ -1584,7 +1534,10 @@ void BookmarkManager::GetSortedCategoryImpl(SortParams const & params,
     return;
   case SortingType::ByTime: SortByTime(bookmarksForSort, tracksForSort, sortedBlocks); return;
   case SortingType::ByType: SortByType(bookmarksForSort, tracksForSort, sortedBlocks); return;
-  case SortingType::ByName: SortByName(bookmarksForSort, tracksForSort, sortedBlocks); return;
+  case SortingType::ByName:
+    SortByName(bookmarksForSort, tracksForSort, params.m_locale.empty() ? languages::GetCurrentOrig() : params.m_locale,
+               sortedBlocks);
+    return;
   }
   UNREACHABLE();
 }
@@ -1671,7 +1624,6 @@ void BookmarkManager::GetSortedCategory(SortParams const & params)
 void BookmarkManager::ClearGroup(kml::MarkGroupId groupId)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  ASSERT(m_compilations.count(groupId) == 0, ());
 
   auto * group = GetGroup(groupId);
   for (auto markId : group->GetUserMarks())
@@ -1782,11 +1734,11 @@ kml::CategoryData const & BookmarkManager::GetCategoryData(kml::MarkGroupId cate
   return GetBmCategory(categoryId)->GetCategoryData();
 }
 
-kml::MarkGroupId BookmarkManager::GetCategoryId(std::string const & name) const
+kml::MarkGroupId BookmarkManager::GetCategoryId(std::string const & name, kml::MarkGroupId excludedGroupId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   for (auto const & category : m_categories)
-    if (category.second->GetName() == name)
+    if (category.first != excludedGroupId && category.second->GetName() == name)
       return category.first;
   return kml::kInvalidMarkGroupId;
 }
@@ -1817,19 +1769,7 @@ UserMark const * BookmarkManager::FindMarkInRect(kml::MarkGroupId groupId, m2::A
 void BookmarkManager::SetIsVisible(kml::MarkGroupId groupId, bool visible)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  auto * group = GetGroup(groupId);
-  if (group->IsVisible() != visible)
-  {
-    group->SetIsVisible(visible);
-    if (auto const compilationIt = m_compilations.find(groupId); compilationIt != m_compilations.end())
-    {
-      auto const parentId = compilationIt->second->GetParentID();
-      auto * parentGroup = GetBmCategory(parentId);
-      parentGroup->SetDirty(false /* updateModificationTime */);
-      if (visible)  // visible == false handled in InferVisibility
-        parentGroup->SetIsVisible(true);
-    }
-  }
+  GetGroup(groupId)->SetIsVisible(visible);
   UpdateTrackMarksVisibility(groupId);
 }
 
@@ -2457,12 +2397,11 @@ BookmarkCategory * BookmarkManager::GetBmCategorySafe(kml::MarkGroupId categoryI
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(IsBookmarkCategory(categoryId), ());
 
-  auto const compilationIt = m_compilations.find(categoryId);
-  if (compilationIt != m_compilations.cend())
-    return compilationIt->second.get();
-
   auto const it = m_categories.find(categoryId);
-  return (it != m_categories.end() ? it->second.get() : nullptr);
+  if (it == m_categories.end())
+    return nullptr;
+  ASSERT_EQUAL(it->second->GetID(), categoryId, ());
+  return it->second.get();
 }
 
 void BookmarkManager::GetBookmarksInfo(kml::MarkIdSet const & marks, std::vector<BookmarkInfo> & bookmarksInfo) const
@@ -2604,14 +2543,12 @@ kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(kml::CategoryData && da
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  // _group id_ is not persistant and assigned every time on loading from file.
-  /// @todo Is there any reason to keep and update kLastBookmarkCategoryId in SecureStorage (settings).
+  // Text formats omit category IDs; allocate one when the loaded category has none.
   if (data.m_id == kml::kInvalidMarkGroupId)
     data.m_id = UserMarkIdStorage::Instance().GetNextCategoryId();
   auto groupId = data.m_id;
 
   CHECK_EQUAL(m_categories.count(groupId), 0, ());
-  CHECK_EQUAL(m_compilations.count(groupId), 0, ());
   m_categories.emplace(groupId, std::make_unique<BookmarkCategory>(std::move(data), autoSave));
   UpdateBmGroupIdList();
   m_changesTracker.OnAddGroup(groupId);
@@ -2630,31 +2567,16 @@ kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(std::string const & nam
   return groupId;
 }
 
-void BookmarkManager::UpdateBookmarkCategory(kml::MarkGroupId groupId, kml::CategoryData && data,
-                                             bool autoSave /* = true */)
+void BookmarkManager::UpdateBookmarkCategory(kml::MarkGroupId groupId, kml::CategoryData && data)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  CHECK_NOT_EQUAL(m_categories.count(groupId), 0, ());
-  // The current implementation reloads the provided group.
-  /// @todo implement more accurate merging instead of full reloading
+  auto const it = m_categories.find(groupId);
+  CHECK(it != m_categories.end(), (groupId));
+  // UI and search retain the group ID when a category is reloaded from its file.
   ClearGroup(groupId);
-  m_categories.emplace(groupId, std::make_unique<BookmarkCategory>(std::move(data), autoSave));
+  data.m_id = groupId;
+  it->second = std::make_unique<BookmarkCategory>(std::move(data), false /* autoSave */);
   m_changesTracker.OnAddGroup(groupId);
-}
-
-BookmarkCategory * BookmarkManager::CreateBookmarkCompilation(kml::CategoryData && data)
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  if (data.m_id == kml::kInvalidMarkGroupId)
-    data.m_id = UserMarkIdStorage::Instance().GetNextCategoryId();
-  auto groupId = data.m_id;
-  CHECK_EQUAL(m_categories.count(groupId), 0, ());
-  CHECK_EQUAL(m_compilations.count(groupId), 0, ());
-  auto compilation = std::make_unique<BookmarkCategory>(std::move(data), false);
-  auto result = compilation.get();
-  m_compilations.emplace(groupId, std::move(compilation));
-
-  return result;
 }
 
 kml::MarkGroupId BookmarkManager::CheckAndCreateDefaultCategory()
@@ -2701,7 +2623,6 @@ bool BookmarkManager::DeleteBmCategory(kml::MarkGroupId groupId, bool permanentl
       LOG(LERROR, ("Failed to move", filePath, "into the trash at", trashedFilePath));
   }
 
-  DeleteCompilations(it->second->GetCategoryData().m_compilationIds);
   m_categories.erase(it);
   UpdateBmGroupIdList();
   return true;
@@ -2784,16 +2705,12 @@ UserMarkLayer * BookmarkManager::GetGroup(kml::MarkGroupId groupId) const
     return m_userMarkLayers[static_cast<size_t>(groupId - 1)].get();
   }
 
-  auto const compilationIt = m_compilations.find(groupId);
-  if (compilationIt != m_compilations.cend())
-    return compilationIt->second.get();
-
   auto const catIt = m_categories.find(groupId);
   CHECK(catIt != m_categories.end(), (groupId));
+  ASSERT_EQUAL(catIt->second->GetID(), groupId, ());
   return catIt->second.get();
 }
 
-// Despite the name, this method is called not only for newly created categories, but also for loaded/imported ones.
 void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool autoSave /* = false */)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -2804,90 +2721,40 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
   {
     auto & fileData = *fileDataPtr;
     auto & categoryData = fileData.m_categoryData;
+    auto groupId = GetCategoryByFileName(fileName);
 
-    // Initialize timestamp for newly created or imported categories.
+    // A file's modification time provides ordering when its category timestamp is absent.
     if (categoryData.m_lastModified == kml::Timestamp{})
       categoryData.m_lastModified = fileName.empty() ? kml::TimestampClock::now() : FileModificationTimestamp(fileName);
 
     if (!UserMarkIdStorage::Instance().CheckIds(fileData) || HasDuplicatedIds(fileData))
     {
       LOG(LINFO, ("Reset bookmark ids in the file", fileName));
-      // TODO: notify subscribers(like search subsystem). This KML could have been indexed.
       ResetIds(fileData);
     }
 
-    std::unordered_map<kml::CompilationId, BookmarkCategory *> compilations;
-    std::unordered_set<std::string> compilationNames;
-    for (auto & compilation : fileData.m_compilationsData)
-    {
-      SetUniqueName(compilation, [&compilationNames](auto const & name) { return compilationNames.count(name) == 0; });
-
-      auto const compilationId = compilation.m_compilationId;
-      auto childGroup = CreateBookmarkCompilation(std::move(compilation));
-      categoryData.m_compilationIds.push_back(childGroup->GetID());
-
-      compilations.emplace(compilationId, childGroup);
-      compilationNames.emplace(childGroup->GetName());
-      childGroup->SetFileName(fileName);
-      childGroup->SetServerId(fileData.m_serverId);
-    }
-
-    SetUniqueName(categoryData, [this](auto const & name) { return !IsUsedCategoryName(name); });
+    SetUniqueName(categoryData, groupId);
 
     UserMarkIdStorage::Instance().EnableSaving(false);
 
-    auto groupId = GetCategoryByFileName(fileName);
     // Set autoSave = false now to avoid useless saving in NotifyChanges().
     // autoSave flag will be assigned in the end of this function.
     if (groupId != kml::kInvalidMarkGroupId)
     {
       isUpdating = true;
-      UpdateBookmarkCategory(groupId, std::move(categoryData), false /* autoSave */);
+      UpdateBookmarkCategory(groupId, std::move(categoryData));
     }
     else
       groupId = CreateBookmarkCategory(std::move(categoryData), false /* autoSave */);
     loadedGroups.insert(groupId);
     auto * group = GetBmCategory(groupId);
     group->SetFileName(fileName);
-    group->SetServerId(fileData.m_serverId);
-
-    // Restore sensitive info from the cache.
-    auto const cacheIt = m_restoringCache.find(fileName);
-    if (cacheIt != m_restoringCache.end() &&
-        (group->GetServerId().empty() || group->GetServerId() == cacheIt->second.m_serverId) &&
-        cacheIt->second.m_accessRules != group->GetCategoryData().m_accessRules)
-    {
-      group->SetServerId(cacheIt->second.m_serverId);
-      group->SetAccessRules(cacheIt->second.m_accessRules);
-      group->EnableAutoSave(autoSave);
-    }
-
-    for (auto const & [compilationId, compilation] : compilations)
-    {
-      UNUSED_VALUE(compilationId);
-      compilation->SetParentId(groupId);
-      auto const & catData = group->GetCategoryData();
-      compilation->SetAccessRules(catData.m_accessRules);
-      compilation->SetAuthor(catData.m_authorName, catData.m_authorId);
-    }
 
     for (auto & bmData : fileData.m_bookmarksData)
     {
-      auto const compilationIds = bmData.m_compilations;
       auto * bm = CreateBookmark(std::move(bmData));
       bm->Attach(groupId);
       group->m_userMarks.insert(bm->GetId());
-      for (auto const c : compilationIds)
-      {
-        auto const it = compilations.find(c);
-        if (it == compilations.end())
-        {
-          LOG(LERROR, ("Incorrect compilation id", c, "into", fileName));
-          continue;
-        }
-        bm->AttachCompilation(it->second->GetID());
-        it->second->AttachUserMark(bm->GetId());
-      }
       m_changesTracker.OnAttachBookmark(bm->GetId(), groupId);
     }
     for (auto & trackData : fileData.m_tracksData)
@@ -2900,10 +2767,7 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
     UpdateTrackMarksVisibility(groupId);
     UserMarkIdStorage::Instance().EnableSaving(true);
   }
-  m_restoringCache.clear();
-
-  // During the updating process the file shouldn't be re-saved on disk because it should be already up to date.
-  // In other case race condition may occur when multiple devices are used.
+  // Reloads must not overwrite synchronized files and trigger new sync events.
   NotifyChanges(!isUpdating /* saveChangesOnDisk */);
 
   for (auto const & groupId : loadedGroups)
@@ -2928,20 +2792,10 @@ bool BookmarkManager::HasDuplicatedIds(kml::FileData const & fileData) const
     if (t.m_id != kml::kInvalidTrackId && m_tracks.count(t.m_id) > 0)
       return true;
 
-  for (auto const & c : fileData.m_compilationsData)
-  {
-    if (c.m_id != kml::kInvalidMarkGroupId &&
-        (m_categories.find(c.m_id) != m_categories.cend() || m_compilations.find(c.m_id) != m_compilations.cend()))
-    {
-      return true;
-    }
-  }
-
   return false;
 }
 
-template <typename UniquityChecker>
-void BookmarkManager::SetUniqueName(kml::CategoryData & data, UniquityChecker checker)
+void BookmarkManager::SetUniqueName(kml::CategoryData & data, kml::MarkGroupId excludedGroupId)
 {
   auto originalName = kml::GetDefaultStr(data.m_name);
   if (originalName.empty())
@@ -2952,7 +2806,7 @@ void BookmarkManager::SetUniqueName(kml::CategoryData & data, UniquityChecker ch
 
   auto uniqueName = originalName;
   int counter = 0;
-  while (!checker(uniqueName))
+  while (GetCategoryId(uniqueName, excludedGroupId) != kml::kInvalidMarkGroupId)
     uniqueName = originalName + strings::to_string(++counter);
 
   if (counter > 0)
@@ -2968,7 +2822,6 @@ void BookmarkManager::SetUniqueName(kml::CategoryData & data, UniquityChecker ch
 std::unique_ptr<kml::FileData> BookmarkManager::CollectBmGroupKMLData(BookmarkCategory const * group) const
 {
   auto kmlData = std::make_unique<kml::FileData>();
-  kmlData->m_serverId = group->GetServerId();
   kmlData->m_categoryData = group->GetCategoryData();
   auto const & markIds = group->GetUserMarks();
   kmlData->m_bookmarksData.reserve(markIds.size());
@@ -2983,12 +2836,6 @@ std::unique_ptr<kml::FileData> BookmarkManager::CollectBmGroupKMLData(BookmarkCa
   {
     auto const * track = GetTrack(trackId);
     kmlData->m_tracksData.emplace_back(track->GetData());
-  }
-
-  for (auto const compilationId : group->GetCategoryData().m_compilationIds)
-  {
-    auto const & compilation = GetCategoryData(compilationId);
-    kmlData->m_compilationsData.emplace_back(compilation);
   }
   return kmlData;
 }
@@ -3165,11 +3012,7 @@ bool BookmarkManager::IsCategoryEmpty(kml::MarkGroupId categoryId) const
 
 bool BookmarkManager::IsUsedCategoryName(std::string const & name) const
 {
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  for (auto const & c : m_categories)
-    if (c.second->GetName() == name)
-      return true;
-  return false;
+  return GetCategoryId(name) != kml::kInvalidMarkGroupId;
 }
 
 bool BookmarkManager::AreAllCategoriesVisible() const
@@ -3325,48 +3168,6 @@ bool BookmarkManager::MarksChangesTracker::HasBookmarkCategories(kml::GroupIdSet
   return std::any_of(groupIds.cbegin(), groupIds.cend(), BookmarkManager::IsBookmarkCategory);
 }
 
-void BookmarkManager::MarksChangesTracker::InferVisibility(BookmarkCategory * const group)
-{
-  kml::CategoryData const & categoryData = group->GetCategoryData();
-  if (categoryData.m_compilationIds.empty())
-    return;
-  std::unordered_set<kml::MarkGroupId> visibility;
-  visibility.reserve(categoryData.m_compilationIds.size());
-  for (kml::MarkGroupId const compilationId : categoryData.m_compilationIds)
-  {
-    auto const compilation = m_bmManager->m_compilations.find(compilationId);
-    CHECK(compilation != m_bmManager->m_compilations.end(), ());
-    if (compilation->second->IsVisible())
-      visibility.emplace(compilationId);
-  }
-  auto const groupId = group->GetID();
-  for (kml::MarkId const userMark : m_bmManager->GetUserMarkIds(groupId))
-  {
-    if (!BookmarkManager::IsBookmark(userMark))
-      continue;
-    Bookmark * const bookmark = m_bmManager->GetBookmarkForEdit(userMark);
-    bool isVisible = false;
-    if (bookmark->GetCompilations().empty())
-    {
-      // Bookmarks that not belong to any compilation have to be visible.
-      // They can be hidden only by changing parental BookmarkCategory visibility to false.
-      isVisible = true;
-    }
-    else
-    {
-      for (kml::MarkGroupId const compilationId : bookmark->GetCompilations())
-      {
-        if (visibility.count(compilationId) != 0)
-        {
-          isVisible = true;
-          break;
-        }
-      }
-    }
-    bookmark->SetIsVisible(isVisible);
-  }
-}
-
 void BookmarkManager::MarksChangesTracker::OnAttachBookmark(kml::MarkId markId, kml::MarkGroupId catId)
 {
   InsertBookmark(markId, catId, m_attachedBookmarks, m_detachedBookmarks);
@@ -3439,9 +3240,6 @@ void BookmarkManager::MarksChangesTracker::AcceptDirtyItems()
   for (auto groupId : m_updatedGroups)
   {
     auto * userMarkLayer = m_bmManager->GetGroup(groupId);
-    if (auto * group = dynamic_cast<BookmarkCategory *>(userMarkLayer))
-      InferVisibility(group);
-
     if (userMarkLayer->IsVisibilityChanged())
     {
       if (userMarkLayer->IsVisible())

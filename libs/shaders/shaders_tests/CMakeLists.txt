@@ -7,9 +7,8 @@ set(SRC
 
 omim_add_test(${PROJECT_NAME} ${SRC})
 
-# The mobile compilation test runs the compilers bundled in tools/shaders_compiler, which exist for
-# Linux and macOS only. It takes much more time than the other tests, so it should be the last.
-if (PLATFORM_LINUX OR PLATFORM_MAC)
+# It takes much more time than the other tests, so it should be the last.
+if ((PLATFORM_LINUX AND CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64") OR PLATFORM_MAC)
   target_sources(${PROJECT_NAME}
     PRIVATE
       gl_shaders_mobile_compile_test.cpp

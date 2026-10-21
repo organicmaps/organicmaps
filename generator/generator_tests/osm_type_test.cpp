@@ -15,11 +15,14 @@
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_visibility.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "platform/platform.hpp"
 
 #include "base/file_name_utils.hpp"
 #include "base/stl_helpers.hpp"
 
+#include <optional>
 #include <set>
 #include <string>
 #include <vector>
@@ -1159,6 +1162,37 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Subway)
   }
 }
 
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_SubwayCities)
+{
+  auto const check = [](Tags const & tags, double lat, double lon, Type const & expected)
+  {
+    OsmElement element;
+    element.m_type = OsmElement::EntityType::Node;
+    FillXmlElement(tags, &element);
+
+    FeatureBuilderParams params;
+    auto const origin = mercator::FromLatLon(lat, lon);
+    ftype::GetNameAndType(&element, params, &feature::IsUsefulType,
+                          [origin](OsmElement const *) -> std::optional<m2::PointD> { return origin; });
+
+    TEST_EQUAL(params.m_types.size(), 1, (params, lat, lon));
+    TEST(params.IsTypeExist(GetType(expected)), (params, lat, lon));
+  };
+
+  check({{"railway", "station"}, {"station", "subway"}}, 31.3329103, 120.6064286,
+        {"railway", "station", "subway", "suzhou"});
+  check({{"railway", "station"}, {"station", "subway"}}, 31.1395963, 120.6956499,
+        {"railway", "station", "subway", "suzhou"});
+  check({{"railway", "station"}, {"station", "subway"}}, 31.3012385, 121.0998583,
+        {"railway", "station", "subway", "suzhou"});
+  check({{"railway", "station"}, {"station", "subway"}, {"network", "上海地铁"}}, 31.3006017, 121.0997590,
+        {"railway", "station", "subway", "shanghai"});
+  check({{"railway", "subway_entrance"}}, 31.3008564, 121.0996757, {"railway", "subway_entrance", "suzhou"});
+  check({{"railway", "station"}, {"station", "subway"}}, 31.07261, 120.95989,
+        {"railway", "station", "subway", "shanghai"});
+  check({{"railway", "station"}, {"station", "subway"}}, 31.47592, 120.27268, {"railway", "station", "subway"});
+}
+
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_PublicTransport)
 {
   {
@@ -1818,11 +1852,8 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_IntermittentWaterAreas)
   char const * const waters[] = {"basin", "ditch", "drain",     "lake",  "lock",
                                  "moat",  "pond",  "reservoir", "river", "wastewater"};
 
-  Tags const nonPermanent = {{"intermittent", "yes"},
-                             {"seasonal", "yes"},
-                             {"seasonal", "spring;summer"},
-                             {"basin", "detention"},
-                             {"basin", "infiltration"}};
+  Tags const nonPermanent = {{"intermittent", "yes"}, {"seasonal", "yes"},       {"seasonal", "spring;summer"},
+                             {"basin", "detention"},  {"basin", "infiltration"}, {"ephemeral", "yes"}};
   for (auto const & tag : nonPermanent)
   {
     TestTypes({{"natural", "water"}, tag}, {intermittent});
@@ -1837,10 +1868,10 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_IntermittentWaterAreas)
   TestTypes({{"waterway", "riverbank"}, {"seasonal", "summer"}}, {{"natural", "water", "river"}, intermittent});
   // Different type groups get their own intermittent types.
   TestTypes({{"landuse", "basin"}, {"natural", "water"}, {"intermittent", "yes"}}, {basinIntermittent, intermittent});
-  // Tunnels keep their own type only.
+  // Water tunnels have no useful types and are excluded from generated features.
   TestTypes({{"natural", "water"}, {"tunnel", "culvert"}, {"intermittent", "yes"}}, {});
 
-  Tags const permanent = {{"intermittent", "no"}, {"seasonal", "no"}, {"basin", "retention"}};
+  Tags const permanent = {{"intermittent", "no"}, {"seasonal", "no"}, {"basin", "retention"}, {"ephemeral", "no"}};
   for (auto const & tag : permanent)
   {
     TestTypes({{"natural", "water"}, tag}, {{"natural", "water"}});
@@ -1852,6 +1883,25 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_IntermittentWaterAreas)
   // seasonal=* is valid for non-water features too.
   TestTypes({{"natural", "wetland"}, {"seasonal", "yes"}}, {{"natural", "wetland"}});
   TestTypes({{"leisure", "ice_rink"}, {"seasonal", "winter"}}, {{"leisure", "ice_rink"}});
+}
+
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_IntermittentWaterways)
+{
+  Tags const nonPermanent = {{"intermittent", "yes"},
+                             {"intermittent", "ephemeral"},
+                             {"seasonal", "yes"},
+                             {"seasonal", "wet_season"},
+                             {"ephemeral", "yes"}};
+  Tags const permanent = {{"intermittent", "no"}, {"seasonal", "no"}, {"ephemeral", "no"}};
+  for (char const * base : {"canal", "ditch", "drain", "fish_pass", "river", "stream"})
+  {
+    for (auto const & tag : nonPermanent)
+      TestTypes({{"waterway", base}, tag}, {{"waterway", base, "intermittent"}});
+    for (auto const & tag : permanent)
+      TestTypes({{"waterway", base}, tag}, {{"waterway", base}});
+    TestTypes({{"waterway", base}, {"intermittent", "yes"}, {"ephemeral", "yes"}},
+              {{"waterway", base, "intermittent"}});
+  }
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Organic)
@@ -3122,7 +3172,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
       {{"tourism", "information", "office"}, {{"tourism", "information"}, {"information", "office"}}},
       //{{"waterway", "canal", "tunnel"}, {{"waterway", "canal"}, {"tunnel", "any_value"}}},
       //{{"waterway", "river", "tunnel"}, {{"waterway", "river"}, {"tunnel", "any_value"}}},
-      {{"waterway", "stream", "ephemeral"}, {{"waterway", "stream"}, {"intermittent", "ephemeral"}}},
       {{"waterway", "stream", "intermittent"}, {{"waterway", "stream"}, {"intermittent", "yes"}}},
   };
 

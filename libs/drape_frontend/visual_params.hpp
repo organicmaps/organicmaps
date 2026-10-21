@@ -77,6 +77,8 @@ int GetDrawTileScale(m2::RectD const & r, uint32_t tileSize, double visualScale)
 int GetDrawTileScale(ScreenBase const & s);
 int GetDrawTileScale(m2::RectD const & r);
 
+int GetTileBackgroundZoom(int drawZoom, bool isPerspective);
+
 m2::RectD GetRectForDrawScale(int drawScale, m2::PointD const & center, uint32_t tileSize, double visualScale);
 m2::RectD GetRectForDrawScale(int drawScale, m2::PointD const & center);
 

@@ -17,6 +17,7 @@
 #include "coding/blake3.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
+#include "coding/reader.hpp"
 
 #include "base/exception.hpp"
 #include "base/file_name_utils.hpp"
@@ -31,6 +32,7 @@
 
 #include <algorithm>
 #include <sstream>
+#include <string_view>
 
 namespace storage
 {
@@ -68,12 +70,9 @@ CountryTree::Node const & LeafNodeFromCountryId(CountryTree const & root, Countr
   return *node;
 }
 
-bool IsFileDownloaded(std::string const & readyFilePath, MapFileType type)
+bool HasDownloadedFile(std::string const & readyFilePath, MapFileType type)
 {
-  // Since a downloaded valid diff file may be either with .diff or .diff.ready extension,
-  // we have to check these both cases in order to find
-  // the diff file which is ready to apply.
-  // If there is such a file we have to cause the success download scenario.
+  // Downloaded diffs can have either .diff or .diff.ready extension.
   bool isDownloadedDiff = false;
   if (type == MapFileType::Diff)
   {
@@ -82,9 +81,7 @@ bool IsFileDownloaded(std::string const & readyFilePath, MapFileType type)
     isDownloadedDiff = GetPlatform().IsFileExistsByFullPath(filePath);
   }
 
-  // It may happen that the file already was downloaded, so there is
-  // no need to request servers list and download file.  Let's
-  // switch to next file.
+  // Existing files skip the transfer but still follow the validation and registration path.
   return isDownloadedDiff || GetPlatform().IsFileExistsByFullPath(readyFilePath);
 }
 }  // namespace
@@ -102,14 +99,13 @@ Progress Storage::GetOverallProgress(CountriesVec const & countries) const
   Progress overallProgress;
   for (auto const & country : countries)
   {
-    // Lightweight progress for leaf nodes (asserted by the original code).
-    // Avoids the full subtree traversal, status computation, and string
+    // Leaf-country progress avoids the subtree traversal, status computation and
     // allocations that GetNodeAttrs performs.
     auto const downloadingIt = m_downloadingCountries.find(country);
     if (downloadingIt != m_downloadingCountries.cend())
     {
-      if (!downloadingIt->second.IsUnknown())
-        overallProgress.m_bytesDownloaded += downloadingIt->second.m_bytesDownloaded;
+      if (!downloadingIt->second.m_progress.IsUnknown())
+        overallProgress.m_bytesDownloaded += downloadingIt->second.m_progress.m_bytesDownloaded;
       overallProgress.m_bytesTotal += GetRemoteSize(GetCountryFile(country));
     }
     else if (m_justDownloaded.count(country) != 0)
@@ -242,7 +238,15 @@ void Storage::Clear()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
+  auto countries = GetQueuedCountries(m_downloader->GetQueue());
+  for (auto const & [countryId, _] : m_downloadingCountries)
+    countries.insert(countryId);
+
+  // Request teardown can write resume state; delete temporary files afterwards.
   m_downloader->Clear();
+  m_downloadingCountries.clear();
+  for (auto const & countryId : countries)
+    DeleteDownloaderFilesForCountry(m_currentVersion, m_dataDir, GetCountryFile(countryId));
   m_justDownloaded.clear();
   m_failedCountries.clear();
   m_localFiles.clear();
@@ -440,7 +444,7 @@ LocalAndRemoteSize Storage::CountrySizeInBytes(CountryId const & countryId) cons
 
   auto const it = m_downloadingCountries.find(countryId);
   if (it != m_downloadingCountries.cend())
-    sizes.first = it->second.m_bytesDownloaded;
+    sizes.first = it->second.m_progress.m_bytesDownloaded;
 
   return sizes;
 }
@@ -459,8 +463,7 @@ LocalFilePtr Storage::GetLatestLocalFile(CountryId const & countryId) const
   {
     // 2 is possible in the moment of updating the map (old and new are both present).
     auto const & files = it->second;
-    size_t const sz = files.size();
-    ASSERT(sz > 0 && sz < 3, (sz));
+    ASSERT(!files.empty() && files.size() < 3, (files.size()));
 
     LocalFilePtr latest = files.front();
     for (LocalFilePtr const & file : files)
@@ -486,14 +489,10 @@ Status Storage::CountryStatus(CountryId const & countryId) const
   if (m_failedCountries.count(countryId) > 0)
     return Status::DownloadFailed;
 
-  // Check if we are already downloading this country or have it in the queue.
+  if (m_downloadingCountries.contains(countryId))
+    return Status::Downloading;
   if (IsCountryInQueue(countryId))
-  {
-    if (m_downloadingCountries.find(countryId) != m_downloadingCountries.cend())
-      return Status::Downloading;
-
     return Status::InQueue;
-  }
 
   if (IsDiffApplyingInProgressToCountry(countryId))
     return Status::Applying;
@@ -562,8 +561,12 @@ void Storage::SaveDownloadQueue()
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   std::ostringstream ss;
-  m_downloader->GetQueue().ForEachCountry([&ss](QueuedCountry const & country)
-  { ss << (ss.tellp() == 0 ? "" : ";") << country.GetCountryId(); });
+  auto const append = [&ss](CountryId const & countryId) { ss << (ss.tellp() == 0 ? "" : ";") << countryId; };
+  m_downloader->GetQueue().ForEachCountry([&append](QueuedCountry const & country) { append(country.GetCountryId()); });
+  // A transfer can leave the queue before validation registers its map.
+  for (auto const & [countryId, _] : m_downloadingCountries)
+    if (!IsCountryInQueue(countryId))
+      append(countryId);
 
   settings::Set(kDownloadQueueKey, ss.str());
 }
@@ -592,7 +595,8 @@ void Storage::DownloadCountry(CountryId const & countryId, MapFileType type)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  if (IsCountryInQueue(countryId) || IsDiffApplyingInProgressToCountry(countryId))
+  if (IsCountryInQueue(countryId) || m_downloadingCountries.contains(countryId) ||
+      IsDiffApplyingInProgressToCountry(countryId))
     return;
 
   m_failedCountries.erase(countryId);
@@ -606,14 +610,16 @@ void Storage::DownloadCountry(CountryId const & countryId, MapFileType type)
     return;
   }
 
-  if (IsFileDownloaded(GetFileDownloadPath(countryId, type), type))
-  {
-    OnMapDownloadFinished(countryId, DownloadStatus::Completed, type);
-    return;
-  }
-
   QueuedCountry queuedCountry(countryFile, countryId, type, m_currentVersion, m_dataDir, m_diffsDataSource);
   queuedCountry.Subscribe(*this);
+
+  if (HasDownloadedFile(GetFileDownloadPath(countryId, type), type))
+  {
+    OnStartDownloading(queuedCountry);
+    SaveDownloadQueue();
+    OnDownloadFinished(queuedCountry, DownloadStatus::Completed);
+    return;
+  }
 
   m_downloader->DownloadMapFile(std::move(queuedCountry));
 }
@@ -630,8 +636,6 @@ void Storage::DeleteCountry(CountryId const & countryId, MapFileType type)
   DeleteCountryFiles(countryId, type, deferredDelete);
   DeleteCountryFilesFromDownloader(countryId);
   m_diffsDataSource->RemoveDiffForCountry(countryId);
-
-  m_downloadingCountries.erase(countryId);
 
   NotifyStatusChangedForHierarchy(countryId);
 }
@@ -688,7 +692,7 @@ bool Storage::IsDownloadInProgress() const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  return !m_downloader->GetQueue().IsEmpty();
+  return !m_downloadingCountries.empty() || !m_downloader->GetQueue().IsEmpty() || !m_diffsBeingApplied.empty();
 }
 
 void Storage::LoadCountriesFile(std::string const & pathToCountriesFile)
@@ -753,10 +757,9 @@ void Storage::OnStartDownloading(QueuedCountry const & queuedCountry)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
+  VERIFY(m_downloadingCountries.try_emplace(queuedCountry.GetCountryId()).second, (queuedCountry.GetCountryId()));
   if (m_startDownloadingCallback)
     m_startDownloadingCallback();
-
-  m_downloadingCountries[queuedCountry.GetCountryId()] = Progress::Unknown();
 
   NotifyStatusChangedForHierarchy(queuedCountry.GetCountryId());
 }
@@ -765,12 +768,12 @@ void Storage::OnDownloadProgress(QueuedCountry const & queuedCountry, Progress c
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  if (m_observers.empty())
-    return;
+  auto const it = m_downloadingCountries.find(queuedCountry.GetCountryId());
+  ASSERT(it != m_downloadingCountries.end(), (queuedCountry.GetCountryId()));
+  it->second.m_progress = progress;
 
-  m_downloadingCountries[queuedCountry.GetCountryId()] = progress;
-
-  ReportProgressForHierarchy(queuedCountry.GetCountryId(), progress);
+  if (!m_observers.empty())
+    ReportProgressForHierarchy(queuedCountry.GetCountryId(), progress);
 }
 
 void Storage::OnDownloadFinished(QueuedCountry const & queuedCountry, DownloadStatus status)
@@ -779,39 +782,61 @@ void Storage::OnDownloadFinished(QueuedCountry const & queuedCountry, DownloadSt
 
   auto const & countryId = queuedCountry.GetCountryId();
   auto const fileType = queuedCountry.GetFileType();
-  auto const finishFn = [this, countryId, fileType](DownloadStatus status)
+  auto const it = m_downloadingCountries.find(countryId);
+  // Deferred transfer completion can arrive after cancellation.
+  if (status == DownloadStatus::Completed && it == m_downloadingCountries.end())
+    return;
+
+  auto const path = GetFileDownloadPath(countryId, fileType);
+  auto finishFn = [this, countryId, fileType, path](DownloadStatus status)
   {
+    CHECK_THREAD_CHECKER(m_threadChecker, ());
+    // Deletion shares the owner thread with retries, so an old result cannot delete a new file.
+    if (status == DownloadStatus::FailedIntegrityCheck)
+      base::DeleteFileX(path);
     m_downloadingCountries.erase(countryId);
     OnMapDownloadFinished(countryId, status, fileType);
     OnFinishDownloading();
   };
 
-  if (status == DownloadStatus::Completed && m_integrityValidationEnabled)
+  auto const hash = status == DownloadStatus::Completed && m_integrityValidationEnabled
+                      ? GetCountryFile(countryId).GetHash()
+                      : std::string{};
+  if (!hash.empty())
   {
-    /// @todo Can/Should be combined with ApplyDiff routine when we will restore it.
-    /// While this is simple and working solution, I think that Downloader component
-    /// should make this kind of checks (taking the expected hash as input). But now it's
-    /// not so simple as it may seem ..
+    auto const size = static_cast<int64_t>(queuedCountry.GetDownloadSize());
+    it->second.m_progress = {size, size};
+    // Hashing runs on the file thread to keep the GUI responsive; completion returns
+    // to Storage's owner thread before accessing its state.
 
-    GetPlatform().RunTask(Platform::Thread::File,
-                          [path = GetFileDownloadPath(countryId, fileType), hash = GetCountryFile(countryId).GetHash(),
-                           fn = std::move(finishFn)]()
+    GetPlatform().RunTask(Platform::Thread::File, [path, hash, lifetime = std::weak_ptr(it->second.m_lifetime),
+                                                   fn = std::move(finishFn)]() mutable
     {
-      DownloadStatus status = DownloadStatus::Completed;
-
-      if (coding::Blake3::CalculateMwmBase64(path) != hash)
+      if (lifetime.expired())
+        return;
+      DownloadStatus status = DownloadStatus::FailedIntegrityCheck;
+      std::string readError;
+      try
       {
-        base::DeleteFileX(path);
-        status = DownloadStatus::FailedIntegrityCheck;
-        LOG(LERROR, ("Integrity check error for", path));
+        if (coding::Blake3::CalculateMwmBase64(path) == hash)
+          status = DownloadStatus::Completed;
+      }
+      catch (Reader::Exception const & ex)
+      {
+        readError = ex.what();
       }
 
-      GetPlatform().RunTask(Platform::Thread::Gui, [fn = std::move(fn), status]()
+      GetPlatform().RunTask(Platform::Thread::Gui, [lifetime = std::move(lifetime), fn = std::move(fn), path, status,
+                                                    readError = std::move(readError)]()
       {
+        if (lifetime.expired())
+          return;
+        // Clean up and notify before error logging can abort a Debug build.
+        fn(status);
         if (status == DownloadStatus::Completed)
           LOG(LDEBUG, ("Successful integrity check"));
-
-        fn(status);
+        else
+          LOG(LERROR, ("Integrity check error for", path, readError));
       });
     });
   }
@@ -1074,6 +1099,7 @@ bool Storage::DeleteCountryFilesFromDownloader(CountryId const & countryId)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
+  m_downloadingCountries.erase(countryId);
   if (IsDiffApplyingInProgressToCountry(countryId))
     m_diffsBeingApplied[countryId]->Cancel();
 
@@ -1206,8 +1232,6 @@ void Storage::ApplyCountries(std::string const & countriesBuffer, Storage & stor
   // Affiliations, synonyms, etc can be updated with the app update.
   // m_affiliations = std::move(storage.m_affiliations);
   // m_countryNameSynonyms = std::move(storage.m_countryNameSynonyms);
-  // m_mwmTopCityGeoIds = std::move(storage.m_mwmTopCityGeoIds);
-  // m_mwmTopCountryGeoIds = std::move(storage.m_mwmTopCountryGeoIds);
 
   LOG(LDEBUG, ("Version", m_currentVersion, "is applied"));
 
@@ -1308,7 +1332,7 @@ void Storage::GetChildrenInGroups(CountryId const & parent, CountriesVec & downl
     }
   });
 
-  size_t constexpr kAllDisputedCount = 11;
+  [[maybe_unused]] size_t constexpr kAllDisputedCount = 11;
   ASSERT_LESS(disputedTerritoriesWithoutSiblings.size(), kAllDisputedCount, ());
   ASSERT_LESS(allDisputedTerritories.size(), kAllDisputedCount, ());
 
@@ -1610,7 +1634,9 @@ void Storage::SetStartDownloadingCallback(StartDownloadingCallback const & cb)
 
 void Storage::OnFinishDownloading()
 {
-  if (!m_diffsBeingApplied.empty() || !m_downloader->GetQueue().IsEmpty())
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  if (IsDownloadInProgress())
     return;
 
   m_justDownloaded.clear();
@@ -1831,8 +1857,8 @@ Progress Storage::CalculateProgress(CountryTree::Node const & subtreeRoot, Count
     auto const downloadingIt = m_downloadingCountries.find(d);
     if (downloadingIt != m_downloadingCountries.cend())
     {
-      if (!downloadingIt->second.IsUnknown())
-        result.m_bytesDownloaded += downloadingIt->second.m_bytesDownloaded;
+      if (!downloadingIt->second.m_progress.IsUnknown())
+        result.m_bytesDownloaded += downloadingIt->second.m_progress.m_bytesDownloaded;
 
       result.m_bytesTotal += GetRemoteSize(GetCountryFile(d));
     }
@@ -1887,13 +1913,11 @@ void Storage::CancelDownloadNode(CountryId const & countryId)
   ForEachInSubtree(countryId, [&](CountryId const & descendantId, bool /* groupNode */)
   {
     auto needNotify = false;
-    if (setQueue.count(descendantId) != 0)
+    if (setQueue.count(descendantId) != 0 || m_downloadingCountries.contains(descendantId))
       needNotify = DeleteCountryFilesFromDownloader(descendantId);
 
     if (m_failedCountries.erase(descendantId) != 0)
       needNotify = true;
-
-    m_downloadingCountries.erase(descendantId);
 
     if (needNotify)
       NotifyStatusChangedForHierarchy(descendantId);

@@ -985,13 +985,12 @@ void Ranker::MatchForSuggestions(strings::UniString const & token, int8_t locale
 {
   for (auto const & suggest : m_suggests)
   {
-    strings::UniString const & s = suggest.m_name;
+    strings::UniString const & s = suggest.m_normalizedName;
     if (suggest.m_prefixLength <= token.size() && token != s  // do not push suggestion if it already equals to token
         && suggest.m_locale == locale                         // push suggestions only for needed language
         && strings::StartsWith(s, token))
     {
-      std::string const utf8Str = strings::ToUtf8(s);
-      Result r(utf8Str, prologue + utf8Str + " ");
+      Result r(suggest.m_name, prologue + suggest.m_name + " ");
       HighlightResult(m_params.m_query.m_tokens, m_params.m_query.m_prefix, r);
       m_emitter.AddResult(std::move(r));
     }

@@ -1,28 +1,33 @@
-• Cài đặt mới “Lưu lịch sử tìm kiếm” giúp bạn giữ riêng tư lịch sử tìm kiếm khi cần
+## Tính năng định tuyến
+• Cải thiện các lộ trình thay thế và thời gian đến dự kiến của chúng
+• Đã thêm các nút để thêm hoặc thay thế một điểm dừng trong lộ trình đã lên kế hoạch
+• Đã thêm một cài đặt để tối ưu hóa thứ tự các điểm dừng trung gian trên lộ trình
+• Lộ trình thay thế đã chọn hiện được giữ nguyên khi hệ thống định vị tính toán lại lộ trình
+• Thứ tự các điểm dừng trên lộ trình hiện đã được khôi phục sau khi khởi động lại ứng dụng
 
-## Bản đồ & địa điểm
-• Dữ liệu OpenStreetMap cập nhật đến ngày 14 tháng 7
-• Các ghi chú OpenStreetMap giờ đây được đặt chính xác tại vị trí bạn chọn, thay vì ở giữa khu rừng
-• Cải thiện việc chọn bản đồ cho các khu vực nằm qua đường kinh tuyến đối diện 180°
-• Biểu đồ độ cao của lộ trình không còn hiển thị các biểu đồ lỗi thời hoặc trống sau khi xóa lộ trình
-• Cải thiện biểu đồ độ cao trống cho các lộ trình đã ghi lại
-• Nút xóa dấu trang dễ tìm hơn
-• Tự động lưu dấu trang khi bạn thoát khỏi màn hình chỉnh sửa
-• Bảng màu bao gồm các màu được định sẵn và cho phép bạn chọn bất kỳ màu tùy chỉnh nào
-• Các cải tiến khác về giao diện người dùng
+## Bản đồ
+• Dữ liệu OpenStreetMap tính đến ngày 28 tháng 9
+• Dữ liệu từ Wikipedia tính đến ngày 21 tháng 9
+• Các hồ chứa nước hiện đã hiển thị khi thu nhỏ bản đồ ra xa hơn
+• Các đường hầm dẫn nước không còn được hiển thị trên bản đồ
+• Đã sửa các biểu tượng trạm và lối vào của Metro Tô Châu
+• Đã khắc phục các trường hợp hiếm gặp khi nhãn bị lệch khỏi vị trí trên lớp bản đồ tàu điện ngầm
 
-## Giao thông công cộng
-• Tên các trạm dừng, điểm chuyển tuyến và ga hiện sử dụng viền trắng để đảm bảo dễ đọc trong cả chế độ sáng và tối
-• Lớp bản đồ tàu điện ngầm hiển thị lại chính xác sau khi bạn đóng bản xem trước lộ trình giao thông công cộng
+## CarPlay
+• Đã thêm chỉ dẫn rẽ trên màn hình hiển thị trên kính lái (HUD) của xe được hỗ trợ và bảng điều khiển CarPlay
+• Đã sửa lỗi các nút và chức năng tìm kiếm trên CarPlay
 
-## Lập lộ trình & điều hướng
-• Đã khắc phục các sự cố liên quan đến chỉ dẫn sai hoặc thiếu
-• Các cảnh báo lộ trình (phí cầu đường, phà, đường chưa trải nhựa, cầu thang, v.v.) nay được hiển thị cho tất cả các lộ trình thay thế
-• Đã khắc phục tình trạng ứng dụng hiếm khi bị đơ khi xây dựng lộ trình và cải thiện cách xử lý các ngõ cụt cũng như điểm xuất phát/đích trên đường có hạn chế
-• Cải thiện hiển thị tiến trình lộ trình trên nút bắt đầu
-• Việc sắp xếp lại thứ tự các điểm dừng trên lộ trình không còn khiến danh sách bị nhảy loạn nữa
+## Hành trình đã ghi
+• Đã thêm biểu tượng hình con mắt để ẩn từng đường đi riêng lẻ
+• Đã sửa lỗi và cải thiện tính năng ghi lại đường đi
+• Đã khắc phục lỗi nhập tệp KMB
 
-## Bản dịch
-• Cải thiện cách diễn đạt trong tiếng Trung
-• Cập nhật bản dịch tiếng Ukraina
-• Sửa lỗi bản dịch tên các khu vực trên bản đồ bằng tiếng Ý
+## Tìm kiếm
+• Đã khắc phục lỗi tìm kiếm khi khu vực bản đồ hiển thị vượt qua kinh tuyến 180° (kinh độ ±180°)
+• Đã khôi phục tính năng tìm kiếm theo danh mục trong Spotlight
+
+## Giao diện người dùng (UI)
+• Giờ mở cửa hiện hiển thị “Buổi trưa” cho 12:00 và “Nửa đêm” cho 00:00 hoặc 24:00
+• Đã khắc phục các lỗi khác nhau và cải thiện giao diện người dùng
+• Đã sửa các bản dịch tiếng Anh, tiếng Pháp và tiếng Asturian
+• Đã thêm tính năng hỗ trợ chọn và nghe thử giọng nói dẫn đường đã cài đặt

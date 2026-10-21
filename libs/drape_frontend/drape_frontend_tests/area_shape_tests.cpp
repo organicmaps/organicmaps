@@ -15,7 +15,7 @@ double Frac(double v)
   return v - std::floor(v);
 }
 
-// Reproduces the GPU mask UV that DrawHatchingArea bakes into the vertex buffer:
+// Reproduces the GPU pattern UV that AreaShape::DrawPatternArea bakes into the vertex buffer:
 //   maxU * (worldCoord - anchor),  maxU = baseGtoPScale / maskSizePx.
 double HatchUV(double worldCoord, double bboxMin, uint32_t maskSizePx, double baseGtoPScale)
 {
@@ -52,15 +52,9 @@ UNIT_TEST(HatchingPhaseAnchor_StableAcrossTileClipping)
   double const uvA = HatchUV(worldX, bboxMinA, kMaskPx, kBaseGtoP);
   double const uvB = HatchUV(worldX, bboxMinB, kMaskPx, kBaseGtoP);
   TEST_ALMOST_EQUAL_ABS(Frac(uvA), Frac(uvB), 1e-5, (uvA, uvB));
-
-  // Guard against regression: the previous bbox-anchored formula did NOT have this property.
-  double const oldA = (kBaseGtoP / kMaskPx) * (worldX - bboxMinA);
-  double const oldB = (kBaseGtoP / kMaskPx) * (worldX - bboxMinB);
-  TEST_GREATER(std::abs(Frac(oldA) - Frac(oldB)), 1e-3, (oldA, oldB));
 }
 
-// Phase stability must also hold when the same feature is rendered at different zoom levels: at a fixed
-// world coordinate the texel depends only on baseGtoPScale, not on the (clipped) bbox.
+// At a fixed scale, the phase depends only on the world coordinate, including at negative coordinates.
 UNIT_TEST(HatchingPhaseAnchor_IndependentOfBBoxAtFixedScale)
 {
   uint32_t const kMaskPx = 16;
@@ -79,18 +73,20 @@ UNIT_TEST(HatchingPhaseAnchor_IndependentOfBBoxAtFixedScale)
 
 // Within a DepthLayer, render groups draw in dp::RenderState order (RenderGroupComparator falls back to
 // RenderState::operator<, which for a shared layer and blending compares the gpu::Program value). The
-// analytic solid-fill patterns (stipple/speckle/grid) are opaque fills, but a hatch overlay is transparent
-// between its lines yet still writes depth across its whole quad (depth-write is bound to the depth test).
-// So a fill whose group is drawn AFTER the hatch is depth-culled wherever they overlap -- e.g. a landcover
-// fill under a protected-area hatch. The fills must therefore sort BEFORE the hatch programs; this guards
-// the regression of declaring a solid-fill pattern program after HatchingArea in programs.hpp.
-UNIT_TEST(AreaPatterns_SolidFillsDrawBeforeHatchOverlay)
+// analytic solid-fill patterns (stipple/speckle/grid) are background fills, but translucent geometry still writes
+// depth across its whole shape (depth-write is bound to the depth test), including its transparent pixels such
+// as the gaps of a hatch or a dashed line. So a fill whose group is drawn AFTER such geometry is depth-culled
+// wherever they overlap -- e.g. a landcover fill under a protected-area hatch, or a beach under a path. The
+// fills must therefore sort BEFORE every program that can draw translucent geometry over them.
+UNIT_TEST(AreaPatterns_SolidFillsDrawBeforeTranslucentGeometry)
 {
   auto const state = [](gpu::Program p) { return df::CreateRenderState(p, df::DepthLayer::GeometryLayer); };
 
   // gpu::DebugPrint returns string_view, which base::Message can't concatenate; wrap names in std::string.
   for (auto fill : {gpu::Program::AreaStipple, gpu::Program::AreaSpeckle, gpu::Program::AreaGrid})
-    for (auto hatch : {gpu::Program::HatchingArea, gpu::Program::HatchingAreaDash})
-      TEST(state(fill) < state(hatch),
-           (std::string{DebugPrint(fill)}, "must sort before", std::string{DebugPrint(hatch)}));
+    for (auto overlay :
+         {gpu::Program::Line, gpu::Program::DashedLine, gpu::Program::PathSymbol, gpu::Program::TransparentArea,
+          gpu::Program::CapJoin, gpu::Program::HatchingArea, gpu::Program::HatchingAreaDash})
+      TEST(state(fill) < state(overlay),
+           (std::string{DebugPrint(fill)}, "must sort before", std::string{DebugPrint(overlay)}));
 }

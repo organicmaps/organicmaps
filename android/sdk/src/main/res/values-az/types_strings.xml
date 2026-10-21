@@ -185,7 +185,8 @@
     <string name="type.barrier.chain">Zəncir</string>
     <string name="type.barrier.city_wall">Şəhər Divarı</string>
     <string name="type.barrier.cycle_barrier">Velosiped maneəsi</string>
-    <string name="type.waterway.ditch">Drenaj çuxuru</string>
+    <string name="type.waterway.ditch">Drenaj xəndəyi</string>
+    <string name="type.waterway.ditch.intermittent">Müvəqqəti drenaj xəndəyi</string>
     <string name="type.natural.water.moat">Xəndək</string>
     <string name="type.natural.water.wastewater">Tullantı su</string>
     <string name="type.barrier.entrance">Giriş</string>
@@ -365,49 +366,49 @@
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Avtomobil yolu</string>
     <string name="type.highway.bridleway">Atlı yolu</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.bridleway.bridge">Körpü</string>
     <string name="type.highway.bridleway.permissive">Atlı yolu</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.bridleway.tunnel">Tunel</string>
     <string name="type.highway.busway">Şəxsi avtobus marşrutu</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.busway.bridge">Körpü</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.busway.tunnel">Tunel</string>
     <string name="type.highway.bus_stop">Avtobus dayanacağı</string>
     <string name="type.highway.construction">Tikili Yol</string>
     <string name="type.highway.cycleway">Velosiped yolu</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.cycleway.bridge">Körpü</string>
     <string name="type.highway.cycleway.permissive">Velosiped yolu</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.cycleway.tunnel">Tunel</string>
     <string name="type.highway.elevator">Lift</string>
     <string name="type.highway.footway">Səki</string>
     <string name="type.highway.footway.sidewalk">Səki</string>
     <string name="type.highway.footway.crossing">Piyada keçidi</string>
     <string name="type.highway.footway.area">Piyada ərazisi</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.footway.bridge">Körpü</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.footway.tunnel">Tunel</string>
     <string name="type.highway.ford">Keçid</string>
     <string name="type.highway.living_street">Küçə</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.living_street.bridge">Körpü</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.living_street.tunnel">Tunel</string>
     <string name="type.highway.motorway">Avtomobil yolu</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.motorway.bridge">Körpü</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.motorway.tunnel">Tunel</string>
     <string name="type.highway.motorway_junction">Çıx</string>
     <string name="type.highway.motorway_link">Magistral yol enişi</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.motorway_link.bridge">Körpü</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.motorway_link.tunnel">Tunel</string>
     <string name="type.highway.path">Yol</string>
     <!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
@@ -416,102 +417,102 @@
     <string name="type.highway.path.expert">Çox çətin və ya fərqlənməyən cığır</string>
     <string name="type.highway.path.bicycle">Velosiped və Gəzinti Yolu</string>
     <string name="type.highway.footway.bicycle">Velosiped və Gəzinti Yolu</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.path.bridge">Körpü</string>
     <string name="type.highway.path.horse">Atlı yolu</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.path.tunnel">Tunel</string>
     <string name="type.highway.pedestrian">Piyadalar üçün küçə</string>
     <string name="type.highway.pedestrian.area">Piyada ərazisi</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.pedestrian.bridge">Körpü</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.pedestrian.tunnel">Tunel</string>
     <string name="type.highway.platform">Platforma</string>
     <string name="type.highway.primary">Əsas yol</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.primary.bridge">Körpü</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.primary.tunnel">Tunel</string>
     <string name="type.highway.primary_link">Əsas yol</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.primary_link.bridge">Körpü</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.primary_link.tunnel">Tunel</string>
     <string name="type.highway.raceway">Yarış yolu</string>
     <string name="type.highway.residential">Küçə</string>
     <string name="type.highway.residential.area">Küçə</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.residential.bridge">Körpü</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.residential.tunnel">Tunel</string>
     <string name="type.highway.rest_area">İstirahət zonası</string>
     <string name="type.highway.road">Yol</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.road.bridge">Körpü</string>
     <!-- A bridge structure outline. -->
     <string name="type.man_made.bridge">Körpü</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.road.tunnel">Tunel</string>
     <string name="type.highway.secondary">Yan yol</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.secondary.bridge">Körpü</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.secondary.tunnel">Tunel</string>
     <string name="type.highway.secondary_link">Yan yol</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.secondary_link.bridge">Körpü</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.secondary_link.tunnel">Tunel</string>
     <string name="type.highway.service">Xidmət Yolu</string>
     <string name="type.highway.service.area">Xidmət Yolu</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.service.bridge">Körpü</string>
     <string name="type.highway.service.driveway">Xidmət Yolu</string>
     <string name="type.highway.service.parking_aisle">Park dəhlizi</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.service.tunnel">Tunel</string>
     <string name="type.highway.services">Xidmət Sahəsi</string>
     <string name="type.highway.speed_camera">Sürət kamerası</string>
     <string name="type.highway.steps">Pilləkənlər</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.steps.bridge">Körpü</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.steps.tunnel">Tunel</string>
     <string name="type.highway.tertiary">Üçüncü yol</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.tertiary.bridge">Körpü</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.tertiary.tunnel">Tunel</string>
     <string name="type.highway.tertiary_link">Üçüncü yol enişi</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.tertiary_link.bridge">Körpü</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.tertiary_link.tunnel">Tunel</string>
     <string name="type.highway.track">Uçuş zolağı</string>
     <string name="type.highway.track.area">Uçuş zolağı</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.track.bridge">Körpü</string>
     <string name="type.highway.track.grade1">Uçuş zolağı</string>
     <string name="type.highway.track.no.access">Uçuş zolağı</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.track.tunnel">Tunel</string>
     <string name="type.highway.traffic_signals">İşıqfor</string>
     <string name="type.highway.trunk">Dövlət şossesi</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.trunk.bridge">Körpü</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.trunk.tunnel">Tunel</string>
     <string name="type.highway.trunk_link">Dövlət şossesi</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.trunk_link.bridge">Körpü</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.trunk_link.tunnel">Tunel</string>
     <string name="type.highway.unclassified">Yan yol</string>
     <string name="type.highway.unclassified.area">Yan yol</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.unclassified.bridge">Körpü</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.unclassified.tunnel">Tunel</string>
     <string name="type.area_highway.cycleway">Velosiped yolu</string>
     <string name="type.area_highway.footway">Səki</string>
@@ -1327,23 +1328,26 @@
     <string name="type.waterway">Su yolu</string>
     <string name="type.waterway.access_point">Su yolu giriş nöqtəsi</string>
     <string name="type.waterway.canal">Kanal</string>
+    <string name="type.waterway.canal.intermittent">Müvəqqəti kanal</string>
     <string name="type.waterway.canal.tunnel">Kanal</string>
     <string name="type.waterway.fish_pass">Balıq keçidi</string>
+    <string name="type.waterway.fish_pass.intermittent">Müvəqqəti balıq keçidi</string>
     <string name="type.waterway.dam">Baraj</string>
     <string name="type.barrier.ditch">Xəndək</string>
-    <string name="type.natural.water.ditch">Drenaj çuxuru</string>
+    <string name="type.natural.water.ditch">Drenaj xəndəyi</string>
     <string name="type.waterway.ditch.tunnel">Su kəməri</string>
     <string name="type.waterway.dock">Dok</string>
-    <string name="type.waterway.drain">Kanalizasiya</string>
-    <string name="type.natural.water.drain">Kanalizasiya</string>
+    <string name="type.waterway.drain">Drenaj kanalı</string>
+    <string name="type.waterway.drain.intermittent">Müvəqqəti drenaj kanalı</string>
+    <string name="type.natural.water.drain">Drenaj kanalı</string>
     <string name="type.waterway.drain.tunnel">Su kəməri</string>
     <string name="type.waterway.lock_gate">Ekklüzyon örtüyü</string>
     <string name="type.waterway.river">Çay</string>
+    <string name="type.waterway.river.intermittent">Müvəqqəti çay</string>
     <string name="type.waterway.river.tunnel">Çay</string>
-    <string name="type.waterway.stream">Çay</string>
-    <string name="type.waterway.stream.ephemeral">Çay</string>
-    <string name="type.waterway.stream.intermittent">Çay</string>
-    <string name="type.waterway.stream.tunnel">Çay</string>
+    <string name="type.waterway.stream">Kiçik çay</string>
+    <string name="type.waterway.stream.intermittent">Müvəqqəti kiçik çay</string>
+    <string name="type.waterway.stream.tunnel">Kiçik çay</string>
     <string name="type.waterway.waterfall">Şəlalə</string>
     <string name="type.waterway.weir">Su bəndi</string>
     <string name="type.wheelchair">Əlil arabası</string>

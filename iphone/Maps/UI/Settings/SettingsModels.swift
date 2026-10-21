@@ -6,6 +6,7 @@ enum SettingsItemKind: Equatable {
   case textField(text: String, placeholder: String?, isEnabled: Bool, isValid: Bool)
   case message(text: String)
   case slider(value: Float, minimumValue: Float, maximumValue: Float, valueTitle: String, isEnabled: Bool)
+  case preview(isSelected: Bool, isPlaying: Bool, showsDisclosure: Bool)
 }
 
 struct SettingsItemViewModel<Item: Hashable>: Equatable {
@@ -25,7 +26,7 @@ struct SettingsItemViewModel<Item: Hashable>: Equatable {
 struct SettingsSectionViewModel<Section: Hashable, Item: Hashable>: Equatable {
   let section: Section
   let header: String?
-  let footer: String?
+  var footer: String?
   var items: [SettingsItemViewModel<Item>]
 
   init(section: Section, header: String? = nil, footer: String? = nil, items: [SettingsItemViewModel<Item>]) {

@@ -14,6 +14,7 @@ import android.location.Location;
 import android.os.Build;
 import android.os.IBinder;
 import android.widget.Toast;
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresPermission;
@@ -28,20 +29,25 @@ import androidx.lifecycle.MutableLiveData;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
+import app.organicmaps.sdk.bookmarks.data.TrackStatistics;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.location.LocationListener;
 import app.organicmaps.sdk.location.LocationUtils;
 import app.organicmaps.sdk.location.TrackRecorder;
 import app.organicmaps.sdk.util.log.Logger;
+import app.organicmaps.widget.TrackRecordingWidget;
 
-public class TrackRecordingService extends Service implements LocationListener
+public class TrackRecordingService
+    extends Service implements LocationListener, TrackRecorder.TrackRecordingUpdateHandler
 {
   public static final String TRACK_REC_CHANNEL_ID = "TRACK RECORDING";
   public static final String STOP_TRACK_RECORDING = "STOP_TRACK_RECORDING";
   public static final int TRACK_REC_NOTIFICATION_ID = 54321;
-  // Recording can be stopped from the notification while the activity is in the background or
-  // covered by the notification shade, so the UI observes the service instead of assuming its state.
+  // Recording can be started from the widget and stopped from the notification while the activity is in the
+  // background or covered by the notification shade, so the UI observes the service instead of assuming its state.
   private static final MutableLiveData<Boolean> sIsRecording = new MutableLiveData<>();
+  // The core has a single statistics listener, so the service owns it.
+  private static final MutableLiveData<TrackStatistics> sStatistics = new MutableLiveData<>();
   private NotificationCompat.Builder mNotificationBuilder;
   private static final String TAG = TrackRecordingService.class.getSimpleName();
   private boolean mWarningNotification = false;
@@ -60,6 +66,13 @@ public class TrackRecordingService extends Service implements LocationListener
   public static LiveData<Boolean> isRecording()
   {
     return sIsRecording;
+  }
+
+  /** {@code null} when not recording or before the first update. */
+  @NonNull
+  public static LiveData<TrackStatistics> getStatistics()
+  {
+    return sStatistics;
   }
 
   @RequiresPermission(value = ACCESS_FINE_LOCATION)
@@ -84,15 +97,18 @@ public class TrackRecordingService extends Service implements LocationListener
     notificationManager.createNotificationChannel(channel);
   }
 
-  private PendingIntent getPendingIntent(@NonNull Context context)
+  @NonNull
+  public static PendingIntent createContentPendingIntent(@NonNull Context context)
   {
-    if (mPendingIntent != null)
-      return mPendingIntent;
-
     final int FLAG_IMMUTABLE = Build.VERSION.SDK_INT < Build.VERSION_CODES.M ? 0 : PendingIntent.FLAG_IMMUTABLE;
     final Intent contentIntent = new Intent(context, MwmActivity.class);
-    mPendingIntent =
-        PendingIntent.getActivity(context, 0, contentIntent, PendingIntent.FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
+    return PendingIntent.getActivity(context, 0, contentIntent, PendingIntent.FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
+  }
+
+  private PendingIntent getPendingIntent(@NonNull Context context)
+  {
+    if (mPendingIntent == null)
+      mPendingIntent = createContentPendingIntent(context);
     return mPendingIntent;
   }
 
@@ -148,12 +164,15 @@ public class TrackRecordingService extends Service implements LocationListener
     // command that was in flight when the process crashed, even for START_NOT_STICKY.
     if (MwmApplication.from(this).getOrganicMaps().arePlatformAndCoreInitialized())
     {
+      TrackRecorder.nativeSetTrackRecordingStatsListener(null);
+      sStatistics.setValue(null);
       if (TrackRecorder.nativeIsTrackRecordingEnabled())
         TrackRecorder.nativeStopTrackRecording();
       MwmApplication.from(this).getLocationHelper().removeListener(this);
-      MwmApplication.from(this).onNavigationOrRecordingStopped();
+      MwmApplication.from(this).onTrackRecordingStopped();
       // Publish only here: after this block the recording is off, so false always means the native state.
       sIsRecording.setValue(false);
+      TrackRecordingWidget.update(this);
     }
     // The notification is cancelled automatically by the system.
   }
@@ -208,12 +227,26 @@ public class TrackRecordingService extends Service implements LocationListener
     }
 
     Logger.i(TAG, "Starting Track Recording Foreground service");
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
-      ServiceCompat.startForeground(this, TrackRecordingService.TRACK_REC_NOTIFICATION_ID,
-                                    getNotificationBuilder(this).build(), ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION);
-    else
-      ServiceCompat.startForeground(this, TrackRecordingService.TRACK_REC_NOTIFICATION_ID,
-                                    getNotificationBuilder(this).build(), 0);
+    try
+    {
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+        ServiceCompat.startForeground(this, TrackRecordingService.TRACK_REC_NOTIFICATION_ID,
+                                      getNotificationBuilder(this).build(),
+                                      ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION);
+      else
+        ServiceCompat.startForeground(this, TrackRecordingService.TRACK_REC_NOTIFICATION_ID,
+                                      getNotificationBuilder(this).build(), 0);
+    }
+    catch (IllegalStateException | SecurityException e)
+    {
+      // Android 14+ checks location access here.
+      Logger.e(TAG, "The system refused the location foreground service", e);
+      stopSelf(); // onDestroy() stops the recording.
+      return START_NOT_STICKY;
+    }
+
+    // Safe to call again: the core replaces the listener and sends the current statistics.
+    TrackRecorder.nativeSetTrackRecordingStatsListener(this);
 
     final LocationHelper locationHelper = MwmApplication.from(this).getLocationHelper();
 
@@ -249,6 +282,17 @@ public class TrackRecordingService extends Service implements LocationListener
             .setColor(ContextCompat.getColor(context, R.color.notification_warning));
 
     return mWarningBuilder;
+  }
+
+  @Keep
+  @Override
+  public void onTrackRecordingUpdate(@NonNull TrackStatistics trackStatistics)
+  {
+    // A late update can arrive after the recording has stopped.
+    if (!TrackRecorder.nativeIsTrackRecordingEnabled())
+      return;
+    sStatistics.setValue(trackStatistics);
+    TrackRecordingWidget.update(this);
   }
 
   @Override

@@ -45,6 +45,7 @@
   <color name="shimmer_highlight">#33FFFFFF</color>
   <!-- Search sheet -->
   <color name="bg_search">#0AFFFFFF</color>
+  <color name="ripple_search_action">#33FFFFFF</color>
 
   <!--  Routing-->
   <color name="routing_bottom_button_tint">@color/bg_menu</color>
@@ -54,5 +55,8 @@
   <color name="routing_button_tint">#FFFFFFFF</color>
   <color name="routing_bottom_button_activated_bg">#FFFFFFFF</color>
   <color name="routing_bottom_button_bg">@color/bg_menu</color>
+  <color name="widget_accent">@color/light_green</color>
+  <color name="widget_text_primary">@color/white_primary</color>
+  <color name="widget_text_secondary">@color/white_secondary</color>
 
 </resources>

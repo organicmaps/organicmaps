@@ -7,13 +7,13 @@ final class ActionBarViewController: UIViewController {
   private(set) var downloadButton: ActionBarButton?
 
   var placePageData: PlacePageData!
-  var isRoutePlanning = false
   var canAddStop = false
   var canReplaceStop = false
-  var canRouteToAndFrom = false
+  var shouldAppendNewPoints = false
 
   private var visibleButtons: [ActionBarButtonType] = []
   private var additionalButtons: [ActionBarButtonType] = []
+  private var canRouteToAndFrom: Bool { !canReplaceStop && !shouldAppendNewPoints }
 
   weak var delegate: ActionBarViewControllerDelegate?
 
@@ -28,13 +28,20 @@ final class ActionBarViewController: UIViewController {
     if placePageData.isRoutePoint {
       visibleButtons.append(.routeRemoveStop)
     } else if placePageData.roadType != .none {
+      let options = RoutingOptions(routerType: MWMRouter.type())
       switch placePageData.roadType {
       case .toll:
-        visibleButtons.append(.avoidToll)
+        if options.supportedOptions.contains(.toll) {
+          visibleButtons.append(.avoidToll)
+        }
       case .ferry:
-        visibleButtons.append(.avoidFerry)
+        if options.supportedOptions.contains(.ferry) {
+          visibleButtons.append(.avoidFerry)
+        }
       case .dirty:
-        visibleButtons.append(.avoidDirty)
+        if options.supportedOptions.contains(.dirty) {
+          visibleButtons.append(.avoidDirty)
+        }
       default:
         fatalError()
       }
@@ -58,24 +65,15 @@ final class ActionBarViewController: UIViewController {
     }
 
     var buttons: [ActionBarButtonType] = []
+    let routePointButton: ActionBarButtonType = canReplaceStop ? .routeReplaceStop :
+      (shouldAppendNewPoints ? .routeAddDestination : .routeAddStop)
     switch placePageData.objectType {
-    case .POI, .bookmark:
+    case .POI, .bookmark, .track, .relationTrack:
       if canRouteToAndFrom {
         buttons.append(.routeFrom)
       }
-      if canAddStop {
-        buttons.append(canReplaceStop ? .routeReplaceStop : .routeAddStop)
-      }
-      buttons.append(.bookmark)
-      if canRouteToAndFrom {
-        buttons.append(.routeTo)
-      }
-    case .track, .relationTrack:
-      if canRouteToAndFrom {
-        buttons.append(.routeFrom)
-      }
-      if canAddStop {
-        buttons.append(.routeAddStop)
+      if canReplaceStop || shouldAppendNewPoints || canAddStop {
+        buttons.append(routePointButton)
       }
       buttons.append(.bookmark)
       if canRouteToAndFrom {

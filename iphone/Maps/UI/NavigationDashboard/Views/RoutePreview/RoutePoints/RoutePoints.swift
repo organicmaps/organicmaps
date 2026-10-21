@@ -39,15 +39,23 @@ extension NavigationDashboard.RoutePoints {
     }
   }
 
-  func image(for index: Int) -> UIImage {
+  func defaultImage(for index: Int) -> UIImage {
     switch index {
     case 0:
       return UIImage(resource: .icRouteManagerStart)
     case count - 1:
-      return UIImage(resource: .icRouteManagerFinish)
+      return UIImage.routePointFinish
     default:
       let imageName = "route-point-\(index)"
       return UIImage(named: imageName) ?? UIImage(resource: .routePoint20)
+    }
+  }
+
+  func type(for index: Int) -> MWMRoutePointType {
+    switch index {
+    case 0: return .start
+    case count - 1: return .finish
+    default: return .intermediate
     }
   }
 

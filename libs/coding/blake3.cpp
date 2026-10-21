@@ -2,10 +2,8 @@
 
 #include "coding/base64.hpp"
 #include "coding/internal/file_data.hpp"
-#include "coding/reader.hpp"
 
 #include "base/assert.hpp"
-#include "base/logging.hpp"
 
 #include <algorithm>
 
@@ -39,29 +37,20 @@ std::string Blake3::FinalizeToBase64(size_t numBytes) const
 // static
 Blake3::Hash Blake3::Calculate(std::string const & filePath)
 {
-  try
+  base::FileData file(filePath, base::FileData::Op::READ);
+  uint64_t const fileSize = file.Size();
+  Blake3 hasher;
+  uint64_t currSize = 0;
+  uint32_t constexpr kFileBufferSize = 64 * 1024;
+  unsigned char buffer[kFileBufferSize];
+  while (currSize < fileSize)
   {
-    base::FileData file(filePath, base::FileData::Op::READ);
-    uint64_t const fileSize = file.Size();
-
-    Blake3 hasher;
-    uint64_t currSize = 0;
-    uint32_t constexpr kFileBufferSize = 64 * 1024;
-    unsigned char buffer[kFileBufferSize];
-    while (currSize < fileSize)
-    {
-      auto const toRead = std::min(kFileBufferSize, static_cast<uint32_t>(fileSize - currSize));
-      file.Read(currSize, buffer, toRead);
-      hasher.Update(buffer, toRead);
-      currSize += toRead;
-    }
-    return hasher.Finalize();
+    auto const toRead = static_cast<size_t>(std::min<uint64_t>(kFileBufferSize, fileSize - currSize));
+    file.Read(currSize, buffer, toRead);
+    hasher.Update(buffer, toRead);
+    currSize += toRead;
   }
-  catch (Reader::Exception const & ex)
-  {
-    LOG(LERROR, ("Error reading file:", filePath, ex.what()));
-  }
-  return {};
+  return hasher.Finalize();
 }
 
 // static

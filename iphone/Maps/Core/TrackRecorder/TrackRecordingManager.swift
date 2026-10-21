@@ -134,6 +134,7 @@ final class TrackRecordingManager: NSObject {
     notifyObservers()
 
     guard !trackRecorder.isTrackRecordingEmpty() else {
+      trackRecorder.discardTrackRecording()
       Toast.show(withText: L("track_recording_toast_nothing_to_save"))
       completion?(.trackIsEmpty)
       return
@@ -145,7 +146,7 @@ final class TrackRecordingManager: NSObject {
 
   func discard() {
     unsubscribeFromTrackRecordingProgressUpdates()
-    trackRecorder.stopTrackRecording()
+    trackRecorder.discardTrackRecording()
     trackRecordingInfo = .empty()
     activityManager?.stop()
     notifyObservers()

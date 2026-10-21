@@ -69,6 +69,7 @@ import app.organicmaps.maplayer.MapButtonsViewModel;
 import app.organicmaps.maplayer.ToggleMapLayerFragment;
 import app.organicmaps.routing.NavigationController;
 import app.organicmaps.routing.NavigationService;
+import app.organicmaps.routing.RoutePointLabels;
 import app.organicmaps.routing.RoutingErrorDialogFragment;
 import app.organicmaps.routing.RoutingPlanController;
 import app.organicmaps.routing.RoutingPlanFragment;
@@ -140,6 +141,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public static final String EXTRA_BOOKMARK_ID = "bookmark_id";
   public static final String EXTRA_TRACK_ID = "track_id";
   public static final String EXTRA_UPDATE_THEME = "update_theme";
+  public static final String EXTRA_START_TRACK_RECORDING = "start_track_recording";
+  public static final String EXTRA_FINISH_TRACK_RECORDING = "finish_track_recording";
   // Stored both in the saved instance state and, when the core restarts, in the intent itself.
   static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
   private boolean mIntentConsumed = false;
@@ -156,6 +159,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private View mPointChooser;
   private Toolbar mPointChooserToolbar;
+  private TextView mPointChooserTitle;
+  private TextView mPointChooserHint;
 
   private NavigationController mNavigationController;
   @Nullable
@@ -259,6 +264,19 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (intent == null || mIntentConsumed)
       return;
     mIntentConsumed = true;
+
+    if (intent.getBooleanExtra(EXTRA_START_TRACK_RECORDING, false))
+    {
+      if (!TrackRecorder.nativeIsTrackRecordingEnabled())
+        startTrackRecording();
+      return;
+    }
+    if (intent.getBooleanExtra(EXTRA_FINISH_TRACK_RECORDING, false))
+    {
+      if (TrackRecorder.nativeIsTrackRecordingEnabled() && !isTrackRecordingPPOpened())
+        showTrackRecordingPP();
+      return;
+    }
 
     final long categoryId = intent.getLongExtra(EXTRA_CATEGORY_ID, -1);
     final long bookmarkId = intent.getLongExtra(EXTRA_BOOKMARK_ID, -1);
@@ -474,14 +492,18 @@ public class MwmActivity extends BaseMwmFragmentActivity
    * Tells whether the intent this activity starts with has already been processed. A configuration
    * change restores the mark from the instance's own state, while a core restart through
    * {@link SplashActivity} re-creates the activity from scratch and only the intent survives.
+   * A relaunch from Recents re-delivers the original intent, so it counts as consumed.
    */
   @VisibleForTesting
   static boolean isIntentConsumed(@Nullable Bundle savedInstanceState, @Nullable Intent intent)
   {
     if (savedInstanceState != null)
       return savedInstanceState.getBoolean(EXTRA_CONSUMED, false);
-
-    return intent != null && intent.getBooleanExtra(EXTRA_CONSUMED, false);
+    if (intent == null)
+      return false;
+    if (intent.hasExtra(EXTRA_CONSUMED))
+      return intent.getBooleanExtra(EXTRA_CONSUMED, false);
+    return (intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) != 0;
   }
 
   @SuppressLint("InlinedApi")
@@ -501,9 +523,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mSearchPageViewModel = new ViewModelProvider(this).get(SearchPageViewModel.class);
     mMapButtonsViewModel = new ViewModelProvider(this).get(MapButtonsViewModel.class);
     TrackRecordingService.isRecording().observe(this, recording -> {
-      // Recording can be stopped from the notification, tear down the UI when it happens.
-      if (Boolean.FALSE.equals(recording)
-          && Boolean.TRUE.equals(mMapButtonsViewModel.getTrackRecorderState().getValue()))
+      // Recording can also be started from the widget or stopped from the notification.
+      final boolean uiShown = Boolean.TRUE.equals(mMapButtonsViewModel.getTrackRecorderState().getValue());
+      if (Boolean.TRUE.equals(recording) && !uiShown)
+        showTrackRecordingUi();
+      else if (Boolean.FALSE.equals(recording) && uiShown)
         stopTrackRecording();
     });
     // We don't need to manually handle removing the observers it follows the activity lifecycle
@@ -512,8 +536,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
     // Bridge search-active state into RoutingPlanViewModel so the routing sheet hides under the search
     // bottom sheet. RoutingPlanFragment stays decoupled from SearchPageViewModel; the activity is the
     // single place that knows about both subsystems.
-    mSearchPageViewModel.getSearchEnabled().observe(
-        this, enabled -> mRoutingPlanViewModel.setIsSearchActive(Boolean.TRUE.equals(enabled)));
+    mSearchPageViewModel.getSearchEnabled().observe(this, enabled -> {
+      mRoutingPlanViewModel.setIsSearchActive(Boolean.TRUE.equals(enabled));
+      // A disabled search page cannot own a pending pick. The map chooser takes ownership before closing
+      // search and cancels the pick when it closes; this also handles search dismissal and activity recreation.
+      if (!Boolean.TRUE.equals(enabled)
+          && !Boolean.TRUE.equals(mRoutingPlanViewModel.getIsPointChooserActive().getValue()))
+        RoutingController.get().cancelPoiPick();
+    });
 
     // Note: You must call registerForActivityResult() before the fragment or activity is created.
     mLocationPermissionRequest = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(),
@@ -622,7 +652,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void updateDrivingOptionCount()
   {
-    mRoutingPlanViewModel.setDrivingOptionsCount(RoutingOptions.getActiveRoadTypes().size());
+    mRoutingPlanViewModel.setDrivingOptionsCount(
+        RoutingOptions.getActiveRoadTypes(RoutingController.get().getLastRouterType()).size());
   }
 
   private void initPositionChooser()
@@ -632,6 +663,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
 
     mPointChooserToolbar = mPointChooser.findViewById(R.id.toolbar_point_chooser);
+    mPointChooserTitle = mPointChooser.findViewById(R.id.title);
+    mPointChooserHint = mPointChooser.findViewById(R.id.hint);
     UiUtils.showHomeUpButton(mPointChooserToolbar);
     mPointChooserToolbar.setNavigationOnClickListener(v -> closePositionChooser());
     mPointChooser.findViewById(R.id.done).setOnClickListener(v -> {
@@ -665,7 +698,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
                              .show();
         }
         break;
-      case None: throw new IllegalStateException("Unexpected Framework.nativeGetChoosePositionMode()");
+      case Routing:
+        final double[] routePoint = Framework.nativeGetScreenRectCenter();
+        // An empty address is fine: the route point then falls back to formatted coordinates.
+        RoutingController.get().onPoiSelected(MapObject.createMapObject(
+            MapObject.POI, Framework.nativeGetAddress(routePoint[0], routePoint[1]), "", routePoint[0], routePoint[1]));
+        break;
+      case None: throw new IllegalStateException("Unexpected position chooser mode");
       }
       closePositionChooser();
     });
@@ -689,7 +728,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (!TextUtils.isEmpty(appName))
     {
       setTitle(appName);
-      ((TextView) mPointChooser.findViewById(R.id.title)).setText(appName);
+      mPointChooserTitle.setText(appName);
     }
   }
 
@@ -698,15 +737,46 @@ public class MwmActivity extends BaseMwmFragmentActivity
     showPositionChooser(ChoosePositionMode.Editor, isBusiness, applyPosition);
   }
 
+  public void showPositionChooserForRoutePoint()
+  {
+    // The shortcut row stays clickable while the search sheet animates away, by which time the other row or
+    // a result may already have consumed the pick, leaving nothing for the crosshair to commit into.
+    if (!RoutingController.get().isWaitingPoiPick())
+      return;
+
+    showPositionChooser(ChoosePositionMode.Routing, false, false);
+  }
+
   private void showPositionChooser(ChoosePositionMode mode, boolean isBusiness, boolean applyPosition)
   {
     if (isFullscreen())
       exitFullscreen();
-    closeFloatingToolbarsAndPanels();
+    // Re-entering the same mode must keep the chooser open: closing Routing would cancel the pending pick.
+    // Mark the chooser active before closing panels so the routing sheet stays hidden as search closes.
+    if (ChoosePositionMode.get() != mode)
+      closePositionChooser();
+    mRoutingPlanViewModel.setIsPointChooserActive(true);
+    closeFloatingPanels();
+    updatePositionChooserText(mode);
     UiUtils.show(mPointChooser);
     mMapButtonsViewModel.setButtonsHidden(true);
     ChoosePositionMode.set(mode, isBusiness, applyPosition);
     refreshLightStatusBar();
+  }
+
+  private void updatePositionChooserText(ChoosePositionMode mode)
+  {
+    if (mode != ChoosePositionMode.Routing)
+    {
+      mPointChooserTitle.setText(R.string.editor_add_select_location);
+      mPointChooserHint.setText(R.string.editor_focus_map_on_location);
+      return;
+    }
+
+    final RoutingController controller = RoutingController.get();
+    mPointChooserTitle.setText(
+        RoutePointLabels.pickTitle(controller.getWaitingPoiPickType(), controller.isPoiPickReplaceStop()));
+    mPointChooserHint.setText(R.string.choose_point_on_map_hint);
   }
 
   private void hidePositionChooser()
@@ -715,10 +785,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
     ChoosePositionMode mode = ChoosePositionMode.get();
     ChoosePositionMode.set(ChoosePositionMode.None, false, false);
     mMapButtonsViewModel.setButtonsHidden(false);
+    mRoutingPlanViewModel.setIsPointChooserActive(false);
     Framework.nativeDeactivatePopup();
     refreshLightStatusBar();
     if (mode == ChoosePositionMode.Api)
       finish();
+    // No-op once Done committed the point; cancels the pick on every other way out.
+    else if (mode == ChoosePositionMode.Routing)
+      RoutingController.get().cancelPoiPick();
   }
 
   private void initNavigationButtons()
@@ -741,8 +815,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onSearchCanceled()
   {
-    mMapButtonsViewModel.setSearchOption(null);
+    cancelNavigationSearch();
     forceCloseSearchFragment();
+  }
+
+  private void cancelNavigationSearch()
+  {
+    mMapButtonsViewModel.setSearchOption(null);
+    // The navigation search wheel runs a viewport search without the sheet, so closing the sheet doesn't cancel it.
+    SearchEngine.INSTANCE.cancelInteractiveSearch();
   }
 
   @Override
@@ -940,10 +1021,23 @@ public class MwmActivity extends BaseMwmFragmentActivity
     ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
     ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
     makeNavigationBarTransparentInLightMode();
-    if (ChoosePositionMode.get() != ChoosePositionMode.None)
+    // The pick lives in RoutingController, which clears it without touching the chooser, and can do so while
+    // this Activity is stopped and detached from it. Only the mode survives, so re-check it on the way in.
+    ChoosePositionMode mode = ChoosePositionMode.get();
+    if (mode == ChoosePositionMode.Routing && !RoutingController.get().isWaitingPoiPick())
     {
+      hidePositionChooser();
+      mode = ChoosePositionMode.None;
+    }
+
+    if (mode != ChoosePositionMode.None)
+    {
+      // Only the routing title is derived from state that outlives the view; Editor and Api use the layout default.
+      if (mode == ChoosePositionMode.Routing)
+        updatePositionChooserText(ChoosePositionMode.Routing);
       UiUtils.show(mPointChooser);
       mMapButtonsViewModel.setButtonsHidden(true);
+      mRoutingPlanViewModel.setIsPointChooserActive(true);
     }
     else if (isFullscreen())
       setFullscreen(true);
@@ -986,6 +1080,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     BookmarkManager.INSTANCE.addLoadingListener(this);
     MwmApplication.from(getApplicationContext()).getIsolinesManager().attach(this::onIsolinesStateChanged);
     updateDrivingOptionCount();
+    RoutingController.get().applyPendingRoutingOptions();
     LocationState.nativeSetListener(this);
     MwmApplication.from(this).getLocationHelper().addListener(this);
     Utils.keepScreenOn(Config.isKeepScreenOnEnabled() || RoutingController.get().isNavigating(), getWindow());
@@ -1286,7 +1381,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
     ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
     NavigationService.stopService(this);
-    mMapButtonsViewModel.setSearchOption(null);
+    cancelNavigationSearch();
     mMapButtonsViewModel.setLayoutMode(MapButtonsController.LayoutMode.regular);
     refreshLightStatusBar();
     Utils.keepScreenOn(Config.isKeepScreenOnEnabled(), getWindow());
@@ -1348,7 +1443,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
     ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
     NavigationService.stopService(this);
-    mMapButtonsViewModel.setSearchOption(null);
+    // Route edits while planning land here too. The routing state is already PREPARE, hence the layout check.
+    if (mMapButtonsViewModel.getLayoutMode().getValue() == MapButtonsController.LayoutMode.navigation)
+      cancelNavigationSearch();
+    else
+      mMapButtonsViewModel.setSearchOption(null);
     mMapButtonsViewModel.setLayoutMode(MapButtonsController.LayoutMode.planning);
     refreshLightStatusBar();
   }
@@ -1365,6 +1464,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     forceCloseSearchFragment();
     closePlacePage();
+  }
+
+  @Override
+  public void onStopPointLimitReached()
+  {
+    Toast.makeText(this, R.string.routing_max_stops_reached, Toast.LENGTH_LONG).show();
   }
 
   @Override
@@ -1957,15 +2062,20 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     requestPostNotificationsPermission();
 
+    showTrackRecordingUi();
+    Toast.makeText(this, R.string.track_recording, Toast.LENGTH_SHORT).show();
+    TrackRecordingService.startForegroundService(getApplicationContext());
+    return true;
+  }
+
+  private void showTrackRecordingUi()
+  {
     if (mCurrentWindowInsets != null)
     {
       final int offset = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top;
       updateCompassOffset(offset + dimen(this, R.dimen.map_button_size));
     }
-    Toast.makeText(this, R.string.track_recording, Toast.LENGTH_SHORT).show();
-    TrackRecordingService.startForegroundService(getApplicationContext());
     mMapButtonsViewModel.setTrackRecorderState(true);
-    return true;
   }
 
   private void stopTrackRecording()
@@ -1980,8 +2090,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mMapButtonsViewModel.setTrackRecorderState(false);
     TrackRecordingService.stopService(getApplicationContext());
     closeBottomSheet(MAIN_MENU_ID);
-    if (mPlacePageViewModel.getMapObject().getValue() != null
-        && mPlacePageViewModel.getMapObject().getValue().isTrackRecording())
+    if (isTrackRecordingPPOpened())
       closePlacePage();
   }
 
@@ -2001,15 +2110,23 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void toggleTrackRecordingPP()
   {
-    if (mPlacePageViewModel.getMapObject().getValue() != null
-        && mPlacePageViewModel.getMapObject().getValue().isTrackRecording())
+    if (isTrackRecordingPPOpened())
       mPlacePageViewModel.setMapObject(null);
     else
-    {
-      String title = StringUtils.nativeFormatDistance(0).toString(this) + " • "
-                   + Utils.formatRoutingTime(this, 0, R.dimen.text_size_body_3);
-      mPlacePageViewModel.setMapObject(new TrackRecording(title, getString(R.string.track_recording_title)));
-    }
+      showTrackRecordingPP();
+  }
+
+  private boolean isTrackRecordingPPOpened()
+  {
+    final MapObject mapObject = mPlacePageViewModel.getMapObject().getValue();
+    return mapObject != null && mapObject.isTrackRecording();
+  }
+
+  private void showTrackRecordingPP()
+  {
+    String title = StringUtils.nativeFormatDistance(0).toString(this) + " • "
+                 + Utils.formatRoutingTime(this, 0, R.dimen.text_size_body_3);
+    mPlacePageViewModel.setMapObject(new TrackRecording(title, getString(R.string.track_recording_title)));
   }
 
   public void onShareLocationOptionSelected()
@@ -2056,7 +2173,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     forceCloseSearchFragment();
     closePlacePage();
-    RoutingOptions.addOption(roadType);
+    RoutingOptions.addOption(RoutingController.get().getLastRouterType(), roadType);
     rebuildLastRoute();
     updateDrivingOptionCount();
   }
@@ -2069,6 +2186,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public void onTrackRecordingCancelled()
   {
+    TrackRecorder.nativeDiscardTrackRecording();
     stopTrackRecording();
   }
 

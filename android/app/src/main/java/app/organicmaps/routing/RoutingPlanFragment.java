@@ -1,15 +1,12 @@
 package app.organicmaps.routing;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,6 +41,8 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   private View mTransitStepsView;
   private ChartHeaderAdapter mChartHeaderAdapter;
   private View mDrivingOptionsBtn;
+  private View mDrivingOptionsContainer;
+  private View mReverseRouteBtn;
   private View mFrame;
   private View mRoutingRoot;
   private View mRoutingBottomContainer;
@@ -61,15 +60,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   private int mPeekHeightMargins;
   private View mButtonsLayout;
   private int mTopInset;
-
-  private final ActivityResultLauncher<Intent> startDrivingOptionsForResult =
-      registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), activityResult -> {
-        if (activityResult.getResultCode() == android.app.Activity.RESULT_OK)
-        {
-          RoutingController.get().rebuildLastRoute();
-          mViewModel.setDrivingOptionsCount(RoutingOptions.getActiveRoadTypes().size());
-        }
-      });
+  private boolean mRoutingContentActive = true;
 
   // Single source of truth for the sheet's visibility: planning wants it AND no place page is covering it.
   private final MediatorLiveData<Boolean> mSheetVisible = new MediatorLiveData<>();
@@ -128,8 +119,11 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     mTransitStepsView = mChartPanel.findViewById(R.id.transit_recycler_view);
     mDrivingOptionsBadge = mChartPanel.findViewById(R.id.driving_options_badge);
     mDrivingOptionsBtn = mChartPanel.findViewById(R.id.driving_options_btn_img);
+    mDrivingOptionsContainer = mChartPanel.findViewById(R.id.driving_options_btn_container);
     mDrivingOptionsBtn.setOnClickListener(
-        v -> DrivingOptionsActivity.start(requireActivity(), startDrivingOptionsForResult));
+        v -> DrivingOptionsActivity.start(requireActivity(), RoutingController.get().getLastRouterType()));
+    mReverseRouteBtn = mChartPanel.findViewById(R.id.reverse_route_btn);
+    mReverseRouteBtn.setOnClickListener(v -> RoutingController.get().reverseRoute());
 
     mSearchBtn = mRoutingRoot.findViewById(R.id.routing_btn_search);
     mBookmarkBtn = mButtonsLayout.findViewById(R.id.routing_btn_bookmarks);
@@ -147,6 +141,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     mSheetVisible.addSource(mViewModel.getShowRoutingBottomSheet(), show -> updateSheetVisible());
     mSheetVisible.addSource(mViewModel.getIsPlacePageActive(), active -> updateSheetVisible());
     mSheetVisible.addSource(mViewModel.getIsSearchActive(), active -> updateSheetVisible());
+    mSheetVisible.addSource(mViewModel.getIsPointChooserActive(), active -> updateSheetVisible());
     mSheetVisible.observe(getViewLifecycleOwner(), this::showSheet);
     mViewModel.getMenuUpdateTrigger().observe(getViewLifecycleOwner(), mMenuUpdateObserver);
     mViewModel.getBuildProgress().observe(getViewLifecycleOwner(), mBuildProgressObserver);
@@ -156,24 +151,34 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     if (savedInstanceState != null)
       restoreRoutingPanelState(savedInstanceState);
 
-    updateBadgeCount(RoutingOptions.getActiveRoadTypes().size());
+    updateRoutingOptions(RoutingController.get().getLastRouterType());
     mRoutingContainer.addOnLayoutChangeListener(this);
   }
 
   private void setInsets()
   {
     ViewCompat.setOnApplyWindowInsetsListener(mRoutingRoot, (v, insets) -> {
-      final Insets mCurrentWindowInsets =
-          insets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
-      final int leftInset = mCurrentWindowInsets.left;
-      final int rightInset = mCurrentWindowInsets.right;
-      final int bottomInset = mCurrentWindowInsets.bottom;
-      mTopInset = mCurrentWindowInsets.top;
+      final int safeAreaTypes = WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout();
+      final Insets safeAreaInsets = insets.getInsets(safeAreaTypes);
+      final int leftInset = safeAreaInsets.left;
+      final int rightInset = safeAreaInsets.right;
+      // Below API 30 the IME lands in the system-window insets, and the sheet pads itself with them
+      // (paddingBottomSystemWindowInsets), so an open keyboard would inflate the height its offsets come from.
+      final Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+      final int stableBarsBottom = insets.getInsetsIgnoringVisibility(WindowInsetsCompat.Type.systemBars()).bottom;
+      final int stableSafeBottom = insets.getInsetsIgnoringVisibility(safeAreaTypes).bottom;
+      final int bottomInset = Math.min(safeAreaInsets.bottom, stableSafeBottom);
+      mTopInset = safeAreaInsets.top;
       mRoutingRoot.setPadding(0, mTopInset, 0, 0);
       if (mRoutingBottomContainer != null)
         mRoutingBottomContainer.setPadding(leftInset, mRoutingBottomContainer.getPaddingTop(), rightInset, 0);
       mButtonsLayout.setPadding(0, 0, 0, bottomInset);
-      return ViewCompat.onApplyWindowInsets(v, insets);
+      return ViewCompat.onApplyWindowInsets(v,
+                                            new WindowInsetsCompat.Builder(insets)
+                                                .setInsets(WindowInsetsCompat.Type.systemBars(),
+                                                           Insets.of(systemBars.left, systemBars.top, systemBars.right,
+                                                                     Math.min(systemBars.bottom, stableBarsBottom)))
+                                                .build());
     });
   }
 
@@ -229,7 +234,8 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     final boolean show = Boolean.TRUE.equals(mViewModel.getShowRoutingBottomSheet().getValue());
     final boolean placePageActive = Boolean.TRUE.equals(mViewModel.getIsPlacePageActive().getValue());
     final boolean searchActive = Boolean.TRUE.equals(mViewModel.getIsSearchActive().getValue());
-    mSheetVisible.setValue(show && !placePageActive && !searchActive);
+    final boolean pointChooserActive = Boolean.TRUE.equals(mViewModel.getIsPointChooserActive().getValue());
+    mSheetVisible.setValue(show && !placePageActive && !searchActive && !pointChooserActive);
   }
 
   private void showSheet(boolean show)
@@ -252,21 +258,19 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     {
       mSheetBehavior.setHideable(true);
       mSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+      // A sheet that is already hidden, or not yet laid out after a state restore, never reaches the
+      // STATE_HIDDEN callback. One that is on screen does, after sliding the anchored buttons out with it.
+      if (!mFrame.isShown() || mSheetBehavior.getState() == BottomSheetBehavior.STATE_HIDDEN)
+        UiUtils.hide(mButtonsLayout);
     }
   }
 
   private void setRoutingContentActive(boolean active)
   {
-    if (active)
-    {
-      mDrivingOptionsBtn.setEnabled(true);
-      mChartPanel.setAlpha(1.0f);
-    }
-    else
-    {
-      mDrivingOptionsBtn.setEnabled(false);
-      mChartPanel.setAlpha(0.2f);
-    }
+    mRoutingContentActive = active;
+    updateRoutingOptions(RoutingController.get().getLastRouterType());
+    mReverseRouteBtn.setEnabled(active);
+    mChartPanel.setAlpha(active ? 1.0f : 0.2f);
   }
 
   public void updateSheetLayout()
@@ -304,7 +308,11 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
 
   private void setRouterClick(@IdRes int buttonId, @NonNull Router router)
   {
-    mRouterTypes.findViewById(buttonId).setOnClickListener(v -> RoutingController.get().setRouterType(router));
+    mRouterTypes.findViewById(buttonId).setOnClickListener(v -> {
+      RoutingController.get().setRouterType(router);
+      // A partial plan has no calculation callback to refresh its settings controls.
+      updateRoutingOptions(router);
+    });
   }
 
   @IdRes
@@ -322,6 +330,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
 
   private void updateProgressLabels()
   {
+    mRoutingBottomMenuController.updateSaveButton();
     final RoutingController controller = RoutingController.get();
     if (controller.getBuildState() != RoutingController.BuildState.BUILT)
     {
@@ -362,12 +371,21 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     }
   }
 
+  private void updateRoutingOptions(@NonNull Router router)
+  {
+    final boolean hasSettings = RoutingOptions.hasSettings(router);
+    mDrivingOptionsBtn.setEnabled(mRoutingContentActive && hasSettings);
+    mDrivingOptionsContainer.setAlpha(hasSettings ? 1.0f : 0.5f);
+    mViewModel.setDrivingOptionsCount(RoutingOptions.getActiveRoadTypes(router).size());
+  }
+
   private void updateBuildProgress(int progress, @NonNull Router router)
   {
     if (getView() == null)
       return;
 
     mRouterTypes.check(routerToButtonId(router));
+    updateRoutingOptions(router);
     updateProgressLabels();
     final RoutingController controller = RoutingController.get();
     if (controller.isBuilding())
@@ -400,7 +418,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     mViewModel.setBottomSheetState(state.getInt(TAG + "_bottom_sheet_state", BottomSheetBehavior.STATE_COLLAPSED));
     if (mRoutingBottomMenuController != null)
       mRoutingBottomMenuController.restoreRoutingPanelState(state);
-    updateBadgeCount(RoutingOptions.getActiveRoadTypes().size());
+    updateRoutingOptions(RoutingController.get().getLastRouterType());
   }
 
   @Override
@@ -434,7 +452,8 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
         .setMessage(R.string.unable_to_calc_alert_subtitle)
         .setPositiveButton(
             R.string.settings,
-            (dialog, which) -> DrivingOptionsActivity.start(requireActivity(), startDrivingOptionsForResult))
+            (dialog,
+             which) -> DrivingOptionsActivity.start(requireActivity(), RoutingController.get().getLastRouterType()))
         .setNegativeButton(R.string.cancel, null)
         .show();
   }

@@ -1,12 +1,10 @@
 import datetime
-import logging
 import os
-import re
 import tempfile
 import unittest
 from collections import Counter
 
-from maps_generator.checks.logs import logs_reader
+from maps_generator.generator import logs_reader
 
 
 class TestLogsReader(unittest.TestCase):
@@ -27,7 +25,6 @@ class TestLogsReader(unittest.TestCase):
     def test_read_logs(self):
         self.assertTrue(self.log.name.startswith("Czech_Jihovychod_Jihomoravsky kraj"))
         self.assertTrue(self.log.is_mwm_log)
-        self.assertFalse(self.log.is_stage_log)
         self.assertEqual(len(self.log.lines), 46)
 
     def test_split_into_stages(self):
@@ -46,35 +43,6 @@ class TestLogsReader(unittest.TestCase):
         self.assertEqual(
             m["MwmStatistics"].duration, datetime.timedelta(seconds=3.628742)
         )
-
-    def test_count_levels(self):
-        st = logs_reader.normalize_logs(logs_reader.split_into_stages(self.log))
-        self.assertEqual(len(st), 3)
-        m = {s.name: s for s in st}
-        c = logs_reader.count_levels(m["Routing"])
-        self.assertEqual(c, Counter({logging.INFO: 22, logging.ERROR: 1}))
-
-        c = logs_reader.count_levels(self.log.lines)
-        self.assertEqual(c, Counter({logging.INFO: 45, logging.ERROR: 1}))
-
-    def test_find_and_parse(self):
-        st = logs_reader.normalize_logs(logs_reader.split_into_stages(self.log))
-        self.assertEqual(len(st), 3)
-        m = {s.name: s for s in st}
-        pattern_str = (
-            r".*Leaps finished, elapsed: [0-9.]+ seconds, routes found: "
-            r"(?P<routes_found>\d+) , not found: (?P<routes_not_found>\d+)$"
-        )
-        for found in (
-            logs_reader.find_and_parse(m["Routing"], pattern_str),
-            logs_reader.find_and_parse(self.log.lines, re.compile(pattern_str)),
-        ):
-
-            self.assertEqual(len(found), 1)
-            line = found[0]
-            self.assertEqual(
-                line[0], {"routes_found": "996363", "routes_not_found": "126519"}
-            )
 
 
 if __name__ == "main":

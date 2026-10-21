@@ -308,38 +308,6 @@
     <string name="enable_location_services">Tafadhali wezesha Huduma za Mahali</string>
     <string name="save">Hifadhi</string>
     <string name="create">unda</string>
-    <!-- red color -->
-    <string name="red">Nyekundu</string>
-    <!-- yellow color -->
-    <string name="yellow">Ujani</string>
-    <!-- blue color -->
-    <string name="blue">Bulu</string>
-    <!-- green color -->
-    <string name="green">Kijani</string>
-    <!-- purple color -->
-    <string name="purple">Zambarau</string>
-    <!-- orange color -->
-    <string name="orange">Rangi ya machungwa</string>
-    <!-- brown color -->
-    <string name="brown">Kijivu</string>
-    <!-- pink color -->
-    <string name="pink">Rangi ya waridi</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Zambarau Iliyoiva</string>
-    <!-- light blue color -->
-    <string name="light_blue">Buluu Hafifu</string>
-    <!-- cyan color -->
-    <string name="cyan">Siani</string>
-    <!-- teal color -->
-    <string name="teal">Teal</string>
-    <!-- lime color -->
-    <string name="lime">Chokaa</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Chungwa Iliyokoza</string>
-    <!-- gray color -->
-    <string name="gray">Kijivu</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Kijivu Buluu</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Muonekano</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -409,13 +377,7 @@
     <string name="editor_example_values">Mifano ya Thamani</string>
     <string name="editor_correct_mistake">Sahihisha kosa</string>
     <string name="editor_add_select_location">Chagua Mahali</string>
-    <string name="editor_report_problem_desription_1">Tafadhali elezea tatizo kwa undani ili jamii ya OpenStreetMap iweze kulirekebisha.</string>
-    <string name="editor_report_problem_desription_2">Au fanya mwenyewe kwenye https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">Tuma</string>
-    <string name="editor_report_problem_title">Tatizo</string>
-    <string name="editor_report_problem_no_place_title">Mahali hapa hakipo</string>
-    <string name="editor_report_problem_under_construction_title">Imefungwa kwa ajili ya matengenezo</string>
-    <string name="editor_report_problem_duplicate_place_title">Mahali maradufu</string>
     <string name="autodownload">Pakua ramani kiotomatiki</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Kila siku</string>
@@ -424,7 +386,6 @@
     <string name="day_off">Imefungwa</string>
     <string name="midnight">Usiku wa manane</string>
     <string name="noon">Adhuhuri</string>
-    <string name="today">Leo</string>
     <string name="opens_in">Inafunguka katika %s</string>
     <string name="closes_in">Inakaribia kwa %s</string>
     <string name="closed">Imefungwa</string>
@@ -467,7 +428,6 @@
     <string name="downloader_no_space_title">Hakuna nafasi ya kutosha</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Tafadhali futa data yoyote isiyo ya lazima</string>
-    <string name="editor_login_error_dialog">Hitilafu ya kuingia.</string>
     <string name="editor_profile_changes">Mabadiliko yaliyothibitishwa</string>
     <string name="editor_focus_map_on_location">Buruta ramani ili kuweka msalaba katika eneo la mahali au biashara.</string>
     <string name="editor_edit_place_title">Uhariri</string>
@@ -476,8 +436,6 @@
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">Kama ilivyoandikwa katika lugha ya kienyeji</string>
     <string name="editor_edit_place_category_title">Kategoria</string>
-    <string name="detailed_problem_description">Maelezo ya kina ya tatizo</string>
-    <string name="editor_report_problem_other_title">Tatizo tofauti</string>
     <string name="placepage_add_business_button">Ongeza biashara</string>
     <string name="message_invalid_feature_position">Hakuna kitu kinachoweza kupatikana hapa</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
@@ -518,7 +476,7 @@
     <string name="day">d</string>
     <string name="second">s</string>
     <string name="placepage_more_button">Zaidi</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Hariri alama ya ukurasa</string>
     <string name="placepage_personal_notes_hint">Vidokezo vya kibinafsi (maandishi au HTML)</string>
     <string name="editor_comment_hint">Maoni…</string>
@@ -547,7 +505,7 @@
     <string name="editor_share_to_all_dialog_message_1">Hakikisha haukuingiza data yoyote ya faragha au ya kibinafsi.</string>
     <string name="editor_share_to_all_dialog_message_2">Wahariri wa OpenStreetMap watakagua mabadiliko na kuwasiliana nawe ikiwa wana maswali yoyote.</string>
     <string name="navigation_stop_button">Simama</string>
-    <!-- Shown as toast when starting the recent track recording -->
+    <!-- Shown while a track is being recorded: the start toast, the notification title and the home screen widget status. -->
     <string name="track_recording">Kurekodi wimbo</string>
     <!-- For the first routing -->
     <string name="accept">Kubali</string>
@@ -571,12 +529,12 @@
     <string name="prefs_languages_information_off_link">Kwa maelezo zaidi tafadhali tazama mwongozo huu.</string>
     <string name="transliteration_title">Tafsiri kwa lugha ya Kilatini</string>
     <string name="learn_more">Jua mengi zaidi</string>
-    <string name="planning_route_manage_route">Dhibiti njia ya kufuata</string>
-    <string name="button_plan">Panga</string>
     <string name="placepage_remove_stop">Ondoa eneo la kusimama</string>
-    <string name="placepage_add_stop">Ongeza eneo la kusimama</string>
+    <!-- Keep it short: route planner button below the destination, PlacePage button, search field hint and full-screen map point picker title shown while choosing another destination. The picked place becomes the new destination, the previous one becomes a stop. -->
+    <string name="route_add_destination">Ongeza marudio</string>
+    <!-- Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. -->
+    <string name="placepage_add_stop">Ongeza kituo</string>
     <string name="drag_to_reorder">Panga upya</string>
-    <string name="saved">Imehifadhiwa</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Tafadhali ingia kwenye OpenStreetMap ili kupakia kiotomatiki hariri zako zote za ramani. Pata maelezo zaidi <a href="https://github.com/organicmaps/organicmaps/issues/6144">hapa</a>.</string>
     <string name="dialog_error_storage_title">Tatizo la kufikia hifadhi</string>
@@ -661,7 +619,19 @@
     <string name="show_to_the_right">Onyesha upande wa kulia</string>
     <string name="show_at_the_bottom">Onyesha chini</string>
     <string name="enable_logging_warning_message">Chaguo huwasha data kwa madhumuni ya uchunguzi. Itakuwa muhimu kwa wafanyakazi wetu ambao wanatatua matatizo ya programu. Washa chaguo hili kwa maombi ya mhudumu wa Organic Maps tu.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">Kwa gari</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">Kwa baiskeli</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">Kwa miguu</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Njia zote za usafiri</string>
     <string name="driving_options_title">Machaguo ya njia</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Uboreshaji wa njia</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Hupanga upya vituo vya kati kiotomatiki ili kuunda njia yenye ufanisi zaidi.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Epuka barabara za ushuru</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -671,8 +641,6 @@
     <string name="avoid_motorways">Epuka barabara</string>
     <string name="unable_to_calc_alert_title">Haiwezi kukokotoa njia</string>
     <string name="unable_to_calc_alert_subtitle">Bahati mbaya hatukuweza kupata njia labda kwa sababu ya machaguo msingi. Tafadhali badili mipangilio na jaribu tena</string>
-    <string name="define_to_avoid_btn">Fafanua njia za kuziepuka</string>
-    <string name="change_driving_options_btn">Machaguo ya njia yamewezeshwa</string>
     <string name="toll_road">Barabara ya kulipia</string>
     <string name="unpaved_road">Barabara ya vumbi</string>
     <string name="ferry_crossing">Kivuko cha feri</string>
@@ -751,8 +719,6 @@
     <string name="elevation_profile_min_elevation">Min. mwinuko</string>
     <string name="elevation_profile_max_elevation">Max. mwinuko</string>
     <string name="elevation_profile_difficulty">Ugumu</string>
-    <string name="elevation_profile_distance">Umbali:</string>
-    <string name="elevation_profile_time">Muda:</string>
     <string name="isolines_toast_zooms_1_10">Vuta karibu kutalii mistari ya kontua</string>
     <string name="downloader_loading_ios">Inapakua</string>
     <string name="download_map_title">Pakua ramani ya muhtasari wa dunia</string>
@@ -845,14 +811,8 @@
     <string name="start_track_recording">Rekodi njia</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Acha kurekodi</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <!-- Subtitle of the place page of the track being recorded, and the name and title of the home screen widget. -->
     <string name="track_recording_title">Kurekodi njia</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Acha bila kuhifadhi</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Endelea kurekodi</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Ungependa kuhifadhi katika alama na njia?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Njia ni tupu - hakuna cha kuhifadhi</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -860,8 +820,6 @@
     <string name="choose_color">Chagua Rangi</string>
     <string name="edit_track">Hariri Njia</string>
     <string name="uri_open_location_failed">Hakuna Programu iliyosakinishwa inayoweza kufungua eneo</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Urambazaji otomatiki</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Fuata mfumo</string>
     <!-- Title of the bottom sheet when sharing the track -->
@@ -887,11 +845,11 @@
     <!-- Text for the showing track. -->
     <string name="show_track">Onyesha njia</string>
 
+    <!-- SECTION: Uncategorized -->
+    <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
+    <string name="you">Wewe</string>
+
     <!-- SECTION: gps strings -->
-    <!-- Login to OSM button text -->
-    <string name="login_osm_credentials">Ingia kwa nenosiri</string>
-    <!-- Login to OSM button text -->
-    <string name="login_osm_browser">Ingia kwa kutumia kivinjari</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Iliyotumiwa Hivi Karibuni</string>
     <!-- Toast message shown when bookmark colors are changed in category settings -->
@@ -914,6 +872,26 @@
     <string name="color_picker_grid">Grid</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Utafutaji kwa sauti</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">Chagua kwenye ramani</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">Kuanzia</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">Marudio</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">Badilisha kuanzia</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">Badilisha marudio</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">Badilisha kituo</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Idadi ya juu ya vituo imefikiwa</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">Sogeza na zuma ramani ili kuweka msalaba</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Acha na hifadhi</string>
+    <!-- Track recording home screen widget button: opens the app to save or delete the recorded track. -->
+    <string name="track_recording_finish">Maliza</string>
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Geuza mwelekeo wa njia</string>
 </resources>

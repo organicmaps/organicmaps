@@ -35,27 +35,19 @@ NewFeatureCategories::NewFeatureCategories(editor::EditorConfig const & config)
 NewFeatureCategories::NewFeatureCategories(NewFeatureCategories && other) noexcept
   : m_index(std::move(other.m_index))
   , m_types(std::move(other.m_types))
-{
-  // Do not move m_addedLangs, see Framework::GetEditorCategories() usage.
-}
+{}
 
 void NewFeatureCategories::AddLanguage(std::string lang)
 {
-  // A regional locale translates only a handful of categories ("es-MX" has 34 synonyms against 518
-  // for "es"), and the index matches the language code exactly, so add the base language too or
-  // everything it does not cover would fall back to English names. GetTwine() drops the region but
-  // keeps the script: unlike a region, a script is a translation of its own, and merging the other
-  // one is not a coverage gap to fill ("zh-Hant" has 483 synonyms, "zh-Hans" 488).
+  // Regional translations cover only some categories, so index their base language too.
+  // GetTwine() drops the region while retaining the Chinese script, whose translations are independent.
   auto base = languages::GetTwine(lang);
   if (base != lang)
     AddLanguage(std::move(base));
 
   auto langCode = CategoriesHolder::MapLocaleToInteger(lang);
   if (langCode == CategoriesHolder::kUnsupportedLocaleCode)
-  {
-    lang = "en";
     langCode = CategoriesHolder::kEnglishCode;
-  }
   if (m_addedLangs.Contains(langCode))
     return;
 
@@ -107,6 +99,6 @@ NewFeatureCategories::TypeNames NewFeatureCategories::GetRecentCategories() cons
   if (recentlyUsedCategories.size() > kMaxRecentlyUsedCategoriesCount)
     recentlyUsedCategories.resize(kMaxRecentlyUsedCategoriesCount);
   return recentlyUsedCategories;
-}  // namespace search
+}
 
 }  // namespace osm

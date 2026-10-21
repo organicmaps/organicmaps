@@ -131,4 +131,8 @@
   <color name="shimmer_highlight">#44FFFFFF</color>
   <!-- Search sheet -->
   <color name="bg_search">#14000000</color>
+  <color name="ripple_search_action">#1F000000</color>
+  <color name="widget_accent">#FF006C35</color>
+  <color name="widget_text_primary">@color/black_primary</color>
+  <color name="widget_text_secondary">@color/black_secondary</color>
 </resources>

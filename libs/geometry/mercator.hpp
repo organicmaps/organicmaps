@@ -84,6 +84,43 @@ inline m2::RectD WrapRectX(m2::RectD rect)
   return rect;
 }
 
+/// Calls \a fn for the one or two canonical parts (X in [kMinX, kMaxX]) of \a rect.
+/// Shifted rectangles are normalized and split at the antimeridian as needed. Widths
+/// of at least kRangeX emit one part covering all longitudes. Y is passed through untouched.
+/// For narrower rectangles, antimeridian contacts include both representations of the
+/// boundary, so an emitted part can have zero width.
+template <typename Fn>
+void ForEachRectWrapped(m2::RectD const & rect, Fn && fn)
+{
+  ASSERT(rect.IsValid(), (rect));
+  if (rect.SizeX() >= Bounds::kRangeX)
+  {
+    // At least one world width covers every longitude.
+    fn(m2::RectD(Bounds::kMinX, rect.minY(), Bounds::kMaxX, rect.maxY()));
+    return;
+  }
+
+  auto wrapped = rect;
+  if (rect.Center().x < Bounds::kMinX || rect.Center().x > Bounds::kMaxX)
+    wrapped = WrapRectX(rect);
+  if (wrapped.maxX() >= Bounds::kMaxX)
+  {
+    // [minX, kMaxX] stays canonical; the part beyond kMaxX wraps to the west.
+    fn(m2::RectD(wrapped.minX(), wrapped.minY(), Bounds::kMaxX, wrapped.maxY()));
+    fn(m2::RectD(Bounds::kMinX, wrapped.minY(), wrapped.maxX() - Bounds::kRangeX, wrapped.maxY()));
+  }
+  else if (wrapped.minX() <= Bounds::kMinX)
+  {
+    // [kMinX, maxX] stays canonical; the part below kMinX wraps to the east.
+    fn(m2::RectD(Bounds::kMinX, wrapped.minY(), wrapped.maxX(), wrapped.maxY()));
+    fn(m2::RectD(wrapped.minX() + Bounds::kRangeX, wrapped.minY(), Bounds::kMaxX, wrapped.maxY()));
+  }
+  else
+  {
+    fn(wrapped);
+  }
+}
+
 void ClampPoint(m2::PointD & pt);
 
 double YToLat(double y);

@@ -210,6 +210,7 @@
 "type.barrier.city_wall" = "Zidurile orașului";
 "type.barrier.cycle_barrier" = "Barieră de biciclete";
 "type.waterway.ditch" = "Șanț de drenaj";
+"type.waterway.ditch.intermittent" = "Șanț de drenaj temporar";
 "type.natural.water.moat" = "Şanţ";
 "type.natural.water.wastewater" = "Ape uzate";
 "type.barrier.entrance" = "Intrare";
@@ -407,28 +408,28 @@
 "type.highway" = "Highway";
 "type.highway.bridleway" = "Bridle Path";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.bridleway.bridge" = "Pod";
 "type.highway.bridleway.permissive" = "Bridle Path";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.bridleway.tunnel" = "Tunel";
 "type.highway.busway" = "Drum dedicat autobuzului";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.busway.bridge" = "Pod";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.busway.tunnel" = "Tunel";
 "type.highway.bus_stop" = "Stație de autobuz";
 "type.highway.construction" = "Drum în construcție";
 "type.highway.cycleway" = "Pistă de biciclete";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.cycleway.bridge" = "Pod";
 "type.highway.cycleway.permissive" = "Pistă de biciclete";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.cycleway.tunnel" = "Tunel";
 "type.highway.elevator" = "Elevator";
 "type.highway.footway" = "Alee";
@@ -436,33 +437,33 @@
 "type.highway.footway.crossing" = "Trecere de pietoni";
 "type.highway.footway.area" = "Alee";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.footway.bridge" = "Pod";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.footway.tunnel" = "Tunel";
 "type.highway.ford" = "Superficial";
 "type.highway.living_street" = "Stradă";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.living_street.bridge" = "Pod";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.living_street.tunnel" = "Tunel";
 "type.highway.motorway" = "Autostradă";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.motorway.bridge" = "Pod";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.motorway.tunnel" = "Tunel";
 "type.highway.motorway_junction" = "Ieșire";
 "type.highway.motorway_link" = "Autostradă";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.motorway_link.bridge" = "Pod";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.motorway_link.tunnel" = "Tunel";
 "type.highway.path" = "Cale";
 
@@ -474,135 +475,135 @@
 "type.highway.path.bicycle" = "Cale";
 "type.highway.footway.bicycle" = "Cale";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.path.bridge" = "Pod";
 "type.highway.path.horse" = "Cale";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.path.tunnel" = "Tunel";
 "type.highway.pedestrian" = "Stradă pietonală";
 "type.highway.pedestrian.area" = "Stradă pietonală";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.pedestrian.bridge" = "Pod";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.pedestrian.tunnel" = "Tunel";
 "type.highway.platform" = "Platform";
 "type.highway.primary" = "Stradă";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.primary.bridge" = "Pod";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.primary.tunnel" = "Tunel";
 "type.highway.primary_link" = "Stradă";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.primary_link.bridge" = "Pod";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.primary_link.tunnel" = "Tunel";
 "type.highway.raceway" = "Pistă de curse";
 "type.highway.residential" = "Stradă";
 "type.highway.residential.area" = "Stradă";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.residential.bridge" = "Pod";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.residential.tunnel" = "Tunel";
 "type.highway.rest_area" = "Zonă de odihnă";
 "type.highway.road" = "Stradă";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.road.bridge" = "Pod";
 
 /* A bridge structure outline. */
 "type.man_made.bridge" = "Pod";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.road.tunnel" = "Tunel";
 "type.highway.secondary" = "Stradă";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.secondary.bridge" = "Pod";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.secondary.tunnel" = "Tunel";
 "type.highway.secondary_link" = "Stradă";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.secondary_link.bridge" = "Pod";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.secondary_link.tunnel" = "Tunel";
 "type.highway.service" = "Stradă";
 "type.highway.service.area" = "Stradă";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.service.bridge" = "Pod";
 "type.highway.service.driveway" = "Stradă";
 "type.highway.service.parking_aisle" = "Stradă";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.service.tunnel" = "Tunel";
 "type.highway.services" = "Service Area";
 "type.highway.speed_camera" = "Detector de viteză";
 "type.highway.steps" = "Scări";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.steps.bridge" = "Pod";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.steps.tunnel" = "Tunel";
 "type.highway.ladder" = "Scară";
 "type.highway.tertiary" = "Stradă";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.tertiary.bridge" = "Pod";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.tertiary.tunnel" = "Tunel";
 "type.highway.tertiary_link" = "Stradă";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.tertiary_link.bridge" = "Pod";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.tertiary_link.tunnel" = "Tunel";
 "type.highway.track" = "Stradă";
 "type.highway.track.area" = "Stradă";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.track.bridge" = "Pod";
 "type.highway.track.grade1" = "Stradă";
 "type.highway.track.no.access" = "Stradă";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.track.tunnel" = "Tunel";
 "type.highway.traffic_signals" = "Semafoare";
 "type.highway.trunk" = "Drum expres";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.trunk.bridge" = "Pod";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.trunk.tunnel" = "Tunel";
 "type.highway.trunk_link" = "Drum expres";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.trunk_link.bridge" = "Pod";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.trunk_link.tunnel" = "Tunel";
 "type.highway.unclassified" = "Stradă";
 "type.highway.unclassified.area" = "Stradă";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.unclassified.bridge" = "Pod";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.unclassified.tunnel" = "Tunel";
 "type.area_highway.cycleway" = "Pistă de biciclete";
 "type.area_highway.footway" = "Alee";
@@ -1519,22 +1520,25 @@
 "type.waterway" = "Waterway";
 "type.waterway.access_point" = "Punct de acces la calea navigabilă";
 "type.waterway.canal" = "Canal";
+"type.waterway.canal.intermittent" = "Canal temporar";
 "type.waterway.canal.tunnel" = "Canal Tunnel";
 "type.waterway.fish_pass" = "Scară de pește";
+"type.waterway.fish_pass.intermittent" = "Scară de pește temporară";
 "type.waterway.dam" = "Dam";
 "type.barrier.ditch" = "Ditch";
 "type.natural.water.ditch" = "Șanț de drenaj";
 "type.waterway.ditch.tunnel" = "Canal de scurgere";
 "type.waterway.dock" = "Waterway Dock";
-"type.waterway.drain" = "Drain";
-"type.natural.water.drain" = "Drain";
+"type.waterway.drain" = "Canal de scurgere";
+"type.waterway.drain.intermittent" = "Canal de scurgere temporar";
+"type.natural.water.drain" = "Canal de scurgere";
 "type.waterway.drain.tunnel" = "Canal de scurgere";
 "type.waterway.lock_gate" = "Ecluză";
 "type.waterway.river" = "Râu";
+"type.waterway.river.intermittent" = "Râu temporar";
 "type.waterway.river.tunnel" = "Râu";
 "type.waterway.stream" = "Pârâu";
-"type.waterway.stream.ephemeral" = "Pârâu";
-"type.waterway.stream.intermittent" = "Pârâu";
+"type.waterway.stream.intermittent" = "Pârâu temporar";
 "type.waterway.stream.tunnel" = "Pârâu";
 "type.waterway.waterfall" = "Cascadă";
 "type.waterway.weir" = "Weir";

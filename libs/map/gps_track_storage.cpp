@@ -5,8 +5,9 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
-#include <algorithm>
 #include <cstring>  // for memcpy
+#include <filesystem>
+#include <fstream>
 
 namespace
 {
@@ -74,172 +75,109 @@ inline size_t GetItemOffset(size_t itemIndex)
   return kHeaderSize + itemIndex * kPointSize;
 }
 
-inline size_t GetItemCount(size_t fileSize)
-{
-  ASSERT_GREATER_OR_EQUAL(fileSize, kHeaderSize, ());
-  return (fileSize - kHeaderSize) / kPointSize;
-}
-
-inline bool WriteVersion(std::fstream & f, uint32_t version)
-{
-  static_assert(kHeaderSize == sizeof(version));
-  version = SwapIfBigEndianMacroBased(version);
-  f.write(reinterpret_cast<char const *>(&version), kHeaderSize);
-  return f.good() && f.flush().good();
-}
-
-inline bool ReadVersion(std::fstream & f, uint32_t & version)
-{
-  static_assert(kHeaderSize == sizeof(version));
-  f.read(reinterpret_cast<char *>(&version), kHeaderSize);
-  version = SwapIfBigEndianMacroBased(version);
-  return f.good();
-}
-
 }  // namespace
 
-GpsTrackStorage::GpsTrackStorage(std::string const & filePath) : m_filePath(filePath), m_itemCount(0)
+GpsTrackStorage::GpsTrackStorage(std::string const & filePath) : m_filePath(filePath) {}
+
+std::vector<GpsTrackStorage::TItem> GpsTrackStorage::Load()
 {
-  auto const createNewFile = [this]
+  m_itemCount = 0;
+  std::error_code error;
+  auto const fileSize = std::filesystem::file_size(m_filePath, error);
+  if (error)
   {
-    m_stream.open(m_filePath, std::ios::in | std::ios::out | std::ios::binary | std::ios::trunc);
-
-    if (!m_stream)
-      MYTHROW(OpenException, ("Open file error.", m_filePath));
-
-    if (!WriteVersion(m_stream, kCurrentVersion))
-      MYTHROW(OpenException, ("Write version error.", m_filePath));
-
-    m_itemCount = 0;
+    if (error != std::errc::no_such_file_or_directory)
+    {
+      LOG(LERROR, ("Cannot read GPS track backup:", m_filePath, error.message()));
+      Clear();
+    }
+    return {};
+  }
+  std::ifstream stream(m_filePath, std::ios::binary);
+  auto const discardBackup = [this, &stream]
+  {
+    stream.close();
+    Clear();
+    return std::vector<TItem>{};
   };
 
-  // Open existing file
-  m_stream.open(m_filePath, std::ios::in | std::ios::out | std::ios::binary);
-
-  if (m_stream)
+  uint32_t version = 0;
+  stream.read(reinterpret_cast<char *>(&version), kHeaderSize);
+  if (!stream)
   {
-    uint32_t version = 0;
-    if (!ReadVersion(m_stream, version))
-    {
-      LOG(LWARNING, ("Recreating", m_filePath, "because can't read version from it."));
-      m_stream.close();
-      createNewFile();
-      version = kCurrentVersion;
-    }
-
-    if (version == kCurrentVersion)
-    {
-      // Seek to end to get file size
-      m_stream.seekp(0, std::ios::end);
-      if (!m_stream.good())
-        MYTHROW(OpenException, ("Seek to the end error.", m_filePath));
-
-      auto const fileSize = static_cast<size_t>(m_stream.tellp());
-
-      m_itemCount = GetItemCount(fileSize);
-
-      // Set write position after last item position
-      size_t const offset = GetItemOffset(m_itemCount);
-      m_stream.seekp(offset, std::ios::beg);
-      if (!m_stream.good())
-        MYTHROW(OpenException, ("Seek to the offset error:", offset, m_filePath));
-
-      LOG(LINFO, ("Restored", m_itemCount, "points from gps track storage"));
-    }
-    else
-    {
-      LOG(LWARNING, ("Unsupported version", version, "in", m_filePath, ", recreating."));
-      m_stream.close();
-      createNewFile();
-      // TODO: migration for file m_filePath from version 'version' to version 'kCurrentVersion'
-      // TODO: For now we support only one version, but in future migration may be needed.
-    }
+    LOG(LERROR, ("Cannot read GPS track backup header:", m_filePath));
+    return discardBackup();
+  }
+  version = SwapIfBigEndianMacroBased(version);
+  if (version != kCurrentVersion)
+  {
+    LOG(LERROR, ("Unsupported GPS track backup version:", version, m_filePath));
+    return discardBackup();
   }
 
-  if (!m_stream)
-    createNewFile();
+  // An interrupted batch can leave an incomplete final point.
+  if ((fileSize - kHeaderSize) % kPointSize != 0)
+    LOG(LERROR, ("Incomplete final GPS track backup point:", m_filePath));
+
+  std::vector<TItem> items((fileSize - kHeaderSize) / kPointSize);
+  std::vector<char> buffer(items.size() * kPointSize);
+  if (!buffer.empty())
+  {
+    stream.read(buffer.data(), buffer.size());
+    if (!stream)
+    {
+      LOG(LERROR, ("Cannot read GPS track backup points:", m_filePath));
+      return discardBackup();
+    }
+
+    for (size_t i = 0; i < items.size(); ++i)
+      Unpack(buffer.data() + i * kPointSize, items[i]);
+  }
+
+  m_itemCount = items.size();
+  return items;
 }
 
-void GpsTrackStorage::Append(std::vector<TItem> const & items)
+bool GpsTrackStorage::Append(std::vector<TItem> const & items)
 {
-  ASSERT(m_stream.is_open(), ());
-
   if (items.empty())
-    return;
+    return true;
 
-  // Write position must be after last item position
-  ASSERT_EQUAL(m_stream.tellp(), static_cast<typename std::fstream::pos_type>(GetItemOffset(m_itemCount)), ());
-
-  std::vector<char> buff(std::min(kItemBlockSize, items.size()) * kPointSize);
-  for (size_t i = 0; i < items.size();)
+  std::fstream stream(m_filePath, std::ios::in | std::ios::out | std::ios::binary |
+                                      (m_itemCount == 0 ? std::ios::trunc : std::ios::openmode{}));
+  if (!stream)
   {
-    size_t const n = std::min(items.size() - i, kItemBlockSize);
-
-    for (size_t j = 0; j < n; ++j)
-      Pack(&buff[0] + j * kPointSize, items[i + j]);
-
-    m_stream.write(&buff[0], n * kPointSize);
-    if (!m_stream.good())
-      MYTHROW(WriteException, ("File:", m_filePath));
-
-    i += n;
+    LOG(LERROR, ("Cannot open GPS track backup for writing:", m_filePath));
+    return false;
   }
 
-  m_stream.flush();
-  if (!m_stream.good())
-    MYTHROW(WriteException, ("File:", m_filePath));
+  if (m_itemCount == 0)
+  {
+    auto const version = SwapIfBigEndianMacroBased(kCurrentVersion);
+    stream.write(reinterpret_cast<char const *>(&version), kHeaderSize);
+  }
+  stream.seekp(GetItemOffset(m_itemCount));
+
+  std::vector<char> buffer(items.size() * kPointSize);
+  for (size_t i = 0; i < items.size(); ++i)
+    Pack(buffer.data() + i * kPointSize, items[i]);
+  stream.write(buffer.data(), buffer.size());
+  stream.close();
+  if (!stream)
+  {
+    LOG(LERROR, ("Cannot write GPS track backup:", m_filePath));
+    return false;
+  }
 
   m_itemCount += items.size();
+  return true;
 }
 
 void GpsTrackStorage::Clear()
 {
-  ASSERT(m_stream.is_open(), ());
-
   m_itemCount = 0;
-
-  m_stream.close();
-
-  m_stream.open(m_filePath, std::ios::in | std::ios::out | std::ios::binary | std::ios::trunc);
-
-  if (!m_stream)
-    MYTHROW(WriteException, ("File:", m_filePath));
-
-  if (!WriteVersion(m_stream, kCurrentVersion))
-    MYTHROW(WriteException, ("File:", m_filePath));
-
-  // Write position is set to the first item in the file
-  ASSERT_EQUAL(m_stream.tellp(), static_cast<typename std::fstream::pos_type>(GetItemOffset(0)), ());
-}
-
-void GpsTrackStorage::ForEach(std::function<bool(TItem const & item)> const & fn)
-{
-  ASSERT(m_stream.is_open(), ());
-
-  size_t i = 0;
-
-  // Set read position to the first item
-  m_stream.seekg(GetItemOffset(i), std::ios::beg);
-  if (!m_stream.good())
-    MYTHROW(ReadException, ("File:", m_filePath));
-
-  std::vector<char> buff(std::min(kItemBlockSize, m_itemCount) * kPointSize);
-  for (; i < m_itemCount;)
-  {
-    size_t const n = std::min(m_itemCount - i, kItemBlockSize);
-
-    m_stream.read(&buff[0], n * kPointSize);
-    if (!m_stream.good())
-      MYTHROW(ReadException, ("File:", m_filePath));
-
-    for (size_t j = 0; j < n; ++j)
-    {
-      TItem item;
-      Unpack(&buff[0] + j * kPointSize, item);
-      if (!fn(item))
-        return;
-    }
-
-    i += n;
-  }
+  std::error_code error;
+  std::filesystem::remove(m_filePath, error);
+  if (error)
+    LOG(LERROR, ("Cannot delete GPS track backup:", m_filePath, error.message()));
 }

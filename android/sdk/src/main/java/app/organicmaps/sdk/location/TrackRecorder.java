@@ -10,6 +10,8 @@ public class TrackRecorder
 
   public static native void nativeStopTrackRecording();
 
+  public static native void nativeDiscardTrackRecording();
+
   public static native void nativeSaveTrackRecordingWithName(String name);
 
   public static native boolean nativeIsTrackRecordingEmpty();
@@ -25,8 +27,12 @@ public class TrackRecorder
   {
     final boolean saved = !nativeIsTrackRecordingEmpty();
     if (saved)
+    {
       nativeSaveTrackRecordingWithName("");
-    nativeStopTrackRecording();
+      nativeStopTrackRecording();
+    }
+    else
+      nativeDiscardTrackRecording();
     return saved;
   }
 

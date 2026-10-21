@@ -40,7 +40,7 @@ extension NavigationDashboard.ViewModel {
       routerType: MWMRouter.type(),
       entity: MWMNavigationDashboardEntity(),
       trackRecordingState: TrackRecordingManager.shared.recordingState,
-      routingOptions: RoutingOptions(),
+      routingOptions: RoutingOptions(routerType: MWMRouter.type()),
       routeElevationPreviewData: nil,
       routeElevationActivePointDistance: nil,
       navigationInfo: .hidden,
@@ -56,6 +56,14 @@ extension NavigationDashboard.ViewModel {
   }
 
   var isBottomActionsMenuHidden: Bool { presentationStep == .hidden }
+
+  var canReverseRoutePoints: Bool {
+    // A fixed start leaves a valid preview in RouteNoFollowing, where isRouteBuilt() is false.
+    routePoints.hasStartAndFinish &&
+      (dashboardState == .ready || dashboardState == .prepare) &&
+      progress == 1 &&
+      MWMRouter.isRouteValid()
+  }
 
   var startButtonState: StartRouteButton.State {
     if routePoints.count < 2 ||

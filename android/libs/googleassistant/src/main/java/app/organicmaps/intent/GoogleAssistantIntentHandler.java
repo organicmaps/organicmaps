@@ -35,7 +35,7 @@ public abstract class GoogleAssistantIntentHandler
 
       Router routingMode = parseRoutingMode(uri);
 
-      applyAvoidOptions(uri);
+      applyAvoidOptions(uri, routingMode);
 
       RoutingController.get().setRouterType(routingMode);
 
@@ -158,7 +158,7 @@ public abstract class GoogleAssistantIntentHandler
   /**
    * Apply avoid options: t=tolls, f=ferries, h=highways
    */
-  private static void applyAvoidOptions(@NonNull Uri uri)
+  private static void applyAvoidOptions(@NonNull Uri uri, @NonNull Router router)
   {
     try
     {
@@ -167,11 +167,11 @@ public abstract class GoogleAssistantIntentHandler
         return;
 
       if (avoid.indexOf('t') >= 0)
-        RoutingOptions.addOption(RoadType.Toll);
+        RoutingOptions.addOption(router, RoadType.Toll);
       if (avoid.indexOf('f') >= 0)
-        RoutingOptions.addOption(RoadType.Ferry);
+        RoutingOptions.addOption(router, RoadType.Ferry);
       if (avoid.indexOf('h') >= 0)
-        RoutingOptions.addOption(RoadType.Motorway);
+        RoutingOptions.addOption(router, RoadType.Motorway);
     }
     catch (Exception e)
     {
@@ -274,33 +274,33 @@ public abstract class GoogleAssistantIntentHandler
       case "unmute": TtsPlayer.setEnabled(true); return true;
 
       case "avoid_tolls":
-        RoutingOptions.addOption(RoadType.Toll);
-        rebuildRouteIfNeeded();
+        RoutingOptions.addOption(Router.Vehicle, RoadType.Toll);
+        onCarOptionsChanged();
         return true;
 
       case "avoid_ferries":
-        RoutingOptions.addOption(RoadType.Ferry);
-        rebuildRouteIfNeeded();
+        RoutingOptions.addOption(Router.Vehicle, RoadType.Ferry);
+        onCarOptionsChanged();
         return true;
 
       case "avoid_highways":
-        RoutingOptions.addOption(RoadType.Motorway);
-        rebuildRouteIfNeeded();
+        RoutingOptions.addOption(Router.Vehicle, RoadType.Motorway);
+        onCarOptionsChanged();
         return true;
 
       case "allow_tolls":
-        RoutingOptions.removeOption(RoadType.Toll);
-        rebuildRouteIfNeeded();
+        RoutingOptions.removeOption(Router.Vehicle, RoadType.Toll);
+        onCarOptionsChanged();
         return true;
 
       case "allow_ferries":
-        RoutingOptions.removeOption(RoadType.Ferry);
-        rebuildRouteIfNeeded();
+        RoutingOptions.removeOption(Router.Vehicle, RoadType.Ferry);
+        onCarOptionsChanged();
         return true;
 
       case "allow_highways":
-        RoutingOptions.removeOption(RoadType.Motorway);
-        rebuildRouteIfNeeded();
+        RoutingOptions.removeOption(Router.Vehicle, RoadType.Motorway);
+        onCarOptionsChanged();
         return true;
 
       case "show_traffic":
@@ -325,22 +325,13 @@ public abstract class GoogleAssistantIntentHandler
   }
 
   /**
-   * Rebuild route when options change
+   * Only driving plans use these options; the controller handles deferred changes and navigation state.
    */
-  private static void rebuildRouteIfNeeded()
+  private static void onCarOptionsChanged()
   {
-    try
-    {
-      final RoutingController controller = RoutingController.get();
-      if (controller.isPlanning() && controller.getStartPoint() != null && controller.getEndPoint() != null)
-      {
-        controller.rebuildLastRoute();
-      }
-    }
-    catch (Exception e)
-    {
-      Logger.e(TAG, "Failed to rebuild route", e);
-    }
+    final RoutingController controller = RoutingController.get();
+    if (controller.getLastRouterType() == Router.Vehicle)
+      controller.onRoutingOptionsChanged();
   }
 
   public boolean handleIntent(@NonNull Intent intent, @NonNull SearchHandler searchHandler)

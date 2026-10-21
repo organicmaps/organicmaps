@@ -7,7 +7,6 @@
 #include "map/isolines_manager.hpp"
 #include "map/mwm_url.hpp"
 #include "map/place_page_info.hpp"
-#include "map/position_provider.hpp"
 #include "map/power_management/power_management_schemas.hpp"
 #include "map/power_management/power_manager.hpp"
 #include "map/routing_manager.hpp"
@@ -97,8 +96,7 @@ struct FrameworkParams
 };
 
 class Framework
-  : public PositionProvider
-  , public SearchAPI::Delegate
+  : public SearchAPI::Delegate
   , public RoutingManager::Delegate
   , private power_management::PowerManager::Subscriber
 {
@@ -314,7 +312,6 @@ public:
   using SearchResultsIterT = SearchAPI::Delegate::ResultsIterT;
   void ShowViewportSearchResults(SearchResultsIterT begin, SearchResultsIterT end, bool clear) override;
   void ClearViewportSearchResults() override;
-  // PositionProvider, SearchApi::Delegate and TipsApi::Delegate override.
   std::optional<m2::PointD> GetCurrentPosition() const override;
   bool ParseSearchQueryCommand(search::SearchParams const & params) override;
   m2::PointD GetMinDistanceBetweenResults() const override;
@@ -356,7 +353,8 @@ public:
   void InvalidateRendering();
   void EnableDebugRectRendering(bool enabled);
 
-  void EnableChoosePositionMode(bool enable, bool enableBounds, m2::PointD const * optionalPosition);
+  void EnableChoosePositionMode(bool enable, bool enableBounds, m2::PointD const * optionalPosition,
+                                bool shouldChangeViewport = true);
   void BlockTapEvents(bool block);
 
   using TCurrentCountryChanged = std::function<void(storage::CountryId const &)>;
@@ -452,7 +450,9 @@ public:
   using TrackRecordingUpdateHandler = platform::SafeCallback<void(TrackStatistics const & trackStatistics)>;
   void StartTrackRecording();
   void SetTrackRecordingUpdateHandler(TrackRecordingUpdateHandler && trackRecordingDidUpdate);
+  /// Finishes recording, retaining its backup until saved or explicitly discarded.
   void StopTrackRecording();
+  void DiscardTrackRecording();
   void SaveTrackRecordingWithName(std::string const & name);
   bool IsTrackRecordingEmpty() const;
   bool IsTrackRecordingEnabled() const;
@@ -483,10 +483,7 @@ private:
   TCurrentCountryChanged m_currentCountryChanged;
 
   void OnUpdateGpsTrackPointsCallback(std::vector<std::pair<size_t, location::GpsInfo>> && toAdd,
-                                      std::pair<size_t, size_t> const & toRemove,
-                                      TrackStatistics const & trackStatistics);
-
-  TrackRecordingUpdateHandler m_trackRecordingUpdateHandler;
+                                      std::pair<size_t, size_t> const & toRemove);
 
   std::unique_ptr<descriptions::Loader> m_descriptionsLoader;
   SelectionProcessor m_selectionProcessor;
@@ -500,7 +497,8 @@ private:
   std::optional<RouteTransitSelection> m_routeTransitSelection;
 
 public:
-  // Moves viewport to the search result and taps on it.
+  // Stops location follow, opens the result's place page and centers the viewport
+  // without cancelling searches or clearing their marks.
   void SelectSearchResult(search::Result const & res, bool animation);
 
   // Highlights a public-transport route line on the map, using the current place page's feature
@@ -515,8 +513,7 @@ public:
   // Is called on PT PP close. Clears drape's transit scheme if ShowRouteTransit above was called before.
   void HideRouteTransitIfNeeded();
 
-  // Cancels all searches, stops location follow and then selects
-  // search result.
+  // Cancels all searches, then selects the result via SelectSearchResult.
   void ShowSearchResult(search::Result const & res, bool animation = true);
 
   // Applies the search results viewport policy, see search::AdjustViewportToSearchResults().

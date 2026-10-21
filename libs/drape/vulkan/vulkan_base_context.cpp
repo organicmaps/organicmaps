@@ -261,7 +261,8 @@ void VulkanBaseContext::EndRendering()
   submitInfo.pWaitDstStageMask = &waitStageMask;
   submitInfo.pWaitSemaphores = &m_acquireSemaphores[m_inflightFrameIndex];
   submitInfo.waitSemaphoreCount = 1;
-  submitInfo.pSignalSemaphores = &m_renderSemaphores[m_inflightFrameIndex];
+  ASSERT_LESS(m_imageIndex, m_renderSemaphores.size(), ());
+  submitInfo.pSignalSemaphores = &m_renderSemaphores[m_imageIndex];
   submitInfo.signalSemaphoreCount = 1;
   submitInfo.commandBufferCount = 2;
   submitInfo.pCommandBuffers = commandBuffers;
@@ -515,7 +516,7 @@ void VulkanBaseContext::Present()
     presentInfo.swapchainCount = 1;
     presentInfo.pSwapchains = &m_swapchain;
     presentInfo.pImageIndices = &m_imageIndex;
-    presentInfo.pWaitSemaphores = &m_renderSemaphores[m_inflightFrameIndex];
+    presentInfo.pWaitSemaphores = &m_renderSemaphores[m_imageIndex];
     presentInfo.waitSemaphoreCount = 1;
 
     auto const res = vkQueuePresentKHR(m_queue, &presentInfo);
@@ -547,12 +548,8 @@ uint32_t VulkanBaseContext::RegisterHandler(HandlerType handlerType, ContextHand
 
 void VulkanBaseContext::UnregisterHandler(uint32_t id)
 {
-  for (size_t i = 0; i < m_handlers.size(); ++i)
-  {
-    m_handlers[i].erase(std::remove_if(m_handlers[i].begin(), m_handlers[i].end(),
-                                       [id](std::pair<uint8_t, ContextHandler> const & p) { return p.first == id; }),
-                        m_handlers[i].end());
-  }
+  for (auto & handlers : m_handlers)
+    std::erase_if(handlers, [id](auto const & handler) { return handler.first == id; });
 }
 
 void VulkanBaseContext::ResetPipelineCache()
@@ -870,6 +867,12 @@ void VulkanBaseContext::RecreateSwapchain()
   CHECK_VK_CALL(vkGetSwapchainImagesKHR(m_device, m_swapchain, &swapchainImageCount, m_swapchainImages.data()));
 
   m_swapchainImageViews.resize(swapchainImageCount);
+  m_renderSemaphores.resize(swapchainImageCount);
+  VkSemaphoreCreateInfo semaphoreCI = {};
+  semaphoreCI.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
+  for (auto & semaphore : m_renderSemaphores)
+    CHECK_VK_CALL(vkCreateSemaphore(m_device, &semaphoreCI, nullptr, &semaphore));
+
   for (size_t i = 0; i < m_swapchainImageViews.size(); ++i)
   {
     VkImageViewCreateInfo swapchainImageViewCI = {};
@@ -897,6 +900,9 @@ void VulkanBaseContext::DestroySwapchain()
     vkDestroyImageView(m_device, imageView, nullptr);
   m_swapchainImageViews.clear();
   m_swapchainImages.clear();
+  for (auto const semaphore : m_renderSemaphores)
+    vkDestroySemaphore(m_device, semaphore, nullptr);
+  m_renderSemaphores.clear();
   vkDestroySwapchainKHR(m_device, m_swapchain, nullptr);
   m_swapchain = VK_NULL_HANDLE;
 }
@@ -998,9 +1004,6 @@ void VulkanBaseContext::CreateSyncPrimitives()
 
   for (auto & s : m_acquireSemaphores)
     CHECK_VK_CALL(vkCreateSemaphore(m_device, &semaphoreCI, nullptr, &s));
-
-  for (auto & s : m_renderSemaphores)
-    CHECK_VK_CALL(vkCreateSemaphore(m_device, &semaphoreCI, nullptr, &s));
 }
 
 void VulkanBaseContext::DestroySyncPrimitives()
@@ -1015,15 +1018,6 @@ void VulkanBaseContext::DestroySyncPrimitives()
   }
 
   for (auto & s : m_acquireSemaphores)
-  {
-    if (s == VK_NULL_HANDLE)
-      continue;
-
-    vkDestroySemaphore(m_device, s, nullptr);
-    s = VK_NULL_HANDLE;
-  }
-
-  for (auto & s : m_renderSemaphores)
   {
     if (s == VK_NULL_HANDLE)
       continue;

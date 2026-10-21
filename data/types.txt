@@ -112,7 +112,7 @@ boundary|administrative|4
 railway|station
 highway|path
 *amenity|hospital
-*waterway|stream|ephemeral
+waterway|stream|intermittent
 *highway|trunk|bridge
 *amenity|post_office
 *landuse|quarry
@@ -554,11 +554,11 @@ mapswithme
 *amenity|love_hotel
 highway|path|expert
 mapswithme
-mapswithme
-mapswithme
-mapswithme
-mapswithme
-mapswithme
+*waterway|river|intermittent
+*waterway|canal|intermittent
+*waterway|ditch|intermittent
+*waterway|drain|intermittent
+*waterway|fish_pass|intermittent
 mapswithme
 mapswithme
 natural|water|lake
@@ -1655,3 +1655,5 @@ amenity|recycling|container
 *amenity|stage
 *natural|hill
 *natural|arch
+*railway|station|subway|suzhou
+*railway|subway_entrance|suzhou

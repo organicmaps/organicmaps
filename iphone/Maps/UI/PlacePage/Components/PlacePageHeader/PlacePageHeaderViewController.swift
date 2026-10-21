@@ -150,8 +150,7 @@ final class PlacePageHeaderViewController: UIViewController {
 
   private func showEducationalTrackCandidatesSelectorIfNeeded() {
     let key = Constants.didShowEducationalTrackSelectorPopup
-    guard !UserDefaults.standard.bool(forKey: key) else { return }
-    guard showTrackCandidatesSelector() else { return }
+    guard !UserDefaults.standard.bool(forKey: key), showTrackCandidatesSelector() else { return }
     UserDefaults.standard.set(true, forKey: key)
   }
 }

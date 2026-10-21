@@ -1,28 +1,33 @@
-• Uusi ”Tallenna hakuhistoria” -asetus auttaa pitämään hakuhistoriasi yksityisenä tarvittaessa
+## Reititys
+• Parannetut vaihtoehtoiset reitit ja niiden arvioidut saapumisajat
+• Lisätty painikkeet pysähdyksen lisäämiseksi tai korvaamiseksi suunnitellulla reitillä
+• Lisätty asetus reitin välipysähdysten järjestyksen optimoimiseksi
+• Valittu vaihtoehtoinen reitti säilyy nyt, kun navigointi laskee reitin uudelleen
+• Reittipysähdysten järjestys palautuu nyt sovelluksen uudelleenkäynnistyksen jälkeen
 
-## Kartta ja paikat
-• OpenStreetMap-tiedot päivätty 14. heinäkuuta
-• OpenStreetMap-muistiinpanot sijoitetaan nyt tarkalleen valitsemallesi paikalle, eivätkä enää metsän keskelle
-• Parannettu kartan valinta alueilla, jotka ylittävät 180°:n vastameridiaanin
-• Korkeusprofiileissa ei enää näy vanhentuneita tai tyhjiä kaavioita reitin poistamisen jälkeen
-• Tallennettujen reittien tyhjää korkeuskaaviota on parannettu
-• Kirjanmerkkien poistopainike on helpompi löytää
-• Kirjanmerkit tallennetaan automaattisesti, kun poistut muokkausnäytöltä
-• Värivalikoima sisältää valmiita värejä, ja voit valita minkä tahansa mukautetun värin
-• Muita käyttöliittymän parannuksia
+## Kartta
+• OpenStreetMap-tiedot 28. syyskuuta
+• Wikipedia-tiedot 21. syyskuuta
+• Vesialtaat näkyvät nyt, kun karttaa loitonnetaan entisestään
+• Vesitunneleita ei enää näytetä kartalla
+• Korjattu Suzhou Metron asemien ja sisäänkäyntien kuvakkeet
+• Korjattu harvinaisia tapauksia, joissa merkinnät siirtyivät pois paikaltaan metrokarttakerroksessa
 
-## Julkinen liikenne
-• Pysäkkien, vaihtopaikkojen ja asemien nimissä käytetään nyt valkoista ääriviivaa, jotta ne ovat luettavissa sekä vaaleassa että tummassa teemassa
-• Metrokarttakerros tulee jälleen näkyviin oikein, kun suljet julkisen liikenteen reitin esikatselun
+## CarPlay
+• Lisätty ajo-ohjeet tuetuille auton head-up-näytöille (HUD) ja CarPlay-kojelautaan
+• CarPlay-painikkeet ja haku on korjattu
 
-## Reititys ja navigointi
-• Korjattu virheellisiä ja puuttuvia reittiohjeita koskevia ongelmia
-• Reittivaroitukset (tiemaksut, lautat, päällystämättömät tiet, portaat jne.) näkyvät nyt kaikilla vaihtoehtoisilla reiteillä
-• Korjattu harvinainen jumittuminen reitin suunnittelun aikana ja parannettu umpikujien sekä lähtö- ja päätepisteiden käsittelyä rajoitetuilla teillä
-• Parannettu reitin etenemisen näyttöä aloituspainikkeessa
-• Reitin pysähdyspaikkojen järjestyksen muuttaminen ei enää aiheuta luettelon hyppimistä
+## Jäljet
+• Lisätty silmäkuvake yksittäisten jälkien piilottamista varten
+• Korjattu virheitä ja parannettu jälkien tallennusta
+• KMB-tiedostojen tuonti on korjattu
 
-## Käännökset
-• Parannettu kiinankielistä sanamuotoa
-• Päivitetty ukrainankielisiä käännöksiä
-• Korjattu kartta-alueiden käännöksiä italiaksi
+## Haku
+• Korjattu hakutoiminto tilanteissa, joissa näkyvä kartta-alue ylittää 180°:n meridiaanin (pituusaste ±180°)
+• Kategoriahaku on palautettu Spotlightiin
+
+## Käyttöliittymä
+• Aukioloajoissa näytetään nyt ”Keskipäivä” klo 12.00 ja ”Keskiyö” klo 00.00 tai 24.00.
+• Korjattu useita virheitä ja parannettu käyttöliittymää
+• Korjattuja englannin-, ranskan- ja asturiankielisiä käännöksiä
+• Lisätty tuki asennetun navigointiäänen valintaan ja ääninäytteen kuunteluun

@@ -84,6 +84,7 @@ android {
 
     google {
       dimension 'default'
+      isDefault = true
       versionName = android.defaultConfig.versionName + '-Google'
       buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@organicmaps.app"'
       buildConfigField 'String', 'REVIEW_URL', '"market://details?id=app.organicmaps"'

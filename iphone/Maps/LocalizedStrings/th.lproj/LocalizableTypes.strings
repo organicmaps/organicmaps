@@ -210,6 +210,7 @@
 "type.barrier.city_wall" = "กำแพงเมือง";
 "type.barrier.cycle_barrier" = "Cycle Barrier";
 "type.waterway.ditch" = "คูระบายน้ำ";
+"type.waterway.ditch.intermittent" = "คูระบายน้ำชั่วคราว";
 "type.natural.water.moat" = "คูเมือง";
 "type.natural.water.wastewater" = "น้ำเสีย";
 "type.barrier.entrance" = "ทางเข้า";
@@ -407,28 +408,28 @@
 "type.highway" = "Highway";
 "type.highway.bridleway" = "Bridle Path";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.bridleway.bridge" = "สะพาน";
 "type.highway.bridleway.permissive" = "Bridle Path";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.bridleway.tunnel" = "อุโมงค์";
 "type.highway.busway" = "ถนนทางเดินรถโดยเฉพาะ";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.busway.bridge" = "สะพาน";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.busway.tunnel" = "อุโมงค์";
 "type.highway.bus_stop" = "ป้ายรถเมล์";
 "type.highway.construction" = "ทางกำลังอยู่ในการก่อสร้าง";
 "type.highway.cycleway" = "Cycle Path";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.cycleway.bridge" = "สะพาน";
 "type.highway.cycleway.permissive" = "Cycle Path";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.cycleway.tunnel" = "อุโมงค์";
 "type.highway.elevator" = "Elevator";
 "type.highway.footway" = "เส้นทาง";
@@ -436,33 +437,33 @@
 "type.highway.footway.crossing" = "ทางม้าลาย";
 "type.highway.footway.area" = "เส้นทาง";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.footway.bridge" = "สะพาน";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.footway.tunnel" = "อุโมงค์";
 "type.highway.ford" = "ที่ตื้นของทางน้ำ";
 "type.highway.living_street" = "ถนน";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.living_street.bridge" = "สะพาน";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.living_street.tunnel" = "อุโมงค์";
 "type.highway.motorway" = "ถนน";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.motorway.bridge" = "สะพาน";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.motorway.tunnel" = "อุโมงค์";
 "type.highway.motorway_junction" = "ทางออก";
 "type.highway.motorway_link" = "ถนน";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.motorway_link.bridge" = "สะพาน";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.motorway_link.tunnel" = "อุโมงค์";
 "type.highway.path" = "เส้นทาง";
 
@@ -474,135 +475,135 @@
 "type.highway.path.bicycle" = "เส้นทาง";
 "type.highway.footway.bicycle" = "เส้นทาง";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.path.bridge" = "สะพาน";
 "type.highway.path.horse" = "เส้นทาง";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.path.tunnel" = "อุโมงค์";
 "type.highway.pedestrian" = "ถนน";
 "type.highway.pedestrian.area" = "ถนน";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.pedestrian.bridge" = "สะพาน";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.pedestrian.tunnel" = "อุโมงค์";
 "type.highway.platform" = "Platform";
 "type.highway.primary" = "ถนน";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.primary.bridge" = "สะพาน";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.primary.tunnel" = "อุโมงค์";
 "type.highway.primary_link" = "ถนน";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.primary_link.bridge" = "สะพาน";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.primary_link.tunnel" = "อุโมงค์";
 "type.highway.raceway" = "สนามแข่ง";
 "type.highway.residential" = "ถนน";
 "type.highway.residential.area" = "ถนน";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.residential.bridge" = "สะพาน";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.residential.tunnel" = "อุโมงค์";
 "type.highway.rest_area" = "บริเวณพักผ่อน";
 "type.highway.road" = "ถนน";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.road.bridge" = "สะพาน";
 
 /* A bridge structure outline. */
 "type.man_made.bridge" = "สะพาน";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.road.tunnel" = "อุโมงค์";
 "type.highway.secondary" = "ถนน";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.secondary.bridge" = "สะพาน";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.secondary.tunnel" = "อุโมงค์";
 "type.highway.secondary_link" = "ถนน";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.secondary_link.bridge" = "สะพาน";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.secondary_link.tunnel" = "อุโมงค์";
 "type.highway.service" = "ถนน";
 "type.highway.service.area" = "ถนน";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.service.bridge" = "สะพาน";
 "type.highway.service.driveway" = "ถนน";
 "type.highway.service.parking_aisle" = "ถนน";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.service.tunnel" = "อุโมงค์";
 "type.highway.services" = "Service Area";
 "type.highway.speed_camera" = "กล้องตรวจจับความเร็ว";
 "type.highway.steps" = "เส้นทาง";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.steps.bridge" = "สะพาน";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.steps.tunnel" = "อุโมงค์";
 "type.highway.ladder" = "Ladder";
 "type.highway.tertiary" = "ถนน";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.tertiary.bridge" = "สะพาน";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.tertiary.tunnel" = "อุโมงค์";
 "type.highway.tertiary_link" = "ถนน";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.tertiary_link.bridge" = "สะพาน";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.tertiary_link.tunnel" = "อุโมงค์";
 "type.highway.track" = "ถนน";
 "type.highway.track.area" = "ถนน";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.track.bridge" = "สะพาน";
 "type.highway.track.grade1" = "ถนน";
 "type.highway.track.no.access" = "ถนน";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.track.tunnel" = "อุโมงค์";
 "type.highway.traffic_signals" = "สัญญาณไฟจราจร";
 "type.highway.trunk" = "ถนน";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.trunk.bridge" = "สะพาน";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.trunk.tunnel" = "อุโมงค์";
 "type.highway.trunk_link" = "ถนน";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.trunk_link.bridge" = "สะพาน";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.trunk_link.tunnel" = "อุโมงค์";
 "type.highway.unclassified" = "ถนน";
 "type.highway.unclassified.area" = "ถนน";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.unclassified.bridge" = "สะพาน";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.unclassified.tunnel" = "อุโมงค์";
 "type.area_highway.cycleway" = "Cycle Path";
 "type.area_highway.footway" = "เส้นทาง";
@@ -1519,23 +1520,26 @@
 "type.waterway" = "Waterway";
 "type.waterway.access_point" = "จุดเข้าถึงทางน้ำ";
 "type.waterway.canal" = "คลอง";
+"type.waterway.canal.intermittent" = "คลองชั่วคราว";
 "type.waterway.canal.tunnel" = "คลอง";
 "type.waterway.fish_pass" = "บันไดปลา";
+"type.waterway.fish_pass.intermittent" = "บันไดปลาชั่วคราว";
 "type.waterway.dam" = "Dam";
 "type.barrier.ditch" = "Ditch";
 "type.natural.water.ditch" = "คูระบายน้ำ";
 "type.waterway.ditch.tunnel" = "ท่อระบายน้ำ";
 "type.waterway.dock" = "Waterway Dock";
-"type.waterway.drain" = "Drain";
-"type.natural.water.drain" = "Drain";
+"type.waterway.drain" = "ร่องระบายน้ำ";
+"type.waterway.drain.intermittent" = "ร่องระบายน้ำชั่วคราว";
+"type.natural.water.drain" = "ร่องระบายน้ำ";
 "type.waterway.drain.tunnel" = "ท่อระบายน้ำ";
 "type.waterway.lock_gate" = "ประตูระบายน้ำ";
 "type.waterway.river" = "แม่น้ำ";
+"type.waterway.river.intermittent" = "แม่น้ำชั่วคราว";
 "type.waterway.river.tunnel" = "แม่น้ำ";
-"type.waterway.stream" = "แม่น้ำ";
-"type.waterway.stream.ephemeral" = "แม่น้ำ";
-"type.waterway.stream.intermittent" = "แม่น้ำ";
-"type.waterway.stream.tunnel" = "แม่น้ำ";
+"type.waterway.stream" = "ลำธาร";
+"type.waterway.stream.intermittent" = "ลำธารชั่วคราว";
+"type.waterway.stream.tunnel" = "ลำธาร";
 "type.waterway.waterfall" = "น้ำตก";
 "type.waterway.weir" = "Weir";
 "type.wheelchair" = "Wheelchair";

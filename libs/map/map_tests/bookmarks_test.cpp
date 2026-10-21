@@ -26,7 +26,9 @@
 #include <utf8.h>  // utf8::is_valid
 
 #include <array>
+#include <chrono>
 #include <cstring>  // strlen
+#include <ctime>
 #include <map>
 #include <numeric>  // std::reduce
 #include <set>
@@ -328,6 +330,86 @@ kml::TrackData MakeLineTrackData()
   trackData.m_geometry.AddLine({{{0.0, 0.0}, 1}, {{1.0, 0.0}, 2}});
   trackData.m_geometry.AddTimestamps({});
   return trackData;
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_ReloadPreservesCategoryIdentityAndMetadata)
+{
+  auto const filePath = base::JoinPath(GetBookmarksDirectory(), "reload_metadata.kml");
+  SCOPE_GUARD(fileDeleter, [&]() { (void)base::DeleteFileX(filePath); });
+  auto makeFileData =
+      [](std::string const & name, std::string const & description, std::time_t modified, size_t bookmarkCount)
+  {
+    auto data = LoadKmlData(MemReader(kmlString, std::strlen(kmlString)), FileType::Kml);
+    TEST(data, ());
+    kml::SetDefaultStr(data->m_categoryData.m_name, name);
+    kml::SetDefaultStr(data->m_categoryData.m_description, description);
+    data->m_categoryData.m_lastModified = kml::TimestampClock::from_time_t(modified);
+    data->m_bookmarksData.resize(bookmarkCount);
+    data->m_tracksData.push_back(MakeLineTrackData());
+    return data;
+  };
+
+  auto initialData = makeFileData("MapName", "initial", 1000, 2);
+  TEST(SaveKmlFileSafe(*initialData, filePath, FileType::Kml), ());
+
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+  auto loadFile = [&](bool autoSave)
+  {
+    auto data = LoadKmlData(FileReader(filePath), FileType::Kml);
+    TEST(data, ());
+    BookmarkManager::KMLDataCollection collection;
+    collection.emplace_back(filePath, std::move(data));
+    bmManager.CreateCategories(std::move(collection), autoSave);
+  };
+  loadFile(false /* autoSave */);
+
+  auto const groupId = bmManager.GetCategoryByFileName(filePath);
+  TEST_NOT_EQUAL(groupId, kml::kInvalidMarkGroupId, ());
+  TEST_EQUAL(bmManager.GetUserMarkIds(groupId).size(), 2, ());
+  TEST_EQUAL(bmManager.GetTrackIds(groupId).size(), 1, ());
+  auto oldBookmarkId = *bmManager.GetUserMarkIds(groupId).begin();
+  auto oldTrackId = *bmManager.GetTrackIds(groupId).begin();
+
+  auto reload =
+      [&](std::string const & name, std::string const & description, std::time_t modified, size_t bookmarkCount)
+  {
+    auto data = makeFileData(name, description, modified, bookmarkCount);
+    TEST(SaveKmlFileSafe(*data, filePath, FileType::Kml), ());
+    TEST(Platform::SetFileModificationTime(filePath, 5000), ());
+
+    loadFile(true /* autoSave */);
+
+    auto const & categoryData = bmManager.GetCategoryData(groupId);
+    TEST_EQUAL(bmManager.GetBmGroupsCount(), 1, ());
+    TEST_EQUAL(categoryData.m_id, groupId, ());
+    TEST_EQUAL(bmManager.GetCategoryByFileName(filePath), groupId, ());
+    TEST_EQUAL(bmManager.GetCategoryName(groupId), name, ());
+    TEST_EQUAL(kml::GetDefaultStr(categoryData.m_description), description, ());
+    TEST_EQUAL(categoryData.m_lastModified, kml::TimestampClock::from_time_t(modified), ());
+    TEST_EQUAL(bmManager.GetUserMarkIds(groupId).size(), bookmarkCount, ());
+    TEST_EQUAL(bmManager.GetTrackIds(groupId).size(), 1, ());
+    TEST(!bmManager.HasBookmark(oldBookmarkId), ());
+    TEST(!bmManager.HasTrack(oldTrackId), ());
+
+    TEST_EQUAL(Platform::GetFileModificationTime(filePath), 5000, ());
+    oldBookmarkId = *bmManager.GetUserMarkIds(groupId).begin();
+    oldTrackId = *bmManager.GetTrackIds(groupId).begin();
+  };
+
+  reload("MapName", "same name", 2000, 1);
+  reload("Renamed", "new name", 3000, 2);
+
+  auto const otherId = bmManager.CreateBookmarkCategory("Taken", false /* autoSave */);
+  auto conflictingData = makeFileData("Taken", "conflicting name", 4000, 1);
+  TEST(SaveKmlFileSafe(*conflictingData, filePath, FileType::Kml), ());
+  TEST(Platform::SetFileModificationTime(filePath, 5000), ());
+
+  loadFile(true /* autoSave */);
+  TEST_EQUAL(bmManager.GetBmGroupsCount(), 2, ());
+  TEST_EQUAL(bmManager.GetCategoryName(groupId), "Taken1", ());
+  TEST_EQUAL(bmManager.GetCategoryName(otherId), "Taken", ());
+  TEST_EQUAL(Platform::GetFileModificationTime(filePath), 5000, ());
 }
 
 kml::MarkId FindTrackSelectionMark(BookmarkManager const & bm, kml::TrackId trackId)
@@ -1612,6 +1694,57 @@ UNIT_TEST(Bookmarks_Sorting)
     auto const sortingTypes6 = bmManager.GetAvailableSortingTypes(catId6, false);
     TEST(sortingTypes6 == expectedSortingTypes6, ());
   }
+}
+
+UNIT_TEST(Bookmarks_NameSortUsesPolishLocale)
+{
+  ScopedBookmarksDir scopedDir;
+  Framework fm({} /* params */, false /* loadMaps */);
+  fm.RegisterMap(platform::LocalCountryFile::MakeForTesting("World"));
+
+  BookmarkManager & bmManager = fm.GetBookmarkManager();
+  bmManager.EnableTestMode(true);
+  auto const categoryId = bmManager.CreateBookmarkCategory("Polish sort", false /* autoSave */);
+
+  std::array<kml::MarkId, 3> bookmarkIds;
+  std::array<kml::TrackId, 3> trackIds;
+  {
+    auto session = bmManager.GetEditSession();
+    std::array<std::string, 3> const names = {"Łódź", "Mazury", "Lublin"};
+    for (size_t i = 0; i < names.size(); ++i)
+    {
+      kml::BookmarkData bookmark;
+      bookmark.m_point = m2::PointD(0.0, 0.0);
+      kml::SetDefaultStr(bookmark.m_name, names[i]);
+      bookmarkIds[i] = session.CreateBookmark(std::move(bookmark))->GetId();
+      session.AttachBookmark(bookmarkIds[i], categoryId);
+
+      kml::TrackData track;
+      kml::SetDefaultStr(track.m_name, names[i]);
+      track.m_geometry.AddLine({{{0.0, 0.0}, 1}, {{1.0, 0.0}, 2}});
+      track.m_geometry.AddTimestamps({});
+      trackIds[i] = session.CreateTrack(std::move(track))->GetId();
+      session.AttachTrack(trackIds[i], categoryId);
+    }
+  }
+
+  BookmarkManager::SortedBlocksCollection sortedBlocks;
+  BookmarkManager::SortParams params;
+  params.m_groupId = categoryId;
+  params.m_sortingType = BookmarkManager::SortingType::ByName;
+  params.m_locale = "pl";
+  params.m_onResults =
+      [&sortedBlocks](BookmarkManager::SortedBlocksCollection && results, BookmarkManager::SortParams::Status status)
+  {
+    TEST(status == BookmarkManager::SortParams::Status::Completed, ());
+    sortedBlocks = std::move(results);
+  };
+  bmManager.GetSortedCategory(params);
+
+  BookmarkManager::SortedBlocksCollection const expected = {
+      {BookmarkManager::GetTracksSortedBlockName(), {}, {trackIds[2], trackIds[0], trackIds[1]}},
+      {BookmarkManager::GetBookmarksSortedBlockName(), {bookmarkIds[2], bookmarkIds[0], bookmarkIds[1]}, {}}};
+  TEST(sortedBlocks == expected, ());
 }
 
 UNIT_TEST(Bookmarks_GetBookmarkMatchInfo)

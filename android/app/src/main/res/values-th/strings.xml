@@ -308,38 +308,6 @@
     <string name="enable_location_services">โปรดเปิดการใช้งานการบริการตำแหน่งที่ตั้ง</string>
     <string name="save">บันทึก</string>
     <string name="create">สร้าง</string>
-    <!-- red color -->
-    <string name="red">สีแดง</string>
-    <!-- yellow color -->
-    <string name="yellow">สีเหลือง</string>
-    <!-- blue color -->
-    <string name="blue">สีน้ำเงิน</string>
-    <!-- green color -->
-    <string name="green">สีเขียว</string>
-    <!-- purple color -->
-    <string name="purple">สีม่วง</string>
-    <!-- orange color -->
-    <string name="orange">สีส้ม</string>
-    <!-- brown color -->
-    <string name="brown">สีน้ำตาล</string>
-    <!-- pink color -->
-    <string name="pink">สีชมพู</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">สีม่วงเข้ม</string>
-    <!-- light blue color -->
-    <string name="light_blue">สีฟ้าอ่อน</string>
-    <!-- cyan color -->
-    <string name="cyan">สีฟ้าอมเขียว</string>
-    <!-- teal color -->
-    <string name="teal">สีเขียวนกเป็ดน้ำ</string>
-    <!-- lime color -->
-    <string name="lime">สีเขียวอมเหลือง</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">สีส้มเข้ม</string>
-    <!-- gray color -->
-    <string name="gray">สีเทา</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">สีฟ้าอมเทา</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">รูปแบบ</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -409,13 +377,7 @@
     <string name="editor_example_values">ตัวอย่างของค่าที่ตั้งไว้</string>
     <string name="editor_correct_mistake">แก้ไขข้อผิดพลาด</string>
     <string name="editor_add_select_location">เลือกสถานที่</string>
-    <string name="editor_report_problem_desription_1">กรุณาอธิบายปัญหาโดยละเอียดเพื่อที่ชุมชน OpenStreetMap จะสามารถแก้ไขข้อผิดพลาดได้</string>
-    <string name="editor_report_problem_desription_2">หรือทำด้วยตัวคุณเองที่ https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">ส่ง</string>
-    <string name="editor_report_problem_title">ปัญหา</string>
-    <string name="editor_report_problem_no_place_title">ไม่มีสถานที่นี้อยู่</string>
-    <string name="editor_report_problem_under_construction_title">ปิดปรับปรุง</string>
-    <string name="editor_report_problem_duplicate_place_title">สถานที่ซ้ำ</string>
     <string name="autodownload">ดาวน์โหลดอัตโนมัติ</string>
     <!-- Place Page opening hours text -->
     <string name="daily">ทุกวัน</string>
@@ -424,7 +386,6 @@
     <string name="day_off">ปิด</string>
     <string name="midnight">เที่ยงคืน</string>
     <string name="noon">เที่ยงวัน</string>
-    <string name="today">วันนี้</string>
     <string name="opens_in">เปิดใน %s</string>
     <string name="closes_in">ปิดใน %s</string>
     <string name="closed">ปิด</string>
@@ -467,7 +428,6 @@
     <string name="downloader_no_space_title">มีพื้นที่ไม่เพียงพอ</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">กรุณาลบข้อมูลที่ไม่จำเป็น</string>
-    <string name="editor_login_error_dialog">ข้อผิดพลาดในการล็อกอิน</string>
     <string name="editor_profile_changes">การเปลี่ยนแปลงที่อนุมัติแล้ว</string>
     <string name="editor_focus_map_on_location">ลากแผนที่เพื่อวางกากบาทที่ตำแหน่งของสถานที่หรือธุรกิจ</string>
     <string name="editor_edit_place_title">กำลังแก้ไข</string>
@@ -476,8 +436,6 @@
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">ตามที่เขียนเป็นภาษาท้องถิ่น</string>
     <string name="editor_edit_place_category_title">หมวดหมู่</string>
-    <string name="detailed_problem_description">คำอธิบายปัญหาอย่างละเอียด</string>
-    <string name="editor_report_problem_other_title">ปัญหาอีกอย่างหนึ่ง</string>
     <string name="placepage_add_business_button">เพิ่มองค์กร</string>
     <string name="message_invalid_feature_position">ไม่สามารถตั้งวัตถุได้ที่นี่</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
@@ -520,7 +478,7 @@
     <string name="day">วัน</string>
     <string name="second">วิ</string>
     <string name="placepage_more_button">เพิ่มเติม</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">แก้ไข Bookmark</string>
     <string name="placepage_personal_notes_hint">ข้อความส่วนตัว (ข้อความหรือ html)</string>
     <string name="editor_comment_hint">ข้อคิดเห็น…</string>
@@ -549,7 +507,7 @@
     <string name="editor_share_to_all_dialog_message_1">ตรวจสอบว่าคุณไม่ได้กรอกข้อมูลส่วนตัวใด ๆ</string>
     <string name="editor_share_to_all_dialog_message_2">ผู้แก้ไข OpenStreetMap จะตรวจสอบการเปลี่ยนแปลงและติดต่อคุณหากมีคำถามใดๆ</string>
     <string name="navigation_stop_button">หยุด</string>
-    <!-- Shown as toast when starting the recent track recording -->
+    <!-- Shown while a track is being recorded: the start toast, the notification title and the home screen widget status. -->
     <string name="track_recording">การบันทึกเส้นทาง</string>
     <!-- For the first routing -->
     <string name="accept">ยอมรับ</string>
@@ -573,12 +531,12 @@
     <string name="prefs_languages_information_off_link">สำหรับข้อมูลเพิ่มเติม กรุณาเข้าชมคำแนะนำนี้</string>
     <string name="transliteration_title">การทับศัพท์เป็นภาษาละติน</string>
     <string name="learn_more">ศึกษาเพิ่มเติม</string>
-    <string name="planning_route_manage_route">จัดการเส้นทาง</string>
-    <string name="button_plan">วางแผน</string>
     <string name="placepage_remove_stop">ลบจุดแวะพัก</string>
-    <string name="placepage_add_stop">เพิ่มจุดแวะพัก</string>
+    <!-- Keep it short: route planner button below the destination, PlacePage button, search field hint and full-screen map point picker title shown while choosing another destination. The picked place becomes the new destination, the previous one becomes a stop. -->
+    <string name="route_add_destination">เพิ่มจุดหมาย</string>
+    <!-- Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. -->
+    <string name="placepage_add_stop">เพิ่มจุดหยุด</string>
     <string name="drag_to_reorder">สั่งซื้อใหม่</string>
-    <string name="saved">บันทึกแล้ว</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">กรุณาเข้าสู่ระบบ OpenStreetMap เพื่ออัปโหลดการแก้ไขแผนที่ทั้งหมดของคุณโดยอัตโนมัติ เรียนรู้เพิ่มเติม<a href="https://github.com/organicmaps/organicmaps/issues/6144">ที่นี่</a></string>
     <string name="dialog_error_storage_title">ปัญหาการเข้าถึงที่เก็บข้อมูล</string>
@@ -663,7 +621,19 @@
     <string name="show_to_the_right">แสดงทางขวา</string>
     <string name="show_at_the_bottom">แสดงที่ด้านล่าง</string>
     <string name="enable_logging_warning_message">ออปชันเพื่อเปิดการบันทึกประวัติการทำงานเพื่อการวินิจฉัย ประวัติดังกล่าวอาจเป็นประโยชน์กับทีมงานช่วยเหลือของเราที่คอยจัดการกับปัญหาที่เจอระหว่างแอปทำงาน โปรดเปิดออปชันดังกล่าวจากการร้องข้อการสนับสนุนจาก Organic Maps เท่านั้น</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">ขับรถ</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">ปั่นจักรยาน</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">เดิน</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">ทุกรูปแบบการเดินทาง</string>
     <string name="driving_options_title">ทางเลือกเส้นทางขับขี่</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">การปรับเส้นทางให้เหมาะสม</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">จัดเรียงจุดแวะระหว่างทางใหม่โดยอัตโนมัติเพื่อสร้างเส้นทางที่มีประสิทธิภาพยิ่งขึ้น</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">หลีกเลี่ยงถนนที่เก็บค่าผ่านทาง</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -673,8 +643,6 @@
     <string name="avoid_motorways">หลีกเลี่ยงมอเตอร์เวย์</string>
     <string name="unable_to_calc_alert_title">ไม่สามารถคำนวณเส้นทาง</string>
     <string name="unable_to_calc_alert_subtitle">ขออภัย เราไม่สามารถค้นหาเส้นทาง โดยสาเหตุอาจมาจากทางเลือกที่คุณกำหนดไว้ โปรดเปลี่ยนการตั้งค่าทางเลือกและลองใหม่อีกครั้ง</string>
-    <string name="define_to_avoid_btn">กำหนดถนนที่ต้องการเลี่ยง</string>
-    <string name="change_driving_options_btn">เปิดใช้การค้นหาเส้นทางขับขี่แล้ว</string>
     <string name="toll_road">ถนนแบบเสียค่าผ่านทาง</string>
     <string name="unpaved_road">ถนนดิน</string>
     <string name="ferry_crossing">เรือข้ามฟาก</string>
@@ -759,8 +727,6 @@
     <string name="elevation_profile_min_elevation">ต่ำสุด</string>
     <string name="elevation_profile_max_elevation">สูงสุด</string>
     <string name="elevation_profile_difficulty">ลำบาก</string>
-    <string name="elevation_profile_distance">ระยะทาง</string>
-    <string name="elevation_profile_time">เวลา:</string>
     <string name="isolines_toast_zooms_1_10">ขยายเข้าเพื่อสำรวจเส้นชั้นความสูง</string>
     <string name="downloader_loading_ios">การดาวน์โหลด</string>
     <string name="download_map_title">ดาวน์โหลดแผนที่ภาพรวมของโลก</string>
@@ -853,14 +819,8 @@
     <string name="start_track_recording">บันทึกเส้นทาง</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">หยุดการบันทึกเส้นทาง</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <!-- Subtitle of the place page of the track being recorded, and the name and title of the home screen widget. -->
     <string name="track_recording_title">บันทึกเส้นทาง</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">หยุดโดยไม่บันทึก</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">ดำเนินการบันทึกต่อ</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">บันทึกการบันทึกลงในบุ๊กมาร์กและการติดตามใช่ไหม</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">เส้นทางว่างเปล่า - ไม่มีอะไรจะบันทึก</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -868,8 +828,6 @@
     <string name="choose_color">เลือกสี</string>
     <string name="edit_track">แก้ไขเส้นทาง</string>
     <string name="uri_open_location_failed">ไม่มีการติดตั้งแอปที่สามารถเปิดตำแหน่งได้</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">อัตโนมัติในการนำทาง</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">ตามระบบ</string>
     <!-- Title of the bottom sheet when sharing the track -->
@@ -893,11 +851,11 @@
     <!-- Text for the showing track. -->
     <string name="show_track">แสดงเส้นทาง</string>
 
+    <!-- SECTION: Uncategorized -->
+    <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
+    <string name="you">คุณ</string>
+
     <!-- SECTION: gps strings -->
-    <!-- Login to OSM button text -->
-    <string name="login_osm_credentials">เข้าสู่ระบบด้วยรหัสผ่าน</string>
-    <!-- Login to OSM button text -->
-    <string name="login_osm_browser">เข้าสู่ระบบโดยใช้เบราว์เซอร์</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">ใช้ล่าสุด</string>
     <!-- Toast message shown when bookmark colors are changed in category settings -->
@@ -920,6 +878,26 @@
     <string name="color_picker_grid">กริด</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">ค้นหาด้วยเสียง</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">เลือกบนแผนที่</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">จุดเริ่มต้น</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">จุดหมาย</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">เปลี่ยนจุดเริ่มต้น</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">เปลี่ยนจุดหมาย</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">เปลี่ยนจุดหยุด</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">ถึงจำนวนจุดหยุดสูงสุดแล้ว</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">เลื่อนและซูมแผนที่เพื่อวางกากบาท</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">หยุดและบันทึก</string>
+    <!-- Track recording home screen widget button: opens the app to save or delete the recorded track. -->
+    <string name="track_recording_finish">เสร็จสิ้น</string>
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">กลับทิศทางเส้นทาง</string>
 </resources>

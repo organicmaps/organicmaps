@@ -52,7 +52,6 @@ ParseStringResource "strings.txt" android/sdk/src/main/res android android-sdk
 ParseStringResource "strings.txt" iphone/Maps/LocalizedStrings apple apple-maps
 ParseStringResource "strings.txt" iphone/Maps/LocalizedStrings apple-plural apple-maps
 ParseStringResource "strings.txt" iphone/Maps/LocalizedStrings apple apple-infoplist "InfoPlist.strings"
-ParseStringResource "strings.txt" iphone/Chart/Chart apple apple-chart
 
 # Parse Android types strings
 ParseStringResource "types_strings.txt" android/sdk/src/main/res android "" "types_strings.xml"

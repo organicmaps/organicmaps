@@ -54,6 +54,11 @@ JNIEXPORT void Java_app_organicmaps_sdk_location_TrackRecorder_nativeStopTrackRe
   frm()->StopTrackRecording();
 }
 
+JNIEXPORT void Java_app_organicmaps_sdk_location_TrackRecorder_nativeDiscardTrackRecording(JNIEnv * env, jclass clazz)
+{
+  frm()->DiscardTrackRecording();
+}
+
 JNIEXPORT void Java_app_organicmaps_sdk_location_TrackRecorder_nativeSaveTrackRecordingWithName(JNIEnv * env,
                                                                                                 jclass clazz,
                                                                                                 jstring name)

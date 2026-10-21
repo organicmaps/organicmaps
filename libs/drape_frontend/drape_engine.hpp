@@ -199,7 +199,7 @@ public:
   void ClearGpsTrackPoints();
 
   void EnableChoosePositionMode(bool enable, std::vector<m2::TriangleD> && boundAreaTriangles,
-                                m2::PointD const * optionalPosition);
+                                m2::PointD const * optionalPosition, bool shouldChangeViewport = true);
   void BlockTapEvents(bool block);
 
   void SetKineticScrollEnabled(bool enabled);
@@ -259,8 +259,8 @@ public:
 
   void SetCustomArrow3d(std::optional<Arrow3dCustomDecl> arrow3dCustomDecl);
 
-  void AddTileBackgroundImage(std::string const & uid, uint32_t width, uint32_t height, dp::TextureFormat format,
-                              dp::BackgroundMode mode, std::vector<uint8_t> && bytes);
+  void AddTileBackgroundImage(TileKey const & tileKey, std::string const & uid, uint32_t width, uint32_t height,
+                              dp::TextureFormat format, dp::BackgroundMode mode, std::vector<uint8_t> && bytes);
   void SetTileBackgroundData(df::TileKey const & tileKey, std::string const & imageUid, m2::RectF const & rect);
   void SetTileBackgroundMode(dp::BackgroundMode mode, float satelliteAreaOpacity = 0.5f);
 

@@ -20,7 +20,6 @@ NS_SWIFT_NAME(BookmarkGroup)
 @property(nonatomic, readonly) NSString * author;
 @property(nonatomic, readonly) NSString * annotation;
 @property(nonatomic, readonly) NSString * detailedAnnotation;
-@property(nonatomic, readonly) NSString * serverId;
 @property(nonatomic, readonly, nullable) NSURL * imageUrl;
 @property(nonatomic, readonly) NSInteger bookmarksCount;
 @property(nonatomic, readonly) NSInteger trackCount;
@@ -31,9 +30,6 @@ NS_SWIFT_NAME(BookmarkGroup)
 @property(nonatomic, readonly) MWMBookmarkGroupAccessStatus accessStatus;
 @property(nonatomic, readonly) NSArray<MWMBookmark *> * bookmarks;
 @property(nonatomic, readonly) NSArray<MWMTrack *> * tracks;
-@property(nonatomic, readonly) NSArray<MWMBookmarkGroup *> * collections;
-@property(nonatomic, readonly) NSArray<MWMBookmarkGroup *> * categories;
-@property(nonatomic, readonly) MWMBookmarkGroupType type;
 
 @end
 

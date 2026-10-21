@@ -237,10 +237,6 @@ extension PlacePageInteractor: PlacePageEditBookmarkOrTrackViewControllerDelegat
 extension PlacePageInteractor: ActionBarViewControllerDelegate {
   func actionBar(_: ActionBarViewController, didPressButton type: ActionBarButtonType) {
     switch type {
-    case .booking:
-      MWMPlacePageManagerHelper.book(placePageData)
-    case .bookingSearch:
-      MWMPlacePageManagerHelper.searchBookingHotels(placePageData)
     case .bookmark:
       if placePageData.bookmarkData != nil {
         MWMPlacePageManagerHelper.removeBookmark(placePageData)
@@ -259,9 +255,7 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
       }
     case .download:
       startMapDownloading()
-    case .opentable:
-      fatalError("Opentable is not supported and will be deleted")
-    case .routeAddStop, .routeReplaceStop:
+    case .routeAddStop, .routeAddDestination, .routeReplaceStop:
       MWMPlacePageManagerHelper.routeAddStop(placePageData)
     case .routeFrom:
       MWMPlacePageManagerHelper.route(from: placePageData)

@@ -317,7 +317,7 @@ bool OpeningHoursSerDes::CheckYearRange(osmoh::MonthDay::TYear start, osmoh::Mon
   // The wire stores year - kYearBias in a fixed-width field. Open-ended
   // selectors ("2020+") materialize as end year 9999, which must refuse
   // gracefully, not overflow.
-  if (end - kYearBias >= (1U << GetBitsNumber(Header::Bits::Year)))
+  if (static_cast<unsigned>(end - kYearBias) >= (1U << GetBitsNumber(Header::Bits::Year)))
     return false;
 
   // Should be filtered after |DecomposeOh| method.

@@ -8,6 +8,8 @@
 
 #include "geometry/point2d.hpp"
 
+#include <atomic>
+#include <memory>
 #include <vector>
 
 namespace dp
@@ -48,6 +50,7 @@ private:
 };
 
 using TMapShapes = std::vector<drape_ptr<MapShape>>;
+using TileReadCancellation = std::shared_ptr<std::atomic<bool>>;
 
 class MapShapeMessage : public Message
 {
@@ -79,22 +82,35 @@ public:
 class MapShapeReadedMessage : public MapShapeMessage
 {
 public:
-  MapShapeReadedMessage(TileKey const & key, TMapShapes && shapes) : MapShapeMessage(key), m_shapes(std::move(shapes))
+  MapShapeReadedMessage(TileKey const & key, TMapShapes && shapes, TileReadCancellation const & readCancelled)
+    : MapShapeMessage(key)
+    , m_shapes(std::move(shapes))
+    , m_readCancelled(readCancelled)
   {}
 
   Type GetType() const override { return Type::MapShapeReaded; }
   bool IsGraphicsContextDependent() const override { return true; }
   TMapShapes const & GetShapes() { return m_shapes; }
+  bool IsCancelled() const { return m_readCancelled->load(std::memory_order_relaxed); }
+
+  static bool IsCancelledMessage(ref_ptr<Message> message)
+  {
+    // Read start/end messages must remain paired even after cancellation.
+    auto const type = message->GetType();
+    return (type == Type::MapShapeReaded || type == Type::OverlayMapShapeReaded) &&
+           ref_ptr<MapShapeReadedMessage>(message)->IsCancelled();
+  }
 
 private:
   TMapShapes m_shapes;
+  std::shared_ptr<std::atomic<bool> const> m_readCancelled;
 };
 
 class OverlayMapShapeReadedMessage : public MapShapeReadedMessage
 {
 public:
-  OverlayMapShapeReadedMessage(TileKey const & key, TMapShapes && shapes)
-    : MapShapeReadedMessage(key, std::move(shapes))
+  OverlayMapShapeReadedMessage(TileKey const & key, TMapShapes && shapes, TileReadCancellation const & readCancelled)
+    : MapShapeReadedMessage(key, std::move(shapes), readCancelled)
   {}
 
   Type GetType() const override { return Message::Type::OverlayMapShapeReaded; }

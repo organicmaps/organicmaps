@@ -1,28 +1,33 @@
-• Nové nastavenie „Uložiť históriu vyhľadávania“ vám v prípade potreby pomôže zachovať súkromie histórie vyhľadávania
+## Plánovanie trasy
+• Vylepšené alternatívne trasy a ich odhadované časy príchodu
+• Pridané tlačidlá na pridanie alebo nahradenie zastávky v naplánovanej trase
+• Pridalo sa nastavenie na optimalizáciu poradia medzizastávok na trase
+• Vybraná alternatívna trasa sa teraz zachová, keď navigácia prepočíta trasu
+• Poradie zastávok na trase sa teraz po reštartovaní aplikácie obnoví
 
-## Mapy a miesta
-• Údaje z OpenStreetMap k 14. júlu
-• Poznámky z OpenStreetMap sa teraz umiestňujú presne na miesto, ktoré vyberiete, a nie uprostred lesa
-• Vylepšený výber mapy pre regióny, ktoré prekračujú antimeridián 180°
-• Profily nadmorskej výšky už po odstránení trasy nezobrazujú neaktuálne alebo prázdne grafy
-• Vylepšený prázdny graf nadmorskej výšky pre zaznamenané trasy
-• Tlačidlo na odstránenie záložiek je ľahšie nájditeľné
-• Automatické ukladanie záložiek pri opustení obrazovky úprav
-• Paleta farieb obsahuje preddefinované farby a umožňuje vybrať si ľubovoľnú vlastnú farbu
-• Ďalšie vylepšenia používateľského rozhrania
+## Mapa
+• Údaje OpenStreetMap k 28. septembru
+• Údaje z Wikipédie k 21. septembru
+• Vodné nádrže sú teraz viditeľné pri väčšom oddialení mapy
+• Vodné tunely sa už na mape nezobrazujú
+• Opravené ikony staníc a vchodov do metra v Suzhou
+• Opravené zriedkavé prípady, keď sa popisy na vrstve mapy metra posunuli mimo svojej polohy
 
-## Verejná doprava
-• Názvy zastávok, prestupných miest a staníc majú teraz biely obrys, aby boli čitateľné aj v svetlom, aj v tmavom motíve
-• Vrstva metra sa opäť správne zobrazí po zatvorení náhľadu trasy verejnej dopravy
+## CarPlay
+• Pridané pokyny k manévrom na podporovaných head-up displejoch (HUD) v autách a na ovládacom paneli CarPlay
+• Opravené tlačidlá CarPlay a vyhľadávanie
 
-## Plánovanie trasy a navigácia
-• Opravené problémy s nesprávnymi a chýbajúcimi pokynmi
-• Upozornenia na trase (mýto, trajekty, nespevnené cesty, schody atď.) sa teraz zobrazujú pre všetky alternatívne trasy
-• Opravené zriedkavé zamrznutie pri vytváraní trasy a vylepšené spracovanie slepých uličiek a počiatočných/cieľových bodov na ceste s obmedzeným prístupom
-• Vylepšený priebeh trasy na tlačidle „Štart“
-• Zmena poradia zastávok na trase už nespôsobuje poskakovanie zoznamu
+## Záznamy trás
+• Pridaná ikona oka na skrytie jednotlivých záznamov trás
+• Opravené chyby a vylepšené zaznamenávanie trás
+• Opravený import súborov KMB
 
-## Preklady
-• Vylepšené čínske znenie
-• Aktualizované ukrajinské preklady
-• Opravené preklady oblastí na mape v taliančine
+## Vyhľadávanie
+• Opravené vyhľadávanie v prípadoch, keď viditeľná oblasť mapy prekročí 180° poludník (±180° zemepisnej dĺžky)
+• Obnovené vyhľadávanie podľa kategórií v Spotlight
+
+## Používateľské rozhranie
+• Otváracie hodiny teraz zobrazujú „Poludnie“ pre 12:00 a „Polnoc“ pre 00:00 alebo 24:00
+• Opravené rôzne chyby a vylepšené používateľské rozhranie
+• Opravené preklady do angličtiny, francúzštiny a astúrskeho jazyka
+• Pridaná možnosť vybrať nainštalovaný navigačný hlas a vypočuť si jeho ukážku

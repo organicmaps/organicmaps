@@ -4,6 +4,7 @@ set(SRC
   color_parser_tests.cpp
   gpx_tests.cpp
   minzoom_quadtree_tests.cpp
+  serdes_binary_v10_tests.cpp
   serdes_tests.cpp
   tests_data.hpp
   type_utils_tests.cpp

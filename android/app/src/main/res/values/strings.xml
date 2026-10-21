@@ -308,38 +308,6 @@
     <string name="enable_location_services">Please enable Location Services</string>
     <string name="save">Save</string>
     <string name="create">create</string>
-    <!-- red color -->
-    <string name="red">Red</string>
-    <!-- yellow color -->
-    <string name="yellow">Yellow</string>
-    <!-- blue color -->
-    <string name="blue">Blue</string>
-    <!-- green color -->
-    <string name="green">Green</string>
-    <!-- purple color -->
-    <string name="purple">Purple</string>
-    <!-- orange color -->
-    <string name="orange">Orange</string>
-    <!-- brown color -->
-    <string name="brown">Brown</string>
-    <!-- pink color -->
-    <string name="pink">Pink</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Deep Purple</string>
-    <!-- light blue color -->
-    <string name="light_blue">Light Blue</string>
-    <!-- cyan color -->
-    <string name="cyan">Cyan</string>
-    <!-- teal color -->
-    <string name="teal">Teal</string>
-    <!-- lime color -->
-    <string name="lime">Lime</string>
-    <!-- deep orange color -->
-    <string name="deep_orange">Deep Orange</string>
-    <!-- gray color -->
-    <string name="gray">Gray</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Blue Gray</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Appearance</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -409,13 +377,7 @@
     <string name="editor_example_values">Example Values</string>
     <string name="editor_correct_mistake">Correct mistake</string>
     <string name="editor_add_select_location">Select Location</string>
-    <string name="editor_report_problem_desription_1">Please describe the problem in detail so that the OpenStreetMap community can fix it.</string>
-    <string name="editor_report_problem_desription_2">Or do it yourself at https://www.openstreetmap.org/</string>
     <string name="editor_report_problem_send_button">Send</string>
-    <string name="editor_report_problem_title">Issue</string>
-    <string name="editor_report_problem_no_place_title">This place does not exist</string>
-    <string name="editor_report_problem_under_construction_title">Closed for maintenance</string>
-    <string name="editor_report_problem_duplicate_place_title">Duplicate place</string>
     <string name="autodownload">Auto-download maps</string>
     <!-- Place Page opening hours text -->
     <string name="daily">Daily</string>
@@ -424,7 +386,6 @@
     <string name="day_off">Closed</string>
     <string name="midnight">Midnight</string>
     <string name="noon">Noon</string>
-    <string name="today">Today</string>
     <string name="opens_in">Opens in %s</string>
     <string name="closes_in">Closes in %s</string>
     <string name="closed">Closed</string>
@@ -467,7 +428,6 @@
     <string name="downloader_no_space_title">Not enough space</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Please delete any unnecessary data</string>
-    <string name="editor_login_error_dialog">Login error.</string>
     <string name="editor_profile_changes">Verified Changes</string>
     <string name="editor_focus_map_on_location">Drag the map to place the cross at the location of the place or business.</string>
     <string name="editor_edit_place_title">Editing</string>
@@ -476,8 +436,6 @@
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">As it is written in the local language</string>
     <string name="editor_edit_place_category_title">Category</string>
-    <string name="detailed_problem_description">Detailed description of the issue</string>
-    <string name="editor_report_problem_other_title">Different problem</string>
     <string name="placepage_add_business_button">Add business</string>
     <string name="message_invalid_feature_position">No object can be located here</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
@@ -520,7 +478,7 @@
     <string name="day">d</string>
     <string name="second">s</string>
     <string name="placepage_more_button">More</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Edit Bookmark</string>
     <string name="placepage_personal_notes_hint">Personal notes (text or html)</string>
     <string name="editor_comment_hint">Comment…</string>
@@ -549,7 +507,7 @@
     <string name="editor_share_to_all_dialog_message_1">Make sure you did not enter any private or personal data.</string>
     <string name="editor_share_to_all_dialog_message_2">OpenStreetMap editors will check the changes and contact you if they have any questions.</string>
     <string name="navigation_stop_button">Stop</string>
-    <!-- Shown as toast when starting the recent track recording -->
+    <!-- Shown while a track is being recorded: the start toast, the notification title and the home screen widget status. -->
     <string name="track_recording">Recording the track</string>
     <!-- For the first routing -->
     <string name="accept">Accept</string>
@@ -573,12 +531,12 @@
     <string name="prefs_languages_information_off_link">For more information please check this guide.</string>
     <string name="transliteration_title">Transliterate into Latin alphabet</string>
     <string name="learn_more">Learn more</string>
-    <string name="planning_route_manage_route">Manage Route</string>
-    <string name="button_plan">Plan</string>
     <string name="placepage_remove_stop">Remove Stop</string>
+    <!-- Keep it short: route planner button below the destination, PlacePage button, search field hint and full-screen map point picker title shown while choosing another destination. The picked place becomes the new destination, the previous one becomes a stop. -->
+    <string name="route_add_destination">Add destination</string>
+    <!-- Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. -->
     <string name="placepage_add_stop">Add Stop</string>
     <string name="drag_to_reorder">Reorder</string>
-    <string name="saved">Saved</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Please login to OpenStreetMap to automatically upload all your map edits. Learn more <a href="https://github.com/organicmaps/organicmaps/issues/6144">here</a>.</string>
     <string name="dialog_error_storage_title">Storage access problem</string>
@@ -664,7 +622,19 @@
     <string name="show_to_the_right">Show to the right</string>
     <string name="show_at_the_bottom">Show at the bottom</string>
     <string name="enable_logging_warning_message">Enable this option temporarily to record and manually send detailed diagnostic logs about your issue to us using \"Report a bug\" in the Help dialog. Logs may include location info.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">Driving</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">Cycling</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">Walking</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">All routing modes</string>
     <string name="driving_options_title">Routing options</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Route optimization</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Automatically rearranges intermediate stops to create a more efficient route.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Avoid tolls</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -674,8 +644,6 @@
     <string name="avoid_motorways">Avoid freeways</string>
     <string name="unable_to_calc_alert_title">Unable to calculate route</string>
     <string name="unable_to_calc_alert_subtitle">A route could not be found. This may be caused by your routing options or incomplete OpenStreetMap data. Please change your routing options and retry.</string>
-    <string name="define_to_avoid_btn">Define roads to avoid</string>
-    <string name="change_driving_options_btn">Routing options enabled</string>
     <string name="toll_road">Toll road</string>
     <string name="unpaved_road">Unpaved road</string>
     <string name="ferry_crossing">Ferry crossing</string>
@@ -760,8 +728,6 @@
     <string name="elevation_profile_min_elevation">Min. elevation</string>
     <string name="elevation_profile_max_elevation">Max. elevation</string>
     <string name="elevation_profile_difficulty">Difficulty</string>
-    <string name="elevation_profile_distance">Dist.:</string>
-    <string name="elevation_profile_time">Time:</string>
     <string name="isolines_toast_zooms_1_10">Zoom in to explore isolines</string>
     <string name="downloader_loading_ios">Downloading</string>
     <string name="download_map_title">Download the world overview map</string>
@@ -864,14 +830,8 @@
     <string name="start_track_recording">Record Track</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Stop Track Recording</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <!-- Subtitle of the place page of the track being recorded, and the name and title of the home screen widget. -->
     <string name="track_recording_title">Track Recording</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Stop Without Saving</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Continue Recording</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Save into Bookmarks and Tracks?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">Track is empty - nothing to save</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -879,8 +839,6 @@
     <string name="choose_color">Choose Color</string>
     <string name="edit_track">Edit Track</string>
     <string name="uri_open_location_failed">No app installed that can open the location</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Auto in navigation</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Follow the system</string>
     <!-- Title of the bottom sheet when sharing the track -->
@@ -906,11 +864,11 @@
     <!-- Text for the showing track. -->
     <string name="show_track">Show track</string>
 
+    <!-- SECTION: Uncategorized -->
+    <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
+    <string name="you">You</string>
+
     <!-- SECTION: gps strings -->
-    <!-- Login to OSM button text -->
-    <string name="login_osm_credentials">Login with password</string>
-    <!-- Login to OSM button text -->
-    <string name="login_osm_browser">Login using Browser</string>
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Recently Used</string>
     <!-- Toast message shown when bookmark colors are changed in category settings -->
@@ -933,6 +891,26 @@
     <string name="color_picker_grid">Grid</string>
     <!-- Accessibility label for the voice-search mic button in the search bar -->
     <string name="voice_search">Voice search</string>
+    <!-- Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair -->
+    <string name="choose_on_map">Choose on map</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_start_location">Start point</string>
+    <!-- Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="choose_destination">Destination</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_start_location">Change start</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_destination">Change destination</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">Change stop</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Maximum number of stops reached</string>
+    <!-- Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it -->
+    <string name="choose_point_on_map_hint">Move and zoom the map to place the cross</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Stop and Save</string>
+    <!-- Track recording home screen widget button: opens the app to save or delete the recorded track. -->
+    <string name="track_recording_finish">Finish</string>
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Reverse route</string>
 </resources>

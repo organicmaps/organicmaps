@@ -4,6 +4,7 @@
 
 #include "kml/serdes.hpp"
 #include "kml/serdes_binary.hpp"
+#include "kml/serdes_binary_v8.hpp"
 #include "kml/serdes_common.hpp"
 
 #include "coding/text_storage.hpp"
@@ -52,7 +53,6 @@ kml::FileData GenerateKmlFileData()
 {
   kml::FileData result;
   result.m_deviceId = "AAAA";
-  result.m_serverId = "AAAA-BBBB-CCCC-DDDD";
 
   result.m_categoryData.m_name[kDefaultLang] = "Test category";
   result.m_categoryData.m_name[kRuLang] = "Тестовая категория";
@@ -94,7 +94,6 @@ kml::FileData GenerateKmlFileData()
   bookmarkData.m_nearestToponym = "12345";
   bookmarkData.m_minZoom = 10;
   bookmarkData.m_properties = {{"bm_property1", "value1"}, {"bm_property2", "value2"}, {"score", "5"}};
-  bookmarkData.m_compilations = {1, 2, 3, 4, 5};
   result.m_bookmarksData.emplace_back(std::move(bookmarkData));
 
   kml::TrackData trackData;
@@ -108,57 +107,12 @@ kml::FileData GenerateKmlFileData()
   trackData.m_timestamp = kml::TimestampClock::from_time_t(900);
 
   trackData.m_geometry.AddLine({{{45.9242, 56.8679}, 1}, {{45.2244, 56.2786}, 2}, {{45.1964, 56.9832}, 3}});
+  trackData.m_geometry.AddTimestamps({});
 
   trackData.m_visible = false;
   trackData.m_nearestToponyms = {"12345", "54321", "98765"};
   trackData.m_properties = {{"tr_property1", "value1"}, {"tr_property2", "value2"}};
   result.m_tracksData.emplace_back(std::move(trackData));
-
-  kml::CategoryData compilationData1;
-  compilationData1.m_compilationId = 1;
-  compilationData1.m_type = kml::CompilationType::Collection;
-  compilationData1.m_name[kDefaultLang] = "Test collection";
-  compilationData1.m_name[kRuLang] = "Тестовая коллекция";
-  compilationData1.m_description[kDefaultLang] = "Test collection description";
-  compilationData1.m_description[kRuLang] = "Тестовое описание коллекции";
-  compilationData1.m_annotation[kDefaultLang] = "Test collection annotation";
-  compilationData1.m_annotation[kEnLang] = "Test collection annotation";
-  compilationData1.m_imageUrl = "https://localhost/1234.png";
-  compilationData1.m_visible = true;
-  compilationData1.m_authorName = "Organic Maps";
-  compilationData1.m_authorId = "54321";
-  compilationData1.m_rating = 5.9;
-  compilationData1.m_reviewsNumber = 333;
-  compilationData1.m_lastModified = kml::TimestampClock::from_time_t(999);
-  compilationData1.m_accessRules = kml::AccessRules::Public;
-  compilationData1.m_tags = {"mountains", "ski"};
-  compilationData1.m_toponyms = {"8", "9"};
-  compilationData1.m_languageCodes = {1, 2, 8};
-  compilationData1.m_properties = {{"property1", "value1"}, {"property2", "value2"}};
-  result.m_compilationsData.push_back(std::move(compilationData1));
-
-  kml::CategoryData compilationData2;
-  compilationData2.m_compilationId = 4;
-  compilationData2.m_type = kml::CompilationType::Category;
-  compilationData2.m_name[kDefaultLang] = "Test category";
-  compilationData2.m_name[kRuLang] = "Тестовая категория";
-  compilationData2.m_description[kDefaultLang] = "Test category description";
-  compilationData2.m_description[kRuLang] = "Тестовое описание категории";
-  compilationData2.m_annotation[kDefaultLang] = "Test category annotation";
-  compilationData2.m_annotation[kEnLang] = "Test category annotation";
-  compilationData2.m_imageUrl = "https://localhost/134.png";
-  compilationData2.m_visible = false;
-  compilationData2.m_authorName = "Organic Maps";
-  compilationData2.m_authorId = "11111";
-  compilationData2.m_rating = 3.3;
-  compilationData2.m_reviewsNumber = 222;
-  compilationData2.m_lastModified = kml::TimestampClock::from_time_t(323);
-  compilationData2.m_accessRules = kml::AccessRules::Public;
-  compilationData2.m_tags = {"mountains", "bike"};
-  compilationData2.m_toponyms = {"10", "11"};
-  compilationData2.m_languageCodes = {1, 2, 8};
-  compilationData2.m_properties = {{"property1", "value1"}, {"property2", "value2"}};
-  result.m_compilationsData.push_back(std::move(compilationData2));
 
   return result;
 }
@@ -286,6 +240,22 @@ UNIT_TEST(Kml_Serialization_Bin_Memory)
   }
 
   TEST_EQUAL(data, data2, ());
+}
+
+UNIT_TEST(Kml_Serialization_Bin_V8_Memory)
+{
+  classificator::Load();
+
+  kml::FileData data;
+  kml::binary::DeserializerKml(data).Deserialize(MemReader(kBinKmlV8.data(), kBinKmlV8.size()));
+
+  std::vector<uint8_t> buffer;
+  MemWriter sink(buffer);
+  kml::binary::SerializerKmlV8(data).Serialize(sink);
+
+  kml::FileData reloaded;
+  kml::binary::DeserializerKml(reloaded).Deserialize(MemReader(buffer.data(), buffer.size()));
+  TEST_EQUAL(reloaded, data, ());
 }
 
 // 4. Check deserialization from the text file.
@@ -446,6 +416,7 @@ UNIT_TEST(Kml_Serialization_Text_File_Track_Without_Timestamps)
     ser.Serialize(sink);
   }
   TEST_EQUAL(dataFromFileBuffer, dataFromGeneratedFileBuffer, ());
+  TEST(dataFromFileBuffer.find("mwm:serverId") == std::string::npos, ());
 }
 
 UNIT_TEST(Kml_Serialization_Text_File_Tracks_With_Timestamps)
@@ -528,6 +499,121 @@ UNIT_TEST(Kml_Deserialization_From_Bin_V6_And_V7)
       },
       ());
   TEST_EQUAL(dataFromBinV6, dataFromBinV7, ());
+}
+
+namespace
+{
+std::string WrapKmlDoc(std::string const & body)
+{
+  return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+         "<kml xmlns=\"http://earth.google.com/kml/2.2\"><Document>" +
+         body + "</Document></kml>";
+}
+
+std::string PointPlacemark(std::string const & styleInner)
+{
+  return "<Placemark>" + styleInner + "<Point><coordinates>27.55,53.89</coordinates></Point></Placemark>";
+}
+
+kml::FileData ParseKmlText(std::string const & text)
+{
+  kml::FileData data;
+  kml::DeserializerKml des(data);
+  MemReader reader(text.c_str(), text.length());
+  des.Deserialize(reader);
+  return data;
+}
+
+void TestBinaryCollectionsDropped(std::vector<uint8_t> const & legacyData)
+{
+  classificator::Load();
+
+  kml::FileData data;
+  TEST_NO_THROW(
+      {
+        MemReader reader(legacyData.data(), legacyData.size());
+        kml::binary::DeserializerKml des(data);
+        des.Deserialize(reader);
+      },
+      ());
+
+  TEST_EQUAL(kml::GetDefaultStr(data.m_categoryData.m_name), "Category", ());
+  TEST_EQUAL(kml::GetDefaultStr(data.m_categoryData.m_description), "Category description", ());
+  TEST_EQUAL(data.m_bookmarksData.size(), 1, ());
+  TEST_EQUAL(kml::GetDefaultStr(data.m_bookmarksData[0].m_name), "Bookmark", ());
+  TEST_EQUAL(data.m_categoryData.m_unusedCompilationId, kml::kUnusedCompilationId, ());
+  TEST_EQUAL(data.m_categoryData.m_unusedCompilationType, kml::kUnusedCompilationType, ());
+  TEST(data.m_bookmarksData[0].m_unusedCompilations.empty(), ());
+
+  std::vector<uint8_t> serializedData;
+  TEST_NO_THROW(
+      {
+        MemWriter sink(serializedData);
+        kml::binary::SerializerKml ser(data);
+        ser.Serialize(sink);
+      },
+      ());
+  TEST_LESS(serializedData.size(), legacyData.size(), ());
+
+  kml::FileData roundTrippedData;
+  TEST_NO_THROW(
+      {
+        MemReader reader(serializedData.data(), serializedData.size());
+        kml::binary::DeserializerKml des(roundTrippedData);
+        des.Deserialize(reader);
+      },
+      ());
+  TEST_EQUAL(roundTrippedData, data, ());
+  TEST_EQUAL(roundTrippedData.m_categoryData.m_unusedCompilationId, kml::kUnusedCompilationId, ());
+  TEST_EQUAL(roundTrippedData.m_categoryData.m_unusedCompilationType, kml::kUnusedCompilationType, ());
+  TEST(roundTrippedData.m_bookmarksData[0].m_unusedCompilations.empty(), ());
+}
+}  // namespace
+
+// Collections (a MAPS.ME-only feature) are dropped on import: their content must not leak into the
+// enclosing category, and the bookmarks that referenced them must survive untouched.
+UNIT_TEST(Kml_Deserialization_Text_Drops_Collections)
+{
+  std::string const kmlWithCollections = WrapKmlDoc(
+      "<name>Category</name>"
+      "<description>Category description</description>"
+      "<visibility>1</visibility>"
+      "<ExtendedData xmlns:mwm=\"https://omaps.app\">"
+      "<mwm:name><mwm:lang code=\"default\">Category</mwm:lang></mwm:name>"
+      "<mwm:accessRules>Local</mwm:accessRules>"
+      "<mwm:tags><mwm:value>category tag</mwm:value></mwm:tags>"
+      "<mwm:compilation id=\"1\" type=\"Collection\">"
+      "<mwm:name><mwm:lang code=\"default\">Test collection</mwm:lang></mwm:name>"
+      "<mwm:accessRules>Public</mwm:accessRules>"
+      "<mwm:tags><mwm:value>collection tag</mwm:value></mwm:tags>"
+      "</mwm:compilation>"
+      "<mwm:compilation id=\"2\" type=\"Category\">"
+      "<mwm:name><mwm:lang code=\"default\">Test subcategory</mwm:lang></mwm:name>"
+      "</mwm:compilation>"
+      "</ExtendedData>"
+      "<Placemark>"
+      "<name>Bookmark</name>"
+      "<Point><coordinates>27.5,53.9</coordinates></Point>"
+      "<ExtendedData xmlns:mwm=\"https://omaps.app\">"
+      "<mwm:compilations>1,2</mwm:compilations>"
+      "</ExtendedData>"
+      "</Placemark>");
+
+  kml::FileData data;
+  TEST_NO_THROW(data = ParseKmlText(kmlWithCollections), ());
+
+  TEST_EQUAL(kml::GetDefaultStr(data.m_categoryData.m_name), "Category", ());
+  TEST_EQUAL(data.m_categoryData.m_accessRules, kml::AccessRules::Local, ());
+  TEST_EQUAL(data.m_categoryData.m_tags, std::vector<std::string>({"category tag"}), ());
+  TEST_EQUAL(data.m_bookmarksData.size(), 1, ());
+  TEST_EQUAL(kml::GetDefaultStr(data.m_bookmarksData[0].m_name), "Bookmark", ());
+  TEST(data.m_bookmarksData[0].m_unusedCompilations.empty(), ());
+}
+
+UNIT_TEST(Kml_Deserialization_Bin_Drops_Collections)
+{
+  TestBinaryCollectionsDropped(kBinKmlV8WithCollections);
+  TestBinaryCollectionsDropped(kBinKmlV9WithCollections);
 }
 
 UNIT_TEST(Kml_Deserialization_From_Bin_V7_And_V8)
@@ -626,9 +712,6 @@ UNIT_TEST(Kml_Deserialization_From_KMB_V8_And_V9MM)
 
   dataFromBinV8.m_tracksData[0].m_id =
       dataFromBinV9MM.m_tracksData[0].m_id;  // V8 and V9MM tracks have different IDs. Fix ID value manually.
-  // V9MM's ConvertToLatestVersion pads m_geometry.m_timestamps to match m_lines (matching
-  // MultiGeometry's own invariant). V8's deserializer does not, so normalize before comparing.
-  dataFromBinV8.m_tracksData[0].m_geometry.m_timestamps.resize(dataFromBinV8.m_tracksData[0].m_geometry.m_lines.size());
   TEST_EQUAL(dataFromBinV8.m_tracksData, dataFromBinV9MM.m_tracksData, ());
 }
 
@@ -1096,27 +1179,6 @@ UNIT_TEST(DefaultLanguageBookmarkCustomNameFallback)
 
 namespace
 {
-std::string WrapKmlDoc(std::string const & body)
-{
-  return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-         "<kml xmlns=\"http://earth.google.com/kml/2.2\"><Document>" +
-         body + "</Document></kml>";
-}
-
-std::string PointPlacemark(std::string const & styleInner)
-{
-  return "<Placemark>" + styleInner + "<Point><coordinates>27.55,53.89</coordinates></Point></Placemark>";
-}
-
-kml::FileData ParseKmlText(std::string const & text)
-{
-  kml::FileData data;
-  kml::DeserializerKml des(data);
-  MemReader reader(text.c_str(), text.length());
-  des.Deserialize(reader);
-  return data;
-}
-
 std::string SerializeKmlText(kml::FileData & data)
 {
   std::string buffer;
@@ -1142,6 +1204,27 @@ kml::ColorData RoundTripBookmarkColor(kml::ColorData const & color)
   return parsed.m_bookmarksData.front().m_color;
 }
 }  // namespace
+
+UNIT_TEST(Kml_LegacyStreamType)
+{
+  classificator::Load();
+  auto data =
+      ParseKmlText(WrapKmlDoc(PointPlacemark("<name>Saved stream</name>"
+                                             "<ExtendedData xmlns:mwm=\"https://omaps.app\"><mwm:featureTypes>"
+                                             "<mwm:value>waterway-stream-ephemeral</mwm:value>"
+                                             "<mwm:value>waterway-stream-unknown</mwm:value>"
+                                             "</mwm:featureTypes></ExtendedData>")));
+  std::vector<uint32_t> const expectedTypes = {classif().GetTypeByPath({"waterway", "stream", "intermittent"})};
+  TEST_EQUAL(data.m_bookmarksData.size(), 1, ());
+  TEST_EQUAL(data.m_bookmarksData.front().m_featureTypes, expectedTypes, ());
+
+  auto const text = SerializeKmlText(data);
+  TEST(text.find("waterway-stream-intermittent") != std::string::npos, ());
+  TEST(text.find("waterway-stream-ephemeral") == std::string::npos, ());
+  auto const parsed = ParseKmlText(text);
+  TEST_EQUAL(parsed.m_bookmarksData.size(), 1, ());
+  TEST_EQUAL(parsed.m_bookmarksData.front().m_featureTypes, expectedTypes, ());
+}
 
 UNIT_TEST(Kml_Export_NameWithoutPreferredLanguage)
 {

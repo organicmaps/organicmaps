@@ -7,10 +7,10 @@ extension NavigationDashboard {
     case showError(String)
 
     case selectRouterType(MWMRouterType)
-    case selectRoutePoint(MWMRoutePoint?)
+    case selectRoutePoint(MWMRoutePointSelection)
     case deleteRoutePoint(MWMRoutePoint)
     case moveRoutePoint(from: Int, to: Int)
-    case swapStartAndFinishPoints
+    case reverseRoutePoints
 
     case addRoutePointButtonDidTap
     case startButtonDidTap

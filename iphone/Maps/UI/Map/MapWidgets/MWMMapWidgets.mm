@@ -92,7 +92,13 @@
     {
     case gui::WIDGET_RULER:
     case gui::WIDGET_COPYRIGHT: pivot += rulerOffset; break;
-    case gui::WIDGET_COMPASS: pivot += compassOffset; break;
+    case gui::WIDGET_COMPASS:
+      pivot += compassOffset;
+      if (![MWMCarPlayService shared].isCarplayActivated &&
+          [MapViewController sharedController].mapView.effectiveUserInterfaceLayoutDirection ==
+              UIUserInterfaceLayoutDirectionRightToLeft)
+        pivot.x = m_skin->GetWidth() - pos.m_pixelPivot.x + frame.origin.x * vs;
+      break;
     case gui::WIDGET_SCALE_FPS_LABEL:
     case gui::WIDGET_CHOOSE_POSITION_MARK: break;
     }

@@ -200,7 +200,9 @@ final class PlacePageScrollView: UIScrollView {
     }
 
     scrollView.isScrollEnabled = true
-    beginDragging = false
+    // Keep only an active drag: its release re-targets with the new steps.
+    // isDragging alone stays true while decelerating.
+    beginDragging = scrollView.isTracking && scrollView.isDragging
     if let actionBar = layout.actionBar {
       hideActionBar(false)
       addActionBar(actionBar)
@@ -455,6 +457,11 @@ extension PlacePageViewController: UIScrollViewDelegate {
     }
 
     let nextStep = findNextStop(scrollView.contentOffset.y, velocity: velocity.y)
+    if case .closed = nextStep, !isiPad, !layout.headerViewController.isEditingTitle {
+      targetContentOffset.pointee = scrollView.contentOffset
+      interactor?.close()
+      return
+    }
     targetContentOffset.pointee = CGPoint(x: 0, y: nextStep.offset)
     userDefinedStep = nextStep
   }

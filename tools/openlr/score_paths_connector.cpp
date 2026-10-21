@@ -281,7 +281,7 @@ bool ScorePathsConnector::FindShortestPath(Graph::Edge const & from, Graph::Edge
       {
         scores[edge] = eScore;
         links[edge] = stateEdge;
-        q.emplace(edge, eScore);
+        q.emplace(edge, static_cast<uint32_t>(eScore));
       }
     }
   }

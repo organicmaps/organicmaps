@@ -277,6 +277,8 @@ int main(int argc, char * argv[])
       .m_visualScale = visualScale,
       .m_surfaceWidth = fbWidth,
       .m_surfaceHeight = fbHeight,
+      .m_widgetsInitInfo = {},
+      .m_hints = {},
       .m_renderInjectionHandler = [&](ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> textureManager,
                                       ref_ptr<gpu::ProgramManager> programManager, bool shutdown)
   {

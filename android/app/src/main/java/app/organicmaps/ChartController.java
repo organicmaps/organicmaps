@@ -79,7 +79,12 @@ public class ChartController implements OnChartValueSelectedListener
     mMaxAltitude.setText(Framework.nativeFormatAltitude(stats.getMaxElevation()));
 
     if (track != null)
+    {
+      // The core only pushes the current position when it moves, ask for it once upfront so the
+      // marker shows up right away on a freshly opened track.
+      mCurrentPositionOutOfTrack = track.getElevationCurPositionDistance() == CURRENT_POSITION_OUT_OF_TRACK;
       highlightActivePointManually();
+    }
     mChart.setTouchEnabled(mTrack != null);
   }
 

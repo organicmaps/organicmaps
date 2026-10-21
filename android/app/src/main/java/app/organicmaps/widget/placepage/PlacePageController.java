@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.graphics.Insets;
@@ -28,9 +29,11 @@ import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.api.Const;
+import app.organicmaps.bookmarks.ChooseBookmarkCategoryFragment;
 import app.organicmaps.intent.Factory;
 import app.organicmaps.sdk.ChoosePositionMode;
 import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.bookmarks.data.Bookmark;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.RoadWarningMarkType;
@@ -43,6 +46,7 @@ import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
+import app.organicmaps.widget.colorpicker.ColorPickerFragment;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.ArrayList;
@@ -55,6 +59,11 @@ public class PlacePageController
   private static final String TAG = PlacePageController.class.getSimpleName();
   private static final String PLACE_PAGE_BUTTONS_FRAGMENT_TAG = "PLACE_PAGE_BUTTONS";
   private static final String PLACE_PAGE_FRAGMENT_TAG = "PLACE_PAGE";
+  private static final String COLOR_REQUEST_KEY = "PlacePageColor";
+  private static final String CATEGORY_REQUEST_KEY = "PlacePageCategory";
+  private static final String TARGET_ID = "TargetId";
+  private static final String TARGET_IS_TRACK = "TargetIsTrack";
+  private static final String COLOR_TARGET_INITIAL = "ColorTargetInitial";
   // Slide offset threshold below collapsed (0.0) at which the sheet is dismissed.
   private static final float EASY_DISMISS_SLIDE_THRESHOLD = -0.15f;
 
@@ -135,6 +144,10 @@ public class PlacePageController
     super.onViewCreated(view, savedInstanceState);
     final FragmentActivity activity = requireActivity();
     mPlacePageListener = (MwmActivity) activity;
+    activity.getSupportFragmentManager().setFragmentResultListener(COLOR_REQUEST_KEY, getViewLifecycleOwner(),
+                                                                   (key, result) -> onColorPicked(result));
+    activity.getSupportFragmentManager().setFragmentResultListener(CATEGORY_REQUEST_KEY, getViewLifecycleOwner(),
+                                                                   (key, result) -> onCategoryPicked(result));
 
     final Resources res = activity.getResources();
     mViewportMinHeight = res.getDimensionPixelSize(R.dimen.viewport_min_height);
@@ -252,6 +265,57 @@ public class PlacePageController
     mPlacePage.setNestedScrollingEnabled(enabled);
     // Prevent user interaction with place page content when closing
     mPlacePageContainer.setEnabled(enabled);
+  }
+
+  static void showColorPicker(@NonNull FragmentManager fm, long id, boolean isTrack, @ColorInt int color)
+  {
+    final Bundle target = new Bundle();
+    target.putLong(TARGET_ID, id);
+    target.putBoolean(TARGET_IS_TRACK, isTrack);
+    target.putInt(COLOR_TARGET_INITIAL, color);
+    ColorPickerFragment.showForResult(fm, color, COLOR_REQUEST_KEY, target);
+  }
+
+  static void showCategoryPicker(@NonNull FragmentManager fm, long id, boolean isTrack, long categoryId)
+  {
+    final Bundle target = new Bundle();
+    target.putLong(TARGET_ID, id);
+    target.putBoolean(TARGET_IS_TRACK, isTrack);
+    ChooseBookmarkCategoryFragment.showForResult(fm, categoryId, CATEGORY_REQUEST_KEY, target);
+  }
+
+  private void onColorPicked(@NonNull Bundle result)
+  {
+    final int color = result.getInt(ColorPickerFragment.RESULT_COLOR);
+    if (color == result.getInt(COLOR_TARGET_INITIAL))
+      return;
+    final long id = result.getLong(TARGET_ID);
+    final boolean isTrack = result.getBoolean(TARGET_IS_TRACK);
+    final long[] ids = {id};
+    final long[] none = {};
+    BookmarkManager.INSTANCE.changeBookmarksAndTracksColor(isTrack ? none : ids, isTrack ? ids : none, color);
+
+    refreshMatchingPlacePage(id, isTrack);
+  }
+
+  private void onCategoryPicked(@NonNull Bundle result)
+  {
+    final long categoryId = result.getLong(ChooseBookmarkCategoryFragment.RESULT_CATEGORY_ID);
+    final long id = result.getLong(TARGET_ID);
+    final boolean isTrack = result.getBoolean(TARGET_IS_TRACK);
+    final long[] ids = {id};
+    final long[] none = {};
+    BookmarkManager.INSTANCE.moveBookmarksAndTracks(isTrack ? none : ids, isTrack ? ids : none, categoryId);
+
+    refreshMatchingPlacePage(id, isTrack);
+  }
+
+  private void refreshMatchingPlacePage(long id, boolean isTrack)
+  {
+    if (isTrack && mMapObject instanceof Track track && track.getTrackId() == id)
+      BookmarkManager.INSTANCE.updateTrackPlacePage();
+    else if (!isTrack && mMapObject instanceof Bookmark bookmark && bookmark.getBookmarkId() == id)
+      BookmarkManager.INSTANCE.updateBookmarkPlacePage(id);
   }
 
   private void close()
@@ -448,7 +512,7 @@ public class PlacePageController
     case BACK -> onBackBtnClicked();
     case ROUTE_FROM -> onRouteFromBtnClicked();
     case ROUTE_TO -> onRouteToBtnClicked();
-    case ROUTE_ADD -> onRouteAddBtnClicked();
+    case ROUTE_ADD, ROUTE_APPEND -> onRouteAddBtnClicked();
     case ROUTE_REPLACE -> onRouteReplaceBtnClicked();
     case ROUTE_REMOVE -> onRouteRemoveBtnClicked();
     case ROUTE_AVOID_TOLL -> onAvoidTollBtnClicked();
@@ -481,8 +545,12 @@ public class PlacePageController
 
   void showTrackDeleteAlertDialog()
   {
-    if (mMapObject == null)
+    if (!(mMapObject instanceof Track track))
+    {
+      dismissAlertDialog();
       return;
+    }
+    final long trackId = track.getTrackId();
     dismissAlertDialog();
     mViewModel.isAlertDialogShowing = true;
     if (mAlertDialog != null)
@@ -490,25 +558,21 @@ public class PlacePageController
       mAlertDialog.show();
       return;
     }
-    mAlertDialog = new MaterialAlertDialogBuilder(requireContext(), R.style.MwmTheme_AlertDialog)
-                       .setTitle(requireContext().getString(R.string.delete_track_dialog_title, mMapObject.getTitle()))
-                       .setCancelable(true)
-                       .setNegativeButton(R.string.cancel, null)
-                       .setPositiveButton(R.string.delete,
-                                          (dialog, which) -> {
-                                            BookmarkManager.INSTANCE.deleteTrack(((Track) mMapObject).getTrackId());
-                                            close();
-                                          })
-                       .setOnDismissListener(dialog -> dismissAlertDialog())
-                       .show();
+    mAlertDialog =
+        new MaterialAlertDialogBuilder(requireContext(), R.style.MwmTheme_AlertDialog)
+            .setTitle(requireContext().getString(R.string.delete_track_dialog_title, track.getTitle()))
+            .setCancelable(true)
+            .setNegativeButton(R.string.cancel, null)
+            .setPositiveButton(R.string.delete, (dialog, which) -> BookmarkManager.INSTANCE.deleteTrack(trackId))
+            .setOnDismissListener(dialog -> dismissAlertDialog())
+            .show();
   }
 
   void dismissAlertDialog()
   {
-    if (mAlertDialog == null)
-      return;
-    mAlertDialog.dismiss();
     mViewModel.isAlertDialogShowing = false;
+    if (mAlertDialog != null)
+      mAlertDialog.dismiss();
   }
 
   private void onBackBtnClicked()
@@ -551,17 +615,16 @@ public class PlacePageController
 
   private void commitRoutePoint(@NonNull RouteMarkType type, @NonNull MapObject point)
   {
-    // Close search up front: dismissing this place page (via close() below, or via the route build's
-    // native place-page deactivation when both endpoints are set) resurfaces the still-enabled search
-    // sheet hidden behind it over the route plan card.
-    ((MwmActivity) requireActivity()).forceCloseSearchFragment();
     final RoutingController controller = RoutingController.get();
     switch (type)
     {
     case Start -> controller.setStartPoint(point);
     case Finish -> controller.setEndPoint(point);
-    case Intermediate -> throw new AssertionError("Intermediate points are committed via addStop, not here");
+    case Intermediate -> throw new AssertionError("Intermediate points are committed via commitStopPick, not here");
     }
+    // After the setter, which must apply a pending pick before closing search cancels it. Before close(), which
+    // would otherwise resurface a search sheet hidden behind this place page.
+    ((MwmActivity) requireActivity()).forceCloseSearchFragment();
     close();
   }
 
@@ -574,7 +637,7 @@ public class PlacePageController
   private void onRouteAddBtnClicked()
   {
     if (mMapObject != null)
-      RoutingController.get().addStop(mMapObject);
+      RoutingController.get().commitStopPick(mMapObject);
   }
 
   private void onRouteRemoveBtnClicked()
@@ -659,23 +722,18 @@ public class PlacePageController
       boolean needToShowRoutingButtons =
           (RoutingController.get().isPlanning() || showRoutingButton) && !mapObject.isTrackRecording();
 
-      // The single-action branch below is only meaningful for an intermediate-stop pick (replace an
-      // existing stop or add a new one). For a Start/Finish pick (e.g. opened from the plan sheet's
-      // partial-slot row when the start or destination is missing) it would hide ROUTE_FROM/ROUTE_TO
-      // and leave only the bookmark button, so fall through to the regular routing buttons in that case.
-      final boolean isIntermediateStopPick =
-          RoutingController.get().isWaitingPoiPick()
-          && (RoutingController.get().isPoiPickReplaceStop()
-              || RoutingController.get().getWaitingPoiPickType() == RouteMarkType.Intermediate);
-      if (isIntermediateStopPick)
+      // A pick for an empty start or finish slot (the plan sheet's partial-slot row) must fall through to the regular
+      // routing buttons: this branch would hide ROUTE_FROM/ROUTE_TO and leave only the bookmark button.
+      if (RoutingController.get().isWaitingStopPick())
       {
         if (RoutingController.get().isPoiPickReplaceStop())
         {
           buttons.add(PlacePageButtons.ButtonType.ROUTE_REPLACE);
         }
-        else if (RoutingController.get().isStopPointAllowed())
+        else
         {
-          buttons.add(PlacePageButtons.ButtonType.ROUTE_ADD);
+          // Unlike Add Stop, appending needs no built route; the points limit was checked when the pick started.
+          buttons.add(PlacePageButtons.ButtonType.ROUTE_APPEND);
         }
         buttons.add(mapObject.isBookmark() ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
                                            : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
@@ -745,7 +803,11 @@ public class PlacePageController
         onTrackRecordingSelected();
     }
     else
+    {
+      // The track deletion confirmation needs the current selection.
+      dismissAlertDialog();
       close();
+    }
   }
 
   @Override
@@ -760,7 +822,8 @@ public class PlacePageController
   public void onResume()
   {
     super.onResume();
-    if (mPlacePageBehavior.getState() != BottomSheetBehavior.STATE_HIDDEN && !Framework.nativeHasPlacePageInfo())
+    if (mPlacePageBehavior.getState() != BottomSheetBehavior.STATE_HIDDEN
+        && (mMapObject == null || !mMapObject.isTrackRecording()) && !Framework.nativeHasPlacePageInfo())
       mViewModel.setMapObject(null);
   }
 

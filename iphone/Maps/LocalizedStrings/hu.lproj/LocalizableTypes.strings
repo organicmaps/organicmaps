@@ -210,6 +210,7 @@
 "type.barrier.city_wall" = "Városfal";
 "type.barrier.cycle_barrier" = "Kerékpárakadály";
 "type.waterway.ditch" = "Vízelvezető árok";
+"type.waterway.ditch.intermittent" = "Időszakos vízelvezető árok";
 "type.natural.water.moat" = "Várárok";
 "type.natural.water.wastewater" = "Szennyvíz";
 "type.barrier.entrance" = "Bejárat";
@@ -407,28 +408,28 @@
 "type.highway" = "Közút";
 "type.highway.bridleway" = "Lovaglóút";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.bridleway.bridge" = "Híd";
 "type.highway.bridleway.permissive" = "Lovaglóút";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.bridleway.tunnel" = "Alagút";
 "type.highway.busway" = "Kijelölt buszút";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.busway.bridge" = "Híd";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.busway.tunnel" = "Alagút";
 "type.highway.bus_stop" = "Buszmegálló";
 "type.highway.construction" = "Útépítés";
 "type.highway.cycleway" = "Kerékpárút";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.cycleway.bridge" = "Híd";
 "type.highway.cycleway.permissive" = "Kerékpárút";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.cycleway.tunnel" = "Alagút";
 "type.highway.elevator" = "Felvonó";
 "type.highway.footway" = "Gyalogút";
@@ -436,33 +437,33 @@
 "type.highway.footway.crossing" = "Gyalogátkelőhely";
 "type.highway.footway.area" = "Gyalogút területe";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.footway.bridge" = "Gyalogoshíd";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.footway.tunnel" = "Gyalogosalagút";
 "type.highway.ford" = "Gázló";
 "type.highway.living_street" = "Lakó-pihenő övezet";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.living_street.bridge" = "Híd";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.living_street.tunnel" = "Alagút";
 "type.highway.motorway" = "Autópálya";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.motorway.bridge" = "Autópályahíd";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.motorway.tunnel" = "Autópálya-alagút";
 "type.highway.motorway_junction" = "Autópálya-csomópont";
 "type.highway.motorway_link" = "Autópályafel- és lehajtó";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.motorway_link.bridge" = "Híd";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.motorway_link.tunnel" = "Alagút";
 "type.highway.path" = "Ösvény";
 
@@ -474,135 +475,135 @@
 "type.highway.path.bicycle" = "Közös gyalog- és kerékpárút";
 "type.highway.footway.bicycle" = "Közös gyalog- és kerékpárút";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.path.bridge" = "Híd";
 "type.highway.path.horse" = "Ösvény";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.path.tunnel" = "Alagút";
 "type.highway.pedestrian" = "Sétálóutca";
 "type.highway.pedestrian.area" = "Sétálóutca";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.pedestrian.bridge" = "Híd";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.pedestrian.tunnel" = "Alagút";
 "type.highway.platform" = "Peron";
 "type.highway.primary" = "Utca";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.primary.bridge" = "Híd";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.primary.tunnel" = "Alagút";
 "type.highway.primary_link" = "Utca";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.primary_link.bridge" = "Híd";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.primary_link.tunnel" = "Alagút";
 "type.highway.raceway" = "Versenypálya";
 "type.highway.residential" = "Utca";
 "type.highway.residential.area" = "Utca";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.residential.bridge" = "Híd";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.residential.tunnel" = "Alagút";
 "type.highway.rest_area" = "Pihenőzóna";
 "type.highway.road" = "Út";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.road.bridge" = "Híd";
 
 /* A bridge structure outline. */
 "type.man_made.bridge" = "Híd";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.road.tunnel" = "Alagút";
 "type.highway.secondary" = "Utca";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.secondary.bridge" = "Híd";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.secondary.tunnel" = "Alagút";
 "type.highway.secondary_link" = "Utca";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.secondary_link.bridge" = "Híd";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.secondary_link.tunnel" = "Alagút";
 "type.highway.service" = "Szervizút";
 "type.highway.service.area" = "Szervizút";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.service.bridge" = "Híd";
 "type.highway.service.driveway" = "Kocsibehajtó";
 "type.highway.service.parking_aisle" = "Parkolón belüli út";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.service.tunnel" = "Alagút";
 "type.highway.services" = "Pihenőhely";
 "type.highway.speed_camera" = "Traffipax";
 "type.highway.steps" = "Lépcső";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.steps.bridge" = "Híd";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.steps.tunnel" = "Alagút";
 "type.highway.ladder" = "Létra";
 "type.highway.tertiary" = "Bekötőút";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.tertiary.bridge" = "Híd";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.tertiary.tunnel" = "Alagút";
 "type.highway.tertiary_link" = "Bekötőút fel- vagy lehajtó";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.tertiary_link.bridge" = "Híd";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.tertiary_link.tunnel" = "Alagút";
 "type.highway.track" = "Mezőgazdasági vagy erdészeti út";
 "type.highway.track.area" = "Mezőgazdasági vagy erdészeti út";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.track.bridge" = "Híd";
 "type.highway.track.grade1" = "Mezőgazdasági vagy erdészeti út";
 "type.highway.track.no.access" = "Mezőgazdasági vagy erdészeti út";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.track.tunnel" = "Alagút";
 "type.highway.traffic_signals" = "Jelzőlámpa";
 "type.highway.trunk" = "Autóút";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.trunk.bridge" = "Híd";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.trunk.tunnel" = "Alagút";
 "type.highway.trunk_link" = "Autóút fel- vagy lehajtó";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.trunk_link.bridge" = "Híd";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.trunk_link.tunnel" = "Alagút";
 "type.highway.unclassified" = "Egyéb közút";
 "type.highway.unclassified.area" = "Egyéb közút";
 
-/* These translations are used for all type.highway.*.bridge. */
+/* Default translation for type.highway.*.bridge aliases; individual types can override it. */
 "type.highway.unclassified.bridge" = "Híd";
 
-/* These translations are used for all type.highway.*.tunnel. */
+/* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.unclassified.tunnel" = "Alagút";
 "type.area_highway.cycleway" = "Kerékpárút";
 "type.area_highway.footway" = "Gyalogút";
@@ -1519,21 +1520,24 @@
 "type.waterway" = "Vízfolyás";
 "type.waterway.access_point" = "Víziút hozzáférési pont";
 "type.waterway.canal" = "Csatorna";
+"type.waterway.canal.intermittent" = "Időszakos csatorna";
 "type.waterway.canal.tunnel" = "Csatornaalagút";
 "type.waterway.fish_pass" = "Hallépcső";
+"type.waterway.fish_pass.intermittent" = "Időszakos hallépcső";
 "type.waterway.dam" = "Duzzasztógát";
 "type.barrier.ditch" = "Árok";
 "type.natural.water.ditch" = "Vízelvezető árok";
 "type.waterway.ditch.tunnel" = "Áteresz";
 "type.waterway.dock" = "Dokk";
-"type.waterway.drain" = "Vízelvezető árok";
-"type.natural.water.drain" = "Vízelvezető árok területe";
+"type.waterway.drain" = "Vízelvezető csatorna";
+"type.waterway.drain.intermittent" = "Időszakos vízelvezető csatorna";
+"type.natural.water.drain" = "Vízelvezető csatorna területe";
 "type.waterway.drain.tunnel" = "Áteresz";
 "type.waterway.lock_gate" = "Zsilipkapu";
 "type.waterway.river" = "Folyó";
+"type.waterway.river.intermittent" = "Időszakos folyó";
 "type.waterway.river.tunnel" = "Folyó";
 "type.waterway.stream" = "Patak";
-"type.waterway.stream.ephemeral" = "Csapadék után rövid időre megjelenő patak";
 "type.waterway.stream.intermittent" = "Időszakos patak";
 "type.waterway.stream.tunnel" = "Patak";
 "type.waterway.waterfall" = "Vízesés";

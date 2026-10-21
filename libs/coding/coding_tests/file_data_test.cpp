@@ -8,7 +8,8 @@
 #include "base/scope_guard.hpp"
 
 #include <algorithm>  // std::min
-#include <cstring>    // strlen
+#include <cerrno>
+#include <cstring>  // strlen
 #include <fstream>
 #include <memory>
 #include <string>
@@ -16,6 +17,8 @@
 
 #ifndef OMIM_OS_WINDOWS
 #include <sys/resource.h>  // getrlimit / setrlimit
+#include <sys/stat.h>      // chmod
+#include <unistd.h>        // geteuid
 #endif
 
 namespace file_data_test
@@ -288,7 +291,51 @@ UNIT_TEST(File_StdGetLine)
   }
 }
 
+UNIT_TEST(FileData_WriteExistingCreatesMissingFile)
+{
+  std::string const name = "test_write_existing_new.file";
+  uint64_t size = 0;
+  TEST(!base::GetFileSize(name, size), ());
+  {
+    base::FileData writer(name, base::FileData::Op::WRITE_EXISTING);
+    writer.Write("new", 3);
+  }
+  TEST(base::GetFileSize(name, size), ());
+  TEST_EQUAL(size, 3, ());
+  TEST(base::DeleteFileX(name), ());
+}
+
 #ifndef OMIM_OS_WINDOWS
+UNIT_TEST(FileData_WriteExistingKeepsWriteOnlyFile)
+{
+  if (geteuid() == 0)
+    return;
+
+  std::string const name = "test_write_only_file.file";
+  MakeFile(name);
+  SCOPE_GUARD(deleteFile, [&name]()
+  {
+    chmod(name.c_str(), S_IRUSR | S_IWUSR);
+    (void)base::DeleteFileX(name);
+  });
+  TEST_EQUAL(chmod(name.c_str(), S_IWUSR), 0, ());
+
+  try
+  {
+    base::FileData writer(name, base::FileData::Op::WRITE_EXISTING);
+    TEST(false, ("Opening a write-only file for update must fail"));
+  }
+  catch (Writer::OpenException const & ex)
+  {
+    TEST(ex.Msg().find("errno=" + std::to_string(EACCES)) != std::string::npos, (ex.Msg()));
+  }
+
+  TEST_EQUAL(chmod(name.c_str(), S_IRUSR | S_IWUSR), 0, ());
+  uint64_t size = 0;
+  TEST(base::GetFileSize(name, size), ());
+  TEST_EQUAL(size, name.size(), ());
+}
+
 UNIT_TEST(FileData_TooManyOpenFiles)
 {
   std::string const name = "test_too_many_files.file";
@@ -321,6 +368,23 @@ UNIT_TEST(FileData_TooManyOpenFiles)
   catch (Reader::OpenException const & ex)
   {
     TEST(false, ("Expected TooManyFilesException on fd exhaustion, got OpenException:", ex.what()));
+  }
+
+  for (auto const op :
+       {base::FileData::Op::WRITE_TRUNCATE, base::FileData::Op::WRITE_EXISTING, base::FileData::Op::APPEND})
+  {
+    try
+    {
+      base::FileData writer(name, op);
+      TEST(false, ("Expected Writer::OpenException on fd exhaustion", static_cast<int>(op)));
+    }
+    catch (Writer::OpenException const & ex)
+    {
+      TEST(ex.Msg().find(name) != std::string::npos, (ex.Msg()));
+      TEST(ex.Msg().find("errno=" + std::to_string(EMFILE)) != std::string::npos ||
+               ex.Msg().find("errno=" + std::to_string(ENFILE)) != std::string::npos,
+           (ex.Msg()));
+    }
   }
 }
 #endif

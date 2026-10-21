@@ -197,6 +197,7 @@
     <string name="type.barrier.city_wall">Hiri harresia</string>
     <string name="type.barrier.cycle_barrier">Bizikleta-hesia</string>
     <string name="type.waterway.ditch">Drainatze Zanga</string>
+    <string name="type.waterway.ditch.intermittent">Aldizkako drainatze-zanga</string>
     <string name="type.natural.water.moat">Lubanarroa</string>
     <string name="type.natural.water.wastewater">Hondakin-urak</string>
     <string name="type.barrier.entrance">Sarrera</string>
@@ -381,49 +382,49 @@
     <!-- SECTION: Types: Roads -->
     <string name="type.highway">Errepidea</string>
     <string name="type.highway.bridleway">Zaldi-bidea</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.bridleway.bridge">Zubia</string>
     <string name="type.highway.bridleway.permissive">Zaldi-bidea</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.bridleway.tunnel">Tunela</string>
     <string name="type.highway.busway">Autobusentzat errepidea</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.busway.bridge">Zubia</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.busway.tunnel">Tunela</string>
     <string name="type.highway.bus_stop">Autobus geltokia</string>
     <string name="type.highway.construction">Eraikitzen ari diren errepidea</string>
     <string name="type.highway.cycleway">Bidegorri edo bizikleta-bidea</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.cycleway.bridge">Zubia</string>
     <string name="type.highway.cycleway.permissive">Bizikletabidea</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.cycleway.tunnel">Tunela</string>
     <string name="type.highway.elevator">Igogailua</string>
     <string name="type.highway.footway">Bidea</string>
     <string name="type.highway.footway.sidewalk">Espaloia</string>
     <string name="type.highway.footway.crossing">Oinezkoen pasabidea</string>
     <string name="type.highway.footway.area">Bidea</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.footway.bridge">Zubia</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.footway.tunnel">Oinezkoen tunela</string>
     <string name="type.highway.ford">Ibia</string>
     <string name="type.highway.living_street">Kalea</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.living_street.bridge">Zubia</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.living_street.tunnel">Tunela</string>
     <string name="type.highway.motorway">Autobidea</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.motorway.bridge">Autobideko zubia</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.motorway.tunnel">Autobideko tunela</string>
     <string name="type.highway.motorway_junction">Autobideko irteera</string>
     <string name="type.highway.motorway_link">Autobiderako sarrera bidea</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.motorway_link.bridge">Zubia</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.motorway_link.tunnel">Tunela</string>
     <string name="type.highway.path">Bidea</string>
     <!-- Hiking trail tagged as sac_scale=demanding_mountain_hiking (3 of 6) or trail_visibility=bad. -->
@@ -432,101 +433,101 @@
     <string name="type.highway.path.expert">Oso bide zaila edo bereiztezina</string>
     <string name="type.highway.path.bicycle">Bidea</string>
     <string name="type.highway.footway.bicycle">Bidea</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.path.bridge">Zubia</string>
     <string name="type.highway.path.horse">Bidea</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.path.tunnel">Tunela</string>
     <string name="type.highway.pedestrian">Oinezkoen kalea</string>
     <string name="type.highway.pedestrian.area">Oinezkoen eremua</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.pedestrian.bridge">Oinezkoen zubia</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.pedestrian.tunnel">Oinezkoen tunela</string>
     <string name="type.highway.primary">Errepide nagusia</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.primary.bridge">Zubia</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.primary.tunnel">Tunel</string>
     <string name="type.highway.primary_link">Kalea</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.primary_link.bridge">Zubia</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.primary_link.tunnel">Tunel</string>
     <string name="type.highway.raceway">Zirkuitua</string>
     <string name="type.highway.residential">Kalea</string>
     <string name="type.highway.residential.area">Kalea</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.residential.bridge">Zubia</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.residential.tunnel">Tunel</string>
     <string name="type.highway.rest_area">Atseden gunea</string>
     <string name="type.highway.road">Kalea</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.road.bridge">Zubia</string>
     <!-- A bridge structure outline. -->
     <string name="type.man_made.bridge">Zubia</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.road.tunnel">Tunel</string>
     <string name="type.highway.secondary">Kalea</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.secondary.bridge">Zubia</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.secondary.tunnel">Tunel</string>
     <string name="type.highway.secondary_link">Kalea</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.secondary_link.bridge">Zubia</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.secondary_link.tunnel">Tunel</string>
     <string name="type.highway.service">Kalea</string>
     <string name="type.highway.service.area">Kalea</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.service.bridge">Zubia</string>
     <string name="type.highway.service.driveway">Kalea</string>
     <string name="type.highway.service.parking_aisle">Kalea</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.service.tunnel">Tunel</string>
     <string name="type.highway.services">Zerbitzugunea</string>
     <string name="type.highway.speed_camera">Abiadura kamera</string>
     <string name="type.highway.steps">Bidea</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.steps.bridge">Zubia</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.steps.tunnel">Tunel</string>
     <string name="type.highway.tertiary">Kalea</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.tertiary.bridge">Zubia</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.tertiary.tunnel">Tunel</string>
     <string name="type.highway.tertiary_link">Kalea</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.tertiary_link.bridge">Zubia</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.tertiary_link.tunnel">Tunel</string>
     <string name="type.highway.track">Kalea</string>
     <string name="type.highway.track.area">Kalea</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.track.bridge">Zubia</string>
     <string name="type.highway.track.grade1">Kalea</string>
     <string name="type.highway.track.no.access">Kalea</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.track.tunnel">Tunel</string>
     <string name="type.highway.traffic_signals">Semaforoak</string>
     <string name="type.highway.trunk">Kalea</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.trunk.bridge">Zubia</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.trunk.tunnel">Tunel</string>
     <string name="type.highway.trunk_link">Kalea</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.trunk_link.bridge">Zubia</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.trunk_link.tunnel">Tunel</string>
     <string name="type.highway.unclassified">Kalea</string>
     <string name="type.highway.unclassified.area">Kalea</string>
-    <!-- These translations are used for all type.highway.*.bridge. -->
+    <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.unclassified.bridge">Zubia</string>
-    <!-- These translations are used for all type.highway.*.tunnel. -->
+    <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.unclassified.tunnel">Tunel</string>
     <string name="type.area_highway.cycleway">Bidegorri edo bizikleta-bidea</string>
     <string name="type.area_highway.footway">Bidea</string>
@@ -1288,17 +1289,23 @@
     <string name="type.tourism.wilderness_hut">Kabina</string>
     <string name="type.tourism.zoo.petting">Maskota-zooa</string>
     <string name="type.waterway.access_point">Ur-bideetarako sarbide-puntu</string>
+    <string name="type.waterway.canal">Kanala</string>
+    <string name="type.waterway.canal.intermittent">Aldizkako kanala</string>
     <string name="type.waterway.fish_pass">Arrainen eskailera</string>
+    <string name="type.waterway.fish_pass.intermittent">Aldizkako arrainen eskailera</string>
     <string name="type.natural.water.ditch">Drainatze Zanga</string>
     <string name="type.waterway.ditch.tunnel">Zuloa</string>
+    <string name="type.waterway.drain">Drainatze-kanala</string>
+    <string name="type.waterway.drain.intermittent">Aldizkako drainatze-kanala</string>
+    <string name="type.natural.water.drain">Drainatze-kanala</string>
     <string name="type.waterway.drain.tunnel">Zuloa</string>
     <string name="type.waterway.lock_gate">Atea</string>
     <string name="type.waterway.river">Ibai</string>
+    <string name="type.waterway.river.intermittent">Aldizkako ibai</string>
     <string name="type.waterway.river.tunnel">Ibai</string>
-    <string name="type.waterway.stream">Ibai</string>
-    <string name="type.waterway.stream.ephemeral">Ibai</string>
-    <string name="type.waterway.stream.intermittent">Ibai</string>
-    <string name="type.waterway.stream.tunnel">Ibai</string>
+    <string name="type.waterway.stream">Erreka</string>
+    <string name="type.waterway.stream.intermittent">Aldizkako erreka</string>
+    <string name="type.waterway.stream.tunnel">Erreka</string>
     <string name="type.waterway.waterfall">Ur-jauzia</string>
     <string name="type.wheelchair">Gurpil-aulkia</string>
     <string name="type.wheelchair.limited">Ezinduentzako partzialki hornitua</string>

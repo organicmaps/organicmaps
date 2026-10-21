@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "Para descargar unha voz de maior calidade, abre a app Axustes e vai a Accesibilidade → VoiceOver → Fala → Voz.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Probar indicacións de voz (TTS, Text-To-Speech)";
+/* Header above Apple's group of novelty text-to-speech voices (Bells, Bubbles, Zarvox...), shown after the regional voice sections and Eloquence group. Use Apple's term for this group from Settings > Accessibility > VoiceOver > Speech. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "Zum automático";
 "placepage_distance" = "Distancia";
 "search_show_on_map" = "Ver no mapa";
@@ -386,9 +392,6 @@
 /* blue gray color */
 "blue_gray" = "Gris azulado";
 
-/* place preview title */
-"info" = "Información";
-
 /* Prints version number in About dialog */
 "version" = "Versión de Organic Maps: %@";
 
@@ -400,9 +403,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Escuro";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Outro";
 
 /* Tex label above the Donate button */
 "donate_description" = "Regala mapas gratuítos e sen anuncios a millóns de usuarios!";
@@ -604,9 +604,6 @@
 "day" = "d";
 "second" = "s";
 "placepage_more_button" = "Más";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Editar marcador";
 "placepage_personal_notes_hint" = "Notas persoais (texto ou html)";
 "editor_comment_hint" = "Comentario…";
 "editor_reset_edits_message" = "Restablecer todos os cambios locais?";
@@ -651,11 +648,13 @@
 "traffic_data_unavailable" = "Os datos de tráfico non están dispoñibles";
 "enable_logging" = "Activar rexistros";
 "transliteration_title" = "Transliteración ao alfabeto latino";
-"planning_route_manage_route" = "Administrar roteiro";
-"button_plan" = "Planificar";
 "placepage_remove_stop" = "Eliminar parada";
+
+/* Keep it short: route planner button below the destination, PlacePage button, search field hint and full-screen map point picker title shown while choosing another destination. The picked place becomes the new destination, the previous one becomes a stop. */
+"route_add_destination" = "Engadir destino";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Engadir parada";
-"saved" = "Gardado";
 "error_enter_correct_name" = "Por favor, introduza o nome correcto";
 "bookmark_lists" = "Listas";
 
@@ -728,7 +727,25 @@
 "show_to_the_right" = "Mostrar á dereita";
 "show_at_the_bottom" = "Mostrar na parte inferior";
 "enable_logging_warning_message" = "Active esta opción temporalmente para gravar e enviar de forma manual rexistros para diagnosticar defectos enviados mediante a opción «Informar dun fallo» no diálogo Axuda. Os rexistros poden incluír localizacións.";
+
+/* Driving profile in routing options settings. */
+"routing_options_driving" = "En coche";
+
+/* Cycling profile in routing options settings. */
+"routing_options_cycling" = "En bicicleta";
+
+/* Walking profile in routing options settings. */
+"routing_options_walking" = "A pé";
+
+/* Section heading for routing settings shared by every routing mode. */
+"routing_options_all_modes" = "Todos os modos de desprazamento";
 "driving_options_title" = "Opcións de encamiñamento";
+
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Optimización da ruta";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Reordena automaticamente as paradas intermedias para crear unha ruta máis eficiente.";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Evitar peaxes";
@@ -741,8 +758,6 @@
 "avoid_motorways" = "Evitar autoestradas";
 "unable_to_calc_alert_title" = "Non se pode calcular a ruta";
 "unable_to_calc_alert_subtitle" = "Non se puido atopar unha ruta. Quizá se deba ás opcións de encamiñamento ou a datos faltantes en OpenStreetMap. Revise as súas opcións de encamiñamento e volva tentalo.";
-"define_to_avoid_btn" = "Defina os camiños para evitar";
-"change_driving_options_btn" = "Opcións de encamiñamento activadas";
 "toll_road" = "Estrada de peaxe";
 "unpaved_road" = "Camiño sen pavimentar";
 "ferry_crossing" = "Cruzamento de ferri";
@@ -788,9 +803,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Erro ao planificar a ruta";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Chegado: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Descargue e actualice todos os mapas ao longo do camiño proxectado para calcular a ruta.";
 "editor_done_dialog_1" = "tell your friends and edit it together.";
@@ -815,7 +827,6 @@
 "please_note" = "Atención";
 "migration_download_error_dialog" = "Erro de descarga";
 "editor_add_select_category" = "Seleccionar categoría";
-"editor_add_select_category_popular_subtitle" = "Popular";
 "editor_add_select_category_all_subtitle" = "Todas as categorías";
 "whatsnew_editor_message_1" = "Engada lugares novos ao mapa e edite os existentes directamente desde a aplicación.";
 "dialog_incorrect_feature_position" = "Cambiar localización";
@@ -837,7 +848,6 @@
 "location_services_disabled_on_device_3" = "3. Seleccione Localización";
 "location_services_disabled_on_device_4" = "4. Active a Localización";
 "location_services_disabled_on_device_additional_message" = "Ou seguir utilizando Organic Maps sen localización";
-"book_button" = "Reservar";
 "placepage_call_button" = "Chamar";
 "placepage_bookmark_name_hint" = "Nomee do marcador";
 "placepage_delete_bookmark_button" = "Eliminar marcador";
@@ -854,9 +864,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Para mostrar os datos de tráfico, debe actualizar a aplicación.";
 "log_file_size" = "Tamaño do arquivo de rexistro: %@";
-"planning_route_remove_title" = "Arrastre aquí para eliminar";
 "placepage_replace_stop" = "Substituír Stop";
-"start_from_my_position" = "Empezar desde";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Inicia sesión en OpenStreetMap para cargar automaticamente todas as túas edicións de mapas. Más información";
@@ -876,15 +884,8 @@
 "popular_place" = "Popular";
 "hide_from_map" = "Ocultar do mapa";
 "tags_loading_error_subtitle" = "Produciuse un erro ao cargar as etiquetas";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Dereito";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Parte inferior";
 "trip_start" = "Imos";
 "pick_destination" = "Destino";
-"follow_my_position" = "Centrar";
 "search_results" = "Resultados de procura";
 "then_turn" = "Despois";
 "redirect_route_alert" = "Quere reconstruír a ruta?";
@@ -1039,11 +1040,6 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "O traxecto está baleiro";
-"edit_track" = "Editar traxecto";
-"elevation_profile_diff_level" = "Nivel de dificultade";
-"elevation_profile_diff_level_easy" = "Fácil";
-"elevation_profile_diff_level_moderate" = "Moderado";
-"elevation_profile_diff_level_hard" = "Difícil";
 "downloader_updating_ios" = "Actualizando";
 
 /* Autoupdate dialog on start */
@@ -1100,7 +1096,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Active iCloud na configuración do dispositivo para utilizar esta función.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Activar";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1197,3 +1193,30 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "A cor dos traxectos cambiou";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "Escoller no mapa";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "Saída";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "Destino";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "Cambiar saída";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "Cambiar destino";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "Cambiar parada";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "Alcanzouse o número máximo de paradas";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "Mova e achegue o mapa para colocar a cruz";
+
+/* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
+"reverse_route" = "Inverter a ruta";

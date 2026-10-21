@@ -1,28 +1,33 @@
-• La nova configuració «Desa l'historial de cerques» us ajuda a mantenir privat l'historial de cerques si cal
+## Rutes
+• Millora de les rutes alternatives i dels seus horaris d'arribada estimats
+• S'han afegit botons per afegir o substituir una parada en una ruta planificada
+• S'ha afegit una configuració per optimitzar l'ordre de les parades intermèdies de la ruta
+• La ruta alternativa seleccionada ara es conserva quan la navegació recalcula la ruta
+• L'ordre de les parades de la ruta ara es restaura després de reiniciar l'aplicació
 
-## Mapa i llocs
-• Dades d'OpenStreetMap a data de 14 de juliol
-• Les notes d'OpenStreetMap ara es col·loquen a la ubicació exacta que seleccioneu, en lloc del mig del bosc
-• Millorada la selecció de mapes per a regions que creuen l'antimeridià 180°
-• Els perfils d'elevació de les rutes ja no mostren gràfics obsolets o buits després de suprimir una ruta
-• Millorat el gràfic d'elevació buit de les rutes enregistrades
-• El botó per a suprimir els marcadors és més fàcil de trobar
-• Després de sortir de la pantalla d'edició, els marcadors es desen automàticament
-• La paleta de colors inclou colors predefinits i permet triar qualsevol color personalitzat
-• Altres millores de la interfície d'usuari
+## Mapa
+• Dades d'OpenStreetMap a data del 28 de setembre
+• Dades de la Viquipèdia a data de 21 de setembre
+• Els embassaments ara són visibles quan s’allunya més la vista
+• Els túnels d'aigua ja no es mostren al mapa
+• S'han corregit les icones de les estacions i d'entrades del metro de Suzhou
+• S'han corregit casos rars en què les etiquetes es desplaçaven de la seva posició a la capa del mapa de metro
 
-## Transport públic
-• Els noms de les parades, les transferències i les estacions ara utilitzen un contorn blanc per mantenir-se llegibles tant en temes clars com foscos
-• La capa del metro reapareix correctament després de tancar la previsualització d'una ruta de transport públic
+## CarPlay
+• S’han afegit indicacions de maniobra a les pantalles de visualització frontal (HUD) dels vehicles compatibles i al tauler de CarPlay
+• S'han solucionat els botons de CarPlay i la cerca
 
-## Rutes i navegació
-• S'han solucionat problemes amb indicacions incorrectes i que faltaven
-• Ara es mostren avisos de ruta (peatges, ferris, camins sense asfaltar, escales, etc.) per a totes les rutes alternatives
-• S'ha solucionat un bloqueig esporàdic en crear una ruta i s'ha millorat el tractament dels carrers sense sortida i dels punts d'inici/final en una via restringida
-• Millorat l'indicador de progrés de la ruta al botó d'inici
-• Reordenar les parades de la ruta ja no fa que la llista es mogui
+## Traçats
+• S'ha afegit una icona d'ull per amagar els traçats individuals
+• S'han corregit errors i s'ha millorat la gravació de traçats
+• S'ha solucionat la importació de fitxers KMB
 
-## Traduccions
-• Millorada la redacció en xinès
-• Actualitzades les traduccions a l'ucraïnès
-• Corregides les traduccions de les regions del mapa a l'italià
+## Cerca
+• S'han solucionat els problemes de cerca quan l'àrea visible del mapa creua el meridià 180° (±180° de longitud).
+• S'ha restablert la cerca per categoria a Spotlight
+
+## IU
+• L'horari ara mostra "Migdia" per a les 12:00 i "Mitjanit" per a les 00:00 o 24:00
+• S'han corregit diversos errors i s'ha millorat la interfície d'usuari
+• Correcció de les traduccions a l'anglès, al francès i a l'asturià
+• S'ha afegit l'opció de triar i escoltar una mostra d'una veu de navegació instal·lada

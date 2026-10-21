@@ -3,6 +3,7 @@
 #include "indexer/classificator.hpp"
 
 #include "platform/localization.hpp"
+#include "platform/preferred_languages.hpp"
 
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
@@ -25,8 +26,9 @@ Cuisines::Cuisines()
     m_allCuisines.emplace_back(name, platform::GetLocalizedTypeName("cuisine-" + name));
   });
 
+  auto const collator = platform::CreateStringCollator(languages::GetCurrentOrig());
   std::sort(m_allCuisines.begin(), m_allCuisines.end(),
-            [](auto const & lhs, auto const & rhs) { return lhs.second < rhs.second; });
+            [&collator](auto const & lhs, auto const & rhs) { return collator->Less(lhs.second, rhs.second); });
 }
 
 // static

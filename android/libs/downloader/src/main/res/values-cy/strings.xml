@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="common_check_internet_connection_dialog">Gwnewch yn siŵr bod eich dyfais wedi\'i chysylltu â\'r Rhyngrwyd.</string>
+    <string name="downloader_no_space_title">Dim digon o le</string>
+</resources>

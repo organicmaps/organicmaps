@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "Za preuzimanje glasa veće kvalitete otvorite aplikaciju Postavke i idite na Pristupačnost → VoiceOver → Govor → Glas.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Testiraj glasovne upute (TTS, pretvaranje teksta u govor)";
+/* Header above Apple's group of novelty text-to-speech voices (Bells, Bubbles, Zarvox...), shown after the regional voice sections and Eloquence group. Use Apple's term for this group from Settings > Accessibility > VoiceOver > Speech. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "Automatsko zumiranje";
 "placepage_distance" = "Udaljenost";
 "search_show_on_map" = "Prikaži na karti";
@@ -386,9 +392,6 @@
 /* blue gray color */
 "blue_gray" = "Plavo siva";
 
-/* place preview title */
-"info" = "Informacije";
-
 /* Prints version number in About dialog */
 "version" = "Organic Maps verzija: %@";
 
@@ -400,9 +403,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Tamna";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Ostalo";
 
 /* Tex label above the Donate button */
 "donate_description" = "Poklonite besplatne karte bez oglasa milijunima korisnika!";
@@ -604,9 +604,6 @@
 "day" = "d";
 "second" = "s";
 "placepage_more_button" = "Više";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Uredi zabilješku";
 "placepage_personal_notes_hint" = "Osobne bilješke (tekst ili html)";
 "editor_comment_hint" = "Komentiraj…";
 "editor_reset_edits_message" = "Odbaci sve lokalne promjene?";
@@ -651,11 +648,13 @@
 "traffic_data_unavailable" = "Podaci o prometu nisu dostupni";
 "enable_logging" = "Omogući zapisivanje";
 "transliteration_title" = "Transliterirati u latinično pismo";
-"planning_route_manage_route" = "Upravljanje rutom";
-"button_plan" = "Plan";
 "placepage_remove_stop" = "Ukloni Stop";
+
+/* Keep it short: route planner button below the destination, PlacePage button, search field hint and full-screen map point picker title shown while choosing another destination. The picked place becomes the new destination, the previous one becomes a stop. */
+"route_add_destination" = "Dodaj odredište";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Dodaj stajalište";
-"saved" = "Spremljeno";
 "error_enter_correct_name" = "Molimo unesite ispravno ime";
 "bookmark_lists" = "Popisi";
 
@@ -728,7 +727,25 @@
 "show_to_the_right" = "Prikaži desno";
 "show_at_the_bottom" = "Prikaži dolje";
 "enable_logging_warning_message" = "Privremeno omogućite ovu opciju kako biste snimili i ručno poslali detaljne dijagnostičke zapise o vašem problemu nama putem opcije \"Prijavi grešku\" u dijaloškom okviru Pomoć. Zapisi mogu uključivati informacije o lokaciji.";
+
+/* Driving profile in routing options settings. */
+"routing_options_driving" = "Automobilom";
+
+/* Cycling profile in routing options settings. */
+"routing_options_cycling" = "Biciklom";
+
+/* Walking profile in routing options settings. */
+"routing_options_walking" = "Pješice";
+
+/* Section heading for routing settings shared by every routing mode. */
+"routing_options_all_modes" = "Svi načini kretanja";
 "driving_options_title" = "Opcije za određivanje rute";
+
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Optimizacija rute";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Automatski mijenja redoslijed međuodredišta radi stvaranja učinkovitije rute.";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Izbjegni cestarine";
@@ -741,8 +758,6 @@
 "avoid_motorways" = "Izbjegni autoputeve";
 "unable_to_calc_alert_title" = "Nije moguće izračunati rutu";
 "unable_to_calc_alert_subtitle" = "Nije pronađena ruta. To može biti uzrokovano vašim opcijama za rutiranje ili nepotpunim podacima OpenStreetMapa. Molimo promijenite svoje opcije za rutiranje i pokušajte ponovno.";
-"define_to_avoid_btn" = "Definirajte ceste koje želite izbjegavati";
-"change_driving_options_btn" = "Opcije za određivanje rute su aktivirane";
 "toll_road" = "Cesta sa cestarinom";
 "unpaved_road" = "Neasfaltirana cesta";
 "ferry_crossing" = "Prijevoz trajektom";
@@ -788,9 +803,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Planiranje rute nije uspjelo";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Dolazak na %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Preuzmite i ažurirajte sve karte duž predviđene rute kako biste izračunali rutu.";
 "editor_done_dialog_1" = "Promijenili ste kartu svijeta! Nemojte je zadržavati samo za sebe; recite svojim prijateljima i uređujte je zajedno.";
@@ -815,7 +827,6 @@
 "please_note" = "Molimo imajte na umu";
 "migration_download_error_dialog" = "Greška pri preuzimanju";
 "editor_add_select_category" = "Odaberite kategoriju";
-"editor_add_select_category_popular_subtitle" = "Popularno";
 "editor_add_select_category_all_subtitle" = "Sve kategorije";
 "whatsnew_editor_message_1" = "Dodajte nova mjesta na kartu i uređujte postojeća izravno u aplikaciji.";
 "dialog_incorrect_feature_position" = "Promijeni lokaciju";
@@ -837,7 +848,6 @@
 "location_services_disabled_on_device_3" = "3. Odaberite Usluge lokacije";
 "location_services_disabled_on_device_4" = "4. Uključite usluge lokacije";
 "location_services_disabled_on_device_additional_message" = "Ili nastavite koristiti Organic Maps bez lokacije";
-"book_button" = "Knjiga";
 "placepage_call_button" = "Pozovite";
 "placepage_bookmark_name_hint" = "Ime zabilješke";
 "placepage_delete_bookmark_button" = "Izbriši zabilješku";
@@ -854,9 +864,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Za prikaz podataka o prometu aplikacija se mora ažurirati.";
 "log_file_size" = "Veličina zapisnika: %@";
-"planning_route_remove_title" = "Povucite ovdje za uklanjanje";
 "placepage_replace_stop" = "Zamijeni Stop";
-"start_from_my_position" = "Počni od";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Molimo prijavite se na OpenStreetMap kako biste automatski učitali sve svoje izmjene karte. Saznajte više";
@@ -876,15 +884,8 @@
 "popular_place" = "Popularno";
 "hide_from_map" = "Skrij s karte";
 "tags_loading_error_subtitle" = "Došlo je do pogreške pri učitavanju oznaka, molimo pokušajte ponovno";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Desno";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Dno";
 "trip_start" = "Idemo";
 "pick_destination" = "Odredište";
-"follow_my_position" = "Ponovno centriraj";
 "search_results" = "Rezultati pretraživanja";
 "then_turn" = "Zatim";
 "redirect_route_alert" = "Želite li ponovno izgraditi rutu?";
@@ -1039,11 +1040,6 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Staza je prazna - nema što spremiti";
-"edit_track" = "Uredi stazu";
-"elevation_profile_diff_level" = "Razina težine";
-"elevation_profile_diff_level_easy" = "Jednostavno";
-"elevation_profile_diff_level_moderate" = "Umjereno";
-"elevation_profile_diff_level_hard" = "Teško";
 "downloader_updating_ios" = "Ažuriranje";
 
 /* Autoupdate dialog on start */
@@ -1100,7 +1096,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Molimo omogućite iCloud u postavkama svog uređaja kako biste koristili ovu značajku.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Omogući";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1197,3 +1193,30 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Boja tragova je promijenjena";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "Odaberi na karti";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "Početak";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "Odredište";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "Promijeni početak";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "Promijeni odredište";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "Promijeni stajalište";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "Postignut je maksimalni broj stajališta";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "Pomaknite i zumirajte kartu kako biste postavili križić";
+
+/* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
+"reverse_route" = "Obrni rutu";

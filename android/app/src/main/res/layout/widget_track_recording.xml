@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/widget_root"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@drawable/bg_widget_track_recording"
+  android:orientation="vertical"
+  android:padding="@dimen/margin_half_plus"
+  tools:ignore="UseCompatTextViewDrawableXml">
+
+  <LinearLayout
+    android:id="@+id/header"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <ImageView
+      android:layout_width="24dp"
+      android:layout_height="24dp"
+      android:background="@drawable/bg_widget_logo"
+      android:importantForAccessibility="no"
+      android:padding="4dp"
+      android:src="@drawable/ic_splash" />
+
+    <TextView
+      android:id="@+id/title_idle"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/margin_half"
+      android:layout_weight="1"
+      android:ellipsize="end"
+      android:fontFamily="sans-serif-medium"
+      android:maxLines="1"
+      android:text="@string/track_recording_title"
+      android:textColor="@color/widget_text_primary"
+      android:textSize="@dimen/text_size_body_1" />
+
+    <TextView
+      android:id="@+id/title_recording"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/margin_half"
+      android:layout_weight="1"
+      android:drawableStart="@drawable/ic_widget_recording_dot"
+      android:drawablePadding="6dp"
+      android:ellipsize="end"
+      android:maxLines="1"
+      android:text="@string/track_recording"
+      android:textColor="@color/widget_text_secondary"
+      android:textSize="@dimen/text_size_body_3"
+      android:visibility="gone" />
+  </LinearLayout>
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+
+      <Chronometer
+        android:id="@+id/chronometer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:autoSizeMaxTextSize="@dimen/widget_track_recording_main_text_size"
+        android:autoSizeMinTextSize="@dimen/text_size_body_4"
+        android:autoSizeStepGranularity="1sp"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center_horizontal"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:textColor="@color/widget_text_primary"
+        android:textSize="@dimen/widget_track_recording_main_text_size"
+        tools:ignore="SpUsage"
+        tools:targetApi="o" />
+
+      <TextView
+        android:id="@+id/distance"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:autoSizeMaxTextSize="@dimen/widget_track_recording_main_text_size"
+        android:autoSizeMinTextSize="@dimen/text_size_body_4"
+        android:autoSizeStepGranularity="1sp"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center_horizontal"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:textColor="@color/widget_text_primary"
+        android:textSize="@dimen/widget_track_recording_main_text_size"
+        tools:ignore="SpUsage"
+        tools:targetApi="o" />
+    </LinearLayout>
+
+    <LinearLayout
+      android:id="@+id/stats"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:baselineAligned="false"
+      android:orientation="horizontal">
+
+      <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+          android:id="@+id/ascent"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:autoSizeMaxTextSize="@dimen/text_size_body_3"
+          android:autoSizeMinTextSize="@dimen/widget_track_recording_stats_min_text_size"
+          android:autoSizeStepGranularity="1sp"
+          android:autoSizeTextType="uniform"
+          android:fontFamily="sans-serif-medium"
+          android:gravity="center_horizontal"
+          android:maxLines="1"
+          android:textColor="@color/widget_text_primary"
+          android:textSize="@dimen/text_size_body_3"
+          tools:ignore="SpUsage"
+          tools:targetApi="o" />
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:gravity="center_horizontal"
+          android:maxLines="2"
+          android:text="@string/elevation_profile_ascent"
+          android:textColor="@color/widget_text_secondary"
+          android:textSize="@dimen/text_size_body_5" />
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+          android:id="@+id/descent"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:autoSizeMaxTextSize="@dimen/text_size_body_3"
+          android:autoSizeMinTextSize="@dimen/widget_track_recording_stats_min_text_size"
+          android:autoSizeStepGranularity="1sp"
+          android:autoSizeTextType="uniform"
+          android:fontFamily="sans-serif-medium"
+          android:gravity="center_horizontal"
+          android:maxLines="1"
+          android:textColor="@color/widget_text_primary"
+          android:textSize="@dimen/text_size_body_3"
+          tools:ignore="SpUsage"
+          tools:targetApi="o" />
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:gravity="center_horizontal"
+          android:maxLines="2"
+          android:text="@string/elevation_profile_descent"
+          android:textColor="@color/widget_text_secondary"
+          android:textSize="@dimen/text_size_body_5" />
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+          android:id="@+id/max_elevation"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:autoSizeMaxTextSize="@dimen/text_size_body_3"
+          android:autoSizeMinTextSize="@dimen/widget_track_recording_stats_min_text_size"
+          android:autoSizeStepGranularity="1sp"
+          android:autoSizeTextType="uniform"
+          android:fontFamily="sans-serif-medium"
+          android:gravity="center_horizontal"
+          android:maxLines="1"
+          android:textColor="@color/widget_text_primary"
+          android:textSize="@dimen/text_size_body_3"
+          tools:ignore="SpUsage"
+          tools:targetApi="o" />
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:gravity="center_horizontal"
+          android:maxLines="2"
+          android:text="@string/elevation_profile_max_elevation"
+          android:textColor="@color/widget_text_secondary"
+          android:textSize="@dimen/text_size_body_5" />
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+          android:id="@+id/min_elevation"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:autoSizeMaxTextSize="@dimen/text_size_body_3"
+          android:autoSizeMinTextSize="@dimen/widget_track_recording_stats_min_text_size"
+          android:autoSizeStepGranularity="1sp"
+          android:autoSizeTextType="uniform"
+          android:fontFamily="sans-serif-medium"
+          android:gravity="center_horizontal"
+          android:maxLines="1"
+          android:textColor="@color/widget_text_primary"
+          android:textSize="@dimen/text_size_body_3"
+          tools:ignore="SpUsage"
+          tools:targetApi="o" />
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:gravity="center_horizontal"
+          android:maxLines="2"
+          android:text="@string/elevation_profile_min_elevation"
+          android:textColor="@color/widget_text_secondary"
+          android:textSize="@dimen/text_size_body_5" />
+      </LinearLayout>
+    </LinearLayout>
+  </LinearLayout>
+
+  <FrameLayout
+    android:id="@+id/start"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="@drawable/bg_widget_button">
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:drawableStart="@drawable/ic_widget_record"
+      android:drawablePadding="@dimen/margin_half"
+      android:fontFamily="sans-serif-medium"
+      android:text="@string/start_track_recording"
+      android:textColor="@color/white_primary"
+      android:textSize="@dimen/text_size_body_2" />
+  </FrameLayout>
+
+  <FrameLayout
+    android:id="@+id/finish"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="@drawable/bg_widget_button"
+    android:visibility="gone">
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:drawableStart="@drawable/ic_widget_stop"
+      android:drawablePadding="@dimen/margin_half"
+      android:fontFamily="sans-serif-medium"
+      android:text="@string/track_recording_finish"
+      android:textColor="@color/white_primary"
+      android:textSize="@dimen/text_size_body_2" />
+  </FrameLayout>
+</LinearLayout>

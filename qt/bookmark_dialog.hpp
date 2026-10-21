@@ -23,6 +23,7 @@ class BookmarkDialog : public QDialog
 
 public:
   BookmarkDialog(QWidget * parent, Framework & framework);
+  ~BookmarkDialog() override;
 
   void ShowModal();
 

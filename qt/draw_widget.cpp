@@ -15,6 +15,7 @@
 
 #include "routing/following_info.hpp"
 #include "routing/routing_callbacks.hpp"
+#include "routing/routing_options.hpp"
 
 #include "storage/country_decl.hpp"
 #include "storage/storage_defines.hpp"
@@ -564,7 +565,7 @@ void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt, bool pointIsMercator)
     RouteMarkData startPoint;
     startPoint.m_pointType = RouteMarkType::Start;
     startPoint.m_isMyPosition = true;
-    rm.AddRoutePoint(std::move(startPoint));
+    rm.AddRoutePoint(std::move(startPoint), false /* optimize */);
   }
 
   RouteMarkData point;
@@ -581,7 +582,7 @@ void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt, bool pointIsMercator)
   auto const addr = m_framework.GetAddressAtPoint(point.m_position);
   point.m_subTitle = addr.FormatAddress();
 
-  rm.AddRoutePoint(std::move(point));
+  rm.AddRoutePoint(std::move(point), routing::RoutingOptions::LoadRouteOptimizationFromSettings());
 
   if (rm.GetRoutePoints().size() >= 2)
   {
@@ -646,7 +647,7 @@ void DrawWidget::OnRouteRecommendation(RoutingManager::Recommendation recommenda
     RouteMarkData startPoint;
     startPoint.m_pointType = RouteMarkType::Start;
     startPoint.m_isMyPosition = true;
-    routingManager.AddRoutePoint(std::move(startPoint));
+    routingManager.AddRoutePoint(std::move(startPoint), false /* optimize */);
 
     if (routingManager.GetRoutePoints().size() >= 2)
       routingManager.BuildRoute();

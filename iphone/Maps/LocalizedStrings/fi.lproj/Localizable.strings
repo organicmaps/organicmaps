@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "Voit ladata laadukkaamman äänen avaamalla Asetukset-apin ja siirtymällä kohtaan Käyttöapu → VoiceOver → Puhe → Ääni.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Testaa puheohjeita (TTS, Text-To-Speech)";
+/* Header above Apple's group of novelty text-to-speech voices (Bells, Bubbles, Zarvox...), shown after the regional voice sections and Eloquence group. Use Apple's term for this group from Settings > Accessibility > VoiceOver > Speech. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "Automaattinen zoomaus";
 "placepage_distance" = "Etäisyys";
 "search_show_on_map" = "Näytä kartalla";
@@ -386,9 +392,6 @@
 /* blue gray color */
 "blue_gray" = "Siniharmaa";
 
-/* place preview title */
-"info" = "Tietoa";
-
 /* Prints version number in About dialog */
 "version" = "Organic Maps versio: %@";
 
@@ -400,9 +403,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Tumma";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Muu";
 
 /* Tex label above the Donate button */
 "donate_description" = "Lahjoita ilmaiset ja mainoksettomat kartat miljoonille käyttäjille!";
@@ -604,9 +604,6 @@
 "day" = "pv";
 "second" = "s";
 "placepage_more_button" = "Lisää";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Muokkaa kirjanmerkkiä";
 "placepage_personal_notes_hint" = "Henkilökohtaiset merkinnät (teksti tai html)";
 "editor_comment_hint" = "Kommentti…";
 "editor_reset_edits_message" = "Nollataanko kaikki paikalliset muutokset?";
@@ -651,11 +648,13 @@
 "traffic_data_unavailable" = "Liikennetietoja ei ole saatavilla";
 "enable_logging" = "Ota loki käyttöön";
 "transliteration_title" = "Translitterointi latinalaisiksi aakkosiksi";
-"planning_route_manage_route" = "Hallitse reittiä";
-"button_plan" = "Suunnittele";
 "placepage_remove_stop" = "Poista pysähdys";
+
+/* Keep it short: route planner button below the destination, PlacePage button, search field hint and full-screen map point picker title shown while choosing another destination. The picked place becomes the new destination, the previous one becomes a stop. */
+"route_add_destination" = "Lisää määränpää";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Lisää pysähdys";
-"saved" = "Tallennettu";
 "error_enter_correct_name" = "Anna oikea nimi";
 "bookmark_lists" = "Luettelot";
 
@@ -728,7 +727,25 @@
 "show_to_the_right" = "Näytä oikealle";
 "show_at_the_bottom" = "Näytä alareunassa";
 "enable_logging_warning_message" = "Valinta ottaa käyttöön lokikirjaukset diagnostiikkaa varten. Se voi auttaa tukihenkilöstöämme, kun he korjaavat sovelluksen ongelmia. Ota tämä ominaisuus käyttöön vain, jos Organic Maps:n tuki pyytää.";
+
+/* Driving profile in routing options settings. */
+"routing_options_driving" = "Autolla";
+
+/* Cycling profile in routing options settings. */
+"routing_options_cycling" = "Pyörällä";
+
+/* Walking profile in routing options settings. */
+"routing_options_walking" = "Kävellen";
+
+/* Section heading for routing settings shared by every routing mode. */
+"routing_options_all_modes" = "Kaikki kulkutavat";
 "driving_options_title" = "Reititysvalinnat";
+
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Reitin optimointi";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Järjestää välipysähdykset automaattisesti uudelleen tehokkaamman reitin luomiseksi.";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Vältä maksullisia teitä";
@@ -741,8 +758,6 @@
 "avoid_motorways" = "Vältä moottoritietä";
 "unable_to_calc_alert_title" = "Reittiä ei voi luoda";
 "unable_to_calc_alert_subtitle" = "Valitettavasti emme voineet luoda reittiä valituilla vaihtoehdoilla. Vaihda asetuksia ja yritä uudelleen";
-"define_to_avoid_btn" = "Määritä vältettävät tiet";
-"change_driving_options_btn" = "Reititysvalinnat ovat päällä";
 "toll_road" = "Maksullinen tie";
 "unpaved_road" = "Päällystämätön tie";
 "ferry_crossing" = "Lauttaliikenne";
@@ -788,9 +803,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Reitin suunnittelu epäonnistui";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Saavut: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Lataa ja päivitä kaikki kartat reitin varrella luodaksesi reitin.";
 "editor_done_dialog_1" = "Olet muuttanut maailmankarttaa. Älä piilota tätä! Kerro ystävillesi ja muokatkaa sitä yhdessä.";
@@ -815,7 +827,6 @@
 "please_note" = "Huomaathan, että";
 "migration_download_error_dialog" = "Latausvirhe";
 "editor_add_select_category" = "Valitse kategoria";
-"editor_add_select_category_popular_subtitle" = "Suositut";
 "editor_add_select_category_all_subtitle" = "Kaikki kategoriat";
 "whatsnew_editor_message_1" = "Lisää karttaan uusia paikkoja ja muokkaa sovelluksessa olevia karttoja suoraan sovelluksessa.";
 "dialog_incorrect_feature_position" = "Vaihda sijaintia";
@@ -837,7 +848,6 @@
 "location_services_disabled_on_device_3" = "3. Valitse Sijaintipalvelut";
 "location_services_disabled_on_device_4" = "4. Ota Sijaintipalvelut käyttöön";
 "location_services_disabled_on_device_additional_message" = "Tai jatka Organic Maps käyttöä ilman sijaintia";
-"book_button" = "Varaa";
 "placepage_call_button" = "Soita";
 "placepage_bookmark_name_hint" = "Kirjanmerkin nimi";
 "placepage_delete_bookmark_button" = "Poista kirjanmerkki";
@@ -854,9 +864,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Liikennetietojen näyttämiseksi sovellus on päivitettävä.";
 "log_file_size" = "Lokitiedoston koko: %@";
-"planning_route_remove_title" = "Vedä tähän poistaaksesi";
 "placepage_replace_stop" = "Vaihda Stop";
-"start_from_my_position" = "Aloita kohdasta";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Kirjaudu sisään OpenStreetMapiin, jotta voit ladata kaikki karttamuutoksesi automaattisesti. Lisätietoja";
@@ -876,15 +884,8 @@
 "popular_place" = "Suosittu";
 "hide_from_map" = "Piilota kartalta";
 "tags_loading_error_subtitle" = "Tunnisteiden lataamisen aikana tapahtui virhe, yritä uudelleen";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Oikea";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Pohja";
 "trip_start" = "Mennään";
 "pick_destination" = "Määränpää";
-"follow_my_position" = "Kohdista";
 "search_results" = "Hakutulokset";
 "then_turn" = "Sitten";
 "redirect_route_alert" = "Haluatko luoda reitin uudelleen?";
@@ -1039,11 +1040,6 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Reitti on tyhjä - ei mitään tallennettavaa";
-"edit_track" = "Muokkaa reittiä";
-"elevation_profile_diff_level" = "Vaikeustaso";
-"elevation_profile_diff_level_easy" = "Helppo";
-"elevation_profile_diff_level_moderate" = "Kohtuullinen";
-"elevation_profile_diff_level_hard" = "Vaikea";
 "downloader_updating_ios" = "Päivitetään";
 
 /* Autoupdate dialog on start */
@@ -1100,7 +1096,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Ota iCloud käyttöön laitteesi asetuksissa, jotta voit käyttää tätä ominaisuutta.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Ota käyttöön";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1197,3 +1193,30 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Reittien väri vaihdettu";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "Valitse kartalta";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "Lähtöpaikka";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "Määränpää";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "Vaihda lähtöpaikka";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "Vaihda määränpää";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "Vaihda pysähdys";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "Pysähdysten enimmäismäärä on saavutettu";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "Siirrä ja zoomaa karttaa ristin sijoittamiseksi";
+
+/* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
+"reverse_route" = "Käännä reitti";

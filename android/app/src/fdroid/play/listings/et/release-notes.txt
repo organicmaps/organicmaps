@@ -1,8 +1,9 @@
-• OSM-andmed seisuga 14. juuli
-• Ühistranspordi peatuste, ümberistumiskohtade ja jaamade nimedel on nüüd valge ääris
-• Lahtiolekuaegade kuvamine on parandatud
-• Parandatud on valed või puuduvad suunad
-• Muudetud järjehoidjad ja rajad salvestatakse nüüd automaatselt
-• Marsruudihoiatused (teemaksud, parvlaevad, kruusateed, trepid jne) kuvatakse nüüd kõigi alternatiivsete marsruutide puhul
-• OSM-märkmed luuakse täpselt valitud asukohas
-…rohkem infot aadressil omaps.org/et/news
+• OSM: 28. september; Wikipedia: 21. september
+• Paremad alternatiivmarsruudid ja saabumise prognoosid
+• Uus seade optimeerib vahepeatuste järjekorda
+• Uued nupud lisavad või asendavad peatusi planeeritud marsruutidel
+• Navigeerimise ajal säilitatakse valitud alternatiivne marsruut
+• Radade salvestamine parandatud ja täiustatud
+• KMB-failide importimine on parandatud
+• Kasutajaliidese parandused ja täiustused
+…lisateave aadressil omaps.org/et/news

@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "For at hente en stemme i højere kvalitet skal du åbne appen Indstillinger og gå til Tilgængelighed → VoiceOver → Tale → Stemme.";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "Test stemmeanvisninger (TTS, Text-To-Speech)";
+/* Header above Apple's group of novelty text-to-speech voices (Bells, Bubbles, Zarvox...), shown after the regional voice sections and Eloquence group. Use Apple's term for this group from Settings > Accessibility > VoiceOver > Speech. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "Auto-zoom";
 "placepage_distance" = "Afstand";
 "search_show_on_map" = "Vis på kort";
@@ -386,9 +392,6 @@
 /* blue gray color */
 "blue_gray" = "Blågrå";
 
-/* place preview title */
-"info" = "Info";
-
 /* Prints version number in About dialog */
 "version" = "Organic Maps version: %@";
 
@@ -400,9 +403,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "Mørk";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "Andet";
 
 /* Tex label above the Donate button */
 "donate_description" = "Giv gratis kort uden reklamer til millioner af brugere!";
@@ -604,9 +604,6 @@
 "day" = "d";
 "second" = "s";
 "placepage_more_button" = "Mere";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "Rediger bogmærke";
 "placepage_personal_notes_hint" = "Personlige notater (tekst eller html)";
 "editor_comment_hint" = "Kommentar…";
 "editor_reset_edits_message" = "Kassér alle lokale ændringer?";
@@ -651,11 +648,13 @@
 "traffic_data_unavailable" = "Trafikdata er ikke tilgængelige";
 "enable_logging" = "Aktiver logføring";
 "transliteration_title" = "Translitterer til det latinske alfabet";
-"planning_route_manage_route" = "Administrer rute";
-"button_plan" = "Planlæg";
 "placepage_remove_stop" = "Fjern stop";
+
+/* Keep it short: route planner button below the destination, PlacePage button, search field hint and full-screen map point picker title shown while choosing another destination. The picked place becomes the new destination, the previous one becomes a stop. */
+"route_add_destination" = "Tilføj destination";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
 "placepage_add_stop" = "Tilføj stop";
-"saved" = "Gemt";
 "error_enter_correct_name" = "Angiv et korrekt navn";
 "bookmark_lists" = "Lister";
 
@@ -728,7 +727,25 @@
 "show_to_the_right" = "Vis til højre";
 "show_at_the_bottom" = "Vis i bunden";
 "enable_logging_warning_message" = "Aktivér denne mulighed midlertidigt for at registrere og manuelt sende detaljerede diagnostiske logfiler om dit problem til os ved hjælp af \"Rapportér en fejl\" i Hjælp-dialogen. Logfiler kan indeholde placeringsoplysninger.";
+
+/* Driving profile in routing options settings. */
+"routing_options_driving" = "Kørsel";
+
+/* Cycling profile in routing options settings. */
+"routing_options_cycling" = "Cykling";
+
+/* Walking profile in routing options settings. */
+"routing_options_walking" = "Gang";
+
+/* Section heading for routing settings shared by every routing mode. */
+"routing_options_all_modes" = "Alle transportformer";
 "driving_options_title" = "Indstillinger for ruteberegning";
+
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "Ruteoptimering";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "Omarrangerer automatisk mellemstop for at oprette en mere effektiv rute.";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "Undgå betalingsveje";
@@ -741,8 +758,6 @@
 "avoid_motorways" = "Undgå motorveje";
 "unable_to_calc_alert_title" = "Kan ikke beregne rute";
 "unable_to_calc_alert_subtitle" = "Der kunne ikke findes en rute. Dette kan skyldes dine ruteindstillinger eller ufuldstændige OpenStreetMap-data. Ændr dine ruteindstillinger, og prøv igen.";
-"define_to_avoid_btn" = "Definer veje du vil undgå";
-"change_driving_options_btn" = "Indstillinger for ruteberegning aktiveret";
 "toll_road" = "Betalingsvej";
 "unpaved_road" = "Ikke-asfalteret vej";
 "ferry_crossing" = "Færgeoverfart";
@@ -788,9 +803,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "Ruteplanlægning mislykkedes";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "Ankomst: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "For at oprette en rute skal du hente og opdatere alle kort langs ruten.";
 "editor_done_dialog_1" = "Du har ændret verdenskortet. Lad andre det vide! Fortæl dine venner og redigér det sammen.";
@@ -815,7 +827,6 @@
 "please_note" = "Bemærk venligst";
 "migration_download_error_dialog" = "Fejl ved download";
 "editor_add_select_category" = "Vælg kategori";
-"editor_add_select_category_popular_subtitle" = "Populær";
 "editor_add_select_category_all_subtitle" = "Alle kategorier";
 "whatsnew_editor_message_1" = "Tilføj nye steder til kortet og redigér eksisterende direkte fra app'en.";
 "dialog_incorrect_feature_position" = "Skift lokation";
@@ -837,7 +848,6 @@
 "location_services_disabled_on_device_3" = "3. Vælg Placeringstjenester";
 "location_services_disabled_on_device_4" = "4. Slå placeringstjenester til";
 "location_services_disabled_on_device_additional_message" = "Eller fortsæt med at bruge Organic Maps uden placering";
-"book_button" = "Bog";
 "placepage_call_button" = "Ring";
 "placepage_bookmark_name_hint" = "Bogmærke";
 "placepage_delete_bookmark_button" = "Slet bogmærke";
@@ -854,9 +864,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "Appen skal opdateres for at kunne vise trafikdata.";
 "log_file_size" = "Logfilens størrelse: %@";
-"planning_route_remove_title" = "Træk herhen for at fjerne";
 "placepage_replace_stop" = "Erstat stop";
-"start_from_my_position" = "Start fra";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "Log ind på OpenStreetMap for automatisk at uploade alle dine kortredigeringer. Få mere at vide";
@@ -876,15 +884,8 @@
 "popular_place" = "Populær";
 "hide_from_map" = "Skjul på kort";
 "tags_loading_error_subtitle" = "Der skete en fejl under hentning af tags, prøv igen";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "Højre";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "Bund";
 "trip_start" = "Lad os komme i gang";
 "pick_destination" = "Destination";
-"follow_my_position" = "Centrer igen";
 "search_results" = "Søgeresultater";
 "then_turn" = "Derefter";
 "redirect_route_alert" = "Vil du genopbygge ruten igen?";
@@ -1039,11 +1040,6 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "Sporet er tomt - der er ikke noget at gemme";
-"edit_track" = "Rediger spor";
-"elevation_profile_diff_level" = "Sværhedsgrad";
-"elevation_profile_diff_level_easy" = "Let";
-"elevation_profile_diff_level_moderate" = "Middel";
-"elevation_profile_diff_level_hard" = "Svær";
 "downloader_updating_ios" = "Opdaterer";
 
 /* Autoupdate dialog on start */
@@ -1100,7 +1096,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "Aktivér iCloud i din enheds indstillinger for at bruge denne funktion.";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "Aktivér";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1197,3 +1193,30 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "Sporfarve er ændret";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "Vælg på kortet";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "Startsted";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "Destination";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "Skift startsted";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "Skift destination";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "Skift stop";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "Det maksimale antal stop er nået";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "Flyt og zoom på kortet for at placere korset";
+
+/* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
+"reverse_route" = "Vend ruten om";

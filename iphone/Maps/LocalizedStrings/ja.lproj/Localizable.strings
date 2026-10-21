@@ -264,8 +264,14 @@
 /* Settings «Navigation» category: «Voice language» footer */
 "pref_tts_download_voices_description" = "高品質の音声をダウンロードするには、「設定」アプリを開き、アクセシビリティ → VoiceOver → 読み上げ → 声 に移動します。";
 
-/* Settings «Route» category: «Test Voice Directions» title */
-"pref_tts_test_voice_title" = "音声案内をテストする（TTS、Text-To-Speech）";
+/* Header above Apple's group of novelty text-to-speech voices (Bells, Bubbles, Zarvox...), shown after the regional voice sections and Eloquence group. Use Apple's term for this group from Settings > Accessibility > VoiceOver > Speech. */
+"pref_tts_voice_group_novelty" = "Novelty";
+
+/* Accessibility label of the button that plays a sample of a text-to-speech voice. */
+"pref_tts_voice_preview_play" = "Play sample";
+
+/* Accessibility label of the button that stops the sample of a text-to-speech voice being played. */
+"pref_tts_voice_preview_stop" = "Stop sample";
 "pref_map_auto_zoom" = "自動ズーム";
 "placepage_distance" = "距離";
 "search_show_on_map" = "地図に表示";
@@ -386,9 +392,6 @@
 /* blue gray color */
 "blue_gray" = "青灰色";
 
-/* place preview title */
-"info" = "情報";
-
 /* Prints version number in About dialog */
 "version" = "Organic Mapsバージョン: %@";
 
@@ -400,9 +403,6 @@
 
 /* Settings "Appearance" category: "Dark" title, should be consistent with the pref_appearance_title translation. */
 "pref_appearance_dark" = "ダーク";
-
-/* Title for "Other" section in TTS settings. */
-"pref_tts_other_section_title" = "その他";
 
 /* Tex label above the Donate button */
 "donate_description" = "何百万人ものユーザーに広告なしの無料地図を贈ろう！";
@@ -604,9 +604,6 @@
 "day" = "日";
 "second" = "秒";
 "placepage_more_button" = "さらに詳しく";
-
-/* A disable button text in the explanation dialog that opens hotel details page on Kayak website. */
-"placepage_edit_bookmark_button" = "ブックマークを編集";
 "placepage_personal_notes_hint" = "パーソナルメモ（テキストまたはHTML）";
 "editor_comment_hint" = "コメント…";
 "editor_reset_edits_message" = "ローカル編集をすべてリセットしますか?";
@@ -651,11 +648,13 @@
 "traffic_data_unavailable" = "交通データは利用できません";
 "enable_logging" = "ログを有効化";
 "transliteration_title" = "ラテン文字への翻字";
-"planning_route_manage_route" = "ルートを編集";
-"button_plan" = "プラン";
 "placepage_remove_stop" = "停留所を削除";
-"placepage_add_stop" = "中間地点を追加";
-"saved" = "保存";
+
+/* Keep it short: route planner button below the destination, PlacePage button, search field hint and full-screen map point picker title shown while choosing another destination. The picked place becomes the new destination, the previous one becomes a stop. */
+"route_add_destination" = "目的地を追加";
+
+/* Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. */
+"placepage_add_stop" = "経由地を追加";
 "error_enter_correct_name" = "正しい名前を入力してください";
 "bookmark_lists" = "リスト";
 
@@ -728,7 +727,25 @@
 "show_to_the_right" = "右に表示";
 "show_at_the_bottom" = "下部に表示";
 "enable_logging_warning_message" = "このオプションは診断目的でのデータ記録を有効にします。これはこのアプリケーションのトラブルシューティングを担当する当社のサポートスタッフの助けになります。このオプションはOrganic Mapsにリクエストされた場合にのみ有効にしてください。";
+
+/* Driving profile in routing options settings. */
+"routing_options_driving" = "車";
+
+/* Cycling profile in routing options settings. */
+"routing_options_cycling" = "自転車";
+
+/* Walking profile in routing options settings. */
+"routing_options_walking" = "徒歩";
+
+/* Section heading for routing settings shared by every routing mode. */
+"routing_options_all_modes" = "すべての移動手段";
 "driving_options_title" = "経路オプション";
+
+/* Routing setting that automatically reorders intermediate stops */
+"route_optimization" = "経路の最適化";
+
+/* Explains that route optimization automatically reorders intermediate stops */
+"route_optimization_description" = "より効率的な経路になるよう、中間地点を自動的に並べ替えます。";
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_tolls" = "有料道路を避ける";
@@ -741,8 +758,6 @@
 "avoid_motorways" = "高速道路を避ける";
 "unable_to_calc_alert_title" = "ルートを計算できません";
 "unable_to_calc_alert_subtitle" = "ルートが計算できませんでした。 これは、経路オプションまたは不完全な OpenStreetMap データが原因である可能性があります。 経路オプションを変更して再試行してください。";
-"define_to_avoid_btn" = "迂回ルートを設定する";
-"change_driving_options_btn" = "経路オプションは有効になっています";
 "toll_road" = "有料道路";
 "unpaved_road" = "未舗装道路";
 "ferry_crossing" = "フェリー";
@@ -788,9 +803,6 @@
 /* Failed planning route message in navigation view */
 "routing_planning_error" = "ルート検索に失敗";
 
-/* Arrive routing message in navigation view */
-"routing_arrive" = "到着予測: %@";
-
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "ルートを作成するには、ルートの通過する地図を全てダウンロード・アップデートしてください。";
 "editor_done_dialog_1" = "世界地図を変更しました。この変更を秘密にしないでください! 友達に教えて一緒に編集しましょう。";
@@ -815,7 +827,6 @@
 "please_note" = "ご注意ください";
 "migration_download_error_dialog" = "ダウンロードエラー";
 "editor_add_select_category" = "カテゴリを選択";
-"editor_add_select_category_popular_subtitle" = "人気";
 "editor_add_select_category_all_subtitle" = "全てのカテゴリ";
 "whatsnew_editor_message_1" = "アプリから直接地図に新しい場所を追加したり、既存の場所を編集できます。";
 "dialog_incorrect_feature_position" = "位置を変更してください";
@@ -837,7 +848,6 @@
 "location_services_disabled_on_device_3" = "3.位置情報サービスを選択する";
 "location_services_disabled_on_device_4" = "4.位置情報サービスをオンにする";
 "location_services_disabled_on_device_additional_message" = "または、位置情報を使用せずにOrganic Mapsを引き続きご利用ください";
-"book_button" = "予約";
 "placepage_call_button" = "電話をかける";
 "placepage_bookmark_name_hint" = "ブックマーク名";
 "placepage_delete_bookmark_button" = "ブックマークを削除";
@@ -854,9 +864,7 @@
 /* "traffic" as in road congestion */
 "traffic_update_app_message" = "交通データを表示するには、アプリケーションをアップデートする必要があります。";
 "log_file_size" = "ログファイルのサイズ: %@";
-"planning_route_remove_title" = "ここにドラッグして削除";
 "placepage_replace_stop" = "リプレースストップ";
-"start_from_my_position" = "出発地";
 
 /* For iOS message 'alert_reauth_message' should be splitted in two parts: message + link. Here's first part */
 "alert_reauth_message_ios" = "すべてのマップ編集を自動的にアップロードするには、OpenStreetMapにログインしてください。詳しくは";
@@ -876,15 +884,8 @@
 "popular_place" = "人気";
 "hide_from_map" = "マップから隠す";
 "tags_loading_error_subtitle" = "タグのロード中にエラーが起きました発生しました。もう一度やり直してください";
-
-/* Position of the name label on the map relative to the bookmark pin (on the right) */
-"right" = "右";
-
-/* Position of the name label on the map relative to the bookmark pin (at the bottom) */
-"bottom" = "ボトム";
 "trip_start" = "出発";
 "pick_destination" = "目的地";
-"follow_my_position" = "リセンター";
 "search_results" = "検索結果";
 "then_turn" = "その後";
 "redirect_route_alert" = "ルートを再計算しますか?";
@@ -1039,11 +1040,6 @@
 
 /* Message for the toast when saving the track recording is finished but nothing to save. */
 "track_recording_toast_nothing_to_save" = "ルートが空です - 保存するものがありません";
-"edit_track" = "ルートを編集";
-"elevation_profile_diff_level" = "難易度";
-"elevation_profile_diff_level_easy" = "簡単";
-"elevation_profile_diff_level_moderate" = "普通";
-"elevation_profile_diff_level_hard" = "困難";
 "downloader_updating_ios" = "更新中";
 
 /* Autoupdate dialog on start */
@@ -1100,7 +1096,7 @@
 /* Message for the "iCloud is Disabled" alert. */
 "icloud_disabled_message" = "この機能を使うには、デバイスの設定でiCloudを有効にしてほしい。";
 
-/* Title for the "Enable iCloud Syncronization" alert's "Enable" action button. */
+/* Action button that enables a disabled feature, such as iCloud synchronization or location services. */
 "enable" = "有効にする";
 
 /* Title for the "Enable iCloud Syncronization" alert's "Backup" action button. */
@@ -1197,3 +1193,30 @@
 
 /* Toast message shown when track colors are changed in category settings */
 "toast_tracks_color_changed" = "トラックの色が変更されました";
+
+/* Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair */
+"choose_on_map" = "地図上で選択";
+
+/* Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_start_location" = "出発地";
+
+/* Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"choose_destination" = "目的地";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set starting point of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_start_location" = "出発地を変更";
+
+/* Search field hint and full-screen map point picker title shown while replacing the already set destination of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_destination" = "目的地を変更";
+
+/* Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field */
+"change_stop_along_route" = "経由地を変更";
+
+/* Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number */
+"routing_max_stops_reached" = "経由地の最大数に達しました";
+
+/* Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it */
+"choose_point_on_map_hint" = "地図を移動・拡大縮小して、十字を配置してください";
+
+/* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
+"reverse_route" = "ルートを逆にする";

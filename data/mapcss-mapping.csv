@@ -115,7 +115,7 @@ addr:interpolation|odd;41;
 highway|service|driveway;[highway=service][service=driveway];;name;int_name;42;
 addr:interpolation|even;43;
 highway|motorway_link;44;
-waterway|stream|intermittent;[waterway=stream][intermittent=yes][!tunnel];;name;int_name;45;
+waterway|stream|intermittent;[waterway=stream][intermittent=yes][!tunnel],[waterway=stream][seasonal?][!tunnel];;name;int_name;45;
 deprecated:highway|track|grade4:04.2024;[highway=track][tracktype=grade4];x;name;int_name;46;highway|track
 natural|water|pond;[natural=water][water=pond][!tunnel];;name;int_name;47;
 landuse|farmland;48;
@@ -206,8 +206,7 @@ moved:railway|station:05.2024;112;railway|station
 deprecated:highway|path|hiking:04.2024;[highway=path][route=hiking],[highway=path][sac_scale=hiking];x;name;int_name;113;highway|path
 # ~200k usages.
 amenity|hospital;114;
-# TODO: merge with "intermittent".
-waterway|stream|ephemeral;[waterway=stream][intermittent=ephemeral][!tunnel];;name;int_name;115;
+deprecated:waterway|stream|ephemeral:09.2026;[waterway=stream][intermittent=ephemeral][!tunnel];x;name;int_name;115;waterway|stream|intermittent
 highway|trunk|bridge;[highway=trunk][bridge?];;name;int_name;116;
 # ~200k usages.
 amenity|post_office;117;
@@ -678,11 +677,12 @@ amenity|studio;553;
 amenity|love_hotel;554;
 deprecated:highway|footway|demanding_alpine_hiking:04.2024;[highway=footway][sac_scale=demanding_alpine_hiking];x;name;int_name;555;highway|path|expert
 deprecated|deprecated;556;x
-deprecated|deprecated;557;x
-deprecated|deprecated;558;x
-deprecated|deprecated;559;x
-deprecated|deprecated;560;x
-deprecated|deprecated;561;x
+# Intermittent waterways.
+waterway|river|intermittent;[waterway=river][intermittent=yes][!tunnel],[waterway=river][seasonal?][!tunnel];;name;int_name;557;
+waterway|canal|intermittent;[waterway=canal][intermittent=yes][!tunnel],[waterway=canal][seasonal?][!tunnel];;name;int_name;558;
+waterway|ditch|intermittent;[waterway=ditch][intermittent=yes][!tunnel],[waterway=ditch][seasonal?][!tunnel];;name;int_name;559;
+waterway|drain|intermittent;[waterway=drain][intermittent=yes][!tunnel],[waterway=drain][seasonal?][!tunnel];;name;int_name;560;
+waterway|fish_pass|intermittent;[waterway=fish_pass][intermittent=yes][!tunnel],[waterway=fish_pass][seasonal?][!tunnel];;name;int_name;561;
 deprecated|deprecated;562;x
 deprecated|deprecated;563;x
 natural|lake;564;natural|water|lake
@@ -1785,3 +1785,5 @@ leisure|bird_hide;1654;
 amenity|stage;1655;
 natural|hill;1656;
 natural|arch;1657;
+railway|station|subway|suzhou;[railway=station][transport=subway][city=suzhou],[railway=station][station=subway][city=suzhou];;name;int_name;1658;
+railway|subway_entrance|suzhou;[railway=subway_entrance][city=suzhou];;name;int_name;1659;

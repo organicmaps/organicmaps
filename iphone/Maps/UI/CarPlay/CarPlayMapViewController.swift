@@ -77,6 +77,9 @@ final class CarPlayMapViewController: MWMViewController {
     super.traitCollectionDidChange(previousTraitCollection)
     // Triggers the map style updating when CarPlay's 'Appearance' setting is changed.
     ThemeManager.invalidate()
+    if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+      CarPlayService.shared.updateMapButtonsAppearance()
+    }
   }
 
   override func applyTheme() {

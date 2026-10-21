@@ -5,15 +5,23 @@ on:
   push:
     branches:
       - master
+    paths-ignore:
+      - .agents/**
+      - .claude/**
+      - .gemini/**
+      - '**/*.md'
   pull_request:
     paths-ignore:
+      - .agents/**
+      - .claude/**
+      - .gemini/**
       - .gitignore
       - .github/**
       - '!.github/workflows/build-cmake.yaml'  # Run check on self change
+      - '**/*.md'
       - CONTRIBUTORS
       - LICENSE
       - NOTICE
-      - README.md
       - android/**
       - iphone/**
       - data/countries-strings/**
@@ -23,6 +31,7 @@ on:
       - docs/**
       - packaging/**
       - tools/**
+      - '!tools/windows/**'
       - '!tools/python/test_server/**'
       - xcode/**
 
@@ -48,15 +57,15 @@ jobs:
             unity: OFF
             run-tests: OFF
 
-          - os: ubuntu-24.04
-            cc: clang-19
-            cxx: clang++-19
+          - os: ubuntu-26.04-arm
+            cc: clang-22
+            cxx: clang++-22
 
-          - os: ubuntu-24.04
-            cc: gcc-14
-            cxx: g++-14
+          - os: ubuntu-26.04
+            cc: gcc-15
+            cxx: g++-15
 
-          - os: ubuntu-24.04
+          - os: ubuntu-24.04-arm
             cc: gcc-13
             cxx: g++-13
 
@@ -94,6 +103,9 @@ jobs:
 
       - name: Checkout sources
         uses: actions/checkout@v6
+        with:
+          # version.sh counts commits in its 128-commit history window.
+          fetch-depth: 128
 
       - name: Parallel submodules checkout
         run: git submodule update --depth 1 --init --recursive --jobs=20
@@ -135,10 +147,12 @@ jobs:
 
       - name: Set up MSVC environment (Windows)
         if: ${{ runner.os == 'Windows' }}
-        uses: ilammy/msvc-dev-cmd@v1
+        uses: TheMrMilchmann/setup-msvc-dev@v4.1.0
+        with:
+          arch: x64
 
       - name: Configure ccache
-        uses: hendrikmuhs/ccache-action@v1.2
+        uses: hendrikmuhs/ccache-action@v1.2.24
         with:
           key: ${{ github.workflow }}-${{ matrix.environment.os }}-${{ matrix.environment.cc }}-${{ matrix.environment.unity }}-${{ matrix.cmake-build-type }}
           # No Unity compiles every TU separately, so its cache needs more room
@@ -207,3 +221,67 @@ jobs:
       - name: Run drape tests
         if: ${{ matrix.environment.run-tests != 'OFF' }}
         run: ctest --preset $PRESET_DRAPE --verbose
+
+      # Reconfigure after the existing tests so they keep their development paths.
+      - name: Build Windows direct staging variant
+        if: ${{ runner.os == 'Windows' && matrix.cmake-build-type == 'Release' }}
+        run: |
+          python -m unittest discover -s tools/windows -p test_stage_runtime.py
+          cmake --preset "$PRESET" \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DBUILD_TESTING=OFF -DBUILD_DESIGNER=OFF \
+            -DOMIM_WINDOWS_DISTRIBUTION=direct
+          cmake --build --preset "$PRESET" --target desktop
+          cmake --install build --prefix dist/windows-direct-ci --component WindowsRuntime
+
+      - name: Upload Windows direct staging folder
+        if: ${{ runner.os == 'Windows' && matrix.cmake-build-type == 'Release' }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: WindowsDirect-unsigned-stage-${{ github.run_id }}
+          path: dist/windows-direct-ci/
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+  without-sandbox:
+    name: Linux without optional sandbox dependencies
+    runs-on: ubuntu-24.04
+    container: ubuntu:24.04
+    steps:
+      - name: Install ordinary project dependencies
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends \
+            build-essential ca-certificates clang-19 cmake git libgl1-mesa-dev libglvnd-dev \
+            libqt6svg6-dev ninja-build python3 qt6-base-dev qt6-positioning-dev
+
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 128
+          submodules: recursive
+
+      - name: Configure without the developer sandbox
+        env:
+          CC: clang-19
+          CXX: clang++-19
+        shell: bash
+        run: |
+          set -o pipefail
+          cmake --preset ci -DCMAKE_BUILD_TYPE=Release -DBUILD_DEV_SANDBOX=OFF 2>&1 | tee configure.log
+          if cmake --build --preset ci --target dev_sandbox; then exit 1; fi
+          cmake --build --preset ci --target help > targets.log
+          if grep -Eq 'glfw|imgui' targets.log; then exit 1; fi
+
+      - name: Build the ordinary application and tools
+        run: >-
+          cmake --build --preset ci --parallel 4
+          --target desktop generator_tool features_collector_tool samples_generation_tool
+
+      - name: Upload configuration log
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: sandbox-disabled-configure
+          path: configure.log
+          retention-days: 7

@@ -66,7 +66,6 @@ GenerateStringResource "strings.txt" android/wear/src/main/res android android-w
 GenerateStringResource "strings.txt" iphone/Maps/LocalizedStrings apple apple-maps ""
 GenerateStringResource "strings.txt" iphone/Maps/LocalizedStrings apple-plural apple-maps ""
 GenerateStringResource "strings.txt" iphone/Maps/LocalizedStrings apple apple-infoplist "InfoPlist.strings"
-GenerateStringResource "strings.txt" iphone/Chart/Chart apple apple-chart ""
 
 # Generate Android types strings
 GenerateStringResource "types_strings.txt" android/sdk/src/main/res android "" types_strings.xml

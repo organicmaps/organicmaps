@@ -207,20 +207,6 @@
     <!-- location service disabled -->
     <string name="enable_location_services">Por favor, ative os Serviços de Localização</string>
     <string name="save">Salvar</string>
-    <!-- brown color -->
-    <string name="brown">Marrom</string>
-    <!-- deep purple color -->
-    <string name="deep_purple">Lilás escuro</string>
-    <!-- light blue color -->
-    <string name="light_blue">Azul claro</string>
-    <!-- cyan color -->
-    <string name="cyan">Ciano</string>
-    <!-- teal color -->
-    <string name="teal">Azul petróleo</string>
-    <!-- lime color -->
-    <string name="lime">Verde limão</string>
-    <!-- blue gray color -->
-    <string name="blue_gray">Azul escuro</string>
     <!-- Settings «Map» category: «Appearance» title -->
     <string name="pref_appearance_title">Aparência</string>
     <!-- Settings "Appearance" category: "Light" title, should be consistent with the pref_appearance_title translation. -->
@@ -275,11 +261,6 @@
     <string name="editor_example_values">Exemplo de Valores</string>
     <string name="editor_correct_mistake">Erro correto</string>
     <string name="editor_add_select_location">Selecionar Localização</string>
-    <string name="editor_report_problem_desription_1">Por favor, descreva o problema em detalhes para que a comunidade OpenStreetMap possa corrigir o erro.</string>
-    <string name="editor_report_problem_desription_2">Ou faça-o você mesmo em https://www.openstreetmap.org/</string>
-    <string name="editor_report_problem_no_place_title">Esse lugar não existe</string>
-    <string name="editor_report_problem_under_construction_title">Fechado para manutenção</string>
-    <string name="editor_report_problem_duplicate_place_title">Lugar duplicado</string>
     <string name="autodownload">Download automático</string>
     <string name="twentyfour_seven">24/7</string>
     <string name="edit_opening_hours">Editar horário comercial</string>
@@ -313,13 +294,11 @@
     <string name="downloader_no_space_title">Não há espaço suficiente</string>
     <!-- Message shown when there is not enough space to download maps -->
     <string name="downloader_no_space_message">Exclua todos os dados desnecessários</string>
-    <string name="editor_login_error_dialog">Erro no login.</string>
     <string name="editor_focus_map_on_location">Arraste o mapa para colocar a cruz na localização do local ou da empresa.</string>
     <string name="editor_add_place_title">Adicionando</string>
     <string name="editor_edit_place_name_hint">Nome do local</string>
     <!-- The second part of the editor_edit_place_name_hint to explain that name should be entered in a local language, see https://wiki.openstreetmap.org/wiki/Key:name -->
     <string name="editor_default_language_hint">Como está escrito no idioma local</string>
-    <string name="editor_report_problem_other_title">Problema diferente</string>
     <string name="placepage_add_business_button">Adicionar uma empresa</string>
     <string name="message_invalid_feature_position">Nenhum objeto pode ser localizado aqui</string>
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
@@ -346,7 +325,7 @@
     <string name="downloader_no_downloaded_maps_message">Baixe mapas para pesquisar locais e usar navegação offline.</string>
     <string name="day">d</string>
     <string name="placepage_more_button">Mais informações</string>
-    <!-- A disable button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Editar marcador</string>
     <string name="placepage_personal_notes_hint">Anotações pessoais (texto ou html)</string>
     <string name="editor_comment_hint">Comentar…</string>
@@ -375,7 +354,7 @@
     <string name="editor_share_to_all_dialog_message_1">Certifique-se de não ter incluído nenhum dado pessoal.</string>
     <string name="editor_share_to_all_dialog_message_2">Os editores do OpenStreetMap verificarão as mudanças e entrarão em contato com você se tiverem alguma dúvida.</string>
     <string name="navigation_stop_button">Pare</string>
-    <!-- Shown as toast when starting the recent track recording -->
+    <!-- Shown while a track is being recorded: the start toast, the notification title and the home screen widget status. -->
     <string name="track_recording">Registro da pista</string>
     <!-- For the first routing -->
     <string name="decline">Declinar</string>
@@ -396,11 +375,11 @@
     <string name="prefs_languages_information_off">Para alguns idiomas, você precisa instalar um sintetizador de fala ou um pacote adicional de linguagem da loja de aplicativo (Google Play Market, Samsung Apps).\nAbra as configurações do seu dispositivo → Idioma e entrada → Fala → Saída de texto para fala.\nAqui você pode gerenciar as configurações para o sintetizador de fala (por exemplo, baixar pacote de idioma para usar off-line) e selecionar outro motor de texto-para-fala.</string>
     <string name="transliteration_title">Transliterar para alfabeto latino</string>
     <string name="learn_more">Saiba mais</string>
-    <string name="planning_route_manage_route">Gerenciar rota</string>
-    <string name="button_plan">Planejar</string>
     <string name="placepage_remove_stop">Remover parada</string>
+    <!-- Keep it short: route planner button below the destination, PlacePage button, search field hint and full-screen map point picker title shown while choosing another destination. The picked place becomes the new destination, the previous one becomes a stop. -->
+    <string name="route_add_destination">Adicionar destino</string>
+    <!-- Keep it short: PlacePage button, search field hint and full-screen map point picker title shown while choosing a new intermediate stop of a route. -->
     <string name="placepage_add_stop">Adicionar parada</string>
-    <string name="saved">Salvo</string>
     <!-- Alert to ask user relogin to OpenStreetMap with OAuth2 flow after OAuth1 authentication is deprecated. -->
     <string name="alert_reauth_message">Faça login no OpenStreetMap para carregar automaticamente todas as edições de mapas que você fizer. Saiba mais <a href="https://github.com/organicmaps/organicmaps/issues/6144">aqui</a>.</string>
     <string name="dialog_error_storage_message">O armazenamento externo não está disponível. É provável que o cartão SD tenha sido removido, danificado ou o sistema de arquivo seja apenas para leitura. Verifique e entre em contato conosco em support\@organicmaps.app</string>
@@ -458,7 +437,19 @@
     <string name="power_managment_setting_manual_max">Sempre</string>
     <string name="bookmarks_text_placement_description">Se houver muitos favoritos, a exibição de seus nomes no mapa pode deixar o aplicativo lento.</string>
     <string name="enable_logging_warning_message">A opção ativa logging para realizar diagnósticos. Pode ser útil para nossa equipe de suporte que estão solucionando problemas com o aplicativo. Ative esta opção apenas ao ser solicitado pelo suporte do Organic Maps.</string>
+    <!-- Driving profile in routing options settings. -->
+    <string name="routing_options_driving">De carro</string>
+    <!-- Cycling profile in routing options settings. -->
+    <string name="routing_options_cycling">De bicicleta</string>
+    <!-- Walking profile in routing options settings. -->
+    <string name="routing_options_walking">A pé</string>
+    <!-- Section heading for routing settings shared by every routing mode. -->
+    <string name="routing_options_all_modes">Todos os meios de transporte</string>
     <string name="driving_options_title">Opções de trajeto</string>
+    <!-- Routing setting that automatically reorders intermediate stops -->
+    <string name="route_optimization">Otimização da rota</string>
+    <!-- Explains that route optimization automatically reorders intermediate stops -->
+    <string name="route_optimization_description">Reorganiza automaticamente as paradas intermediárias para criar uma rota mais eficiente.</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_tolls">Evitar pedágios</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
@@ -468,8 +459,6 @@
     <string name="avoid_motorways">Evitar rodovias</string>
     <string name="unable_to_calc_alert_title">Incapaz de calcular rota</string>
     <string name="unable_to_calc_alert_subtitle">Infelizmente, não conseguimos encontrar uma rota, provavelmente por causa das opções escolhidas ou dados do OpenStreetMap em falta. Por favor, altere as configurações e tente novamente.</string>
-    <string name="define_to_avoid_btn">Definir as estradas a serem evitadas</string>
-    <string name="change_driving_options_btn">Opções de direção ativadas</string>
     <string name="toll_road">Pedágio</string>
     <string name="unpaved_road">Pista não pavimentada</string>
     <string name="ferry_crossing">Balsa</string>
@@ -512,7 +501,6 @@
     <string name="isolines_location_error_dialog">A camada Relevo ainda não está disponível para esta região</string>
     <string name="elevation_profile_min_elevation">Elevação mínima</string>
     <string name="elevation_profile_max_elevation">Elevação máxima</string>
-    <string name="elevation_profile_distance">Dist.:</string>
     <string name="isolines_toast_zooms_1_10">Use o zoom para explorar as isolinhas</string>
     <string name="downloader_loading_ios">Baixando</string>
     <string name="download_map_title">Baixar a visão geral mundial</string>
@@ -602,14 +590,8 @@
     <string name="start_track_recording">Gravar trilha</string>
     <!-- Prompt for stopping a track recording. -->
     <string name="stop_track_recording">Parar gravação de trilha</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
+    <!-- Subtitle of the place page of the track being recorded, and the name and title of the home screen widget. -->
     <string name="track_recording_title">Gravação de trilha</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="stop_without_saving">Parar sem salvar</string>
-    <!-- Title for the "Stop Without Saving" action for the alert when saving a track recording. -->
-    <string name="continue_recording">Continuar registrando</string>
-    <!-- Title for the alert when saving a track recording. -->
-    <string name="track_recording_alert_title">Salvar em Favoritos e Trilhas?</string>
     <!-- Message for the toast when saving the track recording is finished but nothing to save. -->
     <string name="track_recording_toast_nothing_to_save">A trilha está vazia - não há nada para salvar</string>
     <!-- Error message when there are no File Manager apps installed to select a folder when importing Bookmarks and Tracks -->
@@ -617,8 +599,6 @@
     <string name="choose_color">Escolha a cor</string>
     <string name="edit_track">Editar trilha</string>
     <string name="uri_open_location_failed">Nenhum aplicativo instalado que possa abrir o local</string>
-    <!-- preference string for using auto theme only in navigation mode -->
-    <string name="nav_auto">Automático na navegação</string>
     <!-- Setting option to sync the app's theme with the operating system's dark/light mode -->
     <string name="follow_system">Usar o padrão do sistema</string>
     <!-- Title for the dialog when deleting several bookmarks and tracks at once. %d is their number. -->
@@ -635,16 +615,20 @@
     <string name="show_track">Mostrar trilha</string>
 
     <!-- SECTION: gps strings -->
-    <!-- Login to OSM button text -->
-    <string name="login_osm_credentials">Login com senha</string>
-    <!-- Login to OSM button text -->
-    <string name="login_osm_browser">Fazer login usando o navegador</string>
     <!-- Toast message shown when track colors are changed in category settings -->
     <string name="toast_tracks_color_changed">Cor das trilhas alterada</string>
     <!-- Tab label for the RGB sliders color picker mode -->
     <string name="color_picker_sliders">Controles deslizantes</string>
     <!-- Tab label for the grid color picker mode -->
     <string name="color_picker_grid">Grade</string>
+    <!-- Search field hint and full-screen map point picker title shown while replacing an already added intermediate stop of a route. Kept short because shortcut and voice-search buttons narrow the field -->
+    <string name="change_stop_along_route">Alterar parada</string>
+    <!-- Toast shown when the user tries to add one more intermediate stop to a route that already holds the maximum allowed number -->
+    <string name="routing_max_stops_reached">Número máximo de paradas atingido</string>
     <!-- Track recording notification button: stops the recording and saves the recorded track. -->
     <string name="track_recording_stop_and_save">Parar e salvar</string>
+    <!-- Track recording home screen widget button: opens the app to save or delete the recorded track. -->
+    <string name="track_recording_finish">Finalizar</string>
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Inverter rota</string>
 </resources>
