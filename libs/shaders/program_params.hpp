@@ -81,7 +81,7 @@ struct ALIGNMENT MapProgramParams
   // towards the light in the mercator frame (+x east, +y north, +z up; z doubles as the
   // flat ground intensity the shading is relative to), w is the shadow gamma (the lift
   // of the gentle slopes, 1 = linear). The default is the classic cartographic NW at 45
-  // degrees.
+  // degrees; see Framework::SetTerrainLight.
   glsl::vec4 m_terrainLightDir = kDefaultTerrainLightDir;
 
   BIND_PROGRAMS(MapProgramParams, Program::Area, Program::Area3d, Program::Area3dOutline, Program::AreaOutline,

@@ -1,4 +1,3 @@
-#import "MWMMapNodeAttributes.h"
 #import "PlacePageOSMContributionData+Core.h"
 
 @implementation PlacePageOSMContributionData
@@ -7,8 +6,7 @@
 
 @implementation PlacePageOSMContributionData (Core)
 
-- (instancetype _Nullable)initWithRawData:(place_page::Info const &)rawData
-                            mapAttributes:(MWMMapNodeAttributes * _Nonnull)mapAttributes
+- (instancetype _Nullable)initWithRawData:(place_page::Info const &)rawData mapStatus:(storage::Status)mapStatus
 {
   self = [super init];
   if (self)
@@ -16,31 +14,24 @@
     if (!rawData.ShouldShowAddPlace() && !rawData.ShouldShowAddBusiness() && !rawData.ShouldShowEditPlace())
       return nil;
 
-    BOOL shouldShowAddPlace = rawData.ShouldShowAddPlace() || rawData.ShouldShowAddBusiness();
-    BOOL shouldShowEditPlace = rawData.ShouldShowEditPlace();
-    BOOL canEditPlace = rawData.CanEditPlace();
-    switch (mapAttributes.nodeStatus)
+    _showAddPlace = rawData.ShouldShowAddPlace() || rawData.ShouldShowAddBusiness();
+    _showEditPlace = rawData.ShouldShowEditPlace();
+    _canEditPlace = rawData.CanEditPlace();
+    using storage::Status;
+    switch (mapStatus)
     {
-    case MWMMapNodeStatusUndefined:
-    case MWMMapNodeStatusOnDisk:
-      _state = PlacePageOSMContributionStateCanAddOrEditPlace;
-      _showAddPlace = shouldShowAddPlace;
-      _showEditPlace = shouldShowEditPlace;
-      _canEditPlace = canEditPlace;
-      break;
-    case MWMMapNodeStatusDownloading:
-    case MWMMapNodeStatusApplying:
-    case MWMMapNodeStatusInQueue: _state = PlacePageOSMContributionStateMapIsDownloading; break;
-    case MWMMapNodeStatusError:
-    case MWMMapNodeStatusNotDownloaded:
-    case MWMMapNodeStatusOnDiskOutOfDate:
-    case MWMMapNodeStatusPartly:
-      BOOL needsToUpdateMap = !canEditPlace;
-      _state = needsToUpdateMap ? PlacePageOSMContributionStateShouldUpdateMap
-                                : PlacePageOSMContributionStateCanAddOrEditPlace;
-      _showAddPlace = !needsToUpdateMap && shouldShowAddPlace;
-      _showEditPlace = !needsToUpdateMap && shouldShowEditPlace;
-      _canEditPlace = canEditPlace;
+    case Status::Undefined:
+    case Status::OnDisk: _state = PlacePageOSMContributionStateCanAddOrEditPlace; break;
+    case Status::Downloading:
+    case Status::Applying:
+    case Status::InQueue: _state = PlacePageOSMContributionStateMapIsDownloading; break;
+    case Status::NotDownloaded:
+    case Status::DownloadFailed:
+    case Status::UnknownError:
+    case Status::OnDiskOutOfDate:
+    case Status::OutOfMemFailed:
+      _state =
+          _canEditPlace ? PlacePageOSMContributionStateCanAddOrEditPlace : PlacePageOSMContributionStateShouldUpdateMap;
       break;
     }
     return self;
