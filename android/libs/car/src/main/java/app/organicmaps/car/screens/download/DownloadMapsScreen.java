@@ -59,6 +59,11 @@ public abstract class DownloadMapsScreen extends BaseScreen
   @NonNull
   protected abstract Action getHeaderAction();
 
+  protected boolean shouldDownloadTerrain()
+  {
+    return true;
+  }
+
   protected void disableCancelAction()
   {
     mIsCancelActionDisabled = true;
@@ -98,17 +103,18 @@ public abstract class DownloadMapsScreen extends BaseScreen
 
   private void onDownload()
   {
-    getScreenManager().pushForResult(
-        new DownloaderScreen(getCarContext(), getOrganicMapsContext(), mMissingMaps, mIsCancelActionDisabled),
-        result -> {
-          setResult(result);
-          finish();
-        });
+    getScreenManager().pushForResult(new DownloaderScreen(getCarContext(), getOrganicMapsContext(), mMissingMaps,
+                                                          mIsCancelActionDisabled, shouldDownloadTerrain()),
+                                     result -> {
+                                       setResult(result);
+                                       finish();
+                                     });
   }
 
   @NonNull
   private String getMapsSize(@NonNull final List<CountryItem> countries)
   {
-    return StringUtils.getFileSizeString(getCarContext(), DownloaderHelpers.getMapsSize(countries));
+    return StringUtils.getFileSizeString(getCarContext(),
+                                         DownloaderHelpers.getMapsSize(countries, shouldDownloadTerrain()));
   }
 }

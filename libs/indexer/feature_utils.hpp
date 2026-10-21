@@ -199,6 +199,7 @@ std::string FormatStars(uint8_t starsCount);
 
 /// @returns formatted elevation with ▲ symbol and units.
 std::string FormatElevation(std::string_view elevation);
+std::string FormatElevation(double elevation);
 
 /// @returns formatted capacity with car/bicycle emoji.
 std::string FormatCapacity(std::string_view capacity, TypesHolder const & types);

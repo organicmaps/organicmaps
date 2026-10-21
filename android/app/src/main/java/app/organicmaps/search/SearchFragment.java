@@ -203,7 +203,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
   private static boolean doShowDownloadSuggest()
   {
-    return (MapManager.nativeGetDownloadedCount() == 0 && !MapManager.nativeIsDownloading());
+    return (MapManager.nativeGetDownloadedCount() == 0 && !MapManager.isDownloading());
   }
 
   private void showDownloadSuggest()

@@ -28,6 +28,8 @@ For more information, please see the source code at [`Framework::ParseSearchQuer
 - `?no-scheme`: Disable the subway layer.
 - `?isolines`: Enable the isolines layer.
 - `?no-isolines`: Disable the isolines layer.
+- `?terrain-blocks`: Highlight the downloaded terrain blocks on the world zooms (z1-7), off by default and not saved.
+- `?no-terrain-blocks`: Disable the terrain blocks highlight.
 
 ### 3D mode (for the Qt desktop app only)
 - `?3d`: Enable 3D (perspective) mode.

@@ -96,36 +96,6 @@ using namespace storage;
   [self closePlacePage];
 }
 
-- (MWMRoutePoint *)routePointWithData:(PlacePageData *)data
-                            pointType:(MWMRoutePointType)type
-                    intermediateIndex:(size_t)intermediateIndex
-{
-  if (data.isMyPosition)
-    return [[MWMRoutePoint alloc] initWithLastLocationAndType:type intermediateIndex:intermediateIndex];
-
-  NSString * title = nil;
-  if (data.previewData.title.length > 0)
-    title = data.previewData.title;
-  else if (data.previewData.secondarySubtitle.length > 0)
-    title = data.previewData.secondarySubtitle;
-  else if (data.previewData.subtitle.length > 0)
-    title = data.previewData.subtitle;
-  else if (data.bookmarkData != nil)
-    title = data.bookmarkData.externalTitle;
-  else
-    title = L(@"core_placepage_unknown_place");
-
-  NSString * subtitle = nil;
-  if (data.previewData.subtitle.length > 0 && ![title isEqualToString:data.previewData.subtitle])
-    subtitle = data.previewData.subtitle;
-
-  return [[MWMRoutePoint alloc] initWithPoint:location_helpers::ToMercator(data.locationCoordinate)
-                                        title:title
-                                     subtitle:subtitle
-                                         type:type
-                            intermediateIndex:intermediateIndex];
-}
-
 - (MWMRoutePoint *)routePoint:(PlacePageData *)data
                      withType:(MWMRoutePointType)type
             intermediateIndex:(size_t)intermediateIndex
@@ -138,16 +108,16 @@ using namespace storage;
     title = data.previewData.title;
   else if (data.previewData.secondarySubtitle.length > 0)
     title = data.previewData.secondarySubtitle;
-  else if (data.previewData.subtitle.length > 0)
-    title = data.previewData.subtitle;
+  else if (data.previewData.routeSubtitle.length > 0)
+    title = data.previewData.routeSubtitle;
   else if (data.bookmarkData != nil)
     title = data.bookmarkData.externalTitle;
   else
     title = L(@"core_placepage_unknown_place");
 
   NSString * subtitle = nil;
-  if (data.previewData.subtitle.length > 0 && ![title isEqualToString:data.previewData.subtitle])
-    subtitle = data.previewData.subtitle;
+  if (data.previewData.routeSubtitle.length > 0 && ![title isEqualToString:data.previewData.routeSubtitle])
+    subtitle = data.previewData.routeSubtitle;
 
   return [[MWMRoutePoint alloc] initWithPoint:location_helpers::ToMercator(data.locationCoordinate)
                                         title:title

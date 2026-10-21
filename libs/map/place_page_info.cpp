@@ -554,6 +554,23 @@ std::string Info::GetFormattedCoordinate(CoordinatesFormat format) const
   return FormatCoordinateDisplay(format, GetLatLon(), GetCountryId());
 }
 
+std::string Info::GetFormattedTerrainElevation() const
+{
+  return m_terrainElevation ? platform::Distance::FormatAltitude(*m_terrainElevation) : std::string{};
+}
+
+std::string Info::GetPreviewSubtitle() const
+{
+  // The OSM elevation is already in the subtitle and has priority.
+  if (!m_terrainElevation || !GetMetadata(MetadataID::FMD_ELE).empty())
+    return m_uiSubtitle;
+
+  auto subtitle = m_uiSubtitle;
+  if (!subtitle.empty())
+    subtitle += feature::kFieldsSeparator;
+  return subtitle.append(feature::FormatElevation(*m_terrainElevation));
+}
+
 void Info::SetRoadType(RoadWarningMarkType type, std::string const & localizedType, std::string const & distance)
 {
   m_roadType = type;

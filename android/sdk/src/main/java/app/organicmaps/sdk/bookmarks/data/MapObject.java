@@ -55,6 +55,8 @@ public class MapObject implements PlacePageData
   @Nullable
   private final String mSecondaryTitle;
   private final String mSubtitle;
+  @NonNull
+  private String mPreviewSubtitle;
   private final String mAddress;
   private double mLat;
   private double mLon;
@@ -91,6 +93,7 @@ public class MapObject implements PlacePageData
     mTitle = title;
     mSecondaryTitle = secondaryTitle;
     mSubtitle = subtitle;
+    mPreviewSubtitle = subtitle;
     mAddress = address;
     mLat = lat;
     mLon = lon;
@@ -124,6 +127,7 @@ public class MapObject implements PlacePageData
     mWikiArticle = Objects.requireNonNull(source.readString());
     mOsmDescription = source.readString();
     mRoadWarningMarkType = RoadWarningMarkType.values()[source.readInt()];
+    mPreviewSubtitle = Objects.requireNonNull(source.readString());
     mRawTypes = source.createStringArrayList();
   }
 
@@ -197,6 +201,13 @@ public class MapObject implements PlacePageData
   public String getSubtitle()
   {
     return mSubtitle;
+  }
+
+  /** The subtitle to display only: can show the terrain elevation. */
+  @NonNull
+  public String getPreviewSubtitle()
+  {
+    return mPreviewSubtitle;
   }
 
   public double getLat()
@@ -374,6 +385,7 @@ public class MapObject implements PlacePageData
     dest.writeString(mWikiArticle);
     dest.writeString(mOsmDescription);
     dest.writeInt(getRoadWarningMarkType().ordinal());
+    dest.writeString(mPreviewSubtitle);
     // All collections are deserialized AFTER non-collection and primitive type objects,
     // so collections must be always serialized at the end.
     dest.writeStringList(mRawTypes);
