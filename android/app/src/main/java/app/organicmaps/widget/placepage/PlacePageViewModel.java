@@ -7,6 +7,7 @@ import app.organicmaps.sdk.bookmarks.data.Bookmark;
 import app.organicmaps.sdk.bookmarks.data.ElevationInfo;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.Track;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlacePageViewModel extends ViewModel
@@ -25,6 +26,26 @@ public class PlacePageViewModel extends ViewModel
   public void setCurrentButtons(List<PlacePageButtons.ButtonType> buttons)
   {
     mCurrentButtons.setValue(buttons);
+  }
+
+  public void updateTrackRecordingButtons(boolean isEmpty)
+  {
+    final MapObject mapObject = mMapObject.getValue();
+    final List<PlacePageButtons.ButtonType> buttons = mCurrentButtons.getValue();
+    if (mapObject == null || !mapObject.isTrackRecording() || buttons == null
+        || !buttons.contains(PlacePageButtons.ButtonType.TRACK_RECORDING_DELETE))
+      return;
+
+    final boolean showSave = !isEmpty;
+    if (buttons.contains(PlacePageButtons.ButtonType.TRACK_RECORDING_SAVE) == showSave)
+      return;
+
+    final List<PlacePageButtons.ButtonType> updated = new ArrayList<>(buttons);
+    if (showSave)
+      updated.add(PlacePageButtons.ButtonType.TRACK_RECORDING_SAVE);
+    else
+      updated.remove(PlacePageButtons.ButtonType.TRACK_RECORDING_SAVE);
+    mCurrentButtons.setValue(updated);
   }
 
   public LiveData<MapObject> getMapObject()
