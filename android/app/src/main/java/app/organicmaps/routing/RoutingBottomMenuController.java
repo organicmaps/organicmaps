@@ -66,6 +66,11 @@ final class RoutingBottomMenuController
   private final View mAltitudeChartFrame;
   @NonNull
   private final View mTransitTime;
+  // Total duration and walk total of a transit route, shown in the header row beside the route buttons.
+  @NonNull
+  private final View mTransitTopline;
+  @NonNull
+  private final View mTransitChevron;
   @NonNull
   private final TextView mError;
   @NonNull
@@ -150,6 +155,9 @@ final class RoutingBottomMenuController
     mAltitudeChartFrame = altitudeChartFrame;
     mTimeElevationLine = timeElevationLine;
     mTransitTime = transitTime;
+    mTransitTopline = altitudeChartFrame.findViewById(R.id.transit_topline);
+    mTransitTopline.setOnClickListener(v -> openTransitDetails());
+    mTransitChevron = transitTime.findViewById(R.id.transit_details_chevron);
     mTimeRuler = rulerTime;
     mError = error;
     mStart = start;
@@ -298,7 +306,8 @@ final class RoutingBottomMenuController
 
   void hideAltitudeChartAndRoutingDetails()
   {
-    UiUtils.hide(mAltitudeChart, mTimeVehicle, mTimeElevationLine, mTransitTime, mTimeRuler, mTransitRecyclerView);
+    UiUtils.hide(mAltitudeChart, mTimeVehicle, mTimeElevationLine, mTransitTime, mTransitTopline, mTimeRuler,
+                 mTransitRecyclerView);
     notifyVisibilityChanged();
   }
 
@@ -321,17 +330,16 @@ final class RoutingBottomMenuController
     mTransitAdapter.setItems(legs);
 
     // Hero duration: big number, small "min".
-    ((TextView) mTransitTime.findViewById(R.id.total_time))
+    ((TextView) mTransitTopline.findViewById(R.id.total_time))
         .setText(
             Utils.formatRoutingTime(mContext, totalSec, R.dimen.text_size_routing_dimension, R.dimen.text_size_title));
-    TextView walkView = mTransitTime.findViewById(R.id.total_walk_time);
-    UiUtils.showIf(walkSec > 0, walkView, mTransitTime.findViewById(R.id.pedestrian_icon));
+    TextView walkView = mTransitTopline.findViewById(R.id.total_walk_time);
+    UiUtils.showIf(walkSec > 0, walkView, mTransitTopline.findViewById(R.id.pedestrian_icon));
     walkView.setText(Utils.formatRoutingTime(mContext, walkSec, R.dimen.text_size_body_3));
 
     mTransitTime.setClickable(true);
     mTransitTime.setOnClickListener(v -> openTransitDetails());
-    UiUtils.show(mTransitTime, mTransitRecyclerView, mTransitTime.findViewById(R.id.transit_topline),
-                 mTransitTime.findViewById(R.id.transit_details_chevron));
+    UiUtils.show(mTransitTime, mTransitRecyclerView, mTransitTopline, mTransitChevron);
   }
 
   private void openTransitDetails()
@@ -352,11 +360,11 @@ final class RoutingBottomMenuController
     UiUtils.show(mAltitudeChartFrame, mTimeRuler);
 
     // The tile is shared with public transport routing, but a straight-line ruler route has no per-leg
-    // details, so make it inert and hide the summary top line. Only the (waypoint) strip is meaningful;
-    // clearing clickability suppresses the ripple and makes openTransitDetails() a no-op.
+    // details, so make it inert and hide its caret. Only the (waypoint) strip is meaningful; clearing
+    // clickability suppresses the ripple and makes openTransitDetails() a no-op.
     mTransitTime.setOnClickListener(null);
     mTransitTime.setClickable(false);
-    UiUtils.hide(mAltitudeChartFrame.findViewById(R.id.transit_topline));
+    UiUtils.hide(mTransitChevron);
 
     if (points.length > 2)
     {

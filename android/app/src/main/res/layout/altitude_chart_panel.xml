@@ -89,6 +89,44 @@
         android:visibility="gone"
         tools:visibility="visible" />
 
+      <!-- Transit totals: the hero duration and the walk total. Tapping them opens the transit details. -->
+      <LinearLayout
+        android:id="@+id/transit_topline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_half"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <TextView
+          android:id="@+id/total_time"
+          style="@style/MwmWidget.TextView.PlanDetail.Number.Time"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          tools:text="43 min" />
+
+        <ImageView
+          android:id="@+id/pedestrian_icon"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/margin_half"
+          android:contentDescription="@null"
+          app:srcCompat="@drawable/ic_20px_route_planning_walk"
+          app:tint="?iconTint" />
+
+        <!-- Walk total (time); shown together with the icon only when walk > 0. -->
+        <TextView
+          android:id="@+id/total_walk_time"
+          style="@style/MwmWidget.TextView.PlanDetail.Number.Secondary"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/margin_quarter_plus"
+          tools:text="16 min" />
+      </LinearLayout>
+
     </LinearLayout>
 
     <ImageView
