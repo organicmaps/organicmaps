@@ -45,8 +45,11 @@
 #include "storage/downloading_policy.hpp"
 #include "storage/storage.hpp"
 
+#include "terrain/terrain_provider.hpp"
+
 #include "platform/distance.hpp"
 #include "platform/location.hpp"
+#include "platform/measurement_utils.hpp"
 #include "platform/placement_settings.hpp"
 #include "platform/platform.hpp"
 #include "platform/products.hpp"
@@ -59,6 +62,7 @@
 
 #include "std/target_os.hpp"
 
+#include <atomic>
 #include <functional>
 #include <memory>
 #include <optional>
@@ -187,6 +191,11 @@ protected:
 
   TransitReadManager m_transitManager;
   IsolinesManager m_isolinesManager;
+  measurement_utils::Units m_isolinesUnits = measurement_utils::GetMeasurementUnits();
+  // The installed .twm terrain blocks: the hillshade, the dynamic isolines and the place page elevation.
+  terrain::TerrainProvider m_terrainProvider;
+  // The isolines availability waits for the terrain registration (see RegisterAllMaps).
+  std::atomic_bool m_terrainRegistered = false;
 
   // Note. |m_routingManager| should be declared before |m_trafficManager|
   RoutingManager m_routingManager;
@@ -203,6 +212,13 @@ protected:
 
   /// This function is called by m_featuresFetcher when the map file is deregistered.
   void OnMapDeregistered(platform::LocalCountryFile const & localFile);
+  // Redraws the changed terrain.
+  void OnTerrainChanged(m2::RectD const & rect);
+  // Re-evaluates the isolines availability after a map or terrain change.
+  void InvalidateIsolines();
+  // Pushes the terrain availability of the current viewport into the isolines layer.
+  void UpdateIsolinesAvailability();
+  bool HasViewportTerrain(m2::RectD const & rect);
 
   void ClearAllCaches();
 
@@ -779,6 +795,8 @@ public:
 
   static bool LoadIsolinesEnabled();
   static void SaveIsolinesEnabled(bool enabled);
+  // Switches the isolines layer and evaluates its terrain hint for the current viewport.
+  void SetIsolinesEnabled(bool enabled);
 
   static bool LoadOutdoorsEnabled();
   static void SaveOutdoorsEnabled(bool enabled);

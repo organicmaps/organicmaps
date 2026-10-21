@@ -168,7 +168,8 @@ Format: `[subsystem] Summary in imperative mood` (max 80 chars). Examples of sub
 - Downloaded files are verified on download when a hash is available, and trusted as-is otherwise --
   they come from our servers. On-disk corruption afterwards is out of OM scope: crashing on corrupted
   data is fine, do not harden the code against it. Exception: `Framework::RegisterAllMaps()` must
-  survive broken map files so the app still starts and bookmarks can be exported.
+  survive broken map files and invalid terrain blocks (logged and skipped, terrain asserts in Debug)
+  so the app still starts and bookmarks can be exported.
 - Basic format and constraint checks when reading file headers may reject data with `MYTHROW`.
   Regular map/terrain tile records and payloads are trusted after download verification: use
   debug-only `ASSERT` for their invariants, not runtime validation with `MYTHROW` or corruption

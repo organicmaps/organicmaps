@@ -122,7 +122,8 @@ UNIT_TEST(ReadCancellation_SweepDestroysOnlyRetiredPayloadsAndPreservesLifecycle
 
     TEST(!oldRead.IsCancelled(), ());
     TEST(!newRead.IsCancelled(), ());
-    oldRead.Cancel();
+    auto cancelled = oldRead.GetCancellable();
+    cancelled.Cancel();
     TEST(oldRead.IsCancelled(), ());
     TEST(!newRead.IsCancelled(), ("Even equal tile keys must have independent read lifetimes"));
   }
@@ -215,14 +216,15 @@ UNIT_TEST(ReadCancellation_IndexCancellationPreservesLifecycle)
     df::TileInfo tile(make_unique_dp<df::EngineContext>(MakeContext(df::TileKey(1, 2, 15), commutator)));
     bool indexRead = false;
     bool featuresRead = false;
-    df::MapDataProvider model([&](auto const & callback, auto const &, int)
+    df::MapDataProvider model(
+        [&](auto const & callback, auto const &, int)
     {
       indexRead = true;
       callback(FeatureID{});
       tile.Cancel();
-    }, [&](auto const &, auto const &) { featuresRead = true; }, [](std::string_view) {
-      return true;
-    }, [](auto const &, int) {}, [](auto const &, auto) { return false; }, [](auto const &, auto) {});
+    }, [&](auto const &, auto const &) { featuresRead = true; }, [](std::string_view) { return true; },
+        [](auto const &, int) {}, [](auto const &, auto) { return false; }, [](auto const &, auto) {},
+        [](auto const &) { return false; }, [](auto const &...) {});
     if (cancelBeforeIndex)
       tile.Cancel();
     tile.ReadFeatures(model);
@@ -240,7 +242,7 @@ public:
     : m_receiver(m_commutator)
     , m_model([this](auto const &, auto const &, int) { NotifyRead(); }, [](auto const &, auto const &) {},
               [](std::string_view) { return true; }, [](auto const &, int) {}, [](auto const &, auto) { return false; },
-              [](auto const &, auto) {})
+              [](auto const &, auto) {}, [](auto const &) { return false; }, [](auto const &...) {})
     , m_metalines(make_ref(&m_commutator), m_model)
     , m_reader(make_ref(&m_commutator), m_model, false, false, false, dp::BackgroundMode::Default, 0.5f)
   {

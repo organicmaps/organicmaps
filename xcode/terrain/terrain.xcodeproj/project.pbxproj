@@ -20,6 +20,8 @@
 		C823C2BC959E135D834D544A /* terrain_data.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 719861E71353E4764BDE5917 /* terrain_data.hpp */; };
 		44D2227D63DFADA372E97AE3 /* terrain_normals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F2DC9B1B8047CF81A2244EEF /* terrain_normals.cpp */; };
 		945F46B11ACB971DC8148618 /* terrain_normals.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D59751EA80BE5FAC0E21004D /* terrain_normals.hpp */; };
+		85A298D3D3C7FEDB51241971 /* terrain_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95A87798D813D0BF3BE6B8FE /* terrain_provider.cpp */; };
+		4002924114A20D2C53DEF29E /* terrain_provider.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1A3A506391FC3D7B9A61DAAA /* terrain_provider.hpp */; };
 		F73AF95E46B650FC794FA62F /* terrain_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99763B7CBB78D980475B8EF5 /* terrain_reader.cpp */; };
 		85C70CE340A5734B9C710D97 /* terrain_reader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 5135C254E7BFCB443E43894C /* terrain_reader.hpp */; };
 		64F1B71DCAA7696714828348 /* terrain_serdes.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 980BBAA3F953CD1CE2F11A68 /* terrain_serdes.hpp */; };
@@ -50,6 +52,8 @@
 		719861E71353E4764BDE5917 /* terrain_data.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = terrain_data.hpp; sourceTree = "<group>"; };
 		F2DC9B1B8047CF81A2244EEF /* terrain_normals.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = terrain_normals.cpp; sourceTree = "<group>"; };
 		D59751EA80BE5FAC0E21004D /* terrain_normals.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = terrain_normals.hpp; sourceTree = "<group>"; };
+		95A87798D813D0BF3BE6B8FE /* terrain_provider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = terrain_provider.cpp; sourceTree = "<group>"; };
+		1A3A506391FC3D7B9A61DAAA /* terrain_provider.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = terrain_provider.hpp; sourceTree = "<group>"; };
 		99763B7CBB78D980475B8EF5 /* terrain_reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = terrain_reader.cpp; sourceTree = "<group>"; };
 		5135C254E7BFCB443E43894C /* terrain_reader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = terrain_reader.hpp; sourceTree = "<group>"; };
 		980BBAA3F953CD1CE2F11A68 /* terrain_serdes.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = terrain_serdes.hpp; sourceTree = "<group>"; };
@@ -108,6 +112,8 @@
 				719861E71353E4764BDE5917 /* terrain_data.hpp */,
 				F2DC9B1B8047CF81A2244EEF /* terrain_normals.cpp */,
 				D59751EA80BE5FAC0E21004D /* terrain_normals.hpp */,
+				95A87798D813D0BF3BE6B8FE /* terrain_provider.cpp */,
+				1A3A506391FC3D7B9A61DAAA /* terrain_provider.hpp */,
 				99763B7CBB78D980475B8EF5 /* terrain_reader.cpp */,
 				5135C254E7BFCB443E43894C /* terrain_reader.hpp */,
 				980BBAA3F953CD1CE2F11A68 /* terrain_serdes.hpp */,
@@ -138,6 +144,7 @@
 				32CCD3DF8181A980DE349B47 /* sz3_profile.hpp in Headers */,
 				C823C2BC959E135D834D544A /* terrain_data.hpp in Headers */,
 				945F46B11ACB971DC8148618 /* terrain_normals.hpp in Headers */,
+				4002924114A20D2C53DEF29E /* terrain_provider.hpp in Headers */,
 				85C70CE340A5734B9C710D97 /* terrain_reader.hpp in Headers */,
 				64F1B71DCAA7696714828348 /* terrain_serdes.hpp in Headers */,
 				6110B07582A21F359BA1E0D6 /* terrain_utils.hpp in Headers */,
@@ -206,6 +213,7 @@
 				F605C8DE5672F1FAB4A691F4 /* sz3_decoder.cpp in Sources */,
 				9CCDB208FCF8C3688E0A14E7 /* terrain_data.cpp in Sources */,
 				44D2227D63DFADA372E97AE3 /* terrain_normals.cpp in Sources */,
+				85A298D3D3C7FEDB51241971 /* terrain_provider.cpp in Sources */,
 				F73AF95E46B650FC794FA62F /* terrain_reader.cpp in Sources */,
 				B649C51B30618C80DF3BEF96 /* terrain_utils.cpp in Sources */,
 				295DBE33A736A2A5C133FB95 /* tile_mesh.cpp in Sources */,
