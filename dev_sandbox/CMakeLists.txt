@@ -152,6 +152,7 @@ if (PLATFORM_MAC)
     countries.json
     drules_default.bin
     drules_outdoors.bin
+    drules_explorer.bin
     drules_vehicle.bin
     editor.config
     packed_polygons.bin

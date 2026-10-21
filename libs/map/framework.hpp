@@ -786,6 +786,9 @@ public:
   static bool LoadOutdoorsEnabled();
   static void SaveOutdoorsEnabled(bool enabled);
 
+  static bool LoadExplorerEnabled();
+  static void SaveExplorerEnabled(bool enabled);
+
   static bool IsHikingEnabled();
   void SetHikingEnabled(bool enabled);
 

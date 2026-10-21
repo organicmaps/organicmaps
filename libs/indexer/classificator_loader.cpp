@@ -53,6 +53,8 @@ VariantsT FamilyVariants(MapStyle style)
   case MapStyleVehicleDark: return {MapStyleVehicleLight, MapStyleVehicleDark};
   case MapStyleOutdoorsLight:
   case MapStyleOutdoorsDark: return {MapStyleOutdoorsLight, MapStyleOutdoorsDark};
+  case MapStyleExplorerLight:
+  case MapStyleExplorerDark: return {MapStyleExplorerLight, MapStyleExplorerDark};
   case MapStyleMerged: return {MapStyleMerged};
   case MapStyleCount: break;
   }
@@ -105,6 +107,7 @@ void Load()
 
   LoadFamily(GetStyleReader().GetCurrentStyle());
   EnsureStyleLoaded(MapStyleOutdoorsLight);
+  EnsureStyleLoaded(MapStyleExplorerLight);
 
   LOG(LDEBUG, ("Reading of classificator finished"));
 }

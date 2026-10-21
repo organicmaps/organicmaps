@@ -102,6 +102,7 @@ std::string_view constexpr kTrafficEnabledKey = "TrafficEnabled";
 std::string_view constexpr kTransitSchemeEnabledKey = "TransitSchemeEnabled";
 std::string_view constexpr kIsolinesEnabledKey = "IsolinesEnabled";
 std::string_view constexpr kOutdoorsEnabledKey = "OutdoorsEnabled";
+std::string_view constexpr kExplorerEnabledKey = "ExplorerEnabled";
 std::string_view constexpr kTrafficSimplifiedColorsKey = "TrafficSimplifiedColors";
 std::string_view constexpr kLargeFontsSize = "LargeFontsSize";
 std::string_view constexpr kTranslitMode = "TransliterationMode";
@@ -3114,6 +3115,17 @@ void Framework::SaveOutdoorsEnabled(bool enabled)
   settings::Set(kOutdoorsEnabledKey, enabled);
 }
 
+bool Framework::LoadExplorerEnabled()
+{
+  bool enabled;
+  return settings::Get(kExplorerEnabledKey, enabled) && enabled;
+}
+
+void Framework::SaveExplorerEnabled(bool enabled)
+{
+  settings::Set(kExplorerEnabledKey, enabled);
+}
+
 bool Framework::IsHikingEnabled()
 {
   bool enabled;
@@ -3191,6 +3203,10 @@ bool Framework::ParseDrapeDebugCommand(std::string const & query)
     desiredStyle = MapStyleOutdoorsLight;
   else if (query == "?odark" || query == "mapstyle:outdoors_dark")
     desiredStyle = MapStyleOutdoorsDark;
+  else if (query == "?elight" || query == "mapstyle:explorer_light")
+    desiredStyle = MapStyleExplorerLight;
+  else if (query == "?edark" || query == "mapstyle:explorer_dark")
+    desiredStyle = MapStyleExplorerDark;
 
   if (desiredStyle != MapStyleCount)
   {
