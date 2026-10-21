@@ -50,7 +50,7 @@ using IsolineFn = std::function<void(Isoline &&)>;
 // stops tracing instead of walking every remaining level of the mesh.
 void TraceIsolines(TileMesh const & mesh, int32_t step, measurement_utils::Units units, IsolineFn const & fn,
                    base::SharedCancellable const & isCancellable = {});
-// The isolines of the tile terrain data.
+// Joins grid/TIN fragments by exact physical edges before smoothing/clipping.
 void TraceIsolines(TerrainData const & data, int32_t step, measurement_utils::Units units, IsolineFn const & fn,
                    base::SharedCancellable const & isCancellable = {});
 }  // namespace terrain

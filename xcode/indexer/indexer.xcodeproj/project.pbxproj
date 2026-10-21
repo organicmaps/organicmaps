@@ -202,6 +202,8 @@
 		FACB7C4126B9479800810C9C /* libtraffic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C4026B9479800810C9C /* libtraffic.a */; };
 		FACB7C4326B947A700810C9C /* libtess2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C4226B947A700810C9C /* libtess2.a */; };
 		FACB7C4526B947C400810C9C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C4426B947AD00810C9C /* libz.tbd */; };
+		D940AD02D3DE2E8BEDEAEBC7 /* raster_patch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E55F5C47DFD49A75989A5CBA /* raster_patch.cpp */; };
+		3C2694CE20D5B05C7B47620E /* sperr_decoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 36C03CCE73CE95703B881084 /* sperr_decoder.cpp */; settings = {COMPILER_FLAGS = "-fno-fast-math -ffp-contract=off"; }; };
 		36112074B829266BF462DFFC /* terrain_normals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B1EA7D95D04B365BD1C0AF0 /* terrain_normals.cpp */; };
 /* End PBXBuildFile section */
 
@@ -416,6 +418,8 @@
 		FACB7C4026B9479800810C9C /* libtraffic.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtraffic.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB7C4226B947A700810C9C /* libtess2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtess2.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FACB7C4426B947AD00810C9C /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		E55F5C47DFD49A75989A5CBA /* raster_patch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = raster_patch.cpp; path = terrain/raster_patch.cpp; sourceTree = "<group>"; };
+		36C03CCE73CE95703B881084 /* sperr_decoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sperr_decoder.cpp; path = terrain/sperr_decoder.cpp; sourceTree = "<group>"; };
 		4B1EA7D95D04B365BD1C0AF0 /* terrain_normals.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = terrain_normals.cpp; path = terrain/terrain_normals.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -637,6 +641,8 @@
 				BBB7060D23E46E0000A7F29A /* isolines_info.cpp */,
 				EADB980E06EF4F3A93632278 /* isolines_tracer.cpp */,
 				CD9FCA227FD1452682013285 /* terrain_reader.cpp */,
+				E55F5C47DFD49A75989A5CBA /* raster_patch.cpp */,
+				36C03CCE73CE95703B881084 /* sperr_decoder.cpp */,
 				4B1EA7D95D04B365BD1C0AF0 /* terrain_normals.cpp */,
 				E4B07A1232D45C6F9B8E2A13 /* terrain_utils.cpp */,
 				F5A1B2C3D4E5000000000002 /* tile_mesh.cpp */,
@@ -821,6 +827,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 675340A51A3F53CB00A0A8C3 /* Build configuration list for PBXNativeTarget "indexer" */;
 			buildPhases = (
+				77D029B34524F80BFD0424B1 /* Build SPERR */,
 				675340961A3F53CB00A0A8C3 /* Sources */,
 				675340971A3F53CB00A0A8C3 /* Frameworks */,
 				675340981A3F53CB00A0A8C3 /* Headers */,
@@ -870,6 +877,24 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		77D029B34524F80BFD0424B1 /* Build SPERR */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = ();
+			inputPaths = ();
+			name = "Build SPERR";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/sperr/libomim_sperr.a",
+				"$(DERIVED_FILE_DIR)/sperr/sperr/SperrConfig.h",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "bash \"${OMIM_ROOT}/tools/autobuild/build_sperr_xcode.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXResourcesBuildPhase section */
 		3496AB931DC1F9D300C5DDBA /* Resources */ = {
@@ -963,6 +988,8 @@
 				BBB7060F23E46E0100A7F29A /* isolines_info.cpp in Sources */,
 				1F0B31F740704299997E59E2 /* isolines_tracer.cpp in Sources */,
 				5491BAE73C924146B39D47AD /* terrain_reader.cpp in Sources */,
+				D940AD02D3DE2E8BEDEAEBC7 /* raster_patch.cpp in Sources */,
+				3C2694CE20D5B05C7B47620E /* sperr_decoder.cpp in Sources */,
 				36112074B829266BF462DFFC /* terrain_normals.cpp in Sources */,
 				D3A96F0121C34B5E8A7D1F02 /* terrain_utils.cpp in Sources */,
 				F5A1B2C3D4E5000000000001 /* tile_mesh.cpp in Sources */,
@@ -1028,6 +1055,9 @@
 		675340A61A3F53CB00A0A8C3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				HEADER_SEARCH_PATHS = "$(inherited) $(OMIM_ROOT)/3party/sperr/include $(DERIVED_FILE_DIR)/sperr/sperr";
+				OTHER_LIBTOOLFLAGS = "$(inherited) $(DERIVED_FILE_DIR)/sperr/libomim_sperr.a";
 				EXECUTABLE_PREFIX = lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1036,6 +1066,9 @@
 		675340A71A3F53CB00A0A8C3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				HEADER_SEARCH_PATHS = "$(inherited) $(OMIM_ROOT)/3party/sperr/include $(DERIVED_FILE_DIR)/sperr/sperr";
+				OTHER_LIBTOOLFLAGS = "$(inherited) $(DERIVED_FILE_DIR)/sperr/libomim_sperr.a";
 				EXECUTABLE_PREFIX = lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

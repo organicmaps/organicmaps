@@ -63,10 +63,43 @@ UNIT_TEST(TerrainShade_TinTrianglesClipToTheTileInCwOrder)
   mesh.AddTriangle(vertex(2, 2), vertex(3, 2), vertex(2, 3));
 
   auto const geometry = df::BuildTerrainShade(data, tileRect, {});
+  TEST(geometry.m_gridRows.empty(), ());
   TEST_ALMOST_EQUAL_ABS(TestTriangles(geometry.m_triangles, tileRect), 0.5 + 0.045, 1e-6, ());
 
   base::SharedCancellable cancelled;
   cancelled.Cancel();
   TEST(df::BuildTerrainShade(data, tileRect, cancelled).m_triangles.empty(), ());
+}
+
+UNIT_TEST(TerrainShade_RasterStripsInsideAndClippedEdgeCells)
+{
+  m2::RectD const tileRect(0.1, 0.1, 0.9, 0.9);
+  terrain::TerrainData data;
+  terrain::RasterPatch patch;
+  for (double const c : {0.0, 0.25, 0.5, 0.75, 1.0, 1.25})
+  {
+    patch.m_columns.push_back(PointDToPointU({c, c}, terrain::kTerrainCoordBits).x);
+    patch.m_rows.push_back(PointDToPointU({c, c}, terrain::kTerrainCoordBits).y);
+  }
+  patch.m_heights.assign(patch.m_columns.size() * patch.m_rows.size(), 0);
+  data.m_rasterPatches.push_back(std::move(patch));
+
+  auto const geometry = df::BuildTerrainShade(data, tileRect, {});
+  // The 2x2 cells inside the tile: the duplicated NW start and then NE, SE per cell.
+  TEST_EQUAL(geometry.m_gridRows.size(), 2, ());
+  double stripArea = 0;
+  for (auto const & row : geometry.m_gridRows)
+  {
+    TEST_EQUAL(row.size(), 3 + 2 * 2, ());
+    for (auto const & v : row)
+      TestInside(v, tileRect);
+    for (size_t i = 0; i + 2 < row.size(); ++i)
+      stripArea +=
+          std::abs(Cross(ToGlobal(row[i], tileRect), ToGlobal(row[i + 1], tileRect), ToGlobal(row[i + 2], tileRect))) /
+          2;
+  }
+  TEST_ALMOST_EQUAL_ABS(stripArea, 0.25, 1e-6, ());
+  // The ring of the edge cells is clipped to the tile.
+  TEST_ALMOST_EQUAL_ABS(TestTriangles(geometry.m_triangles, tileRect), 0.64 - 0.25, 1e-6, ());
 }
 }  // namespace terrain_shade_tests

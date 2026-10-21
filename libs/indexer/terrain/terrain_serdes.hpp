@@ -103,8 +103,14 @@ using Altitude = geometry::Altitude;
 // which costs nothing measurable on the tiny token alphabets and lets the decoder resolve a code
 // with one flat table lookup. Encoding is performed by the terrain generator.
 
+// The version byte stores the TIN version in its low nibble and the raster version in its high nibble.
+// Raster version 0 means a TIN-only file.
 uint8_t constexpr kTwmVersion = 3;
 uint8_t constexpr kOldestTwmVersion = 3;
+uint8_t constexpr kRasterVersion = 1;
+uint8_t constexpr kHybridTwmVersion = kTwmVersion | (kRasterVersion << 4);
+static_assert(kTwmVersion < 16 && kRasterVersion < 16);
+uint32_t constexpr kMaxRasterCells = 128;
 size_t constexpr kMaxGeometryCount = 10;
 // The cell depth of the geometry index, the same as the MWM scale index uses.
 int constexpr kCellDepth = RectId::DEPTH_LEVELS;
@@ -122,6 +128,9 @@ char constexpr kGridTag[] = "grid";
 char constexpr kFreqTag[] = "freq";
 char constexpr kFeaturesTag[] = FEATURES_FILE_TAG;
 char constexpr kIndexTag[] = "index";
+char constexpr kRasterFeaturesTag[] = "rfeatures";
+char constexpr kRasterDataTag[] = "rdata";
+char constexpr kRasterIndexTag[] = "rindex";
 
 inline std::string GetGeometryTag(size_t geomIndex)
 {
@@ -146,6 +155,12 @@ struct TwmHeader
   m2::PointU m_limitRT;
   // The meshes merged into the file, one grid section entry each.
   uint32_t m_meshCount = 1;
+  uint32_t m_rasterPatchCount = 0;
+
+  uint8_t GetTinVersion() const { return m_version & 0x0F; }
+  uint8_t GetRasterVersion() const { return m_version >> 4; }
+
+  bool HasRaster(size_t geomIndex) const { return m_rasterPatchCount != 0 && geomIndex == m_geometries.size() - 1; }
 
   size_t GetGeometryIndex(int scale) const
   {
@@ -166,7 +181,8 @@ struct TwmHeader
   {
     CHECK(m_limitLB.x <= m_limitRT.x && m_limitLB.y <= m_limitRT.y, ());
     CHECK(m_meshCount > 0 && m_meshCount <= kMaxMeshCount, (m_meshCount));
-    CHECK_EQUAL(m_version, kTwmVersion, ());
+    CHECK_EQUAL(GetTinVersion(), kTwmVersion, ());
+    CHECK(GetRasterVersion() == 0 || GetRasterVersion() == kRasterVersion, (GetRasterVersion()));
     WriteToSink(sink, m_version);
     WriteToSink(sink, m_coordBits);
     WriteToSink(sink, static_cast<uint8_t>(m_geometries.size()));
@@ -180,14 +196,23 @@ struct TwmHeader
     WriteVarUint(sink, m_limitRT.x - m_limitLB.x);
     WriteVarUint(sink, m_limitRT.y - m_limitLB.y);
     WriteVarUint(sink, m_meshCount);
+    if (GetRasterVersion() != 0)
+    {
+      CHECK_GREATER(m_rasterPatchCount, 0, ());
+      WriteVarUint(sink, m_rasterPatchCount);
+    }
+    else
+      CHECK_EQUAL(m_rasterPatchCount, 0, ());
   }
 
   template <typename Source>
   void Deserialize(Source & src)
   {
     m_version = ReadPrimitiveFromSource<uint8_t>(src);
-    if (m_version != kTwmVersion)
-      MYTHROW(TwmException, ("Unsupported TWM version", m_version));
+    if (GetTinVersion() != kTwmVersion)
+      MYTHROW(TwmException, ("Unsupported TWM TIN version", GetTinVersion()));
+    if (GetRasterVersion() != 0 && GetRasterVersion() != kRasterVersion)
+      MYTHROW(TwmException, ("Unsupported TWM raster version", GetRasterVersion()));
     m_coordBits = ReadPrimitiveFromSource<uint8_t>(src);
     if (m_coordBits == 0 || m_coordBits > kPointCoordBits)
       MYTHROW(TwmException, ("Invalid coord bits", m_coordBits));
@@ -206,6 +231,13 @@ struct TwmHeader
     m_meshCount = ReadVarUint<uint32_t>(src);
     if (m_meshCount == 0 || m_meshCount > kMaxMeshCount)
       MYTHROW(TwmException, ("Invalid meshes count", m_meshCount));
+    m_rasterPatchCount = 0;
+    if (GetRasterVersion() != 0)
+    {
+      m_rasterPatchCount = ReadVarUint<uint32_t>(src);
+      if (m_rasterPatchCount == 0)
+        MYTHROW(TwmException, ("Empty raster patches list"));
+    }
   }
 };
 

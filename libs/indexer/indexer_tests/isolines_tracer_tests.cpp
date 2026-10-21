@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "indexer/terrain/isolines_tracer.hpp"
+#include "indexer/terrain/terrain_normals.hpp"
 #include "indexer/terrain/terrain_reader.hpp"
 #include "indexer/terrain/twm_set.hpp"
 
@@ -13,6 +14,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <map>
 
 namespace isolines_tracer_tests
 {
@@ -21,8 +23,9 @@ std::string GetTestBlockPath()
   return base::JoinPath(GetPlatform().ResourcesDir(), "N43E007.twm");
 }
 
-// Every open contour of the real Nice fixture must end at the block boundary.
-UNIT_TEST(TerrainIsolines_RealInvariants)
+// The real Nice fixture includes both TIN and SPERR raster terrain. Every open
+// contour must end at the block boundary, including contours crossing their seams.
+UNIT_TEST(TerrainIsolines_RealHybridInvariants)
 {
   terrain::Reader const reader(GetTestBlockPath());
   auto const & header = reader.GetHeader();
@@ -31,6 +34,7 @@ UNIT_TEST(TerrainIsolines_RealInvariants)
   terrain::TerrainData data(header.m_coordBits);
   reader.ReadTerrain(rect, geomIndex, data);
   TEST(!data.m_mesh.IsEmpty(), ());
+  TEST(!data.m_rasterPatches.empty(), ());
 
   auto const onBoundary = [&](m2::PointD const & point)
   {
@@ -71,6 +75,73 @@ UNIT_TEST(TerrainIsolines_RealInvariants)
   terrain::TerrainData cancelled(header.m_coordBits);
   reader.ReadTerrain(rect, geomIndex, cancelled, cancellation);
   TEST(cancelled.IsEmpty(), ());
+}
+
+UNIT_TEST(TerrainNormals_RealHybridInterfaces)
+{
+  terrain::Reader const reader(GetTestBlockPath());
+  auto const & header = reader.GetHeader();
+  terrain::TerrainData data(header.m_coordBits);
+  reader.ReadTerrain(header.GetLimitRect(), header.m_geometries.size() - 1, data);
+  auto const normals = terrain::CalculateTerrainNormals(data, 1.0);
+  TEST_EQUAL(normals.m_tin.size(), data.m_mesh.GetPoints().size(), ());
+  TEST_EQUAL(normals.m_raster.size(), data.m_rasterPatches.size(), ());
+
+  std::map<uint64_t, terrain::TerrainNormal> interface;
+  for (size_t v = 0; v < normals.m_tin.size(); ++v)
+    interface.emplace(terrain::impl::PointKey(data.m_mesh.GetPointU(v)), normals.m_tin[v]);
+  size_t shared = 0;
+  for (size_t p = 0; p < data.m_rasterPatches.size(); ++p)
+  {
+    auto const & patch = data.m_rasterPatches[p];
+    TEST_EQUAL(normals.m_raster[p].size(), patch.m_heights.size(), ());
+    terrain::RasterPerimeter const perimeter(patch.CellsX(), patch.CellsY());
+    for (uint32_t i = 0; i < perimeter.Size(); ++i)
+    {
+      auto const node = perimeter(i);
+      auto const & actual = normals.m_raster[p][node];
+      TEST(std::isfinite(actual.m_x) && std::isfinite(actual.m_y), (p, node));
+      TEST_GREATER(actual.m_z, 0.0, (p, node));
+      auto const [it, inserted] = interface.emplace(terrain::impl::PointKey(patch.PointU(node)), actual);
+      if (!inserted)
+      {
+        ++shared;
+        TEST_EQUAL(actual.m_x, it->second.m_x, (p, node));
+        TEST_EQUAL(actual.m_y, it->second.m_y, (p, node));
+        TEST_EQUAL(actual.m_z, it->second.m_z, (p, node));
+      }
+    }
+  }
+  TEST_GREATER(shared, 0, ("Exercise normals shared by TIN and raster patch perimeters"));
+}
+
+// A raster patch decodes whole, but a smaller query keeps only its cells around the query.
+UNIT_TEST(TerrainReader_RasterPatchCropsToQuery)
+{
+  terrain::Reader const reader(GetTestBlockPath());
+  auto const & header = reader.GetHeader();
+  size_t const geomIndex = header.m_geometries.size() - 1;
+  terrain::TerrainData full(header.m_coordBits);
+  reader.ReadTerrain(header.GetLimitRect(), geomIndex, full);
+  TEST(!full.m_rasterPatches.empty(), ());
+  std::map<uint64_t, terrain::Altitude> heights;
+  for (auto const & patch : full.m_rasterPatches)
+    for (uint32_t node = 0; node < patch.m_heights.size(); ++node)
+      heights.emplace(terrain::impl::PointKey(patch.PointU(node)), patch.m_heights[node]);
+
+  auto const & whole = full.m_rasterPatches.front();
+  auto const wholeRect = whole.GetRect();
+  m2::RectD query(wholeRect.Center(), wholeRect.Center());
+  query.Inflate(wholeRect.SizeX() / 10, wholeRect.SizeY() / 10);
+  terrain::TerrainData data(header.m_coordBits);
+  reader.ReadTerrain(query, geomIndex, data);
+  TEST_EQUAL(data.m_rasterPatches.size(), 1, ());
+  auto const & patch = data.m_rasterPatches.front();
+  TEST_LESS(patch.m_heights.size(), whole.m_heights.size(), ());
+  TEST_EQUAL(patch.m_heights.size(), patch.m_columns.size() * patch.m_rows.size(), ());
+  TEST(patch.GetRect().IsRectInside(query), (patch.GetRect(), query));
+  for (uint32_t node = 0; node < patch.m_heights.size(); ++node)
+    TEST_EQUAL(patch.m_heights[node], heights.at(terrain::impl::PointKey(patch.PointU(node))), (node));
 }
 
 // Registration keeps the scanned file identity and rejects overlapping active blocks.
