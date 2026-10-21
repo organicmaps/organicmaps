@@ -357,6 +357,8 @@
     <string name="p2p_to_here">Trasa do</string>
     <string name="p2p_only_from_current">Navigovat lze pouze z současného umístění.</string>
     <string name="p2p_reroute_from_current">Máme naplánovat trasu z vašeho současného umístění?</string>
+    <!-- Message of the dialog shown on Start when the route ends at the current location. OK reverses the route. -->
+    <string name="p2p_reverse_from_current">Trasa bude obrácena, aby začínala z vašeho současného umístění.</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Další</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

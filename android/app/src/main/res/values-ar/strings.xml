@@ -357,6 +357,8 @@
     <string name="p2p_to_here">الطريق إلى</string>
     <string name="p2p_only_from_current">تتوفر الملاحة من خلال موقعك الحالي فقط.</string>
     <string name="p2p_reroute_from_current">هل ترغب في أن نرسم مسار لك من موقعك الحالي؟</string>
+    <!-- Message of the dialog shown on Start when the route ends at the current location. OK reverses the route. -->
+    <string name="p2p_reverse_from_current">سيتم عكس اتجاه المسار ليبدأ من موقعك الحالي.</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">التالي</string>
     <!-- Tab title in the Edit Opening Hours time picker -->

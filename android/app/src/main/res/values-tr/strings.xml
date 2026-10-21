@@ -357,6 +357,8 @@
     <string name="p2p_to_here">Varış yeri</string>
     <string name="p2p_only_from_current">Navigasyon yalnızca şu anki konumunuzdan kullanılabilir.</string>
     <string name="p2p_reroute_from_current">Şu anki konumunuzdan rota planlamamızı ister misiniz?</string>
+    <!-- Message of the dialog shown on Start when the route ends at the current location. OK reverses the route. -->
+    <string name="p2p_reverse_from_current">Rota, şu anki konumunuzdan başlayacak şekilde tersine çevrilecek.</string>
     <!-- Edit open hours/set time and minutes dialog -->
     <string name="next_button">Sonraki</string>
     <!-- Tab title in the Edit Opening Hours time picker -->
