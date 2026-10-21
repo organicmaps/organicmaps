@@ -37,6 +37,7 @@ public:
   MapFileType GetFileType() const;
 
   CountryId const & GetCountryId() const;
+  platform::CountryFile const & GetCountryFile() const { return m_countryFile; }
 
   std::string GetRelativeUrl() const;
   std::string GetFileDownloadPath() const;
