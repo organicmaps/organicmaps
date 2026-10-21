@@ -192,9 +192,9 @@ target_link_libraries(${PROJECT_NAME}
     geometry  # mercator::YToLat
     coding
     glaze::glaze
-    $<$<BOOL:${PLATFORM_DESKTOP}>:Qt6::Core>
-    $<$<BOOL:${PLATFORM_LINUX}>:Qt6::Network>
-    $<$<BOOL:${PLATFORM_WIN}>:Qt6::Network>
+    $<$<OR:$<BOOL:${PLATFORM_DESKTOP}>,$<BOOL:${PLATFORM_SAILFISH}>>:Qt${OMIM_QT_VERSION}::Core>
+    $<$<BOOL:${PLATFORM_LINUX}>:Qt${OMIM_QT_VERSION}::Network>
+    $<$<BOOL:${PLATFORM_WIN}>:Qt${OMIM_QT_VERSION}::Network>
     $<$<BOOL:${PLATFORM_WIN}>:shlwapi>  # PathIsDirectoryEmptyA
     $<$<BOOL:${PLATFORM_MAC}>:
       -framework\ Foundation
