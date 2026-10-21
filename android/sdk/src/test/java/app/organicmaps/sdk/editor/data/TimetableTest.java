@@ -45,6 +45,62 @@ public class TimetableTest
   }
 
   @Test
+  public void formatOpenShifts_equalEndpointsNoBreak_isWholeWorkingSpan()
+  {
+    // "Mo 08:00-08:00" ends on Tuesday, so equal bounds are a 24-hour working span.
+    final Timetable tt = workingDay(span(8, 0, 8, 0));
+    assertEquals("08:00—08:00", tt.formatOpenShifts("\n"));
+    assertEquals("08:00—08:00", tt.formatOpenShifts(", "));
+    assertEquals("09:30—09:30", workingDay(span(9, 30, 9, 30)).formatOpenShifts("\n"));
+
+    final Timetable midnight = workingDay(span(0, 0, 0, 0));
+    assertEquals("00:00—00:00", midnight.formatOpenShifts("\n"));
+    assertEquals("Midnight—Midnight", midnight.formatOpenShifts("\n", "Noon", "Midnight"));
+  }
+
+  @Test
+  public void formatOpenShifts_equalEndpointsWithBreak_keepsBothShifts()
+  {
+    final Timetable tt = workingDay(span(8, 0, 8, 0), span(12, 0, 13, 0));
+    assertEquals("08:00—12:00\n13:00—08:00", tt.formatOpenShifts("\n"));
+    assertEquals("08:00—12:00, 13:00—08:00", tt.formatOpenShifts(", "));
+  }
+
+  @Test
+  public void formatOpenShifts_equalEndpointsWithBoundaryBreak_dropsEmptyShift()
+  {
+    final Timetable breakAtStart = workingDay(span(8, 0, 8, 0), span(8, 0, 9, 0));
+    assertEquals("09:00—08:00", breakAtStart.formatOpenShifts("\n"));
+
+    final Timetable breakAtEnd = workingDay(span(8, 0, 8, 0), span(7, 0, 8, 0));
+    assertEquals("08:00—07:00", breakAtEnd.formatOpenShifts("\n"));
+  }
+
+  @Test
+  public void formatOpenShifts_equalEndpointsFullyCovered_isEmpty()
+  {
+    final Timetable tt = workingDay(span(8, 0, 8, 0), span(8, 0, 8, 0));
+    assertEquals("", tt.formatOpenShifts("\n"));
+    assertEquals("", tt.formatOpenShifts(", "));
+  }
+
+  @Test
+  public void formatOpenShifts_12HourFormat_equalEndpointsNoBreak_isWholeWorkingSpan()
+  {
+    final Locale previous = Locale.getDefault(Locale.Category.FORMAT);
+    Locale.setDefault(Locale.Category.FORMAT, Locale.US);
+    try
+    {
+      final Timetable tt = workingDay(span12h(8, 0, 8, 0));
+      assertEquals("08:00\u00A0AM—08:00\u00A0AM", tt.formatOpenShifts("\n"));
+    }
+    finally
+    {
+      Locale.setDefault(Locale.Category.FORMAT, previous);
+    }
+  }
+
+  @Test
   public void formatOpenShifts_oneBreak_isTwoShifts()
   {
     // "Mo 09:00-13:00,16:00-20:00" -> working 09:00-20:00 with one lunch break -> two shifts.
