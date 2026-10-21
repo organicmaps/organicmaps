@@ -158,3 +158,38 @@ UNIT_TEST(UpdateDialog_LocalizedSizesFitColumn)
     TEST(QLocale() == regionalLocale, (language));
   }
 }
+
+UNIT_TEST(UpdateDialog_MapAndTerrainUseTheSameProgressRow)
+{
+  EnsureApp();
+
+  Framework framework(FrameworkParams{}, false);
+  qt::UpdateDialog dialog(nullptr, framework, QLocale());
+  dialog.FillTreeForTesting();
+
+  auto const & tree = dialog.GetTreeForTesting();
+  auto * row = tree.topLevelItem(0);
+  while (row->childCount() != 0)
+    row = row->child(0);
+  auto const id = row->data(0, Qt::UserRole).toString().toStdString();
+  auto const status = row->text(1);
+  auto const size = row->text(2);
+  TEST(!size.isEmpty(), (id));
+
+  // Terrain-only updates advance the same country row. The percentages follow the default
+  // locale, also with non-Latin digits.
+  QLocale const defaultLocale;
+  SCOPE_GUARD(restoreLocale, [defaultLocale] { QLocale::setDefault(defaultLocale); });
+  for (auto const & locale : {QLocale::c(), QLocale(QLocale::Arabic, QLocale::Egypt)})
+  {
+    QLocale::setDefault(locale);
+    auto const percent = [&locale](qulonglong value)
+    { return (locale.toString(value) + locale.percent()).toStdString(); };
+    auto const name = locale.name().toStdString();
+    dialog.OnCountryDownloadProgress(id, {0, 0, 5, 10});
+    TEST_EQUAL(row->text(1).toStdString(), status.toStdString(), (id, name));
+    TEST_EQUAL(row->text(2).toStdString(), percent(50), (id, name));
+    dialog.OnCountryDownloadProgress(id, {100, 100, 15, 30});
+    TEST_EQUAL(row->text(2).toStdString(), percent(88), (id, name));
+  }
+}

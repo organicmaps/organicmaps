@@ -30,6 +30,9 @@ PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, qt::DrawWid
              QString::fromStdString(strings::to_string_dac(ll.m_lat, 7) + ", " + strings::to_string_dac(ll.m_lon, 7)));
   }
 
+  if (auto const elevation = info.GetFormattedTerrainElevation(); !elevation.empty())
+    addEntry(grid, row, "▲", QString::fromStdString(elevation));
+
   addEntry(grid, row, "CountryId", QString::fromStdString(info.GetCountryId()));
 
   auto const & title = info.GetTitle();

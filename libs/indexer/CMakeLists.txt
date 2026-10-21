@@ -124,6 +124,7 @@ set(SRC
   terrain/raster_patch.hpp
   terrain/sperr_decoder.cpp
   terrain/sperr_decoder.hpp
+  terrain/terrain_data.cpp
   terrain/terrain_data.hpp
   terrain/terrain_normals.cpp
   terrain/terrain_normals.hpp

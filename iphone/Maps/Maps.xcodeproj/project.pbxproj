@@ -91,6 +91,7 @@
 		ED0B1C312BC2951F00FB8EDD /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = ED0B1C302BC2951F00FB8EDD /* PrivacyInfo.xcprivacy */; };
 		ED0C360F2FE3EC2C00CAF853 /* UserDescriptionHTMLDocumentBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0C360E2FE3EC2C00CAF853 /* UserDescriptionHTMLDocumentBuilder.swift */; };
 		ED0E8FBF2FC4752400A4C91D /* UILabel+OneLineScaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0E8FBE2FC4752400A4C91D /* UILabel+OneLineScaling.swift */; };
+		1DEDF2DF5691454DBD69E462 /* PlacePageCoordinatesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C682F1EDD248A286221666 /* PlacePageCoordinatesTests.swift */; };
 		ED1A0C102E9B10A400C0FFEE /* OpeningHoursTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1A0C0F2E9B10A400C0FFEE /* OpeningHoursTests.swift */; };
 		15CCDA1EC17F04F7D89CA086 /* ActionBarViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C536FD39F5842BE26742A9 /* ActionBarViewControllerTests.swift */; };
 		ED1ADA332BC6B1B40029209F /* CarPlayServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1ADA322BC6B1B40029209F /* CarPlayServiceTests.swift */; };
@@ -693,6 +694,9 @@
 		A13811000000000000000002 /* TransportTransitWrappingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13811000000000000000001 /* TransportTransitWrappingTests.swift */; };
 		A13812000000000000000002 /* TransportTransitRTLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13812000000000000000001 /* TransportTransitRTLTests.swift */; };
 		A13813000000000000000002 /* TransportRulerAppearanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13813000000000000000001 /* TransportRulerAppearanceTests.swift */; };
+		554CA6533AAE428FB75EEB04 /* DownloadMapsViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3363836791B4D529767C347 /* DownloadMapsViewControllerTests.swift */; };
+		2F29C3908CB140F4A11BF405 /* MWMTrafficButtonViewControllerTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1A608634962C4DCB8DE350D1 /* MWMTrafficButtonViewControllerTests.mm */; };
+		F8C305C0F5984E44AC25B6BA /* MWMDownloaderProgressTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1DD65EF6C59F429F900996F2 /* MWMDownloaderProgressTests.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -964,6 +968,7 @@
 		ED0B1C302BC2951F00FB8EDD /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		ED0C360E2FE3EC2C00CAF853 /* UserDescriptionHTMLDocumentBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDescriptionHTMLDocumentBuilder.swift; sourceTree = "<group>"; };
 		ED0E8FBE2FC4752400A4C91D /* UILabel+OneLineScaling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+OneLineScaling.swift"; sourceTree = "<group>"; };
+		09C682F1EDD248A286221666 /* PlacePageCoordinatesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePageCoordinatesTests.swift; sourceTree = "<group>"; };
 		ED1A0C0F2E9B10A400C0FFEE /* OpeningHoursTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpeningHoursTests.swift; sourceTree = "<group>"; };
 		E8C536FD39F5842BE26742A9 /* ActionBarViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionBarViewControllerTests.swift; sourceTree = "<group>"; };
 		ED1ADA322BC6B1B40029209F /* CarPlayServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayServiceTests.swift; sourceTree = "<group>"; };
@@ -1871,6 +1876,9 @@
 		A13811000000000000000001 /* TransportTransitWrappingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportTransitWrappingTests.swift; sourceTree = "<group>"; };
 		A13812000000000000000001 /* TransportTransitRTLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportTransitRTLTests.swift; sourceTree = "<group>"; };
 		A13813000000000000000001 /* TransportRulerAppearanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportRulerAppearanceTests.swift; sourceTree = "<group>"; };
+		B3363836791B4D529767C347 /* DownloadMapsViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadMapsViewControllerTests.swift; sourceTree = "<group>"; };
+		1A608634962C4DCB8DE350D1 /* MWMTrafficButtonViewControllerTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTrafficButtonViewControllerTests.mm; sourceTree = "<group>"; };
+		1DD65EF6C59F429F900996F2 /* MWMDownloaderProgressTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMDownloaderProgressTests.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2158,6 +2166,7 @@
 			children = (
 				E8C536FD39F5842BE26742A9 /* ActionBarViewControllerTests.swift */,
 				ED1A0C0F2E9B10A400C0FFEE /* OpeningHoursTests.swift */,
+				09C682F1EDD248A286221666 /* PlacePageCoordinatesTests.swift */,
 				4584F20AAF794B9683B14087 /* PlacePageUserDescriptionWebViewTests.swift */,
 			);
 			path = PlacePageTests;
@@ -2252,6 +2261,7 @@
 			children = (
 				1A4D381982BD4FCD9308F4D1 /* RoutePointCollectionViewCellTests.swift */,
 				E79F77A472014212B40FDE97 /* PlacePageTests */,
+				4781E50E1EB84B2DB47CCB0C /* DownloaderTests */,
 				ED810EC32D566E7600ECDE2C /* SearchOnMapTests */,
 			);
 			path = UI;
@@ -4241,6 +4251,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		4781E50E1EB84B2DB47CCB0C /* DownloaderTests */ = {
+			isa = PBXGroup;
+			children = (
+				B3363836791B4D529767C347 /* DownloadMapsViewControllerTests.swift */,
+				1A608634962C4DCB8DE350D1 /* MWMTrafficButtonViewControllerTests.mm */,
+				1DD65EF6C59F429F900996F2 /* MWMDownloaderProgressTests.mm */,
+			);
+			path = DownloaderTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -5079,6 +5099,10 @@
 				5A07CF7460A24F6BBCA9F174 /* RoutePointCollectionViewCellTests.swift in Sources */,
 				A13418010000000000000004 /* CarPlayManeuverMapperTests.swift in Sources */,
 				B26883EF0814407A8B1D73AF /* PlacePageUserDescriptionWebViewTests.swift in Sources */,
+				554CA6533AAE428FB75EEB04 /* DownloadMapsViewControllerTests.swift in Sources */,
+				2F29C3908CB140F4A11BF405 /* MWMTrafficButtonViewControllerTests.mm in Sources */,
+				F8C305C0F5984E44AC25B6BA /* MWMDownloaderProgressTests.mm in Sources */,
+				1DEDF2DF5691454DBD69E462 /* PlacePageCoordinatesTests.swift in Sources */,
 				ED1A0C102E9B10A400C0FFEE /* OpeningHoursTests.swift in Sources */,
 				15CCDA1EC17F04F7D89CA086 /* ActionBarViewControllerTests.swift in Sources */,
 				EDF838C12C00B9D6007E4E67 /* iCloudDirectoryMonitorTests.swift in Sources */,

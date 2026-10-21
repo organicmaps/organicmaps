@@ -1,5 +1,7 @@
 #include "indexer/terrain/terrain_reader.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "base/buffer_vector.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/timer.hpp"
@@ -89,6 +91,21 @@ void Reader::ReadMesh(m2::RectD const & rect, size_t geomIndex, TileMesh & mesh)
   ASSERT(!m_header.HasRaster(geomIndex), ("ReadMesh cannot read a raster LOD; use ReadTerrain"));
   auto const intervals = covering::CoverViewportAndAppendLowerLevels<RectId::DEPTH_LEVELS>(rect, kCellDepth);
   ReadTin(rect, intervals, geomIndex, mesh);
+}
+
+std::optional<double> Reader::GetElevation(m2::PointD const & point) const
+{
+  if (!m_header.GetLimitRect().IsPointInside(point))
+    return std::nullopt;
+
+  // A positive query extent also covers both sides of index-cell boundaries.
+  double const unit = mercator::Bounds::kRangeX / ((uint64_t{1} << m_header.m_coordBits) - 1);
+  m2::RectD query(point, point);
+  query.Inflate(unit, unit);
+  query.Intersect(mercator::Bounds::FullRect());
+  TerrainData data(m_header.m_coordBits);
+  ReadTerrain(query, m_header.m_geometries.size() - 1, data);
+  return data.GetElevation(point);
 }
 
 void Reader::ReadTin(m2::RectD const & rect, covering::Intervals const & intervals, size_t geomIndex, TileMesh & mesh,

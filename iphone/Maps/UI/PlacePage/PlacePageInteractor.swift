@@ -198,7 +198,9 @@ extension PlacePageInteractor: PlacePageOSMContributionViewControllerDelegate {
   }
 
   func didPressUpdateMap() {
-    startMapDownloading()
+    // Offered by the map-only status: the combined one also reads downloading while the terrain downloads.
+    guard let countryId = placePageData.mapNodeAttributes?.countryId else { return }
+    Storage.shared().downloadNode(countryId)
   }
 
   func didPressOSMInfo() {

@@ -21,7 +21,7 @@ public class MapManagerHelper
   public static void showError(final Context context, final MapManager.StorageCallbackData errorData,
                                @Nullable final Consumer<Boolean> dialogClickListener)
   {
-    if (!MapManager.nativeIsAutoretryFailed())
+    if (!MapManager.isAutoRetryFailed())
       return;
 
     showErrorDialog(context, errorData, dialogClickListener);
@@ -175,7 +175,7 @@ public class MapManagerHelper
    */
   public static void retryDownload(Context context, @NonNull String countryId)
   {
-    if (MapManager.nativeIsDownloading())
+    if (MapManager.isDownloading())
       MapManager.retryDownload(countryId);
     else
       DownloaderService.startRetryDownload(context, countryId);
@@ -187,7 +187,7 @@ public class MapManagerHelper
    */
   public static void startUpdate(Context context, @NonNull String root)
   {
-    if (MapManager.nativeIsDownloading())
+    if (MapManager.isDownloading())
       MapManager.startUpdate(root);
     else
       DownloaderService.startUpdate(context, root);
@@ -197,15 +197,12 @@ public class MapManagerHelper
    * Enqueues the given list of nodes and its children in downloader.
    * If the service is already running, enqueues directly; otherwise starts the service first.
    */
-  public static void startDownload(Context context, String... countries)
+  public static void startDownload(Context context, @NonNull String[] countries, boolean withTerrain)
   {
-    if (MapManager.nativeIsDownloading())
-    {
-      for (var countryId : countries)
-        MapManager.startDownload(countryId);
-    }
+    if (MapManager.isDownloading())
+      MapManager.startDownload(countries, withTerrain);
     else
-      DownloaderService.startDownload(context, countries);
+      DownloaderService.startDownload(context, countries, withTerrain);
   }
 
   /**
@@ -214,9 +211,9 @@ public class MapManagerHelper
    */
   public static void startDownload(Context context, @NonNull String countryId)
   {
-    if (MapManager.nativeIsDownloading())
+    if (MapManager.isDownloading())
       MapManager.startDownload(countryId);
     else
-      DownloaderService.startDownload(context, countryId);
+      DownloaderService.startDownload(context, new String[] {countryId}, true /* withTerrain */);
   }
 }
