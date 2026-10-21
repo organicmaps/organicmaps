@@ -4,7 +4,6 @@
 
 #include "drape/gl_functions.hpp"
 
-#include <bit>
 #include <memory>
 
 namespace qt
@@ -31,6 +30,14 @@ void QtRenderOGLContext::Present()
     return;
   std::swap(m_frontFrame, m_backFrame);
   m_frameUpdated = true;
+  if (m_onPresent)
+    m_onPresent();
+}
+
+void QtRenderOGLContext::SetPresentListener(std::function<void()> fn)
+{
+  std::lock_guard<std::mutex> lock(m_frameMutex);
+  m_onPresent = std::move(fn);
 }
 
 void QtRenderOGLContext::MakeCurrent()
@@ -62,15 +69,9 @@ void QtRenderOGLContext::Resize(uint32_t w, uint32_t h)
   CHECK(m_isContextAvailable, ());
   ASSERT(QOpenGLContext::currentContext() == m_ctx.get(), ());
 
-  auto const nw = static_cast<int>(std::bit_ceil(w));
-  auto const nh = static_cast<int>(std::bit_ceil(h));
-
-  if (nw > m_width || nh > m_height)
-  {
-    m_width = nw;
-    m_height = nh;
-  }
-  m_frameRect = QRectF(0.0, 0.0, w / static_cast<float>(m_width), h / static_cast<float>(m_height));
+  m_width = static_cast<int>(w);
+  m_height = static_cast<int>(h);
+  m_frameRect = QRectF(0.0, 0.0, 1.0, 1.0);
 }
 
 void QtRenderOGLContext::PrepareBackFrame()
