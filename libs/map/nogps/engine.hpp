@@ -152,12 +152,6 @@ public:
   static int64_t constexpr kGpsLostMs = 5000;
   // The first GPS position after the start takes longer: the satellites are searched.
   static int64_t constexpr kGpsFirstFixMs = 15'000;
-  // GPS gives a position every second, and the map moves the mark to a new one in 0.2 s: it would jump and stand.
-  // Between GPS positions the mark is moved as often as the inertial navigation gives its positions.
-  static int64_t constexpr kGpsFillIntervalMs = InertialNavigator::kOutputIntervalMs;
-  // Without the inertial navigation the last GPS position is moved along its bearing for one missed position at
-  // most: a straight line is 5 m aside of a curve of 100 m after 2 s at 60 km/h.
-  static int64_t constexpr kMaxGpsExtrapolationMs = 2000;
   // GPS farther than this from the inertial position following it is spoofed or broken: the inertial
   // position is calculated for a second only since the previous GPS position.
   static double constexpr kMaxGpsInertialDiffM = 30;
@@ -338,11 +332,10 @@ private:
   void ShowCarHeading();
   void ShowOffRoadCar();
   void NotifyLocationUpdated();
-  /// Shows the car between GPS positions, see kGpsFillIntervalMs: by the inertial navigation, which continues from
-  /// every good GPS position. GPS stays the position of the engine.
+  /// GPS gives a position every second, and the map moves the mark to a new one in 0.2 s: it would jump and stand.
+  /// Between GPS positions the car is shown by the inertial navigation, which continues from every good GPS position.
+  /// GPS stays the position of the engine.
   void ShowBetweenGpsPositions(Fix const & inertial);
-  /// The same without the inertial navigation: moves the last GPS position along its bearing.
-  void ExtrapolateGps();
   /// \returns the time of a position shown after the GPS one by the clock of GPS: the clock of the phone differs from
   /// it, and the core moves the mark by the times of the positions, see extrapolation::Extrapolator.
   int64_t UnixTimeAfterGps(int64_t timeMs) const;
@@ -398,6 +391,8 @@ private:
 
   std::unique_ptr<InertialNavigator> m_inertial;
   std::optional<int64_t> m_lastTrustedGpsMs;
+  // The last trusted GPS position by its own time, see Fix::m_timeMs: the inertial navigation continues from it.
+  std::optional<int64_t> m_lastTrustedGpsTimeMs;
   int64_t m_savedTrustedTimeMs = 0;
   // The manual mode is on because there was no position at all, the user hasn't placed the car yet.
   bool m_manualForNoPosition = false;
@@ -453,7 +448,6 @@ private:
 
   Timer m_manualRepeatTimer;
   Timer m_tripLogTimer;
-  Timer m_gpsExtrapolationTimer;
 
   ThreadChecker m_threadChecker;
 };

@@ -98,7 +98,6 @@ Engine::Engine(Delegate & delegate, MapApi & map, Storage & storage, Clock const
   , m_scheduler(scheduler)
   , m_manualRepeatTimer(scheduler)
   , m_tripLogTimer(scheduler)
-  , m_gpsExtrapolationTimer(scheduler)
 {}
 
 Engine::~Engine() = default;
@@ -132,7 +131,6 @@ void Engine::Stop()
     m_inertial->Stop();
   m_manualRepeatTimer.Stop();
   m_tripLogTimer.Stop();
-  m_gpsExtrapolationTimer.Stop();
   m_active = false;
 }
 
@@ -201,10 +199,12 @@ void Engine::OnFix(Fix const & location)
     return;
   }
 
-  // Android gives a GPS position twice, from the satellites alone and mixed with the network. The copy would start the
-  // inertial navigation anew from its own place, and shown again it would tell the core that the car stands:
-  // extrapolation::Extrapolator stops moving the mark until the next position.
-  if (m_lastGoodGps && location.m_timeMs == m_lastGoodGps->m_timeMs && SourceOf(location) == PositionSource::Gps)
+  // Android gives a GPS position twice, from the satellites alone and mixed with the network. A copy of the one the
+  // inertial navigation has started from would start it anew from its own place, and shown again it would tell the
+  // core that the car stands: extrapolation::Extrapolator stops moving the mark until the next position. A copy of a
+  // rejected one is checked as any other position.
+  if (m_lastTrustedGpsTimeMs && location.m_timeMs == *m_lastTrustedGpsTimeMs &&
+      SourceOf(location) == PositionSource::Gps)
   {
     LOG(LDEBUG, ("The same position again", location.m_position));
     return;
@@ -214,9 +214,10 @@ void Engine::OnFix(Fix const & location)
                        IsAccuracySatisfied(location) && location.m_accuracyM <= kGpsMaxAccuracyM;
   if (goodGps)
   {
+    // A position given twice tells nothing about how often they come.
     if (!m_lastGoodGps)
       m_lastGoodGpsGapMs = std::numeric_limits<int64_t>::max();
-    else
+    else if (location.m_timeMs != m_lastGoodGps->m_timeMs)
       m_lastGoodGpsGapMs = location.m_timeMs - m_lastGoodGps->m_timeMs;
     m_lastGoodGps = location;
   }
@@ -247,6 +248,7 @@ void Engine::OnFix(Fix const & location)
   if (!m_manualMode && goodGps)
   {
     m_lastTrustedGpsMs = m_clock.NowMs();
+    m_lastTrustedGpsTimeMs = location.m_timeMs;
     if (m_inertial)
       m_inertial->OnGpsPosition(location);
   }
@@ -308,8 +310,6 @@ void Engine::OnFix(Fix const & location)
   m_lastPositionSource = source;
 
   NotifyLocationUpdated();
-  if (goodGps && InertialNavigator::HasGoodBearing(location))
-    m_gpsExtrapolationTimer.Start(kGpsFillIntervalMs, [this] { ExtrapolateGps(); });
 }
 
 void Engine::OnLastKnownNetworkFix(Fix const & fix)
@@ -985,7 +985,6 @@ void Engine::ShowOffRoadCar()
 void Engine::NotifyLocationUpdated()
 {
   CHECK(m_savedLocation, ());
-  m_gpsExtrapolationTimer.Stop();
   m_delegate.OnPosition(*m_savedLocation);
   ShowCarHeading();
   ShowOffRoadCar();
@@ -993,42 +992,27 @@ void Engine::NotifyLocationUpdated()
 
 void Engine::ShowBetweenGpsPositions(Fix const & inertial)
 {
-  // A shown GPS position that is not good, e.g. a less accurate one, is not where the inertial navigation continues
-  // from: the mark would jump between the two. Without a reliable bearing of GPS the inertial navigation may go
-  // another way than GPS, e.g. take a starting car for one driving back, and a slow car jumps little anyway.
-  if (!m_savedLocation || SourceOf(*m_savedLocation) != PositionSource::Gps || !m_lastGoodGps ||
-      m_savedLocation->m_timeMs > m_lastGoodGps->m_timeMs || !InertialNavigator::HasGoodBearing(*m_savedLocation) ||
+  // A shown GPS position the inertial navigation has not started from, e.g. a less accurate one, is not where it
+  // continues from: the mark would jump between the two. Without a reliable bearing of GPS the inertial navigation may
+  // go another way than GPS, e.g. take a starting car for one driving back, and a slow car jumps little anyway.
+  if (!m_savedLocation || SourceOf(*m_savedLocation) != PositionSource::Gps || !m_lastTrustedGpsTimeMs ||
+      m_savedLocation->m_timeMs > *m_lastTrustedGpsTimeMs || !InertialNavigator::HasGoodBearing(*m_savedLocation) ||
       m_inertial->IsDrivingBack())
   {
     return;
   }
   Fix location = inertial;
-  // GPS shows the car maneuvering off the roads where it is, not at its mark waiting on the road.
-  if (auto const & car = m_inertial->GetOffRoadCar())
+  // As in the manual mode: without a route the mark follows the car maneuvering off the roads, with a route it waits
+  // on the road and the car is shown apart, see ShowOffRoadCar().
+  if (auto const & car = m_inertial->GetOffRoadCar(); car && !m_map.IsNavigating())
     location.m_position = *car;
-  // The inertial navigation errs a fraction of a meter in a second: the position is as accurate as the GPS one.
-  location.m_accuracyM = m_savedLocation->m_accuracyM;
+  // As accurate as GPS was, less with every meter driven since.
+  location.m_accuracyM = m_savedLocation->m_accuracyM +
+                         DeadReckoning::kAccuracyPerMeter * Distance(m_savedLocation->m_position, location.m_position);
   location.m_unixTimeMs = UnixTimeAfterGps(location.m_timeMs);
   ++m_positionsBetweenGps;
   m_delegate.OnPosition(location);
-}
-
-void Engine::ExtrapolateGps()
-{
-  // The inertial navigation shows the car between GPS positions when it works.
-  int64_t const sinceMs = m_clock.NowMs() - m_fixShownMs;
-  if (m_manualMode || sinceMs > kMaxGpsExtrapolationMs ||
-      (m_inertial && IsInertialNavigationEnabled() && m_inertial->IsReady()))
-  {
-    return;
-  }
-  Fix location = *m_savedLocation;
-  location.m_position = Move(location.m_position, *location.m_bearingDeg, *location.m_speedMps * sinceMs / 1000.0);
-  location.m_timeMs = m_clock.NowMs();
-  location.m_unixTimeMs = UnixTimeAfterGps(location.m_timeMs);
-  ++m_positionsBetweenGps;
-  m_delegate.OnPosition(location);
-  m_gpsExtrapolationTimer.Start(kGpsFillIntervalMs, [this] { ExtrapolateGps(); });
+  ShowOffRoadCar();
 }
 
 int64_t Engine::UnixTimeAfterGps(int64_t timeMs) const
