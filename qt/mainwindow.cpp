@@ -47,6 +47,7 @@
 
 #include <QtCore/QLocale>
 #include <QtGui/QCloseEvent>
+#include <QtQml/QQmlComponent>
 #include <QtWidgets/QDockWidget>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
@@ -144,9 +145,10 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
   quickWidget->setClearColor(Qt::transparent);
   quickWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
 
-  quickWidget->setInitialProperties({{"map", QVariant::fromValue(this)}});
-  quickWidget->setSource(QUrl::fromLocalFile("/workspace/qt/qml/main.qml"));
-  // quickWidget->rootContext()->setContextProperty("map", this);
+  QUrl const qmlUrl = QUrl::fromLocalFile("/workspace/qt/qml/main.qml");
+  auto component = new QQmlComponent(quickWidget->engine(), qmlUrl, quickWidget);
+  quickWidget->setContent(qmlUrl, component,
+                          component->createWithInitialProperties({{"map", QVariant::fromValue(this)}}));
 
   m_pDrawWidget->layout()->addWidget(quickWidget);
 

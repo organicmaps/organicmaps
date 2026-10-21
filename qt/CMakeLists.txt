@@ -157,6 +157,7 @@ target_link_libraries(${PROJECT_NAME}
 
 qt_add_qml_module(${PROJECT_NAME}
     URI Map
+    VERSION 1.0
     # QML_FILES cloud.qml
     # RESOURCE_PREFIX /qquickwidgetversuswindow_opengl
     # NO_RESOURCE_TARGET_PATH

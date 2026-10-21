@@ -3,6 +3,8 @@
 #include "map/framework.hpp"
 #include "map/routing_mark.hpp"
 
+#include "drape_frontend/visual_params.hpp"
+
 #include "routing/ruler_router.hpp"
 
 #include "storage/routing_helpers.hpp"
@@ -895,6 +897,9 @@ UNIT_TEST(RoutingManager_OptimizeRoutePointsPreservesPassedStops)
 }
 UNIT_TEST(RoutingManager_RebuildClearsUnavailableAlternatives)
 {
+  Platform::ThreadRunner const threadRunner;
+  df::VisualParams::Init(1.0, 1024);
+
   class Delegate final : public RoutingManager::Delegate
   {
   public:
