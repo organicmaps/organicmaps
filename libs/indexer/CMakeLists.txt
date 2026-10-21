@@ -85,7 +85,6 @@ set(SRC
   index_builder.hpp
   interval_index.hpp
   interval_index_builder.hpp
-  isolines_info.cpp
   isolines_info.hpp
   map_object.cpp
   map_object.hpp
@@ -119,6 +118,22 @@ set(SRC
   string_set.hpp
   string_slice.cpp
   string_slice.hpp
+  terrain/isolines_tracer.cpp
+  terrain/isolines_tracer.hpp
+  terrain/terrain_data.hpp
+  terrain/terrain_normals.cpp
+  terrain/terrain_normals.hpp
+  terrain/terrain_reader.cpp
+  terrain/terrain_reader.hpp
+  terrain/terrain_serdes.hpp
+  terrain/terrain_utils.cpp
+  terrain/terrain_utils.hpp
+  terrain/tile_mesh.cpp
+  terrain/tile_mesh.hpp
+  terrain/twm_grid.cpp
+  terrain/twm_grid.hpp
+  terrain/twm_set.cpp
+  terrain/twm_set.hpp
   transliteration_loader.cpp
   transliteration_loader.hpp
   tree_structure.hpp
@@ -132,6 +147,7 @@ set(SRC
   utils.hpp
   validate_and_format_contacts.cpp
   validate_and_format_contacts.hpp
+  value_set.hpp
 )
 
 omim_add_library(${PROJECT_NAME} ${SRC})

@@ -58,6 +58,14 @@ double constexpr kVSyncIntervalMetalVulkan = 0.03;
 
 std::string const kTransitBackgroundColor = "TransitBackground";
 
+m2::RectD GetExtendedClipRect(ScreenBase const & screen, double visualScale)
+{
+  auto rect = screen.ClipRect();
+  double const extension = visualScale * dp::kScreenPixelRectExtension * screen.GetScale();
+  rect.Inflate(extension, extension);
+  return rect;
+}
+
 bool IsTextUserMarkState(dp::RenderState const & state)
 {
   auto const program = state.GetProgram<gpu::Program>();
@@ -1195,19 +1203,13 @@ bool FrontendRenderer::CheckRouteRecaching(ref_ptr<BaseSubrouteData> subrouteDat
 void FrontendRenderer::InvalidateRect(m2::RectD const & gRect)
 {
   ScreenBase const screen = m_userEventStream.GetCurrentScreen();
-  m2::RectD rect = gRect;
-  if (rect.Intersect(screen.ClipRect()))
+  // Invalidate over the same margin-inflated rect as ResolveTileKeys: the off-screen
+  // margin tiles are read and kept too, so they must be dropped as well or they come
+  // back stale when panned in.
+  auto const clipRect = GetExtendedClipRect(screen, VisualParams::Instance().GetVisualScale());
+  auto const tiles = CalcTilesToInvalidate(gRect, clipRect, GetCurrentZoom());
+  if (!tiles.empty())
   {
-    // Find tiles to invalidate.
-    TTilesCollection tiles;
-    int const dataZoomLevel = ClipTileZoomByMaxDataZoom(GetCurrentZoom());
-    CalcTilesCoverage(rect, dataZoomLevel, [this, &rect, &tiles](int tileX, int tileY)
-    {
-      TileKey const key(tileX, tileY, GetCurrentZoom());
-      if (rect.IsIntersect(key.GetGlobalRect()))
-        tiles.insert(key);
-    });
-
     // Remove tiles to invalidate from screen.
     auto eraseFunction = [&tiles](drape_ptr<RenderGroup> const & group)
     { return tiles.find(group->GetTileKey()) != tiles.end(); };
@@ -2431,10 +2433,7 @@ bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport, m2::R
 
 TTilesCollection FrontendRenderer::ResolveTileKeys(ScreenBase const & screen)
 {
-  m2::RectD rect = screen.ClipRect();
-  double const vs = VisualParams::Instance().GetVisualScale();
-  double const extension = vs * dp::kScreenPixelRectExtension * screen.GetScale();
-  rect.Inflate(extension, extension);
+  auto const rect = GetExtendedClipRect(screen, VisualParams::Instance().GetVisualScale());
   int const dataZoomLevel = ClipTileZoomByMaxDataZoom(GetCurrentZoom());
 
   m_notFinishedTiles.clear();

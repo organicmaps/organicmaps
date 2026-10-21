@@ -312,6 +312,7 @@ void Framework::OnViewportChanged(ScreenBase const & screen)
   m_trafficManager.UpdateViewport(m_currentModelView);
   m_transitManager.UpdateViewport(m_currentModelView);
   m_isolinesManager.UpdateViewport(m_currentModelView);
+  UpdateIsolinesAvailability();
 
   if (m_viewportChangedFn != nullptr)
     m_viewportChangedFn(screen);
@@ -324,8 +325,6 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
                      [this](FeatureCallback const & fn, std::vector<FeatureID> const & features)
 { return m_featuresFetcher.ReadFeatures(fn, features); },
                      std::bind(&Framework::GetMwmsByRect, this, _1, false /* rough */))
-  , m_isolinesManager(m_featuresFetcher.GetDataSource(),
-                      std::bind(&Framework::GetMwmsByRect, this, _1, false /* rough */))
   , m_routingManager(RoutingManager::Callbacks([this]() -> DataSource & { return m_featuresFetcher.GetDataSource(); },
                                                [this]() -> storage::CountryInfoGetter const &
 { return GetCountryInfoGetter(); }, [this](std::string const & id) -> std::string
@@ -418,7 +417,7 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   // m_trafficManager.SetSimplifiedColorScheme(LoadTrafficSimplifiedColors());
   // m_trafficManager.SetEnabled(LoadTrafficEnabled());
 
-  m_isolinesManager.SetEnabled(LoadIsolinesEnabled());
+  SetIsolinesEnabled(LoadIsolinesEnabled());
 
   InitTransliteration();
   LOG(LDEBUG, ("Transliterators initialized"));
@@ -478,7 +477,7 @@ void Framework::OnCountryFileDownloaded(storage::CountryId const &, storage::Loc
 
   m_trafficManager.Invalidate();
   m_transitManager.Invalidate();
-  m_isolinesManager.Invalidate();
+  InvalidateIsolines();
 
   InvalidateRect(rect);
 
@@ -517,7 +516,6 @@ void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
   auto action = [this, localFile]
   {
     m_transitManager.OnMwmDeregistered(localFile);
-    m_isolinesManager.OnMwmDeregistered(localFile);
     m_trafficManager.OnMwmDeregistered(localFile);
     m_descriptionsLoader->OnMwmDeregistered(localFile);
 
@@ -530,6 +528,45 @@ void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
     action();
   else
     GetPlatform().RunTask(Platform::Thread::Gui, action);
+}
+
+void Framework::OnTerrainChanged(m2::RectD const & rect)
+{
+  // The terrain is drawn with the isolines only.
+  if (m_isolinesManager.IsEnabled() && rect.IsValid())
+    InvalidateRect(rect);
+  InvalidateIsolines();
+}
+
+void Framework::InvalidateIsolines()
+{
+  UpdateIsolinesAvailability();
+}
+
+void Framework::SetIsolinesEnabled(bool enabled)
+{
+  m_isolinesManager.SetEnabled(enabled);
+  UpdateIsolinesAvailability();
+}
+
+void Framework::UpdateIsolinesAvailability()
+{
+  // Only the enabled layer on the isolines zooms needs the hint.
+  if (m_isolinesManager.IsEnabled() && m_isolinesManager.IsVisible())
+    m_isolinesManager.SetHasTerrain(HasViewportTerrain(m_currentModelView.ClipRect()));
+}
+
+bool Framework::HasViewportTerrain(m2::RectD const & rect)
+{
+  // Before the maps load the terrain registry is empty: claim the coverage present,
+  // the InvalidateIsolines after the load re-evaluates the real state (no premature hint).
+  if (!m_terrainRegistered)
+    return true;
+  // The viewport rect can poke beyond the +-180 antimeridian: probe the canonical pieces.
+  bool has = false;
+  mercator::ForEachRectWrapped(rect,
+                               [&](m2::RectD const & piece) { has = has || m_terrainProvider.HasTerrain(piece); });
+  return has;
 }
 
 bool Framework::HasUnsavedEdits(storage::CountryId const & countryId)
@@ -610,18 +647,36 @@ void Framework::RegisterAllMaps()
       // Otherwise we have blank map view instead of countries, without Download button.
     }
   }
+
+  // The installed terrain blocks, <writable>/terrain/<version>/*.twm: the newest version folders
+  // go first, so the registry keeps a newer block over an overlapping older one.
+  for (auto const & [dir, version] : terrain::ListVersionDirs(base::JoinPath(GetPlatform().WritableDir(), TERRAIN_DIR)))
+  {
+    Platform::FilesList files;
+    Platform::GetFilesByExt(dir, TERRAIN_FILE_EXT, files);
+    for (auto const & name : files)
+    {
+      terrain::TwmFile file;
+      if (terrain::TwmSet::ReadFile(base::JoinPath(dir, name), version, file) == terrain::TwmSet::RegResult::Success)
+        m_terrainProvider.RegisterBlock(file);
+    }
+  }
+  m_terrainRegistered = true;
+  // RegisterAllMaps can run on the map-loading thread.
+  GetPlatform().RunTask(Platform::Thread::Gui, [this] { OnTerrainChanged(mercator::Bounds::FullRect()); });
 }
 
 void Framework::DeregisterAllMaps()
 {
+  m_terrainRegistered = false;
   m_transitManager.Clear();
-  m_isolinesManager.Clear();
   m_trafficManager.Clear();
   m_descriptionsLoader->Clear();
 
   GetSearchAPI().ClearCaches();
 
   m_featuresFetcher.Clear();
+  m_terrainProvider.Clear();
   m_storage.Clear();
 }
 
@@ -1337,6 +1392,7 @@ void Framework::ClearAllCaches()
   m_featuresFetcher.ClearCaches();
   m_infoGetter->ClearCaches();
   GetSearchAPI().ClearCaches();
+  m_terrainProvider.ClearCache();
 }
 
 void Framework::OnUpdateCurrentCountry(m2::PointD const & pt, int zoomLevel)
@@ -1809,6 +1865,11 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   auto isCountryLoadedByNameFn = std::bind(&Framework::IsCountryLoadedByName, this, _1);
   auto updateCurrentCountryFn = std::bind(&Framework::OnUpdateCurrentCountry, this, _1, _2);
 
+  auto hasTerrainFn = [this](m2::RectD const & rect) { return m_terrainProvider.HasTerrain(rect); };
+  auto readTerrainFn = [this](m2::RectD const & rect, int zoom, terrain::TerrainData & data,
+                              base::SharedCancellable const & isCancellable)
+  { m_terrainProvider.ReadTerrain(rect, zoom, data, isCancellable); };
+
   bool allow3d;
   bool allow3dBuildings;
   Load3dMode(allow3d, allow3dBuildings);
@@ -1829,7 +1890,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
       params.m_apiVersion, contextFactory, dp::Viewport(0, 0, params.m_surfaceWidth, params.m_surfaceHeight),
       df::MapDataProvider(std::move(idReadFn), std::move(featureReadFn), std::move(isCountryLoadedByNameFn),
                           std::move(updateCurrentCountryFn), std::move(tileBackgroundReadFn),
-                          std::move(cancelTileBackgroundReadingFn)),
+                          std::move(cancelTileBackgroundReadingFn), std::move(hasTerrainFn), std::move(readTerrainFn)),
       params.m_hints, params.m_visualScale, fontsScaleFactor, std::move(params.m_widgetsInitInfo),
       std::move(myPositionModeChangedFn), allow3dBuildings, trafficEnabled, isolinesEnabled,
       params.m_isChoosePositionMode, params.m_isChoosePositionMode, GetSelectedFeatureTriangles(),
@@ -1898,7 +1959,7 @@ void Framework::OnRecoverSurface(int width, int height, bool recreateContextDepe
 
   m_trafficManager.OnRecoverSurface();
   m_transitManager.Invalidate();
-  m_isolinesManager.Invalidate();
+  InvalidateIsolines();
 }
 
 void Framework::OnDestroySurface()
@@ -2099,7 +2160,15 @@ void Framework::SetupMeasurementSystem()
 {
   GetPlatform().SetupMeasurementSystem();
 
-  m_routingManager.SetTurnNotificationsUnits(measurement_utils::GetMeasurementUnits());
+  auto const units = measurement_utils::GetMeasurementUnits();
+  m_routingManager.SetTurnNotificationsUnits(units);
+  if (m_isolinesUnits == units)
+    return;
+  m_isolinesUnits = units;
+
+  // Include off-screen tiles so panning cannot reveal contours in the old units.
+  if (m_drapeEngine && m_isolinesManager.IsEnabled())
+    InvalidateRect(mercator::Bounds::FullRect());
 }
 
 void Framework::SetWidgetLayout(gui::TWidgetsLayoutInfo && layout)
@@ -3228,12 +3297,12 @@ bool Framework::ParseDrapeDebugCommand(std::string const & query)
   }
   if (query == "?isolines")
   {
-    m_isolinesManager.SetEnabled(true /* enable */);
+    SetIsolinesEnabled(true /* enable */);
     return true;
   }
   if (query == "?no-isolines")
   {
-    m_isolinesManager.SetEnabled(false /* enable */);
+    SetIsolinesEnabled(false /* enable */);
     return true;
   }
   if (query == "?debug-info")

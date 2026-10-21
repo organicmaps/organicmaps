@@ -902,7 +902,7 @@ void MainWindow::SetLayerEnabled(LayerType type, bool enable)
     frm.SaveTransitSchemeEnabled(enable);
     break;
   case ISOLINES:
-    frm.GetIsolinesManager().SetEnabled(enable);
+    frm.SetIsolinesEnabled(enable);
     frm.SaveIsolinesEnabled(enable);
     break;
   case OUTDOORS:

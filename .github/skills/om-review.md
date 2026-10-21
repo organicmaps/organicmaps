@@ -552,6 +552,12 @@ is not met.
 - Exception handling gaps
 - Integer overflow / underflow in arithmetic
 
+**Downloaded map and terrain files:**
+
+- Apply the "Error handling policy" of `CLAUDE.md`, its single statement: the files are trusted
+  after the download verification, header checks may `MYTHROW`, and the regular tile records and
+  payloads use `ASSERT`. Do not flag missing runtime checks of the latter as defects.
+
 **Regression detection:**
 
 Look for these concrete patterns in the diff (removed `-` vs added `+` lines):

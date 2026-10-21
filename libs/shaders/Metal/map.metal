@@ -13,6 +13,9 @@ typedef struct
   float u_zScale;
   float u_interpolation;
   float u_isOutlinePass;
+  float u_dummy1;
+  float u_dummy2;
+  float4 u_terrainLightDir;
 } Uniforms_T;
 
 // Area/AreaOutline
@@ -46,6 +49,49 @@ vertex AreaFragment_T vsArea(const AreaVertex_T in [[stage_in]],
 fragment half4 fsArea(const AreaFragment_T in [[stage_in]])
 {
   return in.color;
+}
+
+// TerrainShade
+
+typedef struct
+{
+  float3 a_position [[attribute(0)]];
+  float3 a_normal [[attribute(1)]];
+} TerrainShadeVertex_T;
+
+typedef struct
+{
+  float4 position [[position]];
+  float intensity;
+} TerrainShadeFragment_T;
+
+vertex TerrainShadeFragment_T vsTerrainShade(const TerrainShadeVertex_T in [[stage_in]],
+                                             constant Uniforms_T & uniforms [[buffer(1)]])
+{
+  TerrainShadeFragment_T out;
+  float4 pos = float4(in.a_position, 1.0) * uniforms.u_modelView * uniforms.u_projection;
+  out.position = ApplyPivotTransform(pos, uniforms.u_pivotTransform, 0.0);
+  // See terrain_shade.vsh.glsl: relative to the flat ground under the current light,
+  // the shadow half gamma-lifted by u_terrainLightDir.w.
+  float const intensity = dot(normalize(in.a_normal), uniforms.u_terrainLightDir.xyz);
+  float const flatIntensity = uniforms.u_terrainLightDir.z;
+  float const rel =
+      (intensity - flatIntensity) / (intensity < flatIntensity ? flatIntensity : 1.0 - flatIntensity);
+  out.intensity = rel < 0.0 ? -pow(-rel, uniforms.u_terrainLightDir.w) : rel;
+  return out;
+}
+
+fragment half4 fsTerrainShade(const TerrainShadeFragment_T in [[stage_in]],
+                              constant Uniforms_T & uniforms [[buffer(0)]])
+{
+  // See terrain_shade.fsh.glsl: shadow/highlight relative to the flat ground.
+  constexpr float kShadowMaxAlpha = 0.376;
+  constexpr float kHighlightMaxAlpha = 0.157;
+  float const shadow = clamp(-in.intensity, 0.0, 1.0);
+  float const highlight = clamp(in.intensity, 0.0, 1.0);
+  half4 color = half4(half3(step(0.0, in.intensity)), half(shadow * kShadowMaxAlpha + highlight * kHighlightMaxAlpha));
+  color.a *= half(uniforms.u_opacity);
+  return color;
 }
 
 // Area3d

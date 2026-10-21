@@ -21,6 +21,14 @@ namespace gpu
 // Note: value must be synchronized with shaders tile_background.vsh.glsl and tile_background.metal
 constexpr uint32_t kTileBackgroundMaxCount = 64;
 
+// The default terrain hillshade light, see df::SetTerrainLightMessage.
+inline constexpr double kDefaultTerrainLightAzimuthDeg = 315.0;
+inline constexpr double kDefaultTerrainLightAltitudeDeg = 45.0;
+inline constexpr double kDefaultTerrainShadowGamma = 0.5;
+// The direction towards the default light above, w = the shadow gamma (see FrontendRenderer).
+inline constexpr glsl::vec4 kDefaultTerrainLightDir{-0.5f, 0.5f, 0.70710678f,
+                                                    static_cast<float>(kDefaultTerrainShadowGamma)};
+
 class ProgramParams
 {
 public:
@@ -71,16 +79,26 @@ struct ALIGNMENT MapProgramParams
   float m_zScale = 1.0f;
   float m_interpolation = 1.0f;
   float m_isOutlinePass = 1.0f;
+  // The explicit padding keeps the appended vec4 16-aligned in every backend layout
+  // (C++ glsl::vec4 is 4-aligned, std140/MSL float4 are 16-aligned).
+  float m_dummy1 = 0.0f;
+  float m_dummy2 = 0.0f;
+  // The terrain hillshade light of the TerrainShade program: xyz is the unit direction
+  // towards the light in the mercator frame (+x east, +y north, +z up; z doubles as the
+  // flat ground intensity the shading is relative to), w is the shadow gamma (the lift
+  // of the gentle slopes, 1 = linear). The default is the classic cartographic NW at 45
+  // degrees.
+  glsl::vec4 m_terrainLightDir = kDefaultTerrainLightDir;
 
   BIND_PROGRAMS(MapProgramParams, Program::Area, Program::Area3d, Program::Area3dOutline, Program::AreaOutline,
                 Program::Bookmark, Program::BookmarkAnim, Program::BookmarkAnimBillboard, Program::BookmarkBillboard,
                 Program::CapJoin, Program::CirclePoint, Program::ColoredSymbol, Program::ColoredSymbolBillboard,
-                Program::DashedLine, Program::TransparentArea, Program::HatchingArea, Program::HatchingAreaDash,
-                Program::AreaStipple, Program::AreaSpeckle, Program::AreaGrid, Program::Line, Program::MaskedTexturing,
-                Program::MaskedTexturingBillboard, Program::PathSymbol, Program::Text, Program::TextBillboard,
-                Program::TextOutlined, Program::TextOutlinedBillboard, Program::Texturing, Program::TexturingBillboard,
-                Program::BookmarkAboveText, Program::BookmarkAnimAboveText, Program::BookmarkAnimAboveTextBillboard,
-                Program::BookmarkAboveTextBillboard)
+                Program::DashedLine, Program::TransparentArea, Program::TerrainShade, Program::HatchingArea,
+                Program::HatchingAreaDash, Program::AreaStipple, Program::AreaSpeckle, Program::AreaGrid, Program::Line,
+                Program::MaskedTexturing, Program::MaskedTexturingBillboard, Program::PathSymbol, Program::Text,
+                Program::TextBillboard, Program::TextOutlined, Program::TextOutlinedBillboard, Program::Texturing,
+                Program::TexturingBillboard, Program::BookmarkAboveText, Program::BookmarkAnimAboveText,
+                Program::BookmarkAnimAboveTextBillboard, Program::BookmarkAboveTextBillboard)
 };
 
 struct ALIGNMENT RouteProgramParams

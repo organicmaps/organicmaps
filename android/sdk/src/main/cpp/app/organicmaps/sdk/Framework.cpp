@@ -1614,7 +1614,7 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsTransitSchemeEnabl
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetIsolinesLayerEnabled(JNIEnv * env, jclass, jboolean enabled)
 {
   auto const isolinesEnabled = static_cast<bool>(enabled);
-  frm()->GetIsolinesManager().SetEnabled(isolinesEnabled);
+  frm()->SetIsolinesEnabled(isolinesEnabled);
   Framework::SaveIsolinesEnabled(isolinesEnabled);
 }
 
