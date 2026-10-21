@@ -524,6 +524,7 @@ void RuleDrawer::DrawTerrain(MapDataProvider const & model)
 
 #ifdef TERRAIN_DEBUG_MESH
   DrawTerrainDebugMesh(data.m_mesh);
+  DrawTerrainDebugRaster(data);
 #else
   DrawTerrainShade(data);
 #endif
@@ -596,11 +597,39 @@ void RuleDrawer::DrawTerrainDebugMesh(terrain::TileMesh const & mesh)
     m_applyParams.m_insertShape(std::move(textShape));
   }
 }
+
+void RuleDrawer::DrawTerrainDebugRaster(terrain::TerrainData const & data)
+{
+  auto const & tileRect = m_applyParams.m_tileRect;
+  for (auto const & patch : data.m_rasterPatches)
+  {
+    auto const rect = patch.GetRect();
+    if (!tileRect.IsIntersect(rect))
+      continue;
+    std::vector<m2::SharedSpline> splines;
+    m2::ClipPathByRect(
+        tileRect, {rect.LeftBottom(), rect.RightBottom(), rect.RightTop(), rect.LeftTop(), rect.LeftBottom()}, splines);
+    df::LineViewParams params;
+    params.m_tileCenter = tileRect.Center();
+    params.m_baseGtoPScale = m_applyParams.m_currentScaleGtoP;
+    params.m_cap = dp::ButtCap;
+    params.m_join = dp::RoundJoin;
+    params.m_color = dp::Color(0, 80, 255, 160);
+    params.m_depth = dp::kMaxDepth;
+    params.m_depthLayer = DepthLayer::GeometryLayer;
+    params.m_width = 1;
+    params.m_zoomLevel = m_zoomLevel;
+    for (auto const & spline : splines)
+      m_applyParams.m_insertShape(make_unique_dp<LineShape>(spline, params));
+  }
+}
 #endif
 
 void RuleDrawer::DrawTerrainShade(terrain::TerrainData const & data)
 {
   auto geometry = BuildTerrainShade(data, m_applyParams.m_tileRect, m_context->GetCancellable());
+  if (!geometry.m_gridRows.empty())
+    m_applyParams.m_insertShape(make_unique_dp<TerrainGridShadeShape>(std::move(geometry.m_gridRows)));
   if (!geometry.m_triangles.empty())
     m_applyParams.m_insertShape(make_unique_dp<TerrainShadeShape>(std::move(geometry.m_triangles)));
 }

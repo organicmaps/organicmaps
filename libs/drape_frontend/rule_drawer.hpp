@@ -86,6 +86,7 @@ private:
 #ifdef TERRAIN_DEBUG_MESH
   /// The raw mesh inspection: the triangle edges and the vertex altitudes in red.
   void DrawTerrainDebugMesh(terrain::TileMesh const & mesh);
+  void DrawTerrainDebugRaster(terrain::TerrainData const & data);
 #endif
 
   TIsCountryLoadedByNameFn m_isLoadedFn;
