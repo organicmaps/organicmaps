@@ -55,6 +55,20 @@ typedef NS_ENUM(NSInteger, MWMNoGpsCalibrationState) {
   MWMNoGpsCalibrationStateMountMoved,
 } NS_SWIFT_NAME(NoGpsCalibrationState);
 
+/// The update of the firmware of the ESP32 sensor box, nogps::Esp32Update::State.
+typedef NS_ENUM(NSInteger, MWMNoGpsFirmwareUpdate) {
+  MWMNoGpsFirmwareUpdateNone,
+  // The box is asked to take the firmware.
+  MWMNoGpsFirmwareUpdateStarting,
+  MWMNoGpsFirmwareUpdateSending,
+  // Everything is sent, the box checks it.
+  MWMNoGpsFirmwareUpdateVerifying,
+  // The box restarts with the new firmware and tells its version.
+  MWMNoGpsFirmwareUpdateRestarting,
+  MWMNoGpsFirmwareUpdateDone,
+  MWMNoGpsFirmwareUpdateFailed,
+} NS_SWIFT_NAME(NoGpsFirmwareUpdate);
+
 typedef NS_ENUM(NSInteger, MWMNoGpsEvent) {
   MWMNoGpsEventManualModeChanged,
   MWMNoGpsEventGpsBack,
@@ -133,6 +147,16 @@ NS_SWIFT_NAME(NoGpsStatus)
 /// How many other roads the car may be on after a turn that fitted several, switchMark shows the car on them.
 @property(nonatomic, readonly) NSInteger otherMarks;
 
+/// The firmware of the sensor box, empty until the box tells it.
+@property(nonatomic, readonly) NSString * boxFirmware;
+/// The firmware for this box that comes with the app, if the box can take it now. Empty otherwise.
+@property(nonatomic, readonly) NSString * bundledFirmware;
+@property(nonatomic, readonly) MWMNoGpsFirmwareUpdate firmwareUpdate;
+@property(nonatomic, readonly) NSInteger firmwareUpdateProgress;
+/// Why the update has failed: a code of the box (MOVING, LOW_VOLTAGE, SIGNATURE etc.) or of the app (LINK, CANCELED,
+/// ROLLBACK etc.).
+@property(nonatomic, readonly) NSString * firmwareUpdateError;
+
 @end
 
 /// Navigation without GPS, done in the core: it chooses the position to show from GPS, the marks of the user and the
@@ -164,6 +188,9 @@ NS_SWIFT_NAME(NoGps)
 + (void)clearSpeedCalibration;
 + (void)cycleShiftStep;
 + (void)setShiftButtonsShown:(BOOL)shown;
+/// Sends the firmware of MWMNoGpsStatus.bundledFirmware to the box.
++ (void)startFirmwareUpdate;
++ (void)cancelFirmwareUpdate;
 
 /// The bytes of the ESP32 sensor box and the state of the connection to it.
 + (void)onEsp32BleBytes:(NSData *)data;

@@ -148,6 +148,11 @@ std::optional<double> NonNegative(double value)
     _hasInertialPosition = status.m_hasInertialPosition;
     _roadLost = status.m_roadLost;
     _otherMarks = status.m_otherMarks;
+    _boxFirmware = @(status.m_boxFirmware.c_str());
+    _bundledFirmware = @(status.m_bundledFirmware.c_str());
+    _firmwareUpdate = static_cast<MWMNoGpsFirmwareUpdate>(status.m_firmwareUpdate);
+    _firmwareUpdateProgress = status.m_firmwareUpdateProgress;
+    _firmwareUpdateError = @(status.m_firmwareUpdateError.c_str());
   }
   return self;
 }
@@ -250,6 +255,16 @@ std::optional<double> NonNegative(double value)
 + (void)setShiftButtonsShown:(BOOL)shown
 {
   Engine().SetShiftButtonsShown(shown);
+}
+
++ (void)startFirmwareUpdate
+{
+  Engine().StartFirmwareUpdate();
+}
+
++ (void)cancelFirmwareUpdate
+{
+  Engine().CancelFirmwareUpdate();
 }
 
 + (void)onEsp32BleBytes:(NSData *)data

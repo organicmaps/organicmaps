@@ -1332,6 +1332,57 @@
 
 /* State of the sensor box, shown after its name while it takes a new firmware */
 "nogps_box_updating" = "takes a new firmware";
+
+/* Row of the sensors screen: the version of the firmware of the sensor box or what its update does now */
+"nogps_sensors_firmware" = "Box firmware: %1$@";
+
+/* Button: sends the firmware that comes with the app to the sensor box, with its version */
+"nogps_firmware_install" = "Install %1$@";
+
+/* Title of the question about the firmware of the sensor box */
+"nogps_firmware_title" = "Sensor box firmware";
+
+/* Question shown when the sensor box works with another firmware than the app comes with: the version of the box and of the app */
+"nogps_firmware_offer" = "The box works with firmware %1$@, this version of the app is tested with %2$@. Install it? It takes a few minutes: keep the car standing and the box plugged in.";
+
+/* State of the update of the sensor box firmware, shown after "Box firmware:" */
+"nogps_firmware_starting" = "preparing…";
+
+/* State of the update of the sensor box firmware, shown after "Box firmware:", with the percent sent */
+"nogps_firmware_sending" = "sending, %d%%";
+
+/* State of the update of the sensor box firmware, shown after "Box firmware:" */
+"nogps_firmware_verifying" = "the box checks it…";
+
+/* State of the update of the sensor box firmware, shown after "Box firmware:" */
+"nogps_firmware_restarting" = "the box restarts…";
+
+/* Message: the sensor box works with the new firmware, with its version */
+"nogps_firmware_done" = "Firmware %1$@ is installed in the sensor box";
+
+/* Message: the firmware of the sensor box is not updated, with the reason */
+"nogps_firmware_failed" = "The box firmware is not installed: %1$@";
+
+/* Why the firmware of the sensor box is not installed */
+"nogps_firmware_error_moving" = "the car drives";
+
+/* Why the firmware of the sensor box is not installed */
+"nogps_firmware_error_voltage" = "the car battery is below 11.8 V";
+
+/* Why the firmware of the sensor box is not installed */
+"nogps_firmware_error_link" = "the connection to the box was lost";
+
+/* Why the firmware of the sensor box is not installed */
+"nogps_firmware_error_canceled" = "canceled";
+
+/* Why the firmware of the sensor box is not installed: the new one didn't start */
+"nogps_firmware_error_rollback" = "the box has returned to its previous firmware";
+
+/* Why the firmware of the sensor box is not installed: the box has just been updated and still checks that */
+"nogps_firmware_error_pending" = "the box still checks its previous update, try again later";
+
+/* Why the firmware of the sensor box is not installed: an error code of the box, e.g. SIGNATURE */
+"nogps_firmware_error_code" = "error %1$@";
 "nogps_clear_speed" = "Reset";
 "nogps_clear_speed_title" = "Reset the speed calibration?";
 "nogps_clear_speed_message" = "The speed corrections learned from GPS at different speeds and from your corrections will be forgotten. Do it after new tyres or another car. They are learned anew while GPS works.";

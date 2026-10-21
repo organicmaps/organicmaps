@@ -9,6 +9,8 @@ final class NoGpsSensorsViewController: MWMTableViewController {
   private enum Row {
     case enabled
     case box
+    case firmware
+    case firmwareAction
     case calibrate
     case boxSensors
     case speed
@@ -65,7 +67,15 @@ final class NoGpsSensorsViewController: MWMTableViewController {
 
   private func refresh() {
     status = NoGps.status()
-    var stateRows: [Row] = [.box, .speed]
+    var stateRows: [Row] = [.box]
+    // The install row comes where a text was, not a button: a tap made as the box connects doesn't start an update.
+    if isFirmwareUpdating() || !status.boxFirmware.isEmpty {
+      stateRows.append(.firmware)
+      if canInstallFirmware() || canCancelFirmware() {
+        stateRows.append(.firmwareAction)
+      }
+    }
+    stateRows.append(.speed)
     if status.inertialStarted, status.hasCarInfo {
       stateRows.append(.car)
       if status.voltageMismatch {
@@ -121,6 +131,12 @@ final class NoGpsSensorsViewController: MWMTableViewController {
       let name = status.inertialStarted && !status.deviceName.isEmpty ? status.deviceName : "ESP32"
       let box = status.inertialStarted ? name + " · " + boxStateText(status.sourceState) : name
       content.text = String(format: L("nogps_sensors_box"), box)
+    case .firmware:
+      content.text = String(format: L("nogps_sensors_firmware"), firmwareText())
+    case .firmwareAction:
+      content.text = canCancelFirmware() ? L("cancel") : String(format: L("nogps_firmware_install"), status.bundledFirmware)
+      content.textProperties.color = .linkBlue
+      cell.selectionStyle = .default
     case .calibrate:
       content.text = L("nogps_sensors_calibrate_box")
       content.textProperties.color = status.inertialStarted ? .linkBlue : .blackHintText
@@ -175,6 +191,16 @@ final class NoGpsSensorsViewController: MWMTableViewController {
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
     switch sections[indexPath.section].rows[indexPath.row] {
+    case .firmwareAction:
+      // The row does what it shows, if the update still allows it: the box may have gone on since it was drawn.
+      let cancel = canCancelFirmware()
+      status = NoGps.status()
+      if cancel, canCancelFirmware() {
+        NoGps.cancelFirmwareUpdate()
+      } else if !cancel, canInstallFirmware() {
+        NoGps.startFirmwareUpdate()
+      }
+      refresh()
     case .calibrate:
       NoGps.calibrate()
       refresh()
@@ -229,6 +255,38 @@ final class NoGpsSensorsViewController: MWMTableViewController {
     case .mountMoved: return L("nogps_gyro_mount_moved")
     @unknown default: return L("nogps_unknown")
     }
+  }
+
+  /// The firmware of the box, or how its update goes.
+  private func firmwareText() -> String {
+    switch status.firmwareUpdate {
+    case .starting: return L("nogps_firmware_starting")
+    case .sending: return String(format: L("nogps_firmware_sending"), status.firmwareUpdateProgress)
+    case .verifying: return L("nogps_firmware_verifying")
+    case .restarting: return L("nogps_firmware_restarting")
+    case .none, .done, .failed: return status.boxFirmware
+    @unknown default: return status.boxFirmware
+    }
+  }
+
+  private func isFirmwareUpdating() -> Bool {
+    [.starting, .sending, .verifying, .restarting].contains(status.firmwareUpdate)
+  }
+
+  /// The box works with the firmware the app is tested with: there is nothing to install. A debug build sends it again
+  /// to try the update itself.
+  private func canInstallFirmware() -> Bool {
+    guard !isFirmwareUpdating(), !status.bundledFirmware.isEmpty else { return false }
+#if DEBUG
+    return true
+#else
+    return status.bundledFirmware != status.boxFirmware
+#endif
+  }
+
+  /// A box that has taken the firmware restarts by itself.
+  private func canCancelFirmware() -> Bool {
+    isFirmwareUpdating() && status.firmwareUpdate != .restarting
   }
 
   /// What the box tells about the car: the engine and the voltage measured by the box and by ELM327.
