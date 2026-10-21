@@ -1,7 +1,7 @@
 package app.organicmaps.sdk.wear
 
+import app.organicmaps.wear.protocol.WearNavigationDetails
 import app.organicmaps.wear.protocol.WearNavigationMode
-import app.organicmaps.wear.protocol.WearNavigationState
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -13,7 +13,7 @@ class WearBridgeTest {
 
         WearBridge.publishNavigating(true)
 
-        assertEquals(WearNavigationMode.NAVIGATION, publisher.state?.mode)
+        assertEquals(WearNavigationMode.NAVIGATION, publisher.mode)
     }
 
     @Test
@@ -23,7 +23,18 @@ class WearBridgeTest {
 
         WearBridge.publishNavigating(false)
 
-        assertEquals(WearNavigationMode.NORMAL, publisher.state?.mode)
+        assertEquals(WearNavigationMode.NORMAL, publisher.mode)
+    }
+
+    @Test
+    fun publishesNavigationDetails() {
+        val publisher = RecordingDetailsPublisher()
+        val details = WearNavigationDetails(nextStreet = "Place Victor Hugo")
+        WearBridge.registerDetails(publisher)
+
+        WearBridge.publishDetails(details)
+
+        assertEquals(details, publisher.details)
     }
 
     @Test
@@ -39,12 +50,20 @@ class WearBridgeTest {
         assertEquals(1, current.publishCount)
     }
 
+    private class RecordingDetailsPublisher : WearNavigationDetailsPublisher {
+        var details: WearNavigationDetails? = null
+
+        override fun publish(details: WearNavigationDetails) {
+            this.details = details
+        }
+    }
+
     private class RecordingPublisher : WearNavigationPublisher {
-        var state: WearNavigationState? = null
+        var mode: WearNavigationMode? = null
         var publishCount = 0
 
-        override fun publish(state: WearNavigationState) {
-            this.state = state
+        override fun publish(mode: WearNavigationMode) {
+            this.mode = mode
             ++publishCount
         }
     }

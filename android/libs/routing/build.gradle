@@ -11,6 +11,7 @@ android {
 
 dependencies {
   implementation project(':sdk')
+  implementation project(':sdk:wear:core')
   implementation project(':libs:branding')
 
   implementation libs.androidx.annotation

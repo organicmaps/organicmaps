@@ -10,7 +10,7 @@ android {
 }
 
 dependencies {
-  // WearNavigationState is part of this module's public API (see WearNavigationPublisher),
+  // WearNavigationMode is part of this module's public API (see WearNavigationPublisher),
   // so expose wear-protocol transitively to consumers.
   api project(':libs:wear-protocol')
 
