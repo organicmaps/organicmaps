@@ -1,12 +1,12 @@
 #import "PlacePageOSMContributionData.h"
 
-#include <CoreApi/Framework.h>
+#include "map/place_page_info.hpp"
 
-@class MWMMapNodeAttributes;
+#include "storage/storage_defines.hpp"
 
 @interface PlacePageOSMContributionData (Core)
 
-- (instancetype _Nullable)initWithRawData:(place_page::Info const &)rawData
-                            mapAttributes:(MWMMapNodeAttributes * _Nonnull)mapAttributes;
+/// The map's own status: terrain downloads and failures must not replace the editing controls.
+- (instancetype _Nullable)initWithRawData:(place_page::Info const &)rawData mapStatus:(storage::Status)mapStatus;
 
 @end

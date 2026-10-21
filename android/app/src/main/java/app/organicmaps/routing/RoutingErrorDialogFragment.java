@@ -18,6 +18,7 @@ import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.downloader.MapManagerHelper;
 import app.organicmaps.sdk.downloader.CountryItem;
+import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.util.Utils;
 import app.organicmaps.util.UiUtils;
 
@@ -96,30 +97,22 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
       return;
     }
 
-    long size = 0;
-    for (CountryItem country : mMissingMaps)
-    {
-      if (country.status != CountryItem.STATUS_PROGRESS && country.status != CountryItem.STATUS_APPLYING)
-      {
-        size += country.totalSize;
-      }
-    }
+    MapManagerHelper.warnOn3g(
+        requireActivity(), MapManager.nativeGetDownloadSize(mMapsArray, false /* withTerrain */), () -> {
+          // The mobile-data confirmation may outlive this dialog fragment.
+          if (!isAdded())
+            return;
 
-    MapManagerHelper.warnOn3g(requireActivity(), size, () -> {
-      // The mobile-data confirmation may outlive this dialog fragment.
-      if (!isAdded())
-        return;
+          final FragmentManager manager = getParentFragmentManager();
+          if (manager.isStateSaved() || manager.isDestroyed())
+            return;
 
-      final FragmentManager manager = getParentFragmentManager();
-      if (manager.isStateSaved() || manager.isDestroyed())
-        return;
-
-      RoutingMapsDownloadFragment downloader =
-          RoutingMapsDownloadFragment.create(manager.getFragmentFactory(), getAppContextOrThrow(), mMapsArray);
-      downloader.show(manager, downloader.getClass().getSimpleName());
-      mCancelled = false;
-      dismiss();
-    });
+          RoutingMapsDownloadFragment downloader =
+              RoutingMapsDownloadFragment.create(manager.getFragmentFactory(), getAppContextOrThrow(), mMapsArray);
+          downloader.show(manager, downloader.getClass().getSimpleName());
+          mCancelled = false;
+          dismiss();
+        });
   }
 
   @Override

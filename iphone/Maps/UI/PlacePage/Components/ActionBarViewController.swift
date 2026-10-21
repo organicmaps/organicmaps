@@ -54,7 +54,7 @@ final class ActionBarViewController: UIViewController {
 
   private func configDefaultButtons() {
     if let mapNodeAttributes = placePageData.mapNodeAttributes {
-      switch mapNodeAttributes.nodeStatus {
+      switch mapNodeAttributes.mapStatus {
       case .onDiskOutOfDate, .onDisk, .undefined:
         break
       case .downloading, .applying, .inQueue, .error, .notDownloaded, .partly:
@@ -114,7 +114,7 @@ final class ActionBarViewController: UIViewController {
       switch buttonType {
       case .download:
         downloadButton = button
-        updateDownloadButtonState(placePageData.mapNodeAttributes!.nodeStatus)
+        updateDownloadButton()
       default:
         break
       }
@@ -167,11 +167,24 @@ final class ActionBarViewController: UIViewController {
     configureButtons()
   }
 
-  func updateDownloadButtonState(_: MapNodeStatus) {
+  /// Every place page layout with this action bar has to follow the node status: the download button
+  /// disappears with the map's own download, and a tap on a stale one has nothing to do.
+  func updateMapNodeStatus() {
+    updateDownloadButton()
+    guard let mapNodeAttributes = placePageData.mapNodeAttributes else { return }
+    switch mapNodeAttributes.mapStatus {
+    case .onDisk, .onDiskOutOfDate, .undefined, .inQueue:
+      resetButtons()
+    default:
+      break
+    }
+  }
+
+  func updateDownloadButton() {
     guard let downloadButton = downloadButton, let mapNodeAttributes = placePageData.mapNodeAttributes else { return }
     switch mapNodeAttributes.nodeStatus {
     case .downloading:
-      downloadButton.mapDownloadProgress?.state = .progress
+      downloadButton.mapDownloadProgress?.progress = CGFloat(AppConstants.maxProgress * mapNodeAttributes.downloadingProgress)
     case .applying, .inQueue:
       downloadButton.mapDownloadProgress?.state = .spinner
     case .error:

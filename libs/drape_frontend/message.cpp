@@ -59,6 +59,7 @@ std::string_view DebugPrint(Message::Type msgType)
   case Message::Type::Allow3dMode: return "Allow3dMode";
   case Message::Type::Allow3dBuildings: return "Allow3dBuildings";
   case Message::Type::SetMapLangIndex: return "SetMapLangIndex";
+  case Message::Type::SetTerrainLight: return "SetTerrainLight";
   case Message::Type::EnablePerspective: return "EnablePerspective";
   case Message::Type::FlushCirclesPack: return "FlushCirclesPack";
   case Message::Type::CacheCirclesPack: return "CacheCirclesPack";
