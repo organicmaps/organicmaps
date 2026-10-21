@@ -14,10 +14,12 @@
 
 namespace df
 {
-// The tile hillshade in tile-local coordinates: the TIN triangles clipped to the tile as the CW
-// triangles (see TerrainShadeShape). Empty when cancelled.
+// The tile hillshade in tile-local coordinates: the raster cells inside the tile as the grid rows
+// (see TerrainGridShadeShape), the TIN triangles and the raster edge cells clipped to the tile
+// as the CW triangles (see TerrainShadeShape). Empty when cancelled.
 struct TerrainShadeGeometry
 {
+  std::vector<std::vector<gpu::TerrainShadeVertex>> m_gridRows;
   std::vector<gpu::TerrainShadeVertex> m_triangles;
 };
 
@@ -36,5 +38,18 @@ public:
 
 private:
   std::vector<gpu::TerrainShadeVertex> m_vertices;
+};
+
+// Regular grid rows use the batcher's indexed triangle strips. The initial
+// duplicate vertex selects CW winding while retaining the fixed SW-NE diagonal.
+class TerrainGridShadeShape : public MapShape
+{
+public:
+  explicit TerrainGridShadeShape(std::vector<std::vector<gpu::TerrainShadeVertex>> && rows) : m_rows(std::move(rows)) {}
+  void Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Batcher> batcher,
+            ref_ptr<dp::TextureManager> textures) const override;
+
+private:
+  std::vector<std::vector<gpu::TerrainShadeVertex>> m_rows;
 };
 }  // namespace df

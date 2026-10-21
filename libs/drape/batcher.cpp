@@ -108,9 +108,9 @@ IndicesRange Batcher::InsertTriangleList(ref_ptr<GraphicsContext> context, Rende
 }
 
 void Batcher::InsertTriangleStrip(ref_ptr<GraphicsContext> context, RenderState const & state,
-                                  ref_ptr<AttributeProvider> params)
+                                  ref_ptr<AttributeProvider> params, bool canDivide)
 {
-  InsertTriangleStrip(context, state, params, nullptr);
+  InsertPrimitives<TriangleStripBatch>(context, state, params, nullptr, 0 /* vertexStride */, canDivide);
 }
 
 IndicesRange Batcher::InsertTriangleStrip(ref_ptr<GraphicsContext> context, RenderState const & state,
@@ -263,7 +263,8 @@ IndicesRange Batcher::InsertPrimitives(ref_ptr<GraphicsContext> context, RenderS
     wrapper.SetVAO(vao);
 
     TBatcher batch(wrapper, std::forward<TArgs>(batcherArgs)...);
-    batch.SetCanDivideStreams(handle == nullptr);
+    // An overlay handle needs undivided streams, on top of the batch's own restriction.
+    batch.SetCanDivideStreams(batch.CanDivideStreams() && handle == nullptr);
     batch.SetVertexStride(vertexStride);
     batch.BatchData(context, params);
 

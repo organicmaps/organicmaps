@@ -12,5 +12,15 @@ for name in cmake3 cmake; do
   fi
 done
 
-echo 'Error: cmake is not installed.' >&2
+# GUI builds on macOS may omit these CMake locations from PATH.
+if [[ "$(uname -s)" == Darwin ]]; then
+  for cmake_path in /opt/homebrew/bin/cmake /usr/local/bin/cmake /Applications/CMake.app/Contents/bin/cmake; do
+    if [[ -x "$cmake_path" ]]; then
+      CMAKE="$cmake_path"
+      return 0
+    fi
+  done
+fi
+
+echo 'Error: cmake was not found. Install CMake or set CMAKE to its executable path.' >&2
 exit 1

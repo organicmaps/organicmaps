@@ -120,6 +120,10 @@ set(SRC
   string_slice.hpp
   terrain/isolines_tracer.cpp
   terrain/isolines_tracer.hpp
+  terrain/raster_patch.cpp
+  terrain/raster_patch.hpp
+  terrain/sperr_decoder.cpp
+  terrain/sperr_decoder.hpp
   terrain/terrain_data.hpp
   terrain/terrain_normals.cpp
   terrain/terrain_normals.hpp
@@ -151,6 +155,8 @@ set(SRC
 )
 
 omim_add_library(${PROJECT_NAME} ${SRC})
+set_source_files_properties(terrain/sperr_decoder.cpp PROPERTIES COMPILE_OPTIONS
+  "$<$<CXX_COMPILER_ID:GNU,Clang,AppleClang>:-fno-fast-math;-ffp-contract=off>;$<$<CXX_COMPILER_ID:MSVC>:/fp:strict>")
 
 target_link_libraries(${PROJECT_NAME}
   PUBLIC
@@ -158,6 +164,8 @@ target_link_libraries(${PROJECT_NAME}
     geometry
     coding
     om::timezone
+  PRIVATE
+    sperr::sperr
 )
 
 omim_add_test_subdirectory(indexer_tests)
