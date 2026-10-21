@@ -95,6 +95,9 @@ UNIT_TEST(Test_SymbolsConsistency)
 // same names. The merged style is skipped: it is a tools-only mix of the others.
 UNIT_TEST(Test_NamedColorsConsistency)
 {
+  // The vehicle styles draw no isolines (see terrain::IsolinesStyle).
+  StringSet const kIsolineColors = {"IsolineDepth", "IsolineDepthText"};
+
   auto const getNames = [](MapStyle mapStyle)
   {
     StringSet names;
@@ -112,7 +115,9 @@ UNIT_TEST(Test_NamedColorsConsistency)
       continue;
 
     // Report just the differing names: every style defines about a hundred of them.
-    StringSet const names = getNames(mapStyle);
+    StringSet names = getNames(mapStyle);
+    if (mapStyle == MapStyleVehicleLight || mapStyle == MapStyleVehicleDark)
+      names.insert(kIsolineColors.begin(), kIsolineColors.end());
     std::vector<std::string> diff;
     std::set_symmetric_difference(names.begin(), names.end(), expected.begin(), expected.end(), back_inserter(diff));
     TEST(diff.empty(), (mapStyle, "named colors differ:", diff));

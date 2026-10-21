@@ -693,6 +693,8 @@
 		A13812000000000000000002 /* TransportTransitRTLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13812000000000000000001 /* TransportTransitRTLTests.swift */; };
 		A13813000000000000000002 /* TransportRulerAppearanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13813000000000000000001 /* TransportRulerAppearanceTests.swift */; };
 		AF1492000000000000000012 /* libtess2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AF1492000000000000000011 /* libtess2.a */; };
+		5E4F00000000000000000002 /* libsperr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E4F00000000000000000001 /* libsperr.a */; };
+		7E4A00000000000000000002 /* libterrain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E4A00000000000000000001 /* libterrain.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1871,6 +1873,8 @@
 		A13812000000000000000001 /* TransportTransitRTLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportTransitRTLTests.swift; sourceTree = "<group>"; };
 		A13813000000000000000001 /* TransportRulerAppearanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportRulerAppearanceTests.swift; sourceTree = "<group>"; };
 		AF1492000000000000000011 /* libtess2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtess2.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E4F00000000000000000001 /* libsperr.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libsperr.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E4A00000000000000000001 /* libterrain.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libterrain.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1898,6 +1902,8 @@
 				FA853BAB26BC3B8A0026D455 /* libcoding.a in Frameworks */,
 				FA853BAD26BC3B8A0026D455 /* libdrape.a in Frameworks */,
 				AF1492000000000000000012 /* libtess2.a in Frameworks */,
+				5E4F00000000000000000002 /* libsperr.a in Frameworks */,
+				7E4A00000000000000000002 /* libterrain.a in Frameworks */,
 				FA853BAF26BC3B8A0026D455 /* libdrape_frontend.a in Frameworks */,
 				FA853BB126BC3B8A0026D455 /* libeditor.a in Frameworks */,
 				FA853BB326BC3B8A0026D455 /* libgeometry.a in Frameworks */,
@@ -1992,6 +1998,8 @@
 				FA853BAA26BC3B8A0026D455 /* libcoding.a */,
 				FA853BAC26BC3B8A0026D455 /* libdrape.a */,
 				AF1492000000000000000011 /* libtess2.a */,
+				5E4F00000000000000000001 /* libsperr.a */,
+				7E4A00000000000000000001 /* libterrain.a */,
 				FA853BAE26BC3B8A0026D455 /* libdrape_frontend.a */,
 				FA853BB026BC3B8A0026D455 /* libeditor.a */,
 				FA853BB226BC3B8A0026D455 /* libgeometry.a */,

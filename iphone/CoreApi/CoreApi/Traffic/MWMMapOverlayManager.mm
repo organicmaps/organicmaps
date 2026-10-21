@@ -124,7 +124,6 @@ static NSString * didChangeMapOverlay = @"didChangeMapOverlay";
   {
   case IsolinesManager::IsolinesState::Disabled: return MWMMapOverlayIsolinesStateDisabled;
   case IsolinesManager::IsolinesState::Enabled: return MWMMapOverlayIsolinesStateEnabled;
-  case IsolinesManager::IsolinesState::ExpiredData: return MWMMapOverlayIsolinesStateExpiredData;
   case IsolinesManager::IsolinesState::NoData: return MWMMapOverlayIsolinesStateNoData;
   }
 }
@@ -201,7 +200,7 @@ static NSString * didChangeMapOverlay = @"didChangeMapOverlay";
 + (void)setIsoLinesEnabled:(BOOL)enable
 {
   auto & f = GetFramework();
-  f.GetIsolinesManager().SetEnabled(enable);
+  f.SetIsolinesEnabled(enable);
   f.SaveIsolinesEnabled(enable);
 }
 

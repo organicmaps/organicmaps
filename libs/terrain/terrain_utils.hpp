@@ -42,6 +42,11 @@ public:
   // nullptr when the style does not label this altitude at this zoom.
   drule::PathTextRule const * GetPathTextRule(int32_t altitude) const { return GetClass(altitude).m_text; }
 
+  // The depth (negative altitude) line and label colors from the style's colors block,
+  // in the drules encoding (see drule::RulesHolder::GetColor). Set when GetStep() > 0.
+  uint32_t GetDepthLineColor() const { return m_depthLineColor; }
+  uint32_t GetDepthTextColor() const { return m_depthTextColor; }
+
 private:
   struct ClassStyle
   {
@@ -55,5 +60,7 @@ private:
   std::array<ClassStyle, 5> m_classes;  // Coarse to fine, see kClassDefs in the cpp.
   ClassStyle m_zero;                    // The zero altitude line, a style class of its own.
   int32_t m_step = 0;
+  uint32_t m_depthLineColor = 0;
+  uint32_t m_depthTextColor = 0;
 };
 }  // namespace terrain

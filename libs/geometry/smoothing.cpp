@@ -70,7 +70,7 @@ void SmoothUniform(m2::PointD const & pt0, m2::PointD const & pt1, m2::PointD co
 }  // namespace
 
 void SmoothPaths(GuidePointsForSmooth const & guidePoints, size_t newPointsPerSegmentCount, double smoothAlpha,
-                 std::vector<std::vector<m2::PointD>> & paths)
+                 PathsForSmooth & paths)
 {
   ASSERT_EQUAL(guidePoints.size(), paths.size(), ());
   ASSERT(smoothAlpha >= kUniformAplha && smoothAlpha <= kChordalAlpha, (smoothAlpha));

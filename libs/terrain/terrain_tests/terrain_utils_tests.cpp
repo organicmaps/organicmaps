@@ -30,7 +30,7 @@ UNIT_TEST(TerrainIsolinesStyle)
     GetStyleReader().SetCurrentStyle(kDefaultMapStyle);
     classificator::Load();
   });
-  for (auto const style : {MapStyleDefaultLight, MapStyleOutdoorsLight})
+  for (auto const style : {MapStyleDefaultLight, MapStyleDefaultDark, MapStyleOutdoorsLight, MapStyleOutdoorsDark})
   {
     GetStyleReader().SetCurrentStyle(style);
     classificator::Load();
