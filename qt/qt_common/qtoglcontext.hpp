@@ -8,6 +8,7 @@
 #include <QtGui/QOpenGLContext>
 
 #include <atomic>
+#include <functional>
 #include <memory>
 #include <mutex>
 
@@ -30,30 +31,24 @@ public:
   bool AcquireFrame();
   GLuint GetTextureHandle() const;
   QRectF const & GetTexRect() const;
+  // The listener runs on the render thread under the frame mutex after each new frame.
+  void SetPresentListener(std::function<void()> fn);
 
 private:
-  struct Frame
-  {
-    std::unique_ptr<QOpenGLFramebufferObject> m_buffer;
-    QRectF m_rect;
-  };
-
-  // Requires the render context; only the producer accesses the back frame and pending size/rectangle.
+  // Requires the render context; only the producer accesses the back frame and pending size.
   void PrepareBackFrame();
 
   QOffscreenSurface * m_surface = nullptr;
   std::unique_ptr<QOpenGLContext> m_ctx;
+  std::function<void()> m_onPresent;
 
-  // The sampled rectangle travels with its texture through all three slots.
-  Frame m_frontFrame;
-  Frame m_backFrame;
-  Frame m_acquiredFrame;
-  QRectF m_frameRect = QRectF(0.0, 0.0, 0.0, 0.0);
+  std::unique_ptr<QOpenGLFramebufferObject> m_frontFrame;
+  std::unique_ptr<QOpenGLFramebufferObject> m_backFrame;
+  std::unique_ptr<QOpenGLFramebufferObject> m_acquiredFrame;
   bool m_frameUpdated = false;
 
   std::atomic<bool> m_isContextAvailable;
-  int m_width = 0;
-  int m_height = 0;
+  QSize m_size;
 
   // Protects publication and swaps of the front frame between the producer and consumer.
   std::mutex m_frameMutex;
