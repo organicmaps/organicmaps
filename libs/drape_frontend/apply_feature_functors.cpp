@@ -107,6 +107,7 @@ private:
   std::mutex m_mutex;
 };
 #endif
+}  // namespace
 
 void ExtractLineParams(drule::LineRule const & lineRule, double visScale, LineViewParams & params)
 {
@@ -149,6 +150,8 @@ void CaptionDefToFontDecl(drule::CaptionDef const * capRule, double visScale, dp
     params.m_outlineColor = ToDrapeColor(capRule->stroke_color);
 }
 
+namespace
+{
 void ShieldRuleToFontDecl(drule::ShieldRule const * shieldRule, double visScale, dp::FontDecl & params)
 {
   params.m_color = ToDrapeColor(shieldRule->text_color);

@@ -2,9 +2,15 @@
 
 #include "base/logging.hpp"
 
+#include <algorithm>
+#include <cstdint>
+#include <functional>
+#include <map>
+#include <mutex>
 #include <queue>
 #include <sstream>
 #include <string>
+#include <string_view>
 #include <unordered_map>
 #include <vector>
 
@@ -34,24 +40,49 @@ public:
 
   void operator()(T const & x)
   {
+    if (m_count == 0)
+      m_min = m_max = x;
+    else
+    {
+      m_min = std::min(m_min, x);
+      m_max = std::max(m_max, x);
+    }
     ++m_count;
-    if (x > m_max)
-      m_max = x;
     m_sum += x;
+  }
+
+  void Merge(AverageStats const & other)
+  {
+    if (other.m_count == 0)
+      return;
+    if (m_count == 0)
+    {
+      *this = other;
+      return;
+    }
+    m_min = std::min(m_min, other.m_min);
+    m_max = std::max(m_max, other.m_max);
+    m_sum += other.m_sum;
+    m_count += other.m_count;
   }
 
   std::string ToString() const
   {
     std::ostringstream out;
-    out << "N = " << m_count << "; Total = " << m_sum << "; Max = " << m_max << "; Avg = " << GetAverage();
+    out << "N = " << m_count << "; Total = " << m_sum << "; Min = " << m_min << "; Max = " << m_max
+        << "; Avg = " << GetAverage();
     return out.str();
   }
 
   double GetAverage() const { return m_count == 0 ? 0.0 : m_sum / static_cast<double>(m_count); }
-  uint32_t GetCount() const { return m_count; }
+  uint64_t GetCount() const { return m_count; }
+  T GetMin() const { return m_min; }
+  T GetMax() const { return m_max; }
+  T GetTotal() const { return m_sum; }
 
 private:
-  uint32_t m_count = 0;
+  uint64_t m_count = 0;
+  T m_min = 0;
   T m_max = 0;
   T m_sum = 0;
 };
@@ -59,21 +90,45 @@ private:
 template <class T>
 class StatsCollector
 {
-  std::vector<std::pair<std::string, AverageStats<T>>> m_vec;
-
 public:
-  explicit StatsCollector(std::initializer_list<std::string> init)
-  {
-    for (auto & name : init)
-      m_vec.push_back({std::move(name), {}});
-  }
+  using Map = std::map<std::string, AverageStats<T>, std::less<>>;
+
+  StatsCollector() = default;
   ~StatsCollector()
   {
-    for (auto const & e : m_vec)
-      LOG_SHORT(LINFO, (e.first, ":", e.second.ToString()));
+    for (auto const & [name, stats] : GetStats())
+      LOG_SHORT(LINFO, (name, ":", stats.ToString()));
   }
 
-  AverageStats<T> & Get(size_t i) { return m_vec[i].second; }
+  void Add(std::string_view name, T value)
+  {
+    std::lock_guard lock(m_mutex);
+    GetStatsImpl(name)(value);
+  }
+
+  void Add(std::string_view name, AverageStats<T> const & stats)
+  {
+    std::lock_guard lock(m_mutex);
+    GetStatsImpl(name).Merge(stats);
+  }
+
+  Map GetStats() const
+  {
+    std::lock_guard lock(m_mutex);
+    return m_stats;
+  }
+
+private:
+  AverageStats<T> & GetStatsImpl(std::string_view name)
+  {
+    auto const it = m_stats.find(name);
+    if (it != m_stats.end())
+      return it->second;
+    return m_stats.try_emplace(std::string(name)).first->second;
+  }
+
+  mutable std::mutex m_mutex;
+  Map m_stats;
 };
 
 template <class Key>
