@@ -33,6 +33,20 @@ struct AreaVertex : BaseVertex
   static dp::BindingInfo const & GetBindingInfo();
 };
 
+struct TerrainShadeVertex : BaseVertex
+{
+  TerrainShadeVertex() = default;
+  TerrainShadeVertex(TPosition const & position, TNormal3d const & normal);
+
+  TPosition m_position;
+  // Surface normal in the mercator frame (+x east, +y north, +z up), with the altitudes
+  // in mercator units. Clipping interpolates these normals;
+  // TerrainShade normalizes them before applying the live light direction.
+  TNormal3d m_normal;
+
+  static dp::BindingInfo const & GetBindingInfo();
+};
+
 struct Area3dVertex : BaseVertex
 {
   Area3dVertex() = default;

@@ -93,6 +93,7 @@ target_link_libraries(${PROJECT_NAME}
     glaze::glaze
     routing
     indexer
+    terrain
     search
     storage
     descriptions

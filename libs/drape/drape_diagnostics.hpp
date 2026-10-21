@@ -1,6 +1,7 @@
 #pragma once
 
 // #define DRAW_TILE_NET
+// #define TERRAIN_DEBUG_MESH
 // #define DEBUG_OVERLAYS_OUTPUT
 
 // #define CHECK_VBO_BOUNDS

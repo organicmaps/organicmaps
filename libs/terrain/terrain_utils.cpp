@@ -65,6 +65,13 @@ IsolinesStyle::IsolinesStyle(MapStyle style, int zoom, measurement_utils::Units 
       m_step = c.m_rung;
   }
   resolve("zero", m_zero);
+
+  // The vehicle styles draw no isolines and have no depth colors.
+  if (m_step > 0)
+  {
+    m_depthLineColor = rules.GetColor("IsolineDepth");
+    m_depthTextColor = rules.GetColor("IsolineDepthText");
+  }
 }
 
 IsolinesStyle::ClassStyle const & IsolinesStyle::GetClass(int32_t altitude) const

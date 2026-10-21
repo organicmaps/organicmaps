@@ -14,6 +14,8 @@ set(SRC
   terrain_data.hpp
   terrain_normals.cpp
   terrain_normals.hpp
+  terrain_provider.cpp
+  terrain_provider.hpp
   terrain_reader.cpp
   terrain_reader.hpp
   terrain_serdes.hpp

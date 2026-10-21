@@ -114,4 +114,6 @@ colors
   RouteMarkInterBg-color: #006C35;
   RouteMarkInterOutline-color: #FFFFFF;
   RouteMarkInterText-color: #FFFFFF;
+  IsolineDepth-color: #2676C4;
+  IsolineDepthText-color: #1960A8;
 }
