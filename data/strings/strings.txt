@@ -44213,3 +44213,139 @@ en = Distance %@, elevation %@
 pl = Odległość %@, wysokość %@
 ru = Расстояние %@, высота %@
 uk = Відстань %@, висота %@
+
+[routing_accessibility_car]
+comment = VoiceOver name of the car mode in the iOS route planning transport selector.
+tags = apple-maps
+en = Car
+pl = Samochodem
+ru = На автомобиле
+uk = Автомобілем
+
+[routing_accessibility_walking]
+comment = VoiceOver name of the walking mode and walking steps in iOS route planning.
+tags = apple-maps
+en = Walking
+pl = Pieszo
+ru = Пешком
+uk = Пішки
+
+[routing_accessibility_public_transport]
+comment = VoiceOver name of the public transport mode in the iOS route planning selector.
+tags = apple-maps
+en = Public transport
+pl = Transport publiczny
+ru = Общественный транспорт
+uk = Громадський транспорт
+
+[routing_accessibility_cycling]
+comment = VoiceOver name of the bicycle mode in the iOS route planning selector.
+tags = apple-maps
+en = Cycling
+pl = Rowerem
+ru = На велосипеде
+uk = Велосипедом
+
+[routing_accessibility_measure_distance]
+comment = VoiceOver name of the straight-line distance mode in the iOS route planning selector.
+tags = apple-maps
+en = Measure distance
+pl = Zmierz odległość
+ru = Измерить расстояние
+uk = Виміряти відстань
+
+[routing_accessibility_save_as_track]
+comment = VoiceOver label for the icon button that saves a planned route as a track on iOS.
+tags = apple-maps
+en = Save route as track
+pl = Zapisz trasę jako ślad
+ru = Сохранить маршрут как трек
+uk = Зберегти маршрут як трек
+
+[routing_accessibility_options_count]
+comment = VoiceOver value of the routing options button on iOS. %d is the number of enabled routing options.
+tags = apple-maps
+en = Enabled options: %d
+pl = Włączone opcje: %d
+ru = Включено опций: %d
+uk = Увімкнено параметрів: %d
+
+[routing_accessibility_calculating]
+comment = VoiceOver label for the route estimate while iOS calculates a route.
+tags = apple-maps
+en = Calculating route
+pl = Wyznaczanie trasy
+ru = Построение маршрута
+uk = Побудова маршруту
+
+[routing_accessibility_calculating_progress]
+comment = VoiceOver value of the disabled Start button while iOS calculates a route. %@ is a locale-formatted percentage.
+tags = apple-maps
+en = Calculating route: %@
+pl = Wyznaczanie trasy: %@
+ru = Построение маршрута: %@
+uk = Побудова маршруту: %@
+
+[routing_accessibility_stop_number]
+comment = VoiceOver name of a numbered intermediate route point on iOS. %d is its one-based number.
+tags = apple-maps
+en = Stop %d
+pl = Punkt pośredni %d
+ru = Промежуточная точка %d
+uk = Проміжна точка %d
+
+[routing_accessibility_move_point_up]
+comment = VoiceOver action for moving a route point toward the start of the route on iOS.
+tags = apple-maps
+en = Move point earlier
+pl = Przesuń punkt wcześniej
+ru = Переместить точку раньше
+uk = Перемістити точку раніше
+
+[routing_accessibility_move_point_down]
+comment = VoiceOver action for moving a route point toward the destination on iOS.
+tags = apple-maps
+en = Move point later
+pl = Przesuń punkt później
+ru = Переместить точку позже
+uk = Перемістити точку пізніше
+
+[routing_accessibility_train]
+comment = VoiceOver name of a train step in an iOS public transport route preview.
+tags = apple-maps
+en = Train
+pl = Pociąg
+ru = Поезд
+uk = Поїзд
+
+[routing_accessibility_light_rail]
+comment = VoiceOver name of a light rail step in an iOS public transport route preview.
+tags = apple-maps
+en = Light rail
+pl = Kolej lekka
+ru = Легкорельсовый транспорт
+uk = Легкорейковий транспорт
+
+[routing_accessibility_monorail]
+comment = VoiceOver name of a monorail step in an iOS public transport route preview.
+tags = apple-maps
+en = Monorail
+pl = Kolej jednoszynowa
+ru = Монорельс
+uk = Монорейка
+
+[routing_accessibility_tram]
+comment = VoiceOver name of a tram step in an iOS public transport route preview.
+tags = apple-maps
+en = Tram
+pl = Tramwaj
+ru = Трамвай
+uk = Трамвай
+
+[routing_accessibility_bus]
+comment = VoiceOver name of a bus step in an iOS public transport route preview.
+tags = apple-maps
+en = Bus
+pl = Autobus
+ru = Автобус
+uk = Автобус
