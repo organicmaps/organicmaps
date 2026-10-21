@@ -53,14 +53,17 @@ struct Environment
     return context.AcquireFrame();
   }
 
-  void CheckRect(double width, double height)
+  void CheckSize(GLint width, GLint height)
   {
-    auto const & rect = context.GetTexRect();
-    TEST_EQUAL(rect.x(), 0.0, ());
-    TEST_EQUAL(rect.y(), 0.0, ());
-    // Resize computes normalized dimensions in float, including optimized reciprocal arithmetic.
-    TEST_ALMOST_EQUAL_ABS(rect.width(), width, 1e-6, ());
-    TEST_ALMOST_EQUAL_ABS(rect.height(), height, 1e-6, ());
+    auto * functions = root->extraFunctions();
+    functions->glBindTexture(GL_TEXTURE_2D, context.GetTextureHandle());
+    GLint actualWidth = 0;
+    GLint actualHeight = 0;
+    functions->glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &actualWidth);
+    functions->glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &actualHeight);
+    functions->glBindTexture(GL_TEXTURE_2D, 0);
+    TEST_EQUAL(actualWidth, width, ());
+    TEST_EQUAL(actualHeight, height, ());
   }
 
   void CheckColor(bool red)
@@ -92,7 +95,7 @@ UNIT_TEST(QtRenderContext_KeepsAcquiredFrameUntilReplacementIsPresented)
     env.Present(true);
     TEST(env.Acquire(), ());
     auto const texture = env.context.GetTextureHandle();
-    auto const rect = env.context.GetTexRect();
+    env.CheckSize(13, 29);
     env.CheckColor(true);
 
     env.Resize(31, 13);
@@ -100,30 +103,30 @@ UNIT_TEST(QtRenderContext_KeepsAcquiredFrameUntilReplacementIsPresented)
     env.context.SetFramebuffer(nullptr);
     TEST(env.Acquire(), ());
     TEST_EQUAL(env.context.GetTextureHandle(), texture, ());
-    TEST(env.context.GetTexRect() == rect, ());
+    env.CheckSize(13, 29);
     env.CheckColor(true);
 
     env.Present(false);
     TEST(env.Acquire(), ());
-    env.CheckRect(31.0 / 32, 13.0 / 16);
+    env.CheckSize(31, 13);
     env.CheckColor(false);
   });
 }
 
-UNIT_TEST(QtRenderContext_PendingFrameKeepsItsRectangleAcrossResize)
+UNIT_TEST(QtRenderContext_PendingFrameKeepsItsSizeAcrossResize)
 {
-  RunTestInOpenGLOffscreenEnvironment("Pending frame rectangle", []
+  RunTestInOpenGLOffscreenEnvironment("Pending frame size", []
   {
     Environment env;
     env.Resize(13, 29);
     env.Present(true);
     env.Resize(31, 13);
     TEST(env.Acquire(), ());
-    env.CheckRect(13.0 / 16, 29.0 / 32);
+    env.CheckSize(13, 29);
     env.CheckColor(true);
     env.Present(false);
     TEST(env.Acquire(), ());
-    env.CheckRect(31.0 / 32, 13.0 / 16);
+    env.CheckSize(31, 13);
     env.CheckColor(false);
   });
 }
@@ -140,12 +143,12 @@ UNIT_TEST(QtRenderContext_RecyclesResizedFramesAndKeepsLatestPresentation)
       env.Resize(70, 15);
       env.Present(false);
       TEST(env.Acquire(), ());
-      env.CheckRect(70.0 / 128, 15.0 / 16);
+      env.CheckSize(70, 15);
       env.CheckColor(false);
       env.Resize(5, 7);
       env.Present(true);
       TEST(env.Acquire(), ());
-      env.CheckRect(5.0 / 128, 7.0 / 16);
+      env.CheckSize(5, 7);
       env.CheckColor(true);
     }
   });
