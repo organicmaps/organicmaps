@@ -557,10 +557,11 @@ void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
 
 void Framework::OnTerrainChanged(m2::RectD const & rect)
 {
-  // The isolines layer draws the terrain, the low zooms highlight its downloaded blocks.
-  if ((m_isolinesManager.IsEnabled() || m_showDownloadedRegions) && rect.IsValid())
+  // The isolines layer draws the terrain, the ?terrain-blocks debug highlight its downloaded blocks.
+  if ((m_isolinesManager.IsEnabled() || m_showTerrainBlocks) && rect.IsValid())
     InvalidateRect(df::GetTerrainInvalidationRect(rect));
   InvalidateIsolines();
+  // Skip the opened place page elevation update intentionally, it is not important for UX.
 }
 
 void Framework::InvalidateIsolines()
@@ -1297,6 +1298,16 @@ m2::RectD Framework::GetCurrentViewport() const
   return m_currentModelView.ClipRect();
 }
 
+void Framework::SetTerrainLight(double azimuthDeg, double altitudeDeg, double shadowGamma)
+{
+  // The shading divides by both sin(altitude) and 1 - sin(altitude) (see terrain_shade.vsh.glsl).
+  ASSERT(altitudeDeg > 0 && altitudeDeg < 90, (altitudeDeg));
+  ASSERT_GREATER(shadowGamma, 0, ());
+  m_terrainLight = {azimuthDeg, altitudeDeg, shadowGamma};
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->SetTerrainLight(azimuthDeg, altitudeDeg, shadowGamma);
+}
+
 void Framework::SetVisibleViewport(m2::RectD const & rect)
 {
   if (m_drapeEngine == nullptr)
@@ -1846,6 +1857,35 @@ m2::PointD Framework::P3dtoG(m2::PointD const & p) const
   return pt;
 }
 
+namespace
+{
+// The synthetic null-mwm FeatureID index space of the downloaded regions highlight: the
+// CountryInfoGetter region ids are small, the high bit marks a terrain block encoded by its
+// integer degrees rect: 9 bits of the left, 8 of the bottom, 7 of the width and of the height.
+uint32_t constexpr kTwmBorderIndexBase = 1u << 31;
+
+uint32_t EncodeTwmBorderIndex(m2::RectD const & blockRect)
+{
+  auto const bottom = std::lround(mercator::YToLat(blockRect.minY()));
+  auto const left = std::lround(blockRect.minX());
+  auto const width = std::lround(blockRect.SizeX());
+  auto const height = std::lround(mercator::YToLat(blockRect.maxY())) - bottom;
+  ASSERT(width > 0 && width <= 128 && height > 0 && height <= 128, (blockRect));
+  return kTwmBorderIndexBase | (static_cast<uint32_t>(left + 180) << 22) | (static_cast<uint32_t>(bottom + 90) << 14) |
+         (static_cast<uint32_t>(width - 1) << 7) | static_cast<uint32_t>(height - 1);
+}
+
+std::vector<m2::PointD> GetTwmBorderTriangles(uint32_t index)
+{
+  auto const bits = [index](uint32_t offset, uint32_t mask) { return static_cast<int>((index >> offset) & mask); };
+  terrain::GridBlock const block{bits(22, 0x1FF) - 180, bits(14, 0xFF) - 90, bits(7, 0x7F) + 1, bits(0, 0x7F) + 1};
+  auto const rect = block.GetRectMercator();
+  // The two CW triangles of the block rect (cf. ApplyAreaFeature winding).
+  m2::PointD const a = rect.LeftBottom(), b = rect.RightBottom(), c = rect.RightTop(), d = rect.LeftTop();
+  return {a, d, c, a, c, b};
+}
+}  // namespace
+
 void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFactory, DrapeCreationParams && params)
 {
   auto idReadFn = [this](auto const & fn, m2::RectD const & r, int scale)
@@ -1858,19 +1898,38 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
       ASSERT(base::IsSortedAndUnique(names), ());
       m_infoGetter->ForEachRegionId(names, [&fn](size_t id) { fn(FeatureID({}, id)); });
     }
+
+    // The ?terrain-blocks debug highlight rides the same synthetic channel.
+    if (m_showTerrainBlocks && scale <= 7)
+    {
+      std::vector<m2::RectD> rects;
+      m_terrainProvider.GetDownloadedRects(r, rects);
+      for (auto const & rect : rects)
+        fn(FeatureID({}, EncodeTwmBorderIndex(rect)));
+    }
   };
 
   uint32_t const borderType = classif().GetTypeByPath({"organicapp", "mwm_border"});
-  auto featureReadFn = [this, borderType](auto const & fn, std::vector<FeatureID> const & ids)
+  uint32_t const twmBorderType = classif().GetTypeByPath({"organicapp", "twm_border"});
+  auto featureReadFn = [this, borderType, twmBorderType](auto const & fn, std::vector<FeatureID> const & ids)
   {
     m_featuresFetcher.ReadFeatures(fn, ids);
 
     for (auto const & id : ids)
       if (id.m_mwmId.IsNull())
       {
-        FeatureType ft(id, borderType);
-        m_infoGetter->GetTriangles(id.m_index, ft);
-        fn(ft);
+        if (id.m_index >= kTwmBorderIndexBase)
+        {
+          FeatureType ft(id, twmBorderType);
+          ft.SetTriangles(GetTwmBorderTriangles(id.m_index));
+          fn(ft);
+        }
+        else
+        {
+          FeatureType ft(id, borderType);
+          m_infoGetter->GetTriangles(id.m_index, ft);
+          fn(ft);
+        }
       }
       else
         break;
@@ -1994,6 +2053,9 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
   m_transitManager.SetDrapeEngine(make_ref(m_drapeEngine));
   m_isolinesManager.SetDrapeEngine(make_ref(m_drapeEngine));
   m_searchMarks.SetDrapeEngine(make_ref(m_drapeEngine));
+  if (m_terrainLight)
+    m_drapeEngine->SetTerrainLight(m_terrainLight->m_azimuthDeg, m_terrainLight->m_altitudeDeg,
+                                   m_terrainLight->m_shadowGamma);
 
   InvalidateUserMarks();
 
@@ -2599,7 +2661,23 @@ bool Framework::BuildTrackPlacePage(Track::TrackSelectionInfo const & trackSelec
   return true;
 }
 
+namespace
+{
+bool NeedsTerrainElevation(place_page::Info const & info)
+{
+  return !info.IsMyPosition() && !info.IsTrack() && info.GetSelectedObject() != df::SelectionShape::OBJECT_EMPTY;
+}
+}  // namespace
+
 place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & buildInfo)
+{
+  auto info = BuildPlacePageInfoImpl(buildInfo);
+  if (NeedsTerrainElevation(info))
+    info.SetTerrainElevation(m_terrainProvider.GetElevation(info.GetMercator()));
+  return info;
+}
+
+place_page::Info Framework::BuildPlacePageInfoImpl(place_page::BuildInfo const & buildInfo)
 {
   place_page::Info outInfo;
   outInfo.SetBuildInfo(buildInfo);
@@ -3393,6 +3471,13 @@ bool Framework::ParseDrapeDebugCommand(std::string const & query)
   if (query == "?no-show-downloaded")
   {
     SetShowDownloadedRegions(false);
+    return true;
+  }
+  // The downloaded terrain blocks on the world zooms, off by default and not saved.
+  if (query == "?terrain-blocks" || query == "?no-terrain-blocks")
+  {
+    m_showTerrainBlocks = query == "?terrain-blocks";
+    Invalidate();
     return true;
   }
 

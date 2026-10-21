@@ -194,10 +194,16 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
     }
 
     @Override
-    public void onProgress(String countryId, long localSize, long remoteSize)
+    public void onProgress(String countryId, MapManager.Progress progress)
     {
+      if (progress.getTotalBytes() == 0)
+        return;
+
       if (mCurrentCountry != null && mCurrentCountry.id.equals(countryId))
-        updateDownloader();
+      {
+        mCurrentCountry.updateProgress(progress);
+        updateDownloader(mCurrentCountry);
+      }
     }
   };
   private PlacePageViewListener mPlacePageViewListener;
@@ -502,7 +508,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
 
   private void setTextAndColorizeSubtitle()
   {
-    String text = mMapObject.getSubtitle();
+    String text = mMapObject.getPreviewSubtitle();
     UiUtils.setTextAndHideIfEmpty(mTvSubtitle, text);
     if (!TextUtils.isEmpty(text))
     {
@@ -1054,7 +1060,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
 
     mDownloaderIcon.update(country);
 
-    StringBuilder sb = new StringBuilder(StringUtils.getFileSizeString(requireContext(), country.totalSize));
+    StringBuilder sb =
+        new StringBuilder(StringUtils.getFileSizeString(requireContext(), country.getDisplaySize(false)));
     if (country.isExpandable())
       sb.append(StringUtils.formatUsingUsLocale(
           "  •  %s: %d", requireContext().getString(R.string.downloader_status_maps), country.totalChildCount));
@@ -1083,7 +1090,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
 
     mDownloaderIcon
         .setOnIconClickListener((v) -> MapManagerHelper.warn3gAndDownload(requireActivity(), mCurrentCountry.id, null))
-        .setOnCancelClickListener((v) -> MapManager.nativeCancel(mCurrentCountry.id));
+        .setOnCancelClickListener((v) -> MapManager.cancel(mCurrentCountry.id));
     mDownloaderIcon.show(true);
     UiUtils.show(mDownloaderInfo);
     updateDownloader(mCurrentCountry);

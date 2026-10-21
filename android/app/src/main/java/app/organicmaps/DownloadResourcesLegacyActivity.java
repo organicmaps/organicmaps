@@ -145,17 +145,18 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     {
       for (MapManager.StorageCallbackData item : data)
       {
-        if (!item.isLeafNode)
+        if (!item.countryId.equals(mCurrentCountry))
           continue;
 
-        switch (item.newStatus)
+        // The map is usable while its terrain is still downloading or has failed.
+        if (MapManager.nativeHasLatestVersion(mCurrentCountry))
         {
-        case CountryItem.STATUS_DONE:
           mAreResourcesDownloaded = true;
           showMap();
           return;
-
-        case CountryItem.STATUS_FAILED:
+        }
+        if (item.newStatus == CountryItem.STATUS_FAILED)
+        {
           MapManagerHelper.showError(DownloadResourcesLegacyActivity.this, item, null);
           return;
         }
@@ -163,9 +164,13 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     }
 
     @Override
-    public void onProgress(String countryId, long localSize, long remoteSize)
+    public void onProgress(String countryId, MapManager.Progress progress)
     {
-      mProgress.setProgressCompat((int) localSize, true);
+      // The map bytes only: the screen leaves when the map is ready, the terrain follows it.
+      if (!countryId.equals(mCurrentCountry) || progress.mwmTotal == 0)
+        return;
+
+      mProgress.setProgressCompat((int) (progress.mwmDownloaded * 1000 / progress.mwmTotal), true);
     }
   };
 
@@ -381,7 +386,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
         CountryItem item = CountryItem.fill(mCurrentCountry);
         UiUtils.hide(mChbDownloadCountry);
         mTvMessage.setText(getString(R.string.downloading_country_can_proceed, item.name));
-        mProgress.setMax((int) item.totalSize);
+        mProgress.setMax(1000);
         mProgress.setProgressCompat(0, true);
 
         mCountryDownloadListenerSlot = MapManager.nativeSubscribe(mCountryDownloadListener);

@@ -3,6 +3,7 @@
 #include "drape/pointers.hpp"
 #include "drape_frontend/gui/skin.hpp"
 #include "drape_frontend/user_event_stream.hpp"
+#include "shaders/program_params.hpp"
 
 #include "qt/qt_common/qtoglcontextfactory.hpp"
 
@@ -45,6 +46,12 @@ public slots:
   void ScaleMinus();
   void ScalePlusLight();
   void ScaleMinusLight();
+  void LightRotateCW();
+  void LightRotateCCW();
+  void LightHigher();
+  void LightLower();
+  void ShadowSofter();
+  void ShadowHarder();
   void MoveRight();
   void MoveRightSmooth();
   void MoveLeft();
@@ -65,6 +72,12 @@ public:
   Q_SIGNAL void BeforeEngineCreation();
 
 protected:
+  // The terrain hillshade light state (ALT + SHIFT + arrows / , / .), see ApplyTerrainLight.
+  void ApplyTerrainLight();
+  double m_lightAzimuthDeg = gpu::kDefaultTerrainLightAzimuthDeg;
+  double m_lightAltitudeDeg = gpu::kDefaultTerrainLightAltitudeDeg;
+  double m_shadowGamma = gpu::kDefaultTerrainShadowGamma;
+
   enum class SliderState
   {
     Pressed,

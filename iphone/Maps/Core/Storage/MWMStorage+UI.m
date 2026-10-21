@@ -109,10 +109,10 @@
   }
 }
 
-- (void)downloadNodes:(NSArray<NSString *> *)countryIds onSuccess:(nullable MWMVoidBlock)success
+- (void)downloadMaps:(NSArray<NSString *> *)countryIds onSuccess:(nullable MWMVoidBlock)success
 {
   NSError * error;
-  [self downloadNodes:countryIds error:&error];
+  [self downloadMaps:countryIds error:&error];
   if (error)
   {
     if (error.code == kStorageCellularForbidden)
@@ -121,7 +121,7 @@
       [[MWMAlertViewController activeAlertController]
           presentNoWiFiAlertWithOkBlock:^{
             [self enableCellularDownload:YES];
-            [ws downloadNodes:countryIds onSuccess:success];
+            [ws downloadMaps:countryIds onSuccess:success];
           }
                          andCancelBlock:nil];
     }
