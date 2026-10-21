@@ -36,6 +36,7 @@ inline std::string DebugPrint(TLocationError error)
   UNREACHABLE();
 }
 
+// Values are stored in GPS track backups; append new sources without renumbering.
 enum TLocationSource
 {
   EUndefined,
@@ -46,7 +47,8 @@ enum TLocationSource
   ETizen,  // Deprecated but left here for backward compatibility.
   EGeoClue2,
   EPredictor,
-  EUser
+  EUser,
+  EGeoClue
 };
 
 /// Our structure ALWAYS has valid lat, lon and horizontal accuracy.

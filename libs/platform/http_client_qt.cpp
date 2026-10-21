@@ -2,16 +2,23 @@
 
 #include "base/logging.hpp"
 
+#include <QBuffer>
 #include <QMetaObject>
 
 #include <QNetworkRequest>
 #include <QPointer>
 #include <QThread>
+#include <QTimer>
 #include <QUrl>
 #include <QtGlobal>  // QT_VERSION, QT_VERSION_CHECK
 
 namespace
 {
+// TODO(klahr): Remove when Qt 5 is dropped.
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
+auto constexpr kTransferTimeoutAttribute = QNetworkRequest::User;
+#endif
+
 // Dedicated network thread + worker. The NetworkWorker and its QNetworkAccessManager
 // live on the thread, so all QNetworkReply signals fire on its event loop.
 struct NetworkThread
@@ -41,6 +48,21 @@ NetworkThread & GetNetworkThread()
 {
   static NetworkThread nt;
   return nt;
+}
+
+// Runs the task on the network thread. Callable from any thread.
+template <typename Task>
+void RunOnNetworkThread(Task && task)
+{
+  // TODO(klahr): Keep only invokeMethod() when Qt 5 is dropped.
+#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
+  QMetaObject::invokeMethod(GetNetworkThread().worker, std::forward<Task>(task), Qt::QueuedConnection);
+#else
+  // No functor invokeMethod() before Qt 5.10: the queued destroyed() of a temporary sender runs the task.
+  QObject sender;
+  QObject::connect(&sender, &QObject::destroyed, GetNetworkThread().worker, std::forward<Task>(task),
+                   Qt::QueuedConnection);
+#endif
 }
 
 // Extract Set-Cookie values from a QNetworkReply using raw headers.
@@ -74,7 +96,13 @@ QNetworkReply * IssueRequest(QNetworkAccessManager & manager, std::string const 
     return manager.put(request, body);
   if (method == "HEAD")
     return manager.head(request);
-  return manager.sendCustomRequest(request, QByteArray::fromStdString(method), body);
+  // TODO(klahr): Pass the body as QByteArray when Qt 5 is dropped.
+  auto * buffer = new QBuffer;
+  buffer->setData(body);
+  buffer->open(QIODevice::ReadOnly);
+  QNetworkReply * reply = manager.sendCustomRequest(request, QByteArray::fromStdString(method), buffer);
+  buffer->setParent(reply);
+  return reply;
 }
 }  // namespace
 
@@ -138,6 +166,21 @@ void HttpClientReply::AttachReply(QNetworkReply * reply)
   connect(reply, &QNetworkReply::downloadProgress, this, &HttpClientReply::OnDownloadProgress);
   connect(reply, &QNetworkReply::finished, this, &HttpClientReply::OnFinished);
 
+  // TODO(klahr): Remove when Qt 5 is dropped.
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
+  // Emulates QNetworkRequest::setTransferTimeout(): aborts when no data moves for the timeout.
+  if (int const timeoutMs = m_request.attribute(kTransferTimeoutAttribute).toInt(); timeoutMs > 0)
+  {
+    auto * timer = new QTimer(reply);
+    timer->setSingleShot(true);
+    connect(timer, &QTimer::timeout, reply, &QNetworkReply::abort);
+    connect(reply, &QNetworkReply::downloadProgress, timer, [timer] { timer->start(); });
+    connect(reply, &QNetworkReply::uploadProgress, timer, [timer] { timer->start(); });
+    connect(reply, &QNetworkReply::finished, timer, &QTimer::stop);
+    timer->start(timeoutMs);
+  }
+#endif
+
   // Re-point the platform cancel hook at the new reply. Cancel() called between
   // the old hook firing (no-op against a destroyed reply) and the rebind would
   // have set m_cancelled, so check the cancel-checker afterwards and abort now.
@@ -194,7 +237,10 @@ bool HttpClientReply::TryRetryOnGoAway()
   // Force HTTP/1.1 for the retry so we cannot multiplex onto another HTTP/2
   // connection from the same poisoned pool. The GOAWAY'd HTTP/2 connection is
   // already closed by the server; Qt will open a fresh TCP/TLS leg naturally.
+  // TODO(klahr): Remove the version check when Qt 5 is dropped.
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
   m_request.setAttribute(QNetworkRequest::Http2AllowedAttribute, false);
+#endif
 
   auto & manager = GetNetworkThread().worker->m_manager;
   AttachReply(IssueRequest(manager, m_httpMethod, m_request, m_bodyBytes));
@@ -225,7 +271,12 @@ bool HttpClientReply::ValidateSegmentIfNeeded()
 
   // Open the existing target file without truncating and seek to the segment offset.
   m_outputFileStream = new QFile(QString::fromStdString(m_segment->m_path), this);
+  // TODO(klahr): Keep only ExistingOnly when Qt 5 is dropped.
+#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
   if (!m_outputFileStream->open(QIODevice::ReadWrite | QIODevice::ExistingOnly))
+#else
+  if (!m_outputFileStream->exists() || !m_outputFileStream->open(QIODevice::ReadWrite))
+#endif
   {
     LOG(LWARNING, ("Can't open segment file for writing:", m_segment->m_path));
     delete m_outputFileStream;
@@ -479,9 +530,15 @@ HttpClient::RequestHandle HttpClient::RunHttpRequestAsync(CompletionHandler hand
 
   QNetworkRequest request(QUrl(QString::fromStdString(m_urlRequested)));
 
+  // TODO(klahr): Keep only setTransferTimeout() when Qt 5 is dropped.
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
   request.setTransferTimeout(static_cast<int>(m_timeoutSec * 1000));
+#else
+  request.setAttribute(kTransferTimeoutAttribute, static_cast<int>(m_timeoutSec * 1000));
+#endif
 
-#if QT_VERSION < QT_VERSION_CHECK(6, 5, 1)
+  // TODO(klahr): Remove the 5.15 check when Qt 5 is dropped.
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0) && QT_VERSION < QT_VERSION_CHECK(6, 5, 1)
   // QTBUG-111417: on Qt <= 6.4 an HTTP/2 QNetworkReply can stall without ever emitting
   // finished() until the peer closes the connection, hanging the blocking RunHttpRequest()
   // far past setTransferTimeout. OSM login/OAuth (www) and the editing API negotiate HTTP/2,
@@ -504,10 +561,16 @@ HttpClient::RequestHandle HttpClient::RunHttpRequestAsync(CompletionHandler hand
   if (!m_cookies.empty())
     request.setRawHeader("Cookie", QByteArray::fromStdString(m_cookies));
 
+  // TODO(klahr): Keep only the redirect policy when Qt 5 is dropped.
+#if QT_VERSION >= QT_VERSION_CHECK(5, 9, 0)
   if (m_followRedirects)
     request.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::NoLessSafeRedirectPolicy);
   else
     request.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::ManualRedirectPolicy);
+#else
+  // FollowRedirectsAttribute refuses HTTPS -> HTTP downgrades, like NoLessSafeRedirectPolicy.
+  request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, m_followRedirects);
+#endif
 
   // QNetworkAccessManager handles Accept-Encoding and transparent decompression automatically.
 
@@ -545,30 +608,27 @@ HttpClient::RequestHandle HttpClient::RunHttpRequestAsync(CompletionHandler hand
   auto impl = handle.m_impl;
   auto cancelChecker = handle.MakeCancelChecker();
 
-  // Queue the pointer check as well as abort() on the network thread: QPointer
-  // does not keep the reply alive while invokeMethod() inspects its target.
-  // The reply's deleteLater() also runs there, so destruction cannot race the check and abort.
+  // Serialize the pointer check and abort with reply destruction on the network thread.
+  // QPointer alone does not keep the reply alive.
   auto const rebindCancel = [impl](QNetworkReply * reply)
   {
     QPointer<QNetworkReply> guardedReply(reply);
     std::lock_guard lock(impl->m_mu);
     impl->m_platformCancel = [guardedReply]
     {
-      QMetaObject::invokeMethod(GetNetworkThread().worker, [guardedReply]
+      RunOnNetworkThread([guardedReply]
       {
         if (guardedReply)
           guardedReply->abort();
-      }, Qt::QueuedConnection);
+      });
     };
   };
 
   // Post to the network worker thread. The lambda runs on that thread
   // where QNetworkAccessManager lives, so QNetworkReply is created with
   // correct affinity and signals fire on the worker's event loop.
-  auto & nt = GetNetworkThread();
-  QMetaObject::invokeMethod(nt.worker,
-                            [=, handler = std::move(handler), cancelChecker = std::move(cancelChecker),
-                             rebindCancel = std::move(rebindCancel)]() mutable
+  RunOnNetworkThread([=, handler = std::move(handler), cancelChecker = std::move(cancelChecker),
+                      rebindCancel = std::move(rebindCancel)]() mutable
   {
     // Check cancellation BEFORE creating the request — fixes the race where
     // Cancel() is called between RunHttpRequestAsync() returning and this
@@ -588,8 +648,7 @@ HttpClient::RequestHandle HttpClient::RunHttpRequestAsync(CompletionHandler hand
     new HttpClientReply(reply, std::move(handler), progressHandler, dataHandler, std::move(cancelChecker), loadHeaders,
                         followRedirects, urlRequested, cookies, outputFile, segment, request, httpMethod, bodyBytes,
                         std::move(rebindCancel));
-  },
-                            Qt::QueuedConnection);
+  });
 
   return handle;
 }
