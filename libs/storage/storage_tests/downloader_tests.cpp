@@ -31,6 +31,20 @@ public:
   void Download(storage::QueuedCountry &&) override {}
 };
 
+class ConfiguredDownloaderStub : public DownloaderStub
+{
+public:
+  downloader::MetaConfig GetMetaConfig() override { return m_config; }
+
+  void LoadConfig()
+  {
+    EnsureMetaConfigReady([] { testing::StopEventLoop(); });
+    testing::RunEventLoop();
+  }
+
+  downloader::MetaConfig m_config;
+};
+
 UNIT_TEST(NormalizeDebugMapDownloadServer)
 {
   std::string normalized;
@@ -57,9 +71,108 @@ UNIT_TEST(MapFilesDownloader_DebugServerList)
   auto urls = downloader.MakeUrlList("maps/1/Germany.mwm");
   TEST_EQUAL(urls.size(), 1, ());
   TEST_EQUAL(urls[0], "https://example.com/base/maps/1/Germany.mwm", ());
+  urls = downloader.MakeUrlList("terrain/2/N40E040.twm");
+  TEST_EQUAL(urls, (storage::MapFilesDownloader::ServersList{"https://example.com/base/terrain/2/N40E040.twm"}), ());
 
   downloader.ResetServersList();
   TEST(downloader.MakeUrlList("maps/1/Germany.mwm").empty(), ());
+  TEST(downloader.MakeUrlList("terrain/2/N40E040.twm").empty(), ());
+}
+
+UNIT_TEST(MapFilesDownloader_TerrainServers)
+{
+  WritableDirChanger const dir("terrain-servers", WritableDirChanger::SettingsDirPolicy::UseWritableDir);
+  Platform::ThreadRunner runner;
+  ConfiguredDownloaderStub downloader;
+  // A grid release can reference blocks from an older terrain version.
+  downloader.SetTerrainDataVersion(3);
+  downloader.m_config.servers = {"https://maps.example/"};
+  downloader.m_config.terrainServers = {"https://terrain1.example/", "https://terrain2.example/"};
+  downloader.LoadConfig();
+
+  TEST_EQUAL(downloader.MakeUrlList("maps/1/Germany.mwm"),
+             (storage::MapFilesDownloader::ServersList{"https://maps.example/maps/1/Germany.mwm"}), ());
+  TEST_EQUAL(downloader.MakeUrlList("diffs/1/0/Germany.mwmdiff"),
+             (storage::MapFilesDownloader::ServersList{"https://maps.example/diffs/1/0/Germany.mwmdiff"}), ());
+  TEST_EQUAL(downloader.MakeUrlList("terrain/2/N40E040.twm"),
+             (storage::MapFilesDownloader::ServersList{"https://terrain1.example/terrain/2/N40E040.twm",
+                                                       "https://terrain2.example/terrain/2/N40E040.twm"}),
+             ());
+
+  downloader.SetServersList({"https://debug.example/"});
+  TEST_EQUAL(downloader.MakeUrlList("terrain/2/N40E040.twm"),
+             (storage::MapFilesDownloader::ServersList{"https://debug.example/terrain/2/N40E040.twm"}), ());
+  downloader.ResetServersList();
+  downloader.LoadConfig();
+  TEST_EQUAL(downloader.MakeUrlList("terrain/2/N40E040.twm").size(), 2, ());
+  TEST_EQUAL(downloader.MakeUrlList("maps/1/Germany.mwm"),
+             (storage::MapFilesDownloader::ServersList{"https://maps.example/maps/1/Germany.mwm"}), ());
+}
+
+UNIT_TEST(MapFilesDownloader_LegacyTerrainServers)
+{
+  WritableDirChanger const dir("legacy-terrain-servers", WritableDirChanger::SettingsDirPolicy::UseWritableDir);
+  Platform::ThreadRunner runner;
+  ConfiguredDownloaderStub downloader;
+  // An older meta server without terrain mirrors: the DEFAULT_URLS_JSON ones serve the terrain.
+  downloader.m_config = *downloader::ParseMetaConfig(R"({"servers":["https://maps.example/"]})");
+  downloader.LoadConfig();
+  TEST_EQUAL(downloader.MakeUrlList("terrain/2/N40E040.twm"),
+             (storage::MapFilesDownloader::ServersList{"https://cdn-nl1.organicmaps.app/terrain/2/N40E040.twm",
+                                                       "https://cdn-uk1.organicmaps.app/terrain/2/N40E040.twm",
+                                                       "https://cdn.organicmaps.app/terrain/2/N40E040.twm"}),
+             ());
+}
+
+// Records the start order of the requests queued before the servers were known.
+class StartOrderDownloader : public ConfiguredDownloaderStub
+{
+public:
+  void Download(storage::QueuedCountry && country) override { m_started.push_back(country.GetCountryId()); }
+
+  void Request(storage::CountryId const & id, MapFileType type)
+  {
+    DownloadMapFile(storage::QueuedCountry(platform::CountryFile(id), id, type, version::FOR_TESTING_MWM1, {},
+                                           std::make_shared<storage::diffs::DiffsDataSource>()));
+  }
+
+  storage::CountriesVec m_started;
+};
+
+UNIT_TEST(MapFilesDownloader_PendingMapGoesBeforeTerrain)
+{
+  WritableDirChanger const dir("pending-map-order", WritableDirChanger::SettingsDirPolicy::UseWritableDir);
+  Platform::ThreadRunner runner;
+  StartOrderDownloader downloader;
+  downloader.m_config.servers = {"https://maps.example/"};
+  // Nothing is in progress while the servers are unknown, so the map overtakes the first block too.
+  downloader.Request("N45E008", MapFileType::Terrain);
+  downloader.Request("N45E014", MapFileType::Terrain);
+  downloader.Request("Germany", MapFileType::Map);
+  downloader.LoadConfig();
+  TEST_EQUAL(downloader.m_started, (storage::CountriesVec{"Germany", "N45E008", "N45E014"}), ());
+}
+
+UNIT_TEST(MapFilesDownloader_SortServersByPing)
+{
+  downloader::MetaConfig config;
+  config.servers = {"https://origin.example/", "https://mirror.example/"};
+  config.terrainServers = {"https://origin.example/", "https://mirror.example/"};
+  // Only the mirror answers: the origin stays as the terrain fallback for the blocks the mirror lacks.
+  storage::SortServersByPing(config, {"https://mirror.example/"});
+  using List = downloader::MetaConfig::ServersList;
+  TEST_EQUAL(config.servers, (List{"https://mirror.example/"}), ());
+  TEST_EQUAL(config.terrainServers, (List{"https://mirror.example/", "https://origin.example/"}), ());
+
+  config.servers = config.terrainServers = {"https://a.example/", "https://b.example/", "https://c.example/"};
+  storage::SortServersByPing(config, {"https://c.example/", "https://a.example/"});
+  TEST_EQUAL(config.servers, (List{"https://c.example/", "https://a.example/"}), ());
+  TEST_EQUAL(config.terrainServers, (List{"https://c.example/", "https://a.example/", "https://b.example/"}), ());
+
+  // Nothing answers: both pools keep their original order.
+  storage::SortServersByPing(config, {});
+  TEST_EQUAL(config.servers, (List{"https://c.example/", "https://a.example/"}), ());
+  TEST_EQUAL(config.terrainServers, (List{"https://c.example/", "https://a.example/", "https://b.example/"}), ());
 }
 
 UNIT_TEST(GetMetaConfig)

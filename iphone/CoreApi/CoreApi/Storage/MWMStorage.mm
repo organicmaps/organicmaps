@@ -49,8 +49,10 @@ using namespace storage;
       NSHashTable * observersCopy = [observers copy];
       for (id<MWMStorageObserver> observer in observersCopy)
         [observer processCountryEvent:@(countryId.c_str())];
-    }, [observers](CountryId const & countryId, downloader::Progress const & progress)
+    }, [observers](CountryId const & countryId, storage::Progress const & snapshot)
     {
+      // The map and terrain bytes of the batch.
+      auto const progress = snapshot.GetCombined();
       for (id<MWMStorageObserver> observer in observers)
       {
         // processCountry function in observer's implementation may not exist.

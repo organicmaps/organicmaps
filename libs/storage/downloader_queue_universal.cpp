@@ -59,10 +59,17 @@ void Queue::PopFront()
   m_queue.pop_front();
 }
 
-void Queue::Append(QueuedCountry && country)
+void Queue::Append(QueuedCountry && country, bool preserveFront)
 {
-  m_queue.emplace_back(std::move(country));
-  m_queue.back().OnCountryInQueue();
+  auto pos = m_queue.end();
+  // A map (e.g. for a route) shouldn't wait behind the large terrain blocks, except the one in progress.
+  if (country.GetFileType() != MapFileType::Terrain && !m_queue.empty())
+  {
+    auto const first = preserveFront ? std::next(m_queue.begin()) : m_queue.begin();
+    pos = std::find_if(first, m_queue.end(),
+                       [](QueuedCountry const & queued) { return queued.GetFileType() == MapFileType::Terrain; });
+  }
+  m_queue.insert(pos, std::move(country))->OnCountryInQueue();
 }
 
 void Queue::Clear()

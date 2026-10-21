@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "storage/storage_tests/helpers.hpp"
 #include "storage/storage_tests/test_map_files_downloader.hpp"
 
 #include "storage/queued_country.hpp"
@@ -23,7 +24,6 @@
 
 #include <cstddef>
 #include <cstdint>
-#include <future>
 #include <memory>
 #include <string>
 #include <utility>
@@ -102,7 +102,7 @@ std::string DownloadPath(Storage const & storage, CountryId const & countryId)
 // including completion of the asynchronous file validation.
 void InitStorage(Storage & storage, Storage::UpdateCallback didDownload,
                  Storage::ChangeCountryFunction changeCountry = [](CountryId const &) {},
-                 Storage::ProgressFunction progress = [](CountryId const &, downloader::Progress const &) {})
+                 Storage::ProgressFunction progress = [](CountryId const &, storage::Progress const &) {})
 {
   storage.Init(std::move(didDownload), [](CountryId const &, LocalFilePtr const) { return false; });
   storage.RegisterAllLocalMaps();
@@ -115,56 +115,6 @@ void TestDownloadedMap(Storage const & storage, CountryId const & countryId)
   TEST(localFile, (countryId));
   TEST_EQUAL(coding::Blake3::CalculateMwmBase64(localFile->GetPath(MapFileType::Map)), SyntheticHash(countryId),
              (countryId));
-}
-
-class FileThreadBlocker
-{
-public:
-  FileThreadBlocker()
-  {
-    auto const release = m_release.get_future().share();
-    TEST(GetPlatform().RunTask(Platform::Thread::File, [release]() { release.wait(); }).m_isSuccess, ());
-  }
-
-  ~FileThreadBlocker() { Release(); }
-
-  void Release()
-  {
-    if (!m_released)
-    {
-      m_release.set_value();
-      m_released = true;
-    }
-  }
-
-private:
-  std::promise<void> m_release;
-  bool m_released = false;
-};
-
-void WaitForFileThread()
-{
-  std::promise<void> fileIdle;
-  auto const idle = fileIdle.get_future();
-  TEST(GetPlatform().RunTask(Platform::Thread::File, [&fileIdle]() { fileIdle.set_value(); }).m_isSuccess, ());
-  idle.wait();
-}
-
-void DrainFileAndGui()
-{
-  // File tasks and GUI posts are FIFO. Posting the marker from File keeps it deferred on Qt.
-  bool guiDrained = false;
-  auto const posted = GetPlatform().RunTask(Platform::Thread::File, [&guiDrained]()
-  {
-    GetPlatform().RunTask(Platform::Thread::Gui, [&guiDrained]()
-    {
-      guiDrained = true;
-      testing::StopEventLoop();
-    });
-  });
-  TEST(posted.m_isSuccess, ());
-  testing::RunEventLoop();
-  TEST(guiDrained, ());
 }
 
 void SeedReadyFile(Storage const & storage, CountryId const & countryId = kWest, bool corrupt = false)
@@ -213,7 +163,7 @@ UNIT_CLASS_TEST(StorageDownloadTest, DownloadNode)
   TEST_EQUAL(NodeStatus::OnDisk, attrs.m_status, ());
   TestDownloadedMap(storage, kWest);
 
-  // An up-to-date map is not re-downloaded: Storage::DownloadNode returns on OnDisk.
+  // The per-leaf download gate skips an up-to-date map.
   storage.DownloadNode(kWest);
   TEST(!storage.IsDownloadInProgress(), ());
 }
@@ -246,10 +196,11 @@ UNIT_CLASS_TEST(StorageDownloadTest, RestorePartialDownload)
     Storage storage(CountriesJson(), std::make_unique<TestMapFilesDownloader>());
     InitStorage(storage, [](CountryId const &, LocalFilePtr const) { testing::StopEventLoop(); },
                 [](CountryId const &) {},
-                [&firstProgress](CountryId const & countryId, downloader::Progress const & progress)
+                [&firstProgress](CountryId const & countryId, storage::Progress const & progress)
     {
-      if (countryId == kWest && firstProgress < 0)
-        firstProgress = progress.m_bytesDownloaded;
+      // The start of a download reports zero bytes.
+      if (countryId == kWest && firstProgress < 0 && progress.m_mwmDownloaded > 0)
+        firstProgress = progress.m_mwmDownloaded;
     });
 
     // Storage does not restore the saved queue by itself, it is an explicit application

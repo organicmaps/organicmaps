@@ -432,8 +432,11 @@ int main(int argc, char * argv[])
     // Storage also calls notifications for parents, but we are interested in leafs only.
     if (framework.GetStorage().IsLeaf(countryId))
       onCountryChanged(countryId);
-  }, [&](storage::CountryId const & countryId, downloader::Progress const & progress)
+  }, [&](storage::CountryId const & countryId, storage::Progress const & snapshot)
   {
+    auto const progress = snapshot.GetCombined();
+    if (progress.m_bytesTotal == 0)
+      return;
     std::stringstream str;
     str << "Downloading (" << countryId << ") " << (progress.m_bytesDownloaded * 100 / progress.m_bytesTotal) << "%";
     downloadStatusLabel = str.str();

@@ -217,7 +217,7 @@ static void UpdateItem(JNIEnv * env, jobject item, storage::NodeAttrs const & at
 
   // Sizes
   env->SetLongField(item, ciBuilder.m_Size, attrs.m_localMwmSize);
-  env->SetLongField(item, ciBuilder.m_EnqueuedSize, attrs.m_downloadingMwmSize);
+  env->SetLongField(item, ciBuilder.m_EnqueuedSize, attrs.m_downloadSize);
   env->SetLongField(item, ciBuilder.m_TotalSize, attrs.m_mwmSize);
 
   // Child counts
@@ -445,9 +445,11 @@ static void StatusChangedCallback(std::shared_ptr<jobject> const & listenerRef, 
 }
 
 static void ProgressChangedCallback(std::shared_ptr<jobject> const & listenerRef, storage::CountryId const & countryId,
-                                    downloader::Progress const & progress)
+                                    storage::Progress const & snapshot)
 {
   JNIEnv * env = jni::GetEnv();
+  // The map and terrain bytes of the batch.
+  auto const progress = snapshot.GetCombined();
 
   jmethodID const methodID = jni::GetMethodID(env, *listenerRef, "onProgress", "(Ljava/lang/String;JJ)V");
   env->CallVoidMethod(*listenerRef, methodID, jni::TScopedLocalRef(env, jni::ToJavaString(env, countryId)).get(),

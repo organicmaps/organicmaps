@@ -46,6 +46,8 @@ set(SRC
   storage_defines.hpp
   storage_helpers.cpp
   storage_helpers.hpp
+  terrain_grid.cpp
+  terrain_grid.hpp
 )
 
 if (PLATFORM_IPHONE)
@@ -66,6 +68,7 @@ omim_add_library(${PROJECT_NAME} ${SRC})
 target_link_libraries(${PROJECT_NAME}
   PUBLIC
     indexer   # FeatureType::SetTriangles
+    terrain
     platform
     coding
     mwm_diff

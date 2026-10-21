@@ -26,7 +26,8 @@ public:
   QueuedCountry const & GetFirstCountry() const;
   void PopFront();
 
-  void Append(QueuedCountry && country);
+  // preserveFront keeps the front in place when it is already being downloaded.
+  void Append(QueuedCountry && country, bool preserveFront = true);
 
   void Remove(CountryId const & country);
   void Clear();
