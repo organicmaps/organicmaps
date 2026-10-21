@@ -50,6 +50,8 @@ set(SRC
   preferences_dialog.hpp
   popup_menu_holder.cpp
   popup_menu_holder.hpp
+  qml/forwarding_quickwidget.cpp
+  qml/forwarding_quickwidget.hpp
   routing_settings_dialog.cpp
   routing_settings_dialog.hpp
   routing_turns_visualizer.cpp
@@ -76,6 +78,18 @@ target_link_libraries(${PROJECT_NAME}
     map
     gflags::gflags
     location_service
+    Qt6::QuickWidgets
+)
+
+# Place the QML files at the module root to avoid extra qmldir files (QTP0004).
+set_source_files_properties(qml/main.qml PROPERTIES QT_RESOURCE_ALIAS main.qml)
+
+qt_add_qml_module(${PROJECT_NAME}
+  URI Map
+  # The QTP0001 default prefix, spelled out because Qt 6.4 has no qt_policy().
+  RESOURCE_PREFIX /qt/qml
+  QML_FILES
+    qml/main.qml
 )
 
 if (BUILD_DESIGNER)
@@ -203,7 +217,11 @@ if (PLATFORM_MAC AND BUILD_DESIGNER)
     ${CMAKE_BINARY_DIR}/style_tests.app
   )
   install(CODE "
-    foreach(BUNDLE ${BUNDLE_FOLDER} ${BUNDLES})
+    execute_process(
+      # macdeployqt deploys only the QML imports used by the sources under -qmldir, main.qml is compiled into the app.
+      COMMAND \"${QT_PATH}/bin/macdeployqt\" \"${BUNDLE_FOLDER}\" \"-qmldir=${CMAKE_CURRENT_SOURCE_DIR}/qml\"
+    )
+    foreach(BUNDLE ${BUNDLES})
       execute_process(
         COMMAND \"${QT_PATH}/bin/macdeployqt\" \"\${BUNDLE}\"
       )
@@ -223,7 +241,8 @@ if (PLATFORM_MAC AND BUILD_DESIGNER)
   include(CPack)
 elseif (PLATFORM_MAC AND BUILD_STANDALONE)
   add_custom_command(TARGET desktop POST_BUILD
-    COMMAND "${QT_PATH}/bin/macdeployqt" ${BUNDLE_FOLDER}
+    # macdeployqt deploys only the QML imports used by the sources under -qmldir, main.qml is compiled into the app.
+    COMMAND "${QT_PATH}/bin/macdeployqt" ${BUNDLE_FOLDER} -qmldir=${CMAKE_CURRENT_SOURCE_DIR}/qml
     COMMAND ${Python3_EXECUTABLE} "${OMIM_ROOT}/tools/macdeployqtfix/macdeployqtfix.py" -q -nl ${BUNDLE_FOLDER}/Contents/MacOS/${BUNDLE_NAME} ${QT_PATH}
     COMMAND echo "Fixing Qt dependencies finished."
     VERBATIM

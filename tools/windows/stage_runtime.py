@@ -9,6 +9,16 @@ from pathlib import Path
 
 
 LICENSE_FILES = ("LICENSE", "NOTICE", "DATA_LICENSE.txt", "LEGAL", "CONTRIBUTORS")
+REQUIRED_RUNTIME_FILES = ("Qt6Core.dll", "Qt6Gui.dll", "Qt6Widgets.dll", "Qt6Network.dll",
+                          "platforms/qwindows.dll", "tls/qschannelbackend.dll",
+                          "Qt6Quick.dll", "Qt6QuickWidgets.dll",
+                          "qml/QtQuick/Controls/Material/qmldir")
+
+
+def windeployqt_command(windeployqt: Path, stage: Path, exe: Path, source: Path) -> list[str]:
+    # main.qml is compiled into the exe, so windeployqt only finds its imports by scanning the sources.
+    return [str(windeployqt), "--release", "--no-compiler-runtime", "--no-translations",
+            "--dir", str(stage), "--qmldir", str(source / "qt" / "qml"), str(exe)]
 
 
 def copy_inputs(source: Path, stage: Path, resources=None) -> None:
@@ -67,14 +77,9 @@ def stage_runtime(source: Path, stage: Path, windeployqt: Path, channel: str,
         raise ValueError(f"Missing windeployqt: {windeployqt}")
 
     copy_inputs(source, stage)
-    subprocess.run(
-        [str(windeployqt), "--release", "--no-compiler-runtime", "--no-translations",
-         "--dir", str(stage), str(exe)],
-        check=True,
-    )
+    subprocess.run(windeployqt_command(windeployqt, stage, exe, source), check=True)
 
-    for required in ("Qt6Core.dll", "Qt6Gui.dll", "Qt6Widgets.dll", "Qt6Network.dll",
-                     "platforms/qwindows.dll", "tls/qschannelbackend.dll"):
+    for required in REQUIRED_RUNTIME_FILES:
         if not (stage / required).is_file():
             raise ValueError(f"windeployqt did not stage {required}")
 

@@ -8,6 +8,7 @@
 #include "qt/place_page_dialog_user.hpp"
 #include "qt/popup_menu_holder.hpp"
 #include "qt/preferences_dialog.hpp"
+#include "qt/qml/forwarding_quickwidget.hpp"
 #include "qt/qt_common/helpers.hpp"
 #include "qt/qt_common/scale_slider.hpp"
 #include "qt/routing_settings_dialog.hpp"
@@ -41,7 +42,9 @@
 #endif  // BUILD_DESIGNER
 
 #include <QtGui/QCloseEvent>
+#include <QtQuick/QQuickWindow>
 #include <QtWidgets/QDockWidget>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMenuBar>
@@ -137,7 +140,24 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
 
   connect(m_pDrawWidget, SIGNAL(BeforeEngineCreation()), this, SLOT(OnBeforeEngineCreation()));
 
-  CreateCountryStatusControls();
+  // DrawWidget is a QOpenGLWidget, and all RHI-based widgets in one window must use the same graphics API.
+  QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGL);
+  auto * quickWidget = new ForwardingQuickWidget();
+  quickWidget->setAttribute(Qt::WA_AlwaysStackOnTop);
+  quickWidget->setClearColor(Qt::transparent);
+  quickWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
+  // The fixed-height status row in the same grid cell would cap a Preferred height.
+  quickWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+  quickWidget->setInitialProperties({{"map", QVariant::fromValue(this)}});
+  quickWidget->setSource(QUrl("qrc:/qt/qml/Map/main.qml"));
+  ASSERT_EQUAL(quickWidget->status(), QQuickWidget::Ready, ());
+
+  auto * overlayLayout = new QGridLayout(m_pDrawWidget);
+  overlayLayout->setContentsMargins(0, 0, 0, 0);
+  overlayLayout->addWidget(quickWidget, 0, 0);
+  // Added after the overlay, so the status controls receive the clicks above it.
+  overlayLayout->addLayout(CreateCountryStatusControls(), 0, 0);
   CreateNavigationBar();
   CreateSearchBarAndPanel();
   CreatePlacePagePanel();
@@ -456,7 +476,7 @@ Framework & MainWindow::GetFramework() const
   return m_pDrawWidget->GetFramework();
 }
 
-void MainWindow::CreateCountryStatusControls()
+QLayout * MainWindow::CreateCountryStatusControls()
 {
   QHBoxLayout * mainLayout = new QHBoxLayout();
   m_downloadButton = CreateBlackControl<QPushButton>("Download");
@@ -472,8 +492,6 @@ void MainWindow::CreateCountryStatusControls()
   m_downloadingStatusLabel = CreateBlackControl<QLabel>("Downloading");
   mainLayout->addWidget(m_downloadingStatusLabel, 0, Qt::AlignHCenter);
   m_downloadingStatusLabel->setVisible(false);
-
-  m_pDrawWidget->setLayout(mainLayout);
 
   auto const OnCountryChanged = [this](storage::CountryId const & countryId)
   {
@@ -536,6 +554,8 @@ void MainWindow::CreateCountryStatusControls()
     str << "Downloading (" << countryId << ") " << progress.m_bytesDownloaded * 100 / progress.m_bytesTotal << "%";
     m_downloadingStatusLabel->setText(str.str().c_str());
   });
+
+  return mainLayout;
 }
 
 void MainWindow::OnAbout()
@@ -660,6 +680,7 @@ void MainWindow::OnPreferences()
 {
   Framework & framework = m_pDrawWidget->GetFramework();
   PreferencesDialog dlg(this, framework);
+  connect(&dlg, &PreferencesDialog::NightModeChanged, this, &MainWindow::nightModeChanged);
   dlg.exec();
 
   framework.EnterForeground();

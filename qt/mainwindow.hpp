@@ -7,7 +7,9 @@
 
 #include "platform/location.hpp"
 #include "platform/location_service/location_service.hpp"
+#include "platform/style_utils.hpp"
 
+#include <QtQmlIntegration/qqmlintegration.h>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QMainWindow>
 
@@ -18,6 +20,7 @@
 class Framework;
 class QDockWidget;
 class QLabel;
+class QLayout;
 class QPushButton;
 
 namespace place_page
@@ -48,6 +51,9 @@ public:
     kPlacePageDock = 1,
     kDockCount
   };
+
+signals:
+  void nightModeChanged();
 
 private:
   DrawWidget * m_pDrawWidget = nullptr;
@@ -92,6 +98,11 @@ private:
 #endif  // BUILD_DESIGNER
 
   Q_OBJECT
+  QML_ELEMENT
+  QML_UNCREATABLE("Created in C++")
+
+  style_utils::NightMode GetNightModeSetting() const { return style_utils::GetNightModeSetting(); }
+  Q_PROPERTY(style_utils::NightMode nightMode READ GetNightModeSetting NOTIFY nightModeChanged)
 
 public:
   MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> && screenshotParams, QRect const & screenGeometry
@@ -118,7 +129,7 @@ protected:
   void CreateNavigationBar();
   void CreateSearchBarAndPanel();
   void CreatePlacePagePanel();
-  void CreateCountryStatusControls();
+  QLayout * CreateCountryStatusControls();
 
   void SetLayerEnabled(LayerType type, bool enable);
 

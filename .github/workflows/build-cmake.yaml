@@ -125,7 +125,11 @@ jobs:
               libxinerama-dev \
               libxrandr-dev \
               ninja-build \
+              qml6-module-qtquick \
+              qml6-module-qtquick-controls \
               qt6-base-dev \
+              qt6-declarative-dev \
+              qt6-declarative-dev-tools \
               qt6-positioning-dev \
 
       - name: Install build tools and dependencies (macOS)
@@ -254,7 +258,8 @@ jobs:
           apt-get update
           apt-get install -y --no-install-recommends \
             build-essential ca-certificates clang-19 cmake git libgl1-mesa-dev libglvnd-dev \
-            libqt6svg6-dev ninja-build python3 qt6-base-dev qt6-positioning-dev
+            libqt6svg6-dev ninja-build python3 qml6-module-qtquick qml6-module-qtquick-controls \
+            qt6-base-dev qt6-declarative-dev qt6-declarative-dev-tools qt6-positioning-dev
 
       - uses: actions/checkout@v6
         with:

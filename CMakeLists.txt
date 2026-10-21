@@ -161,7 +161,10 @@ if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
     list(APPEND qt_components Widgets)
   endif()
   if (NOT SKIP_QT_GUI)
-    list(APPEND qt_components Gui Xml Svg OpenGL OpenGLWidgets)
+    list(APPEND qt_components Gui Xml Svg OpenGL OpenGLWidgets Quick QuickWidgets)
+    if (BUILD_TESTING)
+      list(APPEND qt_components Test)
+    endif()
   endif()
   # PATHS are hard-coded hints where to look for qt6 in addition to other places.
   find_package(Qt6 COMPONENTS REQUIRED ${qt_components} OPTIONAL_COMPONENTS Positioning PATHS $ENV{QT_PATH} /opt/homebrew/opt/qt@6 /usr/local/opt/qt@6 /usr/lib/x86_64-linux-gnu/qt6)
@@ -182,8 +185,8 @@ if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
       "rendering (llvmpipe) and then crashes in qtoglcontextfactory.cpp when creating "
       "an offscreen GL surface.\n"
       "Recommended: install Qt6 from your distribution "
-      "(e.g. 'apt install qt6-base-dev qt6-positioning-dev', "
-      "'dnf install qt6-qtbase-devel qt6-qtpositioning-devel') and reconfigure.\n"
+      "(e.g. 'apt install qt6-base-dev qt6-declarative-dev qt6-positioning-dev', "
+      "'dnf install qt6-qtbase-devel qt6-qtdeclarative-devel qt6-qtpositioning-devel') and reconfigure.\n"
       "Workaround: run the binary with LD_PRELOAD pointing at the system libGL, e.g. "
       "LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libGL.so.1 (Debian/Ubuntu) or "
       "LD_PRELOAD=/usr/lib64/libGL.so.1 (Fedora/RHEL).")
