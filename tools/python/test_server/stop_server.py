@@ -16,8 +16,8 @@ POLL_INTERVAL_SECONDS = 0.05
 try:
     with urllib.request.urlopen(URL, timeout=5.0) as response:
         response.read()
-except urllib.error.URLError as ex:
-    # Not a hard error: the server may already be gone or never started.
+except (urllib.error.URLError, ConnectionResetError) as ex:
+    # The server may already be gone or close the connection before replying to /kill.
     print(f"stop_server.py: {URL} -> {ex}", file=sys.stderr)
 
 # /kill only asks the server to shut down; it keeps the listening socket until its request
