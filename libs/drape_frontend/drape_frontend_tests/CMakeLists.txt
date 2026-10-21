@@ -13,6 +13,7 @@ set(SRC
   read_cancellation_tests.cpp
   shape_batch_tests.cpp
   stylist_tests.cpp
+  terrain_shade_tests.cpp
   tile_background_coverage_tests.cpp
   tile_background_renderer_tests.cpp
   user_event_stream_tests.cpp

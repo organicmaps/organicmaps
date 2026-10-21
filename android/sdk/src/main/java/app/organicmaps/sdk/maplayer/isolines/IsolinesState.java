@@ -4,6 +4,5 @@ public enum IsolinesState
 {
   DISABLED,
   ENABLED,
-  EXPIREDDATA,
   NODATA;
 }
