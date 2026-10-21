@@ -178,6 +178,19 @@ final class MWMRoutePointSelectionTests: XCTestCase {
     XCTAssertEqual(titleForButton(.routeAddDestination, false), L("route_add_destination"))
   }
 
+  func testManualEditCancelsPendingApiNavigation() throws {
+    seedEndpoints()
+    let router = try XCTUnwrap(MWMRouter.perform(NSSelectorFromString("router"))?.takeUnretainedValue() as? NSObject)
+    router.setValue(true, forKey: "startNavigationAfterBuild")
+    defer { router.setValue(false, forKey: "startNavigationAfterBuild") }
+
+    select(type: .intermediate, title: "added stop", coordinate: 11)
+
+    XCTAssertEqual(router.value(forKey: "startNavigationAfterBuild") as? Bool, false)
+    waitUntilRouteReady()
+    XCTAssertFalse(MWMRouter.isOnRoute())
+  }
+
   private func seedEndpoints() {
     MWMRouter.addPoint(makePoint(type: .start, title: "start", coordinate: 10))
     MWMRouter.addPoint(makePoint(type: .finish, title: "finish", coordinate: 13))

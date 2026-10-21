@@ -11,6 +11,7 @@ final class DeepLinkHandlerTests: XCTestCase {
 
   override func tearDown() {
     handler.reset()
+    FrameworkHelper.clearParsedBackUrl()
     super.tearDown()
   }
 
@@ -19,7 +20,6 @@ final class DeepLinkHandlerTests: XCTestCase {
     handler.prepareForColdLaunch(url: url)
 
     XCTAssertTrue(handler.hasPendingColdLaunchDeepLink)
-    XCTAssertTrue(handler.isLaunchedByDeepLink)
     XCTAssertEqual(handler.url, url)
   }
 
@@ -29,7 +29,6 @@ final class DeepLinkHandlerTests: XCTestCase {
     )
 
     XCTAssertTrue(handler.hasPendingColdLaunchDeepLink)
-    XCTAssertTrue(handler.isLaunchedByDeepLink)
     XCTAssertEqual(handler.url?.absoluteString, "om://AbCd/Test")
   }
 
@@ -40,7 +39,6 @@ final class DeepLinkHandlerTests: XCTestCase {
 
     XCTAssertTrue(handler.applicationDidOpenUrl(laterURL))
     XCTAssertEqual(handler.url, laterURL)
-    XCTAssertTrue(handler.isLaunchedByDeepLink)
   }
 
   func testUniversalLinkReceivedBeforeMapIsReadyIsNotHandledTwice() throws {
@@ -49,7 +47,6 @@ final class DeepLinkHandlerTests: XCTestCase {
     let universalLink = try XCTUnwrap(URL(string: "https://omaps.app/AbCd/Test"))
     XCTAssertTrue(handler.applicationDidReceiveUniversalLink(universalLink))
     XCTAssertTrue(handler.hasPendingColdLaunchDeepLink)
-    XCTAssertTrue(handler.isLaunchedByDeepLink)
     XCTAssertEqual(handler.url?.absoluteString, "om://AbCd/Test")
   }
 
@@ -58,7 +55,40 @@ final class DeepLinkHandlerTests: XCTestCase {
     handler.reset()
 
     XCTAssertFalse(handler.hasPendingColdLaunchDeepLink)
-    XCTAssertFalse(handler.isLaunchedByDeepLink)
     XCTAssertNil(handler.url)
+  }
+
+  func testHighlightLookupDoesNotReparseRouteOrRearmReturn() throws {
+    let url = try XCTUnwrap(URL(string: "om://v2/dir?destination=1,2&callback=app%3A%2F%2Fback"))
+    handler.prepareForColdLaunch(url: url)
+    XCTAssertEqual(DeepLinkParser.parseAndSetApiURL(url), .route)
+    FrameworkHelper.clearParsedBackUrl()
+
+    XCTAssertNil(handler.getInAppFeatureHighlightData())
+    XCTAssertNil(handler.getBackUrl())
+  }
+
+  func testCallbackNormalizationPreservesNestedEscapes() throws {
+    let url = try XCTUnwrap(MWMRouter.callbackURL(from: "app://done?next=a%2Fb|c&progress=100%"))
+    XCTAssertEqual(url.absoluteString, "app://done?next=a%2Fb%7Cc&progress=100%25")
+  }
+
+  func testCallbackNormalizationRejectsMissingText() {
+    XCTAssertNil(MWMRouter.callbackURL(from: nil))
+    XCTAssertNil(MWMRouter.callbackURL(from: ""))
+  }
+
+  func testColdSettingsHighlightSurvivesUntilPresentation() throws {
+    let mapViewController = try XCTUnwrap(MapsAppDelegate.theApp().mapViewController)
+    defer { mapViewController.navigationController?.popToRootViewController(animated: false) }
+    let url = try XCTUnwrap(URL(string: "om://settings?highlight=icloud"))
+    handler.prepareForColdLaunch(url: url)
+
+    XCTAssertTrue(handler.handlePendingDeepLink())
+    XCTAssertFalse(handler.hasPendingColdLaunchDeepLink)
+    let highlight = try XCTUnwrap(handler.getInAppFeatureHighlightData())
+    XCTAssertEqual(highlight.urlType, .settings)
+    XCTAssertEqual(highlight.feature, .iCloud)
+    XCTAssertNil(handler.getInAppFeatureHighlightData())
   }
 }

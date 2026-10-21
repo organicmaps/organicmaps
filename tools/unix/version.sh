@@ -9,21 +9,17 @@ function init {
     # Either git is not installed on the system or this is not a git work tree.
     # Likely because the code is built from an archive.
     # In any case determining commit count, date and hash won't be possible.
-    local COUNT_AND_DATE=( 0 $(date +%Y.%m.%d) )
+    DATE=$(TZ=UTC0 date +%Y.%m.%d)
+    COUNT=0
     GIT_HASH="00000000"
   else
-    # Note: other ways to get date use the "when commit was rebased" date.
-    # This approach counts a number of commits each day based on committer's commit date
-    # instead of author's commit date, to avoid conflicts when old PRs are merged, but the
-    # number of a day's commits stays the same.
-    # Force git with TZ variable and local dates to print the UTC date.
-    local COUNT_AND_DATE=( $(TZ=UTC0 git log --max-count=128 --pretty=format:%cd --date=iso-local \
-                                       | cut -d' ' -f 1 | sed 's/-/./g' | sort | uniq -c | tail -1) )
+    # Use HEAD's UTC commit day and count all reachable commits on that day.
+    # Commit dates need not be ordered, so an older date cannot terminate the scan.
+    DATE=$(TZ=UTC0 git log -1 --format=%cd --date=format-local:%Y.%m.%d)
+    COUNT=$(TZ=UTC0 git log --format=%cd --date=format-local:%Y.%m.%d \
+      | awk -v date="$DATE" '$0 == date { count++ } END { print count + 0 }')
     GIT_HASH=$(git describe --match="" --always --abbrev=8 --dirty)
   fi
-
-  DATE="${COUNT_AND_DATE[1]}"
-  COUNT="${COUNT_AND_DATE[0]}"
 }
 
 function ios_version {
@@ -43,16 +39,19 @@ function  android_name {
 }
 
 function android_code {
-  # RR_yy_MM_dd_CC
-  # RR - reserved to identify special markets, max value is 21.
+  # yy_MM_dd_CCC; the leading billion is reserved for the Wear artifact.
   # yy - year
   # MM - month
   # dd - day
-  # CC - the number of commits from the current day
-  # 21_00_00_00_00 is the the greatest value Google Play allows for versionCode.
+  # CCC - fixed-width count of commits on HEAD's UTC day.
+  # Phone and Wear codes must both fit Google Play's limit of 2,100,000,000.
   # See https://developer.android.com/studio/publish/versioning for details.
   local cutYear=${DATE:2}
-  echo "${cutYear//./}$(printf %02d "$COUNT")"
+  if (( COUNT > 999 )); then
+    echo "Android version code supports at most 999 commits per UTC day" >&2
+    return 1
+  fi
+  echo "${cutYear//./}$(printf %03d "$COUNT")"
 }
 
 function qt_int_version {

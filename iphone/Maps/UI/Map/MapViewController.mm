@@ -532,7 +532,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
   /// @todo: Uncomment update dialog when will be ready to handle big traffic bursts.
   /*
-  if (!DeepLinkHandler.shared.isLaunchedByDeepLink)
+  if (!DeepLinkHandler.shared.hasPendingColdLaunchDeepLink)
   {
     auto const todo = GetFramework().ToDoAfterUpdate();
     switch (todo) {
@@ -554,7 +554,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
   // Cold start deep links should be handled when the map is initialized.
   // Otherwise PP container view is nil, or there is no animation/selection of the point.
   if (DeepLinkHandler.shared.hasPendingColdLaunchDeepLink)
-    (void)[DeepLinkHandler.shared handleDeepLinkAndReset];
+    (void)[DeepLinkHandler.shared handlePendingDeepLink];
 }
 
 - (void)viewDidLayoutSubviews
@@ -1094,8 +1094,21 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 - (void)goBack
 {
   NSString * backURL = [DeepLinkHandler.shared getBackUrl];
-  if (backURL != nil)
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:backURL] options:@{} completionHandler:nil];
+  if (backURL == nil)
+    return;
+  // Use the same lenient builder as per-stop callbacks: the back URL is core-decoded and may
+  // contain characters that -URLWithString: rejects verbatim.
+  NSURL * url = [MWMRouter callbackURLFromString:backURL];
+  if (!url)
+    return;
+  [UIApplication.sharedApplication openURL:url
+                                   options:@{}
+                         completionHandler:^(BOOL success) {
+                           // Returning to the caller is one-shot: consume the back URL on the
+                           // first successful launch (the handler runs on the main queue).
+                           if (success)
+                             [MWMFrameworkHelper clearParsedBackUrl];
+                         }];
 }
 
 - (void)closeCurrentView
