@@ -178,9 +178,8 @@ int MatchHemisphere(char const *& s)
   case 'S': case 's': ind = 1; break;
   case 'E': case 'e': ind = 2; break;
   case 'W': case 'w': ind = 3; break;
-  default: return false;
+  default: return -1;
   }
-  // BUGFIX: return -1 not false for int function - fix below
   ++s;
   return ind;
 }
@@ -265,8 +264,9 @@ bool TryParseGroupFixedParts(char const *& s, int nParts, double & signedDegrees
       s = start;
       return false;
     }
-    // Reject multi-dot components (e.g. 1.2.3).
-    if (IsDecimalMark(*end))
+    // Reject multi-mark components (e.g. 1.2.3) but allow a coordinate
+    // delimiter after a complete number (e.g. "27.73, W ...").
+    if (IsDecimalMark(*end) && strings::IsASCIIDigit(*(end + 1)))
     {
       s = start;
       return false;
