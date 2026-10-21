@@ -16,6 +16,9 @@ class PreferencesDialog : public QDialog
 
 public:
   PreferencesDialog(QWidget * parent, Framework & framework);
+
+signals:
+  void NightModeChanged();
 };
 }  // namespace qt
 

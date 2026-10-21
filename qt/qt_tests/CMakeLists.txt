@@ -19,3 +19,12 @@ omim_add_test(bookmark_export_tests NO_PLATFORM_INIT
   ../bookmark_export.cpp
 )
 target_link_libraries(bookmark_export_tests PRIVATE Qt6::Core)
+
+omim_add_test(forwarding_quickwidget_tests NO_PLATFORM_INIT
+  forwarding_quickwidget_tests.cpp
+  ../qml/forwarding_quickwidget.cpp
+)
+target_link_libraries(forwarding_quickwidget_tests PRIVATE Qt6::QuickWidgets Qt6::Test)
+set_tests_properties(forwarding_quickwidget_tests PROPERTIES
+  ENVIRONMENT "QT_QPA_PLATFORM=offscreen;QT_QUICK_BACKEND=software"
+)

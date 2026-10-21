@@ -80,7 +80,11 @@ sudo apt update && sudo apt install -y \
     cmake \
     ninja-build \
     python3 \
+    qml6-module-qtquick \
+    qml6-module-qtquick-controls \
     qt6-base-dev \
+    qt6-declarative-dev \
+    qt6-declarative-dev-tools \
     qt6-positioning-dev \
     libc++-dev \
     libfreetype-dev \
@@ -126,6 +130,7 @@ sudo dnf install -y \
     mesa-libGL-devel \
     libglvnd-devel \
     qt6-qtbase-devel \
+    qt6-qtdeclarative-devel \
     qt6-qtpositioning \
     qt6-qtpositioning-devel \
     qt6-qtsvg-devel \
@@ -143,6 +148,7 @@ sudo apk add \
     mesa-gl \
     ninja-build \
     qt6-qtbase-dev \
+    qt6-qtdeclarative-dev \
     qt6-qtpositioning-dev \
     qt6-qtsvg-dev \
     samurai \
