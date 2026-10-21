@@ -554,6 +554,11 @@ std::string Info::GetFormattedCoordinate(CoordinatesFormat format) const
   return FormatCoordinateDisplay(format, GetLatLon(), GetCountryId());
 }
 
+std::string Info::GetFormattedTerrainElevation() const
+{
+  return m_terrainElevation ? platform::Distance::FormatAltitude(*m_terrainElevation) : std::string{};
+}
+
 void Info::SetRoadType(RoadWarningMarkType type, std::string const & localizedType, std::string const & distance)
 {
   m_roadType = type;

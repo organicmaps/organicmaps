@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import app.organicmaps.sdk.downloader.CountryItem;
+import app.organicmaps.sdk.downloader.MapManager;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -34,14 +35,15 @@ public final class DownloaderHelpers
     return countryItems;
   }
 
-  static long getMapsSize(@NonNull final Collection<CountryItem> countries)
+  static long getMapsSize(@NonNull final Collection<CountryItem> countries, boolean withTerrain)
   {
-    long totalSize = 0;
-
+    final String[] countryIds = new String[countries.size()];
+    int index = 0;
     for (final CountryItem item : countries)
-      totalSize += item.totalSize;
-
-    return totalSize;
+      countryIds[index++] = item.id;
+    // Include the maps already queued by another flow, like the phone routing dialog.
+    final long[] progress = MapManager.nativeGetOverallProgressBytes(countryIds);
+    return MapManager.nativeGetDownloadSize(countryIds, withTerrain) + progress[1] - progress[0];
   }
 
   @NonNull

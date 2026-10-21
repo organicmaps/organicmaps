@@ -469,29 +469,31 @@ void MainWindow::CreateCountryStatusControls()
       return;
 
     auto const & storage = GetFramework().GetStorage();
-    auto status = storage.CountryStatusEx(countryId);
+    storage::NodeAttrs attrs;
+    storage.GetNodeAttrs(countryId, attrs);
+    auto const status = attrs.m_status;
     auto const countryName = QString::fromStdString(storage.GetNodeLocalName(countryId));
 
-    if (status == storage::Status::NotDownloaded)
+    if (status == storage::NodeStatus::NotDownloaded)
     {
       m_downloadButton->setVisible(true);
 
-      auto const size = m_dataSizeLocale.formattedDataSize(
-          static_cast<qint64>(storage.CountrySizeInBytes(countryId).second), 0, QLocale::DataSizeTraditionalFormat);
+      auto const size = m_dataSizeLocale.formattedDataSize(static_cast<qint64>(attrs.m_downloadSize), 0,
+                                                           QLocale::DataSizeTraditionalFormat);
       m_downloadButton->setText(Tr("download_region_with_size").arg(countryName, size));
     }
-    else if (status == storage::Status::Downloading)
+    else if (status == storage::NodeStatus::Downloading || status == storage::NodeStatus::Applying)
     {
       m_downloadingStatusLabel->setText(Tr("downloader_process").arg(countryName));
       m_downloadingStatusLabel->setVisible(true);
     }
-    else if (status == storage::Status::InQueue)
+    else if (status == storage::NodeStatus::InQueue)
     {
       m_downloadingStatusLabel->setVisible(true);
 
       m_downloadingStatusLabel->setText(Tr("region_queued_for_download").arg(countryName));
     }
-    else if (status != storage::Status::OnDisk && status != storage::Status::OnDiskOutOfDate)
+    else if (status != storage::NodeStatus::OnDisk && status != storage::NodeStatus::OnDiskOutOfDate)
     {
       m_retryButton->setVisible(true);
 
@@ -504,17 +506,16 @@ void MainWindow::CreateCountryStatusControls()
   GetFramework().GetStorage().Subscribe(
       [this, onChanged = std::move(OnCountryChanged)](storage::CountryId const & countryId)
   {
-    // Storage also calls notifications for parents, but we are interested in leafs only.
-    if (GetFramework().GetStorage().IsLeaf(countryId))
+    if (countryId == m_lastCountry)
       onChanged(countryId);
-  }, [this](storage::CountryId const & countryId, storage::Progress const & snapshot)
+  }, [this](storage::CountryId const & countryId, storage::Progress const & progress)
   {
-    auto const progress = snapshot.GetCombined();
-    if (progress.m_bytesTotal == 0)
+    auto const combined = progress.GetCombined();
+    if (countryId != m_lastCountry || combined.m_bytesTotal == 0)
       return;
     QLocale const locale;
     auto const percent =
-        locale.toString(static_cast<qulonglong>(progress.m_bytesDownloaded * 100 / progress.m_bytesTotal)) +
+        locale.toString(static_cast<qulonglong>(combined.m_bytesDownloaded * 100 / combined.m_bytesTotal)) +
         locale.percent();
     m_downloadingStatusLabel->setText(
         Tr("downloading_region_progress")

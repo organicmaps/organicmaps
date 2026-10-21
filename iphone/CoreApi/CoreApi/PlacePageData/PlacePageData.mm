@@ -92,8 +92,9 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType)
       [[MWMStorage sharedStorage] addObserver:self];
       // Show the OSM contribution section only when the selected place has an associated country (hidden for oceans,
       // etc.).
-      _osmContributionData = [[PlacePageOSMContributionData alloc] initWithRawData:rawData()
-                                                                     mapAttributes:_mapNodeAttributes];
+      _osmContributionData =
+          [[PlacePageOSMContributionData alloc] initWithRawData:rawData()
+                                                      mapStatus:GetFramework().GetStorage().CountryStatusEx(countryId)];
     }
 
     _objectType = [self objectTypeFromRawData];
@@ -176,17 +177,19 @@ static PlacePageRoadType convertRoadType(RoadWarningMarkType roadType)
   {
     _mapNodeAttributes = [[MWMStorage sharedStorage] attributesForCountry:countryId];
     if ([PlacePageData hasData])
-      _osmContributionData = [[PlacePageOSMContributionData alloc] initWithRawData:rawData()
-                                                                     mapAttributes:_mapNodeAttributes];
+      _osmContributionData = [[PlacePageOSMContributionData alloc]
+          initWithRawData:rawData()
+                mapStatus:GetFramework().GetStorage().CountryStatusEx(countryId.UTF8String)];
     if (self.onMapNodeStatusUpdate != nil)
       self.onMapNodeStatusUpdate();
   }
 }
 
-- (void)processCountry:(NSString *)countryId downloadedBytes:(uint64_t)downloadedBytes totalBytes:(uint64_t)totalBytes
+- (void)processCountry:(NSString *)countryId progress:(MWMStorageProgress)progress
 {
-  if ([countryId isEqualToString:self.mapNodeAttributes.countryId] && self.onMapNodeProgressUpdate != nil)
-    self.onMapNodeProgressUpdate(downloadedBytes, totalBytes);
+  auto const total = progress.mwmTotal + progress.twmTotal;
+  if (total > 0 && [countryId isEqualToString:self.mapNodeAttributes.countryId] && self.onMapNodeProgressUpdate != nil)
+    self.onMapNodeProgressUpdate(progress.mwmDownloaded + progress.twmDownloaded, total);
 }
 
 @end

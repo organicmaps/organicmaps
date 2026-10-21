@@ -195,6 +195,14 @@ protected:
   terrain::TerrainProvider m_terrainProvider;
   // The isolines availability waits for the terrain registration (see RegisterAllMaps).
   std::atomic_bool m_terrainRegistered = false;
+  struct TerrainLight
+  {
+    double m_azimuthDeg;
+    double m_altitudeDeg;
+    double m_shadowGamma;
+  };
+  // The last SetTerrainLight, re-applied to a re-created drape engine.
+  std::optional<TerrainLight> m_terrainLight;
 
   // Note. |m_routingManager| should be declared before |m_trafficManager|
   RoutingManager m_routingManager;
@@ -379,6 +387,7 @@ private:
 
   void OnTapEvent(place_page::BuildInfo const & buildInfo);
   place_page::Info BuildPlacePageInfo(place_page::BuildInfo const & buildInfo);
+  place_page::Info BuildPlacePageInfoImpl(place_page::BuildInfo const & buildInfo);
   std::optional<kml::TrackData> TryBuildRelationTrack(Track::TrackSelectionInfo const & candidateInfo);
   bool BuildTrackPlacePage(Track::TrackSelectionInfo const & trackSelectionInfo, place_page::Info & info);
   std::vector<Track::TrackSelectionInfo> FindTracksInTapPosition(place_page::BuildInfo const & buildInfo) const;
@@ -558,6 +567,10 @@ public:
                          bool trackVisibleViewport = false);
 
   m2::RectD GetCurrentViewport() const;
+  /// The terrain hillshade light (the prototype control, see DrapeEngine): azimuth
+  /// degrees clockwise from north towards the light, altitude degrees above the
+  /// horizon, and the shadow gamma (the gentle slopes lift, 1 = linear).
+  void SetTerrainLight(double azimuthDeg, double altitudeDeg, double shadowGamma);
   void SetVisibleViewport(m2::RectD const & rect);
 
   void ShowRect(m2::RectD const & rect, bool animation = true, bool useVisibleViewport = false);

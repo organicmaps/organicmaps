@@ -31,6 +31,9 @@
 area|z0-7[organicapp=mwm_border]
 {fill-color: #7D8BE6; fill-opacity: 0.5;}
 
+area|z0-7[organicapp=twm_border]
+{fill-color: #E6952E; fill-opacity: 0.5;}
+
 /* 2.LAND */
 
 area|z0-[natural=coastline],

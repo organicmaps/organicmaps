@@ -14,6 +14,14 @@ extern NSInteger const kStorageCellularForbidden;
 extern NSInteger const kStorageRoutingActive;
 extern NSInteger const kStorageHaveUnsavedEdits;
 
+typedef struct
+{
+  uint64_t mwmDownloaded;
+  uint64_t mwmTotal;
+  uint64_t twmDownloaded;
+  uint64_t twmTotal;
+} MWMStorageProgress NS_SWIFT_NAME(StorageProgress);
+
 NS_SWIFT_NAME(StorageObserver)
 @protocol MWMStorageObserver <NSObject>
 
@@ -21,7 +29,7 @@ NS_SWIFT_NAME(StorageObserver)
 
 @optional
 
-- (void)processCountry:(NSString *)countryId downloadedBytes:(uint64_t)downloadedBytes totalBytes:(uint64_t)totalBytes;
+- (void)processCountry:(NSString *)countryId progress:(MWMStorageProgress)progress;
 
 @end
 
@@ -38,7 +46,8 @@ NS_SWIFT_NAME(Storage)
                  error:(NSError * __autoreleasing _Nullable *)error;
 - (void)cancelDownloadNode:(NSString *)countryId;
 - (void)showNode:(NSString *)countryId;
-- (BOOL)downloadNodes:(NSArray<NSString *> *)countryIds error:(NSError * __autoreleasing _Nullable *)error;
+/// Downloads routing maps without terrain.
+- (BOOL)downloadMaps:(NSArray<NSString *> *)countryIds error:(NSError * __autoreleasing _Nullable *)error;
 
 - (BOOL)haveDownloadedCountries;
 - (BOOL)downloadInProgress;
@@ -54,6 +63,7 @@ NS_SWIFT_NAME(Storage)
 - (NSArray<NSString *> *)downloadedCountries;
 - (NSArray<NSString *> *)downloadedCountriesWithParent:(NSString *)countryId;
 - (MWMMapNodeAttributes *)attributesForCountry:(NSString *)countryId;
+- (uint64_t)downloadSizeForCountry:(NSString *)countryId NS_SWIFT_NAME(downloadSize(forCountry:));
 - (MWMMapNodeAttributes *)attributesForRoot;
 - (NSString *)getRootId;
 - (NSString *)nameForCountry:(NSString *)countryId;

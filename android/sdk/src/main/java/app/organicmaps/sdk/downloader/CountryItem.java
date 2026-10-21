@@ -50,8 +50,7 @@ public final class CountryItem implements Comparable<CountryItem>
   public String description;
 
   public long size;
-  public long enqueuedSize;
-  public long totalSize;
+  public long downloadSize;
 
   public int childCount;
   public int totalChildCount;
@@ -123,6 +122,28 @@ public final class CountryItem implements Comparable<CountryItem>
       directParentId = "";
   }
 
+  public void updateProgress(MapManager.Progress progress)
+  {
+    updateProgress(progress.getDownloadedBytes(), progress.getTotalBytes());
+  }
+
+  public void updateProgress(long downloadedBytes, long bytesToDownload)
+  {
+    this.downloadedBytes = downloadedBytes;
+    this.bytesToDownload = bytesToDownload;
+    // Reserve the final 5% for validation, registration, and applying diffs.
+    progress = bytesToDownload == 0 ? 0 : downloadedBytes * 95.0f / bytesToDownload;
+  }
+
+  public long getDisplaySize(boolean downloadedMode)
+  {
+    if (status == STATUS_DONE || (status == STATUS_PARTLY && downloadedMode))
+      return size;
+    if (status == STATUS_ENQUEUED || status == STATUS_PROGRESS || status == STATUS_APPLYING)
+      return bytesToDownload;
+    return downloadSize;
+  }
+
   @NonNull
   public static CountryItem fill(String countryId)
   {
@@ -154,8 +175,8 @@ public final class CountryItem implements Comparable<CountryItem>
     return "{ id: \"" + id + "\", directParentId: \"" + directParentId + "\", topmostParentId: \"" + topmostParentId
   + "\", category: \"" + category + "\", name: \"" + name + "\", directParentName: \"" + directParentName
   + "\", topmostParentName: \"" + topmostParentName + "\", present: " + present + ", status: " + status
-  + ", errorCode: " + errorCode + ", headerId: " + headerId + ", size: " + size + ", enqueuedSize: " + enqueuedSize
-  + ", totalSize: " + totalSize + ", childCount: " + childCount + ", totalChildCount: " + totalChildCount
+  + ", errorCode: " + errorCode + ", headerId: " + headerId + ", size: " + size + ", downloadSize: " + downloadSize
+  + ", childCount: " + childCount + ", totalChildCount: " + totalChildCount
   + ", progress: " + StringUtils.formatUsingUsLocale("%.2f", progress) + "% }";
   }
 }

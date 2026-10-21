@@ -46,4 +46,10 @@ class DownloadMapsForRouteScreen extends DownloadMapsScreen
   {
     return Action.BACK;
   }
+
+  @Override
+  protected boolean shouldDownloadTerrain()
+  {
+    return false;
+  }
 }

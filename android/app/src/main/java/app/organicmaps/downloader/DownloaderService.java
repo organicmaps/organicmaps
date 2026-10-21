@@ -1,8 +1,5 @@
 package app.organicmaps.downloader;
 
-import static android.Manifest.permission.POST_NOTIFICATIONS;
-import static android.content.pm.PackageManager.PERMISSION_GRANTED;
-
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
@@ -27,9 +24,15 @@ public class DownloaderService extends Service implements MapManager.StorageCall
   private static final String ACTION_RETRY_DOWNLOAD = "ACTION_RETRY_DOWNLOAD";
   private static final String ACTION_START_UPDATE = "ACTION_START_UPDATE";
   private static final String EXTRA_COUNTRY_IDS = "EXTRA_COUNTRY_IDS";
+  private static final String EXTRA_WITH_TERRAIN = "EXTRA_WITH_TERRAIN";
 
   private final DownloaderNotifier mNotifier = new DownloaderNotifier(this);
   private int mSubscriptionSlot;
+  private boolean mEnqueuingDownloads;
+  private boolean mProgressNotified;
+  @Nullable
+  private String mNotifiedCountryId;
+  private int mNotifiedPercent;
 
   @Override
   public void onCreate()
@@ -54,13 +57,10 @@ public class DownloaderService extends Service implements MapManager.StorageCall
   {
     final String action = intent != null ? intent.getAction() : null;
 
-    // Cancel is sent via PendingIntent.getService() (not startForegroundService()),
-    // so no foreground promotion is needed.
+    // Cancel is sent via PendingIntent.getService(), so it has no foreground promotion deadline.
     if (ACTION_CANCEL_DOWNLOAD.equals(action))
     {
-      Logger.d(TAG, "Cancel action received, aborting all downloads");
-      MapManager.nativeCancel(MapManager.nativeGetRoot());
-      stopSelf();
+      cancelDownloads(startId);
       return START_NOT_STICKY;
     }
 
@@ -71,6 +71,7 @@ public class DownloaderService extends Service implements MapManager.StorageCall
     if (ACTION_START_DOWNLOAD.equals(action) || ACTION_RETRY_DOWNLOAD.equals(action)
         || ACTION_START_UPDATE.equals(action))
     {
+      mNotifier.cancelError();
       var notification = mNotifier.buildProgressNotification();
       Logger.i(TAG, "Starting Downloader Foreground Service");
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
@@ -79,37 +80,35 @@ public class DownloaderService extends Service implements MapManager.StorageCall
       else
         ServiceCompat.startForeground(this, DownloaderNotifier.NOTIFICATION_ID, notification, 0);
 
-      final String[] countryIds = intent.getStringArrayExtra(EXTRA_COUNTRY_IDS);
-      if (countryIds != null)
+      // A no-op country can synchronously report an idle queue before the next country is enqueued.
+      mEnqueuingDownloads = true;
+      try
       {
-        if (ACTION_START_DOWNLOAD.equals(action))
+        final String[] countryIds = intent.getStringArrayExtra(EXTRA_COUNTRY_IDS);
+        if (countryIds != null)
         {
-          for (String countryId : countryIds)
-            MapManager.startDownload(countryId);
+          if (ACTION_START_DOWNLOAD.equals(action))
+          {
+            MapManager.startDownload(countryIds, intent.getBooleanExtra(EXTRA_WITH_TERRAIN, true));
+          }
+          else if (ACTION_RETRY_DOWNLOAD.equals(action))
+            MapManager.retryDownload(countryIds[0]);
+          else if (ACTION_START_UPDATE.equals(action))
+            MapManager.startUpdate(countryIds[0]);
         }
-        else if (ACTION_RETRY_DOWNLOAD.equals(action))
-          MapManager.retryDownload(countryIds[0]);
-        else
-          MapManager.startUpdate(countryIds[0]);
+      }
+      finally
+      {
+        mEnqueuingDownloads = false;
       }
 
-      // The enqueue may be a no-op (already downloaded, stale retry, empty batch, etc.).
-      // Re-check to avoid leaving a foreground service with no work and no callback to stop it.
-      if (!MapManager.nativeIsDownloading())
-      {
-        Logger.i(TAG, "No active downloads after enqueue, stopping DownloaderService");
-        stopSelf(startId);
-      }
+      // The whole batch may still be a no-op, or may have failed synchronously.
+      stopIfIdle(startId);
       return START_NOT_STICKY;
     }
 
     // No recognized action — stop if nothing to do.
-    Logger.i(TAG, "Downloading: " + MapManager.nativeIsDownloading());
-    if (!MapManager.nativeIsDownloading())
-    {
-      Logger.i(TAG, "No active downloads, stopping DownloaderService");
-      stopSelf(startId);
-    }
+    stopIfIdle(startId);
     return START_NOT_STICKY;
   }
 
@@ -123,40 +122,72 @@ public class DownloaderService extends Service implements MapManager.StorageCall
   @Override
   public void onStatusChanged(List<MapManager.StorageCallbackData> data)
   {
-    final boolean isDownloading = MapManager.nativeIsDownloading();
-    final boolean hasFailed = hasDownloadFailed(data);
+    notifyDownloadFailures(data);
+    if (!mEnqueuingDownloads)
+      stopIfIdle(-1);
+  }
 
-    Logger.i(TAG, "Downloading: " + isDownloading + " failure: " + hasFailed);
+  private void stopIfIdle(int startId)
+  {
+    if (MapManager.isDownloading())
+      return;
 
-    if (!isDownloading)
-    {
-      if (hasFailed)
-      {
-        // Detach service from the notification to keep after the service is stopped.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-        {
-          stopForeground(Service.STOP_FOREGROUND_DETACH);
-        }
-        else
-        {
-          stopForeground(false);
-        }
-      }
-      stopSelf();
-    }
+    finishForeground();
+    stopSelf(startId);
+  }
+
+  private void finishForeground()
+  {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+      stopForeground(Service.STOP_FOREGROUND_REMOVE);
+    else
+      stopForeground(true);
+    mNotifier.cancelProgress();
   }
 
   @Override
-  public void onProgress(String countryId, long bytesDownloaded, long bytesTotal)
+  public void onProgress(String countryId, MapManager.Progress progress)
   {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
-        && ContextCompat.checkSelfPermission(this, POST_NOTIFICATIONS) != PERMISSION_GRANTED)
+    // A shared terrain block reports all its owners in one Core batch, which ends with the root:
+    // notify once per batch.
+    if (!MapManager.isLeaf(countryId))
     {
-      Logger.w(TAG, "Permission POST_NOTIFICATIONS is not granted, skipping notification");
+      if (CountryItem.isRoot(countryId))
+        mProgressNotified = false;
       return;
     }
+    if (mProgressNotified)
+      return;
 
-    mNotifier.notifyProgress(countryId, (int) bytesTotal, (int) bytesDownloaded);
+    long downloaded = progress.mwmDownloaded + progress.twmDownloaded;
+    long total = progress.mwmTotal + progress.twmTotal;
+    if (total == 0)
+      return;
+
+    mProgressNotified = true;
+    // Core reports every downloaded chunk: post only the visible changes.
+    final int percent = (int) (100.0 * downloaded / total);
+    if (percent == mNotifiedPercent && countryId.equals(mNotifiedCountryId))
+      return;
+    mNotifiedCountryId = countryId;
+    mNotifiedPercent = percent;
+    mNotifier.notifyProgress(countryId, 100, percent);
+  }
+
+  private void cancelDownloads(int startId)
+  {
+    mEnqueuingDownloads = true;
+    try
+    {
+      MapManager.nativeCancel(MapManager.nativeGetRoot());
+    }
+    finally
+    {
+      mEnqueuingDownloads = false;
+    }
+    finishForeground();
+    mNotifier.cancelError();
+    stopSelf(startId);
   }
 
   @Override
@@ -167,6 +198,7 @@ public class DownloaderService extends Service implements MapManager.StorageCall
     Logger.i(TAG, "onDestroy");
 
     MapManager.nativeUnsubscribe(mSubscriptionSlot);
+    finishForeground();
   }
 
   @Override
@@ -180,23 +212,19 @@ public class DownloaderService extends Service implements MapManager.StorageCall
   {
     Logger.w(TAG, "Foreground service timed out, cancelling downloads and stopping the service"
                       + " startId: " + startId + " fgsType: " + fgsType);
-    MapManager.nativeCancel(MapManager.nativeGetRoot());
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-      stopForeground(Service.STOP_FOREGROUND_REMOVE);
-    else
-      stopForeground(true);
-    stopSelf(startId);
+    cancelDownloads(startId);
   }
 
   /**
    * Start the foreground service and enqueue downloads for the given countries.
    */
-  static void startDownload(Context context, String... countryIds)
+  static void startDownload(Context context, @NonNull String[] countryIds, boolean withTerrain)
   {
     Logger.i(TAG);
     Intent intent = new Intent(context, DownloaderService.class);
     intent.setAction(ACTION_START_DOWNLOAD);
     intent.putExtra(EXTRA_COUNTRY_IDS, countryIds);
+    intent.putExtra(EXTRA_WITH_TERRAIN, withTerrain);
     ContextCompat.startForegroundService(context, intent);
   }
 
@@ -224,20 +252,17 @@ public class DownloaderService extends Service implements MapManager.StorageCall
     ContextCompat.startForegroundService(context, intent);
   }
 
-  private boolean hasDownloadFailed(List<MapManager.StorageCallbackData> data)
+  private void notifyDownloadFailures(List<MapManager.StorageCallbackData> data)
   {
     for (MapManager.StorageCallbackData item : data)
     {
-      if (item.isLeafNode && item.newStatus == CountryItem.STATUS_FAILED)
+      if (!item.isLeafNode)
+        continue;
+      if (item.newStatus == CountryItem.STATUS_FAILED && MapManager.isAutoRetryFailed())
       {
-        if (MapManager.nativeIsAutoretryFailed())
-        {
-          mNotifier.notifyDownloadFailed(item.countryId);
-          return true;
-        }
+        mNotifier.notifyDownloadFailed(item.countryId);
+        return;
       }
     }
-
-    return false;
   }
 }
