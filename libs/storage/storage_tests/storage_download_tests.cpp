@@ -102,7 +102,7 @@ std::string DownloadPath(Storage const & storage, CountryId const & countryId)
 // including completion of the asynchronous file validation.
 void InitStorage(Storage & storage, Storage::UpdateCallback didDownload,
                  Storage::ChangeCountryFunction changeCountry = [](CountryId const &) {},
-                 Storage::ProgressFunction progress = [](CountryId const &, downloader::Progress const &) {})
+                 Storage::ProgressFunction progress = [](CountryId const &, storage::Progress const &) {})
 {
   storage.Init(std::move(didDownload), [](CountryId const &, LocalFilePtr const) { return false; });
   storage.RegisterAllLocalMaps();
@@ -213,7 +213,7 @@ UNIT_CLASS_TEST(StorageDownloadTest, DownloadNode)
   TEST_EQUAL(NodeStatus::OnDisk, attrs.m_status, ());
   TestDownloadedMap(storage, kWest);
 
-  // An up-to-date map is not re-downloaded: Storage::DownloadNode returns on OnDisk.
+  // The per-leaf download gate skips an up-to-date map.
   storage.DownloadNode(kWest);
   TEST(!storage.IsDownloadInProgress(), ());
 }
@@ -246,10 +246,11 @@ UNIT_CLASS_TEST(StorageDownloadTest, RestorePartialDownload)
     Storage storage(CountriesJson(), std::make_unique<TestMapFilesDownloader>());
     InitStorage(storage, [](CountryId const &, LocalFilePtr const) { testing::StopEventLoop(); },
                 [](CountryId const &) {},
-                [&firstProgress](CountryId const & countryId, downloader::Progress const & progress)
+                [&firstProgress](CountryId const & countryId, storage::Progress const & progress)
     {
-      if (countryId == kWest && firstProgress < 0)
-        firstProgress = progress.m_bytesDownloaded;
+      // The start of a download reports zero bytes.
+      if (countryId == kWest && firstProgress < 0 && progress.m_mwmDownloaded > 0)
+        firstProgress = progress.m_mwmDownloaded;
     });
 
     // Storage does not restore the saved queue by itself, it is an explicit application

@@ -6,6 +6,8 @@
 // How many seconds to wait before the request fails.
 static constexpr NSTimeInterval kTimeoutIntervalInSeconds = 10;
 
+NSErrorDomain const BackgroundDownloaderHttpErrorDomain = @"app.omaps.http";
+
 @interface TaskInfo : NSObject
 
 @property(nonatomic, strong) NSURLSessionTask * task;
@@ -52,8 +54,7 @@ static constexpr NSTimeInterval kTimeoutIntervalInSeconds = 10;
   {
     // A background task restored after an app relaunch can reach here before it is re-attached
     // (which sets taskDescription), so derive the save path from the URL. That only works for the
-    // official CDN layout (maps/<v>/<f>.mwm); for any other layout (e.g. a custom ?map-download-server
-    // with a base path) bail out instead of letting GetFilePathByUrl abort on a CHECK.
+    // official maps/diffs/terrain layout. Custom base paths cannot be resolved here.
     std::string const urlPath = task.currentRequest.URL.path.UTF8String;
     if (!downloader::IsUrlSupported(urlPath))
       return nil;
@@ -301,7 +302,7 @@ static constexpr NSTimeInterval kTimeoutIntervalInSeconds = 10;
   {
     LOG(LWARNING,
         ("Failed to download", downloadTask.originalRequest.URL.absoluteString, "HTTP statusCode:", statusCode));
-    error = [[NSError alloc] initWithDomain:@"app.omaps.http" code:statusCode userInfo:nil];
+    error = [[NSError alloc] initWithDomain:BackgroundDownloaderHttpErrorDomain code:statusCode userInfo:nil];
     [[NSFileManager defaultManager] removeItemAtURL:location.filePathURL error:nil];
   }
   else
@@ -319,7 +320,7 @@ static constexpr NSTimeInterval kTimeoutIntervalInSeconds = 10;
     LOG(LWARNING,
         ("Can't resolve a save path for a restored download:", downloadTask.currentRequest.URL.absoluteString));
     [[NSFileManager defaultManager] removeItemAtURL:location.filePathURL error:nil];
-    return [[NSError alloc] initWithDomain:@"app.omaps.http" code:500 userInfo:nil];
+    return [[NSError alloc] initWithDomain:BackgroundDownloaderHttpErrorDomain code:500 userInfo:nil];
   }
 
   // A restored file may arrive after Storage checks for an existing .ready file.

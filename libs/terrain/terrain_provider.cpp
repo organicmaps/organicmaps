@@ -1,4 +1,5 @@
 #include "terrain/terrain_provider.hpp"
+#include "terrain/terrain_utils.hpp"
 
 #include "geometry/mercator.hpp"
 #include "indexer/scales.hpp"
@@ -10,6 +11,22 @@
 
 namespace terrain
 {
+TerrainProvider::TerrainProvider()
+{
+  m_set.AddObserver(*this);
+}
+
+TerrainProvider::~TerrainProvider()
+{
+  m_set.RemoveObserver(*this);
+}
+
+void TerrainProvider::OnTerrainDeregistered(TwmFile const & file)
+{
+  if (m_onTerrainDeregistered)
+    m_onTerrainDeregistered(file);
+}
+
 std::vector<TwmFile> TerrainProvider::GetRegisteredFiles() const
 {
   std::vector<std::shared_ptr<TwmInfo>> infos;
@@ -22,7 +39,7 @@ std::vector<TwmFile> TerrainProvider::GetRegisteredFiles() const
   return files;
 }
 
-bool TerrainProvider::RegisterBlock(TwmFile const & file)
+bool TerrainProvider::RegisterBlock(TwmFile const & file, m2::RectD * invalidRect)
 {
   auto const result = m_set.Register(file);
   if (result.second != TwmSet::RegResult::Success && result.second != TwmSet::RegResult::AlreadyRegistered)
@@ -30,7 +47,21 @@ bool TerrainProvider::RegisterBlock(TwmFile const & file)
     LOG(LWARNING, ("Can't register the terrain block", file.m_path, ":", result.second));
     return false;
   }
+  if (invalidRect)
+    invalidRect->Add(file.m_rect);
   return true;
+}
+
+void TerrainProvider::DeleteBlocks(std::vector<TerrainId> const & ids, m2::RectD & invalidRect)
+{
+  for (auto const & terrainId : ids)
+  {
+    auto const id = m_set.GetId(terrainId);
+    if (!id.IsAlive())
+      continue;
+    invalidRect.Add(id.GetInfo()->GetLimitRect());
+    m_set.Deregister(terrainId);
+  }
 }
 
 void TerrainProvider::Clear()

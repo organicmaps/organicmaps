@@ -24,6 +24,9 @@ inline m2::RectD GetTerrainReadRect(m2::RectD rect)
   return rect;
 }
 
+/// The rect of the tiles to redraw when the terrain blocks in |rect| change.
+m2::RectD GetTerrainInvalidationRect(m2::RectD rect);
+
 /// Builds a (simplified) line geometry and produces tile-clipped splines from
 /// it without the redundant direction/length computations that an intermediate
 /// m2::Spline would otherwise perform: directions and lengths are built only

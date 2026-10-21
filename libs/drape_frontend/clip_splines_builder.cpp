@@ -1,6 +1,9 @@
 #include "drape_frontend/clip_splines_builder.hpp"
 
 #include "drape_frontend/apply_feature_params.hpp"
+#include "drape_frontend/tile_key.hpp"
+
+#include "terrain/terrain_utils.hpp"
 
 #include "indexer/feature.hpp"
 
@@ -11,6 +14,19 @@
 
 namespace df
 {
+m2::RectD GetTerrainInvalidationRect(m2::RectD rect)
+{
+  // A tile reads the overhang around itself (see GetTerrainReadRect), the widest at the coarsest
+  // terrain zoom; the mercator tiles are square. It also covers the raster halo of the terrain reading,
+  // which starts on the finer zooms, and the edge-touching blocks (the seam normals and contours),
+  // which the tile invalidation skips without a margin.
+  auto const tile = TileKey(0, 0, terrain::kMinIsolinesZoom).GetGlobalRect();
+  double const overhang = (GetTerrainReadRect(tile).SizeX() - tile.SizeX()) / 2;
+  double constexpr kEdgeEps = 1e-9;
+  rect.Inflate(overhang + kEdgeEps, overhang + kEdgeEps);
+  return rect;
+}
+
 namespace
 {
 // Same threshold as Spline::IsProlonging — but squared, since the colinearity
