@@ -817,4 +817,52 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestAlternativeEstimatesPr
   });
   TEST(checkedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Alternative checking timeout."));
 }
+
+UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, SimulatedRouteFinishes)
+{
+  double constexpr kMaxStepM = 30000.0;
+  TimedSignal builtSignal;
+  size_t counter = 0;
+
+  GetPlatform().RunTask(Platform::Thread::Gui, [&builtSignal, &counter, this]()
+  {
+    InitRoutingSession();
+    m_session->SetRouter(make_unique<DummyRouter>(counter), nullptr);
+    m_session->SetRoutingCallbacks([&builtSignal](RoutesResult const &, RouterResultCode) {
+      builtSignal.Signal();
+    }, nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */);
+    m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), RouterDelegate::kNoTimeout);
+  });
+  TEST(builtSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not built."));
+
+  SessionStateTest sessionStateTest({SessionState::RouteNotStarted, SessionState::OnRoute, SessionState::RouteFinished},
+                                    *m_session);
+  bool hasJunctions = false;
+  size_t pointsCount = 0;
+  SessionState state = SessionState::NoValidRoute;
+  TimedSignal drivenSignal;
+  GetPlatform().RunTask(Platform::Thread::Gui, [&drivenSignal, &hasJunctions, &pointsCount, &state, this]()
+  {
+    vector<geometry::PointWithAltitude> junctions;
+    hasJunctions = m_session->GetRouteJunctionPoints(junctions);
+    auto const points = DensifyJunctions(junctions, kMaxStepM);
+    pointsCount = points.size();
+
+    location::GpsInfo info;
+    info.m_horizontalAccuracy = 1.0;
+    info.m_speed = measurement_utils::KmphToMps(60);
+    for (auto const & point : points)
+    {
+      auto const latLon = point.ToLatLon();
+      info.m_latitude = latLon.m_lat;
+      info.m_longitude = latLon.m_lon;
+      state = m_session->OnLocationPositionChanged(info);
+    }
+    drivenSignal.Signal();
+  });
+  TEST(drivenSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route driving timeout."));
+  TEST(hasJunctions, ());
+  TEST_GREATER(pointsCount, 10, ());
+  TEST_EQUAL(state, SessionState::RouteFinished, ());
+}
 }  // namespace routing_session_test
