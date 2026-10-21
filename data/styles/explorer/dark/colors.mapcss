@@ -1,0 +1,6 @@
+/*
+ * British Explorer — dark palette prototype.
+ * Uses the existing Organic Maps Outdoor dark palette.
+ */
+
+@import("../../outdoors/dark/colors.mapcss");

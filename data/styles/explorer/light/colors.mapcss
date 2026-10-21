@@ -1,0 +1,47 @@
+
+/*
+ * British Explorer — light palette prototype
+ * Inspired by modern British outdoor cartography.
+ * Base: Organic Maps Outdoor light palette.
+ */
+
+@import("../../outdoors/light/colors.mapcss");
+
+/* 1. Basemap */
+@background: #F5F3E9;
+
+/* 2. Water */
+@water: #A8CFDC;
+@water_bad: #B9D5D2;
+@water_intermittent: #D5E5E5;
+@river: #79B5CB;
+
+/* 3. Vegetation */
+@green0: #E5EBD8;
+@green1: #DCE8C9;
+@green1b: #D5E2C0;
+@green2: #D1E0BC;
+@green3: #C5D8AE;
+@green4: #B8CEA0;
+@green5: #B4CCA0;
+@forest: #B4CCA0;
+@green6: #8FA777;
+
+/* 4. Farmland */
+@farmland: #EAE3C8;
+
+/* 5. Roads and paths */
+@cycleway: #648A98;
+@track: #9A805E;
+@path: #A66F43;
+@path_expert: #76543B;
+
+/* 6. Railways */
+@railway_light: #C8C4B8;
+@railway: #AAA69B;
+@railway_tourism: #A58A72;
+@railway_dash: #F5F3E9;
+@railway_tunnel: #8F8D82;
+
+/* 7. Water labels */
+@water_label: #397D99;
