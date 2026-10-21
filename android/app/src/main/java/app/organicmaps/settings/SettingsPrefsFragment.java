@@ -128,7 +128,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
     {
       if (key.equals(getString(R.string.prefs_routing)))
       {
-        DrivingOptionsActivity.chooseProfile(requireActivity());
+        DrivingOptionsActivity.start(requireActivity());
         return true;
       }
       else if (key.equals(getString(R.string.pref_osm_profile)))
