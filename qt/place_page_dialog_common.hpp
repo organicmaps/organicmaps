@@ -28,7 +28,8 @@ class PlacePageDialogCommon : public QWidget
   Q_OBJECT
 
 public:
-  PlacePageDialogCommon(QWidget * parent, qt::DrawWidget * drawWidget, place_page::Info const & info, const QList<QAction *> &actions);
+  PlacePageDialogCommon(QWidget * parent, qt::DrawWidget * drawWidget, place_page::Info const & info,
+                        QList<QAction *> const & actions);
 
 protected:
   qt::DrawWidget * GetDrawWidget() const { return m_drawWidget; }
@@ -62,10 +63,9 @@ inline QString ShortDescription(std::string_view description)
   return QString::fromUtf8(description.data(), end) + QStringLiteral("…");
 }
 
-// Builds a toolbar with route + edit actions wired to `drawWidget`.
-// Action handlers capture only the values they need from `info`, so the
-// returned toolbar stays valid even after `info` is invalidated.
-QToolBar * createActionToolBar(QWidget * parent, qt::DrawWidget * drawWidget, place_page::Info const & info, const QList<QAction *> &actions);
+// Builds a toolbar with shared route + edit actions and a place-specific Share menu.
+QToolBar * createActionToolBar(QWidget * parent, qt::DrawWidget * drawWidget, place_page::Info const & info,
+                               QList<QAction *> const & actions);
 
 // Adds a key/value row to `grid` and increments `row`.
 // A nonempty URL makes the displayed value a link to that URL.

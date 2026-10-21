@@ -30,4 +30,4 @@ void ForwardingQuickWidget::mouseReleaseEvent(QMouseEvent * e)
 //   e->setAccepted(forwardedEvent.isAccepted());
 // }
 
-}  // namespace
+}  // namespace qt

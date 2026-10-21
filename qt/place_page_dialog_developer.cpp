@@ -15,7 +15,7 @@
 #include <string>
 
 PlacePageDialogDeveloper::PlacePageDialogDeveloper(QWidget * parent, qt::DrawWidget * drawWidget,
-                                                   place_page::Info const & info, const QList<QAction *> &actions)
+                                                   place_page::Info const & info, QList<QAction *> const & actions)
   : PlacePageDialogCommon(parent, drawWidget, info, actions)
 {
   using namespace place_page_dialog;

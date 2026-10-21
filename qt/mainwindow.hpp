@@ -156,7 +156,7 @@ private:
   Q_PROPERTY(QAction * hikingAction MEMBER m_hikingAction CONSTANT)
   Q_PROPERTY(QAction * cyclingAction MEMBER m_cyclingAction CONSTANT)
 
-  style_utils::NightMode GetNightModeSetting() const {return style_utils::GetNightModeSetting();}
+  style_utils::NightMode GetNightModeSetting() const { return style_utils::GetNightModeSetting(); }
   Q_PROPERTY(style_utils::NightMode nightMode READ GetNightModeSetting NOTIFY nightModeChanged)
 
 public:

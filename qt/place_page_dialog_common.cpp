@@ -48,7 +48,7 @@ int32_t SavedCoordinateFormat()
 }  // namespace
 
 PlacePageDialogCommon::PlacePageDialogCommon(QWidget * parent, qt::DrawWidget * drawWidget,
-                                             place_page::Info const & info, const QList<QAction *> &actions)
+                                             place_page::Info const & info, QList<QAction *> const & actions)
   : QWidget(parent)
   , m_drawWidget(drawWidget)
 {
@@ -71,7 +71,8 @@ PlacePageDialogCommon::PlacePageDialogCommon(QWidget * parent, qt::DrawWidget * 
 
 namespace place_page_dialog
 {
-QToolBar * createActionToolBar(QWidget * parent, qt::DrawWidget * drawWidget, place_page::Info const & info, const QList<QAction *> &actions)
+QToolBar * createActionToolBar(QWidget * parent, qt::DrawWidget * drawWidget, place_page::Info const & info,
+                               QList<QAction *> const & actions)
 {
   QToolBar * toolBar = new QToolBar(parent);
   toolBar->setIconSize(QSize(20, 20));

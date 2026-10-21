@@ -1,8 +1,8 @@
 #include "qt/mainwindow.hpp"
 #include "qt/about.hpp"
-#include "qt/html_processor.hpp"
 #include "qt/bookmark_dialog.hpp"
 #include "qt/draw_widget.hpp"
+#include "qt/html_processor.hpp"
 #include "qt/mwms_borders_selection.hpp"
 #include "qt/osm_auth_dialog.hpp"
 #include "qt/place_page_dialog_developer.hpp"
@@ -97,7 +97,8 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
   , m_mapcssFilePath(mapcssFilePath)
 #endif
 {
-  qmlRegisterUncreatableMetaObject(location::staticMetaObject, "Location", 1, 0, "PositionMode", "Access to enums & flags only");
+  qmlRegisterUncreatableMetaObject(location::staticMetaObject, "Location", 1, 0, "PositionMode",
+                                   "Access to enums & flags only");
 
   if (std::string g; settings::Get("geometry", g))
     restoreGeometry(QByteArray::fromStdString(g));
@@ -296,23 +297,23 @@ void MainWindow::CreateNavigationBar()
     // m_layers->setChecked(TRAFFIC, Framework::LoadTrafficEnabled());
 
     m_transitAction = m_layers->addAction(QIcon(":/navig64/subway.png"), Tr("button_layer_subway"),
-                        std::bind(&MainWindow::OnLayerEnabled, this, TRANSIT), true);
+                                          std::bind(&MainWindow::OnLayerEnabled, this, TRANSIT), true);
     m_layers->setChecked(TRANSIT, Framework::LoadTransitSchemeEnabled());
 
     m_isolinesAction = m_layers->addAction(QIcon(":/navig64/isolines.png"), Tr("button_layer_isolines"),
-                        std::bind(&MainWindow::OnLayerEnabled, this, ISOLINES), true);
+                                           std::bind(&MainWindow::OnLayerEnabled, this, ISOLINES), true);
     m_layers->setChecked(ISOLINES, Framework::LoadIsolinesEnabled());
     // TODO(AB): Are icons drawable? Fix and make different icons for different layers.
     m_outdoorsAction = m_layers->addAction(QIcon(":/navig64/isolines.png"), Tr("button_layer_outdoor"),
-                        std::bind(&MainWindow::OnLayerEnabled, this, OUTDOORS), true);
+                                           std::bind(&MainWindow::OnLayerEnabled, this, OUTDOORS), true);
     m_layers->setChecked(OUTDOORS, Framework::LoadOutdoorsEnabled());
 
     m_hikingAction = m_layers->addAction(QIcon(":/navig64/isolines.png"), Tr("button_layer_hiking"),
-                        std::bind(&MainWindow::OnLayerEnabled, this, HIKING), true);
+                                         std::bind(&MainWindow::OnLayerEnabled, this, HIKING), true);
     m_layers->setChecked(HIKING, Framework::IsHikingEnabled());
 
     m_cyclingAction = m_layers->addAction(QIcon(":/navig64/isolines.png"), Tr("button_layer_cycling"),
-                        std::bind(&MainWindow::OnLayerEnabled, this, CYCLING), true);
+                                          std::bind(&MainWindow::OnLayerEnabled, this, CYCLING), true);
     m_layers->setChecked(CYCLING, Framework::IsCyclingEnabled());
 
     pToolBar->addWidget(m_layers->create());
@@ -863,16 +864,24 @@ void MainWindow::DeactivateMapSelection() const
   GetFramework().DeactivateMapSelection();
 }
 
-void MainWindow::toggleWidgetsUI() const {
-  QToolBar* const tb = findChild<QToolBar*>();
+void MainWindow::toggleWidgetsUI() const
+{
+  QToolBar * const tb = findChild<QToolBar *>();
   tb->setVisible(!tb->isVisible());
   menuBar()->setVisible(!menuBar()->isVisible());
 }
 
-void MainWindow::scalePlus() const {m_pDrawWidget->ScalePlus();}
-void MainWindow::scaleMinus() const {m_pDrawWidget->ScaleMinus();}
+void MainWindow::scalePlus() const
+{
+  m_pDrawWidget->ScalePlus();
+}
+void MainWindow::scaleMinus() const
+{
+  m_pDrawWidget->ScaleMinus();
+}
 
-QString MainWindow::getCopyrightText() const {
+QString MainWindow::getCopyrightText() const
+{
   std::string text;
   ReaderPtr<Reader> reader = GetPlatform().GetReader("copyright.html");
   reader.ReadAsString(text);
@@ -886,8 +895,8 @@ void MainWindow::ShowPlacePage(place_page::Info const & info)
   m_subTitle = QString::fromStdString(info.GetSubtitle());
   m_address = QString::fromStdString(info.GetSecondarySubtitle());
   m_bookmark = info.IsBookmark();
-  m_wikipedia = QString::fromStdString(feature::Metadata::ToWikiURL(
-      std::string(info.GetMetadata(feature::Metadata::EType::FMD_WIKIPEDIA))));
+  m_wikipedia = QString::fromStdString(
+      feature::Metadata::ToWikiURL(std::string(info.GetMetadata(feature::Metadata::EType::FMD_WIKIPEDIA))));
   m_wikimedia = QString::fromStdString(feature::Metadata::ToWikimediaCommonsURL(
       std::string(info.GetMetadata(feature::Metadata::EType::FMD_WIKIMEDIA_COMMONS))));
   m_description = place_page_dialog::ShortDescription(info.GetWikiDescription());

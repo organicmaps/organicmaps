@@ -12,7 +12,7 @@ services:
     devices:
       - /dev/dri
     command: sleep infinity
-      
+
     # Podman-specific
     security_opt:
       - label:disable

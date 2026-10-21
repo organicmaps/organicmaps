@@ -15,8 +15,8 @@ protected:
   void mousePressEvent(QMouseEvent * e) override;
   void mouseReleaseEvent(QMouseEvent * e) override;
 
-// private:
-//   void forwardMouseEventToParent(QMouseEvent * e);
+  // private:
+  //   void forwardMouseEventToParent(QMouseEvent * e);
 };
 
-}  // namespace
+}  // namespace qt

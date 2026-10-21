@@ -320,7 +320,7 @@ Item {
                 width: Math.min(implicitWidth, root.width - pane.leftPadding - pane.rightPadding)
 
                 Repeater {
-                    id: repeater 
+                    id: repeater
 
                     model: [
                         "Bookmark:", root.map.bookmark ? "Yes" : "",

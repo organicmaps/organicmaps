@@ -6,8 +6,8 @@
 #include <cmath>
 #include <functional>
 #ifdef QT_CORE_LIB
-#include <QObject>
 #include <QtQmlIntegration/qqmlintegration.h>
+#include <QObject>
 #endif
 
 namespace location

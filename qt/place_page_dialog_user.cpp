@@ -45,7 +45,8 @@ public:
   }
 };
 
-PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, qt::DrawWidget * drawWidget, place_page::Info const & info, const QList<QAction *> &actions)
+PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, qt::DrawWidget * drawWidget, place_page::Info const & info,
+                                         QList<QAction *> const & actions)
   : PlacePageDialogCommon(parent, drawWidget, info, actions)
 {
   using namespace place_page_dialog;
