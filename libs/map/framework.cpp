@@ -396,6 +396,33 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   m_storage.Init(std::bind(&Framework::OnCountryFileDownloaded, this, _1, _2),
                  std::bind(&Framework::OnCountryFileDelete, this, _1, _2));
 
+  m_terrainProvider.SetOnTerrainDeregisteredCallback(std::bind(&Framework::OnTerrainDeregistered, this, _1));
+  // A downloaded block: Storage resolved the overlaps and the versions already.
+  m_storage.SetTerrainCallbacks(
+      [this](terrain::TwmFile const & file)
+  {
+    m2::RectD invalidRect;
+    VERIFY(m_terrainProvider.RegisterBlock(file, &invalidRect), (file.m_path));
+    // The terrain is drawn with the isolines only.
+    if (m_isolinesManager.IsEnabled())
+    {
+      InvalidateRect(invalidRect);
+      m_isolinesManager.Invalidate();
+    }
+  }, [this](std::vector<terrain::TwmFile> const & files)
+  {
+    std::vector<terrain::TerrainId> ids;
+    for (auto const & file : files)
+      ids.push_back(file.m_id);
+    m2::RectD invalidRect;
+    m_terrainProvider.DeleteBlocks(ids, invalidRect);
+    if (m_isolinesManager.IsEnabled() && invalidRect.IsValid())
+    {
+      InvalidateRect(invalidRect);
+      m_isolinesManager.Invalidate();
+    }
+  });
+
   m_storage.SetDownloadingPolicy(&m_storageDownloadingPolicy);
   m_storage.SetStartDownloadingCallback([this]()
   {
@@ -426,7 +453,23 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
     bool has = false;
     mercator::ForEachRectWrapped(rect,
                                  [&](m2::RectD const & piece) { has = has || m_terrainProvider.HasTerrain(piece); });
-    return has;
+    if (has)
+      return true;
+    // The download hint is for the installed maps without terrain, not for the sea or other maps.
+    using TerrainStatus = storage::Storage::TerrainStatus;
+    bool missing = false;
+    mercator::ForEachRectWrapped(rect, [&](m2::RectD const & piece)
+    {
+      for (auto const & countryId : m_infoGetter->GetRegionsCountryIdByRect(piece, false /* rough */))
+      {
+        if (missing || !m_storage.IsNodeDownloaded(countryId))
+          continue;
+        auto const status = m_storage.GetTerrainAttrs(countryId).m_status;
+        missing = status == TerrainStatus::NotDownloaded || status == TerrainStatus::Partly ||
+                  status == TerrainStatus::Failed;
+      }
+    });
+    return !missing;
   });
   m_isolinesManager.SetEnabled(LoadIsolinesEnabled());
 
@@ -462,6 +505,7 @@ Framework::~Framework()
   m_trafficManager.Teardown();
   DestroyDrapeEngine();
   m_featuresFetcher.SetOnMapDeregisteredCallback(nullptr);
+  m_terrainProvider.SetOnTerrainDeregisteredCallback(nullptr);
 }
 
 void Framework::ShowNode(storage::CountryId const & countryId)
@@ -535,6 +579,20 @@ void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
 
   // Call action on thread in which the framework was created
   // For more information look at comment for Observer class in mwm_set.hpp
+  if (m_storage.GetThreadChecker().CalledOnOriginalThread())
+    action();
+  else
+    GetPlatform().RunTask(Platform::Thread::Gui, action);
+}
+
+void Framework::OnTerrainDeregistered(terrain::TwmFile const & file)
+{
+  auto action = [this, file]
+  {
+    // The same file may have been registered again while this completion was queued.
+    if (!m_terrainProvider.IsFileInUse(file))
+      m_storage.OnTerrainFileDeregistered(file);
+  };
   if (m_storage.GetThreadChecker().CalledOnOriginalThread())
     action();
   else
@@ -620,19 +678,10 @@ void Framework::RegisterAllMaps()
     }
   }
 
-  // The installed terrain blocks, <writable>/terrain/<version>/*.twm: the newest version folders
-  // go first, so the registry keeps a newer block over an overlapping older one.
-  for (auto const & [dir, version] : terrain::ListVersionDirs(base::JoinPath(GetPlatform().WritableDir(), TERRAIN_DIR)))
-  {
-    Platform::FilesList files;
-    Platform::GetFilesByExt(dir, TERRAIN_FILE_EXT, files);
-    for (auto const & name : files)
-    {
-      terrain::TwmFile file;
-      if (terrain::TwmSet::ReadFile(base::JoinPath(dir, name), version, file) == terrain::TwmSet::RegResult::Success)
-        m_terrainProvider.RegisterBlock(file);
-    }
-  }
+  // Storage resolves the overlaps and the versions of the installed terrain.
+  m_storage.RegisterAllLocalTerrain();
+  for (auto const & file : m_storage.GetLocalTerrainFiles())
+    VERIFY(m_terrainProvider.RegisterBlock(file), (file.m_path));
   m_terrainRegistered = true;
   // RegisterAllMaps can run on the map-loading thread.
   GetPlatform().RunTask(Platform::Thread::Gui, [this]

@@ -53,6 +53,27 @@ UNIT_TEST(MetaConfig_JSONParser_NewFormatWithoutProducts)
   TEST_EQUAL(found->second, "value2", ());
 
   TEST(!metaConfig->productsConfig, ());
+  TEST_EQUAL(metaConfig->terrainServers, (downloader::MetaConfig::ServersList{"https://cdn.organicmaps.app/"}), ());
+}
+
+UNIT_TEST(MetaConfig_JSONParser_EmptyTerrainServersUseDefault)
+{
+  auto const config = ParseMetaConfig(R"({"servers":["https://maps.example/"],"terrainServers":[]})");
+  TEST(config, ());
+  TEST_EQUAL(config->terrainServers, downloader::MetaConfig{}.terrainServers, ());
+}
+
+UNIT_TEST(MetaConfig_JSONParser_TerrainServers)
+{
+  auto const metaConfig = ParseMetaConfig(R"({
+    "servers": ["https://maps.example/"],
+    "terrainServers": ["https://terrain1.example/", "https://terrain2.example/"]
+  })");
+  TEST(metaConfig, ());
+  TEST_EQUAL(metaConfig->servers, (downloader::MetaConfig::ServersList{"https://maps.example/"}), ());
+  TEST_EQUAL(metaConfig->terrainServers,
+             (downloader::MetaConfig::ServersList{"https://terrain1.example/", "https://terrain2.example/"}), ());
+  TEST(!ParseMetaConfig(R"({"servers": ["https://maps.example/"], "terrainServers": "invalid"})"), ());
 }
 
 UNIT_TEST(MetaConfig_JSONParser_NewFormatWithProducts)

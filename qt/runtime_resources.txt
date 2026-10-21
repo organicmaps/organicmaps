@@ -16,6 +16,7 @@ editor.config
 packed_polygons.bin
 patterns.txt
 transit_colors.txt
+twm_grid.json
 types.txt
 World.mwm
 WorldCoasts.mwm

@@ -117,8 +117,9 @@ bool IsDownloaderFile(string const & name)
 string GetFilePath(int64_t version, string const & dataDir, string const & countryName, MapFileType type)
 {
   string const filename = GetFileName(countryName, type);
-  string const dir = GetDataDirFullPath(dataDir);
-  if (version == 0)
+  auto const dataPath = GetDataDirFullPath(dataDir);
+  auto const dir = type == MapFileType::Terrain ? base::JoinPath(dataPath, TERRAIN_DIR) : dataPath;
+  if (version == 0 && type != MapFileType::Terrain)
     return base::JoinPath(dir, filename);
   return base::JoinPath(dir, strings::to_string(version), filename);
 }
@@ -130,9 +131,10 @@ void DeleteDownloaderFilesForCountry(int64_t version, CountryFile const & countr
 
 void DeleteDownloaderFilesForCountry(int64_t version, string const & dataDir, CountryFile const & countryFile)
 {
-  for (size_t type = 0; type < base::Underlying(MapFileType::Count); ++type)
+  // Terrain blocks are not countries and have their own artifacts cleanup in Storage.
+  for (auto const type : {MapFileType::Map, MapFileType::Diff})
   {
-    string const path = GetFileDownloadPath(version, dataDir, countryFile, static_cast<MapFileType>(type));
+    string const path = GetFileDownloadPath(version, dataDir, countryFile, type);
     ASSERT(path.ends_with(READY_FILE_EXTENSION), ());
     Platform::RemoveFileIfExists(path);
     Platform::RemoveFileIfExists(path + RESUME_FILE_EXTENSION);

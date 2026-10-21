@@ -29,6 +29,9 @@ std::optional<MetaConfig> ParseMetaConfig(std::string_view jsonStr)
   if (outMetaConfig.servers.empty())
     return std::nullopt;
 
+  if (outMetaConfig.terrainServers.empty())
+    outMetaConfig.terrainServers = MetaConfig{}.terrainServers;
+
   return outMetaConfig;
 }
 }  // namespace downloader

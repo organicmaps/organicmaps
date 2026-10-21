@@ -211,6 +211,7 @@ protected:
 
   /// This function is called by m_featuresFetcher when the map file is deregistered.
   void OnMapDeregistered(platform::LocalCountryFile const & localFile);
+  void OnTerrainDeregistered(terrain::TwmFile const & file);
 
   void ClearAllCaches();
 

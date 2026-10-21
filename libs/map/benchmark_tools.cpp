@@ -191,13 +191,10 @@ void RunGraphicsBenchmark(Framework * framework)
   for (m2::PointD const & pt : points)
     regions.insert(framework->GetCountryInfoGetter().GetRegionCountryId(pt));
 
+  // The scenarios need the maps only, not their terrain.
   for (auto const & countryId : regions)
-  {
-    storage::NodeStatuses statuses;
-    framework->GetStorage().GetNodeStatuses(countryId, statuses);
-    if (statuses.m_status != storage::NodeStatus::OnDisk)
+    if (!framework->GetStorage().HasLatestVersion(countryId))
       handle->m_regionsToDownload.push_back(countryId);
-  }
 
   // Download regions and run scenarios after downloading.
   if (!handle->m_regionsToDownload.empty())
@@ -209,15 +206,13 @@ void RunGraphicsBenchmark(Framework * framework)
       if (it == regions.end())
         return;
 
-      storage::NodeStatuses statuses;
-      framework->GetStorage().GetNodeStatuses(countryId, statuses);
-      if (statuses.m_status != storage::NodeStatus::OnDisk)
+      if (!framework->GetStorage().HasLatestVersion(countryId))
         return;
 
       regions.erase(it);
       if (regions.empty())
         RunScenario(framework, handle);
-    }, [](storage::CountryId const &, downloader::Progress const &) {});
+    }, [](storage::CountryId const &, storage::Progress const &) {});
 
     for (auto const & countryId : handle->m_regionsToDownload)
       framework->GetStorage().DownloadNode(countryId);
