@@ -552,6 +552,21 @@ is not met.
 - Exception handling gaps
 - Integer overflow / underflow in arithmetic
 
+**Downloaded map and terrain files:**
+
+- Files are verified by their hash after downloading when one is available, and otherwise
+  trusted as server data. Surviving broken tile data or later on-disk corruption is out of scope.
+- Basic format and constraint checks while reading file headers may reject data with `MYTHROW`.
+- Regular tile records and payloads should use debug-only `ASSERT` for invariants, without
+  runtime validation with `MYTHROW` or corruption recovery. Do not flag missing such runtime
+  checks as defects. Required reads and decompression must execute in Release too: keep them
+  outside `ASSERT`, or use `VERIFY`.
+- Exception: `CHECK` is appropriate before allocations or memory ranges controlled by stream-derived
+  sizes, and before container access with stream-derived indices. Include the size/index and
+  bound so Release crash logs identify the violated constraint.
+- Exception: `Framework::RegisterAllMaps()` must survive broken map files so the app can start
+  and bookmarks can be exported.
+
 **Regression detection:**
 
 Look for these concrete patterns in the diff (removed `-` vs added `+` lines):

@@ -2,6 +2,7 @@
 
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
+#include "geometry/smoothing.hpp"
 #include "geometry/spline.hpp"
 
 #include <functional>
@@ -26,10 +27,8 @@ std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::Share
 std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::SharedSpline const & spline,
                                                std::vector<double> & sourceOffsets);
 
-using GuidePointsForSmooth = std::vector<std::pair<m2::PointD, m2::PointD>>;
 void ClipPathByRectBeforeSmooth(m2::RectD const & rect, std::vector<m2::PointD> const & path,
-                                GuidePointsForSmooth & guidePoints,
-                                std::vector<std::vector<m2::PointD>> & clippedPaths);
+                                GuidePointsForSmooth & guidePoints, PathsForSmooth & clippedPaths);
 
 /// Checks whether any segment of the spline actually crosses the rect.
 /// @note Callers should check bbox intersection first for performance.

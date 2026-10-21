@@ -15,6 +15,7 @@
 #include "map/search_mark.hpp"
 #include "map/selection_processor.hpp"
 #include "map/share.hpp"
+#include "map/terrain_provider.hpp"
 #include "map/track.hpp"
 #include "map/track_statistics.hpp"
 #include "map/traffic_manager.hpp"
@@ -47,6 +48,7 @@
 
 #include "platform/distance.hpp"
 #include "platform/location.hpp"
+#include "platform/measurement_utils.hpp"
 #include "platform/placement_settings.hpp"
 #include "platform/platform.hpp"
 #include "platform/products.hpp"
@@ -59,6 +61,7 @@
 
 #include "std/target_os.hpp"
 
+#include <atomic>
 #include <functional>
 #include <memory>
 #include <optional>
@@ -187,6 +190,11 @@ protected:
 
   TransitReadManager m_transitManager;
   IsolinesManager m_isolinesManager;
+  measurement_utils::Units m_isolinesUnits = measurement_utils::GetMeasurementUnits();
+  // The installed .twm terrain blocks: the hillshade, the dynamic isolines and the place page elevation.
+  terrain::TerrainProvider m_terrainProvider;
+  // The isolines availability waits for the terrain registration (see RegisterAllMaps).
+  std::atomic_bool m_terrainRegistered = false;
 
   // Note. |m_routingManager| should be declared before |m_trafficManager|
   RoutingManager m_routingManager;

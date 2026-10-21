@@ -324,7 +324,7 @@ void ClipPathByRect(m2::RectD const & rect, std::vector<m2::PointD> const & path
 }
 
 void ClipPathByRectBeforeSmooth(m2::RectD const & rect, std::vector<m2::PointD> const & path,
-                                GuidePointsForSmooth & guidePoints, std::vector<std::vector<m2::PointD>> & clippedPaths)
+                                GuidePointsForSmooth & guidePoints, PathsForSmooth & clippedPaths)
 {
   if (path.size() < 2)
     return;
