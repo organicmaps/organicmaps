@@ -167,8 +167,9 @@ void SelectionProcessor::FillPointInfo(place_page::Info & info, m2::PointD const
 void SelectionProcessor::FillNotMatchedPlaceInfo(place_page::Info & info, m2::PointD const & mercator,
                                                  std::string const & customTitle /* = {} */) const
 {
+  // The coordinates subtitle is set later, see Info::SetTerrainElevation.
   if (customTitle.empty())
-    info.SetCustomNameWithCoordinates(mercator, m_fw.m_stringsBundle.GetString("core_placepage_unknown_place"));
+    info.SetCustomName(m_fw.m_stringsBundle.GetString("core_placepage_unknown_place"));
   else
     info.SetCustomName(customTitle);
   info.SetCanEditOrAdd(CanEditMapForPosition(mercator));

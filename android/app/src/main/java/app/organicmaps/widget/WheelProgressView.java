@@ -33,7 +33,6 @@ public class WheelProgressView extends AppCompatImageView
   private Paint mBgPaint;
   private int mStrokeWidth;
   private final RectF mProgressRect = new RectF(); // main rect for progress wheel
-  private final RectF mCenterRect = new RectF(); // rect for stop button
   private final Point mCenter = new Point(); // center of rect
   private boolean mIsInit;
   private boolean mIsPending;
@@ -125,7 +124,8 @@ public class WheelProgressView extends AppCompatImageView
       mCenterDrawable.setBounds(mCenter.x - halfw, mCenter.y - halfh, mCenter.x + halfw, mCenter.y + halfh);
     }
     else
-      mCenterRect.set(mProgressRect);
+      mCenterDrawable.setBounds(Math.round(mProgressRect.left), Math.round(mProgressRect.top),
+                                Math.round(mProgressRect.right), Math.round(mProgressRect.bottom));
 
     mIsInit = true;
   }

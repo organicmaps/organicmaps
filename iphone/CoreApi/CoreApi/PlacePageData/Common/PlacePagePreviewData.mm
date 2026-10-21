@@ -78,7 +78,6 @@ static PlacePageDataSchedule convertOpeningHours(std::string_view rawOH)
 
     if (!rawData.IsTrack())
     {
-      _coordinates = @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::LatLonDMS).c_str());
       _isMyPosition = rawData.IsMyPosition();
       _schedule = convertOpeningHours(rawData.GetOpeningHours());
     }

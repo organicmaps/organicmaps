@@ -307,7 +307,7 @@ using namespace storage;
   [[MWMStorage sharedStorage] cancelDownloadNode:RootId()];
 }
 
-- (void)processCountry:(NSString *)countryId downloadedBytes:(uint64_t)downloadedBytes totalBytes:(uint64_t)totalBytes
+- (void)processCountry:(NSString *)countryId progress:(MWMStorageProgress)progress
 {
   if (m_updatingCountries.find(countryId.UTF8String) != m_updatingCountries.end())
     [self updateProcessStatus:countryId.UTF8String];

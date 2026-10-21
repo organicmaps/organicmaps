@@ -244,6 +244,12 @@ void addCoordinatesRow(QGridLayout * grid, int & row, place_page::Info const & i
   QHBoxLayout * cellLayout = new QHBoxLayout(cell);
   cellLayout->setContentsMargins(0, 0, 0, 0);
   cellLayout->addWidget(value, 1);
+  if (auto const elevation = info.GetFormattedTerrainElevation(); !elevation.empty())
+  {
+    auto * altitude = new QLabel(QString::fromStdString("▲ " + elevation));
+    altitude->setTextInteractionFlags(Qt::TextSelectableByMouse);
+    cellLayout->addWidget(altitude);
+  }
   cellLayout->addWidget(change, 0);
   grid->addWidget(cell, row++, 1);
 }

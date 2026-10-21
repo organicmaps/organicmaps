@@ -57,7 +57,8 @@ public class OnmapDownloader
         if (mCurrentCountry.id.equals(item.countryId))
         {
           mCurrentCountry.update();
-          updateProgressState(false);
+          refreshMapProgress();
+          updateState(false);
 
           return;
         }
@@ -65,12 +66,15 @@ public class OnmapDownloader
     }
 
     @Override
-    public void onProgress(String countryId, long localSize, long remoteSize)
+    public void onProgress(String countryId, MapManager.Progress progress)
     {
+      if (progress.mwmTotal == 0)
+        return;
+
       if (mCurrentCountry != null && mCurrentCountry.id.equals(countryId))
       {
-        mCurrentCountry.update();
-        updateProgressState(false);
+        mCurrentCountry.updateProgress(progress.mwmDownloaded, progress.mwmTotal);
+        updateState(false);
       }
     }
   };
@@ -81,6 +85,7 @@ public class OnmapDownloader
         public void onCurrentCountryChanged(String countryId)
         {
           mCurrentCountry = (TextUtils.isEmpty(countryId) ? null : CountryItem.fill(countryId));
+          refreshMapProgress();
           updateState(true);
         }
       };
@@ -101,15 +106,18 @@ public class OnmapDownloader
     return enqueued || progress || applying;
   }
 
-  private void updateProgressState(boolean shouldAutoDownload)
+  private void refreshMapProgress()
   {
-    updateStateInternal(shouldAutoDownload);
+    if (!isMapDownloading(mCurrentCountry) || mCurrentCountry.present)
+      return;
+
+    long[] progress = MapManager.getOverallProgressBytes(new String[] {mCurrentCountry.id});
+    mCurrentCountry.updateProgress(progress[0], progress[1]);
   }
 
   private void updateStateInternal(boolean shouldAutoDownload)
   {
-    boolean showFrame =
-        (mCurrentCountry != null && !mCurrentCountry.present && !RoutingController.get().isNavigating());
+    boolean showFrame = mCurrentCountry != null && !mCurrentCountry.present && !RoutingController.get().isNavigating();
     if (showFrame)
     {
       boolean enqueued = (mCurrentCountry.status == CountryItem.STATUS_ENQUEUED);
@@ -150,7 +158,7 @@ public class OnmapDownloader
           }
           else
           {
-            sizeText = StringUtils.getFileSizeString(mContext, mCurrentCountry.totalSize);
+            sizeText = StringUtils.getFileSizeString(mContext, mCurrentCountry.downloadSize);
 
             if (shouldAutoDownload && Config.isAutodownloadEnabled() && !sAutodownloadLocked && !failed
                 && ConnectionState.INSTANCE.isWifiConnected())
@@ -194,7 +202,7 @@ public class OnmapDownloader
       if (mCurrentCountry == null)
         return;
 
-      MapManager.nativeCancel(mCurrentCountry.id);
+      MapManager.cancel(mCurrentCountry.id);
       setAutodownloadLocked(true);
     });
     mButton.setOnClickListener(

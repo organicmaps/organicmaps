@@ -206,6 +206,11 @@ public:
 
   void SetMapLangIndex(int8_t mapLangIndex);
 
+  // The terrain hillshade light (azimuth/altitude degrees) and the shadow gamma;
+  // re-lights the standing terrain geometry on the next frame (a per-frame uniform,
+  // no tile re-read) - cheap enough for a device-motion stream.
+  void SetTerrainLight(double azimuthDeg, double altitudeDeg, double shadowGamma);
+
   void OnEnterForeground();
   void OnEnterBackground();
 

@@ -208,7 +208,7 @@ class PlacePageInfoViewController: UIViewController {
     // empty. Show the next available format without overwriting the saved preference, so it is
     // restored when the user returns to a supported area.
     let displayId = effectiveFormatId(in: coordFormats)
-    coordinatesView = createInfoItem(coordFormats[displayId],
+    coordinatesView = createInfoItem(coordinatesTitle(coordFormats[displayId]),
                                      icon: UIImage(resource: .icPlacepageCoordinate),
                                      style: .link,
                                      accessoryImage: UIImage(resource: .icPlacepageChange),
@@ -253,7 +253,12 @@ class PlacePageInfoViewController: UIViewController {
     guard let coordFormats = placePageInfoData.coordFormats as? [String] else { return }
     coordinatesFormatId = formatId
     let coordinates: String = coordFormats[formatId]
-    coordinatesView?.setTitle(coordinates, style: .link)
+    coordinatesView?.setTitle(coordinatesTitle(coordinates), style: .link)
+  }
+
+  private func coordinatesTitle(_ coordinates: String) -> String {
+    guard let elevation = placePageInfoData.formattedTerrainElevation else { return coordinates }
+    return "\(coordinates)  ▲ \(elevation)"
   }
 
   private func copyCoordinatesToPasteboard() {

@@ -194,10 +194,16 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
     }
 
     @Override
-    public void onProgress(String countryId, long localSize, long remoteSize)
+    public void onProgress(String countryId, MapManager.Progress progress)
     {
+      if (progress.getTotalBytes() == 0)
+        return;
+
       if (mCurrentCountry != null && mCurrentCountry.id.equals(countryId))
-        updateDownloader();
+      {
+        mCurrentCountry.updateProgress(progress.getDownloadedBytes(), progress.getTotalBytes());
+        updateDownloader(mCurrentCountry);
+      }
     }
   };
   private PlacePageViewListener mPlacePageViewListener;
@@ -823,8 +829,14 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
     // available instead, without changing the saved preference.
     final CoordinatesFormatEntry[] entries =
         Framework.nativeGetCoordinateFormats(mMapObject.getLat(), mMapObject.getLon());
-    mTvLatlon.setText(entries[effectiveIndex(entries)].getDisplay());
+    setLatLonText(entries[effectiveIndex(entries)].getDisplay());
     UiUtils.hideIf(mMapObject.isTrackRecording() || mMapObject.isTrack(), mFrame.findViewById(R.id.ll__place_latlon));
+  }
+
+  private void setLatLonText(@NonNull String coordinates)
+  {
+    final String elevation = mMapObject.getFormattedTerrainElevation();
+    mTvLatlon.setText(elevation.isEmpty() ? coordinates : coordinates + "  ▲ " + elevation);
   }
 
   private void addOrganisation()
@@ -875,7 +887,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
       final CoordinatesFormatEntry next = entries[(effectiveIndex(entries) + 1) % entries.length];
       mCoordsFormatId = next.getId();
       MwmApplication.prefs(context).edit().putInt(PREF_COORDINATES_FORMAT, mCoordsFormatId).apply();
-      mTvLatlon.setText(next.getDisplay());
+      setLatLonText(next.getDisplay());
     }
     else if (id == R.id.ll__place_open_in)
     {
@@ -1054,7 +1066,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
 
     mDownloaderIcon.update(country);
 
-    StringBuilder sb = new StringBuilder(StringUtils.getFileSizeString(requireContext(), country.totalSize));
+    StringBuilder sb =
+        new StringBuilder(StringUtils.getFileSizeString(requireContext(), country.getDisplaySize(false)));
     if (country.isExpandable())
       sb.append(StringUtils.formatUsingUsLocale(
           "  •  %s: %d", requireContext().getString(R.string.downloader_status_maps), country.totalChildCount));
@@ -1083,7 +1096,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
 
     mDownloaderIcon
         .setOnIconClickListener((v) -> MapManagerHelper.warn3gAndDownload(requireActivity(), mCurrentCountry.id, null))
-        .setOnCancelClickListener((v) -> MapManager.nativeCancel(mCurrentCountry.id));
+        .setOnCancelClickListener((v) -> MapManager.cancel(mCurrentCountry.id));
     mDownloaderIcon.show(true);
     UiUtils.show(mDownloaderInfo);
     updateDownloader(mCurrentCountry);

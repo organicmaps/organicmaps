@@ -148,7 +148,7 @@ public class DownloaderFragment
       }
 
       @Override
-      public void onProgress(String countryId, long localSize, long remoteSize)
+      public void onProgress(String countryId, MapManager.Progress progress)
       {}
     });
 

@@ -154,13 +154,14 @@ Result Build(Place const & place, Strings const & strings)
       place.m_isMyPosition ? std::string_view{strings.m_myPosition} : std::string_view{place.m_name};
 
   // The place page has no separate name for an unnamed building (it shows the address as the title)
-  // and no type for an unmatched map point (it shows the coordinates as the subtitle). Both lines
-  // are printed below on their own, so drop the repetition instead of shipping it twice.
+  // and no subtitle of its own for an unmatched map point or an unnamed area (it shows the coordinates
+  // and the elevation instead). Both lines are printed below on their own, so drop the repetition
+  // instead of shipping it twice.
   std::string_view address = place.m_address;
   if (address == heading)
     address = {};
   std::string_view typeLabel = place.m_typeLabel;
-  if (typeLabel == coords)
+  if (typeLabel.starts_with(coords))
     typeLabel = {};
 
   // Plain body (messengers): heading, address, coordinates, link.

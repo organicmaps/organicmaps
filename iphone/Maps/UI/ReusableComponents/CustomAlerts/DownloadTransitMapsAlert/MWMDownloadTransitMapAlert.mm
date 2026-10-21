@@ -115,16 +115,13 @@ CGFloat const kAnimationDuration = .05;
                               [&s](storage::CountryId const & countryId) { return s.HasLatestVersion(countryId); }),
                     m_countries.end());
   NSMutableArray<NSString *> * titles = [@[] mutableCopy];
-  MwmSize totalSize = 0;
   for (auto const & countryId : m_countries)
-  {
-    storage::NodeAttrs attrs;
-    s.GetNodeAttrs(countryId, attrs);
-    [titles addObject:@(attrs.m_nodeLocalName.c_str())];
-    totalSize += attrs.m_mwmSize;
-  }
+    [titles addObject:@(s.GetNodeLocalName(countryId).c_str())];
   self.countriesNames = titles;
-  self.countriesSize = formattedSize(totalSize);
+  // GetDownloadSize skips the queued and downloading maps: add their remaining bytes.
+  auto const progress = s.GetOverallProgress(m_countries);
+  self.countriesSize = formattedSize(s.GetDownloadSize(m_countries, false /* withTerrain */) + progress.m_bytesTotal -
+                                     progress.m_bytesDownloaded);
 }
 
 #pragma mark - MWMCircularProgressProtocol
@@ -132,7 +129,7 @@ CGFloat const kAnimationDuration = .05;
 - (void)progressButtonPressed:(nonnull MWMCircularProgress *)progress
 {
   for (auto const & countryId : m_countries)
-    [[MWMStorage sharedStorage] cancelDownloadNode:@(countryId.c_str())];
+    GetFramework().GetStorage().CancelDownloadNode(countryId, false /* withTerrain */);
   [self cancelButtonTap];
 }
 
@@ -152,9 +149,9 @@ CGFloat const kAnimationDuration = .05;
         [self close:nil];
       return;
     }
-    auto const overallProgress = s.GetOverallProgress(m_countries);
-    // Test if downloading has finished by comparing downloaded and total sizes.
-    if (overallProgress.m_bytesDownloaded == overallProgress.m_bytesTotal)
+    bool const completed = std::all_of(m_countries.begin(), m_countries.end(),
+                                       [&s](storage::CountryId const & id) { return s.HasLatestVersion(id); });
+    if (completed)
       [self close:self.downloadCompleteBlock];
   }
   else
@@ -167,9 +164,9 @@ CGFloat const kAnimationDuration = .05;
   }
 }
 
-- (void)processCountry:(NSString *)countryId downloadedBytes:(uint64_t)downloadedBytes totalBytes:(uint64_t)totalBytes
+- (void)processCountry:(NSString *)countryId progress:(MWMStorageProgress)progress
 {
-  if (!self.rightButton.hidden ||
+  if (progress.mwmTotal == 0 || !self.rightButton.hidden ||
       find(m_countries.begin(), m_countries.end(), countryId.UTF8String) == m_countries.end())
     return;
   auto const overallProgress = GetFramework().GetStorage().GetOverallProgress(m_countries);

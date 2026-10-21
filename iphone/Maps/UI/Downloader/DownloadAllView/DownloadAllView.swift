@@ -64,7 +64,7 @@ class DownloadAllView: UIView {
 
   var downloadProgress: CGFloat = 0 {
     didSet {
-      progress.progress = downloadProgress
+      progress.progress = CGFloat(AppConstants.maxProgress) * downloadProgress
     }
   }
 
@@ -74,6 +74,7 @@ class DownloadAllView: UIView {
     super.awakeFromNib()
     title.adjustsFontForContentSizeCategory = true
     downloadSizeLabel.adjustsFontForContentSizeCategory = true
+    updateView()
   }
 
   @IBAction func onDownloadButtonPress(_: Any) {
@@ -129,7 +130,7 @@ class DownloadAllView: UIView {
       title.setFontStyleAndApply(.regular17, color: .blackPrimary)
       downloadButton.isHidden = true
       stateWrapper.isHidden = false
-      progress.state = .spinner
+      progress.progress = CGFloat(AppConstants.maxProgress) * downloadProgress
     case .none:
       downloadButton.isHidden = true
       stateWrapper.isHidden = true

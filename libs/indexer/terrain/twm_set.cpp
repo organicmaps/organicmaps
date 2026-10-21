@@ -143,6 +143,12 @@ bool TwmSet::HasBlocks(m2::RectD const & rect) const
   return found;
 }
 
+void TwmSet::GetBlockRectsByRect(m2::RectD const & rect, std::vector<m2::RectD> & rects) const
+{
+  rects.clear();
+  ForEachBlockByRectImpl(rect, [&](std::shared_ptr<TwmInfo> const & info) { rects.push_back(info->GetLimitRect()); });
+}
+
 TwmSet::Handle TwmSet::GetHandleById(TwmId const & id)
 {
   Handle handle;
