@@ -29,7 +29,6 @@
 #include "coding/files_container.hpp"
 
 #include "geometry/angles.hpp"
-#include "geometry/distance_on_sphere.hpp"
 #include "geometry/mercator.hpp"
 #include "geometry/point_with_altitude.hpp"
 
@@ -37,6 +36,7 @@
 #include "indexer/validate_and_format_contacts.hpp"
 
 #include "routing/following_info.hpp"
+#include "routing/routing_helpers.hpp"
 #include "routing/routing_options.hpp"
 #include "routing/speed_camera_manager.hpp"
 
@@ -1325,23 +1325,7 @@ JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetRouteJunction
     LOG(LWARNING, ("Can't get the route junction points"));
     return nullptr;
   }
-
-  std::vector<geometry::PointWithAltitude> result;
-  result.reserve(points.size());
-  result.push_back(points[0]);
-  for (size_t i = 1; i < points.size(); ++i)
-  {
-    double const dist = ms::DistanceOnEarth(points[i - 1].ToLatLon(), points[i].ToLatLon());
-    if (dist > maxDistM)
-    {
-      int const steps = static_cast<int>(dist / maxDistM) + 1;
-      for (int s = 1; s < steps; ++s)
-        result.push_back(points[i - 1].Interpolate(points[i], static_cast<double>(s) / steps));
-    }
-    result.push_back(points[i]);
-  }
-
-  return routing_jni::CreateJunctionInfoArray(env, result);
+  return routing_jni::CreateJunctionInfoArray(env, routing::DensifyJunctions(points, maxDistM));
 }
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetRouteAltitudeData(JNIEnv * env, jclass)
