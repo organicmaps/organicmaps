@@ -1,7 +1,11 @@
 #include "map/terrain_provider.hpp"
 
+#include "drape_frontend/clip_splines_builder.hpp"
+#include "drape_frontend/tile_key.hpp"
+
 #include "geometry/mercator.hpp"
 #include "indexer/scales.hpp"
+#include "indexer/terrain/terrain_utils.hpp"
 
 #include "base/logging.hpp"
 
@@ -10,6 +14,22 @@
 
 namespace terrain
 {
+TerrainProvider::TerrainProvider()
+{
+  m_set.AddObserver(*this);
+}
+
+TerrainProvider::~TerrainProvider()
+{
+  m_set.RemoveObserver(*this);
+}
+
+void TerrainProvider::OnTerrainDeregistered(TwmFile const & file)
+{
+  if (m_onTerrainDeregistered)
+    m_onTerrainDeregistered(file);
+}
+
 std::vector<TwmFile> TerrainProvider::GetRegisteredFiles() const
 {
   std::vector<std::shared_ptr<TwmInfo>> infos;
@@ -22,7 +42,7 @@ std::vector<TwmFile> TerrainProvider::GetRegisteredFiles() const
   return files;
 }
 
-bool TerrainProvider::RegisterBlock(TwmFile const & file)
+bool TerrainProvider::RegisterBlock(TwmFile const & file, m2::RectD * invalidRect)
 {
   auto const result = m_set.Register(file);
   if (result.second != TwmSet::RegResult::Success && result.second != TwmSet::RegResult::AlreadyRegistered)
@@ -30,7 +50,39 @@ bool TerrainProvider::RegisterBlock(TwmFile const & file)
     LOG(LWARNING, ("Can't register the terrain block", file.m_path, ":", result.second));
     return false;
   }
+  if (invalidRect)
+    AddInvalidationRect(file.m_rect, *invalidRect);
   return true;
+}
+
+void TerrainProvider::AddInvalidationRect(m2::RectD rect, m2::RectD & invalidRect) const
+{
+  m2::PointD halo;
+  {
+    std::lock_guard lock(m_readHaloMutex);
+    halo = m_maxReadHalo;
+  }
+  // Every cached tile has read the blocks within its halo (see ReadTerrain), and the edge-touching
+  // ones too (the seam normals and contours), which the drape invalidation skips without a margin.
+  // A tile also reads the overhang around itself (see df::GetTerrainReadRect), the widest at the
+  // coarsest terrain zoom; the mercator tiles are square.
+  auto const tile = df::TileKey(0, 0, kMinIsolinesZoom).GetGlobalRect();
+  double const overhang = (df::GetTerrainReadRect(tile).SizeX() - tile.SizeX()) / 2;
+  double constexpr kEdgeEps = 1e-9;
+  rect.Inflate(halo.x + overhang + kEdgeEps, halo.y + overhang + kEdgeEps);
+  invalidRect.Add(rect);
+}
+
+void TerrainProvider::DeleteBlocks(std::vector<TerrainId> const & ids, m2::RectD & invalidRect)
+{
+  for (auto const & terrainId : ids)
+  {
+    auto const id = m_set.GetId(terrainId);
+    if (!id.IsAlive())
+      continue;
+    AddInvalidationRect(id.GetInfo()->GetLimitRect(), invalidRect);
+    m_set.Deregister(terrainId);
+  }
 }
 
 void TerrainProvider::Clear()
@@ -63,6 +115,11 @@ void TerrainProvider::ReadTerrain(m2::RectD const & rect, int zoom, TerrainData 
       halo.x = std::max(halo.x, extent.x);
       halo.y = std::max(halo.y, extent.y);
     }
+  }
+
+  {
+    std::lock_guard lock(m_readHaloMutex);
+    m_maxReadHalo = {std::max(m_maxReadHalo.x, halo.x), std::max(m_maxReadHalo.y, halo.y)};
   }
 
   auto query = rect;

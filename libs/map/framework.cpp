@@ -65,6 +65,7 @@
 #include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 #include "base/math.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include "std/target_os.hpp"
@@ -397,6 +398,26 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   m_storage.Init(std::bind(&Framework::OnCountryFileDownloaded, this, _1, _2),
                  std::bind(&Framework::OnCountryFileDelete, this, _1, _2));
 
+  m_terrainProvider.SetOnTerrainDeregisteredCallback(std::bind(&Framework::OnTerrainDeregistered, this, _1));
+  // A downloaded block: Storage resolved the overlaps and the versions already.
+  m_storage.SetTerrainCallbacks(
+      [this](terrain::TwmFile const & file)
+  {
+    m2::RectD invalidRect;
+    VERIFY(m_terrainProvider.RegisterBlock(file, &invalidRect), (file.m_path));
+    OnTerrainChanged(invalidRect);
+  }, [this](std::vector<terrain::TwmFile> const & files)
+  {
+    std::vector<terrain::TerrainId> ids;
+    for (auto const & file : files)
+      ids.push_back(file.m_id);
+    m2::RectD invalidRect;
+    m_terrainProvider.DeleteBlocks(ids, invalidRect);
+    OnTerrainChanged(invalidRect);
+  });
+  // A failed or cancelled terrain request changes the download hint without changing the blocks.
+  m_storage.Subscribe([this](storage::CountryId const &) { InvalidateIsolines(); }, {});
+
   m_storage.SetDownloadingPolicy(&m_storageDownloadingPolicy);
   m_storage.SetStartDownloadingCallback([this]()
   {
@@ -451,6 +472,7 @@ Framework::~Framework()
   m_trafficManager.Teardown();
   DestroyDrapeEngine();
   m_featuresFetcher.SetOnMapDeregisteredCallback(nullptr);
+  m_terrainProvider.SetOnTerrainDeregisteredCallback(nullptr);
 }
 
 void Framework::ShowNode(storage::CountryId const & countryId)
@@ -506,6 +528,8 @@ bool Framework::OnCountryFileDelete(storage::CountryId const & countryId, storag
   }
 
   InvalidateRect(rect);
+  // Recomputed on the next viewport change, when the map is already gone.
+  m_terrainHintMissing.reset();
 
   GetSearchAPI().ClearCaches();
   return deferredDelete;
@@ -540,6 +564,7 @@ void Framework::OnTerrainChanged(m2::RectD const & rect)
 
 void Framework::InvalidateIsolines()
 {
+  m_terrainHintMissing.reset();
   UpdateIsolinesAvailability();
 }
 
@@ -566,7 +591,48 @@ bool Framework::HasViewportTerrain(m2::RectD const & rect)
   bool has = false;
   mercator::ForEachRectWrapped(rect,
                                [&](m2::RectD const & piece) { has = has || m_terrainProvider.HasTerrain(piece); });
-  return has;
+  if (has)
+    return true;
+  // The download hint is for the installed maps without terrain, not for the sea or other maps.
+  // Cached by the regions in view: the terrain attrs are too heavy for every viewport change
+  // (InvalidateIsolines resets it, also on every storage status change).
+  storage::CountriesVec regions;
+  mercator::ForEachRectWrapped(rect, [&](m2::RectD const & piece)
+  {
+    auto const ids = m_infoGetter->GetRegionsCountryIdByRect(piece, false /* rough */);
+    regions.insert(regions.end(), ids.begin(), ids.end());
+  });
+  base::SortUnique(regions);
+  if (!m_terrainHintMissing || regions != m_terrainHintRegions)
+  {
+    using TerrainStatus = storage::Storage::TerrainStatus;
+    m_terrainHintMissing = base::AnyOf(regions, [this](storage::CountryId const & countryId)
+    {
+      if (!m_storage.IsNodeDownloaded(countryId))
+        return false;
+      // Only with something to request: the blocks queued for a neighbour land without this update.
+      auto const attrs = m_storage.GetTerrainAttrs(countryId);
+      return attrs.m_remainingSize > 0 &&
+             (attrs.m_status == TerrainStatus::NotDownloaded || attrs.m_status == TerrainStatus::Partly ||
+              attrs.m_status == TerrainStatus::Failed);
+    });
+    m_terrainHintRegions = std::move(regions);
+  }
+  return !*m_terrainHintMissing;
+}
+
+void Framework::OnTerrainDeregistered(terrain::TwmFile const & file)
+{
+  auto action = [this, file]
+  {
+    // The same file may have been registered again while this completion was queued.
+    if (!m_terrainProvider.IsFileInUse(file))
+      m_storage.OnTerrainFileDeregistered(file);
+  };
+  if (m_storage.GetThreadChecker().CalledOnOriginalThread())
+    action();
+  else
+    GetPlatform().RunTask(Platform::Thread::Gui, action);
 }
 
 bool Framework::HasUnsavedEdits(storage::CountryId const & countryId)
@@ -648,19 +714,10 @@ void Framework::RegisterAllMaps()
     }
   }
 
-  // The installed terrain blocks, <writable>/terrain/<version>/*.twm: the newest version folders
-  // go first, so the registry keeps a newer block over an overlapping older one.
-  for (auto const & [dir, version] : terrain::ListVersionDirs(base::JoinPath(GetPlatform().WritableDir(), TERRAIN_DIR)))
-  {
-    Platform::FilesList files;
-    Platform::GetFilesByExt(dir, TERRAIN_FILE_EXT, files);
-    for (auto const & name : files)
-    {
-      terrain::TwmFile file;
-      if (terrain::TwmSet::ReadFile(base::JoinPath(dir, name), version, file) == terrain::TwmSet::RegResult::Success)
-        m_terrainProvider.RegisterBlock(file);
-    }
-  }
+  // Storage resolves the overlaps and the versions of the installed terrain.
+  m_storage.RegisterAllLocalTerrain();
+  for (auto const & file : m_storage.GetLocalTerrainFiles())
+    VERIFY(m_terrainProvider.RegisterBlock(file), (file.m_path));
   m_terrainRegistered = true;
   // RegisterAllMaps can run on the map-loading thread.
   GetPlatform().RunTask(Platform::Thread::Gui, [this] { OnTerrainChanged(mercator::Bounds::FullRect()); });

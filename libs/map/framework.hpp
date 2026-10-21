@@ -195,6 +195,9 @@ protected:
   terrain::TerrainProvider m_terrainProvider;
   // The isolines availability waits for the terrain registration (see RegisterAllMaps).
   std::atomic_bool m_terrainRegistered = false;
+  // The terrain download hint of the regions in the last viewport (see HasViewportTerrain).
+  storage::CountriesVec m_terrainHintRegions;
+  std::optional<bool> m_terrainHintMissing;
 
   // Note. |m_routingManager| should be declared before |m_trafficManager|
   RoutingManager m_routingManager;
@@ -211,6 +214,7 @@ protected:
 
   /// This function is called by m_featuresFetcher when the map file is deregistered.
   void OnMapDeregistered(platform::LocalCountryFile const & localFile);
+  void OnTerrainDeregistered(terrain::TwmFile const & file);
   // Redraws the changed terrain.
   void OnTerrainChanged(m2::RectD const & rect);
   // Re-evaluates the isolines availability after a map or terrain change.
