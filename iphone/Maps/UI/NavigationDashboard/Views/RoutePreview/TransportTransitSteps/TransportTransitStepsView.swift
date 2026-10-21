@@ -22,6 +22,8 @@ final class TransportTransitStepsView: SolidTouchView {
     let layout = TransportTransitFlowLayout()
     stepsCollectionView = TransportTransitStepsCollectionView(layout: layout)
     stepsCollectionView.backgroundColor = .clear
+    stepsCollectionView.isAccessibilityElement = true
+    stepsCollectionView.accessibilityTraits = .staticText
   }
 
   private func layout() {
@@ -44,8 +46,10 @@ final class TransportTransitStepsView: SolidTouchView {
     if let steps = navigationInfo?.transitSteps {
       stepsCollectionView.steps = steps
       isHidden = steps.isEmpty
+      stepsCollectionView.accessibilityLabel = steps.isEmpty ? nil : ListFormatter.localizedString(byJoining: steps.map(\.accessibilityDescription))
     } else {
       isHidden = true
+      stepsCollectionView.accessibilityLabel = nil
     }
     updateHeight()
   }
@@ -60,5 +64,33 @@ final class TransportTransitStepsView: SolidTouchView {
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     super.traitCollectionDidChange(previousTraitCollection)
     layoutIfNeeded()
+  }
+}
+
+private extension MWMRouterTransitStepInfo {
+  var accessibilityDescription: String {
+    let distanceText = [distance ?? "", distanceUnits ?? ""].filter { !$0.isEmpty }.joined(separator: " ")
+    let title: String
+    switch type {
+    case .intermediatePoint:
+      title = String(format: L("routing_accessibility_stop_number"), intermediateIndex + 1)
+    case .pedestrian:
+      title = L("routing_accessibility_walking")
+    case .subway:
+      title = L("button_layer_subway")
+    case .train:
+      title = L("routing_accessibility_train")
+    case .lightRail:
+      title = L("routing_accessibility_light_rail")
+    case .monorail:
+      title = L("routing_accessibility_monorail")
+    case .tram:
+      title = L("routing_accessibility_tram")
+    case .bus:
+      title = L("routing_accessibility_bus")
+    case .ruler:
+      title = L("placepage_distance")
+    }
+    return [title, number ?? "", distanceText].filter { !$0.isEmpty }.joined(separator: " ")
   }
 }

@@ -6,6 +6,7 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
 
   struct PointViewModel {
     let title: String
+    let accessibilityRole: String
     let image: UIImage
     let showCloseButton: Bool
     let maskedCorners: CACornerMask
@@ -39,6 +40,15 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
   }()
 
   private var didTapClose: (() -> Void)?
+  var onAccessibilitySelect: (() -> Void)?
+  var onAccessibilityMoveUp: (() -> Void)?
+  var onAccessibilityMoveDown: (() -> Void)?
+
+  override func accessibilityActivate() -> Bool {
+    guard let onAccessibilitySelect else { return false }
+    onAccessibilitySelect()
+    return true
+  }
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -122,9 +132,14 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
   }
 
   func configure(with viewModel: CellType) {
+    isAccessibilityElement = true
+    accessibilityTraits = .button
+    var customActions = [UIAccessibilityCustomAction]()
     switch viewModel {
     case .point(let viewModel):
       titleLabel.text = viewModel.title
+      accessibilityLabel = viewModel.accessibilityRole
+      accessibilityValue = viewModel.isPlaceholder ? nil : viewModel.title
       logoImageView.image = viewModel.image
       logoImageView.setStyleAndApply(.black)
       didTapClose = viewModel.onCloseHandler
@@ -133,8 +148,17 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
       reorderButton.isHidden = false
       contentBackgroundView.layer.maskedCorners = viewModel.maskedCorners
       separatorView.isHidden = !viewModel.showSeparator
+      if viewModel.showCloseButton, let didTapClose {
+        customActions.append(UIAccessibilityCustomAction(name: L("placepage_remove_stop"), actionHandler: { _ in
+          didTapClose()
+          return true
+        }))
+      }
     case .addPoint:
       titleLabel.text = L("placepage_add_stop")
+      accessibilityLabel = titleLabel.text
+      accessibilityValue = nil
+      didTapClose = nil
       logoImageView.image = UIImage(resource: .icAddButton)
       logoImageView.setStyleAndApply(.blue)
       titleLabel.setFontStyleAndApply(Constants.fontStyle, color: .linkBlue)
@@ -143,6 +167,27 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
       contentBackgroundView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
       separatorView.isHidden = true
     }
+    if let onAccessibilityMoveUp {
+      customActions.append(UIAccessibilityCustomAction(name: L("routing_accessibility_move_point_up"), actionHandler: { _ in
+        onAccessibilityMoveUp()
+        return true
+      }))
+    }
+    if let onAccessibilityMoveDown {
+      customActions.append(UIAccessibilityCustomAction(name: L("routing_accessibility_move_point_down"), actionHandler: { _ in
+        onAccessibilityMoveDown()
+        return true
+      }))
+    }
+    accessibilityCustomActions = customActions
+  }
+
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    onAccessibilitySelect = nil
+    onAccessibilityMoveUp = nil
+    onAccessibilityMoveDown = nil
+    accessibilityCustomActions = nil
   }
 
   @objc

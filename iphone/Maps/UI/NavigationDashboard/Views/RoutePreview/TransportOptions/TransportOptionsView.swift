@@ -57,7 +57,9 @@ final class TransportOptionsView: UIView {
     segmentedControl.removeAllSegments()
     for (index, type) in routerTypes.enumerated() {
       let isSelected = type == selectedRouterType
-      segmentedControl.insertSegment(with: type.image(for: isSelected), at: index, animated: false)
+      // The action supplies a spoken title while the image remains the visible segment content.
+      let action = UIAction(title: type.accessibilityTitle, image: type.image(for: isSelected)) { _ in }
+      segmentedControl.insertSegment(action: action, at: index, animated: false)
       if isSelected {
         segmentedControl.selectedSegmentIndex = index
       }

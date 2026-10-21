@@ -43,6 +43,17 @@ extension MWMRouterType: CaseIterable {
     .ruler,
   ]
 
+  var accessibilityTitle: String {
+    switch self {
+    case .vehicle: L("routing_accessibility_car")
+    case .pedestrian: L("routing_accessibility_walking")
+    case .publicTransport: L("routing_accessibility_public_transport")
+    case .bicycle: L("routing_accessibility_cycling")
+    case .ruler: L("routing_accessibility_measure_distance")
+    @unknown default: fatalError("Unknown router type")
+    }
+  }
+
   func image(for isSelected: Bool) -> UIImage {
     var image: UIImage
     switch self {

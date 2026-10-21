@@ -79,6 +79,16 @@ final class RoutePointsView: UIView {
   }
 
   private func configure(_ cell: RoutePointCollectionViewCell, at indexPath: IndexPath) {
+    let index = indexPath.item
+    cell.onAccessibilitySelect = { [weak self] in
+      self?.selectRoutePoint(at: index)
+    }
+    cell.onAccessibilityMoveUp = index > 0 && index < routePoints.count && routePoints[index] != nil ? { [weak self] in
+      self?.movePointForAccessibility(from: index, to: index - 1)
+    } : nil
+    cell.onAccessibilityMoveDown = index < routePoints.count - 1 && routePoints[index] != nil ? { [weak self] in
+      self?.movePointForAccessibility(from: index, to: index + 1)
+    } : nil
     switch indexPath.item {
     case routePoints.count:
       cell.configure(with: .addPoint)
@@ -90,6 +100,38 @@ final class RoutePointsView: UIView {
       })
       cell.configure(with: viewModel)
     }
+  }
+
+  private func selectRoutePoint(at index: Int) {
+    if index == routePoints.count {
+      interactor?.process(.addRoutePointButtonDidTap)
+    } else if index < routePoints.count {
+      let selection = MWMRoutePointSelection(point: routePoints[index],
+                                             type: routePoints.type(for: index),
+                                             shouldAppend: false)
+      interactor?.process(.selectRoutePoint(selection))
+    }
+  }
+
+  private func movePointForAccessibility(from source: Int, to destination: Int) {
+    guard source >= 0, source < routePoints.count,
+          destination >= 0, destination < routePoints.count,
+          source != destination else { return }
+    routePoints.movePoint(from: source, to: destination)
+    collectionView.performBatchUpdates {
+      collectionView.moveItem(at: IndexPath(item: source, section: 0),
+                              to: IndexPath(item: destination, section: 0))
+    } completion: { [weak self] _ in
+      guard let self else { return }
+      UIAccessibility.post(notification: .layoutChanged,
+                           argument: self.collectionView.cellForItem(at: IndexPath(item: destination, section: 0)))
+    }
+    for index in 0 ..< routePoints.count {
+      let indexPath = IndexPath(item: index, section: 0)
+      guard let cell = collectionView.cellForItem(at: indexPath) as? RoutePointCollectionViewCell else { continue }
+      configure(cell, at: indexPath)
+    }
+    interactor?.process(.moveRoutePoint(from: source, to: destination))
   }
 
   func setRoutePoints(_ routePoints: NavigationDashboard.RoutePoints) {
@@ -223,6 +265,9 @@ private extension NavigationDashboard.RoutePoints {
     }
     let viewModel = RoutePointCollectionViewCell.PointViewModel(
       title: title(for: index),
+      accessibilityRole: index == 0 ? L("choose_start_location")
+        : (index == count - 1 ? L("choose_destination")
+          : String(format: L("routing_accessibility_stop_number"), index)),
       image: image(for: index),
       showCloseButton: point?.type == .intermediate,
       maskedCorners: maskedCorners,
