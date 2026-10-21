@@ -1255,3 +1255,54 @@
 
 /* VoiceOver value for a point on the iOS elevation profile. First %@ is distance along the track, second %@ is altitude. */
 "placepage_elevation_point" = "Odległość %@, wysokość %@";
+
+/* VoiceOver name of the car mode in the iOS route planning transport selector. */
+"routing_accessibility_car" = "Samochodem";
+
+/* VoiceOver name of the walking mode and walking steps in iOS route planning. */
+"routing_accessibility_walking" = "Pieszo";
+
+/* VoiceOver name of the public transport mode in the iOS route planning selector. */
+"routing_accessibility_public_transport" = "Transport publiczny";
+
+/* VoiceOver name of the bicycle mode in the iOS route planning selector. */
+"routing_accessibility_cycling" = "Rowerem";
+
+/* VoiceOver name of the straight-line distance mode in the iOS route planning selector. */
+"routing_accessibility_measure_distance" = "Zmierz odległość";
+
+/* VoiceOver label for the icon button that saves a planned route as a track on iOS. */
+"routing_accessibility_save_as_track" = "Zapisz trasę jako ślad";
+
+/* VoiceOver value of the routing options button on iOS. %d is the number of enabled routing options. */
+"routing_accessibility_options_count" = "Włączone opcje: %d";
+
+/* VoiceOver label for the route estimate while iOS calculates a route. */
+"routing_accessibility_calculating" = "Wyznaczanie trasy";
+
+/* VoiceOver value of the disabled Start button while iOS calculates a route. %@ is a locale-formatted percentage. */
+"routing_accessibility_calculating_progress" = "Wyznaczanie trasy: %@";
+
+/* VoiceOver name of a numbered intermediate route point on iOS. %d is its one-based number. */
+"routing_accessibility_stop_number" = "Punkt pośredni %d";
+
+/* VoiceOver action for moving a route point toward the start of the route on iOS. */
+"routing_accessibility_move_point_up" = "Przesuń punkt wcześniej";
+
+/* VoiceOver action for moving a route point toward the destination on iOS. */
+"routing_accessibility_move_point_down" = "Przesuń punkt później";
+
+/* VoiceOver name of a train step in an iOS public transport route preview. */
+"routing_accessibility_train" = "Pociąg";
+
+/* VoiceOver name of a light rail step in an iOS public transport route preview. */
+"routing_accessibility_light_rail" = "Kolej lekka";
+
+/* VoiceOver name of a monorail step in an iOS public transport route preview. */
+"routing_accessibility_monorail" = "Kolej jednoszynowa";
+
+/* VoiceOver name of a tram step in an iOS public transport route preview. */
+"routing_accessibility_tram" = "Tramwaj";
+
+/* VoiceOver name of a bus step in an iOS public transport route preview. */
+"routing_accessibility_bus" = "Autobus";
