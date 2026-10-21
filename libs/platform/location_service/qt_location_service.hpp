@@ -16,6 +16,8 @@ class QtLocationService
   // /gdbus-org.freedesktop.GeoClue2.Client.html#gdbus-property-org-freedesktop-GeoClue2-Client.Active
   // But `QGeoPositionInfoSource` doesn't expose that so we have to deduce its state.
   bool m_clientIsActive = false;
+  // Signals queued before Stop() still arrive afterwards.
+  bool m_started = false;
 
 public:
   explicit QtLocationService(location::LocationObserver &, std::string const &);
