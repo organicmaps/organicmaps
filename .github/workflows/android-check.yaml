@@ -106,8 +106,8 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v6
         with:
-          # Needed for versioning script
-          fetch-depth: 200 # enough to get all commits for the current day
+          # Test artifacts only need a bounded history for version labels.
+          fetch-depth: 200
 
       - name: Parallel submodules checkout
         shell: bash
