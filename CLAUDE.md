@@ -149,9 +149,10 @@ Format: `[subsystem] Summary in imperative mood` (max 80 chars). Examples of sub
 
 ## Pull requests
 - Prefer PRs focused and small; split unrelated changes into separate PRs, or at least separate commits with clear messages
-- Mention if LLM tools were used to generate code
-- Description must be brief and include: what changed, link to issue (`Fixes #NNN`), how it was tested
-- Every commit must compile on all platforms and pass tests
+- Mention if LLM tools were used to generate code, include model name and effort level
+- Description must be brief (don't wrap markdown) and include: what changed, link to issue (`Fixes #NNN` or `Related #NNN`), how it was tested
+- Label the PR properly if permissions allow it
+- Every commit must compile on all platforms and pass tests; exceptions are possible for easier code review, if PR will be squashed, or for android using string ids before strings regenerated commit
 - New features require tests in the same PR
 - Test on multiple OS versions, themes (light/dark), orientations where applicable
 - See [docs/PR_GUIDE.md](docs/PR_GUIDE.md) for full guide
