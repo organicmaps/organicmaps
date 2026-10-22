@@ -49,12 +49,6 @@ void sperr::Bitstream::reset()
 }
 
 // Functions for read
-auto sperr::Bitstream::rtell() const -> size_t
-{
-  // Stupid C++ insists that `m_buf.begin()` gives me a const iterator...
-  std::vector<uint64_t>::const_iterator itr2 = m_itr;  // NOLINT
-  return std::distance(m_buf.begin(), itr2) * 64 - m_bits;
-}
 
 void sperr::Bitstream::rseek(size_t offset)
 {
@@ -70,19 +64,6 @@ void sperr::Bitstream::rseek(size_t offset)
     m_buffer = 0;
     m_bits = 0;
   }
-}
-
-auto sperr::Bitstream::rbit() -> bool
-{
-  if (m_bits == 0) {
-    m_buffer = *m_itr;
-    ++m_itr;
-    m_bits = 64;
-  }
-  --m_bits;
-  bool bit = m_buffer & uint64_t{1};
-  m_buffer >>= 1;
-  return bit;
 }
 
 // Functions for write

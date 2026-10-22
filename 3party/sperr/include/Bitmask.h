@@ -72,4 +72,63 @@ class Bitmask {
 
 }  // namespace sperr
 
+// Organic Maps: the hot accessors are inline, moved from Bitmask.cpp.
+inline auto sperr::Bitmask::size() const -> size_t
+{
+  return m_num_bits;
+}
+
+inline auto sperr::Bitmask::rlong(size_t idx) const -> uint64_t
+{
+  return m_buf[idx >> 6];
+}
+
+inline auto sperr::Bitmask::rbit(size_t idx) const -> bool
+{
+  auto div = idx >> 6;  // idx / 64
+  auto rem = idx & 63;  // idx % 64
+  auto word = m_buf[div];
+  word &= uint64_t{1} << rem;
+  return word;
+}
+
+inline void sperr::Bitmask::wbit(size_t idx, bool bit)
+{
+  const auto wstart = idx >> 6;
+  auto word = m_buf[wstart];
+
+  auto mask1 = uint64_t{1} << (idx & 63);
+  word &= ~mask1;
+
+  auto mask2 = uint64_t{bit} << (idx & 63);
+  word |= mask2;
+
+  m_buf[wstart] = word;
+}
+
+inline void sperr::Bitmask::wlong(size_t idx, uint64_t value)
+{
+  m_buf[idx >> 6] = value;
+}
+
+inline void sperr::Bitmask::wtrue(size_t idx)
+{
+  const auto wstart = idx >> 6;
+  const auto mask = uint64_t{1} << (idx & 63);
+
+  auto word = m_buf[wstart];
+  word |= mask;
+  m_buf[wstart] = word;
+}
+
+inline void sperr::Bitmask::wfalse(size_t idx)
+{
+  const auto wstart = idx >> 6;
+  const auto mask = uint64_t{1} << (idx & 63);
+
+  auto word = m_buf[wstart];
+  word &= ~mask;
+  m_buf[wstart] = word;
+}
+
 #endif

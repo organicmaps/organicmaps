@@ -361,6 +361,36 @@ void sperr::SPECK_INT<T>::m_refinement_pass_encode()
 template <typename T>
 void sperr::SPECK_INT<T>::m_refinement_pass_decode()
 {
+  // Organic Maps: a complete stream contains every refinement bit in this pass.
+  // Prefix/progressive streams keep the per-read exhaustion checks in the original path below.
+  // The caller still stops at completed sorting/refinement pass boundaries as before.
+  if (m_avail_bits == m_total_bits) {
+    const auto bits_x64 = m_LSP_mask.size() - m_LSP_mask.size() % 64;
+    auto visit = [&](auto&& update) {
+      for (size_t i = 0; i < bits_x64; i += 64) {
+        auto value = m_LSP_mask.rlong(i);
+        while (value) {
+          auto j = std::countr_zero(value);
+          update(i + j);
+          value &= value - 1;
+        }
+      }
+      for (auto i = bits_x64; i < m_LSP_mask.size(); i++)
+        if (m_LSP_mask.rbit(i)) update(i);
+    };
+    if (m_threshold >= uint_type{2}) {
+      const auto half_t = m_threshold / uint_type{2};
+      visit([&](size_t idx) { m_coeff_buf[idx] += m_bit_buffer.rbit() ? half_t : uint_type{0} - half_t; });
+    }
+    else
+      visit([&](size_t idx) { m_coeff_buf[idx] += m_bit_buffer.rbit(); });
+    const auto init_val = m_threshold + m_threshold - m_threshold / uint_type{2} - uint_type{1};
+    for (auto idx : m_LSP_new) m_coeff_buf[idx] = init_val;
+    for (auto idx : m_LSP_new) m_LSP_mask.wtrue(idx);
+    m_LSP_new.clear();
+    return;
+  }
+
   // First, process significant points previously found.
   //    All these nested conditions are a little annoying, but I don't have a better solution now.
   //    Here's a documentation of their purposes.
