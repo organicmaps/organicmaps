@@ -46,25 +46,3 @@ area|z12-[waterway=riverbank]
 {
   color: #A8CFDC;
 }
-
-/* Walking routes: warm brown, distinct from roads. */
-line|z14-[highway=path]
-{
-  color: #A66F43;
-}
-
-line|z14-[highway=footway]
-{
-  color: #A66F43;
-}
-
-line|z14-[highway=bridleway]
-{
-  color: #8E7658;
-}
-
-line|z13-[highway=track]
-{
-  color: #9A805E;
-}
-
