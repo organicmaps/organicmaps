@@ -27,29 +27,27 @@ public:
     std::pair<uint16_t, uint16_t> m_junctionInfoPosition;
   };
 
-  FollowingInfo()
-    : m_turn(turns::CarDirection::None)
-    , m_nextTurn(turns::CarDirection::None)
-    , m_exitNum(0)
-    , m_time(0)
-    , m_completionPercent(0)
-    , m_pedestrianTurn(turns::PedestrianDirection::None)
-  {}
+  FollowingInfo() = default;
 
   bool IsValid() const { return m_distToTarget.IsValid(); }
 
   /// @name Formatted covered distance.
   platform::Distance m_distToTarget;
 
-  /// @name Formatted distance to the next turn.
+  /// @name Next turns and formatted distance to the closest one.
   //@{
   platform::Distance m_distToTurn;
-  turns::CarDirection m_turn;
-  /// Turn after m_turn. Returns NoTurn if there is no turns after.
-  turns::CarDirection m_nextTurn;
-  uint32_t m_exitNum;
+  turns::CarDirection m_turn = turns::CarDirection::None;
+  /// Exit number and roundabout details of m_turn.
+  uint32_t m_exitNum = 0;
+  turns::RoundaboutInfo m_roundaboutInfo;
+  /// Turn after m_turn, or CarDirection::None when it should not be displayed.
+  turns::CarDirection m_nextTurn = turns::CarDirection::None;
+  /// Exit number and roundabout details of m_nextTurn.
+  uint32_t m_nextExitNum = 0;
+  turns::RoundaboutInfo m_nextRoundaboutInfo;
   //@}
-  int m_time;
+  int m_time = 0;
   /// Contains lane information on the edge before the turn.
   turns::lanes::LanesInfo m_lanes;
   // m_turnNotifications contains information about the next turn notifications.
@@ -71,11 +69,11 @@ public:
   RoadShieldInfo m_nextNextStreetShields;
 
   // Percentage of the route completion.
-  double m_completionPercent;
+  double m_completionPercent = 0.0;
 
   /// @name Pedestrian direction information
   //@{
-  turns::PedestrianDirection m_pedestrianTurn;
+  turns::PedestrianDirection m_pedestrianTurn = turns::PedestrianDirection::None;
   //@}
 
   // Current speed limit in meters per second.

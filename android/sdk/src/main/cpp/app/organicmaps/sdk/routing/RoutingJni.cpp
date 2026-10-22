@@ -49,6 +49,12 @@ jobject ToJavaPedestrianDirection(JNIEnv * env, routing::turns::PedestrianDirect
   return ToJavaDirection(env, clazz, "Lapp/organicmaps/sdk/routing/PedestrianDirection;", pedestrianDirection);
 }
 
+jobject ToJavaRoundaboutDirection(JNIEnv * env, routing::turns::RoundaboutDirection direction)
+{
+  static jclass const clazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/routing/RoundaboutDirection");
+  return ToJavaEnum(env, clazz, "Lapp/organicmaps/sdk/routing/RoundaboutDirection;", DebugPrint(direction).c_str());
+}
+
 jobject ToJavaLaneWay(JNIEnv * env, routing::turns::lanes::LaneWay const & laneWay)
 {
   static jclass const clazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/routing/LaneWay");
@@ -235,6 +241,13 @@ jobject CreateRoutingInfo(JNIEnv * env, routing::FollowingInfo const & info, Rou
     "Lapp/organicmaps/sdk/routing/CarDirection;"               // carNextTurnDirection
     "Lapp/organicmaps/sdk/routing/PedestrianDirection;"        // pedestrianDirection
     "I"                                                        // exitNum
+    "I"                                                        // exitAngle
+    "Lapp/organicmaps/sdk/routing/RoundaboutDirection;"        // roundaboutDirection
+    "Z"                                                        // hasRoundaboutExit
+    "I"                                                        // nextExitNum
+    "I"                                                        // nextExitAngle
+    "Lapp/organicmaps/sdk/routing/RoundaboutDirection;"        // nextRoundaboutDirection
+    "Z"                                                        // nextHasRoundaboutExit
     "I"                                                        // totalTime
     "[Lapp/organicmaps/sdk/routing/LaneInfo;"                  // lanes
     "D"                                                        // speedLimitMps
@@ -258,6 +271,13 @@ jobject CreateRoutingInfo(JNIEnv * env, routing::FollowingInfo const & info, Rou
     ToJavaCarDirection(env, info.m_nextTurn),
     ToJavaPedestrianDirection(env, info.m_pedestrianTurn),
     info.m_exitNum,
+    info.m_roundaboutInfo.m_exitAngle,
+    ToJavaRoundaboutDirection(env, info.m_roundaboutInfo.m_direction),
+    static_cast<jboolean>(info.m_roundaboutInfo.m_hasExit),
+    info.m_nextExitNum,
+    info.m_nextRoundaboutInfo.m_exitAngle,
+    ToJavaRoundaboutDirection(env, info.m_nextRoundaboutInfo.m_direction),
+    static_cast<jboolean>(info.m_nextRoundaboutInfo.m_hasExit),
     info.m_time,
     CreateLanesInfo(env, info.m_lanes),
     info.m_speedLimitMps,

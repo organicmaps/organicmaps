@@ -8,6 +8,10 @@
 
 #include "indexer/ftypes_matcher.hpp"
 
+#include "base/assert.hpp"
+
+#include <span>
+
 namespace routing
 {
 using namespace ftypes;
@@ -33,6 +37,17 @@ void LoadLanes(LoadedPathSegment & pathSegment, FeatureType & ft, bool isForward
 {
   auto tag = GetLanesMetadataTag(ft, isForward);
   pathSegment.m_lanes = lanes::ParseLanes(ft.GetMetadata(tag));
+}
+
+turns::RoundaboutDirection InvertRoundaboutDirection(turns::RoundaboutDirection direction)
+{
+  switch (direction)
+  {
+  case turns::RoundaboutDirection::Unknown: return direction;
+  case turns::RoundaboutDirection::Clockwise: return turns::RoundaboutDirection::CounterClockwise;
+  case turns::RoundaboutDirection::CounterClockwise: return turns::RoundaboutDirection::Clockwise;
+  }
+  UNREACHABLE();
 }
 }  // namespace
 
@@ -78,6 +93,34 @@ void DirectionsEngine::LoadPathAttributes(FeatureID const & featureId, LoadedPat
   pathSegment.m_isLink = m_linkChecker(types);
   pathSegment.m_onRoundabout = m_roundAboutChecker(types);
   pathSegment.m_isOneWay = m_onewayChecker(types);
+
+  if (m_vehicleType == VehicleType::Car && pathSegment.m_onRoundabout)
+  {
+    // A roundabout is split into path segments at its junctions. Reuse its closed-feature metadata
+    // so the full geometry is parsed once while car turn annotations are created.
+    if (!m_pathSegments.empty() && m_pathSegments.back().m_segmentRange.GetFeature() == featureId)
+    {
+      pathSegment.m_roundaboutCenter = m_pathSegments.back().m_roundaboutCenter;
+      pathSegment.m_roundaboutDirection = m_pathSegments.back().m_roundaboutDirection;
+      if (m_pathSegments.back().m_segmentRange.IsForward() != isForward)
+        pathSegment.m_roundaboutDirection = InvertRoundaboutDirection(pathSegment.m_roundaboutDirection);
+    }
+    else
+    {
+      // Open features can be parts of one split roundabout; their direction is derived later from
+      // the contiguous driven path because one feature alone has no global winding or center.
+      std::span<m2::PointD const> const geometry = ft->GetPoints(FeatureType::BEST_GEOMETRY);
+      if (geometry.size() >= 4 && geometry.front() == geometry.back())
+      {
+        pathSegment.m_roundaboutDirection = CalcClosedRoundaboutDirection(geometry, isForward);
+        auto const center = ft->GetLimitRect(FeatureType::BEST_GEOMETRY).Center();
+        // A polar sweep is valid only when the whole ring advances monotonically around the pivot.
+        // Non-convex rings can have a bounding-box center outside the ring or behind a reflex edge.
+        if (IsAngularlyMonotonic(geometry, center))
+          pathSegment.m_roundaboutCenter = center;
+      }
+    }
+  }
 
   pathSegment.m_roadNameInfo.m_mwmId = ft->GetID();
   pathSegment.m_roadNameInfo.m_isLink = pathSegment.m_isLink;
