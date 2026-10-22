@@ -443,10 +443,44 @@ UNIT_TEST(DownloadResumeChunks)
   }
 }
 
-// Cancel mid-flight with doCleanOnCancel=true (the "user removes country" path).
-// Asserts: ~FileHttpRequest wipes both .downloading and .resume when destroyed while
-// the request is still InProgress. No other test exercises this branch — DownloadChunks
-// always lets requests complete naturally.
+UNIT_TEST(HttpRequest_CancelFromProgressCallback)
+{
+  ScopedDownloadArtifacts files{"http_cancel_callback_"};
+  std::unique_ptr<HttpRequest> request;
+  bool cancelled = false;
+  request.reset(HttpRequest::GetFile({kTestUrlBigFile}, files.m_path, kBigFileSize, [](HttpRequest &)
+  { TEST(false, ("Cancelled download completed")); }, [&](HttpRequest &)
+  {
+    request.reset();
+    cancelled = true;
+    testing::StopEventLoop();
+  }));
+  TEST(request, ());
+  testing::RunEventLoop();
+  TEST(cancelled, ());
+  TEST(!Platform::IsFileExistsByFullPath(files.m_path), ());
+  TEST(!Platform::IsFileExistsByFullPath(files.Downloading()), ());
+  TEST(!Platform::IsFileExistsByFullPath(files.Resume()), ());
+}
+
+UNIT_TEST(HttpRequest_MutableProgressCallback)
+{
+  ScopedDownloadArtifacts files{"http_mutable_callback_"};
+  size_t calls = 0;
+  std::unique_ptr<HttpRequest> const request(HttpRequest::GetFile({kTestUrlBigFile}, files.m_path, kBigFileSize,
+                                                                  [](HttpRequest &) { testing::StopEventLoop(); },
+                                                                  [&calls, count = size_t{0}](HttpRequest &) mutable
+  {
+    ++count;
+    ++calls;
+    TEST_EQUAL(count, calls, ());
+  }, true, 1024));
+  TEST(request, ());
+  testing::RunEventLoop();
+  TEST_GREATER(calls, 1, ());
+}
+
+// Cancellation with cleanup must remove both the partial file and its saved checkpoints.
 UNIT_TEST(HttpRequest_CancelMidFlight_DoClean_WipesArtifacts)
 {
   ScopedDownloadArtifacts files{"http_cancel_clean_"};

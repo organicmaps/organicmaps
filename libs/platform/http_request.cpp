@@ -133,7 +133,15 @@ class FileHttpRequest : public HttpRequest
     {
       m_progress.m_bytesDownloaded += (endRange - begRange) + 1;
       if (m_onProgress)
-        m_onProgress(*this);
+      {
+        // The callback can destroy the request, so keep its captures and alive flag locally.
+        auto const alive = m_alive;
+        auto onProgress = std::move(m_onProgress);
+        onProgress(*this);
+        if (!alive->load(std::memory_order_acquire))
+          return;
+        m_onProgress = std::move(onProgress);
+      }
     }
     else
     {
@@ -169,8 +177,9 @@ class FileHttpRequest : public HttpRequest
       base::RenameFileX(m_downloadingPath, m_filePath);
     }
 
-    // 3. Finish downloading.
-    m_onFinish(*this);
+    // Keep callback captures alive if completion destroys the request.
+    auto const onFinish = std::move(m_onFinish);
+    onFinish(*this);
   }
 
   void SaveResumeChunks()
