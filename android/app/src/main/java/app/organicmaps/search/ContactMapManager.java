@@ -347,8 +347,8 @@ public enum ContactMapManager implements AddressResolutionListener
     if (mContext == null || !isEnabled(mContext))
       return false;
     final String key = contactAddress.getAddressKey();
-    if (mPersistentCache != null &&
-        mPersistentCache.isUnresolved(key, resolutionContext(contactAddress.getSearchQueries(), locale)))
+    if (mPersistentCache != null
+        && mPersistentCache.isUnresolved(key, resolutionContext(contactAddress.getSearchQueries(), locale)))
       return true;
     return !mResolutionPolicy.shouldRetryForeground(key, SystemClock.elapsedRealtime());
   }

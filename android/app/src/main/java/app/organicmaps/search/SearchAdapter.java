@@ -344,6 +344,6 @@ class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
   private static boolean matchesContact(@NonNull ContactAddress row, @Nullable ContactAddress contactAddress)
   {
     return contactAddress != null && row.name.equals(contactAddress.name) && row.address.equals(contactAddress.address)
-        && row.label.equals(contactAddress.label);
+ && row.label.equals(contactAddress.label);
   }
 }
