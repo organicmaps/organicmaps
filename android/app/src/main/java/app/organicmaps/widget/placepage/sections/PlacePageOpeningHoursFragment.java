@@ -92,7 +92,8 @@ public class PlacePageOpeningHoursFragment extends Fragment implements Observer<
       return;
     }
 
-    final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(ohStr);
+    final Timetable[] timetables =
+        OpeningHours.nativeHasSunEvent(ohStr) ? null : OpeningHours.nativeTimetablesFromString(ohStr);
     mOhContainer.setOnLongClickListener((v) -> {
       PlacePageUtils.copyToClipboard(requireContext(), mOhContainer,
                                      TimeFormatUtils.formatTimetables(getResources(), ohStr, timetables));

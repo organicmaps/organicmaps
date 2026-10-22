@@ -25,12 +25,9 @@ final class OpeningHoursTests: XCTestCase {
     XCTAssertFalse(day.workingTimes.contains("NOON"))
   }
 
-  func test_GivenSunEventBounds_WhenFormatted_ThenPlaceholderIsNotLabelled() throws {
-    // Sun events carry no clock value here, only a 00:00 placeholder.
-    let day = try today("Mo-Su sunrise-sunset")
-
-    XCTAssertFalse(day.workingTimes.contains("MIDNIGHT"), day.workingTimes)
-    XCTAssertFalse(day.workingTimes.contains("NOON"), day.workingTimes)
+  func test_GivenSunEventBounds_WhenFormatted_ThenNumericTimetableIsUnavailable() {
+    // The timetable cannot represent a variable time without its date and location.
+    XCTAssertNil(OpeningHours(rawString: "Mo-Su sunrise-sunset", localization: localization))
   }
 
   func test_GivenBreakStartingAtNoon_WhenFormatted_ThenBreakIsLabelled() throws {
