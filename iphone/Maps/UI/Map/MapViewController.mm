@@ -814,7 +814,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
     else if ([action isEqualToString:@"app.organicmaps.3daction.route"])
       [self.controlsManager onRoutePrepare];
     else if ([action isEqualToString:@"app.organicmaps.3daction.report_bug"])
-      [MailComposer sendBugReportWithTitle:@"Bug Report / NoGPS Maps"];
+      [MailComposer sendBugReportWithTitle:@"Bug Report / NonGPS Maps"];
   }
   else
     dispatch_async(dispatch_get_main_queue(), ^{ [self performAction:action]; });
