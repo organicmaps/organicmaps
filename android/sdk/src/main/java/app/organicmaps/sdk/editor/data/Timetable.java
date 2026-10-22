@@ -59,6 +59,10 @@ public class Timetable
   @NonNull
   public String formatOpenShifts(@NonNull String separator, @Nullable String noon, @Nullable String midnight)
   {
+    // Equal endpoints in a whole working span mean 24 hours, not an empty shift.
+    if (closedTimespans.length == 0)
+      return format(workingTimespan.start, noon, midnight) + '—' + format(workingTimespan.end, noon, midnight);
+
     final StringBuilder shifts = new StringBuilder();
     HoursMinutes shiftStart = workingTimespan.start;
     for (final Timespan closed : closedTimespans)
