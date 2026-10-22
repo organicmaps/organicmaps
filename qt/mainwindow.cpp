@@ -304,7 +304,7 @@ void MainWindow::CreateNavigationBar()
     // New Explorer layer
     m_layers->addAction(QIcon(":/navig64/isolines.png"), tr("Explorer"),
                         std::bind(&MainWindow::OnLayerEnabled, this, EXPLORER), true);
-    m_layers->setChecked(EXPLORER, false);
+    m_layers->setChecked(EXPLORER, Framework::LoadExplorerEnabled());
 
     m_layers->addAction(QIcon(":/navig64/isolines.png"), tr("Hiking"),
                         std::bind(&MainWindow::OnLayerEnabled, this, HIKING), true);
@@ -933,13 +933,14 @@ void MainWindow::SetLayerEnabled(LayerType type, bool enable)
     {
       m_layers->setChecked(EXPLORER, false);
       frm.SaveOutdoorsEnabled(true);
+      frm.SaveExplorerEnabled(false);
       m_pDrawWidget->SetMapStyleToOutdoors();
     }
     else
     {
       frm.SaveOutdoorsEnabled(false);
       if (frm.GetMapStyle() == MapStyleOutdoorsLight ||
-          frm.GetMapStyle() == MapStyleOutdoorsDark)
+        frm.GetMapStyle() == MapStyleOutdoorsDark)
       {
         m_pDrawWidget->SetMapStyleToDefault();
       }
@@ -949,13 +950,18 @@ void MainWindow::SetLayerEnabled(LayerType type, bool enable)
     if (enable)
     {
       m_layers->setChecked(OUTDOORS, false);
+      frm.SaveExplorerEnabled(true);
       frm.SaveOutdoorsEnabled(false);
       m_pDrawWidget->SetMapStyleToExplorer();
     }
-    else if (frm.GetMapStyle() == MapStyleExplorerLight ||
-             frm.GetMapStyle() == MapStyleExplorerDark)
+    else
     {
-      m_pDrawWidget->SetMapStyleToDefault();
+      frm.SaveExplorerEnabled(false);
+      if (frm.GetMapStyle() == MapStyleExplorerLight ||
+        frm.GetMapStyle() == MapStyleExplorerDark)
+      {
+        m_pDrawWidget->SetMapStyleToDefault();
+      }
     }
     break;
   case HIKING: frm.SetHikingEnabled(enable); break;
