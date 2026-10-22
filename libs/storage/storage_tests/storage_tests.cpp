@@ -1050,6 +1050,31 @@ UNIT_TEST(StorageTest_GetUpdateInfoSingleMwm)
 }
 #endif  // defined(OMIM_OS_DESKTOP)
 
+UNIT_TEST(StorageTest_GetUpdateInfoDisputedMwm)
+{
+  WritableDirChanger const writableDirChanger(kMapTestDir);
+  Storage storage(kCountriesTxt, make_unique<TestMapFilesDownloader>());
+  CreateDummyMapFile(storage.GetCountryFile("Disputable Territory"), 1 /* version */, 20 /* size */);
+  CreateDummyMapFile(storage.GetCountryFile("OutdatedCountry1"), 1 /* version */, 10 /* size */);
+  storage.RegisterAllLocalMaps();
+
+  Storage::UpdateInfo info;
+  for (auto const & id : {"Disputable Territory", "Country1", "Country2"})
+  {
+    TEST(storage.GetUpdateInfo(id, info), (id));
+    TEST_EQUAL(info.m_numberOfMwmFilesToUpdate, 1, (id));
+    TEST_EQUAL(info.m_totalDownloadSizeInBytes, 1234, (id));
+    TEST_EQUAL(info.m_maxFileSizeInBytes, 1234, (id));
+    TEST_EQUAL(info.m_sizeDifference, 1214, (id));
+  }
+
+  TEST(storage.GetUpdateInfo(storage.GetRootId(), info), ());
+  TEST_EQUAL(info.m_numberOfMwmFilesToUpdate, 2, ());
+  TEST_EQUAL(info.m_totalDownloadSizeInBytes, 1284, ());
+  TEST_EQUAL(info.m_maxFileSizeInBytes, 1234, ());
+  TEST_EQUAL(info.m_sizeDifference, 1254, ());
+}
+
 UNIT_TEST(StorageTest_ParseStatus)
 {
   TEST_EQUAL(StatusAndError(NodeStatus::Undefined, NodeErrorCode::NoError), ParseStatus(Status::Undefined), ());
