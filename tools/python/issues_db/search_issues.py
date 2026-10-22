@@ -19,9 +19,8 @@ import argparse
 import json
 import re
 import sys
-from pathlib import Path
 
-DB_PATH = Path(__file__).parent / "issues.jsonl"
+from db import DB_PATH, prepare_database
 
 _TOKEN = re.compile(r"[a-z0-9]+")
 
@@ -61,6 +60,7 @@ def main() -> None:
                     help="Skip comment bodies when scoring")
     args = ap.parse_args()
 
+    prepare_database()
     if not DB_PATH.exists():
         print(f"No database at {DB_PATH}. Run fetch_issues.py first.",
               file=sys.stderr)

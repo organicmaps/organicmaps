@@ -39,12 +39,11 @@ import sys
 import time
 import urllib.error
 import urllib.request
-from pathlib import Path
+
+from db import DB_PATH, STATE_PATH, update_lock
 
 REPO = "organicmaps/organicmaps"
 API = f"https://api.github.com/repos/{REPO}/issues"
-DB_PATH = Path(__file__).parent / "issues.jsonl"
-STATE_PATH = Path(__file__).parent / "fetch_state.json"
 PER_PAGE = 100
 MAX_RETRIES = 5  # transient (5xx / network) failures to ride out before aborting
 FIELDS = (
@@ -213,6 +212,11 @@ def load_all() -> dict[int, dict]:
 
 
 def fetch(full: bool = False, skip_comments: bool = False) -> None:
+    with update_lock():
+        _fetch(full=full, skip_comments=skip_comments)
+
+
+def _fetch(full: bool = False, skip_comments: bool = False) -> None:
     token = get_token()
     if not token:
         print("No token ($GITHUB_TOKEN or `gh auth login`); using the 60 req/h "
