@@ -568,6 +568,34 @@ UNIT_CLASS_TEST(StorageDownloadTest, RetryRestoredFileFromStartCallback)
   }
 }
 
+UNIT_CLASS_TEST(StorageDownloadTest, GroupProgressCountsDisputedMapOnce)
+{
+  auto const west = MakeLeaf(kWest, SyntheticHash(kWest));
+  auto const json = R"({"id":"Countries","v":)" + strings::to_string(version::FOR_TESTING_MWM1) +
+                    R"(,"g":[{"id":"Wonderland","g":[)" + west + "," + MakeLeaf(kEast, SyntheticHash(kEast)) +
+                    R"(]},{"id":"Otherland","g":[)" + west + "]}]}";
+  Storage storage(json, std::make_unique<TestMapFilesDownloader>());
+  downloader::Progress progress;
+  int64_t leafDownloaded = 0;
+  InitStorage(storage, [](CountryId const &, LocalFilePtr const) {}, [](CountryId const &) {},
+              [&](CountryId const & countryId, downloader::Progress const & leafProgress)
+  {
+    if (countryId != kWest || leafDownloaded != 0)
+      return;
+    leafDownloaded = leafProgress.m_bytesDownloaded;
+    NodeAttrs attrs;
+    storage.GetNodeAttrs(storage.GetRootId(), attrs);
+    progress = attrs.m_downloadingProgress;
+    testing::StopEventLoop();
+  });
+  storage.DownloadNode(storage.GetRootId());
+  testing::RunEventLoop();
+  storage.Clear();
+  TEST_GREATER(leafDownloaded, 0, ());
+  TEST_EQUAL(progress.m_bytesDownloaded, leafDownloaded, ());
+  TEST_EQUAL(progress.m_bytesTotal, static_cast<int64_t>(SyntheticSize(kWest) + SyntheticSize(kEast)), ());
+}
+
 UNIT_CLASS_TEST(StorageDownloadTest, DownloadWithoutHash)
 {
   auto const json = R"({"id": "Countries", "v": )" + strings::to_string(version::FOR_TESTING_MWM1) + R"(, "g": [)" +

@@ -1855,34 +1855,31 @@ void Storage::DoClickOnDownloadMap(CountryId const & countryId)
 
 Progress Storage::CalculateProgress(CountryTree::Node const & subtreeRoot, CountriesSet const & mwmsInQueue) const
 {
-  // Iterates the subtree directly, avoiding intermediate string-copy vectors.
-  // Only leaf country IDs will match download/queue/justDownloaded sets;
-  // group node IDs are silently skipped by the lookups.
-
   Progress result;
+  CountriesSet visited;
 
   subtreeRoot.ForEachInSubtree([&](CountryTree::Node const & node)
   {
+    if (!node.IsLeaf())
+      return;
     auto const & d = node.Value().Name();
-
     auto const downloadingIt = m_downloadingCountries.find(d);
+    bool const inQueue = mwmsInQueue.contains(d);
+    if (downloadingIt == m_downloadingCountries.cend() && !inQueue && !m_justDownloaded.contains(d))
+      return;
+
+    // Disputed maps occur under each parent; only track leaves contributing to progress.
+    if (!visited.insert(d).second)
+      return;
+    auto const size = GetRemoteSize(node.Value().GetFile());
+    result.m_bytesTotal += size;
     if (downloadingIt != m_downloadingCountries.cend())
     {
       if (!downloadingIt->second.m_progress.IsUnknown())
         result.m_bytesDownloaded += downloadingIt->second.m_progress.m_bytesDownloaded;
-
-      result.m_bytesTotal += GetRemoteSize(GetCountryFile(d));
     }
-    else if (mwmsInQueue.count(d) != 0)
-    {
-      result.m_bytesTotal += GetRemoteSize(GetCountryFile(d));
-    }
-    else if (m_justDownloaded.count(d) != 0)
-    {
-      MwmSize const localCountryFileSz = GetRemoteSize(GetCountryFile(d));
-      result.m_bytesDownloaded += localCountryFileSz;
-      result.m_bytesTotal += localCountryFileSz;
-    }
+    else if (!inQueue)
+      result.m_bytesDownloaded += size;
   });
 
   return result;
