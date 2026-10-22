@@ -33,6 +33,7 @@ final class SettingsViewController<Section: Hashable, Item: Hashable>: BaseSetti
 
   private var dataSource: SettingsTableViewDataSource<Section, Item>!
   private var itemViewModels: [Item: SettingsItemViewModel<Item>] = [:]
+  private var pendingHighlightIndexPath: IndexPath?
 
   init() {
     super.init(style: .grouped)
@@ -237,6 +238,17 @@ final class SettingsViewController<Section: Hashable, Item: Hashable>: BaseSetti
     guard let item = item(at: indexPath) else { return }
     interactor?.handle(.didTapAccessory(item))
   }
+
+  override func scrollViewWillBeginDragging(_: UIScrollView) {
+    // A drag cancels the scroll animation, so its end is never reported.
+    pendingHighlightIndexPath = nil
+  }
+
+  override func scrollViewDidEndScrollingAnimation(_: UIScrollView) {
+    guard let indexPath = pendingHighlightIndexPath else { return }
+    pendingHighlightIndexPath = nil
+    tableView.cellForRow(at: indexPath)?.highlight()
+  }
 }
 
 extension SettingsViewController where Section == RootSettingsSection, Item == RootSettings {
@@ -261,10 +273,15 @@ extension SettingsViewController where Section == RootSettingsSection, Item == R
   }
 
   func displayHighlight(_ item: Item) {
-    guard let indexPath = dataSource.indexPath(for: item),
-          let cell = tableView.cellForRow(at: indexPath) else { return }
+    guard let indexPath = dataSource.indexPath(for: item) else { return }
+    let visibleRect = tableView.bounds.inset(by: tableView.adjustedContentInset)
+    guard !visibleRect.contains(tableView.rectForRow(at: indexPath)) else {
+      tableView.cellForRow(at: indexPath)?.highlight()
+      return
+    }
+    // An off-screen row gets its cell during the scroll, so highlight it when the scroll ends.
+    pendingHighlightIndexPath = indexPath
     tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
-    cell.highlight()
   }
 }
 

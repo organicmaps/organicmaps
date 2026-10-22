@@ -56,6 +56,7 @@ final class DeepLinkDestinationTests: XCTestCase {
     XCTAssertTrue(navigationController.topViewController === settings)
     XCTAssertEqual(settingsCount, 1)
     XCTAssertNil(handler.getInAppFeatureHighlightData())
+    waitForHighlight(of: .iCloud, in: settings)
   }
 
   func testSettingsLinkReturnsFromSettingsSubscreen() throws {
@@ -67,6 +68,14 @@ final class DeepLinkDestinationTests: XCTestCase {
 
     XCTAssertTrue(try waitForSettingsOnTop() === settings)
     XCTAssertEqual(settingsCount, 1)
+    waitForHighlight(of: .iCloud, in: settings)
+  }
+
+  func testSettingsLinkScrollsToOffscreenSetting() throws {
+    try openLink("om://settings?highlight=icloud")
+    let settings = try waitForSettingsOnTop()
+
+    waitForHighlight(of: .iCloud, in: settings)
   }
 
   private var settingsCount: Int {
@@ -83,6 +92,18 @@ final class DeepLinkDestinationTests: XCTestCase {
         && navigationController?.transitionCoordinator == nil
     }
     return try XCTUnwrap(navigationController.topViewController as? RootSettingsViewController)
+  }
+
+  /// `UIView.highlight()` flashes a row with a tinted overlay that it adds to the row's cell.
+  private func waitForHighlight(of setting: RootSettings, in settings: RootSettingsViewController) {
+    let overlayColor = UIColor.linkBlueHighlighted.withAlphaComponent(0.2)
+    waitUntil {
+      settings.tableView.visibleCells.contains { cell in
+        let color = overlayColor.resolvedColor(with: cell.traitCollection)
+        return cell.textLabel?.text == setting.title
+          && cell.subviews.contains { $0.backgroundColor?.resolvedColor(with: cell.traitCollection) == color }
+      }
+    }
   }
 
   private func waitUntil(_ condition: @escaping () -> Bool) {
