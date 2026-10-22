@@ -145,21 +145,21 @@
 	</dict>
 	<key>NSUbiquitousContainers</key>
 	<dict>
-		<key>iCloud.app.organicmaps.nogps</key>
+		<key>iCloud.com.non-gps</key>
 		<dict>
 			<key>NSUbiquitousContainerIsDocumentScopePublic</key>
 			<true/>
 			<key>NSUbiquitousContainerName</key>
-			<string>NoGPSMaps</string>
+			<string>NonGPSMaps</string>
 			<key>NSUbiquitousContainerSupportedFolderLevels</key>
 			<string>ANY</string>
 		</dict>
-		<key>iCloud.app.organicmaps.nogps.debug</key>
+		<key>iCloud.com.non-gps.debug</key>
 		<dict>
 			<key>NSUbiquitousContainerIsDocumentScopePublic</key>
 			<true/>
 			<key>NSUbiquitousContainerName</key>
-			<string>NoGPSMapsDEBUG</string>
+			<string>NonGPSMapsDEBUG</string>
 			<key>NSUbiquitousContainerSupportedFolderLevels</key>
 			<string>ANY</string>
 		</dict>

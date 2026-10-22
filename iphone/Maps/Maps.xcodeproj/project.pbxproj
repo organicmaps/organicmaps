@@ -5386,7 +5386,7 @@
 				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_TEAM = VTWF79TU37;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_KEY_CFBundleDisplayName = "${PRODUCT_NAME}";
+				INFOPLIST_KEY_CFBundleDisplayName = "Debug NonGPS Maps";
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
@@ -5400,7 +5400,7 @@
 				);
 				MARKETING_VERSION = 2026.10.15;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.nogps.debug;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.non-gps.debug";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
@@ -5416,7 +5416,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = VTWF79TU37;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_KEY_CFBundleDisplayName = "${PRODUCT_NAME}";
+				INFOPLIST_KEY_CFBundleDisplayName = "NonGPS Maps";
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
@@ -5430,7 +5430,7 @@
 				);
 				MARKETING_VERSION = 2026.10.15;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.nogps;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.non-gps";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
@@ -5444,7 +5444,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VTWF79TU37;
-				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.nogps.tests;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.non-gps.tests";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Organic Maps (Debug).app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Organic Maps (Debug)";
 			};
@@ -5459,7 +5459,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VTWF79TU37;
-				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.nogps.tests;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.non-gps.tests";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Organic Maps (Debug).app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Organic Maps (Debug)";
 			};
@@ -5478,7 +5478,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OMapsWidgetExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = OMapsWidgetExtension;
+				INFOPLIST_KEY_CFBundleDisplayName = "NonGPS Maps";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026 Organic Maps. All rights reserved.";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5488,7 +5488,7 @@
 				);
 				MARKETING_VERSION = 2026.10.15;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.nogps.debug.widgetextension;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.non-gps.debug.widgetextension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
@@ -5505,9 +5505,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 20;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = VTWF79TU37;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OMapsWidgetExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = OMapsWidgetExtension;
+				INFOPLIST_KEY_CFBundleDisplayName = "NonGPS Maps";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026 Organic Maps. All rights reserved.";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5516,7 +5517,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 2026.10.15;
-				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.nogps.widgetextension;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.non-gps.widgetextension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;

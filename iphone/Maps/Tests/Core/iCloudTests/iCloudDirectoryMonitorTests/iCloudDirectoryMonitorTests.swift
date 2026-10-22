@@ -7,7 +7,7 @@ class iCloudDirectoryMonitorTests: XCTestCase {
   var cloudMonitor: iCloudDocumentsMonitor!
   var mockFileManager: FileManagerMock!
   var mockDelegate: UbiquitousDirectoryMonitorDelegateMock!
-  var cloudContainerIdentifier: String = "iCloud.app.organicmaps.nogps.debug"
+  var cloudContainerIdentifier: String = "iCloud.com.non-gps.debug"
 
   override func setUp() {
     super.setUp()
