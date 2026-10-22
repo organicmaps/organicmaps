@@ -84,11 +84,6 @@ public class DownloaderNotifier
     notificationManager.notify(NOTIFICATION_ID, notification);
   }
 
-  public void notifyProgress()
-  {
-    notifyProgress(null, 0, 0);
-  }
-
   public void notifyProgress(@Nullable String countryId, int maxProgress, int progress)
   {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
