@@ -5,6 +5,7 @@
 #include "storage/storage_defines.hpp"
 
 #include <cstdint>
+#include <memory>
 #include <optional>
 #include <string>
 #include <unordered_map>
@@ -37,13 +38,16 @@ public:
         fn(*item.second.m_taskInfo);
   }
 
-  void Append(QueuedCountry && country)
+  std::weak_ptr<int> Append(QueuedCountry && country)
   {
     auto const countryId = country.GetCountryId();
     auto const result = m_queue.emplace(countryId, std::move(country));
+    ASSERT(result.second, (countryId));
+    std::weak_ptr<int> const lifetime = result.first->second.m_lifetime;
     // The subscriber may remove this entry while handling the notification.
     auto const queuedCountry = result.first->second.m_queuedCountry;
     queuedCountry.OnCountryInQueue();
+    return lifetime;
   }
 
   void SetTaskInfoForCountryId(CountryId const & countryId, TaskInfo const & taskInfo)
@@ -76,6 +80,8 @@ private:
 
     QueuedCountry m_queuedCountry;
     std::optional<TaskInfo> m_taskInfo;
+    // Notification copies must not extend the lifetime of a removed queue entry.
+    std::shared_ptr<int> const m_lifetime = std::make_shared<int>(0);
   };
 
   std::unordered_map<CountryId, TaskData> m_queue;

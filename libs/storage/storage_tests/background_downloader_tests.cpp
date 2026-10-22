@@ -14,6 +14,7 @@ namespace background_downloader_tests
 using namespace storage;
 
 CountryId const kWest = "Wonderland_West";
+CountryId const kEast = "Wonderland_East";
 
 class BackgroundDownloaderQueueTest : public QueuedCountry::Subscriber
 {
@@ -28,12 +29,12 @@ public:
   void OnDownloadFinished(QueuedCountry const &, downloader::DownloadStatus) override {}
 
 protected:
-  void Enqueue(CountryId const & id)
+  std::weak_ptr<int> Enqueue(CountryId const & id)
   {
     QueuedCountry country(platform::CountryFile(id, 1, {}), id, MapFileType::Map, version::FOR_TESTING_MWM1, {},
                           std::make_shared<diffs::DiffsDataSource>());
     country.Subscribe(*this);
-    m_queue.Append(std::move(country));
+    return m_queue.Append(std::move(country));
   }
 
   BackgroundDownloaderQueue<uint64_t> m_queue;
@@ -54,9 +55,44 @@ UNIT_CLASS_TEST(BackgroundDownloaderQueueTest, CancelFromQueueCallback)
       TEST_EQUAL(country.GetCountryId(), kWest, (clear));
       notified = true;
     };
-    Enqueue(kWest);
+    auto const lifetime = Enqueue(kWest);
     TEST(notified, (clear));
     TEST(m_queue.IsEmpty(), (clear));
+    TEST(lifetime.expired(), (clear));
   }
+}
+
+UNIT_CLASS_TEST(BackgroundDownloaderQueueTest, AttemptLifetime)
+{
+  auto const first = Enqueue(kWest);
+  auto const unrelated = Enqueue(kEast);
+  TEST(!first.expired(), ());
+  m_queue.Remove(kWest);
+  TEST(first.expired(), ());
+  auto const replacement = Enqueue(kWest);
+  TEST(!replacement.expired(), ());
+  TEST(!unrelated.expired(), ());
+  m_queue.Clear();
+  TEST(replacement.expired(), ());
+  TEST(unrelated.expired(), ());
+}
+
+UNIT_CLASS_TEST(BackgroundDownloaderQueueTest, ReplaceFromQueueCallback)
+{
+  bool replaced = false;
+  std::weak_ptr<int> replacement;
+  m_onQueue = [&](QueuedCountry const & country)
+  {
+    if (replaced)
+      return;
+    replaced = true;
+    m_queue.Remove(country.GetCountryId());
+    replacement = Enqueue(country.GetCountryId());
+  };
+  auto const first = Enqueue(kWest);
+  TEST(first.expired(), ());
+  TEST(!replacement.expired(), ());
+  TEST_EQUAL(m_queue.Count(), 1, ());
+  TEST(m_queue.Contains(kWest), ());
 }
 }  // namespace background_downloader_tests
