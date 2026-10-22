@@ -11,7 +11,7 @@ Organic Maps Data Files contain the processed data from the following sources:
 - Wikipedia text data, licensed under Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA)
   https://en.wikipedia.org/wiki/Wikipedia:Copyrights
 
-- Sonny's LiDAR digital terrain models of Europe under Creative Commons Attribution-ShareAlike 4.0 License by Sonny
+- Sonny's LiDAR digital terrain models of Europe under Creative Commons Attribution 4.0 License by Sonny
   https://sonny.4lima.de
 
 - Shuttle Radar Topography Mission (SRTM) and Advanced Spaceborne Thermal Emission and Reflection Radiometer (ASTER) elevation data
