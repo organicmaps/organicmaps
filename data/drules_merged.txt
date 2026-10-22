@@ -11803,19 +11803,19 @@ type natural-bare_rock
     caption primary[height=10 color=#00444444 dy=1] priority=3250
 type natural-bay
   z14
-    caption primary[height=10 color=#004499BB] priority=3250
+    caption primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=3250
   z15
-    caption primary[height=10 color=#004499BB] priority=3250
+    caption primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=3250
   z16
-    caption primary[height=11 color=#004499BB] priority=3250
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=3250
   z17
-    caption primary[height=11 color=#004499BB] priority=3250
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=3250
   z18
-    caption primary[height=11 color=#004499BB] priority=3250
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=3250
   z19
-    caption primary[height=11 color=#004499BB] priority=3250
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=3250
   z20
-    caption primary[height=11 color=#004499BB] priority=3250
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=3250
 type natural-beach
   z10
     area color=#00FCEC7E priority=-1970
@@ -12489,35 +12489,35 @@ type natural-spring-drinking_water_no
     caption primary[height=11 color=#00444444 dy=1 optional] priority=-8800
 type natural-strait
   z11
-    line width=0.7 color=#4D36B0BF join=round cap=butt priority=-990
-    caption primary[height=10 color=#004499BB] priority=3150
-  z12
-    line width=0.7 color=#4D36B0BF join=round cap=butt priority=-990
-    caption primary[height=10 color=#004499BB] priority=3150
-  z13
-    line width=0.7 color=#4D36B0BF join=round cap=butt priority=-990
-    caption primary[height=10 color=#004499BB] priority=3150
-  z14
     line width=1 color=#4D36B0BF join=round cap=butt priority=-990
-    caption primary[height=10 color=#004499BB] priority=3150
+    caption primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=3150
+  z12
+    line width=1 color=#4D36B0BF join=round cap=butt priority=-990
+    caption primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=3150
+  z13
+    line width=1 color=#4D36B0BF join=round cap=butt priority=-990
+    caption primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=3150
+  z14
+    line width=1.5 color=#4D36B0BF join=round cap=butt priority=-990
+    caption primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z15
-    line width=1.6 color=#4D36B0BF join=round cap=butt priority=-990
-    caption primary[height=10 color=#004499BB] priority=3150
+    line width=2 color=#4D36B0BF join=round cap=butt priority=-990
+    caption primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z16
-    line width=1.6 color=#4D36B0BF join=round cap=round priority=-990
-    caption primary[height=11 color=#004499BB] priority=3150
+    line width=2 color=#4D36B0BF join=round cap=round priority=-990
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z17
-    line width=1.6 color=#4D36B0BF join=round cap=round priority=-990
-    caption primary[height=11 color=#004499BB] priority=3150
+    line width=2 color=#4D36B0BF join=round cap=round priority=-990
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z18
-    line width=1.6 color=#4D36B0BF join=round cap=round priority=-990
-    caption primary[height=11 color=#004499BB] priority=3150
+    line width=2 color=#4D36B0BF join=round cap=round priority=-990
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z19
-    line width=1.6 color=#4D36B0BF join=round cap=round priority=-990
-    caption primary[height=11 color=#004499BB] priority=3150
+    line width=2 color=#4D36B0BF join=round cap=round priority=-990
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z20
-    line width=1.6 color=#4D36B0BF join=round cap=round priority=-990
-    caption primary[height=11 color=#004499BB] priority=3150
+    line width=2 color=#4D36B0BF join=round cap=round priority=-990
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=3150
 type natural-tree_row
   z17
     line width=6 color=#00AABF65 join=round cap=round priority=-995
@@ -12610,45 +12610,45 @@ type natural-water
     area color=#008BD3E0 priority=-960
   z10 if "bbox_area>=4000000"
     area color=#008BD3E0 priority=-960
-    caption primary[height=9 color=#004499BB] priority=3150
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z10 if "bbox_area<4000000"
     area color=#008BD3E0 priority=-960
   z11 if "bbox_area>=4000000"
     area color=#008BD3E0 priority=-960
-    caption primary[height=9 color=#004499BB] priority=3150
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z11 if "bbox_area<4000000"
     area color=#008BD3E0 priority=-960
   z12 if "bbox_area>=4000000"
     area color=#008BD3E0 priority=-960
-    caption primary[height=9 color=#004499BB] priority=3150
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z12 if "bbox_area<4000000"
     area color=#008BD3E0 priority=-960
   z13 if "bbox_area>=4000000"
     area color=#008BD3E0 priority=-960
-    caption primary[height=9 color=#004499BB] priority=3150
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z13 if "bbox_area<4000000"
     area color=#008BD3E0 priority=-960
   z14
     area color=#008BD3E0 priority=-960
-    caption primary[height=10 color=#004499BB] priority=3150
+    caption primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z15
     area color=#008BD3E0 priority=-960
-    caption primary[height=10 color=#004499BB] priority=3150
+    caption primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z16
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=3150
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z17
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=3150
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z18
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=3150
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z19
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=3150
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z20
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=3150
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=3150
 type natural-water-basin
   z1
     area color=#008BD3E0 priority=-960
@@ -12670,45 +12670,45 @@ type natural-water-basin
     area color=#008BD3E0 priority=-960
   z10 if "bbox_area>=4000000"
     area color=#008BD3E0 priority=-960
-    caption primary[height=9 color=#004499BB] priority=2900
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z10 if "bbox_area<4000000"
     area color=#008BD3E0 priority=-960
   z11 if "bbox_area>=4000000"
     area color=#008BD3E0 priority=-960
-    caption primary[height=9 color=#004499BB] priority=2900
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z11 if "bbox_area<4000000"
     area color=#008BD3E0 priority=-960
   z12 if "bbox_area>=4000000"
     area color=#008BD3E0 priority=-960
-    caption primary[height=9 color=#004499BB] priority=2900
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z12 if "bbox_area<4000000"
     area color=#008BD3E0 priority=-960
   z13 if "bbox_area>=4000000"
     area color=#008BD3E0 priority=-960
-    caption primary[height=9 color=#004499BB] priority=2900
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z13 if "bbox_area<4000000"
     area color=#008BD3E0 priority=-960
   z14
     area color=#008BD3E0 priority=-960
-    caption primary[height=10 color=#004499BB] priority=2900
+    caption primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z15
     area color=#008BD3E0 priority=-960
-    caption primary[height=10 color=#004499BB] priority=2900
+    caption primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z16
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=2900
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z17
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=2900
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z18
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=2900
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z19
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=2900
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z20
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=2900
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
 type natural-water-ditch
   z13 if "bbox_area>=4000000"
     area color=#009DC7C1 priority=-950
@@ -12722,16 +12722,16 @@ type natural-water-ditch
     area color=#009DC7C1 priority=-950
   z17
     area color=#009DC7C1 priority=-950
-    caption primary[height=11 color=#004499BB] priority=2900
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z18
     area color=#009DC7C1 priority=-950
-    caption primary[height=11 color=#004499BB] priority=2900
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z19
     area color=#009DC7C1 priority=-950
-    caption primary[height=11 color=#004499BB] priority=2900
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z20
     area color=#009DC7C1 priority=-950
-    caption primary[height=11 color=#004499BB] priority=2900
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
 type natural-water-drain
   z13 if "bbox_area>=4000000"
     area color=#009DC7C1 priority=-950
@@ -12745,16 +12745,16 @@ type natural-water-drain
     area color=#009DC7C1 priority=-950
   z17
     area color=#009DC7C1 priority=-950
-    caption primary[height=11 color=#004499BB] priority=2900
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z18
     area color=#009DC7C1 priority=-950
-    caption primary[height=11 color=#004499BB] priority=2900
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z19
     area color=#009DC7C1 priority=-950
-    caption primary[height=11 color=#004499BB] priority=2900
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z20
     area color=#009DC7C1 priority=-950
-    caption primary[height=11 color=#004499BB] priority=2900
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
 type natural-water-intermittent
   z1
     area color=#00C4E9EF priority=-980
@@ -12776,45 +12776,45 @@ type natural-water-intermittent
     area color=#00C4E9EF priority=-980
   z10 if "bbox_area>=4000000"
     area color=#00C4E9EF priority=-980
-    caption primary[height=9 color=#004499BB] priority=2890
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=2890
   z10 if "bbox_area<4000000"
     area color=#00C4E9EF priority=-980
   z11 if "bbox_area>=4000000"
     area color=#00C4E9EF priority=-980
-    caption primary[height=9 color=#004499BB] priority=2890
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=2890
   z11 if "bbox_area<4000000"
     area color=#00C4E9EF priority=-980
   z12 if "bbox_area>=4000000"
     area color=#00C4E9EF priority=-980
-    caption primary[height=9 color=#004499BB] priority=2890
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=2890
   z12 if "bbox_area<4000000"
     area color=#00C4E9EF priority=-980
   z13 if "bbox_area>=4000000"
     area color=#00C4E9EF priority=-980
-    caption primary[height=9 color=#004499BB] priority=2890
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=2890
   z13 if "bbox_area<4000000"
     area color=#00C4E9EF priority=-980
   z14
     area color=#00C4E9EF priority=-980
-    caption primary[height=10 color=#004499BB] priority=2890
+    caption primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=2890
   z15
     area color=#00C4E9EF priority=-980
-    caption primary[height=10 color=#004499BB] priority=2890
+    caption primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=2890
   z16
     area color=#00C4E9EF priority=-980
-    caption primary[height=11 color=#004499BB] priority=2890
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2890
   z17
     area color=#00C4E9EF priority=-980
-    caption primary[height=11 color=#004499BB] priority=2890
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2890
   z18
     area color=#00C4E9EF priority=-980
-    caption primary[height=11 color=#004499BB] priority=2890
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2890
   z19
     area color=#00C4E9EF priority=-980
-    caption primary[height=11 color=#004499BB] priority=2890
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2890
   z20
     area color=#00C4E9EF priority=-980
-    caption primary[height=11 color=#004499BB] priority=2890
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2890
 type natural-water-lake
   z1
     area color=#008BD3E0 priority=-960
@@ -12832,51 +12832,51 @@ type natural-water-lake
     area color=#008BD3E0 priority=-960
   z8
     area color=#008BD3E0 priority=-960
-    caption primary[height=9 color=#004499BB] priority=6650
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=6650
   z9
     area color=#008BD3E0 priority=-960
-    caption primary[height=9 color=#004499BB] priority=6650
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=6650
   z10 if "bbox_area>=4000000"
     area color=#008BD3E0 priority=-960
-    caption primary[height=9 color=#004499BB] priority=6650
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=6650
   z10 if "bbox_area<4000000"
     area color=#008BD3E0 priority=-960
   z11 if "bbox_area>=4000000"
     area color=#008BD3E0 priority=-960
-    caption primary[height=9 color=#004499BB] priority=6650
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=6650
   z11 if "bbox_area<4000000"
     area color=#008BD3E0 priority=-960
   z12 if "bbox_area>=4000000"
     area color=#008BD3E0 priority=-960
-    caption primary[height=9 color=#004499BB] priority=6650
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=6650
   z12 if "bbox_area<4000000"
     area color=#008BD3E0 priority=-960
   z13 if "bbox_area>=4000000"
     area color=#008BD3E0 priority=-960
-    caption primary[height=9 color=#004499BB] priority=6650
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=6650
   z13 if "bbox_area<4000000"
     area color=#008BD3E0 priority=-960
   z14
     area color=#008BD3E0 priority=-960
-    caption primary[height=10 color=#004499BB] priority=6650
+    caption primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=6650
   z15
     area color=#008BD3E0 priority=-960
-    caption primary[height=10 color=#004499BB] priority=6650
+    caption primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=6650
   z16
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=6650
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=6650
   z17
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=6650
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=6650
   z18
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=6650
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=6650
   z19
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=6650
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=6650
   z20
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=6650
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=6650
 type natural-water-lock
   z1
     area color=#008BD3E0 priority=-960
@@ -12898,45 +12898,45 @@ type natural-water-lock
     area color=#008BD3E0 priority=-960
   z10 if "bbox_area>=4000000"
     area color=#008BD3E0 priority=-960
-    caption primary[height=9 color=#004499BB] priority=2900
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z10 if "bbox_area<4000000"
     area color=#008BD3E0 priority=-960
   z11 if "bbox_area>=4000000"
     area color=#008BD3E0 priority=-960
-    caption primary[height=9 color=#004499BB] priority=2900
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z11 if "bbox_area<4000000"
     area color=#008BD3E0 priority=-960
   z12 if "bbox_area>=4000000"
     area color=#008BD3E0 priority=-960
-    caption primary[height=9 color=#004499BB] priority=2900
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z12 if "bbox_area<4000000"
     area color=#008BD3E0 priority=-960
   z13 if "bbox_area>=4000000"
     area color=#008BD3E0 priority=-960
-    caption primary[height=9 color=#004499BB] priority=2900
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z13 if "bbox_area<4000000"
     area color=#008BD3E0 priority=-960
   z14
     area color=#008BD3E0 priority=-960
-    caption primary[height=10 color=#004499BB] priority=2900
+    caption primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z15
     area color=#008BD3E0 priority=-960
-    caption primary[height=10 color=#004499BB] priority=2900
+    caption primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z16
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=2900
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z17
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=2900
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z18
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=2900
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z19
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=2900
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z20
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=2900
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
 type natural-water-moat
   z1
     area color=#008BD3E0 priority=-960
@@ -12980,16 +12980,16 @@ type natural-water-moat
     area color=#008BD3E0 priority=-960
   z17
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=2900
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z18
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=2900
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z19
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=2900
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z20
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=2900
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
 type natural-water-pond
   z1
     area color=#008BD3E0 priority=-960
@@ -13011,45 +13011,45 @@ type natural-water-pond
     area color=#008BD3E0 priority=-960
   z10 if "bbox_area>=4000000"
     area color=#008BD3E0 priority=-960
-    caption primary[height=9 color=#004499BB] priority=3150
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z10 if "bbox_area<4000000"
     area color=#008BD3E0 priority=-960
   z11 if "bbox_area>=4000000"
     area color=#008BD3E0 priority=-960
-    caption primary[height=9 color=#004499BB] priority=3150
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z11 if "bbox_area<4000000"
     area color=#008BD3E0 priority=-960
   z12 if "bbox_area>=4000000"
     area color=#008BD3E0 priority=-960
-    caption primary[height=9 color=#004499BB] priority=3150
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z12 if "bbox_area<4000000"
     area color=#008BD3E0 priority=-960
   z13 if "bbox_area>=4000000"
     area color=#008BD3E0 priority=-960
-    caption primary[height=9 color=#004499BB] priority=3150
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z13 if "bbox_area<4000000"
     area color=#008BD3E0 priority=-960
   z14
     area color=#008BD3E0 priority=-960
-    caption primary[height=10 color=#004499BB] priority=3150
+    caption primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z15
     area color=#008BD3E0 priority=-960
-    caption primary[height=10 color=#004499BB] priority=3150
+    caption primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z16
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=3150
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z17
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=3150
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z18
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=3150
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z19
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=3150
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z20
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=3150
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=3150
 type natural-water-reservoir
   z1
     area color=#008BD3E0 priority=-960
@@ -13071,45 +13071,45 @@ type natural-water-reservoir
     area color=#008BD3E0 priority=-960
   z10 if "bbox_area>=4000000"
     area color=#008BD3E0 priority=-960
-    caption primary[height=9 color=#004499BB] priority=6650
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=6650
   z10 if "bbox_area<4000000"
     area color=#008BD3E0 priority=-960
   z11 if "bbox_area>=4000000"
     area color=#008BD3E0 priority=-960
-    caption primary[height=9 color=#004499BB] priority=6650
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=6650
   z11 if "bbox_area<4000000"
     area color=#008BD3E0 priority=-960
   z12 if "bbox_area>=4000000"
     area color=#008BD3E0 priority=-960
-    caption primary[height=9 color=#004499BB] priority=6650
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=6650
   z12 if "bbox_area<4000000"
     area color=#008BD3E0 priority=-960
   z13 if "bbox_area>=4000000"
     area color=#008BD3E0 priority=-960
-    caption primary[height=9 color=#004499BB] priority=6650
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=6650
   z13 if "bbox_area<4000000"
     area color=#008BD3E0 priority=-960
   z14
     area color=#008BD3E0 priority=-960
-    caption primary[height=10 color=#004499BB] priority=6650
+    caption primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=6650
   z15
     area color=#008BD3E0 priority=-960
-    caption primary[height=10 color=#004499BB] priority=6650
+    caption primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=6650
   z16
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=6650
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=6650
   z17
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=6650
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=6650
   z18
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=6650
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=6650
   z19
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=6650
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=6650
   z20
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=6650
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=6650
 type natural-water-river
   z1
     area color=#008BD3E0 priority=-960
@@ -13131,45 +13131,45 @@ type natural-water-river
     area color=#008BD3E0 priority=-960
   z10 if "bbox_area>=4000000"
     area color=#008BD3E0 priority=-960
-    caption primary[height=9 color=#004499BB] priority=3150
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z10 if "bbox_area<4000000"
     area color=#008BD3E0 priority=-960
   z11 if "bbox_area>=4000000"
     area color=#008BD3E0 priority=-960
-    caption primary[height=9 color=#004499BB] priority=3150
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z11 if "bbox_area<4000000"
     area color=#008BD3E0 priority=-960
   z12 if "bbox_area>=4000000"
     area color=#008BD3E0 priority=-960
-    caption primary[height=9 color=#004499BB] priority=3150
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z12 if "bbox_area<4000000"
     area color=#008BD3E0 priority=-960
   z13 if "bbox_area>=4000000"
     area color=#008BD3E0 priority=-960
-    caption primary[height=9 color=#004499BB] priority=3150
+    caption primary[height=9 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z13 if "bbox_area<4000000"
     area color=#008BD3E0 priority=-960
   z14
     area color=#008BD3E0 priority=-960
-    caption primary[height=10 color=#004499BB] priority=3150
+    caption primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z15
     area color=#008BD3E0 priority=-960
-    caption primary[height=10 color=#004499BB] priority=3150
+    caption primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z16
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=3150
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z17
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=3150
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z18
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=3150
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z19
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=3150
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z20
     area color=#008BD3E0 priority=-960
-    caption primary[height=11 color=#004499BB] priority=3150
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=3150
 type natural-water-wastewater
   z12 if "bbox_area>=4000000"
     area color=#009DC7C1 priority=-950
@@ -13187,16 +13187,16 @@ type natural-water-wastewater
     area color=#009DC7C1 priority=-950
   z17
     area color=#009DC7C1 priority=-950
-    caption primary[height=11 color=#004499BB] priority=2900
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z18
     area color=#009DC7C1 priority=-950
-    caption primary[height=11 color=#004499BB] priority=2900
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z19
     area color=#009DC7C1 priority=-950
-    caption primary[height=11 color=#004499BB] priority=2900
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z20
     area color=#009DC7C1 priority=-950
-    caption primary[height=11 color=#004499BB] priority=2900
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
 type natural-wetland
   z11
     area color=#007093A5 priority=40
@@ -13210,19 +13210,19 @@ type natural-wetland
     area color=#007093A5 priority=40
   z16
     area color=#007093A5 priority=40
-    caption primary[height=11 color=#004499BB] priority=1800
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=1800
   z17
     area color=#007093A5 priority=40
-    caption primary[height=11 color=#004499BB] priority=1800
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=1800
   z18
     area color=#007093A5 priority=40
-    caption primary[height=11 color=#004499BB] priority=1800
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=1800
   z19
     area color=#007093A5 priority=40
-    caption primary[height=11 color=#004499BB] priority=1800
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=1800
   z20
     area color=#007093A5 priority=40
-    caption primary[height=11 color=#004499BB] priority=1800
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=1800
 type natural-wetland-bog
   z11
     area color=#007093A5 priority=40
@@ -13236,19 +13236,19 @@ type natural-wetland-bog
     area color=#007093A5 priority=40
   z16
     area color=#007093A5 priority=40
-    caption primary[height=11 color=#004499BB] priority=1800
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=1800
   z17
     area color=#007093A5 priority=40
-    caption primary[height=11 color=#004499BB] priority=1800
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=1800
   z18
     area color=#007093A5 priority=40
-    caption primary[height=11 color=#004499BB] priority=1800
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=1800
   z19
     area color=#007093A5 priority=40
-    caption primary[height=11 color=#004499BB] priority=1800
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=1800
   z20
     area color=#007093A5 priority=40
-    caption primary[height=11 color=#004499BB] priority=1800
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=1800
 type natural-wetland-marsh
   z11
     area color=#007093A5 priority=40
@@ -13262,19 +13262,19 @@ type natural-wetland-marsh
     area color=#007093A5 priority=40
   z16
     area color=#007093A5 priority=40
-    caption primary[height=11 color=#004499BB] priority=1800
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=1800
   z17
     area color=#007093A5 priority=40
-    caption primary[height=11 color=#004499BB] priority=1800
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=1800
   z18
     area color=#007093A5 priority=40
-    caption primary[height=11 color=#004499BB] priority=1800
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=1800
   z19
     area color=#007093A5 priority=40
-    caption primary[height=11 color=#004499BB] priority=1800
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=1800
   z20
     area color=#007093A5 priority=40
-    caption primary[height=11 color=#004499BB] priority=1800
+    caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=1800
 type office
   z18
     symbol name=office-m priority=470
@@ -14466,45 +14466,45 @@ type place-neighbourhood
     caption primary[height=12 color=#007F7F7F] secondary[height=10 color=#007F7F7F dy=1] priority=5700
 type place-ocean
   z1
-    caption primary[height=14 color=#004499BB] priority=7650
+    caption primary[height=14 color=#004499BB stroke=#CCFFFFFF] priority=7650
   z2
-    caption primary[height=14 color=#004499BB] priority=7650
+    caption primary[height=14 color=#004499BB stroke=#CCFFFFFF] priority=7650
   z3
-    caption primary[height=15 color=#004499BB] priority=7650
+    caption primary[height=15 color=#004499BB stroke=#CCFFFFFF] priority=7650
   z4
-    caption primary[height=16 color=#004499BB] priority=7650
+    caption primary[height=16 color=#004499BB stroke=#CCFFFFFF] priority=7650
   z5
-    caption primary[height=18 color=#004499BB] priority=7650
+    caption primary[height=18 color=#004499BB stroke=#CCFFFFFF] priority=7650
   z6
-    caption primary[height=18 color=#004499BB] priority=7650
+    caption primary[height=18 color=#004499BB stroke=#CCFFFFFF] priority=7650
   z7
-    caption primary[height=18 color=#004499BB] priority=7650
+    caption primary[height=18 color=#004499BB stroke=#CCFFFFFF] priority=7650
   z8
-    caption primary[height=18 color=#004499BB] priority=7650
+    caption primary[height=18 color=#004499BB stroke=#CCFFFFFF] priority=7650
   z9
-    caption primary[height=18 color=#004499BB] priority=7650
+    caption primary[height=18 color=#004499BB stroke=#CCFFFFFF] priority=7650
   z10
-    caption primary[height=18 color=#004499BB] priority=7650
+    caption primary[height=18 color=#004499BB stroke=#CCFFFFFF] priority=7650
   z11
-    caption primary[height=18 color=#004499BB] priority=7650
+    caption primary[height=18 color=#004499BB stroke=#CCFFFFFF] priority=7650
   z12
-    caption primary[height=18 color=#004499BB] priority=7650
+    caption primary[height=18 color=#004499BB stroke=#CCFFFFFF] priority=7650
   z13
-    caption primary[height=18 color=#004499BB] priority=7650
+    caption primary[height=18 color=#004499BB stroke=#CCFFFFFF] priority=7650
   z14
-    caption primary[height=18 color=#004499BB] priority=7650
+    caption primary[height=18 color=#004499BB stroke=#CCFFFFFF] priority=7650
   z15
-    caption primary[height=18 color=#004499BB] priority=7650
+    caption primary[height=18 color=#004499BB stroke=#CCFFFFFF] priority=7650
   z16
-    caption primary[height=18 color=#004499BB] priority=7650
+    caption primary[height=18 color=#004499BB stroke=#CCFFFFFF] priority=7650
   z17
-    caption primary[height=18 color=#004499BB] priority=7650
+    caption primary[height=18 color=#004499BB stroke=#CCFFFFFF] priority=7650
   z18
-    caption primary[height=18 color=#004499BB] priority=7650
+    caption primary[height=18 color=#004499BB stroke=#CCFFFFFF] priority=7650
   z19
-    caption primary[height=18 color=#004499BB] priority=7650
+    caption primary[height=18 color=#004499BB stroke=#CCFFFFFF] priority=7650
   z20
-    caption primary[height=18 color=#004499BB] priority=7650
+    caption primary[height=18 color=#004499BB stroke=#CCFFFFFF] priority=7650
 type place-quarter
   z13
     caption primary[height=11 color=#007F7F7F] secondary[height=9 color=#007F7F7F dy=1] priority=5750
@@ -14524,39 +14524,39 @@ type place-quarter
     caption primary[height=14 color=#007F7F7F] secondary[height=12 color=#007F7F7F dy=1] priority=5750
 type place-sea
   z4
-    caption primary[height=12 color=#004499BB] priority=7450
+    caption primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=7450
   z5
-    caption primary[height=12 color=#004499BB] priority=7450
+    caption primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=7450
   z6
-    caption primary[height=12 color=#004499BB] priority=7450
+    caption primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=7450
   z7
-    caption primary[height=12 color=#004499BB] priority=7450
+    caption primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=7450
   z8
-    caption primary[height=12 color=#004499BB] priority=7450
+    caption primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=7450
   z9
-    caption primary[height=12 color=#004499BB] priority=7450
+    caption primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=7450
   z10
-    caption primary[height=12 color=#004499BB] priority=7450
+    caption primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=7450
   z11
-    caption primary[height=12 color=#004499BB] priority=7450
+    caption primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=7450
   z12
-    caption primary[height=12 color=#004499BB] priority=7450
+    caption primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=7450
   z13
-    caption primary[height=12 color=#004499BB] priority=7450
+    caption primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=7450
   z14
-    caption primary[height=12 color=#004499BB] priority=7450
+    caption primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=7450
   z15
-    caption primary[height=12 color=#004499BB] priority=7450
+    caption primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=7450
   z16
-    caption primary[height=12 color=#004499BB] priority=7450
+    caption primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=7450
   z17
-    caption primary[height=12 color=#004499BB] priority=7450
+    caption primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=7450
   z18
-    caption primary[height=12 color=#004499BB] priority=7450
+    caption primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=7450
   z19
-    caption primary[height=12 color=#004499BB] priority=7450
+    caption primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=7450
   z20
-    caption primary[height=12 color=#004499BB] priority=7450
+    caption primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=7450
 type place-square
   z16
     caption primary[height=11 color=#00666666 stroke=#33FFFFFF] priority=5050
@@ -24376,60 +24376,60 @@ type waterway-access_point
     symbol name=waterway-access_point-m priority=120
 type waterway-canal
   z12
-    line width=0.7 color=#4D36B0BF join=round cap=butt priority=-990
-    path_text primary[height=10 color=#004499BB] priority=2900
-  z13
-    line width=0.7 color=#4D36B0BF join=round cap=butt priority=-990
-    path_text primary[height=10 color=#004499BB] priority=2900
-  z14
     line width=1 color=#4D36B0BF join=round cap=butt priority=-990
-    path_text primary[height=10 color=#004499BB] priority=2900
+    path_text primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=2900
+  z13
+    line width=1 color=#4D36B0BF join=round cap=butt priority=-990
+    path_text primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=2900
+  z14
+    line width=1.5 color=#4D36B0BF join=round cap=butt priority=-990
+    path_text primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z15
-    line width=1.6 color=#4D36B0BF join=round cap=butt priority=-990
-    path_text primary[height=11 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=butt priority=-990
+    path_text primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z16
-    line width=1.6 color=#4D36B0BF join=round cap=round priority=-990
-    path_text primary[height=11 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=round priority=-990
+    path_text primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z17
-    line width=1.6 color=#4D36B0BF join=round cap=round priority=-990
-    path_text primary[height=11 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=round priority=-990
+    path_text primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z18
-    line width=1.6 color=#4D36B0BF join=round cap=round priority=-990
-    path_text primary[height=12 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=round priority=-990
+    path_text primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z19
-    line width=1.6 color=#4D36B0BF join=round cap=round priority=-990
-    path_text primary[height=12 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=round priority=-990
+    path_text primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z20
-    line width=1.6 color=#4D36B0BF join=round cap=round priority=-990
-    path_text primary[height=12 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=round priority=-990
+    path_text primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=2900
 type waterway-canal-intermittent
   z12
-    line width=0.7 color=#4D36B0BF join=round cap=butt dash=[5.4,2.7] priority=-990
-    path_text primary[height=10 color=#004499BB] priority=2900
-  z13
-    line width=0.7 color=#4D36B0BF join=round cap=butt dash=[5.4,2.7] priority=-990
-    path_text primary[height=10 color=#004499BB] priority=2900
-  z14
     line width=1 color=#4D36B0BF join=round cap=butt dash=[5.4,2.7] priority=-990
-    path_text primary[height=10 color=#004499BB] priority=2900
+    path_text primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=2900
+  z13
+    line width=1 color=#4D36B0BF join=round cap=butt dash=[5.4,2.7] priority=-990
+    path_text primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=2900
+  z14
+    line width=1.5 color=#4D36B0BF join=round cap=butt dash=[5.4,2.7] priority=-990
+    path_text primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z15
-    line width=1.6 color=#4D36B0BF join=round cap=butt dash=[8,4] priority=-990
-    path_text primary[height=11 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=butt dash=[8,4] priority=-990
+    path_text primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z16
-    line width=1.6 color=#4D36B0BF join=round cap=round dash=[8,4] priority=-990
-    path_text primary[height=11 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=round dash=[8,4] priority=-990
+    path_text primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z17
-    line width=1.6 color=#4D36B0BF join=round cap=round dash=[8,4] priority=-990
-    path_text primary[height=11 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=round dash=[8,4] priority=-990
+    path_text primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z18
-    line width=1.6 color=#4D36B0BF join=round cap=round dash=[8,4] priority=-990
-    path_text primary[height=12 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=round dash=[8,4] priority=-990
+    path_text primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z19
-    line width=1.6 color=#4D36B0BF join=round cap=round dash=[8,4] priority=-990
-    path_text primary[height=12 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=round dash=[8,4] priority=-990
+    path_text primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z20
-    line width=1.6 color=#4D36B0BF join=round cap=round dash=[8,4] priority=-990
-    path_text primary[height=12 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=round dash=[8,4] priority=-990
+    path_text primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=2900
 type waterway-dam
   z14
     line width=1.5 color=#80C2C0B3 join=round cap=butt priority=30
@@ -24569,54 +24569,54 @@ type waterway-drain-intermittent
     line width=3 color=#4D9DC7C1 join=round cap=round dash=[2.7,5.4] priority=-990
 type waterway-fish_pass
   z13
-    line width=0.7 color=#4D36B0BF join=round cap=butt priority=-990
-    path_text primary[height=10 color=#004499BB] priority=2900
-  z14
     line width=1 color=#4D36B0BF join=round cap=butt priority=-990
-    path_text primary[height=10 color=#004499BB] priority=2900
+    path_text primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=2900
+  z14
+    line width=1.5 color=#4D36B0BF join=round cap=butt priority=-990
+    path_text primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z15
-    line width=1.6 color=#4D36B0BF join=round cap=butt priority=-990
-    path_text primary[height=11 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=butt priority=-990
+    path_text primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z16
-    line width=1.6 color=#4D36B0BF join=round cap=round priority=-990
-    path_text primary[height=11 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=round priority=-990
+    path_text primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z17
-    line width=1.6 color=#4D36B0BF join=round cap=round priority=-990
-    path_text primary[height=11 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=round priority=-990
+    path_text primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z18
-    line width=1.6 color=#4D36B0BF join=round cap=round priority=-990
-    path_text primary[height=12 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=round priority=-990
+    path_text primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z19
-    line width=1.6 color=#4D36B0BF join=round cap=round priority=-990
-    path_text primary[height=12 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=round priority=-990
+    path_text primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z20
-    line width=1.6 color=#4D36B0BF join=round cap=round priority=-990
-    path_text primary[height=12 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=round priority=-990
+    path_text primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=2900
 type waterway-fish_pass-intermittent
   z13
-    line width=0.7 color=#4D36B0BF join=round cap=butt dash=[5.4,2.7] priority=-990
-    path_text primary[height=10 color=#004499BB] priority=2900
-  z14
     line width=1 color=#4D36B0BF join=round cap=butt dash=[5.4,2.7] priority=-990
-    path_text primary[height=10 color=#004499BB] priority=2900
+    path_text primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=2900
+  z14
+    line width=1.5 color=#4D36B0BF join=round cap=butt dash=[5.4,2.7] priority=-990
+    path_text primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z15
-    line width=1.6 color=#4D36B0BF join=round cap=butt dash=[8,4] priority=-990
-    path_text primary[height=11 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=butt dash=[8,4] priority=-990
+    path_text primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z16
-    line width=1.6 color=#4D36B0BF join=round cap=round dash=[8,4] priority=-990
-    path_text primary[height=11 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=round dash=[8,4] priority=-990
+    path_text primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z17
-    line width=1.6 color=#4D36B0BF join=round cap=round dash=[8,4] priority=-990
-    path_text primary[height=11 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=round dash=[8,4] priority=-990
+    path_text primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z18
-    line width=1.6 color=#4D36B0BF join=round cap=round dash=[8,4] priority=-990
-    path_text primary[height=12 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=round dash=[8,4] priority=-990
+    path_text primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z19
-    line width=1.6 color=#4D36B0BF join=round cap=round dash=[8,4] priority=-990
-    path_text primary[height=12 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=round dash=[8,4] priority=-990
+    path_text primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z20
-    line width=1.6 color=#4D36B0BF join=round cap=round dash=[8,4] priority=-990
-    path_text primary[height=12 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=round dash=[8,4] priority=-990
+    path_text primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=2900
 type waterway-lock_gate
   z16
     symbol name=dot-m priority=700
@@ -24632,121 +24632,121 @@ type waterway-river
   z10
     line width=1 color=#4D36B0BF join=bevel cap=butt priority=-990
   z11
-    line width=1.2 color=#4D36B0BF join=bevel cap=butt priority=-990
-    path_text primary[height=10 color=#004499BB] priority=3150
+    line width=1.5 color=#4D36B0BF join=bevel cap=butt priority=-990
+    path_text primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z12
-    line width=1.2 color=#4D36B0BF join=bevel cap=butt priority=-990
-    path_text primary[height=10 color=#004499BB] priority=3150
+    line width=1.5 color=#4D36B0BF join=bevel cap=butt priority=-990
+    path_text primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z13
-    line width=1.6 color=#4D36B0BF join=round cap=butt priority=-990
-    path_text primary[height=10 color=#004499BB] priority=3150
+    line width=2 color=#4D36B0BF join=round cap=butt priority=-990
+    path_text primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z14
-    line width=1.8 color=#4D36B0BF join=round cap=butt priority=-990
-    path_text primary[height=10 color=#004499BB] priority=3150
+    line width=3 color=#4D36B0BF join=round cap=butt priority=-990
+    path_text primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z15
-    line width=2.2 color=#4D36B0BF join=round cap=butt priority=-990
-    path_text primary[height=12 color=#004499BB] priority=3150
+    line width=4 color=#4D36B0BF join=round cap=butt priority=-990
+    path_text primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z16
-    line width=2.2 color=#4D36B0BF join=round cap=round priority=-990
-    path_text primary[height=12 color=#004499BB] priority=3150
+    line width=5 color=#4D36B0BF join=round cap=round priority=-990
+    path_text primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z17
-    line width=2.2 color=#4D36B0BF join=round cap=round priority=-990
-    path_text primary[height=12 color=#004499BB] priority=3150
+    line width=5 color=#4D36B0BF join=round cap=round priority=-990
+    path_text primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z18
-    line width=2.2 color=#4D36B0BF join=round cap=round priority=-990
-    path_text primary[height=12 color=#004499BB] priority=3150
+    line width=5 color=#4D36B0BF join=round cap=round priority=-990
+    path_text primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z19
-    line width=2.2 color=#4D36B0BF join=round cap=round priority=-990
-    path_text primary[height=12 color=#004499BB] priority=3150
+    line width=5 color=#4D36B0BF join=round cap=round priority=-990
+    path_text primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z20
-    line width=2.2 color=#4D36B0BF join=round cap=round priority=-990
-    path_text primary[height=12 color=#004499BB] priority=3150
+    line width=5 color=#4D36B0BF join=round cap=round priority=-990
+    path_text primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=3150
 type waterway-river-intermittent
   z10
     line width=1 color=#4D36B0BF join=bevel cap=butt dash=[3,3] priority=-990
   z11
-    line width=1.2 color=#4D36B0BF join=bevel cap=butt dash=[3.6,3.6] priority=-990
-    path_text primary[height=10 color=#004499BB] priority=3150
+    line width=1.5 color=#4D36B0BF join=bevel cap=butt dash=[3.6,3.6] priority=-990
+    path_text primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z12
-    line width=1.2 color=#4D36B0BF join=bevel cap=butt dash=[3.6,3.6] priority=-990
-    path_text primary[height=10 color=#004499BB] priority=3150
+    line width=1.5 color=#4D36B0BF join=bevel cap=butt dash=[3.6,3.6] priority=-990
+    path_text primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z13
-    line width=1.6 color=#4D36B0BF join=round cap=butt dash=[4.8,4.8] priority=-990
-    path_text primary[height=10 color=#004499BB] priority=3150
+    line width=2 color=#4D36B0BF join=round cap=butt dash=[4.8,4.8] priority=-990
+    path_text primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z14
-    line width=1.8 color=#4D36B0BF join=round cap=butt dash=[5.4,5.4] priority=-990
-    path_text primary[height=10 color=#004499BB] priority=3150
+    line width=3 color=#4D36B0BF join=round cap=butt dash=[5.4,5.4] priority=-990
+    path_text primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z15
-    line width=2.2 color=#4D36B0BF join=round cap=butt dash=[6.6,6.6] priority=-990
-    path_text primary[height=12 color=#004499BB] priority=3150
+    line width=4 color=#4D36B0BF join=round cap=butt dash=[6.6,6.6] priority=-990
+    path_text primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z16
-    line width=2.2 color=#4D36B0BF join=round cap=round dash=[6.6,6.6] priority=-990
-    path_text primary[height=12 color=#004499BB] priority=3150
+    line width=5 color=#4D36B0BF join=round cap=round dash=[6.6,6.6] priority=-990
+    path_text primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z17
-    line width=2.2 color=#4D36B0BF join=round cap=round dash=[6.6,6.6] priority=-990
-    path_text primary[height=12 color=#004499BB] priority=3150
+    line width=5 color=#4D36B0BF join=round cap=round dash=[6.6,6.6] priority=-990
+    path_text primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z18
-    line width=2.2 color=#4D36B0BF join=round cap=round dash=[6.6,6.6] priority=-990
-    path_text primary[height=12 color=#004499BB] priority=3150
+    line width=5 color=#4D36B0BF join=round cap=round dash=[6.6,6.6] priority=-990
+    path_text primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z19
-    line width=2.2 color=#4D36B0BF join=round cap=round dash=[6.6,6.6] priority=-990
-    path_text primary[height=12 color=#004499BB] priority=3150
+    line width=5 color=#4D36B0BF join=round cap=round dash=[6.6,6.6] priority=-990
+    path_text primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=3150
   z20
-    line width=2.2 color=#4D36B0BF join=round cap=round dash=[6.6,6.6] priority=-990
-    path_text primary[height=12 color=#004499BB] priority=3150
+    line width=5 color=#4D36B0BF join=round cap=round dash=[6.6,6.6] priority=-990
+    path_text primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=3150
 type waterway-stream
   z12
-    line width=0.7 color=#4D36B0BF join=round cap=butt priority=-990
-    path_text primary[height=10 color=#004499BB] priority=2900
-  z13
-    line width=0.7 color=#4D36B0BF join=round cap=butt priority=-990
-    path_text primary[height=10 color=#004499BB] priority=2900
-  z14
     line width=1 color=#4D36B0BF join=round cap=butt priority=-990
-    path_text primary[height=10 color=#004499BB] priority=2900
+    path_text primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=2900
+  z13
+    line width=1 color=#4D36B0BF join=round cap=butt priority=-990
+    path_text primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=2900
+  z14
+    line width=1.5 color=#4D36B0BF join=round cap=butt priority=-990
+    path_text primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z15
-    line width=1.6 color=#4D36B0BF join=round cap=butt priority=-990
-    path_text primary[height=11 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=butt priority=-990
+    path_text primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z16
-    line width=1.6 color=#4D36B0BF join=round cap=round priority=-990
-    path_text primary[height=11 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=round priority=-990
+    path_text primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z17
-    line width=1.6 color=#4D36B0BF join=round cap=round priority=-990
-    path_text primary[height=11 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=round priority=-990
+    path_text primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z18
-    line width=1.6 color=#4D36B0BF join=round cap=round priority=-990
-    path_text primary[height=12 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=round priority=-990
+    path_text primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z19
-    line width=1.6 color=#4D36B0BF join=round cap=round priority=-990
-    path_text primary[height=12 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=round priority=-990
+    path_text primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z20
-    line width=1.6 color=#4D36B0BF join=round cap=round priority=-990
-    path_text primary[height=12 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=round priority=-990
+    path_text primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=2900
 type waterway-stream-intermittent
   z13
-    line width=0.7 color=#4D36B0BF join=round cap=butt dash=[2.7,2.7] priority=-990
-    path_text primary[height=10 color=#004499BB] priority=2900
+    line width=1 color=#4D36B0BF join=round cap=butt dash=[2.7,2.7] priority=-990
+    path_text primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z14
     line width=1 color=#4D36B0BF join=round cap=butt dash=[2.7,2.7] priority=-990
-    path_text primary[height=10 color=#004499BB] priority=2900
+    path_text primary[height=10 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z15
-    line width=1.4 color=#4D36B0BF join=round cap=butt dash=[4.95,4.95] priority=-990
-    path_text primary[height=11 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=butt dash=[4.95,4.95] priority=-990
+    path_text primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z16
-    line width=1.4 color=#4D36B0BF join=round cap=round dash=[4.95,4.95] priority=-990
-    path_text primary[height=11 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=round dash=[4.95,4.95] priority=-990
+    path_text primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z17
-    line width=1.4 color=#4D36B0BF join=round cap=round dash=[4.95,4.95] priority=-990
-    path_text primary[height=11 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=round dash=[4.95,4.95] priority=-990
+    path_text primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z18
-    line width=1.4 color=#4D36B0BF join=round cap=round dash=[4.95,4.95] priority=-990
-    path_text primary[height=12 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=round dash=[4.95,4.95] priority=-990
+    path_text primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z19
-    line width=1.4 color=#4D36B0BF join=round cap=round dash=[4.95,4.95] priority=-990
-    path_text primary[height=12 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=round dash=[4.95,4.95] priority=-990
+    path_text primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=2900
   z20
-    line width=1.4 color=#4D36B0BF join=round cap=round dash=[4.95,4.95] priority=-990
-    path_text primary[height=12 color=#004499BB] priority=2900
+    line width=2 color=#4D36B0BF join=round cap=round dash=[4.95,4.95] priority=-990
+    path_text primary[height=12 color=#004499BB stroke=#CCFFFFFF] priority=2900
 type waterway-waterfall
   z10
     symbol name=waterfall-s priority=5800
