@@ -1,6 +1,7 @@
 protocol BottomMenuPresenterProtocol: UITableViewDelegate, UITableViewDataSource {
   func onClosePressed()
   func cellToHighlightIndexPath() -> IndexPath?
+  func reloadCellToHighlight()
 }
 
 class BottomMenuPresenter: NSObject {
@@ -68,6 +69,10 @@ extension BottomMenuPresenter: BottomMenuPresenterProtocol {
           let sectionIndex = sections.firstIndex(of: .items),
           let cellIndex = menuCells.firstIndex(of: cellToHighlight) else { return nil }
     return IndexPath(row: cellIndex, section: sectionIndex)
+  }
+
+  func reloadCellToHighlight() {
+    cellToHighlight = Self.getCellToHighlight()
   }
 }
 
