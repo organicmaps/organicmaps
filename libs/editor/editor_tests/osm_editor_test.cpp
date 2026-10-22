@@ -15,13 +15,20 @@
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
 
+#include "platform/gui_thread.hpp"
+#include "platform/platform.hpp"
 #include "platform/platform_tests_support/async_gui_thread.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"
 
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
+#include "base/task_loop.hpp"
 
+#include <chrono>
+#include <future>
 #include <memory>
+#include <mutex>
+#include <vector>
 
 namespace editor
 {
@@ -105,6 +112,69 @@ public:
 private:
   OptionalSaveStorage * m_storage = new OptionalSaveStorage;
 };
+
+// Editor posts SaveUploadedInformation() to the gui thread, and it is guarded by a thread checker
+// bound to the thread that created the Editor. Collect those tasks instead of running them on a
+// worker, so that the test thread can execute them itself.
+class GuiTaskQueue : public base::TaskLoop
+{
+public:
+  PushResult Push(Task && task) override
+  {
+    std::lock_guard<std::mutex> guard(m_mutex);
+    m_tasks.emplace_back(std::move(task));
+    return {true, kNoId};
+  }
+
+  PushResult Push(Task const & task) override
+  {
+    std::lock_guard<std::mutex> guard(m_mutex);
+    m_tasks.emplace_back(task);
+    return {true, kNoId};
+  }
+
+  void RunAll()
+  {
+    std::vector<Task> tasks;
+    {
+      std::lock_guard<std::mutex> guard(m_mutex);
+      tasks.swap(m_tasks);
+    }
+    for (auto const & task : tasks)
+      task();
+  }
+
+private:
+  std::mutex m_mutex;
+  std::vector<Task> m_tasks;
+};
+
+/// Uploads pending edits and runs the resulting gui tasks on the calling thread.
+/// @note Features that produce no upload never touch the network: ChangesetWrapper creates a
+/// changeset lazily in Create()/Modify()/Delete() and only closes it if one was created.
+osm::Editor::UploadResult UploadChangesAndWait(osm::Editor & editor)
+{
+  // Pending notes are uploaded to OSM for real, so point the editor at an absent notes file.
+  // Nothing creates it: these tests upload features, not notes.
+  editor.SetNotesForTesting(GetPlatform().WritablePathForFile("test_upload_notes.xml"));
+
+  Platform::ThreadRunner const runner;
+
+  auto * queue = new GuiTaskQueue;
+  GetPlatform().SetGuiThread(std::unique_ptr<base::TaskLoop>(queue));
+  SCOPE_GUARD(resetGuiThread, []() { GetPlatform().SetGuiThread(std::make_unique<platform::GuiThread>()); });
+
+  std::promise<osm::Editor::UploadResult> promise;
+  auto future = promise.get_future();
+  TEST_EQUAL(editor.UploadChanges("dummy_token", {} /* tags */,
+                                  [&promise](osm::Editor::UploadResult result) { promise.set_value(result); }),
+             osm::Editor::UploadStart::Started, ());
+  TEST(future.wait_for(std::chrono::seconds(30)) == std::future_status::ready, ("UploadChanges() has not finished."));
+
+  auto const result = future.get();
+  queue->RunAll();
+  return result;
+}
 
 template <typename Fn>
 void ForEachCafeAtPoint(DataSource & dataSource, m2::PointD const & mercator, Fn && fn)
@@ -724,6 +794,69 @@ void EditorTest::UploadChangesStartResultTest()
   SCOPE_GUARD(resetUploadingFlag, [&editor]() { editor.m_isUploadingNow = false; });
   TEST_EQUAL(editor.UploadChanges({}, {}, callback), osm::Editor::UploadStart::AlreadyUploading, ());
   TEST_EQUAL(callbackCount, 0, ());
+}
+
+void EditorTest::UploadObsoleteFeatureTest()
+{
+  auto & editor = osm::Editor::Instance();
+  FeatureID featureId;
+
+  auto const mwmId = ConstructTestMwm([](TestMwmBuilder & builder)
+  { builder.Add(TestCafe(m2::PointD(1.0, 1.0), "London Cafe", "en")); });
+
+  // Reporting a place as non-existent marks it obsolete, see Editor::CreateNote().
+  ForEachCafeAtPoint(m_dataSource, m2::PointD(1.0, 1.0), [&editor, &featureId](FeatureType & ft)
+  {
+    featureId = ft.GetID();
+    TEST(editor.MarkFeatureAsObsolete(featureId), ());
+  });
+
+  TEST(editor.HaveMapEditsToUpload(mwmId), ());
+
+  // The note itself is uploaded separately; the obsolete feature only hides the POI locally and
+  // is never sent to OSM, so nothing was actually uploaded even though the feature now has a
+  // terminal status.
+  TEST(UploadChangesAndWait(editor) == osm::Editor::UploadResult::NothingToUpload, ());
+  TEST(!editor.HaveMapEditsToUpload(mwmId), ());
+  TEST(!editor.IsFeatureUploaded(featureId.m_mwmId, featureId.m_index), ());
+  TEST_EQUAL(editor.GetStats().m_uploadedCount, 0, ());
+
+  editor.LoadEdits();
+  TEST(!editor.HaveMapEditsToUpload(mwmId), ());
+  TEST(!editor.IsFeatureUploaded(featureId.m_mwmId, featureId.m_index), ());
+}
+
+void EditorTest::UploadInSyncFeatureTest()
+{
+  auto & editor = osm::Editor::Instance();
+  FeatureID featureId;
+
+  auto const mwmId = ConstructTestMwm([](TestMwmBuilder & builder)
+  { builder.Add(TestCafe(m2::PointD(1.0, 1.0), "London Cafe", "en")); });
+
+  // A modified feature with an empty journal is already in sync with OSM.
+  ForEachCafeAtPoint(m_dataSource, m2::PointD(1.0, 1.0), [&editor, &featureId](FeatureType & ft)
+  {
+    featureId = ft.GetID();
+    auto editableFeatures = std::make_shared<osm::Editor::FeaturesContainer>(*editor.m_features.Get());
+    editor.MarkFeatureWithStatus(*editableFeatures, featureId, FeatureStatus::Modified);
+    TEST(editor.SaveTransaction(editableFeatures), ());
+  });
+
+  TEST(editor.HaveMapEditsToUpload(mwmId), ());
+
+  // UploadChanges() reports this unexpected state with LOG(LERROR), which aborts in Debug builds.
+  base::ScopedLogAbortLevelChanger const logAbortLevel(LCRITICAL);
+
+  // Nothing is sent to OSM here either, so the result must not look like a real upload.
+  TEST(UploadChangesAndWait(editor) == osm::Editor::UploadResult::NothingToUpload, ());
+  TEST(!editor.HaveMapEditsToUpload(mwmId), ());
+  TEST(!editor.IsFeatureUploaded(featureId.m_mwmId, featureId.m_index), ());
+  TEST_EQUAL(editor.GetStats().m_uploadedCount, 0, ());
+
+  editor.LoadEdits();
+  TEST(!editor.HaveMapEditsToUpload(mwmId), ());
+  TEST(!editor.IsFeatureUploaded(featureId.m_mwmId, featureId.m_index), ());
 }
 
 void EditorTest::GetStatsTest()
@@ -1386,6 +1519,16 @@ UNIT_CLASS_TEST(EditorTest, HaveMapEditsToUploadTest)
 UNIT_CLASS_TEST(EditorTest, UploadChangesStartResultTest)
 {
   EditorTest::UploadChangesStartResultTest();
+}
+
+UNIT_CLASS_TEST(EditorTest, UploadObsoleteFeatureTest)
+{
+  EditorTest::UploadObsoleteFeatureTest();
+}
+
+UNIT_CLASS_TEST(EditorTest, UploadInSyncFeatureTest)
+{
+  EditorTest::UploadInSyncFeatureTest();
 }
 
 UNIT_CLASS_TEST(EditorTest, GetStatsTest)
