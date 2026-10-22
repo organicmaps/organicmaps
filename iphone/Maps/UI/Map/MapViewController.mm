@@ -733,7 +733,13 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
 - (void)openSettings
 {
-  [self.navigationController pushViewController:[SettingsBuilder buildRoot] animated:YES];
+  // A link can arrive while the menu or the layers sheet is open: close it like the menu's Settings item does,
+  // otherwise it stays over Settings.
+  MWMMapViewControlsManager * controlsManager = self.controlsManager;
+  MWMBottomMenuState const menuState = controlsManager.menuState;
+  if (menuState == MWMBottomMenuStateActive || menuState == MWMBottomMenuStateLayers)
+    controlsManager.menuState = controlsManager.menuRestoreState;
+  [SettingsBuilder showRootIn:self.navigationController];
 }
 
 - (void)openMapsDownloader:(MWMMapDownloaderMode)mode

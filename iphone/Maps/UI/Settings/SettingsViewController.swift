@@ -12,6 +12,7 @@ enum SettingsViewControllerAction<Item: Hashable> {
   case didChangeSlider(Item, value: Float)
   case didTapPreview(Item)
   case didCompleteBookmarkBackupSharing(Bool)
+  case didRequestHighlight
 }
 
 protocol SettingsViewControllerInteractor<Section, Item>: AnyObject {
@@ -252,6 +253,11 @@ extension SettingsViewController where Section == RootSettingsSection, Item == R
     }
     let anchorView = dataSource.indexPath(for: .iCloud).flatMap { tableView.cellForRow(at: $0) } ?? view
     shareController.present(inParentViewController: self, anchorView: anchorView)
+  }
+
+  /// Highlights the setting requested by a link that arrives while Settings are open.
+  func highlightRequestedItem() {
+    interactor?.handle(.didRequestHighlight)
   }
 
   func displayHighlight(_ item: Item) {

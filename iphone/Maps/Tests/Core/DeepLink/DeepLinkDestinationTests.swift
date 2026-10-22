@@ -47,6 +47,32 @@ final class DeepLinkDestinationTests: XCTestCase {
     XCTAssertNil(handler.getInAppFeatureHighlightData())
   }
 
+  func testSettingsLinkHighlightsInOpenSettings() throws {
+    try openLink("om://settings")
+    let settings = try waitForSettingsOnTop()
+
+    try openLink("om://settings?highlight=icloud")
+
+    XCTAssertTrue(navigationController.topViewController === settings)
+    XCTAssertEqual(settingsCount, 1)
+    XCTAssertNil(handler.getInAppFeatureHighlightData())
+  }
+
+  func testSettingsLinkReturnsFromSettingsSubscreen() throws {
+    try openLink("om://settings")
+    let settings = try waitForSettingsOnTop()
+    navigationController.pushViewController(SettingsBuilder.build(.units), animated: false)
+
+    try openLink("om://settings?highlight=icloud")
+
+    XCTAssertTrue(try waitForSettingsOnTop() === settings)
+    XCTAssertEqual(settingsCount, 1)
+  }
+
+  private var settingsCount: Int {
+    navigationController.viewControllers.filter { $0 is RootSettingsViewController }.count
+  }
+
   private func openLink(_ link: String) throws {
     XCTAssertTrue(try handler.applicationDidOpenUrl(XCTUnwrap(URL(string: link))))
   }
