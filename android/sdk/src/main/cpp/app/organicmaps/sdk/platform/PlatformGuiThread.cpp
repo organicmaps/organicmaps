@@ -24,4 +24,9 @@ base::TaskLoop::PushResult GuiThread::Push(Task const & task)
 {
   return Push(Task(task));
 }
+
+base::TaskLoop::PushResult GuiThread::PushDeferred(Task && task)
+{
+  return Push(std::move(task));
+}
 }  // namespace platform

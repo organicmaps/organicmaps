@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "platform/chunks_download_strategy.hpp"
+#include "platform/gui_thread.hpp"
 #include "platform/http_request.hpp"
 #include "platform/platform.hpp"
 
@@ -30,7 +31,7 @@ char constexpr kTestUrl1[] = "http://localhost:24568/unit_tests/1.txt";
 char constexpr kTestUrl404[] = "http://localhost:24568/unit_tests/notexisting_unittest";
 char constexpr kTestUrlBigFile[] = "http://localhost:24568/unit_tests/47kb.file";
 
-// Should match file size in tools/python/ResponseProvider.py
+// Must match the file size in tools/python/test_server/server/ResponseProvider.py.
 int constexpr kBigFileSize = 47684;
 
 // RAII helper: gives each test a unique tmp path and wipes the result/.downloading/.resume
@@ -65,7 +66,6 @@ private:
 class DownloadObserver
 {
   bool m_progressWasCalled;
-  // Chunked downloads can return one status per chunk (thread).
   vector<DownloadStatus> m_statuses;
   // Interrupt download after this number of chunks
   int m_chunksToFail;
@@ -463,6 +463,46 @@ UNIT_TEST(HttpRequest_CancelFromProgressCallback)
   TEST(!Platform::IsFileExistsByFullPath(files.Resume()), ());
 }
 
+UNIT_TEST(HttpRequest_ResumeAllCompletedChunks)
+{
+  ScopedDownloadArtifacts files{"http_completed_resume_"};
+  std::unique_ptr<HttpRequest> request;
+  request.reset(HttpRequest::GetFile({kTestUrlBigFile}, files.m_path, kBigFileSize, [](HttpRequest &)
+  { TEST(false, ("Cancelled request completed")); }, [&](HttpRequest & current)
+  {
+    auto const progress = current.GetProgress();
+    if (progress.m_bytesDownloaded == progress.m_bytesTotal)
+    {
+      request.reset();
+      testing::StopEventLoop();
+    }
+  }, false, 1024));
+  TEST(request, ());
+  testing::RunEventLoop();
+  TEST(!request, ());
+  TEST_EQUAL(LoadResumeBytes(files.Resume(), kBigFileSize, 1024), kBigFileSize, ());
+
+  for (bool const cancel : {true, false})
+  {
+    bool completed = false;
+    request.reset(HttpRequest::GetFile({kTestUrlBigFile}, files.m_path, kBigFileSize, [&](HttpRequest & current)
+    {
+      TEST_EQUAL(current.GetStatus(), DownloadStatus::Completed, ());
+      request.reset();
+      completed = true;
+    }, {}, false, 1024));
+    TEST(request, ());
+    TEST(!completed, ("Completion must be deferred"));
+    if (cancel)
+      request.reset();
+    // FIFO GUI posts let the completion run or be discarded before the marker exits the loop.
+    TEST(platform::GuiThread().PushDeferred([] { testing::StopEventLoop(); }).m_isSuccess, ());
+    testing::RunEventLoop();
+    TEST_EQUAL(completed, !cancel, ());
+  }
+  FinishDownloadSuccess(files.m_path);
+}
+
 UNIT_TEST(HttpRequest_MutableProgressCallback)
 {
   ScopedDownloadArtifacts files{"http_mutable_callback_"};
@@ -500,8 +540,7 @@ UNIT_TEST(HttpRequest_CancelMidFlight_DoClean_WipesArtifacts)
 }
 
 // Cancel mid-flight with doCleanOnCancel=false (the "graceful shutdown" path).
-// Asserts: ~FileHttpRequest preserves both files when destroyed while the request is
-// still InProgress. Pins down the positive contract of the new flag semantics.
+// Both files must survive destruction while the request is still InProgress.
 UNIT_TEST(HttpRequest_CancelMidFlight_NoClean_PreservesArtifacts)
 {
   ScopedDownloadArtifacts files{"http_cancel_preserve_"};
@@ -573,9 +612,7 @@ UNIT_TEST(HttpRequest_ResumeFromPreservedArtifacts_SkipsCompletedChunks)
   TEST(!base::GetFileSize(files.Resume(), size), ());
 }
 
-// On success, the OnChunkFinished cleanup path must run regardless of doCleanOnCancel —
-// the flag only governs the dtor's InProgress branch. Pins this invariant explicitly so
-// a future "optimization" gating success cleanup behind the flag is caught.
+// Successful completion publishes the file and removes checkpoints even when cancellation preserves them.
 UNIT_TEST(HttpRequest_Success_AlwaysCleansArtifacts_DespiteNoClean)
 {
   ScopedDownloadArtifacts files{"http_success_noclean_"};
@@ -592,8 +629,7 @@ UNIT_TEST(HttpRequest_Success_AlwaysCleansArtifacts_DespiteNoClean)
   TEST(!base::GetFileSize(files.Resume(), size), ("Resume wiped on success"));
 }
 
-// On failure, OnChunkFinished's save-on-fail path must run regardless of doCleanOnCancel.
-// Existing DownloadChunks failure tests only cover the flag=true case; this exercises both.
+// Failed requests preserve checkpoints regardless of the cancellation cleanup policy.
 UNIT_TEST(HttpRequest_Failure_PreservesResume_RegardlessOfFlag)
 {
   for (bool doCleanOnCancel : {true, false})

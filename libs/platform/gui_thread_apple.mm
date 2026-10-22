@@ -28,4 +28,9 @@ base::TaskLoop::PushResult GuiThread::Push(Task const & task)
   dispatch_async_f(dispatch_get_main_queue(), new Task(task), &PerformImpl);
   return {true, TaskLoop::kNoId};
 }
+
+base::TaskLoop::PushResult GuiThread::PushDeferred(Task && task)
+{
+  return Push(std::move(task));
+}
 }  // namespace platform
