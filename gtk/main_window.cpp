@@ -154,7 +154,7 @@ void MainWindow::BuildUi()
 
 void MainWindow::BuildMapControls(GtkWidget * overlay)
 {
-  // Zoom buttons: right side, vertically centred.
+  // Zoom buttons: right side, vertically centred when there is enough height.
   m_rightButtons = gtk_box_new(GTK_ORIENTATION_VERTICAL, 12);
   gtk_widget_set_halign(m_rightButtons, GTK_ALIGN_END);
   gtk_widget_set_valign(m_rightButtons, GTK_ALIGN_CENTER);
@@ -271,6 +271,24 @@ void MainWindow::UpdateMapInsets()
   int const bottom = attributionMargin + height(m_mapAttribution);
   gtk_widget_set_margin_bottom(m_mapAttribution, attributionMargin);
   gtk_widget_set_margin_bottom(m_myPositionButton, bottom + 12);
+
+  // Use the individual button heights so changing the box orientation cannot toggle the layout
+  // back and forth. Keep separate overlays so the space beside the controls still takes map input.
+  int const verticalZoomHeight = height(gtk_widget_get_first_child(m_rightButtons)) +
+                                 gtk_box_get_spacing(GTK_BOX(m_rightButtons)) +
+                                 height(gtk_widget_get_last_child(m_rightButtons));
+  int const mapHeight = gtk_widget_get_height(m_map->Widget());
+  int const positionTop = mapHeight - bottom - 12 - height(m_myPositionButton);
+  bool const compact = (mapHeight + verticalZoomHeight) / 2 + 12 > positionTop;
+  gtk_orientable_set_orientation(GTK_ORIENTABLE(m_rightButtons),
+                                 compact ? GTK_ORIENTATION_HORIZONTAL : GTK_ORIENTATION_VERTICAL);
+  gtk_widget_set_valign(m_rightButtons, compact ? GTK_ALIGN_END : GTK_ALIGN_CENTER);
+  gtk_widget_set_margin_bottom(m_rightButtons, compact ? bottom + 12 : 0);
+  int minimum = 0, natural = 0;
+  gtk_widget_measure(m_rightButtons, GTK_ORIENTATION_HORIZONTAL, -1, &minimum, &natural, nullptr, nullptr);
+  // The measured width includes the zoom box's end margin.
+  gtk_widget_set_margin_end(m_myPositionButton, compact ? natural + 12 : 12);
+
   if (bottom == m_lastBottomInset)
     return;
   m_lastBottomInset = bottom;
