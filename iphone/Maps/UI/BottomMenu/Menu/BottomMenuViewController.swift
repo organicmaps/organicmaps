@@ -1,38 +1,38 @@
-protocol BottomMenuViewProtocol: AnyObject {
-  var presenter: BottomMenuPresenterProtocol? { get set }
-}
-
 final class BottomMenuViewController: MWMViewController {
   private enum Constants {
     static let estimatedRowHeight: CGFloat = 80
+    static let compactSheetWidth: CGFloat = 350
   }
 
   var presenter: BottomMenuPresenterProtocol?
-  private let transitioningManager = BottomMenuTransitioningManager()
 
-  @IBOutlet var tableView: UITableView!
-  @IBOutlet var heightConstraint: NSLayoutConstraint!
-  @IBOutlet var bottomConstraint: NSLayoutConstraint!
+  private let tableView = UITableView(frame: .zero, style: .plain)
 
-  lazy var chromeView: UIView = {
-    let view = UIView()
-    view.setStyle(.presentationBackground)
-    return view
-  }()
+  private var lastDetentHeight: CGFloat?
+  private var configuredSheet = false
 
-  weak var containerView: UIView! {
-    didSet {
-      containerView.insertSubview(chromeView, at: 0)
-    }
+  override func loadView() {
+    super.loadView()
+    view.setStyle(.background)
+    view.addSubview(tableView)
+    tableView.translatesAutoresizingMaskIntoConstraints = false
+    NSLayoutConstraint.activate([
+      tableView.topAnchor.constraint(equalTo: view.topAnchor),
+      tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+      tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+    ])
   }
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    tableView.layer.setCornerRadius(.modalSheet, maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
+    tableView.alwaysBounceVertical = true
+    tableView.sectionHeaderHeight = 28
     tableView.sectionFooterHeight = 0
     tableView.rowHeight = UITableView.automaticDimension
     tableView.estimatedRowHeight = Constants.estimatedRowHeight
+    tableView.separatorStyle = .none
 
     NotificationCenter.default.addObserver(self,
                                            selector: #selector(contentSizeCategoryDidChange),
@@ -45,6 +45,12 @@ final class BottomMenuViewController: MWMViewController {
     tableView.registerNib(cell: BottomMenuLayersCell.self)
   }
 
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    configureSheet()
+    layoutAndUpdateSheet()
+  }
+
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     if let cellToHighlight = presenter?.cellToHighlightIndexPath() {
@@ -54,7 +60,7 @@ final class BottomMenuViewController: MWMViewController {
 
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
-    updateTableHeight()
+    updateSheetSize()
   }
 
   deinit {
@@ -63,62 +69,64 @@ final class BottomMenuViewController: MWMViewController {
 
   @objc private func contentSizeCategoryDidChange() {
     tableView.reloadData()
-    view.setNeedsLayout()
+    layoutAndUpdateSheet()
   }
 
-  private func updateTableHeight() {
-    tableView.setNeedsLayout()
+  private func layoutAndUpdateSheet() {
     tableView.layoutIfNeeded()
+    updateSheetSize()
+  }
 
+  private func configureSheet() {
+    guard !configuredSheet, let sheet = sheetPresentationController else { return }
+    configuredSheet = true
+    sheet.delegate = self
+    sheet.prefersGrabberVisible = true
+    sheet.preferredCornerRadius = CornerRadius.modalSheet.value
+    sheet.prefersEdgeAttachedInCompactHeight = true
+    sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
+    // Width applies only while the sheet is edge-attached, i.e. in compact height (iPhone landscape).
+    preferredContentSize = CGSize(width: Constants.compactSheetWidth, height: 0)
+    // backgroundEffect is only available on iOS 26.1+, hence the divergence
+    // from the repo's other iOS 26.0 gates.
+    if #available(iOS 26.1, *) {
+      sheet.backgroundEffect = UIBlurEffect(style: .systemUltraThinMaterial)
+    }
+  }
+
+  private func updateSheetSize() {
+    guard let sheet = sheetPresentationController, let containerView = sheet.containerView else { return }
     let contentHeight = tableView.contentSize.height
-    let maximumHeight = view.bounds.height - view.safeAreaInsets.bottom
-    guard contentHeight > 0, maximumHeight > 0 else { return }
+    guard contentHeight > 0 else { return }
+    let bottomInset = view.safeAreaInsets.bottom
+    let targetHeight = min(contentHeight + bottomInset, containerView.bounds.height)
+    guard targetHeight > 0, lastDetentHeight != targetHeight else { return }
+    lastDetentHeight = targetHeight
 
-    let targetHeight = min(contentHeight, maximumHeight)
-    if heightConstraint.constant != targetHeight {
-      heightConstraint.constant = targetHeight
-    }
-    tableView.isScrollEnabled = contentHeight > targetHeight
-  }
-
-  @IBAction func onClosePressed(_: Any) {
-    presenter?.onClosePressed()
-  }
-
-  @IBAction func onPan(_ sender: UIPanGestureRecognizer) {
-    let yOffset = sender.translation(in: view.superview).y
-    let yVelocity = sender.velocity(in: view.superview).y
-    sender.setTranslation(CGPoint.zero, in: view.superview)
-    bottomConstraint.constant = min(bottomConstraint.constant - yOffset, 0)
-
-    let alpha = 1.0 - abs(bottomConstraint.constant / tableView.height)
-    chromeView.alpha = alpha
-
-    let state = sender.state
-    if state == .ended || state == .cancelled {
-      if yVelocity > 0 || (yVelocity == 0 && alpha < 0.8) {
-        presenter?.onClosePressed()
-      } else {
-        let duration = min(AppConstants.defaultAnimationDuration, TimeInterval(bottomConstraint.constant / yVelocity))
-        view.layoutIfNeeded()
-        UIView.animate(withDuration: duration) {
-          self.chromeView.alpha = 1
-          self.bottomConstraint.constant = 0
-          self.view.layoutIfNeeded()
-        }
-      }
+    tableView.isScrollEnabled = contentHeight + bottomInset > targetHeight
+    sheet.animateChanges {
+      sheet.detents = detents(for: targetHeight)
     }
   }
 
-  override var transitioningDelegate: UIViewControllerTransitioningDelegate? {
-    get { transitioningManager }
-    set {}
+  // custom(identifier:resolver:) is iOS 16+ and the deployment target is 15.0.
+  private func detents(for height: CGFloat) -> [UISheetPresentationController.Detent] {
+    if #available(iOS 16.0, *) {
+      return [.custom(identifier: nil) { _ in height }]
+    }
+    return [.large()]
   }
 
   override var modalPresentationStyle: UIModalPresentationStyle {
-    get { .custom }
+    get { .pageSheet }
     set {}
   }
 }
 
-extension BottomMenuViewController: BottomMenuViewProtocol {}
+extension BottomMenuViewController: UISheetPresentationControllerDelegate {
+  func presentationControllerDidDismiss(_: UIPresentationController) {
+    // The user swiped the native sheet away; keep the controls manager in sync
+    // with the dismissed menu.
+    presenter?.onClosePressed()
+  }
+}
