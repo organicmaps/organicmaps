@@ -155,14 +155,12 @@
     <string name="share_bookmarks_email_body">Halló!\n\nMeðfylgjandi eru bókamerkin mín; endilega opnaðu þau í Organic Maps forritinu. Ef þú ert ekki með það uppsett geturðu sótt það hér: https://omaps.app/get?kmz \n\nNjóttu ferðarinnar með Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Hleð inn bókamerkjum</string>
-    <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Tókst að hlaða inn bókamerkjum! Þú getur skoðað þau á landakortinu eða í bókamerkjasafninu.</string>
-    <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Mistókst að hlaða inn bókamerkjum. Skráin gæti verið skemmd eða gölluð.</string>
-    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">Forritið þekkti ekki skráategundina:\n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Mistókst að opna skrána %1$s \n \n%2$s</string>
+    <!-- Toast after an imported bookmark list opens on the map -->
+    <string name="load_kmz_successful_toast">Tókst að hlaða inn bókamerkjum! Þú getur skoðað þau á landakortinu eða í bókamerkjasafninu.</string>
+    <!-- Header above tappable names of successfully imported bookmark lists -->
+    <string name="load_kmz_successful">Tókst að hlaða inn bókamerkjum! Veldu lista til að skoða hann á kortinu:</string>
+    <!-- Header above names of files that could not be imported -->
+    <string name="load_kmz_failed">Ekki tókst að hlaða inn skránum. Þær gætu verið skemmdar eða gallaðar:</string>
     <!-- resource for context menu -->
     <string name="edit">Breyta</string>
     <!-- Warning message when doing search around current position -->

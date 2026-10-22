@@ -155,14 +155,12 @@
     <string name="share_bookmarks_email_body">שלום!\n\nמצורפות הסימניות שלי, אפשר לפתוח אותן ב-Organic Maps. אם צריך, ניתן להוריד את האפליקצייה מכאן: https://omaps.app/get?kmz\n\nתהנו לנווט עם Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">טוען סימניות</string>
-    <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">הסימניות נטענו בהצלחה! ניתן למצוא אותם על המפה או במסך ניהול הסימניות.</string>
-    <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">טעינת הסימניות נכשלה. יתכן שהקובץ פגום.</string>
-    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">סוג הקובץ אינו מזוהה על ידי האפליקציה:\n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">נכשל בפתיחת הקובץ %1$s\n\n%2$s</string>
+    <!-- Toast after an imported bookmark list opens on the map -->
+    <string name="load_kmz_successful_toast">הסימניות נטענו בהצלחה! ניתן למצוא אותם על המפה או במסך ניהול הסימניות.</string>
+    <!-- Header above tappable names of successfully imported bookmark lists -->
+    <string name="load_kmz_successful">הסימניות נטענו בהצלחה! בחרו רשימה כדי להציג אותה במפה:</string>
+    <!-- Header above names of files that could not be imported -->
+    <string name="load_kmz_failed">טעינת הקבצים נכשלה. ייתכן שהם פגומים או לא תקינים:</string>
     <!-- resource for context menu -->
     <string name="edit">ערוך</string>
     <!-- Warning message when doing search around current position -->

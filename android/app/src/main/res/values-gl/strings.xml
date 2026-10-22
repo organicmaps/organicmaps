@@ -155,14 +155,12 @@
     <string name="share_bookmarks_email_body">Ola!\n\nAdxunto os meus marcadores. Por favor, ábraos en Organic Maps. Se non o tes instalado podes descargalo aquí:: https://omaps.app/get?kmz\n\nGozar viaxando con Organic Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Cargando marcadores</string>
-    <!-- Kmz file successful loading -->
-    <string name="load_kmz_successful">Os marcadores cargáronse con éxito! Pode atopalos no mapa ou na pantalla de Xestión de marcadores.</string>
-    <!-- Kml file loading failed -->
-    <string name="load_kmz_failed">Non se puideron cargar os marcadores. O arquivo podería ter danos ou defectos.</string>
-    <!-- Failed to recognize the format of a bookmarks or tracks file. -->
-    <string name="unknown_file_type">A aplicación non recoñece o tipo de arquivo:\n%1$s</string>
-    <!-- Failed to open a bookmarks or tracks file in Organic Maps. -->
-    <string name="failed_to_open_file">Non se puido abrir o arquivo %1$s \n \n%2$s</string>
+    <!-- Toast after an imported bookmark list opens on the map -->
+    <string name="load_kmz_successful_toast">Os marcadores cargáronse con éxito! Pode atopalos no mapa ou na pantalla de Xestión de marcadores.</string>
+    <!-- Header above tappable names of successfully imported bookmark lists -->
+    <string name="load_kmz_successful">Os marcadores cargáronse con éxito! Seleccione unha lista para vela no mapa:</string>
+    <!-- Header above names of files that could not be imported -->
+    <string name="load_kmz_failed">Non se puideron cargar os ficheiros. Poderían estar danados ou ser defectuosos:</string>
     <!-- resource for context menu -->
     <string name="edit">Editar</string>
     <!-- Warning message when doing search around current position -->

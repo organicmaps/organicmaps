@@ -162,11 +162,14 @@
 /* message title of loading file */
 "load_kmz_title" = "Yer İmleri Yükleniyor";
 
-/* Kmz file successful loading */
-"load_kmz_successful" = "Yer İmleri başarılıyla yüklendi! Bunları haritada ya da Yer İmleri Yöneticisi ekranında bulabilirsiniz.";
+/* Toast after an imported bookmark list opens on the map */
+"load_kmz_successful_toast" = "Yer İmleri başarılıyla yüklendi! Bunları haritada ya da Yer İmleri Yöneticisi ekranında bulabilirsiniz.";
 
-/* Kml file loading failed */
-"load_kmz_failed" = "Yer İmlerini yükleme işlemi başarısız oldu. Dosya bozuk ya da hatalı olabilir.";
+/* Header above tappable names of successfully imported bookmark lists */
+"load_kmz_successful" = "Yer İmleri başarılıyla yüklendi! Haritada görüntülemek için bir liste seçin:";
+
+/* Header above names of files that could not be imported */
+"load_kmz_failed" = "Dosyalar yüklenemedi. Bozuk ya da hatalı olabilirler:";
 
 /* resource for context menu */
 "edit" = "Düzenle";

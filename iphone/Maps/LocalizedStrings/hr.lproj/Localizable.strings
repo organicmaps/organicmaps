@@ -162,11 +162,14 @@
 /* message title of loading file */
 "load_kmz_title" = "Učitavanje zabilješki";
 
-/* Kmz file successful loading */
-"load_kmz_successful" = "Zabilješke su uspješno učitane! Možeš ih pronaći na karti ili na ekranu „Upravljač zabilješki”.";
+/* Toast after an imported bookmark list opens on the map */
+"load_kmz_successful_toast" = "Zabilješke su uspješno učitane! Možeš ih pronaći na karti ili na ekranu „Upravljač zabilješki”.";
 
-/* Kml file loading failed */
-"load_kmz_failed" = "Neuspjelo učitavanje zabilješki. Datoteka je možda oštećena ili neispravna.";
+/* Header above tappable names of successfully imported bookmark lists */
+"load_kmz_successful" = "Zabilješke su uspješno učitane! Odaberi popis za prikaz na karti:";
+
+/* Header above names of files that could not be imported */
+"load_kmz_failed" = "Datoteke nije moguće učitati. Možda su oštećene ili neispravne:";
 
 /* resource for context menu */
 "edit" = "Uredi";
