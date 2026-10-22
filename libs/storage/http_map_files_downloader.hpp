@@ -7,6 +7,7 @@
 
 #include "base/thread_checker.hpp"
 
+#include <cstdint>
 #include <memory>
 
 namespace storage
@@ -36,6 +37,7 @@ private:
 
   std::unique_ptr<downloader::HttpRequest> m_request;
   Queue m_queue;
+  uint64_t m_downloadGeneration = 0;
 
   DECLARE_THREAD_CHECKER(m_checker);
 };
