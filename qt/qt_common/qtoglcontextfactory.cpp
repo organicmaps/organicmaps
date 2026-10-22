@@ -8,7 +8,9 @@ namespace qt
 {
 namespace common
 {
-QtOGLContextFactory::QtOGLContextFactory(QOpenGLContext * rootContext) : m_rootContext(rootContext)
+QtOGLContextFactory::QtOGLContextFactory(QOpenGLContext * rootContext, QSize const & size)
+  : m_rootContext(rootContext)
+  , m_initialSize(size)
 {
   m_uploadSurface = CreateSurface();
   m_drawSurface = CreateSurface();
@@ -53,7 +55,7 @@ dp::GraphicsContext * QtOGLContextFactory::GetDrawContext()
   if (!m_drawContext)
   {
     m_mainThreadReady.wait();
-    m_drawContext = std::make_unique<QtRenderOGLContext>(m_rootContext, m_drawSurface.get());
+    m_drawContext = std::make_unique<QtRenderOGLContext>(m_rootContext, m_drawSurface.get(), m_initialSize);
   }
 
   return m_drawContext.get();

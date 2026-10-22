@@ -18,7 +18,7 @@ namespace common
 class QtRenderOGLContext : public dp::OGLContext
 {
 public:
-  QtRenderOGLContext(QOpenGLContext * rootContext, QOffscreenSurface * surface);
+  QtRenderOGLContext(QOpenGLContext * rootContext, QOffscreenSurface * surface, QSize const & size);
 
   void Present() override;
   void MakeCurrent() override;
@@ -40,6 +40,7 @@ private:
 
   // Requires the render context; only the producer accesses the back frame and pending size/rectangle.
   void PrepareBackFrame();
+  void SetSize(uint32_t w, uint32_t h);
 
   QOffscreenSurface * m_surface = nullptr;
   std::unique_ptr<QOpenGLContext> m_ctx;

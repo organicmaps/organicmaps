@@ -9,6 +9,7 @@
 #include "qt/popup_menu_holder.hpp"
 #include "qt/preferences_dialog.hpp"
 #include "qt/qt_common/helpers.hpp"
+#include "qt/qt_common/map_widget_container.hpp"
 #include "qt/qt_common/scale_slider.hpp"
 #include "qt/qt_common/translations.hpp"
 #include "qt/routing_settings_dialog.hpp"
@@ -109,12 +110,18 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
   int const height = m_screenshotMode ? static_cast<int>(screenshotParams->m_height) : 0;
   m_pDrawWidget = new DrawWidget(framework, std::move(screenshotParams), this);
 
-  setCentralWidget(m_pDrawWidget);
-
   if (m_screenshotMode)
   {
+    setCentralWidget(m_pDrawWidget);
     m_pDrawWidget->setFixedSize(width, height);
     setFixedSize(width, height + statusBar()->height());
+  }
+  else
+  {
+    auto * container = new qt::common::MapWidgetContainer(*this, *m_pDrawWidget);
+    connect(container, &qt::common::MapWidgetContainer::VisibleViewportChanged, m_pDrawWidget,
+            &qt::common::MapWidget::SetVisibleViewport);
+    setCentralWidget(container);
   }
 
   connect(m_pDrawWidget, SIGNAL(BeforeEngineCreation()), this, SLOT(OnBeforeEngineCreation()));
@@ -456,7 +463,7 @@ void MainWindow::CreateCountryStatusControls()
   mainLayout->addWidget(m_downloadingStatusLabel, 0, Qt::AlignHCenter);
   m_downloadingStatusLabel->setVisible(false);
 
-  m_pDrawWidget->setLayout(mainLayout);
+  centralWidget()->setLayout(mainLayout);
 
   auto const OnCountryChanged = [this](storage::CountryId const & countryId)
   {
@@ -839,7 +846,6 @@ void MainWindow::ShowPlacePage(place_page::Info const & info)
     title = Tr("track_title_with_type").arg(title);
   dock->setWindowTitle(title);
 
-  // setWidget takes ownership and deletes the previous widget.
   dock->setWidget(widget);
   dock->show();
   dock->raise();

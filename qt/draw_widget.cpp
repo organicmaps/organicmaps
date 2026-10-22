@@ -657,7 +657,7 @@ void DrawWidget::OnRouteRecommendation(RoutingManager::Recommendation recommenda
 void DrawWidget::ShowPlacePage()
 {
   place_page::Info const & info = m_framework.GetCurrentPlacePageInfo();
-  if (auto * mw = qobject_cast<MainWindow *>(parent()))
+  if (auto * mw = qobject_cast<MainWindow *>(window()))
     mw->ShowPlacePage(info);
 }
 
@@ -665,7 +665,7 @@ void DrawWidget::RoutePointFromPlace(RouteMarkType type, m2::PointD const & merc
 {
   SetRoutePointAddMode(type);
   SubmitRoutingPoint(mercator, true);
-  if (auto * mw = qobject_cast<MainWindow *>(parent()))
+  if (auto * mw = qobject_cast<MainWindow *>(window()))
     mw->HidePlacePage();
 }
 
@@ -673,7 +673,7 @@ void DrawWidget::RouteAlongTrack(kml::TrackId trackId)
 {
   m_guideTracks.clear();
   m_guideTracks[trackId].push_back(m_framework.GetBookmarkManager().GetTrack(trackId)->GetGeometry());
-  if (auto * mw = qobject_cast<MainWindow *>(parent()))
+  if (auto * mw = qobject_cast<MainWindow *>(window()))
     mw->HidePlacePage();
 }
 
@@ -698,7 +698,7 @@ void DrawWidget::EditPlace(FeatureID const & featureId)
   {
     LOG(LERROR, ("Error while trying to edit feature."));
   }
-  if (auto * mw = qobject_cast<MainWindow *>(parent()))
+  if (auto * mw = qobject_cast<MainWindow *>(window()))
     mw->HidePlacePage();
 }
 

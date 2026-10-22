@@ -207,6 +207,7 @@ protected:
   void ClearAllCaches();
 
   void OnViewportChanged(ScreenBase const & screen);
+  m2::RectD GetVisibleViewport(ScreenBase const & screen) const;
 
   void InitTransliteration();
 
@@ -549,6 +550,8 @@ public:
                          bool trackVisibleViewport = false);
 
   m2::RectD GetCurrentViewport() const;
+  // Bounds of the exposed map in Mercator coordinates, including rotation and perspective.
+  m2::RectD GetVisibleViewport() const;
   void SetVisibleViewport(m2::RectD const & rect);
 
   void ShowRect(m2::RectD const & rect, bool animation = true, bool useVisibleViewport = false);

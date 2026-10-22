@@ -20,9 +20,9 @@ struct Environment
 {
   QOpenGLContext * root = QOpenGLContext::currentContext();
   QOffscreenSurface * surface = static_cast<QOffscreenSurface *>(root->surface());
-  QtRenderOGLContext context{root, surface};
+  QtRenderOGLContext context;
 
-  Environment()
+  explicit Environment(QSize const & size = QSize(1, 1)) : context(root, surface, size)
   {
     context.MakeCurrent();
     context.Init(dp::ApiVersion::OpenGLES3);
@@ -36,14 +36,21 @@ struct Environment
     context.Resize(width, height);
   }
 
-  void Present(bool red)
+  void Draw(bool red)
   {
     context.MakeCurrent();
+    TEST(context.BeginRendering(), ());
     context.SetFramebuffer(nullptr);
     auto * functions = QOpenGLContext::currentContext()->functions();
     functions->glDisable(GL_SCISSOR_TEST);
     functions->glClearColor(red ? 1.0f : 0.0f, 0.0f, red ? 0.0f : 1.0f, 1.0f);
     functions->glClear(GL_COLOR_BUFFER_BIT);
+    context.EndRendering();
+  }
+
+  void Present(bool red)
+  {
+    Draw(red);
     context.Present();
   }
 
@@ -68,8 +75,29 @@ struct Environment
     functions->glDeleteFramebuffers(1, &framebuffer);
     TEST_EQUAL(pixel[0], red ? 255 : 0, ());
     TEST_EQUAL(pixel[2], red ? 0 : 255, ());
+    TEST_EQUAL(functions->glGetError(), static_cast<GLenum>(GL_NO_ERROR), ());
   }
 };
+
+UNIT_TEST(QtRenderContext_RendersBeforeFirstResize)
+{
+  RunTestInOpenGLOffscreenEnvironment("Initial frame", []
+  {
+    Environment env(QSize(13, 29));
+    TEST(!env.Acquire(), ());
+    env.Present(true);
+    TEST(env.Acquire(), ());
+    TEST_NOT_EQUAL(env.context.GetTextureHandle(), 0, ());
+    TEST(env.context.GetTexRect() == QRectF(0, 0, 13.0 / 16, 29.0 / 32), ());
+    env.CheckColor(true);
+
+    env.Resize(31, 13);
+    env.Present(false);
+    TEST(env.Acquire(), ());
+    TEST(env.context.GetTexRect() == QRectF(0, 0, 31.0 / 32, 13.0 / 16), ());
+    env.CheckColor(false);
+  });
+}
 
 UNIT_TEST(QtRenderContext_KeepsAcquiredFrameUntilReplacementIsPresented)
 {
@@ -86,12 +114,14 @@ UNIT_TEST(QtRenderContext_KeepsAcquiredFrameUntilReplacementIsPresented)
     env.CheckColor(true);
 
     env.Resize(31, 13);
+    env.Draw(false);
     TEST(env.Acquire(), ());
     TEST_EQUAL(env.context.GetTextureHandle(), texture, ());
     TEST(env.context.GetTexRect() == rect, ());
     env.CheckColor(true);
 
-    env.Present(false);
+    env.context.MakeCurrent();
+    env.context.Present();
     TEST(env.Acquire(), ());
     TEST(env.context.GetTexRect() == QRectF(0, 0, 31.0 / 32, 13.0 / 16), ());
     env.CheckColor(false);
