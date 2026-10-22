@@ -2,6 +2,7 @@ package app.organicmaps.search;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +17,20 @@ import app.organicmaps.sdk.search.SearchResult;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
+import java.util.Collections;
+import java.util.List;
 
-class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHolder>
+class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
+  private static final int TYPE_CONTACT = Integer.MIN_VALUE;
+
   private final SearchFragment mSearchFragment;
   @Nullable
   private SearchResult[] mResults;
+  @NonNull
+  private List<ContactAddress> mContactAddresses = Collections.emptyList();
+  @Nullable
+  private ContactAddress mResolvingContact;
 
   static abstract class SearchDataViewHolder extends RecyclerView.ViewHolder
   {
@@ -31,6 +40,47 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
     }
 
     abstract void bind(@NonNull SearchResult result, int position);
+  }
+
+  private class ContactViewHolder extends RecyclerView.ViewHolder
+  {
+    @NonNull
+    private final TextView mName;
+    @NonNull
+    private final TextView mAddress;
+    @NonNull
+    private final View mIcon;
+    @NonNull
+    private final View mProgress;
+    @Nullable
+    private ContactAddress mContactAddress;
+
+    ContactViewHolder(@NonNull View view)
+    {
+      super(view);
+      mName = view.findViewById(R.id.title);
+      mAddress = view.findViewById(R.id.address);
+      mIcon = view.findViewById(R.id.contact_icon);
+      mProgress = view.findViewById(R.id.contact_progress);
+      view.setOnClickListener(v -> {
+        if (mContactAddress != null)
+          mSearchFragment.selectContactAddress(mContactAddress);
+      });
+    }
+
+    void bind(@NonNull ContactAddress contactAddress)
+    {
+      mContactAddress = contactAddress;
+      final boolean resolving = isResolvingContact(contactAddress);
+      mIcon.setVisibility(resolving ? View.INVISIBLE : View.VISIBLE);
+      mProgress.setVisibility(resolving ? View.VISIBLE : View.GONE);
+      itemView.setEnabled(!resolving);
+      mName.setText(contactAddress.name);
+      if (contactAddress.label.isEmpty())
+        mAddress.setText(contactAddress.address);
+      else
+        mAddress.setText(TextUtils.concat(contactAddress.label, " \u00B7 ", contactAddress.address));
+    }
   }
 
   private static abstract class BaseResultViewHolder extends SearchDataViewHolder
@@ -206,12 +256,13 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
 
   @NonNull
   @Override
-  public SearchDataViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+  public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
   {
     final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
     return switch (viewType)
     {
+      case TYPE_CONTACT -> new ContactViewHolder(inflater.inflate(R.layout.item_search_contact, parent, false));
       case SearchResult.TYPE_SUGGEST, SearchResult.TYPE_PURE_SUGGEST ->
         new SuggestViewHolder(inflater.inflate(R.layout.item_search_suggest, parent, false));
       case SearchResult.TYPE_RESULT ->
@@ -221,15 +272,24 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
   }
 
   @Override
-  public void onBindViewHolder(@NonNull SearchDataViewHolder holder, int position)
+  public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position)
   {
-    holder.bind(mResults[position], position);
+    if (holder instanceof ContactViewHolder contactViewHolder)
+    {
+      contactViewHolder.bind(mContactAddresses.get(position));
+      return;
+    }
+
+    final int resultPosition = position - mContactAddresses.size();
+    ((SearchDataViewHolder) holder).bind(mResults[resultPosition], resultPosition);
   }
 
   @Override
   public int getItemViewType(int position)
   {
-    return mResults[position].type;
+    if (position < mContactAddresses.size())
+      return TYPE_CONTACT;
+    return mResults[position - mContactAddresses.size()].type;
   }
 
   @Override
@@ -241,22 +301,49 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
   @Override
   public int getItemCount()
   {
-    int res = 0;
-    if (mResults == null)
-      return res;
-
-    res += mResults.length;
-    return res;
+    return mContactAddresses.size() + (mResults == null ? 0 : mResults.length);
   }
 
   public void clear()
   {
-    refreshData(null);
+    mResolvingContact = null;
+    mContactAddresses = Collections.emptyList();
+    mResults = null;
+    notifyDataSetChanged();
   }
 
   void refreshData(@Nullable SearchResult[] results)
   {
     mResults = results;
     notifyDataSetChanged();
+  }
+
+  void refreshContactData(@NonNull List<ContactAddress> contactAddresses)
+  {
+    mContactAddresses = contactAddresses;
+    notifyDataSetChanged();
+  }
+
+  void setResolvingContact(@Nullable ContactAddress contactAddress)
+  {
+    final ContactAddress previous = mResolvingContact;
+    mResolvingContact = contactAddress;
+    for (int i = 0; i < mContactAddresses.size(); ++i)
+    {
+      final ContactAddress row = mContactAddresses.get(i);
+      if (matchesContact(row, previous) || matchesContact(row, contactAddress))
+        notifyItemChanged(i);
+    }
+  }
+
+  private boolean isResolvingContact(@NonNull ContactAddress contactAddress)
+  {
+    return matchesContact(contactAddress, mResolvingContact);
+  }
+
+  private static boolean matchesContact(@NonNull ContactAddress row, @Nullable ContactAddress contactAddress)
+  {
+    return contactAddress != null && row.name.equals(contactAddress.name) && row.address.equals(contactAddress.address)
+ && row.label.equals(contactAddress.label);
   }
 }

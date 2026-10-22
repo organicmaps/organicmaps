@@ -16,6 +16,9 @@
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
+#include "base/timer.hpp"
+
+#include <deque>
 #include <functional>
 #include <memory>
 #include <optional>
@@ -64,7 +67,25 @@ public:
             size_t numThreads, Delegate & delegate);
   virtual ~SearchAPI() = default;
 
-  void OnViewportChanged(m2::RectD const & viewport);
+  void OnViewportChanged(m2::RectD const & viewport, int scale = 0);
+
+  struct AddressQuery
+  {
+    std::string m_query;
+    // Normalized house-and-street portion, excluding geographical context.
+    std::string m_expectedStreet;
+  };
+  // Complete is false if any query timed out; an empty result is then only a temporary failure.
+  using AddressCallback = std::function<void(std::optional<search::Result>, bool complete)>;
+  // UI-thread operation, independent of interactive results and search history.
+  void ResolveAddress(uint64_t id, std::vector<AddressQuery> queries, std::string locale, bool background,
+                      AddressCallback callback);
+  void CancelAddressResolution(uint64_t id);
+  // Stable across restarts; empty while no country map is registered or maps are being removed.
+  std::string GetAddressDataVersion() const;
+  // Revision changes also notify consumers when map data changes without viewport movement.
+  using AddressViewportCallback = std::function<void(m2::RectD const &, int, uint64_t)>;
+  void SetAddressViewportCallback(AddressViewportCallback callback);
 
   void InitAfterWorldLoaded() { m_engine.InitAfterWorldLoaded(); }
 
@@ -90,7 +111,7 @@ public:
 
   void CancelSearch(search::Mode mode);
   void CancelAllSearches();
-  void ClearCaches() { return m_engine.ClearCaches(); }
+  void ClearCaches();
 
   // *SearchCallback::Delegate overrides:
   void RunUITask(std::function<void()> fn) override;
@@ -130,7 +151,23 @@ private:
     search::SearchParams m_params;
     std::weak_ptr<search::ProcessorHandle> m_handle;
     bool m_isDelayed = false;
+    bool m_isRunning = false;
+    uint64_t m_generation = 0;
   };
+
+  struct AddressRequest
+  {
+    uint64_t m_id;
+    std::vector<AddressQuery> m_queries;
+    std::string m_locale;
+    bool m_background;
+    AddressCallback m_callback;
+    size_t m_queryIndex = 0;
+    bool m_incomplete = false;
+    base::Timer m_timer;
+  };
+  void StartAddressResolution();
+  void SuspendAddressResolution();
 
   bool Search(search::SearchParams params, bool forceSearch);
   void Search(SearchIntent & intent);
@@ -152,6 +189,13 @@ private:
   // used for search requests skipping. This field is not guarded
   // because it must be used from the UI thread only.
   SearchIntent m_searchIntents[static_cast<size_t>(search::Mode::Count)];
+  std::deque<std::shared_ptr<AddressRequest>> m_addressRequests;
+  std::weak_ptr<search::ProcessorHandle> m_addressHandle;
+  bool m_addressRunning = false;
+  uint64_t m_addressGeneration = 0;
+  AddressViewportCallback m_addressViewportCallback;
+  uint64_t m_mapDataRevision = 0;
+  int m_viewportScale = 0;
 
   m2::RectD m_viewport;
   bool m_isViewportInitialized = false;

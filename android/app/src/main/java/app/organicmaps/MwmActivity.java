@@ -109,6 +109,7 @@ import app.organicmaps.sdk.util.PowerManagment;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.widget.placepage.PlacePageData;
+import app.organicmaps.search.ContactMapManager;
 import app.organicmaps.search.SearchFragmentController;
 import app.organicmaps.search.SearchPageViewModel;
 import app.organicmaps.search.SearchRequest;
@@ -224,6 +225,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onRenderingInitializationFinished()
   {
     ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
+    ContactMapManager.INSTANCE.refresh(this);
 
     Framework.nativeRestoreDownloadQueue();
 
@@ -237,7 +239,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       mSearchPageViewModel.setSearchPageLastState(mSearchPageViewModel.getPersistedSheetState());
       final SearchRequest restored = new SearchRequest(mSearchPageViewModel.getPersistedQuery(), null,
-                                                       mSearchPageViewModel.getPersistedIsCategory());
+                                                       mSearchPageViewModel.getPersistedIsCategory(),
+                                                       mSearchPageViewModel.getPersistedContactDerived());
       mSearchPageViewModel.setSearchEnabled(true, restored);
     }
 
@@ -1018,6 +1021,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onResume()
   {
     super.onResume();
+    ContactMapManager.INSTANCE.refreshIfAvailabilityChanged(this);
     ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
     ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
     makeNavigationBarTransparentInLightMode();

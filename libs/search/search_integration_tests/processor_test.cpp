@@ -26,6 +26,7 @@
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
+#include <future>
 #include <string>
 #include <tuple>
 #include <vector>
@@ -137,6 +138,31 @@ private:
 
 using ProcessorTest = SearchTest;
 
+UNIT_CLASS_TEST(ProcessorTest, CompleteResolutionDistinguishesDeadlinesFromOrdinarySearch)
+{
+  TestPOI cafe(m2::PointD(0, 0), "Cafe", "en");
+  cafe.SetTypes({{"amenity", "cafe"}});
+  BuildCountry("Wonderland", [&](TestMwmBuilder & builder) { builder.Add(cafe); });
+  for (bool requireComplete : {false, true})
+  {
+    SearchParams params;
+    params.m_query = "cafe ";
+    params.m_inputLocale = "en";
+    params.m_viewport = m2::RectD(-1, -1, 1, 1);
+    params.m_timeout = std::chrono::seconds(-1);
+    params.m_requireCompleteResults = requireComplete;
+    std::promise<search::Results> completed;
+    auto future = completed.get_future();
+    params.m_onResults = [&](search::Results const & results)
+    {
+      if (results.IsEndMarker())
+        completed.set_value(results);
+    };
+    m_engine.Search(params);
+    TEST_EQUAL(future.get().IsEndedCancelled(), requireComplete, ());
+  }
+}
+
 UNIT_CLASS_TEST(ProcessorTest, AddressSmoke)
 {
   string const countryName = "Address";
@@ -170,6 +196,68 @@ UNIT_CLASS_TEST(ProcessorTest, AddressSmoke)
   // TEST(ResultsMatch("40 1st", {ExactMatch(wonderlandId, withoutRef)}), ());
   TEST(ResultsMatch("36 1st", {ExactMatch(wonderlandId, even)}), ());
   TEST(ResultsMatch("35 1st", {ExactMatch(wonderlandId, odd)}), ());
+}
+
+// https://github.com/organicmaps/organicmaps/issues/11412
+UNIT_CLASS_TEST(ProcessorTest, ExactAddressRanksBeforeInterpolation)
+{
+  std::string const lang = "en";
+  TestStreet exactStreet({{0.0, 0.0}, {0.1, 0.1}, {0.11, 0.11}}, "Clifton Avenue", lang);
+  TestBuilding exact({0.1, 0.1}, {}, "20", exactStreet.GetName(lang), lang);
+  TestAddrInterpol interpolation({{-0.005, -0.005}, {0.005, 0.005}}, feature::InterpolType::Even, "20", "40",
+                                 exactStreet.GetName(lang));
+
+  auto const countryId = BuildCountry("Interpolation Addressland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(exactStreet);
+    builder.Add(exact);
+    builder.Add(interpolation);
+  });
+
+  SetViewport(m2::RectD(-0.02, -0.02, 0.02, 0.02));
+  TEST(ResultsMatch("20 Clifton Avenue", {ExactMatch(countryId, exact)}), ());
+}
+
+UNIT_CLASS_TEST(ProcessorTest, NumberedStreetOrdinalSynonyms)
+{
+  std::string const lang = "en";
+  TestStreet ordinalStreet({{-0.1, 0.0}, {0.0, 0.0}, {0.1, 0.0}}, "West 67th Avenue", lang);
+  TestBuilding ordinalBuilding({0.0, 0.0}, {}, "868", ordinalStreet.GetName(lang), lang);
+  TestStreet numericStreet({{-0.1, 0.1}, {0.0, 0.1}, {0.1, 0.1}}, "East 67 Avenue", lang);
+  TestBuilding numericBuilding({0.0, 0.1}, {}, "100", numericStreet.GetName(lang), lang);
+
+  auto const countryId = BuildCountry("Ordinal Addressland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(ordinalStreet);
+    builder.Add(ordinalBuilding);
+    builder.Add(numericStreet);
+    builder.Add(numericBuilding);
+  });
+
+  SetViewport(m2::RectD(-0.2, -0.2, 0.2, 0.2));
+  TEST(ResultsMatch("868 West 67 Ave", {ExactMatch(countryId, ordinalBuilding)}), ());
+  TEST(ResultsMatch("100 East 67th Ave", {ExactMatch(countryId, numericBuilding)}), ());
+}
+
+UNIT_CLASS_TEST(ProcessorTest, NearbyAddressHouseNumber)
+{
+  std::string const lang = "en";
+  TestStreet street({{-0.1, 0.0}, {0.0, 0.0}, {0.1, 0.0}}, "131A Street", lang);
+  TestBuilding building({0.0, 0.0}, {}, "6492", street.GetName(lang), lang);
+
+  auto const countryId = BuildCountry("Nearby Addressland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(street);
+    builder.Add(building);
+  });
+
+  SetViewport(m2::RectD(-0.2, -0.2, 0.2, 0.2));
+  TEST(ResultsMatch("6498 131A Street", {ExactMatch(countryId, street)}), ());
+
+  auto params = GetDefaultSearchParams("6498 131A Street");
+  params.m_allowNearbyHouseNumbers = true;
+  auto const request = MakeRequest(params);
+  TEST(ResultsMatch(request->Results(), {ExactMatch(countryId, building)}), ());
 }
 
 UNIT_CLASS_TEST(ProcessorTest, AddressPlaceSmoke)
@@ -3781,6 +3869,7 @@ UNIT_CLASS_TEST(ProcessorTest, USAddress_WState_NY)
   using namespace mercator;
   std::string const lang = "en";
 
+  TestCountry country(FromLatLon(39.8, -98.6), "United States of America", lang);
   TestState state(FromLatLon(43.0, -75.5), "New York", "NY", lang);
   TestCity city(FromLatLon(40.7128, -74.006), "New York City", lang, 100 /* rank */);
   TestStreet street({FromLatLon(40.7260, -73.9897), FromLatLon(40.6975, -74.0104)}, "Broadway", lang);
@@ -3788,11 +3877,12 @@ UNIT_CLASS_TEST(ProcessorTest, USAddress_WState_NY)
 
   auto worldId = BuildWorld([&](TestMwmBuilder & builder)
   {
+    builder.Add(country);
     builder.Add(state);
     builder.Add(city);
   });
 
-  auto wonderlandId = BuildCountry("US_New York_New York", [&](TestMwmBuilder & builder)
+  auto wonderlandId = BuildCountry("United States of America_US_New York_New York", [&](TestMwmBuilder & builder)
   {
     builder.Add(city);
     builder.Add(street);
@@ -3810,6 +3900,13 @@ UNIT_CLASS_TEST(ProcessorTest, USAddress_WState_NY)
     /// same pattern as Chicago's "310 west chicago avenue" returning both building + street.
     Rules const rules = {ExactMatch(wonderlandId, building), ExactMatch(wonderlandId, street)};
     TEST(ResultsMatch("636 Broadway New York City NY", rules), ());
+  }
+  {
+    Rules const rules = {ExactMatch(wonderlandId, building), ExactMatch(wonderlandId, street)};
+    TEST(ResultsMatch("636 Broadway New York City NY US ", rules), ());
+    TEST(ResultsMatch("636 Broadway New York City NY US", rules), ());
+    TEST(ResultsMatch("636 Broadway New York City NY USA", rules), ());
+    TEST(ResultsMatch("636 Broadway New York City NY United States of America", rules), ());
   }
 }
 
