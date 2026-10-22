@@ -8,12 +8,14 @@
 #include "routing/routing_helpers.hpp"
 #include "routing/routing_session.hpp"
 
+#include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/point_with_altitude.hpp"
 
 #include "base/logging.hpp"
 
 #include <chrono>
+#include <future>
 #include <initializer_list>
 #include <memory>
 #include <mutex>
@@ -735,4 +737,143 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestSwapActiveAlternative)
   });
   TEST(swappedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Alternative was not swapped."));
 }
+
+class StartCaptureRouter : public DummyRouter
+{
+public:
+  StartCaptureRouter(size_t & builds, vector<m2::PointD> & starts) : DummyRouter(builds), m_starts(starts) {}
+
+  RouterResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & direction, bool adjust,
+                                  bool alternatives, RouterDelegate const & delegate, RoutesResult & result) override
+  {
+    m_starts.push_back(checkpoints.GetStart());
+    return DummyRouter::CalculateRoute(checkpoints, direction, adjust, alternatives, delegate, result);
+  }
+
+private:
+  vector<m2::PointD> & m_starts;
+};
+
+class TrafficRefreshTest : public AsyncGuiThreadTestWithRoutingSession
+{
+public:
+  ~TrafficRefreshTest()
+  {
+    // Cancel callbacks and join the router before destroying state they capture, including on test failure.
+    auto done = make_shared<promise<void>>();
+    auto future = done->get_future();
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, done]
+    {
+      m_session.reset();
+      done->set_value();
+    });
+    future.wait();
+  }
+
+  void BuildRoute()
+  {
+    GetPlatform().RunTask(Platform::Thread::Gui, [this]
+    {
+      InitRoutingSession();
+      m_session->SetRouter(make_unique<StartCaptureRouter>(m_builds, m_starts), nullptr);
+      m_session->SetRoutingCallbacks([this](RoutesResult const &, RouterResultCode)
+      { m_built.Signal(); }, [this](RoutesResult const &, RouterResultCode) { m_rebuilt.Signal(); }, nullptr, nullptr);
+      m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), RouterDelegate::kNoTimeout);
+    });
+    TEST(m_built.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not built."));
+  }
+
+  size_t m_builds = 0;
+  vector<m2::PointD> m_starts;
+  TimedSignal m_built, m_rebuilt;
+  bool m_followingEnabled = false;
+  bool m_rebuilding = false;
+  SessionState m_locationState = SessionState::NoValidRoute;
+};
+
+UNIT_CLASS_TEST(TrafficRefreshTest, TrafficBeforeFirstGpsUsesDeparture)
+{
+  BuildRoute();
+  GetPlatform().RunTask(Platform::Thread::Gui, [this]
+  {
+    m_followingEnabled = m_session->EnableFollowMode();
+    m_session->OnTrafficInfoClear();
+  });
+  TEST(m_rebuilt.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not rebuilt."));
+  TEST(m_followingEnabled, ());
+  TEST_EQUAL(m_starts.size(), 2, ());
+  TEST_EQUAL(m_starts.back(), kTestRoute.front(), ("Refresh before GPS must start at the departure"));
+}
+
+UNIT_CLASS_TEST(TrafficRefreshTest, RepeatedTrafficRefreshUsesCurrentPosition)
+{
+  BuildRoute();
+  m2::PointD const current(0, 2);
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, current]
+  {
+    m_followingEnabled = m_session->EnableFollowMode();
+    m_session->SetUserCurrentPosition(current);
+    location::GpsInfo gps;
+    gps.m_latitude = mercator::YToLat(current.y);
+    gps.m_longitude = current.x;
+    gps.m_horizontalAccuracy = 5;
+    m_locationState = m_session->OnLocationPositionChanged(gps);
+    m_session->OnTrafficInfoClear();
+    m_rebuilding = m_session->IsRebuildingOnly();
+    // GUI callbacks cannot assign the first result before this task finishes.
+    m_session->OnTrafficInfoClear();
+  });
+  TEST(m_rebuilt.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not rebuilt."));
+  TEST(m_followingEnabled, ());
+  TEST_EQUAL(m_locationState, SessionState::OnRoute, ());
+  TEST(m_rebuilding, ());
+  TEST_GREATER_OR_EQUAL(m_starts.size(), 2, ());
+  // The worker may coalesce the requests; every started refresh must use the current position.
+  for (size_t i = 1; i < m_starts.size(); ++i)
+  {
+    TEST_ALMOST_EQUAL_ABS(m_starts[i].x, current.x, 1e-8, ("Repeated refresh must not restart at the departure"));
+    TEST_ALMOST_EQUAL_ABS(m_starts[i].y, current.y, 1e-8, ("Repeated refresh must not restart at the departure"));
+  }
+}
+
+UNIT_CLASS_TEST(TrafficRefreshTest, TrafficPreviewKeepsPlannedDeparture)
+{
+  BuildRoute();
+  GetPlatform().RunTask(Platform::Thread::Gui, [this]
+  {
+    m_session->SetUserCurrentPosition({0, 2});
+    location::GpsInfo gps;
+    gps.m_latitude = mercator::YToLat(2);
+    gps.m_longitude = 0;
+    gps.m_horizontalAccuracy = 5;
+    m_locationState = m_session->OnLocationPositionChanged(gps);
+    m_followingEnabled = m_session->IsFollowing();
+    m_session->OnTrafficInfoClear();
+  });
+  TEST(m_rebuilt.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not rebuilt."));
+  TEST_EQUAL(m_locationState, SessionState::OnRoute, ());
+  TEST(!m_followingEnabled, ());
+  TEST_EQUAL(m_starts.back(), kTestRoute.front(), ("GPS matching must not move a preview's departure"));
+}
+
+UNIT_CLASS_TEST(TrafficRefreshTest, TrafficAfterGpsBeforeRenderUsesRouteIterator)
+{
+  BuildRoute();
+  GetPlatform().RunTask(Platform::Thread::Gui, [this]
+  {
+    m_followingEnabled = m_session->EnableFollowMode();
+    location::GpsInfo gps;
+    gps.m_latitude = mercator::YToLat(2);
+    gps.m_longitude = 0;
+    gps.m_horizontalAccuracy = 5;
+    m_locationState = m_session->OnLocationPositionChanged(gps);
+    m_session->OnTrafficInfoClear();
+  });
+  TEST(m_rebuilt.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not rebuilt."));
+  TEST(m_followingEnabled, ());
+  TEST_EQUAL(m_locationState, SessionState::OnRoute, ());
+  TEST_ALMOST_EQUAL_ABS(m_starts.back().x, 0.0, 1e-8, ());
+  TEST_ALMOST_EQUAL_ABS(m_starts.back().y, 2.0, 1e-8, ());
+}
+
 }  // namespace routing_session_test

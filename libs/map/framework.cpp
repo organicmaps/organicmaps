@@ -289,7 +289,8 @@ void Framework::OnUserPositionChanged(m2::PointD const & position, bool hasPosit
   if (m_currentPlacePageInfo && m_currentPlacePageInfo->GetTrackId() != kml::kInvalidTrackId)
     GetBookmarkManager().UpdateElevationMyPosition(m_currentPlacePageInfo->GetTrackId());
 
-  m_routingManager.SetUserCurrentPosition(position);
+  if (hasPosition)
+    m_routingManager.SetUserCurrentPosition(position);
   m_trafficManager.UpdateMyPosition(TrafficManager::MyPosition(position));
 }
 
