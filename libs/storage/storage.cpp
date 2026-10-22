@@ -615,7 +615,9 @@ void Storage::DownloadCountry(CountryId const & countryId, MapFileType type)
 
   if (HasDownloadedFile(GetFileDownloadPath(countryId, type), type))
   {
-    OnStartDownloading(queuedCountry);
+    // Subscribers may synchronously replace the operation under the same country ID.
+    if (!StartDownloading(queuedCountry))
+      return;
     SaveDownloadQueue();
     OnDownloadFinished(queuedCountry, DownloadStatus::Completed);
     return;
@@ -755,13 +757,22 @@ void Storage::OnCountryInQueue(QueuedCountry const & queuedCountry)
 
 void Storage::OnStartDownloading(QueuedCountry const & queuedCountry)
 {
+  StartDownloading(queuedCountry);
+}
+
+bool Storage::StartDownloading(QueuedCountry const & queuedCountry)
+{
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  VERIFY(m_downloadingCountries.try_emplace(queuedCountry.GetCountryId()).second, (queuedCountry.GetCountryId()));
+  auto const [it, inserted] = m_downloadingCountries.try_emplace(queuedCountry.GetCountryId());
+  VERIFY(inserted, (queuedCountry.GetCountryId()));
+  std::weak_ptr<int> const lifetime = it->second.m_lifetime;
   if (m_startDownloadingCallback)
     m_startDownloadingCallback();
 
-  NotifyStatusChangedForHierarchy(queuedCountry.GetCountryId());
+  if (!lifetime.expired())
+    NotifyStatusChangedForHierarchy(queuedCountry.GetCountryId());
+  return !lifetime.expired();
 }
 
 void Storage::OnDownloadProgress(QueuedCountry const & queuedCountry, Progress const & progress)

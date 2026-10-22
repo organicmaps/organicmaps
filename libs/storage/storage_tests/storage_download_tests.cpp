@@ -536,6 +536,38 @@ UNIT_CLASS_TEST(StorageDownloadTest, CancelRestoredFileFromStartCallback)
   TEST_EQUAL(storage.CountryStatusEx(kWest), Status::NotDownloaded, ());
 }
 
+UNIT_CLASS_TEST(StorageDownloadTest, RetryRestoredFileFromStartCallback)
+{
+  for (bool const integrityValidation : {false, true})
+  {
+    size_t started = 0;
+    size_t downloaded = 0;
+    Storage storage(CountriesJson(), std::make_unique<TestMapFilesDownloader>());
+    InitStorage(storage, [&](CountryId const &, LocalFilePtr const)
+    {
+      ++downloaded;
+      testing::StopEventLoop();
+    });
+    storage.SetEnabledIntegrityValidationForTesting(integrityValidation);
+    SeedReadyFile(storage);
+    storage.SetStartDownloadingCallback([&]()
+    {
+      if (++started == 1)
+      {
+        storage.CancelDownloadNode(kWest);
+        storage.DownloadNode(kWest);
+      }
+    });
+    storage.DownloadNode(kWest);
+    TEST_EQUAL(started, 2, (integrityValidation));
+    TEST_EQUAL(storage.CountryStatusEx(kWest), Status::Downloading, (integrityValidation));
+    testing::RunEventLoop();
+    TEST_EQUAL(downloaded, 1, (integrityValidation));
+    TestDownloadedMap(storage, kWest);
+    storage.DeleteNode(kWest);
+  }
+}
+
 UNIT_CLASS_TEST(StorageDownloadTest, DownloadWithoutHash)
 {
   auto const json = R"({"id": "Countries", "v": )" + strings::to_string(version::FOR_TESTING_MWM1) + R"(, "g": [)" +
