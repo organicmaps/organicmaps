@@ -483,14 +483,14 @@ void RuleDrawer::DrawTileNet()
 
   std::vector<m2::PointD> path;
   path.reserve(4);
-  path.push_back(m_globalRect.LeftBottom());
-  path.push_back(m_globalRect.LeftTop());
-  path.push_back(m_globalRect.RightTop());
-  path.push_back(m_globalRect.RightBottom());
+  path.push_back(m_applyParams.m_tileRect.LeftBottom());
+  path.push_back(m_applyParams.m_tileRect.LeftTop());
+  path.push_back(m_applyParams.m_tileRect.RightTop());
+  path.push_back(m_applyParams.m_tileRect.RightBottom());
 
   m2::SharedSpline spline(path);
   df::LineViewParams p;
-  p.m_tileCenter = m_globalRect.Center();
+  p.m_tileCenter = m_applyParams.m_tileRect.Center();
   p.m_baseGtoPScale = 1.0;
   p.m_cap = dp::ButtCap;
   p.m_color = dp::Color::Blue();
@@ -507,7 +507,7 @@ void RuleDrawer::DrawTileNet()
 
   df::TextViewParams tp;
   tp.m_markId = kml::kDebugMarkId;
-  tp.m_tileCenter = m_globalRect.Center();
+  tp.m_tileCenter = p.m_tileCenter;
   tp.m_titleDecl.m_anchor = dp::Center;
   tp.m_depth = dp::kMaxDepth;
   tp.m_depthLayer = DepthLayer::OverlayLayer;
@@ -516,7 +516,7 @@ void RuleDrawer::DrawTileNet()
   tp.m_titleDecl.m_primaryTextFont = dp::FontDecl(dp::Color::Red(), 30);
   tp.m_titleDecl.m_primaryOffset = {0.0f, 0.0f};
   auto textShape =
-      make_unique_dp<TextShape>(m_globalRect.Center(), tp, key, m2::PointF(0.0f, 0.0f) /* symbolSize */,
+      make_unique_dp<TextShape>(p.m_tileCenter, tp, key, m2::PointF(0.0f, 0.0f) /* symbolSize */,
                                 m2::PointF(0.0f, 0.0f) /* symbolOffset */, dp::Anchor::Center, 0 /* textIndex */);
   textShape->DisableDisplacing();
 
