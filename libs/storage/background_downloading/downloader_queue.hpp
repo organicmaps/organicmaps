@@ -41,7 +41,9 @@ public:
   {
     auto const countryId = country.GetCountryId();
     auto const result = m_queue.emplace(countryId, std::move(country));
-    result.first->second.m_queuedCountry.OnCountryInQueue();
+    // The subscriber may remove this entry while handling the notification.
+    auto const queuedCountry = result.first->second.m_queuedCountry;
+    queuedCountry.OnCountryInQueue();
   }
 
   void SetTaskInfoForCountryId(CountryId const & countryId, TaskInfo const & taskInfo)
