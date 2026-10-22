@@ -518,8 +518,8 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_downloader_MapManager_nativeHasUnsav
   return frm()->HasUnsavedEdits(jni::ToNativeString(env, root));
 }
 
-// static long[] nativeGetOverallProgressBytesImpl(String[] countries);
-JNIEXPORT jlongArray Java_app_organicmaps_sdk_downloader_MapManager_nativeGetOverallProgressBytesImpl(
+// static long[] nativeGetOverallProgressBytes(String[] countries);
+JNIEXPORT jlongArray Java_app_organicmaps_sdk_downloader_MapManager_nativeGetOverallProgressBytes(
     JNIEnv * env, jclass clazz, jobjectArray jcountries)
 {
   int const size = env->GetArrayLength(jcountries);

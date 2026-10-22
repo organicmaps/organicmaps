@@ -29,33 +29,33 @@ UNIT_CLASS_TEST(VisualParamsFixture, IsolinesManager_States)
   IsolinesManager manager;
   std::vector<State> states;
   manager.SetStateListener([&](State state) { states.push_back(state); });
-  bool hasTerrain = false;
-  manager.SetHasTerrainFn([&](m2::RectD const &) { return hasTerrain; });
   TEST_EQUAL(manager.GetState(), State::Disabled, ());
 
   // A disabled layer only remembers the viewport.
   manager.UpdateViewport(MakeScreen(terrain::kMinIsolinesZoom + 2));
+  manager.SetHasTerrain(false);
   TEST_EQUAL(manager.GetState(), State::Disabled, ());
 
   manager.SetEnabled(true);
   TEST(manager.IsVisible(), ());
+  manager.SetHasTerrain(false);
   TEST_EQUAL(manager.GetState(), State::NoData, ());
 
-  hasTerrain = true;
-  manager.Invalidate();
+  manager.SetHasTerrain(true);
   TEST_EQUAL(manager.GetState(), State::Enabled, ());
 
   // The low zooms keep the last state: no hint on each zoom bounce over the same place.
-  hasTerrain = false;
   manager.UpdateViewport(MakeScreen(terrain::kMinIsolinesZoom - 2));
   TEST(!manager.IsVisible(), ());
+  manager.SetHasTerrain(false);
   TEST_EQUAL(manager.GetState(), State::Enabled, ());
   manager.UpdateViewport(MakeScreen(terrain::kMinIsolinesZoom));
+  manager.SetHasTerrain(false);
   TEST_EQUAL(manager.GetState(), State::NoData, ());
 
   manager.SetEnabled(false);
   TEST(!manager.IsEnabled(), ());
-  manager.Invalidate();
+  manager.SetHasTerrain(true);
   TEST_EQUAL(manager.GetState(), State::Disabled, ());
   TEST_EQUAL(states,
              (std::vector<State>{State::Enabled, State::NoData, State::Enabled, State::NoData, State::Disabled}), ());

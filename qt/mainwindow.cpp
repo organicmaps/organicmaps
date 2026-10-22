@@ -471,6 +471,9 @@ void MainWindow::CreateCountryStatusControls()
     auto const & storage = GetFramework().GetStorage();
     storage::NodeAttrs attrs;
     storage.GetNodeAttrs(countryId, attrs);
+    // Like on Android and iOS: only a missing map is shown, its terrain downloads silently.
+    if (attrs.m_present)
+      return;
     auto const status = attrs.m_status;
     auto const countryName = QString::fromStdString(storage.GetNodeLocalName(countryId));
 
@@ -510,12 +513,11 @@ void MainWindow::CreateCountryStatusControls()
       onChanged(countryId);
   }, [this](storage::CountryId const & countryId, storage::Progress const & progress)
   {
-    auto const combined = progress.GetCombined();
-    if (countryId != m_lastCountry || combined.m_bytesTotal == 0)
+    if (countryId != m_lastCountry || progress.m_mwmTotal == 0)
       return;
     QLocale const locale;
     auto const percent =
-        locale.toString(static_cast<qulonglong>(combined.m_bytesDownloaded * 100 / combined.m_bytesTotal)) +
+        locale.toString(static_cast<qulonglong>(progress.m_mwmDownloaded * 100 / progress.m_mwmTotal)) +
         locale.percent();
     m_downloadingStatusLabel->setText(
         Tr("downloading_region_progress")
@@ -905,7 +907,7 @@ void MainWindow::SetLayerEnabled(LayerType type, bool enable)
     frm.SaveTransitSchemeEnabled(enable);
     break;
   case ISOLINES:
-    frm.GetIsolinesManager().SetEnabled(enable);
+    frm.SetIsolinesEnabled(enable);
     frm.SaveIsolinesEnabled(enable);
     break;
   case OUTDOORS:

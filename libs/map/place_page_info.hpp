@@ -183,14 +183,15 @@ public:
   // Interpolated TWM elevation in meters; absent when no surface covers the selected point.
   std::optional<double> GetTerrainElevation() const { return m_terrainElevation; }
   std::string GetFormattedTerrainElevation() const;
-  void SetTerrainElevation(std::optional<double> elevation) { m_terrainElevation = elevation; }
+  // A place without a subtitle of its own (an unmatched point, an unnamed forest) shows the coordinates
+  // and this elevation instead.
+  void SetTerrainElevation(std::optional<double> elevation);
 
   /// UI setters
   void SetCustomName(std::string const & name);
   void SetTitlesForBookmark();
   void SetTitlesForTrack(Track const & track);
   void SetCustomNames(std::string const & title, std::string const & subtitle);
-  void SetCustomNameWithCoordinates(m2::PointD const & mercator, std::string const & name);
   void SetAddress(std::string && address) { m_address = std::move(address); }
   void SetCanEditOrAdd(bool canEditOrAdd) { m_canEditOrAdd = canEditOrAdd; }
 

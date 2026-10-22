@@ -175,7 +175,7 @@ public class MapManagerHelper
    */
   public static void retryDownload(Context context, @NonNull String countryId)
   {
-    if (MapManager.nativeIsDownloading())
+    if (MapManager.isDownloading())
       MapManager.retryDownload(countryId);
     else
       DownloaderService.startRetryDownload(context, countryId);
@@ -187,7 +187,7 @@ public class MapManagerHelper
    */
   public static void startUpdate(Context context, @NonNull String root)
   {
-    if (MapManager.nativeIsDownloading())
+    if (MapManager.isDownloading())
       MapManager.startUpdate(root);
     else
       DownloaderService.startUpdate(context, root);
@@ -199,7 +199,7 @@ public class MapManagerHelper
    */
   public static void startDownload(Context context, @NonNull String[] countries, boolean withTerrain)
   {
-    if (MapManager.nativeIsDownloading())
+    if (MapManager.isDownloading())
       MapManager.startDownload(countries, withTerrain);
     else
       DownloaderService.startDownload(context, countries, withTerrain);
@@ -211,7 +211,7 @@ public class MapManagerHelper
    */
   public static void startDownload(Context context, @NonNull String countryId)
   {
-    if (MapManager.nativeIsDownloading())
+    if (MapManager.isDownloading())
       MapManager.startDownload(countryId);
     else
       DownloaderService.startDownload(context, new String[] {countryId}, true /* withTerrain */);

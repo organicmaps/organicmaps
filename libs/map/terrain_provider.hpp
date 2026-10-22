@@ -29,6 +29,8 @@ public:
   }
 
   void Clear();
+  /// Drops the idle cached readers (e.g. on a memory warning).
+  void ClearCache() { m_set.ClearCache(); }
   std::vector<TwmFile> GetRegisteredFiles() const;
   bool IsFileInUse(TwmFile const & file) const { return m_set.IsFileAlive(file); }
 

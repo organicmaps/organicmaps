@@ -75,9 +75,6 @@ static MWMMapNodeStatus convertStatus(storage::NodeStatus status)
     _hasChildren = hasChildren;
     _hasParent = hasParent;
 
-    // Any outdated map or missing terrain block makes the node OnDiskOutOfDate.
-    _totalUpdateSizeBytes = attributes.m_status == storage::NodeStatus::OnDiskOutOfDate ? attributes.m_downloadSize : 0;
-
     auto const total = attributes.m_downloadingProgress.m_bytesTotal;
     if (total > 0)
       _downloadingProgress = static_cast<float>(attributes.m_downloadingProgress.m_bytesDownloaded) / total;

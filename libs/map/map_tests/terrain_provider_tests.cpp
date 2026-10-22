@@ -1,5 +1,8 @@
 #include "testing/testing.hpp"
 
+#include "generator/generator_tests_support/test_feature.hpp"
+#include "generator/generator_tests_support/test_mwm_builder.hpp"
+
 #include "map/framework.hpp"
 #include "map/terrain_provider.hpp"
 
@@ -11,6 +14,8 @@
 #include "indexer/terrain/terrain_reader.hpp"
 #include "indexer/terrain/terrain_serdes.hpp"
 
+#include "platform/local_country_file.hpp"
+#include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"
@@ -78,7 +83,7 @@ void ConnectTerrainCallbacks(storage::Storage & storage, terrain::TerrainProvide
       [&](terrain::TwmFile const & file)
   {
     m2::RectD invalidRect;
-    return provider.RegisterBlock(file, &invalidRect);
+    TEST(provider.RegisterBlock(file, &invalidRect), (file.m_path));
   }, [&](std::vector<terrain::TwmFile> const & files)
   {
     std::vector<terrain::TerrainId> ids;
@@ -363,6 +368,8 @@ UNIT_CLASS_TEST(VisualParamsFixture, Framework_RealTerrainPlacePage)
   framework.BuildAndSetPlacePageInfo(build);
   TEST(!framework.GetCurrentPlacePageInfo().GetTerrainElevation(), ());
   TEST(framework.GetCurrentPlacePageInfo().GetFormattedTerrainElevation().empty(), ());
+  auto const coordinates = framework.GetCurrentPlacePageInfo().GetSubtitle();
+  TEST(coordinates.find("▲") == std::string::npos, (coordinates));
 
   framework.RegisterTerrain(GetElevationTestFile());
   framework.BuildAndSetPlacePageInfo(build);
@@ -372,13 +379,60 @@ UNIT_CLASS_TEST(VisualParamsFixture, Framework_RealTerrainPlacePage)
   TEST_ALMOST_EQUAL_ABS(*info.GetTerrainElevation(), kElevationSamples[1].m_altitude, kElevationSamples[1].m_maxError,
                         ());
   TEST(!info.GetFormattedTerrainElevation().empty(), ());
-  // The platforms show it once, next to the coordinates.
-  TEST(info.GetSubtitle().find(info.GetFormattedTerrainElevation()) == std::string::npos, (info.GetSubtitle()));
+  // An unmatched point also shows it next to the coordinates in the subtitle.
+  TEST_EQUAL(info.GetSubtitle(), coordinates + "  ▲ " + info.GetFormattedTerrainElevation(), ());
+
+  // A replaced subtitle (like the postcode search result) keeps its text.
+  auto postcode = info;
+  postcode.SetCustomNames("06000", "Postal code");
+  postcode.SetTerrainElevation(100.0);
+  TEST_EQUAL(postcode.GetSubtitle(), "Postal code", ());
 
   build.m_mercator = {0, 0};
   framework.BuildAndSetPlacePageInfo(build);
   TEST(!framework.GetCurrentPlacePageInfo().GetTerrainElevation(), ());
   TEST(framework.GetCurrentPlacePageInfo().GetFormattedTerrainElevation().empty(), ());
+  TEST(framework.GetCurrentPlacePageInfo().GetSubtitle().find("▲") == std::string::npos, ());
+}
+
+// An unnamed area (like a forest) has no subtitle of its own: it shows the same coordinates and elevation
+// as the empty map at the tap point, not at the area's center.
+UNIT_CLASS_TEST(VisualParamsFixture, Framework_RealTerrainUnnamedAreaPlacePage)
+{
+  ElevationTestFramework framework;
+  framework.RegisterTerrain(GetElevationTestFile());
+
+  auto const tap = GetSamplePoint(kElevationSamples[1]);
+  place_page::BuildInfo build;
+  build.m_match = place_page::BuildInfo::Match::Nothing;
+  build.m_mercator = tap;
+  framework.BuildAndSetPlacePageInfo(build);
+  auto const emptyMapSubtitle = framework.GetCurrentPlacePageInfo().GetSubtitle();
+  TEST(emptyMapSubtitle.find("▲") != std::string::npos, (emptyMapSubtitle));
+
+  platform::LocalCountryFile country(GetPlatform().WritableDir(), platform::CountryFile("TerrainAreaLand"),
+                                     0 /* version */);
+  platform::CountryIndexes::DeleteFromDisk(country);
+  country.DeleteFromDisk(MapFileType::Map);
+  {
+    generator::tests_support::TestMwmBuilder builder(country, feature::DataHeader::MapType::Country);
+    // The tap is close to the area's corner, far from its center.
+    m2::RectD const rect(tap.x - 0.001, tap.y - 0.001, tap.x + 0.003, tap.y + 0.003);
+    builder.Add(generator::tests_support::TestPark(
+        {rect.LeftBottom(), rect.LeftTop(), rect.RightTop(), rect.RightBottom()}, "" /* name */, "en"));
+  }
+  TEST_EQUAL(framework.RegisterMap(country).second, MwmSet::RegResult::Success, ());
+
+  build.m_match = place_page::BuildInfo::Match::Everything;
+  framework.BuildAndSetPlacePageInfo(build);
+  auto const & info = framework.GetCurrentPlacePageInfo();
+  TEST(info.IsFeature(), ());
+  TEST_EQUAL(info.GetSubtitle(), emptyMapSubtitle, ());
+
+  // Windows cannot delete the map while it is still registered, i.e. open.
+  framework.DeregisterAllMaps();
+  platform::CountryIndexes::DeleteFromDisk(country);
+  country.DeleteFromDisk(MapFileType::Map);
 }
 
 // Every geometry scale of a registered block serves the tile reads.

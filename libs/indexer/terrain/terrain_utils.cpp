@@ -14,11 +14,10 @@ struct ClassDef
   int32_t m_imperialRung;
 };
 
-// The isoline style classes, coarse to fine, with the altitude rungs in both units.
-// The metric rungs match the class names; the imperial ladder picks the USGS-style
-// round feet values closest to the metric ones in the real size, nested the same way
-// (each rung divides the coarser one), so the altitude -> class resolution by
-// divisibility works identically in both units.
+// The isoline style classes, coarse to fine, with the nested altitude rungs in both units.
+// The metric rungs match the class names, the imperial ones are round-foot intervals.
+// Each rung divides the coarser one, so the altitude -> class resolution by divisibility
+// works identically in both units.
 std::array<ClassDef, 5> constexpr kClassDefs = {{
     {"step_1000", 1000, 2000},
     {"step_500", 500, 1000},

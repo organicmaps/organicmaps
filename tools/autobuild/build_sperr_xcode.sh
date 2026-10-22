@@ -14,7 +14,6 @@ sperr_options=(
 )
 case "${PLATFORM_NAME}" in
   iphone*)
-    [[ "${ARCHS}" != *x86_64* ]] || { echo "SPERR iOS requires arm64" >&2; exit 1; }
     sperr_options+=(-DCMAKE_SYSTEM_NAME=iOS -DCMAKE_OSX_DEPLOYMENT_TARGET="${IPHONEOS_DEPLOYMENT_TARGET}") ;;
   macosx) sperr_options+=(-DCMAKE_OSX_DEPLOYMENT_TARGET="${MACOSX_DEPLOYMENT_TARGET}") ;;
 esac

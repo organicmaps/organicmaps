@@ -1096,7 +1096,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
 
     mDownloaderIcon
         .setOnIconClickListener((v) -> MapManagerHelper.warn3gAndDownload(requireActivity(), mCurrentCountry.id, null))
-        .setOnCancelClickListener((v) -> MapManager.nativeCancel(mCurrentCountry.id));
+        .setOnCancelClickListener((v) -> MapManager.cancel(mCurrentCountry.id));
     mDownloaderIcon.show(true);
     UiUtils.show(mDownloaderInfo);
     updateDownloader(mCurrentCountry);

@@ -133,7 +133,7 @@ public final class MapManager
    */
   public static native boolean nativeHasSpaceToDownloadCountry(String root);
 
-  /** Returns the remaining download size, optionally including terrain. */
+  /** Bytes of the maps not queued or downloading yet, plus their unqueued missing terrain unless disabled. */
   public static native long nativeGetDownloadSize(@NonNull String[] countries, boolean withTerrain);
 
   /**
@@ -208,13 +208,12 @@ public final class MapManager
   /**
    * Determines whether something is downloading now.
    */
-  public static native boolean nativeIsDownloading();
-
-  /** Same as {@link #nativeIsDownloading()}, a Java method that tests can stub. */
   public static boolean isDownloading()
   {
     return nativeIsDownloading();
   }
+
+  private static native boolean nativeIsDownloading();
 
   /**
    * Enqueues given {@code root} node and its children in downloader.
@@ -234,12 +233,18 @@ public final class MapManager
   /**
    * Removes given currently downloading {@code root} node and its children from downloader.
    */
-  public static void nativeCancel(String root)
+  public static void cancel(String root)
   {
-    nativeCancel(root, true);
+    cancel(root, true);
   }
 
-  public static native void nativeCancel(String root, boolean withTerrain);
+  /** Same as {@link #cancel(String)}; keeps the queued terrain unless {@code withTerrain}. */
+  public static void cancel(String root, boolean withTerrain)
+  {
+    nativeCancel(root, withTerrain);
+  }
+
+  private static native void nativeCancel(String root, boolean withTerrain);
 
   /**
    * Deletes given installed {@code root} node with its children.
@@ -285,21 +290,21 @@ public final class MapManager
    * Calculates joint progress of downloading countries specified by {@code countries} array.
    * @return 0 to 100 percent.
    */
-  public static int nativeGetOverallProgress(String[] countries)
+  public static int getOverallProgress(String[] countries)
   {
-    long[] progress = nativeGetOverallProgressBytes(countries);
+    long[] progress = getOverallProgressBytes(countries);
     return progress[1] == 0 ? 0 : (int) (100.0 * progress[0] / progress[1]);
   }
 
   /** Returns downloaded and total map bytes. */
   @NonNull
-  public static long[] nativeGetOverallProgressBytes(String[] countries)
+  public static long[] getOverallProgressBytes(String[] countries)
   {
-    return nativeGetOverallProgressBytesImpl(countries);
+    return nativeGetOverallProgressBytes(countries);
   }
 
   @NonNull
-  private static native long[] nativeGetOverallProgressBytesImpl(String[] countries);
+  private static native long[] nativeGetOverallProgressBytes(String[] countries);
 
   /** Whether the failed downloads will no longer be retried automatically. */
   public static boolean isAutoRetryFailed()

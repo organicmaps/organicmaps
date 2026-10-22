@@ -114,7 +114,8 @@ UNIT_TEST(MapFilesDownloader_LegacyTerrainServers)
   WritableDirChanger const dir("legacy-terrain-servers", WritableDirChanger::SettingsDirPolicy::UseWritableDir);
   Platform::ThreadRunner runner;
   ConfiguredDownloaderStub downloader;
-  downloader.m_config.servers = {"https://maps.example/"};
+  // An older meta server without terrain mirrors: the DEFAULT_URLS_JSON ones serve the terrain.
+  downloader.m_config = *downloader::ParseMetaConfig(R"({"servers":["https://maps.example/"]})");
   downloader.LoadConfig();
   TEST_EQUAL(downloader.MakeUrlList("terrain/2/N40E040.twm"),
              (storage::MapFilesDownloader::ServersList{"https://cdn.organicmaps.app/terrain/2/N40E040.twm"}), ());

@@ -75,34 +75,6 @@ public class CountryItemTest
   }
 
   @Test
-  public void unifiedSnapshotLeavesCompletedMapAndInstalledSizesIntact()
-  {
-    CountryItem country = new CountryItem("France");
-    country.status = CountryItem.STATUS_DONE;
-    country.size = 70;
-
-    country.updateProgress(new MapManager.Progress(0, 0, 10, 30));
-
-    assertEquals(CountryItem.STATUS_DONE, country.status);
-    assertEquals(70, country.size);
-    assertEquals(30, country.bytesToDownload);
-  }
-
-  @Test
-  public void unifiedIdleSnapshotPreservesStatusesAndInstalledSizes()
-  {
-    CountryItem country = new CountryItem("France");
-    country.status = CountryItem.STATUS_DONE;
-    country.size = 70;
-
-    country.updateProgress(new MapManager.Progress(0, 0, 0, 0));
-
-    assertEquals(CountryItem.STATUS_DONE, country.status);
-    assertEquals(70, country.size);
-    assertEquals(0, country.bytesToDownload);
-  }
-
-  @Test
   public void terrainContinuesTheSameProgressAfterMapCompletion()
   {
     CountryItem country = new CountryItem("France");

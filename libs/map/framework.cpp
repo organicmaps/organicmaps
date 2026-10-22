@@ -65,6 +65,7 @@
 #include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 #include "base/math.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
 #include "std/target_os.hpp"
@@ -312,6 +313,7 @@ void Framework::OnViewportChanged(ScreenBase const & screen)
   m_trafficManager.UpdateViewport(m_currentModelView);
   m_transitManager.UpdateViewport(m_currentModelView);
   m_isolinesManager.UpdateViewport(m_currentModelView);
+  UpdateIsolinesAvailability();
 
   if (m_viewportChangedFn != nullptr)
     m_viewportChangedFn(screen);
@@ -403,12 +405,7 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   {
     m2::RectD invalidRect;
     VERIFY(m_terrainProvider.RegisterBlock(file, &invalidRect), (file.m_path));
-    // The terrain is drawn with the isolines only.
-    if (m_isolinesManager.IsEnabled())
-    {
-      InvalidateRect(invalidRect);
-      m_isolinesManager.Invalidate();
-    }
+    OnTerrainChanged(invalidRect);
   }, [this](std::vector<terrain::TwmFile> const & files)
   {
     std::vector<terrain::TerrainId> ids;
@@ -416,12 +413,10 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
       ids.push_back(file.m_id);
     m2::RectD invalidRect;
     m_terrainProvider.DeleteBlocks(ids, invalidRect);
-    if (m_isolinesManager.IsEnabled() && invalidRect.IsValid())
-    {
-      InvalidateRect(invalidRect);
-      m_isolinesManager.Invalidate();
-    }
+    OnTerrainChanged(invalidRect);
   });
+  // A failed or cancelled terrain request changes the download hint without changing the blocks.
+  m_storage.Subscribe([this](storage::CountryId const &) { InvalidateIsolines(); }, {});
 
   m_storage.SetDownloadingPolicy(&m_storageDownloadingPolicy);
   m_storage.SetStartDownloadingCallback([this]()
@@ -443,35 +438,7 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   // m_trafficManager.SetSimplifiedColorScheme(LoadTrafficSimplifiedColors());
   // m_trafficManager.SetEnabled(LoadTrafficEnabled());
 
-  // Before the maps load the terrain registry is empty: claim the coverage present,
-  // the Invalidate after the load re-evaluates the real state (no premature download hint).
-  // The viewport rect can poke beyond the +-180 antimeridian: probe the canonical pieces.
-  m_isolinesManager.SetHasTerrainFn([this](m2::RectD const & rect)
-  {
-    if (!m_terrainRegistered)
-      return true;
-    bool has = false;
-    mercator::ForEachRectWrapped(rect,
-                                 [&](m2::RectD const & piece) { has = has || m_terrainProvider.HasTerrain(piece); });
-    if (has)
-      return true;
-    // The download hint is for the installed maps without terrain, not for the sea or other maps.
-    using TerrainStatus = storage::Storage::TerrainStatus;
-    bool missing = false;
-    mercator::ForEachRectWrapped(rect, [&](m2::RectD const & piece)
-    {
-      for (auto const & countryId : m_infoGetter->GetRegionsCountryIdByRect(piece, false /* rough */))
-      {
-        if (missing || !m_storage.IsNodeDownloaded(countryId))
-          continue;
-        auto const status = m_storage.GetTerrainAttrs(countryId).m_status;
-        missing = status == TerrainStatus::NotDownloaded || status == TerrainStatus::Partly ||
-                  status == TerrainStatus::Failed;
-      }
-    });
-    return !missing;
-  });
-  m_isolinesManager.SetEnabled(LoadIsolinesEnabled());
+  SetIsolinesEnabled(LoadIsolinesEnabled());
 
   InitTransliteration();
   LOG(LDEBUG, ("Transliterators initialized"));
@@ -532,7 +499,7 @@ void Framework::OnCountryFileDownloaded(storage::CountryId const &, storage::Loc
 
   m_trafficManager.Invalidate();
   m_transitManager.Invalidate();
-  m_isolinesManager.Invalidate();
+  InvalidateIsolines();
 
   InvalidateRect(rect);
 
@@ -561,6 +528,8 @@ bool Framework::OnCountryFileDelete(storage::CountryId const & countryId, storag
   }
 
   InvalidateRect(rect);
+  // Recomputed on the next viewport change, when the map is already gone.
+  m_terrainHintMissing.reset();
 
   GetSearchAPI().ClearCaches();
   return deferredDelete;
@@ -583,6 +552,72 @@ void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
     action();
   else
     GetPlatform().RunTask(Platform::Thread::Gui, action);
+}
+
+void Framework::OnTerrainChanged(m2::RectD const & rect)
+{
+  // The terrain is drawn with the isolines only.
+  if (m_isolinesManager.IsEnabled() && rect.IsValid())
+    InvalidateRect(rect);
+  InvalidateIsolines();
+  // Skip the opened place page elevation update intentionally, it is not important for UX.
+}
+
+void Framework::InvalidateIsolines()
+{
+  m_terrainHintMissing.reset();
+  UpdateIsolinesAvailability();
+}
+
+void Framework::SetIsolinesEnabled(bool enabled)
+{
+  m_isolinesManager.SetEnabled(enabled);
+  UpdateIsolinesAvailability();
+}
+
+void Framework::UpdateIsolinesAvailability()
+{
+  // Only the enabled layer on the isolines zooms needs the hint.
+  if (m_isolinesManager.IsEnabled() && m_isolinesManager.IsVisible())
+    m_isolinesManager.SetHasTerrain(HasViewportTerrain(m_currentModelView.ClipRect()));
+}
+
+bool Framework::HasViewportTerrain(m2::RectD const & rect)
+{
+  // Before the maps load the terrain registry is empty: claim the coverage present,
+  // the InvalidateIsolines after the load re-evaluates the real state (no premature hint).
+  if (!m_terrainRegistered)
+    return true;
+  // The viewport rect can poke beyond the +-180 antimeridian: probe the canonical pieces.
+  bool has = false;
+  mercator::ForEachRectWrapped(rect,
+                               [&](m2::RectD const & piece) { has = has || m_terrainProvider.HasTerrain(piece); });
+  if (has)
+    return true;
+  // The download hint is for the installed maps without terrain, not for the sea or other maps.
+  // Cached by the regions in view: the terrain attrs are too heavy for every viewport change
+  // (InvalidateIsolines resets it, also on every storage status change).
+  storage::CountriesVec regions;
+  mercator::ForEachRectWrapped(rect, [&](m2::RectD const & piece)
+  {
+    auto const ids = m_infoGetter->GetRegionsCountryIdByRect(piece, false /* rough */);
+    regions.insert(regions.end(), ids.begin(), ids.end());
+  });
+  base::SortUnique(regions);
+  if (!m_terrainHintMissing || regions != m_terrainHintRegions)
+  {
+    using TerrainStatus = storage::Storage::TerrainStatus;
+    m_terrainHintMissing = base::AnyOf(regions, [this](storage::CountryId const & countryId)
+    {
+      if (!m_storage.IsNodeDownloaded(countryId))
+        return false;
+      auto const status = m_storage.GetTerrainAttrs(countryId).m_status;
+      return status == TerrainStatus::NotDownloaded || status == TerrainStatus::Partly ||
+             status == TerrainStatus::Failed;
+    });
+    m_terrainHintRegions = std::move(regions);
+  }
+  return !*m_terrainHintMissing;
 }
 
 void Framework::OnTerrainDeregistered(terrain::TwmFile const & file)
@@ -686,8 +721,8 @@ void Framework::RegisterAllMaps()
   // RegisterAllMaps can run on the map-loading thread.
   GetPlatform().RunTask(Platform::Thread::Gui, [this]
   {
-    InvalidateRect(mercator::Bounds::FullRect());
-    m_isolinesManager.Invalidate();
+    OnTerrainChanged(mercator::Bounds::FullRect());
+    InvalidateIsolines();
   });
 }
 
@@ -1427,6 +1462,7 @@ void Framework::ClearAllCaches()
   m_featuresFetcher.ClearCaches();
   m_infoGetter->ClearCaches();
   GetSearchAPI().ClearCaches();
+  m_terrainProvider.ClearCache();
 }
 
 void Framework::OnUpdateCurrentCountry(m2::PointD const & pt, int zoomLevel)
@@ -2061,7 +2097,7 @@ void Framework::OnRecoverSurface(int width, int height, bool recreateContextDepe
 
   m_trafficManager.OnRecoverSurface();
   m_transitManager.Invalidate();
-  m_isolinesManager.Invalidate();
+  InvalidateIsolines();
 }
 
 void Framework::OnDestroySurface()
@@ -2635,10 +2671,18 @@ bool Framework::BuildTrackPlacePage(Track::TrackSelectionInfo const & trackSelec
   return true;
 }
 
+namespace
+{
+bool HasTerrainElevation(place_page::Info const & info)
+{
+  return !info.IsMyPosition() && !info.IsTrack() && info.GetSelectedObject() != df::SelectionShape::OBJECT_EMPTY;
+}
+}  // namespace
+
 place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & buildInfo)
 {
   auto info = BuildPlacePageInfoImpl(buildInfo);
-  if (!info.IsMyPosition() && !info.IsTrack() && info.GetSelectedObject() != df::SelectionShape::OBJECT_EMPTY)
+  if (HasTerrainElevation(info))
     info.SetTerrainElevation(m_terrainProvider.GetElevation(info.GetMercator()));
   return info;
 }
@@ -3407,12 +3451,12 @@ bool Framework::ParseDrapeDebugCommand(std::string const & query)
   }
   if (query == "?isolines")
   {
-    m_isolinesManager.SetEnabled(true /* enable */);
+    SetIsolinesEnabled(true /* enable */);
     return true;
   }
   if (query == "?no-isolines")
   {
-    m_isolinesManager.SetEnabled(false /* enable */);
+    SetIsolinesEnabled(false /* enable */);
     return true;
   }
   if (query == "?debug-info")

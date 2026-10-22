@@ -166,11 +166,11 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     @Override
     public void onProgress(String countryId, MapManager.Progress progress)
     {
-      if (!countryId.equals(mCurrentCountry))
+      // The map bytes only: the screen leaves when the map is ready, the terrain follows it.
+      if (!countryId.equals(mCurrentCountry) || progress.mwmTotal == 0)
         return;
 
-      if (progress.getTotalBytes() > 0)
-        mProgress.setProgressCompat((int) (progress.getDownloadedBytes() * 1000 / progress.getTotalBytes()), true);
+      mProgress.setProgressCompat((int) (progress.mwmDownloaded * 1000 / progress.mwmTotal), true);
     }
   };
 

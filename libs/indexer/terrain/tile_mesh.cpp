@@ -20,7 +20,9 @@ void TileMesh::ReserveAdditional(size_t vertices, size_t triangles)
   if (totalIndices > m_triangles.capacity())
     m_triangles.reserve(std::max(totalIndices, 2 * m_triangles.capacity()));
 
-  // The open addressing table rounds its buckets up to a power of two, no exact fit hazard.
-  m_pointToIndex.reserve(totalPoints);
+  // Grow geometrically and never shrink: on 32-bit ska::flat_hash_map is std::unordered_map,
+  // whose reserve() rehashes to the exact fit and may shrink.
+  if (totalPoints > m_pointToIndex.bucket_count() * m_pointToIndex.max_load_factor())
+    m_pointToIndex.reserve(std::max(totalPoints, 2 * m_pointToIndex.size()));
 }
 }  // namespace terrain

@@ -42,7 +42,7 @@ public final class DownloaderHelpers
     for (final CountryItem item : countries)
       countryIds[index++] = item.id;
     // Include the maps already queued by another flow, like the phone routing dialog.
-    final long[] progress = MapManager.nativeGetOverallProgressBytes(countryIds);
+    final long[] progress = MapManager.getOverallProgressBytes(countryIds);
     return MapManager.nativeGetDownloadSize(countryIds, withTerrain) + progress[1] - progress[0];
   }
 

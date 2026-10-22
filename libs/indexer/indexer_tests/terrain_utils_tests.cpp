@@ -5,6 +5,8 @@
 #include "indexer/scales.hpp"
 #include "indexer/terrain/terrain_utils.hpp"
 
+#include "base/scope_guard.hpp"
+
 #include <initializer_list>
 #include <utility>
 
@@ -20,6 +22,13 @@ using measurement_utils::Units;
 // sea depths mirroring the land altitudes.
 UNIT_TEST(TerrainIsolinesStyle)
 {
+  // Restore the default style even on a failed TEST: the loaded style is process-global
+  // state and the other tests must not depend on the run order.
+  SCOPE_GUARD(restoreStyle, []
+  {
+    GetStyleReader().SetCurrentStyle(kDefaultMapStyle);
+    classificator::Load();
+  });
   for (auto const style : {MapStyleDefaultLight, MapStyleOutdoorsLight})
   {
     GetStyleReader().SetCurrentStyle(style);
@@ -94,10 +103,5 @@ UNIT_TEST(TerrainIsolinesStyle)
       }
     }
   }
-
-  // Restore the default style: the loaded style is process-global state and the other
-  // tests must not depend on the run order.
-  GetStyleReader().SetCurrentStyle(kDefaultMapStyle);
-  classificator::Load();
 }
 }  // namespace terrain_utils_tests

@@ -16,6 +16,99 @@ namespace
 //   cos(θ) > kThreshold  ⟺  dot(a, b) > 0  AND  dot(a, b)² > kThreshold² · |a|² · |b|²
 double constexpr kProlongingDotSqr = math::Pow2(0.995);
 
+// Appends the points of a line to |path|: drops the duplicates and, when simplifying, the too
+// short segments and the forward colinear runs, preserving the line's actual endpoint.
+class PathThinner
+{
+public:
+  PathThinner(std::vector<m2::PointD> & path, bool simplify, double minSqr)
+    : m_path(path)
+    , m_simplify(simplify)
+    , m_minSqr(minSqr)
+  {}
+
+  void Add(m2::PointD const & p)
+  {
+    m_lastReadPoint = p;
+
+    if (m_path.empty())
+    {
+      m_path.push_back(p);
+      return;
+    }
+
+    m2::PointD const d = p - m_path.back();
+    if (d.IsAlmostZero())
+      return;  // duplicate, ignore
+
+    if (m_simplify)
+    {
+      double const d2 = d.SquaredLength();
+      if (d2 < m_minSqr)
+        return;  // too close — thin
+
+      // Forward-only colinearity check, squared form. Equivalent to
+      //   cos(θ) > kProlongingDot
+      // when dot > 0 (the forward guard — leaves backward U-turn segments
+      // alone instead of collapsing them into a degenerate zero-length tail).
+      size_t const sz = m_path.size();
+      if (sz >= 2)
+      {
+        double const dot = DotProduct(m_lastSeg, d);
+        if (dot > 0 && dot * dot > kProlongingDotSqr * m_lastSegSqrLen * d2)
+        {
+          m_path.back() = p;
+          // Recompute lastSeg from the actual merged segment m_path[sz-2] -> p,
+          // so long colinear runs don't drift past the threshold by accumulating per-step error.
+          m_lastSeg = m_path[sz - 1] - m_path[sz - 2];
+          m_lastSegSqrLen = m_lastSeg.SquaredLength();
+          return;
+        }
+      }
+
+      m_lastSeg = d;
+      m_lastSegSqrLen = d2;
+    }
+
+    m_path.push_back(p);
+  }
+
+  // Endpoint preservation: if the latest read point did not end up at the
+  // tail of m_path (it was thinned, deduped, or replaced away), commit it
+  // now — replacing the kept tail rather than appending if doing so would
+  // create a tiny trailing segment.
+  void Finish()
+  {
+    if (!m_simplify || m_path.empty())
+      return;
+    m2::PointD const tailD = m_lastReadPoint - m_path.back();
+    if (tailD.IsAlmostZero())
+      return;
+    if (m_path.size() >= 2 && tailD.SquaredLength() < m_minSqr)
+      m_path.back() = m_lastReadPoint;
+    else
+      m_path.push_back(m_lastReadPoint);
+  }
+
+private:
+  std::vector<m2::PointD> & m_path;
+  bool const m_simplify;
+  double const m_minSqr;
+
+  // Last segment of m_path (un-normalized) and its squared length. Only
+  // meaningful (and only touched) when simplifying and m_path.size() >= 2.
+  // Storing the raw segment + sqrlen lets us run the colinearity check
+  // entirely in squared quantities — no sqrts here, so the simplify+Inside
+  // path doesn't pay for normalization both here and in Spline::InitDirections.
+  m2::PointD m_lastSeg;
+  double m_lastSegSqrLen = 0.0;
+
+  // Latest input point seen, regardless of whether it ended up in m_path: preserves the
+  // line's actual endpoint when the trailing input was thinned away. Valid only when
+  // m_path is non-empty.
+  m2::PointD m_lastReadPoint;
+};
+
 }  // namespace
 
 void ClipSplinesBuilder::Build(FeatureType & f, int zoomLevel, bool isIsoline)
@@ -45,85 +138,26 @@ void ClipSplinesBuilder::Build(FeatureType & f, int zoomLevel, bool isIsoline)
   }
 
   m_path.reserve(f.GetPointsCount());
+  PathThinner thinner(m_path, m_params.IsSimplifyLines(), m_params.m_minSegmentSqrLength);
+  f.ForEachPoint([&thinner](m2::PointD const & p) { thinner.Add(p); }, zoomLevel);
+  thinner.Finish();
+}
 
-  bool const simplify = m_params.IsSimplifyLines();
-  double const minSqr = m_params.m_minSegmentSqrLength;
-
-  // Last segment of m_path (un-normalized) and its squared length. Only
-  // meaningful (and only touched) when simplify is true and m_path.size() >= 2.
-  // Storing the raw segment + sqrlen lets us run the colinearity check
-  // entirely in squared quantities — no sqrts in Build(), so the simplify+Inside
-  // path no longer pays for normalization both here and in Spline::InitDirections.
-  m2::PointD lastSeg;
-  double lastSegSqrLen = 0.0;
-
-  // Latest input point seen, regardless of whether it ended up in m_path.
-  // Used at end-of-stream to preserve the feature's actual endpoint
-  // coordinate when the trailing input was thinned away.
-  // Valid only when m_path is non-empty (i.e. at least one point processed).
-  m2::PointD lastReadPoint;
-
-  f.ForEachPoint([&](m2::PointD const & p)
+void ClipSplinesBuilder::SetPath(std::vector<m2::PointD> && path)
+{
+  m_knownInside = false;
+  if (!m_params.IsSimplifyLines())
   {
-    lastReadPoint = p;
-
-    if (m_path.empty())
-    {
-      m_path.push_back(p);
-      return;
-    }
-
-    m2::PointD const d = p - m_path.back();
-    if (d.IsAlmostZero())
-      return;  // duplicate, ignore
-
-    if (simplify)
-    {
-      double const d2 = d.SquaredLength();
-      if (d2 < minSqr)
-        return;  // too close — thin
-
-      // Forward-only colinearity check, squared form. Equivalent to
-      //   cos(θ) > kProlongingDot
-      // when dot > 0 (the forward guard — leaves backward U-turn segments
-      // alone instead of collapsing them into a degenerate zero-length tail).
-      size_t const sz = m_path.size();
-      if (sz >= 2)
-      {
-        double const dot = DotProduct(lastSeg, d);
-        if (dot > 0 && dot * dot > kProlongingDotSqr * lastSegSqrLen * d2)
-        {
-          m_path.back() = p;
-          // Recompute lastSeg from the actual merged segment m_path[sz-2] -> p,
-          // so long colinear runs don't drift past the threshold by accumulating per-step error.
-          lastSeg = m_path[sz - 1] - m_path[sz - 2];
-          lastSegSqrLen = lastSeg.SquaredLength();
-          return;
-        }
-      }
-
-      lastSeg = d;
-      lastSegSqrLen = d2;
-    }
-
-    m_path.push_back(p);
-  }, zoomLevel);
-
-  // Endpoint preservation: if the latest read point did not end up at the
-  // tail of m_path (it was thinned, deduped, or replaced away), commit it
-  // now — replacing the kept tail rather than appending if doing so would
-  // create a tiny trailing segment.
-  if (simplify && !m_path.empty())
-  {
-    m2::PointD const tailD = lastReadPoint - m_path.back();
-    if (!tailD.IsAlmostZero())
-    {
-      if (m_path.size() >= 2 && tailD.SquaredLength() < minSqr)
-        m_path.back() = lastReadPoint;
-      else
-        m_path.push_back(lastReadPoint);
-    }
+    m_path = std::move(path);
+    return;
   }
+  // The same z10-12 thinning as the baked lines get in Build().
+  m_path.clear();
+  m_path.reserve(path.size());
+  PathThinner thinner(m_path, true /* simplify */, m_params.m_minSegmentSqrLength);
+  for (auto const & p : path)
+    thinner.Add(p);
+  thinner.Finish();
 }
 
 std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline)

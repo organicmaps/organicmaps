@@ -83,7 +83,7 @@ void MapWidget::BindHotkeys(QWidget & parent)
       {Qt::ALT | Qt::Key_Up, SLOT(MoveUpSmooth())},
       {Qt::ALT | Qt::Key_Down, SLOT(MoveDownSmooth())},
 
-      // The terrain hillshade light prototype (see Framework::SetTerrainLight);
+      // The terrain hillshade light (see Framework::SetTerrainLight);
       // plain ALT + arrows are the smooth moves above.
       {Qt::ALT | Qt::SHIFT | Qt::Key_Right, SLOT(LightRotateCW())},
       {Qt::ALT | Qt::SHIFT | Qt::Key_Left, SLOT(LightRotateCCW())},

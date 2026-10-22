@@ -49,7 +49,8 @@ UNIT_TEST(MetaConfig_JSONParser_EmptyTerrainServersUseDefault)
 {
   auto const config = ParseMetaConfig(R"({"servers":["https://maps.example/"],"terrainServers":[]})");
   TEST(config, ());
-  TEST_EQUAL(config->terrainServers, downloader::MetaConfig{}.terrainServers, ());
+  // The DEFAULT_URLS_JSON ones.
+  TEST_EQUAL(config->terrainServers, (downloader::MetaConfig::ServersList{"https://cdn.organicmaps.app/"}), ());
 }
 
 UNIT_TEST(MetaConfig_JSONParser_TerrainServers)

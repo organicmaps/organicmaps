@@ -283,7 +283,7 @@ void Screenshoter::PrepareCountries()
     ChangeState(State::WaitCountries);
     auto const countries = m_countriesToDownload;
     for (auto const & countryId : countries)
-      storage.DownloadNode(countryId);
+      storage.DownloadNode(countryId, false /* isUpdate */, false /* withTerrain */);
   }
 }
 

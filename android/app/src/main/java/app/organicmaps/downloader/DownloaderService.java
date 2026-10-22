@@ -159,8 +159,8 @@ public class DownloaderService extends Service implements MapManager.StorageCall
     if (mProgressNotified)
       return;
 
-    long downloaded = progress.mwmDownloaded + progress.twmDownloaded;
-    long total = progress.mwmTotal + progress.twmTotal;
+    long downloaded = progress.getDownloadedBytes();
+    long total = progress.getTotalBytes();
     if (total == 0)
       return;
 
@@ -179,7 +179,7 @@ public class DownloaderService extends Service implements MapManager.StorageCall
     mEnqueuingDownloads = true;
     try
     {
-      MapManager.nativeCancel(MapManager.nativeGetRoot());
+      MapManager.cancel(MapManager.nativeGetRoot());
     }
     finally
     {

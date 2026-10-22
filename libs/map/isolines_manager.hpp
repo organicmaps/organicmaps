@@ -2,7 +2,6 @@
 
 #include "drape_frontend/drape_engine_safe_ptr.hpp"
 
-#include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
 #include <functional>
@@ -34,20 +33,15 @@ public:
 
   bool IsVisible() const;
 
-  // Availability of the downloaded TWM terrain for a rect.
-  using HasTerrainFn = std::function<bool(m2::RectD const &)>;
-  void SetHasTerrainFn(HasTerrainFn const & fn) { m_hasTerrainFn = fn; }
-
   void UpdateViewport(ScreenBase const & screen);
-  void Invalidate();
+  // The terrain availability of the current viewport, applied to the enabled visible layer.
+  void SetHasTerrain(bool hasTerrain);
 
 private:
   void ChangeState(IsolinesState newState);
 
   IsolinesState m_state = IsolinesState::Disabled;
   IsolinesStateChangedFn m_onStateChangedFn;
-
-  HasTerrainFn m_hasTerrainFn;
 
   df::DrapeEngineSafePtr m_drapeEngine;
 

@@ -144,12 +144,12 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
 
   private void onCancelActionSelected(CountryItem item)
   {
-    MapManager.nativeCancel(item.id);
+    MapManager.cancel(item.id);
   }
 
   private void deleteNode(CountryItem item)
   {
-    MapManager.nativeCancel(item.id);
+    MapManager.cancel(item.id);
     MapManager.nativeDelete(item.id);
     OnmapDownloader.setAutodownloadLocked(true);
   }
@@ -423,7 +423,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
           mIcon.setFocusable(country.isExpandable() && country.status != CountryItem.STATUS_DONE);
         }
       }.setOnIconClickListener(v -> processClick(true)).setOnCancelClickListener(v -> {
-        MapManager.nativeCancel(mItem.id);
+        MapManager.cancel(mItem.id);
         refreshData();
       });
 

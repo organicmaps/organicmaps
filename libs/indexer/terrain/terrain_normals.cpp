@@ -56,12 +56,19 @@ TerrainNormals CalculateTerrainNormals(TerrainData const & data, double zScale,
       interface[impl::PointKey(patch.PointU(node))] += normals[node];
     }
   }
+  // One lookup per TIN vertex: only the few seam vertices match, and nothing is inserted into
+  // the interface after this loop, so the recorded pointers stay valid.
+  std::vector<std::pair<size_t, TerrainNormal const *>> seams;
   for (size_t v = 0; v < result.m_tin.size(); ++v)
+  {
     if (auto it = interface.find(impl::PointKey(mesh.GetPointU(v))); it != interface.end())
+    {
       it->second += result.m_tin[v];
-  for (size_t v = 0; v < result.m_tin.size(); ++v)
-    if (auto it = interface.find(impl::PointKey(mesh.GetPointU(v))); it != interface.end())
-      result.m_tin[v] = it->second;
+      seams.emplace_back(v, &it->second);
+    }
+  }
+  for (auto const & [v, normal] : seams)
+    result.m_tin[v] = *normal;
   for (size_t p = 0; p < data.m_rasterPatches.size(); ++p)
   {
     auto const & patch = data.m_rasterPatches[p];

@@ -34,12 +34,9 @@ public:
   /// suppressed in this mode since Release() ignores it on the isoline path.
   void Build(FeatureType & f, int zoomLevel, bool isIsoline = false);
 
-  /// Sets the path directly (dynamic isolines), an alternative to Build().
-  void SetPath(std::vector<m2::PointD> && path)
-  {
-    m_path = std::move(path);
-    m_knownInside = false;
-  }
+  /// Sets the path directly (dynamic isolines), an alternative to Build(): thinned like Build()
+  /// on the simplified zooms.
+  void SetPath(std::vector<m2::PointD> && path);
 
   bool HasGeometry() const { return m_path.size() > 1; }
   size_t GetPathSize() const { return m_path.size(); }

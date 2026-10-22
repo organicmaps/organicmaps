@@ -21,6 +21,7 @@
 #include "coding/file_writer.hpp"
 #include "coding/files_container.hpp"
 #include "coding/point_coding.hpp"
+#include "coding/url.hpp"
 
 #include "base/file_name_utils.hpp"
 #include "base/string_utils.hpp"
@@ -290,7 +291,6 @@ UNIT_CLASS_TEST(StorageTerrainDownloadTest, DownloadImmutableBlockRevisions)
   {
     tests_support::ScopedDirCleanup const terrainDir(base::JoinPath(GetPlatform().WritableDir(), TERRAIN_DIR));
     Storage storage("revision_countries.json");
-    storage.RegisterLocalTerrainFiles({});
     auto downloader = std::make_unique<PendingTerrainDownloader>();
     auto & pending = *downloader;
     storage.SetDownloaderForTesting(std::move(downloader));
@@ -304,7 +304,6 @@ UNIT_CLASS_TEST(StorageTerrainDownloadTest, DownloadImmutableBlockRevisions)
                                 file.m_id + TERRAIN_FILE_EXT),
                  ());
       registered.insert(file.m_id);
-      return true;
     }, DeleteAtOnce(storage));
     storage.Subscribe([&](CountryId const & id)
     {
@@ -329,11 +328,11 @@ UNIT_CLASS_TEST(StorageTerrainDownloadTest, DownloadImmutableBlockRevisions)
     {
       auto const & block = static_cast<Queue const &>(pending.GetQueue()).GetFirstCountry();
       auto const & [revision, content] = revisions.at(block.GetCountryId());
-      auto const path =
-          base::JoinPath(TERRAIN_DIR, strings::to_string(revision), block.GetCountryId() + TERRAIN_FILE_EXT);
-      TEST_EQUAL(block.GetRelativeUrl(), path, ());
-      TEST_EQUAL(block.GetFileDownloadPath(), base::JoinPath(GetPlatform().WritableDir(), path + READY_FILE_EXTENSION),
-                 ());
+      auto const name = block.GetCountryId() + TERRAIN_FILE_EXT;
+      auto const dir = strings::to_string(revision);
+      TEST_EQUAL(block.GetRelativeUrl(), url::Join(TERRAIN_DIR, dir, name), ());
+      TEST_EQUAL(block.GetFileDownloadPath(),
+                 base::JoinPath(GetPlatform().WritableDir(), TERRAIN_DIR, dir, name + READY_FILE_EXTENSION), ());
       pending.Complete(content);
     }
     RunEventLoopOrFail();
@@ -379,10 +378,10 @@ UNIT_CLASS_TEST(StorageTerrainDownloadTest, UpdateReusesImmutableBlockRevisions)
   pending.GetQueue().ForEachCountry([&](QueuedCountry const & block)
   {
     auto const version = block.GetCountryId() == "N45E011" ? "3" : "5";
-    auto const path = base::JoinPath(TERRAIN_DIR, version, block.GetCountryId() + TERRAIN_FILE_EXT);
-    TEST_EQUAL(block.GetRelativeUrl(), path, ());
-    TEST_EQUAL(block.GetFileDownloadPath(), base::JoinPath(GetPlatform().WritableDir(), path + READY_FILE_EXTENSION),
-               ());
+    auto const name = block.GetCountryId() + TERRAIN_FILE_EXT;
+    TEST_EQUAL(block.GetRelativeUrl(), url::Join(TERRAIN_DIR, version, name), ());
+    TEST_EQUAL(block.GetFileDownloadPath(),
+               base::JoinPath(GetPlatform().WritableDir(), TERRAIN_DIR, version, name + READY_FILE_EXTENSION), ());
   });
   TEST(unchanged.Exists(), ());
   TEST(changed.Exists(), ());
@@ -404,12 +403,7 @@ UNIT_CLASS_TEST(StorageTerrainDownloadTest, UpdateProgressKeepsMapsAndTerrainInO
   storage.Init([](auto const &, auto const &) {}, [](auto const &, auto const &) { return false; });
   storage.SetEnabledIntegrityValidationForTesting(false);
   storage.RegisterAllLocalMaps();
-  storage.RegisterLocalTerrainFiles({});
-  storage.SetTerrainCallbacks([](auto const &)
-  {
-    testing::StopEventLoop();
-    return true;
-  }, DeleteAtOnce(storage));
+  storage.SetTerrainCallbacks([](auto const &) { testing::StopEventLoop(); }, DeleteAtOnce(storage));
   auto downloader = std::make_unique<PendingTerrainDownloader>();
   auto & pending = *downloader;
   storage.SetDownloaderForTesting(std::move(downloader));
@@ -484,7 +478,6 @@ UNIT_CLASS_TEST(StorageTerrainDownloadTest, FailedDownloadSizeMatchesRetry)
     Storage storage("retry_sizes.json");
     storage.Init([](auto const &, auto const &) {}, [](auto const &, auto const &) { return false; });
     storage.SetDownloaderForTesting(std::move(downloader));
-    storage.RegisterLocalTerrainFiles({});
     if (withDiff)
       storage.SetDiffInfoForTesting({{"West", {10, 260100}}});
     storage.DownloadNode("West", withDiff /* isUpdate */);
@@ -540,7 +533,6 @@ UNIT_CLASS_TEST(StorageTerrainDownloadTest, RoutingDownloadsOnlyMapsAndIgnoresTe
   Storage storage("routing_maps.json");
   storage.Init([](auto const &, auto const &) {}, [](auto const &, auto const &) { return false; });
   storage.SetEnabledIntegrityValidationForTesting(false);
-  storage.RegisterLocalTerrainFiles({});
   auto downloader = std::make_unique<PendingTerrainDownloader>();
   auto & pending = *downloader;
   storage.SetDownloaderForTesting(std::move(downloader));
@@ -588,6 +580,86 @@ UNIT_CLASS_TEST(StorageTerrainDownloadTest, RoutingDownloadsOnlyMapsAndIgnoresTe
   TEST_EQUAL(storage.GetDownloadSize(maps), 40, ());
 }
 
+UNIT_CLASS_TEST(StorageTerrainDownloadTest, MapOnlyCancelReleasesTerrainOfMissingMaps)
+{
+  tests_support::ScopedFile countries("map_only_cancel.json", R"({"id":"Countries","v":260101,
+    "g":[{"id":"Group","g":[{"id":"West","s":100},{"id":"East","s":200}]}]})");
+  tests_support::ScopedFile grid(TERRAIN_GRID_FILE, R"({"v":1,"blocks":[
+    {"id":"N45E008","sx":3,"sy":2,"s":30,"h":"aA"},
+    {"id":"N45E011","sx":3,"sy":2,"s":10,"h":"aA"}],
+    "mwms":{"West":["N45E008","N45E011"],"East":["N45E008"]}})");
+  tests_support::ScopedDirCleanup const mapsDir(base::JoinPath(GetPlatform().WritableDir(), "260101"));
+  Storage storage("map_only_cancel.json");
+  storage.Init([](auto const &, auto const &) {}, [](auto const &, auto const &) { return false; });
+  storage.SetEnabledIntegrityValidationForTesting(false);
+  auto downloader = std::make_unique<PendingTerrainDownloader>();
+  auto & pending = *downloader;
+  storage.SetDownloaderForTesting(std::move(downloader));
+  storage.DownloadNode("West");
+  storage.DownloadNode("East");
+  TEST_EQUAL(pending.GetQueue().Count(), 4, ());
+  // The routing cancel of a map that will not be installed releases its terrain, while the
+  // block shared with East stays queued for East.
+  storage.CancelDownloadNode("West", false /* withTerrain */);
+  std::set<CountryId> queued;
+  pending.GetQueue().ForEachCountry([&](QueuedCountry const & country) { queued.insert(country.GetCountryId()); });
+  TEST_EQUAL(queued, (std::set<CountryId>{"East", "N45E008"}), ());
+  storage.CancelDownloadNode("Group");
+  TEST(pending.GetQueue().IsEmpty(), ());
+}
+
+UNIT_CLASS_TEST(StorageTerrainDownloadTest, UnrelatedCancelDoesNotRearmTheRetry)
+{
+  class CountingPolicy : public DownloadingPolicy
+  {
+  public:
+    void ScheduleRetry(CountriesSet const & failed, TProcessFunc const &) override
+    {
+      if (!failed.empty())
+        ++m_scheduled;
+    }
+    size_t m_scheduled = 0;
+  } policy;
+  tests_support::ScopedFile countries("unrelated_cancel.json", R"({"id":"Countries","v":260101,
+    "g":[{"id":"West","s":100},{"id":"East","s":200}]})");
+  tests_support::ScopedFile grid(TERRAIN_GRID_FILE, R"({"v":1,"blocks":[
+    {"id":"N45E008","sx":3,"sy":2,"s":30,"h":"aA"}],"mwms":{"East":["N45E008"]}})");
+  tests_support::ScopedDirCleanup const mapsDir(base::JoinPath(GetPlatform().WritableDir(), "260101"));
+  Storage storage("unrelated_cancel.json");
+  storage.Init([](auto const &, auto const &) {}, [](auto const &, auto const &) { return false; });
+  storage.SetDownloadingPolicy(&policy);
+  auto downloader = std::make_unique<PendingTerrainDownloader>();
+  auto & pending = *downloader;
+  storage.SetDownloaderForTesting(std::move(downloader));
+  storage.DownloadNode("West", false /* isUpdate */, false /* withTerrain */);
+  pending.Fail(downloader::DownloadStatus::Failed);
+  TEST_EQUAL(policy.m_scheduled, 1, ());
+  // Neither cancel drains an active queue: the exhausted retry of West must stay as it is.
+  storage.CancelDownloadNode("East");
+  storage.DeleteNode("East");
+  TEST_EQUAL(policy.m_scheduled, 1, ());
+}
+
+UNIT_CLASS_TEST(StorageTerrainDownloadTest, QueuedFullMapTotalIgnoresTheDiff)
+{
+  tests_support::ScopedFile countries("queued_full_map.json", R"({"id":"Countries","v":260101,
+    "g":[{"id":"West","s":100}]})");
+  tests_support::ScopedFile grid(TERRAIN_GRID_FILE, R"({"v":1,"blocks":[],"mwms":{}})");
+  tests_support::ScopedDirCleanup const mapsDir(base::JoinPath(GetPlatform().WritableDir(), "260101"));
+  Storage storage("queued_full_map.json");
+  storage.Init([](auto const &, auto const &) {}, [](auto const &, auto const &) { return false; });
+  auto downloader = std::make_unique<PendingTerrainDownloader>();
+  auto & pending = *downloader;
+  storage.SetDownloaderForTesting(std::move(downloader));
+  storage.SetDiffInfoForTesting({{"West", {10, 260100}}});
+  storage.DownloadNode("West", false /* isUpdate */, false /* withTerrain */);
+  // The queued full map counts its own size, not the available diff: no backward jump on start.
+  TEST_EQUAL(storage.GetOverallProgress({"West"}).m_bytesTotal, 100, ());
+  pending.Start();
+  TEST_EQUAL(storage.GetOverallProgress({"West"}).m_bytesTotal, 100, ());
+  storage.CancelDownloadNode("West");
+}
+
 UNIT_CLASS_TEST(StorageTerrainDownloadTest, RestorePreservesMapAndTerrainRequests)
 {
   tests_support::ScopedFile countries("restore_maps.json", R"({"id":"Countries","v":260101,
@@ -601,7 +673,6 @@ UNIT_CLASS_TEST(StorageTerrainDownloadTest, RestorePreservesMapAndTerrainRequest
     std::map<std::string, std::string> saved;
     {
       Storage storage("restore_maps.json");
-      storage.RegisterLocalTerrainFiles({});
       storage.SetDownloaderForTesting(std::make_unique<PendingTerrainDownloader>());
       storage.DownloadNode("West", false /* isUpdate */, withTerrain);
       for (auto const * key : {"DownloadQueue", "TerrainDownloadQueue"})
@@ -634,7 +705,6 @@ UNIT_CLASS_TEST(StorageTerrainDownloadTest, ManualRetryPreservesMapAndTerrainReq
     tests_support::ScopedDirCleanup const mapsDir(base::JoinPath(GetPlatform().WritableDir(), "260101"));
     Storage storage("manual_retry_maps.json");
     storage.Init([](auto const &, auto const &) {}, [](auto const &, auto const &) { return false; });
-    storage.RegisterLocalTerrainFiles({});
     auto downloader = std::make_unique<PendingTerrainDownloader>();
     auto & pending = *downloader;
     storage.SetDownloaderForTesting(std::move(downloader));
@@ -672,7 +742,6 @@ UNIT_CLASS_TEST(StorageTerrainDownloadTest, RoutingMapRetryDoesNotDownloadTerrai
   Storage storage("routing_retry.json");
   storage.Init([](auto const &, auto const &) {}, [](auto const &, auto const &) { return false; });
   storage.SetDownloadingPolicy(&policy);
-  storage.RegisterLocalTerrainFiles({});
   auto downloader = std::make_unique<PendingTerrainDownloader>();
   auto & pending = *downloader;
   storage.SetDownloaderForTesting(std::move(downloader));
@@ -710,7 +779,6 @@ UNIT_CLASS_TEST(StorageTerrainDownloadTest, MapAndTerrainFailuresShareTheRetry)
   Storage storage("concurrent_retry.json");
   storage.Init([](auto const &, auto const &) {}, [](auto const &, auto const &) { return false; });
   storage.SetDownloadingPolicy(&policy);
-  storage.RegisterLocalTerrainFiles({});
   auto downloader = std::make_unique<PendingTerrainDownloader>();
   auto & pending = *downloader;
   storage.SetDownloaderForTesting(std::move(downloader));
@@ -750,7 +818,6 @@ UNIT_CLASS_TEST(StorageTerrainDownloadTest, PublishDownloadedBlock)
       tests_support::ScopedDirCleanup const terrainDir(base::JoinPath(root, TERRAIN_DIR));
       tests_support::ScopedFile grid(TERRAIN_GRID_FILE, TerrainGridJson(content, correctHash));
       Storage storage(COUNTRIES_FILE, dataDir);
-      storage.RegisterLocalTerrainFiles({});
       storage.SetEnabledIntegrityValidationForTesting(validate);
       auto downloader = std::make_unique<PendingTerrainDownloader>();
       auto & pending = *downloader;
@@ -941,7 +1008,6 @@ UNIT_CLASS_TEST(StorageTerrainDownloadTest, CancelTerrainValidationFinishesBatch
   storage.Init([](CountryId const &, LocalFilePtr const) {},
                [](CountryId const &, LocalFilePtr const) { return false; });
   storage.SetEnabledIntegrityValidationForTesting(false);
-  storage.RegisterLocalTerrainFiles({});
   auto downloader = std::make_unique<PendingTerrainDownloader>();
   auto & pending = *downloader;
   storage.SetDownloaderForTesting(std::move(downloader));
@@ -1049,7 +1115,6 @@ UNIT_TEST(Storage_TerrainRestoreQueuedWithoutArtifacts)
     {
       Storage storage;
       storage.RegisterAllLocalMaps();
-      storage.RegisterLocalTerrainFiles({});
       storage.SetDownloaderForTesting(std::make_unique<PendingTerrainDownloader>());
       storage.DownloadTerrain("Madagascar");
       TEST(settings::Get("TerrainDownloadQueue", snapshot), ());
@@ -1159,7 +1224,6 @@ UNIT_TEST(Storage_TerrainClearBeforeRestoreDiscardsSavedQueue)
   Storage storage;
   storage.SetDownloaderForTesting(std::make_unique<PendingTerrainDownloader>());
   storage.Clear();
-  storage.RegisterLocalTerrainFiles({});
   storage.RestoreDownloadQueue();
   TEST_EQUAL(storage.GetTerrainAttrs("Madagascar").m_status, Storage::TerrainStatus::NotDownloaded, ());
   std::string saved;
@@ -1250,7 +1314,6 @@ UNIT_TEST(Storage_TerrainDelete)
 {
   WritableDirChanger const writableDirChanger(kTerrainTestDir, WritableDirChanger::SettingsDirPolicy::UseWritableDir);
   Storage storage;
-  storage.RegisterLocalTerrainFiles({});
 
   std::vector<TerrainId> deleted;
   storage.SetTerrainCallbacks([](auto const &) {}, [&](std::vector<terrain::TwmFile> const & files)
@@ -1648,9 +1711,8 @@ UNIT_TEST(Storage_TerrainUpdatesUseCombinedStatusAndActions)
       storage.RegisterLocalTerrainFiles(
           {{"N45E008", 1, oldTerrain.GetFullPath(), terrain::GridBlock{8, 45, 3, 2}.GetRectMercator()}});
     else
-      storage.RegisterLocalTerrainFiles({});
-    TEST_EQUAL(storage.GetTerrainAttrs("West").m_status,
-               older ? Storage::TerrainStatus::OnDiskOutOfDate : Storage::TerrainStatus::NotDownloaded, ());
+      TEST_EQUAL(storage.GetTerrainAttrs("West").m_status,
+                 older ? Storage::TerrainStatus::OnDiskOutOfDate : Storage::TerrainStatus::NotDownloaded, ());
     TEST_EQUAL(storage.GetTerrainDownloadSize({"West", "East", "West"}), 30, ());
     for (auto const & id : {CountryId("West"), CountryId("East"), storage.GetRootId()})
     {
@@ -1777,7 +1839,6 @@ UNIT_TEST(Storage_IdenticalTerrainCoverageDeletesAfterLastMap)
     storage.Init([](CountryId const &, LocalFilePtr const) {},
                  [](CountryId const &, LocalFilePtr const) { return false; });
     storage.RegisterAllLocalMaps();
-    storage.RegisterLocalTerrainFiles({});  // Establish separate-download intent before importing test files.
     storage.RegisterLocalTerrainFiles(
         {{"N45E008", 1, first.GetFullPath(), terrain::GridBlock{8, 45, 3, 2}.GetRectMercator()},
          {"N45E011", 1, second.GetFullPath(), terrain::GridBlock{11, 45, 3, 2}.GetRectMercator()}});
@@ -1881,7 +1942,6 @@ UNIT_TEST(Storage_TerrainFolderDownloadsInstalledMapsOnly)
   tests_support::ScopedFile east("260101/East.mwm", std::string(200, 'm'));
   tests_support::ScopedDirCleanup const terrainDir(base::JoinPath(GetPlatform().WritableDir(), TERRAIN_DIR));
   Storage storage("terrain_folder.json");
-  storage.RegisterLocalTerrainFiles({});
   auto downloader = std::make_unique<PendingTerrainDownloader>();
   auto & pending = *downloader;
   storage.SetDownloaderForTesting(std::move(downloader));
@@ -1948,7 +2008,6 @@ UNIT_TEST(Storage_TerrainFolderRequestRestoresWithoutMaps)
   auto & pending = *downloader;
   storage.SetDownloaderForTesting(std::move(downloader));
   storage.RestoreDownloadQueue();
-  storage.RegisterLocalTerrainFiles({});
   TEST_EQUAL(pending.GetQueue().Count(), 4, ());
   for (auto const & id : {CountryId("West"), CountryId("East"), CountryId("Missing")})
     TEST_EQUAL(storage.GetTerrainAttrs(id).m_status, Storage::TerrainStatus::Downloading, (id));
@@ -1983,7 +2042,6 @@ UNIT_TEST(Storage_TerrainSplitSizes)
   tests_support::ScopedFile east(base::JoinPath(mapsDir.GetRelativePath(), "East.mwm"), std::string(200, 'm'));
   tests_support::ScopedFile terrainFile(base::JoinPath(versionDir.GetRelativePath(), "N45E008.twm"), "terrain");
   Storage storage("terrain_sizes.json");
-  storage.RegisterLocalTerrainFiles({});
 
   NodeAttrs attrs;
   storage.GetNodeAttrs("West", attrs);
@@ -2109,12 +2167,7 @@ UNIT_CLASS_TEST(StorageTerrainDownloadTest, SharedTerrainProgressBelongsToReques
   Storage storage("terrain_shared_notifications.json");
   storage.SetEnabledIntegrityValidationForTesting(false);
   storage.RegisterAllLocalMaps();
-  storage.RegisterLocalTerrainFiles({});
-  storage.SetTerrainCallbacks([](auto const &)
-  {
-    testing::StopEventLoop();
-    return true;
-  }, DeleteAtOnce(storage));
+  storage.SetTerrainCallbacks([](auto const &) { testing::StopEventLoop(); }, DeleteAtOnce(storage));
   auto downloader = std::make_unique<PendingTerrainDownloader>();
   auto & pending = *downloader;
   storage.SetDownloaderForTesting(std::move(downloader));
@@ -2230,7 +2283,6 @@ UNIT_TEST(Storage_TerrainFolderProgressExcludesUntappedRegions)
   tests_support::ScopedDirCleanup const terrainDir(base::JoinPath(GetPlatform().WritableDir(), TERRAIN_DIR));
   Storage storage("terrain_folder.json");
   storage.RegisterAllLocalMaps();
-  storage.RegisterLocalTerrainFiles({});
   auto downloader = std::make_unique<PendingTerrainDownloader>();
   auto & pending = *downloader;
   storage.SetDownloaderForTesting(std::move(downloader));
@@ -2264,7 +2316,6 @@ UNIT_TEST(Storage_TerrainCanCancelFromProgressCallback)
     "mwms":{"West":["N45E008"],"East":["N45E008"]}})");
   tests_support::ScopedDirCleanup const terrainDir(base::JoinPath(GetPlatform().WritableDir(), TERRAIN_DIR));
   Storage storage("terrain_folder.json");
-  storage.RegisterLocalTerrainFiles({});
   auto downloader = std::make_unique<PendingTerrainDownloader>();
   auto & pending = *downloader;
   storage.SetDownloaderForTesting(std::move(downloader));
@@ -2340,7 +2391,6 @@ UNIT_TEST(Storage_SharedTerrainRestoreKeepsOnlyRequestedProgress)
   tests_support::ScopedDirCleanup const terrainDir(base::JoinPath(GetPlatform().WritableDir(), TERRAIN_DIR));
   {
     Storage storage("terrain_shared_restore.json");
-    storage.RegisterLocalTerrainFiles({});
     storage.SetDownloaderForTesting(std::make_unique<PendingTerrainDownloader>());
     storage.DownloadTerrain("West");
   }
@@ -2349,7 +2399,6 @@ UNIT_TEST(Storage_SharedTerrainRestoreKeepsOnlyRequestedProgress)
   auto & pending = *downloader;
   storage.SetDownloaderForTesting(std::move(downloader));
   storage.RestoreDownloadQueue();
-  storage.RegisterLocalTerrainFiles({});
   TEST_EQUAL(pending.GetQueue().Count(), 1, ());
   pending.Start();
   pending.Progress(1024 * 1024);
@@ -2381,7 +2430,6 @@ UNIT_TEST(Storage_DownloadAndCancelCoverMapsAndTerrain)
     {"id":"N45E011","sx":3,"sy":2,"s":10,"h":"aA"}],
     "mwms":{"West":["N45E008","N45E011"],"East":["N45E008"]}})");
   Storage storage("independent_downloads.json");
-  storage.RegisterLocalTerrainFiles({});
   auto downloader = std::make_unique<PendingTerrainDownloader>();
   auto & pending = *downloader;
   auto const & queue = pending.GetQueue();
@@ -2433,7 +2481,6 @@ UNIT_TEST(Storage_TerrainProgressCallbacks)
     storage.Init([](CountryId const &, LocalFilePtr const) {},
                  [](CountryId const &, LocalFilePtr const) { return false; });
     storage.SetEnabledIntegrityValidationForTesting(false);
-    storage.RegisterLocalTerrainFiles({});
     tests_support::ScopedDirCleanup const mapsDir(base::JoinPath(GetPlatform().WritableDir(), "260101"));
     tests_support::ScopedDirCleanup const terrainDir(base::JoinPath(GetPlatform().WritableDir(), TERRAIN_DIR));
     // An unrelated installed map must not inflate the active root download progress.
@@ -2528,12 +2575,7 @@ UNIT_CLASS_TEST(StorageTerrainDownloadTest, TerrainProgressUpdatesTheCombinedNod
   Storage storage("terrain_progress_batch.json");
   storage.SetEnabledIntegrityValidationForTesting(false);
   storage.RegisterAllLocalMaps();
-  storage.RegisterLocalTerrainFiles({});
-  storage.SetTerrainCallbacks([](auto const &)
-  {
-    testing::StopEventLoop();
-    return true;
-  }, DeleteAtOnce(storage));
+  storage.SetTerrainCallbacks([](auto const &) { testing::StopEventLoop(); }, DeleteAtOnce(storage));
   auto downloader = std::make_unique<PendingTerrainDownloader>();
   auto & pending = *downloader;
   storage.SetDownloaderForTesting(std::move(downloader));
@@ -2613,7 +2655,7 @@ UNIT_TEST(Storage_TerrainRetry)
   ResizeToRemote(map, mapInfo, owner->first);
 
   // Every failure arms the auto-retry like the failed maps. The terrain status reports
-  // the failure; the MWM remains current.
+  // the failure; the MWM remains current and usable, the region reads updatable.
   auto const run = [&](CountryId const & retryId, downloader::DownloadStatus status)
   {
     TaskRunner runner;
@@ -2622,15 +2664,14 @@ UNIT_TEST(Storage_TerrainRetry)
     storage.SetDownloaderForTesting(std::make_unique<FakeMapFilesDownloader>(runner, std::vector{status}));
     storage.SetDownloadingPolicy(&policy);
     storage.RegisterAllLocalMaps();
-    storage.RegisterLocalTerrainFiles({});
     storage.SetTerrainCallbacks([](auto const &) {}, DeleteAtOnce(storage));
     storage.DownloadTerrain(owner->first);
     runner.Run();
 
     NodeAttrs attrs;
     storage.GetNodeAttrs(owner->first, attrs);
-    TEST_EQUAL(attrs.m_status, NodeStatus::Error, (status));
-    TEST_EQUAL(attrs.m_error, NodeErrorCode::NoInetConnection, (status));
+    TEST_EQUAL(attrs.m_status, NodeStatus::OnDiskOutOfDate, (status));
+    TEST_EQUAL(attrs.m_error, NodeErrorCode::NoError, (status));
     TEST(storage.HasLatestVersion(owner->first), (status));
     TEST_EQUAL(storage.GetTerrainAttrs(owner->first).m_status, Storage::TerrainStatus::Failed, (status));
     TEST(!storage.CheckFailedCountries({owner->first}), (status));
@@ -2654,22 +2695,20 @@ UNIT_TEST(Storage_TerrainRetry)
   }
 }
 
+#ifndef OMIM_OS_WINDOWS
+// Windows keeps the ready file while a cancelled validator still reads it, and the restart
+// reuses it (see CancelTerrainValidationWaitsForAllReaders).
 UNIT_CLASS_TEST(StorageTerrainDownloadTest, CancelRestartTerrainValidation)
 {
   auto const content = TerrainHeaderContent();
   tests_support::ScopedDirCleanup const terrainDir(base::JoinPath(GetPlatform().WritableDir(), TERRAIN_DIR));
   tests_support::ScopedFile grid(TERRAIN_GRID_FILE, TerrainGridJson(content));
   Storage storage(COUNTRIES_FILE);
-  storage.RegisterLocalTerrainFiles({});
   auto downloader = std::make_unique<PendingTerrainDownloader>();
   auto & pending = *downloader;
   storage.SetDownloaderForTesting(std::move(downloader));
   size_t registrations = 0;
-  storage.SetTerrainCallbacks([&](terrain::TwmFile const &)
-  {
-    ++registrations;
-    return true;
-  }, DeleteAtOnce(storage));
+  storage.SetTerrainCallbacks([&](terrain::TwmFile const &) { ++registrations; }, DeleteAtOnce(storage));
   storage.DownloadTerrain("Madagascar");
   pending.Complete(content);
 
@@ -2705,16 +2744,11 @@ UNIT_CLASS_TEST(StorageTerrainDownloadTest, CancelRestartTerrainBeforeValidation
   tests_support::ScopedDirCleanup const terrainDir(base::JoinPath(GetPlatform().WritableDir(), TERRAIN_DIR));
   tests_support::ScopedFile grid(TERRAIN_GRID_FILE, TerrainGridJson(content));
   Storage storage(COUNTRIES_FILE);
-  storage.RegisterLocalTerrainFiles({});
   auto downloader = std::make_unique<PendingTerrainDownloader>();
   auto & pending = *downloader;
   storage.SetDownloaderForTesting(std::move(downloader));
   size_t registrations = 0;
-  storage.SetTerrainCallbacks([&](terrain::TwmFile const &)
-  {
-    ++registrations;
-    return true;
-  }, DeleteAtOnce(storage));
+  storage.SetTerrainCallbacks([&](terrain::TwmFile const &) { ++registrations; }, DeleteAtOnce(storage));
   std::promise<void> release;
   auto released = release.get_future().share();
   GetPlatform().RunTask(Platform::Thread::File, [released] { released.wait(); });
@@ -2735,6 +2769,7 @@ UNIT_CLASS_TEST(StorageTerrainDownloadTest, CancelRestartTerrainBeforeValidation
   TEST(Platform::IsFileExistsByFullPath(finalPath), ());
   TEST_EQUAL(storage.GetTerrainAttrs("Madagascar").m_status, Storage::TerrainStatus::OnDisk, ());
 }
+#endif
 
 #ifdef OMIM_OS_WINDOWS
 // Other platforms unlink the ready file on cancellation, and the restart downloads it again.
@@ -2746,16 +2781,11 @@ UNIT_CLASS_TEST(StorageTerrainDownloadTest, CancelTerrainValidationWaitsForAllRe
   {
     tests_support::ScopedDirCleanup const terrainDir(base::JoinPath(GetPlatform().WritableDir(), TERRAIN_DIR));
     Storage storage(COUNTRIES_FILE);
-    storage.RegisterLocalTerrainFiles({});
     auto downloader = std::make_unique<PendingTerrainDownloader>();
     auto & pending = *downloader;
     storage.SetDownloaderForTesting(std::move(downloader));
     size_t registrations = 0;
-    storage.SetTerrainCallbacks([&](terrain::TwmFile const &)
-    {
-      ++registrations;
-      return true;
-    }, DeleteAtOnce(storage));
+    storage.SetTerrainCallbacks([&](terrain::TwmFile const &) { ++registrations; }, DeleteAtOnce(storage));
     std::promise<void> releaseFirst, releaseSecond, secondBlocked;
     auto first = releaseFirst.get_future().share();
     auto second = releaseSecond.get_future().share();
@@ -2869,7 +2899,6 @@ UNIT_CLASS_TEST(StorageTerrainDownloadTest, TerrainFailuresRetryLikeMaps)
 
     auto const attrs = storage.GetTerrainAttrs("Madagascar");
     TEST_EQUAL(attrs.m_status, Storage::TerrainStatus::Failed, (failure));
-    TEST_EQUAL(attrs.m_error, NodeErrorCode::NoInetConnection, (failure));
     TEST_EQUAL(policy.m_calls, 1, (failure));
     TEST_EQUAL(policy.m_regions, (CountriesSet{"Madagascar"}), (failure));
     storage.CancelTerrain("Madagascar");
@@ -2885,12 +2914,11 @@ UNIT_CLASS_TEST(StorageTerrainDownloadTest, TerrainRetryBeforeMapRegistration)
   RecordingDownloadingPolicy policy;
   Storage storage(COUNTRIES_FILE);
   storage.SetDownloadingPolicy(&policy);
-  storage.RegisterLocalTerrainFiles({});
   auto downloader = std::make_unique<PendingTerrainDownloader>();
   auto & pending = *downloader;
   storage.SetDownloaderForTesting(std::move(downloader));
 
-  // Request ownership precedes map registration, and desktop can request terrain alone.
+  // Terrain requests can acquire ownership before their map is registered.
   storage.DownloadTerrain("Madagascar");
   pending.Fail(downloader::DownloadStatus::Failed);
   TEST_EQUAL(policy.m_calls, 1, ());
@@ -2911,7 +2939,6 @@ UNIT_CLASS_TEST(StorageTerrainDownloadTest, CancelTerrainValidationCleansReadyFi
   tests_support::ScopedDirCleanup const terrainDir(base::JoinPath(GetPlatform().WritableDir(), TERRAIN_DIR));
   tests_support::ScopedFile grid(TERRAIN_GRID_FILE, TerrainGridJson(content));
   Storage storage(COUNTRIES_FILE);
-  storage.RegisterLocalTerrainFiles({});
   auto downloader = std::make_unique<PendingTerrainDownloader>();
   auto & pending = *downloader;
   storage.SetDownloaderForTesting(std::move(downloader));
@@ -2946,7 +2973,6 @@ UNIT_TEST(Storage_MapAndTerrainDownloadingProgressAreIndependent)
     {"id":"N45E008","sx":3,"sy":2,"s":4194304,"h":"aA"}],
     "mwms":{"West":["N45E008"]}})");
   Storage storage("active_downloads.json");
-  storage.RegisterLocalTerrainFiles({});
   auto downloader = std::make_unique<PendingTerrainDownloader>();
   auto & pending = *downloader;
   storage.SetDownloaderForTesting(std::move(downloader));
@@ -3004,12 +3030,7 @@ UNIT_CLASS_TEST(StorageTerrainDownloadTest, TerrainFolderKeepsCompletedOwnerProg
   Storage storage("terrain_folder_progress.json");
   storage.SetEnabledIntegrityValidationForTesting(false);
   storage.RegisterAllLocalMaps();
-  storage.RegisterLocalTerrainFiles({});
-  storage.SetTerrainCallbacks([](terrain::TwmFile const &)
-  {
-    testing::StopEventLoop();
-    return true;
-  }, DeleteAtOnce(storage));
+  storage.SetTerrainCallbacks([](terrain::TwmFile const &) { testing::StopEventLoop(); }, DeleteAtOnce(storage));
   auto downloader = std::make_unique<PendingTerrainDownloader>();
   auto & pending = *downloader;
   storage.SetDownloaderForTesting(std::move(downloader));
@@ -3225,7 +3246,6 @@ UNIT_TEST(Storage_MapAndTerrainProgressUsesCountrySnapshots)
   tests_support::ScopedDirCleanup const mapsDir(base::JoinPath(GetPlatform().WritableDir(), "260101"));
   tests_support::ScopedDirCleanup const terrainDir(base::JoinPath(GetPlatform().WritableDir(), TERRAIN_DIR));
   Storage storage("country_progress.json");
-  storage.RegisterLocalTerrainFiles({});
   auto downloader = std::make_unique<PendingTerrainDownloader>();
   auto & pending = *downloader;
   storage.SetDownloaderForTesting(std::move(downloader));
@@ -3302,7 +3322,6 @@ UNIT_TEST(Storage_ConcurrentMapAndTerrainProgressSnapshot)
   auto & pending = *downloader;
   Storage storage("concurrent_country_progress.json");
   storage.SetDownloaderForTesting(std::move(downloader));
-  storage.RegisterLocalTerrainFiles({});
   storage.DownloadNode("West");
   pending.Start();
   pending.Progress(7);
@@ -3406,7 +3425,6 @@ UNIT_TEST(Storage_MapAndTerrainProgressCanCancel)
         tests_support::ScopedDirCleanup const mapsDir(base::JoinPath(GetPlatform().WritableDir(), "260101"));
         tests_support::ScopedDirCleanup const terrainDir(base::JoinPath(GetPlatform().WritableDir(), TERRAIN_DIR));
         Storage storage("country_cancel.json");
-        storage.RegisterLocalTerrainFiles({});
         auto downloader = std::make_unique<PendingTerrainDownloader>();
         auto & pending = *downloader;
         storage.SetDownloaderForTesting(std::move(downloader));
@@ -3506,7 +3524,6 @@ UNIT_TEST(Storage_RegionDeletionRemovesExclusiveTerrainAndOwnership)
   storage.Init([](CountryId const &, LocalFilePtr const) {},
                [](CountryId const &, LocalFilePtr const) { return false; });
   storage.RegisterAllLocalMaps();
-  storage.RegisterLocalTerrainFiles({});
   storage.RegisterLocalTerrainFiles(
       {{"N45E008", 1, shared.GetFullPath(), terrain::GridBlock{8, 45, 3, 2}.GetRectMercator()},
        {"N45E011", 1, exclusive.GetFullPath(), terrain::GridBlock{11, 45, 3, 2}.GetRectMercator()}});
@@ -3538,7 +3555,6 @@ UNIT_TEST(Storage_RegionDeletionCancelsOnlyUnsharedTerrain)
   storage.Init([](CountryId const &, LocalFilePtr const) {},
                [](CountryId const &, LocalFilePtr const) { return false; });
   storage.RegisterAllLocalMaps();
-  storage.RegisterLocalTerrainFiles({});
   auto downloader = std::make_unique<PendingTerrainDownloader>();
   auto const & queue = downloader->GetQueue();
   storage.SetDownloaderForTesting(std::move(downloader));
@@ -3659,7 +3675,6 @@ UNIT_CLASS_TEST(StorageTerrainDownloadTest, MapGoesBeforeQueuedTerrainAndKeepsIt
   storage.Init([](CountryId const &, LocalFilePtr const) {},
                [](CountryId const &, LocalFilePtr const) { return false; });
   storage.RegisterAllLocalMaps();
-  storage.RegisterLocalTerrainFiles({});
   auto downloader = std::make_unique<PendingTerrainDownloader>();
   auto & pending = *downloader;
   storage.SetDownloaderForTesting(std::move(downloader));

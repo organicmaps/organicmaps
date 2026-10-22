@@ -19,13 +19,14 @@ std::optional<double> TerrainData::GetElevation(m2::PointD const & point) const
 
     // Pick a cell without quantizing the query: the returned altitude follows the
     // same continuous surface as the rendered mesh, including its outer edges.
-    auto const cell = [&](std::vector<uint32_t> const & axis, double coordinate)
+    auto const cell = [&](std::vector<uint32_t> const & axis, double coordinate, double minC, double maxC)
     {
       auto const it = std::lower_bound(axis.begin() + 1, axis.end(), coordinate, [&](uint32_t value, double c)
-      { return Uint32ToDouble(value, mercator::Bounds::kMinX, mercator::Bounds::kMaxX, patch.m_coordBits) < c; });
+      { return Uint32ToDouble(value, minC, maxC, patch.m_coordBits) < c; });
       return static_cast<size_t>(it - axis.begin() - 1);
     };
-    size_t const x = cell(patch.m_columns, point.x), y = cell(patch.m_rows, point.y);
+    size_t const x = cell(patch.m_columns, point.x, mercator::Bounds::kMinX, mercator::Bounds::kMaxX);
+    size_t const y = cell(patch.m_rows, point.y, mercator::Bounds::kMinY, mercator::Bounds::kMaxY);
     size_t const sw = y * patch.m_columns.size() + x;
     size_t const ne = sw + patch.m_columns.size() + 1;
     auto const a = patch.Point(static_cast<uint32_t>(sw)), b = patch.Point(static_cast<uint32_t>(ne));

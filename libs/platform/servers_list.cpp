@@ -1,5 +1,7 @@
 #include "platform/servers_list.hpp"
 
+#include "platform/platform.hpp"
+
 #include "base/logging.hpp"
 
 #include "glaze/json/read.hpp"
@@ -38,8 +40,13 @@ std::optional<MetaConfig> ParseMetaConfig(std::string_view jsonStr)
   if (outMetaConfig.servers.empty())
     return std::nullopt;
 
+  // The map mirrors are not reused: they need not serve terrain.
   if (outMetaConfig.terrainServers.empty())
-    outMetaConfig.terrainServers = MetaConfig{}.terrainServers;
+  {
+    MetaConfig defaults;
+    if (!glz::read_json(defaults, GetPlatform().DefaultUrlsJSON()))
+      outMetaConfig.terrainServers = std::move(defaults.terrainServers);
+  }
 
   return outMetaConfig;
 }

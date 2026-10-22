@@ -118,7 +118,10 @@ CGFloat const kAnimationDuration = .05;
   for (auto const & countryId : m_countries)
     [titles addObject:@(s.GetNodeLocalName(countryId).c_str())];
   self.countriesNames = titles;
-  self.countriesSize = formattedSize(s.GetDownloadSize(m_countries, false /* withTerrain */));
+  // GetDownloadSize skips the queued and downloading maps: add their remaining bytes.
+  auto const progress = s.GetOverallProgress(m_countries);
+  self.countriesSize = formattedSize(s.GetDownloadSize(m_countries, false /* withTerrain */) + progress.m_bytesTotal -
+                                     progress.m_bytesDownloaded);
 }
 
 #pragma mark - MWMCircularProgressProtocol
