@@ -1,4 +1,4 @@
-# NoGPS Maps: how we work
+# NonGPS Maps: how we work
 
 This repo is a fork of Organic Maps. Two people build the navigation without GPS, each with their own Claude Code:
 

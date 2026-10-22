@@ -1,6 +1,6 @@
 ---
 name: nogps-plan
-description: Turn an idea or bug for NoGPS Maps into a GitHub issue with a short plan before any code is written. Use when the user brings a new idea, feature, or bug to start on, or asks to plan issue #N.
+description: Turn an idea or bug for NonGPS Maps into a GitHub issue with a short plan before any code is written. Use when the user brings a new idea, feature, or bug to start on, or asks to plan issue #N.
 argument-hint: "<idea in a few words> | <issue number>"
 ---
 

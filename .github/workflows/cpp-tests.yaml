@@ -84,7 +84,7 @@ jobs:
         run: cmake --preset ci -DCMAKE_BUILD_TYPE=Debug -DSKIP_QT_GUI=ON
 
       # Only the binaries of the tests run below: the desktop app, dev_sandbox and the tools are
-      # not NoGPS Maps targets. Each test is named after its binary; the test server fixtures are not.
+      # not NonGPS Maps targets. Each test is named after its binary; the test server fixtures are not.
       - name: Compile
         run: |
           targets=$({ ctest --preset ci -N; ctest --preset ci-drape -N; } | sed -n 's/^ *Test *#[0-9]*: \(.*_tests\)$/\1/p')

@@ -1,9 +1,9 @@
-# NoGPS Maps — Політика конфіденційності
+# NonGPS Maps — Політика конфіденційності
 
 *Набирає чинності 1 жовтня 2026 року. English version below.*
 
-NoGPS Maps — застосунок для офлайн-навігації автомобілем, зокрема коли GPS недоступний або показує
-неправильне місце. Розробник: Ramzess (NoGPS Maps), контакт: most05062014@gmail.com.
+NonGPS Maps — застосунок для офлайн-навігації автомобілем, зокрема коли GPS недоступний або показує
+неправильне місце. Розробник: Ramzess (NonGPS Maps), контакт: most05062014@gmail.com.
 
 ## Коротко
 
@@ -65,12 +65,12 @@ NoGPS Maps — застосунок для офлайн-навігації ав�
 
 ---
 
-# NoGPS Maps — Privacy Policy
+# NonGPS Maps — Privacy Policy
 
 *Effective October 1, 2026.*
 
-NoGPS Maps is an app for offline car navigation, also when GPS is unavailable or shows a wrong place.
-Developer: Ramzess (NoGPS Maps), contact: most05062014@gmail.com.
+NonGPS Maps is an app for offline car navigation, also when GPS is unavailable or shows a wrong place.
+Developer: Ramzess (NonGPS Maps), contact: most05062014@gmail.com.
 
 ## In short
 
