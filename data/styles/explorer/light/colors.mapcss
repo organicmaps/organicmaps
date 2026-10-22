@@ -45,3 +45,16 @@
 
 /* 7. Water labels */
 @water_label: #397D99;
+
+/* Contours */
+@isoline1000: #615749;
+@isoline500: #615749;
+@isoline100: #615749;
+@isoline50: #756b56;
+@isoline10: #756b56;
+
+@label_isoline1000: #615749;
+@label_isoline500: #615749;
+@label_isoline100: #615749;
+@label_isoline50: #756b56;
+@label_isoline10: #756b56;

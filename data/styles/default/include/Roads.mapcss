@@ -74,16 +74,19 @@ line|z9[highway=world_level]
 /* 3.TRUNK & MOTORWAY 6-22 ZOOM */
 
 line|z6[highway=trunk],
-line|z6[highway=motorway],
 {color: @trunk0; opacity: 0.3;}
+line|z6[highway=motorway],
+{color: @motorway; opacity: 0.3;}
 line|z7-9[highway=trunk],
-line|z7-9[highway=motorway],
 {color: @trunk0; opacity: 0.7;}
+line|z7-9[highway=motorway],
+{color: @motorway; opacity: 0.7;}
 
 line|z10-[highway=trunk],
-line|z10-[highway=motorway],
 {color: @trunk1; opacity: 0.7;}
+line|z10-[highway=motorway],
 line|z10-[highway=motorway_link],
+{color: @motorway; opacity: 0.7;}
 line|z10-[highway=trunk_link],
 {color: @primary0; opacity: 0.7;}
 line|z13-14[highway=trunk],
