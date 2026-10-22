@@ -68,8 +68,13 @@ void MapFilesDownloader::DownloadMapFile(QueuedCountry && queuedCountry)
   {
     if (!alive->load(std::memory_order_acquire))
       return;
-    m_pendingRequests.ForEachCountry([this](QueuedCountry & country) { Download(std::move(country)); });
-    m_pendingRequests.Clear();
+    // Download callbacks may clear or change the remaining pending queue.
+    while (!m_pendingRequests.IsEmpty())
+    {
+      auto country = m_pendingRequests.GetFirstCountry();
+      m_pendingRequests.PopFront();
+      Download(std::move(country));
+    }
   });
 }
 

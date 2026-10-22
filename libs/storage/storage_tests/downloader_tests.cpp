@@ -11,11 +11,14 @@
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
+#include <cstddef>
 #include <cstdint>
 #include <functional>
+#include <future>
 #include <memory>
 #include <string>
 #include <utility>
+#include <vector>
 
 #include "defines.hpp"
 #include "private.h"
@@ -76,16 +79,34 @@ UNIT_TEST(GetMetaConfig)
     LOG(LINFO, (s));
 }
 
+class CallbackDownloader : public storage::TestMapFilesDownloader
+{
+  downloader::MetaConfig GetMetaConfig() override { return {}; }
+};
+
 class HttpDownloaderTest : public storage::QueuedCountry::Subscriber
 {
 public:
   ~HttpDownloaderTest() override { m_downloader.Clear(); }
 
-  void OnCountryInQueue(storage::QueuedCountry const &) override {}
-  void OnStartDownloading(storage::QueuedCountry const & country) override { m_onStart(country); }
-  void OnDownloadProgress(storage::QueuedCountry const &, downloader::Progress const &) override {}
-  void OnDownloadFinished(storage::QueuedCountry const &, downloader::DownloadStatus status) override
+  void OnCountryInQueue(storage::QueuedCountry const & country) override
   {
+    if (m_onQueue)
+      m_onQueue(country);
+  }
+  void OnStartDownloading(storage::QueuedCountry const & country) override
+  {
+    if (m_onStart)
+      m_onStart(country);
+  }
+  void OnDownloadProgress(storage::QueuedCountry const &, downloader::Progress const &) override {}
+  void OnDownloadFinished(storage::QueuedCountry const & country, downloader::DownloadStatus status) override
+  {
+    if (m_onFinish)
+    {
+      m_onFinish(country, status);
+      return;
+    }
     TEST_EQUAL(status, downloader::DownloadStatus::Failed, ());
     ++m_failures;
   }
@@ -105,10 +126,13 @@ protected:
     return platform::GetFileDownloadPath(version, id, MapFileType::Map) + DOWNLOADING_FILE_EXTENSION;
   }
 
-  WritableDirChanger const m_dir{"http-downloader-tests", WritableDirChanger::SettingsDirPolicy::UseWritableDir};
+  // StringStorage caches its path, so settings must stay in CTest's stable directory.
+  WritableDirChanger const m_dir{"http-downloader-tests"};
   Platform::ThreadRunner m_threads;
-  storage::TestMapFilesDownloader m_downloader;
+  CallbackDownloader m_downloader;
   std::function<void(storage::QueuedCountry const &)> m_onStart;
+  std::function<void(storage::QueuedCountry const &)> m_onQueue;
+  std::function<void(storage::QueuedCountry const &, downloader::DownloadStatus)> m_onFinish;
   size_t m_failures = 0;
 };
 
@@ -199,4 +223,98 @@ UNIT_CLASS_TEST(HttpDownloaderTest, RemoveQueuedCountryFromStartCallback)
   TEST(!Platform::IsFileExistsByFullPath(DownloadingPath("Wonderland_East")), ());
 }
 
+UNIT_CLASS_TEST(HttpDownloaderTest, ReplaceFromQueueCallback)
+{
+  for (bool const clear : {false, true})
+  {
+    size_t starts = 0;
+    bool replaced = false;
+    auto const dataVersion = version::FOR_TESTING_MWM1 + (clear ? 1 : 0);
+    m_onStart = [&](storage::QueuedCountry const &) { ++starts; };
+    m_onQueue = [&](storage::QueuedCountry const & country)
+    {
+      if (replaced)
+        return;
+      replaced = true;
+      if (clear)
+        m_downloader.Clear();
+      else
+        m_downloader.Remove(country.GetCountryId());
+      Enqueue(country.GetCountryId(), dataVersion);
+    };
+    Enqueue("Wonderland_West", dataVersion);
+    TEST(replaced, (clear));
+    TEST_EQUAL(starts, 1, (clear));
+    TEST_EQUAL(m_downloader.GetQueue().Count(), 1, (clear));
+    TEST(m_downloader.GetQueue().Contains("Wonderland_West"), (clear));
+    m_downloader.Clear();
+  }
+}
+
+UNIT_CLASS_TEST(HttpDownloaderTest, ClearWhileReceivingServerList)
+{
+  m_downloader.ResetServersList();
+  Enqueue("Wonderland_West");
+  Enqueue("Wonderland_East");
+  size_t notifications = 0;
+  m_onQueue = [&](storage::QueuedCountry const & country)
+  {
+    ++notifications;
+    m_downloader.Clear();
+    TEST_EQUAL(country.GetCountryId(), "Wonderland_West", ());
+  };
+  m_downloader.SetServersList({"http://localhost:24568/unit_tests/"});
+  std::promise<void> networkIdle;
+  TEST(GetPlatform().RunTask(Platform::Thread::Network, [&]() { networkIdle.set_value(); }).m_isSuccess, ());
+  networkIdle.get_future().wait();
+  TEST_EQUAL(notifications, 1, ());
+  TEST(m_downloader.GetQueue().IsEmpty(), ());
+}
+
+UNIT_CLASS_TEST(HttpDownloaderTest, AdvanceAfterRequestCreationFailure)
+{
+  std::vector<storage::CountryId> started;
+  std::vector<storage::CountryId> finished;
+  m_onStart = [&](storage::QueuedCountry const & country)
+  {
+    started.push_back(country.GetCountryId());
+    if (country.GetCountryId() != "Wonderland_West")
+      return;
+    Enqueue("Wonderland_East", version::FOR_TESTING_MWM1 + 1);
+    TEST_EQUAL(Platform::RmDir(base::GetDirectory(country.GetFileDownloadPath())), Platform::ERR_OK, ());
+  };
+  m_onFinish = [&](storage::QueuedCountry const & country, downloader::DownloadStatus status)
+  {
+    TEST_EQUAL(status, downloader::DownloadStatus::Failed, ());
+    finished.push_back(country.GetCountryId());
+  };
+  Enqueue("Wonderland_West");
+  TEST_EQUAL(started, (std::vector<storage::CountryId>{"Wonderland_West", "Wonderland_East"}), ());
+  TEST_EQUAL(finished, (std::vector<storage::CountryId>{"Wonderland_West"}), ());
+  TEST_EQUAL(m_downloader.GetQueue().Count(), 1, ());
+  TEST(m_downloader.GetQueue().Contains("Wonderland_East"), ());
+}
+
+UNIT_CLASS_TEST(HttpDownloaderTest, EnqueueFromFinishCallback)
+{
+  size_t starts = 0;
+  m_onStart = [&](storage::QueuedCountry const & country)
+  {
+    if (country.GetCountryId() == "Wonderland_East")
+      ++starts;
+  };
+  m_onFinish = [&](storage::QueuedCountry const & country, downloader::DownloadStatus status)
+  {
+    if (country.GetCountryId() == "Wonderland_East")
+      return;
+    TEST_EQUAL(country.GetCountryId(), "Uruguay", ());
+    TEST_EQUAL(status, downloader::DownloadStatus::FileNotFound, ());
+    Enqueue("Wonderland_East");
+    TEST_EQUAL(country.GetCountryId(), "Uruguay", ());
+    testing::StopEventLoop();
+  };
+  Enqueue("Uruguay", 1234);
+  testing::RunEventLoop();
+  TEST_EQUAL(starts, 1, ());
+}
 }  // namespace downloader_tests

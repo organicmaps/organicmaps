@@ -12,15 +12,11 @@ namespace storage
 class Queue : public QueueInterface
 {
 public:
-  using ForEachCountryMutable = std::function<void(QueuedCountry & country)>;
-
   // QueueInterface overrides:
   bool IsEmpty() const override;
   size_t Count() const override;
   bool Contains(CountryId const & country) const override;
   void ForEachCountry(ForEachCountryFunction const & fn) const override;
-
-  void ForEachCountry(ForEachCountryMutable const & fn);
 
   CountryId const & GetFirstId() const;
   QueuedCountry const & GetFirstCountry() const;
