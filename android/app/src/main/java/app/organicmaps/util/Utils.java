@@ -276,7 +276,7 @@ public class Utils
   public static void sendBugReport(@NonNull ActivityResultLauncher<SharingUtils.SharingIntent> launcher,
                                    @NonNull Activity activity, @NonNull String subject, @NonNull String body)
   {
-    subject = "NoGPS Maps Bugreport" + (TextUtils.isEmpty(subject) ? "" : ": " + subject);
+    subject = "NonGPS Maps Bugreport" + (TextUtils.isEmpty(subject) ? "" : ": " + subject);
     LogsManager.INSTANCE.zipLogs(
         new SupportInfoWithLogsCallback(launcher, activity, subject, body, BuildConfig.SUPPORT_MAIL));
   }
@@ -287,7 +287,7 @@ public class Utils
                                   @NonNull Activity activity)
   {
     LogsManager.INSTANCE.zipLogs(
-        new SupportInfoWithLogsCallback(launcher, activity, "NoGPS Maps Feedback", "", BuildConfig.SUPPORT_MAIL));
+        new SupportInfoWithLogsCallback(launcher, activity, "NonGPS Maps Feedback", "", BuildConfig.SUPPORT_MAIL));
   }
 
   public static void navigateToParent(@NonNull Activity activity)
@@ -486,7 +486,7 @@ public class Utils
   @NonNull
   public static String getDonateUrl(@NonNull Context context)
   {
-    // NoGPS Maps takes no donations, the donation page of Organic Maps is not shown as its own.
+    // NonGPS Maps takes no donations, the donation page of Organic Maps is not shown as its own.
     return "";
   }
 }

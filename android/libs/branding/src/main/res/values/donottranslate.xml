@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name" translatable="false">NoGPS Maps</string>
-  <string name="nogps_brand_name" translatable="false">NoGPS Maps</string>
+  <string name="app_name" translatable="false">NonGPS Maps</string>
+  <string name="nogps_brand_name" translatable="false">NonGPS Maps</string>
 </resources>

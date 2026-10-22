@@ -1,1 +1,1 @@
-NoGPS Maps: навигация без GPS
+NonGPS Maps: навигация без GPS

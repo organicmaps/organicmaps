@@ -1,4 +1,4 @@
-NoGPS Maps is offline navigation for drivers that keeps guiding the car when GPS is unavailable or shows a wrong place.
+NonGPS Maps is offline navigation for drivers that keeps guiding the car when GPS is unavailable or shows a wrong place.
 
 <b>How it works</b>
 • GPS positions are checked against the cell tower and Wi-Fi position and against how far the car could drive. Wrong positions are ignored.
