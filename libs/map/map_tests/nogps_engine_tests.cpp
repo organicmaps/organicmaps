@@ -2262,14 +2262,17 @@ UNIT_TEST(NoGps_Engine_InertialMovesMarkBetweenGpsPositions)
     auto const & position = env.m_delegate.m_positions[i];
     int64_t const sinceGpsMs = position.m_timeMs - cameMs;
     TEST_EQUAL(position.m_provider, Provider::Inertial, ());
-    TEST_EQUAL(position.m_accuracyM, gps.m_accuracyM, ());
+    TestAlmostEqualAbs(position.m_accuracyM,
+                       gps.m_accuracyM + DeadReckoning::kAccuracyPerMeter * 10 * sinceGpsMs / 1000.0, 0.01);
     TEST_EQUAL(position.m_unixTimeMs, gps.m_unixTimeMs + sinceGpsMs, ());
     TestAlmostEqualAbs(East(position.m_position), East(gps.m_position) + 10 * sinceGpsMs / 1000.0, 0.5);
     TestAlmostEqualAbs(North(position.m_position), 0, 0.5);
   }
   // The trip log counts them.
-  for (size_t const before = env.m_delegate.m_positions.size(); env.m_delegate.m_positions.size() == before;)
+  size_t const before = env.m_delegate.m_positions.size();
+  for (int i = 0; i < 20 && env.m_delegate.m_positions.size() == before; ++i)
     env.Drive(20, 36, 0);
+  TEST_GREATER(env.m_delegate.m_positions.size(), before, ());
   TEST_GREATER(std::stoi(TripField(env, "fill")), 0, ());
   // GPS stays the position of the engine.
   TEST_EQUAL(env.m_engine.GetStatus().m_source, PositionSource::Gps, ());
@@ -2291,46 +2294,57 @@ UNIT_TEST(NoGps_Engine_InertialMovesMarkBetweenGpsPositions)
 
 UNIT_TEST(NoGps_Engine_InertialMovesMarkUntilGpsIsLost)
 {
-  Env env(true /* inertial */);
-  DriveWithGps(env, 3, true /* box */);
-  env.Drive(200, 36, 0);
-  // GPS is lost: the mark doesn't stand waiting for the manual mode, and doesn't jump when it comes.
-  double east = East(env.Last().m_position);
-  for (int i = 0; i < (Engine::kGpsLostMs + 2000) / 200; ++i)
+  for (bool switchedOff : {false, true})
   {
+    Env env(true /* inertial */);
+    DriveWithGps(env, 3, true /* box */);
     env.Drive(200, 36, 0);
-    TestAlmostEqualAbs(East(env.Last().m_position) - east, 2, 1);
-    east = East(env.Last().m_position);
+    // GPS is lost, or switched off in the sensors sheet: the mark doesn't stand waiting for the manual mode, and
+    // doesn't jump when it comes.
+    if (switchedOff)
+      env.m_engine.SetGpsDisabled(true);
+    double east = East(env.Last().m_position);
+    for (int i = 0; i < (Engine::kGpsLostMs + 2000) / 200; ++i)
+    {
+      env.Drive(200, 36, 0);
+      TestAlmostEqualAbs(East(env.Last().m_position) - east, 2, 1);
+      east = East(env.Last().m_position);
+    }
+    TEST(env.m_engine.IsManualMode(), (switchedOff));
+    TEST_EQUAL(env.m_engine.GetStatus().m_source, PositionSource::Inertial, (switchedOff));
   }
-  TEST(env.m_engine.IsManualMode(), ());
-  TEST_EQUAL(env.m_engine.GetStatus().m_source, PositionSource::Inertial, ());
 }
 
-UNIT_TEST(NoGps_Engine_GpsIsExtrapolatedWithoutInertial)
+UNIT_TEST(NoGps_Engine_GpsAloneIsShownAsItComes)
 {
+  // Without the inertial navigation the map moves the mark between GPS positions, see extrapolation::Extrapolator.
   Env env(false /* inertial */);
-  Fix const gps = DriveWithGps(env, 3, false /* box */);
-
-  // The last GPS position is moved along its bearing every 200 ms by the clock of GPS.
-  env.m_clock.Advance(600);
-  TEST_EQUAL(env.Last().m_provider, Provider::Gps, ());
-  TestAlmostEqualAbs(East(env.Last().m_position), 26, 0.1);
-  TestAlmostEqualAbs(North(env.Last().m_position), 0, 0.1);
-  TEST_EQUAL(env.Last().m_unixTimeMs, gps.m_unixTimeMs + 600, ());
-  TEST_EQUAL(env.m_engine.GetStatus().m_source, PositionSource::Gps, ());
-
-  // For one missed GPS position at most.
-  env.m_clock.Advance(Engine::kMaxGpsExtrapolationMs);
-  TestAlmostEqualAbs(East(env.Last().m_position), 40, 0.1);
-  size_t shown = env.m_delegate.m_positions.size();
-  env.m_clock.Advance(1000);
+  DriveWithGps(env, 3, false /* box */);
+  size_t const shown = env.m_delegate.m_positions.size();
+  env.m_clock.Advance(900);
   TEST_EQUAL(env.m_delegate.m_positions.size(), shown, ());
+}
 
-  // The bearing of a slow car is noise: its position stands.
-  env.m_engine.OnFix(GpsAt(env.m_clock, 50, 0, 90.0, 2.0));
-  shown = env.m_delegate.m_positions.size();
-  env.m_clock.Advance(600);
-  TEST_EQUAL(env.m_delegate.m_positions.size(), shown, ());
+UNIT_TEST(NoGps_Engine_CarOffRoadsWaitsOnRouteBetweenGpsPositions)
+{
+  // GPS pauses while the car turns from its street into a yard: with a route the mark waits on the road and the car
+  // is shown apart, as in the manual mode.
+  PieceRoads roads({{-300, 0, 300, 0}}, {});
+  Env env(true /* inertial */, &roads);
+  env.m_map.m_navigating = true;
+  for (int i = 0; i < 3; ++i)
+  {
+    env.Drive(1000, 18, 0);
+    env.m_engine.OnFix(GpsAt(env.m_clock, 5 * i, 0, 90.0, 5.0));
+  }
+  env.Drive(500, 18, 180);
+  env.Drive(4300, 18, 0);
+  TEST(!env.m_engine.IsManualMode(), ());
+  TEST(FollowedApart(env), (env.m_engine.GetTripLine()));
+  TEST_EQUAL(env.Last().m_provider, Provider::Inertial, ());
+  TestAlmostEqualAbs(North(env.Last().m_position), 0, 1);
+  TEST(env.m_map.m_offRoadCar, ());
+  TEST_LESS(North(*env.m_map.m_offRoadCar), -10, ());
 }
 
 UNIT_TEST(NoGps_Engine_SameGpsPositionIsShownOnce)
@@ -2358,6 +2372,27 @@ UNIT_TEST(NoGps_Engine_SameGpsPositionIsShownOnce)
   env.m_engine.OnFix(fused);
   TEST_EQUAL(env.Last().m_provider, Provider::Fused, ());
   TestAlmostEqualAbs(East(env.Last().m_position), 30, 0.1);
+}
+
+UNIT_TEST(NoGps_Engine_CopyOfRejectedGpsPositionIsTaken)
+{
+  Env env(true /* inertial */);
+  DriveWithGps(env, 3, true /* box */);
+  // The satellites alone put the car between the streets for seconds, their mix with the network keeps it on its
+  // street.
+  for (int i = 0; i <= Engine::kOffRoadGpsCount; ++i)
+  {
+    env.Drive(1000, 36, 0);
+    auto const satellites = GpsAt(env.m_clock, 30 + 10 * i, 50, 90.0, 10.0);
+    env.m_engine.OnFix(satellites);
+    auto fused = satellites;
+    fused.m_provider = Provider::Fused;
+    fused.m_position = At(30 + 10 * i, 0);
+    env.m_engine.OnFix(fused);
+    TEST_EQUAL(env.Last().m_provider, Provider::Fused, (i));
+    TestAlmostEqualAbs(North(env.Last().m_position), 0, 0.1);
+  }
+  TEST(!env.m_engine.IsManualMode(), ());
 }
 
 // The car speeds up to 54 km/h in 10 s, drives 5 s, brakes in 10 s and stands 5 s, again and again, going east

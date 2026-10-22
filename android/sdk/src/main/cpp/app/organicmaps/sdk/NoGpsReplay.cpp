@@ -225,18 +225,16 @@ public:
   }
 
   // As RoutingManager::FollowRoute() and CloseRouting() do.
-  void Follow() { m_following = m_session.EnableFollowMode(); }
+  void Follow() { m_session.EnableFollowMode(); }
 
   void Close()
   {
     m_session.Reset();
-    m_following = false;
     m_isBuilding = false;
   }
 
   // A position the navigation shows. The application gives the route every position 10 times in 2 seconds, moved
-  // on from the previous one while a route is followed, see extrapolation::Extrapolator: so many positions off
-  // the route rebuild it.
+  // on from the previous one, see extrapolation::Extrapolator: so many positions off the route rebuild it.
   void OnPosition(Fix const & fix)
   {
     location::GpsInfo info;
@@ -265,7 +263,7 @@ private:
     if (generation != m_generation || afterMs >= Extrapolator::kMaxExtrapolationTimeMs)
       return;
     ++m_runs;
-    bool const moved = m_following && extrapolation::AreCoordsGoodForExtrapolation(m_beforeLast, m_last);
+    bool const moved = extrapolation::AreCoordsGoodForExtrapolation(m_beforeLast, m_last);
     Give(moved ? extrapolation::LinearExtrapolation(m_beforeLast, m_last, afterMs) : m_last);
     m_clock.Post(Extrapolator::kExtrapolationPeriodMs, [this, generation] { Extrapolate(generation); });
   }
@@ -314,7 +312,6 @@ private:
   routing::RoutingSession m_session;
   SessionRoute m_route;
   bool m_driving = false;
-  bool m_following = false;
   bool m_isBuilding = false;
   location::GpsInfo m_beforeLast;
   location::GpsInfo m_last;

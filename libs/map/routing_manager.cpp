@@ -400,6 +400,9 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
         m_routeSpeedCamsClearCallback();
     });
   });
+
+  // NoGPS: a car application, the arrow moves between GPS positions without a route too.
+  m_extrapolator.Enable(true);
 }
 
 void RoutingManager::SetBookmarkManager(BookmarkManager * bmManager)
@@ -939,7 +942,7 @@ void RoutingManager::FollowRoute()
 
   m_transitReadManager->BlockTransitSchemeMode(true /* isBlocked */);
 
-  // Switching on the extrapolator only for following mode in car and bicycle navigation.
+  // Switching off the extrapolator for following mode in pedestrian and transit navigation.
   m_extrapolator.Enable(m_currentRouterType == RouterType::Vehicle || m_currentRouterType == RouterType::Bicycle);
   m_delegate.OnRouteFollow(m_currentRouterType);
 
@@ -1080,7 +1083,7 @@ bool RoutingManager::TryTapOnAlternativeRoute(m2::PointD const & mercator, doubl
 
 void RoutingManager::CloseRouting(bool removeRoutePoints)
 {
-  m_extrapolator.Enable(false);
+  m_extrapolator.Enable(true);
   // Hide preview.
   HidePreviewSegments();
 
