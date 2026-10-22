@@ -147,7 +147,9 @@ void HttpMapFilesDownloader::OnMapFileDownloadingProgress(QueuedCountry const & 
   if (m_queue.IsEmpty() || m_queue.GetFirstId() != queuedCountry.GetCountryId())
     return;
 
-  queuedCountry.OnDownloadProgress(request.GetProgress());
+  // A subscriber can destroy the request before the remaining subscribers read progress.
+  auto const progress = request.GetProgress();
+  queuedCountry.OnDownloadProgress(progress);
 }
 
 std::unique_ptr<MapFilesDownloader> GetDownloader()

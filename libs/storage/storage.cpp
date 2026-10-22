@@ -735,14 +735,21 @@ void Storage::ReportProgress(CountryId const & countryId, Progress const & p)
 
 void Storage::ReportProgressForHierarchy(CountryId const & countryId, Progress const & leafProgress)
 {
+  std::weak_ptr<int> const lifetime = m_downloadingCountries.at(countryId).m_lifetime;
   // Reporting progress for a leaf in country tree.
   ReportProgress(countryId, leafProgress);
+  if (lifetime.expired())
+    return;
 
   // Precompute once instead of rebuilding per ancestor.
   auto const mwmsInQueue = GetQueuedCountries(m_downloader->GetQueue());
 
   auto calcProgress = [&](CountryId const & parentId, CountryTree::Node const & parentNode)
-  { ReportProgress(parentId, CalculateProgress(parentNode, mwmsInQueue)); };
+  {
+    // Cancellation or a same-country retry invalidates this attempt's remaining notifications.
+    if (!lifetime.expired())
+      ReportProgress(parentId, CalculateProgress(parentNode, mwmsInQueue));
+  };
 
   ForEachAncestorExceptForTheRoot(countryId, calcProgress);
 }
