@@ -24,8 +24,8 @@ public class PlacePageTerrainElevationTest
 
     setCoordinates(view, "43.7, 7.2");
     setCoordinates(view, "UTM: 32T 355000 4840000");
-    verify(coordinates).setText("43.7, 7.2   ▲125 m");
-    verify(coordinates).setText("UTM: 32T 355000 4840000   ▲125 m");
+    verify(coordinates).setText("43.7, 7.2  ▲ 125 m");
+    verify(coordinates).setText("UTM: 32T 355000 4840000  ▲ 125 m");
 
     MapObject nextPoint = mock(MapObject.class);
     when(nextPoint.getFormattedTerrainElevation()).thenReturn("");
@@ -46,7 +46,7 @@ public class PlacePageTerrainElevationTest
     {
       when(point.getFormattedTerrainElevation()).thenReturn(elevation);
       setCoordinates(view, "43.7, 7.2");
-      verify(coordinates).setText("43.7, 7.2   ▲" + elevation);
+      verify(coordinates).setText("43.7, 7.2  ▲ " + elevation);
     }
   }
 

@@ -8,6 +8,8 @@
 #import "MWMCircularProgress.h"
 #import "MWMMapDownloadDialog.h"
 
+#include "map/place_page_info.hpp"
+
 @interface PlacePageOSMContributionData (ContributionTesting)
 - (instancetype)initWithRawData:(place_page::Info const &)rawData mapStatus:(storage::Status)mapStatus;
 @end

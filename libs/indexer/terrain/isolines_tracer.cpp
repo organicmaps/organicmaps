@@ -171,7 +171,6 @@ void TraceView(View const & view, int32_t step, Emit const & emit, base::SharedC
     auto const [minimum, maximum] =
         std::minmax({view.m_altitudes[v[0]], view.m_altitudes[v[1]], view.m_altitudes[v[2]]});
     int32_t const lo = math::FloorDiv(minimum, step) + 1, hi = math::FloorDiv(maximum, step);
-    CHECK_LESS(hi - lo, 1024, (minimum, maximum, step));
     ranges[t] = {lo, hi};
     if (lo <= hi)
     {
@@ -181,6 +180,8 @@ void TraceView(View const & view, int32_t step, Emit const & emit, base::SharedC
   }
   if (first > last)
     return;
+  // The int16 meters span ~10.7k levels even in feet at the finest 20 ft step.
+  CHECK_LESS(last - first, 1 << 16, (first, last, step));
   std::vector<std::vector<uint32_t>> bins(last - first + 1);
   for (uint32_t t = 0; t < count; ++t)
     for (int32_t l = ranges[t].first; l <= ranges[t].second; ++l)

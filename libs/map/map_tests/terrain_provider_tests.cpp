@@ -78,7 +78,7 @@ void ConnectTerrainCallbacks(storage::Storage & storage, terrain::TerrainProvide
       [&](terrain::TwmFile const & file)
   {
     m2::RectD invalidRect;
-    return provider.RegisterBlock(file, &invalidRect);
+    TEST(provider.RegisterBlock(file, &invalidRect), (file.m_path));
   }, [&](std::vector<terrain::TwmFile> const & files)
   {
     std::vector<terrain::TerrainId> ids;
@@ -363,6 +363,8 @@ UNIT_CLASS_TEST(VisualParamsFixture, Framework_RealTerrainPlacePage)
   framework.BuildAndSetPlacePageInfo(build);
   TEST(!framework.GetCurrentPlacePageInfo().GetTerrainElevation(), ());
   TEST(framework.GetCurrentPlacePageInfo().GetFormattedTerrainElevation().empty(), ());
+  auto const coordinates = framework.GetCurrentPlacePageInfo().GetSubtitle();
+  TEST(coordinates.find("▲") == std::string::npos, (coordinates));
 
   framework.RegisterTerrain(GetElevationTestFile());
   framework.BuildAndSetPlacePageInfo(build);
@@ -372,13 +374,20 @@ UNIT_CLASS_TEST(VisualParamsFixture, Framework_RealTerrainPlacePage)
   TEST_ALMOST_EQUAL_ABS(*info.GetTerrainElevation(), kElevationSamples[1].m_altitude, kElevationSamples[1].m_maxError,
                         ());
   TEST(!info.GetFormattedTerrainElevation().empty(), ());
-  // The platforms show it once, next to the coordinates.
-  TEST(info.GetSubtitle().find(info.GetFormattedTerrainElevation()) == std::string::npos, (info.GetSubtitle()));
+  // An unmatched point also shows it next to the coordinates in the subtitle.
+  TEST_EQUAL(info.GetSubtitle(), coordinates + "  ▲ " + info.GetFormattedTerrainElevation(), ());
+
+  // A replaced subtitle (like the postcode search result) keeps its text.
+  auto postcode = info;
+  postcode.SetCustomNames("06000", "Postal code");
+  postcode.SetTerrainElevation(100.0);
+  TEST_EQUAL(postcode.GetSubtitle(), "Postal code", ());
 
   build.m_mercator = {0, 0};
   framework.BuildAndSetPlacePageInfo(build);
   TEST(!framework.GetCurrentPlacePageInfo().GetTerrainElevation(), ());
   TEST(framework.GetCurrentPlacePageInfo().GetFormattedTerrainElevation().empty(), ());
+  TEST(framework.GetCurrentPlacePageInfo().GetSubtitle().find("▲") == std::string::npos, ());
 }
 
 // Every geometry scale of a registered block serves the tile reads.

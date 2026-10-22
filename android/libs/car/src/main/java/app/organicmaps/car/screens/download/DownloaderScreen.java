@@ -150,7 +150,7 @@ class DownloaderScreen extends BaseScreen
       return getCarContext().getString(R.string.downloader_loading_ios);
 
     // The screen finishes with the maps, so terrain bytes would keep it short of 100%.
-    final long[] progress = MapManager.nativeGetOverallProgressBytes(mMaps);
+    final long[] progress = MapManager.getOverallProgressBytes(mMaps);
     final double fraction = progress[1] == 0 ? 0 : (double) progress[0] / progress[1];
     final String progressPercent = StringUtils.formatPercent(fraction, true);
     final String totalSizeStr = StringUtils.getFileSizeString(getCarContext(), progress[1]);
@@ -174,6 +174,6 @@ class DownloaderScreen extends BaseScreen
   private void cancelMapsDownloading()
   {
     for (final String map : mMissingMaps)
-      MapManager.nativeCancel(map, mWithTerrain);
+      MapManager.cancel(map, mWithTerrain);
   }
 }

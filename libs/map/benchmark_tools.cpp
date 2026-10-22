@@ -215,7 +215,7 @@ void RunGraphicsBenchmark(Framework * framework)
     }, [](storage::CountryId const &, storage::Progress const &) {});
 
     for (auto const & countryId : handle->m_regionsToDownload)
-      framework->GetStorage().DownloadNode(countryId);
+      framework->GetStorage().DownloadNode(countryId, false /* isUpdate */, false /* withTerrain */);
     return;
   }
 

@@ -21,7 +21,13 @@ namespace gpu
 // Note: value must be synchronized with shaders tile_background.vsh.glsl and tile_background.metal
 constexpr uint32_t kTileBackgroundMaxCount = 64;
 
-inline constexpr glsl::vec4 kDefaultTerrainLightDir{-0.5f, 0.5f, 0.70710678f, 0.5f};
+// The default terrain hillshade light, see df::SetTerrainLightMessage.
+inline constexpr double kDefaultTerrainLightAzimuthDeg = 315.0;
+inline constexpr double kDefaultTerrainLightAltitudeDeg = 45.0;
+inline constexpr double kDefaultTerrainShadowGamma = 0.5;
+// The direction towards the default light above, w = the shadow gamma (see FrontendRenderer).
+inline constexpr glsl::vec4 kDefaultTerrainLightDir{-0.5f, 0.5f, 0.70710678f,
+                                                    static_cast<float>(kDefaultTerrainShadowGamma)};
 
 class ProgramParams
 {

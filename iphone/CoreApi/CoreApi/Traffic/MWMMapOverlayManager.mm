@@ -200,7 +200,7 @@ static NSString * didChangeMapOverlay = @"didChangeMapOverlay";
 + (void)setIsoLinesEnabled:(BOOL)enable
 {
   auto & f = GetFramework();
-  f.GetIsolinesManager().SetEnabled(enable);
+  f.SetIsolinesEnabled(enable);
   f.SaveIsolinesEnabled(enable);
 }
 

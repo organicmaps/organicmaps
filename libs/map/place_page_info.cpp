@@ -257,6 +257,7 @@ void Info::SetFromFeatureType(FeatureType & ft)
   }
 
   m_uiSubtitle = FormatSubtitle(IsFeature() /* withTypes */, !emptyTitle /* withMainType */);
+  m_coordinatesSubtitle.clear();
 
   // apply to all types after checks
   m_isHotel = ftypes::IsHotelChecker::Instance()(ft);
@@ -452,6 +453,7 @@ void Info::SetTitlesForBookmark()
   if (!m_bookmarkData.m_featureTypes.empty())
     subtitle.push_back(GetLocalizedFeatureType(m_bookmarkData.m_featureTypes));
   m_uiSubtitle = strings::JoinStrings(subtitle, feature::kFieldsSeparator);
+  m_coordinatesSubtitle.clear();
 }
 
 void Info::SetCustomName(std::string const & name)
@@ -481,6 +483,7 @@ void Info::SetCustomNames(std::string const & title, std::string const & subtitl
 {
   m_uiTitle = title;
   m_uiSubtitle = subtitle;
+  m_coordinatesSubtitle.clear();
   m_customName = title;
 }
 
@@ -493,8 +496,9 @@ void Info::SetCustomNameWithCoordinates(m2::PointD const & mercator, std::string
   else
   {
     m_uiTitle = name;
-    m_uiSubtitle = measurement_utils::FormatLatLon(mercator::YToLat(mercator.y), mercator::XToLon(mercator.x),
-                                                   true /* withComma */);
+    m_coordinatesSubtitle = measurement_utils::FormatLatLon(mercator::YToLat(mercator.y), mercator::XToLon(mercator.x),
+                                                            true /* withComma */);
+    m_uiSubtitle = FormatCoordinatesSubtitle();
   }
   m_customName = name;
 }
@@ -516,6 +520,7 @@ void Info::SetBookmarkId(kml::MarkId bookmarkId)
 {
   m_bookmarkId = bookmarkId;
   m_uiSubtitle = FormatSubtitle(IsFeature() /* withTypes */, IsFeature() /* withMainType */);
+  m_coordinatesSubtitle.clear();
 }
 
 bool Info::ShouldShowEditPlace() const
@@ -559,11 +564,25 @@ std::string Info::GetFormattedTerrainElevation() const
   return m_terrainElevation ? platform::Distance::FormatAltitude(*m_terrainElevation) : std::string{};
 }
 
+std::string Info::FormatCoordinatesSubtitle() const
+{
+  auto const elevation = GetFormattedTerrainElevation();
+  return elevation.empty() ? m_coordinatesSubtitle : m_coordinatesSubtitle + "  ▲ " + elevation;
+}
+
+void Info::SetTerrainElevation(std::optional<double> elevation)
+{
+  m_terrainElevation = elevation;
+  if (!m_coordinatesSubtitle.empty())
+    m_uiSubtitle = FormatCoordinatesSubtitle();
+}
+
 void Info::SetRoadType(RoadWarningMarkType type, std::string const & localizedType, std::string const & distance)
 {
   m_roadType = type;
   m_uiTitle = localizedType;
   m_uiSubtitle = distance;
+  m_coordinatesSubtitle.clear();
 }
 
 void Info::SetRoadType(FeatureType & ft, RoadWarningMarkType type, std::string const & localizedType,

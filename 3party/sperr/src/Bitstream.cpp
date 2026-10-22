@@ -1,5 +1,6 @@
 #include "Bitstream.h"
 
+#include <algorithm>  // Organic Maps: std::fill, missing upstream with libc++.
 #include <cassert>
 #include <cstring>
 #include <iterator>  // std::distance()

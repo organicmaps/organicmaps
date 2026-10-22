@@ -88,7 +88,8 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
       @Override
       public void onProgress(String countryId, MapManager.Progress progress)
       {
-        if (progress.getTotalBytes() == 0)
+        // The map bytes only: the fragment exits when the map is ready, the terrain follows it.
+        if (progress.mwmTotal == 0)
           return;
 
         if (!isAdded())
@@ -99,7 +100,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
         else if (!mDownloadingCountry.id.equals(countryId))
           return;
 
-        mDownloadingCountry.updateProgress(progress.getDownloadedBytes(), progress.getTotalBytes());
+        mDownloadingCountry.updateProgress(progress.mwmDownloaded, progress.mwmTotal);
         updateProgress();
       }
     });
@@ -166,7 +167,7 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
     if (!isAdded() || MapManager.nativeGetDownloadedCount() > 0)
       return;
 
-    boolean downloading = MapManager.nativeIsDownloading();
+    boolean downloading = MapManager.isDownloading();
     UiUtils.showIf(downloading, mLlActiveDownload);
     UiUtils.showIf(!downloading, mLlSelectDownload);
 
@@ -214,6 +215,6 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
       startActivity(new Intent(requireContext(), DownloaderActivity.class));
     }
     else if (id == R.id.wpv__download_progress)
-      MapManager.nativeCancel(mDownloadingCountry.id);
+      MapManager.cancel(mDownloadingCountry.id);
   }
 }

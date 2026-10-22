@@ -35,8 +35,6 @@ void IsolinesManager::SetEnabled(bool enabled)
 {
   ChangeState(enabled ? IsolinesState::Enabled : IsolinesState::Disabled);
   m_drapeEngine.SafeCall(&df::DrapeEngine::EnableIsolines, enabled);
-  if (enabled)
-    Invalidate();
 }
 
 bool IsolinesManager::IsEnabled() const
@@ -51,28 +49,16 @@ bool IsolinesManager::IsVisible() const
 
 void IsolinesManager::UpdateViewport(ScreenBase const & screen)
 {
-  if (screen.GlobalRect().GetLocalRect().IsEmptyInterior())
-    return;
-
-  m_currentModelView = screen;
-  if (!IsEnabled())
-    return;
-
-  // Keep the last state on the low zooms: the platforms announce the NoData transition
-  // (the terrain download hint), don't repeat it on every zoom bounce over the same place.
-  if (!IsVisible())
-    return;
-
-  bool const hasTerrain = m_hasTerrainFn && m_hasTerrainFn(screen.ClipRect());
-  ChangeState(hasTerrain ? IsolinesState::Enabled : IsolinesState::NoData);
+  if (!screen.GlobalRect().GetLocalRect().IsEmptyInterior())
+    m_currentModelView = screen;
 }
 
-void IsolinesManager::Invalidate()
+void IsolinesManager::SetHasTerrain(bool hasTerrain)
 {
-  if (!IsEnabled())
-    return;
-  if (m_currentModelView)
-    UpdateViewport(*m_currentModelView);
+  // Keep the last state on the low zooms: the platforms announce the NoData transition
+  // (the terrain download hint), don't repeat it on every zoom bounce over the same place.
+  if (IsEnabled() && IsVisible())
+    ChangeState(hasTerrain ? IsolinesState::Enabled : IsolinesState::NoData);
 }
 
 std::string DebugPrint(IsolinesManager::IsolinesState state)

@@ -95,7 +95,7 @@ abstract class BaseRoutingErrorDialogFragment extends BaseMwmDialogFragment
     // Include maps already queued by another flow; retain this estimate on recreation.
     if (!args.containsKey(EXTRA_DOWNLOAD_SIZE))
     {
-      long[] progress = MapManager.nativeGetOverallProgressBytes(mMapsArray);
+      long[] progress = MapManager.getOverallProgressBytes(mMapsArray);
       args.putLong(EXTRA_DOWNLOAD_SIZE,
                    MapManager.nativeGetDownloadSize(mMapsArray, false /* withTerrain */) + progress[1] - progress[0]);
     }

@@ -111,7 +111,7 @@ public class OnmapDownloader
     if (!isMapDownloading(mCurrentCountry) || mCurrentCountry.present)
       return;
 
-    long[] progress = MapManager.nativeGetOverallProgressBytes(new String[] {mCurrentCountry.id});
+    long[] progress = MapManager.getOverallProgressBytes(new String[] {mCurrentCountry.id});
     mCurrentCountry.updateProgress(progress[0], progress[1]);
   }
 
@@ -202,7 +202,7 @@ public class OnmapDownloader
       if (mCurrentCountry == null)
         return;
 
-      MapManager.nativeCancel(mCurrentCountry.id);
+      MapManager.cancel(mCurrentCountry.id);
       setAutodownloadLocked(true);
     });
     mButton.setOnClickListener(

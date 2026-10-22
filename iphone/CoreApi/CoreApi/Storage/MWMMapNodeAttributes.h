@@ -33,7 +33,6 @@ NS_SWIFT_NAME(MapNodeAttributes)
 @property(nonatomic, readonly) uint64_t downloadedSize;
 /// Transfer size for downloading/updating this node, including terrain.
 @property(nonatomic, readonly) uint64_t downloadingSize;
-@property(nonatomic, readonly) uint64_t totalUpdateSizeBytes;
 @property(nonatomic, readonly) NSString * nodeName;
 @property(nonatomic, readonly) NSString * nodeDescription;
 @property(nonatomic, readonly) MWMMapNodeStatus nodeStatus;

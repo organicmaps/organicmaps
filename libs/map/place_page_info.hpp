@@ -183,7 +183,8 @@ public:
   // Interpolated TWM elevation in meters; absent when no surface covers the selected point.
   std::optional<double> GetTerrainElevation() const { return m_terrainElevation; }
   std::string GetFormattedTerrainElevation() const;
-  void SetTerrainElevation(std::optional<double> elevation) { m_terrainElevation = elevation; }
+  // An unmatched point also shows it next to the coordinates in its subtitle.
+  void SetTerrainElevation(std::optional<double> elevation);
 
   /// UI setters
   void SetCustomName(std::string const & name);
@@ -288,6 +289,7 @@ public:
 
 private:
   std::string FormatSubtitle(bool withTypes, bool withMainType) const;
+  std::string FormatCoordinatesSubtitle() const;
   std::string GetBookmarkName();
 
   place_page::BuildInfo m_buildInfo;
@@ -299,6 +301,9 @@ private:
   std::string m_uiAddress;
   std::string m_uiTrackStatistics;
   std::optional<double> m_terrainElevation;
+  // The coordinates subtitle of an unmatched point, without the elevation. Cleared by the
+  // setters of the other subtitles, so SetTerrainElevation never overwrites them.
+  std::string m_coordinatesSubtitle;
   std::string m_wikiDescription;
   std::string m_osmDescription;
   /// Booking rating string

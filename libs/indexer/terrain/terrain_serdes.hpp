@@ -216,9 +216,11 @@ struct TwmHeader
     m_coordBits = ReadPrimitiveFromSource<uint8_t>(src);
     if (m_coordBits == 0 || m_coordBits > kPointCoordBits)
       MYTHROW(TwmException, ("Invalid coord bits", m_coordBits));
-    m_geometries.resize(ReadPrimitiveFromSource<uint8_t>(src));
-    if (m_geometries.empty())
-      MYTHROW(TwmException, ("Empty geometries list"));
+    auto const geometriesCount = ReadPrimitiveFromSource<uint8_t>(src);
+    // GetGeometryTag builds the trgN tags for at most kMaxGeometryCount scales.
+    if (geometriesCount == 0 || geometriesCount > kMaxGeometryCount)
+      MYTHROW(TwmException, ("Invalid geometries count", static_cast<int>(geometriesCount)));
+    m_geometries.resize(geometriesCount);
     for (auto & geometry : m_geometries)
     {
       geometry.m_scale = ReadPrimitiveFromSource<int8_t>(src);
@@ -861,8 +863,8 @@ void DecodeChains(Source & src, MeshGrid const & grid, GeometryTables const & ta
   // The over reserve of a sparse feature is transient, the tile mesh lives for one tile read.
   mesh.ReserveAdditional(reserved / 2 + 3, reserved);
   // A chain root takes 3 slots for its triangle and every next event at most one, so a single
-  // chain fits count + 2 slots. The scratch keeps whatever the largest feature needed, so
-  // these reserves are no-ops after the first few features of a tile.
+  // chain fits count + 2 slots. The scratch capacity is reused by the later features of this
+  // block read (Reader::ReadTin).
   lattice.reserve(reserved + 2);
   altitudes.reserve(reserved + 2);
   meshIndex.reserve(reserved + 2);

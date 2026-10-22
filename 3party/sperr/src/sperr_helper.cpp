@@ -4,6 +4,7 @@
 #include <cassert>
 #include <cmath>
 #include <cstdio>
+#include <cstdlib>
 #include <cstring>
 #include <numeric>
 
@@ -20,7 +21,9 @@ auto sperr::aligned_malloc(size_t alignment, size_t size) -> void*
 #ifdef _WIN32
   return _aligned_malloc(size, alignment);
 #else
-  return std::aligned_alloc(alignment, size);
+  // Organic Maps: posix_memalign, std::aligned_alloc is unavailable before Android API 28.
+  void* result = nullptr;
+  return posix_memalign(&result, alignment, size) == 0 ? result : nullptr;
 #endif
 }
 

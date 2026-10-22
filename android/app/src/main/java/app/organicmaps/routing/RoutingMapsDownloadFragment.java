@@ -80,7 +80,7 @@ public class RoutingMapsDownloadFragment extends BaseRoutingErrorDialogFragment
 
   private void updateWheel(WheelProgressView wheel)
   {
-    int progress = MapManager.nativeGetOverallProgress(mMapsArray);
+    int progress = MapManager.getOverallProgress(mMapsArray);
     if (progress == 0)
       wheel.setPending(true);
     else
@@ -103,7 +103,7 @@ public class RoutingMapsDownloadFragment extends BaseRoutingErrorDialogFragment
   {
     if (mCancelled)
       for (String item : mMaps)
-        MapManager.nativeCancel(item, false /* withTerrain */);
+        MapManager.cancel(item, false /* withTerrain */);
 
     super.onDismiss(dialog);
   }

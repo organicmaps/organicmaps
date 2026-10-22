@@ -61,7 +61,7 @@ public class OnmapDownloaderTest
       countries.when(() -> CountryItem.fill(country.id)).thenReturn(country);
       countries.when(() -> CountryItem.isRoot(country.topmostParentId)).thenReturn(true);
       routing.when(RoutingController::get).thenReturn(mock(RoutingController.class));
-      maps.when(() -> MapManager.nativeGetOverallProgressBytes(any(String[].class))).thenReturn(new long[] {50, 100});
+      maps.when(() -> MapManager.getOverallProgressBytes(any(String[].class))).thenReturn(new long[] {50, 100});
 
       OnmapDownloader downloader = new OnmapDownloader(activity, frame);
       Field field = OnmapDownloader.class.getDeclaredField("mCountryChangedListener");
@@ -82,7 +82,7 @@ public class OnmapDownloaderTest
       country.present = true;
       storage.onStatusChanged(List.of(
           new MapManager.StorageCallbackData(country.id, CountryItem.STATUS_PROGRESS, CountryItem.ERROR_NONE, true)));
-      maps.verify(() -> MapManager.nativeGetOverallProgressBytes(any(String[].class)), times(2));
+      maps.verify(() -> MapManager.getOverallProgressBytes(any(String[].class)), times(2));
     }
   }
 }

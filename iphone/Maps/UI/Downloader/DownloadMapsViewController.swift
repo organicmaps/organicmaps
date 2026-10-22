@@ -131,7 +131,8 @@ class DownloadMapsViewController: MWMViewController {
     case .undefined:
       actions = []
     case .downloading, .applying, .inQueue:
-      actions = [.cancelDownload]
+      // An installed map stays usable while its update or terrain downloads.
+      actions = nodeAttrs.downloadedMwmCount > 0 ? [.showOnMap, .cancelDownload] : [.cancelDownload]
     case .error:
       actions = nodeAttrs.downloadedMwmCount > 0 ? [.retryDownload, .delete] : [.retryDownload]
     case .onDiskOutOfDate:
@@ -168,7 +169,7 @@ class DownloadMapsViewController: MWMViewController {
                                  Storage.shared().downloadNode(nodeAttrs.countryId)
                                })
       case .update:
-        let size = formattedSize(nodeAttrs.totalUpdateSizeBytes)
+        let size = formattedSize(nodeAttrs.downloadingSize)
         let title = "\(L("downloader_status_outdated")) \(size)"
         action = UIAlertAction(title: title, style: .default, handler: { _ in
           Storage.shared().updateNode(nodeAttrs.countryId)
@@ -234,8 +235,7 @@ class DownloadMapsViewController: MWMViewController {
         downloadAllView.downloadSize = Storage.shared().downloadSize(forCountry: parentAttributes.countryId)
       }
     case .downloaded:
-      let isUpdate = parentAttributes.totalUpdateSizeBytes > 0
-      let size = isUpdate ? parentAttributes.totalUpdateSizeBytes : parentAttributes.downloadingSize
+      let isUpdate = parentAttributes.nodeStatus == .onDiskOutOfDate && parentAttributes.downloadingSize > 0
       if footerShowsProgress, dataSource is DownloadedMapsDataSource {
         state = .dowloading
         if dataSource.isRoot {
@@ -248,7 +248,7 @@ class DownloadMapsViewController: MWMViewController {
       } else if isUpdate {
         state = .ready
         downloadAllView.style = .update
-        downloadAllView.downloadSize = size
+        downloadAllView.downloadSize = parentAttributes.downloadingSize
       }
     @unknown default:
       fatalError()

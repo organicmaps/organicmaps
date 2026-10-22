@@ -77,6 +77,28 @@ UNIT_TEST(TerrainIsolines_RealHybridInvariants)
   TEST(cancelled.IsEmpty(), ());
 }
 
+// A steep triangle crossing over a thousand levels is valid data: it must trace in both units.
+UNIT_TEST(TerrainIsolines_SteepTriangle)
+{
+  terrain::TileMesh mesh;
+  auto const a = mesh.AddVertex({1000, 1000}, 0);
+  auto const b = mesh.AddVertex({3000, 1000}, 7000);
+  auto const c = mesh.AddVertex({1000, 3000}, 0);
+  mesh.AddTriangle(a, b, c);
+  for (auto const units : {measurement_utils::Units::Metric, measurement_utils::Units::Imperial})
+  {
+    int32_t const step = units == measurement_utils::Units::Metric ? 10 : 20;
+    size_t lines = 0;
+    terrain::TraceIsolines(mesh, step, units, [&](terrain::Isoline && isoline)
+    {
+      TEST_EQUAL(isoline.m_altitude % step, 0, ());
+      ++lines;
+    });
+    // 7000 m is 700 levels at 10 m and 1148 levels at 20 ft.
+    TEST_GREATER(lines, units == measurement_utils::Units::Metric ? 690 : 1140, (lines));
+  }
+}
+
 UNIT_TEST(TerrainNormals_RealHybridInterfaces)
 {
   terrain::Reader const reader(GetTestBlockPath());

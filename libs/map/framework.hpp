@@ -195,6 +195,9 @@ protected:
   terrain::TerrainProvider m_terrainProvider;
   // The isolines availability waits for the terrain registration (see RegisterAllMaps).
   std::atomic_bool m_terrainRegistered = false;
+  // The terrain download hint of the rough regions in the last viewport (see HasViewportTerrain).
+  storage::CountriesVec m_terrainHintRegions;
+  std::optional<bool> m_terrainHintMissing;
   struct TerrainLight
   {
     double m_azimuthDeg;
@@ -220,6 +223,13 @@ protected:
   /// This function is called by m_featuresFetcher when the map file is deregistered.
   void OnMapDeregistered(platform::LocalCountryFile const & localFile);
   void OnTerrainDeregistered(terrain::TwmFile const & file);
+  // Redraws the changed terrain.
+  void OnTerrainChanged(m2::RectD const & rect);
+  // Re-evaluates the isolines availability after a map or terrain change.
+  void InvalidateIsolines();
+  // Pushes the terrain availability of the current viewport into the isolines layer.
+  void UpdateIsolinesAvailability();
+  bool HasViewportTerrain(m2::RectD const & rect);
 
   void ClearAllCaches();
 
@@ -801,6 +811,8 @@ public:
 
   static bool LoadIsolinesEnabled();
   static void SaveIsolinesEnabled(bool enabled);
+  // Switches the isolines layer and evaluates its terrain hint for the current viewport.
+  void SetIsolinesEnabled(bool enabled);
 
   static bool LoadOutdoorsEnabled();
   static void SaveOutdoorsEnabled(bool enabled);
