@@ -57,6 +57,15 @@ public final class OpeningHours
    */
   public static native boolean nativeIsTimetableStringValid(String source);
 
+  /**
+   * Evaluates the schedule of the currently shown place page in the POI's own time zone.
+   * The schedule and the time zone are both read from the place page so that they cannot describe
+   * different POIs. The returned display offsets are evaluated at now and at the next transition
+   * separately because daylight saving may change between them.
+   */
   @Nullable
-  public static native OpeningHoursInfo nativeGetOpeningHoursInfoFromString(String source, long currentTime);
+  public static native OpeningHoursInfo nativeGetPlacePageOpeningHoursInfo(long currentTime);
+
+  /** Returns the downloaded region's UTC offset at this instant, or the device offset if unavailable. */
+  public static native int nativeGetUtcOffsetSeconds(double lat, double lon, long currentTime);
 }
