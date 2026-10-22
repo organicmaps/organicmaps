@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Sveiki!\n\nPielikumā ir grāmatzīmes. Lūdzu, atveriet tās „NoGPS Maps“ lietotnē. Ja Jums tā nav instalēta, instalējiet to te: https://github.com/Ramzess-II/NoGPSMaps\n\nBaudiet ceļošanu ar „Oranic Maps“!";
+"share_bookmarks_email_body" = "Sveiki!\n\nPielikumā ir grāmatzīmes. Lūdzu, atveriet tās „NonGPS Maps“ lietotnē. Ja Jums tā nav instalēta, instalējiet to te: https://github.com/Ramzess-II/NoGPSMaps\n\nBaudiet ceļošanu ar „NonGPS Maps“!";
 
 /* message title of loading file */
 "load_kmz_title" = "Ielādē grāmatzīmes";
@@ -178,10 +178,10 @@
 "share_my_position" = "Esmu šeit, Organic Maps kartē";
 
 /* Email subject when sharing a place. %1$@ is the place name or address. */
-"share_place_subject" = "%1$@ lietotnē NoGPS Maps";
+"share_place_subject" = "%1$@ lietotnē NonGPS Maps";
 
 /* Email subject when sharing a place that has no name or address. */
-"share_place_subject_default" = "Vieta lietotnē NoGPS Maps";
+"share_place_subject_default" = "Vieta lietotnē NonGPS Maps";
 
 /* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
 "share_open_in_om_or_browser" = "Atvērt lietotnē Organic Maps vai pārlūkā";
@@ -591,7 +591,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Operators: %@";
 "editor_category_unsuitable_title" = "Vai neatrodat atbilstošu kategoriju?";
-"editor_category_unsuitable_text" = "„NoGPS Maps“ ļauj pievienot tikai vienkāršu punktu kategorijas, proti, nevarat pievienot pilsētas, ceļus, ezerus, ēku aprises u.tml. Šādas kategorijas lūdzam pievienot tiešā veidā <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Lai uzzinātu, kā to izdarīt, sekojiet norādēm <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">rokasgrāmatā</a>.";
+"editor_category_unsuitable_text" = "„NonGPS Maps“ ļauj pievienot tikai vienkāršu punktu kategorijas, proti, nevarat pievienot pilsētas, ceļus, ezerus, ēku aprises u.tml. Šādas kategorijas lūdzam pievienot tiešā veidā <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Lai uzzinātu, kā to izdarīt, sekojiet norādēm <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">rokasgrāmatā</a>.";
 "downloader_no_downloaded_maps_title" = "Ierīcē nav lejupielādētu karšu";
 "downloader_no_downloaded_maps_message" = "Lai darbotos nesaistes navigācija un meklēšana, lejupielādējiet kartes.";
 "current_location_unknown_error_title" = "Pašreizējā vieta nav zināma.";
@@ -966,10 +966,10 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "Tagad „NoGPS Maps“ izmantojat tālruņa ekrānā";
+"car_used_on_the_phone_screen" = "Tagad „NonGPS Maps“ izmantojat tālruņa ekrānā";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "Tagad „NoGPS Maps“ izmantojat automobiļa ekrānā";
+"car_used_on_the_car_screen" = "Tagad „NonGPS Maps“ izmantojat automobiļa ekrānā";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "Turpināt tālrunī";
@@ -1189,7 +1189,7 @@
 "reverse_route" = "Apgriezt maršrutu";
 
 
-/********** NoGPS Maps **********/
+/********** NonGPS Maps **********/
 
 "nogps_manual_position" = "Set my position manually";
 

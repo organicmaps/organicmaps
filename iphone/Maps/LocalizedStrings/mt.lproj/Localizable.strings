@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Helow!\n\nMehmuża huma il-bookmarks; iftaħhom ġo NoGPS Maps. Jekk mhuwiex installat tista tniżżlu min hawn: https://github.com/Ramzess-II/NoGPSMaps\n\nĦu pjaċir ivvjaġġa ġo NoGPS Maps!";
+"share_bookmarks_email_body" = "Helow!\n\nMehmuża huma il-bookmarks; iftaħhom ġo NonGPS Maps. Jekk mhuwiex installat tista tniżżlu min hawn: https://github.com/Ramzess-II/NoGPSMaps\n\nĦu pjaċir ivvjaġġa ġo NonGPS Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Tgħobijja tal-bookmarks";
@@ -178,10 +178,10 @@
 "share_my_position" = "Jien hawn fuq Organic Maps";
 
 /* Email subject when sharing a place. %1$@ is the place name or address. */
-"share_place_subject" = "%1$@ fuq NoGPS Maps";
+"share_place_subject" = "%1$@ fuq NonGPS Maps";
 
 /* Email subject when sharing a place that has no name or address. */
-"share_place_subject_default" = "Post fuq NoGPS Maps";
+"share_place_subject_default" = "Post fuq NonGPS Maps";
 
 /* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
 "share_open_in_om_or_browser" = "Iftaħ f'Organic Maps jew fil-browser";
@@ -591,7 +591,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Operatur: %@";
 "editor_category_unsuitable_title" = "Ma tistax isib kategorija adattata?";
-"editor_category_unsuitable_text" = "NoGPS Maps jippermetti li jiżdiedu kategoriji punti sempliċi biss, li jfisser l-ebda bliet, toroq, lagi, linji ġenerali tal-bini, eċċ. Jekk jogħġbok żid dawn il-kategoriji direttament mal-<a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Iċċekkja l-<a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">gwida</a> tagħna għal struzzjonijiet dettaljati.";
+"editor_category_unsuitable_text" = "NonGPS Maps jippermetti li jiżdiedu kategoriji punti sempliċi biss, li jfisser l-ebda bliet, toroq, lagi, linji ġenerali tal-bini, eċċ. Jekk jogħġbok żid dawn il-kategoriji direttament mal-<a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Iċċekkja l-<a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">gwida</a> tagħna għal struzzjonijiet dettaljati.";
 "downloader_no_downloaded_maps_title" = "Ma niżżilt l-ebda mapep";
 "downloader_no_downloaded_maps_message" = "Niżżel mapep biex tfittex u tinnaviga mingħajr l-użu tal-Internet.";
 "current_location_unknown_error_title" = "Il-post attwali mhux magħruf.";
@@ -966,10 +966,10 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "Issa qed tuża NoGPS Maps fuq l-iskrin tat-telefown";
+"car_used_on_the_phone_screen" = "Issa qed tuża NonGPS Maps fuq l-iskrin tat-telefown";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "Issa qed tuża NoGPS Maps fuq l-iskrin tal-karozza";
+"car_used_on_the_car_screen" = "Issa qed tuża NonGPS Maps fuq l-iskrin tal-karozza";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "Kompli fuq il-mowbajl";
@@ -1189,7 +1189,7 @@
 "reverse_route" = "Aqleb ir-rotta";
 
 
-/********** NoGPS Maps **********/
+/********** NonGPS Maps **********/
 
 "nogps_manual_position" = "Set my position manually";
 

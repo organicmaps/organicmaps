@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "ສະບາຍດີ!\n\nນີ້ແມ່ນບຸກມາກຂອງຂ້ອຍ; ກະລຸນາເປີດໃນ NoGPS Maps. ຫາກທ່ານຍັງບໍ່ໄດ້ຕິດຕັ້ງ, ສາມາດດາວໂຫລດໄດ້ທີ່ນີ້: https://github.com/Ramzess-II/NoGPSMaps\n\nຂໍໃຫ້ມ່ວນກັບການເດີນທາງດ້ວຍ NoGPS Maps!";
+"share_bookmarks_email_body" = "ສະບາຍດີ!\n\nນີ້ແມ່ນບຸກມາກຂອງຂ້ອຍ; ກະລຸນາເປີດໃນ NonGPS Maps. ຫາກທ່ານຍັງບໍ່ໄດ້ຕິດຕັ້ງ, ສາມາດດາວໂຫລດໄດ້ທີ່ນີ້: https://github.com/Ramzess-II/NoGPSMaps\n\nຂໍໃຫ້ມ່ວນກັບການເດີນທາງດ້ວຍ NonGPS Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "ກຳລັງໂຫລດບຸກມາກ";
@@ -178,10 +178,10 @@
 "share_my_position" = "ຂ້ອຍຢູ່ທີ່ນີ້ໃນ Organic Maps";
 
 /* Email subject when sharing a place. %1$@ is the place name or address. */
-"share_place_subject" = "%1$@ ໃນ NoGPS Maps";
+"share_place_subject" = "%1$@ ໃນ NonGPS Maps";
 
 /* Email subject when sharing a place that has no name or address. */
-"share_place_subject_default" = "ສະຖານທີ່ໃນ NoGPS Maps";
+"share_place_subject_default" = "ສະຖານທີ່ໃນ NonGPS Maps";
 
 /* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
 "share_open_in_om_or_browser" = "ເປີດໃນ Organic Maps ຫຼືໃນບຣາວເຊີ";
@@ -591,7 +591,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "ຜູ້ດຳເນີນການ: %@";
 "editor_category_unsuitable_title" = "ບໍ່ພົບໝວດໝູ່ທີ່ເໝາະສົມບໍ່?";
-"editor_category_unsuitable_text" = "NoGPS Maps ອະນຸຍາດໃຫ້ເພີ່ມສະເພາະໝວດໝູ່ຈຸດທີ່ງ່າຍດາຍເທົ່ານັ້ນ, ນັ້ນໝາຍຄວາມວ່າບໍ່ລວມເຖິງ ຕົວເມືອງ, ຖະໜົນ, ໜອງນ້ຳ, ຂອບເຂດອາຄານ ແລະ ອື່ນໆ. ກະລຸນາເພີ່ມໝວດໝູ່ດັ່ງກ່າວໂດຍກົງທີ່ <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. ກວດເບິ່ງ <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">ຄຳແນະນຳ</a> ຂອງພວກເຮົາສຳລັບຂັ້ນຕອນໂດຍລະອຽດ.";
+"editor_category_unsuitable_text" = "NonGPS Maps ອະນຸຍາດໃຫ້ເພີ່ມສະເພາະໝວດໝູ່ຈຸດທີ່ງ່າຍດາຍເທົ່ານັ້ນ, ນັ້ນໝາຍຄວາມວ່າບໍ່ລວມເຖິງ ຕົວເມືອງ, ຖະໜົນ, ໜອງນ້ຳ, ຂອບເຂດອາຄານ ແລະ ອື່ນໆ. ກະລຸນາເພີ່ມໝວດໝູ່ດັ່ງກ່າວໂດຍກົງທີ່ <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. ກວດເບິ່ງ <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">ຄຳແນະນຳ</a> ຂອງພວກເຮົາສຳລັບຂັ້ນຕອນໂດຍລະອຽດ.";
 "downloader_no_downloaded_maps_title" = "ທ່ານຍັງບໍ່ໄດ້ດາວໂຫລດແຜນທີ່ໃດໆ";
 "downloader_no_downloaded_maps_message" = "ດາວໂຫລດແຜນທີ່ເພື່ອຄົ້ນຫາ ແລະ ນຳທາງແບບອອບລາຍ.";
 "current_location_unknown_error_title" = "ບໍ່ຮູ້ຕຳແໜ່ງປັດຈຸບັນ.";
@@ -966,10 +966,10 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "ຕອນນີ້ທ່ານກຳລັງໃຊ້ NoGPS Maps ໃນໜ້າຈໍໂທລະສັບ";
+"car_used_on_the_phone_screen" = "ຕອນນີ້ທ່ານກຳລັງໃຊ້ NonGPS Maps ໃນໜ້າຈໍໂທລະສັບ";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "ຕອນນີ້ທ່ານກຳລັງໃຊ້ NoGPS Maps ໃນໜ້າຈໍລົດ";
+"car_used_on_the_car_screen" = "ຕອນນີ້ທ່ານກຳລັງໃຊ້ NonGPS Maps ໃນໜ້າຈໍລົດ";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "ຕໍ່ໄປໃນໂທລະສັບ";
@@ -1189,7 +1189,7 @@
 "reverse_route" = "ກັບທິດທາງເສັ້ນທາງ";
 
 
-/********** NoGPS Maps **********/
+/********** NonGPS Maps **********/
 
 "nogps_manual_position" = "Set my position manually";
 

@@ -43,7 +43,7 @@
     <string name="unsupported_phone">Aplikacija zahteva strojno pospešen OpenGL. Žal vaša naprava ni podprta.</string>
     <string name="download">Prenesi</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Za uporabo NoGPS Maps odklopite kabel USB ali vstavite pomnilniško kartico</string>
+    <string name="disconnect_usb_cable">Za uporabo NonGPS Maps odklopite kabel USB ali vstavite pomnilniško kartico</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Za uporabo aplikacije najprej sprostite nekaj prostora na kartici SD/pomnilniku USB</string>
     <string name="download_resources">Preden začnete uporabljati aplikacijo, prenesite na svojo napravo pregledni zemljevid sveta.\nUporabil bo %s prostora.</string>
@@ -142,8 +142,8 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">Opombe</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">Z vami so bili deljeni zaznamki NoGPS Maps</string>
-    <string name="share_bookmarks_email_body">Živjo!\n\nV priponki so moji zaznamki; odprite jih v NoGPS Maps. Če aplikacije nimate nameščene, jo lahko prenesete tukaj: https://github.com/Ramzess-II/NoGPSMaps\n\nUživajte v potovanju z NoGPS Maps!</string>
+    <string name="share_bookmarks_email_subject">Z vami so bili deljeni zaznamki NonGPS Maps</string>
+    <string name="share_bookmarks_email_body">Živjo!\n\nV priponki so moji zaznamki; odprite jih v NonGPS Maps. Če aplikacije nimate nameščene, jo lahko prenesete tukaj: https://github.com/Ramzess-II/NoGPSMaps\n\nUživajte v potovanju z NonGPS Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Nalaganje zaznamkov</string>
     <!-- Kmz file successful loading -->
@@ -165,9 +165,9 @@
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Deli</string>
     <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
-    <string name="share_place_subject">%1$s v NoGPS Maps</string>
+    <string name="share_place_subject">%1$s v NonGPS Maps</string>
     <!-- Email subject when sharing a place that has no name or address. -->
-    <string name="share_place_subject_default">Kraj v NoGPS Maps</string>
+    <string name="share_place_subject_default">Kraj v NonGPS Maps</string>
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">E-pošta</string>
     <!-- Text for message when used successfully copied something -->
@@ -432,7 +432,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Podatki OpenStreetMap, ki jih je ustvarila skupnost, od %s. Več o tem, kako urejati in posodabljati zemljevid, preberite na OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) je projekt skupnosti za izgradnjo brezplačnega in odprtega zemljevida. Je glavni vir podatkov o zemljevidih v NoGPS Maps in deluje podobno kot Wikipedija. Lahko dodajate ali urejate mesta, ki postanejo na voljo milijonom uporabnikov po vsem svetu.\nPridružite se skupnosti in pomagajte ustvariti boljši zemljevid za vse!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) je projekt skupnosti za izgradnjo brezplačnega in odprtega zemljevida. Je glavni vir podatkov o zemljevidih v NonGPS Maps in deluje podobno kot Wikipedija. Lahko dodajate ali urejate mesta, ki postanejo na voljo milijonom uporabnikov po vsem svetu.\nPridružite se skupnosti in pomagajte ustvariti boljši zemljevid za vse!</string>
     <string name="login_to_make_edits_visible">Ustvarite račun OpenStreetMap ali se prijavite, da objavite svoja urejanja zemljevida svetu.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d od %2$d</string>
@@ -447,7 +447,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Opomba za prostovoljce OpenStreetMap (neobvezno)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Opišite napake na zemljevidu ali stvari, ki jih ni mogoče urejati z NoGPS Maps</string>
+    <string name="editor_note_hint">Opišite napake na zemljevidu ali stvari, ki jih ni mogoče urejati z NonGPS Maps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Vaša urejanja se naložijo v javno bazo podatkov <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>. Prosimo, ne dodajajte osebnih ali avtorsko zaščitenih podatkov.</string>
     <string name="editor_more_about_osm">Več o OpenStreetMap</string>
@@ -457,7 +457,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Upravljavec: %s</string>
     <string name="editor_category_unsuitable_title">Ne najdete primerne kategorije?</string>
-    <string name="editor_category_unsuitable_text">NoGPS Maps omogoča dodajanje samo preprostih točkovnih kategorij, kar pomeni, da ni mest, cest, jezer, obrisov zgradb itd. Takšne kategorije dodajte neposredno na <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Preverite naš <a href="https://organicmaps.app/faq/editing/advanced-map-editing">vodnik</a> za podrobna navodila po korakih.</string>
+    <string name="editor_category_unsuitable_text">NonGPS Maps omogoča dodajanje samo preprostih točkovnih kategorij, kar pomeni, da ni mest, cest, jezer, obrisov zgradb itd. Takšne kategorije dodajte neposredno na <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Preverite naš <a href="https://organicmaps.app/faq/editing/advanced-map-editing">vodnik</a> za podrobna navodila po korakih.</string>
     <string name="downloader_no_downloaded_maps_title">Niste prenesli nobenega zemljevida</string>
     <string name="downloader_no_downloaded_maps_message">Prenesite zemljevide za iskanje in navigacijo brez povezave.</string>
     <string name="current_location_unknown_error_title">Trenutna lokacija ni znana.</string>
@@ -770,9 +770,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">Naš glavni cilj je zgraditi hitre, zasebnosti prijazne in enostavne zemljevide, ki jih boste vzljubili.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">Zdaj uporabljate NoGPS Maps na zaslonu telefona</string>
+    <string name="car_used_on_the_phone_screen">Zdaj uporabljate NonGPS Maps na zaslonu telefona</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">Zdaj uporabljate NoGPS Maps na zaslonu avtomobila</string>
+    <string name="car_used_on_the_car_screen">Zdaj uporabljate NonGPS Maps na zaslonu avtomobila</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Povezani ste z Android Auto</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -780,7 +780,7 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Na zaslon avtomobila</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">NoGPS Maps potrebuje dostop do lokacije. Ko bo varno, preverite obvestilo na telefonu.</string>
+    <string name="aa_location_permissions_request">NonGPS Maps potrebuje dostop do lokacije. Ko bo varno, preverite obvestilo na telefonu.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Ta aplikacija potrebuje vaše dovoljenje</string>
     <!-- Grant Permissions button. -->

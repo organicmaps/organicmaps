@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "سلام!\n\nنشانک‌های من ضمیمه شده‌اند؛ لطفا آن‌ها را در NoGPS Maps باز کنید. اگر برنامه نصب نشده است، می‌توانید آن را از اینجا دانلود کنید: https://github.com/Ramzess-II/NoGPSMaps \n\nاز سفر با NoGPS Maps لذت ببرید!";
+"share_bookmarks_email_body" = "سلام!\n\nنشانک‌های من ضمیمه شده‌اند؛ لطفا آن‌ها را در NonGPS Maps باز کنید. اگر برنامه نصب نشده است، می‌توانید آن را از اینجا دانلود کنید: https://github.com/Ramzess-II/NoGPSMaps \n\nاز سفر با NonGPS Maps لذت ببرید!";
 
 /* message title of loading file */
 "load_kmz_title" = "در حال بارگیری نشانک‌ها";
@@ -178,10 +178,10 @@
 "share_my_position" = "من اینجا در Organic Maps هستم";
 
 /* Email subject when sharing a place. %1$@ is the place name or address. */
-"share_place_subject" = "%1$@ در NoGPS Maps";
+"share_place_subject" = "%1$@ در NonGPS Maps";
 
 /* Email subject when sharing a place that has no name or address. */
-"share_place_subject_default" = "مکانی در NoGPS Maps";
+"share_place_subject_default" = "مکانی در NonGPS Maps";
 
 /* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
 "share_open_in_om_or_browser" = "در Organic Maps یا مرورگر باز کنید";
@@ -591,7 +591,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "اپراتور: %@";
 "editor_category_unsuitable_title" = "آیا نمی توانید یک دسته بندی مناسب پیدا کنید؟";
-"editor_category_unsuitable_text" = "NoGPS Maps اجازه میu200cدهد فقط دستهu200cهای نقطهu200cای ساده را اضافه کند، یعنی هیچ شهر، جاده، دریاچه، طرح کلی ساختمان و غیره وجود ندارد. لطفاً این دستهu200cها را مستقیماً به <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> اضافه کنید. برای دستورالعملu200cهای گام به گام، <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">راهنمای</a> ما را بررسی کنید.";
+"editor_category_unsuitable_text" = "NonGPS Maps اجازه میu200cدهد فقط دستهu200cهای نقطهu200cای ساده را اضافه کند، یعنی هیچ شهر، جاده، دریاچه، طرح کلی ساختمان و غیره وجود ندارد. لطفاً این دستهu200cها را مستقیماً به <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> اضافه کنید. برای دستورالعملu200cهای گام به گام، <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">راهنمای</a> ما را بررسی کنید.";
 "downloader_no_downloaded_maps_title" = "شما هیچ نقشه دانلود شده ای ندارید";
 "downloader_no_downloaded_maps_message" = "برای جست وجو یک مکان و استفاده از قابلیت ناوبری، نقشه‌ها را دانلود کنید.";
 "current_location_unknown_error_title" = "مکان فعلیتان ناشناس است.";
@@ -723,7 +723,7 @@
 "bookmarks_text_placement_description" = "اگر نشانک‌ها زیاد باشند، نمایش نام آن‌ها روی نقشه ممکن است باعث کند شدن برنامه شود.";
 "show_to_the_right" = "در سمت راست نمایش دهید";
 "show_at_the_bottom" = "در پایین نمایش دهید";
-"enable_logging_warning_message" = "این گزینه ثبت گزارش را برای اهداف تشخیصی فعال می‌کند. برای کارکنان بخش پشتیبانی که مشکلات برنامه را عیب یابی می‌کنند، مفید باشد. این گزینه را تنها در صورت درخواست پشتیبانی Organic Maps فعال کنید.";
+"enable_logging_warning_message" = "این گزینه ثبت گزارش را برای اهداف تشخیصی فعال می‌کند. برای کارکنان بخش پشتیبانی که مشکلات برنامه را عیب یابی می‌کنند، مفید باشد. این گزینه را تنها در صورت درخواست پشتیبانی NonGPS Maps فعال کنید.";
 
 /* Driving profile in routing options settings. */
 "routing_options_driving" = "رانندگی";
@@ -899,7 +899,7 @@
 "switch_to_phone_bookmarks_carplay" = "برای دیدن همه نشانکu200cها به تلفن بروید";
 "speedcams_alert_title_carplay_1" = "دوربین سرعت";
 "speedcams_alert_title_carplay_2" = "هشدارهای سرعت";
-"download_map_carplay" = "لطفا نقشه‌ها را در نرم افزار Organic Maps روی دستگاه خود دانلود کنید";
+"download_map_carplay" = "لطفا نقشه‌ها را در نرم افزار NonGPS Maps روی دستگاه خود دانلود کنید";
 "carplay_roundabout_exit" = "خروجی %@";
 
 /* iOS */
@@ -966,10 +966,10 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Fa:About_OpenStreetMap";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "شما اکنون در حال استفاده از NoGPS Maps بر روی صفحهٔ تلفن همراه هستید";
+"car_used_on_the_phone_screen" = "شما اکنون در حال استفاده از NonGPS Maps بر روی صفحهٔ تلفن همراه هستید";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "شما اکنون در حال استفاده از NoGPS Maps بر روی صفحهٔ خودرو هستید";
+"car_used_on_the_car_screen" = "شما اکنون در حال استفاده از NonGPS Maps بر روی صفحهٔ خودرو هستید";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "با تلفن ادامه دهید";
@@ -1189,7 +1189,7 @@
 "reverse_route" = "معکوس کردن مسیر";
 
 
-/********** NoGPS Maps **********/
+/********** NonGPS Maps **********/
 
 "nogps_manual_position" = "Set my position manually";
 

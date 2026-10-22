@@ -43,7 +43,7 @@
     <string name="unsupported_phone">하드웨어 촉진 OpenGL이 요구됩니다. 애석하게도 귀하의 장치는 지원되지 않습니다.</string>
     <string name="download">다운로드</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">NoGPS Maps를 사용하려면 USB 케이블이나 삽입 메모리 카드를 분리하십시오</string>
+    <string name="disconnect_usb_cable">NonGPS Maps를 사용하려면 USB 케이블이나 삽입 메모리 카드를 분리하십시오</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">앱을 사용하려면 먼저 SD 카드/USB 저장소의 여유 공간을 확보하세요</string>
     <string name="download_resources">시작하시기 전에 일반 세계 지도를 귀하의 장치로 다운로드하겠습니다.\n%s 데이터가 필요합니다。</string>
@@ -142,8 +142,8 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">메모</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">귀하와 공유된 NoGPS Maps 즐겨찾기</string>
-    <string name="share_bookmarks_email_body">안녕하세요!\n\n제 북마크를 첨부했습니다. NoGPS Maps에서 열어주세요. 설치되어 있지 않다면 여기에서 다운로드할 수 있습니다: https://github.com/Ramzess-II/NoGPSMaps\n\nNoGPS Maps와 함께 즐거운 여행 되세요!</string>
+    <string name="share_bookmarks_email_subject">귀하와 공유된 NonGPS Maps 즐겨찾기</string>
+    <string name="share_bookmarks_email_body">안녕하세요!\n\n제 북마크를 첨부했습니다. NonGPS Maps에서 열어주세요. 설치되어 있지 않다면 여기에서 다운로드할 수 있습니다: https://github.com/Ramzess-II/NoGPSMaps\n\nNonGPS Maps와 함께 즐거운 여행 되세요!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">즐겨찾기 로드</string>
     <!-- Kmz file successful loading -->
@@ -165,9 +165,9 @@
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">공유</string>
     <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
-    <string name="share_place_subject">%1$s - NoGPS Maps</string>
+    <string name="share_place_subject">%1$s - NonGPS Maps</string>
     <!-- Email subject when sharing a place that has no name or address. -->
-    <string name="share_place_subject_default">NoGPS Maps의 장소</string>
+    <string name="share_place_subject_default">NonGPS Maps의 장소</string>
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">이메일</string>
     <!-- Text for message when used successfully copied something -->
@@ -432,7 +432,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">커뮤니티에서 만든 오픈스트리트맵 데이터(%s 기준). 지도를 편집하고 업데이트하는 방법에 대한 자세한 내용은 OpenStreetMap.org에서 확인하세요.</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org(OSM)는 무료 개방형 지도를 구축하기 위한 커뮤니티 프로젝트입니다. 이 프로젝트는 NoGPS Maps의 주요 지도 데이터 소스이며, 위키백과와 유사한 방식으로 운영됩니다. 사용자는 장소를 추가하거나 편집할 수 있으며, 이러한 정보는 전 세계 수백만 명의 사용자가 이용할 수 있게 됩니다.\n커뮤니티에 참여하여 모두를 위한 더 나은 지도를 만드는 데 힘을 보태주세요!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org(OSM)는 무료 개방형 지도를 구축하기 위한 커뮤니티 프로젝트입니다. 이 프로젝트는 NonGPS Maps의 주요 지도 데이터 소스이며, 위키백과와 유사한 방식으로 운영됩니다. 사용자는 장소를 추가하거나 편집할 수 있으며, 이러한 정보는 전 세계 수백만 명의 사용자가 이용할 수 있게 됩니다.\n커뮤니티에 참여하여 모두를 위한 더 나은 지도를 만드는 데 힘을 보태주세요!</string>
     <string name="login_to_make_edits_visible">오픈스트리트맵 계정을 만들거나 로그인하여 지도 편집 내용을 전 세계에 공개하세요.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%2$d중의 %1$d</string>
@@ -447,7 +447,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">오픈스트리트맵 자원 봉사자 참고 사항(선택 사항)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">NoGPS Maps를 사용하여 지도상의 오류나 편집할 수 없는 항목을 설명하십시오</string>
+    <string name="editor_note_hint">NonGPS Maps를 사용하여 지도상의 오류나 편집할 수 없는 항목을 설명하십시오</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">수정한 내용은 공개 <a href="https://wiki.openstreetmap.org/wiki/Ko:OpenStreetMap_소개">OpenStreetMap</a> 데이터베이스에 업로드됩니다. 개인 정보나 저작권이 있는 정보는 추가하지 마세요.</string>
     <string name="editor_more_about_osm">OpenStreetMap 정보</string>
@@ -457,7 +457,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">연산자: %s</string>
     <string name="editor_category_unsuitable_title">적합한 카테고리를 찾을 수 없나요?</string>
-    <string name="editor_category_unsuitable_text">NoGPS Maps 단순한 지점 카테고리만 추가할 수 있습니다. 즉, 도시, 도로, 호수, 건물 윤곽선 등은 추가할 수 없습니다. 이러한 카테고리는 <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>에 직접 추가해 주십시오. 자세한 단계별 안내는 <a href="https://organicmaps.app/faq/editing/advanced-map-editing">가이드를</a> 확인해 주세요.</string>
+    <string name="editor_category_unsuitable_text">NonGPS Maps 단순한 지점 카테고리만 추가할 수 있습니다. 즉, 도시, 도로, 호수, 건물 윤곽선 등은 추가할 수 없습니다. 이러한 카테고리는 <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>에 직접 추가해 주십시오. 자세한 단계별 안내는 <a href="https://organicmaps.app/faq/editing/advanced-map-editing">가이드를</a> 확인해 주세요.</string>
     <string name="downloader_no_downloaded_maps_title">지도를 다운로드하지 않았습니다</string>
     <string name="downloader_no_downloaded_maps_message">오프라인으로 위치를 검색하려면 지도를 다운로드하세요.</string>
     <string name="current_location_unknown_error_title">현재 위치를 알 수 없습니다.</string>
@@ -608,7 +608,7 @@
     <string name="bookmarks_text_placement_description">북마크가 너무 많을 경우 지도에 북마크 이름을 표시하면 앱 속도가 느려질 수 있습니다.</string>
     <string name="show_to_the_right">오른쪽에 표시</string>
     <string name="show_at_the_bottom">하단에 표시</string>
-    <string name="enable_logging_warning_message">이 옵션은 진단을 목적으로 로그를 엽니다 이를 통해 앱에 대한 문제를 분석하는 우리의 스탭을 도울 수 있습니다 이 옵션은 오직 Organic Maps 지원 요청에서만 가능합니다.</string>
+    <string name="enable_logging_warning_message">이 옵션은 진단을 목적으로 로그를 엽니다 이를 통해 앱에 대한 문제를 분석하는 우리의 스탭을 도울 수 있습니다 이 옵션은 오직 NonGPS Maps 지원 요청에서만 가능합니다.</string>
     <!-- Driving profile in routing options settings. -->
     <string name="routing_options_driving">자동차</string>
     <!-- Cycling profile in routing options settings. -->
@@ -760,9 +760,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">우리의 주요 목표는 귀하가 좋아할 빠르고 개인 정보 보호에 중점을 두고 사용하기 쉬운 지도를 구축하는 것입니다.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">현재 휴대폰 화면에서 NoGPS Maps을 이용 중입니다</string>
+    <string name="car_used_on_the_phone_screen">현재 휴대폰 화면에서 NonGPS Maps을 이용 중입니다</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">현재 차량 화면에서 NoGPS Maps을 이용 중입니다</string>
+    <string name="car_used_on_the_car_screen">현재 차량 화면에서 NonGPS Maps을 이용 중입니다</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Android Auto에 연결되어 있습니다.</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -770,7 +770,7 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">차량 화면으로 이동</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">NoGPS Maps 위치 정보 접근 권한이 필요합니다. 안전한 환경에서 휴대폰의 알림을 확인해 주세요.</string>
+    <string name="aa_location_permissions_request">NonGPS Maps 위치 정보 접근 권한이 필요합니다. 안전한 환경에서 휴대폰의 알림을 확인해 주세요.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">이 앱은 사용자의 승인이 필요합니다.</string>
     <!-- Grant Permissions button. -->

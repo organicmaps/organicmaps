@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Hallo!\n\nMy boekmerke is aangeheg; open dit asb. in NoGPS Maps. Indien dit nie geïnstalleer is nie, kan u dit hier aflaai: https://github.com/Ramzess-II/NoGPSMaps\n\nGeniet dit om met NoGPS Maps te reis!";
+"share_bookmarks_email_body" = "Hallo!\n\nMy boekmerke is aangeheg; open dit asb. in NonGPS Maps. Indien dit nie geïnstalleer is nie, kan u dit hier aflaai: https://github.com/Ramzess-II/NoGPSMaps\n\nGeniet dit om met NonGPS Maps te reis!";
 
 /* message title of loading file */
 "load_kmz_title" = "Laai tans boekmerke";
@@ -178,10 +178,10 @@
 "share_my_position" = "Ek is hier op Organic Maps";
 
 /* Email subject when sharing a place. %1$@ is the place name or address. */
-"share_place_subject" = "%1$@ op NoGPS Maps";
+"share_place_subject" = "%1$@ op NonGPS Maps";
 
 /* Email subject when sharing a place that has no name or address. */
-"share_place_subject_default" = "'n Plek op NoGPS Maps";
+"share_place_subject_default" = "'n Plek op NonGPS Maps";
 
 /* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
 "share_open_in_om_or_browser" = "Maak oop in Organic Maps of in 'n blaaier";
@@ -591,7 +591,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Operateur: %@";
 "editor_category_unsuitable_title" = "Kan u nie 'n geskikte kategorie vind nie?";
-"editor_category_unsuitable_text" = "NoGPS Maps laat slegs toe om eenvoudige puntkategorieë by te voeg, dit beteken geen dorpe, paaie, mere, gebouomtrekke, ens. nie. Voeg asseblief sulke kategorieë direk by <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Kyk na ons <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">gids</a> vir gedetailleerde stap-vir-stap instruksies.";
+"editor_category_unsuitable_text" = "NonGPS Maps laat slegs toe om eenvoudige puntkategorieë by te voeg, dit beteken geen dorpe, paaie, mere, gebouomtrekke, ens. nie. Voeg asseblief sulke kategorieë direk by <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Kyk na ons <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">gids</a> vir gedetailleerde stap-vir-stap instruksies.";
 "downloader_no_downloaded_maps_title" = "U het geen kaarte afgelaai nie";
 "downloader_no_downloaded_maps_message" = "Laai kaarte af om die ligging te soek en vanlyn te navigeer.";
 "current_location_unknown_error_title" = "Huidige ligging is onbekend.";
@@ -966,10 +966,10 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "Jy gebruik nou NoGPS Maps op die foon se skerm";
+"car_used_on_the_phone_screen" = "Jy gebruik nou NonGPS Maps op die foon se skerm";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "Jy gebruik nou NoGPS Maps op die motor se skerm";
+"car_used_on_the_car_screen" = "Jy gebruik nou NonGPS Maps op die motor se skerm";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "Gaan voort op die foon";
@@ -1189,7 +1189,7 @@
 "reverse_route" = "Keer roete om";
 
 
-/********** NoGPS Maps **********/
+/********** NonGPS Maps **********/
 
 "nogps_manual_position" = "Set my position manually";
 

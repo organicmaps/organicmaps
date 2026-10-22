@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Salam!\n\nNoGPS Maps əlfəcinlərim əlavə olunub. Zəhmət olmasa NoGPS Maps-da onları açın. Əgər onu quraşdırmamısınızsa, bu linkə daxil olub cihazınıza yükləyə bilərsiniz: https://github.com/Ramzess-II/NoGPSMaps\n\nNoGPS Maps ilə səyahətdən həzz alın!";
+"share_bookmarks_email_body" = "Salam!\n\nNonGPS Maps əlfəcinlərim əlavə olunub. Zəhmət olmasa NonGPS Maps-da onları açın. Əgər onu quraşdırmamısınızsa, bu linkə daxil olub cihazınıza yükləyə bilərsiniz: https://github.com/Ramzess-II/NoGPSMaps\n\nNonGPS Maps ilə səyahətdən həzz alın!";
 
 /* message title of loading file */
 "load_kmz_title" = "Əlfəcinlər yüklənir";
@@ -178,10 +178,10 @@
 "share_my_position" = "Mən Organic Maps-də buradayam";
 
 /* Email subject when sharing a place. %1$@ is the place name or address. */
-"share_place_subject" = "%1$@ NoGPS Maps-də";
+"share_place_subject" = "%1$@ NonGPS Maps-də";
 
 /* Email subject when sharing a place that has no name or address. */
-"share_place_subject_default" = "NoGPS Maps-də məkan";
+"share_place_subject_default" = "NonGPS Maps-də məkan";
 
 /* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
 "share_open_in_om_or_browser" = "Organic Maps-də və ya brauzerdə aç";
@@ -591,7 +591,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Operator: %@";
 "editor_category_unsuitable_title" = "Uyğun kateqoriya tapa bilmirsiniz?";
-"editor_category_unsuitable_text" = "NoGPS Maps yalnız sadə nöqtə kateqoriyaları əlavə etməyə imkan verir, yəni şəhərlər, yollar, göllər, binaların konturları və s. daxil deyil. Zəhmət olmasa belə kateqoriyaları birbaşa <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> saytına əlavə edin. Ətraflı addım-addım təlimat üçün <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">bələdç</a>imizə baxın.";
+"editor_category_unsuitable_text" = "NonGPS Maps yalnız sadə nöqtə kateqoriyaları əlavə etməyə imkan verir, yəni şəhərlər, yollar, göllər, binaların konturları və s. daxil deyil. Zəhmət olmasa belə kateqoriyaları birbaşa <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> saytına əlavə edin. Ətraflı addım-addım təlimat üçün <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">bələdç</a>imizə baxın.";
 "downloader_no_downloaded_maps_title" = "Siz heç bir xəritə endirməmisiniz";
 "downloader_no_downloaded_maps_message" = "Ünvanları tapmaq və oflayn naviqasiya etmək üçün xəritələri endirin.";
 "current_location_unknown_error_title" = "Cari yer məlum deyil.";
@@ -899,7 +899,7 @@
 "switch_to_phone_bookmarks_carplay" = "Bütün əlfəcinləri görmək üçün telefona keçin";
 "speedcams_alert_title_carplay_1" = "Sürət kameraları";
 "speedcams_alert_title_carplay_2" = "Sürət xəbərdarlıqları";
-"download_map_carplay" = "Organic Maps tətbiqindən xəritələri cihazınıza endirin";
+"download_map_carplay" = "NonGPS Maps tətbiqindən xəritələri cihazınıza endirin";
 "carplay_roundabout_exit" = "%@ çıxın";
 
 /* iOS */
@@ -966,10 +966,10 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Tr:About";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "İndi telefon ekranında NoGPS Maps istifadə edirsiniz";
+"car_used_on_the_phone_screen" = "İndi telefon ekranında NonGPS Maps istifadə edirsiniz";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "Hazırda avtomobil ekranında NoGPS Maps istifadə edirsiniz";
+"car_used_on_the_car_screen" = "Hazırda avtomobil ekranında NonGPS Maps istifadə edirsiniz";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "Telefonda davam edin";
@@ -1189,7 +1189,7 @@
 "reverse_route" = "Marşrutu tərsinə çevir";
 
 
-/********** NoGPS Maps **********/
+/********** NonGPS Maps **********/
 
 "nogps_manual_position" = "Set my position manually";
 

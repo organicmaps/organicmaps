@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Hallo!\n\nBijgesloten zijn mijn bladwijzers uit de NoGPS Maps app. Open ze als je NoGPS Maps geïnstalleerd hebt. Of, als je dat niet hebt, download de app hier: https://github.com/Ramzess-II/NoGPSMaps\n\nGeniet van het reizen met NoGPS Maps!";
+"share_bookmarks_email_body" = "Hallo!\n\nBijgesloten zijn mijn bladwijzers uit de NonGPS Maps app. Open ze als je NonGPS Maps geïnstalleerd hebt. Of, als je dat niet hebt, download de app hier: https://github.com/Ramzess-II/NoGPSMaps\n\nGeniet van het reizen met NonGPS Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Bladwijzers worden geladen";
@@ -178,10 +178,10 @@
 "share_my_position" = "Ik ben hier op Organic Maps";
 
 /* Email subject when sharing a place. %1$@ is the place name or address. */
-"share_place_subject" = "%1$@ op NoGPS Maps";
+"share_place_subject" = "%1$@ op NonGPS Maps";
 
 /* Email subject when sharing a place that has no name or address. */
-"share_place_subject_default" = "Een plaats op NoGPS Maps";
+"share_place_subject_default" = "Een plaats op NonGPS Maps";
 
 /* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
 "share_open_in_om_or_browser" = "Openen in Organic Maps of in een browser";
@@ -591,7 +591,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Exploitant: %@";
 "editor_category_unsuitable_title" = "Kun je geen geschikte categorie vinden?";
-"editor_category_unsuitable_text" = "Met NoGPS Maps kun je alleen eenvoudige puntcategorieën toevoegen, dus geen steden, wegen, meren, contouren van gebouwen, enzovoort. Voeg zulke categorieën direct toe aan <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Bekijk onze <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">gids</a> voor gedetailleerde stap voor stap instructies.";
+"editor_category_unsuitable_text" = "Met NonGPS Maps kun je alleen eenvoudige puntcategorieën toevoegen, dus geen steden, wegen, meren, contouren van gebouwen, enzovoort. Voeg zulke categorieën direct toe aan <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Bekijk onze <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">gids</a> voor gedetailleerde stap voor stap instructies.";
 "downloader_no_downloaded_maps_title" = "U hebt geen kaarten gedownload";
 "downloader_no_downloaded_maps_message" = "Download kaarten om een locatie te zoeken en offline te navigeren.";
 "current_location_unknown_error_title" = "Huidige locatie is onbekend.";
@@ -723,7 +723,7 @@
 "bookmarks_text_placement_description" = "Wanneer er teveel markeringen zijn, kan weergave van de namen op de map vertragen.";
 "show_to_the_right" = "Rechts weergeven";
 "show_at_the_bottom" = "Onderaan weergeven";
-"enable_logging_warning_message" = "Schakel deze optie tijdelijk in om gedetailleerde logboekregistraties omtrent jouw probleem op te slaan en te verzenden tijdens \" Rapporteer een probleem\" in het help menu. Schakel deze optie alleen in op verzoek van Organic Maps ondersteuning.";
+"enable_logging_warning_message" = "Schakel deze optie tijdelijk in om gedetailleerde logboekregistraties omtrent jouw probleem op te slaan en te verzenden tijdens \" Rapporteer een probleem\" in het help menu. Schakel deze optie alleen in op verzoek van NonGPS Maps ondersteuning.";
 
 /* Driving profile in routing options settings. */
 "routing_options_driving" = "Auto";
@@ -899,7 +899,7 @@
 "switch_to_phone_bookmarks_carplay" = "Schakel over naar de telefoon om alle bladwijzers te zien";
 "speedcams_alert_title_carplay_1" = "Snelheidscamera's";
 "speedcams_alert_title_carplay_2" = "Snelheidswaarschuwingen";
-"download_map_carplay" = "Download kaarten in de Organic Maps app op uw apparaat";
+"download_map_carplay" = "Download kaarten in de NonGPS Maps app op uw apparaat";
 "carplay_roundabout_exit" = "Afrit nr. %@";
 
 /* iOS */
@@ -966,10 +966,10 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/NL:Wat_is_OpenStreetMap%3F";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "Je gebruikt nu NoGPS Maps op het telefoonscherm";
+"car_used_on_the_phone_screen" = "Je gebruikt nu NonGPS Maps op het telefoonscherm";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "Je gebruikt nu NoGPS Maps op het autoscherm";
+"car_used_on_the_car_screen" = "Je gebruikt nu NonGPS Maps op het autoscherm";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "Ga verder op de telefoon";
@@ -1189,7 +1189,7 @@
 "reverse_route" = "Route omkeren";
 
 
-/********** NoGPS Maps **********/
+/********** NonGPS Maps **********/
 
 "nogps_manual_position" = "Set my position manually";
 

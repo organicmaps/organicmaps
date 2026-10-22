@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Hej! \n \nJag bifogar mina bokmärken, öppna gärna dem med NoGPS Maps. Om du inte redan har appen installerad, kan du ladda ner den här: https://github.com/Ramzess-II/NoGPSMaps \n \nTrevlig resa med NoGPS Maps!";
+"share_bookmarks_email_body" = "Hej! \n \nJag bifogar mina bokmärken, öppna gärna dem med NonGPS Maps. Om du inte redan har appen installerad, kan du ladda ner den här: https://github.com/Ramzess-II/NoGPSMaps \n \nTrevlig resa med NonGPS Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Läser in bokmärken";
@@ -178,10 +178,10 @@
 "share_my_position" = "Jag är här på Organic Maps";
 
 /* Email subject when sharing a place. %1$@ is the place name or address. */
-"share_place_subject" = "%1$@ på NoGPS Maps";
+"share_place_subject" = "%1$@ på NonGPS Maps";
 
 /* Email subject when sharing a place that has no name or address. */
-"share_place_subject_default" = "En plats på NoGPS Maps";
+"share_place_subject_default" = "En plats på NonGPS Maps";
 
 /* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
 "share_open_in_om_or_browser" = "Öppna i Organic Maps eller i en webbläsare";
@@ -591,7 +591,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Operatör: %@";
 "editor_category_unsuitable_title" = "Hittar du ingen lämplig kategori?";
-"editor_category_unsuitable_text" = "NoGPS Maps tillåter endast att lägga till enkla punktkategorier, det betyder inga städer, vägar, sjöar, byggnadskonturer etc. Lägg till sådana kategorier direkt till <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Kontrollera vår <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guide</a> för detaljerade steg-för-steg-instruktioner.";
+"editor_category_unsuitable_text" = "NonGPS Maps tillåter endast att lägga till enkla punktkategorier, det betyder inga städer, vägar, sjöar, byggnadskonturer etc. Lägg till sådana kategorier direkt till <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Kontrollera vår <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guide</a> för detaljerade steg-för-steg-instruktioner.";
 "downloader_no_downloaded_maps_title" = "Du har inte laddat ner några kartor";
 "downloader_no_downloaded_maps_message" = "Ladda ner kartor för att hitta platsen och navigera offline.";
 "current_location_unknown_error_title" = "Den nuvarande platsen är okänd.";
@@ -723,7 +723,7 @@
 "bookmarks_text_placement_description" = "Om det finns för många bokmärken kan det göra appen långsammare att visa namnen på dem på kartan.";
 "show_to_the_right" = "Visa till höger";
 "show_at_the_bottom" = "Visa längst ner";
-"enable_logging_warning_message" = "Aktivera denna funktion för att logga detaljer för diagnostiska ändamål. Detta hjälper utvecklarna att identifiera problem med appen. Slå på funktionen endast på begäran av Organic Maps supporttjänst.";
+"enable_logging_warning_message" = "Aktivera denna funktion för att logga detaljer för diagnostiska ändamål. Detta hjälper utvecklarna att identifiera problem med appen. Slå på funktionen endast på begäran av NonGPS Maps supporttjänst.";
 
 /* Driving profile in routing options settings. */
 "routing_options_driving" = "Bil";
@@ -966,10 +966,10 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "Du använder nu NoGPS Maps på telefonens skärm";
+"car_used_on_the_phone_screen" = "Du använder nu NonGPS Maps på telefonens skärm";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "Du använder nu NoGPS Maps på bilskärmen";
+"car_used_on_the_car_screen" = "Du använder nu NonGPS Maps på bilskärmen";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "Fortsätt i telefonen";
@@ -1189,7 +1189,7 @@
 "reverse_route" = "Vänd rutten";
 
 
-/********** NoGPS Maps **********/
+/********** NonGPS Maps **********/
 
 "nogps_manual_position" = "Set my position manually";
 

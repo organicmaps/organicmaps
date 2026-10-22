@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Përshëndetje!\n\nBashkëngjitur janë faqeshënuesit e mi; ju lutemi hapini ato në NoGPS Maps. Nëse nuk e keni të instaluar, mund ta shkarkoni këtu: https://github.com/Ramzess-II/NoGPSMaps\n\nShijoni udhëtimin me NoGPS Maps!";
+"share_bookmarks_email_body" = "Përshëndetje!\n\nBashkëngjitur janë faqeshënuesit e mi; ju lutemi hapini ato në NonGPS Maps. Nëse nuk e keni të instaluar, mund ta shkarkoni këtu: https://github.com/Ramzess-II/NoGPSMaps\n\nShijoni udhëtimin me NonGPS Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Duke ngarkuar Faqeshënuesit";
@@ -178,10 +178,10 @@
 "share_my_position" = "Jam këtu në Organic Maps";
 
 /* Email subject when sharing a place. %1$@ is the place name or address. */
-"share_place_subject" = "%1$@ në NoGPS Maps";
+"share_place_subject" = "%1$@ në NonGPS Maps";
 
 /* Email subject when sharing a place that has no name or address. */
-"share_place_subject_default" = "Një vend në NoGPS Maps";
+"share_place_subject_default" = "Një vend në NonGPS Maps";
 
 /* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
 "share_open_in_om_or_browser" = "Hape në Organic Maps ose në shfletues";
@@ -591,7 +591,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Operatori: %@";
 "editor_category_unsuitable_title" = "Nuk mund të gjeni një kategori të përshtatshme?";
-"editor_category_unsuitable_text" = "NoGPS Maps lejon shtimin e kategorive të thjeshta të pikave, që do të thotë jo qytete, rrugë, liqene, konture ndërtesash, etj. Ju lutemi shtoni kategori të tilla drejtpërdrejt në <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Kontrolloni <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">udhëzuesin tonë</a> për udhëzime të detajuara hap pas hapi.";
+"editor_category_unsuitable_text" = "NonGPS Maps lejon shtimin e kategorive të thjeshta të pikave, që do të thotë jo qytete, rrugë, liqene, konture ndërtesash, etj. Ju lutemi shtoni kategori të tilla drejtpërdrejt në <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Kontrolloni <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">udhëzuesin tonë</a> për udhëzime të detajuara hap pas hapi.";
 "downloader_no_downloaded_maps_title" = "Nuk keni shkarkuar asnjë hartë";
 "downloader_no_downloaded_maps_message" = "Shkarkoni harta për të kërkuar dhe lundruar jashtë linje.";
 "current_location_unknown_error_title" = "Vendndodhja aktuale është e panjohur.";
@@ -966,10 +966,10 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "Tani jeni duke përdorur NoGPS Maps në ekranin e telefonit";
+"car_used_on_the_phone_screen" = "Tani jeni duke përdorur NonGPS Maps në ekranin e telefonit";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "Tani jeni duke përdorur NoGPS Maps në ekranin e makinës";
+"car_used_on_the_car_screen" = "Tani jeni duke përdorur NonGPS Maps në ekranin e makinës";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "Vazhdoni në telefon";
@@ -1189,7 +1189,7 @@
 "reverse_route" = "Përmbys rrugën";
 
 
-/********** NoGPS Maps **********/
+/********** NonGPS Maps **********/
 
 "nogps_manual_position" = "Set my position manually";
 

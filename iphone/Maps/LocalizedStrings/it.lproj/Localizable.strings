@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Ciao!\n\nIn allegato ci sono i miei luoghi preferiti. Aprili se hai installato NoGPS Maps. Oppure, se non ce l'hai, scarica l'app per iOS o Android seguendo questo link: https://omaps.app/\n\nDivertiti a viaggiare con NoGPS Maps!";
+"share_bookmarks_email_body" = "Ciao!\n\nIn allegato ci sono i miei luoghi preferiti. Aprili se hai installato NonGPS Maps. Oppure, se non ce l'hai, scarica l'app per iOS o Android seguendo questo link: https://omaps.app/\n\nDivertiti a viaggiare con NonGPS Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Caricamento luoghi preferiti";
@@ -178,10 +178,10 @@
 "share_my_position" = "Sono qui su Organic Maps";
 
 /* Email subject when sharing a place. %1$@ is the place name or address. */
-"share_place_subject" = "%1$@ su NoGPS Maps";
+"share_place_subject" = "%1$@ su NonGPS Maps";
 
 /* Email subject when sharing a place that has no name or address. */
-"share_place_subject_default" = "Un luogo su NoGPS Maps";
+"share_place_subject_default" = "Un luogo su NonGPS Maps";
 
 /* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
 "share_open_in_om_or_browser" = "Apri in Organic Maps o in un browser";
@@ -591,7 +591,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Gestore: %@";
 "editor_category_unsuitable_title" = "Non riesci a trovare una categoria adatta?";
-"editor_category_unsuitable_text" = "NoGPS Maps consente di aggiungere solo punti semplici, escludendo p.es. città, strade, laghi, planimetria edifici ecc. È possibile aggiungere tali categorie direttamente su <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Consulta la nostra <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guida</a> per istruzioni dettagliate.";
+"editor_category_unsuitable_text" = "NonGPS Maps consente di aggiungere solo punti semplici, escludendo p.es. città, strade, laghi, planimetria edifici ecc. È possibile aggiungere tali categorie direttamente su <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Consulta la nostra <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guida</a> per istruzioni dettagliate.";
 "downloader_no_downloaded_maps_title" = "Non hai scaricato mappe";
 "downloader_no_downloaded_maps_message" = "Scarica mappe per trovare luoghi e navigare offline.";
 "current_location_unknown_error_title" = "Posizione attuale sconosciuta.";
@@ -899,7 +899,7 @@
 "switch_to_phone_bookmarks_carplay" = "Passa al telefono per vedere tutti i luoghi preferiti";
 "speedcams_alert_title_carplay_1" = "Autovelox";
 "speedcams_alert_title_carplay_2" = "Info autovelox";
-"download_map_carplay" = "Scarica le mappe nell'applicazione Organic Maps sul tuo dispositivo";
+"download_map_carplay" = "Scarica le mappe nell'applicazione NonGPS Maps sul tuo dispositivo";
 "carplay_roundabout_exit" = "%@ uscita";
 
 /* iOS */
@@ -966,10 +966,10 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/IT:About";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "Stai utilizzando NoGPS Maps sullo schermo del telefono";
+"car_used_on_the_phone_screen" = "Stai utilizzando NonGPS Maps sullo schermo del telefono";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "Stai utilizzando NoGPS Maps sullo schermo dell'auto";
+"car_used_on_the_car_screen" = "Stai utilizzando NonGPS Maps sullo schermo dell'auto";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "Continua sul telefono";
@@ -1189,7 +1189,7 @@
 "reverse_route" = "Inverti il percorso";
 
 
-/********** NoGPS Maps **********/
+/********** NonGPS Maps **********/
 
 "nogps_manual_position" = "Set my position manually";
 

@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Ողջույն!\nԿից ներկայացված են իմ էջանիշները: Խնդրում եմ բացել դրանք NoGPS Maps-ում: Եթե այն տեղադրված չէ, կարող եք ներբեռնել այստեղ՝ https://github.com/Ramzess-II/NoGPSMaps\nՎայելեք ճանապարհորդությունը NoGPS Maps-ի հետ:";
+"share_bookmarks_email_body" = "Ողջույն!\nԿից ներկայացված են իմ էջանիշները: Խնդրում եմ բացել դրանք NonGPS Maps-ում: Եթե այն տեղադրված չէ, կարող եք ներբեռնել այստեղ՝ https://github.com/Ramzess-II/NoGPSMaps\nՎայելեք ճանապարհորդությունը NonGPS Maps-ի հետ:";
 
 /* message title of loading file */
 "load_kmz_title" = "Էջանիշների բեռնում";
@@ -178,10 +178,10 @@
 "share_my_position" = "Ես այստեղ եմ Organic Maps-ում";
 
 /* Email subject when sharing a place. %1$@ is the place name or address. */
-"share_place_subject" = "%1$@ NoGPS Maps-ում";
+"share_place_subject" = "%1$@ NonGPS Maps-ում";
 
 /* Email subject when sharing a place that has no name or address. */
-"share_place_subject_default" = "Վայր NoGPS Maps-ում";
+"share_place_subject_default" = "Վայր NonGPS Maps-ում";
 
 /* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
 "share_open_in_om_or_browser" = "Բացել Organic Maps-ում կամ դիտարկիչում";
@@ -591,7 +591,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Օպերատոր՝ %@";
 "editor_category_unsuitable_title" = "Չե՞ք գտնում համապատասխան կատեգորիա:";
-"editor_category_unsuitable_text" = "NoGPS Maps-ը թույլ է տալիս ավելացնել միայն պարզ կետային կատեգորիաներ, այսինքն՝ ոչ քաղաքներ, ճանապարհներ, լճեր, շենքերի ուրվագծեր և այլն։ Խնդրում ենք ավելացնել նման կատեգորիաները անմիջապես <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> կայքում։ Մանրամասն քայլ առ քայլ հրահանգների համար ստուգեք մեր <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">ուղեցույցը</a>:";
+"editor_category_unsuitable_text" = "NonGPS Maps-ը թույլ է տալիս ավելացնել միայն պարզ կետային կատեգորիաներ, այսինքն՝ ոչ քաղաքներ, ճանապարհներ, լճեր, շենքերի ուրվագծեր և այլն։ Խնդրում ենք ավելացնել նման կատեգորիաները անմիջապես <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> կայքում։ Մանրամասն քայլ առ քայլ հրահանգների համար ստուգեք մեր <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">ուղեցույցը</a>:";
 "downloader_no_downloaded_maps_title" = "Դուք դեռ քարտեզներ չեք ներբեռնել";
 "downloader_no_downloaded_maps_message" = "Ներբեռնեք քարտեզներ՝ օֆլայն որոնման և նավիգացիայի համար:";
 "current_location_unknown_error_title" = "Ընթացիկ դիրքն անհայտ է:";
@@ -966,10 +966,10 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "Դուք այժմ օգտագործում եք NoGPS Maps-ը հեռախոսի էկրանին";
+"car_used_on_the_phone_screen" = "Դուք այժմ օգտագործում եք NonGPS Maps-ը հեռախոսի էկրանին";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "Դուք այժմ օգտագործում եք NoGPS Maps-ը մեքենայի էկրանին";
+"car_used_on_the_car_screen" = "Դուք այժմ օգտագործում եք NonGPS Maps-ը մեքենայի էկրանին";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "Շարունակել հեռախոսով";
@@ -1189,7 +1189,7 @@
 "reverse_route" = "Շրջել երթուղին";
 
 
-/********** NoGPS Maps **********/
+/********** NonGPS Maps **********/
 
 "nogps_manual_position" = "Set my position manually";
 

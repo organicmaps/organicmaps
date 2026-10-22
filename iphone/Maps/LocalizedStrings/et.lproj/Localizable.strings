@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Tere!\n\nManuses on minu järjehoidjad rakendusest NoGPS Maps. Palun ava need kui Sul on NoGPS Maps paigaldatud. Või kui ei ole, laadi rakendus alla oma iOSi või Androidi seadmesse, järgides seda linki: https:omaps.appget?kmz\n\nNaudi reisimist NoGPS Mapsiga!";
+"share_bookmarks_email_body" = "Tere!\n\nManuses on minu järjehoidjad rakendusest NonGPS Maps. Palun ava need kui Sul on NonGPS Maps paigaldatud. Või kui ei ole, laadi rakendus alla oma iOSi või Androidi seadmesse, järgides seda linki: https:omaps.appget?kmz\n\nNaudi reisimist NonGPS Mapsiga!";
 
 /* message title of loading file */
 "load_kmz_title" = "Järjehoidjate laadimine";
@@ -178,10 +178,10 @@
 "share_my_position" = "Olen siin Organic Mapsis";
 
 /* Email subject when sharing a place. %1$@ is the place name or address. */
-"share_place_subject" = "%1$@ NoGPS Mapsis";
+"share_place_subject" = "%1$@ NonGPS Mapsis";
 
 /* Email subject when sharing a place that has no name or address. */
-"share_place_subject_default" = "Koht NoGPS Mapsis";
+"share_place_subject_default" = "Koht NonGPS Mapsis";
 
 /* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
 "share_open_in_om_or_browser" = "Ava Organic Mapsis või brauseris";
@@ -591,7 +591,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Käitaja: %@";
 "editor_category_unsuitable_title" = "Ei leia sobivat kategooriat?";
-"editor_category_unsuitable_text" = "NoGPS Maps võimaldab lisada ainult lihtsaid huvipunkte, see tähendab, et ei mingeid linnu, teid, järvi, hoonete piirjooni jne. Palun lisa sellised kategooriad otse <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> saidis. Vaata meie <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">juhendit</a> üksikasjalike samm-sammuliste juhiste saamiseks.";
+"editor_category_unsuitable_text" = "NonGPS Maps võimaldab lisada ainult lihtsaid huvipunkte, see tähendab, et ei mingeid linnu, teid, järvi, hoonete piirjooni jne. Palun lisa sellised kategooriad otse <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> saidis. Vaata meie <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">juhendit</a> üksikasjalike samm-sammuliste juhiste saamiseks.";
 "downloader_no_downloaded_maps_title" = "Sa ei ole kaarte alla laadinud";
 "downloader_no_downloaded_maps_message" = "Laadi alla kaardid asukoha otsimiseks ja võrguühenduseta tee juhatamiseks.";
 "current_location_unknown_error_title" = "Hetkeasukoht on teadmata.";
@@ -899,7 +899,7 @@
 "switch_to_phone_bookmarks_carplay" = "Kõigi järjehoidjate nägemiseks suundu telefoni vaatesse";
 "speedcams_alert_title_carplay_1" = "Kiiruskaamerad";
 "speedcams_alert_title_carplay_2" = "Kiiruse hoiatused";
-"download_map_carplay" = "Palun laadi alla kaardid oma nutiseadme Organic Maps rakenduses";
+"download_map_carplay" = "Palun laadi alla kaardid oma nutiseadme NonGPS Maps rakenduses";
 "carplay_roundabout_exit" = "%@ ärapööre";
 
 /* iOS */
@@ -966,10 +966,10 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "Nüüd kasutad telefoni ekraanil NoGPS Mapsi";
+"car_used_on_the_phone_screen" = "Nüüd kasutad telefoni ekraanil NonGPS Mapsi";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "Nüüd kasutad auto ekraanil NoGPS Mapsi";
+"car_used_on_the_car_screen" = "Nüüd kasutad auto ekraanil NonGPS Mapsi";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "Jätka telefonis";
@@ -1189,7 +1189,7 @@
 "reverse_route" = "Pööra marsruut ümber";
 
 
-/********** NoGPS Maps **********/
+/********** NonGPS Maps **********/
 
 "nogps_manual_position" = "Set my position manually";
 

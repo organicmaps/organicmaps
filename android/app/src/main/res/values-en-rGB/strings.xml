@@ -17,7 +17,7 @@
     <!-- SECTION: Strings for downloading map from search -->
     <string name="editor_zip_code">Postcode</string>
     <string name="error_enter_correct_zip_code">Enter a valid postcode</string>
-    <string name="editor_category_unsuitable_text">NoGPS Maps allows adding simple point categories only, which means no towns, roads, lakes, building outlines, etc. Please add such categories directly to <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Check our <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> for detailed step-by-step instructions.</string>
+    <string name="editor_category_unsuitable_text">NonGPS Maps allows adding simple point categories only, which means no towns, roads, lakes, building outlines, etc. Please add such categories directly to <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Check our <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> for detailed step-by-step instructions.</string>
     <string name="button_layer_subway">Metro</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Route optimisation</string>

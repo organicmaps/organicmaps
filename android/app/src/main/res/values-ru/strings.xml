@@ -43,7 +43,7 @@
     <string name="unsupported_phone">Для работы приложения необходим аппаратно ускоренный OpenGL. К сожалению, ваше устройство не поддерживается.</string>
     <string name="download">Загрузить</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Для использования приложения NoGPS Maps отсоедините USB-кабель или вставьте карту памяти</string>
+    <string name="disconnect_usb_cable">Для использования приложения NonGPS Maps отсоедините USB-кабель или вставьте карту памяти</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Недостаточно свободного места на SD карте/в памяти устройства для использования программы</string>
     <string name="download_resources">Для начала работы скачайте, пожалуйста, обзорную карту мира на ваше устройство.\nПотребуется %s данных.</string>
@@ -142,8 +142,8 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">Примечание</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">С вами поделились метками NoGPS Maps</string>
-    <string name="share_bookmarks_email_body">Здравствуйте!\n\nВ прикреплённом файле мои метки из офлайновых карт NoGPS Maps. Для того чтобы открыть этот файл, вам потребуется приложение NoGPS Maps, которое можно установить по ссылке: https://github.com/Ramzess-II/NoGPSMaps\n\nСпасибо!</string>
+    <string name="share_bookmarks_email_subject">С вами поделились метками NonGPS Maps</string>
+    <string name="share_bookmarks_email_body">Здравствуйте!\n\nВ прикреплённом файле мои метки из офлайновых карт NonGPS Maps. Для того чтобы открыть этот файл, вам потребуется приложение NonGPS Maps, которое можно установить по ссылке: https://github.com/Ramzess-II/NoGPSMaps\n\nСпасибо!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Загрузка меток</string>
     <!-- Kmz file successful loading -->
@@ -165,9 +165,9 @@
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Поделиться</string>
     <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
-    <string name="share_place_subject">%1$s в NoGPS Maps</string>
+    <string name="share_place_subject">%1$s в NonGPS Maps</string>
     <!-- Email subject when sharing a place that has no name or address. -->
-    <string name="share_place_subject_default">Место в NoGPS Maps</string>
+    <string name="share_place_subject_default">Место в NonGPS Maps</string>
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">Электронная почта</string>
     <!-- Text for message when used successfully copied something -->
@@ -432,7 +432,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Созданные сообществом данные OpenStreetMap по состоянию на %s. Узнайте больше о том, как редактировать и обновлять карту, на сайте OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) - это открытый проект сообщества по созданию бесплатной карты. Он является основным источником картографических данных в NoGPS Maps и работает как Википедия. Кто угодно может добавлять или редактировать места, которые позже увидят миллионы пользователей по всему миру.\nПрисоединяйтесь к сообществу и помогите сделать лучшую карту для всех!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) - это открытый проект сообщества по созданию бесплатной карты. Он является основным источником картографических данных в NonGPS Maps и работает как Википедия. Кто угодно может добавлять или редактировать места, которые позже увидят миллионы пользователей по всему миру.\nПрисоединяйтесь к сообществу и помогите сделать лучшую карту для всех!</string>
     <string name="login_to_make_edits_visible">Создайте учетную запись OpenStreetMap или войдите в нее, чтобы опубликовать свои правки на карте для всего мира.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d из %2$d</string>
@@ -447,7 +447,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Примечание для волонтеров OpenStreetMap (необязательно)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Опишите ошибки на карте или то, что нельзя редактировать с помощью NoGPS Maps</string>
+    <string name="editor_note_hint">Опишите ошибки на карте или то, что нельзя редактировать с помощью NonGPS Maps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Ваши правки будут загружены в общедоступную базу данных <a href="https://wiki.openstreetmap.org/wiki/RU:О_проекте">OpenStreetMap</a>. Пожалуйста, не добавляйте личную информацию или информацию, защищенную авторским правом.</string>
     <string name="editor_more_about_osm">Подробнее об OpenStreetMap</string>
@@ -457,7 +457,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Оператор: %s</string>
     <string name="editor_category_unsuitable_title">Нет подходящей категории?</string>
-    <string name="editor_category_unsuitable_text">NoGPS Maps позволяет добавлять на карту только простые типы объектов, то есть никаких городов, дорог, озер, контуров зданий. Пожалуйста, добавляйте такие категории на сайте <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Также рекомендуем ознакомиться с нашими <a href="https://organicmaps.app/faq/editing/advanced-map-editing">подробными пошаговыми инструкциями и другими приложениями для редактирования карты</a>.</string>
+    <string name="editor_category_unsuitable_text">NonGPS Maps позволяет добавлять на карту только простые типы объектов, то есть никаких городов, дорог, озер, контуров зданий. Пожалуйста, добавляйте такие категории на сайте <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Также рекомендуем ознакомиться с нашими <a href="https://organicmaps.app/faq/editing/advanced-map-editing">подробными пошаговыми инструкциями и другими приложениями для редактирования карты</a>.</string>
     <string name="downloader_no_downloaded_maps_title">У вас нет загруженных карт</string>
     <string name="downloader_no_downloaded_maps_message">Загрузите необходимые карты, чтобы находить места и пользоваться навигацией без интернета.</string>
     <string name="current_location_unknown_error_title">Местоположение не найдено.</string>
@@ -777,9 +777,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">Наша главная цель — создать быстрые, конфиденциальные и простые в использовании карты, которые вам понравятся.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">Сейчас Вы используете NoGPS Maps на экране телефона</string>
+    <string name="car_used_on_the_phone_screen">Сейчас Вы используете NonGPS Maps на экране телефона</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">Сейчас Вы используете NoGPS Maps на экране автомобиля</string>
+    <string name="car_used_on_the_car_screen">Сейчас Вы используете NonGPS Maps на экране автомобиля</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Вы подключены к Android Auto</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -787,7 +787,7 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Продолжить в авто</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">NoGPS Maps нужен доступ к местоположению. Когда будет безопасно, проверьте уведомление на телефоне.</string>
+    <string name="aa_location_permissions_request">NonGPS Maps нужен доступ к местоположению. Когда будет безопасно, проверьте уведомление на телефоне.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Этому приложению нужно ваше разрешение</string>
     <!-- Grant Permissions button. -->
@@ -910,7 +910,7 @@
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Развернуть маршрут</string>
 
-    <!-- SECTION: NoGPS Maps -->
+    <!-- SECTION: NonGPS Maps -->
     <string name="nogps_manual_position">Указать своё местоположение вручную</string>
     <!-- The user has pressed the button to show on the map where the car is -->
     <string name="nogps_mark_by_tap">Коснитесь дороги, где сейчас машина</string>
@@ -1088,7 +1088,7 @@
     <string name="nogps_clear_speed">Сбросить</string>
     <string name="nogps_clear_speed_title">Сбросить калибровку скорости?</string>
     <string name="nogps_clear_speed_message">Поправки скорости, измеренные по GPS на разных скоростях и по вашим сдвигам, будут забыты. Делайте это после смены шин или машины. Пока работает GPS, они измеряются заново.</string>
-    <string name="nogps_about_title">О NoGPS Maps</string>
+    <string name="nogps_about_title">О NonGPS Maps</string>
     <string name="nogps_about_menu">О приложении · Organic Maps</string>
     <string name="nogps_about_headline">Навигация, когда GPS глушат или подменяют</string>
     <string name="nogps_about_description">Без GPS машину ведёт инерциальная навигация: повороты — по гироскопу, расстояние — по скорости автомобиля из OBD-II. Машина держится дорог офлайн-карты.</string>

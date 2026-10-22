@@ -43,7 +43,7 @@
     <string name="unsupported_phone">Een hardware geaccellereerde OpenGL is nodig. Jammer genoeg wordt uw apparaat niet ondersteund.</string>
     <string name="download">Downloaden</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Verwijder de USB-kabel of plaats een geheugenkaart om NoGPS Maps te gebruiken</string>
+    <string name="disconnect_usb_cable">Verwijder de USB-kabel of plaats een geheugenkaart om NonGPS Maps te gebruiken</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Maak eerst ruimte vrij op de SD-kaart/USB-opslag om de app te gebruiken</string>
     <string name="download_resources">Voordat u start, laten we de algemene wereldkaart naar uw apparaat downloaden.\nDeze neemt %s in beslag.</string>
@@ -142,8 +142,8 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notities</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">Bladwijzers van NoGPS Maps zijn met u gedeeld</string>
-    <string name="share_bookmarks_email_body">Hallo!\n\nBijgesloten zijn mijn bladwijzers uit de NoGPS Maps app. Open ze als je NoGPS Maps geïnstalleerd hebt. Of, als je dat niet hebt, download de app hier: https://github.com/Ramzess-II/NoGPSMaps\n\nGeniet van het reizen met NoGPS Maps!</string>
+    <string name="share_bookmarks_email_subject">Bladwijzers van NonGPS Maps zijn met u gedeeld</string>
+    <string name="share_bookmarks_email_body">Hallo!\n\nBijgesloten zijn mijn bladwijzers uit de NonGPS Maps app. Open ze als je NonGPS Maps geïnstalleerd hebt. Of, als je dat niet hebt, download de app hier: https://github.com/Ramzess-II/NoGPSMaps\n\nGeniet van het reizen met NonGPS Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Bladwijzers worden geladen</string>
     <!-- Kmz file successful loading -->
@@ -165,9 +165,9 @@
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Deel</string>
     <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
-    <string name="share_place_subject">%1$s op NoGPS Maps</string>
+    <string name="share_place_subject">%1$s op NonGPS Maps</string>
     <!-- Email subject when sharing a place that has no name or address. -->
-    <string name="share_place_subject_default">Een plaats op NoGPS Maps</string>
+    <string name="share_place_subject_default">Een plaats op NonGPS Maps</string>
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">E-mail</string>
     <!-- Text for message when used successfully copied something -->
@@ -432,7 +432,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Door de gemeenschap gemaakte OpenStreetMap-gegevens tot %s. Lees meer over hoe je de kaart kunt bewerken en bijwerken op OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) is een gemeenschapsproject om een vrije en open kaart te bouwen. Het is de belangrijkste bron van kaartgegevens in NoGPS Maps en werkt ongeveer hetzelfde als Wikipedia. U kunt plaatsen toevoegen of bewerken en deze worden dan beschikbaar voor miljoenen gebruikers over de hele wereld.\nSluit u aan bij de gemeenschap en help mee om een betere kaart voor iedereen te maken!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) is een gemeenschapsproject om een vrije en open kaart te bouwen. Het is de belangrijkste bron van kaartgegevens in NonGPS Maps en werkt ongeveer hetzelfde als Wikipedia. U kunt plaatsen toevoegen of bewerken en deze worden dan beschikbaar voor miljoenen gebruikers over de hele wereld.\nSluit u aan bij de gemeenschap en help mee om een betere kaart voor iedereen te maken!</string>
     <string name="login_to_make_edits_visible">Maak een OpenStreetMap account aan of log in om uw kaartbewerkingen voor de wereld te publiceren.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d van %2$d</string>
@@ -447,7 +447,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Opmerking voor OpenStreetMap vrijwilligers (optioneel)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Beschrijf fouten op de kaart of dingen die niet bewerkt kunnen worden met NoGPS Maps</string>
+    <string name="editor_note_hint">Beschrijf fouten op de kaart of dingen die niet bewerkt kunnen worden met NonGPS Maps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Uw bewerkingen worden geüpload naar de openbare <a href="https://wiki.openstreetmap.org/wiki/NL:About">OpenStreetMap</a> database. Voeg geen persoonlijke of auteursrechtelijk beschermde informatie toe.</string>
     <string name="editor_more_about_osm">Meer over OpenStreetMap</string>
@@ -457,7 +457,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Exploitant: %s</string>
     <string name="editor_category_unsuitable_title">Kun je geen geschikte categorie vinden?</string>
-    <string name="editor_category_unsuitable_text">Met NoGPS Maps kun je alleen eenvoudige puntcategorieën toevoegen, dus geen steden, wegen, meren, contouren van gebouwen, enzovoort. Voeg zulke categorieën direct toe aan <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Bekijk onze <a href="https://organicmaps.app/faq/editing/advanced-map-editing">gids</a> voor gedetailleerde stap voor stap instructies.</string>
+    <string name="editor_category_unsuitable_text">Met NonGPS Maps kun je alleen eenvoudige puntcategorieën toevoegen, dus geen steden, wegen, meren, contouren van gebouwen, enzovoort. Voeg zulke categorieën direct toe aan <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Bekijk onze <a href="https://organicmaps.app/faq/editing/advanced-map-editing">gids</a> voor gedetailleerde stap voor stap instructies.</string>
     <string name="downloader_no_downloaded_maps_title">U hebt geen kaarten gedownload</string>
     <string name="downloader_no_downloaded_maps_message">Download kaarten om een locatie te zoeken en offline te navigeren.</string>
     <string name="current_location_unknown_error_title">Huidige locatie is onbekend.</string>
@@ -613,7 +613,7 @@
     <string name="bookmarks_text_placement_description">Wanneer er teveel markeringen zijn, kan weergave van de namen op de map vertragen.</string>
     <string name="show_to_the_right">Rechts weergeven</string>
     <string name="show_at_the_bottom">Onderaan weergeven</string>
-    <string name="enable_logging_warning_message">Schakel deze optie tijdelijk in om gedetailleerde logboekregistraties omtrent jouw probleem op te slaan en te verzenden tijdens \" Rapporteer een probleem\" in het help menu. Schakel deze optie alleen in op verzoek van Organic Maps ondersteuning.</string>
+    <string name="enable_logging_warning_message">Schakel deze optie tijdelijk in om gedetailleerde logboekregistraties omtrent jouw probleem op te slaan en te verzenden tijdens \" Rapporteer een probleem\" in het help menu. Schakel deze optie alleen in op verzoek van NonGPS Maps ondersteuning.</string>
     <!-- Driving profile in routing options settings. -->
     <string name="routing_options_driving">Auto</string>
     <!-- Cycling profile in routing options settings. -->
@@ -769,9 +769,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">Ons belangrijkste doel is om snelle, op privacy gerichte, gebruiksvriendelijke kaarten te maken waar u dol op zult zijn.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">Je gebruikt nu NoGPS Maps op het telefoonscherm</string>
+    <string name="car_used_on_the_phone_screen">Je gebruikt nu NonGPS Maps op het telefoonscherm</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">Je gebruikt nu NoGPS Maps op het autoscherm</string>
+    <string name="car_used_on_the_car_screen">Je gebruikt nu NonGPS Maps op het autoscherm</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Je bent verbonden met Android Auto</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -779,7 +779,7 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Naar het autoscherm</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">NoGPS Maps heeft locatietoegang nodig. Als het veilig is, controleer je de melding op je telefoon.</string>
+    <string name="aa_location_permissions_request">NonGPS Maps heeft locatietoegang nodig. Als het veilig is, controleer je de melding op je telefoon.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Deze app heeft je toestemming nodig</string>
     <!-- Grant Permissions button. -->

@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Merhaba! \n \nEktekiler yer imlerim, lütfen bunları NoGPS Maps'te açın. Eğer uygulama kurulmamışsa, şu bağlantıyla iOS ve Android aygıtınıza kurabilirsiniz: https://github.com/Ramzess-II/NoGPSMaps\n \nNoGPS Maps ile gezintinin tadını çıkarın!";
+"share_bookmarks_email_body" = "Merhaba! \n \nEktekiler yer imlerim, lütfen bunları NonGPS Maps'te açın. Eğer uygulama kurulmamışsa, şu bağlantıyla iOS ve Android aygıtınıza kurabilirsiniz: https://github.com/Ramzess-II/NoGPSMaps\n \nNonGPS Maps ile gezintinin tadını çıkarın!";
 
 /* message title of loading file */
 "load_kmz_title" = "Yer İmleri Yükleniyor";
@@ -178,10 +178,10 @@
 "share_my_position" = "Organic Maps'te buradayım";
 
 /* Email subject when sharing a place. %1$@ is the place name or address. */
-"share_place_subject" = "%1$@ NoGPS Maps'te";
+"share_place_subject" = "%1$@ NonGPS Maps'te";
 
 /* Email subject when sharing a place that has no name or address. */
-"share_place_subject_default" = "NoGPS Maps'te bir yer";
+"share_place_subject_default" = "NonGPS Maps'te bir yer";
 
 /* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
 "share_open_in_om_or_browser" = "Organic Maps'te veya tarayıcıda aç";
@@ -591,7 +591,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "İşletici: %@";
 "editor_category_unsuitable_title" = "Uygun kategori bulamıyor musunuz?";
-"editor_category_unsuitable_text" = "NoGPS Maps yalnızca basit nokta kategorilerini eklemeyi sağlar. Yani kasaba, yol, göl, bina vb. çizgi/alan verisi ekleme desteği yoktur. Lütfen bu tür kategorileri doğrudan <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> üzerinden ekleyin. Adım adım ayrıntılı yönergeler için <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">yönergemize</a> göz atabilirsiniz.";
+"editor_category_unsuitable_text" = "NonGPS Maps yalnızca basit nokta kategorilerini eklemeyi sağlar. Yani kasaba, yol, göl, bina vb. çizgi/alan verisi ekleme desteği yoktur. Lütfen bu tür kategorileri doğrudan <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> üzerinden ekleyin. Adım adım ayrıntılı yönergeler için <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">yönergemize</a> göz atabilirsiniz.";
 "downloader_no_downloaded_maps_title" = "Hiç harita indirmediniz";
 "downloader_no_downloaded_maps_message" = "Çevrim dışı olarak adres bulmak ve gezinmek için haritaları indirin.";
 "current_location_unknown_error_title" = "Geçerli konum bilinmiyor.";
@@ -899,7 +899,7 @@
 "switch_to_phone_bookmarks_carplay" = "Tüm yer imlerini görmek için telefona geçin";
 "speedcams_alert_title_carplay_1" = "Hız kameraları";
 "speedcams_alert_title_carplay_2" = "Hız uyarıları";
-"download_map_carplay" = "Lütfen telefonunuzdaki Organic Maps'ten haritaları indirin";
+"download_map_carplay" = "Lütfen telefonunuzdaki NonGPS Maps'ten haritaları indirin";
 "carplay_roundabout_exit" = "%@ çıkış";
 
 /* iOS */
@@ -966,10 +966,10 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Tr:About";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "Artık NoGPS Maps'i telefon ekranında kullanıyorsunuz";
+"car_used_on_the_phone_screen" = "Artık NonGPS Maps'i telefon ekranında kullanıyorsunuz";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "Şu anda araç ekranında NoGPS Maps kullanıyorsunuz";
+"car_used_on_the_car_screen" = "Şu anda araç ekranında NonGPS Maps kullanıyorsunuz";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "Telefonda sürdür";
@@ -1189,7 +1189,7 @@
 "reverse_route" = "Rotayı tersine çevir";
 
 
-/********** NoGPS Maps **********/
+/********** NonGPS Maps **********/
 
 "nogps_manual_position" = "Set my position manually";
 

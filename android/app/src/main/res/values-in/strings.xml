@@ -43,7 +43,7 @@
     <string name="unsupported_phone">OpenGL yang dipercepat oleh OpenGL diperlukan. Sayangnya, perangkat Anda tidak mendukung.</string>
     <string name="download">Unduh</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Mohon lepas kabel USB atau masukkan kartu memori untuk menggunakan NoGPS Maps</string>
+    <string name="disconnect_usb_cable">Mohon lepas kabel USB atau masukkan kartu memori untuk menggunakan NonGPS Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Mohon bebaskan sejumlah ruang pada kartu SD/penyimpanan USB terlebih dahulu untuk menggunakan aplikasi</string>
     <string name="download_resources">Sebelum Anda mulai izinkan kami mengunduh peta dunia secara umum ke perangkat Anda.\nHal ini memerlukan data %s.</string>
@@ -142,8 +142,8 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">Catatan</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">Bagikan penanda NoGPS Maps</string>
-    <string name="share_bookmarks_email_body">Halo!\n\nTerlampir adalah bookmark saya; silakan buka di NoGPS Maps. Jika Anda belum memasangnya, Anda dapat mengunduhnya di sini: https://github.com/Ramzess-II/NoGPSMaps\n\nNikmati perjalanan Anda dengan NoGPS Maps!</string>
+    <string name="share_bookmarks_email_subject">Bagikan penanda NonGPS Maps</string>
+    <string name="share_bookmarks_email_body">Halo!\n\nTerlampir adalah bookmark saya; silakan buka di NonGPS Maps. Jika Anda belum memasangnya, Anda dapat mengunduhnya di sini: https://github.com/Ramzess-II/NoGPSMaps\n\nNikmati perjalanan Anda dengan NonGPS Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Memuat Penanda</string>
     <!-- Kmz file successful loading -->
@@ -165,9 +165,9 @@
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Bagikan</string>
     <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
-    <string name="share_place_subject">%1$s di NoGPS Maps</string>
+    <string name="share_place_subject">%1$s di NonGPS Maps</string>
     <!-- Email subject when sharing a place that has no name or address. -->
-    <string name="share_place_subject_default">Tempat di NoGPS Maps</string>
+    <string name="share_place_subject_default">Tempat di NonGPS Maps</string>
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">Surel</string>
     <!-- Text for message when used successfully copied something -->
@@ -432,7 +432,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Data OpenStreetMap yang dibuat oleh komunitas pada tanggal %s. Pelajari lebih lanjut mengenai cara mengedit dan memperbarui peta di OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) adalah sebuah proyek komunitas untuk membuat sebuah peta yang bebas dan terbuka. OSM merupakan sumber utama data peta di NoGPS Maps dan berfungsi mirip dengan Wikipedia. Anda dapat menambahkan atau mengedit tempat dan tempat tersebut tersedia untuk jutaan pengguna di seluruh Dunia.\nBergabunglah dengan komunitas dan bantu membuat peta yang lebih baik untuk semua orang!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) adalah sebuah proyek komunitas untuk membuat sebuah peta yang bebas dan terbuka. OSM merupakan sumber utama data peta di NonGPS Maps dan berfungsi mirip dengan Wikipedia. Anda dapat menambahkan atau mengedit tempat dan tempat tersebut tersedia untuk jutaan pengguna di seluruh Dunia.\nBergabunglah dengan komunitas dan bantu membuat peta yang lebih baik untuk semua orang!</string>
     <string name="login_to_make_edits_visible">Buat akun OpenStreetMap atau masuk untuk mempublikasikan hasil editan peta Anda ke seluruh dunia.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d dari %2$d</string>
@@ -447,7 +447,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Catatan untuk relawan OpenStreetMap (opsional)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Jelaskan kesalahan pada peta atau hal-hal yang tidak dapat diedit melalui NoGPS Maps</string>
+    <string name="editor_note_hint">Jelaskan kesalahan pada peta atau hal-hal yang tidak dapat diedit melalui NonGPS Maps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Hasil editan Anda akan diunggah ke database <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> publik. Mohon untuk tidak menambahkan informasi pribadi atau informasi yang memiliki hak cipta.</string>
     <string name="editor_more_about_osm">Selengkapnya tentang OpenStreetMap</string>
@@ -457,7 +457,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Operator: %s</string>
     <string name="editor_category_unsuitable_title">Tidak dapat menemukan kategori yang sesuai?</string>
-    <string name="editor_category_unsuitable_text">NoGPS Maps hanya memungkinkan untuk menambahkan kategori titik sederhana, yang berarti tidak ada kota, jalan, danau, garis besar bangunan, dll. Silahkan tambahkan kategori tersebut secara langsung ke <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Lihat <a href="https://organicmaps.app/faq/editing/advanced-map-editing">panduan</a> kami untuk petunjuk langkah demi langkah yang terperinci.</string>
+    <string name="editor_category_unsuitable_text">NonGPS Maps hanya memungkinkan untuk menambahkan kategori titik sederhana, yang berarti tidak ada kota, jalan, danau, garis besar bangunan, dll. Silahkan tambahkan kategori tersebut secara langsung ke <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Lihat <a href="https://organicmaps.app/faq/editing/advanced-map-editing">panduan</a> kami untuk petunjuk langkah demi langkah yang terperinci.</string>
     <string name="downloader_no_downloaded_maps_title">Tidak ada peta apa pun yang diunduh</string>
     <string name="downloader_no_downloaded_maps_message">Unduh peta untuk menemukan lokasi dan bernavigasi secara offline.</string>
     <string name="current_location_unknown_error_title">Lokasi saat ini tidak diketahui.</string>
@@ -608,7 +608,7 @@
     <string name="bookmarks_text_placement_description">Jika ada terlalu banyak penanda, menampilkan nama mereka di peta dapat memperlambat aplikasi.</string>
     <string name="show_to_the_right">Tampilkan di sebelah kanan</string>
     <string name="show_at_the_bottom">Tampilkan di bagian bawah</string>
-    <string name="enable_logging_warning_message">Opsi ini mengaktifkan pencatatan untuk tujuan diagnostik. Bisa amat membantu bagi staf dukungan kami yang memecahkan masalah dalam aplikasi. Aktifkan opsi ini hanya saat diminta oleh dukungan Organic Maps.</string>
+    <string name="enable_logging_warning_message">Opsi ini mengaktifkan pencatatan untuk tujuan diagnostik. Bisa amat membantu bagi staf dukungan kami yang memecahkan masalah dalam aplikasi. Aktifkan opsi ini hanya saat diminta oleh dukungan NonGPS Maps.</string>
     <!-- Driving profile in routing options settings. -->
     <string name="routing_options_driving">Mengemudi</string>
     <!-- Cycling profile in routing options settings. -->
@@ -760,9 +760,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">Tujuan utama kami adalah membuat peta yang cepat, berfokus pada privasi, dan mudah digunakan yang akan Anda sukai.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">Anda sekarang menggunakan NoGPS Maps pada layar ponsel</string>
+    <string name="car_used_on_the_phone_screen">Anda sekarang menggunakan NonGPS Maps pada layar ponsel</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">Anda sekarang menggunakan NoGPS Maps pada layar mobil</string>
+    <string name="car_used_on_the_car_screen">Anda sekarang menggunakan NonGPS Maps pada layar mobil</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Anda terhubung ke Android Auto</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -770,7 +770,7 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Ke layar mobil</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">NoGPS Maps membutuhkan akses lokasi. Jika sudah aman, periksa notifikasi di ponsel Anda.</string>
+    <string name="aa_location_permissions_request">NonGPS Maps membutuhkan akses lokasi. Jika sudah aman, periksa notifikasi di ponsel Anda.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Aplikasi ini membutuhkan izin Anda</string>
     <!-- Grant Permissions button. -->

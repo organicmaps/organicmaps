@@ -43,7 +43,7 @@
     <string name="unsupported_phone">ແອັບນີ້ຕ້ອງການການເລັ່ງຮາດແວ OpenGL. ໜ້າເສຍດາຍ, ອຸປະກອນຂອງທ່ານບໍ່ຮອງຮັບ.</string>
     <string name="download">ດາວໂຫລດ</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">ກະລຸນາຖອດສາຍ USB ຫຼື ສຽບກາດໜ່ວຍຄວາມຈຳເພື່ອໃຊ້ NoGPS Maps</string>
+    <string name="disconnect_usb_cable">ກະລຸນາຖອດສາຍ USB ຫຼື ສຽບກາດໜ່ວຍຄວາມຈຳເພື່ອໃຊ້ NonGPS Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">ກະລຸນາເພີ່ມພື້ນທີ່ວ່າງໃນ SD ກາດ/ບ່ອນເກັບຂໍ້ມູນ USB ກ່ອນເພື່ອໃຊ້ແອັບ</string>
     <string name="download_resources">ກ່ອນຈະເລີ່ມໃຊ້ແອັບ, ກະລຸນາດາວໂຫລດແຜນທີ່ພາບລວມຂອງໂລກລົງໃນອຸປະກອນຂອງທ່ານ.\nມັນຈະໃຊ້ພື້ນທີ່ %s.</string>
@@ -96,8 +96,8 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">ບັນທຶກ</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">ມີການແບ່ງປັນບຸກມາກ NoGPS Maps ໃຫ້ທ່ານ</string>
-    <string name="share_bookmarks_email_body">ສະບາຍດີ!\n\nນີ້ແມ່ນບຸກມາກຂອງຂ້ອຍ; ກະລຸນາເປີດໃນ NoGPS Maps. ຫາກທ່ານຍັງບໍ່ໄດ້ຕິດຕັ້ງ, ສາມາດດາວໂຫລດໄດ້ທີ່ນີ້: https://github.com/Ramzess-II/NoGPSMaps\n\nຂໍໃຫ້ມ່ວນກັບການເດີນທາງດ້ວຍ NoGPS Maps!</string>
+    <string name="share_bookmarks_email_subject">ມີການແບ່ງປັນບຸກມາກ NonGPS Maps ໃຫ້ທ່ານ</string>
+    <string name="share_bookmarks_email_body">ສະບາຍດີ!\n\nນີ້ແມ່ນບຸກມາກຂອງຂ້ອຍ; ກະລຸນາເປີດໃນ NonGPS Maps. ຫາກທ່ານຍັງບໍ່ໄດ້ຕິດຕັ້ງ, ສາມາດດາວໂຫລດໄດ້ທີ່ນີ້: https://github.com/Ramzess-II/NoGPSMaps\n\nຂໍໃຫ້ມ່ວນກັບການເດີນທາງດ້ວຍ NonGPS Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">ກຳລັງໂຫລດບຸກມາກ</string>
     <!-- Kmz file successful loading -->
@@ -119,9 +119,9 @@
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">ແບ່ງປັນ</string>
     <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
-    <string name="share_place_subject">%1$s ໃນ NoGPS Maps</string>
+    <string name="share_place_subject">%1$s ໃນ NonGPS Maps</string>
     <!-- Email subject when sharing a place that has no name or address. -->
-    <string name="share_place_subject_default">ສະຖານທີ່ໃນ NoGPS Maps</string>
+    <string name="share_place_subject_default">ສະຖານທີ່ໃນ NonGPS Maps</string>
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">ອີເມລ</string>
     <!-- Text for message when used successfully copied something -->
@@ -386,7 +386,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">ຂໍ້ມູນ OpenStreetMap ທີ່ສ້າງໂດຍຊຸມຊົນ ນັບຕັ້ງແຕ່ %s. ສຶກສາເພີ່ມເຕີມກ່ຽວກັບວິທີແກ້ໄຂ ແລະ ອັບເດດແຜນທີ່ໄດ້ທີ່ OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) ແມ່ນໂຄງການຊຸມຊົນເພື່ອສ້າງແຜນທີ່ທີ່ຟຣີ ແລະ ເປີດກວ້າງ. ມັນເປັນແຫຼ່ງຂໍ້ມູນແຜນທີ່ຫຼັກໃນ NoGPS Maps ແລະ ເຮັດວຽກຄ້າຍຄືກັບ Wikipedia. ທ່ານສາມາດເພີ່ມ ຫຼື ແກ້ໄຂສະຖານທີ່ ແລະ ພວກມັນຈະພ້ອມໃຫ້ຜູ້ໃຊ້ຫຼາຍລ້ານຄົນທົ່ວໂລກໄດ້ໃຊ້.\nມາເຂົ້າຮ່ວມຊຸມຊົນ ແລະ ຊ່ວຍກັນສ້າງແຜນທີ່ທີ່ດີກວ່າສຳລັບທຸກຄົນ!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) ແມ່ນໂຄງການຊຸມຊົນເພື່ອສ້າງແຜນທີ່ທີ່ຟຣີ ແລະ ເປີດກວ້າງ. ມັນເປັນແຫຼ່ງຂໍ້ມູນແຜນທີ່ຫຼັກໃນ NonGPS Maps ແລະ ເຮັດວຽກຄ້າຍຄືກັບ Wikipedia. ທ່ານສາມາດເພີ່ມ ຫຼື ແກ້ໄຂສະຖານທີ່ ແລະ ພວກມັນຈະພ້ອມໃຫ້ຜູ້ໃຊ້ຫຼາຍລ້ານຄົນທົ່ວໂລກໄດ້ໃຊ້.\nມາເຂົ້າຮ່ວມຊຸມຊົນ ແລະ ຊ່ວຍກັນສ້າງແຜນທີ່ທີ່ດີກວ່າສຳລັບທຸກຄົນ!</string>
     <string name="login_to_make_edits_visible">ສ້າງບັນຊີ OpenStreetMap ຫຼື ເຂົ້າສູ່ລະບົບເພື່ອເຜີຍແຜ່ການແກ້ໄຂແຜນທີ່ຂອງທ່ານໃຫ້ໂລກໄດ້ເຫັນ.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d ຈາກ %2$d</string>
@@ -401,7 +401,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">ບັນທຶກເຖິງອາສາສະໝັກ OpenStreetMap (ບໍ່ບັງຄັບ)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">ອະທິບາຍຂໍ້ຜິດພາດໃນແຜນທີ່ ຫຼື ສິ່ງທີ່ບໍ່ສາມາດແກ້ໄຂໄດ້ດ້ວຍ NoGPS Maps</string>
+    <string name="editor_note_hint">ອະທິບາຍຂໍ້ຜິດພາດໃນແຜນທີ່ ຫຼື ສິ່ງທີ່ບໍ່ສາມາດແກ້ໄຂໄດ້ດ້ວຍ NonGPS Maps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">ການແກ້ໄຂຂອງທ່ານຈະຖືກອັບໂຫລດໄປຍັງຖານຂໍ້ມູນສາທາລະນະ <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>. ກະລຸນາຢ່າເພີ່ມຂໍ້ມູນສ່ວນຕົວ ຫຼື ຂໍ້ມູນທີ່ມີລິຂະສິດ.</string>
     <string name="editor_more_about_osm">ເພີ່ມເຕີມກ່ຽວກັບ OpenStreetMap</string>
@@ -411,7 +411,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">ຜູ້ດຳເນີນການ: %s</string>
     <string name="editor_category_unsuitable_title">ບໍ່ພົບໝວດໝູ່ທີ່ເໝາະສົມບໍ່?</string>
-    <string name="editor_category_unsuitable_text">NoGPS Maps ອະນຸຍາດໃຫ້ເພີ່ມສະເພາະໝວດໝູ່ຈຸດທີ່ງ່າຍດາຍເທົ່ານັ້ນ, ນັ້ນໝາຍຄວາມວ່າບໍ່ລວມເຖິງ ຕົວເມືອງ, ຖະໜົນ, ໜອງນ້ຳ, ຂອບເຂດອາຄານ ແລະ ອື່ນໆ. ກະລຸນາເພີ່ມໝວດໝູ່ດັ່ງກ່າວໂດຍກົງທີ່ <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. ກວດເບິ່ງ <a href="https://organicmaps.app/faq/editing/advanced-map-editing">ຄຳແນະນຳ</a> ຂອງພວກເຮົາສຳລັບຂັ້ນຕອນໂດຍລະອຽດ.</string>
+    <string name="editor_category_unsuitable_text">NonGPS Maps ອະນຸຍາດໃຫ້ເພີ່ມສະເພາະໝວດໝູ່ຈຸດທີ່ງ່າຍດາຍເທົ່ານັ້ນ, ນັ້ນໝາຍຄວາມວ່າບໍ່ລວມເຖິງ ຕົວເມືອງ, ຖະໜົນ, ໜອງນ້ຳ, ຂອບເຂດອາຄານ ແລະ ອື່ນໆ. ກະລຸນາເພີ່ມໝວດໝູ່ດັ່ງກ່າວໂດຍກົງທີ່ <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. ກວດເບິ່ງ <a href="https://organicmaps.app/faq/editing/advanced-map-editing">ຄຳແນະນຳ</a> ຂອງພວກເຮົາສຳລັບຂັ້ນຕອນໂດຍລະອຽດ.</string>
     <string name="downloader_no_downloaded_maps_title">ທ່ານຍັງບໍ່ໄດ້ດາວໂຫລດແຜນທີ່ໃດໆ</string>
     <string name="downloader_no_downloaded_maps_message">ດາວໂຫລດແຜນທີ່ເພື່ອຄົ້ນຫາ ແລະ ນຳທາງແບບອອບລາຍ.</string>
     <string name="current_location_unknown_error_title">ບໍ່ຮູ້ຕຳແໜ່ງປັດຈຸບັນ.</string>
@@ -718,9 +718,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">ເປົ້າໝາຍຫຼັກຂອງພວກເຮົາແມ່ນເພື່ອສ້າງແຜນທີ່ທີ່ໄວ, ເນັ້ນຄວາມເປັນສ່ວນຕົວ, ແລະ ໃຊ້ງານງ່າຍທີ່ທ່ານຈະມັກ.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">ຕອນນີ້ທ່ານກຳລັງໃຊ້ NoGPS Maps ໃນໜ້າຈໍໂທລະສັບ</string>
+    <string name="car_used_on_the_phone_screen">ຕອນນີ້ທ່ານກຳລັງໃຊ້ NonGPS Maps ໃນໜ້າຈໍໂທລະສັບ</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">ຕອນນີ້ທ່ານກຳລັງໃຊ້ NoGPS Maps ໃນໜ້າຈໍລົດ</string>
+    <string name="car_used_on_the_car_screen">ຕອນນີ້ທ່ານກຳລັງໃຊ້ NonGPS Maps ໃນໜ້າຈໍລົດ</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">ທ່ານໄດ້ເຊື່ອມຕໍ່ກັບ Android Auto ແລ້ວ</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -728,7 +728,7 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">ໄປທີ່ໜ້າຈໍລົດ</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">NoGPS Maps ຕ້ອງການການເຂົ້າເຖິງຕຳແໜ່ງທີ່ຕັ້ງ. ເມື່ອປອດໄພແລ້ວ, ໃຫ້ກວດເບິ່ງການແຈ້ງເຕືອນໃນໂທລະສັບຂອງທ່ານ.</string>
+    <string name="aa_location_permissions_request">NonGPS Maps ຕ້ອງການການເຂົ້າເຖິງຕຳແໜ່ງທີ່ຕັ້ງ. ເມື່ອປອດໄພແລ້ວ, ໃຫ້ກວດເບິ່ງການແຈ້ງເຕືອນໃນໂທລະສັບຂອງທ່ານ.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">ແອັບນີ້ຕ້ອງການການອະນຸຍາດຈາກທ່ານ</string>
     <!-- Grant Permissions button. -->

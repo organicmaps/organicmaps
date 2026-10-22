@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "您好！\n\n附件是我的书签，请在 NoGPS Maps 中打开。如果您没有安装 NoGPS Maps，可以在这里下载: https://github.com/Ramzess-II/NoGPSMaps\n\n祝您使用 NoGPS Maps 旅行愉快！";
+"share_bookmarks_email_body" = "您好！\n\n附件是我的书签，请在 NonGPS Maps 中打开。如果您没有安装 NonGPS Maps，可以在这里下载: https://github.com/Ramzess-II/NoGPSMaps\n\n祝您使用 NonGPS Maps 旅行愉快！";
 
 /* message title of loading file */
 "load_kmz_title" = "正在加载书签";
@@ -178,10 +178,10 @@
 "share_my_position" = "我在 Organic Maps 上的位置";
 
 /* Email subject when sharing a place. %1$@ is the place name or address. */
-"share_place_subject" = "%1$@ - NoGPS Maps";
+"share_place_subject" = "%1$@ - NonGPS Maps";
 
 /* Email subject when sharing a place that has no name or address. */
-"share_place_subject_default" = "NoGPS Maps 上的地点";
+"share_place_subject_default" = "NonGPS Maps 上的地点";
 
 /* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
 "share_open_in_om_or_browser" = "在 Organic Maps 或浏览器中打开";
@@ -591,7 +591,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "运营方: %@";
 "editor_category_unsuitable_title" = "找不到合适的类别？";
-"editor_category_unsuitable_text" = "NoGPS Maps 只允许添加简单的点类别，即无法添加城镇、道路、湖泊、建筑轮廓等类别。请直接向 <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> 添加此类类别。请查看我们的<a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">指南</a>，了解详细的步骤说明。";
+"editor_category_unsuitable_text" = "NonGPS Maps 只允许添加简单的点类别，即无法添加城镇、道路、湖泊、建筑轮廓等类别。请直接向 <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> 添加此类类别。请查看我们的<a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">指南</a>，了解详细的步骤说明。";
 "downloader_no_downloaded_maps_title" = "您尚未下载任何地图";
 "downloader_no_downloaded_maps_message" = "下载地图来查找位置和离线浏览。";
 "current_location_unknown_error_title" = "当前位置未知。";
@@ -899,7 +899,7 @@
 "switch_to_phone_bookmarks_carplay" = "切换到手机以查看所有书签";
 "speedcams_alert_title_carplay_1" = "限速拍照";
 "speedcams_alert_title_carplay_2" = "超速警告";
-"download_map_carplay" = "将 Organic Maps 应用程序中的地图下载至个人设备中";
+"download_map_carplay" = "将 NonGPS Maps 应用程序中的地图下载至个人设备中";
 "carplay_roundabout_exit" = "第 %@ 个出口";
 
 /* iOS */
@@ -966,10 +966,10 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Zh-hans:关于";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "您现在正在手机屏幕上使用 NoGPS Maps";
+"car_used_on_the_phone_screen" = "您现在正在手机屏幕上使用 NonGPS Maps";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "您现在正在汽车屏幕上使用 NoGPS Maps";
+"car_used_on_the_car_screen" = "您现在正在汽车屏幕上使用 NonGPS Maps";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "在手机上继续";
@@ -1189,7 +1189,7 @@
 "reverse_route" = "反转路线";
 
 
-/********** NoGPS Maps **********/
+/********** NonGPS Maps **********/
 
 "nogps_manual_position" = "Set my position manually";
 

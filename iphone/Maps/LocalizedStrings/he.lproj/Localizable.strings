@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "שלום!\n\nמצורפות הסימניות שלי, אפשר לפתוח אותן ב-NoGPS Maps. אם צריך, ניתן להוריד את האפליקצייה מכאן: https://github.com/Ramzess-II/NoGPSMaps\n\nתהנו לנווט עם NoGPS Maps!";
+"share_bookmarks_email_body" = "שלום!\n\nמצורפות הסימניות שלי, אפשר לפתוח אותן ב-NonGPS Maps. אם צריך, ניתן להוריד את האפליקצייה מכאן: https://github.com/Ramzess-II/NoGPSMaps\n\nתהנו לנווט עם NonGPS Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "טוען סימניות";
@@ -178,10 +178,10 @@
 "share_my_position" = "אני כאן ב-Organic Maps";
 
 /* Email subject when sharing a place. %1$@ is the place name or address. */
-"share_place_subject" = "%1$@ ב-NoGPS Maps";
+"share_place_subject" = "%1$@ ב-NonGPS Maps";
 
 /* Email subject when sharing a place that has no name or address. */
-"share_place_subject_default" = "מקום ב-NoGPS Maps";
+"share_place_subject_default" = "מקום ב-NonGPS Maps";
 
 /* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
 "share_open_in_om_or_browser" = "פתיחה ב-Organic Maps או בדפדפן";
@@ -591,7 +591,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "מַפעִיל: %@";
 "editor_category_unsuitable_title" = "לא מוצאים קטגוריה מתאימה?";
-"editor_category_unsuitable_text" = "באמצעות NoGPS Maps ניתן להוסיף קטגוריות נקודה פשוטות בלבד, כלומר לא ניתן להוסיף עיירות, כבישים, אגמים, מבנים וכו'. אנא הוסיפו קטגוריות כאלה ישירות ל-<a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. עיינו <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">במדריך</a> שלנו לקבלת הוראות מפורטות.";
+"editor_category_unsuitable_text" = "באמצעות NonGPS Maps ניתן להוסיף קטגוריות נקודה פשוטות בלבד, כלומר לא ניתן להוסיף עיירות, כבישים, אגמים, מבנים וכו'. אנא הוסיפו קטגוריות כאלה ישירות ל-<a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. עיינו <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">במדריך</a> שלנו לקבלת הוראות מפורטות.";
 "downloader_no_downloaded_maps_title" = "לא הורדת אף מפה";
 "downloader_no_downloaded_maps_message" = "הורד מפה כדי לחפש ולנווט ללא חיבור לאינטרנט.";
 "current_location_unknown_error_title" = "המיקום הנוכחי לא ידוע.";
@@ -966,10 +966,10 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "אתה משתמש כעת ב-NoGPS Maps במסך הטלפון";
+"car_used_on_the_phone_screen" = "אתה משתמש כעת ב-NonGPS Maps במסך הטלפון";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "אתה משתמש כעת ב-NoGPS Maps במסך המכונית";
+"car_used_on_the_car_screen" = "אתה משתמש כעת ב-NonGPS Maps במסך המכונית";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "המשך בטלפון";
@@ -1189,7 +1189,7 @@
 "reverse_route" = "הפוך את המסלול";
 
 
-/********** NoGPS Maps **********/
+/********** NonGPS Maps **********/
 
 "nogps_manual_position" = "Set my position manually";
 

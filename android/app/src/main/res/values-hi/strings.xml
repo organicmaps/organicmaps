@@ -43,7 +43,7 @@
     <string name="unsupported_phone">ऐप को हार्डवेयर त्वरित ओपनजीएल की आवश्यकता है। दुर्भाग्य से, आपका डिवाइस समर्थित नहीं है.</string>
     <string name="download">डाउन लोड करना</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">NoGPS Maps का उपयोग करने के लिए कृपया USB केबल डिस्कनेक्ट करें या मेमोरी कार्ड डालें।</string>
+    <string name="disconnect_usb_cable">NonGPS Maps का उपयोग करने के लिए कृपया USB केबल डिस्कनेक्ट करें या मेमोरी कार्ड डालें।</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">ऐप का उपयोग करने के लिए कृपया पहले एसडी कार्ड/यूएसबी स्टोरेज पर कुछ जगह खाली कर लें</string>
     <string name="download_resources">ऐप का उपयोग शुरू करने से पहले, कृपया अपने डिवाइस पर सामान्य विश्व मानचित्र डाउनलोड करें।\nयह %s स्टोरेज का उपयोग करेगा।</string>
@@ -142,8 +142,8 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">टिप्पणियाँ</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">NoGPS Maps बुकमार्क आपके साथ साझा किए गए थे</string>
-    <string name="share_bookmarks_email_body">नमस्ते!\n\nसंलग्न हैं मेरे बुकमार्क; कृपया उन्हें NoGPS Maps में खोलें। यदि आपने इसे इंस्टॉल नहीं किया है तो आप इसे यहाँ डाउनलोड कर सकते हैं: https://github.com/Ramzess-II/NoGPSMaps\n\nNoGPS Maps के साथ यात्रा का आनंद लें!</string>
+    <string name="share_bookmarks_email_subject">NonGPS Maps बुकमार्क आपके साथ साझा किए गए थे</string>
+    <string name="share_bookmarks_email_body">नमस्ते!\n\nसंलग्न हैं मेरे बुकमार्क; कृपया उन्हें NonGPS Maps में खोलें। यदि आपने इसे इंस्टॉल नहीं किया है तो आप इसे यहाँ डाउनलोड कर सकते हैं: https://github.com/Ramzess-II/NoGPSMaps\n\nNonGPS Maps के साथ यात्रा का आनंद लें!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">बुकमार्क लोड हो रहे हैं</string>
     <!-- Kmz file successful loading -->
@@ -165,9 +165,9 @@
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">साझा करें</string>
     <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
-    <string name="share_place_subject">%1$s NoGPS Maps पर</string>
+    <string name="share_place_subject">%1$s NonGPS Maps पर</string>
     <!-- Email subject when sharing a place that has no name or address. -->
-    <string name="share_place_subject_default">NoGPS Maps पर एक स्थान</string>
+    <string name="share_place_subject_default">NonGPS Maps पर एक स्थान</string>
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">ईमेल</string>
     <!-- Text for message when used successfully copied something -->
@@ -432,7 +432,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">समुदाय-निर्मित OpenStreetMap डेटा %s तक। OpenStreetMap.org पर मानचित्र को संपादित और अपडेट करने के तरीके के बारे में और जानें</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) एक समुदाय परियोजना है जो एक मुफ्त और खुले नक्शे का निर्माण करती है। यह NoGPS Maps में नक्शा डेटा का मुख्य स्रोत है और विकिपीडिया की तरह काम करती है। आप स्थान जोड़ या संपादित कर सकते हैं और वे दुनिया भर के लाखों उपयोगकर्ताओं के लिए उपलब्ध हो जाते हैं।\nसमुदाय में शामिल हों और सभी के लिए एक बेहतर नक्शा बनाने में मदद करें!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) एक समुदाय परियोजना है जो एक मुफ्त और खुले नक्शे का निर्माण करती है। यह NonGPS Maps में नक्शा डेटा का मुख्य स्रोत है और विकिपीडिया की तरह काम करती है। आप स्थान जोड़ या संपादित कर सकते हैं और वे दुनिया भर के लाखों उपयोगकर्ताओं के लिए उपलब्ध हो जाते हैं।\nसमुदाय में शामिल हों और सभी के लिए एक बेहतर नक्शा बनाने में मदद करें!</string>
     <string name="login_to_make_edits_visible">अपने मानचित्र संपादनों को दुनिया भर में प्रकाशित करने के लिए एक OpenStreetMap खाता बनाएं या लॉग इन करें।</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%2$d में से %1$d</string>
@@ -447,7 +447,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">OpenStreetMap स्वयंसेवकों के लिए नोट (वैकल्पिक)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">नक्शे पर त्रुटियों या ऐसी चीज़ों का वर्णन करें जिन्हें NoGPS Maps के साथ संपादित नहीं किया जा सकता।</string>
+    <string name="editor_note_hint">नक्शे पर त्रुटियों या ऐसी चीज़ों का वर्णन करें जिन्हें NonGPS Maps के साथ संपादित नहीं किया जा सकता।</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">आपके संपादन सार्वजनिक <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> डेटाबेस पर अपलोड किए जाते हैं। कृपया व्यक्तिगत या कॉपीराइट जानकारी न जोड़ें।</string>
     <string name="editor_more_about_osm">OpenStreetMap के बारे में अधिक जानकारी</string>
@@ -457,7 +457,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">ऑपरेटर: %s</string>
     <string name="editor_category_unsuitable_title">कोई उपयुक्त श्रेणी नहीं मिल रही?</string>
-    <string name="editor_category_unsuitable_text">NoGPS Maps केवल सरल बिंदु श्रेणियाँ जोड़ने की अनुमति देता है, जिसका अर्थ है कि शहर, सड़कें, झीलें, इमारतों की रूपरेखा आदि नहीं। कृपया ऐसी श्रेणियाँ सीधे <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> पर जोड़ें। विस्तृत चरण-दर-चरण निर्देशों के लिए हमारी <a href="https://organicmaps.app/faq/editing/advanced-map-editing">गाइड</a> देखें।</string>
+    <string name="editor_category_unsuitable_text">NonGPS Maps केवल सरल बिंदु श्रेणियाँ जोड़ने की अनुमति देता है, जिसका अर्थ है कि शहर, सड़कें, झीलें, इमारतों की रूपरेखा आदि नहीं। कृपया ऐसी श्रेणियाँ सीधे <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> पर जोड़ें। विस्तृत चरण-दर-चरण निर्देशों के लिए हमारी <a href="https://organicmaps.app/faq/editing/advanced-map-editing">गाइड</a> देखें।</string>
     <string name="downloader_no_downloaded_maps_title">आपने कोई भी नक्शा डाउनलोड नहीं किया है</string>
     <string name="downloader_no_downloaded_maps_message">ऑफ़लाइन खोज और नेविगेशन के लिए मानचित्र डाउनलोड करें।</string>
     <string name="current_location_unknown_error_title">वर्तमान स्थान अज्ञात है।</string>
@@ -753,9 +753,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">हमारा मुख्य लक्ष्य तेज़, गोपनीयता-केंद्रित, उपयोग में आसान मानचित्र बनाना है जो आपको पसंद आएंगे।</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">आप अब फोन स्क्रीन पर NoGPS Maps का उपयोग कर रहे हैं</string>
+    <string name="car_used_on_the_phone_screen">आप अब फोन स्क्रीन पर NonGPS Maps का उपयोग कर रहे हैं</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">आप अब कार स्क्रीन पर NoGPS Maps का उपयोग कर रहे हैं</string>
+    <string name="car_used_on_the_car_screen">आप अब कार स्क्रीन पर NonGPS Maps का उपयोग कर रहे हैं</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">आप Android Auto से कनेक्ट हैं</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -763,7 +763,7 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">कार स्क्रीन पर</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">NoGPS Maps इसे स्थान तक पहुंच की आवश्यकता है। जब यह सुरक्षित हो, तो अपने फोन पर सूचना देखें।</string>
+    <string name="aa_location_permissions_request">NonGPS Maps इसे स्थान तक पहुंच की आवश्यकता है। जब यह सुरक्षित हो, तो अपने फोन पर सूचना देखें।</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">इस ऐप को आपकी अनुमति की आवश्यकता है</string>
     <!-- Grant Permissions button. -->

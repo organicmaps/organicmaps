@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Halo!\n\nTerlampir adalah bookmark saya; silakan buka di NoGPS Maps. Jika Anda belum memasangnya, Anda dapat mengunduhnya di sini: https://github.com/Ramzess-II/NoGPSMaps\n\nNikmati perjalanan Anda dengan NoGPS Maps!";
+"share_bookmarks_email_body" = "Halo!\n\nTerlampir adalah bookmark saya; silakan buka di NonGPS Maps. Jika Anda belum memasangnya, Anda dapat mengunduhnya di sini: https://github.com/Ramzess-II/NoGPSMaps\n\nNikmati perjalanan Anda dengan NonGPS Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Memuat Penanda";
@@ -178,10 +178,10 @@
 "share_my_position" = "Saya di sini di Organic Maps";
 
 /* Email subject when sharing a place. %1$@ is the place name or address. */
-"share_place_subject" = "%1$@ di NoGPS Maps";
+"share_place_subject" = "%1$@ di NonGPS Maps";
 
 /* Email subject when sharing a place that has no name or address. */
-"share_place_subject_default" = "Tempat di NoGPS Maps";
+"share_place_subject_default" = "Tempat di NonGPS Maps";
 
 /* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
 "share_open_in_om_or_browser" = "Buka di Organic Maps atau di browser";
@@ -591,7 +591,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Operator: %@";
 "editor_category_unsuitable_title" = "Tidak dapat menemukan kategori yang sesuai?";
-"editor_category_unsuitable_text" = "NoGPS Maps hanya memungkinkan untuk menambahkan kategori titik sederhana, yang berarti tidak ada kota, jalan, danau, garis besar bangunan, dll. Silahkan tambahkan kategori tersebut secara langsung ke <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Lihat <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">panduan</a> kami untuk petunjuk langkah demi langkah yang terperinci.";
+"editor_category_unsuitable_text" = "NonGPS Maps hanya memungkinkan untuk menambahkan kategori titik sederhana, yang berarti tidak ada kota, jalan, danau, garis besar bangunan, dll. Silahkan tambahkan kategori tersebut secara langsung ke <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Lihat <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">panduan</a> kami untuk petunjuk langkah demi langkah yang terperinci.";
 "downloader_no_downloaded_maps_title" = "Tidak ada peta apa pun yang diunduh";
 "downloader_no_downloaded_maps_message" = "Unduh peta untuk menemukan lokasi dan bernavigasi secara offline.";
 "current_location_unknown_error_title" = "Lokasi saat ini tidak diketahui.";
@@ -723,7 +723,7 @@
 "bookmarks_text_placement_description" = "Jika ada terlalu banyak penanda, menampilkan nama mereka di peta dapat memperlambat aplikasi.";
 "show_to_the_right" = "Tampilkan di sebelah kanan";
 "show_at_the_bottom" = "Tampilkan di bagian bawah";
-"enable_logging_warning_message" = "Opsi ini mengaktifkan pencatatan untuk tujuan diagnostik. Bisa amat membantu bagi staf dukungan kami yang memecahkan masalah dalam aplikasi. Aktifkan opsi ini hanya saat diminta oleh dukungan Organic Maps.";
+"enable_logging_warning_message" = "Opsi ini mengaktifkan pencatatan untuk tujuan diagnostik. Bisa amat membantu bagi staf dukungan kami yang memecahkan masalah dalam aplikasi. Aktifkan opsi ini hanya saat diminta oleh dukungan NonGPS Maps.";
 
 /* Driving profile in routing options settings. */
 "routing_options_driving" = "Mengemudi";
@@ -899,7 +899,7 @@
 "switch_to_phone_bookmarks_carplay" = "Beralih ke telepon untuk melihat semua penanda";
 "speedcams_alert_title_carplay_1" = "Speedcam";
 "speedcams_alert_title_carplay_2" = "Info kecepatan";
-"download_map_carplay" = "Silakan unduh peta di apl Organic Maps pada perangkat Anda";
+"download_map_carplay" = "Silakan unduh peta di apl NonGPS Maps pada perangkat Anda";
 "carplay_roundabout_exit" = "Jalan keluar ke %@";
 
 /* iOS */
@@ -966,10 +966,10 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "Anda sekarang menggunakan NoGPS Maps pada layar ponsel";
+"car_used_on_the_phone_screen" = "Anda sekarang menggunakan NonGPS Maps pada layar ponsel";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "Anda sekarang menggunakan NoGPS Maps pada layar mobil";
+"car_used_on_the_car_screen" = "Anda sekarang menggunakan NonGPS Maps pada layar mobil";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "Lanjutkan di telepon";
@@ -1189,7 +1189,7 @@
 "reverse_route" = "Balikkan rute";
 
 
-/********** NoGPS Maps **********/
+/********** NonGPS Maps **********/
 
 "nogps_manual_position" = "Set my position manually";
 

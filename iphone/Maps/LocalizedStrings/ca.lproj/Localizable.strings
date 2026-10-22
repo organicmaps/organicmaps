@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Hola!\n\nAdjunto els meus marcadors de l’NoGPS Maps. Obriu-los si teniu l’NoGPS Maps instal·lat. O, si no teniu l’aplicació, baixeu-la per al vostre aparell iOS o Android seguint aquest enllaç: https://github.com/Ramzess-II/NoGPSMaps\n\nGaudiu viatjant amb l’NoGPS Maps!";
+"share_bookmarks_email_body" = "Hola!\n\nAdjunto els meus marcadors del NonGPS Maps. Obriu-los si teniu el NonGPS Maps instal·lat. O, si no teniu l’aplicació, baixeu-la per al vostre aparell iOS o Android seguint aquest enllaç: https://github.com/Ramzess-II/NoGPSMaps\n\nGaudiu viatjant amb el NonGPS Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "S’estan carregant els marcadors";
@@ -178,10 +178,10 @@
 "share_my_position" = "Soc aquí a Organic Maps";
 
 /* Email subject when sharing a place. %1$@ is the place name or address. */
-"share_place_subject" = "%1$@ a NoGPS Maps";
+"share_place_subject" = "%1$@ a NonGPS Maps";
 
 /* Email subject when sharing a place that has no name or address. */
-"share_place_subject_default" = "Un lloc a NoGPS Maps";
+"share_place_subject_default" = "Un lloc a NonGPS Maps";
 
 /* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
 "share_open_in_om_or_browser" = "Obre a Organic Maps o en un navegador";
@@ -591,7 +591,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Operador: %@";
 "editor_category_unsuitable_title" = "No trobeu una categoria adequada?";
-"editor_category_unsuitable_text" = "NoGPS Maps només permet afegir categories de punts simples, això vol dir que no hi ha ciutats, carreteres, llacs, contorns d'edificis, etc. Si us plau, afegiu aquestes categories directament a <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Consulteu la nostra <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guia</a> per obtenir instruccions detallades pas a pas.";
+"editor_category_unsuitable_text" = "NonGPS Maps només permet afegir categories de punts simples, això vol dir que no hi ha ciutats, carreteres, llacs, contorns d'edificis, etc. Si us plau, afegiu aquestes categories directament a <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Consulteu la nostra <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guia</a> per obtenir instruccions detallades pas a pas.";
 "downloader_no_downloaded_maps_title" = "No heu baixat cap mapa";
 "downloader_no_downloaded_maps_message" = "Baixeu mapes per a cercar una ubicacio i usar la navegació sense connexió.";
 "current_location_unknown_error_title" = "Es desconeix la ubicació actual.";
@@ -966,10 +966,10 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Ca:About_OpenStreetMap";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "Ara esteu utilitzant NoGPS Maps a la pantalla del telèfon";
+"car_used_on_the_phone_screen" = "Ara esteu utilitzant NonGPS Maps a la pantalla del telèfon";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "Ara esteu utilitzant NoGPS Maps a la pantalla del cotxe";
+"car_used_on_the_car_screen" = "Ara esteu utilitzant NonGPS Maps a la pantalla del cotxe";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "Passa al telèfon";
@@ -1189,7 +1189,7 @@
 "reverse_route" = "Inverteix la ruta";
 
 
-/********** NoGPS Maps **********/
+/********** NonGPS Maps **********/
 
 "nogps_manual_position" = "Set my position manually";
 
