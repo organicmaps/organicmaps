@@ -199,6 +199,119 @@ UNIT_TEST(Water_ExcessiveGeometryIsUnavailable)
   TEST(FindPath(geometry, P(0, 0), P(1, 1), false, kNeverCancelled, path) == ResultCode::Unavailable, ());
 }
 
+UNIT_TEST(Water_DetailedRiversDoNotExhaustLakeVisibilityBudget)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  Rectangle(geometry, 0, 0, 1, 1);
+  auto & river = geometry.m_lines.emplace_back();
+  for (uint64_t i = 0; i < 1500; ++i)
+    river.push_back({P(2 + i * 0.0001, 2 + (i % 2) * 0.0001), i + 1});
+  Path path;
+  TEST(FindPath(geometry, P(0.2, 0.5), P(0.8, 0.5), false, kNeverCancelled, path) == ResultCode::Success, ());
+  TEST_EQUAL(path.m_points.size(), 2, ());
+  TEST(FindPath(geometry, river.front().m_point, river.back().m_point, false, kNeverCancelled, path) ==
+           ResultCode::Success,
+       ());
+  TEST_EQUAL(path.m_points.size(), river.size(), ());
+  TEST_EQUAL(path.m_landDistance, 0.0, ());
+  CheckAccounting(path);
+}
+
+UNIT_TEST(Water_UnknownGeometryCannotBecomeWaterOrLand)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  Rectangle(geometry, 0, 0, 3, 1);
+  geometry.m_unknownAreas.emplace_back(1, 0, 2, 1);
+  Path path;
+  TEST(FindPath(geometry, P(0.5, 0.5), P(2.5, 0.5), false, kNeverCancelled, path) == ResultCode::Unavailable, ());
+  TEST(path.m_points.empty(), ());
+  TEST(FindPath(geometry, P(1.5, 0.5), P(2.5, 0.5), false, kNeverCancelled, path) == ResultCode::Unavailable, ());
+  // A short certified path remains usable even with an unknown region in this lake.
+  TEST(FindPath(geometry, P(0.1, 0.5), P(0.2, 0.5), false, kNeverCancelled, path) == ResultCode::Success, ());
+  TEST_EQUAL(path.m_landDistance, 0.0, ());
+}
+
+UNIT_TEST(Water_UnknownShortcutCannotCertifyDetour)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  Rectangle(geometry, 0, 0, 3, 1);
+  Rectangle(geometry, 0, 2, 3, 3);
+  Rectangle(geometry, 0, 1, 1, 2);
+  Rectangle(geometry, 2, 1, 3, 2);
+  geometry.m_unknownAreas.emplace_back(1, 1, 2, 2);
+  Path path;
+  TEST(FindPath(geometry, P(0.5, 1.5), P(2.5, 1.5), false, kNeverCancelled, path) == ResultCode::Unavailable, ());
+  TEST(path.m_points.empty(), ());
+}
+
+UNIT_TEST(Water_UnknownGapAndUnknownFrontierAreRejected)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  geometry.m_lines = {{{P(0, 0), 1}, {P(0, 1), 2}}, {{P(3, 0), 3}, {P(3, 1), 4}}};
+  geometry.m_unknownAreas.emplace_back(1, -1, 2, 2);
+  Path path;
+  TEST(FindPath(geometry, P(0, 0.5), P(3, 0.5), false, kNeverCancelled, path) == ResultCode::Unavailable, ());
+  geometry.m_unknownAreas = {m2::RectD(5, 5, 6, 6)};
+  TEST(FindPath(geometry, P(0, 0.5), P(3, 0.5), false, kNeverCancelled, path) == ResultCode::Success, ());
+  TEST_GREATER(path.m_landDistance, 0, ());
+  geometry.m_unknownAreas = {m2::RectD(0, 0.8, 1, 1)};
+  TEST(FindPath(geometry, P(0, 0.5), P(3, 0.5), false, kNeverCancelled, path) == ResultCode::Unavailable, ());
+  TEST(path.m_points.empty(), ());
+}
+
+UNIT_TEST(Water_SurfaceVisibilityRemainsBounded)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  for (size_t i = 0; i < 400; ++i)
+    geometry.m_triangles.push_back({P(i, 0), P(i + 0.5, 0), P(i, 1)});
+  Path path;
+  TEST(FindPath(geometry, P(0, 0), P(0, 0.5), false, kNeverCancelled, path) == ResultCode::Unavailable, ());
+}
+
+UNIT_TEST(Water_UnknownGapCannotJustifyLongerTransfer)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  geometry.m_lines = {{{P(0, 0), 1}, {P(0, 1), 2}}, {{P(3, 0), 3}, {P(3, 1), 4}}};
+  geometry.m_unknownAreas.emplace_back(1, -0.1, 2, 0.1);
+  Path path;
+  TEST(FindPath(geometry, P(0, 0), P(3, 0), false, kNeverCancelled, path) == ResultCode::Unavailable, ());
+  TEST(path.m_points.empty(), ());
+}
+
+UNIT_TEST(Water_GpsCannotSkipCloserUnknownWater)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  Rectangle(geometry, 2, 0, 3, 1);
+  geometry.m_unknownAreas.emplace_back(-0.1, 0, 0.1, 1);
+  Path path;
+  TEST(FindPath(geometry, P(0, 0.5), P(2.1, 0.5), true, kNeverCancelled, path) == ResultCode::Unavailable, ());
+  TEST(path.m_points.empty(), ());
+}
+
+UNIT_TEST(Water_RiverLakePortalAtRealMercatorScale)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  Rectangle(geometry, -2.9787849, 65.171, -2.978, 65.173);
+  P const start(-2.9788832, 65.172057);
+  P const finish(-2.9787, 65.1723);
+  geometry.m_lines = {{{start, 1}, {P(-2.9787008, 65.1720142), 2}}};
+  Path path;
+  TEST(FindPath(geometry, start, finish, false, kNeverCancelled, path) == ResultCode::Success, ());
+  TEST_EQUAL(path.m_landDistance, 0.0, ());
+  TEST_LESS(path.m_waterDistance, 50.0, ());
+  TEST(FindPath(geometry, finish, start, false, kNeverCancelled, path) == ResultCode::Success, ());
+  TEST_EQUAL(path.m_landDistance, 0.0, ());
+  TEST_LESS(path.m_waterDistance, 50.0, ());
+}
+
 UNIT_TEST(Water_RiverLakePortalRounding)
 {
   Geometry geometry;

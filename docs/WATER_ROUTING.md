@@ -49,7 +49,10 @@ full surface rings and original source node IDs.
 
 A separate collector preserves waterways before display classification, including
 culverts omitted from rendering. Bridge/tunnel waterways and nonzero layers are
-unsupported. Every raw country generation invalidates old sidecars and provenance,
+unsupported and retain local unknown bounds. Invalid surface rings likewise stay
+unknown locally. They cannot become water edges or dry transfer gaps. Unrelated
+unknown features do not disable a certified short route elsewhere in the window.
+Every raw country generation invalidates old sidecars and provenance,
 including opt-out runs. Section-only generation requires fresh provenance. Normal
 map generation changes only when Water is enabled.
 
@@ -61,13 +64,18 @@ generation has not been exercised in the Android smoke test.
 ## Bounds and limitations
 
 One MWM must cover the extraction rectangle. The margin follows checkpoint distance
-and is bounded between 1 and 30 km. Cross-MWM routes, antimeridian windows,
-unsupported geometry and requests exceeding budgets return unavailable. A reachable
+and is bounded between 1 and 30 km. Cross-MWM routes, antimeridian windows and
+requests exceeding budgets return unavailable. A reachable
 graph touching the extraction frontier cannot establish disconnection. Connected
 paths are accepted only when shorter than a proven lower bound for leaving the window.
+Unknown regions also require a distance bound excluding a shorter route through
+them. Disconnected components touching unknown geometry cannot justify a land gap.
 
 The reader caches one index with at most 65,536 records. Extraction allows 4,096
-source points and 4,096 triangles; the graph allows 1,024 vertices. Cancellation is
+surface source points and 4,096 triangles, with 16,384 total source points. The graph
+allows 16,384 vertices; only its surface vertices enter the quadratic visibility
+search, limited to 1,024 vertices. River curvature retains all original vertices.
+Transfer candidates are bounded to 2,048. Cancellation is
 checked during extraction and graph searches. Tessellation is bounded by its input.
 Large or complex waterways may be unavailable. Country-scale performance and map
 size have not been benchmarked. The synthetic integration section occupies 1,018 bytes.
@@ -87,6 +95,9 @@ indexer and generator libraries. A CLI harness supplies platform initialization
 and JVM attachment shims only; these are not application changes. Full synthetic
 OSM-to-MWM generation and runtime provider checks cover a winding river, an island
 lake, an outlet, a disconnected lake and unsupported culverts/aqueducts.
+Real Lake District runtime checks cover Easedale Tarn, its outlet to Sourmilk Gill,
+Rydal Water around Heron Island and winding river segments. Source data are kept
+unaltered; these checks use the optional section in a generated regional MWM.
 
 Android app/SDK unit tests and debug builds run separately. Xcode projects include
 the common implementation and tessellation dependencies. iOS UI is deferred; no

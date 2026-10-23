@@ -16,7 +16,8 @@ namespace routing
 namespace
 {
 using Point = m2::PointD;
-size_t constexpr kMaxInputPoints = 4096;
+size_t constexpr kMaxInputPoints = 16384;
+size_t constexpr kMaxSurfacePoints = 4096;
 size_t constexpr kMaxTriangles = 4096;
 
 // Clip a convex contour against a rectangle. Intersections use a canonical edge
@@ -57,19 +58,33 @@ bool AddSurface(std::vector<::water::Record> const & records, m2::RectD const & 
   if (!tess)
     return false;
   bool any = false;
+  size_t points = 0;
   for (auto const & record : records)
   {
     if (cancelled())
       return false;
     if (record.m_kind != ::water::Kind::Area)
       continue;
-    for (size_t i = 0; i < record.m_rings.size(); ++i)
+    auto rings = record.m_rings;
+    bool valid = true;
+    for (auto & ring : rings)
     {
-      auto ring = record.m_rings[i];
+      if (ring.size() > kMaxSurfacePoints - points)
+        return false;
+      points += ring.size();
       if (ring.size() > 1 && ring.front() == ring.back())
         ring.pop_back();
       if (ring.size() < 3 || m2::robust::CheckPolygonSelfIntersections(ring.begin(), ring.end()))
-        return false;
+        valid = false;
+    }
+    if (!valid)
+    {
+      result.m_unknownAreas.push_back(record.GetBounds());
+      continue;
+    }
+    for (size_t i = 0; i < rings.size(); ++i)
+    {
+      auto & ring = rings[i];
       // NONZERO winding forms the polygon union, preserving holes and adding
       // intersections at overlaps before visibility vertices are selected.
       if (IsPolygonCCW(ring.begin(), ring.end()) != (i == 0))
@@ -185,6 +200,8 @@ water::Geometry WaterGeometryProvider::Extract(::water::Reader const & reader, m
       return {};
     if (record.m_kind == ::water::Kind::Line)
       AddLine(record, bounds, result);
+    else if (record.m_kind == ::water::Kind::Unsupported)
+      result.m_unknownAreas.push_back(record.GetBounds());
   }
   if (!AddSurface(records, bounds, cancelled, result))
     return {};
