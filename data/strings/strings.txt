@@ -43737,6 +43737,26 @@ en = Select mode and use RMB to define selection box
 tags = qt
 en = Ruler
 
+[water_routing]
+tags = android-app
+en = Water
+ru = Вода
+
+[water_distance]
+tags = android-app
+en = Water distance: %@
+ru = По воде: %@
+
+[water_land_gaps]
+tags = android-app
+en = Land gaps: %@
+ru = По суше: %@
+
+[water_total_distance]
+tags = android-app
+en = Total distance: %@
+ru = Общее расстояние: %@
+
 [ruler_mouse_shortcuts_tooltip]
 tags = qt
 en = Check this button and use ALT + LMB to set points

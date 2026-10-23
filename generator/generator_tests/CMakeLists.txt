@@ -1,6 +1,7 @@
 project(generator_tests)
 
 set(SRC
+  water_geometry_test.cpp
   addresses_tests.cpp
   affiliation_tests.cpp
   altitude_test.cpp

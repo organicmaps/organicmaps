@@ -28,6 +28,7 @@ public class RoutingOptionIdsTest
     assertEquals(Router.Bicycle, Router.valueOf(2));
     assertEquals(Router.Transit, Router.valueOf(3));
     assertEquals(Router.Ruler, Router.valueOf(4));
-    assertThrows(IllegalArgumentException.class, () -> Router.valueOf(5));
+    assertEquals(Router.Water, Router.valueOf(5));
+    assertThrows(IllegalArgumentException.class, () -> Router.valueOf(6));
   }
 }

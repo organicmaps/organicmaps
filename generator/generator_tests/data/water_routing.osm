@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Synthetic CC0 fixture. Coordinates are near Utrecht; these are not real waterways. -->
+<osm version="0.6" generator="Organic Maps water routing tests">
+  <node id="1" lat="52.0000" lon="5.0000" />
+  <node id="2" lat="52.0007" lon="5.0010" />
+  <node id="3" lat="51.9993" lon="5.0020" />
+  <node id="4" lat="52.0006" lon="5.0030" />
+  <node id="5" lat="52.0000" lon="5.0040" />
+  <node id="6" lat="52.0000" lon="5.0100" />
+  <node id="7" lat="52.0008" lon="5.0110" />
+  <node id="8" lat="51.9994" lon="5.0120" />
+  <node id="9" lat="52.0000" lon="5.0140" />
+  <node id="10" lat="51.9980" lon="5.0040" />
+  <node id="11" lat="51.9980" lon="5.0100" />
+  <node id="12" lat="52.0020" lon="5.0100" />
+  <node id="13" lat="52.0020" lon="5.0040" />
+  <node id="20" lat="51.9995" lon="5.0060" />
+  <node id="21" lat="51.9995" lon="5.0080" />
+  <node id="22" lat="52.0005" lon="5.0080" />
+  <node id="23" lat="52.0005" lon="5.0060" />
+  <node id="30" lat="51.9990" lon="5.0160" />
+  <node id="31" lat="51.9990" lon="5.0180" />
+  <node id="32" lat="52.0010" lon="5.0180" />
+  <node id="33" lat="52.0010" lon="5.0160" />
+  <node id="40" lat="52.0000" lon="5.1200" />
+  <node id="41" lat="52.0010" lon="5.1200" />
+  <node id="42" lat="52.0000" lon="5.1400" />
+  <node id="43" lat="52.0010" lon="5.1400" />
+  <way id="10"><nd ref="1"/><nd ref="2"/><nd ref="3"/><nd ref="4"/><nd ref="5"/>
+    <tag k="waterway" v="river"/><tag k="name" v="Water test winding river"/>
+  </way>
+  <way id="11"><nd ref="6"/><nd ref="7"/><nd ref="8"/><nd ref="9"/>
+    <tag k="waterway" v="river"/><tag k="name" v="Water test outlet"/>
+  </way>
+  <way id="100"><nd ref="10"/><nd ref="11"/><nd ref="12"/><nd ref="13"/><nd ref="10"/></way>
+  <way id="101"><nd ref="20"/><nd ref="21"/><nd ref="22"/><nd ref="23"/><nd ref="20"/></way>
+  <way id="102"><nd ref="30"/><nd ref="31"/><nd ref="32"/><nd ref="33"/><nd ref="30"/>
+    <tag k="natural" v="water"/><tag k="water" v="lake"/><tag k="name" v="Water test disconnected lake"/>
+  </way>
+  <way id="103"><nd ref="40"/><nd ref="41"/>
+    <tag k="waterway" v="stream"/><tag k="tunnel" v="culvert"/><tag k="name" v="Water test culvert"/>
+  </way>
+  <way id="104"><nd ref="42"/><nd ref="43"/>
+    <tag k="waterway" v="canal"/><tag k="bridge" v="aqueduct"/><tag k="name" v="Water test aqueduct"/>
+  </way>
+  <relation id="2000">
+    <member type="way" ref="100" role="outer"/><member type="way" ref="101" role="inner"/>
+    <tag k="type" v="multipolygon"/><tag k="natural" v="water"/>
+    <tag k="water" v="lake"/><tag k="name" v="Water test island lake"/>
+  </relation>
+</osm>

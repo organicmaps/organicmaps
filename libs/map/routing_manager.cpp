@@ -10,6 +10,8 @@
 #include "routing/routing_options.hpp"
 #include "routing/ruler_router.hpp"
 #include "routing/speed_camera.hpp"
+#include "routing/water_geometry_provider.hpp"
+#include "routing/water_router.hpp"
 
 #include "storage/country_info_getter.hpp"
 #include "storage/routing_helpers.hpp"
@@ -251,7 +253,7 @@ drape_ptr<df::Subroute> CreateDrapeSubroute(std::vector<RouteSegment> const & se
     return nullptr;
   }
 
-  if (routerType == RouterType::Ruler)
+  if (IsMeasurementRouter(routerType))
   {
     auto const subrouteLen = segments.back().GetDistFromBeginningMerc() - baseDistance;
     subroute->m_headFakeDistance = -kBias;
@@ -419,7 +421,7 @@ void RoutingManager::OnBuildRouteReady(RoutesResult const & result, RouterResult
   ASSERT(result.IsValid(), ());
   auto const & active = result.GetActive();
   // Do not show the full route if one or more stops were added, for easier multi-stop trip planning.
-  if (active.IsValid() && active.GetSubrouteCount() < 2 && m_currentRouterType != routing::RouterType::Ruler)
+  if (active.IsValid() && active.GetSubrouteCount() < 2 && !IsMeasurementRouter(m_currentRouterType))
   {
     m2::RectD routeRect = active.GetLimitRect();
     routeRect.Scale(kRouteScaleMultiplier);
@@ -496,7 +498,8 @@ RouterType RoutingManager::GetLastUsedRouter() const
   case RouterType::Pedestrian:
   case RouterType::Bicycle:
   case RouterType::Transit:
-  case RouterType::Ruler: return routerType;
+  case RouterType::Ruler:
+  case RouterType::Water: return routerType;
   default: return RouterType::Vehicle;
   }
 }
@@ -521,6 +524,12 @@ void RoutingManager::SetRouterImpl(RouterType type)
 
   if (type == RouterType::Ruler)
     router = std::make_unique<RulerRouter>();
+  else if (type == RouterType::Water)
+  {
+    auto provider = std::make_shared<WaterGeometryProvider>(m_callbacks.m_dataSourceGetter());
+    router = std::make_unique<WaterRouter>([provider](Checkpoints const & checkpoints, RouterDelegate const & delegate)
+    { return provider->GetGeometry(checkpoints, delegate); });
+  }
   else
   {
     auto & dataSource = m_callbacks.m_dataSourceGetter();
@@ -808,7 +817,7 @@ bool RoutingManager::InsertRoute(RoutesResult const & result)
   // The offset must exceed the per-route subroute count (count is typically 1, so 10 is plenty).
   InsertSingleRoute(result.GetActive(), true /* isActive */, 10.0 /* depthOffset */, transitRouteDisplay, roadWarnings);
 
-  if (!isFollowing && m_currentRouterType != RouterType::Ruler && result.m_routes.size() >= 2)
+  if (!isFollowing && !IsMeasurementRouter(m_currentRouterType) && result.m_routes.size() >= 2)
     CreateRouteAltMarks(result);
 
   {
@@ -900,6 +909,24 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
       subroute->AddStyle(df::SubrouteStyle(df::kRouteRuler, df::RoutePattern(16.0, 2.0)));
       break;
     }
+    case RouterType::Water:
+    {
+      subroute->m_routeType = df::RouteType::Ruler;
+      subroute->m_styleType = df::SubrouteStyleType::Multiple;
+      for (size_t i = 0; i < segments.size(); ++i)
+      {
+        auto const previous = i == 0 ? startPt : segments[i - 1].GetJunction().GetPoint();
+        if (previous == segments[i].GetJunction().GetPoint())
+          continue;
+        df::SubrouteStyle style = segments[i].IsLandGap()
+                                    ? df::SubrouteStyle(df::kRouteRuler, df::RoutePattern(6.0, 4.0))
+                                    : df::SubrouteStyle(df::kRouteColor, df::kRouteOutlineColor);
+        style.m_startIndex = i;
+        style.m_endIndex = i + 1;
+        subroute->AddStyle(style);
+      }
+      break;
+    }
     default: CHECK(false, ("Unknown router type"));
     }
 
@@ -919,6 +946,8 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
 
 void RoutingManager::FollowRoute()
 {
+  if (m_currentRouterType == RouterType::Water)
+    return;
   if (!m_routingSession.EnableFollowMode())
     return;
 
@@ -935,6 +964,14 @@ void RoutingManager::FollowRoute()
   ClearAlternativeRoutes();
 
   CancelRecommendation(Recommendation::RebuildAfterPointsLoading);
+}
+
+std::optional<RouteBase::WaterDistances> RoutingManager::GetWaterDistances() const
+{
+  auto const * route = m_routingSession.GetRoute();
+  if (m_currentRouterType != RouterType::Water || route == nullptr || !route->IsValid())
+    return {};
+  return route->GetWaterDistances();
 }
 
 bool RoutingManager::SwapActiveAlternative(size_t idx)
@@ -1086,7 +1123,7 @@ bool RoutingManager::AddRoutePoint(RouteMarkData && markData, bool optimize)
     return false;
 
   // Ruler points describe the user's measurement, not a route to optimize.
-  if (isIntermediate && optimize && hasStart && hasFinish && m_currentRouterType != RouterType::Ruler)
+  if (isIntermediate && optimize && hasStart && hasFinish && !IsMeasurementRouter(m_currentRouterType))
     ReorderIntermediatePoints(routePoints, addedPoint);
   return true;
 }
@@ -1122,7 +1159,7 @@ void RoutingManager::ReplaceRoutePoint(RouteMarkType type, size_t intermediateIn
 bool RoutingManager::OptimizeRoutePoints()
 {
   ASSERT(m_bmManager != nullptr, ());
-  if (IsRoutingFollowing() || m_currentRouterType == RouterType::Ruler ||
+  if (IsRoutingFollowing() || IsMeasurementRouter(m_currentRouterType) ||
       m_bmManager->GetUserMarkIds(UserMark::Type::ROUTING).size() < 3)
     return false;
   RoutePointsLayout layout(*m_bmManager);
@@ -1434,7 +1471,9 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
   for (auto const & point : routePoints)
     points.push_back(point.m_position);
 
-  m_routingSession.BuildRoute(Checkpoints(std::move(points)), timeoutSec);
+  Checkpoints checkpoints(std::move(points));
+  checkpoints.SetStartIsMyPosition(routePoints.front().m_isMyPosition);
+  m_routingSession.BuildRoute(checkpoints, timeoutSec);
 }
 
 void RoutingManager::SetUserCurrentPosition(m2::PointD const & position)

@@ -41,7 +41,10 @@ import app.organicmaps.sdk.bookmarks.data.Track;
 import app.organicmaps.sdk.location.TrackRecorder;
 import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.routing.RoutingController;
+import app.organicmaps.sdk.routing.WaterRouting;
 import app.organicmaps.sdk.settings.RoadType;
+import app.organicmaps.sdk.util.concurrency.ThreadPool;
+import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
@@ -73,6 +76,9 @@ public class PlacePageController
   private ViewGroup mCoordinator;
   private int mViewportMinHeight;
   private int mButtonsHeight;
+  @Nullable
+  private MapObject mWaterCheckedObject;
+  private boolean mWaterPointEligible;
   private int mMaxButtons;
   private PlacePageViewModel mViewModel;
   private int mPreviewHeight;
@@ -704,6 +710,20 @@ public class PlacePageController
 
   private void updateButtons(MapObject mapObject, boolean showBackButton, boolean showRoutingButton)
   {
+    if (RoutingController.get().isWaterRouterType() && mWaterCheckedObject != mapObject)
+    {
+      mWaterCheckedObject = mapObject;
+      mWaterPointEligible = false;
+      ThreadPool.getWorker().execute(() -> {
+        final boolean eligible = WaterRouting.isPointEligible(mapObject.getLat(), mapObject.getLon());
+        UiThread.run(() -> {
+          if (!isAdded() || mMapObject != mapObject || mWaterCheckedObject != mapObject)
+            return;
+          mWaterPointEligible = eligible;
+          updateButtons(mapObject, showBackButton, showRoutingButton);
+        });
+      });
+    }
     List<PlacePageButtons.ButtonType> buttons = new ArrayList<>();
     PlacePageButtons.ButtonType roadAvoidButton = toPlacePageButton(mapObject.getRoadWarningMarkType());
     if (roadAvoidButton != null)
@@ -770,6 +790,12 @@ public class PlacePageController
         }
       }
     }
+    if (RoutingController.get().isWaterRouterType() && !mWaterPointEligible)
+      buttons.removeIf(type
+                       -> type == PlacePageButtons.ButtonType.ROUTE_FROM || type == PlacePageButtons.ButtonType.ROUTE_TO
+                              || type == PlacePageButtons.ButtonType.ROUTE_ADD
+                              || type == PlacePageButtons.ButtonType.ROUTE_APPEND
+                              || type == PlacePageButtons.ButtonType.ROUTE_REPLACE);
     mViewModel.setCurrentButtons(buttons);
   }
 

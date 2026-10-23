@@ -239,7 +239,7 @@ final class RoutingBottomMenuController
   {
     UiUtils.hide(mError, mAltitudeChart, mTimeElevationLine);
 
-    if (!RoutingController.get().isVehicleRouterType() && !RoutingController.get().isRulerRouterType())
+    if (!RoutingController.get().isVehicleRouterType() && !RoutingController.get().isMeasurementRouterType())
       showRouteAltitudeChart();
     showRoutingDetails();
     UiUtils.show(mAltitudeChartFrame);
@@ -294,6 +294,7 @@ final class RoutingBottomMenuController
   @SuppressLint("SetTextI18n")
   void showRulerInfo(@NonNull RouteMarkData[] points, Distance totalLength)
   {
+    mTimeRuler.setSingleLine(true);
     refreshManageRoute();
     UiUtils.hide(mError, mTimeVehicle, mTransitTime, mTimeElevationLine, mAltitudeChart);
     setStartState(StartState.DISABLED);
@@ -311,7 +312,26 @@ final class RoutingBottomMenuController
     notifyVisibilityChanged();
   }
 
-  // Create steps info to use in TransitStepAdapter.
+  void showWaterInfo()
+  {
+    refreshManageRoute();
+    hideAltitudeChartAndRoutingDetails();
+    UiUtils.hide(mError);
+    setStartState(StartState.DISABLED);
+    final Distance[] distances = app.organicmaps.sdk.routing.WaterRouting.getDistances();
+    if (distances == null)
+      return;
+    String text = mContext.getString(R.string.water_distance, distances[0].toString(mContext));
+    if (distances[1].mDistance > 0)
+      text += "\n" + mContext.getString(R.string.water_land_gaps, distances[1].toString(mContext)) + "\n"
+            + mContext.getString(R.string.water_total_distance, distances[2].toString(mContext));
+    mTimeRuler.setSingleLine(false);
+    mTimeRuler.setMaxLines(3);
+    mTimeRuler.setText(text);
+    UiUtils.show(mAltitudeChartFrame, mTimeRuler);
+    notifyVisibilityChanged();
+  }
+
   private List<TransitStepInfo> pointsToRulerSteps(RouteMarkData[] points)
   {
     List<TransitStepInfo> transitSteps = new LinkedList<>();
@@ -333,12 +353,18 @@ final class RoutingBottomMenuController
   // Single entry point for the Start button visual state. The button itself is always visible.
   void setStartState(@NonNull StartState state)
   {
+    updateModeControls();
     if (state == mStartState)
       return;
     mStart.setBuildProgress(0);
     mStartState = state;
     mStart.setEnabled(state == StartState.ENABLED);
     notifyVisibilityChanged();
+  }
+
+  void updateModeControls()
+  {
+    UiUtils.showIf(!RoutingController.get().isWaterRouterType(), mStart);
   }
 
   void setBuildProgress(int progress)
@@ -378,6 +404,10 @@ final class RoutingBottomMenuController
         TransitRouteInfo info = RoutingController.get().getCachedTransitInfo();
         if (info != null)
           showTransitInfo(info);
+      }
+      else if (RoutingController.get().isWaterRouterType())
+      {
+        showWaterInfo();
       }
       else if (RoutingController.get().isRulerRouterType())
       {
