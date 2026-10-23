@@ -79,15 +79,22 @@ final class ListTemplateBuilder {
 
   private class func obtainCategories(template: CPListTemplate) {
     let bookmarkManager = BookmarksManager.shared()
-    let categories = bookmarkManager.sortedUserCategories()
-    let items: [CPListItem] = categories.compactMap { category in
-      guard category.bookmarksCount > 0 else { return nil }
+    let maxItemCount = CPListTemplate.maximumItemCount
+    let categories = Array(bookmarkManager.sortedUserCategories().lazy
+      .filter { $0.bookmarksCount > 0 }.prefix(maxItemCount + 1))
+    let isTruncated = categories.count > maxItemCount
+    var items = categories.prefix(isTruncated ? maxItemCount - 1 : maxItemCount).map { category -> CPListItem in
       let placesString = category.placesCountTitle()
       let item = CPListItem(text: category.title, detailText: placesString)
       item.userInfo = ListItemInfo(type: CPConstants.ListItemType.bookmarkLists,
                                    metadata: CategoryInfo(category: category))
       item.handler = Self.itemHandler
       return item
+    }
+    if isTruncated {
+      let cropWarning = CPListItem(text: L("not_all_shown_bookmarks_carplay"), detailText: L("switch_to_phone_bookmarks_carplay"))
+      cropWarning.isEnabled = false
+      items.append(cropWarning)
     }
     let section = CPListSection(items: items)
     template.updateSections([section])
