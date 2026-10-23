@@ -35,6 +35,7 @@ set(SRC
   search_string_utils_test.cpp
   sort_and_merge_intervals_test.cpp
   string_slice_tests.cpp
+  sz3_decoder_tests.cpp
   terrain_utils_tests.cpp
   tile_mesh_tests.cpp
   test_mwm_set.hpp
@@ -57,4 +58,10 @@ target_link_libraries(${PROJECT_NAME}
     generator_tests_support
     platform_tests_support
     indexer
+    sz3::sz3
 )
+# SZ3 builds with strict floating point, see 3party/sz3/README.organicmaps.
+set_source_files_properties(sz3_decoder_tests.cpp PROPERTIES COMPILE_OPTIONS
+  "$<$<CXX_COMPILER_ID:GNU,Clang,AppleClang>:-fno-fast-math;-ffp-contract=off>;$<$<CXX_COMPILER_ID:MSVC>:/fp:strict>")
+set_property(SOURCE sz3_decoder_tests.cpp APPEND PROPERTY COMPILE_DEFINITIONS
+  "$<$<CXX_COMPILER_ID:GNU,Clang,AppleClang>:SZ3_ASSUME_STRICT_FP>")

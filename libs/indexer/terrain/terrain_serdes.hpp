@@ -105,11 +105,15 @@ using Altitude = geometry::Altitude;
 
 // The version byte stores the TIN version in its low nibble and the raster version in its high nibble.
 // Raster version 0 means a TIN-only file.
-uint8_t constexpr kTwmVersion = 3;
-uint8_t constexpr kOldestTwmVersion = 3;
-uint8_t constexpr kRasterVersion = 1;
-uint8_t constexpr kHybridTwmVersion = kTwmVersion | (kRasterVersion << 4);
-static_assert(kTwmVersion < 16 && kRasterVersion < 16);
+uint8_t constexpr kOldestTinVersion = 3;  // oldest supported version
+uint8_t constexpr kTinVersion = 3;
+// 1 - Added SPERR
+// 2 - Added SZ3
+uint8_t constexpr kRasterVersion = 2;
+uint8_t constexpr kTwmSPERRVersion = kTinVersion | (1 << 4);  // to save byte-equal TWMs
+uint8_t constexpr kTwmVersion = kTinVersion | (kRasterVersion << 4);
+static_assert(kTinVersion < 16 && kRasterVersion < 16);
+
 uint32_t constexpr kMaxRasterCells = 128;
 size_t constexpr kMaxGeometryCount = 10;
 // The cell depth of the geometry index, the same as the MWM scale index uses.
@@ -146,7 +150,7 @@ struct TwmHeader
     uint32_t m_maxErrorMm = 0;  // Max vertical error of the mesh, millimeters.
   };
 
-  uint8_t m_version = kTwmVersion;
+  uint8_t m_version = kTinVersion;
   uint8_t m_coordBits = kTerrainCoordBits;
   // Ordered from the coarsest to the finest.
   buffer_vector<Geometry, kMaxGeometryCount> m_geometries;
@@ -181,8 +185,8 @@ struct TwmHeader
   {
     CHECK(m_limitLB.x <= m_limitRT.x && m_limitLB.y <= m_limitRT.y, ());
     CHECK(m_meshCount > 0 && m_meshCount <= kMaxMeshCount, (m_meshCount));
-    CHECK_EQUAL(GetTinVersion(), kTwmVersion, ());
-    CHECK(GetRasterVersion() == 0 || GetRasterVersion() == kRasterVersion, (GetRasterVersion()));
+    CHECK_EQUAL(GetTinVersion(), kTinVersion, ());
+    CHECK_LESS_OR_EQUAL(GetRasterVersion(), kRasterVersion, ());
     WriteToSink(sink, m_version);
     WriteToSink(sink, m_coordBits);
     WriteToSink(sink, static_cast<uint8_t>(m_geometries.size()));
@@ -209,10 +213,12 @@ struct TwmHeader
   void Deserialize(Source & src)
   {
     m_version = ReadPrimitiveFromSource<uint8_t>(src);
-    if (GetTinVersion() != kTwmVersion)
+    uint8_t const tinVersion = GetTinVersion();
+    if (tinVersion < kOldestTinVersion || tinVersion > kTinVersion)
       MYTHROW(TwmException, ("Unsupported TWM TIN version", GetTinVersion()));
-    if (GetRasterVersion() != 0 && GetRasterVersion() != kRasterVersion)
+    if (GetRasterVersion() > kRasterVersion)
       MYTHROW(TwmException, ("Unsupported TWM raster version", GetRasterVersion()));
+
     m_coordBits = ReadPrimitiveFromSource<uint8_t>(src);
     if (m_coordBits == 0 || m_coordBits > kPointCoordBits)
       MYTHROW(TwmException, ("Invalid coord bits", m_coordBits));

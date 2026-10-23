@@ -1,0 +1,21 @@
+szcompressor/SZ3 v3.4.0, revision 592df793eb596d952242aa9fec9cbe5e68782aae.
+https://github.com/szcompressor/SZ3
+
+include/SZ3 holds only the headers of the 2D interpolation pipeline (SZGenericCompressor,
+InterpolationDecomposition, LinearQuantizer, HuffmanEncoder and Lossless_bypass) and what they
+include, with the local changes below. The public SZ_compress API, the other algorithms and Lossless_zstd are
+left out: they require zstd. version.hpp is upstream version.hpp.in configured for 3.4.0.
+
+The TWM raster profile (libs/indexer/terrain/sz3_profile.hpp) composes these modules directly
+into a headerless frame and replaces the zstd stage with optional deflate. Like SPERR, the
+reconstructed integer heights must match on all supported architectures: the encoder and the
+decoder are built with strict floating point.
+
+Local changes in def.hpp, HuffmanEncoder.hpp and InterpolationDecomposition.hpp retain the
+Huffman table and bin storage, use direct 2D block traversal and integer interpolator dispatch, and
+compute the grid levels with integer bit widths. The encoder runs them too; its output, the stream
+layout and the reconstruction order are unchanged. Every source including SZ3 builds with
+-fno-fast-math -ffp-contract=off (MSVC /fp:strict) and, on GCC/Clang, defines SZ3_ASSUME_STRICT_FP
+next to these flags (libs/indexer/CMakeLists.txt, the indexer Xcode project). The definition removes
+the volatile spills of nofma() in def.hpp without permitting FMA or reassociation; def.hpp rejects
+fast math in every SZ3 translation unit, Clang's included.

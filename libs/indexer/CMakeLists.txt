@@ -124,6 +124,9 @@ set(SRC
   terrain/raster_patch.hpp
   terrain/sperr_decoder.cpp
   terrain/sperr_decoder.hpp
+  terrain/sz3_decoder.cpp
+  terrain/sz3_decoder.hpp
+  terrain/sz3_profile.hpp
   terrain/terrain_data.cpp
   terrain/terrain_data.hpp
   terrain/terrain_normals.cpp
@@ -156,8 +159,12 @@ set(SRC
 )
 
 omim_add_library(${PROJECT_NAME} ${SRC})
-set_source_files_properties(terrain/sperr_decoder.cpp PROPERTIES COMPILE_OPTIONS
+# The raster decoders build with strict floating point; under it SZ3 drops its FMA barriers,
+# see 3party/sz3/README.organicmaps.
+set_source_files_properties(terrain/sperr_decoder.cpp terrain/sz3_decoder.cpp PROPERTIES COMPILE_OPTIONS
   "$<$<CXX_COMPILER_ID:GNU,Clang,AppleClang>:-fno-fast-math;-ffp-contract=off>;$<$<CXX_COMPILER_ID:MSVC>:/fp:strict>")
+set_property(SOURCE terrain/sz3_decoder.cpp APPEND PROPERTY COMPILE_DEFINITIONS
+  "$<$<CXX_COMPILER_ID:GNU,Clang,AppleClang>:SZ3_ASSUME_STRICT_FP>")
 
 target_link_libraries(${PROJECT_NAME}
   PUBLIC
@@ -167,6 +174,7 @@ target_link_libraries(${PROJECT_NAME}
     om::timezone
   PRIVATE
     sperr::sperr
+    sz3::sz3
 )
 
 omim_add_test_subdirectory(indexer_tests)

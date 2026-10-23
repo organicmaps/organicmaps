@@ -23,7 +23,7 @@ std::string GetTestBlockPath()
   return base::JoinPath(GetPlatform().ResourcesDir(), "N43E007.twm");
 }
 
-// The real Nice fixture includes both TIN and SPERR raster terrain. Every open
+// The real Nice fixture includes TIN, SPERR and SZ3 raster terrain. Every open
 // contour must end at the block boundary, including contours crossing their seams.
 UNIT_TEST(TerrainIsolines_RealHybridInvariants)
 {
@@ -164,6 +164,30 @@ UNIT_TEST(TerrainReader_RasterPatchCropsToQuery)
   TEST(patch.GetRect().IsRectInside(query), (patch.GetRect(), query));
   for (uint32_t node = 0; node < patch.m_heights.size(); ++node)
     TEST_EQUAL(patch.m_heights[node], heights.at(terrain::impl::PointKey(patch.PointU(node))), (node));
+}
+
+// The decoded heights of the fixture's 4 SPERR and 5 SZ3 patches must match on every platform and survive codec
+// updates: a round trip through the vendored encoder misses the changes both sides share. Update the value only
+// together with the fixture.
+UNIT_TEST(TerrainReader_RealHybridRasterChecksum)
+{
+  terrain::Reader const reader(GetTestBlockPath());
+  auto const & header = reader.GetHeader();
+  terrain::TerrainData data(header.m_coordBits);
+  reader.ReadTerrain(header.GetLimitRect(), header.m_geometries.size() - 1, data);
+  uint64_t hash = 14695981039346656037ULL;  // FNV-1a over every decoded height.
+  size_t count = 0;
+  for (auto const & patch : data.m_rasterPatches)
+  {
+    for (auto const height : patch.m_heights)
+    {
+      hash = (hash ^ static_cast<uint16_t>(height)) * 1099511628211ULL;
+      ++count;
+    }
+  }
+  TEST_EQUAL(data.m_rasterPatches.size(), 9, ());
+  TEST_EQUAL(count, 130321, ());
+  TEST_EQUAL(hash, 4174731811693775522ULL, ());
 }
 
 // Registration keeps the scanned file identity and rejects overlapping active blocks.

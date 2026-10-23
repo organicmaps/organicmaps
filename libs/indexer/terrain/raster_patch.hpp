@@ -13,19 +13,27 @@ enum class RasterCodec : uint8_t
   Raw = 0,
   // Headerless 2D PWE, pinned SPERR profile 1, followed by sparse perimeter corrections.
   Sperr = 1,
-  SperrZlibBorder = 2  // Same SPERR frame, with zlib-compressed corrections.
+  SperrZlibBorder = 2,  // Same SPERR frame, with zlib-compressed corrections.
+  // Raster version 2: the SZ3 frame (see sz3_profile.hpp), followed by the same corrections.
+  Sz3 = 3,
+  Sz3ZlibBorder = 4
 };
 
-// SPERR payload: frame length, frame, then correction bytes through the end of the record.
+inline bool IsSz3(RasterCodec codec)
+{
+  return codec == RasterCodec::Sz3 || codec == RasterCodec::Sz3ZlibBorder;
+}
+
+// Compressed payload: frame length, frame, then correction bytes through the end of the record.
 // Corrections: varuint count, then packed varints with delta perimeter ordinal in the high bits
-// and ZigZag correction to DecodeSperr in the low three bits. Previous ordinal starts at zero.
+// and ZigZag correction to the decoded frame in the low three bits. Previous ordinal starts at zero.
 
 struct RasterRecord
 {
   uint32_t m_gridIndex = 0;
   // Row-major ordinal in the grid interior, excluding the one-cell TIN rim.
   uint32_t m_patchIndex = 0;
-  // SPERR clamps reconstructed heights to the source range before rounding.
+  // The decoders clamp reconstructed heights to the source range before rounding.
   Altitude m_minAltitude = 0, m_maxAltitude = 0;
   RasterCodec m_codec = RasterCodec::Raw;
   uint32_t m_dataOffset = 0;
