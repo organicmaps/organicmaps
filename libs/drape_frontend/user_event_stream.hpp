@@ -572,8 +572,6 @@ private:
   std::array<m2::PointF, 2> m_twoFingersTouches;
   m2::PointD m_startDoubleTapAndHold;
 
-  double const m_dragThreshold;
-
   KineticScroller m_scroller;
   base::Timer m_kineticTimer;
   bool m_kineticScrollEnabled = true;
