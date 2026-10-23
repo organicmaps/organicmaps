@@ -29,11 +29,4 @@ GtkWidget * MakeIconButton(char const * iconName, char const * tooltip, char con
   return b;
 }
 
-void SetMarginAll(GtkWidget * w, int margin)
-{
-  gtk_widget_set_margin_top(w, margin);
-  gtk_widget_set_margin_bottom(w, margin);
-  gtk_widget_set_margin_start(w, margin);
-  gtk_widget_set_margin_end(w, margin);
-}
 }  // namespace gtk

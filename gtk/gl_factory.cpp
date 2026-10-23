@@ -35,8 +35,7 @@ OffscreenFrame::OffscreenFrame(uint32_t w, uint32_t h) : m_width(w), m_height(h)
   glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_texture, 0);
   glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_depthStencil);
   GLenum const status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
-  if (status != GL_FRAMEBUFFER_COMPLETE)
-    LOG(LERROR, ("Offscreen framebuffer is incomplete:", status, w, h));
+  CHECK_EQUAL(status, GL_FRAMEBUFFER_COMPLETE, ("Offscreen framebuffer is incomplete", w, h));
   glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 

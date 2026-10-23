@@ -26,11 +26,5 @@ button.map-button.pending { color: alpha(var(--window-fg-color), 0.5); }
   border-radius: 6px 6px 0 0;
 }
 
-.bottom-menu {
-  background-color: var(--window-bg-color);
-  border-top: 1px solid alpha(var(--window-fg-color), 0.10);
-  padding: 2px 4px;
-}
-.bottom-menu-button { padding: 6px 2px; min-height: 52px; border-radius: 12px; }
 )css";
 }  // namespace gtk

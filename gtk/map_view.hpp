@@ -5,7 +5,6 @@
 
 #include <gtk/gtk.h>
 
-#include <array>
 #include <atomic>
 #include <functional>
 #include <memory>
@@ -28,9 +27,8 @@ public:
   double Scale() const { return m_scale; }
   bool IsEngineCreated() const { return m_engineCreated; }
 
-  // Logical-pixel paddings occupied by overlay controls; the ruler, compass and copyright are
-  // moved out of their way.
-  void SetInsets(int top, int bottom, int left, int right);
+  // Logical pixels occupied by GTK attribution below the ruler and visible map viewport.
+  void SetBottomInset(int bottom);
 
   // Called once the drape engine exists.
   std::function<void()> m_onEngineCreated;
@@ -39,6 +37,10 @@ public:
   void Shutdown();
 
 private:
+#ifdef OM_GTK_WINDOW_TESTS
+  friend struct WindowTestAccess;
+  std::atomic<uint64_t> m_presentedFrames = 0;
+#endif
   void OnRealize();
   void OnUnrealize();
   void OnResize(int w, int h);
@@ -58,7 +60,7 @@ private:
   double m_scale = 1.0;
   int m_pixelWidth = 0;
   int m_pixelHeight = 0;
-  std::array<int, 4> m_insets{};  // top, bottom, left, right (logical px)
+  int m_bottomInset = 0;
 
   GLuint m_program = 0;
   GLuint m_vao = 0;

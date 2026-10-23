@@ -26,6 +26,9 @@ set(SRC
   touch_input.hpp
 )
 
+# Keep sensor NaN checks despite the core's global -ffast-math.
+set_source_files_properties(location.cpp PROPERTIES COMPILE_OPTIONS -fno-finite-math-only)
+
 # Icons are compiled into the executable.
 set(ICONS_XML "${CMAKE_CURRENT_SOURCE_DIR}/res/icons.gresource.xml")
 set(ICONS_SRC "${CMAKE_CURRENT_BINARY_DIR}/icons_resources.c")

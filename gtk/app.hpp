@@ -27,7 +27,6 @@ Framework & GetFramework();
 
 // Small helpers around plain GTK C API.
 GtkWidget * MakeIconButton(char const * iconName, char const * tooltip, char const * cssClass = nullptr);
-void SetMarginAll(GtkWidget * w, int margin);
 
 // Connects a lambda to a GObject signal with no extra arguments besides the instance.
 template <typename Fn>
