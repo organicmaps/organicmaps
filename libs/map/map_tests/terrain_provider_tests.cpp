@@ -26,13 +26,11 @@
 
 #include "coding/file_writer.hpp"
 #include "coding/files_container.hpp"
-#include "coding/internal/file_data.hpp"
 #include "coding/point_coding.hpp"
 
 #include "geometry/mercator.hpp"
 
 #include "base/file_name_utils.hpp"
-#include "base/logging.hpp"
 
 #include "defines.hpp"
 
@@ -281,7 +279,7 @@ struct ElevationSample
 std::array<ElevationSample, 4> const kElevationSamples = {{
     {44.0, 7.5, 756.0, false},
     {43.0 + 275.0 / 360.0, 7.0 + 80.0 / 360.0, 318.0, true, 3.01},
-    {43.25, 7.5, -2342.0, true, 3.01},
+    {43.25, 7.5, -2343.0, true, 3.01},
     {43.0 + 257.0 / 360.0, 7.0 + 125.0 / 360.0, 0.0, true, 1e-6},
 }};
 
@@ -320,6 +318,8 @@ UNIT_TEST(TerrainReader_RealHybridElevation)
   TEST_GREATER(header.m_geometries.size(), 1, ());
   auto const finest = header.m_geometries.size() - 1;
   TEST(header.HasRaster(finest), ());
+  // The fixture mixes the codecs: the samples read SZ3 and SPERR patches.
+  TEST_EQUAL(header.m_version, terrain::kTwmVersion, ());
 
   terrain::TerrainData coarse(header.m_coordBits), fine(header.m_coordBits);
   reader.ReadTerrain(header.GetLimitRect(), 0, coarse);
