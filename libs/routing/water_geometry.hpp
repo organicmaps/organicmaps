@@ -32,6 +32,8 @@ struct Geometry
   std::vector<m2::RectD> m_unknownAreas;
   // False for missing maps, unresolved topology or unknown local coverage.
   bool m_complete = false;
+  // Display geometry lacks source node identities and cannot certify land transfers.
+  bool m_hasSourceTopology = true;
   std::shared_ptr<m4::Tree<size_t>> m_triangleIndex;
   // Complete local coverage, if extraction is bounded. Artificial boundary cuts
   // never prove disconnection. A connected path is accepted only with a bound

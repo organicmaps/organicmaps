@@ -3,6 +3,7 @@
 #include "storage/country_decl.hpp"
 
 #include "indexer/feature.hpp"
+#include "indexer/scales.hpp"
 
 #include "coding/geometry_coding.hpp"
 #include "coding/read_write_utils.hpp"
@@ -227,6 +228,32 @@ auto CountryInfoReader::WithRegion(RegionId id, Fn && fn) const
 bool CountryInfoReader::HasRegionTriangles() const
 {
   return m_reader.IsExist("t0");
+}
+
+bool CountryInfoReader::IsRectCoveredByRegion(CountryId const & countryId, m2::RectD const & rect) const
+{
+  auto const id = GetRegionId(countryId);
+  if (id == kInvalidId)
+    return false;
+  // Match the simplification scale in generator/borders.cpp and keep a margin
+  // around packed borders. This describes map regions, not original OSM coverage.
+  auto proof = rect;
+  auto const margin = 2 * scales::GetEpsilonForSimplify(10);
+  proof.Inflate(margin, margin);
+  return WithRegion(id, [&](std::vector<m2::RegionD> const & regions)
+  {
+    bool inside = false;
+    for (auto const & region : regions)
+    {
+      inside = inside || (region.Contains(proof.LeftBottom()) && region.Contains(proof.LeftTop()) &&
+                          region.Contains(proof.RightBottom()) && region.Contains(proof.RightTop()));
+      auto const & points = region.Data();
+      for (size_t i = 0; i < points.size(); ++i)
+        if (proof.IsIntersect(m2::RectD(points[i], points[(i + 1) % points.size()])))
+          return false;
+    }
+    return inside;
+  });
 }
 
 void CountryInfoReader::GetTriangles(RegionId id, FeatureType & ft) const

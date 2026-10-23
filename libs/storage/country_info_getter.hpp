@@ -74,6 +74,8 @@ protected:
 class CountryInfoGetter : public CountryInfoGetterBase
 {
 public:
+  // True only if actual border polygons certify the whole rectangle.
+  virtual bool IsRectCoveredByRegion(CountryId const &, m2::RectD const &) const { return false; }
   // Returns vector of countries file names without extension for
   // countries belonging to |rect|. When |rough| is equal to true, the
   // method is much faster but the result is less precise.
@@ -146,6 +148,7 @@ public:
 
   // Loads all regions for country number |id| from |m_reader|.
   std::vector<m2::RegionD> LoadRegionsFromDisk(RegionId id) const;
+  bool IsRectCoveredByRegion(CountryId const & countryId, m2::RectD const & rect) const override;
 
   bool HasRegionTriangles() const;
   void GetTriangles(RegionId id, FeatureType & ft) const;

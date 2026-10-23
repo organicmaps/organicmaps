@@ -267,10 +267,36 @@ UNIT_TEST(Water_SurfaceVisibilityRemainsBounded)
 {
   Geometry geometry;
   geometry.m_complete = true;
-  for (size_t i = 0; i < 400; ++i)
-    geometry.m_triangles.push_back({P(i, 0), P(i + 0.5, 0), P(i, 1)});
+  for (size_t i = 0; i < 2048; ++i)
+  {
+    P const a(i * 0.001, 0), b((i + 1) * 0.001, 0);
+    P const c((i + 1) * 0.001, (i + 1) % 2 ? 2 : 1), d(i * 0.001, i % 2 ? 2 : 1);
+    geometry.m_triangles.push_back({a, b, c});
+    geometry.m_triangles.push_back({a, c, d});
+  }
   Path path;
   TEST(FindPath(geometry, P(0, 0), P(0, 0.5), false, kNeverCancelled, path) == ResultCode::Unavailable, ());
+}
+
+UNIT_TEST(Water_InteriorMeshDoesNotExhaustVisibilityBudget)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  for (size_t x = 0; x < 33; ++x)
+    for (size_t y = 0; y < 33; ++y)
+      Rectangle(geometry, x, y, x + 1, y + 1);
+  geometry.m_triangleIndex = std::make_shared<m4::Tree<size_t>>();
+  for (size_t i = 0; i < geometry.m_triangles.size(); ++i)
+  {
+    m2::RectD bounds;
+    for (auto const & point : geometry.m_triangles[i])
+      bounds.Add(point);
+    geometry.m_triangleIndex->Add(i, bounds);
+  }
+  Path path;
+  TEST(FindPath(geometry, P(0.5, 0.5), P(32.5, 32.5), false, kNeverCancelled, path) == ResultCode::Success, ());
+  TEST_EQUAL(path.m_points.size(), 2, ());
+  TEST_EQUAL(path.m_landDistance, 0.0, ());
 }
 
 UNIT_TEST(Water_UnknownGapCannotJustifyLongerTransfer)

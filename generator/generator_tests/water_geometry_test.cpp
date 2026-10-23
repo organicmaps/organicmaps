@@ -4,6 +4,7 @@
 #include "generator/collector_water.hpp"
 #include "generator/feature_generator.hpp"
 #include "generator/generate_info.hpp"
+#include "generator/generator_tests_support/test_mwm_builder.hpp"
 #include "generator/intermediate_data.hpp"
 #include "generator/osm_element.hpp"
 #include "generator/osm_source.hpp"
@@ -14,16 +15,19 @@
 #include "indexer/water_geometry.hpp"
 
 #include "routing/water_geometry_provider.hpp"
+#include "storage/country_info_getter.hpp"
 
 #include "platform/platform.hpp"
 
 #include "coding/files_container.hpp"
+#include "coding/geometry_coding.hpp"
 
 #include "base/file_name_utils.hpp"
 #include "base/scope_guard.hpp"
 
 #include "defines.hpp"
 
+#include <algorithm>
 #include <fstream>
 #include <map>
 
@@ -31,6 +35,33 @@ namespace water_geometry_generator_test
 {
 using P = m2::PointD;
 using namespace generator;
+
+UNIT_TEST(WaterGenerator_StandardCoverageRejectsConcaveBorderGaps)
+{
+  auto const path = base::JoinPath(GetPlatform().WritableDir(), "water_borders_test.bin");
+  SCOPE_GUARD(cleanup, [&] { base::DeleteFileX(path); });
+  {
+    FilesContainerW borders(path);
+    {
+      auto writer = borders.GetWriter(PACKED_POLYGONS_INFO_TAG);
+      rw::Write(*writer, std::vector<storage::CountryDef>{{"Concave", {-3, -3, 3, 3}}});
+    }
+    auto writer = borders.GetWriter("0");
+    WriteVarUint(*writer, 1u);
+    serial::SaveOuterPath(
+        std::vector<P>{{-3, -3}, {3, -3}, {3, 3}, {1, 3}, {1, 0}, {-1, 0}, {-1, 3}, {-3, 3}, {-3, -3}},
+        serial::GeometryCodingParams(), *writer);
+  }
+  class BorderReader : public storage::CountryInfoReader
+  {
+  public:
+    explicit BorderReader(std::string const & path) : CountryInfoReader(GetPlatform().GetReader(path)) {}
+  } reader(path);
+  TEST(reader.IsRectCoveredByRegion("Concave", {-0.5, -2, 0.5, -1}), ());
+  TEST(!reader.IsRectCoveredByRegion("Concave", {-2, 1, 2, 2}), ());
+  TEST(!reader.IsRectCoveredByRegion("Missing", {-0.5, -2, 0.5, -1}), ());
+  TEST(!reader.IsRectCoveredByRegion("Concave", {-3, -2, -2, -1}), ());
+}
 
 UNIT_TEST(WaterGenerator_RealOsmRiver)
 {
@@ -79,6 +110,72 @@ feature::FeatureBuilder Line(uint64_t id, std::vector<P> points, std::initialize
   feature.SetOsmId(base::MakeOsmWay(id));
   feature.AddType(classif().GetTypeByPath(type));
   return feature;
+}
+
+UNIT_TEST(WaterGenerator_StandardMwmPreservesIslandsWithoutInventingRiverJoins)
+{
+  classificator::Load();
+  auto const directory = base::JoinPath(GetPlatform().WritableDir(), "water_standard_test");
+  CHECK(Platform::MkDirRecursively(directory), ());
+  SCOPE_GUARD(cleanup, [&] { Platform::RmDirRecursively(directory); });
+  platform::LocalCountryFile file(directory, platform::CountryFile("WaterStandard"), 0);
+  {
+    tests_support::TestMwmBuilder builder(file, feature::DataHeader::MapType::Country);
+    feature::FeatureBuilder lake;
+    lake.SetArea();
+    lake.AddType(classif().GetTypeByPath({"natural", "water", "lake"}));
+    lake.AddPolygon({P(0, 0), P(3, 0), P(3, 3), P(0, 3), P(0, 0)});
+    lake.AddPolygon({P(1, 1), P(1, 2), P(2, 2), P(2, 1), P(1, 1)});
+    TEST(builder.Add(lake), ());
+    auto river = Line(1, {P(4, 0), P(4, 1), P(5, 1)}, {"waterway", "river"});
+    auto touching = Line(2, {P(5, 1), P(6, 1)}, {"waterway", "river"});
+    auto crossing = Line(3, {P(3.5, 0.5), P(4.5, 0.5)}, {"waterway", "river"});
+    TEST(builder.Add(river), ());
+    TEST(builder.Add(touching), ());
+    TEST(builder.Add(crossing), ());
+    // Standard display data can lose bridge=aqueduct without layer.
+    auto aqueduct = Line(4, {P(-1, 0.5), P(4, 0.5)}, {"waterway", "canal"});
+    aqueduct.GetParams().layer = 1;
+    TEST(builder.Add(aqueduct), ());
+    builder.Finish();
+  }
+  FrozenDataSource data;
+  auto const [id, status] = data.RegisterMap(file);
+  TEST(status == MwmSet::RegResult::Success, ());
+  TEST(!data.GetMwmHandleById(id).GetValue()->m_cont.IsExist(water::kSectionTag), ());
+  auto const neverCancelled = [] { return false; };
+  auto const geometry = routing::WaterGeometryProvider::ExtractFeatures(data, id, {-2, -2, 8, 5}, neverCancelled);
+  TEST(geometry.m_complete, ());
+  TEST(!geometry.m_hasSourceTopology, ());
+  routing::water::Path path;
+  using routing::water::ResultCode;
+  TEST(FindPath(geometry, P(0.5, 1.5), P(2.5, 1.5), false, neverCancelled, path) == ResultCode::Success, ());
+  TEST_GREATER(path.m_points.size(), 2, ());
+  TEST_EQUAL(path.m_landDistance, 0.0, ());
+  TEST(FindPath(geometry, P(1.5, 1.5), P(2.5, 1.5), false, neverCancelled, path) == ResultCode::OutsideWater, ());
+  auto const aqueduct = std::find_if(geometry.m_lines.begin(), geometry.m_lines.end(),
+                                     [](auto const & line) { return line.front().m_point.x < 0; });
+  TEST(aqueduct != geometry.m_lines.end(), ());
+  TEST(FindPath(geometry, aqueduct->front().m_point, P(0.5, 0.8), false, neverCancelled, path) == ResultCode::Success,
+       ());
+  TEST_EQUAL(path.m_landDistance, 0.0, ());
+  auto const river = std::find_if(geometry.m_lines.begin(), geometry.m_lines.end(),
+                                  [](auto const & line) { return line.size() == 3; });
+  TEST(river != geometry.m_lines.end(), ());
+  auto const start = river->front().m_point;
+  auto const finish = (river->back().m_point + (*river)[1].m_point) * 0.5;
+  TEST(FindPath(geometry, start, finish, false, neverCancelled, path) == ResultCode::Success, ());
+  TEST_GREATER(path.m_waterDistance, mercator::DistanceOnEarth(start, finish), ());
+  for (auto const & line : geometry.m_lines)
+    if (&line != &*river && &line != &*aqueduct)
+      TEST(FindPath(geometry, start, line.back().m_point, false, neverCancelled, path) == ResultCode::Unavailable, ());
+  TEST(!routing::WaterGeometryProvider::ExtractFeatures(data, id, {-2, -2, 8, 5}, [] { return true; }).m_complete, ());
+  routing::WaterGeometryProvider withoutCoverage(data);
+  routing::RouterDelegate delegate;
+  routing::Checkpoints const checkpoints(P(0.5, 1.5), P(2.5, 1.5));
+  TEST(!withoutCoverage.GetGeometry(checkpoints, delegate).m_complete, ());
+  routing::WaterGeometryProvider covered(data, [](auto const &, auto const &) { return true; });
+  TEST(covered.GetGeometry(checkpoints, delegate).m_complete, ());
 }
 
 UNIT_TEST(WaterGenerator_PreservesSourceTopologyAndGradeSeparation)

@@ -27,10 +27,40 @@ transfers use shoreline intersections. Candidates crossing a third disconnected
 water component are rejected. Only the internal arrival marker required by shared
 presentation is produced. Android hides navigation controls; native following is disabled.
 
+## Ordinary downloaded maps
+
+Water can use an ordinary country MWM without regenerating it. The compatibility
+provider reads its best available waterway lines and water-surface triangles,
+unions the surfaces, and preserves the islands represented by that geometry.
+Distances follow the stored display geometry, which may be simplified relative
+to the original OpenStreetMap data.
+
+Original river node IDs are absent. Separate line features never join merely
+because their coordinates coincide or cross. River/surface intersections do join.
+As a deliberate measurement simplification, bridge, aqueduct and lock restrictions
+are ignored in this compatibility mode, including positive layers. This can join
+an aqueduct to a water surface it crosses. Underground waterways remain unknown.
+This mode does not model navigability, water depth, currents or access restrictions.
+
+The compatibility graph cannot establish that separate water systems are actually
+disconnected, so automatic land transfers are disabled. Routes requiring an
+unrepresented river junction may be unavailable. The computed minimum refers to
+the connections represented in this graph, not reconstructed source topology.
+Coastline polygons describe land and do not supply ocean water in this mode.
+
+The complete query rectangle must lie inside a known map-region polygon. The
+application supplies this proof from packed borders, with a margin for border
+simplification and quantization. A feature bounding box alone never certifies
+coverage. Missing borders, cross-region queries and exceeded budgets remain
+unavailable. Android point eligibility uses the same coverage check.
+Packed borders describe application map regions; they cannot reconstruct exact
+original source-extract coverage from an old MWM.
+
 ## Optional MWM section
 
-Existing downloaded maps lack required topology and coverage. They remain readable,
-but Water returns unavailable. Generate new maps with normal resources and borders:
+An optional water_geometry section retains original source topology and takes
+precedence over the compatibility provider. It also permits certified land
+transfers. Generate these maps with normal resources and borders:
 
 ```sh
 generator_tool --preprocess --osm_file_name=complete.osm --osm_file_type=xml \
@@ -74,7 +104,9 @@ them. Disconnected components touching unknown geometry cannot justify a land ga
 The reader caches one index with at most 65,536 records. Extraction allows 4,096
 surface source points and 4,096 triangles, with 16,384 total source points. The graph
 allows 16,384 vertices; only its surface vertices enter the quadratic visibility
-search, limited to 1,024 vertices. River curvature retains all original vertices.
+search, limited to 1,024 vertices. Interior triangle vertices keep linear mesh edges;
+surface visibility needs only reflex shore corners, checkpoints and river points.
+River curvature retains all source vertices, or all stored vertices for ordinary maps.
 Transfer candidates are bounded to 2,048. Cancellation is
 checked during extraction and graph searches. Tessellation is bounded by its input.
 Large or complex waterways may be unavailable. Country-scale performance and map
@@ -98,6 +130,12 @@ lake, an outlet, a disconnected lake and unsupported culverts/aqueducts.
 Real Lake District runtime checks cover Easedale Tarn, its outlet to Sourmilk Gill,
 Rydal Water around Heron Island and winding river segments. Source data are kept
 unaltered; these checks use the optional section in a generated regional MWM.
+Compatibility checks also use the unmodified official Lancaster MWM downloaded
+from the Organic Maps CDN, with no water_geometry section. Generator tests create
+a standard MWM containing an island, winding river, crossing and coincident river
+endpoints; they cover absent coverage proof, cancellation and ignored aqueduct
+restrictions. A separate packed-border regression rejects a concave coverage gap
+even when all rectangle corners and its bounding box appear covered.
 
 Android app/SDK unit tests and debug builds run separately. Xcode projects include
 the common implementation and tessellation dependencies. iOS UI is deferred; no
