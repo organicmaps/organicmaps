@@ -5,9 +5,6 @@
   case iCloudIsNotAvailable
   case containerNotFound
   case failedToOpenLocalDirectoryFileDescriptor
-  case failedToRetrieveLocalDirectoryContent
-  case failedToCreateMetadataItem
-  case failedToRetrieveMetadataQueryContent
 }
 
 extension SynchronizationError: LocalizedError {
@@ -21,12 +18,6 @@ extension SynchronizationError: LocalizedError {
       return L("icloud_synchronization_error_cloud_is_unavailable")
     case .failedToOpenLocalDirectoryFileDescriptor:
       return "Failed to open local directory file descriptor"
-    case .failedToRetrieveLocalDirectoryContent:
-      return "Failed to retrieve local directory content"
-    case .failedToCreateMetadataItem:
-      return "Failed to create metadata item."
-    case .failedToRetrieveMetadataQueryContent:
-      return "Failed to retrieve NSMetadataQuery content."
     }
   }
 }

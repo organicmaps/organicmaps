@@ -4,18 +4,20 @@ import XCTest
 class LocalDirectoryMonitorDelegateMock: LocalDirectoryMonitorDelegate {
   var contents = LocalContents()
 
-  var didFinishGatheringExpectation: XCTestExpectation?
-  var didUpdateExpectation: XCTestExpectation?
+  var didReceiveFirstSnapshotExpectation: XCTestExpectation?
+  var didReceiveNextSnapshotExpectation: XCTestExpectation?
   var didReceiveErrorExpectation: XCTestExpectation?
 
-  func didFinishGathering(_ contents: LocalContents) {
-    self.contents = contents
-    didFinishGatheringExpectation?.fulfill()
-  }
+  private var snapshotsCount = 0
 
-  func didUpdate(_ contents: LocalContents, _: LocalContentsUpdate) {
-    self.contents = contents
-    didUpdateExpectation?.fulfill()
+  func didReceiveLocalSnapshot(_ snapshot: LocalSnapshot) {
+    contents = snapshot.items
+    snapshotsCount += 1
+    if snapshotsCount == 1 {
+      didReceiveFirstSnapshotExpectation?.fulfill()
+    } else {
+      didReceiveNextSnapshotExpectation?.fulfill()
+    }
   }
 
   func didReceiveLocalMonitorError(_: Error) {
