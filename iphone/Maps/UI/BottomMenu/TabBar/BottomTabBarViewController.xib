@@ -131,6 +131,6 @@
         <image name="ic_menu" width="24" height="24"/>
         <image name="ic_menu_bookmark_list" width="24" height="24"/>
         <image name="ic_menu_search" width="24" height="24"/>
-        <image name="logo" width="462" height="512"/>
+        <image name="logo" width="24" height="24"/>
     </resources>
 </document>
