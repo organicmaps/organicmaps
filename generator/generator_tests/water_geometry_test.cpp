@@ -12,6 +12,7 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
+#include "indexer/scales.hpp"
 #include "indexer/water_geometry.hpp"
 
 #include "routing/water_geometry_provider.hpp"
@@ -194,6 +195,55 @@ UNIT_TEST(WaterGenerator_StandardMwmPreservesIslandsWithoutInventingRiverJoins)
   TEST(!withoutCoverage.GetGeometry(checkpoints, delegate).m_complete, ());
   routing::WaterGeometryProvider covered(data, [](auto const &, auto const &) { return true; });
   TEST(covered.GetGeometry(checkpoints, delegate).m_complete, ());
+  m2::RectD pointBounds;
+  routing::WaterGeometryProvider pointProvider(data, [&](auto const &, auto const & bounds)
+  {
+    pointBounds = bounds;
+    return true;
+  });
+  auto const point = P(0.5, 1.5);
+  auto const local = pointProvider.GetGeometry(routing::Checkpoints(point, point), delegate);
+  TEST_LESS(mercator::DistanceOnEarth(pointBounds.LeftBottom(), pointBounds.RightTop()), 150.0, ());
+  TEST(FindPath(local, point, point, false, neverCancelled, path) == ResultCode::Success, ());
+}
+
+UNIT_TEST(WaterGenerator_UnrelatedCityFeaturesDoNotExhaustWaterBudget)
+{
+  classificator::Load();
+  auto const directory = base::JoinPath(GetPlatform().WritableDir(), "water_city_test");
+  CHECK(Platform::MkDirRecursively(directory), ());
+  SCOPE_GUARD(cleanup, [&] { Platform::RmDirRecursively(directory); });
+  platform::LocalCountryFile file(directory, platform::CountryFile("WaterCity"), 0);
+  {
+    tests_support::TestMwmBuilder builder(file, feature::DataHeader::MapType::Country);
+    auto canal = Line(1, {P(0, 0), P(0, 0.0002)}, {"waterway", "canal"});
+    TEST(builder.Add(canal), ());
+    for (uint64_t i = 0; i < 17000; ++i)
+    {
+      feature::FeatureBuilder bench;
+      bench.SetCenter(P((i % 129) * 0.000001, (i / 129) * 0.000001));
+      bench.SetOsmId(base::GeoObjectId(base::GeoObjectId::Type::ObsoleteOsmNode, i + 1));
+      bench.AddType(classif().GetTypeByPath({"amenity", "bench"}));
+      TEST(builder.Add(bench), ());
+    }
+    builder.Finish();
+  }
+  FrozenDataSource data;
+  auto const [id, status] = data.RegisterMap(file);
+  TEST(status == MwmSet::RegResult::Success, ());
+  m2::RectD const bounds(-0.001, -0.001, 0.001, 0.001);
+  size_t count = 0;
+  data.ForEachInRectForMWM([&](FeatureType &) { ++count; }, bounds, scales::GetUpperScale(), id);
+  TEST_GREATER(count, 16384, ());
+  auto const geometry = routing::WaterGeometryProvider::ExtractFeatures(data, id, bounds, [] { return false; });
+  TEST(geometry.m_complete, ());
+  TEST_EQUAL(geometry.m_lines.size(), 1, ());
+  routing::water::Path path;
+  auto const & line = geometry.m_lines.front();
+  TEST(FindPath(geometry, line.front().m_point, line.back().m_point, false, [] { return false; }, path) ==
+           routing::water::ResultCode::Success,
+       ());
+  TEST_EQUAL(path.m_landDistance, 0.0, ());
 }
 
 UNIT_TEST(WaterGenerator_PreservesSourceTopologyAndGradeSeparation)

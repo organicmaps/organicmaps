@@ -57,6 +57,9 @@ application supplies this proof from packed borders, with a margin for border
 simplification and quantization. A feature bounding box alone never certifies
 coverage. Missing borders, cross-region queries and exceeded budgets remain
 unavailable. Android point eligibility uses the same coverage check.
+Eligibility uses a 50 m margin instead of extracting a full routing window
+for a single point. The feature budget counts intersecting water features,
+excluding buildings and roads.
 Packed borders describe application map regions; they cannot reconstruct exact
 original source-extract coverage from an old MWM.
 

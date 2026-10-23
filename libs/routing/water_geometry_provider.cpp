@@ -240,11 +240,6 @@ water::Geometry WaterGeometryProvider::ExtractFeatures(DataSource const & dataSo
   {
     if (cancelled() || exceeded)
       return;
-    if (++features > 16384)
-    {
-      exceeded = true;
-      return;
-    }
     std::vector<uint32_t> types;
     feature.ForEachType([&](uint32_t type) { types.push_back(type); });
     auto const line = feature.GetGeomType() == feature::GeomType::Line && ::water::IsLine(types);
@@ -254,6 +249,12 @@ water::Geometry WaterGeometryProvider::ExtractFeatures(DataSource const & dataSo
     auto const rect = feature.GetLimitRect(FeatureType::BEST_GEOMETRY);
     if (!rect.IsIntersect(bounds))
       return;
+    // Unrelated buildings and roads must not exhaust the water geometry budget.
+    if (++features > 16384)
+    {
+      exceeded = true;
+      return;
+    }
     // Coastline polygons encode land. Bridge/aqueduct/lock restrictions are not
     // modelled in display-data measurements; underground waterways stay unknown.
     bool underground = feature.GetLayer() < 0;
@@ -322,7 +323,8 @@ water::Geometry WaterGeometryProvider::GetGeometry(Checkpoints const & checkpoin
   }
   // A finite local query supports direct routes and ordinary detours. Larger
   // systems remain unavailable instead of scanning countries or guessing gaps.
-  auto const margin = std::clamp(2 * direct, 1000.0, 30000.0);
+  // Point eligibility needs only nearby water, not a full routing window.
+  auto const margin = direct == 0.0 ? 50.0 : std::clamp(2 * direct, 1000.0, 30000.0);
   auto const extent = mercator::RectByCenterXYAndSizeInMeters(bounds.Center(), margin);
   bounds.Inflate(extent.SizeX() / 2, extent.SizeY() / 2);
   if (!mercator::Bounds::FullRect().IsRectInside(bounds) || bounds.SizeX() >= 180)
