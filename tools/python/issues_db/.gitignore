@@ -1,4 +1,6 @@
 issues.jsonl
 issues.jsonl.tmp
 fetch_state.json
+fetch_state.json.tmp
+fetch.lock
 __pycache__/
