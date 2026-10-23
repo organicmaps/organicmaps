@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Archives and uploads the release into the AppStore.
-# Assumes that all certificates and CarPlay provisioning profiles are properly set up in XCode.
+# Assumes that Xcode is signed in to the team, and that the distribution certificate and the
+# "NonGPS AppStore" and "NonGPS Widget AppStore" profiles are installed.
 
 set -euxo pipefail
 
@@ -23,6 +24,7 @@ xcodebuild archive \
     -scheme OMaps \
     -destination generic/platform=iOS \
     -archivePath "$ARCHIVE_PATH" \
+    -allowProvisioningUpdates \
     MARKETING_VERSION="$IOS_VERSION" \
     CURRENT_PROJECT_VERSION="$IOS_BUILD"
 
@@ -37,13 +39,19 @@ cat > "$PLIST" <<EOM
   <key>destination</key>
   <string>upload</string>
   <key>method</key>
-  <string>app-store</string>
+  <string>app-store-connect</string>
   <key>teamID</key>
-  <string>9Z6432XD7L</string>
+  <string>VTWF79TU37</string>
+  <key>signingStyle</key>
+  <string>manual</string>
+  <key>signingCertificate</key>
+  <string>iOS Distribution</string>
   <key>provisioningProfiles</key>
   <dict>
-    <key>app.organicmaps</key>
-    <string>CarPlay AppStore</string>
+    <key>com.non-gps</key>
+    <string>NonGPS AppStore</string>
+    <key>com.non-gps.widgetextension</key>
+    <string>NonGPS Widget AppStore</string>
   </dict>
 </dict>
 </plist>
