@@ -2577,6 +2577,79 @@ UNIT_CLASS_TEST(Runner, Bookmarks_TrashedCategoryPreservesPendingChanges)
   DeleteCategoryWithPendingSave(false /* permanently */);
 }
 
+UNIT_CLASS_TEST(Runner, Bookmarks_FileUpdateRejectsChangedOrDeletedCategories)
+{
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+  auto const groupId = bmManager.CreateBookmarkCategory("FileUpdate");
+  AddBookmark(bmManager, groupId, 10);
+  auto const path = bmManager.GetCategoryFileName(groupId);
+  auto update = bmManager.GetFileUpdate(path);
+  TEST(update, ());
+  bool written = false;
+  TEST(update->PerformIfUnchanged([&]() { written = true; }), ());
+  TEST(written, ());
+
+  bmManager.GetEditSession().SetCategoryName(groupId, "New local edit");
+  TEST(!update->PerformIfUnchanged([]() { TEST(false, ("An obsolete update must not write")); }), ());
+
+  update = bmManager.GetFileUpdate(path);
+  TEST(update, ());
+  BookmarkManager::KMLDataCollection incoming;
+  incoming.emplace_back(path, LoadKmlData(MemReader(kmlString, strlen(kmlString)), FileType::Kml));
+  bmManager.CreateCategories(std::move(incoming), true /* autoSave */);
+  TEST(!update->PerformIfUnchanged([]() { TEST(false, ("Reloading invalidates an earlier update")); }), ());
+
+  update = bmManager.GetFileUpdate(path);
+  TEST(update, ());
+  TEST(bmManager.GetEditSession().DeleteBmCategory(groupId, true /* permanently */), ());
+  TEST(!update->PerformIfUnchanged([]() { TEST(false, ("Deleting invalidates an earlier update")); }), ());
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_FileUpdateSerializesWithAutosaves)
+{
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+  auto const groupId = bmManager.CreateBookmarkCategory("SerializedUpdate");
+  AddBookmark(bmManager, groupId, 10);
+  auto const path = bmManager.GetCategoryFileName(groupId);
+  auto update = bmManager.GetFileUpdate(path);
+  TEST(update, ());
+
+  std::promise<void> updateStarted;
+  std::promise<void> releaseUpdate;
+  auto updating = std::async(std::launch::async, [&]()
+  {
+    return update->PerformIfUnchanged([&]()
+    {
+      updateStarted.set_value();
+      releaseUpdate.get_future().wait();
+    });
+  });
+  updateStarted.get_future().wait();
+  bmManager.EnableTestMode(false);
+  bmManager.GetEditSession().SetCategoryName(groupId, "Edited during update");
+  bool const hasPendingSave = bmManager.IsCategorySaving(groupId);
+  auto const pendingUpdate = bmManager.GetFileUpdate(path);
+  std::promise<void> savesFinished;
+  auto finished = savesFinished.get_future();
+  GetPlatform().RunTask(Platform::Thread::File, [&]() { savesFinished.set_value(); });
+  bool const saveIsBlocked = finished.wait_for(std::chrono::milliseconds(100)) == std::future_status::timeout;
+  releaseUpdate.set_value();
+  bool const performed = updating.get();
+  finished.wait();
+  bmManager.EnableTestMode(true);
+
+  TEST(performed, ());
+  TEST(hasPendingSave, ());
+  TEST(!pendingUpdate, ());
+  TEST(saveIsBlocked, ("An autosave cannot interleave the external content check and replacement"));
+  TEST(!bmManager.IsCategorySaving(groupId), ());
+  auto const saved = LoadKmlFile(path, FileType::Kml);
+  TEST(saved, ());
+  TEST_EQUAL(kml::GetDefaultStr(saved->m_categoryData.m_name), "Edited during update", ());
+}
+
 UNIT_CLASS_TEST(Runner, Bookmarks_TestSaveRoute)
 {
   BookmarkManager bmManager(BM_CALLBACKS);
