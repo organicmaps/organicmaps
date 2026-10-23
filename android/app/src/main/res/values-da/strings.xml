@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Sikkerhedskopi af bogmærker og spor</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Bogmærker og spor kan indgå i Androids systemsikkerhedskopier, når sikkerhedskopiering er slået til på denne enhed, og de ikke overskrider dens størrelsesgrænse.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Synkronisering med Google Drev (beta)</string>
+    <string name="bookmarks_sync_enabled">Synkroniser bogmærker og spor</string>
+    <string name="bookmarks_sync_account">Google-konto</string>
+    <string name="bookmarks_sync_manage_storage">Administrer Google-lagerplads</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%1$s af %2$s brugt</string>
+    <string name="bookmarks_sync_mobile_data">Synkroniser via mobildata</string>
+    <string name="bookmarks_sync_now">Synkroniser nu</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Sidst synkroniseret: %s</string>
+    <string name="bookmarks_sync_status_running">Synkroniserer…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Venter på Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">Login påkrævet</string>
+    <string name="bookmarks_sync_status_quota">Google Drev er fuldt</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Synkronisering mislykkedes: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Slet data fra Google Drev</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Vil du slette synkroniserede bogmærker og spor fra Google Drev? Bogmærker og spor på denne enhed bevares.</string>
+    <string name="bookmarks_sync_beta_warning">Synkronisering er i beta. Eksportér en sikkerhedskopi af alle bogmærker og spor, før du slår den til.</string>
     <string name="search_history_text">Se dine seneste søgninger.</string>
     <string name="clear_search">Ryd søgehistorik</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -865,6 +885,8 @@
     <string name="hide_track">Skjul spor</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Vis spor</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Aktivér</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->

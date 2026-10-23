@@ -384,7 +384,7 @@ public final class Config
     return getLong(KEY_MISC_USE_MOBILE_DATA_TIMESTAMP, 0L);
   }
 
-  static boolean getMobileDataRoaming()
+  public static boolean getMobileDataRoaming()
   {
     return getBool(KEY_MISC_USE_MOBILE_DATA_ROAMING, false);
   }

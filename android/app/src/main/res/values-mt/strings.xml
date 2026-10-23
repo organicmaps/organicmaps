@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Rizerva tal-werrejja u t-traċċi</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Il-werrejja u t-traċċi jistgħu jiġu inklużi fir-rizervi tas-sistema Android meta r-rizerva tkun attivata f’dan it-tagħmir u ma jaqbżux il-limitu tad-daqs tagħha.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Sinkronizzazzjoni ma’ Google Drive (beta)</string>
+    <string name="bookmarks_sync_enabled">Issinkronizza l-werrejja u l-korsiji</string>
+    <string name="bookmarks_sync_account">Kont tal-Google</string>
+    <string name="bookmarks_sync_manage_storage">Immaniġġja l-ħażna ta\' Google</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">Intużaw %1$s minn %2$s</string>
+    <string name="bookmarks_sync_mobile_data">Issinkronizza bid-data mobbli</string>
+    <string name="bookmarks_sync_now">Issinkronizza issa</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">L-aħħar sinkronizzazzjoni: %s</string>
+    <string name="bookmarks_sync_status_running">Qed jissinkronizza…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Qed jistenna l-Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">Meħtieġ id-dħul</string>
+    <string name="bookmarks_sync_status_quota">Google Drive hu mimli</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Is-sinkronizzazzjoni falliet: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Ħassar id-data minn Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Tħassar il-werrejja u l-korsiji sinkronizzati minn Google Drive? Il-werrejja u l-korsiji f’dan it-tagħmir jibqgħu.</string>
+    <string name="bookmarks_sync_beta_warning">Is-sinkronizzazzjoni hija f’verżjoni beta. Qabel tattivaha, esporta kopja ta’ riżerva tal-werrejja u l-korsiji kollha.</string>
     <string name="search_history_text">Ara t-tfittxijiet riċenti tiegħek.</string>
     <string name="clear_search">Neħħi l-kronoloġija tat-tiftix</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -862,6 +882,8 @@
     <string name="move">Ħawwad</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Biddel il-kulur</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Attiva</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->

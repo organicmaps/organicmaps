@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">پشتیبان‌گیری از نشانک‌ها و مسیرها</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">اگر پشتیبان‌گیری در این دستگاه فعال باشد و نشانک‌ها و مسیرها از محدودیت حجم آن بیشتر نشوند، می‌توانند در پشتیبان‌های سیستم Android گنجانده شوند.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">همگام‌سازی با Google Drive (آزمایشی)</string>
+    <string name="bookmarks_sync_enabled">همگام‌سازی نشانک‌ها و مسیرها</string>
+    <string name="bookmarks_sync_account">حساب Google</string>
+    <string name="bookmarks_sync_manage_storage">مدیریت فضای ذخیره‌سازی Google</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%1$s از %2$s استفاده شده</string>
+    <string name="bookmarks_sync_mobile_data">همگام‌سازی با داده تلفن همراه</string>
+    <string name="bookmarks_sync_now">اکنون همگام‌سازی شود</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">آخرین همگام‌سازی: %s</string>
+    <string name="bookmarks_sync_status_running">در حال همگام‌سازی…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">در انتظار Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">ورود لازم است</string>
+    <string name="bookmarks_sync_status_quota">Google Drive پر است</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">همگام‌سازی ناموفق بود: %s</string>
+    <string name="bookmarks_sync_delete_cloud">حذف داده‌ها از Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">نشانک‌ها و مسیرهای همگام‌شده از Google Drive حذف شوند؟ نشانک‌ها و مسیرهای این دستگاه باقی می‌مانند.</string>
+    <string name="bookmarks_sync_beta_warning">همگام‌سازی آزمایشی است. پیش از فعال کردن آن، از همه نشانک‌ها و مسیرها پشتیبان صادر کنید.</string>
     <string name="search_history_text">جستجوهای اخیر خود را مشاهده کنید.</string>
     <string name="clear_search">پاک کردن سابقه جستجوها</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -867,6 +887,8 @@
     <string name="hide_track">مخفی کردن مسیر</string>
     <!-- Text for the showing track. -->
     <string name="show_track">نمایش مسیر</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">فعال کردن</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->

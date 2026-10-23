@@ -43,6 +43,7 @@ import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.settings.RoadType;
 import app.organicmaps.sdk.util.log.Logger;
+import app.organicmaps.sync.BookmarksSync;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
@@ -233,6 +234,7 @@ public class PlacePageController
     // Skip circle deselect when recovery re-activated the transit PP — it just drew a new circle.
     if (!recovered)
       Framework.nativeDeactivateMapSelectionCircle(false);
+    BookmarksSync.onLocalApplyAllowed(requireContext());
   }
 
   private void onTrackRecordingSelected()

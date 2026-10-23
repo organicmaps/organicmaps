@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Резервно копие на отметките и пътеките</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Отметките и пътеките могат да бъдат включени в системните резервни копия на Android, ако резервното копиране е включено на устройството и не надвишават ограничението му за размер.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Синхронизиране с Google Диск (бета)</string>
+    <string name="bookmarks_sync_enabled">Синхронизиране на отметки и пътеки</string>
+    <string name="bookmarks_sync_account">Профил в Google</string>
+    <string name="bookmarks_sync_manage_storage">Управление на хранилището в Google</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">Използвани %1$s от %2$s</string>
+    <string name="bookmarks_sync_mobile_data">Синхронизиране чрез мобилни данни</string>
+    <string name="bookmarks_sync_now">Синхронизиране сега</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Последна синхронизация: %s</string>
+    <string name="bookmarks_sync_status_running">Синхронизиране…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Изчакване на Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">Изисква се вход</string>
+    <string name="bookmarks_sync_status_quota">Google Диск е пълен</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Неуспешно синхронизиране: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Изтриване на данните от Google Диск</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Да се изтрият ли синхронизираните отметки и пътеки от Google Диск? Отметките и пътеките на това устройство остават.</string>
+    <string name="bookmarks_sync_beta_warning">Синхронизирането е в бета версия. Преди да го включите, експортирайте резервно копие на всички отметки и пътеки.</string>
     <string name="search_history_text">Преглед на последните търсения.</string>
     <string name="clear_search">Изчистване на историята на търсенията</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -864,6 +884,8 @@
     <string name="hide_track">Скриване на маршрут</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Показване на маршрут</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Активиране</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->

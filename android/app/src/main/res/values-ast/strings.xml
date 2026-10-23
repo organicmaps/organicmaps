@@ -163,6 +163,26 @@
     <string name="bookmarks_backup_title">Copia de seguranza de marcadores y trayeutos</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Los marcadores y trayeutos puen incluyise nes copies de seguranza del sistema Android cuando la copia de seguranza ta activada nesti preséu y nun superen la so llende de tamañu.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Sincronización con Google Drive (beta)</string>
+    <string name="bookmarks_sync_enabled">Sincronizar marcadores y trayeutos</string>
+    <string name="bookmarks_sync_account">Cuenta de Google</string>
+    <string name="bookmarks_sync_manage_storage">Xestionar l\'almacenamientu de Google</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">Úsase %1$s de %2$s</string>
+    <string name="bookmarks_sync_mobile_data">Sincronizar colos datos móviles</string>
+    <string name="bookmarks_sync_now">Sincronizar agora</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Última sincronización: %s</string>
+    <string name="bookmarks_sync_status_running">Sincronizando…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Esperando pola Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">Ríquese aniciar sesión</string>
+    <string name="bookmarks_sync_status_quota">Google Drive ta enllenu</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Falló la sincronización: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Desaniciar los datos de Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">¿Quies desaniciar de Google Drive los marcadores y trayeutos sincronizaos? Los marcadores y trayeutos d\'esti preséu caltiénense.</string>
+    <string name="bookmarks_sync_beta_warning">La sincronización ta en beta. Esporta una copia de seguranza de tolos marcadores y trayeutos enantes d\'activala.</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Wikipedia</string>
     <string name="p2p_start">Entamar</string>

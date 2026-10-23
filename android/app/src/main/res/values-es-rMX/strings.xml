@@ -177,6 +177,26 @@
     <string name="bookmarks_backup_title">Respaldo de marcadores y pistas</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Los marcadores y pistas pueden incluirse en los respaldos del sistema Android si el respaldo está activado en este dispositivo y no superan su límite de tamaño.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Sincronización con Google Drive (beta)</string>
+    <string name="bookmarks_sync_enabled">Sincronizar marcadores y pistas</string>
+    <string name="bookmarks_sync_account">Cuenta de Google</string>
+    <string name="bookmarks_sync_manage_storage">Administrar el almacenamiento de Google</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%1$s de %2$s usados</string>
+    <string name="bookmarks_sync_mobile_data">Sincronizar con datos móviles</string>
+    <string name="bookmarks_sync_now">Sincronizar ahora</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Última sincronización: %s</string>
+    <string name="bookmarks_sync_status_running">Sincronizando…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Esperando Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">Es necesario iniciar sesión</string>
+    <string name="bookmarks_sync_status_quota">Google Drive está lleno</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Error de sincronización: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Eliminar los datos de Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">¿Eliminar los marcadores y pistas sincronizados de Google Drive? Los marcadores y pistas de este dispositivo se conservan.</string>
+    <string name="bookmarks_sync_beta_warning">La sincronización está en beta. Exporta un respaldo de todos los marcadores y pistas antes de activarla.</string>
     <string name="search_history_text">Ver tus búsquedas recientes.</string>
     <string name="clear_search">Eliminar el historial de búsqueda</string>
     <string name="p2p_your_location">Tu ubicación</string>

@@ -301,6 +301,26 @@
     <string name="bookmarks_backup_title">ສຳຮອງຂໍ້ມູນບຸກມາກ ແລະ ເສັ້ນທາງ</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">ບຸກມາກ ແລະ ເສັ້ນທາງສາມາດຖືກລວມໄວ້ໃນການສຳຮອງຂໍ້ມູນລະບົບ Android ໄດ້ ເມື່ອເປີດໃຊ້ການສຳຮອງຂໍ້ມູນຢູ່ໃນອຸປະກອນນີ້ ແລະ ບໍ່ເກີນຂີດຈຳກັດຂະໜາດຂອງມັນ.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">ຊິງກັບ Google Drive (ເບຕ້າ)</string>
+    <string name="bookmarks_sync_enabled">ຊິງບຸກມາກ ແລະ ເສັ້ນທາງ</string>
+    <string name="bookmarks_sync_account">ບັນຊີ Google</string>
+    <string name="bookmarks_sync_manage_storage">ຈັດການບ່ອນຈັດເກັບ Google</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">ໃຊ້ໄປ %1$s ຈາກ %2$s</string>
+    <string name="bookmarks_sync_mobile_data">ຊິງຜ່ານອິນເຕີເນັດມືຖື</string>
+    <string name="bookmarks_sync_now">ຊິງດຽວນີ້</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">ຊິງຄັ້ງລ່າສຸດ: %s</string>
+    <string name="bookmarks_sync_status_running">ກຳລັງຊິງ…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">ກຳລັງລໍ Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">ຕ້ອງເຂົ້າສູ່ລະບົບ</string>
+    <string name="bookmarks_sync_status_quota">Google Drive ເຕັມແລ້ວ</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">ການຊິງລົ້ມເຫຼວ: %s</string>
+    <string name="bookmarks_sync_delete_cloud">ລຶບຂໍ້ມູນອອກຈາກ Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">ລຶບບຸກມາກ ແລະ ເສັ້ນທາງທີ່ຊິງໄວ້ອອກຈາກ Google Drive ບໍ? ບຸກມາກ ແລະ ເສັ້ນທາງໃນອຸປະກອນນີ້ຍັງຄົງຢູ່.</string>
+    <string name="bookmarks_sync_beta_warning">ການຊິງຢູ່ໃນຊ່ວງເບຕ້າ. ສົ່ງອອກສຳເນົາສຳຮອງຂອງບຸກມາກ ແລະ ເສັ້ນທາງທັງໝົດກ່ອນເປີດໃຊ້.</string>
     <string name="search_history_text">ເບິ່ງການຄົ້ນຫາຫຼ້າສຸດຂອງທ່ານ.</string>
     <string name="clear_search">ລຶບປະຫວັດການຄົ້ນຫາ</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -815,6 +835,8 @@
     <string name="move">ຍ້າຍ</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">ປ່ຽນສີ</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">ເປີດໃຊ້ງານ</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->

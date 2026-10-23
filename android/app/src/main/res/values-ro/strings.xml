@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Backup pentru locurile preferate și trasee</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Locurile preferate și traseele pot fi incluse în backupurile de sistem Android, dacă backupul este activat pe acest dispozitiv și nu depășesc limita sa de dimensiune.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Sincronizare cu Google Drive (beta)</string>
+    <string name="bookmarks_sync_enabled">Sincronizează locurile preferate și traseele</string>
+    <string name="bookmarks_sync_account">Cont Google</string>
+    <string name="bookmarks_sync_manage_storage">Gestionează spațiul de stocare Google</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%1$s din %2$s utilizați</string>
+    <string name="bookmarks_sync_mobile_data">Sincronizează prin date mobile</string>
+    <string name="bookmarks_sync_now">Sincronizează acum</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Ultima sincronizare: %s</string>
+    <string name="bookmarks_sync_status_running">Se sincronizează…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Se așteaptă Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">Este necesară autentificarea</string>
+    <string name="bookmarks_sync_status_quota">Google Drive este plin</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Sincronizarea a eșuat: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Șterge datele din Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Ștergi locurile preferate și traseele sincronizate din Google Drive? Locurile preferate și traseele de pe acest dispozitiv rămân.</string>
+    <string name="bookmarks_sync_beta_warning">Sincronizarea este în versiune beta. Exportă o copie de rezervă a tuturor locurilor preferate și traseelor înainte de a o activa.</string>
     <string name="search_history_text">Arată căutările recente.</string>
     <string name="clear_search">Șterge istoricul căutărilor</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -859,6 +879,8 @@
     <string name="hide_track">Ascundeți traseul</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Afișează traseul</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Activați</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->

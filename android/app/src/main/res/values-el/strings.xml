@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Αντίγραφο ασφαλείας αγαπημένων και διαδρομών</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Τα αγαπημένα και οι διαδρομές μπορούν να συμπεριληφθούν στα αντίγραφα ασφαλείας συστήματος του Android, εάν η δημιουργία αντιγράφων ασφαλείας είναι ενεργοποιημένη σε αυτήν τη συσκευή και δεν υπερβαίνουν το όριο μεγέθους της.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Συγχρονισμός με το Google Drive (beta)</string>
+    <string name="bookmarks_sync_enabled">Συγχρονισμός αγαπημένων και διαδρομών</string>
+    <string name="bookmarks_sync_account">Λογαριασμός Google</string>
+    <string name="bookmarks_sync_manage_storage">Διαχείριση χώρου αποθήκευσης Google</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">Χρησιμοποιούνται %1$s από %2$s</string>
+    <string name="bookmarks_sync_mobile_data">Συγχρονισμός μέσω δεδομένων κινητής</string>
+    <string name="bookmarks_sync_now">Συγχρονισμός τώρα</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Τελευταίος συγχρονισμός: %s</string>
+    <string name="bookmarks_sync_status_running">Συγχρονισμός…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Αναμονή για Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">Απαιτείται σύνδεση</string>
+    <string name="bookmarks_sync_status_quota">Το Google Drive είναι πλήρες</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Ο συγχρονισμός απέτυχε: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Διαγραφή δεδομένων από το Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Διαγραφή των συγχρονισμένων αγαπημένων και διαδρομών από το Google Drive; Τα αγαπημένα και οι διαδρομές σε αυτήν τη συσκευή παραμένουν.</string>
+    <string name="bookmarks_sync_beta_warning">Ο συγχρονισμός είναι σε έκδοση beta. Εξαγάγετε ένα αντίγραφο ασφαλείας όλων των αγαπημένων και διαδρομών πριν τον ενεργοποιήσετε.</string>
     <string name="search_history_text">Προβολή πρόσφατων αναζητήσεων.</string>
     <string name="clear_search">Εκκαθάριση ιστορικού αναζητήσεων</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -868,6 +888,8 @@
     <string name="hide_track">Απόκρυψη διαδρομής</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Εμφάνιση διαδρομής</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Ενεργοποίηση</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->

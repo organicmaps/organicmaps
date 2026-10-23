@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Əlfəcinlərin və treklərin ehtiyat nüsxəsi</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Bu cihazda ehtiyat nüsxə aktivdirsə və əlfəcinlərlə treklər onun ölçü limitini aşmırsa, onlar Android sistem ehtiyat nüsxələrinə daxil edilə bilər.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Google Disk sinxronizasiyası (beta)</string>
+    <string name="bookmarks_sync_enabled">Əlfəcinləri və trekləri sinxronlaşdır</string>
+    <string name="bookmarks_sync_account">Google hesabı</string>
+    <string name="bookmarks_sync_manage_storage">Google yaddaşını idarə et</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%2$s həcmdən %1$s istifadə olunub</string>
+    <string name="bookmarks_sync_mobile_data">Mobil internet vasitəsilə sinxronlaşdır</string>
+    <string name="bookmarks_sync_now">İndi sinxronlaşdır</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Son sinxronlaşdırma: %s</string>
+    <string name="bookmarks_sync_status_running">Sinxronlaşdırılır…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Wi-Fi gözlənilir</string>
+    <string name="bookmarks_sync_status_sign_in">Daxil olmaq tələb olunur</string>
+    <string name="bookmarks_sync_status_quota">Google Disk doludur</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Sinxronizasiya alınmadı: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Google Disk-dən məlumatları sil</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Sinxronlaşdırılmış əlfəcinlər və treklər Google Disk-dən silinsin? Bu cihazdakı əlfəcinlər və treklər qalır.</string>
+    <string name="bookmarks_sync_beta_warning">Sinxronizasiya beta mərhələsindədir. Aktivləşdirməzdən əvvəl bütün əlfəcinlərin və treklərin ehtiyat nüsxəsini ixrac edin.</string>
     <string name="search_history_text">Son axtarışlara baxın.</string>
     <string name="clear_search">Axtarış Tarixçəsini silin</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -861,6 +881,8 @@
     <string name="hide_track">İzi gizlədin</string>
     <!-- Text for the showing track. -->
     <string name="show_track">İzi göstər</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Aktivləşdirin</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->

@@ -207,8 +207,6 @@ public class Framework
 
   public static native String[] nativeGetBookmarksFilesExts();
 
-  public static native String nativeGetBookmarkDir();
-
   public static native String nativeGetSettingsDir();
 
   public static native String nativeGetWritableDir();

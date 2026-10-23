@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">북마크 및 트랙 백업</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">이 기기에서 백업이 켜져 있고 북마크와 트랙이 백업 용량 한도를 넘지 않으면 Android 시스템 백업에 포함될 수 있습니다.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Google 드라이브 동기화(베타)</string>
+    <string name="bookmarks_sync_enabled">북마크 및 트랙 동기화</string>
+    <string name="bookmarks_sync_account">Google 계정</string>
+    <string name="bookmarks_sync_manage_storage">Google 저장용량 관리</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%2$s 중 %1$s 사용</string>
+    <string name="bookmarks_sync_mobile_data">모바일 데이터로 동기화</string>
+    <string name="bookmarks_sync_now">지금 동기화</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">마지막 동기화: %s</string>
+    <string name="bookmarks_sync_status_running">동기화 중…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Wi-Fi 대기 중</string>
+    <string name="bookmarks_sync_status_sign_in">로그인이 필요합니다</string>
+    <string name="bookmarks_sync_status_quota">Google 드라이브 용량이 가득 찼습니다</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">동기화 실패: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Google 드라이브에서 데이터 삭제</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">동기화된 북마크와 트랙을 Google 드라이브에서 삭제할까요? 이 기기의 북마크와 트랙은 그대로 유지됩니다.</string>
+    <string name="bookmarks_sync_beta_warning">동기화는 베타 버전입니다. 사용하기 전에 모든 북마크와 트랙의 백업을 내보내세요.</string>
     <string name="search_history_text">최근 검색 쿼리에 신속하게 액세스할 수 있습니다.</string>
     <string name="clear_search">이력 검색 지우기</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -855,6 +875,8 @@
     <string name="hide_track">경로 숨기기</string>
     <!-- Text for the showing track. -->
     <string name="show_track">경로 표시</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">사용</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->

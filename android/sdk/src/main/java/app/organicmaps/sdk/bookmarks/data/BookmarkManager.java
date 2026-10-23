@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.OpenableColumns;
+import androidx.annotation.AnyThread;
 import androidx.annotation.ColorInt;
 import androidx.annotation.Keep;
 import androidx.annotation.MainThread;
@@ -41,6 +42,9 @@ public enum BookmarkManager {
 
   @NonNull
   private final List<BookmarksLoadingListener> mListeners = new ArrayList<>();
+  private final List<BookmarksChangedListener> mChangedListeners = new ArrayList<>();
+  // Changes that core saves to files only once notifications are enabled again.
+  private boolean mHasDeferredChanges;
 
   @NonNull
   private final List<BookmarksSortingListener> mSortingListeners = new ArrayList<>();
@@ -68,6 +72,11 @@ public enum BookmarkManager {
   public void removeLoadingListener(@NonNull BookmarksLoadingListener listener)
   {
     mListeners.remove(listener);
+  }
+
+  public void addBookmarksChangedListener(@NonNull BookmarksChangedListener listener)
+  {
+    mChangedListeners.add(listener);
   }
 
   public void addSortingListener(@NonNull BookmarksSortingListener listener)
@@ -107,6 +116,16 @@ public enum BookmarkManager {
   public void onBookmarksChanged()
   {
     updateCache();
+    if (nativeAreNotificationsEnabled())
+      notifyBookmarksChanged();
+    else
+      mHasDeferredChanges = true;
+  }
+
+  private void notifyBookmarksChanged()
+  {
+    for (BookmarksChangedListener listener : mChangedListeners)
+      listener.onBookmarksChanged();
   }
 
   // Called from JNI.
@@ -588,6 +607,71 @@ public enum BookmarkManager {
   public void setNotificationsEnabled(boolean enabled)
   {
     nativeSetNotificationsEnabled(enabled);
+    if (enabled && mHasDeferredChanges)
+    {
+      mHasDeferredChanges = false;
+      notifyBookmarksChanged();
+    }
+  }
+
+  /**
+   * While disabled, core defers saving changed categories to their files.
+   */
+  public boolean areNotificationsEnabled()
+  {
+    return nativeAreNotificationsEnabled();
+  }
+
+  /**
+   * The directory with the category files that core loads on start.
+   */
+  @NonNull
+  public String getBookmarksDir()
+  {
+    return nativeGetBookmarksDir();
+  }
+
+  /**
+   * @return the id of the loaded category stored in the file at the absolute path, or -1.
+   */
+  public long getCategoryIdByFile(@NonNull String path)
+  {
+    return nativeGetCategoryIdByFile(path);
+  }
+
+  /**
+   * Loads the file asynchronously and replaces the category stored in it, keeping its id.
+   */
+  public void reloadCategoryFile(@NonNull String path)
+  {
+    nativeReloadCategoryFile(path);
+  }
+
+  /**
+   * Moves the category file to the core trash instead of deleting it.
+   */
+  public boolean moveCategoryToTrash(long catId)
+  {
+    return nativeMoveCategoryToTrash(catId);
+  }
+
+  /**
+   * True while the Place Page shows a bookmark or a track: it keeps their ids, which a reload of their category
+   * replaces.
+   */
+  public boolean isBookmarkOrTrackSelected()
+  {
+    return nativeIsBookmarkOrTrackSelected();
+  }
+
+  /**
+   * Runs the task on the core thread that writes category files, after all saves queued so far.
+   * The task must be short and must not call BookmarkManager.
+   */
+  @AnyThread
+  public static void runOnFileThread(@NonNull Runnable task)
+  {
+    nativeRunOnFileThread(task);
   }
 
   public void getSortedCategory(long catId, @BookmarkCategory.SortingType int sortingType, boolean hasMyPosition,
@@ -675,6 +759,22 @@ public enum BookmarkManager {
 
   private static native void nativeSetNotificationsEnabled(boolean enabled);
 
+  private static native boolean nativeAreNotificationsEnabled();
+
+  @NonNull
+  private static native String nativeGetBookmarksDir();
+
+  private static native long nativeGetCategoryIdByFile(@NonNull String path);
+
+  private static native void nativeReloadCategoryFile(@NonNull String path);
+
+  private static native boolean nativeMoveCategoryToTrash(long catId);
+
+  private static native boolean nativeIsBookmarkOrTrackSelected();
+
+  @AnyThread
+  private static native void nativeRunOnFileThread(@NonNull Runnable task);
+
   private native void nativeGetSortedCategory(long catId, @BookmarkCategory.SortingType int sortingType,
                                               boolean hasMyPosition, double lat, double lon, long timestamp);
 
@@ -696,6 +796,15 @@ public enum BookmarkManager {
     default void onBookmarksFileDownloadFailed(@NonNull Uri uri, @NonNull String string) {}
     default void onBookmarksFileImportSuccessful() {}
     default void onBookmarksFileImportFailed() {}
+  }
+
+  /**
+   * Notified when core is about to save changed categories, bookmarks or tracks to files: right away, or once
+   * notifications are enabled again (see setNotificationsEnabled()).
+   */
+  public interface BookmarksChangedListener
+  {
+    void onBookmarksChanged();
   }
 
   public interface BookmarksSortingListener
