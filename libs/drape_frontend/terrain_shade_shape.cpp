@@ -184,8 +184,11 @@ void TerrainShadeShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::B
   // The geometry layer with the default alpha blending, drawn after the area fills and the
   // solid-fill patterns but before the hatchings (see the Program enum). Lighting uses
   // vertex normals and the live light direction, so no color texture is needed.
+  // Every tile shades at the same depth: Less blends one layer only where the tiles of two
+  // zooms or generations overlap until the old ones are deleted.
   auto state = CreateRenderState(gpu::Program::TerrainShade, DepthLayer::GeometryLayer);
   state.SetDepthTestEnabled(true);
+  state.SetDepthFunction(dp::TestFunction::Less);
 
   dp::AttributeProvider provider(1, static_cast<uint32_t>(m_vertices.size()));
   // The provider only reads the stream; ref_ptr is not const-aware.
@@ -199,6 +202,7 @@ void TerrainGridShadeShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<d
 {
   auto state = CreateRenderState(gpu::Program::TerrainShade, DepthLayer::GeometryLayer);
   state.SetDepthTestEnabled(true);
+  state.SetDepthFunction(dp::TestFunction::Less);
   for (auto const & row : m_rows)
   {
     dp::AttributeProvider provider(1, static_cast<uint32_t>(row.size()));

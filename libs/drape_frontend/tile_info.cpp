@@ -67,7 +67,13 @@ void TileInfo::ReadFeatures(MapDataProvider const & model)
     if (!m_featureInfo.empty())
       model.ReadFeatures([&drawer](FeatureType & ft) { drawer(ft); }, m_featureInfo);
     if (drawTerrain)
+    {
+      // Hand the map geometry over before the slow terrain stage: the batcher sends its
+      // fills only at the session end, and the hillshade alone flashes as a dark tile.
+      m_context->EndReadTile();
+      m_context->BeginReadTile();
       drawer.DrawTerrain(model);
+    }
 #ifdef DRAW_TILE_NET
     drawer.DrawTileNet();
 #endif
