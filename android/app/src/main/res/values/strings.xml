@@ -868,6 +868,12 @@
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
     <string name="you">You</string>
 
+    <!-- SECTION: Qt UI strings -->
+    <string name="water_routing">Water</string>
+    <string name="water_distance">Water distance: %s</string>
+    <string name="water_land_gaps">Land gaps: %s</string>
+    <string name="water_total_distance">Total distance: %s</string>
+
     <!-- SECTION: gps strings -->
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Recently Used</string>
