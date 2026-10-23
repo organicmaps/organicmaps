@@ -47,7 +47,8 @@ public:
   using Value = std::pair<Box, std::vector<std::reference_wrapper<borders::CountryPolygons const>>>;
   using Tree = boost::geometry::index::rtree<Value, boost::geometry::index::quadratic<16>>;
 
-  CountriesFilesIndexAffiliation(std::string const & borderPath, bool haveBordersForWholeWorld);
+  CountriesFilesIndexAffiliation(std::string const & borderPath, bool haveBordersForWholeWorld,
+                                 bool retainWater = false);
 
   // AffiliationInterface overrides:
   std::vector<std::string> GetAffiliations(FeatureBuilder const & fb) const override;
@@ -57,6 +58,7 @@ private:
   std::shared_ptr<Tree> BuildIndex(std::vector<m2::RectD> const & net);
 
   std::shared_ptr<Tree> m_index;
+  bool m_retainWater = false;
 };
 
 class SingleAffiliation : public AffiliationInterface

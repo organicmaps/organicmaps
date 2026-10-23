@@ -50,6 +50,8 @@ set(SRC
   collector_routing_city_boundaries.hpp
   collector_tag.cpp
   collector_tag.hpp
+  collector_water.cpp
+  collector_water.hpp
 #  complex_loader.cpp
 #  complex_loader.hpp
   composite_id.cpp
@@ -232,6 +234,8 @@ set(SRC
   ways_merger.cpp
   ways_merger.hpp
   way_nodes_mapper.hpp
+  water_geometry_builder.cpp
+  water_geometry_builder.hpp
   wiki_url_dumper.cpp
   wiki_url_dumper.hpp
   water_boundary_checker.hpp

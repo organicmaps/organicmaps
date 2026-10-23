@@ -12,7 +12,8 @@ public enum Router
   Pedestrian(1),
   Bicycle(2),
   Transit(3),
-  Ruler(4);
+  Ruler(4),
+  Water(5);
 
   Router(int type)
   {

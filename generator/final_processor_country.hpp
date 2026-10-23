@@ -24,6 +24,7 @@ public:
 
   void SetIsolinesDir(std::string const & dir) { m_isolinesPath = dir; }
   void SetAddressesDir(std::string const & dir) { m_addressPath = dir; }
+  void SetWaterAffiliations(AffiliationInterfacePtr affiliations) { m_waterAffiliations = std::move(affiliations); }
 
   void SetCityBoundariesFiles(std::string const & collectorFile) { m_boundariesCollectorFile = collectorFile; }
 
@@ -58,6 +59,7 @@ private:
   std::string m_hierarchySrcFilename;
 
   AffiliationInterfacePtr m_affiliations;
+  AffiliationInterfacePtr m_waterAffiliations;
 
   size_t m_threadsCount;
 };

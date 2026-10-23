@@ -48,6 +48,12 @@
         android:id="@+id/ruler"
         style="@style/MwmWidget.RoutingToolbarCell"
         android:button="@drawable/ic_ruler_route" />
+
+      <app.organicmaps.widget.RoutingToolbarButton
+        android:id="@+id/water"
+        style="@style/MwmWidget.RoutingToolbarCell"
+        android:contentDescription="@string/water_routing"
+        android:button="@drawable/ic_water_route" />
     </RadioGroup>
 
   </FrameLayout>

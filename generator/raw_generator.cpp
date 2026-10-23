@@ -11,6 +11,7 @@
 #include "generator/raw_generator_writer.hpp"
 #include "generator/translator_factory.hpp"
 #include "generator/translators_pool.hpp"
+#include "generator/water_geometry_builder.hpp"
 
 #include "base/timer.hpp"
 
@@ -90,6 +91,7 @@ void RawGenerator::ForceReloadCache()
 
 void RawGenerator::GenerateCountries(bool isTests /* = false*/)
 {
+  ResetWaterGeometry(m_genInfo.m_tmpDir);
   //  if (!m_genInfo.m_complexHierarchyFilename.empty())
   //    m_hierarchyNodesSet = GetOrCreateComplexLoader(m_genInfo.m_complexHierarchyFilename).GetIdsSet();
   //  auto const complexFeaturesMixer = std::make_shared<ComplexFeaturesMixer>(m_hierarchyNodesSet);
@@ -188,6 +190,9 @@ RawGenerator::FinalProcessorPtr RawGenerator::CreateCountryFinalProcessor(Affili
 
   if (m_genInfo.m_emitCoasts)
   {
+    if (m_genInfo.m_waterRouting)
+      finalProcessor->SetWaterAffiliations(std::make_shared<feature::CountriesFilesIndexAffiliation>(
+          m_genInfo.m_targetDir, m_genInfo.m_haveBordersForWholeWorld, true));
     finalProcessor->SetCoastlines(m_genInfo.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, ".geom"),
                                   m_genInfo.GetTmpFileName(WORLD_COASTS_FILE_NAME));
   }

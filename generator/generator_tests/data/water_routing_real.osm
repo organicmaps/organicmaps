@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='utf-8'?>
+<osm version="0.6" generator="Organic Maps test extract">
+  <!--OpenStreetMap contributors, ODbL 1.0. Extracted from data/test_data/osm/dmitrov_town.osm; original versions and timestamps retained.-->
+  <node id="2320132372" timestamp="2013-05-25T22:00:27Z" uid="696711" user="ad47" visible="true" version="1" changeset="16285477" lat="56.4789489" lon="37.8203962" />
+  <node id="1413349552" timestamp="2011-08-26T16:09:57Z" uid="347929" user="347929" visible="true" version="1" changeset="9130237" lat="56.4792767" lon="37.8195917" />
+  <node id="1413349561" timestamp="2011-08-26T16:09:57Z" uid="347929" user="347929" visible="true" version="1" changeset="9130237" lat="56.479936" lon="37.8178866" />
+  <node id="1413349576" timestamp="2011-08-26T16:09:58Z" uid="347929" user="347929" visible="true" version="1" changeset="9130237" lat="56.4809298" lon="37.816217" />
+  <node id="1413349584" timestamp="2011-08-26T16:09:58Z" uid="347929" user="347929" visible="true" version="1" changeset="9130237" lat="56.4814597" lon="37.816036" />
+  <node id="1413349590" timestamp="2011-08-26T16:09:59Z" uid="347929" user="347929" visible="true" version="1" changeset="9130237" lat="56.481792" lon="37.8163897" />
+  <node id="1413349605" timestamp="2011-08-26T16:09:59Z" uid="347929" user="347929" visible="true" version="1" changeset="9130237" lat="56.4822076" lon="37.8168164" />
+  <node id="1413349612" timestamp="2011-08-26T16:09:59Z" uid="347929" user="347929" visible="true" version="1" changeset="9130237" lat="56.4826624" lon="37.8166959" />
+  <node id="1413349617" timestamp="2011-08-26T16:10:00Z" uid="347929" user="347929" visible="true" version="1" changeset="9130237" lat="56.4831833" lon="37.8159067" />
+  <node id="1413349624" timestamp="2011-08-26T16:10:00Z" uid="347929" user="347929" visible="true" version="1" changeset="9130237" lat="56.4838088" lon="37.8159948" />
+  <node id="1413349631" timestamp="2011-08-26T16:10:00Z" uid="347929" user="347929" visible="true" version="1" changeset="9130237" lat="56.4841129" lon="37.8165348" />
+  <node id="1413349646" timestamp="2011-08-26T16:10:01Z" uid="347929" user="347929" visible="true" version="1" changeset="9130237" lat="56.4845881" lon="37.8178248" />
+  <node id="1413349652" timestamp="2011-08-26T16:10:01Z" uid="347929" user="347929" visible="true" version="1" changeset="9130237" lat="56.4857345" lon="37.8194552" />
+  <node id="1413349672" timestamp="2011-08-26T16:10:02Z" uid="347929" user="347929" visible="true" version="1" changeset="9130237" lat="56.4881895" lon="37.8204938" />
+  <node id="1413349678" timestamp="2011-08-26T16:10:02Z" uid="347929" user="347929" visible="true" version="1" changeset="9130237" lat="56.4893565" lon="37.8185871" />
+  <node id="1413349723" timestamp="2011-08-26T16:10:04Z" uid="347929" user="347929" visible="true" version="1" changeset="9130237" lat="56.4912027" lon="37.8171357" />
+  <node id="1413349825" timestamp="2011-08-26T16:10:08Z" uid="347929" user="347929" visible="true" version="1" changeset="9130237" lat="56.4948251" lon="37.8140518" />
+  <node id="1413349975" timestamp="2011-08-26T16:10:15Z" uid="347929" user="347929" visible="true" version="1" changeset="9130237" lat="56.4996057" lon="37.8069161" />
+  <node id="1413350105" timestamp="2011-08-26T16:10:20Z" uid="347929" user="347929" visible="true" version="1" changeset="9130237" lat="56.5034768" lon="37.8060572" />
+  <node id="369582112" timestamp="2016-06-14T06:54:22Z" uid="102437" user="_solitary_" visible="true" version="5" changeset="40010474" lat="56.5074855" lon="37.8048417" />
+  <way id="270851561" timestamp="2021-12-07T21:00:40Z" uid="260756" user="Felis Pimeja" visible="true" version="3" changeset="114676776">
+    <nd ref="2320132372" />
+    <nd ref="1413349552" />
+    <nd ref="1413349561" />
+    <nd ref="1413349576" />
+    <nd ref="1413349584" />
+    <nd ref="1413349590" />
+    <nd ref="1413349605" />
+    <nd ref="1413349612" />
+    <nd ref="1413349617" />
+    <nd ref="1413349624" />
+    <nd ref="1413349631" />
+    <nd ref="1413349646" />
+    <nd ref="1413349652" />
+    <nd ref="1413349672" />
+    <nd ref="1413349678" />
+    <nd ref="1413349723" />
+    <nd ref="1413349825" />
+    <nd ref="1413349975" />
+    <nd ref="1413350105" />
+    <nd ref="369582112" />
+    <tag k="admin_level" v="6" />
+    <tag k="boundary" v="administrative" />
+    <tag k="name" v="Веля" />
+    <tag k="waterway" v="river" />
+    <tag k="wikidata" v="Q4107048" />
+    <tag k="wikipedia" v="ru:Веля" />
+  </way>
+</osm>
