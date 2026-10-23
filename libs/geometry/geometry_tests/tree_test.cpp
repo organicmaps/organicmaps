@@ -4,7 +4,9 @@
 
 #include "base/stl_helpers.hpp"
 
+#include <algorithm>
 #include <functional>
+#include <vector>
 
 namespace tree_test
 {
@@ -60,6 +62,51 @@ UNIT_TEST(Tree4D_Smoke)
   test.clear();
   theTree.ForEachInRect(searchR, base::MakeBackInsertFunctor(test));
   TEST_EQUAL(1, test.size(), ());
+}
+
+UNIT_TEST(Tree4D_Optimize)
+{
+  m4::Tree<size_t> tree;
+  tree.Optimize();
+  TEST(tree.IsEmpty(), ());
+  std::vector<R> rectangles;
+  // Ordered insertion and equal rectangles exercise the degenerate tree case.
+  for (size_t i = 0; i < 1024; ++i)
+  {
+    auto const x = static_cast<double>(i / 2);
+    rectangles.emplace_back(x, 0, x + 2, 2);
+    tree.Add(i, rectangles.back());
+  }
+  auto const check = [&]
+  {
+    TEST_EQUAL(tree.GetSize(), rectangles.size(), ());
+    for (auto const & query :
+         {R(-1, -1, 0, 3), R(0, 0, 2, 2), R(4, 1, 4, 1), R(0, 2, 512, 3), R(200, -1, 210, 1), R(-1, -1, 1024, 3)})
+    {
+      std::vector<size_t> expected, actual;
+      for (size_t i = 0; i < rectangles.size(); ++i)
+      {
+        auto const & r = rectangles[i];
+        if (r.maxX() > query.minX() && r.minX() < query.maxX() && r.maxY() > query.minY() && r.minY() < query.maxY())
+          expected.push_back(i);
+      }
+      tree.ForEachInRect(query, [&](size_t i) { actual.push_back(i); });
+      std::sort(actual.begin(), actual.end());
+      TEST_EQUAL(actual, expected, (query));
+      TEST_EQUAL(tree.ForAnyInRect(query, [](size_t) { return true; }), !expected.empty(), (query));
+    }
+  };
+  check();
+  tree.Optimize();
+  check();
+  tree.Optimize();
+  check();
+  rectangles.emplace_back(4, 0, 6, 2);
+  tree.Add(rectangles.size() - 1, rectangles.back());
+  check();
+  tree.Erase(rectangles.size() - 1, rectangles.back());
+  rectangles.pop_back();
+  check();
 }
 
 UNIT_TEST(Tree4D_ForAnyInRect)
