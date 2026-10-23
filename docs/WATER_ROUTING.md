@@ -155,6 +155,10 @@ The original reported start 52.354258,5.180864 lies 2.7 m outside its stored wat
 geometry and requires moving the start into the canal. Long-path tests cover
 adaptive border windows, lazy visibility, thin dry gaps and numerical cancellation
 near zero.
+The northward Almere case, 52.36468055555556,5.216444444444445 to
+52.39769444444445,5.207547222222223, produces 5,311.6 m entirely on water.
+A regression reduced from this map covers river/surface intersections along a
+nearly parallel shore, both line and route directions, and indexed geometry.
 
 Android app/SDK unit tests and debug builds run separately. Xcode projects include
 the common implementation and tessellation dependencies. iOS UI is deferred; no

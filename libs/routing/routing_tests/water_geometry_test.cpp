@@ -484,4 +484,47 @@ UNIT_TEST(Water_RiverLakePortalRounding)
   TEST_LESS(path.m_waterDistance, 150000.0, ());
   CheckAccounting(path);
 }
+
+UNIT_TEST(Water_RiverLakePortalAlongNearlyParallelShore)
+{
+  P const a(5.2517934534832306781, 61.71968312352660746);
+  P const b(5.2537782881690304748, 61.720865977710985817);
+  P const entry(5.2535980167382571844, 61.7207585456826463202);
+  for (bool const indexed : {false, true})
+    for (bool const reversed : {false, true})
+    {
+      Geometry geometry;
+      geometry.m_complete = true;
+      geometry.m_lines = {{{a, 1}, {b, 2}}};
+      if (reversed)
+        std::reverse(geometry.m_lines.front().begin(), geometry.m_lines.front().end());
+      // This standard-MWM shore amplifies rounding of the intersection parameter.
+      geometry.m_triangles = {{P(5.2537782881690304748, 61.720815015739304954),
+                               P(5.2537514660786825971, 61.720852566665797667),
+                               P(5.2528234217526232896, 61.720283938350405606)}};
+      if (indexed)
+      {
+        geometry.m_triangleIndex = std::make_shared<m4::Tree<size_t>>();
+        m2::RectD bounds;
+        for (auto const & point : geometry.m_triangles.front())
+          bounds.Add(point);
+        geometry.m_triangleIndex->Add(0, bounds);
+      }
+      // The shore destination also detects excessive inward movement of the portal.
+      for (P const finish : {a + (b - a) * 0.95, geometry.m_triangles.front()[2]})
+      {
+        auto const distance = mercator::DistanceOnEarth(a, entry) + mercator::DistanceOnEarth(entry, finish);
+        for (bool const reverseRoute : {false, true})
+        {
+          Path path;
+          TEST(FindPath(geometry, reverseRoute ? finish : a, reverseRoute ? a : finish, false, kNeverCancelled, path) ==
+                   ResultCode::Success,
+               (indexed, reversed, reverseRoute));
+          TEST_EQUAL(path.m_landDistance, 0.0, ());
+          TEST_ALMOST_EQUAL_ABS(path.m_waterDistance, distance, 0.001, ());
+          CheckAccounting(path);
+        }
+      }
+    }
+}
 }  // namespace water_geometry_test
