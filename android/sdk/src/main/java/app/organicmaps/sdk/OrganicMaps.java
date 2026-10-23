@@ -200,6 +200,7 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     BookmarkManager.loadBookmarks();
     TtsPlayer.INSTANCE.initialize(mContext);
     RoutingController.get().initialize(mLocationHelper);
+    mLocationHelper.subscribeToRouteSimulation();
     TrafficManager.INSTANCE.initialize();
     mSubwayManager.initialize();
     mIsolinesManager.initialize();
