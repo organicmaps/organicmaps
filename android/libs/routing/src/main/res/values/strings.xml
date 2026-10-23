@@ -44,4 +44,8 @@
     <string name="transit_not_found">Subway navigation in this region is not available yet</string>
     <string name="dialog_pedestrian_route_is_long_header">No subway route found</string>
     <string name="dialog_pedestrian_route_is_long_message">Please choose a start or end point closer to a subway station</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Hint when a selected Water route point is outside the stored water geometry. -->
+    <string name="water_select_point">Select a point inside a water body. Near the shore, zoom in and select a point farther into the water.</string>
 </resources>
