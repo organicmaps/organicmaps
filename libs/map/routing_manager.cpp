@@ -1,5 +1,6 @@
 #include "routing_manager.hpp"
 
+#include "map/route_simulation.hpp"
 #include "map/routing_mark.hpp"
 
 #include "routing/absent_regions_finder.hpp"
@@ -39,6 +40,7 @@
 #include "base/small_map.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
+#include "base/timer.hpp"
 
 #include <glaze/json.hpp>
 
@@ -474,6 +476,8 @@ void RoutingManager::OnRoutePointPassed(RouteMarkType type, size_t intermediateI
 
 void RoutingManager::OnLocationUpdate(location::GpsInfo const & info)
 {
+  if (IsRouteSimulationActive())
+    return;
   m_extrapolator.OnLocationUpdate(info);
 }
 
@@ -1001,6 +1005,7 @@ bool RoutingManager::TryTapOnAlternativeRoute(m2::PointD const & mercator, doubl
 
 void RoutingManager::CloseRouting(bool removeRoutePoints)
 {
+  StopRouteSimulation();
   m_extrapolator.Enable(false);
   // Hide preview.
   HidePreviewSegments();
@@ -1015,6 +1020,58 @@ void RoutingManager::CloseRouting(bool removeRoutePoints)
     m_bmManager->GetEditSession().ClearGroup(UserMark::Type::ROUTING);
     CancelRecommendation(Recommendation::RebuildAfterPointsLoading);
   }
+}
+
+bool RoutingManager::StartRouteSimulation()
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ("StartRouteSimulation"));
+  RouteJunctions junctions;
+  if (!IsRoutingActive() || !IsRoutingFollowing() || IsRouteFinished() ||
+      !m_routingSession.GetRouteJunctionPoints(junctions))
+  {
+    LOG(LWARNING, ("Route simulation needs a followed unfinished route."));
+    return false;
+  }
+
+  m_routeSimulation = std::make_shared<RouteSimulation>(junctions);
+  EmitRouteSimulationFix();
+  return true;
+}
+
+void RoutingManager::StopRouteSimulation()
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ("StopRouteSimulation"));
+  m_routeSimulation.reset();
+}
+
+void RoutingManager::EmitRouteSimulationFix()
+{
+  // The listener may stop or restart the simulation, so the next tick belongs to this run only.
+  std::weak_ptr<RouteSimulation> const simulation = m_routeSimulation;
+  auto const fix = m_routeSimulation->Next(base::Timer::LocalTime());
+  if (!fix)
+  {
+    m_routeSimulation.reset();
+    return;
+  }
+
+  m_extrapolator.OnLocationUpdate(*fix);
+  if (m_routeSimulationListener)
+    m_routeSimulationListener(*fix);
+
+  // Delayed tasks are not supported on the GUI thread.
+  GetPlatform().RunDelayedTask(Platform::Thread::Background, kRouteSimulationInterval, [this, simulation]
+  {
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, simulation]
+    {
+      // Only this manager owns a run, so a live run proves that |this| is alive.
+      auto const current = simulation.lock();
+      if (!current)
+        return;
+      if (current == m_routeSimulation)
+        EmitRouteSimulationFix();
+    });
+  });
 }
 
 void RoutingManager::SetLastUsedRouter(RouterType type)

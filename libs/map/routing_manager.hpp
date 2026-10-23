@@ -41,6 +41,7 @@ class NumMwmIds;
 }
 
 class DataSource;
+class RouteSimulation;
 
 namespace power_management
 {
@@ -109,6 +110,7 @@ public:
     RebuildAfterPointsLoading = 0,
   };
   using RouteRecommendCallback = std::function<void(Recommendation)>;
+  using RouteSimulationListener = std::function<void(location::GpsInfo const &)>;
 
   RoutingManager(Callbacks && callbacks, Delegate & delegate);
   void Init(std::shared_ptr<routing::NumMwmIds> ptr);
@@ -163,6 +165,14 @@ public:
   }
   void FollowRoute();
   void CloseRouting(bool removeRoutePoints);
+
+  /// Replaces platform fixes with fixes along the followed route until its last point, until stopped
+  /// or until routing is closed.
+  /// \returns false without a followed unfinished route.
+  bool StartRouteSimulation();
+  void StopRouteSimulation();
+  bool IsRouteSimulationActive() const { return m_routeSimulation != nullptr; }
+  void SetRouteSimulationListener(RouteSimulationListener listener) { m_routeSimulationListener = std::move(listener); }
 
   /// \brief Activate alternative |idx| (typically triggered by tapping its ETA balloon).
   /// Returns false if the index is out of range, already active, or its adjustment caches are
@@ -364,10 +374,13 @@ private:
 
   void OnExtrapolatedLocationUpdate(location::GpsInfo const & info);
 
+  void EmitRouteSimulationFix();
+
   RouteBuildingCallback m_routingBuildingCallback;
   RouteSpeedCamShowCallback m_routeSpeedCamShowCallback;
   RouteSpeedCamsClearCallback m_routeSpeedCamsClearCallback;
   RouteRecommendCallback m_routeRecommendCallback;
+  RouteSimulationListener m_routeSimulationListener;
   Callbacks m_callbacks;
   df::DrapeEngineSafePtr m_drapeEngine;
   routing::RouterType m_currentRouterType = routing::RouterType::Count;
@@ -377,6 +390,7 @@ private:
 
   BookmarkManager * m_bmManager = nullptr;
   extrapolation::Extrapolator m_extrapolator;
+  std::shared_ptr<RouteSimulation> m_routeSimulation;
 
   std::vector<dp::DrapeID> m_drapeSubroutes;
   mutable std::mutex m_drapeSubroutesMutex;

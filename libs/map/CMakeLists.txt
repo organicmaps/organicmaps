@@ -43,6 +43,8 @@ set(SRC
   selection_processor.hpp
   relation_track.cpp
   relation_track.hpp
+  route_simulation.cpp
+  route_simulation.hpp
   power_management/power_manager.cpp
   power_management/power_manager.hpp
   power_management/power_management_schemas.cpp
