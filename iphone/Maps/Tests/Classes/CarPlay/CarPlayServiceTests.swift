@@ -106,19 +106,51 @@ final class CarPlayServiceTests: XCTestCase {
     XCTAssertEqual(completionCount, 1)
   }
 
-  private func importBookmarkFixture() throws -> BookmarkGroup {
+  func testBookmarkRowsRespectTheCarPlayDisplayLimit() throws {
+    let limit = CPListTemplate.maximumItemCount
+    let manager = BookmarksManager.shared()
+    for count in [0, limit - 1, limit, limit + 1] {
+      let category = try importBookmarkFixture(bookmarkCount: max(1, count))
+      if count == 0 {
+        manager.deleteBookmark(manager.bookmarkIds(forCategory: category.categoryId)[0].uint64Value)
+      }
+      let template = ListTemplateBuilder.buildListTemplate(for: .bookmarks(category: category))
+      let rows = template.sections.flatMap(\.items).compactMap { $0 as? CPListItem }
+      let cropped = count > limit
+      XCTAssertEqual(rows.filter(\.isEnabled).count, cropped ? limit - 1 : count, "count=\(count)")
+      XCTAssertEqual(rows.contains { !$0.isEnabled }, cropped, "count=\(count)")
+      XCTAssertLessThanOrEqual(rows.count, limit)
+    }
+  }
+
+  func testBookmarkSnapshotsRespectTheDisplayLimit() throws {
+    let category = try importBookmarkFixture(bookmarkCount: 3)
+    let manager = BookmarksManager.shared()
+
+    XCTAssertEqual(manager.bookmarks(forCategory: category.categoryId, limit: 2).count, 2)
+    XCTAssertTrue(manager.bookmarks(forCategory: category.categoryId, limit: 0).isEmpty)
+    manager.deleteCategory(category.categoryId)
+    XCTAssertTrue(manager.bookmarks(forCategory: category.categoryId, limit: 2).isEmpty)
+  }
+
+  private func importBookmarkFixture(bookmarkCount: Int = 1) throws -> BookmarkGroup {
     let bookmarkManager = BookmarksManager.shared()
     let name = "CarPlayTests-\(UUID().uuidString)"
     let url = FileManager.default.temporaryDirectory.appendingPathComponent(name).appendingPathExtension("kml")
+    let placemarks = (0 ..< bookmarkCount).map { index in
+      """
+      <Placemark>
+        <name>CarPlay bookmark \(index)</name>
+        <Point><coordinates>0,0</coordinates></Point>
+      </Placemark>
+      """
+    }.joined(separator: "\n")
     let kml = """
     <?xml version="1.0" encoding="UTF-8"?>
     <kml xmlns="http://www.opengis.net/kml/2.2">
       <Document>
         <name>\(name)</name>
-        <Placemark>
-          <name>CarPlay bookmark</name>
-          <Point><coordinates>0,0</coordinates></Point>
-        </Placemark>
+        \(placemarks)
       </Document>
     </kml>
     """
