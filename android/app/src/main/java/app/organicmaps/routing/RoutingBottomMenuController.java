@@ -40,6 +40,7 @@ import app.organicmaps.util.Utils;
 import app.organicmaps.widget.RoutingProgressButton;
 import app.organicmaps.widget.recycler.DotDividerItemDecoration;
 import app.organicmaps.widget.recycler.MultilineLayoutManager;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -68,6 +69,10 @@ final class RoutingBottomMenuController
   private final TextView mError;
   @NonNull
   private final RoutingProgressButton mStart;
+  @NonNull
+  private final View mWaterProgressContainer;
+  @NonNull
+  private final LinearProgressIndicator mWaterProgress;
   @NonNull
   private final View mAltitudeChart;
   @NonNull
@@ -116,6 +121,7 @@ final class RoutingBottomMenuController
     TextView rulerTime = chartPanel.findViewById(R.id.time_ruler);
     TextView error = (TextView) getViewById(activity, frame, R.id.error);
     RoutingProgressButton start = (RoutingProgressButton) getViewById(activity, frame, R.id.start);
+    View waterProgressContainer = getViewById(activity, frame, R.id.water_progress_container);
     View altitudeChart = chartPanel.findViewById(R.id.altitude_chart);
     TextView time = chartPanel.findViewById(R.id.time);
     TextView timeVehicle = chartPanel.findViewById(R.id.time_vehicle);
@@ -123,8 +129,8 @@ final class RoutingBottomMenuController
     TextView arrival = (TextView) getViewById(activity, frame, R.id.arrival);
     View saveButton = getViewById(activity, frame, R.id.btn__save);
     return new RoutingBottomMenuController(activity, chartPanel, timeElevationLine, transitTime, rulerTime, error,
-                                           start, altitudeChart, time, altitudeDifference, timeVehicle, arrival,
-                                           saveButton, headerAdapter, listener);
+                                           start, waterProgressContainer, altitudeChart, time, altitudeDifference,
+                                           timeVehicle, arrival, saveButton, headerAdapter, listener);
   }
 
   @NonNull
@@ -137,10 +143,11 @@ final class RoutingBottomMenuController
   private RoutingBottomMenuController(@NonNull Activity context, @NonNull View altitudeChartFrame,
                                       @NonNull View timeElevationLine, @NonNull View transitTime,
                                       @NonNull TextView rulerTime, @NonNull TextView error,
-                                      @NonNull RoutingProgressButton start, @NonNull View altitudeChart,
-                                      @NonNull TextView time, @NonNull TextView altitudeDifference,
-                                      @NonNull TextView timeVehicle, @Nullable TextView arrival,
-                                      @NonNull View saveButton, @Nullable RecyclerView.Adapter<?> headerAdapter,
+                                      @NonNull RoutingProgressButton start, @NonNull View waterProgressContainer,
+                                      @NonNull View altitudeChart, @NonNull TextView time,
+                                      @NonNull TextView altitudeDifference, @NonNull TextView timeVehicle,
+                                      @Nullable TextView arrival, @NonNull View saveButton,
+                                      @Nullable RecyclerView.Adapter<?> headerAdapter,
                                       @NonNull RoutingBottomMenuListener listener)
   {
     mContext = context;
@@ -150,6 +157,8 @@ final class RoutingBottomMenuController
     mTimeRuler = rulerTime;
     mError = error;
     mStart = start;
+    mWaterProgressContainer = waterProgressContainer;
+    mWaterProgress = waterProgressContainer.findViewById(R.id.water_progress);
     mAltitudeChart = altitudeChart;
     mRouteElevationChartController = new RouteElevationChartController(mAltitudeChart);
     mRouteElevationChartController.setListener(new RouteElevationChartController.ElevationSelectionListener() {
@@ -350,13 +359,13 @@ final class RoutingBottomMenuController
     return transitSteps;
   }
 
-  // Single entry point for the Start button visual state. The button itself is always visible.
+  // Single entry point for the Start button state and Water calculation indicator.
   void setStartState(@NonNull StartState state)
   {
     updateModeControls();
     if (state == mStartState)
       return;
-    mStart.setBuildProgress(0);
+    resetBuildProgress();
     mStartState = state;
     mStart.setEnabled(state == StartState.ENABLED);
     notifyVisibilityChanged();
@@ -364,12 +373,19 @@ final class RoutingBottomMenuController
 
   void updateModeControls()
   {
-    UiUtils.showIf(!RoutingController.get().isWaterRouterType(), mStart);
+    final RoutingController controller = RoutingController.get();
+    UiUtils.showIf(!controller.isWaterRouterType(), mStart);
+    UiUtils.showIf(controller.isWaterRouterType() && controller.isBuilding(), mWaterProgressContainer);
   }
 
   void setBuildProgress(int progress)
   {
     mStart.setBuildProgress(progress);
+    if (progress > 0)
+    {
+      mWaterProgress.setIndeterminate(false);
+      mWaterProgress.setProgressCompat(Math.min(progress, 99), false);
+    }
   }
 
   // Explicit reset covers the rebuild-during-build case where setStartState(BUILDING) early-returns
@@ -377,6 +393,11 @@ final class RoutingBottomMenuController
   void resetBuildProgress()
   {
     mStart.setBuildProgress(0);
+    UiUtils.hide(mWaterProgressContainer);
+    mWaterProgress.setIndeterminate(false);
+    mWaterProgress.setProgressCompat(0, false);
+    mWaterProgress.setIndeterminate(true);
+    updateModeControls();
   }
 
   private void showError(@NonNull String message)

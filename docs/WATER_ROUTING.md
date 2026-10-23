@@ -145,6 +145,16 @@ for the search stage, with unchanged 5,311.6 m water distance and no land transf
 The geometry extraction stage took 5.1 seconds in that run. These are emulator
 measurements, not a guarantee for physical phones or other routes.
 
+## Calculation progress
+
+Android shows a separate Water progress indicator while calculating, without a
+Start button. Geometry loading is indeterminate because its total work is not
+known beforehand. Graph construction then reports completed work counts; search
+uses the same `AStarSubProgress` distance estimate as road routing. The combined
+value is monotone within a request and is an estimate of work, not remaining time.
+Only a successfully assembled route reports 100. Cancellation, errors and a new
+request reset the indicator; queued updates from cancelled requests are discarded.
+
 ## Validation
 
 Tests cover bends, junctions, source identity, checkpoint projection, endpoint-only

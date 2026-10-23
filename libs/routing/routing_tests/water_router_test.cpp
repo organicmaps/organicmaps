@@ -4,6 +4,8 @@
 #include "routing/ruler_router.hpp"
 #include "routing/water_router.hpp"
 
+#include <algorithm>
+
 namespace water_router_test
 {
 using namespace routing;
@@ -45,6 +47,72 @@ UNIT_TEST(WaterRouter_DistanceOnlyWithCheckpoints)
   active.GetNearestTurn(distance, turn);
   TEST(turn.m_pedestrianTurn == turns::PedestrianDirection::ReachedYourDestination, ());
   TEST_GREATER(distance, 0.0, ());
+}
+
+UNIT_TEST(WaterRouter_ProgressTracksWorkAndResets)
+{
+  WaterRouter router([](Checkpoints const &, RouterDelegate const &) { return River(); });
+  RouterDelegate delegate;
+  std::vector<float> progress;
+  delegate.SetProgressCallback([&](float value) { progress.push_back(value); });
+  for (size_t attempt = 0; attempt < 2; ++attempt)
+  {
+    progress.clear();
+    RoutesResult result;
+    TEST(router.CalculateRoute(Checkpoints(CheckpointsGeometry{{0, 0}, {0, 1}, {1, 0}}), {}, false, false, delegate,
+                               result) == RouterResultCode::NoError,
+         ());
+    TEST(result.IsValid(), ());
+    TEST_GREATER(progress.size(), 4, ());
+    TEST(progress.size() <= 101, ());
+    TEST_EQUAL(progress.front(), 0, ());
+    TEST_EQUAL(progress.back(), 100, ());
+    TEST(std::is_sorted(progress.begin(), progress.end()), ());
+    TEST(std::any_of(progress.begin(), progress.end(), [](float value) { return value > 30 && value < 98; }), ());
+  }
+}
+
+UNIT_TEST(WaterRouter_FailedProgressNeverCompletes)
+{
+  for (bool missing : {false, true})
+  {
+    WaterRouter router([&](Checkpoints const &, RouterDelegate const &)
+    { return missing ? water::Geometry{} : River(); });
+    RouterDelegate delegate;
+    std::vector<float> progress;
+    delegate.SetProgressCallback([&](float value) { progress.push_back(value); });
+    RoutesResult result;
+    TEST(router.CalculateRoute(Checkpoints({0, 0}, {2, 0}), {}, false, false, delegate, result) !=
+             RouterResultCode::NoError,
+         ());
+    TEST(!result.IsValid(), ());
+    TEST(!progress.empty(), ());
+    TEST_LESS(progress.back(), 100, ());
+    TEST(std::is_sorted(progress.begin(), progress.end()), ());
+  }
+}
+
+UNIT_TEST(WaterRouter_ProgressCancellation)
+{
+  WaterRouter router([](Checkpoints const &, RouterDelegate const &) { return River(); });
+  for (float threshold : {50.0f, 99.0f})
+  {
+    RouterDelegate delegate;
+    std::vector<float> progress;
+    delegate.SetProgressCallback([&](float value)
+    {
+      progress.push_back(value);
+      if (value >= threshold)
+        delegate.Cancel();
+    });
+    RoutesResult result;
+    TEST(router.CalculateRoute(Checkpoints({0, 0}, {1, 0}), {}, false, false, delegate, result) ==
+             RouterResultCode::Cancelled,
+         ());
+    TEST(!result.IsValid(), ());
+    TEST_LESS(progress.back(), 100, ());
+    TEST(std::is_sorted(progress.begin(), progress.end()), ());
+  }
 }
 
 UNIT_TEST(WaterRouter_ExplicitStartDoesNotProject)

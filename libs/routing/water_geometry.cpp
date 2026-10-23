@@ -1,5 +1,7 @@
 #include "routing/water_geometry.hpp"
 
+#include "routing/base/astar_progress.hpp"
+
 #include "geometry/distance_on_sphere.hpp"
 #include "geometry/mercator.hpp"
 #include "geometry/robust_orientation.hpp"
@@ -306,7 +308,7 @@ Search Dijkstra(Graph const & graph, size_t source, CancelledFn const & cancelle
 }
 
 Search SearchWater(Graph & graph, size_t target, std::vector<size_t> const & visibility, Search const & component,
-                   CancelledFn const & isCancelled)
+                   CancelledFn const & isCancelled, ProgressFn const & progress)
 {
   // The delegate's cancellation check locks a mutex and reads the clock.
   // Poll periodically while keeping the inner geometric predicates cheap.
@@ -346,6 +348,8 @@ Search SearchWater(Graph & graph, size_t target, std::vector<size_t> const & vis
   for (size_t node = 0; node < graph.m_points.size(); ++node)
     if (result.m_distances[node] != kInfinity)
       queue.emplace(result.m_distances[node] + estimates[node], node);
+  AStarSubProgress searchProgress(coordinates[source], coordinates[target], 1.0);
+  size_t settledCount = 0;
   size_t checks = 0;
   size_t triangleVisits = 0;
   while (!queue.empty() && !cancelled())
@@ -355,6 +359,8 @@ Search SearchWater(Graph & graph, size_t target, std::vector<size_t> const & vis
     if (settled[node] || score > result.m_distances[node] + estimates[node])
       continue;
     settled[node] = true;
+    if (progress && ((settledCount++ % 32) == 0 || node == target))
+      progress(searchProgress.UpdateProgress(coordinates[node], coordinates[target]));
     if (node == target)
       break;
     auto const relax = [&](size_t other, double distance)
@@ -583,9 +589,14 @@ bool UnknownCouldShorten(Geometry const & geometry, Point const & from, Point co
 }  // namespace
 
 ResultCode FindPath(Geometry const & geometry, Point const & start, Point const & finish, bool projectStart,
-                    CancelledFn const & cancelled, Path & path)
+                    CancelledFn const & cancelled, Path & path, ProgressFn const & progress)
 {
   path = {};
+  auto const report = [&](double value)
+  {
+    if (progress)
+      progress(value);
+  };
   if (cancelled())
     return ResultCode::Cancelled;
   if (!geometry.m_complete)
@@ -627,6 +638,7 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
   if (from.m_point == to.m_point)
   {
     path.m_points.push_back(from.m_point);
+    report(1.0);
     return ResultCode::Success;
   }
   size_t triangleVisits = 0;
@@ -635,6 +647,7 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
   {
     Append(path, from.m_point, false);
     Append(path, to.m_point, false);
+    report(1.0);
     return ResultCode::Success;
   }
   if (cancelled())
@@ -650,6 +663,7 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
   {
     if (cancelled())
       return ResultCode::Cancelled;
+    report(0.1 * i / geometry.m_lines.size());
     auto const & line = geometry.m_lines[i];
     std::vector<size_t> nodes;
     for (size_t vertexIndex = 0; vertexIndex < line.size(); ++vertexIndex)
@@ -705,8 +719,16 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
     Point m_from, m_to;
   };
   std::map<std::pair<Point, Point>, SurfaceEdge> surfaceEdges;
+  size_t triangleCount = 0;
   for (auto const & triangle : geometry.m_triangles)
   {
+    if ((triangleCount % 128) == 0)
+    {
+      if (cancelled())
+        return ResultCode::Cancelled;
+      report(0.1 + 0.1 * triangleCount / geometry.m_triangles.size());
+    }
+    ++triangleCount;
     m2::RectD bounds;
     for (auto const & point : triangle)
       bounds.Add(point);
@@ -748,6 +770,7 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
   {
     if (cancelled())
       return ResultCode::Cancelled;
+    report(0.2 + 0.05 * i / lineVertices);
     auto const & point = graph.m_points[i];
     auto const attach = [&](std::array<Point, 3> const & triangle)
     {
@@ -768,6 +791,7 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
         attach(triangle);
   }
 
+  report(0.25);
   std::set<Point> shore;
   std::map<Point, std::vector<Point>> previous, next;
   for (auto const & [key, edge] : surfaceEdges)
@@ -796,8 +820,11 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
     if (surface[i] && (i < lineVertices || shore.contains(graph.m_points[i])))
       visibility.push_back(i);
   }
+  report(0.3);
   auto const component = Dijkstra(graph, 0, cancelled);
-  auto const forward = SearchWater(graph, 1, visibility, component, cancelled);
+  report(0.35);
+  auto const forward =
+      SearchWater(graph, 1, visibility, component, cancelled, [&](double value) { report(0.35 + 0.35 * value); });
   if (cancelled())
     return ResultCode::Cancelled;
   if (forward.m_budgetExceeded)
@@ -816,12 +843,15 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
       path = {};
       return cancelled() ? ResultCode::Cancelled : ResultCode::Unavailable;
     }
+    report(1.0);
     return ResultCode::Success;
   }
 
   // A land gap is considered only after exhausting the complete water graph.
+  report(0.7);
   auto const backwardComponent = Dijkstra(graph, 1, cancelled);
-  auto const backward = SearchWater(graph, 0, visibility, backwardComponent, cancelled);
+  auto const backward = SearchWater(graph, 0, visibility, backwardComponent, cancelled,
+                                    [&](double value) { report(0.7 + 0.15 * value); });
   if (cancelled())
     return ResultCode::Cancelled;
   if (backward.m_budgetExceeded)
@@ -837,8 +867,10 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
   double best = kInfinity;
   size_t gapFrom = 0, gapTo = 1;
   Interval gap;
+  size_t transferCount = 0;
   for (auto const a : transfers)
   {
+    report(0.85 + 0.14 * transferCount++ / transfers.size());
     if (cancelled())
       return ResultCode::Cancelled;
     if (forward.m_distances[a] == kInfinity)
@@ -902,6 +934,7 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
   Append(path, graph.m_points[gapTo], false);
   for (auto node : Trace(backward, gapTo))
     Append(path, graph.m_points[node], false);
+  report(1.0);
   return ResultCode::Success;
 }
 }  // namespace routing::water
