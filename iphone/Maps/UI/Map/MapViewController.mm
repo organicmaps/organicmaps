@@ -137,6 +137,9 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
 - (void)showOrUpdatePlacePage:(PlacePageData *)data
 {
+  // Map API requests deselect and select in one call: remove the closing page before showing the new one.
+  [self.placePageVC finishClosingIfNeeded];
+
   if (self.searchManager.isSearching)
     [self.searchManager setPlaceOnMapSelected:YES];
 
@@ -266,8 +269,8 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 {
   [self stopObservingTrackRecordingUpdates];
   [self.placePageVC closeWithCompletion:^{
-    [self.placePageVC.view removeFromSuperview];
     [self.placePageVC willMoveToParentViewController:nil];
+    [self.placePageVC.view removeFromSuperview];
     [self.placePageVC removeFromParentViewController];
     self.placePageVC = nil;
     self.placePageContainer.hidden = YES;
@@ -532,7 +535,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
   /// @todo: Uncomment update dialog when will be ready to handle big traffic bursts.
   /*
-  if (!DeepLinkHandler.shared.isLaunchedByDeepLink)
+  if (!DeepLinkHandler.shared.hasPendingColdLaunchDeepLink)
   {
     auto const todo = GetFramework().ToDoAfterUpdate();
     switch (todo) {
@@ -554,7 +557,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
   // Cold start deep links should be handled when the map is initialized.
   // Otherwise PP container view is nil, or there is no animation/selection of the point.
   if (DeepLinkHandler.shared.hasPendingColdLaunchDeepLink)
-    (void)[DeepLinkHandler.shared handleDeepLinkAndReset];
+    (void)[DeepLinkHandler.shared handlePendingDeepLink];
 }
 
 - (void)viewDidLayoutSubviews

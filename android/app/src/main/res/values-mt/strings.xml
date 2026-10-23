@@ -343,6 +343,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Niżżel ir-reġjun fejn qed tfittex jew ipprova żid isem ta’ belt/raħal fil-qrib.</string>
     <string name="search_history_title">Kronoloġija tat-tiftix</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">Rizerva tal-werrejja u t-traċċi</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">Il-werrejja u t-traċċi jistgħu jiġu inklużi fir-rizervi tas-sistema Android meta r-rizerva tkun attivata f’dan it-tagħmir u ma jaqbżux il-limitu tad-daqs tagħha.</string>
     <string name="search_history_text">Ara t-tfittxijiet riċenti tiegħek.</string>
     <string name="clear_search">Neħħi l-kronoloġija tat-tiftix</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

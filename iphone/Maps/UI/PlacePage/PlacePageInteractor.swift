@@ -1,5 +1,6 @@
 protocol PlacePageInteractorProtocol: AnyObject {
   func viewWillDisappear()
+  func didClose()
   func updateVisibleAreaInsets(_ insets: UIEdgeInsets, updatingViewport: Bool)
   func close()
 }
@@ -84,6 +85,12 @@ class PlacePageInteractor: NSObject {
 extension PlacePageInteractor: PlacePageInteractorProtocol {
   func viewWillDisappear() {
     unsubscribeFromTrackActivePointUpdates()
+  }
+
+  func didClose() {
+    removeFromBookmarksManagerObserverList()
+    unsubscribeFromTrackActivePointUpdates()
+    presenter = nil
   }
 
   func updateVisibleAreaInsets(_ insets: UIEdgeInsets, updatingViewport: Bool) {

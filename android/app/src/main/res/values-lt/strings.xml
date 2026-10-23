@@ -343,6 +343,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Atsisiųskite regioną, kuriame ieškote, arba pabandykite įvesti kito netoliese esančio miesto ar kaimo pavadinimą.</string>
     <string name="search_history_title">Paieškų žurnalas</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">Žymių ir trasų atsarginė kopija</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">Žymės ir trasos gali būti įtrauktos į Android sistemos atsargines kopijas, jei šiame įrenginyje įjungtas atsarginių kopijų kūrimas ir jos neviršija leistino dydžio.</string>
     <string name="search_history_text">Rodyti paskiausias paieškas.</string>
     <string name="clear_search">Valyti paieškų žurnalą</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

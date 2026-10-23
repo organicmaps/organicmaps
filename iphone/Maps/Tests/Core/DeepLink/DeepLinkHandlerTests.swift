@@ -19,8 +19,8 @@ final class DeepLinkHandlerTests: XCTestCase {
     handler.prepareForColdLaunch(url: url)
 
     XCTAssertTrue(handler.hasPendingColdLaunchDeepLink)
-    XCTAssertTrue(handler.isLaunchedByDeepLink)
     XCTAssertEqual(handler.url, url)
+    XCTAssertNil(handler.getInAppFeatureHighlightData())
   }
 
   func testColdUniversalLinkIsConvertedAndQueued() throws {
@@ -29,8 +29,8 @@ final class DeepLinkHandlerTests: XCTestCase {
     )
 
     XCTAssertTrue(handler.hasPendingColdLaunchDeepLink)
-    XCTAssertTrue(handler.isLaunchedByDeepLink)
     XCTAssertEqual(handler.url?.absoluteString, "om://AbCd/Test")
+    XCTAssertNil(handler.getInAppFeatureHighlightData())
   }
 
   func testLastLinkReceivedBeforeMapIsReadyWins() throws {
@@ -40,7 +40,7 @@ final class DeepLinkHandlerTests: XCTestCase {
 
     XCTAssertTrue(handler.applicationDidOpenUrl(laterURL))
     XCTAssertEqual(handler.url, laterURL)
-    XCTAssertTrue(handler.isLaunchedByDeepLink)
+    XCTAssertNil(handler.getInAppFeatureHighlightData())
   }
 
   func testUniversalLinkReceivedBeforeMapIsReadyIsNotHandledTwice() throws {
@@ -49,8 +49,18 @@ final class DeepLinkHandlerTests: XCTestCase {
     let universalLink = try XCTUnwrap(URL(string: "https://omaps.app/AbCd/Test"))
     XCTAssertTrue(handler.applicationDidReceiveUniversalLink(universalLink))
     XCTAssertTrue(handler.hasPendingColdLaunchDeepLink)
-    XCTAssertTrue(handler.isLaunchedByDeepLink)
     XCTAssertEqual(handler.url?.absoluteString, "om://AbCd/Test")
+    XCTAssertNil(handler.getInAppFeatureHighlightData())
+  }
+
+  func testHandlingPendingLinkRetainsBackURL() throws {
+    let url = try XCTUnwrap(URL(string: "om://invalid?backurl=testapp%3A%2F%2F"))
+    handler.prepareForColdLaunch(url: url)
+
+    XCTAssertFalse(handler.handlePendingDeepLink())
+    XCTAssertFalse(handler.hasPendingColdLaunchDeepLink)
+    XCTAssertEqual(handler.getBackUrl(), "testapp://")
+    XCTAssertEqual(handler.url, url)
   }
 
   func testResetClearsColdLaunchState() throws {
@@ -58,7 +68,105 @@ final class DeepLinkHandlerTests: XCTestCase {
     handler.reset()
 
     XCTAssertFalse(handler.hasPendingColdLaunchDeepLink)
-    XCTAssertFalse(handler.isLaunchedByDeepLink)
     XCTAssertNil(handler.url)
+    XCTAssertNil(handler.getInAppFeatureHighlightData())
+  }
+
+  func testColdSettingsHighlightSurvivesUntilPresentation() throws {
+    let mapViewController = try XCTUnwrap(MapsAppDelegate.theApp().mapViewController)
+    defer { mapViewController.navigationController?.popToRootViewController(animated: false) }
+    let url = try XCTUnwrap(URL(string: "om://settings?highlight=icloud"))
+    handler.prepareForColdLaunch(url: url)
+
+    XCTAssertTrue(handler.handlePendingDeepLink())
+    XCTAssertFalse(handler.hasPendingColdLaunchDeepLink)
+    let highlight = try XCTUnwrap(handler.getInAppFeatureHighlightData())
+    XCTAssertEqual(highlight.urlType, .settings)
+    XCTAssertEqual(highlight.feature, .iCloud)
+    XCTAssertNil(handler.getInAppFeatureHighlightData())
+  }
+
+  func testUnrelatedHotLinkLeavesNoHighlight() throws {
+    let url = try XCTUnwrap(URL(string: "om://crosshair"))
+
+    XCTAssertFalse(handler.applicationDidOpenUrl(url))
+    XCTAssertNil(handler.getInAppFeatureHighlightData())
+  }
+
+  func testOpeningMapLinkWithPlacePageOpenKeepsNewPlacePageVisible() throws {
+    let mapViewController = try prepareMapViewController()
+    try openMapPoint(named: "First")
+    waitForPlacePageAnimations()
+
+    try openMapPoint(named: "Second")
+    waitForPlacePageAnimations()
+
+    assertSinglePlacePageIsVisible(in: mapViewController)
+    let data = PlacePageData(localizationProvider: OpeinigHoursLocalization())
+    XCTAssertEqual(data.previewData.title, "Second")
+  }
+
+  func testOpeningMapLinkAfterRepeatedDismissalKeepsNewPlacePageVisible() throws {
+    let mapViewController = try prepareMapViewController()
+    try openMapPoint(named: "First")
+    waitForPlacePageAnimations()
+
+    mapViewController.dismissPlacePage()
+    mapViewController.dismissPlacePage()
+    try openMapPoint(named: "Second")
+    waitForPlacePageAnimations()
+
+    assertSinglePlacePageIsVisible(in: mapViewController)
+  }
+
+  func testDismissingMapLinkPlacePageHidesIt() throws {
+    let mapViewController = try prepareMapViewController()
+    try openMapPoint(named: "First")
+    waitForPlacePageAnimations()
+
+    mapViewController.dismissPlacePage()
+    waitForPlacePageAnimations()
+
+    XCTAssertFalse(PlacePageData.hasData)
+    XCTAssertTrue(mapViewController.placePageContainer.isHidden)
+    XCTAssertTrue(placePages(in: mapViewController).isEmpty)
+  }
+
+  private func prepareMapViewController() throws -> MapViewController {
+    let mapViewController = try XCTUnwrap(MapViewController.shared())
+    mapViewController.loadViewIfNeeded()
+    addTeardownBlock {
+      mapViewController.dismissPlacePage()
+      self.waitForPlacePageAnimations()
+    }
+    return mapViewController
+  }
+
+  private func placePages(in mapViewController: MapViewController) -> [PlacePageViewController] {
+    mapViewController.children.compactMap { $0 as? PlacePageViewController }
+  }
+
+  private func assertSinglePlacePageIsVisible(in mapViewController: MapViewController,
+                                              file: StaticString = #filePath,
+                                              line: UInt = #line) {
+    XCTAssertTrue(PlacePageData.hasData, "The API point should remain selected", file: file, line: line)
+    XCTAssertFalse(mapViewController.placePageContainer.isHidden, file: file, line: line)
+    let pages = placePages(in: mapViewController)
+    XCTAssertEqual(pages.count, 1, file: file, line: line)
+    XCTAssertNotNil(pages.first?.view.window, file: file, line: line)
+    XCTAssertEqual(pages.first?.view.isUserInteractionEnabled, true, file: file, line: line)
+  }
+
+  private func openMapPoint(named name: String) throws {
+    let url = try XCTUnwrap(URL(string: "om://map?ll=52.521,13.406&n=\(name)"))
+    XCTAssertTrue(handler.applicationDidOpenUrl(url))
+  }
+
+  private func waitForPlacePageAnimations() {
+    let settled = expectation(description: "Place Page animations finished")
+    DispatchQueue.main.asyncAfter(deadline: .now() + AppConstants.defaultAnimationDuration * 2) {
+      settled.fulfill()
+    }
+    wait(for: [settled], timeout: 2)
   }
 }

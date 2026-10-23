@@ -343,6 +343,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Download den region, hvor du søger i, eller prøv at tilføje et nærliggende bynavn.</string>
     <string name="search_history_title">Søgehistorik</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">Sikkerhedskopi af bogmærker og spor</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">Bogmærker og spor kan indgå i Androids systemsikkerhedskopier, når sikkerhedskopiering er slået til på denne enhed, og de ikke overskrider dens størrelsesgrænse.</string>
     <string name="search_history_text">Se dine seneste søgninger.</string>
     <string name="clear_search">Ryd søgehistorik</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
