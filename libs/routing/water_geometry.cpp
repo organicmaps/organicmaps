@@ -195,12 +195,14 @@ bool MakePortal(Geometry const & geometry, Point const & a, Point const & b, dou
   // the source segment by a coordinate ULP toward the covered interval instead.
   auto const target = std::midpoint(t, interior);
   auto const delta = b - a;
+  auto const position = [&](double parameter)
+  { return parameter == 0.0 ? a : (parameter == 1.0 ? b : a + delta * parameter); };
   for (size_t attempt = 0; attempt < 16; ++attempt)
   {
-    point = t == 0.0 ? a : (t == 1.0 ? b : a + delta * t);
+    point = position(t);
     if (IsSurfacePoint(geometry, point))
       return true;
-    auto const toward = a + delta * target;
+    auto const toward = position(target);
     double step = 0;
     if (delta.x != 0)
       step = std::max(step, std::abs((std::nextafter(point.x, toward.x) - point.x) / delta.x));
@@ -209,7 +211,26 @@ bool MakePortal(Geometry const & geometry, Point const & a, Point const & b, dou
     auto const next = t + std::copysign(step, target - t);
     t = target > t ? std::min(next, target) : std::max(next, target);
   }
-  return false;
+  point = position(t);
+  if (IsSurfacePoint(geometry, point))
+    return true;
+  // Intersection parameters can accumulate more error than a few coordinate ULPs.
+  // Approach the boundary from a certified interior point.
+  auto inside = target;
+  if (!IsSurfacePoint(geometry, position(inside)))
+    return false;
+  for (size_t attempt = 0; attempt < 64; ++attempt)
+  {
+    auto const middle = std::midpoint(t, inside);
+    if (middle == t || middle == inside)
+      break;
+    if (IsSurfacePoint(geometry, position(middle)))
+      inside = middle;
+    else
+      t = middle;
+  }
+  point = position(inside);
+  return IsSurfacePoint(geometry, point);
 }
 
 struct Edge
@@ -297,6 +318,7 @@ Search SearchWater(Graph & graph, size_t target, std::vector<size_t> const & vis
       stopped = isCancelled();
     return stopped;
   };
+  CancelledFn const segmentCancelled = cancelled;
   Search result;
   result.m_distances = component.m_distances;
   result.m_previous = component.m_previous;
@@ -304,16 +326,20 @@ Search SearchWater(Graph & graph, size_t target, std::vector<size_t> const & vis
   for (auto node : visibility)
     visible[node] = true;
   std::vector<double> estimates;
+  std::vector<ms::LatLon> coordinates;
+  coordinates.reserve(graph.m_points.size());
   for (auto const & point : graph.m_points)
-    estimates.push_back(mercator::DistanceOnEarth(point, graph.m_points[target]));
+    coordinates.push_back(mercator::ToLatLon(point));
+  estimates.reserve(coordinates.size());
+  for (auto const & coordinate : coordinates)
+    estimates.push_back(ms::DistanceOnEarth(coordinate, coordinates[target]));
   // Every vertex of a shorter route must lie inside this distance ellipse.
   // Apply this bound once before considering pairs of visibility vertices.
   std::vector<size_t> candidates;
   auto const source = target == 1 ? 0 : 1;
   for (auto const node : visibility)
     if (result.m_distances[target] == kInfinity ||
-        mercator::DistanceOnEarth(graph.m_points[source], graph.m_points[node]) + estimates[node] <
-            result.m_distances[target])
+        ms::DistanceOnEarth(coordinates[source], coordinates[node]) + estimates[node] < result.m_distances[target])
       candidates.push_back(node);
   using Item = std::pair<double, size_t>;
   std::priority_queue<Item, std::vector<Item>, std::greater<Item>> queue;
@@ -354,7 +380,7 @@ Search SearchWater(Graph & graph, size_t target, std::vector<size_t> const & vis
       // components. A visibility edge cannot cross between disconnected waters.
       if (graph.m_geometry.m_unknownAreas.empty() && component.m_distances[other] == kInfinity)
         continue;
-      auto const distance = mercator::DistanceOnEarth(graph.m_points[node], graph.m_points[other]);
+      auto const distance = ms::DistanceOnEarth(coordinates[node], coordinates[other]);
       if (result.m_distances[node] + distance >= result.m_distances[other])
         continue;
       if (result.m_distances[target] != kInfinity &&
@@ -365,7 +391,8 @@ Search SearchWater(Graph & graph, size_t target, std::vector<size_t> const & vis
         result.m_budgetExceeded = true;
         return result;
       }
-      if (!CoversSegment(graph.m_geometry, graph.m_points[node], graph.m_points[other], cancelled, triangleVisits))
+      if (!CoversSegment(graph.m_geometry, graph.m_points[node], graph.m_points[other], segmentCancelled,
+                         triangleVisits))
       {
         if (triangleVisits > kMaxVisibilityTriangleVisits)
         {
