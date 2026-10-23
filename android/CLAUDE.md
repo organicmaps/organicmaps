@@ -84,3 +84,4 @@ JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetDrawScale(JNIEnv * en
 - Permissions validated at build time via `permission-checker.gradle`
 - ProGuard: obfuscation disabled (`-dontobfuscate`), line numbers preserved
 - When editing translations in `app/src/main/res/values*/strings.xml` or store metadata, follow the translation rules in [data/CLAUDE.md](../data/CLAUDE.md)
+- Referencing a new `R.string.some_id` before its string resources are regenerated is allowed when a following `[strings] Regenerated` commit in the same PR supplies them. Do not flag this commit ordering as a missing-resource or compilation issue during review.
