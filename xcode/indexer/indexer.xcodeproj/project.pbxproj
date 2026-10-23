@@ -204,6 +204,7 @@
 		FACB7C4526B947C400810C9C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C4426B947AD00810C9C /* libz.tbd */; };
 		D940AD02D3DE2E8BEDEAEBC7 /* raster_patch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E55F5C47DFD49A75989A5CBA /* raster_patch.cpp */; };
 		3C2694CE20D5B05C7B47620E /* sperr_decoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 36C03CCE73CE95703B881084 /* sperr_decoder.cpp */; settings = {COMPILER_FLAGS = "-fno-fast-math -ffp-contract=off"; }; };
+		32035435FF07280410C13EF9 /* sz3_decoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9907570318FC5EFB7527BF93 /* sz3_decoder.cpp */; settings = {COMPILER_FLAGS = "-fno-fast-math -ffp-contract=off"; }; };
 		DCD1195C0C2B9CCC0227B93E /* terrain_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52F7A978362E3391328DB812 /* terrain_data.cpp */; };
 		36112074B829266BF462DFFC /* terrain_normals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B1EA7D95D04B365BD1C0AF0 /* terrain_normals.cpp */; };
 /* End PBXBuildFile section */
@@ -421,6 +422,7 @@
 		FACB7C4426B947AD00810C9C /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		E55F5C47DFD49A75989A5CBA /* raster_patch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = raster_patch.cpp; path = terrain/raster_patch.cpp; sourceTree = "<group>"; };
 		36C03CCE73CE95703B881084 /* sperr_decoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sperr_decoder.cpp; path = terrain/sperr_decoder.cpp; sourceTree = "<group>"; };
+		9907570318FC5EFB7527BF93 /* sz3_decoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sz3_decoder.cpp; path = terrain/sz3_decoder.cpp; sourceTree = "<group>"; };
 		52F7A978362E3391328DB812 /* terrain_data.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = terrain_data.cpp; path = terrain/terrain_data.cpp; sourceTree = "<group>"; };
 		4B1EA7D95D04B365BD1C0AF0 /* terrain_normals.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = terrain_normals.cpp; path = terrain/terrain_normals.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -645,6 +647,7 @@
 				CD9FCA227FD1452682013285 /* terrain_reader.cpp */,
 				E55F5C47DFD49A75989A5CBA /* raster_patch.cpp */,
 				36C03CCE73CE95703B881084 /* sperr_decoder.cpp */,
+				9907570318FC5EFB7527BF93 /* sz3_decoder.cpp */,
 				52F7A978362E3391328DB812 /* terrain_data.cpp */,
 				4B1EA7D95D04B365BD1C0AF0 /* terrain_normals.cpp */,
 				E4B07A1232D45C6F9B8E2A13 /* terrain_utils.cpp */,
@@ -993,6 +996,7 @@
 				5491BAE73C924146B39D47AD /* terrain_reader.cpp in Sources */,
 				D940AD02D3DE2E8BEDEAEBC7 /* raster_patch.cpp in Sources */,
 				3C2694CE20D5B05C7B47620E /* sperr_decoder.cpp in Sources */,
+				32035435FF07280410C13EF9 /* sz3_decoder.cpp in Sources */,
 				DCD1195C0C2B9CCC0227B93E /* terrain_data.cpp in Sources */,
 				36112074B829266BF462DFFC /* terrain_normals.cpp in Sources */,
 				D3A96F0121C34B5E8A7D1F02 /* terrain_utils.cpp in Sources */,
@@ -1060,7 +1064,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				HEADER_SEARCH_PATHS = "$(inherited) $(OMIM_ROOT)/3party/sperr/include $(DERIVED_FILE_DIR)/sperr/sperr";
+				HEADER_SEARCH_PATHS = "$(inherited) $(OMIM_ROOT)/3party/sperr/include $(OMIM_ROOT)/3party/sz3/include $(DERIVED_FILE_DIR)/sperr/sperr";
 				OTHER_LIBTOOLFLAGS = "$(inherited) $(DERIVED_FILE_DIR)/sperr/libomim_sperr.a";
 				EXECUTABLE_PREFIX = lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1071,7 +1075,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				HEADER_SEARCH_PATHS = "$(inherited) $(OMIM_ROOT)/3party/sperr/include $(DERIVED_FILE_DIR)/sperr/sperr";
+				HEADER_SEARCH_PATHS = "$(inherited) $(OMIM_ROOT)/3party/sperr/include $(OMIM_ROOT)/3party/sz3/include $(DERIVED_FILE_DIR)/sperr/sperr";
 				OTHER_LIBTOOLFLAGS = "$(inherited) $(DERIVED_FILE_DIR)/sperr/libomim_sperr.a";
 				EXECUTABLE_PREFIX = lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";

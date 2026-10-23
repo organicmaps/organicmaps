@@ -1,6 +1,7 @@
 #include "indexer/terrain/raster_patch.hpp"
 
 #include "indexer/terrain/sperr_decoder.hpp"
+#include "indexer/terrain/sz3_decoder.hpp"
 
 #include "coding/reader.hpp"
 
@@ -38,8 +39,9 @@ m2::RectD RasterRecord::GetRect(MeshGrid const & grid, uint8_t coordBits) const
 void RasterRecord::Validate(TwmHeader const & header, MeshGrid const & grid) const
 {
 #ifdef DEBUG
-  ASSERT(m_codec == RasterCodec::Raw || m_codec == RasterCodec::Sperr || m_codec == RasterCodec::SperrZlibBorder,
-         (static_cast<uint8_t>(m_codec)));
+  ASSERT(m_codec == RasterCodec::Raw || m_codec == RasterCodec::Sperr || m_codec == RasterCodec::SperrZlibBorder ||
+             IsSz3(m_codec),
+         (static_cast<uint8_t>(m_codec), header.GetRasterVersion()));
   ASSERT_GREATER(m_dataLength, 0, ());
   auto const rect = GetGridRect(grid);
   auto const lb = grid.GetPoint(rect.LeftBottom());
@@ -123,7 +125,7 @@ std::vector<Altitude> DecodeRasterPayload(RasterRecord const & record, std::span
     auto border = payload.subspan(src.Pos());
     RasterPerimeter const perimeter(cellsX, cellsY);
     buffer_vector<uint8_t, 8 * kMaxRasterCells + 2> inflated;
-    if (record.m_codec == RasterCodec::SperrZlibBorder)
+    if (record.m_codec == RasterCodec::SperrZlibBorder || record.m_codec == RasterCodec::Sz3ZlibBorder)
     {
       // Each packed correction and its count take at most two bytes.
       inflated.resize(perimeter.Size() * 2 + 2);
@@ -132,7 +134,9 @@ std::vector<Altitude> DecodeRasterPayload(RasterRecord const & record, std::span
       inflated.resize(length);
       border = inflated;
     }
-    result = DecodeSperr(frame, cellsX + 1, cellsY + 1, record.m_minAltitude, record.m_maxAltitude);
+    result = IsSz3(record.m_codec)
+               ? DecodeSz3(frame, cellsX + 1, cellsY + 1, record.m_minAltitude, record.m_maxAltitude)
+               : DecodeSperr(frame, cellsX + 1, cellsY + 1, record.m_minAltitude, record.m_maxAltitude);
 
     MemReader borderReader(border.data(), border.size());
     NonOwningReaderSource borderSrc(borderReader);
