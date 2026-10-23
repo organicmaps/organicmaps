@@ -526,7 +526,9 @@ void RoutingManager::SetRouterImpl(RouterType type)
     router = std::make_unique<RulerRouter>();
   else if (type == RouterType::Water)
   {
-    auto provider = std::make_shared<WaterGeometryProvider>(m_callbacks.m_dataSourceGetter());
+    auto provider = std::make_shared<WaterGeometryProvider>(
+        m_callbacks.m_dataSourceGetter(), [this](std::string const & country, m2::RectD const & bounds)
+    { return m_callbacks.m_countryInfoGetter().IsRectCoveredByRegion(country, bounds); });
     router = std::make_unique<WaterRouter>([provider](Checkpoints const & checkpoints, RouterDelegate const & delegate)
     { return provider->GetGeometry(checkpoints, delegate); });
   }

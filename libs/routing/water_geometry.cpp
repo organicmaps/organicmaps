@@ -10,6 +10,7 @@
 #include <map>
 #include <numeric>
 #include <queue>
+#include <set>
 #include <utility>
 
 namespace routing::water
@@ -451,7 +452,14 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
         graph.Connect(split[k - 1], split[k]);
     }
   }
+  auto const lineVertices = graph.m_points.size();
   std::map<Point, size_t> surfaceVertices;
+  struct SurfaceEdge
+  {
+    size_t m_count = 0;
+    Point m_from, m_to;
+  };
+  std::map<std::pair<Point, Point>, SurfaceEdge> surfaceEdges;
   for (auto const & triangle : geometry.m_triangles)
   {
     m2::RectD bounds;
@@ -459,8 +467,10 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
       bounds.Add(point);
     bool const unknown = std::any_of(geometry.m_unknownAreas.begin(), geometry.m_unknownAreas.end(),
                                      [&](auto const & rect) { return rect.IsIntersect(bounds); });
-    for (auto const & point : triangle)
+    std::array<size_t, 3> nodes;
+    for (size_t i = 0; i < triangle.size(); ++i)
     {
+      auto const & point = triangle[i];
       auto const [it, inserted] = surfaceVertices.emplace(point, graph.m_points.size());
       if (inserted)
       {
@@ -470,14 +480,51 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
       }
       if (unknown)
         graph.m_unknownFrontier[it->second] = true;
+      nodes[i] = it->second;
+    }
+    for (size_t i = 0; i < triangle.size(); ++i)
+    {
+      auto const j = (i + 1) % triangle.size();
+      auto a = triangle[i], b = triangle[j];
+      if (b < a)
+        std::swap(a, b);
+      auto & edge = surfaceEdges[{a, b}];
+      ++edge.m_count;
+      bool const ccw = m2::robust::OrientedS(triangle[0], triangle[1], triangle[2]) > 0;
+      edge.m_from = triangle[ccw ? i : j];
+      edge.m_to = triangle[ccw ? j : i];
+      graph.Connect(nodes[i], nodes[j]);
     }
   }
 
+  std::set<Point> shore;
+  std::map<Point, std::vector<Point>> previous, next;
+  for (auto const & [key, edge] : surfaceEdges)
+    if (edge.m_count == 1)
+    {
+      shore.insert(edge.m_from);
+      shore.insert(edge.m_to);
+      previous[edge.m_to].push_back(edge.m_from);
+      next[edge.m_from].push_back(edge.m_to);
+    }
+  // Water lies to the left of oriented boundary edges. A shortest detour turns
+  // only at a right turn (reflex water angle), including convex island corners.
+  std::erase_if(shore, [&](Point const & point)
+  {
+    auto const & before = previous[point];
+    auto const & after = next[point];
+    return before.size() == 1 && after.size() == 1 && m2::robust::OrientedS(before[0], point, after[0]) >= 0;
+  });
   std::vector<bool> surface(graph.m_points.size());
   std::vector<size_t> visibility;
   for (size_t i = 0; i < graph.m_points.size(); ++i)
-    if ((surface[i] = surfaceVertices.contains(graph.m_points[i]) || IsSurfacePoint(geometry, graph.m_points[i])))
+  {
+    surface[i] = surfaceVertices.contains(graph.m_points[i]) || IsSurfacePoint(geometry, graph.m_points[i]);
+    // Interior mesh vertices need only linear triangle edges. Shortest surface
+    // detours turn at the shore, checkpoints or river/surface intersections.
+    if (surface[i] && (i < lineVertices || shore.contains(graph.m_points[i])))
       visibility.push_back(i);
+  }
   if (visibility.size() > kMaxVisibilityVertices)
     return ResultCode::Unavailable;
   // Interior river vertices retain their exact curvature and linear edges;
@@ -517,6 +564,8 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
   }
 
   // A land gap is considered only after exhausting the complete water graph.
+  if (!geometry.m_hasSourceTopology)
+    return ResultCode::Unavailable;
   auto const backward = Dijkstra(graph, 1, cancelled);
   if (cancelled())
     return ResultCode::Cancelled;
