@@ -139,7 +139,7 @@ jobs:
 
       - name: Install GTK app dependencies (Linux)
         if: ${{ matrix.environment.gtk == 'ON' }}
-        run: sudo apt install -y libadwaita-1-dev libgeoclue-2-dev libgtk-4-dev
+        run: sudo apt install -y libadwaita-1-dev libgeoclue-2-dev libgtk-4-dev mutter dbus-daemon dbus-bin
 
       - name: Install build tools and dependencies (macOS)
         if: ${{ runner.os == 'macOS' }}
@@ -246,6 +246,12 @@ jobs:
           else
             ctest --preset "$PRESET_DRAPE" --verbose
           fi
+
+      - name: Run GTK window tests in an isolated compositor
+        if: ${{ matrix.environment.gtk == 'ON' }}
+        env:
+          LIBGL_ALWAYS_SOFTWARE: 1
+        run: ctest --test-dir build --output-on-failure --stop-on-failure --no-tests=error -L gtk-display-test
 
       # Reconfigure after the existing tests so they keep their development paths.
       - name: Build Windows direct staging variant
