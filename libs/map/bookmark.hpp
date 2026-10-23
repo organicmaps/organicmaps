@@ -123,12 +123,13 @@ public:
   friend class BookmarkManager;
 
 private:
-  // A queued save owns its data after the category is removed. Share its cancellation state and serialize
-  // deletion with an in-flight save so that neither can recreate the file after deletion has completed.
+  // Queued saves retain their data after a reload or deletion. Share cancellation and revision state, and
+  // serialize their disk writes with deletion and synchronized replacement.
   struct FileSaveState
   {
     std::mutex m_mutex;
     std::atomic<size_t> m_pendingCount = 0;
+    std::atomic<uint64_t> m_revision = 0;
     bool m_cancelled = false;
   };
   std::shared_ptr<FileSaveState> m_fileSaveState = std::make_shared<FileSaveState>();

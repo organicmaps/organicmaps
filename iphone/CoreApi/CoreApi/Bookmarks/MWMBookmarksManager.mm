@@ -95,6 +95,34 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
   }
 }
 
+@interface MWMBookmarkFileUpdate ()
+{
+  BookmarkManager::FileUpdatePtr _coreUpdate;
+}
+- (instancetype)initWithCoreUpdate:(BookmarkManager::FileUpdatePtr)update;
+- (BookmarkManager::FileUpdatePtr const &)coreUpdate;
+@end
+
+@implementation MWMBookmarkFileUpdate
+- (instancetype)initWithCoreUpdate:(BookmarkManager::FileUpdatePtr)update
+{
+  self = [super init];
+  if (self)
+    _coreUpdate = std::move(update);
+  return self;
+}
+
+- (BookmarkManager::FileUpdatePtr const &)coreUpdate
+{
+  return _coreUpdate;
+}
+
+- (BOOL)performIfUnchanged:(NS_NOESCAPE void (^)(void))write
+{
+  return _coreUpdate->PerformIfUnchanged([&]() { write(); });
+}
+@end
+
 @interface MWMBookmarksManager ()
 
 @property(nonatomic, readonly) BookmarkManager & bm;
@@ -227,6 +255,27 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
 - (void)reloadCategoryAtFilePath:(NSString *)filePath
 {
   self.bm.ReloadBookmark(filePath.UTF8String);
+}
+
+- (void)loadCategoryAtFilePathIfNeeded:(NSString *)filePath
+{
+  self.bm.LoadBookmarkIfNotLoaded(filePath.UTF8String);
+}
+
+- (nullable MWMBookmarkFileUpdate *)beginFileUpdateAtPath:(NSString *)filePath
+{
+  if (!self.areBookmarksLoaded)
+    return nil;
+  auto update = self.bm.GetFileUpdate(filePath.UTF8String);
+  return update ? [[MWMBookmarkFileUpdate alloc] initWithCoreUpdate:std::move(update)] : nil;
+}
+
+- (void)reloadCategoryWithUpdate:(MWMBookmarkFileUpdate *)update
+                    fromFilePath:(NSString *)sourcePath
+                      completion:(void (^)(BOOL))completion
+{
+  self.bm.ReloadBookmark([update coreUpdate], sourcePath.UTF8String,
+                         [completion](bool applied) { completion(applied); });
 }
 
 - (BOOL)deleteCategoryAtFilePath:(NSString *)filePath
