@@ -168,7 +168,25 @@ UNIT_TEST(WaterGenerator_StandardMwmPreservesIslandsWithoutInventingRiverJoins)
   TEST_GREATER(path.m_waterDistance, mercator::DistanceOnEarth(start, finish), ());
   for (auto const & line : geometry.m_lines)
     if (&line != &*river && &line != &*aqueduct)
-      TEST(FindPath(geometry, start, line.back().m_point, false, neverCancelled, path) == ResultCode::Unavailable, ());
+    {
+      TEST(FindPath(geometry, start, line.back().m_point, false, neverCancelled, path) == ResultCode::Success, ());
+      TEST_GREATER(path.m_landDistance, 0.0, ());
+      TEST_EQUAL(std::count(path.m_landGaps.begin(), path.m_landGaps.end(), true), 1, ());
+      auto const isEndpoint = [&](auto const & point)
+      {
+        return std::any_of(geometry.m_lines.begin(), geometry.m_lines.end(), [&](auto const & candidate)
+        {
+          return (candidate.front().m_mayTransfer && candidate.front().m_point == point) ||
+                 (candidate.back().m_mayTransfer && candidate.back().m_point == point);
+        });
+      };
+      for (size_t i = 0; i < path.m_landGaps.size(); ++i)
+        if (path.m_landGaps[i])
+        {
+          TEST(isEndpoint(path.m_points[i]), ());
+          TEST(isEndpoint(path.m_points[i + 1]), ());
+        }
+    }
   TEST(!routing::WaterGeometryProvider::ExtractFeatures(data, id, {-2, -2, 8, 5}, [] { return true; }).m_complete, ());
   routing::WaterGeometryProvider withoutCoverage(data);
   routing::RouterDelegate delegate;

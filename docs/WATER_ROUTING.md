@@ -42,10 +42,14 @@ are ignored in this compatibility mode, including positive layers. This can join
 an aqueduct to a water surface it crosses. Underground waterways remain unknown.
 This mode does not model navigability, water depth, currents or access restrictions.
 
-The compatibility graph cannot establish that separate water systems are actually
-disconnected, so automatic land transfers are disabled. Routes requiring an
-unrepresented river junction may be unavailable. The computed minimum refers to
-the connections represented in this graph, not reconstructed source topology.
+If no connected water path exists in the compatibility graph, a leg may include
+one straight land transfer only between endpoints of stored river lines. Interior
+vertices, checkpoints, extraction cuts and arbitrary lake shores cannot be transfer
+points. An endpoint inside a lake cannot move the dry interval to its shoreline.
+Stored feature endpoints need not be original OpenStreetMap way endpoints. Missing
+junctions may therefore require a measured land transfer or make a route unavailable.
+The computed minimum refers to connections represented in this graph, not
+reconstructed source topology or proof of a physically necessary portage.
 Coastline polygons describe land and do not supply ocean water in this mode.
 
 The complete query rectangle must lie inside a known map-region polygon. The

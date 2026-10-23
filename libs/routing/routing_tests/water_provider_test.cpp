@@ -47,8 +47,14 @@ UNIT_TEST(WaterProvider_OpenFrontierNeverBecomesGap)
 {
   auto const bytes = Section(
       {{::water::Kind::Line, {{P(0, -8), P(0, 8)}}, {1, 2}}, {::water::Kind::Line, {{P(1, -8), P(1, 8)}}, {3, 4}}});
-  auto const geometry = Extract(bytes);
+  auto geometry = Extract(bytes);
+  geometry.m_hasSourceTopology = false;
   TEST(geometry.m_complete, ());
+  for (auto const & line : geometry.m_lines)
+  {
+    TEST(!line.front().m_mayTransfer, ());
+    TEST(!line.back().m_mayTransfer, ());
+  }
   Path path;
   TEST(FindPath(geometry, P(0, 0), P(1, 0), false, kNeverCancelled, path) == ResultCode::Unavailable, ());
   TEST(path.m_points.empty(), ());

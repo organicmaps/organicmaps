@@ -564,8 +564,6 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
   }
 
   // A land gap is considered only after exhausting the complete water graph.
-  if (!geometry.m_hasSourceTopology)
-    return ResultCode::Unavailable;
   auto const backward = Dijkstra(graph, 1, cancelled);
   if (cancelled())
     return ResultCode::Cancelled;
@@ -573,7 +571,7 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
     return ResultCode::Unavailable;
   std::vector<size_t> transfers;
   for (size_t i = 0; i < graph.m_points.size(); ++i)
-    if (surface[i] || graph.m_lineEndpoints[i])
+    if (graph.m_lineEndpoints[i] || (geometry.m_hasSourceTopology && surface[i]))
       transfers.push_back(i);
   if (transfers.size() > 2 * kMaxVisibilityVertices)
     return ResultCode::Unavailable;
@@ -607,14 +605,17 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
         continue;
       if (graph.m_points[a] == graph.m_points[b])
         continue;
+      // Display geometry permits only stored line endpoints, never shoreline cuts.
+      if (!geometry.m_hasSourceTopology && (begin != 0.0 || end != 1.0))
+        continue;
       // River transfers use source line endpoints, never checkpoints or extraction cuts.
       // Surface transfers use the actual shoreline intersections of the candidate ray.
       if ((begin == 0.0 && !graph.m_lineEndpoints[a] && !IsSurfacePoint(geometry, graph.m_points[a])) ||
           (end == 1.0 && !graph.m_lineEndpoints[b] && !IsSurfacePoint(geometry, graph.m_points[b])))
         continue;
       auto const delta = graph.m_points[b] - graph.m_points[a];
-      auto const exit = graph.m_points[a] + delta * begin;
-      auto const entry = graph.m_points[a] + delta * end;
+      auto const exit = begin == 0.0 ? graph.m_points[a] : graph.m_points[a] + delta * begin;
+      auto const entry = end == 1.0 ? graph.m_points[b] : graph.m_points[a] + delta * end;
       if (TouchesUnknown(geometry, graph.m_points[a], graph.m_points[b]))
         continue;
       auto const distance =
@@ -637,8 +638,8 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
     Append(path, graph.m_points[*it], false);
   auto const a = graph.m_points[gapFrom];
   auto const delta = graph.m_points[gapTo] - a;
-  Append(path, a + delta * gap.first, false);
-  Append(path, a + delta * gap.second, true);
+  Append(path, gap.first == 0.0 ? a : a + delta * gap.first, false);
+  Append(path, gap.second == 1.0 ? graph.m_points[gapTo] : a + delta * gap.second, true);
   Append(path, graph.m_points[gapTo], false);
   for (auto node : Trace(backward, gapTo))
     Append(path, graph.m_points[node], false);
