@@ -6,6 +6,8 @@
 #include "indexer/ftraits.hpp"
 #include "indexer/yes_no_unknown.hpp"
 
+#include "base/assert.hpp"
+
 struct FeatureID;
 class StringUtf8Multilang;
 
@@ -86,8 +88,8 @@ struct NameParamsIn
 
 struct NameParamsOut
 {
-  /// In case when primary name is empty it will be propagated from secondary and secondary will be
-  /// cleared. In case when primary name contains secondary name then secondary will be cleared.
+  /// If GetPrimary() is empty, the secondary name is promoted to primary and cleared.
+  /// A secondary name contained in GetPrimary() is cleared.
   std::string_view primary, secondary;
   std::string transliterated;
 
@@ -99,8 +101,12 @@ struct NameParamsOut
   int8_t primaryLang = StringUtf8Multilang::kUnsupportedLanguageCode;
   int8_t secondaryLang = StringUtf8Multilang::kUnsupportedLanguageCode;
 
-  /// Call this fuction to get primary name when allowTranslit == true.
-  std::string_view GetPrimary() const { return (!primary.empty() ? primary : std::string_view(transliterated)); }
+  /// Returns the borrowed primary name or the owned transliteration.
+  std::string_view GetPrimary() const
+  {
+    ASSERT(primary.empty() || transliterated.empty(), (primary, transliterated));
+    return !primary.empty() ? primary : std::string_view(transliterated);
+  }
 
   void Clear()
   {
@@ -144,13 +150,6 @@ void GetPreferredNames(NameParamsIn const & in, NameParamsOut & out);
 /// - default name;
 /// - country language name.
 void GetReadableName(NameParamsIn const & in, NameParamsOut & out);
-
-/// Returns language id as return result and name for search on booking in the @name parameter,
-///  the priority is the following:
-/// - default name;
-/// - country language name;
-/// - english name.
-// int8_t GetNameForSearchOnBooking(RegionData const & regionData, StringUtf8Multilang const & src, std::string & name);
 
 /// Returns preferred name when only the device language is available.
 bool GetPreferredName(StringUtf8Multilang const & src, int8_t deviceLang, std::string_view & out);
