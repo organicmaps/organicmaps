@@ -37,7 +37,7 @@ UNIT_TEST(WaterGenerator_RealOsmRiver)
   std::map<uint64_t, P> nodes;
   water::Record record;
   record.m_kind = water::Kind::Line;
-  SourceReader source("./generator/generator_tests/data/water_routing_real.osm");
+  SourceReader source(GetPlatform().TestsDataPathForFile("test_data/osm/water_routing_real.osm"));
   ProcessOsmElementsFromXML(source, [&](OsmElement && element)
   {
     if (element.IsNode())
