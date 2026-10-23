@@ -32,6 +32,19 @@ RouterResultCode WaterRouter::CalculateRoute(Checkpoints const & checkpoints, m2
                                       i == 1 && checkpoints.IsStartMyPosition(), cancelled, path);
     if (code == water::ResultCode::Cancelled)
       return RouterResultCode::Cancelled;
+    if (code == water::ResultCode::OutsideWater)
+    {
+      water::Path membership;
+      auto const startOutside = !(i == 1 && checkpoints.IsStartMyPosition()) &&
+                                water::FindPath(geometry, checkpointsPoints[i - 1], checkpointsPoints[i - 1], false,
+                                                cancelled, membership) == water::ResultCode::OutsideWater;
+      if (cancelled())
+        return RouterResultCode::Cancelled;
+      if (startOutside)
+        return i == 1 ? RouterResultCode::StartPointNotFound : RouterResultCode::IntermediatePointNotFound;
+      return i + 1 == checkpointsPoints.size() ? RouterResultCode::EndPointNotFound
+                                               : RouterResultCode::IntermediatePointNotFound;
+    }
     if (code != water::ResultCode::Success)
       return RouterResultCode::RouteNotFound;
     if (points.empty())

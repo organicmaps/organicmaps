@@ -251,7 +251,7 @@ UNIT_TEST(Water_ExcessiveGeometryIsUnavailable)
 {
   Geometry geometry;
   geometry.m_complete = true;
-  geometry.m_triangles.resize(5000);
+  geometry.m_triangles.resize(17000);
   Path path;
   TEST(FindPath(geometry, P(0, 0), P(1, 1), false, kNeverCancelled, path) == ResultCode::Unavailable, ());
 }
@@ -320,7 +320,7 @@ UNIT_TEST(Water_UnknownGapAndUnknownFrontierAreRejected)
   TEST(path.m_points.empty(), ());
 }
 
-UNIT_TEST(Water_SurfaceVisibilityRemainsBounded)
+UNIT_TEST(Water_LocalPathDoesNotBuildUnrelatedVisibilityEdges)
 {
   Geometry geometry;
   geometry.m_complete = true;
@@ -332,7 +332,81 @@ UNIT_TEST(Water_SurfaceVisibilityRemainsBounded)
     geometry.m_triangles.push_back({a, c, d});
   }
   Path path;
-  TEST(FindPath(geometry, P(0, 0), P(0, 0.5), false, kNeverCancelled, path) == ResultCode::Unavailable, ());
+  TEST(FindPath(geometry, P(0, 0), P(0, 0.5), false, kNeverCancelled, path) == ResultCode::Success, ());
+  TEST_EQUAL(path.m_landDistance, 0.0, ());
+  CheckAccounting(path);
+}
+
+UNIT_TEST(Water_LongPathInNarrowCoverage)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  geometry.m_bounds = m2::RectD(0, -1, 10, 1);
+  Rectangle(geometry, 0, -1, 10, 1);
+  Path path;
+  TEST(FindPath(geometry, P(0.5, 0), P(9.5, 0), false, kNeverCancelled, path) == ResultCode::Success, ());
+  TEST_EQUAL(path.m_points.size(), 2, ());
+  TEST_EQUAL(path.m_landDistance, 0.0, ());
+}
+
+UNIT_TEST(Water_LongIslandDetourInNarrowCoverage)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  geometry.m_bounds = m2::RectD(0, -1, 10, 1);
+  for (auto const x : {0.0, 6.0})
+  {
+    Rectangle(geometry, x, -1, x + 4, -0.5);
+    Rectangle(geometry, x, -0.5, x + 4, 0.5);
+    Rectangle(geometry, x, 0.5, x + 4, 1);
+  }
+  Rectangle(geometry, 4, -1, 6, -0.5);
+  Rectangle(geometry, 4, 0.5, 6, 1);
+  Path path;
+  TEST(FindPath(geometry, P(0.5, 0), P(9.5, 0), false, kNeverCancelled, path) == ResultCode::Success, ());
+  TEST_GREATER(path.m_points.size(), 2, ());
+  TEST_EQUAL(path.m_landDistance, 0.0, ());
+  CheckAccounting(path);
+}
+
+UNIT_TEST(Water_IndexedVisibilityHandlesCancellationNearZero)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  Rectangle(geometry, -2, 0, 1e-16, 1);
+  Rectangle(geometry, 1e-16, 0, 2, 1);
+  geometry.m_triangleIndex = std::make_shared<m4::Tree<size_t>>();
+  for (size_t i = 0; i < geometry.m_triangles.size(); ++i)
+  {
+    m2::RectD bounds;
+    for (auto const & point : geometry.m_triangles[i])
+      bounds.Add(point);
+    geometry.m_triangleIndex->Add(i, bounds);
+  }
+  Path path;
+  TEST(FindPath(geometry, P(-1, 0.5), P(1, 0.5), false, kNeverCancelled, path) == ResultCode::Success, ());
+  TEST_EQUAL(path.m_points.size(), 2, ());
+  CheckAccounting(path);
+}
+
+UNIT_TEST(Water_IndexedVisibilityDoesNotBridgeThinLand)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  geometry.m_hasSourceTopology = false;
+  Rectangle(geometry, -2, 0, -1e-15, 1);
+  Rectangle(geometry, 1e-15, 0, 2, 1);
+  geometry.m_triangleIndex = std::make_shared<m4::Tree<size_t>>();
+  for (size_t i = 0; i < geometry.m_triangles.size(); ++i)
+  {
+    m2::RectD bounds;
+    for (auto const & point : geometry.m_triangles[i])
+      bounds.Add(point);
+    geometry.m_triangleIndex->Add(i, bounds);
+  }
+  Path path;
+  TEST(FindPath(geometry, P(-1, 0.5), P(1, 0.5), false, kNeverCancelled, path) == ResultCode::Unavailable, ());
+  TEST(path.m_points.empty(), ());
 }
 
 UNIT_TEST(Water_InteriorMeshDoesNotExhaustVisibilityBudget)

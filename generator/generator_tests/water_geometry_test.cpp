@@ -205,6 +205,13 @@ UNIT_TEST(WaterGenerator_StandardMwmPreservesIslandsWithoutInventingRiverJoins)
   auto const local = pointProvider.GetGeometry(routing::Checkpoints(point, point), delegate);
   TEST_LESS(mercator::DistanceOnEarth(pointBounds.LeftBottom(), pointBounds.RightTop()), 150.0, ());
   TEST(FindPath(local, point, point, false, neverCancelled, path) == ResultCode::Success, ());
+  routing::WaterGeometryProvider nearBorder(data,
+                                            [](auto const &, auto const & bounds) { return bounds.minX() >= 0.499; });
+  auto const near = nearBorder.GetGeometry(routing::Checkpoints(point, P(0.5005, 1.5)), delegate);
+  TEST(near.m_complete, ());
+  TEST(near.m_bounds.has_value(), ());
+  TEST_GREATER_OR_EQUAL(near.m_bounds->minX(), 0.499, ());
+  TEST(FindPath(near, point, P(0.5005, 1.5), false, neverCancelled, path) == ResultCode::Success, ());
 }
 
 UNIT_TEST(WaterGenerator_UnrelatedCityFeaturesDoNotExhaustWaterBudget)
