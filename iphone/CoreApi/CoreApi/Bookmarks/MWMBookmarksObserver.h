@@ -7,6 +7,8 @@ NS_SWIFT_NAME(BookmarksObserver)
 @protocol MWMBookmarksObserver <NSObject>
 @optional
 - (void)onBookmarksLoadFinished;
+/// Includes category, bookmark and track edits, as well as intermediate file-loading changes.
+- (void)onBookmarksChanged;
 - (void)onBookmarksFileLoadSuccess;
 - (void)onBookmarksFileLoadError;
 - (void)onBookmarksCategoryDeleted:(MWMMarkGroupID)groupId;
