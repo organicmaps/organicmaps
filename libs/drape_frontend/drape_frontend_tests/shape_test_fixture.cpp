@@ -133,6 +133,13 @@ void ShapeTestFixture::AddShape(drape_ptr<MapShape> && shape)
   shape->Draw(make_ref(m_context), make_ref(m_batcher), make_ref(m_texMng));
 }
 
+void ShapeTestFixture::AddUserLines(TileKey const & tileKey, TracksSource const & source,
+                                    UserLinesRenderCollection const & renderParams)
+{
+  CHECK(m_batcher != nullptr, ("Call Init() before AddUserLines()"));
+  CacheUserLines(make_ref(m_context), tileKey, make_ref(m_texMng), source, renderParams, *m_batcher);
+}
+
 void ShapeTestFixture::Flush()
 {
   CHECK(m_batcher != nullptr, ("Call Init() before Flush()"));
@@ -152,15 +159,15 @@ void ShapeTestFixture::Render()
 
   // Coordinate pipeline:
   //   world coords -> ToShapeVertex2: (world - tileCenter) * kShapeCoordScalar -> shape coords
-  //   shape coords -> modelView -> pixel coords (1 unit = 1 pixel from center)
+  //   shape coords -> modelView -> pixel coords (m_worldToPixelScale pixels per world unit)
   //   pixel coords -> projection -> NDC [-1, 1]
   float const halfW = static_cast<float>(m_width) / 2.0f;
   float const halfH = static_cast<float>(m_height) / 2.0f;
-  float const invScale = 1.0f / static_cast<float>(kShapeCoordScalar);
+  float const modelViewScale = m_worldToPixelScale / static_cast<float>(kShapeCoordScalar);
 
   gpu::MapProgramParams params;
-  params.m_modelView = glsl::mat4(invScale, 0, 0, 0, 0, invScale, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-  params.m_projection = glsl::mat4(1.0f / halfW, 0, 0, 0, 0, 1.0f / halfH, 0, 0, 0, 0, -0.5f, 0, 0, 0, 0.5f, 1);
+  params.m_modelView = glsl::mat4(modelViewScale, 0, 0, 0, 0, modelViewScale, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  params.m_projection = glsl::mat4(1.0f / halfW, 0, 0, 0, 0, 1.0f / halfH, 0, 0, 0, 0, -0.5f, 0.5f, 0, 0, 0, 1);
   params.m_pivotTransform = glsl::mat4(1.0f);
   params.m_opacity = 1.0f;
   params.m_zScale = 1.0f;
