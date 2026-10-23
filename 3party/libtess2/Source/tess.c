@@ -594,10 +594,6 @@ TESStesselator* tessNewTess( TESSalloc* alloc )
 	if (alloc == NULL)
 		alloc = &defaulAlloc;
 
-	/* Only initialize fields which can be changed by the api.  Other fields
-	* are initialized where they are used.
-	*/
-
 	tess = (TESStesselator *)alloc->memalloc( alloc->userData, sizeof( TESStesselator ));
 	if ( tess == NULL ) {
 		return 0;          /* out of memory */
@@ -632,9 +628,15 @@ TESStesselator* tessNewTess( TESSalloc* alloc )
 		tess->alloc.regionBucketSize = 4096;
 	tess->regionPool = createBucketAlloc( &tess->alloc, "Regions",
 										 sizeof(ActiveRegion), tess->alloc.regionBucketSize );
+	if (!tess->regionPool) {
+		alloc->memfree(alloc->userData, tess);
+		return NULL;
+	}
 
 	// Initialize to begin polygon.
 	tess->mesh = NULL;
+	tess->dict = NULL;
+	tess->pq = NULL;
 
 	tess->outOfMemory = 0;
 	tess->vertexIndexCounter = 0;
@@ -652,6 +654,11 @@ void tessDeleteTess( TESStesselator *tess )
 {
 
 	struct TESSalloc alloc = tess->alloc;
+	/* Release sweep storage without traversing a potentially incomplete mesh. */
+	if (tess->dict)
+		dictDeleteDict(&alloc, tess->dict);
+	if (tess->pq)
+		pqDeletePriorityQ(&alloc, tess->pq);
 
 	deleteBucketAlloc( tess->regionPool );
 
@@ -908,6 +915,8 @@ void OutputContours( TESStesselator *tess, TESSmesh *mesh, int vertexSize )
 void tessAddContour( TESStesselator *tess, int size, const void* vertices,
 					int stride, int numVertices )
 {
+	if (tess->outOfMemory)
+		return;
 	const unsigned char *src = (const unsigned char*)vertices;
 	TESShalfEdge *e;
 	int i;
@@ -1010,10 +1019,11 @@ int tessTesselate( TESStesselator *tess, int windingRule, int elementType,
 
 	if (setjmp(tess->env) != 0) {
 		/* come back here if out of memory */
+		tess->outOfMemory = 1;
 		return 0;
 	}
 
-	if (!tess->mesh)
+	if (tess->outOfMemory || !tess->mesh)
 	{
 		return 0;
 	}
