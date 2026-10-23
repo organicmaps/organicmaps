@@ -36,7 +36,6 @@
 #include "indexer/validate_and_format_contacts.hpp"
 
 #include "routing/following_info.hpp"
-#include "routing/routing_helpers.hpp"
 #include "routing/routing_options.hpp"
 #include "routing/speed_camera_manager.hpp"
 
@@ -805,6 +804,16 @@ void CallSetRoutingLoadPointsListener(std::shared_ptr<jobject> listener, bool su
   env->CallVoidMethod(*listener, methodId, static_cast<jboolean>(success));
 }
 
+void CallRouteSimulationListener(std::shared_ptr<jobject> listener, location::GpsInfo const & info)
+{
+  JNIEnv * env = jni::GetEnv();
+  jmethodID const methodId = jni::GetMethodID(env, *listener, "onRouteSimulationLocation", "(JDDFFF)V");
+  env->CallVoidMethod(*listener, methodId, static_cast<jlong>(info.m_timestamp * 1000.0), info.m_latitude,
+                      info.m_longitude, static_cast<jfloat>(info.m_horizontalAccuracy),
+                      static_cast<jfloat>(info.HasSpeed() ? info.m_speed : -1.0),
+                      static_cast<jfloat>(info.HasBearing() ? info.m_bearing : -1.0));
+}
+
 RoutingManager::LoadRouteHandler g_loadRouteHandler;
 
 /// @name JNI EXPORTS
@@ -1316,16 +1325,19 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetRouteFollowingInfo
   return routing_jni::CreateRoutingInfo(env, info, rm);
 }
 
-JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetRouteJunctionPoints(JNIEnv * env, jclass,
-                                                                                       jdouble maxDistM)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeStartRouteSimulation(JNIEnv *, jclass)
 {
-  std::vector<geometry::PointWithAltitude> points;
-  if (!frm()->GetRoutingManager().RoutingSession().GetRouteJunctionPoints(points))
-  {
-    LOG(LWARNING, ("Can't get the route junction points"));
-    return nullptr;
-  }
-  return routing_jni::CreateJunctionInfoArray(env, routing::DensifyJunctions(points, maxDistM));
+  return static_cast<jboolean>(frm()->GetRoutingManager().StartRouteSimulation());
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeStopRouteSimulation(JNIEnv *, jclass)
+{
+  frm()->GetRoutingManager().StopRouteSimulation();
+}
+
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsRouteSimulationActive(JNIEnv *, jclass)
+{
+  return static_cast<jboolean>(frm()->GetRoutingManager().IsRouteSimulationActive());
 }
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetRouteAltitudeData(JNIEnv * env, jclass)
@@ -1417,6 +1429,12 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetRoutingLoadPointsList
         std::bind(&CallSetRoutingLoadPointsListener, jni::make_global_ref(listener), std::placeholders::_1);
   else
     g_loadRouteHandler = nullptr;
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetRouteSimulationListener(JNIEnv *, jclass, jobject listener)
+{
+  frm()->GetRoutingManager().SetRouteSimulationListener(
+      std::bind(&CallRouteSimulationListener, jni::make_global_ref(listener), std::placeholders::_1));
 }
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeDeactivatePopup(JNIEnv * env, jclass)

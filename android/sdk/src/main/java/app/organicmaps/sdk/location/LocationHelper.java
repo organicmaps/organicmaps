@@ -3,13 +3,13 @@ package app.organicmaps.sdk.location;
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
-import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.SystemClock;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresPermission;
@@ -20,7 +20,6 @@ import androidx.core.location.LocationManagerCompat;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Map;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
-import app.organicmaps.sdk.routing.JunctionInfo;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.NetworkPolicy;
@@ -58,8 +57,6 @@ public class LocationHelper implements BaseLocationProvider.Listener
   private final LocationProviderFactory mLocationProviderFactory = new LocationProviderFactory();
   @NonNull
   private BaseLocationProvider mLocationProvider;
-  @Nullable
-  private BaseLocationProvider mOldLocationProvider;
   private long mInterval;
   private boolean mInFirstRun;
   private boolean mActive;
@@ -151,7 +148,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
     return mActive;
   }
 
-  private void notifyLocationUpdated()
+  private void notifyListeners()
   {
     if (mSavedLocation == null)
       throw new IllegalStateException("No saved location");
@@ -162,6 +159,11 @@ public class LocationHelper implements BaseLocationProvider.Listener
     mListenersIterator.rewind();
     while (mListenersIterator.hasNext())
       mListenersIterator.next().onLocationUpdated(mSavedLocation);
+  }
+
+  private void notifyLocationUpdated()
+  {
+    notifyListeners();
 
     // If we are still in the first run mode, i.e. user is staying on the first run screens,
     // not on the map, we mustn't post location update to the core. Only this preserving allows us
@@ -205,6 +207,10 @@ public class LocationHelper implements BaseLocationProvider.Listener
       Logger.w(TAG, "Provider is not active");
       return;
     }
+
+    // Real fixes would interleave with the simulated ones.
+    if (Framework.nativeIsRouteSimulationActive())
+      return;
 
     if (!LocationUtils.isAccuracySatisfied(location))
     {
@@ -265,28 +271,30 @@ public class LocationHelper implements BaseLocationProvider.Listener
     mLocationProvider.start(mInterval);
   }
 
-  // RouteSimulationProvider doesn't really require location permissions.
-  @SuppressLint("MissingPermission")
-  public void startNavigationSimulation(JunctionInfo[] points)
+  public void subscribeToRouteSimulation()
   {
-    Logger.i(TAG);
-    mOldLocationProvider = mLocationProvider;
-    mLocationProvider.stop();
-    mLocationProvider = new RouteSimulationProvider(mContext, this, points);
-    mActive = true;
-    mLocationProvider.start(mInterval);
+    Framework.nativeSetRouteSimulationListener(this::onRouteSimulationLocation);
   }
 
-  @SuppressLint("MissingPermission")
-  public void stopNavigationSimulation()
+  // The core already processed this fix: LocationState would apply it twice and feed it to GpsTracker.
+  @UiThread
+  private void onRouteSimulationLocation(long timeMs, double lat, double lon, float accuracy, float speed,
+                                         float bearing)
   {
-    Logger.i(TAG);
-    mLocationProvider.stop();
-    if (mOldLocationProvider == null)
-      throw new IllegalStateException("Should be called only after startNavigationSimulation()");
-    mLocationProvider = mOldLocationProvider;
-    mActive = true;
-    mLocationProvider.start(mInterval);
+    final Location location = new Location(LocationUtils.FUSED_PROVIDER);
+    location.setLatitude(lat);
+    location.setLongitude(lon);
+    location.setAccuracy(accuracy);
+    if (speed >= 0)
+      location.setSpeed(speed);
+    if (bearing >= 0)
+      location.setBearing(bearing);
+    location.setTime(timeMs);
+    location.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
+
+    mSavedLocation = location;
+    mMyPosition = null;
+    notifyListeners();
   }
 
   @Override
