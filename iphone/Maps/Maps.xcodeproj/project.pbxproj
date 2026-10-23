@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00A2630ADA97EB2C42945272 /* NavigationDashboardViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE938673CC3D8E7866C20B8 /* NavigationDashboardViewControllerTests.swift */; };
 		0F13484A0000000000000002 /* UITableViewCell+SeparatorInset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F13484A0000000000000001 /* UITableViewCell+SeparatorInset.swift */; };
 		11E2F6F34E5F12298C3E2AC0 /* NoGpsSensorsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3EB65C13D5083F5AFA02C8 /* NoGpsSensorsViewController.swift */; };
 		165953742CB1D85500CFED7C /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 165953732CB1D83700CFED7C /* fonts */; };
@@ -1851,6 +1852,7 @@
 		FAF9DDA22A86DC54000D7037 /* libharfbuzz.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libharfbuzz.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFF42291347F101009BBB14 /* World.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = World.mwm; path = ../../data/World.mwm; sourceTree = "<group>"; };
 		FB3EB65C13D5083F5AFA02C8 /* NoGpsSensorsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoGpsSensorsViewController.swift; sourceTree = "<group>"; };
+		FEE938673CC3D8E7866C20B8 /* NavigationDashboardViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDashboardViewControllerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2056,6 +2058,15 @@
 			path = NoGps;
 			sourceTree = "<group>";
 		};
+		94259BB25B4527D4BA08E88E /* NavigationDashboardTests */ = {
+			isa = PBXGroup;
+			children = (
+				FEE938673CC3D8E7866C20B8 /* NavigationDashboardViewControllerTests.swift */,
+			);
+			name = NavigationDashboardTests;
+			path = NavigationDashboardTests;
+			sourceTree = "<group>";
+		};
 		A1000000000000000000001C /* MapTiles */ = {
 			isa = PBXGroup;
 			children = (
@@ -2254,6 +2265,7 @@
 			children = (
 				E79F77A472014212B40FDE97 /* PlacePageTests */,
 				ED810EC32D566E7600ECDE2C /* SearchOnMapTests */,
+				94259BB25B4527D4BA08E88E /* NavigationDashboardTests */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -5102,6 +5114,7 @@
 				EDF838C42C00B9D6007E4E67 /* FileManagerMock.swift in Sources */,
 				EDBAB6F52E980421007962B5 /* GeoNavigationToOMURLConverterTests.swift in Sources */,
 				ED914332300168CF0081DF0B /* CarPlaySceneDelegateTests.swift in Sources */,
+				00A2630ADA97EB2C42945272 /* NavigationDashboardViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
