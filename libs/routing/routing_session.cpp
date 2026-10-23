@@ -92,6 +92,34 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint, ReadyCallback c
     m_lastResult->m_routes.resize(1);
     m_lastResult->m_activeIdx = 0;
   }
+
+  // The router reports most failures only to these callbacks. A rebuild without them keeps the current route when it
+  // fails, otherwise the session stays in RouteRebuilding: not followed and never rebuilt again.
+  NeedMoreMapsCallback onNeedMoreMaps = needMoreMapsCallback;
+  RemoveRouteCallback onRemoveRoute = removeRouteCallback;
+  if (routeRebuildingState == SessionState::RouteRebuilding)
+  {
+    // Counted as passed when the car left the route.
+    double const passedM =
+        m_state == SessionState::RouteNeedRebuild ? m_route->GetCurrentDistanceFromBeginMeters() : 0.0;
+    auto const keepRoute = [this, passedM]()
+    {
+      // The car may have come back to the route or reached its finish meanwhile.
+      if (m_state != SessionState::RouteRebuilding)
+        return;
+      // As a rebuilt route: not started until the car is matched to it, left after kOnRouteMissedCount positions away
+      // from it. The next attempt is not announced again.
+      m_passedDistanceOnRouteMeters -= passedM;
+      m_moveAwayCounter = 0;
+      m_lastDistance = 0.0;
+      --m_routingRebuildCount;
+      SetState(IsRouteValid() ? SessionState::RouteNotStarted : SessionState::NoValidRoute);
+    };
+    if (!onNeedMoreMaps)
+      onNeedMoreMaps = [keepRoute](uint64_t, std::set<std::string> const &) { keepRoute(); };
+    if (!onRemoveRoute)
+      onRemoveRoute = [keepRoute](RouterResultCode) { keepRoute(); };
+  }
   SetState(routeRebuildingState);
 
   ++m_routingRebuildCount;
@@ -107,7 +135,7 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint, ReadyCallback c
   {
     AssignRoute(result, code);
     readyCallback(result ? *result : RoutesResult{}, code);
-  }, needMoreMapsCallback, removeRouteCallback, m_progressCallback, timeoutSec);
+  }, onNeedMoreMaps, onRemoveRoute, m_progressCallback, timeoutSec);
 }
 
 m2::PointD RoutingSession::GetEndPoint() const
@@ -753,6 +781,12 @@ bool RoutingSession::EnableFollowMode()
   if (m_state == SessionState::RouteNotStarted || m_state == SessionState::OnRoute)
   {
     SetState(SessionState::OnRoute);
+    m_isFollowing = true;
+  }
+  // The rebuild ends with the new route or keeps this one, either is followed then. The core rebuilds a route by itself
+  // before the user starts, e.g. from a mark of the navigation without GPS.
+  else if (m_state == SessionState::RouteRebuilding && IsRouteValid())
+  {
     m_isFollowing = true;
   }
   return m_isFollowing;
