@@ -333,23 +333,72 @@ final class CarPlayServiceTests: XCTestCase {
     XCTAssertEqual(stack.readCount, 1)
   }
 
-  func testTrackDeletionRefreshesCategoryCounts() throws {
+  func testTrackDeletionRefreshesCategoryCountsDuringLoading() throws {
     let category = try importBookmarkFixture(trackCount: 1)
+    let batch = try makeBookmarkImportBatch()
     let template = ListTemplateBuilder.buildListTemplate(for: .bookmarkLists)
     let stack = MockTemplateStack(templates: [template])
     bookmarkListObserver = CarPlayBookmarkListObserver(templates: stack.readTemplates, popTo: stack.pop)
     let manager = BookmarksManager.shared()
     let trackId = try XCTUnwrap(manager.trackIds(forCategory: category.categoryId).first)
     XCTAssertEqual(category.trackCount, 1)
+    let imported = expectation(description: "Both bookmark files imported")
+    let observer = BookmarksLoadObserver()
+    var loadedFileCount = 0
+    observer.onFileLoaded = {
+      XCTAssertFalse(manager.areBookmarksLoaded())
+      loadedFileCount += 1
+      if loadedFileCount == 1 {
+        // The second file's success follows the deletion refresh on the main queue.
+        manager.loadBookmarkFile(batch.urls[1])
+        manager.deleteTrack(trackId.uint64Value)
+      } else {
+        XCTAssertEqual(stack.readCount, 1)
+        XCTAssertEqual(category.trackCount, 0)
+        let item = try? self.categoryListItem(for: category, in: template)
+        XCTAssertEqual(item?.detailText, category.placesCountTitle())
+      }
+    }
+    observer.onFinished = { imported.fulfill() }
+    manager.add(observer)
+    defer { manager.remove(observer) }
 
-    manager.deleteTrack(trackId.uint64Value)
+    manager.loadBookmarkFile(batch.urls[0])
+    wait(for: [imported], timeout: 5)
     waitForBookmarkRefresh()
 
-    XCTAssertEqual(category.trackCount, 0)
-    XCTAssertEqual(try categoryListItem(for: category, in: template).detailText, category.placesCountTitle())
+    XCTAssertEqual(loadedFileCount, 2)
+    XCTAssertEqual(stack.readCount, 2)
   }
 
   func testBookmarkImportBatchRefreshesOnce() throws {
+    let manager = BookmarksManager.shared()
+    let batch = try makeBookmarkImportBatch()
+    let template = ListTemplateBuilder.buildListTemplate(for: .bookmarkLists)
+    let stack = MockTemplateStack(templates: [template])
+    bookmarkListObserver = CarPlayBookmarkListObserver(templates: stack.readTemplates, popTo: stack.pop)
+    let imported = expectation(description: "Both bookmark files imported")
+    let observer = BookmarksLoadObserver()
+    var queuedSecondFile = false
+    // File success arrives while loading is active, so the next file joins the same batch.
+    observer.onFileLoaded = {
+      guard !queuedSecondFile else { return }
+      queuedSecondFile = true
+      manager.loadBookmarkFile(batch.urls[1])
+    }
+    observer.onFinished = { imported.fulfill() }
+    manager.add(observer)
+    defer { manager.remove(observer) }
+
+    manager.loadBookmarkFile(batch.urls[0])
+    wait(for: [imported], timeout: 5)
+    waitForBookmarkRefresh()
+
+    XCTAssertEqual(stack.readCount, 1)
+    XCTAssertEqual(template.sections.flatMap(\.items).filter { $0.text?.hasPrefix(batch.prefix) == true }.count, 2)
+  }
+
+  private func makeBookmarkImportBatch() throws -> (prefix: String, urls: [URL]) {
     let manager = BookmarksManager.shared()
     let prefix = "CarPlayBatch-\(UUID().uuidString)"
     let urls = try (0 ..< 2).map { index -> URL in
@@ -373,28 +422,7 @@ final class CarPlayServiceTests: XCTestCase {
         try FileManager.default.removeItem(at: url)
       }
     }
-    let template = ListTemplateBuilder.buildListTemplate(for: .bookmarkLists)
-    let stack = MockTemplateStack(templates: [template])
-    bookmarkListObserver = CarPlayBookmarkListObserver(templates: stack.readTemplates, popTo: stack.pop)
-    let imported = expectation(description: "Both bookmark files imported")
-    let observer = BookmarksLoadObserver()
-    var queuedSecondFile = false
-    // File success arrives while loading is active, so the next file joins the same batch.
-    observer.onFileLoaded = {
-      guard !queuedSecondFile else { return }
-      queuedSecondFile = true
-      manager.loadBookmarkFile(urls[1])
-    }
-    observer.onFinished = { imported.fulfill() }
-    manager.add(observer)
-    defer { manager.remove(observer) }
-
-    manager.loadBookmarkFile(urls[0])
-    wait(for: [imported], timeout: 5)
-    waitForBookmarkRefresh()
-
-    XCTAssertEqual(stack.readCount, 1)
-    XCTAssertEqual(template.sections.flatMap(\.items).filter { $0.text?.hasPrefix(prefix) == true }.count, 2)
+    return (prefix, urls)
   }
 
   private func importBookmarkFixture(bookmarkCount: Int = 1, trackCount: Int = 0) throws -> BookmarkGroup {
