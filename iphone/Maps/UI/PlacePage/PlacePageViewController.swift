@@ -82,7 +82,6 @@ final class PlacePageScrollView: UIScrollView {
     super.viewWillDisappear(animated)
     currentScrollContentOffset = scrollView.contentOffset
     isVisible = false
-    interactor?.viewWillDisappear()
   }
 
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
