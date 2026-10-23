@@ -8,8 +8,28 @@ context without hitting the GitHub API every time.
 
 - `fetch_issues.py` — fetch/refresh the database from the GitHub REST API
 - `search_issues.py` — token-overlap search over titles and bodies
-- `issues.jsonl` — one issue per line (created on first run; git-ignored)
-- `fetch_state.json` — cursor for incremental updates (git-ignored)
+- `db.py` — shared cache location, migration, and update lock
+- `issues.jsonl` — one issue per line (stored in the shared cache directory)
+- `fetch_state.json` — cursor for incremental updates (stored beside the database)
+
+## Shared cache
+
+Both tools store data in `$(git rev-parse --path-format=absolute --git-common-dir)/issues_db/`.
+All worktrees of a clone use the same database and incremental cursor, regardless
+of the current working directory. Separate clones keep separate caches. The cache
+is outside the tracked working tree and is not committed.
+
+On first use, an existing `issues.jsonl` beside the invoking script is copied into
+the shared cache together with its `fetch_state.json`, if present. For a symlinked
+database, the cursor beside the symlink target is used. Existing files are left
+in place, and an existing shared database is never overwritten by migration. Run
+either tool from the worktree with the most up-to-date cache first.
+
+Set `OM_ISSUES_DB_DIR` to override the cache directory for both tools. When Git is
+unavailable or the scripts are outside a checkout, they use the script directory.
+Only one fetcher can update a cache at a time; another fetcher exits with an error.
+Searches can read the existing database while an update runs. The update lock is
+released automatically when the fetcher exits, including after a crash.
 
 ## Usage
 
@@ -37,6 +57,9 @@ python3 tools/python/issues_db/search_issues.py "crash when importing kml"
 python3 tools/python/issues_db/search_issues.py --state closed "dark mode battery"
 python3 tools/python/issues_db/search_issues.py --label bug "route waypoint"
 python3 tools/python/issues_db/search_issues.py --no-comments "route waypoint"
+
+# Run the worktree-sharing and migration tests (no network requests).
+python3 -B -m unittest discover -s tools/python/issues_db -p 'test_*.py'
 ```
 
 ## Record schema
