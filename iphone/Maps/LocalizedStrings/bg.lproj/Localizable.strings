@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Здравейте!\n\nПриложени са моите отметки; моля, отворете ги в NoGPS Maps. Ако нямате инсталирана програма, можете да я изтеглите оттук: https://github.com/Ramzess-II/NoGPSMaps\n\nНаслаждавайте се на пътуванията с NoGPS Maps!";
+"share_bookmarks_email_body" = "Здравейте!\n\nПриложени са моите отметки; моля, отворете ги в NonGPS Maps. Ако нямате инсталирана програма, можете да я изтеглите оттук: https://github.com/Ramzess-II/NoGPSMaps\n\nНаслаждавайте се на пътуванията с NonGPS Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Зареждане на отметки";
@@ -178,10 +178,10 @@
 "share_my_position" = "Тук съм на картата Organic Maps";
 
 /* Email subject when sharing a place. %1$@ is the place name or address. */
-"share_place_subject" = "%1$@ в NoGPS Maps";
+"share_place_subject" = "%1$@ в NonGPS Maps";
 
 /* Email subject when sharing a place that has no name or address. */
-"share_place_subject_default" = "Място в NoGPS Maps";
+"share_place_subject_default" = "Място в NonGPS Maps";
 
 /* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
 "share_open_in_om_or_browser" = "Отваряне в Organic Maps или в браузър";
@@ -591,7 +591,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Оператор: %@";
 "editor_category_unsuitable_title" = "Не можете да намерите подходяща категория?";
-"editor_category_unsuitable_text" = "NoGPS Maps позволява да се добавят само прости категории точки, т.е. без градове, пътища, езера, очертания на сгради и т.н. Моля, добавяйте такива категории директно в <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Вижте нашето <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">ръководство</a> за подробни инструкции стъпка по стъпка.";
+"editor_category_unsuitable_text" = "NonGPS Maps позволява да се добавят само прости категории точки, т.е. без градове, пътища, езера, очертания на сгради и т.н. Моля, добавяйте такива категории директно в <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Вижте нашето <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">ръководство</a> за подробни инструкции стъпка по стъпка.";
 "downloader_no_downloaded_maps_title" = "Не сте изтеглили никакви карти";
 "downloader_no_downloaded_maps_message" = "Изтеглете картите, от които се нуждаете, за да намирате места и да навигирате без интернет.";
 "current_location_unknown_error_title" = "Настоящото местоположение е неизвестно.";
@@ -966,10 +966,10 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/Bg:About";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "Вече използвате NoGPS Maps на екрана на телефона";
+"car_used_on_the_phone_screen" = "Вече използвате NonGPS Maps на екрана на телефона";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "Вече използвате NoGPS Maps на екрана на автомобила";
+"car_used_on_the_car_screen" = "Вече използвате NonGPS Maps на екрана на автомобила";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "Продължете в телефона";
@@ -1189,7 +1189,7 @@
 "reverse_route" = "Обърни маршрута";
 
 
-/********** NoGPS Maps **********/
+/********** NonGPS Maps **********/
 
 "nogps_manual_position" = "Set my position manually";
 

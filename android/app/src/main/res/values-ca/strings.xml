@@ -43,7 +43,7 @@
     <string name="unsupported_phone">L’aplicació requereix acceleració per maquinari OpenGL. Malauradament, el vostre aparell no ho admet.</string>
     <string name="download">Baixa</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Desconnecteu el cable USB o inseriu una targeta de memòria per a usar l’NoGPS Maps</string>
+    <string name="disconnect_usb_cable">Desconnecteu el cable USB o inseriu una targeta de memòria per a usar el NonGPS Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Allibereu espai en la targeta SD o emmagatzematge USB per a poder usar l’aplicació</string>
     <string name="download_resources">Abans d’usar l’aplicació, cal que baixeu el mapa del món general al vostre aparell. \nUsarà %s d’emmagatzematge.</string>
@@ -142,8 +142,8 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">Notes</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">S’han compartit amb vós marcadors de l’NoGPS Maps</string>
-    <string name="share_bookmarks_email_body">Hola!\n\nAdjunto els meus marcadors de l’NoGPS Maps. Obriu-los si teniu l’NoGPS Maps instal·lat. O, si no teniu l’aplicació, baixeu-la per al vostre aparell iOS o Android seguint aquest enllaç: https://github.com/Ramzess-II/NoGPSMaps\n\nGaudiu viatjant amb l’NoGPS Maps!</string>
+    <string name="share_bookmarks_email_subject">S’han compartit amb vós marcadors del NonGPS Maps</string>
+    <string name="share_bookmarks_email_body">Hola!\n\nAdjunto els meus marcadors del NonGPS Maps. Obriu-los si teniu el NonGPS Maps instal·lat. O, si no teniu l’aplicació, baixeu-la per al vostre aparell iOS o Android seguint aquest enllaç: https://github.com/Ramzess-II/NoGPSMaps\n\nGaudiu viatjant amb el NonGPS Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">S’estan carregant els marcadors</string>
     <!-- Kmz file successful loading -->
@@ -165,9 +165,9 @@
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Comparteix</string>
     <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
-    <string name="share_place_subject">%1$s a NoGPS Maps</string>
+    <string name="share_place_subject">%1$s a NonGPS Maps</string>
     <!-- Email subject when sharing a place that has no name or address. -->
-    <string name="share_place_subject_default">Un lloc a NoGPS Maps</string>
+    <string name="share_place_subject_default">Un lloc a NonGPS Maps</string>
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">Correu-e</string>
     <!-- Text for message when used successfully copied something -->
@@ -432,7 +432,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Dades de l’OpenStreetMap creades per la comunitat a data de %s. Obteniu més informació sobre com editar i actualitzar el mapa a OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) és un projecte comunitari per construir un mapa lliure i obert. És la font principal de dades de mapes a NoGPS Maps i funciona de manera similar a la Viquipèdia. Pots afegir o editar llocs i estaran disponibles per a milions d\'usuaris de tot el món.\nUneix-te a la comunitat i ajuda a crear un mapa millor per a tothom!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) és un projecte comunitari per construir un mapa lliure i obert. És la font principal de dades de mapes a NonGPS Maps i funciona de manera similar a la Viquipèdia. Pots afegir o editar llocs i estaran disponibles per a milions d\'usuaris de tot el món.\nUneix-te a la comunitat i ajuda a crear un mapa millor per a tothom!</string>
     <string name="login_to_make_edits_visible">Creeu un compte d\'OpenStreetMap o inicieu sessió per publicar les vostres edicions de mapes al món.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d/%2$d</string>
@@ -447,7 +447,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Nota per als voluntaris d\'OpenStreetMap (opcional)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Descriviu els errors al mapa o les coses que no es poden editar amb NoGPS Maps</string>
+    <string name="editor_note_hint">Descriviu els errors al mapa o les coses que no es poden editar amb NonGPS Maps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Les vostres edicions es pengen a la base de dades pública <a href="https://wiki.openstreetmap.org/wiki/Ca:About">OpenStreetMap</a>. Si us plau, no afegiu informació personal o amb drets d\'autor.</string>
     <string name="editor_more_about_osm">Més sobre l\'OpenStreetMap</string>
@@ -457,7 +457,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Operador: %s</string>
     <string name="editor_category_unsuitable_title">No trobeu una categoria adequada?</string>
-    <string name="editor_category_unsuitable_text">NoGPS Maps només permet afegir categories de punts simples, això vol dir que no hi ha ciutats, carreteres, llacs, contorns d\'edificis, etc. Si us plau, afegiu aquestes categories directament a <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulteu la nostra <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guia</a> per obtenir instruccions detallades pas a pas.</string>
+    <string name="editor_category_unsuitable_text">NonGPS Maps només permet afegir categories de punts simples, això vol dir que no hi ha ciutats, carreteres, llacs, contorns d\'edificis, etc. Si us plau, afegiu aquestes categories directament a <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulteu la nostra <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guia</a> per obtenir instruccions detallades pas a pas.</string>
     <string name="downloader_no_downloaded_maps_title">No heu baixat cap mapa</string>
     <string name="downloader_no_downloaded_maps_message">Baixeu mapes per a cercar una ubicacio i usar la navegació sense connexió.</string>
     <string name="current_location_unknown_error_title">Es desconeix la ubicació actual.</string>
@@ -772,9 +772,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">El nostre objectiu principal és crear mapes ràpids, centrats en la privadesa i fàcils d\'utilitzar que us encantaran.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">Ara esteu utilitzant NoGPS Maps a la pantalla del telèfon</string>
+    <string name="car_used_on_the_phone_screen">Ara esteu utilitzant NonGPS Maps a la pantalla del telèfon</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">Ara esteu utilitzant NoGPS Maps a la pantalla del cotxe</string>
+    <string name="car_used_on_the_car_screen">Ara esteu utilitzant NonGPS Maps a la pantalla del cotxe</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Us heu connectat a Android Auto</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -782,7 +782,7 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">A la pantalla del cotxe</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">NoGPS Maps necessita accés a la ubicació. Quan sigui segur, comproveu la notificació al telèfon.</string>
+    <string name="aa_location_permissions_request">NonGPS Maps necessita accés a la ubicació. Quan sigui segur, comproveu la notificació al telèfon.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Aquesta aplicació necessita el vostre permís</string>
     <!-- Grant Permissions button. -->

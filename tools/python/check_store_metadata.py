@@ -150,7 +150,7 @@ IOS_METADATA_LIMITS = {
 }
 IOS_URL_FILES = ('support_url.txt', 'marketing_url.txt', 'privacy_url.txt')
 
-# NoGPS Maps lists Ukrainian first on Google Play, see docs/nogps/google-play.md.
+# NonGPS Maps lists Ukrainian first on Google Play, see docs/nogps/google-play.md.
 ANDROID_DEFAULT_LANGUAGE = 'uk'
 
 # Pre-compiled path patterns dispatched by check_path().

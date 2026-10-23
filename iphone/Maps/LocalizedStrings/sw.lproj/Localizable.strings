@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Habari!\n\nNimeambatanisha alamisho zangu; tafadhali zifungue kwenye NoGPS Maps. Ikiwa haujaweka, unaweza kupakua hapa: https://github.com/Ramzess-II/NoGPSMaps\n\nFurahia kusafiri na NoGPS Maps!";
+"share_bookmarks_email_body" = "Habari!\n\nNimeambatanisha alamisho zangu; tafadhali zifungue kwenye NonGPS Maps. Ikiwa haujaweka, unaweza kupakua hapa: https://github.com/Ramzess-II/NoGPSMaps\n\nFurahia kusafiri na NonGPS Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Inapakia alamisho";
@@ -178,10 +178,10 @@
 "share_my_position" = "Niko hapa kwenye Organic Maps";
 
 /* Email subject when sharing a place. %1$@ is the place name or address. */
-"share_place_subject" = "%1$@ kwenye NoGPS Maps";
+"share_place_subject" = "%1$@ kwenye NonGPS Maps";
 
 /* Email subject when sharing a place that has no name or address. */
-"share_place_subject_default" = "Mahali kwenye NoGPS Maps";
+"share_place_subject_default" = "Mahali kwenye NonGPS Maps";
 
 /* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
 "share_open_in_om_or_browser" = "Fungua kwenye Organic Maps au kwenye kivinjari";
@@ -591,7 +591,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Mwendeshaji: %@";
 "editor_category_unsuitable_title" = "Je, huwezi kupata aina inayofaa?";
-"editor_category_unsuitable_text" = "NoGPS Maps inakuwezesha kuongeza tu aina rahisi za alama, ikimaanisha hakuna miji, barabara, maziwa, mipaka ya majengo, n.k. Tafadhali ongeza aina hizo moja kwa moja kwenye <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Angalia <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">mwongozo</a> wetu kwa maelekezo ya kina hatua kwa hatua.";
+"editor_category_unsuitable_text" = "NonGPS Maps inakuwezesha kuongeza tu aina rahisi za alama, ikimaanisha hakuna miji, barabara, maziwa, mipaka ya majengo, n.k. Tafadhali ongeza aina hizo moja kwa moja kwenye <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Angalia <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">mwongozo</a> wetu kwa maelekezo ya kina hatua kwa hatua.";
 "downloader_no_downloaded_maps_title" = "Haujapakua ramani yoyote";
 "downloader_no_downloaded_maps_message" = "Pakua ramani ili kutafuta na kuvinjari bila muunganisho.";
 "current_location_unknown_error_title" = "Mahali pa sasa halijulikani.";
@@ -723,7 +723,7 @@
 "bookmarks_text_placement_description" = "Ikiwa kuna alamisho nyingi sana, kuonyesha majina yao kwenye ramani kunaweza kupunguza kasi ya programu.";
 "show_to_the_right" = "Onyesha upande wa kulia";
 "show_at_the_bottom" = "Onyesha chini";
-"enable_logging_warning_message" = "Chaguo huwasha data kwa madhumuni ya uchunguzi. Itakuwa muhimu kwa wafanyakazi wetu ambao wanatatua matatizo ya programu. Washa chaguo hili kwa maombi ya mhudumu wa Organic Maps tu.";
+"enable_logging_warning_message" = "Chaguo huwasha data kwa madhumuni ya uchunguzi. Itakuwa muhimu kwa wafanyakazi wetu ambao wanatatua matatizo ya programu. Washa chaguo hili kwa maombi ya mhudumu wa NonGPS Maps tu.";
 
 /* Driving profile in routing options settings. */
 "routing_options_driving" = "Kwa gari";
@@ -899,7 +899,7 @@
 "switch_to_phone_bookmarks_carplay" = "Badili utumie simu ili kuona alamisho zote";
 "speedcams_alert_title_carplay_1" = "Kam za kasi";
 "speedcams_alert_title_carplay_2" = "Onyo la kasi";
-"download_map_carplay" = "Tafadhali pakua ramani katika programu tumizi ya Organic Maps kwenye kifaa chako";
+"download_map_carplay" = "Tafadhali pakua ramani katika programu tumizi ya NonGPS Maps kwenye kifaa chako";
 "carplay_roundabout_exit" = "Kutoka kwa %@";
 
 /* iOS */
@@ -966,10 +966,10 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "Sasa unatumia NoGPS Maps kwenye skrini ya simu";
+"car_used_on_the_phone_screen" = "Sasa unatumia NonGPS Maps kwenye skrini ya simu";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "Sasa unatumia NoGPS Maps kwenye skrini ya gari";
+"car_used_on_the_car_screen" = "Sasa unatumia NonGPS Maps kwenye skrini ya gari";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "Endelea kwenye simu";
@@ -1189,7 +1189,7 @@
 "reverse_route" = "Geuza mwelekeo wa njia";
 
 
-/********** NoGPS Maps **********/
+/********** NonGPS Maps **********/
 
 "nogps_manual_position" = "Set my position manually";
 

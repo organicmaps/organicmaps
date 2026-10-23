@@ -43,7 +43,7 @@
     <string name="unsupported_phone">Hårdvaruaccelererad OpenGL krävs. Din enhet stöds tyvärr inte.</string>
     <string name="download">Ladda ner</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Vänligen koppla ifrån USB-kabeln eller sätt in ett minneskort för att använda NoGPS Maps</string>
+    <string name="disconnect_usb_cable">Vänligen koppla ifrån USB-kabeln eller sätt in ett minneskort för att använda NonGPS Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Vänligen frigör utrymme på SD-kortet/USB-lagringen först för att använda appen</string>
     <string name="download_resources">Innan du börjar, ladda gärna ner den översiktliga världskartan på din enhet. \nDen behöver %s lagringsutrymme.</string>
@@ -142,8 +142,8 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">Anteckningar</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">NoGPS Maps bokmärken har delats med dig</string>
-    <string name="share_bookmarks_email_body">Hej! \n \nJag bifogar mina bokmärken, öppna gärna dem med NoGPS Maps. Om du inte redan har appen installerad, kan du ladda ner den här: https://github.com/Ramzess-II/NoGPSMaps \n \nTrevlig resa med NoGPS Maps!</string>
+    <string name="share_bookmarks_email_subject">NonGPS Maps bokmärken har delats med dig</string>
+    <string name="share_bookmarks_email_body">Hej! \n \nJag bifogar mina bokmärken, öppna gärna dem med NonGPS Maps. Om du inte redan har appen installerad, kan du ladda ner den här: https://github.com/Ramzess-II/NoGPSMaps \n \nTrevlig resa med NonGPS Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Läser in bokmärken</string>
     <!-- Kmz file successful loading -->
@@ -165,9 +165,9 @@
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Dela</string>
     <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
-    <string name="share_place_subject">%1$s på NoGPS Maps</string>
+    <string name="share_place_subject">%1$s på NonGPS Maps</string>
     <!-- Email subject when sharing a place that has no name or address. -->
-    <string name="share_place_subject_default">En plats på NoGPS Maps</string>
+    <string name="share_place_subject_default">En plats på NonGPS Maps</string>
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">E-post</string>
     <!-- Text for message when used successfully copied something -->
@@ -432,7 +432,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Community-skapade OpenStreetMap-data från och med %s. Läs mer om hur du redigerar och uppdaterar kartan på OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) är ett community-projekt för att bygga en fri och öppen karta. Det är den huvudsakliga källan till kartdata i NoGPS Maps och fungerar på samma sätt som Wikipedia. Du kan lägga till eller redigera platser och de blir tillgängliga för miljontals användare över hela världen.\nGå med i samhället och hjälp till att skapa en bättre karta för alla!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) är ett community-projekt för att bygga en fri och öppen karta. Det är den huvudsakliga källan till kartdata i NonGPS Maps och fungerar på samma sätt som Wikipedia. Du kan lägga till eller redigera platser och de blir tillgängliga för miljontals användare över hela världen.\nGå med i samhället och hjälp till att skapa en bättre karta för alla!</string>
     <string name="login_to_make_edits_visible">Skapa ett OpenStreetMap-konto eller logga in för att publicera dina kartredigeringar till hela världen.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d av %2$d</string>
@@ -447,7 +447,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Meddelande till OpenStreetMap-volontärer (valfritt)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Beskriv fel på kartan eller saker som inte kan redigeras med NoGPS Maps</string>
+    <string name="editor_note_hint">Beskriv fel på kartan eller saker som inte kan redigeras med NonGPS Maps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Dina redigeringar laddas upp till den offentliga <a href="https://wiki.openstreetmap.org/wiki/Sv:Om_OpenStreetMap">OpenStreetMap</a>-databasen. Lägg inte till personlig eller upphovsrättsskyddad information.</string>
     <string name="editor_more_about_osm">Mer om OpenStreetMap</string>
@@ -457,7 +457,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Operatör: %s</string>
     <string name="editor_category_unsuitable_title">Hittar du ingen lämplig kategori?</string>
-    <string name="editor_category_unsuitable_text">NoGPS Maps tillåter endast att lägga till enkla punktkategorier, det betyder inga städer, vägar, sjöar, byggnadskonturer etc. Lägg till sådana kategorier direkt till <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Kontrollera vår <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> för detaljerade steg-för-steg-instruktioner.</string>
+    <string name="editor_category_unsuitable_text">NonGPS Maps tillåter endast att lägga till enkla punktkategorier, det betyder inga städer, vägar, sjöar, byggnadskonturer etc. Lägg till sådana kategorier direkt till <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Kontrollera vår <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> för detaljerade steg-för-steg-instruktioner.</string>
     <string name="downloader_no_downloaded_maps_title">Du har inte laddat ner några kartor</string>
     <string name="downloader_no_downloaded_maps_message">Ladda ner kartor för att hitta platsen och navigera offline.</string>
     <string name="current_location_unknown_error_title">Den nuvarande platsen är okänd.</string>
@@ -610,7 +610,7 @@
     <string name="bookmarks_text_placement_description">Om det finns för många bokmärken kan det göra appen långsammare att visa namnen på dem på kartan.</string>
     <string name="show_to_the_right">Visa till höger</string>
     <string name="show_at_the_bottom">Visa längst ner</string>
-    <string name="enable_logging_warning_message">Aktivera denna funktion för att logga detaljer för diagnostiska ändamål. Detta hjälper utvecklarna att identifiera problem med appen. Slå på funktionen endast på begäran av Organic Maps supporttjänst.</string>
+    <string name="enable_logging_warning_message">Aktivera denna funktion för att logga detaljer för diagnostiska ändamål. Detta hjälper utvecklarna att identifiera problem med appen. Slå på funktionen endast på begäran av NonGPS Maps supporttjänst.</string>
     <!-- Driving profile in routing options settings. -->
     <string name="routing_options_driving">Bil</string>
     <!-- Cycling profile in routing options settings. -->
@@ -766,9 +766,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">Vårt huvudmål är att bygga snabba, integritetsfokuserade, lättanvända kartor som du kommer att älska.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">Du använder nu NoGPS Maps på telefonens skärm</string>
+    <string name="car_used_on_the_phone_screen">Du använder nu NonGPS Maps på telefonens skärm</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">Du använder nu NoGPS Maps på bilskärmen</string>
+    <string name="car_used_on_the_car_screen">Du använder nu NonGPS Maps på bilskärmen</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Du är ansluten till Android Auto</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -776,7 +776,7 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Till bilens skärm</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">NoGPS Maps behöver platsåtkomst. När det är säkert kan du kontrollera aviseringen på din telefon.</string>
+    <string name="aa_location_permissions_request">NonGPS Maps behöver platsåtkomst. När det är säkert kan du kontrollera aviseringen på din telefon.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Denna app behöver ditt tillstånd</string>
     <!-- Grant Permissions button. -->

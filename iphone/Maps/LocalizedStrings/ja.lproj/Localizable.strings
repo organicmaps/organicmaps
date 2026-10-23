@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "こんにちは！\n\n添付ファイルNoGPS Mapsのお気に入りリストです。もしインストールされていない場合はここからダウンロードができます： https://github.com/Ramzess-II/NoGPSMaps\n\n旅行を楽しむときはNoGPS Mapsを使用してください!";
+"share_bookmarks_email_body" = "こんにちは！\n\n添付ファイルNonGPS Mapsのお気に入りリストです。もしインストールされていない場合はここからダウンロードができます： https://github.com/Ramzess-II/NoGPSMaps\n\n旅行を楽しむときはNonGPS Mapsを使用してください!";
 
 /* message title of loading file */
 "load_kmz_title" = "お気に入りをロード中";
@@ -178,10 +178,10 @@
 "share_my_position" = "Organic Mapsでここにいます";
 
 /* Email subject when sharing a place. %1$@ is the place name or address. */
-"share_place_subject" = "%1$@ - NoGPS Maps";
+"share_place_subject" = "%1$@ - NonGPS Maps";
 
 /* Email subject when sharing a place that has no name or address. */
-"share_place_subject_default" = "NoGPS Mapsの場所";
+"share_place_subject_default" = "NonGPS Mapsの場所";
 
 /* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
 "share_open_in_om_or_browser" = "Organic Mapsまたはブラウザーで開く";
@@ -591,7 +591,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "運営者: %@";
 "editor_category_unsuitable_title" = "適切なカテゴリーが見つからない？";
-"editor_category_unsuitable_text" = "NoGPS Maps このアプリでは、シンプルな地点カテゴリのみを追加できます。つまり、町、道路、湖、建物の輪郭などは追加できません。そのようなカテゴリは、<a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>に直接追加してください。詳細な手順については、<a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">ガイド</a>をご確認ください。";
+"editor_category_unsuitable_text" = "NonGPS Maps このアプリでは、シンプルな地点カテゴリのみを追加できます。つまり、町、道路、湖、建物の輪郭などは追加できません。そのようなカテゴリは、<a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>に直接追加してください。詳細な手順については、<a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">ガイド</a>をご確認ください。";
 "downloader_no_downloaded_maps_title" = "マップをダウンロードしていません";
 "downloader_no_downloaded_maps_message" = "ロケーションの検索とオフラインナビゲートのためにマップをダウンロードしてください。";
 "current_location_unknown_error_title" = "現在地は不明です。";
@@ -723,7 +723,7 @@
 "bookmarks_text_placement_description" = "ブックマークが多すぎる場合、地図上にブックマーク名を表示すると、アプリの動作が遅くなることがあります。";
 "show_to_the_right" = "右に表示";
 "show_at_the_bottom" = "下部に表示";
-"enable_logging_warning_message" = "このオプションは診断目的でのデータ記録を有効にします。これはこのアプリケーションのトラブルシューティングを担当する当社のサポートスタッフの助けになります。このオプションはOrganic Mapsにリクエストされた場合にのみ有効にしてください。";
+"enable_logging_warning_message" = "このオプションは診断目的でのデータ記録を有効にします。これはこのアプリケーションのトラブルシューティングを担当する当社のサポートスタッフの助けになります。このオプションはNonGPS Mapsにリクエストされた場合にのみ有効にしてください。";
 
 /* Driving profile in routing options settings. */
 "routing_options_driving" = "車";
@@ -899,7 +899,7 @@
 "switch_to_phone_bookmarks_carplay" = "携帯電話に切り替えてすべてのブックマークを見る";
 "speedcams_alert_title_carplay_1" = "速度警告";
 "speedcams_alert_title_carplay_2" = "速度警告";
-"download_map_carplay" = "端末のOrganic Mapsのアプリにマップをダウンロードしてください";
+"download_map_carplay" = "端末のNonGPS Mapsのアプリにマップをダウンロードしてください";
 "carplay_roundabout_exit" = "第%@出口";
 
 /* iOS */
@@ -966,10 +966,10 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/JA:参加する";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "端末の画面でNoGPS Mapsを使用している";
+"car_used_on_the_phone_screen" = "端末の画面でNonGPS Mapsを使用している";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "現在、車の画面でNoGPS Mapsをご利用中です";
+"car_used_on_the_car_screen" = "現在、車の画面でNonGPS Mapsをご利用中です";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "電話で続ける";
@@ -1189,7 +1189,7 @@
 "reverse_route" = "ルートを逆にする";
 
 
-/********** NoGPS Maps **********/
+/********** NonGPS Maps **********/
 
 "nogps_manual_position" = "Set my position manually";
 

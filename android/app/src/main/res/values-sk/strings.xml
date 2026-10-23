@@ -43,7 +43,7 @@
     <string name="unsupported_phone">Je vyžadovaná hardwarová akcelerácia OpenGL. Bohužial, vaše zariadenie nie je podporované.</string>
     <string name="download">Stiahnuť</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">Prosím, odpojte USB kábel alebo vložte pamäťovú kartu pre použitie s NoGPS Maps</string>
+    <string name="disconnect_usb_cable">Prosím, odpojte USB kábel alebo vložte pamäťovú kartu pre použitie s NonGPS Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">Prosím, uvoľnite najprv miesto na SD karte/USB úložisku</string>
     <string name="download_resources">Skôr ako začnete, bude treba stiahnuť základnú mapu sveta.\nZaberie to %s.</string>
@@ -142,8 +142,8 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">Poznámky</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">Zdielané záložky NoGPS Maps</string>
-    <string name="share_bookmarks_email_body">Ahoj!\n\nV prílohe sú moje záložky z aplikácie NoGPS Maps. Ak ju nemáš nainštalovanú, môžeš si ju stiahnuť tu: https://github.com/Ramzess-II/NoGPSMaps\n\nPrajem šťastnú cestu s NoGPS Maps!</string>
+    <string name="share_bookmarks_email_subject">Zdielané záložky NonGPS Maps</string>
+    <string name="share_bookmarks_email_body">Ahoj!\n\nV prílohe sú moje záložky z aplikácie NonGPS Maps. Ak ju nemáš nainštalovanú, môžeš si ju stiahnuť tu: https://github.com/Ramzess-II/NoGPSMaps\n\nPrajem šťastnú cestu s NonGPS Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Načítavanie záložiek</string>
     <!-- Kmz file successful loading -->
@@ -165,9 +165,9 @@
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">Zdieľať</string>
     <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
-    <string name="share_place_subject">%1$s v NoGPS Maps</string>
+    <string name="share_place_subject">%1$s v NonGPS Maps</string>
     <!-- Email subject when sharing a place that has no name or address. -->
-    <string name="share_place_subject_default">Miesto v NoGPS Maps</string>
+    <string name="share_place_subject_default">Miesto v NonGPS Maps</string>
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">E-mail</string>
     <!-- Text for message when used successfully copied something -->
@@ -432,7 +432,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">Údaje OpenStreetMap vytvorené komunitou od %s. Viac informácií o tom, ako upravovať a aktualizovať mapu, nájdete na stránke OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) je komunitný projekt na vytvorenie bezplatnej a otvorenej mapy. Je hlavným zdrojom mapových údajov v službe NoGPS Maps a funguje podobne ako Wikipédia. Môžete pridávať alebo upravovať miesta a tie sa stanú dostupnými pre milióny používateľov na celom svete.\nPridajte sa ku komunite a pomôžte vytvoriť lepšiu mapu pre všetkých!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) je komunitný projekt na vytvorenie bezplatnej a otvorenej mapy. Je hlavným zdrojom mapových údajov v službe NonGPS Maps a funguje podobne ako Wikipédia. Môžete pridávať alebo upravovať miesta a tie sa stanú dostupnými pre milióny používateľov na celom svete.\nPridajte sa ku komunite a pomôžte vytvoriť lepšiu mapu pre všetkých!</string>
     <string name="login_to_make_edits_visible">Vytvorte si účet OpenStreetMap alebo sa prihláste a zverejnite svoje úpravy mapy na celom svete.</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d z %2$d</string>
@@ -447,7 +447,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">Poznámka pre dobrovoľníkov OpenStreetMap (nepovinné)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">Popíšte chyby na mape alebo veci, ktoré nie je možné upravovať, na adrese NoGPS Maps</string>
+    <string name="editor_note_hint">Popíšte chyby na mape alebo veci, ktoré nie je možné upravovať, na adrese NonGPS Maps</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">Vaše úpravy sa nahrajú do verejnej databázy <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a>. Prosím, nepridávajte osobné informácie alebo informácie chránené autorskými právami.</string>
     <string name="editor_more_about_osm">Viac o OpenStreetMap</string>
@@ -457,7 +457,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Prevádzkovateľ: %s</string>
     <string name="editor_category_unsuitable_title">Nemôžete nájsť vhodnú kategóriu?</string>
-    <string name="editor_category_unsuitable_text">NoGPS Maps umožňuje pridávať iba jednoduché kategórie bodov, čo znamená, že nie sú k dispozícii mestá, cesty, jazerá, obrysy budov atď. Takéto kategórie prosím pridávajte priamo na <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Podrobné pokyny krok za krokom nájdete v našom <a href="https://organicmaps.app/faq/editing/advanced-map-editing">návode</a>.</string>
+    <string name="editor_category_unsuitable_text">NonGPS Maps umožňuje pridávať iba jednoduché kategórie bodov, čo znamená, že nie sú k dispozícii mestá, cesty, jazerá, obrysy budov atď. Takéto kategórie prosím pridávajte priamo na <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Podrobné pokyny krok za krokom nájdete v našom <a href="https://organicmaps.app/faq/editing/advanced-map-editing">návode</a>.</string>
     <string name="downloader_no_downloaded_maps_title">Neprevzali ste žiadne mapy</string>
     <string name="downloader_no_downloaded_maps_message">Prevziať mapy na nájdenie pozície a navigovanie off-line.</string>
     <string name="current_location_unknown_error_title">Súčasná pozícia je neznáma.</string>
@@ -761,9 +761,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">Naším hlavným cieľom je vytvárať rýchle, na súkromie, ľahko použiteľné mapy, ktoré si zamilujete.</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">Na obrazovke telefónu teraz používate službu NoGPS Maps</string>
+    <string name="car_used_on_the_phone_screen">Na obrazovke telefónu teraz používate službu NonGPS Maps</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">Na obrazovke auta teraz používate službu NoGPS Maps</string>
+    <string name="car_used_on_the_car_screen">Na obrazovke auta teraz používate službu NonGPS Maps</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">Ste pripojení k službe Android Auto</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -771,7 +771,7 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Na obrazovku auta</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">Služba NoGPS Maps potrebuje prístup k polohe. Keď je to bezpečné, skontrolujte oznámenie na telefóne.</string>
+    <string name="aa_location_permissions_request">Služba NonGPS Maps potrebuje prístup k polohe. Keď je to bezpečné, skontrolujte oznámenie na telefóne.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Táto aplikácia potrebuje vaše povolenie</string>
     <!-- Grant Permissions button. -->

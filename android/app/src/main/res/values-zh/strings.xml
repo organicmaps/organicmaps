@@ -43,7 +43,7 @@
     <string name="unsupported_phone">该应用程序需要硬件加速的 OpenGL。很遗憾，您的设备不受支持。</string>
     <string name="download">下载</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">请拔除 USB 线或插入 SD 卡以使用 NoGPS Maps</string>
+    <string name="disconnect_usb_cable">请拔除 USB 线或插入 SD 卡以使用 NonGPS Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">请先释放一些 SD 卡 / USB 存储空间以使用本应用</string>
     <string name="download_resources">在您开始使用此应用程序之前，请下载全球地图到您的设备。\n它将使用 %s 的存储空间。</string>
@@ -142,8 +142,8 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">注释</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">已与您分享 NoGPS Maps 书签</string>
-    <string name="share_bookmarks_email_body">您好！\n\n附件是我的书签，请在 NoGPS Maps 中打开。如果您没有安装 NoGPS Maps，可以在这里下载: https://github.com/Ramzess-II/NoGPSMaps\n\n祝您使用 NoGPS Maps 旅行愉快！</string>
+    <string name="share_bookmarks_email_subject">已与您分享 NonGPS Maps 书签</string>
+    <string name="share_bookmarks_email_body">您好！\n\n附件是我的书签，请在 NonGPS Maps 中打开。如果您没有安装 NonGPS Maps，可以在这里下载: https://github.com/Ramzess-II/NoGPSMaps\n\n祝您使用 NonGPS Maps 旅行愉快！</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">正在加载书签</string>
     <!-- Kmz file successful loading -->
@@ -165,9 +165,9 @@
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">分享</string>
     <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
-    <string name="share_place_subject">%1$s - NoGPS Maps</string>
+    <string name="share_place_subject">%1$s - NonGPS Maps</string>
     <!-- Email subject when sharing a place that has no name or address. -->
-    <string name="share_place_subject_default">NoGPS Maps 上的地点</string>
+    <string name="share_place_subject_default">NonGPS Maps 上的地点</string>
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">电子邮件</string>
     <!-- Text for message when used successfully copied something -->
@@ -432,7 +432,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">截至 %s 的社区创建的 OpenStreetMap 数据。请访问 OpenStreetMap.org 详细了解如何编辑和更新地图</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org（OSM）是一个构建自由开放地图的社区项目。它是 NoGPS Maps 地图数据的主要来源，其工作原理类似于维基百科。您可以添加或编辑地点，全世界数以百万计的用户都可以使用它们！\n加入社区，共同完善地图数据，造福每个人！</string>
+    <string name="login_osm_presentation">OpenStreetMap.org（OSM）是一个构建自由开放地图的社区项目。它是 NonGPS Maps 地图数据的主要来源，其工作原理类似于维基百科。您可以添加或编辑地点，全世界数以百万计的用户都可以使用它们！\n加入社区，共同完善地图数据，造福每个人！</string>
     <string name="login_to_make_edits_visible">创建 OpenStreetMap 账号或登录，向全世界发布您编辑的地图。</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d / %2$d</string>
@@ -447,7 +447,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">OpenStreetMap 志愿者须知（可选）</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">描述地图上的错误或无法使用 NoGPS Maps 编辑的内容</string>
+    <string name="editor_note_hint">描述地图上的错误或无法使用 NonGPS Maps 编辑的内容</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">您的编辑内容将上传到公共<a href="https://wiki.openstreetmap.org/wiki/Zh-hans:关于">OpenStreetMap</a>数据库。请勿添加个人或受版权保护的信息。</string>
     <string name="editor_more_about_osm">关于 OpenStreetMap 的更多信息</string>
@@ -457,7 +457,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">运营方: %s</string>
     <string name="editor_category_unsuitable_title">找不到合适的类别？</string>
-    <string name="editor_category_unsuitable_text">NoGPS Maps 只允许添加简单的点类别，即无法添加城镇、道路、湖泊、建筑轮廓等类别。请直接向 <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> 添加此类类别。请查看我们的<a href="https://organicmaps.app/faq/editing/advanced-map-editing">指南</a>，了解详细的步骤说明。</string>
+    <string name="editor_category_unsuitable_text">NonGPS Maps 只允许添加简单的点类别，即无法添加城镇、道路、湖泊、建筑轮廓等类别。请直接向 <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> 添加此类类别。请查看我们的<a href="https://organicmaps.app/faq/editing/advanced-map-editing">指南</a>，了解详细的步骤说明。</string>
     <string name="downloader_no_downloaded_maps_title">您尚未下载任何地图</string>
     <string name="downloader_no_downloaded_maps_message">下载地图来查找位置和离线浏览。</string>
     <string name="current_location_unknown_error_title">当前位置未知。</string>
@@ -767,9 +767,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">我们的主要目标是构建您会喜欢的快速、注重隐私、易于使用的地图。</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">您现在正在手机屏幕上使用 NoGPS Maps</string>
+    <string name="car_used_on_the_phone_screen">您现在正在手机屏幕上使用 NonGPS Maps</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">您现在正在汽车屏幕上使用 NoGPS Maps</string>
+    <string name="car_used_on_the_car_screen">您现在正在汽车屏幕上使用 NonGPS Maps</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">您已连接到 Android Auto</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -777,7 +777,7 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">转到汽车屏幕</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">NoGPS Maps 需要位置访问权限。在安全的情况下，请查看手机上的通知。</string>
+    <string name="aa_location_permissions_request">NonGPS Maps 需要位置访问权限。在安全的情况下，请查看手机上的通知。</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">此应用程序需要您的许可</string>
     <!-- Grant Permissions button. -->

@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "สวัสดีครับ\n\nแนบมาด้วยบุ๊กมาร์กของผม; กรุณาเปิดใน NoGPS Maps หากคุณยังไม่ได้ติดตั้ง คุณสามารถดาวน์โหลดได้ที่นี่: https://github.com/Ramzess-II/NoGPSMaps\n\nขอให้สนุกกับการเดินทางด้วย NoGPS Maps!";
+"share_bookmarks_email_body" = "สวัสดีครับ\n\nแนบมาด้วยบุ๊กมาร์กของผม; กรุณาเปิดใน NonGPS Maps หากคุณยังไม่ได้ติดตั้ง คุณสามารถดาวน์โหลดได้ที่นี่: https://github.com/Ramzess-II/NoGPSMaps\n\nขอให้สนุกกับการเดินทางด้วย NonGPS Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "กำลังโหลดบุ๊กมาร์ก";
@@ -178,10 +178,10 @@
 "share_my_position" = "ฉันอยู่ที่นี่บน Organic Maps";
 
 /* Email subject when sharing a place. %1$@ is the place name or address. */
-"share_place_subject" = "%1$@ บน NoGPS Maps";
+"share_place_subject" = "%1$@ บน NonGPS Maps";
 
 /* Email subject when sharing a place that has no name or address. */
-"share_place_subject_default" = "สถานที่บน NoGPS Maps";
+"share_place_subject_default" = "สถานที่บน NonGPS Maps";
 
 /* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
 "share_open_in_om_or_browser" = "เปิดใน Organic Maps หรือในเบราว์เซอร์";
@@ -591,7 +591,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "ตัวดำเนินการ: %@";
 "editor_category_unsuitable_title" = "ไม่พบหมวดหมู่ที่เหมาะสมใช่ไหม?";
-"editor_category_unsuitable_text" = "NoGPS Maps อนุญาตให้เพิ่มหมวดหมู่จุดแบบง่ายเท่านั้น ซึ่งหมายถึงไม่สามารถเพิ่มเมือง ถนน ทะเลสาบ เส้นขอบอาคาร ฯลฯ ได้ กรุณาเพิ่มหมวดหมู่ดังกล่าวโดยตรงที่ <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> โปรดตรวจสอบ<a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">คู่มือ</a>ของเราสำหรับคำแนะนำแบบละเอียดทีละขั้นตอน";
+"editor_category_unsuitable_text" = "NonGPS Maps อนุญาตให้เพิ่มหมวดหมู่จุดแบบง่ายเท่านั้น ซึ่งหมายถึงไม่สามารถเพิ่มเมือง ถนน ทะเลสาบ เส้นขอบอาคาร ฯลฯ ได้ กรุณาเพิ่มหมวดหมู่ดังกล่าวโดยตรงที่ <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> โปรดตรวจสอบ<a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">คู่มือ</a>ของเราสำหรับคำแนะนำแบบละเอียดทีละขั้นตอน";
 "downloader_no_downloaded_maps_title" = "คุณยังไม่ได้ดาวน์โหลดแผนที่";
 "downloader_no_downloaded_maps_message" = "ดาวน์โหลดแผนที่เพื่อค้นหาสถานที่ และนำทางแบบออฟไลน์";
 "current_location_unknown_error_title" = "ไม่ทราบชื่อของที่ตั้งปัจจุบัน";
@@ -723,7 +723,7 @@
 "bookmarks_text_placement_description" = "หากมีบุ๊กมาร์กมากเกินไป การแสดงชื่อของบุ๊กมาร์กบนแผนที่อาจทำให้แอปทำงานช้าลง";
 "show_to_the_right" = "แสดงทางขวา";
 "show_at_the_bottom" = "แสดงที่ด้านล่าง";
-"enable_logging_warning_message" = "ออปชันเพื่อเปิดการบันทึกประวัติการทำงานเพื่อการวินิจฉัย ประวัติดังกล่าวอาจเป็นประโยชน์กับทีมงานช่วยเหลือของเราที่คอยจัดการกับปัญหาที่เจอระหว่างแอปทำงาน โปรดเปิดออปชันดังกล่าวจากการร้องข้อการสนับสนุนจาก Organic Maps เท่านั้น";
+"enable_logging_warning_message" = "ออปชันเพื่อเปิดการบันทึกประวัติการทำงานเพื่อการวินิจฉัย ประวัติดังกล่าวอาจเป็นประโยชน์กับทีมงานช่วยเหลือของเราที่คอยจัดการกับปัญหาที่เจอระหว่างแอปทำงาน โปรดเปิดออปชันดังกล่าวจากการร้องข้อการสนับสนุนจาก NonGPS Maps เท่านั้น";
 
 /* Driving profile in routing options settings. */
 "routing_options_driving" = "ขับรถ";
@@ -899,7 +899,7 @@
 "switch_to_phone_bookmarks_carplay" = "สลับไปที่โทรศัพท์เพื่อดูบุ๊กมาร์กทั้งหมด";
 "speedcams_alert_title_carplay_1" = "จับความเร็ว";
 "speedcams_alert_title_carplay_2" = "เตือนความเร็ว";
-"download_map_carplay" = "โปรดดาวน์โหลดแผนที่ในแอพฯ Organic Maps บนอุปกรณ์ของคุณ";
+"download_map_carplay" = "โปรดดาวน์โหลดแผนที่ในแอพฯ NonGPS Maps บนอุปกรณ์ของคุณ";
 "carplay_roundabout_exit" = "ทางออกที่ %@";
 
 /* iOS */
@@ -966,10 +966,10 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "ขณะนี้คุณกำลังใช้ NoGPS Maps บนหน้าจอโทรศัพท์";
+"car_used_on_the_phone_screen" = "ขณะนี้คุณกำลังใช้ NonGPS Maps บนหน้าจอโทรศัพท์";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "ขณะนี้คุณกำลังใช้ NoGPS Maps บนหน้าจอรถยนต์";
+"car_used_on_the_car_screen" = "ขณะนี้คุณกำลังใช้ NonGPS Maps บนหน้าจอรถยนต์";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "ดำเนินการต่อบนโทรศัพท์";
@@ -1189,7 +1189,7 @@
 "reverse_route" = "กลับทิศทางเส้นทาง";
 
 
-/********** NoGPS Maps **********/
+/********** NonGPS Maps **********/
 
 "nogps_manual_position" = "Set my position manually";
 

@@ -43,7 +43,7 @@
     <string name="unsupported_phone">จำเป็นต้องใช้ฮาร์ดแวร์ที่เพิ่มความเร็ว OpenGL โชคไม่ดีที่อุปกรณ์ของคุณไม่รองรับ</string>
     <string name="download">ดาวน์โหลด</string>
     <!-- Used in DownloadResources startup screen -->
-    <string name="disconnect_usb_cable">โปรดยกเลิกการเชื่อมต่อสาย USB หรือใส่การ์ดหน่วยความจำเพื่อใช้ NoGPS Maps</string>
+    <string name="disconnect_usb_cable">โปรดยกเลิกการเชื่อมต่อสาย USB หรือใส่การ์ดหน่วยความจำเพื่อใช้ NonGPS Maps</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">โปรดเพิ่มพื้นที่บางส่วนบนการ์ด SD /พื้นที่จัดเก็บ USB ก่อนเพื่อใช้แอป</string>
     <string name="download_resources">ก่อนที่คุณจะเริ่มต้น โปรดให้เราดาวน์โหลดแผนที่โลกลงในอุปกรณ์ของคุณ\nจำเป็นต้องใช้ %s ของข้อมูล</string>
@@ -142,8 +142,8 @@
     <!-- Notes field in Bookmarks view -->
     <string name="description">บันทึก</string>
     <!-- Email Subject when sharing bookmark list -->
-    <string name="share_bookmarks_email_subject">แชร์บุ๊กมาร์กของ NoGPS Maps แล้ว</string>
-    <string name="share_bookmarks_email_body">สวัสดีครับ\n\nแนบมาด้วยบุ๊กมาร์กของผม; กรุณาเปิดใน NoGPS Maps หากคุณยังไม่ได้ติดตั้ง คุณสามารถดาวน์โหลดได้ที่นี่: https://github.com/Ramzess-II/NoGPSMaps\n\nขอให้สนุกกับการเดินทางด้วย NoGPS Maps!</string>
+    <string name="share_bookmarks_email_subject">แชร์บุ๊กมาร์กของ NonGPS Maps แล้ว</string>
+    <string name="share_bookmarks_email_body">สวัสดีครับ\n\nแนบมาด้วยบุ๊กมาร์กของผม; กรุณาเปิดใน NonGPS Maps หากคุณยังไม่ได้ติดตั้ง คุณสามารถดาวน์โหลดได้ที่นี่: https://github.com/Ramzess-II/NoGPSMaps\n\nขอให้สนุกกับการเดินทางด้วย NonGPS Maps!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">กำลังโหลดบุ๊กมาร์ก</string>
     <!-- Kmz file successful loading -->
@@ -165,9 +165,9 @@
     <!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
     <string name="share">แชร์</string>
     <!-- Email subject when sharing a place. %1$@ is the place name or address. -->
-    <string name="share_place_subject">%1$s บน NoGPS Maps</string>
+    <string name="share_place_subject">%1$s บน NonGPS Maps</string>
     <!-- Email subject when sharing a place that has no name or address. -->
-    <string name="share_place_subject_default">สถานที่บน NoGPS Maps</string>
+    <string name="share_place_subject_default">สถานที่บน NonGPS Maps</string>
     <!-- Share by email button text, also used in editor and About. -->
     <string name="email">อีเมล</string>
     <!-- Text for message when used successfully copied something -->
@@ -432,7 +432,7 @@
     <!-- Text in About and OSM Login screens. First %@ is replaced by a local, human readable date. -->
     <string name="osm_presentation">ข้อมูล OpenStreetMap ที่สร้างโดยชุมชน ณ %s เรียนรู้เพิ่มเติมเกี่ยวกับวิธีแก้ไขและอัปเดตแผนที่ได้ที่ OpenStreetMap.org</string>
     <!-- OSM explanation on Android login screen -->
-    <string name="login_osm_presentation">OpenStreetMap.org (OSM) เป็นโครงการของชุมชนเพื่อสร้างแผนที่ที่เสรีและเปิดกว้าง นี่คือแหล่งข้อมูลแผนที่หลักใน NoGPS Maps และทำงานคล้ายกับวิกิพีเดีย คุณสามารถเพิ่มหรือแก้ไขสถานที่ต่าง ๆ ได้ และสิ่งที่คุณทำจะพร้อมใช้งานสำหรับผู้ใช้หลายล้านคนทั่วโลก\nเข้าร่วมชุมชนและช่วยสร้างแผนที่ที่ดีขึ้นสำหรับทุกคน!</string>
+    <string name="login_osm_presentation">OpenStreetMap.org (OSM) เป็นโครงการของชุมชนเพื่อสร้างแผนที่ที่เสรีและเปิดกว้าง นี่คือแหล่งข้อมูลแผนที่หลักใน NonGPS Maps และทำงานคล้ายกับวิกิพีเดีย คุณสามารถเพิ่มหรือแก้ไขสถานที่ต่าง ๆ ได้ และสิ่งที่คุณทำจะพร้อมใช้งานสำหรับผู้ใช้หลายล้านคนทั่วโลก\nเข้าร่วมชุมชนและช่วยสร้างแผนที่ที่ดีขึ้นสำหรับทุกคน!</string>
     <string name="login_to_make_edits_visible">สร้างบัญชี OpenStreetMap หรือเข้าสู่ระบบเพื่อเผยแพร่การแก้ไขแผนที่ของคุณไปทั่วโลก</string>
     <!-- Downloaded 10 **of** 20 <- it is that "of" -->
     <string name="downloader_of">%1$d จาก %2$d</string>
@@ -447,7 +447,7 @@
     <!-- Title for OSM note section in the editor -->
     <string name="editor_other_info">หมายเหตุถึงอาสาสมัคร OpenStreetMap (ไม่บังคับ)</string>
     <!-- Hint of the input field in the OSM note section of the editor -->
-    <string name="editor_note_hint">อธิบายข้อผิดพลาดบนแผนที่หรือสิ่งที่ไม่สามารถแก้ไขได้ด้วยเครื่องมือแก้ไขแผนที่สาธารณะ (NoGPS Maps)</string>
+    <string name="editor_note_hint">อธิบายข้อผิดพลาดบนแผนที่หรือสิ่งที่ไม่สามารถแก้ไขได้ด้วยเครื่องมือแก้ไขแผนที่สาธารณะ (NonGPS Maps)</string>
     <!-- Information about OSM at the top of the editing page -->
     <string name="editor_about_osm">การแก้ไขของคุณจะถูกอัปโหลดไปยังฐานข้อมูล <a href="https://wiki.openstreetmap.org/wiki/About_OpenStreetMap">OpenStreetMap</a> สาธารณะ กรุณาอย่าเพิ่มข้อมูลส่วนบุคคลหรือข้อมูลที่มีลิขสิทธิ์</string>
     <string name="editor_more_about_osm">ข้อมูลเพิ่มเติมเกี่ยวกับ OpenStreetMap</string>
@@ -457,7 +457,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">ตัวดำเนินการ: %s</string>
     <string name="editor_category_unsuitable_title">ไม่พบหมวดหมู่ที่เหมาะสมใช่ไหม?</string>
-    <string name="editor_category_unsuitable_text">NoGPS Maps อนุญาตให้เพิ่มหมวดหมู่จุดแบบง่ายเท่านั้น ซึ่งหมายถึงไม่สามารถเพิ่มเมือง ถนน ทะเลสาบ เส้นขอบอาคาร ฯลฯ ได้ กรุณาเพิ่มหมวดหมู่ดังกล่าวโดยตรงที่ <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> โปรดตรวจสอบ<a href="https://organicmaps.app/faq/editing/advanced-map-editing">คู่มือ</a>ของเราสำหรับคำแนะนำแบบละเอียดทีละขั้นตอน</string>
+    <string name="editor_category_unsuitable_text">NonGPS Maps อนุญาตให้เพิ่มหมวดหมู่จุดแบบง่ายเท่านั้น ซึ่งหมายถึงไม่สามารถเพิ่มเมือง ถนน ทะเลสาบ เส้นขอบอาคาร ฯลฯ ได้ กรุณาเพิ่มหมวดหมู่ดังกล่าวโดยตรงที่ <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> โปรดตรวจสอบ<a href="https://organicmaps.app/faq/editing/advanced-map-editing">คู่มือ</a>ของเราสำหรับคำแนะนำแบบละเอียดทีละขั้นตอน</string>
     <string name="downloader_no_downloaded_maps_title">คุณยังไม่ได้ดาวน์โหลดแผนที่</string>
     <string name="downloader_no_downloaded_maps_message">ดาวน์โหลดแผนที่เพื่อค้นหาสถานที่ และนำทางแบบออฟไลน์</string>
     <string name="current_location_unknown_error_title">ไม่ทราบชื่อของที่ตั้งปัจจุบัน</string>
@@ -609,7 +609,7 @@
     <string name="bookmarks_text_placement_description">หากมีบุ๊กมาร์กมากเกินไป การแสดงชื่อของบุ๊กมาร์กบนแผนที่อาจทำให้แอปทำงานช้าลง</string>
     <string name="show_to_the_right">แสดงทางขวา</string>
     <string name="show_at_the_bottom">แสดงที่ด้านล่าง</string>
-    <string name="enable_logging_warning_message">ออปชันเพื่อเปิดการบันทึกประวัติการทำงานเพื่อการวินิจฉัย ประวัติดังกล่าวอาจเป็นประโยชน์กับทีมงานช่วยเหลือของเราที่คอยจัดการกับปัญหาที่เจอระหว่างแอปทำงาน โปรดเปิดออปชันดังกล่าวจากการร้องข้อการสนับสนุนจาก Organic Maps เท่านั้น</string>
+    <string name="enable_logging_warning_message">ออปชันเพื่อเปิดการบันทึกประวัติการทำงานเพื่อการวินิจฉัย ประวัติดังกล่าวอาจเป็นประโยชน์กับทีมงานช่วยเหลือของเราที่คอยจัดการกับปัญหาที่เจอระหว่างแอปทำงาน โปรดเปิดออปชันดังกล่าวจากการร้องข้อการสนับสนุนจาก NonGPS Maps เท่านั้น</string>
     <!-- Driving profile in routing options settings. -->
     <string name="routing_options_driving">ขับรถ</string>
     <!-- Cycling profile in routing options settings. -->
@@ -759,9 +759,9 @@
     <!-- App tip #09 -->
     <string name="app_tip_09">เป้าหมายหลักของเราคือการสร้างแผนที่ที่รวดเร็ว เน้นความเป็นส่วนตัว และใช้งานง่ายที่คุณจะหลงรัก</string>
     <!-- Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen -->
-    <string name="car_used_on_the_phone_screen">ขณะนี้คุณกำลังใช้ NoGPS Maps บนหน้าจอโทรศัพท์</string>
+    <string name="car_used_on_the_phone_screen">ขณะนี้คุณกำลังใช้ NonGPS Maps บนหน้าจอโทรศัพท์</string>
     <!-- Text on the phone placeholder screen that maps are displayed on the car screen -->
-    <string name="car_used_on_the_car_screen">ขณะนี้คุณกำลังใช้ NoGPS Maps บนหน้าจอรถยนต์</string>
+    <string name="car_used_on_the_car_screen">ขณะนี้คุณกำลังใช้ NonGPS Maps บนหน้าจอรถยนต์</string>
     <!-- Displayed on the phone screen. Android Auto connected -->
     <string name="aa_connected_title">คุณเชื่อมต่อกับ Android Auto แล้ว</string>
     <!-- Displayed on the phone screen. Button to display maps on the phone screen instead of a car -->
@@ -769,7 +769,7 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">ไปที่หน้าจอรถ</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">NoGPS Maps ต้องการการเข้าถึงตำแหน่ง เมื่อปลอดภัยแล้ว โปรดตรวจสอบการแจ้งเตือนบนโทรศัพท์ของคุณ</string>
+    <string name="aa_location_permissions_request">NonGPS Maps ต้องการการเข้าถึงตำแหน่ง เมื่อปลอดภัยแล้ว โปรดตรวจสอบการแจ้งเตือนบนโทรศัพท์ของคุณ</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">แอพนี้ต้องได้รับอนุญาตจากคุณ</string>
     <!-- Grant Permissions button. -->

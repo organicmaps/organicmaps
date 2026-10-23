@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Converts the TRIP lines of a NoGPS Maps log to CSV to analyse a drive.
+"""Converts the TRIP lines of a NonGPS Maps log to CSV to analyse a drive.
 
 The navigation core writes a TRIP line every second while the location is on: the shown position, the positions
 of the platform (gps= satellites only, Android; fused= CoreLocation on iOS, Google fused on Android) and the state

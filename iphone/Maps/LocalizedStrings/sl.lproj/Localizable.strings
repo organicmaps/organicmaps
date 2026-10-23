@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Živjo!\n\nV priponki so moji zaznamki; odprite jih v NoGPS Maps. Če aplikacije nimate nameščene, jo lahko prenesete tukaj: https://github.com/Ramzess-II/NoGPSMaps\n\nUživajte v potovanju z NoGPS Maps!";
+"share_bookmarks_email_body" = "Živjo!\n\nV priponki so moji zaznamki; odprite jih v NonGPS Maps. Če aplikacije nimate nameščene, jo lahko prenesete tukaj: https://github.com/Ramzess-II/NoGPSMaps\n\nUživajte v potovanju z NonGPS Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Nalaganje zaznamkov";
@@ -178,10 +178,10 @@
 "share_my_position" = "Tukaj sem na zemljevidu Organic Maps";
 
 /* Email subject when sharing a place. %1$@ is the place name or address. */
-"share_place_subject" = "%1$@ v NoGPS Maps";
+"share_place_subject" = "%1$@ v NonGPS Maps";
 
 /* Email subject when sharing a place that has no name or address. */
-"share_place_subject_default" = "Kraj v NoGPS Maps";
+"share_place_subject_default" = "Kraj v NonGPS Maps";
 
 /* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
 "share_open_in_om_or_browser" = "Odpri v Organic Maps ali v brskalniku";
@@ -591,7 +591,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Upravljavec: %@";
 "editor_category_unsuitable_title" = "Ne najdete primerne kategorije?";
-"editor_category_unsuitable_text" = "NoGPS Maps omogoča dodajanje samo preprostih točkovnih kategorij, kar pomeni, da ni mest, cest, jezer, obrisov zgradb itd. Takšne kategorije dodajte neposredno na <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Preverite naš <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">vodnik</a> za podrobna navodila po korakih.";
+"editor_category_unsuitable_text" = "NonGPS Maps omogoča dodajanje samo preprostih točkovnih kategorij, kar pomeni, da ni mest, cest, jezer, obrisov zgradb itd. Takšne kategorije dodajte neposredno na <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Preverite naš <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">vodnik</a> za podrobna navodila po korakih.";
 "downloader_no_downloaded_maps_title" = "Niste prenesli nobenega zemljevida";
 "downloader_no_downloaded_maps_message" = "Prenesite zemljevide za iskanje in navigacijo brez povezave.";
 "current_location_unknown_error_title" = "Trenutna lokacija ni znana.";
@@ -966,10 +966,10 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "Zdaj uporabljate NoGPS Maps na zaslonu telefona";
+"car_used_on_the_phone_screen" = "Zdaj uporabljate NonGPS Maps na zaslonu telefona";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "Zdaj uporabljate NoGPS Maps na zaslonu avtomobila";
+"car_used_on_the_car_screen" = "Zdaj uporabljate NonGPS Maps na zaslonu avtomobila";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "Nadaljuj na telefonu";
@@ -1189,7 +1189,7 @@
 "reverse_route" = "Obrni pot";
 
 
-/********** NoGPS Maps **********/
+/********** NonGPS Maps **********/
 
 "nogps_manual_position" = "Set my position manually";
 

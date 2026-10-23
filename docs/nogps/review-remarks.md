@@ -1,4 +1,4 @@
-# Замечания по кодовой базе NoGPS Maps
+# Замечания по кодовой базе NonGPS Maps
 **Дата:** 17 октября 2026 г.  
 **Ветка анализа:** `feature/nogps-rough-speed-table` / `drive/2026-10-18` / `origin/master`
 

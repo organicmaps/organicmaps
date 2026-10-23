@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Hallo!\n\nIm Anhang sind meine Lesezeichen der „NoGPS Maps“-App. Du kannst sie mit NoGPS Maps öffnen. Wenn du die App nicht installiert hast, kannst du sie von https://github.com/Ramzess-II/NoGPSMaps herunterladen.\n\nViel Spaß beim Reisen mit NoGPS Maps!";
+"share_bookmarks_email_body" = "Hallo!\n\nIm Anhang sind meine Lesezeichen der „NonGPS Maps“-App. Du kannst sie mit NonGPS Maps öffnen. Wenn du die App nicht installiert hast, kannst du sie von https://github.com/Ramzess-II/NoGPSMaps herunterladen.\n\nViel Spaß beim Reisen mit NonGPS Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Lesezeichen werden geladen";
@@ -178,10 +178,10 @@
 "share_my_position" = "Ich bin hier in Organic Maps";
 
 /* Email subject when sharing a place. %1$@ is the place name or address. */
-"share_place_subject" = "%1$@ in NoGPS Maps";
+"share_place_subject" = "%1$@ in NonGPS Maps";
 
 /* Email subject when sharing a place that has no name or address. */
-"share_place_subject_default" = "Ein Ort in NoGPS Maps";
+"share_place_subject_default" = "Ein Ort in NonGPS Maps";
 
 /* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
 "share_open_in_om_or_browser" = "In Organic Maps oder im Browser öffnen";
@@ -591,7 +591,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Betreiber: %@";
 "editor_category_unsuitable_title" = "Keine passende Kategorie gefunden?";
-"editor_category_unsuitable_text" = "Mit NoGPS Maps kann man nur einfache Punktkategorien hinzufügen, daher keine Städte, Straßen, Seen, Gebäudeumrisse, etc. Bitte füge solche Kategorien direkt bei <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> hinzu. In unserem <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">Leitfaden</a> findest du eine detaillierte Schritt-für-Schritt-Anleitung.";
+"editor_category_unsuitable_text" = "Mit NonGPS Maps kann man nur einfache Punktkategorien hinzufügen, daher keine Städte, Straßen, Seen, Gebäudeumrisse, etc. Bitte füge solche Kategorien direkt bei <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a> hinzu. In unserem <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">Leitfaden</a> findest du eine detaillierte Schritt-für-Schritt-Anleitung.";
 "downloader_no_downloaded_maps_title" = "Keine Karten heruntergeladen";
 "downloader_no_downloaded_maps_message" = "Lade Karten für die Offline-Suche und Navigation herunter.";
 "current_location_unknown_error_title" = "Aktueller Standort ist unbekannt.";
@@ -966,10 +966,10 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/DE:Über_OSM";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "Du verwendest jetzt NoGPS Maps auf dem Telefondisplay";
+"car_used_on_the_phone_screen" = "Du verwendest jetzt NonGPS Maps auf dem Telefondisplay";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "Du verwendest jetzt NoGPS Maps auf dem Bildschirm des Autos";
+"car_used_on_the_car_screen" = "Du verwendest jetzt NonGPS Maps auf dem Bildschirm des Autos";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "Weiter am Telefon";
@@ -1189,7 +1189,7 @@
 "reverse_route" = "Route umkehren";
 
 
-/********** NoGPS Maps **********/
+/********** NonGPS Maps **********/
 
 "nogps_manual_position" = "Set my position manually";
 

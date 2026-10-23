@@ -19,7 +19,7 @@ using feature::Metadata;
 
 namespace
 {
-// NoGPS Maps has no web page of its own: OpenStreetMap shows the point to everyone in a browser, and
+// NonGPS Maps has no web page of its own: OpenStreetMap shows the point to everyone in a browser, and
 // the app opens such links.
 std::string GenerateOsmUrl(ms::LatLon const & ll, int zoom)
 {
@@ -147,7 +147,7 @@ Result Build(Place const & place, Strings const & strings)
   result.m_isMyPosition = place.m_isMyPosition;
   result.m_subjectBasis = !place.m_name.empty() ? place.m_name : place.m_address;
 
-  // omaps.app links open Organic Maps or its web page, not NoGPS Maps.
+  // omaps.app links open Organic Maps or its web page, not NonGPS Maps.
   result.m_url = GenerateOsmUrl(place.m_ll, place.m_zoom);
 
   std::string const geoUri = ge0::GenerateGeoUri(place.m_ll.m_lat, place.m_ll.m_lon, place.m_zoom, place.m_name);

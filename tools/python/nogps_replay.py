@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Drives a recorded trip of NoGPS Maps again in a debug build and tells what has changed.
+"""Drives a recorded trip of NonGPS Maps again in a debug build and tells what has changed.
 
 A debug build of the Android application drives the file nogps-replay-in.txt put to its folder
 (/sdcard/Android/data/<package>/files/) through a navigation of its own when it starts, and writes the trip log of

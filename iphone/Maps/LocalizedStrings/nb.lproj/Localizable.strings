@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Hei!\n\nVedlagt er mine bokmerker fra NoGPS Maps-appen. Åpne de dersom du har NoGPS Maps installert. Har du ikke har det, last ned appen til iOS eller Android ved å trykke på denne linken: https://github.com/Ramzess-II/NoGPSMaps\n\nNyt reisen med NoGPS Maps!";
+"share_bookmarks_email_body" = "Hei!\n\nVedlagt er mine bokmerker fra NonGPS Maps-appen. Åpne de dersom du har NonGPS Maps installert. Har du ikke har det, last ned appen til iOS eller Android ved å trykke på denne linken: https://github.com/Ramzess-II/NoGPSMaps\n\nNyt reisen med NonGPS Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Laster inn bokmerker";
@@ -178,10 +178,10 @@
 "share_my_position" = "Jeg er her på Organic Maps";
 
 /* Email subject when sharing a place. %1$@ is the place name or address. */
-"share_place_subject" = "%1$@ på NoGPS Maps";
+"share_place_subject" = "%1$@ på NonGPS Maps";
 
 /* Email subject when sharing a place that has no name or address. */
-"share_place_subject_default" = "Et sted på NoGPS Maps";
+"share_place_subject_default" = "Et sted på NonGPS Maps";
 
 /* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
 "share_open_in_om_or_browser" = "Åpne i Organic Maps eller i en nettleser";
@@ -591,7 +591,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Operatør: %@";
 "editor_category_unsuitable_title" = "Finner du ikke en passende kategori?";
-"editor_category_unsuitable_text" = "NoGPS Maps tillater kun å legge til enkle punktkategorier, det vil si ingen byer, veier, innsjøer, bygningsomriss osv. Vennligst legg til slike kategorier direkte til <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Sjekk vår <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guide</a> for detaljerte trinnvise instruksjoner.";
+"editor_category_unsuitable_text" = "NonGPS Maps tillater kun å legge til enkle punktkategorier, det vil si ingen byer, veier, innsjøer, bygningsomriss osv. Vennligst legg til slike kategorier direkte til <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Sjekk vår <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guide</a> for detaljerte trinnvise instruksjoner.";
 "downloader_no_downloaded_maps_title" = "Du har ikke lastet ned noen kart";
 "downloader_no_downloaded_maps_message" = "Last ned kart for å finne plasseringen og navigere frakoblet.";
 "current_location_unknown_error_title" = "Gjeldende plassering er ukjent.";
@@ -723,7 +723,7 @@
 "bookmarks_text_placement_description" = "Hvis det er for mange bokmerker, kan det gjøre appen tregere å vise navnene på dem på kartet.";
 "show_to_the_right" = "Vis til høyre";
 "show_at_the_bottom" = "Vis nederst";
-"enable_logging_warning_message" = "Alternativet slår på logging for diagnostiske formål. Det kan være nyttig for våre supportpersonale som feilsøker problemer med appen. Aktiver dette alternativet bare på forespørsel fra Organic Maps-brukerstøtte.";
+"enable_logging_warning_message" = "Alternativet slår på logging for diagnostiske formål. Det kan være nyttig for våre supportpersonale som feilsøker problemer med appen. Aktiver dette alternativet bare på forespørsel fra NonGPS Maps-brukerstøtte.";
 
 /* Driving profile in routing options settings. */
 "routing_options_driving" = "Bil";
@@ -899,7 +899,7 @@
 "switch_to_phone_bookmarks_carplay" = "Bytt til telefonen for å se alle bokmerker";
 "speedcams_alert_title_carplay_1" = "Kamera-info";
 "speedcams_alert_title_carplay_2" = "Kamera-advarsel";
-"download_map_carplay" = "Vennligst last ned kart i Organic Maps appen på enheten din";
+"download_map_carplay" = "Vennligst last ned kart i NonGPS Maps appen på enheten din";
 "carplay_roundabout_exit" = "%@ avkjøring";
 
 /* iOS */
@@ -966,10 +966,10 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "Du bruker nå NoGPS Maps på telefonskjermen";
+"car_used_on_the_phone_screen" = "Du bruker nå NonGPS Maps på telefonskjermen";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "Du bruker nå NoGPS Maps på bilskjermen";
+"car_used_on_the_car_screen" = "Du bruker nå NonGPS Maps på bilskjermen";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "Fortsett i telefonen";
@@ -1189,7 +1189,7 @@
 "reverse_route" = "Snu ruten";
 
 
-/********** NoGPS Maps **********/
+/********** NonGPS Maps **********/
 
 "nogps_manual_position" = "Set my position manually";
 

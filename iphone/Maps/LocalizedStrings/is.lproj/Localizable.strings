@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Halló!\n\nMeðfylgjandi eru bókamerkin mín; endilega opnaðu þau í NoGPS Maps forritinu. Ef þú ert ekki með það uppsett geturðu sótt það hér: https://github.com/Ramzess-II/NoGPSMaps \n\nNjóttu ferðarinnar með NoGPS Maps!";
+"share_bookmarks_email_body" = "Halló!\n\nMeðfylgjandi eru bókamerkin mín; endilega opnaðu þau í NonGPS Maps forritinu. Ef þú ert ekki með það uppsett geturðu sótt það hér: https://github.com/Ramzess-II/NoGPSMaps \n\nNjóttu ferðarinnar með NonGPS Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Hleð inn bókamerkjum";
@@ -178,10 +178,10 @@
 "share_my_position" = "Ég er hér í Organic Maps";
 
 /* Email subject when sharing a place. %1$@ is the place name or address. */
-"share_place_subject" = "%1$@ í NoGPS Maps";
+"share_place_subject" = "%1$@ í NonGPS Maps";
 
 /* Email subject when sharing a place that has no name or address. */
-"share_place_subject_default" = "Staður í NoGPS Maps";
+"share_place_subject_default" = "Staður í NonGPS Maps";
 
 /* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
 "share_open_in_om_or_browser" = "Opna í Organic Maps eða vafra";
@@ -591,7 +591,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Rekstraraðili: %@";
 "editor_category_unsuitable_title" = "Finnurðu ekki hentugan flokk?";
-"editor_category_unsuitable_text" = "NoGPS Maps leyfir aðeins að bæta við flokkum eins-punkts staða, sem þýðir engin sveitarfélagamörk, vegir, vötn, útlínur bygginga o.s.frv. Bættu slíkum atriðum beint inn í <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Skoðaðu <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">leiðbeiningarnar</a> okkar til að sjá hvernig það er gert, skref-fyrir-skref.";
+"editor_category_unsuitable_text" = "NonGPS Maps leyfir aðeins að bæta við flokkum eins-punkts staða, sem þýðir engin sveitarfélagamörk, vegir, vötn, útlínur bygginga o.s.frv. Bættu slíkum atriðum beint inn í <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Skoðaðu <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">leiðbeiningarnar</a> okkar til að sjá hvernig það er gert, skref-fyrir-skref.";
 "downloader_no_downloaded_maps_title" = "Þú hefur ekki sótt nein kort";
 "downloader_no_downloaded_maps_message" = "Sæktu landakort til að leita og rata um án nettengingar.";
 "current_location_unknown_error_title" = "Fyrirliggjandi staðsetning er óþekkt.";
@@ -966,10 +966,10 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "Þú ert núna að nota NoGPS Maps á símaskjánum";
+"car_used_on_the_phone_screen" = "Þú ert núna að nota NonGPS Maps á símaskjánum";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "Þú ert núna að nota NoGPS Maps á bílskjánum";
+"car_used_on_the_car_screen" = "Þú ert núna að nota NonGPS Maps á bílskjánum";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "Halda áfram í símanum";
@@ -1189,7 +1189,7 @@
 "reverse_route" = "Snúa leið við";
 
 
-/********** NoGPS Maps **********/
+/********** NonGPS Maps **********/
 
 "nogps_manual_position" = "Set my position manually";
 

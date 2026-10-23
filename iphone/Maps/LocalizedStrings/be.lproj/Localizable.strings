@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Вітаю!\n\nУ далучаным файле мае закладкі, яны адкрываюцца праграмай NoGPS Maps. Калі такая праграма ў вас не ўсталявана, яе можна спампаваць тут: https://github.com/Ramzess-II/NoGPSMaps\n\nПрыемных падарожжаў з NoGPS Maps!";
+"share_bookmarks_email_body" = "Вітаю!\n\nУ далучаным файле мае закладкі, яны адкрываюцца праграмай NonGPS Maps. Калі такая праграма ў вас не ўсталявана, яе можна спампаваць тут: https://github.com/Ramzess-II/NoGPSMaps\n\nПрыемных падарожжаў з NonGPS Maps!";
 
 /* message title of loading file */
 "load_kmz_title" = "Загрузка закладак";
@@ -178,10 +178,10 @@
 "share_my_position" = "Я тут на мапе Organic Maps";
 
 /* Email subject when sharing a place. %1$@ is the place name or address. */
-"share_place_subject" = "%1$@ у NoGPS Maps";
+"share_place_subject" = "%1$@ у NonGPS Maps";
 
 /* Email subject when sharing a place that has no name or address. */
-"share_place_subject_default" = "Месца ў NoGPS Maps";
+"share_place_subject_default" = "Месца ў NonGPS Maps";
 
 /* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
 "share_open_in_om_or_browser" = "Адкрыць у Organic Maps або браўзеры";
@@ -591,7 +591,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Аператар: %@";
 "editor_category_unsuitable_title" = "Няма прыдатнай катэгорыі?";
-"editor_category_unsuitable_text" = "NoGPS Maps дазваляе дадаваць на мапу толькі простыя тыпы аб'ектаў, гэта значыць без гарадоў, дарог, азёр і будынкаў. Калі ласка, дадавайце такія катэгорыі на сайце <a href=\"https://www.openstreetmap.org/\">OpenStreetMap.org </a>. Мы таксама рэкамендуем азнаёміцца з <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing/\">падрабязнымі інструкцыямі і іншымі праграмамі для рэдагавання мапы</a>.";
+"editor_category_unsuitable_text" = "NonGPS Maps дазваляе дадаваць на мапу толькі простыя тыпы аб'ектаў, гэта значыць без гарадоў, дарог, азёр і будынкаў. Калі ласка, дадавайце такія катэгорыі на сайце <a href=\"https://www.openstreetmap.org/\">OpenStreetMap.org </a>. Мы таксама рэкамендуем азнаёміцца з <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing/\">падрабязнымі інструкцыямі і іншымі праграмамі для рэдагавання мапы</a>.";
 "downloader_no_downloaded_maps_title" = "Вы не спампавалі ніводнай мапы";
 "downloader_no_downloaded_maps_message" = "Спампуйце мапы, каб шукаць месцы і карыстацца навігацыяй без інтэрнэту.";
 "current_location_unknown_error_title" = "Месцазнаходжанне невядома.";
@@ -899,7 +899,7 @@
 "switch_to_phone_bookmarks_carplay" = "Пераключыцеся на тэлефон, каб убачыць усе закладкі";
 "speedcams_alert_title_carplay_1" = "Камеры";
 "speedcams_alert_title_carplay_2" = "Папяр. аб хуткасці";
-"download_map_carplay" = "Спампуйце мапы ў праграме Organic Maps на вашай прыладзе";
+"download_map_carplay" = "Спампуйце мапы ў праграме NonGPS Maps на вашай прыладзе";
 "carplay_roundabout_exit" = "%@ з'езд";
 
 /* iOS */
@@ -966,10 +966,10 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "Вы выкарыстоўваеце NoGPS Maps на экране тэлефона";
+"car_used_on_the_phone_screen" = "Вы выкарыстоўваеце NonGPS Maps на экране тэлефона";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "Вы выкарыстоўваеце NoGPS Maps на экране аўтамабіля";
+"car_used_on_the_car_screen" = "Вы выкарыстоўваеце NonGPS Maps на экране аўтамабіля";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "Працягнуць на тэлефоне";
@@ -1189,7 +1189,7 @@
 "reverse_route" = "Развярнуць маршрут";
 
 
-/********** NoGPS Maps **********/
+/********** NonGPS Maps **********/
 
 "nogps_manual_position" = "Set my position manually";
 

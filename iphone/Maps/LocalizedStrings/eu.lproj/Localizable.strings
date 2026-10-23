@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Kaixo!\nNire markagailuak NoGPS Maps aplikazioan erantsi ditut. Mesedez, ireki itzazu NoGPS Maps instalatuta baduzu. Edo, ez baduzu, deskargatu aplikazioa zure iOS edo Android gailurako esteka hau jarraituz: https://github.com/Ramzess-II/NoGPSMaps\n\nGozatu bidaiatzen NoGPS Maps-ekin!";
+"share_bookmarks_email_body" = "Kaixo!\nNire markagailuak NonGPS Maps aplikazioan erantsi ditut. Mesedez, ireki itzazu NonGPS Maps instalatuta baduzu. Edo, ez baduzu, deskargatu aplikazioa zure iOS edo Android gailurako esteka hau jarraituz: https://github.com/Ramzess-II/NoGPSMaps\n\nGozatu bidaiatzen NonGPS Maps-ekin!";
 
 /* message title of loading file */
 "load_kmz_title" = "Markagailuak kargatzen";
@@ -178,10 +178,10 @@
 "share_my_position" = "Hemen nago Organic Maps-en";
 
 /* Email subject when sharing a place. %1$@ is the place name or address. */
-"share_place_subject" = "%1$@ NoGPS Maps-en";
+"share_place_subject" = "%1$@ NonGPS Maps-en";
 
 /* Email subject when sharing a place that has no name or address. */
-"share_place_subject_default" = "Leku bat NoGPS Maps-en";
+"share_place_subject_default" = "Leku bat NonGPS Maps-en";
 
 /* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
 "share_open_in_om_or_browser" = "Ireki Organic Maps-en edo arakatzailean";
@@ -591,7 +591,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Operadorea: %@";
 "editor_category_unsuitable_title" = "Ezin duzu kategoria egokirik aurkitu?";
-"editor_category_unsuitable_text" = "NoGPS Maps-ek puntu kategoria soilak gehitzeko aukera ematen du, hau da, ez da herririk, errepiderik, lakurik, eraikinen eskemarik, etab. Gehitu kategoria horiek zuzenean <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Begiratu gure <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">gida</a> urratsez urrats argibide zehatzak lortzeko.";
+"editor_category_unsuitable_text" = "NonGPS Maps-ek puntu kategoria soilak gehitzeko aukera ematen du, hau da, ez da herririk, errepiderik, lakurik, eraikinen eskemarik, etab. Gehitu kategoria horiek zuzenean <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Begiratu gure <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">gida</a> urratsez urrats argibide zehatzak lortzeko.";
 "downloader_no_downloaded_maps_title" = "Ez duzu maparik deskargatu";
 "downloader_no_downloaded_maps_message" = "Deskargatu mapak kokapena aurkitzeko eta lineaz kanpo nabigatzeko.";
 "current_location_unknown_error_title" = "Uneko kokapena ezezaguna da.";
@@ -723,7 +723,7 @@
 "bookmarks_text_placement_description" = "Laster-marka gehiegi badaude, mapan laster-markak bistaratzeak aplikazioa moteldu dezake.";
 "show_to_the_right" = "Erakutsi eskuinean";
 "show_at_the_bottom" = "Erakutsi behean";
-"enable_logging_warning_message" = "Aukera hau diagnostiko helburua duten erregistro ekintzetarako gaituta dago. Honek gure taldeari aplikazioarekin arazoak identifikatzen laguntzen dio. Gaitu aukera Organic Maps laguntzari eskatuta soilik.";
+"enable_logging_warning_message" = "Aukera hau diagnostiko helburua duten erregistro ekintzetarako gaituta dago. Honek gure taldeari aplikazioarekin arazoak identifikatzen laguntzen dio. Gaitu aukera NonGPS Maps laguntzari eskatuta soilik.";
 
 /* Driving profile in routing options settings. */
 "routing_options_driving" = "Autoz";
@@ -899,7 +899,7 @@
 "switch_to_phone_bookmarks_carplay" = "Aldatu telefonora laster-mark guztiak ikusteko";
 "speedcams_alert_title_carplay_1" = "Abiadura kamerak.";
 "speedcams_alert_title_carplay_2" = "Abiadura alertak.";
-"download_map_carplay" = "Deskargatu mapak zure gailuko Organic Maps aplikazioan";
+"download_map_carplay" = "Deskargatu mapak zure gailuko NonGPS Maps aplikazioan";
 "carplay_roundabout_exit" = "%@ irteera";
 
 /* iOS */
@@ -966,10 +966,10 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "NoGPS Maps telefonoaren pantailan erabiltzen ari zara";
+"car_used_on_the_phone_screen" = "NonGPS Maps telefonoaren pantailan erabiltzen ari zara";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "NoGPS Maps autoaren pantailan erabiltzen ari zara";
+"car_used_on_the_car_screen" = "NonGPS Maps autoaren pantailan erabiltzen ari zara";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "Jarraitu telefonoan";
@@ -1189,7 +1189,7 @@
 "reverse_route" = "Ibilbidea alderantzikatu";
 
 
-/********** NoGPS Maps **********/
+/********** NonGPS Maps **********/
 
 "nogps_manual_position" = "Set my position manually";
 

@@ -1538,61 +1538,61 @@ zh-Hant = 下載
 [disconnect_usb_cable]
 comment = Used in DownloadResources startup screen
 tags = android-app
-en = Please disconnect USB cable or insert memory card to use NoGPS Maps
-af = Ontkoppel die USB-kabel of gebruik ’n geheuekaart om NoGPS Maps te gebruik
-ar = الرجاء فصل كابل الناقل التسلسلي الشامل أو إدخال بطاقة الذاكرة من أجل استخدام NoGPS Maps
-az = NoGPS Maps'dan istifadə etmək üçün zəhmət olmasa USB kabeli ayırın və ya yaddaş kartı daxil edin
-be = Адключыце кабель USB або ўстаўце карту памяці, каб карыстацца NoGPS Maps
-bg = Моля, изключете USB кабела или поставете картата с памет, за да използвате NoGPS Maps
-ca = Desconnecteu el cable USB o inseriu una targeta de memòria per a usar l’NoGPS Maps
-cs = Prosím, odpojte USB kabel nebo vložte paměťovou kartu pro použití s NoGPS Maps
-cy = Datgysylltwch y cebl USB neu mewnosodwch gerdyn cof i ddefnyddio NoGPS Maps
-da = Frakobl venligst USB-kabel, eller indsæt et hukommelseskort for at bruge NoGPS Maps
-de = Bitte USB-Kabel entfernen oder Speicherkarte einsetzen, um NoGPS Maps zu verwenden
-el = Αποσυνδέστε το καλώδιο USB ή τοποθετήστε την κάρτα μνήμης για να χρησιμοποιήσετε το NoGPS Maps
-es = Desconecte el cable USB o inserte una tarjeta de memoria SD para usar NoGPS Maps
-es-MX = Desconecta el cable USB o inserta la tarjeta de memoria para utilizar NoGPS Maps.
-et = NoGPS Maps kasutamiseks palun ühenda USB kaabel lahti või sisesta mälukaart
-eu = Mesedez, deskonektatu USB kablea edo sartu SD memoria NoGPS Maps erabiltzeko
-fa = لطفا کابل USB را جدا کنید یا کارت حافظه وارد کنید تا بتوانید از NoGPS Maps استفاده کنید
-fi = Irrota USB-kaapeli tai syötä muistikortti käyttääksesi NoGPS Maps -sovellusta
-fr = Veuillez débrancher le câble USB ou insérer la carte SD pour utiliser NoGPS Maps
-gl = por favor, desconecte o cable USB ou insira unha tarxeta de memoria SD para usar NoGPS Maps
-he = אנא נתק כבל USB או הכנס כרטיס זכרון כדי להשתמש ב-NoGPS Maps.
-hi = NoGPS Maps का उपयोग करने के लिए कृपया USB केबल डिस्कनेक्ट करें या मेमोरी कार्ड डालें।
-hr = Isključite USB kabel ili umetnite memorijsku karticu kako biste koristili NoGPS Maps
-hu = Bontsa az USB-kapcsolatot vagy helyezzen be egy memóriakártyát az NoGPS Maps használatához
-hy = NoGPS Maps-ից օգտվելու համար խնդրում ենք անջատել USB մալուխը կամ տեղադրել հիշողության քարտը
-id = Mohon lepas kabel USB atau masukkan kartu memori untuk menggunakan NoGPS Maps
-is = Aftengdu USB-kapal eða settu inn minniskort til að nota NoGPS Maps
-it = Scollega il cavo USB o inserisci la scheda di memoria per poter utilizzare NoGPS Maps
-ja = NoGPS Mapsを利用するにはUSBケーブルを抜くかメモリーカードを挿入してください
-ko = NoGPS Maps를 사용하려면 USB 케이블이나 삽입 메모리 카드를 분리하십시오
-lo = ກະລຸນາຖອດສາຍ USB ຫຼື ສຽບກາດໜ່ວຍຄວາມຈຳເພື່ອໃຊ້ NoGPS Maps
-lt = Jeigu norite naudotis „NoGPS Maps“, atjunkite USB kabelį arba įdėkite atminties kortelę
-lv = Lai lietotu „NoGPS Maps“, atvienojiet USB kabeli vai ievietojiet atmiņas karti.
-mr = NoGPS Maps वापरण्यासाठी कृपया USB केबल काढून टाका किंवा मेमरी कार्ड घाला
-mt = Jekk jogħġbok neħħi il-USB kejbil jew daħħal karta tal-memorja biex tuża NoGPS Maps
-nb = Koble fra USB-kabelen eller sett inn minnekortet for å bruke NoGPS Maps
-nl = Verwijder de USB-kabel of plaats een geheugenkaart om NoGPS Maps te gebruiken
-pa = NoGPS Maps ਵਰਤਣ ਲਈ ਕਿਰਪਾ ਕਰਕੇ USB ਕੇਬਲ ਅਨਲੱਗ ਕਰੋ ਜਾਂ ਮੈਮਰੀ ਕਾਰਡ ਲਗਾਓ।
-pl = Proszę odłączyć kabel USB albo włożyć kartę pamięci, aby korzystać z NoGPS Maps
-pt = Por favor desligue o cabo USB ou introduza um cartão de memória para utilizar o NoGPS Maps
-pt-BR = Por favor, desconecte o cabo USB ou insira um cartão de memória para utilizar NoGPS Maps
-ro = Deconectează cablul USB sau introdu un card de memorie pentru a utiliza NoGPS Maps
-ru = Для использования приложения NoGPS Maps отсоедините USB-кабель или вставьте карту памяти
-sk = Prosím, odpojte USB kábel alebo vložte pamäťovú kartu pre použitie s NoGPS Maps
-sl = Za uporabo NoGPS Maps odklopite kabel USB ali vstavite pomnilniško kartico
-sq = Ju lutemi shkëputni kabllon USB ose futni kartën e memories për të përdorur NoGPS Maps
-sr = Молим вас откачите USB кабл, или убаците меморијску картицу да бисте користили NoGPS Maps
-sv = Vänligen koppla ifrån USB-kabeln eller sätt in ett minneskort för att använda NoGPS Maps
-sw = Tafadhali toa kebo ya USB au weka kadi ya kumbukumbu ili kutumia NoGPS Maps
-th = โปรดยกเลิกการเชื่อมต่อสาย USB หรือใส่การ์ดหน่วยความจำเพื่อใช้ NoGPS Maps
-tr = NoGPS Maps’i kullanabilmek için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın
-uk = Будь ласка, від'єднайте USB-кабель або вставте карту пам'яті, щоб скористатися програмою NoGPS Maps
-vi = Bạn vui lòng tháo cáp USB hoặc lắp thẻ nhớ vào để sử dụng NoGPS Maps
-zh-Hans = 请拔除 USB 线或插入 SD 卡以使用 NoGPS Maps
-zh-Hant = 請拔除 USB 線或插入 SD 卡以使用 NoGPS Maps
+en = Please disconnect USB cable or insert memory card to use NonGPS Maps
+af = Ontkoppel die USB-kabel of gebruik ’n geheuekaart om NonGPS Maps te gebruik
+ar = الرجاء فصل كابل الناقل التسلسلي الشامل أو إدخال بطاقة الذاكرة من أجل استخدام NonGPS Maps
+az = NonGPS Maps'dan istifadə etmək üçün zəhmət olmasa USB kabeli ayırın və ya yaddaş kartı daxil edin
+be = Адключыце кабель USB або ўстаўце карту памяці, каб карыстацца NonGPS Maps
+bg = Моля, изключете USB кабела или поставете картата с памет, за да използвате NonGPS Maps
+ca = Desconnecteu el cable USB o inseriu una targeta de memòria per a usar el NonGPS Maps
+cs = Prosím, odpojte USB kabel nebo vložte paměťovou kartu pro použití s NonGPS Maps
+cy = Datgysylltwch y cebl USB neu mewnosodwch gerdyn cof i ddefnyddio NonGPS Maps
+da = Frakobl venligst USB-kabel, eller indsæt et hukommelseskort for at bruge NonGPS Maps
+de = Bitte USB-Kabel entfernen oder Speicherkarte einsetzen, um NonGPS Maps zu verwenden
+el = Αποσυνδέστε το καλώδιο USB ή τοποθετήστε την κάρτα μνήμης για να χρησιμοποιήσετε το NonGPS Maps
+es = Desconecte el cable USB o inserte una tarjeta de memoria SD para usar NonGPS Maps
+es-MX = Desconecta el cable USB o inserta la tarjeta de memoria para utilizar NonGPS Maps.
+et = NonGPS Maps kasutamiseks palun ühenda USB kaabel lahti või sisesta mälukaart
+eu = Mesedez, deskonektatu USB kablea edo sartu SD memoria NonGPS Maps erabiltzeko
+fa = لطفا کابل USB را جدا کنید یا کارت حافظه وارد کنید تا بتوانید از NonGPS Maps استفاده کنید
+fi = Irrota USB-kaapeli tai syötä muistikortti käyttääksesi NonGPS Maps -sovellusta
+fr = Veuillez débrancher le câble USB ou insérer la carte SD pour utiliser NonGPS Maps
+gl = por favor, desconecte o cable USB ou insira unha tarxeta de memoria SD para usar NonGPS Maps
+he = אנא נתק כבל USB או הכנס כרטיס זכרון כדי להשתמש ב-NonGPS Maps.
+hi = NonGPS Maps का उपयोग करने के लिए कृपया USB केबल डिस्कनेक्ट करें या मेमोरी कार्ड डालें।
+hr = Isključite USB kabel ili umetnite memorijsku karticu kako biste koristili NonGPS Maps
+hu = Bontsa az USB-kapcsolatot vagy helyezzen be egy memóriakártyát a NonGPS Maps használatához
+hy = NonGPS Maps-ից օգտվելու համար խնդրում ենք անջատել USB մալուխը կամ տեղադրել հիշողության քարտը
+id = Mohon lepas kabel USB atau masukkan kartu memori untuk menggunakan NonGPS Maps
+is = Aftengdu USB-kapal eða settu inn minniskort til að nota NonGPS Maps
+it = Scollega il cavo USB o inserisci la scheda di memoria per poter utilizzare NonGPS Maps
+ja = NonGPS Mapsを利用するにはUSBケーブルを抜くかメモリーカードを挿入してください
+ko = NonGPS Maps를 사용하려면 USB 케이블이나 삽입 메모리 카드를 분리하십시오
+lo = ກະລຸນາຖອດສາຍ USB ຫຼື ສຽບກາດໜ່ວຍຄວາມຈຳເພື່ອໃຊ້ NonGPS Maps
+lt = Jeigu norite naudotis „NonGPS Maps“, atjunkite USB kabelį arba įdėkite atminties kortelę
+lv = Lai lietotu „NonGPS Maps“, atvienojiet USB kabeli vai ievietojiet atmiņas karti.
+mr = NonGPS Maps वापरण्यासाठी कृपया USB केबल काढून टाका किंवा मेमरी कार्ड घाला
+mt = Jekk jogħġbok neħħi il-USB kejbil jew daħħal karta tal-memorja biex tuża NonGPS Maps
+nb = Koble fra USB-kabelen eller sett inn minnekortet for å bruke NonGPS Maps
+nl = Verwijder de USB-kabel of plaats een geheugenkaart om NonGPS Maps te gebruiken
+pa = NonGPS Maps ਵਰਤਣ ਲਈ ਕਿਰਪਾ ਕਰਕੇ USB ਕੇਬਲ ਅਨਲੱਗ ਕਰੋ ਜਾਂ ਮੈਮਰੀ ਕਾਰਡ ਲਗਾਓ।
+pl = Proszę odłączyć kabel USB albo włożyć kartę pamięci, aby korzystać z NonGPS Maps
+pt = Por favor desligue o cabo USB ou introduza um cartão de memória para utilizar o NonGPS Maps
+pt-BR = Por favor, desconecte o cabo USB ou insira um cartão de memória para utilizar NonGPS Maps
+ro = Deconectează cablul USB sau introdu un card de memorie pentru a utiliza NonGPS Maps
+ru = Для использования приложения NonGPS Maps отсоедините USB-кабель или вставьте карту памяти
+sk = Prosím, odpojte USB kábel alebo vložte pamäťovú kartu pre použitie s NonGPS Maps
+sl = Za uporabo NonGPS Maps odklopite kabel USB ali vstavite pomnilniško kartico
+sq = Ju lutemi shkëputni kabllon USB ose futni kartën e memories për të përdorur NonGPS Maps
+sr = Молим вас откачите USB кабл, или убаците меморијску картицу да бисте користили NonGPS Maps
+sv = Vänligen koppla ifrån USB-kabeln eller sätt in ett minneskort för att använda NonGPS Maps
+sw = Tafadhali toa kebo ya USB au weka kadi ya kumbukumbu ili kutumia NonGPS Maps
+th = โปรดยกเลิกการเชื่อมต่อสาย USB หรือใส่การ์ดหน่วยความจำเพื่อใช้ NonGPS Maps
+tr = NonGPS Maps’i kullanabilmek için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın
+uk = Будь ласка, від'єднайте USB-кабель або вставте карту пам'яті, щоб скористатися програмою NonGPS Maps
+vi = Bạn vui lòng tháo cáp USB hoặc lắp thẻ nhớ vào để sử dụng NonGPS Maps
+zh-Hans = 请拔除 USB 线或插入 SD 卡以使用 NonGPS Maps
+zh-Hant = 請拔除 USB 線或插入 SD 卡以使用 NonGPS Maps
 
 [not_enough_free_space_on_sdcard]
 comment = Used in DownloadResources startup screen
@@ -1651,7 +1651,7 @@ tr = Uygulamayı kullanabilmek için lütfen SD kart/USB depolama aygıtında bi
 uk = Недостатньо вільного місця на SD карті / в пам'яті пристрою для використання програми
 vi = Bạn vui lòng giải phóng dung lượng trên ổ lưu trữ thẻ SD/USB để có thể sử dụng ứng dụng
 zh-Hans = 请先释放一些 SD 卡 / USB 存储空间以使用本应用
-zh-Hant = 請先釋放一些 SD 卡 / USB 儲存空間以使用 Organic Maps
+zh-Hant = 請先釋放一些 SD 卡 / USB 儲存空間以使用 NonGPS Maps
 
 [download_resources]
 tags = android-app,android-libs-car
@@ -4703,118 +4703,118 @@ zh-Hant = 註釋
 [share_bookmarks_email_subject]
 comment = Email Subject when sharing bookmark list
 tags = android-app
-en = NoGPS Maps bookmarks were shared with you
-af = NoGPS Maps-boekmerke is met u gedeel
-ar = تم مشاركة إشارات NoGPS Maps المرجعية معك
-az = NoGPS Maps əlfəcinləri sizinlə paylaşıldı
-be = З вамі падзяліліся закладкамі NoGPS Maps
-bg = Споделени са с вас отметки за NoGPS Maps
-ca = S’han compartit amb vós marcadors de l’NoGPS Maps
-cs = Sdílené záložky NoGPS Maps
-cy = Rhannwyd nodau tudalen NoGPS Maps gyda chi
-da = NoGPS Maps bogmærker er blevet delt med dig
-de = „NoGPS Maps“-Lesezeichen wurden mit dir geteilt
-el = Κοινοποιήθηκαν τα αγαπημένα από το NoGPS Maps σε εσάς
-es = Marcadores de NoGPS Maps compartidos con usted
-es-MX = Los favoritos de NoGPS Maps se han compartido contigo
-et = NoGPS Maps järjehoidjaid jagati Sinuga
-eu = NoGPS Maps-eko markagailuak zurekin partekatu dira
-fa = نشانک‌های NoGPS Maps با شما هم‌رسانی شده‌اند
-fi = Jaetut NoGPS Maps-kirjanmerkit
-fr = Signets NoGPS Maps partagés
-gl = Marcadores de NoGPS Maps compartidos con vostede
-he = סימניות של NoGPS Maps שותפו איתך
-hi = NoGPS Maps बुकमार्क आपके साथ साझा किए गए थे
-hr = NoGPS Maps zabilješke su s tobom dijeljene
-hu = Egy NoGPS Maps könyvjelzőt osztottak meg Önnel
-hy = Ձեզ հետ կիսվել են NoGPS Maps-ի էջանիշներով
-id = Bagikan penanda NoGPS Maps
-is = NoGPS Maps bókamerkjum var deilt með þér
-it = Questi sono i miei luoghi preferiti su NoGPS Maps
-ja = NoGPS Mapsのお気に入りリストが共有されました
-ko = 귀하와 공유된 NoGPS Maps 즐겨찾기
-lo = ມີການແບ່ງປັນບຸກມາກ NoGPS Maps ໃຫ້ທ່ານ
-lt = Su jumis bendrinamas „NoGPS Maps“ žymių sąrašas
-lv = NoGPS Maps ar jums tika dalītas grāmatzīmes
-mr = NoGPS Maps द्वारे तुम्हाला खूणपत्रे सामायिक केले
-mt = NoGPS Maps bookmarks maqsuma miegħek
-nb = Delte NoGPS Maps-bokmerker
-nl = Bladwijzers van NoGPS Maps zijn met u gedeeld
-pl = Udostępnione zakładki z NoGPS Maps
-pt = Os favoritos do NoGPS Maps foram partilhados consigo
-pt-BR = Favoritos do NoGPS Maps foram compartilhados com você
-ro = Îți trimit locurile mele preferate din NoGPS Maps
-ru = С вами поделились метками NoGPS Maps
-sk = Zdielané záložky NoGPS Maps
-sl = Z vami so bili deljeni zaznamki NoGPS Maps
-sq = Faqeshënuesit e NoGPS Maps u ndanë me ju
-sr = NoGPS Maps маркери су подељени са вама
-sv = NoGPS Maps bokmärken har delats med dig
-sw = NoGPS Maps alama za ukurasa zimeshirikiwa nawe
-th = แชร์บุ๊กมาร์กของ NoGPS Maps แล้ว
-tr = Seninle paylaşılan NoGPS Maps yer imleri
-uk = З вами поділилися мітками NoGPS Maps
-vi = Điểm đánh dấu NoGPS Maps được chia sẻ
-zh-Hans = 已与您分享 NoGPS Maps 书签
-zh-Hant = 已與您分享 NoGPS Maps 書籤
+en = NonGPS Maps bookmarks were shared with you
+af = NonGPS Maps-boekmerke is met u gedeel
+ar = تم مشاركة إشارات NonGPS Maps المرجعية معك
+az = NonGPS Maps əlfəcinləri sizinlə paylaşıldı
+be = З вамі падзяліліся закладкамі NonGPS Maps
+bg = Споделени са с вас отметки за NonGPS Maps
+ca = S’han compartit amb vós marcadors del NonGPS Maps
+cs = Sdílené záložky NonGPS Maps
+cy = Rhannwyd nodau tudalen NonGPS Maps gyda chi
+da = NonGPS Maps bogmærker er blevet delt med dig
+de = „NonGPS Maps“-Lesezeichen wurden mit dir geteilt
+el = Κοινοποιήθηκαν τα αγαπημένα από το NonGPS Maps σε εσάς
+es = Marcadores de NonGPS Maps compartidos con usted
+es-MX = Los favoritos de NonGPS Maps se han compartido contigo
+et = NonGPS Maps järjehoidjaid jagati Sinuga
+eu = NonGPS Maps-eko markagailuak zurekin partekatu dira
+fa = نشانک‌های NonGPS Maps با شما هم‌رسانی شده‌اند
+fi = Jaetut NonGPS Maps-kirjanmerkit
+fr = Signets NonGPS Maps partagés
+gl = Marcadores de NonGPS Maps compartidos con vostede
+he = סימניות של NonGPS Maps שותפו איתך
+hi = NonGPS Maps बुकमार्क आपके साथ साझा किए गए थे
+hr = NonGPS Maps zabilješke su s tobom dijeljene
+hu = Egy NonGPS Maps könyvjelzőt osztottak meg Önnel
+hy = Ձեզ հետ կիսվել են NonGPS Maps-ի էջանիշներով
+id = Bagikan penanda NonGPS Maps
+is = NonGPS Maps bókamerkjum var deilt með þér
+it = Questi sono i miei luoghi preferiti su NonGPS Maps
+ja = NonGPS Mapsのお気に入りリストが共有されました
+ko = 귀하와 공유된 NonGPS Maps 즐겨찾기
+lo = ມີການແບ່ງປັນບຸກມາກ NonGPS Maps ໃຫ້ທ່ານ
+lt = Su jumis bendrinamas „NonGPS Maps“ žymių sąrašas
+lv = NonGPS Maps ar jums tika dalītas grāmatzīmes
+mr = NonGPS Maps द्वारे तुम्हाला खूणपत्रे सामायिक केले
+mt = NonGPS Maps bookmarks maqsuma miegħek
+nb = Delte NonGPS Maps-bokmerker
+nl = Bladwijzers van NonGPS Maps zijn met u gedeeld
+pl = Udostępnione zakładki z NonGPS Maps
+pt = Os favoritos do NonGPS Maps foram partilhados consigo
+pt-BR = Favoritos do NonGPS Maps foram compartilhados com você
+ro = Îți trimit locurile mele preferate din NonGPS Maps
+ru = С вами поделились метками NonGPS Maps
+sk = Zdielané záložky NonGPS Maps
+sl = Z vami so bili deljeni zaznamki NonGPS Maps
+sq = Faqeshënuesit e NonGPS Maps u ndanë me ju
+sr = NonGPS Maps маркери су подељени са вама
+sv = NonGPS Maps bokmärken har delats med dig
+sw = NonGPS Maps alama za ukurasa zimeshirikiwa nawe
+th = แชร์บุ๊กมาร์กของ NonGPS Maps แล้ว
+tr = Seninle paylaşılan NonGPS Maps yer imleri
+uk = З вами поділилися мітками NonGPS Maps
+vi = Điểm đánh dấu NonGPS Maps được chia sẻ
+zh-Hans = 已与您分享 NonGPS Maps 书签
+zh-Hant = 已與您分享 NonGPS Maps 書籤
 
 [share_bookmarks_email_body]
 tags = android-app,apple-maps
-en = Hello!\n\nAttached are my bookmarks; please open them in NoGPS Maps. If you don't have it installed you can download it here: https://github.com/Ramzess-II/NoGPSMaps\n\nEnjoy travelling with NoGPS Maps!
-af = Hallo!\n\nMy boekmerke is aangeheg; open dit asb. in NoGPS Maps. Indien dit nie geïnstalleer is nie, kan u dit hier aflaai: https://github.com/Ramzess-II/NoGPSMaps\n\nGeniet dit om met NoGPS Maps te reis!
-ar = مرحباً! ْ\n\n تم إرفاق إشاراتي المرجعية من تطبيق NoGPS Maps. الرجاء فتحهم إذا لديك تطبيق NoGPS Maps مثبتاً. أو، إذا لم يكن مثبتاً، قم بتنزيل التطبيق لنظام iOS أو أندرويد من خلال الضغط على هذا الرابط: https://github.com/Ramzess-II/NoGPSMaps \n\nاستمتع بالسفر مع NoGPS Maps!
-ast = ¡Hola!\n\nLos mios marcadores tán axuntos; ábrilos n’NoGPS Maps. Si nun lu tienes instaláu, te lu puedes baxar equí: https://github.com/Ramzess-II/NoGPSMaps\n\n¡Gocia viaxar con NoGPS Maps!
-az = Salam!\n\nNoGPS Maps əlfəcinlərim əlavə olunub. Zəhmət olmasa NoGPS Maps-da onları açın. Əgər onu quraşdırmamısınızsa, bu linkə daxil olub cihazınıza yükləyə bilərsiniz: https://github.com/Ramzess-II/NoGPSMaps\n\nNoGPS Maps ilə səyahətdən həzz alın!
-be = Вітаю!\n\nУ далучаным файле мае закладкі, яны адкрываюцца праграмай NoGPS Maps. Калі такая праграма ў вас не ўсталявана, яе можна спампаваць тут: https://github.com/Ramzess-II/NoGPSMaps\n\nПрыемных падарожжаў з NoGPS Maps!
-bg = Здравейте!\n\nПриложени са моите отметки; моля, отворете ги в NoGPS Maps. Ако нямате инсталирана програма, можете да я изтеглите оттук: https://github.com/Ramzess-II/NoGPSMaps\n\nНаслаждавайте се на пътуванията с NoGPS Maps!
-ca = Hola!\n\nAdjunto els meus marcadors de l’NoGPS Maps. Obriu-los si teniu l’NoGPS Maps instal·lat. O, si no teniu l’aplicació, baixeu-la per al vostre aparell iOS o Android seguint aquest enllaç: https://github.com/Ramzess-II/NoGPSMaps\n\nGaudiu viatjant amb l’NoGPS Maps!
-cs = Ahoj!\n\nV příloze najdeš mé záložky; otevři je v aplikaci NoGPS Maps. Pokud ji nemáš nainstalovanou, můžeš si ji stáhnout zde: https://github.com/Ramzess-II/NoGPSMaps \n\nUžij si cestování s NoGPS Maps!
-cy = Helo!\n\nWedi'u hatodi mae fy nodau tudalen; agorwch nhw yn NoGPS Maps. Os nad oes gennych chi'r ap gallwch ei lawrlwytho yma: https://omaps.app/get?kmz\n\nMwynhewch deithio gydag NoGPS Maps!
-da = Hej!\n\nVedhæftet er mine bogmærker; åbn dem venligst i NoGPS Maps. Hvis du ikke har den installeret, kan du downloade den her: https://github.com/Ramzess-II/NoGPSMaps\n \nGod rejse med NoGPS Maps!
-de = Hallo!\n\nIm Anhang sind meine Lesezeichen der „NoGPS Maps“-App. Du kannst sie mit NoGPS Maps öffnen. Wenn du die App nicht installiert hast, kannst du sie von https://github.com/Ramzess-II/NoGPSMaps herunterladen.\n\nViel Spaß beim Reisen mit NoGPS Maps!
-el = Γειa!\n\nΣου επισυνάπτω τα αγαπημένα μου. Παρακαλώ άνοιξέ τα με το NoGPS Maps. Αν δεν το έχεις εγκαταστήσει, μπορείς να το κατεβάσεις από εδώ: https://github.com/Ramzess-II/NoGPSMaps\n\nΚαλή διασκέδαση ταξιδεύοντας με το NoGPS Maps!
-es = ¡Hola!\n\nAdjunto mis marcadores; ábralos en NoGPS Maps. Si no lo ha instalado, puede descargarlo aquí: https://github.com/Ramzess-II/NoGPSMaps\n\n¡Disfrute viajando con NoGPS Maps!
-es-MX = Hola!\n\Adjunto mis marcadores de la aplicación NoGPS Maps. Por favor, ábralos si tiene instalado NoGPS Maps. O, si no lo tiene, descargue la aplicación para su dispositivo iOS o Android siguiendo este enlace: https://github.com/Ramzess-II/NoGPSMaps\n¡Disfrute viajando con NoGPS Maps!
-et = Tere!\n\nManuses on minu järjehoidjad rakendusest NoGPS Maps. Palun ava need kui Sul on NoGPS Maps paigaldatud. Või kui ei ole, laadi rakendus alla oma iOSi või Androidi seadmesse, järgides seda linki: https:omaps.appget?kmz\n\nNaudi reisimist NoGPS Mapsiga!
-eu = Kaixo!\nNire markagailuak NoGPS Maps aplikazioan erantsi ditut. Mesedez, ireki itzazu NoGPS Maps instalatuta baduzu. Edo, ez baduzu, deskargatu aplikazioa zure iOS edo Android gailurako esteka hau jarraituz: https://github.com/Ramzess-II/NoGPSMaps\n\nGozatu bidaiatzen NoGPS Maps-ekin!
-fa = سلام!\n\nنشانک‌های من ضمیمه شده‌اند؛ لطفا آن‌ها را در NoGPS Maps باز کنید. اگر برنامه نصب نشده است، می‌توانید آن را از اینجا دانلود کنید: https://github.com/Ramzess-II/NoGPSMaps \n\nاز سفر با NoGPS Maps لذت ببرید!
-fi = Hei! \n\nLiitteenä ovat kirjamerkkini; Avaa ne NoGPS Maps -sovelluksessa. Mikäli sinulla ei ole vielä sovellusta asennettuna, voit ladata sen osoitteesta: https://github.com/Ramzess-II/NoGPSMaps \n\nNauti matkustamisesta NoGPS Maps:n kanssa!
-fr = Bonjour !\n\nVous trouverez ci-joint mes signets de l'appli NoGPS Maps. Veuillez les ouvrir si vous avez installé NoGPS Maps. Si vous ne l'avez pas, téléchargez l'application pour votre appareil iOS ou Android en suivant ce lien : https://github.com/Ramzess-II/NoGPSMaps\n\nBon voyage avec NoGPS Maps !
-gl = Ola!\n\nAdxunto os meus marcadores. Por favor, ábraos en NoGPS Maps. Se non o tes instalado podes descargalo aquí:: https://github.com/Ramzess-II/NoGPSMaps\n\nGozar viaxando con NoGPS Maps!
-he = שלום!\n\nמצורפות הסימניות שלי, אפשר לפתוח אותן ב-NoGPS Maps. אם צריך, ניתן להוריד את האפליקצייה מכאן: https://github.com/Ramzess-II/NoGPSMaps\n\nתהנו לנווט עם NoGPS Maps!
-hi = नमस्ते!\n\nसंलग्न हैं मेरे बुकमार्क; कृपया उन्हें NoGPS Maps में खोलें। यदि आपने इसे इंस्टॉल नहीं किया है तो आप इसे यहाँ डाउनलोड कर सकते हैं: https://github.com/Ramzess-II/NoGPSMaps\n\nNoGPS Maps के साथ यात्रा का आनंद लें!
-hr = Zdravo! \n \nU privitku su moje zabilješke; otvori ih u aplikaciji NoGPS Maps. Ako nije instalirana, možeš je preuzeti na: https://github.com/Ramzess-II/NoGPSMaps \n \nUživaj u putovanju s NoGPS Maps!
-hu = Üdvözlöm!\n\nMellékeltem a könyvjelzőimet; nyissa meg őket az NoGPS Maps alkalmazásban. Ha még nem telepítette, akkor innen tudja letölteni: https://github.com/Ramzess-II/NoGPSMaps\n\nJó utat kívánok az NoGPS Maps alkalmazással!
-hy = Ողջույն!\nԿից ներկայացված են իմ էջանիշները: Խնդրում եմ բացել դրանք NoGPS Maps-ում: Եթե այն տեղադրված չէ, կարող եք ներբեռնել այստեղ՝ https://github.com/Ramzess-II/NoGPSMaps\nՎայելեք ճանապարհորդությունը NoGPS Maps-ի հետ:
-id = Halo!\n\nTerlampir adalah bookmark saya; silakan buka di NoGPS Maps. Jika Anda belum memasangnya, Anda dapat mengunduhnya di sini: https://github.com/Ramzess-II/NoGPSMaps\n\nNikmati perjalanan Anda dengan NoGPS Maps!
-is = Halló!\n\nMeðfylgjandi eru bókamerkin mín; endilega opnaðu þau í NoGPS Maps forritinu. Ef þú ert ekki með það uppsett geturðu sótt það hér: https://github.com/Ramzess-II/NoGPSMaps \n\nNjóttu ferðarinnar með NoGPS Maps!
-it = Ciao!\n\nIn allegato ci sono i miei luoghi preferiti. Aprili se hai installato NoGPS Maps. Oppure, se non ce l'hai, scarica l'app per iOS o Android seguendo questo link: https://omaps.app/\n\nDivertiti a viaggiare con NoGPS Maps!
-ja = こんにちは！\n\n添付ファイルNoGPS Mapsのお気に入りリストです。もしインストールされていない場合はここからダウンロードができます： https://github.com/Ramzess-II/NoGPSMaps\n\n旅行を楽しむときはNoGPS Mapsを使用してください!
-ko = 안녕하세요!\n\n제 북마크를 첨부했습니다. NoGPS Maps에서 열어주세요. 설치되어 있지 않다면 여기에서 다운로드할 수 있습니다: https://github.com/Ramzess-II/NoGPSMaps\n\nNoGPS Maps와 함께 즐거운 여행 되세요!
-lo = ສະບາຍດີ!\n\nນີ້ແມ່ນບຸກມາກຂອງຂ້ອຍ; ກະລຸນາເປີດໃນ NoGPS Maps. ຫາກທ່ານຍັງບໍ່ໄດ້ຕິດຕັ້ງ, ສາມາດດາວໂຫລດໄດ້ທີ່ນີ້: https://github.com/Ramzess-II/NoGPSMaps\n\nຂໍໃຫ້ມ່ວນກັບການເດີນທາງດ້ວຍ NoGPS Maps!
-lt = Labas! \n \nČia prisegtas mano žymių sąrašas iš „NoGPS Maps“ programėlės. Jei jos neturi, gali ją parsisiųsti iš https://github.com/Ramzess-II/NoGPSMaps \n \nSmagių kelionių su „NoGPS Maps“!
-lv = Sveiki!\n\nPielikumā ir grāmatzīmes. Lūdzu, atveriet tās „NoGPS Maps“ lietotnē. Ja Jums tā nav instalēta, instalējiet to te: https://github.com/Ramzess-II/NoGPSMaps\n\nBaudiet ceļošanu ar „Oranic Maps“!
-mr = नमस्कार!\n\nNoGPS Maps ऍप मधील माझे खूणपत्रे संलग्न केले आहेत. तुम्ही NoGPS Maps इन्स्टॉल केले असल्यास हे खूणपत्रे उघडा. इन्स्टॉल केले नसल्यास, पुढील दुव्यावर जाऊन तुमच्या iOS किंवा अँड्रॉइड उपकरणावर हे डाउनलोड करा: https://github.com/Ramzess-II/NoGPSMaps\n\nNoGPS Maps सह प्रवासाचा आनंद घ्या!
-mt = Helow!\n\nMehmuża huma il-bookmarks; iftaħhom ġo NoGPS Maps. Jekk mhuwiex installat tista tniżżlu min hawn: https://github.com/Ramzess-II/NoGPSMaps\n\nĦu pjaċir ivvjaġġa ġo NoGPS Maps!
-nb = Hei!\n\nVedlagt er mine bokmerker fra NoGPS Maps-appen. Åpne de dersom du har NoGPS Maps installert. Har du ikke har det, last ned appen til iOS eller Android ved å trykke på denne linken: https://github.com/Ramzess-II/NoGPSMaps\n\nNyt reisen med NoGPS Maps!
-nl = Hallo!\n\nBijgesloten zijn mijn bladwijzers uit de NoGPS Maps app. Open ze als je NoGPS Maps geïnstalleerd hebt. Of, als je dat niet hebt, download de app hier: https://github.com/Ramzess-II/NoGPSMaps\n\nGeniet van het reizen met NoGPS Maps!
-pl = Cześć!\n\nZałączam moje zakładki z aplikacji NoGPS Maps. Proszę otwórz je jeżeli masz zaintalowane NoGPS Maps. Lub, jeżeli nie masz, pobierz aplikację na swoje urządzenie iOS/Android za pomocą tego linka: https://github.com/Ramzess-II/NoGPSMaps\n\nMiłego podróżowania z NoGPS Maps!
-pt = Olá!\n\nSegue em anexo os meus favoritos da aplicação NoGPS Maps. Por favor abra-os se tiver o NoGPS Maps instalado. Caso não tenha, descarregue a aplicação para o seu dispositivo iOS ou Android com a hiperligação https://github.com/Ramzess-II/NoGPSMaps\n\nDivirta-se a viajar com o NoGPS Maps!
-pt-BR = Olá!\n\nSegue em anexo meus favoritos do app NoGPS Maps. Se tiver instalado o NoGPS Maps, pode abri-los agora. Caso não tenha, baixe o app para o seu dispositivo iOS ou Android via o link https://github.com/Ramzess-II/NoGPSMaps\n\nDisfrute viajar com o NoGPS Maps!
-ro = Bună!\n\nȚi-am atașat locurile mele preferate din aplicația NoGPS Maps. Deschide-le dacă ai instalată NoGPS Maps. Dacă nu, o poți descărca pentru iOS sau Android de aici: https://organicmaps.app/
-ru = Здравствуйте!\n\nВ прикреплённом файле мои метки из офлайновых карт NoGPS Maps. Для того чтобы открыть этот файл, вам потребуется приложение NoGPS Maps, которое можно установить по ссылке: https://github.com/Ramzess-II/NoGPSMaps\n\nСпасибо!
-sk = Ahoj!\n\nV prílohe sú moje záložky z aplikácie NoGPS Maps. Ak ju nemáš nainštalovanú, môžeš si ju stiahnuť tu: https://github.com/Ramzess-II/NoGPSMaps\n\nPrajem šťastnú cestu s NoGPS Maps!
-sl = Živjo!\n\nV priponki so moji zaznamki; odprite jih v NoGPS Maps. Če aplikacije nimate nameščene, jo lahko prenesete tukaj: https://github.com/Ramzess-II/NoGPSMaps\n\nUživajte v potovanju z NoGPS Maps!
-sq = Përshëndetje!\n\nBashkëngjitur janë faqeshënuesit e mi; ju lutemi hapini ato në NoGPS Maps. Nëse nuk e keni të instaluar, mund ta shkarkoni këtu: https://github.com/Ramzess-II/NoGPSMaps\n\nShijoni udhëtimin me NoGPS Maps!
-sr = Здраво!\n\nУ прилогу су моји маркери; молим те да их отвориш у NoGPS Maps-у. Ако га немаш већ инсталираног, можеш да га преузмеш одавде: https://github.com/Ramzess-II/NoGPSMaps\n\nУживај у путовању са NoGPS Maps-ом!
-sv = Hej! \n \nJag bifogar mina bokmärken, öppna gärna dem med NoGPS Maps. Om du inte redan har appen installerad, kan du ladda ner den här: https://github.com/Ramzess-II/NoGPSMaps \n \nTrevlig resa med NoGPS Maps!
-sw = Habari!\n\nNimeambatanisha alamisho zangu; tafadhali zifungue kwenye NoGPS Maps. Ikiwa haujaweka, unaweza kupakua hapa: https://github.com/Ramzess-II/NoGPSMaps\n\nFurahia kusafiri na NoGPS Maps!
-th = สวัสดีครับ\n\nแนบมาด้วยบุ๊กมาร์กของผม; กรุณาเปิดใน NoGPS Maps หากคุณยังไม่ได้ติดตั้ง คุณสามารถดาวน์โหลดได้ที่นี่: https://github.com/Ramzess-II/NoGPSMaps\n\nขอให้สนุกกับการเดินทางด้วย NoGPS Maps!
-tr = Merhaba! \n \nEktekiler yer imlerim, lütfen bunları NoGPS Maps'te açın. Eğer uygulama kurulmamışsa, şu bağlantıyla iOS ve Android aygıtınıza kurabilirsiniz: https://github.com/Ramzess-II/NoGPSMaps\n \nNoGPS Maps ile gezintinin tadını çıkarın!
-uk = Привіт!\n\nДодаю мої мітки; відкрийте їх у NoGPS Maps. Якщо застосунок не встановлено, ви можете завантажити його тут: https://github.com/Ramzess-II/NoGPSMaps\n\nНасолоджуйтесь подорожами з NoGPS Maps!
-vi = Xin chào!\n\nĐính kèm là các dấu trang của tôi; vui lòng mở chúng trong NoGPS Maps. Nếu bạn chưa cài đặt ứng dụng này, bạn có thể tải xuống tại đây: https://github.com/Ramzess-II/NoGPSMaps\n\nChúc bạn có những chuyến đi thú vị cùng NoGPS Maps!
-zh-Hans = 您好！\n\n附件是我的书签，请在 NoGPS Maps 中打开。如果您没有安装 NoGPS Maps，可以在这里下载: https://github.com/Ramzess-II/NoGPSMaps\n\n祝您使用 NoGPS Maps 旅行愉快！
-zh-Hant = 您好！\n\n附件是我的書籤，請在 NoGPS Maps 中打開。如果您沒有安裝 NoGPS Maps，可以在這裡下載: https://github.com/Ramzess-II/NoGPSMaps\n\n祝您使用 NoGPS Maps 旅行愉快！
+en = Hello!\n\nAttached are my bookmarks; please open them in NonGPS Maps. If you don't have it installed you can download it here: https://github.com/Ramzess-II/NoGPSMaps\n\nEnjoy travelling with NonGPS Maps!
+af = Hallo!\n\nMy boekmerke is aangeheg; open dit asb. in NonGPS Maps. Indien dit nie geïnstalleer is nie, kan u dit hier aflaai: https://github.com/Ramzess-II/NoGPSMaps\n\nGeniet dit om met NonGPS Maps te reis!
+ar = مرحباً! ْ\n\n تم إرفاق إشاراتي المرجعية من تطبيق NonGPS Maps. الرجاء فتحهم إذا لديك تطبيق NonGPS Maps مثبتاً. أو، إذا لم يكن مثبتاً، قم بتنزيل التطبيق لنظام iOS أو أندرويد من خلال الضغط على هذا الرابط: https://github.com/Ramzess-II/NoGPSMaps \n\nاستمتع بالسفر مع NonGPS Maps!
+ast = ¡Hola!\n\nLos mios marcadores tán axuntos; ábrilos en NonGPS Maps. Si nun lu tienes instaláu, te lu puedes baxar equí: https://github.com/Ramzess-II/NoGPSMaps\n\n¡Gocia viaxar con NonGPS Maps!
+az = Salam!\n\nNonGPS Maps əlfəcinlərim əlavə olunub. Zəhmət olmasa NonGPS Maps-da onları açın. Əgər onu quraşdırmamısınızsa, bu linkə daxil olub cihazınıza yükləyə bilərsiniz: https://github.com/Ramzess-II/NoGPSMaps\n\nNonGPS Maps ilə səyahətdən həzz alın!
+be = Вітаю!\n\nУ далучаным файле мае закладкі, яны адкрываюцца праграмай NonGPS Maps. Калі такая праграма ў вас не ўсталявана, яе можна спампаваць тут: https://github.com/Ramzess-II/NoGPSMaps\n\nПрыемных падарожжаў з NonGPS Maps!
+bg = Здравейте!\n\nПриложени са моите отметки; моля, отворете ги в NonGPS Maps. Ако нямате инсталирана програма, можете да я изтеглите оттук: https://github.com/Ramzess-II/NoGPSMaps\n\nНаслаждавайте се на пътуванията с NonGPS Maps!
+ca = Hola!\n\nAdjunto els meus marcadors del NonGPS Maps. Obriu-los si teniu el NonGPS Maps instal·lat. O, si no teniu l’aplicació, baixeu-la per al vostre aparell iOS o Android seguint aquest enllaç: https://github.com/Ramzess-II/NoGPSMaps\n\nGaudiu viatjant amb el NonGPS Maps!
+cs = Ahoj!\n\nV příloze najdeš mé záložky; otevři je v aplikaci NonGPS Maps. Pokud ji nemáš nainstalovanou, můžeš si ji stáhnout zde: https://github.com/Ramzess-II/NoGPSMaps \n\nUžij si cestování s NonGPS Maps!
+cy = Helo!\n\nWedi'u hatodi mae fy nodau tudalen; agorwch nhw yn NonGPS Maps. Os nad oes gennych chi'r ap gallwch ei lawrlwytho yma: https://omaps.app/get?kmz\n\nMwynhewch deithio gydag NonGPS Maps!
+da = Hej!\n\nVedhæftet er mine bogmærker; åbn dem venligst i NonGPS Maps. Hvis du ikke har den installeret, kan du downloade den her: https://github.com/Ramzess-II/NoGPSMaps\n \nGod rejse med NonGPS Maps!
+de = Hallo!\n\nIm Anhang sind meine Lesezeichen der „NonGPS Maps“-App. Du kannst sie mit NonGPS Maps öffnen. Wenn du die App nicht installiert hast, kannst du sie von https://github.com/Ramzess-II/NoGPSMaps herunterladen.\n\nViel Spaß beim Reisen mit NonGPS Maps!
+el = Γειa!\n\nΣου επισυνάπτω τα αγαπημένα μου. Παρακαλώ άνοιξέ τα με το NonGPS Maps. Αν δεν το έχεις εγκαταστήσει, μπορείς να το κατεβάσεις από εδώ: https://github.com/Ramzess-II/NoGPSMaps\n\nΚαλή διασκέδαση ταξιδεύοντας με το NonGPS Maps!
+es = ¡Hola!\n\nAdjunto mis marcadores; ábralos en NonGPS Maps. Si no lo ha instalado, puede descargarlo aquí: https://github.com/Ramzess-II/NoGPSMaps\n\n¡Disfrute viajando con NonGPS Maps!
+es-MX = Hola!\n\Adjunto mis marcadores de la aplicación NonGPS Maps. Por favor, ábralos si tiene instalado NonGPS Maps. O, si no lo tiene, descargue la aplicación para su dispositivo iOS o Android siguiendo este enlace: https://github.com/Ramzess-II/NoGPSMaps\n¡Disfrute viajando con NonGPS Maps!
+et = Tere!\n\nManuses on minu järjehoidjad rakendusest NonGPS Maps. Palun ava need kui Sul on NonGPS Maps paigaldatud. Või kui ei ole, laadi rakendus alla oma iOSi või Androidi seadmesse, järgides seda linki: https:omaps.appget?kmz\n\nNaudi reisimist NonGPS Mapsiga!
+eu = Kaixo!\nNire markagailuak NonGPS Maps aplikazioan erantsi ditut. Mesedez, ireki itzazu NonGPS Maps instalatuta baduzu. Edo, ez baduzu, deskargatu aplikazioa zure iOS edo Android gailurako esteka hau jarraituz: https://github.com/Ramzess-II/NoGPSMaps\n\nGozatu bidaiatzen NonGPS Maps-ekin!
+fa = سلام!\n\nنشانک‌های من ضمیمه شده‌اند؛ لطفا آن‌ها را در NonGPS Maps باز کنید. اگر برنامه نصب نشده است، می‌توانید آن را از اینجا دانلود کنید: https://github.com/Ramzess-II/NoGPSMaps \n\nاز سفر با NonGPS Maps لذت ببرید!
+fi = Hei! \n\nLiitteenä ovat kirjamerkkini; Avaa ne NonGPS Maps -sovelluksessa. Mikäli sinulla ei ole vielä sovellusta asennettuna, voit ladata sen osoitteesta: https://github.com/Ramzess-II/NoGPSMaps \n\nNauti matkustamisesta NonGPS Maps:n kanssa!
+fr = Bonjour !\n\nVous trouverez ci-joint mes signets de l'appli NonGPS Maps. Veuillez les ouvrir si vous avez installé NonGPS Maps. Si vous ne l'avez pas, téléchargez l'application pour votre appareil iOS ou Android en suivant ce lien : https://github.com/Ramzess-II/NoGPSMaps\n\nBon voyage avec NonGPS Maps !
+gl = Ola!\n\nAdxunto os meus marcadores. Por favor, ábraos en NonGPS Maps. Se non o tes instalado podes descargalo aquí:: https://github.com/Ramzess-II/NoGPSMaps\n\nGozar viaxando con NonGPS Maps!
+he = שלום!\n\nמצורפות הסימניות שלי, אפשר לפתוח אותן ב-NonGPS Maps. אם צריך, ניתן להוריד את האפליקצייה מכאן: https://github.com/Ramzess-II/NoGPSMaps\n\nתהנו לנווט עם NonGPS Maps!
+hi = नमस्ते!\n\nसंलग्न हैं मेरे बुकमार्क; कृपया उन्हें NonGPS Maps में खोलें। यदि आपने इसे इंस्टॉल नहीं किया है तो आप इसे यहाँ डाउनलोड कर सकते हैं: https://github.com/Ramzess-II/NoGPSMaps\n\nNonGPS Maps के साथ यात्रा का आनंद लें!
+hr = Zdravo! \n \nU privitku su moje zabilješke; otvori ih u aplikaciji NonGPS Maps. Ako nije instalirana, možeš je preuzeti na: https://github.com/Ramzess-II/NoGPSMaps \n \nUživaj u putovanju s NonGPS Maps!
+hu = Üdvözlöm!\n\nMellékeltem a könyvjelzőimet; nyissa meg őket a NonGPS Maps alkalmazásban. Ha még nem telepítette, akkor innen tudja letölteni: https://github.com/Ramzess-II/NoGPSMaps\n\nJó utat kívánok a NonGPS Maps alkalmazással!
+hy = Ողջույն!\nԿից ներկայացված են իմ էջանիշները: Խնդրում եմ բացել դրանք NonGPS Maps-ում: Եթե այն տեղադրված չէ, կարող եք ներբեռնել այստեղ՝ https://github.com/Ramzess-II/NoGPSMaps\nՎայելեք ճանապարհորդությունը NonGPS Maps-ի հետ:
+id = Halo!\n\nTerlampir adalah bookmark saya; silakan buka di NonGPS Maps. Jika Anda belum memasangnya, Anda dapat mengunduhnya di sini: https://github.com/Ramzess-II/NoGPSMaps\n\nNikmati perjalanan Anda dengan NonGPS Maps!
+is = Halló!\n\nMeðfylgjandi eru bókamerkin mín; endilega opnaðu þau í NonGPS Maps forritinu. Ef þú ert ekki með það uppsett geturðu sótt það hér: https://github.com/Ramzess-II/NoGPSMaps \n\nNjóttu ferðarinnar með NonGPS Maps!
+it = Ciao!\n\nIn allegato ci sono i miei luoghi preferiti. Aprili se hai installato NonGPS Maps. Oppure, se non ce l'hai, scarica l'app per iOS o Android seguendo questo link: https://omaps.app/\n\nDivertiti a viaggiare con NonGPS Maps!
+ja = こんにちは！\n\n添付ファイルNonGPS Mapsのお気に入りリストです。もしインストールされていない場合はここからダウンロードができます： https://github.com/Ramzess-II/NoGPSMaps\n\n旅行を楽しむときはNonGPS Mapsを使用してください!
+ko = 안녕하세요!\n\n제 북마크를 첨부했습니다. NonGPS Maps에서 열어주세요. 설치되어 있지 않다면 여기에서 다운로드할 수 있습니다: https://github.com/Ramzess-II/NoGPSMaps\n\nNonGPS Maps와 함께 즐거운 여행 되세요!
+lo = ສະບາຍດີ!\n\nນີ້ແມ່ນບຸກມາກຂອງຂ້ອຍ; ກະລຸນາເປີດໃນ NonGPS Maps. ຫາກທ່ານຍັງບໍ່ໄດ້ຕິດຕັ້ງ, ສາມາດດາວໂຫລດໄດ້ທີ່ນີ້: https://github.com/Ramzess-II/NoGPSMaps\n\nຂໍໃຫ້ມ່ວນກັບການເດີນທາງດ້ວຍ NonGPS Maps!
+lt = Labas! \n \nČia prisegtas mano žymių sąrašas iš „NonGPS Maps“ programėlės. Jei jos neturi, gali ją parsisiųsti iš https://github.com/Ramzess-II/NoGPSMaps \n \nSmagių kelionių su „NonGPS Maps“!
+lv = Sveiki!\n\nPielikumā ir grāmatzīmes. Lūdzu, atveriet tās „NonGPS Maps“ lietotnē. Ja Jums tā nav instalēta, instalējiet to te: https://github.com/Ramzess-II/NoGPSMaps\n\nBaudiet ceļošanu ar „NonGPS Maps“!
+mr = नमस्कार!\n\nNonGPS Maps ऍप मधील माझे खूणपत्रे संलग्न केले आहेत. तुम्ही NonGPS Maps इन्स्टॉल केले असल्यास हे खूणपत्रे उघडा. इन्स्टॉल केले नसल्यास, पुढील दुव्यावर जाऊन तुमच्या iOS किंवा अँड्रॉइड उपकरणावर हे डाउनलोड करा: https://github.com/Ramzess-II/NoGPSMaps\n\nNonGPS Maps सह प्रवासाचा आनंद घ्या!
+mt = Helow!\n\nMehmuża huma il-bookmarks; iftaħhom ġo NonGPS Maps. Jekk mhuwiex installat tista tniżżlu min hawn: https://github.com/Ramzess-II/NoGPSMaps\n\nĦu pjaċir ivvjaġġa ġo NonGPS Maps!
+nb = Hei!\n\nVedlagt er mine bokmerker fra NonGPS Maps-appen. Åpne de dersom du har NonGPS Maps installert. Har du ikke har det, last ned appen til iOS eller Android ved å trykke på denne linken: https://github.com/Ramzess-II/NoGPSMaps\n\nNyt reisen med NonGPS Maps!
+nl = Hallo!\n\nBijgesloten zijn mijn bladwijzers uit de NonGPS Maps app. Open ze als je NonGPS Maps geïnstalleerd hebt. Of, als je dat niet hebt, download de app hier: https://github.com/Ramzess-II/NoGPSMaps\n\nGeniet van het reizen met NonGPS Maps!
+pl = Cześć!\n\nZałączam moje zakładki z aplikacji NonGPS Maps. Proszę otwórz je jeżeli masz zaintalowane NonGPS Maps. Lub, jeżeli nie masz, pobierz aplikację na swoje urządzenie iOS/Android za pomocą tego linka: https://github.com/Ramzess-II/NoGPSMaps\n\nMiłego podróżowania z NonGPS Maps!
+pt = Olá!\n\nSegue em anexo os meus favoritos da aplicação NonGPS Maps. Por favor abra-os se tiver o NonGPS Maps instalado. Caso não tenha, descarregue a aplicação para o seu dispositivo iOS ou Android com a hiperligação https://github.com/Ramzess-II/NoGPSMaps\n\nDivirta-se a viajar com o NonGPS Maps!
+pt-BR = Olá!\n\nSegue em anexo meus favoritos do app NonGPS Maps. Se tiver instalado o NonGPS Maps, pode abri-los agora. Caso não tenha, baixe o app para o seu dispositivo iOS ou Android via o link https://github.com/Ramzess-II/NoGPSMaps\n\nDisfrute viajar com o NonGPS Maps!
+ro = Bună!\n\nȚi-am atașat locurile mele preferate din aplicația NonGPS Maps. Deschide-le dacă ai instalată NonGPS Maps. Dacă nu, o poți descărca pentru iOS sau Android de aici: https://organicmaps.app/
+ru = Здравствуйте!\n\nВ прикреплённом файле мои метки из офлайновых карт NonGPS Maps. Для того чтобы открыть этот файл, вам потребуется приложение NonGPS Maps, которое можно установить по ссылке: https://github.com/Ramzess-II/NoGPSMaps\n\nСпасибо!
+sk = Ahoj!\n\nV prílohe sú moje záložky z aplikácie NonGPS Maps. Ak ju nemáš nainštalovanú, môžeš si ju stiahnuť tu: https://github.com/Ramzess-II/NoGPSMaps\n\nPrajem šťastnú cestu s NonGPS Maps!
+sl = Živjo!\n\nV priponki so moji zaznamki; odprite jih v NonGPS Maps. Če aplikacije nimate nameščene, jo lahko prenesete tukaj: https://github.com/Ramzess-II/NoGPSMaps\n\nUživajte v potovanju z NonGPS Maps!
+sq = Përshëndetje!\n\nBashkëngjitur janë faqeshënuesit e mi; ju lutemi hapini ato në NonGPS Maps. Nëse nuk e keni të instaluar, mund ta shkarkoni këtu: https://github.com/Ramzess-II/NoGPSMaps\n\nShijoni udhëtimin me NonGPS Maps!
+sr = Здраво!\n\nУ прилогу су моји маркери; молим те да их отвориш у NonGPS Maps-у. Ако га немаш већ инсталираног, можеш да га преузмеш одавде: https://github.com/Ramzess-II/NoGPSMaps\n\nУживај у путовању са NonGPS Maps-ом!
+sv = Hej! \n \nJag bifogar mina bokmärken, öppna gärna dem med NonGPS Maps. Om du inte redan har appen installerad, kan du ladda ner den här: https://github.com/Ramzess-II/NoGPSMaps \n \nTrevlig resa med NonGPS Maps!
+sw = Habari!\n\nNimeambatanisha alamisho zangu; tafadhali zifungue kwenye NonGPS Maps. Ikiwa haujaweka, unaweza kupakua hapa: https://github.com/Ramzess-II/NoGPSMaps\n\nFurahia kusafiri na NonGPS Maps!
+th = สวัสดีครับ\n\nแนบมาด้วยบุ๊กมาร์กของผม; กรุณาเปิดใน NonGPS Maps หากคุณยังไม่ได้ติดตั้ง คุณสามารถดาวน์โหลดได้ที่นี่: https://github.com/Ramzess-II/NoGPSMaps\n\nขอให้สนุกกับการเดินทางด้วย NonGPS Maps!
+tr = Merhaba! \n \nEktekiler yer imlerim, lütfen bunları NonGPS Maps'te açın. Eğer uygulama kurulmamışsa, şu bağlantıyla iOS ve Android aygıtınıza kurabilirsiniz: https://github.com/Ramzess-II/NoGPSMaps\n \nNonGPS Maps ile gezintinin tadını çıkarın!
+uk = Привіт!\n\nДодаю мої мітки; відкрийте їх у NonGPS Maps. Якщо застосунок не встановлено, ви можете завантажити його тут: https://github.com/Ramzess-II/NoGPSMaps\n\nНасолоджуйтесь подорожами з NonGPS Maps!
+vi = Xin chào!\n\nĐính kèm là các dấu trang của tôi; vui lòng mở chúng trong NonGPS Maps. Nếu bạn chưa cài đặt ứng dụng này, bạn có thể tải xuống tại đây: https://github.com/Ramzess-II/NoGPSMaps\n\nChúc bạn có những chuyến đi thú vị cùng NonGPS Maps!
+zh-Hans = 您好！\n\n附件是我的书签，请在 NonGPS Maps 中打开。如果您没有安装 NonGPS Maps，可以在这里下载: https://github.com/Ramzess-II/NoGPSMaps\n\n祝您使用 NonGPS Maps 旅行愉快！
+zh-Hant = 您好！\n\n附件是我的書籤，請在 NonGPS Maps 中打開。如果您沒有安裝 NonGPS Maps，可以在這裡下載: https://github.com/Ramzess-II/NoGPSMaps\n\n祝您使用 NonGPS Maps 旅行愉快！
 
 [load_kmz_title]
 comment = message title of loading file
@@ -5454,121 +5454,121 @@ zh-Hant = 我在 Organic Maps 上的位置
 [share_place_subject]
 comment = Email subject when sharing a place. %1$@ is the place name or address.
 tags = android-app,apple-maps
-en = %1$@ on NoGPS Maps
-af = %1$@ op NoGPS Maps
-ar = %1$@ على NoGPS Maps
-ast = %1$@ n’NoGPS Maps
-az = %1$@ NoGPS Maps-də
-be = %1$@ у NoGPS Maps
-bg = %1$@ в NoGPS Maps
-bn = %1$@ NoGPS Maps-এ
-ca = %1$@ a NoGPS Maps
-cs = %1$@ v NoGPS Maps
-cy = %1$@ ar NoGPS Maps
-da = %1$@ på NoGPS Maps
-de = %1$@ in NoGPS Maps
-el = %1$@ στο NoGPS Maps
-es = %1$@ en NoGPS Maps
-et = %1$@ NoGPS Mapsis
-eu = %1$@ NoGPS Maps-en
-fa = %1$@ در NoGPS Maps
-fi = %1$@ NoGPS Mapsissa
-fr = %1$@ sur NoGPS Maps
-gl = %1$@ en NoGPS Maps
-he = %1$@ ב-NoGPS Maps
-hi = %1$@ NoGPS Maps पर
-hr = %1$@ na NoGPS Maps
-hu = %1$@ az NoGPS Mapsben
-hy = %1$@ NoGPS Maps-ում
-id = %1$@ di NoGPS Maps
-is = %1$@ í NoGPS Maps
-it = %1$@ su NoGPS Maps
-ja = %1$@ - NoGPS Maps
-ko = %1$@ - NoGPS Maps
-lo = %1$@ ໃນ NoGPS Maps
-lt = %1$@ per „NoGPS Maps“
-lv = %1$@ lietotnē NoGPS Maps
-mr = %1$@ NoGPS Maps वर
-mt = %1$@ fuq NoGPS Maps
-nb = %1$@ på NoGPS Maps
-nl = %1$@ op NoGPS Maps
-pa = %1$@ NoGPS Maps ਵਿੱਚ
-pl = %1$@ w NoGPS Maps
-pt = %1$@ no NoGPS Maps
-ro = %1$@ pe NoGPS Maps
-ru = %1$@ в NoGPS Maps
-sk = %1$@ v NoGPS Maps
-sl = %1$@ v NoGPS Maps
-sq = %1$@ në NoGPS Maps
-sr = %1$@ у NoGPS Maps
-sv = %1$@ på NoGPS Maps
-sw = %1$@ kwenye NoGPS Maps
-th = %1$@ บน NoGPS Maps
-tr = %1$@ NoGPS Maps'te
-uk = %1$@ в NoGPS Maps
-vi = %1$@ trên NoGPS Maps
-zh-Hans = %1$@ - NoGPS Maps
-zh-Hant = %1$@ - NoGPS Maps
+en = %1$@ on NonGPS Maps
+af = %1$@ op NonGPS Maps
+ar = %1$@ على NonGPS Maps
+ast = %1$@ en NonGPS Maps
+az = %1$@ NonGPS Maps-də
+be = %1$@ у NonGPS Maps
+bg = %1$@ в NonGPS Maps
+bn = %1$@ NonGPS Maps-এ
+ca = %1$@ a NonGPS Maps
+cs = %1$@ v NonGPS Maps
+cy = %1$@ ar NonGPS Maps
+da = %1$@ på NonGPS Maps
+de = %1$@ in NonGPS Maps
+el = %1$@ στο NonGPS Maps
+es = %1$@ en NonGPS Maps
+et = %1$@ NonGPS Mapsis
+eu = %1$@ NonGPS Maps-en
+fa = %1$@ در NonGPS Maps
+fi = %1$@ NonGPS Mapsissa
+fr = %1$@ sur NonGPS Maps
+gl = %1$@ en NonGPS Maps
+he = %1$@ ב-NonGPS Maps
+hi = %1$@ NonGPS Maps पर
+hr = %1$@ na NonGPS Maps
+hu = %1$@ a NonGPS Mapsben
+hy = %1$@ NonGPS Maps-ում
+id = %1$@ di NonGPS Maps
+is = %1$@ í NonGPS Maps
+it = %1$@ su NonGPS Maps
+ja = %1$@ - NonGPS Maps
+ko = %1$@ - NonGPS Maps
+lo = %1$@ ໃນ NonGPS Maps
+lt = %1$@ per „NonGPS Maps“
+lv = %1$@ lietotnē NonGPS Maps
+mr = %1$@ NonGPS Maps वर
+mt = %1$@ fuq NonGPS Maps
+nb = %1$@ på NonGPS Maps
+nl = %1$@ op NonGPS Maps
+pa = %1$@ NonGPS Maps ਵਿੱਚ
+pl = %1$@ w NonGPS Maps
+pt = %1$@ no NonGPS Maps
+ro = %1$@ pe NonGPS Maps
+ru = %1$@ в NonGPS Maps
+sk = %1$@ v NonGPS Maps
+sl = %1$@ v NonGPS Maps
+sq = %1$@ në NonGPS Maps
+sr = %1$@ у NonGPS Maps
+sv = %1$@ på NonGPS Maps
+sw = %1$@ kwenye NonGPS Maps
+th = %1$@ บน NonGPS Maps
+tr = %1$@ NonGPS Maps'te
+uk = %1$@ в NonGPS Maps
+vi = %1$@ trên NonGPS Maps
+zh-Hans = %1$@ - NonGPS Maps
+zh-Hant = %1$@ - NonGPS Maps
 
 [share_place_subject_default]
 comment = Email subject when sharing a place that has no name or address.
 tags = android-app,apple-maps
-en = A place on NoGPS Maps
-af = 'n Plek op NoGPS Maps
-ar = مكان على NoGPS Maps
-ast = Un llugar n’NoGPS Maps
-az = NoGPS Maps-də məkan
-be = Месца ў NoGPS Maps
-bg = Място в NoGPS Maps
-bn = NoGPS Maps-এ একটি স্থান
-ca = Un lloc a NoGPS Maps
-cs = Místo v NoGPS Maps
-cy = Lle ar NoGPS Maps
-da = Et sted på NoGPS Maps
-de = Ein Ort in NoGPS Maps
-el = Ένα μέρος στο NoGPS Maps
-es = Un lugar en NoGPS Maps
-et = Koht NoGPS Mapsis
-eu = Leku bat NoGPS Maps-en
-fa = مکانی در NoGPS Maps
-fi = Paikka NoGPS Mapsissa
-fr = Un lieu sur NoGPS Maps
-gl = Un lugar en NoGPS Maps
-he = מקום ב-NoGPS Maps
-hi = NoGPS Maps पर एक स्थान
-hr = Mjesto na NoGPS Maps
-hu = Egy hely az NoGPS Mapsben
-hy = Վայր NoGPS Maps-ում
-id = Tempat di NoGPS Maps
-is = Staður í NoGPS Maps
-it = Un luogo su NoGPS Maps
-ja = NoGPS Mapsの場所
-ko = NoGPS Maps의 장소
-lo = ສະຖານທີ່ໃນ NoGPS Maps
-lt = Vieta per „NoGPS Maps“
-lv = Vieta lietotnē NoGPS Maps
-mr = NoGPS Maps वरील ठिकाण
-mt = Post fuq NoGPS Maps
-nb = Et sted på NoGPS Maps
-nl = Een plaats op NoGPS Maps
-pa = NoGPS Maps ਵਿੱਚ ਇੱਕ ਥਾਂ
-pl = Miejsce w NoGPS Maps
-pt = Um local no NoGPS Maps
-pt-BR = Um lugar no NoGPS Maps
-ro = Un loc pe NoGPS Maps
-ru = Место в NoGPS Maps
-sk = Miesto v NoGPS Maps
-sl = Kraj v NoGPS Maps
-sq = Një vend në NoGPS Maps
-sr = Место у NoGPS Maps
-sv = En plats på NoGPS Maps
-sw = Mahali kwenye NoGPS Maps
-th = สถานที่บน NoGPS Maps
-tr = NoGPS Maps'te bir yer
-uk = Місце в NoGPS Maps
-vi = Một địa điểm trên NoGPS Maps
-zh-Hans = NoGPS Maps 上的地点
-zh-Hant = NoGPS Maps 上的地點
+en = A place on NonGPS Maps
+af = 'n Plek op NonGPS Maps
+ar = مكان على NonGPS Maps
+ast = Un llugar en NonGPS Maps
+az = NonGPS Maps-də məkan
+be = Месца ў NonGPS Maps
+bg = Място в NonGPS Maps
+bn = NonGPS Maps-এ একটি স্থান
+ca = Un lloc a NonGPS Maps
+cs = Místo v NonGPS Maps
+cy = Lle ar NonGPS Maps
+da = Et sted på NonGPS Maps
+de = Ein Ort in NonGPS Maps
+el = Ένα μέρος στο NonGPS Maps
+es = Un lugar en NonGPS Maps
+et = Koht NonGPS Mapsis
+eu = Leku bat NonGPS Maps-en
+fa = مکانی در NonGPS Maps
+fi = Paikka NonGPS Mapsissa
+fr = Un lieu sur NonGPS Maps
+gl = Un lugar en NonGPS Maps
+he = מקום ב-NonGPS Maps
+hi = NonGPS Maps पर एक स्थान
+hr = Mjesto na NonGPS Maps
+hu = Egy hely a NonGPS Mapsben
+hy = Վայր NonGPS Maps-ում
+id = Tempat di NonGPS Maps
+is = Staður í NonGPS Maps
+it = Un luogo su NonGPS Maps
+ja = NonGPS Mapsの場所
+ko = NonGPS Maps의 장소
+lo = ສະຖານທີ່ໃນ NonGPS Maps
+lt = Vieta per „NonGPS Maps“
+lv = Vieta lietotnē NonGPS Maps
+mr = NonGPS Maps वरील ठिकाण
+mt = Post fuq NonGPS Maps
+nb = Et sted på NonGPS Maps
+nl = Een plaats op NonGPS Maps
+pa = NonGPS Maps ਵਿੱਚ ਇੱਕ ਥਾਂ
+pl = Miejsce w NonGPS Maps
+pt = Um local no NonGPS Maps
+pt-BR = Um lugar no NonGPS Maps
+ro = Un loc pe NonGPS Maps
+ru = Место в NonGPS Maps
+sk = Miesto v NonGPS Maps
+sl = Kraj v NonGPS Maps
+sq = Një vend në NonGPS Maps
+sr = Место у NonGPS Maps
+sv = En plats på NonGPS Maps
+sw = Mahali kwenye NonGPS Maps
+th = สถานที่บน NonGPS Maps
+tr = NonGPS Maps'te bir yer
+uk = Місце в NonGPS Maps
+vi = Một địa điểm trên NonGPS Maps
+zh-Hans = NonGPS Maps 上的地点
+zh-Hant = NonGPS Maps 上的地點
 
 [share_open_in_om_or_browser]
 comment = Shared email link text; opens the shared place in Organic Maps or in a web browser.
@@ -18992,60 +18992,60 @@ zh-Hant = 截至 %@ 的社群創建的開放街圖資料。請訪問 OpenStreetM
 [login_osm_presentation]
 comment = OSM explanation on Android login screen
 tags = android-app
-en = OpenStreetMap.org (OSM) is a community project to build a free and open map. It's the main source of map data in NoGPS Maps and works similar to Wikipedia. You can add or edit places and they become available to millions of users all over the World.\nJoin the community and help to make a better map for everyone!
-af = OpenStreetMap.org (OSM) is 'n gemeenskapsprojek om 'n gratis en oop kaart te bou. Dit is die hoofbron van kaartdata in NoGPS Maps en werk soortgelyk aan Wikipedia. Jy kan plekke byvoeg of wysig en hulle word beskikbaar vir miljoene gebruikers regoor die wêreld.\nSluit aan by die gemeenskap en help om 'n beter kaart vir almal te maak!
-ar = OpenStreetMap.org (OSM) هو مشروع مجتمعي يهدف إلى إنشاء خريطة مجانية ومفتوحة. وهو المصدر الرئيسي لبيانات الخرائط في NoGPS Maps ويعمل بشكل مشابه لـويكيبيديا. يمكنك إضافة أو تعديل الأماكن لتصبح متاحة لملايين المستخدمين في جميع أنحاء العالم.\nانضم إلى المجتمع وساعد في إنشاء خريطة أفضل للجميع!
-az = OpenStreetMap.org (OSM) pulsuz və açıq xəritə yaratmaq üçün icma layihəsidir. Bu, NoGPS Maps xəritə məlumatlarının əsas mənbəyidir və Vikipediya kimi fəaliyyət göstərir. Siz yerlər əlavə edib və ya redaktə edə bilərsiniz və onlar bütün dünyada milyonlarla istifadəçi üçün əlçatan olur. İcmaya qoşulun və hər kəs üçün daha yaxşı xəritə yaratmağa kömək edin!
-be = OpenStreetMap.org (OSM) - гэта грамадскі праект па стварэнні бясплатнай і адкрытай мапы, і асноўная крыніца картаграфічных даных у NoGPS Maps, якая працуе падобна на Вікіпедыю. Кожны можа дадаваць або рэдагаваць месцы, якія ўбачаць мільёны карыстальнікаў па ўсім свеце. \nДалучайцеся да супольнасці і дапамажыце зрабіць лепшую мапу для ўсіх!
-bg = OpenStreetMap.org (OSM) е общностен проект за създаване на безплатна и отворена карта. Той е основният източник на картографски данни в NoGPS Maps и работи подобно на Wikipedia. Можете да добавяте или редактирате места и те стават достъпни за милиони потребители по целия свят.\nПрисъединете се към общността и помогнете за създаването на по-добра карта за всички!
-ca = OpenStreetMap.org (OSM) és un projecte comunitari per construir un mapa lliure i obert. És la font principal de dades de mapes a NoGPS Maps i funciona de manera similar a la Viquipèdia. Pots afegir o editar llocs i estaran disponibles per a milions d'usuaris de tot el món.\nUneix-te a la comunitat i ajuda a crear un mapa millor per a tothom!
-cs = OpenStreetMap.org (OSM) je komunitní projekt, jehož cílem je vytvořit svobodnou a otevřenou mapu. Je hlavním zdrojem mapových dat v aplikaci NoGPS Maps a funguje podobně jako Wikipedie. Můžete přidávat nebo upravovat místa a ta se pak stanou dostupná milionům uživatelů po celém světě.\nPřipojte se ke komunitě a pomozte vytvořit lepší mapu pro všechny!
-cy = Mae OpenStreetMap.org (OSM) yn brosiect cymunedol i adeiladu map agored ac am ddim. Dyma brif ffynhonnell data map yn NoGPS Maps ac mae'n gweithio'n debyg i Wicipedia. Gallwch ychwanegu neu olygu lleoedd a byddant ar gael i filiynau o ddefnyddwyr ledled y byd.\nYmunwch â'r gymuned a helpwch i wneud map gwell i bawb!
-da = OpenStreetMap.org (OSM) er et fællesskabsprojekt til opbygning af et gratis og åbent kort. Det er hovedkilden til kortdata i NoGPS Maps og fungerer på samme måde som Wikipedia. Du kan tilføje eller redigere steder, og de bliver tilgængelige for millioner af brugere over hele verden.\nSlut dig til fællesskabet og vær med til at skabe et bedre kort for alle!
-de = OpenStreetMap.org (OSM) ist ein Gemeinschaftsprojekt zum Erstellen einer freien und offenen Karte. Es ist die Hauptquelle für Kartendaten in NoGPS Maps und funktioniert ähnlich wie Wikipedia. Du kannst Orte hinzufügen oder bearbeiten, die dann Millionen von Nutzern auf der ganzen Welt zur Verfügung stehen.\nTritt der Gemeinschaft bei und hilf mit, die Karte für alle besser zu machen!
-el = Το OpenStreetMap.org (OSM) είναι ένα κοινοτικό έργο με στόχο τη δημιουργία ενός δωρεάν και ανοιχτού χάρτη. Αποτελεί την κύρια πηγή δεδομένων χαρτών στο NoGPS Maps και λειτουργεί παρόμοια με τη Wikipedia. Μπορείτε να προσθέσετε ή να επεξεργαστείτε τοποθεσίες, οι οποίες θα γίνουν διαθέσιμες σε εκατομμύρια χρήστες σε όλο τον κόσμο.\nΓίνετε μέλος της κοινότητας και βοηθήστε στη δημιουργία ενός καλύτερου χάρτη για όλους!
-es = OpenStreetMap.org (OSM) es un proyecto comunitario para construir un mapa gratis y abierto. Es la principal fuente de datos cartográficos de NoGPS Maps y funciona de forma similar a Wikipedia. Puedes añadir o editar lugares y estos pasan a estar disponibles para millones de usuarios de todo el mundo.\n¡Únete a la comunidad y ayuda a crear un mejor mapa para todos!
-es-MX = OpenStreetMap.org (OSM) es un proyecto comunitario para construir un mapa libre y abierto. Es la principal fuente de datos cartográficos de NoGPS Maps y funciona de forma similar a Wikipedia. Puedes añadir o editar lugares y se ponen a disposición de millones de usuarios de todo el mundo.\N¡Únete a la comunidad y ayuda a hacer un mapa mejor para todos!
-et = OpenStreetMap.org (OSM) on kogukonna projekt, mille eesmärk on luua vaba, tasuta ja avatud kaart. See on NoGPS Mapsi peamine kaardiandmete allikas ja toimib sarnaselt Vikipeediaga. Saad lisada või muuta kohti ja need muutuvad kättesaadavaks miljonitele kasutajatele üle kogu maailma.\nLiitu kogukonnaga ja aita luua kõigi jaoks paremat kaarti!
-eu = OpenStreetMap.org (OSM) mapa libre eta irekia eraikitzeko komunitateko proiektu bat da. NoGPS Maps-en mapen datuen iturri nagusia da eta Wikipediaren antzera funtzionatzen du. Tokiak gehitu edo edita ditzakezu eta mundu osoko milioika erabiltzailerentzat eskuragarri egongo dira.\nSartu komunitatean eta lagundu mapa hobea egiten guztiontzat!
-fa = OpenStreetMap.org (OSM) یک پروژهٔ اجتماعی برای ساختن نقشه‌ای آزاد و باز است. این منبع اصلی داده‌های نقشه در NoGPS Maps است و به‌طور مشابهی با ویکی‌پدیا کار می‌کند. شما می‌توانید مکان‌ها را اضافه یا ویرایش کنید و آن‌ها در اختیار میلیون‌ها کاربر در سراسر جهان قرار می‌گیرند. به جامعه بپیوندید و به ساختن نقشه‌ای بهتر برای همه کمک کنید!
-fi = OpenStreetMap.org (OSM) on yhteisöprojekti, jonka tarkoituksena on rakentaa ilmainen ja avoin kartta. Se on NoGPS Mapsin tärkein karttatietojen lähde ja toimii samalla tavalla kuin Wikipedia. Voit lisätä tai muokata paikkoja, ja ne tulevat miljoonien käyttäjien saataville kaikkialla maailmassa.\nLiity yhteisöön ja auta tekemään parempi kartta kaikille!
-fr = OpenStreetMap.org (OSM) est un projet communautaire visant à créer une carte libre et ouverte. C'est la principale source de données cartographiques d'NoGPS Maps et son fonctionnement est similaire à celui de Wikipédia. Vous pouvez ajouter ou modifier des lieux et ils deviennent accessibles à des millions d'utilisateurs dans le monde entier.\nRejoignez la communauté et aidez-nous à créer une meilleure carte pour tout le monde !
-gl = OpenStreetMap.org (OSM) é un proxecto comunitario para construír un mapa libre e aberto. É a principal fonte de datos cartográficos de NoGPS Maps e funciona de forma similar a Wikipedia. Vostede pode engadir ou editar lugares e estes pasan a estar dispoñibles para millóns de usuarios de todo o mundo. \nÚnase á comunidade e axude a crear un mapa mellor para todos!
-he = \u200FOpenStreetMap.org (OSM) הוא פרויקט קהילתי לבניית מפה חופשית ופתוחה. זהו המקור העיקרי לנתוני מפות ב-NoGPS Maps והוא פועל בדומה לוויקיפדיה. ניתן להוסיף או לערוך מקומות והם הופכים לזמינים למיליוני משתמשים בכל רחבי העולם.\nהצטרף לקהילה ועזור ליצור מפה טובה יותר לכולם!
-hi = OpenStreetMap.org (OSM) एक समुदाय परियोजना है जो एक मुफ्त और खुले नक्शे का निर्माण करती है। यह NoGPS Maps में नक्शा डेटा का मुख्य स्रोत है और विकिपीडिया की तरह काम करती है। आप स्थान जोड़ या संपादित कर सकते हैं और वे दुनिया भर के लाखों उपयोगकर्ताओं के लिए उपलब्ध हो जाते हैं।\nसमुदाय में शामिल हों और सभी के लिए एक बेहतर नक्शा बनाने में मदद करें!
-hr = OpenStreetMap.org (OSM) je projekt zajednice za izradu slobodne i otvorene karte. To je glavni izvor kartnih podataka u NoGPS Mapsu i funkcionira slično kao Wikipedia. Možete dodavati ili uređivati mjesta i ona postaju dostupna milijunima korisnika diljem svijeta. Pridružite se zajednici i pomozite u izradi bolje karte za sve!
-hu = Az OpenStreetMap.org (OSM) egy közösségi projekt, amelynek célja egy ingyenes és nyílt térkép létrehozása. Ez az NoGPS Maps alkalmazás térképadatainak fő forrása, és a Wikipédiához hasonlóan működik. Helyeket adhat hozzá vagy szerkeszthet, és azok világszerte felhasználók milliói számára válnak elérhetővé. \nCsatlakozzon a közösséghez, és segítsen egy jobb térképet készíteni mindenki számára!
-hy = OpenStreetMap.org (OSM)-ը համայնքային նախագիծ է՝ անվճար և բաց քարտեզ ստեղծելու համար: Այն NoGPS Maps-ի քարտեզային տվյալների հիմնական աղբյուրն է և աշխատում է Վիքիպեդիայի նման: Դուք կարող եք ավելացնել կամ խմբագրել վայրեր, և դրանք հասանելի կդառնան միլիոնավոր օգտատերերի ամբողջ աշխարհում.\nՄիացեք համայնքին և օգնեք ստեղծել ավելի լավ քարտեզ բոլորի համար!
-id = OpenStreetMap.org (OSM) adalah sebuah proyek komunitas untuk membuat sebuah peta yang bebas dan terbuka. OSM merupakan sumber utama data peta di NoGPS Maps dan berfungsi mirip dengan Wikipedia. Anda dapat menambahkan atau mengedit tempat dan tempat tersebut tersedia untuk jutaan pengguna di seluruh Dunia.\nBergabunglah dengan komunitas dan bantu membuat peta yang lebih baik untuk semua orang!
-is = OpenStreetMap.org (OSM) er samfélagsverkefni sem stefnir að uppbyggingu á frjálsu og opnu landakorti. Þetta er meginuppistaðan í NoGPS Maps og virkar svipað og Wikipedia. Þú getur bætt við eð breytt stöðum, og verða þeir þá aðgengilegir milljónum notenda um víða veröld.\nTaktu þátt og hjálpaðu til við að gera betri landakort fyrir alla!
-it = OpenStreetMap.org (OSM) è un progetto comunitario per creare una mappa libera e aperta. È la principale fonte di dati cartografici di NoGPS Maps e funziona in modo simile a Wikipedia. Puoi aggiungere o modificare luoghi che diventano disponibili per milioni di utenti in tutto il mondo. \nEntra a far parte della comunità e contribuisci a creare una mappa migliore per tutti!
-ja = OpenStreetMap.org(OSM)は、フリーでオープンな地図を構築するコミュニティ・プロジェクトです。OSMは、NoGPS Mapsの地図データの主要なソースであり、ウィキペディアと同じように機能します。あなたが場所を追加したり編集したりすると、世界中の何百万人ものユーザーがその場所を利用できるようになります！
-ko = OpenStreetMap.org(OSM)는 무료 개방형 지도를 구축하기 위한 커뮤니티 프로젝트입니다. 이 프로젝트는 NoGPS Maps의 주요 지도 데이터 소스이며, 위키백과와 유사한 방식으로 운영됩니다. 사용자는 장소를 추가하거나 편집할 수 있으며, 이러한 정보는 전 세계 수백만 명의 사용자가 이용할 수 있게 됩니다.\n커뮤니티에 참여하여 모두를 위한 더 나은 지도를 만드는 데 힘을 보태주세요!
-lo = OpenStreetMap.org (OSM) ແມ່ນໂຄງການຊຸມຊົນເພື່ອສ້າງແຜນທີ່ທີ່ຟຣີ ແລະ ເປີດກວ້າງ. ມັນເປັນແຫຼ່ງຂໍ້ມູນແຜນທີ່ຫຼັກໃນ NoGPS Maps ແລະ ເຮັດວຽກຄ້າຍຄືກັບ Wikipedia. ທ່ານສາມາດເພີ່ມ ຫຼື ແກ້ໄຂສະຖານທີ່ ແລະ ພວກມັນຈະພ້ອມໃຫ້ຜູ້ໃຊ້ຫຼາຍລ້ານຄົນທົ່ວໂລກໄດ້ໃຊ້.\nມາເຂົ້າຮ່ວມຊຸມຊົນ ແລະ ຊ່ວຍກັນສ້າງແຜນທີ່ທີ່ດີກວ່າສຳລັບທຸກຄົນ!
-lt = OpenStreetMap.org (OSM) – tai bendruomenės projektas, kuriuo siekiama sukurti laisvą ir atvirą žemėlapį. Tai – pagrindinis „NoGPS Maps“ žemėlapių duomenų šaltinis, veikiantis panašiu principu, kaip „Vikipedija“. Galite pridėti ar taisyti vietas, o jos tampa prieinamos milijonams naudotojų visame pasaulyje. \nPrisijunkite prie bendruomenės ir padėkite kurti geresnį žemėlapį visiems!
-lv = OpenStreetMap.org (OSM) ir kopienas projekts, kura mērķis ir izveidot atvērtajos datos balstītu karti, kura ir pieejama bez maksas. Tas ir NoGPS Maps galvenais karšu datu avots un darbojas līdzīgi kā Vikipēdija. Jūs varat pievienot vai rediģēt vietas, un tās kļūst pieejamas miljoniem lietotāju visā pasaulē.\nPievienojieties kopienai, lai palīdzētu izveidot labāku karti visiem!
-mr = OpenStreetMap.org (OSM) हा मोफत आणि मुक्त नकाशा तयार करण्याचा समुदाय प्रकल्प आहे. हा NoGPS Maps मधील नकाशा डेटाचा मुख्य स्रोत आहे आणि विकिपीडियाप्रमाणे कार्य करतो. तुम्ही ठिकाणे जोडू किंवा संपादित करू शकता आणि ती जगभरातील लाखो वापरकर्त्यांसाठी उपलब्ध होतात.\nसमुदायात सामील व्हा आणि सर्वांसाठी अधिक चांगला नकाशा तयार करण्यात मदत करा!
-mt = OpenStreetMap.org (OSM) huwa proġett komunitarju biex jinbena mappa ħielsa u miftuħa. Huwa s-sors ewlieni tad-dejta tal-mappa fl-NoGPS Maps, u jaħdem b'mod simili għal Wikipedia. Tista' żżid jew teditja postijiet u dawn isiru disponibbli għal miljuni ta' utenti madwar id-dinja. Ingħaqad mal-komunità u għin biex toħloq mappa aħjar għal kulħadd!
-nb = OpenStreetMap.org (OSM) er et fellesskapsprosjekt for å bygge et gratis og åpent kart. Det er hovedkilden til kartdata i NoGPS Maps og fungerer på samme måte som Wikipedia. Du kan legge til eller redigere steder, og de blir tilgjengelige for millioner av brukere over hele verden. \nBli med i fellesskapet og bidra til å lage et bedre kart for alle!
-nl = OpenStreetMap.org (OSM) is een gemeenschapsproject om een vrije en open kaart te bouwen. Het is de belangrijkste bron van kaartgegevens in NoGPS Maps en werkt ongeveer hetzelfde als Wikipedia. U kunt plaatsen toevoegen of bewerken en deze worden dan beschikbaar voor miljoenen gebruikers over de hele wereld.\nSluit u aan bij de gemeenschap en help mee om een betere kaart voor iedereen te maken!
-pl = OpenStreetMap.org (OSM) to projekt społecznościowy mający na celu stworzenie darmowej i otwartej mapy. Jest to główne źródło danych mapowych w NoGPS Maps i działa podobnie do Wikipedii. Można dodawać lub edytować miejsca, które stają się dostępne dla milionów użytkowników na całym świecie.\nDołącz do społeczności i pomóż stworzyć lepszą mapę dla wszystkich!
-pt = O OpenStreetMap.org (OSM) é um projeto comunitário aberto para construir um mapa gratuito. O OSM é a principal fonte de dados de mapas do NoGPS Maps e funciona de forma semelhante à Wikipedia. Pode adicionar ou editar locais e estes ficam disponíveis para milhões de utilizadores no mundo todo.\nJunte-se à comunidade e ajude a criar um mapa melhor para todos!
-pt-BR = O OpenStreetMap (OSM) é um projeto comunitário aberto para construir um mapa gratuito. O OSM é a principal fonte de dados de mapas do NoGPS Maps e funciona de forma semelhante à Wikipédia. Você pode adicionar ou editar lugares e eles ficam disponíveis para milhões de usuários no mundo todo.\nJunte-se à comunidade e ajude a criar um mapa melhor para todos!
-ro = OpenStreetMap.org (OSM) este un proiect comunitar pentru construirea unei hărți libere și deschise. Este principala sursă de date cartografice în NoGPS Maps și funcționează similar cu Wikipedia. Puteți adăuga sau edita locuri, iar acestea devin disponibile pentru milioane de utilizatori din întreaga lume.\nAlăturați-vă comunității și ajutați la crearea unei hărți mai bune pentru toată lumea!
-ru = OpenStreetMap.org (OSM) - это открытый проект сообщества по созданию бесплатной карты. Он является основным источником картографических данных в NoGPS Maps и работает как Википедия. Кто угодно может добавлять или редактировать места, которые позже увидят миллионы пользователей по всему миру.\nПрисоединяйтесь к сообществу и помогите сделать лучшую карту для всех!
-sk = OpenStreetMap.org (OSM) je komunitný projekt na vytvorenie bezplatnej a otvorenej mapy. Je hlavným zdrojom mapových údajov v službe NoGPS Maps a funguje podobne ako Wikipédia. Môžete pridávať alebo upravovať miesta a tie sa stanú dostupnými pre milióny používateľov na celom svete.\nPridajte sa ku komunite a pomôžte vytvoriť lepšiu mapu pre všetkých!
-sl = OpenStreetMap.org (OSM) je projekt skupnosti za izgradnjo brezplačnega in odprtega zemljevida. Je glavni vir podatkov o zemljevidih v NoGPS Maps in deluje podobno kot Wikipedija. Lahko dodajate ali urejate mesta, ki postanejo na voljo milijonom uporabnikov po vsem svetu.\nPridružite se skupnosti in pomagajte ustvariti boljši zemljevid za vse!
-sq = OpenStreetMap.org (OSM) është një projekt komunitar për të ndërtuar një hartë të lirë dhe të hapur. Është burimi kryesor i të dhënave të hartës në NoGPS Maps dhe funksionon ngjashëm me Wikipedia. Ju mund të shtoni ose redaktoni vende dhe ato bëhen të disponueshme për miliona përdorues në të gjithë botën.\nBashkohuni me komunitetin dhe ndihmoni për të bërë një hartë më të mirë për të gjithë!
-sr = OpenStreetMap.org (OSM) је пројекат заједнице који има за циљ прављење бесплатне, слободне и отворене мапе. OSM је главни извор података за мапе у NoGPS Maps-у и функционише на сличан начин као Википедија. Можете додати или променити места и ваше промене постају видљиве милионима корисника широм света.\nПридружите се заједници и помозите да направимо бољу мапу која је доступна свима!
-sv = OpenStreetMap.org (OSM) är ett community-projekt för att bygga en fri och öppen karta. Det är den huvudsakliga källan till kartdata i NoGPS Maps och fungerar på samma sätt som Wikipedia. Du kan lägga till eller redigera platser och de blir tillgängliga för miljontals användare över hela världen.\nGå med i samhället och hjälp till att skapa en bättre karta för alla!
-sw = OpenStreetMap.org (OSM) ni mradi wa jamii wa kuunda ramani huru na wazi. Ni chanzo kikuu cha data za ramani katika NoGPS Maps na inafanya kazi kwa njia inayofanana na Wikipedia. Unaweza kuongeza au kuhariri maeneo na yanapatikana kwa mamilioni ya watumiaji kote ulimwenguni. Jiunge na jamii na usaidie kutengeneza ramani bora kwa kila mtu!
-th = OpenStreetMap.org (OSM) เป็นโครงการของชุมชนเพื่อสร้างแผนที่ที่เสรีและเปิดกว้าง นี่คือแหล่งข้อมูลแผนที่หลักใน NoGPS Maps และทำงานคล้ายกับวิกิพีเดีย คุณสามารถเพิ่มหรือแก้ไขสถานที่ต่าง ๆ ได้ และสิ่งที่คุณทำจะพร้อมใช้งานสำหรับผู้ใช้หลายล้านคนทั่วโลก\nเข้าร่วมชุมชนและช่วยสร้างแผนที่ที่ดีขึ้นสำหรับทุกคน!
-tr = OpenStreetMap.org (OSM), özgür ve açık harita oluşturmayı amaçlayan topluluk projesidir. OSM, NoGPS Maps'teki harita verisinin ana kaynağıdır ve Vikipedi'ye benzer çalışır. Yerler ekleyebilir ya da düzenleyebilirsiniz ve bunlar tüm dünyadaki milyonlarca kullanıcıca erişilebilir.\nTopluluğa katılın ve herkes için daha iyi harita oluşturmaya yardımcı olun!
-uk = OpenStreetMap.org (OSM) - це громадський проект зі створення вільної та відкритої мапи. Це основне джерело картографічних даних в NoGPS Maps і працює подібно до Вікіпедії. Ви можете додавати або редагувати місця, і вони стають доступними мільйонам користувачів по всьому світу.\nПриєднуйтесь до спільноти і допоможіть зробити мапу кращою для всіх!
-vi = OpenStreetMap.org (OSM) là một dự án cộng đồng nhằm xây dựng bản đồ miễn phí và mở. Đây là nguồn dữ liệu bản đồ chính trên NoGPS Maps và hoạt động tương tự như Wikipedia. Bạn có thể thêm hoặc chỉnh sửa các địa điểm và chúng sẽ được cung cấp cho hàng triệu người dùng trên toàn thế giới.\nHãy tham gia cộng đồng và cùng góp phần tạo ra bản đồ tốt hơn cho mọi người!
-zh-Hans = OpenStreetMap.org（OSM）是一个构建自由开放地图的社区项目。它是 NoGPS Maps 地图数据的主要来源，其工作原理类似于维基百科。您可以添加或编辑地点，全世界数以百万计的用户都可以使用它们！\n加入社区，共同完善地图数据，造福每个人！
-zh-Hant = OpenStreetMap.org (OSM) 是一個建立免費開放地圖的社群專案。它是NoGPS Maps中地圖資料的主要來源，其工作方式類似於維基百科。您可以新增或編輯地點，全世界數百萬用戶都可以使用它們。\n加入社群來幫忙大家建造更好的地圖！
+en = OpenStreetMap.org (OSM) is a community project to build a free and open map. It's the main source of map data in NonGPS Maps and works similar to Wikipedia. You can add or edit places and they become available to millions of users all over the World.\nJoin the community and help to make a better map for everyone!
+af = OpenStreetMap.org (OSM) is 'n gemeenskapsprojek om 'n gratis en oop kaart te bou. Dit is die hoofbron van kaartdata in NonGPS Maps en werk soortgelyk aan Wikipedia. Jy kan plekke byvoeg of wysig en hulle word beskikbaar vir miljoene gebruikers regoor die wêreld.\nSluit aan by die gemeenskap en help om 'n beter kaart vir almal te maak!
+ar = OpenStreetMap.org (OSM) هو مشروع مجتمعي يهدف إلى إنشاء خريطة مجانية ومفتوحة. وهو المصدر الرئيسي لبيانات الخرائط في NonGPS Maps ويعمل بشكل مشابه لـويكيبيديا. يمكنك إضافة أو تعديل الأماكن لتصبح متاحة لملايين المستخدمين في جميع أنحاء العالم.\nانضم إلى المجتمع وساعد في إنشاء خريطة أفضل للجميع!
+az = OpenStreetMap.org (OSM) pulsuz və açıq xəritə yaratmaq üçün icma layihəsidir. Bu, NonGPS Maps xəritə məlumatlarının əsas mənbəyidir və Vikipediya kimi fəaliyyət göstərir. Siz yerlər əlavə edib və ya redaktə edə bilərsiniz və onlar bütün dünyada milyonlarla istifadəçi üçün əlçatan olur. İcmaya qoşulun və hər kəs üçün daha yaxşı xəritə yaratmağa kömək edin!
+be = OpenStreetMap.org (OSM) - гэта грамадскі праект па стварэнні бясплатнай і адкрытай мапы, і асноўная крыніца картаграфічных даных у NonGPS Maps, якая працуе падобна на Вікіпедыю. Кожны можа дадаваць або рэдагаваць месцы, якія ўбачаць мільёны карыстальнікаў па ўсім свеце. \nДалучайцеся да супольнасці і дапамажыце зрабіць лепшую мапу для ўсіх!
+bg = OpenStreetMap.org (OSM) е общностен проект за създаване на безплатна и отворена карта. Той е основният източник на картографски данни в NonGPS Maps и работи подобно на Wikipedia. Можете да добавяте или редактирате места и те стават достъпни за милиони потребители по целия свят.\nПрисъединете се към общността и помогнете за създаването на по-добра карта за всички!
+ca = OpenStreetMap.org (OSM) és un projecte comunitari per construir un mapa lliure i obert. És la font principal de dades de mapes a NonGPS Maps i funciona de manera similar a la Viquipèdia. Pots afegir o editar llocs i estaran disponibles per a milions d'usuaris de tot el món.\nUneix-te a la comunitat i ajuda a crear un mapa millor per a tothom!
+cs = OpenStreetMap.org (OSM) je komunitní projekt, jehož cílem je vytvořit svobodnou a otevřenou mapu. Je hlavním zdrojem mapových dat v aplikaci NonGPS Maps a funguje podobně jako Wikipedie. Můžete přidávat nebo upravovat místa a ta se pak stanou dostupná milionům uživatelů po celém světě.\nPřipojte se ke komunitě a pomozte vytvořit lepší mapu pro všechny!
+cy = Mae OpenStreetMap.org (OSM) yn brosiect cymunedol i adeiladu map agored ac am ddim. Dyma brif ffynhonnell data map yn NonGPS Maps ac mae'n gweithio'n debyg i Wicipedia. Gallwch ychwanegu neu olygu lleoedd a byddant ar gael i filiynau o ddefnyddwyr ledled y byd.\nYmunwch â'r gymuned a helpwch i wneud map gwell i bawb!
+da = OpenStreetMap.org (OSM) er et fællesskabsprojekt til opbygning af et gratis og åbent kort. Det er hovedkilden til kortdata i NonGPS Maps og fungerer på samme måde som Wikipedia. Du kan tilføje eller redigere steder, og de bliver tilgængelige for millioner af brugere over hele verden.\nSlut dig til fællesskabet og vær med til at skabe et bedre kort for alle!
+de = OpenStreetMap.org (OSM) ist ein Gemeinschaftsprojekt zum Erstellen einer freien und offenen Karte. Es ist die Hauptquelle für Kartendaten in NonGPS Maps und funktioniert ähnlich wie Wikipedia. Du kannst Orte hinzufügen oder bearbeiten, die dann Millionen von Nutzern auf der ganzen Welt zur Verfügung stehen.\nTritt der Gemeinschaft bei und hilf mit, die Karte für alle besser zu machen!
+el = Το OpenStreetMap.org (OSM) είναι ένα κοινοτικό έργο με στόχο τη δημιουργία ενός δωρεάν και ανοιχτού χάρτη. Αποτελεί την κύρια πηγή δεδομένων χαρτών στο NonGPS Maps και λειτουργεί παρόμοια με τη Wikipedia. Μπορείτε να προσθέσετε ή να επεξεργαστείτε τοποθεσίες, οι οποίες θα γίνουν διαθέσιμες σε εκατομμύρια χρήστες σε όλο τον κόσμο.\nΓίνετε μέλος της κοινότητας και βοηθήστε στη δημιουργία ενός καλύτερου χάρτη για όλους!
+es = OpenStreetMap.org (OSM) es un proyecto comunitario para construir un mapa gratis y abierto. Es la principal fuente de datos cartográficos de NonGPS Maps y funciona de forma similar a Wikipedia. Puedes añadir o editar lugares y estos pasan a estar disponibles para millones de usuarios de todo el mundo.\n¡Únete a la comunidad y ayuda a crear un mejor mapa para todos!
+es-MX = OpenStreetMap.org (OSM) es un proyecto comunitario para construir un mapa libre y abierto. Es la principal fuente de datos cartográficos de NonGPS Maps y funciona de forma similar a Wikipedia. Puedes añadir o editar lugares y se ponen a disposición de millones de usuarios de todo el mundo.\N¡Únete a la comunidad y ayuda a hacer un mapa mejor para todos!
+et = OpenStreetMap.org (OSM) on kogukonna projekt, mille eesmärk on luua vaba, tasuta ja avatud kaart. See on NonGPS Mapsi peamine kaardiandmete allikas ja toimib sarnaselt Vikipeediaga. Saad lisada või muuta kohti ja need muutuvad kättesaadavaks miljonitele kasutajatele üle kogu maailma.\nLiitu kogukonnaga ja aita luua kõigi jaoks paremat kaarti!
+eu = OpenStreetMap.org (OSM) mapa libre eta irekia eraikitzeko komunitateko proiektu bat da. NonGPS Maps-en mapen datuen iturri nagusia da eta Wikipediaren antzera funtzionatzen du. Tokiak gehitu edo edita ditzakezu eta mundu osoko milioika erabiltzailerentzat eskuragarri egongo dira.\nSartu komunitatean eta lagundu mapa hobea egiten guztiontzat!
+fa = OpenStreetMap.org (OSM) یک پروژهٔ اجتماعی برای ساختن نقشه‌ای آزاد و باز است. این منبع اصلی داده‌های نقشه در NonGPS Maps است و به‌طور مشابهی با ویکی‌پدیا کار می‌کند. شما می‌توانید مکان‌ها را اضافه یا ویرایش کنید و آن‌ها در اختیار میلیون‌ها کاربر در سراسر جهان قرار می‌گیرند. به جامعه بپیوندید و به ساختن نقشه‌ای بهتر برای همه کمک کنید!
+fi = OpenStreetMap.org (OSM) on yhteisöprojekti, jonka tarkoituksena on rakentaa ilmainen ja avoin kartta. Se on NonGPS Mapsin tärkein karttatietojen lähde ja toimii samalla tavalla kuin Wikipedia. Voit lisätä tai muokata paikkoja, ja ne tulevat miljoonien käyttäjien saataville kaikkialla maailmassa.\nLiity yhteisöön ja auta tekemään parempi kartta kaikille!
+fr = OpenStreetMap.org (OSM) est un projet communautaire visant à créer une carte libre et ouverte. C'est la principale source de données cartographiques de NonGPS Maps et son fonctionnement est similaire à celui de Wikipédia. Vous pouvez ajouter ou modifier des lieux et ils deviennent accessibles à des millions d'utilisateurs dans le monde entier.\nRejoignez la communauté et aidez-nous à créer une meilleure carte pour tout le monde !
+gl = OpenStreetMap.org (OSM) é un proxecto comunitario para construír un mapa libre e aberto. É a principal fonte de datos cartográficos de NonGPS Maps e funciona de forma similar a Wikipedia. Vostede pode engadir ou editar lugares e estes pasan a estar dispoñibles para millóns de usuarios de todo o mundo. \nÚnase á comunidade e axude a crear un mapa mellor para todos!
+he = \u200FOpenStreetMap.org (OSM) הוא פרויקט קהילתי לבניית מפה חופשית ופתוחה. זהו המקור העיקרי לנתוני מפות ב-NonGPS Maps והוא פועל בדומה לוויקיפדיה. ניתן להוסיף או לערוך מקומות והם הופכים לזמינים למיליוני משתמשים בכל רחבי העולם.\nהצטרף לקהילה ועזור ליצור מפה טובה יותר לכולם!
+hi = OpenStreetMap.org (OSM) एक समुदाय परियोजना है जो एक मुफ्त और खुले नक्शे का निर्माण करती है। यह NonGPS Maps में नक्शा डेटा का मुख्य स्रोत है और विकिपीडिया की तरह काम करती है। आप स्थान जोड़ या संपादित कर सकते हैं और वे दुनिया भर के लाखों उपयोगकर्ताओं के लिए उपलब्ध हो जाते हैं।\nसमुदाय में शामिल हों और सभी के लिए एक बेहतर नक्शा बनाने में मदद करें!
+hr = OpenStreetMap.org (OSM) je projekt zajednice za izradu slobodne i otvorene karte. To je glavni izvor kartnih podataka u NonGPS Mapsu i funkcionira slično kao Wikipedia. Možete dodavati ili uređivati mjesta i ona postaju dostupna milijunima korisnika diljem svijeta. Pridružite se zajednici i pomozite u izradi bolje karte za sve!
+hu = Az OpenStreetMap.org (OSM) egy közösségi projekt, amelynek célja egy ingyenes és nyílt térkép létrehozása. Ez a NonGPS Maps alkalmazás térképadatainak fő forrása, és a Wikipédiához hasonlóan működik. Helyeket adhat hozzá vagy szerkeszthet, és azok világszerte felhasználók milliói számára válnak elérhetővé. \nCsatlakozzon a közösséghez, és segítsen egy jobb térképet készíteni mindenki számára!
+hy = OpenStreetMap.org (OSM)-ը համայնքային նախագիծ է՝ անվճար և բաց քարտեզ ստեղծելու համար: Այն NonGPS Maps-ի քարտեզային տվյալների հիմնական աղբյուրն է և աշխատում է Վիքիպեդիայի նման: Դուք կարող եք ավելացնել կամ խմբագրել վայրեր, և դրանք հասանելի կդառնան միլիոնավոր օգտատերերի ամբողջ աշխարհում.\nՄիացեք համայնքին և օգնեք ստեղծել ավելի լավ քարտեզ բոլորի համար!
+id = OpenStreetMap.org (OSM) adalah sebuah proyek komunitas untuk membuat sebuah peta yang bebas dan terbuka. OSM merupakan sumber utama data peta di NonGPS Maps dan berfungsi mirip dengan Wikipedia. Anda dapat menambahkan atau mengedit tempat dan tempat tersebut tersedia untuk jutaan pengguna di seluruh Dunia.\nBergabunglah dengan komunitas dan bantu membuat peta yang lebih baik untuk semua orang!
+is = OpenStreetMap.org (OSM) er samfélagsverkefni sem stefnir að uppbyggingu á frjálsu og opnu landakorti. Þetta er meginuppistaðan í NonGPS Maps og virkar svipað og Wikipedia. Þú getur bætt við eð breytt stöðum, og verða þeir þá aðgengilegir milljónum notenda um víða veröld.\nTaktu þátt og hjálpaðu til við að gera betri landakort fyrir alla!
+it = OpenStreetMap.org (OSM) è un progetto comunitario per creare una mappa libera e aperta. È la principale fonte di dati cartografici di NonGPS Maps e funziona in modo simile a Wikipedia. Puoi aggiungere o modificare luoghi che diventano disponibili per milioni di utenti in tutto il mondo. \nEntra a far parte della comunità e contribuisci a creare una mappa migliore per tutti!
+ja = OpenStreetMap.org(OSM)は、フリーでオープンな地図を構築するコミュニティ・プロジェクトです。OSMは、NonGPS Mapsの地図データの主要なソースであり、ウィキペディアと同じように機能します。あなたが場所を追加したり編集したりすると、世界中の何百万人ものユーザーがその場所を利用できるようになります！
+ko = OpenStreetMap.org(OSM)는 무료 개방형 지도를 구축하기 위한 커뮤니티 프로젝트입니다. 이 프로젝트는 NonGPS Maps의 주요 지도 데이터 소스이며, 위키백과와 유사한 방식으로 운영됩니다. 사용자는 장소를 추가하거나 편집할 수 있으며, 이러한 정보는 전 세계 수백만 명의 사용자가 이용할 수 있게 됩니다.\n커뮤니티에 참여하여 모두를 위한 더 나은 지도를 만드는 데 힘을 보태주세요!
+lo = OpenStreetMap.org (OSM) ແມ່ນໂຄງການຊຸມຊົນເພື່ອສ້າງແຜນທີ່ທີ່ຟຣີ ແລະ ເປີດກວ້າງ. ມັນເປັນແຫຼ່ງຂໍ້ມູນແຜນທີ່ຫຼັກໃນ NonGPS Maps ແລະ ເຮັດວຽກຄ້າຍຄືກັບ Wikipedia. ທ່ານສາມາດເພີ່ມ ຫຼື ແກ້ໄຂສະຖານທີ່ ແລະ ພວກມັນຈະພ້ອມໃຫ້ຜູ້ໃຊ້ຫຼາຍລ້ານຄົນທົ່ວໂລກໄດ້ໃຊ້.\nມາເຂົ້າຮ່ວມຊຸມຊົນ ແລະ ຊ່ວຍກັນສ້າງແຜນທີ່ທີ່ດີກວ່າສຳລັບທຸກຄົນ!
+lt = OpenStreetMap.org (OSM) – tai bendruomenės projektas, kuriuo siekiama sukurti laisvą ir atvirą žemėlapį. Tai – pagrindinis „NonGPS Maps“ žemėlapių duomenų šaltinis, veikiantis panašiu principu, kaip „Vikipedija“. Galite pridėti ar taisyti vietas, o jos tampa prieinamos milijonams naudotojų visame pasaulyje. \nPrisijunkite prie bendruomenės ir padėkite kurti geresnį žemėlapį visiems!
+lv = OpenStreetMap.org (OSM) ir kopienas projekts, kura mērķis ir izveidot atvērtajos datos balstītu karti, kura ir pieejama bez maksas. Tas ir NonGPS Maps galvenais karšu datu avots un darbojas līdzīgi kā Vikipēdija. Jūs varat pievienot vai rediģēt vietas, un tās kļūst pieejamas miljoniem lietotāju visā pasaulē.\nPievienojieties kopienai, lai palīdzētu izveidot labāku karti visiem!
+mr = OpenStreetMap.org (OSM) हा मोफत आणि मुक्त नकाशा तयार करण्याचा समुदाय प्रकल्प आहे. हा NonGPS Maps मधील नकाशा डेटाचा मुख्य स्रोत आहे आणि विकिपीडियाप्रमाणे कार्य करतो. तुम्ही ठिकाणे जोडू किंवा संपादित करू शकता आणि ती जगभरातील लाखो वापरकर्त्यांसाठी उपलब्ध होतात.\nसमुदायात सामील व्हा आणि सर्वांसाठी अधिक चांगला नकाशा तयार करण्यात मदत करा!
+mt = OpenStreetMap.org (OSM) huwa proġett komunitarju biex jinbena mappa ħielsa u miftuħa. Huwa s-sors ewlieni tad-dejta tal-mappa fl-NonGPS Maps, u jaħdem b'mod simili għal Wikipedia. Tista' żżid jew teditja postijiet u dawn isiru disponibbli għal miljuni ta' utenti madwar id-dinja. Ingħaqad mal-komunità u għin biex toħloq mappa aħjar għal kulħadd!
+nb = OpenStreetMap.org (OSM) er et fellesskapsprosjekt for å bygge et gratis og åpent kart. Det er hovedkilden til kartdata i NonGPS Maps og fungerer på samme måte som Wikipedia. Du kan legge til eller redigere steder, og de blir tilgjengelige for millioner av brukere over hele verden. \nBli med i fellesskapet og bidra til å lage et bedre kart for alle!
+nl = OpenStreetMap.org (OSM) is een gemeenschapsproject om een vrije en open kaart te bouwen. Het is de belangrijkste bron van kaartgegevens in NonGPS Maps en werkt ongeveer hetzelfde als Wikipedia. U kunt plaatsen toevoegen of bewerken en deze worden dan beschikbaar voor miljoenen gebruikers over de hele wereld.\nSluit u aan bij de gemeenschap en help mee om een betere kaart voor iedereen te maken!
+pl = OpenStreetMap.org (OSM) to projekt społecznościowy mający na celu stworzenie darmowej i otwartej mapy. Jest to główne źródło danych mapowych w NonGPS Maps i działa podobnie do Wikipedii. Można dodawać lub edytować miejsca, które stają się dostępne dla milionów użytkowników na całym świecie.\nDołącz do społeczności i pomóż stworzyć lepszą mapę dla wszystkich!
+pt = O OpenStreetMap.org (OSM) é um projeto comunitário aberto para construir um mapa gratuito. O OSM é a principal fonte de dados de mapas do NonGPS Maps e funciona de forma semelhante à Wikipedia. Pode adicionar ou editar locais e estes ficam disponíveis para milhões de utilizadores no mundo todo.\nJunte-se à comunidade e ajude a criar um mapa melhor para todos!
+pt-BR = O OpenStreetMap (OSM) é um projeto comunitário aberto para construir um mapa gratuito. O OSM é a principal fonte de dados de mapas do NonGPS Maps e funciona de forma semelhante à Wikipédia. Você pode adicionar ou editar lugares e eles ficam disponíveis para milhões de usuários no mundo todo.\nJunte-se à comunidade e ajude a criar um mapa melhor para todos!
+ro = OpenStreetMap.org (OSM) este un proiect comunitar pentru construirea unei hărți libere și deschise. Este principala sursă de date cartografice în NonGPS Maps și funcționează similar cu Wikipedia. Puteți adăuga sau edita locuri, iar acestea devin disponibile pentru milioane de utilizatori din întreaga lume.\nAlăturați-vă comunității și ajutați la crearea unei hărți mai bune pentru toată lumea!
+ru = OpenStreetMap.org (OSM) - это открытый проект сообщества по созданию бесплатной карты. Он является основным источником картографических данных в NonGPS Maps и работает как Википедия. Кто угодно может добавлять или редактировать места, которые позже увидят миллионы пользователей по всему миру.\nПрисоединяйтесь к сообществу и помогите сделать лучшую карту для всех!
+sk = OpenStreetMap.org (OSM) je komunitný projekt na vytvorenie bezplatnej a otvorenej mapy. Je hlavným zdrojom mapových údajov v službe NonGPS Maps a funguje podobne ako Wikipédia. Môžete pridávať alebo upravovať miesta a tie sa stanú dostupnými pre milióny používateľov na celom svete.\nPridajte sa ku komunite a pomôžte vytvoriť lepšiu mapu pre všetkých!
+sl = OpenStreetMap.org (OSM) je projekt skupnosti za izgradnjo brezplačnega in odprtega zemljevida. Je glavni vir podatkov o zemljevidih v NonGPS Maps in deluje podobno kot Wikipedija. Lahko dodajate ali urejate mesta, ki postanejo na voljo milijonom uporabnikov po vsem svetu.\nPridružite se skupnosti in pomagajte ustvariti boljši zemljevid za vse!
+sq = OpenStreetMap.org (OSM) është një projekt komunitar për të ndërtuar një hartë të lirë dhe të hapur. Është burimi kryesor i të dhënave të hartës në NonGPS Maps dhe funksionon ngjashëm me Wikipedia. Ju mund të shtoni ose redaktoni vende dhe ato bëhen të disponueshme për miliona përdorues në të gjithë botën.\nBashkohuni me komunitetin dhe ndihmoni për të bërë një hartë më të mirë për të gjithë!
+sr = OpenStreetMap.org (OSM) је пројекат заједнице који има за циљ прављење бесплатне, слободне и отворене мапе. OSM је главни извор података за мапе у NonGPS Maps-у и функционише на сличан начин као Википедија. Можете додати или променити места и ваше промене постају видљиве милионима корисника широм света.\nПридружите се заједници и помозите да направимо бољу мапу која је доступна свима!
+sv = OpenStreetMap.org (OSM) är ett community-projekt för att bygga en fri och öppen karta. Det är den huvudsakliga källan till kartdata i NonGPS Maps och fungerar på samma sätt som Wikipedia. Du kan lägga till eller redigera platser och de blir tillgängliga för miljontals användare över hela världen.\nGå med i samhället och hjälp till att skapa en bättre karta för alla!
+sw = OpenStreetMap.org (OSM) ni mradi wa jamii wa kuunda ramani huru na wazi. Ni chanzo kikuu cha data za ramani katika NonGPS Maps na inafanya kazi kwa njia inayofanana na Wikipedia. Unaweza kuongeza au kuhariri maeneo na yanapatikana kwa mamilioni ya watumiaji kote ulimwenguni. Jiunge na jamii na usaidie kutengeneza ramani bora kwa kila mtu!
+th = OpenStreetMap.org (OSM) เป็นโครงการของชุมชนเพื่อสร้างแผนที่ที่เสรีและเปิดกว้าง นี่คือแหล่งข้อมูลแผนที่หลักใน NonGPS Maps และทำงานคล้ายกับวิกิพีเดีย คุณสามารถเพิ่มหรือแก้ไขสถานที่ต่าง ๆ ได้ และสิ่งที่คุณทำจะพร้อมใช้งานสำหรับผู้ใช้หลายล้านคนทั่วโลก\nเข้าร่วมชุมชนและช่วยสร้างแผนที่ที่ดีขึ้นสำหรับทุกคน!
+tr = OpenStreetMap.org (OSM), özgür ve açık harita oluşturmayı amaçlayan topluluk projesidir. OSM, NonGPS Maps'teki harita verisinin ana kaynağıdır ve Vikipedi'ye benzer çalışır. Yerler ekleyebilir ya da düzenleyebilirsiniz ve bunlar tüm dünyadaki milyonlarca kullanıcıca erişilebilir.\nTopluluğa katılın ve herkes için daha iyi harita oluşturmaya yardımcı olun!
+uk = OpenStreetMap.org (OSM) - це громадський проект зі створення вільної та відкритої мапи. Це основне джерело картографічних даних в NonGPS Maps і працює подібно до Вікіпедії. Ви можете додавати або редагувати місця, і вони стають доступними мільйонам користувачів по всьому світу.\nПриєднуйтесь до спільноти і допоможіть зробити мапу кращою для всіх!
+vi = OpenStreetMap.org (OSM) là một dự án cộng đồng nhằm xây dựng bản đồ miễn phí và mở. Đây là nguồn dữ liệu bản đồ chính trên NonGPS Maps và hoạt động tương tự như Wikipedia. Bạn có thể thêm hoặc chỉnh sửa các địa điểm và chúng sẽ được cung cấp cho hàng triệu người dùng trên toàn thế giới.\nHãy tham gia cộng đồng và cùng góp phần tạo ra bản đồ tốt hơn cho mọi người!
+zh-Hans = OpenStreetMap.org（OSM）是一个构建自由开放地图的社区项目。它是 NonGPS Maps 地图数据的主要来源，其工作原理类似于维基百科。您可以添加或编辑地点，全世界数以百万计的用户都可以使用它们！\n加入社区，共同完善地图数据，造福每个人！
+zh-Hant = OpenStreetMap.org (OSM) 是一個建立免費開放地圖的社群專案。它是NonGPS Maps中地圖資料的主要來源，其工作方式類似於維基百科。您可以新增或編輯地點，全世界數百萬用戶都可以使用它們。\n加入社群來幫忙大家建造更好的地圖！
 
 [login_to_make_edits_visible]
 tags = android-app,apple-maps
@@ -19619,59 +19619,59 @@ zh-Hant = OpenStreetMap 志工注意事項（可選）
 [editor_note_hint]
 comment = Hint of the input field in the OSM note section of the editor
 tags = android-app
-en = Describe errors on the map or things that cannot be edited with NoGPS Maps
-af = Beskryf foute op die kaart of dinge wat nie met NoGPS Maps gewysig kan word nie.
-ar = يرجى وصف الأخطاء الموجودة على الخريطة أو العناصر التي لا يمكن تعديلها عبر البريد الإلكتروني NoGPS Maps
-az = Xəritədəki səhvləri və ya redaktə edilə bilməyən elementləri təsvir edinNoGPS Maps
-be = Апішыце памылкі на карце або рэчы, якія немагчыма адрэдагаваць з дапамогай NoGPS Maps
-bg = Описване на грешки в картата или неща, които не могат да бъдат редактирани с NoGPS Maps
-ca = Descriviu els errors al mapa o les coses que no es poden editar amb NoGPS Maps
-cs = Popište chyby na mapě nebo věci, které nelze upravit pomocí aplikace NoGPS Maps
-cy = Disgrifiwch wallau ar y map neu bethau na ellir eu golygu gydag NoGPS Maps
-da = Beskriv fejl på kortet eller ting, der ikke kan redigeres med NoGPS Maps
-de = Beschreibe Kartenfehler oder Dinge, die mit NoGPS Maps nicht bearbeitet werden können
-el = Περιγράψτε λάθη στο χάρτη ή πράγματα που δεν μπορούν να επεξεργαστούν με τους NoGPS Maps
-es = Describa los errores en el mapa o las cosas que no se pueden editar con NoGPS Maps
-es-MX = Describe errores en el mapa o cosas que no se pueden editar con NoGPS Maps
-et = Kirjelda kaardil olevaid vigu või objekte, mida ei saa NoGPS Mapsiga muuta
-eu = Deskribatu mapako akatsak edo editatu ezin diren gauzakNoGPS Maps erabiliz.
-fa = خطاهای روی نقشه یا مواردی را که قابل ویرایش نیستند با NoGPS Maps توصیف کنید
-fi = Kuvaile kartassa olevia virheitä tai asioita, joita ei voi muokata NoGPS Mapsilla.
-fr = Décrivez les erreurs sur la carte ou les éléments qui ne peuvent pas être modifiés avec NoGPS Maps.
-gl = Describa os erros no mapa ou as cousas que non se poden editar con NoGPS Maps
-he = תארו שגיאות במפה או דברים שלא ניתן לערוך באמצעות NoGPS Maps
-hi = नक्शे पर त्रुटियों या ऐसी चीज़ों का वर्णन करें जिन्हें NoGPS Maps के साथ संपादित नहीं किया जा सकता।
-hr = Opisujte pogreške na karti ili stavke koje se ne mogu uređivati pomoću NoGPS Maps
-hu = Írja le a térképen található hibákat vagy olyan dolgokat, amelyeket nem lehet az NoGPS Maps segítségével szerkeszteni
-hy = Նկարագրեք քարտեզի սխալները կամ այն, ինչը հնարավոր չէ խմբագրել NoGPS Maps-ով
-id = Jelaskan kesalahan pada peta atau hal-hal yang tidak dapat diedit melalui NoGPS Maps
-is = Lýstu villum á kortinu eða atriðum sem ekki er hægt að breyta með NoGPS Maps
-it = Descrivi gli errori sulla mappa o le cose che non possono essere modificate con NoGPS Maps
-ja = 地図上のエラーやNoGPS Mapsで編集できないものについて説明します。
-ko = NoGPS Maps를 사용하여 지도상의 오류나 편집할 수 없는 항목을 설명하십시오
-lo = ອະທິບາຍຂໍ້ຜິດພາດໃນແຜນທີ່ ຫຼື ສິ່ງທີ່ບໍ່ສາມາດແກ້ໄຂໄດ້ດ້ວຍ NoGPS Maps
-lt = Aprašykite žemėlapyje esančias klaidas arba dalykus, kurių negalite redaguoti, naudodamiesi „NoGPS Maps“
-lv = Aprakstiet kļūdas kartē vai lietas, ko nevar rediģēt, izmantojot NoGPS Maps
-mr = नकाशावरील त्रुटी किंवा संपादन करता येणार नाहीत अशा गोष्टी NoGPS Maps वापरून वर्णन करा
-mt = Iddeskrivi l-iżbalji fuq il-mappa jew l-affarijiet li ma jistgħux jiġu editjati ġewwa NoGPS Maps
-nb = Beskriv feil på kartet eller ting som ikke kan redigeres med NoGPS Maps
-nl = Beschrijf fouten op de kaart of dingen die niet bewerkt kunnen worden met NoGPS Maps
-pl = Proszę opisać błędy na mapie lub rzeczy, których nie można edytować za pomocą NoGPS Maps.
-pt = Descreva erros no mapa ou coisas que não podem ser editadas com o NoGPS Maps
-ro = Descrieți erorile de pe hartă sau lucrurile care nu pot fi editate cu NoGPS Maps
-ru = Опишите ошибки на карте или то, что нельзя редактировать с помощью NoGPS Maps
-sk = Popíšte chyby na mape alebo veci, ktoré nie je možné upravovať, na adrese NoGPS Maps
-sl = Opišite napake na zemljevidu ali stvari, ki jih ni mogoče urejati z NoGPS Maps
-sq = Përshkruani gabimet në hartë ose gjërat që nuk mund të redaktohen me NoGPS Maps
-sr = Опишите грешке на мапи или ствари које се не могу променити помоћу NoGPS Maps-а
-sv = Beskriv fel på kartan eller saker som inte kan redigeras med NoGPS Maps
-sw = Eleza makosa kwenye ramani au vitu ambavyo haviwezi kuhaririwa kwa kutumiaNoGPS Maps
-th = อธิบายข้อผิดพลาดบนแผนที่หรือสิ่งที่ไม่สามารถแก้ไขได้ด้วยเครื่องมือแก้ไขแผนที่สาธารณะ (NoGPS Maps)
-tr = NoGPS Maps ile haritadaki hataları veya düzenlenemeyen öğeleri açıklayın
-uk = Опишіть помилки на мапі або те, що не можна редагувати за допомогою NoGPS Maps
-vi = Mô tả các lỗi trên bản đồ hoặc các mục không thể chỉnh sửa bằng NoGPS Maps
-zh-Hans = 描述地图上的错误或无法使用 NoGPS Maps 编辑的内容
-zh-Hant = 請描述地圖上的錯誤或無法透過 NoGPS Maps 進行編輯的內容
+en = Describe errors on the map or things that cannot be edited with NonGPS Maps
+af = Beskryf foute op die kaart of dinge wat nie met NonGPS Maps gewysig kan word nie.
+ar = يرجى وصف الأخطاء الموجودة على الخريطة أو العناصر التي لا يمكن تعديلها عبر البريد الإلكتروني NonGPS Maps
+az = Xəritədəki səhvləri və ya redaktə edilə bilməyən elementləri təsvir edin NonGPS Maps
+be = Апішыце памылкі на карце або рэчы, якія немагчыма адрэдагаваць з дапамогай NonGPS Maps
+bg = Описване на грешки в картата или неща, които не могат да бъдат редактирани с NonGPS Maps
+ca = Descriviu els errors al mapa o les coses que no es poden editar amb NonGPS Maps
+cs = Popište chyby na mapě nebo věci, které nelze upravit pomocí aplikace NonGPS Maps
+cy = Disgrifiwch wallau ar y map neu bethau na ellir eu golygu gydag NonGPS Maps
+da = Beskriv fejl på kortet eller ting, der ikke kan redigeres med NonGPS Maps
+de = Beschreibe Kartenfehler oder Dinge, die mit NonGPS Maps nicht bearbeitet werden können
+el = Περιγράψτε λάθη στο χάρτη ή πράγματα που δεν μπορούν να επεξεργαστούν με τους NonGPS Maps
+es = Describa los errores en el mapa o las cosas que no se pueden editar con NonGPS Maps
+es-MX = Describe errores en el mapa o cosas que no se pueden editar con NonGPS Maps
+et = Kirjelda kaardil olevaid vigu või objekte, mida ei saa NonGPS Mapsiga muuta
+eu = Deskribatu mapako akatsak edo editatu ezin diren gauzak NonGPS Maps erabiliz.
+fa = خطاهای روی نقشه یا مواردی را که قابل ویرایش نیستند با NonGPS Maps توصیف کنید
+fi = Kuvaile kartassa olevia virheitä tai asioita, joita ei voi muokata NonGPS Mapsilla.
+fr = Décrivez les erreurs sur la carte ou les éléments qui ne peuvent pas être modifiés avec NonGPS Maps.
+gl = Describa os erros no mapa ou as cousas que non se poden editar con NonGPS Maps
+he = תארו שגיאות במפה או דברים שלא ניתן לערוך באמצעות NonGPS Maps
+hi = नक्शे पर त्रुटियों या ऐसी चीज़ों का वर्णन करें जिन्हें NonGPS Maps के साथ संपादित नहीं किया जा सकता।
+hr = Opisujte pogreške na karti ili stavke koje se ne mogu uređivati pomoću NonGPS Maps
+hu = Írja le a térképen található hibákat vagy olyan dolgokat, amelyeket nem lehet a NonGPS Maps segítségével szerkeszteni
+hy = Նկարագրեք քարտեզի սխալները կամ այն, ինչը հնարավոր չէ խմբագրել NonGPS Maps-ով
+id = Jelaskan kesalahan pada peta atau hal-hal yang tidak dapat diedit melalui NonGPS Maps
+is = Lýstu villum á kortinu eða atriðum sem ekki er hægt að breyta með NonGPS Maps
+it = Descrivi gli errori sulla mappa o le cose che non possono essere modificate con NonGPS Maps
+ja = 地図上のエラーやNonGPS Mapsで編集できないものについて説明します。
+ko = NonGPS Maps를 사용하여 지도상의 오류나 편집할 수 없는 항목을 설명하십시오
+lo = ອະທິບາຍຂໍ້ຜິດພາດໃນແຜນທີ່ ຫຼື ສິ່ງທີ່ບໍ່ສາມາດແກ້ໄຂໄດ້ດ້ວຍ NonGPS Maps
+lt = Aprašykite žemėlapyje esančias klaidas arba dalykus, kurių negalite redaguoti, naudodamiesi „NonGPS Maps“
+lv = Aprakstiet kļūdas kartē vai lietas, ko nevar rediģēt, izmantojot NonGPS Maps
+mr = नकाशावरील त्रुटी किंवा संपादन करता येणार नाहीत अशा गोष्टी NonGPS Maps वापरून वर्णन करा
+mt = Iddeskrivi l-iżbalji fuq il-mappa jew l-affarijiet li ma jistgħux jiġu editjati ġewwa NonGPS Maps
+nb = Beskriv feil på kartet eller ting som ikke kan redigeres med NonGPS Maps
+nl = Beschrijf fouten op de kaart of dingen die niet bewerkt kunnen worden met NonGPS Maps
+pl = Proszę opisać błędy na mapie lub rzeczy, których nie można edytować za pomocą NonGPS Maps.
+pt = Descreva erros no mapa ou coisas que não podem ser editadas com o NonGPS Maps
+ro = Descrieți erorile de pe hartă sau lucrurile care nu pot fi editate cu NonGPS Maps
+ru = Опишите ошибки на карте или то, что нельзя редактировать с помощью NonGPS Maps
+sk = Popíšte chyby na mape alebo veci, ktoré nie je možné upravovať, na adrese NonGPS Maps
+sl = Opišite napake na zemljevidu ali stvari, ki jih ni mogoče urejati z NonGPS Maps
+sq = Përshkruani gabimet në hartë ose gjërat që nuk mund të redaktohen me NonGPS Maps
+sr = Опишите грешке на мапи или ствари које се не могу променити помоћу NonGPS Maps-а
+sv = Beskriv fel på kartan eller saker som inte kan redigeras med NonGPS Maps
+sw = Eleza makosa kwenye ramani au vitu ambavyo haviwezi kuhaririwa kwa kutumia NonGPS Maps
+th = อธิบายข้อผิดพลาดบนแผนที่หรือสิ่งที่ไม่สามารถแก้ไขได้ด้วยเครื่องมือแก้ไขแผนที่สาธารณะ (NonGPS Maps)
+tr = NonGPS Maps ile haritadaki hataları veya düzenlenemeyen öğeleri açıklayın
+uk = Опишіть помилки на мапі або те, що не можна редагувати за допомогою NonGPS Maps
+vi = Mô tả các lỗi trên bản đồ hoặc các mục không thể chỉnh sửa bằng NonGPS Maps
+zh-Hans = 描述地图上的错误或无法使用 NonGPS Maps 编辑的内容
+zh-Hant = 請描述地圖上的錯誤或無法透過 NonGPS Maps 進行編輯的內容
 
 [editor_about_osm]
 comment = Information about OSM at the top of the editing page
@@ -20073,61 +20073,61 @@ zh-Hant = 找不到合適的類別？
 
 [editor_category_unsuitable_text]
 tags = android-app,apple-maps
-en = NoGPS Maps allows to add simple point categories only, that means no towns, roads, lakes, building outlines, etc. Please add such categories directly to <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Check our <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> for detailed step by step instructions.
-af = NoGPS Maps laat slegs toe om eenvoudige puntkategorieë by te voeg, dit beteken geen dorpe, paaie, mere, gebouomtrekke, ens. nie. Voeg asseblief sulke kategorieë direk by <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Kyk na ons <a href="https://organicmaps.app/faq/editing/advanced-map-editing">gids</a> vir gedetailleerde stap-vir-stap instruksies.
-ar = NoGPS Maps تسمح بإضافة فئات النقاط البسيطة فقط، وهذا يعني عدم إضافة المدن والطرق والبحيرات وخطوط المباني، إلخ. يرجى إضافة هذه الفئات مباشرة إلى <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. راجع <a href="https://organicmaps.app/faq/editing/advanced-map-editing">دليلنا</a> للحصول على إرشادات تفصيلية خطوة بخطوة.
-az = NoGPS Maps yalnız sadə nöqtə kateqoriyaları əlavə etməyə imkan verir, yəni şəhərlər, yollar, göllər, binaların konturları və s. daxil deyil. Zəhmət olmasa belə kateqoriyaları birbaşa <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> saytına əlavə edin. Ətraflı addım-addım təlimat üçün <a href="https://organicmaps.app/faq/editing/advanced-map-editing">bələdç</a>imizə baxın.
-be = NoGPS Maps дазваляе дадаваць на мапу толькі простыя тыпы аб'ектаў, гэта значыць без гарадоў, дарог, азёр і будынкаў. Калі ласка, дадавайце такія катэгорыі на сайце <a href="https://www.openstreetmap.org/">OpenStreetMap.org </a>. Мы таксама рэкамендуем азнаёміцца з <a href="https://organicmaps.app/faq/editing/advanced-map-editing/">падрабязнымі інструкцыямі і іншымі праграмамі для рэдагавання мапы</a>.
-bg = NoGPS Maps позволява да се добавят само прости категории точки, т.е. без градове, пътища, езера, очертания на сгради и т.н. Моля, добавяйте такива категории директно в <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Вижте нашето <a href="https://organicmaps.app/faq/editing/advanced-map-editing">ръководство</a> за подробни инструкции стъпка по стъпка.
-ca = NoGPS Maps només permet afegir categories de punts simples, això vol dir que no hi ha ciutats, carreteres, llacs, contorns d'edificis, etc. Si us plau, afegiu aquestes categories directament a <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulteu la nostra <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guia</a> per obtenir instruccions detallades pas a pas.
-cs = NoGPS Maps umožňuje přidávat pouze jednoduché bodové kategorie, to znamená žádná města, silnice, jezera, obrysy budov atd. Tyto kategorie prosím přidávejte přímo na <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Podrobný návod krok za krokem najdete v našem <a href="https://organicmaps.app/faq/editing/advanced-map-editing">průvodci</a>.
-cy = Mae NoGPS Maps yn caniatáu ychwanegu categorïau pwynt syml yn unig, sy'n golygu dim trefi, ffyrdd, llynnoedd, amlinelliadau adeiladau, ac ati. Ychwanegwch gategorïau o'r fath yn uniongyrchol at <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Edrychwch ar ein <a href="https://organicmaps.app/faq/editing/advanced-map-editing">canllaw</a> am gyfarwyddiadau manwl cam wrth gam.
-da = NoGPS Maps giver kun mulighed for at tilføje simple punktkategorier, dvs. ingen byer, veje, søer, bygningsomrids osv. Tilføj sådanne kategorier direkte til <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Se vores <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> for detaljerede trin for trin-instruktioner.
-de = Mit NoGPS Maps kann man nur einfache Punktkategorien hinzufügen, daher keine Städte, Straßen, Seen, Gebäudeumrisse, etc. Bitte füge solche Kategorien direkt bei <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> hinzu. In unserem <a href="https://organicmaps.app/faq/editing/advanced-map-editing">Leitfaden</a> findest du eine detaillierte Schritt-für-Schritt-Anleitung.
-el = NoGPS Maps επιτρέπει την προσθήκη μόνο απλών κατηγοριών σημείων, δηλαδή όχι πόλεων, δρόμων, λιμνών, περιγραμμάτων κτιρίων κ.λπ. Παρακαλούμε προσθέστε τέτοιες κατηγορίες απευθείας στο <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Ανατρέξτε <a href="https://organicmaps.app/faq/editing/advanced-map-editing">στον οδηγό</a> μας για λεπτομερείς οδηγίες βήμα προς βήμα.
-en-GB = NoGPS Maps allows adding simple point categories only, which means no towns, roads, lakes, building outlines, etc. Please add such categories directly to <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Check our <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> for detailed step-by-step instructions.
-es = NoGPS Maps permite añadir únicamente categorías de puntos sencillos, es decir, no ciudades, carreteras, lagos, contornos de edificios, etc. Añada dichas categorías directamente a <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulte nuestra <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guía</a> para obtener instrucciones detalladas paso a paso.
-es-MX = NoGPS Maps permite añadir únicamente categorías de puntos sencillos, es decir, no ciudades, carreteras, lagos, contornos de edificios, etc. Por favor, añada dichas categorías directamente a <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulte nuestra <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guía</a> para obtener instrucciones detalladas paso a paso.
-et = NoGPS Maps võimaldab lisada ainult lihtsaid huvipunkte, see tähendab, et ei mingeid linnu, teid, järvi, hoonete piirjooni jne. Palun lisa sellised kategooriad otse <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> saidis. Vaata meie <a href="https://organicmaps.app/faq/editing/advanced-map-editing">juhendit</a> üksikasjalike samm-sammuliste juhiste saamiseks.
-eu = NoGPS Maps-ek puntu kategoria soilak gehitzeko aukera ematen du, hau da, ez da herririk, errepiderik, lakurik, eraikinen eskemarik, etab. Gehitu kategoria horiek zuzenean <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Begiratu gure <a href="https://organicmaps.app/faq/editing/advanced-map-editing">gida</a> urratsez urrats argibide zehatzak lortzeko.
-fa = NoGPS Maps اجازه میu200cدهد فقط دستهu200cهای نقطهu200cای ساده را اضافه کند، یعنی هیچ شهر، جاده، دریاچه، طرح کلی ساختمان و غیره وجود ندارد. لطفاً این دستهu200cها را مستقیماً به <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> اضافه کنید. برای دستورالعملu200cهای گام به گام، <a href="https://organicmaps.app/faq/editing/advanced-map-editing">راهنمای</a> ما را بررسی کنید.
-fi = NoGPS Maps mahdollistaa vain yksinkertaisten pisteluokkien lisäämisen, eli ei kaupunkeja, teitä, järviä, rakennusten ääriviivoja jne. Lisää tällaiset luokat suoraan <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Tarkista <a href="https://organicmaps.app/faq/editing/advanced-map-editing">oppaastamme</a> yksityiskohtaiset ohjeet vaihe vaiheelta.
-fr = NoGPS Maps ne permet d'ajouter que des catégories de points simples, c'est-à-dire pas de villes, de routes, de lacs, de contours de bâtiments, etc. Merci d'ajouter ces catégories directement sur <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consultez notre <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> pour obtenir des instructions détaillées étape par étape.
-gl = NoGPS Maps permite engadir unicamente categorías de puntos sinxelos, é dicir, non cidades, estradas, lagos, contornos de edificios, etc. Por favor, anada ditas categorías directamente <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulte nosa <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guía</a> para obter instrucións detalladas paso a paso.
-he = באמצעות NoGPS Maps ניתן להוסיף קטגוריות נקודה פשוטות בלבד, כלומר לא ניתן להוסיף עיירות, כבישים, אגמים, מבנים וכו'. אנא הוסיפו קטגוריות כאלה ישירות ל-<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. עיינו <a href="https://organicmaps.app/faq/editing/advanced-map-editing">במדריך</a> שלנו לקבלת הוראות מפורטות.
-hi = NoGPS Maps केवल सरल बिंदु श्रेणियाँ जोड़ने की अनुमति देता है, जिसका अर्थ है कि शहर, सड़कें, झीलें, इमारतों की रूपरेखा आदि नहीं। कृपया ऐसी श्रेणियाँ सीधे <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> पर जोड़ें। विस्तृत चरण-दर-चरण निर्देशों के लिए हमारी <a href="https://organicmaps.app/faq/editing/advanced-map-editing">गाइड</a> देखें।
-hr = NoGPS Maps omogućuje dodavanje samo jednostavnih kategorija točaka, znači bez navođenja gradova, cesta, jezera, obrisa zgrada itd. Dodajte takve kategorije izravno na <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Pogledajte naš <a href="https://organicmaps.app/faq/editing/advanced-map-editing">vodič</a> za detaljne upute.
-hu = Az NoGPS Maps csak egyszerű pontkategóriák hozzáadását teszi lehetővé, azaz nem tartalmaz városokat, utakat, tavakat, épületek körvonalait stb., az ilyen kategóriákat közvetlenül az <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> oldalon adhatja hozzá. A részletes, lépésről lépésre történő útmutatásért tekintse meg az <a href="https://organicmaps.app/faq/editing/advanced-map-editing">útmutatónkat</a>.
-hy = NoGPS Maps-ը թույլ է տալիս ավելացնել միայն պարզ կետային կատեգորիաներ, այսինքն՝ ոչ քաղաքներ, ճանապարհներ, լճեր, շենքերի ուրվագծեր և այլն։ Խնդրում ենք ավելացնել նման կատեգորիաները անմիջապես <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> կայքում։ Մանրամասն քայլ առ քայլ հրահանգների համար ստուգեք մեր <a href="https://organicmaps.app/faq/editing/advanced-map-editing">ուղեցույցը</a>:
-id = NoGPS Maps hanya memungkinkan untuk menambahkan kategori titik sederhana, yang berarti tidak ada kota, jalan, danau, garis besar bangunan, dll. Silahkan tambahkan kategori tersebut secara langsung ke <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Lihat <a href="https://organicmaps.app/faq/editing/advanced-map-editing">panduan</a> kami untuk petunjuk langkah demi langkah yang terperinci.
-is = NoGPS Maps leyfir aðeins að bæta við flokkum eins-punkts staða, sem þýðir engin sveitarfélagamörk, vegir, vötn, útlínur bygginga o.s.frv. Bættu slíkum atriðum beint inn í <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Skoðaðu <a href="https://organicmaps.app/faq/editing/advanced-map-editing">leiðbeiningarnar</a> okkar til að sjá hvernig það er gert, skref-fyrir-skref.
-it = NoGPS Maps consente di aggiungere solo punti semplici, escludendo p.es. città, strade, laghi, planimetria edifici ecc. È possibile aggiungere tali categorie direttamente su <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulta la nostra <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guida</a> per istruzioni dettagliate.
-ja = NoGPS Maps このアプリでは、シンプルな地点カテゴリのみを追加できます。つまり、町、道路、湖、建物の輪郭などは追加できません。そのようなカテゴリは、<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>に直接追加してください。詳細な手順については、<a href="https://organicmaps.app/faq/editing/advanced-map-editing">ガイド</a>をご確認ください。
-ko = NoGPS Maps 단순한 지점 카테고리만 추가할 수 있습니다. 즉, 도시, 도로, 호수, 건물 윤곽선 등은 추가할 수 없습니다. 이러한 카테고리는 <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>에 직접 추가해 주십시오. 자세한 단계별 안내는 <a href="https://organicmaps.app/faq/editing/advanced-map-editing">가이드를</a> 확인해 주세요.
-lo = NoGPS Maps ອະນຸຍາດໃຫ້ເພີ່ມສະເພາະໝວດໝູ່ຈຸດທີ່ງ່າຍດາຍເທົ່ານັ້ນ, ນັ້ນໝາຍຄວາມວ່າບໍ່ລວມເຖິງ ຕົວເມືອງ, ຖະໜົນ, ໜອງນ້ຳ, ຂອບເຂດອາຄານ ແລະ ອື່ນໆ. ກະລຸນາເພີ່ມໝວດໝູ່ດັ່ງກ່າວໂດຍກົງທີ່ <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. ກວດເບິ່ງ <a href="https://organicmaps.app/faq/editing/advanced-map-editing">ຄຳແນະນຳ</a> ຂອງພວກເຮົາສຳລັບຂັ້ນຕອນໂດຍລະອຽດ.
-lt = „NoGPS Maps“ leidžia pridėti tik paprastų kategorijas taškus – jokių miestų, kelių, ežerų, pastatų kontūrų ir pan. šia programėle pridėti negalima. Šių kategorijų objektus pridėkite naudodamiesi <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> svetaine. Žvilgtelėkite į mūsų <a href="https://organicmaps.app/faq/editing/advanced-map-editing">vadovą</a>, kuriame rasite išsamias pažingsnines instrukcijas.
-lv = „NoGPS Maps“ ļauj pievienot tikai vienkāršu punktu kategorijas, proti, nevarat pievienot pilsētas, ceļus, ezerus, ēku aprises u.tml. Šādas kategorijas lūdzam pievienot tiešā veidā <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Lai uzzinātu, kā to izdarīt, sekojiet norādēm <a href="https://organicmaps.app/faq/editing/advanced-map-editing">rokasgrāmatā</a>.
-mr = NoGPS Maps फक्त साध्या बिंदू श्रेण्या जोडण्याची परवानगी देते, म्हणजे शहरं, रस्ते, तलाव, इमारतींच्या रूपरेषा इत्यादी नाहीत. कृपया अशा श्रेण्या थेट <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> वर जोडा. सविस्तर टप्प्याटप्प्याच्या सूचनांसाठी आमचे <a href="https://organicmaps.app/faq/editing/advanced-map-editing">मार्गदर्शक</a> तपासा.
-mt = NoGPS Maps jippermetti li jiżdiedu kategoriji punti sempliċi biss, li jfisser l-ebda bliet, toroq, lagi, linji ġenerali tal-bini, eċċ. Jekk jogħġbok żid dawn il-kategoriji direttament mal-<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Iċċekkja l-<a href="https://organicmaps.app/faq/editing/advanced-map-editing">gwida</a> tagħna għal struzzjonijiet dettaljati.
-nb = NoGPS Maps tillater kun å legge til enkle punktkategorier, det vil si ingen byer, veier, innsjøer, bygningsomriss osv. Vennligst legg til slike kategorier direkte til <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Sjekk vår <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> for detaljerte trinnvise instruksjoner.
-nl = Met NoGPS Maps kun je alleen eenvoudige puntcategorieën toevoegen, dus geen steden, wegen, meren, contouren van gebouwen, enzovoort. Voeg zulke categorieën direct toe aan <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Bekijk onze <a href="https://organicmaps.app/faq/editing/advanced-map-editing">gids</a> voor gedetailleerde stap voor stap instructies.
-pl = NoGPS Maps pozwala na dodawanie tylko prostych kategorii punktów, co oznacza brak miast, dróg, jezior, obrysów budynków itp. Dodaj takie kategorie bezpośrednio do <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Sprawdź nasz <a href="https://organicmaps.app/faq/editing/advanced-map-editing">przewodnik</a>, aby uzyskać szczegółowe instrukcje krok po kroku.
-pt = O NoGPS Maps permite-lhe adicionar apenas categorias de pontos simples, ou seja, nada de cidades, estradas, lagos, contornos de edifícios etc. Por favor, adicione essas categorias diretamente ao <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulte o nosso <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guia</a> para instruções detalhadas passo a passo.
-pt-BR = O NoGPS Maps permite que você adicione apenas categorias de pontos simples, o que significa que não há cidades, estradas, lagos, contornos de edifícios etc. Por favor, adicione essas categorias diretamente no <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulte nosso <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guia</a> para obter instruções detalhadas passo a passo.
-ro = NoGPS Maps permite adăugarea doar a unor categorii de puncte simple, ceea ce înseamnă că nu există orașe, drumuri, lacuri, contururi de clădiri, etc. Vă rugăm să adăugați astfel de categorii direct la <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consultați <a href="https://organicmaps.app/faq/editing/advanced-map-editing">ghidul nostru</a> pentru instrucțiuni detaliate pas cu pas.
-ru = NoGPS Maps позволяет добавлять на карту только простые типы объектов, то есть никаких городов, дорог, озер, контуров зданий. Пожалуйста, добавляйте такие категории на сайте <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Также рекомендуем ознакомиться с нашими <a href="https://organicmaps.app/faq/editing/advanced-map-editing">подробными пошаговыми инструкциями и другими приложениями для редактирования карты</a>.
-sk = NoGPS Maps umožňuje pridávať iba jednoduché kategórie bodov, čo znamená, že nie sú k dispozícii mestá, cesty, jazerá, obrysy budov atď. Takéto kategórie prosím pridávajte priamo na <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Podrobné pokyny krok za krokom nájdete v našom <a href="https://organicmaps.app/faq/editing/advanced-map-editing">návode</a>.
-sl = NoGPS Maps omogoča dodajanje samo preprostih točkovnih kategorij, kar pomeni, da ni mest, cest, jezer, obrisov zgradb itd. Takšne kategorije dodajte neposredno na <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Preverite naš <a href="https://organicmaps.app/faq/editing/advanced-map-editing">vodnik</a> za podrobna navodila po korakih.
-sq = NoGPS Maps lejon shtimin e kategorive të thjeshta të pikave, që do të thotë jo qytete, rrugë, liqene, konture ndërtesash, etj. Ju lutemi shtoni kategori të tilla drejtpërdrejt në <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Kontrolloni <a href="https://organicmaps.app/faq/editing/advanced-map-editing">udhëzuesin tonë</a> për udhëzime të detajuara hap pas hapi.
-sr = NoGPS Maps омогућава додавање једноставних категорија за тачке на мапи, што искључује градове, путеве, језера, тлоцрте зграда, итд. Молимо Вас да такве категорије додате директно на <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Прочитајте наше <a href="https://organicmaps.app/faq/editing/advanced-map-editing">упутство</a> за детаљне инструкције, корак-по-корак.
-sv = NoGPS Maps tillåter endast att lägga till enkla punktkategorier, det betyder inga städer, vägar, sjöar, byggnadskonturer etc. Lägg till sådana kategorier direkt till <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Kontrollera vår <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> för detaljerade steg-för-steg-instruktioner.
-sw = NoGPS Maps inakuwezesha kuongeza tu aina rahisi za alama, ikimaanisha hakuna miji, barabara, maziwa, mipaka ya majengo, n.k. Tafadhali ongeza aina hizo moja kwa moja kwenye <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Angalia <a href="https://organicmaps.app/faq/editing/advanced-map-editing">mwongozo</a> wetu kwa maelekezo ya kina hatua kwa hatua.
-th = NoGPS Maps อนุญาตให้เพิ่มหมวดหมู่จุดแบบง่ายเท่านั้น ซึ่งหมายถึงไม่สามารถเพิ่มเมือง ถนน ทะเลสาบ เส้นขอบอาคาร ฯลฯ ได้ กรุณาเพิ่มหมวดหมู่ดังกล่าวโดยตรงที่ <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> โปรดตรวจสอบ<a href="https://organicmaps.app/faq/editing/advanced-map-editing">คู่มือ</a>ของเราสำหรับคำแนะนำแบบละเอียดทีละขั้นตอน
-tr = NoGPS Maps yalnızca basit nokta kategorilerini eklemeyi sağlar. Yani kasaba, yol, göl, bina vb. çizgi/alan verisi ekleme desteği yoktur. Lütfen bu tür kategorileri doğrudan <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> üzerinden ekleyin. Adım adım ayrıntılı yönergeler için <a href="https://organicmaps.app/faq/editing/advanced-map-editing">yönergemize</a> göz atabilirsiniz.
-uk = NoGPS Maps дозволяють додавати до мапи лише прості типи об'єктів, тобто без міст, доріг, озер та контурів будівель. Будь ласка, додайте такі категорії на сайті <a href="https://www.openstreetmap.org/">OpenStreetMap.org</a>. Ми також рекомендуємо ознайомитися із <a href="https://organicmaps.app/faq/editing/advanced-map-editing/">детальними інструкціями та іншими додатками для редагування мапи</a>.
-vi = NoGPS Maps chỉ cho phép thêm các loại điểm đơn giản, tức là không bao gồm các thị trấn, đường, hồ, đường viền tòa nhà, v.v. Vui lòng thêm các loại này trực tiếp vào <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Hãy tham khảo <a href="https://organicmaps.app/faq/editing/advanced-map-editing">hướng dẫn</a> của chúng tôi để biết các bước thực hiện chi tiết.
-zh-Hans = NoGPS Maps 只允许添加简单的点类别，即无法添加城镇、道路、湖泊、建筑轮廓等类别。请直接向 <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> 添加此类类别。请查看我们的<a href="https://organicmaps.app/faq/editing/advanced-map-editing">指南</a>，了解详细的步骤说明。
-zh-Hant = NoGPS Maps 只允許添加簡單的點類別，即無法添加城鎮、道路、湖泊、建築輪廓等類別。請直接向 <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> 新增此類類別。請查看我們的<a href="https://organicmaps.app/faq/editing/advanced-map-editing">指南</a>，以了解詳細的步驟說明。
+en = NonGPS Maps allows to add simple point categories only, that means no towns, roads, lakes, building outlines, etc. Please add such categories directly to <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Check our <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> for detailed step by step instructions.
+af = NonGPS Maps laat slegs toe om eenvoudige puntkategorieë by te voeg, dit beteken geen dorpe, paaie, mere, gebouomtrekke, ens. nie. Voeg asseblief sulke kategorieë direk by <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Kyk na ons <a href="https://organicmaps.app/faq/editing/advanced-map-editing">gids</a> vir gedetailleerde stap-vir-stap instruksies.
+ar = NonGPS Maps تسمح بإضافة فئات النقاط البسيطة فقط، وهذا يعني عدم إضافة المدن والطرق والبحيرات وخطوط المباني، إلخ. يرجى إضافة هذه الفئات مباشرة إلى <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. راجع <a href="https://organicmaps.app/faq/editing/advanced-map-editing">دليلنا</a> للحصول على إرشادات تفصيلية خطوة بخطوة.
+az = NonGPS Maps yalnız sadə nöqtə kateqoriyaları əlavə etməyə imkan verir, yəni şəhərlər, yollar, göllər, binaların konturları və s. daxil deyil. Zəhmət olmasa belə kateqoriyaları birbaşa <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> saytına əlavə edin. Ətraflı addım-addım təlimat üçün <a href="https://organicmaps.app/faq/editing/advanced-map-editing">bələdç</a>imizə baxın.
+be = NonGPS Maps дазваляе дадаваць на мапу толькі простыя тыпы аб'ектаў, гэта значыць без гарадоў, дарог, азёр і будынкаў. Калі ласка, дадавайце такія катэгорыі на сайце <a href="https://www.openstreetmap.org/">OpenStreetMap.org </a>. Мы таксама рэкамендуем азнаёміцца з <a href="https://organicmaps.app/faq/editing/advanced-map-editing/">падрабязнымі інструкцыямі і іншымі праграмамі для рэдагавання мапы</a>.
+bg = NonGPS Maps позволява да се добавят само прости категории точки, т.е. без градове, пътища, езера, очертания на сгради и т.н. Моля, добавяйте такива категории директно в <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Вижте нашето <a href="https://organicmaps.app/faq/editing/advanced-map-editing">ръководство</a> за подробни инструкции стъпка по стъпка.
+ca = NonGPS Maps només permet afegir categories de punts simples, això vol dir que no hi ha ciutats, carreteres, llacs, contorns d'edificis, etc. Si us plau, afegiu aquestes categories directament a <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulteu la nostra <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guia</a> per obtenir instruccions detallades pas a pas.
+cs = NonGPS Maps umožňuje přidávat pouze jednoduché bodové kategorie, to znamená žádná města, silnice, jezera, obrysy budov atd. Tyto kategorie prosím přidávejte přímo na <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Podrobný návod krok za krokem najdete v našem <a href="https://organicmaps.app/faq/editing/advanced-map-editing">průvodci</a>.
+cy = Mae NonGPS Maps yn caniatáu ychwanegu categorïau pwynt syml yn unig, sy'n golygu dim trefi, ffyrdd, llynnoedd, amlinelliadau adeiladau, ac ati. Ychwanegwch gategorïau o'r fath yn uniongyrchol at <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Edrychwch ar ein <a href="https://organicmaps.app/faq/editing/advanced-map-editing">canllaw</a> am gyfarwyddiadau manwl cam wrth gam.
+da = NonGPS Maps giver kun mulighed for at tilføje simple punktkategorier, dvs. ingen byer, veje, søer, bygningsomrids osv. Tilføj sådanne kategorier direkte til <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Se vores <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> for detaljerede trin for trin-instruktioner.
+de = Mit NonGPS Maps kann man nur einfache Punktkategorien hinzufügen, daher keine Städte, Straßen, Seen, Gebäudeumrisse, etc. Bitte füge solche Kategorien direkt bei <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> hinzu. In unserem <a href="https://organicmaps.app/faq/editing/advanced-map-editing">Leitfaden</a> findest du eine detaillierte Schritt-für-Schritt-Anleitung.
+el = NonGPS Maps επιτρέπει την προσθήκη μόνο απλών κατηγοριών σημείων, δηλαδή όχι πόλεων, δρόμων, λιμνών, περιγραμμάτων κτιρίων κ.λπ. Παρακαλούμε προσθέστε τέτοιες κατηγορίες απευθείας στο <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Ανατρέξτε <a href="https://organicmaps.app/faq/editing/advanced-map-editing">στον οδηγό</a> μας για λεπτομερείς οδηγίες βήμα προς βήμα.
+en-GB = NonGPS Maps allows adding simple point categories only, which means no towns, roads, lakes, building outlines, etc. Please add such categories directly to <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Check our <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> for detailed step-by-step instructions.
+es = NonGPS Maps permite añadir únicamente categorías de puntos sencillos, es decir, no ciudades, carreteras, lagos, contornos de edificios, etc. Añada dichas categorías directamente a <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulte nuestra <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guía</a> para obtener instrucciones detalladas paso a paso.
+es-MX = NonGPS Maps permite añadir únicamente categorías de puntos sencillos, es decir, no ciudades, carreteras, lagos, contornos de edificios, etc. Por favor, añada dichas categorías directamente a <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulte nuestra <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guía</a> para obtener instrucciones detalladas paso a paso.
+et = NonGPS Maps võimaldab lisada ainult lihtsaid huvipunkte, see tähendab, et ei mingeid linnu, teid, järvi, hoonete piirjooni jne. Palun lisa sellised kategooriad otse <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> saidis. Vaata meie <a href="https://organicmaps.app/faq/editing/advanced-map-editing">juhendit</a> üksikasjalike samm-sammuliste juhiste saamiseks.
+eu = NonGPS Maps-ek puntu kategoria soilak gehitzeko aukera ematen du, hau da, ez da herririk, errepiderik, lakurik, eraikinen eskemarik, etab. Gehitu kategoria horiek zuzenean <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Begiratu gure <a href="https://organicmaps.app/faq/editing/advanced-map-editing">gida</a> urratsez urrats argibide zehatzak lortzeko.
+fa = NonGPS Maps اجازه میu200cدهد فقط دستهu200cهای نقطهu200cای ساده را اضافه کند، یعنی هیچ شهر، جاده، دریاچه، طرح کلی ساختمان و غیره وجود ندارد. لطفاً این دستهu200cها را مستقیماً به <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> اضافه کنید. برای دستورالعملu200cهای گام به گام، <a href="https://organicmaps.app/faq/editing/advanced-map-editing">راهنمای</a> ما را بررسی کنید.
+fi = NonGPS Maps mahdollistaa vain yksinkertaisten pisteluokkien lisäämisen, eli ei kaupunkeja, teitä, järviä, rakennusten ääriviivoja jne. Lisää tällaiset luokat suoraan <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Tarkista <a href="https://organicmaps.app/faq/editing/advanced-map-editing">oppaastamme</a> yksityiskohtaiset ohjeet vaihe vaiheelta.
+fr = NonGPS Maps ne permet d'ajouter que des catégories de points simples, c'est-à-dire pas de villes, de routes, de lacs, de contours de bâtiments, etc. Merci d'ajouter ces catégories directement sur <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consultez notre <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> pour obtenir des instructions détaillées étape par étape.
+gl = NonGPS Maps permite engadir unicamente categorías de puntos sinxelos, é dicir, non cidades, estradas, lagos, contornos de edificios, etc. Por favor, anada ditas categorías directamente <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulte nosa <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guía</a> para obter instrucións detalladas paso a paso.
+he = באמצעות NonGPS Maps ניתן להוסיף קטגוריות נקודה פשוטות בלבד, כלומר לא ניתן להוסיף עיירות, כבישים, אגמים, מבנים וכו'. אנא הוסיפו קטגוריות כאלה ישירות ל-<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. עיינו <a href="https://organicmaps.app/faq/editing/advanced-map-editing">במדריך</a> שלנו לקבלת הוראות מפורטות.
+hi = NonGPS Maps केवल सरल बिंदु श्रेणियाँ जोड़ने की अनुमति देता है, जिसका अर्थ है कि शहर, सड़कें, झीलें, इमारतों की रूपरेखा आदि नहीं। कृपया ऐसी श्रेणियाँ सीधे <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> पर जोड़ें। विस्तृत चरण-दर-चरण निर्देशों के लिए हमारी <a href="https://organicmaps.app/faq/editing/advanced-map-editing">गाइड</a> देखें।
+hr = NonGPS Maps omogućuje dodavanje samo jednostavnih kategorija točaka, znači bez navođenja gradova, cesta, jezera, obrisa zgrada itd. Dodajte takve kategorije izravno na <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Pogledajte naš <a href="https://organicmaps.app/faq/editing/advanced-map-editing">vodič</a> za detaljne upute.
+hu = A NonGPS Maps csak egyszerű pontkategóriák hozzáadását teszi lehetővé, azaz nem tartalmaz városokat, utakat, tavakat, épületek körvonalait stb., az ilyen kategóriákat közvetlenül az <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> oldalon adhatja hozzá. A részletes, lépésről lépésre történő útmutatásért tekintse meg az <a href="https://organicmaps.app/faq/editing/advanced-map-editing">útmutatónkat</a>.
+hy = NonGPS Maps-ը թույլ է տալիս ավելացնել միայն պարզ կետային կատեգորիաներ, այսինքն՝ ոչ քաղաքներ, ճանապարհներ, լճեր, շենքերի ուրվագծեր և այլն։ Խնդրում ենք ավելացնել նման կատեգորիաները անմիջապես <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> կայքում։ Մանրամասն քայլ առ քայլ հրահանգների համար ստուգեք մեր <a href="https://organicmaps.app/faq/editing/advanced-map-editing">ուղեցույցը</a>:
+id = NonGPS Maps hanya memungkinkan untuk menambahkan kategori titik sederhana, yang berarti tidak ada kota, jalan, danau, garis besar bangunan, dll. Silahkan tambahkan kategori tersebut secara langsung ke <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Lihat <a href="https://organicmaps.app/faq/editing/advanced-map-editing">panduan</a> kami untuk petunjuk langkah demi langkah yang terperinci.
+is = NonGPS Maps leyfir aðeins að bæta við flokkum eins-punkts staða, sem þýðir engin sveitarfélagamörk, vegir, vötn, útlínur bygginga o.s.frv. Bættu slíkum atriðum beint inn í <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Skoðaðu <a href="https://organicmaps.app/faq/editing/advanced-map-editing">leiðbeiningarnar</a> okkar til að sjá hvernig það er gert, skref-fyrir-skref.
+it = NonGPS Maps consente di aggiungere solo punti semplici, escludendo p.es. città, strade, laghi, planimetria edifici ecc. È possibile aggiungere tali categorie direttamente su <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulta la nostra <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guida</a> per istruzioni dettagliate.
+ja = NonGPS Maps このアプリでは、シンプルな地点カテゴリのみを追加できます。つまり、町、道路、湖、建物の輪郭などは追加できません。そのようなカテゴリは、<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>に直接追加してください。詳細な手順については、<a href="https://organicmaps.app/faq/editing/advanced-map-editing">ガイド</a>をご確認ください。
+ko = NonGPS Maps 단순한 지점 카테고리만 추가할 수 있습니다. 즉, 도시, 도로, 호수, 건물 윤곽선 등은 추가할 수 없습니다. 이러한 카테고리는 <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>에 직접 추가해 주십시오. 자세한 단계별 안내는 <a href="https://organicmaps.app/faq/editing/advanced-map-editing">가이드를</a> 확인해 주세요.
+lo = NonGPS Maps ອະນຸຍາດໃຫ້ເພີ່ມສະເພາະໝວດໝູ່ຈຸດທີ່ງ່າຍດາຍເທົ່ານັ້ນ, ນັ້ນໝາຍຄວາມວ່າບໍ່ລວມເຖິງ ຕົວເມືອງ, ຖະໜົນ, ໜອງນ້ຳ, ຂອບເຂດອາຄານ ແລະ ອື່ນໆ. ກະລຸນາເພີ່ມໝວດໝູ່ດັ່ງກ່າວໂດຍກົງທີ່ <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. ກວດເບິ່ງ <a href="https://organicmaps.app/faq/editing/advanced-map-editing">ຄຳແນະນຳ</a> ຂອງພວກເຮົາສຳລັບຂັ້ນຕອນໂດຍລະອຽດ.
+lt = „NonGPS Maps“ leidžia pridėti tik paprastų kategorijas taškus – jokių miestų, kelių, ežerų, pastatų kontūrų ir pan. šia programėle pridėti negalima. Šių kategorijų objektus pridėkite naudodamiesi <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> svetaine. Žvilgtelėkite į mūsų <a href="https://organicmaps.app/faq/editing/advanced-map-editing">vadovą</a>, kuriame rasite išsamias pažingsnines instrukcijas.
+lv = „NonGPS Maps“ ļauj pievienot tikai vienkāršu punktu kategorijas, proti, nevarat pievienot pilsētas, ceļus, ezerus, ēku aprises u.tml. Šādas kategorijas lūdzam pievienot tiešā veidā <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Lai uzzinātu, kā to izdarīt, sekojiet norādēm <a href="https://organicmaps.app/faq/editing/advanced-map-editing">rokasgrāmatā</a>.
+mr = NonGPS Maps फक्त साध्या बिंदू श्रेण्या जोडण्याची परवानगी देते, म्हणजे शहरं, रस्ते, तलाव, इमारतींच्या रूपरेषा इत्यादी नाहीत. कृपया अशा श्रेण्या थेट <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> वर जोडा. सविस्तर टप्प्याटप्प्याच्या सूचनांसाठी आमचे <a href="https://organicmaps.app/faq/editing/advanced-map-editing">मार्गदर्शक</a> तपासा.
+mt = NonGPS Maps jippermetti li jiżdiedu kategoriji punti sempliċi biss, li jfisser l-ebda bliet, toroq, lagi, linji ġenerali tal-bini, eċċ. Jekk jogħġbok żid dawn il-kategoriji direttament mal-<a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Iċċekkja l-<a href="https://organicmaps.app/faq/editing/advanced-map-editing">gwida</a> tagħna għal struzzjonijiet dettaljati.
+nb = NonGPS Maps tillater kun å legge til enkle punktkategorier, det vil si ingen byer, veier, innsjøer, bygningsomriss osv. Vennligst legg til slike kategorier direkte til <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Sjekk vår <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> for detaljerte trinnvise instruksjoner.
+nl = Met NonGPS Maps kun je alleen eenvoudige puntcategorieën toevoegen, dus geen steden, wegen, meren, contouren van gebouwen, enzovoort. Voeg zulke categorieën direct toe aan <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Bekijk onze <a href="https://organicmaps.app/faq/editing/advanced-map-editing">gids</a> voor gedetailleerde stap voor stap instructies.
+pl = NonGPS Maps pozwala na dodawanie tylko prostych kategorii punktów, co oznacza brak miast, dróg, jezior, obrysów budynków itp. Dodaj takie kategorie bezpośrednio do <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Sprawdź nasz <a href="https://organicmaps.app/faq/editing/advanced-map-editing">przewodnik</a>, aby uzyskać szczegółowe instrukcje krok po kroku.
+pt = O NonGPS Maps permite-lhe adicionar apenas categorias de pontos simples, ou seja, nada de cidades, estradas, lagos, contornos de edifícios etc. Por favor, adicione essas categorias diretamente ao <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulte o nosso <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guia</a> para instruções detalhadas passo a passo.
+pt-BR = O NonGPS Maps permite que você adicione apenas categorias de pontos simples, o que significa que não há cidades, estradas, lagos, contornos de edifícios etc. Por favor, adicione essas categorias diretamente no <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consulte nosso <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guia</a> para obter instruções detalhadas passo a passo.
+ro = NonGPS Maps permite adăugarea doar a unor categorii de puncte simple, ceea ce înseamnă că nu există orașe, drumuri, lacuri, contururi de clădiri, etc. Vă rugăm să adăugați astfel de categorii direct la <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Consultați <a href="https://organicmaps.app/faq/editing/advanced-map-editing">ghidul nostru</a> pentru instrucțiuni detaliate pas cu pas.
+ru = NonGPS Maps позволяет добавлять на карту только простые типы объектов, то есть никаких городов, дорог, озер, контуров зданий. Пожалуйста, добавляйте такие категории на сайте <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Также рекомендуем ознакомиться с нашими <a href="https://organicmaps.app/faq/editing/advanced-map-editing">подробными пошаговыми инструкциями и другими приложениями для редактирования карты</a>.
+sk = NonGPS Maps umožňuje pridávať iba jednoduché kategórie bodov, čo znamená, že nie sú k dispozícii mestá, cesty, jazerá, obrysy budov atď. Takéto kategórie prosím pridávajte priamo na <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Podrobné pokyny krok za krokom nájdete v našom <a href="https://organicmaps.app/faq/editing/advanced-map-editing">návode</a>.
+sl = NonGPS Maps omogoča dodajanje samo preprostih točkovnih kategorij, kar pomeni, da ni mest, cest, jezer, obrisov zgradb itd. Takšne kategorije dodajte neposredno na <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Preverite naš <a href="https://organicmaps.app/faq/editing/advanced-map-editing">vodnik</a> za podrobna navodila po korakih.
+sq = NonGPS Maps lejon shtimin e kategorive të thjeshta të pikave, që do të thotë jo qytete, rrugë, liqene, konture ndërtesash, etj. Ju lutemi shtoni kategori të tilla drejtpërdrejt në <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Kontrolloni <a href="https://organicmaps.app/faq/editing/advanced-map-editing">udhëzuesin tonë</a> për udhëzime të detajuara hap pas hapi.
+sr = NonGPS Maps омогућава додавање једноставних категорија за тачке на мапи, што искључује градове, путеве, језера, тлоцрте зграда, итд. Молимо Вас да такве категорије додате директно на <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Прочитајте наше <a href="https://organicmaps.app/faq/editing/advanced-map-editing">упутство</a> за детаљне инструкције, корак-по-корак.
+sv = NonGPS Maps tillåter endast att lägga till enkla punktkategorier, det betyder inga städer, vägar, sjöar, byggnadskonturer etc. Lägg till sådana kategorier direkt till <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Kontrollera vår <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> för detaljerade steg-för-steg-instruktioner.
+sw = NonGPS Maps inakuwezesha kuongeza tu aina rahisi za alama, ikimaanisha hakuna miji, barabara, maziwa, mipaka ya majengo, n.k. Tafadhali ongeza aina hizo moja kwa moja kwenye <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Angalia <a href="https://organicmaps.app/faq/editing/advanced-map-editing">mwongozo</a> wetu kwa maelekezo ya kina hatua kwa hatua.
+th = NonGPS Maps อนุญาตให้เพิ่มหมวดหมู่จุดแบบง่ายเท่านั้น ซึ่งหมายถึงไม่สามารถเพิ่มเมือง ถนน ทะเลสาบ เส้นขอบอาคาร ฯลฯ ได้ กรุณาเพิ่มหมวดหมู่ดังกล่าวโดยตรงที่ <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> โปรดตรวจสอบ<a href="https://organicmaps.app/faq/editing/advanced-map-editing">คู่มือ</a>ของเราสำหรับคำแนะนำแบบละเอียดทีละขั้นตอน
+tr = NonGPS Maps yalnızca basit nokta kategorilerini eklemeyi sağlar. Yani kasaba, yol, göl, bina vb. çizgi/alan verisi ekleme desteği yoktur. Lütfen bu tür kategorileri doğrudan <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> üzerinden ekleyin. Adım adım ayrıntılı yönergeler için <a href="https://organicmaps.app/faq/editing/advanced-map-editing">yönergemize</a> göz atabilirsiniz.
+uk = NonGPS Maps дозволяють додавати до мапи лише прості типи об'єктів, тобто без міст, доріг, озер та контурів будівель. Будь ласка, додайте такі категорії на сайті <a href="https://www.openstreetmap.org/">OpenStreetMap.org</a>. Ми також рекомендуємо ознайомитися із <a href="https://organicmaps.app/faq/editing/advanced-map-editing/">детальними інструкціями та іншими додатками для редагування мапи</a>.
+vi = NonGPS Maps chỉ cho phép thêm các loại điểm đơn giản, tức là không bao gồm các thị trấn, đường, hồ, đường viền tòa nhà, v.v. Vui lòng thêm các loại này trực tiếp vào <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Hãy tham khảo <a href="https://organicmaps.app/faq/editing/advanced-map-editing">hướng dẫn</a> của chúng tôi để biết các bước thực hiện chi tiết.
+zh-Hans = NonGPS Maps 只允许添加简单的点类别，即无法添加城镇、道路、湖泊、建筑轮廓等类别。请直接向 <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> 添加此类类别。请查看我们的<a href="https://organicmaps.app/faq/editing/advanced-map-editing">指南</a>，了解详细的步骤说明。
+zh-Hant = NonGPS Maps 只允許添加簡單的點類別，即無法添加城鎮、道路、湖泊、建築輪廓等類別。請直接向 <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> 新增此類類別。請查看我們的<a href="https://organicmaps.app/faq/editing/advanced-map-editing">指南</a>，以了解詳細的步驟說明。
 
 [downloader_no_downloaded_maps_title]
 tags = android-app,apple-maps
@@ -23018,7 +23018,7 @@ gl = Utilizamos o sistema TTS para as instrucións de voz. Moitos dispositivos d
 he = אנחנו משתמשים מערכת TTS של המערכת כדי לספק הנחיות קוליות. הרבה מכשירי Android מוגדרים להשתמש ב-Google TTS, שניתן להוריד ולעדכן מחנות Play
 hr = Koristimo sustavni TTS za glasovne upute. Mnogi Android uređaji koriste Google TTS, možete ga preuzeti ili ažurirati s Google Playa.
 hi = हम वॉयस निर्देशों के लिए सिस्टम TTS का उपयोग करते हैं। कई Android डिवाइस Google TTS का उपयोग करते हैं, आप इसे Google Play से डाउनलोड या अपडेट कर सकते हैं।
-hu = Az Organic Maps TTS-rendszert használ a hangnavigációhoz. Sok androidos eszköz használja a Google TTS-t; töltse le vagy frissítse a Google Play áruházból
+hu = A NonGPS Maps TTS-rendszert használ a hangnavigációhoz. Sok androidos eszköz használja a Google TTS-t; töltse le vagy frissítse a Google Play áruházból
 hy = Ձայնային հրահանգների համար օգտագործում ենք համակարգային TTS-ը։ Շատ Android սարքեր օգտագործում են Google TTS, որը կարող եք ներբեռնել կամ թարմացնել Google Play-ից։
 id = Kami menggunakan TTS sistem untuk petunjuk suara. Banyak perangkat Android menggunakan Google TTS, Anda dapat mengunduhnya dari Google Play
 is = Við notum TTS-talgervil kerfisins fyrir talaðar leiðbeiningar. Mörg Android-tæki nota TTS-kerfi Google, þú getur sótt það eða uppfært á Google Play
@@ -27076,7 +27076,7 @@ zh-Hant = 顯示在底部
 tags = android-app,apple-maps
 en = Enable this option temporarily to record and manually send detailed diagnostic logs about your issue to us using "Report a bug" in the Help dialog. Logs may include location info.
 af = Aktiveer hierdie opsie tydelik om ’n gedetailleerde diagnosestaat van u probleem op te neem en handmatig na ons te stuur d.m.v. die “Rapporteer ’n fout” in die Help-dialoog. Sulke state kan liggingsinligting bevat.
-ar = هذا الخيار يقوم ببدأ تسجيل سجلات التطبيق لإغراض التشخيصة. يمكن أن يكون مفيدًا لفريق الدعم الخاص بنا لحل المشاكل التي تواجهكم داخل التطبيق. قم بتفعيل هذا الخيار بشكل مؤقت فقط في حالة طلب الدعم من Organic Maps.
+ar = هذا الخيار يقوم ببدأ تسجيل سجلات التطبيق لإغراض التشخيصة. يمكن أن يكون مفيدًا لفريق الدعم الخاص بنا لحل المشاكل التي تواجهكم داخل التطبيق. قم بتفعيل هذا الخيار بشكل مؤقت فقط في حالة طلب الدعم من NonGPS Maps.
 az = Yardım dialoq qutusunda “Problemi bildir” istifadə etməklə probleminizlə bağlı ətraflı diaqnostik jurnalları qeyd etmək və bizə göndərmək üçün bu seçimi müvəqqəti aktivləşdirin. Qeydlərə məkan məlumatı daxil ola bilər
 be = Часова ўключыце гэты параметр , каб запісаць і ўручную адправіць нам падрабязную інфармацыю пра знойдзеную праблему праз кнопку «Паведаміць аб памылцы» ў акне «Даведка». Журнал падзей можа змяшчаць даныя пра месцазнаходжанне.
 bg = Тази настройка е разрешена, за да се записват действия за диагностични цели, които помагат на нашия екип да идентифицира проблеми с приложението. Временно активирайте тази настройка само за изпращане на подробна информация за проблема, който сте открили с приложението.
@@ -27085,47 +27085,47 @@ cs = Dočasně zapněte, abyste mohli zaznamenat a ručně nám poslat podrobná
 cy = Galluogwch yr opsiwn hwn dros dro i gofnodi ac anfon logiau diagnostig manwl am eich problem atom ni â llaw gan ddefnyddio "Rhoi gwybod am fyg" yn y blwch deialog Cymorth. Gall logiau gynnwys gwybodaeth am leoliad.
 da = Aktivér denne mulighed midlertidigt for at registrere og manuelt sende detaljerede diagnostiske logfiler om dit problem til os ved hjælp af "Rapportér en fejl" i Hjælp-dialogen. Logfiler kan indeholde placeringsoplysninger.
 de = Aktivieren, um Diagnoseprotokolle aufzuzeichnen. Sollte ein App-Fehler auftreten, reproduziere das Problem und sende uns die Protokolle über die Schaltfläche „App-Fehler melden“ unter „Hilfe“. Protokolle können Standortformationen enthalten.
-el = Αυτή η λειτουργία είναι ενεργοποιημένη για την καταγραφή ενεργειών για διαγνωστικούς σκοπούς. Αυτό βοηθά την ομάδα να εντοπίζει προβλήματα με την εφαρμογή. Να ενεργοποιείτε τη λειτουργία μόνο κατόπιν αιτήματος της υποστήριξης του Organic Maps.
+el = Αυτή η λειτουργία είναι ενεργοποιημένη για την καταγραφή ενεργειών για διαγνωστικούς σκοπούς. Αυτό βοηθά την ομάδα να εντοπίζει προβλήματα με την εφαρμογή. Να ενεργοποιείτε τη λειτουργία μόνο κατόπιν αιτήματος της υποστήριξης του NonGPS Maps.
 es = Active esta opción temporalmente para grabar y enviar de forma manual registros para diagnosticar defectos enviados mediante la opción «Informar de un fallo» en el diálogo Ayuda. Los registros pueden incluir ubicaciones.
 es-MX = Activa esta opción temporalmente para grabar y enviarnos manualmente registros de diagnóstico detallados sobre tu problema mediante "Informar de un error" en el cuadro de diálogo Ayuda. Los registros pueden incluir información de ubicación.
 et = Kasuta seda võimalust üksikasjaliku logi ajutiseks salvestamiseks ja meile käsitsi saatmiseks Abiteabe „Teata veast“ vaatest. Andmed võivad sisaldada sinu asukoha teavet.
-eu = Aukera hau diagnostiko helburua duten erregistro ekintzetarako gaituta dago. Honek gure taldeari aplikazioarekin arazoak identifikatzen laguntzen dio. Gaitu aukera Organic Maps laguntzari eskatuta soilik.
-fa = این گزینه ثبت گزارش را برای اهداف تشخیصی فعال می‌کند. برای کارکنان بخش پشتیبانی که مشکلات برنامه را عیب یابی می‌کنند، مفید باشد. این گزینه را تنها در صورت درخواست پشتیبانی Organic Maps فعال کنید.
-fi = Valinta ottaa käyttöön lokikirjaukset diagnostiikkaa varten. Se voi auttaa tukihenkilöstöämme, kun he korjaavat sovelluksen ongelmia. Ota tämä ominaisuus käyttöön vain, jos Organic Maps:n tuki pyytää.
-fr = Cette option est activée pour l'identification des actions à des fins de diagnostic. Cela aide l’équipe à identifier les problèmes liés à l’application. Activez cette option uniquement à la demande du support Organic Maps.
+eu = Aukera hau diagnostiko helburua duten erregistro ekintzetarako gaituta dago. Honek gure taldeari aplikazioarekin arazoak identifikatzen laguntzen dio. Gaitu aukera NonGPS Maps laguntzari eskatuta soilik.
+fa = این گزینه ثبت گزارش را برای اهداف تشخیصی فعال می‌کند. برای کارکنان بخش پشتیبانی که مشکلات برنامه را عیب یابی می‌کنند، مفید باشد. این گزینه را تنها در صورت درخواست پشتیبانی NonGPS Maps فعال کنید.
+fi = Valinta ottaa käyttöön lokikirjaukset diagnostiikkaa varten. Se voi auttaa tukihenkilöstöämme, kun he korjaavat sovelluksen ongelmia. Ota tämä ominaisuus käyttöön vain, jos NonGPS Maps:n tuki pyytää.
+fr = Cette option est activée pour l'identification des actions à des fins de diagnostic. Cela aide l’équipe à identifier les problèmes liés à l’application. Activez cette option uniquement à la demande du support NonGPS Maps.
 gl = Active esta opción temporalmente para gravar e enviar de forma manual rexistros para diagnosticar defectos enviados mediante a opción «Informar dun fallo» no diálogo Axuda. Os rexistros poden incluír localizacións.
 he = הפעל אפשרות זו כדי לתעד ובאופן ידני לשלוח אלינו פרטים דיאגנוסטיים על הבעיה שלך בעזרת הכפתור "דווח על באג" בתפריט עזרה. הפרטים עשויים לכלול מידע על מיקום.
 hi = सहायता संवाद में "बग की रिपोर्ट करें" का उपयोग करके हमें अपनी समस्या के बारे में विस्तृत डायग्नोस्टिक लॉग रिकॉर्ड करने और मैन्युअल रूप से भेजने के लिए इस विकल्प को अस्थायी रूप से सक्षम करें। लॉग में स्थान की जानकारी शामिल हो सकती है.
 hr = Privremeno omogućite ovu opciju kako biste snimili i ručno poslali detaljne dijagnostičke zapise o vašem problemu nama putem opcije "Prijavi grešku" u dijaloškom okviru Pomoć. Zapisi mogu uključivati informacije o lokaciji.
 hu = Ha ideiglenesen engedélyezi ezt a beállítást, akkor a „Súgó” párbeszédpanel „Hibajelentés” menüpontjának használatával rögzítheti és kézzel küldheti el nekünk a problémával kapcsolatos részletes diagnosztikai naplókat. A naplók tartalmazhatnak helyadatokat.
 hy = Միացրեք այս ընտրանքը ժամանակավորապես՝ Ձեր խնդրի մասին մանրամասն ախտորոշիչ գրանցամատյանները գրանցելու և մեզ ձեռքով ուղարկելու համար՝ օգտագործելով «Զեկուցել սխալի մասին» Օգնության պատուհանում։ Գրանցամատյանները կարող են ներառել տեղադիրքի տվյալներ։
-id = Opsi ini mengaktifkan pencatatan untuk tujuan diagnostik. Bisa amat membantu bagi staf dukungan kami yang memecahkan masalah dalam aplikasi. Aktifkan opsi ini hanya saat diminta oleh dukungan Organic Maps.
+id = Opsi ini mengaktifkan pencatatan untuk tujuan diagnostik. Bisa amat membantu bagi staf dukungan kami yang memecahkan masalah dalam aplikasi. Aktifkan opsi ini hanya saat diminta oleh dukungan NonGPS Maps.
 is = Virkjaðu þennan valkost tímabundið til að skrá og senda síðan handvirkt nákvæma greiningarskrá um vandamálið þitt með því að nota "Tilkynna um villu" í hjálparglugganum. Slíkar atvikaskrár geta innihaldið upplýsingar um staðsetningu.
 it = Attiva questa opzione temporaneamente per registrare e inviarci manualmente dei log diagnostici riguardo al tuo problema usando "Segnala un bug" nella sezione Aiuto. I log potrebbero contenere informazioni sulla posizione.
-ja = このオプションは診断目的でのデータ記録を有効にします。これはこのアプリケーションのトラブルシューティングを担当する当社のサポートスタッフの助けになります。このオプションはOrganic Mapsにリクエストされた場合にのみ有効にしてください。
-ko = 이 옵션은 진단을 목적으로 로그를 엽니다 이를 통해 앱에 대한 문제를 분석하는 우리의 스탭을 도울 수 있습니다 이 옵션은 오직 Organic Maps 지원 요청에서만 가능합니다.
+ja = このオプションは診断目的でのデータ記録を有効にします。これはこのアプリケーションのトラブルシューティングを担当する当社のサポートスタッフの助けになります。このオプションはNonGPS Mapsにリクエストされた場合にのみ有効にしてください。
+ko = 이 옵션은 진단을 목적으로 로그를 엽니다 이를 통해 앱에 대한 문제를 분석하는 우리의 스탭을 도울 수 있습니다 이 옵션은 오직 NonGPS Maps 지원 요청에서만 가능합니다.
 lo = ເປີດໃຊ້ຕົວເລືອກນີ້ຊົ່ວຄາວເພື່ອບັນທຶກ ແລະ ສົ່ງລັອກການວິນິດໄສໂດຍລະອຽດກ່ຽວກັບບັນຫາຂອງທ່ານໃຫ້ພວກເຮົາໂດຍໃຊ້ "ລາຍງານຂໍ້ຜິດພາດ" ໃນສ່ວນຊ່ວຍເຫຼືອ. ລັອກອາດຈະລວມມີຂໍ້ມູນຕຳແໜ່ງທີ່ຕັ້ງ.
 lt = Įjunkite šią parinktį, jei norite kurį laiką rašyti derinimo žurnalą. Pasinaudodami mygtuku „Pranešti apie klaidą“, esančiu žinyno dialogo lange, galėsite pranešti apie problemą, pridėdami sukauptą žurnalą. Žurnaluose gali būti vietos duomenų.
 lv = Uz laiku ieslēdziet šo opciju, lai reģistrētu un manuāli nosūtītu sīkākus žurnālus problēmu diagnostikai, izmantojot „Ziņot par kļūdu“ funkciju palīdzības lodziņā. Žurnāli var saturēt informāciju par atrašanās vietu.
 mr = निदान करण्याकरिता हा पर्याय लॉगिंग चालू करतो. ह्याने ऍपच्या समस्यांचे निवारण करणे आम्हाला उपयुक्त ठरू शकते. तुमच्या समस्येबद्दल तपशीलवार नोंदी रेकॉर्ड करण्यासाठी आणि आम्हाला पाठवण्यासाठी हा पर्याय तात्पुरता चालू करा.
 mt = Attiva din l-għażla biex tirrekordja u tibgħat manwalment dijanjostiċi dettaljati dwar il-kwistjoni tiegħek lilna billi tuża “Irrapporta problemi” fid-djalogu għajnuna. Ir-reġistri jistgħu jinkludu informazzjoni dwar il-post.
-nb = Alternativet slår på logging for diagnostiske formål. Det kan være nyttig for våre supportpersonale som feilsøker problemer med appen. Aktiver dette alternativet bare på forespørsel fra Organic Maps-brukerstøtte.
-nl = Schakel deze optie tijdelijk in om gedetailleerde logboekregistraties omtrent jouw probleem op te slaan en te verzenden tijdens " Rapporteer een probleem" in het help menu. Schakel deze optie alleen in op verzoek van Organic Maps ondersteuning.
-pl = Ta opcja zostaje włączona do zbierania danych działań w celach diagnostycznych. Pomaga to zespołowi zidentyfikować problemy z aplikacją. Włączaj opcję tylko na żądanie wsparcia technicznego Organic Maps.
-pt = Esta opção ativa o registo das ações para diagnóstico. Pode ser útil para os programadores descobrirem o problema na aplicação. Ative esta opção apenas a pedido dos programadores do Organic Maps.
-pt-BR = A opção ativa logging para realizar diagnósticos. Pode ser útil para nossa equipe de suporte que estão solucionando problemas com o aplicativo. Ative esta opção apenas ao ser solicitado pelo suporte do Organic Maps.
+nb = Alternativet slår på logging for diagnostiske formål. Det kan være nyttig for våre supportpersonale som feilsøker problemer med appen. Aktiver dette alternativet bare på forespørsel fra NonGPS Maps-brukerstøtte.
+nl = Schakel deze optie tijdelijk in om gedetailleerde logboekregistraties omtrent jouw probleem op te slaan en te verzenden tijdens " Rapporteer een probleem" in het help menu. Schakel deze optie alleen in op verzoek van NonGPS Maps ondersteuning.
+pl = Ta opcja zostaje włączona do zbierania danych działań w celach diagnostycznych. Pomaga to zespołowi zidentyfikować problemy z aplikacją. Włączaj opcję tylko na żądanie wsparcia technicznego NonGPS Maps.
+pt = Esta opção ativa o registo das ações para diagnóstico. Pode ser útil para os programadores descobrirem o problema na aplicação. Ative esta opção apenas a pedido dos programadores do NonGPS Maps.
+pt-BR = A opção ativa logging para realizar diagnósticos. Pode ser útil para nossa equipe de suporte que estão solucionando problemas com o aplicativo. Ative esta opção apenas ao ser solicitado pelo suporte do NonGPS Maps.
 ro = Opțiunea activează jurnalizarea în scopuri de diagnosticare. Aceasta poate fi utilă echipei noastre pentru a rezolva problemele cu aplicația. Activează temporar această opțiune pentru a înregistra și a ne trimite jurnale detaliate despre problema ta.
 ru = Данная настройка включается для записи действий в целях диагностики, чтобы помочь нашей команде выявить проблемы с приложением. Временно включайте эту настройку только для отправки детальной информации о найденной вами проблеме в приложении через кнопку "Сообщить о проблеме".
 sk = Týmto zapnete záznamenávanie diagnostických informácií, ktoré môžete poslať našej technickej podpore v prípade problémov s aplikáciou. Záznam môže obsahovať údaje o vašej polohe.
 sl = To možnost omogočite začasno, da posnamete in nam ročno pošljete podrobne diagnostične dnevnike o vaši težavi z uporabo "Prijavi napako" v pogovornem oknu Pomoč. Dnevniki lahko vključujejo podatke o lokaciji.
 sq = Aktivizoni këtë opsion përkohësisht për të regjistruar dhe dërguar manualisht logje diagnostike të detajuara për problemin tuaj duke përdorur "Raporto një problem" në dialogun Ndihmë. Logjet mund të përfshijnë informacione vendndodhjeje.
 sr = Привремено укључите ову опцију да бисте сачували детаљне дијагностичке логове уколико имате неки проблем. Логове можете да нам пошаљете коришћењем опције "Пријавите проблем" у прозору Помоћ. Напомена: Логови могу да садрже информације о вашој локацији.
-sv = Aktivera denna funktion för att logga detaljer för diagnostiska ändamål. Detta hjälper utvecklarna att identifiera problem med appen. Slå på funktionen endast på begäran av Organic Maps supporttjänst.
-sw = Chaguo huwasha data kwa madhumuni ya uchunguzi. Itakuwa muhimu kwa wafanyakazi wetu ambao wanatatua matatizo ya programu. Washa chaguo hili kwa maombi ya mhudumu wa Organic Maps tu.
-th = ออปชันเพื่อเปิดการบันทึกประวัติการทำงานเพื่อการวินิจฉัย ประวัติดังกล่าวอาจเป็นประโยชน์กับทีมงานช่วยเหลือของเราที่คอยจัดการกับปัญหาที่เจอระหว่างแอปทำงาน โปรดเปิดออปชันดังกล่าวจากการร้องข้อการสนับสนุนจาก Organic Maps เท่านั้น
+sv = Aktivera denna funktion för att logga detaljer för diagnostiska ändamål. Detta hjälper utvecklarna att identifiera problem med appen. Slå på funktionen endast på begäran av NonGPS Maps supporttjänst.
+sw = Chaguo huwasha data kwa madhumuni ya uchunguzi. Itakuwa muhimu kwa wafanyakazi wetu ambao wanatatua matatizo ya programu. Washa chaguo hili kwa maombi ya mhudumu wa NonGPS Maps tu.
+th = ออปชันเพื่อเปิดการบันทึกประวัติการทำงานเพื่อการวินิจฉัย ประวัติดังกล่าวอาจเป็นประโยชน์กับทีมงานช่วยเหลือของเราที่คอยจัดการกับปัญหาที่เจอระหว่างแอปทำงาน โปรดเปิดออปชันดังกล่าวจากการร้องข้อการสนับสนุนจาก NonGPS Maps เท่านั้น
 tr = Bu seçenek tanılama amacıyla günlüğe kaydetmeyi açar. Ekibimizin uygulamayla ilgili sorunları gidermesine yardımcı olabilir. Sorununuzla ilgili ayrıntılı günlükleri kaydetmek ve bize göndermek için bu seçeneği geçici olarak etkinleştirin.
 uk = Тимчасово увімкніть цю опцію, щоб записати й вручну надіслати нам детальні діагностичні дані про проблему через пункт «Повідомити про помилку» в розділі «Довідка». Журнали можуть містити інформацію про розташування.
-vi = Tùy chọn này được kích hoạt để ghi nhật ký đăng nhập cho mục đích chẩn đoán. Điều này sẽ giúp nhóm chúng tôi làm rõ các vấn đề liên quan đến ứng dụng. Hãy bật tùy chọn này chỉ khi nào có yêu cầu hỗ trợ từ Organic Maps.
+vi = Tùy chọn này được kích hoạt để ghi nhật ký đăng nhập cho mục đích chẩn đoán. Điều này sẽ giúp nhóm chúng tôi làm rõ các vấn đề liên quan đến ứng dụng. Hãy bật tùy chọn này chỉ khi nào có yêu cầu hỗ trợ từ NonGPS Maps.
 zh-Hans = 临时启用此选项，以便使用“报告错误”功能在帮助对话框中记录并手动发送详细诊断日志给我们。日志可能包含位置信息。
 zh-Hant = 暫時啟用此選項，以便使用“報告問題”功能在幫助對話框中記錄並手動發送詳細的診斷日誌給我們。日誌可能包含位置資訊。
 
@@ -34111,58 +34111,58 @@ zh-Hant = 超速警告
 tags = apple-maps
 en = Please download maps in the app on your mobile device
 af = Laai asb. kaarte in die toep op u mobiele toestel af
-ar = يُرجى تحميل الخرائط في تطبيق Organic Maps على جهازك
-az = Organic Maps tətbiqindən xəritələri cihazınıza endirin
-be = Спампуйце мапы ў праграме Organic Maps на вашай прыладзе
+ar = يُرجى تحميل الخرائط في تطبيق NonGPS Maps على جهازك
+az = NonGPS Maps tətbiqindən xəritələri cihazınıza endirin
+be = Спампуйце мапы ў праграме NonGPS Maps на вашай прыладзе
 bg = Моля, изтеглете картите от приложението на мобилното си устройство
 ca = Baixeu els mapes en l’aplicació de l’aparell mòbil
-cs = Stáhněte si prosím mapy do aplikace Organic Maps ve vašem zařízení
+cs = Stáhněte si prosím mapy do aplikace NonGPS Maps ve vašem zařízení
 cy = Lawrlwythwch fapiau yn yr ap ar eich dyfais symudol
-da = Download kort i Organic Maps appen, på din enhed
+da = Download kort i NonGPS Maps appen, på din enhed
 de = Lade Karten in der App auf deinem Gerät herunter
 el = Κάντε λήψη χαρτών στην εφαρμογή, στη συσκευή σας
 es = Descargue los mapas en la aplicación del dispositivo
-es-MX = Descargue mapas en la aplicación Organic Maps en su dispositivo
-et = Palun laadi alla kaardid oma nutiseadme Organic Maps rakenduses
-eu = Deskargatu mapak zure gailuko Organic Maps aplikazioan
-fa = لطفا نقشه‌ها را در نرم افزار Organic Maps روی دستگاه خود دانلود کنید
-fi = Lataa kartat laitteesi Organic Maps-sovelluksessa
-fr = Téléchargez des cartes dans l'application Organic Maps sur votre appareil
+es-MX = Descargue mapas en la aplicación NonGPS Maps en su dispositivo
+et = Palun laadi alla kaardid oma nutiseadme NonGPS Maps rakenduses
+eu = Deskargatu mapak zure gailuko NonGPS Maps aplikazioan
+fa = لطفا نقشه‌ها را در نرم افزار NonGPS Maps روی دستگاه خود دانلود کنید
+fi = Lataa kartat laitteesi NonGPS Maps-sovelluksessa
+fr = Téléchargez des cartes dans l'application NonGPS Maps sur votre appareil
 gl = Descargue os mapas na aplicación do dispositivo
 he = נא להוריד מפות באפליקצייה במכשיר הנייד שלך
 hi = कृपया अपने मोबाइल डिवाइस पर ऐप में मानचित्र डाउनलोड करें
 hr = Molimo preuzmite karte u aplikaciji na svom mobilnom uređaju
 hu = Töltsön le térképeket az alkalmazásban az eszközére
 hy = Խնդրում ենք ներբեռնել քարտեզները հավելվածում՝ Ձեր բջջային սարքի վրա
-id = Silakan unduh peta di apl Organic Maps pada perangkat Anda
+id = Silakan unduh peta di apl NonGPS Maps pada perangkat Anda
 is = Sæktu landakort í forritinu á snjalltækinu þínu
-it = Scarica le mappe nell'applicazione Organic Maps sul tuo dispositivo
-ja = 端末のOrganic Mapsのアプリにマップをダウンロードしてください
-ko = Organic Maps 앱 안의 지도들을 디바이스에 다운로드하세요
+it = Scarica le mappe nell'applicazione NonGPS Maps sul tuo dispositivo
+ja = 端末のNonGPS Mapsのアプリにマップをダウンロードしてください
+ko = NonGPS Maps 앱 안의 지도들을 디바이스에 다운로드하세요
 lo = ກະລຸນາດາວໂຫຼດແຜນທີ່ໃນແອັບເທິງອຸປະກອນມືຖືຂອງທ່ານ
 lt = Atsiųskite žemėlapius, naudodamiesi programėle savo telefone
 lv = Lejupielādējiet lietotnes kartes savā mobilajā ierīcē
-mr = कृपया तुमच्या उपकरणावर Organic Maps ऍप मध्ये नकाशे डाउनलोड करा
+mr = कृपया तुमच्या उपकरणावर NonGPS Maps ऍप मध्ये नकाशे डाउनलोड करा
 mt = Jekk jogħġbok niżżel il-mappijiet fl-app fuq it-tagħmir mobbli tiegħek
-nb = Vennligst last ned kart i Organic Maps appen på enheten din
-nl = Download kaarten in de Organic Maps app op uw apparaat
-pl = Pobierz mapy do aplikacji Organic Maps na swoje urządzenie
-pt = Descarregue mapas da aplicação Organic Maps no seu dispositivo
-pt-BR = Por favor, baixe mapas no app Organic Maps em seu dispositivo
-ro = Descarcă hărțile în aplicația Organic Maps din dispozitivul tău
-ru = Скачайте карты в приложении Organic Maps на своём устройстве
-sk = Prosím stiahnite si mapy v aplikácii Organic Maps vo vašom zariadení
+nb = Vennligst last ned kart i NonGPS Maps appen på enheten din
+nl = Download kaarten in de NonGPS Maps app op uw apparaat
+pl = Pobierz mapy do aplikacji NonGPS Maps na swoje urządzenie
+pt = Descarregue mapas da aplicação NonGPS Maps no seu dispositivo
+pt-BR = Por favor, baixe mapas no app NonGPS Maps em seu dispositivo
+ro = Descarcă hărțile în aplicația NonGPS Maps din dispozitivul tău
+ru = Скачайте карты в приложении NonGPS Maps на своём устройстве
+sk = Prosím stiahnite si mapy v aplikácii NonGPS Maps vo vašom zariadení
 sl = Prenesite zemljevide v aplikaciji na vaši mobilni napravi
 sq = Ju lutemi shkarkoni hartat në aplikacion në pajisjen tuaj celulare
 sr = Молим Вас да преузмете мапе у апликацији на Вашем мобилном уређају
 sv = Ladda ner kartor i appen på din enhet
-sw = Tafadhali pakua ramani katika programu tumizi ya Organic Maps kwenye kifaa chako
-th = โปรดดาวน์โหลดแผนที่ในแอพฯ Organic Maps บนอุปกรณ์ของคุณ
-tr = Lütfen telefonunuzdaki Organic Maps'ten haritaları indirin
-uk = Завантажте мапи в додатку Organic Maps на своєму пристрої
-vi = Vui lòng tải xuống bản đồ trong ứng dụng Organic Maps trên thiết bị của bạn
-zh-Hans = 将 Organic Maps 应用程序中的地图下载至个人设备中
-zh-Hant = 將Organic Maps 應用程式中的地圖下載至個人裝置中
+sw = Tafadhali pakua ramani katika programu tumizi ya NonGPS Maps kwenye kifaa chako
+th = โปรดดาวน์โหลดแผนที่ในแอพฯ NonGPS Maps บนอุปกรณ์ของคุณ
+tr = Lütfen telefonunuzdaki NonGPS Maps'ten haritaları indirin
+uk = Завантажте мапи в додатку NonGPS Maps на своєму пристрої
+vi = Vui lòng tải xuống bản đồ trong ứng dụng NonGPS Maps trên thiết bị của bạn
+zh-Hans = 将 NonGPS Maps 应用程序中的地图下载至个人设备中
+zh-Hant = 將NonGPS Maps 應用程式中的地圖下載至個人裝置中
 
 [carplay_roundabout_exit]
 tags = apple-maps
@@ -37454,7 +37454,7 @@ ja = 私たちのアプリは気に入っていますか? 開発をサポート�
 ko = 우리 앱이 마음에 드시나요? 발전을 위해 기부해주세요! 아직 마음에 들지 않으세요? 알려주시면 수정하겠습니다!
 lo = ທ່ານມັກແອັບຂອງພວກເຮົາບໍ່? ກະລຸນາບໍລິຈາກເພື່ອສະໜັບສະໜູນການພັດທະນາ! ຫາກຍັງບໍ່ມັກ? ກະລຸນາບອກໃຫ້ພວກເຮົາຮູ້ເຫດຜົນ, ແລ້ວພວກເຮົາຈະແກ້ໄຂໃຫ້!
 lt = Patinka šį programėlė? Paremkite, paaukodami jos vystymui! Dar ne? Papasakokite mums, kodėl, ir mes pasistengsime tai pataisyti!
-lv = Vai jums patīk mūsu lietotne? Lūdzam ziedot tās attīstībai! Varbūt tā nepatīk? Tādā gadījumā lūdzam mums pastāstīt, kas tajā nepatīk, lai varam „Organic Maps“ uzlabot!
+lv = Vai jums patīk mūsu lietotne? Lūdzam ziedot tās attīstībai! Varbūt tā nepatīk? Tādā gadījumā lūdzam mums pastāstīt, kas tajā nepatīk, lai varam „NonGPS Maps“ uzlabot!
 mr = तुम्हाला आमचे अॅप आवडते का? कृपया विकासाला पाठिंबा देण्यासाठी देणगी द्या! अजून आवडत नाही? कृपया आम्हाला कळवा आणि आम्ही त्याचे निराकरण करू!
 mt = Togħġbok l-app tagħna? Jekk jogħġbok agħti donazzjoni biex tappoġġja l-iżvilupp! Għadha ma togħġbokx? Jekk jogħġbok għidilna għaliex, u nirranġawha!
 nb = Liker du appen vår? Vennligst doner for å støtte utviklingen! Liker du det ikke ennå? Gi oss beskjed, så fikser vi det!
@@ -37886,120 +37886,120 @@ zh-Hant = 我們的主要目標是構建您會喜歡的快速、注重隱私、�
 [car_used_on_the_phone_screen]
 comment = Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen
 tags = android-app,apple-maps
-en = You are now using NoGPS Maps on the phone screen
-af = Jy gebruik nou NoGPS Maps op die foon se skerm
-ar = أنت تستخدم الآن NoGPS Maps على شاشة الهاتف
-ast = Agora tas utilizando NoGPS Maps na pantalla del teléfonu
-az = İndi telefon ekranında NoGPS Maps istifadə edirsiniz
-be = Вы выкарыстоўваеце NoGPS Maps на экране тэлефона
-bg = Вече използвате NoGPS Maps на екрана на телефона
-ca = Ara esteu utilitzant NoGPS Maps a la pantalla del telèfon
-cs = Na obrazovce telefonu nyní používáte aplikaci NoGPS Maps
-cy = Rydych chi nawr yn defnyddio NoGPS Maps ar sgrin y ffôn
-da = Du bruger nu NoGPS Maps på telefonens skærm
-de = Du verwendest jetzt NoGPS Maps auf dem Telefondisplay
-el = Αυτή τη στιγμή το NoGPS Maps βρίσκεται στην οθόνη του κινητού
-es = Ahora usa NoGPS Maps en la pantalla del teléfono
-es-MX = Ahora estás utilizando NoGPS Maps en la pantalla del teléfono
-et = Nüüd kasutad telefoni ekraanil NoGPS Mapsi
-eu = NoGPS Maps telefonoaren pantailan erabiltzen ari zara
-fa = شما اکنون در حال استفاده از NoGPS Maps بر روی صفحهٔ تلفن همراه هستید
-fi = Käytät nyt puhelimen näytöllä NoGPS Maps -palvelua.
-fr = Vous utilisez maintenant NoGPS Maps sur le téléphone
-gl = Agora usa NoGPS Maps na pantalla do teléfono
-he = אתה משתמש כעת ב-NoGPS Maps במסך הטלפון
-hi = आप अब फोन स्क्रीन पर NoGPS Maps का उपयोग कर रहे हैं
-hr = Sada koristiš NoGPS Maps na ekranu telefona
-hu = Ön most az NoGPS Maps alkalmazást használja az eszköz képernyőjén
-hy = Դուք այժմ օգտագործում եք NoGPS Maps-ը հեռախոսի էկրանին
-id = Anda sekarang menggunakan NoGPS Maps pada layar ponsel
-is = Þú ert núna að nota NoGPS Maps á símaskjánum
-it = Stai utilizzando NoGPS Maps sullo schermo del telefono
-ja = 端末の画面でNoGPS Mapsを使用している
-ko = 현재 휴대폰 화면에서 NoGPS Maps을 이용 중입니다
-lo = ຕອນນີ້ທ່ານກຳລັງໃຊ້ NoGPS Maps ໃນໜ້າຈໍໂທລະສັບ
-lt = Dabar naudojatės „NoGPS Maps“ telefono ekrane
-lv = Tagad „NoGPS Maps“ izmantojat tālruņa ekrānā
-mr = आपण आता फोन स्क्रीनवर NoGPS Maps वापरत आहात
-mt = Issa qed tuża NoGPS Maps fuq l-iskrin tat-telefown
-nb = Du bruker nå NoGPS Maps på telefonskjermen
-nl = Je gebruikt nu NoGPS Maps op het telefoonscherm
-pl = Korzystasz teraz z NoGPS Maps na ekranie telefonu
-pt = Está agora a utilizar o NoGPS Maps no ecrã do telemóvel
-pt-BR = Agora você está usando o NoGPS Maps na tela do telefone
-ro = Acum utilizați NoGPS Maps pe ecranul telefonului
-ru = Сейчас Вы используете NoGPS Maps на экране телефона
-sk = Na obrazovke telefónu teraz používate službu NoGPS Maps
-sl = Zdaj uporabljate NoGPS Maps na zaslonu telefona
-sq = Tani jeni duke përdorur NoGPS Maps në ekranin e telefonit
-sr = Ви сада користите NoGPS Maps на екрану телефона
-sv = Du använder nu NoGPS Maps på telefonens skärm
-sw = Sasa unatumia NoGPS Maps kwenye skrini ya simu
-th = ขณะนี้คุณกำลังใช้ NoGPS Maps บนหน้าจอโทรศัพท์
-tr = Artık NoGPS Maps'i telefon ekranında kullanıyorsunuz
-uk = Зараз ви використовуєте NoGPS Maps на екрані телефону
-vi = Bạn hiện đang sử dụng NoGPS Maps trên màn hình điện thoại
-zh-Hans = 您现在正在手机屏幕上使用 NoGPS Maps
-zh-Hant = 您現在正在手機螢幕上使用 NoGPS Maps
+en = You are now using NonGPS Maps on the phone screen
+af = Jy gebruik nou NonGPS Maps op die foon se skerm
+ar = أنت تستخدم الآن NonGPS Maps على شاشة الهاتف
+ast = Agora tas utilizando NonGPS Maps na pantalla del teléfonu
+az = İndi telefon ekranında NonGPS Maps istifadə edirsiniz
+be = Вы выкарыстоўваеце NonGPS Maps на экране тэлефона
+bg = Вече използвате NonGPS Maps на екрана на телефона
+ca = Ara esteu utilitzant NonGPS Maps a la pantalla del telèfon
+cs = Na obrazovce telefonu nyní používáte aplikaci NonGPS Maps
+cy = Rydych chi nawr yn defnyddio NonGPS Maps ar sgrin y ffôn
+da = Du bruger nu NonGPS Maps på telefonens skærm
+de = Du verwendest jetzt NonGPS Maps auf dem Telefondisplay
+el = Αυτή τη στιγμή το NonGPS Maps βρίσκεται στην οθόνη του κινητού
+es = Ahora usa NonGPS Maps en la pantalla del teléfono
+es-MX = Ahora estás utilizando NonGPS Maps en la pantalla del teléfono
+et = Nüüd kasutad telefoni ekraanil NonGPS Mapsi
+eu = NonGPS Maps telefonoaren pantailan erabiltzen ari zara
+fa = شما اکنون در حال استفاده از NonGPS Maps بر روی صفحهٔ تلفن همراه هستید
+fi = Käytät nyt puhelimen näytöllä NonGPS Maps -palvelua.
+fr = Vous utilisez maintenant NonGPS Maps sur le téléphone
+gl = Agora usa NonGPS Maps na pantalla do teléfono
+he = אתה משתמש כעת ב-NonGPS Maps במסך הטלפון
+hi = आप अब फोन स्क्रीन पर NonGPS Maps का उपयोग कर रहे हैं
+hr = Sada koristiš NonGPS Maps na ekranu telefona
+hu = Ön most a NonGPS Maps alkalmazást használja az eszköz képernyőjén
+hy = Դուք այժմ օգտագործում եք NonGPS Maps-ը հեռախոսի էկրանին
+id = Anda sekarang menggunakan NonGPS Maps pada layar ponsel
+is = Þú ert núna að nota NonGPS Maps á símaskjánum
+it = Stai utilizzando NonGPS Maps sullo schermo del telefono
+ja = 端末の画面でNonGPS Mapsを使用している
+ko = 현재 휴대폰 화면에서 NonGPS Maps을 이용 중입니다
+lo = ຕອນນີ້ທ່ານກຳລັງໃຊ້ NonGPS Maps ໃນໜ້າຈໍໂທລະສັບ
+lt = Dabar naudojatės „NonGPS Maps“ telefono ekrane
+lv = Tagad „NonGPS Maps“ izmantojat tālruņa ekrānā
+mr = आपण आता फोन स्क्रीनवर NonGPS Maps वापरत आहात
+mt = Issa qed tuża NonGPS Maps fuq l-iskrin tat-telefown
+nb = Du bruker nå NonGPS Maps på telefonskjermen
+nl = Je gebruikt nu NonGPS Maps op het telefoonscherm
+pl = Korzystasz teraz z NonGPS Maps na ekranie telefonu
+pt = Está agora a utilizar o NonGPS Maps no ecrã do telemóvel
+pt-BR = Agora você está usando o NonGPS Maps na tela do telefone
+ro = Acum utilizați NonGPS Maps pe ecranul telefonului
+ru = Сейчас Вы используете NonGPS Maps на экране телефона
+sk = Na obrazovke telefónu teraz používate službu NonGPS Maps
+sl = Zdaj uporabljate NonGPS Maps na zaslonu telefona
+sq = Tani jeni duke përdorur NonGPS Maps në ekranin e telefonit
+sr = Ви сада користите NonGPS Maps на екрану телефона
+sv = Du använder nu NonGPS Maps på telefonens skärm
+sw = Sasa unatumia NonGPS Maps kwenye skrini ya simu
+th = ขณะนี้คุณกำลังใช้ NonGPS Maps บนหน้าจอโทรศัพท์
+tr = Artık NonGPS Maps'i telefon ekranında kullanıyorsunuz
+uk = Зараз ви використовуєте NonGPS Maps на екрані телефону
+vi = Bạn hiện đang sử dụng NonGPS Maps trên màn hình điện thoại
+zh-Hans = 您现在正在手机屏幕上使用 NonGPS Maps
+zh-Hant = 您現在正在手機螢幕上使用 NonGPS Maps
 
 [car_used_on_the_car_screen]
 comment = Text on the phone placeholder screen that maps are displayed on the car screen
 tags = android-app,apple-maps
-en = You are now using NoGPS Maps on the car screen
-af = Jy gebruik nou NoGPS Maps op die motor se skerm
-ar = أنت تستخدم الآن NoGPS Maps على شاشة السيارة
-ast = Agora tas utilizando NoGPS Maps na pantalla del coche
-az = Hazırda avtomobil ekranında NoGPS Maps istifadə edirsiniz
-be = Вы выкарыстоўваеце NoGPS Maps на экране аўтамабіля
-bg = Вече използвате NoGPS Maps на екрана на автомобила
-ca = Ara esteu utilitzant NoGPS Maps a la pantalla del cotxe
-cs = Na obrazovce auta nyní používáte aplikaci NoGPS Maps
-cy = Rydych chi nawr yn defnyddio NoGPS Maps ar sgrin y car
-da = Du bruger nu NoGPS Maps på bilens skærm
-de = Du verwendest jetzt NoGPS Maps auf dem Bildschirm des Autos
-el = Αυτή τη στιγμή το NoGPS Maps βρίσκεται στην οθόνη του αυτοκινήτου
-es = Ahora usa NoGPS Maps en la pantalla del coche
-es-MX = Ahora usa NoGPS Maps en la pantalla del automóvil
-et = Nüüd kasutad auto ekraanil NoGPS Mapsi
-eu = NoGPS Maps autoaren pantailan erabiltzen ari zara
-fa = شما اکنون در حال استفاده از NoGPS Maps بر روی صفحهٔ خودرو هستید
-fi = Käytät nyt NoGPS Maps auton näytöllä
-fr = Vous utilisez maintenant NoGPS Maps dans la voiture
-gl = Agora usa NoGPS Maps na pantalla do coche
-he = אתה משתמש כעת ב-NoGPS Maps במסך המכונית
-hi = आप अब कार स्क्रीन पर NoGPS Maps का उपयोग कर रहे हैं
-hr = Sada koristiš NoGPS Maps na ekranu auta
-hu = Ön most az NoGPS Maps alkalmazást használja az autó képernyőjén
-hy = Դուք այժմ օգտագործում եք NoGPS Maps-ը մեքենայի էկրանին
-id = Anda sekarang menggunakan NoGPS Maps pada layar mobil
-is = Þú ert núna að nota NoGPS Maps á bílskjánum
-it = Stai utilizzando NoGPS Maps sullo schermo dell'auto
-ja = 現在、車の画面でNoGPS Mapsをご利用中です
-ko = 현재 차량 화면에서 NoGPS Maps을 이용 중입니다
-lo = ຕອນນີ້ທ່ານກຳລັງໃຊ້ NoGPS Maps ໃນໜ້າຈໍລົດ
-lt = Dabar naudojatės „NoGPS Maps“ automobilio ekrane
-lv = Tagad „NoGPS Maps“ izmantojat automobiļa ekrānā
-mr = तुम्ही आता कार स्क्रीनवर NoGPS Maps वापरत आहात
-mt = Issa qed tuża NoGPS Maps fuq l-iskrin tal-karozza
-nb = Du bruker nå NoGPS Maps på bilskjermen
-nl = Je gebruikt nu NoGPS Maps op het autoscherm
-pl = Korzystasz teraz z NoGPS Maps na ekranie samochodu
-pt = Está agora a utilizar o NoGPS Maps no ecrã do automóvel
-pt-BR = Agora você está usando o NoGPS Maps na tela do carro
-ro = Acum utilizați NoGPS Maps pe ecranul mașinii
-ru = Сейчас Вы используете NoGPS Maps на экране автомобиля
-sk = Na obrazovke auta teraz používate službu NoGPS Maps
-sl = Zdaj uporabljate NoGPS Maps na zaslonu avtomobila
-sq = Tani jeni duke përdorur NoGPS Maps në ekranin e makinës
-sr = Ви сада користите NoGPS Maps на екрану аутомобила
-sv = Du använder nu NoGPS Maps på bilskärmen
-sw = Sasa unatumia NoGPS Maps kwenye skrini ya gari
-th = ขณะนี้คุณกำลังใช้ NoGPS Maps บนหน้าจอรถยนต์
-tr = Şu anda araç ekranında NoGPS Maps kullanıyorsunuz
-uk = Ви використовуєте NoGPS Maps на екрані автомобіля
-vi = Bạn hiện đang sử dụng NoGPS Maps trên màn hình xe hơi
-zh-Hans = 您现在正在汽车屏幕上使用 NoGPS Maps
-zh-Hant = 您現在正在汽車螢幕上使用 NoGPS Maps
+en = You are now using NonGPS Maps on the car screen
+af = Jy gebruik nou NonGPS Maps op die motor se skerm
+ar = أنت تستخدم الآن NonGPS Maps على شاشة السيارة
+ast = Agora tas utilizando NonGPS Maps na pantalla del coche
+az = Hazırda avtomobil ekranında NonGPS Maps istifadə edirsiniz
+be = Вы выкарыстоўваеце NonGPS Maps на экране аўтамабіля
+bg = Вече използвате NonGPS Maps на екрана на автомобила
+ca = Ara esteu utilitzant NonGPS Maps a la pantalla del cotxe
+cs = Na obrazovce auta nyní používáte aplikaci NonGPS Maps
+cy = Rydych chi nawr yn defnyddio NonGPS Maps ar sgrin y car
+da = Du bruger nu NonGPS Maps på bilens skærm
+de = Du verwendest jetzt NonGPS Maps auf dem Bildschirm des Autos
+el = Αυτή τη στιγμή το NonGPS Maps βρίσκεται στην οθόνη του αυτοκινήτου
+es = Ahora usa NonGPS Maps en la pantalla del coche
+es-MX = Ahora usa NonGPS Maps en la pantalla del automóvil
+et = Nüüd kasutad auto ekraanil NonGPS Mapsi
+eu = NonGPS Maps autoaren pantailan erabiltzen ari zara
+fa = شما اکنون در حال استفاده از NonGPS Maps بر روی صفحهٔ خودرو هستید
+fi = Käytät nyt NonGPS Maps auton näytöllä
+fr = Vous utilisez maintenant NonGPS Maps dans la voiture
+gl = Agora usa NonGPS Maps na pantalla do coche
+he = אתה משתמש כעת ב-NonGPS Maps במסך המכונית
+hi = आप अब कार स्क्रीन पर NonGPS Maps का उपयोग कर रहे हैं
+hr = Sada koristiš NonGPS Maps na ekranu auta
+hu = Ön most a NonGPS Maps alkalmazást használja az autó képernyőjén
+hy = Դուք այժմ օգտագործում եք NonGPS Maps-ը մեքենայի էկրանին
+id = Anda sekarang menggunakan NonGPS Maps pada layar mobil
+is = Þú ert núna að nota NonGPS Maps á bílskjánum
+it = Stai utilizzando NonGPS Maps sullo schermo dell'auto
+ja = 現在、車の画面でNonGPS Mapsをご利用中です
+ko = 현재 차량 화면에서 NonGPS Maps을 이용 중입니다
+lo = ຕອນນີ້ທ່ານກຳລັງໃຊ້ NonGPS Maps ໃນໜ້າຈໍລົດ
+lt = Dabar naudojatės „NonGPS Maps“ automobilio ekrane
+lv = Tagad „NonGPS Maps“ izmantojat automobiļa ekrānā
+mr = तुम्ही आता कार स्क्रीनवर NonGPS Maps वापरत आहात
+mt = Issa qed tuża NonGPS Maps fuq l-iskrin tal-karozza
+nb = Du bruker nå NonGPS Maps på bilskjermen
+nl = Je gebruikt nu NonGPS Maps op het autoscherm
+pl = Korzystasz teraz z NonGPS Maps na ekranie samochodu
+pt = Está agora a utilizar o NonGPS Maps no ecrã do automóvel
+pt-BR = Agora você está usando o NonGPS Maps na tela do carro
+ro = Acum utilizați NonGPS Maps pe ecranul mașinii
+ru = Сейчас Вы используете NonGPS Maps на экране автомобиля
+sk = Na obrazovke auta teraz používate službu NonGPS Maps
+sl = Zdaj uporabljate NonGPS Maps na zaslonu avtomobila
+sq = Tani jeni duke përdorur NonGPS Maps në ekranin e makinës
+sr = Ви сада користите NonGPS Maps на екрану аутомобила
+sv = Du använder nu NonGPS Maps på bilskärmen
+sw = Sasa unatumia NonGPS Maps kwenye skrini ya gari
+th = ขณะนี้คุณกำลังใช้ NonGPS Maps บนหน้าจอรถยนต์
+tr = Şu anda araç ekranında NonGPS Maps kullanıyorsunuz
+uk = Ви використовуєте NonGPS Maps на екрані автомобіля
+vi = Bạn hiện đang sử dụng NonGPS Maps trên màn hình xe hơi
+zh-Hans = 您现在正在汽车屏幕上使用 NonGPS Maps
+zh-Hant = 您現在正在汽車螢幕上使用 NonGPS Maps
 
 [aa_connected_title]
 comment = Displayed on the phone screen. Android Auto connected
@@ -38179,60 +38179,60 @@ zh-Hant = 轉到汽車螢幕
 [aa_location_permissions_request]
 comment = Ask user to grant location permissions
 tags = android-app
-en = NoGPS Maps needs location access. When it's safe, check the notification on your phone.
-af = NoGPS Maps benodig liggingtoegang. Gaan die kennisgewing op jou foon na wanneer dit veilig is.
-ar = NoGPS Maps تحتاج إلى الوصول إلى الموقع. عندما يكون الوضع آمنًا، تحقق من الإشعار على هاتفك.
-az = NoGPS Maps Məkan məlumatlarına giriş tələb olunur. Təhlükəsiz olduqda telefonunuzdakı bildirişi yoxlayın.
-be = NoGPS Maps патрабуе доступу да месцазнаходжання. Калі будзе бяспечна, праверце апавяшчэнне на тэлефоне.
-bg = NoGPS Maps се нуждае от достъп до местоположението. Когато е безопасно, проверете известието на телефона си.
-ca = NoGPS Maps necessita accés a la ubicació. Quan sigui segur, comproveu la notificació al telèfon.
-cs = Služba NoGPS Maps potřebuje přístup k poloze. Když je to bezpečné, zkontrolujte oznámení v telefonu.
-cy = Mae angen mynediad at leoliad ar NoGPS Maps. Pan fydd yn ddiogel, gwiriwch yr hysbysiad ar eich ffôn.
-da = NoGPS Maps har brug for placeringsadgang. Når det er sikkert, kan du tjekke notifikationen på din telefon.
-de = NoGPS Maps benötigt Zugriff auf den Standort. Wenn es sicher ist, überprüfe die Benachrichtigung auf deinem Telefon.
-el = Η εφαρμογή NoGPS Maps χρειάζεται πρόσβαση στην τοποθεσία. Όταν είναι ασφαλές, ελέγξτε την ειδοποίηση στο τηλέφωνό σας.
-es = NoGPS Maps necesita acceder a la ubicación. Cuando sea seguro, compruebe la notificación en el teléfono.
-es-MX = NoGPS Maps necesita acceder a la ubicación. Cuando sea seguro, revise la notificación en el teléfono.
-et = NoGPS Maps vajab juurdepääsu asukohale. Kui see on turvaline, kontrolli oma telefonis olevat teadet.
-eu = NoGPS Maps-ek kokapenerako sarbidea behar du. Seguru dagoenean, egiaztatu zure telefonoko jakinarazpena.
-fa = NoGPS Maps به دسترسی به مکان نیاز دارد. وقتی ایمن است، اعلان گوشی خود را بررسی کنید.
-fi = NoGPS Maps tarvitsee sijaintitietoja. Kun se on turvallista, tarkista puhelimesi ilmoitus.
-fr = NoGPS Maps a besoin d'un accès à la localisation. Lorsque c'est sûr, vérifiez la notification sur votre téléphone.
-gl = NoGPS Maps necesita acceder á localización. Cando sexa seguro, comprobe a notificación no teléfono.
-he = NoGPS Maps זקוק לגישה למיקום. כאשר זה בטוח, בדוק את ההודעה בטלפון שלך.
-hi = NoGPS Maps इसे स्थान तक पहुंच की आवश्यकता है। जब यह सुरक्षित हो, तो अपने फोन पर सूचना देखें।
-hr = NoGPS Maps treba pristup lokacijama. Kada je sigurno, provjeri obavijest na telefonu.
-hu = Az NoGPS Maps alkalmazásnak szüksége van a helymeghatározáshoz való hozzáférésre. Ha biztonságos, ellenőrizze az értesítést az eszközén.
-hy = NoGPS Maps-ին անհրաժեշտ է տեղադիրքի հասանելիություն։ Երբ անվտանգ լինի, ստուգեք ծանուցումը ձեր հեռախոսում։
-id = NoGPS Maps membutuhkan akses lokasi. Jika sudah aman, periksa notifikasi di ponsel Anda.
-is = NoGPS Maps þarf aðgang að staðsetningu. Við gott tækifæri, þegar það er öruggt, skaltu skoða tilkynninguna á símanum þínum.
-it = NoGPS Maps ha bisogno di accedere alla posizione. Quando puoi farlo in sicurezza, controlla la notifica sul tuo telefono.
-ja = NoGPS Maps 位置情報のアクセスが必要です。安全な場所にいる際は、スマートフォンの通知をご確認ください。
-ko = NoGPS Maps 위치 정보 접근 권한이 필요합니다. 안전한 환경에서 휴대폰의 알림을 확인해 주세요.
-lo = NoGPS Maps ຕ້ອງການການເຂົ້າເຖິງຕຳແໜ່ງທີ່ຕັ້ງ. ເມື່ອປອດໄພແລ້ວ, ໃຫ້ກວດເບິ່ງການແຈ້ງເຕືອນໃນໂທລະສັບຂອງທ່ານ.
-lt = „NoGPS Maps“ programėlei reikia prieigos prie vietos . Kai bus saugu, patikrinkite pranešimą savo telefone.
-lv = NoGPS Maps lietotnes darbībai ir nepieciešama piekļuve jūsu atrašanās vietai. Kad tas ir droši, pārbaudiet paziņojumu savā tālrunī.
-mr = NoGPS Maps स्थान प्रवेश आवश्यक आहे. जेव्हा सुरक्षित असेल, तेव्हा आपल्या फोनवरील सूचना तपासा.
-mt = NoGPS Maps teħtieġ aċċess għall-post. Meta jkun sigur, iċċekkja n-notifika fuq il-mowbajl tiegħek.
-nb = NoGPS Maps trenger posisjonstilgang. Når det er trygt, kan du sjekke varslingen på telefonen.
-nl = NoGPS Maps heeft locatietoegang nodig. Als het veilig is, controleer je de melding op je telefoon.
-pl = Aplikacja NoGPS Maps wymaga dostępu do lokalizacji. Gdy będzie to bezpieczne, sprawdź powiadomienie w telefonie.
-pt = O NoGPS Maps precisa de acesso à localização. Quando for seguro, verifica a notificação no teu telemóvel.
-pt-BR = O NoGPS Maps precisa de acesso à localização. Quando for seguro, verifique a notificação em seu telefone.
-ro = NoGPS Maps are nevoie de acces la locație. Când este sigur, verificați notificarea de pe telefon.
-ru = NoGPS Maps нужен доступ к местоположению. Когда будет безопасно, проверьте уведомление на телефоне.
-sk = Služba NoGPS Maps potrebuje prístup k polohe. Keď je to bezpečné, skontrolujte oznámenie na telefóne.
-sl = NoGPS Maps potrebuje dostop do lokacije. Ko bo varno, preverite obvestilo na telefonu.
-sq = NoGPS Maps ka nevojë për qasje në vendndodhje. Kur të jetë e sigurt, kontrolloni njoftimin në telefonin tuaj.
-sr = NoGPS Maps је потребан локацијски приступ. Када је сигурно, проверите обавештење на свом телефону.
-sv = NoGPS Maps behöver platsåtkomst. När det är säkert kan du kontrollera aviseringen på din telefon.
-sw = NoGPS Maps zinahitaji ufikiaji wa eneo. Ikiwa salama, angalia arifa kwenye simu yako.
-th = NoGPS Maps ต้องการการเข้าถึงตำแหน่ง เมื่อปลอดภัยแล้ว โปรดตรวจสอบการแจ้งเตือนบนโทรศัพท์ของคุณ
-tr = NoGPS Maps konum erişimine gereksinir. Güvenliyken, telefonunuzdaki bildirime bakın.
-uk = Для роботи NoGPS Maps потрібен доступ до місцезнаходження. Коли це буде безпечно, перевірте сповіщення на телефоні.
-vi = NoGPS Maps cần quyền truy cập vị trí. Khi an toàn, hãy kiểm tra thông báo trên điện thoại của bạn.
-zh-Hans = NoGPS Maps 需要位置访问权限。在安全的情况下，请查看手机上的通知。
-zh-Hant = NoGPS Maps 需要位置存取權限。在安全的情況下，請查看手機上的通知。
+en = NonGPS Maps needs location access. When it's safe, check the notification on your phone.
+af = NonGPS Maps benodig liggingtoegang. Gaan die kennisgewing op jou foon na wanneer dit veilig is.
+ar = NonGPS Maps تحتاج إلى الوصول إلى الموقع. عندما يكون الوضع آمنًا، تحقق من الإشعار على هاتفك.
+az = NonGPS Maps Məkan məlumatlarına giriş tələb olunur. Təhlükəsiz olduqda telefonunuzdakı bildirişi yoxlayın.
+be = NonGPS Maps патрабуе доступу да месцазнаходжання. Калі будзе бяспечна, праверце апавяшчэнне на тэлефоне.
+bg = NonGPS Maps се нуждае от достъп до местоположението. Когато е безопасно, проверете известието на телефона си.
+ca = NonGPS Maps necessita accés a la ubicació. Quan sigui segur, comproveu la notificació al telèfon.
+cs = Služba NonGPS Maps potřebuje přístup k poloze. Když je to bezpečné, zkontrolujte oznámení v telefonu.
+cy = Mae angen mynediad at leoliad ar NonGPS Maps. Pan fydd yn ddiogel, gwiriwch yr hysbysiad ar eich ffôn.
+da = NonGPS Maps har brug for placeringsadgang. Når det er sikkert, kan du tjekke notifikationen på din telefon.
+de = NonGPS Maps benötigt Zugriff auf den Standort. Wenn es sicher ist, überprüfe die Benachrichtigung auf deinem Telefon.
+el = Η εφαρμογή NonGPS Maps χρειάζεται πρόσβαση στην τοποθεσία. Όταν είναι ασφαλές, ελέγξτε την ειδοποίηση στο τηλέφωνό σας.
+es = NonGPS Maps necesita acceder a la ubicación. Cuando sea seguro, compruebe la notificación en el teléfono.
+es-MX = NonGPS Maps necesita acceder a la ubicación. Cuando sea seguro, revise la notificación en el teléfono.
+et = NonGPS Maps vajab juurdepääsu asukohale. Kui see on turvaline, kontrolli oma telefonis olevat teadet.
+eu = NonGPS Maps-ek kokapenerako sarbidea behar du. Seguru dagoenean, egiaztatu zure telefonoko jakinarazpena.
+fa = NonGPS Maps به دسترسی به مکان نیاز دارد. وقتی ایمن است، اعلان گوشی خود را بررسی کنید.
+fi = NonGPS Maps tarvitsee sijaintitietoja. Kun se on turvallista, tarkista puhelimesi ilmoitus.
+fr = NonGPS Maps a besoin d'un accès à la localisation. Lorsque c'est sûr, vérifiez la notification sur votre téléphone.
+gl = NonGPS Maps necesita acceder á localización. Cando sexa seguro, comprobe a notificación no teléfono.
+he = NonGPS Maps זקוק לגישה למיקום. כאשר זה בטוח, בדוק את ההודעה בטלפון שלך.
+hi = NonGPS Maps इसे स्थान तक पहुंच की आवश्यकता है। जब यह सुरक्षित हो, तो अपने फोन पर सूचना देखें।
+hr = NonGPS Maps treba pristup lokacijama. Kada je sigurno, provjeri obavijest na telefonu.
+hu = A NonGPS Maps alkalmazásnak szüksége van a helymeghatározáshoz való hozzáférésre. Ha biztonságos, ellenőrizze az értesítést az eszközén.
+hy = NonGPS Maps-ին անհրաժեշտ է տեղադիրքի հասանելիություն։ Երբ անվտանգ լինի, ստուգեք ծանուցումը ձեր հեռախոսում։
+id = NonGPS Maps membutuhkan akses lokasi. Jika sudah aman, periksa notifikasi di ponsel Anda.
+is = NonGPS Maps þarf aðgang að staðsetningu. Við gott tækifæri, þegar það er öruggt, skaltu skoða tilkynninguna á símanum þínum.
+it = NonGPS Maps ha bisogno di accedere alla posizione. Quando puoi farlo in sicurezza, controlla la notifica sul tuo telefono.
+ja = NonGPS Maps 位置情報のアクセスが必要です。安全な場所にいる際は、スマートフォンの通知をご確認ください。
+ko = NonGPS Maps 위치 정보 접근 권한이 필요합니다. 안전한 환경에서 휴대폰의 알림을 확인해 주세요.
+lo = NonGPS Maps ຕ້ອງການການເຂົ້າເຖິງຕຳແໜ່ງທີ່ຕັ້ງ. ເມື່ອປອດໄພແລ້ວ, ໃຫ້ກວດເບິ່ງການແຈ້ງເຕືອນໃນໂທລະສັບຂອງທ່ານ.
+lt = „NonGPS Maps“ programėlei reikia prieigos prie vietos . Kai bus saugu, patikrinkite pranešimą savo telefone.
+lv = NonGPS Maps lietotnes darbībai ir nepieciešama piekļuve jūsu atrašanās vietai. Kad tas ir droši, pārbaudiet paziņojumu savā tālrunī.
+mr = NonGPS Maps स्थान प्रवेश आवश्यक आहे. जेव्हा सुरक्षित असेल, तेव्हा आपल्या फोनवरील सूचना तपासा.
+mt = NonGPS Maps teħtieġ aċċess għall-post. Meta jkun sigur, iċċekkja n-notifika fuq il-mowbajl tiegħek.
+nb = NonGPS Maps trenger posisjonstilgang. Når det er trygt, kan du sjekke varslingen på telefonen.
+nl = NonGPS Maps heeft locatietoegang nodig. Als het veilig is, controleer je de melding op je telefoon.
+pl = Aplikacja NonGPS Maps wymaga dostępu do lokalizacji. Gdy będzie to bezpieczne, sprawdź powiadomienie w telefonie.
+pt = O NonGPS Maps precisa de acesso à localização. Quando for seguro, verifica a notificação no teu telemóvel.
+pt-BR = O NonGPS Maps precisa de acesso à localização. Quando for seguro, verifique a notificação em seu telefone.
+ro = NonGPS Maps are nevoie de acces la locație. Când este sigur, verificați notificarea de pe telefon.
+ru = NonGPS Maps нужен доступ к местоположению. Когда будет безопасно, проверьте уведомление на телефоне.
+sk = Služba NonGPS Maps potrebuje prístup k polohe. Keď je to bezpečné, skontrolujte oznámenie na telefóne.
+sl = NonGPS Maps potrebuje dostop do lokacije. Ko bo varno, preverite obvestilo na telefonu.
+sq = NonGPS Maps ka nevojë për qasje në vendndodhje. Kur të jetë e sigurt, kontrolloni njoftimin në telefonin tuaj.
+sr = NonGPS Maps је потребан локацијски приступ. Када је сигурно, проверите обавештење на свом телефону.
+sv = NonGPS Maps behöver platsåtkomst. När det är säkert kan du kontrollera aviseringen på din telefon.
+sw = NonGPS Maps zinahitaji ufikiaji wa eneo. Ikiwa salama, angalia arifa kwenye simu yako.
+th = NonGPS Maps ต้องการการเข้าถึงตำแหน่ง เมื่อปลอดภัยแล้ว โปรดตรวจสอบการแจ้งเตือนบนโทรศัพท์ของคุณ
+tr = NonGPS Maps konum erişimine gereksinir. Güvenliyken, telefonunuzdaki bildirime bakın.
+uk = Для роботи NonGPS Maps потрібен доступ до місцезнаходження. Коли це буде безпечно, перевірте сповіщення на телефоні.
+vi = NonGPS Maps cần quyền truy cập vị trí. Khi an toàn, hãy kiểm tra thông báo trên điện thoại của bạn.
+zh-Hans = NonGPS Maps 需要位置访问权限。在安全的情况下，请查看手机上的通知。
+zh-Hant = NonGPS Maps 需要位置存取權限。在安全的情況下，請查看手機上的通知。
 
 [aa_request_permission_notification]
 comment = Notification title for permission request from AA.
@@ -44954,7 +44954,7 @@ vi = Đảo ngược tuyến đường
 zh-Hans = 反转路线
 zh-Hant = 反轉路線
 
-[[NoGPS Maps]]
+[[NonGPS Maps]]
 
 [nogps_manual_position]
 tags = android-app,apple-maps
@@ -45774,9 +45774,9 @@ uk = Поправки швидкості, виміряні за GPS на різ�
 
 [nogps_about_title]
 tags = android-app
-en = About NoGPS Maps
-ru = О NoGPS Maps
-uk = Про NoGPS Maps
+en = About NonGPS Maps
+ru = О NonGPS Maps
+uk = Про NonGPS Maps
 
 [nogps_about_menu]
 tags = android-app

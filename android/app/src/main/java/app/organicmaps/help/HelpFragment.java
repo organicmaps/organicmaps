@@ -29,7 +29,7 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
   private static final String ORGANIC_MAPS_URL = "https://organicmaps.app";
   private static final String OSM_COPYRIGHT_URL = "https://www.openstreetmap.org/copyright";
   private static final String SOURCE_CODE_URL = "https://github.com/Ramzess-II/NoGPSMaps";
-  // The channels, documents and support of Organic Maps, not of NoGPS Maps.
+  // The channels, documents and support of Organic Maps, not of NonGPS Maps.
   private static final int[] ORGANIC_MAPS_ITEMS = {R.id.news,
                                                    R.id.web,
                                                    R.id.email,

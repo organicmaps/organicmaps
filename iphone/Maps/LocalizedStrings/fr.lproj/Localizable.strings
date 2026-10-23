@@ -157,7 +157,7 @@
 
 /********** Other translations **********/
 
-"share_bookmarks_email_body" = "Bonjour !\n\nVous trouverez ci-joint mes signets de l'appli NoGPS Maps. Veuillez les ouvrir si vous avez installé NoGPS Maps. Si vous ne l'avez pas, téléchargez l'application pour votre appareil iOS ou Android en suivant ce lien : https://github.com/Ramzess-II/NoGPSMaps\n\nBon voyage avec NoGPS Maps !";
+"share_bookmarks_email_body" = "Bonjour !\n\nVous trouverez ci-joint mes signets de l'appli NonGPS Maps. Veuillez les ouvrir si vous avez installé NonGPS Maps. Si vous ne l'avez pas, téléchargez l'application pour votre appareil iOS ou Android en suivant ce lien : https://github.com/Ramzess-II/NoGPSMaps\n\nBon voyage avec NonGPS Maps !";
 
 /* message title of loading file */
 "load_kmz_title" = "Chargement des signets";
@@ -178,10 +178,10 @@
 "share_my_position" = "Je suis ici sur Organic Maps";
 
 /* Email subject when sharing a place. %1$@ is the place name or address. */
-"share_place_subject" = "%1$@ sur NoGPS Maps";
+"share_place_subject" = "%1$@ sur NonGPS Maps";
 
 /* Email subject when sharing a place that has no name or address. */
-"share_place_subject_default" = "Un lieu sur NoGPS Maps";
+"share_place_subject_default" = "Un lieu sur NonGPS Maps";
 
 /* Shared email link text; opens the shared place in Organic Maps or in a web browser. */
 "share_open_in_om_or_browser" = "Ouvrir dans Organic Maps ou dans un navigateur";
@@ -591,7 +591,7 @@
 /* To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… */
 "operator" = "Opérateur : %@";
 "editor_category_unsuitable_title" = "Vous ne trouvez pas de catégorie appropriée ?";
-"editor_category_unsuitable_text" = "NoGPS Maps ne permet d'ajouter que des catégories de points simples, c'est-à-dire pas de villes, de routes, de lacs, de contours de bâtiments, etc. Merci d'ajouter ces catégories directement sur <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Consultez notre <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guide</a> pour obtenir des instructions détaillées étape par étape.";
+"editor_category_unsuitable_text" = "NonGPS Maps ne permet d'ajouter que des catégories de points simples, c'est-à-dire pas de villes, de routes, de lacs, de contours de bâtiments, etc. Merci d'ajouter ces catégories directement sur <a href=\"https://www.openstreetmap.org\">OpenStreetMap.org</a>. Consultez notre <a href=\"https://organicmaps.app/faq/editing/advanced-map-editing\">guide</a> pour obtenir des instructions détaillées étape par étape.";
 "downloader_no_downloaded_maps_title" = "Vous n'avez téléchargé aucune carte";
 "downloader_no_downloaded_maps_message" = "Téléchargez des cartes pour rechercher un lieu et utiliser la navigation hors ligne";
 "current_location_unknown_error_title" = "L'emplacement actuel est inconnu.";
@@ -723,7 +723,7 @@
 "bookmarks_text_placement_description" = "S'il y a trop de signets, l'affichage de leurs noms sur la carte peut ralentir l'application.";
 "show_to_the_right" = "Afficher à droite";
 "show_at_the_bottom" = "Afficher en bas";
-"enable_logging_warning_message" = "Cette option est activée pour l'identification des actions à des fins de diagnostic. Cela aide l’équipe à identifier les problèmes liés à l’application. Activez cette option uniquement à la demande du support Organic Maps.";
+"enable_logging_warning_message" = "Cette option est activée pour l'identification des actions à des fins de diagnostic. Cela aide l’équipe à identifier les problèmes liés à l’application. Activez cette option uniquement à la demande du support NonGPS Maps.";
 
 /* Driving profile in routing options settings. */
 "routing_options_driving" = "En voiture";
@@ -899,7 +899,7 @@
 "switch_to_phone_bookmarks_carplay" = "Passez au téléphone pour voir tous les signets";
 "speedcams_alert_title_carplay_1" = "Radars de vitesse";
 "speedcams_alert_title_carplay_2" = "Avertissements radars de vitesse";
-"download_map_carplay" = "Téléchargez des cartes dans l'application Organic Maps sur votre appareil";
+"download_map_carplay" = "Téléchargez des cartes dans l'application NonGPS Maps sur votre appareil";
 "carplay_roundabout_exit" = "%@ sortie";
 
 /* iOS */
@@ -966,10 +966,10 @@
 "osm_wiki_about_url" = "https://wiki.openstreetmap.org/wiki/FR:About_OpenStreetMap";
 
 /* Text on the Android Auto or CarPlay placeholder screen that maps are displayed on the phone screen */
-"car_used_on_the_phone_screen" = "Vous utilisez maintenant NoGPS Maps sur le téléphone";
+"car_used_on_the_phone_screen" = "Vous utilisez maintenant NonGPS Maps sur le téléphone";
 
 /* Text on the phone placeholder screen that maps are displayed on the car screen */
-"car_used_on_the_car_screen" = "Vous utilisez maintenant NoGPS Maps dans la voiture";
+"car_used_on_the_car_screen" = "Vous utilisez maintenant NonGPS Maps dans la voiture";
 
 /* Displayed on the phone screen. Button to display maps on the phone screen instead of a car */
 "car_continue_on_the_phone" = "Aller sur le téléphone";
@@ -1189,7 +1189,7 @@
 "reverse_route" = "Inverser l'itinéraire";
 
 
-/********** NoGPS Maps **********/
+/********** NonGPS Maps **********/
 
 "nogps_manual_position" = "Set my position manually";
 

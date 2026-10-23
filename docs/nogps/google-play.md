@@ -1,4 +1,4 @@
-# Публикация NoGPS Maps в Google Play
+# Публикация NonGPS Maps в Google Play
 
 Пошаговая инструкция и готовые ответы для Play Console. Тексты страницы магазина лежат в
 `android/app/src/fdroid/play/listings/{uk,ru-RU,en-US}` (вариант `google` берёт их оттуда), политика
