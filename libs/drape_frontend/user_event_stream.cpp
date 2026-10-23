@@ -145,7 +145,6 @@ UserEventStream::UserEventStream()
   , m_animationSystem(AnimationSystem::Instance())
   , m_startDragOrg(m2::PointD::Zero())
   , m_startDoubleTapAndHold(m2::PointD::Zero())
-  , m_dragThreshold(math::Pow2(VisualParams::Instance().GetDragThreshold()))
 {}
 
 void UserEventStream::AddEvent(drape_ptr<UserEvent> && event)
@@ -836,6 +835,7 @@ bool UserEventStream::CheckDrag(std::array<Touch, 2> const & touches, double thr
 
 bool UserEventStream::TouchMove(std::array<Touch, 2> const & touches)
 {
+  double const dragThreshold = math::Pow2(VisualParams::Instance().GetDragThreshold());
   size_t const touchCount = GetValidTouchesCount(touches);
   bool isMapTouch = true;
 
@@ -843,7 +843,7 @@ bool UserEventStream::TouchMove(std::array<Touch, 2> const & touches)
   {
   case STATE_EMPTY:
     if (touchCount == 1)
-      if (CheckDrag(touches, m_dragThreshold))
+      if (CheckDrag(touches, dragThreshold))
         BeginDrag(touches[0]);
       else
         isMapTouch = false;
@@ -853,7 +853,7 @@ bool UserEventStream::TouchMove(std::array<Touch, 2> const & touches)
   case STATE_TAP_TWO_FINGERS:
     if (touchCount == 2)
     {
-      float const threshold = static_cast<float>(m_dragThreshold);
+      float const threshold = static_cast<float>(dragThreshold);
       if (m_twoFingersTouches[0].SquaredLength(touches[0].m_location) > threshold ||
           m_twoFingersTouches[1].SquaredLength(touches[1].m_location) > threshold)
       {
@@ -869,13 +869,13 @@ bool UserEventStream::TouchMove(std::array<Touch, 2> const & touches)
     break;
   case STATE_TAP_DETECTION:
   case STATE_WAIT_DOUBLE_TAP:
-    if (CheckDrag(touches, m_dragThreshold))
+    if (CheckDrag(touches, dragThreshold))
       CancelTapDetector();
     else
       isMapTouch = false;
     break;
   case STATE_WAIT_DOUBLE_TAP_HOLD:
-    if (CheckDrag(touches, m_dragThreshold))
+    if (CheckDrag(touches, dragThreshold))
       StartDoubleTapAndHold(touches[0]);
     break;
   case STATE_DOUBLE_TAP_HOLD: UpdateDoubleTapAndHold(touches[0]); break;
