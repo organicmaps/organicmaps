@@ -297,7 +297,8 @@ public:
   static bool HasGoodBearing(Fix const & gps);
   /// The position is on a road: its direction is more reliable than the calculated one.
   /// \param bearingDeg direction of the road in the direction of the movement.
-  void SetRoadPosition(ms::LatLon const & position, double bearingDeg);
+  /// \param keepHeading the heading stays the gyroscope's, the snapping pulls it to the road as on any road.
+  void SetRoadPosition(ms::LatLon const & position, double bearingDeg, bool keepHeading = false);
   /// The user has marked the car on a road, the mark looks along it. A car turning at that moment is turning
   /// into the marked road: the rest of its turn is not a turn away from that road.
   void SetMarkOnRoad(ms::LatLon const & position, double bearingDeg);
