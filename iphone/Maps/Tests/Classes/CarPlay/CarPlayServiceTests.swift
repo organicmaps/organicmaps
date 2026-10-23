@@ -548,32 +548,28 @@ final class CarPlayServiceTests: XCTestCase {
     }
   }
 
-  func testListTemplateKeepsTheTypeItWasBuiltFor() {
-    let template = ListTemplateBuilder.buildListTemplate(for: .searchResults(results: []))
+  func testRefreshKeepsRowsOfTemplatesThatDoNotShowBookmarks() {
+    let types: [ListTemplateBuilder.ListTemplateType] = [.history, .searchResults(results: [])]
+    for type in types {
+      let template = ListTemplateBuilder.buildListTemplate(for: type)
+      let item = CPListItem(text: "Result", detailText: nil)
+      template.updateSections([CPListSection(items: [item])])
 
-    guard let type = template.userInfo as? ListTemplateBuilder.ListTemplateType,
-          case .searchResults = type
-    else {
-      XCTFail("The template should keep the type it was built for.")
-      return
+      ListTemplateBuilder.refreshBookmarks(in: template)
+
+      XCTAssertEqual(template.sections.first?.items.count, 1)
+      XCTAssertTrue((template.sections.first?.items.first as? CPListItem) === item)
     }
   }
 
-  func testRefreshKeepsRowsOfTemplatesThatDoNotShowBookmarks() {
-    let template = ListTemplateBuilder.buildListTemplate(for: .searchResults(results: []))
-    template.updateSections([CPListSection(items: [CPListItem(text: "Result", detailText: nil)])])
-
-    ListTemplateBuilder.refreshBookmarks(in: template)
-
-    XCTAssertEqual(template.sections.first?.items.count, 1)
-  }
-
   func testRefreshKeepsRowsOfTemplatesBuiltByAnybodyElse() {
-    let section = CPListSection(items: [CPListItem(text: "Row", detailText: nil)])
+    let item = CPListItem(text: "Row", detailText: nil)
+    let section = CPListSection(items: [item])
     let template = CPListTemplate(title: "Any", sections: [section])
 
     ListTemplateBuilder.refreshBookmarks(in: template)
 
     XCTAssertEqual(template.sections.first?.items.count, 1)
+    XCTAssertTrue((template.sections.first?.items.first as? CPListItem) === item)
   }
 }
