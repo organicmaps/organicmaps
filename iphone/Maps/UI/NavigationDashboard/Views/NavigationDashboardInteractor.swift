@@ -56,8 +56,7 @@ extension NavigationDashboard {
         return .setHidden(true)
 
       case .deleteRoutePoint(let point):
-        router.removePoint(point)
-        router.rebuild(withBestRouter: false)
+        router.removePointAndRebuild(point)
         return .show(points: router.points(), routerType: router.type())
 
       case .startNavigation:

@@ -343,6 +343,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">יש להוריד את האזור בו החיפוש מתבצע או להוסיף שם עיר/כפר קרוב.</string>
     <string name="search_history_title">חיפושים קודמים</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">גיבוי סימניות ומסלולים</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">סימניות ומסלולים יכולים להיכלל בגיבויי המערכת של Android כשהגיבוי מופעל במכשיר זה והם אינם חורגים ממגבלת הגודל שלו.</string>
     <string name="search_history_text">צפה בחיפושים האחרונים שלך.</string>
     <string name="clear_search">נקה היסטוריית חיפוש</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

@@ -343,6 +343,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Stáhněte si oblast, ve které hledáte, nebo zkuste přidat název blízkého města/obce.</string>
     <string name="search_history_title">Historie vyhledávání</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">Záloha záložek a stop</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">Záložky a stopy mohou být zahrnuty do systémových záloh Androidu, pokud je na tomto zařízení zapnuté zálohování a nepřekračují jeho limit velikosti.</string>
     <string name="search_history_text">Získejte rychlý přístup k hledaným výrazům.</string>
     <string name="clear_search">Vymazat historii vyhledávání</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

@@ -297,6 +297,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">ດາວໂຫລດພາກພື້ນທີ່ທ່ານກຳລັງຄົ້ນຫາ ຫຼື ລອງເພີ່ມຊື່ເມືອງ/ບ້ານທີ່ຢູ່ໃກ້ຄຽງ.</string>
     <string name="search_history_title">ປະຫວັດການຄົ້ນຫາ</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">ສຳຮອງຂໍ້ມູນບຸກມາກ ແລະ ເສັ້ນທາງ</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">ບຸກມາກ ແລະ ເສັ້ນທາງສາມາດຖືກລວມໄວ້ໃນການສຳຮອງຂໍ້ມູນລະບົບ Android ໄດ້ ເມື່ອເປີດໃຊ້ການສຳຮອງຂໍ້ມູນຢູ່ໃນອຸປະກອນນີ້ ແລະ ບໍ່ເກີນຂີດຈຳກັດຂະໜາດຂອງມັນ.</string>
     <string name="search_history_text">ເບິ່ງການຄົ້ນຫາຫຼ້າສຸດຂອງທ່ານ.</string>
     <string name="clear_search">ລຶບປະຫວັດການຄົ້ນຫາ</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

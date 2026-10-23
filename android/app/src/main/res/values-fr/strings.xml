@@ -343,6 +343,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Téléchargez la région dans laquelle vous effectuez votre recherche ou essayez d\'ajouter le nom d\'une ville ou d\'un village proche.</string>
     <string name="search_history_title">Historique de recherche</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">Sauvegarde des signets et des parcours</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">Les signets et les parcours peuvent être inclus dans les sauvegardes système d\'Android si la sauvegarde est activée sur cet appareil et qu\'ils ne dépassent pas sa limite de taille.</string>
     <string name="search_history_text">Accédez rapidement aux dernières recherches.</string>
     <string name="clear_search">Effacer l\'historique de recherche</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

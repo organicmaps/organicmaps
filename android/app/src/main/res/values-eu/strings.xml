@@ -343,6 +343,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Deskargatu bilatzen ari zaren eskualdea edo saiatu inguruko herri/hiri izena gehitzen.</string>
     <string name="search_history_title">Bilaketa historia</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">Markagailuen eta arrastoen babeskopia</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">Markagailuak eta arrastoak Android sistemaren babeskopietan sar daitezke, babeskopiak gailu honetan gaituta badaude eta haren tamaina-muga gainditzen ez badute.</string>
     <string name="search_history_text">Ikusi azken bilaketak.</string>
     <string name="clear_search">Garbitu bilaketa historia</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

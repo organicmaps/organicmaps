@@ -343,6 +343,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Descargue a rexión na que está a buscar ou probe a engadir o nome dunha cidade/poboo próximo.</string>
     <string name="search_history_title">Historial de procuras</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">Copia de seguridade de marcadores e traxectos</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">Os marcadores e traxectos poden incluírse nas copias de seguridade do sistema Android se a copia de seguridade está activada neste dispositivo e non superan o seu límite de tamaño.</string>
     <string name="search_history_text">Ver procuras recentes.</string>
     <string name="clear_search">Baleirar historial de procuras</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->

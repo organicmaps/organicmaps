@@ -9,20 +9,18 @@
 
 namespace base
 {
+// Timings depend on the host and its load, so report them without pass/fail limits.
 class BenchmarkNTimes
 {
 public:
-  BenchmarkNTimes(int repeatCount, double maxSecondsToSucceed)
-    : m_repeatCount(repeatCount)
-    , m_maxSecondsToSucceed(maxSecondsToSucceed)
-    , m_iteration(0)
-  {}
+  explicit BenchmarkNTimes(int repeatCount) : m_repeatCount(repeatCount), m_iteration(0)
+  {
+    TEST_GREATER(m_repeatCount, 0, ());
+  }
 
   ~BenchmarkNTimes()
   {
     double const secondsElapsed = m_timer.ElapsedSeconds();
-    TEST_GREATER(m_repeatCount, 0, ());
-    TEST_LESS_OR_EQUAL(secondsElapsed, m_maxSecondsToSucceed, (m_repeatCount));
     std::cout << secondsElapsed << "s total";
     if (secondsElapsed > 0)
     {
@@ -45,7 +43,6 @@ public:
 
 private:
   int const m_repeatCount;
-  double const m_maxSecondsToSucceed;
   int m_iteration;
   Timer m_timer;
 };
@@ -56,6 +53,5 @@ private:
   TestRegister g_BenchmarkRegister_##name("Benchmark::" #name, __FILE__, &Benchmark_##name); \
   void Benchmark_##name()
 
-#define BENCHMARK_N_TIMES(times, maxTimeToSucceed)                                                \
-  for (::base::BenchmarkNTimes benchmark(times, maxTimeToSucceed); benchmark.ContinueIterating(); \
-       benchmark.NextIteration())
+#define BENCHMARK_N_TIMES(times)                                                                           \
+  for (::base::BenchmarkNTimes benchmark(times); benchmark.ContinueIterating(); benchmark.NextIteration())
