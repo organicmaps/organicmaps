@@ -145,6 +145,63 @@ UNIT_TEST(Water_DisconnectedRiversTransferOnlyAtSourceEndpoints)
   CheckAccounting(path);
 }
 
+UNIT_TEST(Water_StandardTransfersOnlyAtStoredLineEndpoints)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  geometry.m_hasSourceTopology = false;
+  geometry.m_lines = {{{P(0, 0)}, {P(0, 1)}, {P(0, 3)}}, {{P(1, 0)}, {P(1, 1)}, {P(1, 3)}}};
+  Path path;
+  TEST(FindPath(geometry, P(0, 1), P(1, 1), false, kNeverCancelled, path) == ResultCode::Success, ());
+  TEST_EQUAL(std::count(path.m_landGaps.begin(), path.m_landGaps.end(), true), 1, ());
+  for (size_t i = 0; i < path.m_landGaps.size(); ++i)
+    if (path.m_landGaps[i])
+    {
+      TEST_EQUAL(path.m_points[i], P(0, 0), ());
+      TEST_EQUAL(path.m_points[i + 1], P(1, 0), ());
+    }
+  CheckAccounting(path);
+  // Artificial extraction endpoints cannot turn the selected interior points into transfers.
+  for (auto & line : geometry.m_lines)
+  {
+    line.front().m_mayTransfer = false;
+    line.back().m_mayTransfer = false;
+  }
+  TEST(FindPath(geometry, P(0, 1), P(1, 1), false, kNeverCancelled, path) == ResultCode::Unavailable, ());
+}
+
+UNIT_TEST(Water_StandardTransfersNeverMoveToShoreline)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  geometry.m_hasSourceTopology = false;
+  Rectangle(geometry, 0, 0, 1, 1);
+  Rectangle(geometry, 2, 0, 3, 1);
+  Path path;
+  TEST(FindPath(geometry, P(0.5, 0.5), P(2.5, 0.5), false, kNeverCancelled, path) == ResultCode::Unavailable, ());
+  // Even with endpoints inside the lakes, the dry interval starts at a shoreline cut.
+  geometry.m_lines = {{{P(0.25, 0.5)}, {P(0.75, 0.5)}}, {{P(2.25, 0.5)}, {P(2.75, 0.5)}}};
+  TEST(FindPath(geometry, P(0.5, 0.5), P(2.5, 0.5), false, kNeverCancelled, path) == ResultCode::Unavailable, ());
+  TEST(path.m_points.empty(), ());
+}
+
+UNIT_TEST(Water_StandardTransferKeepsExactEndpointCoordinates)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  geometry.m_hasSourceTopology = false;
+  auto const a = P(-1, 0);
+  auto const b = P(-1e-20, 0);
+  geometry.m_lines = {{{a}, {P(-1, 1)}}, {{b}, {P(-1e-20, 1)}}};
+  Path path;
+  TEST(FindPath(geometry, a, b, false, kNeverCancelled, path) == ResultCode::Success, ());
+  TEST_EQUAL(path.m_points.size(), 2, ());
+  TEST_EQUAL(path.m_points.front(), a, ());
+  TEST_EQUAL(path.m_points.back(), b, ());
+  TEST(path.m_landGaps.front(), ());
+  CheckAccounting(path);
+}
+
 UNIT_TEST(Water_ExplicitLandPointRejectedButGpsProjects)
 {
   Geometry geometry;
