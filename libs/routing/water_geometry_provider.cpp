@@ -22,7 +22,7 @@ namespace
 using Point = m2::PointD;
 size_t constexpr kMaxInputPoints = 16384;
 size_t constexpr kMaxSurfacePoints = 4096;
-size_t constexpr kMaxTriangles = 4096;
+size_t constexpr kMaxTriangles = 16384;
 
 // Clip a convex contour against a rectangle. Intersections use a canonical edge
 // direction so neighbouring triangles reconstruct identical boundary points.
@@ -321,6 +321,7 @@ water::Geometry WaterGeometryProvider::GetGeometry(Checkpoints const & checkpoin
     bounds.Add(point);
     direct = std::max(direct, mercator::DistanceOnEarth(points.front(), point));
   }
+  auto const checkpointBounds = bounds;
   // A finite local query supports direct routes and ordinary detours. Larger
   // systems remain unavailable instead of scanning countries or guessing gaps.
   // Point eligibility needs only nearby water, not a full routing window.
@@ -351,8 +352,7 @@ water::Geometry WaterGeometryProvider::GetGeometry(Checkpoints const & checkpoin
     auto const & container = handle.GetValue()->m_cont;
     if (!container.IsExist(::water::kSectionTag))
     {
-      if (info->m_bordersRect.IsRectInside(bounds) && m_coverage && m_coverage(info->GetCountryName(), bounds))
-        standardMaps.push_back(id);
+      standardMaps.push_back(id);
       continue;
     }
     if (!m_readers.contains(id))
@@ -363,12 +363,59 @@ water::Geometry WaterGeometryProvider::GetGeometry(Checkpoints const & checkpoin
     if (reader->Covers(bounds))
       return Extract(*reader, bounds, cancelled);
   }
-  for (auto const & id : standardMaps)
+  // Large fixed margins collect unrelated lakes and may cross a map-region
+  // boundary. Keep standard-map extraction local; shrink only on extraction failure.
+  for (double localMargin = std::min(margin, 3000.0);; localMargin = std::max(250.0, localMargin * 0.5))
   {
-    auto result = ExtractFeatures(m_dataSource, id, bounds, cancelled);
-    if (result.m_complete)
-      return result;
-    if (cancelled())
+    bounds = checkpointBounds;
+    auto const localExtent = mercator::RectByCenterXYAndSizeInMeters(bounds.Center(), localMargin);
+    bounds.Inflate(localExtent.SizeX() / 2, localExtent.SizeY() / 2);
+    for (auto const & id : standardMaps)
+    {
+      if (cancelled())
+        return {};
+      auto const info = id.GetInfo();
+      auto const covered = [&](m2::RectD const & rect)
+      { return info->m_bordersRect.IsRectInside(rect) && m_coverage && m_coverage(info->GetCountryName(), rect); };
+      auto mapBounds = bounds;
+      if (!covered(mapBounds))
+      {
+        if (!covered(checkpointBounds))
+          continue;
+        mapBounds = checkpointBounds;
+        // Near a region boundary, expand each side only as far as its coverage
+        // permits. A nearby coast must not prevent extraction in other directions.
+        for (size_t side = 0; side < 4; ++side)
+        {
+          auto const origin = mapBounds;
+          double low = 0, high = 1;
+          for (size_t step = 0; step < 10; ++step)
+          {
+            if (cancelled())
+              return {};
+            auto const t = (low + high) * 0.5;
+            auto const interpolate = [t](double a, double b) { return a + (b - a) * t; };
+            m2::RectD const candidate(side == 0 ? interpolate(origin.minX(), bounds.minX()) : origin.minX(),
+                                      side == 1 ? interpolate(origin.minY(), bounds.minY()) : origin.minY(),
+                                      side == 2 ? interpolate(origin.maxX(), bounds.maxX()) : origin.maxX(),
+                                      side == 3 ? interpolate(origin.maxY(), bounds.maxY()) : origin.maxY());
+            if (covered(candidate))
+            {
+              low = t;
+              mapBounds = candidate;
+            }
+            else
+              high = t;
+          }
+        }
+      }
+      if (!covered(mapBounds))
+        continue;
+      auto result = ExtractFeatures(m_dataSource, id, mapBounds, cancelled);
+      if (result.m_complete)
+        return result;
+    }
+    if (localMargin <= 250.0 || cancelled())
       break;
   }
   return {};

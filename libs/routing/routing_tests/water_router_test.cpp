@@ -53,12 +53,28 @@ UNIT_TEST(WaterRouter_ExplicitStartDoesNotProject)
   Checkpoints checkpoints({-1, 0}, {1, 0});
   RouterDelegate delegate;
   RoutesResult result;
-  TEST(router.CalculateRoute(checkpoints, {}, false, false, delegate, result) == RouterResultCode::RouteNotFound, ());
+  TEST(router.CalculateRoute(checkpoints, {}, false, false, delegate, result) == RouterResultCode::StartPointNotFound,
+       ());
   TEST(!result.IsValid(), ());
   checkpoints.SetStartIsMyPosition(true);
   TEST(router.CalculateRoute(checkpoints, {}, false, false, delegate, result) == RouterResultCode::NoError, ());
   TEST_EQUAL(result.GetActive().GetSubrouteAttrs(0).GetStart().GetPoint(), m2::PointD(0, 0), ());
   TEST_EQUAL(result.GetActive().GetWaterDistances()->m_landMeters, 0.0, ());
+}
+
+UNIT_TEST(WaterRouter_ReportsOutsideDestinationAndIntermediate)
+{
+  WaterRouter router([](Checkpoints const &, RouterDelegate const &) { return River(); });
+  RouterDelegate delegate;
+  RoutesResult result;
+  TEST(router.CalculateRoute(Checkpoints({0, 0}, {2, 0}), {}, false, false, delegate, result) ==
+           RouterResultCode::EndPointNotFound,
+       ());
+  TEST(!result.IsValid(), ());
+  TEST(router.CalculateRoute(Checkpoints(CheckpointsGeometry{{0, 0}, {2, 0}, {1, 0}}), {}, false, false, delegate,
+                             result) == RouterResultCode::IntermediatePointNotFound,
+       ());
+  TEST(!result.IsValid(), ());
 }
 
 UNIT_TEST(WaterRouter_MissingDataHasNoRulerFallback)

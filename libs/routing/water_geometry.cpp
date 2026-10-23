@@ -20,9 +20,11 @@ namespace
 using Point = m2::PointD;
 using Interval = std::pair<double, double>;
 double constexpr kInfinity = std::numeric_limits<double>::max();
-size_t constexpr kMaxGraphVertices = 16384;
-size_t constexpr kMaxVisibilityVertices = 1024;
-size_t constexpr kMaxTriangles = 4096;
+size_t constexpr kMaxGraphVertices = 65536;
+size_t constexpr kMaxTransferVertices = 2048;
+size_t constexpr kMaxTriangles = 16384;
+size_t constexpr kMaxVisibilityChecks = 2000000;
+size_t constexpr kMaxVisibilityTriangleVisits = 8000000;
 
 bool Intersects(m2::RectD const & rect, Point const & a, Point const & b)
 {
@@ -143,6 +145,50 @@ bool IsSurfacePoint(Geometry const & geometry, Point const & p)
   return !Coverage(geometry, p, p).empty();
 }
 
+bool CoversSegment(Geometry const & geometry, Point const & a, Point const & b, CancelledFn const & cancelled,
+                   size_t & visits)
+{
+  if (!geometry.m_triangleIndex)
+  {
+    visits += geometry.m_triangles.size();
+    if (visits > kMaxVisibilityTriangleVisits || cancelled())
+      return false;
+    auto const intervals = Coverage(geometry, a, b);
+    return intervals.size() == 1 && intervals[0].first == 0.0 && intervals[0].second == 1.0;
+  }
+  // Walk successive covered intervals. A ray's bounding rectangle can contain
+  // thousands of unrelated triangles, even when the ray crosses only a few.
+  double covered = 0;
+  for (size_t step = 0; step <= geometry.m_triangles.size(); ++step)
+  {
+    if (visits > kMaxVisibilityTriangleVisits || cancelled())
+      return false;
+    auto const point = covered == 0.0 ? a : a + (b - a) * covered;
+    // Bound reconstruction error using the input magnitudes, including
+    // cancellation near zero. Expanding by ULPs of point alone is insufficient.
+    auto const errorX = 8 * std::numeric_limits<double>::epsilon() * (std::abs(a.x) + std::abs(b.x) + 1);
+    auto const errorY = 8 * std::numeric_limits<double>::epsilon() * (std::abs(a.y) + std::abs(b.y) + 1);
+    m2::RectD const bounds(point.x - errorX, point.y - errorY, point.x + errorX, point.y + errorY);
+    double next = covered;
+    geometry.m_triangleIndex->ForEachInRect(bounds, [&](size_t index)
+    {
+      if (++visits > kMaxVisibilityTriangleVisits || cancelled())
+        return;
+      Interval interval;
+      if (Clip(a, b, geometry.m_triangles[index], interval) && interval.first <= covered)
+        next = std::max(next, interval.second);
+    });
+    if (visits > kMaxVisibilityTriangleVisits || cancelled())
+      return false;
+    if (next == 1.0)
+      return true;
+    if (next <= covered)
+      return false;
+    covered = next;
+  }
+  return false;
+}
+
 bool MakePortal(Geometry const & geometry, Point const & a, Point const & b, double t, double interior, Point & point)
 {
   // A parameter ULP may not change either geographic coordinate. Advance along
@@ -207,6 +253,7 @@ struct Search
 {
   std::vector<double> m_distances;
   std::vector<size_t> m_previous;
+  bool m_budgetExceeded = false;
 };
 
 Search Dijkstra(Graph const & graph, size_t source, CancelledFn const & cancelled)
@@ -232,6 +279,107 @@ Search Dijkstra(Graph const & graph, size_t source, CancelledFn const & cancelle
       result.m_distances[edge.m_target] = candidate;
       result.m_previous[edge.m_target] = node;
       queue.emplace(candidate, edge.m_target);
+    }
+  }
+  return result;
+}
+
+Search SearchWater(Graph & graph, size_t target, std::vector<size_t> const & visibility, Search const & component,
+                   CancelledFn const & isCancelled)
+{
+  // The delegate's cancellation check locks a mutex and reads the clock.
+  // Poll periodically while keeping the inner geometric predicates cheap.
+  size_t cancellationChecks = 0;
+  bool stopped = false;
+  auto const cancelled = [&]
+  {
+    if ((cancellationChecks++ % 256) == 0)
+      stopped = isCancelled();
+    return stopped;
+  };
+  Search result;
+  result.m_distances = component.m_distances;
+  result.m_previous = component.m_previous;
+  std::vector<bool> visible(graph.m_points.size()), settled(graph.m_points.size());
+  for (auto node : visibility)
+    visible[node] = true;
+  std::vector<double> estimates;
+  for (auto const & point : graph.m_points)
+    estimates.push_back(mercator::DistanceOnEarth(point, graph.m_points[target]));
+  // Every vertex of a shorter route must lie inside this distance ellipse.
+  // Apply this bound once before considering pairs of visibility vertices.
+  std::vector<size_t> candidates;
+  auto const source = target == 1 ? 0 : 1;
+  for (auto const node : visibility)
+    if (result.m_distances[target] == kInfinity ||
+        mercator::DistanceOnEarth(graph.m_points[source], graph.m_points[node]) + estimates[node] <
+            result.m_distances[target])
+      candidates.push_back(node);
+  using Item = std::pair<double, size_t>;
+  std::priority_queue<Item, std::vector<Item>, std::greater<Item>> queue;
+  for (size_t node = 0; node < graph.m_points.size(); ++node)
+    if (result.m_distances[node] != kInfinity)
+      queue.emplace(result.m_distances[node] + estimates[node], node);
+  size_t checks = 0;
+  size_t triangleVisits = 0;
+  while (!queue.empty() && !cancelled())
+  {
+    auto const [score, node] = queue.top();
+    queue.pop();
+    if (settled[node] || score > result.m_distances[node] + estimates[node])
+      continue;
+    settled[node] = true;
+    if (node == target)
+      break;
+    auto const relax = [&](size_t other, double distance)
+    {
+      auto const candidate = result.m_distances[node] + distance;
+      if (settled[other] || candidate >= result.m_distances[other])
+        return;
+      result.m_distances[other] = candidate;
+      result.m_previous[other] = node;
+      queue.emplace(candidate + estimates[other], other);
+    };
+    for (auto const & edge : graph.m_edges[node])
+      relax(edge.m_target, edge.m_distance);
+    if (!visible[node])
+      continue;
+    for (auto const other : candidates)
+    {
+      if (cancelled())
+        return result;
+      if (settled[other])
+        continue;
+      // With no unknown areas, the conforming sparse mesh already certifies
+      // components. A visibility edge cannot cross between disconnected waters.
+      if (graph.m_geometry.m_unknownAreas.empty() && component.m_distances[other] == kInfinity)
+        continue;
+      auto const distance = mercator::DistanceOnEarth(graph.m_points[node], graph.m_points[other]);
+      if (result.m_distances[node] + distance >= result.m_distances[other])
+        continue;
+      if (result.m_distances[target] != kInfinity &&
+          result.m_distances[node] + distance + estimates[other] >= result.m_distances[target])
+        continue;
+      if (++checks > kMaxVisibilityChecks)
+      {
+        result.m_budgetExceeded = true;
+        return result;
+      }
+      if (!CoversSegment(graph.m_geometry, graph.m_points[node], graph.m_points[other], cancelled, triangleVisits))
+      {
+        if (triangleVisits > kMaxVisibilityTriangleVisits)
+        {
+          result.m_budgetExceeded = true;
+          return result;
+        }
+        continue;
+      }
+      if (TouchesUnknown(graph.m_geometry, graph.m_points[node], graph.m_points[other]))
+      {
+        graph.m_unknownFrontier[node] = graph.m_unknownFrontier[other] = true;
+        continue;
+      }
+      relax(other, distance);
     }
   }
   return result;
@@ -304,6 +452,64 @@ double ExitDistance(m2::RectD const & bounds, Point const & point)
     result = std::min(result, std::asin(std::abs(std::cos(math::DegToRad(latitude)) *
                                                  std::sin(math::DegToRad(longitude - point.x)))));
   return result * ms::kEarthRadiusMeters;
+}
+
+bool OutsideCouldShorten(Geometry const & geometry, Point const & from, Point const & to, double distance,
+                         CancelledFn const & cancelled)
+{
+  auto const & bounds = *geometry.m_bounds;
+  if (ExitDistance(bounds, from) + ExitDistance(bounds, to) >= distance + 0.01)
+    return false;
+  // Any excursion touches a boundary point p. Triangle inequality bounds its
+  // length below by d(from,p)+d(p,to), even when it exits and reenters elsewhere.
+  auto const check = [&](auto && self, Point const & a, Point const & b, size_t depth) -> bool
+  {
+    if (cancelled())
+      return true;
+    auto const middle = (a + b) * 0.5;
+    auto const sum = mercator::DistanceOnEarth(from, middle) + mercator::DistanceOnEarth(middle, to);
+    double radius;
+    if (a.x == b.x)
+      radius = ms::kEarthRadiusMeters *
+               math::DegToRad(std::max(std::abs(mercator::YToLat(a.y) - mercator::YToLat(middle.y)),
+                                       std::abs(mercator::YToLat(b.y) - mercator::YToLat(middle.y))));
+    else
+      radius = ms::kEarthRadiusMeters * math::DegToRad(std::abs(b.x - a.x) * 0.5) *
+               std::cos(math::DegToRad(mercator::YToLat(a.y)));
+    // The sum of distances is 2-Lipschitz with respect to travel along the edge.
+    if (sum - 2 * radius >= distance + 0.01)
+      return false;
+    if (sum < distance || depth == 12)
+      return true;
+    return self(self, a, middle, depth + 1) || self(self, middle, b, depth + 1);
+  };
+  auto const onSide = [&](Point const & p, size_t side)
+  {
+    switch (side)
+    {
+    case 0: return p.x <= bounds.minX() + 1e-12;
+    case 1: return p.x >= bounds.maxX() - 1e-12;
+    case 2: return p.y <= bounds.minY() + 1e-12;
+    default: return p.y >= bounds.maxY() - 1e-12;
+    }
+  };
+  // An unknown continuation must leave through mapped water, not through dry
+  // parts of the rectangle. Provider geometry is clipped to these bounds.
+  for (auto const & triangle : geometry.m_triangles)
+    for (size_t i = 0; i < 3; ++i)
+      for (size_t side = 0; side < 4; ++side)
+      {
+        auto const & a = triangle[i];
+        auto const & b = triangle[(i + 1) % 3];
+        if (onSide(a, side) && check(check, a, onSide(b, side) ? b : a, 0))
+          return true;
+      }
+  for (auto const & line : geometry.m_lines)
+    for (auto const & vertex : line)
+      for (size_t side = 0; side < 4; ++side)
+        if (onSide(vertex.m_point, side) && check(check, vertex.m_point, vertex.m_point, 0))
+          return true;
+  return false;
 }
 
 bool ReachesFrontier(Geometry const & geometry, Graph const & graph, Search const & search, bool includeUnknown = true)
@@ -396,6 +602,18 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
     path.m_points.push_back(from.m_point);
     return ResultCode::Success;
   }
+  size_t triangleVisits = 0;
+  if (CoversSegment(geometry, from.m_point, to.m_point, cancelled, triangleVisits) &&
+      !TouchesUnknown(geometry, from.m_point, to.m_point))
+  {
+    Append(path, from.m_point, false);
+    Append(path, to.m_point, false);
+    return ResultCode::Success;
+  }
+  if (cancelled())
+    return ResultCode::Cancelled;
+  if (triangleVisits > kMaxVisibilityTriangleVisits)
+    return ResultCode::Unavailable;
 
   Graph graph(geometry);
   graph.Add(from.m_point);
@@ -497,6 +715,32 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
     }
   }
 
+  // Attach checkpoints and river portals to the sparse water mesh before the
+  // lazy visibility search. This also preserves component/frontier reachability.
+  for (size_t i = 0; i < lineVertices; ++i)
+  {
+    if (cancelled())
+      return ResultCode::Cancelled;
+    auto const & point = graph.m_points[i];
+    auto const attach = [&](std::array<Point, 3> const & triangle)
+    {
+      Interval interval;
+      if (!Clip(point, point, triangle, interval))
+        return;
+      for (auto const & vertex : triangle)
+        graph.Connect(i, surfaceVertices.at(vertex));
+    };
+    if (geometry.m_triangleIndex)
+    {
+      m2::RectD const bounds(std::nextafter(point.x, -kInfinity), std::nextafter(point.y, -kInfinity),
+                             std::nextafter(point.x, kInfinity), std::nextafter(point.y, kInfinity));
+      geometry.m_triangleIndex->ForEachInRect(bounds, [&](size_t index) { attach(geometry.m_triangles[index]); });
+    }
+    else
+      for (auto const & triangle : geometry.m_triangles)
+        attach(triangle);
+  }
+
   std::set<Point> shore;
   std::map<Point, std::vector<Point>> previous, next;
   for (auto const & [key, edge] : surfaceEdges)
@@ -525,27 +769,12 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
     if (surface[i] && (i < lineVertices || shore.contains(graph.m_points[i])))
       visibility.push_back(i);
   }
-  if (visibility.size() > kMaxVisibilityVertices)
-    return ResultCode::Unavailable;
-  // Interior river vertices retain their exact curvature and linear edges;
-  // only points on surfaces require the quadratic visibility graph.
-  for (size_t i = 0; i < visibility.size(); ++i)
-  {
-    if (cancelled())
-      return ResultCode::Cancelled;
-    auto const a = visibility[i];
-    for (size_t j = i + 1; j < visibility.size(); ++j)
-    {
-      auto const b = visibility[j];
-      auto const coverage = Coverage(geometry, graph.m_points[a], graph.m_points[b]);
-      if (coverage.size() == 1 && coverage[0].first == 0.0 && coverage[0].second == 1.0)
-        graph.Connect(a, b);
-    }
-  }
-
-  auto const forward = Dijkstra(graph, 0, cancelled);
+  auto const component = Dijkstra(graph, 0, cancelled);
+  auto const forward = SearchWater(graph, 1, visibility, component, cancelled);
   if (cancelled())
     return ResultCode::Cancelled;
+  if (forward.m_budgetExceeded)
+    return ResultCode::Unavailable;
   if (forward.m_distances[1] != kInfinity)
   {
     auto nodes = Trace(forward, 1);
@@ -554,26 +783,29 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
     // Any path leaving complete coverage must first travel at least this far.
     // If that bound cannot exclude a shorter outside path, report unavailable.
     if (UnknownCouldShorten(geometry, from.m_point, to.m_point, path.m_waterDistance) ||
-        (geometry.m_bounds && ReachesFrontier(geometry, graph, forward, false) &&
-         path.m_waterDistance >= ExitDistance(*geometry.m_bounds, from.m_point)))
+        (geometry.m_bounds && ReachesFrontier(geometry, graph, component, false) &&
+         OutsideCouldShorten(geometry, from.m_point, to.m_point, path.m_waterDistance, cancelled)))
     {
       path = {};
-      return ResultCode::Unavailable;
+      return cancelled() ? ResultCode::Cancelled : ResultCode::Unavailable;
     }
     return ResultCode::Success;
   }
 
   // A land gap is considered only after exhausting the complete water graph.
-  auto const backward = Dijkstra(graph, 1, cancelled);
+  auto const backwardComponent = Dijkstra(graph, 1, cancelled);
+  auto const backward = SearchWater(graph, 0, visibility, backwardComponent, cancelled);
   if (cancelled())
     return ResultCode::Cancelled;
+  if (backward.m_budgetExceeded)
+    return ResultCode::Unavailable;
   if (ReachesFrontier(geometry, graph, forward) || ReachesFrontier(geometry, graph, backward))
     return ResultCode::Unavailable;
   std::vector<size_t> transfers;
   for (size_t i = 0; i < graph.m_points.size(); ++i)
     if (graph.m_lineEndpoints[i] || (geometry.m_hasSourceTopology && surface[i]))
       transfers.push_back(i);
-  if (transfers.size() > 2 * kMaxVisibilityVertices)
+  if (transfers.size() > kMaxTransferVertices)
     return ResultCode::Unavailable;
   double best = kInfinity;
   size_t gapFrom = 0, gapTo = 1;

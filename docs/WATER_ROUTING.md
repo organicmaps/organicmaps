@@ -10,6 +10,8 @@ a destination and optional intermediate points on water. An implicit GPS start
 projects onto the nearest known water. Explicit selections never project across
 land. River taps snap to the selected displayed centerline. Other non-water points
 have no route actions. Line selections allow 0.1 m of quantization tolerance.
+An explicit point outside water reports which checkpoint needs moving. Near a
+shore, zoom in and select a point farther inside the stored water geometry.
 
 ## Routing and transfers
 
@@ -100,8 +102,11 @@ generation has not been exercised in the Android smoke test.
 
 ## Bounds and limitations
 
-One MWM must cover the extraction rectangle. The margin follows checkpoint distance
-and is bounded between 1 and 30 km. Cross-MWM routes, antimeridian windows and
+One MWM must cover the extraction rectangle. For optional sections, the margin
+follows checkpoint distance and is bounded between 1 and 30 km. Ordinary maps start
+with at most 3 km and reduce the margin when coverage or extraction budgets require
+it. Near a map boundary, each rectangle side expands only within certified coverage.
+Cross-MWM routes, antimeridian windows and
 requests exceeding budgets return unavailable. A reachable
 graph touching the extraction frontier cannot establish disconnection. Connected
 paths are accepted only when shorter than a proven lower bound for leaving the window.
@@ -109,9 +114,10 @@ Unknown regions also require a distance bound excluding a shorter route through
 them. Disconnected components touching unknown geometry cannot justify a land gap.
 
 The reader caches one index with at most 65,536 records. Extraction allows 4,096
-surface source points and 4,096 triangles, with 16,384 total source points. The graph
-allows 16,384 vertices; only its surface vertices enter the quadratic visibility
-search, limited to 1,024 vertices. Interior triangle vertices keep linear mesh edges;
+surface source points and 16,384 triangles, with 16,384 line source points. The graph
+allows 65,536 vertices. Lazy A* starts with valid sparse mesh paths and checks
+visibility only when it can improve the route. It allows at most 2,000,000 segment
+checks and 8,000,000 indexed triangle visits. Interior triangle vertices keep linear mesh edges;
 surface visibility needs only reflex shore corners, checkpoints and river points.
 River curvature retains all source vertices, or all stored vertices for ordinary maps.
 Transfer candidates are bounded to 2,048. Cancellation is
@@ -143,6 +149,12 @@ a standard MWM containing an island, winding river, crossing and coincident rive
 endpoints; they cover absent coverage proof, cancellation and ignored aqueduct
 restrictions. A separate packed-border regression rejects a concave coverage gap
 even when all rectangle corners and its bounding box appear covered.
+The official Flevoland MWM also covers the Almere regression: start
+52.3542366,5.18088336 to 52.354523,5.238218 produces 5,612.8 m entirely on water.
+The original reported start 52.354258,5.180864 lies 2.7 m outside its stored water
+geometry and requires moving the start into the canal. Long-path tests cover
+adaptive border windows, lazy visibility, thin dry gaps and numerical cancellation
+near zero.
 
 Android app/SDK unit tests and debug builds run separately. Xcode projects include
 the common implementation and tessellation dependencies. iOS UI is deferred; no
