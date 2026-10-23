@@ -16,6 +16,7 @@ NS_SWIFT_NAME(RoutingOptions)
 
 @property(nonatomic, readonly) MWMRouterType routerType;
 @property(nonatomic, readonly) MWMRoutingAvoidance supportedOptions;
+@property(nonatomic, readonly) BOOL supportsSavedTracks;
 
 - (instancetype)initWithRouterType:(MWMRouterType)routerType NS_DESIGNATED_INITIALIZER;
 - (instancetype)init NS_UNAVAILABLE;
@@ -25,6 +26,7 @@ NS_SWIFT_NAME(RoutingOptions)
 @property(nonatomic) BOOL avoidDirty;
 @property(nonatomic) BOOL avoidFerry;
 @property(nonatomic) BOOL avoidMotorway;
+@property(nonatomic) BOOL preferSavedTracks;
 /// Persisted immediately, unlike the avoidance options, which need -save.
 @property(nonatomic) BOOL routeOptimizationEnabled;
 @property(nonatomic, readonly) BOOL hasOptions;

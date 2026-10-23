@@ -46,6 +46,38 @@ final class RoutingOptionsSettingsTests: XCTestCase {
     XCTAssertEqual(bike.hash, sameBike.hash)
   }
 
+  func test_SavedTracksAreProfileSpecificAndRebuildWhenChanged() {
+    let profiles: [MWMRouterType] = [.vehicle, .bicycle, .pedestrian, .publicTransport, .ruler]
+    let saved = profiles.map { RoutingOptions(routerType: $0) }
+    defer { saved.forEach { $0.save() } }
+    for type in profiles {
+      let options = RoutingOptions(routerType: type)
+      options.preferSavedTracks = false
+      options.save()
+    }
+    let bike = RoutingOptions(routerType: .bicycle)
+    let previousBike = RoutingOptions(routerType: .bicycle)
+    bike.preferSavedTracks = true
+    bike.save()
+    XCTAssertNotEqual(bike, previousBike)
+    XCTAssertTrue(RoutingOptions(routerType: .bicycle).preferSavedTracks)
+    XCTAssertFalse(RoutingOptions(routerType: .pedestrian).preferSavedTracks)
+    XCTAssertEqual(bike, RoutingOptions(routerType: .bicycle))
+
+    let presenter = RoutingOptionsSettingsPresenter(viewController: RoutingOptionsSettingsViewController())
+    for type in profiles {
+      let options = RoutingOptions(routerType: type)
+      let supported = type == .bicycle || type == .pedestrian
+      XCTAssertEqual(options.supportsSavedTracks, supported)
+      options.preferSavedTracks = true
+      options.save()
+      XCTAssertEqual(RoutingOptions(routerType: type).preferSavedTracks, supported)
+      let sections = presenter.sections(from: RoutingOptionsSettingsState(options: options,
+                                                                          canChangeOptimization: true))
+      XCTAssertEqual(sections.contains { $0.section == .tracks }, supported)
+    }
+  }
+
   func test_TransitKeepsOnlyTheGlobalOptimizationSection() {
     XCTAssertTrue(MWMRouterType.publicTransport.hasRoutingSettings)
     XCTAssertFalse(MWMRouterType.ruler.hasRoutingSettings)

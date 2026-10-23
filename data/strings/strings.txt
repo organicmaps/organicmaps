@@ -27541,6 +27541,18 @@ vi = Thiết lập đi vòng
 zh-Hans = 绕行设置
 zh-Hant = 繞行設定
 
+[prefer_saved_tracks]
+comment = Walking and cycling routing preference for saved, recorded, or imported tracks shown on the map
+tags = apple-maps,android-app
+en = Prefer saved tracks
+fr = Privilégier les traces enregistrées
+
+[prefer_saved_tracks_description]
+comment = First version uses tracks near a start, finish, or intermediate route point
+tags = apple-maps,android-app
+en = Use tracks shown on the map when a route point is nearby. Tracks can be followed in either direction.
+fr = Utilise les traces affichées sur la carte lorsqu’un point de l’itinéraire est à proximité. Les traces peuvent être suivies dans les deux sens.
+
 [route_optimization]
 comment = Routing setting that automatically reorders intermediate stops
 tags = apple-maps,android-app

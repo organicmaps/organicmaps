@@ -1,8 +1,10 @@
+#include "routing/routing_integration_tests/generated_map_test.hpp"
 #include "routing/routing_integration_tests/routing_test_tools.hpp"
 
 #include "testing/testing.hpp"
 
 #include "routing/route.hpp"
+#include "routing/router_delegate.hpp"
 #include "routing/routing_callbacks.hpp"
 
 #include <algorithm>
@@ -102,5 +104,74 @@ UNIT_TEST(Guides_MultipleIntermediatePoints)
                                  mercator::FromLatLon(48.14044, 11.57061)});
 
   TestGuideRoute(checkpoints, 1231.91 /* expectedDistM */, 1042.65 /* expectedTimeS */, 67 /* expectedPointsCount */);
+}
+
+UNIT_TEST(Guides_SeparateTracksConnectThroughOsm)
+{
+  integration::GeneratedMapTest map("./data/test_data/osm/saved_tracks.osm", "Slovenia_East", VehicleType::Pedestrian);
+  auto const start = mercator::FromLatLon(45.77, 14.36);
+  auto const finish = mercator::FromLatLon(45.79, 14.36);
+  auto const baseline = integration::CalculateRoute(map.GetComponents(), start, {}, finish);
+  TEST_EQUAL(baseline.second, RouterResultCode::NoError, ());
+  for (bool const reverse : {false, true})
+  {
+    GuidesTracks guides;
+    guides[10] = {{{start, 0}, {mercator::FromLatLon(45.771, 14.36), 0}},
+                  {{mercator::FromLatLon(45.789, 14.36), 0}, {finish, 0}}};
+    auto const result = integration::CalculateRoute(
+        map.GetComponents(), reverse ? Checkpoints(finish, start) : Checkpoints(start, finish), std::move(guides));
+    TEST_EQUAL(result.second, RouterResultCode::NoError, (reverse));
+    TEST(result.first, (reverse));
+    integration::TestRouteLength(*result.first, 2226.5);
+  }
+}
+
+UNIT_TEST(Guides_ContinuousTrackEta)
+{
+  integration::GeneratedMapTest map("./data/test_data/osm/saved_tracks.osm", "Slovenia_East", VehicleType::Pedestrian);
+  auto const start = mercator::FromLatLon(45.77, 14.36);
+  auto const finish = mercator::FromLatLon(45.79, 14.36);
+  GuidesTracks guides;
+  guides[10] = {{{start, 0},
+                 {mercator::FromLatLon(45.775, 14.36), 0},
+                 {mercator::FromLatLon(45.78, 14.36), 0},
+                 {mercator::FromLatLon(45.785, 14.36), 0},
+                 {finish, 0}}};
+  auto const result = integration::CalculateRoute(map.GetComponents(), Checkpoints(start, finish), std::move(guides));
+  TEST_EQUAL(result.second, RouterResultCode::NoError, ());
+  TEST(result.first, ());
+  integration::TestRouteLength(*result.first, 2226.5);
+  // Each track segment contributes once, at the pedestrian off-road speed of 3 km/h.
+  integration::TestRouteTime(*result.first, 2671.9);
+}
+
+UNIT_TEST(Guides_DenseTracksRebuildForWalkingAndCycling)
+{
+  auto const start = mercator::FromLatLon(45.77, 14.36);
+  auto const finish = mercator::FromLatLon(45.79, 14.36);
+  GuidesTracks guides;
+  auto & track = guides[10].emplace_back();
+  size_t constexpr kPointsCount = 10'001;
+  for (size_t i = 0; i < kPointsCount; ++i)
+    track.emplace_back(start + (finish - start) * (static_cast<double>(i) / (kPointsCount - 1)), 100);
+
+  for (auto const vehicle : {VehicleType::Pedestrian, VehicleType::Bicycle})
+  {
+    integration::GeneratedMapTest map("./data/test_data/osm/saved_tracks.osm", "Slovenia_East", vehicle);
+    auto & router = map.GetComponents().GetRouter();
+    RouterDelegate delegate;
+    for (bool const rebuild : {false, true})
+    {
+      auto const from = rebuild ? track[kPointsCount / 4].GetPoint() : start;
+      router.SetGuides(GuidesTracks(guides));
+      RoutesResult routes("dense tracks", 0);
+      auto const result = router.CalculateRoute(Checkpoints(from, finish), {}, rebuild, false, delegate, routes);
+      TEST_EQUAL(result, RouterResultCode::NoError, (vehicle, rebuild));
+      TEST(routes.IsValid(), (vehicle, rebuild));
+      Route const route(routes.GetActive());
+      integration::TestRouteLength(route, rebuild ? 1669.8 : 2226.3);
+      TEST_GREATER(route.GetPoly().GetSize(), 5000, ("The route must follow the dense track", vehicle, rebuild));
+    }
+  }
 }
 }  // namespace guides_tests

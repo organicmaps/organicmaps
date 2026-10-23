@@ -19,6 +19,11 @@ final class RoutingOptionsSettingsPresenter {
       sections.append(SettingsSectionViewModel(section: .options,
                                                items: avoidances.map { item($0, state: state) }))
     }
+    if RoutingOption.preferSavedTracks.isSupported(in: state.options) {
+      sections.append(SettingsSectionViewModel(section: .tracks,
+                                               footer: L("prefer_saved_tracks_description"),
+                                               items: [item(.preferSavedTracks, state: state)]))
+    }
     sections.append(SettingsSectionViewModel(section: .optimization,
                                              header: L("routing_options_all_modes"),
                                              footer: L("route_optimization_description"),

@@ -5,11 +5,6 @@
 #include "geometry/distance_on_sphere.hpp"
 #include "geometry/mercator.hpp"
 
-namespace
-{
-double constexpr kZeroAltitude = 0.0;
-}  // namespace
-
 namespace routing
 {
 bool GuideSegmentCompare::operator()(Segment const & lhs, Segment const & rhs) const
@@ -138,8 +133,7 @@ FakeEnding GuidesGraph::MakeFakeEnding(Segment const & segment, m2::PointD const
       segment, false /* isOneWay */, frontJunction, backJunction,
       LatLonWithAltitude(mercator::ToLatLon(projection.GetPoint()), projection.GetAltitude()) /* junction */);
 
-  ending.m_originJunction =
-      LatLonWithAltitude(mercator::ToLatLon(point), static_cast<geometry::Altitude>(kZeroAltitude));
+  ending.m_originJunction = LatLonWithAltitude(mercator::ToLatLon(point), projection.GetAltitude());
   return ending;
 }
 

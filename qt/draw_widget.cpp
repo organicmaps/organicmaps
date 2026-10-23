@@ -587,11 +587,9 @@ void DrawWidget::SubmitRoutingPoint(m2::PointD const & pt, bool pointIsMercator)
   if (rm.GetRoutePoints().size() >= 2)
   {
     if (RoutingSettings::UseDebugGuideTrack() && !m_guideTracks.empty())
-      rm.RoutingSession().SetGuidesForTests(m_guideTracks);
+      rm.BuildRoute(routing::RouterDelegate::kNoTimeout, m_guideTracks);
     else
-      rm.RoutingSession().SetGuidesForTests({});
-
-    rm.BuildRoute();
+      rm.BuildRoute();
   }
 }
 

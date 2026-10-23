@@ -156,9 +156,9 @@ private:
 
     void SetNextStartSegment(Segment const & seg) { m_startSegments = {seg}; }
 
-  private:
     void FillDeadEndsCache(m2::PointD const & point);
 
+  private:
     /// \brief Removes all roads from |roads| that go to dead ends and all roads that
     /// are not good according to |worldGraph|. For car routing there are roads with hwtag nocar as well.
     /// \param checkpoint which is used to look for the closest segment in a road. The closest segment

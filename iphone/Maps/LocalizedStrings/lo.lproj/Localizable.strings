@@ -741,6 +741,12 @@
 "routing_options_all_modes" = "ທຸກຮູບແບບການເດີນທາງ";
 "driving_options_title" = "ຕົວເລືອກການສ້າງເສັ້ນທາງ";
 
+/* Walking and cycling routing preference for saved, recorded, or imported tracks shown on the map */
+"prefer_saved_tracks" = "Prefer saved tracks";
+
+/* First version uses tracks near a start, finish, or intermediate route point */
+"prefer_saved_tracks_description" = "Use tracks shown on the map when a route point is nearby. Tracks can be followed in either direction.";
+
 /* Routing setting that automatically reorders intermediate stops */
 "route_optimization" = "ການປັບເສັ້ນທາງໃຫ້ເໝາະສົມ";
 

@@ -29,6 +29,7 @@ static_assert(MWMRoutingAvoidanceDirty == static_cast<NSUInteger>(routing::Routi
     {
       _options = routing::RoutingOptions::LoadFromSettings(*vehicle);
       _supportedOptions = static_cast<MWMRoutingAvoidance>(routing::RoutingOptions::GetSupportedOptions(*vehicle));
+      _supportsSavedTracks = routing::RoutingOptions::SupportsSavedTracks(*vehicle);
     }
   }
 
@@ -80,6 +81,16 @@ static_assert(MWMRoutingAvoidanceDirty == static_cast<NSUInteger>(routing::Routi
   return self.avoidToll || self.avoidDirty || self.avoidFerry || self.avoidMotorway;
 }
 
+- (BOOL)preferSavedTracks
+{
+  return _options.PreferSavedTracks();
+}
+
+- (void)setPreferSavedTracks:(BOOL)enabled
+{
+  _options.SetPreferSavedTracks(enabled && self.supportsSavedTracks);
+}
+
 - (BOOL)routeOptimizationEnabled
 {
   return routing::RoutingOptions::LoadRouteOptimizationFromSettings();
@@ -110,13 +121,14 @@ static_assert(MWMRoutingAvoidanceDirty == static_cast<NSUInteger>(routing::Routi
   if (![object isMemberOfClass:self.class])
     return NO;
   MWMRoutingOptions * another = (MWMRoutingOptions *)object;
-  // Only avoidance options: +[MWMRouter updateRoute] must not rebuild when route optimization changes.
-  return another.routerType == self.routerType && another->_options.GetOptions() == _options.GetOptions();
+  // Optimization only changes stop order and does not require a route rebuild here.
+  return another.routerType == self.routerType && another->_options.GetOptions() == _options.GetOptions() &&
+         another.preferSavedTracks == self.preferSavedTracks;
 }
 
 - (NSUInteger)hash
 {
-  return (static_cast<NSUInteger>(self.routerType) << 8) | _options.GetOptions();
+  return (static_cast<NSUInteger>(self.routerType) << 9) | (self.preferSavedTracks << 8) | _options.GetOptions();
 }
 
 @end
