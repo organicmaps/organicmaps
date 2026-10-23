@@ -45760,3 +45760,9 @@ en = Internet terminal
 comment = About dialog: %@ placeholders are paths to license files. Preserve the Qt company name.
 tags = qt
 en = Qt 6 (C) The Qt Company Ltd. and other contributors. License texts: %@ and %@.
+
+[water_select_point]
+comment = Hint when a selected Water route point is outside the stored water geometry.
+tags = android-libs-routing
+en = Select a point inside a water body. Near the shore, zoom in and select a point farther into the water.
+ru = Выберите точку внутри водоёма. У берега увеличьте масштаб и выберите точку дальше от суши.
