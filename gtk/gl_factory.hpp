@@ -7,6 +7,7 @@
 #include <gdk/gdk.h>
 
 #include <atomic>
+#include <chrono>
 #include <functional>
 #include <memory>
 #include <mutex>
@@ -49,13 +50,15 @@ public:
 
   // Main thread, GTK context current: draws the newest finished frame with |draw| and fences it.
   // Returns false if there is no frame yet.
-  bool DrawFrame(std::function<void(GLuint texture)> const & draw);
+  bool DrawFrame(int64_t frameIntervalUs, std::function<void(GLuint texture)> const & draw);
 
 private:
   GdkGLContext * m_ctx;
   uint32_t m_initialWidth;
   uint32_t m_initialHeight;
   std::function<void()> m_onFrameReady;
+  std::atomic<int64_t> m_frameIntervalUs{1'000'000 / 60};
+  std::chrono::steady_clock::time_point m_nextPresent;
   std::unique_ptr<OffscreenFrame> m_back;
   std::unique_ptr<OffscreenFrame> m_front;
   std::unique_ptr<OffscreenFrame> m_acquired;
@@ -94,7 +97,7 @@ public:
   bool IsDrawContextCreated() const override { return true; }
   bool IsUploadContextCreated() const override { return true; }
 
-  bool DrawFrame(std::function<void(GLuint texture)> const & draw);
+  bool DrawFrame(int64_t frameIntervalUs, std::function<void(GLuint texture)> const & draw);
   void PrepareToShutdown() { m_shutdown = true; }
 
 private:

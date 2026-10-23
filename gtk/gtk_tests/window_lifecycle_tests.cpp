@@ -281,6 +281,23 @@ UNIT_TEST(Window_LocationAndRenderingLifecycle)
       requireProgress();
     }
 
+    // Surfaceless Present has no vsync: animations must not produce thousands of discarded frames.
+    gint64 frameIntervalUs;
+    gdk_frame_clock_get_refresh_info(gtk_widget_get_frame_clock(mapArea), g_get_monotonic_time(), &frameIntervalUs,
+                                     nullptr);
+    auto const beforeAnimation = produced();
+    auto const animationStart = g_get_monotonic_time();
+    for (int i = 0; i < 5; ++i)
+    {
+      framework.Move(i % 2 ? -0.1 : 0.1, 0, true /* animated */);
+      RunFor(100);
+    }
+    auto const animationFrames = produced() - beforeAnimation;
+    auto const frameBudget = (g_get_monotonic_time() - animationStart) / frameIntervalUs + 4;
+    TEST_GREATER(animationFrames, 2, ());
+    TEST_LESS_OR_EQUAL(animationFrames, static_cast<uint64_t>(frameBudget),
+                       ("Producer exceeded the display frame rate"));
+
     // F10 is provided by the primary menu button, including when the map owns keyboard focus.
     gtk_widget_grab_focus(mapArea);
     input.PressKey(68 /* KEY_F10 */);

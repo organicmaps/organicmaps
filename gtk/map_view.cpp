@@ -304,8 +304,11 @@ void MapView::UpdateWidgetLayout()
 gboolean MapView::OnRender(GdkGLContext *)
 {
   m_renderQueued = false;
+  gint64 frameIntervalUs;
+  gdk_frame_clock_get_refresh_info(gtk_widget_get_frame_clock(m_area), g_get_monotonic_time(), &frameIntervalUs,
+                                   nullptr);
   bool const drawn = m_program != 0 && m_factory &&
-                     m_factory->DrawFrame([this](GLuint texture)
+                     m_factory->DrawFrame(frameIntervalUs, [this](GLuint texture)
   {
     glDisable(GL_BLEND);
     glDisable(GL_DEPTH_TEST);

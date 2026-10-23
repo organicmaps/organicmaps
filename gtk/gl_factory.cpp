@@ -6,6 +6,8 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
+#include <thread>
+
 namespace gtk
 {
 namespace
@@ -104,6 +106,12 @@ void GtkRenderContext::Present()
   // Frames are consumed by another context, so the work must be finished before handing it over.
   GLFunctions::glFinish();
 
+  // A surfaceless context has no swap interval. Pace the producer without waiting for GTK,
+  // whose main thread may be waiting for the renderer during suspend, resize or shutdown.
+  std::this_thread::sleep_until(m_nextPresent);
+  m_nextPresent =
+      std::chrono::steady_clock::now() + std::chrono::microseconds(m_frameIntervalUs.load(std::memory_order_relaxed));
+
   {
     std::lock_guard lock(m_frameMutex);
     std::swap(m_front, m_back);
@@ -139,8 +147,10 @@ void GtkRenderContext::Resize(uint32_t w, uint32_t h)
   glBindFramebuffer(GL_FRAMEBUFFER, m_back->m_fbo);
 }
 
-bool GtkRenderContext::DrawFrame(std::function<void(GLuint texture)> const & draw)
+bool GtkRenderContext::DrawFrame(int64_t frameIntervalUs, std::function<void(GLuint texture)> const & draw)
 {
+  ASSERT_GREATER(frameIntervalUs, 0, ());
+  m_frameIntervalUs.store(frameIntervalUs, std::memory_order_relaxed);
   std::lock_guard lock(m_frameMutex);
   if (m_frameUpdated)
   {
@@ -226,10 +236,10 @@ dp::GraphicsContext * GtkContextFactory::GetResourcesUploadContext()
   return m_upload.get();
 }
 
-bool GtkContextFactory::DrawFrame(std::function<void(GLuint texture)> const & draw)
+bool GtkContextFactory::DrawFrame(int64_t frameIntervalUs, std::function<void(GLuint texture)> const & draw)
 {
   if (m_shutdown || !m_draw)
     return false;
-  return m_draw->DrawFrame(draw);
+  return m_draw->DrawFrame(frameIntervalUs, draw);
 }
 }  // namespace gtk
