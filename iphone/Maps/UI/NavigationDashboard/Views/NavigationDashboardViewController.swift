@@ -591,7 +591,11 @@ extension NavigationDashboardViewController {
     navigationInfoView.state = viewModel.navigationInfo.state
     navigationInfoView.availableArea = viewModel.navigationInfo.availableArea
 
-    bottomActionsMenu.setHidden(viewModel.isBottomActionsMenuHidden)
+    // The menu takes no touches while it is shown or hidden. Started at every render, e.g. at each position of the
+    // navigation without GPS, the transition never ended and Start did nothing.
+    if bottomActionsMenu.isHidden != viewModel.isBottomActionsMenuHidden {
+      bottomActionsMenu.setHidden(viewModel.isBottomActionsMenuHidden)
+    }
     startRouteButton.setState(viewModel.startButtonState)
     reverseRoutePointsButton.isEnabled = viewModel.canReverseRoutePoints
 
