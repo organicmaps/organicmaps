@@ -125,6 +125,26 @@ checked during extraction and graph searches. Tessellation is bounded by its inp
 Large or complex waterways may be unavailable. Country-scale performance and map
 size have not been benchmarked. The synthetic integration section occupies 1,018 bytes.
 
+## Performance
+
+Road routing loads a prepared routing graph from the MWM and uses bidirectional
+A* and, where applicable, precomputed cross-region connections. Water on ordinary
+MWMs reconstructs its geometry from display features at request time. It must
+union water surfaces and check that each proposed visibility edge stays on water.
+Its lazy A* search already uses straight-line lower bounds and a sparse mesh path
+as an upper bound; replacing the search alone does not remove geometry costs.
+
+The triangle index is balanced after bulk insertion. Tessellation order is spatially
+correlated, so incremental KD-tree insertion can otherwise make repeated segment
+coverage queries expensive. Rebalancing preserves the same triangles and exact
+coverage predicates; it does not simplify shores or change transfer eligibility.
+A controlled API 34 x86_64 Debug benchmark on the exact northward Almere case
+compared both indexes using the same 11,679 triangles. Two alternating pairs
+measured 22.3–29.4 seconds for the old index and 7.0–9.8 seconds after balancing
+for the search stage, with unchanged 5,311.6 m water distance and no land transfer.
+The geometry extraction stage took 5.1 seconds in that run. These are emulator
+measurements, not a guarantee for physical phones or other routes.
+
 ## Validation
 
 Tests cover bends, junctions, source identity, checkpoint projection, endpoint-only

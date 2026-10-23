@@ -201,6 +201,7 @@ void IndexTriangles(water::Geometry & geometry)
       rect.Add(point);
     geometry.m_triangleIndex->Add(i, rect);
   }
+  geometry.m_triangleIndex->Optimize();
 }
 }  // namespace
 
