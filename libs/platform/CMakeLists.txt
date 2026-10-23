@@ -183,7 +183,7 @@ if (APPLE)
   target_compile_options(${PROJECT_NAME} PRIVATE -fobjc-arc -Wno-nullability-completeness)
 endif()
 
-if (PLATFORM_LINUX OR PLATFORM_WIN)
+if (PLATFORM_DESKTOP)
   set_target_properties(${PROJECT_NAME} PROPERTIES AUTOMOC ON)
 endif()
 

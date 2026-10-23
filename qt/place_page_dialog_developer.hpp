@@ -17,5 +17,6 @@ class PlacePageDialogDeveloper : public PlacePageDialogCommon
   Q_OBJECT
 
 public:
-  PlacePageDialogDeveloper(QWidget * parent, qt::DrawWidget * drawWidget, place_page::Info const & info);
+  PlacePageDialogDeveloper(QWidget * parent, qt::DrawWidget * drawWidget, place_page::Info const & info,
+                           QList<QAction *> const & actions);
 };

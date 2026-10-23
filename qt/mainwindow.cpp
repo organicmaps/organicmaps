@@ -2,12 +2,14 @@
 #include "qt/about.hpp"
 #include "qt/bookmark_dialog.hpp"
 #include "qt/draw_widget.hpp"
+#include "qt/html_processor.hpp"
 #include "qt/mwms_borders_selection.hpp"
 #include "qt/osm_auth_dialog.hpp"
 #include "qt/place_page_dialog_developer.hpp"
 #include "qt/place_page_dialog_user.hpp"
 #include "qt/popup_menu_holder.hpp"
 #include "qt/preferences_dialog.hpp"
+#include "qt/qml/forwarding_quickwidget.hpp"
 #include "qt/qt_common/helpers.hpp"
 #include "qt/qt_common/scale_slider.hpp"
 #include "qt/qt_common/translations.hpp"
@@ -17,6 +19,8 @@
 
 #include "map/framework.hpp"
 #include "map/place_page_info.hpp"
+
+#include "indexer/validate_and_format_contacts.hpp"
 
 #include "platform/platform.hpp"
 #include "platform/settings.hpp"
@@ -43,6 +47,7 @@
 
 #include <QtCore/QLocale>
 #include <QtGui/QCloseEvent>
+#include <QtQml/QQmlComponent>
 #include <QtWidgets/QDockWidget>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
@@ -93,7 +98,13 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
   , m_mapcssFilePath(mapcssFilePath)
 #endif
 {
-  setGeometry(screenGeometry);
+  qmlRegisterUncreatableMetaObject(location::staticMetaObject, "Location", 1, 0, "PositionMode",
+                                   "Access to enums & flags only");
+
+  if (std::string g; settings::Get("geometry", g))
+    restoreGeometry(QByteArray::fromStdString(g));
+  else
+    setGeometry(screenGeometry);
 
   if (m_screenshotMode)
   {
@@ -123,6 +134,23 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
   CreateNavigationBar();
   CreateSearchBarAndPanel();
   CreatePlacePagePanel();
+
+  // CHECK: is it still required to render menu button icon in flatpak?
+  QIcon::setThemeName("Adwaita");
+  QIcon::setFallbackThemeName("breeze");
+
+  auto quickWidget = new ForwardingQuickWidget();
+  quickWidget->setAttribute(Qt::WA_AlwaysStackOnTop);
+  // quickWidget->setAttribute(Qt::WA_TranslucentBackground);
+  quickWidget->setClearColor(Qt::transparent);
+  quickWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
+
+  QUrl const qmlUrl = QUrl::fromLocalFile("/workspace/qt/qml/main.qml");
+  auto component = new QQmlComponent(quickWidget->engine(), qmlUrl, quickWidget);
+  quickWidget->setContent(qmlUrl, component,
+                          component->createWithInitialProperties({{"map", QVariant::fromValue(this)}}));
+
+  m_pDrawWidget->layout()->addWidget(quickWidget);
 
   QString caption = QCoreApplication::applicationName();
 
@@ -166,9 +194,6 @@ MainWindow::MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> 
     ::InsertMenuItemW(menu, ::GetMenuItemCount(menu) - 1, TRUE, &item);
   }
 #endif
-
-  // Always show on full screen.
-  showMaximized();
 
 #ifndef NO_DOWNLOADER
   // Show intro dialog if necessary
@@ -273,24 +298,24 @@ void MainWindow::CreateNavigationBar()
     //                     std::bind(&MainWindow::OnLayerEnabled, this, TRAFFIC), true);
     // m_layers->setChecked(TRAFFIC, Framework::LoadTrafficEnabled());
 
-    m_layers->addAction(QIcon(":/navig64/subway.png"), Tr("button_layer_subway"),
-                        std::bind(&MainWindow::OnLayerEnabled, this, TRANSIT), true);
+    m_transitAction = m_layers->addAction(QIcon(":/navig64/subway.png"), Tr("button_layer_subway"),
+                                          std::bind(&MainWindow::OnLayerEnabled, this, TRANSIT), true);
     m_layers->setChecked(TRANSIT, Framework::LoadTransitSchemeEnabled());
 
-    m_layers->addAction(QIcon(":/navig64/isolines.png"), Tr("button_layer_isolines"),
-                        std::bind(&MainWindow::OnLayerEnabled, this, ISOLINES), true);
+    m_isolinesAction = m_layers->addAction(QIcon(":/navig64/isolines.png"), Tr("button_layer_isolines"),
+                                           std::bind(&MainWindow::OnLayerEnabled, this, ISOLINES), true);
     m_layers->setChecked(ISOLINES, Framework::LoadIsolinesEnabled());
     // TODO(AB): Are icons drawable? Fix and make different icons for different layers.
-    m_layers->addAction(QIcon(":/navig64/isolines.png"), Tr("button_layer_outdoor"),
-                        std::bind(&MainWindow::OnLayerEnabled, this, OUTDOORS), true);
+    m_outdoorsAction = m_layers->addAction(QIcon(":/navig64/isolines.png"), Tr("button_layer_outdoor"),
+                                           std::bind(&MainWindow::OnLayerEnabled, this, OUTDOORS), true);
     m_layers->setChecked(OUTDOORS, Framework::LoadOutdoorsEnabled());
 
-    m_layers->addAction(QIcon(":/navig64/isolines.png"), Tr("button_layer_hiking"),
-                        std::bind(&MainWindow::OnLayerEnabled, this, HIKING), true);
+    m_hikingAction = m_layers->addAction(QIcon(":/navig64/isolines.png"), Tr("button_layer_hiking"),
+                                         std::bind(&MainWindow::OnLayerEnabled, this, HIKING), true);
     m_layers->setChecked(HIKING, Framework::IsHikingEnabled());
 
-    m_layers->addAction(QIcon(":/navig64/isolines.png"), Tr("button_layer_cycling"),
-                        std::bind(&MainWindow::OnLayerEnabled, this, CYCLING), true);
+    m_cyclingAction = m_layers->addAction(QIcon(":/navig64/isolines.png"), Tr("button_layer_cycling"),
+                                          std::bind(&MainWindow::OnLayerEnabled, this, CYCLING), true);
     m_layers->setChecked(CYCLING, Framework::IsCyclingEnabled());
 
     pToolBar->addWidget(m_layers->create());
@@ -442,6 +467,8 @@ Framework & MainWindow::GetFramework() const
 void MainWindow::CreateCountryStatusControls()
 {
   QHBoxLayout * mainLayout = new QHBoxLayout();
+  mainLayout->setContentsMargins(0, 0, 0, 0);
+
   m_downloadButton = CreateBlackControl<QPushButton>(Tr("download"));
   mainLayout->addWidget(m_downloadButton, 0, Qt::AlignHCenter);
   m_downloadButton->setVisible(false);
@@ -635,7 +662,10 @@ void MainWindow::OnUploadEditsMenuItem()
 void MainWindow::OnBeforeEngineCreation()
 {
   m_pDrawWidget->GetFramework().SetMyPositionModeListener([this](location::EMyPositionMode mode, bool /*routingActive*/)
-  { LocationStateModeChanged(mode); });
+  {
+    emit positionModeChanged(mode);
+    LocationStateModeChanged(mode);
+  });
 }
 
 void MainWindow::OnPreferences()
@@ -820,29 +850,146 @@ void MainWindow::CreatePlacePagePanel()
     if (!visible)
       GetFramework().DeactivateMapSelection();
   });
+
+  m_fromAction = new QAction(QIcon(":/navig64/point-start.png"), Tr("p2p_from_here"), this);
+  m_fromAction->setToolTip(Tr("p2p_from_here"));
+  m_stopAction = new QAction(QIcon(":/navig64/point-intermediate.png"), Tr("placepage_add_stop"), this);
+  m_stopAction->setToolTip(Tr("placepage_add_stop"));
+  m_toAction = new QAction(QIcon(":/navig64/point-finish.png"), Tr("p2p_to_here"), this);
+  m_toAction->setToolTip(Tr("p2p_to_here"));
+  m_alongAction = new QAction(Tr("route_along_track"), this);
+  m_editAction = new QAction(Tr("edit_place"), this);
+}
+
+void MainWindow::DeactivateMapSelection() const
+{
+  GetFramework().DeactivateMapSelection();
+}
+
+void MainWindow::toggleWidgetsUI() const
+{
+  QToolBar * const tb = findChild<QToolBar *>();
+  tb->setVisible(!tb->isVisible());
+  menuBar()->setVisible(!menuBar()->isVisible());
+}
+
+void MainWindow::scalePlus() const
+{
+  m_pDrawWidget->ScalePlus();
+}
+void MainWindow::scaleMinus() const
+{
+  m_pDrawWidget->ScaleMinus();
+}
+
+QString MainWindow::getCopyrightText() const
+{
+  std::string text;
+  ReaderPtr<Reader> reader = GetPlatform().GetReader("copyright.html");
+  reader.ReadAsString(text);
+  RemovePTagsWithNonMatchedLanguages(languages::GetCurrentTwine(), text);
+  return QString::fromStdString(text);
 }
 
 void MainWindow::ShowPlacePage(place_page::Info const & info)
 {
-  QDockWidget * dock = m_Docks[kPlacePageDock];
+  m_title = QString::fromStdString(info.GetTitle());
+  m_subTitle = QString::fromStdString(info.GetSubtitle());
+  m_address = QString::fromStdString(info.GetSecondarySubtitle());
+  m_bookmark = info.IsBookmark();
+  m_wikipedia = QString::fromStdString(
+      feature::Metadata::ToWikiURL(std::string(info.GetMetadata(feature::Metadata::EType::FMD_WIKIPEDIA))));
+  m_wikimedia = QString::fromStdString(feature::Metadata::ToWikimediaCommonsURL(
+      std::string(info.GetMetadata(feature::Metadata::EType::FMD_WIKIMEDIA_COMMONS))));
+  m_description = place_page_dialog::ShortDescription(info.GetWikiDescription());
+  m_openingHours = QString::fromStdString(std::string(info.GetOpeningHours()));
+  m_cuisines = QString::fromStdString(info.FormatCuisines());
+  m_phone = QString::fromStdString(std::string(info.GetMetadata(feature::Metadata::EType::FMD_PHONE_NUMBER)));
+  m_operator = QString::fromStdString(std::string(info.GetMetadata(feature::Metadata::EType::FMD_OPERATOR)));
+  m_wifi = info.HasWifi();
+  m_website = QString::fromStdString(std::string(info.GetMetadata(feature::Metadata::EType::FMD_WEBSITE)));
+  m_email = QString::fromStdString(std::string(info.GetMetadata(feature::Metadata::EType::FMD_EMAIL)));
 
-  bool developerMode = false;
-  settings::TryGet(settings::kDeveloperMode, developerMode);
+  auto addSocialNetworkWidget = [&info](QString & member, feature::Metadata::EType const eType)
+  {
+    if (auto item = info.GetMetadata(eType); !item.empty())
+      member = QString::fromStdString("<a href='" + osm::socialContactToURL(eType, std::string(item)) + "'>" +
+                                      std::string(item) + "</a>");
+    else
+      member.clear();
+  };
+  addSocialNetworkWidget(m_facebook, feature::Metadata::EType::FMD_CONTACT_FACEBOOK);
+  addSocialNetworkWidget(m_instagram, feature::Metadata::EType::FMD_CONTACT_INSTAGRAM);
+  addSocialNetworkWidget(m_twitter, feature::Metadata::EType::FMD_CONTACT_TWITTER);
+  addSocialNetworkWidget(m_vk, feature::Metadata::EType::FMD_CONTACT_VK);
+  addSocialNetworkWidget(m_line, feature::Metadata::EType::FMD_CONTACT_LINE);
 
-  QWidget * widget = developerMode ? static_cast<QWidget *>(new PlacePageDialogDeveloper(dock, m_pDrawWidget, info))
-                                   : static_cast<QWidget *>(new PlacePageDialogUser(dock, m_pDrawWidget, info));
+  m_level = QString::fromStdString(std::string(info.GetMetadata(feature::Metadata::EType::FMD_LEVEL)));
+  m_atm = info.HasAtm();
 
-  QString title = Tr("placepage_title");
-  if (info.IsBookmark())
-    title = developerMode ? Tr("bookmark_title_with_type").arg(title) : Tr("placepage_bookmarked_title");
-  else if (info.IsTrack())
-    title = Tr("track_title_with_type").arg(title);
-  dock->setWindowTitle(title);
+  m2::PointD const mercator = info.GetMercator();
+  m_fromAction->disconnect();
+  QObject::connect(m_fromAction, &QAction::triggered,
+                   [this, mercator] { m_pDrawWidget->RoutePointFromPlace(RouteMarkType::Start, mercator); });
+  m_stopAction->disconnect();
+  QObject::connect(m_stopAction, &QAction::triggered,
+                   [this, mercator] { m_pDrawWidget->RoutePointFromPlace(RouteMarkType::Intermediate, mercator); });
+  m_toAction->disconnect();
+  QObject::connect(m_toAction, &QAction::triggered,
+                   [this, mercator] { m_pDrawWidget->RoutePointFromPlace(RouteMarkType::Finish, mercator); });
 
-  // setWidget takes ownership and deletes the previous widget.
-  dock->setWidget(widget);
-  dock->show();
-  dock->raise();
+  if (info.IsTrack())
+  {
+    kml::TrackId const trackId = info.GetTrackId();
+    m_alongAction->disconnect();
+    QObject::connect(m_alongAction, &QAction::triggered, [this, trackId] { m_pDrawWidget->RouteAlongTrack(trackId); });
+    m_alongAction->setVisible(true);
+  }
+  else
+  {
+    m_alongAction->setVisible(false);
+  }
+
+  if (info.ShouldShowEditPlace())
+  {
+    m_editAction->disconnect();
+    FeatureID const featureId = info.GetID();
+    QObject::connect(m_editAction, &QAction::triggered, [this, featureId] { m_pDrawWidget->EditPlace(featureId); });
+    m_editAction->setVisible(true);
+  }
+  else
+  {
+    m_editAction->setVisible(false);
+  }
+
+  emit infoChanged();
+
+  if (width() > height())
+  {
+    QDockWidget * dock = m_Docks[kPlacePageDock];
+
+    bool developerMode = false;
+    settings::TryGet(settings::kDeveloperMode, developerMode);
+
+    QWidget * widget =
+        developerMode
+            ? static_cast<QWidget *>(new PlacePageDialogDeveloper(
+                  dock, m_pDrawWidget, info, {m_fromAction, m_stopAction, m_toAction, m_alongAction, m_editAction}))
+            : static_cast<QWidget *>(new PlacePageDialogUser(
+                  dock, m_pDrawWidget, info, {m_fromAction, m_stopAction, m_toAction, m_alongAction, m_editAction}));
+
+    QString title = Tr("placepage_title");
+    if (info.IsBookmark())
+      title = developerMode ? Tr("bookmark_title_with_type").arg(title) : Tr("placepage_bookmarked_title");
+    else if (info.IsTrack())
+      title = Tr("track_title_with_type").arg(title);
+    dock->setWindowTitle(title);
+
+    // setWidget takes ownership and deletes the previous widget.
+    dock->setWidget(widget);
+    dock->show();
+    dock->raise();
+  }
 }
 
 void MainWindow::HidePlacePage()
@@ -874,6 +1021,7 @@ void MainWindow::CreatePanelImpl(size_t i, Qt::DockWidgetArea area, QString cons
 void MainWindow::closeEvent(QCloseEvent * e)
 {
   m_pDrawWidget->PrepareShutdown();
+  settings::Set("geometry", saveGeometry().toStdString());
   e->accept();
 }
 
