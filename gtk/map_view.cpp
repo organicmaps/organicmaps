@@ -7,6 +7,7 @@
 #include "drape_frontend/gui/skin.hpp"
 #include "drape_frontend/visual_params.hpp"
 
+#include "base/assert.hpp"
 #include "base/logging.hpp"
 
 #include <cmath>
@@ -17,7 +18,7 @@ namespace
 {
 char const * kVertexShader = R"(#version 300 es
 in vec4 a_position;
-out vec2 v_uv;
+out highp vec2 v_uv;
 void main()
 {
   gl_Position = vec4(a_position.xy, 0.0, 1.0);
@@ -27,7 +28,7 @@ void main()
 
 char const * kFragmentShader = R"(#version 300 es
 precision mediump float;
-in vec2 v_uv;
+in highp vec2 v_uv;
 uniform sampler2D u_sampler;
 out vec4 v_color;
 void main()
@@ -47,7 +48,7 @@ GLuint CompileShader(GLenum type, char const * src)
   {
     char log[1024] = {};
     glGetShaderInfoLog(shader, sizeof(log), nullptr, log);
-    LOG(LERROR, ("Blit shader compilation failed:", log));
+    CHECK(false, ("Blit shader compilation failed:", log));
   }
   return shader;
 }
@@ -183,6 +184,14 @@ void MapView::BuildBlitProgram()
   glAttachShader(m_program, fs);
   glBindAttribLocation(m_program, 0, "a_position");
   glLinkProgram(m_program);
+  GLint linked = 0;
+  glGetProgramiv(m_program, GL_LINK_STATUS, &linked);
+  if (!linked)
+  {
+    char log[1024] = {};
+    glGetProgramInfoLog(m_program, sizeof(log), nullptr, log);
+    CHECK(false, ("Blit program linking failed:", log));
+  }
   glDeleteShader(vs);
   glDeleteShader(fs);
   m_samplerLoc = glGetUniformLocation(m_program, "u_sampler");
@@ -218,7 +227,7 @@ void MapView::OnResize(int w, int h)
   }
   auto & fw = GetFramework();
   // E.g. the window moved to a monitor with another scale. The tolerance ignores pixel rounding:
-  // the engine reloads its resources on every change. Its drag threshold keeps the initial scale.
+  // the engine reloads its resources on every change.
   if (std::abs(m_scale - oldScale) > 0.01)
   {
     LOG(LINFO, ("Visual scale changed from", oldScale, "to", m_scale));
@@ -260,7 +269,6 @@ void MapView::CreateEngine(int w, int h)
   auto & fw = GetFramework();
   LOG(LINFO, ("Creating drape engine", w, "x", h, "visual scale", m_scale));
   fw.CreateDrapeEngine(make_ref(m_factory.get()), std::move(p));
-  fw.EnterForeground();
   m_engineCreated = true;
   UpdateWidgetLayout();
 
@@ -268,9 +276,9 @@ void MapView::CreateEngine(int w, int h)
     m_onEngineCreated();
 }
 
-void MapView::SetInsets(int top, int bottom, int left, int right)
+void MapView::SetBottomInset(int bottom)
 {
-  m_insets = {top, bottom, left, right};
+  m_bottomInset = bottom;
   UpdateWidgetLayout();
 }
 
@@ -280,18 +288,17 @@ void MapView::UpdateWidgetLayout()
     return;
   double const s = m_scale;
   double const margin = 12 * s;
-  double const top = m_insets[0] * s;
-  double const bottom = m_insets[1] * s;
+  double const bottom = m_bottomInset * s;
 
   gui::TWidgetsLayoutInfo layout;
-  // Ruler: bottom-left above the bottom panels; compass: top-right below the top ones.
+  // Ruler: bottom-left above attribution; compass: top-right.
   layout[gui::WIDGET_RULER] = m2::PointD(margin, m_pixelHeight - bottom - margin);
-  layout[gui::WIDGET_COMPASS] = m2::PointD(m_pixelWidth - margin - 24 * s, top + margin + 24 * s);
+  layout[gui::WIDGET_COMPASS] = m2::PointD(m_pixelWidth - margin - 24 * s, margin + 24 * s);
   auto & fw = GetFramework();
   fw.SetWidgetLayout(std::move(layout));
 
   // The part of the map not covered by panels: used to centre the position arrow and selections.
-  fw.SetVisibleViewport(m2::RectD(0, top, m_pixelWidth, std::max(top + 1, m_pixelHeight - bottom)));
+  fw.SetVisibleViewport(m2::RectD(0, 0, m_pixelWidth, std::max(1.0, m_pixelHeight - bottom)));
 }
 
 gboolean MapView::OnRender(GdkGLContext *)
@@ -326,6 +333,9 @@ gboolean MapView::OnRender(GdkGLContext *)
 void MapView::QueueRender()
 {
   // Called on the render thread when a frame is ready.
+#ifdef OM_GTK_WINDOW_TESTS
+  ++m_presentedFrames;
+#endif
   if (m_renderQueued.exchange(true))
     return;
   g_idle_add_full(G_PRIORITY_DEFAULT, [](gpointer data) -> gboolean

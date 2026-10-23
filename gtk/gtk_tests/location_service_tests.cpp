@@ -1,272 +1,13 @@
 #include "testing/testing.hpp"
 
-#include "gtk/location.hpp"
+#include "gtk/gtk_tests/fake_location_services.hpp"
 
-#include "base/assert.hpp"
-
-#include <gio/gio.h>
-
-#include <algorithm>
-#include <string>
-#include <vector>
+#include <cmath>
+#include <limits>
 
 namespace location_service_tests
 {
-char constexpr kXml[] = R"xml(
-<node>
-  <interface name="org.freedesktop.GeoClue2.Manager">
-    <method name="GetClient"><arg name="client" type="o" direction="out"/></method>
-    <method name="CreateClient"><arg name="client" type="o" direction="out"/></method>
-    <method name="DeleteClient"><arg name="client" type="o" direction="in"/></method>
-    <property name="InUse" type="b" access="read"/>
-    <property name="AvailableAccuracyLevel" type="u" access="read"/>
-  </interface>
-  <interface name="org.freedesktop.GeoClue2.Client">
-    <method name="Start"/>
-    <method name="Stop"/>
-    <property name="Location" type="o" access="read"/>
-    <property name="DistanceThreshold" type="u" access="readwrite"/>
-    <property name="TimeThreshold" type="u" access="readwrite"/>
-    <property name="DesktopId" type="s" access="readwrite"/>
-    <property name="RequestedAccuracyLevel" type="u" access="readwrite"/>
-    <property name="Active" type="b" access="read"/>
-    <signal name="LocationUpdated"><arg name="old" type="o"/><arg name="new" type="o"/></signal>
-  </interface>
-  <interface name="org.freedesktop.GeoClue2.Location">
-    <property name="Latitude" type="d" access="read"/>
-    <property name="Longitude" type="d" access="read"/>
-    <property name="Accuracy" type="d" access="read"/>
-    <property name="Altitude" type="d" access="read"/>
-    <property name="Speed" type="d" access="read"/>
-    <property name="Heading" type="d" access="read"/>
-    <property name="Description" type="s" access="read"/>
-    <property name="Timestamp" type="(tt)" access="read"/>
-  </interface>
-  <interface name="net.hadess.SensorProxy.Compass">
-    <method name="ClaimCompass"/>
-    <method name="ReleaseCompass"/>
-    <property name="HasCompass" type="b" access="read"/>
-    <property name="CompassHeading" type="d" access="read"/>
-  </interface>
-</node>)xml";
-
-char constexpr kClientPath[] = "/org/freedesktop/GeoClue2/Client/1";
-char constexpr kLocationPath[] = "/org/freedesktop/GeoClue2/Client/1/Location/1";
-char constexpr kCompassPath[] = "/net/hadess/SensorProxy/Compass";
-
-// Runs the default main context, which serves both the services and the tested code.
-template <typename Pred>
-bool RunUntil(Pred && pred)
-{
-  gint64 const deadline = g_get_monotonic_time() + 5 * G_USEC_PER_SEC;
-  guint const tick = g_timeout_add(10, [](gpointer) -> gboolean { return G_SOURCE_CONTINUE; }, nullptr);
-  while (!pred() && g_get_monotonic_time() < deadline)
-    g_main_context_iteration(nullptr, TRUE);
-  g_source_remove(tick);
-  return pred();
-}
-
-void RunFor(int ms)
-{
-  gint64 const end = g_get_monotonic_time() + ms * 1000;
-  RunUntil([end]() { return g_get_monotonic_time() >= end; });
-}
-
-// GeoClue and iio-sensor-proxy on a private system bus. Calls that create a GeoClue client or claim
-// the compass may be held to complete after the service has been stopped.
-class FakeServices
-{
-public:
-  FakeServices()
-  {
-    m_bus = g_test_dbus_new(G_TEST_DBUS_NONE);
-    g_test_dbus_up(m_bus);
-    char const * address = g_test_dbus_get_bus_address(m_bus);
-    CHECK(address, ("dbus-daemon is required"));
-    g_setenv("DBUS_SYSTEM_BUS_ADDRESS", address, TRUE);
-    // The tested code uses this singleton. Closing the test bus must not exit the process.
-    m_system = g_bus_get_sync(G_BUS_TYPE_SYSTEM, nullptr, nullptr);
-    g_dbus_connection_set_exit_on_close(m_system, FALSE);
-
-    m_conn =
-        g_dbus_connection_new_for_address_sync(address,
-                                               GDBusConnectionFlags(G_DBUS_CONNECTION_FLAGS_AUTHENTICATION_CLIENT |
-                                                                    G_DBUS_CONNECTION_FLAGS_MESSAGE_BUS_CONNECTION),
-                                               nullptr, nullptr, nullptr);
-    m_node = g_dbus_node_info_new_for_xml(kXml, nullptr);
-    Register("/org/freedesktop/GeoClue2/Manager", "org.freedesktop.GeoClue2.Manager");
-    Register(kClientPath, "org.freedesktop.GeoClue2.Client");
-    Register(kLocationPath, "org.freedesktop.GeoClue2.Location");
-    Register(kCompassPath, "net.hadess.SensorProxy.Compass");
-    for (char const * name : {"org.freedesktop.GeoClue2", "net.hadess.SensorProxy"})
-    {
-      GVariant * reply = g_dbus_connection_call_sync(
-          m_conn, "org.freedesktop.DBus", "/org/freedesktop/DBus", "org.freedesktop.DBus", "RequestName",
-          g_variant_new("(su)", name, 4u /* DO_NOT_QUEUE */), nullptr, G_DBUS_CALL_FLAGS_NONE, -1, nullptr, nullptr);
-      g_variant_unref(reply);
-    }
-  }
-
-  ~FakeServices()
-  {
-    Answer();
-    for (guint id : m_registrations)
-      g_dbus_connection_unregister_object(m_conn, id);
-    g_dbus_node_info_unref(m_node);
-    g_object_unref(m_conn);
-    g_dbus_connection_close_sync(m_system, nullptr, nullptr);
-    g_object_unref(m_system);
-    g_test_dbus_down(m_bus);
-    g_object_unref(m_bus);
-    g_unsetenv("DBUS_SYSTEM_BUS_ADDRESS");
-  }
-
-  void Hold(bool geoClue, bool compass)
-  {
-    m_holdGeoClue = geoClue;
-    m_holdCompass = compass;
-  }
-
-  // Answers the held calls, also those the caller has cancelled.
-  void Answer()
-  {
-    Hold(false, false);
-    for (auto * invocation : m_held)
-      Reply(invocation);
-    m_held.clear();
-  }
-
-  // Forgets the calls and the published values of the previous case.
-  void Reset()
-  {
-    m_calls.clear();
-    m_hasLocation = false;
-    m_heading = -1;
-  }
-
-  size_t HeldCount() const { return m_held.size(); }
-  std::vector<std::string> const & Calls() const { return m_calls; }
-  int Count(std::string const & method) const { return static_cast<int>(std::ranges::count(m_calls, method)); }
-  // The position of the first call, or the number of calls.
-  int Index(std::string const & method) const
-  {
-    return static_cast<int>(std::ranges::find(m_calls, method) - m_calls.begin());
-  }
-
-  void PublishFix()
-  {
-    m_hasLocation = true;
-    g_dbus_connection_emit_signal(m_conn, nullptr, kClientPath, "org.freedesktop.GeoClue2.Client", "LocationUpdated",
-                                  g_variant_new("(oo)", "/", kLocationPath), nullptr);
-  }
-
-  void SetHeading(double degrees)
-  {
-    m_heading = degrees;
-    GVariantBuilder changed;
-    g_variant_builder_init(&changed, G_VARIANT_TYPE("a{sv}"));
-    g_variant_builder_add(&changed, "{sv}", "CompassHeading", g_variant_new_double(degrees));
-    g_dbus_connection_emit_signal(m_conn, nullptr, kCompassPath, "org.freedesktop.DBus.Properties", "PropertiesChanged",
-                                  g_variant_new("(sa{sv}as)", "net.hadess.SensorProxy.Compass", &changed, nullptr),
-                                  nullptr);
-  }
-
-private:
-  void Register(char const * path, char const * iface)
-  {
-    static GDBusInterfaceVTable const vtable = {
-        &FakeServices::OnMethodCall, &FakeServices::OnGetProperty, &FakeServices::OnSetProperty, {}};
-    m_registrations.push_back(g_dbus_connection_register_object(
-        m_conn, path, g_dbus_node_info_lookup_interface(m_node, iface), &vtable, this, nullptr, nullptr));
-  }
-
-  static void Reply(GDBusMethodInvocation * invocation)
-  {
-    std::string const method = g_dbus_method_invocation_get_method_name(invocation);
-    if (method == "GetClient" || method == "CreateClient")
-      g_dbus_method_invocation_return_value(invocation, g_variant_new("(o)", kClientPath));
-    else
-      g_dbus_method_invocation_return_value(invocation, nullptr);
-  }
-
-  static void OnMethodCall(GDBusConnection *, char const *, char const *, char const *, char const * method, GVariant *,
-                           GDBusMethodInvocation * invocation, gpointer data)
-  {
-    auto * self = static_cast<FakeServices *>(data);
-    std::string const name = method;
-    self->m_calls.push_back(name);
-    bool const createsClient = name == "GetClient" || name == "CreateClient";
-    if ((createsClient && self->m_holdGeoClue) || (name == "ClaimCompass" && self->m_holdCompass))
-      self->m_held.push_back(invocation);
-    else
-      Reply(invocation);
-  }
-
-  static GVariant * OnGetProperty(GDBusConnection *, char const *, char const *, char const *, char const * prop,
-                                  GError **, gpointer data)
-  {
-    auto const * self = static_cast<FakeServices *>(data);
-    std::string const name = prop;
-    if (name == "InUse" || name == "Active" || name == "HasCompass")
-      return g_variant_new_boolean(TRUE);
-    if (name == "AvailableAccuracyLevel")
-      return g_variant_new_uint32(8);
-    if (name == "DistanceThreshold" || name == "TimeThreshold" || name == "RequestedAccuracyLevel")
-      return g_variant_new_uint32(0);
-    if (name == "DesktopId" || name == "Description")
-      return g_variant_new_string("");
-    if (name == "Location")
-      return g_variant_new_object_path(self->m_hasLocation ? kLocationPath : "/");
-    if (name == "Timestamp")
-    {
-      gint64 const now = g_get_real_time();
-      return g_variant_new("(tt)", guint64(now / G_USEC_PER_SEC), guint64(now % G_USEC_PER_SEC));
-    }
-    if (name == "Latitude")
-      return g_variant_new_double(52.52);
-    if (name == "Longitude")
-      return g_variant_new_double(13.40);
-    if (name == "Accuracy")
-      return g_variant_new_double(10);
-    if (name == "Altitude")
-      return g_variant_new_double(-G_MAXDOUBLE);
-    if (name == "CompassHeading")
-      return g_variant_new_double(self->m_heading);
-    return g_variant_new_double(-1);  // Speed, Heading
-  }
-
-  static gboolean OnSetProperty(GDBusConnection *, char const *, char const *, char const *, char const *, GVariant *,
-                                GError **, gpointer)
-  {
-    return TRUE;
-  }
-
-  GTestDBus * m_bus = nullptr;
-  GDBusConnection * m_system = nullptr;
-  GDBusConnection * m_conn = nullptr;
-  GDBusNodeInfo * m_node = nullptr;
-  std::vector<guint> m_registrations;
-  std::vector<GDBusMethodInvocation *> m_held;
-  std::vector<std::string> m_calls;
-  bool m_holdGeoClue = false;
-  bool m_holdCompass = false;
-  bool m_hasLocation = false;
-  double m_heading = -1;
-};
-
-struct Counters
-{
-  int m_locations = 0;
-  int m_errors = 0;
-  int m_headings = 0;
-};
-
-void Watch(gtk::LocationService & service, Counters & counters)
-{
-  service.m_onLocation = [&counters](location::GpsInfo const &) { ++counters.m_locations; };
-  service.m_onError = [&counters](location::TLocationError) { ++counters.m_errors; };
-  service.m_onCompass = [&counters](double) { ++counters.m_headings; };
-}
+using namespace gtk_test_support;
 
 void TestRestartIgnoresOldRequests(FakeServices & services)
 {
@@ -339,14 +80,374 @@ void TestStopDuringCompassClaim(FakeServices & services)
   TEST_EQUAL(counters.m_locations, 0, ());
 }
 
+void TestStopBeforeFirstFix(FakeServices & services)
+{
+  services.Reset();
+  Counters counters;
+  gtk::LocationService service;
+  Watch(service, counters);
+  service.Start();
+  service.Start();
+  TEST(RunUntil([&]() { return services.Count("Start") == 1 && services.Count("ClaimCompass") == 1; }),
+       (services.Calls()));
+  service.Stop();
+  service.Stop();
+  services.PublishFix();
+  services.SetHeading(90);
+  RunFor(200);
+  TEST(!service.IsStarted(), ());
+  TEST_EQUAL(counters.m_locations + counters.m_errors + counters.m_headings, 0, ());
+  TEST_EQUAL(services.Count("ReleaseCompass"), 1, ());
+}
+
+void TestClientDeactivationAndRetry(FakeServices & services)
+{
+  services.Reset();
+  services.SetHeading(90, false /* notify */);
+  Counters counters;
+  gtk::LocationService service;
+  Watch(service, counters);
+  service.Start();
+  TEST(RunUntil([&]() { return services.Count("Start") == 1 && counters.m_headings == 1; }), (services.Calls()));
+  services.PublishFix();
+  TEST(RunUntil([&]() { return counters.m_locations == 1; }), ());
+  services.SetActive(false);
+  TEST(RunUntil([&]() { return counters.m_errors == 1 && services.Count("ReleaseCompass") == 1; }), ());
+  TEST(!service.IsStarted(), ());
+  TEST_EQUAL(counters.m_lastError, location::EGPSIsOff, ());
+  services.PublishFix();
+  services.SetHeading(180);
+  RunFor(100);
+  TEST_EQUAL(counters.m_locations, 1, ());
+  TEST_EQUAL(counters.m_headings, 1, ());
+  TEST_EQUAL(counters.m_errors, 1, ());
+
+  services.SetActive(true);
+  service.Start();
+  TEST(
+      RunUntil([&]() { return services.Count("Start") == 2 && counters.m_locations == 2 && counters.m_headings == 2; }),
+      (services.Calls()));
+  TEST(service.IsStarted(), ());
+  TEST_EQUAL(counters.m_errors, 1, ());
+  service.Stop();
+  services.SetActive(false);
+  RunFor(100);
+  TEST_EQUAL(counters.m_errors, 1, ());
+}
+
+void TestInitialCompassHeading(FakeServices & services)
+{
+  services.Reset();
+  services.SetHeading(90, false /* notify */);
+  Counters counters;
+  gtk::LocationService service;
+  Watch(service, counters);
+  service.Start();
+  TEST(RunUntil([&]() { return counters.m_headings == 1; }), (services.Calls()));
+  TEST_ALMOST_EQUAL_ABS(counters.m_lastHeading, M_PI / 2, 1e-12, ());
+  services.SetHasCompass(false);
+  RunFor(50);
+  services.SetHasCompass(true);
+  RunFor(50);
+  TEST_EQUAL(counters.m_headings, 1, ("Unrelated properties must not replay the cached heading"));
+  services.SetHeading(0);
+  TEST(RunUntil([&]() { return counters.m_headings == 2; }), ());
+  TEST_EQUAL(counters.m_lastHeading, 0.0, ());
+  services.SetHeading(-1);
+  RunFor(50);
+  services.SetHeading(std::numeric_limits<double>::quiet_NaN());
+  RunFor(50);
+  TEST_EQUAL(counters.m_headings, 2, ());
+  service.Stop();
+  RunFor(100);
+}
+
+void TestPermissionFailureAndRetry(FakeServices & services)
+{
+  services.Reset();
+  services.DenyLocation(true);
+  Counters counters;
+  gtk::LocationService service;
+  Watch(service, counters);
+  service.Start();
+  TEST(RunUntil([&]() { return counters.m_errors == 1; }), (services.Calls()));
+  TEST_EQUAL(counters.m_lastError, location::EDenied, ());
+  TEST(!service.IsStarted(), ());
+  services.DenyLocation(false);
+  service.Start();
+  TEST(RunUntil([&]() { return services.Count("Start") == 2; }), (services.Calls()));
+  services.PublishFix();
+  TEST(RunUntil([&]() { return counters.m_locations == 1; }), ());
+  service.Stop();
+  RunFor(100);
+}
+
+void TestCompassFailureKeepsLocation(FakeServices & services)
+{
+  services.Reset();
+  services.FailCompassClaim(true);
+  services.SetHeading(90, false /* notify */);
+  Counters counters;
+  gtk::LocationService service;
+  Watch(service, counters);
+  service.Start();
+  TEST(RunUntil([&]() { return services.Count("Start") == 1 && services.Count("ClaimCompass") == 1; }),
+       (services.Calls()));
+  services.PublishFix();
+  TEST(RunUntil([&]() { return counters.m_locations == 1; }), ());
+  RunFor(100);
+  TEST(service.IsStarted(), ());
+  TEST_EQUAL(counters.m_headings, 0, ());
+  TEST_EQUAL(counters.m_errors, 0, ());
+  service.Stop();
+  RunFor(100);
+}
+
+void TestDeactivationBeforeFirstFix(FakeServices & services)
+{
+  services.Reset();
+  Counters counters;
+  gtk::LocationService service;
+  Watch(service, counters);
+  service.Start();
+  TEST(RunUntil([&]() { return services.Count("Start") == 1 && services.Count("ClaimCompass") == 1; }),
+       (services.Calls()));
+  services.SetActive(false);
+  TEST(RunUntil([&]() { return counters.m_errors == 1 && services.Count("ReleaseCompass") == 1; }), (services.Calls()));
+  TEST(!service.IsStarted(), ());
+  TEST_EQUAL(counters.m_lastError, location::EGPSIsOff, ());
+  services.PublishFix();
+  services.SetHeading(90);
+  RunFor(100);
+  TEST_EQUAL(counters.m_locations + counters.m_headings, 0, ());
+  TEST_EQUAL(counters.m_errors, 1, ());
+  service.Start();
+  TEST(RunUntil([&]() { return counters.m_locations == 1 && counters.m_headings == 1; }), (services.Calls()));
+  TEST(service.IsStarted(), ());
+  service.Stop();
+  RunFor(100);
+}
+
+void TestInactiveDuringStart(FakeServices & services)
+{
+  services.Reset();
+  services.HoldStart(true);
+  Counters counters;
+  gtk::LocationService service;
+  Watch(service, counters);
+  service.Start();
+  TEST(RunUntil([&]() { return services.HeldCount() == 1; }), (services.Calls()));
+  services.SetActive(false);
+  RunFor(100);
+  TEST(service.IsStarted(), ());
+  TEST_EQUAL(counters.m_errors, 0, ());
+  // A successful Start whose resulting Active is false must be detected without another notify.
+  services.DeactivateOnStart(true);
+  services.Answer();
+  TEST(RunUntil([&]() { return counters.m_errors == 1; }), (services.Calls()));
+  TEST_EQUAL(counters.m_lastError, location::EGPSIsOff, ());
+  TEST(!service.IsStarted(), ());
+  RunFor(100);
+}
+
+void TestCompassTimeoutKeepsLocation(FakeServices & services)
+{
+  services.Reset();
+  services.Hold(false /* geoClue */, true /* compass */);
+  services.SetHeading(90, false /* notify */);
+  Counters counters;
+  gtk::LocationService service;
+  Watch(service, counters);
+  service.Start();
+  TEST(RunUntil([&]() { return services.HeldCount() == 1 && services.Count("Start") == 1; }), (services.Calls()));
+  services.PublishFix();
+  TEST(RunUntil([&]() { return counters.m_locations == 1; }), ());
+  // Exercise the real GIO default timeout, after the server has already accepted the claim.
+  TEST(RunUntil([&]() { return services.Count("ReleaseCompass") == 1; }, 30000), (services.Calls()));
+  TEST(service.IsStarted(), ());
+  TEST_EQUAL(counters.m_errors, 0, ());
+  services.Answer();
+  services.SetHeading(180);
+  services.PublishFix();
+  TEST(RunUntil([&]() { return counters.m_locations == 2; }), ());
+  RunFor(100);
+  TEST_EQUAL(counters.m_headings, 0, ());
+  service.Stop();
+  RunFor(100);
+  TEST_EQUAL(services.Count("ReleaseCompass"), 1, ());
+}
+
+void TestCompassHotplugAndRestart(FakeServices & services)
+{
+  services.Reset();
+  services.SetHasCompass(false);
+  Counters counters;
+  gtk::LocationService service;
+  Watch(service, counters);
+  service.Start();
+  TEST(RunUntil([&]() { return services.Count("ClaimCompass") == 1 && services.Count("Start") == 1; }),
+       (services.Calls()));
+  services.SetHasCompass(true);
+  services.SetHeading(90);
+  TEST(RunUntil([&]() { return counters.m_headings == 1; }), ());
+  services.SetCompassServiceAvailable(false);
+  RunFor(100);
+  services.SetHeading(180, false /* notify */);
+  services.SetCompassServiceAvailable(true);
+  TEST(RunUntil([&]() { return services.Count("ClaimCompass") == 2 && counters.m_headings == 2; }), (services.Calls()));
+  TEST_ALMOST_EQUAL_ABS(counters.m_lastHeading, M_PI, 1e-12, ());
+  services.PublishFix();
+  TEST(RunUntil([&]() { return counters.m_locations == 1; }), ());
+  TEST_EQUAL(counters.m_errors, 0, ());
+  TEST_EQUAL(services.Count("Start"), 1, ());
+  service.Stop();
+  TEST(RunUntil([&]() { return services.Count("ReleaseCompass") == 1; }), (services.Calls()));
+  RunFor(100);
+}
+
+void TestCompassRestartDuringClaim(FakeServices & services)
+{
+  services.Reset();
+  services.Hold(false /* geoClue */, true /* compass */);
+  Counters counters;
+  gtk::LocationService service;
+  Watch(service, counters);
+  service.Start();
+  TEST(RunUntil([&]() { return services.HeldCount() == 1; }), (services.Calls()));
+  services.SetCompassServiceAvailable(false);
+  RunFor(100);
+  services.SetHeading(90, false /* notify */);
+  services.SetCompassServiceAvailable(true);
+  TEST(RunUntil([&]() { return services.HeldCount() == 2; }), (services.Calls()));
+  // Both owners answer; only the current claim may deliver the cached heading.
+  services.Answer();
+  TEST(RunUntil([&]() { return counters.m_headings == 1; }), (services.Calls()));
+  RunFor(100);
+  TEST_EQUAL(counters.m_headings, 1, ());
+  TEST_EQUAL(counters.m_errors, 0, ());
+  service.Stop();
+  TEST(RunUntil([&]() { return services.Count("ReleaseCompass") == 1; }), (services.Calls()));
+  RunFor(100);
+}
+
+void TestStopDuringClientStart(FakeServices & services)
+{
+  services.Reset();
+  services.HoldStart(true);
+  Counters counters;
+  {
+    gtk::LocationService service;
+    Watch(service, counters);
+    service.Start();
+    TEST(RunUntil([&]() { return services.HeldCount() == 1; }), (services.Calls()));
+  }
+  services.Answer();
+  services.PublishFix();
+  services.SetHeading(90);
+  RunFor(100);
+  TEST_EQUAL(counters.m_locations + counters.m_headings + counters.m_errors, 0, ());
+  TEST_EQUAL(services.Count("Stop"), 1, ());
+  TEST_EQUAL(services.Count("DeleteClient"), 1, ());
+}
+
+void TestSupersededLocationRequest(FakeServices & services)
+{
+  services.Reset();
+  Counters counters;
+  gtk::LocationService service;
+  Watch(service, counters);
+  service.Start();
+  TEST(RunUntil([&]() { return services.Count("Start") == 1; }), (services.Calls()));
+  services.HoldLocation(true);
+  services.PublishFix();
+  TEST(RunUntil([&]() { return services.HeldCount() > 0; }), (services.Calls()));
+  services.HoldLocation(false);
+  services.PublishFix(kSecondLocationPath);
+  TEST(RunUntil([&]() { return counters.m_locations == 1; }), (services.Calls()));
+  // The first proxy request completes after the newer position has already been delivered.
+  services.Answer();
+  RunFor(100);
+  TEST_EQUAL(counters.m_locations, 1, ());
+  TEST_EQUAL(counters.m_errors, 0, ());
+  service.Stop();
+  RunFor(100);
+}
+
+void TestDestroyWithPendingLocation(FakeServices & services)
+{
+  services.Reset();
+  Counters counters;
+  {
+    gtk::LocationService service;
+    Watch(service, counters);
+    service.Start();
+    TEST(RunUntil([&]() { return services.Count("Start") == 1; }), (services.Calls()));
+    services.HoldLocation(true);
+    services.PublishFix();
+    TEST(RunUntil([&]() { return services.HeldCount() > 0; }), (services.Calls()));
+  }
+  services.Answer();
+  RunFor(100);
+  TEST_EQUAL(counters.m_locations + counters.m_headings + counters.m_errors, 0, ());
+}
+
+void TestPortalLifecycle(FakeServices & services)
+{
+  Counters counters;
+  gtk::LocationService service;
+  Watch(service, counters);
+  service.Start();
+  TEST(RunUntil([&]() { return services.Count("Start") == 1; }), (services.Calls()));
+  services.PublishPortalFix();
+  TEST(RunUntil([&]() { return counters.m_locations == 1; }), (services.Calls()));
+  services.PublishPortalFix();
+  TEST(RunUntil([&]() { return counters.m_locations == 2; }), ());
+  TEST_EQUAL(services.Count("CreateClient"), 0, ());
+  TEST_EQUAL(services.Count("GetClient"), 0, ());
+  service.Stop();
+  TEST(RunUntil([&]() { return services.Count("Close") == 1; }), (services.Calls()));
+  services.PublishPortalFix();
+  RunFor(100);
+  TEST_EQUAL(counters.m_locations, 2, ());
+  TEST_EQUAL(counters.m_errors, 0, ());
+
+  service.Start();
+  TEST(RunUntil([&]() { return services.Count("Start") == 2; }), (services.Calls()));
+  service.Stop();
+  TEST(RunUntil([&]() { return services.Count("Close") == 2; }), (services.Calls()));
+  // Cancellation must close the session without waiting for a first fix.
+  services.PublishPortalFix();
+  RunFor(100);
+  TEST_EQUAL(counters.m_locations, 2, ());
+  TEST_EQUAL(counters.m_errors, 0, ());
+}
+
 // Every async request of LocationService may complete after Stop(), the next Start() or the
 // destruction of the service. One bus for all cases: the system bus singleton is created once.
 UNIT_TEST(LocationService_AsyncLifecycle)
 {
   FakeServices services;
+  if (g_strcmp0(g_getenv("GTK_USE_PORTAL"), "1") == 0)
+  {
+    TestPortalLifecycle(services);
+    return;
+  }
   TestRestartIgnoresOldRequests(services);
   TestDestroyWithPendingRequests(services);
   TestStopDuringCompassClaim(services);
+  TestStopBeforeFirstFix(services);
+  TestClientDeactivationAndRetry(services);
+  TestDeactivationBeforeFirstFix(services);
+  TestInactiveDuringStart(services);
+  TestInitialCompassHeading(services);
+  TestPermissionFailureAndRetry(services);
+  TestCompassFailureKeepsLocation(services);
+  TestCompassTimeoutKeepsLocation(services);
+  TestCompassHotplugAndRestart(services);
+  TestCompassRestartDuringClaim(services);
+  TestStopDuringClientStart(services);
+  TestSupersededLocationRequest(services);
+  TestDestroyWithPendingLocation(services);
   // Cancelled calls complete from the main loop.
   RunFor(100);
 }

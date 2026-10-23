@@ -7,6 +7,7 @@
 #include "platform/location.hpp"
 
 #include <memory>
+#include <optional>
 #include <string>
 
 namespace gtk
@@ -25,14 +26,14 @@ public:
   void Shutdown();
   void Toast(std::string const & text);
 
-  void ShowMenu();
-  void StartLocation();
   void ToggleMapControls();
 
 private:
+#ifdef OM_GTK_WINDOW_TESTS
+  friend struct WindowTestAccess;
+#endif
   void BuildUi();
   void BuildMapControls(GtkWidget * overlay);
-  GtkWidget * BuildBottomMenu();
   void QueueMapInsetsUpdate();
   void UpdateMapInsets();
   void LoadCss();
@@ -40,6 +41,8 @@ private:
   void OnMyPositionModeChanged(location::EMyPositionMode mode);
   void SyncNightMode();
   void OnSuspendedChanged();
+  void UpdateRenderingState();
+  void UpdateLocationService(bool retry = false);
 
   AdwApplicationWindow * m_window = nullptr;
   AdwToastOverlay * m_toasts = nullptr;
@@ -50,12 +53,13 @@ private:
   // Map controls.
   GtkWidget * m_rightButtons = nullptr;
   GtkWidget * m_myPositionButton = nullptr;
-  GtkWidget * m_bottomMenu = nullptr;
   GtkWidget * m_mapAttribution = nullptr;
 
   gulong m_darkHandler = 0;
   guint m_insetsIdle = 0;
 
+  std::optional<location::EMyPositionMode> m_positionMode;
+  bool m_locationFailed = false;
   bool m_suspended = false;
   bool m_controlsHidden = false;
   int m_lastBottomInset = -1;

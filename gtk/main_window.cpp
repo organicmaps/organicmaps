@@ -92,7 +92,7 @@ void MainWindow::Shutdown()
   if (m_shutdown)
     return;
   m_shutdown = true;
-  m_location.Stop();
+  UpdateLocationService();
   auto & fw = GetFramework();
   fw.SetMyPositionModeListener({});
   fw.SetPlacePageListeners({}, {}, {}, {});
@@ -124,7 +124,24 @@ void MainWindow::BuildUi()
 
   // Keep the map gestures separate from the standard draggable window header.
   auto * mapToolbar = adw_toolbar_view_new();
-  adw_toolbar_view_add_top_bar(ADW_TOOLBAR_VIEW(mapToolbar), adw_header_bar_new());
+  auto * header = adw_header_bar_new();
+  auto * menu = g_menu_new();
+  g_menu_append(menu, "About Organic Maps", "win.about");
+  auto * menuButton = gtk_menu_button_new();
+  gtk_menu_button_set_icon_name(GTK_MENU_BUTTON(menuButton), "open-menu-symbolic");
+  gtk_menu_button_set_primary(GTK_MENU_BUTTON(menuButton), TRUE);
+  gtk_widget_set_tooltip_text(menuButton, "Main Menu");
+  gtk_accessible_update_property(GTK_ACCESSIBLE(menuButton), GTK_ACCESSIBLE_PROPERTY_LABEL, "Main Menu", -1);
+  gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(menuButton), G_MENU_MODEL(menu));
+  g_object_unref(menu);
+  adw_header_bar_pack_end(ADW_HEADER_BAR(header), menuButton);
+  adw_toolbar_view_add_top_bar(ADW_TOOLBAR_VIEW(mapToolbar), header);
+
+  auto * about = g_simple_action_new("about", nullptr);
+  Connect<void(GSimpleAction *, GVariant *)>(about, "activate",
+                                             [this](GSimpleAction *, GVariant *) { ShowAboutDialog(*this); });
+  g_action_map_add_action(G_ACTION_MAP(m_window), G_ACTION(about));
+  g_object_unref(about);
   adw_toolbar_view_set_content(ADW_TOOLBAR_VIEW(mapToolbar), overlay);
   adw_toast_overlay_set_child(m_toasts, mapToolbar);
 
@@ -168,19 +185,26 @@ void MainWindow::BuildMapControls(GtkWidget * overlay)
   gtk_overlay_add_overlay(GTK_OVERLAY(overlay), m_rightButtons);
 
   // Separate overlays sized to their content: a transparent container spanning the map would take
-  // its input. UpdateMapInsets() stacks them above the bottom menu.
+  // its input. UpdateMapInsets() stacks them above the attribution.
   m_myPositionButton = MakeIconButton(MyPositionIcon(location::PendingPosition), "My Position", "map-button");
   gtk_widget_set_halign(m_myPositionButton, GTK_ALIGN_END);
   gtk_widget_set_valign(m_myPositionButton, GTK_ALIGN_END);
   gtk_widget_set_margin_end(m_myPositionButton, 12);
   OnClicked(m_myPositionButton, [this]()
   {
-    StartLocation();
-    GetFramework().SwitchMyPositionNextMode();
+    if (!m_map->IsEngineCreated() || !m_positionMode)
+      return;
+    if (m_locationFailed && *m_positionMode != location::NotFollowNoPosition)
+      UpdateLocationService(true /* retry */);
+    else
+    {
+      m_locationFailed = false;
+      GetFramework().SwitchMyPositionNextMode();
+    }
   });
   gtk_overlay_add_overlay(GTK_OVERLAY(overlay), m_myPositionButton);
 
-  // Keep map attribution readable and keyboard-accessible, with links to both sources.
+  // Keep the OpenStreetMap copyright link readable and keyboard-accessible.
   m_mapAttribution = gtk_label_new(nullptr);
   gtk_label_set_markup(GTK_LABEL(m_mapAttribution),
                        "© <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors");
@@ -192,12 +216,7 @@ void MainWindow::BuildMapControls(GtkWidget * overlay)
   gtk_widget_add_css_class(m_mapAttribution, "map-attribution");
   gtk_overlay_add_overlay(GTK_OVERLAY(overlay), m_mapAttribution);
 
-  m_bottomMenu = BuildBottomMenu();
-  gtk_widget_set_valign(m_bottomMenu, GTK_ALIGN_END);
-  gtk_overlay_add_overlay(GTK_OVERLAY(overlay), m_bottomMenu);
-
-  // Stack the bottom controls and let the engine know which parts of the map are covered (ruler and
-  // compass placement).
+  // Keep the controls above attribution and the ruler inside the visible map.
   Connect<gboolean(GtkOverlay *, GtkWidget *, GdkRectangle *)>(overlay, "get-child-position",
                                                                [this](GtkOverlay *, GtkWidget *, GdkRectangle *)
   {
@@ -219,41 +238,6 @@ void MainWindow::QueueMapInsetsUpdate()
   }, this);
 }
 
-GtkWidget * MainWindow::BuildBottomMenu()
-{
-  auto * bar = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-  gtk_box_set_homogeneous(GTK_BOX(bar), TRUE);
-  gtk_widget_add_css_class(bar, "bottom-menu");
-
-  struct Item
-  {
-    char const * icon;
-    char const * label;
-    std::function<void()> action;
-  };
-  Item const items[] = {
-      {"open-menu-symbolic", "Menu", [this]() { ShowMenu(); }},
-  };
-  for (auto const & item : items)
-  {
-    auto * button = gtk_button_new();
-    auto * box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 2);
-    auto * image = gtk_image_new_from_icon_name(item.icon);
-    gtk_image_set_icon_size(GTK_IMAGE(image), GTK_ICON_SIZE_LARGE);
-    auto * label = gtk_label_new(item.label);
-    gtk_label_set_ellipsize(GTK_LABEL(label), PANGO_ELLIPSIZE_END);
-    gtk_widget_add_css_class(label, "caption");
-    gtk_box_append(GTK_BOX(box), image);
-    gtk_box_append(GTK_BOX(box), label);
-    gtk_button_set_child(GTK_BUTTON(button), box);
-    gtk_widget_add_css_class(button, "flat");
-    gtk_widget_add_css_class(button, "bottom-menu-button");
-    OnClicked(button, item.action);
-    gtk_box_append(GTK_BOX(bar), button);
-  }
-  return bar;
-}
-
 void MainWindow::UpdateMapInsets()
 {
   if (m_shutdown)
@@ -266,10 +250,7 @@ void MainWindow::UpdateMapInsets()
       return 0;
     return static_cast<int>(std::ceil(bounds.size.height));
   };
-  int const menu = height(m_bottomMenu);
-  int const attributionMargin = menu > 0 ? menu + 12 : 0;
-  int const bottom = attributionMargin + height(m_mapAttribution);
-  gtk_widget_set_margin_bottom(m_mapAttribution, attributionMargin);
+  int const bottom = height(m_mapAttribution);
   gtk_widget_set_margin_bottom(m_myPositionButton, bottom + 12);
 
   // Use the individual button heights so changing the box orientation cannot toggle the layout
@@ -292,7 +273,7 @@ void MainWindow::UpdateMapInsets()
   if (bottom == m_lastBottomInset)
     return;
   m_lastBottomInset = bottom;
-  m_map->SetInsets(0, bottom, 0, 0);
+  m_map->SetBottomInset(bottom);
 }
 
 void MainWindow::SetupFramework()
@@ -307,8 +288,9 @@ void MainWindow::SetupFramework()
   m_location.m_onLocation = [](location::GpsInfo const & info) { GetFramework().OnLocationUpdate(info); };
   m_location.m_onError = [this](location::TLocationError error)
   {
+    m_locationFailed = true;
     GetFramework().OnLocationError(error);
-    if (error == location::EDenied)
+    if (error == location::EDenied || error == location::EGPSIsOff)
       Toast("Location services are disabled");
   };
   m_location.m_onCompass = [](double bearing)
@@ -320,25 +302,29 @@ void MainWindow::SetupFramework()
 
   m_map->m_onEngineCreated = [this]()
   {
-    // Like Android: ask for the location on start, the engine shows "pending" until the first fix.
-    StartLocation();
+    m_suspended = gtk_window_is_suspended(GTK_WINDOW(m_window));
+    UpdateRenderingState();
     // Called from the snapshot of the map.
     QueueMapInsetsUpdate();
   };
 }
 
-void MainWindow::StartLocation()
+void MainWindow::UpdateLocationService(bool retry)
 {
-  if (!m_location.IsStarted())
+  if (retry)
+    m_locationFailed = false;
+  if (!m_shutdown && !m_suspended && m_map->IsEngineCreated() && m_positionMode &&
+      *m_positionMode != location::NotFollowNoPosition && !m_locationFailed)
     m_location.Start();
+  else
+    m_location.Stop();
 }
 
 void MainWindow::ToggleMapControls()
 {
-  // Long tap on the map hides/shows all controls, like on Android.
+  // Long tap hides the map buttons; the header and attribution stay accessible.
   m_controlsHidden = !m_controlsHidden;
   bool const show = !m_controlsHidden;
-  gtk_widget_set_visible(m_bottomMenu, show);
   gtk_widget_set_visible(m_rightButtons, show);
   gtk_widget_set_visible(m_myPositionButton, show);
   QueueMapInsetsUpdate();
@@ -346,6 +332,8 @@ void MainWindow::ToggleMapControls()
 
 void MainWindow::OnMyPositionModeChanged(location::EMyPositionMode mode)
 {
+  m_positionMode = mode;
+  UpdateLocationService();
   gtk_button_set_icon_name(GTK_BUTTON(m_myPositionButton), MyPositionIcon(mode));
   gtk_widget_set_tooltip_text(m_myPositionButton, MyPositionLabel(mode));
   gtk_accessible_update_property(GTK_ACCESSIBLE(m_myPositionButton), GTK_ACCESSIBLE_PROPERTY_LABEL,
@@ -368,51 +356,6 @@ void MainWindow::Toast(std::string const & text)
   adw_toast_overlay_add_toast(m_toasts, toast);
 }
 
-void MainWindow::ShowMenu()
-{
-  auto * dialog = adw_dialog_new();
-  adw_dialog_set_title(dialog, "Menu");
-  adw_dialog_set_content_width(dialog, 420);
-
-  auto * toolbar = adw_toolbar_view_new();
-  adw_toolbar_view_add_top_bar(ADW_TOOLBAR_VIEW(toolbar), adw_header_bar_new());
-
-  auto * list = gtk_list_box_new();
-  gtk_list_box_set_selection_mode(GTK_LIST_BOX(list), GTK_SELECTION_NONE);
-  gtk_widget_add_css_class(list, "boxed-list");
-  SetMarginAll(list, 12);
-
-  auto const addRow = [&](char const * icon, std::string const & title, std::function<void()> action)
-  {
-    auto * row = adw_action_row_new();
-    adw_preferences_row_set_title(ADW_PREFERENCES_ROW(row), title.c_str());
-    adw_action_row_add_prefix(ADW_ACTION_ROW(row), gtk_image_new_from_icon_name(icon));
-    gtk_list_box_row_set_activatable(GTK_LIST_BOX_ROW(row), TRUE);
-    Connect<void(AdwActionRow *)>(row, "activated", [dialog, action](AdwActionRow *)
-    {
-      adw_dialog_close(dialog);
-      action();
-    });
-    gtk_list_box_append(GTK_LIST_BOX(list), row);
-  };
-
-  addRow("help-about-symbolic", "About Organic Maps", [this]() { ShowAboutDialog(*this); });
-
-  auto * content = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-  gtk_box_append(GTK_BOX(content), list);
-  auto * attribution = gtk_label_new(nullptr);
-  gtk_label_set_markup(GTK_LABEL(attribution),
-                       "Map data © <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors");
-  gtk_label_set_wrap(GTK_LABEL(attribution), TRUE);
-  gtk_label_set_justify(GTK_LABEL(attribution), GTK_JUSTIFY_CENTER);
-  gtk_widget_add_css_class(attribution, "caption");
-  SetMarginAll(attribution, 12);
-  gtk_box_append(GTK_BOX(content), attribution);
-  adw_toolbar_view_set_content(ADW_TOOLBAR_VIEW(toolbar), content);
-  adw_dialog_set_child(dialog, toolbar);
-  adw_dialog_present(dialog, GTK_WIDGET(m_window));
-}
-
 void MainWindow::SyncNightMode()
 {
   if (style_utils::GetNightModeSetting() != style_utils::NightMode::System)
@@ -428,12 +371,28 @@ void MainWindow::SyncNightMode()
 void MainWindow::OnSuspendedChanged()
 {
   bool const suspended = gtk_window_is_suspended(GTK_WINDOW(m_window));
-  if (m_shutdown || suspended == m_suspended || !m_map->IsEngineCreated())
+  if (m_shutdown || suspended == m_suspended)
     return;
   m_suspended = suspended;
-  if (suspended)
-    GetFramework().EnterBackground();
+  UpdateRenderingState();
+}
+
+void MainWindow::UpdateRenderingState()
+{
+  if (m_shutdown || !m_map->IsEngineCreated())
+    return;
+  auto & fw = GetFramework();
+  if (m_suspended)
+  {
+    UpdateLocationService();
+    fw.SetRenderingDisabled(false /* destroySurface */);
+    fw.EnterBackground();
+  }
   else
-    GetFramework().EnterForeground();
+  {
+    fw.EnterForeground();
+    fw.SetRenderingEnabled();
+    UpdateLocationService(true /* retry */);
+  }
 }
 }  // namespace gtk
