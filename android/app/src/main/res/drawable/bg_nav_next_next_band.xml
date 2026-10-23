@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bottom band fill: rounded bottom matches the card (needed when portrait draws without clipToOutline). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+       android:shape="rectangle">
+  <solid android:color="@color/on_nav_card_chip"/>
+  <corners
+    android:topLeftRadius="0dp"
+    android:topRightRadius="0dp"
+    android:bottomLeftRadius="@dimen/corner_radius_large"
+    android:bottomRightRadius="@dimen/corner_radius_large"/>
+</shape>

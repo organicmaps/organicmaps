@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <item name="map_buttons_layout_navigation" type="layout">@layout/map_buttons_layout_navigation_side</item>
+</resources>

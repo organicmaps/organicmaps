@@ -20,7 +20,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
-import app.organicmaps.maplayer.MapButtonsViewModel;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.util.InputUtils;
@@ -92,10 +91,8 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     }
   };
   private PlacePageViewModel mPlacePageViewModel;
-  private MapButtonsViewModel mMapButtonsViewModel;
   private ViewGroup mCoordinator;
   private WindowInsetsCompat mCurrentWindowInsets;
-  private int mTopHeaderHeight = 0;
   private View mMapView;
   private final BottomSheetBehavior.BottomSheetCallback mDefaultBottomSheetCallback =
       new BottomSheetBehavior.BottomSheetCallback() {
@@ -139,11 +136,6 @@ public class SearchFragmentController extends Fragment implements SearchFragment
   private int mTouchSlop = 0;
 
   private int mMinCollapsedPeekHeight = 0;
-  private final Observer<Integer> mTopHeaderHeightObserver = height ->
-  {
-    mTopHeaderHeight = height != null ? height : 0;
-    updateExpandedOffset();
-  };
   private final Observer<Integer> mToolbarHeightObserver = new Observer<>() {
     @Override
     public void onChanged(Integer height)
@@ -191,7 +183,6 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     super.onViewCreated(view, savedInstanceState);
     mViewModel = new ViewModelProvider(requireActivity()).get(SearchPageViewModel.class);
     mPlacePageViewModel = new ViewModelProvider(requireActivity()).get(PlacePageViewModel.class);
-    mMapButtonsViewModel = new ViewModelProvider(requireActivity()).get(MapButtonsViewModel.class);
 
     mCoordinator = requireActivity().findViewById(R.id.coordinator);
     mViewportMinHeight = requireActivity().getResources().getDimensionPixelSize(R.dimen.viewport_min_height);
@@ -278,7 +269,6 @@ public class SearchFragmentController extends Fragment implements SearchFragment
     mBottomSheetBehavior.addBottomSheetCallback(mDefaultBottomSheetCallback);
     mViewModel.getSearchEnabled().observe(getViewLifecycleOwner(), mSearchPageEnabledObserver);
     mViewModel.getToolbarHeight().observe(getViewLifecycleOwner(), mToolbarHeightObserver);
-    mMapButtonsViewModel.getTopHeaderHeight().observe(getViewLifecycleOwner(), mTopHeaderHeightObserver);
   }
 
   @Override
@@ -308,9 +298,8 @@ public class SearchFragmentController extends Fragment implements SearchFragment
       int cutoutTop = mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.displayCutout()).top;
       topInset = Math.max(systemBarsTop, cutoutTop);
     }
-    int expandedOffset = topInset + mTopHeaderHeight;
-    mBottomSheetBehavior.setExpandedOffset(expandedOffset);
-    mViewModel.setExpandedOffset(expandedOffset);
+    mBottomSheetBehavior.setExpandedOffset(topInset);
+    mViewModel.setExpandedOffset(topInset);
     // BottomSheetBehavior.setExpandedOffset doesn't request a layout (unlike setPeekHeight), so an
     // already-expanded sheet would stay at the previous offset until the user drags it. Force a
     // layout pass so onLayoutChild re-snaps the sheet to the new offset.
