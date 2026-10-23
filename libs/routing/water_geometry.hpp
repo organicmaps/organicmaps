@@ -59,7 +59,9 @@ struct Path
 };
 
 using CancelledFn = std::function<bool()>;
+// Work-based estimate in [0, 1]; 1 is reported only for a successful path.
+using ProgressFn = std::function<void(double)>;
 
 ResultCode FindPath(Geometry const & geometry, m2::PointD const & start, m2::PointD const & finish, bool projectStart,
-                    CancelledFn const & cancelled, Path & path);
+                    CancelledFn const & cancelled, Path & path, ProgressFn const & progress = {});
 }  // namespace routing::water
