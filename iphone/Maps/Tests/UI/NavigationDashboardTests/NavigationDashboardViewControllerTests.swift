@@ -2,8 +2,8 @@
 import XCTest
 
 final class NavigationDashboardViewControllerTests: XCTestCase {
-  // The route preview is rendered at every position: 5 times a second with the sensor box of the navigation without
-  // GPS. A view takes no touches while it is animated, so the Start button in the menu did nothing.
+  /// The route preview is rendered at every position: 5 times a second with the sensor box of the navigation without
+  /// GPS. A view takes no touches while it is animated, so the Start button in the menu did nothing.
   func test_GivenShownBottomMenu_WhenPositionsCome_ThenItIsNotAnimated() throws {
     let mapViewController = try XCTUnwrap(MapViewController.shared())
     mapViewController.loadViewIfNeeded()
