@@ -81,7 +81,9 @@
 
 - (void)setRouteBuilderProgress:(CGFloat)progress
 {
-  if (self.state == MWMNavigationDashboardStateClosed)
+  // The core also rebuilds a built route by itself, e.g. from a mark of the navigation without GPS, and tells nothing
+  // when that fails. As on Android, Start doesn't wait for it.
+  if (self.state == MWMNavigationDashboardStateClosed || [MWMRouter isRouteRebuildingOnly])
     return;
   [self.navigationDashboardView setRouteBuilderProgress:[MWMRouter type] progress:progress / 100.];
 }

@@ -303,6 +303,10 @@ private:
   {
     if (to == routing::SessionState::RouteBuilding || to == routing::SessionState::RouteRebuilding)
       m_isBuilding = true;
+    // A failed rebuild keeps the route without OnBuilt().
+    else if (from == routing::SessionState::RouteRebuilding &&
+             (to == routing::SessionState::RouteNotStarted || to == routing::SessionState::NoValidRoute))
+      m_isBuilding = false;
     if (!m_driving)
       m_log("Routing session state: " + DebugPrint(from) + " -> " + DebugPrint(to));
   }

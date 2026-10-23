@@ -666,6 +666,125 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteRebuildingError)
   }
 }
 
+// The router reports these failures without the ready callback. The session kept RouteRebuilding then: the route
+// could not be followed and was not rebuilt again.
+UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFailedRebuildKeepsRoute)
+{
+  vector<m2::PointD> const kRoute = {{0.0, 0.001}, {0.0, 0.002}, {0.0, 0.003}, {0.0, 0.004}};
+  TimedSignal builtSignal;
+  GetPlatform().RunTask(Platform::Thread::Gui, [&builtSignal, &kRoute, this]()
+  {
+    InitRoutingSession();
+    m_session->SetRouter(
+        make_unique<ReturnCodesRouter>(
+            initializer_list<RouterResultCode>{RouterResultCode::NoError, RouterResultCode::RouteNotFound,
+                                               RouterResultCode::NeedMoreMaps},
+            kRoute),
+        nullptr);
+    m_session->SetRoutingCallbacks([&builtSignal](RoutesResult const &, RouterResultCode) {
+      builtSignal.Signal();
+    }, nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */);
+    m_session->BuildRoute(Checkpoints(kRoute.front(), kRoute.back()), RouterDelegate::kNoTimeout);
+  });
+  TEST(builtSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not built."));
+
+  location::GpsInfo info;
+  info.m_horizontalAccuracy = 5.0;
+  info.m_longitude = 0.0;
+  // Short of the finish at 0.003, see TestRouteRebuildingError.
+  vector<vector<double>> const alongLatitudes = {{0.001, 0.0015, 0.002}, {0.0022, 0.0025}};
+  vector<RouterResultCode> const codes = {RouterResultCode::RouteNotFound, RouterResultCode::NeedMoreMaps};
+  for (size_t i = 0; i < codes.size(); ++i)
+  {
+    auto const code = codes[i];
+    double percent = 0.0;
+    SessionState kept = SessionState::RouteRebuilding;
+    TimedSignal keptSignal;
+    GetPlatform().RunTask(Platform::Thread::Gui, [&]()
+    {
+      for (double const lat : alongLatitudes[i])
+      {
+        info.m_latitude = lat;
+        m_session->OnLocationPositionChanged(info);
+      }
+      TEST(m_session->IsOnRoute(), (code));
+      TEST(m_session->EnableFollowMode(), (code));
+      percent = m_session->GetCompletionPercent();
+
+      SessionState state = SessionState::OnRoute;
+      info.m_latitude = 0.0;
+      for (size_t j = 0; j < 20 && state != SessionState::RouteNeedRebuild; ++j, info.m_latitude -= 0.001)
+        state = m_session->OnLocationPositionChanged(info);
+      TEST_EQUAL(state, SessionState::RouteNeedRebuild, (code));
+
+      m_session->SetChangeSessionStateCallback([&](SessionState, SessionState current)
+      {
+        if (current == SessionState::RouteRebuilding)
+          return;
+        kept = current;
+        keptSignal.Signal();
+      });
+      m_session->RebuildRoute(kRoute.front(), [](RoutesResult const &, RouterResultCode)
+      { TEST(false, ("A failed rebuild is not ready.")); }, nullptr /* needMoreMapsCallback */,
+                              nullptr /* removeRouteCallback */, RouterDelegate::kNoTimeout,
+                              SessionState::RouteRebuilding, false /* adjustToPrevRoute */);
+    });
+    TEST(keptSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Still rebuilding after", code));
+
+    TimedSignal checkSignal;
+    GetPlatform().RunTask(Platform::Thread::Gui, [&]()
+    {
+      m_session->SetChangeSessionStateCallback(nullptr);
+      // As a rebuilt route: followed from the next position on it.
+      TEST_EQUAL(kept, SessionState::RouteNotStarted, (code));
+      TEST(m_session->IsFollowing(), (code));
+      // The distance driven along the route is not counted as passed twice.
+      TEST_ALMOST_EQUAL_ABS(m_session->GetCompletionPercent(), percent, 1e-9, (code));
+      // Not rebuilt again at once by the next position away from the route.
+      info.m_latitude -= 0.001;
+      TEST_EQUAL(m_session->OnLocationPositionChanged(info), SessionState::RouteNotStarted, (code));
+      checkSignal.Signal();
+    });
+    TEST(checkSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route checking timeout."));
+  }
+}
+
+// The core rebuilds a route by itself before the user starts, e.g. from a mark of the navigation without GPS. Start
+// during the rebuild follows the route the rebuild ends with.
+UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowRouteWhileRebuilding)
+{
+  size_t counter = 0;
+  TimedSignal builtSignal;
+  GetPlatform().RunTask(Platform::Thread::Gui, [&builtSignal, &counter, this]()
+  {
+    InitRoutingSession();
+    m_session->SetRouter(make_unique<DummyRouter>(counter), nullptr);
+    m_session->SetRoutingCallbacks([&builtSignal](RoutesResult const &, RouterResultCode) {
+      builtSignal.Signal();
+    }, nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */);
+    m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), RouterDelegate::kNoTimeout);
+    TEST(!m_session->EnableFollowMode(), ("No route to follow while it is built."));
+  });
+  TEST(builtSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not built."));
+
+  TimedSignal rebuiltSignal;
+  GetPlatform().RunTask(Platform::Thread::Gui, [&rebuiltSignal, this]()
+  {
+    m_session->RebuildRoute(kTestRoute.front(),
+                            [&rebuiltSignal, this](RoutesResult const &, RouterResultCode)
+    {
+      TEST(m_session->IsFollowing(), ());
+      rebuiltSignal.Signal();
+    }, nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */, RouterDelegate::kNoTimeout,
+                            SessionState::RouteRebuilding, false /* adjustToPrevRoute */);
+    // The rebuilt route comes to this thread after this task.
+    TEST(m_session->IsRebuildingOnly(), ());
+    TEST(m_session->EnableFollowMode(), ());
+  });
+  TEST(rebuiltSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not rebuilt."));
+  TEST_EQUAL(counter, 2, ());
+}
+
 // Alternatives are followed while navigating too: the car that turns to one of them goes on along it
 // without a rebuild. So a rebuild in follow mode computes them as well.
 UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestAlternativesComputedWhileFollowing)
