@@ -744,7 +744,7 @@ public class PlacePageController
 
       // A pick for an empty start or finish slot (the plan sheet's partial-slot row) must fall through to the regular
       // routing buttons: this branch would hide ROUTE_FROM/ROUTE_TO and leave only the bookmark button.
-      if (RoutingController.get().isWaitingStopPick())
+      if (RoutingController.get().isWaitingStopPick() && !mapObject.isTrackRecording())
       {
         if (RoutingController.get().isPoiPickReplaceStop())
         {
