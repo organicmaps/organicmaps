@@ -198,7 +198,7 @@ bool Reader::Read(m2::RectD const & rect, size_t maxPoints, std::function<bool()
     ReaderSource<ReaderPtr<::Reader>> source(m_reader.SubReader(entry.m_offset, entry.m_size));
     Record record;
     record.m_kind = static_cast<Kind>(ReadPrimitiveFromSource<uint8_t>(source));
-    if (record.m_kind == Kind::Unsupported || !ReadRings(source, maxPoints, record.m_rings))
+    if (!ReadRings(source, maxPoints, record.m_rings))
       return false;
     auto const nodes = ReadPrimitiveFromSource<uint32_t>(source);
     if (record.m_kind == Kind::Line && (record.m_rings.size() != 1 || nodes != record.m_rings.front().size()))

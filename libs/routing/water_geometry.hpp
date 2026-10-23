@@ -28,6 +28,8 @@ struct Geometry
   // A conforming triangulation of the water union, including every known land hole.
   // Overlapping polygons must be unioned before triangulation.
   std::vector<std::array<m2::PointD, 3>> m_triangles;
+  // Missing or grade-separated topology remains unknown here, never dry land.
+  std::vector<m2::RectD> m_unknownAreas;
   // False for missing maps, unresolved topology or unknown local coverage.
   bool m_complete = false;
   std::shared_ptr<m4::Tree<size_t>> m_triangleIndex;

@@ -78,7 +78,49 @@ UNIT_TEST(WaterProvider_OutsideCoverageUnsupportedAndCancellation)
   ::water::Reader reader(ReaderPtr<::Reader>(std::make_unique<MemReader>(bytes.data(), bytes.size())));
   TEST(!routing::WaterGeometryProvider::Extract(reader, {-5, -5, 5, 5}, [] { return true; }).m_complete, ());
   auto const unsupported = Section({{::water::Kind::Unsupported, {{P(0, 0), P(1, 1)}}, {}}});
-  TEST(!Extract(unsupported).m_complete, ());
+  auto const unknown = Extract(unsupported);
+  TEST(unknown.m_complete, ());
+  TEST_EQUAL(unknown.m_unknownAreas.size(), 1, ());
+  Path path;
+  TEST(FindPath(unknown, P(0, 0), P(1, 1), false, kNeverCancelled, path) == ResultCode::Unavailable, ());
+}
+
+UNIT_TEST(WaterProvider_UnrelatedCulvertDoesNotDisableLake)
+{
+  auto const bytes =
+      Section({Area({{P(0, 0), P(1, 0), P(1, 1), P(0, 1)}}), {::water::Kind::Unsupported, {{P(3, 3), P(4, 4)}}, {}}});
+  auto const geometry = Extract(bytes);
+  TEST(geometry.m_complete, ());
+  TEST_EQUAL(geometry.m_unknownAreas.size(), 1, ());
+  Path path;
+  TEST(FindPath(geometry, P(0.2, 0.5), P(0.8, 0.5), false, kNeverCancelled, path) == ResultCode::Success, ());
+  TEST_EQUAL(path.m_landDistance, 0.0, ());
+}
+
+UNIT_TEST(WaterProvider_IndexedShorelineAndRiverEndpointContact)
+{
+  auto const bytes =
+      Section({Area({{P(1, 0), P(2, 0), P(2, 2), P(1, 2)}}), {::water::Kind::Line, {{P(0, 1), P(1, 1)}}, {1, 2}}});
+  auto const geometry = Extract(bytes);
+  Path path;
+  TEST(FindPath(geometry, P(0, 1), P(1.5, 1.5), false, kNeverCancelled, path) == ResultCode::Success, ());
+  TEST_EQUAL(path.m_landDistance, 0.0, ());
+  TEST(FindPath(geometry, P(1, 0), P(2, 0), false, kNeverCancelled, path) == ResultCode::Success, ());
+  TEST_EQUAL(path.m_points.size(), 2, ());
+  TEST_EQUAL(path.m_landDistance, 0.0, ());
+}
+
+UNIT_TEST(WaterProvider_InvalidAreaIsUnknownLocally)
+{
+  auto const bytes =
+      Section({Area({{P(0, 0), P(1, 0), P(1, 1), P(0, 1)}}), Area({{P(2, 2), P(4, 4), P(4, 2), P(2, 4)}})});
+  auto const geometry = Extract(bytes);
+  TEST(geometry.m_complete, ());
+  TEST_EQUAL(geometry.m_unknownAreas.size(), 1, ());
+  Path path;
+  TEST(FindPath(geometry, P(0.2, 0.5), P(0.8, 0.5), false, kNeverCancelled, path) == ResultCode::Success, ());
+  TEST_EQUAL(path.m_landDistance, 0.0, ());
+  TEST(FindPath(geometry, P(0.5, 0.5), P(3, 3), false, kNeverCancelled, path) != ResultCode::Success, ());
 }
 
 UNIT_TEST(WaterProvider_SpatialIndexSkipsUnrelatedLargeFeatures)

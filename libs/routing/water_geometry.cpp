@@ -8,6 +8,7 @@
 #include <cmath>
 #include <limits>
 #include <map>
+#include <numeric>
 #include <queue>
 #include <utility>
 
@@ -18,7 +19,41 @@ namespace
 using Point = m2::PointD;
 using Interval = std::pair<double, double>;
 double constexpr kInfinity = std::numeric_limits<double>::max();
-size_t constexpr kMaxVertices = 1024;
+size_t constexpr kMaxGraphVertices = 16384;
+size_t constexpr kMaxVisibilityVertices = 1024;
+size_t constexpr kMaxTriangles = 4096;
+
+bool Intersects(m2::RectD const & rect, Point const & a, Point const & b)
+{
+  double begin = 0, end = 1;
+  auto const delta = b - a;
+  for (auto const [p, q] : std::array<Interval, 4>{Interval{-delta.x, a.x - rect.minX()},
+                                                   {delta.x, rect.maxX() - a.x},
+                                                   {-delta.y, a.y - rect.minY()},
+                                                   {delta.y, rect.maxY() - a.y}})
+  {
+    if (p == 0)
+    {
+      if (q < 0)
+        return false;
+      continue;
+    }
+    auto const t = q / p;
+    if (p < 0)
+      begin = std::max(begin, t);
+    else
+      end = std::min(end, t);
+    if (begin > end)
+      return false;
+  }
+  return true;
+}
+
+bool TouchesUnknown(Geometry const & geometry, Point const & a, Point const & b)
+{
+  return std::any_of(geometry.m_unknownAreas.begin(), geometry.m_unknownAreas.end(),
+                     [&](auto const & rect) { return Intersects(rect, a, b); });
+}
 
 double Dot(Point const & a, Point const & b)
 {
@@ -81,7 +116,14 @@ std::vector<Interval> Coverage(Geometry const & geometry, Point const & a, Point
       intervals.push_back(interval);
   };
   if (geometry.m_triangleIndex)
-    geometry.m_triangleIndex->ForEachInRect(m2::RectD(a, b), [&](size_t i) { visit(geometry.m_triangles[i]); });
+  {
+    // Tree rectangles use open boundaries. Include contacts before the exact
+    // triangle predicate, including zero-width point and shoreline queries.
+    m2::RectD bounds(a, b);
+    bounds = {std::nextafter(bounds.minX(), -kInfinity), std::nextafter(bounds.minY(), -kInfinity),
+              std::nextafter(bounds.maxX(), kInfinity), std::nextafter(bounds.maxY(), kInfinity)};
+    geometry.m_triangleIndex->ForEachInRect(bounds, [&](size_t i) { visit(geometry.m_triangles[i]); });
+  }
   else
     for (auto const & triangle : geometry.m_triangles)
       visit(triangle);
@@ -102,14 +144,23 @@ bool IsSurfacePoint(Geometry const & geometry, Point const & p)
 
 bool MakePortal(Geometry const & geometry, Point const & a, Point const & b, double t, double interior, Point & point)
 {
-  // A certified intersection can round outside its triangle. Move only in parameter-space ULPs
-  // toward the already certified interior, never by a geographic proximity threshold.
+  // A parameter ULP may not change either geographic coordinate. Advance along
+  // the source segment by a coordinate ULP toward the covered interval instead.
+  auto const target = std::midpoint(t, interior);
+  auto const delta = b - a;
   for (size_t attempt = 0; attempt < 16; ++attempt)
   {
-    point = t == 0.0 ? a : (t == 1.0 ? b : a + (b - a) * t);
+    point = t == 0.0 ? a : (t == 1.0 ? b : a + delta * t);
     if (IsSurfacePoint(geometry, point))
       return true;
-    t = std::nextafter(t, interior);
+    auto const toward = a + delta * target;
+    double step = 0;
+    if (delta.x != 0)
+      step = std::max(step, std::abs((std::nextafter(point.x, toward.x) - point.x) / delta.x));
+    if (delta.y != 0)
+      step = std::max(step, std::abs((std::nextafter(point.y, toward.y) - point.y) / delta.y));
+    auto const next = t + std::copysign(step, target - t);
+    t = target > t ? std::min(next, target) : std::max(next, target);
   }
   return false;
 }
@@ -122,20 +173,29 @@ struct Edge
 
 struct Graph
 {
+  explicit Graph(Geometry const & geometry) : m_geometry(geometry) {}
+  Geometry const & m_geometry;
   std::vector<Point> m_points;
   std::vector<std::vector<Edge>> m_edges;
   std::vector<bool> m_lineEndpoints;
+  std::vector<bool> m_unknownFrontier;
 
   size_t Add(Point const & p, bool lineEndpoint = false)
   {
     m_points.push_back(p);
     m_edges.emplace_back();
     m_lineEndpoints.push_back(lineEndpoint);
+    m_unknownFrontier.push_back(TouchesUnknown(m_geometry, p, p));
     return m_points.size() - 1;
   }
 
   void Connect(size_t a, size_t b)
   {
+    if (TouchesUnknown(m_geometry, m_points[a], m_points[b]))
+    {
+      m_unknownFrontier[a] = m_unknownFrontier[b] = true;
+      return;
+    }
     auto const distance = mercator::DistanceOnEarth(m_points[a], m_points[b]);
     m_edges[a].push_back({b, distance});
     m_edges[b].push_back({a, distance});
@@ -245,21 +305,46 @@ double ExitDistance(m2::RectD const & bounds, Point const & point)
   return result * ms::kEarthRadiusMeters;
 }
 
-bool ReachesFrontier(Geometry const & geometry, Graph const & graph, Search const & search)
+bool ReachesFrontier(Geometry const & geometry, Graph const & graph, Search const & search, bool includeUnknown = true)
 {
-  if (!geometry.m_bounds)
-    return false;
-  auto const & bounds = *geometry.m_bounds;
   for (size_t i = 0; i < graph.m_points.size(); ++i)
   {
     if (search.m_distances[i] == kInfinity)
       continue;
+    if (includeUnknown && graph.m_unknownFrontier[i])
+      return true;
+    if (!geometry.m_bounds)
+      continue;
+    auto const & bounds = *geometry.m_bounds;
     auto const & p = graph.m_points[i];
     if (p.x <= bounds.minX() + 1e-12 || p.x >= bounds.maxX() - 1e-12 || p.y <= bounds.minY() + 1e-12 ||
         p.y >= bounds.maxY() - 1e-12)
       return true;
   }
   return false;
+}
+
+// A spherical lower bound to any point in the rectangle. Latitude separation
+// and distance to its bounding meridians are each lower bounds independently.
+double DistanceToUnknown(m2::RectD const & rect, Point const & point)
+{
+  auto const latitude = mercator::YToLat(point.y);
+  auto const low = mercator::YToLat(rect.minY());
+  auto const high = mercator::YToLat(rect.maxY());
+  double result = math::DegToRad(std::max({low - latitude, latitude - high, 0.0}));
+  if (point.x < rect.minX() || point.x > rect.maxX())
+  {
+    auto const meridian = [&](double longitude)
+    { return std::asin(std::abs(std::cos(math::DegToRad(latitude)) * std::sin(math::DegToRad(longitude - point.x)))); };
+    result = std::max(result, std::min(meridian(rect.minX()), meridian(rect.maxX())));
+  }
+  return result * ms::kEarthRadiusMeters;
+}
+
+bool UnknownCouldShorten(Geometry const & geometry, Point const & from, Point const & to, double distance)
+{
+  return std::any_of(geometry.m_unknownAreas.begin(), geometry.m_unknownAreas.end(), [&](auto const & rect)
+  { return DistanceToUnknown(rect, from) + DistanceToUnknown(rect, to) <= distance; });
 }
 }  // namespace
 
@@ -273,15 +358,17 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
     return ResultCode::Unavailable;
 
   size_t count = 2;
-  if (geometry.m_triangles.size() > 4 * kMaxVertices || geometry.m_lines.size() > kMaxVertices)
+  if (geometry.m_triangles.size() > kMaxTriangles || geometry.m_lines.size() > kMaxGraphVertices)
     return ResultCode::Unavailable;
   for (auto const & line : geometry.m_lines)
   {
-    if (line.size() > kMaxVertices - std::min(count, kMaxVertices))
+    if (line.size() > kMaxGraphVertices - std::min(count, kMaxGraphVertices))
       return ResultCode::Unavailable;
     count += line.size();
   }
-  if (count > kMaxVertices)
+  if (count > kMaxGraphVertices)
+    return ResultCode::Unavailable;
+  if ((!projectStart && TouchesUnknown(geometry, start, start)) || TouchesUnknown(geometry, finish, finish))
     return ResultCode::Unavailable;
 
   auto const from = Select(geometry, start);
@@ -292,17 +379,31 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
   // Permit only the sub-decimetre quantization error of a selected MWM line.
   if ((!projectStart && from.m_distance > 0.1) || to.m_distance > 0.1)
     return ResultCode::OutsideWater;
+  if (TouchesUnknown(geometry, from.m_point, from.m_point) || TouchesUnknown(geometry, to.m_point, to.m_point))
+    return ResultCode::Unavailable;
   if (geometry.m_bounds &&
       (ExitDistance(*geometry.m_bounds, from.m_point) == 0 || ExitDistance(*geometry.m_bounds, to.m_point) == 0 ||
        (projectStart && from.m_distance >= ExitDistance(*geometry.m_bounds, start))))
     return ResultCode::Unavailable;
+  if (projectStart && std::any_of(geometry.m_unknownAreas.begin(), geometry.m_unknownAreas.end(),
+                                  [&](auto const & rect) { return DistanceToUnknown(rect, start) <= from.m_distance; }))
+    return ResultCode::Unavailable;
 
-  Graph graph;
+  // Point eligibility needs only certified membership, not the visibility graph.
+  if (from.m_point == to.m_point)
+  {
+    path.m_points.push_back(from.m_point);
+    return ResultCode::Success;
+  }
+
+  Graph graph(geometry);
   graph.Add(from.m_point);
   graph.Add(to.m_point);
   std::map<uint64_t, size_t> sourceNodes;
   for (size_t i = 0; i < geometry.m_lines.size(); ++i)
   {
+    if (cancelled())
+      return ResultCode::Cancelled;
     auto const & line = geometry.m_lines[i];
     std::vector<size_t> nodes;
     for (size_t vertexIndex = 0; vertexIndex < line.size(); ++vertexIndex)
@@ -332,6 +433,9 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
       auto const origin = line[j - 1].m_point;
       for (auto const & interval : Coverage(geometry, origin, line[j].m_point))
       {
+        // The existing vertices already connect a segment wholly inside water.
+        if (interval.first == 0 && interval.second == 1)
+          continue;
         Point entrance, exit;
         if (!MakePortal(geometry, origin, line[j].m_point, interval.first, interval.second, entrance) ||
             !MakePortal(geometry, origin, line[j].m_point, interval.second, interval.first, exit))
@@ -339,7 +443,7 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
         split.push_back(graph.Add(entrance));
         split.push_back(graph.Add(exit));
       }
-      if (graph.m_points.size() > kMaxVertices)
+      if (graph.m_points.size() > kMaxGraphVertices)
         return ResultCode::Unavailable;
       std::sort(split.begin(), split.end(), [&](size_t a, size_t b)
       { return (graph.m_points[a] - origin).SquaredLength() < (graph.m_points[b] - origin).SquaredLength(); });
@@ -349,20 +453,43 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
   }
   std::map<Point, size_t> surfaceVertices;
   for (auto const & triangle : geometry.m_triangles)
+  {
+    m2::RectD bounds;
     for (auto const & point : triangle)
-      if (surfaceVertices.emplace(point, 0).second)
+      bounds.Add(point);
+    bool const unknown = std::any_of(geometry.m_unknownAreas.begin(), geometry.m_unknownAreas.end(),
+                                     [&](auto const & rect) { return rect.IsIntersect(bounds); });
+    for (auto const & point : triangle)
+    {
+      auto const [it, inserted] = surfaceVertices.emplace(point, graph.m_points.size());
+      if (inserted)
       {
-        if (graph.m_points.size() >= kMaxVertices)
+        if (graph.m_points.size() >= kMaxGraphVertices)
           return ResultCode::Unavailable;
         graph.Add(point);
       }
+      if (unknown)
+        graph.m_unknownFrontier[it->second] = true;
+    }
+  }
 
-  for (size_t a = 0; a < graph.m_points.size(); ++a)
+  std::vector<bool> surface(graph.m_points.size());
+  std::vector<size_t> visibility;
+  for (size_t i = 0; i < graph.m_points.size(); ++i)
+    if ((surface[i] = surfaceVertices.contains(graph.m_points[i]) || IsSurfacePoint(geometry, graph.m_points[i])))
+      visibility.push_back(i);
+  if (visibility.size() > kMaxVisibilityVertices)
+    return ResultCode::Unavailable;
+  // Interior river vertices retain their exact curvature and linear edges;
+  // only points on surfaces require the quadratic visibility graph.
+  for (size_t i = 0; i < visibility.size(); ++i)
   {
     if (cancelled())
       return ResultCode::Cancelled;
-    for (size_t b = a + 1; b < graph.m_points.size(); ++b)
+    auto const a = visibility[i];
+    for (size_t j = i + 1; j < visibility.size(); ++j)
     {
+      auto const b = visibility[j];
       auto const coverage = Coverage(geometry, graph.m_points[a], graph.m_points[b]);
       if (coverage.size() == 1 && coverage[0].first == 0.0 && coverage[0].second == 1.0)
         graph.Connect(a, b);
@@ -379,8 +506,9 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
       Append(path, graph.m_points[*it], false);
     // Any path leaving complete coverage must first travel at least this far.
     // If that bound cannot exclude a shorter outside path, report unavailable.
-    if (ReachesFrontier(geometry, graph, forward) &&
-        path.m_waterDistance >= ExitDistance(*geometry.m_bounds, from.m_point))
+    if (UnknownCouldShorten(geometry, from.m_point, to.m_point, path.m_waterDistance) ||
+        (geometry.m_bounds && ReachesFrontier(geometry, graph, forward, false) &&
+         path.m_waterDistance >= ExitDistance(*geometry.m_bounds, from.m_point)))
     {
       path = {};
       return ResultCode::Unavailable;
@@ -390,18 +518,26 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
 
   // A land gap is considered only after exhausting the complete water graph.
   auto const backward = Dijkstra(graph, 1, cancelled);
+  if (cancelled())
+    return ResultCode::Cancelled;
   if (ReachesFrontier(geometry, graph, forward) || ReachesFrontier(geometry, graph, backward))
+    return ResultCode::Unavailable;
+  std::vector<size_t> transfers;
+  for (size_t i = 0; i < graph.m_points.size(); ++i)
+    if (surface[i] || graph.m_lineEndpoints[i])
+      transfers.push_back(i);
+  if (transfers.size() > 2 * kMaxVisibilityVertices)
     return ResultCode::Unavailable;
   double best = kInfinity;
   size_t gapFrom = 0, gapTo = 1;
   Interval gap;
-  for (size_t a = 0; a < graph.m_points.size(); ++a)
+  for (auto const a : transfers)
   {
     if (cancelled())
       return ResultCode::Cancelled;
     if (forward.m_distances[a] == kInfinity)
       continue;
-    for (size_t b = 0; b < graph.m_points.size(); ++b)
+    for (auto const b : transfers)
     {
       if (backward.m_distances[b] == kInfinity)
         continue;
@@ -430,6 +566,8 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
       auto const delta = graph.m_points[b] - graph.m_points[a];
       auto const exit = graph.m_points[a] + delta * begin;
       auto const entry = graph.m_points[a] + delta * end;
+      if (TouchesUnknown(geometry, graph.m_points[a], graph.m_points[b]))
+        continue;
       auto const distance =
           forward.m_distances[a] + backward.m_distances[b] + mercator::DistanceOnEarth(graph.m_points[a], exit) +
           mercator::DistanceOnEarth(exit, entry) + mercator::DistanceOnEarth(entry, graph.m_points[b]);
@@ -442,7 +580,7 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
       }
     }
   }
-  if (best == kInfinity)
+  if (best == kInfinity || UnknownCouldShorten(geometry, from.m_point, to.m_point, best))
     return ResultCode::Unavailable;
 
   auto nodes = Trace(forward, gapFrom);

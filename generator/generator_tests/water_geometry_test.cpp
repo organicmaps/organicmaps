@@ -150,8 +150,12 @@ UNIT_TEST(WaterGenerator_PreservesSourceTopologyAndGradeSeparation)
            routing::water::ResultCode::Success,
        ());
   TEST_EQUAL(route.m_points.size(), 3, ());
-  TEST(!reader.Read({0.15, 0.05, 0.35, 0.15}, 100, cancelled, records), ());
-  TEST(!reader.Read({0.35, 0.05, 0.55, 0.15}, 100, cancelled, records), ());
+  TEST(reader.Read({0.15, 0.05, 0.35, 0.15}, 100, cancelled, records), ());
+  TEST_EQUAL(records.size(), 1, ());
+  TEST(records.front().m_kind == water::Kind::Unsupported, ());
+  TEST(reader.Read({0.35, 0.05, 0.55, 0.15}, 100, cancelled, records), ());
+  TEST_EQUAL(records.size(), 1, ());
+  TEST(records.front().m_kind == water::Kind::Unsupported, ());
   TEST(!BuildWaterGeometrySection(info, "Fixture", {-0.5, -0.5, 0.5, 0.5}), ());
 
   feature::CountriesFilesIndexAffiliation normal(path, false);
@@ -188,7 +192,9 @@ UNIT_TEST(WaterGenerator_PreservesSourceTopologyAndGradeSeparation)
     TEST(BuildWaterGeometrySection(info, "Raw", {-2, -2, 2, 2}), ());
     FilesContainerR rawContainer(info.GetTargetFileName("Raw"));
     water::Reader rawReader(rawContainer.GetReader(water::kSectionTag));
-    TEST(!rawReader.Read({0.15, 0.05, 0.35, 0.15}, 100, cancelled, records), ());
+    TEST(rawReader.Read({0.15, 0.05, 0.35, 0.15}, 100, cancelled, records), ());
+    TEST_EQUAL(records.size(), 1, ());
+    TEST(records.front().m_kind == water::Kind::Unsupported, ());
   }
 
   ResetWaterGeometry(path);
