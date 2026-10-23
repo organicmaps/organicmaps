@@ -8,6 +8,7 @@
 #include <QtGui/QOpenGLContext>
 
 #include <atomic>
+#include <functional>
 #include <memory>
 #include <mutex>
 
@@ -29,10 +30,13 @@ public:
   bool AcquireFrame();
   GLuint GetTextureHandle() const;
   QRectF const & GetTexRect() const;
+  // Called on the render thread after each new frame.
+  void SetPresentListener(std::function<void()> fn);
 
 private:
   QOffscreenSurface * m_surface = nullptr;
   std::unique_ptr<QOpenGLContext> m_ctx;
+  std::function<void()> m_onPresent;
 
   std::unique_ptr<QOpenGLFramebufferObject> m_frontFrame;
   std::unique_ptr<QOpenGLFramebufferObject> m_backFrame;
