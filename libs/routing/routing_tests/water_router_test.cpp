@@ -395,4 +395,100 @@ UNIT_TEST(WaterRouter_InternalTransferCancellation)
   TEST_EQUAL(calls, 1, ());
   TEST(!result.IsValid(), ());
 }
+UNIT_TEST(WaterRouter_LandEndpointsPreferWater)
+{
+  for (bool landStart : {false, true})
+  {
+    size_t calls = 0;
+    WaterRouter router([](Checkpoints const &, RouterDelegate const &) { return River(); },
+                       std::make_unique<WalkingStub>(calls));
+    m2::PointD const start = landStart ? m2::PointD(-0.001, 0) : m2::PointD(0, 0);
+    m2::PointD const finish(-0.001, 0.01), bend(-0.001, 0.001);
+    RouterDelegate delegate;
+    std::vector<float> progress;
+    delegate.SetProgressCallback([&](float value) { progress.push_back(value); });
+    RoutesResult result;
+    TEST(router.CalculateRoute(Checkpoints(start, finish), {}, false, false, delegate, result) ==
+             RouterResultCode::NoError,
+         ());
+    TEST_EQUAL(calls, landStart ? 2 : 1, ());
+    Route const route(result.GetActive());
+    auto const & points = route.GetPoly().GetPoints();
+    TEST_EQUAL(points.front(), start, ());
+    TEST_EQUAL(points.back(), finish, ());
+    auto const distances = *route.GetWaterDistances();
+    double const exitDistance = mercator::DistanceOnEarth({0, 0.01}, bend) + mercator::DistanceOnEarth(bend, finish);
+    double const approachDistance =
+        landStart ? mercator::DistanceOnEarth(start, bend) + mercator::DistanceOnEarth(bend, {0, 0}) : 0;
+    TEST_ALMOST_EQUAL_ABS(distances.m_landMeters, approachDistance + exitDistance, 1e-6, ());
+    TEST_ALMOST_EQUAL_ABS(distances.m_waterMeters, mercator::DistanceOnEarth({0, 0}, {0, 0.01}), 1e-6, ());
+    TEST_ALMOST_EQUAL_ABS(distances.GetTotalMeters(), route.GetRouteSegments().back().GetDistFromBeginningMeters(),
+                          1e-6, ());
+    TEST(route.GetRouteSegments().back().IsLandGap(), ());
+    TEST_EQUAL(route.GetSubrouteAttrs(0).GetFinish().GetPoint(), finish, ());
+    TEST(std::is_sorted(progress.begin(), progress.end()), ());
+    TEST_EQUAL(progress.back(), 100, ());
+  }
+}
+
+UNIT_TEST(WaterRouter_LandIntermediateRetainsCheckpoint)
+{
+  size_t calls = 0;
+  WaterRouter router([](Checkpoints const &, RouterDelegate const &) { return River(); },
+                     std::make_unique<WalkingStub>(calls));
+  m2::PointD const stop(-0.001, 0.005);
+  RouterDelegate delegate;
+  RoutesResult result;
+  TEST(router.CalculateRoute(Checkpoints(CheckpointsGeometry{{0, 0}, stop, {0, 0.01}}), {}, false, false, delegate,
+                             result) == RouterResultCode::NoError,
+       ());
+  TEST_EQUAL(calls, 2, ());
+  auto const & route = result.GetActive();
+  TEST_EQUAL(route.GetSubrouteCount(), 2, ());
+  TEST_EQUAL(route.GetSubrouteAttrs(0).GetFinish().GetPoint(), stop, ());
+  TEST_EQUAL(route.GetSubrouteAttrs(1).GetStart().GetPoint(), stop, ());
+  TEST_ALMOST_EQUAL_ABS(route.GetWaterDistances()->m_waterMeters, mercator::DistanceOnEarth({0, 0}, {0, 0.01}), 1e-6,
+                        ());
+}
+
+UNIT_TEST(WaterRouter_WalkingExitFailureAndCancellation)
+{
+  for (bool fail : {false, true})
+  {
+    size_t calls = 0;
+    WaterRouter router([](Checkpoints const &, RouterDelegate const &) { return River(); },
+                       std::make_unique<WalkingStub>(calls, fail));
+    RouterDelegate delegate;
+    std::vector<float> progress;
+    delegate.SetProgressCallback([&](float value)
+    {
+      progress.push_back(value);
+      if (!fail && value >= 36)
+        delegate.Cancel();
+    });
+    RoutesResult result;
+    auto const code = router.CalculateRoute(Checkpoints({0, 0}, {-0.001, 0.01}), {}, false, false, delegate, result);
+    TEST(code == (fail ? RouterResultCode::RouteNotFound : RouterResultCode::Cancelled), ());
+    TEST_EQUAL(calls, 1, ());
+    TEST(!result.IsValid(), ());
+    TEST_LESS(progress.back(), 100, ());
+  }
+}
+
+UNIT_TEST(WaterRouter_LandCheckpointOutsideAccessLimit)
+{
+  size_t calls = 0;
+  WaterRouter router([](Checkpoints const &, RouterDelegate const &) { return River(); },
+                     std::make_unique<WalkingStub>(calls));
+  RouterDelegate delegate;
+  RoutesResult result;
+  TEST(router.CalculateRoute(Checkpoints({0, 0}, {-1, 0.01}), {}, false, false, delegate, result) ==
+           RouterResultCode::EndPointNotFound,
+       ());
+  TEST(router.CalculateRoute(Checkpoints(CheckpointsGeometry{{0, 0}, {-1, 0.005}, {0, 0.01}}), {}, false, false,
+                             delegate, result) == RouterResultCode::IntermediatePointNotFound,
+       ());
+  TEST_EQUAL(calls, 0, ());
+  TEST(!result.IsValid(), ());
+}
 }  // namespace water_router_test
