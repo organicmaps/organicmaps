@@ -68,23 +68,42 @@ RouterResultCode WaterRouter::CalculateRoute(Checkpoints const & checkpoints, m2
   auto const junction = [](m2::PointD const & point)
   { return geometry::PointWithAltitude(point, geometry::kInvalidAltitude); };
   auto checkpointsPoints = checkpoints.GetPoints();
-  std::vector<m2::PointD> approach;
-  water::Path membership;
-  if (m_pedestrian && water::FindPath(geometry, checkpointsPoints.front(), checkpointsPoints.front(), false, cancelled,
-                                      membership) != water::ResultCode::Success)
+  std::vector<std::vector<m2::PointD>> approaches(checkpointsPoints.size());
+  std::vector<std::vector<m2::PointD>> exits(checkpointsPoints.size());
+  bool hasWalkingAccess = false;
+  for (size_t i = 0; m_pedestrian && i < checkpointsPoints.size(); ++i)
   {
-    auto const entry = water::FindApproachPoint(geometry, checkpointsPoints.front(), cancelled);
+    water::Path membership;
+    auto const point = checkpointsPoints[i];
+    auto const membershipCode = water::FindPath(geometry, point, point, false, cancelled, membership);
+    if (cancelled())
+      return RouterResultCode::Cancelled;
+    if (membershipCode == water::ResultCode::Success)
+      continue;
+    auto const entry = water::FindApproachPoint(geometry, point, cancelled);
     if (cancelled())
       return RouterResultCode::Cancelled;
     if (!entry)
-      return RouterResultCode::StartPointNotFound;
-    auto const code = Walk(*m_pedestrian, checkpointsPoints.front(), *entry, delegate,
-                           [&](float value) { report(30.0 + 0.1 * value); }, approach);
-    if (code != RouterResultCode::NoError)
-      return code;
-    checkpointsPoints.front() = *entry;
+      return i == 0                            ? RouterResultCode::StartPointNotFound
+           : i + 1 == checkpointsPoints.size() ? RouterResultCode::EndPointNotFound
+                                               : RouterResultCode::IntermediatePointNotFound;
+    auto const progress = [&](float value) { report(30.0 + 10.0 * (i + value / 100.0) / checkpointsPoints.size()); };
+    if (i > 0)
+    {
+      auto const code = Walk(*m_pedestrian, *entry, point, delegate, progress, exits[i]);
+      if (code != RouterResultCode::NoError)
+        return code;
+    }
+    if (i + 1 < checkpointsPoints.size())
+    {
+      auto const code = Walk(*m_pedestrian, point, *entry, delegate, progress, approaches[i]);
+      if (code != RouterResultCode::NoError)
+        return code;
+    }
+    checkpointsPoints[i] = *entry;
+    hasWalkingAccess = true;
   }
-  double const waterProgressStart = approach.empty() ? 30.0 : 40.0;
+  double const waterProgressStart = hasWalkingAccess ? 40.0 : 30.0;
   for (size_t i = 1; i < checkpointsPoints.size(); ++i)
   {
     auto const legProgress = [&](double value)
@@ -150,7 +169,8 @@ RouterResultCode WaterRouter::CalculateRoute(Checkpoints const & checkpoints, m2
       }
     }
     legProgress(1.0);
-    if (i == 1 && !approach.empty())
+    auto & approach = approaches[i - 1];
+    if (!approach.empty())
     {
       approach.back() = path.m_points.front();
       for (size_t j = 1; j < approach.size(); ++j)
@@ -158,6 +178,15 @@ RouterResultCode WaterRouter::CalculateRoute(Checkpoints const & checkpoints, m2
       path.m_landGaps.insert(path.m_landGaps.begin(), approach.size() - 1, true);
       approach.insert(approach.end(), path.m_points.begin() + 1, path.m_points.end());
       path.m_points = std::move(approach);
+    }
+    auto & exit = exits[i];
+    if (!exit.empty())
+    {
+      exit.front() = path.m_points.back();
+      for (size_t j = 1; j < exit.size(); ++j)
+        path.m_landDistance += mercator::DistanceOnEarth(exit[j - 1], exit[j]);
+      path.m_landGaps.insert(path.m_landGaps.end(), exit.size() - 1, true);
+      path.m_points.insert(path.m_points.end(), exit.begin() + 1, exit.end());
     }
     if (points.empty())
       points.push_back(path.m_points.front());

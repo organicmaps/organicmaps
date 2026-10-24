@@ -6,13 +6,23 @@ land distance and their sum in application units. There is no navigation, ETA, s
 or elevation chart. Ruler still measures straight segments.
 
 Select an explicit start with Route from, choose Water in the toolbar, then select
-a destination and optional intermediate points on water. An off-water start uses
-an ordinary pedestrian route to the nearest known water within 1 km. This initial
-approach is dashed and included in land distance; it does not make new transfer
-points between water components. If pedestrian routing fails, there is no straight
-land fallback. Starts already on water do not invoke pedestrian routing. River
-taps snap to the displayed centerline; line selections retain 0.1 m quantization
-tolerance. Destinations and intermediate points must remain on water.
+a destination and optional intermediate points. Any checkpoint may be on land.
+For each off-water checkpoint, the router selects the nearest known water within
+1 km and uses ordinary pedestrian routes between that water point and the selected
+checkpoint. The start has a walking approach, the finish has a walking exit, and
+an intermediate land stop includes both an exit and a return to water. These paths
+are dashed and included in land distance; they do not create new transfer points
+between water components. If pedestrian routing fails, there is no straight land
+fallback. Water checkpoints need no walking access. River taps snap to the displayed
+centerline; line selections retain 0.1 m quantization tolerance. Android keeps route
+point controls available on land as well as water.
+
+Water remains the preferred travel mode: walking access connects checkpoints to
+the water graph, then the router searches that graph. A failed water search is not
+replaced with a direct pedestrian route between checkpoints. Access points are
+selected by proximity, without comparing every possible water entry or walking
+cost; a different access point may yield a better route or a route where the
+selected one fails.
 
 ## Routing and transfers
 
@@ -23,7 +33,7 @@ water coverage. River/surface transitions use actual intersections. Distances us
 mercator::DistanceOnEarth. Checkpoints retain their selected order.
 
 Connected water paths always take precedence over land shortcuts. All land portions,
-including the initial approach and transfers between water components, use the
+including checkpoint approaches, exits and transfers between water components, use the
 existing, unchanged pedestrian IndexRouter. Results show its actual walking geometry
 and distance as dashed land portions. If walking fails, the leg fails without a
 straight-line fallback.
@@ -62,8 +72,8 @@ vertices, checkpoints, extraction cuts and arbitrary lake shores cannot be trans
 points. An endpoint inside a lake cannot move the proposed transfer to its shoreline.
 Stored feature endpoints need not be original OpenStreetMap way endpoints. Missing
 junctions may therefore require a walking transfer or make a route unavailable.
-The endpoint restriction applies to internal transfers; the initial pedestrian
-approach from an off-water start remains available as described above.
+The endpoint restriction applies to internal transfers; pedestrian
+access for off-water checkpoints remains available as described above.
 These connections do not reconstruct source topology or prove that a portage is
 physically necessary. The walking route must be found by the pedestrian router;
 the straight-line estimate used to select endpoints is never the returned land path.
@@ -73,7 +83,7 @@ The complete query rectangle must lie inside a known map-region polygon. The
 application supplies this proof from packed borders, with a margin for border
 simplification and quantization. A feature bounding box alone never certifies
 coverage. Missing borders, cross-region queries and exceeded budgets remain
-unavailable. Android point eligibility uses the same coverage check.
+unavailable. The native water-membership query uses the same coverage check.
 Eligibility uses a 50 m margin instead of extracting a full routing window
 for a single point. The feature budget counts intersecting water features,
 excluding buildings and roads.
@@ -126,7 +136,7 @@ it. Near a map boundary, each rectangle side expands only within certified cover
 Cross-MWM routes, antimeridian windows and extraction failures remain unavailable.
 A known connected path may be returned when the visibility budget is exhausted, or
 when bounds cannot exclude a shorter alternative outside complete coverage. Such
-results explicitly show "Shortest route not confirmed". Every returned edge must
+results explicitly show "Shortest route not confirmed". Every returned water edge must
 still have known water coverage and avoid unknown areas. Missing geometry never
 becomes a water edge. A reachable graph touching the extraction frontier cannot
 establish disconnection, and disconnected components touching unknown geometry
@@ -186,7 +196,7 @@ request reset the indicator; queued updates from cancelled requests are discarde
 
 ## Validation
 
-The latest native run passes 74 routing/provider/async/spatial-index tests, including
+The latest native run passes 78 routing/provider/async/spatial-index tests, including
 replacement of geometric gaps with pedestrian polylines, failed transfers without a straight-line
 fallback, and cancellation during a transfer. ARM64 and x86_64 native builds pass,
 and the x86_64 APK installs on the emulator. Earlier Android validation passed all
@@ -258,3 +268,12 @@ The standalone real-map harness originally used a 60-second deadline. An earlier
 timeout under concurrent lint load was followed by a successful rerun without that
 deadline, matching interactive Android requests. These native harness results do
 not establish that the reported phone-specific failures have been resolved.
+
+Land-checkpoint regressions cover two land endpoints, a walking exit, an intermediate
+land stop, exact checkpoint/subroute endpoints, distance accounting, monotone progress,
+failed and cancelled walking exits, and the 1 km access-selection limit.
+
+A real-map land-to-land check on the ordinary Flevoland MWM uses
+52.354819,5.179565 to 52.355862,5.185028. The unchanged pedestrian IndexRouter
+provides 199.071 m of approach and 23.0997 m of exit; the water portion is 381.264 m.
+Both selected endpoints are retained in the resulting route.
