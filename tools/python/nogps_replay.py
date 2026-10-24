@@ -9,7 +9,9 @@ that drive to nogps-replay-out.txt, and nogps-replay-out.txt.done when it is ove
       [--to HH:MM]
       makes the file to drive from the trip logs of a day: the rotation, the speed and the acceleration of the
       sensor box, the marks and the buttons of the user, the routes the user asked for. --no-taps leaves only the
-      mark each trip starts with, --no-route drives without the routes.
+      mark each trip starts with, --no-route drives without the routes. Where the application started anew has
+      shown the car it kept, or the file begins with the car off the roads, the file gives that kept car instead of
+      a tap: a tap would put it on a road.
 
   nogps_replay.py compare app*.log --day 10-11 --replay nogps-replay-out.txt
       how far the mark was from GPS on the trip and how far it is driven again, where GPS was seen.
