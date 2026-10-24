@@ -31,6 +31,7 @@ final class CarPlayService: NSObject {
   }
 
   private var searchService: CarPlaySearchService?
+  private var bookmarkListObserver: CarPlayBookmarkListObserver?
   private var router: CarPlayRouter?
   private var window: CPWindow?
   private var dashboardWindow: UIWindow?
@@ -121,6 +122,16 @@ final class CarPlayService: NSObject {
     self.window = window
     self.interfaceController = interfaceController
     self.interfaceController?.delegate = self
+    if isNewSession {
+      bookmarkListObserver?.invalidate()
+      bookmarkListObserver = CarPlayBookmarkListObserver(
+        templates: { [weak self] in self?.interfaceController?.templates ?? [] },
+        popTo: { [weak self] template in
+          guard let self, let interfaceController = self.interfaceController else { return }
+          interfaceController.pop(to: template, animated: false, completion: templateCompletion)
+        }
+      )
+    }
 
     let configuration = CPSessionConfiguration(delegate: self)
     sessionConfiguration = configuration
@@ -537,6 +548,8 @@ final class CarPlayService: NSObject {
     }
 
     carplayVC?.removeMapView()
+    bookmarkListObserver?.invalidate()
+    bookmarkListObserver = nil
     window = nil
     interfaceController = nil
     sessionConfiguration = nil
@@ -930,6 +943,10 @@ extension CarPlayService: CPInterfaceControllerDelegate {
   }
 
   func templateDidAppear(_ aTemplate: CPTemplate, animated _: Bool) {
+    if ListTemplateBuilder.isDeletedBookmarkList(aTemplate) {
+      bookmarkListObserver?.refresh()
+      return
+    }
     guard let mapTemplate = aTemplate as? CPMapTemplate,
           let info = aTemplate.userInfo as? MapInfo
     else {
@@ -1284,6 +1301,7 @@ extension CarPlayService {
     case CPConstants.ListItemType.bookmarkLists where userInfo.metadata is CategoryInfo:
       let metadata = userInfo.metadata as! CategoryInfo
       guard BookmarksManager.shared().hasCategory(metadata.category.categoryId) else {
+        bookmarkListObserver?.refresh()
         completionHandler()
         return
       }
@@ -1293,10 +1311,10 @@ extension CarPlayService {
     case CPConstants.ListItemType.bookmarks where userInfo.metadata is BookmarkInfo:
       defer { completionHandler() }
       let metadata = userInfo.metadata as! BookmarkInfo
-      guard BookmarksManager.shared().hasBookmark(metadata.bookmarkId) else {
+      guard let bookmark = MWMCarPlayBookmarkObject(bookmarkId: metadata.bookmarkId) else {
+        bookmarkListObserver?.refresh()
         return
       }
-      let bookmark = MWMCarPlayBookmarkObject(bookmarkId: metadata.bookmarkId)
       preparePreview(forBookmark: bookmark)
     case CPConstants.ListItemType.searchResults where userInfo.metadata is SearchResultInfo:
       let metadata = userInfo.metadata as! SearchResultInfo
