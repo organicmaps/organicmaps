@@ -131,6 +131,42 @@ bool AddSurface(std::vector<::water::Record> const & records, m2::RectD const & 
   return true;
 }
 
+// Keep uncovered corners explicit instead of rejecting a whole query rectangle.
+// Fully unknown sibling cells collapse back to their parent, bounding the number
+// of rectangles tested by the water graph.
+template <typename Covered>
+void AddCoverageGaps(m2::RectD const & bounds, std::vector<Point> const & checkpoints, Covered const & covered,
+                     water::CancelledFn const & cancelled, std::vector<m2::RectD> & unknown)
+{
+  auto const visit = [&](auto && self, m2::RectD const & cell, size_t depth) -> bool
+  {
+    if (cancelled() || covered(cell))
+      return false;
+    // Resolve the checkpoint cells more finely so a nearby missing corner
+    // cannot hide a point with certified coverage.
+    bool const checkpointCell = std::any_of(checkpoints.begin(), checkpoints.end(),
+                                            [&](auto const & point) { return cell.IsPointInside(point); });
+    if (depth == 16 || (depth >= 6 && !checkpointCell))
+    {
+      unknown.push_back(cell);
+      return true;
+    }
+    auto const begin = unknown.size();
+    auto const middle = cell.Center();
+    bool allUnknown = true;
+    for (auto const & child : {m2::RectD(cell.LeftBottom(), middle), m2::RectD(middle, cell.RightTop()),
+                               m2::RectD(cell.minX(), middle.y, middle.x, cell.maxY()),
+                               m2::RectD(middle.x, cell.minY(), cell.maxX(), middle.y)})
+      allUnknown = self(self, child, depth + 1) && allUnknown;
+    if (allUnknown)
+    {
+      unknown.resize(begin);
+      unknown.push_back(cell);
+    }
+    return allUnknown;
+  };
+  visit(visit, bounds, 0);
+}
 void AddLine(::water::Record const & record, m2::RectD const & bounds, water::Geometry & result)
 {
   auto const & points = record.m_rings.front();
@@ -391,7 +427,7 @@ water::Geometry WaterGeometryProvider::GetGeometry(Checkpoints const & checkpoin
     mapGroups.push_back({id});
   // Large fixed margins collect unrelated lakes and may cross a map-region
   // boundary. Keep standard-map extraction local; shrink only on extraction failure.
-  for (double localMargin = std::min(margin, 3000.0 + extraMargin);; localMargin = std::max(250.0, localMargin * 0.5))
+  for (double localMargin = std::min(margin, 3000.0 + extraMargin);; localMargin = std::max(250.0, localMargin * 0.8))
   {
     bounds = checkpointBounds;
     auto const localExtent = mercator::RectByCenterXYAndSizeInMeters(bounds.Center(), localMargin);
@@ -415,41 +451,16 @@ water::Geometry WaterGeometryProvider::GetGeometry(Checkpoints const & checkpoin
         return ids.size() == 1 ? m_coverage && m_coverage(countries.front(), rect)
                                : m_multiCoverage && m_multiCoverage(countries, rect);
       };
-      auto mapBounds = bounds;
-      if (!covered(mapBounds))
-      {
-        if (!covered(checkpointBounds))
-          continue;
-        mapBounds = checkpointBounds;
-        // Near a region boundary, expand each side only as far as its coverage
-        // permits. A nearby coast must not prevent extraction in other directions.
-        for (size_t side = 0; side < 4; ++side)
-        {
-          auto const origin = mapBounds;
-          double low = 0, high = 1;
-          for (size_t step = 0; step < 10; ++step)
-          {
-            if (cancelled())
-              return {};
-            auto const t = (low + high) * 0.5;
-            auto const interpolate = [t](double a, double b) { return a + (b - a) * t; };
-            m2::RectD const candidate(side == 0 ? interpolate(origin.minX(), bounds.minX()) : origin.minX(),
-                                      side == 1 ? interpolate(origin.minY(), bounds.minY()) : origin.minY(),
-                                      side == 2 ? interpolate(origin.maxX(), bounds.maxX()) : origin.maxX(),
-                                      side == 3 ? interpolate(origin.maxY(), bounds.maxY()) : origin.maxY());
-            if (covered(candidate))
-            {
-              low = t;
-              mapBounds = candidate;
-            }
-            else
-              high = t;
-          }
-        }
-      }
-      if (!covered(mapBounds))
+      // Checkpoint membership still requires downloaded coverage. Missing parts
+      // elsewhere in the query become unknown areas, never water or portages.
+      if (!std::all_of(points.begin(), points.end(),
+                       [&](auto const & point) { return covered(m2::RectD(point, point)); }))
         continue;
-      auto result = ExtractFeatures(m_dataSource, ids, mapBounds, cancelled);
+      auto result = ExtractFeatures(m_dataSource, ids, bounds, cancelled);
+      if (result.m_complete)
+        AddCoverageGaps(bounds, points, covered, cancelled, result.m_unknownAreas);
+      if (cancelled())
+        return {};
       if (result.m_complete)
         return result;
     }

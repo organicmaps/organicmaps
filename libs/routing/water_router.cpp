@@ -127,6 +127,11 @@ RouterResultCode WaterRouter::CalculateRoute(Checkpoints const & checkpoints, m2
                                [&](double value) { legProgress(0.85 * value); });
       }
     }
+    // Prefer the wider water search before considering an unconfirmed walking transfer.
+    if (code == water::ResultCode::Unavailable && m_pedestrian)
+      code = water::FindPath(geometry, checkpointsPoints[i - 1], checkpointsPoints[i],
+                             i == 1 && checkpoints.IsStartMyPosition(), cancelled, path,
+                             [&](double value) { legProgress(0.85 * value); }, true);
     if (code == water::ResultCode::Cancelled)
       return RouterResultCode::Cancelled;
     if (code == water::ResultCode::OutsideWater)

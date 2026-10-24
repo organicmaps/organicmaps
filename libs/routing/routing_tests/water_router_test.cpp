@@ -506,8 +506,9 @@ water::Geometry WindowDetour(bool expanded)
 UNIT_TEST(WaterRouter_RetriesUnavailableWaterInWiderWindow)
 {
   size_t expandedCalls = 0;
-  WaterRouter router([](Checkpoints const &, RouterDelegate const &) { return WindowDetour(false); }, {},
-                     [&](Checkpoints const &, RouterDelegate const &)
+  size_t walkingCalls = 0;
+  WaterRouter router([](Checkpoints const &, RouterDelegate const &) { return WindowDetour(false); },
+                     std::make_unique<WalkingStub>(walkingCalls), [&](Checkpoints const &, RouterDelegate const &)
   {
     ++expandedCalls;
     return WindowDetour(true);
@@ -520,6 +521,7 @@ UNIT_TEST(WaterRouter_RetriesUnavailableWaterInWiderWindow)
            RouterResultCode::NoError,
        ());
   TEST_EQUAL(expandedCalls, 1, ());
+  TEST_EQUAL(walkingCalls, 0, ());
   TEST_GREATER(result.GetActive().GetWaterDistances()->m_waterMeters, 8000.0, ());
   TEST_EQUAL(result.GetActive().GetWaterDistances()->m_landMeters, 0.0, ());
   TEST(std::is_sorted(progress.begin(), progress.end()), ());

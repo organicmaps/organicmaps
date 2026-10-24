@@ -255,8 +255,13 @@ UNIT_TEST(WaterGenerator_StandardMwmPreservesIslandsWithoutInventingRiverJoins)
   auto const near = nearBorder.GetGeometry(routing::Checkpoints(point, P(0.5005, 1.5)), delegate);
   TEST(near.m_complete, ());
   TEST(near.m_bounds.has_value(), ());
-  TEST_GREATER_OR_EQUAL(near.m_bounds->minX(), 0.499, ());
+  TEST(!near.m_unknownAreas.empty(), ());
+  TEST(FindPath(near, P(0.4989, 1.5), P(0.5005, 1.5), false, neverCancelled, path) == ResultCode::Unavailable, ());
   TEST(FindPath(near, point, P(0.5005, 1.5), false, neverCancelled, path) == ResultCode::Success, ());
+  auto const close = nearBorder.GetGeometry(routing::Checkpoints(P(0.49901, 1.5), P(0.5005, 1.5)), delegate);
+  TEST(close.m_complete, ());
+  auto const entry = routing::water::FindApproachPoint(close, P(0.49901, 1.5), neverCancelled);
+  TEST(entry.has_value(), ());
 }
 
 UNIT_TEST(WaterGenerator_StandardMapsShareWaterOnlyWithCombinedCoverage)
@@ -306,6 +311,19 @@ UNIT_TEST(WaterGenerator_StandardMapsShareWaterOnlyWithCombinedCoverage)
        ());
   TEST_EQUAL(path.m_landDistance, 0.0, ());
   TEST_GREATER(path.m_waterDistance, 0.0, ());
+  // An uncovered corner does not invalidate a route through certified water.
+  routing::WaterGeometryProvider partial(data, singleCoverage, [&](auto const & names, auto const & bounds)
+  { return combinedCoverage(names, bounds) && !(bounds.minX() < 0.9 && bounds.maxY() > 0.55); });
+  auto const known = partial.GetGeometry(routing::Checkpoints(P(0.5, 0.5), P(1.5, 0.6)), delegate);
+  TEST(known.m_complete, ());
+  TEST(!known.m_unknownAreas.empty(), ());
+  TEST(FindPath(known, P(0.5, 0.5), P(1.5, 0.6), false, [] { return false; }, path) ==
+           routing::water::ResultCode::Success,
+       ());
+  TEST_EQUAL(path.m_landDistance, 0.0, ());
+  TEST(FindPath(known, P(0.7, 0.6), P(1.5, 0.6), false, [] { return false; }, path) ==
+           routing::water::ResultCode::Unavailable,
+       ());
   // Even with both checkpoints on one map, a detour may use its neighbor.
   auto const nearSeam = provider.GetGeometry(routing::Checkpoints(P(0.997, 0.5), P(0.999, 0.5)), delegate);
   TEST(nearSeam.m_complete, ());

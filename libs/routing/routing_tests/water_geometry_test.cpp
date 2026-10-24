@@ -184,6 +184,15 @@ UNIT_TEST(Water_StandardTransfersNeverMoveToShoreline)
   geometry.m_lines = {{{P(0.25, 0.5)}, {P(0.75, 0.5)}}, {{P(2.25, 0.5)}, {P(2.75, 0.5)}}};
   TEST(FindPath(geometry, P(0.5, 0.5), P(2.5, 0.5), false, kNeverCancelled, path) == ResultCode::Unavailable, ());
   TEST(path.m_points.empty(), ());
+  TEST(FindPath(geometry, P(0.5, 0.5), P(2.5, 0.5), false, kNeverCancelled, path, {}, true) == ResultCode::Success, ());
+  TEST(!path.m_shortestConfirmed, ());
+  for (size_t i = 0; i < path.m_landGaps.size(); ++i)
+    if (path.m_landGaps[i])
+    {
+      TEST_EQUAL(path.m_points[i], P(0.75, 0.5), ());
+      TEST_EQUAL(path.m_points[i + 1], P(2.25, 0.5), ());
+    }
+  CheckAccounting(path);
 }
 
 UNIT_TEST(Water_StandardTransferKeepsExactEndpointCoordinates)
@@ -746,3 +755,84 @@ UNIT_TEST(Water_SurfaceTJunctionKeepsWaterDetourConnected)
     }
   }
 }
+
+namespace water_geometry_test
+{
+UNIT_TEST(Water_UnconfirmedTransferStillRequiresKnownStoredEndpoints)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  geometry.m_hasSourceTopology = false;
+  geometry.m_bounds = m2::RectD(-0.02, -0.02, 0.05, 0.02);
+  geometry.m_lines = {{{P(-0.02, 0), 0, false}, {P(0.01, 0)}}, {{P(0.02, 0)}, {P(0.05, 0), 0, false}}};
+  Path path;
+  auto const find = [&] { return FindPath(geometry, P(0, 0), P(0.03, 0), false, kNeverCancelled, path, {}, true); };
+  TEST(FindPath(geometry, P(0, 0), P(0.03, 0), false, kNeverCancelled, path) == ResultCode::Unavailable, ());
+  TEST(find() == ResultCode::Success, ());
+  TEST(!path.m_shortestConfirmed, ());
+  for (size_t i = 0; i < path.m_landGaps.size(); ++i)
+    if (path.m_landGaps[i])
+    {
+      TEST_EQUAL(path.m_points[i], P(0.01, 0), ());
+      TEST_EQUAL(path.m_points[i + 1], P(0.02, 0), ());
+    }
+  CheckAccounting(path);
+  geometry.m_unknownAreas.emplace_back(0.014, -0.001, 0.016, 0.001);
+  TEST(find() == ResultCode::Unavailable, ());
+  geometry.m_unknownAreas.clear();
+  geometry.m_lines[0].back().m_mayTransfer = false;
+  TEST(find() == ResultCode::Unavailable, ());
+}
+UNIT_TEST(Water_DenseVisibilityKeepsValidMeshDetour)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  geometry.m_hasSourceTopology = false;
+  for (int x = 0; x < 3; ++x)
+    for (int y = 0; y < 3; ++y)
+      if (x != 1 || y != 1)
+        Rectangle(geometry, x, y, x + 1, y + 1);
+  for (int i = 0; i < 2100; ++i)
+    geometry.m_lines.push_back({{P(0.2 + i * 0.0001, 1.4)}, {P(0.2 + i * 0.0001, 1.6)}});
+  Path path;
+  TEST(FindPath(geometry, P(0.5, 1.5), P(2.5, 1.5), false, kNeverCancelled, path) == ResultCode::Success, ());
+  TEST(!path.m_shortestConfirmed, ());
+  TEST_EQUAL(path.m_landDistance, 0.0, ());
+  TEST_GREATER(path.m_points.size(), 2, ());
+  CheckAccounting(path);
+}
+}  // namespace water_geometry_test
+
+namespace water_geometry_test
+{
+UNIT_TEST(Water_WalkingExitToIsolatedLakeKeepsRiverEndpoint)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  geometry.m_hasSourceTopology = false;
+  geometry.m_lines = {{{P(0, 0)}, {P(0, 0.003)}}};
+  Rectangle(geometry, 0.001, 0.002, 0.002, 0.004);
+  Path path;
+  auto const finish = P(0.0015, 0.003);
+  TEST(FindPath(geometry, P(0, 0.001), finish, false, kNeverCancelled, path) == ResultCode::Unavailable, ());
+  TEST(FindPath(geometry, P(0, 0.001), finish, false, kNeverCancelled, path, {}, true) == ResultCode::Success, ());
+  TEST(!path.m_shortestConfirmed, ());
+  TEST_GREATER(path.m_waterDistance, 0.0, ());
+  TEST_EQUAL(path.m_points[path.m_points.size() - 2], P(0, 0.003), ());
+  TEST_EQUAL(path.m_points.back(), finish, ());
+  TEST(path.m_landGaps.back(), ());
+  CheckAccounting(path);
+  geometry.m_unknownAreas.emplace_back(0.0005, -0.001, 0.0006, 0.005);
+  TEST(FindPath(geometry, P(0, 0.001), finish, false, kNeverCancelled, path, {}, true) == ResultCode::Unavailable, ());
+}
+UNIT_TEST(Water_ApproachIgnoresUnrelatedUnknownCorner)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  geometry.m_lines = {{{P(0, 0)}, {P(0, 0.005)}}};
+  geometry.m_unknownAreas.emplace_back(0.0009, 0.0021, 0.0011, 0.0023);
+  auto const entry = FindApproachPoint(geometry, P(0.001, 0.002), kNeverCancelled);
+  TEST(entry.has_value(), ());
+  TEST_EQUAL(*entry, P(0, 0.002), ());
+}
+}  // namespace water_geometry_test
