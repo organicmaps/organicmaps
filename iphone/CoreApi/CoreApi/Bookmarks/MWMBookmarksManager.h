@@ -105,7 +105,10 @@ NS_SWIFT_NAME(BookmarksManager)
 - (MWMBookmarksSortingType)lastSortingType:(MWMMarkGroupID)groupId;
 - (void)resetLastSortingType:(MWMMarkGroupID)groupId;
 
-- (NSArray<MWMCarPlayBookmarkObject *> *)bookmarksForCategory:(MWMMarkGroupID)categoryId;
+/// Returns at most limit snapshots, skipping address lookup for bookmarks beyond the limit.
+/// Must be called on the Core thread with a nonnegative limit.
+/// @return an empty array when the category is not loaded.
+- (NSArray<MWMCarPlayBookmarkObject *> *)bookmarksForCategory:(MWMMarkGroupID)categoryId limit:(NSInteger)limit;
 - (MWMMarkIDCollection)bookmarkIdsForCategory:(MWMMarkGroupID)categoryId;
 - (void)deleteBookmark:(MWMMarkID)bookmarkId;
 - (void)deleteTrack:(MWMTrackID)trackId;

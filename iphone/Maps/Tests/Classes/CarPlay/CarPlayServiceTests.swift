@@ -1,8 +1,14 @@
 import CarPlay
+import ObjectiveC
 @testable import Organic_Maps__Debug_
 import XCTest
 
 final class CarPlayServiceTests: XCTestCase {
+  // Initializers return retained objects; forwarding the raw result preserves that ownership.
+  private typealias BookmarkInitializer = @convention(c) (AnyObject, Selector, UInt64) -> Unmanaged<AnyObject>?
+  private static var originalBookmarkInitializer: BookmarkInitializer!
+  private static var bookmarkSnapshotCount = 0
+
   var carPlayService: CarPlayService!
 
   override func setUp() {
@@ -106,19 +112,76 @@ final class CarPlayServiceTests: XCTestCase {
     XCTAssertEqual(completionCount, 1)
   }
 
-  private func importBookmarkFixture() throws -> BookmarkGroup {
+  func testBookmarkRowsRespectTheCarPlayDisplayLimit() throws {
+    let limit = CPListTemplate.maximumItemCount
+    let manager = BookmarksManager.shared()
+    for count in [0, limit - 1, limit, limit + 1] {
+      let category = try importBookmarkFixture(bookmarkCount: max(1, count))
+      if count == 0 {
+        manager.deleteBookmark(manager.bookmarkIds(forCategory: category.categoryId)[0].uint64Value)
+      }
+      let template = ListTemplateBuilder.buildListTemplate(for: .bookmarks(category: category))
+      let rows = template.sections.flatMap(\.items).compactMap { $0 as? CPListItem }
+      let cropped = count > limit
+      XCTAssertEqual(rows.filter(\.isEnabled).count, cropped ? limit - 1 : count, "count=\(count)")
+      XCTAssertEqual(rows.contains { !$0.isEnabled }, cropped, "count=\(count)")
+      XCTAssertLessThanOrEqual(rows.count, limit)
+    }
+  }
+
+  func testBookmarkSnapshotsRespectTheDisplayLimit() throws {
+    let category = try importBookmarkFixture(bookmarkCount: 3)
+    let manager = BookmarksManager.shared()
+
+    precondition(Thread.isMainThread)
+    let bookmarkIds = manager.bookmarkIds(forCategory: category.categoryId).map(\.uint64Value)
+    let selector = #selector(MWMCarPlayBookmarkObject.init(bookmarkId:))
+    let method = try XCTUnwrap(class_getInstanceMethod(MWMCarPlayBookmarkObject.self, selector))
+    let original = method_getImplementation(method)
+    Self.originalBookmarkInitializer = unsafeBitCast(original, to: BookmarkInitializer.self)
+    let countingInitializer: BookmarkInitializer = { object, selector, bookmarkId in
+      precondition(Thread.isMainThread)
+      CarPlayServiceTests.bookmarkSnapshotCount += 1
+      return CarPlayServiceTests.originalBookmarkInitializer(object, selector, bookmarkId)
+    }
+    method_setImplementation(method, unsafeBitCast(countingInitializer, to: IMP.self))
+    defer {
+      method_setImplementation(method, original)
+      Self.originalBookmarkInitializer = nil
+    }
+
+    // Keep the interception synchronous so unrelated main-queue work cannot create snapshots.
+    for limit in [0, 2, 3, 4] {
+      Self.bookmarkSnapshotCount = 0
+      let snapshots = manager.bookmarks(forCategory: category.categoryId, limit: limit)
+      let expectedIds = Array(bookmarkIds.prefix(limit))
+      XCTAssertEqual(snapshots.map(\.bookmarkId), expectedIds, "limit=\(limit)")
+      XCTAssertEqual(Self.bookmarkSnapshotCount, expectedIds.count, "limit=\(limit)")
+    }
+    manager.deleteCategory(category.categoryId)
+    Self.bookmarkSnapshotCount = 0
+    XCTAssertTrue(manager.bookmarks(forCategory: category.categoryId, limit: 2).isEmpty)
+    XCTAssertEqual(Self.bookmarkSnapshotCount, 0)
+  }
+
+  private func importBookmarkFixture(bookmarkCount: Int = 1) throws -> BookmarkGroup {
     let bookmarkManager = BookmarksManager.shared()
     let name = "CarPlayTests-\(UUID().uuidString)"
     let url = FileManager.default.temporaryDirectory.appendingPathComponent(name).appendingPathExtension("kml")
+    let placemarks = (0 ..< bookmarkCount).map { index in
+      """
+      <Placemark>
+        <name>CarPlay bookmark \(index)</name>
+        <Point><coordinates>0,0</coordinates></Point>
+      </Placemark>
+      """
+    }.joined(separator: "\n")
     let kml = """
     <?xml version="1.0" encoding="UTF-8"?>
     <kml xmlns="http://www.opengis.net/kml/2.2">
       <Document>
         <name>\(name)</name>
-        <Placemark>
-          <name>CarPlay bookmark</name>
-          <Point><coordinates>0,0</coordinates></Point>
-        </Placemark>
+        \(placemarks)
       </Document>
     </kml>
     """
