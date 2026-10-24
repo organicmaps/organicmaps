@@ -467,6 +467,47 @@ UNIT_TEST(NoGps_Engine_TurnMovedToCrossingKeepsGyroHeading)
   TEST_LESS(std::fabs(AngleDiff(*env.Last().m_bearingDeg, 20)), 11, (*env.Last().m_bearingDeg));
 }
 
+UNIT_TEST(NoGps_Engine_SmallRotationAfterCrossingKeepsRoadTrusted)
+{
+  // After the turn the car rotates 5 degrees away from the road, less than a branch would take: the road is still
+  // trusted, the heading 25 degrees off is pulled to it at once.
+  auto roads = StreetTurningAfterCrossing(20);
+  Env env(true /* inertial */, &roads);
+  MarkCar(env, 177 - 112);
+  env.Drive(10'000, 36, 0);
+  env.Drive(3000, 36, -30);
+  env.Drive(2000, 36, 0);
+  TestAlmostEqualAbs(std::stod(TripField(env, "turn")), 18, 2);
+  env.Drive(1000, 36, -5);
+  env.Drive(8000, 36, 0);
+  TEST_LESS(std::fabs(AngleDiff(*env.Last().m_bearingDeg, 20)), 11, (*env.Last().m_bearingDeg));
+}
+
+UNIT_TEST(NoGps_Engine_BranchSoonAfterCrossingIsToldByHeading)
+{
+  // The street going north from the crossing forks 35 m from it, a branch leaves 20 degrees to the east. The car
+  // turns into the street and slowly, below the speed the forks are checked at, keeps to the branch: its heading
+  // is not pulled to the street, which the snapping keeps it on, and the car is on the branch when it speeds up.
+  double const tan20 = std::tan(math::DegToRad(20.0));
+  PieceRoads roads({{-300, 0, 400, 0}, {200, 0, 200, 35}, {200, 35, 200, 400}, {200, 35, 200 + 365 * tan20, 400}},
+                   {{200, 0}});
+  Env env(true /* inertial */, &roads);
+  MarkCar(env, 177 - 112);
+  env.Drive(10'000, 36, 0);
+  env.Drive(3000, 36, -30);
+  env.Drive(2000, 36, 0);
+  TestAlmostEqualAbs(std::stod(TripField(env, "turn")), 18, 2);
+  env.Drive(1000, 15, 0);
+  env.Drive(4000, 15, 5);
+  env.Drive(4000, 15, 0);
+  env.Drive(4000, 30, 0);
+  double const north = North(env.Last().m_position);
+  TEST_GREATER(north, 90, ());
+  TestAlmostEqualAbs(East(env.Last().m_position), 200 + (north - 35) * tan20, 2);
+  TestAlmostEqualAbs(*env.Last().m_bearingDeg, 20, 3);
+  TEST(!env.m_delegate.HasEvent(Event::RoadLost), ());
+}
+
 UNIT_TEST(NoGps_Engine_TurnToRoadFartherOffThanSnappingTakesIsNotMoved)
 {
   // The road after the crossing is 33 degrees off: the snapping does not take the car to it, the turn is not moved.

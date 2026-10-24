@@ -31,6 +31,7 @@ void DeadReckoning::SetHeading(double headingDeg)
 void DeadReckoning::TrustRoad()
 {
   m_trustedUntilM = m_odometerM + kMaxAsideOnRoadM;
+  m_trustedRotationDeg = 0;
 }
 
 void DeadReckoning::SetSpeed(double speedMps)
@@ -40,8 +41,18 @@ void DeadReckoning::SetSpeed(double speedMps)
 
 void DeadReckoning::Rotate(double deltaDeg)
 {
-  if (m_hasHeading)
-    m_headingDeg = Normalize(m_headingDeg + deltaDeg);
+  if (!m_hasHeading)
+    return;
+  m_headingDeg = Normalize(m_headingDeg + deltaDeg);
+  if (m_odometerM >= m_trustedUntilM)
+    return;
+  m_trustedRotationDeg += deltaDeg;
+  if (std::fabs(m_trustedRotationDeg) > kMaxTrustedRotationDeg)
+  {
+    // A heading aside from the road while it was trusted is a branch the car is taking now: kMaxAsideOnRoadM anew.
+    m_trustedUntilM = 0;
+    m_isAside = false;
+  }
 }
 
 void DeadReckoning::Advance(double dtSec)
