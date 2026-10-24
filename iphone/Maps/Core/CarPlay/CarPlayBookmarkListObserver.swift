@@ -23,11 +23,22 @@ final class CarPlayBookmarkListObserver: NSObject, BookmarksObserver {
     refresh()
   }
 
+  func onBookmarksChanged() {
+    // Loading publishes partial categories; refresh that batch once it finishes.
+    guard BookmarksManager.shared().areBookmarksLoaded() else { return }
+    refresh()
+  }
+
+  /// Deletions must invalidate stale rows immediately, including during file loading.
   func onBookmarksCategoryDeleted(_: MWMMarkGroupID) {
     refresh()
   }
 
   func onBookmarksDeleted(_: [NSNumber]) {
+    refresh()
+  }
+
+  func onTracksDeleted(_: [NSNumber]) {
     refresh()
   }
 
