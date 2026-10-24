@@ -1,6 +1,24 @@
 import CarPlay
 import Contacts
 
+protocol CarPlayInterfaceControlling: AnyObject {
+  var delegate: CPInterfaceControllerDelegate? { get set }
+  var rootTemplate: CPTemplate { get }
+  var topTemplate: CPTemplate? { get }
+  var templates: [CPTemplate] { get }
+  var presentedTemplate: CPTemplate? { get }
+
+  func setRootTemplate(_ rootTemplate: CPTemplate, animated: Bool, completion: ((Bool, Error?) -> Void)?)
+  func pushTemplate(_ templateToPush: CPTemplate, animated: Bool, completion: ((Bool, Error?) -> Void)?)
+  func popTemplate(animated: Bool, completion: ((Bool, Error?) -> Void)?)
+  func popToRootTemplate(animated: Bool, completion: ((Bool, Error?) -> Void)?)
+  func pop(to targetTemplate: CPTemplate, animated: Bool, completion: ((Bool, Error?) -> Void)?)
+  func presentTemplate(_ templateToPresent: CPTemplate, animated: Bool, completion: ((Bool, Error?) -> Void)?)
+  func dismissTemplate(animated: Bool, completion: ((Bool, Error?) -> Void)?)
+}
+
+extension CPInterfaceController: CarPlayInterfaceControlling {}
+
 private enum RoutingOwner {
   case device
   case carPlay
@@ -31,12 +49,13 @@ final class CarPlayService: NSObject {
   }
 
   private var searchService: CarPlaySearchService?
+  private var bookmarkListObserver: CarPlayBookmarkListObserver?
   private var router: CarPlayRouter?
   private var window: CPWindow?
   private var dashboardWindow: UIWindow?
   private weak var dashboardScene: CPTemplateApplicationDashboardScene?
   private var dashboardController: CPDashboardController?
-  private var interfaceController: CPInterfaceController?
+  private var interfaceController: CarPlayInterfaceControlling?
   private var sessionConfiguration: CPSessionConfiguration?
   private var mapState = CarPlayMapOwnershipState()
   // Layout can run while the shared map is moving, before attachedDisplay is updated.
@@ -102,7 +121,7 @@ final class CarPlayService: NSObject {
   var preparedToPreviewTrips: [CPTrip] = []
   private var searchText = ""
 
-  func setup(window: CPWindow, interfaceController: CPInterfaceController) {
+  func setup(window: CPWindow, interfaceController: CarPlayInterfaceControlling) {
     let isNewSession = self.window !== window || self.interfaceController !== interfaceController
     let replacesConnectedSession = isNewSession && self.interfaceController != nil
 
@@ -121,6 +140,16 @@ final class CarPlayService: NSObject {
     self.window = window
     self.interfaceController = interfaceController
     self.interfaceController?.delegate = self
+    if isNewSession {
+      bookmarkListObserver?.invalidate()
+      bookmarkListObserver = CarPlayBookmarkListObserver(
+        templates: { [weak self] in self?.interfaceController?.templates ?? [] },
+        popTo: { [weak self] template in
+          guard let self, let interfaceController = self.interfaceController else { return }
+          interfaceController.pop(to: template, animated: false, completion: templateCompletion)
+        }
+      )
+    }
 
     let configuration = CPSessionConfiguration(delegate: self)
     sessionConfiguration = configuration
@@ -476,7 +505,7 @@ final class CarPlayService: NSObject {
     dismissPresentedTemplate(on: interfaceController)
   }
 
-  private func presentPhoneModeAlert(on interfaceController: CPInterfaceController) {
+  private func presentPhoneModeAlert(on interfaceController: CarPlayInterfaceControlling) {
     let switchToCarAction = CPAlertAction(
       title: L("car_continue_in_the_car"),
       style: .default,
@@ -503,7 +532,7 @@ final class CarPlayService: NSObject {
     }
   }
 
-  private func dismissPresentedTemplate(on interfaceController: CPInterfaceController) {
+  private func dismissPresentedTemplate(on interfaceController: CarPlayInterfaceControlling) {
     isTemplateOperationInProgress = true
     interfaceController.dismissTemplate(animated: false) { [weak self, weak interfaceController] success, error in
       guard let self, self.interfaceController === interfaceController else { return }
@@ -537,6 +566,8 @@ final class CarPlayService: NSObject {
     }
 
     carplayVC?.removeMapView()
+    bookmarkListObserver?.invalidate()
+    bookmarkListObserver = nil
     window = nil
     interfaceController = nil
     sessionConfiguration = nil
@@ -930,6 +961,10 @@ extension CarPlayService: CPInterfaceControllerDelegate {
   }
 
   func templateDidAppear(_ aTemplate: CPTemplate, animated _: Bool) {
+    if ListTemplateBuilder.isDeletedBookmarkList(aTemplate) {
+      bookmarkListObserver?.refresh()
+      return
+    }
     guard let mapTemplate = aTemplate as? CPMapTemplate,
           let info = aTemplate.userInfo as? MapInfo
     else {
@@ -1258,7 +1293,7 @@ extension CarPlayService {
     }
   }
 
-  private func pushTripPreview(_ mapTemplate: CPMapTemplate, on interfaceController: CPInterfaceController) {
+  private func pushTripPreview(_ mapTemplate: CPMapTemplate, on interfaceController: CarPlayInterfaceControlling) {
     interfaceController.pushTemplate(mapTemplate, animated: false, completion: templateCompletion)
   }
 
@@ -1284,6 +1319,7 @@ extension CarPlayService {
     case CPConstants.ListItemType.bookmarkLists where userInfo.metadata is CategoryInfo:
       let metadata = userInfo.metadata as! CategoryInfo
       guard BookmarksManager.shared().hasCategory(metadata.category.categoryId) else {
+        bookmarkListObserver?.refresh()
         completionHandler()
         return
       }
@@ -1293,10 +1329,10 @@ extension CarPlayService {
     case CPConstants.ListItemType.bookmarks where userInfo.metadata is BookmarkInfo:
       defer { completionHandler() }
       let metadata = userInfo.metadata as! BookmarkInfo
-      guard BookmarksManager.shared().hasBookmark(metadata.bookmarkId) else {
+      guard let bookmark = MWMCarPlayBookmarkObject(bookmarkId: metadata.bookmarkId) else {
+        bookmarkListObserver?.refresh()
         return
       }
-      let bookmark = MWMCarPlayBookmarkObject(bookmarkId: metadata.bookmarkId)
       preparePreview(forBookmark: bookmark)
     case CPConstants.ListItemType.searchResults where userInfo.metadata is SearchResultInfo:
       let metadata = userInfo.metadata as! SearchResultInfo

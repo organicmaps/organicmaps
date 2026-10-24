@@ -501,6 +501,7 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
     if (result.count == static_cast<NSUInteger>(limit))
       break;
     MWMCarPlayBookmarkObject * bookmark = [[MWMCarPlayBookmarkObject alloc] initWithBookmarkId:bookmarkId];
+    CHECK(bookmark, ("A loaded category contains a missing bookmark", categoryId, bookmarkId));
     [result addObject:bookmark];
   }
   return [result copy];
