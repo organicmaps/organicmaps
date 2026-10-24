@@ -46,9 +46,29 @@ final class ListTemplateBuilder {
       title = category.title
     }
     let template = CPListTemplate(title: title, sections: [])
+    switch type {
+    case .bookmarkLists, .bookmarks:
+      // Only bookmark templates rebuild their rows when loaded bookmarks change.
+      template.userInfo = type
+    case .history, .searchResults:
+      break
+    }
     template.trailingNavigationBarButtons = trailingNavigationBarButtons
     obtainResources(for: type, template: template)
     return template
+  }
+
+  /// Rebuilds the rows of a bookmark list template from the currently loaded bookmarks. Other templates are left as is.
+  class func refreshBookmarks(in template: CPTemplate) {
+    guard let listTemplate = template as? CPListTemplate,
+          let type = listTemplate.userInfo as? ListTemplateType else { return }
+    obtainResources(for: type, template: listTemplate)
+  }
+
+  class func isDeletedBookmarkList(_ template: CPTemplate) -> Bool {
+    guard let type = template.userInfo as? ListTemplateType,
+          case .bookmarks(let category) = type else { return false }
+    return !BookmarksManager.shared().hasCategory(category.categoryId)
   }
 
   private class func obtainResources(for type: ListTemplateType, template: CPListTemplate) {
