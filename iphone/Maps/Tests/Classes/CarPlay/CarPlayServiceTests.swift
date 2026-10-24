@@ -106,19 +106,38 @@ final class CarPlayServiceTests: XCTestCase {
     XCTAssertEqual(completionCount, 1)
   }
 
-  private func importBookmarkFixture() throws -> BookmarkGroup {
+  func testBookmarkSnapshotsRespectTheDisplayLimit() throws {
+    let category = try importBookmarkFixture(bookmarkCount: 3)
+    let manager = BookmarksManager.shared()
+    let bookmarkIds = manager.bookmarkIds(forCategory: category.categoryId).map(\.uint64Value)
+    XCTAssertEqual(bookmarkIds.count, 3)
+    for limit in [0, 2, 3, 4] {
+      let snapshots = manager.bookmarks(forCategory: category.categoryId, limit: limit)
+      let expectedIds = Array(bookmarkIds.prefix(limit))
+      XCTAssertEqual(snapshots.map(\.bookmarkId), expectedIds, "limit=\(limit)")
+    }
+    manager.deleteCategory(category.categoryId)
+    XCTAssertTrue(manager.bookmarks(forCategory: category.categoryId, limit: 2).isEmpty)
+  }
+
+  private func importBookmarkFixture(bookmarkCount: Int = 1) throws -> BookmarkGroup {
     let bookmarkManager = BookmarksManager.shared()
     let name = "CarPlayTests-\(UUID().uuidString)"
     let url = FileManager.default.temporaryDirectory.appendingPathComponent(name).appendingPathExtension("kml")
+    let placemarks = (0 ..< bookmarkCount).map { index in
+      """
+      <Placemark>
+        <name>CarPlay bookmark \(index)</name>
+        <Point><coordinates>0,0</coordinates></Point>
+      </Placemark>
+      """
+    }.joined(separator: "\n")
     let kml = """
     <?xml version="1.0" encoding="UTF-8"?>
     <kml xmlns="http://www.opengis.net/kml/2.2">
       <Document>
         <name>\(name)</name>
-        <Placemark>
-          <name>CarPlay bookmark</name>
-          <Point><coordinates>0,0</coordinates></Point>
-        </Placemark>
+        \(placemarks)
       </Document>
     </kml>
     """
