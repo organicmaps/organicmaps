@@ -72,10 +72,11 @@ public:
   void SwapAltRouteToActive() override { ++m_swaps; }
 
   RouterResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const &, bool, bool,
-                                  RouterDelegate const &, RoutesResult & result) override
+                                  RouterDelegate const & delegate, RoutesResult & result) override
   {
     CHECK_LESS(m_calculations, m_outcomes.size(), ());
     auto const outcome = m_outcomes[m_calculations++];
+    delegate.OnProgress(50);
     if (outcome == Outcome::BlockedSuccess)
     {
       unique_lock lock(m_mutex);
@@ -151,13 +152,14 @@ struct ReadyRequest
   future<ReadyResult> m_future = m_ready->get_future();
 };
 
-ReadyRequest Calculate(AsyncRouter & async, RemoveRouteCallback const & removed = {})
+ReadyRequest Calculate(AsyncRouter & async, RemoveRouteCallback const & removed = {},
+                       ProgressCallback const & progress = {})
 {
   // GUI callbacks can outlive the test body, including after an assertion throws.
   ReadyRequest request;
   async.CalculateRoute(Checkpoints({1, 2}, {5, 6}), {3, 4}, true /* adjustToPrevRoute */, true /* needAlternatives */,
                        [ready = request.m_ready](shared_ptr<RoutesResult> result, RouterResultCode code)
-  { ready->set_value({result->m_routesId, code}); }, nullptr, removed, nullptr);
+  { ready->set_value({result->m_routesId, code}); }, nullptr, removed, progress);
   return request;
 }
 
@@ -178,6 +180,31 @@ auto RunOnGui(Fn && fn)
   GetPlatform().RunTask(Platform::Thread::Gui, [task] { (*task)(); });
   TEST(done.wait_for(30s) == future_status::ready, ("GUI task did not finish."));
   return done.get();
+}
+
+UNIT_CLASS_TEST(AsyncGuiThreadTest, CancelledQueuedProgress)
+{
+  auto router = make_unique<TestRouter>(vector{Outcome::BlockedSuccess, Outcome::Success});
+  auto * raw = router.get();
+  AsyncRouter async(nullptr);
+  async.SetRouter(std::move(router), nullptr);
+  SCOPE_GUARD(releaseRouter, [raw] { raw->Release(); });
+  auto progress = make_shared<vector<float>>();
+  auto const callback = [progress](float value) { progress->push_back(value); };
+  RunOnGui([&]
+  {
+    // Hold the GUI queue until the worker has posted its progress update.
+    auto pending = Calculate(async, {}, callback);
+    TEST(raw->WaitStarted(), ());
+    async.ClearState();
+    raw->Release();
+  });
+  RunOnGui([] {});
+  TEST(progress->empty(), ("Cancelled progress must not be delivered to a replacement plan."));
+  auto completed = Calculate(async, {}, callback);
+  WaitReady(completed);
+  RunOnGui([] {});
+  TEST_EQUAL(*progress, vector<float>{50}, ("Current progress must still be delivered."));
 }
 
 UNIT_CLASS_TEST(AsyncGuiThreadTest, RouterCallsWhileCalculating)

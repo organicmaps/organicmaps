@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.routing.ResultCodes;
+import app.organicmaps.sdk.routing.RoutingController;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,16 +40,22 @@ public class ResultCodesHelper
     case ResultCodes.START_POINT_NOT_FOUND:
       titleRes = R.string.dialog_routing_change_start;
       messages.add(resources.getString(R.string.dialog_routing_start_not_determined));
-      messages.add(resources.getString(R.string.dialog_routing_select_closer_start));
+      messages.add(resources.getString(RoutingController.get().isWaterRouterType()
+                                           ? R.string.water_select_point
+                                           : R.string.dialog_routing_select_closer_start));
       break;
     case ResultCodes.END_POINT_NOT_FOUND:
       titleRes = R.string.dialog_routing_change_end;
       messages.add(resources.getString(R.string.dialog_routing_end_not_determined));
-      messages.add(resources.getString(R.string.dialog_routing_select_closer_end));
+      messages.add(resources.getString(RoutingController.get().isWaterRouterType()
+                                           ? R.string.water_select_point
+                                           : R.string.dialog_routing_select_closer_end));
       break;
     case ResultCodes.INTERMEDIATE_POINT_NOT_FOUND:
       titleRes = R.string.dialog_routing_change_intermediate;
       messages.add(resources.getString(R.string.dialog_routing_intermediate_not_determined));
+      if (RoutingController.get().isWaterRouterType())
+        messages.add(resources.getString(R.string.water_select_point));
       break;
     case ResultCodes.DIFFERENT_MWM:
       messages.add(resources.getString(R.string.routing_failed_cross_mwm_building));

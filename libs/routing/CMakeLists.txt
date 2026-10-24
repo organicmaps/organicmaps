@@ -150,6 +150,12 @@ set(SRC
   routing_settings.hpp
   ruler_router.cpp
   ruler_router.hpp
+  water_geometry.cpp
+  water_geometry.hpp
+  water_geometry_provider.cpp
+  water_geometry_provider.hpp
+  water_router.cpp
+  water_router.hpp
   segment.cpp
   segment.hpp
   segmented_route.cpp
@@ -204,6 +210,7 @@ target_link_libraries(${PROJECT_NAME}
     traffic
     transit
     opening_hours
+    tess2
 )
 
 if (PLATFORM_DESKTOP)

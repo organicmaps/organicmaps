@@ -304,12 +304,14 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     setRouterClick(R.id.transit, Router.Transit);
     setRouterClick(R.id.bicycle, Router.Bicycle);
     setRouterClick(R.id.ruler, Router.Ruler);
+    setRouterClick(R.id.water, Router.Water);
   }
 
   private void setRouterClick(@IdRes int buttonId, @NonNull Router router)
   {
     mRouterTypes.findViewById(buttonId).setOnClickListener(v -> {
       RoutingController.get().setRouterType(router);
+      mRoutingBottomMenuController.updateModeControls();
       // A partial plan has no calculation callback to refresh its settings controls.
       updateRoutingOptions(router);
     });
@@ -325,6 +327,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
       case Transit -> R.id.transit;
       case Bicycle -> R.id.bicycle;
       case Ruler -> R.id.ruler;
+      case Water -> R.id.water;
     };
   }
 
@@ -343,6 +346,12 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
       TransitRouteInfo info = controller.getCachedTransitInfo();
       if (info != null)
         mRoutingBottomMenuController.showTransitInfo(info);
+      return;
+    }
+
+    if (controller.isWaterRouterType())
+    {
+      mRoutingBottomMenuController.showWaterInfo();
       return;
     }
 

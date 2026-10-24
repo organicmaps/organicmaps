@@ -1,5 +1,6 @@
 #include "generator/affiliation.hpp"
 #include "generator/cells_merger.hpp"
+#include "indexer/water_geometry.hpp"
 
 #include "platform/platform.hpp"
 
@@ -8,6 +9,7 @@
 #include "base/thread_pool_computational.hpp"
 
 #include <functional>
+#include <set>
 
 #include <boost/geometry/geometries/register/point.hpp>
 #include <boost/geometry/geometries/register/ring.hpp>
@@ -159,8 +161,25 @@ std::vector<std::string> GetHonestAffiliations(T && t, IndexSharedPtr const & in
 }
 
 template <typename T>
-std::vector<std::string> GetAffiliations(T && t, IndexSharedPtr const & index)
+std::vector<std::string> GetAffiliations(T && t, IndexSharedPtr const & index, bool retainWater = false)
 {
+  if constexpr (std::is_same_v<RemoveCvrefT<T>, FeatureBuilder>)
+  {
+    if (retainWater && ((!t.IsPoint() && (water::IsLine(t.GetTypes()) || water::IsCoastline(t.GetTypes()))) ||
+                        (t.IsArea() && water::IsArea(t.GetTypes()))))
+    {
+      // Crossing ways and enclosing polygons may have no vertex inside the country.
+      // Keep them for the authoritative water section, including all original holes.
+      std::vector<CountriesFilesIndexAffiliation::Value> values;
+      boost::geometry::index::query(*index, boost::geometry::index::intersects(MakeBox(t.GetLimitRect())),
+                                    std::back_inserter(values));
+      std::set<std::string> names;
+      for (auto const & value : values)
+        for (borders::CountryPolygons const & country : value.second)
+          names.insert(country.GetName());
+      return {names.begin(), names.end()};
+    }
+  }
   auto const oneCountry = IsOneCountryForLimitRect(GetLimitRect(t), index);
   return oneCountry ? std::vector<std::string>{*oneCountry} : GetHonestAffiliations(t, index);
 }
@@ -192,8 +211,9 @@ bool CountriesFilesAffiliation::HasCountryByName(std::string const & name) const
 }
 
 CountriesFilesIndexAffiliation::CountriesFilesIndexAffiliation(std::string const & borderPath,
-                                                               bool haveBordersForWholeWorld)
+                                                               bool haveBordersForWholeWorld, bool retainWater)
   : CountriesFilesAffiliation(borderPath, haveBordersForWholeWorld)
+  , m_retainWater(retainWater)
 {
   static std::mutex cacheMutex;
   static std::unordered_map<std::string, std::shared_ptr<Tree>> cache;
@@ -217,7 +237,7 @@ CountriesFilesIndexAffiliation::CountriesFilesIndexAffiliation(std::string const
 
 std::vector<std::string> CountriesFilesIndexAffiliation::GetAffiliations(FeatureBuilder const & fb) const
 {
-  return affiliation::GetAffiliations(fb, m_index);
+  return affiliation::GetAffiliations(fb, m_index, m_retainWater);
 }
 
 std::vector<std::string> CountriesFilesIndexAffiliation::GetAffiliations(m2::PointD const & point) const

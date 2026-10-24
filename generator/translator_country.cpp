@@ -8,6 +8,7 @@
 #include "generator/collector_mini_roundabout.hpp"
 #include "generator/collector_routing_city_boundaries.hpp"
 #include "generator/collector_tag.hpp"
+#include "generator/collector_water.hpp"
 #include "generator/cross_mwm_osm_ways_collector.hpp"
 #include "generator/feature_maker.hpp"
 #include "generator/filter_collection.hpp"
@@ -96,6 +97,12 @@ TranslatorCountry::TranslatorCountry(std::shared_ptr<FeatureProcessorInterface> 
   SetFilter(filters);
 
   auto collectors = std::make_shared<CollectorCollection>();
+  if (info.m_waterRouting)
+    collectors->Append(std::make_shared<WaterGeometryCollector>(
+        info.GetIntermediateFileName(kWaterGradeSeparatedFilename), info.m_tmpDir,
+        std::make_shared<feature::CountriesFilesIndexAffiliation>(info.m_targetDir, info.m_haveBordersForWholeWorld,
+                                                                  true),
+        cache->GetCache()));
   collectors->Append(std::make_shared<feature::MetalinesBuilder>(info.GetIntermediateFileName(METALINES_FILENAME)));
   collectors->Append(std::make_shared<BoundaryPostcodeCollector>(
       info.GetIntermediateFileName(BOUNDARY_POSTCODES_FILENAME), cache->GetCache()));

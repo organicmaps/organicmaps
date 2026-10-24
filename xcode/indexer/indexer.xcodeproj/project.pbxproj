@@ -105,7 +105,9 @@
 		6753410D1A3F540F00A0A8C3 /* drawing_rules.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675340B81A3F540F00A0A8C3 /* drawing_rules.cpp */; };
 		6753410E1A3F540F00A0A8C3 /* drawing_rules.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675340B91A3F540F00A0A8C3 /* drawing_rules.hpp */; };
 		675341121A3F540F00A0A8C3 /* feature_algo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675340BE1A3F540F00A0A8C3 /* feature_algo.cpp */; };
+		39F5F270042253A7B5A4521B /* water_geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3A9AAD8CFDEB5CA3A1212873 /* water_geometry.cpp */; };
 		675341131A3F540F00A0A8C3 /* feature_algo.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675340BF1A3F540F00A0A8C3 /* feature_algo.hpp */; };
+		D1869D3BDA2851F0BAD76AAD /* water_geometry.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A358F15BFE395169BFA17F6F /* water_geometry.hpp */; };
 		675341141A3F540F00A0A8C3 /* feature_covering.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675340C01A3F540F00A0A8C3 /* feature_covering.cpp */; };
 		675341151A3F540F00A0A8C3 /* feature_covering.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675340C11A3F540F00A0A8C3 /* feature_covering.hpp */; };
 		675341161A3F540F00A0A8C3 /* feature_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675340C21A3F540F00A0A8C3 /* feature_data.cpp */; };
@@ -319,7 +321,9 @@
 		675340B81A3F540F00A0A8C3 /* drawing_rules.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = drawing_rules.cpp; sourceTree = "<group>"; };
 		675340B91A3F540F00A0A8C3 /* drawing_rules.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drawing_rules.hpp; sourceTree = "<group>"; };
 		675340BE1A3F540F00A0A8C3 /* feature_algo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = feature_algo.cpp; sourceTree = "<group>"; };
+		3A9AAD8CFDEB5CA3A1212873 /* water_geometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = water_geometry.cpp; sourceTree = "<group>"; };
 		675340BF1A3F540F00A0A8C3 /* feature_algo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = feature_algo.hpp; sourceTree = "<group>"; };
+		A358F15BFE395169BFA17F6F /* water_geometry.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = water_geometry.hpp; sourceTree = "<group>"; };
 		675340C01A3F540F00A0A8C3 /* feature_covering.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = feature_covering.cpp; sourceTree = "<group>"; };
 		675340C11A3F540F00A0A8C3 /* feature_covering.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = feature_covering.hpp; sourceTree = "<group>"; };
 		675340C21A3F540F00A0A8C3 /* feature_data.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = feature_data.cpp; sourceTree = "<group>"; };
@@ -585,7 +589,9 @@
 				34583BC41C88552100F94664 /* editable_map_object.hpp */,
 				4099F6481FC7142A002A7B05 /* fake_feature_ids.hpp */,
 				675340BE1A3F540F00A0A8C3 /* feature_algo.cpp */,
+				3A9AAD8CFDEB5CA3A1212873 /* water_geometry.cpp */,
 				675340BF1A3F540F00A0A8C3 /* feature_algo.hpp */,
+				A358F15BFE395169BFA17F6F /* water_geometry.hpp */,
 				34664CF01D49FEC1003D7096 /* feature_altitude.hpp */,
 				675340C01A3F540F00A0A8C3 /* feature_covering.cpp */,
 				675340C11A3F540F00A0A8C3 /* feature_covering.hpp */,
@@ -706,6 +712,7 @@
 				6753411D1A3F540F00A0A8C3 /* shared_load_info.hpp in Headers */,
 				56C74C231C749E4700B71B9F /* search_delimiters.hpp in Headers */,
 				675341131A3F540F00A0A8C3 /* feature_algo.hpp in Headers */,
+				D1869D3BDA2851F0BAD76AAD /* water_geometry.hpp in Headers */,
 				394E1E0B22BBB5EB00E4BC75 /* utils.hpp in Headers */,
 				6726C1D21A49DAAC005EEA39 /* feature_meta.hpp in Headers */,
 				347F337F1C454242009758CC /* trie_builder.hpp in Headers */,
@@ -919,6 +926,7 @@
 				6753414D1A3F540F00A0A8C3 /* types_mapping.cpp in Sources */,
 				34583BC71C88552100F94664 /* cuisines.cpp in Sources */,
 				675341121A3F540F00A0A8C3 /* feature_algo.cpp in Sources */,
+				39F5F270042253A7B5A4521B /* water_geometry.cpp in Sources */,
 				675341211A3F540F00A0A8C3 /* feature_utils.cpp in Sources */,
 				FA7F9B85273F32680093EA08 /* validate_and_format_contacts.cpp in Sources */,
 				46CB685E2CBC17F2003E40AB /* edit_journal.cpp in Sources */,

@@ -95,6 +95,7 @@ public class RoutingPlanOptionsTest
     setField(fragment, "mDrivingOptionsBtn", settingsButton);
     setField(fragment, "mRoutingContentActive", true);
     setField(fragment, "mRouterTypes", types);
+    setField(fragment, "mRoutingBottomMenuController", mock(RoutingBottomMenuController.class));
     RoutingController controller = mock(RoutingController.class);
     try (MockedStatic<RoutingController> routing = mockStatic(RoutingController.class);
          MockedStatic<RoutingOptions> options = mockStatic(RoutingOptions.class, CALLS_REAL_METHODS))
