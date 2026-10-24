@@ -612,3 +612,68 @@ UNIT_TEST(Water_RiverLakePortalAlongNearlyParallelShore)
     }
 }
 }  // namespace water_geometry_test
+
+UNIT_TEST(Water_ShoreApproachRemainsConnectedToSurface)
+{
+  for (size_t i = 1; i <= 64; ++i)
+  {
+    routing::water::Geometry geometry;
+    geometry.m_complete = true;
+    m2::PointD const a(5.18, 61.66), b(5.18 + 0.001 * i, 61.66 + 0.0031), c(5.185, 61.67);
+    geometry.m_triangles = {{a, b, c}};
+    auto const center = (a + b + c) / 3.0;
+    auto const shore = a + (b - a) * 0.371;
+    auto const direction = b - a;
+    m2::PointD normal(direction.y, -direction.x);
+    if (normal.x * (center - shore).x + normal.y * (center - shore).y > 0)
+      normal = -normal;
+    auto const outside = shore + normal * 0.01;
+    auto const entry = routing::water::FindApproachPoint(geometry, outside, [] { return false; });
+    TEST(entry.has_value(), (i));
+    routing::water::Path path;
+    TEST(routing::water::FindPath(geometry, *entry, center, false, [] { return false; }, path) ==
+             routing::water::ResultCode::Success,
+         (i, *entry));
+    TEST_EQUAL(path.m_landDistance, 0.0, (i));
+    TEST_LESS(mercator::DistanceOnEarth(shore, *entry), 0.001, (i));
+  }
+}
+
+UNIT_TEST(Water_SurfaceTJunctionKeepsWaterDetourConnected)
+{
+  using namespace water_geometry_test;
+  for (bool indexed : {false, true})
+  {
+    for (double gap : {0.0, 0.00001})
+    {
+      Geometry geometry;
+      geometry.m_complete = true;
+      geometry.m_hasSourceTopology = false;
+      Rectangle(geometry, 0, 0, 1, 1);
+      Rectangle(geometry, 1 + gap, 0.25, 2, 0.75);
+      Rectangle(geometry, 1.75, 0.75, 2, 2);
+      if (indexed)
+      {
+        geometry.m_triangleIndex = std::make_shared<m4::Tree<size_t>>();
+        for (size_t i = 0; i < geometry.m_triangles.size(); ++i)
+        {
+          m2::RectD bounds;
+          for (auto const & p : geometry.m_triangles[i])
+            bounds.Add(p);
+          geometry.m_triangleIndex->Add(i, bounds);
+        }
+        geometry.m_triangleIndex->Optimize();
+      }
+      Path path;
+      auto const code = FindPath(geometry, P(0.5, 0.5), P(1.9, 1.5), false, kNeverCancelled, path);
+      if (gap != 0)
+      {
+        TEST(code == ResultCode::Unavailable, (indexed));
+        continue;
+      }
+      TEST(code == ResultCode::Success, (indexed));
+      TEST_EQUAL(path.m_landDistance, 0.0, ());
+      CheckAccounting(path);
+    }
+  }
+}
