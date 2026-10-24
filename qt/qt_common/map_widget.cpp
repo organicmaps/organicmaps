@@ -56,7 +56,8 @@ MapWidget::~MapWidget()
 {
   m_framework.EnterBackground();
   m_framework.SetRenderingDisabled(true);
-  m_contextFactory->PrepareToShutdown();
+  if (m_contextFactory)
+    m_contextFactory->PrepareToShutdown();
   m_framework.DestroyDrapeEngine();
   m_contextFactory.reset();
 }
@@ -121,6 +122,7 @@ void MapWidget::CreateEngine()
 
   m_framework.CreateDrapeEngine(make_ref(m_contextFactory), std::move(p));
   m_framework.SetViewportListener(std::bind(&MapWidget::OnViewportChanged, this, std::placeholders::_1));
+  UpdateVisibleViewport();
 }
 
 void MapWidget::ScalePlus()
@@ -412,7 +414,8 @@ void MapWidget::initializeGL()
   }
 #endif
 
-  m_contextFactory.reset(new QtOGLContextFactory(context()));
+  QSize const size(m_screenshotMode ? width() : m_ratio * width(), m_screenshotMode ? height() : m_ratio * height());
+  m_contextFactory.reset(new QtOGLContextFactory(context(), size));
 
   emit BeforeEngineCreation();
   CreateEngine();
@@ -462,16 +465,35 @@ void MapWidget::resizeGL(int width, int height)
   int const w = m_screenshotMode ? width : m_ratio * width;
   int const h = m_screenshotMode ? height : m_ratio * height;
   m_framework.OnSize(w, h);
+  UpdateVisibleViewport();
+}
 
-  if (m_skin)
-  {
-    m_skin->Resize(w, h);
+void MapWidget::SetVisibleViewport(QRect const & viewport)
+{
+  m_visibleViewport = viewport;
+  UpdateVisibleViewport();
+}
 
-    gui::TWidgetsLayoutInfo layout;
-    m_skin->ForEach([&layout](gui::EWidget w, gui::Position const & pos) { layout[w] = pos.m_pixelPivot; });
+void MapWidget::UpdateVisibleViewport()
+{
+  if (!m_skin)
+    return;
 
-    m_framework.SetWidgetLayout(std::move(layout));
-  }
+  QRect const viewport = m_visibleViewport.isNull() ? rect() : m_visibleViewport.intersected(rect());
+  if (viewport.isEmpty())
+    return;
+  double const ratio = m_screenshotMode ? 1.0 : m_ratio;
+  m2::PointD const origin(viewport.x() * ratio, viewport.y() * ratio);
+  int const w = viewport.width() * ratio;
+  int const h = viewport.height() * ratio;
+  m_framework.SetVisibleViewport(m2::RectD(origin.x, origin.y, origin.x + w, origin.y + h));
+
+  m_skin->Resize(w, h);
+  gui::TWidgetsLayoutInfo layout;
+  m_skin->ForEach([&](gui::EWidget widget, gui::Position const & pos)
+  { layout[widget] = m2::PointD(pos.m_pixelPivot) + origin; });
+  layout[gui::WIDGET_SCALE_FPS_LABEL] = origin;
+  m_framework.SetWidgetLayout(std::move(layout));
 }
 
 void MapWidget::mouseDoubleClickEvent(QMouseEvent * e)

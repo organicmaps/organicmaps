@@ -11,11 +11,13 @@ namespace qt
 {
 namespace common
 {
-QtRenderOGLContext::QtRenderOGLContext(QOpenGLContext * rootContext, QOffscreenSurface * surface)
+QtRenderOGLContext::QtRenderOGLContext(QOpenGLContext * rootContext, QOffscreenSurface * surface, QSize const & size)
   : m_surface(surface)
   , m_ctx(std::make_unique<QOpenGLContext>())
   , m_isContextAvailable(false)
 {
+  CHECK(!size.isEmpty(), ());
+  SetSize(size.width(), size.height());
   m_ctx->setFormat(rootContext->format());
   m_ctx->setShareContext(rootContext);
   m_ctx->create();
@@ -62,6 +64,13 @@ void QtRenderOGLContext::Resize(uint32_t w, uint32_t h)
   CHECK(m_isContextAvailable, ());
   ASSERT(QOpenGLContext::currentContext() == m_ctx.get(), ());
 
+  SetSize(w, h);
+}
+
+void QtRenderOGLContext::SetSize(uint32_t w, uint32_t h)
+{
+  ASSERT_GREATER(w, 0, ());
+  ASSERT_GREATER(h, 0, ());
   auto const nw = static_cast<int>(std::bit_ceil(w));
   auto const nh = static_cast<int>(std::bit_ceil(h));
 

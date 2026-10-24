@@ -36,6 +36,8 @@ public:
   void BindSlider(ScaleSlider & slider);
   void CreateEngine();
   void grabGestures(QList<Qt::GestureType> const & gestures);
+  // Exposed area in this widget's logical coordinates.
+  void SetVisibleViewport(QRect const & viewport);
 
 signals:
   void OnContextMenuRequested(QPoint const & p);
@@ -82,6 +84,7 @@ protected:
   void ShowInfoPopup(QMouseEvent * e, m2::PointD const & pt);
 
   void OnViewportChanged(ScreenBase const & screen);
+  void UpdateVisibleViewport();
 
   // QOpenGLWidget overrides:
   void initializeGL() override;
@@ -100,6 +103,7 @@ protected:
   SliderState m_sliderState;
 
   float m_ratio;
+  QRect m_visibleViewport;
   drape_ptr<QtOGLContextFactory> m_contextFactory;
   std::unique_ptr<gui::Skin> m_skin;
 
