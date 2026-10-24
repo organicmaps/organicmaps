@@ -3,17 +3,20 @@ package app.organicmaps.routing;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentManager;
+import app.organicmaps.BuildConfig;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.downloader.MapManagerHelper;
@@ -25,6 +28,10 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
 {
   private static final String EXTRA_RESULT_CODE = "RouterResultCode";
 
+  private static final String EXTRA_DIAGNOSTICS = "RoutingDiagnostics";
+
+  @Nullable
+  private String mDiagnostics;
   private int mResultCode;
   private String mMessage;
   private boolean mNeedMoreMaps;
@@ -49,6 +56,9 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
     titleView.setEllipsize(TextUtils.TruncateAt.END);
     titleView.setTypeface(null, Typeface.BOLD);
     builder.setCustomTitle(titleView);
+
+    if (BuildConfig.DEBUG && mDiagnostics != null)
+      builder.setNeutralButton(android.R.string.copy, null);
 
     mMessage = titleMessage.second;
     builder.setNegativeButton(resHolder.getCancelBtnResId(), null);
@@ -128,6 +138,19 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
     super.onStart();
 
     final AlertDialog dlg = (AlertDialog) getDialog();
+    if (BuildConfig.DEBUG && mDiagnostics != null)
+    {
+      dlg.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener(v -> {
+        app.organicmaps.util.Utils.copyTextToClipboard(requireContext(), mDiagnostics);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
+          Toast
+              .makeText(requireContext(),
+                        getString(R.string.copied_to_clipboard, requireContext().getApplicationInfo().loadLabel(
+                                                                    requireContext().getPackageManager())),
+                        Toast.LENGTH_SHORT)
+              .show();
+      });
+    }
     Button button = dlg.getButton(AlertDialog.BUTTON_POSITIVE);
     if (button == null)
       return;
@@ -147,6 +170,7 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
   {
     super.parseArguments();
     mResultCode = getArguments().getInt(EXTRA_RESULT_CODE);
+    mDiagnostics = getArguments().getString(EXTRA_DIAGNOSTICS);
   }
 
   public static RoutingErrorDialogFragment create(@NonNull FragmentFactory factory, @NonNull Context context,
@@ -154,6 +178,8 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
   {
     Bundle args = new Bundle();
     args.putInt(EXTRA_RESULT_CODE, resultCode);
+    if (BuildConfig.DEBUG)
+      args.putString(EXTRA_DIAGNOSTICS, RoutingErrorDiagnostics.capture(resultCode, missingMaps));
     args.putStringArray(EXTRA_MISSING_MAPS, missingMaps);
     RoutingErrorDialogFragment res = (RoutingErrorDialogFragment) factory.instantiate(
         context.getClassLoader(), RoutingErrorDialogFragment.class.getName());

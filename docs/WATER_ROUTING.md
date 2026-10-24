@@ -322,3 +322,7 @@ The cross-map Almere regression, 52.375208,5.243226 to 52.323037,5.229683,
 uses ordinary 260714 Flevoland and Amsterdam maps. It returns 7,624.11 m water
 and 175.728 m pedestrian approach. Both maps must be downloaded; the start and
 finish belong to different map regions despite being close to Almere.
+
+Android Debug routing error dialogs offer **Copy** to share all selected coordinates,
+app version, routing mode, error code, and map/download context for reproduction.
+The snapshot is captured when the error opens; copying does not dismiss it.

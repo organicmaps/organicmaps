@@ -59,6 +59,9 @@ All the following commands require an app restart:
 
 ## Routing
 
+Android Debug builds add a **Copy** button to routing error dialogs. It copies a snapshot of all route coordinates, the routing mode and error code, app and Android versions, device model, and map regions/download status. The map catalog date identifies the catalog, not each installed map's version. Copying keeps the dialog open, so the report can be pasted into a bug report or chat.
+
+
 - `?debug-cam`: Force-enables speed cameras in all countries.
 - `?no-debug-cam`: Reverts speed camera setting to default.
 
