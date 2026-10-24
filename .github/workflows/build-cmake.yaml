@@ -216,7 +216,8 @@ jobs:
       #     the offline part of that coverage lives in storage_tests
       - name: Run tests
         if: ${{ matrix.environment.run-tests != 'OFF' }}
-        run: ctest --preset $PRESET -j$(nproc --all)
+        # CTest 3.29+ (provided by the CI images) selects the parallelism itself.
+        run: ctest --preset "$PRESET" --parallel
 
       # Run drape tests separately. They require offscreen rendering support.
       # The drape test presets set QT_QPA_PLATFORM=offscreen; setting it
