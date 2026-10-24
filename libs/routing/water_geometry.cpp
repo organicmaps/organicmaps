@@ -22,9 +22,9 @@ namespace
 using Point = m2::PointD;
 using Interval = std::pair<double, double>;
 double constexpr kInfinity = std::numeric_limits<double>::max();
-size_t constexpr kMaxGraphVertices = 65536;
+size_t constexpr kMaxGraphVertices = 131072;
 size_t constexpr kMaxTransferVertices = 2048;
-size_t constexpr kMaxTriangles = 32768;
+size_t constexpr kMaxTriangles = 65536;
 size_t constexpr kMaxVisibilityChecks = 4000000;
 size_t constexpr kMaxVisibilityTriangleVisits = 64000000;
 
@@ -1020,7 +1020,8 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
     return ResultCode::Unavailable;
   std::vector<size_t> transfers;
   for (size_t i = 0; i < graph.m_points.size(); ++i)
-    if (graph.m_lineEndpoints[i] || (geometry.m_hasSourceTopology && surface[i]))
+    if ((graph.m_lineEndpoints[i] || (geometry.m_hasSourceTopology && surface[i])) &&
+        (forward.m_distances[i] != kInfinity || backward.m_distances[i] != kInfinity))
       transfers.push_back(i);
   if (allowUnconfirmedTransfer)
   {
@@ -1029,7 +1030,8 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
   }
   if (transfers.size() > kMaxTransferVertices)
     return ResultCode::Unavailable;
-  double best = kInfinity;
+  double best = kInfinity, bestWalking = kInfinity;
+  bool bestTerminal = false;
   size_t gapFrom = 0, gapTo = 1;
   Interval gap;
   size_t transferCount = 0;
@@ -1047,7 +1049,7 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
       bool const terminal = allowUnconfirmedTransfer && (a == 0 || b == 1);
       // A selected checkpoint may need a short walking approach or exit even
       // when its own water component has no stored river endpoints.
-      if (terminal && ((a == 0 && b == 1) || mercator::DistanceOnEarth(graph.m_points[a], graph.m_points[b]) > 1000.0 ||
+      if (terminal && ((a == 0 && b == 1) || mercator::DistanceOnEarth(graph.m_points[a], graph.m_points[b]) > 5000.0 ||
                        forward.m_distances[a] + backward.m_distances[b] == 0.0))
         continue;
       // A mapped underground break permits a local walking bypass even when
@@ -1062,8 +1064,11 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
         continue;
       // A walking bypass keeps the actual river endpoints, including endpoints
       // inside a water surface; never trim it to arbitrary shoreline points.
-      auto const coverage =
-          knownPortage ? std::vector<Interval>{} : Coverage(geometry, graph.m_points[a], graph.m_points[b]);
+      // The pedestrian router will supply the walking geometry. A straight
+      // endpoint estimate crossing another known lake does not invalidate it.
+      bool const endpointWalk = allowUnconfirmedTransfer && (!geometry.m_hasSourceTopology || terminal);
+      auto const coverage = knownPortage || endpointWalk ? std::vector<Interval>{}
+                                                         : Coverage(geometry, graph.m_points[a], graph.m_points[b]);
       double begin = 0.0, end = 1.0;
       size_t index = 0;
       if (!coverage.empty() && coverage.front().first == 0.0)
@@ -1082,7 +1087,7 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
         continue;
       // Keep the full endpoint-to-endpoint walk when a stored endpoint lies
       // inside a surface. Pedestrian routing validates the actual shore access.
-      if (allowUnconfirmedTransfer && (!geometry.m_hasSourceTopology || terminal))
+      if (endpointWalk)
       {
         begin = 0.0;
         end = 1.0;
@@ -1105,9 +1110,19 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
       auto const distance =
           forward.m_distances[a] + backward.m_distances[b] + mercator::DistanceOnEarth(graph.m_points[a], exit) +
           mercator::DistanceOnEarth(exit, entry) + mercator::DistanceOnEarth(entry, graph.m_points[b]);
-      if (distance < best)
+      auto const walkingDistance = mercator::DistanceOnEarth(exit, entry);
+      // Keep water at both ends when an internal transfer is available. For a
+      // terminal walk, prefer the nearest river endpoint over a cheap route
+      // consisting almost entirely of walking.
+      bool const better = terminal
+                            ? ((best == kInfinity || bestTerminal) &&
+                               (walkingDistance < bestWalking || (walkingDistance == bestWalking && distance < best)))
+                            : (bestTerminal || distance < best);
+      if (better)
       {
         best = distance;
+        bestWalking = walkingDistance;
+        bestTerminal = terminal;
         gapFrom = a;
         gapTo = b;
         gap = {begin, end};

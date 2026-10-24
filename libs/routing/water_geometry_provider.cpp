@@ -22,7 +22,7 @@ namespace
 using Point = m2::PointD;
 size_t constexpr kMaxInputPoints = 16384;
 size_t constexpr kMaxSurfacePoints = 4096;
-size_t constexpr kMaxTriangles = 32768;
+size_t constexpr kMaxTriangles = 65536;
 size_t constexpr kMaxStandardMaps = 16;
 
 // Clip a convex contour against a rectangle. Intersections use a canonical edge
