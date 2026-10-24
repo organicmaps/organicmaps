@@ -133,7 +133,15 @@ class FileHttpRequest : public HttpRequest
     {
       m_progress.m_bytesDownloaded += (endRange - begRange) + 1;
       if (m_onProgress)
-        m_onProgress(*this);
+      {
+        // The callback can destroy the request, so keep its captures and alive flag locally.
+        auto const alive = m_alive;
+        auto onProgress = std::move(m_onProgress);
+        onProgress(*this);
+        if (!alive->load(std::memory_order_acquire))
+          return;
+        m_onProgress = std::move(onProgress);
+      }
     }
     else
     {
@@ -157,11 +165,16 @@ class FileHttpRequest : public HttpRequest
     if (m_status == DownloadStatus::InProgress)
       return;
 
-    // 1. Save downloaded chunks if some error occurred.
+    Finish();
+  }
+
+  void Finish()
+  {
+    // Save downloaded chunks if some error occurred.
     if (m_status == DownloadStatus::Failed || m_status == DownloadStatus::FileNotFound)
       SaveResumeChunks();
 
-    // 2. Clean up resume file with chunks range on success.
+    // Clean up resume state and publish the completed file.
     if (m_status == DownloadStatus::Completed)
     {
       Platform::RemoveFileIfExists(m_filePath + RESUME_FILE_EXTENSION);
@@ -169,15 +182,15 @@ class FileHttpRequest : public HttpRequest
       base::RenameFileX(m_downloadingPath, m_filePath);
     }
 
-    // 3. Finish downloading.
-    m_onFinish(*this);
+    // Keep callback captures alive if completion destroys the request.
+    auto const onFinish = std::move(m_onFinish);
+    onFinish(*this);
   }
 
   void SaveResumeChunks()
   {
-    // No writer flush needed — each chunk's transport closes its own file handle
-    // before the completion callback fires. Completed chunks are durable on disk
-    // (modulo kernel buffer flushing, same as the historical FileWriter::Flush() path).
+    // Each completed chunk's transport closes its file handle before notifying us,
+    // so its bytes are available to subsequent resume reads.
     m_strategy.SaveChunks(m_progress.m_bytesTotal, m_filePath + RESUME_FILE_EXTENSION);
   }
 
@@ -224,7 +237,17 @@ public:
       FileWriter writer(m_downloadingPath, openMode);
     }
     Platform::DisableBackupForFile(m_downloadingPath);
-    StartChunks();
+    if (StartChunks() == ChunksDownloadStrategy::EDownloadSucceeded)
+    {
+      // Completion must run after GetFile returns ownership to its caller.
+      platform::GuiThread().PushDeferred([this, alive = m_alive]()
+      {
+        if (!alive->load(std::memory_order_acquire))
+          return;
+        m_status = DownloadStatus::Completed;
+        Finish();
+      });
+    }
   }
 
   ~FileHttpRequest() override
@@ -238,11 +261,7 @@ public:
     {
       if (m_doCleanOnCancel)
       {
-        // Delete temp files synchronously. Any still-in-flight transport writes will land
-        // on the unlinked inode (POSIX: data goes to limbo, inode reclaimed when last fd
-        // closes) or fail silently (Windows) — either way, no interaction with a potential
-        // new download that reuses the same path. A deferred-cleanup scheme here would
-        // introduce a cancel+retry race where the cleanup deletes the NEW download's file.
+        // Synchronous cleanup cannot delete files created by a later retry.
         Platform::RemoveFileIfExists(m_downloadingPath);
         Platform::RemoveFileIfExists(m_filePath + RESUME_FILE_EXTENSION);
       }

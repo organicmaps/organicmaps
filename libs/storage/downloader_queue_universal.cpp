@@ -25,12 +25,6 @@ void Queue::ForEachCountry(ForEachCountryFunction const & fn) const
     fn(queuedCountry);
 }
 
-void Queue::ForEachCountry(ForEachCountryMutable const & fn)
-{
-  for (auto & queuedCountry : m_queue)
-    fn(queuedCountry);
-}
-
 CountryId const & Queue::GetFirstId() const
 {
   CHECK(!m_queue.empty(), ());
@@ -62,7 +56,9 @@ void Queue::PopFront()
 void Queue::Append(QueuedCountry && country)
 {
   m_queue.emplace_back(std::move(country));
-  m_queue.back().OnCountryInQueue();
+  // Subscribers may erase their entry while handling the notification.
+  auto const queuedCountry = m_queue.back();
+  queuedCountry.OnCountryInQueue();
 }
 
 void Queue::Clear()

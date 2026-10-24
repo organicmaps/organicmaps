@@ -5,6 +5,8 @@
 
 #include "map/framework.hpp"
 
+#include "storage/queued_country.hpp"
+
 #include "platform/gui_thread.hpp"
 #include "platform/platform.hpp"
 
@@ -102,6 +104,27 @@ UNIT_TEST(UpdateDialog_EntireTreeIsSortedAlphabetically)
   // #3877: the browse list must sort by the visible country column, not the hidden rank.
   constexpr int kCountryColumn = 0;  // KColumnIndexCountry
   TEST_EQUAL(tree.sortColumn(), kCountryColumn, ());
+}
+
+UNIT_TEST(UpdateDialog_RootReflectsDownloadStatus)
+{
+  EnsureApp();
+  Framework framework(FrameworkParams{}, false);
+  qt::UpdateDialog dialog(nullptr, framework, QLocale());
+  dialog.FillTreeForTesting();
+  auto const * root = dialog.GetTreeForTesting().topLevelItem(0);
+  int constexpr kStatusColumn = 1;
+  auto const initialStatus = root->text(kStatusColumn);
+
+  auto & storage = framework.GetStorage();
+  storage::CountryId const id = "Uruguay";
+  storage::QueuedCountry country(storage.GetCountryFile(id), id, MapFileType::Map, storage.GetCurrentDataVersion(), {},
+                                 std::make_shared<storage::diffs::DiffsDataSource>());
+  country.Subscribe(storage);
+  country.OnStartDownloading();
+  TEST_EQUAL(root->text(kStatusColumn).toStdString(), qt::Tr("downloading").toStdString(), ());
+  storage.CancelDownloadNode(id);
+  TEST_EQUAL(root->text(kStatusColumn).toStdString(), initialStatus.toStdString(), ());
 }
 
 UNIT_TEST(UpdateDialog_QueuedSearchResultAfterDestruction)
