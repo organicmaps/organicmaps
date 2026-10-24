@@ -22,6 +22,8 @@ public:
   // A heading aside from the road the car keeps being snapped to is wrong, e.g. taken from a short piece of a road
   // at a crossing: a fork or a slow turn takes the car off the road sooner.
   static double constexpr kMaxAsideOnRoadM = 50;
+  // A car turning after the crossing it was put on may be taking a branch there: the road is not trusted any more.
+  static double constexpr kMaxTrustedRotationDeg = 10;
 
   void SetPosition(ms::LatLon const & position);
   /// Moves the position without making it a reference one: the accuracy keeps degrading.
@@ -29,7 +31,8 @@ public:
   /// \param headingDeg clockwise from the north.
   void SetHeading(double headingDeg);
   /// The road the car was just put on is the right one, e.g. at a crossing the turn is moved to: for the next
-  /// kMaxAsideOnRoadM the heading is pulled to it at once, a difference up to kMaxSnapHeadingDiffDeg is not a fork.
+  /// kMaxAsideOnRoadM the heading is pulled to it at once, a difference up to kMaxSnapHeadingDiffDeg is not a fork,
+  /// until the car turns by more than kMaxTrustedRotationDeg.
   void TrustRoad();
   void SetSpeed(double speedMps);
   /// \param deltaDeg clockwise rotation.
@@ -74,5 +77,6 @@ private:
   double m_asideSinceM = 0;
   double m_asideSign = 0;
   double m_trustedUntilM = 0;
+  double m_trustedRotationDeg = 0;
 };
 }  // namespace nogps
