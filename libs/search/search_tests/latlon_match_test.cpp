@@ -189,4 +189,56 @@ UNIT_TEST(LatLon_Match_False)
   TEST(!MatchLatLonDegree("2 1st", lat, lon), ());
 }
 
+
+// Space-separated DMS (no degree/minute/second symbols), phone-friendly.
+UNIT_TEST(LatLon_Match_SpaceSeparatedDMS)
+{
+  double lat, lon;
+
+  TEST(MatchLatLonDegree("37 00 27.73 N 08 56 41.59 W", lat, lon), ());
+  TestAlmostEqual(lat, 37.0 + 27.73 / 3600.0);
+  TestAlmostEqual(lon, -(8.0 + 56.0 / 60.0 + 41.59 / 3600.0));
+
+  // Direction-first.
+  TEST(MatchLatLonDegree("N 37 00 27.73 W 08 56 41.59", lat, lon), ());
+  TestAlmostEqual(lat, 37.0 + 27.73 / 3600.0);
+  TestAlmostEqual(lon, -(8.0 + 56.0 / 60.0 + 41.59 / 3600.0));
+
+  // D M only (no seconds).
+  TEST(MatchLatLonDegree("51 30 N 0 7 W", lat, lon), ());
+  TestAlmostEqual(lat, 51.5);
+  TestAlmostEqual(lon, -7.0 / 60.0);
+
+  // Comma as group delimiter (not a second decimal mark).
+  TEST(MatchLatLonDegree("N 37 00 27.73, W 08 56 41.59", lat, lon), ());
+  TestAlmostEqual(lat, 37.0 + 27.73 / 3600.0);
+  TestAlmostEqual(lon, -(8.0 + 56.0 / 60.0 + 41.59 / 3600.0));
+
+  // Decimal degrees with suffix hemispheres still work.
+  TEST(MatchLatLonDegree("51.5 N, 11.2 E", lat, lon), ());
+  TestAlmostEqual(lat, 51.5);
+  TestAlmostEqual(lon, 11.2);
+
+  // Multi-dot garbage must not match.
+  TEST(!MatchLatLonDegree("1.2.3 N 4.5.6 E", lat, lon), ());
+
+  // Ambiguous four-number run must not pick a bad split.
+  TEST(!MatchLatLonDegree("N 51 30 0 7 W", lat, lon), ());
+
+  // Extra trailing text: "West" must not become a hemisphere.
+  TEST(!MatchLatLonDegree("51 30 N 0 7 West Street", lat, lon), ());
+
+  // Extra trailing hemisphere rejected (full query not consumed cleanly).
+  TEST(!MatchLatLonDegree("37 0 0 N 8 0 0 E N", lat, lon), ());
+
+  // Same-axis rejected.
+  TEST(!MatchLatLonDegree("51 30 N 0 7 N", lat, lon), ());
+
+  // Incomplete.
+  TEST(!MatchLatLonDegree("51 30 N", lat, lon), ());
+
+  // Non-finite components rejected.
+  TEST(!MatchLatLonDegree("51 0 -nan N 0 7 0 W", lat, lon), ());
+}
+
 }  // namespace latlon_match_test
