@@ -312,4 +312,87 @@ UNIT_TEST(WaterRouter_UnconfirmedShortestPathMetadata)
   TEST(!result.GetActive().GetWaterDistances()->m_shortestConfirmed, ());
   TEST_EQUAL(result.GetActive().GetWaterDistances()->m_landMeters, 0.0, ());
 }
+water::Geometry DisconnectedRivers()
+{
+  water::Geometry geometry;
+  geometry.m_complete = true;
+  geometry.m_hasSourceTopology = false;
+  geometry.m_lines = {{{{0, 0}}, {{0, 0.004}}}, {{{0.004, 0}}, {{0.004, 0.004}}}};
+  return geometry;
+}
+
+UNIT_TEST(WaterRouter_InternalTransferUsesWalkingGeometry)
+{
+  size_t calls = 0;
+  WaterRouter router([](Checkpoints const &, RouterDelegate const &) { return DisconnectedRivers(); },
+                     std::make_unique<WalkingStub>(calls));
+  RouterDelegate delegate;
+  std::vector<float> progress;
+  delegate.SetProgressCallback([&](float value) { progress.push_back(value); });
+  Checkpoints checkpoints({0, 0.002}, {0.004, 0.002});
+  water::Path candidate;
+  TEST(water::FindPath(DisconnectedRivers(), checkpoints.GetStart(), checkpoints.GetFinish(), false,
+                       [] { return false; }, candidate) == water::ResultCode::Success,
+       ());
+  auto const gap = std::find(candidate.m_landGaps.begin(), candidate.m_landGaps.end(), true);
+  TEST(gap != candidate.m_landGaps.end(), ());
+  size_t const index = std::distance(candidate.m_landGaps.begin(), gap);
+  auto const expectedWalk = mercator::DistanceOnEarth(candidate.m_points[index], {-0.001, 0.001}) +
+                            mercator::DistanceOnEarth({-0.001, 0.001}, candidate.m_points[index + 1]);
+  RoutesResult result;
+  TEST(router.CalculateRoute(checkpoints, {}, false, false, delegate, result) == RouterResultCode::NoError, ());
+  TEST_EQUAL(calls, 1, ());
+  auto const & route = result.GetActive();
+  auto const distances = *route.GetWaterDistances();
+  TEST_ALMOST_EQUAL_ABS(distances.m_landMeters, expectedWalk, 1e-6, ());
+  TEST_ALMOST_EQUAL_ABS(distances.m_waterMeters, candidate.m_waterDistance, 1e-6, ());
+  TEST_GREATER(distances.m_landMeters, candidate.m_landDistance, ());
+  TEST(!distances.m_shortestConfirmed, ());
+  TEST_ALMOST_EQUAL_ABS(distances.GetTotalMeters(), route.GetRouteSegments().back().GetDistFromBeginningMeters(), 1e-6,
+                        ());
+  TEST_EQUAL(std::count_if(route.GetRouteSegments().begin(), route.GetRouteSegments().end(),
+                           [](auto const & segment) { return segment.IsLandGap(); }),
+             2, ());
+  TEST(std::is_sorted(progress.begin(), progress.end()), ());
+  TEST_EQUAL(progress.back(), 100, ());
+}
+
+UNIT_TEST(WaterRouter_InternalTransferHasNoStraightFallback)
+{
+  for (bool const configured : {false, true})
+  {
+    size_t calls = 0;
+    std::unique_ptr<IRouter> pedestrian;
+    if (configured)
+      pedestrian = std::make_unique<WalkingStub>(calls, true);
+    WaterRouter router([](Checkpoints const &, RouterDelegate const &) { return DisconnectedRivers(); },
+                       std::move(pedestrian));
+    RouterDelegate delegate;
+    RoutesResult result;
+    TEST(router.CalculateRoute(Checkpoints({0, 0.002}, {0.004, 0.002}), {}, false, false, delegate, result) ==
+             RouterResultCode::RouteNotFound,
+         ());
+    TEST(!result.IsValid(), ());
+    TEST_EQUAL(calls, configured ? 1 : 0, ());
+  }
+}
+
+UNIT_TEST(WaterRouter_InternalTransferCancellation)
+{
+  size_t calls = 0;
+  WaterRouter router([](Checkpoints const &, RouterDelegate const &) { return DisconnectedRivers(); },
+                     std::make_unique<WalkingStub>(calls));
+  RouterDelegate delegate;
+  delegate.SetProgressCallback([&](float value)
+  {
+    if (value >= 89)
+      delegate.Cancel();
+  });
+  RoutesResult result;
+  TEST(router.CalculateRoute(Checkpoints({0, 0.002}, {0.004, 0.002}), {}, false, false, delegate, result) ==
+           RouterResultCode::Cancelled,
+       ());
+  TEST_EQUAL(calls, 1, ());
+  TEST(!result.IsValid(), ());
+}
 }  // namespace water_router_test
