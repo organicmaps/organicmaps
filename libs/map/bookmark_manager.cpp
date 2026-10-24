@@ -443,8 +443,23 @@ size_t BookmarkManager::GetRecentlyDeletedCategoriesCount() const
 
 BookmarkManager::KMLDataCollectionPtr BookmarkManager::GetRecentlyDeletedCategories()
 {
-  auto collection =
-      LoadBookmarks(GetTrashDirectory(), kKmlExtension, FileType::Kml, [](kml::FileData const &) { return true; });
+  auto collection = std::make_shared<KMLDataCollection>();
+  auto const directory = GetTrashDirectory();
+  Platform::FilesList files;
+  Platform::GetFilesByExt(directory, kKmlExtension, files);
+  collection->reserve(files.size());
+  for (auto const & file : files)
+  {
+    auto path = base::JoinPath(directory, file);
+    auto data = LoadKmlFile(path, FileType::Kml);
+    if (!data)
+    {
+      // Trashed files must remain recoverable and deletable even when their contents cannot be parsed.
+      data = std::make_unique<kml::FileData>();
+      kml::SetDefaultStr(data->m_categoryData.m_name, base::GetNameFromFullPathWithoutExt(file));
+    }
+    collection->emplace_back(std::move(path), std::move(data));
+  }
   return collection;
 }
 
@@ -1691,6 +1706,12 @@ std::string BookmarkManager::GetCategoryFileName(kml::MarkGroupId categoryId) co
   return GetBmCategory(categoryId)->GetFileName();
 }
 
+bool BookmarkManager::IsCategorySaving(kml::MarkGroupId categoryId) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  return GetBmCategory(categoryId)->m_fileSaveState->m_pendingCount != 0;
+}
+
 kml::MarkGroupId BookmarkManager::GetCategoryByFileName(std::string const & fileName) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -2194,15 +2215,13 @@ void BookmarkManager::ReloadBookmarkRoutine(std::string const & filePath)
 
 void BookmarkManager::NotifyAboutStartAsyncLoading()
 {
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   if (m_needTeardown)
     return;
 
-  GetPlatform().RunTask(Platform::Thread::Gui, [this]()
-  {
-    m_asyncLoadingInProgress = true;
-    if (m_asyncLoadingCallbacks.m_onStarted != nullptr)
-      m_asyncLoadingCallbacks.m_onStarted();
-  });
+  m_asyncLoadingInProgress = true;
+  if (m_asyncLoadingCallbacks.m_onStarted != nullptr)
+    m_asyncLoadingCallbacks.m_onStarted();
 }
 
 void BookmarkManager::NotifyAboutFinishAsyncLoading(KMLDataCollectionPtr && collection)
@@ -2575,7 +2594,9 @@ void BookmarkManager::UpdateBookmarkCategory(kml::MarkGroupId groupId, kml::Cate
   // UI and search retain the group ID when a category is reloaded from its file.
   ClearGroup(groupId);
   data.m_id = groupId;
+  auto const fileSaveState = it->second->m_fileSaveState;
   it->second = std::make_unique<BookmarkCategory>(std::move(data), false /* autoSave */);
+  it->second->m_fileSaveState = fileSaveState;
   m_changesTracker.OnAddGroup(groupId);
 }
 
@@ -2605,24 +2626,36 @@ bool BookmarkManager::DeleteBmCategory(kml::MarkGroupId groupId, bool permanentl
   if (it == m_categories.end())
     return false;
 
+  auto const fileSaveState = it->second->m_fileSaveState;
+  std::lock_guard const saveLock(fileSaveState->m_mutex);
+  // Preserve edits that have not yet been written by queued autosaves.
+  if (!permanently && fileSaveState->m_pendingCount != 0 && !SaveBookmarkCategory(groupId))
+    return false;
+
+  // The file goes first: a category that is gone from the memory while its file is still in the bookmarks
+  // directory comes back on the next launch, and iCloud synchronization uploads it again as a new one.
+  auto const & filePath = it->second->GetFileName();
+  if (Platform::IsFileExistsByFullPath(filePath))
+  {
+    if (permanently)
+    {
+      if (!base::DeleteFileX(filePath))
+      {
+        LOG(LERROR, ("Failed to delete the category at", filePath));
+        return false;
+      }
+      LOG(LINFO, ("Category at", filePath, "is deleted"));
+    }
+    else
+    {
+      if (!MoveBookmarkFileToTrash(filePath))
+        return false;
+    }
+  }
+
+  fileSaveState->m_cancelled = true;
   ClearGroup(groupId);
   m_changesTracker.OnDeleteGroup(groupId);
-
-  auto const & filePath = it->second->GetFileName();
-  if (permanently)
-  {
-    base::DeleteFileX(filePath);
-    LOG(LINFO, ("Category at", filePath, "is deleted"));
-  }
-  else
-  {
-    auto const trashedFilePath = GenerateValidAndUniqueTrashedFilePath(base::FileNameFromFullPath(filePath));
-    if (base::MoveFileX(filePath, trashedFilePath))
-      LOG(LINFO, ("Category at", filePath, "is trashed to the", trashedFilePath));
-    else
-      LOG(LERROR, ("Failed to move", filePath, "into the trash at", trashedFilePath));
-  }
-
   m_categories.erase(it);
   UpdateBmGroupIdList();
   return true;
@@ -2925,19 +2958,33 @@ void BookmarkManager::SaveBookmarks(kml::GroupIdCollection const & groupIdCollec
   // Saving bookmarks invoked. Log in main (UI) thread to check reasonable necessity.
   LOG(LINFO, ("See async files below (SaveKmlFileSafe)"));
 
-  if (m_testModeEnabled)
+  std::vector<std::shared_ptr<BookmarkCategory::FileSaveState>> fileSaveStates;
+  fileSaveStates.reserve(groupIdCollection.size());
+  for (auto const groupId : groupIdCollection)
   {
-    // Save bookmarks synchronously.
-    for (auto const & kmlItem : *kmlDataCollection)
-      SaveKmlFileByExt(*kmlItem.second, kmlItem.first);
-    return;
+    auto const state = GetBmCategory(groupId)->m_fileSaveState;
+    ++state->m_pendingCount;
+    fileSaveStates.push_back(state);
   }
+  CHECK_EQUAL(fileSaveStates.size(), kmlDataCollection->size(), ());
 
-  GetPlatform().RunTask(Platform::Thread::File, [kmlDataCollection = std::move(kmlDataCollection)]()
+  auto save = [kmlDataCollection = std::move(kmlDataCollection), fileSaveStates = std::move(fileSaveStates)]()
   {
-    for (auto const & kmlItem : *kmlDataCollection)
+    for (size_t i = 0; i < kmlDataCollection->size(); ++i)
+    {
+      auto const & state = fileSaveStates[i];
+      std::lock_guard const saveLock(state->m_mutex);
+      SCOPE_GUARD(pendingCountGuard, [&]() { --state->m_pendingCount; });
+      if (state->m_cancelled)
+        continue;
+      auto const & kmlItem = (*kmlDataCollection)[i];
       SaveKmlFileByExt(*kmlItem.second, kmlItem.first);
-  });
+    }
+  };
+  if (m_testModeEnabled)
+    save();
+  else
+    GetPlatform().RunTask(Platform::Thread::File, std::move(save));
 }
 
 void BookmarkManager::PrepareTrackFileForSharing(kml::TrackId trackId, SharingHandler && handler, FileType fileType)

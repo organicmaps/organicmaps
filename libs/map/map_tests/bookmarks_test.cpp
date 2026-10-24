@@ -10,6 +10,7 @@
 #include "indexer/feature_utils.hpp"
 #include "indexer/mwm_set.hpp"
 
+#include "platform/gui_thread.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 
@@ -19,6 +20,7 @@
 
 #include "base/file_name_utils.hpp"
 #include "base/scope_guard.hpp"
+#include "base/thread_safe_queue.hpp"
 #include "base/timer.hpp"
 
 #include "std/target_os.hpp"
@@ -29,10 +31,13 @@
 #include <chrono>
 #include <cstring>  // strlen
 #include <ctime>
+#include <future>
 #include <map>
 #include <numeric>  // std::reduce
 #include <set>
+#include <sstream>
 #include <string>
+#include <thread>
 #include <vector>
 
 namespace bookmarks_test
@@ -58,6 +63,9 @@ public:
 
   ~ScopedBookmarksDir()
   {
+    auto const trashDir = base::JoinPath(m_testSettingsDir, std::string{kTrashDirectoryName});
+    if (Platform::IsFileExistsByFullPath(trashDir))
+      Platform::RmDirRecursively(trashDir);
     GetPlatform().SetSettingsDir(m_origSettingsDir);
     Platform::RmDirRecursively(m_testSettingsDir);
   }
@@ -351,6 +359,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ReloadPreservesCategoryIdentityAndMetadata)
 
   auto initialData = makeFileData("MapName", "initial", 1000, 2);
   TEST(SaveKmlFileSafe(*initialData, filePath, FileType::Kml), ());
+  TEST(Platform::SetFileModificationTime(filePath, 5000), ());
 
   BookmarkManager bmManager(BM_CALLBACKS);
   bmManager.EnableTestMode(true);
@@ -362,12 +371,14 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ReloadPreservesCategoryIdentityAndMetadata)
     collection.emplace_back(filePath, std::move(data));
     bmManager.CreateCategories(std::move(collection), autoSave);
   };
-  loadFile(false /* autoSave */);
+  loadFile(true /* autoSave */);
+  TEST_EQUAL(Platform::GetFileModificationTime(filePath), 5000, ("Loading must not rewrite the source file"));
 
   auto const groupId = bmManager.GetCategoryByFileName(filePath);
   TEST_NOT_EQUAL(groupId, kml::kInvalidMarkGroupId, ());
   TEST_EQUAL(bmManager.GetUserMarkIds(groupId).size(), 2, ());
   TEST_EQUAL(bmManager.GetTrackIds(groupId).size(), 1, ());
+  TEST(!bmManager.IsVisible(groupId), ());
   auto oldBookmarkId = *bmManager.GetUserMarkIds(groupId).begin();
   auto oldTrackId = *bmManager.GetTrackIds(groupId).begin();
 
@@ -375,6 +386,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ReloadPreservesCategoryIdentityAndMetadata)
       [&](std::string const & name, std::string const & description, std::time_t modified, size_t bookmarkCount)
   {
     auto data = makeFileData(name, description, modified, bookmarkCount);
+    data->m_categoryData.m_visible = true;
     TEST(SaveKmlFileSafe(*data, filePath, FileType::Kml), ());
     TEST(Platform::SetFileModificationTime(filePath, 5000), ());
 
@@ -387,6 +399,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ReloadPreservesCategoryIdentityAndMetadata)
     TEST_EQUAL(bmManager.GetCategoryName(groupId), name, ());
     TEST_EQUAL(kml::GetDefaultStr(categoryData.m_description), description, ());
     TEST_EQUAL(categoryData.m_lastModified, kml::TimestampClock::from_time_t(modified), ());
+    TEST(bmManager.IsVisible(groupId), ());
     TEST_EQUAL(bmManager.GetUserMarkIds(groupId).size(), bookmarkCount, ());
     TEST_EQUAL(bmManager.GetTrackIds(groupId).size(), 1, ());
     TEST(!bmManager.HasBookmark(oldBookmarkId), ());
@@ -409,7 +422,13 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ReloadPreservesCategoryIdentityAndMetadata)
   TEST_EQUAL(bmManager.GetBmGroupsCount(), 2, ());
   TEST_EQUAL(bmManager.GetCategoryName(groupId), "Taken1", ());
   TEST_EQUAL(bmManager.GetCategoryName(otherId), "Taken", ());
+  TEST(!bmManager.IsVisible(groupId), ());
   TEST_EQUAL(Platform::GetFileModificationTime(filePath), 5000, ());
+
+  bmManager.GetEditSession().SetCategoryName(groupId, "Edited after reload");
+  auto const saved = LoadKmlFile(filePath, FileType::Kml);
+  TEST(saved, ());
+  TEST_EQUAL(kml::GetDefaultStr(saved->m_categoryData.m_name), "Edited after reload", ());
 }
 
 kml::MarkId FindTrackSelectionMark(BookmarkManager const & bm, kml::TrackId trackId)
@@ -2482,6 +2501,271 @@ UNIT_CLASS_TEST(Runner, Bookmarks_RecentlyDeleted)
 
   TEST(!Platform::IsFileExistsByFullPath(filePath), ());
   TEST(!Platform::IsFileExistsByFullPath(deletedFilePath), ());
+}
+
+void WaitForFileTasks()
+{
+  std::promise<void> finished;
+  GetPlatform().RunTask(Platform::Thread::File, [&]() { finished.set_value(); });
+  finished.get_future().wait();
+}
+
+// Pump only this fixture's callbacks, not GUI work left by other Framework instances.
+class BookmarkTestGuiThread final : public base::TaskLoop
+{
+public:
+  PushResult Push(Task && task) override
+  {
+    m_tasks.Push(std::move(task));
+    return {true, kNoId};
+  }
+  PushResult Push(Task const & task) override { return Push(Task(task)); }
+
+  void RunNext()
+  {
+    Task task;
+    m_tasks.WaitAndPop(task);
+    task();
+  }
+
+private:
+  threads::ThreadSafeQueue<Task> m_tasks;
+};
+
+class ScopedFileThreadBlocker
+{
+public:
+  ScopedFileThreadBlocker()
+  {
+    GetPlatform().RunTask(Platform::Thread::File, [this]()
+    {
+      m_started.set_value();
+      m_release.get_future().wait();
+    });
+    m_started.get_future().wait();
+  }
+
+  ~ScopedFileThreadBlocker()
+  {
+    m_release.set_value();
+    WaitForFileTasks();
+  }
+
+private:
+  std::promise<void> m_started;
+  std::promise<void> m_release;
+};
+
+void DeleteCategoryWithPendingSave(bool permanently)
+{
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+  auto const groupId = bmManager.CreateBookmarkCategory("PendingSave");
+  AddBookmark(bmManager, groupId, 10);
+  auto const filePath = bmManager.GetCategoryFileName(groupId);
+  TEST(Platform::IsFileExistsByFullPath(filePath), ());
+
+  {
+    ScopedFileThreadBlocker blocker;
+    bmManager.EnableTestMode(false);
+    bmManager.GetEditSession().SetCategoryName(groupId, "Edited before deletion");
+    TEST(bmManager.IsCategorySaving(groupId), ());
+    TEST(bmManager.GetEditSession().DeleteBmCategory(groupId, permanently), ());
+  }
+  bmManager.EnableTestMode(true);
+  TEST(!bmManager.HasBmCategory(groupId), ());
+  TEST(!Platform::IsFileExistsByFullPath(filePath), ("An earlier autosave must not recreate a deleted file"));
+  if (!permanently)
+  {
+    auto const trashedFile = base::JoinPath(GetTrashDirectory(), base::FileNameFromFullPath(filePath));
+    SCOPE_GUARD(trashFileGuard, [&]() { (void)base::DeleteFileX(trashedFile); });
+    auto const data = LoadKmlFile(trashedFile, FileType::Kml);
+    TEST(data, ());
+    TEST_EQUAL(kml::GetDefaultStr(data->m_categoryData.m_name), "Edited before deletion",
+               ("The trash must preserve the edit that had not reached disk"));
+  }
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_DeletedCategoryIsNotRecreatedByPendingSave)
+{
+  DeleteCategoryWithPendingSave(true /* permanently */);
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_TrashedCategoryPreservesPendingChanges)
+{
+  DeleteCategoryWithPendingSave(false /* permanently */);
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_FailedDeletionRetainsCategoryAndAutosaves)
+{
+  base::ScopedLogAbortLevelChanger const expectedError;
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+  auto const groupId = bmManager.CreateBookmarkCategory("DeleteFailure");
+  auto const bookmarkId = AddBookmark(bmManager, groupId, 10);
+  auto const filePath = bmManager.GetCategoryFileName(groupId);
+  auto const backup = filePath + ".backup";
+
+  TEST(base::RenameFileX(filePath, backup), ());
+  TEST(Platform::MkDirChecked(filePath), ());
+  auto const obstruction = base::JoinPath(filePath, "keep");
+  FileWriter(obstruction).Write("x", 1);
+  SCOPE_GUARD(restoreFile, [&]()
+  {
+    (void)base::DeleteFileX(obstruction);
+    (void)Platform::RmDir(filePath);
+    (void)base::RenameFileX(backup, filePath);
+  });
+
+  TEST(!bmManager.GetEditSession().DeleteBmCategory(groupId, true /* permanently */), ());
+  TEST(bmManager.HasBmCategory(groupId), ());
+  TEST(bmManager.HasBookmark(bookmarkId), ());
+  TEST_EQUAL(bmManager.GetUserMarkIds(groupId).size(), 1, ());
+
+  TEST(base::DeleteFileX(obstruction), ());
+  TEST_EQUAL(Platform::RmDir(filePath), Platform::ERR_OK, ());
+  TEST(base::RenameFileX(backup, filePath), ());
+  restoreFile.release();
+  bmManager.EnableTestMode(false);
+  bmManager.GetEditSession().SetCategoryName(groupId, "Edited after failure");
+  WaitForFileTasks();
+  bmManager.EnableTestMode(true);
+  auto const saved = LoadKmlFile(filePath, FileType::Kml);
+  TEST(saved, ());
+  TEST_EQUAL(kml::GetDefaultStr(saved->m_categoryData.m_name), "Edited after failure", ());
+  TEST(bmManager.GetEditSession().DeleteBmCategory(groupId, true /* permanently */), ());
+  TEST(!bmManager.HasBmCategory(groupId), ());
+  TEST(!Platform::IsFileExistsByFullPath(filePath), ());
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_FailedTrashCreationRetainsCategory)
+{
+  base::ScopedLogAbortLevelChanger const expectedError;
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+  auto const groupId = bmManager.CreateBookmarkCategory("TrashFailure");
+  auto const bookmarkId = AddBookmark(bmManager, groupId, 10);
+  auto const filePath = bmManager.GetCategoryFileName(groupId);
+  auto const trashDir = GetTrashDirectory();
+  if (Platform::IsFileExistsByFullPath(trashDir))
+    TEST_EQUAL(Platform::RmDir(trashDir), Platform::ERR_OK, ());
+  FileWriter(trashDir).Write("x", 1);
+  SCOPE_GUARD(trashGuard, [&]() { (void)base::DeleteFileX(trashDir); });
+
+  TEST(!bmManager.GetEditSession().DeleteBmCategory(groupId, false /* permanently */), ());
+  TEST(bmManager.HasBmCategory(groupId), ());
+  TEST(bmManager.HasBookmark(bookmarkId), ());
+  TEST(Platform::IsFileExistsByFullPath(filePath), ());
+  TEST(base::DeleteFileX(trashDir), ());
+  trashGuard.release();
+  TEST(bmManager.GetEditSession().DeleteBmCategory(groupId, false /* permanently */), ());
+  TEST(!bmManager.HasBmCategory(groupId), ());
+  TEST(!Platform::IsFileExistsByFullPath(filePath), ());
+  auto const trashed = base::JoinPath(trashDir, base::FileNameFromFullPath(filePath));
+  TEST(base::DeleteFileX(trashed), ());
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_FailedPendingSaveRetainsCategory)
+{
+  base::ScopedLogAbortLevelChanger const expectedError;
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+  auto const groupId = bmManager.CreateBookmarkCategory("PendingFailure");
+  AddBookmark(bmManager, groupId, 10);
+  auto const filePath = bmManager.GetCategoryFileName(groupId);
+  std::ostringstream threadId;
+  threadId << std::this_thread::get_id();
+  auto const temporaryFile = filePath + ".tmp" + threadId.str();
+
+  {
+    ScopedFileThreadBlocker blocker;
+    bmManager.EnableTestMode(false);
+    bmManager.GetEditSession().SetCategoryName(groupId, "Still pending");
+    TEST(Platform::MkDirChecked(temporaryFile), ());
+    SCOPE_GUARD(temporaryGuard, [&]()
+    {
+      if (Platform::IsFileExistsByFullPath(temporaryFile))
+        (void)Platform::RmDir(temporaryFile);
+    });
+    TEST(!bmManager.GetEditSession().DeleteBmCategory(groupId, false /* permanently */), ());
+    TEST(bmManager.HasBmCategory(groupId), ());
+    TEST(bmManager.IsCategorySaving(groupId), ());
+  }
+  bmManager.EnableTestMode(true);
+  auto const saved = LoadKmlFile(filePath, FileType::Kml);
+  TEST(saved, ());
+  TEST_EQUAL(kml::GetDefaultStr(saved->m_categoryData.m_name), "Still pending", ());
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_UnparsedTrashCanBeListedRecoveredAndDeleted)
+{
+  auto guiThread = std::make_unique<BookmarkTestGuiThread>();
+  auto * gui = guiThread.get();
+  GetPlatform().SetGuiThread(std::move(guiThread));
+  SCOPE_GUARD(restoreGui, [] { GetPlatform().SetGuiThread(std::make_unique<platform::GuiThread>()); });
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+  bmManager.LoadBookmarks();
+  WaitForFileTasks();
+  gui->RunNext();
+  auto const filePath = base::JoinPath(GetBookmarksDirectory(), "Unparsed.kml");
+  std::string const contents = "Unsupported KML content";
+  FileWriter(filePath).Write(contents.data(), contents.size());
+  auto const checkContents = [&](std::string const & path)
+  {
+    std::string restored;
+    FileReader(path).ReadAsString(restored);
+    TEST_EQUAL(restored, contents, ());
+  };
+  TEST(MoveBookmarkFileToTrash(filePath), ());
+  TEST(MoveBookmarkFileToTrash(filePath), ("An absent file is already deleted"));
+  auto const trashed = bmManager.GetRecentlyDeletedCategories();
+  TEST_EQUAL(trashed->size(), 1, ());
+  TEST_EQUAL(bmManager.GetRecentlyDeletedCategoriesCount(), 1, ());
+  TEST_EQUAL(kml::GetDefaultStr(trashed->front().second->m_categoryData.m_name), "Unparsed", ());
+  auto const trashPath = trashed->front().first;
+  checkContents(trashPath);
+
+  bmManager.RecoverRecentlyDeletedCategoriesAtPaths({trashPath});
+  WaitForFileTasks();
+  gui->RunNext();
+  checkContents(filePath);
+  TEST(MoveBookmarkFileToTrash(filePath), ());
+  bmManager.DeleteRecentlyDeletedCategoriesAtPaths({trashPath});
+  TEST_EQUAL(bmManager.GetRecentlyDeletedCategoriesCount(), 0, ());
+  TEST(bmManager.GetRecentlyDeletedCategories()->empty(), ());
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_LoadingStateIsReportedSynchronously)
+{
+  auto guiThread = std::make_unique<BookmarkTestGuiThread>();
+  auto * gui = guiThread.get();
+  GetPlatform().SetGuiThread(std::move(guiThread));
+  SCOPE_GUARD(restoreGui, [] { GetPlatform().SetGuiThread(std::make_unique<platform::GuiThread>()); });
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+  bool started = false;
+  size_t finished = 0;
+  bmManager.SetAsyncLoadingCallbacks({[&]() { started = true; }, [&]() { ++finished; }, nullptr, nullptr});
+  bmManager.LoadBookmarks();
+  bool const initialLoadReported = started && bmManager.IsAsyncLoadingInProgress();
+  WaitForFileTasks();
+  gui->RunNext();
+  TEST(initialLoadReported, ());
+  TEST_EQUAL(finished, 1, ());
+  TEST(!bmManager.IsAsyncLoadingInProgress(), ());
+
+  auto const groupId = bmManager.GetUnsortedBmGroupsIdList().front();
+  bmManager.GetEditSession().SetCategoryName(groupId, "Reload state");
+  started = false;
+  bmManager.ReloadBookmark(bmManager.GetCategoryFileName(groupId));
+  bool const reloadReported = started && bmManager.IsAsyncLoadingInProgress();
+  WaitForFileTasks();
+  gui->RunNext();
+  TEST(reloadReported, ());
+  TEST_EQUAL(finished, 2, ());
+  TEST(!bmManager.IsAsyncLoadingInProgress(), ());
+  TEST(bmManager.HasBmCategory(groupId), ());
 }
 
 UNIT_CLASS_TEST(Runner, Bookmarks_TestSaveRoute)
