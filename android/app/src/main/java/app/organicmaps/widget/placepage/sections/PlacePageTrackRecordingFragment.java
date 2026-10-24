@@ -19,10 +19,9 @@ import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.widget.placepage.ElevationProfileViewRenderer;
-import app.organicmaps.widget.placepage.PlacePageStateListener;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
 
-public class PlacePageTrackRecordingFragment extends Fragment implements PlacePageStateListener
+public class PlacePageTrackRecordingFragment extends Fragment
 {
   private PlacePageViewModel mViewModel;
   private ElevationProfileViewRenderer mElevationProfileViewRenderer;
