@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/app/organicmaps/gtk/icons">
+    <file>om-location-follow-symbolic.svg</file>
+    <file>om-location-notfollow-symbolic.svg</file>
+    <file>om-location-off-symbolic.svg</file>
+    <file>om-location-rotate-symbolic.svg</file>
+  </gresource>
+</gresources>

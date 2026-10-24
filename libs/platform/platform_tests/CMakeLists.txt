@@ -33,7 +33,16 @@ if (PLATFORM_LINUX)
   list(APPEND SRC platform_linux_migration_test.cpp)
 endif()
 
+if (PLATFORM_LINUX OR PLATFORM_MAC)
+  list(APPEND SRC location_service_tests.cpp ../location_service/location_service.cpp)
+endif()
+
 omim_add_test(${PROJECT_NAME} ${SRC} REQUIRE_QT REQUIRE_SERVER)
+if (PLATFORM_LINUX)
+  target_compile_definitions(${PROJECT_NAME} PRIVATE QT_LOCATION_SERVICE)
+elseif (PLATFORM_MAC)
+  target_compile_definitions(${PROJECT_NAME} PRIVATE APPLE_LOCATION_SERVICE)
+endif()
 
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
