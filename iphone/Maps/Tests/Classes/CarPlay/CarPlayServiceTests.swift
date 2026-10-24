@@ -10,6 +10,7 @@ final class CarPlayServiceTests: XCTestCase {
   private static var bookmarkSnapshotCount = 0
 
   var carPlayService: CarPlayService!
+  private var bookmarkListObserver: CarPlayBookmarkListObserver?
 
   override func setUp() {
     super.setUp()
@@ -17,6 +18,8 @@ final class CarPlayServiceTests: XCTestCase {
   }
 
   override func tearDown() {
+    bookmarkListObserver?.invalidate()
+    bookmarkListObserver = nil
     carPlayService = nil
     // The search engine is a process-wide singleton; reset its query and mode for the next test.
     Search.clear()
@@ -164,6 +167,120 @@ final class CarPlayServiceTests: XCTestCase {
     XCTAssertEqual(Self.bookmarkSnapshotCount, 0)
   }
 
+  func testBookmarkImportRefreshesCategoryRows() throws {
+    let template = ListTemplateBuilder.buildListTemplate(for: .bookmarkLists)
+    let stack = MockTemplateStack(templates: [template])
+    bookmarkListObserver = CarPlayBookmarkListObserver(templates: stack.readTemplates, popTo: stack.pop)
+
+    let category = try importBookmarkFixture()
+    waitForBookmarkRefresh()
+
+    let item = try categoryListItem(for: category, in: template)
+    XCTAssertEqual(item.text, category.title)
+    XCTAssertEqual(item.detailText, category.placesCountTitle())
+  }
+
+  func testBookmarkDeletionRefreshesRowsAndCategoryCount() throws {
+    let category = try importBookmarkFixture(bookmarkCount: 3)
+    let parent = ListTemplateBuilder.buildListTemplate(for: .bookmarkLists)
+    let template = ListTemplateBuilder.buildListTemplate(for: .bookmarks(category: category))
+    let item = try XCTUnwrap(template.sections.first?.items.first as? CPListItem)
+    let info = try XCTUnwrap(item.userInfo as? ListItemInfo)
+    let metadata = try XCTUnwrap(info.metadata as? BookmarkInfo)
+    let stack = MockTemplateStack(templates: [parent, template])
+    bookmarkListObserver = CarPlayBookmarkListObserver(templates: stack.readTemplates, popTo: stack.pop)
+
+    BookmarksManager.shared().deleteBookmark(metadata.bookmarkId)
+    waitForBookmarkRefresh()
+
+    let rows = template.sections.flatMap(\.items).compactMap { $0 as? CPListItem }
+    XCTAssertEqual(rows.count, 2)
+    XCTAssertFalse(rows.contains { $0.text == item.text })
+    XCTAssertEqual(try categoryListItem(for: category, in: parent).detailText, category.placesCountTitle())
+    XCTAssertNil(stack.poppedTo)
+  }
+
+  func testDeletedBookmarkCategoryPopsToParentAndRefreshesIt() throws {
+    let category = try importBookmarkFixture()
+    let parent = ListTemplateBuilder.buildListTemplate(for: .bookmarkLists)
+    let item = try categoryListItem(for: category, in: parent)
+    let template = ListTemplateBuilder.buildListTemplate(for: .bookmarks(category: category))
+    let root = CPListTemplate(title: "Root", sections: [])
+    let stack = MockTemplateStack(templates: [root, parent, template])
+    bookmarkListObserver = CarPlayBookmarkListObserver(templates: stack.readTemplates, popTo: stack.pop)
+
+    BookmarksManager.shared().deleteCategory(category.categoryId)
+    waitForBookmarkRefresh()
+
+    XCTAssertTrue(stack.poppedTo === parent)
+    XCTAssertEqual(stack.templates.count, 2)
+    XCTAssertFalse(parent.sections.flatMap(\.items).contains { $0.text == item.text })
+    XCTAssertTrue(template.sections.flatMap(\.items).isEmpty)
+  }
+
+  func testBookmarkDeletionsAreCoalesced() throws {
+    let category = try importBookmarkFixture(bookmarkCount: 3)
+    let template = ListTemplateBuilder.buildListTemplate(for: .bookmarks(category: category))
+    let stack = MockTemplateStack(templates: [template])
+    bookmarkListObserver = CarPlayBookmarkListObserver(templates: stack.readTemplates, popTo: stack.pop)
+    let manager = BookmarksManager.shared()
+    let ids = manager.bookmarkIds(forCategory: category.categoryId)
+
+    manager.deleteBookmark(ids[0].uint64Value)
+    manager.deleteBookmark(ids[1].uint64Value)
+    waitForBookmarkRefresh()
+
+    XCTAssertEqual(stack.readCount, 1)
+    XCTAssertEqual(template.sections.flatMap(\.items).count, 1)
+
+    manager.deleteBookmark(ids[2].uint64Value)
+    waitForBookmarkRefresh()
+
+    XCTAssertEqual(stack.readCount, 2)
+    XCTAssertTrue(template.sections.flatMap(\.items).isEmpty)
+  }
+
+  func testEndingBookmarkObservationCancelsQueuedRefresh() throws {
+    let category = try importBookmarkFixture(bookmarkCount: 3)
+    let template = ListTemplateBuilder.buildListTemplate(for: .bookmarks(category: category))
+    let stack = MockTemplateStack(templates: [template])
+    bookmarkListObserver = CarPlayBookmarkListObserver(templates: stack.readTemplates, popTo: stack.pop)
+    let manager = BookmarksManager.shared()
+    let ids = manager.bookmarkIds(forCategory: category.categoryId)
+
+    manager.deleteBookmark(ids[0].uint64Value)
+    bookmarkListObserver?.invalidate()
+    bookmarkListObserver = nil
+    manager.deleteBookmark(ids[1].uint64Value)
+    waitForBookmarkRefresh()
+
+    XCTAssertEqual(stack.readCount, 0)
+    XCTAssertEqual(template.sections.flatMap(\.items).count, 3)
+  }
+
+  func testBookmarkRefreshUsesTheCurrentTemplateStack() throws {
+    let category = try importBookmarkFixture(bookmarkCount: 2)
+    let template = ListTemplateBuilder.buildListTemplate(for: .bookmarks(category: category))
+    let replacement = ListTemplateBuilder.buildListTemplate(for: .bookmarks(category: category))
+    let stack = MockTemplateStack(templates: [template])
+    bookmarkListObserver = CarPlayBookmarkListObserver(templates: stack.readTemplates, popTo: stack.pop)
+    let manager = BookmarksManager.shared()
+    let ids = manager.bookmarkIds(forCategory: category.categoryId)
+
+    manager.deleteBookmark(ids[0].uint64Value)
+    stack.templates = [replacement]
+    waitForBookmarkRefresh()
+
+    XCTAssertEqual(template.sections.flatMap(\.items).count, 2)
+    XCTAssertEqual(replacement.sections.flatMap(\.items).count, 1)
+  }
+
+  private func waitForBookmarkRefresh() {
+    let refreshed = expectation(description: "Queued bookmark refresh finished")
+    DispatchQueue.main.async { refreshed.fulfill() }
+    wait(for: [refreshed], timeout: 5)
+  }
+
   private func importBookmarkFixture(bookmarkCount: Int = 1) throws -> BookmarkGroup {
     let bookmarkManager = BookmarksManager.shared()
     let name = "CarPlayTests-\(UUID().uuidString)"
@@ -212,7 +329,11 @@ final class CarPlayServiceTests: XCTestCase {
 
   private func categoryListItem(for category: BookmarkGroup) throws -> CPListItem {
     let template = ListTemplateBuilder.buildListTemplate(for: .bookmarkLists)
-    return try XCTUnwrap(template.sections.flatMap(\.items).compactMap { $0 as? CPListItem }.first { item in
+    return try categoryListItem(for: category, in: template)
+  }
+
+  private func categoryListItem(for category: BookmarkGroup, in template: CPListTemplate) throws -> CPListItem {
+    try XCTUnwrap(template.sections.flatMap(\.items).compactMap { $0 as? CPListItem }.first { item in
       guard let info = item.userInfo as? ListItemInfo,
             let metadata = info.metadata as? CategoryInfo else { return false }
       return metadata.category.categoryId == category.categoryId
@@ -223,6 +344,30 @@ final class CarPlayServiceTests: XCTestCase {
     var onFinished: (() -> Void)?
 
     func onBookmarksLoadFinished() { onFinished?() }
+  }
+
+  private final class MockTemplateStack {
+    var templates: [CPTemplate]
+    private(set) var readCount = 0
+    private(set) var poppedTo: CPTemplate?
+
+    init(templates: [CPTemplate]) {
+      self.templates = templates
+    }
+
+    func readTemplates() -> [CPTemplate] {
+      readCount += 1
+      return templates
+    }
+
+    func pop(to template: CPTemplate) {
+      guard let index = templates.firstIndex(where: { $0 === template }) else {
+        XCTFail("The pop target must be in the current template stack.")
+        return
+      }
+      poppedTo = template
+      templates = Array(templates.prefix(index + 1))
+    }
   }
 
   private final class BookmarkGroupSpy: BookmarkGroup {
@@ -401,5 +546,30 @@ final class CarPlayServiceTests: XCTestCase {
                      UIOffset(horizontal: horizontal * step, vertical: vertical * step),
                      "direction \(direction.rawValue)")
     }
+  }
+
+  func testRefreshKeepsRowsOfTemplatesThatDoNotShowBookmarks() {
+    let types: [ListTemplateBuilder.ListTemplateType] = [.history, .searchResults(results: [])]
+    for type in types {
+      let template = ListTemplateBuilder.buildListTemplate(for: type)
+      let item = CPListItem(text: "Result", detailText: nil)
+      template.updateSections([CPListSection(items: [item])])
+
+      ListTemplateBuilder.refreshBookmarks(in: template)
+
+      XCTAssertEqual(template.sections.first?.items.count, 1)
+      XCTAssertTrue((template.sections.first?.items.first as? CPListItem) === item)
+    }
+  }
+
+  func testRefreshKeepsRowsOfTemplatesBuiltByAnybodyElse() {
+    let item = CPListItem(text: "Row", detailText: nil)
+    let section = CPListSection(items: [item])
+    let template = CPListTemplate(title: "Any", sections: [section])
+
+    ListTemplateBuilder.refreshBookmarks(in: template)
+
+    XCTAssertEqual(template.sections.first?.items.count, 1)
+    XCTAssertTrue((template.sections.first?.items.first as? CPListItem) === item)
   }
 }
