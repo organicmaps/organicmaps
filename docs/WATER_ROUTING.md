@@ -199,7 +199,7 @@ request reset the indicator; queued updates from cancelled requests are discarde
 The latest native run passes 78 routing/provider/async/spatial-index tests, including
 replacement of geometric gaps with pedestrian polylines, failed transfers without a straight-line
 fallback, and cancellation during a transfer. ARM64 and x86_64 native builds pass,
-and the x86_64 APK installs on the emulator. Earlier Android validation passed all
+and the x86_64 APK installs on the emulator. Android validation passed all
 113 app/SDK unit tests and lintAllModules; five generator tests also passed.
 Physical ARM64 hardware has not been validated here. The final visual recheck was
 blocked by repeated emulator System UI ANRs after reboot.
