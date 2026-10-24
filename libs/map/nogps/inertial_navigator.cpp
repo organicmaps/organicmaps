@@ -1523,6 +1523,7 @@ void InertialNavigator::MatchTurn(int64_t timestampNs)
     // The crossing is a known place, the distance error is gone. The heading stays the gyroscope's: the road found
     // for the turn was 31° off on October 21, and a turn still going on was counted twice on October 23.
     SetRoadPosition(places.m_chosen->m_road.m_point, places.m_chosen->m_road.m_bearingDeg, true /* keepHeading */);
+    m_deadReckoning.TrustRoad();
   }
   for (auto const & place : places.m_others)
     AddOtherMark(place.m_road, toBearing, place.m_shiftM ? "at a crossing the turn fits" : "where the turn has ended");

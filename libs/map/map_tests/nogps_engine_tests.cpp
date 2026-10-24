@@ -461,7 +461,10 @@ UNIT_TEST(NoGps_Engine_TurnMovedToCrossingKeepsGyroHeading)
   env.Drive(3000, 36, -30);
   env.Drive(2000, 36, 0);
   TestAlmostEqualAbs(std::stod(TripField(env, "turn")), 18, 2);
-  TestAlmostEqualAbs(AngleDiff(*env.Last().m_bearingDeg, 0), 0, 5);
+  TestAlmostEqualAbs(AngleDiff(*env.Last().m_bearingDeg, 0), 0, 8);
+  // The crossing is a known place: the heading is pulled to the road at once, not after 50 m.
+  env.Drive(6000, 36, 0);
+  TEST_LESS(std::fabs(AngleDiff(*env.Last().m_bearingDeg, 20)), 11, (*env.Last().m_bearingDeg));
 }
 
 UNIT_TEST(NoGps_Engine_TurnToRoadFartherOffThanSnappingTakesIsNotMoved)
