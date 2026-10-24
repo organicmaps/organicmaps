@@ -715,12 +715,31 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 #pragma mark - Open controllers
 - (void)openMenu
 {
-  [self.controlsManager.tabBarController onMenuButtonPressed:self];
+  // The menu belongs to the map, so a link that arrives over another screen returns to the map first.
+  // Open it after the pop: viewWillAppear restores the menu state saved when the map was covered.
+  UINavigationController * navigationController = self.navigationController;
+  [navigationController popToRootViewControllerAnimated:YES];
+  id<UIViewControllerTransitionCoordinator> coordinator = navigationController.transitionCoordinator;
+  if (!coordinator)
+  {
+    [self.controlsManager openMenuFromDeepLink];
+    return;
+  }
+  [coordinator animateAlongsideTransition:nil
+                               completion:^(id<UIViewControllerTransitionCoordinatorContext>) {
+                                 [self.controlsManager openMenuFromDeepLink];
+                               }];
 }
 
 - (void)openSettings
 {
-  [self.navigationController pushViewController:[SettingsBuilder buildRoot] animated:YES];
+  // A link can arrive while the menu or the layers sheet is open: close it like the menu's Settings item does,
+  // otherwise it stays over Settings.
+  MWMMapViewControlsManager * controlsManager = self.controlsManager;
+  MWMBottomMenuState const menuState = controlsManager.menuState;
+  if (menuState == MWMBottomMenuStateActive || menuState == MWMBottomMenuStateLayers)
+    controlsManager.menuState = controlsManager.menuRestoreState;
+  [SettingsBuilder showRootIn:self.navigationController];
 }
 
 - (void)openMapsDownloader:(MWMMapDownloaderMode)mode
