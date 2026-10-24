@@ -20,7 +20,6 @@ typedef NS_ENUM(NSUInteger, MWMMapOverlayTransitState) {
 typedef NS_ENUM(NSUInteger, MWMMapOverlayIsolinesState) {
   MWMMapOverlayIsolinesStateDisabled,
   MWMMapOverlayIsolinesStateEnabled,
-  MWMMapOverlayIsolinesStateExpiredData,
   MWMMapOverlayIsolinesStateNoData,
 } NS_SWIFT_NAME(MapOverlayIsolinesState);
 

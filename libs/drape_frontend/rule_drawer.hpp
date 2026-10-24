@@ -14,15 +14,25 @@
 
 #include "geometry/spline.hpp"
 
+#include "platform/measurement_utils.hpp"
+
 #include <array>
 #include <functional>
 #include <unordered_set>
 
 class FeatureType;
 
+namespace terrain
+{
+class IsolinesStyle;
+class TileMesh;
+struct TerrainData;
+}  // namespace terrain
+
 namespace df
 {
 class EngineContext;
+class MapDataProvider;
 
 /*
  * RuleDrawer() is invoked for each feature in the tile.
@@ -37,10 +47,17 @@ class RuleDrawer
 public:
   using TIsCountryLoadedByNameFn = std::function<bool(std::string_view)>;
 
-  RuleDrawer(TIsCountryLoadedByNameFn const & isLoadedFn, ref_ptr<EngineContext> engineContext, int8_t deviceLang);
+  RuleDrawer(TIsCountryLoadedByNameFn const & isLoadedFn, ref_ptr<EngineContext> engineContext, int8_t deviceLang,
+             bool drawTerrain = false);
   ~RuleDrawer();
 
   void operator()(FeatureType & f);
+
+  /// The terrain layers of the tile - the hillshading and the dynamic isolines (and the
+  /// debug mesh instead of the hillshading under TERRAIN_DEBUG_MESH) - drawn over ONE
+  /// shared tile mesh read: the isolines drawing policy is resolved from the current
+  /// style once, and the mesh is decoded once for all the consumers.
+  void DrawTerrain(MapDataProvider const & model);
 
 #ifdef DRAW_TILE_NET
   void DrawTileNet();
@@ -54,8 +71,23 @@ private:
   bool CheckCoastlines(FeatureType & f);
 
   bool CheckCancelled() const;
+  void FlushGeometryShapes();
 
   bool IsDiscardCustomFeature(FeatureID const & id) const;
+
+  /// Smooth terrain hillshading: the area-weighted per-vertex normals over the shared
+  /// mesh give the Lambert intensity interpolated by the terrain shade shader.
+  void DrawTerrainShade(terrain::TerrainData const & data);
+  /// Traces the dynamic isolines over the shared mesh and emits line shapes through the
+  /// same smoothing/clipping pipeline as the baked isoline features (which are
+  /// suppressed when the dynamic isolines are used).
+  void DrawDynamicIsolines(terrain::TerrainData const & data, terrain::IsolinesStyle const & isolinesStyle,
+                           measurement_utils::Units units);
+#ifdef TERRAIN_DEBUG_MESH
+  /// The raw mesh inspection: the triangle edges and the vertex altitudes in red.
+  void DrawTerrainDebugMesh(terrain::TileMesh const & mesh);
+  void DrawTerrainDebugRaster(terrain::TerrainData const & data);
+#endif
 
   TIsCountryLoadedByNameFn m_isLoadedFn;
 
@@ -75,6 +107,7 @@ private:
 
   uint8_t m_zoomLevel;
   int8_t m_deviceLang;
+  bool m_drawTerrain = false;
 
   ftypes::IsBuildingHasPartsChecker const & m_isBuildingHasParts = ftypes::IsBuildingHasPartsChecker::Instance();
   ftypes::IsBuildingPartChecker const & m_isBuildingPart = ftypes::IsBuildingPartChecker::Instance();

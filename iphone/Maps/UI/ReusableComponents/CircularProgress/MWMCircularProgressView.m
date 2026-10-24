@@ -140,8 +140,7 @@ static CGFloat angleWithProgress(CGFloat progress)
   {
     [self.button setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
     UIImage * hl = [UIImage imageNamed:[imageName stringByAppendingString:@"_highlighted"]];
-    if (hl)
-      [self.button setImage:hl forState:UIControlStateHighlighted];
+    [self.button setImage:hl forState:UIControlStateHighlighted];
   }
   else
   {

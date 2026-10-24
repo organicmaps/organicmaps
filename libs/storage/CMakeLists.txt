@@ -46,6 +46,8 @@ set(SRC
   storage_defines.hpp
   storage_helpers.cpp
   storage_helpers.hpp
+  terrain_grid.cpp
+  terrain_grid.hpp
 )
 
 if (PLATFORM_IPHONE)

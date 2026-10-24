@@ -6,6 +6,8 @@
 
 #include "base/assert.hpp"
 
+#include <cmath>
+
 namespace df
 {
 CoverageResult CalcTilesCoverage(m2::RectD const & rect, int targetZoom,
@@ -24,6 +26,30 @@ CoverageResult CalcTilesCoverage(m2::RectD const & rect, int targetZoom,
     result.ForEach(processTile);
 
   return result;
+}
+
+TTilesCollection CalcTilesToInvalidate(m2::RectD const & rect, m2::RectD const & clipRect, int zoom)
+{
+  TTilesCollection tiles;
+  int const dataZoom = ClipTileZoomByMaxDataZoom(zoom);
+  mercator::ForEachRectWrapped(rect, [&](m2::RectD const & wrappedRect)
+  {
+    CalcTilesCoverage(clipRect, dataZoom, [&](int tileX, int tileY)
+    {
+      TileKey const key(tileX, tileY, zoom);
+      auto tileRect = key.GetGlobalRect();
+      if (!tileRect.Intersect(clipRect))
+        return;
+      mercator::ForEachRectWrapped(tileRect, [&](m2::RectD const & wrappedTileRect)
+      {
+        auto intersection = wrappedRect;
+        if (intersection.Intersect(wrappedTileRect) &&
+            CalcTilesCoverage(intersection, dataZoom, {}).GetTilesCount() != 0)
+          tiles.insert(key);
+      });
+    });
+  });
+  return tiles;
 }
 
 bool IsNeighbours(TileKey const & tileKey1, TileKey const & tileKey2)

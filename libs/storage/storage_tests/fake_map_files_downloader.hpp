@@ -30,7 +30,9 @@ class FakeMapFilesDownloader : public MapFilesDownloader
 public:
   static int64_t const kBlockSize = 1024 * 1024;
 
-  FakeMapFilesDownloader(TaskRunner & taskRunner);
+  /// Every non-empty |statuses| entry is consumed by one Download() call: a non-Completed
+  /// status finishes that download immediately with it (the failure-path tests).
+  explicit FakeMapFilesDownloader(TaskRunner & taskRunner, std::vector<downloader::DownloadStatus> statuses = {});
 
   ~FakeMapFilesDownloader();
 
@@ -54,6 +56,7 @@ private:
   uint64_t m_timestamp;
 
   TaskRunner & m_taskRunner;
+  std::vector<downloader::DownloadStatus> m_statuses;
   ThreadChecker m_checker;
   Queue m_queue;
 };

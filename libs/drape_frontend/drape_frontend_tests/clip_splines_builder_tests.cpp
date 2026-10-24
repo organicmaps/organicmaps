@@ -2,12 +2,24 @@
 
 #include "drape_frontend/apply_feature_params.hpp"
 #include "drape_frontend/clip_splines_builder.hpp"
+#include "drape_frontend/drape_frontend_tests/visual_params_fixture.hpp"
 #include "drape_frontend/tile_key.hpp"
 
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_data.hpp"
+#include "indexer/terrain/isolines_tracer.hpp"
+#include "indexer/terrain/terrain_reader.hpp"
 
+#include "platform/platform.hpp"
+
+#include "geometry/mercator.hpp"
+
+#include "base/file_name_utils.hpp"
+
+#include <algorithm>
+#include <cmath>
+#include <utility>
 #include <vector>
 
 // Friend of FeatureType (declared in indexer/feature.hpp). Lets a test set up
@@ -296,4 +308,82 @@ UNIT_TEST(ClipSplinesBuilder_LimitRect_Isoline_InSmoothBand)
   TEST(builder.HasGeometry(), ());
   TEST(!builder.IsKnownInside(), ());  // never set for isolines
 }
+UNIT_TEST(ClipSplinesBuilder_SetPath_ThinsLikeBuild)
+{
+  // The dynamic isolines go through SetPath: on the simplified zooms they get exactly the
+  // thinning of the baked ones (short segments, colinear runs, the endpoint and the ring).
+  std::vector<std::vector<P>> const paths = {
+      {P(0, 0), P(0.3, 0), P(0.6, 0.1), P(5, 0), P(10, 0.01), P(10, 5), P(10.2, 5.1)},
+      {P(0, 0), P(10, 0), P(10, 10), P(0, 10), P(0, 0.5), P(0, 0)},
+      {P(0, 0), P(10, 0), P(5, 0.1), P(5, 0.2)},
+  };
+  for (auto const & points : paths)
+  {
+    auto const params = MakeParams(kSimplifyZoom, kMinSqr);
+    df::ClipSplinesBuilder built(params);
+    MockTestFeature f(points);
+    built.Build(f, kSimplifyZoom);
+
+    df::ClipSplinesBuilder set(params);
+    set.SetPath(std::vector<P>(points));
+    TestPath(set, built.GetPath());
+    TEST_LESS(set.GetPathSize(), points.size(), ());
+  }
+
+  // The other zooms keep the dynamic path as is.
+  auto const params = MakeParams(kNoSimplifyZoom, kMinSqr);
+  df::ClipSplinesBuilder builder(params);
+  builder.SetPath(std::vector<P>(paths.front()));
+  TestPath(builder, paths.front());
+}
+
+// The thinned dynamic isolines of two neighbor tiles meet on their shared edge: each tile traces
+// its own inflated rect, so the chains start elsewhere, but the crossings must stay identical.
+using df::test_support::VisualParamsFixture;
+
+UNIT_CLASS_TEST(VisualParamsFixture, ClipSplinesBuilder_DynamicIsolinesTileSeams)
+{
+  terrain::Reader const reader(base::JoinPath(GetPlatform().ResourcesDir(), "N43E007.twm"));
+  auto const & header = reader.GetHeader();
+  auto const center = header.GetLimitRect().Center();
+  for (uint8_t const zoom : {10, 11, 12})
+  {
+    double const tileSize = mercator::Bounds::kRangeX / (1 << (zoom - 1));
+    int const x = static_cast<int>(std::floor(center.x / tileSize));
+    int const y = static_cast<int>(std::floor(center.y / tileSize));
+    double const edgeX = (x + 1) * tileSize;
+
+    auto const crossings = [&](df::TileKey const & key)
+    {
+      df::ApplyFeatureParams params;
+      params.Init(key);
+      TEST(params.IsSimplifyLines(), (zoom));
+      // The same read as RuleDrawer::DrawTerrain and TerrainProvider::ReadTerrain.
+      auto query = params.m_tileRect;
+      query.Scale(df::kIsolineSmoothScale);
+      size_t const geomIndex = header.GetGeometryIndex(zoom);
+      if (header.HasRaster(geomIndex))
+        query.Inflate(reader.GetRasterHalo().x, reader.GetRasterHalo().y);
+      terrain::TerrainData data(header.m_coordBits);
+      reader.ReadTerrain(query, geomIndex, data);
+
+      std::vector<std::pair<int32_t, double>> result;
+      df::ClipSplinesBuilder builder(params);
+      terrain::TraceIsolines(data, 100, measurement_utils::Units::Metric, [&](terrain::Isoline && isoline)
+      {
+        builder.SetPath(std::move(isoline.m_points));
+        for (auto const & spline : builder.Release(true /* isIsoline */))
+          for (auto const & p : {spline->GetPath().front(), spline->GetPath().back()})
+            if (std::abs(p.x - edgeX) < 1e-9)
+              result.emplace_back(isoline.m_altitude, p.y);
+      });
+      std::sort(result.begin(), result.end());
+      return result;
+    };
+    auto const left = crossings(df::TileKey(x, y, zoom));
+    TEST(!left.empty(), (zoom));
+    TEST_EQUAL(left, crossings(df::TileKey(x + 1, y, zoom)), (zoom));
+  }
+}
+
 }  // namespace clip_spline_builder_tests

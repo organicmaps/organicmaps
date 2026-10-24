@@ -286,10 +286,22 @@ using namespace storage;
 
   if (!nodeStatuses.m_groupNode)
   {
+    auto const & storage = GetFramework().GetStorage();
     switch (nodeStatuses.m_status)
     {
     case NodeStatus::Error:
     case NodeStatus::OnDisk: m_updatingCountries.erase(countryId.UTF8String); break;
+    case NodeStatus::OnDiskOutOfDate:
+      // The map is updated, but its terrain failed: done here, Update retries it later.
+      if (storage.GetTerrainAttrs(countryId.UTF8String).m_status == Storage::TerrainStatus::Failed)
+      {
+        m_updatingCountries.erase(countryId.UTF8String);
+        // The failed bytes never complete the batch progress.
+        if (!storage.IsDownloadInProgress())
+          self.progressFinished = YES;
+        break;
+      }
+      [[fallthrough]];
     default: m_updatingCountries.insert(countryId.UTF8String);
     }
   }
@@ -307,7 +319,7 @@ using namespace storage;
   [[MWMStorage sharedStorage] cancelDownloadNode:RootId()];
 }
 
-- (void)processCountry:(NSString *)countryId downloadedBytes:(uint64_t)downloadedBytes totalBytes:(uint64_t)totalBytes
+- (void)processCountry:(NSString *)countryId progress:(MWMStorageProgress)progress
 {
   if (m_updatingCountries.find(countryId.UTF8String) != m_updatingCountries.end())
     [self updateProcessStatus:countryId.UTF8String];

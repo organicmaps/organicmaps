@@ -1,7 +1,9 @@
 #pragma once
 
+#include "platform/downloader_defines.hpp"
 #include "platform/local_country_file.hpp"
 
+#include <cstdint>
 #include <functional>
 #include <map>
 #include <memory>
@@ -20,6 +22,18 @@ using LocalFilePtr = std::shared_ptr<platform::LocalCountryFile>;
 using Affiliations = std::unordered_map<std::string, CountriesVec>;
 /// Map from country name synonyms and old names into CountryId.
 using CountryNameSynonyms = std::unordered_map<std::string, CountryId>;
+
+// Map (or diff) and terrain bytes of a download batch, including its completed parts.
+struct Progress
+{
+  int64_t m_mwmDownloaded = 0;
+  int64_t m_mwmTotal = 0;
+  int64_t m_twmDownloaded = 0;
+  int64_t m_twmTotal = 0;
+
+  downloader::Progress GetCombined() const { return {m_mwmDownloaded + m_twmDownloaded, m_mwmTotal + m_twmTotal}; }
+};
+std::string DebugPrint(Progress const & progress);
 
 /// @note Android code relies that kInvalidCountryId is an empty string!
 inline constexpr char kInvalidCountryId[] = "";

@@ -1,0 +1,22 @@
+NCAR/SPERR source mirror, revision b8012586908aaabba993038d183b3937c8ea9c7c.
+https://github.com/NCAR/SPERR
+
+include/, src/, LICENSE and SperrConfig.h.in come from the pinned upstream revision.
+CDF97.cpp sizes the copy_data/take_data 2D scratch buffer to max_col rather than
+max_slice; the transform arithmetic is unchanged.
+SPECK_INT.cpp and SPECK_FLT.cpp have a 32-bit portability patch: compare stream
+lengths in uint64_t before converting the bounded minimum to size_t.
+Bitstream.cpp restricts the 64-bit streaming store to x86-64; 32-bit x86 uses
+the existing scalar store, and it includes <algorithm>, missing upstream with libc++.
+sperr_helper.cpp allocates with posix_memalign instead of std::aligned_alloc
+(unavailable before Android API 28) on all non-Windows platforms.
+CMakeLists.txt is the Organic Maps build: only the 2D codec, without OpenMP, CLI,
+tests, installation, shared libraries, LTO or architecture-specific flags. It replaces
+upstream build integration, which assumes CMAKE_SOURCE_DIR is the SPERR source directory.
+
+Terrain profile 1 uses the headerless 2D pointwise-error bitstream.
+libs/indexer/terrain/sperr_decoder.cpp calls the same SPECK2D_FLT operations as the
+C API, checks both decode statuses and rounds the decoder's buffer in one pass
+(avoiding the C API's extra copy). Every patched hunk is marked "Organic Maps:".
+Client code uses decompression only. Codec upgrades require checking integer
+height reconstruction on all supported architectures.

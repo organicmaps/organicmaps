@@ -116,12 +116,15 @@ class TriangleStripBatch : public FanStripHelper
   using TBase = FanStripHelper;
 
 public:
-  explicit TriangleStripBatch(BatchCallbacks & callbacks);
+  explicit TriangleStripBatch(BatchCallbacks & callbacks, bool canDivide = true);
 
   void BatchData(ref_ptr<GraphicsContext> context, ref_ptr<AttributeProvider> streams) override;
 
 protected:
   void GenerateIndexes(void * indexStorage, uint32_t count, uint32_t startIndex) const override;
+
+private:
+  bool m_canDivide;
 };
 
 class TriangleFanBatch : public FanStripHelper
