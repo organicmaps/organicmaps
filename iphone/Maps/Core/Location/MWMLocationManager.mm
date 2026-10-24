@@ -150,6 +150,17 @@ void setShowLocationAlert(BOOL needShow)
   NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
   [ud setBool:needShow forKey:kLocationAlertNeedShowKey];
 }
+
+CLLocation * locationFromGpsInfo(location::GpsInfo const & info)
+{
+  return [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(info.m_latitude, info.m_longitude)
+                                       altitude:0
+                             horizontalAccuracy:info.m_horizontalAccuracy
+                               verticalAccuracy:-1
+                                         course:info.HasBearing() ? info.m_bearing : -1
+                                          speed:info.HasSpeed() ? info.m_speed : -1
+                                      timestamp:[NSDate dateWithTimeIntervalSince1970:info.m_timestamp]];
+}
 }  // namespace
 
 @interface MWMLocationManager () <CLLocationManagerDelegate>
@@ -199,6 +210,8 @@ void setShowLocationAlert(BOOL needShow)
 
 + (void)start
 {
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{ [[self manager] subscribeToRouteSimulation]; });
   [self manager].started = YES;
 }
 
@@ -219,7 +232,10 @@ void setShowLocationAlert(BOOL needShow)
   dispatch_async(dispatch_get_main_queue(), ^{
     MWMLocationManager * manager = [self manager];
     [manager.observers addObject:observer];
-    [manager processLocationUpdate:manager.lastLocationInfo];
+    // The last fix may be simulated, so it must not reach the core or GpsTracker again.
+    CLLocation * locationInfo = manager.lastLocationInfo;
+    if (locationInfo && [observer respondsToSelector:@selector(onLocationUpdate:)])
+      [observer onLocationUpdate:locationInfo];
   });
 }
 
@@ -250,6 +266,9 @@ void setShowLocationAlert(BOOL needShow)
 + (CLLocation *)lastLocation
 {
   MWMLocationManager * manager = [self manager];
+  // The core keeps the simulated position valid even while location is stopped or denied.
+  if (GetFramework().GetRoutingManager().IsRouteSimulationActive())
+    return manager.lastLocationInfo;
   if (!manager.started || !manager.lastLocationInfo || manager.lastLocationInfo.horizontalAccuracy < 0 ||
       manager.lastLocationStatus != MWMLocationStatusNoError)
     return nil;
@@ -306,12 +325,33 @@ void setShowLocationAlert(BOOL needShow)
 
 - (void)onLocationUpdate:(CLLocation *)locationInfo source:(location::TLocationSource)source
 {
+  // Real and predicted fixes would interleave with the simulated ones the observers follow.
+  if (GetFramework().GetRoutingManager().IsRouteSimulationActive())
+    return;
   location::GpsInfo const gpsInfo = location_util::gpsInfoFromLocation(locationInfo, source);
   GpsTracker::Instance().OnLocationUpdated(gpsInfo);
   GetFramework().OnLocationUpdate(gpsInfo);
 
   self.lastLocationInfo = locationInfo;
   self.locationSource = source;
+  for (Observer observer in self.observers)
+    if ([observer respondsToSelector:@selector(onLocationUpdate:)])
+      [observer onLocationUpdate:locationInfo];
+}
+
+#pragma mark - Route simulation
+
+- (void)subscribeToRouteSimulation
+{
+  __weak MWMLocationManager * weakSelf = self;
+  GetFramework().GetRoutingManager().SetRouteSimulationListener([weakSelf](location::GpsInfo const & info)
+  { [weakSelf processRouteSimulationUpdate:locationFromGpsInfo(info)]; });
+}
+
+// The core already processed this fix: onLocationUpdate:source: would apply it twice and feed it to GpsTracker.
+- (void)processRouteSimulationUpdate:(CLLocation *)locationInfo
+{
+  self.lastLocationInfo = locationInfo;
   for (Observer observer in self.observers)
     if ([observer respondsToSelector:@selector(onLocationUpdate:)])
       [observer onLocationUpdate:locationInfo];

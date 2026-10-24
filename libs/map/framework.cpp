@@ -202,6 +202,9 @@ std::pair<MwmSet::MwmId, MwmSet::RegResult> Framework::RegisterMap(LocalCountryF
 
 void Framework::OnLocationError(TLocationError /*error*/)
 {
+  // Simulated fixes keep the position valid without the platform provider.
+  if (m_routingManager.IsRouteSimulationActive())
+    return;
   m_trafficManager.UpdateMyPosition(TrafficManager::MyPosition());
   if (m_drapeEngine != nullptr)
     m_drapeEngine->LoseLocation();
@@ -3360,6 +3363,20 @@ bool Framework::ParseRoutingDebugCommand(search::SearchParams const & params)
     settings::Set(kDebugSpeedCamSetting, false);
     return true;
   }
+
+  // Deep links can inject search queries, so release builds must not replace real GPS.
+#ifdef DEBUG
+  if (params.m_query == "?route-sim")
+  {
+    m_routingManager.StartRouteSimulation();
+    return true;
+  }
+  if (params.m_query == "?no-route-sim")
+  {
+    m_routingManager.StopRouteSimulation();
+    return true;
+  }
+#endif
   return false;
 }
 

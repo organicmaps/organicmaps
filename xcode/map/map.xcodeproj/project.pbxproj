@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0831F23C200E53600034C365 /* bookmarks_search_params.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 0831F23B200E53600034C365 /* bookmarks_search_params.hpp */; };
+		13C5A22197590B5A0345E173 /* route_simulation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 9E317A42EAE0D3B12FD4724F /* route_simulation.hpp */; };
 		34583BCF1C88556800F94664 /* place_page_info.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34583BCD1C88556800F94664 /* place_page_info.cpp */; };
 		34583BD01C88556800F94664 /* place_page_info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34583BCE1C88556800F94664 /* place_page_info.hpp */; };
 		347B60761DD9926D0050FA24 /* traffic_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 347B60741DD9926D0050FA24 /* traffic_manager.cpp */; };
@@ -64,6 +65,7 @@
 		67F183761BD5045700AB1840 /* bookmarks_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A29CB1B26FCFE001A525C /* bookmarks_test.cpp */; };
 		67F183791BD5045700AB1840 /* kmz_unarchive_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A29CE1B26FCFE001A525C /* kmz_unarchive_test.cpp */; };
 		67F1837A1BD5045700AB1840 /* mwm_url_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 674A29CF1B26FCFE001A525C /* mwm_url_tests.cpp */; };
+		6C44D2745E3CBEA39FF8B4F9 /* route_simulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50A2AB5CB714CABEA369CA70 /* route_simulation.cpp */; };
 		AC0AE5A52FDF0DDF00A44725 /* raster_tile_provider.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AC0AE5A32FDF0DDF00A44725 /* raster_tile_provider.hpp */; };
 		AC0AE5A62FDF0DDF00A44725 /* raster_tile_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC0AE5A42FDF0DDF00A44725 /* raster_tile_provider.cpp */; };
 		ACD695872F7C622400A29DF8 /* selection_processor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = ACD695852F7C622400A29DF8 /* selection_processor.hpp */; };
@@ -179,6 +181,7 @@
 		456E1B391F9A3C2A009C32E1 /* search_mark.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = search_mark.hpp; sourceTree = "<group>"; };
 		45F6EE9A1FB1C77500019892 /* search_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = search_api.hpp; sourceTree = "<group>"; };
 		45F6EE9C1FB1C77500019892 /* search_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = search_api.cpp; sourceTree = "<group>"; };
+		50A2AB5CB714CABEA369CA70 /* route_simulation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = route_simulation.cpp; sourceTree = "<group>"; };
 		56C1165E2090E5670068BBC0 /* extrapolator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = extrapolator.cpp; path = extrapolation/extrapolator.cpp; sourceTree = "<group>"; };
 		56C1165F2090E5670068BBC0 /* extrapolator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = extrapolator.hpp; path = extrapolation/extrapolator.hpp; sourceTree = "<group>"; };
 		56D1C15D20A0AB9D005C689E /* extrapolator_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = extrapolator_tests.cpp; sourceTree = "<group>"; };
@@ -210,6 +213,7 @@
 		679624A41D1017C200AE4E3C /* gps_track_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gps_track_test.cpp; sourceTree = "<group>"; };
 		679624A51D1017C200AE4E3C /* mwm_set_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mwm_set_test.cpp; sourceTree = "<group>"; };
 		85CC440929C9CFA473FDE565 /* share.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = share.cpp; sourceTree = "<group>"; };
+		9E317A42EAE0D3B12FD4724F /* route_simulation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = route_simulation.hpp; sourceTree = "<group>"; };
 		AC0AE5A32FDF0DDF00A44725 /* raster_tile_provider.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = raster_tile_provider.hpp; sourceTree = "<group>"; };
 		AC0AE5A42FDF0DDF00A44725 /* raster_tile_provider.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = raster_tile_provider.cpp; sourceTree = "<group>"; };
 		ACD695852F7C622400A29DF8 /* selection_processor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = selection_processor.hpp; sourceTree = "<group>"; };
@@ -420,6 +424,8 @@
 				AC0AE5A32FDF0DDF00A44725 /* raster_tile_provider.hpp */,
 				ACF95D462F74AD0A009D5D9A /* relation_track.cpp */,
 				ACF95D452F74AD0A009D5D9A /* relation_track.hpp */,
+				50A2AB5CB714CABEA369CA70 /* route_simulation.cpp */,
+				9E317A42EAE0D3B12FD4724F /* route_simulation.hpp */,
 				F6D2CE7C1EDEB7F500636DFD /* routing_manager.cpp */,
 				F6D2CE7D1EDEB7F500636DFD /* routing_manager.hpp */,
 				BBD9E2C41EE9D01900DF189A /* routing_mark.cpp */,
@@ -490,6 +496,7 @@
 				BB4E5F271FCC664A00A77250 /* transit_reader.hpp in Headers */,
 				BBFC7E3B202D29C000531BE7 /* user_mark_layer.hpp in Headers */,
 				56C116612090E5670068BBC0 /* extrapolator.hpp in Headers */,
+				13C5A22197590B5A0345E173 /* route_simulation.hpp in Headers */,
 				BB1C0196241BF73C0067FD5C /* track_mark.hpp in Headers */,
 				675346491A4054E800A0A8C3 /* bookmark_manager.hpp in Headers */,
 				F6B2830A1C1B03320081957A /* gps_track.hpp in Headers */,
@@ -684,6 +691,7 @@
 				BB4E5F281FCC664A00A77250 /* transit_reader.cpp in Sources */,
 				AC0AE5A62FDF0DDF00A44725 /* raster_tile_provider.cpp in Sources */,
 				56C116602090E5670068BBC0 /* extrapolator.cpp in Sources */,
+				6C44D2745E3CBEA39FF8B4F9 /* route_simulation.cpp in Sources */,
 				39E3C60423312BA800FB0C37 /* features_fetcher.cpp in Sources */,
 				45201E931CE4AC90008A4842 /* api_mark_point.cpp in Sources */,
 				BBA014AD2073C784007402E4 /* bookmark_helpers.cpp in Sources */,

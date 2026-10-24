@@ -32,7 +32,6 @@ import app.organicmaps.sdk.car.renderer.Renderer;
 import app.organicmaps.sdk.car.screens.BaseMapScreen;
 import app.organicmaps.sdk.location.LocationListener;
 import app.organicmaps.sdk.location.LocationUtils;
-import app.organicmaps.sdk.routing.JunctionInfo;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.sound.TtsPlayer;
@@ -64,9 +63,6 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   // False: trip is finished -> show toast
   // True: navigation is cancelled by the user or host -> don't show toast
   private boolean mNavigationCancelled = false;
-
-  // Used only in debug builds to simulate route following
-  private boolean mRouteSimulationEnabled = false;
 
   private NavigationScreen(@NonNull Builder builder)
   {
@@ -114,26 +110,14 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   public void onAutoDriveEnabled()
   {
     Logger.i(TAG);
-
-    /// @todo Pass maxDistM from RouteSimulationProvider?
-    /// Result speed between points will be in range (25, 50] km/h (for 1 second update interval).
-    final double kMaxDistM = 13.9; // 13.9 m/s == 50 km/h
-    final JunctionInfo[] points = Framework.nativeGetRouteJunctionPoints(kMaxDistM);
-    if (points == null)
-    {
+    if (!Framework.nativeStartRouteSimulation())
       Logger.w(TAG, "Navigation has not started yet");
-      return;
-    }
-
-    getLocationHelper().startNavigationSimulation(points);
-    mRouteSimulationEnabled = true;
   }
 
   private void onAutodriveDisabled()
   {
     Logger.i(TAG);
-    getLocationHelper().stopNavigationSimulation();
-    mRouteSimulationEnabled = false;
+    Framework.nativeStopRouteSimulation();
   }
 
   @Override
@@ -172,7 +156,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   public void onDestroy(@NonNull LifecycleOwner owner)
   {
     super.onDestroy(owner);
-    if (mRouteSimulationEnabled)
+    if (Framework.nativeIsRouteSimulationActive())
       onAutodriveDisabled();
     NavigationService.stopService(getCarContext());
     getLocationHelper().removeListener(mLocationListener);
@@ -290,11 +274,12 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   private Action createSimulateRouteAction()
   {
     final Action.Builder simulateRouteActionBuilder = new Action.Builder();
-    simulateRouteActionBuilder.setTitle(mRouteSimulationEnabled ? "Stop simulation" : "Simulate Route");
+    simulateRouteActionBuilder.setTitle(Framework.nativeIsRouteSimulationActive() ? "Stop simulation"
+                                                                                  : "Simulate Route");
     simulateRouteActionBuilder.setBackgroundColor(CarColor.RED);
     simulateRouteActionBuilder.setFlags(Action.FLAG_PRIMARY);
     simulateRouteActionBuilder.setOnClickListener(() -> {
-      if (mRouteSimulationEnabled)
+      if (Framework.nativeIsRouteSimulationActive())
         onAutodriveDisabled();
       else
         onAutoDriveEnabled();

@@ -61,6 +61,8 @@ All the following commands require an app restart:
 
 - `?debug-cam`: Force-enables speed cameras in all countries.
 - `?no-debug-cam`: Reverts speed camera setting to default.
+- `?route-sim`: Debug builds only. Replaces GPS with positions along the followed route, one per second at up to 50 km/h, until the last point, `?no-route-sim` or closing the route. Running it again restarts from the route start.
+- `?no-route-sim`: Debug builds only. Stops the route simulation, real GPS positions are used again.
 
 ## Downloader
 

@@ -1,30 +1,44 @@
 #include "testing/testing.hpp"
 
 #include "map/framework.hpp"
+#include "map/route_simulation.hpp"
 #include "map/routing_mark.hpp"
 
+#include "routing/routing_helpers.hpp"
 #include "routing/ruler_router.hpp"
+
+#include "search/search_params.hpp"
 
 #include "storage/routing_helpers.hpp"
 
 #include "platform/gui_thread.hpp"
+#include "platform/location.hpp"
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
 
+#include "geometry/distance_on_sphere.hpp"
+#include "geometry/latlon.hpp"
 #include "geometry/mercator.hpp"
 
 #include "base/file_name_utils.hpp"
+#include "base/math.hpp"
 #include "base/scope_guard.hpp"
 #include "base/thread_safe_queue.hpp"
+#include "base/timer.hpp"
 
 #include <algorithm>
+#include <chrono>
+#include <functional>
 #include <future>
 #include <memory>
+#include <string>
 #include <utility>
 #include <vector>
 
 namespace routing_manager_tests
 {
+using namespace std::chrono_literals;
+
 namespace
 {
 // Pump only this fixture's tasks, not callbacks left by earlier Framework instances.
@@ -981,5 +995,318 @@ UNIT_TEST(RoutingManager_RebuildClearsUnavailableAlternatives)
   while (!recovered)
     guiThread->RunNext();
   TEST(session.SwapActiveAlternative(1), ("Fresh alternatives must become selectable."));
+}
+
+namespace
+{
+class RouteSimulationFixture
+{
+public:
+  static double constexpr kLongRouteM = 400.0;
+
+  RouteSimulationFixture()
+  {
+    auto guiThread = std::make_unique<TestGuiThread>();
+    m_guiThread = guiThread.get();
+    GetPlatform().SetGuiThread(std::move(guiThread));
+    m_framework = std::make_unique<Framework>(FrameworkParams(false /* m_enableDiffs */));
+    Manager().SetRouteSimulationListener([this](location::GpsInfo const & fix)
+    {
+      m_fixes.push_back(fix);
+      if (m_onFix)
+        m_onFix(m_fixes.size());
+    });
+  }
+
+  ~RouteSimulationFixture()
+  {
+    // The extrapolator replays the last fix for up to 2 s and must not reach a destroyed framework.
+    Manager().StopRouteSimulation();
+    PumpFor(3s);
+    m_framework.reset();
+    GetPlatform().SetGuiThread(std::make_unique<platform::GuiThread>());
+  }
+
+  Framework & GetFramework() { return *m_framework; }
+  RoutingManager & Manager() { return m_framework->GetRoutingManager(); }
+  std::vector<location::GpsInfo> const & Fixes() const { return m_fixes; }
+  // |onFix| gets the number of fixes so far and runs inside the simulation listener.
+  void SetOnFix(std::function<void(size_t)> onFix) { m_onFix = std::move(onFix); }
+
+  m2::PointD Finish(double lengthM) const
+  {
+    return mercator::FromLatLon(kStart.m_lat + math::RadToDeg(lengthM / ms::kEarthRadiusMeters), kStart.m_lon);
+  }
+
+  void BuildRoute(double lengthM)
+  {
+    auto & session = Manager().RoutingSession();
+    session.SetRouter(std::make_unique<routing::RulerRouter>(), nullptr);
+    session.SetRoutingCallbacks([this](routing::RoutesResult const &, routing::RouterResultCode) { m_built = true; },
+                                nullptr, nullptr, nullptr);
+    session.BuildRoute(routing::Checkpoints(mercator::FromLatLon(kStart), Finish(lengthM)),
+                       routing::RouterDelegate::kNoTimeout);
+    TEST(PumpUntil([this] { return m_built; }, 10s), ("Route is not built."));
+    TEST(Manager().IsRouteBuilt(), ());
+  }
+
+  void BuildFollowedRoute(double lengthM)
+  {
+    BuildRoute(lengthM);
+    TEST(Manager().RoutingSession().EnableFollowMode(), ());
+  }
+
+  routing::RouteJunctions Junctions() const
+  {
+    routing::RouteJunctions junctions;
+    TEST(m_framework->GetRoutingManager().RoutingSession().GetRouteJunctionPoints(junctions), ());
+    return junctions;
+  }
+
+  location::GpsInfo PlatformFixAt(m2::PointD const & point) const
+  {
+    auto const latLon = mercator::ToLatLon(point);
+    location::GpsInfo fix;
+    fix.m_source = location::EUser;
+    fix.m_horizontalAccuracy = 1.0;
+    fix.m_latitude = latLon.m_lat;
+    fix.m_longitude = latLon.m_lon;
+    fix.m_timestamp = base::Timer::LocalTime();
+    return fix;
+  }
+
+  // Pumps the test GUI thread until |pred| holds or a sentinel posted |bound| from now arrives.
+  template <typename Pred>
+  bool PumpUntil(Pred && pred, std::chrono::milliseconds bound)
+  {
+    auto const expired = std::make_shared<bool>(false);
+    GetPlatform().RunDelayedTask(Platform::Thread::Background, bound, [expired]
+    { GetPlatform().RunTask(Platform::Thread::Gui, [expired] { *expired = true; }); });
+    while (!pred() && !*expired)
+      m_guiThread->RunNext();
+    return pred();
+  }
+
+  void PumpFor(std::chrono::milliseconds duration)
+  {
+    PumpUntil([] { return false; }, duration);
+  }
+
+private:
+  inline static ms::LatLon const kStart{52.5, 13.4};
+
+  TestGuiThread * m_guiThread = nullptr;
+  std::unique_ptr<Framework> m_framework;
+  std::vector<location::GpsInfo> m_fixes;
+  std::function<void(size_t)> m_onFix;
+  bool m_built = false;
+};
+
+void TestFixAt(location::GpsInfo const & fix, geometry::PointWithAltitude const & point)
+{
+  auto const latLon = point.ToLatLon();
+  TEST_ALMOST_EQUAL_ABS(fix.m_latitude, latLon.m_lat, 1e-9, ());
+  TEST_ALMOST_EQUAL_ABS(fix.m_longitude, latLon.m_lon, 1e-9, ());
+}
+}  // namespace
+
+UNIT_TEST(RoutingManager_RouteSimulationNeedsFollowedRoute)
+{
+  RouteSimulationFixture f;
+  auto & manager = f.Manager();
+
+  TEST(!manager.StartRouteSimulation(), ("No route."));
+  TEST(!manager.IsRouteSimulationActive(), ());
+
+  f.BuildRoute(RouteSimulationFixture::kLongRouteM);
+  TEST(manager.IsRoutingActive(), ());
+  TEST(!manager.IsRoutingFollowing(), ());
+  TEST(!manager.StartRouteSimulation(), ("The route is not followed."));
+  TEST(!manager.IsRouteSimulationActive(), ());
+  TEST(f.Fixes().empty(), ());
+}
+
+UNIT_TEST(RoutingManager_RouteSimulationNeedsRouteJunctions)
+{
+  RouteSimulationFixture f;
+  auto & manager = f.Manager();
+  auto & session = manager.RoutingSession();
+  session.SetState(routing::SessionState::RouteNotStarted);
+  TEST(session.EnableFollowMode(), ());
+  TEST(manager.IsRoutingActive(), ());
+  TEST(manager.IsRoutingFollowing(), ());
+  routing::RouteJunctions junctions;
+  TEST(!session.GetRouteJunctionPoints(junctions), ());
+
+  TEST(!manager.StartRouteSimulation(), ("No route junctions."));
+  TEST(!manager.IsRouteSimulationActive(), ());
+  TEST(f.Fixes().empty(), ());
+}
+
+UNIT_TEST(RoutingManager_RouteSimulationEmitsFixes)
+{
+  RouteSimulationFixture f;
+  auto & manager = f.Manager();
+  f.BuildFollowedRoute(RouteSimulationFixture::kLongRouteM);
+  auto const junctions = f.Junctions();
+
+  TEST(manager.StartRouteSimulation(), ());
+  TEST(manager.IsRouteSimulationActive(), ());
+  TEST_EQUAL(f.Fixes().size(), 1, ("The first fix must be delivered synchronously."));
+  TestFixAt(f.Fixes()[0], junctions[0]);
+
+  f.PumpFor(3500ms);
+  TEST_GREATER_OR_EQUAL(f.Fixes().size(), 3, ("The timer must keep emitting fixes."));
+  TEST_GREATER(f.Fixes()[1].m_speed, 0.0, ());
+  TEST_GREATER(f.Fixes()[2].m_speed, 0.0, ());
+}
+
+UNIT_TEST(RoutingManager_RouteSimulationRestart)
+{
+  RouteSimulationFixture f;
+  auto & manager = f.Manager();
+  f.BuildFollowedRoute(RouteSimulationFixture::kLongRouteM);
+  auto const points = routing::DensifyJunctions(f.Junctions(), kRouteSimulationStepM);
+
+  TEST(manager.StartRouteSimulation(), ());
+  TEST(f.PumpUntil([&f] { return f.Fixes().size() >= 2; }, 3s), (f.Fixes().size()));
+
+  size_t const restartIdx = f.Fixes().size();
+  TEST(manager.StartRouteSimulation(), ());
+  f.PumpFor(1500ms);
+
+  TEST_EQUAL(f.Fixes().size() - restartIdx, 2, ("A restart must replace the old run."));
+  TestFixAt(f.Fixes()[restartIdx], points[0]);
+  TestFixAt(f.Fixes()[restartIdx + 1], points[1]);
+}
+
+UNIT_TEST(RoutingManager_RouteSimulationStop)
+{
+  RouteSimulationFixture f;
+  auto & manager = f.Manager();
+  f.BuildFollowedRoute(RouteSimulationFixture::kLongRouteM);
+  TEST(manager.StartRouteSimulation(), ());
+  TEST(manager.IsRouteSimulationActive(), ());
+
+  manager.StopRouteSimulation();
+  TEST(!manager.IsRouteSimulationActive(), ());
+  f.PumpFor(1500ms);
+  TEST_EQUAL(f.Fixes().size(), 1, ("A stopped simulation must not deliver."));
+}
+
+UNIT_TEST(RoutingManager_CloseRoutingStopsRouteSimulation)
+{
+  RouteSimulationFixture f;
+  auto & manager = f.Manager();
+  f.BuildFollowedRoute(RouteSimulationFixture::kLongRouteM);
+  TEST(manager.StartRouteSimulation(), ());
+
+  manager.CloseRouting(true /* removeRoutePoints */);
+  TEST(!manager.IsRouteSimulationActive(), ());
+  f.PumpFor(1500ms);
+  TEST_EQUAL(f.Fixes().size(), 1, ("Closed routing must not deliver simulated fixes."));
+}
+
+UNIT_TEST(RoutingManager_RouteSimulationBlocksPlatformFixes)
+{
+  RouteSimulationFixture f;
+  auto & manager = f.Manager();
+  f.BuildFollowedRoute(RouteSimulationFixture::kLongRouteM);
+  auto const finishFix = f.PlatformFixAt(f.Finish(RouteSimulationFixture::kLongRouteM));
+  TEST(manager.StartRouteSimulation(), ());
+
+  manager.OnLocationUpdate(finishFix);
+  f.PumpFor(1500ms);
+  TEST(!manager.IsRouteFinished(), ("Platform fixes must be dropped while simulating."));
+
+  manager.StopRouteSimulation();
+  manager.OnLocationUpdate(finishFix);
+  f.PumpFor(1500ms);
+  TEST(manager.IsRouteFinished(), ("Platform fixes must pass after the simulation stops."));
+}
+
+UNIT_TEST(RoutingManager_RouteSimulationDrivesToFinish)
+{
+  RouteSimulationFixture f;
+  auto & manager = f.Manager();
+  f.BuildFollowedRoute(30.0);
+  auto const points = routing::DensifyJunctions(f.Junctions(), kRouteSimulationStepM);
+  TEST_GREATER(points.size(), 2, ());
+
+  TEST(manager.StartRouteSimulation(), ());
+  auto const bound = std::chrono::seconds(points.size() + 2);
+  TEST(f.PumpUntil([&] { return f.Fixes().size() >= points.size(); }, bound), (f.Fixes().size(), points.size()));
+  f.PumpFor(1500ms);
+
+  TEST(manager.IsRouteFinished(), ("Simulated fixes must reach the routing session."));
+  TEST_EQUAL(f.Fixes().size(), points.size(), ());
+  TestFixAt(f.Fixes().back(), points.back());
+  TEST(!manager.IsRouteSimulationActive(), ("A drained simulation must release the platform fixes."));
+  TEST(!manager.StartRouteSimulation(), ("A finished route must not be simulated again."));
+}
+
+UNIT_TEST(RoutingManager_RouteSimulationStopFromListener)
+{
+  RouteSimulationFixture f;
+  auto & manager = f.Manager();
+  f.BuildFollowedRoute(RouteSimulationFixture::kLongRouteM);
+  f.SetOnFix([&manager](size_t count)
+  {
+    if (count == 2)
+      manager.StopRouteSimulation();
+  });
+
+  TEST(manager.StartRouteSimulation(), ());
+  f.PumpFor(2500ms);
+  TEST_EQUAL(f.Fixes().size(), 2, ("A run stopped by its listener must not deliver."));
+  TEST(!manager.IsRouteSimulationActive(), ());
+}
+
+UNIT_TEST(RoutingManager_RouteSimulationRestartFromListener)
+{
+  RouteSimulationFixture f;
+  auto & manager = f.Manager();
+  f.BuildFollowedRoute(RouteSimulationFixture::kLongRouteM);
+  auto const points = routing::DensifyJunctions(f.Junctions(), kRouteSimulationStepM);
+  f.SetOnFix([&manager](size_t count)
+  {
+    if (count == 2)
+      manager.StartRouteSimulation();
+  });
+
+  TEST(manager.StartRouteSimulation(), ());
+  TEST(f.PumpUntil([&f] { return f.Fixes().size() >= 3; }, 3s), (f.Fixes().size()));
+  f.PumpFor(2500ms);
+
+  std::vector<size_t> const expected = {0, 1, 0, 1, 2};
+  TEST_EQUAL(f.Fixes().size(), expected.size(), ("A restart from the listener must replace the old run."));
+  for (size_t i = 0; i < expected.size(); ++i)
+    TestFixAt(f.Fixes()[i], points[expected[i]]);
+}
+
+UNIT_TEST(Framework_RouteSimulationCommands)
+{
+  RouteSimulationFixture f;
+  auto & framework = f.GetFramework();
+  auto & manager = f.Manager();
+  search::SearchParams start;
+  start.m_query = "?route-sim";
+  search::SearchParams stop;
+  stop.m_query = "?no-route-sim";
+
+#ifdef DEBUG
+  TEST(framework.ParseSearchQueryCommand(start), ());
+  TEST(!manager.IsRouteSimulationActive(), ("No route to simulate."));
+
+  f.BuildFollowedRoute(RouteSimulationFixture::kLongRouteM);
+  TEST(framework.ParseSearchQueryCommand(start), ());
+  TEST(manager.IsRouteSimulationActive(), ());
+  TEST(framework.ParseSearchQueryCommand(stop), ());
+  TEST(!manager.IsRouteSimulationActive(), ());
+#else
+  f.BuildFollowedRoute(RouteSimulationFixture::kLongRouteM);
+  TEST(!framework.ParseSearchQueryCommand(start), ("Release builds must not know the command."));
+  TEST(!manager.IsRouteSimulationActive(), ());
+#endif
 }
 }  // namespace routing_manager_tests
