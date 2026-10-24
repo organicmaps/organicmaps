@@ -155,4 +155,9 @@ UNIT_TEST(WaterReported_DebugCopySouth)
   CheckRoute("DebugCopySouth", {52.3548453, 5.1796368}, {52.32768966, 5.18361091}, true,
              {"Netherlands_Flevoland", "Netherlands_North Holland_Amsterdam"});
 }
+UNIT_TEST(WaterReported_AlmereLelystad)
+{
+  CheckRoute("AlmereLelystad", {52.35482820, 5.17957070}, {52.45889844, 5.41338676}, true,
+             {"Netherlands_Flevoland", "Netherlands_North Holland_Amsterdam", "Netherlands_Utrecht_Amersfoort"});
+}
 }  // namespace water_reported_routes_test

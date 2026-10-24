@@ -15,8 +15,11 @@ are dashed and included in land distance; they do not create new transfer points
 between water components. If pedestrian routing fails, there is no straight land
 fallback. Water checkpoints normally need no walking access. If their water
 component cannot be reached after the wider search, a short walking approach or
-exit may instead connect them to an eligible river endpoint within 1 km. The
-result must still contain a water portion and is marked unconfirmed. River taps snap to the displayed
+exit may instead connect them to an eligible river endpoint within 5 km. The
+result must still contain a water portion and is marked unconfirmed. An internal
+transfer preserving water at both ends takes precedence over this fallback. For
+a terminal walk, the nearest eligible river endpoint is preferred, so a cheaper
+mostly walking alternative does not displace the water journey. River taps snap to the displayed
 centerline; line selections retain 0.1 m quantization tolerance. Android keeps route
 point controls available on land as well as water.
 
@@ -49,9 +52,11 @@ water-and-walking route is not guaranteed.
 
 With source topology, line-only transfers use original source-way endpoints.
 Interior vertices, selected points and extraction cuts are not transfer points.
-Surface transfers use shoreline intersections. Candidates crossing a third
-disconnected water component are rejected. Ordinary-map endpoint rules are described
-below. Only the internal arrival marker required by shared presentation is produced.
+Surface transfers use shoreline intersections; their geometric candidates
+cannot cross a third disconnected water component. Ordinary-map endpoint walks
+use the complete stored endpoints instead. Their straight distance estimate may
+cross other known water bodies because the returned geometry comes from the
+pedestrian router. Unknown areas remain excluded. Only the internal arrival marker required by shared presentation is produced.
 Android hides navigation controls; native following is disabled.
 
 ## Ordinary downloaded maps
@@ -166,8 +171,8 @@ local transfers between nearby stored endpoints. These rules do not prove that
 carrying a boat is physically necessary.
 
 The reader caches one index with at most 65,536 records. Extraction allows 4,096
-surface source points and 32,768 triangles, with 16,384 line source points. The graph
-allows 65,536 vertices. Lazy A* starts with valid sparse mesh paths and checks
+surface source points and 65,536 triangles, with 16,384 line source points. The graph
+allows 131,072 vertices. Lazy A* starts with valid sparse mesh paths and checks
 visibility only when it can improve the route. It allows at most 4,000,000 segment
 checks and 64,000,000 indexed triangle visits. Interior triangle vertices keep linear mesh edges;
 surface visibility needs only reflex shore corners, checkpoints and river points.
@@ -341,28 +346,29 @@ a bounded geometry budget large enough for this water detour.
 ### Reported-route regressions
 
 `libs/routing/routing_integration_tests/water_reported_routes_test.cpp` preserves
-reported failing coordinates, including My position starts. Run these tests with
-ordinary downloaded MWMs in `--data_path` and the matching application resources.
-The five October 24 cases use Flevoland, North Holland — Amsterdam and Utrecht —
-Amersfoort from catalog 2026-07-14. Earlier cases also require Pomeranian Voivodeship.
-The tests require successful Water results with water distance and selected
-endpoints within the existing 0.1 m display-geometry tolerance; land portions use the real pedestrian router.
+14 reported failing routes, including exact My position starts. Run with ordinary
+downloaded MWMs in `--data_path` and matching application resources. Dutch cases
+use Flevoland, North Holland â€” Amsterdam and Utrecht â€” Amersfoort from catalog
+2026-07-14; Polish cases use Pomeranian Voivodeship. Tests require a successful
+Water result containing water distance and selected endpoints within the existing
+0.1 m display-geometry tolerance. Land portions use the real pedestrian router.
 
-On the Samsung SM-G970F, all 13 reported-route integration tests pass with the
-ordinary downloaded maps. The five new cases share My position start
-`52.35483470, 5.17963790`:
+The five Almere cases share start `52.35483470, 5.17963790`:
 
 | Finish | Water | Walking, including start access |
 | --- | ---: | ---: |
 | 52.31592888, 5.18930914 | 13.931 km | 210 m |
 | 52.42719742, 5.21305839 | 12.391 km | 210 m |
-| 52.40677214, 5.21760280 | 7.791 km | 2.344 km |
-| 52.41585159, 5.23250400 | 10.773 km | 1.061 km |
+| 52.40677214, 5.21760280 | 8.989 km | 1.209 km |
+| 52.41585159, 5.23250400 | 11.378 km | 888 m |
 | 52.38056521, 5.26966545 | 13.517 km | 210 m |
 
-These results are qualified as "Shortest route not confirmed". The terminal
-walking limit concerns endpoint proximity; a pedestrian detour can be longer.
-The same code passed 90 native tests, eight generator tests, Android app/SDK unit
-tests and lint. Water extraction and search took about 7–17 seconds per new case
-in the native phone checks, compared with failures after roughly 49–389 seconds
-for the three previously expensive cases.
+The Keersluisplas case uses My position start `52.35482820, 5.17957070` and finish
+`52.45889844, 5.41338676`: 27.080 km water and 2.307 km walking, including a 201 m
+start approach. Its finish water component has no eligible river endpoints in the
+MWM. A terminal pedestrian exit connects it to a reachable river endpoint about
+1.9 km away. The native phone check took about 20 seconds; version 2026.10.24-22
+failed after about 59 seconds.
+
+These results show "Shortest route not confirmed". The 5 km terminal walking limit
+concerns endpoint proximity; an actual pedestrian detour can be longer.
