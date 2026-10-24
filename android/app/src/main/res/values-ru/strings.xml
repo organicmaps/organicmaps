@@ -934,4 +934,5 @@
     <string name="track_recording_finish">Завершить</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Развернуть маршрут</string>
+    <string name="water_shortest_unconfirmed">Кратчайший путь не подтверждён</string>
 </resources>

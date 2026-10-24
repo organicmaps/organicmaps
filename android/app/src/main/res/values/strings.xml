@@ -923,4 +923,5 @@
     <string name="track_recording_finish">Finish</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Reverse route</string>
+    <string name="water_shortest_unconfirmed">Shortest route not confirmed</string>
 </resources>
