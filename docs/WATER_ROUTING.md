@@ -85,10 +85,10 @@ physically necessary. The walking route must be found by the pedestrian router;
 the straight-line estimate used to select endpoints is never the returned land path.
 Coastline polygons describe land and do not supply ocean water in this mode.
 
-The complete query rectangle must lie inside a known map-region polygon. The
+The complete query rectangle must lie inside the union of known, downloaded map regions. The
 application supplies this proof from packed borders, with a margin for border
 simplification and quantization. A feature bounding box alone never certifies
-coverage. Missing borders, cross-region queries and exceeded budgets remain
+coverage. Missing borders, missing neighboring maps and exceeded budgets remain
 unavailable. The native water-membership query uses the same coverage check.
 Eligibility uses a 50 m margin instead of extracting a full routing window
 for a single point. The feature budget counts intersecting water features,
@@ -135,13 +135,18 @@ generation has not been exercised in the Android smoke test.
 
 ## Bounds and limitations
 
-One MWM must cover the extraction rectangle. For optional sections, the margin
+Optional sections require one MWM to cover the extraction rectangle. Ordinary
+maps can combine up to 16 downloaded neighboring regions, sharing the same total
+geometry budgets. Their water surfaces are unioned across file boundaries; separate
+river lines still lack original node identities. Missing regions cannot be bridged
+by assuming that an overlapping feature or bounding box proves map coverage.
+For optional sections, the margin
 follows checkpoint distance and is bounded between 1 and 30 km. Ordinary maps start
 with at most 3 km and reduce the margin when coverage or extraction budgets require
 it. Near a map boundary, each rectangle side expands only within certified coverage.
 If a water path is unavailable in that window, one retry may extend the standard-map
 margin by 1 km. The wider query still requires certified map coverage and the same
-geometry budgets. Cross-MWM routes, antimeridian windows and extraction failures
+geometry budgets. Uncovered cross-region routes, antimeridian windows and extraction failures
 remain unavailable.
 A known connected path may be returned when the visibility budget is exhausted, or
 when bounds cannot exclude a shorter alternative outside complete coverage. Such
@@ -213,7 +218,7 @@ The latest native run passes 86 routing/provider/async/spatial-index tests, incl
 replacement of geometric gaps with pedestrian polylines, failed transfers without a straight-line
 fallback, and cancellation during a transfer. ARM64 and x86_64 native builds pass,
 and the x86_64 APK installs on the emulator. Android validation passed all
-113 app/SDK unit tests and lintAllModules; six generator tests also passed.
+113 app/SDK unit tests and lintAllModules; eight generator tests also passed.
 Initial visual checks were blocked by emulator System UI ANRs; the emulator and
 physical-phone checks below were run after the interface recovered.
 
@@ -312,3 +317,8 @@ in 1.3 seconds (1.7 seconds after a normal restart). Android displays 660 m wate
 55 m walking and the shortest-path qualification. An activity-task recreation
 during deep-link testing temporarily lost the map surface; a normal app restart
 restored rendering and the successful route details.
+
+The cross-map Almere regression, 52.375208,5.243226 to 52.323037,5.229683,
+uses ordinary 260714 Flevoland and Amsterdam maps. It returns 7,624.11 m water
+and 175.728 m pedestrian approach. Both maps must be downloaded; the start and
+finish belong to different map regions despite being close to Almere.

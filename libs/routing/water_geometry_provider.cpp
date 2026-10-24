@@ -23,6 +23,7 @@ using Point = m2::PointD;
 size_t constexpr kMaxInputPoints = 16384;
 size_t constexpr kMaxSurfacePoints = 4096;
 size_t constexpr kMaxTriangles = 16384;
+size_t constexpr kMaxStandardMaps = 16;
 
 // Clip a convex contour against a rectangle. Intersections use a canonical edge
 // direction so neighbouring triangles reconstruct identical boundary points.
@@ -232,82 +233,94 @@ water::Geometry WaterGeometryProvider::Extract(::water::Reader const & reader, m
 water::Geometry WaterGeometryProvider::ExtractFeatures(DataSource const & dataSource, MwmSet::MwmId const & id,
                                                        m2::RectD const & bounds, water::CancelledFn const & cancelled)
 {
+  return ExtractFeatures(dataSource, std::vector<MwmSet::MwmId>{id}, bounds, cancelled);
+}
+
+water::Geometry WaterGeometryProvider::ExtractFeatures(DataSource const & dataSource,
+                                                       std::vector<MwmSet::MwmId> const & ids, m2::RectD const & bounds,
+                                                       water::CancelledFn const & cancelled)
+{
   water::Geometry result;
   result.m_hasSourceTopology = false;
   std::vector<::water::Record> surfaces;
   size_t points = 0, triangles = 0, features = 0;
   bool exceeded = false;
-  dataSource.ForEachInRectForMWM([&](FeatureType & feature)
+  for (auto const & id : ids)
   {
     if (cancelled() || exceeded)
-      return;
-    std::vector<uint32_t> types;
-    feature.ForEachType([&](uint32_t type) { types.push_back(type); });
-    auto const line = feature.GetGeomType() == feature::GeomType::Line && ::water::IsLine(types);
-    auto const area = feature.GetGeomType() == feature::GeomType::Area && ::water::IsArea(types);
-    if (!line && !area)
-      return;
-    auto const rect = feature.GetLimitRect(FeatureType::BEST_GEOMETRY);
-    if (!rect.IsIntersect(bounds))
-      return;
-    // Unrelated buildings and roads must not exhaust the water geometry budget.
-    if (++features > 16384)
+      return {};
+    dataSource.ForEachInRectForMWM([&](FeatureType & feature)
     {
-      exceeded = true;
-      return;
-    }
-    // Coastline polygons encode land. Bridge/aqueduct/lock restrictions are not
-    // modelled in display-data measurements. Underground features allow a walking bypass.
-    bool underground = feature.GetLayer() < 0;
-    feature.ForEachType([&](uint32_t type)
-    {
-      auto const name = classif().GetReadableObjectName(type);
-      underground = underground || name.find("tunnel") != std::string::npos;
-    });
-    if (::water::IsCoastline(types))
-    {
-      result.m_unknownAreas.push_back(rect);
-      return;
-    }
-    if (underground)
-    {
-      result.m_portageAreas.push_back(rect);
-      return;
-    }
-    if (line)
-    {
-      auto const & vertices = feature.GetPoints(FeatureType::BEST_GEOMETRY);
-      if (vertices.size() > kMaxInputPoints - points)
+      if (cancelled() || exceeded)
+        return;
+      std::vector<uint32_t> types;
+      feature.ForEachType([&](uint32_t type) { types.push_back(type); });
+      auto const line = feature.GetGeomType() == feature::GeomType::Line && ::water::IsLine(types);
+      auto const area = feature.GetGeomType() == feature::GeomType::Area && ::water::IsArea(types);
+      if (!line && !area)
+        return;
+      auto const rect = feature.GetLimitRect(FeatureType::BEST_GEOMETRY);
+      if (!rect.IsIntersect(bounds))
+        return;
+      // Unrelated buildings and roads must not exhaust the water geometry budget.
+      if (++features > 16384)
       {
         exceeded = true;
         return;
       }
-      points += vertices.size();
-      ::water::Record record;
-      record.m_kind = ::water::Kind::Line;
-      record.m_rings.emplace_back(vertices.begin(), vertices.end());
-      // Never infer node identity from equal quantized coordinates.
-      record.m_nodes.resize(vertices.size(), 0);
-      if (vertices.size() >= 2)
-        AddLine(record, bounds, result);
-      return;
-    }
-    feature.ForEachTriangle([&](Point const & a, Point const & b, Point const & c)
-    {
-      if (cancelled() || exceeded)
-        return;
-      auto const clipped = Clip({a, b, c}, bounds);
-      for (size_t i = 2; i < clipped.size(); ++i)
+      // Coastline polygons encode land. Bridge/aqueduct/lock restrictions are not
+      // modelled in display-data measurements. Underground features allow a walking bypass.
+      bool underground = feature.GetLayer() < 0;
+      feature.ForEachType([&](uint32_t type)
       {
-        if (++triangles > kMaxTriangles)
+        auto const name = classif().GetReadableObjectName(type);
+        underground = underground || name.find("tunnel") != std::string::npos;
+      });
+      if (::water::IsCoastline(types))
+      {
+        result.m_unknownAreas.push_back(rect);
+        return;
+      }
+      if (underground)
+      {
+        result.m_portageAreas.push_back(rect);
+        return;
+      }
+      if (line)
+      {
+        auto const & vertices = feature.GetPoints(FeatureType::BEST_GEOMETRY);
+        if (vertices.size() > kMaxInputPoints - points)
         {
           exceeded = true;
           return;
         }
-        surfaces.push_back({::water::Kind::Area, {{clipped[0], clipped[i - 1], clipped[i]}}, {}});
+        points += vertices.size();
+        ::water::Record record;
+        record.m_kind = ::water::Kind::Line;
+        record.m_rings.emplace_back(vertices.begin(), vertices.end());
+        // Never infer node identity from equal quantized coordinates.
+        record.m_nodes.resize(vertices.size(), 0);
+        if (vertices.size() >= 2)
+          AddLine(record, bounds, result);
+        return;
       }
-    }, FeatureType::BEST_GEOMETRY);
-  }, bounds, scales::GetUpperScale(), id);
+      feature.ForEachTriangle([&](Point const & a, Point const & b, Point const & c)
+      {
+        if (cancelled() || exceeded)
+          return;
+        auto const clipped = Clip({a, b, c}, bounds);
+        for (size_t i = 2; i < clipped.size(); ++i)
+        {
+          if (++triangles > kMaxTriangles)
+          {
+            exceeded = true;
+            return;
+          }
+          surfaces.push_back({::water::Kind::Area, {{clipped[0], clipped[i - 1], clipped[i]}}, {}});
+        }
+      }, FeatureType::BEST_GEOMETRY);
+    }, bounds, scales::GetUpperScale(), id);
+  }
   if (cancelled() || exceeded || !AddSurface(surfaces, bounds, cancelled, result, 3 * kMaxTriangles))
     return {};
   IndexTriangles(result);
@@ -370,6 +383,11 @@ water::Geometry WaterGeometryProvider::GetGeometry(Checkpoints const & checkpoin
     if (reader->Covers(bounds))
       return Extract(*reader, bounds, cancelled);
   }
+  std::vector<std::vector<MwmSet::MwmId>> mapGroups;
+  for (auto const & id : standardMaps)
+    mapGroups.push_back({id});
+  if (standardMaps.size() > 1 && standardMaps.size() <= kMaxStandardMaps && m_multiCoverage)
+    mapGroups.push_back(standardMaps);
   // Large fixed margins collect unrelated lakes and may cross a map-region
   // boundary. Keep standard-map extraction local; shrink only on extraction failure.
   for (double localMargin = std::min(margin, 3000.0 + extraMargin);; localMargin = std::max(250.0, localMargin * 0.5))
@@ -377,13 +395,25 @@ water::Geometry WaterGeometryProvider::GetGeometry(Checkpoints const & checkpoin
     bounds = checkpointBounds;
     auto const localExtent = mercator::RectByCenterXYAndSizeInMeters(bounds.Center(), localMargin);
     bounds.Inflate(localExtent.SizeX() / 2, localExtent.SizeY() / 2);
-    for (auto const & id : standardMaps)
+    for (auto const & ids : mapGroups)
     {
       if (cancelled())
         return {};
-      auto const info = id.GetInfo();
+      std::vector<std::string> countries;
+      m2::RectD combinedBounds;
+      for (auto const & id : ids)
+      {
+        auto const info = id.GetInfo();
+        countries.push_back(info->GetCountryName());
+        combinedBounds.Add(info->m_bordersRect);
+      }
       auto const covered = [&](m2::RectD const & rect)
-      { return info->m_bordersRect.IsRectInside(rect) && m_coverage && m_coverage(info->GetCountryName(), rect); };
+      {
+        if (!combinedBounds.IsRectInside(rect))
+          return false;
+        return ids.size() == 1 ? m_coverage && m_coverage(countries.front(), rect)
+                               : m_multiCoverage && m_multiCoverage(countries, rect);
+      };
       auto mapBounds = bounds;
       if (!covered(mapBounds))
       {
@@ -418,7 +448,7 @@ water::Geometry WaterGeometryProvider::GetGeometry(Checkpoints const & checkpoin
       }
       if (!covered(mapBounds))
         continue;
-      auto result = ExtractFeatures(m_dataSource, id, mapBounds, cancelled);
+      auto result = ExtractFeatures(m_dataSource, ids, mapBounds, cancelled);
       if (result.m_complete)
         return result;
     }
