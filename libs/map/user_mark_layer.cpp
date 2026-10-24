@@ -22,11 +22,12 @@ void UserMarkLayer::Clear()
   SetDirty();
   m_userMarks.clear();
   m_tracks.clear();
+  m_areas.clear();
 }
 
 bool UserMarkLayer::IsEmpty() const
 {
-  return m_userMarks.empty() && m_tracks.empty();
+  return m_userMarks.empty() && m_tracks.empty() && m_areas.empty();
 }
 
 void UserMarkLayer::SetIsVisible(bool isVisible)
@@ -66,4 +67,10 @@ void UserMarkLayer::DetachTrack(kml::TrackId trackId)
 {
   SetDirty();
   m_tracks.erase(trackId);
+}
+
+void UserMarkLayer::AttachArea(kml::AreaId areaId)
+{
+  SetDirty();
+  m_areas.insert(areaId);
 }

@@ -578,6 +578,15 @@
         <item quantity="other">Cafwyd hyd i %d ffeil. Gallwch eu gweld ar ôl eu trosi.</item>
     </plurals>
     <string name="restore">Adfer</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="zero">%d ardal</item>
+        <item quantity="one">%d ardal</item>
+        <item quantity="two">%d ardal</item>
+        <item quantity="few">%d ardal</item>
+        <item quantity="many">%d ardal</item>
+        <item quantity="other">%d ardal</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="zero">Dim traciau</item>
         <item quantity="one">%d trac</item>

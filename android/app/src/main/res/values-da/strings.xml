@@ -574,6 +574,11 @@
         <item quantity="other">%d filer blev fundet. Du vil se dem efter konvertering.</item>
     </plurals>
     <string name="restore">Gendan</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d område</item>
+        <item quantity="other">%d områder</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="one">%d spor</item>
         <item quantity="other">%d spor</item>

@@ -578,6 +578,12 @@
         <item quantity="other">S’han trobat %d fitxers. Podreu veure’ls després de la conversió.</item>
     </plurals>
     <string name="restore">Restaura</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d àrea</item>
+        <item quantity="many">%d d’àrees</item>
+        <item quantity="other">%d àrees</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="zero">%d recorreguts</item>
         <item quantity="one">%d recorregut</item>

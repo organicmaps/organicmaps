@@ -266,6 +266,11 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
   return self.bm.GetTrackIds(groupId).size();
 }
 
+- (uint64_t)getCategoryAreasCount:(MWMMarkGroupID)groupId
+{
+  return self.bm.GetAreaIds(groupId).size();
+}
+
 - (MWMBookmarkGroupAccessStatus)getCategoryAccessStatus:(MWMMarkGroupID)groupId
 {
   switch (self.bm.GetCategoryData(groupId).m_accessRules)

@@ -572,6 +572,10 @@
         <item quantity="other">%d 개의 파일이 발견되었습니다. 변환 후 확인할 수 있습니다.</item>
     </plurals>
     <string name="restore">복원</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="other">구역 %d개</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="one">%d 추적</item>
         <item quantity="other">%d 추적</item>

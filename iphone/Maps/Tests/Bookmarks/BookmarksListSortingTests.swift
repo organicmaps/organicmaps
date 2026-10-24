@@ -151,6 +151,29 @@ final class BookmarksListSortingTests: XCTestCase {
     XCTAssertEqual(view.info?.isHtmlDescription, true)
     XCTAssertEqual(view.info?.imageUrl, imageUrl)
   }
+
+  func testAreaCategoryOffersOnlyKmzExport() throws {
+    interactor.setAreaCount(1)
+    presenter.more()
+
+    XCTAssertFalse(view.menu.contains { $0.title == L("export_file_gpx") })
+    XCTAssertFalse(view.menu.contains { $0.title == L("export_file_geojson") })
+    try XCTUnwrap(view.menu.first { $0.title == L("export_file") }).action()
+    XCTAssertEqual(interactor.exportedTypes, [.kml])
+  }
+
+  func testReloadRestoresExportFormatsWhenCategoryHasNoAreas() throws {
+    interactor.setAreaCount(1)
+    presenter.more()
+    interactor.setAreaCount(0)
+    interactor.reloadCategory()
+    presenter.more()
+
+    for title in ["export_file", "export_file_gpx", "export_file_geojson"] {
+      try XCTUnwrap(view.menu.first { $0.title == L(title) }).action()
+    }
+    XCTAssertEqual(interactor.exportedTypes, [.kml, .gpx, .geoJson])
+  }
 }
 
 private final class MockSortingBookmark: Bookmark {
@@ -184,6 +207,7 @@ private final class MockSortingBookmarkGroup: BookmarkGroup {
   var categoryDescription = ""
   var categoryDescriptionIsHtml = false
   var categoryImageUrl: URL?
+  var categoryAreaCount = 0
 
   init(bookmarks: [Bookmark]) {
     items = bookmarks
@@ -199,6 +223,7 @@ private final class MockSortingBookmarkGroup: BookmarkGroup {
   override var tracks: [Track] { [MockSortingTrack()] }
   override var bookmarksCount: Int { items.count }
   override var trackCount: Int { 1 }
+  override var areaCount: Int { categoryAreaCount }
 }
 
 private final class MockBookmarksSortingInteractor: IBookmarksListInteractor {
@@ -206,6 +231,7 @@ private final class MockBookmarksSortingInteractor: IBookmarksListInteractor {
   var searchCompletions: [([Bookmark]) -> Void] = []
   var sortCompletions: [([BookmarksSection]) -> Void] = []
   var sortingType: BookmarksListSortingType?
+  var exportedTypes: [FileType] = []
   private let group: MockSortingBookmarkGroup
   init(bookmarks: [Bookmark]) { group = MockSortingBookmarkGroup(bookmarks: bookmarks) }
   func getBookmarkGroup() -> BookmarkGroup { group }
@@ -218,6 +244,7 @@ private final class MockBookmarksSortingInteractor: IBookmarksListInteractor {
   }
 
   func prepareForSearch() {}
+  func setAreaCount(_ count: Int) { group.categoryAreaCount = count }
   func search(_: String, completion: @escaping ([Bookmark]) -> Void) { searchCompletions.append(completion) }
   func availableSortingTypes(hasMyPosition _: Bool) -> [BookmarksListSortingType] { [.name, .date, .type] }
   func sort(_ type: BookmarksListSortingType, location _: CLLocation?, completion: @escaping ([BookmarksSection]) -> Void) {
@@ -236,7 +263,10 @@ private final class MockBookmarksSortingInteractor: IBookmarksListInteractor {
   func setColor(_: UIColor, for _: Set<BookmarksListItemId>) {}
   func deleteBookmarksGroup() {}
   func canDeleteGroup() -> Bool { true }
-  func exportFile(fileType _: FileType, completion _: @escaping SharingResultCompletionHandler) {}
+  func exportFile(fileType: FileType, completion _: @escaping SharingResultCompletionHandler) {
+    exportedTypes.append(fileType)
+  }
+
   func finishExportFile() {}
 }
 

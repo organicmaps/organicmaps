@@ -23,6 +23,7 @@ NS_SWIFT_NAME(BookmarkGroup)
 @property(nonatomic, readonly, nullable) NSURL * imageUrl;
 @property(nonatomic, readonly) NSInteger bookmarksCount;
 @property(nonatomic, readonly) NSInteger trackCount;
+@property(nonatomic, readonly) NSInteger areaCount;
 @property(nonatomic, readonly, getter=isVisible) BOOL visible;
 @property(nonatomic, readonly, getter=isEmpty) BOOL empty;
 @property(nonatomic, readonly) BOOL hasDescription;
