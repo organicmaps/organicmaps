@@ -321,7 +321,7 @@ UNIT_TEST(Water_ExcessiveGeometryIsUnavailable)
 {
   Geometry geometry;
   geometry.m_complete = true;
-  geometry.m_triangles.resize(17000);
+  geometry.m_triangles.resize(33000);
   Path path;
   TEST(FindPath(geometry, P(0, 0), P(1, 1), false, kNeverCancelled, path) == ResultCode::Unavailable, ());
 }

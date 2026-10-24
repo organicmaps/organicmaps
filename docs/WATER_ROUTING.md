@@ -136,7 +136,8 @@ generation has not been exercised in the Android smoke test.
 ## Bounds and limitations
 
 Optional sections require one MWM to cover the extraction rectangle. Ordinary
-maps can combine up to 16 downloaded neighboring regions, sharing the same total
+maps prefer the combined coverage of up to 16 downloaded neighboring regions
+before clipping to a single region, sharing the same total
 geometry budgets. Their water surfaces are unioned across file boundaries; separate
 river lines still lack original node identities. Missing regions cannot be bridged
 by assuming that an overlapping feature or bounding box proves map coverage.
@@ -145,7 +146,7 @@ follows checkpoint distance and is bounded between 1 and 30 km. Ordinary maps st
 with at most 3 km and reduce the margin when coverage or extraction budgets require
 it. Near a map boundary, each rectangle side expands only within certified coverage.
 If a water path is unavailable in that window, one retry may extend the standard-map
-margin by 1 km. The wider query still requires certified map coverage and the same
+margin by 2 km. The wider query still requires certified map coverage and the same
 geometry budgets. Uncovered cross-region routes, antimeridian windows and extraction failures
 remain unavailable.
 A known connected path may be returned when the visibility budget is exhausted, or
@@ -161,7 +162,7 @@ not establish that no water alternative exists outside the window and shows
 "Shortest route not confirmed". Missing map data alone never permits this exception.
 
 The reader caches one index with at most 65,536 records. Extraction allows 4,096
-surface source points and 16,384 triangles, with 16,384 line source points. The graph
+surface source points and 32,768 triangles, with 16,384 line source points. The graph
 allows 65,536 vertices. Lazy A* starts with valid sparse mesh paths and checks
 visibility only when it can improve the route. It allows at most 4,000,000 segment
 checks and 64,000,000 indexed triangle visits. Interior triangle vertices keep linear mesh edges;
@@ -326,3 +327,9 @@ finish belong to different map regions despite being close to Almere.
 Android Debug routing error dialogs offer **Copy** to share all selected coordinates,
 app version, routing mode, error code, and map/download context for reproduction.
 The snapshot is captured when the error opens; copying does not dismiss it.
+
+The Debug-report regression, 52.35484530,5.17963680 to 52.32768966,5.18361091,
+returns 11,781.2 m water and 211.63 m pedestrian approach on ordinary 260714
+Flevoland and Amsterdam maps. Combined neighboring coverage is tried before a
+clipped single-map window, and the wider retry retains
+a bounded geometry budget large enough for this water detour.
