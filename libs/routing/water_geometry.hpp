@@ -54,6 +54,7 @@ struct Path
   std::vector<m2::PointD> m_points;
   // One classification per edge, including any explicitly permitted land gap.
   std::vector<bool> m_landGaps;
+  bool m_shortestConfirmed = true;
   double m_waterDistance = 0.0;
   double m_landDistance = 0.0;
 };
@@ -61,6 +62,10 @@ struct Path
 using CancelledFn = std::function<bool()>;
 // Work-based estimate in [0, 1]; 1 is reported only for a successful path.
 using ProgressFn = std::function<void(double)>;
+
+// A nearby entry point for a separately calculated pedestrian approach.
+std::optional<m2::PointD> FindApproachPoint(Geometry const & geometry, m2::PointD const & start,
+                                            CancelledFn const & cancelled);
 
 ResultCode FindPath(Geometry const & geometry, m2::PointD const & start, m2::PointD const & finish, bool projectStart,
                     CancelledFn const & cancelled, Path & path, ProgressFn const & progress = {});

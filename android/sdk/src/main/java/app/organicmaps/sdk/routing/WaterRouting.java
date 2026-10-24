@@ -11,6 +11,8 @@ public final class WaterRouting
   @WorkerThread
   public static native boolean isPointEligible(double lat, double lon);
 
+  public static native boolean isShortestConfirmed();
+
   // Water, land gaps, total, formatted using the current application units.
   @Nullable
   public static native Distance[] getDistances();

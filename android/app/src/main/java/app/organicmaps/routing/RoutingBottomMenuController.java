@@ -335,7 +335,9 @@ final class RoutingBottomMenuController
       text += "\n" + mContext.getString(R.string.water_land_gaps, distances[1].toString(mContext)) + "\n"
             + mContext.getString(R.string.water_total_distance, distances[2].toString(mContext));
     mTimeRuler.setSingleLine(false);
-    mTimeRuler.setMaxLines(3);
+    if (!app.organicmaps.sdk.routing.WaterRouting.isShortestConfirmed())
+      text += "\n" + mContext.getString(R.string.water_shortest_unconfirmed);
+    mTimeRuler.setMaxLines(5);
     mTimeRuler.setText(text);
     UiUtils.show(mAltitudeChartFrame, mTimeRuler);
     notifyVisibilityChanged();

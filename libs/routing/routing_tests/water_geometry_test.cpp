@@ -301,8 +301,11 @@ UNIT_TEST(Water_UnknownShortcutCannotCertifyDetour)
   Rectangle(geometry, 2, 1, 3, 2);
   geometry.m_unknownAreas.emplace_back(1, 1, 2, 2);
   Path path;
-  TEST(FindPath(geometry, P(0.5, 1.5), P(2.5, 1.5), false, kNeverCancelled, path) == ResultCode::Unavailable, ());
-  TEST(path.m_points.empty(), ());
+  TEST(FindPath(geometry, P(0.5, 1.5), P(2.5, 1.5), false, kNeverCancelled, path) == ResultCode::Success, ());
+  TEST(!path.m_points.empty(), ());
+  TEST(!path.m_shortestConfirmed, ());
+  TEST_EQUAL(path.m_landDistance, 0.0, ());
+  CheckAccounting(path);
 }
 
 UNIT_TEST(Water_UnknownGapAndUnknownFrontierAreRejected)
@@ -505,8 +508,11 @@ UNIT_TEST(Water_CheaperFrontierStillRequiresMoreCoverage)
   geometry.m_bounds = m2::RectD(0, 0, 10, 10);
   geometry.m_lines = {{{P(2, 2), 1}, {P(2, 6), 2}, {P(8, 6), 3}, {P(8, 2), 4}}, {{P(2, 2), 1}, {P(0, 2), 5}}};
   Path path;
-  TEST(FindPath(geometry, P(2, 2), P(8, 2), false, kNeverCancelled, path) == ResultCode::Unavailable, ());
-  TEST(path.m_points.empty(), ());
+  TEST(FindPath(geometry, P(2, 2), P(8, 2), false, kNeverCancelled, path) == ResultCode::Success, ());
+  TEST(!path.m_points.empty(), ());
+  TEST(!path.m_shortestConfirmed, ());
+  TEST_EQUAL(path.m_landDistance, 0.0, ());
+  CheckAccounting(path);
 }
 UNIT_TEST(Water_UnknownGapCannotJustifyLongerTransfer)
 {

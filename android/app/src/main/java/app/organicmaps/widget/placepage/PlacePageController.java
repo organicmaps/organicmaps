@@ -792,8 +792,7 @@ public class PlacePageController
     }
     if (RoutingController.get().isWaterRouterType() && !mWaterPointEligible)
       buttons.removeIf(type
-                       -> type == PlacePageButtons.ButtonType.ROUTE_FROM || type == PlacePageButtons.ButtonType.ROUTE_TO
-                              || type == PlacePageButtons.ButtonType.ROUTE_ADD
+                       -> type == PlacePageButtons.ButtonType.ROUTE_TO || type == PlacePageButtons.ButtonType.ROUTE_ADD
                               || type == PlacePageButtons.ButtonType.ROUTE_APPEND
                               || type == PlacePageButtons.ButtonType.ROUTE_REPLACE);
     mViewModel.setCurrentButtons(buttons);

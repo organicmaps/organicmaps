@@ -253,6 +253,7 @@ class RouteBase
 public:
   struct WaterDistances
   {
+    bool m_shortestConfirmed = true;
     double m_waterMeters = 0.0;
     double m_landMeters = 0.0;
     double GetTotalMeters() const { return m_waterMeters + m_landMeters; }
