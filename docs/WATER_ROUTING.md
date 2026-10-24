@@ -22,16 +22,24 @@ Surface union and triangulation preserve holes. Visibility edges require complet
 water coverage. River/surface transitions use actual intersections. Distances use
 mercator::DistanceOnEarth. Checkpoints retain their selected order.
 
-Connected water paths always take precedence over land shortcuts. Otherwise each
-checkpoint leg may propose one endpoint transfer using a geometric lower bound.
-WaterRouter replaces that proposal with an actual pedestrian route. If walking
-fails, the leg fails without a straight-line fallback. Walking transfers are
-qualified as shortest-path-unconfirmed: endpoint selection uses the geometric
-bound, rather than evaluating pedestrian costs for every endpoint pair. Line-only transfers use original source-way endpoints. Interior
-vertices, selected points and extraction cuts are not transfer points. Surface
-transfers use shoreline intersections. Candidates crossing a third disconnected
-water component are rejected. Only the internal arrival marker required by shared
-presentation is produced. Android hides navigation controls; native following is disabled.
+Connected water paths always take precedence over land shortcuts. All land portions,
+including the initial approach and transfers between water components, use the
+existing, unchanged pedestrian IndexRouter. Results show its actual walking geometry
+and distance as dashed land portions. If walking fails, the leg fails without a
+straight-line fallback.
+
+Each checkpoint leg may propose one transfer using a geometric lower bound to
+select its endpoints. Other endpoint pairs are not retried if the selected walking
+route fails. The selection does not compare actual walking costs for every pair,
+so internal transfers show "Shortest route not confirmed"; the shortest combined
+water-and-walking route is not guaranteed.
+
+With source topology, line-only transfers use original source-way endpoints.
+Interior vertices, selected points and extraction cuts are not transfer points.
+Surface transfers use shoreline intersections. Candidates crossing a third
+disconnected water component are rejected. Ordinary-map endpoint rules are described
+below. Only the internal arrival marker required by shared presentation is produced.
+Android hides navigation controls; native following is disabled.
 
 ## Ordinary downloaded maps
 
@@ -49,13 +57,16 @@ an aqueduct to a water surface it crosses. Underground waterways remain unknown.
 This mode does not model navigability, water depth, currents or access restrictions.
 
 If no connected water path exists in the compatibility graph, a leg may include
-one straight land transfer only between endpoints of stored river lines. Interior
+one pedestrian transfer only between endpoints of stored river lines. Interior
 vertices, checkpoints, extraction cuts and arbitrary lake shores cannot be transfer
-points. An endpoint inside a lake cannot move the dry interval to its shoreline.
+points. An endpoint inside a lake cannot move the proposed transfer to its shoreline.
 Stored feature endpoints need not be original OpenStreetMap way endpoints. Missing
-junctions may therefore require a measured land transfer or make a route unavailable.
-The computed minimum refers to connections represented in this graph, not
-reconstructed source topology or proof of a physically necessary portage.
+junctions may therefore require a walking transfer or make a route unavailable.
+The endpoint restriction applies to internal transfers; the initial pedestrian
+approach from an off-water start remains available as described above.
+These connections do not reconstruct source topology or prove that a portage is
+physically necessary. The walking route must be found by the pedestrian router;
+the straight-line estimate used to select endpoints is never the returned land path.
 Coastline polygons describe land and do not supply ocean water in this mode.
 
 The complete query rectangle must lie inside a known map-region polygon. The
@@ -72,8 +83,10 @@ original source-extract coverage from an old MWM.
 ## Optional MWM section
 
 An optional water_geometry section retains original source topology and takes
-precedence over the compatibility provider. It also permits certified land
-transfers. Generate these maps with normal resources and borders:
+precedence over the compatibility provider. It also permits coverage-checked
+transfer candidates; their land portions still use the pedestrian router, with the
+endpoint-selection limits described above. Generate these maps with normal resources
+and borders:
 
 ```sh
 generator_tool --preprocess --osm_file_name=complete.osm --osm_file_type=xml \
@@ -173,6 +186,14 @@ request reset the indicator; queued updates from cancelled requests are discarde
 
 ## Validation
 
+The latest native run passes 74 routing/provider/async/spatial-index tests, including
+replacement of geometric gaps with pedestrian polylines, failed transfers without a straight-line
+fallback, and cancellation during a transfer. ARM64 and x86_64 native builds pass,
+and the x86_64 APK installs on the emulator. Earlier Android validation passed all
+113 app/SDK unit tests and lintAllModules; five generator tests also passed.
+Physical ARM64 hardware has not been validated here. The final visual recheck was
+blocked by repeated emulator System UI ANRs after reboot.
+
 Tests cover bends, junctions, source identity, checkpoint projection, endpoint-only
 gaps, islands, river/lake intersections, numerical regressions, distance totals,
 missing coverage, open frontiers, cancellation, budgets, zero ETA, shared route
@@ -232,3 +253,8 @@ returns 13,396 m water with shortest-path qualification on Poland_Pomeranian
 Voivodeship. The Polish MWM is checked against its catalog BLAKE3 hash before use.
 Both pass in the native real-map harness; phone-specific failures still require
 the installed APK version and error text to diagnose.
+
+The standalone real-map harness originally used a 60-second deadline. An earlier
+timeout under concurrent lint load was followed by a successful rerun without that
+deadline, matching interactive Android requests. These native harness results do
+not establish that the reported phone-specific failures have been resolved.
