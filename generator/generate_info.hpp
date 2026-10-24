@@ -71,7 +71,6 @@ struct GenerateInfo
   bool m_failOnCoasts = false;
   bool m_preloadCache = false;
   bool m_verbose = false;
-  bool m_waterRouting = false;
 
   GenerateInfo() = default;
 

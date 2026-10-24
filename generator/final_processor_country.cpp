@@ -5,7 +5,6 @@
 #include "generator/affiliation.hpp"
 #include "generator/coastlines_generator.hpp"
 #include "generator/feature_builder.hpp"
-#include "generator/feature_generator.hpp"
 #include "generator/final_processor_utils.hpp"
 #include "generator/isolines_generator.hpp"
 #include "generator/mini_roundabout_transformer.hpp"
@@ -292,20 +291,6 @@ void CountryFinalProcessor::ProcessCoastline()
 {
   /// @todo We can remove MinSize at all.
   auto fbs = ReadAllDatRawFormat<serialization_policy::MaxAccuracy>(m_coastlineGeomFilename);
-
-  if (m_waterAffiliations)
-  {
-    std::map<std::string, std::unique_ptr<FeaturesCollector>> writers;
-    for (auto const & fb : fbs)
-      for (auto const & country : m_waterAffiliations->GetAffiliations(fb))
-      {
-        auto & writer = writers[country];
-        if (!writer)
-          writer = std::make_unique<FeaturesCollector>(base::JoinPath(m_temporaryMwmPath, country + ".water_features"),
-                                                       FileWriter::OP_APPEND);
-        writer->Collect(fb);
-      }
-  }
 
   auto const affiliations = AppendToMwmTmp(fbs, *m_affiliations, m_temporaryMwmPath, m_threadsCount);
   FeatureBuilderWriter<> collector(m_worldCoastsFilename);

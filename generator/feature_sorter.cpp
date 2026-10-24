@@ -15,7 +15,6 @@
 #include "indexer/feature_impl.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/scales_patch.hpp"
-#include "indexer/water_geometry.hpp"
 
 #include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
@@ -50,7 +49,6 @@ public:
     , m_header(header)
     , m_regionData(regionData)
     , m_versionDate(versionDate)
-    , m_waterRouting(info.m_waterRouting)
   {
     for (size_t i = 0; i < m_header.GetScalesCount(); ++i)
     {
@@ -189,8 +187,7 @@ public:
           Points points;
 
           // Do not change linear geometry for the upper scale.
-          if (isLine && i == scalesStart && IsCountry() &&
-              (routing::IsRoad(fb.GetTypes()) || (m_waterRouting && water::IsLine(fb.GetTypes()))))
+          if (isLine && i == scalesStart && IsCountry() && routing::IsRoad(fb.GetTypes()))
             points = holder.GetSourcePoints();
           else if (isLine || holder.NeedProcessTriangles())
             SimplifyPoints(level, isCoast, rect, holder.GetSourcePoints(), points);
@@ -352,7 +349,6 @@ private:
   DataHeader m_header;
   RegionData m_regionData;
   uint32_t m_versionDate;
-  bool m_waterRouting = false;
 
   generator::OsmID2FeatureID m_osm2ft;
 

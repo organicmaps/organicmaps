@@ -110,42 +110,20 @@ excluding buildings and roads.
 Packed borders describe application map regions; they cannot reconstruct exact
 original source-extract coverage from an old MWM.
 
-## Optional MWM section
+## Previously prepared experimental maps
 
-An optional water_geometry section retains original source topology and takes
-precedence over the compatibility provider. It also permits coverage-checked
-transfer candidates; their land portions still use the pedestrian router, with the
-endpoint-selection limits described above. Generate these maps with normal resources
-and borders:
+The runtime can still read an existing optional `water_geometry` section, which
+retains original source node IDs and full water-surface rings. It takes precedence
+when its certified coverage contains the search window. Unsupported features and
+invalid surfaces remain unknown locally. Its internal transfers use original
+river endpoints or actual shore points and still require pedestrian routing.
 
-```sh
-generator_tool --preprocess --osm_file_name=complete.osm --osm_file_type=xml \
-  --data_path=DATA --intermediate_data_path=TMP/
-generator_tool --generate_features --generate_geometry --generate_index \
-  --generate_water_routing --water_routing_source_bounds=WEST,SOUTH,EAST,NORTH \
-  --osm_file_name=complete.osm --osm_file_type=xml \
-  --data_path=DATA --intermediate_data_path=TMP/ --output=COUNTRY
-```
-
-Bounds are longitude/latitude degrees declaring complete source coverage, including
-full crossing ways and multipolygons. Do not declare an incomplete extract complete.
-Only country border rings wholly inside these bounds are certified. The optional
-versioned water_geometry section stores coverage polygons, a bounding-box index,
-full surface rings and original source node IDs.
-
-A separate collector preserves waterways before display classification, including
-culverts omitted from rendering. Bridge/tunnel waterways and nonzero layers are
-unsupported and retain local unknown bounds. Invalid surface rings likewise stay
-unknown locally. They cannot become water edges or dry transfer gaps. Unrelated
-unknown features do not disable a certified short route elsewhere in the window.
-Every raw country generation invalidates old sidecars and provenance,
-including opt-out runs. Section-only generation requires fresh provenance. Normal
-map generation changes only when Water is enabled.
-
-For oceans use the normal --emit_coasts pipeline with validated closed
-WorldCoasts.geom cells. Raw coastline rings enclose land and are never treated as
-water. Without generated ocean cells coastline queries remain unsupported. Ocean
-generation has not been exercised in the Android smoke test.
+This PR does not change the map generator or add generation flags, collectors,
+sidecars, feature affiliation rules or geometry simplification rules. Creating
+new optional sections is outside its scope and can be discussed separately if
+source topology becomes necessary. Normal downloaded MWMs need no regeneration.
+Their missing original node identities cannot be recovered by client-side routing;
+endpoint-only pedestrian transfers are a fallback, not reconstructed water links.
 
 ## Bounds and limitations
 
@@ -186,7 +164,7 @@ most four from each other water component. It allows up to 131,072 candidate lin
 checks per leg. These limits can leave a valid route undiscovered. Cancellation is
 checked during extraction and graph searches. Tessellation is bounded by its input.
 Large or complex waterways may be unavailable. Country-scale performance and map
-size have not been benchmarked. The synthetic integration section occupies 1,018 bytes.
+size have not been benchmarked.
 
 ## Performance
 
@@ -231,8 +209,8 @@ request reset the indicator; queued updates from cancelled requests are discarde
 ## Validation
 
 The latest validation passes 102 native routing/provider/async/spatial-index tests
-on ARM64 and x86_64, eight generator tests, 115 Android app/SDK unit tests and lint. Real-map
-regressions use the downloaded maps installed on a Samsung SM-G970F; the route
+on ARM64 and x86_64, eight MWM integration tests, 115 Android app/SDK unit tests
+and lint. Real-map regressions use the downloaded maps installed on a Samsung SM-G970F; the route
 suite and current results are described below. Reduced tests cover several
 portages, walking access at both ends, retrying inaccessible walking candidates,
 cancellation, and rejecting walking-only substitutes for water journeys. Exactly
@@ -242,25 +220,21 @@ budgets; thin valid water geometry is retained.
 Tests cover bends, junctions, source identity, checkpoint projection, endpoint-only
 gaps, islands, river/lake intersections, numerical regressions, distance totals,
 missing coverage, open frontiers, cancellation, budgets, zero ETA, shared route
-presentation and unchanged Ruler behavior. Generator tests cover original-node
-reconstruction, grade separation, repeat-generation provenance and a pinned real
-OpenStreetMap river. That extract retains IDs, versions and timestamps and is
-attributed to OpenStreetMap contributors under ODbL 1.0.
+presentation and unchanged Ruler behavior. MWM integration tests cover ordinary-map
+islands, missing source identities, neighboring coverage, underground bypasses,
+extraction budgets, degenerate clipping and a pinned real OpenStreetMap river.
+That extract retains IDs, versions and timestamps and is attributed to OpenStreetMap contributors under ODbL 1.0.
 
 Native tests run on an Android API 34 x86_64 emulator against actual routing,
-indexer and generator libraries. A CLI harness supplies platform initialization
-and JVM attachment shims only; these are not application changes. Full synthetic
-OSM-to-MWM generation and runtime provider checks cover a winding river, an island
-lake, an outlet, a disconnected lake and unsupported culverts/aqueducts.
-Real Lake District runtime checks cover Easedale Tarn, its outlet to Sourmilk Gill,
-Rydal Water around Heron Island and winding river segments. Source data are kept
-unaltered; these checks use the optional section in a generated regional MWM.
-Compatibility checks also use the unmodified official Lancaster MWM downloaded
-from the Organic Maps CDN, with no water_geometry section. Generator tests create
-a standard MWM containing an island, winding river, crossing and coincident river
-endpoints; they cover absent coverage proof, cancellation and ignored aqueduct
-restrictions. A separate packed-border regression rejects a concave coverage gap
-even when all rectangle corners and its bounding box appear covered.
+indexer and unchanged generator libraries. A CLI harness supplies platform
+initialization and JVM attachment shims only; these are not application changes.
+`routing_integration_tests/water_geometry_mwm_test.cpp` uses the existing
+`TestMwmBuilder` to create ordinary MWMs and checks their runtime interpretation.
+The tests moved out of `generator_tests`; production generator code and build
+registration match the PR base. Only the test of the removed optional-section
+generation pipeline was removed. A replacement test verifies that an already
+prepared section is still preferred over display geometry. Runtime section-reader
+tests are retained.
 The official Flevoland MWM also covers the Almere regression: start
 52.3542366,5.18088336 to 52.354523,5.238218 produces 5,612.8 m entirely on water.
 The original reported start 52.354258,5.180864 lies 2.7 m outside its stored water
