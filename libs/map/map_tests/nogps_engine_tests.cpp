@@ -441,6 +441,44 @@ UNIT_TEST(NoGps_Engine_InertialTurnFarFromCrossingIsNotMovedToIt)
   TEST_GREATER(env.Last().m_accuracyM, DeadReckoning::kBaseAccuracyM + 2, ());
 }
 
+// A street going east, a street going north from the crossing at 200 m, which goes |deg| degrees to the east of north
+// from 6 m on, so that the road checked 12 m from the crossing goes that way.
+PieceRoads StreetTurningAfterCrossing(double deg)
+{
+  double const sin = std::sin(math::DegToRad(deg));
+  double const cos = std::cos(math::DegToRad(deg));
+  return PieceRoads({{-300, 0, 400, 0}, {200, 0, 200, 6}, {200, 6, 200 + 300 * sin, 6 + 300 * cos}}, {{200, 0}});
+}
+
+UNIT_TEST(NoGps_Engine_TurnMovedToCrossingKeepsGyroHeading)
+{
+  // The road after the crossing is 20 degrees off the way the gyroscope says the car has turned: the car is on it,
+  // looking where the gyroscope says, the snapping pulls the heading to the road later.
+  auto roads = StreetTurningAfterCrossing(20);
+  Env env(true /* inertial */, &roads);
+  MarkCar(env, 177 - 112);
+  env.Drive(10'000, 36, 0);
+  env.Drive(3000, 36, -30);
+  env.Drive(2000, 36, 0);
+  TestAlmostEqualAbs(std::stod(TripField(env, "turn")), 18, 2);
+  TestAlmostEqualAbs(AngleDiff(*env.Last().m_bearingDeg, 0), 0, 8);
+  // The crossing is a known place: the heading is pulled to the road at once, not after 50 m.
+  env.Drive(6000, 36, 0);
+  TEST_LESS(std::fabs(AngleDiff(*env.Last().m_bearingDeg, 20)), 11, (*env.Last().m_bearingDeg));
+}
+
+UNIT_TEST(NoGps_Engine_TurnToRoadFartherOffThanSnappingTakesIsNotMoved)
+{
+  // The road after the crossing is 33 degrees off: the snapping does not take the car to it, the turn is not moved.
+  auto roads = StreetTurningAfterCrossing(33);
+  Env env(true /* inertial */, &roads);
+  MarkCar(env, 177 - 112);
+  env.Drive(10'000, 36, 0);
+  env.Drive(3000, 36, -30);
+  env.Drive(2000, 36, 0);
+  TEST_EQUAL(TripField(env, "turn"), "NaN", ());
+}
+
 UNIT_TEST(NoGps_Engine_TurnOfCarManeuveringOffRoadsIsNotMoved)
 {
   for (bool twoStreets : {true, false})

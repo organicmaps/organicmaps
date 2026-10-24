@@ -1,5 +1,6 @@
 #pragma once
 
+#include "map/nogps/dead_reckoning.hpp"
 #include "map/nogps/roads.hpp"
 
 #include "geometry/latlon.hpp"
@@ -32,7 +33,8 @@ public:
   // The roads of a crossing are checked this far from it: close to it all its roads meet.
   static double constexpr kRoadCheckDistanceM = 12;
   static double constexpr kRoadCheckRadiusM = 6;
-  static double constexpr kMaxRoadDiffDeg = 35;
+  // The snapping takes a road no farther off the heading, so the road of a turn must be no farther off either.
+  static double constexpr kMaxRoadDiffDeg = DeadReckoning::kMaxSnapHeadingDiffDeg;
   // The road the car was on going the new way within this difference has bent, the car has followed it.
   static double constexpr kMaxBendEndDiffDeg = 25;
   // A junction of the map is several crossings this close to each other, a turn is moved to any of them alike.

@@ -25,6 +25,12 @@ void DeadReckoning::SetHeading(double headingDeg)
   m_hasHeading = true;
   m_headingDeg = Normalize(headingDeg);
   m_isAside = false;
+  m_trustedUntilM = 0;
+}
+
+void DeadReckoning::TrustRoad()
+{
+  m_trustedUntilM = m_odometerM + kMaxAsideOnRoadM;
 }
 
 void DeadReckoning::SetSpeed(double speedMps)
@@ -87,7 +93,7 @@ bool DeadReckoning::SnapToRoad(ms::LatLon const & road, double roadBearingDeg, b
     m_asideSinceM = m_odometerM;
     m_asideSign = sign;
   }
-  if (!m_isAside || m_odometerM - m_asideSinceM >= kMaxAsideOnRoadM)
+  if (m_odometerM < m_trustedUntilM || !m_isAside || m_odometerM - m_asideSinceM >= kMaxAsideOnRoadM)
     m_headingDeg = Normalize(m_headingDeg + diff * kSnapHeadingWeight);
   return true;
 }

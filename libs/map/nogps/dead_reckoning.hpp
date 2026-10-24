@@ -28,6 +28,9 @@ public:
   void MoveTo(ms::LatLon const & position);
   /// \param headingDeg clockwise from the north.
   void SetHeading(double headingDeg);
+  /// The road the car was just put on is the right one, e.g. at a crossing the turn is moved to: for the next
+  /// kMaxAsideOnRoadM the heading is pulled to it at once, a difference up to kMaxSnapHeadingDiffDeg is not a fork.
+  void TrustRoad();
   void SetSpeed(double speedMps);
   /// \param deltaDeg clockwise rotation.
   void Rotate(double deltaDeg);
@@ -70,5 +73,6 @@ private:
   bool m_isAside = false;
   double m_asideSinceM = 0;
   double m_asideSign = 0;
+  double m_trustedUntilM = 0;
 };
 }  // namespace nogps

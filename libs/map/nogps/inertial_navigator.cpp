@@ -153,7 +153,7 @@ void InertialNavigator::CheckTurnSign(Fix const & gps)
   }
 }
 
-void InertialNavigator::SetRoadPosition(ms::LatLon const & position, double bearingDeg)
+void InertialNavigator::SetRoadPosition(ms::LatLon const & position, double bearingDeg, bool keepHeading)
 {
   // The car is where it is told to be, not where it has maneuvered to by the calculation.
   EndFollowingApart();
@@ -161,7 +161,8 @@ void InertialNavigator::SetRoadPosition(ms::LatLon const & position, double bear
   SetRoadPoint(position);
   m_turning = false;
   LeaveRoundabout();
-  SetHeading(bearingDeg, HeadingSource::Road);
+  if (!keepHeading)
+    SetHeading(bearingDeg, HeadingSource::Road);
   m_steadyRoad = SteadyRoad{bearingDeg, m_pathM};
   StartRoughStretch(0);
 }
@@ -1519,8 +1520,10 @@ void InertialNavigator::MatchTurn(int64_t timestampNs)
     m_lastTurnShiftM = places.m_chosen->m_shiftM;
     LOG(LINFO, ("Turn from", std::round(m_turnFromBearing), "to", std::round(toBearing), "is moved to the crossing by",
                 std::round(*m_lastTurnShiftM), "m"));
-    // The crossing is a known place, the distance error is gone.
-    SetRoadPosition(places.m_chosen->m_road.m_point, places.m_chosen->m_road.m_bearingDeg);
+    // The crossing is a known place, the distance error is gone. The heading stays the gyroscope's: the road found
+    // for the turn was 31° off on October 21, and a turn still going on was counted twice on October 23.
+    SetRoadPosition(places.m_chosen->m_road.m_point, places.m_chosen->m_road.m_bearingDeg, true /* keepHeading */);
+    m_deadReckoning.TrustRoad();
   }
   for (auto const & place : places.m_others)
     AddOtherMark(place.m_road, toBearing, place.m_shiftM ? "at a crossing the turn fits" : "where the turn has ended");
