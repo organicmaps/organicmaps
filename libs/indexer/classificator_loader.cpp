@@ -59,10 +59,9 @@ VariantsT FamilyVariants(MapStyle style)
   return {MapStyleDefaultLight, MapStyleDefaultDark};
 }
 
-// Force-loads every variant of style's family from a single decode of the shared family file,
-// writing into each variant's own classificator tree and rules holder. It never changes the global
-// current style, so background tile readers keep observing the previously-current (immutable) style
-// the whole time; the switch to the new style happens later via a single atomic SetCurrentStyle.
+// Loads all variants into their own trees and holders without changing the current style.
+// The target family must have no active readers; SetCurrentStyle publishes a newly loaded family
+// only after loading completes.
 void LoadFamily(MapStyle style)
 {
   Platform & p = GetPlatform();
@@ -99,7 +98,7 @@ void Load()
 
   // Drop every loaded flag so the designer's rebuilt drules are re-read on reload, then load the
   // current and outdoors families now (others, e.g. vehicle, load lazily on first use). Outdoors is
-  // always made resident because GetOutdoorRules/GetOutdoorClassif render forced-outdoors tracks.
+  // always made resident because hiking/cycling relations can explicitly select its rules.
   for (size_t i = 0; i < MapStyleCount; ++i)
     classif(static_cast<MapStyle>(i)).SetLoaded(false);
 

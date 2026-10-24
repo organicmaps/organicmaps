@@ -8,6 +8,7 @@ namespace classificator
 {
 // Force-(re)loads the current style's family and the outdoors family (designer live-reload relies
 // on the force semantics). Other families load lazily via EnsureStyleLoaded.
+// No readers may access the affected trees or rule pointers while they are being replaced.
 void Load();
 
 // Loads mapStyle's family (light + dark, from one decode) if it isn't loaded yet; no-op otherwise.

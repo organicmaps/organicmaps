@@ -1,6 +1,7 @@
 #pragma once
 #include "drape/rainbow_colors.hpp"
 
+#include "indexer/map_style.hpp"
 #include "indexer/route_relation.hpp"
 
 #include <string>
@@ -17,8 +18,9 @@ struct RelationsDrawSettings
   bool hiking : 1 = false;
   bool cycling : 1 = false;
   bool PT : 1 = false;
+  bool dark : 1 = false;
 
-  void Load();
+  void Load(MapStyle style);
 
   bool IsEmpty() const { return !hiking && !cycling && !PT; }
   bool MatchHikingOrCycling(feature::RouteRelationBase::Type type) const;

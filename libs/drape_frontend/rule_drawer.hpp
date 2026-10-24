@@ -69,6 +69,8 @@ private:
 
   GeneratedRoadShields m_generatedRoadShields;
 
+  // Feature rules and relation colors share one base style throughout the tile read.
+  MapStyle const m_mapStyle;
   RelationsDrawSettings m_relsSettings;
 
   df::ApplyFeatureParams m_applyParams;

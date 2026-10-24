@@ -5,7 +5,6 @@
 #include "indexer/feature.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/feature_visibility.hpp"
-#include "indexer/map_style_reader.hpp"
 #include "indexer/scales.hpp"
 
 #include "drape/hatching_decl.hpp"
@@ -156,9 +155,9 @@ void CaptionDescription::Init(FeatureType & f, int8_t deviceLang, int zoomLevel,
   }
 }
 
-void Stylist::ProcessKey(FeatureType & f, drule::Key const & key)
+void Stylist::ProcessKey(FeatureType & f, drule::Key const & key, drule::RulesHolder const & rules)
 {
-  drule::BaseRule const * const dRule = m_rulesHolder.Find(key);
+  drule::BaseRule const * const dRule = rules.Find(key);
 #ifdef DEBUG
   using feature::GeomType;
   auto const geomType = f.GetGeomType();
@@ -211,18 +210,13 @@ void Stylist::ProcessKey(FeatureType & f, drule::Key const & key)
   }
 }
 
-Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, bool forceOutdoorStyle)
-  : m_rulesHolder(forceOutdoorStyle ? drule::GetOutdoorRules() : drule::GetCurrentRules())
+Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, MapStyle style)
 {
-#ifdef DEBUG
-  auto const style = GetStyleReader().GetCurrentStyle();
-  ASSERT(classificator::IsStyleLoaded(
-             forceOutdoorStyle ? (MapStyleIsDark(style) ? MapStyleOutdoorsDark : MapStyleOutdoorsLight) : style),
-         ("Drawing rules for the current style are not loaded", style, forceOutdoorStyle));
-#endif  // DEBUG
+  ASSERT(classificator::IsStyleLoaded(style), ("Drawing rules for the style are not loaded", style));
+  auto const & rules = drule::GetRules(style);
 
   feature::TypesHolder const types(f);
-  Classificator const & cl = forceOutdoorStyle ? GetOutdoorClassif() : classif();
+  Classificator const & cl = classif(style);
 
   uint32_t mainOverlayType = 0;
   if (types.Size() == 1)
@@ -275,7 +269,7 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, bool for
     }
   }
 
-  feature::FilterRulesByRuntimeSelector(f, zoomLevel, m_rulesHolder, keys);
+  feature::FilterRulesByRuntimeSelector(f, zoomLevel, rules, keys);
 
   if (keys.empty())
     return;
@@ -284,7 +278,7 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, bool for
   drule::MakeUnique(keys);
 
   for (auto const & key : keys)
-    ProcessKey(f, key);
+    ProcessKey(f, key, rules);
 
   if (m_captionRule || m_pathtextRule)
   {
@@ -327,7 +321,7 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, bool for
             ASSERT(addressKeys.size() == 1 && addressKeys[0].m_type == drule::caption,
                    ("building-address should contain a caption drule only"));
             ASSERT(m_houseNumberRule == nullptr, ());
-            m_houseNumberRule = m_rulesHolder.Find(addressKeys[0])->GetCaption();
+            m_houseNumberRule = rules.Find(addressKeys[0])->GetCaption();
           }
         }
       }
