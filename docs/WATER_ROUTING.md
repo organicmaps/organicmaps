@@ -28,7 +28,7 @@ selected one fails.
 
 WaterRouter implements IRouter without a road vehicle profile. River lines retain
 original OpenStreetMap coordinates and node IDs; crossings alone do not join them.
-Surface union and triangulation preserve holes. Visibility edges require complete
+Surface union and triangulation preserve holes. Exact contacts between water surfaces remain connected; dry gaps stay disconnected. Visibility edges require complete
 water coverage. River/surface transitions use actual intersections. Distances use
 mercator::DistanceOnEarth. Checkpoints retain their selected order.
 
@@ -133,7 +133,10 @@ One MWM must cover the extraction rectangle. For optional sections, the margin
 follows checkpoint distance and is bounded between 1 and 30 km. Ordinary maps start
 with at most 3 km and reduce the margin when coverage or extraction budgets require
 it. Near a map boundary, each rectangle side expands only within certified coverage.
-Cross-MWM routes, antimeridian windows and extraction failures remain unavailable.
+If a water path is unavailable in that window, one retry may extend the standard-map
+margin by 1 km. The wider query still requires certified map coverage and the same
+geometry budgets. Cross-MWM routes, antimeridian windows and extraction failures
+remain unavailable.
 A known connected path may be returned when the visibility budget is exhausted, or
 when bounds cannot exclude a shorter alternative outside complete coverage. Such
 results explicitly show "Shortest route not confirmed". Every returned water edge must
@@ -196,13 +199,13 @@ request reset the indicator; queued updates from cancelled requests are discarde
 
 ## Validation
 
-The latest native run passes 78 routing/provider/async/spatial-index tests, including
+The latest native run passes 83 routing/provider/async/spatial-index tests, including
 replacement of geometric gaps with pedestrian polylines, failed transfers without a straight-line
 fallback, and cancellation during a transfer. ARM64 and x86_64 native builds pass,
 and the x86_64 APK installs on the emulator. Android validation passed all
 113 app/SDK unit tests and lintAllModules; five generator tests also passed.
-Physical ARM64 hardware has not been validated here. The final visual recheck was
-blocked by repeated emulator System UI ANRs after reboot.
+Initial visual checks were blocked by emulator System UI ANRs; the emulator and
+physical-phone checks below were run after the interface recovered.
 
 Tests cover bends, junctions, source identity, checkpoint projection, endpoint-only
 gaps, islands, river/lake intersections, numerical regressions, distance totals,
@@ -277,3 +280,14 @@ A real-map land-to-land check on the ordinary Flevoland MWM uses
 52.354819,5.179565 to 52.355862,5.185028. The unchanged pedestrian IndexRouter
 provides 199.071 m of approach and 23.0997 m of exit; the water portion is 381.264 m.
 Both selected endpoints are retained in the resulting route.
+
+The reported 52.354835,5.17963 to 52.328882,5.202655 route also passes the native
+ordinary-map harness (208.933 m walking plus 10,478.4 m water, shortest unconfirmed).
+On a connected Samsung SM-G970F, the unchanged 2026.10.24-11 APK and matching
+260714 Flevoland map successfully built the exact points after selecting Water
+from a pedestrian route, in 42.7 seconds. The manual phone workflow reproduced a failure for the selected Gooimeer feature
+center: 52.3549188,5.1797099 to 52.3306528,5.1975481. A rounded shoreline
+projection could disconnect access from the surface; the required water detour also
+fell outside the initial window. Shore access now moves only toward certified
+water, and unavailable searches can retry once in a wider covered window.
+The native regression now returns 259.257 m walking and 10,841 m water.

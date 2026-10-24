@@ -311,7 +311,8 @@ water::Geometry WaterGeometryProvider::ExtractFeatures(DataSource const & dataSo
   return result;
 }
 
-water::Geometry WaterGeometryProvider::GetGeometry(Checkpoints const & checkpoints, RouterDelegate const & delegate)
+water::Geometry WaterGeometryProvider::GetGeometry(Checkpoints const & checkpoints, RouterDelegate const & delegate,
+                                                   double extraMargin)
 {
   auto const cancelled = [&] { return delegate.IsCancelled(); };
   auto const & points = checkpoints.GetPoints();
@@ -326,7 +327,7 @@ water::Geometry WaterGeometryProvider::GetGeometry(Checkpoints const & checkpoin
   // A finite local query supports direct routes and ordinary detours. Larger
   // systems remain unavailable instead of scanning countries or guessing gaps.
   // Point eligibility needs only nearby water, not a full routing window.
-  auto const margin = direct == 0.0 ? 50.0 : std::clamp(2 * direct, 1000.0, 30000.0);
+  auto const margin = std::min((direct == 0.0 ? 50.0 : std::clamp(2 * direct, 1000.0, 30000.0)) + extraMargin, 30000.0);
   auto const extent = mercator::RectByCenterXYAndSizeInMeters(bounds.Center(), margin);
   bounds.Inflate(extent.SizeX() / 2, extent.SizeY() / 2);
   if (!mercator::Bounds::FullRect().IsRectInside(bounds) || bounds.SizeX() >= 180)
@@ -366,7 +367,7 @@ water::Geometry WaterGeometryProvider::GetGeometry(Checkpoints const & checkpoin
   }
   // Large fixed margins collect unrelated lakes and may cross a map-region
   // boundary. Keep standard-map extraction local; shrink only on extraction failure.
-  for (double localMargin = std::min(margin, 3000.0);; localMargin = std::max(250.0, localMargin * 0.5))
+  for (double localMargin = std::min(margin, 3000.0 + extraMargin);; localMargin = std::max(250.0, localMargin * 0.5))
   {
     bounds = checkpointBounds;
     auto const localExtent = mercator::RectByCenterXYAndSizeInMeters(bounds.Center(), localMargin);
