@@ -135,4 +135,15 @@ UNIT_TEST(WaterProvider_SpatialIndexSkipsUnrelatedLargeFeatures)
   auto const bytes = Section({Area({{P(0, 0), P(3, 0), P(3, 3), P(0, 3)}}), far});
   TEST(Extract(bytes).m_complete, ());
 }
+UNIT_TEST(WaterProvider_CollinearSurfaceDoesNotAbortOrBecomeWater)
+{
+  auto const bytes = Section({Area({{P(0, 0), P(1, 0), P(2, 0)}}), Area({{P(3, 0), P(4, 0), P(4, 1), P(3, 1)}})});
+  auto const geometry = Extract(bytes);
+  TEST(geometry.m_complete, ());
+  TEST(!geometry.m_unknownAreas.empty(), ());
+  Path path;
+  TEST(FindPath(geometry, P(3.25, 0.5), P(3.75, 0.5), false, kNeverCancelled, path) == ResultCode::Success, ());
+  TEST_EQUAL(path.m_landDistance, 0.0, ());
+  TEST(FindPath(geometry, P(0.5, 0), P(1.5, 0), false, kNeverCancelled, path) == ResultCode::Unavailable, ());
+}
 }  // namespace water_provider_test

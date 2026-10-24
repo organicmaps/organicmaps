@@ -64,6 +64,8 @@ struct Path
 using CancelledFn = std::function<bool()>;
 // Work-based estimate in [0, 1]; 1 is reported only for a successful path.
 using ProgressFn = std::function<void(double)>;
+// Called lazily for a proposed endpoint walk; false excludes that directed link.
+using WalkAllowedFn = std::function<bool(m2::PointD const &, m2::PointD const &)>;
 
 // A nearby entry point for a separately calculated pedestrian approach.
 std::optional<m2::PointD> FindApproachPoint(Geometry const & geometry, m2::PointD const & start,
@@ -73,5 +75,5 @@ std::optional<m2::PointD> FindApproachPoint(Geometry const & geometry, m2::Point
 // require eligible endpoints and cannot cross unknown geometry.
 ResultCode FindPath(Geometry const & geometry, m2::PointD const & start, m2::PointD const & finish, bool projectStart,
                     CancelledFn const & cancelled, Path & path, ProgressFn const & progress = {},
-                    bool allowUnconfirmedTransfer = false);
+                    bool allowUnconfirmedTransfer = false, WalkAllowedFn const & walkAllowed = {});
 }  // namespace routing::water

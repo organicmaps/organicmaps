@@ -18,7 +18,7 @@ component cannot be reached after the wider search, a short walking approach or
 exit may instead connect them to an eligible river endpoint within 5 km. The
 result must still contain a water portion and is marked unconfirmed. An internal
 transfer preserving water at both ends takes precedence over this fallback. For
-a terminal walk, the nearest eligible river endpoint is preferred, so a cheaper
+terminal walks, nearby eligible river endpoints are preferred, so a cheaper
 mostly walking alternative does not displace the water journey. River taps snap to the displayed
 centerline; line selections retain 0.1 m quantization tolerance. Android keeps route
 point controls available on land as well as water.
@@ -44,17 +44,20 @@ existing, unchanged pedestrian IndexRouter. Results show its actual walking geom
 and distance as dashed land portions. If walking fails, the leg fails without a
 straight-line fallback.
 
-Each checkpoint leg may propose one transfer using a geometric lower bound to
-select its endpoints. Other endpoint pairs are not retried if the selected walking
-route fails. The selection does not compare actual walking costs for every pair,
-so internal transfers show "Shortest route not confirmed"; the shortest combined
-water-and-walking route is not guaranteed.
+A checkpoint leg may combine several water portions and pedestrian transfers,
+including walking access at both ends. A sparse graph connects eligible endpoints
+across disconnected water components. Candidate walks are ranked by geometric
+distance and checked with the pedestrian router only when selected. An inaccessible
+walk is removed and another candidate is tried. The search requires a water portion
+and alternates water with walking, rather than replacing the journey with chained
+walks. Candidate selection is bounded and does not compare every actual walking
+cost, so mixed routes show "Shortest route not confirmed"; neither completeness
+nor the shortest combined water-and-walking route is guaranteed.
 
 With source topology, line-only transfers use original source-way endpoints.
 Interior vertices, selected points and extraction cuts are not transfer points.
-Surface transfers use shoreline intersections; their geometric candidates
-cannot cross a third disconnected water component. Ordinary-map endpoint walks
-use the complete stored endpoints instead. Their straight distance estimate may
+Surface transfers can use actual shoreline vertices in source-topology maps.
+Ordinary-map endpoint walks use the complete stored endpoints instead. Their straight distance estimate may
 cross other known water bodies because the returned geometry comes from the
 pedestrian router. Unknown areas remain excluded. Only the internal arrival marker required by shared presentation is produced.
 Android hides navigation controls; native following is disabled.
@@ -79,7 +82,7 @@ entirely, so not every underground connection can be recognized.
 This mode does not model navigability, water depth, currents or access restrictions.
 
 If no connected water path exists in the compatibility graph, a leg may include
-one pedestrian transfer only between endpoints of stored river lines. Interior
+several pedestrian transfers, each only between endpoints of stored river lines. Interior
 vertices, checkpoints, extraction cuts and arbitrary lake shores cannot be transfer
 points. An endpoint inside a lake cannot move the proposed transfer to its shoreline.
 A known tunnel bypass retains the stored endpoints even when they lie inside a
@@ -153,8 +156,8 @@ file boundaries; separate river lines still lack original node identities.
 Uncovered cells remain unknown, even when a displayed feature overlaps them.
 For optional sections, the margin follows checkpoint distance and is bounded
 between 1 and 30 km. Ordinary maps start with at most 3 km and reduce the margin
-gradually when extraction budgets require it. If a water path is unavailable,
-one retry may extend that margin by 2 km. Antimeridian windows and extraction
+gradually when extraction budgets require it. If a water path is unavailable or the local result requires walking,
+one retry may extend that margin by 2 km before selecting pedestrian transfers. Antimeridian windows and extraction
 failures remain unavailable.
 
 A known connected path may be returned when further visibility optimization would
@@ -162,7 +165,7 @@ exceed its budget, or when coverage cannot exclude a shorter alternative. Such
 results show "Shortest route not confirmed". Every returned water edge must still
 have known water coverage and avoid unknown areas.
 
-After both water searches fail, a leg may propose a walking transfer between
+After both water searches fail, a leg may combine walking transfers between
 eligible stored endpoints even if a water alternative outside the searched window
 cannot be excluded. It remains unconfirmed and must pass ordinary pedestrian
 routing. Unknown geometry cannot itself justify a transfer, and a candidate
@@ -177,7 +180,10 @@ visibility only when it can improve the route. It allows at most 4,000,000 segme
 checks and 64,000,000 indexed triangle visits. Interior triangle vertices keep linear mesh edges;
 surface visibility needs only reflex shore corners, checkpoints and river points.
 River curvature retains all source vertices, or all stored vertices for ordinary maps.
-Transfer candidates are bounded to 2,048. Cancellation is
+The walking fallback selects at most 16 nearby candidates per endpoint, with at
+most four from each other water component. It allows up to 131,072 candidate links,
+4,000,000 candidate visits, 4,000,000 cached water connections and 32 pedestrian
+checks per leg. These limits can leave a valid route undiscovered. Cancellation is
 checked during extraction and graph searches. Tessellation is bounded by its input.
 Large or complex waterways may be unavailable. Country-scale performance and map
 size have not been benchmarked. The synthetic integration section occupies 1,018 bytes.
@@ -224,13 +230,14 @@ request reset the indicator; queued updates from cancelled requests are discarde
 
 ## Validation
 
-The latest native run passes 86 routing/provider/async/spatial-index tests, including
-replacement of geometric gaps with pedestrian polylines, failed transfers without a straight-line
-fallback, and cancellation during a transfer. ARM64 and x86_64 native builds pass,
-and the x86_64 APK installs on the emulator. Android validation passed all
-113 app/SDK unit tests and lintAllModules; eight generator tests also passed.
-Initial visual checks were blocked by emulator System UI ANRs; the emulator and
-physical-phone checks below were run after the interface recovered.
+The latest validation passes 102 native routing/provider/async/spatial-index tests
+on ARM64 and x86_64, eight generator tests, 115 Android app/SDK unit tests and lint. Real-map
+regressions use the downloaded maps installed on a Samsung SM-G970F; the route
+suite and current results are described below. Reduced tests cover several
+portages, walking access at both ends, retrying inaccessible walking candidates,
+cancellation, and rejecting walking-only substitutes for water journeys. Exactly
+zero-area clipped triangles are skipped before winding tests and extraction
+budgets; thin valid water geometry is retained.
 
 Tests cover bends, junctions, source identity, checkpoint projection, endpoint-only
 gaps, islands, river/lake intersections, numerical regressions, distance totals,
@@ -346,29 +353,28 @@ a bounded geometry budget large enough for this water detour.
 ### Reported-route regressions
 
 `libs/routing/routing_integration_tests/water_reported_routes_test.cpp` preserves
-14 reported failing routes, including exact My position starts. Run with ordinary
+14 reported failing routes, including exact My position starts, plus 23 broader
+long-route scenarios. Run with ordinary
 downloaded MWMs in `--data_path` and matching application resources. Dutch cases
 use Flevoland, North Holland — Amsterdam and Utrecht — Amersfoort from catalog
 2026-07-14; Polish cases use Pomeranian Voivodeship. Tests require a successful
 Water result containing water distance and selected endpoints within the existing
 0.1 m display-geometry tolerance. Land portions use the real pedestrian router.
 
-The five Almere cases share start `52.35483470, 5.17963790`:
+The broader checks connect previously reported destinations in both directions,
+including NorthNear and NorthMiddle to Keersluisplas. All four of those routes
+failed before the multiple-transfer fix despite being reachable separately from
+the same start. They now combine water and pedestrian sections without changing
+the pedestrian router. Further checks follow long continuous sections of the
+Vistula, Slupia, Wda, Lupawa, Lage Vaart and Hoge Vaart in both directions and require
+zero walking distance. These routes were selected from the real map waterway
+geometry. A checkpoint chain crosses three legs and preserves every selected stop.
 
-| Finish | Water | Walking, including start access |
-| --- | ---: | ---: |
-| 52.31592888, 5.18930914 | 13.931 km | 210 m |
-| 52.42719742, 5.21305839 | 12.391 km | 210 m |
-| 52.40677214, 5.21760280 | 8.989 km | 1.209 km |
-| 52.41585159, 5.23250400 | 11.378 km | 888 m |
-| 52.38056521, 5.26966545 | 13.517 km | 210 m |
-
-The Keersluisplas case uses My position start `52.35482820, 5.17957070` and finish
-`52.45889844, 5.41338676`: 27.080 km water and 2.307 km walking, including a 201 m
-start approach. Its finish water component has no eligible river endpoints in the
-MWM. A terminal pedestrian exit connects it to a reachable river endpoint about
-1.9 km away. The native phone check took about 20 seconds; version 2026.10.24-22
-failed after about 59 seconds.
-
-These results show "Shortest route not confirmed". The 5 km terminal walking limit
-concerns endpoint proximity; an actual pedestrian detour can be longer.
+The Keersluisplas report retains My position start `52.35482820, 5.17957070` and
+finish `52.45889844, 5.41338676`. Its finish water component has no eligible river
+endpoints in the MWM, so a terminal pedestrian exit connects it to a reachable
+river endpoint. The 5 km terminal walking limit concerns endpoint proximity; an
+actual pedestrian detour can be longer. Mixed routes show "Shortest route not
+confirmed". The wider sample improves regression coverage; it does not establish
+that every long journey can be found with incomplete display geometry or bounded
+search budgets.

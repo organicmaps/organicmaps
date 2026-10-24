@@ -942,3 +942,96 @@ UNIT_TEST(Water_PedestrianEndpointEstimateMayCrossAnotherKnownLake)
   TEST(find() == ResultCode::Unavailable, ());
 }
 }  // namespace water_geometry_test
+
+namespace water_geometry_test
+{
+UNIT_TEST(Water_MultiplePortagesUseOnlyStoredEndpoints)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  geometry.m_hasSourceTopology = false;
+  geometry.m_lines = {
+      {{P(0, 0)}, {P(0, 0.001)}}, {{P(0.002, 0.002)}, {P(0.004, 0.002)}}, {{P(0.006, 0)}, {P(0.006, 0.001)}}};
+  geometry.m_unknownAreas.emplace_back(0.0025, -0.0005, 0.0035, 0.0015);
+  Path path;
+  TEST(
+      FindPath(geometry, P(0, 0.0005), P(0.006, 0.0005), false, kNeverCancelled, path, {}, true) == ResultCode::Success,
+      ());
+  TEST_EQUAL(std::count(path.m_landGaps.begin(), path.m_landGaps.end(), true), 2, ());
+  for (size_t i = 0; i < path.m_landGaps.size(); ++i)
+    if (path.m_landGaps[i])
+      for (auto const & point : {path.m_points[i], path.m_points[i + 1]})
+        TEST(std::any_of(geometry.m_lines.begin(), geometry.m_lines.end(), [&](auto const & line)
+        { return point == line.front().m_point || point == line.back().m_point; }),
+             (point));
+  geometry.m_hasSourceTopology = true;
+  TEST(
+      FindPath(geometry, P(0, 0.0005), P(0.006, 0.0005), false, kNeverCancelled, path, {}, true) == ResultCode::Success,
+      ());
+  TEST_EQUAL(std::count(path.m_landGaps.begin(), path.m_landGaps.end(), true), 2, ());
+  TEST_GREATER(path.m_waterDistance, 0.0, ());
+  TEST(!path.m_shortestConfirmed, ());
+  CheckAccounting(path);
+}
+UNIT_TEST(Water_TwoIsolatedLakesHaveWalkingAccessAndExit)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  geometry.m_hasSourceTopology = false;
+  geometry.m_lines = {{{P(0.002, 0)}, {P(0.018, 0)}}};
+  Rectangle(geometry, -0.001, -0.001, 0.001, 0.001);
+  Rectangle(geometry, 0.019, -0.001, 0.021, 0.001);
+  Path path;
+  TEST(FindPath(geometry, P(0, 0), P(0.02, 0), false, kNeverCancelled, path, {}, true) == ResultCode::Success, ());
+  TEST_EQUAL(std::count(path.m_landGaps.begin(), path.m_landGaps.end(), true), 2, ());
+  TEST_GREATER(path.m_waterDistance, 1500.0, ());
+  TEST(path.m_landGaps.front(), ());
+  TEST(path.m_landGaps.back(), ());
+  CheckAccounting(path);
+}
+UNIT_TEST(Water_InaccessibleWalkingLinkIsRetriedAndCancellationStopsSearch)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  geometry.m_hasSourceTopology = false;
+  geometry.m_lines = {{{P(0, 0)}, {P(0, 0.003)}}, {{P(0.006, 0)}, {P(0.006, 0.003)}}};
+  size_t calls = 0;
+  std::pair<P, P> blocked;
+  Path path;
+  TEST(FindPath(geometry, P(0, 0.001), P(0.006, 0.001), false, kNeverCancelled, path, {}, true,
+                [&](P const & from, P const & to)
+  {
+    if (++calls == 1)
+    {
+      blocked = {from, to};
+      return false;
+    }
+    return true;
+  }) == ResultCode::Success,
+       ());
+  TEST_GREATER(calls, 1, ());
+  for (size_t i = 0; i < path.m_landGaps.size(); ++i)
+    if (path.m_landGaps[i])
+      TEST(std::pair(path.m_points[i], path.m_points[i + 1]) != blocked, ());
+  CheckAccounting(path);
+  bool cancelled = false;
+  TEST(FindPath(geometry, P(0, 0.001), P(0.006, 0.001), false, [&] { return cancelled; }, path, {}, true,
+                [&](P const &, P const &)
+  {
+    cancelled = true;
+    return false;
+  }) == ResultCode::Cancelled,
+       ());
+  TEST(path.m_points.empty(), ());
+}
+UNIT_TEST(Water_WalkingLinksCannotInventWaterDistance)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  geometry.m_hasSourceTopology = false;
+  geometry.m_lines = {{{P(0, 0)}, {P(0, 0)}}, {{P(0.003, 0)}, {P(0.003, 0)}}};
+  Path path;
+  TEST(FindPath(geometry, P(0, 0), P(0.003, 0), false, kNeverCancelled, path, {}, true) == ResultCode::Unavailable, ());
+  TEST(path.m_points.empty(), ());
+}
+}  // namespace water_geometry_test

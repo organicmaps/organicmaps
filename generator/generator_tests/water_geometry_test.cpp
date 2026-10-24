@@ -311,6 +311,26 @@ UNIT_TEST(WaterGenerator_StandardMapsShareWaterOnlyWithCombinedCoverage)
        ());
   TEST_EQUAL(path.m_landDistance, 0.0, ());
   TEST_GREATER(path.m_waterDistance, 0.0, ());
+  // Use the stored edge: MWM quantization can move the source coordinate.
+  auto const fullLeft =
+      routing::WaterGeometryProvider::ExtractFeatures(data, leftId, {-0.1, -0.1, 1.2, 1.1}, [] { return false; });
+  double edge = 0.0;
+  for (auto const & triangle : fullLeft.m_triangles)
+    for (auto const & point : triangle)
+      edge = std::max(edge, point.x);
+  TEST_GREATER(edge, 0.9, ());
+  // Boundary clipping produces flat triangles even from valid water polygons.
+  auto const edgeOnly =
+      routing::WaterGeometryProvider::ExtractFeatures(data, leftId, {edge, 0.1, 1.2, 0.9}, [] { return false; });
+  TEST(edgeOnly.m_complete, ());
+  TEST(edgeOnly.m_triangles.empty(), ());
+  auto const thin = routing::WaterGeometryProvider::ExtractFeatures(data, leftId, {edge - 0.001, 0.1, 1.2, 0.9},
+                                                                    [] { return false; });
+  TEST(thin.m_complete, ());
+  TEST(!thin.m_triangles.empty(), ());
+  TEST(FindPath(thin, P(edge - 0.0005, 0.2), P(edge - 0.0005, 0.8), false, [] { return false; }, path) ==
+           routing::water::ResultCode::Success,
+       ());
   // An uncovered corner does not invalidate a route through certified water.
   routing::WaterGeometryProvider partial(data, singleCoverage, [&](auto const & names, auto const & bounds)
   { return combinedCoverage(names, bounds) && !(bounds.minX() < 0.9 && bounds.maxY() > 0.55); });
