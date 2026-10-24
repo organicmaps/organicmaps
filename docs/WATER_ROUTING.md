@@ -116,8 +116,8 @@ them. Disconnected components touching unknown geometry cannot justify a land ga
 The reader caches one index with at most 65,536 records. Extraction allows 4,096
 surface source points and 16,384 triangles, with 16,384 line source points. The graph
 allows 65,536 vertices. Lazy A* starts with valid sparse mesh paths and checks
-visibility only when it can improve the route. It allows at most 2,000,000 segment
-checks and 8,000,000 indexed triangle visits. Interior triangle vertices keep linear mesh edges;
+visibility only when it can improve the route. It allows at most 4,000,000 segment
+checks and 64,000,000 indexed triangle visits. Interior triangle vertices keep linear mesh edges;
 surface visibility needs only reflex shore corners, checkpoints and river points.
 River curvature retains all source vertices, or all stored vertices for ordinary maps.
 Transfer candidates are bounded to 2,048. Cancellation is
@@ -144,6 +144,16 @@ measured 22.3–29.4 seconds for the old index and 7.0–9.8 seconds after balan
 for the search stage, with unchanged 5,311.6 m water distance and no land transfer.
 The geometry extraction stage took 5.1 seconds in that run. These are emulator
 measurements, not a guarantee for physical phones or other routes.
+
+Visibility search omits redundant river bends submerged inside water surfaces;
+checkpoints, source endpoints, surface portals and shore corners remain eligible.
+Optimistic mesh components include unknown-crossing edges for pruning, while
+actual paths still exclude those edges. Boundary goals are spaced at roughly
+50 m apart. A* searches slightly beyond the destination score to bound water costs
+to exits from the extraction window. Settled goals provide exact costs; other
+goals use the remaining A* score bound. These bounds exclude shorter outside
+excursions even when straight-line distance alone is too optimistic. Unknown
+boundary intervals retain geographic bounds instead of interpolated water costs.
 
 ## Calculation progress
 
@@ -189,6 +199,12 @@ The northward Almere case, 52.36468055555556,5.216444444444445 to
 52.39769444444445,5.207547222222223, produces 5,311.6 m entirely on water.
 A regression reduced from this map covers river/surface intersections along a
 nearly parallel shore, both line and route directions, and indexed geometry.
+
+The eastward Almere case, 52.353942,5.180272 to 52.343854,5.285855,
+produces 10,634.8 m entirely on water in the official Flevoland MWM. Its failure
+combined a visibility budget limit with an insufficient straight-line frontier
+bound. Regressions cover submerged river detail, unrelated frontier components,
+water detours to exits, and genuinely cheaper unresolved outside routes.
 
 Android app/SDK unit tests and debug builds run separately. Xcode projects include
 the common implementation and tessellation dependencies. iOS UI is deferred; no

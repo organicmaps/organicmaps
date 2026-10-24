@@ -25,9 +25,25 @@ double constexpr kInfinity = std::numeric_limits<double>::max();
 size_t constexpr kMaxGraphVertices = 65536;
 size_t constexpr kMaxTransferVertices = 2048;
 size_t constexpr kMaxTriangles = 16384;
-size_t constexpr kMaxVisibilityChecks = 2000000;
-size_t constexpr kMaxVisibilityTriangleVisits = 8000000;
+size_t constexpr kMaxVisibilityChecks = 4000000;
+size_t constexpr kMaxVisibilityTriangleVisits = 64000000;
 
+bool OnSide(m2::RectD const & bounds, Point const & point, size_t side)
+{
+  switch (side)
+  {
+  case 0: return point.x <= bounds.minX() + 1e-12;
+  case 1: return point.x >= bounds.maxX() - 1e-12;
+  case 2: return point.y <= bounds.minY() + 1e-12;
+  default: return point.y >= bounds.maxY() - 1e-12;
+  }
+}
+
+double BoundaryDistanceBound(Point const & a, Point const & b)
+{
+  return ms::kEarthRadiusMeters *
+         math::DegToRad(std::abs(mercator::YToLat(a.y) - mercator::YToLat(b.y)) + std::abs(a.x - b.x));
+}
 bool Intersects(m2::RectD const & rect, Point const & a, Point const & b)
 {
   double begin = 0, end = 1;
@@ -249,9 +265,15 @@ struct Graph
   std::vector<std::vector<Edge>> m_edges;
   std::vector<bool> m_lineEndpoints;
   std::vector<bool> m_unknownFrontier;
+  std::vector<size_t> m_components;
+  std::vector<uint8_t> m_ranks;
+  std::vector<std::pair<size_t, size_t>> m_unknownEdges;
+  std::vector<std::pair<size_t, size_t>> m_frontierEdges;
 
   size_t Add(Point const & p, bool lineEndpoint = false)
   {
+    m_components.push_back(m_points.size());
+    m_ranks.push_back(0);
     m_points.push_back(p);
     m_edges.emplace_back();
     m_lineEndpoints.push_back(lineEndpoint);
@@ -259,11 +281,29 @@ struct Graph
     return m_points.size() - 1;
   }
 
+  size_t Component(size_t node) const
+  {
+    while (m_components[node] != node)
+      node = m_components[node];
+    return node;
+  }
+
   void Connect(size_t a, size_t b)
   {
+    // Keep optimistic mesh connectivity separate from traversable edges.
+    auto rootA = Component(a), rootB = Component(b);
+    if (rootA != rootB)
+    {
+      if (m_ranks[rootA] < m_ranks[rootB])
+        std::swap(rootA, rootB);
+      m_components[rootB] = rootA;
+      if (m_ranks[rootA] == m_ranks[rootB])
+        ++m_ranks[rootA];
+    }
     if (TouchesUnknown(m_geometry, m_points[a], m_points[b]))
     {
       m_unknownFrontier[a] = m_unknownFrontier[b] = true;
+      m_unknownEdges.emplace_back(a, b);
       return;
     }
     auto const distance = mercator::DistanceOnEarth(m_points[a], m_points[b]);
@@ -277,6 +317,7 @@ struct Search
   std::vector<double> m_distances;
   std::vector<size_t> m_previous;
   bool m_budgetExceeded = false;
+  std::vector<double> m_lowerDistances;
 };
 
 Search Dijkstra(Graph const & graph, size_t source, CancelledFn const & cancelled)
@@ -308,7 +349,7 @@ Search Dijkstra(Graph const & graph, size_t source, CancelledFn const & cancelle
 }
 
 Search SearchWater(Graph & graph, size_t target, std::vector<size_t> const & visibility, Search const & component,
-                   CancelledFn const & isCancelled, ProgressFn const & progress)
+                   CancelledFn const & isCancelled, ProgressFn const & progress, double frontierMargin = 0)
 {
   // The delegate's cancellation check locks a mutex and reads the clock.
   // Poll periodically while keeping the inner geometric predicates cheap.
@@ -339,10 +380,16 @@ Search SearchWater(Graph & graph, size_t target, std::vector<size_t> const & vis
   // Apply this bound once before considering pairs of visibility vertices.
   std::vector<size_t> candidates;
   auto const source = target == 1 ? 0 : 1;
+  auto const sourceComponent = graph.Component(source);
   for (auto const node : visibility)
+  {
+    if (graph.Component(node) != sourceComponent)
+      continue;
     if (result.m_distances[target] == kInfinity ||
-        ms::DistanceOnEarth(coordinates[source], coordinates[node]) + estimates[node] < result.m_distances[target])
+        ms::DistanceOnEarth(coordinates[source], coordinates[node]) + estimates[node] <
+            result.m_distances[target] + frontierMargin)
       candidates.push_back(node);
+  }
   using Item = std::pair<double, size_t>;
   std::priority_queue<Item, std::vector<Item>, std::greater<Item>> queue;
   for (size_t node = 0; node < graph.m_points.size(); ++node)
@@ -358,10 +405,12 @@ Search SearchWater(Graph & graph, size_t target, std::vector<size_t> const & vis
     queue.pop();
     if (settled[node] || score > result.m_distances[node] + estimates[node])
       continue;
+    if (result.m_distances[target] != kInfinity && score > result.m_distances[target] + frontierMargin)
+      break;
     settled[node] = true;
     if (progress && ((settledCount++ % 32) == 0 || node == target))
       progress(searchProgress.UpdateProgress(coordinates[node], coordinates[target]));
-    if (node == target)
+    if (node == target && frontierMargin == 0)
       break;
     auto const relax = [&](size_t other, double distance)
     {
@@ -382,15 +431,11 @@ Search SearchWater(Graph & graph, size_t target, std::vector<size_t> const & vis
         return result;
       if (settled[other])
         continue;
-      // With no unknown areas, the conforming sparse mesh already certifies
-      // components. A visibility edge cannot cross between disconnected waters.
-      if (graph.m_geometry.m_unknownAreas.empty() && component.m_distances[other] == kInfinity)
-        continue;
       auto const distance = ms::DistanceOnEarth(coordinates[node], coordinates[other]);
       if (result.m_distances[node] + distance >= result.m_distances[other])
         continue;
       if (result.m_distances[target] != kInfinity &&
-          result.m_distances[node] + distance + estimates[other] >= result.m_distances[target])
+          result.m_distances[node] + distance + estimates[other] >= result.m_distances[target] + frontierMargin)
         continue;
       if (++checks > kMaxVisibilityChecks)
       {
@@ -415,6 +460,13 @@ Search SearchWater(Graph & graph, size_t target, std::vector<size_t> const & vis
       relax(other, distance);
     }
   }
+  // Unsettled goals have g + h at least the search threshold. Settled goals
+  // have exact costs in the visibility graph.
+  result.m_lowerDistances.resize(graph.m_points.size());
+  for (size_t i = 0; i < graph.m_points.size(); ++i)
+    result.m_lowerDistances[i] = settled[i] || result.m_distances[target] == kInfinity
+                                   ? result.m_distances[i]
+                                   : std::max(0.0, result.m_distances[target] + frontierMargin - estimates[i]);
   return result;
 }
 
@@ -487,69 +539,57 @@ double ExitDistance(m2::RectD const & bounds, Point const & point)
   return result * ms::kEarthRadiusMeters;
 }
 
-bool OutsideCouldShorten(Geometry const & geometry, Point const & from, Point const & to, double distance,
-                         CancelledFn const & cancelled)
+bool OutsideCouldShorten(Geometry const & geometry, Graph const & graph, Search const & search, size_t source,
+                         Point const & to, double distance, CancelledFn const & cancelled)
 {
   auto const & bounds = *geometry.m_bounds;
-  if (ExitDistance(bounds, from) + ExitDistance(bounds, to) >= distance + 0.01)
-    return false;
-  // Any excursion touches a boundary point p. Triangle inequality bounds its
-  // length below by d(from,p)+d(p,to), even when it exits and reenters elsewhere.
-  auto const check = [&](auto && self, Point const & a, Point const & b, size_t depth) -> bool
+  auto const check = [&](auto && self, Point const & a, Point const & b, double lowerA, double lowerB,
+                         size_t depth) -> bool
   {
     if (cancelled())
       return true;
     auto const middle = (a + b) * 0.5;
-    auto const sum = mercator::DistanceOnEarth(from, middle) + mercator::DistanceOnEarth(middle, to);
-    double radius;
-    if (a.x == b.x)
-      radius = ms::kEarthRadiusMeters *
-               math::DegToRad(std::max(std::abs(mercator::YToLat(a.y) - mercator::YToLat(middle.y)),
-                                       std::abs(mercator::YToLat(b.y) - mercator::YToLat(middle.y))));
-    else
-      radius = ms::kEarthRadiusMeters * math::DegToRad(std::abs(b.x - a.x) * 0.5) *
-               std::cos(math::DegToRad(mercator::YToLat(a.y)));
-    // The sum of distances is 2-Lipschitz with respect to travel along the edge.
+    double const radius = std::max(BoundaryDistanceBound(a, middle), BoundaryDistanceBound(b, middle));
+    double const lower =
+        std::max({0.0, lowerA - BoundaryDistanceBound(a, middle), lowerB - BoundaryDistanceBound(b, middle)});
+    double const sum = lower + mercator::DistanceOnEarth(middle, to);
     if (sum - 2 * radius >= distance + 0.01)
       return false;
     if (sum < distance || depth == 12)
       return true;
-    return self(self, a, middle, depth + 1) || self(self, middle, b, depth + 1);
+    return self(self, a, middle, lowerA, lower, depth + 1) || self(self, middle, b, lower, lowerB, depth + 1);
   };
-  auto const onSide = [&](Point const & p, size_t side)
+  auto const component = graph.Component(source);
+  for (size_t i = 0; i < graph.m_points.size(); ++i)
   {
-    switch (side)
-    {
-    case 0: return p.x <= bounds.minX() + 1e-12;
-    case 1: return p.x >= bounds.maxX() - 1e-12;
-    case 2: return p.y <= bounds.minY() + 1e-12;
-    default: return p.y >= bounds.maxY() - 1e-12;
-    }
-  };
-  // An unknown continuation must leave through mapped water, not through dry
-  // parts of the rectangle. Provider geometry is clipped to these bounds.
-  for (auto const & triangle : geometry.m_triangles)
-    for (size_t i = 0; i < 3; ++i)
-      for (size_t side = 0; side < 4; ++side)
-      {
-        auto const & a = triangle[i];
-        auto const & b = triangle[(i + 1) % 3];
-        if (onSide(a, side) && check(check, a, onSide(b, side) ? b : a, 0))
-          return true;
-      }
-  for (auto const & line : geometry.m_lines)
-    for (auto const & vertex : line)
-      for (size_t side = 0; side < 4; ++side)
-        if (onSide(vertex.m_point, side) && check(check, vertex.m_point, vertex.m_point, 0))
-          return true;
+    if (graph.Component(i) != component)
+      continue;
+    auto const & point = graph.m_points[i];
+    for (size_t side = 0; side < 4; ++side)
+      if (OnSide(bounds, point, side) &&
+          check(check, point, point, search.m_lowerDistances[i], search.m_lowerDistances[i], 0))
+        return true;
+  }
+  for (auto const & [a, b] : graph.m_frontierEdges)
+  {
+    if (graph.Component(a) != component)
+      continue;
+    // Water costs are Lipschitz only along traversable boundary intervals.
+    bool const unknown = TouchesUnknown(geometry, graph.m_points[a], graph.m_points[b]);
+    double const lowerA =
+        unknown ? mercator::DistanceOnEarth(graph.m_points[source], graph.m_points[a]) : search.m_lowerDistances[a];
+    double const lowerB =
+        unknown ? mercator::DistanceOnEarth(graph.m_points[source], graph.m_points[b]) : search.m_lowerDistances[b];
+    if (check(check, graph.m_points[a], graph.m_points[b], lowerA, lowerB, 0))
+      return true;
+  }
   return false;
 }
-
-bool ReachesFrontier(Geometry const & geometry, Graph const & graph, Search const & search, bool includeUnknown = true)
+bool ReachesFrontier(Geometry const & geometry, Graph const & graph, size_t source, bool includeUnknown = true)
 {
   for (size_t i = 0; i < graph.m_points.size(); ++i)
   {
-    if (search.m_distances[i] == kInfinity)
+    if (graph.Component(i) != graph.Component(source))
       continue;
     if (includeUnknown && graph.m_unknownFrontier[i])
       return true;
@@ -659,6 +699,7 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
   graph.Add(from.m_point);
   graph.Add(to.m_point);
   std::map<uint64_t, size_t> sourceNodes;
+  std::set<size_t> surfacePortals{0, 1};
   for (size_t i = 0; i < geometry.m_lines.size(); ++i)
   {
     if (cancelled())
@@ -700,8 +741,12 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
         if (!MakePortal(geometry, origin, line[j].m_point, interval.first, interval.second, entrance) ||
             !MakePortal(geometry, origin, line[j].m_point, interval.second, interval.first, exit))
           return ResultCode::Unavailable;
-        split.push_back(graph.Add(entrance));
-        split.push_back(graph.Add(exit));
+        auto const entranceNode = graph.Add(entrance);
+        auto const exitNode = graph.Add(exit);
+        split.push_back(entranceNode);
+        split.push_back(exitNode);
+        surfacePortals.insert(entranceNode);
+        surfacePortals.insert(exitNode);
       }
       if (graph.m_points.size() > kMaxGraphVertices)
         return ResultCode::Unavailable;
@@ -810,6 +855,62 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
     auto const & after = next[point];
     return before.size() == 1 && after.size() == 1 && m2::robust::OrientedS(before[0], point, after[0]) >= 0;
   });
+  // Include closely spaced boundary goals so A* can bound the cost of leaving
+  // the extraction window, including exits between stored triangle vertices.
+  double constexpr kFrontierSpacing = 50.0;
+  if (geometry.m_bounds)
+  {
+    auto const & bounds = *geometry.m_bounds;
+    auto const onSameSide = [&](Point const & a, Point const & b)
+    {
+      for (size_t side = 0; side < 4; ++side)
+        if (OnSide(bounds, a, side) && OnSide(bounds, b, side))
+          return true;
+      return false;
+    };
+    auto const addFrontier = [&](size_t a, size_t b, bool surface)
+    {
+      auto const from = graph.m_points[a], to = graph.m_points[b];
+      size_t const steps = std::max<size_t>(1, std::ceil(BoundaryDistanceBound(from, to) / kFrontierSpacing));
+      if (steps - 1 > kMaxGraphVertices - graph.m_points.size())
+        return false;
+      auto previous = a;
+      for (size_t step = 1; step < steps; ++step)
+      {
+        double const parameter = static_cast<double>(step) / steps;
+        Point point = from + (to - from) * parameter;
+        if (surface && !MakePortal(geometry, from, to, parameter, (step + 0.5) / steps, point))
+          return false;
+        auto const node = graph.Add(point);
+        graph.Connect(previous, node);
+        graph.m_frontierEdges.emplace_back(previous, node);
+        previous = node;
+      }
+      graph.Connect(previous, b);
+      graph.m_frontierEdges.emplace_back(previous, b);
+      return true;
+    };
+    std::vector<std::pair<size_t, size_t>> lineFrontiers = graph.m_unknownEdges;
+    for (size_t a = 0; a < graph.m_points.size(); ++a)
+      for (auto const & edge : graph.m_edges[a])
+        if (a < edge.m_target && onSameSide(graph.m_points[a], graph.m_points[edge.m_target]))
+          lineFrontiers.emplace_back(a, edge.m_target);
+    for (auto const & [key, edge] : surfaceEdges)
+      if (edge.m_count == 1 && onSameSide(edge.m_from, edge.m_to) &&
+          !addFrontier(surfaceVertices.at(edge.m_from), surfaceVertices.at(edge.m_to), true))
+        return ResultCode::Unavailable;
+    for (auto const & [a, b] : lineFrontiers)
+    {
+      if (cancelled())
+        return ResultCode::Cancelled;
+      size_t visits = 0;
+      if (!onSameSide(graph.m_points[a], graph.m_points[b]))
+        continue;
+      bool const covered = CoversSegment(geometry, graph.m_points[a], graph.m_points[b], cancelled, visits);
+      if (visits > kMaxVisibilityTriangleVisits || (!covered && !addFrontier(a, b, false)))
+        return ResultCode::Unavailable;
+    }
+  }
   std::vector<bool> surface(graph.m_points.size());
   std::vector<size_t> visibility;
   for (size_t i = 0; i < graph.m_points.size(); ++i)
@@ -817,14 +918,21 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
     surface[i] = surfaceVertices.contains(graph.m_points[i]) || IsSurfacePoint(geometry, graph.m_points[i]);
     // Interior mesh vertices need only linear triangle edges. Shortest surface
     // detours turn at the shore, checkpoints or river/surface intersections.
-    if (surface[i] && (i < lineVertices || shore.contains(graph.m_points[i])))
+    // Submerged river bends remain in the sparse graph but need no visibility edges.
+    bool boundary = false;
+    if (geometry.m_bounds)
+      for (size_t side = 0; side < 4; ++side)
+        boundary = boundary || OnSide(*geometry.m_bounds, graph.m_points[i], side);
+    if (surface[i] &&
+        (boundary || surfacePortals.contains(i) || graph.m_lineEndpoints[i] || shore.contains(graph.m_points[i])))
       visibility.push_back(i);
   }
   report(0.3);
   auto const component = Dijkstra(graph, 0, cancelled);
+  double const frontierMargin = geometry.m_bounds ? 4 * kFrontierSpacing + 0.1 : 0;
   report(0.35);
-  auto const forward =
-      SearchWater(graph, 1, visibility, component, cancelled, [&](double value) { report(0.35 + 0.35 * value); });
+  auto const forward = SearchWater(graph, 1, visibility, component, cancelled,
+                                   [&](double value) { report(0.35 + 0.35 * value); }, frontierMargin);
   if (cancelled())
     return ResultCode::Cancelled;
   if (forward.m_budgetExceeded)
@@ -837,8 +945,8 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
     // Any path leaving complete coverage must first travel at least this far.
     // If that bound cannot exclude a shorter outside path, report unavailable.
     if (UnknownCouldShorten(geometry, from.m_point, to.m_point, path.m_waterDistance) ||
-        (geometry.m_bounds && ReachesFrontier(geometry, graph, component, false) &&
-         OutsideCouldShorten(geometry, from.m_point, to.m_point, path.m_waterDistance, cancelled)))
+        (geometry.m_bounds && ReachesFrontier(geometry, graph, 0, false) &&
+         OutsideCouldShorten(geometry, graph, forward, 0, to.m_point, path.m_waterDistance, cancelled)))
     {
       path = {};
       return cancelled() ? ResultCode::Cancelled : ResultCode::Unavailable;
@@ -856,7 +964,7 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
     return ResultCode::Cancelled;
   if (backward.m_budgetExceeded)
     return ResultCode::Unavailable;
-  if (ReachesFrontier(geometry, graph, forward) || ReachesFrontier(geometry, graph, backward))
+  if (ReachesFrontier(geometry, graph, 0) || ReachesFrontier(geometry, graph, 1))
     return ResultCode::Unavailable;
   std::vector<size_t> transfers;
   for (size_t i = 0; i < graph.m_points.size(); ++i)
