@@ -184,9 +184,9 @@ public:
       m_fps = helper.GetFps();
       m_isPaused = helper.IsPaused();
       std::stringstream ss;
-      ss << m_apiLabel << ": Scale: " << m_scale << " / FPS: " << m_fps;
       if (!m_appVersion.empty())
-        ss << " / " << m_appVersion;
+        ss << m_appVersion << " / ";
+      ss << m_apiLabel << ": Scale: " << m_scale << " / FPS: " << m_fps;
       if (m_isPaused)
         ss << " (PAUSED)";
       SetContent(ss.str());
