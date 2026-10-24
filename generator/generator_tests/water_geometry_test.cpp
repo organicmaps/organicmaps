@@ -253,6 +253,45 @@ UNIT_TEST(WaterGenerator_UnrelatedCityFeaturesDoNotExhaustWaterBudget)
   TEST_EQUAL(path.m_landDistance, 0.0, ());
 }
 
+UNIT_TEST(WaterGenerator_UndergroundFeaturesAllowPortageWithoutInventingWater)
+{
+  classificator::Load();
+  auto const directory = base::JoinPath(GetPlatform().WritableDir(), "water_negative_layer_test");
+  CHECK(Platform::MkDirRecursively(directory), ());
+  SCOPE_GUARD(cleanup, [&] { Platform::RmDirRecursively(directory); });
+  platform::LocalCountryFile file(directory, platform::CountryFile("WaterNegativeLayer"), 0);
+  {
+    tests_support::TestMwmBuilder builder(file, feature::DataHeader::MapType::Country);
+    feature::FeatureBuilder surface;
+    surface.SetArea();
+    surface.AddType(classif().GetTypeByPath({"natural", "water", "river"}));
+    surface.AddPolygon({P(0, 0), P(0.01, 0), P(0.01, 0.01), P(0, 0.01), P(0, 0)});
+    surface.GetParams().layer = -1;
+    TEST(builder.Add(surface), ());
+    auto river = Line(1, {P(0.02, 0), P(0.02, 0.01)}, {"waterway", "river"});
+    river.GetParams().layer = -1;
+    TEST(builder.Add(river), ());
+    auto surfaceRiver = Line(2, {P(0.03, 0), P(0.03, 0.01)}, {"waterway", "river"});
+    TEST(builder.Add(surfaceRiver), ());
+    builder.Finish();
+  }
+  FrozenDataSource data;
+  auto const [id, status] = data.RegisterMap(file);
+  TEST(status == MwmSet::RegResult::Success, ());
+  auto const geometry =
+      routing::WaterGeometryProvider::ExtractFeatures(data, id, {-0.005, -0.005, 0.035, 0.015}, [] { return false; });
+  TEST(geometry.m_complete, ());
+  TEST_EQUAL(geometry.m_lines.size(), 1, ());
+  TEST(geometry.m_triangles.empty(), ());
+  TEST(geometry.m_unknownAreas.empty(), ());
+  TEST_EQUAL(geometry.m_portageAreas.size(), 2, ());
+  TEST(std::any_of(geometry.m_portageAreas.begin(), geometry.m_portageAreas.end(),
+                   [](auto const & rect) { return rect.IsPointInside(P(0.005, 0.005)); }),
+       ());
+  TEST(std::any_of(geometry.m_portageAreas.begin(), geometry.m_portageAreas.end(),
+                   [](auto const & rect) { return rect.IsIntersect({0.01999, 0.00499, 0.02001, 0.00501}); }),
+       ());
+}
 UNIT_TEST(WaterGenerator_PreservesSourceTopologyAndGradeSeparation)
 {
   classificator::Load();

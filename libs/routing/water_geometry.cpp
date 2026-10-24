@@ -993,7 +993,7 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
     return ResultCode::Success;
   }
 
-  // A land gap is considered only after exhausting the complete water graph.
+  // Search the local water graph before considering a walking transfer.
   report(0.7);
   auto const backwardComponent = Dijkstra(graph, 1, cancelled);
   auto const backward = SearchWater(graph, 0, visibility, backwardComponent, cancelled,
@@ -1002,7 +1002,8 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
     return ResultCode::Cancelled;
   if (backward.m_budgetExceeded)
     return ResultCode::Unavailable;
-  if (ReachesFrontier(geometry, graph, 0) || ReachesFrontier(geometry, graph, 1))
+  bool const openFrontier = ReachesFrontier(geometry, graph, 0) || ReachesFrontier(geometry, graph, 1);
+  if (openFrontier && geometry.m_portageAreas.empty())
     return ResultCode::Unavailable;
   std::vector<size_t> transfers;
   for (size_t i = 0; i < graph.m_points.size(); ++i)
@@ -1025,7 +1026,20 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
     {
       if (backward.m_distances[b] == kInfinity)
         continue;
-      auto const coverage = Coverage(geometry, graph.m_points[a], graph.m_points[b]);
+      // A mapped underground break permits a local walking bypass even when
+      // the bounded water search cannot exclude a distant water alternative.
+      auto const knownPortage =
+          std::any_of(geometry.m_portageAreas.begin(), geometry.m_portageAreas.end(), [&](auto const & rect)
+      {
+        return Intersects(rect, graph.m_points[a], graph.m_points[b]) &&
+               DistanceToUnknown(rect, graph.m_points[a]) <= 50.0 && DistanceToUnknown(rect, graph.m_points[b]) <= 50.0;
+      });
+      if (openFrontier && !knownPortage)
+        continue;
+      // A walking bypass keeps the actual river endpoints, including endpoints
+      // inside a water surface; never trim it to arbitrary shoreline points.
+      auto const coverage =
+          knownPortage ? std::vector<Interval>{} : Coverage(geometry, graph.m_points[a], graph.m_points[b]);
       double begin = 0.0, end = 1.0;
       size_t index = 0;
       if (!coverage.empty() && coverage.front().first == 0.0)
@@ -1070,6 +1084,7 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
   if (best == kInfinity || UnknownCouldShorten(geometry, from.m_point, to.m_point, best))
     return ResultCode::Unavailable;
 
+  path.m_shortestConfirmed = !openFrontier;
   auto nodes = Trace(forward, gapFrom);
   for (auto it = nodes.rbegin(); it != nodes.rend(); ++it)
     Append(path, graph.m_points[*it], false);
