@@ -57,6 +57,12 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_routing_WaterRouting_isPointEligible
          routing::water::ResultCode::Success;
 }
 
+JNIEXPORT jboolean Java_app_organicmaps_sdk_routing_WaterRouting_isShortestConfirmed(JNIEnv *, jclass)
+{
+  auto const distances = frm()->GetRoutingManager().GetWaterDistances();
+  return distances && distances->m_shortestConfirmed;
+}
+
 JNIEXPORT jobjectArray Java_app_organicmaps_sdk_routing_WaterRouting_getDistances(JNIEnv * env, jclass)
 {
   auto const distances = frm()->GetRoutingManager().GetWaterDistances();

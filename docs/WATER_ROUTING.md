@@ -6,12 +6,13 @@ land distance and their sum in application units. There is no navigation, ETA, s
 or elevation chart. Ruler still measures straight segments.
 
 Select an explicit start with Route from, choose Water in the toolbar, then select
-a destination and optional intermediate points on water. An implicit GPS start
-projects onto the nearest known water. Explicit selections never project across
-land. River taps snap to the selected displayed centerline. Other non-water points
-have no route actions. Line selections allow 0.1 m of quantization tolerance.
-An explicit point outside water reports which checkpoint needs moving. Near a
-shore, zoom in and select a point farther inside the stored water geometry.
+a destination and optional intermediate points on water. An off-water start uses
+an ordinary pedestrian route to the nearest known water within 1 km. This initial
+approach is dashed and included in land distance; it does not make new transfer
+points between water components. If pedestrian routing fails, there is no straight
+land fallback. Starts already on water do not invoke pedestrian routing. River
+taps snap to the displayed centerline; line selections retain 0.1 m quantization
+tolerance. Destinations and intermediate points must remain on water.
 
 ## Routing and transfers
 
@@ -106,12 +107,14 @@ One MWM must cover the extraction rectangle. For optional sections, the margin
 follows checkpoint distance and is bounded between 1 and 30 km. Ordinary maps start
 with at most 3 km and reduce the margin when coverage or extraction budgets require
 it. Near a map boundary, each rectangle side expands only within certified coverage.
-Cross-MWM routes, antimeridian windows and
-requests exceeding budgets return unavailable. A reachable
-graph touching the extraction frontier cannot establish disconnection. Connected
-paths are accepted only when shorter than a proven lower bound for leaving the window.
-Unknown regions also require a distance bound excluding a shorter route through
-them. Disconnected components touching unknown geometry cannot justify a land gap.
+Cross-MWM routes, antimeridian windows and extraction failures remain unavailable.
+A known connected path may be returned when the visibility budget is exhausted, or
+when bounds cannot exclude a shorter alternative outside complete coverage. Such
+results explicitly show "Shortest route not confirmed". Every returned edge must
+still have known water coverage and avoid unknown areas. Missing geometry never
+becomes a water edge. A reachable graph touching the extraction frontier cannot
+establish disconnection, and disconnected components touching unknown geometry
+cannot justify a land gap. Without a known connected path, these cases still fail.
 
 The reader caches one index with at most 65,536 records. Extraction allows 4,096
 surface source points and 16,384 triangles, with 16,384 line source points. The graph
@@ -192,7 +195,7 @@ even when all rectangle corners and its bounding box appear covered.
 The official Flevoland MWM also covers the Almere regression: start
 52.3542366,5.18088336 to 52.354523,5.238218 produces 5,612.8 m entirely on water.
 The original reported start 52.354258,5.180864 lies 2.7 m outside its stored water
-geometry and requires moving the start into the canal. Long-path tests cover
+geometry; the initial pedestrian approach now handles such selections. Long-path tests cover
 adaptive border windows, lazy visibility, thin dry gaps and numerical cancellation
 near zero.
 The northward Almere case, 52.36468055555556,5.216444444444445 to
@@ -209,3 +212,13 @@ water detours to exits, and genuinely cheaper unresolved outside routes.
 Android app/SDK unit tests and debug builds run separately. Xcode projects include
 the common implementation and tessellation dependencies. iOS UI is deferred; no
 Apple-platform build has been run in this Windows environment.
+
+The northeast Almere report uses 52.354844,5.179683 to 52.409733,5.36587.
+The start is 98.65 m from the nearest stored water (52.3540683,5.18038481).
+Water now delegates this initial approach to the unchanged pedestrian IndexRouter.
+The water search can retain its confirmed path when the visibility limit or
+unresolved shorter alternatives prevent a shortest-path certificate. Android shows
+that qualification alongside water, land and total distances. The real IndexRouter
+test reports 216.193 m of walking and 21,423.6 m of water (21,639.8 m total).
+A short control route from the same land start reports 216.193 m walking and
+303.541 m water, with shortest-path confirmation retained.

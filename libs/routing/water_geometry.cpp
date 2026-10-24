@@ -628,6 +628,20 @@ bool UnknownCouldShorten(Geometry const & geometry, Point const & from, Point co
 }
 }  // namespace
 
+std::optional<Point> FindApproachPoint(Geometry const & geometry, Point const & start, CancelledFn const & cancelled)
+{
+  if (!geometry.m_complete || cancelled() || TouchesUnknown(geometry, start, start))
+    return {};
+  auto const selected = Select(geometry, start);
+  // Keep approaches local and do not select across missing coverage.
+  if (selected.m_distance > 1000.0 || TouchesUnknown(geometry, selected.m_point, selected.m_point) ||
+      (geometry.m_bounds && selected.m_distance >= ExitDistance(*geometry.m_bounds, start)))
+    return {};
+  for (auto const & unknown : geometry.m_unknownAreas)
+    if (DistanceToUnknown(unknown, start) <= selected.m_distance)
+      return {};
+  return cancelled() ? std::nullopt : std::optional<Point>(selected.m_point);
+}
 ResultCode FindPath(Geometry const & geometry, Point const & start, Point const & finish, bool projectStart,
                     CancelledFn const & cancelled, Path & path, ProgressFn const & progress)
 {
@@ -935,21 +949,23 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
                                    [&](double value) { report(0.35 + 0.35 * value); }, frontierMargin);
   if (cancelled())
     return ResultCode::Cancelled;
-  if (forward.m_budgetExceeded)
+  if (forward.m_budgetExceeded && forward.m_distances[1] == kInfinity)
     return ResultCode::Unavailable;
   if (forward.m_distances[1] != kInfinity)
   {
     auto nodes = Trace(forward, 1);
     for (auto it = nodes.rbegin(); it != nodes.rend(); ++it)
       Append(path, graph.m_points[*it], false);
-    // Any path leaving complete coverage must first travel at least this far.
-    // If that bound cannot exclude a shorter outside path, report unavailable.
-    if (UnknownCouldShorten(geometry, from.m_point, to.m_point, path.m_waterDistance) ||
-        (geometry.m_bounds && ReachesFrontier(geometry, graph, 0, false) &&
-         OutsideCouldShorten(geometry, graph, forward, 0, to.m_point, path.m_waterDistance, cancelled)))
+    // A confirmed path remains useful even when missing coverage or an exhausted
+    // search budget prevents proving that no shorter alternative exists.
+    path.m_shortestConfirmed =
+        !forward.m_budgetExceeded && !UnknownCouldShorten(geometry, from.m_point, to.m_point, path.m_waterDistance) &&
+        !(geometry.m_bounds && ReachesFrontier(geometry, graph, 0, false) &&
+          OutsideCouldShorten(geometry, graph, forward, 0, to.m_point, path.m_waterDistance, cancelled));
+    if (cancelled())
     {
       path = {};
-      return cancelled() ? ResultCode::Cancelled : ResultCode::Unavailable;
+      return ResultCode::Cancelled;
     }
     report(1.0);
     return ResultCode::Success;
