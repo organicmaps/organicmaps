@@ -128,6 +128,8 @@ def make_input(args):
     # The routes: (ms, the points the user asked a route through or None, the route is followed or closed).
     routes = []
     asked_ms = None
+    # Where the application started anew has found the car it kept: (ms, the kept car as it was written).
+    restores = []
     for ms, text, function in others:
         if text.startswith('GYRO '):
             parts = text.split()
@@ -170,6 +172,8 @@ def make_input(args):
             if m:
                 actions.append((ms, 6, 'T %d %s %s' % (ms, m.group(1), m.group(2)), True))
                 actions.append((ms, 6, 'H %d %s' % (ms, m.group(5)), True))
+        elif function == 'RestoreCarPosition' and text.startswith('The car is where it was left = '):
+            restores.append((ms, text.split(' = ', 1)[1].split(',')))
         elif text.startswith('Reversed the car'):
             actions.append((ms, 6, 'R %d' % ms, True))
         elif function == 'SwitchMark' and text == 'Switching the mark':
@@ -255,6 +259,15 @@ def make_input(args):
     accel = slices_of(accel_lines, accel_value)
     accel_times = [a[0] for a in accel]
     trip_times = [f['ms'] for f in trips]
+    # The car kept is given with the start that has found it, as old as the first trip line after it tells.
+    for ms, kept in restores:
+        opened = max((s for s in started if ms - 10_000 <= s <= ms), default=None)
+        if opened is None or len(kept) != 5:
+            continue
+        i = bisect.bisect_left(trip_times, ms)
+        age = next((number(f, 'markAge') * 1000 - (f['ms'] - ms) for f in trips[i:i + 5] if 'markAge' in f), 0)
+        actions.append((opened, 0, 'C %d %s %s %s %s %d' % (opened, kept[0], kept[1], kept[2], kept[3], max(0, age)),
+                        False))
 
     def accel_at(ms, window):
         i = bisect.bisect_left(accel_times, ms)
@@ -338,7 +351,17 @@ def make_input(args):
     if not any(first <= ms <= first + 10_000 for ms in started):
         i = min(bisect.bisect_left(trip_times, first), len(trips) - 1)
         state = trips[i] if trips else {}
+        position = lat_lon(state.get('pos'))
+        heading = number(state, 'hdg')
+        # A tap would put the car standing off the roads on a road, looking along it: on October 19 and 23 it stood
+        # across its road in the yard, and the trip driven again went the other way. It is started as the
+        # application keeps it then.
+        kept = state.get('src') in ('MANUAL', 'INERTIAL') and position and state.get('road') == '0'
         records.append((first, -4, 'S %d 2' % first))
+        if kept:
+            records.append((first, -4, 'C %d %.6f %.6f %s 1 %d' % (
+                first, position[0], position[1], '-' if heading is None else '%.1f' % heading,
+                round(number(state, 'markAge', 0) * 1000))))
         records.append((first, -3, 'S %d 1' % first))
         if state.get('link', '').endswith('/CONNECTED'):
             records.append((first, -3, 'L %d CONNECTED' % first))
@@ -354,11 +377,9 @@ def make_input(args):
                 disabled = True
         if disabled:
             records.append((first, -2, 'X %d 1' % first))
-        position = lat_lon(state.get('pos'))
-        if state.get('src') in ('MANUAL', 'INERTIAL') and position:
+        if state.get('src') in ('MANUAL', 'INERTIAL') and position and not kept:
             records.append((first, -1, 'A %d 1' % first))
             records.append((first, -1, 'T %d %.6f %.6f' % (first, position[0], position[1])))
-            heading = number(state, 'hdg')
             if heading is not None:
                 records.append((first, -1, 'H %d %.0f' % (first, heading)))
         # The route the car follows when the file begins is asked for from where the car is.
