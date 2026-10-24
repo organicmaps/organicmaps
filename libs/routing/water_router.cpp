@@ -6,6 +6,7 @@
 #include "geometry/mercator.hpp"
 
 #include <algorithm>
+#include <map>
 
 namespace routing
 {
@@ -72,6 +73,7 @@ RouterResultCode WaterRouter::CalculateRoute(Checkpoints const & checkpoints, m2
   std::vector<std::vector<m2::PointD>> exits(checkpointsPoints.size());
   bool hasWalkingAccess = false;
   bool expandedGeometryTried = false;
+  std::map<std::pair<m2::PointD, m2::PointD>, std::vector<m2::PointD>> walkingPaths;
   for (size_t i = 0; m_pedestrian && i < checkpointsPoints.size(); ++i)
   {
     water::Path membership;
@@ -113,7 +115,13 @@ RouterResultCode WaterRouter::CalculateRoute(Checkpoints const & checkpoints, m2
     auto code = water::FindPath(geometry, checkpointsPoints[i - 1], checkpointsPoints[i],
                                 i == 1 && checkpoints.IsStartMyPosition(), cancelled, path,
                                 [&](double value) { legProgress(0.85 * value); });
-    if (code == water::ResultCode::Unavailable && !expandedGeometryTried && m_expandedGeometryGetter)
+    auto const needsWalking = [&]
+    {
+      return code == water::ResultCode::Success &&
+             std::any_of(path.m_landGaps.begin(), path.m_landGaps.end(), [](bool land) { return land; });
+    };
+    if ((code == water::ResultCode::Unavailable || needsWalking()) && !expandedGeometryTried &&
+        m_expandedGeometryGetter)
     {
       expandedGeometryTried = true;
       auto expanded = m_expandedGeometryGetter(checkpoints, delegate);
@@ -128,10 +136,27 @@ RouterResultCode WaterRouter::CalculateRoute(Checkpoints const & checkpoints, m2
       }
     }
     // Prefer the wider water search before considering an unconfirmed walking transfer.
-    if (code == water::ResultCode::Unavailable && m_pedestrian)
+    RouterResultCode walkingFailure = RouterResultCode::NoError;
+    auto const walkAllowed = [&](m2::PointD const & from, m2::PointD const & to)
+    {
+      auto const key = std::pair{from, to};
+      if (walkingPaths.contains(key))
+        return true;
+      std::vector<m2::PointD> walking;
+      auto const result = Walk(*m_pedestrian, from, to, delegate,
+                               [&](float value) { legProgress(0.85 + 0.10 * value / 100.0); }, walking);
+      if (result != RouterResultCode::NoError)
+      {
+        walkingFailure = result;
+        return false;
+      }
+      walkingPaths.emplace(key, std::move(walking));
+      return true;
+    };
+    if ((code == water::ResultCode::Unavailable || needsWalking()) && m_pedestrian)
       code = water::FindPath(geometry, checkpointsPoints[i - 1], checkpointsPoints[i],
                              i == 1 && checkpoints.IsStartMyPosition(), cancelled, path,
-                             [&](double value) { legProgress(0.85 * value); }, true);
+                             [&](double value) { legProgress(0.85 * value); }, true, walkAllowed);
     if (code == water::ResultCode::Cancelled)
       return RouterResultCode::Cancelled;
     if (code == water::ResultCode::OutsideWater)
@@ -148,7 +173,7 @@ RouterResultCode WaterRouter::CalculateRoute(Checkpoints const & checkpoints, m2
                                                : RouterResultCode::IntermediatePointNotFound;
     }
     if (code != water::ResultCode::Success)
-      return RouterResultCode::RouteNotFound;
+      return walkingFailure != RouterResultCode::NoError ? walkingFailure : RouterResultCode::RouteNotFound;
     auto const gaps = std::count(path.m_landGaps.begin(), path.m_landGaps.end(), true);
     if (gaps != 0)
     {
@@ -179,10 +204,17 @@ RouterResultCode WaterRouter::CalculateRoute(Checkpoints const & checkpoints, m2
           continue;
         }
         std::vector<m2::PointD> walking;
-        auto const code = Walk(*m_pedestrian, original.m_points[j - 1], original.m_points[j], delegate, [&](float value)
-        { legProgress(0.85 + 0.15 * (processed + value / 100.0) / gaps); }, walking);
-        if (code != RouterResultCode::NoError)
-          return code;
+        auto const cached = walkingPaths.find({original.m_points[j - 1], original.m_points[j]});
+        if (cached != walkingPaths.end())
+          walking = cached->second;
+        else
+        {
+          auto const code =
+              Walk(*m_pedestrian, original.m_points[j - 1], original.m_points[j], delegate,
+                   [&](float value) { legProgress(0.85 + 0.15 * (processed + value / 100.0) / gaps); }, walking);
+          if (code != RouterResultCode::NoError)
+            return code;
+        }
         for (size_t k = 1; k < walking.size(); ++k)
           append(walking[k], true);
         ++processed;

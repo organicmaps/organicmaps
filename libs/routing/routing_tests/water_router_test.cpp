@@ -176,7 +176,11 @@ UNIT_TEST(WaterRouter_RulerRemainsStraight)
 class WalkingStub final : public RulerRouter
 {
 public:
-  explicit WalkingStub(size_t & calls, bool fail = false) : m_calls(calls), m_fail(fail) {}
+  explicit WalkingStub(size_t & calls, bool fail = false, size_t failFirst = 0)
+    : m_calls(calls)
+    , m_fail(fail)
+    , m_failFirst(failFirst)
+  {}
   RouterResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const &, bool, bool,
                                   RouterDelegate const & delegate, RoutesResult & result) override
   {
@@ -184,7 +188,7 @@ public:
     delegate.OnProgress(20);
     if (delegate.GetCancellable().IsCancelled())
       return RouterResultCode::Cancelled;
-    if (m_fail)
+    if (m_fail || m_calls <= m_failFirst)
       return RouterResultCode::RouteNotFound;
     Checkpoints bent(CheckpointsGeometry{checkpoints.GetStart(), {-0.001, 0.001}, checkpoints.GetFinish()});
     RulerRouter ruler;
@@ -197,6 +201,7 @@ public:
 private:
   size_t & m_calls;
   bool m_fail;
+  size_t m_failFirst;
 };
 
 UNIT_TEST(WaterRouter_WalkingApproachUsesPedestrianGeometry)
@@ -373,7 +378,13 @@ UNIT_TEST(WaterRouter_InternalTransferHasNoStraightFallback)
              RouterResultCode::RouteNotFound,
          ());
     TEST(!result.IsValid(), ());
-    TEST_EQUAL(calls, configured ? 1 : 0, ());
+    if (configured)
+    {
+      TEST_GREATER(calls, 1, ());
+      TEST_LESS_OR_EQUAL(calls, 32, ());
+    }
+    else
+      TEST_EQUAL(calls, 0, ());
   }
 }
 
@@ -565,5 +576,77 @@ UNIT_TEST(WaterRouter_WiderWindowCancellation)
            RouterResultCode::Cancelled,
        ());
   TEST(!result.IsValid(), ());
+}
+UNIT_TEST(WaterRouter_TwoWalkingAccessesUsePedestrianGeometryOnceEach)
+{
+  size_t calls = 0;
+  WaterRouter router([](Checkpoints const &, RouterDelegate const &)
+  {
+    water::Geometry geometry;
+    geometry.m_complete = true;
+    geometry.m_hasSourceTopology = false;
+    geometry.m_lines = {{{{0.002, 0}}, {{0.018, 0}}}};
+    for (double x : {0.0, 0.02})
+    {
+      geometry.m_triangles.push_back({m2::PointD(x - 0.001, -0.001), {x + 0.001, -0.001}, {x + 0.001, 0.001}});
+      geometry.m_triangles.push_back({m2::PointD(x - 0.001, -0.001), {x + 0.001, 0.001}, {x - 0.001, 0.001}});
+    }
+    return geometry;
+  }, std::make_unique<WalkingStub>(calls));
+  RouterDelegate delegate;
+  RoutesResult result;
+  TEST(router.CalculateRoute(Checkpoints({0, 0}, {0.02, 0}), {}, false, false, delegate, result) ==
+           RouterResultCode::NoError,
+       ());
+  TEST_EQUAL(calls, 2, ());
+  Route const route(result.GetActive());
+  TEST_GREATER(route.GetWaterDistances()->m_waterMeters, 1500.0, ());
+  TEST_GREATER(route.GetWaterDistances()->m_landMeters, 400.0, ());
+  TEST_EQUAL(
+      std::count(route.GetPoly().GetPoints().begin(), route.GetPoly().GetPoints().end(), m2::PointD(-0.001, 0.001)), 2,
+      ());
+  TEST(!route.GetWaterDistances()->m_shortestConfirmed, ());
+}
+UNIT_TEST(WaterRouter_RetriesAnotherPedestrianTransfer)
+{
+  size_t calls = 0;
+  WaterRouter router([](Checkpoints const &, RouterDelegate const &) { return DisconnectedRivers(); },
+                     std::make_unique<WalkingStub>(calls, false, 1));
+  RouterDelegate delegate;
+  RoutesResult result;
+  TEST(router.CalculateRoute(Checkpoints({0, 0.002}, {0.004, 0.002}), {}, false, false, delegate, result) ==
+           RouterResultCode::NoError,
+       ());
+  TEST_EQUAL(calls, 2, ());
+  Route const route(result.GetActive());
+  auto const & points = route.GetPoly().GetPoints();
+  TEST(std::find(points.begin(), points.end(), m2::PointD(-0.001, 0.001)) != points.end(), ());
+}
+UNIT_TEST(WaterRouter_WiderWaterRoutePrecedesLocalWalkingProposal)
+{
+  size_t calls = 0, expanded = 0;
+  WaterRouter router(
+      [](Checkpoints const &, RouterDelegate const &)
+  {
+    auto geometry = DisconnectedRivers();
+    geometry.m_bounds = m2::RectD(-0.01, -0.01, 0.02, 0.02);
+    return geometry;
+  }, std::make_unique<WalkingStub>(calls), [&](Checkpoints const &, RouterDelegate const &)
+  {
+    ++expanded;
+    water::Geometry geometry;
+    geometry.m_complete = true;
+    geometry.m_bounds = m2::RectD(-0.01, -0.01, 0.02, 0.03);
+    geometry.m_lines = {{{{0, 0}}, {{0, 0.015}}, {{0.004, 0.015}}, {{0.004, 0}}}};
+    return geometry;
+  });
+  RouterDelegate delegate;
+  RoutesResult result;
+  TEST(router.CalculateRoute(Checkpoints({0, 0.002}, {0.004, 0.002}), {}, false, false, delegate, result) ==
+           RouterResultCode::NoError,
+       ());
+  TEST_EQUAL(expanded, 1, ());
+  TEST_EQUAL(calls, 0, ());
+  TEST_EQUAL(result.GetActive().GetWaterDistances()->m_landMeters, 0.0, ());
 }
 }  // namespace water_router_test

@@ -13,6 +13,7 @@
 #include <numeric>
 #include <queue>
 #include <set>
+#include <tuple>
 #include <utility>
 
 namespace routing::water
@@ -27,6 +28,8 @@ size_t constexpr kMaxTransferVertices = 2048;
 size_t constexpr kMaxTriangles = 65536;
 size_t constexpr kMaxVisibilityChecks = 4000000;
 size_t constexpr kMaxVisibilityTriangleVisits = 64000000;
+size_t constexpr kMaxWalkingCandidates = 4000000;
+size_t constexpr kMaxWaterConnections = 4000000;
 
 bool OnSide(m2::RectD const & bounds, Point const & point, size_t side)
 {
@@ -657,6 +660,254 @@ bool UnknownCouldShorten(Geometry const & geometry, Point const & from, Point co
   return std::any_of(geometry.m_unknownAreas.begin(), geometry.m_unknownAreas.end(), [&](auto const & rect)
   { return DistanceToUnknown(rect, from) + DistanceToUnknown(rect, to) <= distance; });
 }
+
+// Water is searched first. This sparse second graph connects stored river ends
+// and terminal walking access, allowing several portages without scanning every
+// endpoint pair or changing the pedestrian router.
+ResultCode FindWalkingPath(Graph const & graph, std::set<Point> const & shore, CancelledFn const & cancelled,
+                           Path & path, ProgressFn const & progress, WalkAllowedFn const & walkAllowed)
+{
+  auto const count = graph.m_points.size();
+  std::vector<size_t> components(count, count), stack;
+  for (size_t root = 0; root < count; ++root)
+  {
+    if (cancelled())
+      return ResultCode::Cancelled;
+    if (components[root] != count)
+      continue;
+    components[root] = root;
+    stack.push_back(root);
+    while (!stack.empty())
+    {
+      auto const node = stack.back();
+      stack.pop_back();
+      for (auto const & edge : graph.m_edges[node])
+        if (components[edge.m_target] == count)
+        {
+          components[edge.m_target] = root;
+          stack.push_back(edge.m_target);
+        }
+    }
+  }
+  std::vector<size_t> endpoints{0, 1};
+  m4::Tree<size_t> index;
+  for (size_t i = 2; i < count; ++i)
+  {
+    bool surfaceEnd = graph.m_geometry.m_hasSourceTopology && shore.contains(graph.m_points[i]);
+    if (surfaceEnd && graph.m_geometry.m_bounds)
+      for (size_t side = 0; side < 4; ++side)
+        surfaceEnd = surfaceEnd && !OnSide(*graph.m_geometry.m_bounds, graph.m_points[i], side);
+    if ((graph.m_lineEndpoints[i] || surfaceEnd) &&
+        !TouchesUnknown(graph.m_geometry, graph.m_points[i], graph.m_points[i]))
+      endpoints.push_back(i);
+  }
+  for (auto const node : endpoints)
+    index.Add(node, m2::RectD(graph.m_points[node], graph.m_points[node]));
+  index.Optimize();
+  struct WalkEdge
+  {
+    size_t m_to;
+    double m_distance;
+    bool m_enabled = true;
+    bool m_checked = false;
+  };
+  std::vector<std::vector<WalkEdge>> walking(count);
+  std::set<std::pair<size_t, size_t>> links;
+  size_t constexpr kMaxLinks = 131072;
+  size_t constexpr kNeighbors = 16;
+  size_t candidateChecks = 0;
+  for (size_t i = 0; i < endpoints.size(); ++i)
+  {
+    if (cancelled())
+      return ResultCode::Cancelled;
+    if (progress)
+      progress(0.7 + 0.15 * i / endpoints.size());
+    auto const from = endpoints[i];
+    std::vector<std::pair<double, size_t>> neighbors;
+    for (double const radius : {500.0, 2000.0, 5000.0, 20000.0, 80000.0, 320000.0, 1280000.0})
+    {
+      neighbors.clear();
+      index.ForEachInRect(mercator::RectByCenterXYAndSizeInMeters(graph.m_points[from], radius), [&](size_t to)
+      {
+        if (++candidateChecks > kMaxWalkingCandidates)
+          return;
+        if (from == to || components[from] == components[to] || (from < 2 && to < 2) ||
+            graph.m_points[from] == graph.m_points[to])
+          return;
+        auto const distance = mercator::DistanceOnEarth(graph.m_points[from], graph.m_points[to]);
+        if (distance > radius || ((from < 2 || to < 2) && distance > 5000.0))
+          return;
+        neighbors.emplace_back(distance, to);
+      });
+      if (candidateChecks > kMaxWalkingCandidates)
+        return ResultCode::Unavailable;
+      std::sort(neighbors.begin(), neighbors.end());
+      // Several ends per component allow retrying an inaccessible landing.
+      std::map<size_t, size_t> perComponent;
+      std::vector<std::pair<double, size_t>> selected;
+      for (auto const & neighbor : neighbors)
+        if (perComponent[components[neighbor.second]]++ < 4)
+        {
+          selected.push_back(neighbor);
+          if (selected.size() == kNeighbors)
+            break;
+        }
+      neighbors = std::move(selected);
+      if (neighbors.size() == kNeighbors || (radius >= 5000.0 && (!neighbors.empty() || from < 2)))
+        break;
+    }
+    for (auto const & [distance, to] : neighbors)
+    {
+      auto const pair = std::minmax(from, to);
+      if (links.contains(pair) || TouchesUnknown(graph.m_geometry, graph.m_points[from], graph.m_points[to]))
+        continue;
+      if (links.size() == kMaxLinks)
+        return ResultCode::Unavailable;
+      links.insert(pair);
+      walking[from].push_back({to, distance});
+      walking[to].push_back({from, distance});
+    }
+  }
+  // Search river endpoints rather than duplicating the full mesh for each
+  // walking state. Water distances inside a component are calculated lazily.
+  // Alternating water/walk states prevent replacing a paddle with chained walks.
+  using Cost = std::tuple<size_t, double, double>;
+  Cost const infinity{std::numeric_limits<size_t>::max(), kInfinity, kInfinity};
+  auto const states = endpoints.size() * 4;
+  std::vector<size_t> positions(count, endpoints.size());
+  for (size_t i = 0; i < endpoints.size(); ++i)
+    positions[endpoints[i]] = i;
+  std::vector<std::vector<std::pair<size_t, double>>> water(endpoints.size());
+  std::vector<bool> waterReady(endpoints.size(), false);
+  size_t waterLinks = 0;
+  struct Previous
+  {
+    size_t m_state;
+    size_t m_walk;
+  };
+  size_t constexpr kMaxWalkingChecks = 32;
+  size_t checks = 0;
+  for (;;)
+  {
+    std::vector<Cost> distances(states, infinity);
+    std::vector<Previous> previous(states, {states, count});
+    using Item = std::pair<Cost, size_t>;
+    std::priority_queue<Item, std::vector<Item>, std::greater<Item>> queue;
+    for (size_t const state : {size_t{0}, size_t{1}})
+    {
+      distances[state] = {0, 0.0, 0.0};
+      queue.emplace(distances[state], state);
+    }
+    size_t goal = states;
+    while (!queue.empty())
+    {
+      if (cancelled())
+        return ResultCode::Cancelled;
+      auto const [cost, state] = queue.top();
+      queue.pop();
+      if (cost != distances[state])
+        continue;
+      auto const endpoint = state / 4;
+      auto const node = endpoints[endpoint];
+      bool const hasWater = (state & 2) != 0;
+      bool const paddleNext = (state & 1) != 0;
+      if (node == 1 && hasWater)
+      {
+        goal = state;
+        break;
+      }
+      auto const relax = [&](size_t to, double distance, size_t walk)
+      {
+        bool const land = walk != count;
+        auto const nextState = positions[to] * 4 + ((hasWater || (!land && distance > 0.0)) ? 2 : 0) + (land ? 1 : 0);
+        Cost const next{std::get<0>(cost) + (land && (node < 2 || to < 2)), std::get<1>(cost) + (land ? distance : 0.0),
+                        std::get<2>(cost) + distance};
+        if (next < distances[nextState])
+        {
+          distances[nextState] = next;
+          previous[nextState] = {state, walk};
+          queue.emplace(next, nextState);
+        }
+      };
+      if (paddleNext)
+      {
+        if (!waterReady[endpoint])
+        {
+          auto const reached = Dijkstra(graph, node, cancelled);
+          if (cancelled())
+            return ResultCode::Cancelled;
+          for (size_t j = 0; j < endpoints.size(); ++j)
+            if (j != endpoint && reached.m_distances[endpoints[j]] != kInfinity)
+            {
+              if (++waterLinks > kMaxWaterConnections)
+                return ResultCode::Unavailable;
+              water[endpoint].emplace_back(endpoints[j], reached.m_distances[endpoints[j]]);
+            }
+          waterReady[endpoint] = true;
+        }
+        for (auto const & [to, distance] : water[endpoint])
+          relax(to, distance, count);
+      }
+      else
+        for (size_t j = 0; j < walking[node].size(); ++j)
+          if (walking[node][j].m_enabled)
+            relax(walking[node][j].m_to, walking[node][j].m_distance, j);
+    }
+    if (goal == states)
+      return ResultCode::Unavailable;
+    std::vector<size_t> nodes;
+    for (auto state = goal; state != states; state = previous[state].m_state)
+      nodes.push_back(state);
+    std::reverse(nodes.begin(), nodes.end());
+    bool retry = false;
+    for (size_t i = 1; i < nodes.size(); ++i)
+    {
+      auto const to = endpoints[nodes[i] / 4];
+      auto const from = endpoints[nodes[i - 1] / 4];
+      auto const walk = previous[nodes[i]].m_walk;
+      if (walk == count || walking[from][walk].m_checked || !walkAllowed)
+        continue;
+      if (checks++ == kMaxWalkingChecks)
+        return ResultCode::Unavailable;
+      auto & edge = walking[from][walk];
+      edge.m_checked = true;
+      edge.m_enabled = walkAllowed(graph.m_points[from], graph.m_points[to]);
+      if (cancelled())
+        return ResultCode::Cancelled;
+      if (!edge.m_enabled)
+      {
+        retry = true;
+        break;
+      }
+    }
+    if (retry)
+      continue;
+    path.m_shortestConfirmed = false;
+    Append(path, graph.m_points.front(), false);
+    for (size_t i = 1; i < nodes.size(); ++i)
+    {
+      auto const to = endpoints[nodes[i] / 4];
+      auto const from = endpoints[nodes[i - 1] / 4];
+      if (previous[nodes[i]].m_walk != count)
+        Append(path, graph.m_points[to], true);
+      else
+      {
+        auto const reached = Dijkstra(graph, from, cancelled);
+        auto const waterNodes = Trace(reached, to);
+        if (cancelled())
+        {
+          path = {};
+          return ResultCode::Cancelled;
+        }
+        for (auto it = waterNodes.rbegin(); it != waterNodes.rend(); ++it)
+          Append(path, graph.m_points[*it], false);
+      }
+    }
+    if (progress)
+      progress(1.0);
+    return ResultCode::Success;
+  }
+}
 }  // namespace
 
 std::optional<Point> FindApproachPoint(Geometry const & geometry, Point const & start, CancelledFn const & cancelled)
@@ -672,7 +923,7 @@ std::optional<Point> FindApproachPoint(Geometry const & geometry, Point const & 
 }
 ResultCode FindPath(Geometry const & geometry, Point const & start, Point const & finish, bool projectStart,
                     CancelledFn const & cancelled, Path & path, ProgressFn const & progress,
-                    bool allowUnconfirmedTransfer)
+                    bool allowUnconfirmedTransfer, WalkAllowedFn const & walkAllowed)
 {
   path = {};
   auto const report = [&](double value)
@@ -1008,6 +1259,8 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
 
   // Search the local water graph before considering a walking transfer.
   report(0.7);
+  if (allowUnconfirmedTransfer)
+    return FindWalkingPath(graph, shore, cancelled, path, progress, walkAllowed);
   auto const backwardComponent = Dijkstra(graph, 1, cancelled);
   auto const backward = SearchWater(graph, 0, visibility, backwardComponent, cancelled,
                                     [&](double value) { report(0.7 + 0.15 * value); });
@@ -1016,22 +1269,16 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
   if (backward.m_budgetExceeded)
     return ResultCode::Unavailable;
   bool const openFrontier = ReachesFrontier(geometry, graph, 0) || ReachesFrontier(geometry, graph, 1);
-  if (openFrontier && !allowUnconfirmedTransfer && geometry.m_portageAreas.empty())
+  if (openFrontier && geometry.m_portageAreas.empty())
     return ResultCode::Unavailable;
   std::vector<size_t> transfers;
   for (size_t i = 0; i < graph.m_points.size(); ++i)
     if ((graph.m_lineEndpoints[i] || (geometry.m_hasSourceTopology && surface[i])) &&
         (forward.m_distances[i] != kInfinity || backward.m_distances[i] != kInfinity))
       transfers.push_back(i);
-  if (allowUnconfirmedTransfer)
-  {
-    transfers.push_back(0);
-    transfers.push_back(1);
-  }
   if (transfers.size() > kMaxTransferVertices)
     return ResultCode::Unavailable;
-  double best = kInfinity, bestWalking = kInfinity;
-  bool bestTerminal = false;
+  double best = kInfinity;
   size_t gapFrom = 0, gapTo = 1;
   Interval gap;
   size_t transferCount = 0;
@@ -1046,12 +1293,6 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
     {
       if (backward.m_distances[b] == kInfinity)
         continue;
-      bool const terminal = allowUnconfirmedTransfer && (a == 0 || b == 1);
-      // A selected checkpoint may need a short walking approach or exit even
-      // when its own water component has no stored river endpoints.
-      if (terminal && ((a == 0 && b == 1) || mercator::DistanceOnEarth(graph.m_points[a], graph.m_points[b]) > 5000.0 ||
-                       forward.m_distances[a] + backward.m_distances[b] == 0.0))
-        continue;
       // A mapped underground break permits a local walking bypass even when
       // the bounded water search cannot exclude a distant water alternative.
       auto const knownPortage =
@@ -1060,15 +1301,12 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
         return Intersects(rect, graph.m_points[a], graph.m_points[b]) &&
                DistanceToUnknown(rect, graph.m_points[a]) <= 50.0 && DistanceToUnknown(rect, graph.m_points[b]) <= 50.0;
       });
-      if (openFrontier && !allowUnconfirmedTransfer && !knownPortage)
+      if (openFrontier && !knownPortage)
         continue;
       // A walking bypass keeps the actual river endpoints, including endpoints
       // inside a water surface; never trim it to arbitrary shoreline points.
-      // The pedestrian router will supply the walking geometry. A straight
-      // endpoint estimate crossing another known lake does not invalidate it.
-      bool const endpointWalk = allowUnconfirmedTransfer && (!geometry.m_hasSourceTopology || terminal);
-      auto const coverage = knownPortage || endpointWalk ? std::vector<Interval>{}
-                                                         : Coverage(geometry, graph.m_points[a], graph.m_points[b]);
+      auto const coverage =
+          knownPortage ? std::vector<Interval>{} : Coverage(geometry, graph.m_points[a], graph.m_points[b]);
       double begin = 0.0, end = 1.0;
       size_t index = 0;
       if (!coverage.empty() && coverage.front().first == 0.0)
@@ -1085,22 +1323,13 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
         continue;
       if (graph.m_points[a] == graph.m_points[b])
         continue;
-      // Keep the full endpoint-to-endpoint walk when a stored endpoint lies
-      // inside a surface. Pedestrian routing validates the actual shore access.
-      if (endpointWalk)
-      {
-        begin = 0.0;
-        end = 1.0;
-      }
       // Display geometry permits only stored line endpoints, never shoreline cuts.
       if (!geometry.m_hasSourceTopology && (begin != 0.0 || end != 1.0))
         continue;
       // River transfers use source line endpoints, never checkpoints or extraction cuts.
       // Surface transfers use the actual shoreline intersections of the candidate ray.
-      if ((begin == 0.0 && !(terminal && a == 0) && !graph.m_lineEndpoints[a] &&
-           !IsSurfacePoint(geometry, graph.m_points[a])) ||
-          (end == 1.0 && !(terminal && b == 1) && !graph.m_lineEndpoints[b] &&
-           !IsSurfacePoint(geometry, graph.m_points[b])))
+      if ((begin == 0.0 && !graph.m_lineEndpoints[a] && !IsSurfacePoint(geometry, graph.m_points[a])) ||
+          (end == 1.0 && !graph.m_lineEndpoints[b] && !IsSurfacePoint(geometry, graph.m_points[b])))
         continue;
       auto const delta = graph.m_points[b] - graph.m_points[a];
       auto const exit = begin == 0.0 ? graph.m_points[a] : graph.m_points[a] + delta * begin;
@@ -1110,26 +1339,16 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
       auto const distance =
           forward.m_distances[a] + backward.m_distances[b] + mercator::DistanceOnEarth(graph.m_points[a], exit) +
           mercator::DistanceOnEarth(exit, entry) + mercator::DistanceOnEarth(entry, graph.m_points[b]);
-      auto const walkingDistance = mercator::DistanceOnEarth(exit, entry);
-      // Keep water at both ends when an internal transfer is available. For a
-      // terminal walk, prefer the nearest river endpoint over a cheap route
-      // consisting almost entirely of walking.
-      bool const better = terminal
-                            ? ((best == kInfinity || bestTerminal) &&
-                               (walkingDistance < bestWalking || (walkingDistance == bestWalking && distance < best)))
-                            : (bestTerminal || distance < best);
-      if (better)
+      if (distance < best)
       {
         best = distance;
-        bestWalking = walkingDistance;
-        bestTerminal = terminal;
         gapFrom = a;
         gapTo = b;
         gap = {begin, end};
       }
     }
   }
-  if (best == kInfinity || (!allowUnconfirmedTransfer && UnknownCouldShorten(geometry, from.m_point, to.m_point, best)))
+  if (best == kInfinity || UnknownCouldShorten(geometry, from.m_point, to.m_point, best))
     return ResultCode::Unavailable;
 
   path.m_shortestConfirmed = false;

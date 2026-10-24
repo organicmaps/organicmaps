@@ -80,7 +80,10 @@ bool AddSurface(std::vector<::water::Record> const & records, m2::RectD const & 
       points += ring.size();
       if (ring.size() > 1 && ring.front() == ring.back())
         ring.pop_back();
-      if (ring.size() < 3 || m2::robust::CheckPolygonSelfIntersections(ring.begin(), ring.end()))
+      bool hasArea = false;
+      for (size_t i = 2; i < ring.size(); ++i)
+        hasArea = hasArea || m2::robust::OrientedS(ring[0], ring[i - 1], ring[i]) != 0.0;
+      if (ring.size() < 3 || !hasArea || m2::robust::CheckPolygonSelfIntersections(ring.begin(), ring.end()))
         valid = false;
     }
     if (!valid)
@@ -347,6 +350,9 @@ water::Geometry WaterGeometryProvider::ExtractFeatures(DataSource const & dataSo
         auto const clipped = Clip({a, b, c}, bounds);
         for (size_t i = 2; i < clipped.size(); ++i)
         {
+          // Quantization and clipping can collapse a triangle to a line.
+          if (m2::robust::OrientedS(clipped[0], clipped[i - 1], clipped[i]) == 0.0)
+            continue;
           if (++triangles > kMaxTriangles)
           {
             exceeded = true;

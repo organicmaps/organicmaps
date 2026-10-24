@@ -27,7 +27,8 @@ namespace water_reported_routes_test
 {
 // Run with ordinary downloaded MWMs in --data_path; no generated water section is required.
 void CheckRoute(std::string const & name, ms::LatLon const & start, ms::LatLon const & finish, bool myPosition,
-                std::vector<std::string> const & countries)
+                std::vector<std::string> const & countries, bool waterOnly = false,
+                std::vector<ms::LatLon> const & stops = {})
 {
   classificator::Load();
   FrozenDataSource data;
@@ -65,7 +66,11 @@ void CheckRoute(std::string const & name, ms::LatLon const & start, ms::LatLon c
   { return geometry(checkpoints, delegate, 0); }, std::move(pedestrian),
                               [&](auto const & checkpoints, auto const & delegate)
   { return geometry(checkpoints, delegate, 2000); });
-  routing::Checkpoints checkpoints(mercator::FromLatLon(start), mercator::FromLatLon(finish));
+  routing::CheckpointsGeometry points{mercator::FromLatLon(start)};
+  for (auto const & stop : stops)
+    points.push_back(mercator::FromLatLon(stop));
+  points.push_back(mercator::FromLatLon(finish));
+  routing::Checkpoints checkpoints(std::move(points));
   checkpoints.SetStartIsMyPosition(myPosition);
   routing::RouterDelegate delegate;
   int lastProgress = -1;
@@ -88,9 +93,20 @@ void CheckRoute(std::string const & name, ms::LatLon const & start, ms::LatLon c
                      (name));
   TEST_LESS_OR_EQUAL(mercator::DistanceOnEarth(route.GetPoly().GetPoints().back(), checkpoints.GetFinish()), 0.1,
                      (name));
+  TEST_EQUAL(route.GetSubrouteCount(), stops.size() + 1, (name));
+  for (size_t i = 0; i < route.GetSubrouteCount(); ++i)
+  {
+    auto const & subroute = route.GetSubrouteAttrs(i);
+    TEST_LESS_OR_EQUAL(mercator::DistanceOnEarth(subroute.GetStart().GetPoint(), checkpoints.GetPoints()[i]), 0.1,
+                       (name, i));
+    TEST_LESS_OR_EQUAL(mercator::DistanceOnEarth(subroute.GetFinish().GetPoint(), checkpoints.GetPoints()[i + 1]), 0.1,
+                       (name, i));
+  }
   auto const distances = route.GetWaterDistances();
   TEST(distances.has_value(), (name));
   TEST_GREATER(distances->m_waterMeters, 0.0, (name));
+  if (waterOnly)
+    TEST_EQUAL(distances->m_landMeters, 0.0, (name));
   LOG(LINFO, (name, "distances", distances->m_waterMeters, distances->m_landMeters, distances->m_shortestConfirmed));
 }
 
@@ -159,5 +175,121 @@ UNIT_TEST(WaterReported_AlmereLelystad)
 {
   CheckRoute("AlmereLelystad", {52.35482820, 5.17957070}, {52.45889844, 5.41338676}, true,
              {"Netherlands_Flevoland", "Netherlands_North Holland_Amsterdam", "Netherlands_Utrecht_Amersfoort"});
+}
+UNIT_TEST(WaterLong_NorthNearKeersluisplas)
+{
+  CheckRoute("NorthNearKeersluisplas", {52.40677214, 5.2176028}, {52.45889844, 5.41338676}, false,
+             {"Netherlands_Flevoland", "Netherlands_North Holland_Amsterdam", "Netherlands_Utrecht_Amersfoort"});
+}
+UNIT_TEST(WaterLong_NorthNearKeersluisplasReverse)
+{
+  CheckRoute("NorthNearKeersluisplasReverse", {52.45889844, 5.41338676}, {52.40677214, 5.2176028}, false,
+             {"Netherlands_Flevoland", "Netherlands_North Holland_Amsterdam", "Netherlands_Utrecht_Amersfoort"});
+}
+UNIT_TEST(WaterLong_NorthMiddleKeersluisplas)
+{
+  CheckRoute("NorthMiddleKeersluisplas", {52.41585159, 5.232504}, {52.45889844, 5.41338676}, false,
+             {"Netherlands_Flevoland", "Netherlands_North Holland_Amsterdam", "Netherlands_Utrecht_Amersfoort"});
+}
+UNIT_TEST(WaterLong_NorthMiddleKeersluisplasReverse)
+{
+  CheckRoute("NorthMiddleKeersluisplasReverse", {52.45889844, 5.41338676}, {52.41585159, 5.232504}, false,
+             {"Netherlands_Flevoland", "Netherlands_North Holland_Amsterdam", "Netherlands_Utrecht_Amersfoort"});
+}
+UNIT_TEST(WaterLong_GooimeerKeersluisplas)
+{
+  CheckRoute("GooimeerKeersluisplas", {52.31592888, 5.18930914}, {52.45889844, 5.41338676}, false,
+             {"Netherlands_Flevoland", "Netherlands_North Holland_Amsterdam", "Netherlands_Utrecht_Amersfoort"});
+}
+UNIT_TEST(WaterLong_GooimeerKeersluisplasReverse)
+{
+  CheckRoute("GooimeerKeersluisplasReverse", {52.45889844, 5.41338676}, {52.31592888, 5.18930914}, false,
+             {"Netherlands_Flevoland", "Netherlands_North Holland_Amsterdam", "Netherlands_Utrecht_Amersfoort"});
+}
+UNIT_TEST(WaterLong_NorthFarKeersluisplas)
+{
+  CheckRoute("NorthFarKeersluisplas", {52.42719742, 5.21305839}, {52.45889844, 5.41338676}, false,
+             {"Netherlands_Flevoland", "Netherlands_North Holland_Amsterdam", "Netherlands_Utrecht_Amersfoort"});
+}
+UNIT_TEST(WaterLong_NorthFarKeersluisplasReverse)
+{
+  CheckRoute("NorthFarKeersluisplasReverse", {52.45889844, 5.41338676}, {52.42719742, 5.21305839}, false,
+             {"Netherlands_Flevoland", "Netherlands_North Holland_Amsterdam", "Netherlands_Utrecht_Amersfoort"});
+}
+UNIT_TEST(WaterLong_EastGooimeer)
+{
+  CheckRoute("EastGooimeer", {52.38056521, 5.26966545}, {52.31592888, 5.18930914}, false,
+             {"Netherlands_Flevoland", "Netherlands_North Holland_Amsterdam", "Netherlands_Utrecht_Amersfoort"});
+}
+UNIT_TEST(WaterLong_EastGooimeerReverse)
+{
+  CheckRoute("EastGooimeerReverse", {52.31592888, 5.18930914}, {52.38056521, 5.26966545}, false,
+             {"Netherlands_Flevoland", "Netherlands_North Holland_Amsterdam", "Netherlands_Utrecht_Amersfoort"});
+}
+UNIT_TEST(WaterLong_WaterwayVistula)
+{
+  CheckRoute("WaterwayVistula", {53.9749579, 18.8647097}, {54.198981, 18.8999379}, false,
+             {"Poland_Pomeranian Voivodeship"}, true);
+}
+UNIT_TEST(WaterLong_WaterwayVistulaReverse)
+{
+  CheckRoute("WaterwayVistulaReverse", {54.198981, 18.8999379}, {53.9749579, 18.8647097}, false,
+             {"Poland_Pomeranian Voivodeship"}, true);
+}
+UNIT_TEST(WaterLong_WaterwaySlupia)
+{
+  CheckRoute("WaterwaySlupia", {54.3583798, 17.1117788}, {54.5063062, 17.0072827}, false,
+             {"Poland_Pomeranian Voivodeship"}, true);
+}
+UNIT_TEST(WaterLong_WaterwaySlupiaReverse)
+{
+  CheckRoute("WaterwaySlupiaReverse", {54.5063062, 17.0072827}, {54.3583798, 17.1117788}, false,
+             {"Poland_Pomeranian Voivodeship"}, true);
+}
+UNIT_TEST(WaterLong_WaterwayWda)
+{
+  CheckRoute("WaterwayWda", {53.8525277, 18.3609399}, {53.7366259, 18.3953419}, false,
+             {"Poland_Pomeranian Voivodeship"}, true);
+}
+UNIT_TEST(WaterLong_WaterwayWdaReverse)
+{
+  CheckRoute("WaterwayWdaReverse", {53.7366259, 18.3953419}, {53.8525277, 18.3609399}, false,
+             {"Poland_Pomeranian Voivodeship"}, true);
+}
+UNIT_TEST(WaterLong_WaterwayLupawa)
+{
+  CheckRoute("WaterwayLupawa", {54.3786698, 17.6154789}, {54.4685703, 17.4065777}, false,
+             {"Poland_Pomeranian Voivodeship"}, true);
+}
+UNIT_TEST(WaterLong_WaterwayLupawaReverse)
+{
+  CheckRoute("WaterwayLupawaReverse", {54.4685703, 17.4065777}, {54.3786698, 17.6154789}, false,
+             {"Poland_Pomeranian Voivodeship"}, true);
+}
+UNIT_TEST(WaterLong_WaterwayLageVaart)
+{
+  CheckRoute("WaterwayLageVaart", {52.4135251, 5.36596705}, {52.5227259, 5.68635155}, false,
+             {"Netherlands_Flevoland", "Netherlands_North Holland_Amsterdam", "Netherlands_Utrecht_Amersfoort"}, true);
+}
+UNIT_TEST(WaterLong_WaterwayLageVaartReverse)
+{
+  CheckRoute("WaterwayLageVaartReverse", {52.5227259, 5.68635155}, {52.4135251, 5.36596705}, false,
+             {"Netherlands_Flevoland", "Netherlands_North Holland_Amsterdam", "Netherlands_Utrecht_Amersfoort"}, true);
+}
+UNIT_TEST(WaterLong_WaterwayHogeVaart)
+{
+  CheckRoute("WaterwayHogeVaart", {52.425761, 5.62879403}, {52.5342217, 5.77420731}, false,
+             {"Netherlands_Flevoland", "Netherlands_North Holland_Amsterdam", "Netherlands_Utrecht_Amersfoort"}, true);
+}
+UNIT_TEST(WaterLong_WaterwayHogeVaartReverse)
+{
+  CheckRoute("WaterwayHogeVaartReverse", {52.5342217, 5.77420731}, {52.425761, 5.62879403}, false,
+             {"Netherlands_Flevoland", "Netherlands_North Holland_Amsterdam", "Netherlands_Utrecht_Amersfoort"}, true);
+}
+UNIT_TEST(WaterLong_CheckpointsChain)
+{
+  CheckRoute("CheckpointsChain", {52.35482820, 5.17957070}, {52.31592888, 5.18930914}, true,
+             {"Netherlands_Flevoland", "Netherlands_North Holland_Amsterdam", "Netherlands_Utrecht_Amersfoort"}, false,
+             {{52.40677214, 5.21760280}, {52.45889844, 5.41338676}});
 }
 }  // namespace water_reported_routes_test
