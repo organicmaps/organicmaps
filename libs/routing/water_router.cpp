@@ -9,6 +9,33 @@
 
 namespace routing
 {
+namespace
+{
+RouterResultCode Walk(IRouter & pedestrian, m2::PointD const & from, m2::PointD const & to,
+                      RouterDelegate const & delegate, ProgressCallback const & progress,
+                      std::vector<m2::PointD> & points)
+{
+  RouterDelegate walkingDelegate(delegate.GetCancellable());
+  walkingDelegate.SetProgressCallback(progress);
+  walkingDelegate.SetPointCheckCallback([&](ms::LatLon const & point) { delegate.OnPointCheck(point); });
+  RoutesResult walking;
+  auto const code = pedestrian.CalculateRoute(Checkpoints(from, to), {}, false, false, walkingDelegate, walking);
+  if (delegate.IsCancelled())
+    return RouterResultCode::Cancelled;
+  if (code != RouterResultCode::NoError)
+    return code;
+  if (!walking.IsValid())
+    return RouterResultCode::RouteNotFound;
+  Route const route(walking.GetActive());
+  points = route.GetPoly().GetPoints();
+  if (points.size() < 2 || mercator::DistanceOnEarth(points.front(), from) > 0.1 ||
+      mercator::DistanceOnEarth(points.back(), to) > 0.1)
+    return RouterResultCode::RouteNotFound;
+  points.front() = from;
+  points.back() = to;
+  return RouterResultCode::NoError;
+}
+}  // namespace
 RouterResultCode WaterRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD const &, bool, bool,
                                              RouterDelegate const & delegate, RoutesResult & result)
 {
@@ -51,32 +78,21 @@ RouterResultCode WaterRouter::CalculateRoute(Checkpoints const & checkpoints, m2
       return RouterResultCode::Cancelled;
     if (!entry)
       return RouterResultCode::StartPointNotFound;
-    RouterDelegate walkingDelegate(delegate.GetCancellable());
-    walkingDelegate.SetProgressCallback([&](float value) { report(30.0 + 0.1 * value); });
-    walkingDelegate.SetPointCheckCallback([&](ms::LatLon const & point) { delegate.OnPointCheck(point); });
-    RoutesResult walking;
-    auto const code = m_pedestrian->CalculateRoute(Checkpoints(checkpointsPoints.front(), *entry), {}, false, false,
-                                                   walkingDelegate, walking);
-    if (cancelled())
-      return RouterResultCode::Cancelled;
+    auto const code = Walk(*m_pedestrian, checkpointsPoints.front(), *entry, delegate,
+                           [&](float value) { report(30.0 + 0.1 * value); }, approach);
     if (code != RouterResultCode::NoError)
       return code;
-    if (!walking.IsValid())
-      return RouterResultCode::RouteNotFound;
-    Route const walkingRoute(walking.GetActive());
-    approach = walkingRoute.GetPoly().GetPoints();
-    if (approach.size() < 2 || mercator::DistanceOnEarth(approach.front(), checkpointsPoints.front()) > 0.1 ||
-        mercator::DistanceOnEarth(approach.back(), *entry) > 0.1)
-      return RouterResultCode::RouteNotFound;
     checkpointsPoints.front() = *entry;
   }
   double const waterProgressStart = approach.empty() ? 30.0 : 40.0;
   for (size_t i = 1; i < checkpointsPoints.size(); ++i)
   {
+    auto const legProgress = [&](double value)
+    { report(waterProgressStart + (98.0 - waterProgressStart) * (i - 1 + value) / (checkpointsPoints.size() - 1)); };
     water::Path path;
     auto const code = water::FindPath(geometry, checkpointsPoints[i - 1], checkpointsPoints[i],
-                                      i == 1 && checkpoints.IsStartMyPosition(), cancelled, path, [&](double value)
-    { report(waterProgressStart + (98.0 - waterProgressStart) * (i - 1 + value) / (checkpointsPoints.size() - 1)); });
+                                      i == 1 && checkpoints.IsStartMyPosition(), cancelled, path,
+                                      [&](double value) { legProgress(0.85 * value); });
     if (code == water::ResultCode::Cancelled)
       return RouterResultCode::Cancelled;
     if (code == water::ResultCode::OutsideWater)
@@ -94,6 +110,46 @@ RouterResultCode WaterRouter::CalculateRoute(Checkpoints const & checkpoints, m2
     }
     if (code != water::ResultCode::Success)
       return RouterResultCode::RouteNotFound;
+    auto const gaps = std::count(path.m_landGaps.begin(), path.m_landGaps.end(), true);
+    if (gaps != 0)
+    {
+      if (!m_pedestrian)
+        return RouterResultCode::RouteNotFound;
+      auto const original = std::move(path);
+      path = {};
+      // The transfer was selected using a geometric lower bound. Its actual
+      // walking cost does not certify the best combination of river endpoints.
+      path.m_shortestConfirmed = false;
+      path.m_points.push_back(original.m_points.front());
+      auto const append = [&](m2::PointD const & point, bool land)
+      {
+        auto const & previous = path.m_points.back();
+        if (previous == point)
+          return;
+        auto const distance = mercator::DistanceOnEarth(previous, point);
+        (land ? path.m_landDistance : path.m_waterDistance) += distance;
+        path.m_points.push_back(point);
+        path.m_landGaps.push_back(land);
+      };
+      size_t processed = 0;
+      for (size_t j = 1; j < original.m_points.size(); ++j)
+      {
+        if (!original.m_landGaps[j - 1])
+        {
+          append(original.m_points[j], false);
+          continue;
+        }
+        std::vector<m2::PointD> walking;
+        auto const code = Walk(*m_pedestrian, original.m_points[j - 1], original.m_points[j], delegate, [&](float value)
+        { legProgress(0.85 + 0.15 * (processed + value / 100.0) / gaps); }, walking);
+        if (code != RouterResultCode::NoError)
+          return code;
+        for (size_t k = 1; k < walking.size(); ++k)
+          append(walking[k], true);
+        ++processed;
+      }
+    }
+    legProgress(1.0);
     if (i == 1 && !approach.empty())
     {
       approach.back() = path.m_points.front();

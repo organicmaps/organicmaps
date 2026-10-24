@@ -23,8 +23,11 @@ water coverage. River/surface transitions use actual intersections. Distances us
 mercator::DistanceOnEarth. Checkpoints retain their selected order.
 
 Connected water paths always take precedence over land shortcuts. Otherwise each
-checkpoint leg may contain one necessary straight land interval, minimizing total
-leg length. Line-only transfers use original source-way endpoints. Interior
+checkpoint leg may propose one endpoint transfer using a geometric lower bound.
+WaterRouter replaces that proposal with an actual pedestrian route. If walking
+fails, the leg fails without a straight-line fallback. Walking transfers are
+qualified as shortest-path-unconfirmed: endpoint selection uses the geometric
+bound, rather than evaluating pedestrian costs for every endpoint pair. Line-only transfers use original source-way endpoints. Interior
 vertices, selected points and extraction cuts are not transfer points. Surface
 transfers use shoreline intersections. Candidates crossing a third disconnected
 water component are rejected. Only the internal arrival marker required by shared
@@ -222,3 +225,10 @@ that qualification alongside water, land and total distances. The real IndexRout
 test reports 216.193 m of walking and 21,423.6 m of water (21,639.8 m total).
 A short control route from the same land start reports 216.193 m walking and
 303.541 m water, with shortest-path confirmation retained.
+Reported route checks on ordinary version 260714 maps: Roma
+(52.354819,5.179565 to 52.328613,5.232172) returns 199.071 m walking and
+10,077.1 m water. Arthur (54.614027,18.226024 to 54.606715,18.354427)
+returns 13,396 m water with shortest-path qualification on Poland_Pomeranian
+Voivodeship. The Polish MWM is checked against its catalog BLAKE3 hash before use.
+Both pass in the native real-map harness; phone-specific failures still require
+the installed APK version and error text to diagnose.
