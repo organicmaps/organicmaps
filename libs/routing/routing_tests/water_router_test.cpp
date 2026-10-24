@@ -491,4 +491,77 @@ UNIT_TEST(WaterRouter_LandCheckpointOutsideAccessLimit)
   TEST_EQUAL(calls, 0, ());
   TEST(!result.IsValid(), ());
 }
+water::Geometry WindowDetour(bool expanded)
+{
+  water::Geometry geometry;
+  geometry.m_complete = true;
+  geometry.m_bounds = m2::RectD(-0.01, -0.01, 0.02, expanded ? 0.05 : 0.02);
+  if (expanded)
+    geometry.m_lines = {{{{0, 0}, 1}, {{0, 0.04}, 2}, {{0.01, 0.04}, 3}, {{0.01, 0}, 4}}};
+  else
+    geometry.m_lines = {{{{0, 0}, 1}, {{0, 0.02}, 0, false}}, {{{0.01, 0.02}, 0, false}, {{0.01, 0}, 4}}};
+  return geometry;
+}
+
+UNIT_TEST(WaterRouter_RetriesUnavailableWaterInWiderWindow)
+{
+  size_t expandedCalls = 0;
+  WaterRouter router([](Checkpoints const &, RouterDelegate const &) { return WindowDetour(false); }, {},
+                     [&](Checkpoints const &, RouterDelegate const &)
+  {
+    ++expandedCalls;
+    return WindowDetour(true);
+  });
+  RouterDelegate delegate;
+  std::vector<float> progress;
+  delegate.SetProgressCallback([&](float value) { progress.push_back(value); });
+  RoutesResult result;
+  TEST(router.CalculateRoute(Checkpoints({0, 0}, {0.01, 0}), {}, false, false, delegate, result) ==
+           RouterResultCode::NoError,
+       ());
+  TEST_EQUAL(expandedCalls, 1, ());
+  TEST_GREATER(result.GetActive().GetWaterDistances()->m_waterMeters, 8000.0, ());
+  TEST_EQUAL(result.GetActive().GetWaterDistances()->m_landMeters, 0.0, ());
+  TEST(std::is_sorted(progress.begin(), progress.end()), ());
+  TEST_EQUAL(progress.back(), 100, ());
+}
+
+UNIT_TEST(WaterRouter_WiderWindowFailureDoesNotInventRoute)
+{
+  for (bool complete : {false, true})
+  {
+    size_t expandedCalls = 0;
+    WaterRouter router([](Checkpoints const &, RouterDelegate const &) { return WindowDetour(false); }, {},
+                       [&](Checkpoints const &, RouterDelegate const &)
+    {
+      ++expandedCalls;
+      auto geometry = WindowDetour(false);
+      geometry.m_complete = complete;
+      return geometry;
+    });
+    RouterDelegate delegate;
+    RoutesResult result;
+    TEST(router.CalculateRoute(Checkpoints({0, 0}, {0.01, 0}), {}, false, false, delegate, result) ==
+             RouterResultCode::RouteNotFound,
+         ());
+    TEST_EQUAL(expandedCalls, 1, ());
+    TEST(!result.IsValid(), ());
+  }
+}
+
+UNIT_TEST(WaterRouter_WiderWindowCancellation)
+{
+  RouterDelegate delegate;
+  WaterRouter router([](Checkpoints const &, RouterDelegate const &) { return WindowDetour(false); }, {},
+                     [&](Checkpoints const &, RouterDelegate const &)
+  {
+    delegate.Cancel();
+    return WindowDetour(true);
+  });
+  RoutesResult result;
+  TEST(router.CalculateRoute(Checkpoints({0, 0}, {0.01, 0}), {}, false, false, delegate, result) ==
+           RouterResultCode::Cancelled,
+       ());
+  TEST(!result.IsValid(), ());
+}
 }  // namespace water_router_test

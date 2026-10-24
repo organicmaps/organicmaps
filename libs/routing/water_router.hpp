@@ -11,9 +11,11 @@ public:
   // Runs on the routing worker. The provider must preserve topology and certify extraction completeness.
   using GeometryGetter = std::function<water::Geometry(Checkpoints const &, RouterDelegate const &)>;
 
-  explicit WaterRouter(GeometryGetter geometryGetter, std::unique_ptr<IRouter> pedestrian = {})
+  explicit WaterRouter(GeometryGetter geometryGetter, std::unique_ptr<IRouter> pedestrian = {},
+                       GeometryGetter expandedGeometryGetter = {})
     : m_geometryGetter(std::move(geometryGetter))
     , m_pedestrian(std::move(pedestrian))
+    , m_expandedGeometryGetter(std::move(expandedGeometryGetter))
   {}
 
   std::string GetName() const override { return "water-router"; }
@@ -34,5 +36,6 @@ public:
 private:
   GeometryGetter m_geometryGetter;
   std::unique_ptr<IRouter> m_pedestrian;
+  GeometryGetter m_expandedGeometryGetter;
 };
 }  // namespace routing

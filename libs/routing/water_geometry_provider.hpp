@@ -23,7 +23,8 @@ public:
     : m_dataSource(dataSource)
     , m_coverage(std::move(coverage))
   {}
-  water::Geometry GetGeometry(Checkpoints const & checkpoints, RouterDelegate const & delegate);
+  water::Geometry GetGeometry(Checkpoints const & checkpoints, RouterDelegate const & delegate,
+                              double extraMargin = 0.0);
   // Also used by deterministic section/provider integration tests.
   static water::Geometry Extract(::water::Reader const & reader, m2::RectD const & bounds,
                                  water::CancelledFn const & cancelled);

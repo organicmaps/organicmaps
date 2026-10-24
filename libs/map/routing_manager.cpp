@@ -535,7 +535,9 @@ void RoutingManager::SetRouterImpl(RouterType type)
       return m_callbacks.m_countryInfoGetter().GetLimitRectForLeaf(country);
     }, m_numMwmIDs, m_numMwmTree, m_routingSession, m_callbacks.m_dataSourceGetter());
     router = std::make_unique<WaterRouter>([provider](Checkpoints const & checkpoints, RouterDelegate const & delegate)
-    { return provider->GetGeometry(checkpoints, delegate); }, std::move(pedestrian));
+    { return provider->GetGeometry(checkpoints, delegate); }, std::move(pedestrian),
+                                           [provider](Checkpoints const & checkpoints, RouterDelegate const & delegate)
+    { return provider->GetGeometry(checkpoints, delegate, 1000.0); });
   }
   else
   {

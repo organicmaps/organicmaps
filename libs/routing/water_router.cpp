@@ -53,7 +53,7 @@ RouterResultCode WaterRouter::CalculateRoute(Checkpoints const & checkpoints, m2
       delegate.OnProgress(percent);
     }
   };
-  auto const geometry = m_geometryGetter(checkpoints, delegate);
+  auto geometry = m_geometryGetter(checkpoints, delegate);
   if (cancelled())
     return RouterResultCode::Cancelled;
   if (!geometry.m_complete)
@@ -71,6 +71,7 @@ RouterResultCode WaterRouter::CalculateRoute(Checkpoints const & checkpoints, m2
   std::vector<std::vector<m2::PointD>> approaches(checkpointsPoints.size());
   std::vector<std::vector<m2::PointD>> exits(checkpointsPoints.size());
   bool hasWalkingAccess = false;
+  bool expandedGeometryTried = false;
   for (size_t i = 0; m_pedestrian && i < checkpointsPoints.size(); ++i)
   {
     water::Path membership;
@@ -109,9 +110,23 @@ RouterResultCode WaterRouter::CalculateRoute(Checkpoints const & checkpoints, m2
     auto const legProgress = [&](double value)
     { report(waterProgressStart + (98.0 - waterProgressStart) * (i - 1 + value) / (checkpointsPoints.size() - 1)); };
     water::Path path;
-    auto const code = water::FindPath(geometry, checkpointsPoints[i - 1], checkpointsPoints[i],
-                                      i == 1 && checkpoints.IsStartMyPosition(), cancelled, path,
-                                      [&](double value) { legProgress(0.85 * value); });
+    auto code = water::FindPath(geometry, checkpointsPoints[i - 1], checkpointsPoints[i],
+                                i == 1 && checkpoints.IsStartMyPosition(), cancelled, path,
+                                [&](double value) { legProgress(0.85 * value); });
+    if (code == water::ResultCode::Unavailable && !expandedGeometryTried && m_expandedGeometryGetter)
+    {
+      expandedGeometryTried = true;
+      auto expanded = m_expandedGeometryGetter(checkpoints, delegate);
+      if (cancelled())
+        return RouterResultCode::Cancelled;
+      if (expanded.m_complete && expanded.m_bounds && geometry.m_bounds && expanded.m_bounds != geometry.m_bounds)
+      {
+        geometry = std::move(expanded);
+        code = water::FindPath(geometry, checkpointsPoints[i - 1], checkpointsPoints[i],
+                               i == 1 && checkpoints.IsStartMyPosition(), cancelled, path,
+                               [&](double value) { legProgress(0.85 * value); });
+      }
+    }
     if (code == water::ResultCode::Cancelled)
       return RouterResultCode::Cancelled;
     if (code == water::ResultCode::OutsideWater)
