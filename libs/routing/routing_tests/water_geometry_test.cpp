@@ -5,6 +5,7 @@
 #include "geometry/mercator.hpp"
 
 #include <algorithm>
+#include <limits>
 
 namespace water_geometry_test
 {
@@ -430,6 +431,83 @@ UNIT_TEST(Water_InteriorMeshDoesNotExhaustVisibilityBudget)
   TEST_EQUAL(path.m_landDistance, 0.0, ());
 }
 
+UNIT_TEST(Water_SubmergedRiverBendsDoNotExhaustVisibilityBudget)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  geometry.m_hasSourceTopology = false;
+  for (size_t x = 0; x < 3; ++x)
+    for (size_t y = 0; y < 3; ++y)
+      if (x != 1 || y != 1)
+        Rectangle(geometry, x, y, x + 1, y + 1);
+  // A detailed line inside a lake adds no obstacles or surface transitions.
+  auto & line = geometry.m_lines.emplace_back();
+  for (size_t row = 0; row < 60; ++row)
+    for (size_t column = 0; column < 80; ++column)
+    {
+      auto const x = row % 2 == 0 ? column : 79 - column;
+      line.push_back({P(0.1 + 0.8 * x / 79, 1.1 + 0.8 * row / 59)});
+    }
+  geometry.m_triangleIndex = std::make_shared<m4::Tree<size_t>>();
+  for (size_t i = 0; i < geometry.m_triangles.size(); ++i)
+  {
+    m2::RectD bounds;
+    for (auto const & point : geometry.m_triangles[i])
+      bounds.Add(point);
+    geometry.m_triangleIndex->Add(i, bounds);
+  }
+  geometry.m_triangleIndex->Optimize();
+  Path path;
+  auto const start = P(0.5, 1.5), finish = P(2.5, 1.5);
+  TEST(FindPath(geometry, start, finish, false, kNeverCancelled, path) == ResultCode::Success, ());
+  double best = std::numeric_limits<double>::max();
+  for (double y : {1.0, 2.0})
+    best = std::min(best, mercator::DistanceOnEarth(start, P(1, y)) + mercator::DistanceOnEarth(P(1, y), P(2, y)) +
+                              mercator::DistanceOnEarth(P(2, y), finish));
+  TEST_ALMOST_EQUAL_ABS(path.m_waterDistance, best, 1e-5, ());
+  TEST_EQUAL(path.m_landDistance, 0.0, ());
+  CheckAccounting(path);
+}
+UNIT_TEST(Water_UnrelatedFrontierCannotInvalidateConnectedRoute)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  geometry.m_bounds = m2::RectD(0, 0, 10, 10);
+  geometry.m_lines = {{{P(2, 2), 1}, {P(2, 6), 2}, {P(8, 6), 3}, {P(8, 2), 4}},
+                      {{P(2, 6), 2}, {P(2, 10), 5}},
+                      {{P(4, 0), 6}, {P(4, 0.1), 7}}};
+  // Only the distant top frontier is reachable from these checkpoints.
+  // The separate bottom waterway cannot supply a shorter outside excursion.
+  Path path;
+  TEST(FindPath(geometry, P(2, 2), P(8, 2), false, kNeverCancelled, path) == ResultCode::Success, ());
+  TEST_EQUAL(path.m_points, (std::vector<P>{P(2, 2), P(2, 6), P(8, 6), P(8, 2)}), ());
+  TEST_EQUAL(path.m_landDistance, 0.0, ());
+  CheckAccounting(path);
+}
+UNIT_TEST(Water_FrontierCostIncludesWaterDetours)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  geometry.m_bounds = m2::RectD(0, 0, 10, 10);
+  geometry.m_lines = {{{P(2, 2), 1}, {P(2, 6), 2}, {P(8, 6), 3}, {P(8, 2), 4}}, {{P(2, 6), 2}, {P(0, 6), 5}}};
+  // The straight-line bound via the left frontier is too optimistic. Reaching
+  // that frontier along water costs more than the selected connected route.
+  Path path;
+  TEST(FindPath(geometry, P(2, 2), P(8, 2), false, kNeverCancelled, path) == ResultCode::Success, ());
+  TEST_EQUAL(path.m_points, (std::vector<P>{P(2, 2), P(2, 6), P(8, 6), P(8, 2)}), ());
+  CheckAccounting(path);
+}
+
+UNIT_TEST(Water_CheaperFrontierStillRequiresMoreCoverage)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  geometry.m_bounds = m2::RectD(0, 0, 10, 10);
+  geometry.m_lines = {{{P(2, 2), 1}, {P(2, 6), 2}, {P(8, 6), 3}, {P(8, 2), 4}}, {{P(2, 2), 1}, {P(0, 2), 5}}};
+  Path path;
+  TEST(FindPath(geometry, P(2, 2), P(8, 2), false, kNeverCancelled, path) == ResultCode::Unavailable, ());
+  TEST(path.m_points.empty(), ());
+}
 UNIT_TEST(Water_UnknownGapCannotJustifyLongerTransfer)
 {
   Geometry geometry;
