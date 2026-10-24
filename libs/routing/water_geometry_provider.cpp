@@ -22,7 +22,7 @@ namespace
 using Point = m2::PointD;
 size_t constexpr kMaxInputPoints = 16384;
 size_t constexpr kMaxSurfacePoints = 4096;
-size_t constexpr kMaxTriangles = 16384;
+size_t constexpr kMaxTriangles = 32768;
 size_t constexpr kMaxStandardMaps = 16;
 
 // Clip a convex contour against a rectangle. Intersections use a canonical edge
@@ -384,10 +384,11 @@ water::Geometry WaterGeometryProvider::GetGeometry(Checkpoints const & checkpoin
       return Extract(*reader, bounds, cancelled);
   }
   std::vector<std::vector<MwmSet::MwmId>> mapGroups;
-  for (auto const & id : standardMaps)
-    mapGroups.push_back({id});
+  // Prefer combined coverage before clipping a window to a single map.
   if (standardMaps.size() > 1 && standardMaps.size() <= kMaxStandardMaps && m_multiCoverage)
     mapGroups.push_back(standardMaps);
+  for (auto const & id : standardMaps)
+    mapGroups.push_back({id});
   // Large fixed margins collect unrelated lakes and may cross a map-region
   // boundary. Keep standard-map extraction local; shrink only on extraction failure.
   for (double localMargin = std::min(margin, 3000.0 + extraMargin);; localMargin = std::max(250.0, localMargin * 0.5))

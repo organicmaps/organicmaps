@@ -24,7 +24,7 @@ using Interval = std::pair<double, double>;
 double constexpr kInfinity = std::numeric_limits<double>::max();
 size_t constexpr kMaxGraphVertices = 65536;
 size_t constexpr kMaxTransferVertices = 2048;
-size_t constexpr kMaxTriangles = 16384;
+size_t constexpr kMaxTriangles = 32768;
 size_t constexpr kMaxVisibilityChecks = 4000000;
 size_t constexpr kMaxVisibilityTriangleVisits = 64000000;
 

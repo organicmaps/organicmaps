@@ -539,7 +539,7 @@ void RoutingManager::SetRouterImpl(RouterType type)
     router = std::make_unique<WaterRouter>([provider](Checkpoints const & checkpoints, RouterDelegate const & delegate)
     { return provider->GetGeometry(checkpoints, delegate); }, std::move(pedestrian),
                                            [provider](Checkpoints const & checkpoints, RouterDelegate const & delegate)
-    { return provider->GetGeometry(checkpoints, delegate, 1000.0); });
+    { return provider->GetGeometry(checkpoints, delegate, 2000.0); });
   }
   else
   {

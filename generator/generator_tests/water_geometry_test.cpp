@@ -306,6 +306,11 @@ UNIT_TEST(WaterGenerator_StandardMapsShareWaterOnlyWithCombinedCoverage)
        ());
   TEST_EQUAL(path.m_landDistance, 0.0, ());
   TEST_GREATER(path.m_waterDistance, 0.0, ());
+  // Even with both checkpoints on one map, a detour may use its neighbor.
+  auto const nearSeam = provider.GetGeometry(routing::Checkpoints(P(0.997, 0.5), P(0.999, 0.5)), delegate);
+  TEST(nearSeam.m_complete, ());
+  TEST(nearSeam.m_bounds.has_value(), ());
+  TEST_GREATER(nearSeam.m_bounds->maxX(), 1.0, ());
   TEST(!routing::WaterGeometryProvider::ExtractFeatures(data, std::vector<MwmSet::MwmId>{leftId, rightId},
                                                         {0.4, 0.4, 1.6, 0.6}, [] { return true; })
             .m_complete,
