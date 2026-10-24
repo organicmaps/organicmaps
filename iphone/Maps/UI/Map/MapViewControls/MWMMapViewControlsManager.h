@@ -43,6 +43,9 @@ typedef NS_ENUM(NSUInteger, TrackRecordingButtonState) {
 
 - (void)setTrackRecordingButtonState:(TrackRecordingButtonState)state;
 
+/// Unlike the menu button, a link never closes the menu: an open menu highlights the requested item instead.
+- (void)openMenuFromDeepLink;
+
 #pragma mark - MWMNavigationDashboardManager
 
 - (void)onRoutePrepare;
