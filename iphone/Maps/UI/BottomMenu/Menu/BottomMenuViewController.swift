@@ -47,7 +47,20 @@ final class BottomMenuViewController: MWMViewController {
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
+    highlightCellIfNeeded()
+  }
+
+  /// Highlights the item requested by a link that arrives while the menu is open.
+  @objc func highlightRequestedItem() {
+    highlightCellIfNeeded()
+  }
+
+  private func highlightCellIfNeeded() {
     if let cellToHighlight = presenter?.cellToHighlightIndexPath() {
+      if tableView.cellForRow(at: cellToHighlight) == nil {
+        tableView.scrollToRow(at: cellToHighlight, at: .middle, animated: false)
+        tableView.layoutIfNeeded()
+      }
       tableView.cellForRow(at: cellToHighlight)?.highlight()
     }
   }

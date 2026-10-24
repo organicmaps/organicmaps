@@ -23,7 +23,6 @@ class BottomMenuPresenter: NSObject {
   private let sections: [Sections]
   private let menuCells: [CellType]
   private let trackRecorder = TrackRecordingManager.shared
-  private var cellToHighlight: CellType?
   private let mapsStorage: Storage
   private let countryId: String?
   private let shouldUpdateMapToContribute: Bool
@@ -36,7 +35,6 @@ class BottomMenuPresenter: NSObject {
     self.sections = sections
     let disableDonate = Settings.donateUrl() == nil
     menuCells = CellType.allCases.filter { disableDonate ? $0 != .donate : true }
-    cellToHighlight = Self.getCellToHighlight()
     let mapsStorage = Storage.shared()
     self.mapsStorage = mapsStorage
     countryId = mapsStorage.countryForViewportCenter()
@@ -64,7 +62,7 @@ extension BottomMenuPresenter: BottomMenuPresenterProtocol {
 
   func cellToHighlightIndexPath() -> IndexPath? {
     // Highlighting is enabled only for the .items section.
-    guard let cellToHighlight,
+    guard let cellToHighlight = Self.getCellToHighlight(),
           let sectionIndex = sections.firstIndex(of: .items),
           let cellIndex = menuCells.firstIndex(of: cellToHighlight) else { return nil }
     return IndexPath(row: cellIndex, section: sectionIndex)

@@ -376,6 +376,26 @@ NSString * const kMapToCategorySelectorSegue = @"MapToCategorySelectorSegue";
   }
 }
 
+- (void)openMenuFromDeepLink
+{
+  switch (_menuState)
+  {
+  case MWMBottomMenuStateInactive: self.menuState = MWMBottomMenuStateActive; break;
+  case MWMBottomMenuStateActive: [(BottomMenuViewController *)_menuController highlightRequestedItem]; break;
+  case MWMBottomMenuStateLayers:
+    // The layers sheet has no menu items, so replace it with the menu.
+    [_menuController dismissViewControllerAnimated:NO completion:nil];
+    _menuController = nil;
+    self.menuState = MWMBottomMenuStateActive;
+    break;
+  case MWMBottomMenuStateHidden:
+    // The controls are hidden in the full screen mode or while adding a place. Keep them hidden and drop the
+    // highlight so the next menu opening skips it.
+    (void)[DeepLinkHandler.shared getInAppFeatureHighlightData];
+    break;
+  }
+}
+
 #pragma mark - MWMFeatureHolder
 
 - (id<MWMFeatureHolder>)featureHolder
