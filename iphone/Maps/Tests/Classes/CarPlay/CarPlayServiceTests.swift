@@ -106,19 +106,44 @@ final class CarPlayServiceTests: XCTestCase {
     XCTAssertEqual(completionCount, 1)
   }
 
-  private func importBookmarkFixture() throws -> BookmarkGroup {
+  func testBookmarkSnapshotsRespectTheDisplayLimit() throws {
+    let category = try importBookmarkFixture(bookmarkCount: 3)
+    let manager = BookmarksManager.shared()
+
+    XCTAssertEqual(manager.bookmarks(forCategory: category.categoryId, limit: 2).count, 2)
+    XCTAssertTrue(manager.bookmarks(forCategory: category.categoryId, limit: 0).isEmpty)
+  }
+
+  func testDeletedBookmarkListIsDetected() throws {
+    let category = try importBookmarkFixture()
+    let template = ListTemplateBuilder.buildListTemplate(for: .bookmarks(category: category))
+    XCTAssertFalse(ListTemplateBuilder.isDeletedBookmarkList(template))
+
+    XCTAssertTrue(BookmarksManager.shared().deleteCategory(category.categoryId))
+
+    XCTAssertTrue(ListTemplateBuilder.isDeletedBookmarkList(template))
+    ListTemplateBuilder.refreshBookmarks(in: template)
+    XCTAssertTrue(template.sections.flatMap(\.items).isEmpty)
+  }
+
+  private func importBookmarkFixture(bookmarkCount: Int = 1) throws -> BookmarkGroup {
     let bookmarkManager = BookmarksManager.shared()
     let name = "CarPlayTests-\(UUID().uuidString)"
     let url = FileManager.default.temporaryDirectory.appendingPathComponent(name).appendingPathExtension("kml")
+    let placemarks = (0 ..< bookmarkCount).map { index in
+      """
+      <Placemark>
+        <name>CarPlay bookmark \(index)</name>
+        <Point><coordinates>0,0</coordinates></Point>
+      </Placemark>
+      """
+    }.joined(separator: "\n")
     let kml = """
     <?xml version="1.0" encoding="UTF-8"?>
     <kml xmlns="http://www.opengis.net/kml/2.2">
       <Document>
         <name>\(name)</name>
-        <Placemark>
-          <name>CarPlay bookmark</name>
-          <Point><coordinates>0,0</coordinates></Point>
-        </Placemark>
+        \(placemarks)
       </Document>
     </kml>
     """
@@ -338,5 +363,34 @@ final class CarPlayServiceTests: XCTestCase {
                      UIOffset(horizontal: horizontal * step, vertical: vertical * step),
                      "direction \(direction.rawValue)")
     }
+  }
+
+  func testListTemplateKeepsTheTypeItWasBuiltFor() {
+    let template = ListTemplateBuilder.buildListTemplate(for: .searchResults(results: []))
+
+    guard let type = template.userInfo as? ListTemplateBuilder.ListTemplateType,
+          case .searchResults = type
+    else {
+      XCTFail("The template should keep the type it was built for.")
+      return
+    }
+  }
+
+  func testRefreshKeepsRowsOfTemplatesThatDoNotShowBookmarks() {
+    let template = ListTemplateBuilder.buildListTemplate(for: .searchResults(results: []))
+    template.updateSections([CPListSection(items: [CPListItem(text: "Result", detailText: nil)])])
+
+    ListTemplateBuilder.refreshBookmarks(in: template)
+
+    XCTAssertEqual(template.sections.first?.items.count, 1)
+  }
+
+  func testRefreshKeepsRowsOfTemplatesBuiltByAnybodyElse() {
+    let section = CPListSection(items: [CPListItem(text: "Row", detailText: nil)])
+    let template = CPListTemplate(title: "Any", sections: [section])
+
+    ListTemplateBuilder.refreshBookmarks(in: template)
+
+    XCTAssertEqual(template.sections.first?.items.count, 1)
   }
 }

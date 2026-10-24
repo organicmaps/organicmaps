@@ -58,6 +58,22 @@ public:
   using AsyncLoadingFinishedCallback = std::function<void()>;
   using AsyncLoadingFileCallback = std::function<void(std::string const &, bool)>;
 
+  /// Captures the loaded category before an external file replacement. The write shares autosave/deletion
+  /// exclusion, and the revision is checked again on the GUI thread before applying parsed data.
+  class FileUpdate
+  {
+  public:
+    bool PerformIfUnchanged(std::function<void()> const & write) const;
+
+  private:
+    friend class BookmarkManager;
+    std::string m_filePath;
+    kml::MarkGroupId m_groupId = kml::kInvalidMarkGroupId;
+    std::shared_ptr<BookmarkCategory::FileSaveState> m_saveState;
+    uint64_t m_revision = 0;
+  };
+  using FileUpdatePtr = std::shared_ptr<FileUpdate>;
+
   struct AsyncLoadingCallbacks
   {
     AsyncLoadingStartedCallback m_onStarted;
@@ -282,6 +298,10 @@ public:
 
   std::string GetCategoryName(kml::MarkGroupId categoryId) const;
   std::string GetCategoryFileName(kml::MarkGroupId categoryId) const;
+  /// True while the category has a queued or in-flight autosave that has not reached disk yet.
+  bool IsCategorySaving(kml::MarkGroupId categoryId) const;
+  /// Returns null while a loaded category has saves pending. Called on the GUI thread.
+  FileUpdatePtr GetFileUpdate(std::string const & filePath) const;
   kml::MarkGroupId GetCategoryByFileName(std::string const & fileName) const;
   m2::RectD GetCategoryRect(kml::MarkGroupId categoryId, bool addIconsSize) const;
   kml::CategoryData const & GetCategoryData(kml::MarkGroupId categoryId) const;
@@ -311,7 +331,12 @@ public:
   /// Scans and loads all kml files with bookmarks.
   void LoadBookmarks();
   void LoadBookmark(std::string const & filePath, bool isTemporaryFile);
+  /// Loads a preserved file without reloading an existing, possibly edited category at that path.
+  void LoadBookmarkIfNotLoaded(std::string const & filePath);
   void ReloadBookmark(std::string const & filePath);
+  /// Loads an immutable incoming copy. A changed category or one whose incoming data cannot be read is retained.
+  /// The caller retains sourcePath until onFinished and preserves that incoming copy when false is returned.
+  void ReloadBookmark(FileUpdatePtr update, std::string const & sourcePath, std::function<void(bool)> onFinished);
 
   /// Uses the same file name from which was loaded, or
   /// creates unique file name on first save and uses it every time.
@@ -629,10 +654,14 @@ private:
 
   std::string GenerateSavedRouteName(std::string const & from, std::string const & to);
   void NotifyAboutStartAsyncLoading();
-  void NotifyAboutFinishAsyncLoading(KMLDataCollectionPtr && collection);
+  void NotifyAboutFinishAsyncLoading(KMLDataCollectionPtr && collection, FileUpdatePtr update = {},
+                                     std::function<void(bool)> onFinished = {});
   void NotifyAboutFile(bool success, std::string const & filePath, bool isTemporaryFile);
   void LoadBookmarkRoutine(std::string const & filePath, bool isTemporaryFile);
-  void ReloadBookmarkRoutine(std::string const & filePath);
+  void ReloadBookmarkRoutine(std::string const & filePath, std::string const & sourcePath, FileUpdatePtr update = {},
+                             std::function<void(bool)> onFinished = {});
+  void QueueBookmarkLoad(std::function<void()> load);
+  bool IsFileUpdateCurrent(FileUpdate const & update) const;
 
   using BookmarksChecker = std::function<bool(kml::FileData const &)>;
   KMLDataCollectionPtr LoadBookmarks(std::string const & dir, std::string_view ext, FileType fileType,
@@ -778,19 +807,7 @@ private:
   std::unique_ptr<Bookmark> m_recentlyDeletedBookmark;
 
   bool m_asyncLoadingInProgress = false;
-  struct BookmarkLoaderInfo
-  {
-    BookmarkLoaderInfo(std::string const & filename, bool isTemporaryFile, bool isReloading)
-      : m_filename(filename)
-      , m_isTemporaryFile(isTemporaryFile)
-      , m_isReloading(isReloading)
-    {}
-
-    std::string m_filename;
-    bool m_isTemporaryFile = false;
-    bool m_isReloading = false;
-  };
-  std::list<BookmarkLoaderInfo> m_bookmarkLoadingQueue;
+  std::list<std::function<void()>> m_bookmarkLoadingQueue;
 
   struct Properties
   {
