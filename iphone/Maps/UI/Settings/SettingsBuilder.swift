@@ -28,6 +28,13 @@ final class SettingsBuilder: NSObject {
       navigationController.pushViewController(buildRoot(), animated: true)
       return
     }
+    // A share sheet or alert can cover Settings without changing the navigation stack.
+    if root.presentedViewController != nil {
+      root.dismiss(animated: true) {
+        showRoot(in: navigationController)
+      }
+      return
+    }
     if navigationController.topViewController === root {
       root.highlightRequestedItem()
     } else {
