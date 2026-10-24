@@ -257,16 +257,21 @@ water::Geometry WaterGeometryProvider::ExtractFeatures(DataSource const & dataSo
       return;
     }
     // Coastline polygons encode land. Bridge/aqueduct/lock restrictions are not
-    // modelled in display-data measurements; underground waterways stay unknown.
+    // modelled in display-data measurements. Underground features allow a walking bypass.
     bool underground = feature.GetLayer() < 0;
     feature.ForEachType([&](uint32_t type)
     {
       auto const name = classif().GetReadableObjectName(type);
       underground = underground || name.find("tunnel") != std::string::npos;
     });
-    if (::water::IsCoastline(types) || underground)
+    if (::water::IsCoastline(types))
     {
       result.m_unknownAreas.push_back(rect);
+      return;
+    }
+    if (underground)
+    {
+      result.m_portageAreas.push_back(rect);
       return;
     }
     if (line)

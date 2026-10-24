@@ -32,7 +32,7 @@ Surface union and triangulation preserve holes. Exact contacts between water sur
 water coverage. River/surface transitions use actual intersections. Distances use
 mercator::DistanceOnEarth. Checkpoints retain their selected order.
 
-Connected water paths always take precedence over land shortcuts. All land portions,
+Connected water paths found in the searched window take precedence over land shortcuts. All land portions,
 including checkpoint approaches, exits and transfers between water components, use the
 existing, unchanged pedestrian IndexRouter. Results show its actual walking geometry
 and distance as dashed land portions. If walking fails, the leg fails without a
@@ -62,14 +62,20 @@ to the original OpenStreetMap data.
 Original river node IDs are absent. Separate line features never join merely
 because their coordinates coincide or cross. River/surface intersections do join.
 As a deliberate measurement simplification, bridge, aqueduct and lock restrictions
-are ignored in this compatibility mode, including positive layers. This can join
-an aqueduct to a water surface it crosses. Underground waterways remain unknown.
+are ignored in this compatibility mode. This can join an aqueduct to a water
+surface it crosses. Explicit tunnels and negative-layer water features are excluded
+from water geometry, but may justify a local pedestrian bypass between nearby
+stored river endpoints. The actual bypass follows the unchanged pedestrian router;
+it is never a straight line through a tunnel. Ordinary maps can omit tunnels
+entirely, so not every underground connection can be recognized.
 This mode does not model navigability, water depth, currents or access restrictions.
 
 If no connected water path exists in the compatibility graph, a leg may include
 one pedestrian transfer only between endpoints of stored river lines. Interior
 vertices, checkpoints, extraction cuts and arbitrary lake shores cannot be transfer
 points. An endpoint inside a lake cannot move the proposed transfer to its shoreline.
+A known tunnel bypass retains the stored endpoints even when they lie inside a
+water surface; it does not move them to arbitrary shore points.
 Stored feature endpoints need not be original OpenStreetMap way endpoints. Missing
 junctions may therefore require a walking transfer or make a route unavailable.
 The endpoint restriction applies to internal transfers; pedestrian
@@ -143,7 +149,11 @@ results explicitly show "Shortest route not confirmed". Every returned water edg
 still have known water coverage and avoid unknown areas. Missing geometry never
 becomes a water edge. A reachable graph touching the extraction frontier cannot
 establish disconnection, and disconnected components touching unknown geometry
-cannot justify a land gap. Without a known connected path, these cases still fail.
+cannot justify a land gap. A mapped tunnel or negative-layer break is an exception:
+a local transfer may join stored river endpoints within 50 m of that feature,
+provided the candidate crosses it and avoids unknown geometry. Such a result does
+not establish that no water alternative exists outside the window and shows
+"Shortest route not confirmed". Missing map data alone never permits this exception.
 
 The reader caches one index with at most 65,536 records. Extraction allows 4,096
 surface source points and 16,384 triangles, with 16,384 line source points. The graph
@@ -199,11 +209,11 @@ request reset the indicator; queued updates from cancelled requests are discarde
 
 ## Validation
 
-The latest native run passes 83 routing/provider/async/spatial-index tests, including
+The latest native run passes 86 routing/provider/async/spatial-index tests, including
 replacement of geometric gaps with pedestrian polylines, failed transfers without a straight-line
 fallback, and cancellation during a transfer. ARM64 and x86_64 native builds pass,
 and the x86_64 APK installs on the emulator. Android validation passed all
-113 app/SDK unit tests and lintAllModules; five generator tests also passed.
+113 app/SDK unit tests and lintAllModules; six generator tests also passed.
 Initial visual checks were blocked by emulator System UI ANRs; the emulator and
 physical-phone checks below were run after the interface recovered.
 
@@ -264,13 +274,9 @@ Reported route checks on ordinary version 260714 maps: Roma
 10,077.1 m water. Arthur (54.614027,18.226024 to 54.606715,18.354427)
 returns 13,396 m water with shortest-path qualification on Poland_Pomeranian
 Voivodeship. The Polish MWM is checked against its catalog BLAKE3 hash before use.
-Both pass in the native real-map harness; phone-specific failures still require
-the installed APK version and error text to diagnose.
+Both pass in the native real-map harness.
 
-The standalone real-map harness originally used a 60-second deadline. An earlier
-timeout under concurrent lint load was followed by a successful rerun without that
-deadline, matching interactive Android requests. These native harness results do
-not establish that the reported phone-specific failures have been resolved.
+The standalone real-map harness uses no deadline, matching interactive Android requests.
 
 Land-checkpoint regressions cover two land endpoints, a walking exit, an intermediate
 land stop, exact checkpoint/subroute endpoints, distance accounting, monotone progress,
@@ -290,4 +296,19 @@ center: 52.3549188,5.1797099 to 52.3306528,5.1975481. A rounded shoreline
 projection could disconnect access from the surface; the required water detour also
 fell outside the initial window. Shore access now moves only toward certified
 water, and unavailable searches can retry once in a wider covered window.
-The native regression now returns 259.257 m walking and 10,841 m water.
+The native regression and the physical Samsung SM-G970F running 2026.10.24-14
+both return 259.257 m walking and 10,841 m water. The phone calculation took
+73.5 seconds; debug version identification now appears before V: Scale.
+
+
+The Polish regression, 54.09895,17.784224 to 54.093102,17.785852, now passes
+with the official Pomeranian MWM: 658.814 m water and 55.4064 m walking. A
+negative-layer river feature permits the local bypass without adding underground
+water or changing the pedestrian router. The result is shortest-unconfirmed.
+
+The same Polish coordinates also pass on a physical Samsung SM-G970F with
+2026.10.24-15: the prior build returned RouteNotFound; the fixed build completes
+in 1.3 seconds (1.7 seconds after a normal restart). Android displays 660 m water,
+55 m walking and the shortest-path qualification. An activity-task recreation
+during deep-link testing temporarily lost the map surface; a normal app restart
+restored rendering and the successful route details.

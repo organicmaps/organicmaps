@@ -203,6 +203,75 @@ UNIT_TEST(Water_StandardTransferKeepsExactEndpointCoordinates)
   CheckAccounting(path);
 }
 
+UNIT_TEST(Water_KnownUndergroundBreakAllowsLocalPortageWithOpenFrontier)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  geometry.m_hasSourceTopology = false;
+  geometry.m_bounds = m2::RectD(-0.002, -0.002, 0.005, 0.002);
+  geometry.m_lines = {{{P(-0.002, 0), 0, false}, {P(0.001, 0)}}, {{P(0.002, 0)}, {P(0.005, 0), 0, false}}};
+  geometry.m_portageAreas.emplace_back(0.0009, -0.0001, 0.0021, 0.0001);
+  Path path;
+  auto const find = [&] { return FindPath(geometry, P(0, 0), P(0.003, 0), false, kNeverCancelled, path); };
+  TEST(find() == ResultCode::Success, ());
+  TEST(!path.m_shortestConfirmed, ());
+  TEST_GREATER(path.m_waterDistance, 0.0, ());
+  TEST_GREATER(path.m_landDistance, 0.0, ());
+  for (size_t i = 0; i < path.m_landGaps.size(); ++i)
+    if (path.m_landGaps[i])
+    {
+      TEST_EQUAL(path.m_points[i], P(0.001, 0), ());
+      TEST_EQUAL(path.m_points[i + 1], P(0.002, 0), ());
+    }
+  CheckAccounting(path);
+  geometry.m_unknownAreas.emplace_back(0.0014, -0.0001, 0.0016, 0.0001);
+  TEST(find() == ResultCode::Unavailable, ());
+  geometry.m_unknownAreas.clear();
+  geometry.m_lines[0].back().m_mayTransfer = false;
+  TEST(find() == ResultCode::Unavailable, ());
+  geometry.m_lines[0].back().m_mayTransfer = true;
+  geometry.m_portageAreas = {{0.0035, -0.0001, 0.0036, 0.0001}};
+  TEST(find() == ResultCode::Unavailable, ());
+  geometry.m_portageAreas.clear();
+  TEST(find() == ResultCode::Unavailable, ());
+}
+
+UNIT_TEST(Water_KnownPortageKeepsEndpointsInsideWaterSurfaces)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  geometry.m_hasSourceTopology = false;
+  geometry.m_bounds = m2::RectD(-0.002, -0.002, 0.005, 0.002);
+  geometry.m_lines = {{{P(-0.002, 0), 0, false}, {P(0.001, 0)}}, {{P(0.002, 0)}, {P(0.005, 0), 0, false}}};
+  Rectangle(geometry, -0.001, -0.0005, 0.0012, 0.0005);
+  Rectangle(geometry, 0.0018, -0.0005, 0.004, 0.0005);
+  geometry.m_portageAreas.emplace_back(0.001, -0.0001, 0.002, 0.0001);
+  Path path;
+  TEST(FindPath(geometry, P(0, 0), P(0.003, 0), false, kNeverCancelled, path) == ResultCode::Success, ());
+  for (size_t i = 0; i < path.m_landGaps.size(); ++i)
+    if (path.m_landGaps[i])
+    {
+      TEST_EQUAL(path.m_points[i], P(0.001, 0), ());
+      TEST_EQUAL(path.m_points[i + 1], P(0.002, 0), ());
+    }
+  TEST_GREATER(path.m_landDistance, 0.0, ());
+  CheckAccounting(path);
+}
+UNIT_TEST(Water_KnownPortageStillPrefersConnectedWater)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  geometry.m_hasSourceTopology = false;
+  geometry.m_bounds = m2::RectD(-0.002, -0.002, 0.005, 0.002);
+  geometry.m_lines = {{{P(-0.002, 0), 0, false}, {P(0.001, 0)}}, {{P(0.002, 0)}, {P(0.005, 0), 0, false}}};
+  geometry.m_portageAreas.emplace_back(0.0009, -0.0001, 0.0021, 0.0001);
+  Rectangle(geometry, 0.0005, -0.0005, 0.0025, 0.0005);
+  Path path;
+  TEST(FindPath(geometry, P(0, 0), P(0.003, 0), false, kNeverCancelled, path) == ResultCode::Success, ());
+  TEST_EQUAL(path.m_landDistance, 0.0, ());
+  TEST_GREATER(path.m_waterDistance, 0.0, ());
+  CheckAccounting(path);
+}
 UNIT_TEST(Water_ExplicitLandPointRejectedButGpsProjects)
 {
   Geometry geometry;
