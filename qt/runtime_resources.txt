@@ -11,6 +11,7 @@ copyright.html
 countries.json
 drules_default.bin
 drules_outdoors.bin
+drules_default.bin
 drules_vehicle.bin
 editor.config
 packed_polygons.bin
