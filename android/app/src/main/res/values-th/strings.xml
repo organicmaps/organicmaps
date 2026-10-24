@@ -904,6 +904,6 @@
     <string name="track_recording_stop_and_save">หยุดและบันทึก</string>
     <!-- Track recording home screen widget button: opens the app to save or delete the recorded track. -->
     <string name="track_recording_finish">เสร็จสิ้น</string>
-    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <!-- Button accessibility label and confirmation title for reversing the complete route, including intermediate stops. -->
     <string name="reverse_route">กลับทิศทางเส้นทาง</string>
 </resources>
