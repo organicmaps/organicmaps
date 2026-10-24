@@ -29,7 +29,6 @@
 #include "generator/transit_generator.hpp"
 #include "generator/unpack_mwm.hpp"
 #include "generator/utils.hpp"
-#include "generator/water_geometry_builder.hpp"
 #include "generator/wiki_url_dumper.hpp"
 
 #include "storage/country_parent_getter.hpp"
@@ -51,8 +50,6 @@
 #include "defines.hpp"
 
 #include <gflags/gflags.h>
-#include <algorithm>
-#include <sstream>
 
 namespace
 {
@@ -90,10 +87,6 @@ DEFINE_uint64(planet_version, base::SecondsSinceEpoch(), "Version as seconds sin
 DEFINE_bool(preprocess, false, "1st pass - create nodes/ways/relations data.");
 DEFINE_bool(generate_features, false, "2nd pass - generate intermediate features.");
 DEFINE_bool(generate_geometry, false, "3rd pass - split and simplify geometry and triangles for features.");
-DEFINE_bool(generate_water_routing, false, "Add the optional water geometry section from intermediate features.");
-DEFINE_string(water_routing_source_bounds, "",
-              "Required complete OSM source bounds for water routing: west,south,east,north in degrees. "
-              "Input must include complete crossing ways and water multipolygons.");
 DEFINE_bool(generate_index, false, "4rd pass - generate index.");
 DEFINE_bool(generate_search_index, false, "5th pass - generate search index.");
 DEFINE_bool(generate_cities_boundaries, false, "Generate the cities boundaries section");
@@ -208,7 +201,6 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
 
   feature::GenerateInfo genInfo;
   genInfo.m_verbose = FLAGS_verbose;
-  genInfo.m_waterRouting = FLAGS_generate_water_routing;
   genInfo.m_intermediateDir =
       FLAGS_intermediate_data_path.empty() ? path : base::AddSlashIfNeeded(FLAGS_intermediate_data_path);
   genInfo.m_cacheDir = FLAGS_cache_path.empty() ? genInfo.m_intermediateDir : base::AddSlashIfNeeded(FLAGS_cache_path);
@@ -272,12 +264,6 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
       return EXIT_FAILURE;
 
     genInfo.m_bucketNames = rawGenerator.GetNames();
-    if (genInfo.m_waterRouting)
-      for (auto const & name : genInfo.m_bucketNames)
-      {
-        FileWriter marker(genInfo.GetTmpFileName(name, ".water_topology"));
-        marker.Write(genInfo.m_emitCoasts ? "1c" : "1n", 2);
-      }
   }
 
   if (genInfo.m_bucketNames.empty() && !FLAGS_output.empty())
@@ -346,23 +332,6 @@ MAIN_WITH_ERROR_HANDLING([](int argc, char ** argv)
         if (!feature::WriteMetalinesSection(dataFile, metalinesFilename, osmToFeatureFilename))
           LOG(LCRITICAL, ("Error generating metalines section."));
       }
-    }
-
-    if (FLAGS_generate_water_routing && country != WORLD_FILE_NAME && country != WORLD_COASTS_FILE_NAME)
-    {
-      std::string bounds = FLAGS_water_routing_source_bounds;
-      std::replace(bounds.begin(), bounds.end(), ',', ' ');
-      std::istringstream source(bounds);
-      double west;
-      double south;
-      double east;
-      double north;
-      CHECK(static_cast<bool>(source >> west >> south >> east >> north), ("Set --water_routing_source_bounds"));
-      CHECK(west < east && south < north && west >= -180 && east <= 180 && south >= -85 && north <= 85,
-            ("Unsupported water source bounds", bounds));
-      CHECK(generator::BuildWaterGeometrySection(genInfo, country,
-                                                 mercator::FromLatLon(m2::RectD(west, south, east, north))),
-            ("Water section generation failed", country));
     }
 
     if (FLAGS_generate_index)

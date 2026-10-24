@@ -67,8 +67,6 @@
 		FACB7AE926B913F400810C9C /* collection_base.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FACB799526B913F300810C9C /* collection_base.hpp */; };
 		FACB7AEA26B913F400810C9C /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACB799626B913F300810C9C /* utils.cpp */; };
 		FACB7AEB26B913F400810C9C /* collector_camera.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FACB799726B913F300810C9C /* collector_camera.hpp */; };
-		D9B96F0C7DE45106901C546D /* water_geometry_builder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 95EF367F3B065E17913F1E66 /* water_geometry_builder.hpp */; };
-		1DA0A73F49E25173A6662223 /* collector_water.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 507161A7C7FB5A309FB312F1 /* collector_water.hpp */; };
 		FACB7AEC26B913F400810C9C /* city_roads_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACB799826B913F300810C9C /* city_roads_generator.cpp */; };
 		FACB7AED26B913F400810C9C /* cities_ids_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACB799926B913F300810C9C /* cities_ids_builder.cpp */; };
 		FACB7AEE26B913F400810C9C /* collector_routing_city_boundaries.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FACB799A26B913F300810C9C /* collector_routing_city_boundaries.hpp */; };
@@ -241,8 +239,6 @@
 		FACB7BE426B913F400810C9C /* borders.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FACB7AA726B913F300810C9C /* borders.hpp */; };
 		FACB7BE526B913F400810C9C /* city_roads_generator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FACB7AA826B913F300810C9C /* city_roads_generator.hpp */; };
 		FACB7BE626B913F400810C9C /* collector_camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FACB7AA926B913F300810C9C /* collector_camera.cpp */; };
-		E546818370F85CED883BF38C /* water_geometry_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A8F1DA30B1BA53C2AC5573E1 /* water_geometry_builder.cpp */; };
-		BFBFBD00C19750C7993001AD /* collector_water.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 105B4EE3AF995497BDE61087 /* collector_water.cpp */; };
 		FACB7BE726B913F400810C9C /* raw_generator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FACB7AAA26B913F300810C9C /* raw_generator.hpp */; };
 		FACB7BE826B913F400810C9C /* utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FACB7AAB26B913F300810C9C /* utils.hpp */; };
 		FACB7BE926B913F400810C9C /* cities_ids_builder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FACB7AAC26B913F300810C9C /* cities_ids_builder.hpp */; };
@@ -356,8 +352,6 @@
 		FACB799526B913F300810C9C /* collection_base.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = collection_base.hpp; sourceTree = "<group>"; };
 		FACB799626B913F300810C9C /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utils.cpp; sourceTree = "<group>"; };
 		FACB799726B913F300810C9C /* collector_camera.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = collector_camera.hpp; sourceTree = "<group>"; };
-		95EF367F3B065E17913F1E66 /* water_geometry_builder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = water_geometry_builder.hpp; sourceTree = "<group>"; };
-		507161A7C7FB5A309FB312F1 /* collector_water.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = collector_water.hpp; sourceTree = "<group>"; };
 		FACB799826B913F300810C9C /* city_roads_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = city_roads_generator.cpp; sourceTree = "<group>"; };
 		FACB799926B913F300810C9C /* cities_ids_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cities_ids_builder.cpp; sourceTree = "<group>"; };
 		FACB799A26B913F300810C9C /* collector_routing_city_boundaries.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = collector_routing_city_boundaries.hpp; sourceTree = "<group>"; };
@@ -530,8 +524,6 @@
 		FACB7AA726B913F300810C9C /* borders.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = borders.hpp; sourceTree = "<group>"; };
 		FACB7AA826B913F300810C9C /* city_roads_generator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = city_roads_generator.hpp; sourceTree = "<group>"; };
 		FACB7AA926B913F300810C9C /* collector_camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = collector_camera.cpp; sourceTree = "<group>"; };
-		A8F1DA30B1BA53C2AC5573E1 /* water_geometry_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = water_geometry_builder.cpp; sourceTree = "<group>"; };
-		105B4EE3AF995497BDE61087 /* collector_water.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = collector_water.cpp; sourceTree = "<group>"; };
 		FACB7AAA26B913F300810C9C /* raw_generator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = raw_generator.hpp; sourceTree = "<group>"; };
 		FACB7AAB26B913F300810C9C /* utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = utils.hpp; sourceTree = "<group>"; };
 		FACB7AAC26B913F300810C9C /* cities_ids_builder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cities_ids_builder.hpp; sourceTree = "<group>"; };
@@ -739,11 +731,7 @@
 				FACB79B426B913F300810C9C /* collector_building_parts.cpp */,
 				FACB7AC726B913F400810C9C /* collector_building_parts.hpp */,
 				FACB7AA926B913F300810C9C /* collector_camera.cpp */,
-				A8F1DA30B1BA53C2AC5573E1 /* water_geometry_builder.cpp */,
-				105B4EE3AF995497BDE61087 /* collector_water.cpp */,
 				FACB799726B913F300810C9C /* collector_camera.hpp */,
-				95EF367F3B065E17913F1E66 /* water_geometry_builder.hpp */,
-				507161A7C7FB5A309FB312F1 /* collector_water.hpp */,
 				FACB7A5126B913F300810C9C /* collector_collection.cpp */,
 				FACB7A9526B913F300810C9C /* collector_collection.hpp */,
 				FACB79E626B913F300810C9C /* collector_interface.hpp */,
@@ -1018,8 +1006,6 @@
 				FACB7AFD26B913F400810C9C /* feature_generator.hpp in Headers */,
 				FACB7B4226B913F400810C9C /* metalines_builder.hpp in Headers */,
 				FACB7AEB26B913F400810C9C /* collector_camera.hpp in Headers */,
-				D9B96F0C7DE45106901C546D /* water_geometry_builder.hpp in Headers */,
-				1DA0A73F49E25173A6662223 /* collector_water.hpp in Headers */,
 				FACB7BA126B913F400810C9C /* towns_dumper.hpp in Headers */,
 				FACB7BE126B913F400810C9C /* osm_element.hpp in Headers */,
 				FACB7C0126B913F400810C9C /* restriction_generator.hpp in Headers */,
@@ -1241,8 +1227,6 @@
 				FACB7BB626B913F400810C9C /* unpack_mwm.cpp in Sources */,
 				FACB7AF026B913F400810C9C /* platform_helpers.cpp in Sources */,
 				FACB7BE626B913F400810C9C /* collector_camera.cpp in Sources */,
-				E546818370F85CED883BF38C /* water_geometry_builder.cpp in Sources */,
-				BFBFBD00C19750C7993001AD /* collector_water.cpp in Sources */,
 				FACB7AEA26B913F400810C9C /* utils.cpp in Sources */,
 				FACB7BF726B913F400810C9C /* translator_country.cpp in Sources */,
 				FACB7B3126B913F400810C9C /* collector_boundary_postcode.cpp in Sources */,
