@@ -507,10 +507,23 @@ Selection Select(Geometry const & geometry, Point const & point)
   if (IsSurfacePoint(geometry, point))
     return {point, std::numeric_limits<size_t>::max(), 0, 0.0};
   Selection result;
-  auto const consider = [&](Point const & a, Point const & b, size_t line, size_t segment)
+  auto const consider =
+      [&](Point const & a, Point const & b, size_t line, size_t segment, Point const * interior = nullptr)
   {
-    auto const projection = Project(point, a, b);
-    auto const distance = mercator::DistanceOnEarth(point, projection);
+    auto projection = Project(point, a, b);
+    auto distance = mercator::DistanceOnEarth(point, projection);
+    if (distance >= result.m_distance)
+      return;
+    // A rounded shoreline projection can lie just outside the triangle and
+    // become an isolated graph vertex. Move toward certified water, not land.
+    if (interior && !IsSurfacePoint(geometry, projection))
+    {
+      Point covered;
+      if (!MakePortal(geometry, projection, *interior, 0.0, 1.0, covered))
+        return;
+      projection = covered;
+      distance = mercator::DistanceOnEarth(point, projection);
+    }
     if (distance < result.m_distance)
       result = {projection, line, segment, distance};
   };
@@ -521,8 +534,11 @@ Selection Select(Geometry const & geometry, Point const & point)
       consider(line[j - 1].m_point, line[j].m_point, i, j);
   }
   for (auto const & triangle : geometry.m_triangles)
+  {
+    auto const interior = (triangle[0] + triangle[1] + triangle[2]) / 3.0;
     for (size_t i = 0; i < 3; ++i)
-      consider(triangle[i], triangle[(i + 1) % 3], std::numeric_limits<size_t>::max(), 0);
+      consider(triangle[i], triangle[(i + 1) % 3], std::numeric_limits<size_t>::max(), 0, &interior);
+  }
   return result;
 }
 
@@ -823,18 +839,24 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
     }
   }
 
-  // Attach checkpoints and river portals to the sparse water mesh before the
+  // Attach checkpoints, river portals and exact surface contacts before the
   // lazy visibility search. This also preserves component/frontier reachability.
-  for (size_t i = 0; i < lineVertices; ++i)
+  size_t const meshVertices = graph.m_points.size();
+  for (size_t i = 0; i < meshVertices; ++i)
   {
     if (cancelled())
       return ResultCode::Cancelled;
-    report(0.2 + 0.05 * i / lineVertices);
+    report(0.2 + 0.05 * i / meshVertices);
     auto const & point = graph.m_points[i];
     auto const attach = [&](std::array<Point, 3> const & triangle)
     {
       Interval interval;
       if (!Clip(point, point, triangle, interval))
+        return;
+      // Adjacent surface pieces may meet at a vertex inside another triangle's
+      // edge. Stitch that exact covered contact before pruning visibility pairs
+      // by mesh component; coordinate proximity alone never creates a join.
+      if (i >= lineVertices && std::find(triangle.begin(), triangle.end(), point) != triangle.end())
         return;
       for (auto const & vertex : triangle)
         graph.Connect(i, surfaceVertices.at(vertex));

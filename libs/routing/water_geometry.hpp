@@ -25,7 +25,7 @@ struct Geometry
 {
   // Surface waterways only. Grade-separated overlaps require explicit transitions upstream.
   std::vector<std::vector<Vertex>> m_lines;
-  // A conforming triangulation of the water union, including every known land hole.
+  // Triangulation of the water union, including every known land hole.
   // Overlapping polygons must be unioned before triangulation.
   std::vector<std::array<m2::PointD, 3>> m_triangles;
   // Missing or grade-separated topology remains unknown here, never dry land.
