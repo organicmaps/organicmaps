@@ -33,9 +33,11 @@ static inline DeeplinkUrlType deeplinkUrlType(url_scheme::ParsedMapApi::UrlType 
   GetFramework().ExecuteMapApiRequest();
 }
 
-+ (void)addBookmarksFile:(NSURL *)url isTemporaryFile:(BOOL)isTemporaryFile
++ (void)addBookmarksFile:(NSURL *)url
+         isTemporaryFile:(BOOL)isTemporaryFile
+     ownsParentDirectory:(BOOL)ownsParentDirectory
 {
-  GetFramework().AddBookmarksFile(url.path.UTF8String, isTemporaryFile);
+  GetFramework().AddBookmarksFile(url.path.UTF8String, isTemporaryFile, ownsParentDirectory);
 }
 
 @end
