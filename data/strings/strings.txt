@@ -45766,3 +45766,9 @@ comment = Hint when a selected Water route point is outside the stored water geo
 tags = android-libs-routing
 en = Select a point inside a water body. Near the shore, zoom in and select a point farther into the water.
 ru = Выберите точку внутри водоёма. У берега увеличьте масштаб и выберите точку дальше от суши.
+
+[water_shortest_unconfirmed]
+  tags = android-app
+  en = Shortest route not confirmed
+  ru = Кратчайший путь не подтверждён
+  uk = Найкоротший шлях не підтверджено
