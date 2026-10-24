@@ -48,6 +48,9 @@
 // The input is made by tools/python/nogps_replay.py, a record a line, the time is milliseconds of the day:
 //   D <MM-DD>                     the date for the stamps of the output
 //   S <ms> <0|1|2>                the navigation is stopped, started, or the application is started anew
+//   C <ms> <lat> <lon> <bearing or -> <manual 0|1> <age ms>
+//                                 where the application kept the car when it was started anew: the next start shows
+//                                 the car there, unless the trip driven again has kept a car of its own by then
 //   J <ms>                        the time jumps on: nothing has happened meanwhile
 //   L <ms> <state>                Bluetooth of the box, as DebugPrint(BleState) tells it
 //   B <ms> <duration ms> <yaw mdeg> <km/h> <flags hex> <h1> <h2> <up>
@@ -452,6 +455,22 @@ private:
         engine.Start();
       else
         engine.Stop();
+      break;
+    }
+    case 'C':
+    {
+      double lat = 0;
+      double lon = 0;
+      std::string bearing;
+      int manual = 0;
+      int64_t ageMs = 0;
+      if ((in >> lat >> lon >> bearing >> manual >> ageMs) && !m_storage.GetString(Storage::kCarPosition))
+      {
+        char buf[128];
+        std::snprintf(buf, sizeof(buf), "%.7f,%.7f,%s,%d,%lld", lat, lon, bearing.c_str(), manual,
+                      static_cast<long long>(m_clock.UnixNowMs() - ageMs));
+        m_storage.SetString(Storage::kCarPosition, buf);
+      }
       break;
     }
     case 'L':
