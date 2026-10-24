@@ -95,7 +95,13 @@ final class ListTemplateBuilder {
 
   private class func obtainBookmarks(template: CPListTemplate, categoryId: MWMMarkGroupID) {
     let bookmarkManager = BookmarksManager.shared()
-    let bookmarks = bookmarkManager.bookmarks(forCategory: categoryId)
+    guard bookmarkManager.hasCategory(categoryId) else {
+      template.updateSections([])
+      return
+    }
+    let maxItemCount = CPListTemplate.maximumItemCount
+    let isTruncated = bookmarkManager.getCategoryMarksCount(categoryId) > UInt64(maxItemCount)
+    let bookmarks = bookmarkManager.bookmarks(forCategory: categoryId, limit: isTruncated ? maxItemCount - 1 : maxItemCount)
     var items = bookmarks.map { bookmark -> CPListItem in
       let item = CPListItem(text: bookmark.prefferedName, detailText: bookmark.address)
       item.userInfo = ListItemInfo(type: CPConstants.ListItemType.bookmarks,
@@ -103,14 +109,10 @@ final class ListTemplateBuilder {
       item.handler = Self.itemHandler
       return item
     }
-    if #available(iOS 15.0, *) {
-      let maxItemCount = CPListTemplate.maximumItemCount - 1
-      if items.count >= maxItemCount {
-        items = Array(items.prefix(maxItemCount))
-        let cropWarning = CPListItem(text: L("not_all_shown_bookmarks_carplay"), detailText: L("switch_to_phone_bookmarks_carplay"))
-        cropWarning.isEnabled = false
-        items.append(cropWarning)
-      }
+    if isTruncated {
+      let cropWarning = CPListItem(text: L("not_all_shown_bookmarks_carplay"), detailText: L("switch_to_phone_bookmarks_carplay"))
+      cropWarning.isEnabled = false
+      items.append(cropWarning)
     }
     let section = CPListSection(items: items)
     template.updateSections([section])
