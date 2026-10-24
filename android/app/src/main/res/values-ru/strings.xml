@@ -968,4 +968,5 @@
     <string name="transit_type_train">Поезд</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Трамвай</string>
+    <string name="water_shortest_unconfirmed">Кратчайший путь не подтверждён</string>
 </resources>
