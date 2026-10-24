@@ -64,6 +64,51 @@ UNIT_TEST(WaterGenerator_StandardCoverageRejectsConcaveBorderGaps)
   TEST(!reader.IsRectCoveredByRegion("Concave", {-3, -2, -2, -1}), ());
 }
 
+UNIT_TEST(WaterGenerator_CombinedMapCoveragePreservesSeamsGapsAndHoles)
+{
+  auto const path = base::JoinPath(GetPlatform().WritableDir(), "water_combined_borders_test.bin");
+  SCOPE_GUARD(cleanup, [&] { base::DeleteFileX(path); });
+  std::vector<std::vector<P>> const rings = {{{-3, -3}, {0, -3}, {0, 3}, {-3, 3}},
+                                             {{0, -3}, {3, -3}, {3, 3}, {0, 3}},
+                                             {{0.000005, -3}, {3, -3}, {3, 3}, {0.000005, 3}},
+                                             {{-3, -3}, {3, -3}, {3, -1}, {-3, -1}},
+                                             {{-3, 1}, {3, 1}, {3, 3}, {-3, 3}},
+                                             {{-3, -1}, {-1, -1}, {-1, 1}, {-3, 1}},
+                                             {{1, -1}, {3, -1}, {3, 1}, {1, 1}}};
+  std::vector<std::string> const names = {"Left", "Right", "RightGap", "Bottom", "Top", "West", "East"};
+  {
+    FilesContainerW borders(path);
+    std::vector<storage::CountryDef> definitions;
+    for (auto const & name : names)
+      definitions.push_back({name, {-3, -3, 3, 3}});
+    {
+      auto writer = borders.GetWriter(PACKED_POLYGONS_INFO_TAG);
+      rw::Write(*writer, definitions);
+    }
+    for (size_t i = 0; i < rings.size(); ++i)
+    {
+      auto writer = borders.GetWriter(std::to_string(i));
+      WriteVarUint(*writer, 1u);
+      serial::SaveOuterPath(rings[i], serial::GeometryCodingParams(), *writer);
+    }
+  }
+  class BorderReader : public storage::CountryInfoReader
+  {
+  public:
+    explicit BorderReader(std::string const & path) : CountryInfoReader(GetPlatform().GetReader(path)) {}
+  } reader(path);
+  m2::RectD const query(-0.5, -0.5, 0.5, 0.5);
+  TEST(!reader.IsRectCoveredByRegion("Left", query), ());
+  TEST(!reader.IsRectCoveredByRegion("Right", query), ());
+  TEST(reader.IsRectCoveredByRegions({"Left", "Right"}, query), ());
+  TEST(reader.IsRectCoveredByRegions({"Right", "Left", "Left"}, query), ());
+  TEST(!reader.IsRectCoveredByRegions({"Left", "RightGap"}, query), ());
+  TEST(!reader.IsRectCoveredByRegions({"Left", "Missing"}, query), ());
+  TEST(!reader.IsRectCoveredByRegions({}, query), ());
+  TEST(!reader.IsRectCoveredByRegions({"Bottom", "Top", "West", "East"}, {-2, -2, 2, 2}), ());
+  TEST(reader.IsRectCoveredByRegions({"Bottom", "Top", "West", "East"}, {-2.5, -2.5, -1.5, -1.5}), ());
+  TEST(!reader.IsRectCoveredByRegions({"Left", "Right"}, {-3, -1, 1, 1}), ());
+}
 UNIT_TEST(WaterGenerator_RealOsmRiver)
 {
   std::map<uint64_t, P> nodes;
@@ -214,6 +259,58 @@ UNIT_TEST(WaterGenerator_StandardMwmPreservesIslandsWithoutInventingRiverJoins)
   TEST(FindPath(near, point, P(0.5005, 1.5), false, neverCancelled, path) == ResultCode::Success, ());
 }
 
+UNIT_TEST(WaterGenerator_StandardMapsShareWaterOnlyWithCombinedCoverage)
+{
+  classificator::Load();
+  auto const directory = base::JoinPath(GetPlatform().WritableDir(), "water_multi_map_test");
+  CHECK(Platform::MkDirRecursively(directory), ());
+  SCOPE_GUARD(cleanup, [&] { Platform::RmDirRecursively(directory); });
+  platform::LocalCountryFile left(directory, platform::CountryFile("WaterLeft"), 0);
+  platform::LocalCountryFile right(directory, platform::CountryFile("WaterRight"), 0);
+  auto const build = [&](platform::LocalCountryFile & file, double from, double to)
+  {
+    tests_support::TestMwmBuilder builder(file, feature::DataHeader::MapType::Country);
+    feature::FeatureBuilder surface;
+    surface.SetArea();
+    surface.AddType(classif().GetTypeByPath({"natural", "water", "lake"}));
+    surface.AddPolygon({P(from, 0), P(to, 0), P(to, 1), P(from, 1), P(from, 0)});
+    TEST(builder.Add(surface), ());
+    builder.Finish();
+  };
+  build(left, 0, 1);
+  build(right, 1, 2);
+  FrozenDataSource data;
+  auto const [leftId, leftStatus] = data.RegisterMap(left);
+  TEST(leftStatus == MwmSet::RegResult::Success, ());
+  auto const singleCoverage = [](std::string const & country, m2::RectD const & bounds)
+  { return (country == "WaterLeft" ? m2::RectD(0, -1, 1, 2) : m2::RectD(1, -1, 2, 2)).IsRectInside(bounds); };
+  auto const combinedCoverage = [](std::vector<std::string> const & countries, m2::RectD const & bounds)
+  {
+    return countries.size() == 2 && std::find(countries.begin(), countries.end(), "WaterLeft") != countries.end() &&
+           std::find(countries.begin(), countries.end(), "WaterRight") != countries.end() &&
+           m2::RectD(0, -1, 2, 2).IsRectInside(bounds);
+  };
+  routing::WaterGeometryProvider provider(data, singleCoverage, combinedCoverage);
+  routing::RouterDelegate delegate;
+  routing::Checkpoints const checkpoints(P(0.5, 0.5), P(1.5, 0.5));
+  TEST(!provider.GetGeometry(checkpoints, delegate).m_complete, ());
+  auto const [rightId, rightStatus] = data.RegisterMap(right);
+  TEST(rightStatus == MwmSet::RegResult::Success, ());
+  routing::WaterGeometryProvider noCombinedProof(data, singleCoverage);
+  TEST(!noCombinedProof.GetGeometry(checkpoints, delegate).m_complete, ());
+  auto const geometry = provider.GetGeometry(checkpoints, delegate);
+  TEST(geometry.m_complete, ());
+  routing::water::Path path;
+  TEST(FindPath(geometry, checkpoints.GetPoints()[0], checkpoints.GetPoints()[1], false, [] { return false; }, path) ==
+           routing::water::ResultCode::Success,
+       ());
+  TEST_EQUAL(path.m_landDistance, 0.0, ());
+  TEST_GREATER(path.m_waterDistance, 0.0, ());
+  TEST(!routing::WaterGeometryProvider::ExtractFeatures(data, std::vector<MwmSet::MwmId>{leftId, rightId},
+                                                        {0.4, 0.4, 1.6, 0.6}, [] { return true; })
+            .m_complete,
+       ());
+}
 UNIT_TEST(WaterGenerator_UnrelatedCityFeaturesDoNotExhaustWaterBudget)
 {
   classificator::Load();

@@ -528,7 +528,9 @@ void RoutingManager::SetRouterImpl(RouterType type)
   {
     auto provider = std::make_shared<WaterGeometryProvider>(
         m_callbacks.m_dataSourceGetter(), [this](std::string const & country, m2::RectD const & bounds)
-    { return m_callbacks.m_countryInfoGetter().IsRectCoveredByRegion(country, bounds); });
+    { return m_callbacks.m_countryInfoGetter().IsRectCoveredByRegion(country, bounds); },
+        [this](std::vector<std::string> const & countries, m2::RectD const & bounds)
+    { return m_callbacks.m_countryInfoGetter().IsRectCoveredByRegions(countries, bounds); });
     auto pedestrian = std::make_unique<IndexRouter>(
         VehicleType::Pedestrian, false, m_callbacks.m_countryParentNameGetterFn, [this](m2::PointD const & point)
     { return m_callbacks.m_countryInfoGetter().GetRegionCountryId(point); }, [this](std::string const & country) {
