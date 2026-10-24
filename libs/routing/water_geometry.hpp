@@ -37,9 +37,9 @@ struct Geometry
   // Display geometry lacks source node identities; transfers use stored line endpoints only.
   bool m_hasSourceTopology = true;
   std::shared_ptr<m4::Tree<size_t>> m_triangleIndex;
-  // Complete local coverage, if extraction is bounded. Artificial boundary cuts
-  // never prove disconnection. A connected path is accepted only with a bound
-  // excluding a shorter excursion outside this rectangle.
+  // Extraction window. Unknown areas inside it remain excluded from all edges.
+  // Artificial boundary cuts never prove disconnection; uncertain optimality
+  // is reported separately from the validity of a known path.
   std::optional<m2::RectD> m_bounds;
 };
 
@@ -69,6 +69,9 @@ using ProgressFn = std::function<void(double)>;
 std::optional<m2::PointD> FindApproachPoint(Geometry const & geometry, m2::PointD const & start,
                                             CancelledFn const & cancelled);
 
+// Unconfirmed transfers are a last resort after a wider water search; they still
+// require eligible endpoints and cannot cross unknown geometry.
 ResultCode FindPath(Geometry const & geometry, m2::PointD const & start, m2::PointD const & finish, bool projectStart,
-                    CancelledFn const & cancelled, Path & path, ProgressFn const & progress = {});
+                    CancelledFn const & cancelled, Path & path, ProgressFn const & progress = {},
+                    bool allowUnconfirmedTransfer = false);
 }  // namespace routing::water

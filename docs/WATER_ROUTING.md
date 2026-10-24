@@ -13,7 +13,10 @@ checkpoint. The start has a walking approach, the finish has a walking exit, and
 an intermediate land stop includes both an exit and a return to water. These paths
 are dashed and included in land distance; they do not create new transfer points
 between water components. If pedestrian routing fails, there is no straight land
-fallback. Water checkpoints need no walking access. River taps snap to the displayed
+fallback. Water checkpoints normally need no walking access. If their water
+component cannot be reached after the wider search, a short walking approach or
+exit may instead connect them to an eligible river endpoint within 1 km. The
+result must still contain a water portion and is marked unconfirmed. River taps snap to the displayed
 centerline; line selections retain 0.1 m quantization tolerance. Android keeps route
 point controls available on land as well as water.
 
@@ -85,11 +88,14 @@ physically necessary. The walking route must be found by the pedestrian router;
 the straight-line estimate used to select endpoints is never the returned land path.
 Coastline polygons describe land and do not supply ocean water in this mode.
 
-The complete query rectangle must lie inside the union of known, downloaded map regions. The
-application supplies this proof from packed borders, with a margin for border
-simplification and quantization. A feature bounding box alone never certifies
-coverage. Missing borders, missing neighboring maps and exceeded budgets remain
-unavailable. The native water-membership query uses the same coverage check.
+Checkpoints must lie inside known, downloaded map regions. The application
+certifies local coverage from packed borders, with a margin for border
+simplification and quantization. Uncovered portions of a search window remain
+unknown and cannot supply water edges or walking-transfer candidates; an unused
+missing corner does not invalidate a route through covered water. A feature
+bounding box alone never certifies coverage. Missing borders and exceeded
+extraction budgets remain unavailable. The native water-membership query uses
+the same coverage check.
 Eligibility uses a 50 m margin instead of extracting a full routing window
 for a single point. The feature budget counts intersecting water features,
 excluding buildings and roads.
@@ -136,30 +142,28 @@ generation has not been exercised in the Android smoke test.
 ## Bounds and limitations
 
 Optional sections require one MWM to cover the extraction rectangle. Ordinary
-maps prefer the combined coverage of up to 16 downloaded neighboring regions
-before clipping to a single region, sharing the same total
-geometry budgets. Their water surfaces are unioned across file boundaries; separate
-river lines still lack original node identities. Missing regions cannot be bridged
-by assuming that an overlapping feature or bounding box proves map coverage.
-For optional sections, the margin
-follows checkpoint distance and is bounded between 1 and 30 km. Ordinary maps start
-with at most 3 km and reduce the margin when coverage or extraction budgets require
-it. Near a map boundary, each rectangle side expands only within certified coverage.
-If a water path is unavailable in that window, one retry may extend the standard-map
-margin by 2 km. The wider query still requires certified map coverage and the same
-geometry budgets. Uncovered cross-region routes, antimeridian windows and extraction failures
-remain unavailable.
-A known connected path may be returned when the visibility budget is exhausted, or
-when bounds cannot exclude a shorter alternative outside complete coverage. Such
-results explicitly show "Shortest route not confirmed". Every returned water edge must
-still have known water coverage and avoid unknown areas. Missing geometry never
-becomes a water edge. A reachable graph touching the extraction frontier cannot
-establish disconnection, and disconnected components touching unknown geometry
-cannot justify a land gap. A mapped tunnel or negative-layer break is an exception:
-a local transfer may join stored river endpoints within 50 m of that feature,
-provided the candidate crosses it and avoids unknown geometry. Such a result does
-not establish that no water alternative exists outside the window and shows
-"Shortest route not confirmed". Missing map data alone never permits this exception.
+maps prefer the combined coverage of up to 16 downloaded neighboring regions,
+sharing the same total geometry budgets. Their water surfaces are unioned across
+file boundaries; separate river lines still lack original node identities.
+Uncovered cells remain unknown, even when a displayed feature overlaps them.
+For optional sections, the margin follows checkpoint distance and is bounded
+between 1 and 30 km. Ordinary maps start with at most 3 km and reduce the margin
+gradually when extraction budgets require it. If a water path is unavailable,
+one retry may extend that margin by 2 km. Antimeridian windows and extraction
+failures remain unavailable.
+
+A known connected path may be returned when further visibility optimization would
+exceed its budget, or when coverage cannot exclude a shorter alternative. Such
+results show "Shortest route not confirmed". Every returned water edge must still
+have known water coverage and avoid unknown areas.
+
+After both water searches fail, a leg may propose a walking transfer between
+eligible stored endpoints even if a water alternative outside the searched window
+cannot be excluded. It remains unconfirmed and must pass ordinary pedestrian
+routing. Unknown geometry cannot itself justify a transfer, and a candidate
+crossing unknown coverage is rejected. Mapped underground breaks can also justify
+local transfers between nearby stored endpoints. These rules do not prove that
+carrying a boat is physically necessary.
 
 The reader caches one index with at most 65,536 records. Extraction allows 4,096
 surface source points and 32,768 triangles, with 16,384 line source points. The graph
@@ -333,3 +337,32 @@ returns 11,781.2 m water and 211.63 m pedestrian approach on ordinary 260714
 Flevoland and Amsterdam maps. Combined neighboring coverage is tried before a
 clipped single-map window, and the wider retry retains
 a bounded geometry budget large enough for this water detour.
+
+### Reported-route regressions
+
+`libs/routing/routing_integration_tests/water_reported_routes_test.cpp` preserves
+reported failing coordinates, including My position starts. Run these tests with
+ordinary downloaded MWMs in `--data_path` and the matching application resources.
+The five October 24 cases use Flevoland, North Holland — Amsterdam and Utrecht —
+Amersfoort from catalog 2026-07-14. Earlier cases also require Pomeranian Voivodeship.
+The tests require successful Water results with water distance and selected
+endpoints within the existing 0.1 m display-geometry tolerance; land portions use the real pedestrian router.
+
+On the Samsung SM-G970F, all 13 reported-route integration tests pass with the
+ordinary downloaded maps. The five new cases share My position start
+`52.35483470, 5.17963790`:
+
+| Finish | Water | Walking, including start access |
+| --- | ---: | ---: |
+| 52.31592888, 5.18930914 | 13.931 km | 210 m |
+| 52.42719742, 5.21305839 | 12.391 km | 210 m |
+| 52.40677214, 5.21760280 | 7.791 km | 2.344 km |
+| 52.41585159, 5.23250400 | 10.773 km | 1.061 km |
+| 52.38056521, 5.26966545 | 13.517 km | 210 m |
+
+These results are qualified as "Shortest route not confirmed". The terminal
+walking limit concerns endpoint proximity; a pedestrian detour can be longer.
+The same code passed 90 native tests, eight generator tests, Android app/SDK unit
+tests and lint. Water extraction and search took about 7–17 seconds per new case
+in the native phone checks, compared with failures after roughly 49–389 seconds
+for the three previously expensive cases.

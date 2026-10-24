@@ -365,6 +365,14 @@ Search SearchWater(Graph & graph, size_t target, std::vector<size_t> const & vis
   Search result;
   result.m_distances = component.m_distances;
   result.m_previous = component.m_previous;
+  auto const source = target == 1 ? 0 : 1;
+  // Visibility edges stay inside the source mesh component. Searching them
+  // cannot reach a goal in another component; retain the valid sparse costs.
+  if (graph.Component(source) != graph.Component(target))
+  {
+    result.m_lowerDistances = result.m_distances;
+    return result;
+  }
   std::vector<bool> visible(graph.m_points.size()), settled(graph.m_points.size());
   for (auto node : visibility)
     visible[node] = true;
@@ -379,7 +387,6 @@ Search SearchWater(Graph & graph, size_t target, std::vector<size_t> const & vis
   // Every vertex of a shorter route must lie inside this distance ellipse.
   // Apply this bound once before considering pairs of visibility vertices.
   std::vector<size_t> candidates;
-  auto const source = target == 1 ? 0 : 1;
   auto const sourceComponent = graph.Component(source);
   for (auto const node : visibility)
   {
@@ -389,6 +396,14 @@ Search SearchWater(Graph & graph, size_t target, std::vector<size_t> const & vis
         ms::DistanceOnEarth(coordinates[source], coordinates[node]) + estimates[node] <
             result.m_distances[target] + frontierMargin)
       candidates.push_back(node);
+  }
+  // A certified mesh path is already usable. Avoid a quadratic optimization
+  // exceeding the visibility budget; return it with shortest-path qualification.
+  if (result.m_distances[target] != kInfinity && !candidates.empty() &&
+      candidates.size() > kMaxVisibilityChecks / candidates.size())
+  {
+    result.m_budgetExceeded = true;
+    return result;
   }
   using Item = std::pair<double, size_t>;
   std::priority_queue<Item, std::vector<Item>, std::greater<Item>> queue;
@@ -502,7 +517,7 @@ struct Selection
   double m_distance = kInfinity;
 };
 
-Selection Select(Geometry const & geometry, Point const & point)
+Selection Select(Geometry const & geometry, Point const & point, bool knownOnly = false)
 {
   if (IsSurfacePoint(geometry, point))
     return {point, std::numeric_limits<size_t>::max(), 0, 0.0};
@@ -524,7 +539,7 @@ Selection Select(Geometry const & geometry, Point const & point)
       projection = covered;
       distance = mercator::DistanceOnEarth(point, projection);
     }
-    if (distance < result.m_distance)
+    if (distance < result.m_distance && (!knownOnly || !TouchesUnknown(geometry, point, projection)))
       result = {projection, line, segment, distance};
   };
   for (size_t i = 0; i < geometry.m_lines.size(); ++i)
@@ -648,18 +663,16 @@ std::optional<Point> FindApproachPoint(Geometry const & geometry, Point const & 
 {
   if (!geometry.m_complete || cancelled() || TouchesUnknown(geometry, start, start))
     return {};
-  auto const selected = Select(geometry, start);
+  auto const selected = Select(geometry, start, true);
   // Keep approaches local and do not select across missing coverage.
   if (selected.m_distance > 1000.0 || TouchesUnknown(geometry, selected.m_point, selected.m_point) ||
       (geometry.m_bounds && selected.m_distance >= ExitDistance(*geometry.m_bounds, start)))
     return {};
-  for (auto const & unknown : geometry.m_unknownAreas)
-    if (DistanceToUnknown(unknown, start) <= selected.m_distance)
-      return {};
   return cancelled() ? std::nullopt : std::optional<Point>(selected.m_point);
 }
 ResultCode FindPath(Geometry const & geometry, Point const & start, Point const & finish, bool projectStart,
-                    CancelledFn const & cancelled, Path & path, ProgressFn const & progress)
+                    CancelledFn const & cancelled, Path & path, ProgressFn const & progress,
+                    bool allowUnconfirmedTransfer)
 {
   path = {};
   auto const report = [&](double value)
@@ -1003,12 +1016,17 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
   if (backward.m_budgetExceeded)
     return ResultCode::Unavailable;
   bool const openFrontier = ReachesFrontier(geometry, graph, 0) || ReachesFrontier(geometry, graph, 1);
-  if (openFrontier && geometry.m_portageAreas.empty())
+  if (openFrontier && !allowUnconfirmedTransfer && geometry.m_portageAreas.empty())
     return ResultCode::Unavailable;
   std::vector<size_t> transfers;
   for (size_t i = 0; i < graph.m_points.size(); ++i)
     if (graph.m_lineEndpoints[i] || (geometry.m_hasSourceTopology && surface[i]))
       transfers.push_back(i);
+  if (allowUnconfirmedTransfer)
+  {
+    transfers.push_back(0);
+    transfers.push_back(1);
+  }
   if (transfers.size() > kMaxTransferVertices)
     return ResultCode::Unavailable;
   double best = kInfinity;
@@ -1026,6 +1044,12 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
     {
       if (backward.m_distances[b] == kInfinity)
         continue;
+      bool const terminal = allowUnconfirmedTransfer && (a == 0 || b == 1);
+      // A selected checkpoint may need a short walking approach or exit even
+      // when its own water component has no stored river endpoints.
+      if (terminal && ((a == 0 && b == 1) || mercator::DistanceOnEarth(graph.m_points[a], graph.m_points[b]) > 1000.0 ||
+                       forward.m_distances[a] + backward.m_distances[b] == 0.0))
+        continue;
       // A mapped underground break permits a local walking bypass even when
       // the bounded water search cannot exclude a distant water alternative.
       auto const knownPortage =
@@ -1034,7 +1058,7 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
         return Intersects(rect, graph.m_points[a], graph.m_points[b]) &&
                DistanceToUnknown(rect, graph.m_points[a]) <= 50.0 && DistanceToUnknown(rect, graph.m_points[b]) <= 50.0;
       });
-      if (openFrontier && !knownPortage)
+      if (openFrontier && !allowUnconfirmedTransfer && !knownPortage)
         continue;
       // A walking bypass keeps the actual river endpoints, including endpoints
       // inside a water surface; never trim it to arbitrary shoreline points.
@@ -1056,13 +1080,22 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
         continue;
       if (graph.m_points[a] == graph.m_points[b])
         continue;
+      // Keep the full endpoint-to-endpoint walk when a stored endpoint lies
+      // inside a surface. Pedestrian routing validates the actual shore access.
+      if (allowUnconfirmedTransfer && (!geometry.m_hasSourceTopology || terminal))
+      {
+        begin = 0.0;
+        end = 1.0;
+      }
       // Display geometry permits only stored line endpoints, never shoreline cuts.
       if (!geometry.m_hasSourceTopology && (begin != 0.0 || end != 1.0))
         continue;
       // River transfers use source line endpoints, never checkpoints or extraction cuts.
       // Surface transfers use the actual shoreline intersections of the candidate ray.
-      if ((begin == 0.0 && !graph.m_lineEndpoints[a] && !IsSurfacePoint(geometry, graph.m_points[a])) ||
-          (end == 1.0 && !graph.m_lineEndpoints[b] && !IsSurfacePoint(geometry, graph.m_points[b])))
+      if ((begin == 0.0 && !(terminal && a == 0) && !graph.m_lineEndpoints[a] &&
+           !IsSurfacePoint(geometry, graph.m_points[a])) ||
+          (end == 1.0 && !(terminal && b == 1) && !graph.m_lineEndpoints[b] &&
+           !IsSurfacePoint(geometry, graph.m_points[b])))
         continue;
       auto const delta = graph.m_points[b] - graph.m_points[a];
       auto const exit = begin == 0.0 ? graph.m_points[a] : graph.m_points[a] + delta * begin;
@@ -1081,10 +1114,10 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
       }
     }
   }
-  if (best == kInfinity || UnknownCouldShorten(geometry, from.m_point, to.m_point, best))
+  if (best == kInfinity || (!allowUnconfirmedTransfer && UnknownCouldShorten(geometry, from.m_point, to.m_point, best)))
     return ResultCode::Unavailable;
 
-  path.m_shortestConfirmed = !openFrontier;
+  path.m_shortestConfirmed = false;
   auto nodes = Trace(forward, gapFrom);
   for (auto it = nodes.rbegin(); it != nodes.rend(); ++it)
     Append(path, graph.m_points[*it], false);
