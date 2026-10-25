@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlacePageViewModel extends ViewModel
@@ -22,6 +23,20 @@ public class PlacePageViewModel extends ViewModel
   public void setCurrentButtons(List<PlacePageButtons.ButtonType> buttons)
   {
     mCurrentButtons.setValue(buttons);
+  }
+
+  public void setTrackRecordingSaveVisible(boolean visible)
+  {
+    final List<PlacePageButtons.ButtonType> buttons = mCurrentButtons.getValue();
+    if (buttons.contains(PlacePageButtons.ButtonType.TRACK_RECORDING_SAVE) == visible)
+      return;
+
+    final List<PlacePageButtons.ButtonType> updated = new ArrayList<>(buttons);
+    if (visible)
+      updated.add(PlacePageButtons.ButtonType.TRACK_RECORDING_SAVE);
+    else
+      updated.remove(PlacePageButtons.ButtonType.TRACK_RECORDING_SAVE);
+    mCurrentButtons.setValue(updated);
   }
 
   public LiveData<MapObject> getMapObject()

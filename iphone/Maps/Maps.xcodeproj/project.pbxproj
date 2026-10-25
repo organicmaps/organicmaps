@@ -79,6 +79,7 @@
 		AB0DB0020000000000000002 /* DashboardBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0DB0020000000000000001 /* DashboardBuilder.swift */; };
 		AB0DB0030000000000000002 /* CarPlaySpeedInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0DB0030000000000000001 /* CarPlaySpeedInfoView.swift */; };
 		AB0DB0040000000000000002 /* CarPlayMapOwnershipState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0DB0040000000000000001 /* CarPlayMapOwnershipState.swift */; };
+		AB1397300000000000000002 /* CarPlayBookmarkListObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1397300000000000000001 /* CarPlayBookmarkListObserver.swift */; };
 		B26883EF0814407A8B1D73AF /* PlacePageUserDescriptionWebViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4584F20AAF794B9683B14087 /* PlacePageUserDescriptionWebViewTests.swift */; };
 		5A07CF7460A24F6BBCA9F174 /* RoutePointCollectionViewCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4D381982BD4FCD9308F4D1 /* RoutePointCollectionViewCellTests.swift */; };
 		BB25B1A71FB32767007276FA /* transit_colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = BB25B1A51FB32767007276FA /* transit_colors.txt */; };
@@ -930,6 +931,7 @@
 		AB0DB0020000000000000001 /* DashboardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardBuilder.swift; sourceTree = "<group>"; };
 		AB0DB0030000000000000001 /* CarPlaySpeedInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlaySpeedInfoView.swift; sourceTree = "<group>"; };
 		AB0DB0040000000000000001 /* CarPlayMapOwnershipState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayMapOwnershipState.swift; sourceTree = "<group>"; };
+		AB1397300000000000000001 /* CarPlayBookmarkListObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayBookmarkListObserver.swift; sourceTree = "<group>"; };
 		AC4209FF2D79BCEC00A64AA9 /* af */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = af; path = af.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AC420A002D79BCED00A64AA9 /* af */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = af; path = af.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AC420A012D79BCED00A64AA9 /* af */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = af; path = af.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -3608,6 +3610,7 @@
 				ED82C67E2F90186300FA103D /* Template Builders */,
 				ED82C6852F90186300FA103D /* Templates Data */,
 				ED82C6862F90186300FA103D /* CarplayPlaceholderView.swift */,
+				AB1397300000000000000001 /* CarPlayBookmarkListObserver.swift */,
 				A13418010000000000000001 /* CarPlayManeuverMapper.swift */,
 				ED82C6872F90186300FA103D /* CarPlayRouter.swift */,
 				AB0CA7A50000000000000001 /* CarPlaySceneDelegate.swift */,
@@ -4732,6 +4735,7 @@
 				AB0DB0010000000000000002 /* CarPlayDashboardMapViewController.swift in Sources */,
 				AB0DB0030000000000000002 /* CarPlaySpeedInfoView.swift in Sources */,
 				AB0DB0040000000000000002 /* CarPlayMapOwnershipState.swift in Sources */,
+				AB1397300000000000000002 /* CarPlayBookmarkListObserver.swift in Sources */,
 				ED82C7502F90186300FA103D /* CarPlayService.swift in Sources */,
 				AB0DB0020000000000000002 /* DashboardBuilder.swift in Sources */,
 				ED82C7512F90186300FA103D /* CarPlayWindowScaleAdjuster.swift in Sources */,
