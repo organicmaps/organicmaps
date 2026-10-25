@@ -1176,6 +1176,14 @@
 "show_downloaded_regions" = "Rexones descargaes en moráu";
 
 
+/********** Qt UI strings **********/
+
+"water_routing" = "Water";
+"water_distance" = "Water distance: %@";
+"water_land_gaps" = "Land gaps: %@";
+"water_total_distance" = "Total distance: %@";
+
+
 /********** gps strings **********/
 
 
@@ -1220,3 +1228,7 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Invertir la ruta";
+
+/* Hint when a Water checkpoint has no usable water connection or pedestrian access. */
+"water_select_point" = "Select a point on water or near a shore that can be reached on foot.";
+"water_shortest_unconfirmed" = "Shortest route not confirmed";

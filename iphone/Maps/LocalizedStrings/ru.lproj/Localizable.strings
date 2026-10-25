@@ -1176,6 +1176,14 @@
 "show_downloaded_regions" = "Фиолетовые загруженные регионы";
 
 
+/********** Qt UI strings **********/
+
+"water_routing" = "Вода";
+"water_distance" = "По воде: %@";
+"water_land_gaps" = "По суше: %@";
+"water_total_distance" = "Общее расстояние: %@";
+
+
 /********** gps strings **********/
 
 
@@ -1220,3 +1228,7 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Развернуть маршрут";
+
+/* Hint when a Water checkpoint has no usable water connection or pedestrian access. */
+"water_select_point" = "Выберите точку на воде или рядом с берегом, к которому можно пройти пешком.";
+"water_shortest_unconfirmed" = "Кратчайший путь не подтверждён";
