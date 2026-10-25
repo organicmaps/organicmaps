@@ -26,9 +26,11 @@ struct OffscreenFrame
   // Signals when the GTK context has finished reading the texture.
   GLsync m_consumerFence = nullptr;
 
-  OffscreenFrame(uint32_t w, uint32_t h);
+  OffscreenFrame();
   ~OffscreenFrame();
 
+  // Producer only, after WaitForConsumer().
+  void Allocate(uint32_t w, uint32_t h);
   void SetConsumerFence(GLsync fence);
   // Makes the following commands of the current context wait until the consumer is done.
   void WaitForConsumer();
@@ -53,9 +55,13 @@ public:
   bool DrawFrame(int64_t frameIntervalUs, std::function<void(GLuint texture)> const & draw);
 
 private:
+  // Producer only: gives the back frame the current size before it is rendered.
+  void PrepareBackFrame();
+
   GdkGLContext * m_ctx;
-  uint32_t m_initialWidth;
-  uint32_t m_initialHeight;
+  // Size of the frames rendered from now on. The shown frame keeps its own size until replaced.
+  uint32_t m_width;
+  uint32_t m_height;
   std::function<void()> m_onFrameReady;
   std::atomic<int64_t> m_frameIntervalUs{1'000'000 / 60};
   std::chrono::steady_clock::time_point m_nextPresent;

@@ -15,12 +15,10 @@ namespace
 uint64_t constexpr kFenceTimeoutNs = 1'000'000'000;
 }  // namespace
 
-OffscreenFrame::OffscreenFrame(uint32_t w, uint32_t h) : m_width(w), m_height(h)
+OffscreenFrame::OffscreenFrame()
 {
   glGenTextures(1, &m_texture);
   glBindTexture(GL_TEXTURE_2D, m_texture);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, static_cast<GLsizei>(w), static_cast<GLsizei>(h), 0, GL_RGBA,
-               GL_UNSIGNED_BYTE, nullptr);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -28,16 +26,14 @@ OffscreenFrame::OffscreenFrame(uint32_t w, uint32_t h) : m_width(w), m_height(h)
   glBindTexture(GL_TEXTURE_2D, 0);
 
   glGenRenderbuffers(1, &m_depthStencil);
+  // Binding creates the object: an unbound name can't be attached.
   glBindRenderbuffer(GL_RENDERBUFFER, m_depthStencil);
-  glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, static_cast<GLsizei>(w), static_cast<GLsizei>(h));
   glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
   glGenFramebuffers(1, &m_fbo);
   glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
   glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_texture, 0);
   glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_depthStencil);
-  GLenum const status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
-  CHECK_EQUAL(status, GL_FRAMEBUFFER_COMPLETE, ("Offscreen framebuffer is incomplete", w, h));
   glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
@@ -52,6 +48,25 @@ OffscreenFrame::~OffscreenFrame()
   glDeleteFramebuffers(1, &m_fbo);
   glDeleteRenderbuffers(1, &m_depthStencil);
   glDeleteTextures(1, &m_texture);
+}
+
+void OffscreenFrame::Allocate(uint32_t w, uint32_t h)
+{
+  ASSERT(!m_consumerFence, ());
+  m_width = w;
+  m_height = h;
+  glBindTexture(GL_TEXTURE_2D, m_texture);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, static_cast<GLsizei>(w), static_cast<GLsizei>(h), 0, GL_RGBA,
+               GL_UNSIGNED_BYTE, nullptr);
+  glBindTexture(GL_TEXTURE_2D, 0);
+
+  glBindRenderbuffer(GL_RENDERBUFFER, m_depthStencil);
+  glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, static_cast<GLsizei>(w), static_cast<GLsizei>(h));
+  glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+  glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
+  GLenum const status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+  CHECK_EQUAL(status, GL_FRAMEBUFFER_COMPLETE, ("Offscreen framebuffer is incomplete", w, h));
 }
 
 void OffscreenFrame::SetConsumerFence(GLsync fence)
@@ -72,8 +87,8 @@ void OffscreenFrame::WaitForConsumer()
 
 GtkRenderContext::GtkRenderContext(GdkGLContext * ctx, uint32_t w, uint32_t h, std::function<void()> onFrameReady)
   : m_ctx(GDK_GL_CONTEXT(g_object_ref(ctx)))
-  , m_initialWidth(w)
-  , m_initialHeight(h)
+  , m_width(w)
+  , m_height(h)
   , m_onFrameReady(std::move(onFrameReady))
 {}
 
@@ -93,7 +108,14 @@ void GtkRenderContext::MakeCurrent()
   gdk_gl_context_make_current(m_ctx);
   // The engine draws an empty frame before the first Resize(); the context itself is surfaceless.
   if (!m_back)
-    Resize(m_initialWidth, m_initialHeight);
+  {
+    m_back = std::make_unique<OffscreenFrame>();
+    PrepareBackFrame();
+    // The other frames get their storage when they become the back frame.
+    std::lock_guard lock(m_frameMutex);
+    m_front = std::make_unique<OffscreenFrame>();
+    m_acquired = std::make_unique<OffscreenFrame>();
+  }
 }
 
 void GtkRenderContext::DoneCurrent()
@@ -116,9 +138,8 @@ void GtkRenderContext::Present()
     std::lock_guard lock(m_frameMutex);
     std::swap(m_front, m_back);
     m_frameUpdated = true;
-    // The new back frame may be the one the GTK context has just drawn.
-    m_back->WaitForConsumer();
   }
+  PrepareBackFrame();
   if (m_onFrameReady)
     m_onFrameReady();
 }
@@ -133,18 +154,19 @@ void GtkRenderContext::SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer)
 
 void GtkRenderContext::Resize(uint32_t w, uint32_t h)
 {
-  std::lock_guard lock(m_frameMutex);
-  if (m_back && m_back->m_width == w && m_back->m_height == h)
-    return;
-
-  // The main thread is not drawing (it holds the mutex while it does), and the old frames wait
-  // for their consumer fences before deletion.
-  m_back = std::make_unique<OffscreenFrame>(w, h);
-  m_front = std::make_unique<OffscreenFrame>(w, h);
-  m_acquired = std::make_unique<OffscreenFrame>(w, h);
-  m_frameUpdated = false;
-  m_hasFrame = false;
+  // Frames already shown or published keep their size until frames of the new size replace them.
+  m_width = w;
+  m_height = h;
+  PrepareBackFrame();
   glBindFramebuffer(GL_FRAMEBUFFER, m_back->m_fbo);
+}
+
+void GtkRenderContext::PrepareBackFrame()
+{
+  // The back frame may be the one the GTK context has just drawn, sized for an older surface.
+  m_back->WaitForConsumer();
+  if (m_back->m_width != m_width || m_back->m_height != m_height)
+    m_back->Allocate(m_width, m_height);
 }
 
 bool GtkRenderContext::DrawFrame(int64_t frameIntervalUs, std::function<void(GLuint texture)> const & draw)

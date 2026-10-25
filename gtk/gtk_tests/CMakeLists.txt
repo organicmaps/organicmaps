@@ -21,6 +21,7 @@ set_tests_properties(gtk_portal_tests PROPERTIES LABELS omim-test ENVIRONMENT "G
 
 # Keep compositor-dependent integration tests separate from the display-free unit tests.
 set(WINDOW_SRC
+  gl_factory_tests.cpp
   window_lifecycle_tests.cpp
   ../about.cpp
   ../app.cpp
