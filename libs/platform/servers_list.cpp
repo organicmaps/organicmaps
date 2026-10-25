@@ -11,8 +11,8 @@ std::optional<MetaConfig> ParseMetaConfig(std::string_view jsonStr)
 {
   MetaConfig outMetaConfig;
 
-  // The meta server returns new fields only to the clients that announce them: the older
-  // clients reject unknown keys. Ignore them, so the next field needs no such announcement.
+  // Ignore unknown fields so this client tolerates additive meta server changes.
+  // Older clients should never receive new fields.
   glz::opts constexpr opts{.error_on_unknown_keys = false};
   if (auto const ec = glz::read<opts>(outMetaConfig, jsonStr); ec)
   {
