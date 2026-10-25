@@ -166,7 +166,8 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
 
   activeFrame = false;
   viewportChanged = false;
-  m_modelViewChanged = !events.empty() || m_state == STATE_SCALE || m_state == STATE_DRAG;
+  m_modelViewChanged =
+      !events.empty() || m_state == STATE_SCALE || m_state == STATE_DRAG || m_transformGestureInProgress;
 
   for (auto const & e : events)
   {
@@ -237,6 +238,37 @@ ScreenBase const & UserEventStream::ProcessEvents(bool & modelViewChanged, bool 
       m_needTrackCenter = false;
       ref_ptr<RotateEvent> rotateEvent = make_ref(e);
       breakAnim = OnRotate(rotateEvent);
+    }
+    break;
+    case UserEvent::EventType::TransformGesture:
+    {
+      m_needTrackCenter = false;
+      ref_ptr<TransformGestureEvent> gestureEvent = make_ref(e);
+      if (gestureEvent->GetPhase() == TransformGestureEvent::Phase::Begin)
+      {
+        ASSERT(!m_transformGestureInProgress, ());
+        ASSERT_EQUAL(m_state, STATE_EMPTY, ());
+        m_transformGestureInProgress = true;
+        if (m_listener)
+          m_listener->OnScaleStarted();
+      }
+      else
+      {
+        ASSERT(m_transformGestureInProgress, ());
+        m_transformGestureInProgress = false;
+        if (m_listener)
+          m_listener->OnScaleEnded();
+      }
+    }
+    break;
+    case UserEvent::EventType::RotateBy:
+    {
+      m_needTrackCenter = false;
+      ASSERT(m_transformGestureInProgress, ());
+      ref_ptr<RotateByEvent> rotateEvent = make_ref(e);
+      if (m_listener)
+        m_listener->OnRotated();
+      breakAnim = RotateBy(rotateEvent->GetDeltaRadians(), rotateEvent->GetPixelPoint());
     }
     break;
     case UserEvent::EventType::FollowAndRotate:
@@ -519,6 +551,18 @@ bool UserEventStream::SetAngle(double azimuth, bool isAnim, TAnimationCreator co
   return SetScreen(screen, isAnim, parallelAnimCreator);
 }
 
+bool UserEventStream::RotateBy(double deltaRadians, m2::PointD pixelPoint)
+{
+  ScreenBase screen;
+  GetTargetScreen(screen);
+  if (m_listener)
+    m_listener->CorrectScalePoint(pixelPoint);
+  m2::PointD const globalPoint = screen.PtoG(screen.P3dtoP(pixelPoint));
+  screen.Rotate(deltaRadians);
+  screen.MatchGandP3d(globalPoint, pixelPoint);
+  return SetScreen(screen, false);
+}
+
 bool UserEventStream::SetRect(m2::RectD rect, int zoom, bool applyRotation, bool isAnim, bool useVisibleViewport,
                               TAnimationCreator const & parallelAnimCreator)
 {
@@ -751,6 +795,7 @@ m2::AnyRectD UserEventStream::GetTargetRect()
 
 bool UserEventStream::ProcessTouch(TouchEvent const & touch)
 {
+  ASSERT(!m_transformGestureInProgress, ());
   ASSERT(touch.GetFirstTouch().m_id != -1, ());
 
   TouchEvent touchEvent = touch;
@@ -1284,12 +1329,12 @@ void UserEventStream::EndDoubleTapAndHold(Touch const & touch)
 
 bool UserEventStream::IsInUserAction() const
 {
-  return m_state == STATE_DRAG || m_state == STATE_SCALE;
+  return m_state == STATE_DRAG || m_state == STATE_SCALE || m_transformGestureInProgress;
 }
 
 bool UserEventStream::IsWaitingForActionCompletion() const
 {
-  return m_state != STATE_EMPTY;
+  return m_state != STATE_EMPTY || m_transformGestureInProgress;
 }
 
 void UserEventStream::SetKineticScrollEnabled(bool enabled)
