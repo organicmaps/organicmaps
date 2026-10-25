@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="red">#FFF54137</color>
+  <color name="om_widget_sign_white">#FFFFFFFF</color>
+  <color name="om_widget_sign_black">#CC000000</color>
+  <color name="om_widget_sign_red">#FFF54137</color>
+  <color name="om_widget_sign_amber">#FFA86A00</color>
 </resources>

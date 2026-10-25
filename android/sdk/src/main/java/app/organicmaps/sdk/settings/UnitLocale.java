@@ -5,7 +5,7 @@ import java.util.Locale;
 public class UnitLocale
 {
   // This constants should be equal with platform/settings.hpp
-  public static final int UNITS_UNDEFINED = -1;
+  private static final int UNITS_UNDEFINED = -1;
   public static final int UNITS_METRIC = 0;
   public static final int UNITS_FOOT = 1;
 

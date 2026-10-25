@@ -1,13 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <declare-styleable name="SpeedLimitView">
-    <attr name="speedLimitBackgroundColor" format="color" />
-    <attr name="speedLimitBorderColor" format="color" />
-    <attr name="speedLimitAlertColor" format="color" />
-    <attr name="speedLimitTextColor" format="color" />
-    <attr name="speedLimitTextAlertColor" format="color" />
-    <!-- These values are used only in edit mode -->
-    <attr name="speedLimitEditModeSpeedLimit" format="integer" />
-    <attr name="speedLimitEditModeAlert" format="boolean" />
+  <!--
+    Theme attributes: let an app theme restyle every widget instance at once.
+    Used as `defStyleAttr` by the views.
+  -->
+  <attr name="om_widget_speed_limit_view_style" format="reference" />
+  <attr name="om_widget_current_speed_view_style" format="reference" />
+  <attr name="om_widget_combined_speed_view_style" format="reference" />
+
+  <attr name="om_widget_shape" format="enum">
+    <enum name="circle" value="0" />
+    <enum name="square" value="1" />
+  </attr>
+
+  <attr name="om_widget_mode" format="enum">
+    <enum name="normal" value="0" />
+    <enum name="warning" value="1" />
+    <enum name="alert" value="2" />
+  </attr>
+
+  <attr name="om_widget_background_color" format="color" />
+
+  <!-- Level 3 (leaf): a single color set, one per shape + mode combination. -->
+  <declare-styleable name="OmWidgetSignColors">
+    <attr name="om_widget_background_color" />
+    <attr name="om_widget_frame_color" format="color" />
+    <attr name="om_widget_outline_color" format="color" />
+    <attr name="om_widget_text_color" format="color" />
+  </declare-styleable>
+
+  <!-- Level 2: a palette for one shape, i.e. a color set per mode. -->
+  <declare-styleable name="OmWidgetSignPalette">
+    <attr name="om_widget_colors_normal" format="reference" />
+    <attr name="om_widget_colors_warning" format="reference" />
+    <attr name="om_widget_colors_alert" format="reference" />
+  </declare-styleable>
+
+  <!-- Level 1: the view picks a palette by shape and a color set by mode. -->
+  <declare-styleable name="OmWidgetSignView">
+    <attr name="om_widget_shape" />
+    <attr name="om_widget_mode" />
+    <attr name="om_widget_circle_palette" format="reference" />
+    <attr name="om_widget_square_palette" format="reference" />
+    <!-- Outer frame width as a fraction of the sign size, zero means no frame. -->
+    <attr name="om_widget_frame_width_ratio" format="float" />
+    <!-- Outline width as a fraction of the sign size, zero means no outline. -->
+    <attr name="om_widget_outline_width_ratio" format="float" />
+    <!-- Corner radius as a fraction of the sign size, 0.5 makes a circle. Defaults to the shape. -->
+    <attr name="om_widget_corner_radius_ratio" format="float" />
+  </declare-styleable>
+
+  <declare-styleable name="OmWidgetCurrentSpeedView">
+    <!-- Localized speed units drawn below the value, e.g. "km/h". -->
+    <attr name="om_widget_units" format="string" />
+  </declare-styleable>
+
+  <declare-styleable name="OmWidgetCombinedSpeedView">
+    <attr name="om_widget_shape" />
+    <attr name="om_widget_mode" />
+    <!-- Position of the current speed relative to the speed limit. Only start/end follow layout direction. -->
+    <attr name="om_widget_current_speed_position" format="enum">
+      <enum name="top" value="0" />
+      <enum name="bottom" value="1" />
+      <enum name="left" value="2" />
+      <enum name="right" value="3" />
+      <enum name="start" value="4" />
+      <enum name="end" value="5" />
+    </attr>
+    <!-- A color set per mode; only the background color is used. -->
+    <attr name="om_widget_background_palette" format="reference" />
+    <!-- Fallback for background colors missing from the palette. -->
+    <attr name="om_widget_background_color" />
+    <!--
+      Styles applied to the nested signs. When not set, the signs are styled by the
+      corresponding theme attributes, exactly as the standalone ones.
+    -->
+    <attr name="om_widget_current_speed_view_style" />
+    <attr name="om_widget_speed_limit_view_style" />
   </declare-styleable>
 </resources>

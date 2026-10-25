@@ -2,7 +2,6 @@ package app.organicmaps.routing;
 
 import static app.organicmaps.sdk.util.Utils.dimen;
 
-import android.content.res.Configuration;
 import android.location.Location;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.maplayer.MapButtonsViewModel;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.maplayer.traffic.TrafficManager;
 import app.organicmaps.sdk.routing.RoutingController;
@@ -25,7 +26,9 @@ import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.widget.roadshield.RoadShieldUtils;
 import app.organicmaps.sdk.widgets.lanes.LanesView;
-import app.organicmaps.sdk.widgets.speedlimit.SpeedLimitView;
+import app.organicmaps.sdk.widgets.speedlimit.CombinedSpeedView;
+import app.organicmaps.sdk.widgets.speedlimit.CombinedSpeedViewController;
+import app.organicmaps.sdk.widgets.speedlimit.Shape;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils;
@@ -49,10 +52,12 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
   @NonNull
   private final LanesView mLanesView;
   @NonNull
-  private final SpeedLimitView mSpeedLimit;
+  private final CombinedSpeedView mSpeedView;
+  @NonNull
+  private final CombinedSpeedViewController mSpeedController;
 
   private final MapButtonsViewModel mMapButtonsViewModel;
-  private final View mTopFrame;
+  private final ViewGroup mTopFrame;
   private final View mNextTurnContainer;
 
   private final NavMenu mNavMenu;
@@ -86,7 +91,11 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
 
     mLanesView = mTopFrame.findViewById(R.id.lanes);
 
-    mSpeedLimit = mTopFrame.findViewById(R.id.nav_speed_limit);
+    mSpeedView = mTopFrame.findViewById(R.id.nav_speed_limit);
+    mSpeedController = new CombinedSpeedViewController(mSpeedView);
+    updateCurrentSpeed();
+    // TODO: add support for MUTCD switch
+    mSpeedController.setShape(Shape.Circle);
 
     // Blank rectangle below the navbar that hides menu content behind it.
     final View navigationBarBackground = mFrame.findViewById(R.id.nav_bottom_sheet_nav_bar);
@@ -126,22 +135,23 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     });
   }
 
-  // Height the search sheet must clear when expanded over the navigation top frame: the always
-  // shown street-name frame plus the taller of the turn/speed column or the lanes strip (the two
-  // overlap rather than stack, so take the max). The turn/speed column is only laid out below the
-  // street frame in portrait.
+  // The search sheet must clear the lowest visible child, including layout offsets and overlaps.
   private int computeNavContentHeight()
   {
-    int turnAndSpeedHeight = 0;
-    if (mFrame.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+    return UiUtils.isVisible(mFrame) ? lowestVisibleChildBottom(mTopFrame) : 0;
+  }
+
+  @VisibleForTesting
+  static int lowestVisibleChildBottom(@NonNull ViewGroup parent)
+  {
+    int bottom = 0;
+    for (int i = 0; i < parent.getChildCount(); ++i)
     {
-      if (UiUtils.isVisible(mNextTurnContainer))
-        turnAndSpeedHeight += mNextTurnContainer.getHeight();
-      if (UiUtils.isVisible(mSpeedLimit))
-        turnAndSpeedHeight += mSpeedLimit.getHeight();
+      final View child = parent.getChildAt(i);
+      if (UiUtils.isVisible(child))
+        bottom = Math.max(bottom, child.getBottom());
     }
-    final int lanesHeight = UiUtils.isVisible(mLanesView) ? mLanesView.getHeight() : 0;
-    return mStreetFrame.getHeight() + Math.max(turnAndSpeedHeight, lanesHeight);
+    return bottom;
   }
 
   private void updateVehicle(@NonNull RoutingInfo info)
@@ -167,10 +177,13 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
 
   public void update(@Nullable RoutingInfo info)
   {
+    final boolean isPedestrian = Router.get() == Router.Pedestrian;
+    UiUtils.showIf(!isPedestrian, mSpeedView);
+
     if (info == null)
       return;
 
-    if (Router.get() == Router.Pedestrian)
+    if (isPedestrian)
       updatePedestrian(info);
     else
       updateVehicle(info);
@@ -203,8 +216,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
       update(RoutingController.get().getCachedRoutingInfo());
     }
     UiUtils.showIf(show, mFrame);
-    if (!show)
-      mMapButtonsViewModel.setTopHeaderHeight(0);
+    mMapButtonsViewModel.setTopHeaderHeight(computeNavContentHeight());
   }
 
   public boolean isNavMenuCollapsed()
@@ -225,6 +237,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
   public void refresh()
   {
     mNavMenu.refreshTts();
+    update(Framework.nativeGetRouteFollowingInfo());
   }
 
   @Override
@@ -295,8 +308,16 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
 
   private void updateSpeedLimit(@NonNull final RoutingInfo info)
   {
+    updateCurrentSpeed();
+    mSpeedController.setSpeedLimit(info.speedLimitMps > 0 ? StringUtils.nativeFormatSpeed(info.speedLimitMps) : null);
+    mSpeedController.setAlertForced(info.isSpeedCamLimitExceeded());
+  }
+
+  private void updateCurrentSpeed()
+  {
     final Location location = MwmApplication.from(mFrame.getContext()).getLocationHelper().getSavedLocation();
-    final boolean speedLimitExceeded = location != null && info.speedLimitMps < location.getSpeed();
-    mSpeedLimit.setSpeedLimit(StringUtils.nativeFormatSpeed(info.speedLimitMps), speedLimitExceeded);
+    mSpeedController.setUnits(StringUtils.nativeGetLocalizedSpeedUnits());
+    mSpeedController.setSpeed(
+        StringUtils.nativeFormatSpeed(location != null && location.hasSpeed() ? location.getSpeed() : 0));
   }
 }
