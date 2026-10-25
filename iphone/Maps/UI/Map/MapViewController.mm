@@ -725,9 +725,12 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
     [self.controlsManager openMenuFromDeepLink];
     return;
   }
+  // A link handled during the pop replaces this one, so the menu must not cover its destination.
+  NSURL * url = DeepLinkHandler.shared.url;
   [coordinator animateAlongsideTransition:nil
                                completion:^(id<UIViewControllerTransitionCoordinatorContext>) {
-                                 [self.controlsManager openMenuFromDeepLink];
+                                 if ([DeepLinkHandler.shared.url isEqual:url])
+                                   [self.controlsManager openMenuFromDeepLink];
                                }];
 }
 
