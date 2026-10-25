@@ -61,7 +61,6 @@ private:
   std::optional<location::EMyPositionMode> m_positionMode;
   bool m_locationFailed = false;
   bool m_suspended = false;
-  bool m_controlsHidden = false;
   int m_lastBottomInset = -1;
   bool m_shutdown = false;
 };

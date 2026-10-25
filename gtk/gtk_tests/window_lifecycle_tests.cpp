@@ -298,7 +298,20 @@ UNIT_TEST(Window_LocationAndRenderingLifecycle)
     TEST_LESS_OR_EQUAL(animationFrames, static_cast<uint64_t>(frameBudget),
                        ("Producer exceeded the display frame rate"));
 
-    // F10 is provided by the primary menu button, including when the map owns keyboard focus.
+    auto controlsShown = [&]()
+    {
+      auto * state = g_action_group_get_action_state(G_ACTION_GROUP(window.Window()), "show-map-controls");
+      TEST(state, ());
+      bool const shown = g_variant_get_boolean(state);
+      g_variant_unref(state);
+      return shown;
+    };
+    TEST(controlsShown(), ());
+    window.ToggleMapControls();
+    TEST(!controlsShown(), ());
+    TEST(!gtk_widget_get_visible(button), ());
+
+    // Hidden controls can be restored through the primary menu using only the keyboard.
     gtk_widget_grab_focus(mapArea);
     input.PressKey(68 /* KEY_F10 */);
     std::function<GtkMenuButton *(GtkWidget *)> findMenu = [&](GtkWidget * widget) -> GtkMenuButton *
@@ -314,10 +327,19 @@ UNIT_TEST(Window_LocationAndRenderingLifecycle)
     TEST(menu && gtk_menu_button_get_primary(menu), ());
     auto * popover = gtk_menu_button_get_popover(menu);
     TEST(RunUntil([&]() { return gtk_widget_get_visible(GTK_WIDGET(popover)); }), ());
+    input.PressKey(28 /* KEY_ENTER */);
+    TEST(RunUntil([&]() { return controlsShown() && gtk_widget_get_visible(button); }), ());
+    TEST(!gtk_widget_get_visible(GTK_WIDGET(popover)), ());
+
+    // F10 and Escape work when the map owns keyboard focus, too.
+    gtk_widget_grab_focus(mapArea);
+    input.PressKey(68 /* KEY_F10 */);
+    TEST(RunUntil([&]() { return gtk_widget_get_visible(GTK_WIDGET(popover)); }), ());
     input.PressKey(1 /* KEY_ESC */);
     TEST(RunUntil([&]() { return !gtk_widget_get_visible(GTK_WIDGET(popover)); }), ());
     input.PressKey(68 /* KEY_F10 */);
     TEST(RunUntil([&]() { return gtk_widget_get_visible(GTK_WIDGET(popover)); }), ());
+    input.PressKey(108 /* KEY_DOWN */);
     input.PressKey(28 /* KEY_ENTER */);
     TEST(RunUntil(
              [&]()

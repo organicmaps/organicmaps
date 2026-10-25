@@ -126,6 +126,7 @@ void MainWindow::BuildUi()
   auto * mapToolbar = adw_toolbar_view_new();
   auto * header = adw_header_bar_new();
   auto * menu = g_menu_new();
+  g_menu_append(menu, "Show Map Controls", "win.show-map-controls");
   g_menu_append(menu, "About Organic Maps", "win.about");
   auto * menuButton = gtk_menu_button_new();
   gtk_menu_button_set_icon_name(GTK_MENU_BUTTON(menuButton), "open-menu-symbolic");
@@ -136,6 +137,19 @@ void MainWindow::BuildUi()
   g_object_unref(menu);
   adw_header_bar_pack_end(ADW_HEADER_BAR(header), menuButton);
   adw_toolbar_view_add_top_bar(ADW_TOOLBAR_VIEW(mapToolbar), header);
+
+  auto * showControls = g_simple_action_new_stateful("show-map-controls", nullptr, g_variant_new_boolean(TRUE));
+  Connect<void(GSimpleAction *, GVariant *)>(showControls, "change-state",
+                                             [this](GSimpleAction * action, GVariant * value)
+  {
+    bool const show = g_variant_get_boolean(value);
+    gtk_widget_set_visible(m_rightButtons, show);
+    gtk_widget_set_visible(m_myPositionButton, show);
+    g_simple_action_set_state(action, value);
+    QueueMapInsetsUpdate();
+  });
+  g_action_map_add_action(G_ACTION_MAP(m_window), G_ACTION(showControls));
+  g_object_unref(showControls);
 
   auto * about = g_simple_action_new("about", nullptr);
   Connect<void(GSimpleAction *, GVariant *)>(about, "activate",
@@ -323,11 +337,7 @@ void MainWindow::UpdateLocationService(bool retry)
 void MainWindow::ToggleMapControls()
 {
   // Long tap hides the map buttons; the header and attribution stay accessible.
-  m_controlsHidden = !m_controlsHidden;
-  bool const show = !m_controlsHidden;
-  gtk_widget_set_visible(m_rightButtons, show);
-  gtk_widget_set_visible(m_myPositionButton, show);
-  QueueMapInsetsUpdate();
+  g_action_group_activate_action(G_ACTION_GROUP(m_window), "show-map-controls", nullptr);
 }
 
 void MainWindow::OnMyPositionModeChanged(location::EMyPositionMode mode)
