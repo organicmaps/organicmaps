@@ -1035,3 +1035,28 @@ UNIT_TEST(Water_WalkingLinksCannotInventWaterDistance)
   TEST(path.m_points.empty(), ());
 }
 }  // namespace water_geometry_test
+
+namespace water_geometry_test
+{
+UNIT_TEST(Water_ManyValidPortagesDoNotExhaustRejectionBudget)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  geometry.m_hasSourceTopology = false;
+  for (size_t i = 0; i < 41; ++i)
+    geometry.m_lines.push_back({{P(i * 0.001, 0)}, {P(i * 0.001 + 0.0009, 0)}});
+  size_t checks = 0;
+  Path path;
+  TEST(FindPath(geometry, geometry.m_lines.front().front().m_point, geometry.m_lines.back().back().m_point, false,
+                kNeverCancelled, path, {}, true,
+                [&](auto const &, auto const &)
+  {
+    ++checks;
+    return true;
+  }) == ResultCode::Success,
+       ());
+  TEST_EQUAL(checks, 40, ());
+  TEST_EQUAL(std::count(path.m_landGaps.begin(), path.m_landGaps.end(), true), 40, ());
+  CheckAccounting(path);
+}
+}  // namespace water_geometry_test

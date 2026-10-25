@@ -14,6 +14,7 @@
 #include <array>
 #include <cmath>
 #include <memory>
+#include <numeric>
 
 namespace routing
 {
@@ -131,6 +132,60 @@ bool AddSurface(std::vector<::water::Record> const & records, m2::RectD const & 
       result.m_triangles.push_back({clipped[0], clipped[j - 1], clipped[j]});
     }
   }
+  return true;
+}
+
+struct FeatureSurface
+{
+  m2::RectD m_bounds;
+  std::vector<::water::Record> m_triangles;
+};
+
+bool AddFeatureSurfaces(std::vector<FeatureSurface> & surfaces, m2::RectD const & bounds,
+                        water::CancelledFn const & cancelled, water::Geometry & result)
+{
+  std::vector<size_t> parents(surfaces.size());
+  std::iota(parents.begin(), parents.end(), 0);
+  auto const root = [&](size_t node)
+  {
+    while (parents[node] != node)
+    {
+      parents[node] = parents[parents[node]];
+      node = parents[node];
+    }
+    return node;
+  };
+  m4::Tree<size_t> index;
+  for (size_t i = 0; i < surfaces.size(); ++i)
+    index.Add(i, surfaces[i].m_bounds);
+  index.Optimize();
+  for (size_t i = 0; i < surfaces.size(); ++i)
+  {
+    if (cancelled())
+      return false;
+    index.ForEachInRect(surfaces[i].m_bounds, [&](size_t j)
+    {
+      if (j >= i)
+        return;
+      auto const a = root(i), b = root(j);
+      parents[std::max(a, b)] = std::min(a, b);
+    });
+  }
+  for (size_t i = 0; i < surfaces.size(); ++i)
+  {
+    auto const group = root(i);
+    if (group == i)
+      continue;
+    auto & triangles = surfaces[group].m_triangles;
+    for (auto & record : surfaces[i].m_triangles)
+      triangles.push_back(std::move(record));
+    surfaces[i].m_triangles.clear();
+  }
+  // Disjoint bounding-box groups cannot overlap or touch. Union each group
+  // independently, retaining every triangle, island and exact surface contact.
+  for (auto const & surface : surfaces)
+    if (!surface.m_triangles.empty() && !AddSurface(surface.m_triangles, bounds, cancelled, result, 3 * kMaxTriangles))
+      return false;
   return true;
 }
 
@@ -281,7 +336,7 @@ water::Geometry WaterGeometryProvider::ExtractFeatures(DataSource const & dataSo
 {
   water::Geometry result;
   result.m_hasSourceTopology = false;
-  std::vector<::water::Record> surfaces;
+  std::vector<FeatureSurface> surfaces;
   size_t points = 0, triangles = 0, features = 0;
   bool exceeded = false;
   for (auto const & id : ids)
@@ -343,6 +398,7 @@ water::Geometry WaterGeometryProvider::ExtractFeatures(DataSource const & dataSo
           AddLine(record, bounds, result);
         return;
       }
+      FeatureSurface surface;
       feature.ForEachTriangle([&](Point const & a, Point const & b, Point const & c)
       {
         if (cancelled() || exceeded)
@@ -358,12 +414,16 @@ water::Geometry WaterGeometryProvider::ExtractFeatures(DataSource const & dataSo
             exceeded = true;
             return;
           }
-          surfaces.push_back({::water::Kind::Area, {{clipped[0], clipped[i - 1], clipped[i]}}, {}});
+          for (auto const & point : {clipped[0], clipped[i - 1], clipped[i]})
+            surface.m_bounds.Add(point);
+          surface.m_triangles.push_back({::water::Kind::Area, {{clipped[0], clipped[i - 1], clipped[i]}}, {}});
         }
       }, FeatureType::BEST_GEOMETRY);
+      if (!surface.m_triangles.empty())
+        surfaces.push_back(std::move(surface));
     }, bounds, scales::GetUpperScale(), id);
   }
-  if (cancelled() || exceeded || !AddSurface(surfaces, bounds, cancelled, result, 3 * kMaxTriangles))
+  if (cancelled() || exceeded || !AddFeatureSurfaces(surfaces, bounds, cancelled, result))
     return {};
   IndexTriangles(result);
   result.m_bounds = bounds;

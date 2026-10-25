@@ -3,6 +3,7 @@
 #include "routing/route.hpp"
 #include "routing/routing_helpers.hpp"
 
+#include "base/scope_guard.hpp"
 #include "geometry/mercator.hpp"
 
 #include <algorithm>
@@ -40,6 +41,13 @@ RouterResultCode Walk(IRouter & pedestrian, m2::PointD const & from, m2::PointD 
 RouterResultCode WaterRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD const &, bool, bool,
                                              RouterDelegate const & delegate, RoutesResult & result)
 {
+  if (m_pedestrian)
+    m_pedestrian->ClearState();
+  SCOPE_GUARD(clearWalkingCache, [&]
+  {
+    if (m_pedestrian)
+      m_pedestrian->ClearState();
+  });
   auto const cancelled = [&delegate] { return delegate.IsCancelled(); };
   if (cancelled())
     return RouterResultCode::Cancelled;

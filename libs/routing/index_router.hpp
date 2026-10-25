@@ -73,7 +73,8 @@ public:
   IndexRouter(VehicleType vehicleType, bool loadAltitudes, CountryParentNameGetterFn const & countryParentNameGetterFn,
               TCountryFileFn const & countryFileFn, CountryRectFn const & countryRectFn,
               std::shared_ptr<NumMwmIds> numMwmIds, std::shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
-              traffic::TrafficCache const & trafficCache, DataSource & dataSource);
+              traffic::TrafficCache const & trafficCache, DataSource & dataSource, bool cacheWalkingGraph = false);
+  ~IndexRouter() override;
 
   std::unique_ptr<WorldGraph> MakeSingleMwmWorldGraph();
 
@@ -279,6 +280,8 @@ private:
 
   VehicleType m_vehicleType;
   bool m_loadAltitudes;
+  // Opt in only for pedestrian legs of one composite Water request. ClearState releases it.
+  bool m_cacheWalkingGraph = false;
   std::string const m_name;
   MwmDataSource m_dataSource;
   std::shared_ptr<VehicleModelFactoryInterface> m_vehicleModelFactory;
@@ -314,5 +317,6 @@ private:
 
   std::optional<RoutingOptions> m_requestRoutingOptions;
   RoutingOptions::RoadType m_previousRoutingOptions = 0;
+  std::unique_ptr<WorldGraph> m_cachedWalkingGraph;
 };
 }  // namespace routing

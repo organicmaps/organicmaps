@@ -535,7 +535,7 @@ void RoutingManager::SetRouterImpl(RouterType type)
         VehicleType::Pedestrian, false, m_callbacks.m_countryParentNameGetterFn, [this](m2::PointD const & point)
     { return m_callbacks.m_countryInfoGetter().GetRegionCountryId(point); }, [this](std::string const & country) {
       return m_callbacks.m_countryInfoGetter().GetLimitRectForLeaf(country);
-    }, m_numMwmIDs, m_numMwmTree, m_routingSession, m_callbacks.m_dataSourceGetter());
+    }, m_numMwmIDs, m_numMwmTree, m_routingSession, m_callbacks.m_dataSourceGetter(), true /* cacheWalkingGraph */);
     router = std::make_unique<WaterRouter>([provider](Checkpoints const & checkpoints, RouterDelegate const & delegate)
     { return provider->GetGeometry(checkpoints, delegate); }, std::move(pedestrian),
                                            [provider](Checkpoints const & checkpoints, RouterDelegate const & delegate)
