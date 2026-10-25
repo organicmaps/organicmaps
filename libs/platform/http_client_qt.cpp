@@ -88,18 +88,16 @@ bool IsOsmHost(QString const & host)
 
 HttpClientReply::HttpClientReply(QNetworkReply * reply, HttpClient::CompletionHandler handler,
                                  HttpClient::ProgressHandler progressHandler, HttpClient::DataHandler dataHandler,
-                                 HttpClient::CancelChecker cancelChecker, bool loadHeaders, bool followRedirects,
-                                 std::string urlRequested, std::string cookies, std::string outputFile,
-                                 std::optional<HttpClient::ReceivedFileSegment> segment, QNetworkRequest request,
-                                 std::string httpMethod, QByteArray bodyBytes, RebindCancel rebindCancel)
+                                 HttpClient::CancelChecker cancelChecker, bool loadHeaders, std::string urlRequested,
+                                 std::string outputFile, std::optional<HttpClient::ReceivedFileSegment> segment,
+                                 QNetworkRequest request, std::string httpMethod, QByteArray bodyBytes,
+                                 RebindCancel rebindCancel)
   : m_handler(std::move(handler))
   , m_progressHandler(std::move(progressHandler))
   , m_dataHandler(std::move(dataHandler))
   , m_cancelChecker(std::move(cancelChecker))
   , m_loadHeaders(loadHeaders)
-  , m_followRedirects(followRedirects)
   , m_urlRequested(std::move(urlRequested))
-  , m_cookies(std::move(cookies))
   , m_outputFile(std::move(outputFile))
   , m_segment(std::move(segment))
   , m_request(std::move(request))
@@ -322,33 +320,46 @@ void HttpClientReply::OnDownloadProgress(qint64 bytesReceived, qint64 bytesTotal
 
 void HttpClientReply::OnFinished()
 {
-  HttpClient::Result result;
-
-  // Check cancellation.
-  if (m_cancelChecker && m_cancelChecker())
-  {
-    result.m_errorCode = HttpClient::kCancelled;
-    if (m_handler)
-      m_handler(std::move(result));
-    m_reply->deleteLater();
-    deleteLater();
-    return;
-  }
-
-  // Transparent retry for HTTP/2 GOAWAY-rejected streams (RFC 9113 §6.8).
-  // On success a new reply is in flight and will fire OnFinished again.
+  // A retry keeps the file and callbacks alive for the replacement reply.
   if (TryRetryOnGoAway())
     return;
 
-  int const httpCode = m_reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
-  bool const noError = (m_reply->error() == QNetworkReply::NoError);
+  auto result = MakeResult();
+  if (m_outputFileStream)
+    m_outputFileStream->close();
 
-  if (noError || httpCode != 0)
+  if (m_handler)
+    m_handler(std::move(result));
+
+  m_reply->deleteLater();
+  deleteLater();
+}
+
+HttpClient::Result HttpClientReply::MakeResult()
+{
+  HttpClient::Result result;
+
+  // Cancellation takes precedence over HTTP and sink errors.
+  if (m_cancelChecker && m_cancelChecker())
   {
-    result.m_errorCode = httpCode != 0 ? httpCode : static_cast<int>(m_reply->error());
-    // Any HTTP response (even 4xx/5xx) means the connection was made successfully.
-    // Qt maps HTTP errors to QNetworkReply error codes, but callers expect m_success = true
-    // when they got an HTTP response (matching Apple/Android semantics).
+    result.m_errorCode = HttpClient::kCancelled;
+    return result;
+  }
+
+  int const httpCode = m_reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+  auto const error = m_reply->error();
+  // Qt uses content/server errors for HTTP 4xx/5xx, with protocol/proxy codes
+  // for 400/418 and 407. Other errors can interrupt a body after its status arrives.
+  bool const httpError =
+      httpCode >= 400 && ((error >= QNetworkReply::ContentAccessDenied && error <= QNetworkReply::UnknownContentError &&
+                           error != QNetworkReply::ContentReSendError) ||
+                          (error >= QNetworkReply::InternalServerError && error <= QNetworkReply::UnknownServerError) ||
+                          error == QNetworkReply::ProtocolInvalidOperationError ||
+                          error == QNetworkReply::ProxyAuthenticationRequiredError);
+
+  if (error == QNetworkReply::NoError || httpError)
+  {
+    result.m_errorCode = httpCode;
     result.m_success = (httpCode != 0);
 
     // Use toEncoded() to preserve percent-encoding, matching Apple's absoluteString behavior.
@@ -363,7 +374,7 @@ void HttpClientReply::OnFinished()
 
     if (m_loadHeaders)
     {
-      // Join duplicate headers, but keep Set-Cookie on the typed path above.
+      // Set-Cookie values need cookie normalization rather than generic header joining.
       for (auto const & header : m_reply->rawHeaderPairs())
       {
         auto const key = header.first.toLower().toStdString();
@@ -374,64 +385,19 @@ void HttpClientReply::OnFinished()
         if (!inserted)
           it->second += ", " + value;
       }
-      if (!serverCookies.empty())
-        result.m_headers["set-cookie"] = serverCookies;
     }
-    else
-    {
-      if (!serverCookies.empty())
-        result.m_headers.emplace("set-cookie", serverCookies);
-    }
+    if (!serverCookies.empty())
+      result.m_headers.emplace("set-cookie", serverCookies);
 
-    if (!m_dataHandler)
-    {
-      // Segment mode: validate headers here too, in case the body arrived with no
-      // readyRead firing (e.g. empty 206 body, or status != 206).
-      if (m_segment)
-        ValidateSegmentIfNeeded();
-
-      if (m_outputFileStream)
-      {
-        QByteArray const remaining = m_reply->readAll();
-        if (!remaining.isEmpty())
-        {
-          // Segment overflow check: any bytes past expectedBytes are a protocol violation.
-          if (m_segment)
-          {
-            int64_t const available = m_segment->m_expectedBytes - m_segmentBytesWritten;
-            if (remaining.size() > available)
-            {
-              LOG(LWARNING,
-                  ("Segment overflow at finish:", remaining.size(), "bytes trailing, only", available, "expected"));
-              m_writeError = true;
-              m_segmentErrorCode = HttpClient::kInconsistentFileSize;
-            }
-          }
-          if (!m_writeError && m_outputFileStream->write(remaining) != remaining.size())
-          {
-            m_writeError = true;
-            if (m_segment)
-              m_segmentErrorCode = HttpClient::kWriteException;
-          }
-          else if (!m_writeError && m_segment)
-          {
-            m_segmentBytesWritten += remaining.size();
-          }
-        }
-        m_outputFileStream->close();
-      }
-      else
-      {
-        QByteArray const body = m_reply->readAll();
-        if (!body.isEmpty())
-          m_accumulatedData.append(body.constData(), static_cast<size_t>(body.size()));
-        result.m_serverResponse = std::move(m_accumulatedData);
-      }
-    }
+    // A finished reply can retain body bytes, including an empty segment whose
+    // headers still need validation. Use the same sink and bounds checks as readyRead.
+    OnReadyRead();
+    if (!m_dataHandler && !m_outputFileStream && !m_segment)
+      result.m_serverResponse = std::move(m_accumulatedData);
   }
   else
   {
-    result.m_errorCode = static_cast<int>(m_reply->error());
+    result.m_errorCode = static_cast<int>(error);
     LOG(LDEBUG, ("Network error:", m_reply->errorString().toStdString(), "while connecting to", m_urlRequested));
   }
 
@@ -447,29 +413,22 @@ void HttpClientReply::OnFinished()
 
   // File open or write error — report failure regardless of HTTP result.
   // Must be outside the if/else above because abort() on file-open failure
-  // yields noError=false and httpCode=0, skipping the if branch entirely.
+  // can yield a network error without an HTTP status.
   if (m_writeError)
   {
-    if (m_outputFileStream)
-      m_outputFileStream->close();
     result.m_success = false;
+    // Segment validation preserves HTTP errors such as 404 for the downloader.
     if (m_segmentErrorCode != HttpClient::kNoError)
       result.m_errorCode = m_segmentErrorCode;
     else if (!m_segment)
       result.m_errorCode = HttpClient::kWriteException;
-    // Segment mode with m_segmentErrorCode == kNoError: preserve the HTTP code (e.g. 404),
-    // so the downloader's 404 → FileNotFound mapping still works.
   }
 
   // DataHandler requested abort — override the HTTP success.
   if (m_dataAborted)
     result.m_success = false;
 
-  if (m_handler)
-    m_handler(std::move(result));
-
-  m_reply->deleteLater();
-  deleteLater();
+  return result;
 }
 
 HttpClient::RequestHandle HttpClient::RunHttpRequestAsync(CompletionHandler handler)
@@ -537,9 +496,7 @@ HttpClient::RequestHandle HttpClient::RunHttpRequestAsync(CompletionHandler hand
   auto const progressHandler = m_progressHandler;
   auto const dataHandler = m_dataHandler;
   auto const loadHeaders = m_loadHeaders;
-  auto const followRedirects = m_followRedirects;
   auto const urlRequested = m_urlRequested;
-  auto const cookies = m_cookies;
   auto const outputFile = m_outputFile;
   auto const segment = m_receivedFileSegment;
   auto impl = handle.m_impl;
@@ -566,9 +523,7 @@ HttpClient::RequestHandle HttpClient::RunHttpRequestAsync(CompletionHandler hand
                             [=, handler = std::move(handler), cancelChecker = std::move(cancelChecker),
                              rebindCancel = std::move(rebindCancel)]() mutable
   {
-    // Check cancellation BEFORE creating the request — fixes the race where
-    // Cancel() is called between RunHttpRequestAsync() returning and this
-    // lambda executing on the network thread.
+    // Cancellation can be requested while this task waits for the network thread.
     if (cancelChecker())
     {
       HttpClient::Result result;
@@ -582,8 +537,7 @@ HttpClient::RequestHandle HttpClient::RunHttpRequestAsync(CompletionHandler hand
     QNetworkReply * reply = IssueRequest(manager, httpMethod, request, bodyBytes);
 
     new HttpClientReply(reply, std::move(handler), progressHandler, dataHandler, std::move(cancelChecker), loadHeaders,
-                        followRedirects, urlRequested, cookies, outputFile, segment, request, httpMethod, bodyBytes,
-                        std::move(rebindCancel));
+                        urlRequested, outputFile, segment, request, httpMethod, bodyBytes, std::move(rebindCancel));
   },
                             Qt::QueuedConnection);
 
