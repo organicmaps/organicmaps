@@ -7,7 +7,7 @@
 + (NSString *)routingDurationStringFromTimeInterval:(NSTimeInterval)timeInterval
 {
   auto const duration = platform::Duration(timeInterval);
-  return [NSString stringWithCString:duration.GetRoutingString().c_str() encoding:NSUTF8StringEncoding];
+  return [NSString stringWithUTF8String:duration.GetRoutingString().c_str()];
 }
 
 @end

@@ -264,10 +264,8 @@ private:
 void FillSubroutesInfo(Route & route, vector<turns::TurnItem> const & turns /* = kTestTurnsReachOnly */,
                        vector<double> const & times /* = kTestTimes */)
 {
-  // Build segments from the route's actual polyline points (not the global kTestRoute) so segments
-  // are consistent with the followed polyline. This matters because RouteBase no longer stores
-  // the polyline: promoting a sliced RouteBase back to a Route reconstructs the FollowedPolyline
-  // from segments (subroute.front().GetStart() + each segment's junction).
+  // Promoting RouteBase to Route reconstructs the followed polyline from the subroute start and
+  // segment junctions, so the segments must use this route's geometry.
   auto const & polyPts = route.GetPoly().GetPoints();
 
   vector<geometry::PointWithAltitude> junctions;

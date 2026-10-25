@@ -248,10 +248,10 @@ final class NavigationControlView: SolidTouchView {
     // speedLimitMps >= 0 means known limited speed.
     if info.speedLimitMps >= 0 {
       // Use a compact separator when the duration label rounds to at least an hour.
-      let delimeter = info.timeToTarget < 60 * 60 - 30 ? " / " : "/"
+      let separator = info.timeToTarget < 60 * 60 - 30 ? " / " : "/"
       let speedLimitMeasure = Measure(asSpeed: info.speedLimitMps)
       // speedLimitMps == 0 means unlimited speed.
-      speed += delimeter + (info.speedLimitMps == 0 ? "∞" : speedLimitMeasure.valueAsString)
+      speed += separator + (info.speedLimitMps == 0 ? "∞" : speedLimitMeasure.valueAsString)
     }
 
     speedLabel.text = speed

@@ -1,3 +1,5 @@
+import CarPlay
+
 @objc(MWMRouteInfo)
 class RouteInfo: NSObject {
   let timeToTarget: TimeInterval
@@ -16,6 +18,11 @@ class RouteInfo: NSObject {
   let speedLimitMps: Double?
   let roundExitNumber: Int
   let isLeftHandTraffic: Bool
+
+  var tripTravelEstimates: CPTravelEstimates {
+    CPTravelEstimates(distanceRemaining: Measurement(value: targetDistance, unit: targetUnits),
+                      timeRemaining: timeToTarget)
+  }
 
   @objc init(timeToTarget: TimeInterval,
              targetDistance: Double,
