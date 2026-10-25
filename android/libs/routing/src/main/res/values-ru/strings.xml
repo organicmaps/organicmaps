@@ -46,6 +46,6 @@
     <string name="dialog_pedestrian_route_is_long_message">Выберите начальную или конечную точку маршрута ближе к станции метро</string>
 
     <!-- SECTION: gps strings -->
-    <!-- Hint when a selected Water route point is outside the stored water geometry. -->
-    <string name="water_select_point">Выберите точку внутри водоёма. У берега увеличьте масштаб и выберите точку дальше от суши.</string>
+    <!-- Hint when a Water checkpoint has no usable water connection or pedestrian access. -->
+    <string name="water_select_point">Выберите точку на воде или рядом с берегом, к которому можно пройти пешком.</string>
 </resources>
