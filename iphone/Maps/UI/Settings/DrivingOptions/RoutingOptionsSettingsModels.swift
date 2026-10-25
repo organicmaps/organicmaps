@@ -65,7 +65,7 @@ typealias RoutingOptionsSettingsItemViewModel = SettingsItemViewModel<RoutingOpt
 extension MWMRouterType {
   var hasRoutingSettings: Bool {
     // Transit exposes global optimization without introducing road avoidances.
-    self != .ruler
+    self != .ruler && self != .water
   }
 
   var routingOptionsTitle: String {

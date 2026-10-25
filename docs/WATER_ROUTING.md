@@ -1,14 +1,14 @@
 # Water route planning and distance measurement
 
-Android Water plans a journey along mapped water, using pedestrian routes for
-necessary land sections. Water is solid blue; walking is dashed purple. Transfer
+Water on Android and iOS plans a journey along mapped water, using pedestrian
+routes for necessary land sections. Water is solid blue; walking is dashed purple. Transfer
 icons mark where an internal portage leaves and rejoins the water. Ordinary
 walking access to start, finish and intermediate checkpoints does not create
 portage icons. Nearby icons may be hidden at overview scales.
 
 The result shows water, walking and total distance in application units. Water
 has a calculation indicator but no Start button, navigation, ETA or elevation
-chart. Ruler continues to measure straight segments. iOS UI is not included.
+chart. Ruler continues to measure straight segments.
 
 ## Checkpoints and walking
 
@@ -125,6 +125,7 @@ Useful phone checks include:
 | 54.09895, 17.784224 | 54.093102, 17.785852 | Short pedestrian bypass and both transfer icons |
 | 52.3542366, 5.18088336 | 52.354523, 5.238218 | Rameaugracht continuous-water control |
 | 52.35482820, 5.17957070 | 52.45889844, 5.41338676 | Land approach and terminal walking access |
+| 52.354819, 5.179565 | 52.355862, 5.185028 | Both checkpoints on land |
 
 Deterministic routing/provider tests cover geometry, islands, source identities,
 endpoint restrictions, missing coverage, numerical precision, budgets,
@@ -132,14 +133,25 @@ cancellation, walking failures, distances, progress and transfer markers.
 `water_geometry_mwm_test.cpp` uses the existing `TestMwmBuilder` and unchanged
 generator to verify ordinary-map extraction, cross-region coverage and optional
 section compatibility. Android tests cover controls, progress and diagnostics.
+iOS tests cover Water selection and core mapping, separate distances, the
+conditional shortest-route qualification, progress reset and hidden Start controls.
+
+On macOS ARM64, the Debug builds passed 385 routing unit tests, 31 selected map
+tests, seven spatial-index tests and all 47 Water integration tests (eight MWM
+tests plus the 39 real-map tests). The four ordinary MWMs matched the sizes and
+hashes in catalog 2026-07-14. Android passed 121 app/SDK unit tests and lint; iOS
+passed 34 routing, settings and presentation tests. All routes in the table,
+including the reverse long route, were also calculated through the Android
+API 29 ARM64 emulator and iOS 18.6 iPhone 16 Pro simulator interfaces. Both showed
+approximately 94 km water and 24 km walking on the long route. These checks used
+simulators, not connected physical phones.
 
 On APK 2026.10.25-2, a Samsung SM-G970F (Android 12) built the long Pomeranian
 route in both directions, with approximately 94 km water and 24 km walking.
 Native calculation took 20.6 seconds forward and 19.0 seconds in reverse.
 Transfer icons were checked in light/dark styles, at overview/detail scales,
 and after rebuilding, mode changes and cancellation. These are measurements
-for that phone and map, not performance guarantees. No physical Android 16 or
-Apple-platform build was tested in the Windows environment.
+for that phone and map, not performance guarantees.
 
 Android Debug error dialogs provide **Copy** for the selected coordinates,
 My position flags, app version, mode, error code and map/download context.

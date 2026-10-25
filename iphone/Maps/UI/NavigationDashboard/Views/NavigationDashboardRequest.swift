@@ -40,6 +40,7 @@ extension MWMRouterType: CaseIterable {
     .pedestrian,
     .publicTransport,
     .bicycle,
+    .water,
     .ruler,
   ]
 
@@ -56,9 +57,15 @@ extension MWMRouterType: CaseIterable {
       image = UIImage(resource: .navigationDashboardBike)
     case .ruler:
       image = UIImage(resource: .navigationDashboardRuler)
+    case .water:
+      image = UIImage(systemName: "ferry.fill")!
     @unknown default:
       fatalError("Unknown router type")
     }
-    return image.withTintColor(isSelected ? .linkBlue : .blackSecondaryText, renderingMode: .alwaysOriginal)
+    image = image.withTintColor(isSelected ? .linkBlue : .blackSecondaryText, renderingMode: .alwaysOriginal)
+    if self == .water {
+      image.accessibilityLabel = L("water_routing")
+    }
+    return image
   }
 }
