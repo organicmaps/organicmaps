@@ -139,12 +139,18 @@ conditional shortest-route qualification, progress reset and hidden Start contro
 On macOS ARM64, the Debug builds passed 385 routing unit tests, 31 selected map
 tests, seven spatial-index tests and all 47 Water integration tests (eight MWM
 tests plus the 39 real-map tests). The four ordinary MWMs matched the sizes and
-hashes in catalog 2026-07-14. Android passed 121 app/SDK unit tests and lint; iOS
+hashes in catalog 2026-07-14. Android passed 122 app/SDK unit tests and lint; iOS
 passed 34 routing, settings and presentation tests. All routes in the table,
 including the reverse long route, were also calculated through the Android
 API 29 ARM64 emulator and iOS 18.6 iPhone 16 Pro simulator interfaces. Both showed
-approximately 94 km water and 24 km walking on the long route. These checks used
-simulators, not connected physical phones.
+approximately 94 km water and 24 km walking on the long route.
+
+A connected iPhone 8 running iOS 16.7.16 also completed all six table directions
+with the same ordinary maps, showing 58 mi water and 15 mi walking on the long
+route in both directions. Device UI checks covered cancellation, switching to
+pedestrian routing, portrait/landscape layout, light/dark themes and rebuilding
+with an intermediate land point. Missing-water errors showed no stale distances
+or Start button. The local development build did not include CarPlay or iCloud; those features were not tested.
 
 On APK 2026.10.25-2, a Samsung SM-G970F (Android 12) built the long Pomeranian
 route in both directions, with approximately 94 km water and 24 km walking.
