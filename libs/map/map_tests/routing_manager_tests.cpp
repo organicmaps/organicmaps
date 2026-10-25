@@ -3,6 +3,8 @@
 #include "map/framework.hpp"
 #include "map/routing_mark.hpp"
 
+#include "drape_frontend/visual_params.hpp"
+
 #include "routing/ruler_router.hpp"
 
 #include "storage/routing_helpers.hpp"
@@ -895,6 +897,7 @@ UNIT_TEST(RoutingManager_OptimizeRoutePointsPreservesPassedStops)
 }
 UNIT_TEST(RoutingManager_RebuildClearsUnavailableAlternatives)
 {
+  df::VisualParams::Init(1.0, 1024);
   class Delegate final : public RoutingManager::Delegate
   {
   public:
@@ -950,19 +953,26 @@ UNIT_TEST(RoutingManager_RebuildClearsUnavailableAlternatives)
   while (!built)
     guiThread->RunNext();
   TEST(session.SwapActiveAlternative(1), ());
+  TEST(session.DisableFollowMode(), ());
+  TEST(session.IsNoFollowing(), ("Water displays routes without navigation."));
+  TEST(session.IsActive() && session.IsRouteValid(), ());
   {
     auto edit = bookmarks.GetEditSession();
     edit.CreateUserMark<RouteAltMark>({1, 2});
     edit.CreateUserMark<RouteAltMark>({2, 5});
+    edit.CreateUserMark<WaterTransferMark>({3, 4});
+    edit.CreateUserMark<WaterTransferMark>({4, 5});
   }
   TEST_EQUAL(bookmarks.GetUserMarkIds(UserMark::Type::ROUTE_ALT).size(), 2, ());
 
+  TEST_EQUAL(bookmarks.GetUserMarkIds(UserMark::Type::WATER_TRANSFER).size(), 2, ());
   bool failed = false;
   session.RebuildRoute({1, 2}, [](routing::RoutesResult const &, routing::RouterResultCode) {}, nullptr,
                        [&failed](routing::RouterResultCode) { failed = true; }, routing::RouterDelegate::kNoTimeout,
                        routing::SessionState::RouteRebuilding, false);
   TEST(bookmarks.GetUserMarkIds(UserMark::Type::ROUTE_ALT).empty(),
        ("Unavailable controls must disappear immediately."));
+  TEST(bookmarks.GetUserMarkIds(UserMark::Type::WATER_TRANSFER).empty(), ());
   session.RouteCall([](routing::RoutesResult const & result)
   {
     TEST_EQUAL(result.m_routes.size(), 1, ());
@@ -981,5 +991,19 @@ UNIT_TEST(RoutingManager_RebuildClearsUnavailableAlternatives)
   while (!recovered)
     guiThread->RunNext();
   TEST(session.SwapActiveAlternative(1), ("Fresh alternatives must become selectable."));
+  bookmarks.GetEditSession().CreateUserMark<WaterTransferMark>({3, 4});
+  auto const previousRouter = manager.GetLastUsedRouter();
+  SCOPE_GUARD(restoreRouter, [&] { manager.SetLastUsedRouter(previousRouter); });
+  manager.SetRouter(routing::RouterType::Pedestrian);
+  TEST(bookmarks.GetUserMarkIds(UserMark::Type::WATER_TRANSFER).empty(), ());
+}
+UNIT_TEST(WaterTransferMark_IsSeparateFromRouteCheckpoints)
+{
+  WaterTransferMark mark({1, 2});
+  TEST_EQUAL(mark.GetMarkType(), UserMark::Type::WATER_TRANSFER, ());
+  TEST_EQUAL(mark.GetPivot(), m2::PointD(1, 2), ());
+  TEST(!mark.IsAvailableForSearch(), ());
+  TEST(!mark.IsSymbolSelectable(), ());
+  TEST_EQUAL(mark.GetSymbolNames()->begin()->second, "transfer_arrow", ());
 }
 }  // namespace routing_manager_tests

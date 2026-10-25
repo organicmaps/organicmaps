@@ -1,7 +1,11 @@
 # Water distance measurement
 
 Android Water measures distance along mapped water geometry. Water portions are solid;
-a necessary land transfer is dashed. Results show water distance and, when present,
+a necessary land transfer is dashed. Transfer icons mark both ends of each internal
+walking transfer, where the route leaves and rejoins the water. Walking access to
+start, finish and intermediate land checkpoints does not create transfer icons.
+Icons are cleared when the route is cancelled, recalculated or its mode changes; nearby icons may
+be hidden at overview scales to keep the map readable. Results show water distance and, when present,
 land distance and their sum in application units. There is no navigation, ETA, speed
 or elevation chart. Ruler still measures straight segments.
 
@@ -59,8 +63,7 @@ Interior vertices, selected points and extraction cuts are not transfer points.
 Surface transfers can use actual shoreline vertices in source-topology maps.
 Ordinary-map endpoint walks use the complete stored endpoints instead. Their straight distance estimate may
 cross other known water bodies because the returned geometry comes from the
-pedestrian router. Unknown areas remain excluded. Only the internal arrival marker required by shared presentation is produced.
-Android hides navigation controls; native following is disabled.
+pedestrian router. Unknown areas remain excluded. Android hides navigation controls; native following is disabled.
 
 ## Ordinary downloaded maps
 
@@ -220,9 +223,10 @@ request reset the indicator; queued updates from cancelled requests are discarde
 
 ## Validation
 
-The latest validation covers 103 native routing/provider/async/spatial-index
+The latest validation covers 106 native routing/provider/async/spatial-index
 tests on an API 34 x86_64 emulator and a Samsung SM-G970F (Android 12, API 31),
-nine MWM integration tests on the emulator, 40 real-map scenarios on both devices,
+two transfer-marker/lifecycle tests on both devices, nine MWM integration tests
+on the emulator, 40 real-map scenarios on the emulator and five Android UI route cases on the phone,
 115 Android app/SDK unit tests and lint. ARM64 and x86_64 native libraries build.
 The maps are ordinary catalog 2026-07-14 downloads. The reporting Xiaomi on
 Android 16 was not connected; this is not a claim of physical Android 16 testing. Reduced tests cover several portages, walking access at both ends, retrying inaccessible walking candidates,
@@ -401,3 +405,9 @@ and 680 m for the short Polish case, differing from the native fixture values.
 A direct APK 2026.10.24-24 versus 2026.10.25-1 comparison on the same phone and maps
 returned those same UI distances in both versions. These differences predate the
 walking-cache and surface-union changes.
+
+APK 2026.10.25-2 repeats the five phone UI cases with transfer icons. The long
+Pomeranian calculation took 20.6 seconds forward and 19.0 seconds in reverse.
+Icons were checked at overview and detailed scales in light and dark map styles,
+and disappeared on mode changes, recalculation and cancellation. The final
+emulator matrix preserves all 37 earlier route distances and qualifications.

@@ -64,6 +64,42 @@ void RouteSegment::MergeLanes(RouteSegment & from)
 ////////////////////////////////////////////////////////////////////////////////////////
 // RouteBase implementation
 
+std::vector<std::pair<m2::PointD, m2::PointD>> RouteBase::GetWaterTransfers() const
+{
+  std::vector<std::pair<m2::PointD, m2::PointD>> transfers;
+  if (!m_waterDistances)
+    return transfers;
+
+  for (auto const & subroute : m_subrouteAttrs)
+  {
+    auto previous = subroute.GetStart().GetPoint();
+    bool waterBefore = false;
+    std::optional<m2::PointD> exit;
+    for (size_t i = subroute.GetBeginSegmentIdx(); i < subroute.GetEndSegmentIdx(); ++i)
+    {
+      auto const & segment = m_routeSegments[i];
+      auto const & point = segment.GetJunction().GetPoint();
+      // Presentation adds a zero-length water segment at each checkpoint.
+      if (point == previous)
+        continue;
+      if (segment.IsLandGap())
+      {
+        if (waterBefore && !exit)
+          exit = previous;
+      }
+      else
+      {
+        if (exit && *exit != previous)
+          transfers.emplace_back(*exit, previous);
+        exit.reset();
+        waterBefore = true;
+      }
+      previous = point;
+    }
+  }
+  return transfers;
+}
+
 void RouteBase::SetRouteSegments(std::vector<RouteSegment> && routeSegments)
 {
   m_routeSegments = std::move(routeSegments);

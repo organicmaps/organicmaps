@@ -340,7 +340,10 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
   m_routingSession.SetChangeSessionStateCallback([this](SessionState, SessionState state)
   {
     if (state == SessionState::RouteBuilding || state == SessionState::RouteRebuilding)
+    {
       ClearAlternativeRoutes();
+      m_bmManager->GetEditSession().ClearGroup(UserMark::Type::WATER_TRANSFER);
+    }
   });
 
   m_routingSession.SetCheckpointCallback([this](size_t passedCheckpointIdx)
@@ -587,6 +590,7 @@ void RoutingManager::RemoveRoute(bool deactivateFollowing)
       es.ClearGroup(UserMark::Type::SPEED_CAM);
       es.ClearGroup(UserMark::Type::ROAD_WARNING);
       es.ClearGroup(UserMark::Type::ROUTE_ALT);
+      es.ClearGroup(UserMark::Type::WATER_TRANSFER);
     }
     if (deactivateFollowing)
       SetPointsFollowingMode(false /* enabled */);
@@ -778,6 +782,25 @@ void RoutingManager::CreateRouteAltMarks(routing::RoutesResult const & result)
   });
 }
 
+void RoutingManager::CreateWaterTransferMarks(RoutesResult const & result)
+{
+  auto transfers = result.GetActive().GetWaterTransfers();
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, routesId = result.m_routesId, transfers = std::move(transfers)]()
+  {
+    // Water disables following; IsBuilt() excludes that measurement-only session state.
+    if (m_currentRouterType != RouterType::Water || !m_routingSession.IsActive() || !m_routingSession.IsRouteValid() ||
+        m_routingSession.IsBuilding() || !m_routingSession.IsRouteId(routesId))
+      return;
+    auto es = m_bmManager->GetEditSession();
+    es.ClearGroup(UserMark::Type::WATER_TRANSFER);
+    for (auto const & [exit, entry] : transfers)
+    {
+      es.CreateUserMark<WaterTransferMark>(exit);
+      es.CreateUserMark<WaterTransferMark>(entry);
+    }
+  });
+}
+
 MwmSet::MwmId RoutingManager::GetMwmId(routing::NumMwmId numMwmId) const
 {
   return m_callbacks.m_dataSourceGetter().GetMwmIdByCountryFile(m_numMwmIDs->GetFile(numMwmId));
@@ -827,6 +850,9 @@ bool RoutingManager::InsertRoute(RoutesResult const & result)
   // Lift the active route by 10 so it stays above alternative subroutes even when polylines overlap.
   // The offset must exceed the per-route subroute count (count is typically 1, so 10 is plenty).
   InsertSingleRoute(result.GetActive(), true /* isActive */, 10.0 /* depthOffset */, transitRouteDisplay, roadWarnings);
+
+  if (m_currentRouterType == RouterType::Water)
+    CreateWaterTransferMarks(result);
 
   if (!isFollowing && !IsMeasurementRouter(m_currentRouterType) && result.m_routes.size() >= 2)
     CreateRouteAltMarks(result);
@@ -1661,6 +1687,8 @@ void RoutingManager::SetRouter(RouterType type)
 
   if (m_currentRouterType == type)
     return;
+
+  m_bmManager->GetEditSession().ClearGroup(UserMark::Type::WATER_TRANSFER);
 
   // Hide preview.
   HidePreviewSegments();
