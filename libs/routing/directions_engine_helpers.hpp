@@ -8,6 +8,8 @@
 
 #include "geometry/point2d.hpp"
 
+#include <span>
+
 namespace routing
 {
 struct AdjacentEdges
@@ -51,4 +53,13 @@ private:
 /// of a new LoadedPathSegment.
 bool IsJoint(IRoadGraph::EdgeListT const & ingoingEdges, IRoadGraph::EdgeListT const & outgoingEdges,
              Edge const & ingoingRouteEdge, Edge const & outgoingRouteEdge);
+
+/// Returns the circulation of a route over a closed roundabout feature. |isForward| states whether
+/// the route follows the feature's stored point order.
+turns::RoundaboutDirection CalcClosedRoundaboutDirection(std::span<m2::PointD const> points, bool isForward);
+
+/// Returns true when every edge of a closed ring advances in the same angular direction around
+/// |center| and the ring encloses it, i.e. its total sweep is 2*pi. Only then can partial polar
+/// sweeps around that center represent roundabout exit angles.
+bool IsAngularlyMonotonic(std::span<m2::PointD const> points, m2::PointD const & center);
 }  // namespace routing
