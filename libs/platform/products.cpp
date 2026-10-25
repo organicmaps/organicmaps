@@ -23,7 +23,6 @@ std::optional<ProductsConfig> ProductsConfig::LoadFromFile(std::string const & j
   std::string jsonString;
   try
   {
-    // Do not use glaze file reader because it uses std::filesystem which works only on iOS 13+.
     GetPlatform().GetReader(jsonFilePath)->ReadAsString(jsonString);
   }
   catch (RootException const & ex)
