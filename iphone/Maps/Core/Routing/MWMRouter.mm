@@ -56,7 +56,8 @@ using namespace routing;
   {
   case MWMRouterTypeVehicle:
   case MWMRouterTypePublicTransport:
-  case MWMRouterTypeRuler: return NO;
+  case MWMRouterTypeRuler:
+  case MWMRouterTypeWater: return NO;
   case MWMRouterTypePedestrian:
   case MWMRouterTypeBicycle: return GetFramework().GetRoutingManager().HasRouteAltitude();
   }
@@ -436,6 +437,9 @@ using namespace routing;
 
 + (void)start
 {
+  if ([self type] == MWMRouterTypeWater)
+    return;
+
   auto const doStart = ^{
     auto & rm = GetFramework().GetRoutingManager();
     auto const routePoints = rm.GetRoutePoints();
@@ -504,11 +508,21 @@ using namespace routing;
   if (![MWMRouter isRoutingActive])
     return;
   auto const & rm = GetFramework().GetRoutingManager();
+  auto navManager = [MWMNavigationDashboardManager sharedManager];
+  if ([MWMRouter type] == MWMRouterTypeWater)
+  {
+    if (rm.IsRouteBuilding())
+      return;
+    if (auto const distances = rm.GetWaterDistances())
+      [navManager updateWaterDistance:distances->m_waterMeters
+                         landDistance:distances->m_landMeters
+                    shortestConfirmed:distances->m_shortestConfirmed];
+    return;
+  }
   routing::FollowingInfo info;
   rm.GetRouteFollowingInfo(info);
   if (!info.IsValid())
     return;
-  auto navManager = [MWMNavigationDashboardManager sharedManager];
   if ([MWMRouter type] == MWMRouterTypePublicTransport)
     [navManager updateTransitInfo:rm.GetTransitRouteInfo()];
   else
@@ -571,10 +585,21 @@ using namespace routing;
   case routing::RouterResultCode::Cancelled: [mapViewControlsManager onRoutePrepare]; break;
   case routing::RouterResultCode::StartPointNotFound:
   case routing::RouterResultCode::EndPointNotFound:
+  case routing::RouterResultCode::IntermediatePointNotFound:
+    if ([MWMRouter type] == MWMRouterTypeWater)
+    {
+      [[MWMAlertViewController activeAlertController] presentDefaultAlertWithTitle:L(@"routing_planning_error")
+                                                                           message:L(@"water_select_point")
+                                                                  rightButtonTitle:L(@"ok")
+                                                                   leftButtonTitle:nil
+                                                                 rightButtonAction:nil];
+      [[MWMNavigationDashboardManager sharedManager] onRouteError:L(@"water_select_point")];
+      break;
+    }
+    [[fallthrough]];
   case routing::RouterResultCode::NoCurrentPosition:
   case routing::RouterResultCode::PointsInDifferentMWM:
   case routing::RouterResultCode::InternalError:
-  case routing::RouterResultCode::IntermediatePointNotFound:
   case routing::RouterResultCode::TransitRouteNotFoundNoNetwork:
   case routing::RouterResultCode::TransitRouteNotFoundTooLongPedestrian:
   case routing::RouterResultCode::RouteNotFoundRedressRouteError:

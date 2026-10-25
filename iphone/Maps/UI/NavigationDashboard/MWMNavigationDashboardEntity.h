@@ -19,6 +19,10 @@
 
 - (NSAttributedString *)estimate;
 
+- (instancetype)initWithWaterDistance:(double)waterDistance
+                         landDistance:(double)landDistance
+                    shortestConfirmed:(BOOL)shortestConfirmed;
+
 + (NSAttributedString *)estimateDot;
 
 + (instancetype)new __attribute__((unavailable("init is not available")));

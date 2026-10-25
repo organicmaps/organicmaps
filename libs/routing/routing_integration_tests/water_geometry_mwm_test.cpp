@@ -140,7 +140,7 @@ UNIT_TEST(WaterMwm_StandardMwmPreservesIslandsWithoutInventingRiverJoins)
   FrozenDataSource data;
   auto const [id, status] = data.RegisterMap(file);
   TEST(status == MwmSet::RegResult::Success, ());
-  TEST(!data.GetMwmHandleById(id).GetValue()->m_cont.IsExist(water::kSectionTag), ());
+  TEST(!data.GetMwmHandleById(id).GetValue()->m_cont.IsExist(::water::kSectionTag), ());
   auto const neverCancelled = [] { return false; };
   auto const geometry = routing::WaterGeometryProvider::ExtractFeatures(data, id, {-2, -2, 8, 5}, neverCancelled);
   TEST(geometry.m_complete, ());
@@ -232,9 +232,9 @@ UNIT_TEST(WaterMwm_PreparedWaterSectionRemainsReadable)
   // Represent an already prepared experimental map without a generator extension.
   {
     FilesContainerW container(file.GetPath(MapFileType::Map), FileWriter::OP_WRITE_EXISTING);
-    auto writer = container.GetWriter(water::kSectionTag);
-    water::WriteSection(*writer, {{P(-2, -2), P(3, -2), P(3, 3), P(-2, 3)}},
-                        {{water::Kind::Line, {{P(0, 0.5), P(0.5, 0.7), P(1, 0.5)}}, {1, 2, 3}}});
+    auto writer = container.GetWriter(::water::kSectionTag);
+    ::water::WriteSection(*writer, {{P(-2, -2), P(3, -2), P(3, 3), P(-2, 3)}},
+                          {{::water::Kind::Line, {{P(0, 0.5), P(0.5, 0.7), P(1, 0.5)}}, {1, 2, 3}}});
   }
   FrozenDataSource data;
   auto const [id, status] = data.RegisterMap(file);

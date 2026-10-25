@@ -100,6 +100,7 @@ final class GeoNavigationToOMURLConverterTests: XCTestCase {
       (.publicTransport, .publicTransport),
       (.bicycle, .bicycle),
       (.ruler, .vehicle),
+      (.water, .vehicle),
     ]
     for (routingType, expectedRoutingType) in routingTypes {
       let mode = MWMRouter.string(from: routingType)

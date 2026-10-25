@@ -43856,22 +43856,22 @@ tags = qt
 en = Ruler
 
 [water_routing]
-tags = android-app
+tags = android-app,apple-maps
 en = Water
 ru = Вода
 
 [water_distance]
-tags = android-app
+tags = android-app,apple-maps
 en = Water distance: %@
 ru = По воде: %@
 
 [water_land_gaps]
-tags = android-app
+tags = android-app,apple-maps
 en = Land gaps: %@
 ru = По суше: %@
 
 [water_total_distance]
-tags = android-app
+tags = android-app,apple-maps
 en = Total distance: %@
 ru = Общее расстояние: %@
 
@@ -45763,12 +45763,12 @@ en = Qt 6 (C) The Qt Company Ltd. and other contributors. License texts: %@ and 
 
 [water_select_point]
 comment = Hint when a Water checkpoint has no usable water connection or pedestrian access.
-tags = android-libs-routing
+tags = android-libs-routing,apple-maps
 en = Select a point on water or near a shore that can be reached on foot.
 ru = Выберите точку на воде или рядом с берегом, к которому можно пройти пешком.
 
 [water_shortest_unconfirmed]
-  tags = android-app
+  tags = android-app,apple-maps
   en = Shortest route not confirmed
   ru = Кратчайший путь не подтверждён
   uk = Найкоротший шлях не підтверджено
