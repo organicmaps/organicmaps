@@ -46,6 +46,6 @@
     <string name="dialog_pedestrian_route_is_long_message">Please choose a start or end point closer to a subway station</string>
 
     <!-- SECTION: gps strings -->
-    <!-- Hint when a selected Water route point is outside the stored water geometry. -->
-    <string name="water_select_point">Select a point inside a water body. Near the shore, zoom in and select a point farther into the water.</string>
+    <!-- Hint when a Water checkpoint has no usable water connection or pedestrian access. -->
+    <string name="water_select_point">Select a point on water or near a shore that can be reached on foot.</string>
 </resources>
