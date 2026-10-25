@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">Speed limit demo</string>
+  <string name="dark_theme">Dark theme</string>
+  <string name="speed">Current speed</string>
+  <string name="speed_limit">Speed limit</string>
+  <string name="value">%1$s: %2$d</string>
+  <string name="speed_limit_signs">Speed limit: circle and square</string>
+  <string name="combined_signs">Combined: circle and square, via a controller</string>
+  <string name="show_speed_limit">Show limit</string>
+  <string name="hide_speed_limit">Hide limit</string>
+  <string name="units_kmh">km/h</string>
+  <string name="units_mph">mph</string>
+</resources>
