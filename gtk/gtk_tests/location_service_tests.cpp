@@ -250,6 +250,82 @@ void TestInactiveDuringStart(FakeServices & services)
   RunFor(100);
 }
 
+void TestStartBeforePropertyNotifications(FakeServices & services)
+{
+  services.Reset();
+  services.DelayStartNotifications(true);
+  services.PublishLocationDuringStart(true);
+  Counters counters;
+  gtk::LocationService service;
+  Watch(service, counters);
+  service.Start();
+  // Active and Location are current on the server, but the proxy still caches false and "/".
+  TEST(RunUntil([&]() { return counters.m_locations == 1; }), (services.Calls()));
+  TEST(service.IsStarted(), ());
+  TEST_EQUAL(counters.m_errors, 0, ());
+  services.SetActive(true);
+  RunFor(100);
+  TEST_EQUAL(counters.m_locations, 1, ());
+  service.Stop();
+  RunFor(100);
+}
+
+void TestDestroyWithPendingClientProperties(FakeServices & services)
+{
+  services.Reset();
+  services.HoldClientProperties(true);
+  Counters counters;
+  {
+    gtk::LocationService service;
+    Watch(service, counters);
+    service.Start();
+    TEST(RunUntil([&]() { return services.HeldCount() == 1; }), (services.Calls()));
+  }
+  services.Answer();
+  services.PublishFix();
+  RunFor(100);
+  TEST_EQUAL(counters.m_locations + counters.m_errors + counters.m_headings, 0, ());
+}
+
+void TestDeactivationWithPendingClientProperties(FakeServices & services)
+{
+  services.Reset();
+  services.HoldClientProperties(true);
+  Counters counters;
+  gtk::LocationService service;
+  Watch(service, counters);
+  service.Start();
+  TEST(RunUntil([&]() { return services.HeldCount() == 1; }), (services.Calls()));
+  services.SetActive(false);
+  TEST(RunUntil([&]() { return counters.m_errors == 1; }), ());
+  TEST(!service.IsStarted(), ());
+  TEST_EQUAL(counters.m_lastError, location::EGPSIsOff, ());
+  services.Answer();
+  services.PublishFix();
+  RunFor(100);
+  TEST_EQUAL(counters.m_locations, 0, ());
+  TEST_EQUAL(counters.m_errors, 1, ());
+}
+
+void TestLocationDuringClientProperties(FakeServices & services)
+{
+  services.Reset();
+  services.HoldClientProperties(true);
+  Counters counters;
+  gtk::LocationService service;
+  Watch(service, counters);
+  service.Start();
+  TEST(RunUntil([&]() { return services.HeldCount() == 1; }), (services.Calls()));
+  services.PublishFix();
+  TEST(RunUntil([&]() { return counters.m_locations == 1; }), ());
+  services.Answer();
+  RunFor(100);
+  TEST_EQUAL(counters.m_locations, 1, ("The initial snapshot must not replay a newer LocationUpdated"));
+  TEST_EQUAL(counters.m_errors, 0, ());
+  service.Stop();
+  RunFor(100);
+}
+
 void TestCompassTimeoutKeepsLocation(FakeServices & services)
 {
   services.Reset();
@@ -465,6 +541,10 @@ UNIT_TEST(LocationService_AsyncLifecycle)
   TestClientDeactivationAndRetry(services);
   TestDeactivationBeforeFirstFix(services);
   TestInactiveDuringStart(services);
+  TestStartBeforePropertyNotifications(services);
+  TestDestroyWithPendingClientProperties(services);
+  TestDeactivationWithPendingClientProperties(services);
+  TestLocationDuringClientProperties(services);
   TestInitialCompassHeading(services);
   TestPermissionFailureAndRetry(services);
   TestCompassFailureKeepsLocation(services);

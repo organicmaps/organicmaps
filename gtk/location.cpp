@@ -134,8 +134,39 @@ void LocationService::OnClientStarted(GObject * source, GAsyncResult * res, gpoi
     return;
   }
   self->m_clientStarted = true;
-  if (self->CheckClientActive())
-    self->LoadLocation(gclue_client_get_location(self->m_client));
+  // GeoClue may return Start before its queued PropertiesChanged reaches the proxy cache.
+  g_dbus_proxy_call(G_DBUS_PROXY(source), "org.freedesktop.DBus.Properties.GetAll",
+                    g_variant_new("(s)", "org.freedesktop.GeoClue2.Client"), G_DBUS_CALL_FLAGS_NONE, -1,
+                    self->m_cancellable, &LocationService::OnClientPropertiesReady, self->NewRequest());
+}
+
+void LocationService::OnClientPropertiesReady(GObject * source, GAsyncResult * res, gpointer data)
+{
+  GError * error = nullptr;
+  GVariant * result = g_dbus_proxy_call_finish(G_DBUS_PROXY(source), res, &error);
+  auto * self = TakeRequest(data);
+  if (!self)
+  {
+    g_clear_pointer(&result, g_variant_unref);
+    g_clear_error(&error);
+    return;
+  }
+  if (!result)
+  {
+    self->LocationError(error);
+    return;
+  }
+  GVariant * properties = nullptr;
+  g_variant_get(result, "(@a{sv})", &properties);
+  gboolean active = FALSE;
+  g_variant_lookup(properties, "Active", "b", &active);
+  char const * path = nullptr;
+  // A LocationUpdated received since Start has already requested a newer position.
+  if (self->CheckClientActive(active) && !self->m_locationRequest &&
+      g_variant_lookup(properties, "Location", "&o", &path))
+    self->LoadLocation(path);
+  g_variant_unref(properties);
+  g_variant_unref(result);
 }
 
 void LocationService::OnLocationUpdated(GClueClient *, char const *, char const * newPath, gpointer data)
@@ -195,15 +226,15 @@ void LocationService::OnSimpleReady(GObject *, GAsyncResult * res, gpointer data
   self->ReadLocation(gclue_simple_get_location(simple));
 }
 
-void LocationService::OnClientActiveNotify(GObject *, GParamSpec *, gpointer data)
+void LocationService::OnClientActiveNotify(GObject * obj, GParamSpec *, gpointer data)
 {
-  static_cast<LocationService *>(data)->CheckClientActive();
+  static_cast<LocationService *>(data)->CheckClientActive(gclue_client_get_active(GCLUE_CLIENT(obj)));
 }
 
-bool LocationService::CheckClientActive()
+bool LocationService::CheckClientActive(bool active)
 {
   // Active=false is normal until Client.Start has completed.
-  if (!m_clientStarted || gclue_client_get_active(m_client))
+  if (!m_clientStarted || active)
     return true;
   Stop();
   if (m_onError)

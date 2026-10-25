@@ -39,12 +39,13 @@ private:
   void LocationError(GError * error);
   static void OnClientReady(GObject * source, GAsyncResult * res, gpointer data);
   static void OnClientStarted(GObject * source, GAsyncResult * res, gpointer data);
+  static void OnClientPropertiesReady(GObject * source, GAsyncResult * res, gpointer data);
   static void OnLocationUpdated(GClueClient * client, char const * oldPath, char const * newPath, gpointer data);
   void LoadLocation(char const * path);
   static void OnLocationReady(GObject * source, GAsyncResult * res, gpointer data);
   static void OnSimpleReady(GObject * source, GAsyncResult * res, gpointer data);
   static void OnClientActiveNotify(GObject * obj, GParamSpec * pspec, gpointer data);
-  bool CheckClientActive();
+  bool CheckClientActive(bool active);
   static void OnLocationNotify(GObject * obj, GParamSpec * pspec, gpointer data);
   void ReadLocation(GClueLocation * loc);
   static void OnCompassProxyReady(GObject * source, GAsyncResult * res, gpointer data);

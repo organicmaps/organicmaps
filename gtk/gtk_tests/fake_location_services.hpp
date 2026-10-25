@@ -15,7 +15,9 @@ namespace gtk_test_support
 char constexpr kXml[] = R"xml(
 <node>
   <interface name="org.freedesktop.DBus.Properties">
+    <method name="Get"><arg type="s" direction="in"/><arg type="s" direction="in"/><arg type="v" direction="out"/></method>
     <method name="GetAll"><arg type="s" direction="in"/><arg type="a{sv}" direction="out"/></method>
+    <method name="Set"><arg type="s" direction="in"/><arg type="s" direction="in"/><arg type="v" direction="in"/></method>
   </interface>
   <interface name="org.freedesktop.GeoClue2.Manager">
     <method name="GetClient"><arg name="client" type="o" direction="out"/></method>
@@ -115,6 +117,7 @@ public:
     m_node = g_dbus_node_info_new_for_xml(kXml, nullptr);
     Register("/org/freedesktop/GeoClue2/Manager", "org.freedesktop.GeoClue2.Manager");
     Register(kClientPath, "org.freedesktop.GeoClue2.Client");
+    Register(kClientPath, "org.freedesktop.DBus.Properties");
     for (char const * path : {kLocationPath, kSecondLocationPath})
     {
       Register(path, "org.freedesktop.GeoClue2.Location");
@@ -165,6 +168,7 @@ public:
   {
     Hold(false, false);
     m_holdLocation = false;
+    m_holdClientProperties = false;
     for (auto * invocation : m_held)
       Reply(invocation);
     m_held.clear();
@@ -179,6 +183,10 @@ public:
     m_active = false;
     m_holdStart = false;
     m_holdLocation = false;
+    m_holdClientProperties = false;
+    m_clientHasStarted = false;
+    m_delayStartNotifications = false;
+    m_publishLocationDuringStart = false;
     m_deactivateOnStart = false;
     m_hasCompass = true;
     m_denyLocation = false;
@@ -209,6 +217,9 @@ public:
   }
 
   void HoldLocation(bool hold) { m_holdLocation = hold; }
+  void HoldClientProperties(bool hold) { m_holdClientProperties = hold; }
+  void DelayStartNotifications(bool delay) { m_delayStartNotifications = delay; }
+  void PublishLocationDuringStart(bool publish) { m_publishLocationDuringStart = publish; }
 
   void PublishFix(char const * path = kLocationPath)
   {
@@ -283,22 +294,46 @@ private:
   void Reply(GDBusMethodInvocation * invocation)
   {
     std::string const method = g_dbus_method_invocation_get_method_name(invocation);
-    if (method == "GetAll")
+    if (method == "Get")
+    {
+      char const * iface = nullptr;
+      char const * prop = nullptr;
+      g_variant_get(g_dbus_method_invocation_get_parameters(invocation), "(&s&s)", &iface, &prop);
+      g_dbus_method_invocation_return_value(
+          invocation, g_variant_new("(v)", OnGetProperty(nullptr, nullptr, nullptr, iface, prop, nullptr, this)));
+    }
+    else if (method == "GetAll")
     {
       GVariantBuilder values;
       g_variant_builder_init(&values, G_VARIANT_TYPE_VARDICT);
-      for (char const * prop :
-           {"Latitude", "Longitude", "Accuracy", "Altitude", "Speed", "Heading", "Description", "Timestamp"})
-        g_variant_builder_add(&values, "{sv}", prop,
-                              OnGetProperty(nullptr, nullptr, nullptr, nullptr, prop, nullptr, this));
+      if (g_str_equal(g_dbus_method_invocation_get_object_path(invocation), kClientPath))
+        for (char const * prop : {"Active", "Location"})
+          g_variant_builder_add(&values, "{sv}", prop,
+                                OnGetProperty(nullptr, nullptr, nullptr, nullptr, prop, nullptr, this));
+      else
+        for (char const * prop :
+             {"Latitude", "Longitude", "Accuracy", "Altitude", "Speed", "Heading", "Description", "Timestamp"})
+          g_variant_builder_add(&values, "{sv}", prop,
+                                OnGetProperty(nullptr, nullptr, nullptr, nullptr, prop, nullptr, this));
       g_dbus_method_invocation_return_value(invocation, g_variant_new("(a{sv})", &values));
     }
     else if (method == "GetClient" || method == "CreateClient")
       g_dbus_method_invocation_return_value(invocation, g_variant_new("(o)", kClientPath));
     else
     {
-      if (method == "Start" && !m_deactivateOnStart)
-        SetActive(true);
+      if (method == "Start")
+      {
+        m_clientHasStarted = true;
+        if (!m_deactivateOnStart)
+        {
+          if (m_delayStartNotifications)
+            m_active = true;
+          else
+            SetActive(true);
+        }
+        if (m_publishLocationDuringStart)
+          PublishFix();
+      }
       if (method == "Stop")
         SetActive(false);
       g_dbus_method_invocation_return_value(invocation, nullptr);
@@ -340,8 +375,11 @@ private:
       return;
     }
     bool const createsClient = name == "GetClient" || name == "CreateClient";
+    bool const clientProperties = g_str_equal(g_dbus_method_invocation_get_object_path(invocation), kClientPath);
     if ((createsClient && self->m_holdGeoClue) || (name == "ClaimCompass" && self->m_holdCompass) ||
-        (name == "Start" && self->m_holdStart) || (name == "GetAll" && self->m_holdLocation))
+        (name == "Start" && self->m_holdStart) ||
+        (name == "GetAll" &&
+         (clientProperties ? self->m_holdClientProperties && self->m_clientHasStarted : self->m_holdLocation)))
       self->m_held.push_back(invocation);
     else
       self->Reply(invocation);
@@ -405,6 +443,10 @@ private:
   bool m_active = false;
   bool m_holdStart = false;
   bool m_holdLocation = false;
+  bool m_holdClientProperties = false;
+  bool m_clientHasStarted = false;
+  bool m_delayStartNotifications = false;
+  bool m_publishLocationDuringStart = false;
   bool m_deactivateOnStart = false;
   bool m_hasCompass = true;
   bool m_denyLocation = false;
