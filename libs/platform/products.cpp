@@ -18,12 +18,6 @@ std::string GetProductsFilePath()
   return GetPlatform().SettingsPathForFile(PRODUCTS_SETTINGS_FILE_NAME);
 }
 
-static bool IsProductsConfigValid(ProductsConfig const & config)
-{
-  return config.HasProducts() && std::ranges::all_of(config.products, [](auto const & product)
-  { return !product.link.empty() && !product.title.empty(); });
-}
-
 std::optional<ProductsConfig> ProductsConfig::LoadFromFile(std::string const & jsonFilePath)
 {
   std::string jsonString;
@@ -52,7 +46,7 @@ std::optional<ProductsConfig> ProductsConfig::LoadFromString(std::string const &
     return {};
   }
 
-  if (!IsProductsConfigValid(config))
+  if (!config.IsValid())
   {
     LOG(LWARNING, ("Invalid ProductsConfig in JSON", jsonString));
     return {};

@@ -1,5 +1,6 @@
 #include "platform/servers_list.hpp"
 
+#include "base/assert.hpp"
 #include "base/logging.hpp"
 
 #include "glaze/json/read.hpp"
@@ -24,6 +25,9 @@ std::optional<MetaConfig> ParseMetaConfig(std::string_view jsonStr)
     LOG(level, ("Error parsing config", jsonStr, ec));
     return {};
   }
+
+  ASSERT(!outMetaConfig.productsConfig || outMetaConfig.productsConfig->IsValid(),
+         ("Invalid products config", jsonStr));
 
   if (!outMetaConfig.productsConfig)
     LOG(LINFO, ("No ProductsConfig in meta configuration"));

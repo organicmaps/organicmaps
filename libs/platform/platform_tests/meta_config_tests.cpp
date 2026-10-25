@@ -3,6 +3,9 @@
 #include "platform/products.hpp"
 #include "platform/servers_list.hpp"
 
+#include "base/assert.hpp"
+#include "base/scope_guard.hpp"
+
 namespace meta_config_tests
 {
 using downloader::ParseMetaConfig;
@@ -78,6 +81,31 @@ UNIT_TEST(MetaConfig_JSONParser_UnknownKeys)
   TEST_EQUAL(productsConfig.products[0].link, "https://product.example/", ());
 }
 
+#ifdef DEBUG
+UNIT_TEST(MetaConfig_JSONParser_InvalidProducts)
+{
+  static bool assertionRaised;
+  auto const previousAssert = base::SetAssertFunction([](base::SrcPoint const &, std::string const &) -> bool
+  {
+    assertionRaised = true;
+    return false;
+  });
+  SCOPE_GUARD(restoreAssert, [previousAssert] { base::SetAssertFunction(previousAssert); });
+
+  for (
+      auto const json : {
+          R"({"servers":["https://maps.example/"],"productsConfig":{"products":[]}})",
+          R"({"servers":["https://maps.example/"],"productsConfig":{"products":[{"title":"Product"}]}})",
+          R"({"servers":["https://maps.example/"],"productsConfig":{"products":[{"link":"https://product.example/"}]}})",
+      })
+  {
+    assertionRaised = false;
+    ParseMetaConfig(json);
+    TEST(assertionRaised, (json));
+  }
+}
+#endif
+
 UNIT_TEST(MetaConfig_JSONParser_NewFormatWithProducts)
 {
   std::string_view constexpr newFormatJson = R"({
@@ -119,8 +147,6 @@ UNIT_TEST(MetaConfig_JSONParser_NewFormatWithProducts)
   TEST(metaConfig->productsConfig, ());
   auto const & productsConfig = *metaConfig->productsConfig;
   TEST_EQUAL(productsConfig.placePagePrompt, "prompt1", ());
-  TEST(productsConfig.HasProducts(), ());
-
   TEST_EQUAL(productsConfig.products.size(), 2, ());
 }
 
