@@ -4,6 +4,7 @@ import android.location.Location;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.car.app.CarContext;
 import androidx.car.app.CarToast;
 import androidx.car.app.model.Action;
@@ -101,6 +102,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     getLocationHelper().removeListener(mLocationListener);
     mNavigationCancelled = true;
     mRoutingController.cancel(false);
+    updateSpeedLimit(null);
   }
 
   /**
@@ -184,7 +186,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     ThemeUtils.update(getCarContext(), getSurfaceRenderer().isRenderingActive());
     mNavigationManager.navigationEnded();
     mNavigationManager.clearNavigationManagerCallback();
-    getSurfaceRenderer().hideSpeedLimit();
+    updateSpeedLimit(null);
   }
 
   @NonNull
@@ -308,16 +310,22 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     final RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
     mTrip = RoutingUtils.createTrip(getCarContext(), info, RoutingController.get().getEndPoint(), Colors.DISTANCE);
     mNavigationManager.updateTrip(mTrip);
-    if (info != null)
-      updateSpeedLimit(info, location);
+    updateSpeedLimit(info);
     invalidate();
   }
 
-  private void updateSpeedLimit(@NonNull final RoutingInfo info, @Nullable Location location)
+  private void updateSpeedLimit(@Nullable RoutingInfo info)
   {
-    final boolean speedLimitExceeded =
-        location != null && info.speedLimitMps > 0 && info.speedLimitMps < location.getSpeed();
-    getSurfaceRenderer().setSpeedLimit(StringUtils.nativeFormatSpeed(info.speedLimitMps), speedLimitExceeded);
+    updateSpeedLimit(getSurfaceRenderer(), mRoutingController.isNavigating(), info);
+  }
+
+  @VisibleForTesting
+  static void updateSpeedLimit(@NonNull Renderer renderer, boolean navigating, @Nullable RoutingInfo info)
+  {
+    renderer.setSpeedLimit(navigating && info != null && info.speedLimitMps > 0
+                               ? StringUtils.nativeFormatSpeed(info.speedLimitMps)
+                               : null);
+    renderer.setAlertForced(navigating && info != null && info.isSpeedCamLimitExceeded());
   }
 
   /**
