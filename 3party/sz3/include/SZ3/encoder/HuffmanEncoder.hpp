@@ -138,7 +138,11 @@ class HuffmanEncoder : public concepts::EncoderInterface<T> {
     void preprocess_decode() override {}
 
     void load(const uchar *&c, size_t &remaining_length) override {
-        *this = HuffmanEncoder();
+        // Keep decode storage; build_decoder overwrites every entry used by the new table.
+        offset_ = 0;
+        max_len_ = table_bits_ = 0;
+        syms_.clear();
+        lens_.clear();
         const uchar *p = c;
         size_t rem = remaining_length;
         uint32_t d = 0;
@@ -162,13 +166,18 @@ class HuffmanEncoder : public concepts::EncoderInterface<T> {
     }
 
     std::vector<T> decode(const uchar *&bytes, size_t targetLength, size_t &remaining_length) override {
+        std::vector<T> out;
+        decode_into(bytes, targetLength, remaining_length, out);
+        return out;
+    }
+
+    void decode_into(const uchar *&bytes, size_t targetLength, size_t &remaining_length, std::vector<T> &out) {
         const uchar *p = bytes;
         size_t rem = remaining_length;
         uint64_t bits = 0;
         read(bits, p, rem);
         if (bits > static_cast<uint64_t>(rem) * 8) throw std::out_of_range("SZ3 Huffman: payload exceeds the buffer");
         const size_t nbytes = static_cast<size_t>((bits + 7) / 8);
-        std::vector<T> out;
         if (syms_.size() < 2) {
             if (bits != 0 || (syms_.empty() && targetLength != 0))
                 throw std::out_of_range("SZ3 Huffman: payload does not match the code table");
@@ -185,7 +194,6 @@ class HuffmanEncoder : public concepts::EncoderInterface<T> {
         }
         bytes = p + nbytes;
         remaining_length = rem - nbytes;
-        return out;
     }
 
     void postprocess_decode() override {}

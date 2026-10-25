@@ -20,11 +20,19 @@ typedef unsigned char uchar;
 
 // In nofma(a * b) + c the product is rounded before the add, so the compiler cannot merge them into one
 // FMA instruction, which rounds only once; otherwise a build with FMA and one without decompress different values.
+// Terrain opts out of volatile spills only with -fno-fast-math -ffp-contract=off in every SZ3 translation unit.
+#if defined(SZ3_ASSUME_STRICT_FP) && defined(__FAST_MATH__)
+#error "SZ3_ASSUME_STRICT_FP requires -fno-fast-math and -ffp-contract=off"
+#endif
 template <class T>
 ALWAYS_INLINE T nofma(T x) {
+#ifdef SZ3_ASSUME_STRICT_FP
+    return x;
+#else
     // Not __builtin_assoc_barrier: GCC 13 and 14 drop it when they vectorize the loop, and fuse the product anyway.
     volatile T r = x;
     return r;
+#endif
 }
 
 // Refuses x87 extended precision and GCC's fast math, which cannot be turned off for part of a program; otherwise

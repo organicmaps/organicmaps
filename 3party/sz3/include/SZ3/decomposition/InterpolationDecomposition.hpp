@@ -1,6 +1,7 @@
 #ifndef SZ3_INTERPOLATION_DECOMPOSITION_HPP
 #define SZ3_INTERPOLATION_DECOMPOSITION_HPP
 
+#include <bit>
 #include <cmath>
 #include <cstring>
 #include <stdexcept>
@@ -72,22 +73,38 @@ class InterpolationDecomposition : public concepts::DecompositionInterface<T, in
             }
             size_t stride = 1U << (level - 1);
             auto interp_block_size = blocksize * stride;
-            auto inter_block_range = std::make_shared<multi_dimensional_range<T, N>>(
-                dec_data, std::begin(original_dimensions), std::end(original_dimensions), interp_block_size, 0);
-            auto inter_begin = inter_block_range->begin();
-            auto inter_end = inter_block_range->end();
-            for (auto block = inter_begin; block != inter_end; ++block) {
-                auto end_idx = block.get_global_index();
-                for (uint i = 0; i < N; i++) {
-                    end_idx[i] += interp_block_size;
-                    if (end_idx[i] > original_dimensions[i] - 1) {
-                        end_idx[i] = original_dimensions[i] - 1;
+            if constexpr (N == 2) {
+                // Preserve the generic iterator's block order without allocating a range at every level.
+                for (size_t y = 0; y < original_dimensions[0]; y += interp_block_size) {
+                    for (size_t x = 0; x < original_dimensions[1]; x += interp_block_size) {
+                        const std::array<size_t, 2> begin{y, x};
+                        const std::array<size_t, 2> end{
+                            std::min(y + interp_block_size, original_dimensions[0] - 1),
+                            std::min(x + interp_block_size, original_dimensions[1] - 1)};
+                        interpolation(
+                            dec_data, begin, end, interp_id,
+                            [&](size_t, T &d, T pred) { d = quantizer.recover(pred, quant_inds_[quant_index++]); },
+                            direction_sequence_id, stride);
                     }
                 }
-                interpolation(
-                    dec_data, block.get_global_index(), end_idx, interpolators[interp_id],
-                    [&](size_t /*idx*/, T &d, T pred) { d = quantizer.recover(pred, quant_inds_[quant_index++]); },
-                    direction_sequence_id, stride);
+            } else {
+                auto inter_block_range = std::make_shared<multi_dimensional_range<T, N>>(
+                    dec_data, std::begin(original_dimensions), std::end(original_dimensions), interp_block_size, 0);
+                auto inter_begin = inter_block_range->begin();
+                auto inter_end = inter_block_range->end();
+                for (auto block = inter_begin; block != inter_end; ++block) {
+                    auto end_idx = block.get_global_index();
+                    for (uint i = 0; i < N; i++) {
+                        end_idx[i] += interp_block_size;
+                        if (end_idx[i] > original_dimensions[i] - 1) {
+                            end_idx[i] = original_dimensions[i] - 1;
+                        }
+                    }
+                    interpolation(
+                        dec_data, block.get_global_index(), end_idx, interp_id,
+                        [&](size_t /*idx*/, T &d, T pred) { d = quantizer.recover(pred, quant_inds_[quant_index++]); },
+                        direction_sequence_id, stride);
+                }
             }
         }
         quantizer.postdecompress_data();
@@ -153,7 +170,7 @@ class InterpolationDecomposition : public concepts::DecompositionInterface<T, in
                 }
 
                 interpolation(
-                    data, block.get_global_index(), end_idx, interpolators[interp_id],
+                    data, block.get_global_index(), end_idx, interp_id,
                     [&](size_t /*idx*/, T &d, T pred) {
                         quant_inds[quant_index++] = (quantizer.quantize_and_overwrite(d, pred));
                     },
@@ -209,16 +226,14 @@ class InterpolationDecomposition : public concepts::DecompositionInterface<T, in
         if (blocksize == 0 || blocksize % 2 != 0) {
             throw std::out_of_range("SZ3 interpolation: block size must be a positive even number");
         }
-        if (interp_id < 0 || static_cast<size_t>(interp_id) >= interpolators.size()) {
+        if (interp_id != INTERP_ALGO_LINEAR && interp_id != INTERP_ALGO_CUBIC) {
             throw std::out_of_range("SZ3 interpolation: interpolator id is out of range");
         }
         num_elements = 1;
         interp_level = -1;
 	bool use_anchor = false;
         for (uint i = 0; i < N; i++) {
-            if (interp_level < ceil(log2(original_dimensions[i]))) {
-                interp_level = static_cast<int>(ceil(log2(original_dimensions[i])));
-            }
+            interp_level = std::max(interp_level, static_cast<int>(std::bit_width(original_dimensions[i] - 1)));
 	    if (original_dimensions[i] > anchor_stride)
 	        use_anchor = true;
             num_elements *= original_dimensions[i];
@@ -231,7 +246,7 @@ class InterpolationDecomposition : public concepts::DecompositionInterface<T, in
             throw std::out_of_range("SZ3 interpolation: anchor stride must be a power of two");
         }
         if (anchor_stride > 0) {
-            int max_interpolation_level = static_cast<int>(log2(anchor_stride)) + 1;
+            int max_interpolation_level = static_cast<int>(std::bit_width(anchor_stride));
             if (max_interpolation_level <= interp_level) {
                 interp_level = max_interpolation_level;
             }
@@ -242,7 +257,7 @@ class InterpolationDecomposition : public concepts::DecompositionInterface<T, in
             original_dim_offsets[i] = original_dim_offsets[i + 1] * original_dimensions[i + 1];
         }
 
-        dim_sequences = std::vector<std::array<int, N>>();
+        dim_sequences.clear();
         auto sequence = std::array<int, N>();
         for (uint i = 0; i < N; i++) {
             sequence[i] = i;
@@ -280,7 +295,7 @@ class InterpolationDecomposition : public concepts::DecompositionInterface<T, in
      * This is the original API, described in the ICDE'21 paper.
      */
     template <class QuantizeFunc>
-    double interpolation_1d(T *data, size_t begin, size_t end, size_t stride, const std::string &interp_func,
+    double interpolation_1d(T *data, size_t begin, size_t end, size_t stride, const int interp_func,
                             QuantizeFunc &&quantize_func) {
         size_t n = (end - begin) / stride + 1;
         if (n <= 1) {
@@ -290,7 +305,7 @@ class InterpolationDecomposition : public concepts::DecompositionInterface<T, in
 
         size_t stride3x = 3 * stride;
         size_t stride5x = 5 * stride;
-        if (interp_func == "linear" || n < 5) {
+        if (interp_func == INTERP_ALGO_LINEAR || n < 5) {
             // if (pb == PB_predict_overwrite) {
             for (size_t i = 1; i + 1 < n; i += 2) {
                 T *d = data + begin + i * stride;
@@ -335,7 +350,7 @@ class InterpolationDecomposition : public concepts::DecompositionInterface<T, in
     double interpolation_1d_fastest_dim_first(T *data, const std::array<size_t, N> &begin_idx,
                                               const std::array<size_t, N> &end_idx, const size_t &direction,
                                               std::array<size_t, N> &strides, const size_t &math_stride,
-                                              const std::string &interp_func, QuantizeFunc &&quantize_func) {
+                                              const int interp_func, QuantizeFunc &&quantize_func) {
         for (size_t i = 0; i < N; i++) {
             if (end_idx[i] < begin_idx[i]) return 0;
         }
@@ -356,7 +371,7 @@ class InterpolationDecomposition : public concepts::DecompositionInterface<T, in
         }
         dim_offsets[direction] = stride;
         size_t stride2x = 2 * stride;
-        if (interp_func == "linear") {
+        if (interp_func == INTERP_ALGO_LINEAR) {
             begins[direction] = 1;
             ends[direction] = n - 1;
             strides[direction] = 2;
@@ -428,7 +443,7 @@ class InterpolationDecomposition : public concepts::DecompositionInterface<T, in
 
     template <class QuantizeFunc>
     double interpolation(T *data, std::array<size_t, N> begin, std::array<size_t, N> end,
-                         const std::string &interp_func, QuantizeFunc &&quantize_func, const int direction,
+                         const int interp_func, QuantizeFunc &&quantize_func, const int direction,
                          size_t stride = 1) {
         if constexpr (N == 1) {  // old API
             return interpolation_1d(data, begin[0], end[0], stride, interp_func, quantize_func);
@@ -481,7 +496,6 @@ class InterpolationDecomposition : public concepts::DecompositionInterface<T, in
     int interp_level = -1;
     int interp_id;
     uint blocksize;
-    std::vector<std::string> interpolators = {"linear", "cubic"};
     int *quant_inds;
     size_t quant_index = 0;
     double max_error;
