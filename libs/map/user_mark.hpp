@@ -51,6 +51,7 @@ public:
     DEBUG_MARK,  // Plain "DEBUG" results in a name collision.
     COLORED,
     ROUTE_ALT,  // ETA balloon attached to a route variant (active or alternative).
+    WATER_TRANSFER,
     USER_MARK_TYPES_COUNT,
     USER_MARK_TYPES_COUNT_MAX = 1000,
   };

@@ -337,6 +337,7 @@ private:
   // Creates an ETA balloon (RouteAltMark) at the midpoint of each route variant in |result|.
   // Active variant uses the route palette; alternatives use a dimmer palette.
   void CreateRouteAltMarks(routing::RoutesResult const & result);
+  void CreateWaterTransferMarks(routing::RoutesResult const & result);
 
   // Synchronously remove the alternative-route subroutes from drape and clear the alt ETA
   // balloons when rebuilding or entering navigation. The active route is left untouched.

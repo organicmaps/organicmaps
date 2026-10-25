@@ -25,6 +25,7 @@
 #include <memory>
 #include <optional>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace location
@@ -261,6 +262,9 @@ public:
 
   std::optional<WaterDistances> const & GetWaterDistances() const { return m_waterDistances; }
   void SetWaterDistances(WaterDistances const & distances) { m_waterDistances = distances; }
+
+  // Exit and re-entry points of internal walking transfers; checkpoint approaches are excluded.
+  std::vector<std::pair<m2::PointD, m2::PointD>> GetWaterTransfers() const;
 
   class SubrouteAttrs final
   {

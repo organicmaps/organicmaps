@@ -348,6 +348,10 @@ UNIT_TEST(WaterRouter_InternalTransferUsesWalkingGeometry)
   TEST(router.CalculateRoute(checkpoints, {}, false, false, delegate, result) == RouterResultCode::NoError, ());
   TEST_EQUAL(calls, 1, ());
   auto const & route = result.GetActive();
+  auto const transfers = route.GetWaterTransfers();
+  TEST_EQUAL(transfers.size(), 1, ());
+  TEST_EQUAL(transfers.front().first, candidate.m_points[index], ());
+  TEST_EQUAL(transfers.front().second, candidate.m_points[index + 1], ());
   auto const distances = *route.GetWaterDistances();
   TEST_ALMOST_EQUAL_ABS(distances.m_landMeters, expectedWalk, 1e-6, ());
   TEST_ALMOST_EQUAL_ABS(distances.m_waterMeters, candidate.m_waterDistance, 1e-6, ());
@@ -437,6 +441,7 @@ UNIT_TEST(WaterRouter_LandEndpointsPreferWater)
                           1e-6, ());
     TEST(route.GetRouteSegments().back().IsLandGap(), ());
     TEST_EQUAL(route.GetSubrouteAttrs(0).GetFinish().GetPoint(), finish, ());
+    TEST(route.GetWaterTransfers().empty(), ("Start and finish access are not internal transfers."));
     TEST(std::is_sorted(progress.begin(), progress.end()), ());
     TEST_EQUAL(progress.back(), 100, ());
   }
@@ -456,6 +461,7 @@ UNIT_TEST(WaterRouter_LandIntermediateRetainsCheckpoint)
   TEST_EQUAL(calls, 2, ());
   auto const & route = result.GetActive();
   TEST_EQUAL(route.GetSubrouteCount(), 2, ());
+  TEST(route.GetWaterTransfers().empty(), ("A land checkpoint is not a transfer."));
   TEST_EQUAL(route.GetSubrouteAttrs(0).GetFinish().GetPoint(), stop, ());
   TEST_EQUAL(route.GetSubrouteAttrs(1).GetStart().GetPoint(), stop, ());
   TEST_ALMOST_EQUAL_ABS(route.GetWaterDistances()->m_waterMeters, mercator::DistanceOnEarth({0, 0}, {0, 0.01}), 1e-6,
@@ -648,5 +654,68 @@ UNIT_TEST(WaterRouter_WiderWaterRoutePrecedesLocalWalkingProposal)
   TEST_EQUAL(expanded, 1, ());
   TEST_EQUAL(calls, 0, ());
   TEST_EQUAL(result.GetActive().GetWaterDistances()->m_landMeters, 0.0, ());
+}
+namespace
+{
+class TransferRoute : public RouteBase
+{
+public:
+  TransferRoute(std::vector<bool> const & land, std::vector<size_t> const & ends, bool water = true)
+  {
+    for (size_t i = 0; i < land.size(); ++i)
+    {
+      m_routeSegments.emplace_back(Segment(), turns::TurnItem(),
+                                   geometry::PointWithAltitude({static_cast<double>(i + 1), 0}),
+                                   RouteSegment::RoadNameInfo());
+      m_routeSegments.back().SetLandGap(land[i]);
+    }
+    size_t begin = 0;
+    for (auto const end : ends)
+    {
+      m_subrouteAttrs.emplace_back(geometry::PointWithAltitude({static_cast<double>(begin), 0}),
+                                   m_routeSegments[end - 1].GetJunction(), begin, end);
+      begin = end;
+    }
+    if (water)
+      SetWaterDistances({});
+  }
+};
+}  // namespace
+
+UNIT_TEST(WaterRouter_TransferMarkersManyBentWalks)
+{
+  std::vector<bool> land{true, false};
+  for (size_t i = 0; i < 40; ++i)
+    land.insert(land.end(), {true, true, false});
+  land.push_back(true);
+  TransferRoute route(land, {land.size()});
+  auto const transfers = route.GetWaterTransfers();
+  TEST_EQUAL(transfers.size(), 40, ());
+  for (size_t i = 0; i < transfers.size(); ++i)
+  {
+    TEST_EQUAL(transfers[i].first, m2::PointD(2 + 3 * i, 0), ());
+    TEST_EQUAL(transfers[i].second, m2::PointD(4 + 3 * i, 0), ());
+  }
+}
+
+UNIT_TEST(WaterRouter_TransferMarkersRespectLandCheckpoints)
+{
+  TransferRoute route({false, true, true, false, true, false}, {2, 6});
+  auto const transfers = route.GetWaterTransfers();
+  TEST_EQUAL(transfers.size(), 1, ());
+  TEST_EQUAL(transfers.front().first, m2::PointD(4, 0), ());
+  TEST_EQUAL(transfers.front().second, m2::PointD(5, 0), ());
+}
+
+UNIT_TEST(WaterRouter_TransferMarkersIgnoreNonWaterAndZeroLength)
+{
+  TransferRoute route({false, true, false}, {3});
+  route.GetRouteSegments()[1] = route.GetRouteSegments()[0];
+  route.GetRouteSegments()[1].SetLandGap(true);
+  TEST(route.GetWaterTransfers().empty(), ());
+  TransferRoute ordinary({false, true, false}, {3}, false);
+  TEST(ordinary.GetWaterTransfers().empty(), ());
+  TransferRoute pureWater({false, false}, {2});
+  TEST(pureWater.GetWaterTransfers().empty(), ());
 }
 }  // namespace water_router_test
