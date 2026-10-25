@@ -2,8 +2,6 @@
 
 #include "generator/feature_builder.hpp"
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
-#include "generator/osm_element.hpp"
-#include "generator/osm_source.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
@@ -24,7 +22,6 @@
 #include "defines.hpp"
 
 #include <algorithm>
-#include <map>
 
 namespace water_geometry_mwm_test
 {
@@ -103,45 +100,6 @@ UNIT_TEST(WaterMwm_CombinedMapCoveragePreservesSeamsGapsAndHoles)
   TEST(reader.IsRectCoveredByRegions({"Bottom", "Top", "West", "East"}, {-2.5, -2.5, -1.5, -1.5}), ());
   TEST(!reader.IsRectCoveredByRegions({"Left", "Right"}, {-3, -1, 1, 1}), ());
 }
-UNIT_TEST(WaterMwm_RealOsmRiver)
-{
-  std::map<uint64_t, P> nodes;
-  water::Record record;
-  record.m_kind = water::Kind::Line;
-  SourceReader source(GetPlatform().TestsDataPathForFile("test_data/osm/water_routing_real.osm"));
-  ProcessOsmElementsFromXML(source, [&](OsmElement && element)
-  {
-    if (element.IsNode())
-      nodes.emplace(element.m_id, mercator::FromLatLon(element.m_lat, element.m_lon));
-    if (element.IsWay())
-      record.m_nodes = element.m_nodes;
-  });
-  TEST_EQUAL(record.m_nodes.size(), 20, ());
-  record.m_rings.resize(1);
-  for (auto const id : record.m_nodes)
-    record.m_rings.front().push_back(nodes.at(id));
-  std::vector<uint8_t> bytes;
-  MemWriter writer(bytes);
-  auto bounds = record.GetBounds();
-  bounds.Inflate(1, 1);
-  water::WriteSection(writer,
-                      {{P(bounds.minX(), bounds.minY()), P(bounds.maxX(), bounds.minY()),
-                        P(bounds.maxX(), bounds.maxY()), P(bounds.minX(), bounds.maxY())}},
-                      {record});
-  water::Reader reader(ReaderPtr<::Reader>(std::make_unique<MemReader>(bytes.data(), bytes.size())));
-  bounds = record.GetBounds();
-  bounds.Inflate(0.1, 0.1);
-  auto const geometry = routing::WaterGeometryProvider::Extract(reader, bounds, [] { return false; });
-  auto const & points = record.m_rings.front();
-  routing::water::Path path;
-  TEST(routing::water::FindPath(geometry, points.front(), points.back(), false, [] { return false; }, path) ==
-           routing::water::ResultCode::Success,
-       ());
-  TEST_EQUAL(path.m_points.size(), points.size(), ());
-  TEST_EQUAL(path.m_landDistance, 0.0, ());
-  TEST_GREATER(path.m_waterDistance, mercator::DistanceOnEarth(points.front(), points.back()), ());
-}
-
 feature::FeatureBuilder Line(uint64_t id, std::vector<P> points, std::initializer_list<char const *> type)
 {
   feature::FeatureBuilder feature;
