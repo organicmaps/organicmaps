@@ -73,6 +73,9 @@
     <string name="opens_in">Kinyit %s múlva</string>
     <string name="closes_in">Bezár %s múlva</string>
     <string name="closed">Zárva</string>
+    <!-- abbreviation for kilometers per hour -->
+    <string name="kilometers_per_hour">km/ó</string>
+    <string name="miles_per_hour">mf/ó</string>
     <string name="minute">p</string>
     <string name="big_font">Betűméret növelése a térképen</string>
     <string name="transliteration_title">Átírás latin betűkre</string>

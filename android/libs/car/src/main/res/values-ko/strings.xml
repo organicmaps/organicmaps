@@ -73,6 +73,9 @@
     <string name="opens_in">%s에서 열립니다</string>
     <string name="closes_in">%s로 마감</string>
     <string name="closed">닫음</string>
+    <!-- abbreviation for kilometers per hour -->
+    <string name="kilometers_per_hour">km/h</string>
+    <string name="miles_per_hour">mph</string>
     <string name="minute">분</string>
     <string name="big_font">지도에서 글꼴 크기 늘리기</string>
     <string name="transliteration_title">라틴어로 음역</string>

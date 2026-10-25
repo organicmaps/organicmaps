@@ -73,6 +73,9 @@
     <string name="opens_in">Apre tra %s</string>
     <string name="closes_in">Chiude tra %s</string>
     <string name="closed">Chiuso</string>
+    <!-- abbreviation for kilometers per hour -->
+    <string name="kilometers_per_hour">km/h</string>
+    <string name="miles_per_hour">mph</string>
     <string name="minute">min</string>
     <string name="big_font">Aumenta dimensione etichette sulla mappa</string>
     <string name="transliteration_title">Traslittera in caratteri latini</string>

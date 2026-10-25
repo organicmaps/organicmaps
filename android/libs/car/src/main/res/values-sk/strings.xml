@@ -73,6 +73,9 @@
     <string name="opens_in">Otvoria o %s</string>
     <string name="closes_in">Zatvoria o %s</string>
     <string name="closed">Zatvorené</string>
+    <!-- abbreviation for kilometers per hour -->
+    <string name="kilometers_per_hour">km/h</string>
+    <string name="miles_per_hour">mph</string>
     <string name="minute">min</string>
     <string name="big_font">Zväčšiť veľkosť písma na mape</string>
     <string name="transliteration_title">Prepis do latinky</string>

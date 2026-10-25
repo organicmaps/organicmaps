@@ -73,6 +73,9 @@
     <string name="opens_in">נפתח עוד %s</string>
     <string name="closes_in">נסגר עוד %s</string>
     <string name="closed">סגור</string>
+    <!-- abbreviation for kilometers per hour -->
+    <string name="kilometers_per_hour">קמ״ש</string>
+    <string name="miles_per_hour">מייל לשעה</string>
     <string name="minute">ד׳</string>
     <string name="big_font">הגדל תגיות במפה</string>
     <string name="transliteration_title">תעתיק לאותיות לטיניות</string>

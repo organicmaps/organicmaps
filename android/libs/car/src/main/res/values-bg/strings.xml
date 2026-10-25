@@ -73,6 +73,9 @@
     <string name="opens_in">Отваря се в %s</string>
     <string name="closes_in">Приключва в %s</string>
     <string name="closed">Затворено</string>
+    <!-- abbreviation for kilometers per hour -->
+    <string name="kilometers_per_hour">км/ч</string>
+    <string name="miles_per_hour">мили/ч</string>
     <string name="minute">мин</string>
     <string name="big_font">Увеличаване на размера на шрифта в картата</string>
     <string name="transliteration_title">Изпиши на латиница</string>

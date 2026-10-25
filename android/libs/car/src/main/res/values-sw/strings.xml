@@ -73,6 +73,9 @@
     <string name="opens_in">Inafunguka katika %s</string>
     <string name="closes_in">Inakaribia kwa %s</string>
     <string name="closed">Imefungwa</string>
+    <!-- abbreviation for kilometers per hour -->
+    <string name="kilometers_per_hour">km/h</string>
+    <string name="miles_per_hour">maili kwa saa</string>
     <string name="minute">kidogo</string>
     <string name="big_font">Ongeza ukubwa wa lebo za ramani</string>
     <string name="transliteration_title">Tafsiri kwa lugha ya Kilatini</string>

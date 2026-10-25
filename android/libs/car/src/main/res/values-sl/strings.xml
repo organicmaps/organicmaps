@@ -73,6 +73,9 @@
     <string name="opens_in">Odpira se čez %s</string>
     <string name="closes_in">Zapira se čez %s</string>
     <string name="closed">Zaprto</string>
+    <!-- abbreviation for kilometers per hour -->
+    <string name="kilometers_per_hour">km/h</string>
+    <string name="miles_per_hour">mph</string>
     <string name="minute">min</string>
     <string name="big_font">Povečaj velikost oznak na zemljevidu</string>
     <string name="transliteration_title">Transliteriraj v latinico</string>

@@ -73,6 +73,9 @@
     <string name="opens_in">Open oor %s</string>
     <string name="closes_in">Sluit oor %s</string>
     <string name="closed">Gesluit</string>
+    <!-- abbreviation for kilometers per hour -->
+    <string name="kilometers_per_hour">km/h</string>
+    <string name="miles_per_hour">mph</string>
     <string name="minute">min</string>
     <string name="big_font">Vergroot lettergrootte op kaart</string>
     <string name="transliteration_title">Transliterasie in Latynse alfabet</string>

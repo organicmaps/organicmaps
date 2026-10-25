@@ -73,6 +73,9 @@
     <string name="opens_in">Atveras pēc %s</string>
     <string name="closes_in">Slēgts pēc %s</string>
     <string name="closed">Slēgts</string>
+    <!-- abbreviation for kilometers per hour -->
+    <string name="kilometers_per_hour">km/h</string>
+    <string name="miles_per_hour">mph</string>
     <string name="minute">min.</string>
     <string name="big_font">Palielināt fonta lielumu kartē</string>
     <string name="transliteration_title">Transliterācija uz latīņu alfabētu</string>

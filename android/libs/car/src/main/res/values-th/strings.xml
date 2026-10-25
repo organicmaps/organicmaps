@@ -73,6 +73,9 @@
     <string name="opens_in">เปิดใน %s</string>
     <string name="closes_in">ปิดใน %s</string>
     <string name="closed">ปิด</string>
+    <!-- abbreviation for kilometers per hour -->
+    <string name="kilometers_per_hour">กม./ชม.</string>
+    <string name="miles_per_hour">ไมล์/ชม.</string>
     <string name="minute">น.</string>
     <string name="big_font">เพิ่มขนาดฟอนต์บนแผนที่</string>
     <string name="transliteration_title">การทับศัพท์เป็นภาษาละติน</string>
