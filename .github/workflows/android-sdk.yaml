@@ -44,6 +44,9 @@ jobs:
         shell: bash
         run: echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
 
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+
       - name: Build and deploy the Android SDK to Maven Central
         shell: bash
         working-directory: android
