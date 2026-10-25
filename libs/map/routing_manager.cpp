@@ -723,8 +723,7 @@ void RoutingManager::CreateRouteAltMarks(routing::RoutesResult const & result)
     // to the geometric midpoint of the whole route.
     auto const & diffMid = r.GetDiffMidpoint();
     m2::PointD const pivot = diffMid ? *diffMid : r.GetMidpoint();
-    infos.push_back({pivot, platform::Duration(std::lround(r.GetTotalTimeSec())).GetHoursMinutesString(), i,
-                     i == result.m_activeIdx});
+    infos.push_back({pivot, platform::Duration(r.GetTotalTimeSec()).GetRoutingString(), i, i == result.m_activeIdx});
   }
 
   GetPlatform().RunTask(Platform::Thread::Gui, [this, routesId = result.m_routesId, infos = std::move(infos)]()

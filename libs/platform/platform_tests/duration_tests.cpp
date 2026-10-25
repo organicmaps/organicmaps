@@ -3,6 +3,7 @@
 #include "platform/duration.hpp"
 
 #include <chrono>
+#include <limits>
 
 namespace platform
 {
@@ -117,22 +118,50 @@ UNIT_TEST(Duration_Localization)
     }
   }
 }
-UNIT_TEST(Duration_HoursMinutesString)
+UNIT_TEST(Duration_RoutingString)
 {
-  // GetUnitsString returns the localization key as-is in test environment (e.g. "minute", "hour"),
-  // so build expectations using the same keys.
-  TEST_EQUAL(Duration(0).GetHoursMinutesString(), "0" + kNonBreakingSpace + m, ());
-  TEST_EQUAL(Duration(29).GetHoursMinutesString(), "0" + kNonBreakingSpace + m, ());  // round down
-  TEST_EQUAL(Duration(30).GetHoursMinutesString(), "1" + kNonBreakingSpace + m, ());  // round up
-  TEST_EQUAL(Duration(4 * 60).GetHoursMinutesString(), "4" + kNonBreakingSpace + m, ());
-  TEST_EQUAL(Duration(59 * 60 + 30).GetHoursMinutesString(), "1" + kNonBreakingSpace + h, ());
-  TEST_EQUAL(Duration(60 * 60).GetHoursMinutesString(), "1" + kNonBreakingSpace + h, ());
-  TEST_EQUAL(Duration(60 * 60 + 23 * 60).GetHoursMinutesString(),
-             "1" + kNonBreakingSpace + h + kNonBreakingSpace + "23" + kNonBreakingSpace + m, ());
-  TEST_EQUAL(Duration(2 * 60 * 60 + 30 * 60).GetHoursMinutesString(),
-             "2" + kNonBreakingSpace + h + kNonBreakingSpace + "30" + kNonBreakingSpace + m, ());
-  // Seconds beyond the minute boundary still ignored once we're past 1 hour.
-  TEST_EQUAL(Duration(3 * 60 * 60 + 45 * 60 + 50).GetHoursMinutesString(),
-             "3" + kNonBreakingSpace + h + kNonBreakingSpace + "46" + kNonBreakingSpace + m, ());
+  for (unsigned long seconds = 0; seconds < 60; ++seconds)
+    TEST_EQUAL(Duration(seconds).GetRoutingString(), Duration(60).GetPlatformLocalizedString(), (seconds));
+
+  struct Case
+  {
+    double m_seconds;
+    unsigned long m_expectedSeconds;
+  };
+  Case const cases[] = {
+      {0.9, 60},
+      {59.999, 60},
+      {60, 60},
+      {89, 60},
+      {89.5, 60},
+      {89.999, 60},
+      {90, 120},
+      {4 * 60 + 29, 4 * 60},
+      {4 * 60 + 29.5, 4 * 60},
+      {4 * 60 + 30, 5 * 60},
+      {27 * 60 + 29, 27 * 60},
+      {27 * 60 + 29.5, 27 * 60},
+      {27 * 60 + 29.999, 27 * 60},
+      {27 * 60 + 30, 28 * 60},
+      {34 * 60 + 45, 35 * 60},
+      {59 * 60 + 29, 59 * 60},
+      {59 * 60 + 29.999, 59 * 60},
+      {59 * 60 + 30, 60 * 60},
+      {60 * 60, 60 * 60},
+      {60 * 60 + 29, 60 * 60},
+      {60 * 60 + 30, 61 * 60},
+      {24 * 60 * 60, 24 * 60 * 60},
+      {26 * 60 * 60 + 14 * 60 + 45, 26 * 60 * 60 + 15 * 60},
+      {std::numeric_limits<int>::max(), 2147483640},
+  };
+  auto const locale = GetCurrentLocale();
+  for (auto const & test : cases)
+  {
+    Duration const duration(test.m_seconds);
+    TEST_EQUAL(
+        duration.GetRoutingString(),
+        Duration(test.m_expectedSeconds).GetLocalizedString({Duration::Units::Hours, Duration::Units::Minutes}, locale),
+        (test.m_seconds));
+  }
 }
 }  // namespace platform

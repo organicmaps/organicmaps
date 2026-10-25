@@ -59,7 +59,7 @@ public class PlacePageTrackRecordingFragment extends Fragment
     ((TrackRecording) mo)
         .setTrackRecordingPPDescription(
             StringUtils.nativeFormatDistance(trackStatistics.getLength()).toString(requireContext()) + " • "
-            + Utils.formatRoutingTime(requireContext(), (int) trackStatistics.getDuration(), R.dimen.text_size_body_3));
+            + Utils.formatDuration(requireContext(), (int) trackStatistics.getDuration(), R.dimen.text_size_body_3));
     ElevationInfo elevationInfo = TrackRecorder.nativeGetElevationInfo();
     // elevationInfo can be null when Track Recording has just started and no elevation data exists yet.
     if (elevationInfo != null)

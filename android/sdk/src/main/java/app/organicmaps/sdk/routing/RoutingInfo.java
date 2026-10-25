@@ -16,6 +16,7 @@ public final class RoutingInfo
   // Next turn.
   public final Distance distToTurn;
 
+  // Remaining time in seconds; UI formatters choose the display precision.
   public final int totalTimeInSeconds;
   // Current street name.
   public final String currentStreet;

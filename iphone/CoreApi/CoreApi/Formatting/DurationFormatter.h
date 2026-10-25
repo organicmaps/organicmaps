@@ -4,7 +4,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DurationFormatter : NSObject
 
-+ (NSString *)durationStringFromTimeInterval:(NSTimeInterval)timeInterval NS_SWIFT_NAME(durationString(from:));
++ (NSString *)routingDurationStringFromTimeInterval:(NSTimeInterval)timeInterval
+    NS_SWIFT_NAME(routingDurationString(from:));
 
 @end
 
