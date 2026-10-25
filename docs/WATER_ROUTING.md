@@ -8,7 +8,9 @@ portage icons. Nearby icons may be hidden at overview scales.
 
 The result shows water, walking and total distance in application units. Water
 has a calculation indicator but no Start button, navigation, ETA or elevation
-chart. Ruler continues to measure straight segments.
+chart. The kayak icon follows Ruler on both platforms and uses the same selected
+and unselected theme colors as the other routing profiles. Ruler continues to
+measure straight segments.
 
 ## Checkpoints and walking
 

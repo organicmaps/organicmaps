@@ -119,7 +119,7 @@ final class RoutingOptionsSettingsTests: XCTestCase {
   func test_WaterSelectionRoundTripsThroughCoreAndNeverStartsNavigation() {
     let previousType = MWMRouter.type()
     defer { MWMRouter.setType(previousType) }
-    XCTAssertTrue(MWMRouterType.allCases.contains(.water))
+    XCTAssertEqual(Array(MWMRouterType.allCases.suffix(2)), [.ruler, .water])
     for selected in [false, true] {
       XCTAssertEqual(MWMRouterType.water.image(for: selected).accessibilityLabel, L("water_routing"))
     }
