@@ -12,7 +12,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.AttrRes
-import androidx.annotation.ColorInt
 import androidx.annotation.StyleRes
 
 /**
@@ -21,8 +20,8 @@ import androidx.annotation.StyleRes
  * The current speed is always visible, hide the whole widget to hide it. The speed limit is hidden
  * when it is unknown, see [setSpeedLimit].
  *
- * Use `wrap_content` width and a fixed height to keep the sign size while shrinking the widget
- * when the speed limit is hidden.
+ * Use `wrap_content` width and a fixed height for left/right positions, or a fixed width and
+ * `wrap_content` height for top/bottom, to keep the sign size when the speed limit is hidden.
  *
  * The signs are created in the code, so that they can be styled from here: set
  * `om_widget_current_speed_view_style` and `om_widget_speed_limit_view_style` on this view
@@ -36,6 +35,14 @@ constructor(
     @AttrRes defStyleAttr: Int = R.attr.om_widget_combined_speed_view_style,
     @StyleRes defStyleRes: Int = R.style.OmWidget_CombinedSpeedView,
 ) : ViewGroup(context, attrs, defStyleAttr, defStyleRes) {
+    /** Position of the current speed relative to the speed limit, independent of layout direction. */
+    enum class CurrentSpeedPosition {
+        Top,
+        Bottom,
+        Left,
+        Right,
+    }
+
     private val fillPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
         color = Color.GRAY
@@ -45,6 +52,19 @@ constructor(
     private val speedLimitView: SpeedLimitView
     private val connectorBounds = RectF()
     private var backgroundPalette = SignPalette.of(SignColors.DEFAULT)
+
+    var currentSpeedPosition: CurrentSpeedPosition = CurrentSpeedPosition.Left
+        set(value) {
+            if (field == value) {
+                return
+            }
+            field = value
+            requestLayout()
+            invalidate()
+        }
+
+    private val isVertical: Boolean
+        get() = currentSpeedPosition == CurrentSpeedPosition.Top || currentSpeedPosition == CurrentSpeedPosition.Bottom
 
     /** Shape of the speed-limit sign; the current speed is always square. */
     var shape: Shape = Shape.Circle
@@ -126,6 +146,12 @@ constructor(
             ]
             mode = Mode.entries.toTypedArray()[
                 attributes.getInt(R.styleable.OmWidgetCombinedSpeedView_om_widget_mode, mode.ordinal),
+            ]
+            currentSpeedPosition = CurrentSpeedPosition.entries[
+                attributes.getInt(
+                    R.styleable.OmWidgetCombinedSpeedView_om_widget_current_speed_position,
+                    currentSpeedPosition.ordinal,
+                ),
             ]
             val speedLimit = if (isInEditMode) {
                 attributes.getInt(R.styleable.OmWidgetCombinedSpeedView_om_widget_value, UNKNOWN_VALUE)
@@ -211,25 +237,29 @@ constructor(
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val signsCount = if (speedLimitView.visibility == GONE) 1 else 2
+        val columns = if (isVertical) 1 else signsCount
+        val rows = if (isVertical) signsCount else 1
 
         val horizontalPadding = paddingLeft + paddingRight
         val verticalPadding = paddingTop + paddingBottom
         val availableWidth = availableSize(widthMeasureSpec, horizontalPadding)
         val availableHeight = availableSize(heightMeasureSpec, verticalPadding)
 
-        // Every sign is a square of the same size, they are laid out in a row.
+        // Every sign is a square of the same size.
         val signSize = if (availableWidth == UNBOUNDED && availableHeight == UNBOUNDED) {
-            suggestedMinimumHeight
+            if (isVertical) suggestedMinimumWidth else suggestedMinimumHeight
         } else {
-            (availableWidth / signsCount).coerceAtMost(availableHeight)
+            val widthPerSign = if (availableWidth == UNBOUNDED) UNBOUNDED else availableWidth / columns
+            val heightPerSign = if (availableHeight == UNBOUNDED) UNBOUNDED else availableHeight / rows
+            widthPerSign.coerceAtMost(heightPerSign)
         }.coerceAtLeast(0)
 
         val signSpec = MeasureSpec.makeMeasureSpec(signSize, MeasureSpec.EXACTLY)
         forEachVisibleSign { it.measure(signSpec, signSpec) }
 
         setMeasuredDimension(
-            resolveSize(signsCount * signSize + horizontalPadding, widthMeasureSpec),
-            resolveSize(signSize + verticalPadding, heightMeasureSpec),
+            resolveSize(columns * signSize + horizontalPadding, widthMeasureSpec),
+            resolveSize(rows * signSize + verticalPadding, heightMeasureSpec),
         )
     }
 
@@ -238,26 +268,46 @@ constructor(
         val signSize = currentSpeedView.measuredWidth
         val contentWidth = (width - paddingLeft - paddingRight).coerceAtLeast(0)
         val contentHeight = (height - paddingTop - paddingBottom).coerceAtLeast(0)
-        val horizontalOffset = (contentWidth - signsCount * signSize) / 2
-        val signTop = paddingTop + (contentHeight - signSize) / 2
-        val isRtl = layoutDirection == LAYOUT_DIRECTION_RTL
-        var signLeft = if (isRtl) width - paddingRight - horizontalOffset else paddingLeft + horizontalOffset
-        forEachVisibleSign { sign ->
-            val signRight = if (isRtl) signLeft else signLeft + sign.measuredWidth
-            val signStart = signRight - sign.measuredWidth
-            sign.layout(signStart, signTop, signRight, signTop + sign.measuredHeight)
-            signLeft = if (isRtl) signStart else signRight
+        val columns = if (isVertical) 1 else signsCount
+        val rows = if (isVertical) signsCount else 1
+        var signLeft = paddingLeft + (contentWidth - columns * signSize) / 2
+        var signTop = paddingTop + (contentHeight - rows * signSize) / 2
+        val signs = when (currentSpeedPosition) {
+            CurrentSpeedPosition.Top, CurrentSpeedPosition.Left -> listOf(currentSpeedView, speedLimitView)
+            CurrentSpeedPosition.Bottom, CurrentSpeedPosition.Right -> listOf(speedLimitView, currentSpeedView)
+        }
+        for (sign in signs) {
+            if (sign.visibility == GONE) {
+                continue
+            }
+            sign.layout(signLeft, signTop, signLeft + signSize, signTop + signSize)
+            if (isVertical) {
+                signTop += signSize
+            } else {
+                signLeft += signSize
+            }
         }
 
         if (currentSpeedView.visibility == VISIBLE && speedLimitView.visibility == VISIBLE) {
-            val currentSpeedCenter = currentSpeedView.left + currentSpeedView.width * 0.5f
-            val speedLimitCenter = speedLimitView.left + speedLimitView.width * 0.5f
-            connectorBounds.set(
-                minOf(currentSpeedCenter, speedLimitCenter),
-                currentSpeedView.top.toFloat(),
-                maxOf(currentSpeedCenter, speedLimitCenter),
-                currentSpeedView.bottom.toFloat(),
-            )
+            if (isVertical) {
+                val currentSpeedCenter = currentSpeedView.top + signSize * 0.5f
+                val speedLimitCenter = speedLimitView.top + signSize * 0.5f
+                connectorBounds.set(
+                    currentSpeedView.left.toFloat(),
+                    minOf(currentSpeedCenter, speedLimitCenter),
+                    currentSpeedView.right.toFloat(),
+                    maxOf(currentSpeedCenter, speedLimitCenter),
+                )
+            } else {
+                val currentSpeedCenter = currentSpeedView.left + signSize * 0.5f
+                val speedLimitCenter = speedLimitView.left + signSize * 0.5f
+                connectorBounds.set(
+                    minOf(currentSpeedCenter, speedLimitCenter),
+                    currentSpeedView.top.toFloat(),
+                    maxOf(currentSpeedCenter, speedLimitCenter),
+                    currentSpeedView.bottom.toFloat(),
+                )
+            }
         } else {
             connectorBounds.setEmpty()
         }
