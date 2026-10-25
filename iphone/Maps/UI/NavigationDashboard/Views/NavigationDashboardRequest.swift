@@ -40,8 +40,8 @@ extension MWMRouterType: CaseIterable {
     .pedestrian,
     .publicTransport,
     .bicycle,
-    .water,
     .ruler,
+    .water,
   ]
 
   func image(for isSelected: Bool) -> UIImage {
@@ -58,7 +58,7 @@ extension MWMRouterType: CaseIterable {
     case .ruler:
       image = UIImage(resource: .navigationDashboardRuler)
     case .water:
-      image = UIImage(systemName: "ferry.fill")!
+      image = UIImage(resource: .navigationDashboardWater)
     @unknown default:
       fatalError("Unknown router type")
     }

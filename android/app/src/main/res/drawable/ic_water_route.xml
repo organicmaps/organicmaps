@@ -3,8 +3,42 @@
   android:height="24dp"
   android:viewportWidth="24"
   android:viewportHeight="24">
-  <!-- Reuse the existing Water category silhouette at routing-toolbar size. -->
+  <!-- Keep the geometry in sync with iOS navigation_dashboard_water.svg. -->
   <path
     android:fillColor="#000"
-    android:pathData="M12,20c-3.31,0 -6,-2.69 -6,-6 0,-4 6,-10.75 6,-10.75 0,0 6,6.75 6,10.75 0,3.31 -2.69,6 -6,6Z" />
+    android:pathData="M10.7 4.8 A1.8 1.8 0 1 1 7.1 4.8 A1.8 1.8 0 1 1 10.7 4.8 Z" />
+  <path
+    android:fillColor="#00000000"
+    android:strokeColor="#000"
+    android:strokeWidth="2"
+    android:strokeLineCap="round"
+    android:strokeLineJoin="round"
+    android:pathData="M8.8 8.3 L7.2 13.8 H11.5 L13.7 16.7" />
+  <path
+    android:fillColor="#00000000"
+    android:strokeColor="#000"
+    android:strokeWidth="1.8"
+    android:strokeLineCap="round"
+    android:strokeLineJoin="round"
+    android:pathData="M8.6 9.1 L12 11.1 L16.6 8.6" />
+  <path
+    android:fillColor="#00000000"
+    android:strokeColor="#000"
+    android:strokeWidth="1.7"
+    android:strokeLineCap="round"
+    android:strokeLineJoin="round"
+    android:pathData="M2 15 Q12 18 22 15 C21 18.6 17.3 20 12 20 C6.7 20 3 18.6 2 15 Z" />
+  <path
+    android:fillColor="#00000000"
+    android:strokeColor="#000"
+    android:strokeWidth="1.7"
+    android:strokeLineCap="round"
+    android:strokeLineJoin="round"
+    android:pathData="M18.2 5.6 L13.5 19.4" />
+  <path
+    android:fillColor="#000"
+    android:pathData="M17.5 5.6 L18.2 2.8 Q18.4 2.2 19 2.2 H20 Q20.5 2.2 20.3 2.8 L19.5 4.8 Q19.2 5.5 18.5 6 Z" />
+  <path
+    android:fillColor="#000"
+    android:pathData="M13.2 18.8 L14.2 19.2 L13.5 21.5 Q13.3 22.1 12.7 22.1 H11.8 Q11.3 22.1 11.5 21.5 L12.1 19.9 Q12.3 19.3 13.2 18.8 Z" />
 </vector>
