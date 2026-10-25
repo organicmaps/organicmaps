@@ -300,11 +300,7 @@ UNIT_TEST(WaterLong_CheckpointsChain)
 }
 UNIT_TEST(WaterReported_PomeranianLongPortage)
 {
-  CheckRoute("PomeranianLongPortage", {54.12300877, 17.75593190}, {53.84449881, 18.35696959}, false,
-             {"Poland_Pomeranian Voivodeship"});
-}
-UNIT_TEST(WaterReported_PomeranianWalkingCachePreservesGeometry)
-{
+  // This reported-route regression also verifies that graph reuse preserves the entire path.
   auto const time = std::time(nullptr);
   auto const fresh = CheckRoute("PomeranianFreshGraph", {54.12300877, 17.75593190}, {53.84449881, 18.35696959}, false,
                                 {"Poland_Pomeranian Voivodeship"}, false, {}, false, time);

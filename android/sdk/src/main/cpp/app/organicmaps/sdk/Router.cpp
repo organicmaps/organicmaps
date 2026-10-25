@@ -4,8 +4,6 @@
 
 #include "app/organicmaps/sdk/util/Distance.hpp"
 #include "indexer/map_style.hpp"
-#include "routing/water_geometry_provider.hpp"
-#include "storage/country_info_getter.hpp"
 
 extern "C"
 {
@@ -41,20 +39,6 @@ JNIEXPORT jint Java_app_organicmaps_sdk_Router_nativeGetBest(JNIEnv *, jclass, j
 {
   return static_cast<jint>(frm()->GetRoutingManager().GetBestRouter(mercator::FromLatLon(srcLat, srcLon),
                                                                     mercator::FromLatLon(dstLat, dstLon)));
-}
-
-JNIEXPORT jboolean Java_app_organicmaps_sdk_routing_WaterRouting_isPointEligible(JNIEnv *, jclass, jdouble lat,
-                                                                                 jdouble lon)
-{
-  auto const point = mercator::FromLatLon(lat, lon);
-  routing::WaterGeometryProvider provider(frm()->GetDataSource(),
-                                          [](std::string const & country, m2::RectD const & bounds)
-  { return frm()->GetCountryInfoGetter().IsRectCoveredByRegion(country, bounds); });
-  routing::RouterDelegate delegate;
-  auto const geometry = provider.GetGeometry(routing::Checkpoints(point, point), delegate);
-  routing::water::Path path;
-  return routing::water::FindPath(geometry, point, point, false, [] { return false; }, path) ==
-         routing::water::ResultCode::Success;
 }
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_routing_WaterRouting_isShortestConfirmed(JNIEnv *, jclass)
