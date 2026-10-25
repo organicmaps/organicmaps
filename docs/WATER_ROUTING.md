@@ -40,7 +40,7 @@ mercator::DistanceOnEarth. Checkpoints retain their selected order.
 
 Connected water paths found in the searched window take precedence over land shortcuts. All land portions,
 including checkpoint approaches, exits and transfers between water components, use the
-existing, unchanged pedestrian IndexRouter. Results show its actual walking geometry
+existing pedestrian routing algorithm. Results show its actual walking geometry
 and distance as dashed land portions. If walking fails, the leg fails without a
 straight-line fallback.
 
@@ -76,7 +76,7 @@ As a deliberate measurement simplification, bridge, aqueduct and lock restrictio
 are ignored in this compatibility mode. This can join an aqueduct to a water
 surface it crosses. Explicit tunnels and negative-layer water features are excluded
 from water geometry, but may justify a local pedestrian bypass between nearby
-stored river endpoints. The actual bypass follows the unchanged pedestrian router;
+stored river endpoints. The actual bypass follows the standard pedestrian router;
 it is never a straight line through a tunnel. Ordinary maps can omit tunnels
 entirely, so not every underground connection can be recognized.
 This mode does not model navigability, water depth, currents or access restrictions.
@@ -160,8 +160,9 @@ surface visibility needs only reflex shore corners, checkpoints and river points
 River curvature retains all source vertices, or all stored vertices for ordinary maps.
 The walking fallback selects at most 16 nearby candidates per endpoint, with at
 most four from each other water component. It allows up to 131,072 candidate links,
-4,000,000 candidate visits, 4,000,000 cached water connections and 32 pedestrian
-checks per leg. These limits can leave a valid route undiscovered. Cancellation is
+4,000,000 candidate visits, 4,000,000 cached water connections and 32 rejected
+pedestrian candidates per leg. Successfully validated transfers do not consume
+that rejection budget; each directed candidate is checked at most once. These limits can leave a valid route undiscovered. Cancellation is
 checked during extraction and graph searches. Tessellation is bounded by its input.
 Large or complex waterways may be unavailable. Country-scale performance and map
 size have not been benchmarked.
@@ -174,6 +175,17 @@ MWMs reconstructs its geometry from display features at request time. It must
 union water surfaces and check that each proposed visibility edge stays on water.
 Its lazy A* search already uses straight-line lower bounds and a sparse mesh path
 as an upper bound; replacing the search alone does not remove geometry costs.
+
+Ordinary-map water features whose bounding boxes cannot overlap or touch are
+unioned in separate groups. Potentially intersecting features remain in the same
+group. Every input triangle is retained; this changes neither shore detail nor
+the union's covered area. It avoids feeding unrelated lakes into one tessellation.
+
+Walking portions use the same pedestrian search and costs. Water opts into reuse
+of the decoded road graph across its walking legs, then clears that graph on
+completion, cancellation or failure. Routing-option changes invalidate the cache.
+Other routing modes retain their existing cache policy. This avoids reloading a
+whole region's road joints for every short portage.
 
 The triangle index is balanced after bulk insertion. Tessellation order is spatially
 correlated, so incremental KD-tree insertion can otherwise make repeated segment
@@ -208,11 +220,12 @@ request reset the indicator; queued updates from cancelled requests are discarde
 
 ## Validation
 
-The latest validation passes 102 native routing/provider/async/spatial-index tests
-on ARM64 and x86_64, eight MWM integration tests, 115 Android app/SDK unit tests
-and lint. Real-map regressions use the downloaded maps installed on a Samsung SM-G970F; the route
-suite and current results are described below. Reduced tests cover several
-portages, walking access at both ends, retrying inaccessible walking candidates,
+The latest validation covers 103 native routing/provider/async/spatial-index
+tests on an API 34 x86_64 emulator and a Samsung SM-G970F (Android 12, API 31),
+nine MWM integration tests on the emulator, 40 real-map scenarios on both devices,
+115 Android app/SDK unit tests and lint. ARM64 and x86_64 native libraries build.
+The maps are ordinary catalog 2026-07-14 downloads. The reporting Xiaomi on
+Android 16 was not connected; this is not a claim of physical Android 16 testing. Reduced tests cover several portages, walking access at both ends, retrying inaccessible walking candidates,
 cancellation, and rejecting walking-only substitutes for water journeys. Exactly
 zero-area clipped triangles are skipped before winding tests and extraction
 budgets; thin valid water geometry is retained.
@@ -258,7 +271,7 @@ Apple-platform build has been run in this Windows environment.
 
 The northeast Almere report uses 52.354844,5.179683 to 52.409733,5.36587.
 The start is 98.65 m from the nearest stored water (52.3540683,5.18038481).
-Water now delegates this initial approach to the unchanged pedestrian IndexRouter.
+Water now delegates this initial approach to the standard pedestrian IndexRouter.
 The water search can retain its confirmed path when the visibility limit or
 unresolved shorter alternatives prevent a shortest-path certificate. Android shows
 that qualification alongside water, land and total distances. The real IndexRouter
@@ -279,7 +292,7 @@ land stop, exact checkpoint/subroute endpoints, distance accounting, monotone pr
 failed and cancelled walking exits, and the 1 km access-selection limit.
 
 A real-map land-to-land check on the ordinary Flevoland MWM uses
-52.354819,5.179565 to 52.355862,5.185028. The unchanged pedestrian IndexRouter
+52.354819,5.179565 to 52.355862,5.185028. The standard pedestrian IndexRouter
 provides 199.071 m of approach and 23.0997 m of exit; the water portion is 381.264 m.
 Both selected endpoints are retained in the resulting route.
 
@@ -327,8 +340,8 @@ a bounded geometry budget large enough for this water detour.
 ### Reported-route regressions
 
 `libs/routing/routing_integration_tests/water_reported_routes_test.cpp` preserves
-14 reported failing routes, including exact My position starts, plus 23 broader
-long-route scenarios. Run with ordinary
+15 reported failing routes, including exact My position starts, plus 25 broader
+long-route and cache-equivalence scenarios. Run with ordinary
 downloaded MWMs in `--data_path` and matching application resources. Dutch cases
 use Flevoland, North Holland — Amsterdam and Utrecht — Amersfoort from catalog
 2026-07-14; Polish cases use Pomeranian Voivodeship. Tests require a successful
@@ -352,3 +365,39 @@ actual pedestrian detour can be longer. Mixed routes show "Shortest route not
 confirmed". The wider sample improves regression coverage; it does not establish
 that every long journey can be found with incomplete display geometry or bounded
 search budgets.
+
+### Long mixed routes and walking-graph reuse
+
+The Pomeranian report retains explicit start `54.12300877, 17.75593190` and finish
+`53.84449881, 18.35696959`. The previous 32-check limit counted successful walking
+legs and rejected this valid multi-portage path after about 81 seconds on the
+API 34 x86_64 emulator. The new search limits rejected candidates instead of
+rejecting a route merely because it contains many valid transfers. A reduced
+regression requires 40 successful transfers.
+
+The real-map result contains 94.142 km of water and 24.114 km of pedestrian
+sections, marked "Shortest route not confirmed". A separate regression compares
+the complete output coordinate sequence with and without walking-graph reuse,
+using the same routing clock. Both sequences match. In one paired emulator run,
+calculation took 40.2 seconds without that cache and 10.2 seconds with it; the
+number of regional road-graph loads fell from 35 to one. Reverse-direction coverage
+is included. Initial measurements with graph reuse and grouped surface unions
+were about 16 seconds in the standalone native harness. Android app requests on
+that emulator took 29-34 seconds. Reading the same MWM through the emulated app
+storage also increased a native-only run from about 17 to 32 seconds, indicating
+a substantial storage-path cost. These are not Xiaomi phone measurements or a
+promise for other routes.
+
+Physical-phone verification used a Samsung SM-G970F with Android 12 and APK
+2026.10.25-1. The Android Water UI built the exact Pomeranian points in both
+directions: native calculation times were 18.6 and 18.3 seconds (about 22 seconds
+including UI polling). All 40 real-map scenarios and 103 native tests passed on
+that phone; all 37 earlier native-route distances and shortest-path qualifications
+matched the preceding results. Rameaugracht, Keersluisplas and the short Polish
+underground-bypass case also passed through the UI.
+
+The phone's current UI configuration returns about 34 km water for Keersluisplas
+and 680 m for the short Polish case, differing from the native fixture values.
+A direct APK 2026.10.24-24 versus 2026.10.25-1 comparison on the same phone and maps
+returned those same UI distances in both versions. These differences predate the
+walking-cache and surface-union changes.

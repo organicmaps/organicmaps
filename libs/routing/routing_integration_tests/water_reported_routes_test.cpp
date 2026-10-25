@@ -20,15 +20,17 @@
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
+#include <ctime>
 #include <string>
 #include <vector>
 
 namespace water_reported_routes_test
 {
 // Run with ordinary downloaded MWMs in --data_path; no generated water section is required.
-void CheckRoute(std::string const & name, ms::LatLon const & start, ms::LatLon const & finish, bool myPosition,
-                std::vector<std::string> const & countries, bool waterOnly = false,
-                std::vector<ms::LatLon> const & stops = {})
+std::vector<m2::PointD> CheckRoute(std::string const & name, ms::LatLon const & start, ms::LatLon const & finish,
+                                   bool myPosition, std::vector<std::string> const & countries, bool waterOnly = false,
+                                   std::vector<ms::LatLon> const & stops = {}, bool cacheWalkingGraph = true,
+                                   time_t routingTime = 0)
 {
   classificator::Load();
   FrozenDataSource data;
@@ -52,10 +54,13 @@ void CheckRoute(std::string const & name, ms::LatLon const & start, ms::LatLon c
   }, [&](auto const & names, auto const & bounds) { return coverage->IsRectCoveredByRegions(names, bounds); });
   traffic::TrafficCache traffic;
   auto pedestrian =
-      std::make_unique<routing::IndexRouter>(routing::VehicleType::Pedestrian, false, [](std::string const & country)
-  { return country.substr(0, country.find('_')); }, [&](auto const & point) { return info->GetRegionCountryId(point); },
-                                             [&](auto const & country) { return info->GetLimitRectForLeaf(country); },
-                                             ids, routing::MakeNumMwmTree(*ids, *info), traffic, data);
+      std::make_unique<routing::IndexRouter>(routing::VehicleType::Pedestrian, false, [](std::string const & country) {
+    return country.substr(0, country.find('_'));
+  }, [&](auto const & point) { return info->GetRegionCountryId(point); }, [&](auto const & country) {
+    return info->GetLimitRectForLeaf(country);
+  }, ids, routing::MakeNumMwmTree(*ids, *info), traffic, data, cacheWalkingGraph);
+  if (routingTime != 0)
+    pedestrian->SetCurrentTimeGetter([routingTime] { return routingTime; });
   auto const geometry = [&](auto const & checkpoints, auto const & delegate, double margin)
   {
     auto result = provider.GetGeometry(checkpoints, delegate, margin);
@@ -108,6 +113,7 @@ void CheckRoute(std::string const & name, ms::LatLon const & start, ms::LatLon c
   if (waterOnly)
     TEST_EQUAL(distances->m_landMeters, 0.0, (name));
   LOG(LINFO, (name, "distances", distances->m_waterMeters, distances->m_landMeters, distances->m_shortestConfirmed));
+  return route.GetPoly().GetPoints();
 }
 
 void CheckAlmere(std::string const & name, ms::LatLon const & finish)
@@ -291,5 +297,24 @@ UNIT_TEST(WaterLong_CheckpointsChain)
   CheckRoute("CheckpointsChain", {52.35482820, 5.17957070}, {52.31592888, 5.18930914}, true,
              {"Netherlands_Flevoland", "Netherlands_North Holland_Amsterdam", "Netherlands_Utrecht_Amersfoort"}, false,
              {{52.40677214, 5.21760280}, {52.45889844, 5.41338676}});
+}
+UNIT_TEST(WaterReported_PomeranianLongPortage)
+{
+  CheckRoute("PomeranianLongPortage", {54.12300877, 17.75593190}, {53.84449881, 18.35696959}, false,
+             {"Poland_Pomeranian Voivodeship"});
+}
+UNIT_TEST(WaterReported_PomeranianWalkingCachePreservesGeometry)
+{
+  auto const time = std::time(nullptr);
+  auto const fresh = CheckRoute("PomeranianFreshGraph", {54.12300877, 17.75593190}, {53.84449881, 18.35696959}, false,
+                                {"Poland_Pomeranian Voivodeship"}, false, {}, false, time);
+  auto const cached = CheckRoute("PomeranianCachedGraph", {54.12300877, 17.75593190}, {53.84449881, 18.35696959}, false,
+                                 {"Poland_Pomeranian Voivodeship"}, false, {}, true, time);
+  TEST_EQUAL(cached, fresh, ());
+}
+UNIT_TEST(WaterLong_PomeranianPortageReverse)
+{
+  CheckRoute("PomeranianPortageReverse", {53.84449881, 18.35696959}, {54.12300877, 17.75593190}, false,
+             {"Poland_Pomeranian Voivodeship"});
 }
 }  // namespace water_reported_routes_test

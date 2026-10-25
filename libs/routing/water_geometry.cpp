@@ -785,8 +785,8 @@ ResultCode FindWalkingPath(Graph const & graph, std::set<Point> const & shore, C
     size_t m_state;
     size_t m_walk;
   };
-  size_t constexpr kMaxWalkingChecks = 32;
-  size_t checks = 0;
+  size_t constexpr kMaxRejectedWalkingChecks = 32;
+  size_t rejected = 0;
   for (;;)
   {
     std::vector<Cost> distances(states, infinity);
@@ -867,8 +867,6 @@ ResultCode FindWalkingPath(Graph const & graph, std::set<Point> const & shore, C
       auto const walk = previous[nodes[i]].m_walk;
       if (walk == count || walking[from][walk].m_checked || !walkAllowed)
         continue;
-      if (checks++ == kMaxWalkingChecks)
-        return ResultCode::Unavailable;
       auto & edge = walking[from][walk];
       edge.m_checked = true;
       edge.m_enabled = walkAllowed(graph.m_points[from], graph.m_points[to]);
@@ -876,6 +874,8 @@ ResultCode FindWalkingPath(Graph const & graph, std::set<Point> const & shore, C
         return ResultCode::Cancelled;
       if (!edge.m_enabled)
       {
+        if (++rejected == kMaxRejectedWalkingChecks)
+          return ResultCode::Unavailable;
         retry = true;
         break;
       }
