@@ -15,7 +15,7 @@ namespace
 uint64_t constexpr kFenceTimeoutNs = 1'000'000'000;
 }  // namespace
 
-OffscreenFrame::OffscreenFrame()
+OffscreenFrame::OffscreenFrame(GLuint depthStencil)
 {
   glGenTextures(1, &m_texture);
   glBindTexture(GL_TEXTURE_2D, m_texture);
@@ -25,15 +25,10 @@ OffscreenFrame::OffscreenFrame()
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
   glBindTexture(GL_TEXTURE_2D, 0);
 
-  glGenRenderbuffers(1, &m_depthStencil);
-  // Binding creates the object: an unbound name can't be attached.
-  glBindRenderbuffer(GL_RENDERBUFFER, m_depthStencil);
-  glBindRenderbuffer(GL_RENDERBUFFER, 0);
-
   glGenFramebuffers(1, &m_fbo);
   glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
   glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_texture, 0);
-  glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_depthStencil);
+  glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, depthStencil);
   glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
@@ -46,7 +41,6 @@ OffscreenFrame::~OffscreenFrame()
     glDeleteSync(m_consumerFence);
   }
   glDeleteFramebuffers(1, &m_fbo);
-  glDeleteRenderbuffers(1, &m_depthStencil);
   glDeleteTextures(1, &m_texture);
 }
 
@@ -59,10 +53,6 @@ void OffscreenFrame::Allocate(uint32_t w, uint32_t h)
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, static_cast<GLsizei>(w), static_cast<GLsizei>(h), 0, GL_RGBA,
                GL_UNSIGNED_BYTE, nullptr);
   glBindTexture(GL_TEXTURE_2D, 0);
-
-  glBindRenderbuffer(GL_RENDERBUFFER, m_depthStencil);
-  glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, static_cast<GLsizei>(w), static_cast<GLsizei>(h));
-  glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
   glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
   GLenum const status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
@@ -99,6 +89,7 @@ GtkRenderContext::~GtkRenderContext()
   m_back.reset();
   m_front.reset();
   m_acquired.reset();
+  glDeleteRenderbuffers(1, &m_depthStencil);
   gdk_gl_context_clear_current();
   g_object_unref(m_ctx);
 }
@@ -109,12 +100,17 @@ void GtkRenderContext::MakeCurrent()
   // The engine draws an empty frame before the first Resize(); the context itself is surfaceless.
   if (!m_back)
   {
-    m_back = std::make_unique<OffscreenFrame>();
+    glGenRenderbuffers(1, &m_depthStencil);
+    // Also creates the renderbuffer object: frames can't attach an unbound name.
+    ResizeDepthStencil();
+    {
+      // The other frames get their storage when they become the back frame.
+      std::lock_guard lock(m_frameMutex);
+      m_back = std::make_unique<OffscreenFrame>(m_depthStencil);
+      m_front = std::make_unique<OffscreenFrame>(m_depthStencil);
+      m_acquired = std::make_unique<OffscreenFrame>(m_depthStencil);
+    }
     PrepareBackFrame();
-    // The other frames get their storage when they become the back frame.
-    std::lock_guard lock(m_frameMutex);
-    m_front = std::make_unique<OffscreenFrame>();
-    m_acquired = std::make_unique<OffscreenFrame>();
   }
 }
 
@@ -154,11 +150,22 @@ void GtkRenderContext::SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer)
 
 void GtkRenderContext::Resize(uint32_t w, uint32_t h)
 {
+  if (w == m_width && h == m_height)
+    return;
   // Frames already shown or published keep their size until frames of the new size replace them.
   m_width = w;
   m_height = h;
+  ResizeDepthStencil();
   PrepareBackFrame();
   glBindFramebuffer(GL_FRAMEBUFFER, m_back->m_fbo);
+}
+
+void GtkRenderContext::ResizeDepthStencil()
+{
+  glBindRenderbuffer(GL_RENDERBUFFER, m_depthStencil);
+  glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, static_cast<GLsizei>(m_width),
+                        static_cast<GLsizei>(m_height));
+  glBindRenderbuffer(GL_RENDERBUFFER, 0);
 }
 
 void GtkRenderContext::PrepareBackFrame()

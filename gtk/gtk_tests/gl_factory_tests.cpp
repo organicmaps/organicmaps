@@ -260,4 +260,25 @@ UNIT_TEST(OffscreenFrames_ReusedFramesGetNewSize)
   TEST_EQUAL(newTextures, oldTextures, ());
   TEST_EQUAL(frames.Published(), 13, ());
 }
+
+UNIT_TEST(OffscreenFrames_ShareDepthStencil)
+{
+  FrameExchange frames(64, 48);
+  std::set<GLint> fbos;
+  std::set<GLint> depthBuffers;
+  for (auto const & [w, h] : {std::pair{64, 48}, std::pair{100, 50}})
+  {
+    frames.Resize(w, h);
+    for (Color const & color : {kRed, kGreen, kBlue, kWhite})
+    {
+      auto const target = frames.BackTarget();
+      fbos.insert(target.m_fbo);
+      depthBuffers.insert(target.m_depth);
+      frames.Present(color);
+      TestShown(frames.Draw(), color, w, h);
+    }
+  }
+  TEST_EQUAL(fbos.size(), 3, ());
+  TEST_EQUAL(depthBuffers.size(), 1, ());
+}
 }  // namespace gl_factory_tests

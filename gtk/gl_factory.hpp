@@ -14,19 +14,18 @@
 
 namespace gtk
 {
-// Offscreen colour+depth/stencil target living in the render thread's context.
-// Only its texture is shared with the GTK context that composes the frame.
+// Offscreen colour target living in the render thread's context, attached to the depth/stencil
+// buffer of that context. Only its texture is shared with the GTK context that composes the frame.
 struct OffscreenFrame
 {
   GLuint m_fbo = 0;
   GLuint m_texture = 0;
-  GLuint m_depthStencil = 0;
   uint32_t m_width = 0;
   uint32_t m_height = 0;
   // Signals when the GTK context has finished reading the texture.
   GLsync m_consumerFence = nullptr;
 
-  OffscreenFrame();
+  explicit OffscreenFrame(GLuint depthStencil);
   ~OffscreenFrame();
 
   // Producer only, after WaitForConsumer().
@@ -55,7 +54,8 @@ public:
   bool DrawFrame(int64_t frameIntervalUs, std::function<void(GLuint texture)> const & draw);
 
 private:
-  // Producer only: gives the back frame the current size before it is rendered.
+  // Producer only: give the depth/stencil buffer and, before it is rendered, the back frame the current size.
+  void ResizeDepthStencil();
   void PrepareBackFrame();
 
   GdkGLContext * m_ctx;
@@ -65,6 +65,8 @@ private:
   std::function<void()> m_onFrameReady;
   std::atomic<int64_t> m_frameIntervalUs{1'000'000 / 60};
   std::chrono::steady_clock::time_point m_nextPresent;
+  // Only the back frame is rendered, so the frames share one depth/stencil buffer.
+  GLuint m_depthStencil = 0;
   std::unique_ptr<OffscreenFrame> m_back;
   std::unique_ptr<OffscreenFrame> m_front;
   std::unique_ptr<OffscreenFrame> m_acquired;
