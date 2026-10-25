@@ -55,6 +55,29 @@ UNIT_TEST(MetaConfig_JSONParser_NewFormatWithoutProducts)
   TEST(!metaConfig->productsConfig, ());
 }
 
+UNIT_TEST(MetaConfig_JSONParser_UnknownKeys)
+{
+  auto const metaConfig = ParseMetaConfig(R"({
+    "servers": ["https://maps.example/"],
+    "futureServers": ["https://future.example/"],
+    "futureSettings": {"key": [1, 2]},
+    "productsConfig": {
+      "placePagePrompt": "prompt",
+      "futurePrompt": {"text": "new"},
+      "products": [{"title": "Product", "link": "https://product.example/", "futureSubtitle": "new"}]
+    }
+  })");
+  TEST(metaConfig, ("A newer meta server field must not break the reply"));
+  TEST_EQUAL(metaConfig->servers, (downloader::MetaConfig::ServersList{"https://maps.example/"}), ());
+
+  TEST(metaConfig->productsConfig, ());
+  auto const & productsConfig = *metaConfig->productsConfig;
+  TEST_EQUAL(productsConfig.placePagePrompt, "prompt", ());
+  TEST_EQUAL(productsConfig.products.size(), 1, ());
+  TEST_EQUAL(productsConfig.products[0].title, "Product", ());
+  TEST_EQUAL(productsConfig.products[0].link, "https://product.example/", ());
+}
+
 UNIT_TEST(MetaConfig_JSONParser_NewFormatWithProducts)
 {
   std::string_view constexpr newFormatJson = R"({
