@@ -57,7 +57,8 @@ final class BottomMenuViewController: MWMViewController {
 
   private func highlightCellIfNeeded() {
     if let cellToHighlight = presenter?.cellToHighlightIndexPath() {
-      if tableView.cellForRow(at: cellToHighlight) == nil {
+      let visibleRect = tableView.bounds.inset(by: tableView.adjustedContentInset)
+      if !visibleRect.contains(tableView.rectForRow(at: cellToHighlight)) {
         tableView.scrollToRow(at: cellToHighlight, at: .middle, animated: false)
         tableView.layoutIfNeeded()
       }
