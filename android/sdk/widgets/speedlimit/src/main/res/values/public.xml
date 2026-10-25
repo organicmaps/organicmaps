@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <public type="attr" name="om_widget_speed_limit_view_style" />
+  <public type="attr" name="om_widget_current_speed_view_style" />
+  <public type="attr" name="om_widget_combined_speed_view_style" />
+  <public type="attr" name="om_widget_shape" />
+  <public type="attr" name="om_widget_mode" />
+  <public type="attr" name="om_widget_value" />
+  <public type="attr" name="om_widget_units" />
+  <public type="attr" name="om_widget_outline_width_ratio" />
+  <public type="attr" name="om_widget_corner_radius_ratio" />
+  <public type="attr" name="om_widget_circle_palette" />
+  <public type="attr" name="om_widget_square_palette" />
+  <public type="attr" name="om_widget_background_palette" />
+  <public type="attr" name="om_widget_colors_normal" />
+  <public type="attr" name="om_widget_colors_warning" />
+  <public type="attr" name="om_widget_colors_alert" />
+  <public type="attr" name="om_widget_background_color" />
+  <public type="attr" name="om_widget_outline_color" />
+  <public type="attr" name="om_widget_text_color" />
+
+  <public type="style" name="OmWidget.SpeedLimitView" />
+  <public type="style" name="OmWidget.CombinedSpeedView" />
+</resources>

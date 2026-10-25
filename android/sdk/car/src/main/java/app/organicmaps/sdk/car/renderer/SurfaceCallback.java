@@ -7,11 +7,13 @@ import androidx.annotation.Nullable;
 import androidx.car.app.CarContext;
 import androidx.car.app.SurfaceContainer;
 import androidx.core.content.ContextCompat;
+import androidx.core.util.Consumer;
 import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.sdk.MapRenderingListener;
 import app.organicmaps.sdk.display.DisplayManager;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.util.log.Logger;
+import app.organicmaps.sdk.widgets.speedlimit.CombinedSpeedViewController;
 import java.util.Objects;
 
 final class SurfaceCallback extends SurfaceCallbackBase
@@ -36,6 +38,9 @@ final class SurfaceCallback extends SurfaceCallbackBase
   private VirtualDisplay mVirtualDisplay;
   @Nullable
   private CarPresentation mPresentation;
+
+  @Nullable
+  private Consumer<CombinedSpeedViewController> mSpeedLimitControllerListener;
 
   public SurfaceCallback(@NonNull CarContext carContext, @NonNull LifecycleOwner lifecycleOwner,
                          @NonNull LocationHelper locationHelper, @NonNull MapRenderingListener mapRenderingListener,
@@ -114,10 +119,18 @@ final class SurfaceCallback extends SurfaceCallbackBase
       mPresentation.startPresenting();
   }
 
-  void setSpeedLimit(int speedLimit, boolean speedLimitExceeded)
+  @Nullable
+  CombinedSpeedViewController getSpeedLimitController()
   {
-    if (mPresentation != null)
-      mPresentation.setSpeedLimit(speedLimit, speedLimitExceeded);
+    return mPresentation == null ? null : mPresentation.getSpeedLimitController();
+  }
+
+  void setSpeedLimitControllerListener(@Nullable Consumer<CombinedSpeedViewController> listener)
+  {
+    mSpeedLimitControllerListener = listener;
+    final CombinedSpeedViewController controller = getSpeedLimitController();
+    if (listener != null && controller != null)
+      listener.accept(controller);
   }
 
   private void createPresentation()
@@ -129,6 +142,8 @@ final class SurfaceCallback extends SurfaceCallbackBase
                                         mMapRenderingListener);
     mPresentation.create();
     mPresentation.setVisibleArea(mVisibleArea);
+    if (mSpeedLimitControllerListener != null)
+      mSpeedLimitControllerListener.accept(mPresentation.getSpeedLimitController());
   }
 
   private void clearPresentation()

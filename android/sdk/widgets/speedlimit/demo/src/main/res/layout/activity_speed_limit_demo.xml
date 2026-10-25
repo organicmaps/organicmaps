@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="100dp">
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:padding="16dp">
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/dark_theme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dark_theme" />
+
+    <TextView
+        android:id="@+id/speed_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/speed" />
+
+    <SeekBar
+        android:id="@+id/speed_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/speed_limit_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/speed_limit" />
+
+    <SeekBar
+        android:id="@+id/speed_limit_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/speed_limit_signs" />
+
+      <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:orientation="horizontal">
+
+        <app.organicmaps.sdk.widgets.speedlimit.SpeedLimitView
+            android:id="@+id/speed_limit_circle"
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            app:om_widget_shape="circle" />
+
+        <app.organicmaps.sdk.widgets.speedlimit.SpeedLimitView
+            android:id="@+id/speed_limit_square"
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:layout_marginStart="8dp"
+            app:om_widget_shape="square" />
+      </LinearLayout>
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="16dp"
+          android:text="@string/combined_signs" />
+
+      <app.organicmaps.sdk.widgets.speedlimit.CombinedSpeedView
+          android:id="@+id/combined_circle"
+          android:layout_width="wrap_content"
+          android:layout_height="88dp"
+          android:layout_marginTop="8dp"
+          app:om_widget_value="60"
+          app:om_widget_shape="circle" />
+
+      <app.organicmaps.sdk.widgets.speedlimit.CombinedSpeedView
+          android:id="@+id/combined_square"
+          android:layout_width="wrap_content"
+          android:layout_height="88dp"
+          android:layout_marginTop="8dp"
+          app:om_widget_value="60"
+          app:om_widget_shape="square" />
+
+      <!-- The speed limit of the combined views is hidden and shown by the controller. -->
+      <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/show_speed_limit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/show_speed_limit" />
+
+        <Button
+            android:id="@+id/hide_speed_limit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/hide_speed_limit" />
+      </LinearLayout>
+    </LinearLayout>
+  </LinearLayout>
+</ScrollView>
+
+
+
+
+

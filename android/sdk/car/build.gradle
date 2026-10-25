@@ -6,16 +6,18 @@ apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
 apply from: "${rootProject.rootDir}/groovy/publishing.gradle"
 
 android {
-  namespace 'app.organicmaps.sdk.car'
+  namespace = 'app.organicmaps.sdk.car'
   // enableKotlin = true  // see app/build.gradle
 }
 
 dependencies {
   api project(':sdk')
+  implementation project(':sdk:widgets:lanes')
+  api project(':sdk:widgets:speedlimit')
   api libs.androidx.car.app
 
-  implementation project(':sdk:widgets:speedlimit')
-  implementation project(':sdk:widgets:lanes')
+  testImplementation libs.androidx.junit
+  testImplementation libs.mockito.core
 }
 
 Publish(project, [

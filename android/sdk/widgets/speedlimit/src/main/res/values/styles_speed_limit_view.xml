@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <style name="OmWidget.SpeedLimit.Colors" parent="">
+    <item name="om_widget_background_color">@color/om_widget_sign_white</item>
+    <item name="om_widget_frame_color">@color/om_widget_sign_white</item>
+    <item name="om_widget_outline_color">@color/om_widget_sign_red</item>
+    <item name="om_widget_text_color">@color/om_widget_sign_black</item>
+  </style>
+
+  <style name="OmWidget.SpeedLimit.Colors.Circle" />
+
+  <style name="OmWidget.SpeedLimit.Colors.Circle.Normal" />
+
+  <style name="OmWidget.SpeedLimit.Colors.Circle.Warning">
+    <item name="om_widget_text_color">@color/om_widget_sign_amber</item>
+  </style>
+
+  <style name="OmWidget.SpeedLimit.Colors.Circle.Alert">
+    <item name="om_widget_background_color">@color/om_widget_sign_red</item>
+    <item name="om_widget_outline_color">@color/om_widget_sign_red</item>
+    <item name="om_widget_frame_color">@color/om_widget_sign_red</item>
+    <item name="om_widget_text_color">@color/om_widget_sign_white</item>
+  </style>
+
+  <style name="OmWidget.SpeedLimit.Colors.Square">
+    <item name="om_widget_outline_color">@color/om_widget_sign_black</item>
+  </style>
+
+  <style name="OmWidget.SpeedLimit.Colors.Square.Normal" />
+
+  <style name="OmWidget.SpeedLimit.Colors.Square.Warning">
+    <item name="om_widget_text_color">@color/om_widget_sign_amber</item>
+  </style>
+
+  <style name="OmWidget.SpeedLimit.Colors.Square.Alert">
+    <item name="om_widget_background_color">@color/om_widget_sign_red</item>
+    <item name="om_widget_outline_color">@color/om_widget_sign_red</item>
+    <item name="om_widget_frame_color">@color/om_widget_sign_red</item>
+    <item name="om_widget_text_color">@color/om_widget_sign_white</item>
+  </style>
+
+  <style name="OmWidget.SpeedLimit.Palette.Circle" parent="">
+    <item name="om_widget_colors_normal">@style/OmWidget.SpeedLimit.Colors.Circle.Normal</item>
+    <item name="om_widget_colors_warning">@style/OmWidget.SpeedLimit.Colors.Circle.Warning</item>
+    <item name="om_widget_colors_alert">@style/OmWidget.SpeedLimit.Colors.Circle.Alert</item>
+  </style>
+
+  <style name="OmWidget.SpeedLimit.Palette.Square" parent="">
+    <item name="om_widget_colors_normal">@style/OmWidget.SpeedLimit.Colors.Square.Normal</item>
+    <item name="om_widget_colors_warning">@style/OmWidget.SpeedLimit.Colors.Square.Warning</item>
+    <item name="om_widget_colors_alert">@style/OmWidget.SpeedLimit.Colors.Square.Alert</item>
+  </style>
+
+  <style name="OmWidget.SpeedLimitView" parent="">
+    <item name="om_widget_shape">circle</item>
+    <item name="om_widget_mode">normal</item>
+    <item name="om_widget_circle_palette">@style/OmWidget.SpeedLimit.Palette.Circle</item>
+    <item name="om_widget_square_palette">@style/OmWidget.SpeedLimit.Palette.Square</item>
+    <item name="om_widget_frame_width_ratio">0.04</item>
+    <item name="om_widget_outline_width_ratio">0.04</item>
+    <item name="om_widget_value">60</item>
+  </style>
+</resources>

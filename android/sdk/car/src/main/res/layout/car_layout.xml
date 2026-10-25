@@ -16,13 +16,12 @@
       android:layout_height="match_parent"
       android:layout_gravity="top|start">
 
-    <app.organicmaps.sdk.widgets.speedlimit.SpeedLimitView
+    <app.organicmaps.sdk.widgets.speedlimit.CombinedSpeedView
         android:id="@+id/speed_limit_view"
-        style="@style/MwmWidget.SpeedLimit"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
         android:layout_gravity="bottom|end"
-        android:layout_margin="8dp" />
+        android:layout_margin="4dp" />
   </FrameLayout>
 
 </FrameLayout>

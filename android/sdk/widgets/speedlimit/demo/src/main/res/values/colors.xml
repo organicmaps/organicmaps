@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Stands for the map below the signs. -->
+  <color name="demo_map">#C8C8C8</color>
+</resources>
+

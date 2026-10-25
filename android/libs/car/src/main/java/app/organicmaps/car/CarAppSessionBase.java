@@ -2,8 +2,10 @@ package app.organicmaps.car;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.location.Location;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.car.app.Screen;
 import androidx.car.app.ScreenManager;
 import androidx.car.app.Session;
@@ -25,11 +27,16 @@ import app.organicmaps.sdk.car.renderer.Renderer;
 import app.organicmaps.sdk.car.renderer.RendererFactory;
 import app.organicmaps.sdk.car.screens.BaseMapScreen;
 import app.organicmaps.sdk.display.DisplayManager;
+import app.organicmaps.sdk.location.LocationListener;
 import app.organicmaps.sdk.location.LocationState;
 import app.organicmaps.sdk.location.LocationUtils;
 import app.organicmaps.sdk.routing.RoutingController;
+import app.organicmaps.sdk.settings.UnitLocale;
+import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.widget.placepage.PlacePageData;
+import app.organicmaps.sdk.widgets.speedlimit.CombinedSpeedViewController;
+import app.organicmaps.sdk.widgets.speedlimit.Shape;
 
 public abstract class CarAppSessionBase
     extends Session implements DefaultLifecycleObserver, LocationState.ModeChangeListener, PlacePageActivationListener
@@ -54,6 +61,9 @@ public abstract class CarAppSessionBase
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   protected CarSensorsManager mSensorsManager;
+
+  @NonNull
+  private final LocationListener mSpeedLocationListener = this::updateCurrentSpeed;
 
   public CarAppSessionBase(@NonNull OrganicMaps organicMapsContext, @NonNull DisplayManager displayManager,
                            @NonNull SessionInfo sessionInfo, boolean isDebug)
@@ -114,6 +124,8 @@ public abstract class CarAppSessionBase
   public void onStart(@NonNull LifecycleOwner owner)
   {
     Logger.d(TAG);
+    mSurfaceRenderer.setSpeedLimitControllerListener(this::configureSpeedView);
+    mOrganicMapsContext.getLocationHelper().addListener(mSpeedLocationListener);
     if (mDisplayManager.isCarDisplayUsed())
     {
       LocationState.nativeSetListener(this);
@@ -137,6 +149,9 @@ public abstract class CarAppSessionBase
   {
     Logger.d(TAG);
 
+    mOrganicMapsContext.getLocationHelper().removeListener(mSpeedLocationListener);
+    mSurfaceRenderer.setSpeedLimitControllerListener(null);
+
     mSensorsManager.onStop();
 
     if (mDisplayManager.isCarDisplayUsed())
@@ -150,6 +165,25 @@ public abstract class CarAppSessionBase
 
   @NonNull
   protected abstract Screen prepareScreens();
+
+  private void configureSpeedView(@NonNull CombinedSpeedViewController controller)
+  {
+    // TODO: add support for MUTCD switch
+    controller.setShape(Shape.Circle);
+    updateCurrentSpeed(mOrganicMapsContext.getLocationHelper().getSavedLocation());
+  }
+
+  private void updateCurrentSpeed(@Nullable Location location)
+  {
+    final CombinedSpeedViewController controller = mSurfaceRenderer.getSpeedLimitController();
+    if (controller != null)
+    {
+      final boolean imperial = UnitLocale.getUnits() == UnitLocale.UNITS_FOOT;
+      controller.setUnits(getCarContext().getString(imperial ? R.string.miles_per_hour : R.string.kilometers_per_hour));
+      controller.setSpeed(
+          StringUtils.nativeFormatSpeed(location != null && location.hasSpeed() ? location.getSpeed() : 0));
+    }
+  }
 
   @Override
   public final void onMyPositionModeChanged(int newMode)

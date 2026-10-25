@@ -16,7 +16,7 @@ import app.organicmaps.sdk.MapRenderingListener;
 import app.organicmaps.sdk.MapView;
 import app.organicmaps.sdk.car.R;
 import app.organicmaps.sdk.location.LocationHelper;
-import app.organicmaps.sdk.widgets.speedlimit.SpeedLimitView;
+import app.organicmaps.sdk.widgets.speedlimit.CombinedSpeedViewController;
 
 final class CarPresentation extends Presentation
 {
@@ -31,7 +31,7 @@ final class CarPresentation extends Presentation
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
-  private SpeedLimitView mSpeedLimitView;
+  private CombinedSpeedViewController mSpeedLimitController;
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
@@ -41,8 +41,6 @@ final class CarPresentation extends Presentation
   @NonNull
   private MapController mMapController;
 
-  private int mSpeedLimit = 0;
-  private boolean mSpeedLimitExceeded = false;
   @NonNull
   private final Rect mVisibleArea = new Rect();
 
@@ -63,9 +61,10 @@ final class CarPresentation extends Presentation
     setContentView(R.layout.car_layout);
 
     final MapView mapView = findViewById(R.id.map_view);
-    mSpeedLimitView = findViewById(R.id.speed_limit_view);
+    mSpeedLimitController = new CombinedSpeedViewController(findViewById(R.id.speed_limit_view));
+    mSpeedLimitController.setSpeed(0);
+    mSpeedLimitController.hideSpeedLimit();
     mVisibleAreaContainer = findViewById(R.id.visible_area_container);
-    mSpeedLimitView.setSpeedLimit(mSpeedLimit, mSpeedLimitExceeded);
     applyVisibleArea();
 
     mMapController = new MapController(mapView, mLocationHelper, mMapRenderingListener, null, false);
@@ -108,11 +107,10 @@ final class CarPresentation extends Presentation
     dismiss();
   }
 
-  void setSpeedLimit(int speedLimit, boolean speedLimitExceeded)
+  @NonNull
+  CombinedSpeedViewController getSpeedLimitController()
   {
-    mSpeedLimit = speedLimit;
-    mSpeedLimitExceeded = speedLimitExceeded;
-    mSpeedLimitView.setSpeedLimit(speedLimit, speedLimitExceeded);
+    return mSpeedLimitController;
   }
 
   void setVisibleArea(@NonNull Rect visibleArea)

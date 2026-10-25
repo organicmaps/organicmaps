@@ -6,12 +6,14 @@ apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
 apply from: "${rootProject.rootDir}/groovy/publishing.gradle"
 
 android {
-  namespace 'app.organicmaps.sdk.widgets.speedlimit'
-  // enableKotlin = true  // see app/build.gradle
+  namespace = 'app.organicmaps.sdk.widgets.speedlimit'
+  enableKotlin = true
+  resourcePrefix = 'om_widget_'
 }
 
 dependencies {
   implementation libs.androidx.annotation
+  implementation libs.androidx.core
 }
 
 Publish(project, [

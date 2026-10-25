@@ -1,10 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <style name="MwmWidget" />
+  <!-- ============ Speed limit color sets: one per shape + mode ============ -->
+  <style name="OmWidget.SpeedLimit.Combined.Colors" parent="">
+    <item name="om_widget_background_color">@color/om_widget_sign_white</item>
+    <item name="om_widget_frame_color">@color/om_widget_sign_white</item>
+    <item name="om_widget_outline_color">@color/om_widget_sign_red</item>
+    <item name="om_widget_text_color">@color/om_widget_sign_black</item>
+  </style>
 
-  <!-- TODO: Rewrite this -->
-  <style name="MwmWidget.SpeedLimit">
-    <item name="speedLimitAlertColor">@color/red</item>
-    <item name="speedLimitBorderColor">@color/red</item>
+  <!-- Shape defaults: implicit parent is the style name without the last dotted part. -->
+  <style name="OmWidget.SpeedLimit.Combined.Colors.Circle" />
+
+  <style name="OmWidget.SpeedLimit.Combined.Colors.Circle.Normal" />
+
+  <style name="OmWidget.SpeedLimit.Combined.Colors.Circle.Warning" />
+
+  <style name="OmWidget.SpeedLimit.Combined.Colors.Circle.Alert">
+    <item name="om_widget_outline_color">@color/om_widget_sign_red</item>
+    <item name="om_widget_frame_color">@color/om_widget_sign_red</item>
+  </style>
+
+  <style name="OmWidget.SpeedLimit.Combined.Colors.Square">
+    <item name="om_widget_outline_color">@color/om_widget_sign_black</item>
+  </style>
+
+  <style name="OmWidget.SpeedLimit.Combined.Colors.Square.Normal" />
+
+  <style name="OmWidget.SpeedLimit.Combined.Colors.Square.Warning" />
+
+  <style name="OmWidget.SpeedLimit.Combined.Colors.Square.Alert">
+    <item name="om_widget_outline_color">@color/om_widget_sign_red</item>
+    <item name="om_widget_frame_color">@color/om_widget_sign_red</item>
+  </style>
+
+  <!-- ============ Speed limit palettes: one per shape ============ -->
+  <style name="OmWidget.SpeedLimit.Combined.Palette.Circle" parent="">
+    <item name="om_widget_colors_normal">@style/OmWidget.SpeedLimit.Combined.Colors.Circle.Normal</item>
+    <item name="om_widget_colors_warning">@style/OmWidget.SpeedLimit.Combined.Colors.Circle.Warning</item>
+    <item name="om_widget_colors_alert">@style/OmWidget.SpeedLimit.Combined.Colors.Circle.Alert</item>
+  </style>
+
+  <style name="OmWidget.SpeedLimit.Combined.Palette.Square" parent="">
+    <item name="om_widget_colors_normal">@style/OmWidget.SpeedLimit.Combined.Colors.Square.Normal</item>
+    <item name="om_widget_colors_warning">@style/OmWidget.SpeedLimit.Combined.Colors.Square.Warning</item>
+    <item name="om_widget_colors_alert">@style/OmWidget.SpeedLimit.Combined.Colors.Square.Alert</item>
+  </style>
+
+  <!-- ============ Current speed color sets ============ -->
+  <!-- The current speed is drawn on the common background of the combined view. -->
+  <style name="OmWidget.CurrentSpeed.Combined.Colors" parent="">
+    <item name="om_widget_background_color">@color/om_widget_sign_white</item>
+    <item name="om_widget_frame_color">@color/om_widget_sign_white</item>
+    <item name="om_widget_outline_color">@color/om_widget_sign_white</item>
+    <item name="om_widget_text_color">@color/om_widget_sign_black</item>
+  </style>
+
+  <style name="OmWidget.CurrentSpeed.Combined.Colors.Normal" />
+
+  <style name="OmWidget.CurrentSpeed.Combined.Colors.Warning">
+    <item name="om_widget_text_color">@color/om_widget_sign_amber</item>
+  </style>
+
+  <style name="OmWidget.CurrentSpeed.Combined.Colors.Alert">
+    <item name="om_widget_background_color">@color/om_widget_sign_red</item>
+    <item name="om_widget_frame_color">@color/om_widget_sign_red</item>
+    <item name="om_widget_outline_color">@color/om_widget_sign_red</item>
+    <item name="om_widget_text_color">@color/om_widget_sign_white</item>
+  </style>
+
+  <style name="OmWidget.CurrentSpeed.Combined.Palette" parent="">
+    <item name="om_widget_colors_normal">@style/OmWidget.CurrentSpeed.Combined.Colors.Normal</item>
+    <item name="om_widget_colors_warning">@style/OmWidget.CurrentSpeed.Combined.Colors.Warning</item>
+    <item name="om_widget_colors_alert">@style/OmWidget.CurrentSpeed.Combined.Colors.Alert</item>
+  </style>
+
+  <!-- ============ Combined background color sets and palette ============ -->
+  <style name="OmWidget.CombinedSpeed.Colors" parent="">
+    <item name="om_widget_background_color">@color/om_widget_sign_white</item>
+  </style>
+
+  <style name="OmWidget.CombinedSpeed.Colors.Normal" />
+
+  <style name="OmWidget.CombinedSpeed.Colors.Warning" />
+
+  <style name="OmWidget.CombinedSpeed.Colors.Alert">
+    <item name="om_widget_background_color">@color/om_widget_sign_red</item>
+  </style>
+
+  <style name="OmWidget.CombinedSpeed.Palette" parent="">
+    <item name="om_widget_colors_normal">@style/OmWidget.CombinedSpeed.Colors.Normal</item>
+    <item name="om_widget_colors_warning">@style/OmWidget.CombinedSpeed.Colors.Warning</item>
+    <item name="om_widget_colors_alert">@style/OmWidget.CombinedSpeed.Colors.Alert</item>
+  </style>
+
+  <!-- ============ Default widget styles ============ -->
+  <style name="OmWidget.SpeedLimitView.Combined" parent="">
+    <item name="om_widget_shape">circle</item>
+    <item name="om_widget_mode">normal</item>
+    <item name="om_widget_circle_palette">@style/OmWidget.SpeedLimit.Combined.Palette.Circle</item>
+    <item name="om_widget_square_palette">@style/OmWidget.SpeedLimit.Combined.Palette.Square</item>
+    <item name="om_widget_frame_width_ratio">0.04</item>
+    <item name="om_widget_outline_width_ratio">0.04</item>
+    <item name="om_widget_value">60</item>
+  </style>
+
+  <style name="OmWidget.CurrentSpeedView.Combined" parent="">
+    <item name="om_widget_mode">normal</item>
+    <item name="om_widget_square_palette">@style/OmWidget.CurrentSpeed.Combined.Palette</item>
+    <item name="om_widget_frame_width_ratio">0.04</item>
+    <item name="om_widget_outline_width_ratio">0.0</item>
+    <item name="om_widget_value">200</item>
+    <item name="om_widget_units">@string/om_widget_units_kmh</item>
+  </style>
+
+  <style name="OmWidget.CombinedSpeedView" parent="">
+    <item name="om_widget_shape">circle</item>
+    <item name="om_widget_mode">normal</item>
+    <item name="om_widget_background_palette">@style/OmWidget.CombinedSpeed.Palette</item>
+    <item name="om_widget_current_speed_view_style">@style/OmWidget.CurrentSpeedView.Combined</item>
+    <item name="om_widget_speed_limit_view_style">@style/OmWidget.SpeedLimitView.Combined</item>
   </style>
 </resources>
