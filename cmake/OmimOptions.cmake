@@ -18,6 +18,7 @@ option(WITH_SYSTEM_PROVIDED_3PARTY "Enable compilation with system provided depe
 option(BUILD_DESIGNER "Build application as design tool" OFF)
 option(BUILD_STANDALONE "Build standalone application" OFF)
 option(BUILD_DEV_SANDBOX "Build the developer graphics sandbox" ON)
+option(BUILD_OPENGL_TESTS "Build tests requiring a working OpenGL context" ON)
 option(USE_ASAN "Enable Address Sanitizer" OFF)
 option(USE_TSAN "Enable Thread Sanitizer" OFF)
 option(USE_LIBFUZZER "Enable LibFuzzer" OFF)

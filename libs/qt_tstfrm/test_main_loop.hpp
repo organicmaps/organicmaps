@@ -12,4 +12,5 @@ using TestFunction = std::function<void()>;
 
 extern void RunTestLoop(std::string testName, testing::RenderFunction && fn, bool autoExit = true);
 
+// Requires a working OpenGL context.
 extern void RunTestInOpenGLOffscreenEnvironment(std::string testName, testing::TestFunction const & fn);

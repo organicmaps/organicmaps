@@ -315,6 +315,17 @@ Rendering tests need offscreen GL, so they are run via a separate preset:
 ctest --preset drape-debug
 ```
 
+OpenGL tests are enabled by default and fail if a working context is unavailable.
+Configure with `-DBUILD_OPENGL_TESTS=OFF` to exclude them while keeping CPU tests and offline shader compilation tests.
+Windows CI uses this option until its rendering backend is configured.
+On macOS, use the native Cocoa platform (`QT_QPA_PLATFORM=cocoa`). On headless Linux, install `xvfb`,
+`xauth`, and Mesa's software drivers, then run:
+
+```bash
+QT_QPA_PLATFORM=xcb LIBGL_ALWAYS_SOFTWARE=true \
+  xvfb-run -a -s '-screen 0 1280x1024x24 -noreset' ctest --preset drape-debug
+```
+
 To run a limited set of tests, use `-R <regex>` flag. To exclude some tests, use `-E <regex>` flag:
 
 ```bash
