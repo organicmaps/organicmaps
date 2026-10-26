@@ -73,6 +73,7 @@
 		A10000000000000000000056 /* TTSLanguageSettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000059 /* TTSLanguageSettingsPresenter.swift */; };
 		A13418010000000000000002 /* CarPlayManeuverMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13418010000000000000001 /* CarPlayManeuverMapper.swift */; };
 		A13418010000000000000004 /* CarPlayManeuverMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13418010000000000000003 /* CarPlayManeuverMapperTests.swift */; };
+		2B0272C89F83487A9FEEC084 /* CarPlayBookmarkCategoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15E433E876846AD8AF94B18 /* CarPlayBookmarkCategoryTests.swift */; };
 		A630D1EA207CA95900976DEA /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = A630D1E8207CA95900976DEA /* Localizable.stringsdict */; };
 		AB0CA7A50000000000000002 /* CarPlaySceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0CA7A50000000000000001 /* CarPlaySceneDelegate.swift */; };
 		AB0DB0010000000000000002 /* CarPlayDashboardMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0DB0010000000000000001 /* CarPlayDashboardMapViewController.swift */; };
@@ -897,6 +898,7 @@
 		A10000000000000000000059 /* TTSLanguageSettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSLanguageSettingsPresenter.swift; sourceTree = "<group>"; };
 		A13418010000000000000001 /* CarPlayManeuverMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayManeuverMapper.swift; sourceTree = "<group>"; };
 		A13418010000000000000003 /* CarPlayManeuverMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayManeuverMapperTests.swift; sourceTree = "<group>"; };
+		D15E433E876846AD8AF94B18 /* CarPlayBookmarkCategoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayBookmarkCategoryTests.swift; sourceTree = "<group>"; };
 		A630D1E9207CA95900976DEA /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ar; path = ar.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		A630D1EB207CA96700976DEA /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = cs; path = cs.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		A630D1EC207CA96D00976DEA /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = da; path = da.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -2053,6 +2055,7 @@
 			isa = PBXGroup;
 			children = (
 				A13418010000000000000003 /* CarPlayManeuverMapperTests.swift */,
+				D15E433E876846AD8AF94B18 /* CarPlayBookmarkCategoryTests.swift */,
 				ED914331300168CF0081DF0B /* CarPlaySceneDelegateTests.swift */,
 				ED1ADA322BC6B1B40029209F /* CarPlayServiceTests.swift */,
 			);
@@ -5066,6 +5069,7 @@
 				A13813000000000000000002 /* TransportRulerAppearanceTests.swift in Sources */,
 				5A07CF7460A24F6BBCA9F174 /* RoutePointCollectionViewCellTests.swift in Sources */,
 				A13418010000000000000004 /* CarPlayManeuverMapperTests.swift in Sources */,
+				2B0272C89F83487A9FEEC084 /* CarPlayBookmarkCategoryTests.swift in Sources */,
 				B26883EF0814407A8B1D73AF /* PlacePageUserDescriptionWebViewTests.swift in Sources */,
 				ED1A0C102E9B10A400C0FFEE /* OpeningHoursTests.swift in Sources */,
 				15CCDA1EC17F04F7D89CA086 /* ActionBarViewControllerTests.swift in Sources */,
