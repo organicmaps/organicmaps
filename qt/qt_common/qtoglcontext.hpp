@@ -8,6 +8,7 @@
 #include <QtGui/QOpenGLContext>
 
 #include <atomic>
+#include <functional>
 #include <memory>
 #include <mutex>
 
@@ -30,6 +31,8 @@ public:
   bool AcquireFrame();
   GLuint GetTextureHandle() const;
   QRectF const & GetTexRect() const;
+  // Called on the render thread after each new frame.
+  void SetPresentListener(std::function<void()> fn);
 
 private:
   struct Frame
@@ -43,6 +46,7 @@ private:
 
   QOffscreenSurface * m_surface = nullptr;
   std::unique_ptr<QOpenGLContext> m_ctx;
+  std::function<void()> m_onPresent;
 
   // The sampled rectangle travels with its texture through all three slots.
   Frame m_frontFrame;

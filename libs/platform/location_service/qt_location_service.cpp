@@ -17,7 +17,7 @@ location::GpsInfo GpsInfoFromQGeoPositionInfo(QGeoPositionInfo const & i, locati
   if (coord.type() == QGeoCoordinate::Coordinate3D)
     info.m_altitude = coord.altitude();
 
-  info.m_timestamp = static_cast<double>(i.timestamp().toSecsSinceEpoch());
+  info.m_timestamp = static_cast<double>(i.timestamp().toMSecsSinceEpoch() / 1000);
 
   if (i.hasAttribute(QGeoPositionInfo::HorizontalAccuracy))
     info.m_horizontalAccuracy = i.attribute(QGeoPositionInfo::HorizontalAccuracy);
@@ -42,7 +42,9 @@ static location::TLocationError TLocationErrorFromQGeoPositionInfoError(QGeoPosi
   case QGeoPositionInfoSource::AccessError: result = location::TLocationError::EDenied; break;
   case QGeoPositionInfoSource::ClosedError: result = location::TLocationError::EGPSIsOff; break;
   case QGeoPositionInfoSource::NoError: result = location::TLocationError::ENoError; break;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
   case QGeoPositionInfoSource::UpdateTimeoutError: result = location::TLocationError::ETimeout; break;
+#endif
   case QGeoPositionInfoSource::UnknownSourceError: result = location::TLocationError::EUnknown; break;
   default: break;
   }
@@ -53,17 +55,33 @@ location::TLocationSource QStringToTLocationSource(QString const & sourceName)
 {
   if ("geoclue2" == sourceName)
     return location::TLocationSource::EGeoClue2;
+  if ("geoclue" == sourceName)
+    return location::TLocationSource::EGeoClue;
 
   return location::TLocationSource::EUndefined;
+}
+
+std::string AvailableGeoClueSource()
+{
+  auto const sources = QGeoPositionInfoSource::availableSources();
+  for (auto const * name : {"geoclue2", "geoclue"})
+    if (sources.contains(QLatin1String(name)))
+      return name;
+  LOG(LWARNING, ("No GeoClue position source among", sources.join(", ").toStdString()));
+  return "geoclue2";
 }
 }  // namespace
 
 QtLocationService::QtLocationService(location::LocationObserver & observer, std::string const & sourceName)
   : LocationService(observer)
 {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
   QVariantMap params;
   params["desktopId"] = "app.organicmaps.desktop";
   m_positionSource = QGeoPositionInfoSource::createSource(QString::fromStdString(sourceName), params, this);
+#else
+  m_positionSource = QGeoPositionInfoSource::createSource(QString::fromStdString(sourceName), this);
+#endif
 
   if (!m_positionSource)
   {
@@ -79,13 +97,20 @@ QtLocationService::QtLocationService(location::LocationObserver & observer, std:
 
   LOG(LDEBUG, ("Signal successfully connected:", "positionUpdated"));
 
-  if (!connect(m_positionSource, &QGeoPositionInfoSource::errorOccurred, this, &QtLocationService::OnErrorOccurred))
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+  auto const errorSignal = &QGeoPositionInfoSource::errorOccurred;
+#else
+  auto const errorSignal =
+      static_cast<void (QGeoPositionInfoSource::*)(QGeoPositionInfoSource::Error)>(&QGeoPositionInfoSource::error);
+#endif
+  if (!connect(m_positionSource, errorSignal, this, &QtLocationService::OnErrorOccurred))
   {
     LOG(LERROR, ("Failed to connect the signal:", "errorOccurred"));
     return;
   }
   LOG(LDEBUG, ("Signal successfully connected:", "errorOccurred"));
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
   if (!connect(m_positionSource, &QGeoPositionInfoSource::supportedPositioningMethodsChanged, this,
                &QtLocationService::OnSupportedPositioningMethodsChanged))
   {
@@ -93,6 +118,7 @@ QtLocationService::QtLocationService(location::LocationObserver & observer, std:
     return;
   }
   LOG(LDEBUG, ("Signal successfully connected:", "supportedPositioningMethodsChanged"));
+#endif
 
   m_positionSource->setUpdateInterval(1000);
   m_positionSource->setPreferredPositioningMethods(QGeoPositionInfoSource::AllPositioningMethods);
@@ -100,6 +126,8 @@ QtLocationService::QtLocationService(location::LocationObserver & observer, std:
 
 void QtLocationService::OnLocationUpdate(QGeoPositionInfo const & info)
 {
+  if (!m_started)
+    return;
   if (!info.isValid())
   {
     LOG(LWARNING,
@@ -119,6 +147,8 @@ void QtLocationService::OnLocationUpdate(QGeoPositionInfo const & info)
 
 void QtLocationService::OnErrorOccurred(QGeoPositionInfoSource::Error positioningError)
 {
+  if (!m_started)
+    return;
   LOG(LWARNING, ("Location error occured QGeoPositionInfoSource::Error code:", positioningError));
   m_clientIsActive = false;
   m_observer.OnLocationError(TLocationErrorFromQGeoPositionInfoError(positioningError));
@@ -129,7 +159,7 @@ void QtLocationService::OnSupportedPositioningMethodsChanged()
   auto positioningMethods = m_positionSource->supportedPositioningMethods();
   LOG(LDEBUG, ("Supported Positioning Method changed for:", m_positionSource->sourceName().toStdString(),
                "to:", positioningMethods));
-  if (positioningMethods == QGeoPositionInfoSource::NoPositioningMethods)
+  if (m_started && positioningMethods == QGeoPositionInfoSource::NoPositioningMethods)
   {
     m_clientIsActive = false;
     m_observer.OnLocationError(location::TLocationError::EGPSIsOff);
@@ -140,24 +170,32 @@ void QtLocationService::Start()
 {
   if (m_positionSource)
   {
+    m_started = true;
     LOG(LDEBUG, ("Starting Updates from:", m_positionSource->sourceName().toStdString()));
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     // Request the first update with a timeout to 30 minutes which is needed on devices that don't make use of `A-GNSS`
     // and can't get a lock within Qt's default `UPDATE_TIMEOUT_COLDSTART` (currently 2 minutes).
     m_positionSource->requestUpdate(1800000);
+#else
+    // Qt 5's GeoClue 1 plugin emits a timeout at once from requestUpdate() without a fix, so subscribe right away.
+    m_positionSource->startUpdates();
+    m_clientIsActive = true;
+#endif
   }
 }
 
 void QtLocationService::Stop()
 {
+  m_started = false;
   if (m_positionSource && m_clientIsActive)
   {
     LOG(LDEBUG, ("Stopping Updates from:", m_positionSource->sourceName().toStdString()));
     m_positionSource->stopUpdates();
+    m_clientIsActive = false;
   }
 }
 
-std::unique_ptr<location::LocationService> CreateQtLocationService(location::LocationObserver & observer,
-                                                                   std::string const & sourceName)
+std::unique_ptr<location::LocationService> CreateQtLocationService(location::LocationObserver & observer)
 {
-  return std::make_unique<QtLocationService>(observer, sourceName);
+  return std::make_unique<QtLocationService>(observer, AvailableGeoClueSource());
 }

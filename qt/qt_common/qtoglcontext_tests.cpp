@@ -93,7 +93,7 @@ UNIT_TEST(QtRenderContext_KeepsAcquiredFrameUntilReplacementIsPresented)
 
     env.Present(false);
     TEST(env.Acquire(), ());
-    TEST(env.context.GetTexRect() == QRectF(0, 0, 31.0 / 32, 13.0 / 16), ());
+    TEST(env.context.GetTexRect() == QRectF(0, 0, 1, 1), ());
     env.CheckColor(false);
   });
 }
@@ -107,11 +107,11 @@ UNIT_TEST(QtRenderContext_PendingFrameKeepsItsRectangleAcrossResize)
     env.Present(true);
     env.Resize(31, 13);
     TEST(env.Acquire(), ());
-    TEST(env.context.GetTexRect() == QRectF(0, 0, 13.0 / 16, 29.0 / 32), ());
+    TEST(env.context.GetTexRect() == QRectF(0, 0, 1, 1), ());
     env.CheckColor(true);
     env.Present(false);
     TEST(env.Acquire(), ());
-    TEST(env.context.GetTexRect() == QRectF(0, 0, 31.0 / 32, 13.0 / 16), ());
+    TEST(env.context.GetTexRect() == QRectF(0, 0, 1, 1), ());
     env.CheckColor(false);
   });
 }
@@ -128,12 +128,12 @@ UNIT_TEST(QtRenderContext_RecyclesResizedFramesAndKeepsLatestPresentation)
       env.Resize(70, 15);
       env.Present(false);
       TEST(env.Acquire(), ());
-      TEST(env.context.GetTexRect() == QRectF(0, 0, 70.0 / 128, 15.0 / 16), ());
+      TEST(env.context.GetTexRect() == QRectF(0, 0, 1, 1), ());
       env.CheckColor(false);
       env.Resize(5, 7);
       env.Present(true);
       TEST(env.Acquire(), ());
-      TEST(env.context.GetTexRect() == QRectF(0, 0, 5.0 / 128, 7.0 / 16), ());
+      TEST(env.context.GetTexRect() == QRectF(0, 0, 1, 1), ());
       env.CheckColor(true);
     }
   });

@@ -84,7 +84,9 @@ if (MSVC)
   add_compile_options($<$<COMPILE_LANGUAGE:C,CXX>:/bigobj>)
   add_link_options(/INCREMENTAL:NO)
 else()
-  add_compile_options(-ffast-math $<$<CXX_COMPILER_ID:GNU>:-Wno-psabi>)
+  # -U__FAST_MATH__ keeps glibc from using libmvec, which Sailfish Harbour forbids. It applies to both Sailfish
+  # packages to keep them identical.
+  add_compile_options(-ffast-math $<$<CXX_COMPILER_ID:GNU>:-Wno-psabi> $<$<BOOL:${PLATFORM_SAILFISH}>:-U__FAST_MATH__>)
 endif()
 
 if (PLATFORM_WIN)
@@ -155,7 +157,14 @@ find_package(Threads REQUIRED)
 
 # Scripts
 
-if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
+if (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID AND OMIM_QT_VERSION EQUAL 5)
+  set(OMIM_QT Qt5)
+  if (BUILD_TESTING OR (PLATFORM_DESKTOP AND NOT SKIP_QT_GUI))
+    message(FATAL_ERROR "The tests and the desktop app need Qt 6: add -DBUILD_TESTING=OFF -DSKIP_QT_GUI=ON")
+  endif()
+  find_package(Qt5 5.6 COMPONENTS REQUIRED Core Network)
+elseif (NOT PLATFORM_IPHONE AND NOT PLATFORM_ANDROID)
+  set(OMIM_QT Qt6)
   list(APPEND qt_components Core Network)
   if (NOT SKIP_QT_GUI OR BUILD_TESTING)
     list(APPEND qt_components Widgets)
