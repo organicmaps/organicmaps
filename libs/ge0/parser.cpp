@@ -70,20 +70,21 @@ bool Ge0Parser::ParseAfterPrefix(std::string const & url, size_t from, Result & 
 
 bool Ge0Parser::ParseClearCoordinates(std::string_view path, Result & result)
 {
-  // Digits, a mandatory decimal point, digits; optionally negative. IsASCIINumeric() rejects an
-  // empty half, so a leading/trailing dot is refused too.
+  // Digits with an optional fractional part; optionally negative. Other apps may share rounded
+  // integer coordinates. IsASCIINumeric() rejects empty parts, including a leading/trailing dot.
   auto const isDecimalCoordinate = [](std::string_view s)
   {
     if (s.starts_with('-'))
       s.remove_prefix(1);
 
     auto const dot = s.find('.');
-    return dot != std::string_view::npos && strings::IsASCIINumeric(s.substr(0, dot)) &&
-           strings::IsASCIINumeric(s.substr(dot + 1));
+    if (dot == std::string_view::npos)
+      return strings::IsASCIINumeric(s);
+    return strings::IsASCIINumeric(s.substr(0, dot)) && strings::IsASCIINumeric(s.substr(dot + 1));
   };
 
-  // Exact path form: <lat>,<lon>[/<name>]. The coordinates must keep a decimal
-  // point so plain integers and short ge0 codes are not treated as clear-coordinate links.
+  // Exact path form: <lat>,<lon>[/<name>]. The comma distinguishes this format from
+  // ge0's Base64 alphabet, even when both coordinates are integers.
   auto const comma = path.find(',');
   if (comma == std::string_view::npos)
     return false;
