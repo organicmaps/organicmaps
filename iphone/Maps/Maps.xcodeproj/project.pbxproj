@@ -690,6 +690,8 @@
 		A13811000000000000000002 /* TransportTransitWrappingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13811000000000000000001 /* TransportTransitWrappingTests.swift */; };
 		A13812000000000000000002 /* TransportTransitRTLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13812000000000000000001 /* TransportTransitRTLTests.swift */; };
 		A13813000000000000000002 /* TransportRulerAppearanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13813000000000000000001 /* TransportRulerAppearanceTests.swift */; };
+		A13814000000000000000002 /* RoutePointIconTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13814000000000000000001 /* RoutePointIconTests.swift */; };
+		A13814000000000000000004 /* RoutePointIconRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13814000000000000000003 /* RoutePointIconRenderer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1864,6 +1866,8 @@
 		A13811000000000000000001 /* TransportTransitWrappingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportTransitWrappingTests.swift; sourceTree = "<group>"; };
 		A13812000000000000000001 /* TransportTransitRTLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportTransitRTLTests.swift; sourceTree = "<group>"; };
 		A13813000000000000000001 /* TransportRulerAppearanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportRulerAppearanceTests.swift; sourceTree = "<group>"; };
+		A13814000000000000000001 /* RoutePointIconTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePointIconTests.swift; sourceTree = "<group>"; };
+		A13814000000000000000003 /* RoutePointIconRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePointIconRenderer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2841,6 +2845,7 @@
 		ED82C3B52F90180300FA103D /* RoutePoints */ = {
 			isa = PBXGroup;
 			children = (
+				A13814000000000000000003 /* RoutePointIconRenderer.swift */,
 				ED82C3B22F90180300FA103D /* RoutePointCollectionViewCell.swift */,
 				ED82C3B32F90180300FA103D /* RoutePoints.swift */,
 				ED82C3B42F90180300FA103D /* RoutePointsView.swift */,
@@ -4100,6 +4105,7 @@
 				A13811000000000000000001 /* TransportTransitWrappingTests.swift */,
 				A13812000000000000000001 /* TransportTransitRTLTests.swift */,
 				A13813000000000000000001 /* TransportRulerAppearanceTests.swift */,
+				A13814000000000000000001 /* RoutePointIconTests.swift */,
 				AA01B2C3D4E5F60718293A01 /* MWMRoutePointTests.swift */,
 				A8D43EE031D5000000000003 /* MWMNavigationDashboardEntityTests.mm */,
 				B9C7250731AB471A81905386 /* MWMRoutePointSelectionTests.swift */,
@@ -4561,6 +4567,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A13814000000000000000004 /* RoutePointIconRenderer.swift in Sources */,
 				ED82BCB22F900F8200FA103D /* main.mm in Sources */,
 				ED2D74662D1435A600660FBF /* LiveActivityManager.swift in Sources */,
 				ED2D74652D14357F00660FBF /* TrackRecordingLiveActivityAttributes.swift in Sources */,
@@ -5065,6 +5072,7 @@
 				A13812000000000000000002 /* TransportTransitRTLTests.swift in Sources */,
 				A13813000000000000000002 /* TransportRulerAppearanceTests.swift in Sources */,
 				5A07CF7460A24F6BBCA9F174 /* RoutePointCollectionViewCellTests.swift in Sources */,
+				A13814000000000000000002 /* RoutePointIconTests.swift in Sources */,
 				A13418010000000000000004 /* CarPlayManeuverMapperTests.swift in Sources */,
 				B26883EF0814407A8B1D73AF /* PlacePageUserDescriptionWebViewTests.swift in Sources */,
 				ED1A0C102E9B10A400C0FFEE /* OpeningHoursTests.swift in Sources */,
