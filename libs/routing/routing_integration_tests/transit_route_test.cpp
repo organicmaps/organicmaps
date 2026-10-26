@@ -21,6 +21,32 @@ bool HasTransitStep(TransitRouteInfo const & info, TransitType type)
 }
 }  // namespace
 
+UNIT_TEST(Transit_WalkDistanceIncludesGatesAndTransfers)
+{
+  std::vector<RouteSegment> segments;
+  for (uint32_t i = 0; i < 7; ++i)
+  {
+    segments.emplace_back(Segment(0, 0, i, true), turns::TurnItem(), geometry::PointWithAltitude(),
+                          RouteSegment::RoadNameInfo());
+    segments.back().SetDistancesAndTime((i + 1) * 10, 0, 0);
+  }
+
+  using routing::transit::Edge;
+  using routing::transit::Gate;
+  using routing::transit::kInvalidLineId;
+  using routing::transit::ShapeId;
+  segments[1].SetTransitInfo(std::make_unique<TransitInfo>(Gate(), true));
+  segments[2].SetTransitInfo(std::make_unique<TransitInfo>(Edge(1, 2, 120, 1, false, std::vector<ShapeId>{})));
+  segments[3].SetTransitInfo(
+      std::make_unique<TransitInfo>(Edge(2, 3, 40, kInvalidLineId, true, std::vector<ShapeId>{})));
+  segments[4].SetTransitInfo(std::make_unique<TransitInfo>(Edge(3, 4, 120, 2, false, std::vector<ShapeId>{})));
+  segments[5].SetTransitInfo(std::make_unique<TransitInfo>(Gate(), false));
+
+  Route route;
+  route.SetRouteSegments(std::move(segments));
+  TEST_EQUAL(integration::GetWalkDistanceMeters(route), 50, ());
+}
+
 UNIT_TEST(Transit_Moscow_CenterToKotelniki_CrossMwm)
 {
   TRouteResult routeResult = integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Transit),
