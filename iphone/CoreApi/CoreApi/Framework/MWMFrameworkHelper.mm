@@ -7,6 +7,7 @@
 #import "TrackInfo+Core.h"
 
 #include "Framework.h"
+#include "map/gps_tracker.hpp"
 
 #include "base/sunrise_sunset.hpp"
 
@@ -339,12 +340,15 @@ static Framework::ProductsPopupCloseReason ConvertProductPopupCloseReasonToCore(
   return GetFramework().IsTrackRecordingEmpty();
 }
 
-+ (ElevationProfileData * _Nullable)trackRecordingElevationInfo
++ (ElevationProfileData * _Nullable)trackRecordingElevationInfoWithPrevious:(ElevationProfileData * _Nullable)previous
+                                                                isCancelled:(BOOL (^)(void))isCancelled
 {
-  if (GetFramework().IsTrackRecordingEmpty())
+  auto const snapshot = GpsTracker::Instance().GetElevationSnapshot([isCancelled] { return bool(isCancelled()); });
+  if (!snapshot || snapshot->m_revision < 2 || isCancelled())
     return nil;
-
-  return [[ElevationProfileData alloc] initWithElevationInfo:GetFramework().GetTrackRecordingElevationInfo()];
+  if ([previous matchesRecordingSnapshot:*snapshot])
+    return previous;
+  return [[ElevationProfileData alloc] initWithRecordingSnapshot:*snapshot isCancelled:isCancelled];
 }
 
 // MARK: - ProductsManager

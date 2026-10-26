@@ -4,10 +4,9 @@
 
 #include "geometry/point_with_altitude.hpp"
 
-#include "platform/location.hpp"
-
 #include "base/assert.hpp"
 
+#include <utility>
 #include <vector>
 
 class ElevationInfo
@@ -31,6 +30,8 @@ public:
   };
 
   ElevationInfo() = default;
+  explicit ElevationInfo(Points line) { m_lines.push_back(std::move(line)); }
+  explicit ElevationInfo(std::vector<Points> lines) : m_lines(std::move(lines)) {}
   explicit ElevationInfo(std::vector<GeometryLine> const & lines);
 
   /// Assigns from route segment data (single line).
@@ -97,21 +98,4 @@ public:
 protected:
   std::vector<Points> m_lines;
   Difficulty m_difficulty = Difficulty::Unknown;
-};
-
-/// Extends ElevationInfo with incremental GPS point addition for track recording.
-class GpsTrackElevation : public ElevationInfo
-{
-public:
-  using GpsPoints = std::vector<location::GpsInfo>;
-
-  GpsTrackElevation() = default;
-
-  void AddGpsPoints(GpsPoints const & points);
-  void Clear();
-
-private:
-  ms::LatLon m_lastLatLon;
-  double m_lastDistance = 0;
-  bool m_hasLastPoint = false;
 };

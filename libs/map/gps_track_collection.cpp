@@ -1,5 +1,7 @@
 #include "map/gps_track_collection.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "base/assert.hpp"
 
 namespace
@@ -25,7 +27,7 @@ private:
 
 }  // namespace
 
-GpsTrackCollection::GpsTrackCollection() : m_lastId(0), m_elevationInfoDirty(true) {}
+GpsTrackCollection::GpsTrackCollection() : m_lastId(0) {}
 
 std::pair<size_t, size_t> GpsTrackCollection::Add(std::vector<TItem> const & items)
 {
@@ -37,16 +39,13 @@ std::pair<size_t, size_t> GpsTrackCollection::Add(std::vector<TItem> const & ite
 
   for (auto const & item : items)
   {
+    ASSERT_GREATER_OR_EQUAL(item.m_timestamp, 0, ());
     if (!m_items.empty() && m_items.back().m_timestamp > item.m_timestamp)
       continue;
-
-    m_statistics.AddGpsInfoPoint(item);
 
     m_items.emplace_back(item);
     ++added;
   }
-
-  m_elevationInfoDirty = true;
 
   rollbacker.Reset();
 
@@ -56,6 +55,22 @@ std::pair<size_t, size_t> GpsTrackCollection::Add(std::vector<TItem> const & ite
     return std::make_pair(kInvalidId, kInvalidId);  // Nothing was added
   }
 
+  // Feed only after deque insertion succeeds. The bounded processor does not allocate.
+  for (size_t i = m_items.size() - added; i < m_items.size(); ++i)
+  {
+    auto const & item = m_items[i];
+    auto const point = mercator::FromLatLon(item.m_latitude, item.m_longitude);
+    if (i > 0)
+      m_statistics.m_length += mercator::DistanceOnEarth(m_lastPoint, point);
+    m_lastPoint = point;
+    auto const altitude = static_cast<geometry::Altitude>(item.m_altitude);
+    m_invalidAltitude |= altitude == geometry::kInvalidAltitude;
+    m_hasAltitude |= altitude != geometry::kDefaultAltitudeMeters;
+    if (!m_invalidAltitude)
+      m_elevation.Add({m_statistics.m_length, altitude});
+  }
+  m_statistics.m_duration = m_items.back().m_timestamp - m_items.front().m_timestamp;
+  m_statisticsDirty = true;
   m_lastId += added;
 
   return std::make_pair(startId, startId + added - 1);
@@ -79,7 +94,11 @@ std::pair<size_t, size_t> GpsTrackCollection::Clear(bool resetIds)
   m_items.clear();
   m_items.shrink_to_fit();
   m_statistics = {};
-  m_elevationInfo.Clear();
+  m_elevation = {};
+  m_lastPoint = {};
+  m_statisticsDirty = false;
+  m_invalidAltitude = false;
+  m_hasAltitude = false;
 
   if (resetIds)
     m_lastId = 0;
@@ -92,19 +111,20 @@ size_t GpsTrackCollection::GetSize() const
   return m_items.size();
 }
 
-ElevationInfo const & GpsTrackCollection::UpdateAndGetElevationInfo()
+TrackStatistics const & GpsTrackCollection::GetTrackStatistics() const
 {
-  if (!m_elevationInfoDirty)
-    return m_elevationInfo;
-
-  auto const elevationSize = m_elevationInfo.GetSize();
-  if (elevationSize < m_items.size())
+  if (m_statisticsDirty)
   {
-    std::vector<TItem> const missedPoints(m_items.begin() + elevationSize, m_items.end());
-    m_elevationInfo.AddGpsPoints(missedPoints);
+    if (!m_invalidAltitude)
+      m_elevation.GetTotals().Apply(m_statistics);
+    else
+    {
+      m_statistics.m_ascent = m_statistics.m_descent = 0;
+      m_statistics.m_minElevation = m_statistics.m_maxElevation = geometry::kDefaultAltitudeMeters;
+    }
+    m_statisticsDirty = false;
   }
-  m_elevationInfoDirty = false;
-  return m_elevationInfo;
+  return m_statistics;
 }
 
 bool GpsTrackCollection::IsEmpty() const

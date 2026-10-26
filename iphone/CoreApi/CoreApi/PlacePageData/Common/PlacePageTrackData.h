@@ -1,5 +1,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIColor.h>
+#import "ElevationProfileData.h"
 #import "MWMTypes.h"
 
 @class TrackInfo;
@@ -30,6 +31,9 @@ NS_ASSUME_NONNULL_BEGIN
              onActivePointChanged:(MWMVoidBlock)onActivePointChangedHandler;
 
 - (void)updateActivePointDistance:(double)distance;
+
+/// Capture saved geometry on its owner thread, then load/convert it in a background operation.
+- (nullable ElevationProfileLoader)makeElevationProfileLoader;
 
 @end
 

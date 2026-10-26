@@ -12,6 +12,7 @@ protocol ElevationProfilePresenterProtocol:
   TrackActivePointPresenter {
   func configure()
   func update(with state: ElevationProfileState)
+  func updateStatistics(_ trackInfo: TrackInfo)
   func onSelectedPointChanged(_ distance: Double)
 }
 
@@ -83,6 +84,11 @@ final class ElevationProfilePresenter: NSObject {
 }
 
 extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
+  func updateStatistics(_ trackInfo: TrackInfo) {
+    descriptionModels = Self.descriptionModels(for: trackInfo)
+    view?.reloadDescription()
+  }
+
   func update(with state: ElevationProfileState) {
     apply(state: state, configureView: true)
   }
@@ -124,8 +130,8 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
     view?.reloadDescription()
     view?.isXAxisViewHidden = false
     view?.placeholderText = nil
-    view?.userInteractionEnabled = true
-    view?.isChartViewInfoHidden = false
+    view?.userInteractionEnabled = !data.chartData.isPlaceholder
+    view?.isChartViewInfoHidden = data.chartData.isPlaceholder
     view?.setActivePointDistance(data.activePointDistance)
     view?.setMyPositionDistance(data.myPositionDistance)
   }

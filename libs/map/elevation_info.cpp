@@ -1,6 +1,5 @@
 #include "map/elevation_info.hpp"
 
-#include "geometry/distance_on_sphere.hpp"
 #include "geometry/mercator.hpp"
 #include "geometry/simplification.hpp"
 
@@ -162,6 +161,19 @@ void ElevationInfo::Simplify(double altitudeDeviation)
   double const squareEps = math::Pow2(altitudeDeviation);
   for (auto & line : m_lines)
   {
+    if (line.size() <= 2)
+      continue;
+
+    // Avoid the quadratic search for flat or straight profiles that need only their endpoints.
+    m2::SquaredDistanceFromSegmentToPoint distFn;
+    if (simpl::MaxDistance(IterT(line, true), IterT(line, true) + (line.size() - 1), distFn).first < squareEps)
+    {
+      auto const last = line.back();
+      line.resize(2);
+      line.back() = last;
+      continue;
+    }
+
     std::vector<m2::PointD> out;
     SimplifyDefault(IterT(line, true), IterT(line, false), squareEps, out);
 
@@ -216,36 +228,4 @@ ElevationInfo::AltitudesInfo ElevationInfo::CalculateAltitudesInfo(Altitude thre
     }
   }
   return info;
-}
-
-void GpsTrackElevation::AddGpsPoints(GpsPoints const & points)
-{
-  if (points.empty())
-    return;
-
-  // GPS track recording always produces a single line.
-  if (m_lines.empty())
-    m_lines.emplace_back();
-
-  auto & line = m_lines.back();
-
-  for (auto const & gps : points)
-  {
-    ms::LatLon const ll(gps.m_latitude, gps.m_longitude);
-
-    if (m_hasLastPoint)
-      m_lastDistance += ms::DistanceOnEarth(m_lastLatLon, ll);
-
-    line.emplace_back(m_lastDistance, static_cast<geometry::Altitude>(gps.m_altitude));
-    m_lastLatLon = ll;
-    m_hasLastPoint = true;
-  }
-}
-
-void GpsTrackElevation::Clear()
-{
-  m_lines.clear();
-  m_difficulty = Difficulty::Unknown;
-  m_lastDistance = 0;
-  m_hasLastPoint = false;
 }

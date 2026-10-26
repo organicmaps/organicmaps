@@ -90,6 +90,8 @@
 		E33C8282A09F1E34262634CA /* share.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85CC440929C9CFA473FDE565 /* share.cpp */; };
 		ED49D74C2CEF3D69004AF27E /* elevation_info_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED49D74B2CEF3CE3004AF27E /* elevation_info_tests.cpp */; };
 		ED85D1CC2D5F4B5B00D8075D /* track_statistics.hpp in Headers */ = {isa = PBXBuildFile; fileRef = ED85D1CB2D5F4B5B00D8075D /* track_statistics.hpp */; };
+		A13233010000000000000001 /* track_elevation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A13233010000000000000003 /* track_elevation.cpp */; };
+		A13233010000000000000002 /* track_elevation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A13233010000000000000004 /* track_elevation.hpp */; };
 		ED85D1CE2D5F4B7200D8075D /* track_statistics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED85D1CD2D5F4B6600D8075D /* track_statistics.cpp */; };
 		ED85D1D02D5F508700D8075D /* track_statistics_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED85D1CF2D5F508700D8075D /* track_statistics_tests.cpp */; };
 		F6B283031C1B03320081957A /* gps_track_collection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6B282FB1C1B03320081957A /* gps_track_collection.cpp */; };
@@ -236,6 +238,8 @@
 		CE6D8A55305278317BD00A6C /* share.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = share.hpp; sourceTree = "<group>"; };
 		ED49D74B2CEF3CE3004AF27E /* elevation_info_tests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = elevation_info_tests.cpp; sourceTree = "<group>"; };
 		ED85D1CB2D5F4B5B00D8075D /* track_statistics.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = track_statistics.hpp; sourceTree = "<group>"; };
+		A13233010000000000000003 /* track_elevation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = track_elevation.cpp; sourceTree = "<group>"; };
+		A13233010000000000000004 /* track_elevation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = track_elevation.hpp; sourceTree = "<group>"; };
 		ED85D1CD2D5F4B6600D8075D /* track_statistics.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = track_statistics.cpp; sourceTree = "<group>"; };
 		ED85D1CF2D5F508700D8075D /* track_statistics_tests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = track_statistics_tests.cpp; sourceTree = "<group>"; };
 		F6B282FB1C1B03320081957A /* gps_track_collection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gps_track_collection.cpp; sourceTree = "<group>"; };
@@ -434,6 +438,8 @@
 				BB1C0194241BF73C0067FD5C /* track_mark.hpp */,
 				6753462C1A4054E800A0A8C3 /* track.cpp */,
 				6753462D1A4054E800A0A8C3 /* track.hpp */,
+				A13233010000000000000003 /* track_elevation.cpp */,
+				A13233010000000000000004 /* track_elevation.hpp */,
 				ED85D1CD2D5F4B6600D8075D /* track_statistics.cpp */,
 				ED85D1CB2D5F4B5B00D8075D /* track_statistics.hpp */,
 				347B60741DD9926D0050FA24 /* traffic_manager.cpp */,
@@ -501,6 +507,7 @@
 				6753469C1A4054E800A0A8C3 /* track.hpp in Headers */,
 				675346651A4054E800A0A8C3 /* framework.hpp in Headers */,
 				BBA014B120754997007402E4 /* user_mark_id_storage.hpp in Headers */,
+				A13233010000000000000002 /* track_elevation.hpp in Headers */,
 				ED85D1CC2D5F4B5B00D8075D /* track_statistics.hpp in Headers */,
 				3DEE1ADF21EE03B400054A91 /* power_manager.hpp in Headers */,
 				F6D2CE7F1EDEB7F500636DFD /* routing_manager.hpp in Headers */,
@@ -691,6 +698,7 @@
 				F6B283071C1B03320081957A /* gps_track_storage.cpp in Sources */,
 				670E39401C46C5C700E9C0A6 /* gps_tracker.cpp in Sources */,
 				BBA014B220754997007402E4 /* user_mark_id_storage.cpp in Sources */,
+				A13233010000000000000001 /* track_elevation.cpp in Sources */,
 				ED85D1CE2D5F4B7200D8075D /* track_statistics.cpp in Sources */,
 				6753464A1A4054E800A0A8C3 /* bookmark.cpp in Sources */,
 				45580ABE1E2CBD5E00CD535D /* benchmark_tools.cpp in Sources */,

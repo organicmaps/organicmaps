@@ -4,4 +4,6 @@
 
 #include "map/elevation_info.hpp"
 
-jobject ToJavaElevationInfo(JNIEnv * env, ElevationInfo const & info);
+#include <functional>
+
+jobject ToJavaElevationInfo(JNIEnv * env, ElevationInfo const & info, std::function<bool()> const & isCancelled = {});

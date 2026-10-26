@@ -1125,9 +1125,8 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
     [self dismissPlacePage];
     return;
   }
-  PlacePageData * placePageData =
-      [[PlacePageData alloc] initWithTrackInfo:self.trackRecordingManager.trackRecordingInfo
-                                 elevationInfo:self.trackRecordingManager.trackRecordingElevationProfileData];
+  PlacePageData * placePageData = [[PlacePageData alloc] initWithTrackInfo:self.trackRecordingManager.trackRecordingInfo
+                                                             elevationInfo:nil];
   [self.controlsManager setTrackRecordingButtonState:TrackRecordingButtonStateHidden];
   [self showOrUpdatePlacePage:placePageData];
   [self startObservingTrackRecordingUpdatesForPlacePageData:placePageData];
@@ -1137,8 +1136,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 {
   __weak __typeof(self) weakSelf = self;
   [self.trackRecordingManager addObserver:self
-        recordingIsActiveDidChangeHandler:^(TrackRecordingState state, TrackInfo * _Nonnull trackInfo,
-                                            ElevationProfileData * _Nullable (^elevationData)()) {
+        recordingIsActiveDidChangeHandler:^(TrackRecordingState state, TrackInfo * _Nonnull trackInfo) {
           __strong __typeof(weakSelf) self = weakSelf;
           if (!self)
             return;
@@ -1152,7 +1150,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
             if (UIApplication.sharedApplication.applicationState != UIApplicationStateActive)
               return;
             [self.controlsManager setTrackRecordingButtonState:TrackRecordingButtonStateHidden];
-            [placePageData updateWithTrackInfo:trackInfo elevationInfo:elevationData()];
+            [placePageData updateWithTrackInfo:trackInfo elevationInfo:placePageData.trackData.elevationProfileData];
             break;
           }
         }];

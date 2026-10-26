@@ -2,10 +2,12 @@
 
 #include "map/gps_track.hpp"
 #include "map/gps_track_storage.hpp"
+#include "map/track.hpp"
 
 #include "platform/platform.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
+#include "geometry/mercator.hpp"
 
 #include "base/logging.hpp"
 
@@ -509,5 +511,168 @@ UNIT_TEST(GpsTrack_LargeBackupRoundTrip)
   restored.Start();
   TEST_EQUAL(restored.Finalize(), points.size(), ());
   CheckPoints(GetPoints(restored), points);
+}
+UNIT_TEST(GpsTrack_ElevationSnapshots)
+{
+  TrackFile file("elevation");
+
+  auto makePoint = [](size_t index, double altitude)
+  {
+    auto point = MakePoint(1000000 + index * 20, index * 30.0);
+    point.m_altitude = altitude;
+    point.m_verticalAccuracy = 1.0;
+    return point;
+  };
+
+  TrackCallback callback;
+  GpsTrack track(file.m_path);
+  track.Start();
+  track.SetCallback(callback.GetCallback());
+  track.AddPoints({makePoint(0, 100), makePoint(1, 100), makePoint(2, 150)});
+  TEST(callback.WaitForAdded(3), ());
+
+  auto const snapshot = track.GetElevationSnapshot();
+  TEST(snapshot, ());
+  TEST_EQUAL(snapshot->m_elevation.GetLines().front().back().m_altitude, 150, ());
+
+  track.AddPoints({makePoint(3, 100), makePoint(4, 100)});
+  TEST(callback.WaitForAdded(5), ());
+  auto const callbackStatistics = track.GetTrackStatistics();
+  TEST_EQUAL(callbackStatistics.m_ascent, 0, ());
+  TEST_EQUAL(callbackStatistics.m_descent, 0, ());
+  TEST_EQUAL(callbackStatistics.m_maxElevation, 100, ());
+  TEST_EQUAL(track.GetElevationSnapshot()->m_elevation.GetSize(), 2, ());
+  // The worker may replace its cached profile while a UI consumer holds an older snapshot.
+  TEST_EQUAL(snapshot->m_elevation.GetLines().front().back().m_altitude, 150, ());
+
+  TEST_EQUAL(track.Finalize(), 5, ());
+  kml::TrackData data;
+  data.m_id = 42;
+  data.m_layers.emplace_back();
+  data.m_geometry.m_lines.emplace_back();
+  data.m_geometry.m_timestamps.emplace_back();
+  track.ForEachPoint([&](location::GpsInfo const & point, size_t)
+  {
+    data.m_geometry.m_lines.back().emplace_back(mercator::FromLatLon(point.m_latitude, point.m_longitude),
+                                                static_cast<geometry::Altitude>(point.m_altitude));
+    data.m_geometry.m_timestamps.back().push_back(point.m_timestamp);
+    return true;
+  });
+  auto const saved = Track(std::move(data)).GetStatistics();
+  TEST_EQUAL(callbackStatistics.m_ascent, saved.m_ascent, ());
+  TEST_EQUAL(callbackStatistics.m_descent, saved.m_descent, ());
+  TEST_EQUAL(callbackStatistics.m_minElevation, saved.m_minElevation, ());
+  TEST_EQUAL(callbackStatistics.m_maxElevation, saved.m_maxElevation, ());
+  TEST_EQUAL(callbackStatistics.m_length, saved.m_length, ());
+  TEST_EQUAL(callbackStatistics.m_duration, saved.m_duration, ());
+}
+UNIT_TEST(GpsTrack_ElevationCacheCancellationAndReset)
+{
+  TrackFile file("elevation_cache");
+  TrackCallback callback;
+  GpsTrack track(file.m_path);
+  track.Start();
+  // A renderer can consume the raw diff without requesting altitude statistics.
+  track.SetCallback(callback.GetCallback());
+  auto point = [](size_t index, int altitude)
+  {
+    auto gps = MakePoint(1000000 + index * 20, index * 30.0);
+    gps.m_altitude = altitude;
+    return gps;
+  };
+  std::vector<location::GpsInfo> points;
+  for (size_t i = 0; i < 700; ++i)
+    points.push_back(point(i, 100 + i % 50));
+  track.AddPoints(points);
+  TEST(callback.WaitForAdded(700), ());
+  auto const first = track.GetElevationSnapshot();
+  TEST(first, ());
+  auto checkProfile = [&](GpsTrack::ElevationSnapshot const & snapshot)
+  {
+    kml::TrackData data;
+    data.m_id = 42;
+    data.m_layers.emplace_back();
+    data.m_geometry.m_lines.emplace_back();
+    data.m_geometry.m_timestamps.emplace_back();
+    for (auto const & gps : points)
+    {
+      data.m_geometry.m_lines.back().emplace_back(mercator::FromLatLon(gps.m_latitude, gps.m_longitude),
+                                                  static_cast<geometry::Altitude>(gps.m_altitude));
+      data.m_geometry.m_timestamps.back().push_back(gps.m_timestamp);
+    }
+    Track saved(std::move(data));
+    auto const & expected = saved.GetElevationInfo()->GetLines().front();
+    auto const & actual = snapshot.m_elevation.GetLines().front();
+    TEST_EQUAL(actual.size(), expected.size(), ());
+    for (size_t i = 0; i < std::min(actual.size(), expected.size()); ++i)
+    {
+      TEST_EQUAL(actual[i].m_altitude, expected[i].m_altitude, (i));
+      TEST_EQUAL(actual[i].m_distance, expected[i].m_distance, (i));
+    }
+  };
+  checkProfile(*first);
+  TEST_EQUAL(first->m_revision, points.size(), ());
+  TEST_EQUAL(first, track.GetElevationSnapshot(), ());
+  // Cancellation callbacks are invoked outside the recording lock, including cache hits.
+  TEST_EQUAL(first,
+             track.GetElevationSnapshot(
+                 [&]
+  {
+    TEST_EQUAL(track.GetTrackStatistics().m_ascent, first->m_statistics.m_ascent, ());
+    return false;
+  }),
+             ());
+
+  points.push_back(point(700, 125));
+  track.AddPoint(points.back());
+  TEST(callback.WaitForAdded(701), ());
+  size_t calls = 0;
+  TEST(!track.GetElevationSnapshot([&] { return ++calls == 4; }), ());
+  auto const next = track.GetElevationSnapshot();
+  checkProfile(*next);
+  TEST_EQUAL(next->m_revision, 701, ());
+  TEST_EQUAL(first->m_revision, 700, ());
+  TEST_EQUAL(next->m_statistics.m_ascent, track.GetTrackStatistics().m_ascent, ());
+
+  track.Clear();
+  TEST(!track.GetElevationSnapshot(), ());
+
+  track.AddPoints({point(0, 300), point(1, 311), point(2, 300)});
+  TEST(callback.WaitForAdded(704), ());
+  auto const reset = track.GetElevationSnapshot();
+  TEST_NOT_EQUAL(reset->m_epoch, first->m_epoch, ());
+  TEST_EQUAL(reset->m_revision, 3, ());
+  TEST_EQUAL(reset->m_statistics.m_ascent, 11, ());
+  TEST_EQUAL(reset->m_statistics.m_descent, 11, ());
+  TEST_EQUAL(first->m_revision, 700, ());
+}
+UNIT_TEST(GpsTrack_ElevationCacheRestartsWithUnfinalizedBackup)
+{
+  TrackFile file("elevation_restart");
+  GpsTrack track(file.m_path, std::make_unique<GpsTrackFilter>());
+  auto points = MakePoints(3);
+  points.push_back(MakePoint(160.0, 35.0, 0.0));
+  for (auto & point : points)
+    point.m_altitude = 100;
+  track.Start();
+  track.AddPoints(points);
+  TEST_EQUAL(track.Finalize(), points.size(), ());
+  auto const finalized = track.GetElevationSnapshot();
+  TEST(finalized, ());
+  TEST_EQUAL(finalized->m_revision, points.size(), ());
+
+  // Restore replays raw fixes, so the close endpoint is provisional again until Finalize.
+  track.Start();
+  std::shared_ptr<GpsTrack::ElevationSnapshot const> restored;
+  TEST(WaitFor(
+           [&]
+  {
+    restored = track.GetElevationSnapshot();
+    return restored && restored->m_epoch != finalized->m_epoch;
+  }),
+       ());
+  TEST_EQUAL(restored->m_revision, points.size() - 1, ());
+  TEST_EQUAL(finalized->m_revision, points.size(), ());
+  TEST_EQUAL(track.Finalize(), points.size(), ());
 }
 }  // namespace gps_track_test

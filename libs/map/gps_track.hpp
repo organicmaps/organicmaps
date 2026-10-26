@@ -6,6 +6,7 @@
 
 #include "base/thread.hpp"
 
+#include <atomic>
 #include <chrono>
 #include <condition_variable>
 #include <functional>
@@ -38,7 +39,16 @@ public:
 
   /// Returns track statistics
   TrackStatistics GetTrackStatistics() const;
-  ElevationInfo const & GetElevationInfo();
+  using IsCancelled = std::function<bool()>;
+  struct ElevationSnapshot
+  {
+    uint64_t m_epoch;
+    size_t m_revision;
+    TrackStatistics m_statistics;
+    ElevationInfo m_elevation;
+  };
+  /// Safe on a background thread. An unchanged revision reuses the same immutable snapshot.
+  std::shared_ptr<ElevationSnapshot const> GetElevationSnapshot(IsCancelled const & isCancelled = {}) const;
 
   /// Discards previous tracking info and removes the crash backup.
   /// @note Callback is called with 'toRemove' points, if some points were removed.
@@ -116,4 +126,9 @@ private:
   bool m_threadExit = false;
   bool m_threadWakeup = false;
   std::condition_variable m_cv;
+
+  std::atomic<uint64_t> m_epoch = 0;  // cancels graph replay synchronously on Clear() and Start()
+  struct ElevationCache;
+  mutable std::mutex m_elevationGuard;
+  mutable std::unique_ptr<ElevationCache> m_elevationCache;
 };
