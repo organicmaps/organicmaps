@@ -87,6 +87,7 @@ public class StreetAdapter extends RecyclerView.Adapter<StreetAdapter.BaseViewHo
     final TextView streetDef;
     final TextView streetLoc;
     final CompoundButton selected;
+    LocalizedStreet street;
 
     public StreetViewHolder(View itemView)
     {
@@ -104,15 +105,17 @@ public class StreetAdapter extends RecyclerView.Adapter<StreetAdapter.BaseViewHo
     @Override
     public void bind(int position)
     {
-      selected.setChecked(mSelectedStreet.defaultName.equals(mStreets[position].defaultName));
-      streetDef.setText(mStreets[position].defaultName);
-      UiUtils.setTextAndHideIfEmpty(streetLoc, mStreets[position].localizedName);
+      street = mStreets[position];
+      selected.setChecked(mSelectedStreet.defaultName.equals(street.defaultName));
+      streetDef.setText(street.defaultName);
+      UiUtils.setTextAndHideIfEmpty(streetLoc, street.localizedName);
     }
 
     @Override
     public void onClick(View v)
     {
-      mSelectedStreet = mStreets[getBindingAdapterPosition()];
+      // Not getBindingAdapterPosition(): it is NO_POSITION for a second tap queued behind notifyDataSetChanged().
+      mSelectedStreet = street;
       notifyDataSetChanged();
       mFragment.saveStreet(mSelectedStreet);
     }

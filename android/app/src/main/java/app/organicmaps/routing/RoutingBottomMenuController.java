@@ -291,7 +291,7 @@ final class RoutingBottomMenuController
     mTransitAdapter.setItems(info.getTransitSteps());
 
     TextView totalTimeView = mAltitudeChartFrame.findViewById(R.id.total_time);
-    totalTimeView.setText(Utils.formatRoutingTime(mContext, info.getTotalTime(), R.dimen.text_size_routing_number));
+    totalTimeView.setText(StringUtils.nativeFormatRoutingDuration(info.getTotalTime()));
     View dotView = mAltitudeChartFrame.findViewById(R.id.dot);
     View pedestrianIcon = mAltitudeChartFrame.findViewById(R.id.pedestrian_icon);
     TextView distanceView = mAltitudeChartFrame.findViewById(R.id.total_distance);
@@ -504,8 +504,7 @@ final class RoutingBottomMenuController
   private static Spanned makeSpannedRoutingDetails(@NonNull Context context, @NonNull RoutingInfo routingInfo)
 
   {
-    CharSequence time =
-        Utils.formatRoutingTime(context, routingInfo.totalTimeInSeconds, R.dimen.text_size_routing_number);
+    String time = StringUtils.nativeFormatRoutingDuration(routingInfo.totalTimeInSeconds);
 
     SpannableStringBuilder builder = new SpannableStringBuilder();
     initTimeBuilderSequence(context, time, builder);

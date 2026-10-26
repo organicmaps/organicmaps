@@ -45,6 +45,20 @@ Track MakeTrack(std::initializer_list<std::initializer_list<PointWithAltitude>> 
   return Track(std::move(data));
 }
 
+UNIT_TEST(Track_HasDirection)
+{
+  for (auto const id : {kml::TrackId{1}, kml::kTempRelationTrackId})
+  {
+    kml::TrackData data;
+    data.m_id = id;
+    data.m_layers.emplace_back();
+    data.m_geometry.AddLine({PointWithAltitude({0.0, 0.0}), PointWithAltitude({1.0, 0.0})});
+    data.m_geometry.AddTimestamps({});
+    Track const track(std::move(data));
+    TEST_EQUAL(track.HasDirection(), id != kml::kTempRelationTrackId, (id));
+  }
+}
+
 // ===================== ElevationInfo tests =====================
 
 UNIT_TEST(ElevationInfo_EmptyMultiGeometry)

@@ -948,6 +948,7 @@ drape_ptr<UserLineRenderParams> DrapeEngine::GenerateLineRenderInfo(UserLineMark
   renderInfo->m_minZoom = mark->GetMinZoom();
   renderInfo->m_depthLayer = mark->GetDepthLayer();
   renderInfo->m_visible = mark->IsVisible();
+  renderInfo->m_hasDirection = mark->HasDirection();
 
   mark->ForEachGeometry([&renderInfo](std::vector<m2::PointD> && points)
   { renderInfo->m_splines.emplace_back(std::move(points)); });

@@ -553,7 +553,7 @@ bool TransitRouteDisplay::ProcessSubroute(std::vector<routing::RouteSegment> con
 
   SubrouteParams sp;
   sp.m_prevDistance = m_routeInfo.m_totalDistInMeters;
-  sp.m_prevTime = m_routeInfo.m_totalTimeInSec;
+  sp.m_prevTime = m_totalTimeSec;
 
   // Boarding/alighting stops per transit leg, so parallel lines are enumerated for the whole leg.
   auto const legStops = helpers::ComputeTransitLegStops(segments);
@@ -592,7 +592,8 @@ bool TransitRouteDisplay::ProcessSubroute(std::vector<routing::RouteSegment> con
   }
 
   m_routeInfo.m_totalDistInMeters = sp.m_prevDistance;
-  m_routeInfo.m_totalTimeInSec = static_cast<int>(ceil(sp.m_prevTime));
+  m_totalTimeSec = sp.m_prevTime;
+  m_routeInfo.m_totalTimeInSec = static_cast<int>(m_totalTimeSec);
 
   bool const isValidSubroute = subroute.m_polyline.GetSize() > 1;
   if (!isValidSubroute)

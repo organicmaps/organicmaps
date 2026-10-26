@@ -29,7 +29,7 @@
 <message id="miles">
 <extracomment>Choose measurement on first launch alert - choose imperial system button</extracomment>
 <source>Miles</source>
-<translation>Mile</translation>
+<translation>Engelska mil</translation>
 </message>
 <message id="search">
 <extracomment>View and button titles for accessibility. Also used in iPhone home screen quick actions.</extracomment>
@@ -66,7 +66,7 @@
 <message id="bookmarks_and_tracks">
 <extracomment>&quot;Bookmarks and Tracks&quot; dialog title. Also used in iPhone home screen quick actions.</extracomment>
 <source>Bookmarks and Tracks</source>
-<translation>Bokmärken och rutter</translation>
+<translation>Bokmärken och spår</translation>
 </message>
 <message id="name">
 <extracomment>Add bookmark dialog - bookmark name</extracomment>
@@ -236,7 +236,7 @@
 <message id="tracks_title">
 <extracomment>Title for tracks category in bookmarks manager</extracomment>
 <source>Tracks</source>
-<translation>Rutter</translation>
+<translation>Spår</translation>
 </message>
 <message id="prefs_group_route">
 <source>Navigation</source>
@@ -775,7 +775,7 @@
 <message id="mi">
 <extracomment>abbreviation for mile(s)</extracomment>
 <source>mi</source>
-<translation>mile</translation>
+<translation>mi</translation>
 </message>
 <message id="ft">
 <extracomment>A unit of measure</extracomment>

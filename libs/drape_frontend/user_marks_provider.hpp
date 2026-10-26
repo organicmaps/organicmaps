@@ -120,6 +120,7 @@ public:
   virtual float GetWidth(size_t layerIndex) const = 0;
   virtual float GetDepth(size_t layerIndex) const = 0;
   virtual bool IsVisible() const = 0;
+  virtual bool HasDirection() const = 0;
 
   using GeometryFnT = std::function<void(std::vector<m2::PointD> &&)>;
   virtual void ForEachGeometry(GeometryFnT && fn) const = 0;

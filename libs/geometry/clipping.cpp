@@ -197,8 +197,14 @@ RectCase GetRectCase(m2::RectD const & rect, std::vector<m2::PointD> const & pat
   return RectCase::Outside;
 }
 
-std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::SharedSpline const & spline)
+namespace
 {
+std::vector<m2::SharedSpline> ClipSplineByRectImpl(m2::RectD const & rect, m2::SharedSpline const & spline,
+                                                   std::vector<double> * sourceOffsets)
+{
+  if (sourceOffsets != nullptr)
+    sourceOffsets->clear();
+
   auto const & src = *spline;
   auto const & path = src.GetPath();
   size_t const sz = path.size();
@@ -206,7 +212,10 @@ std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::Share
 
   switch (GetRectCase(rect, path))
   {
-  case RectCase::Inside: return {spline};
+  case RectCase::Inside:
+    if (sourceOffsets != nullptr)
+      sourceOffsets->push_back(0.0);
+    return {spline};
   case RectCase::Outside: return {};
   case RectCase::Intersect: break;
   }
@@ -224,15 +233,31 @@ std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::Share
   out.reserve(2);
 
   std::unique_ptr<m2::Spline> cur;
+  double sourceDistance = 0.0;
+  double currentStartDistance = 0.0;
+  auto const emitCurrent = [&]()
+  {
+    if (cur->GetSize() > 1)
+    {
+      out.emplace_back(std::move(cur));
+      if (sourceOffsets != nullptr)
+        sourceOffsets->push_back(currentStartDistance);
+    }
+    else
+    {
+      cur->Clear();  // reuse reservation for the next sub-spline
+    }
+  };
+
   for (size_t i = 0; i + 1 < sz; ++i)
   {
     m2::PointD p1 = path[i];
     m2::PointD p2 = path[i + 1];
     int code1 = 0, code2 = 0;
+    auto const [srcDir, srcLen] = src.GetTangentAndLength(i);
 
     if (m2::Intersect(rect, p1, p2, code1, code2))
     {
-      auto const [srcDir, srcLen] = src.GetTangentAndLength(i);
       double const len = (code1 == 0 && code2 == 0) ? srcLen : DotProduct(p2 - p1, srcDir);
 
       // Start a new sub-spline if either we have no allocation yet, or the
@@ -244,6 +269,7 @@ std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::Share
         // First point of the new sub-spline. The single-arg AddPoint just
         // pushes here (m_position is empty), so it's free.
         cur->AddPoint(p1);
+        currentStartDistance = sourceDistance + DotProduct(p1 - path[i], srcDir);
       }
       // else: continuation. cur->back() already equals p1 because the
       // previous segment ended cleanly (code2 == 0) and code1 == 0 here.
@@ -258,25 +284,32 @@ std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::Share
 
       // Right endpoint clipped or last input segment → close out the sub-spline.
       if (code2 != 0 || i + 2 == sz)
-      {
-        if (cur->GetSize() > 1)
-          out.emplace_back(std::move(cur));
-        else
-          cur->Clear();  // reuse reservation for the next sub-spline
-      }
+        emitCurrent();
     }
     else if (cur)
     {
       // Gap: this segment didn't intersect the rect — close out whatever we
       // accumulated.
-      if (cur->GetSize() > 1)
-        out.emplace_back(std::move(cur));
-      else
-        cur->Clear();
+      emitCurrent();
     }
+
+    sourceDistance += srcLen;
   }
 
+  ASSERT(sourceOffsets == nullptr || sourceOffsets->size() == out.size(), ());
   return out;
+}
+}  // namespace
+
+std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::SharedSpline const & spline)
+{
+  return ClipSplineByRectImpl(rect, spline, nullptr);
+}
+
+std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::SharedSpline const & spline,
+                                               std::vector<double> & sourceOffsets)
+{
+  return ClipSplineByRectImpl(rect, spline, &sourceOffsets);
 }
 
 void ClipPathByRect(m2::RectD const & rect, std::vector<m2::PointD> const & path, std::vector<m2::SharedSpline> & out)

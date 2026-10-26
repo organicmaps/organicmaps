@@ -237,7 +237,7 @@ NSArray<MWMRouterTransitStepInfo *> * buildRouteTransitSteps(NSArray<MWMRoutePoi
   auto result = [[NSMutableAttributedString alloc] initWithString:@""];
   if (self.showEta)
   {
-    NSString * eta = [DurationFormatter durationStringFromTimeInterval:self.timeToTarget];
+    NSString * eta = [DurationFormatter routingDurationStringFromTimeInterval:self.timeToTarget];
     [result appendAttributedString:[[NSMutableAttributedString alloc] initWithString:eta attributes:primaryAttributes]];
     [result appendAttributedString:MWMNavigationDashboardEntity.estimateDot];
   }

@@ -70,6 +70,7 @@ struct UserLineRenderParams
   std::vector<LineLayer> m_layers;
   std::vector<m2::SharedSpline> m_splines;
   bool m_visible = true;
+  bool m_hasDirection = true;
 };
 
 using UserMarksRenderCollection = std::unordered_map<kml::MarkId, drape_ptr<UserMarkRenderParams>>;
