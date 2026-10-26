@@ -7,7 +7,8 @@
 
 #include "coding/string_utf8_multilang.hpp"
 
-#include <iostream>
+#include <set>
+#include <string_view>
 
 UNIT_TEST(World_Capitals)
 {
@@ -39,12 +40,14 @@ UNIT_TEST(World_Capitals)
     });
 
     if (found)
+    {
       ++capitalsCount;
-
-    std::string_view const name = ft->GetName(StringUtf8Multilang::kEnglishCode);
-    if (testCapitals.count(name) > 0)
-      TEST(found, (name));
+      testCapitals.erase(ft->GetName(StringUtf8Multilang::kEnglishCode));
+    }
   }
+
+  // Other places may share a capital's name, e.g. Roseau, Minnesota.
+  TEST(testCapitals.empty(), (testCapitals));
 
   // Got 225 values from the first launch. May vary slightly ..
   TEST_GREATER_OR_EQUAL(capitalsCount, 215, ());
