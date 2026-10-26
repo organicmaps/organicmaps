@@ -2,6 +2,8 @@ package app.organicmaps.maplayer;
 
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.maplayer.Mode;
+import app.organicmaps.sdk.util.Config;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +12,7 @@ public class LayersUtils
   public static List<Mode> getAvailableLayers()
   {
     List<Mode> availableLayers = new ArrayList<>();
-    availableLayers.add(Mode.OUTDOORS);
+    availableLayers.add(Config.isAltOutdoorsEnabled() ? Mode.EXPLORER : Mode.OUTDOORS);
     availableLayers.add(Mode.ISOLINES);
     availableLayers.add(Mode.HIKING);
     availableLayers.add(Mode.CYCLING);

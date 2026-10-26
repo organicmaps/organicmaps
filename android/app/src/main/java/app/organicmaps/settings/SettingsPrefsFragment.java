@@ -53,6 +53,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
     super.onViewCreated(view, savedInstanceState);
 
     initStoragePrefCallbacks();
+    iniAlternativeOutdoorStyleCallback();
     initMeasureUnitsPrefsCallbacks();
     initZoomPrefsCallbacks();
     initMapStylePrefsCallbacks();
@@ -461,6 +462,19 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
       case SCHEDULED -> R.string.pref_appearance_scheduled;
     };
   }
+
+    private void iniAlternativeOutdoorStyleCallback()
+    {
+      final Preference pref = getPreference(getString(R.string.pref_alternative_outdoors_style));
+
+      ((TwoStatePreference) pref).setChecked(Config.isAltOutdoorsEnabled());
+      pref.setOnPreferenceChangeListener((preference, newValue) -> {
+          Config.setAltOutdoorsyEnabled((boolean) newValue);
+          return true;
+      });
+    }
+
+
 
   private void initZoomPrefsCallbacks()
   {

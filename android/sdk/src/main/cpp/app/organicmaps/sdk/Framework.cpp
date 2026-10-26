@@ -1625,12 +1625,22 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsIsolinesLayerEnabl
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetOutdoorsLayerEnabled(JNIEnv * env, jclass, jboolean enabled)
 {
-  Framework::SaveOutdoorsEnabled(enabled);
+    Framework::SaveOutdoorsEnabled(enabled);
 }
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsOutdoorsLayerEnabled(JNIEnv * env, jclass)
 {
-  return static_cast<jboolean>(Framework::LoadOutdoorsEnabled());
+    return static_cast<jboolean>(Framework::LoadOutdoorsEnabled());
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetExplorerLayerEnabled(JNIEnv * env, jclass, jboolean enabled)
+{
+    Framework::SaveExplorerEnabled(enabled);
+}
+
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsExplorerLayerEnabled(JNIEnv * env, jclass)
+{
+    return static_cast<jboolean>(Framework::LoadExplorerEnabled());
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetHikingLayerEnabled(JNIEnv *, jclass, jboolean enabled)

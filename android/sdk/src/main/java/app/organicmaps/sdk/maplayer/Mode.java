@@ -64,6 +64,24 @@ public enum Mode
     public void setEnabled(@NonNull Context context, boolean isEnabled)
     {
       Framework.nativeSetOutdoorsLayerEnabled(isEnabled);
+      Framework.nativeSetExplorerLayerEnabled(false);
+      // TODO: ThemeSwitcher is outside sdk package. Properly fix dependencies
+      // ThemeSwitcher.INSTANCE.restart(true);
+    }
+  },
+
+  EXPLORER {
+    @Override
+    public boolean isEnabled(@NonNull Context context)
+    {
+      return Framework.nativeIsExplorerLayerEnabled();
+    }
+
+    @Override
+    public void setEnabled(@NonNull Context context, boolean isEnabled)
+    {
+      Framework.nativeSetExplorerLayerEnabled(isEnabled);
+      Framework.nativeSetOutdoorsLayerEnabled(false);
       // TODO: ThemeSwitcher is outside sdk package. Properly fix dependencies
       // ThemeSwitcher.INSTANCE.restart(true);
     }

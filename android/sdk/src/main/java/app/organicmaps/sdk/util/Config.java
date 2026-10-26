@@ -48,6 +48,8 @@ public final class Config
 
   public static final String KEY_PREF_LAST_SEARCHED_TAB = "LastSearchTab";
 
+  public static final String KEY_PREF_ALT_OUTDOORS_STYLE = "AltOutdoorsEnabled";
+
   /**
    * The total number of app launches.
    */
@@ -474,6 +476,16 @@ public final class Config
   public static void setSearchHistoryEnabled(boolean enabled)
   {
     setBool(KEY_PREF_SEARCH_HISTORY, enabled);
+  }
+
+  public static boolean isAltOutdoorsEnabled()
+  {
+    return getBool(KEY_PREF_ALT_OUTDOORS_STYLE, true);
+  }
+
+  public static void setAltOutdoorsyEnabled(boolean enabled)
+  {
+    setBool(KEY_PREF_ALT_OUTDOORS_STYLE, enabled);
   }
 
   public static class TTS

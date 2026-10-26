@@ -244,6 +244,8 @@
     <string name="pref_map_auto_zoom">Auto zoom</string>
     <string name="placepage_distance">Distance</string>
     <string name="search_show_on_map">View on map</string>
+    <string name="pref_alternative_outdoors_style_title">Alternative Outdoors map style</string>
+
     <!-- Menu button -->
     <string name="menu">Menu</string>
     <!-- Text in menu -->
@@ -800,6 +802,8 @@
     <string name="aa_grant_permissions">Grant Permissions</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
     <string name="button_layer_outdoor">Outdoors</string>
+    <!-- Explorer/hiking map style (activity) name in the Styles and Layers dialog -->
+    <string name="button_layer_explorer">Explorer</string>
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
     <string name="browser_not_available">Web browser is not available</string>
     <string name="volume">Volume</string>

@@ -365,6 +365,9 @@ public class Framework
   public static native void nativeSetOutdoorsLayerEnabled(boolean enabled);
   public static native boolean nativeIsOutdoorsLayerEnabled();
 
+  public static native void nativeSetExplorerLayerEnabled(boolean enabled);
+  public static native boolean nativeIsExplorerLayerEnabled();
+
   public static native void nativeSetHikingLayerEnabled(boolean enabled);
   public static native boolean nativeIsHikingLayerEnabled();
 

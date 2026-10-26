@@ -133,6 +133,8 @@ public enum ThemeSwitcher
       return dark ? MapStyle.VehicleDark : MapStyle.VehicleClear;
     else if (Framework.nativeIsOutdoorsLayerEnabled())
       return dark ? MapStyle.OutdoorsDark : MapStyle.OutdoorsClear;
+    else if (Framework.nativeIsExplorerLayerEnabled())
+      return dark ? MapStyle.ExplorerDark : MapStyle.ExplorerClear;
     else
       return dark ? MapStyle.Dark : MapStyle.Clear;
   }
