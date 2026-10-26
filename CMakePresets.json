@@ -94,6 +94,9 @@
       "description": "Mirrors the Windows CI leg: flat build/ dir. Pass -DCMAKE_BUILD_TYPE on top.",
       "inherits": "base",
       "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "BUILD_OPENGL_TESTS": "OFF"
+      },
       "condition": {
         "type": "equals",
         "lhs": "${hostSystemName}",
@@ -220,9 +223,7 @@
       "inherits": "drape-tests",
       "configurePreset": "ci-windows",
       "environment": {
-        "QT_QPA_PLATFORM": "windows",
-        "QT_OPENGL": "desktop",
-        "QT_OPENGL_DLL": "${sourceDir}/build/opengl32.dll"
+        "QT_QPA_PLATFORM": "offscreen"
       }
     },
     {
