@@ -38007,7 +38007,7 @@ zh-Hans = 面下车通道
 zh-Hant = 得來速通道
 
 [clear_the_search]
-tags = android-app
+tags = android-app,apple-maps
 en = Clear the search
 af = Vee die soektog uit
 ar = مسح البحث
@@ -44349,3 +44349,99 @@ en = Bus
 pl = Autobus
 ru = Автобус
 uk = Автобус
+
+[navigation_accessibility_more_controls]
+comment = VoiceOver name of the collapsed controls button during iOS navigation.
+tags = apple-maps
+en = More navigation controls
+pl = Więcej elementów nawigacji
+ru = Больше элементов навигации
+uk = Більше елементів навігації
+
+[navigation_accessibility_hide_controls]
+comment = VoiceOver name of the expanded controls button during iOS navigation.
+tags = apple-maps
+en = Hide navigation controls
+pl = Ukryj elementy nawigacji
+ru = Скрыть элементы навигации
+uk = Сховати елементи навігації
+
+[navigation_accessibility_distance_remaining]
+comment = VoiceOver label for the remaining route distance during iOS navigation.
+tags = apple-maps
+en = Distance remaining
+pl = Pozostała odległość
+ru = Оставшееся расстояние
+uk = Відстань, що залишилася
+
+[navigation_accessibility_current_speed]
+comment = VoiceOver label for current speed during iOS navigation.
+tags = apple-maps
+en = Current speed
+pl = Aktualna prędkość
+ru = Текущая скорость
+uk = Поточна швидкість
+
+[navigation_accessibility_time_remaining]
+comment = VoiceOver label for the remaining route time during iOS navigation.
+tags = apple-maps
+en = Time remaining
+pl = Pozostały czas
+ru = Оставшееся время
+uk = Час, що залишився
+
+[navigation_accessibility_arrival_time]
+comment = VoiceOver label for the estimated arrival time during iOS navigation.
+tags = apple-maps
+en = Arrival time
+pl = Czas przyjazdu
+ru = Время прибытия
+uk = Час прибуття
+
+[navigation_accessibility_show_arrival_time]
+comment = VoiceOver hint for the time button when it shows remaining time during iOS navigation.
+tags = apple-maps
+en = Shows the arrival time
+pl = Pokazuje czas przyjazdu
+ru = Показывает время прибытия
+uk = Показує час прибуття
+
+[navigation_accessibility_show_time_remaining]
+comment = VoiceOver hint for the time button when it shows arrival time during iOS navigation.
+tags = apple-maps
+en = Shows the time remaining
+pl = Pokazuje pozostały czas
+ru = Показывает оставшееся время
+uk = Показує час, що залишився
+
+[navigation_accessibility_speed_limit]
+comment = VoiceOver value for the route speed limit on iOS. %@ is a localized speed or the unlimited-speed label.
+tags = apple-maps
+en = Speed limit: %@
+pl = Ograniczenie prędkości: %@
+ru = Ограничение скорости: %@
+uk = Обмеження швидкості: %@
+
+[navigation_accessibility_unlimited_speed]
+comment = VoiceOver value for a road without a speed limit during iOS navigation.
+tags = apple-maps
+en = Unlimited
+pl = Bez ograniczenia
+ru = Без ограничения
+uk = Без обмеження
+
+[navigation_accessibility_exit_highway_left]
+comment = VoiceOver instruction for a left highway exit during iOS navigation.
+tags = apple-maps
+en = Exit the highway to the left
+pl = Zjedź z autostrady w lewo
+ru = Съезд с автомагистрали налево
+uk = З’їзд з автомагістралі ліворуч
+
+[navigation_accessibility_exit_highway_right]
+comment = VoiceOver instruction for a right highway exit during iOS navigation.
+tags = apple-maps
+en = Exit the highway to the right
+pl = Zjedź z autostrady w prawo
+ru = Съезд с автомагистрали направо
+uk = З’їзд з автомагістралі праворуч
