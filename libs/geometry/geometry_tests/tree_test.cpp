@@ -62,6 +62,29 @@ UNIT_TEST(Tree4D_Smoke)
   TEST_EQUAL(1, test.size(), ());
 }
 
+UNIT_TEST(Tree4D_LargeOrderedInput)
+{
+  size_t constexpr count = 22000;
+  for (bool reverse : {false, true})
+  {
+    m4::Tree<size_t> tree;
+    for (size_t i = 0; i < count; ++i)
+    {
+      auto const value = reverse ? count - 1 - i : i;
+      auto const x = static_cast<double>(value);
+      tree.Add(value, R(x, x, x + 0.5, x + 0.5));
+    }
+    TEST_EQUAL(tree.GetSize(), count, ());
+    tree.Clear();
+    TEST(tree.IsEmpty(), ());
+    // Equal rectangles also produce an unbalanced tree.
+    for (size_t i = 0; i < count; ++i)
+      tree.Add(i, R(0, 0, 1, 1));
+    tree.Clear();
+    TEST(tree.IsEmpty(), ());
+  }
+}
+
 UNIT_TEST(Tree4D_ForAnyInRect)
 {
   Tree theTree;
