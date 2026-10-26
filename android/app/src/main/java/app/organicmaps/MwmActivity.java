@@ -1396,7 +1396,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     final boolean isLightMode = !app.organicmaps.sdk.util.Utils.isDarkMode(this);
     final Window window = getWindow();
-    window.setNavigationBarColor(Color.TRANSPARENT);
+    // Android 15 draws the app edge to edge with a transparent bar and ignores the color.
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.VANILLA_ICE_CREAM)
+      window.setNavigationBarColor(Color.TRANSPARENT);
     new WindowInsetsControllerCompat(window, window.getDecorView()).setAppearanceLightNavigationBars(isLightMode);
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
       window.setNavigationBarContrastEnforced(false);
