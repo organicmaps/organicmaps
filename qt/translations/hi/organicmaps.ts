@@ -477,6 +477,7 @@
 <translation>साइकिलिंग</translation>
 </message>
 <message id="button_layer_subway">
+<extracomment>Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges.</extracomment>
 <source>Subway</source>
 <translation>भूमिगत मार्ग</translation>
 </message>
@@ -519,7 +520,7 @@
 <translation>साइकिलिंग</translation>
 </message>
 <message id="routing_options_walking">
-<extracomment>Walking profile in routing options settings.</extracomment>
+<extracomment>Walking profile in routing options settings; also the label of a walking leg in transit route details.</extracomment>
 <source>Walking</source>
 <translation>पैदल</translation>
 </message>
