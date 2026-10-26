@@ -15,7 +15,7 @@ namespace common
 class QtOGLContextFactory : public dp::GraphicsContextFactory
 {
 public:
-  QtOGLContextFactory(QOpenGLContext * rootContext);
+  QtOGLContextFactory(QOpenGLContext * rootContext, QSize const & size);
   ~QtOGLContextFactory() override;
 
   void PrepareToShutdown();
@@ -35,6 +35,7 @@ private:
   std::unique_ptr<QOffscreenSurface> CreateSurface();
 
   QOpenGLContext * m_rootContext;
+  QSize const m_initialSize;
   std::unique_ptr<QtRenderOGLContext> m_drawContext;
   std::unique_ptr<QOffscreenSurface> m_drawSurface;
   std::unique_ptr<QtUploadOGLContext> m_uploadContext;

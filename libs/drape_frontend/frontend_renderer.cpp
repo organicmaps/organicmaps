@@ -2345,7 +2345,7 @@ bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport, m2::R
   }
 
   gOffset = m2::PointD(0, 0);
-  if (m_myPositionController->IsModeChangeViewport() || m_selectionShape == nullptr || oldViewport == newViewport ||
+  if (m_myPositionController->IsModeChangeViewport() || m_selectionShape == nullptr ||
       !m_selectionTrackInfo.has_value())
   {
     return false;
@@ -2395,7 +2395,8 @@ bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport, m2::R
     return false;
 
   m2::PointD pOffset(0.0, 0.0);
-  if ((oldViewport.IsIntersect(targetRect) && !newViewport.IsRectInside(rect)) ||
+  // Selection and geometry updates also recheck the current viewport without resizing it.
+  if (((oldViewport == newViewport || oldViewport.IsIntersect(targetRect)) && !newViewport.IsRectInside(rect)) ||
       (newViewport.IsRectInside(rect) && m_selectionTrackInfo->m_snapSides != m2::PointI::Zero()))
   {
     // In case the rect of the selection is [partly] hidden, scroll the map to keep it visible.
@@ -2423,6 +2424,9 @@ bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport, m2::R
       m_selectionTrackInfo->m_snapSides.y = 1;
     }
   }
+
+  if (pOffset == m2::PointD::Zero())
+    return false;
 
   double const ptZ = m_selectionShape->GetPositionZ();
   gOffset = screen.PtoG(screen.P3dtoP(*pos + pOffset, ptZ)) - screen.PtoG(screen.P3dtoP(*pos, ptZ));

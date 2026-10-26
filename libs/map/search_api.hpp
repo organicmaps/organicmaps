@@ -65,6 +65,7 @@ public:
   virtual ~SearchAPI() = default;
 
   void OnViewportChanged(m2::RectD const & viewport);
+  bool IsViewportInitialized() const { return m_isViewportInitialized; }
 
   void InitAfterWorldLoaded() { m_engine.InitAfterWorldLoaded(); }
 
