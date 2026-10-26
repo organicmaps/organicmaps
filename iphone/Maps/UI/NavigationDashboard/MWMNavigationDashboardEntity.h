@@ -11,6 +11,7 @@
 @property(nonatomic, readonly) double speedLimitMps;
 @property(nonatomic, readonly) CGFloat progress;
 @property(nonatomic, readonly) NSUInteger roundExitNumber;
+/// Remaining time in seconds; duration labels round it without affecting the arrival calculation.
 @property(nonatomic, readonly) NSUInteger timeToTarget;
 @property(nonatomic, readonly) UIImage * nextTurnImage;
 @property(nonatomic, readonly) UIImage * turnImage;

@@ -57,6 +57,7 @@ public final class TransitRouteInfo
     return mTotalPedestrianDistanceUnits;
   }
 
+  /** Total duration in seconds; UI formatters choose the display precision. */
   public int getTotalTime()
   {
     return mTotalTimeInSec;

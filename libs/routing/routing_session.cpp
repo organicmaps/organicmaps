@@ -22,8 +22,6 @@ double constexpr kShowPedestrianTurnInMeters = 20.0;
 double constexpr kRunawayDistanceSensitivityMeters = 0.01;
 
 double constexpr kCompletionPercentAccuracy = 5;
-
-double constexpr kMinimumETASec = 60.0;
 }  // namespace
 
 namespace routing
@@ -407,7 +405,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
   {
     info = FollowingInfo();
     info.m_distToTarget = platform::Distance::CreateFormatted(m_route->GetTotalDistanceMeters());
-    info.m_time = static_cast<int>(std::max(kMinimumETASec, m_route->GetCurrentTimeToEndSec()));
+    info.m_time = static_cast<int>(m_route->GetCurrentTimeToEndSec());
     return;
   }
 
@@ -434,7 +432,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
     info.m_nextTurn = routing::turns::CarDirection::None;
 
   info.m_exitNum = turn.m_exitNum;
-  info.m_time = static_cast<int>(std::max(kMinimumETASec, m_route->GetCurrentTimeToEndSec()));
+  info.m_time = static_cast<int>(m_route->GetCurrentTimeToEndSec());
 
   RouteSegment::RoadNameInfo currentRoadNameInfo;
   m_route->GetCurrentStreetName(currentRoadNameInfo);

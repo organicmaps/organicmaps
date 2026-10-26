@@ -73,6 +73,7 @@ struct TransitRouteInfo
 
   double m_totalDistInMeters = 0.0;
   double m_totalPedestrianDistInMeters = 0.0;
+  /// Total route time truncated to seconds, so the summary rounds the same way as the route balloons.
   int m_totalTimeInSec = 0;
   int m_totalPedestrianTimeInSec = 0;
 
@@ -170,6 +171,7 @@ private:
   std::map<std::string, m2::PointF> const & m_symbolSizes;
 
   TransitRouteInfo m_routeInfo;
+  double m_totalTimeSec = 0.0;
   std::vector<TransitMarkInfo> m_transitMarks;
 
   int m_subrouteIndex = 0;

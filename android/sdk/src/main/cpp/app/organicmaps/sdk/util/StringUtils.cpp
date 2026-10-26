@@ -4,6 +4,7 @@
 
 #include "indexer/search_string_utils.hpp"
 
+#include "platform/duration.hpp"
 #include "platform/localization.hpp"
 #include "platform/measurement_utils.hpp"
 #include "platform/settings.hpp"
@@ -68,6 +69,12 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_util_StringUtils_nativeFormatDistance
                                                                                  jdouble distanceInMeters)
 {
   return ToJavaDistance(env, platform::Distance::CreateFormatted(distanceInMeters));
+}
+
+JNIEXPORT jstring Java_app_organicmaps_sdk_util_StringUtils_nativeFormatRoutingDuration(JNIEnv * env, jclass,
+                                                                                        jint seconds)
+{
+  return jni::ToJavaString(env, platform::Duration(seconds).GetRoutingString());
 }
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_util_StringUtils_nativeGetLocalizedDistanceUnits(JNIEnv * env, jclass)

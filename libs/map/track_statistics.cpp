@@ -69,7 +69,7 @@ std::string TrackStatistics::GetFormattedLength() const
 
 std::string TrackStatistics::GetFormattedDuration() const
 {
-  return platform::Duration(static_cast<int>(m_duration)).GetPlatformLocalizedString();
+  return platform::Duration(m_duration).GetPlatformLocalizedString();
 }
 
 std::string TrackStatistics::GetFormattedAscent() const
