@@ -51,6 +51,7 @@ public class SelfServiceAdapter extends RecyclerView.Adapter<SelfServiceAdapter.
   {
     final TextView selfServiceDef;
     final CompoundButton selected;
+    String option;
 
     public ViewHolder(View itemView)
     {
@@ -66,16 +67,18 @@ public class SelfServiceAdapter extends RecyclerView.Adapter<SelfServiceAdapter.
 
     public void bind(int position)
     {
+      option = mItems[position];
       Context context = itemView.getContext();
-      selected.setChecked(mSelectedOption.equals(mItems[position]));
-      String text = Utils.getTagValueLocalized(context, "self_service", mItems[position]);
+      selected.setChecked(mSelectedOption.equals(option));
+      String text = Utils.getTagValueLocalized(context, "self_service", option);
       selfServiceDef.setText(text);
     }
 
     @Override
     public void onClick(View v)
     {
-      mSelectedOption = mItems[getBindingAdapterPosition()];
+      // Not getBindingAdapterPosition(): it is NO_POSITION for a second tap queued behind notifyDataSetChanged().
+      mSelectedOption = option;
       notifyDataSetChanged();
       mFragment.saveSelection(mSelectedOption);
     }
