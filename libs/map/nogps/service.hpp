@@ -18,10 +18,8 @@ class RoutingMapApi : public MapApi
 {
 public:
   using ShowCarHeadingFn = std::function<void(double bearingDeg)>;
-  using ShowOffRoadCarFn = std::function<void(std::optional<ms::LatLon> const & position)>;
 
-  RoutingMapApi(SessionRoute & route, Clock const & clock, ShowCarHeadingFn && showCarHeading,
-                ShowOffRoadCarFn && showOffRoadCar);
+  RoutingMapApi(SessionRoute & route, Clock const & clock, ShowCarHeadingFn && showCarHeading);
 
   // MapApi overrides:
   bool IsNavigating() const override;
@@ -35,7 +33,6 @@ public:
   std::optional<RoadPoint> SnapToMainRoad(ms::LatLon const & position, double radiusM) override;
   std::string GetDistanceLeft() const override;
   void ShowCarHeading(double bearingDeg) override { m_showCarHeading(bearingDeg); }
-  void ShowOffRoadCar(std::optional<ms::LatLon> const & position) override { m_showOffRoadCar(position); }
 
 private:
   class RoutingRoads : public Roads
@@ -56,7 +53,6 @@ private:
   SessionRoute & m_route;
   Clock const & m_clock;
   ShowCarHeadingFn m_showCarHeading;
-  ShowOffRoadCarFn m_showOffRoadCar;
   RoutingRoads m_roads;
   RoutingRoads m_routeRoads;
 };
@@ -65,8 +61,7 @@ private:
 class Service
 {
 public:
-  Service(Delegate & delegate, SessionRoute & route, RoutingMapApi::ShowCarHeadingFn && showCarHeading,
-          RoutingMapApi::ShowOffRoadCarFn && showOffRoadCar);
+  Service(Delegate & delegate, SessionRoute & route, RoutingMapApi::ShowCarHeadingFn && showCarHeading);
 
   Engine & GetEngine() { return m_engine; }
   Clock const & GetClock() const { return m_clock; }

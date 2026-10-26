@@ -345,7 +345,7 @@ public:
     , m_storage(std::ifstream(inputPath.substr(0, inputPath.find_last_of('/') + 1) + "nogps-replay-fresh.txt").good())
     , m_route(routing, m_clock, [this](std::string const & text) { Write(text); })
     , m_delegate([this](Fix const & fix) { m_route.OnPosition(fix); })
-    , m_map(m_route.Get(), m_clock, [](double) {}, [](std::optional<ms::LatLon> const &) {})
+    , m_map(m_route.Get(), m_clock, [](double) {})
   {
     std::remove(m_donePath.c_str());
     NewEngine();

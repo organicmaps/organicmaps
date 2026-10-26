@@ -330,7 +330,6 @@ private:
   bool IsInertialActive() const;
   std::optional<double> GetCarBearing() const;
   void ShowCarHeading();
-  void ShowOffRoadCar();
   void NotifyLocationUpdated();
   /// GPS gives a position every second, and the map moves the mark to a new one in 0.2 s: it would jump and stand.
   /// Between GPS positions the car is shown by the inertial navigation, which continues from every good GPS position.
@@ -414,8 +413,6 @@ private:
   // The mark has been on the road of the route since the route was left by a car beside it: a route that
   // does not start from the road of the car is not rebuilt again and again.
   bool m_wasOnRouteRoad = true;
-  // The car maneuvering off the roads as the map shows it now, see ShowOffRoadCar().
-  std::optional<ms::LatLon> m_shownOffRoadCar;
   // When the last position of the platform was shown: the positions between GPS ones go on from it since then.
   int64_t m_fixShownMs = 0;
   // Positions shown between GPS positions since the last line of the trip log.
