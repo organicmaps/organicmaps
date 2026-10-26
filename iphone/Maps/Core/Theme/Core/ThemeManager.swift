@@ -25,21 +25,13 @@ final class ThemeManager: NSObject {
 
     updateSystemUserInterfaceStyle(effectivePreference)
 
-    let actualTheme: MWMTheme = { theme in
-      let isVehicleRouting = MWMRouter.isRoutingActive() && (MWMRouter.type() == .vehicle)
-      switch theme {
-      case .day: fallthrough
-      case .vehicleDay: return isVehicleRouting ? .vehicleDay : .day
-      case .night: fallthrough
-      case .vehicleNight: return isVehicleRouting ? .vehicleNight : .night
-      case .auto:
-        let isDarkModeEnabled = UIScreen.main.traitCollection.userInterfaceStyle == .dark
-        guard isVehicleRouting else { return isDarkModeEnabled ? .night : .day }
-        return isDarkModeEnabled ? .vehicleNight : .vehicleDay
-      @unknown default:
-        fatalError()
-      }
-    }(effectivePreference)
+    let routingManager = RoutingManager.routingManager
+    let isVehicleNavigation = routingManager.isNavigating && routingManager.type == .vehicle
+    let actualTheme = Self.resolveMapTheme(
+      effectivePreference,
+      isVehicleNavigation: isVehicleNavigation,
+      systemStyle: UIScreen.main.traitCollection.userInterfaceStyle
+    )
 
     let newNightMode = actualTheme == .night || actualTheme == .vehicleNight
 
@@ -52,6 +44,23 @@ final class ThemeManager: NSObject {
       // Re-apply styles for non-dynamic properties (CGColor, themed images).
       isNightMode = newNightMode
       StyleManager.shared.update()
+    }
+  }
+
+  static func resolveMapTheme(_ preference: MWMTheme,
+                              isVehicleNavigation: Bool,
+                              systemStyle: UIUserInterfaceStyle) -> MWMTheme {
+    switch preference {
+    case .day: fallthrough
+    case .vehicleDay: return isVehicleNavigation ? .vehicleDay : .day
+    case .night: fallthrough
+    case .vehicleNight: return isVehicleNavigation ? .vehicleNight : .night
+    case .auto:
+      let isDarkModeEnabled = systemStyle == .dark
+      guard isVehicleNavigation else { return isDarkModeEnabled ? .night : .day }
+      return isDarkModeEnabled ? .vehicleNight : .vehicleDay
+    @unknown default:
+      fatalError()
     }
   }
 
