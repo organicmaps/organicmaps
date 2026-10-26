@@ -106,9 +106,9 @@ public class StreetAdapter extends RecyclerView.Adapter<StreetAdapter.BaseViewHo
     public void bind(int position)
     {
       street = mStreets[position];
-      selected.setChecked(mSelectedStreet.defaultName.equals(mStreets[position].defaultName));
-      streetDef.setText(mStreets[position].defaultName);
-      UiUtils.setTextAndHideIfEmpty(streetLoc, mStreets[position].localizedName);
+      selected.setChecked(mSelectedStreet.defaultName.equals(street.defaultName));
+      streetDef.setText(street.defaultName);
+      UiUtils.setTextAndHideIfEmpty(streetLoc, street.localizedName);
     }
 
     @Override
