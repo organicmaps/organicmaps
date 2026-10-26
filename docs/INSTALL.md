@@ -317,7 +317,10 @@ ctest --preset drape-debug
 
 OpenGL tests are enabled by default and fail if a working context is unavailable.
 Configure with `-DBUILD_OPENGL_TESTS=OFF` to exclude them while keeping CPU tests and offline shader compilation tests.
-Windows CI uses this option until its rendering backend is configured.
+Windows CI uses Qt's bundled Mesa software renderer with the native `windows` platform.
+To use the same setup locally, copy `opengl32sw.dll` from Qt's `bin` directory to `build/opengl32.dll`,
+then run `ctest --preset ci-drape-windows` after building with the `ci-windows` preset.
+The DLL must be named `opengl32.dll` so Drape's direct OpenGL/WGL calls and Qt use the same implementation.
 On macOS, use the native Cocoa platform (`QT_QPA_PLATFORM=cocoa`). On headless Linux, install `xvfb`,
 `xauth`, and Mesa's software drivers, then run:
 

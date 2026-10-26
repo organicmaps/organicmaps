@@ -197,6 +197,12 @@ jobs:
       - name: Compile
         run: cmake --build --preset $PRESET
 
+      - name: Prepare software OpenGL (Windows)
+        if: ${{ runner.os == 'Windows' }}
+        # Drape imports OpenGL/WGL directly, so use the same Mesa DLL for it and Qt.
+        # The ci-drape-windows preset points QT_OPENGL_DLL at this copy.
+        run: cp "$QT_ROOT_DIR/bin/opengl32sw.dll" build/opengl32.dll
+
       - name: Prepare testing environment (Linux)
         if: ${{ runner.os == 'Linux' }}
         run: |
@@ -223,13 +229,12 @@ jobs:
         # CTest 3.29+ (provided by the CI images) selects the parallelism itself.
         run: ctest --preset "$PRESET" --parallel
 
-      # Use a real GL context for rendering tests: Mesa/Xvfb on Linux and Cocoa on macOS.
+      # Use Mesa/Xvfb on Linux, Cocoa on macOS, and Qt's bundled Mesa on Windows.
       # Keep Qt platform selection local to this step; it affects network tests on macOS.
-      # The Windows configure preset excludes tests requiring GL until its backend is configured.
       - name: Run drape tests
         if: ${{ matrix.environment.run-tests != 'OFF' }}
         env:
-          QT_QPA_PLATFORM: ${{ runner.os == 'Linux' && 'xcb' || runner.os == 'macOS' && 'cocoa' || 'offscreen' }}
+          QT_QPA_PLATFORM: ${{ runner.os == 'Linux' && 'xcb' || runner.os == 'macOS' && 'cocoa' || 'windows' }}
           LIBGL_ALWAYS_SOFTWARE: ${{ runner.os == 'Linux' && 'true' || '' }}
         run: |
           if [[ "$RUNNER_OS" == 'Linux' ]]; then
