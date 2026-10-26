@@ -38,12 +38,10 @@ final class ListTemplateBuilder {
         }
       }
       trailingNavigationBarButtons = [searchButton, bookmarksButton]
-    case .bookmarkLists:
+    case .bookmarkLists, .bookmarks:
       title = L("bookmarks")
     case .searchResults:
       title = L("search_results")
-    case .bookmarks(let category):
-      title = category.title
     }
     let template = CPListTemplate(title: title, sections: [])
     switch type {
@@ -58,7 +56,7 @@ final class ListTemplateBuilder {
     return template
   }
 
-  /// Rebuilds the rows of a bookmark list template from the currently loaded bookmarks. Other templates are left as is.
+  /// Refreshes bookmark rows, category names and counts from loaded data. Other templates are left as is.
   class func refreshBookmarks(in template: CPTemplate) {
     guard let listTemplate = template as? CPListTemplate,
           let type = listTemplate.userInfo as? ListTemplateType else { return }
@@ -76,7 +74,7 @@ final class ListTemplateBuilder {
     case .history:
       obtainHistory(template: template)
     case .bookmarks(let category):
-      obtainBookmarks(template: template, categoryId: category.categoryId)
+      obtainBookmarks(template: template, category: category)
     case .bookmarkLists:
       obtainCategories(template: template)
     case .searchResults(let results):
@@ -113,14 +111,15 @@ final class ListTemplateBuilder {
     template.updateSections([section])
   }
 
-  private class func obtainBookmarks(template: CPListTemplate, categoryId: MWMMarkGroupID) {
+  private class func obtainBookmarks(template: CPListTemplate, category: BookmarkGroup) {
     let bookmarkManager = BookmarksManager.shared()
+    let categoryId = category.categoryId
     guard bookmarkManager.hasCategory(categoryId) else {
       template.updateSections([])
       return
     }
     let maxItemCount = CPListTemplate.maximumItemCount
-    let isTruncated = bookmarkManager.getCategoryMarksCount(categoryId) > UInt64(maxItemCount)
+    let isTruncated = category.bookmarksCount > maxItemCount
     let bookmarks = bookmarkManager.bookmarks(forCategory: categoryId, limit: isTruncated ? maxItemCount - 1 : maxItemCount)
     var items = bookmarks.map { bookmark -> CPListItem in
       let item = CPListItem(text: bookmark.prefferedName, detailText: bookmark.address)
@@ -134,7 +133,8 @@ final class ListTemplateBuilder {
       cropWarning.isEnabled = false
       items.append(cropWarning)
     }
-    let section = CPListSection(items: items)
+    // Section headers can refresh in place; CarPlay navigation titles are immutable.
+    let section = CPListSection(items: items, header: category.title, sectionIndexTitle: nil)
     template.updateSections([section])
   }
 
