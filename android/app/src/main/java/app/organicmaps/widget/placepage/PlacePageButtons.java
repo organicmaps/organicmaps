@@ -1,5 +1,6 @@
 package app.organicmaps.widget.placepage;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,13 +10,16 @@ import android.widget.TextView;
 import androidx.annotation.AttrRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import app.organicmaps.R;
+import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.util.Graphics;
+import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import java.util.ArrayList;
@@ -95,15 +99,30 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
   {
     if (buttons == null)
       return;
+    final RoutingController routing = RoutingController.get();
+    final boolean needsStart = routing.isPlanning() && routing.getStartPoint() == null;
     List<PlacePageButton> shownButtons = collectButtons(buttons);
     mButtonsContainer.removeAllViews();
     for (PlacePageButton button : shownButtons)
-      mButtonsContainer.addView(createButton(button));
+      mButtonsContainer.addView(createButton(button, isPrimary(button.getType(), buttons, needsStart)));
   }
 
-  private View createButton(@NonNull final PlacePageButton current)
+  @VisibleForTesting
+  static boolean isPrimary(@NonNull ButtonType type, @NonNull List<ButtonType> buttons, boolean needsStart)
   {
-    LayoutInflater inflater = LayoutInflater.from(requireContext());
+    return switch (type)
+    {
+      case ROUTE_ADD, ROUTE_APPEND, ROUTE_REPLACE -> true;
+      case ROUTE_FROM -> needsStart;
+      case ROUTE_TO -> !needsStart && !buttons.contains(ButtonType.ROUTE_ADD);
+      default -> false;
+    };
+  }
+
+  private View createButton(@NonNull final PlacePageButton current, boolean isPrimary)
+  {
+    final Context context = requireContext();
+    LayoutInflater inflater = LayoutInflater.from(context);
     View parent = inflater.inflate(R.layout.place_page_button, mButtonsContainer, false);
 
     ImageView icon = parent.findViewById(R.id.icon);
@@ -111,8 +130,16 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
 
     title.setText(current.getTitle());
     @AttrRes
-    final int tint = current.getType() == ButtonType.BOOKMARK_DELETE ? R.attr.iconTintActive : R.attr.iconTint;
-    icon.setImageDrawable(Graphics.tint(getContext(), current.getIcon(), tint));
+    final int tint;
+    if (isPrimary)
+      tint = androidx.appcompat.R.attr.colorAccent;
+    else if (current.getType() == ButtonType.BOOKMARK_DELETE)
+      tint = R.attr.iconTintActive;
+    else
+      tint = R.attr.iconTint;
+    icon.setImageDrawable(Graphics.tint(context, current.getIcon(), tint));
+    if (isPrimary)
+      title.setTextColor(ThemeUtils.getColor(context, tint));
     parent.setOnClickListener((view) -> {
       if (current.getType() == ButtonType.MORE)
         showMoreBottomSheet();
