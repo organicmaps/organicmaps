@@ -16,6 +16,9 @@ For more information, please see the source code at [`Framework::ParseSearchQuer
 - `?olight` or `mapstyle:outdoors_light`: Same as `?light`, but using the outdoor variant.
 - `?vdark` or `mapstyle:vdark`: Same as `?dark`, but using the vehicle variant.
 - `?vlight` or `mapstyle:vlight`: Same as `?light`, but using the vehicle variant.
+- `?edark` or `mapstyle:explorer_dark`: Same as `?dark`, but using the explorer variant.
+- `?elight` or `mapstyle:explorer_light`: Same as `?light`, but using the explorer variant.
+
 
 ### Post processing
 
