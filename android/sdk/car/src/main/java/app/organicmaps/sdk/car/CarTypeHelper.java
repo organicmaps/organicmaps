@@ -7,7 +7,7 @@ import org.jspecify.annotations.Nullable;
 public final class CarTypeHelper
 {
   @Nullable
-  static CarType sCarType;
+  private static CarType sCarType;
 
   @NonNull
   public static CarType getCarType()
