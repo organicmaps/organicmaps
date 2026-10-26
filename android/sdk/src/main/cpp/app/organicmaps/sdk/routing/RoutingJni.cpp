@@ -310,22 +310,6 @@ jobject CreateTransitRouteInfo(JNIEnv * env, TransitRouteInfo const & routeInfo)
                         steps.get());
 }
 
-jobjectArray CreateJunctionInfoArray(JNIEnv * env, std::vector<geometry::PointWithAltitude> const & junctionPoints)
-{
-  using namespace jni;
-
-  static jclass const junctionClazz = GetGlobalClassRef(env, "app/organicmaps/sdk/routing/JunctionInfo");
-  // Java signature : JunctionInfo(double lat, double lon)
-  static jmethodID const junctionConstructor = GetConstructorID(env, junctionClazz, "(DD)V");
-
-  return ToJavaArray(env, junctionClazz, junctionPoints,
-                     [](JNIEnv * env, geometry::PointWithAltitude const & pointWithAltitude)
-  {
-    auto const ll = pointWithAltitude.ToLatLon();
-    return env->NewObject(junctionClazz, junctionConstructor, ll.m_lat, ll.m_lon);
-  });
-}
-
 RouteMarkType GetRouteMarkType(JNIEnv * env, jobject markType)
 {
   static jmethodID const ordinal = jni::GetMethodID(env, markType, "ordinal", "()I");

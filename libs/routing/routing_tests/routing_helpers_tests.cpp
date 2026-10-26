@@ -10,6 +10,7 @@
 
 #include "indexer/feature_altitude.hpp"
 
+#include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/point_with_altitude.hpp"
 #include "geometry/rect2d.hpp"
@@ -132,5 +133,37 @@ UNIT_TEST(PolylineInRectTest)
     });
     TEST(RectCoversPolyline(junctions, m2::RectD(0.0, 0.0, 1.0, 1.0)), ());
   }
+}
+
+UNIT_TEST(DensifyJunctions_Interpolates)
+{
+  double constexpr kMaxStepM = 13.9;
+  double constexpr kLon = 37.0;
+  double constexpr kLatA = 55.0;
+  double constexpr kLatB = 55.00027;
+  geometry::PointWithAltitude const a(mercator::FromLatLon(kLatA, kLon));
+  geometry::PointWithAltitude const b(mercator::FromLatLon(kLatB, kLon));
+
+  auto const points = DensifyJunctions({a, b}, kMaxStepM);
+
+  TEST_EQUAL(points.size(), 4, (points));
+  for (size_t i = 0; i < points.size(); ++i)
+  {
+    auto const latLon = points[i].ToLatLon();
+    TEST_ALMOST_EQUAL_ABS(latLon.m_lat, kLatA + (kLatB - kLatA) * i / 3.0, 1e-7, (i));
+    TEST_ALMOST_EQUAL_ABS(latLon.m_lon, kLon, 1e-7, (i));
+  }
+}
+
+UNIT_TEST(DensifyJunctions_Edges)
+{
+  double constexpr kMaxStepM = 13.9;
+  geometry::PointWithAltitude const a(mercator::FromLatLon(55.0, 37.0));
+  geometry::PointWithAltitude const b(mercator::FromLatLon(55.00009, 37.0));
+
+  TEST(DensifyJunctions({}, kMaxStepM).empty(), ());
+  TEST_EQUAL(DensifyJunctions({a}, kMaxStepM), vector<geometry::PointWithAltitude>({a}), ());
+  TEST_EQUAL(DensifyJunctions({a, b}, kMaxStepM), vector<geometry::PointWithAltitude>({a, b}), ());
+  TEST_EQUAL(DensifyJunctions({a, a, b}, kMaxStepM), vector<geometry::PointWithAltitude>({a, a, b}), ());
 }
 }  // namespace routing_test

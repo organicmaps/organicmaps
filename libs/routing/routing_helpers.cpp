@@ -7,6 +7,7 @@
 #include "routing/segment.hpp"
 #include "routing/world_graph.hpp"
 
+#include "geometry/distance_on_sphere.hpp"
 #include "geometry/mercator.hpp"
 
 #include <algorithm>
@@ -112,6 +113,30 @@ bool RectCoversPolyline(IRoadGraph::PointWithAltitudeVec const & junctions, m2::
   }
 
   return false;
+}
+
+RouteJunctions DensifyJunctions(RouteJunctions const & junctions, double maxStepMeters)
+{
+  ASSERT_GREATER(maxStepMeters, 0.0, ());
+
+  RouteJunctions result;
+  if (junctions.empty())
+    return result;
+
+  result.reserve(junctions.size());
+  result.push_back(junctions[0]);
+  for (size_t i = 1; i < junctions.size(); ++i)
+  {
+    double const dist = ms::DistanceOnEarth(junctions[i - 1].ToLatLon(), junctions[i].ToLatLon());
+    if (dist > maxStepMeters)
+    {
+      int const steps = static_cast<int>(dist / maxStepMeters) + 1;
+      for (int s = 1; s < steps; ++s)
+        result.push_back(junctions[i - 1].Interpolate(junctions[i], static_cast<double>(s) / steps));
+    }
+    result.push_back(junctions[i]);
+  }
+  return result;
 }
 
 // TODO(AB): Consider using std::unordered_set instead of std::set for better performance.

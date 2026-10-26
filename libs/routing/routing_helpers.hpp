@@ -71,6 +71,8 @@ bool SegmentCrossesRect(m2::Segment2D const & segment, m2::RectD const & rect);
 // \returns true if any part of polyline |junctions| lay in |rect| and false otherwise.
 bool RectCoversPolyline(IRoadGraph::PointWithAltitudeVec const & junctions, m2::RectD const & rect);
 
+RouteJunctions DensifyJunctions(RouteJunctions const & junctions, double maxStepMeters);
+
 /// \brief Checks is edge connected with world graph. Function does BFS while it finds some number
 /// of edges,
 /// if graph ends before this number is reached then junction is assumed as not connected to the
