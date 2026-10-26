@@ -42,6 +42,17 @@ storage::Storage & GetStorage()
   return g_framework->GetStorage();
 }
 
+storage::CountriesVec ToCountriesVec(JNIEnv * env, jobjectArray jcountries)
+{
+  storage::CountriesVec countries(env->GetArrayLength(jcountries));
+  for (size_t i = 0; i < countries.size(); ++i)
+  {
+    jni::TScopedLocalRef const item(env, env->GetObjectArrayElement(jcountries, static_cast<jsize>(i)));
+    countries[i] = jni::ToNativeString(env, static_cast<jstring>(item.get()));
+  }
+  return countries;
+}
+
 storage::Storage & GetThreadedStorage()
 {
   return g_framework.thread_check()->GetStorage();
@@ -123,15 +134,7 @@ JNIEXPORT jlong Java_app_organicmaps_sdk_downloader_MapManager_nativeGetDownload
                                                                                      jobjectArray jcountries,
                                                                                      jboolean withTerrain)
 {
-  int const size = env->GetArrayLength(jcountries);
-  storage::CountriesVec countries;
-  countries.reserve(size);
-  for (int i = 0; i < size; ++i)
-  {
-    jni::TScopedLocalRef const item(env, env->GetObjectArrayElement(jcountries, i));
-    countries.push_back(jni::ToNativeString(env, static_cast<jstring>(item.get())));
-  }
-  return static_cast<jlong>(GetStorage().GetDownloadSize(countries, withTerrain));
+  return static_cast<jlong>(GetStorage().GetDownloadSize(ToCountriesVec(env, jcountries), withTerrain));
 }
 
 // static boolean nativeHasSpaceToUpdate(String root);
@@ -522,17 +525,7 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_downloader_MapManager_nativeHasUnsav
 JNIEXPORT jlongArray Java_app_organicmaps_sdk_downloader_MapManager_nativeGetOverallProgressBytes(
     JNIEnv * env, jclass clazz, jobjectArray jcountries)
 {
-  int const size = env->GetArrayLength(jcountries);
-  storage::CountriesVec countries;
-  countries.reserve(size);
-
-  for (int i = 0; i < size; i++)
-  {
-    jni::TScopedLocalRef const item(env, env->GetObjectArrayElement(jcountries, i));
-    countries.push_back(jni::ToNativeString(env, static_cast<jstring>(item.get())));
-  }
-
-  downloader::Progress const progress = GetStorage().GetOverallProgress(countries);
+  downloader::Progress const progress = GetStorage().GetOverallProgress(ToCountriesVec(env, jcountries));
 
   return jni::ToJavaLongArray(env, std::array<jlong, 2>{static_cast<jlong>(progress.m_bytesDownloaded),
                                                         static_cast<jlong>(progress.m_bytesTotal)});

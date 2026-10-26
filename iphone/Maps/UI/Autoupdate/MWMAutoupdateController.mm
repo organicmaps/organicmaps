@@ -286,22 +286,10 @@ using namespace storage;
 
   if (!nodeStatuses.m_groupNode)
   {
-    auto const & storage = GetFramework().GetStorage();
     switch (nodeStatuses.m_status)
     {
     case NodeStatus::Error:
     case NodeStatus::OnDisk: m_updatingCountries.erase(countryId.UTF8String); break;
-    case NodeStatus::OnDiskOutOfDate:
-      // The map is updated, but its terrain failed: done here, Update retries it later.
-      if (storage.GetTerrainAttrs(countryId.UTF8String).m_status == Storage::TerrainStatus::Failed)
-      {
-        m_updatingCountries.erase(countryId.UTF8String);
-        // The failed bytes never complete the batch progress.
-        if (!storage.IsDownloadInProgress())
-          self.progressFinished = YES;
-        break;
-      }
-      [[fallthrough]];
     default: m_updatingCountries.insert(countryId.UTF8String);
     }
   }

@@ -719,11 +719,7 @@ void Framework::RegisterAllMaps()
     VERIFY(m_terrainProvider.RegisterBlock(file), (file.m_path));
   m_terrainRegistered = true;
   // RegisterAllMaps can run on the map-loading thread.
-  GetPlatform().RunTask(Platform::Thread::Gui, [this]
-  {
-    OnTerrainChanged(mercator::Bounds::FullRect());
-    InvalidateIsolines();
-  });
+  GetPlatform().RunTask(Platform::Thread::Gui, [this] { OnTerrainChanged(mercator::Bounds::FullRect()); });
 }
 
 void Framework::DeregisterAllMaps()

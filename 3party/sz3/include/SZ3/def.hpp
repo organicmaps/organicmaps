@@ -20,7 +20,8 @@ typedef unsigned char uchar;
 
 // In nofma(a * b) + c the product is rounded before the add, so the compiler cannot merge them into one
 // FMA instruction, which rounds only once; otherwise a build with FMA and one without decompress different values.
-// Terrain opts out of volatile spills only with -fno-fast-math -ffp-contract=off in every SZ3 translation unit.
+// Organic Maps (Alexander Borsuk): SZ3_ASSUME_STRICT_FP drops the volatile spills; define it only together with
+// -fno-fast-math -ffp-contract=off for the same translation unit (see README.organicmaps).
 #if defined(SZ3_ASSUME_STRICT_FP) && defined(__FAST_MATH__)
 #error "SZ3_ASSUME_STRICT_FP requires -fno-fast-math and -ffp-contract=off"
 #endif
@@ -40,8 +41,9 @@ ALWAYS_INLINE T nofma(T x) {
 #if FLT_EVAL_METHOD > 0
 #error "SZ3 does not support x87 floating point; on 32-bit x86 build with -msse2 -mfpmath=sse"
 #endif
-#if defined(__FAST_MATH__) && !defined(__clang__)
-#error "SZ3 does not support GCC's -ffast-math or -Ofast"
+// Organic Maps (Viktor Govako): Clang's fast math is refused as well, it reassociates and contracts the reconstruction.
+#if defined(__FAST_MATH__)
+#error "SZ3 does not support -ffast-math or -Ofast"
 #endif
 }  // namespace SZ3
 

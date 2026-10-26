@@ -15,7 +15,8 @@ tests, installation, shared libraries, LTO or architecture-specific flags. It re
 upstream build integration, which assumes CMAKE_SOURCE_DIR is the SPERR source directory.
 Bitmask.h and Bitstream.h inline the hot bit accessors. SPECK_INT.cpp skips
 per-bit prefix exhaustion checks when a complete stream is available, retaining
-the original path for partial/progressive streams. Transform arithmetic and
+the original path for partial/progressive streams, and includes <bit>
+unconditionally (MSVC reports __cplusplus 199711L). Transform arithmetic and
 decoded values are unchanged.
 
 Terrain profile 1 uses the headerless 2D pointwise-error bitstream.

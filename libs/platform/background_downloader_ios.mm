@@ -260,24 +260,47 @@ NSErrorDomain const BackgroundDownloaderHttpErrorDomain = @"app.omaps.http";
   }
   else
   {
-    NSURL * destinationUrl = [self.saveStrategy getLocationForTask:downloadTask];
-    if (destinationUrl != nil)
-    {
-      // The destination may hold a complete file of an interrupted earlier attempt
-      // (e.g. a .twm.ready landed while the app was dead): moveItemAtURL refuses to
-      // overwrite, which would fail-loop the re-download forever.
-      [[NSFileManager defaultManager] removeItemAtURL:destinationUrl error:nil];
-      [[NSFileManager defaultManager] moveItemAtURL:location.filePathURL toURL:destinationUrl error:&error];
-    }
-    else
-    {
-      LOG(LWARNING,
-          ("Can't resolve a save path for a restored download:", downloadTask.currentRequest.URL.absoluteString));
-      error = [[NSError alloc] initWithDomain:BackgroundDownloaderHttpErrorDomain code:500 userInfo:nil];
-      [[NSFileManager defaultManager] removeItemAtURL:location.filePathURL error:nil];
-    }
+    // The task ownership changes on the main queue (cancel, restart), and the downloaded file lives only
+    // until this method returns: check the ownership and replace the destination there.
+    __block NSError * saveError = nil;
+    dispatch_sync(dispatch_get_main_queue(), ^{ saveError = [self saveDownloadedFile:location forTask:downloadTask]; });
+    error = saveError;
   }
   dispatch_async(dispatch_get_main_queue(), ^{ [self finishDownloading:downloadTask error:error]; });
+}
+
+- (nullable NSError *)saveDownloadedFile:(NSURL *)location forTask:(NSURLSessionTask *)downloadTask
+{
+  NSURL * destinationUrl = [self.saveStrategy getLocationForTask:downloadTask];
+  if (destinationUrl == nil)
+  {
+    LOG(LWARNING,
+        ("Can't resolve a save path for a restored download:", downloadTask.currentRequest.URL.absoluteString));
+    [[NSFileManager defaultManager] removeItemAtURL:location.filePathURL error:nil];
+    return [[NSError alloc] initWithDomain:BackgroundDownloaderHttpErrorDomain code:500 userInfo:nil];
+  }
+
+  // A cancelled or replaced task must not replace the file of the attempt that took over its destination.
+  // A task of the previous app session, not attached yet, still saves: its file is reused when requested.
+  if (self.tasks[@(downloadTask.taskIdentifier)] == nil)
+  {
+    for (TaskInfo * info in self.tasks.allValues)
+    {
+      if ([[self.saveStrategy getLocationForTask:info.task].path isEqualToString:destinationUrl.path])
+      {
+        [[NSFileManager defaultManager] removeItemAtURL:location.filePathURL error:nil];
+        return nil;
+      }
+    }
+  }
+
+  // The destination may hold a complete file of an interrupted earlier attempt
+  // (e.g. a .twm.ready landed while the app was dead): moveItemAtURL refuses to
+  // overwrite, which would fail-loop the re-download forever.
+  NSError * error = nil;
+  [[NSFileManager defaultManager] removeItemAtURL:destinationUrl error:nil];
+  [[NSFileManager defaultManager] moveItemAtURL:location.filePathURL toURL:destinationUrl error:&error];
+  return error;
 }
 
 - (void)URLSession:(NSURLSession *)session

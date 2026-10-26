@@ -564,8 +564,9 @@ is not met.
 - Exception: `CHECK` is appropriate before allocations or memory ranges controlled by stream-derived
   sizes, and before container access with stream-derived indices. Include the size/index and
   bound so Release crash logs identify the violated constraint.
-- Exception: `Framework::RegisterAllMaps()` must survive broken map files so the app can start
-  and bookmarks can be exported.
+- Exception: `Framework::RegisterAllMaps()` must survive broken map files and invalid terrain
+  blocks (logged and skipped, terrain asserts in Debug) so the app can start and bookmarks can be
+  exported.
 
 **Regression detection:**
 

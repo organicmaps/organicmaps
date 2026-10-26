@@ -7,6 +7,7 @@
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
 
+#include "coding/file_writer.hpp"
 #include "coding/files_container.hpp"
 #include "coding/point_coding.hpp"
 #include "coding/varint.hpp"
@@ -240,5 +241,42 @@ UNIT_TEST(TwmSet_ReregisterAfterReaderFailure)
   auto const [newId, result] = set.Register(downloaded);
   TEST_EQUAL(result, terrain::TwmSet::RegResult::Success, ());
   TEST(set.GetHandleById(newId).IsAlive(), ());
+}
+
+UNIT_TEST(TwmSet_BadFile)
+{
+  std::string const dir = base::JoinPath(GetPlatform().WritableDir(), "twm_set_bad_file_test");
+  platform::tests_support::ScopedDirCleanup const cleanup(dir);
+  std::string const path = base::JoinPath(dir, "N00E000.twm");
+  {
+    FileWriter writer(path);
+    writer.Write("garbage", 7);
+  }
+
+  // Framework::RegisterAllMaps skips the file, see the error handling policy in CLAUDE.md.
+  base::ScopedLogAbortLevelChanger const expectedReaderFailure(LCRITICAL);
+  terrain::TwmFile file;
+  TEST_EQUAL(terrain::TwmSet::ReadFile(path, 0, file), terrain::TwmSet::RegResult::BadFile, ());
+}
+
+UNIT_TEST(TwmSet_ObsoleteVersion)
+{
+  std::string const dir = base::JoinPath(GetPlatform().WritableDir(), "twm_set_obsolete_test");
+  platform::tests_support::ScopedDirCleanup const cleanup(dir);
+  // A valid container whose header opens with an old format version byte: reported for
+  // deletion during the storage scan. Validation keeps reporting the old format,
+  // so a failed deletion retries on the next rescan.
+  std::string const path = base::JoinPath(dir, "N00E000.twm");
+  {
+    FilesContainerW container(path);
+    uint8_t const version = 1;
+    container.Write(&version, 1, terrain::kHeaderTag);
+    container.Finish();
+  }
+
+  base::ScopedLogAbortLevelChanger const expectedReaderFailure(LCRITICAL);
+  terrain::TwmFile file;
+  TEST_EQUAL(terrain::TwmSet::ReadFile(path, 0, file), terrain::TwmSet::RegResult::ObsoleteVersion, ());
+  TEST_EQUAL(terrain::TwmSet::ReadFile(path, 0, file), terrain::TwmSet::RegResult::ObsoleteVersion, ());
 }
 }  // namespace twm_set_tests

@@ -218,7 +218,7 @@ class DownloadMapsViewController: MWMViewController {
     let parentAttributes = dataSource.parentAttributes()
     let error = parentAttributes.nodeStatus == .error || parentAttributes.nodeStatus == .undefined
     let rootDownloading = dataSource.isRoot && dataSource is DownloadedMapsDataSource && Storage.shared().downloadInProgress()
-    footerShowsProgress = rootDownloading || parentAttributes.nodeStatus == .downloading
+    let downloading = rootDownloading || parentAttributes.nodeStatus == .downloading
       || parentAttributes.nodeStatus == .inQueue || parentAttributes.nodeStatus == .applying
     switch mode {
     case .available:
@@ -227,7 +227,7 @@ class DownloadMapsViewController: MWMViewController {
       }
       if error {
         state = .error
-      } else if footerShowsProgress {
+      } else if downloading {
         state = .dowloading
       } else if parentAttributes.downloadedMwmCount < parentAttributes.totalMwmCount {
         state = .ready
@@ -236,7 +236,7 @@ class DownloadMapsViewController: MWMViewController {
       }
     case .downloaded:
       let isUpdate = parentAttributes.nodeStatus == .onDiskOutOfDate && parentAttributes.downloadingSize > 0
-      if footerShowsProgress, dataSource is DownloadedMapsDataSource {
+      if downloading, dataSource is DownloadedMapsDataSource {
         state = .dowloading
         if dataSource.isRoot {
           downloadAllView.style = .download
@@ -259,6 +259,7 @@ class DownloadMapsViewController: MWMViewController {
     }
     downloadAllView.isSizeHidden = isSizeHidden
     downloadAllView.state = state
+    footerShowsProgress = state == .dowloading
   }
 
   @objc func onAddMaps() {

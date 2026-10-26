@@ -5,9 +5,9 @@
 #include <cstring>
 #include <numeric>
 
-#if __cplusplus >= 202002L
+// Organic Maps: unconditional, the complete-stream refinement pass uses std::countr_zero
+// and MSVC reports __cplusplus 199711L without /Zc:__cplusplus.
 #include <bit>
-#endif
 
 //
 // Free-standing helper function

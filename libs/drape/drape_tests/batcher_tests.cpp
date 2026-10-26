@@ -76,7 +76,8 @@ UNIT_TEST(TerrainGridBatch_KeepsRowWindingAcrossBufferChange)
   dp::AttributeProvider provider(1, 7);
   provider.InitStream(0, binding, make_ref(points));
   dp::TriangleStripBatch batch(callbacks, false /* canDivide */);
-  batch.SetCanDivideStreams(true);  // The generic Batcher sets this before dispatch.
+  // The generic Batcher keeps the batch's own restriction (no overlay handle here).
+  batch.SetCanDivideStreams(batch.CanDivideStreams());
   batch.BatchData(nullptr, make_ref(&provider));
   TEST_EQUAL(callbacks.m_changes, 1, ());
   TEST_EQUAL(callbacks.m_uploaded, std::vector<uint32_t>{7}, ("The row must move intact to the fresh buffer"));

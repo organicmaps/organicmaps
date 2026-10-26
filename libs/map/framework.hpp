@@ -195,7 +195,7 @@ protected:
   terrain::TerrainProvider m_terrainProvider;
   // The isolines availability waits for the terrain registration (see RegisterAllMaps).
   std::atomic_bool m_terrainRegistered = false;
-  // The terrain download hint of the rough regions in the last viewport (see HasViewportTerrain).
+  // The terrain download hint of the regions in the last viewport (see HasViewportTerrain).
   storage::CountriesVec m_terrainHintRegions;
   std::optional<bool> m_terrainHintMissing;
   struct TerrainLight

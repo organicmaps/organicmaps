@@ -71,7 +71,7 @@ bool TwmSet::ReadHeader(std::string const & filePath, TwmHeader & header)
   }
   catch (RootException const & ex)
   {
-    LOG(LWARNING, ("Can't read the terrain header", filePath, ":", ex.Msg()));
+    LOG(LERROR, ("Can't read the terrain header", filePath, ":", ex.Msg()));
     return false;
   }
   return true;

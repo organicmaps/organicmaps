@@ -40,7 +40,7 @@ void RasterRecord::Validate(TwmHeader const & header, MeshGrid const & grid) con
 {
 #ifdef DEBUG
   ASSERT(m_codec == RasterCodec::Raw || m_codec == RasterCodec::Sperr || m_codec == RasterCodec::SperrZlibBorder ||
-             IsSz3(m_codec),
+             (IsSz3(m_codec) && header.GetRasterVersion() >= 2),
          (static_cast<uint8_t>(m_codec), header.GetRasterVersion()));
   ASSERT_GREATER(m_dataLength, 0, ());
   auto const rect = GetGridRect(grid);

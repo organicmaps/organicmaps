@@ -581,17 +581,21 @@ void Storage::DownloadTerrain(CountriesSet const & countryIds)
 
   // One notification per changed region, not per queued block (see OnCountryInQueue).
   CountriesSet changedRegions;
+  bool failed = false;
   for (auto const & countryId : countryIds)
-    if (EnqueueTerrain(countryId, changedRegions))
+    if (EnqueueTerrain(countryId, changedRegions, failed))
       changedRegions.insert(countryId);
   if (changedRegions.empty())
     return;
 
   SaveDownloadQueue();
   NotifyStatusChangedForHierarchy(changedRegions);
+  // Arm the retry like a failed download does, unless the downloads in progress arm it later.
+  if (failed)
+    OnFinishDownloading();
 }
 
-bool Storage::EnqueueTerrain(CountryId const & countryId, CountriesSet & changedRegions)
+bool Storage::EnqueueTerrain(CountryId const & countryId, CountriesSet & changedRegions, bool & failed)
 {
   CountriesSet owners;
   auto const covering = GetCoveringBlocks(countryId, true /* installedOnly */, &owners);
@@ -605,18 +609,6 @@ bool Storage::EnqueueTerrain(CountryId const & countryId, CountriesSet & changed
 
     auto const & block = m_terrainGrid.GetBlock(index);
     bool const inFlight = IsTerrainQueued(index);
-    if (!inFlight)
-    {
-      // A folder per block version, like the versioned maps folders.
-      auto const dir = base::GetDirectory(GetTerrainReadyPath(block));
-      if (!Platform::MkDirRecursively(dir))
-      {
-        // Still notify below: the rows the loop already touched must refresh.
-        LOG(LERROR, ("Can't create the terrain directory", dir));
-        break;
-      }
-    }
-
     auto & request = m_terrainRequests[index];
     for (auto const & owner : owners)
     {
@@ -628,6 +620,17 @@ bool Storage::EnqueueTerrain(CountryId const & countryId, CountriesSet & changed
       continue;
     // A new or a retried block changes the status of every owner.
     changedRegions.insert(request.m_owners.begin(), request.m_owners.end());
+
+    // A folder per block version, like the versioned maps folders.
+    auto const dir = base::GetDirectory(GetTerrainReadyPath(block));
+    if (!Platform::MkDirRecursively(dir))
+    {
+      // Fail like a download, so that the automatic and the manual retries find it.
+      LOG(LWARNING, ("Can't create the terrain directory", dir));
+      request.m_state = TerrainRequest::State::Failed;
+      failed = true;
+      continue;
+    }
 
     request.m_state = TerrainRequest::State::Queued;
     request.m_downloadId = ++m_nextTerrainDownloadId;
@@ -684,62 +687,57 @@ void Storage::SweepTerrainArtifacts()
   }
 }
 
-std::set<uint32_t> Storage::GetActiveTerrainBlocks(CountriesSet const & regions, bool includeCompleted) const
-{
-  // Like the maps, a batch consists of its requests only: the queued and the landed blocks.
-  std::set<uint32_t> activeBlocks;
-  auto const add = [&](TerrainRequest::State state)
-  {
-    for (auto const & [index, request] : m_terrainRequests)
-    {
-      ASSERT(!request.m_owners.empty(), (index));
-      if (request.m_state == state &&
-          base::AnyOf(request.m_owners, [&](CountryId const & id) { return regions.contains(id); }))
-        activeBlocks.insert(index);
-    }
-  };
-  add(TerrainRequest::State::Queued);
-  if (!activeBlocks.empty() || includeCompleted)
-    add(TerrainRequest::State::Landed);
-  return activeBlocks;
-}
-
 downloader::Progress Storage::GetTerrainDownloadingProgress(CountryId const & countryId, bool includeCompleted) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   if (!includeCompleted && !HasQueuedTerrain())
     return {};
 
-  CountriesSet regions;
-  for (auto const & [index, request] : m_terrainRequests)
-    if (request.m_state != TerrainRequest::State::Failed)
-      regions.insert(request.m_owners.begin(), request.m_owners.end());
-  if (countryId != GetRootId())
-    std::erase_if(regions, [&](CountryId const & id)
-    {
-      if (id == countryId)
-        return false;
-      bool inSubtree = false;
-      ForEachAncestorExceptForTheRoot(
-          id, [&](CountryId const & ancestor, CountryTree::Node const &) { inSubtree |= ancestor == countryId; });
-      return !inSubtree;
-    });
-  return GetTerrainDownloadingProgress(regions, includeCompleted);
-}
+  // Like the maps, a batch consists of its requests only: the queued and the landed blocks owned by
+  // the subtree. The owners are coverage leafs, so their requests are among the subtree coverage:
+  // a progress tick queries every ancestor, scan only the relevant requests instead of all of them.
+  bool const isRoot = countryId == GetRootId();
+  CountriesSet leafs;
+  std::vector<uint32_t> covering;
+  if (!isRoot)
+    covering = GetCoveringBlocks(countryId, false /* installedOnly */, &leafs);
 
-downloader::Progress Storage::GetTerrainDownloadingProgress(CountriesSet const & regions, bool includeCompleted) const
-{
-  downloader::Progress progress;
-  for (auto const index : GetActiveTerrainBlocks(regions, includeCompleted))
+  downloader::Progress queued, landed;
+  bool hasQueued = false;
+  auto const add = [&](uint32_t index, TerrainRequest const & request)
   {
+    ASSERT(!request.m_owners.empty(), (index));
+    if (request.m_state == TerrainRequest::State::Failed ||
+        (!isRoot && !base::AnyOf(request.m_owners, [&](CountryId const & id) { return leafs.contains(id); })))
+      return;
+    bool const isQueued = request.m_state == TerrainRequest::State::Queued;
+    hasQueued |= isQueued;
+    auto & progress = isQueued ? queued : landed;
     auto const & block = m_terrainGrid.GetBlock(index);
     progress.m_bytesTotal += block.m_size;
     if (IsTerrainOnDisk(index))
       progress.m_bytesDownloaded += block.m_size;
-    else if (auto const & request = m_terrainRequests.at(index); request.m_state == TerrainRequest::State::Queued)
+    else if (isQueued)
       progress.m_bytesDownloaded += request.m_bytesDownloaded;
+  };
+  if (isRoot)
+  {
+    for (auto const & [index, request] : m_terrainRequests)
+      add(index, request);
   }
-  return progress;
+  else
+  {
+    for (auto const index : covering)
+      if (auto const it = m_terrainRequests.find(index); it != m_terrainRequests.end())
+        add(index, it->second);
+  }
+
+  if (hasQueued || includeCompleted)
+  {
+    queued.m_bytesTotal += landed.m_bytesTotal;
+    queued.m_bytesDownloaded += landed.m_bytesDownloaded;
+  }
+  return queued;
 }
 
 Storage::TerrainAttrs Storage::GetTerrainAttrs(CountryId const & countryId) const
@@ -856,8 +854,7 @@ void Storage::TerrainQueueSubscriber::OnStartDownloading(QueuedCountry const & q
   auto const index = m_storage.m_terrainGrid.FindIndex(queuedCountry.GetCountryId());
   ASSERT(index, (queuedCountry.GetCountryId()));
   auto const owners = m_storage.m_terrainRequests.at(*index).m_owners;
-  if (m_storage.m_startDownloadingCallback)
-    m_storage.m_startDownloadingCallback();
+  // Unlike a map start, no m_startDownloadingCallback: an open place page follows the owners' status.
   m_storage.ReportProgressForHierarchy(owners);
   m_storage.NotifyTerrainRegions(*index);
 }

@@ -204,7 +204,7 @@
 		FACB7C4526B947C400810C9C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FACB7C4426B947AD00810C9C /* libz.tbd */; };
 		D940AD02D3DE2E8BEDEAEBC7 /* raster_patch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E55F5C47DFD49A75989A5CBA /* raster_patch.cpp */; };
 		3C2694CE20D5B05C7B47620E /* sperr_decoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 36C03CCE73CE95703B881084 /* sperr_decoder.cpp */; settings = {COMPILER_FLAGS = "-fno-fast-math -ffp-contract=off"; }; };
-		32035435FF07280410C13EF9 /* sz3_decoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9907570318FC5EFB7527BF93 /* sz3_decoder.cpp */; settings = {COMPILER_FLAGS = "-fno-fast-math -ffp-contract=off"; }; };
+		32035435FF07280410C13EF9 /* sz3_decoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9907570318FC5EFB7527BF93 /* sz3_decoder.cpp */; settings = {COMPILER_FLAGS = "-fno-fast-math -ffp-contract=off -DSZ3_ASSUME_STRICT_FP"; }; };
 		DCD1195C0C2B9CCC0227B93E /* terrain_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52F7A978362E3391328DB812 /* terrain_data.cpp */; };
 		36112074B829266BF462DFFC /* terrain_normals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4B1EA7D95D04B365BD1C0AF0 /* terrain_normals.cpp */; };
 /* End PBXBuildFile section */

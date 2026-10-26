@@ -2933,6 +2933,33 @@ UNIT_CLASS_TEST(StorageTerrainDownloadTest, TerrainRetryBeforeMapRegistration)
   TEST_EQUAL(pending.m_requests, 2, ());
 }
 
+// A block whose directory can't be created fails like a download: both retries find it.
+UNIT_CLASS_TEST(StorageTerrainDownloadTest, TerrainDirectoryFailureRetries)
+{
+  auto const content = TerrainHeaderContent();
+  tests_support::ScopedFile grid(TERRAIN_GRID_FILE, TerrainGridJson(content));
+  RecordingDownloadingPolicy policy;
+  Storage storage(COUNTRIES_FILE);
+  storage.SetDownloadingPolicy(&policy);
+  auto downloader = std::make_unique<PendingTerrainDownloader>();
+  auto & pending = *downloader;
+  storage.SetDownloaderForTesting(std::move(downloader));
+
+  {
+    tests_support::ScopedFile const blocksTerrainDir(TERRAIN_DIR, tests_support::ScopedFile::Mode::Create);
+    storage.DownloadTerrain("Madagascar");
+    TEST_EQUAL(pending.m_requests, 0, ());
+    TEST_EQUAL(storage.GetTerrainAttrs("Madagascar").m_status, Storage::TerrainStatus::Failed, ());
+    TEST_EQUAL(policy.m_calls, 1, ());
+    TEST_EQUAL(policy.m_regions, (CountriesSet{"Madagascar"}), ());
+  }
+
+  storage.RetryDownloadNode("Madagascar");
+  TEST_EQUAL(pending.m_requests, 1, ());
+  TEST_EQUAL(storage.GetTerrainAttrs("Madagascar").m_status, Storage::TerrainStatus::Downloading, ());
+  storage.CancelTerrain("Madagascar");
+}
+
 UNIT_CLASS_TEST(StorageTerrainDownloadTest, CancelTerrainValidationCleansReadyFile)
 {
   auto const content = TerrainHeaderContent();
@@ -3741,5 +3768,66 @@ UNIT_CLASS_TEST(StorageTerrainDownloadTest, CancelNewMapDeletesOnlyItsUnownedTer
     TEST(Platform::IsFileExistsByFullPath(file.m_path), (file.m_path));
   TEST_EQUAL(storage.GetTerrainAttrs("West").m_status, Storage::TerrainStatus::Partly, ());
   TEST_EQUAL(storage.GetTerrainAttrs("East").m_status, Storage::TerrainStatus::OnDisk, ());
+}
+
+UNIT_CLASS_TEST(StorageTerrainDownloadTest, RestoreKeepsTerrainOfFailedNewMap)
+{
+  tests_support::ScopedFile countries("terrain_folder.json", kFolderCountries);
+  tests_support::ScopedFile grid(TERRAIN_GRID_FILE, kFolderTerrainGrid);
+  tests_support::ScopedDir mapsDir("260101");
+  tests_support::ScopedFile east("260101/East.mwm", std::string(200, 'm'));
+  tests_support::ScopedDirCleanup const terrainDir(base::JoinPath(GetPlatform().WritableDir(), TERRAIN_DIR));
+  auto const init = [](Storage & storage)
+  {
+    storage.Init([](CountryId const &, LocalFilePtr const) {},
+                 [](CountryId const &, LocalFilePtr const) { return false; });
+    storage.RegisterAllLocalMaps();
+    storage.SetTerrainCallbacks([](auto const &) { testing::StopEventLoop(); }, DeleteAtOnce(storage));
+  };
+  std::string sharedPath, ownPath;
+  {
+    RecordingDownloadingPolicy policy;
+    Storage storage("terrain_folder.json");
+    init(storage);
+    storage.SetEnabledIntegrityValidationForTesting(false);
+    storage.SetDownloadingPolicy(&policy);
+    auto downloader = std::make_unique<PendingTerrainDownloader>();
+    auto & pending = *downloader;
+    storage.SetDownloaderForTesting(std::move(downloader));
+
+    // West's map fails, then its blocks land: N45E008 shared with the installed East and its own N45E011.
+    storage.DownloadNode("West");
+    TEST_EQUAL(GetQueueOrder(pending.GetQueue()), (CountriesVec{"West", "N45E008", "N45E011"}), ());
+    pending.Start();
+    pending.Fail(downloader::DownloadStatus::Failed);
+    for (auto const & block : {terrain::GridBlock{8, 45, 3, 2}, terrain::GridBlock{11, 45, 3, 2}})
+    {
+      pending.Start();
+      pending.Complete(TerrainHeaderContent(block));
+      RunEventLoopOrFail();
+    }
+    TEST(!storage.IsDownloadInProgress(), ());
+    TEST_EQUAL(policy.m_regions, (CountriesSet{"West"}), ());
+    auto const & terrainGrid = storage.GetTerrainGrid();
+    auto const path = [&](TerrainId const & id)
+    {
+      auto const & block = terrainGrid.GetBlock(*terrainGrid.FindIndex(id));
+      return MakeTerrainFile(block, block.m_version).m_path;
+    };
+    sharedPath = path("N45E008");
+    ownPath = path("N45E011");
+    TEST(Platform::IsFileExistsByFullPath(sharedPath) && Platform::IsFileExistsByFullPath(ownPath), ());
+  }
+
+  // The user likely retries the map download: the next start keeps both blocks.
+  Storage storage("terrain_folder.json");
+  init(storage);
+  storage.SetDownloaderForTesting(std::make_unique<PendingTerrainDownloader>());
+  ScanTerrain(storage);
+  storage.RestoreDownloadQueue();
+  TEST(Platform::IsFileExistsByFullPath(sharedPath), ());
+  TEST(Platform::IsFileExistsByFullPath(ownPath), ());
+  TEST_EQUAL(storage.GetLocalTerrainFiles().size(), 2, ());
+  TEST_EQUAL(storage.GetTerrainAttrs("East").m_status, Storage::TerrainStatus::Partly, ());
 }
 }  // namespace storage_terrain_tests

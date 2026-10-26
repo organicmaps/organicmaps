@@ -122,9 +122,6 @@ public:
 
 protected:
   void GenerateIndexes(void * indexStorage, uint32_t count, uint32_t startIndex) const override;
-
-private:
-  bool m_canDivide;
 };
 
 class TriangleFanBatch : public FanStripHelper

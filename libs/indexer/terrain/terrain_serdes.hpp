@@ -56,7 +56,7 @@ using Altitude = geometry::Altitude;
 // - kIndexTag: an interval index over the RectId cells covering the feature rects,
 //   mapping cell intervals to the FeatureRecord offsets (the MWM scale index scheme);
 // - kRasterFeaturesTag, kRasterDataTag, kRasterIndexTag (hybrid files only): the RasterRecords of
-//   the finest LOD patches, their SPERR or raw payloads and the same interval index scheme over
+//   the finest LOD patches, their SPERR, SZ3 or raw payloads and the same interval index scheme over
 //   the patch rects (see raster_patch.hpp).
 //
 // Vertices lie on their mesh's geographic DEM sample lattice. Geometry codes mesh-local

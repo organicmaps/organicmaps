@@ -275,7 +275,8 @@ private:
 
   void DownloadTerrain(CountriesSet const & countryIds);
   /// Queues the missing blocks of the node; adds the regions whose status changes to changedRegions.
-  bool EnqueueTerrain(CountryId const & countryId, CountriesSet & changedRegions);
+  /// A block that can't be queued fails like a download and sets |failed|.
+  bool EnqueueTerrain(CountryId const & countryId, CountriesSet & changedRegions, bool & failed);
   /// Removes the owners from the terrain requests; the ownerless requests are cancelled.
   void CancelTerrainOwners(CountriesSet const & owners);
   void FinishCancelledDownloads(bool wasInProgress);
@@ -320,7 +321,6 @@ private:
   void NotifyTerrainRegions(uint32_t index, bool allCoverage = false);
   // Coverage retained by installed/in-flight MWMs or terrain requests outside |excluded|.
   std::set<uint32_t> GetWantedTerrainBlocks(CountriesSet const & excluded) const;
-  std::set<uint32_t> GetActiveTerrainBlocks(CountriesSet const & regions, bool includeCompleted = false) const;
   // The owners of the failed blocks: derived from the live state at both the retry arming and
   // the retry firing, so a cancel or a delete in between (both release the owners) mutes the retry.
   CountriesSet GetFailedTerrainRegions() const;
@@ -384,7 +384,6 @@ private:
 
   downloader::Progress GetActiveMapProgress(CountryId const & countryId, bool includeCompleted = false) const;
   downloader::Progress GetTerrainDownloadingProgress(CountryId const & countryId, bool includeCompleted = false) const;
-  downloader::Progress GetTerrainDownloadingProgress(CountriesSet const & regions, bool includeCompleted) const;
   void ReportProgressForHierarchy(CountriesSet const & countryIds);
 
   // QueuedCountry::Subscriber overrides:

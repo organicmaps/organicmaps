@@ -167,7 +167,10 @@ public class CountrySuggestFragment extends BaseMwmFragment implements View.OnCl
     if (!isAdded() || MapManager.nativeGetDownloadedCount() > 0)
       return;
 
-    boolean downloading = MapManager.isDownloading();
+    // A failed map is not downloading even while its terrain still drains the shared queue.
+    boolean downloading = MapManager.isDownloading()
+                       && (mDownloadingCountry == null
+                           || MapManager.nativeGetStatus(mDownloadingCountry.id) != CountryItem.STATUS_FAILED);
     UiUtils.showIf(downloading, mLlActiveDownload);
     UiUtils.showIf(!downloading, mLlSelectDownload);
 

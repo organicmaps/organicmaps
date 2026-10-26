@@ -160,8 +160,12 @@ set(SRC
 )
 
 omim_add_library(${PROJECT_NAME} ${SRC})
+# The raster decoders build with strict floating point; under it SZ3 drops its FMA barriers,
+# see 3party/sz3/README.organicmaps.
 set_source_files_properties(terrain/sperr_decoder.cpp terrain/sz3_decoder.cpp PROPERTIES COMPILE_OPTIONS
   "$<$<CXX_COMPILER_ID:GNU,Clang,AppleClang>:-fno-fast-math;-ffp-contract=off>;$<$<CXX_COMPILER_ID:MSVC>:/fp:strict>")
+set_property(SOURCE terrain/sz3_decoder.cpp APPEND PROPERTY COMPILE_DEFINITIONS
+  "$<$<CXX_COMPILER_ID:GNU,Clang,AppleClang>:SZ3_ASSUME_STRICT_FP>")
 
 target_link_libraries(${PROJECT_NAME}
   PUBLIC

@@ -2,7 +2,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// The domain of the HTTP status errors, the code is the status (e.g. 404).
+/// The domain of the HTTP status errors (the code is the status, e.g. 404) and of a download that can't be saved (500).
 extern NSErrorDomain const BackgroundDownloaderHttpErrorDomain;
 
 typedef void (^DownloadCompleteBlock)(NSError * _Nullable error);
