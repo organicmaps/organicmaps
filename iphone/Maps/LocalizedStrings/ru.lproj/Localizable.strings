@@ -1343,3 +1343,9 @@
 
 /* VoiceOver instruction for a right highway exit during iOS navigation. */
 "navigation_accessibility_exit_highway_right" = "Съезд с автомагистрали направо";
+
+/* VoiceOver status of a map that is being applied after downloading on iOS. */
+"downloader_applying_status" = "Применение";
+
+/* VoiceOver name of the icon button that opens a group of maps in the iOS downloader. */
+"downloader_accessibility_open_region" = "Показать карты региона";
