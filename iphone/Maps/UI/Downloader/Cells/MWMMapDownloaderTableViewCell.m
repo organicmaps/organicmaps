@@ -95,6 +95,51 @@
 
   self.downloadSize.text = formattedSize(size);
   self.downloadSize.hidden = (size == 0);
+  [self configAccessibility:nodeAttrs];
+}
+
+- (void)configAccessibility:(MWMMapNodeAttributes *)nodeAttrs
+{
+  self.accessibilityTraits |= UIAccessibilityTraitButton;
+  self.progress.buttonIsAccessibilityElement = nodeAttrs.nodeStatus != MWMMapNodeStatusOnDisk;
+  self.progress.buttonAccessibilityValue = nil;
+
+  switch (nodeAttrs.nodeStatus)
+  {
+  case MWMMapNodeStatusUndefined:
+  case MWMMapNodeStatusError:
+    self.progress.buttonAccessibilityLabel = L(@"downloader_retry");
+    self.progress.buttonAccessibilityValue = L(@"downloader_status_failed");
+    break;
+  case MWMMapNodeStatusDownloading:
+    self.progress.buttonAccessibilityLabel = L(@"cancel_download");
+    [self updateAccessibilityProgress:nodeAttrs.downloadingProgress];
+    break;
+  case MWMMapNodeStatusApplying:
+    self.progress.buttonAccessibilityLabel = L(@"cancel_download");
+    self.progress.buttonAccessibilityValue = L(@"downloader_applying_status");
+    break;
+  case MWMMapNodeStatusInQueue:
+    self.progress.buttonAccessibilityLabel = L(@"cancel_download");
+    self.progress.buttonAccessibilityValue = L(@"downloader_queued");
+    break;
+  case MWMMapNodeStatusOnDiskOutOfDate:
+    self.progress.buttonAccessibilityLabel = L(@"downloader_status_outdated");
+    break;
+  case MWMMapNodeStatusOnDisk: self.progress.buttonAccessibilityLabel = nil; break;
+  case MWMMapNodeStatusNotDownloaded:
+  case MWMMapNodeStatusPartly:
+    self.progress.buttonAccessibilityLabel =
+        nodeAttrs.hasChildren ? L(@"downloader_accessibility_open_region") : L(@"downloader_download_map");
+    break;
+  }
+}
+
+- (void)updateAccessibilityProgress:(CGFloat)progress
+{
+  NSString * percent = [NSNumberFormatter localizedStringFromNumber:@(progress)
+                                                        numberStyle:NSNumberFormatterPercentStyle];
+  self.progress.buttonAccessibilityValue = percent;
 }
 
 - (void)configProgress:(MWMMapNodeAttributes *)nodeAttrs
@@ -139,6 +184,7 @@
 - (void)setDownloadProgress:(CGFloat)progress
 {
   self.progress.progress = AppConstants.maxProgress * progress;
+  [self updateAccessibilityProgress:progress];
 }
 
 #pragma mark - MWMCircularProgressProtocol

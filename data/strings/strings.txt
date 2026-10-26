@@ -44445,3 +44445,19 @@ en = Exit the highway to the right
 pl = Zjedź z autostrady w prawo
 ru = Съезд с автомагистрали направо
 uk = З’їзд з автомагістралі праворуч
+
+[downloader_applying_status]
+comment = VoiceOver status of a map that is being applied after downloading on iOS.
+tags = apple-maps
+en = Applying
+pl = Instalowanie
+ru = Применение
+uk = Застосування
+
+[downloader_accessibility_open_region]
+comment = VoiceOver name of the icon button that opens a group of maps in the iOS downloader.
+tags = apple-maps
+en = Show maps in region
+pl = Pokaż mapy regionu
+ru = Показать карты региона
+uk = Показати мапи регіону
