@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Transit summary tile: the leg-badge strip under the route totals in the header row above. The whole
+     tile is one tap target that opens the full-screen per-leg details. For ruler routes only the
+     (waypoint) strip is shown, without the caret. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:gravity="center_vertical"
+  android:orientation="horizontal"
+  android:foreground="?attr/selectableItemBackground"
+  android:paddingStart="@dimen/routing_plan_horizontal_padding"
+  android:paddingEnd="@dimen/routing_plan_horizontal_padding"
+  android:paddingTop="@dimen/margin_half"
+  android:paddingBottom="@dimen/margin_half">
+
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/transit_recycler_view"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:visibility="gone"
+    tools:visibility="visible" />
+
+  <!-- Caret cueing that tapping the tile opens the full-screen transit details (slides in from the right). -->
+  <ImageView
+    android:id="@+id/transit_details_chevron"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/margin_half"
+    android:contentDescription="@string/transit_details_title"
+    app:srcCompat="@drawable/ic_chevron_right_thin"
+    app:tint="?secondary" />
+</LinearLayout>

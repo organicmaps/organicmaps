@@ -15,6 +15,8 @@ import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import androidx.annotation.IdRes;
@@ -64,6 +66,11 @@ final class RoutingBottomMenuController
   private final View mAltitudeChartFrame;
   @NonNull
   private final View mTransitTime;
+  // Total duration and walk total of a transit route, shown in the header row beside the route buttons.
+  @NonNull
+  private final View mTransitTopline;
+  @NonNull
+  private final View mTransitChevron;
   @NonNull
   private final TextView mError;
   @NonNull
@@ -87,6 +94,7 @@ final class RoutingBottomMenuController
   private final DotDividerItemDecoration mTransitViewDecorator;
   @NonNull
   private final TransitStepAdapter mTransitAdapter;
+  // Compact leg-badge strip; tapping it (or the summary row above) opens the full-screen per-leg details.
   @NonNull
   private final RecyclerView mTransitRecyclerView;
   @NonNull
@@ -147,6 +155,9 @@ final class RoutingBottomMenuController
     mAltitudeChartFrame = altitudeChartFrame;
     mTimeElevationLine = timeElevationLine;
     mTransitTime = transitTime;
+    mTransitTopline = altitudeChartFrame.findViewById(R.id.transit_topline);
+    mTransitTopline.setOnClickListener(v -> openTransitDetails());
+    mTransitChevron = transitTime.findViewById(R.id.transit_details_chevron);
     mTimeRuler = rulerTime;
     mError = error;
     mStart = start;
@@ -171,12 +182,7 @@ final class RoutingBottomMenuController
     mArrival = arrival;
     mSaveButton = saveButton;
     mListener = listener;
-    int dividerRes = ThemeUtils.getResource(mContext, R.attr.transitStepDivider);
-    Drawable dividerDrawable = ContextCompat.getDrawable(mContext, dividerRes);
-    Resources res = mContext.getResources();
-    mTransitViewDecorator =
-        new DotDividerItemDecoration(dividerDrawable, res.getDimensionPixelSize(R.dimen.margin_base),
-                                     res.getDimensionPixelSize(R.dimen.margin_half));
+    mTransitViewDecorator = newTransitDecorator();
     mManageRoutePanel = mContext.findViewById(R.id.manage_route_panel);
     if (mManageRoutePanel != null)
     {
@@ -217,6 +223,40 @@ final class RoutingBottomMenuController
     mTransitRecyclerView.setNestedScrollingEnabled(false);
     mTransitRecyclerView.addItemDecoration(mTransitViewDecorator);
     mTransitRecyclerView.setAdapter(mTransitAdapter);
+    attachStripTapListener(mTransitRecyclerView, mTransitTime);
+  }
+
+  // A tap anywhere on the strip opens the details, just like tapping the tile around it, since the strip
+  // would otherwise swallow the touch. Gated on the tile being clickable so it stays inert for ruler.
+  private void attachStripTapListener(@NonNull RecyclerView strip, @NonNull View tile)
+  {
+    final GestureDetector detector = new GestureDetector(mContext, new GestureDetector.SimpleOnGestureListener() {
+      @Override
+      public boolean onSingleTapUp(@NonNull MotionEvent e)
+      {
+        if (!tile.isClickable())
+          return false;
+        openTransitDetails();
+        return true;
+      }
+    });
+    strip.addOnItemTouchListener(new RecyclerView.SimpleOnItemTouchListener() {
+      @Override
+      public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e)
+      {
+        return detector.onTouchEvent(e);
+      }
+    });
+  }
+
+  @NonNull
+  private DotDividerItemDecoration newTransitDecorator()
+  {
+    int dividerRes = ThemeUtils.getResource(mContext, R.attr.transitStepDivider);
+    Drawable dividerDrawable = ContextCompat.getDrawable(mContext, dividerRes);
+    Resources res = mContext.getResources();
+    return new DotDividerItemDecoration(dividerDrawable, res.getDimensionPixelSize(R.dimen.margin_base),
+                                        res.getDimensionPixelSize(R.dimen.margin_half));
   }
 
   private void openSearchForRoutePick()
@@ -266,7 +306,8 @@ final class RoutingBottomMenuController
 
   void hideAltitudeChartAndRoutingDetails()
   {
-    UiUtils.hide(mAltitudeChart, mTimeVehicle, mTimeElevationLine, mTransitTime, mTimeRuler, mTransitRecyclerView);
+    UiUtils.hide(mAltitudeChart, mTimeVehicle, mTimeElevationLine, mTransitTime, mTransitTopline, mTimeRuler,
+                 mTransitRecyclerView);
     notifyVisibilityChanged();
   }
 
@@ -274,38 +315,62 @@ final class RoutingBottomMenuController
   void showTransitInfo(@NonNull TransitRouteInfo info)
   {
     refreshManageRoute();
-    View transit_time = mAltitudeChartFrame.findViewById(R.id.transit_time);
     hideAltitudeChartAndRoutingDetails();
     UiUtils.hide(mError, mTimeElevationLine, mTimeVehicle);
     setStartState(StartState.DISABLED);
-    UiUtils.show(transit_time, mTransitRecyclerView);
-    mTransitAdapter.setItems(info.getTransitSteps());
+    bindRouteTile(info.getTotalTime(), info.getTotalPedestrianTimeInSec(), info.getTransitSteps());
 
-    TextView totalTimeView = mAltitudeChartFrame.findViewById(R.id.total_time);
-    totalTimeView.setText(StringUtils.nativeFormatRoutingDuration(info.getTotalTime()));
-    View dotView = mAltitudeChartFrame.findViewById(R.id.dot);
-    View pedestrianIcon = mAltitudeChartFrame.findViewById(R.id.pedestrian_icon);
-    TextView distanceView = mAltitudeChartFrame.findViewById(R.id.total_distance);
-    UiUtils.showIf(info.getTotalPedestrianTimeInSec() > 0, dotView, pedestrianIcon, distanceView);
-    distanceView.setText(info.getTotalPedestrianDistance() + " " + info.getTotalPedestrianDistanceUnits());
     notifyVisibilityChanged();
+  }
+
+  // Binds the route tile: total duration + walk total + leg-badge strip, then reveals it. The whole tile
+  // is one tap target that opens the details.
+  private void bindRouteTile(int totalSec, int walkSec, @NonNull List<TransitStepInfo> legs)
+  {
+    mTransitAdapter.setItems(legs);
+
+    ((TextView) mTransitTopline.findViewById(R.id.total_time))
+        .setText(StringUtils.nativeFormatRoutingDuration(totalSec));
+    TextView walkView = mTransitTopline.findViewById(R.id.total_walk_time);
+    UiUtils.showIf(walkSec > 0, walkView, mTransitTopline.findViewById(R.id.pedestrian_icon));
+    walkView.setText(StringUtils.nativeFormatRoutingDuration(walkSec));
+
+    mTransitTime.setClickable(true);
+    mTransitTime.setOnClickListener(v -> openTransitDetails());
+    UiUtils.show(mTransitTime, mTransitRecyclerView, mTransitTopline, mTransitChevron);
+  }
+
+  private void openTransitDetails()
+  {
+    // Ruler routes reuse the tile but have no per-leg details, so they clear clickability.
+    if (!mTransitTime.isClickable())
+      return;
+    TransitDetailsActivity.start(mContext);
   }
 
   @SuppressLint("SetTextI18n")
   void showRulerInfo(@NonNull RouteMarkData[] points, Distance totalLength)
   {
     refreshManageRoute();
-    UiUtils.hide(mError, mTimeVehicle, mTransitTime, mTimeElevationLine, mAltitudeChart);
+    UiUtils.hide(mError, mTimeVehicle, mTimeElevationLine, mAltitudeChart);
     setStartState(StartState.DISABLED);
     hideAltitudeChartAndRoutingDetails();
-    UiUtils.show(mAltitudeChartFrame, mTransitRecyclerView, mTimeRuler);
+    UiUtils.show(mAltitudeChartFrame, mTimeRuler);
+
+    // The tile is shared with public transport routing, but a straight-line ruler route has no per-leg
+    // details, so make it inert and hide its caret. Only the (waypoint) strip is meaningful; clearing
+    // clickability suppresses the ripple and makes openTransitDetails() a no-op.
+    mTransitTime.setOnClickListener(null);
+    mTransitTime.setClickable(false);
+    UiUtils.hide(mTransitChevron);
+
     if (points.length > 2)
     {
-      UiUtils.show(mTransitRecyclerView);
+      UiUtils.show(mTransitTime, mTransitRecyclerView);
       mTransitAdapter.setItems(pointsToRulerSteps(points));
     }
     else
-      UiUtils.hide(mTransitRecyclerView); // Show only distance between start and finish
+      UiUtils.hide(mTransitTime, mTransitRecyclerView); // Show only distance between start and finish
     mTimeRuler.setText(mContext.getString(R.string.placepage_distance) + ": " + totalLength.mDistanceStr + " "
                        + totalLength.getUnitsStr(mContext));
     notifyVisibilityChanged();
