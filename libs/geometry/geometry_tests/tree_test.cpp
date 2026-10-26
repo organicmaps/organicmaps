@@ -109,6 +109,35 @@ UNIT_TEST(Tree4D_Optimize)
   check();
 }
 
+UNIT_TEST(Tree4D_LargeOrderedInput)
+{
+  size_t constexpr count = 22000;
+  for (bool reverse : {false, true})
+  {
+    m4::Tree<size_t> tree;
+    for (size_t i = 0; i < count; ++i)
+    {
+      auto const value = reverse ? count - 1 - i : i;
+      auto const x = static_cast<double>(value);
+      tree.Add(value, R(x, x, x + 0.5, x + 0.5));
+    }
+    TEST_EQUAL(tree.GetSize(), count, ());
+    // Optimize first clears the unbalanced tree. Neither insertion nor clearing
+    // may recurse through all 22000 nodes, including on a 1 MiB Windows stack.
+    tree.Optimize();
+    size_t found = 0;
+    tree.ForEachInRect(R(-1, -1, count, count), [&](size_t) { ++found; });
+    TEST_EQUAL(found, count, ());
+    tree.Clear();
+    TEST(tree.IsEmpty(), ());
+    // Exercise clearing an unbalanced tree without Optimize as well.
+    for (size_t i = 0; i < count; ++i)
+      tree.Add(i, R(0, 0, 1, 1));
+    tree.Clear();
+    TEST(tree.IsEmpty(), ());
+  }
+}
+
 UNIT_TEST(Tree4D_ForAnyInRect)
 {
   Tree theTree;
