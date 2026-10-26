@@ -981,6 +981,7 @@
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
 "bookmarks_export" = "Експортувати всі мітки та треки";
 "drive_through" = "З віконцем для водіїв";
+"clear_the_search" = "Очистити пошук";
 
 /* Accessibility text for the zoom-in button on the map and visible title for the CarPlay dashboard button. Keep it short. */
 "zoom_in" = "Збільшити";
@@ -1306,3 +1307,39 @@
 
 /* VoiceOver name of a bus step in an iOS public transport route preview. */
 "routing_accessibility_bus" = "Автобус";
+
+/* VoiceOver name of the collapsed controls button during iOS navigation. */
+"navigation_accessibility_more_controls" = "Більше елементів навігації";
+
+/* VoiceOver name of the expanded controls button during iOS navigation. */
+"navigation_accessibility_hide_controls" = "Сховати елементи навігації";
+
+/* VoiceOver label for the remaining route distance during iOS navigation. */
+"navigation_accessibility_distance_remaining" = "Відстань, що залишилася";
+
+/* VoiceOver label for current speed during iOS navigation. */
+"navigation_accessibility_current_speed" = "Поточна швидкість";
+
+/* VoiceOver label for the remaining route time during iOS navigation. */
+"navigation_accessibility_time_remaining" = "Час, що залишився";
+
+/* VoiceOver label for the estimated arrival time during iOS navigation. */
+"navigation_accessibility_arrival_time" = "Час прибуття";
+
+/* VoiceOver hint for the time button when it shows remaining time during iOS navigation. */
+"navigation_accessibility_show_arrival_time" = "Показує час прибуття";
+
+/* VoiceOver hint for the time button when it shows arrival time during iOS navigation. */
+"navigation_accessibility_show_time_remaining" = "Показує час, що залишився";
+
+/* VoiceOver value for the route speed limit on iOS. %@ is a localized speed or the unlimited-speed label. */
+"navigation_accessibility_speed_limit" = "Обмеження швидкості: %@";
+
+/* VoiceOver value for a road without a speed limit during iOS navigation. */
+"navigation_accessibility_unlimited_speed" = "Без обмеження";
+
+/* VoiceOver instruction for a left highway exit during iOS navigation. */
+"navigation_accessibility_exit_highway_left" = "З’їзд з автомагістралі ліворуч";
+
+/* VoiceOver instruction for a right highway exit during iOS navigation. */
+"navigation_accessibility_exit_highway_right" = "З’їзд з автомагістралі праворуч";
