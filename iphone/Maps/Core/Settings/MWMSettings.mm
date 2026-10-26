@@ -22,6 +22,7 @@ NSString * const kThemeMode = @"ThemeMode";
 NSString * const kUDTrackWarningAlertWasShown = @"TrackWarningAlertWasShown";
 NSString * const kiCLoudSynchronizationEnabledKey = @"iCLoudSynchronizationEnabled";
 NSString * const kUDFileLoggingEnabledKey = @"FileLoggingEnabledKey";
+NSString * const kUDLegacyLogFileRemoved = @"LegacyLogFileRemoved";
 NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidShowICloudSynchronizationEnablingAlert";
 }  // namespace
 
@@ -296,18 +297,30 @@ NSString * const kUDDidShowICloudSynchronizationEnablingAlert = @"kUDDidShowIClo
 + (void)initializeLogging
 {
   static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{ [self setFileLoggingEnabled:[self isFileLoggingEnabled]]; });
+  dispatch_once(&onceToken, ^{
+    NSUserDefaults * defaults = NSUserDefaults.standardUserDefaults;
+    if (![defaults boolForKey:kUDLegacyLogFileRemoved] && [Logger removeLegacyLogFile])
+      [defaults setBool:YES forKey:kUDLegacyLogFileRemoved];
+    // Launch-time failures stay in OSLog until the user retries in Settings, avoiding an alert
+    // before the app has a visible screen. Keep the requested preference for the next launch.
+    Logger.fileLoggingEnabled = [defaults boolForKey:kUDFileLoggingEnabledKey];
+  });
 }
 
+/// @return Whether the logger is actually writing a file, which is what the setting switch shows.
 + (BOOL)isFileLoggingEnabled
 {
-  return [NSUserDefaults.standardUserDefaults boolForKey:kUDFileLoggingEnabledKey];
+  return Logger.fileLoggingEnabled;
 }
 
-+ (void)setFileLoggingEnabled:(BOOL)fileLoggingEnabled
++ (NSError * _Nullable)setFileLoggingEnabled:(BOOL)fileLoggingEnabled
 {
+  // The stored value is what the user asked for, not what the logger managed to do, so an enable
+  // that fails on a transient error is retried on the next launch instead of turning itself off.
   [NSUserDefaults.standardUserDefaults setBool:fileLoggingEnabled forKey:kUDFileLoggingEnabledKey];
-  [Logger setFileLoggingEnabled:fileLoggingEnabled];
+  NSError * error = nil;
+  [Logger setFileLoggingEnabled:fileLoggingEnabled error:&error];
+  return error;
 }
 
 + (uint64_t)logFileSize
