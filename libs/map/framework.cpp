@@ -255,23 +255,10 @@ void Framework::OnCompassUpdate(CompassInfo const & info)
 nogps::Engine & Framework::CreateNoGps(nogps::Delegate & delegate)
 {
   CHECK(!m_noGps, ());
-  m_noGps = std::make_unique<nogps::Service>(delegate, m_routingManager.GetSessionRoute(),
-                                             [this](double bearingDeg)
+  m_noGps = std::make_unique<nogps::Service>(delegate, m_routingManager.GetSessionRoute(), [this](double bearingDeg)
   {
     if (m_drapeEngine != nullptr)
       m_drapeEngine->SetCompassInfo(CompassInfo{math::DegToRad(bearingDeg)});
-  }, [this](std::optional<ms::LatLon> const & position)
-  {
-    // A circle of the color of the position without GPS, see nogps_status_inertial of Android. Nothing else
-    // uses the group.
-    auto editSession = GetBookmarkManager().GetEditSession();
-    editSession.ClearGroup(UserMark::Type::COLORED);
-    if (!position)
-      return;
-    editSession.SetIsVisible(UserMark::Type::COLORED, true);
-    auto * mark = editSession.CreateUserMark<ColoredMarkPoint>(mercator::FromLatLon(*position));
-    mark->SetColor(dp::Color(123, 31, 162, 200));
-    mark->SetRadius(9.0f);
   });
   return m_noGps->GetEngine();
 }

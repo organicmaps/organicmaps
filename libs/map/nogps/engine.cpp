@@ -968,26 +968,11 @@ void Engine::ShowCarHeading()
     m_map.ShowCarHeading(*GetCarBearing());
 }
 
-void Engine::ShowOffRoadCar()
-{
-  // The car maneuvers off the roads, its mark waits on the road. While a route is followed the mark stays there,
-  // otherwise the route would be rebuilt from a yard, and the car is shown apart. Without a route the mark itself
-  // follows the car.
-  std::optional<ms::LatLon> car;
-  if (m_inertial && IsInertialNavigationEnabled() && m_map.IsNavigating())
-    car = m_inertial->GetOffRoadCar();
-  if (car.has_value() == m_shownOffRoadCar.has_value() && (!car || car->EqualDxDy(*m_shownOffRoadCar, 1e-7)))
-    return;
-  m_shownOffRoadCar = car;
-  m_map.ShowOffRoadCar(car);
-}
-
 void Engine::NotifyLocationUpdated()
 {
   CHECK(m_savedLocation, ());
   m_delegate.OnPosition(*m_savedLocation);
   ShowCarHeading();
-  ShowOffRoadCar();
 }
 
 void Engine::ShowBetweenGpsPositions(Fix const & inertial)
@@ -1002,9 +987,8 @@ void Engine::ShowBetweenGpsPositions(Fix const & inertial)
     return;
   }
   Fix location = inertial;
-  // As in the manual mode: without a route the mark follows the car maneuvering off the roads, with a route it waits
-  // on the road and the car is shown apart, see ShowOffRoadCar().
-  if (auto const & car = m_inertial->GetOffRoadCar(); car && !m_map.IsNavigating())
+  // As in the manual mode: the mark follows the car maneuvering off the roads.
+  if (auto const & car = m_inertial->GetOffRoadCar())
     location.m_position = *car;
   // As accurate as GPS was, less with every meter driven since.
   location.m_accuracyM = m_savedLocation->m_accuracyM +
@@ -1012,7 +996,6 @@ void Engine::ShowBetweenGpsPositions(Fix const & inertial)
   location.m_unixTimeMs = UnixTimeAfterGps(location.m_timeMs);
   ++m_positionsBetweenGps;
   m_delegate.OnPosition(location);
-  ShowOffRoadCar();
 }
 
 int64_t Engine::UnixTimeAfterGps(int64_t timeMs) const
@@ -1058,9 +1041,11 @@ void Engine::OnInertialLocation(Fix const & inertial)
   if (inertial.m_speedMps.value_or(0) > 0)
     m_manualUntilGps = false;
   m_lastInertialUsedMs = m_clock.NowMs();
-  // Without a route the mark follows the car maneuvering off the roads, see ShowOffRoadCar().
+  // The mark follows the car maneuvering off the roads, also on a route: a mark waiting on the road of the route
+  // hides that the car has left it. The core rebuilds the route once the car goes away from it farther than
+  // 50 m or the accuracy of the position, as for GPS.
   Fix location = inertial;
-  if (auto const & car = m_inertial->GetOffRoadCar(); car && !m_map.IsNavigating())
+  if (auto const & car = m_inertial->GetOffRoadCar())
     location.m_position = *car;
   // The mark follows the car: when the inertial navigation stops, e.g. the adapter is disconnected, the car
   // stays where it has been driven to, not at the old mark behind.
@@ -1232,7 +1217,6 @@ void Engine::PutMark(ms::LatLon const & position, RoadPoint const & road)
   if (m_inertial)
     m_inertial->SetMarkOnRoad(road.m_point, road.m_bearingDeg);
   ApplyManualLocation();
-  ShowOffRoadCar();
 }
 
 bool Engine::IsAlongRoad(ms::LatLon const & position, double bearingDeg)
