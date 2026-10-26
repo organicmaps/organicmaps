@@ -82,9 +82,10 @@ public class FeatureCategoryFragment
 
   private void setFilter(String query)
   {
-    String locale = Language.getDefaultLocale();
-    String[] creatableTypes = query.isEmpty() ? Editor.nativeGetAllCreatableFeatureTypes(locale)
-                                              : Editor.nativeSearchCreatableFeatureTypes(query, locale);
+    String locale = Language.getResourceLocale(requireContext());
+    String[] creatableTypes = query.isEmpty()
+                                ? Editor.nativeGetAllCreatableFeatureTypes(requireContext(), locale)
+                                : Editor.nativeSearchCreatableFeatureTypes(requireContext(), query, locale);
 
     FeatureCategory[] categories = makeFeatureCategoriesFromTypes(creatableTypes, true);
 
@@ -101,8 +102,8 @@ public class FeatureCategoryFragment
   @Override
   protected FeatureCategoryAdapter createAdapter()
   {
-    String locale = Language.getDefaultLocale();
-    String[] creatableTypes = Editor.nativeGetAllCreatableFeatureTypes(locale);
+    String locale = Language.getResourceLocale(requireContext());
+    String[] creatableTypes = Editor.nativeGetAllCreatableFeatureTypes(requireContext(), locale);
     String[] recentTypes = Editor.nativeGetRecentCategories();
 
     FeatureCategory[] categories = makeFeatureCategoriesFromTypes(creatableTypes, true);

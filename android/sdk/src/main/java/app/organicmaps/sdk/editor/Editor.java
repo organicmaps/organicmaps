@@ -1,5 +1,6 @@
 package app.organicmaps.sdk.editor;
 
+import android.content.Context;
 import androidx.annotation.IntDef;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
@@ -160,9 +161,10 @@ public final class Editor
   public static native boolean nativeSaveEditedFeature();
 
   @NonNull
-  public static native String[] nativeGetAllCreatableFeatureTypes(@NonNull String lang);
+  public static native String[] nativeGetAllCreatableFeatureTypes(@NonNull Context context, @NonNull String lang);
   @NonNull
-  public static native String[] nativeSearchCreatableFeatureTypes(@NonNull String query, @NonNull String lang);
+  public static native String[] nativeSearchCreatableFeatureTypes(@NonNull Context context, @NonNull String query,
+                                                                  @NonNull String lang);
   @NonNull
   public static native String[] nativeGetRecentCategories();
   public static native void nativeAddToRecentCategories(@NonNull String type);

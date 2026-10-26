@@ -1,6 +1,7 @@
 package app.organicmaps.sdk.util;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
@@ -19,12 +20,16 @@ public class Language
   @NonNull
   public static String getDefaultLocale()
   {
-    final Locale locale = Locale.getDefault();
-    // toLanguageTag() spells a language-less locale as "und", so test the language itself.
-    if (locale.getLanguage().isEmpty())
-      return Locale.US.toLanguageTag();
+    return toCoreLocale(Locale.getDefault());
+  }
 
-    return toLanguageTag(locale);
+  /** Returns the resource locale used to display strings in this context, including per-app overrides. */
+  @NonNull
+  public static String getResourceLocale(@NonNull Context context)
+  {
+    final Configuration configuration = context.getResources().getConfiguration();
+    return toCoreLocale(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? configuration.getLocales().get(0)
+                                                                       : configuration.locale);
   }
 
   // After some testing on Galaxy S4, looks like this method doesn't work on all devices:
@@ -51,8 +56,12 @@ public class Language
   // "en-UA-u-fw-mon-ms-metric-mu-celsius" (first day of week, measurement system, temperature unit)
   // becomes plain "en-UA". They say nothing about the language.
   @NonNull
-  private static String toLanguageTag(@NonNull Locale locale)
+  private static String toCoreLocale(@NonNull Locale locale)
   {
+    // toLanguageTag() spells a language-less locale as "und", so test the language itself.
+    if (locale.getLanguage().isEmpty())
+      return Locale.US.toLanguageTag();
+
     // stripExtensions() needs API 26 and is not backported by core library desugaring. Regional
     // preferences did not exist before Android 14, so there is nothing to strip on older devices.
     final Locale stripped = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ? locale.stripExtensions() : locale;
