@@ -242,6 +242,11 @@ public final class WindowInsetUtils
       return new BaselinePaddingInsetsListener(true, false, true, true);
     }
 
+    public static BaselinePaddingInsetsListener excludeTop()
+    {
+      return new BaselinePaddingInsetsListener(false, true, true, true);
+    }
+
     public static BaselinePaddingInsetsListener onlyBottom()
     {
       return new BaselinePaddingInsetsListener(false, true, false, false);

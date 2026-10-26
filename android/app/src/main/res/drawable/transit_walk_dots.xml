@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Walking-segment connector on the transit details timeline: two dots above and two below the centered
+     walk icon, the dotted counterpart to the ride legs' solid line bar. Tinted by its ImageView. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+  android:width="8dp"
+  android:height="64dp"
+  android:viewportWidth="8"
+  android:viewportHeight="64">
+  <path
+    android:fillColor="@android:color/white"
+    android:pathData="M4,5m-2.5,0a2.5,2.5 0,1 1,5 0a2.5,2.5 0,1 1,-5 0M4,14m-2.5,0a2.5,2.5 0,1 1,5 0a2.5,2.5 0,1 1,-5 0M4,50m-2.5,0a2.5,2.5 0,1 1,5 0a2.5,2.5 0,1 1,-5 0M4,59m-2.5,0a2.5,2.5 0,1 1,5 0a2.5,2.5 0,1 1,-5 0" />
+</vector>

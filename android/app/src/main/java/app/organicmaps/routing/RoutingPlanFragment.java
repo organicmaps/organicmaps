@@ -291,10 +291,19 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     // Peek excludes the scrollable steps/list: it ends at the steps' top (or the full header when there are
     // none), while setMaxHeight caps a long list to scroll inside the sheet instead of covering the map.
     final boolean stepsVisible = mTransitStepsView.getVisibility() == View.VISIBLE;
-    final int chartHeader = stepsVisible ? mTransitStepsView.getTop() : mChartPanel.getHeight();
+    final int chartHeader = stepsVisible ? getTransitStepsTop() : mChartPanel.getHeight();
     final int peekHeight =
         mRoutingTypesContainer.getHeight() + chartHeader + mBottomButtonsMaxHeight + mPeekHeightMargins;
     mSheetBehavior.setPeekHeight(peekHeight);
+  }
+
+  // The steps are nested in the transit summary tile, so their top is relative to it, not to the chart panel.
+  private int getTransitStepsTop()
+  {
+    int top = mTransitStepsView.getTop();
+    for (View v = (View) mTransitStepsView.getParent(); v != mChartPanel; v = (View) v.getParent())
+      top += v.getTop();
+    return top;
   }
 
   private void setupRouterButtons()

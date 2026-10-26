@@ -8,11 +8,13 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RadioGroup;
 import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.sdk.settings.RoadType;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.EnumSet;
@@ -112,6 +114,38 @@ public class RoutingPlanOptionsTest
       verify(container).setAlpha(1.0f);
       verify(settingsButton).setEnabled(true);
     }
+  }
+
+  @Test
+  public void collapsedSheetKeepsTheSummaryAboveTheNestedSteps() throws ReflectiveOperationException
+  {
+    RoutingPlanFragment fragment = mock(RoutingPlanFragment.class, CALLS_REAL_METHODS);
+    ViewGroup chartPanel = mock(ViewGroup.class);
+    ViewGroup summaryTile = mock(ViewGroup.class);
+    View steps = mock(View.class);
+    View routingTypes = mock(View.class);
+    @SuppressWarnings("unchecked")
+    BottomSheetBehavior<View> sheetBehavior = mock(BottomSheetBehavior.class);
+    when(steps.getVisibility()).thenReturn(View.VISIBLE);
+    when(steps.getTop()).thenReturn(40);
+    when(steps.getParent()).thenReturn(summaryTile);
+    when(summaryTile.getTop()).thenReturn(200);
+    when(summaryTile.getParent()).thenReturn(chartPanel);
+    when(routingTypes.getHeight()).thenReturn(50);
+    setField(fragment, "mFrame", mock(View.class));
+    setField(fragment, "mChartPanel", chartPanel);
+    setField(fragment, "mTransitStepsView", steps);
+    setField(fragment, "mRoutingTypesContainer", routingTypes);
+    setField(fragment, "mSheetBehavior", sheetBehavior);
+    setField(fragment, "mBottomButtonsMaxHeight", 60);
+    setField(fragment, "mPeekHeightMargins", 10);
+
+    Method method = RoutingPlanFragment.class.getDeclaredMethod("updateSheetHeights");
+    method.setAccessible(true);
+    method.invoke(fragment);
+
+    // The steps' top inside the panel is the tile's offset plus the steps' offset within the tile.
+    verify(sheetBehavior).setPeekHeight(50 + 200 + 40 + 60 + 10);
   }
 
   private static void updateProgress(RoutingPlanFragment fragment, Router router) throws ReflectiveOperationException

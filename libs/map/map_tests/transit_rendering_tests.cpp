@@ -8,6 +8,8 @@
 #include "drape_frontend/route_renderer.hpp"
 #include "drape_frontend/visual_params.hpp"
 
+#include "routing/fake_feature_ids.hpp"
+
 #include "transit/transit_graph_data.hpp"
 
 #include "coding/files_container.hpp"
@@ -20,6 +22,13 @@ namespace transit_rendering_tests
 {
 namespace
 {
+// A named bus stop feature, which names the transit stop at the same point.
+struct StopPoi
+{
+  m2::PointD m_point;
+  std::string m_name;
+};
+
 class Fixture : public generator::tests_support::TestWithCustomMwms
 {
 public:
@@ -31,7 +40,8 @@ public:
         "lines": [{"id": 1, "interval": 60, "network_id": 1, "number": "1", "stop_ids": [1, 2],
                    "type": "subway", "color": "red"}],
         "networks": [{"id": 1, "title": "Transit test"}]
-      })")
+      })",
+                   std::vector<StopPoi> const & stopPois = {})
     : m_reader(m_dataSource, [this](FeatureCallback const & fn, std::vector<FeatureID> const & ids)
   { m_dataSource.ReadFeatures(fn, ids); }, [](m2::RectD const &) { return std::vector<MwmSet::MwmId>(); })
     , m_bookmarks(BookmarkManager::Callbacks([this]() -> StringsBundle const & { return m_strings; }, nullptr, nullptr,
@@ -40,11 +50,18 @@ public:
     df::VisualParams::Init(1.0, 256);
     m_strings.SetString("core_entrance", "Entrance");
     m_strings.SetString("core_exit", "Exit");
-    m_id = BuildCountry("TransitRenderingTest", [&graphJson](generator::tests_support::TestMwmBuilder & builder)
+    m_id =
+        BuildCountry("TransitRenderingTest", [&graphJson, &stopPois](generator::tests_support::TestMwmBuilder & builder)
     {
       generator::tests_support::TestPOI poi({0.00001, 0}, "Gate", "en");
       poi.SetTypes({{"railway", "subway_entrance"}});
       builder.Add(poi);
+      for (auto const & stop : stopPois)
+      {
+        generator::tests_support::TestPOI stopPoi(stop.m_point, stop.m_name, "en");
+        stopPoi.SetTypes({{"highway", "bus_stop"}});
+        builder.Add(stopPoi);
+      }
       builder.Finish();
 
       routing::transit::GraphData graph;
@@ -273,5 +290,100 @@ UNIT_TEST(TransitDisplay_GateSeparatesStopVisitsAcrossWaypoints)
   TEST_EQUAL(
       std::count_if(marks.begin(), marks.end(), [&](auto const * mark) { return mark->GetPivot() == alightingPoint; }),
       2, ());
+}
+
+UNIT_TEST(TransitDisplay_LineIdentitySeparatesMatchingBadges)
+{
+  Fixture fixture(R"({
+    "stops": [
+      {"id": 1, "osm_id": "1", "line_ids": [1], "point": {"x": 0, "y": 0}},
+      {"id": 2, "osm_id": "2", "line_ids": [1, 2], "point": {"x": 0.00001, "y": 0}},
+      {"id": 3, "osm_id": "3", "line_ids": [1, 2], "point": {"x": 0.00002, "y": 0}}
+    ],
+    "lines": [
+      {"id": 1, "interval": 60, "network_id": 1, "number": "7", "stop_ids": [1, 2, 3],
+       "type": "bus", "color": "red"},
+      {"id": 2, "interval": 60, "network_id": 1, "number": "7", "stop_ids": [2, 3],
+       "type": "bus", "color": "red"}
+    ],
+    "networks": [{"id": 1, "title": "Transit test"}]
+  })");
+  for (routing::transit::LineId const secondLine : {1, 2})
+  {
+    bool const changesLine = secondLine != 1;
+    std::vector<routing::RouteSegment> segments;
+    for (size_t i = 0; i < 2; ++i)
+    {
+      m2::PointD const point((i + 1) * 0.00001, 0);
+      segments.emplace_back(routing::Segment(0, routing::FakeFeatureIds::kTransitGraphFeaturesStart + i, 0, true),
+                            routing::turns::TurnItem(), geometry::PointWithAltitude(point, 0),
+                            routing::RouteSegment::RoadNameInfo());
+      segments.back().SetDistancesAndTime((i + 1) * 10, point.x, i == 0 ? 150 : (changesLine ? 300 : 270));
+      segments.back().SetTransitInfo(std::make_unique<routing::TransitInfo>(routing::transit::Edge(
+          i + 1, i + 2, 120, i == 0 ? 1 : secondLine, false, std::vector<routing::transit::ShapeId>{})));
+    }
+    auto display = fixture.MakeDisplay();
+    Process(display, segments, 0, segments.size());
+    auto const & info = display.GetRouteInfo();
+    TEST_EQUAL(info.m_steps.size(), changesLine ? 2 : 1, (secondLine));
+    TEST_EQUAL(info.m_totalDistInMeters, 20, ());
+    TEST_EQUAL(info.m_totalTimeInSec, changesLine ? 300 : 270, ());
+    for (auto const & step : info.m_steps)
+    {
+      TEST_EQUAL(step.m_type, TransitType::Bus, ());
+      TEST_EQUAL(step.m_number, "7", ());
+      TEST_EQUAL(step.m_lineNumber, "7", ());
+      TEST_EQUAL(step.m_colorARGB, info.m_steps.front().m_colorARGB, ());
+      TEST_EQUAL(step.m_timeInSec, changesLine ? 150 : 270, ());
+      TEST_EQUAL(step.m_distanceInMeters, changesLine ? 10 : 20, ());
+      TEST_EQUAL(step.m_stopCount, changesLine ? 1 : 2, ());
+    }
+  }
+}
+
+UNIT_TEST(TransitDisplay_ParallelLinesKeepSelectedLineStops)
+{
+  // The route rides line 1 through A-B-C-D; line 2 also serves A and D, but via X.
+  std::vector<m2::PointD> const points = {{0.001, 0.001}, {0.002, 0.001}, {0.003, 0.001}, {0.004, 0.001}};
+  Fixture fixture(R"({
+    "stops": [
+      {"id": 1, "osm_id": "1", "line_ids": [1, 2], "point": {"x": 0.001, "y": 0.001}},
+      {"id": 2, "osm_id": "2", "line_ids": [1], "point": {"x": 0.002, "y": 0.001}},
+      {"id": 3, "osm_id": "3", "line_ids": [1], "point": {"x": 0.003, "y": 0.001}},
+      {"id": 4, "osm_id": "4", "line_ids": [1, 2], "point": {"x": 0.004, "y": 0.001}},
+      {"id": 5, "osm_id": "5", "line_ids": [2], "point": {"x": 0.0025, "y": 0.003}}
+    ],
+    "lines": [
+      {"id": 1, "interval": 60, "network_id": 1, "number": "1", "stop_ids": [1, 2, 3, 4],
+       "type": "bus", "color": "red"},
+      {"id": 2, "interval": 60, "network_id": 1, "number": "2", "stop_ids": [1, 5, 4],
+       "type": "bus", "color": "red"}
+    ],
+    "networks": [{"id": 1, "title": "Transit test"}]
+  })",
+                  {{points[0], "A"}, {points[1], "B"}, {points[2], "C"}, {points[3], "D"}, {{0.0025, 0.003}, "X"}});
+
+  std::vector<routing::RouteSegment> segments;
+  for (size_t i = 0; i + 1 < points.size(); ++i)
+  {
+    segments.emplace_back(routing::Segment(0, routing::FakeFeatureIds::kTransitGraphFeaturesStart + i, 0, true),
+                          routing::turns::TurnItem(), geometry::PointWithAltitude(points[i + 1], 0),
+                          routing::RouteSegment::RoadNameInfo());
+    segments.back().SetDistancesAndTime((i + 1) * 100, points[i + 1].x, (i + 1) * 60);
+    segments.back().SetTransitInfo(std::make_unique<routing::TransitInfo>(
+        routing::transit::Edge(i + 1, i + 2, 60, 1, false, std::vector<routing::transit::ShapeId>{})));
+  }
+  auto display = fixture.MakeDisplay();
+  Process(display, segments, 0, segments.size());
+
+  auto const & steps = display.GetRouteInfo().m_steps;
+  TEST_EQUAL(steps.size(), 1, ());
+  auto const & ride = steps.front();
+  TEST_EQUAL(ride.m_number, "1, 2", ());
+  TEST_EQUAL(ride.m_lineNumber, "1", ());
+  TEST_EQUAL(ride.m_startStopName, "A", ());
+  TEST_EQUAL(ride.m_endStopName, "D", ());
+  TEST_EQUAL(ride.m_intermediateStopNames, std::vector<std::string>({"B", "C"}), ());
+  TEST_EQUAL(ride.m_stopCount, 3, ());
 }
 }  // namespace transit_rendering_tests
