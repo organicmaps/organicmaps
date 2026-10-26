@@ -169,6 +169,7 @@
 		6742AD311C68A9DF009CB89E /* road_graph_nearest_edges_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACB11C68A0B1009CB89E /* road_graph_nearest_edges_test.cpp */; };
 		6742AD321C68A9DF009CB89E /* route_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACB21C68A0B1009CB89E /* route_tests.cpp */; };
 		6742AD341C68A9DF009CB89E /* routing_session_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACB41C68A0B1009CB89E /* routing_session_test.cpp */; };
+		9A4E210D45534783B0ACEA55 /* routing_session_checkpoint_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32E7F8DCBEAD436086E9C133 /* routing_session_checkpoint_test.cpp */; };
 		6742AD351C68A9DF009CB89E /* turns_generator_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACB51C68A0B1009CB89E /* turns_generator_test.cpp */; };
 		6742AD361C68A9DF009CB89E /* turns_sound_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACB61C68A0B1009CB89E /* turns_sound_test.cpp */; };
 		6742AD371C68A9DF009CB89E /* turns_tts_text_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6742ACB71C68A0B1009CB89E /* turns_tts_text_tests.cpp */; };
@@ -453,6 +454,7 @@
 		6742ACB11C68A0B1009CB89E /* road_graph_nearest_edges_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = road_graph_nearest_edges_test.cpp; sourceTree = "<group>"; };
 		6742ACB21C68A0B1009CB89E /* route_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = route_tests.cpp; sourceTree = "<group>"; };
 		6742ACB41C68A0B1009CB89E /* routing_session_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_session_test.cpp; sourceTree = "<group>"; };
+		32E7F8DCBEAD436086E9C133 /* routing_session_checkpoint_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_session_checkpoint_test.cpp; sourceTree = "<group>"; };
 		6742ACB51C68A0B1009CB89E /* turns_generator_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = turns_generator_test.cpp; sourceTree = "<group>"; };
 		6742ACB61C68A0B1009CB89E /* turns_sound_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = turns_sound_test.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		6742ACB71C68A0B1009CB89E /* turns_tts_text_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = turns_tts_text_tests.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
@@ -633,6 +635,7 @@
 				568194741F03A32400450EC3 /* routing_helpers_tests.cpp */,
 				4418327F222D45BB00C70BD9 /* routing_options_tests.cpp */,
 				6742ACB41C68A0B1009CB89E /* routing_session_test.cpp */,
+				32E7F8DCBEAD436086E9C133 /* routing_session_checkpoint_test.cpp */,
 				44F45B272136B069001B1618 /* speed_cameras_tests.cpp */,
 				6742ACDE1C68A13F009CB89E /* testingmain.cpp */,
 				5661A5CD20DE51C500C6B1D1 /* tools.hpp */,
@@ -1150,6 +1153,7 @@
 				56CBED5822E9CFB600D51AF7 /* position_accumulator_tests.cpp in Sources */,
 				FAA838A826BB4B21002E54C6 /* routing_helpers_tests.cpp in Sources */,
 				6742AD341C68A9DF009CB89E /* routing_session_test.cpp in Sources */,
+				9A4E210D45534783B0ACEA55 /* routing_session_checkpoint_test.cpp in Sources */,
 				6742AD261C68A9DF009CB89E /* testingmain.cpp in Sources */,
 				FAA838A626BB4B16002E54C6 /* checkpoint_predictor_test.cpp in Sources */,
 				FAA838A926BB4B24002E54C6 /* applying_traffic_test.cpp in Sources */,
