@@ -41,6 +41,10 @@ public:
   static bool ShouldRetry(QNetworkReply::NetworkError error, QString const & errorString, int httpCode,
                           bool anyBytesReceived, bool writeError, int retriesRemaining);
 
+  // True when the status and Qt error together describe a complete HTTP response.
+  // Qt reports HTTP error statuses through NetworkError too. Exposed for unit testing.
+  static bool IsCompleteResponse(QNetworkReply::NetworkError error, int httpCode);
+
 private slots:
   void OnReadyRead();
   void OnDownloadProgress(qint64 bytesReceived, qint64 bytesTotal);

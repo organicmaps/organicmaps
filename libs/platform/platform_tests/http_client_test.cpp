@@ -38,6 +38,8 @@ char constexpr kTestUrlBigFile[] = "http://localhost:24568/unit_tests/47kb.file"
 char constexpr kTestUrlEchoHeaders[] = "http://localhost:24568/unit_tests/echo_headers";
 char constexpr kTestUrlEchoCookies[] = "http://localhost:24568/unit_tests/echo_cookies";
 char constexpr kTestUrlTimeout[] = "http://localhost:24568/unit_tests/timeout";
+char constexpr kTestUrlTruncated[] = "http://localhost:24568/unit_tests/truncated_body";
+char constexpr kTestUrl400[] = "http://localhost:24568/unit_tests/400";
 char constexpr kTestUrl500[] = "http://localhost:24568/unit_tests/500";
 char constexpr kTestUrl403[] = "http://localhost:24568/unit_tests/403";
 char constexpr kTestUrlRedirect[] = "http://localhost:24568/unit_tests/redirect_to_1txt";
@@ -101,6 +103,13 @@ UNIT_TEST(HttpClient_SyncGet_403)
   HttpClient client(kTestUrl403);
   TEST(client.RunHttpRequest(), ());
   TEST_EQUAL(client.ErrorCode(), 403, ());
+}
+
+UNIT_TEST(HttpClient_SyncGet_400)
+{
+  HttpClient client(kTestUrl400);
+  TEST(client.RunHttpRequest(), ());
+  TEST_EQUAL(client.ErrorCode(), 400, ());
 }
 
 UNIT_TEST(HttpClient_SyncGet_InvalidHost)
@@ -431,13 +440,42 @@ UNIT_TEST(HttpClient_RangeRequest_OpenEnded)
 UNIT_TEST(HttpClient_Timeout)
 {
   HttpClient client(kTestUrlTimeout);
-  client.SetTimeout(2);  // 2 second timeout, server sleeps 60s.
+  client.SetTimeout(2);  // The server responds after 3 seconds.
   auto const start = std::chrono::steady_clock::now();
   TEST(!client.RunHttpRequest(), ());
   auto const elapsed = std::chrono::steady_clock::now() - start;
   // Should return within ~5 seconds (generous margin for CI).
   TEST(elapsed < std::chrono::seconds(15), ());
 }
+
+UNIT_TEST(HttpClient_TruncatedBody)
+{
+  // A valid 200 status must not hide a body shorter than Content-Length.
+  HttpClient client(kTestUrlTruncated);
+  TEST(!client.RunHttpRequest(), ("A body cut short must not be reported as success"));
+  TEST_NOT_EQUAL(client.ErrorCode(), 200, ("A failed request must not carry a successful HTTP status"));
+}
+
+UNIT_TEST(HttpClient_TruncatedBody_ReceivedFile)
+{
+  string const path = GetPlatform().TmpPathForFile("http_truncated_body_", ".tmp");
+  HttpClient client(kTestUrlTruncated);
+  client.SetReceivedFile(path);
+  TEST(!client.RunHttpRequest(), ("An incomplete file must not be reported as success"));
+  TEST_NOT_EQUAL(client.ErrorCode(), 200, ("A failed request must not carry a successful HTTP status"));
+  TEST(base::DeleteFileX(path), (path));
+}
+
+#if defined(OMIM_OS_LINUX) || defined(OMIM_OS_WINDOWS)
+UNIT_TEST(HttpClient_Qt_CorruptCompressedBody)
+{
+  // Qt content decoding is part of receiving a complete response. A valid 200
+  // status must not hide a decompression failure that leaves callers without the body.
+  HttpClient client("http://localhost:24568/unit_tests/corrupt_gzip");
+  TEST(!client.RunHttpRequest(), ("A corrupt compressed body must not be reported as success"));
+  TEST_NOT_EQUAL(client.ErrorCode(), 200, ("A failed request must not carry a successful HTTP status"));
+}
+#endif
 
 // =====================================================================
 // ReceivedFile (download to file)
@@ -672,11 +710,9 @@ UNIT_TEST(HttpClient_NormalizeServerCookies)
 // =====================================================================
 
 #if defined(OMIM_OS_LINUX) || defined(OMIM_OS_WINDOWS)
-// Qt-specific: verify m_success is true for HTTP error responses (regression test).
+// Qt-specific: complete HTTP error responses are transport successes.
 UNIT_TEST(HttpClient_Qt_SuccessSemantics_HttpErrors)
 {
-  // Verify that HTTP 4xx/5xx responses still set m_success=true.
-  // This was a regression where Qt's QNetworkReply::error() != NoError for HTTP errors.
   {
     HttpClient client(kTestUrl404);
     auto result = RunAsync(client);
@@ -1047,7 +1083,7 @@ UNIT_TEST(HttpClient_NormalizeServerCookies_EdgeCases)
 }
 
 // =====================================================================
-// Regression: ProgressHandler must not prevent body accumulation
+// ProgressHandler with body accumulation
 // =====================================================================
 
 UNIT_TEST(HttpClient_ProgressHandler_PreservesBody)
@@ -1064,7 +1100,7 @@ UNIT_TEST(HttpClient_ProgressHandler_PreservesBody)
 }
 
 // =====================================================================
-// Regression: POST body must not leak into m_serverResponse when response goes to file
+// POST response written to a file keeps m_serverResponse empty
 // =====================================================================
 
 UNIT_TEST(HttpClient_Post_BodyData_ResponseToFile)
@@ -1086,7 +1122,7 @@ UNIT_TEST(HttpClient_Post_BodyData_ResponseToFile)
 }
 
 // =====================================================================
-// Regression: POST to 204 No Content must not return request body as response
+// POST to 204 No Content leaves the response body empty
 // =====================================================================
 
 char constexpr kTestUrl204[] = "http://localhost:24568/unit_tests/204";
@@ -1335,11 +1371,10 @@ UNIT_TEST(HttpClient_Segment_MissingTarget_WriteException)
   TEST_EQUAL(result.m_errorCode, HttpClient::kWriteException, ());
 }
 
-UNIT_TEST(HttpClient_Segment_NoSegment_ExistingBehaviorUnchanged)
+UNIT_TEST(HttpClient_Segment_PlainReceivedFile)
 {
-  // Regression guard: without SetReceivedFileSegment, SetReceivedFile still truncates
-  // and writes the full body as before.
-  string const path = GetPlatform().TmpPathForFile("http_segment_regression_", ".tmp");
+  // SetReceivedFile writes the complete response when segment mode is not configured.
+  string const path = GetPlatform().TmpPathForFile("http_segment_plain_", ".tmp");
 
   HttpClient client(kTestUrl1);
   client.SetReceivedFile(path);
