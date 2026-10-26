@@ -375,8 +375,13 @@ void SpeedCameraManager::SendEnterZoneStat(double distToCameraMeters, double spe
 
 void SpeedCameraManager::SetMode(SpeedCameraManagerMode mode)
 {
+  if (m_mode == mode)
+    return;
+
   m_mode = mode;
   settings::Set(kSpeedCamModeKey, static_cast<int>(mode));
+  if (m_closestCamera.IsValid())
+    PassClosestCameraToUI();
 }
 
 std::string DebugPrint(SpeedCameraManager::Interval interval)
