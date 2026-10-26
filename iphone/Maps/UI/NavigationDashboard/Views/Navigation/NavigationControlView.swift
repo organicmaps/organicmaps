@@ -16,6 +16,7 @@ final class NavigationControlView: SolidTouchView {
   @IBOutlet private var speedWithLegendLabel: UILabel!
   @IBOutlet private var timeLabel: UILabel!
   @IBOutlet private var timePageControl: UIPageControl!
+  @IBOutlet private var toggleInfoButton: UIButton!
   @IBOutlet private var extendedView: UIView!
 
   @IBOutlet private var extendButton: UIButton! {
@@ -53,6 +54,7 @@ final class NavigationControlView: SolidTouchView {
   var isVisible = false {
     didSet {
       guard isVisible != oldValue else { return }
+      accessibilityElementsHidden = !isVisible
       if isVisible {
         addView()
       } else {
@@ -67,11 +69,12 @@ final class NavigationControlView: SolidTouchView {
       morphExtendButton()
     }
     didSet {
-      guard isVisible, superview != nil else { return }
-      guard isExtended != oldValue else { return }
+      guard isVisible, superview != nil, isExtended != oldValue else { return }
 
+      extendButton.accessibilityLabel = L(isExtended ? "navigation_accessibility_hide_controls" : "navigation_accessibility_more_controls")
       dimBackground.setVisible(isExtended, completion: nil)
       extendedView.isHidden = !isExtended
+      updateAccessibilityElements()
       superview!.animateConstraints(animations: { [weak self] in
         guard let self else { return }
         if self.isExtended {
@@ -82,6 +85,9 @@ final class NavigationControlView: SolidTouchView {
           self.notExtendedConstraint.isActive = true
         }
       })
+      if UIAccessibility.isVoiceOverRunning {
+        UIAccessibility.post(notification: .layoutChanged, argument: isExtended ? settingsButton : extendButton)
+      }
     }
   }
 
@@ -110,6 +116,24 @@ final class NavigationControlView: SolidTouchView {
     configureButton(ttsButton)
     configureButton(trackRecordingButton)
     configureStopButton(stopButton)
+
+    distanceLabel.accessibilityLabel = L("navigation_accessibility_distance_remaining")
+    distanceLabel.isAccessibilityElement = true
+    distanceWithLegendLabel.accessibilityLabel = distanceLabel.accessibilityLabel
+    distanceWithLegendLabel.isAccessibilityElement = true
+    distanceLegendLabel.isAccessibilityElement = false
+    speedLabel.accessibilityLabel = L("navigation_accessibility_current_speed")
+    speedLabel.isAccessibilityElement = true
+    speedWithLegendLabel.accessibilityLabel = speedLabel.accessibilityLabel
+    speedWithLegendLabel.isAccessibilityElement = true
+    speedLegendLabel.isAccessibilityElement = false
+    timeLabel.isAccessibilityElement = false
+    timePageControl.isAccessibilityElement = false
+    extendButton.accessibilityLabel = L("navigation_accessibility_more_controls")
+    settingsButton.accessibilityLabel = L("settings")
+    ttsButton.accessibilityLabel = L("pref_tts_enable_title")
+    stopButton.accessibilityLabel = L("navigation_stop_button")
+    updateAccessibilityElements()
 
     MWMTextToSpeech.add(self)
   }
@@ -198,10 +222,28 @@ final class NavigationControlView: SolidTouchView {
 
     let pgScale: CGFloat = isCompact ? 0.7 : 1
     timePageControl.transform = CGAffineTransform(scaleX: pgScale, y: pgScale)
+    updateAccessibilityElements()
+  }
+
+  private func updateAccessibilityElements() {
+    let isCompact = traitCollection.verticalSizeClass == .compact
+    let speed: UILabel = isCompact ? speedWithLegendLabel : speedLabel
+    let distance: UILabel = isCompact ? distanceWithLegendLabel : distanceLabel
+    var elements: [Any] = [speed, toggleInfoButton, distance, extendButton]
+    if isExtended {
+      elements.append(settingsButton)
+      if !ttsButton.isHidden {
+        elements.append(ttsButton)
+      }
+      elements.append(trackRecordingButton)
+      elements.append(stopButton)
+    }
+    accessibilityElements = elements
   }
 
   func setTrackRecordingState(_ state: TrackRecordingState) {
     trackRecordingButton.coloring = state == .active ? .red : .black
+    trackRecordingButton.accessibilityLabel = state == .active ? L("track_recording_title") : L("start_track_recording")
   }
 
   func onNavigationInfoUpdated(_ info: MWMNavigationDashboardEntity) {
@@ -220,9 +262,14 @@ final class NavigationControlView: SolidTouchView {
 
     if timePageControl.currentPage == 0 {
       timeLabel.text = DurationFormatter.durationString(from: TimeInterval(info.timeToTarget))
+      toggleInfoButton.accessibilityLabel = L("navigation_accessibility_time_remaining")
+      toggleInfoButton.accessibilityHint = L("navigation_accessibility_show_arrival_time")
     } else {
       timeLabel.text = info.arrival
+      toggleInfoButton.accessibilityLabel = L("navigation_accessibility_arrival_time")
+      toggleInfoButton.accessibilityHint = L("navigation_accessibility_show_time_remaining")
     }
+    toggleInfoButton.accessibilityValue = timeLabel.text
 
     var distanceWithLegend: NSMutableAttributedString?
     if let targetDistance = info.targetDistance {
@@ -237,6 +284,9 @@ final class NavigationControlView: SolidTouchView {
         distanceWithLegendLabel.attributedText = distanceWithLegend
       }
     }
+    let distanceValue = [info.targetDistance, info.targetUnits].compactMap { $0?.isEmpty == false ? $0 : nil }.joined(separator: " ")
+    distanceLabel.accessibilityValue = distanceValue
+    distanceWithLegendLabel.accessibilityValue = distanceValue
 
     var speedMps = 0.0
     if let s = LocationManager.lastLocation()?.speed, s > 0 {
@@ -260,6 +310,16 @@ final class NavigationControlView: SolidTouchView {
     let speedWithLegend = NSMutableAttributedString(string: speed, attributes: routingNumberAttributes)
     speedWithLegend.append(NSAttributedString(string: speedMeasure.unit, attributes: routingLegendAttributes))
     speedWithLegendLabel.attributedText = speedWithLegend
+
+    var speedValue = "\(speedMeasure.valueAsString) \(speedMeasure.unit)"
+    if info.speedLimitMps >= 0 {
+      let limit = info.speedLimitMps == 0
+        ? L("navigation_accessibility_unlimited_speed")
+        : "\(Measure(asSpeed: info.speedLimitMps).valueAsString) \(speedMeasure.unit)"
+      speedValue += ", " + String(format: L("navigation_accessibility_speed_limit"), limit)
+    }
+    speedLabel.accessibilityValue = speedValue
+    speedWithLegendLabel.accessibilityValue = speedValue
 
     if MWMRouter.isSpeedCamLimitExceeded() {
       speedLabel.textColor = .whitePrimary
@@ -340,6 +400,7 @@ final class NavigationControlView: SolidTouchView {
 
   private func refreshDiminishTimer() {
     cancelDiminishTimer()
+    guard !UIAccessibility.isVoiceOverRunning else { return }
     perform(diminishSelector, with: self, afterDelay: 5)
   }
 
@@ -377,6 +438,10 @@ extension NavigationControlView: MWMTextToSpeechObserver {
     ttsButton.isHidden = !MWMTextToSpeech.isTTSEnabled()
     if !ttsButton.isHidden {
       ttsButton.isSelected = MWMTextToSpeech.tts().active
+      ttsButton.accessibilityValue = L(ttsButton.isSelected ? "on" : "off")
+    }
+    if isVisible {
+      updateAccessibilityElements()
     }
     refreshDiminishTimer()
   }

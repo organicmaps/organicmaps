@@ -325,6 +325,7 @@
                 <outlet property="stopButton" destination="mtt-q0-SUx" id="xRt-VN-03B"/>
                 <outlet property="timeLabel" destination="wEc-R2-1Tv" id="cfd-vS-d1G"/>
                 <outlet property="timePageControl" destination="ppd-rW-dYo" id="U1U-6U-JjR"/>
+                <outlet property="toggleInfoButton" destination="UPO-sh-VhS" id="axs-tim-but"/>
                 <outlet property="trackRecordingButton" destination="f6v-NB-AKJ" id="IIf-SL-tjO"/>
                 <outlet property="ttsButton" destination="Bfb-5v-iWA" id="GMb-ft-G6X"/>
             </connections>

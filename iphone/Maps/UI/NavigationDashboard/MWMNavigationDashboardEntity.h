@@ -8,6 +8,8 @@
 @property(copy, nonatomic, readonly) NSString * targetDistance;
 @property(copy, nonatomic, readonly) NSString * targetUnits;
 @property(copy, nonatomic, readonly) NSString * turnUnits;
+@property(copy, nonatomic, readonly, nullable) NSString * turnInstruction;
+@property(copy, nonatomic, readonly, nullable) NSString * nextTurnInstruction;
 @property(nonatomic, readonly) double speedLimitMps;
 @property(nonatomic, readonly) CGFloat progress;
 @property(nonatomic, readonly) NSUInteger roundExitNumber;
