@@ -37,7 +37,7 @@ namespace routing
 
  */
 RouterResultCode RulerRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
-                                             bool adjustToPrevRoute, bool /* needAlternatives */,
+                                             RouteAdjustmentContextPtr const & adjustmentContext, bool needAlternatives,
                                              RouterDelegate const & delegate, RoutesResult & result)
 {
   auto const & points = checkpoints.GetPoints();
@@ -94,7 +94,7 @@ RouterResultCode RulerRouter::CalculateRoute(Checkpoints const & checkpoints, m2
   }
 
   route.SetGeometry(routeGeometry.begin(), routeGeometry.end());
-  result.MakeFrom(GetName(), std::move(route));
+  result.MakeFrom(GetName(), std::move(route), nullptr /* adjustmentContext */);
 
   return RouterResultCode::NoError;
 }

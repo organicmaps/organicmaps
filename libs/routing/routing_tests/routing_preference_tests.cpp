@@ -4,6 +4,7 @@
 
 #include "routing/index_router.hpp"
 #include "routing/route.hpp"
+#include "routing/route_adjustment_context.hpp"
 #include "routing/routing_options.hpp"
 #include "routing/world_graph.hpp"
 
@@ -73,7 +74,8 @@ public:
   }
 
   static RouterResultCode Calculate(IndexRouter & router, RoutesResult & result, RouterDelegate const & delegate = {},
-                                    bool adjust = false, bool alternatives = false, bool intermediate = false)
+                                    bool adjust = false, bool alternatives = false, bool intermediate = false,
+                                    RouteAdjustmentContextPtr adjustmentContext = nullptr)
   {
     // The finish is over 10 km away so an unchanged request can reuse the adjustment cache.
     // The cached first leg ends at a road vertex so off-road connector costs stay within the
@@ -84,7 +86,7 @@ public:
     if (intermediate)
       points.push_back(mercator::FromLatLon(1.0001, 1.0105));
     points.push_back(mercator::FromLatLon(1, 1.49));
-    return router.CalculateRoute(Checkpoints(std::move(points)), {}, adjust, alternatives, delegate, result);
+    return router.CalculateRoute(Checkpoints(std::move(points)), {}, adjustmentContext, alternatives, delegate, result);
   }
 
 private:
@@ -129,13 +131,39 @@ UNIT_CLASS_TEST(RoutingPreferenceFixture, ChangedAvoidanceInvalidatesCachedSuffi
   TEST_EQUAL(Calculate(*router, before, {}, false, true, true), RouterResultCode::NoError, ());
   TEST(UsesFerry(before.GetActive()), ());
   RoutesResult unchanged;
-  TEST_EQUAL(Calculate(*router, unchanged, {}, true, false, true), RouterResultCode::NoError, ());
+  TEST_EQUAL(Calculate(*router, unchanged, {}, true, false, true, before.GetActiveAdjustmentContext()),
+             RouterResultCode::NoError, ());
   TEST(UsesFerry(unchanged.GetActive()), ());
+  TEST_EQUAL(unchanged.GetActiveAdjustmentContext(), before.GetActiveAdjustmentContext(), ());
   RoutingOptions::SaveToSettings(VehicleType::Car, RoutingOptions(RoutingOptions::Ferry));
   RoutesResult after;
-  TEST_EQUAL(Calculate(*router, after, {}, true, true, true), RouterResultCode::NoError, ());
+  TEST_EQUAL(Calculate(*router, after, {}, true, true, true, before.GetActiveAdjustmentContext()),
+             RouterResultCode::NoError, ());
+  TEST_NOT_EQUAL(after.GetActiveAdjustmentContext(), before.GetActiveAdjustmentContext(), ());
   for (auto const & route : after.m_routes)
     TEST(!UsesFerry(route), ());
+}
+
+UNIT_CLASS_TEST(RoutingPreferenceFixture, DeliveredContextSurvivesNewerRequests)
+{
+  auto router = Router(VehicleType::Car);
+  RoutesResult before;
+  TEST_EQUAL(Calculate(*router, before, {}, false, true, true), RouterResultCode::NoError, ());
+  auto const baseline = before.GetActiveAdjustmentContext();
+
+  // An unrelated full build must not replace the state of an already delivered route.
+  RoutesResult newer;
+  TEST_EQUAL(Calculate(*router, newer), RouterResultCode::NoError, ());
+  TEST_NOT_EQUAL(newer.GetActiveAdjustmentContext(), baseline, ());
+  RouterDelegate cancelled;
+  cancelled.Cancel();
+  RoutesResult failed;
+  TEST_EQUAL(Calculate(*router, failed, cancelled), RouterResultCode::Cancelled, ());
+
+  RoutesResult adjusted;
+  TEST_EQUAL(Calculate(*router, adjusted, {}, true, false, true, baseline), RouterResultCode::NoError, ());
+  TEST_EQUAL(adjusted.GetActiveAdjustmentContext(), baseline, ());
+  TEST_EQUAL(baseline->GetRoutingOptions(), 0, ());
 }
 
 UNIT_CLASS_TEST(RoutingPreferenceFixture, RecreatedGraphsUseTheRequestSnapshot)

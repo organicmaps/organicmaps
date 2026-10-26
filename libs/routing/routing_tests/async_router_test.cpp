@@ -69,10 +69,10 @@ public:
   string GetName() const override { return "async test"; }
   void ClearState() override {}
   void SetGuides(GuidesTracks &&) override {}
-  void SwapAltRouteToActive() override { ++m_swaps; }
 
-  RouterResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const &, bool, bool,
-                                  RouterDelegate const &, RoutesResult & result) override
+  RouterResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const &,
+                                  RouteAdjustmentContextPtr const &, bool, RouterDelegate const &,
+                                  RoutesResult & result) override
   {
     CHECK_LESS(m_calculations, m_outcomes.size(), ());
     auto const outcome = m_outcomes[m_calculations++];
@@ -86,11 +86,11 @@ public:
     if (outcome == Outcome::Failure)
       return RouterResultCode::RouteNotFound;
 
-    result.MakeFrom(GetName(), MakeValidRoute(checkpoints));
+    result.MakeFrom(GetName(), MakeValidRoute(checkpoints), nullptr /* adjustmentContext */);
     auto alternative =
         MakeValidRoute(Checkpoints(CheckpointsGeometry{checkpoints.GetStart(), {2, 5}, checkpoints.GetFinish()}));
     alternative.SetDiffMidpoint({2, 5});
-    result.m_routes.emplace_back(std::move(static_cast<RouteBase &>(alternative)));
+    result.AddAlternative(std::move(alternative), nullptr /* adjustmentContext */);
     if (outcome == Outcome::Exception)
       MYTHROW(RootException, ("Test exception after constructing a valid result"));
     return RouterResultCode::NoError;
@@ -130,7 +130,6 @@ public:
     return false;
   }
 
-  size_t m_swaps = 0;
   size_t m_projections = 0;
 
 private:
@@ -155,7 +154,8 @@ ReadyRequest Calculate(AsyncRouter & async, RemoveRouteCallback const & removed 
 {
   // GUI callbacks can outlive the test body, including after an assertion throws.
   ReadyRequest request;
-  async.CalculateRoute(Checkpoints({1, 2}, {5, 6}), {3, 4}, true /* adjustToPrevRoute */, true /* needAlternatives */,
+  async.CalculateRoute(Checkpoints({1, 2}, {5, 6}), {3, 4}, nullptr /* adjustmentContext */,
+                       true /* needAlternatives */,
                        [ready = request.m_ready](shared_ptr<RoutesResult> result, RouterResultCode code)
   { ready->set_value({result->m_routesId, code}); }, nullptr, removed, nullptr);
   return request;
@@ -190,67 +190,48 @@ UNIT_CLASS_TEST(AsyncGuiThreadTest, RouterCallsWhileCalculating)
   SCOPE_GUARD(releaseRouter, [raw] { raw->Release(); });
 
   auto first = Calculate(async);
-  auto const oldId = WaitReady(first);
-  TEST(async.SwapAltRouteToActive(oldId), ("Warm the cache with a promotable result."));
+  WaitReady(first);
   auto second = Calculate(async);
   TEST(raw->WaitStarted(), ("Rebuild did not start."));
 
-  TEST(!async.SwapAltRouteToActive(oldId), ("Rebuilding must invalidate an existing cache generation."));
-  TEST_EQUAL(raw->m_swaps, 1, ());
   EdgeProj proj;
   TEST(!async.FindClosestProjectionToRoad({1, 2}, {0, 1}, 50, proj), ());
   TEST_EQUAL(raw->m_projections, 0, ("The busy router must not be queried."));
 
   raw->Release();
-  auto const newId = WaitReady(second);
-  TEST(!async.SwapAltRouteToActive(oldId), ("The previously delivered result is stale."));
-  TEST(async.SwapAltRouteToActive(newId), ());
-  TEST_EQUAL(raw->m_swaps, 2, ());
+  WaitReady(second);
   async.FindClosestProjectionToRoad({1, 2}, {0, 1}, 50, proj);
   TEST_EQUAL(raw->m_projections, 1, ());
 }
 
-UNIT_CLASS_TEST(AsyncGuiThreadTest, SwapAfterFailedCalculation)
+UNIT_CLASS_TEST(AsyncGuiThreadTest, ProjectionAfterFailedCalculation)
 {
-  auto router = make_unique<TestRouter>(vector{Outcome::Success, Outcome::Failure, Outcome::Success});
-  AsyncRouter async(nullptr);
-  async.SetRouter(std::move(router), nullptr);
-  auto first = Calculate(async);
-  auto const oldId = WaitReady(first);
-
-  auto failed = make_shared<promise<RouterResultCode>>();
-  auto failure = failed->get_future();
-  Calculate(async, [failed](RouterResultCode code) { failed->set_value(code); });
-  TEST(failure.wait_for(30s) == future_status::ready, ());
-  auto const code = failure.get();
-  TEST_EQUAL(code, RouterResultCode::RouteNotFound, ());
-  TEST(!async.SwapAltRouteToActive(oldId), ());
-
-  auto recovered = Calculate(async);
-  TEST(async.SwapAltRouteToActive(WaitReady(recovered)), ("A successful build restores promotion."));
-}
-
-UNIT_CLASS_TEST(AsyncGuiThreadTest, SwapAfterExceptionalCalculation)
-{
-  base::ScopedLogAbortLevelChanger allowExpectedError(base::LCRITICAL);
-  auto router = make_unique<TestRouter>(vector{Outcome::Success, Outcome::Exception, Outcome::Success});
+  auto router = make_unique<TestRouter>(vector{Outcome::Failure});
   auto * raw = router.get();
   AsyncRouter async(nullptr);
   async.SetRouter(std::move(router), nullptr);
-  auto first = Calculate(async);
-  auto const oldId = WaitReady(first);
-  auto exception = Calculate(async);
-  TEST(exception.m_future.wait_for(30s) == future_status::ready, ());
-  auto const [failedId, code] = exception.m_future.get();
-  TEST_EQUAL(code, RouterResultCode::InternalError, ());
-  TEST(!async.SwapAltRouteToActive(oldId), ());
-  TEST(!async.SwapAltRouteToActive(failedId), ("A partially constructed result cannot validate caches."));
-  TEST(raw->WaitIdle(async), ());
-  auto recovered = Calculate(async);
-  TEST(async.SwapAltRouteToActive(WaitReady(recovered)), ());
+  auto removed = make_shared<promise<RouterResultCode>>();
+  auto done = removed->get_future();
+  auto request = Calculate(async, [removed](RouterResultCode code) { removed->set_value(code); });
+  TEST(done.wait_for(30s) == future_status::ready, ());
+  TEST_EQUAL(done.get(), RouterResultCode::RouteNotFound, ());
+  TEST(raw->WaitIdle(async), ("Road projection must resume after a failed calculation."));
 }
 
-UNIT_CLASS_TEST(AsyncGuiThreadTest, SwapAfterClearState)
+UNIT_CLASS_TEST(AsyncGuiThreadTest, ProjectionAfterExceptionalCalculation)
+{
+  base::ScopedLogAbortLevelChanger allowExpectedError(base::LCRITICAL);
+  auto router = make_unique<TestRouter>(vector{Outcome::Exception});
+  auto * raw = router.get();
+  AsyncRouter async(nullptr);
+  async.SetRouter(std::move(router), nullptr);
+  auto request = Calculate(async);
+  TEST(request.m_future.wait_for(30s) == future_status::ready, ());
+  TEST_EQUAL(request.m_future.get().second, RouterResultCode::InternalError, ());
+  TEST(raw->WaitIdle(async), ("Road projection must resume after an exceptional calculation."));
+}
+
+UNIT_CLASS_TEST(AsyncGuiThreadTest, CancellationDuringCalculation)
 {
   auto router = make_unique<TestRouter>(vector{Outcome::Success, Outcome::BlockedSuccess});
   auto * raw = router.get();
@@ -258,17 +239,16 @@ UNIT_CLASS_TEST(AsyncGuiThreadTest, SwapAfterClearState)
   async.SetRouter(std::move(router), nullptr);
   SCOPE_GUARD(releaseRouter, [raw] { raw->Release(); });
   auto first = Calculate(async);
-  auto const oldId = WaitReady(first);
+  WaitReady(first);
   auto cancelled = Calculate(async);
   TEST(raw->WaitStarted(), ());
   async.ClearState();
   raw->Release();
   TEST(raw->WaitIdle(async), ());
-  TEST(!async.SwapAltRouteToActive(oldId), ());
   TEST(cancelled.m_future.wait_for(0s) != future_status::ready, ());
 }
 
-UNIT_CLASS_TEST(AsyncGuiThreadTest, SwapAfterSupersededCalculation)
+UNIT_CLASS_TEST(AsyncGuiThreadTest, SupersededCalculation)
 {
   auto router = make_unique<TestRouter>(vector{Outcome::Success, Outcome::BlockedSuccess, Outcome::Success});
   auto * raw = router.get();
@@ -276,15 +256,13 @@ UNIT_CLASS_TEST(AsyncGuiThreadTest, SwapAfterSupersededCalculation)
   async.SetRouter(std::move(router), nullptr);
   SCOPE_GUARD(releaseRouter, [raw] { raw->Release(); });
   auto first = Calculate(async);
-  auto const oldId = WaitReady(first);
+  WaitReady(first);
   auto superseded = Calculate(async);
   TEST(raw->WaitStarted(), ());
   auto replacement = Calculate(async);
   raw->Release();
-  auto const newId = WaitReady(replacement);
+  WaitReady(replacement);
   TEST(superseded.m_future.wait_for(0s) != future_status::ready, ());
-  TEST(!async.SwapAltRouteToActive(oldId), ());
-  TEST(async.SwapAltRouteToActive(newId), ());
 }
 
 UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, AlternativesDiscardedDuringRebuild)
