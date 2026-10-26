@@ -8602,8 +8602,10 @@ type isoline-step_500
 type isoline-zero
   z15
     line width=0.8 color=#CC567556/#CC496149 join=round cap=butt priority=60
+    path_text primary[height=9 color=#00567556/#00496149] priority=1000
   z16
     line width=0.8 color=#A6567556/#A6496149 join=round cap=round priority=60
+    path_text primary[height=9 color=#00567556/#00496149] priority=1000
   z17
     line width=0.8 color=#A6567556/#A6496149 join=round cap=round priority=60
     path_text primary[height=9 color=#00567556/#00496149] priority=1000
@@ -12507,6 +12509,21 @@ type organicapp-mwm_border
     area color=#807D8BE6 priority=-970
   z7
     area color=#807D8BE6 priority=-970
+type organicapp-twm_border
+  z1
+    area color=#80E6952E priority=-970
+  z2
+    area color=#80E6952E priority=-970
+  z3
+    area color=#80E6952E priority=-970
+  z4
+    area color=#80E6952E priority=-970
+  z5
+    area color=#80E6952E priority=-970
+  z6
+    area color=#80E6952E priority=-970
+  z7
+    area color=#80E6952E priority=-970
 type piste:type-connection
   z15
     line width=1.1 color=#66C47AFF/#66623D7F join=round cap=butt priority=120

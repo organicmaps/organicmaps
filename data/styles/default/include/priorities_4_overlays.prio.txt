@@ -1131,7 +1131,7 @@ natural-spring-drinking_water_no                    # icon z14- (also has captio
 === 1200
 
 isoline-step_10                                     # pathtext z17- (also has line z15-)
-isoline-zero                                        # pathtext z17- (also has line z15-)
+isoline-zero                                        # pathtext z15- (also has line z15-)
 === 1000
 
 amenity-grave_yard                                  # icon z17- (also has caption(optional) z17-, area z14-)
