@@ -482,6 +482,12 @@
     <string name="day">d</string>
     <string name="second">s</string>
     <string name="placepage_more_button">Mehr</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Fotos, Bewertungen, Buchung</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Der Empfehlungsbonus, den wir für jede Buchung über diesen Link erhalten, fließt in die Entwicklung von Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Einzelheiten bei Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Lesezeichen bearbeiten</string>
     <string name="placepage_personal_notes_hint">Persönliche Notizen (Text oder HTML)</string>
@@ -727,8 +733,7 @@
     <string name="deselect_all">Auswahl aufheben</string>
     <string name="select_list">Liste auswählen</string>
     <string name="button_layer_isolines">Höhenlinien</string>
-    <string name="isolines_activation_error_dialog">Um die Höhenlinien nutzen zu können, aktualisiere die Karte des betreffenden Gebiets oder lade diese herunter</string>
-    <string name="isolines_location_error_dialog">Höhenlinien sind für dieses Gebiet noch nicht verfügbar</string>
+    <string name="isolines_location_error_dialog">Aktualisiere diese Region, um Höhenlinien zu sehen</string>
     <string name="elevation_profile_ascent">Bergauf</string>
     <string name="elevation_profile_descent">Bergab</string>
     <string name="elevation_profile_min_elevation">Min. Höhe</string>
@@ -921,4 +926,27 @@
     <string name="track_recording_finish">Beenden</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Route umkehren</string>
+    <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
+    <string name="transit_details_title">Verbindungsdetails</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">Zu Fuß</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Stopp %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d Station</item>
+        <item quantity="other">%d Stationen</item>
+    </plurals>
+    <!-- Spoken name of the bus transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_bus">Bus</string>
+    <!-- Spoken name of the subway (metro, underground) transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_subway">U-Bahn</string>
+    <!-- Spoken name of the train transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_train">Zug</string>
+    <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_tram">Straßenbahn</string>
+    <!-- Spoken name of the light rail transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_light_rail">Stadtbahn</string>
+    <!-- Spoken name of the monorail transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_monorail">Einschienenbahn</string>
 </resources>

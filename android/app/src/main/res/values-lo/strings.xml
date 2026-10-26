@@ -436,6 +436,12 @@
     <string name="day">ມື້</string>
     <string name="second">ວິ</string>
     <string name="placepage_more_button">ເພີ່ມເຕີມ</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">ຮູບພາບ, ຄຳຕິຊົມ, ການຈອງ</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">ໂບນັດການແນະນຳທີ່ໄດ້ຮັບຈາກການຈອງແຕ່ລະຄັ້ງຜ່ານລິ້ງນີ້ຈະຖືກນຳໄປໃຊ້ໃນການພັດທະນາ Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">ລາຍລະອຽດໃນ Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">ແກ້ໄຂບຸກມາກ</string>
     <string name="placepage_personal_notes_hint">ບັນທຶກສ່ວນຕົວ (ຂໍ້ຄວາມ ຫຼື html)</string>
@@ -679,8 +685,7 @@
     <string name="deselect_all">ຍົກເລີກການເລືອກ</string>
     <string name="select_list">ເລືອກລາຍການ</string>
     <string name="button_layer_isolines">ເສັ້ນລະດັບຄວາມສູງ</string>
-    <string name="isolines_activation_error_dialog">ການເປີດໃຊ້ເສັ້ນລະດັບຄວາມສູງຕ້ອງດາວໂຫລດຂໍ້ມູນແຜນທີ່ສຳລັບພາກພື້ນນີ້</string>
-    <string name="isolines_location_error_dialog">ເສັ້ນລະດັບຄວາມສູງຍັງບໍ່ທັນມີເທື່ອໃນເຂດນີ້</string>
+    <string name="isolines_location_error_dialog">ອັບເດດເຂດນີ້ເພື່ອເບິ່ງເສັ້ນລະດັບຄວາມສູງ</string>
     <string name="elevation_profile_ascent">ທາງຂຶ້ນ</string>
     <string name="elevation_profile_descent">ທາງລົງ</string>
     <string name="elevation_profile_min_elevation">ລະດັບຄວາມສູງຕ່ຳສຸດ</string>
@@ -865,4 +870,6 @@
     <string name="track_recording_finish">ສິ້ນສຸດ</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">ກັບທິດທາງເສັ້ນທາງ</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">ຈຸດແວ່ພັກ %1$d</string>
 </resources>

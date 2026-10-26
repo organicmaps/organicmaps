@@ -482,6 +482,12 @@
     <string name="day">d</string>
     <string name="second">s</string>
     <string name="placepage_more_button">Viac</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Fotografie, recenzie, rezervácie</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Bonus získaný za každú rezerváciu prostredníctvom tohto odkazu ide na rozvoj služby Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Podrobnosti na Kayaku</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Upraviť záložku</string>
     <string name="placepage_personal_notes_hint">Osobné poznámky (text alebo html)</string>
@@ -726,8 +732,7 @@
     <string name="deselect_all">Zrušiť výber</string>
     <string name="select_list">Vybrať zoznam</string>
     <string name="button_layer_isolines">Terén</string>
-    <string name="isolines_activation_error_dialog">Ak chcete aktivovať a používať topografickú vrstvu, aktualizujte alebo stiahnite mapu oblasti</string>
-    <string name="isolines_location_error_dialog">Topografická vrstva ešte nie je v tejto oblasti k dispozícii</string>
+    <string name="isolines_location_error_dialog">Aktualizujte túto oblasť, aby ste videli vrstevnice</string>
     <string name="elevation_profile_ascent">Stúpanie</string>
     <string name="elevation_profile_descent">Klesanie</string>
     <string name="elevation_profile_min_elevation">Min. výška</string>
@@ -910,4 +915,29 @@
     <string name="track_recording_finish">Ukončiť</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Otočiť trasu</string>
+    <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
+    <string name="transit_details_title">Podrobnosti trasy</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">Pešo</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Zastávka %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d zastávka</item>
+        <item quantity="few">%d zastávky</item>
+        <item quantity="many">%d zastávky</item>
+        <item quantity="other">%d zastávok</item>
+    </plurals>
+    <!-- Spoken name of the bus transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_bus">Autobus</string>
+    <!-- Spoken name of the subway (metro, underground) transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_subway">Metro</string>
+    <!-- Spoken name of the train transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_train">Vlak</string>
+    <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_tram">Električka</string>
+    <!-- Spoken name of the light rail transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_light_rail">Rýchlodrážna električka</string>
+    <!-- Spoken name of the monorail transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_monorail">Jednokoľajka</string>
 </resources>

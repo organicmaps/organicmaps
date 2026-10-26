@@ -482,6 +482,12 @@
     <string name="day">hr</string>
     <string name="second">dtk</string>
     <string name="placepage_more_button">Lainnya</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Foto, ulasan, pemesanan</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Bonus rujukan yang diterima untuk setiap pemesanan melalui tautan ini digunakan untuk pengembangan Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Perincian di Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Edit Penanda</string>
     <string name="placepage_personal_notes_hint">Catatan pribadi (teks atau html)</string>
@@ -723,8 +729,7 @@
     <string name="deselect_all">Batalkan pilihan</string>
     <string name="select_list">Pilih daftar</string>
     <string name="button_layer_isolines">Isometrik</string>
-    <string name="isolines_activation_error_dialog">Untuk mengaktifkan dan menggunakan lapisan topografi, silakan perbarui atau unduh peta area</string>
-    <string name="isolines_location_error_dialog">Lapisan topografi belum tersedia untuk wilayah ini</string>
+    <string name="isolines_location_error_dialog">Perbarui wilayah ini untuk melihat garis kontur</string>
     <string name="elevation_profile_ascent">Menanjak</string>
     <string name="elevation_profile_descent">Menurun</string>
     <string name="elevation_profile_min_elevation">Min. tinggi</string>
@@ -905,4 +910,26 @@
     <string name="track_recording_finish">Selesai</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Balikkan rute</string>
+    <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
+    <string name="transit_details_title">Detail perjalanan</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">Jalan kaki</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Perhentian %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="other">%d pemberhentian</item>
+    </plurals>
+    <!-- Spoken name of the bus transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_bus">Bus</string>
+    <!-- Spoken name of the subway (metro, underground) transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_subway">Kereta bawah tanah</string>
+    <!-- Spoken name of the train transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_train">Kereta</string>
+    <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_tram">Trem</string>
+    <!-- Spoken name of the light rail transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_light_rail">Kereta ringan</string>
+    <!-- Spoken name of the monorail transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_monorail">Monorel</string>
 </resources>

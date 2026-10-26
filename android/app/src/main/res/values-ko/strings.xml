@@ -482,6 +482,12 @@
     <string name="day">일</string>
     <string name="second">초</string>
     <string name="placepage_more_button">자세히</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">사진, 리뷰, 예약</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">이 링크를 통한 예약마다 발생하는 추천 보너스는 Organic Maps 개발에 사용됩니다.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Kayak에서 자세히 보기</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">즐겨찾기 편집</string>
     <string name="placepage_personal_notes_hint">개인 메모 (글자 혹은 html)</string>
@@ -723,8 +729,7 @@
     <string name="deselect_all">선택 해제</string>
     <string name="select_list">목록 선택</string>
     <string name="button_layer_isolines">지형</string>
-    <string name="isolines_activation_error_dialog">지형 레이어를 활성화하고 사용하려면 해당 지역의 지도를 업데이트하거나 다운로드하십시오</string>
-    <string name="isolines_location_error_dialog">이 지역의 지형 레이어는 아직 사용할 수 없습니다</string>
+    <string name="isolines_location_error_dialog">이 지역을 업데이트하면 등고선을 볼 수 있습니다</string>
     <string name="elevation_profile_ascent">올라가기</string>
     <string name="elevation_profile_descent">내려가기</string>
     <string name="elevation_profile_min_elevation">최소 높이</string>
@@ -905,4 +910,26 @@
     <string name="track_recording_finish">종료</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">경로를 반대로 설정</string>
+    <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
+    <string name="transit_details_title">경로 세부 정보</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">도보</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">스톱 %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="other">%d 정거장</item>
+    </plurals>
+    <!-- Spoken name of the bus transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_bus">버스</string>
+    <!-- Spoken name of the subway (metro, underground) transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_subway">지하철</string>
+    <!-- Spoken name of the train transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_train">기차</string>
+    <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_tram">트램</string>
+    <!-- Spoken name of the light rail transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_light_rail">경전철</string>
+    <!-- Spoken name of the monorail transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_monorail">모노레일</string>
 </resources>

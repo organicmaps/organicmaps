@@ -482,6 +482,12 @@
     <string name="day">Μέρα</string>
     <string name="second">δ</string>
     <string name="placepage_more_button">Περισσότερα</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Φωτογραφίες, κριτικές, κράτηση</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Το μπόνους παραπομπής που λαμβάνεται για κάθε κράτηση μέσω αυτού του συνδέσμου πηγαίνει στην ανάπτυξη του Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Λεπτομέρειες στο Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Επεξεργασία αγαπημένου</string>
     <string name="placepage_personal_notes_hint">Προσωπικές σημειώσεις (κείμενο ή html)</string>
@@ -726,8 +732,7 @@
     <string name="deselect_all">Κατάργηση επιλογής</string>
     <string name="select_list">Επιλογή λίστας</string>
     <string name="button_layer_isolines">Υψομετρικά</string>
-    <string name="isolines_activation_error_dialog">Για να χρησιμοποιήσετε υψομετρικές γραμμές, ενημερώστε ή κατεβάστε τον χάρτη της επιθυμητής περιοχής</string>
-    <string name="isolines_location_error_dialog">Οι υψομετρικές γραμμές δεν είναι ακόμα διαθέσιμες σε αυτή την περιοχή</string>
+    <string name="isolines_location_error_dialog">Ενημερώστε αυτήν την περιοχή για να δείτε τις υψομετρικές γραμμές</string>
     <string name="elevation_profile_ascent">Ανάβαση</string>
     <string name="elevation_profile_descent">Κατάβαση</string>
     <string name="elevation_profile_min_elevation">Ελάχ. υψόμετρο</string>
@@ -918,4 +923,27 @@
     <string name="track_recording_finish">Ολοκλήρωση</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Αντιστροφή διαδρομής</string>
+    <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
+    <string name="transit_details_title">Λεπτομέρειες διαδρομής</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">Με τα πόδια</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Στάση %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d στάση</item>
+        <item quantity="other">%d στάσεις</item>
+    </plurals>
+    <!-- Spoken name of the bus transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_bus">Λεωφορείο</string>
+    <!-- Spoken name of the subway (metro, underground) transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_subway">Μετρό</string>
+    <!-- Spoken name of the train transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_train">Τρένο</string>
+    <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_tram">Τραμ</string>
+    <!-- Spoken name of the light rail transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_light_rail">Ελαφρύς σιδηρόδρομος</string>
+    <!-- Spoken name of the monorail transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_monorail">Μονοσιδηρόδρομος</string>
 </resources>

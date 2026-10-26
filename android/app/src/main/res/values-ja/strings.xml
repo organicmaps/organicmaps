@@ -482,6 +482,12 @@
     <string name="day">日</string>
     <string name="second">秒</string>
     <string name="placepage_more_button">さらに詳しく</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">写真、レビュー、予約</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">このリンクを経由した予約の紹介ボーナスは、Organic Mapsの開発のために使われます。</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Kayak で詳細表示</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">ブックマークを編集</string>
     <string name="placepage_personal_notes_hint">パーソナルメモ（テキストまたはHTML）</string>
@@ -724,8 +730,7 @@
     <string name="deselect_all">選択を解除</string>
     <string name="select_list">リストを選択</string>
     <string name="button_layer_isolines">地形</string>
-    <string name="isolines_activation_error_dialog">地形レイヤーを使用するには、このエリアのマップを更新もしくはダウンロードしてください</string>
-    <string name="isolines_location_error_dialog">地形レイヤーはこの地域ではまだ利用できません</string>
+    <string name="isolines_location_error_dialog">この地域を更新すると等高線が表示されます</string>
     <string name="elevation_profile_ascent">上昇</string>
     <string name="elevation_profile_descent">下降</string>
     <string name="elevation_profile_min_elevation">最小標高</string>
@@ -912,4 +917,26 @@
     <string name="track_recording_finish">終了</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">ルートを逆にする</string>
+    <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
+    <string name="transit_details_title">経路の詳細</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">徒歩</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">中間地点 %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="other">%d 駅</item>
+    </plurals>
+    <!-- Spoken name of the bus transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_bus">バス</string>
+    <!-- Spoken name of the subway (metro, underground) transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_subway">地下鉄</string>
+    <!-- Spoken name of the train transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_train">電車</string>
+    <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_tram">路面電車</string>
+    <!-- Spoken name of the light rail transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_light_rail">ライトレール</string>
+    <!-- Spoken name of the monorail transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_monorail">モノレール</string>
 </resources>

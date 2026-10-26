@@ -737,8 +737,7 @@
     <string name="deselect_all">Dad-ddewis popeth</string>
     <string name="select_list">Dewis rhestr</string>
     <string name="button_layer_isolines">Llinellau cyfuchlin</string>
-    <string name="isolines_activation_error_dialog">Mae actifadu llinellau cyfuchlin yn gofyn am lawrlwytho data map ar gyfer yr ardal hon</string>
-    <string name="isolines_location_error_dialog">Nid yw llinellau cyfuchlin ar gael yn yr ardal hon eto</string>
+    <string name="isolines_location_error_dialog">Diweddarwch y rhanbarth hwn i weld llinellau cyfuchlin</string>
     <string name="elevation_profile_ascent">Esgyniad</string>
     <string name="elevation_profile_descent">Disgyniad</string>
     <string name="elevation_profile_min_elevation">Uchder isaf</string>

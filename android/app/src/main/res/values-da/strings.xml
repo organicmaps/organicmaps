@@ -482,6 +482,12 @@
     <string name="day">d</string>
     <string name="second">s</string>
     <string name="placepage_more_button">Mere</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Fotos, anmeldelser, booking</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Henvisningsbonussen, der modtages for hver booking via dette link, går til udviklingen af Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Detaljer på Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Rediger bogmærke</string>
     <string name="placepage_personal_notes_hint">Personlige notater (tekst eller html)</string>
@@ -725,8 +731,7 @@
     <string name="deselect_all">Fravælg alle</string>
     <string name="select_list">Væg liste</string>
     <string name="button_layer_isolines">Konturlinjer</string>
-    <string name="isolines_activation_error_dialog">Aktivering af konturlinjer kræver download af kortdata for dette område</string>
-    <string name="isolines_location_error_dialog">Konturlinjer er endnu ikke tilgængelige i dette område</string>
+    <string name="isolines_location_error_dialog">Opdater dette område for at se konturlinjer</string>
     <string name="elevation_profile_ascent">Stigning</string>
     <string name="elevation_profile_descent">Nedstigning</string>
     <string name="elevation_profile_min_elevation">Min. højde</string>
@@ -915,4 +920,27 @@
     <string name="track_recording_finish">Afslut</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Vend ruten om</string>
+    <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
+    <string name="transit_details_title">Rejsedetaljer</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">Gå</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Stop %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d stop</item>
+        <item quantity="other">%d stop</item>
+    </plurals>
+    <!-- Spoken name of the bus transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_bus">Bus</string>
+    <!-- Spoken name of the subway (metro, underground) transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_subway">Metro</string>
+    <!-- Spoken name of the train transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_train">Tog</string>
+    <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_tram">Sporvogn</string>
+    <!-- Spoken name of the light rail transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_light_rail">Letbane</string>
+    <!-- Spoken name of the monorail transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_monorail">Monorail</string>
 </resources>

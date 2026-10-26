@@ -482,6 +482,12 @@
     <string name="day">д</string>
     <string name="second">с</string>
     <string name="placepage_more_button">Яшчэ</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Фота, водгукі, браніраванне</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Рэферальны бонус, атрыманы за кожнае браніраванне па гэтай спасылцы, ідзе на распрацоўку Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Падрабязнасці на Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Рэдагаваць закладку</string>
     <string name="placepage_personal_notes_hint">Асабістыя нататкі (тэкст або html)</string>
@@ -734,8 +740,7 @@
     <string name="deselect_all">Зняць вылучэнне</string>
     <string name="select_list">Выбраць спіс</string>
     <string name="button_layer_isolines">Рэльеф</string>
-    <string name="isolines_activation_error_dialog">Каб задзейнічаць лініі рэльефу, трэба абнавіць мапу гэтага рэгіёна</string>
-    <string name="isolines_location_error_dialog">Для гэтага рэгіёна мапы рэльефу яшчэ недаступны</string>
+    <string name="isolines_location_error_dialog">Абнавіце гэты рэгіён, каб убачыць лініі вышынь</string>
     <string name="elevation_profile_ascent">Пад\'ём</string>
     <string name="elevation_profile_descent">Спуск</string>
     <string name="elevation_profile_min_elevation">Мін. вышыня</string>
@@ -932,4 +937,29 @@
     <string name="track_recording_finish">Завяршыць</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Развярнуць маршрут</string>
+    <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
+    <string name="transit_details_title">Дэталі маршруту</string>
+    <!-- Label for a walking leg in transit details. -->
+    <string name="transit_walk_label">Пехатой</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Прыпынак %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d прыпынак</item>
+        <item quantity="few">%d прыпынкі</item>
+        <item quantity="many">%d прыпынкаў</item>
+        <item quantity="other">%d прыпынка</item>
+    </plurals>
+    <!-- Spoken name of the bus transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_bus">Аўтобус</string>
+    <!-- Spoken name of the subway (metro, underground) transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_subway">Метро</string>
+    <!-- Spoken name of the train transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_train">Цягнік</string>
+    <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_tram">Трамвай</string>
+    <!-- Spoken name of the light rail transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_light_rail">Хуткасны трамвай</string>
+    <!-- Spoken name of the monorail transport type, read by screen readers before a line number in transit route details. -->
+    <string name="transit_type_monorail">Манарэйка</string>
 </resources>
