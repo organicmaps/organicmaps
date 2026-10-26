@@ -495,7 +495,7 @@ final class RoutingBottomMenuController
 
     if (mArrival != null)
     {
-      String arrivalTime = Utils.formatArrivalTime(rinfo.totalTimeInSeconds);
+      String arrivalTime = Utils.formatArrivalTime(mContext, rinfo.totalTimeInSeconds);
       mArrival.setText(arrivalTime);
     }
   }

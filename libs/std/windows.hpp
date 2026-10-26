@@ -8,5 +8,6 @@
 #undef min
 #undef max
 #undef FindResource
+#undef GetObject
 
 #endif  // OMIM_OS_WINDOWS
