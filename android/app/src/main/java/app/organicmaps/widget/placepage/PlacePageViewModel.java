@@ -13,7 +13,6 @@ public class PlacePageViewModel extends ViewModel
   private final MutableLiveData<MapObject> mMapObject = new MutableLiveData<>();
   private final MutableLiveData<Integer> mPlacePageWidth = new MutableLiveData<>();
   private final MutableLiveData<Integer> mPlacePageDistanceToTop = new MutableLiveData<>();
-  public boolean isAlertDialogShowing = false;
 
   public LiveData<List<PlacePageButtons.ButtonType>> getCurrentButtons()
   {
