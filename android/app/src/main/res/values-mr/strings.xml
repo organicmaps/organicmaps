@@ -482,6 +482,12 @@
     <string name="day">दि</string>
     <string name="second">सेकंद</string>
     <string name="placepage_more_button">अधिक</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">फोटो, पुनरावलोकने, बुकिंग</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">या लिंकद्वारे प्रत्येक बुकिंगसाठी मिळणारा रेफरल बोनस Organic Maps च्या विकासासाठी जातो.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Kayak वर तपशील</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">खूणपत्र संपादित करा</string>
     <string name="placepage_personal_notes_hint">वैयक्तिक चिठ्ठ्या (मजकूर किंवा html)</string>

@@ -482,6 +482,12 @@
     <string name="day">e</string>
     <string name="second">s</string>
     <string name="placepage_more_button">Gehiago</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Argazkiak, iritziak, erreserba</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Esteka honen bidez erreserba bakoitzeko jasotzen den erreferentzia-bonua Organic Maps garatzera doa.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Xehetasunak Kayak-en</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Editatu markagailua</string>
     <string name="placepage_personal_notes_hint">Ohar pertsonalak (testua edo html)</string>

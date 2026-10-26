@@ -604,6 +604,15 @@
 "day" = "d";
 "second" = "s";
 "placepage_more_button" = "Vairāk";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Foto, atsauksmes, rezervācija";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "No ieteikuma saites saņemtais bonuss par katru rezervāciju nonāk „Organic Maps“ attīstīšanai.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Vairāk vietnē „Kayak“";
 "placepage_personal_notes_hint" = "Personīgi pieraksti (teksts vai HTML)";
 "editor_comment_hint" = "Komentārs…";
 "editor_reset_edits_message" = "Vai izmest visas lokāli saglabātās izmaiņas?";

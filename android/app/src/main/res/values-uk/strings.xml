@@ -482,6 +482,12 @@
     <string name="day">д</string>
     <string name="second">с</string>
     <string name="placepage_more_button">Ще</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Фото, відгуки, бронювання</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Реферальний бонус, отриманий за кожне бронювання за цим посиланням, йде на розробку Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Докладніше на Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Редагувати мітку</string>
     <string name="placepage_personal_notes_hint">Примітка (текст чи html)</string>

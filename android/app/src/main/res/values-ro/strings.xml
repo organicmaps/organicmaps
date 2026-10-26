@@ -482,6 +482,12 @@
     <string name="day">z</string>
     <string name="second">s</string>
     <string name="placepage_more_button">Mai mult</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Fotografii, comentarii, rezervări</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Bonusul de recomandare primit pentru fiecare rezervare prin acest link este destinat dezvoltării Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Detalii pe Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Modifică locul preferat</string>
     <string name="placepage_personal_notes_hint">Însemnări personale (text sau html)</string>

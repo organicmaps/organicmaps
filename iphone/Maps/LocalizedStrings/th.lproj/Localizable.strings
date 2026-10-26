@@ -604,6 +604,15 @@
 "day" = "วัน";
 "second" = "วิ";
 "placepage_more_button" = "เพิ่มเติม";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "รูปภาพ รีวิว การจอง";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "โบนัสการแนะนำที่ได้รับสำหรับการจองแต่ละครั้งผ่านลิงก์นี้จะนำไปใช้ในการพัฒนา Organic Maps";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "รายละเอียดบน Kayak";
 "placepage_personal_notes_hint" = "ข้อความส่วนตัว (ข้อความหรือ html)";
 "editor_comment_hint" = "ข้อคิดเห็น…";
 "editor_reset_edits_message" = "ตั้งค่าการเปลี่ยนแปลงท้องถิ่นทั้งหมด";

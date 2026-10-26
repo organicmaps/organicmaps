@@ -482,6 +482,12 @@
     <string name="day">d</string>
     <string name="second">sek</string>
     <string name="placepage_more_button">Meira</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Ljósmyndir, umsagnir, bókanir</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Dálítið umboðsgjald fæst fyrir hverja bókun í gegnum þennan tengil og rennur það til áframhaldandi þróunar Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Nánar á Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Breyta bókamerki</string>
     <string name="placepage_personal_notes_hint">Persónulegir minnispunktar (texti eða html)</string>

@@ -436,6 +436,12 @@
     <string name="day">ມື້</string>
     <string name="second">ວິ</string>
     <string name="placepage_more_button">ເພີ່ມເຕີມ</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">ຮູບພາບ, ຄຳຕິຊົມ, ການຈອງ</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">ໂບນັດການແນະນຳທີ່ໄດ້ຮັບຈາກການຈອງແຕ່ລະຄັ້ງຜ່ານລິ້ງນີ້ຈະຖືກນຳໄປໃຊ້ໃນການພັດທະນາ Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">ລາຍລະອຽດໃນ Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">ແກ້ໄຂບຸກມາກ</string>
     <string name="placepage_personal_notes_hint">ບັນທຶກສ່ວນຕົວ (ຂໍ້ຄວາມ ຫຼື html)</string>

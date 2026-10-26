@@ -604,6 +604,15 @@
 "day" = "d";
 "second" = "s";
 "placepage_more_button" = "Više";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Fotografije, recenzije, rezervacija";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Bonus za preporuku ostvaren za svaku rezervaciju putem ove poveznice koristi se za razvoj aplikacije Organic Maps.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Detalji na Kayaku";
 "placepage_personal_notes_hint" = "Osobne bilješke (tekst ili html)";
 "editor_comment_hint" = "Komentiraj…";
 "editor_reset_edits_message" = "Odbaci sve lokalne promjene?";

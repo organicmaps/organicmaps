@@ -482,6 +482,12 @@
     <string name="day">gün</string>
     <string name="second">san</string>
     <string name="placepage_more_button">Digər</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Şəkillər, rəylər, rezervasiya</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Bu link vasitəsilə edilən hər rezervasiya üçün alınan tövsiyə bonusu Organic Maps-in inkişafına sərf olunur.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Kayak-da təfərrüatlar</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Əlfəcini redaktə edin</string>
     <string name="placepage_personal_notes_hint">Şəxsi qeydlər (mətn və ya html)</string>

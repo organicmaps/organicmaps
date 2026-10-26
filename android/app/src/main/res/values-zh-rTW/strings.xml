@@ -482,6 +482,12 @@
     <string name="day">天</string>
     <string name="second">秒</string>
     <string name="placepage_more_button">更多</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">照片、評論、預訂</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">每次透過此連結預訂所獲得的推薦獎金將用於 Organic Maps 的開發。</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Kayak 上的詳細資訊</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">編輯書籤</string>
     <string name="placepage_personal_notes_hint">個人備註（文字或 html）</string>

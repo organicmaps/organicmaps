@@ -604,6 +604,15 @@
 "day" = "d";
 "second" = "sek";
 "placepage_more_button" = "Meira";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Ljósmyndir, umsagnir, bókanir";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Dálítið umboðsgjald fæst fyrir hverja bókun í gegnum þennan tengil og rennur það til áframhaldandi þróunar Organic Maps.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Nánar á Kayak";
 "placepage_personal_notes_hint" = "Persónulegir minnispunktar (texti eða html)";
 "editor_comment_hint" = "Athugasemd…";
 "editor_reset_edits_message" = "Henda öllum staðværum breytingum?";

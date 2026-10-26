@@ -604,6 +604,15 @@
 "day" = "d";
 "second" = "s";
 "placepage_more_button" = "Zaidi";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Picha, maoni, kuweka nafasi";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Bonasi ya rufaa inayopokelewa kwa kila nafasi inayowekwa kupitia kiungo hiki hutumika kuendeleza Organic Maps.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Maelezo kwenye Kayak";
 "placepage_personal_notes_hint" = "Vidokezo vya kibinafsi (maandishi au HTML)";
 "editor_comment_hint" = "Maoni…";
 "editor_reset_edits_message" = "Tupa mabadiliko yote ya ndani?";

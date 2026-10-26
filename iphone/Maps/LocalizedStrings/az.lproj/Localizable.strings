@@ -604,6 +604,15 @@
 "day" = "gün";
 "second" = "san";
 "placepage_more_button" = "Digər";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Şəkillər, rəylər, rezervasiya";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Bu link vasitəsilə edilən hər rezervasiya üçün alınan tövsiyə bonusu Organic Maps-in inkişafına sərf olunur.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Kayak-da təfərrüatlar";
 "placepage_personal_notes_hint" = "Şəxsi qeydlər (mətn və ya html)";
 "editor_comment_hint" = "Şərh…";
 "editor_reset_edits_message" = "Bütün yerli dəyişikliklər ləğv edilsin?";

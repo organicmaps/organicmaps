@@ -604,6 +604,15 @@
 "day" = "d";
 "second" = "s";
 "placepage_more_button" = "Viac";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Fotografie, recenzie, rezervácie";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Bonus získaný za každú rezerváciu prostredníctvom tohto odkazu ide na rozvoj služby Organic Maps.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Podrobnosti na Kayaku";
 "placepage_personal_notes_hint" = "Osobné poznámky (text alebo html)";
 "editor_comment_hint" = "Poznámka…";
 "editor_reset_edits_message" = "Resetovať všetky miestne časy?";

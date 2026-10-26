@@ -482,6 +482,12 @@
     <string name="day">д</string>
     <string name="second">с</string>
     <string name="placepage_more_button">Више</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Фотографије, утисци, резервације</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Награда за сваку резервацију која је направљена преко овог линка биће усмерена у развој Organic Maps-а.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Детаљи на Kayak-у</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Измени маркер</string>
     <string name="placepage_personal_notes_hint">Личне белешке (текст или хтмл)</string>

@@ -482,6 +482,12 @@
     <string name="day">روز</string>
     <string name="second">ثانیه</string>
     <string name="placepage_more_button">بیشتر</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">عکس‌ها، نظرات، رزرو</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">پاداش ارجاعی دریافت‌شده برای هر رزرو از طریق این پیوند صرف توسعه Organic Maps می‌شود.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">جزئیات در Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">ویرایش نشانک‌ها</string>
     <string name="placepage_personal_notes_hint">یادداشت های شخصی (متن یا html)</string>

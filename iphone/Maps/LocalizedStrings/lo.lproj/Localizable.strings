@@ -604,6 +604,15 @@
 "day" = "ມື້";
 "second" = "ວິ";
 "placepage_more_button" = "ເພີ່ມເຕີມ";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "ຮູບພາບ, ຄຳຕິຊົມ, ການຈອງ";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "ໂບນັດການແນະນຳທີ່ໄດ້ຮັບຈາກການຈອງແຕ່ລະຄັ້ງຜ່ານລິ້ງນີ້ຈະຖືກນຳໄປໃຊ້ໃນການພັດທະນາ Organic Maps.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "ລາຍລະອຽດໃນ Kayak";
 "placepage_personal_notes_hint" = "ບັນທຶກສ່ວນຕົວ (ຂໍ້ຄວາມ ຫຼື html)";
 "editor_comment_hint" = "ສະແດງຄວາມຄິດເຫັນ…";
 "editor_reset_edits_message" = "ຍົກເລີກການປ່ຽນແປງພາຍໃນທັງໝົດບໍ່?";

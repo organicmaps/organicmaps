@@ -604,6 +604,15 @@
 "day" = "ngày";
 "second" = "giây";
 "placepage_more_button" = "Bổ sung";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Hình ảnh, đánh giá, đặt phòng";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Phần thưởng giới thiệu nhận được cho mỗi lần đặt phòng thông qua liên kết này sẽ được dùng để phát triển Organic Maps.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Chi tiết trên Kayak";
 "placepage_personal_notes_hint" = "Ghi chú cá nhân (văn bản hoặc html)";
 "editor_comment_hint" = "Nhận xét…";
 "editor_reset_edits_message" = "Cài đặt lại tất cả thay đổi cục bộ?";

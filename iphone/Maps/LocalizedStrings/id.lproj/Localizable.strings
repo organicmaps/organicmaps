@@ -604,6 +604,15 @@
 "day" = "hr";
 "second" = "dtk";
 "placepage_more_button" = "Lainnya";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Foto, ulasan, pemesanan";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Bonus rujukan yang diterima untuk setiap pemesanan melalui tautan ini digunakan untuk pengembangan Organic Maps.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Perincian di Kayak";
 "placepage_personal_notes_hint" = "Catatan pribadi (teks atau html)";
 "editor_comment_hint" = "Komentar…";
 "editor_reset_edits_message" = "Atur ulang perubahan lokal?";

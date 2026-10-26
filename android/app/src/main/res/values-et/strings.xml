@@ -482,6 +482,12 @@
     <string name="day">p</string>
     <string name="second">sek</string>
     <string name="placepage_more_button">Veel</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Fotod, arvustused, broneerimine</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Iga selle lingi kaudu tehtud broneeringu eest saadav viitamistasu läheb Organic Mapsi arendamiseks.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Üksikasjad Kayakis</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Muuda järjehoidjat</string>
     <string name="placepage_personal_notes_hint">Isiklikud märkmed (tekst või html)</string>

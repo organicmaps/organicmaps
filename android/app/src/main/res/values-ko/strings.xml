@@ -482,6 +482,12 @@
     <string name="day">일</string>
     <string name="second">초</string>
     <string name="placepage_more_button">자세히</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">사진, 리뷰, 예약</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">이 링크를 통한 예약마다 발생하는 추천 보너스는 Organic Maps 개발에 사용됩니다.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Kayak에서 자세히 보기</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">즐겨찾기 편집</string>
     <string name="placepage_personal_notes_hint">개인 메모 (글자 혹은 html)</string>

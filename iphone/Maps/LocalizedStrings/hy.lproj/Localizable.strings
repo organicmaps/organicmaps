@@ -604,6 +604,15 @@
 "day" = "օ";
 "second" = "վ";
 "placepage_more_button" = "Ավելին";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Լուսանկարներ, կարծիքներ, ամրագրում";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Այս հղումով կատարված յուրաքանչյուր ամրագրման դիմաց ստացվող ուղղորդման բոնուսը հատկացվում է Organic Maps-ի զարգացմանը։";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Մանրամասներ Kayak-ում";
 "placepage_personal_notes_hint" = "Անձնական նշումներ (տեքստ կամ html)";
 "editor_comment_hint" = "Մեկնաբանություն…";
 "editor_reset_edits_message" = "Չեղարկե՞լ բոլոր տեղական փոփոխությունները:";

@@ -604,6 +604,15 @@
 "day" = "d";
 "second" = "s";
 "placepage_more_button" = "More";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Photos, reviews, booking";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "The referral bonus received for each booking through this link goes towards the development of Organic Maps.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Details on Kayak";
 "placepage_personal_notes_hint" = "Personal notes (text or html)";
 "editor_comment_hint" = "Comment…";
 "editor_reset_edits_message" = "Discard all local changes?";

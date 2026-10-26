@@ -604,6 +604,15 @@
 "day" = "日";
 "second" = "秒";
 "placepage_more_button" = "さらに詳しく";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "写真、レビュー、予約";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "このリンクを経由した予約の紹介ボーナスは、Organic Mapsの開発のために使われます。";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Kayak で詳細表示";
 "placepage_personal_notes_hint" = "パーソナルメモ（テキストまたはHTML）";
 "editor_comment_hint" = "コメント…";
 "editor_reset_edits_message" = "ローカル編集をすべてリセットしますか?";
