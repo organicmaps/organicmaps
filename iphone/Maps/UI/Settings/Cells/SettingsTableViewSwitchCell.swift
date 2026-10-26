@@ -14,6 +14,11 @@ class SettingsTableViewSwitchCell: MWMTableViewCell {
     didSet {
       styleTitle()
       switchButton.isUserInteractionEnabled = isEnabled
+      if isEnabled {
+        switchButton.accessibilityTraits.remove(.notEnabled)
+      } else {
+        switchButton.accessibilityTraits.insert(.notEnabled)
+      }
     }
   }
 
@@ -58,6 +63,13 @@ class SettingsTableViewSwitchCell: MWMTableViewCell {
     accessoryType = .none
     accessoryView = switchButton
     selectionStyle = .none
+
+    isAccessibilityElement = false
+    textLabel?.isAccessibilityElement = false
+    detailTextLabel?.isAccessibilityElement = false
+    switchButton.isAccessibilityElement = true
+    switchButton.accessibilityLabel = [title, subtitile].compactMap { $0?.isEmpty == false ? $0 : nil }.joined(separator: ", ")
+    accessibilityElements = [switchButton]
   }
 
   @objc
