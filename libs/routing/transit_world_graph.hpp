@@ -43,6 +43,7 @@ public:
 
   bool CheckLength(RouteWeight const & weight, double startToFinishDistanceM) const override
   {
+    // Limit walking cost and boarding bias. Physical rides and mean boarding waits are excluded.
     return weight.GetWeight() - weight.GetTransitTime() <= MaxPedestrianTimeSec(startToFinishDistanceM);
   }
   LatLonWithAltitude const & GetJunction(Segment const & segment, bool front) override;

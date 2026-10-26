@@ -391,7 +391,8 @@ double Route::GetCurrentTimeToNearestTurnSec() const
 //           |                 |            |
 //           toLastPointSec    currentTime  toNextPointSec
 //
-// CurrentTime is calculated using equal proportions for distance and time at any segment.
+// Travel time is proportional to distance. At zero progress on a transit ride, ETA includes the
+// boarding wait; any positive matched progress consumes the full wait before interpolating ride time.
 double Route::GetCurrentTimeFromBeginSec() const
 {
   ASSERT(IsValid(), ());
@@ -409,6 +410,16 @@ double Route::GetCurrentTimeFromBeginSec() const
     return toLastPointSec;
 
   double const passedSegMeters = m_poly.GetDistFromCurPointToRoutePointMeters();
+
+  auto const & segment = m_routeSegments[curIter.m_ind];
+  if (passedSegMeters > 0.0 && segment.HasTransitInfo() &&
+      segment.GetTransitInfo().GetType() == TransitInfo::Type::Edge)
+  {
+    double const rideTimeSec = segment.GetTransitInfo().GetEdgeSubway().m_rideTimeSec;
+    // Subtracting cumulative times may lose precision; allow one microsecond of rounding.
+    ASSERT_GREATER_OR_EQUAL(toNextPointSec - toLastPointSec + 1e-6, rideTimeSec, ());
+    return toNextPointSec - (1.0 - passedSegMeters / curSegLenMeters) * rideTimeSec;
+  }
 
   return toLastPointSec + passedSegMeters / curSegLenMeters * (toNextPointSec - toLastPointSec);
 }
