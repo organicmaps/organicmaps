@@ -343,6 +343,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Lawrlwythwch y rhanbarth lle rydych chi\'n chwilio neu ceisiwch ychwanegu enw tref/pentref cyfagos.</string>
     <string name="search_history_title">Hanes chwilio</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">Copi wrth gefn o nodau tudalen a thraciau</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">Gellir cynnwys nodau tudalen a thraciau yng nghopïau wrth gefn system Android pan fydd copïo wrth gefn wedi\'i alluogi ar y ddyfais hon a\'u bod o fewn ei derfyn maint.</string>
     <string name="search_history_text">Gwelwch eich chwiliadau diweddar.</string>
     <string name="clear_search">Clirio hanes chwilio</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
