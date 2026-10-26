@@ -44,7 +44,8 @@ struct TransitStepInfo
 {
   TransitStepInfo() = default;
   TransitStepInfo(TransitType type, double distance, int time, std::string const & number = "", uint32_t color = 0,
-                  int intermediateIndex = 0);
+                  int intermediateIndex = 0, std::string const & startStopName = "",
+                  std::string const & endStopName = "");
 
   bool IsEqualType(TransitStepInfo const & ts) const;
 
@@ -62,13 +63,21 @@ struct TransitStepInfo
 
   // Is valid for TransitType::IntermediatePoint
   int m_intermediateIndex = 0;
+
+  // Are valid for transit-line steps only (not TransitType::IntermediatePoint or Pedestrian)
+  // The line the route was built on: the stops below belong to it, while m_number may also list parallel lines.
+  std::string m_lineNumber;
+  std::string m_startStopName;
+  std::string m_endStopName;
+  std::vector<std::string> m_intermediateStopNames;
+  int m_stopCount = 0;
 };
 
 std::string DebugPrint(TransitStepInfo const & info);
 
 struct TransitRouteInfo
 {
-  void AddStep(TransitStepInfo const & step);
+  void AddStep(TransitStepInfo const & step, bool allowMerge = true);
   void UpdateDistanceStrings();
 
   double m_totalDistInMeters = 0.0;

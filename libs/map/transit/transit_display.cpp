@@ -225,13 +225,17 @@ std::vector<m2::PointF> GetTransitMarkerSizes(float markerScale, float maxRouteW
 }  // namespace
 
 TransitStepInfo::TransitStepInfo(TransitType type, double distance, int time, std::string const & number,
-                                 uint32_t color, int intermediateIndex)
+                                 uint32_t color, int intermediateIndex, std::string const & startStopName,
+                                 std::string const & endStopName)
   : m_type(type)
   , m_distanceInMeters(distance)
   , m_timeInSec(time)
   , m_number(number)
   , m_colorARGB(color)
   , m_intermediateIndex(intermediateIndex)
+  , m_startStopName(startStopName)
+  , m_endStopName(endStopName)
+  , m_stopCount(type != TransitType::Pedestrian && type != TransitType::IntermediatePoint ? 1 : 0)
 {}
 
 bool TransitStepInfo::IsEqualType(TransitStepInfo const & ts) const
@@ -244,12 +248,17 @@ bool TransitStepInfo::IsEqualType(TransitStepInfo const & ts) const
   return true;
 }
 
-void TransitRouteInfo::AddStep(TransitStepInfo const & step)
+void TransitRouteInfo::AddStep(TransitStepInfo const & step, bool allowMerge)
 {
-  if (!m_steps.empty() && m_steps.back().IsEqualType(step))
+  if (allowMerge && !m_steps.empty() && m_steps.back().IsEqualType(step))
   {
-    m_steps.back().m_distanceInMeters += step.m_distanceInMeters;
-    m_steps.back().m_timeInSec += step.m_timeInSec;
+    auto & back = m_steps.back();
+    back.m_distanceInMeters += step.m_distanceInMeters;
+    back.m_timeInSec += step.m_timeInSec;
+    if (!back.m_endStopName.empty())
+      back.m_intermediateStopNames.push_back(back.m_endStopName);
+    back.m_endStopName = step.m_endStopName;
+    back.m_stopCount += step.m_stopCount;
   }
   else
   {
@@ -342,6 +351,16 @@ TransitRouteInfo const & TransitRouteDisplay::GetRouteInfo()
   return m_routeInfo;
 }
 
+namespace
+{
+std::string GetStopName(SubrouteSegmentParams const & ssp, routing::transit::Stop const & stop)
+{
+  if (stop.GetFeatureId() == kInvalidFeatureId)
+    return {};
+  return ssp.m_displayInfo.m_features.at(FeatureID(ssp.m_mwmId, stop.GetFeatureId())).m_title;
+}
+}  // namespace
+
 void TransitRouteDisplay::AddEdgeSubwayForSubroute(routing::RouteSegment const & segment, df::Subroute & subroute,
                                                    SubrouteParams & sp, SubrouteSegmentParams & ssp, StopId legBoardId,
                                                    StopId legAlightId)
@@ -362,10 +381,14 @@ void TransitRouteDisplay::AddEdgeSubwayForSubroute(routing::RouteSegment const &
   if (number.empty())
     number = line.GetNumber();
 
-  m_routeInfo.AddStep(TransitStepInfo(sp.m_transitType, ssp.m_distance, ssp.m_time, number, ColorToARGB(currentColor)));
-
   auto const & stop1 = ssp.m_displayInfo.m_stopsSubway.at(edge.m_stop1Id);
   auto const & stop2 = ssp.m_displayInfo.m_stopsSubway.at(edge.m_stop2Id);
+
+  TransitStepInfo step(sp.m_transitType, ssp.m_distance, ssp.m_time, number, ColorToARGB(currentColor),
+                       0 /* intermediateIndex */, GetStopName(ssp, stop1), GetStopName(ssp, stop2));
+  step.m_lineNumber = line.GetNumber();
+  // Different routed lines can share a badge and still require a transfer.
+  m_routeInfo.AddStep(step, sp.m_lastLineId == currentLineId);
   bool const isTransfer1 = stop1.GetTransferId() != routing::transit::kInvalidTransferId;
   bool const isTransfer2 = stop2.GetTransferId() != routing::transit::kInvalidTransferId;
 
