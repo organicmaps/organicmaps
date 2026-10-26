@@ -67,6 +67,7 @@ android {
     println('VersionCode: ' + versionCode)
     applicationId rootProject.ext.appId
     buildConfigField 'String', 'SUPPORT_MAIL', '"android@organicmaps.app"'
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     // Should be customized in flavors.
     buildConfigField 'String', 'REVIEW_URL', '""'
     resourceConfigurations += [project.ext.supportedLocalizations]
@@ -270,6 +271,8 @@ dependencies {
   testImplementation libs.androidx.junit
   testImplementation libs.mockito.core
   testImplementation libs.mockito.inline
+  androidTestImplementation libs.androidx.junit
+  androidTestImplementation libs.androidx.test.runner
 }
 
 def allowedPermissions = [

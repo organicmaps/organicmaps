@@ -491,6 +491,15 @@
         android:windowSoftInputMode="adjustResize" />
 
     <activity
+        android:name="app.organicmaps.routing.TransitDetailsActivity"
+        android:enableOnBackInvokedCallback="true"
+        android:launchMode="singleTop"
+        android:configChanges="orientation|screenLayout|screenSize"
+        android:screenOrientation="fullUser"
+        android:label="@string/transit_details_title"
+        android:parentActivityName="app.organicmaps.MwmActivity" />
+
+    <activity
         android:name="app.organicmaps.editor.ProfileActivity"
         android:parentActivityName="app.organicmaps.settings.SettingsActivity" />
 
