@@ -22,6 +22,7 @@ set(SRC
   descriptions_section_builder_tests.cpp
   feature_builder_test.cpp
   feature_merger_test.cpp
+  feature_sorter_tests.cpp
   filter_elements_tests.cpp
   gen_mwm_info_tests.cpp
 #  hierarchy_entry_tests.cpp
@@ -43,6 +44,7 @@ set(SRC
   restriction_collector_test.cpp
   restriction_test.cpp
   road_access_test.cpp
+  search_feature_classifier_tests.cpp
   source_data.cpp
   source_data.hpp
   source_to_element_test.cpp
