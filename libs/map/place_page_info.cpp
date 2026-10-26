@@ -213,19 +213,11 @@ void Info::SetFromFeatureType(FeatureType & ft)
 
   if (IsBookmark())
   {
-    m_uiTitle = GetBookmarkName();
-
-    std::string secondaryTitle;
-
+    auto names = kml::GetBookmarkDisplayNames(m_bookmarkData, languages::GetCurrentMapLanguage());
+    m_uiTitle = std::move(names.m_primary);
+    m_uiSecondaryTitle = std::move(names.m_secondary);
     if (!m_customName.empty())
-      secondaryTitle = m_customName;
-    else if (!out.secondary.empty())
-      secondaryTitle = out.secondary;
-    else
-      secondaryTitle = m_primaryFeatureName;
-
-    if (m_uiTitle != secondaryTitle)
-      m_uiSecondaryTitle = std::move(secondaryTitle);
+      m_uiSecondaryTitle = m_uiTitle == m_customName ? std::string{} : m_customName;
   }
   else if (!m_primaryFeatureName.empty())
   {
@@ -426,27 +418,11 @@ std::string Info::FormatSubtitle(bool withTypes, bool withMainType) const
   return result;
 }
 
-std::string Info::GetBookmarkName()
-{
-  std::string bookmarkName;
-
-  auto const mwmInfo = GetID().m_mwmId.GetInfo();
-  if (mwmInfo)
-  {
-    bookmarkName = GetPreferredBookmarkStr(m_bookmarkData.m_customName, mwmInfo->GetRegionData());
-    if (bookmarkName.empty())
-      bookmarkName = GetPreferredBookmarkStr(m_bookmarkData.m_name, mwmInfo->GetRegionData());
-  }
-
-  if (bookmarkName.empty())
-    bookmarkName = GetPreferredBookmarkName(m_bookmarkData);
-
-  return bookmarkName;
-}
-
 void Info::SetTitlesForBookmark()
 {
-  m_uiTitle = GetBookmarkName();
+  auto names = kml::GetBookmarkDisplayNames(m_bookmarkData, languages::GetCurrentMapLanguage());
+  m_uiTitle = std::move(names.m_primary);
+  m_uiSecondaryTitle = std::move(names.m_secondary);
 
   std::vector<std::string> subtitle;
   if (!m_bookmarkData.m_featureTypes.empty())
@@ -524,11 +500,15 @@ bool Info::ShouldShowEditPlace() const
   return !IsMyPosition() && IsFeature();
 }
 
-kml::LocalizableString Info::FormatNewBookmarkName() const
+kml::BookmarkData Info::MakeBookmarkData() const
 {
-  kml::LocalizableString bookmarkName;
+  kml::BookmarkData data;
+  auto & bookmarkName = data.m_name;
   if (IsFeature())
   {
+    SaveFeatureTypes(GetTypes(), data);
+    if (auto const info = GetID().m_mwmId.GetInfo())
+      kml::SetBookmarkRegionData(data, info->GetRegionData());
     m_name.ForEach([&bookmarkName](int8_t langCode, std::string_view localName)
     {
       if (!localName.empty())
@@ -546,7 +526,7 @@ kml::LocalizableString Info::FormatNewBookmarkName() const
       kml::SetDefaultStr(bookmarkName, m_uiTitle);
   }
 
-  return bookmarkName;
+  return data;
 }
 
 std::string Info::GetFormattedCoordinate(CoordinatesFormat format) const

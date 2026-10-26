@@ -9,10 +9,28 @@
 
 #include "coding/string_utf8_multilang.hpp"
 
+#include "base/string_utils.hpp"
+
 #include <limits>
 
 namespace kml
 {
+namespace
+{
+std::vector<std::string> GetBookmarkRegionLanguages(BookmarkData const & bookmark)
+{
+  std::vector<std::string> languages;
+  if (auto const it = bookmark.m_properties.find(kBookmarkRegionLanguages); it != bookmark.m_properties.end())
+    strings::Tokenize(it->second, ",", [&](std::string_view code)
+    {
+      if (StringUtf8Multilang::GetLangIndex(code) != StringUtf8Multilang::kUnsupportedLanguageCode &&
+          !StringUtf8Multilang::IsServiceLang(code))
+        languages.emplace_back(code);
+    });
+  return languages;
+}
+}  // namespace
+
 bool IsEqual(m2::PointD const & lhs, m2::PointD const & rhs)
 {
   return lhs.EqualDxDy(rhs, kMwmPointAccuracy);
@@ -50,26 +68,6 @@ std::string GetPreferredBookmarkStr(LocalizableString const & name, std::string 
   return std::string{GetStringForExport(name)};
 }
 
-std::string GetPreferredBookmarkStr(LocalizableString const & name, feature::RegionData const & regionData,
-                                    std::string const & languageNorm)
-{
-  if (name.size() == 1)
-    return name.begin()->second;
-
-  /// @todo Complicated logic here when transforming LocalizableString -> StringUtf8Multilang to call GetPreferredName.
-  StringUtf8Multilang nameMultilang;
-  for (auto const & pair : name)
-    nameMultilang.AddString(pair.first, pair.second);
-
-  feature::NameParamsOut out;
-  feature::GetReadableName({nameMultilang, regionData, languageNorm, false /* allowTranslit */}, out);
-  if (!out.primary.empty())
-    return std::string(out.primary);
-
-  // Keep the value visible when neither the device nor region languages are present.
-  return std::string{GetStringForExport(name)};
-}
-
 std::string GetLocalizedFeatureType(std::vector<uint32_t> const & types)
 {
   if (types.empty())
@@ -87,6 +85,58 @@ std::string GetPreferredBookmarkName(BookmarkData const & bmData, std::string_vi
   if (name.empty())
     name = GetLocalizedFeatureType(bmData.m_featureTypes);
   return name;
+}
+
+bool HasBookmarkRegionData(BookmarkData const & bookmark)
+{
+  return !GetBookmarkRegionLanguages(bookmark).empty();
+}
+
+void SetBookmarkRegionData(BookmarkData & bookmark, feature::RegionData const & region)
+{
+  LangsBufferT languages;
+  region.GetLanguages(languages);
+  std::string codes;
+  for (auto const language : languages)
+  {
+    if (!codes.empty())
+      codes += ',';
+    codes += StringUtf8Multilang::GetLangByCode(language);
+  }
+  if (!codes.empty())
+    bookmark.m_properties[kBookmarkRegionLanguages] = std::move(codes);
+}
+
+BookmarkDisplayNames GetBookmarkDisplayNames(BookmarkData const & bookmark, std::string_view language)
+{
+  auto const normalized = languages::Normalize(language);
+  feature::RegionData region;
+  auto const languages = GetBookmarkRegionLanguages(bookmark);
+  if (languages.empty())
+    return {GetPreferredBookmarkName(bookmark, language), {}};
+  region.SetLanguages(languages);
+
+  StringUtf8Multilang names;
+  for (auto const & [code, value] : bookmark.m_name)
+    names.AddString(code, value);
+  feature::NameParamsOut out;
+  // Transliteration's global mode already reflects the user's setting, as for ordinary POIs.
+  feature::GetPreferredNames({names, region, normalized, true /* allowTranslit */}, out);
+  BookmarkDisplayNames result{std::string(out.GetPrimary()), std::string(out.secondary)};
+  if (result.m_primary.empty())
+    result.m_primary = GetStringForExport(bookmark.m_name);
+  if (result.m_primary.empty())
+    result.m_primary = GetLocalizedFeatureType(bookmark.m_featureTypes);
+
+  if (auto custom = GetPreferredBookmarkStr(bookmark.m_customName, normalized); !custom.empty())
+  {
+    if (result.m_secondary.empty())
+      result.m_secondary = result.m_primary;
+    result.m_primary = std::move(custom);
+  }
+  if (result.m_primary == result.m_secondary)
+    result.m_secondary.clear();
+  return result;
 }
 
 std::string_view GetStringForExport(LocalizableString const & lstr)

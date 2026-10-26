@@ -302,7 +302,7 @@ void BookmarkDialog::FillTree()
       for (auto bookmarkId : bm.GetUserMarkIds(catId))
       {
         auto const bookmark = bm.GetBookmark(bookmarkId);
-        auto name = GetPreferredBookmarkStr(bookmark->GetName());
+        auto name = bookmark->GetPreferredName();
         if (name.empty())
         {
           name = measurement_utils::FormatLatLon(mercator::YToLat(bookmark->GetPivot().y),

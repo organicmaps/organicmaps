@@ -661,6 +661,7 @@ KmlParser::KmlParser(FileData & data) : m_data(data), m_attrCode(StringUtf8Multi
 void KmlParser::ResetPoint()
 {
   m_name.clear();
+  m_hasExtendedDefaultName = false;
   m_description.clear();
   m_org = {};
   m_predefinedColor = PredefinedColor::None;
@@ -932,9 +933,13 @@ void KmlParser::Pop(std::string_view tag)
         data.m_minZoom = m_minZoom;
         data.m_properties = std::move(m_properties);
 
+        // Our feature-name snapshot is authoritative; <name> is only an export projection.
+        if (HasBookmarkRegionData(data) && !m_hasExtendedDefaultName)
+          data.m_name.erase(kDefaultLangCode);
+
         // Here we set custom name from 'name' field for KML-files exported from 3rd-party services.
         if (data.m_name.size() == 1 && data.m_name.begin()->first == kDefaultLangCode && data.m_customName.empty() &&
-            data.m_featureTypes.empty())
+            data.m_featureTypes.empty() && !HasBookmarkRegionData(data))
         {
           data.m_customName = data.m_name;
         }
@@ -1174,19 +1179,9 @@ void KmlParser::CharData(std::string & value)
     {
       if (currTag == "name")
       {
-        // We always prefer extended data. There is the following logic of "name" data usage:
-        // 1. We have read extended data.
-        //   1.1. There is "default" language in extended data (m_name is not empty).
-        //        The condition protects us from name rewriting.
-        //   1.2. There is no "default" language in extended data. Data from "name" are merged
-        //        with extended data. It helps us in the case when we did not save "default"
-        //        language in extended data.
-        // 2. We have NOT read extended data yet (or at all). In this case m_name must be empty.
-        // If extended data will be read, it can rewrite "default" language, since we prefer extended data.
-        //
-        // Plain KML elements are interoperability projections and carry no provenance that lets the
-        // parser distinguish a projected value from an explicit default. A round trip therefore
-        // retains the projected value as default while preserving translations from ExtendedData.
+        // An explicit extended default wins regardless of element order. Otherwise retain the plain
+        // name as default, unless saved regional context identifies a feature-name snapshot: Pop()
+        // then removes this export projection when that snapshot has no default name.
         if (m_name.find(kDefaultLang) == m_name.end())
           m_name[kDefaultLang] = value;
       }
@@ -1359,7 +1354,10 @@ void KmlParser::CharData(std::string & value)
         if (currTag == "mwm:lang")
         {
           if (prevTag == "mwm:name" && m_attrCode >= 0)
+          {
             m_name[m_attrCode] = value;
+            m_hasExtendedDefaultName |= m_attrCode == kDefaultLangCode;
+          }
           else if (prevTag == "mwm:description" && m_attrCode >= 0)
             m_description[m_attrCode] = value;
           else if (prevTag == "mwm:customName" && m_attrCode >= 0)

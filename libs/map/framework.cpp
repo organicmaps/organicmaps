@@ -385,7 +385,17 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
       [this](std::vector<BookmarkInfo> const & marks) { GetSearchAPI().OnBookmarksUpdated(marks); },
       [this](std::vector<kml::MarkId> const & marks) { GetSearchAPI().OnBookmarksDeleted(marks); },
       [this](std::vector<BookmarkGroupInfo> const & marks) { GetSearchAPI().OnBookmarksAttached(marks); },
-      [this](std::vector<BookmarkGroupInfo> const & marks) { GetSearchAPI().OnBookmarksDetached(marks); }));
+      [this](std::vector<BookmarkGroupInfo> const & marks) { GetSearchAPI().OnBookmarksDetached(marks); },
+      [this](m2::PointD const & point)
+  {
+    auto const country = m_infoGetter->GetRegionCountryId(point);
+    if (country.empty())
+      return feature::RegionData{};
+    auto const id = m_featuresFetcher.GetDataSource().GetMwmIdByCountryFile(platform::CountryFile(country));
+    if (id.IsAlive() && id.GetInfo()->GetType() == MwmInfo::COUNTRY)
+      return id.GetInfo()->GetRegionData();
+    return feature::RegionData{};
+  }));
 
   m_bmManager->InitRegionAddressGetter(m_featuresFetcher.GetDataSource(), *m_infoGetter);
 
@@ -467,13 +477,17 @@ void Framework::OnCountryFileDownloaded(storage::CountryId const &, storage::Loc
   m_routingManager.ResetRoutingSession();
 
   m2::RectD rect = mercator::Bounds::FullRect();
+  bool updateBookmarkContext = false;
 
   if (localFile && localFile->OnDisk(MapFileType::Map))
   {
     auto const res = RegisterMap(*localFile);
     MwmSet::MwmId const & id = res.first;
     if (id.IsAlive())
+    {
       rect = id.GetInfo()->m_bordersRect;
+      updateBookmarkContext = id.GetInfo()->GetType() == MwmInfo::COUNTRY;
+    }
   }
 
   m_trafficManager.Invalidate();
@@ -484,6 +498,12 @@ void Framework::OnCountryFileDownloaded(storage::CountryId const &, storage::Loc
 
   /// @todo A bit controversial, why clear when adding a new map :)
   GetSearchAPI().ClearCaches();
+  if (updateBookmarkContext)
+  {
+    // Map bounds and saved bookmark coordinates can round differently.
+    rect.Inflate(kMwmPointAccuracy, kMwmPointAccuracy);
+    UpdateBookmarkNames(rect);
+  }
 }
 
 bool Framework::OnCountryFileDelete(storage::CountryId const & countryId, storage::LocalFilePtr const localFile)
@@ -550,6 +570,7 @@ bool Framework::HasUnsavedEdits(storage::CountryId const & countryId)
 void Framework::LoadMapsSync()
 {
   RegisterAllMaps();
+  UpdateBookmarkNames(mercator::Bounds::FullRect());
   LOG(LDEBUG, ("Maps initialized"));
 
   GetSearchAPI().InitAfterWorldLoaded();
@@ -586,6 +607,7 @@ void Framework::LoadMapsAsync(std::function<void()> && callback)
       /// @todo Investigate if we can call it async after "Editor initialized".
       InitRouting();
 
+      UpdateBookmarkNames(mercator::Bounds::FullRect());
       callback();
     });
 
@@ -2763,7 +2785,16 @@ void Framework::SavePreferredGraphicsAPI(dp::ApiVersion apiVersion)
 void Framework::AllowTransliteration(bool allowTranslit)
 {
   Transliteration::Instance().SetMode(allowTranslit ? Transliteration::Mode::Enabled : Transliteration::Mode::Disabled);
+  UpdateBookmarkNames();
   Invalidate();
+}
+
+void Framework::UpdateBookmarkNames(std::optional<m2::RectD> const & mapBounds)
+{
+  m_bmManager->UpdateBookmarkNames(mapBounds);
+  if (m_currentPlacePageInfo && m_currentPlacePageInfo->IsBookmark() &&
+      (!mapBounds || mapBounds->IsPointInside(m_currentPlacePageInfo->GetBookmarkData().m_point)))
+    UpdatePlacePageInfoForCurrentSelection();
 }
 
 bool Framework::LoadTransliteration()
@@ -2787,11 +2818,13 @@ std::string Framework::GetMapLanguageCode()
 void Framework::SetMapLanguageCode(std::string const & langCode)
 {
   settings::Set(settings::kMapLanguageCode, langCode);
+  auto const applied = GetMapLanguageCode();
   if (m_drapeEngine)
-    ApplyMapLanguageCode(langCode);
+    ApplyMapLanguageCode(applied);
 
   if (m_searchAPI)
-    m_searchAPI->SetLocale(langCode);
+    m_searchAPI->SetLocale(applied);
+  UpdateBookmarkNames();
 }
 
 void Framework::CreateBackgroundTilesProvider(std::string const & url, uint32_t cacheSizeMB)

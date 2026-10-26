@@ -31,6 +31,7 @@ public:
   bool HasCreationAnimation() const override;
 
   std::string GetPreferredName() const;
+  void InvalidateName() { SetDirty(); }
 
   kml::LocalizableString GetName() const;
   void SetName(kml::LocalizableString const & name);
