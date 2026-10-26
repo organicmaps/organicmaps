@@ -70,6 +70,8 @@ extension MWMRouterType: CaseIterable {
     @unknown default:
       fatalError("Unknown router type")
     }
-    return image.withTintColor(isSelected ? .linkBlue : .blackSecondaryText, renderingMode: .alwaysOriginal)
+    let tintedImage = image.withTintColor(isSelected ? .linkBlue : .blackSecondaryText, renderingMode: .alwaysOriginal)
+    tintedImage.accessibilityLabel = accessibilityTitle
+    return tintedImage
   }
 }
