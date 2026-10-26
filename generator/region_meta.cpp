@@ -20,6 +20,13 @@
 #include <utility>
 #include <vector>
 
+template <>
+struct glz::meta<feature::RegionData::SpeedLimitSignType>
+{
+  using enum feature::RegionData::SpeedLimitSignType;
+  static constexpr auto value = glz::enumerate(Vienna, MUTCD);
+};
+
 namespace feature
 {
 namespace region_meta_json
@@ -36,6 +43,7 @@ struct Region
   std::vector<std::string> languages;
   std::string driving;
   std::string timezone;
+  std::optional<RegionData::SpeedLimitSignType> speed_limit_sign_type;
   bool housenames = false;
   std::vector<JsonValue> holidays;
 };
@@ -169,6 +177,9 @@ void ReadEntryImpl(std::string_view keyName, region_meta_json::Region const & js
     data.Set(RegionData::Type::RD_DRIVING, jsonData.driving);
   else
     CHECK(jsonData.driving.empty(), (jsonData.driving));
+
+  if (jsonData.speed_limit_sign_type)
+    data.SetSpeedLimitSignType(*jsonData.speed_limit_sign_type);
 
   if (!jsonData.timezone.empty())
   {
