@@ -590,6 +590,7 @@
     <string name="button_layer_cycling">骑行</string>
     <!-- Map layers menu: toggle button for the satellite imagery layer -->
     <string name="button_layer_satellite">卫星</string>
+    <!-- Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges. -->
     <string name="button_layer_subway">地铁</string>
     <string name="layers_title">地图样式和图层</string>
     <string name="bookmarks_empty_list_title">该列表为空</string>
@@ -631,7 +632,7 @@
     <string name="routing_options_driving">驾车</string>
     <!-- Cycling profile in routing options settings. -->
     <string name="routing_options_cycling">骑行</string>
-    <!-- Walking profile in routing options settings. -->
+    <!-- Walking profile in routing options settings; also the label of a walking leg in transit route details. -->
     <string name="routing_options_walking">步行</string>
     <!-- Section heading for routing settings shared by every routing mode. -->
     <string name="routing_options_all_modes">所有出行方式</string>
@@ -918,4 +919,18 @@
     <string name="track_recording_finish">结束</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">反转路线</string>
+    <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
+    <string name="transit_details_title">出行详情</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">经停点 %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="other">%d 站</item>
+    </plurals>
+    <!-- Spoken name of the bus transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_bus">公交车</string>
+    <!-- Spoken name of the train transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_train">火车</string>
+    <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_tram">有轨电车</string>
 </resources>

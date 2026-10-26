@@ -593,6 +593,7 @@
     <string name="button_layer_cycling">Ciclismo</string>
     <!-- Map layers menu: toggle button for the satellite imagery layer -->
     <string name="button_layer_satellite">Satélite</string>
+    <!-- Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges. -->
     <string name="button_layer_subway">Metropolitano</string>
     <string name="layers_title">Estilos e camadas de mapas</string>
     <string name="bookmarks_empty_list_title">Esta lista está vazia</string>
@@ -634,7 +635,7 @@
     <string name="routing_options_driving">De carro</string>
     <!-- Cycling profile in routing options settings. -->
     <string name="routing_options_cycling">De bicicleta</string>
-    <!-- Walking profile in routing options settings. -->
+    <!-- Walking profile in routing options settings; also the label of a walking leg in transit route details. -->
     <string name="routing_options_walking">A pé</string>
     <!-- Section heading for routing settings shared by every routing mode. -->
     <string name="routing_options_all_modes">Todos os modos de deslocação</string>
@@ -923,4 +924,19 @@
     <string name="track_recording_finish">Terminar</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Inverter percurso</string>
+    <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
+    <string name="transit_details_title">Detalhes do trajeto</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Paragem %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d paragem</item>
+        <item quantity="other">%d paragens</item>
+    </plurals>
+    <!-- Spoken name of the bus transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_bus">Autocarro</string>
+    <!-- Spoken name of the train transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_train">Comboio</string>
+    <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_tram">Elétrico</string>
 </resources>
