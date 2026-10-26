@@ -22,7 +22,6 @@ double constexpr kShowPedestrianTurnInMeters = 20.0;
 double constexpr kRunawayDistanceSensitivityMeters = 0.01;
 
 double constexpr kCompletionPercentAccuracy = 5;
-
 }  // namespace
 
 namespace routing

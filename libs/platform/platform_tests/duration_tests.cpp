@@ -118,6 +118,7 @@ UNIT_TEST(Duration_Localization)
     }
   }
 }
+
 UNIT_TEST(Duration_RoutingString)
 {
   for (unsigned long seconds = 0; seconds < 60; ++seconds)

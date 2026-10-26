@@ -441,39 +441,14 @@ public class Utils
     return manager.getPackageInfo(packageName, PackageManager.PackageInfoFlags.of(flags));
   }
 
-  @NonNull
-  public static CharSequence formatRoutingTime(Context context, int seconds, @DimenRes int unitsSize)
-  {
-    return formatRoutingTime(context, seconds, unitsSize, R.dimen.text_size_routing_number);
-  }
-
   /**
-   * Nearest minute (half up), with a one-minute minimum, for duration labels only.
-   * Keep in sync with platform::Duration::GetRoutingString() used by route balloons.
+   * Nearest minute (half up), with a one-minute minimum, for labels that show hours and minutes separately.
+   * Keep in sync with platform::Duration::GetRoutingString(), which formats the route preview and balloons.
    */
   public static long getRoutingMinutes(int seconds)
   {
-    if (BuildConfig.DEBUG && seconds < 0)
-      throw new AssertionError("Routing duration must not be negative");
+    assert seconds >= 0 : seconds;
     return Math.max(1, (seconds + 30L) / 60);
-  }
-
-  @NonNull
-  public static CharSequence formatRoutingTime(Context context, int seconds, @DimenRes int unitsSize,
-                                               @DimenRes int textSize)
-  {
-    long totalMinutes = getRoutingMinutes(seconds);
-    long hours = totalMinutes / 60;
-    long minutes = totalMinutes % 60;
-    if (hours == 0)
-      return formatTime(context, textSize, unitsSize, String.valueOf(minutes), context.getString(R.string.minute));
-    CharSequence displayedH =
-        formatTime(context, textSize, unitsSize, String.valueOf(hours), context.getString(R.string.hour));
-    if (minutes == 0)
-      return displayedH;
-    return TextUtils.concat(
-        displayedH, "\u00A0",
-        formatTime(context, textSize, unitsSize, String.valueOf(minutes), context.getString(R.string.minute)));
   }
 
   @NonNull

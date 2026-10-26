@@ -247,8 +247,8 @@ final class NavigationControlView: SolidTouchView {
     // @todo Draw speed limit sign similar to the CarPlay implemenation.
     // speedLimitMps >= 0 means known limited speed.
     if info.speedLimitMps >= 0 {
-      // Use a compact separator when the duration label rounds to at least an hour.
-      let separator = info.timeToTarget < 60 * 60 - 30 ? " / " : "/"
+      // A compact separator keeps the speed from overlapping durations of an hour or more.
+      let separator = info.timeToTarget < 60 * 60 ? " / " : "/"
       let speedLimitMeasure = Measure(asSpeed: info.speedLimitMps)
       // speedLimitMps == 0 means unlimited speed.
       speed += separator + (info.speedLimitMps == 0 ? "∞" : speedLimitMeasure.valueAsString)

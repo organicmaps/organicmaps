@@ -14,7 +14,6 @@ import static org.mockito.Mockito.when;
 import android.content.Context;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
-import app.organicmaps.BuildConfig;
 import app.organicmaps.R;
 import org.junit.Test;
 import org.mockito.MockedStatic;
@@ -22,7 +21,18 @@ import org.mockito.MockedStatic;
 public class RoutingTimeFormattingTest
 {
   @Test
-  public void routeAndRecordedDurationsUseTheirOwnPolicies()
+  public void routingMinutesRoundToNearestWithOneMinuteMinimum()
+  {
+    int[][] cases = {{0, 1},     {20, 1},    {59, 1},    {60, 1},    {89, 1},       {90, 2},
+                     {269, 4},   {270, 5},   {1649, 27}, {1650, 28}, {1665, 28},    {2085, 35},
+                     {3569, 59}, {3570, 60}, {3600, 60}, {3630, 61}, {86400, 1440}, {94485, 1575}};
+    for (int[] test : cases)
+      assertEquals("seconds = " + test[0], test[1], Utils.getRoutingMinutes(test[0]));
+    assertEquals(35791394, Utils.getRoutingMinutes(Integer.MAX_VALUE));
+  }
+
+  @Test
+  public void recordedDurationsKeepTruncatedMinutes()
   {
     Context context = mock(Context.class);
     when(context.getString(R.string.minute)).thenReturn("min");
@@ -30,7 +40,7 @@ public class RoutingTimeFormattingTest
     try (MockedStatic<Utils> utils = mockStatic(Utils.class, CALLS_REAL_METHODS);
          MockedStatic<TextUtils> text = mockStatic(TextUtils.class))
     {
-      // Replace Android span creation while exercising the real duration formatters.
+      // Replace Android span creation while exercising the real duration formatter.
       utils.when(() -> Utils.formatTime(any(Context.class), anyInt(), anyInt(), anyString(), anyString()))
           .thenAnswer(invocation -> {
             SpannableStringBuilder result = mock(SpannableStringBuilder.class);
@@ -46,26 +56,6 @@ public class RoutingTimeFormattingTest
       });
 
       int size = R.dimen.text_size_routing_number;
-      assertEquals("1\u00A0min", Utils.formatRoutingTime(context, 0, size).toString());
-      assertEquals("1\u00A0min", Utils.formatRoutingTime(context, 20, size).toString());
-      assertEquals("1\u00A0min", Utils.formatRoutingTime(context, 59, size).toString());
-      assertEquals("1\u00A0min", Utils.formatRoutingTime(context, 60, size).toString());
-      assertEquals("1\u00A0min", Utils.formatRoutingTime(context, 89, size).toString());
-      assertEquals("2\u00A0min", Utils.formatRoutingTime(context, 90, size).toString());
-      assertEquals("4\u00A0min", Utils.formatRoutingTime(context, 269, size).toString());
-      assertEquals("5\u00A0min", Utils.formatRoutingTime(context, 270, size).toString());
-      assertEquals("27\u00A0min", Utils.formatRoutingTime(context, 1649, size).toString());
-      assertEquals("28\u00A0min", Utils.formatRoutingTime(context, 1650, size).toString());
-      assertEquals("28\u00A0min", Utils.formatRoutingTime(context, 1665, size).toString());
-      assertEquals("35\u00A0min", Utils.formatRoutingTime(context, 2085, size).toString());
-      assertEquals("59\u00A0min", Utils.formatRoutingTime(context, 3569, size).toString());
-      assertEquals("1\u00A0h", Utils.formatRoutingTime(context, 3570, size).toString());
-      assertEquals("1\u00A0h", Utils.formatRoutingTime(context, 3600, size).toString());
-      assertEquals("1\u00A0h\u00A01\u00A0min", Utils.formatRoutingTime(context, 3630, size).toString());
-      assertEquals("24\u00A0h", Utils.formatRoutingTime(context, 86400, size).toString());
-      assertEquals("26\u00A0h\u00A015\u00A0min", Utils.formatRoutingTime(context, 94485, size).toString());
-      assertEquals("596523\u00A0h\u00A014\u00A0min",
-                   Utils.formatRoutingTime(context, Integer.MAX_VALUE, size).toString());
       assertEquals("0\u00A0min", Utils.formatDuration(context, 0, size).toString());
       assertEquals("4\u00A0min", Utils.formatDuration(context, 269, size).toString());
       assertEquals("27\u00A0min", Utils.formatDuration(context, 1665, size).toString());
@@ -74,12 +64,10 @@ public class RoutingTimeFormattingTest
   }
 
   @Test
-  public void routingFormatterRejectsNegativeEstimates()
+  public void routingMinutesRejectNegativeEstimates()
   {
-    assumeTrue(BuildConfig.DEBUG);
-    Context context = mock(Context.class);
+    assumeTrue(Utils.class.desiredAssertionStatus());
     for (int seconds : new int[] {-1, Integer.MIN_VALUE})
-      assertThrows(AssertionError.class,
-                   () -> Utils.formatRoutingTime(context, seconds, R.dimen.text_size_routing_number));
+      assertThrows(AssertionError.class, () -> Utils.getRoutingMinutes(seconds));
   }
 }

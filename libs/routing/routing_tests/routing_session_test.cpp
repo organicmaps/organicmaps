@@ -744,6 +744,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestSwapActiveAlternative)
   });
   TEST(swappedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Alternative was not swapped."));
 }
+
 UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestFollowingInfoPreservesSeconds)
 {
   TimedSignal signal;

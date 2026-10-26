@@ -58,6 +58,9 @@ public class StringUtils
   public static native int nativeFormatSpeed(double metersPerSecond);
   public static native Pair<String, String> nativeFormatSpeedAndUnits(double metersPerSecond);
   public static native Distance nativeFormatDistance(double meters);
+  // The same label as route balloons, so the route preview matches them.
+  @NonNull
+  public static native String nativeFormatRoutingDuration(int seconds);
   @NonNull
   public static native Pair<String, String> nativeGetLocalizedDistanceUnits();
   @NonNull
