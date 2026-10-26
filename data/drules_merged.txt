@@ -9434,32 +9434,32 @@ type landuse-farmland
     caption primary[height=10 color=#00444444] priority=850
 type landuse-farmyard
   z10
-    area color=#00E5D6AC priority=-1919
+    area color=#00E5D6AC priority=-1915
   z11
-    area color=#00E5D6AC priority=-1919
+    area color=#00E5D6AC priority=-1915
   z12
-    area color=#00E5D6AC priority=-1919
+    area color=#00E5D6AC priority=-1915
   z13
-    area color=#00E5D6AC priority=-1919
+    area color=#00E5D6AC priority=-1915
   z14
-    area color=#00E5D6AC priority=-1919
+    area color=#00E5D6AC priority=-1915
   z15
-    area color=#00E5D6AC priority=-1919
+    area color=#00E5D6AC priority=-1915
     caption primary[height=10 color=#00444444] priority=120
   z16
-    area color=#00E5D6AC priority=-1919
+    area color=#00E5D6AC priority=-1915
     caption primary[height=10 color=#00444444] priority=120
   z17
-    area color=#00E5D6AC priority=-1919
+    area color=#00E5D6AC priority=-1915
     caption primary[height=10 color=#00444444] priority=120
   z18
-    area color=#00E5D6AC priority=-1919
+    area color=#00E5D6AC priority=-1915
     caption primary[height=10 color=#00444444] priority=120
   z19
-    area color=#00E5D6AC priority=-1919
+    area color=#00E5D6AC priority=-1915
     caption primary[height=10 color=#00444444] priority=120
   z20
-    area color=#00E5D6AC priority=-1919
+    area color=#00E5D6AC priority=-1915
     caption primary[height=10 color=#00444444] priority=120
 type landuse-field
   z12
@@ -9921,28 +9921,28 @@ type landuse-military-danger_area
     caption primary[height=10 color=#00444444 dy=1 optional] priority=-8000
 type landuse-orchard
   z12
-    area color=#00CFD5A8 priority=-1920
+    area color=#00CFD5A8 priority=-1918
   z13
-    area color=#00CFD5A8 priority=-1920
+    area color=#00CFD5A8 priority=-1918
   z14
-    area color=#00C6CF93 priority=-1920
+    area color=#00C6CF93 priority=-1918
   z15
-    area color=#00C6CF93 priority=-1920
+    area color=#00C6CF93 priority=-1918
     caption primary[height=10 color=#00444444] priority=850
   z16
-    area color=#00C6CF93 priority=-1920
+    area color=#00C6CF93 priority=-1918
     caption primary[height=10 color=#00444444] priority=850
   z17
-    area color=#00C6CF93 priority=-1920
+    area color=#00C6CF93 priority=-1918
     caption primary[height=10 color=#00444444] priority=850
   z18
-    area color=#00C6CF93 priority=-1920
+    area color=#00C6CF93 priority=-1918
     caption primary[height=10 color=#00444444] priority=850
   z19
-    area color=#00C6CF93 priority=-1920
+    area color=#00C6CF93 priority=-1918
     caption primary[height=10 color=#00444444] priority=850
   z20
-    area color=#00C6CF93 priority=-1920
+    area color=#00C6CF93 priority=-1918
     caption primary[height=10 color=#00444444] priority=850
 type landuse-plant_nursery
   z12
@@ -9973,31 +9973,31 @@ type landuse-plant_nursery
     caption primary[height=10 color=#00444444 dy=1 optional] priority=-7550
 type landuse-quarry
   z13
-    area color=#00E4E2EB priority=-1950
+    area color=#00E4E2EB priority=-1949
   z14
-    area color=#00E4E2EB priority=-1950
+    area color=#00E4E2EB priority=-1949
   z15
-    area color=#00E4E2EB priority=-1950
+    area color=#00E4E2EB priority=-1949
     symbol name=mine-m priority=120
     caption primary[height=10 color=#00444444 dy=1 optional] priority=-9880
   z16
-    area color=#00E4E2EB priority=-1950
+    area color=#00E4E2EB priority=-1949
     symbol name=mine-m priority=120
     caption primary[height=10 color=#00444444 dy=1 optional] priority=-9880
   z17
-    area color=#00E4E2EB priority=-1950
+    area color=#00E4E2EB priority=-1949
     symbol name=mine-m priority=120
     caption primary[height=10 color=#00444444 dy=1 optional] priority=-9880
   z18
-    area color=#00E4E2EB priority=-1950
+    area color=#00E4E2EB priority=-1949
     symbol name=mine-m priority=120
     caption primary[height=10 color=#00444444 dy=1 optional] priority=-9880
   z19
-    area color=#00E4E2EB priority=-1950
+    area color=#00E4E2EB priority=-1949
     symbol name=mine-m priority=120
     caption primary[height=10 color=#00444444 dy=1 optional] priority=-9880
   z20
-    area color=#00E4E2EB priority=-1950
+    area color=#00E4E2EB priority=-1949
     symbol name=mine-m priority=120
     caption primary[height=10 color=#00444444 dy=1 optional] priority=-9880
 type landuse-railway
@@ -10145,28 +10145,28 @@ type landuse-village_green
     area color=#00C6CF93 priority=-1920
 type landuse-vineyard
   z12
-    area color=#00CFD5A8 priority=-1920
+    area color=#00CFD5A8 priority=-1919
   z13
-    area color=#00CFD5A8 priority=-1920
+    area color=#00CFD5A8 priority=-1919
   z14
-    area color=#00C6CF93 priority=-1920
+    area color=#00C6CF93 priority=-1919
   z15
-    area color=#00C6CF93 priority=-1920
+    area color=#00C6CF93 priority=-1919
     caption primary[height=10 color=#00444444] priority=850
   z16
-    area color=#00C6CF93 priority=-1920
+    area color=#00C6CF93 priority=-1919
     caption primary[height=10 color=#00444444] priority=850
   z17
-    area color=#00C6CF93 priority=-1920
+    area color=#00C6CF93 priority=-1919
     caption primary[height=10 color=#00444444] priority=850
   z18
-    area color=#00C6CF93 priority=-1920
+    area color=#00C6CF93 priority=-1919
     caption primary[height=10 color=#00444444] priority=850
   z19
-    area color=#00C6CF93 priority=-1920
+    area color=#00C6CF93 priority=-1919
     caption primary[height=10 color=#00444444] priority=850
   z20
-    area color=#00C6CF93 priority=-1920
+    area color=#00C6CF93 priority=-1919
     caption primary[height=10 color=#00444444] priority=850
 type leisure-adult_gaming_centre
   z17
@@ -11758,29 +11758,29 @@ type natural-arch
     caption primary[height=10 color=#00444444 dy=1 optional] priority=-5350
 type natural-bare_rock
   z12
-    area color=#00D9D2BF priority=-1920
+    area color=#00D9D2BF priority=-1916
   z13
-    area color=#00D9D2BF priority=-1920
+    area color=#00D9D2BF priority=-1916
   z14
-    area color=#00D9D2BF priority=-1920
+    area color=#00D9D2BF priority=-1916
     caption primary[height=10 color=#00444444 dy=1] priority=3250
   z15
-    area color=#00D9D2BF priority=-1920
+    area color=#00D9D2BF priority=-1916
     caption primary[height=10 color=#00444444 dy=1] priority=3250
   z16
-    area color=#00D9D2BF priority=-1920
+    area color=#00D9D2BF priority=-1916
     caption primary[height=10 color=#00444444 dy=1] priority=3250
   z17
-    area color=#00D9D2BF priority=-1920
+    area color=#00D9D2BF priority=-1916
     caption primary[height=10 color=#00444444 dy=1] priority=3250
   z18
-    area color=#00D9D2BF priority=-1920
+    area color=#00D9D2BF priority=-1916
     caption primary[height=10 color=#00444444 dy=1] priority=3250
   z19
-    area color=#00D9D2BF priority=-1920
+    area color=#00D9D2BF priority=-1916
     caption primary[height=10 color=#00444444 dy=1] priority=3250
   z20
-    area color=#00D9D2BF priority=-1920
+    area color=#00D9D2BF priority=-1916
     caption primary[height=10 color=#00444444 dy=1] priority=3250
 type natural-bay
   z14
@@ -11799,90 +11799,90 @@ type natural-bay
     caption primary[height=11 color=#004499BB stroke=#CCFFFFFF] priority=3250
 type natural-beach
   z10
-    area color=#00FCEC7E priority=-1970
+    area color=#00FCEC7E priority=-1968
   z11
-    area color=#00FCEC7E priority=-1970
+    area color=#00FCEC7E priority=-1968
   z12
-    area color=#00FCEC7E priority=-1970
+    area color=#00FCEC7E priority=-1968
   z13
-    area color=#00FCEC7E priority=-1970
+    area color=#00FCEC7E priority=-1968
   z14
-    area color=#00FCEC7E priority=-1970
+    area color=#00FCEC7E priority=-1968
   z15
-    area color=#00FCEC7E priority=-1970
+    area color=#00FCEC7E priority=-1968
     caption primary[height=10 color=#00444444] priority=3250
   z16
-    area color=#00FCEC7E priority=-1970
+    area color=#00FCEC7E priority=-1968
     caption primary[height=10 color=#00444444 dy=1] priority=3250
   z17
-    area color=#00FCEC7E priority=-1970
+    area color=#00FCEC7E priority=-1968
     caption primary[height=10 color=#00444444 dy=1] priority=3250
   z18
-    area color=#00FCEC7E priority=-1970
+    area color=#00FCEC7E priority=-1968
     caption primary[height=10 color=#00444444 dy=1] priority=3250
   z19
-    area color=#00FCEC7E priority=-1970
+    area color=#00FCEC7E priority=-1968
     caption primary[height=10 color=#00444444 dy=1] priority=3250
   z20
-    area color=#00FCEC7E priority=-1970
+    area color=#00FCEC7E priority=-1968
     caption primary[height=10 color=#00444444 dy=1] priority=3250
 type natural-beach-gravel
   z10
-    area color=#00FCEC7E priority=-1970
+    area color=#00FCEC7E priority=-1968
   z11
-    area color=#00FCEC7E priority=-1970
+    area color=#00FCEC7E priority=-1968
   z12
-    area color=#00FCEC7E priority=-1970
+    area color=#00FCEC7E priority=-1968
   z13
-    area color=#00FCEC7E priority=-1970
+    area color=#00FCEC7E priority=-1968
   z14
-    area color=#00FCEC7E priority=-1970
+    area color=#00FCEC7E priority=-1968
   z15
-    area color=#00FCEC7E priority=-1970
+    area color=#00FCEC7E priority=-1968
     caption primary[height=10 color=#00444444] priority=3250
   z16
-    area color=#00FCEC7E priority=-1970
+    area color=#00FCEC7E priority=-1968
     caption primary[height=10 color=#00444444 dy=1] priority=3250
   z17
-    area color=#00FCEC7E priority=-1970
+    area color=#00FCEC7E priority=-1968
     caption primary[height=10 color=#00444444 dy=1] priority=3250
   z18
-    area color=#00FCEC7E priority=-1970
+    area color=#00FCEC7E priority=-1968
     caption primary[height=10 color=#00444444 dy=1] priority=3250
   z19
-    area color=#00FCEC7E priority=-1970
+    area color=#00FCEC7E priority=-1968
     caption primary[height=10 color=#00444444 dy=1] priority=3250
   z20
-    area color=#00FCEC7E priority=-1970
+    area color=#00FCEC7E priority=-1968
     caption primary[height=10 color=#00444444 dy=1] priority=3250
 type natural-beach-sand
   z10
-    area color=#00FCEC7E priority=-1970
+    area color=#00FCEC7E priority=-1968
   z11
-    area color=#00FCEC7E priority=-1970
+    area color=#00FCEC7E priority=-1968
   z12
-    area color=#00FCEC7E priority=-1970
+    area color=#00FCEC7E priority=-1968
   z13
-    area color=#00FCEC7E priority=-1970
+    area color=#00FCEC7E priority=-1968
   z14
-    area color=#00FCEC7E priority=-1970
+    area color=#00FCEC7E priority=-1968
   z15
-    area color=#00FCEC7E priority=-1970
+    area color=#00FCEC7E priority=-1968
     caption primary[height=10 color=#00444444] priority=3250
   z16
-    area color=#00FCEC7E priority=-1970
+    area color=#00FCEC7E priority=-1968
     caption primary[height=10 color=#00444444 dy=1] priority=3250
   z17
-    area color=#00FCEC7E priority=-1970
+    area color=#00FCEC7E priority=-1968
     caption primary[height=10 color=#00444444 dy=1] priority=3250
   z18
-    area color=#00FCEC7E priority=-1970
+    area color=#00FCEC7E priority=-1968
     caption primary[height=10 color=#00444444 dy=1] priority=3250
   z19
-    area color=#00FCEC7E priority=-1970
+    area color=#00FCEC7E priority=-1968
     caption primary[height=10 color=#00444444 dy=1] priority=3250
   z20
-    area color=#00FCEC7E priority=-1970
+    area color=#00FCEC7E priority=-1968
     caption primary[height=10 color=#00444444 dy=1] priority=3250
 type natural-cape
   z14
@@ -12000,51 +12000,51 @@ type natural-coastline
     area color=#008BD3E0 priority=-1990
 type natural-desert
   z1
-    area color=#00EEE5B2 priority=-1970
+    area color=#00EEE5B2 priority=-1969
   z2
-    area color=#00EEE5B2 priority=-1970
+    area color=#00EEE5B2 priority=-1969
   z3
-    area color=#00EEE5B2 priority=-1970
+    area color=#00EEE5B2 priority=-1969
   z4
-    area color=#00EEE5B2 priority=-1970
+    area color=#00EEE5B2 priority=-1969
   z5
-    area color=#00EEE5B2 priority=-1970
+    area color=#00EEE5B2 priority=-1969
   z6
-    area color=#00EEE5B2 priority=-1970
+    area color=#00EEE5B2 priority=-1969
   z7
-    area color=#00EEE5B2 priority=-1970
+    area color=#00EEE5B2 priority=-1969
   z8
-    area color=#00EEE5B2 priority=-1970
+    area color=#00EEE5B2 priority=-1969
   z9
-    area color=#00EEE5B2 priority=-1970
+    area color=#00EEE5B2 priority=-1969
   z10
-    area color=#00EEE5B2 priority=-1970
+    area color=#00EEE5B2 priority=-1969
   z11
-    area color=#00EEE5B2 priority=-1970
+    area color=#00EEE5B2 priority=-1969
   z12
-    area color=#00EEE5B2 priority=-1970
+    area color=#00EEE5B2 priority=-1969
   z13
-    area color=#00EEE5B2 priority=-1970
+    area color=#00EEE5B2 priority=-1969
   z14
-    area color=#00EEE5B2 priority=-1970
+    area color=#00EEE5B2 priority=-1969
     caption primary[height=10 color=#00444444] priority=3250
   z15
-    area color=#00EEE5B2 priority=-1970
+    area color=#00EEE5B2 priority=-1969
     caption primary[height=10 color=#00444444] priority=3250
   z16
-    area color=#00EEE5B2 priority=-1970
+    area color=#00EEE5B2 priority=-1969
     caption primary[height=10 color=#00444444] priority=3250
   z17
-    area color=#00EEE5B2 priority=-1970
+    area color=#00EEE5B2 priority=-1969
     caption primary[height=10 color=#00444444] priority=3250
   z18
-    area color=#00EEE5B2 priority=-1970
+    area color=#00EEE5B2 priority=-1969
     caption primary[height=10 color=#00444444] priority=3250
   z19
-    area color=#00EEE5B2 priority=-1970
+    area color=#00EEE5B2 priority=-1969
     caption primary[height=10 color=#00444444] priority=3250
   z20
-    area color=#00EEE5B2 priority=-1970
+    area color=#00EEE5B2 priority=-1969
     caption primary[height=10 color=#00444444] priority=3250
 type natural-earth_bank
   z12
@@ -12361,25 +12361,25 @@ type natural-saddle
     caption primary[height=11 color=#00444444 dy=1 optional] priority=-5500
 type natural-scree
   z11
-    area color=#00CCC7BA priority=-1920
+    area color=#00CCC7BA priority=-1917
   z12
-    area color=#00CCC7BA priority=-1920
+    area color=#00CCC7BA priority=-1917
   z13
-    area color=#00CCC7BA priority=-1920
+    area color=#00CCC7BA priority=-1917
   z14
-    area color=#00CCC7BA priority=-1920
+    area color=#00CCC7BA priority=-1917
   z15
-    area color=#00CCC7BA priority=-1920
+    area color=#00CCC7BA priority=-1917
   z16
-    area color=#00CCC7BA priority=-1920
+    area color=#00CCC7BA priority=-1917
   z17
-    area color=#00CCC7BA priority=-1920
+    area color=#00CCC7BA priority=-1917
   z18
-    area color=#00CCC7BA priority=-1920
+    area color=#00CCC7BA priority=-1917
   z19
-    area color=#00CCC7BA priority=-1920
+    area color=#00CCC7BA priority=-1917
   z20
-    area color=#00CCC7BA priority=-1920
+    area color=#00CCC7BA priority=-1917
 type natural-scrub
   z12
     area color=#00BCC87E priority=-1870
@@ -12401,23 +12401,23 @@ type natural-scrub
     area color=#00BCC87E priority=-1870
 type natural-shingle
   z12
-    area color=#00CCC7BA priority=-1920
+    area color=#00CCC7BA priority=-1917
   z13
-    area color=#00CCC7BA priority=-1920
+    area color=#00CCC7BA priority=-1917
   z14
-    area color=#00CCC7BA priority=-1920
+    area color=#00CCC7BA priority=-1917
   z15
-    area color=#00CCC7BA priority=-1920
+    area color=#00CCC7BA priority=-1917
   z16
-    area color=#00CCC7BA priority=-1920
+    area color=#00CCC7BA priority=-1917
   z17
-    area color=#00CCC7BA priority=-1920
+    area color=#00CCC7BA priority=-1917
   z18
-    area color=#00CCC7BA priority=-1920
+    area color=#00CCC7BA priority=-1917
   z19
-    area color=#00CCC7BA priority=-1920
+    area color=#00CCC7BA priority=-1917
   z20
-    area color=#00CCC7BA priority=-1920
+    area color=#00CCC7BA priority=-1917
 type natural-spring
   z12
     symbol name=drinking-water-s priority=4650
