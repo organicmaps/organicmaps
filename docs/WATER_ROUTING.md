@@ -134,7 +134,9 @@ endpoint restrictions, missing coverage, numerical precision, budgets,
 cancellation, walking failures, distances, progress and transfer markers.
 `water_geometry_mwm_test.cpp` uses the existing `TestMwmBuilder` and unchanged
 generator to verify ordinary-map extraction, cross-region coverage and optional
-section compatibility. Android tests cover controls, progress and diagnostics.
+section compatibility. Spatial-index regressions cover insertion, rebalancing
+and clearing of 22,000 ordered nodes without recursive stack growth. Android
+tests cover controls, progress and diagnostics.
 iOS tests cover Water selection and core mapping, separate distances, the
 conditional shortest-route qualification, progress reset and hidden Start controls.
 
