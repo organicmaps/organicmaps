@@ -188,8 +188,9 @@ final class CarPlayServiceTests: XCTestCase {
     XCTAssertTrue(template.sections.flatMap(\.items).isEmpty)
   }
 
-  func testBookmarkReloadRefreshesExistingRowsAndCategoryCount() throws {
+  func testBookmarkReloadRefreshesExistingRowsCategoryNameAndCount() throws {
     let category = try importBookmarkFixture(bookmarkCount: 3)
+    let renamed = "Renamed \(category.title)"
     let parent = ListTemplateBuilder.buildListTemplate(for: .bookmarkLists)
     let template = ListTemplateBuilder.buildListTemplate(for: .bookmarks(category: category))
     let staleItem = try XCTUnwrap(template.sections.first?.items.first as? CPListItem)
@@ -205,7 +206,7 @@ final class CarPlayServiceTests: XCTestCase {
       .first { $0.deletingPathExtension().lastPathComponent == category.title })
     let kml = """
     <?xml version="1.0" encoding="UTF-8"?>
-    <kml xmlns="http://www.opengis.net/kml/2.2"><Document><name>\(category.title)</name>
+    <kml xmlns="http://www.opengis.net/kml/2.2"><Document><name>\(renamed)</name>
       <Placemark><name>Replacement 0</name><Point><coordinates>1,1</coordinates></Point></Placemark>
       <Placemark><name>Replacement 1</name><Point><coordinates>2,2</coordinates></Point></Placemark>
     </Document></kml>
@@ -216,6 +217,7 @@ final class CarPlayServiceTests: XCTestCase {
     waitForBookmarkRefresh()
 
     XCTAssertTrue(manager.hasCategory(category.categoryId))
+    XCTAssertEqual(category.title, renamed)
     XCTAssertEqual(template.sections.flatMap(\.items).compactMap(\.text).sorted(), ["Replacement 0", "Replacement 1"])
     XCTAssertEqual(manager.getCategoryMarksCount(category.categoryId), 2)
     let count = try categoryListItem(for: category, in: parent).detailText
@@ -285,7 +287,146 @@ final class CarPlayServiceTests: XCTestCase {
     wait(for: [loaded], timeout: 5)
   }
 
-  private func importBookmarkFixture(bookmarkCount: Int = 1) throws -> BookmarkGroup {
+  func testCategoryRenameRefreshesTheOpenListInPlace() throws {
+    let category = try importBookmarkFixture()
+    let parent = ListTemplateBuilder.buildListTemplate(for: .bookmarkLists)
+    let template = ListTemplateBuilder.buildListTemplate(for: .bookmarks(category: category))
+    var refreshCount = 0
+    bookmarkListObserver = CarPlayBookmarkListObserver(templates: {
+      refreshCount += 1
+      return [parent, template]
+    }, popTo: { _ in
+      XCTFail("Renaming a category must not request a return to a parent template.")
+    })
+    let renamed = "Renamed \(category.title)"
+
+    BookmarksManager.shared().setCategory(category.categoryId, name: renamed)
+    waitForBookmarkRefresh()
+
+    XCTAssertEqual(refreshCount, 1)
+    XCTAssertEqual(category.title, renamed)
+  }
+
+  func testBookmarkRenameRefreshesTheOpenList() throws {
+    let category = try importBookmarkFixture()
+    let template = ListTemplateBuilder.buildListTemplate(for: .bookmarks(category: category))
+    var refreshCount = 0
+    bookmarkListObserver = CarPlayBookmarkListObserver(templates: {
+      refreshCount += 1
+      return [template]
+    }, popTo: { _ in
+      XCTFail("Renaming a bookmark must not request a return to a parent template.")
+    })
+    let manager = BookmarksManager.shared()
+    let bookmark = manager.bookmark(withId: manager.bookmarkIds(forCategory: category.categoryId)[0].uint64Value)
+
+    // Keep the color: a changed one becomes the default for new bookmarks.
+    manager.updateBookmark(bookmark.bookmarkId, setGroupId: category.categoryId, title: "Renamed bookmark",
+                           color: bookmark.bookmarkColor, description: "")
+    waitForBookmarkRefresh()
+
+    XCTAssertEqual(refreshCount, 1)
+    XCTAssertEqual(manager.bookmark(withId: bookmark.bookmarkId).bookmarkName, "Renamed bookmark")
+  }
+
+  func testMovingBookmarkRefreshesBothCategoryCounts() throws {
+    let source = try importBookmarkFixture(bookmarkCount: 2)
+    let destination = try importBookmarkFixture()
+    let parent = ListTemplateBuilder.buildListTemplate(for: .bookmarkLists)
+    let template = ListTemplateBuilder.buildListTemplate(for: .bookmarks(category: source))
+    var refreshCount = 0
+    bookmarkListObserver = CarPlayBookmarkListObserver(templates: {
+      refreshCount += 1
+      return [parent, template]
+    }, popTo: { _ in
+      XCTFail("Moving a bookmark between existing categories must not request a return to a parent template.")
+    })
+    let manager = BookmarksManager.shared()
+    let bookmarkId = manager.bookmarkIds(forCategory: source.categoryId)[0]
+
+    manager.move(bookmarks: [bookmarkId], tracks: [], toGroupId: destination.categoryId)
+    waitForBookmarkRefresh()
+
+    XCTAssertEqual(refreshCount, 1)
+    XCTAssertEqual(source.bookmarksCount, 1)
+    XCTAssertEqual(destination.bookmarksCount, 2)
+  }
+
+  func testTrackDeletionRefreshesCategoryCounts() throws {
+    let category = try importBookmarkFixture(trackCount: 1)
+    let template = ListTemplateBuilder.buildListTemplate(for: .bookmarkLists)
+    var refreshCount = 0
+    bookmarkListObserver = CarPlayBookmarkListObserver(templates: {
+      refreshCount += 1
+      return [template]
+    }, popTo: { _ in
+      XCTFail("Deleting a track from an existing category must not request a return to its parent.")
+    })
+    let manager = BookmarksManager.shared()
+    let trackId = try XCTUnwrap(manager.trackIds(forCategory: category.categoryId).first)
+    XCTAssertEqual(category.trackCount, 1)
+
+    manager.deleteTrack(trackId.uint64Value)
+    waitForBookmarkRefresh()
+
+    XCTAssertEqual(refreshCount, 1)
+    XCTAssertEqual(category.trackCount, 0)
+  }
+
+  func testBookmarkImportBatchRefreshesOnce() throws {
+    let manager = BookmarksManager.shared()
+    let prefix = "CarPlayBatch-\(UUID().uuidString)"
+    let urls = try (0 ..< 2).map { index -> URL in
+      let name = "\(prefix)-\(index)"
+      let url = FileManager.default.temporaryDirectory.appendingPathComponent(name).appendingPathExtension("kml")
+      let kml = """
+      <?xml version="1.0"?><kml xmlns="http://www.opengis.net/kml/2.2"><Document>
+      <name>\(name)</name><Placemark><Point><coordinates>0,0</coordinates></Point></Placemark>
+      </Document></kml>
+      """
+      try kml.write(to: url, atomically: true, encoding: .utf8)
+      return url
+    }
+    addTeardownBlock {
+      for category in manager.sortedUserCategories() where category.title.hasPrefix(prefix) {
+        manager.deleteCategory(category.categoryId)
+      }
+      manager.deleteRecentlyDeletedCategory(at: manager.getRecentlyDeletedCategories()
+        .filter { $0.fileURL.lastPathComponent.hasPrefix(prefix) }.map(\.fileURL))
+      for url in urls {
+        try FileManager.default.removeItem(at: url)
+      }
+    }
+    let template = ListTemplateBuilder.buildListTemplate(for: .bookmarkLists)
+    var refreshCount = 0
+    bookmarkListObserver = CarPlayBookmarkListObserver(templates: {
+      refreshCount += 1
+      return [template]
+    }, popTo: { _ in
+      XCTFail("Importing bookmarks must not request a return to a parent template.")
+    })
+    let imported = expectation(description: "Both bookmark files imported")
+    let observer = BookmarksLoadObserver()
+    var queuedSecondFile = false
+    // File success arrives while loading is active, so the next file joins the same batch.
+    observer.onFileLoaded = {
+      guard !queuedSecondFile else { return }
+      queuedSecondFile = true
+      manager.loadBookmarkFile(urls[1])
+    }
+    observer.onFinished = { imported.fulfill() }
+    manager.add(observer)
+    defer { manager.remove(observer) }
+
+    manager.loadBookmarkFile(urls[0])
+    wait(for: [imported], timeout: 5)
+    waitForBookmarkRefresh()
+
+    XCTAssertEqual(refreshCount, 1)
+    XCTAssertEqual(manager.sortedUserCategories().filter { $0.title.hasPrefix(prefix) }.count, 2)
+  }
+
+  private func importBookmarkFixture(bookmarkCount: Int = 1, trackCount: Int = 0) throws -> BookmarkGroup {
     let bookmarkManager = BookmarksManager.shared()
     let name = "CarPlayTests-\(UUID().uuidString)"
     let url = FileManager.default.temporaryDirectory.appendingPathComponent(name).appendingPathExtension("kml")
@@ -297,12 +438,20 @@ final class CarPlayServiceTests: XCTestCase {
       </Placemark>
       """
     }.joined(separator: "\n")
+    let tracks = (0 ..< trackCount).map { index in
+      """
+      <Placemark><name>CarPlay track \(index)</name>
+        <LineString><coordinates>0,0 0.01,0.01</coordinates></LineString>
+      </Placemark>
+      """
+    }.joined(separator: "\n")
     let kml = """
     <?xml version="1.0" encoding="UTF-8"?>
     <kml xmlns="http://www.opengis.net/kml/2.2">
       <Document>
         <name>\(name)</name>
         \(placemarks)
+        \(tracks)
       </Document>
     </kml>
     """
@@ -340,8 +489,10 @@ final class CarPlayServiceTests: XCTestCase {
 
   private final class BookmarksLoadObserver: NSObject, BookmarksObserver {
     var onFinished: (() -> Void)?
+    var onFileLoaded: (() -> Void)?
 
     func onBookmarksLoadFinished() { onFinished?() }
+    func onBookmarksFileLoadSuccess() { onFileLoaded?() }
   }
 
   private final class BookmarkGroupSpy: BookmarkGroup {
