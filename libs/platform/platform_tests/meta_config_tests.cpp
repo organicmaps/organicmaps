@@ -3,9 +3,6 @@
 #include "platform/products.hpp"
 #include "platform/servers_list.hpp"
 
-#include "base/assert.hpp"
-#include "base/scope_guard.hpp"
-
 namespace meta_config_tests
 {
 using downloader::ParseMetaConfig;
@@ -70,30 +67,26 @@ UNIT_TEST(MetaConfig_JSONParser_UnknownKeys)
   TEST_EQUAL(productsConfig.products[0].link, "https://product.example/", ());
 }
 
-#ifdef DEBUG
 UNIT_TEST(MetaConfig_JSONParser_InvalidProducts)
 {
-  static bool assertionRaised;
-  auto const previousAssert = base::SetAssertFunction([](base::SrcPoint const &, std::string const &) -> bool
+  for (auto const productsJson :
+       {R"({})", R"({"products":[]})", R"({"products":[{"title":"Product"}]})",
+        R"({"products":[{"link":"https://product.example/"}]})",
+        R"({"products":[{"title":"","link":"https://product.example/"}]})",
+        R"({"products":[{"title":"Product","link":""}]})",
+        R"({"products":[{"title":"Product","link":"https://product.example/"},{"title":"Invalid"}]})"})
   {
-    assertionRaised = true;
-    return false;
-  });
-  SCOPE_GUARD(restoreAssert, [previousAssert] { base::SetAssertFunction(previousAssert); });
-
-  for (
-      auto const json : {
-          R"({"servers":["https://maps.example/"],"productsConfig":{"products":[]}})",
-          R"({"servers":["https://maps.example/"],"productsConfig":{"products":[{"title":"Product"}]}})",
-          R"({"servers":["https://maps.example/"],"productsConfig":{"products":[{"link":"https://product.example/"}]}})",
-      })
-  {
-    assertionRaised = false;
-    ParseMetaConfig(json);
-    TEST(assertionRaised, (json));
+    auto const json = std::string{R"({"servers":["https://maps.example/"],
+      "settings":{"DonateUrl":"https://donate.example/"},"productsConfig":)"} +
+                      productsJson + "}";
+    auto const metaConfig = ParseMetaConfig(json);
+    TEST(metaConfig, (json));
+    TEST_EQUAL(metaConfig->servers, (downloader::MetaConfig::ServersList{"https://maps.example/"}), (json));
+    TEST_EQUAL(metaConfig->settings, (downloader::MetaConfig::SettingsMap{{"DonateUrl", "https://donate.example/"}}),
+               (json));
+    TEST(!metaConfig->productsConfig, (json));
   }
 }
-#endif
 
 UNIT_TEST(MetaConfig_JSONParser_Products)
 {

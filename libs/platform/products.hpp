@@ -18,7 +18,7 @@ struct ProductsConfig
   std::optional<std::string> placePagePrompt;
   std::vector<Product> products;
 
-  bool IsValid() const
+  [[nodiscard]] bool IsValid() const
   {
     return !products.empty() && std::ranges::all_of(products, [](auto const & product)
     { return !product.title.empty() && !product.link.empty(); });
