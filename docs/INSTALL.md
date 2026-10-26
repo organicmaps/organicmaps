@@ -360,6 +360,8 @@ To switch themes you can enter this commands:
 - `?vdark` - Night theme for vehicle navigation
 - `?olight` - Outdoors day theme
 - `?odark` - Outdoors night theme
+- `?elight` - Explorer day theme
+- `?edark` - Explorer night theme
 
 There are also other commands for turning on/off isolines, anti-aliasing, etc. Check [DEBUG_COMMANDS.md](DEBUG_COMMANDS.md) to learn about them.
 
