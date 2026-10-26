@@ -141,8 +141,8 @@ public:
       return {};
 
     std::stringstream s;
-    s << "XML parse error at line " << XML_GetCurrentLineNumber(m_parser.get()) << " and byte "
-      << XML_GetCurrentByteIndex(m_parser.get());
+    s << "XML parse error at line " << XML_GetCurrentLineNumber64(m_parser.get()) << " and byte "
+      << XML_GetCurrentByteIndex64(m_parser.get());
     return s.str();
   }
 
