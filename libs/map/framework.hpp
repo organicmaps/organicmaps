@@ -209,6 +209,7 @@ protected:
   void OnViewportChanged(ScreenBase const & screen);
 
   void InitTransliteration();
+  void UpdateBookmarkNames(std::optional<m2::RectD> const & mapBounds = {});
 
   // Builds m_rasterTileProvider for the given XYZ source and the "bg_tiles" disk cache.
   void CreateBackgroundTilesProvider(std::string const & url, uint32_t cacheSizeMB);

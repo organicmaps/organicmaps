@@ -25,6 +25,7 @@
 #include <map>
 #include <memory>
 #include <mutex>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -70,6 +71,7 @@ public:
   {
     using GetStringsBundleFn = std::function<StringsBundle const &()>;
     using GetSeacrhAPIFn = std::function<SearchAPI &()>;
+    using GetRegionDataFn = std::function<feature::RegionData(m2::PointD const &)>;
     using CreatedBookmarksCallback = std::function<void(std::vector<BookmarkInfo> const &)>;
     using UpdatedBookmarksCallback = std::function<void(std::vector<BookmarkInfo> const &)>;
     using DeletedBookmarksCallback = std::function<void(std::vector<kml::MarkId> const &)>;
@@ -80,7 +82,7 @@ public:
               typename UpdateListener, typename DeleteListener, typename AttachListener, typename DetachListener>
     Callbacks(StringsBundleProvider && stringsBundleProvider, SearchAPIProvider && searchAPIProvider,
               CreateListener && createListener, UpdateListener && updateListener, DeleteListener && deleteListener,
-              AttachListener && attachListener, DetachListener && detachListener)
+              AttachListener && attachListener, DetachListener && detachListener, GetRegionDataFn getRegionData = {})
       : m_getStringsBundle(std::forward<StringsBundleProvider>(stringsBundleProvider))
       , m_getSearchAPI(std::forward<SearchAPIProvider>(searchAPIProvider))
       , m_createdBookmarksCallback(std::forward<CreateListener>(createListener))
@@ -88,6 +90,7 @@ public:
       , m_deletedBookmarksCallback(std::forward<DeleteListener>(deleteListener))
       , m_attachedBookmarksCallback(std::forward<AttachListener>(attachListener))
       , m_detachedBookmarksCallback(std::forward<DetachListener>(detachListener))
+      , m_getRegionData(std::move(getRegionData))
     {}
 
     GetStringsBundleFn m_getStringsBundle;
@@ -97,6 +100,7 @@ public:
     DeletedBookmarksCallback m_deletedBookmarksCallback;
     AttachedBookmarksCallback m_attachedBookmarksCallback;
     DetachedBookmarksCallback m_detachedBookmarksCallback;
+    GetRegionDataFn m_getRegionData;
   };
 
   class EditSession
@@ -198,6 +202,9 @@ public:
   EditSession GetEditSession();
 
   void UpdateViewport(ScreenBase const & screen);
+  // With mapBounds, refresh only bookmarks whose missing regional context is recovered there.
+  // Without bounds, refresh every name to apply display settings.
+  void UpdateBookmarkNames(std::optional<m2::RectD> const & mapBounds = {});
   void Teardown();
 
   static bool IsBookmarkCategory(kml::MarkGroupId groupId)

@@ -116,6 +116,7 @@ private:
   std::string m_attrKey;
 
   LocalizableString m_name;
+  bool m_hasExtendedDefaultName = false;
   LocalizableString m_description;
   PredefinedColor m_predefinedColor;
   Timestamp m_timestamp;

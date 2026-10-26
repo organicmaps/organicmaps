@@ -7,6 +7,7 @@
 #include "search/emitter.hpp"
 
 #include "indexer/classificator.hpp"
+#include "indexer/feature_data.hpp"
 #include "indexer/search_string_utils.hpp"
 
 #include "base/cancellable.hpp"
@@ -162,6 +163,25 @@ UNIT_CLASS_TEST(BookmarksProcessorTest, SearchByType)
   TEST_EQUAL(Search("cafe", GroupId{0}), Ids({12, 10}), ());
   TEST_EQUAL(Search("кафе", GroupId{0}), Ids{}, ());
   TEST_EQUAL(Search("", GroupId{0}), Ids{}, ());
+}
+
+UNIT_CLASS_TEST(BookmarksProcessorTest, SearchFeatureDisplayNames)
+{
+  GetProcessor().EnableIndexingOfBookmarkGroup(GroupId{0}, true /* enable */);
+  auto data = MakeBookmarkData("厦门大学", "", "", {"amenity-university"});
+  data.m_name[StringUtf8Multilang::kEnglishCode] = "Xiamen University";
+  feature::RegionData region;
+  region.SetLanguages({"zh"});
+  kml::SetBookmarkRegionData(data, region);
+  Add(Id{10}, GroupId{0}, data);
+  TEST_EQUAL(Search("Xiamen University"), Ids({10}), ());
+  TEST_EQUAL(Search("厦门大学"), Ids({10}), ());
+
+  kml::SetDefaultStr(data.m_customName, "My university");
+  Update(Id{10}, data);
+  TEST_EQUAL(Search("My university"), Ids({10}), ());
+  TEST_EQUAL(Search("厦门大学"), Ids({10}), ());
+  TEST_EQUAL(Search("Xiamen University"), Ids({10}), ());
 }
 
 UNIT_CLASS_TEST(BookmarksProcessorTest, IndexDescriptions)

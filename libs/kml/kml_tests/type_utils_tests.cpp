@@ -65,13 +65,15 @@ UNIT_TEST(GetPreferredBookmarkName_DefaultLanguagePreservesInternationalName)
   TEST_EQUAL(GetPreferredBookmarkName(bookmark, "default"), "Arabian Island, Arabia", ());
 }
 
-UNIT_TEST(GetPreferredBookmarkStr_NoMatchingRegionLanguage)
+UNIT_TEST(GetBookmarkDisplayNames_NoMatchingRegionLanguage)
 {
   feature::RegionData regionData;
   regionData.SetLanguages({"uk"});
-  kml::LocalizableString const name{{kRu, "Эрмитаж"}, {kDe, "Eremitage"}};
+  kml::BookmarkData bookmark;
+  bookmark.m_name = {{kRu, "Эрмитаж"}, {kDe, "Eremitage"}};
+  kml::SetBookmarkRegionData(bookmark, regionData);
 
-  TEST_EQUAL(GetPreferredBookmarkStr(name, regionData, "fr"), "Eremitage", ());
+  TEST_EQUAL(kml::GetBookmarkDisplayNames(bookmark, "fr").m_primary, "Eremitage", ());
 }
 
 UNIT_TEST(GetPreferredBookmarkName_NoMatchingLanguage)

@@ -782,12 +782,6 @@ std::string GetPreferredBookmarkStr(kml::LocalizableString const & name)
   return kml::GetPreferredBookmarkStr(name, mapLanguageNorm);
 }
 
-std::string GetPreferredBookmarkStr(kml::LocalizableString const & name, feature::RegionData const & regionData)
-{
-  auto const mapLanguageNorm = languages::Normalize(languages::GetCurrentMapLanguage());
-  return kml::GetPreferredBookmarkStr(name, regionData, mapLanguageNorm);
-}
-
 std::string GetLocalizedBookmarkBaseType(BookmarkBaseType type)
 {
   switch (type)
@@ -819,7 +813,7 @@ std::string GetLocalizedBookmarkBaseType(BookmarkBaseType type)
 
 std::string GetPreferredBookmarkName(kml::BookmarkData const & bmData)
 {
-  return kml::GetPreferredBookmarkName(bmData, languages::GetCurrentMapLanguage());
+  return kml::GetBookmarkDisplayNames(bmData, languages::GetCurrentMapLanguage()).m_primary;
 }
 
 void ExpandRectForPreview(m2::RectD & rect)

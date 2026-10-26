@@ -4,6 +4,7 @@ set(SRC
   address_tests.cpp
   api_mark_tests.cpp
   bookmarks_test.cpp
+  bookmark_names_tests.cpp
   check_mwms.cpp
   coordinate_formats_tests.cpp
   countries_names_tests.cpp

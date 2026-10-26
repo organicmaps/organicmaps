@@ -333,6 +333,8 @@ void BookmarkManager::DeleteUserMark(kml::MarkId markId)
 Bookmark * BookmarkManager::CreateBookmark(kml::BookmarkData && bmData)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
+  if (!bmData.m_featureTypes.empty() && !kml::HasBookmarkRegionData(bmData) && m_callbacks.m_getRegionData)
+    kml::SetBookmarkRegionData(bmData, m_callbacks.m_getRegionData(bmData.m_point));
   return AddBookmark(std::make_unique<Bookmark>(std::move(bmData)));
 }
 
@@ -1854,6 +1856,38 @@ void BookmarkManager::InitRegionAddressGetter(DataSource const & dataSource,
 void BookmarkManager::UpdateViewport(ScreenBase const & screen)
 {
   m_viewport = screen;
+}
+
+void BookmarkManager::UpdateBookmarkNames(std::optional<m2::RectD> const & mapBounds)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  ASSERT(!mapBounds || mapBounds->IsValid(), ());
+  bool namesChanged = false;
+  for (auto const & [id, bookmark] : m_bookmarks)
+  {
+    auto const & data = bookmark->GetData();
+    if (mapBounds && (!mapBounds->IsPointInside(data.m_point) || data.m_featureTypes.empty()))
+      continue;
+
+    bool recovered = false;
+    if (!data.m_featureTypes.empty() && !kml::HasBookmarkRegionData(data) && m_callbacks.m_getRegionData)
+    {
+      auto updated = data;
+      kml::SetBookmarkRegionData(updated, m_callbacks.m_getRegionData(data.m_point));
+      if (kml::HasBookmarkRegionData(updated))
+      {
+        bookmark->SetData(updated);
+        recovered = true;
+      }
+    }
+    if (mapBounds && !recovered)
+      continue;
+
+    GetBookmarkForEdit(id)->InvalidateName();
+    namesChanged = true;
+  }
+  if (namesChanged)
+    NotifyChanges(false /* saveChangesOnDisk */);
 }
 
 void BookmarkManager::SetBookmarksChangedCallback(BookmarksChangedCallback && callback)

@@ -322,14 +322,10 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_native
 
   place_page::Info const & info = g_framework->GetPlacePageInfo();
 
-  kml::BookmarkData bmData;
-  bmData.m_name = info.FormatNewBookmarkName();
+  auto bmData = info.MakeBookmarkData();
   bmData.m_point = mercator::FromLatLon(lat, lon);
   auto const lastEditedCategory = frm()->LastEditedBMCategory();
   bmData.m_color = frm()->LastEditedBMColor();
-
-  if (info.IsFeature())
-    SaveFeatureTypes(info.GetTypes(), bmData);
 
   auto const * createdBookmark = bmMng.GetEditSession().CreateBookmark(std::move(bmData), lastEditedCategory);
 

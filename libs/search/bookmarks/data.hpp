@@ -58,8 +58,10 @@ private:
   {
     std::vector<std::string> names;
 
-    // Same as GetPreferredBookmarkName from the map library. Duplicated here to avoid dependency.
-    names.emplace_back(kml::GetPreferredBookmarkName(bookmarkData, locale));
+    // Keep both displayed names searchable, along with the existing original-name fallback.
+    auto displayed = kml::GetBookmarkDisplayNames(bookmarkData, locale);
+    names.emplace_back(std::move(displayed.m_primary));
+    names.emplace_back(std::move(displayed.m_secondary));
     names.emplace_back(kml::GetPreferredBookmarkStr(bookmarkData.m_name, locale));
 
     // todo(@m) Platform's API does not allow to use |locale| here.
@@ -75,12 +77,7 @@ private:
     return names;
   }
 
-  // Names and custom names in all the locales that we are interested in.
-  // The locale set is fixed at startup and the relevant names are provided
-  // by the kml library. In case the user switches the device locale while
-  // running the app, the UI will adapt; however the search will not, and the
-  // bookmarks will not be reindexed. We consider this situation to be improbable
-  // enough to justify not storing redundant names here.
+  // Displayed and original names, refreshed with bookmark display settings.
   std::vector<std::string> m_names;
   std::string m_description;
 };
