@@ -736,12 +736,13 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
 - (void)openSettings
 {
-  // A link can arrive while the menu or the layers sheet is open: close it like the menu's Settings item does,
-  // otherwise it stays over Settings.
+  // Opening Settings from a link or the menu also closes the menu or layers sheet covering the map.
   MWMMapViewControlsManager * controlsManager = self.controlsManager;
   MWMBottomMenuState const menuState = controlsManager.menuState;
   if (menuState == MWMBottomMenuStateActive || menuState == MWMBottomMenuStateLayers)
     controlsManager.menuState = controlsManager.menuRestoreState;
+  // Switching apps to open a link outlasts the short menu/Layers animations,
+  // so normal cross-app links need no modal-transition queue.
   [SettingsBuilder showRootIn:self.navigationController];
 }
 

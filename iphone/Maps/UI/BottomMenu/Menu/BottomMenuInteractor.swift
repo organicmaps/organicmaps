@@ -60,7 +60,6 @@ extension BottomMenuInteractor: BottomMenuInteractorProtocol {
   }
 
   func openSettings() {
-    close()
     mapViewController?.openSettings()
   }
 

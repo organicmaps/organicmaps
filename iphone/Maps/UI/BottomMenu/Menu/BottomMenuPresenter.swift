@@ -62,8 +62,8 @@ extension BottomMenuPresenter: BottomMenuPresenterProtocol {
 
   func cellToHighlightIndexPath() -> IndexPath? {
     // Highlighting is enabled only for the .items section.
-    guard let cellToHighlight = Self.getCellToHighlight(),
-          let sectionIndex = sections.firstIndex(of: .items),
+    guard let sectionIndex = sections.firstIndex(of: .items),
+          let cellToHighlight = Self.getCellToHighlight(),
           let cellIndex = menuCells.firstIndex(of: cellToHighlight) else { return nil }
     return IndexPath(row: cellIndex, section: sectionIndex)
   }
