@@ -94,6 +94,9 @@
       "description": "Mirrors the Windows CI leg: flat build/ dir. Pass -DCMAKE_BUILD_TYPE on top.",
       "inherits": "base",
       "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "BUILD_OPENGL_TESTS": "OFF"
+      },
       "condition": {
         "type": "equals",
         "lhs": "${hostSystemName}",
@@ -171,9 +174,6 @@
       "name": "drape-tests",
       "hidden": true,
       "description": "Rendering tests that need offscreen GL; run separately from the main suite.",
-      "environment": {
-        "QT_QPA_PLATFORM": "offscreen"
-      },
       "output": {
         "outputOnFailure": true
       },
@@ -221,7 +221,10 @@
     {
       "name": "ci-drape-windows",
       "inherits": "drape-tests",
-      "configurePreset": "ci-windows"
+      "configurePreset": "ci-windows",
+      "environment": {
+        "QT_QPA_PLATFORM": "offscreen"
+      }
     },
     {
       "name": "ci-xcode",

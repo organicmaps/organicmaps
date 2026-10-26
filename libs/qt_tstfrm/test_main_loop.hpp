@@ -12,4 +12,5 @@ using TestFunction = std::function<void()>;
 
 extern void RunTestLoop(std::string testName, testing::RenderFunction && fn, bool autoExit = true);
 
+// Requires OpenGL 4.1 core on Windows/macOS and 3.2 core on Linux.
 extern void RunTestInOpenGLOffscreenEnvironment(std::string testName, testing::TestFunction const & fn);

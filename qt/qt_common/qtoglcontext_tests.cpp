@@ -53,6 +53,16 @@ struct Environment
     return context.AcquireFrame();
   }
 
+  void CheckRect(double width, double height)
+  {
+    auto const & rect = context.GetTexRect();
+    TEST_EQUAL(rect.x(), 0.0, ());
+    TEST_EQUAL(rect.y(), 0.0, ());
+    // Resize computes normalized dimensions in float, including optimized reciprocal arithmetic.
+    TEST_ALMOST_EQUAL_ABS(rect.width(), width, 1e-6, ());
+    TEST_ALMOST_EQUAL_ABS(rect.height(), height, 1e-6, ());
+  }
+
   void CheckColor(bool red)
   {
     auto * functions = root->functions();
@@ -86,6 +96,8 @@ UNIT_TEST(QtRenderContext_KeepsAcquiredFrameUntilReplacementIsPresented)
     env.CheckColor(true);
 
     env.Resize(31, 13);
+    // Allocate the replacement before checking that the acquired frame survives.
+    env.context.SetFramebuffer(nullptr);
     TEST(env.Acquire(), ());
     TEST_EQUAL(env.context.GetTextureHandle(), texture, ());
     TEST(env.context.GetTexRect() == rect, ());
@@ -93,7 +105,7 @@ UNIT_TEST(QtRenderContext_KeepsAcquiredFrameUntilReplacementIsPresented)
 
     env.Present(false);
     TEST(env.Acquire(), ());
-    TEST(env.context.GetTexRect() == QRectF(0, 0, 31.0 / 32, 13.0 / 16), ());
+    env.CheckRect(31.0 / 32, 13.0 / 16);
     env.CheckColor(false);
   });
 }
@@ -107,11 +119,11 @@ UNIT_TEST(QtRenderContext_PendingFrameKeepsItsRectangleAcrossResize)
     env.Present(true);
     env.Resize(31, 13);
     TEST(env.Acquire(), ());
-    TEST(env.context.GetTexRect() == QRectF(0, 0, 13.0 / 16, 29.0 / 32), ());
+    env.CheckRect(13.0 / 16, 29.0 / 32);
     env.CheckColor(true);
     env.Present(false);
     TEST(env.Acquire(), ());
-    TEST(env.context.GetTexRect() == QRectF(0, 0, 31.0 / 32, 13.0 / 16), ());
+    env.CheckRect(31.0 / 32, 13.0 / 16);
     env.CheckColor(false);
   });
 }
@@ -128,12 +140,12 @@ UNIT_TEST(QtRenderContext_RecyclesResizedFramesAndKeepsLatestPresentation)
       env.Resize(70, 15);
       env.Present(false);
       TEST(env.Acquire(), ());
-      TEST(env.context.GetTexRect() == QRectF(0, 0, 70.0 / 128, 15.0 / 16), ());
+      env.CheckRect(70.0 / 128, 15.0 / 16);
       env.CheckColor(false);
       env.Resize(5, 7);
       env.Present(true);
       TEST(env.Acquire(), ());
-      TEST(env.context.GetTexRect() == QRectF(0, 0, 5.0 / 128, 7.0 / 16), ());
+      env.CheckRect(5.0 / 128, 7.0 / 16);
       env.CheckColor(true);
     }
   });

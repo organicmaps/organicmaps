@@ -6,8 +6,6 @@
 #include "drape/drape_global.hpp"
 #include "drape/gl_functions.hpp"
 
-#include <functional>
-
 namespace gl_shaders_desktop_compile_tests
 {
 void CompileShaders(bool enableVTF)
@@ -23,12 +21,12 @@ void CompileShaders(bool enableVTF)
 UNIT_TEST(DesktopCompileShaders_GLES3_Test)
 {
   RunTestInOpenGLOffscreenEnvironment("DesktopCompileShaders_GLES3_Test",
-                                      std::bind(&CompileShaders, false /* enableVTF */));
+                                      [] { CompileShaders(false /* enableVTF */); });
 }
 
 UNIT_TEST(DesktopCompileShaders_GLES3_VTF_Test)
 {
   RunTestInOpenGLOffscreenEnvironment("DesktopCompileShaders_GLES3_VTF_Test",
-                                      std::bind(&CompileShaders, true /* enableVTF */));
+                                      [] { CompileShaders(true /* enableVTF */); });
 }
 }  // namespace gl_shaders_desktop_compile_tests
