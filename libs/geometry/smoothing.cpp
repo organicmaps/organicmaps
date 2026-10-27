@@ -105,4 +105,36 @@ void SmoothPaths(GuidePointsForSmooth const & guidePoints, size_t newPointsPerSe
       paths[pathInd] = std::move(smoothedPath);
   }
 }
+
+void SmoothShortSegments(std::vector<m2::PointD> & path, double maxSegmentLength, size_t passes)
+{
+  if (path.size() < 3)
+    return;
+
+  // A closed path repeats its first vertex as the last one.
+  bool const closed = path.front() == path.back();
+  size_t const count = closed ? path.size() - 1 : path.size();
+  if (count < 3)
+    return;
+
+  double const maxSquared = maxSegmentLength * maxSegmentLength;
+  // The segment i joins the vertices i and i + 1, the last one of a closed path returns to the first vertex.
+  auto const isShort = [&](size_t i) { return path[i].SquaredLength(path[i + 1]) <= maxSquared; };
+  std::vector<bool> movable(count, false);
+  for (size_t i = 0; i < count; ++i)
+    if (closed || (i != 0 && i + 1 != count))
+      movable[i] = isShort(i == 0 ? count - 1 : i - 1) && isShort(i);
+
+  std::vector<m2::PointD> source;
+  for (size_t pass = 0; pass < passes; ++pass)
+  {
+    source.assign(path.begin(), path.begin() + count);
+    for (size_t i = 0; i < count; ++i)
+      if (movable[i])
+        path[i] = (source[i == 0 ? count - 1 : i - 1] + source[i] * 2.0 + source[i + 1 == count ? 0 : i + 1]) * 0.25;
+  }
+
+  if (closed)
+    path.back() = path.front();
+}
 }  // namespace m2
