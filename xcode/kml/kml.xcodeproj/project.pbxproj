@@ -17,6 +17,8 @@
 		46AA9E60294549B000ECED73 /* serdes_gpx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 464BD0FB294546B20011955A /* serdes_gpx.cpp */; };
 		859113D62227E6252DCB19C5 /* serdes_geojson.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C0232A44C3B0B3F5CF24DD9 /* serdes_geojson.cpp */; };
 		ACBAA59E2E47C53800769B1B /* color_parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACBAA59D2E47C53800769B1B /* color_parser.cpp */; };
+		AB77E1012F00A10100000001 /* html_description.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB77E1022F00A10100000002 /* html_description.cpp */; };
+		AB77E1042F00A10100000004 /* html_description_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AB77E1052F00A10100000005 /* html_description_tests.cpp */; };
 		ACDD8A7B2A73684F000F2C43 /* serdes_common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACDD8A782A736045000F2C43 /* serdes_common.cpp */; };
 		E2AA225E25275C6B002589E2 /* minzoom_quadtree_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2AA225C25275C6B002589E2 /* minzoom_quadtree_tests.cpp */; };
 		E2DC9C9125264E3E0098174E /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2DC9C9025264E3E0098174E /* types.cpp */; };
@@ -65,6 +67,9 @@
 		4C0232A54C3B0B3F5CF24DD9 /* serdes_geojson.hpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.cpp.h; path = serdes_geojson.hpp; sourceTree = "<group>"; };
 		ACBAA59C2E47C53800769B1B /* color_parser.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = color_parser.hpp; sourceTree = "<group>"; };
 		ACBAA59D2E47C53800769B1B /* color_parser.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = color_parser.cpp; sourceTree = "<group>"; };
+		AB77E1022F00A10100000002 /* html_description.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = html_description.cpp; sourceTree = "<group>"; };
+		AB77E1032F00A10100000003 /* html_description.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = html_description.hpp; sourceTree = "<group>"; };
+		AB77E1052F00A10100000005 /* html_description_tests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = html_description_tests.cpp; sourceTree = "<group>"; };
 		ACDD8A772A736045000F2C43 /* serdes_common.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = serdes_common.hpp; sourceTree = "<group>"; };
 		ACDD8A782A736045000F2C43 /* serdes_common.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = serdes_common.cpp; sourceTree = "<group>"; };
 		E2AA225925275C1D002589E2 /* minzoom_quadtree.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = minzoom_quadtree.hpp; sourceTree = "<group>"; };
@@ -140,6 +145,8 @@
 				ACBAA59D2E47C53800769B1B /* color_parser.cpp */,
 				ACBAA59C2E47C53800769B1B /* color_parser.hpp */,
 				45E4558D20584AB900D9F45E /* header_binary.hpp */,
+				AB77E1022F00A10100000002 /* html_description.cpp */,
+				AB77E1032F00A10100000003 /* html_description.hpp */,
 				E2AA225925275C1D002589E2 /* minzoom_quadtree.hpp */,
 				45E4558E20584AB900D9F45E /* serdes.cpp */,
 				45E4559020584AB900D9F45E /* serdes.hpp */,
@@ -169,6 +176,7 @@
 		45E455EE20584DCC00D9F45E /* kml_tests */ = {
 			isa = PBXGroup;
 			children = (
+				AB77E1052F00A10100000005 /* html_description_tests.cpp */,
 				E2AA225C25275C6B002589E2 /* minzoom_quadtree_tests.cpp */,
 				45E455FF20584DEF00D9F45E /* serdes_tests.cpp */,
 				45E456122058508C00D9F45E /* testingmain.cpp */,
@@ -290,6 +298,7 @@
 				46AA9E60294549B000ECED73 /* serdes_gpx.cpp in Sources */,
 				859113D62227E6252DCB19C5 /* serdes_geojson.cpp in Sources */,
 				ACBAA59E2E47C53800769B1B /* color_parser.cpp in Sources */,
+				AB77E1012F00A10100000001 /* html_description.cpp in Sources */,
 				45E4559520584ABA00D9F45E /* serdes.cpp in Sources */,
 				E2DC9C9125264E3E0098174E /* types.cpp in Sources */,
 				ACDD8A7B2A73684F000F2C43 /* serdes_common.cpp in Sources */,
@@ -300,6 +309,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB77E1042F00A10100000004 /* html_description_tests.cpp in Sources */,
 				E2AA225E25275C6B002589E2 /* minzoom_quadtree_tests.cpp in Sources */,
 				45E4560120584DF200D9F45E /* serdes_tests.cpp in Sources */,
 				45E456142058509200D9F45E /* testingmain.cpp in Sources */,

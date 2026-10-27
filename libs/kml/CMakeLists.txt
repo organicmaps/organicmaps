@@ -4,6 +4,8 @@ set(SRC
   color_parser.cpp
   color_parser.hpp
   header_binary.hpp
+  html_description.cpp
+  html_description.hpp
   minzoom_quadtree.hpp
   serdes_common.cpp
   serdes_common.hpp

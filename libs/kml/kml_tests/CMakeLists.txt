@@ -3,6 +3,7 @@ project(kml_tests)
 set(SRC
   color_parser_tests.cpp
   gpx_tests.cpp
+  html_description_tests.cpp
   minzoom_quadtree_tests.cpp
   serdes_binary_v10_tests.cpp
   serdes_tests.cpp
