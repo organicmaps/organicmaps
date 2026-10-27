@@ -92,9 +92,20 @@ void SaveStringWithCDATA(Writer & writer, std::string_view s)
     clean = filtered;
   }
 
-  // According to kml/xml spec, we need to escape special symbols with CDATA.
-  if (clean.find_first_of("<&") != std::string_view::npos)
-    writer << "<![CDATA[" << clean << "]]>";
+  auto pos = clean.find("]]>");
+  if (pos != std::string_view::npos || clean.find_first_of("<&") != std::string_view::npos)
+  {
+    writer << "<![CDATA[";
+    // XML forbids a CDATA terminator in character data and inside a CDATA section. Split it
+    // across adjacent sections so a user-supplied name or description stays literal text.
+    while (pos != std::string_view::npos)
+    {
+      writer << clean.substr(0, pos) << "]]]]><![CDATA[>";
+      clean.remove_prefix(pos + 3);
+      pos = clean.find("]]>");
+    }
+    writer << clean << "]]>";
+  }
   else
     writer << clean;
 }
