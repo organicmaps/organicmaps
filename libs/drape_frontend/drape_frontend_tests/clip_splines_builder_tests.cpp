@@ -13,9 +13,12 @@
 
 #include "platform/platform.hpp"
 
+#include "coding/point_coding.hpp"
+
 #include "geometry/mercator.hpp"
 
 #include "base/file_name_utils.hpp"
+#include "base/math.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -337,6 +340,31 @@ UNIT_TEST(ClipSplinesBuilder_SetPath_ThinsLikeBuild)
   TestPath(builder, paths.front());
 }
 
+UNIT_TEST(ClipSplinesBuilder_SetPath_AveragesRasterSteps)
+{
+  // A contour stepping along the 1 arc second DEM cells near the equator: its steps flatten into a
+  // line and its ends stay, while a coarse (TIN) path keeps its corners.
+  double constexpr kCell = 1.0 / 3600;
+  std::vector<P> steps;
+  for (int i = 0; i < 8; ++i)
+    steps.insert(steps.end(), {P(i * kCell, i * kCell), P((i + 1) * kCell, i * kCell)});
+  steps.emplace_back(8 * kCell, 8 * kCell);
+
+  auto const params = MakeParams(kNoSimplifyZoom, kMinSqr);
+  df::ClipSplinesBuilder builder(params);
+  builder.SetPath(std::vector<P>(steps));
+  auto const & path = builder.GetPath();
+  TEST_EQUAL(path.size(), steps.size(), ());
+  TEST_EQUAL(path.front(), steps.front(), ());
+  TEST_EQUAL(path.back(), steps.back(), ());
+  for (size_t i = 2; i + 2 < path.size(); ++i)
+    TEST_ALMOST_EQUAL_ABS(path[i].x - path[i].y, kCell / 2, 1e-12, (i, path));
+
+  std::vector<P> const coarse = {P(0, 0), P(100 * kCell, 0), P(100 * kCell, 100 * kCell)};
+  builder.SetPath(std::vector<P>(coarse));
+  TestPath(builder, coarse);
+}
+
 // The thinned dynamic isolines of two neighbor tiles meet on their shared edge: each tile traces
 // its own inflated rect, so the chains start elsewhere, but the crossings must stay identical.
 using df::test_support::VisualParamsFixture;
@@ -383,6 +411,95 @@ UNIT_CLASS_TEST(VisualParamsFixture, ClipSplinesBuilder_DynamicIsolinesTileSeams
     auto const left = crossings(df::TileKey(x, y, zoom));
     TEST(!left.empty(), (zoom));
     TEST_EQUAL(left, crossings(df::TileKey(x + 1, y, zoom)), (zoom));
+  }
+}
+
+// The same at the high zooms, where the contours step along the 1 arc second raster and their
+// vertices are averaged (see SetPath): the reader crops the raster patches to the read rect, so the
+// chains end near it, and the averaging must not reach the tile from there (4 passes would).
+UNIT_CLASS_TEST(VisualParamsFixture, ClipSplinesBuilder_DynamicIsolinesRasterStepsSeams)
+{
+  double constexpr kCell = 1.0 / 3600;
+  ms::LatLon const origin(69.6, 18.9);
+  // Integer terraces of a gentle (a few %) relief, a pure function of the global lattice node.
+  auto const height = [](int64_t row, int64_t col)
+  {
+    return static_cast<terrain::Altitude>(
+        std::lround(200 + 0.2 * col + 0.5 * row + 3 * std::sin(col / 13.0) + 3 * std::cos(row / 11.0)));
+  };
+  // The nodes of the lattice cells intersecting the rect, like terrain::Reader::ReadTerrain crops them.
+  auto const read = [&](m2::RectD const & rect)
+  {
+    auto const c0 = static_cast<int64_t>(std::floor((rect.minX() - origin.m_lon) / kCell));
+    auto const c1 = static_cast<int64_t>(std::ceil((rect.maxX() - origin.m_lon) / kCell));
+    auto const r0 = static_cast<int64_t>(std::floor((mercator::YToLat(rect.minY()) - origin.m_lat) / kCell));
+    auto const r1 = static_cast<int64_t>(std::ceil((mercator::YToLat(rect.maxY()) - origin.m_lat) / kCell));
+    terrain::RasterPatch patch;
+    for (auto c = c0; c <= c1; ++c)
+      patch.m_columns.push_back(PointDToPointU(origin.m_lon + c * kCell, 0, patch.m_coordBits).x);
+    for (auto r = r0; r <= r1; ++r)
+      patch.m_rows.push_back(PointDToPointU(0, mercator::LatToY(origin.m_lat + r * kCell), patch.m_coordBits).y);
+    for (auto r = r0; r <= r1; ++r)
+      for (auto c = c0; c <= c1; ++c)
+        patch.m_heights.push_back(height(r, c));
+    terrain::TerrainData data;
+    data.m_rasterPatches.push_back(std::move(patch));
+    return data;
+  };
+
+  auto const center = mercator::FromLatLon(69.65, 18.95);
+  // The clipping may stop a spline a few millimeters short of the tile edge.
+  double constexpr kEps = 1e-7;
+  for (uint8_t const zoom : {16, 17})
+  {
+    double const tileSize = mercator::Bounds::kRangeX / (1 << (zoom - 1));
+    // The isoline crossings of the tile edge x = edge (vertical) or y = edge.
+    auto const crossings = [&](df::TileKey const & key, bool vertical, double edge)
+    {
+      df::ApplyFeatureParams params;
+      params.Init(key);
+      // The same read as RuleDrawer::DrawTerrain, the provider inflates it by one raster cell.
+      auto query = params.m_tileRect;
+      query.Scale(df::kIsolineSmoothScale);
+      query.Inflate(kCell, kCell / std::cos(math::DegToRad(origin.m_lat)));
+      std::vector<std::pair<int32_t, double>> result;
+      df::ClipSplinesBuilder builder(params);
+      terrain::TraceIsolines(read(query), 1, measurement_utils::Units::Metric, [&](terrain::Isoline && isoline)
+      {
+        builder.SetPath(std::move(isoline.m_points));
+        for (auto const & spline : builder.Release(true /* isIsoline */))
+          for (auto const & p : {spline->GetPath().front(), spline->GetPath().back()})
+            if (std::abs((vertical ? p.x : p.y) - edge) < kEps)
+              result.emplace_back(isoline.m_altitude, vertical ? p.y : p.x);
+      });
+      std::sort(result.begin(), result.end());
+      return result;
+    };
+    auto const testEqual = [&](auto const & lhs, auto const & rhs, int x, int y)
+    {
+      TEST_EQUAL(lhs.size(), rhs.size(), (zoom, x, y, lhs, rhs));
+      for (size_t i = 0; i < lhs.size(); ++i)
+      {
+        TEST_EQUAL(lhs[i].first, rhs[i].first, (zoom, x, y, lhs, rhs));
+        TEST_ALMOST_EQUAL_ABS(lhs[i].second, rhs[i].second, kEps, (zoom, x, y, lhs, rhs));
+      }
+    };
+
+    int const x0 = static_cast<int>(std::floor(center.x / tileSize));
+    int const y0 = static_cast<int>(std::floor(center.y / tileSize));
+    size_t count = 0;
+    for (int x = x0; x < x0 + 8; ++x)
+    {
+      for (int y = y0; y < y0 + 8; ++y)
+      {
+        auto const right = crossings(df::TileKey(x, y, zoom), true /* vertical */, (x + 1) * tileSize);
+        testEqual(right, crossings(df::TileKey(x + 1, y, zoom), true /* vertical */, (x + 1) * tileSize), x, y);
+        auto const top = crossings(df::TileKey(x, y, zoom), false /* vertical */, (y + 1) * tileSize);
+        testEqual(top, crossings(df::TileKey(x, y + 1, zoom), false /* vertical */, (y + 1) * tileSize), x, y);
+        count += right.size() + top.size();
+      }
+    }
+    TEST_GREATER(count, 200, (zoom));
   }
 }
 
