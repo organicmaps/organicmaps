@@ -10,6 +10,7 @@ set(SRC
   http_client_test.cpp
   get_text_by_id_tests.cpp
   glaze_test.cpp
+  gui_thread_tests.cpp
   language_test.cpp
   local_country_file_tests.cpp
   location_test.cpp
