@@ -81,9 +81,21 @@ void ForEachRefInWay(pugi::xml_document const & osmResponse, pugi::xml_node cons
   {
     std::string const nodeRef = xNodeRef.attribute().value();
     auto const node = osmResponse.select_node(("osm/node[@id='" + nodeRef + "']").data()).node();
-    ASSERT(node, ("OSM response have ref", nodeRef, "but have no node with such id.", osmResponse));
-    XMLFeature xmlFt(node);
-    fn(xmlFt);
+    // It is possible to have a nodeRef that refers to a node not included in the response.
+    // We can skip such nodes.
+    if (!node)
+      continue;
+
+    try
+    {
+      XMLFeature xmlFt(node);
+      fn(xmlFt);
+    }
+    catch (RootException const & ex)
+    {
+      LOG(LWARNING, ("Failed to parse node in way:", ex.Msg()));
+      continue;
+    }
   }
 }
 
@@ -225,9 +237,9 @@ pugi::xml_node GetBestOsmNode(pugi::xml_document const & osmResponse, ms::LatLon
         bestMatchNode = xNode.node();
       }
     }
-    catch (editor::NoLatLon const & ex)
+    catch (RootException const & ex)
     {
-      LOG(LWARNING, ("No lat/lon attribute in osm response node.", ex.Msg()));
+      LOG(LWARNING, ("Failed to parse osm response node:", ex.Msg()));
       continue;
     }
   }
@@ -247,15 +259,28 @@ pugi::xml_node GetBestOsmWayOrRelation(pugi::xml_document const & osmResponse, s
   auto const xpath = "osm/way|osm/relation[tag[@k='type' and @v='multipolygon']]";
   for (auto const & xWayOrRelation : osmResponse.select_nodes(xpath))
   {
-    double const nodeScore = ScoreGeometry(osmResponse, xWayOrRelation.node(), geometry);
-
-    if (nodeScore < 0)
-      continue;
-
-    if (bestScore < nodeScore)
+    try
     {
-      bestScore = nodeScore;
-      bestMatchWay = xWayOrRelation.node();
+      double const nodeScore = ScoreGeometry(osmResponse, xWayOrRelation.node(), geometry);
+
+      if (nodeScore < 0)
+        continue;
+
+      if (bestScore < nodeScore)
+      {
+        bestScore = nodeScore;
+        bestMatchWay = xWayOrRelation.node();
+      }
+    }
+    catch (RootException const & ex)
+    {
+      LOG(LWARNING, ("Failed to score way or relation geometry:", ex.Msg()));
+      continue;
+    }
+    catch (std::exception const & ex)
+    {
+      LOG(LWARNING, ("Exception while scoring way or relation geometry:", ex.what()));
+      continue;
     }
   }
 

@@ -527,4 +527,68 @@ UNIT_TEST(ScoreTriangulatedGeometries)
   auto const score = matcher::ScoreTriangulatedGeometries(lhs, rhs);
   TEST_GREATER(score, 0.6, ());
 }
+
+std::string const kWayWithMissingNodeRef = R"xxx(
+<osm version="0.6">
+  <node id="339283610" visible="true" version="6" changeset="33699414" timestamp="2015-08-31T09:53:02Z" user="Lazy Ranma" uid="914471" lat="55.8184397" lon="37.5700770"/>
+  <node id="339283612" visible="true" version="6" changeset="33699414" timestamp="2015-08-31T09:53:02Z" user="Lazy Ranma" uid="914471" lat="55.8184655" lon="37.5702599"/>
+  <node id="339283614" visible="true" version="6" changeset="33699414" timestamp="2015-08-31T09:53:02Z" user="Lazy Ranma" uid="914471" lat="55.8190524" lon="37.5698027"/>
+  <node id="339283615" visible="true" version="6" changeset="33699414" timestamp="2015-08-31T09:53:02Z" user="Lazy Ranma" uid="914471" lat="55.8190782" lon="37.5699856"/>
+  <way id="30680719" visible="true" version="10" changeset="25301783" timestamp="2014-09-08T07:52:43Z" user="Felis Pimeja" uid="260756">
+    <nd ref="339283614"/>
+    <nd ref="999999999"/>
+    <nd ref="339283615"/>
+    <nd ref="339283612"/>
+    <nd ref="339283610"/>
+    <nd ref="339283614"/>
+    <tag k="building" v="yes"/>
+  </way>
+</osm>
+)xxx";
+
+UNIT_TEST(GetBestOsmWay_MissingNodeRef_Test)
+{
+  pugi::xml_document osmResponse;
+  TEST(osmResponse.load_buffer(kWayWithMissingNodeRef.data(), kWayWithMissingNodeRef.size()), ());
+  std::vector<m2::PointD> const geometry = {
+      {37.570076119676798, 67.574481424499169}, {37.570258509891175, 67.574527022052763},
+      {37.569802534355233, 67.575570401367315}, {37.570258509891175, 67.574527022052763},
+      {37.569802534355233, 67.575570401367315}, {37.56998492456961, 67.57561599892091}};
+
+  auto const bestWay = matcher::GetBestOsmWayOrRelation(osmResponse, geometry);
+  TEST_EQUAL(bestWay.attribute("id").value(), std::string("30680719"), ());
+}
+
+std::string const kWayWithMalformedNode_Test = R"xxx(
+<osm version="0.6">
+  <node id="339283610" visible="true" version="6" changeset="33699414" timestamp="2015-08-31T09:53:02Z" user="Lazy Ranma" uid="914471" lat="55.8184397" lon="37.5700770"/>
+  <node id="339283612" visible="true" version="6" changeset="33699414" timestamp="2015-08-31T09:53:02Z" user="Lazy Ranma" uid="914471" lat="55.8184655" lon="37.5702599"/>
+  <node id="339283614" visible="true" version="6" changeset="33699414" timestamp="2015-08-31T09:53:02Z" user="Lazy Ranma" uid="914471" lat="55.8190524" lon="37.5698027"/>
+  <node id="339283615" visible="true" version="6" changeset="33699414" timestamp="2015-08-31T09:53:02Z" user="Lazy Ranma" uid="914471" lat="55.8190782" lon="37.5699856"/>
+  <node id="999999" visible="true" version="1" changeset="33699414" timestamp="2015-08-31T09:53:02Z" user="Lazy Ranma" uid="914471" lat="not_a_number" lon="37.5700000"/>
+  <way id="30680719" visible="true" version="10" changeset="25301783" timestamp="2014-09-08T07:52:43Z" user="Felis Pimeja" uid="260756">
+    <nd ref="339283614"/>
+    <nd ref="999999"/>
+    <nd ref="339283615"/>
+    <nd ref="339283612"/>
+    <nd ref="339283610"/>
+    <nd ref="339283614"/>
+    <tag k="building" v="yes"/>
+  </way>
+</osm>
+)xxx";
+
+UNIT_TEST(GetBestOsmWay_MalformedNode_Test)
+{
+  pugi::xml_document osmResponse;
+  TEST(osmResponse.load_buffer(kWayWithMalformedNode_Test.data(), kWayWithMalformedNode_Test.size()), ());
+  std::vector<m2::PointD> const geometry = {
+      {37.570076119676798, 67.574481424499169}, {37.570258509891175, 67.574527022052763},
+      {37.569802534355233, 67.575570401367315}, {37.570258509891175, 67.574527022052763},
+      {37.569802534355233, 67.575570401367315}, {37.56998492456961, 67.57561599892091}};
+
+  auto const bestWay = matcher::GetBestOsmWayOrRelation(osmResponse, geometry);
+  TEST_EQUAL(bestWay.attribute("id").value(), std::string("30680719"), ());
+}
+
 }  // namespace
