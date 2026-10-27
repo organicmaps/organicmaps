@@ -2188,14 +2188,21 @@ UNIT_CLASS_TEST(Runner, FillEmptyTrackNames)
   BookmarkManager bmManager(BM_CALLBACKS);
   bmManager.EnableTestMode(true);
 
-  string const kmlFile1 = GetPlatform().TestsDataPathForFile("test_data/gpx/empty_names1.gpx");
+  // Copy fixtures to paths with native separators, including backslashes on Windows.
+  string const kmlFile1 = base::JoinPath(GetPlatform().SettingsDir(), "empty_names1.gpx");
+  TEST(base::CopyFileX(GetPlatform().TestsDataPathForFile("test_data/gpx/empty_names1.gpx"), kmlFile1), ());
+  SCOPE_GUARD(deleteFile1, [&] { base::DeleteFileX(kmlFile1); });
   auto fileData1 = LoadKmlFile(kmlFile1, FileType::Gpx);
+  TEST(fileData1 != nullptr, ());
   TEST_EQUAL(fileData1->m_categoryData.m_name[kml::kDefaultLangCode], "empty_names1", ());
   TEST_EQUAL(fileData1->m_tracksData[0].m_name[kml::kDefaultLangCode], "empty_names1 1", ());
   TEST_EQUAL(fileData1->m_tracksData[1].m_name[kml::kDefaultLangCode], "empty_names1 2", ());
 
-  string const kmlFile2 = GetPlatform().TestsDataPathForFile("test_data/gpx/empty_names2.gpx");
+  string const kmlFile2 = base::JoinPath(GetPlatform().SettingsDir(), "empty_names2.gpx");
+  TEST(base::CopyFileX(GetPlatform().TestsDataPathForFile("test_data/gpx/empty_names2.gpx"), kmlFile2), ());
+  SCOPE_GUARD(deleteFile2, [&] { base::DeleteFileX(kmlFile2); });
   auto fileData2 = LoadKmlFile(kmlFile2, FileType::Gpx);
+  TEST(fileData2 != nullptr, ());
   TEST_EQUAL(fileData2->m_categoryData.m_name[kml::kDefaultLangCode], "empty_names2", ());
   TEST_EQUAL(fileData2->m_tracksData[0].m_name[kml::kDefaultLangCode], "empty_names2", ());
 }
