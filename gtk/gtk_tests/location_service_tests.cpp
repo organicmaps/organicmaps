@@ -449,6 +449,27 @@ void TestSupersededLocationRequest(FakeServices & services)
   RunFor(100);
 }
 
+void TestUnavailableLocationObject(FakeServices & services)
+{
+  services.Reset();
+  Counters counters;
+  gtk::LocationService service;
+  Watch(service, counters);
+  service.Start();
+  TEST(RunUntil([&]() { return services.Count("Start") == 1; }), (services.Calls()));
+  // A proxy for an object that is not exported has default properties and no timestamp.
+  services.PublishFix("/org/freedesktop/GeoClue2/Client/1/Location/Missing");
+  RunFor(100);
+  TEST_EQUAL(counters.m_locations, 0, ());
+  services.PublishFix();
+  TEST(RunUntil([&]() { return counters.m_locations == 1; }), (services.Calls()));
+  RunFor(100);
+  TEST_EQUAL(counters.m_locations, 1, ());
+  TEST_EQUAL(counters.m_errors, 0, ());
+  service.Stop();
+  RunFor(100);
+}
+
 void TestDestroyWithPendingLocation(FakeServices & services)
 {
   services.Reset();
@@ -553,6 +574,7 @@ UNIT_TEST(LocationService_AsyncLifecycle)
   TestCompassRestartDuringClaim(services);
   TestStopDuringClientStart(services);
   TestSupersededLocationRequest(services);
+  TestUnavailableLocationObject(services);
   TestDestroyWithPendingLocation(services);
   TestOrderKeptAcrossRestart(services);
   // Cancelled calls complete from the main loop.

@@ -272,13 +272,12 @@ void LocationService::ReadLocation(GClueLocation * loc)
   if (heading >= 0 && speed > 0.5)
     info.m_bearing = heading;
 
-  info.m_timestamp = static_cast<double>(g_get_real_time()) / 1e6;
+  // A proxy for an unavailable location object has no timestamp; zero makes the filter reject it.
   if (GVariant * ts = gclue_location_get_timestamp(loc))
   {
     guint64 sec = 0, usec = 0;
     g_variant_get(ts, "(tt)", &sec, &usec);
-    if (sec > 0)
-      info.m_timestamp = static_cast<double>(sec) + static_cast<double>(usec) / 1e6;
+    info.m_timestamp = static_cast<double>(sec) + static_cast<double>(usec) / 1e6;
   }
 
   if (info.m_horizontalAccuracy <= 0)
