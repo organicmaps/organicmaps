@@ -53,7 +53,7 @@ final class ActionBarViewController: UIViewController {
   }
 
   private func configDefaultButtons() {
-    if let mapNodeAttributes = placePageData.mapNodeAttributes {
+    if placePageData.objectType != .trackRecording, let mapNodeAttributes = placePageData.mapNodeAttributes {
       switch mapNodeAttributes.nodeStatus {
       case .onDiskOutOfDate, .onDisk, .undefined:
         break
@@ -90,7 +90,7 @@ final class ActionBarViewController: UIViewController {
     }
 
     guard !buttons.isEmpty else { return }
-    let maxVisibleButtons = 5
+    let maxVisibleButtons = 5 - visibleButtons.count
     if buttons.count > maxVisibleButtons {
       visibleButtons.append(contentsOf: buttons.prefix(maxVisibleButtons - 1))
       visibleButtons.append(.more)

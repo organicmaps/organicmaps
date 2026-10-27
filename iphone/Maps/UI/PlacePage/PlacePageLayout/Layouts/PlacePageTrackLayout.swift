@@ -74,6 +74,21 @@ class PlacePageTrackLayout: IPlacePageLayout {
       viewControllers.append(elevationMapViewController)
     }
 
+    placePageData.onMapNodeStatusUpdate = { [weak self] in
+      guard let self = self else { return }
+      self.actionBarViewController.updateDownloadButtonState(self.placePageData.mapNodeAttributes!.nodeStatus)
+      switch self.placePageData.mapNodeAttributes!.nodeStatus {
+      case .onDisk, .onDiskOutOfDate, .undefined, .inQueue:
+        self.actionBarViewController.resetButtons()
+      default:
+        break
+      }
+    }
+    placePageData.onMapNodeProgressUpdate = { [weak self] downloadedBytes, totalBytes in
+      guard let self = self, let downloadButton = self.actionBarViewController.downloadButton else { return }
+      downloadButton.mapDownloadProgress?.progress = CGFloat(downloadedBytes) / CGFloat(totalBytes)
+    }
+
     return viewControllers
   }
 
