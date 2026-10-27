@@ -589,7 +589,7 @@ struct FileData
   std::vector<BookmarkData> m_bookmarksData;
   // Tracks collection.
   std::vector<TrackData> m_tracksData;
-  // Polygon areas are persisted as KML; the KMB, GPX, and GeoJSON writers reject them.
+  // Polygon areas are persisted as KML; the KMB and GPX writers reject them.
   std::vector<AreaData> m_areasData;
 
   bool HasContent() const { return !m_bookmarksData.empty() || !m_tracksData.empty() || !m_areasData.empty(); }

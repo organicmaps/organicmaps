@@ -133,7 +133,7 @@ class BookmarkCategoriesFragment :
                 ) { onShowActionSelected(category) },
             )
             addAll(
-                exportMenuItems(kmlOnly = category.areasCount > 0) { fileType ->
+                exportMenuItems(hasAreas = category.areasCount > 0) { fileType ->
                     onShareActionSelected(category, fileType)
                 },
             )

@@ -652,6 +652,10 @@ void SaveAreaData(Writer & writer, AreaData const & area)
   SaveLocalizableString(writer, area.m_name, "name", kIndent6);
   SaveLocalizableString(writer, area.m_description, "description", kIndent6);
   SaveStringsMap(writer, area.m_properties, "properties", kIndent6);
+  if (area.m_isMultiPolygon)
+    writer << kIndent6 << "<mwm:multiPolygon>1</mwm:multiPolygon>\n";
+  if (area.m_altitudeIsWgs84)
+    writer << kIndent6 << "<mwm:altitudeIsWgs84>1</mwm:altitudeIsWgs84>\n";
   writer << kIndent4 << kExtendedDataFooter;
   if (area.m_polygons.size() > 1)
     writer << kIndent4 << "<MultiGeometry>\n";
@@ -787,6 +791,8 @@ void KmlParser::ResetPoint()
   m_polygon.reset();
   m_areaPolygons.clear();
   m_invalidArea = false;
+  m_areaIsMultiPolygon = false;
+  m_areaAltitudeIsWgs84 = false;
   m_areaStyle = {};
   m_inlineAreaStyle = {};
   m_areaStyleReference.clear();
@@ -1099,6 +1105,8 @@ void KmlParser::Pop(std::string_view tag)
         area.m_timestamp = m_timestamp;
         area.m_properties = m_properties;
         area.m_polygons = std::move(m_areaPolygons);
+        area.m_isMultiPolygon = m_areaIsMultiPolygon;
+        area.m_altitudeIsWgs84 = m_areaAltitudeIsWgs84;
         m_pendingAreaStyles.push_back({m_data.m_areasData.size(), m_areaStyleReference, m_inlineAreaStyle});
         m_data.m_areasData.push_back(std::move(area));
       }
@@ -1542,7 +1550,11 @@ void KmlParser::CharData(std::string & value)
       }
       else if (prevTag == kExtendedData)
       {
-        if (currTag == "mwm:scale")
+        if (currTag == "mwm:multiPolygon")
+          m_areaIsMultiPolygon = value == "1";
+        else if (currTag == "mwm:altitudeIsWgs84")
+          m_areaAltitudeIsWgs84 = value == "1";
+        else if (currTag == "mwm:scale")
         {
           double scale;
           if (!strings::to_double(value, scale))

@@ -285,72 +285,77 @@ UNIT_CLASS_TEST(AreasTestFixture, Bookmarks_AreasImportSaveRestartAndDelete)
       <coordinates>10,1 12,1 10,3 10,1</coordinates>
     </LinearRing></outerBoundaryIs></Polygon></Placemark>
   </Document></kml>)";
-  auto parsed = LoadKmlData(MemReader(input.data(), input.size()), FileType::Kml);
-  TEST(parsed != nullptr, ());
-  TEST_EQUAL(parsed->m_areasData.size(), 2, ());
-  auto const expected = parsed->m_areasData;
-  auto const sourcePath = base::JoinPath(GetPlatform().SettingsDir(), "areas-input.kml");
-  TEST(SaveKmlFileSafe(*parsed, sourcePath, FileType::Kml), ());
-
+  for (auto const fileType : {FileType::Kml, FileType::GeoJson})
   {
-    BookmarkManager manager(BM_CALLBACKS);
-    manager.EnableTestMode(true);
-    bool imported = false;
-    bool finished = false;
-    BookmarkManager::AsyncLoadingCallbacks callbacks;
-    callbacks.m_onFileSuccess = [&](std::string const &, bool) { imported = true; };
-    callbacks.m_onFinished = [&] { finished = true; };
-    manager.SetAsyncLoadingCallbacks(std::move(callbacks));
-    manager.LoadBookmark(sourcePath, false);
-    manager.LoadBookmarks();
-    while (!finished)
-      RunNextGuiTask();
-    TEST(imported, ());
-    auto const group = manager.GetCategoryId("Survey areas");
-    TEST_NOT_EQUAL(group, kml::kInvalidMarkGroupId, ());
-    TEST(!manager.IsCategoryEmpty(group), ());
-    auto const & ids = manager.GetAreaIds(group);
-    TEST_EQUAL(ids.size(), 2, ());
-    TEST_NOT_EQUAL(*ids.begin(), kml::kInvalidAreaId, ());
-    TEST(manager.GetCategoryRect(group, false).IsPointInside(mercator::FromLatLon(5, 5)), ());
+    auto parsed = LoadKmlData(MemReader(input.data(), input.size()), FileType::Kml);
+    TEST(parsed != nullptr, ());
+    TEST_EQUAL(parsed->m_areasData.size(), 2, ());
+    auto const sourcePath = base::JoinPath(GetPlatform().SettingsDir(),
+                                           fileType == FileType::Kml ? "Survey areas.kml" : "Survey areas.geojson");
+    auto const expected = parsed->m_areasData;
+    TEST(SaveKmlFileSafe(*parsed, sourcePath, fileType), ());
 
-    auto edit = manager.GetEditSession();
-    edit.SetCategoryName(group, "Saved survey areas");
-    edit.SetIsVisible(group, false);
-  }
-
-  {
-    BookmarkManager manager(BM_CALLBACKS);
-    manager.EnableTestMode(true);
-    bool finished = false;
-    BookmarkManager::AsyncLoadingCallbacks callbacks;
-    callbacks.m_onFinished = [&] { finished = true; };
-    manager.SetAsyncLoadingCallbacks(std::move(callbacks));
-    manager.LoadBookmarks();
-    while (!finished)
-      RunNextGuiTask();
-    auto const group = manager.GetCategoryId("Saved survey areas");
-    TEST_NOT_EQUAL(group, kml::kInvalidMarkGroupId, ());
-    TEST(!manager.IsVisible(group), ());
-    auto const ids = manager.GetAreaIds(group);
-    TEST_EQUAL(ids.size(), 2, ());
-    size_t i = 0;
-    for (auto id : ids)
     {
-      auto area = *manager.GetArea(id);
-      area.m_id = kml::kInvalidAreaId;
-      TEST_EQUAL(area, expected[i++], ());
+      BookmarkManager manager(BM_CALLBACKS);
+      manager.EnableTestMode(true);
+      bool imported = false;
+      bool finished = false;
+      BookmarkManager::AsyncLoadingCallbacks callbacks;
+      callbacks.m_onFileSuccess = [&](std::string const &, bool) { imported = true; };
+      callbacks.m_onFinished = [&] { finished = true; };
+      manager.SetAsyncLoadingCallbacks(std::move(callbacks));
+      manager.LoadBookmark(sourcePath, false);
+      manager.LoadBookmarks();
+      while (!finished)
+        RunNextGuiTask();
+      TEST(imported, ());
+      auto const group = manager.GetCategoryId("Survey areas");
+      TEST_NOT_EQUAL(group, kml::kInvalidMarkGroupId, ());
+      TEST(!manager.IsCategoryEmpty(group), ());
+      auto const & ids = manager.GetAreaIds(group);
+      TEST_EQUAL(ids.size(), 2, ());
+      TEST_NOT_EQUAL(*ids.begin(), kml::kInvalidAreaId, ());
+      TEST(manager.GetCategoryRect(group, false).IsPointInside(mercator::FromLatLon(5, 5)), ());
+
+      auto edit = manager.GetEditSession();
+      edit.SetCategoryName(group, "Saved survey areas");
+      edit.SetIsVisible(group, false);
     }
 
-    std::string output;
-    MemWriter writer(output);
-    TEST(manager.SaveBookmarkCategory(group, writer, FileType::Kml), ());
-    auto exported = LoadKmlData(MemReader(output.data(), output.size()), FileType::Kml);
-    TEST(exported != nullptr, ());
-    TEST_EQUAL(exported->m_areasData, expected, ());
-    manager.GetEditSession().DeleteBmCategory(group, true);
-    for (auto id : ids)
-      TEST(manager.GetArea(id) == nullptr, ());
+    {
+      BookmarkManager manager(BM_CALLBACKS);
+      manager.EnableTestMode(true);
+      bool finished = false;
+      BookmarkManager::AsyncLoadingCallbacks callbacks;
+      callbacks.m_onFinished = [&] { finished = true; };
+      manager.SetAsyncLoadingCallbacks(std::move(callbacks));
+      manager.LoadBookmarks();
+      while (!finished)
+        RunNextGuiTask();
+      auto const group = manager.GetCategoryId("Saved survey areas");
+      TEST_NOT_EQUAL(group, kml::kInvalidMarkGroupId, ());
+      TEST(!manager.IsVisible(group), ());
+      auto const ids = manager.GetAreaIds(group);
+      TEST_EQUAL(ids.size(), 2, ());
+      size_t i = 0;
+      for (auto id : ids)
+      {
+        auto area = *manager.GetArea(id);
+        area.m_id = kml::kInvalidAreaId;
+        TEST_EQUAL(area, expected[i++], ());
+      }
+
+      std::string output;
+      MemWriter writer(output);
+      TEST(manager.SaveBookmarkCategory(group, writer, FileType::Kml), ());
+      auto exported = LoadKmlData(MemReader(output.data(), output.size()), FileType::Kml);
+      TEST(exported != nullptr, ());
+      TEST_EQUAL(exported->m_areasData, expected, ());
+      manager.GetEditSession().DeleteBmCategory(group, true);
+      for (auto id : ids)
+        TEST(manager.GetArea(id) == nullptr, ());
+    }
+    TEST(base::DeleteFileX(sourcePath), ());
   }
 }
 
@@ -375,20 +380,17 @@ UNIT_CLASS_TEST(AreasTestFixture, Bookmarks_AreaExportCapabilitiesAndSnapshots)
   TEST_NOT_EQUAL(group, kml::kInvalidMarkGroupId, ());
   TEST(manager.GetCategoryFileName(group).empty(), ());
 
-  for (auto const type : {FileType::Gpx, FileType::GeoJson})
+  bool finished = false;
+  manager.PrepareFileForSharing({group}, [&](BookmarkManager::SharingResult const & result)
   {
-    bool finished = false;
-    manager.PrepareFileForSharing({group}, [&](BookmarkManager::SharingResult const & result)
-    {
-      TEST(result.m_code == BookmarkManager::SharingResult::Code::FileError, ());
-      TEST(result.m_sharingPath.empty(), ());
-      finished = true;
-    }, type);
-    while (!finished)
-      RunNextGuiTask();
-    // Preparing a snapshot assigns a file name, so this also detects work before rejection.
-    TEST(manager.GetCategoryFileName(group).empty(), ());
-  }
+    TEST(result.m_code == BookmarkManager::SharingResult::Code::FileError, ());
+    TEST(result.m_sharingPath.empty(), ());
+    finished = true;
+  }, FileType::Gpx);
+  while (!finished)
+    RunNextGuiTask();
+  // Preparing a snapshot assigns a file name, so this also detects work before rejection.
+  TEST(manager.GetCategoryFileName(group).empty(), ());
 
   auto const trackId = *manager.GetTrackIds(group).begin();
   for (auto const type : {FileType::Kml, FileType::Gpx, FileType::GeoJson})
@@ -404,7 +406,22 @@ UNIT_CLASS_TEST(AreasTestFixture, Bookmarks_AreaExportCapabilitiesAndSnapshots)
       RunNextGuiTask();
   }
 
-  bool finished = false;
+  finished = false;
+  manager.PrepareFileForSharing({group}, [&](BookmarkManager::SharingResult const & result)
+  {
+    TEST(result.m_code == BookmarkManager::SharingResult::Code::Success, (result.m_errorString));
+    SCOPE_GUARD(deleteFile, [&] { base::DeleteFileX(result.m_sharingPath); });
+    auto const loaded = LoadKmlFile(result.m_sharingPath, FileType::GeoJson);
+    TEST(loaded != nullptr, ());
+    TEST_EQUAL(loaded->m_areasData, expectedAreas, ());
+    TEST_EQUAL(loaded->m_bookmarksData.size(), 1, ());
+    TEST_EQUAL(loaded->m_tracksData.size(), 1, ());
+    finished = true;
+  }, FileType::GeoJson);
+  while (!finished)
+    RunNextGuiTask();
+
+  finished = false;
   manager.PrepareFileForSharing({group}, [&](BookmarkManager::SharingResult const & result)
   {
     TEST(result.m_code == BookmarkManager::SharingResult::Code::Success, (result.m_errorString));
@@ -413,6 +430,7 @@ UNIT_CLASS_TEST(AreasTestFixture, Bookmarks_AreaExportCapabilitiesAndSnapshots)
     ZipFileReader::FilesList(result.m_sharingPath, files);
     TEST_EQUAL(files.size(), 1, ());
     auto const path = base::JoinPath(GetPlatform().SettingsDir(), "exported-areas.kml");
+    SCOPE_GUARD(deleteFile, [&] { base::DeleteFileX(path); });
     ZipFileReader::UnzipFile(result.m_sharingPath, files.front().first, path);
     auto const loaded = LoadKmlFile(path, FileType::Kml);
     TEST(loaded != nullptr, ());
@@ -425,19 +443,30 @@ UNIT_CLASS_TEST(AreasTestFixture, Bookmarks_AreaExportCapabilitiesAndSnapshots)
     RunNextGuiTask();
 }
 
-UNIT_CLASS_TEST(Runner, Bookmarks_AreaCategoryBoundsUseContinuousLongitudes)
+UNIT_CLASS_TEST(Runner, Bookmarks_AreaCategoryBoundsPreservePolygonFootprints)
 {
-  std::string const narrow = R"(<Placemark><Polygon><outerBoundaryIs><LinearRing>
-    <coordinates>179,-10 -179,-10 -179,10 179,10 179,-10</coordinates>
-    </LinearRing></outerBoundaryIs></Polygon></Placemark>)";
+  std::string const narrow = R"(<Placemark><MultiGeometry>
+    <Polygon><outerBoundaryIs><LinearRing>
+      <coordinates>179,-10 180,-10 180,10 179,10 179,-10</coordinates>
+    </LinearRing></outerBoundaryIs></Polygon>
+    <Polygon><outerBoundaryIs><LinearRing>
+      <coordinates>-180,-10 -179,-10 -179,10 -180,10 -180,-10</coordinates>
+    </LinearRing></outerBoundaryIs></Polygon>
+    </MultiGeometry></Placemark>)";
   std::string const mixed = R"(
     <Placemark><Point><coordinates>179.5,0</coordinates></Point></Placemark>
     <Placemark><Point><coordinates>-179.5,0</coordinates></Point></Placemark>
     <Placemark><LineString><coordinates>-179.75,0 -179.5,1</coordinates></LineString></Placemark>)";
   std::string const wide = R"(<Placemark><Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-170,-10 170,-10 170,10 -170,10 -170,-10</coordinates>
+    </LinearRing></outerBoundaryIs></Polygon></Placemark>)";
+  std::string const wideWithMidpoints = R"(<Placemark><Polygon><outerBoundaryIs><LinearRing>
     <coordinates>-170,-10 0,-10 170,-10 170,10 0,10 -170,10 -170,-10</coordinates>
     </LinearRing></outerBoundaryIs></Polygon></Placemark>
     <Placemark><Point><coordinates>160,0</coordinates></Point></Placemark>)";
+  std::string const wholeWorld = R"(<Placemark><Polygon><outerBoundaryIs><LinearRing>
+    <coordinates>-180,-10 180,-10 180,10 -180,10 -180,-10</coordinates>
+    </LinearRing></outerBoundaryIs></Polygon></Placemark>)";
   std::string const independent = narrow + R"(<Placemark><Polygon><outerBoundaryIs><LinearRing>
     <coordinates>-177,-5 -176,-5 -176,5 -177,5 -177,-5</coordinates>
     </LinearRing></outerBoundaryIs></Polygon></Placemark>)";
@@ -445,8 +474,29 @@ UNIT_CLASS_TEST(Runner, Bookmarks_AreaCategoryBoundsUseContinuousLongitudes)
     <Placemark><Point><coordinates>-10,0</coordinates></Point></Placemark>
     <Placemark><Point><coordinates>10,0</coordinates></Point></Placemark>
     <Placemark><LineString><coordinates>-5,0 5,1</coordinates></LineString></Placemark>)";
-  for (auto const & [geometry, width] : std::vector<std::pair<std::string, double>>{
-           {narrow, 2}, {narrow + mixed, 2}, {wide, 340}, {independent, 5}, {areaFree, 20}})
+  std::string const seamBookmarks = R"(
+    <Placemark><Point><coordinates>-179.5,0</coordinates></Point></Placemark>
+    <Placemark><Point><coordinates>179.5,0</coordinates></Point></Placemark>)";
+  auto const rectangle = [](int lon)
+  {
+    auto const west = std::to_string(lon);
+    auto const east = std::to_string(lon + 1);
+    return "<Placemark><Polygon><outerBoundaryIs><LinearRing><coordinates>" + west + ",0 " + east + ",0 " + east +
+           ",1 " + west + ",1 " + west + ",0</coordinates></LinearRing></outerBoundaryIs></Polygon></Placemark>";
+  };
+  std::vector<std::pair<std::string, double>> const cases = {{narrow, 360},
+                                                             {narrow + mixed, 360},
+                                                             {wide, 340},
+                                                             {wideWithMidpoints, 340},
+                                                             {wide + mixed, 359.25},
+                                                             {wholeWorld, 360},
+                                                             {independent, 360},
+                                                             {areaFree, 20},
+                                                             {seamBookmarks, 359},
+                                                             {seamBookmarks + rectangle(170), 359},
+                                                             {rectangle(-101) + rectangle(100) + rectangle(0), 202},
+                                                             {rectangle(-101) + rectangle(0) + rectangle(100), 202}};
+  for (auto const & [geometry, width] : cases)
   {
     BookmarkManager manager(BM_CALLBACKS);
     manager.EnableTestMode(true);

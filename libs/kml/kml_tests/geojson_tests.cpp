@@ -1531,8 +1531,10 @@ std::optional<std::string> ExportedName(kml::BookmarkData bookmark)
   TEST_EQUAL(exported.features.size(), 1, (json));
 
   auto const & properties = exported.features.front().properties;
-  auto const name = properties.find("name");
-  if (name == properties.end())
+  if (!properties)
+    return std::nullopt;
+  auto const name = properties->find("name");
+  if (name == properties->end())
     return std::nullopt;
   TEST(name->second.is_string(), (json));
   return name->second.get_string();
