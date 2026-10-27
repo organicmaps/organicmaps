@@ -157,6 +157,11 @@ class FileHttpRequest : public HttpRequest
     if (m_status == DownloadStatus::InProgress)
       return;
 
+    FinishDownloading();
+  }
+
+  void FinishDownloading()
+  {
     // 1. Save downloaded chunks if some error occurred.
     if (m_status == DownloadStatus::Failed || m_status == DownloadStatus::FileNotFound)
       SaveResumeChunks();
@@ -171,6 +176,20 @@ class FileHttpRequest : public HttpRequest
 
     // 3. Finish downloading.
     m_onFinish(*this);
+  }
+
+  void CompleteLater(DownloadStatus status)
+  {
+    // Complete after the caller has taken ownership, like the transport callbacks.
+    auto const posted = platform::GuiThread().Push([this, alive = m_alive, status]
+    {
+      if (!alive->load(std::memory_order_acquire))
+        return;
+      ASSERT(IsCalledOnOriginalThread(), ());
+      m_status = status;
+      FinishDownloading();
+    });
+    CHECK(posted.m_isSuccess, (m_filePath));
   }
 
   void SaveResumeChunks()
@@ -192,8 +211,6 @@ public:
     , m_goodChunksCount(0)
     , m_doCleanOnCancel(doCleanOnCancel)
   {
-    ASSERT(!urls.empty(), ());
-
     // Load resume downloading information.
     m_progress.m_bytesDownloaded = m_strategy.LoadOrInitChunks(m_filePath + RESUME_FILE_EXTENSION, fileSize, chunkSize);
     m_progress.m_bytesTotal = fileSize;
@@ -224,7 +241,11 @@ public:
       FileWriter writer(m_downloadingPath, openMode);
     }
     Platform::DisableBackupForFile(m_downloadingPath);
-    StartChunks();
+    auto const result = StartChunks();
+    if (result == ChunksDownloadStrategy::EDownloadFailed)
+      CompleteLater(DownloadStatus::Failed);
+    else if (result == ChunksDownloadStrategy::EDownloadSucceeded)
+      CompleteLater(DownloadStatus::Completed);
   }
 
   ~FileHttpRequest() override

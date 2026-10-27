@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "platform/chunks_download_strategy.hpp"
+#include "platform/gui_thread.hpp"
 #include "platform/http_request.hpp"
 #include "platform/platform.hpp"
 
@@ -355,6 +356,127 @@ UNIT_TEST(DownloadChunks)
     observer.TestFailed();
     FinishDownloadFail(files.m_path);
   }
+}
+
+UNIT_TEST(HttpRequest_EmptyUrls_Fails)
+{
+  ScopedDownloadArtifacts files{"http_empty_urls_"};
+  DownloadObserver observer;
+  auto const request = MakeRequest({}, files.m_path, kBigFileSize, observer);
+  TEST(request, ());
+  TEST_EQUAL(request->GetStatus(), DownloadStatus::InProgress, ("Completion must be deferred"));
+  QCoreApplication::exec();
+  observer.TestFailed();
+  FinishDownloadFail(files.m_path);
+}
+
+UNIT_TEST(HttpRequest_EmptyUrls_ResetsStaleResume)
+{
+  ScopedDownloadArtifacts files{"http_stale_resume_"};
+  ChunksDownloadStrategy strategy({});
+  strategy.AddChunk({0, 3}, ChunksDownloadStrategy::CHUNK_COMPLETE);
+  strategy.AddChunk({4, 7}, ChunksDownloadStrategy::CHUNK_FREE);
+  strategy.SaveChunks(8, files.Resume());
+  // The old resume claims four bytes, but its .downloading file is gone.
+  TEST_EQUAL(LoadResumeBytes(files.Resume(), 8, 4), 4, ());
+
+  DownloadObserver observer;
+  auto const request = MakeRequest({}, files.m_path, 8, observer);
+  TEST(request, ());
+  TEST_EQUAL(request->GetProgress().m_bytesDownloaded, 0, ());
+  QCoreApplication::exec();
+  observer.TestFailed();
+  TEST_EQUAL(LoadResumeBytes(files.Resume(), 8, 4), 0, ("Failure must not leave the stale resume claim"));
+  FinishDownloadFail(files.m_path);
+}
+
+UNIT_TEST(HttpRequest_EmptyUrls_CancelBeforeCompletion)
+{
+  for (bool const doCleanOnCancel : {true, false})
+  {
+    ScopedDownloadArtifacts files{"http_empty_urls_cancel_"};
+    {
+      FileWriter writer(files.Downloading());
+      writer.Write("Test", 4);
+    }
+    ChunksDownloadStrategy strategy({});
+    strategy.AddChunk({0, 3}, ChunksDownloadStrategy::CHUNK_COMPLETE);
+    strategy.AddChunk({4, 7}, ChunksDownloadStrategy::CHUNK_FREE);
+    strategy.SaveChunks(8, files.Resume());
+
+    bool finished = false;
+    {
+      std::unique_ptr<HttpRequest> const request(
+          HttpRequest::GetFile({}, files.m_path, 8, [&](HttpRequest &) { finished = true; }, {}, doCleanOnCancel));
+      TEST(request, ());
+      TEST_EQUAL(request->GetProgress().m_bytesDownloaded, 4, ());
+    }
+    // FIFO posting drains the canceled completion before quitting the event loop.
+    auto const posted = platform::GuiThread().Push([] { QCoreApplication::quit(); });
+    TEST(posted.m_isSuccess, ());
+    QCoreApplication::exec();
+    TEST(!finished, ("Cancelled request must not notify its owner"));
+    TEST_EQUAL(Platform::IsFileExistsByFullPath(files.Downloading()), !doCleanOnCancel, ());
+    TEST_EQUAL(Platform::IsFileExistsByFullPath(files.Resume()), !doCleanOnCancel, ());
+    if (!doCleanOnCancel)
+    {
+      TEST_EQUAL(ReadFileAsString(files.Downloading()), "Test", ());
+      TEST_EQUAL(LoadResumeBytes(files.Resume(), 8, 4), 4, ());
+    }
+  }
+}
+
+UNIT_TEST(HttpRequest_ResumeCompletedChunks_Finishes)
+{
+  ScopedDownloadArtifacts files{"http_resume_complete_"};
+  {
+    FileWriter writer(files.Downloading());
+    writer.Write("Test1", 5);
+  }
+  ChunksDownloadStrategy strategy({kTestUrl1});
+  strategy.AddChunk({0, 4}, ChunksDownloadStrategy::CHUNK_COMPLETE);
+  strategy.SaveChunks(5, files.Resume());
+
+  bool finished = false;
+  std::unique_ptr<HttpRequest> const request(HttpRequest::GetFile({kTestUrl1}, files.m_path, 5, [&](HttpRequest & req)
+  {
+    TEST_EQUAL(req.GetStatus(), DownloadStatus::Completed, ());
+    finished = true;
+    QCoreApplication::quit();
+  }));
+  TEST(request, ());
+  TEST(!finished, ("Completion must be deferred"));
+  QCoreApplication::exec();
+  TEST(finished, ());
+  TEST_EQUAL(request->GetProgress().m_bytesDownloaded, 5, ());
+  TEST_EQUAL(ReadFileAsString(files.m_path), "Test1", ());
+  FinishDownloadSuccess(files.m_path);
+}
+
+UNIT_TEST(HttpRequest_CompletionCanReplaceRequest)
+{
+  ScopedDownloadArtifacts first{"http_replace_first_"};
+  ScopedDownloadArtifacts second{"http_replace_second_"};
+  DownloadObserver observer;
+  std::unique_ptr<HttpRequest> request;
+  bool firstFinished = false;
+  request.reset(HttpRequest::GetFile({}, first.m_path, kBigFileSize, [&](HttpRequest & finishedRequest)
+  {
+    TEST_EQUAL(finishedRequest.GetStatus(), DownloadStatus::Failed, ());
+    firstFinished = true;
+    request = MakeRequest({kTestUrl1}, second.m_path, 5, observer);
+  }));
+  TEST(request, ());
+  TEST(!firstFinished, ("Completion must wait until the caller owns the request"));
+
+  QCoreApplication::exec();
+
+  TEST(firstFinished, ());
+  observer.TestOk();
+  TEST_EQUAL(request->GetFilePath(), second.m_path, ());
+  TEST_EQUAL(ReadFileAsString(second.m_path), "Test1", ());
+  FinishDownloadFail(first.m_path);
+  FinishDownloadSuccess(second.m_path);
 }
 
 namespace
