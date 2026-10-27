@@ -2,46 +2,43 @@
 import XCTest
 
 final class TransportTransitWrappingTests: XCTestCase {
-  func testWrappedLineListsStayWithinThePanel() throws {
+  func testWrappedLineListsAndSeparatorsStayWithinThePanel() throws {
     for width: CGFloat in [200, 300, 430] {
-      let collection = makeCollection(width: width)
-      collection.layoutIfNeeded()
-      for item in collection.steps.indices {
-        let attributes = try XCTUnwrap(collection.collectionViewLayout.layoutAttributesForItem(at: IndexPath(item: item, section: 0)))
-        XCTAssertGreaterThanOrEqual(attributes.frame.minX, 0)
-        XCTAssertLessThanOrEqual(attributes.frame.maxX, width)
-      }
-      let last = try XCTUnwrap(collection.collectionViewLayout.layoutAttributesForItem(at: IndexPath(item: 2, section: 0)))
-      XCTAssertGreaterThan(last.frame.minY, 0)
+      let frames = TransportTransitFlowLayout.frames(cellSizes: sizes([40, 1000, 1000]), width: width)
+      XCTAssertTrue((frames.cells + frames.separators).allSatisfy { $0.minX >= 0 && $0.maxX <= width })
+      XCTAssertGreaterThan(try XCTUnwrap(frames.cells.last).minY, 0)
     }
   }
 
-  func testNarrowPanelsKeepNonnegativeCellWidths() throws {
+  func testNarrowPanelsKeepNonnegativeCellWidths() {
     for width: CGFloat in [0, 8, 20, 55] {
-      let collection = makeCollection(width: width)
-      collection.collectionViewLayout.prepare()
-      for item in collection.steps.indices {
-        let attributes = try XCTUnwrap(collection.collectionViewLayout.layoutAttributesForItem(at: IndexPath(item: item, section: 0)))
-        XCTAssertGreaterThanOrEqual(attributes.frame.width, 0)
-        XCTAssertLessThanOrEqual(attributes.frame.maxX, width)
+      let frames = TransportTransitFlowLayout.frames(cellSizes: sizes([40, 1000, 1000]), width: width)
+      for frame in frames.cells {
+        XCTAssertGreaterThanOrEqual(frame.size.width, 0)
+        XCTAssertGreaterThanOrEqual(frame.minX, 0)
+        XCTAssertLessThanOrEqual(frame.maxX, width)
       }
     }
   }
 
-  private func makeCollection(width: CGFloat) -> TransportTransitStepsCollectionView {
-    let collection = TransportTransitStepsCollectionView(layout: TransportTransitFlowLayout())
-    collection.frame = CGRect(x: 0, y: 0, width: width, height: 200)
-    let longNumber = (1 ... 30).map(String.init).joined(separator: ", ")
-    collection.steps = ["12", longNumber, longNumber].map { number in
-      let step = MWMRouterTransitStepInfo()
-      step.type = .bus
-      step.number = number
-      step.distance = "42"
-      step.distanceUnits = "m"
-      step.color = .blue
-      step.intermediateIndex = 0
-      return step
+  func testFinalLongBadgeUsesTheFullRemainingWidth() {
+    for width: CGFloat in [200, 300, 430] {
+      for prefix: [CGFloat] in [[], [40], [40, 1000]] {
+        let frames = TransportTransitFlowLayout.frames(cellSizes: sizes(prefix + [1000]), width: width)
+        XCTAssertEqual(frames.cells.last?.maxX, width)
+        if prefix.isEmpty {
+          XCTAssertEqual(frames.cells.last?.minY, 0)
+        }
+      }
     }
-    return collection
+  }
+
+  func testFinalBadgeStaysOnTheRowWhenItFitsWithoutAFollowingSeparator() {
+    let frames = TransportTransitFlowLayout.frames(cellSizes: sizes([40, 40]), width: 100)
+    XCTAssertEqual(frames.cells.last?.minY, 0)
+  }
+
+  private func sizes(_ widths: [CGFloat]) -> [CGSize] {
+    widths.map { CGSize(width: $0, height: 20) }
   }
 }

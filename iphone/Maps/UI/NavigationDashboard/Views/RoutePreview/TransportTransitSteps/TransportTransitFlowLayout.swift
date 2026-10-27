@@ -32,44 +32,53 @@ final class TransportTransitFlowLayout: UICollectionViewLayout {
     super.prepare()
     let cv = collectionView as! TransportTransitStepsCollectionView
 
-    let section = 0
-    let width = cv.width
+    let cellSizes = (0 ..< cv.numberOfItems(inSection: 0)).map { cv.estimatedCellSize(item: $0) }
+    let frames = Self.frames(cellSizes: cellSizes, width: cv.width)
     let isRightToLeft = cv.effectiveUserInterfaceLayoutDirection == .rightToLeft
+
+    cellsLayoutAttrs = frames.cells.enumerated().map { item, frame in
+      let attr = UICollectionViewLayoutAttributes(forCellWith: IndexPath(item: item, section: 0))
+      attr.frame = frame
+      return attr
+    }
+    decoratorsLayoutAttrs = frames.separators.enumerated().map { item, frame in
+      let attr = UICollectionViewLayoutAttributes(forDecorationViewOfKind: Config.separatorKind,
+                                                  with: IndexPath(item: item + 1, section: 0))
+      attr.frame = frame
+      // UIKit mirrors positions; the separator artwork also follows the route direction.
+      if isRightToLeft {
+        attr.transform = CGAffineTransform(scaleX: -1, y: 1)
+      }
+      return attr
+    }
+  }
+
+  static func frames(cellSizes: [CGSize], width: CGFloat) -> (cells: [CGRect], separators: [CGRect]) {
+    var cells = [CGRect]()
+    var separators = [CGRect]()
     var x = CGFloat(0)
     var y = CGFloat(0)
 
-    cellsLayoutAttrs = []
-    decoratorsLayoutAttrs = []
-    for item in 0 ..< cv.numberOfItems(inSection: section) {
-      let ip = IndexPath(item: item, section: section)
-
+    for (item, size) in cellSizes.enumerated() {
       if item != 0 {
-        let sepAttr = UICollectionViewLayoutAttributes(forDecorationViewOfKind: Config.separatorKind, with: ip)
-        sepAttr.frame = CGRect(origin: CGPoint(x: x, y: y), size: Config.separatorSize)
-        // UIKit mirrors positions; the separator artwork also follows the route direction.
-        if isRightToLeft {
-          sepAttr.transform = CGAffineTransform(scaleX: -1, y: 1)
-        }
-        decoratorsLayoutAttrs.append(sepAttr)
-
+        separators.append(CGRect(origin: CGPoint(x: x, y: y), size: Config.separatorSize))
         x += Config.separatorSize.width
       }
 
-      var cellSize = cv.estimatedCellSize(item: item)
-      let spaceLeft = width - x - Config.separatorSize.width
+      var cellSize = size
+      // Reserve room for the separator drawn before the next step.
+      let availableWidth = width - (item + 1 < cellSizes.count ? Config.separatorSize.width : 0)
       let minimumSpaceRequired = min(cellSize.width, Config.minimumCellWidthAfterShrink)
-      if spaceLeft < minimumSpaceRequired {
+      if availableWidth - x < minimumSpaceRequired {
         x = 0
         y += Config.separatorSize.height + Config.lineSpacing
       }
-      cellSize.width = min(cellSize.width, max(0, width - x - Config.separatorSize.width))
+      cellSize.width = min(cellSize.width, max(0, availableWidth - x))
 
-      let cellAttr = UICollectionViewLayoutAttributes(forCellWith: ip)
-      cellAttr.frame = CGRect(origin: CGPoint(x: x, y: y), size: cellSize)
-      cellsLayoutAttrs.append(cellAttr)
-
+      cells.append(CGRect(origin: CGPoint(x: x, y: y), size: cellSize))
       x += cellSize.width
     }
+    return (cells, separators)
   }
 
   override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
