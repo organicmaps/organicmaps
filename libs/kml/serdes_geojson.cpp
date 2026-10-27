@@ -60,14 +60,14 @@ std::string DebugPrint(GenericJsonMap const & p)
   out << "{";
   for (auto const & [key, value] : p)
   {
-    // Add seperator if needed
     if (isFirst)
       isFirst = false;
     else
       out << ", ";
 
-    out << '"' << key << "\" = " << DebugPrint(value) << ", ";
+    out << '"' << key << "\" = " << DebugPrint(value);
   }
+  out << "}";
   return out.str();
 }
 
