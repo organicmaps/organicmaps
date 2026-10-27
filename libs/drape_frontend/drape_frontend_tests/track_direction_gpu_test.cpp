@@ -20,6 +20,10 @@
 
 namespace track_direction_gpu_test
 {
+// Shift both screen axes by a quarter pixel so neither integer nor half-integer marker edges land on
+// pixel centers. This avoids fill/outline rasterization ties when comparing renders with different line widths.
+m2::PointD constexpr kPixelOffset(0.25, -0.25);
+
 uint32_t CountPixels(QImage const & image, int centerY, std::function<bool(QColor const &)> const & predicate)
 {
   uint32_t count = 0;
@@ -109,7 +113,7 @@ QImage RenderTracks(char const * title, uint32_t width, uint32_t height, std::ve
       std::vector<m2::PointD> path;
       path.reserve(track.m_pathInPixels.size());
       for (auto const & point : track.m_pathInPixels)
-        path.push_back(center + point * scale);
+        path.push_back(center + (point + kPixelOffset) * scale);
       params->m_splines.emplace_back(std::move(path));
       renderParams.emplace(lineId, std::move(params));
     }
@@ -151,7 +155,7 @@ UNIT_TEST(TrackDirectionArrowsAvoidEndpointsGpuTest)
   for (size_t i = 0; i < paths.size(); ++i)
   {
     bool const combined = i == 3 || i == 4;
-    auto const & endpoint = combined ? paths[i].front() : paths[i].back();
+    auto const endpoint = (combined ? paths[i].front() : paths[i].back()) + kPixelOffset;
     int const centerX = static_cast<int>(kWidth / 2 + endpoint.x);
     int const centerY = static_cast<int>(kHeight / 2 - endpoint.y);
     for (int dy = -4; dy < 4; ++dy)
@@ -248,7 +252,7 @@ UNIT_TEST(TrackDirectionArrowContainedOnTurnsGpuTest)
   std::vector<m2::PointD> screenPath;
   screenPath.reserve(pathInPixels.size());
   for (auto const & point : pathInPixels)
-    screenPath.emplace_back(kWidth / 2.0 + point.x, kHeight / 2.0 - point.y);
+    screenPath.emplace_back(kWidth / 2.0 + point.x + kPixelOffset.x, kHeight / 2.0 - point.y - kPixelOffset.y);
 
   uint32_t darkPixels = 0;
   double constexpr kAntialiasingTolerance = 1.0;
