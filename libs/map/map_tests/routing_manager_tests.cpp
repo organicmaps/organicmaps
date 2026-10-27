@@ -113,6 +113,28 @@ RouteMarkData MakeRoutePointOnXAxis(RouteMarkType type, size_t intermediateIndex
   return point;
 }
 
+void ExpectSameData(RouteMarkData const & actual, RouteMarkData const & expected)
+{
+  TEST(actual.m_pointType == expected.m_pointType, ());
+  TEST_EQUAL(actual.m_intermediateIndex, expected.m_intermediateIndex, ());
+  TEST_EQUAL(actual.m_position, expected.m_position, ());
+  TEST_EQUAL(actual.m_title, expected.m_title, ());
+  TEST_EQUAL(actual.m_subTitle, expected.m_subTitle, ());
+  TEST_EQUAL(actual.m_isMyPosition, expected.m_isMyPosition, ());
+  TEST_EQUAL(actual.m_isPassed, expected.m_isPassed, ());
+  TEST_EQUAL(actual.m_replaceWithMyPositionAfterRestart, expected.m_replaceWithMyPositionAfterRestart, ());
+  TEST_EQUAL(actual.m_isVisible, expected.m_isVisible, ());
+}
+
+std::vector<kml::MarkId> GetRoutePointIds(BookmarkManager & bookmarks)
+{
+  RoutePointsLayout layout(bookmarks);
+  std::vector<kml::MarkId> ids;
+  for (auto const * point : layout.GetRoutePoints())
+    ids.push_back(point->GetId());
+  return ids;
+}
+
 size_t GetIntermediatePointsCount(std::vector<RouteMarkData> const & points)
 {
   return std::count_if(points.begin(), points.end(),
@@ -366,6 +388,134 @@ UNIT_TEST(RoutingManager_MoveSingleRoutePointBetweenEndpoints)
   auto const startFromEmptyFinish = manager.GetRoutePoints();
   TEST(startFromEmptyFinish.front().m_pointType == RouteMarkType::Start, ());
   TEST_EQUAL(getMarkId(), markId, ());
+}
+
+UNIT_TEST(RoutingManager_SwapEndpointsPreservesPointMetadata)
+{
+  for (size_t count : {size_t(2), size_t(5), RoutePointsLayout::kMaxRoutePointsCount})
+  {
+    auto const getType = [count](size_t i)
+    {
+      if (i == 0)
+        return RouteMarkType::Start;
+      if (i + 1 == count)
+        return RouteMarkType::Finish;
+      return RouteMarkType::Intermediate;
+    };
+    for (bool myPositionFinish : {false, true})
+    {
+      Framework framework(FrameworkParams(false /* m_enableDiffs */));
+      auto & manager = framework.GetRoutingManager();
+      for (size_t i = 0; i < count; ++i)
+      {
+        auto const type = getType(i);
+        auto point = MakeRoutePoint(type, type == RouteMarkType::Intermediate ? i - 1 : 0, i + 1);
+        point.m_title = std::to_string(i);
+        point.m_subTitle = "subtitle:" + point.m_title;
+        point.m_isMyPosition = i == (myPositionFinish ? count - 1 : 0);
+        point.m_isPassed = i == 2 && i + 1 < count;
+        point.m_replaceWithMyPositionAfterRestart = point.m_isMyPosition;
+        TEST(manager.AddRoutePoint(std::move(point), false /* optimize */), (count, i));
+      }
+      auto const before = manager.GetRoutePoints();
+      auto const beforeIds = GetRoutePointIds(framework.GetBookmarkManager());
+      auto expected = before;
+      std::swap(expected.front(), expected.back());
+      expected.front().m_pointType = RouteMarkType::Start;
+      expected.back().m_pointType = RouteMarkType::Finish;
+      auto expectedIds = beforeIds;
+      std::swap(expectedIds.front(), expectedIds.back());
+
+      TEST(manager.SwapRoutePointEndpoints(), ());
+      auto const after = manager.GetRoutePoints();
+      TEST_EQUAL(after.size(), before.size(), (count));
+      TEST_EQUAL(GetRoutePointIds(framework.GetBookmarkManager()), expectedIds, (count));
+      for (size_t i = 0; i < count; ++i)
+        ExpectSameData(after[i], expected[i]);
+
+      TEST(manager.SwapRoutePointEndpoints(), ());
+      auto const restored = manager.GetRoutePoints();
+      TEST_EQUAL(restored.size(), before.size(), (count));
+      TEST_EQUAL(GetRoutePointIds(framework.GetBookmarkManager()), beforeIds, (count));
+      for (size_t i = 0; i < count; ++i)
+        ExpectSameData(restored[i], before[i]);
+    }
+  }
+}
+
+UNIT_TEST(RoutingManager_SwapEndpointsWithMissingEndpoint)
+{
+  for (auto const type : {RouteMarkType::Start, RouteMarkType::Finish})
+  {
+    for (size_t stopCount : {0, 3})
+    {
+      Framework framework(FrameworkParams(false /* m_enableDiffs */));
+      auto & manager = framework.GetRoutingManager();
+      auto endpoint = MakeRoutePoint(type, 0, 1.0);
+      endpoint.m_title = "Only endpoint";
+      endpoint.m_isMyPosition = true;
+      endpoint.m_replaceWithMyPositionAfterRestart = true;
+      TEST(manager.AddRoutePoint(std::move(endpoint), false /* optimize */), ());
+      for (size_t i = 0; i < stopCount; ++i)
+      {
+        auto stop = MakeRoutePoint(RouteMarkType::Intermediate, i, i + 2.0);
+        stop.m_title = "Stop " + std::to_string(i);
+        stop.m_isPassed = i == 0;
+        TEST(manager.AddRoutePoint(std::move(stop), false /* optimize */), ());
+      }
+      auto const before = manager.GetRoutePoints();
+      auto const beforeIds = GetRoutePointIds(framework.GetBookmarkManager());
+      auto expected = before;
+      auto expectedIds = beforeIds;
+      bool const isStart = type == RouteMarkType::Start;
+      if (stopCount == 3)
+      {
+        if (isStart)
+        {
+          expected = {before[1], before[2], before[3], before[0]};
+          expectedIds = {beforeIds[1], beforeIds[2], beforeIds[3], beforeIds[0]};
+        }
+        else
+        {
+          expected = {before[3], before[0], before[1], before[2]};
+          expectedIds = {beforeIds[3], beforeIds[0], beforeIds[1], beforeIds[2]};
+        }
+      }
+      expected[isStart ? stopCount : 0].m_pointType = isStart ? RouteMarkType::Finish : RouteMarkType::Start;
+
+      TEST(manager.SwapRoutePointEndpoints(), ());
+      auto const after = manager.GetRoutePoints();
+      TEST_EQUAL(after.size(), expected.size(), ());
+      TEST_EQUAL(GetRoutePointIds(framework.GetBookmarkManager()), expectedIds, ());
+      for (size_t i = 0; i < after.size(); ++i)
+        ExpectSameData(after[i], expected[i]);
+
+      TEST(manager.SwapRoutePointEndpoints(), ());
+      auto const restored = manager.GetRoutePoints();
+      TEST_EQUAL(restored.size(), before.size(), ());
+      TEST_EQUAL(GetRoutePointIds(framework.GetBookmarkManager()), beforeIds, ());
+      for (size_t i = 0; i < restored.size(); ++i)
+        ExpectSameData(restored[i], before[i]);
+    }
+  }
+}
+
+UNIT_TEST(RoutingManager_SwapEndpointsWithoutEndpointsDoesNotChangeStops)
+{
+  Framework framework(FrameworkParams(false /* m_enableDiffs */));
+  auto & manager = framework.GetRoutingManager();
+  TEST(!manager.SwapRoutePointEndpoints(), ());
+  for (size_t i = 0; i < 3; ++i)
+    TEST(manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Intermediate, i, i + 1.0), false /* optimize */), ());
+  auto const before = manager.GetRoutePoints();
+  auto const beforeIds = GetRoutePointIds(framework.GetBookmarkManager());
+
+  TEST(!manager.SwapRoutePointEndpoints(), ());
+  auto const after = manager.GetRoutePoints();
+  TEST_EQUAL(after.size(), before.size(), ());
+  TEST_EQUAL(GetRoutePointIds(framework.GetBookmarkManager()), beforeIds, ());
+  for (size_t i = 0; i < after.size(); ++i)
+    ExpectSameData(after[i], before[i]);
 }
 
 UNIT_TEST(RoutingManager_OptimizationWithIncompleteRoute)
@@ -811,8 +961,7 @@ UNIT_TEST(RoutingManager_AddRoutePointAtLimitReportsFailure)
   TEST_EQUAL(pointsAfter.back().m_position, pointsBefore.back().m_position, ());
 }
 
-// Callers ignore AddRoutePoint()'s result for start and finish because the layout drops the point
-// standing in the slot before adding. Pin that: at the limit only a new intermediate point can be rejected.
+// Replacing an existing endpoint frees its slot before the new point is added.
 UNIT_TEST(RoutingManager_ReplaceStartAndFinishAtLimitSucceeds)
 {
   Framework framework(FrameworkParams(false /* m_enableDiffs */));
@@ -830,6 +979,30 @@ UNIT_TEST(RoutingManager_ReplaceStartAndFinishAtLimitSucceeds)
   TEST(points.back().m_pointType == RouteMarkType::Finish, ());
   TEST_EQUAL(points.front().m_position, m2::PointD(200.0, 200.0), ());
   TEST_EQUAL(points.back().m_position, m2::PointD(201.0, 201.0), ());
+}
+
+UNIT_TEST(RoutingManager_AddMissingEndpointAtLimitReportsFailure)
+{
+  for (auto const missingType : {RouteMarkType::Start, RouteMarkType::Finish})
+  {
+    Framework framework(FrameworkParams(false /* m_enableDiffs */));
+    auto & manager = framework.GetRoutingManager();
+    auto const oppositeType = missingType == RouteMarkType::Start ? RouteMarkType::Finish : RouteMarkType::Start;
+    TEST(manager.AddRoutePoint(MakeRoutePoint(oppositeType, 0, 1.0), false /* optimize */), ());
+    for (size_t i = 0; i + 1 < RoutePointsLayout::kMaxRoutePointsCount; ++i)
+      TEST(manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Intermediate, i, i + 2.0), false /* optimize */), (i));
+    auto const before = manager.GetRoutePoints();
+    auto const beforeIds = GetRoutePointIds(framework.GetBookmarkManager());
+    TEST_EQUAL(before.size(), RoutePointsLayout::kMaxRoutePointsCount, ());
+
+    TEST(!manager.AddRoutePoint(MakeRoutePoint(missingType, 0, 200.0), false /* optimize */), ());
+
+    auto const after = manager.GetRoutePoints();
+    TEST_EQUAL(after.size(), before.size(), ());
+    TEST_EQUAL(GetRoutePointIds(framework.GetBookmarkManager()), beforeIds, ());
+    for (size_t i = 0; i < after.size(); ++i)
+      ExpectSameData(after[i], before[i]);
+  }
 }
 
 // If route marks are wiped between IsRoutingActive() and ContinueRouteToPoint(),
