@@ -2,6 +2,7 @@
 
 #include "geometry/mercator.hpp"
 
+#include "base/logging.hpp"
 #include "base/math.hpp"
 
 #include <algorithm>
@@ -26,7 +27,11 @@ bool NormalizeRing(AreaRing & ring)
   }
   ring.erase(std::unique(ring.begin(), ring.end()), ring.end());
   if (ring.size() > 1 && ring.front().m_latLon == ring.back().m_latLon)
+  {
+    if (ring.front().m_altitude != ring.back().m_altitude)
+      LOG(LWARNING, ("Polygon closing height differs; using the first vertex's height"));
     ring.pop_back();
+  }
   return ring.size() >= 3;
 }
 
