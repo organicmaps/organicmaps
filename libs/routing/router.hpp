@@ -37,8 +37,14 @@ enum class RouterType
   Bicycle,      /// For A star bicycle routing.
   Transit,      /// For A star pedestrian + transit routing.
   Ruler,        /// For simple straight line router.
+  Water,        /// For distance measurement along water geometry.
   Count         /// Number of router types.
 };
+
+inline bool IsMeasurementRouter(RouterType type)
+{
+  return type == RouterType::Ruler || type == RouterType::Water;
+}
 
 std::string ToString(RouterType type);
 RouterType FromString(std::string const & str);

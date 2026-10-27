@@ -120,6 +120,7 @@ public:
   routing::RoutingSession & RoutingSession() { return m_routingSession; }
   void SetRouter(routing::RouterType type);
   routing::RouterType GetRouter() const { return m_currentRouterType; }
+  std::optional<routing::RouteBase::WaterDistances> GetWaterDistances() const;
   bool IsRoutingActive() const { return m_routingSession.IsActive(); }
   bool IsRouteBuilt() const { return m_routingSession.IsBuilt(); }
   bool IsRouteBuilding() const { return m_routingSession.IsBuilding(); }
@@ -336,6 +337,7 @@ private:
   // Creates an ETA balloon (RouteAltMark) at the midpoint of each route variant in |result|.
   // Active variant uses the route palette; alternatives use a dimmer palette.
   void CreateRouteAltMarks(routing::RoutesResult const & result);
+  void CreateWaterTransferMarks(routing::RoutesResult const & result);
 
   // Synchronously remove the alternative-route subroutes from drape and clear the alt ETA
   // balloons when rebuilding or entering navigation. The active route is left untouched.

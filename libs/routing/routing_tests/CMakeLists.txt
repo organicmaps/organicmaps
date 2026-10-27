@@ -1,6 +1,9 @@
 project(routing_tests)
 
 set(SRC
+  water_geometry_test.cpp
+  water_router_test.cpp
+  water_provider_test.cpp
   lanes/lanes_parser_tests.cpp
   lanes/lanes_recommendation_tests.cpp
   applying_traffic_test.cpp

@@ -38,7 +38,7 @@ The source code is at [`SearchPanel::Try3dModeCmd`](../qt/search_panel.cpp).
 
 ### Information
 
-- `?debug-info`: Show renderer version, zoom scale and FPS counter in the top left corner of the map.
+- `?debug-info`: Show renderer version, zoom scale and FPS counter in the top left corner of the map. Android Debug builds also show the app version (date/build number) before the renderer/scale/FPS counters.
 - `?debug-info-always`: Same as `?debug-info`, but persists across restarts.
 - `?no-debug-info`: Disables the debug info.
 - `?debug-rect`: Shows boxes around icons and labels. When the icon/label is shown, the box is green. When the icon/label cannot be shown, the box is red with a blue arrow indicating which icon/label prevents rendering. When the icon/label is not ready for display, the box is yellow (check the `Update` method of [`dp::OverlayHandle`](../drape/overlay_handle.hpp) and derived classes for more information).
@@ -58,6 +58,9 @@ All the following commands require an app restart:
 - `?eclear`: Clears the locally stored list of edits. Warning: all local changes that are not yet uploaded to OpenStreetMap.org will be lost! Everything that was already uploaded to OSM stays there untouched.
 
 ## Routing
+
+Android Debug builds add a **Copy** button to routing error dialogs. It copies a snapshot of all route coordinates, the routing mode and error code, app and Android versions, device model, and map regions/download status. The map catalog date identifies the catalog, not each installed map's version. Copying keeps the dialog open, so the report can be pasted into a bug report or chat.
+
 
 - `?debug-cam`: Force-enables speed cameras in all countries.
 - `?no-debug-cam`: Reverts speed camera setting to default.

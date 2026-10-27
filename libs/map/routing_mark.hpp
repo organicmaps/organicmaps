@@ -266,6 +266,21 @@ RoadWarningMarkType ChooseRoadWarning(routing::RoutingOptions options, routing::
 // The caller decides whether to signal available routing options. Steps/gate/lift_gate are not avoidable.
 bool IsAvoidableRoadWarning(RoadWarningMarkType type);
 
+// Exit or re-entry of an internal walking transfer on a Water route.
+class WaterTransferMark : public UserMark
+{
+public:
+  explicit WaterTransferMark(m2::PointD const & point);
+
+  bool IsAvailableForSearch() const override { return false; }
+  bool SymbolIsPOI() const override { return true; }
+  df::DepthLayer GetDepthLayer() const override { return df::DepthLayer::RoutingBottomMarkLayer; }
+  uint16_t GetPriority() const override { return static_cast<uint16_t>(Priority::TransitTransfer); }
+  df::SpecialDisplacement GetDisplacement() const override { return df::SpecialDisplacement::SpecialModeUserMark; }
+  drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
+  drape_ptr<ColoredSymbolZoomInfo> GetColoredSymbols() const override;
+};
+
 /// \brief ETA balloon attached to a route variant (active or alternative). Tappable so the user can
 /// swap the active route by tapping its balloon. The pivot (m_ptOrg) sits on the route polyline.
 class RouteAltMark : public UserMark

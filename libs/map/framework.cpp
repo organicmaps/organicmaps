@@ -60,6 +60,7 @@
 #include "geometry/distance_on_sphere.hpp"
 #include "geometry/latlon.hpp"
 #include "geometry/mercator.hpp"
+#include "geometry/parametrized_segment.hpp"
 #include "geometry/rect2d.hpp"
 
 #include "base/checked_cast.hpp"
@@ -2626,6 +2627,33 @@ place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & bui
       {
         sp.FillFeatureInfo(bestFeature, outInfo);
         outInfo.SetMercator(buildInfo.m_mercator);
+        if (m_routingManager.GetRouter() == routing::RouterType::Water)
+        {
+          m_featuresFetcher.GetDataSource().ReadFeature([&](FeatureType & feature)
+          {
+            static ftypes::BaseCheckerEx const waterways({{"waterway", "river"},
+                                                          {"waterway", "canal"},
+                                                          {"waterway", "stream"},
+                                                          {"waterway", "ditch"},
+                                                          {"waterway", "drain"},
+                                                          {"waterway", "fish_pass"}});
+            if (feature.GetGeomType() != feature::GeomType::Line || !waterways(feature::TypesHolder(feature)))
+              return;
+            auto const & points = feature.GetPoints(FeatureType::BEST_GEOMETRY);
+            double distance = std::numeric_limits<double>::max();
+            for (size_t i = 1; i < points.size(); ++i)
+            {
+              auto const projected =
+                  m2::ParametrizedSegment<m2::PointD>(points[i - 1], points[i]).ClosestPointTo(buildInfo.m_mercator);
+              auto const candidate = (projected - buildInfo.m_mercator).SquaredLength();
+              if (candidate < distance)
+              {
+                distance = candidate;
+                outInfo.SetMercator(projected);
+              }
+            }
+          }, bestFeature);
+        }
       }
       else
       {

@@ -3,6 +3,7 @@
 #include "storage/country_decl.hpp"
 
 #include "indexer/feature.hpp"
+#include "indexer/scales.hpp"
 
 #include "coding/geometry_coding.hpp"
 #include "coding/read_write_utils.hpp"
@@ -11,6 +12,8 @@
 #include "geometry/region2d.hpp"
 
 #include "base/logging.hpp"
+
+#include <boost/polygon/polygon.hpp>
 
 namespace storage
 {
@@ -229,6 +232,80 @@ bool CountryInfoReader::HasRegionTriangles() const
   return m_reader.IsExist("t0");
 }
 
+bool CountryInfoReader::IsRectCoveredByRegion(CountryId const & countryId, m2::RectD const & rect) const
+{
+  auto const id = GetRegionId(countryId);
+  if (id == kInvalidId)
+    return false;
+  // Match the simplification scale in generator/borders.cpp and keep a margin
+  // around packed borders. This describes map regions, not original OSM coverage.
+  auto proof = rect;
+  auto const margin = 2 * scales::GetEpsilonForSimplify(10);
+  proof.Inflate(margin, margin);
+  return WithRegion(id, [&](std::vector<m2::RegionD> const & regions)
+  {
+    bool inside = false;
+    for (auto const & region : regions)
+    {
+      inside = inside || (region.Contains(proof.LeftBottom()) && region.Contains(proof.LeftTop()) &&
+                          region.Contains(proof.RightBottom()) && region.Contains(proof.RightTop()));
+      auto const & points = region.Data();
+      for (size_t i = 0; i < points.size(); ++i)
+        if (proof.IsIntersect(m2::RectD(points[i], points[(i + 1) % points.size()])))
+          return false;
+    }
+    return inside;
+  });
+}
+
+bool CountryInfoReader::IsRectCoveredByRegions(std::vector<CountryId> const & countries, m2::RectD const & rect) const
+{
+  if (countries.empty())
+    return false;
+  if (countries.size() == 1)
+    return IsRectCoveredByRegion(countries.front(), rect);
+  auto proof = rect;
+  auto const margin = 2 * scales::GetEpsilonForSimplify(10);
+  proof.Inflate(margin, margin);
+  if (!mercator::Bounds::FullRect().IsRectInside(proof))
+    return false;
+  using Coord = int32_t;
+  using namespace boost::polygon;
+  polygon_set_data<Coord> covered;
+  for (auto const & country : countries)
+  {
+    auto const id = GetRegionId(country);
+    if (id == kInvalidId)
+      return false;
+    WithRegion(id, [&](std::vector<m2::RegionD> const & regions)
+    {
+      for (auto const & region : regions)
+      {
+        if (!region.GetRect().IsIntersect(proof))
+          continue;
+        std::vector<point_data<Coord>> points;
+        for (auto const & point : region.Data())
+        {
+          auto const encoded = PointDToPointU(point, kPointCoordBits);
+          points.emplace_back(encoded.x, encoded.y);
+        }
+        polygon_data<Coord> polygon;
+        set_points(polygon, points.begin(), points.end());
+        covered.insert(polygon);
+      }
+    });
+  }
+  // Use the packed-border coordinate lattice and round the proof outwards.
+  // Subtracting the union preserves holes and does not treat shared seams as gaps.
+  auto const low = PointDToPointU(proof.LeftBottom(), kPointCoordBits);
+  auto const high = PointDToPointU(proof.RightTop(), kPointCoordBits);
+  polygon_set_data<Coord> missing;
+  missing.insert(rectangle_data<Coord>(static_cast<Coord>(low.x) - 1, static_cast<Coord>(low.y) - 1,
+                                       static_cast<Coord>(high.x) + 1, static_cast<Coord>(high.y) + 1));
+  using namespace boost::polygon::operators;
+  missing -= covered;
+  return missing.empty();
+}
 void CountryInfoReader::GetTriangles(RegionId id, FeatureType & ft) const
 {
   std::lock_guard lock(m_readerMutex);

@@ -36,7 +36,7 @@ public final class RoutingOptions
   public static boolean hasSettings(@NonNull Router router)
   {
     // Transit still offers global route optimization; Ruler preserves the measured point order.
-    return router != Router.Ruler;
+    return router != Router.Ruler && router != Router.Water;
   }
 
   public static boolean hasAnyOptions(@NonNull Router router)

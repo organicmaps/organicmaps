@@ -70,6 +70,8 @@ target_link_libraries(${PROJECT_NAME}
     coding
     mwm_diff
     glaze::glaze
+  PRIVATE
+    Boost::headers
 )
 
 omim_add_test_subdirectory(storage_tests)

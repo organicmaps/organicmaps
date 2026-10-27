@@ -172,7 +172,7 @@ struct GeoNavigationToOMURLConverter {
 
     // Ruler is not a navigation mode supported by the route URL API.
     let routingType = MWMRouter.type()
-    let navigationType: MWMRouterType = routingType == .ruler ? .vehicle : routingType
+    let navigationType: MWMRouterType = (routingType == .ruler || routingType == .water) ? .vehicle : routingType
     items.append(URLQueryItem(name: OMQueryKey.routerType, value: MWMRouter.string(from: navigationType)))
     urlComponents.queryItems = items.isEmpty ? nil : items
     return urlComponents.url

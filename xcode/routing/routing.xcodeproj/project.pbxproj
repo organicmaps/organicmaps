@@ -89,7 +89,13 @@
 		4443DC3722789793000C8E32 /* leaps_postprocessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4443DC3522789793000C8E32 /* leaps_postprocessor.cpp */; };
 		4443DC3822789793000C8E32 /* leaps_postprocessor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4443DC3622789793000C8E32 /* leaps_postprocessor.hpp */; };
 		44642D2D29CDA44700F8813A /* ruler_router.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 44642D2B29CDA44600F8813A /* ruler_router.hpp */; };
+		48C4E49338E353F68695E3DE /* water_router.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 7EC685F5A3C95C2ABE3D413B /* water_router.hpp */; };
+		2AAA3506D46A5A9CB65B8E55 /* water_geometry_provider.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 14417E1E8C1D51D6B543259E /* water_geometry_provider.hpp */; };
+		E8C83060BF255FCA95E2D39A /* water_geometry.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 1FE791F58F5D5BDE865A3BF0 /* water_geometry.hpp */; };
 		44642D2E29CDA44700F8813A /* ruler_router.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44642D2C29CDA44700F8813A /* ruler_router.cpp */; };
+		1C8ECAA9A21C5DE585FF77AB /* water_router.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0BFBE5D8DC6F5F7DA691E5D7 /* water_router.cpp */; };
+		BEEF5C727B815C359F7B8038 /* water_geometry_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 207050AF400B515FA808B7AC /* water_geometry_provider.cpp */; };
+		62014E18592E556BA689D2A3 /* water_geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6B604CF0ABC1599687EC6F9F /* water_geometry.cpp */; };
 		44A95C71225F6A4F00C22F4F /* astar_graph.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 44A95C6F225F6A4F00C22F4F /* astar_graph.hpp */; };
 		44A95C72225F6A4F00C22F4F /* astar_progress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44A95C70225F6A4F00C22F4F /* astar_progress.cpp */; };
 		44AE4A12214FBB8E006321F5 /* speed_camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44AE4A10214FBB8D006321F5 /* speed_camera.cpp */; };
@@ -357,7 +363,13 @@
 		4443DC3522789793000C8E32 /* leaps_postprocessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = leaps_postprocessor.cpp; sourceTree = "<group>"; };
 		4443DC3622789793000C8E32 /* leaps_postprocessor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = leaps_postprocessor.hpp; sourceTree = "<group>"; };
 		44642D2B29CDA44600F8813A /* ruler_router.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ruler_router.hpp; sourceTree = "<group>"; };
+		7EC685F5A3C95C2ABE3D413B /* water_router.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = water_router.hpp; sourceTree = "<group>"; };
+		14417E1E8C1D51D6B543259E /* water_geometry_provider.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = water_geometry_provider.hpp; sourceTree = "<group>"; };
+		1FE791F58F5D5BDE865A3BF0 /* water_geometry.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = water_geometry.hpp; sourceTree = "<group>"; };
 		44642D2C29CDA44700F8813A /* ruler_router.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ruler_router.cpp; sourceTree = "<group>"; };
+		0BFBE5D8DC6F5F7DA691E5D7 /* water_router.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = water_router.cpp; sourceTree = "<group>"; };
+		207050AF400B515FA808B7AC /* water_geometry_provider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = water_geometry_provider.cpp; sourceTree = "<group>"; };
+		6B604CF0ABC1599687EC6F9F /* water_geometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = water_geometry.cpp; sourceTree = "<group>"; };
 		448FD3F2228B1BC500180D90 /* bfs_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bfs_tests.cpp; sourceTree = "<group>"; };
 		44A95C6F225F6A4F00C22F4F /* astar_graph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = astar_graph.hpp; path = base/astar_graph.hpp; sourceTree = "<group>"; };
 		44A95C70225F6A4F00C22F4F /* astar_progress.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = astar_progress.cpp; sourceTree = "<group>"; };
@@ -803,7 +815,13 @@
 				670EE55C1B6001E7001E8064 /* routing_settings.hpp */,
 				0C45D7381F2F75500065C3ED /* routing_settings.cpp */,
 				44642D2B29CDA44600F8813A /* ruler_router.hpp */,
+				7EC685F5A3C95C2ABE3D413B /* water_router.hpp */,
+				14417E1E8C1D51D6B543259E /* water_geometry_provider.hpp */,
+				1FE791F58F5D5BDE865A3BF0 /* water_geometry.hpp */,
 				44642D2C29CDA44700F8813A /* ruler_router.cpp */,
+				0BFBE5D8DC6F5F7DA691E5D7 /* water_router.cpp */,
+				207050AF400B515FA808B7AC /* water_geometry_provider.cpp */,
+				6B604CF0ABC1599687EC6F9F /* water_geometry.cpp */,
 				0C470E6F1E0D4EB1005B824D /* segment.hpp */,
 				441CC8C523ACF42C008B9A49 /* segment.cpp */,
 				0C81E1561F0258AA00DC66DF /* segmented_route.hpp */,
@@ -928,6 +946,9 @@
 				40576F781F7A788B000B593B /* fake_vertex.hpp in Headers */,
 				670EE5741B664796001E8064 /* pedestrian_directions.hpp in Headers */,
 				44642D2D29CDA44700F8813A /* ruler_router.hpp in Headers */,
+				48C4E49338E353F68695E3DE /* water_router.hpp in Headers */,
+				2AAA3506D46A5A9CB65B8E55 /* water_geometry_provider.hpp in Headers */,
+				E8C83060BF255FCA95E2D39A /* water_geometry.hpp in Headers */,
 				56CBED5522E9CE2600D51AF7 /* position_accumulator.hpp in Headers */,
 				5694CECB1EBA25F7004576D3 /* road_access_serialization.hpp in Headers */,
 				0C08AA371DF8324D004195DD /* vehicle_mask.hpp in Headers */,
@@ -1191,6 +1212,9 @@
 				0C5FEC641DDE192A0017688C /* joint.cpp in Sources */,
 				0C090C871E4E276700D52AFD /* world_graph.cpp in Sources */,
 				44642D2E29CDA44700F8813A /* ruler_router.cpp in Sources */,
+				1C8ECAA9A21C5DE585FF77AB /* water_router.cpp in Sources */,
+				BEEF5C727B815C359F7B8038 /* water_geometry_provider.cpp in Sources */,
+				62014E18592E556BA689D2A3 /* water_geometry.cpp in Sources */,
 				44C56C0B22296498006C2A1D /* routing_options.cpp in Sources */,
 				D526BA7A241FC5580076E0B0 /* guides_connections.cpp in Sources */,
 				ACAE44A427426EDB0054DD15 /* junction_visitor.cpp in Sources */,
