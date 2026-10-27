@@ -1206,13 +1206,10 @@ void KmlParser::Pop(std::string_view tag)
   else if ((tag == "LineStyle" && m_tags.size() > 2 && GetTagFromEnd(2) == kPlacemark) ||
            (tag == "mwm:additionalLineStyle" && m_tags.size() > 3 && GetTagFromEnd(3) == kPlacemark))
   {
-    // This code assumes that <Style> is stored inside <Placemark>.
-    // It is a violation of KML format, but it must be here to support
-    // loading of KML files which were stored by older versions of OMaps.
+    // Placemark LineStyle and additionalLineStyle elements contribute track layers.
     TrackLayer layer;
     layer.m_lineWidth = m_trackWidth;
-    // Fix wrongly parsed transparent color, see https://github.com/organicmaps/organicmaps/issues/5800
-    // TODO: Remove this fix in 2024 when all users will have their imported GPX files fixed.
+    // Missing or nearly transparent colors need a visible fallback for track display (#5800).
     if (m_color == 0 || (m_color & 0xFF) < 10)
       layer.m_color.m_rgba = kDefaultTrackColor;
     else
