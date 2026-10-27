@@ -74,19 +74,20 @@ void BackgroundDownloaderAdapter::Download(QueuedCountry && queuedCountry)
   std::reverse(urls.begin(), urls.end());
   auto const path = queuedCountry.GetFileDownloadPath();
 
-  // The order is important here: add to the queue first, notify start downloading then.
-  // Infinite recursion possible here, otherwise:
-  // OnStartDownloading -> NotifyStatusChanged -> processCountryEvent -> configDialog (?!)
-  // -> downloadNode for the same country if autodownload enabled -> Download.
-  m_queue.Append(QueuedCountry(queuedCountry));
+  // Queue membership prevents observers from automatically starting the same country twice.
+  auto const lifetime = m_queue.Append(QueuedCountry(queuedCountry));
+  if (lifetime.expired())
+    return;
 
   queuedCountry.OnStartDownloading();
+  if (lifetime.expired())
+    return;
 
-  DownloadFromLastUrl(countryId, path, std::move(urls));
+  DownloadFromLastUrl(countryId, path, std::move(urls), lifetime);
 }
 
 void BackgroundDownloaderAdapter::DownloadFromLastUrl(CountryId const & countryId, std::string const & downloadPath,
-                                                      std::vector<std::string> && urls)
+                                                      std::vector<std::string> && urls, std::weak_ptr<int> lifetime)
 {
   if (urls.empty())
     return;
@@ -95,16 +96,16 @@ void BackgroundDownloaderAdapter::DownloadFromLastUrl(CountryId const & countryI
   assert(url != nil);
   urls.pop_back();
 
-  auto onFinish = [this, countryId, downloadPath, urls = std::move(urls)](NSError * error) mutable
+  auto onFinish = [this, countryId, downloadPath, urls = std::move(urls), lifetime](NSError * error) mutable
   {
     downloader::DownloadStatus status = error ? [error toDownloaderError] : downloader::DownloadStatus::Completed;
 
-    if (!m_queue.Contains(countryId))
+    if (lifetime.expired())
       return;
 
     if (status == downloader::DownloadStatus::Failed && !urls.empty())
     {
-      DownloadFromLastUrl(countryId, downloadPath, std::move(urls));
+      DownloadFromLastUrl(countryId, downloadPath, std::move(urls), lifetime);
     }
     else
     {
@@ -114,12 +115,12 @@ void BackgroundDownloaderAdapter::DownloadFromLastUrl(CountryId const & countryI
     }
   };
 
-  auto onProgress = [this, countryId](int64_t totalWritten, int64_t totalExpected)
+  auto onProgress = [this, countryId, lifetime](int64_t totalWritten, int64_t totalExpected)
   {
-    if (!m_queue.Contains(countryId))
+    if (lifetime.expired())
       return;
 
-    auto const & country = m_queue.GetCountryById(countryId);
+    auto const country = m_queue.GetCountryById(countryId);
     country.OnDownloadProgress({totalWritten, totalExpected});
   };
 

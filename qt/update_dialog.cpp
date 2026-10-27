@@ -491,11 +491,9 @@ void UpdateDialog::OnCountryChanged(CountryId const & countryId)
 {
   UpdateRowWithCountryInfo(countryId);
 
-  // Now core does not support callbacks about parent country change, therefore emulate it.
-  auto const items = GetTreeItemsByCountryId(countryId);
-  for (auto const item : items)
-    for (auto p = item->parent(); p != nullptr; p = p->parent())
-      UpdateRowWithCountryInfo(GetCountryIdByTreeItem(p));
+  // Storage reports intermediate ancestors but omits the root.
+  if (GetStorage().IsLeaf(countryId))
+    UpdateRowWithCountryInfo(GetStorage().GetRootId());
 }
 
 void UpdateDialog::OnCountryDownloadProgress(CountryId const & countryId, downloader::Progress const & progress)

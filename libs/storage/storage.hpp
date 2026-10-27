@@ -264,6 +264,9 @@ private:
   /// during the downloading process.
   void OnDownloadProgress(QueuedCountry const & queuedCountry, downloader::Progress const & progress) override;
 
+  // Returns whether the attempt survived its subscriber notifications.
+  bool StartDownloading(QueuedCountry const & queuedCountry);
+
   void RegisterDownloadedFiles(CountryId const & countryId, MapFileType type);
 
   void OnMapDownloadFinished(CountryId const & countryId, downloader::DownloadStatus status, MapFileType type);

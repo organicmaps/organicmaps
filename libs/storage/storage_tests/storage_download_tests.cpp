@@ -27,6 +27,7 @@
 #include <memory>
 #include <string>
 #include <utility>
+#include <vector>
 
 namespace storage_download_tests
 {
@@ -534,6 +535,108 @@ UNIT_CLASS_TEST(StorageDownloadTest, CancelRestoredFileFromStartCallback)
   TEST(!didDownload, ());
   TEST(!storage.IsDownloadInProgress(), ());
   TEST_EQUAL(storage.CountryStatusEx(kWest), Status::NotDownloaded, ());
+}
+
+UNIT_CLASS_TEST(StorageDownloadTest, RetryRestoredFileFromStartCallback)
+{
+  for (bool const integrityValidation : {false, true})
+  {
+    size_t started = 0;
+    size_t downloaded = 0;
+    Storage storage(CountriesJson(), std::make_unique<TestMapFilesDownloader>());
+    InitStorage(storage, [&](CountryId const &, LocalFilePtr const)
+    {
+      ++downloaded;
+      testing::StopEventLoop();
+    });
+    storage.SetEnabledIntegrityValidationForTesting(integrityValidation);
+    SeedReadyFile(storage);
+    storage.SetStartDownloadingCallback([&]()
+    {
+      if (++started == 1)
+      {
+        storage.CancelDownloadNode(kWest);
+        storage.DownloadNode(kWest);
+      }
+    });
+    storage.DownloadNode(kWest);
+    TEST_EQUAL(started, 2, (integrityValidation));
+    TEST_EQUAL(storage.CountryStatusEx(kWest), Status::Downloading, (integrityValidation));
+    testing::RunEventLoop();
+    TEST_EQUAL(downloaded, 1, (integrityValidation));
+    TestDownloadedMap(storage, kWest);
+    storage.DeleteNode(kWest);
+  }
+}
+
+UNIT_CLASS_TEST(StorageDownloadTest, GroupProgressCountsDisputedMapOnce)
+{
+  auto const west = MakeLeaf(kWest, SyntheticHash(kWest));
+  auto const json = R"({"id":"Countries","v":)" + strings::to_string(version::FOR_TESTING_MWM1) +
+                    R"(,"g":[{"id":"Wonderland","g":[)" + west + "," + MakeLeaf(kEast, SyntheticHash(kEast)) +
+                    R"(]},{"id":"Otherland","g":[)" + west + "]}]}";
+  Storage storage(json, std::make_unique<TestMapFilesDownloader>());
+  downloader::Progress progress;
+  int64_t leafDownloaded = 0;
+  InitStorage(storage, [](CountryId const &, LocalFilePtr const) {}, [](CountryId const &) {},
+              [&](CountryId const & countryId, downloader::Progress const & leafProgress)
+  {
+    if (countryId != kWest || leafDownloaded != 0)
+      return;
+    leafDownloaded = leafProgress.m_bytesDownloaded;
+    NodeAttrs attrs;
+    storage.GetNodeAttrs(storage.GetRootId(), attrs);
+    progress = attrs.m_downloadingProgress;
+    testing::StopEventLoop();
+  });
+  storage.DownloadNode(storage.GetRootId());
+  testing::RunEventLoop();
+  storage.Clear();
+  TEST_GREATER(leafDownloaded, 0, ());
+  TEST_EQUAL(progress.m_bytesDownloaded, leafDownloaded, ());
+  TEST_EQUAL(progress.m_bytesTotal, static_cast<int64_t>(SyntheticSize(kWest) + SyntheticSize(kEast)), ());
+}
+
+UNIT_CLASS_TEST(StorageDownloadTest, CancelFromProgressObserver)
+{
+  for (auto const & cancelId : {kWest, kGroup})
+  {
+    for (bool const retry : {false, true})
+    {
+      Storage storage(CountriesJson(), std::make_unique<TestMapFilesDownloader>());
+      bool cancelled = false;
+      InitStorage(storage, [](CountryId const &, LocalFilePtr const) {}, [](CountryId const &) {},
+                  [&](CountryId const & countryId, downloader::Progress const &)
+      {
+        if (countryId != cancelId || cancelled)
+          return;
+        cancelled = true;
+        storage.CancelDownloadNode(cancelId);
+        if (retry)
+        {
+          // A 404 replacement creates a new attempt without adding its own progress notifications.
+          storage.SetDownloadingServersForTesting({"http://localhost:24568/not-found/"});
+          storage.DownloadNode(kWest);
+        }
+      });
+      CountriesVec notified;
+      storage.Subscribe([](CountryId const &) {},
+                        [&](CountryId const & countryId, downloader::Progress const & progress)
+      {
+        TEST_GREATER(progress.m_bytesDownloaded, 0, (countryId, retry));
+        TEST_GREATER(progress.m_bytesTotal, 0, (countryId, retry));
+        notified.push_back(countryId);
+        if (countryId == cancelId)
+          testing::StopEventLoop();
+      });
+      storage.DownloadNode(kWest);
+      testing::RunEventLoop();
+      storage.Clear();
+      TEST(cancelled, (cancelId, retry));
+      auto const expected = cancelId == kWest ? CountriesVec{kWest} : CountriesVec{kWest, kGroup};
+      TEST_EQUAL(notified, expected, (cancelId, retry));
+    }
+  }
 }
 
 UNIT_CLASS_TEST(StorageDownloadTest, DownloadWithoutHash)

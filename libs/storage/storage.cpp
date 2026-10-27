@@ -615,7 +615,9 @@ void Storage::DownloadCountry(CountryId const & countryId, MapFileType type)
 
   if (HasDownloadedFile(GetFileDownloadPath(countryId, type), type))
   {
-    OnStartDownloading(queuedCountry);
+    // Subscribers may synchronously replace the operation under the same country ID.
+    if (!StartDownloading(queuedCountry))
+      return;
     SaveDownloadQueue();
     OnDownloadFinished(queuedCountry, DownloadStatus::Completed);
     return;
@@ -733,14 +735,21 @@ void Storage::ReportProgress(CountryId const & countryId, Progress const & p)
 
 void Storage::ReportProgressForHierarchy(CountryId const & countryId, Progress const & leafProgress)
 {
+  std::weak_ptr<int> const lifetime = m_downloadingCountries.at(countryId).m_lifetime;
   // Reporting progress for a leaf in country tree.
   ReportProgress(countryId, leafProgress);
+  if (lifetime.expired())
+    return;
 
   // Precompute once instead of rebuilding per ancestor.
   auto const mwmsInQueue = GetQueuedCountries(m_downloader->GetQueue());
 
   auto calcProgress = [&](CountryId const & parentId, CountryTree::Node const & parentNode)
-  { ReportProgress(parentId, CalculateProgress(parentNode, mwmsInQueue)); };
+  {
+    // Cancellation or a same-country retry invalidates this attempt's remaining notifications.
+    if (!lifetime.expired())
+      ReportProgress(parentId, CalculateProgress(parentNode, mwmsInQueue));
+  };
 
   ForEachAncestorExceptForTheRoot(countryId, calcProgress);
 }
@@ -755,13 +764,22 @@ void Storage::OnCountryInQueue(QueuedCountry const & queuedCountry)
 
 void Storage::OnStartDownloading(QueuedCountry const & queuedCountry)
 {
+  StartDownloading(queuedCountry);
+}
+
+bool Storage::StartDownloading(QueuedCountry const & queuedCountry)
+{
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  VERIFY(m_downloadingCountries.try_emplace(queuedCountry.GetCountryId()).second, (queuedCountry.GetCountryId()));
+  auto const [it, inserted] = m_downloadingCountries.try_emplace(queuedCountry.GetCountryId());
+  VERIFY(inserted, (queuedCountry.GetCountryId()));
+  std::weak_ptr<int> const lifetime = it->second.m_lifetime;
   if (m_startDownloadingCallback)
     m_startDownloadingCallback();
 
-  NotifyStatusChangedForHierarchy(queuedCountry.GetCountryId());
+  if (!lifetime.expired())
+    NotifyStatusChangedForHierarchy(queuedCountry.GetCountryId());
+  return !lifetime.expired();
 }
 
 void Storage::OnDownloadProgress(QueuedCountry const & queuedCountry, Progress const & progress)
@@ -1844,34 +1862,31 @@ void Storage::DoClickOnDownloadMap(CountryId const & countryId)
 
 Progress Storage::CalculateProgress(CountryTree::Node const & subtreeRoot, CountriesSet const & mwmsInQueue) const
 {
-  // Iterates the subtree directly, avoiding intermediate string-copy vectors.
-  // Only leaf country IDs will match download/queue/justDownloaded sets;
-  // group node IDs are silently skipped by the lookups.
-
   Progress result;
+  CountriesSet visited;
 
   subtreeRoot.ForEachInSubtree([&](CountryTree::Node const & node)
   {
+    if (!node.IsLeaf())
+      return;
     auto const & d = node.Value().Name();
-
     auto const downloadingIt = m_downloadingCountries.find(d);
+    bool const inQueue = mwmsInQueue.contains(d);
+    if (downloadingIt == m_downloadingCountries.cend() && !inQueue && !m_justDownloaded.contains(d))
+      return;
+
+    // Disputed maps occur under each parent; only track leaves contributing to progress.
+    if (!visited.insert(d).second)
+      return;
+    auto const size = GetRemoteSize(node.Value().GetFile());
+    result.m_bytesTotal += size;
     if (downloadingIt != m_downloadingCountries.cend())
     {
       if (!downloadingIt->second.m_progress.IsUnknown())
         result.m_bytesDownloaded += downloadingIt->second.m_progress.m_bytesDownloaded;
-
-      result.m_bytesTotal += GetRemoteSize(GetCountryFile(d));
     }
-    else if (mwmsInQueue.count(d) != 0)
-    {
-      result.m_bytesTotal += GetRemoteSize(GetCountryFile(d));
-    }
-    else if (m_justDownloaded.count(d) != 0)
-    {
-      MwmSize const localCountryFileSz = GetRemoteSize(GetCountryFile(d));
-      result.m_bytesDownloaded += localCountryFileSz;
-      result.m_bytesTotal += localCountryFileSz;
-    }
+    else if (!inQueue)
+      result.m_bytesDownloaded += size;
   });
 
   return result;

@@ -9,5 +9,8 @@ class GuiThread : public base::TaskLoop
 public:
   PushResult Push(Task && task) override;
   PushResult Push(Task const & task) override;
+
+  // Always queues the task, including when called on the GUI thread.
+  PushResult PushDeferred(Task && task);
 };
 }  // namespace platform

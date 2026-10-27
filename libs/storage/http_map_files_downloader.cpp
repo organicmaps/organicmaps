@@ -34,9 +34,11 @@ void HttpMapFilesDownloader::Download(QueuedCountry && queuedCountry)
 {
   CHECK_THREAD_CHECKER(m_checker, ());
 
+  bool const wasEmpty = m_queue.IsEmpty();
   m_queue.Append(std::move(queuedCountry));
 
-  if (m_queue.Count() == 1)
+  // Queue notifications may already have started a replacement.
+  if (wasEmpty && !m_queue.IsEmpty() && !m_request)
     Download();
 }
 
@@ -51,7 +53,7 @@ void HttpMapFilesDownloader::Download()
   auto const path = queuedCountry.GetFileDownloadPath();
   auto const size = queuedCountry.GetDownloadSize();
 
-  m_request.reset();
+  ASSERT(!m_request, (queuedCountry.GetCountryId()));
 
   if (IsDownloadingAllowed())
   {
@@ -68,12 +70,12 @@ void HttpMapFilesDownloader::Download()
         urls, path, size, std::bind(&HttpMapFilesDownloader::OnMapFileDownloaded, this, queuedCountry, _1),
         std::bind(&HttpMapFilesDownloader::OnMapFileDownloadingProgress, this, queuedCountry, _1),
         false /* doCleanOnCancel */));
+    if (m_request)
+      return;
   }
-  else
-  {
-    ErrorHttpRequest error(path);
-    OnMapFileDownloaded(queuedCountry, error);
-  }
+
+  ErrorHttpRequest error(path);
+  OnMapFileDownloaded(queuedCountry, error);
 }
 
 void HttpMapFilesDownloader::Remove(CountryId const & id)
@@ -127,13 +129,12 @@ void HttpMapFilesDownloader::OnMapFileDownloaded(QueuedCountry const & queuedCou
   if (m_queue.IsEmpty() || m_queue.GetFirstId() != queuedCountry.GetCountryId())
     return;
 
+  auto const status = request.GetStatus();
   m_queue.PopFront();
-
-  queuedCountry.OnDownloadFinished(request.GetStatus());
-
   m_request.reset();
+  queuedCountry.OnDownloadFinished(status);
 
-  if (!m_queue.IsEmpty())
+  if (!m_queue.IsEmpty() && !m_request)
     Download();
 }
 
@@ -146,7 +147,9 @@ void HttpMapFilesDownloader::OnMapFileDownloadingProgress(QueuedCountry const & 
   if (m_queue.IsEmpty() || m_queue.GetFirstId() != queuedCountry.GetCountryId())
     return;
 
-  queuedCountry.OnDownloadProgress(request.GetProgress());
+  // A subscriber can destroy the request before the remaining subscribers read progress.
+  auto const progress = request.GetProgress();
+  queuedCountry.OnDownloadProgress(progress);
 }
 
 std::unique_ptr<MapFilesDownloader> GetDownloader()

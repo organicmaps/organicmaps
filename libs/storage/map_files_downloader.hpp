@@ -32,21 +32,17 @@ public:
 
   virtual ~MapFilesDownloader();
 
-  /// Asynchronously downloads a map file, periodically invokes
-  /// onProgress callback and finally invokes onDownloaded
-  /// callback. Both callbacks will be invoked on the main thread.
+  /// Downloads a map file and notifies its subscriber on the main thread.
+  /// Queue, start and failure notifications may run synchronously.
   void DownloadMapFile(QueuedCountry && queuedCountry);
 
-  // Removes item from m_quarantine queue when list of servers is not received.
-  // Parent method must be called into override method.
+  // Removes requests waiting for the server list. Overrides must call this implementation too.
   virtual void Remove(CountryId const & id);
 
-  // Clears m_quarantine queue when list of servers is not received.
-  // Parent method must be called into override method.
+  // Clears requests waiting for the server list. Overrides must call this implementation too.
   virtual void Clear();
 
-  // Returns m_quarantine queue when list of servers is not received.
-  // Parent method must be called into override method.
+  // Returns requests waiting for the server list.
   virtual QueueInterface const & GetQueue() const;
 
   /**
@@ -80,11 +76,7 @@ protected:
   downloader::MetaConfig LoadMetaConfig() const;
 
 private:
-  /**
-   * @brief This method is blocking and should be called on network thread.
-   * Default implementation receives a list of all servers that can be asked
-   * for a map file and invokes callback on the main thread.
-   */
+  // Loads the server configuration on the network thread.
   virtual downloader::MetaConfig GetMetaConfig();
   /// Asynchronously downloads the file and saves result to provided directory.
   virtual void Download(QueuedCountry && queuedCountry) = 0;
@@ -99,13 +91,12 @@ private:
   ServersList m_serversList;
   int64_t m_dataVersion = 0;
 
-  /// Used as guard for m_serversList assign.
+  /// Suppresses duplicate requests for the current server-list generation.
   std::atomic_bool m_isMetaConfigRequested = false;
 
   DownloadingPolicy * m_downloadingPolicy = nullptr;
 
-  // This queue accumulates download requests before
-  // the servers list is received on the network thread.
+  // Requests waiting for the server list.
   Queue m_pendingRequests;
 
   // Shared alive flag for safe async lambda capture. Set to false in destructor.

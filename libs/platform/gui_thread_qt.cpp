@@ -3,6 +3,7 @@
 #include <utility>
 
 #include <QtCore/QCoreApplication>
+#include <QtCore/QMetaObject>
 
 namespace platform
 {
@@ -24,5 +25,10 @@ base::TaskLoop::PushResult GuiThread::Push(Task const & task)
   QObject::connect(&source, &QObject::destroyed, QCoreApplication::instance(), task);
 
   return {true, base::TaskLoop::kNoId};
+}
+
+base::TaskLoop::PushResult GuiThread::PushDeferred(Task && task)
+{
+  return {QMetaObject::invokeMethod(QCoreApplication::instance(), std::move(task), Qt::QueuedConnection), kNoId};
 }
 }  // namespace platform

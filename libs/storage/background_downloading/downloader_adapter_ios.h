@@ -16,12 +16,12 @@ public:
   QueueInterface const & GetQueue() const override;
 
 private:
-  // MapFilesDownloaderWithServerList overrides:
+  // MapFilesDownloader overrides:
   void Download(QueuedCountry && queuedCountry) override;
 
-  // Trying to download mwm from different servers recursively.
+  // Retries mirrors only while this queue entry is still active.
   void DownloadFromLastUrl(CountryId const & countryId, std::string const & downloadPath,
-                           std::vector<std::string> && urls);
+                           std::vector<std::string> && urls, std::weak_ptr<int> lifetime);
 
   BackgroundDownloaderQueue<uint64_t> m_queue;
 };
