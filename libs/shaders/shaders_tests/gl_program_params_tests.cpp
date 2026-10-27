@@ -8,12 +8,6 @@
 #include "drape/drape_tests/testing_graphics_context.hpp"
 #include "drape/gl_functions.hpp"
 
-#include "std/target_os.hpp"
-
-#include <functional>
-
-using namespace std::placeholders;
-
 template <typename ProgramParams>
 void TestProgramParams()
 {
@@ -35,63 +29,56 @@ void TestProgramParams()
 
 UNIT_TEST(MapProgramParams_Test)
 {
-  RunTestInOpenGLOffscreenEnvironment("MapProgramParams_Test", std::bind(&TestProgramParams<gpu::MapProgramParams>));
+  RunTestInOpenGLOffscreenEnvironment("MapProgramParams_Test", &TestProgramParams<gpu::MapProgramParams>);
 }
 
 UNIT_TEST(RouteProgramParams_Test)
 {
-  RunTestInOpenGLOffscreenEnvironment("RouteProgramParams_Test",
-                                      std::bind(&TestProgramParams<gpu::RouteProgramParams>));
+  RunTestInOpenGLOffscreenEnvironment("RouteProgramParams_Test", &TestProgramParams<gpu::RouteProgramParams>);
 }
 
 UNIT_TEST(TrafficProgramParams_Test)
 {
-  RunTestInOpenGLOffscreenEnvironment("TrafficProgramParams_Test",
-                                      std::bind(&TestProgramParams<gpu::TrafficProgramParams>));
+  RunTestInOpenGLOffscreenEnvironment("TrafficProgramParams_Test", &TestProgramParams<gpu::TrafficProgramParams>);
 }
 
 UNIT_TEST(TransitProgramParams_Test)
 {
-  RunTestInOpenGLOffscreenEnvironment("TransitProgramParams_Test",
-                                      std::bind(&TestProgramParams<gpu::TransitProgramParams>));
+  RunTestInOpenGLOffscreenEnvironment("TransitProgramParams_Test", &TestProgramParams<gpu::TransitProgramParams>);
 }
 
 UNIT_TEST(GuiProgramParams_Test)
 {
-  RunTestInOpenGLOffscreenEnvironment("GuiProgramParams_Test", std::bind(&TestProgramParams<gpu::GuiProgramParams>));
+  RunTestInOpenGLOffscreenEnvironment("GuiProgramParams_Test", &TestProgramParams<gpu::GuiProgramParams>);
 }
 
 UNIT_TEST(ShapesProgramParams_Test)
 {
-  RunTestInOpenGLOffscreenEnvironment("ShapesProgramParams_Test",
-                                      std::bind(&TestProgramParams<gpu::ShapesProgramParams>));
+  RunTestInOpenGLOffscreenEnvironment("ShapesProgramParams_Test", &TestProgramParams<gpu::ShapesProgramParams>);
 }
 
 UNIT_TEST(Arrow3dProgramParams_Test)
 {
-  RunTestInOpenGLOffscreenEnvironment("Arrow3dProgramParams_Test",
-                                      std::bind(&TestProgramParams<gpu::Arrow3dProgramParams>));
+  RunTestInOpenGLOffscreenEnvironment("Arrow3dProgramParams_Test", &TestProgramParams<gpu::Arrow3dProgramParams>);
 }
 
 UNIT_TEST(DebugRectProgramParams_Test)
 {
-  RunTestInOpenGLOffscreenEnvironment("DebugRectProgramParams_Test",
-                                      std::bind(&TestProgramParams<gpu::DebugRectProgramParams>));
+  RunTestInOpenGLOffscreenEnvironment("DebugRectProgramParams_Test", &TestProgramParams<gpu::DebugRectProgramParams>);
 }
 
 UNIT_TEST(ScreenQuadProgramParams_Test)
 {
-  RunTestInOpenGLOffscreenEnvironment("ScreenQuadProgramParams_Test",
-                                      std::bind(&TestProgramParams<gpu::ScreenQuadProgramParams>));
+  RunTestInOpenGLOffscreenEnvironment("ScreenQuadProgramParams_Test", &TestProgramParams<gpu::ScreenQuadProgramParams>);
 }
 
 UNIT_TEST(TileBackgroundProgramParams_Test)
 {
   RunTestInOpenGLOffscreenEnvironment("TileBackgroundProgramParams_Test",
-                                      std::bind(&TestProgramParams<gpu::TileBackgroundProgramParams>));
+                                      &TestProgramParams<gpu::TileBackgroundProgramParams>);
 }
 
 UNIT_TEST(SMAAProgramParams_Test)
 {
-  RunTestInOpenGLOffscreenEnvironment("SMAAProgramParams_Test", std::bind(&TestProgramParams<gpu::SMAAProgramParams>));
+  RunTestInOpenGLOffscreenEnvironment("SMAAProgramParams_Test", &TestProgramParams<gpu::SMAAProgramParams>);
 }

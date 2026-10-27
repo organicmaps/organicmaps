@@ -31,7 +31,7 @@ extern NSString * const kMap2FBLoginSegue = @"Map2FBLogin";
 extern NSString * const kMap2GoogleLoginSegue = @"Map2GoogleLogin";
 
 static CGFloat kPlacePageCompactWidth = 350;
-static CGFloat kPlacePageLeadingOffset = IPAD ? 20 : 0;
+static CGFloat const kPlacePageLeadingOffset = 20;
 
 typedef NS_ENUM(NSUInteger, UserTouchesAction) {
   UserTouchesActionNone,
@@ -179,7 +179,7 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 
   self.placePageLeadingConstraint =
       [self.placePageContainer.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor
-                                                            constant:kPlacePageLeadingOffset];
+                                                            constant:IPAD ? kPlacePageLeadingOffset : 0];
   if (IPAD)
     self.placePageLeadingConstraint.priority = UILayoutPriorityDefaultLow;
 
@@ -715,12 +715,35 @@ NSString * const kCategorySelectorSegue = @"MapToCategorySelectorSegue";
 #pragma mark - Open controllers
 - (void)openMenu
 {
-  [self.controlsManager.tabBarController onMenuButtonPressed:self];
+  // The menu belongs to the map, so a link that arrives over another screen returns to the map first.
+  // Open it after the pop: viewWillAppear restores the menu state saved when the map was covered.
+  UINavigationController * navigationController = self.navigationController;
+  [navigationController popToRootViewControllerAnimated:YES];
+  id<UIViewControllerTransitionCoordinator> coordinator = navigationController.transitionCoordinator;
+  if (!coordinator)
+  {
+    [self.controlsManager openMenuFromDeepLink];
+    return;
+  }
+  // A link handled during the pop replaces this one, so the menu must not cover its destination.
+  NSURL * url = DeepLinkHandler.shared.url;
+  [coordinator animateAlongsideTransition:nil
+                               completion:^(id<UIViewControllerTransitionCoordinatorContext>) {
+                                 if ([DeepLinkHandler.shared.url isEqual:url])
+                                   [self.controlsManager openMenuFromDeepLink];
+                               }];
 }
 
 - (void)openSettings
 {
-  [self.navigationController pushViewController:[SettingsBuilder buildRoot] animated:YES];
+  // Opening Settings from a link or the menu also closes the menu or layers sheet covering the map.
+  MWMMapViewControlsManager * controlsManager = self.controlsManager;
+  MWMBottomMenuState const menuState = controlsManager.menuState;
+  if (menuState == MWMBottomMenuStateActive || menuState == MWMBottomMenuStateLayers)
+    controlsManager.menuState = controlsManager.menuRestoreState;
+  // Switching apps to open a link outlasts the short menu/Layers animations,
+  // so normal cross-app links need no modal-transition queue.
+  [SettingsBuilder showRootIn:self.navigationController];
 }
 
 - (void)openMapsDownloader:(MWMMapDownloaderMode)mode

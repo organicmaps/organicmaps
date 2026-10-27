@@ -41,7 +41,7 @@ df::LineViewParams MakeRainbowParams(dp::RainbowColors const & colors, float str
 }  // namespace rainbow_line_gpu_test
 
 // Renders rainbow lines through the real GPU shader pipeline using the texture-based approach.
-// On headless Linux, set QT_QPA_PLATFORM=offscreen environment variable.
+// On headless Linux, run the rendering test preset under Xvfb (see docs/INSTALL.md).
 UNIT_TEST(RainbowLineGpuTest)
 {
   using namespace rainbow_line_gpu_test;

@@ -51,8 +51,6 @@ void RenderAndCheck(char const * title, std::string_view hatching)
   });
 
   QImage const & img = fixture.GetLastImage();
-  if (img.isNull())
-    return;  // Headless env without a usable GL context - nothing to assert.
 
   // Blending is straight alpha, so the teal fill over the white clear must land on the white->teal
   // segment: r = 255*(1 - a) and g = b = 255 - 95*a, i.e. g = 255 - 95*(255 - r)/255 whatever the
@@ -96,8 +94,6 @@ void RenderSolidPatternAndCheck(char const * title, std::string_view patternKey)
   });
 
   QImage const & img = fixture.GetLastImage();
-  if (img.isNull())
-    return;  // Headless env without a usable GL context - nothing to assert.
 
   uint32_t fill[2] = {}, dots[2] = {}, opaqueBlack = 0;
   for (int y = 0; y < img.height(); ++y)

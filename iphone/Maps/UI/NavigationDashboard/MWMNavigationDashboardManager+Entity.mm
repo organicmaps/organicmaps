@@ -2,7 +2,7 @@
 #import "MWMNavigationDashboardEntity.h"
 #import "MWMNavigationDashboardManager+Entity.h"
 #import "MWMRouter.h"
-#import "MWMRouterTransitStepInfo.h"
+#import "MWMRouterTransitStepInfo+Core.h"
 #import "SwiftBridge.h"
 
 #import <AudioToolbox/AudioServices.h>
@@ -104,12 +104,6 @@ NSArray<MWMRouterTransitStepInfo *> * buildRouteTransitSteps(NSArray<MWMRoutePoi
   return steps;
 }
 }  // namespace
-
-@interface MWMRouterTransitStepInfo ()
-
-- (instancetype)initWithStepInfo:(TransitStepInfo const &)info;
-
-@end
 
 @interface MWMNavigationDashboardEntity ()
 

@@ -211,7 +211,7 @@ if (WITH_SYSTEM_PROVIDED_3PARTY)
   set(GFLAGS_USE_TARGET_NAMESPACE ON)
   find_package(gflags REQUIRED)
 
-  find_package(expat CONFIG REQUIRED)
+  find_package(expat 2.9.0 CONFIG REQUIRED)
 
   find_package(pugixml REQUIRED)
   find_package(utf8cpp REQUIRED)

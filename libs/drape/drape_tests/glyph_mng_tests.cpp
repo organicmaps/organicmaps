@@ -268,8 +268,7 @@ private:
   std::unique_ptr<dp::GlyphManager> m_mng;
 };
 
-// This unit test creates a window so can't be run in GUI-less Linux machine.
-// Make sure that the QT_QPA_PLATFORM=offscreen environment variable is set.
+// On headless Linux, run the rendering test preset under Xvfb (see docs/INSTALL.md).
 UNIT_TEST(GlyphLoadingTest)
 {
   GlyphRenderer renderer;

@@ -121,7 +121,6 @@ struct SubrouteParams
   TransitType m_transitType = TransitType::Pedestrian;
   double m_prevDistance = 0.0;
   double m_prevTime = 0.0;
-  bool m_pendingEntrance = false;
 };
 
 struct SubrouteSegmentParams
@@ -132,6 +131,7 @@ struct SubrouteSegmentParams
   {}
   int m_time = 0;
   double m_distance = 0.0;
+  double m_startDistanceMerc = 0.0;
   routing::TransitInfo const & m_transitInfo;
   TransitDisplayInfo const & m_displayInfo;
   MwmSet::MwmId m_mwmId;
@@ -147,6 +147,8 @@ public:
                       GetStringsBundleFn const & getStringsBundleFn, BookmarkManager * bmManager,
                       std::map<std::string, m2::PointF> const & transitSymbolSizes);
 
+  // The caller seeds the polyline with the subroute start and sets m_baseDistance to its
+  // route-relative Mercator distance. Process subroutes in route order.
   bool ProcessSubroute(std::vector<routing::RouteSegment> const & segments, df::Subroute & subroute);
   void CreateTransitMarks();
 
@@ -163,6 +165,7 @@ private:
   void CollectTransitDisplayInfo(std::vector<routing::RouteSegment> const & segments,
                                  TransitDisplayInfos & transitDisplayInfos);
   TransitMark * CreateMark(m2::PointD const & pt, FeatureID const & fid);
+  void AddStopMark(TransitMarkInfo const & mark);
 
   TransitReadManager & m_transitReadManager;
   GetMwmIdFn m_getMwmIdFn;
@@ -176,4 +179,8 @@ private:
 
   int m_subrouteIndex = 0;
   float m_maxSubrouteWidth = -1.0f;
+  // The entrance and boarding stop can be in different subroutes.
+  bool m_pendingEntrance = false;
+  // A stop at a subroute boundary may also be the next subroute's boarding stop.
+  int m_pendingStopIndex = -1;
 };

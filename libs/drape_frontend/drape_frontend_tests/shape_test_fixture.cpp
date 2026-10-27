@@ -48,14 +48,13 @@ void ShapeTestFixture::Render(char const * title, uint32_t width, uint32_t heigh
     ReleaseGLResources();
   });
 
+  CHECK(!m_lastImage.isNull(), ("OpenGL render produced no image", title));
+
   RunTestLoop(title, [this](QPaintDevice * device)
   {
-    if (!m_lastImage.isNull())
-    {
-      QPainter painter(device);
-      painter.fillRect(QRectF(0, 0, device->width(), device->height()), Qt::darkGray);
-      painter.drawImage(0, 0, m_lastImage);
-    }
+    QPainter painter(device);
+    painter.fillRect(QRectF(0, 0, device->width(), device->height()), Qt::darkGray);
+    painter.drawImage(0, 0, m_lastImage);
   }, true /* autoExit */);  // pass false if you need to inspect locally
 }
 

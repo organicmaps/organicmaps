@@ -147,8 +147,6 @@ UNIT_TEST(TrackDirectionArrowsAvoidEndpointsGpuTest)
   auto const image = render(5.0f);
   // This width suppresses arrows while leaving endpoint marker geometry unchanged.
   auto const reference = render(2.0f);
-  if (image.isNull() || reference.isNull())
-    return;
 
   for (size_t i = 0; i < paths.size(); ++i)
   {
@@ -179,8 +177,6 @@ UNIT_TEST(TrackEndpointUsesTopLayerColorGpuTest)
   auto const image = track_direction_gpu_test::RenderTracks(
       "Track endpoints use the top layer color", kWidth, kHeight,
       {{{{-80, 0}, {80, 0}}, {{dp::Color::Blue(), 5.0f, 1.0f}, {dp::Color::Red(), 9.0f, 0.0f}}}});
-  if (image.isNull())
-    return;
 
   auto const expected = QColor(Qt::blue).rgba();
   TEST_EQUAL(image.pixel(kWidth / 2 - 80, kHeight / 2), expected, ("Start marker uses the wrong layer"));
@@ -198,8 +194,6 @@ UNIT_TEST(TrackDirectionArrowContrastGpuTest)
                                    {{{-160, 30}, {160, 30}}, {{dp::Color::White(), 5.0f, 0.0f}}},
                                    {{{-160, -30}, {160, -30}}, {{dp::Color::Red(), 5.0f, 0.0f}}},
                                    {{{-160, -90}, {160, -90}}, {{dp::Color::Yellow(), 5.0f, 0.0f}}}});
-  if (image.isNull())
-    return;
 
   auto const isLight = [](QColor const & color)
   { return color.red() > 225 && color.green() > 225 && color.blue() > 225; };
@@ -231,8 +225,6 @@ UNIT_TEST(TrackCombinedEndpointGpuTest)
   auto const image = track_direction_gpu_test::RenderTracks(
       "Combined track endpoint", kWidth, kHeight,
       {{{{-60, 0}, {60, 0}, {60, 40}, {-55, 0}}, {{dp::Color::Blue(), 10.0f, 0.0f}}}});
-  if (image.isNull())
-    return;
 
   QColor const center = image.pixelColor(kWidth / 2 - 60, kHeight / 2);
   TEST_GREATER(center.red(), 225, ("Combined start/finish marker has no contrasting center dot"));
@@ -252,8 +244,6 @@ UNIT_TEST(TrackDirectionArrowContainedOnTurnsGpuTest)
 
   auto const image = RenderTracks("Track arrows contained on turns", kWidth, kHeight,
                                   {{pathInPixels, {{dp::Color::White(), kTrackWidth, 0.0f}}}});
-  if (image.isNull())
-    return;
 
   std::vector<m2::PointD> screenPath;
   screenPath.reserve(pathInPixels.size());
@@ -288,8 +278,6 @@ UNIT_TEST(TrackDirectionArrowVisibleOnGentleCurveGpuTest)
     path.emplace_back(x, 20.0 * std::sin(x / 120.0));
   auto const image = track_direction_gpu_test::RenderTracks("Track arrows visible on gentle curve", kWidth, kHeight,
                                                             {{path, {{dp::Color::White(), 5.0f, 0.0f}}}});
-  if (image.isNull())
-    return;
 
   uint32_t darkPixels = 0;
   for (int y = 0; y < image.height(); ++y)
@@ -321,8 +309,6 @@ UNIT_TEST(TrackDirectionArrowsAvoidOtherTrackEndpointsGpuTest)
 
   auto const image = render(5.0f);
   auto const reference = render(2.0f);
-  if (image.isNull() || reference.isNull())
-    return;
 
   for (int dy = -4; dy < 4; ++dy)
     for (int dx = -4; dx < 4; ++dx)
@@ -351,8 +337,6 @@ UNIT_TEST(TrackWithoutDirectionHasNoDecorationsGpuTest)
     auto const image = track_direction_gpu_test::RenderTracks(
         "Tracks without direction have no arrows or endpoint markers", kWidth, kHeight,
         {{{{-80, 0}, {80, 0}}, {{dp::Color::Blue(), 5.0f, 0.0f}}, false /* hasDirection */}}, zoom);
-    if (image.isNull())
-      return;
 
     auto const white = QColor(Qt::white).rgba();
     TEST_EQUAL(image.pixel(kCenterX - 80, kCenterY + 4), white, ("Unexpected start marker", zoom));

@@ -72,6 +72,15 @@ UNIT_TEST(ProductsConfig_InvalidProduct)
   TEST(!productsConfig, ());
 }
 
+UNIT_TEST(ProductsConfig_EmptyProductFields)
+{
+  for (auto const json : {R"({"products":[{"title":"","link":"https://product.example/"}]})",
+                          R"({"products":[{"title":"Product","link":""}]})"})
+  {
+    TEST(!ProductsConfig::LoadFromString(json), (json));
+  }
+}
+
 UNIT_TEST(ProductsConfig_EmptyProducts)
 {
   std::string const json = R"({
