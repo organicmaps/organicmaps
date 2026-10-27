@@ -34,6 +34,10 @@ namespace
 //   cos(θ) > kThreshold  ⟺  dot(a, b) > 0  AND  dot(a, b)² > kThreshold² · |a|² · |b|²
 double constexpr kProlongingDotSqr = math::Pow2(0.995);
 
+// The terrain DEM lattice is 1 arc second (~31 m): the dynamic isoline vertices with both segments
+// up to two cells long are the raster steps to average out (see SetPath).
+double constexpr kIsolineStepMeters = 62.0;
+
 // Appends the points of a line to |path|: drops the duplicates and, when simplifying, the too
 // short segments and the forward colinear runs, preserving the line's actual endpoint.
 class PathThinner
@@ -166,6 +170,12 @@ void ClipSplinesBuilder::Build(FeatureType & f, int zoomLevel, bool isIsoline)
 void ClipSplinesBuilder::SetPath(std::vector<m2::PointD> && path)
 {
   m_knownInside = false;
+  // On gentle slopes an altitude meter spans several raster cells, and the contours step from cell
+  // to cell along the integer heights: the Catmull-Rom smoothing of Release() interpolates every
+  // vertex and would draw the steps as wiggles. Two passes reach two vertices along a contour, well
+  // within the read overhang of the neighbor tiles, which smooth the seam identically.
+  m2::SmoothShortSegments(path, kIsolineStepMeters, 2 /* passes */);
+
   if (!m_params.IsSimplifyLines())
   {
     m_path = std::move(path);
