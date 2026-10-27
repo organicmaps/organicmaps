@@ -36,7 +36,7 @@ OffscreenFrame::~OffscreenFrame()
 {
   if (m_consumerFence)
   {
-    // Frames are deleted rarely (resize, shutdown): a CPU wait is fine.
+    // Frames are deleted during shutdown: a CPU wait is acceptable here.
     glClientWaitSync(m_consumerFence, 0, kFenceTimeoutNs);
     glDeleteSync(m_consumerFence);
   }
