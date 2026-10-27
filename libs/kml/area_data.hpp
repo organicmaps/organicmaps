@@ -60,6 +60,7 @@ struct AreaData
 };
 
 // Removes consecutive exact duplicates and the closing vertex, and normalizes ring winding.
+// Closing vertices use the first vertex's height; mismatches are logged.
 // Topology is validated in the longitude/latitude plane: edges do not cross the antimeridian,
 // so 170 -> -170 spans 340 degrees. Source coordinates and altitude are retained.
 // Independent polygons are allowed to overlap, as in KML MultiGeometry.
