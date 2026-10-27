@@ -39,8 +39,11 @@ public class KmzKmlProcessorTest
   @Test
   public void missingUriDoesNotStartImport()
   {
-    for (String action : ACTIONS)
-      assertRejected(intentWithAction(action));
+    assertRejected(intentWithAction(Intent.ACTION_VIEW));
+    assertRejected(intentWithAction(Intent.ACTION_SEND));
+    final Intent intent = intentWithAction(Intent.ACTION_SEND_MULTIPLE);
+    when(intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM)).thenReturn(null);
+    assertRejected(intent);
   }
 
   @Test

@@ -30,7 +30,9 @@ public class Factory
 {
   public static boolean isStartedForApiResult(@NonNull Intent intent)
   {
-    // The explicit pick-point marker distinguishes result requests from ordinary navigation intents.
+    // FLAG_ACTIVITY_FORWARD_RESULT can be absent even when the caller awaits a result,
+    // so use the explicit pick-point marker.
+    // https://github.com/organicmaps/organicmaps/pull/8910
     return intent.getBooleanExtra(EXTRA_PICK_POINT, false);
   }
 
