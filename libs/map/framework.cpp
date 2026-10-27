@@ -2595,6 +2595,7 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
   }
 
   auto const prevTrackId = m_currentPlacePageInfo ? m_currentPlacePageInfo->GetTrackId() : kml::kInvalidTrackId;
+  auto const prevCountryId = m_currentPlacePageInfo ? m_currentPlacePageInfo->GetCountryId() : storage::CountryId();
   DeactivateHotelSearchMark();
 
   m_currentPlacePageInfo = placePageInfo;
@@ -2602,9 +2603,11 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
   auto const newTrackId = m_currentPlacePageInfo->GetTrackId();
   if (newTrackId != kml::kInvalidTrackId)
   {
-    // For user tracks: tapping the same track at a different point just moves the selection circle.
+    // For user tracks: tapping the same track at a different point of the same region just moves the selection
+    // circle. Another region changes the map to download, so the PlacePage is updated then.
     // Temp relation tracks always reuse the same ID, so always update the PlacePage for them.
-    if (newTrackId == prevTrackId && newTrackId != kml::kTempRelationTrackId)
+    if (newTrackId == prevTrackId && newTrackId != kml::kTempRelationTrackId &&
+        m_currentPlacePageInfo->GetCountryId() == prevCountryId)
     {
       if (m_drapeEngine)
       {
@@ -2683,6 +2686,7 @@ bool Framework::BuildTrackPlacePage(Track::TrackSelectionInfo const & trackSelec
 
   info.SetSelectedObject(df::SelectionShape::OBJECT_TRACK);
   FillTrackInfo(*track, selectedInfo, info);
+  info.SetCountryId(m_infoGetter->GetRegionCountryId(info.GetMercator()));
   bm.SetTrackSelectionInfo(selectedInfo, true /* notifyListeners */);
   return true;
 }
@@ -2760,10 +2764,7 @@ place_page::Info Framework::BuildPlacePageInfoImpl(place_page::BuildInfo const &
                                                                        [](UserMark::Type) { return true; });
       // On a stale track mark keep the feature info filled above and fall back to the POI selection.
       if (mark && FillUserMarkInfo(mark, outInfo))
-      {
-        sp.SetPlacePageLocation(outInfo);
         return outInfo;
-      }
     }
 
     outInfo.SetSelectedObject(df::SelectionShape::OBJECT_POI);
@@ -2836,15 +2837,10 @@ place_page::Info Framework::BuildPlacePageInfoImpl(place_page::BuildInfo const &
         trackToSelect = trackSelectionCandidates.front();
 
       // Set first track as selected to display.
-      if (trackToSelect.IsValid())
+      if (trackToSelect.IsValid() && BuildTrackPlacePage(trackToSelect, outInfo))
       {
-        outInfo.SetSelectedObject(df::SelectionShape::OBJECT_TRACK);
-        sp.SetPlacePageLocation(outInfo);
-        if (BuildTrackPlacePage(trackToSelect, outInfo))
-        {
-          outInfo.SetTrackCandidates(std::move(trackSelectionCandidates));
-          return outInfo;
-        }
+        outInfo.SetTrackCandidates(std::move(trackSelectionCandidates));
+        return outInfo;
       }
 
       auto const bestFeature = tap.m_line.IsValid() ? tap.m_line : tap.m_area;
