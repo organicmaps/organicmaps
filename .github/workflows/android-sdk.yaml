@@ -26,15 +26,19 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v6
         with:
-          fetch-depth: 100 # enough to get all commits for the current day
+          # Version counters need complete ancestry, without historical blob downloads.
+          fetch-depth: 0
+          filter: blob:none
           ref: 'refs/tags/${{ inputs.tag }}'
 
       - name: Check tag
         shell: bash
+        env:
+          OM_RELEASE_TAG: ${{ inputs.tag }}
         run: |
           git show HEAD
-          test -n "${{ inputs.tag }}"
-          test "$(git tag --points-at HEAD)" = "${{ inputs.tag }}"
+          test -n "$OM_RELEASE_TAG"
+          test "$(git rev-parse "refs/tags/$OM_RELEASE_TAG^{commit}")" = "$(git rev-parse HEAD)"
 
       - name: Parallel submodules checkout
         shell: bash
