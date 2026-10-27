@@ -125,6 +125,8 @@ private:
   std::optional<AreaPolygon> m_polygon;
   std::vector<AreaPolygon> m_areaPolygons;
   bool m_invalidArea = false;
+  bool m_areaIsMultiPolygon = false;
+  bool m_areaAltitudeIsWgs84 = false;
   // A shared style or highlight must not replace accumulated placemark overrides.
   AreaStylePatch m_areaStyle;
   AreaStylePatch m_inlineAreaStyle;
