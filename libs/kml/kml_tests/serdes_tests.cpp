@@ -1191,6 +1191,20 @@ UNIT_TEST(SaveStringWithCDATA_SpecialCharsWrappedInCDATA)
   TEST_EQUAL(WriteCDATA("<tag>"), "<![CDATA[<tag>]]>", ());
 }
 
+UNIT_TEST(SaveStringWithCDATA_TerminatorRoundTrip)
+{
+  TEST_EQUAL(WriteCDATA("a]]>b"), "<![CDATA[a]]]]><![CDATA[>b]]>", ());
+  TEST_EQUAL(WriteCDATA("]]]>"), "<![CDATA[]]]]]><![CDATA[>]]>", ());
+  TEST_EQUAL(WriteCDATA("]]>]]>"), "<![CDATA[]]]]><![CDATA[>]]]]><![CDATA[>]]>", ());
+  for (std::string const name : {"]]>", "a]]>b", "]]]>", "]]>]]>", "<tag> & ]]> inside", "]]> & ]]>"})
+  {
+    kml::FileData data;
+    TEST_NO_THROW(data = ParseKmlText(WrapKmlDoc(PointPlacemark("<name>" + WriteCDATA(name) + "</name>"))), ());
+    TEST_EQUAL(data.m_bookmarksData.size(), 1, ());
+    TEST_EQUAL(kml::GetDefaultStr(data.m_bookmarksData.front().m_name), name, ());
+  }
+}
+
 UNIT_TEST(SaveStringWithCDATA_InvalidXmlCharsStripped)
 {
   // Control characters below 0x20 (except \t, \n, \r) should be removed.

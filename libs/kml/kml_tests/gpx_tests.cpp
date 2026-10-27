@@ -564,4 +564,19 @@ UNIT_TEST(Gpx_Export_Names)
   TEST(exportBookmark({}).find("<name>") == std::string::npos, ());
 }
 
+UNIT_TEST(Gpx_CdataTerminatorRoundTrip)
+{
+  kml::FileData data;
+  kml::BookmarkData bookmark;
+  bookmark.m_point = mercator::FromLatLon(52.48982, 13.39712);
+  bookmark.m_name[kml::kDefaultLang] = "]]]>]]>";
+  bookmark.m_description[kml::kDefaultLang] = "<tag> & ]]> inside";
+  data.m_bookmarksData.push_back(bookmark);
+
+  auto const imported = LoadGpxFromString(Serialize(data));
+  TEST_EQUAL(imported.m_bookmarksData.size(), 1, ());
+  TEST_EQUAL(imported.m_bookmarksData.front().m_name, bookmark.m_name, ());
+  TEST_EQUAL(imported.m_bookmarksData.front().m_description, bookmark.m_description, ());
+}
+
 }  // namespace gpx_tests
