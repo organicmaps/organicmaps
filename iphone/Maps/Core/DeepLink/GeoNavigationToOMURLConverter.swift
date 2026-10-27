@@ -114,12 +114,10 @@ struct GeoNavigationToOMURLConverter {
           } else {
             LOG(.warning, "Source and destination must have coordinates to build a route: \(geoURL.absoluteString)")
           }
+        } else if destination.coordinate != nil {
+          omAction = .map(destination)
         } else {
-          if destination.coordinate != nil {
-            omAction = .map(destination)
-          } else {
-            omAction = .search(destination)
-          }
+          omAction = .search(destination)
         }
       } else {
         LOG(.warning, "Destination is missing: \(geoURL.absoluteString)")
