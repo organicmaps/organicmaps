@@ -221,9 +221,9 @@ public:
   /// mark. optimize places only the new stop at the predicted position (needs both endpoints, ignored in Ruler mode,
   /// still applied while following). Returns false when a new point cannot be added at capacity.
   bool AddRoutePoint(RouteMarkData && markData, bool optimize);
-  /// Replaces an existing slot without optimization. If the target is gone, adds the point normally; otherwise the
-  /// target slot's current type overrides markData.
-  void ReplaceRoutePoint(RouteMarkType type, size_t intermediateIndex, RouteMarkData && markData);
+  /// Replaces the target slot in place without optimization, or adds it if missing. Returns false when the missing
+  /// slot cannot be added at capacity.
+  bool ReplaceRoutePoint(RouteMarkType type, size_t intermediateIndex, RouteMarkData && markData);
   /// Reorders stops after the last passed mark in place, keeping endpoints, passed marks, and earlier stops fixed.
   /// Returns whether the order changed; the caller rebuilds. No-op while following, in Ruler mode, or without
   /// both endpoints.
@@ -238,6 +238,9 @@ public:
   void MoveRoutePoint(size_t currentIndex, size_t targetIndex);
   void MoveRoutePoint(RouteMarkType currentType, size_t currentIntermediateIndex, RouteMarkType targetType,
                       size_t targetIntermediateIndex);
+  /// Exchanges endpoint slots in place, keeping intermediate points and all mark metadata unchanged. A lone
+  /// endpoint moves to the other slot. Returns false if neither endpoint exists.
+  bool SwapRoutePointEndpoints();
   /// Reverses the complete route, including intermediate points. Returns false without changing points if either
   /// endpoint is missing.
   bool ReverseRoutePoints();

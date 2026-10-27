@@ -1068,7 +1068,7 @@ bool RoutingManager::AddRoutePoint(RouteMarkData && markData, bool optimize)
   return true;
 }
 
-void RoutingManager::ReplaceRoutePoint(RouteMarkType type, size_t intermediateIndex, RouteMarkData && markData)
+bool RoutingManager::ReplaceRoutePoint(RouteMarkType type, size_t intermediateIndex, RouteMarkData && markData)
 {
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(*m_bmManager);
@@ -1076,8 +1076,7 @@ void RoutingManager::ReplaceRoutePoint(RouteMarkType type, size_t intermediateIn
   if (target == nullptr)
   {
     markData.m_pointType = type;
-    AddRoutePoint(std::move(markData), false /* optimize */);
-    return;
+    return AddRoutePoint(std::move(markData), false /* optimize */);
   }
 
   if (markData.m_isMyPosition)
@@ -1094,6 +1093,7 @@ void RoutingManager::ReplaceRoutePoint(RouteMarkType type, size_t intermediateIn
   markData.m_intermediateIndex = target->GetIntermediateIndex();
   markData.m_isVisible = !markData.m_isMyPosition;
   target->SetMarkData(std::move(markData));
+  return true;
 }
 
 bool RoutingManager::OptimizeRoutePoints()
@@ -1235,6 +1235,19 @@ void RoutingManager::MoveRoutePoint(size_t currentIndex, size_t targetIndex)
   convertIndex(targetType, targetIndex);
 
   routePoints.MoveRoutePoint(currentType, currentIndex, targetType, targetIndex);
+}
+
+bool RoutingManager::SwapRoutePointEndpoints()
+{
+  ASSERT(m_bmManager != nullptr, ());
+  RoutePointsLayout routePoints(*m_bmManager);
+  auto * start = routePoints.GetRoutePointForEdit(RouteMarkType::Start);
+  auto * finish = routePoints.GetRoutePointForEdit(RouteMarkType::Finish);
+  if (start != nullptr)
+    start->SetRoutePointFullType(RouteMarkType::Finish, 0);
+  if (finish != nullptr)
+    finish->SetRoutePointFullType(RouteMarkType::Start, 0);
+  return start != nullptr || finish != nullptr;
 }
 
 bool RoutingManager::ReverseRoutePoints()
