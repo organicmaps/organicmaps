@@ -57,11 +57,13 @@ public final class OpeningHours
    */
   public static native boolean nativeIsTimetableStringValid(String source);
 
+  /** True when the schedule contains a sun event that a numeric weekly timetable cannot represent. */
+  public static native boolean nativeHasSunEvent(@NonNull String source);
+
   /**
-   * Evaluates the schedule of the currently shown place page in the POI's own time zone.
-   * The schedule and the time zone are both read from the place page so that they cannot describe
-   * different POIs. The returned display offsets are evaluated at now and at the next transition
-   * separately because daylight saving may change between them.
+   * Evaluates the currently shown place page using its schedule, coordinate, and time zone.
+   * The returned display offsets are evaluated at now and at the next transition separately
+   * because daylight saving may change between them.
    */
   @Nullable
   public static native OpeningHoursInfo nativeGetPlacePageOpeningHoursInfo(long currentTime);

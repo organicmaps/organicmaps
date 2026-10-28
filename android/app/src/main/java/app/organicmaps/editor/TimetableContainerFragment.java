@@ -106,7 +106,8 @@ public class TimetableContainerFragment extends BaseMwmFragment implements Timet
       time = args.getString(EXTRA_TIME);
 
     // Show Simple fragment when opening hours can be represented by UI.
-    if (TextUtils.isEmpty(time) || OpeningHours.nativeTimetablesFromString(time) != null)
+    if (TextUtils.isEmpty(time)
+        || (!OpeningHours.nativeHasSunEvent(time) && OpeningHours.nativeTimetablesFromString(time) != null))
       setMode(Mode.SIMPLE, time);
     else
       setMode(Mode.ADVANCED, time);
@@ -124,9 +125,11 @@ public class TimetableContainerFragment extends BaseMwmFragment implements Timet
   @Override
   public void onTimetableChanged(@Nullable String timetable)
   {
-    boolean isValidTimetable =
-        TextUtils.isEmpty(timetable) || OpeningHours.nativeTimetablesFromString(timetable) != null;
-    UiUtils.showIf(isValidTimetable, mSwitchMode);
+    boolean isValidTimetable = TextUtils.isEmpty(timetable) || OpeningHours.nativeIsTimetableStringValid(timetable);
+    boolean canUseSimple =
+        TextUtils.isEmpty(timetable)
+        || (!OpeningHours.nativeHasSunEvent(timetable) && OpeningHours.nativeTimetablesFromString(timetable) != null);
+    UiUtils.showIf(canUseSimple, mSwitchMode);
     UiUtils.showIf(isValidTimetable, mBottomBar);
   }
 
