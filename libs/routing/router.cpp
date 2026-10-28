@@ -30,7 +30,6 @@ RouterType FromString(std::string const & str)
   if (str == "ruler")
     return RouterType::Ruler;
 
-  ASSERT(false, ("Incorrect routing string:", str));
   return RouterType::Vehicle;
 }
 
