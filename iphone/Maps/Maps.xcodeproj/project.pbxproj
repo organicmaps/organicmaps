@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A13901000000000000000002 /* MWMRouterTransitType+Presentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13901000000000000000001 /* MWMRouterTransitType+Presentation.swift */; };
+		A13901000000000000000004 /* TransitDetailsRows.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13901000000000000000003 /* TransitDetailsRows.swift */; };
+		A13901000000000000000006 /* TransitDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13901000000000000000005 /* TransitDetailsViewController.swift */; };
+		A13901000000000000000008 /* TransitDetailsRowViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13901000000000000000007 /* TransitDetailsRowViews.swift */; };
+		A1390100000000000000000B /* TransitDetailsRowsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1390100000000000000000A /* TransitDetailsRowsTests.swift */; };
 		C01F84D927D2414E9A530001 /* BookmarksListSortingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01F84D927D2414E9A530002 /* BookmarksListSortingTests.swift */; };
 		0F13484A0000000000000002 /* UITableViewCell+SeparatorInset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F13484A0000000000000001 /* UITableViewCell+SeparatorInset.swift */; };
 		C50A71010000000000000001 /* MWMSearchSpotlightTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = C50A71010000000000000002 /* MWMSearchSpotlightTests.mm */; };
@@ -776,6 +781,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A13901000000000000000001 /* MWMRouterTransitType+Presentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MWMRouterTransitType+Presentation.swift"; sourceTree = "<group>"; };
+		A13901000000000000000003 /* TransitDetailsRows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitDetailsRows.swift; sourceTree = "<group>"; };
+		A13901000000000000000005 /* TransitDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitDetailsViewController.swift; sourceTree = "<group>"; };
+		A13901000000000000000007 /* TransitDetailsRowViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitDetailsRowViews.swift; sourceTree = "<group>"; };
+		A1390100000000000000000A /* TransitDetailsRowsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitDetailsRowsTests.swift; sourceTree = "<group>"; };
 		C01F84D927D2414E9A530002 /* BookmarksListSortingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksListSortingTests.swift; sourceTree = "<group>"; };
 		0F13484A0000000000000001 /* UITableViewCell+SeparatorInset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+SeparatorInset.swift"; sourceTree = "<group>"; };
 		C50A71010000000000000002 /* MWMSearchSpotlightTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchSpotlightTests.mm; sourceTree = "<group>"; };
@@ -1934,6 +1944,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A13901000000000000000009 /* TransitDetails */ = {
+			isa = PBXGroup;
+			children = (
+				A13901000000000000000003 /* TransitDetailsRows.swift */,
+				A13901000000000000000005 /* TransitDetailsViewController.swift */,
+				A13901000000000000000007 /* TransitDetailsRowViews.swift */,
+			);
+			path = TransitDetails;
+			sourceTree = "<group>";
+		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -2875,6 +2895,7 @@
 				ED82C3C02F90180300FA103D /* TransportTransitSeparator.swift */,
 				ED82C3C12F90180300FA103D /* TransportTransitStepsCollectionView.swift */,
 				ED82C3C22F90180300FA103D /* TransportTransitStepsView.swift */,
+				A13901000000000000000001 /* MWMRouterTransitType+Presentation.swift */,
 				ED82C3C32F90180300FA103D /* TransportTransitTrain.swift */,
 				ED82C3C42F90180300FA103D /* TransportTransitTrain.xib */,
 			);
@@ -2899,6 +2920,7 @@
 			children = (
 				ED82C3AE2F90180300FA103D /* Navigation */,
 				ED82C3C92F90180300FA103D /* RoutePreview */,
+				A13901000000000000000009 /* TransitDetails */,
 				ED82C3CA2F90180300FA103D /* NavigationDashboardBuilder.swift */,
 				ED82C3CB2F90180300FA103D /* NavigationDashboardInteractor.swift */,
 				ED82C3CC2F90180300FA103D /* NavigationDashboardModalPresentationStepStrategy.swift */,
@@ -4105,6 +4127,7 @@
 			children = (
 				A13811000000000000000001 /* TransportTransitWrappingTests.swift */,
 				A13812000000000000000001 /* TransportTransitRTLTests.swift */,
+				A1390100000000000000000A /* TransitDetailsRowsTests.swift */,
 				A13813000000000000000001 /* TransportRulerAppearanceTests.swift */,
 				AA01B2C3D4E5F60718293A01 /* MWMRoutePointTests.swift */,
 				A8D43EE031D5000000000003 /* MWMNavigationDashboardEntityTests.mm */,
@@ -4850,6 +4873,10 @@
 				ED82C58A2F90180300FA103D /* NavigationDashboardRequest.swift in Sources */,
 				ED82C58B2F90180300FA103D /* NavigationDashboardResponse.swift in Sources */,
 				ED82C58C2F90180300FA103D /* NavigationDashboardViewController.swift in Sources */,
+				A13901000000000000000002 /* MWMRouterTransitType+Presentation.swift in Sources */,
+				A13901000000000000000004 /* TransitDetailsRows.swift in Sources */,
+				A13901000000000000000006 /* TransitDetailsViewController.swift in Sources */,
+				A13901000000000000000008 /* TransitDetailsRowViews.swift in Sources */,
 				ED82C58D2F90180300FA103D /* NavigationDashboardViewModel.swift in Sources */,
 				ED82C58E2F90180300FA103D /* MWMNavigationDashboardManager.mm in Sources */,
 				ED82C58F2F90180300FA103D /* MWMNavigationDashboardManager+Entity.mm in Sources */,
@@ -5071,6 +5098,7 @@
 			files = (
 				A13811000000000000000002 /* TransportTransitWrappingTests.swift in Sources */,
 				A13812000000000000000002 /* TransportTransitRTLTests.swift in Sources */,
+				A1390100000000000000000B /* TransitDetailsRowsTests.swift in Sources */,
 				A13813000000000000000002 /* TransportRulerAppearanceTests.swift in Sources */,
 				5A07CF7460A24F6BBCA9F174 /* RoutePointCollectionViewCellTests.swift in Sources */,
 				A13418010000000000000004 /* CarPlayManeuverMapperTests.swift in Sources */,

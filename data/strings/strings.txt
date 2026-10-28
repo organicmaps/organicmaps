@@ -46029,7 +46029,7 @@ en = Qt 6 (C) The Qt Company Ltd. and other contributors. License texts: %@ and 
 
 [transit_details_title]
 comment = Title of the transit route details screen, shown when the user taps the public transport summary tile.
-tags = android-app
+tags = android-app,apple-maps
 en = Transit details
 af = Reisbesonderhede
 ar = تفاصيل الرحلة
@@ -46087,7 +46087,7 @@ zh-Hant = 行程詳情
 
 [transit_waypoint_label]
 comment = Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1).
-tags = android-app
+tags = android-app,apple-maps
 en = Stop %1$d
 af = Tussenstop %1$d
 ar = نقطة توقف %1$d
@@ -46145,7 +46145,7 @@ zh-Hant = 中途點 %1$d
 
 [transit_stops_count]
 comment = Number of stops ridden on a single transit line.
-tags = android-app
+tags = android-app,apple-maps
 en:one = %d stop
 en:other = %d stops
 af:one = %d halte
@@ -46273,7 +46273,7 @@ zh-Hant:other = %d 站
 
 [transit_type_bus]
 comment = Spoken name of the bus transport type, read by screen readers before a line number on transit line badges (route summary and details).
-tags = android-app
+tags = android-app,apple-maps
 en = Bus
 af = Bus
 ar = حافلة
@@ -46331,7 +46331,7 @@ zh-Hant = 公車
 
 [transit_type_train]
 comment = Spoken name of the train transport type, read by screen readers before a line number on transit line badges (route summary and details).
-tags = android-app
+tags = android-app,apple-maps
 en = Train
 af = Trein
 ar = قطار
@@ -46389,7 +46389,7 @@ zh-Hant = 火車
 
 [transit_type_tram]
 comment = Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details).
-tags = android-app
+tags = android-app,apple-maps
 en = Tram
 af = Trem
 ar = ترام

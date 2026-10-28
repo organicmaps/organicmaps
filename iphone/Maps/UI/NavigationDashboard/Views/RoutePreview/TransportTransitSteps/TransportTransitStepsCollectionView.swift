@@ -77,7 +77,7 @@ final class TransportTransitStepsCollectionView: UICollectionView {
     var cursor = TransportTransitFlowLayout.Cursor(width: displayedWidth)
     displayedSteps = steps.enumerated().flatMap { index, step -> [DisplayedStep] in
       let hasFollowingStep = index + 1 < steps.count
-      var numbers = [step.number ?? ""]
+      var numbers = [step.number]
       if displayedWidth > 0, cellClass(step: step) == TransportTransitTrain.self {
         numbers = TransportTransitTrain.numberGroups(step.number, maximumWidth: displayedWidth,
                                                      firstRowWidth: cursor.remainingWidth,

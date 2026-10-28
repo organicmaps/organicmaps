@@ -81,25 +81,14 @@ final class TransportTransitTrain: TransportTransitCell {
   }
 
   func config(step: MWMRouterTransitStepInfo, number: String? = nil, isContinuation: Bool) {
-    let number = number ?? step.number!
+    let number = number ?? step.number
     imageAspectRatio.isActive = false
     hiddenImageWidth.isActive = isContinuation
     imageAspectRatio.isActive = !isContinuation
     imageLeading.constant = isContinuation ? Config.labelTrailing : 0
     image.isHidden = isContinuation
-    switch step.type {
-    case .intermediatePoint, .pedestrian, .ruler: fatalError()
-    case .train: image.image = UIImage.ic20PxRoutePlanningTrain
-    case .subway: image.image = UIImage.ic20PxRoutePlanningMetro
-    case .lightRail: image.image = UIImage.ic20PxRoutePlanningLightrail
-    case .monorail: image.image = UIImage.ic20PxRoutePlanningMonorail
-    case .tram, .cableTram: image.image = UIImage.ic20PxRoutePlanningTram
-    case .bus: image.image = UIImage.ic20PxRoutePlanningBus
-    case .ferry, .waterService: image.image = UIImage.ic20PxRoutePlanningFerry
-    case .aerialLift: image.image = UIImage.ic20PxRoutePlanningAerialLift
-    case .funicular: image.image = UIImage.ic20PxRoutePlanningFunicular
-    case .airService: image.image = UIImage.ic20PxRoutePlanningAirService
-    }
+    guard let icon = step.type.icon else { fatalError("Not a transit ride: \(step.type)") }
+    image.image = icon
     background.backgroundColor = step.color
     let foreground = Self.foregroundColor(for: step.color)
     image.tintColor = foreground
@@ -108,6 +97,8 @@ final class TransportTransitTrain: TransportTransitCell {
     emptyNumberTrailingOffset.isActive = number.isEmpty
     label.isHidden = number.isEmpty
     label.text = number
+    isAccessibilityElement = true
+    accessibilityLabel = [step.type.spokenName, number].compactMap { $0 }.filter { !$0.isEmpty }.joined(separator: " ")
   }
 
   static func foregroundColor(for color: UIColor) -> UIColor {
