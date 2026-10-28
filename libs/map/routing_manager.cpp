@@ -1395,6 +1395,11 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
       return;
     }
     p.m_position = myPosition.GetPivot();
+    // Saved stops must use the fix that produced this route, even if GPS moves before Save.
+    RoutePointsLayout layout(*m_bmManager);
+    auto * mark = layout.GetRoutePointForEdit(p.m_pointType, p.m_intermediateIndex);
+    CHECK(mark != nullptr, (static_cast<int>(p.m_pointType), p.m_intermediateIndex));
+    mark->SetPosition(p.m_position);
   }
 
   // Check for equal points.
