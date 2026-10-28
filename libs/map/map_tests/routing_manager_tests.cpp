@@ -435,6 +435,24 @@ UNIT_TEST(RoutingManager_OptimizationCannotChangeWhileFollowing)
   TEST_EQUAL(GetStopCoordinates(manager), (std::vector<double>{3, 1, 2}), ());
 }
 
+UNIT_TEST(RoutingManager_SavedRouterFallback)
+{
+  TestFramework framework;
+  auto const & manager = framework.GetRoutingManager();
+
+  settings::Set("router", routing::ToString(routing::RouterType::Pedestrian));
+  TEST_EQUAL(manager.GetLastUsedRouter(), routing::RouterType::Pedestrian, ());
+
+  settings::Set("router", std::string("future-router"));
+  TEST_EQUAL(manager.GetLastUsedRouter(), routing::RouterType::Vehicle, ());
+  std::string retained;
+  TEST(settings::Get("router", retained), ());
+  TEST_EQUAL(retained, "future-router", ());
+
+  settings::Delete("router");
+  TEST_EQUAL(manager.GetLastUsedRouter(), routing::RouterType::Vehicle, ());
+}
+
 UNIT_TEST(RoutingManager_RulerPreservesMeasurementOrder)
 {
   for (bool const enabled : {false, true})

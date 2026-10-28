@@ -486,19 +486,8 @@ RouterType RoutingManager::GetBestRouter(m2::PointD const & startPoint, m2::Poin
 RouterType RoutingManager::GetLastUsedRouter() const
 {
   std::string routerTypeStr;
-  if (!settings::Get(kRouterTypeKey, routerTypeStr))
-    return RouterType::Vehicle;
-
-  auto const routerType = FromString(routerTypeStr);
-
-  switch (routerType)
-  {
-  case RouterType::Pedestrian:
-  case RouterType::Bicycle:
-  case RouterType::Transit:
-  case RouterType::Ruler: return routerType;
-  default: return RouterType::Vehicle;
-  }
+  settings::TryGet(kRouterTypeKey, routerTypeStr);
+  return FromString(routerTypeStr);
 }
 
 void RoutingManager::Init(std::shared_ptr<routing::NumMwmIds> ptr)
