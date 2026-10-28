@@ -527,7 +527,12 @@ bool Info::ShouldShowEditPlace() const
 kml::LocalizableString Info::FormatNewBookmarkName() const
 {
   kml::LocalizableString bookmarkName;
-  if (IsFeature())
+  // A custom name (e.g. from a geo: or om:// link) overrides the name of a matched feature.
+  if (!m_customName.empty() && !IsMyPosition())
+  {
+    kml::SetDefaultStr(bookmarkName, m_customName);
+  }
+  else if (IsFeature())
   {
     m_name.ForEach([&bookmarkName](int8_t langCode, std::string_view localName)
     {
