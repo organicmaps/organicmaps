@@ -14,4 +14,8 @@ dependencies {
   implementation project(':sdk:wear:core')
 
   implementation libs.google.gms.wearable
+
+  testImplementation libs.androidx.junit
+  testImplementation libs.mockito.core
+  testImplementation libs.robolectric
 }
