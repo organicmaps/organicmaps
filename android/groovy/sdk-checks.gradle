@@ -1,0 +1,114 @@
+// Keep the publication, documentation and consumer checks on the same module set.
+ext.sdkArtifacts = [
+    ':sdk': 'sdk',
+    ':sdk:car': 'car',
+    ':sdk:location:core': 'location-core',
+    ':sdk:location:gms:google': 'location-google',
+    ':sdk:location:gms:foss': 'location-foss',
+    ':sdk:maps:world': 'maps-world',
+    ':sdk:widgets:lanes': 'widgets-lanes',
+    ':sdk:widgets:speedlimit': 'widgets-speedlimit'
+]
+ext.sdkVersion = providers.gradleProperty('sdkVersion').getOrElse(rootProject.ext.versionName)
+
+rootProject.ext.sdkArtifacts.keySet().each { modulePath ->
+  project(modulePath).tasks.matching { it.name == 'javaDocReleaseGeneration' }.configureEach {
+    doLast { task ->
+      // AGP 9.4.1's Dokka renderer links to hierarchy/global-package pages it never generates.
+      // Remove this workaround when AGP stops emitting them. Keep the site and publication jars identical;
+      // the link checker below must still reject any other missing page.
+      project(modulePath).fileTree(task.outputs.files.singleFile).matching { include '**/*.html' }.each { page ->
+        def original = page.getText('UTF-8')
+        def cleaned = original.replaceAll(/<a href="(package-tree\.html|overview-tree\.html|package-summary\.html)">([^<]*)<\/a>/) {
+          match, target, label -> new File(page.parentFile, target).isFile() ? match : "<span>${label}</span>"
+        }
+        if (cleaned != original) page.setText(cleaned, 'UTF-8')
+      }
+    }
+  }
+}
+
+tasks.register('sdkApiDocs', Sync) {
+  group = 'documentation'
+  description = 'Generate the published SDK API documentation and its module index.'
+  into layout.buildDirectory.dir('sdk-api')
+  inputs.property('sdkVersion', rootProject.ext.sdkVersion)
+  inputs.property('sdkArtifacts', rootProject.ext.sdkArtifacts)
+  from('sdk/api-index.html') {
+    rename { 'index.html' }
+    filter { line -> line.replace('@SDK_VERSION@', rootProject.ext.sdkVersion) }
+  }
+  rootProject.ext.sdkArtifacts.each { modulePath, artifact ->
+    dependsOn "${modulePath}:javaDocReleaseJar"
+    from({ zipTree(project(modulePath).tasks.named('javaDocReleaseJar').get().archiveFile.get()) }) {
+      into artifact
+      exclude 'META-INF/**'
+    }
+  }
+  doLast {
+    def rows = rootProject.ext.sdkArtifacts.values().collect { artifact ->
+      def hasApi = new File(destinationDir, "${artifact}/index.html").isFile()
+      def link = hasApi ? "<a href=\"${artifact}/index.html\">API reference</a>" : 'No public Java API'
+      "<tr><td>${artifact}</td><td>${link}</td></tr>"
+    }.join('\n')
+    def index = new File(destinationDir, 'index.html')
+    index.setText(index.getText('UTF-8').replace('@SDK_MODULE_ROWS@', rows), 'UTF-8')
+    ['OrganicMaps', 'MapView', 'MapController'].each { api ->
+      def page = destinationDir.toPath().resolve("sdk/app/organicmaps/sdk/${api}.html").toFile()
+      if (!page.isFile()) throw new GradleException("Missing SDK API page: ${api}")
+    }
+    fileTree(destinationDir).matching { include '**/*.html' }.each { page ->
+      page.getText('UTF-8').eachMatch(/href="([^"]*)"/) { match, href ->
+        URI target
+        try {
+          target = new URI(href)
+        } catch (java.net.URISyntaxException error) {
+          throw new GradleException("Invalid API documentation link in ${page}: ${href}", error)
+        }
+        if (target.isAbsolute() || target.authority != null || !target.path?.endsWith('.html')) return
+        def linkedPage = target.path.startsWith('/') ? new File(destinationDir, target.path.substring(1)) :
+            new File(page.parentFile, target.path)
+        if (!linkedPage.isFile()) {
+          throw new GradleException("Broken API documentation link in ${page}: ${href}")
+        }
+      }
+    }
+  }
+}
+
+def cleanRepository = tasks.register('cleanSdkCheckRepository', Delete) {
+  delete layout.buildDirectory.dir('sdk-check/repository')
+}
+rootProject.ext.sdkArtifacts.keySet().each { modulePath ->
+  project(modulePath).tasks.matching { it.name.endsWith('ToSdkCheckRepository') }.configureEach {
+    dependsOn cleanRepository
+  }
+}
+
+tasks.register('publishSdkForChecks') {
+  group = 'verification'
+  description = 'Publish all SDK modules to build/sdk-check/repository, without Central credentials.'
+  dependsOn rootProject.ext.sdkArtifacts.keySet().collect { "${it}:publishAllPublicationsToSdkCheckRepository" }
+}
+
+def consumerGradle = [file('gradlew').absolutePath, '--no-daemon', '-p', file('sdk/consumer').absolutePath,
+    "-PsdkRepository=${layout.buildDirectory.dir('sdk-check/repository').get().asFile.absolutePath}",
+    "-PsdkVersion=${rootProject.ext.sdkVersion}"]
+def consumerChecks = [
+    sdkConsumerCheck: [
+        description: 'Build and lint independent Maven consumers, including minified release variants.',
+        tasks: ['assembleDebug', 'verifyReleaseJniContracts', 'lintNativeLocationRelease', 'lintGoogleLocationRelease',
+            'lintFossLocationRelease']],
+    sdkConsumerConnectedCheck: [
+        description: 'Run the minified Maven-consumer smoke test on a connected device or emulator.',
+        tasks: [':app:verifyConnectedConsumer']]
+]
+consumerChecks.each { name, check ->
+  tasks.register(name, Exec) {
+    group = 'verification'
+    description = check.description
+    dependsOn 'publishSdkForChecks'
+    workingDir rootDir
+    commandLine consumerGradle + check.tasks
+  }
+}

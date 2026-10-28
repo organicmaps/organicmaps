@@ -1,0 +1,21 @@
+pluginManagement {
+  repositories { google(); mavenCentral(); gradlePluginPortal() }
+}
+dependencyResolutionManagement {
+  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+  repositories {
+    exclusiveContent {
+      forRepository {
+        maven { url = uri(providers.gradleProperty('sdkRepository').get()) }
+      }
+      filter { includeGroup 'app.organicmaps.sdk' }
+    }
+    google()
+    mavenCentral()
+  }
+  versionCatalogs {
+    libs { from(files('../../gradle/libs.versions.toml')) }
+  }
+}
+rootProject.name = 'sdk-consumer-check'
+include ':app'

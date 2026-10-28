@@ -2,6 +2,15 @@ ext.Publish = { Project project, Map<String, Object> props ->
   apply plugin: 'com.vanniktech.maven.publish'
   apply plugin: 'com.gradleup.nmcp'
 
+  publishing {
+    repositories {
+      maven {
+        name = 'SdkCheck'
+        url = rootProject.layout.buildDirectory.dir('sdk-check/repository')
+      }
+    }
+  }
+
   android {
     defaultConfig {
       aarMetadata {
@@ -11,7 +20,7 @@ ext.Publish = { Project project, Map<String, Object> props ->
   }
 
   mavenPublishing {
-    coordinates('app.organicmaps.sdk', props['artifactId'], rootProject.ext.versionName)
+    coordinates('app.organicmaps.sdk', props['artifactId'], rootProject.ext.sdkVersion)
 
     // Sign only when a key is configured; local tasks (e.g. publishToMavenLocal) run without one.
     if (project.findProperty('signingInMemoryKey') != null) {

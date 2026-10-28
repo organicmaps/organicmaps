@@ -96,6 +96,8 @@ tasks.register("detektCheckAll") {
     })
 }
 
+apply from: "${rootProject.rootDir}/groovy/sdk-checks.gradle"
+
 nmcpAggregation {
     // :libs:car and :sdk:car share the simple name 'car'; opt out of nmcp's global unique-name check.
     allowDuplicateProjectNames.set(true)
@@ -107,12 +109,7 @@ nmcpAggregation {
 }
 
 dependencies {
-    nmcpAggregation project(':sdk')
-    nmcpAggregation project(':sdk:car')
-    nmcpAggregation project(':sdk:location:core')
-    nmcpAggregation project(':sdk:location:gms:google')
-    nmcpAggregation project(':sdk:location:gms:foss')
-    nmcpAggregation project(':sdk:maps:world')
-    nmcpAggregation project(':sdk:widgets:lanes')
-    nmcpAggregation project(':sdk:widgets:speedlimit')
+    rootProject.ext.sdkArtifacts.keySet().each { modulePath ->
+        nmcpAggregation project(modulePath)
+    }
 }

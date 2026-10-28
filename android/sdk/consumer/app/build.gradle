@@ -1,0 +1,90 @@
+plugins {
+  alias libs.plugins.android.application
+}
+
+def sdkVersion = providers.gradleProperty('sdkVersion').get()
+def sdkConfig = new Properties()
+rootProject.file('../../gradle.properties').withInputStream { sdkConfig.load(it) }
+android {
+  namespace 'app.organicmaps.consumer'
+  compileSdk sdkConfig.getProperty('propCompileSdkVersion').toInteger()
+  defaultConfig {
+    applicationId 'app.organicmaps.consumer'
+    minSdk sdkConfig.getProperty('propMinSdkVersion').toInteger()
+    targetSdk sdkConfig.getProperty('propTargetSdkVersion').toInteger()
+    versionCode 1
+    versionName '1'
+    testInstrumentationRunner 'app.organicmaps.consumer.ConsumerTestRunner'
+  }
+  flavorDimensions += 'provider'
+  productFlavors {
+    nativeLocation { dimension 'provider' }
+    googleLocation { dimension 'provider' }
+    fossLocation { dimension 'provider' }
+  }
+  buildTypes {
+    release {
+      minifyEnabled true
+      signingConfig signingConfigs.debug
+      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+    }
+  }
+  testBuildType 'release'
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_17
+    targetCompatibility JavaVersion.VERSION_17
+    coreLibraryDesugaringEnabled true
+  }
+  androidResources {
+    noCompress += ['png', 'mwm', 'ttf', 'packed_polygons.bin']
+  }
+}
+
+tasks.register('verifyReleaseJniContracts') {
+  group = 'verification'
+  dependsOn 'assembleRelease'
+  doLast {
+    android.productFlavors.each { flavor ->
+      def mapping = layout.buildDirectory.file("outputs/mapping/${flavor.name}Release/mapping.txt")
+          .get().asFile.getText('UTF-8')
+      def lines = mapping.readLines()
+      ['app.organicmaps.sdk.util.HttpClient', 'app.organicmaps.sdk.util.HttpClient$Params', 'okhttp3.Call'].each { type ->
+        if (!lines.contains("${type} -> ${type}:".toString())) {
+          throw new GradleException("JNI type was removed or renamed in ${flavor.name}: ${type}")
+        }
+      }
+      // R8 can inline the call factory, so check the concrete cancellation method without calling that factory.
+      def realCall = mapping.split(/(?m)(?=^[^\s#].* -> .*:$)/).find {
+        it.startsWith('okhttp3.internal.connection.RealCall -> ')
+      }
+      if (realCall == null || !realCall.readLines().any { it.contains('void cancel()') && it.endsWith(' -> cancel') }) {
+        throw new GradleException("JNI concrete Call.cancel() was removed or renamed in ${flavor.name}")
+      }
+    }
+  }
+}
+
+tasks.register('verifyConnectedConsumer') {
+  group = 'verification'
+  dependsOn 'verifyReleaseJniContracts', 'connectedNativeLocationReleaseAndroidTest'
+  doLast {
+    def reports = fileTree(layout.buildDirectory.dir('outputs/androidTest-results/connected/release/flavors/nativeLocation')) {
+      include '**/TEST-*.xml'
+    }
+    def count = reports.files.sum { report ->
+      new groovy.xml.XmlSlurper().parse(report).depthFirst().count { it.name() == 'testcase' }
+    } ?: 0
+    if (count == 0) throw new GradleException('No Maven-consumer instrumentation tests were executed')
+  }
+}
+dependencies {
+  implementation "app.organicmaps.sdk:sdk:${sdkVersion}"
+  implementation "app.organicmaps.sdk:maps-world:${sdkVersion}"
+  implementation "app.organicmaps.sdk:car:${sdkVersion}"
+  implementation "app.organicmaps.sdk:widgets-lanes:${sdkVersion}"
+  implementation "app.organicmaps.sdk:widgets-speedlimit:${sdkVersion}"
+  googleLocationImplementation "app.organicmaps.sdk:location-google:${sdkVersion}"
+  fossLocationImplementation "app.organicmaps.sdk:location-foss:${sdkVersion}"
+  coreLibraryDesugaring libs.android.tools.desugaring
+  implementation libs.androidx.annotation
+}
