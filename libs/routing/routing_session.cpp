@@ -130,6 +130,9 @@ void RoutingSession::RemoveRoute()
 void RoutingSession::RebuildRouteOnTrafficUpdate()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
+  if (!m_router->IsTrafficSensitive())
+    return;
+
   m2::PointD startPoint;
 
   {
