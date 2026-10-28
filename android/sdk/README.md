@@ -6,6 +6,9 @@ Use the compile SDK from `propCompileSdkVersion` in [gradle.properties](../gradl
 and the build JDK configured in the [SDK workflow](../../.github/workflows/android-sdk.yaml).
 Java source and target compatibility remain 17.
 
+SDK API stability is not guaranteed. See the
+[SDK ownership and release policy](#sdk-release-consumer-checks).
+
 ## Dependencies and packaging
 
 Use the same version for every `app.organicmaps.sdk` dependency:
@@ -148,9 +151,58 @@ listener cleanup, and any background service.
 
 ## Release consumers
 
-The SDK packages consumer R8 rules for JNI access by name. Test a minified release
-APK when changing the Java/JNI boundary. Resource shrinking needs separate checks:
-resources such as bookmark icons are resolved with `Resources.getIdentifier()`
+The SDK packages consumer R8 rules for JNI access by name. Resource shrinking needs
+separate checks: resources such as bookmark icons are resolved with `Resources.getIdentifier()`
 (see `Icon` and `Utils`). Keep the map attribution visible and
 include the project's existing [code](../../LICENSE) and
 [binary-data](../../DATA_LICENSE.txt) licensing information in your integration.
+
+## Documentation and local publication
+
+Run these commands from `android/` with the build JDK configured in CI:
+
+```bash
+./gradlew -Parm64 sdkApiDocs
+./gradlew -Parm64 -PsdkVersion=0.0.0-sdk-check publishSdkForChecks
+```
+
+`sdkApiDocs` produces a module index and API pages in `build/sdk-api/`. It uses the
+same documentation jars as the Maven publications and checks that every public
+module has an API index, core API pages exist, and local HTML files and anchors
+resolve. Modules containing only assets or private provider implementations have
+no public API pages. Generated entries without member details are shown as text.
+
+`publishSdkForChecks` clears and republishes the SDK modules into `build/sdk-check/repository`.
+Individual module publication tasks preserve the other modules in that repository.
+It does not upload to Central or require Central credentials. `sdkVersion` can
+override the normal date-based version for these checks; use a dedicated version
+such as the one above so local checks are distinguishable from releases.
+
+## SDK release consumer checks
+
+The SDK is a side product of the main Organic Maps application. Application and
+SDK code are authoritative; API stability is not guaranteed, and external
+consumers must adapt when the SDK changes.
+
+External consumer applications, their tests, and compatibility CI belong in the
+[Android SDK examples](https://github.com/organicmaps/sdk-android) repository.
+This repository's PR CI checks SDK documentation. The
+[SDK release workflow](../../.github/workflows/android-sdk.yaml) checks artifact
+packaging. Consumer compatibility does not gate changes to the main application
+or SDK.
+
+For every SDK release, once its artifacts are available on Maven Central, run the
+`Android SDK Samples` workflow in `sdk-android` with the published version:
+
+```sh
+gh workflow run android-check.yaml --repo organicmaps/sdk-android -f 'sdk_version=<published-version>'
+```
+
+This builds and lints the examples, including their minified release APKs, and
+runs their instrumentation tests against that version. Update consumers in
+`sdk-android` when SDK changes require it, then rerun the check. Exercise minified
+release APKs on a device when checking JNI, R8, or resource-shrinking behavior.
+
+For optional source integration checks, follow the examples' README and pass the
+absolute path to `android/build/sdk-check/repository` as `-PsdkRepository` with
+the same `-PsdkVersion`. Match the producer ABI to the device or emulator.

@@ -18,7 +18,6 @@ dependencies {
 }
 
 Publish(project, [
-    'artifactId' : 'widgets-lanes',
     'name'       : 'Organic Maps SDK. Lanes widget',
     'description': 'A library that provides a lanes widget for the Organic Maps SDK'
 ])
