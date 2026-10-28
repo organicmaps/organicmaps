@@ -15,12 +15,11 @@ import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.Track;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.widget.placepage.ElevationProfileViewRenderer;
-import app.organicmaps.widget.placepage.PlacePageStateListener;
 import app.organicmaps.widget.placepage.PlacePageViewModel;
 
-public class PlacePageTrackFragment extends Fragment
-    implements PlacePageStateListener, Observer<MapObject>, BookmarkManager.OnElevationActivePointChangedListener,
-               BookmarkManager.OnElevationCurrentPositionChangedListener
+public class PlacePageTrackFragment
+    extends Fragment implements Observer<MapObject>, BookmarkManager.OnElevationActivePointChangedListener,
+                                BookmarkManager.OnElevationCurrentPositionChangedListener
 {
   private PlacePageViewModel mViewModel;
   @Nullable

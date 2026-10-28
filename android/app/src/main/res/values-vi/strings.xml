@@ -343,6 +343,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Tải xuống khu vực bạn đang tìm kiếm hoặc thử thêm tên thị trấn/làng gần đó.</string>
     <string name="search_history_title">Lịch sử tìm kiếm</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">Sao lưu đánh dấu và dấu vết</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">Các đánh dấu và dấu vết có thể được đưa vào bản sao lưu hệ thống Android khi tính năng sao lưu được bật trên thiết bị này và không vượt quá giới hạn dung lượng của nó.</string>
     <string name="search_history_text">Truy cập nhanh chóng đến câu hỏi tìm kiếm gần đây.</string>
     <string name="clear_search">Xóa Lịch sử Tìm kiếm</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -568,6 +572,10 @@
         <item quantity="other">%d files were found. You can see them after conversion.</item>
     </plurals>
     <string name="restore">Khôi phục</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="other">%d khu vực</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="one">%d chặng đường</item>
         <item quantity="other">%d các chặng đường</item>
@@ -583,6 +591,7 @@
     <string name="button_layer_cycling">Đạp xe</string>
     <!-- Map layers menu: toggle button for the satellite imagery layer -->
     <string name="button_layer_satellite">Vệ tinh</string>
+    <!-- Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges. -->
     <string name="button_layer_subway">Xe điện ngầm</string>
     <string name="layers_title">Kiểu và lớp bản đồ</string>
     <string name="bookmarks_empty_list_title">Danh sách trống</string>
@@ -624,7 +633,7 @@
     <string name="routing_options_driving">Lái xe</string>
     <!-- Cycling profile in routing options settings. -->
     <string name="routing_options_cycling">Đạp xe</string>
-    <!-- Walking profile in routing options settings. -->
+    <!-- Walking profile in routing options settings; also the label of a walking leg in transit route details. -->
     <string name="routing_options_walking">Đi bộ</string>
     <!-- Section heading for routing settings shared by every routing mode. -->
     <string name="routing_options_all_modes">Tất cả phương thức di chuyển</string>
@@ -899,4 +908,18 @@
     <string name="track_recording_finish">Kết thúc</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Đảo ngược tuyến đường</string>
+    <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
+    <string name="transit_details_title">Chi tiết hành trình</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Điểm dừng %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="other">%d trạm</item>
+    </plurals>
+    <!-- Spoken name of the bus transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_bus">Xe buýt</string>
+    <!-- Spoken name of the train transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_train">Tàu hỏa</string>
+    <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_tram">Xe điện</string>
 </resources>

@@ -343,6 +343,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Ներբեռնեք այն տարածաշրջանի քարտեզը, որտեղ որոնում եք կատարում, կամ փորձեք ավելացնել մոտակա քաղաքի/գյուղի անունը:</string>
     <string name="search_history_title">Որոնման պատմություն</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">Էջանիշների և հետագծերի պահուստավորում</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">Էջանիշները և հետագծերը կարող են ներառվել Android համակարգի պահուստային պատճեններում, եթե պահուստավորումը միացված է այս սարքում, և դրանք չեն գերազանցում դրա չափի սահմանաչափը։</string>
     <string name="search_history_text">Դիտեք ձեր վերջին որոնումները:</string>
     <string name="clear_search">Մաքրել որոնման պատմությունը</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -570,6 +574,11 @@
         <item quantity="other">%d ֆայլ</item>
     </plurals>
     <string name="restore">Վերականգնել</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d տարածք</item>
+        <item quantity="other">%d տարածք</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="one">%d երթուղի</item>
         <item quantity="other">%d երթուղի</item>
@@ -585,6 +594,7 @@
     <string name="button_layer_cycling">Հեծանվային</string>
     <!-- Map layers menu: toggle button for the satellite imagery layer -->
     <string name="button_layer_satellite">Արբանյակ</string>
+    <!-- Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges. -->
     <string name="button_layer_subway">Մետրո</string>
     <string name="layers_title">Քարտեզի ոճեր և շերտեր</string>
     <string name="bookmarks_empty_list_title">Այս ցուցակը դատարկ է</string>
@@ -626,7 +636,7 @@
     <string name="routing_options_driving">Մեքենայով</string>
     <!-- Cycling profile in routing options settings. -->
     <string name="routing_options_cycling">Հեծանվով</string>
-    <!-- Walking profile in routing options settings. -->
+    <!-- Walking profile in routing options settings; also the label of a walking leg in transit route details. -->
     <string name="routing_options_walking">Ոտքով</string>
     <!-- Section heading for routing settings shared by every routing mode. -->
     <string name="routing_options_all_modes">Տեղաշարժման բոլոր եղանակները</string>
@@ -909,4 +919,19 @@
     <string name="track_recording_finish">Ավարտել</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Շրջել երթուղին</string>
+    <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
+    <string name="transit_details_title">Երթուղու մանրամասներ</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Կանգառ %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d կանգառ</item>
+        <item quantity="other">%d կանգառ</item>
+    </plurals>
+    <!-- Spoken name of the bus transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_bus">Ավտոբուս</string>
+    <!-- Spoken name of the train transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_train">Գնացք</string>
+    <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_tram">Տրամվայ</string>
 </resources>

@@ -2,7 +2,7 @@
 
 #include <QtWidgets/QWidget>
 
-#include <string>
+#include <string_view>
 
 class QGridLayout;
 class QLabel;
@@ -41,15 +41,35 @@ private:
 
 namespace place_page_dialog
 {
+inline QString MakeHtmlLink(QString const & url, QString const & text)
+{
+  return QString("<a href=\"%1\">%2</a>").arg(url.toHtmlEscaped(), text.toHtmlEscaped());
+}
+
+inline QString ShortDescription(std::string_view description)
+{
+  if (auto const end = description.find("</p>"); description.starts_with("<p>") && end != std::string_view::npos)
+    description = description.substr(3, end - 3);
+
+  size_t constexpr kMaxBytes = 500;
+  if (description.size() <= kMaxBytes)
+    return QString::fromUtf8(description.data(), description.size());
+
+  // Keep the preview byte-limited, reserving three bytes for the ellipsis and preserving UTF-8 code points.
+  auto end = kMaxBytes - 3;
+  while ((static_cast<unsigned char>(description[end]) & 0xC0) == 0x80)
+    --end;
+  return QString::fromUtf8(description.data(), end) + QStringLiteral("…");
+}
+
 // Builds a toolbar with route + edit actions wired to `drawWidget`.
 // Action handlers capture only the values they need from `info`, so the
 // returned toolbar stays valid even after `info` is invalidated.
 QToolBar * createActionToolBar(QWidget * parent, qt::DrawWidget * drawWidget, place_page::Info const & info);
 
 // Adds a key/value row to `grid` and increments `row`.
-// If `isLink`, wraps the value in <a href> markup.
-QLabel * addEntry(QGridLayout * grid, int & row, std::string const & key, std::string const & value,
-                  bool isLink = false);
+// A nonempty URL makes the displayed value a link to that URL.
+QLabel * addEntry(QGridLayout * grid, int & row, QString const & key, QString const & value, QString const & url = {});
 
 // If `info` has route refs, adds a "Routes" row to `grid` with a combo box that
 // shows the selected route's transit view via DrawWidget::GetFramework().ShowRouteTransit().

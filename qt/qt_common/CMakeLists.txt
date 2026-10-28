@@ -21,6 +21,8 @@ set(SRC
   spinner.hpp
   text_dialog.cpp
   text_dialog.hpp
+  translations.cpp
+  translations.hpp
 )
 
 omim_add_library(${PROJECT_NAME} ${SRC} ${RESOURCES})
@@ -35,3 +37,8 @@ target_link_libraries(${PROJECT_NAME}
     Qt6::OpenGL
     Qt6::OpenGLWidgets
 )
+
+if (BUILD_TESTING AND BUILD_OPENGL_TESTS)
+  omim_add_test(qt_drape_tests qtoglcontext_tests.cpp NO_PLATFORM_INIT)
+  target_link_libraries(qt_drape_tests PRIVATE qt_common qt_tstfrm)
+endif()

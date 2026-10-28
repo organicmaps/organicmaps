@@ -18,6 +18,7 @@
     <string name="editor_zip_code">Postcode</string>
     <string name="error_enter_correct_zip_code">Enter a valid postcode</string>
     <string name="editor_category_unsuitable_text">Organic Maps allows adding simple point categories only, which means no towns, roads, lakes, building outlines, etc. Please add such categories directly to <a href="https://www.openstreetmap.org">OpenStreetMap.org</a>. Check our <a href="https://organicmaps.app/faq/editing/advanced-map-editing">guide</a> for detailed step-by-step instructions.</string>
+    <!-- Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges. -->
     <string name="button_layer_subway">Metro</string>
     <!-- Routing setting that automatically reorders intermediate stops -->
     <string name="route_optimization">Route optimisation</string>
@@ -27,4 +28,8 @@
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="fuel_places">Petrol Stations</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
+    <string name="transit_details_title">Journey details</string>
 </resources>

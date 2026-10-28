@@ -1,5 +1,6 @@
 #include "qt/search_panel.hpp"
 #include "qt/draw_widget.hpp"
+#include "qt/qt_common/translations.hpp"
 
 #include "search/search_params.hpp"
 
@@ -57,10 +58,10 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
   QButtonGroup * searchModeButtons = new QButtonGroup(this);
   QGroupBox * groupBox = new QGroupBox();
   QHBoxLayout * modeLayout = new QHBoxLayout();
-  QRadioButton * buttonE = new QRadioButton(tr("Everywhere"));
+  QRadioButton * buttonE = new QRadioButton(Tr("search_everywhere"));
   modeLayout->addWidget(buttonE);
   searchModeButtons->addButton(buttonE, static_cast<int>(search::Mode::Everywhere));
-  QRadioButton * buttonV = new QRadioButton(tr("Viewport"));
+  QRadioButton * buttonV = new QRadioButton(Tr("search_viewport"));
   modeLayout->addWidget(buttonV);
   searchModeButtons->addButton(buttonV, static_cast<int>(search::Mode::Viewport));
   groupBox->setLayout(modeLayout);
@@ -68,7 +69,7 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
   searchModeButtons->button(static_cast<int>(search::Mode::Everywhere))->setChecked(true);
   connect(searchModeButtons, SIGNAL(idClicked(int)), this, SLOT(OnSearchModeChanged(int)));
 
-  m_isCategory = new QCheckBox(tr("Category request"));
+  m_isCategory = new QCheckBox(Tr("category_request"));
   m_isCategory->setCheckState(Qt::Unchecked);
   connect(m_isCategory, &QCheckBox::toggled, this, &SearchPanel::RunSearch);
 

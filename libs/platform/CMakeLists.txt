@@ -123,7 +123,7 @@ else() # neither iPhone nor Android
                   @ONLY)
 
   append(SRC
-    localization_dummy.cpp
+    localization_qt.cpp
     network_policy_dummy.cpp
     platform_qt.cpp
     "${CMAKE_CURRENT_BINARY_DIR}/platform_qt_version.cpp"
@@ -206,7 +206,7 @@ target_link_libraries(${PROJECT_NAME}
 
 omim_add_test_subdirectory(platform_tests_support)
 omim_add_test_subdirectory(platform_tests)
-if (NOT SKIP_QT_GUI)
+if (NOT SKIP_QT_GUI OR (BUILD_TESTING AND PLATFORM_DESKTOP))
   add_subdirectory(location_service)
 endif()
 

@@ -343,6 +343,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Preuzmi regiju u kojoj tražiš ili pokušavaš dodati ime obližnjeg grada/sela.</string>
     <string name="search_history_title">Povijest pretrage</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">Sigurnosna kopija zabilješki i puteva</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">Zabilješke i putevi mogu biti uključeni u sigurnosne kopije sustava Android ako je na ovom uređaju uključeno sigurnosno kopiranje i ne prelaze njegovo ograničenje veličine.</string>
     <string name="search_history_text">Pogledaj svoje nedavne pretrage.</string>
     <string name="clear_search">Izbriši povijest pretraživanja</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -572,6 +576,12 @@
         <item quantity="other">Pronađeno je %d datoteka. Možeš ih vidjeti nakon konverzije.</item>
     </plurals>
     <string name="restore">Obnovi</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d područje</item>
+        <item quantity="few">%d područja</item>
+        <item quantity="other">%d područja</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="zero">%d puteva</item>
         <item quantity="one">%d put</item>
@@ -589,6 +599,7 @@
     <string name="button_layer_cycling">Biciklizam</string>
     <!-- Map layers menu: toggle button for the satellite imagery layer -->
     <string name="button_layer_satellite">Satelit</string>
+    <!-- Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges. -->
     <string name="button_layer_subway">Podzemna željeznica</string>
     <string name="layers_title">Stilovi karta i slojevi</string>
     <string name="bookmarks_empty_list_title">Ovaj je popis prazan</string>
@@ -630,7 +641,7 @@
     <string name="routing_options_driving">Automobilom</string>
     <!-- Cycling profile in routing options settings. -->
     <string name="routing_options_cycling">Biciklom</string>
-    <!-- Walking profile in routing options settings. -->
+    <!-- Walking profile in routing options settings; also the label of a walking leg in transit route details. -->
     <string name="routing_options_walking">Pješice</string>
     <!-- Section heading for routing settings shared by every routing mode. -->
     <string name="routing_options_all_modes">Svi načini kretanja</string>
@@ -909,4 +920,20 @@
     <string name="track_recording_finish">Završi</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Obrni rutu</string>
+    <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
+    <string name="transit_details_title">Detalji putovanja</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Stajalište %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d stanica</item>
+        <item quantity="few">%d stanice</item>
+        <item quantity="other">%d stanica</item>
+    </plurals>
+    <!-- Spoken name of the bus transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_bus">Autobus</string>
+    <!-- Spoken name of the train transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_train">Vlak</string>
+    <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_tram">Tramvaj</string>
 </resources>

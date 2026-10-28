@@ -343,6 +343,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Sæktu kortið af því svæði sem þú ert að leita á eða prófaðu að bæta við nafni á nálægum bæ eða þorpi.</string>
     <string name="search_history_title">Leitarferill</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">Öryggisafrit bókamerkja og ferla</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">Bókamerki og ferlar geta verið tekin með í kerfisöryggisafritum Android þegar öryggisafritun er virk á þessu tæki og þau fara ekki yfir stærðarmörk hennar.</string>
     <string name="search_history_text">Skoðaðu nýlegar leitir þínar.</string>
     <string name="clear_search">Hreinsa leitarferil</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -572,6 +576,11 @@
         <item quantity="other">%d skrár fundust. Þú getur séð þær eftir umbreytingu.</item>
     </plurals>
     <string name="restore">Endurheimta</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d svæði</item>
+        <item quantity="other">%d svæði</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="zero">%d ferlar</item>
         <item quantity="one">%d ferill</item>
@@ -588,6 +597,7 @@
     <string name="button_layer_cycling">Hjólreiðar</string>
     <!-- Map layers menu: toggle button for the satellite imagery layer -->
     <string name="button_layer_satellite">Gervitungl</string>
+    <!-- Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges. -->
     <string name="button_layer_subway">Neðanjarðarlest</string>
     <string name="layers_title">Stílar landakorta og þekjur</string>
     <string name="bookmarks_empty_list_title">Þessi listi er tómur</string>
@@ -629,7 +639,7 @@
     <string name="routing_options_driving">Akstur</string>
     <!-- Cycling profile in routing options settings. -->
     <string name="routing_options_cycling">Hjólreiðar</string>
-    <!-- Walking profile in routing options settings. -->
+    <!-- Walking profile in routing options settings; also the label of a walking leg in transit route details. -->
     <string name="routing_options_walking">Ganga</string>
     <!-- Section heading for routing settings shared by every routing mode. -->
     <string name="routing_options_all_modes">Allir ferðamátar</string>
@@ -914,4 +924,19 @@
     <string name="track_recording_finish">Ljúka</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Snúa leið við</string>
+    <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
+    <string name="transit_details_title">Ferðaupplýsingar</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Stopp %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d stoppistöð</item>
+        <item quantity="other">%d stoppistöðvar</item>
+    </plurals>
+    <!-- Spoken name of the bus transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_bus">Strætó</string>
+    <!-- Spoken name of the train transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_train">Lest</string>
+    <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_tram">Sporvagn</string>
 </resources>

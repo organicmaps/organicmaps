@@ -343,6 +343,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Lawrlwythwch y rhanbarth lle rydych chi\'n chwilio neu ceisiwch ychwanegu enw tref/pentref cyfagos.</string>
     <string name="search_history_title">Hanes chwilio</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">Copi wrth gefn o nodau tudalen a thraciau</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">Gellir cynnwys nodau tudalen a thraciau yng nghopïau wrth gefn system Android pan fydd copïo wrth gefn wedi\'i alluogi ar y ddyfais hon a\'u bod o fewn ei derfyn maint.</string>
     <string name="search_history_text">Gwelwch eich chwiliadau diweddar.</string>
     <string name="clear_search">Clirio hanes chwilio</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -578,6 +582,15 @@
         <item quantity="other">Cafwyd hyd i %d ffeil. Gallwch eu gweld ar ôl eu trosi.</item>
     </plurals>
     <string name="restore">Adfer</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="zero">%d ardal</item>
+        <item quantity="one">%d ardal</item>
+        <item quantity="two">%d ardal</item>
+        <item quantity="few">%d ardal</item>
+        <item quantity="many">%d ardal</item>
+        <item quantity="other">%d ardal</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="zero">Dim traciau</item>
         <item quantity="one">%d trac</item>
@@ -597,6 +610,7 @@
     <string name="button_layer_cycling">Beicio</string>
     <!-- Map layers menu: toggle button for the satellite imagery layer -->
     <string name="button_layer_satellite">Lloeren</string>
+    <!-- Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges. -->
     <string name="button_layer_subway">Trên tanddaearol</string>
     <string name="layers_title">Arddulliau a haenau map</string>
     <string name="bookmarks_empty_list_title">Mae\'r rhestr hon yn wag</string>
@@ -638,7 +652,7 @@
     <string name="routing_options_driving">Gyrru</string>
     <!-- Cycling profile in routing options settings. -->
     <string name="routing_options_cycling">Beicio</string>
-    <!-- Walking profile in routing options settings. -->
+    <!-- Walking profile in routing options settings; also the label of a walking leg in transit route details. -->
     <string name="routing_options_walking">Cerdded</string>
     <!-- Section heading for routing settings shared by every routing mode. -->
     <string name="routing_options_all_modes">Pob modd llwybro</string>
@@ -933,4 +947,19 @@
     <string name="track_recording_finish">Gorffen</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Gwrthdroi\'r llwybr</string>
+    <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
+    <string name="transit_details_title">Manylion y daith</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Arhosfan %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d arhosfan</item>
+        <item quantity="other">%d arhosfan</item>
+    </plurals>
+    <!-- Spoken name of the bus transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_bus">Bws</string>
+    <!-- Spoken name of the train transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_train">Trên</string>
+    <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_tram">Tram</string>
 </resources>

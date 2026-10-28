@@ -399,7 +399,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void runViewportOnlySearch(@NonNull String query, @Nullable String locale)
   {
-    // Match the pre-refactor flow: clear any prior interactive search + API points before starting.
+    // Clear prior search results and API points so only the new query owns the map markers.
     SearchEngine.INSTANCE.cancel();
 
     final String lang = locale != null ? locale : Language.getKeyboardLocale(this);
@@ -2125,7 +2125,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private void showTrackRecordingPP()
   {
     String title = StringUtils.nativeFormatDistance(0).toString(this) + " • "
-                 + Utils.formatRoutingTime(this, 0, R.dimen.text_size_body_3);
+                 + Utils.formatDuration(this, 0, R.dimen.text_size_body_3);
     mPlacePageViewModel.setMapObject(new TrackRecording(title, getString(R.string.track_recording_title)));
   }
 

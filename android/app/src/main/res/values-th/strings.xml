@@ -343,6 +343,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">ดาวน์โหลดภูมิภาคที่คุณกำลังค้นหาหรือลองเพิ่มชื่อเมือง/หมู่บ้านใกล้เคียง</string>
     <string name="search_history_title">ประวัติการค้นหา</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">สำรองข้อมูลบุ๊กมาร์กและแทร็ก</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">บุ๊กมาร์กและแทร็กสามารถรวมอยู่ในการสำรองข้อมูลระบบ Android ได้ เมื่อเปิดใช้การสำรองข้อมูลในอุปกรณ์นี้และมีขนาดไม่เกินขีดจำกัด</string>
     <string name="search_history_text">เข้าถึงคำถามที่ใช้ในการค้นหาเมื่อเร็ว ๆ นี้ได้อย่างรวดเร็ว</string>
     <string name="clear_search">ล้างการค้นหาประวัติ</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -569,6 +573,10 @@
         <item quantity="other">พบ %d ไฟล์ คุณจะเห็นพวกเขาหลังจากการแปลง</item>
     </plurals>
     <string name="restore">ฟื้นฟู</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="other">%d พื้นที่</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="one">%d ติดตาม</item>
         <item quantity="other">%d ติดตามต่าง ๆ</item>
@@ -584,6 +592,7 @@
     <string name="button_layer_cycling">การปั่นจักรยาน</string>
     <!-- Map layers menu: toggle button for the satellite imagery layer -->
     <string name="button_layer_satellite">ดาวเทียม</string>
+    <!-- Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges. -->
     <string name="button_layer_subway">รถไฟใต้ดิน</string>
     <string name="layers_title">รูปแบบและเลเยอร์ของแผนที่</string>
     <string name="bookmarks_empty_list_title">รายการนี้ว่างเปล่า</string>
@@ -625,7 +634,7 @@
     <string name="routing_options_driving">ขับรถ</string>
     <!-- Cycling profile in routing options settings. -->
     <string name="routing_options_cycling">ปั่นจักรยาน</string>
-    <!-- Walking profile in routing options settings. -->
+    <!-- Walking profile in routing options settings; also the label of a walking leg in transit route details. -->
     <string name="routing_options_walking">เดิน</string>
     <!-- Section heading for routing settings shared by every routing mode. -->
     <string name="routing_options_all_modes">ทุกรูปแบบการเดินทาง</string>
@@ -900,4 +909,18 @@
     <string name="track_recording_finish">เสร็จสิ้น</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">กลับทิศทางเส้นทาง</string>
+    <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
+    <string name="transit_details_title">รายละเอียดการเดินทาง</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">จุดแวะพัก %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="other">%d ป้าย</item>
+    </plurals>
+    <!-- Spoken name of the bus transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_bus">รถประจำทาง</string>
+    <!-- Spoken name of the train transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_train">รถไฟ</string>
+    <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_tram">รถราง</string>
 </resources>

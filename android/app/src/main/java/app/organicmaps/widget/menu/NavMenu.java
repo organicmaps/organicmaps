@@ -20,10 +20,9 @@ import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.util.Utils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
 
 public class NavMenu implements DefaultLifecycleObserver
@@ -209,11 +208,13 @@ public class NavMenu implements DefaultLifecycleObserver
 
   private void updateTimeLeft(int seconds)
   {
-    final long hours = TimeUnit.SECONDS.toHours(seconds);
-    final long minutes = TimeUnit.SECONDS.toMinutes(seconds) % 60;
+    final long totalMinutes = Utils.getRoutingMinutes(seconds);
+    final long hours = TimeUnit.MINUTES.toHours(totalMinutes);
+    final long minutes = totalMinutes % 60;
     mTimeMinuteValue.setText(String.valueOf(minutes));
     String min = mActivity.getResources().getString(R.string.minute);
     mTimeMinuteUnits.setText(min);
+    UiUtils.showIf(hours == 0 || minutes > 0, mTimeMinuteUnits, mTimeMinuteValue);
     if (hours == 0)
     {
       UiUtils.hide(mTimeHourUnits, mTimeHourValue);
@@ -226,10 +227,7 @@ public class NavMenu implements DefaultLifecycleObserver
 
   private void updateTimeEstimate(int seconds)
   {
-    final String format =
-        android.text.format.DateFormat.is24HourFormat(mTimeMinuteValue.getContext()) ? "HH:mm" : "h:mm a";
-    final LocalTime localTime = LocalTime.now().plusSeconds(seconds);
-    mTimeEstimate.setText(localTime.format(DateTimeFormatter.ofPattern(format)));
+    mTimeEstimate.setText(Utils.formatArrivalTime(mActivity, seconds));
   }
 
   private void updateSpeedView(@NonNull RoutingInfo info)

@@ -31,13 +31,14 @@ public final class BookmarkCategory implements Parcelable
   private String mDescription;
   private final int mTracksCount;
   private final int mBookmarksCount;
+  private final int mAreasCount;
   private boolean mIsVisible;
 
   // Used by JNI.
   @Keep
   @SuppressWarnings("unused")
   private BookmarkCategory(long id, @NonNull String name, @NonNull String annotation, @NonNull String description,
-                           int tracksCount, int bookmarksCount, boolean isVisible)
+                           int tracksCount, int bookmarksCount, int areasCount, boolean isVisible)
   {
     mId = id;
     mName = name;
@@ -45,6 +46,7 @@ public final class BookmarkCategory implements Parcelable
     mDescription = description;
     mTracksCount = tracksCount;
     mBookmarksCount = bookmarksCount;
+    mAreasCount = areasCount;
     mIsVisible = isVisible;
   }
 
@@ -92,6 +94,11 @@ public final class BookmarkCategory implements Parcelable
     return mBookmarksCount;
   }
 
+  public int getAreasCount()
+  {
+    return mAreasCount;
+  }
+
   public boolean isVisible()
   {
     mIsVisible = nativeIsVisible(mId);
@@ -111,7 +118,7 @@ public final class BookmarkCategory implements Parcelable
 
   public int size()
   {
-    return getBookmarksCount() + getTracksCount();
+    return getBookmarksCount() + getTracksCount() + getAreasCount();
   }
 
   @NonNull
@@ -230,6 +237,7 @@ public final class BookmarkCategory implements Parcelable
     dest.writeString(this.mDescription);
     dest.writeInt(this.mTracksCount);
     dest.writeInt(this.mBookmarksCount);
+    dest.writeInt(this.mAreasCount);
     dest.writeByte(this.mIsVisible ? (byte) 1 : (byte) 0);
   }
 
@@ -241,6 +249,7 @@ public final class BookmarkCategory implements Parcelable
     this.mDescription = Objects.requireNonNull(in.readString());
     this.mTracksCount = in.readInt();
     this.mBookmarksCount = in.readInt();
+    this.mAreasCount = in.readInt();
     this.mIsVisible = in.readByte() != 0;
   }
 

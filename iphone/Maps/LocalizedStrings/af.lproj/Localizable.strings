@@ -686,6 +686,8 @@
 
 /* Map layers menu: toggle button for the satellite imagery layer */
 "button_layer_satellite" = "Satelliet";
+
+/* Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges. */
 "button_layer_subway" = "Moltrein";
 "layers_title" = "Kaartstyle en -lae";
 
@@ -734,7 +736,7 @@
 /* Cycling profile in routing options settings. */
 "routing_options_cycling" = "Fietsry";
 
-/* Walking profile in routing options settings. */
+/* Walking profile in routing options settings; also the label of a walking leg in transit route details. */
 "routing_options_walking" = "Stap";
 
 /* Section heading for routing settings shared by every routing mode. */

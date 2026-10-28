@@ -101,12 +101,15 @@ final class ActionBarViewController: UIViewController {
   }
 
   private func setupButtonsState() {
+    // Download takes priority over routing actions.
+    let primaryButton: ActionBarButtonType? = [.download, .routeTo, .routeAddDestination, .routeReplaceStop]
+      .first { visibleButtons.contains($0) }
     for buttonType in visibleButtons {
-      let (selected, enabled) = buttonState(buttonType)
+      let selected = isButtonSelected(buttonType)
       let button = ActionBarButton(delegate: self,
                                    buttonType: buttonType,
                                    isSelected: selected,
-                                   isEnabled: enabled)
+                                   isPrimary: buttonType == primaryButton)
       stackView.addArrangedSubview(button)
       switch buttonType {
       case .download:
@@ -118,18 +121,15 @@ final class ActionBarViewController: UIViewController {
     }
   }
 
-  private func buttonState(_ buttonType: ActionBarButtonType) -> (selected: Bool, enabled: Bool) {
-    var selected = false
-    let enabled = true
+  private func isButtonSelected(_ buttonType: ActionBarButtonType) -> Bool {
     switch buttonType {
     case .bookmark:
-      selected = placePageData.bookmarkData != nil
+      return placePageData.bookmarkData != nil
     case .track:
-      selected = placePageData.trackData != nil
+      return placePageData.trackData != nil
     default:
-      break
+      return false
     }
-    return (selected, enabled)
   }
 
   private func showMore() {
@@ -137,14 +137,13 @@ final class ActionBarViewController: UIViewController {
                                         message: placePageData.previewData.subtitle,
                                         preferredStyle: .actionSheet)
     for button in additionalButtons {
-      let (selected, enabled) = buttonState(button)
+      let selected = isButtonSelected(button)
       let action = UIAlertAction(title: titleForButton(button, selected),
                                  style: .default,
                                  handler: { [weak self] _ in
                                    guard let self = self else { return }
                                    self.delegate?.actionBar(self, didPressButton: button)
                                  })
-      action.isEnabled = enabled
       actionSheet.addAction(action)
     }
     actionSheet.addAction(UIAlertAction(title: L("cancel"), style: .cancel))

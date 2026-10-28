@@ -26,7 +26,7 @@ class BaseRule
 public:
   BaseRule() = default;
   virtual ~BaseRule() = default;
-  // Move-only (holds a unique_ptr selector); stored by value in RulesHolder's per-kind vectors.
+  // Move-only because each rule owns its runtime selector.
   BaseRule(BaseRule &&) = default;
   BaseRule & operator=(BaseRule &&) = default;
 
@@ -48,9 +48,8 @@ private:
   std::unique_ptr<ISelector> m_selector;
 };
 
-// Thin per-kind BaseRule wrappers. They are stored by value in RulesHolder's per-kind deques, which
-// never relocate their elements, so the raw pointers handed out via Find() stay stable for the
-// holder's lifetime.
+// Per-kind wrappers are stored by value in deques. Appending rules preserves existing addresses;
+// pointers returned by Find() remain valid until the holder is reloaded or destroyed.
 struct LineRuleHolder final : BaseRule
 {
   LineRule m_rule;
@@ -88,6 +87,7 @@ public:
   RulesHolder();
   ~RulesHolder();
 
+  // Returns a non-null rule for a key from this holder's current load.
   BaseRule const * Find(Key const & k) const;
 
   uint32_t GetBgColor(int scale) const;
@@ -95,7 +95,8 @@ public:
 
   // Fills this holder (and classifTree's draw rules) from one variant of a decoded family. Colors
   // are resolved to ARGB using that variant's palette. classifTree must be the tree of the same
-  // style as this holder.
+  // style as this holder. Reloading invalidates rule pointers; no readers may access this holder
+  // or classifTree while they are being filled.
   void LoadFromFormat(DrulesFormat const & fmt, size_t variant, Classificator & classifTree);
 
   bool IsEmpty() const { return m_dRules.empty(); }
@@ -118,7 +119,7 @@ private:
   std::vector<uint32_t> m_bgColors;
   std::unordered_map<std::string, uint32_t, base::StringHash, std::equal_to<>> m_colors;
 
-  // Per-kind storage; std::deque never relocates elements, so the m_dRules pointers stay stable.
+  // Appending to these deques preserves m_dRules pointers; Clean() invalidates them.
   std::deque<LineRuleHolder> m_lineRules;
   std::deque<AreaRuleHolder> m_areaRules;
   std::deque<SymbolRuleHolder> m_symbolRules;
@@ -130,9 +131,8 @@ private:
 };
 
 RulesHolder & GetCurrentRules();
-RulesHolder & GetOutdoorRules();
-// Accessor for a specific style's holder; used by the loader to fill a family without changing the
-// global current style.
+// Accessor for a specific style's holder, for the loader and tile readers that must not observe a
+// concurrent style switch.
 RulesHolder & GetRules(MapStyle mapStyle);
 
 // Decodes mapStyle's drawing-rules file (a valid WritableDir override if present, else the bundled

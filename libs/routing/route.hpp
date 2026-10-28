@@ -231,7 +231,7 @@ private:
 
   traffic::SpeedGroup m_traffic = traffic::SpeedGroup::Unknown;
 
-  /// Information needed to display transit segments properly.
+  /// Transit metadata for rendering and physical ride-time interpolation.
   TransitInfoWrapper m_transitInfo;
 
   // List of speed cameras, sorted by segment direction (from start to end).

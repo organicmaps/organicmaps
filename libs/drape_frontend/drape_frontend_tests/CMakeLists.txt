@@ -1,7 +1,6 @@
 project(drape_frontend_tests)
 
 set(SRC
-  area_pattern_gpu_test.cpp
   area_shape_tests.cpp
   clip_splines_builder_tests.cpp
   frame_values_tests.cpp
@@ -9,13 +8,10 @@ set(SRC
   my_position_controller_tests.cpp
   navigator_test.cpp
   path_text_test.cpp
-  rainbow_line_gpu_test.cpp
   screen_operations_tests.cpp
   search_mark_overlay_filter_tests.cpp
   read_cancellation_tests.cpp
   shape_batch_tests.cpp
-  shape_test_fixture.cpp
-  shape_test_fixture.hpp
   stylist_tests.cpp
   tile_background_coverage_tests.cpp
   tile_background_renderer_tests.cpp
@@ -23,6 +19,16 @@ set(SRC
   visual_params_fixture.hpp
   visual_params_tests.cpp
 )
+
+if (BUILD_OPENGL_TESTS)
+  list(APPEND SRC
+    area_pattern_gpu_test.cpp
+    rainbow_line_gpu_test.cpp
+    shape_test_fixture.cpp
+    shape_test_fixture.hpp
+    track_direction_gpu_test.cpp
+  )
+endif()
 
 omim_add_test(${PROJECT_NAME} ${SRC})
 

@@ -159,6 +159,10 @@
     <string name="hide">Anubrir</string>
     <string name="categories">Categoríes</string>
     <string name="search_history_title">Historial de guetes</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">Copia de seguranza de marcadores y trayeutos</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">Los marcadores y trayeutos puen incluyise nes copies de seguranza del sistema Android cuando la copia de seguranza ta activada nesti preséu y nun superen la so llende de tamañu.</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Wikipedia</string>
     <string name="p2p_start">Entamar</string>
@@ -256,6 +260,11 @@
         <item quantity="one">Atopóse %d ficheru. Pues velu dempués de la conversión.</item>
         <item quantity="other">Atopáronse %d ficheros. Pues velos dempués de la conversión.</item>
     </plurals>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d área</item>
+        <item quantity="other">%d árees</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="one">%d trayeutu</item>
         <item quantity="other">%d trayeutos</item>
@@ -267,6 +276,7 @@
     <string name="button_layer_hiking">Senderismu</string>
     <!-- Cycling routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_cycling">Ciclismu</string>
+    <!-- Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges. -->
     <string name="button_layer_subway">Metro</string>
     <string name="layers_title">Estilos y capes del mapa</string>
     <string name="bookmarks_empty_list_title">Esta llista ta balera</string>
@@ -289,7 +299,7 @@
     <string name="routing_options_driving">En coche</string>
     <!-- Cycling profile in routing options settings. -->
     <string name="routing_options_cycling">En bicicleta</string>
-    <!-- Walking profile in routing options settings. -->
+    <!-- Walking profile in routing options settings; also the label of a walking leg in transit route details. -->
     <string name="routing_options_walking">A pie</string>
     <!-- Section heading for routing settings shared by every routing mode. -->
     <string name="routing_options_all_modes">Tolos moos de desplazamientu</string>
@@ -401,4 +411,19 @@
     <string name="track_recording_finish">Acabar</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Invertir la ruta</string>
+    <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
+    <string name="transit_details_title">Detalles del trayectu</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Parada %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d parada</item>
+        <item quantity="other">%d parades</item>
+    </plurals>
+    <!-- Spoken name of the bus transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_bus">Autobús</string>
+    <!-- Spoken name of the train transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_train">Tren</string>
+    <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_tram">Tranvía</string>
 </resources>

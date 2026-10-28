@@ -87,6 +87,7 @@ final class RoutingBottomMenuController
   private final DotDividerItemDecoration mTransitViewDecorator;
   @NonNull
   private final TransitStepAdapter mTransitAdapter;
+  // Compact leg-badge strip; tapping it (or the summary row above) opens the full-screen per-leg details.
   @NonNull
   private final RecyclerView mTransitRecyclerView;
   @NonNull
@@ -217,6 +218,9 @@ final class RoutingBottomMenuController
     mTransitRecyclerView.setNestedScrollingEnabled(false);
     mTransitRecyclerView.addItemDecoration(mTransitViewDecorator);
     mTransitRecyclerView.setAdapter(mTransitAdapter);
+    // Clickable only for public transport; ruler routes reuse the tile without per-leg details.
+    mTransitTime.setOnClickListener(v -> TransitDetailsActivity.start(mContext));
+    mTransitTime.setClickable(false);
   }
 
   private void openSearchForRoutePick()
@@ -274,20 +278,20 @@ final class RoutingBottomMenuController
   void showTransitInfo(@NonNull TransitRouteInfo info)
   {
     refreshManageRoute();
-    View transit_time = mAltitudeChartFrame.findViewById(R.id.transit_time);
     hideAltitudeChartAndRoutingDetails();
     UiUtils.hide(mError, mTimeElevationLine, mTimeVehicle);
     setStartState(StartState.DISABLED);
-    UiUtils.show(transit_time, mTransitRecyclerView);
-    mTransitAdapter.setItems(info.getTransitSteps());
 
-    TextView totalTimeView = mAltitudeChartFrame.findViewById(R.id.total_time);
-    totalTimeView.setText(Utils.formatRoutingTime(mContext, info.getTotalTime(), R.dimen.text_size_routing_number));
-    View dotView = mAltitudeChartFrame.findViewById(R.id.dot);
-    View pedestrianIcon = mAltitudeChartFrame.findViewById(R.id.pedestrian_icon);
-    TextView distanceView = mAltitudeChartFrame.findViewById(R.id.total_distance);
-    UiUtils.showIf(info.getTotalPedestrianTimeInSec() > 0, dotView, pedestrianIcon, distanceView);
-    distanceView.setText(info.getTotalPedestrianDistance() + " " + info.getTotalPedestrianDistanceUnits());
+    // The whole tile is one tap target that opens the details: total duration, walking distance, leg strip.
+    mTransitAdapter.setItems(info.getTransitSteps());
+    ((TextView) mTransitTime.findViewById(R.id.total_time))
+        .setText(StringUtils.nativeFormatRoutingDuration(info.getTotalTime()));
+    TextView walkView = mTransitTime.findViewById(R.id.total_walk_distance);
+    UiUtils.showIf(info.getTotalPedestrianTimeInSec() > 0, walkView, mTransitTime.findViewById(R.id.pedestrian_icon));
+    walkView.setText(info.getTotalPedestrianDistance() + " " + info.getTotalPedestrianDistanceUnits());
+    mTransitTime.setClickable(true);
+    UiUtils.show(mTransitTime, mTransitRecyclerView, mTransitTime.findViewById(R.id.transit_topline));
+
     notifyVisibilityChanged();
   }
 
@@ -295,17 +299,23 @@ final class RoutingBottomMenuController
   void showRulerInfo(@NonNull RouteMarkData[] points, Distance totalLength)
   {
     refreshManageRoute();
-    UiUtils.hide(mError, mTimeVehicle, mTransitTime, mTimeElevationLine, mAltitudeChart);
+    UiUtils.hide(mError, mTimeVehicle, mTimeElevationLine, mAltitudeChart);
     setStartState(StartState.DISABLED);
     hideAltitudeChartAndRoutingDetails();
-    UiUtils.show(mAltitudeChartFrame, mTransitRecyclerView, mTimeRuler);
+    UiUtils.show(mAltitudeChartFrame, mTimeRuler);
+
+    // The tile is shared with public transport routing, but a straight-line ruler route has no per-leg
+    // details, so make it inert and hide the summary top line. Only the (waypoint) strip is meaningful.
+    mTransitTime.setClickable(false);
+    UiUtils.hide(mTransitTime.findViewById(R.id.transit_topline));
+
     if (points.length > 2)
     {
-      UiUtils.show(mTransitRecyclerView);
+      UiUtils.show(mTransitTime, mTransitRecyclerView);
       mTransitAdapter.setItems(pointsToRulerSteps(points));
     }
     else
-      UiUtils.hide(mTransitRecyclerView); // Show only distance between start and finish
+      UiUtils.hide(mTransitTime, mTransitRecyclerView); // Show only distance between start and finish
     mTimeRuler.setText(mContext.getString(R.string.placepage_distance) + ": " + totalLength.mDistanceStr + " "
                        + totalLength.getUnitsStr(mContext));
     notifyVisibilityChanged();
@@ -442,7 +452,7 @@ final class RoutingBottomMenuController
 
     if (mArrival != null)
     {
-      String arrivalTime = Utils.formatArrivalTime(rinfo.totalTimeInSeconds);
+      String arrivalTime = Utils.formatArrivalTime(mContext, rinfo.totalTimeInSeconds);
       mArrival.setText(arrivalTime);
     }
   }
@@ -451,8 +461,7 @@ final class RoutingBottomMenuController
   private static Spanned makeSpannedRoutingDetails(@NonNull Context context, @NonNull RoutingInfo routingInfo)
 
   {
-    CharSequence time =
-        Utils.formatRoutingTime(context, routingInfo.totalTimeInSeconds, R.dimen.text_size_routing_number);
+    String time = StringUtils.nativeFormatRoutingDuration(routingInfo.totalTimeInSeconds);
 
     SpannableStringBuilder builder = new SpannableStringBuilder();
     initTimeBuilderSequence(context, time, builder);

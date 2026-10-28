@@ -21,6 +21,21 @@ final class SettingsBuilder: NSObject {
     return viewController
   }
 
+  /// A link can open Settings while they are already in the stack: go back to them instead of pushing a duplicate.
+  static func showRoot(in navigationController: UINavigationController) {
+    guard let root = navigationController.viewControllers.last(where: { $0 is RootSettingsViewController })
+      as? RootSettingsViewController else {
+      navigationController.pushViewController(buildRoot(), animated: true)
+      return
+    }
+    if navigationController.topViewController === root {
+      root.highlightRequestedItem()
+    } else {
+      // Settings highlight the requested setting when they appear.
+      navigationController.popToViewController(root, animated: true)
+    }
+  }
+
   @nonobjc static func build(_ screen: SettingsScreen) -> UIViewController {
     switch screen {
     case .profile:

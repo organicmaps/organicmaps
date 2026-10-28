@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="?cardBackground"
+  android:orientation="vertical">
+
+  <include layout="@layout/toolbar_default" />
+
+  <!-- The per-leg timeline (stops + line badges) rendered by TransitDetailsAdapter. -->
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/transit_details_recycler"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:paddingBottom="@dimen/margin_base" />
+
+</LinearLayout>

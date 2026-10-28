@@ -343,6 +343,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Atsisiųskite regioną, kuriame ieškote, arba pabandykite įvesti kito netoliese esančio miesto ar kaimo pavadinimą.</string>
     <string name="search_history_title">Paieškų žurnalas</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">Žymių ir trasų atsarginė kopija</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">Žymės ir trasos gali būti įtrauktos į Android sistemos atsargines kopijas, jei šiame įrenginyje įjungtas atsarginių kopijų kūrimas ir jos neviršija leistino dydžio.</string>
     <string name="search_history_text">Rodyti paskiausias paieškas.</string>
     <string name="clear_search">Valyti paieškų žurnalą</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -466,7 +470,7 @@
     <!-- To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations… -->
     <string name="operator">Operatorius: %s</string>
     <string name="editor_category_unsuitable_title">Nerandate tinkamos kategorijos?</string>
-    <string name="editor_category_unsuitable_text">„Organic Maps“ leidžia pridėti tik paprastų kategorijas taškus – jokių miestų, kelių, ežerų, pastatų kontūrų ir pan. šia programėle pridėti negalima. Šių kategorijų objektus pridėkite naudodamiesi <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> svetaine. Žvilgtelėkite į mūsų <a href="https://organicmaps.app/faq/editing/advanced-map-editing">vadovą</a>, kuriame rasite išsamias pažingsnines instrukcijas.</string>
+    <string name="editor_category_unsuitable_text">„Organic Maps“ leidžia pridėti tik paprastų kategorijų taškus – jokių miestų, kelių, ežerų, pastatų kontūrų ir pan. šia programėle pridėti negalima. Šių kategorijų objektus pridėkite naudodamiesi <a href="https://www.openstreetmap.org">OpenStreetMap.org</a> svetaine. Žvilgtelėkite į mūsų <a href="https://organicmaps.app/faq/editing/advanced-map-editing">vadovą</a>, kuriame rasite išsamias pažingsnines instrukcijas.</string>
     <string name="downloader_no_downloaded_maps_title">Nesate atsiuntę jokių žemėlapių</string>
     <string name="downloader_no_downloaded_maps_message">Atsiųskite žemėlapius, kad galėtumėte ieškoti vietų ir keliauti neprisijungę prie tinklo.</string>
     <string name="current_location_unknown_error_title">Dabartinė vieta nežinoma.</string>
@@ -572,6 +576,13 @@
         <item quantity="other">Aptikta %d failų. Juos galėsite pamatyti, atlikus konvertavimą.</item>
     </plurals>
     <string name="restore">Atkurti</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d zona</item>
+        <item quantity="few">%d zonos</item>
+        <item quantity="many">%d zonos</item>
+        <item quantity="other">%d zonų</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="one">%d trasa</item>
         <item quantity="few">%d trasos</item>
@@ -588,6 +599,7 @@
     <string name="button_layer_cycling">Kelionės dviračiu</string>
     <!-- Map layers menu: toggle button for the satellite imagery layer -->
     <string name="button_layer_satellite">Palydovas</string>
+    <!-- Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges. -->
     <string name="button_layer_subway">Metro</string>
     <string name="layers_title">Žemėlapio stiliai ir sluoksniai</string>
     <string name="bookmarks_empty_list_title">Sąrašas tuščias</string>
@@ -629,7 +641,7 @@
     <string name="routing_options_driving">Automobiliu</string>
     <!-- Cycling profile in routing options settings. -->
     <string name="routing_options_cycling">Dviračiu</string>
-    <!-- Walking profile in routing options settings. -->
+    <!-- Walking profile in routing options settings; also the label of a walking leg in transit route details. -->
     <string name="routing_options_walking">Pėsčiomis</string>
     <!-- Section heading for routing settings shared by every routing mode. -->
     <string name="routing_options_all_modes">Visi keliavimo būdai</string>
@@ -796,7 +808,7 @@
     <!-- Displayed on the Android Auto or CarPlay screen. Button to display maps on the car screen instead of a phone. Must be no more than 18 symbols! -->
     <string name="car_continue_in_the_car">Į automobilio ekraną</string>
     <!-- Ask user to grant location permissions -->
-    <string name="aa_location_permissions_request">„Organic Maps“ programėlei reikia prieigos prie vietos . Kai bus saugu, patikrinkite pranešimą savo telefone.</string>
+    <string name="aa_location_permissions_request">„Organic Maps“ programėlei reikia prieigos prie vietos. Kai bus saugu, patikrinkite pranešimą savo telefone.</string>
     <!-- Notification title for permission request from AA. -->
     <string name="aa_request_permission_notification">Šiai programėlei reikia jūsų leidimo</string>
     <!-- Grant Permissions button. -->
@@ -918,4 +930,20 @@
     <string name="track_recording_finish">Baigti</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Apgręžti maršrutą</string>
+    <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
+    <string name="transit_details_title">Kelionės informacija</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Stotelė %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d stotelė</item>
+        <item quantity="few">%d stotelės</item>
+        <item quantity="other">%d stotelių</item>
+    </plurals>
+    <!-- Spoken name of the bus transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_bus">Autobusas</string>
+    <!-- Spoken name of the train transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_train">Traukinys</string>
+    <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_tram">Tramvajus</string>
 </resources>

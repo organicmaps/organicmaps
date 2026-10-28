@@ -343,6 +343,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Lade die Region herunter, in der du suchst, oder füge den Namen einer nahe gelegenen Stadt oder eines Dorfes hinzu.</string>
     <string name="search_history_title">Suchverlauf</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">Sicherung von Lesezeichen und Tracks</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">Lesezeichen und Tracks können in Android-Systemsicherungen aufgenommen werden, wenn die Sicherung auf diesem Gerät aktiviert ist und ihr Größenlimit nicht überschritten wird.</string>
     <string name="search_history_text">Hier werden deine letzten Suchanfragen angezeigt.</string>
     <string name="clear_search">Suchverlauf löschen</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -571,6 +575,11 @@
         <item quantity="other">%d Dateien wurden gefunden. Du kannst sie nach der Konvertierung sehen.</item>
     </plurals>
     <string name="restore">Wiederherstellen</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d Gebiet</item>
+        <item quantity="other">%d Gebiete</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="zero">%d Tracks</item>
         <item quantity="one">%d Track</item>
@@ -587,6 +596,7 @@
     <string name="button_layer_cycling">Fahrradrouten</string>
     <!-- Map layers menu: toggle button for the satellite imagery layer -->
     <string name="button_layer_satellite">Satellit</string>
+    <!-- Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges. -->
     <string name="button_layer_subway">U-Bahn</string>
     <string name="layers_title">Kartenstile und Ebenen</string>
     <string name="bookmarks_empty_list_title">Die Liste ist leer</string>
@@ -628,7 +638,7 @@
     <string name="routing_options_driving">Auto</string>
     <!-- Cycling profile in routing options settings. -->
     <string name="routing_options_cycling">Fahrrad</string>
-    <!-- Walking profile in routing options settings. -->
+    <!-- Walking profile in routing options settings; also the label of a walking leg in transit route details. -->
     <string name="routing_options_walking">Zu Fuß</string>
     <!-- Section heading for routing settings shared by every routing mode. -->
     <string name="routing_options_all_modes">Alle Fortbewegungsarten</string>
@@ -917,4 +927,19 @@
     <string name="track_recording_finish">Beenden</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Route umkehren</string>
+    <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
+    <string name="transit_details_title">Verbindungsdetails</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Stopp %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d Station</item>
+        <item quantity="other">%d Stationen</item>
+    </plurals>
+    <!-- Spoken name of the bus transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_bus">Bus</string>
+    <!-- Spoken name of the train transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_train">Zug</string>
+    <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_tram">Straßenbahn</string>
 </resources>

@@ -857,9 +857,11 @@
   <symbol maxX="902" maxY="477" minX="892" minY="467" name="power-tower-s"/>
   <symbol maxX="922" maxY="477" minX="902" minY="467" name="arrow-m"/>
   <symbol maxX="931" maxY="476" minX="922" minY="467" name="zero-icon"/>
-  <symbol maxX="939" maxY="475" minX="931" minY="467" name="mast-s"/>
-  <symbol maxX="947" maxY="475" minX="939" minY="467" name="dot-m"/>
-  <symbol maxX="962" maxY="475" minX="947" minY="467" name="arrow-s"/>
-  <symbol maxX="973" maxY="473" minX="962" minY="467" name="arrow-xs"/>
+  <symbol maxX="942" maxY="475" minX="931" minY="467" name="track-direction-arrow-white"/>
+  <symbol maxX="953" maxY="475" minX="942" minY="467" name="track-direction-arrow-black"/>
+  <symbol maxX="961" maxY="475" minX="953" minY="467" name="mast-s"/>
+  <symbol maxX="969" maxY="475" minX="961" minY="467" name="dot-m"/>
+  <symbol maxX="984" maxY="475" minX="969" minY="467" name="arrow-s"/>
+  <symbol maxX="995" maxY="473" minX="984" minY="467" name="arrow-xs"/>
  </file>
 </root>

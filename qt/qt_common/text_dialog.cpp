@@ -1,4 +1,5 @@
 #include "qt/qt_common/text_dialog.hpp"
+#include "qt/qt_common/translations.hpp"
 
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QPushButton>
@@ -11,7 +12,7 @@ TextDialog::TextDialog(QWidget * parent, QString const & htmlOrText, QString con
   textEdit->setReadOnly(true);
   textEdit->setHtml(htmlOrText);
 
-  auto * closeButton = new QPushButton("Close");
+  auto * closeButton = new QPushButton(qt::Tr("close"));
   closeButton->setDefault(true);
   connect(closeButton, &QAbstractButton::clicked, this, &TextDialog::OnClose);
 

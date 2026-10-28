@@ -546,6 +546,8 @@ struct GeoJsonOptsPrettify : GeoJsonOpts
 
 void GeoJsonWriter::Write(FileData const & fileData, bool minimizeOutput)
 {
+  if (!fileData.m_areasData.empty())
+    MYTHROW(WriteGeoJsonException, ("GeoJSON area serialization is not implemented yet."));
   using namespace geojson;
 
   // Convert FileData to GeoJsonData and then let Glaze generate Json from it.

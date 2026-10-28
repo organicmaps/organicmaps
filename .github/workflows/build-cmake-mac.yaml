@@ -96,7 +96,8 @@ jobs:
       - name: Run tests
         run: ctest --preset ci-xcode -C ${{ matrix.cmake-build-type }} -j$(sysctl -n hw.logicalcpu)
 
-      # Run drape tests separately. They require offscreen rendering support.
-      # The "ci-drape-xcode" test preset sets QT_QPA_PLATFORM=offscreen.
+      # Cocoa supports offscreen GL; Qt's offscreen platform plugin does not.
       - name: Run drape tests
+        env:
+          QT_QPA_PLATFORM: cocoa
         run: ctest --preset ci-drape-xcode -C ${{ matrix.cmake-build-type }} --verbose

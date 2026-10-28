@@ -69,6 +69,81 @@ omim_add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${RES_SOURCES} ${SRC})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES AUTOMOC ON)
 
+function(omim_compile_qt_catalog ts qm)
+  get_filename_component(output_dir "${qm}" DIRECTORY)
+  add_custom_command(
+    OUTPUT "${qm}"
+    COMMAND ${CMAKE_COMMAND} -E make_directory "${output_dir}"
+    COMMAND ${CMAKE_COMMAND}
+      -D "LRELEASE=$<TARGET_FILE:Qt6::lrelease>"
+      -D "QT_VERSION=${Qt6Core_VERSION}"
+      -D "TS=${ts}"
+      -D "QM=${qm}"
+      -P "${CMAKE_CURRENT_SOURCE_DIR}/strict_lrelease.cmake"
+    DEPENDS Qt6::lrelease "${ts}" "${CMAKE_CURRENT_SOURCE_DIR}/strict_lrelease.cmake"
+    VERBATIM
+  )
+endfunction()
+
+file(GLOB_RECURSE QT_TRANSLATION_TS CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/translations/*/organicmaps.ts")
+find_package(Python3 3.10 REQUIRED COMPONENTS Interpreter)
+set(TWINE_DIR "${OMIM_ROOT}/tools/python/twine/python_twine")
+file(GLOB_RECURSE TWINE_SOURCES CONFIGURE_DEPENDS "${TWINE_DIR}/twine/*.py")
+set(QT_TRANSLATION_QM)
+foreach(ts ${QT_TRANSLATION_TS})
+  get_filename_component(lang_dir "${ts}" DIRECTORY)
+  get_filename_component(lang "${lang_dir}" NAME)
+  string(TOLOWER "${lang}" resource_locale)
+  set(qm "${CMAKE_CURRENT_BINARY_DIR}/translations/organicmaps_${resource_locale}.qm")
+  omim_compile_qt_catalog("${ts}" "${qm}")
+  list(APPEND QT_TRANSLATION_QM "${qm}")
+
+  # Type catalogs are build artifacts: their shared source already contains every consumer's keys.
+  set(types_ts "${CMAKE_CURRENT_BINARY_DIR}/translations/types_${resource_locale}.ts")
+  set(types_qm "${CMAKE_CURRENT_BINARY_DIR}/translations/organicmaps_types_${resource_locale}.qm")
+  add_custom_command(
+    OUTPUT "${types_ts}"
+    COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_CURRENT_BINARY_DIR}/translations"
+    COMMAND ${Python3_EXECUTABLE} "${TWINE_DIR}/twine_cli.py" generate-localization-file
+      "${OMIM_ROOT}/data/strings/types_strings.txt" "${types_ts}"
+      -f qt --include all -l "${lang}"
+    DEPENDS "${OMIM_ROOT}/data/strings/types_strings.txt" "${TWINE_DIR}/twine_cli.py" ${TWINE_SOURCES}
+    VERBATIM
+  )
+  omim_compile_qt_catalog("${types_ts}" "${types_qm}")
+  list(APPEND QT_TRANSLATION_QM "${types_qm}")
+endforeach()
+
+add_custom_target(desktop_translations DEPENDS ${QT_TRANSLATION_QM})
+
+get_target_property(QT_QMAKE_EXECUTABLE Qt6::qmake IMPORTED_LOCATION)
+execute_process(
+  COMMAND "${QT_QMAKE_EXECUTABLE}" -query QT_INSTALL_TRANSLATIONS
+  OUTPUT_VARIABLE QT_BASE_TRANSLATIONS_DIR
+  OUTPUT_STRIP_TRAILING_WHITESPACE
+  COMMAND_ERROR_IS_FATAL ANY
+)
+file(GLOB QT_BASE_TRANSLATIONS CONFIGURE_DEPENDS "${QT_BASE_TRANSLATIONS_DIR}/qtbase_*.qm")
+if(NOT QT_BASE_TRANSLATIONS)
+  message(FATAL_ERROR "Qt base translations are missing from ${QT_BASE_TRANSLATIONS_DIR}; install the Qt translations package")
+endif()
+
+function(omim_add_qt_translations target)
+  add_dependencies(${target} desktop_translations)
+  qt6_add_resources(${target} "${target}_translations"
+    PREFIX "/translations"
+    BASE "${PROJECT_BINARY_DIR}/translations"
+    FILES ${QT_TRANSLATION_QM}
+  )
+  qt6_add_resources(${target} "${target}_qt_translations"
+    PREFIX "/translations"
+    BASE "${QT_BASE_TRANSLATIONS_DIR}"
+    FILES ${QT_BASE_TRANSLATIONS}
+  )
+endfunction()
+
+omim_add_qt_translations(${PROJECT_NAME})
+
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
     generator  # For borders::LoadBorders

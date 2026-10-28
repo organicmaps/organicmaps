@@ -1,6 +1,8 @@
 enum PlacePageStyleSheet: String, CaseIterable {
   case ppTitlePopularView = "PPTitlePopularView"
   case ppActionBarTitle = "PPActionBarTitle"
+  case ppActionBarTitleBlue = "PPActionBarTitleBlue"
+  case ppActionBarTitleRed = "PPActionBarTitleRed"
   case ppElevationProfileDescriptionCell = "ElevationProfileDescriptionCell"
   case ppElevationProfileExtendedDifficulty = "ElevationProfileExtendedDifficulty"
   case ppRouteBasePreview = "RouteBasePreview"
@@ -35,6 +37,14 @@ extension PlacePageStyleSheet: IStyleSheet {
       return .add { s in
         s.fontStyle = .fixed(.regular10)
         s.fontColor = .blackSecondaryText
+      }
+    case .ppActionBarTitleBlue:
+      return .addFrom(Self.ppActionBarTitle) { s in
+        s.fontColor = .linkBlue
+      }
+    case .ppActionBarTitleRed:
+      return .addFrom(Self.ppActionBarTitle) { s in
+        s.fontColor = .redPrimary
       }
     case .ppElevationProfileDescriptionCell:
       return .add { s in

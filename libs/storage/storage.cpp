@@ -1940,14 +1940,16 @@ bool Storage::GetUpdateInfo(CountryId const & countryId, UpdateInfo & updateInfo
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  auto const updateInfoAccumulator = [&updateInfo, this](CountryTree::Node const & node)
+  CountriesSet visited;
+  auto const updateInfoAccumulator = [&updateInfo, &visited, this](CountryTree::Node const & node)
   {
-    if (!node.IsLeaf() || GetNodeStatus(node).status != NodeStatus::OnDiskOutOfDate)
+    CountryId const & countryId = node.Value().Name();
+    if (!node.IsLeaf() || CountryStatusEx(countryId) != Status::OnDiskOutOfDate)
       return;
 
-    // Here the node is a leaf describing one mwm file (not a group node).
-
-    CountryId const & countryId = node.Value().Name();
+    // Disputed maps occur under each of their parents in the country tree.
+    if (!visited.insert(countryId).second)
+      return;
     updateInfo.m_numberOfMwmFilesToUpdate += 1;
 
     LocalAndRemoteSize const sizes = CountrySizeInBytes(countryId);

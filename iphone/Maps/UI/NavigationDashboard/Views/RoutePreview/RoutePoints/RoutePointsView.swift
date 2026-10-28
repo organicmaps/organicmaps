@@ -237,7 +237,7 @@ private extension NavigationDashboard.RoutePoints {
       title: title(for: index),
       image: usesCurrentPositionIcon ? UIImage.icCurrentPosition : defaultImage(for: index),
       usesCurrentPositionIcon: usesCurrentPositionIcon,
-      showCloseButton: point?.type == .intermediate,
+      showCloseButton: point != nil,
       maskedCorners: maskedCorners,
       isPlaceholder: point == nil,
       showSeparator: hasStartAndFinish ? true : index < points.count,

@@ -1,0 +1,1 @@
+- It is safe/advised/allowed to break Android SDK API if necessary for better quality refactoring

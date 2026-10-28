@@ -18,11 +18,10 @@ struct ProductsConfig
   std::optional<std::string> placePagePrompt;
   std::vector<Product> products;
 
-  bool HasProducts() const { return !products.empty(); }
-  bool IsValid() const
+  [[nodiscard]] bool IsValid() const
   {
-    return std::ranges::all_of(products,
-                               [](auto const & product) { return !product.title.empty() && !product.link.empty(); });
+    return !products.empty() && std::ranges::all_of(products, [](auto const & product)
+    { return !product.title.empty() && !product.link.empty(); });
   }
 
   static std::optional<ProductsConfig> LoadFromString(std::string const & jsonString);

@@ -117,6 +117,8 @@ jobs:
           sudo apt install -y \
               clang-19 \
               libgl1-mesa-dev \
+              libgl1-mesa-dri \
+              libglx-mesa0 \
               libglvnd-dev \
               libharfbuzz-dev \
               libqt6svg6-dev \
@@ -126,7 +128,12 @@ jobs:
               libxrandr-dev \
               ninja-build \
               qt6-base-dev \
+              qt6-l10n-tools \
               qt6-positioning-dev \
+              qt6-tools-dev \
+              qt6-translations-l10n \
+              xauth \
+              xvfb \
 
       - name: Install build tools and dependencies (macOS)
         if: ${{ runner.os == 'macOS' }}
@@ -213,14 +220,25 @@ jobs:
       #     the offline part of that coverage lives in storage_tests
       - name: Run tests
         if: ${{ matrix.environment.run-tests != 'OFF' }}
-        run: ctest --preset $PRESET -j$(nproc --all)
+        # CTest 3.29+ (provided by the CI images) selects the parallelism itself.
+        run: ctest --preset "$PRESET" --parallel
 
-      # Run drape tests separately. They require offscreen rendering support.
-      # The drape test presets set QT_QPA_PLATFORM=offscreen; setting it
-      # globally breaks network tests on macOS.
+      # Use Mesa/Xvfb on Linux and Cocoa on macOS for rendering tests.
+      # Keep Qt platform selection local to this step; it affects network tests on macOS.
+      # ci-windows excludes GL tests until a suitable Windows backend is configured:
+      # https://github.com/organicmaps/organicmaps/issues/14007
       - name: Run drape tests
         if: ${{ matrix.environment.run-tests != 'OFF' }}
-        run: ctest --preset $PRESET_DRAPE --verbose
+        env:
+          QT_QPA_PLATFORM: ${{ runner.os == 'Linux' && 'xcb' || runner.os == 'macOS' && 'cocoa' || 'offscreen' }}
+          LIBGL_ALWAYS_SOFTWARE: ${{ runner.os == 'Linux' && 'true' || '' }}
+        run: |
+          if [[ "$RUNNER_OS" == 'Linux' ]]; then
+            # Tests recreate QApplication; prevent resets between display connections.
+            xvfb-run -a -s '-screen 0 1280x1024x24 -noreset' ctest --preset "$PRESET_DRAPE" --verbose
+          else
+            ctest --preset "$PRESET_DRAPE" --verbose
+          fi
 
       # Reconfigure after the existing tests so they keep their development paths.
       - name: Build Windows direct staging variant
@@ -254,7 +272,7 @@ jobs:
           apt-get update
           apt-get install -y --no-install-recommends \
             build-essential ca-certificates clang-19 cmake git libgl1-mesa-dev libglvnd-dev \
-            libqt6svg6-dev ninja-build python3 qt6-base-dev qt6-positioning-dev
+            libqt6svg6-dev ninja-build python3 qt6-base-dev qt6-l10n-tools qt6-positioning-dev qt6-tools-dev qt6-translations-l10n
 
       - uses: actions/checkout@v6
         with:

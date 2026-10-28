@@ -203,6 +203,15 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
     };
   }
   self.bm.SetAsyncLoadingCallbacks(std::move(bookmarkCallbacks));
+
+  __weak auto wSelf = self;
+  self.bm.SetBookmarksChangedCallback([wSelf]()
+  {
+    [wSelf loopObservers:^(id<MWMBookmarksObserver> observer) {
+      if ([observer respondsToSelector:@selector(onBookmarksChanged)])
+        [observer onBookmarksChanged];
+    }];
+  });
 }
 
 #pragma mark - Bookmarks loading
@@ -264,6 +273,11 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
 - (uint64_t)getCategoryTracksCount:(MWMMarkGroupID)groupId
 {
   return self.bm.GetTrackIds(groupId).size();
+}
+
+- (uint64_t)getCategoryAreasCount:(MWMMarkGroupID)groupId
+{
+  return self.bm.GetAreaIds(groupId).size();
 }
 
 - (MWMBookmarkGroupAccessStatus)getCategoryAccessStatus:(MWMMarkGroupID)groupId
@@ -486,13 +500,22 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
 
 #pragma mark - Bookmarks
 
-- (NSArray<MWMCarPlayBookmarkObject *> *)bookmarksForCategory:(MWMMarkGroupID)categoryId
+- (NSArray<MWMCarPlayBookmarkObject *> *)bookmarksForCategory:(MWMMarkGroupID)categoryId limit:(NSInteger)limit
 {
+  CHECK_GREATER_OR_EQUAL(limit, 0, ());
+  // A CarPlay list may outlive the category it was built for.
+  if (!self.bm.HasBmCategory(categoryId))
+    return @[];
+
   NSMutableArray<MWMCarPlayBookmarkObject *> * result = [NSMutableArray array];
   auto const & bookmarkIds = self.bm.GetUserMarkIds(categoryId);
   for (auto bookmarkId : bookmarkIds)
   {
+    // Address lookup is expensive; rows CarPlay cannot display need no snapshot.
+    if (result.count == static_cast<NSUInteger>(limit))
+      break;
     MWMCarPlayBookmarkObject * bookmark = [[MWMCarPlayBookmarkObject alloc] initWithBookmarkId:bookmarkId];
+    CHECK(bookmark, ("A loaded category contains a missing bookmark", categoryId, bookmarkId));
     [result addObject:bookmark];
   }
   return [result copy];

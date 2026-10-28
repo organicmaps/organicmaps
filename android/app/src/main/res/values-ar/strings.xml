@@ -343,6 +343,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">قم بتنزيل المنطقة التي تبحث فيها أو حاول إضافة اسم بلدة/قرية قريبة.</string>
     <string name="search_history_title">سجل البحث</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">النسخ الاحتياطي للإشارات المرجعية والمسارات</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">يمكن تضمين الإشارات المرجعية والمسارات في النسخ الاحتياطية لنظام Android عندما يكون النسخ الاحتياطي مفعّلًا على هذا الجهاز ولا تتجاوز حدّ الحجم المسموح به.</string>
     <string name="search_history_text">عرض عمليات البحث الأخيرة.</string>
     <string name="clear_search">مسح سجل البحث</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -578,6 +582,15 @@
         <item quantity="other">تم العثور على %d ملفًا. يمكنك رؤيتها بعد التحويل.</item>
     </plurals>
     <string name="restore">استعادة</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="zero">%d منطقة</item>
+        <item quantity="one">%d منطقة</item>
+        <item quantity="two">منطقتان</item>
+        <item quantity="few">%d مناطق</item>
+        <item quantity="many">%d منطقة</item>
+        <item quantity="other">%d منطقة</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="zero">%d مسار</item>
         <item quantity="one">%d مسار</item>
@@ -597,6 +610,7 @@
     <string name="button_layer_cycling">ركوب الدراجات</string>
     <!-- Map layers menu: toggle button for the satellite imagery layer -->
     <string name="button_layer_satellite">قمر صناعي</string>
+    <!-- Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges. -->
     <string name="button_layer_subway">مترو الانفاق</string>
     <string name="layers_title">أنماط الخريطة وطبقاتها</string>
     <string name="bookmarks_empty_list_title">هذه اللائحة فارغة</string>
@@ -638,7 +652,7 @@
     <string name="routing_options_driving">القيادة</string>
     <!-- Cycling profile in routing options settings. -->
     <string name="routing_options_cycling">ركوب الدراجة</string>
-    <!-- Walking profile in routing options settings. -->
+    <!-- Walking profile in routing options settings; also the label of a walking leg in transit route details. -->
     <string name="routing_options_walking">المشي</string>
     <!-- Section heading for routing settings shared by every routing mode. -->
     <string name="routing_options_all_modes">جميع وسائل التنقل</string>
@@ -933,4 +947,23 @@
     <string name="track_recording_finish">إنهاء</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">عكس اتجاه المسار</string>
+    <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
+    <string name="transit_details_title">تفاصيل الرحلة</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">نقطة توقف %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="zero">%d محطة</item>
+        <item quantity="one">%d محطة</item>
+        <item quantity="two">محطتان</item>
+        <item quantity="few">%d محطات</item>
+        <item quantity="many">%d محطة</item>
+        <item quantity="other">%d محطة</item>
+    </plurals>
+    <!-- Spoken name of the bus transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_bus">حافلة</string>
+    <!-- Spoken name of the train transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_train">قطار</string>
+    <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_tram">ترام</string>
 </resources>

@@ -1366,7 +1366,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
         items.add(new MenuBottomSheetItem(R.string.select, R.drawable.ic_check, this::enterSelectionMode));
       if (types.length > 0)
         items.add(new MenuBottomSheetItem(R.string.sort, R.drawable.ic_sort, this::onSortOptionSelected));
-      items.addAll(ExportMenuItems.create(this::onShareOptionSelected));
+      items.addAll(
+          ExportMenuItems.create(mCategoryDataSource.getData().getAreasCount() > 0, this::onShareOptionSelected));
     }
     items.add(new MenuBottomSheetItem(R.string.edit, R.drawable.ic_settings, this::onSettingsOptionSelected));
     if (!isLastOwnedCategory())

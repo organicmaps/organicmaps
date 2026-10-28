@@ -152,7 +152,7 @@
     <string name="description">Piezīmes</string>
     <!-- Email Subject when sharing bookmark list -->
     <string name="share_bookmarks_email_subject">Organic Maps ar jums tika dalītas grāmatzīmes</string>
-    <string name="share_bookmarks_email_body">Sveiki!\n\nPielikumā ir grāmatzīmes. Lūdzu, atveriet tās „Organic Maps“ lietotnē. Ja Jums tā nav instalēta, instalējiet to te: https://omaps.app/get?kmz\n\nBaudiet ceļošanu ar „Oranic Maps“!</string>
+    <string name="share_bookmarks_email_body">Sveiki!\n\nPielikumā ir grāmatzīmes. Lūdzu, atveriet tās „Organic Maps“ lietotnē. Ja Jums tā nav instalēta, instalējiet to te: https://omaps.app/get?kmz\n\nBaudiet ceļošanu ar „Organic Maps“!</string>
     <!-- message title of loading file -->
     <string name="load_kmz_title">Ielādē grāmatzīmes</string>
     <!-- Kmz file successful loading -->
@@ -343,6 +343,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Lejupielādējiet reģionu, kurā meklēt, vai mēģiniet pievienot tuvumā esošas apdzīvotas vietas nosaukumu.</string>
     <string name="search_history_title">Meklēšanas vēsture</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">Grāmatzīmju un pēdojumu dublējumkopija</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">Grāmatzīmes un pēdojumi var tikt iekļauti Android sistēmas dublējumkopijās, ja šajā ierīcē ir ieslēgta dublēšana un tie nepārsniedz tās lieluma ierobežojumu.</string>
     <string name="search_history_text">Apskatiet meklēšanas vēsturi.</string>
     <string name="clear_search">Notīrīt vēsturi</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -572,6 +576,12 @@
         <item quantity="other">Lietotne atrada %d jaunas datnes. Varat tās apskatīt pēc konvertācijas.</item>
     </plurals>
     <string name="restore">Atjaunot</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="zero">%d zonu</item>
+        <item quantity="one">%d zona</item>
+        <item quantity="other">%d zonas</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="zero">%d pēdojumu</item>
         <item quantity="one">%d pēdojums</item>
@@ -588,6 +598,7 @@
     <string name="button_layer_cycling">Riteņbraukšana</string>
     <!-- Map layers menu: toggle button for the satellite imagery layer -->
     <string name="button_layer_satellite">Satelīts</string>
+    <!-- Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges. -->
     <string name="button_layer_subway">Metro</string>
     <string name="layers_title">Kartes stili un slāņi</string>
     <string name="bookmarks_empty_list_title">Saraksts ir tukšs</string>
@@ -629,7 +640,7 @@
     <string name="routing_options_driving">Ar automašīnu</string>
     <!-- Cycling profile in routing options settings. -->
     <string name="routing_options_cycling">Ar velosipēdu</string>
-    <!-- Walking profile in routing options settings. -->
+    <!-- Walking profile in routing options settings; also the label of a walking leg in transit route details. -->
     <string name="routing_options_walking">Kājām</string>
     <!-- Section heading for routing settings shared by every routing mode. -->
     <string name="routing_options_all_modes">Visi pārvietošanās veidi</string>
@@ -908,4 +919,20 @@
     <string name="track_recording_finish">Pabeigt</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Apgriezt maršrutu</string>
+    <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
+    <string name="transit_details_title">Brauciena informācija</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Starppunkts %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="zero">%d pieturu</item>
+        <item quantity="one">%d pietura</item>
+        <item quantity="other">%d pieturas</item>
+    </plurals>
+    <!-- Spoken name of the bus transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_bus">Autobuss</string>
+    <!-- Spoken name of the train transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_train">Vilciens</string>
+    <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_tram">Tramvajs</string>
 </resources>

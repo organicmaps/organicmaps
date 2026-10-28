@@ -105,6 +105,17 @@ UNIT_CLASS_TEST(TestWithClassificator, LoadCategories)
   TEST_EQUAL(count, 3, ());
 }
 
+UNIT_TEST(CategoriesHolder_NorwegianBokmal)
+{
+  auto const bokmal = CategoriesHolder::MapLocaleToInteger("nb");
+  TEST_NOT_EQUAL(bokmal, CategoriesHolder::kUnsupportedLocaleCode, ());
+  for (auto const locale : {"nb-NO", "nb_NO.UTF-8", "no", "no-NO", "no_NO"})
+    TEST_EQUAL(CategoriesHolder::MapLocaleToInteger(locale), bokmal, (locale));
+  TEST_EQUAL(CategoriesHolder::MapIntegerToLocale(bokmal), "nb", ());
+  for (auto const locale : {"nn", "nn-NO", "non", "nog"})
+    TEST_EQUAL(CategoriesHolder::MapLocaleToInteger(locale), CategoriesHolder::kUnsupportedLocaleCode, (locale));
+}
+
 UNIT_TEST(CategoriesHolder_Smoke)
 {
   auto const & mappings = CategoriesHolder::kLocaleMapping;
@@ -313,6 +324,34 @@ UNIT_CLASS_TEST(TestWithClassificator, CategoriesIndex_Smoke)
   TEST_EQUAL(cats[1].m_synonyms[0].m_name, "village", ());
 }
 
+UNIT_CLASS_TEST(TestWithClassificator, CategoriesIndex_SubstringsInMultiwordName)
+{
+  // No standalone synonym or category group can mask a failure to match the second word.
+  char const kCategories[] =
+      "shop-convenience\n"
+      "ru:продуктовый магазин\n";
+
+  CategoriesHolder holder(make_unique<MemReader>(kCategories, sizeof(kCategories) - 1));
+  CategoriesIndex index(holder);
+  auto const type = classif().GetTypeByPath({"shop", "convenience"});
+  index.AddCategoryByTypeAndLang(type, CategoriesHolder::MapLocaleToInteger("ru"));
+
+  for (auto const query :
+       {"магазин", "МАГАЗИН", "маг", "гази", "зин", "продуктовый магазин", "прод маг", "магазин продуктовый"})
+  {
+    vector<uint32_t> result;
+    index.GetAssociatedTypes(query, result);
+    TEST_EQUAL(result, (vector<uint32_t>{type}), (query));
+  }
+
+  for (auto const query : {"магазинчик", "магазин одежды"})
+  {
+    vector<uint32_t> result;
+    index.GetAssociatedTypes(query, result);
+    TEST(result.empty(), (query, result));
+  }
+}
+
 UNIT_CLASS_TEST(TestWithClassificator, CategoriesIndex_MultipleTokens)
 {
   char const kCategories[] =
@@ -391,9 +430,8 @@ UNIT_CLASS_TEST(TestWithClassificator, CategoriesIndex_AllCategories)
   CategoriesIndex index;
 
   index.AddAllCategoriesInAllLangs();
-  // Consider deprecating this method if this bound rises as high as a million.
   LOG(LINFO, ("Number of nodes in the CategoriesIndex trie:", index.GetNumTrieNodes()));
-  TEST_LESS(index.GetNumTrieNodes(), 900000, ());
+  TEST_LESS(index.GetNumTrieNodes(), 300000, ());
 }
 
 // A check that this data structure is not too heavy.
@@ -402,7 +440,7 @@ UNIT_CLASS_TEST(TestWithClassificator, CategoriesIndex_AllCategoriesEnglishName)
   CategoriesIndex index;
 
   index.AddAllCategoriesInLang(CategoriesHolder::MapLocaleToInteger("en"));
-  TEST_LESS(index.GetNumTrieNodes(), 15000, ());
+  TEST_LESS(index.GetNumTrieNodes(), 7500, ());
 }
 #endif
 }  // namespace categories_test

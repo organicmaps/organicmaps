@@ -3,10 +3,8 @@ package app.organicmaps.widget.placepage;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import app.organicmaps.sdk.bookmarks.data.Bookmark;
-import app.organicmaps.sdk.bookmarks.data.ElevationInfo;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
-import app.organicmaps.sdk.bookmarks.data.Track;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlacePageViewModel extends ViewModel
@@ -15,7 +13,6 @@ public class PlacePageViewModel extends ViewModel
   private final MutableLiveData<MapObject> mMapObject = new MutableLiveData<>();
   private final MutableLiveData<Integer> mPlacePageWidth = new MutableLiveData<>();
   private final MutableLiveData<Integer> mPlacePageDistanceToTop = new MutableLiveData<>();
-  public boolean isAlertDialogShowing = false;
 
   public LiveData<List<PlacePageButtons.ButtonType>> getCurrentButtons()
   {
@@ -25,6 +22,20 @@ public class PlacePageViewModel extends ViewModel
   public void setCurrentButtons(List<PlacePageButtons.ButtonType> buttons)
   {
     mCurrentButtons.setValue(buttons);
+  }
+
+  public void setTrackRecordingSaveVisible(boolean visible)
+  {
+    final List<PlacePageButtons.ButtonType> buttons = mCurrentButtons.getValue();
+    if (buttons.contains(PlacePageButtons.ButtonType.TRACK_RECORDING_SAVE) == visible)
+      return;
+
+    final List<PlacePageButtons.ButtonType> updated = new ArrayList<>(buttons);
+    if (visible)
+      updated.add(PlacePageButtons.ButtonType.TRACK_RECORDING_SAVE);
+    else
+      updated.remove(PlacePageButtons.ButtonType.TRACK_RECORDING_SAVE);
+    mCurrentButtons.setValue(updated);
   }
 
   public LiveData<MapObject> getMapObject()

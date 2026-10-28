@@ -102,3 +102,8 @@ CMakeUserPresets.json
 /screenshots/
 /keywords/
 /iphone/metadata/**/keywords.txt
+
+# Local files that should not be tracked or committed
+AGENTS.override.md
+CLAUDE.local.md
+plans

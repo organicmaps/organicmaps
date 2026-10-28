@@ -343,6 +343,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">下載您要搜尋的區域的地圖，或嘗試輸入附近的城鎮或村莊名稱。</string>
     <string name="search_history_title">搜尋歷史紀錄</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">書籤和軌跡備份</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">如果此裝置已啟用備份，且書籤和軌跡未超過其容量上限，它們可以包含在 Android 系統備份中。</string>
     <string name="search_history_text">查看您最近的搜尋記錄。</string>
     <string name="clear_search">清除搜尋記錄</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -571,6 +575,10 @@
         <item quantity="other">找到 %d 個文件，轉換後您可以看到它們。</item>
     </plurals>
     <string name="restore">恢復</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="other">%d 個區域</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="zero">沒有軌跡</item>
         <item quantity="other">%d 軌跡</item>
@@ -586,6 +594,7 @@
     <string name="button_layer_cycling">單車</string>
     <!-- Map layers menu: toggle button for the satellite imagery layer -->
     <string name="button_layer_satellite">衛星</string>
+    <!-- Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges. -->
     <string name="button_layer_subway">捷運</string>
     <string name="layers_title">地圖樣式和圖層</string>
     <string name="bookmarks_empty_list_title">該列表為空</string>
@@ -627,7 +636,7 @@
     <string name="routing_options_driving">開車</string>
     <!-- Cycling profile in routing options settings. -->
     <string name="routing_options_cycling">騎單車</string>
-    <!-- Walking profile in routing options settings. -->
+    <!-- Walking profile in routing options settings; also the label of a walking leg in transit route details. -->
     <string name="routing_options_walking">步行</string>
     <!-- Section heading for routing settings shared by every routing mode. -->
     <string name="routing_options_all_modes">所有交通方式</string>
@@ -914,4 +923,18 @@
     <string name="track_recording_finish">結束</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">反轉路線</string>
+    <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
+    <string name="transit_details_title">行程詳情</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">中途點 %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="other">%d 站</item>
+    </plurals>
+    <!-- Spoken name of the bus transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_bus">公車</string>
+    <!-- Spoken name of the train transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_train">火車</string>
+    <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_tram">路面電車</string>
 </resources>

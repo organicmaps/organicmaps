@@ -343,6 +343,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Töltse le a keresett régiót, vagy próbálja meg hozzáadni egy közeli város vagy település nevét.</string>
     <string name="search_history_title">Keresési előzmények</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">Könyvjelzők és nyomvonalak biztonsági mentése</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">A könyvjelzők és nyomvonalak bekerülhetnek az Android rendszer biztonsági mentéseibe, ha a biztonsági mentés be van kapcsolva ezen az eszközön, és nem lépik túl a mérethatárát.</string>
     <string name="search_history_text">Legutóbbi keresések megtekintése.</string>
     <string name="clear_search">A keresési előzmények törlése</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -572,6 +576,11 @@
         <item quantity="other">%d fájl található. Látni fogja azokat a konvertálás után.</item>
     </plurals>
     <string name="restore">Visszaállítás</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d terület</item>
+        <item quantity="other">%d terület</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="zero">%d nyomvonal</item>
         <item quantity="one">%d nyomvonal</item>
@@ -588,6 +597,7 @@
     <string name="button_layer_cycling">Kerékpározás</string>
     <!-- Map layers menu: toggle button for the satellite imagery layer -->
     <string name="button_layer_satellite">Műhold</string>
+    <!-- Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges. -->
     <string name="button_layer_subway">Metró</string>
     <string name="layers_title">Térképstílusok és rétegek</string>
     <string name="bookmarks_empty_list_title">Ez a lista üres</string>
@@ -629,7 +639,7 @@
     <string name="routing_options_driving">Autóval</string>
     <!-- Cycling profile in routing options settings. -->
     <string name="routing_options_cycling">Kerékpárral</string>
-    <!-- Walking profile in routing options settings. -->
+    <!-- Walking profile in routing options settings; also the label of a walking leg in transit route details. -->
     <string name="routing_options_walking">Gyalog</string>
     <!-- Section heading for routing settings shared by every routing mode. -->
     <string name="routing_options_all_modes">Minden közlekedési mód</string>
@@ -918,4 +928,19 @@
     <string name="track_recording_finish">Befejezés</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Útvonal megfordítása</string>
+    <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
+    <string name="transit_details_title">Útvonal részletei</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Köztes célpont %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d megálló</item>
+        <item quantity="other">%d megálló</item>
+    </plurals>
+    <!-- Spoken name of the bus transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_bus">Busz</string>
+    <!-- Spoken name of the train transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_train">Vonat</string>
+    <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_tram">Villamos</string>
 </resources>

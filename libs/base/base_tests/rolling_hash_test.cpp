@@ -105,7 +105,7 @@ BENCHMARK_TEST(RollingHasher32)
 {
   RollingHasher32 hash;
   hash.Init("abcdefghijklmnopq", 17);
-  BENCHMARK_N_TIMES(IF_DEBUG_ELSE(500000, 20000000), 0.2)
+  BENCHMARK_N_TIMES(20000000)
   {
     FORCE_USE_VALUE(hash.Scroll(static_cast<uint32_t>('a') + benchmark.Iteration(),
                                 static_cast<uint32_t>('r') + benchmark.Iteration()));
@@ -116,7 +116,7 @@ BENCHMARK_TEST(RollingHasher64)
 {
   RollingHasher64 hash;
   hash.Init("abcdefghijklmnopq", 17);
-  BENCHMARK_N_TIMES(IF_DEBUG_ELSE(500000, 10000000), 0.3)
+  BENCHMARK_N_TIMES(10000000)
   {
     FORCE_USE_VALUE(hash.Scroll(static_cast<uint64_t>('a') + benchmark.Iteration(),
                                 static_cast<uint64_t>('r') + benchmark.Iteration()));

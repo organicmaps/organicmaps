@@ -1,8 +1,10 @@
 #pragma once
 
 #include "platform/location_service/location_service.hpp"
+#include "platform/location_service/position_filter.hpp"
 
 #include <QGeoPositionInfoSource>
+#include <QTimer>
 
 class QtLocationService
   : public QObject
@@ -10,18 +12,18 @@ class QtLocationService
 {
   Q_OBJECT
   QGeoPositionInfoSource * m_positionSource;
-  // Unfortunately when the source is `geoclue2`
-  // we would need access to the `Active` D-Bus property
-  // https://www.freedesktop.org/software/geoclue/docs
-  // /gdbus-org.freedesktop.GeoClue2.Client.html#gdbus-property-org-freedesktop-GeoClue2-Client.Active
-  // But `QGeoPositionInfoSource` doesn't expose that so we have to deduce its state.
-  bool m_clientIsActive = false;
+  QTimer m_firstFixTimeout{this};
+  location::PositionFilter m_filter;
+  // A stopped provider can still deliver cached or queued signals.
+  bool m_started = false;
 
 public:
   explicit QtLocationService(location::LocationObserver &, std::string const &);
-  virtual ~QtLocationService() {}
-  virtual void Start();
-  virtual void Stop();
+  // Takes ownership of the provider.
+  QtLocationService(location::LocationObserver &, QGeoPositionInfoSource *);
+  ~QtLocationService() override;
+  void Start() override;
+  void Stop() override;
 
 public slots:
   void OnLocationUpdate(QGeoPositionInfo const &);

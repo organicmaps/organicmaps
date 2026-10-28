@@ -1,28 +1,23 @@
 #include "platform/gui_thread.hpp"
 
+#include "base/assert.hpp"
+
 #include <utility>
 
 #include <QtCore/QCoreApplication>
+#include <QtCore/QMetaObject>
 
 namespace platform
 {
 base::TaskLoop::PushResult GuiThread::Push(Task && task)
 {
-  // Following hack is used to post on main message loop |fn| when
-  // |source| is destroyed (at the exit of the code block).
-  QObject source;
-  QObject::connect(&source, &QObject::destroyed, QCoreApplication::instance(), std::move(task));
-
-  return {true, base::TaskLoop::kNoId};
+  auto const application = QCoreApplication::instance();
+  ASSERT(application, ("GUI tasks require an application instance"));
+  return {QMetaObject::invokeMethod(application, std::move(task), Qt::QueuedConnection), kNoId};
 }
 
 base::TaskLoop::PushResult GuiThread::Push(Task const & task)
 {
-  // Following hack is used to post on main message loop |fn| when
-  // |source| is destroyed (at the exit of the code block).
-  QObject source;
-  QObject::connect(&source, &QObject::destroyed, QCoreApplication::instance(), task);
-
-  return {true, base::TaskLoop::kNoId};
+  return Push(Task(task));
 }
 }  // namespace platform

@@ -4,7 +4,6 @@
 #include "platform/local_country_file_utils.hpp"
 #include "platform/mwm_version.hpp"
 #include "platform/platform.hpp"
-#include "platform/servers_list.hpp"
 
 #include "base/file_name_utils.hpp"
 
@@ -84,43 +83,4 @@ UNIT_TEST(Downloader_IsUrlSupported)
   TEST(!downloader::IsUrlSupported("diffs/Luna.mwmdiff"), ());
   TEST(!downloader::IsUrlSupported("Luna.mwmdiff"), ());
   TEST(!downloader::IsUrlSupported("Luna"), ());
-}
-
-UNIT_TEST(Downloader_ParseMetaConfig)
-{
-  auto cfg = downloader::ParseMetaConfig(R"({"servers":[ "https://url1/", "https://url2/" ]})");
-
-  TEST(cfg, ());
-  TEST_EQUAL(cfg->servers.size(), 2, ());
-  TEST_EQUAL(cfg->servers[0], "https://url1/", ());
-  TEST_EQUAL(cfg->servers[1], "https://url2/", ());
-
-  cfg = downloader::ParseMetaConfig(R"(
-    {
-      "servers": [ "https://url1/", "https://url2/" ],
-      "settings": {
-        "DonateUrl": "value1",
-        "NY": "value2",
-        "key3": "value3"
-      }
-    }
-  )");
-  TEST(cfg, ());
-  TEST_EQUAL(cfg->servers.size(), 2, ());
-  TEST_EQUAL(cfg->servers[0], "https://url1/", ());
-  TEST_EQUAL(cfg->servers[1], "https://url2/", ());
-  TEST_EQUAL(cfg->settings.size(), 3, ());
-  TEST_EQUAL(cfg->settings["DonateUrl"], "value1", ());
-  TEST_EQUAL(cfg->settings["NY"], "value2", ());
-  TEST_EQUAL(cfg->settings["key3"], "value3", ());
-
-  TEST(!downloader::ParseMetaConfig("Broken JSON"), ());
-
-  TEST(!downloader::ParseMetaConfig("[]"), ("Empty array"));
-
-  TEST(!downloader::ParseMetaConfig("{}"), ("Empty object"));
-
-  TEST(!downloader::ParseMetaConfig(R"({"no_servers": "invalid"})"), ());
-
-  TEST(!downloader::ParseMetaConfig(R"({"servers": "invalid"})"), ());
 }

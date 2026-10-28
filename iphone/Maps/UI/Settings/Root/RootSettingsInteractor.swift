@@ -208,7 +208,7 @@ extension RootSettingsInteractor: SettingsViewControllerInteractor {
       loadSettings()
     case .willAppear:
       reloadSettings()
-    case .didAppear:
+    case .didAppear, .didRequestHighlight:
       highlightInAppFeature()
     case .didSelect(let setting):
       select(setting)

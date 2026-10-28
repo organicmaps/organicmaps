@@ -86,11 +86,6 @@ MapStyle StyleReader::GetCurrentStyle() const
   return m_mapStyle;
 }
 
-bool StyleReader::IsCarNavigationStyle() const
-{
-  return m_mapStyle == MapStyle::MapStyleVehicleLight || m_mapStyle == MapStyle::MapStyleVehicleDark;
-}
-
 ReaderPtr<Reader> StyleReader::GetDrawingRulesReader(MapStyle mapStyle) const
 {
   std::string const rulesFile = GetDrawingRulesFile(mapStyle);

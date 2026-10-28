@@ -1,8 +1,11 @@
 #include "qt/ruler.hpp"
 
+#include "qt/qt_common/translations.hpp"
+
 #include "geometry/mercator.hpp"
 
-#include <iomanip>
+#include <QtCore/QLocale>
+
 #include <string>
 
 namespace qt
@@ -60,13 +63,10 @@ void Ruler::SetDistance()
 
 void Ruler::SetId()
 {
-  std::ostringstream curValStream;
-  curValStream << std::fixed << std::setprecision(1);
+  QLocale const locale;
   if (m_sumDistanceM >= 1000.0)
-    curValStream << m_sumDistanceM / 1000.0 << " km";
+    m_id = (locale.toString(m_sumDistanceM / 1000.0, 'f', 1) + " " + Tr("km")).toStdString();
   else
-    curValStream << m_sumDistanceM << " m";
-
-  m_id = curValStream.str();
+    m_id = (locale.toString(m_sumDistanceM, 'f', 1) + " " + Tr("m")).toStdString();
 }
 }  // namespace qt

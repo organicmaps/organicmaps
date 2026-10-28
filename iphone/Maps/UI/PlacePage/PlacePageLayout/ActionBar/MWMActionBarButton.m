@@ -3,8 +3,6 @@
 #import "MWMCircularProgress.h"
 #import "SwiftBridge.h"
 
-static NSString * const kUDDidHighlightRouteToButton = @"kUDDidHighlightPoint2PointButton";
-
 NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
 {
   switch (type)
@@ -28,6 +26,12 @@ NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
   }
 }
 
+typedef NS_ENUM(NSInteger, MWMBookmarksButtonState) {
+  MWMBookmarksButtonStateSave,
+  MWMBookmarksButtonStateDelete,
+  MWMBookmarksButtonStateRecover,
+};
+
 @interface MWMActionBarButton () <MWMCircularProgressProtocol>
 
 @property(nonatomic) MWMActionBarButtonType type;
@@ -36,14 +40,16 @@ NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
 @property(weak, nonatomic) IBOutlet UILabel * label;
 @property(weak, nonatomic) id<MWMActionBarButtonDelegate> delegate;
 
+- (void)setBookmarkButtonState:(MWMBookmarksButtonState)state;
+
 @end
 
 @implementation MWMActionBarButton
 
-- (void)configButton:(BOOL)isSelected enabled:(BOOL)isEnabled
+- (void)configButton:(BOOL)isSelected primary:(BOOL)isPrimary
 {
   self.label.text = titleForButton(self.type, isSelected);
-  self.button.coloring = MWMButtonColoringBlack;
+  self.button.coloring = isPrimary ? MWMButtonColoringBlue : MWMButtonColoringBlack;
   [self.button.imageView setContentMode:UIViewContentModeScaleAspectFit];
 
   switch (self.type)
@@ -93,8 +99,6 @@ NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
     break;
   case MWMActionBarButtonTypeRouteTo:
     [self.button setImage:[UIImage imageNamed:@"ic_route_to"] forState:UIControlStateNormal];
-    if ([self needsToHighlightRouteToButton])
-      self.button.coloring = MWMButtonColoringBlue;
     break;
   case MWMActionBarButtonTypeRouteAddDestination:
     [self.button setImage:[UIImage imageNamed:@"ic_route_to"] forState:UIControlStateNormal];
@@ -120,18 +124,24 @@ NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
     break;
   }
 
-  self.button.enabled = isEnabled;
+  // Keep the title color consistent with the icon tint.
+  switch (self.button.coloring)
+  {
+  case MWMButtonColoringBlue: self.label.styleName = @"PPActionBarTitleBlue"; break;
+  case MWMButtonColoringRed: self.label.styleName = @"PPActionBarTitleRed"; break;
+  default: self.label.styleName = @"PPActionBarTitle"; break;
+  }
 }
 
 + (MWMActionBarButton *)buttonWithDelegate:(id<MWMActionBarButtonDelegate>)delegate
                                 buttonType:(MWMActionBarButtonType)type
                                 isSelected:(BOOL)isSelected
-                                 isEnabled:(BOOL)isEnabled
+                                 isPrimary:(BOOL)isPrimary
 {
   MWMActionBarButton * button = [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
   button.delegate = delegate;
   button.type = type;
-  [button configButton:isSelected enabled:isEnabled];
+  [button configButton:isSelected primary:isPrimary];
   return button;
 }
 
@@ -142,43 +152,21 @@ NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
 
 - (IBAction)tap
 {
-  if (self.type == MWMActionBarButtonTypeRouteTo)
-    [self disableRouteToButtonHighlight];
-
   [self.delegate tapOnButtonWithType:self.type];
 }
 
 - (void)setBookmarkButtonState:(MWMBookmarksButtonState)state
 {
-  [self.button setImage:[UIImage imageNamed:@"ic_bookmarks_off"] forState:UIControlStateNormal];
-  [self.button setImage:[UIImage imageNamed:@"ic_bookmarks_on"] forState:UIControlStateSelected];
+  NSString * imageName = state == MWMBookmarksButtonStateDelete ? @"ic_bookmarks_on" : @"ic_bookmarks_off";
+  [self.button setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
   [self.button setImage:[UIImage imageNamed:@"ic_bookmarks_on"] forState:UIControlStateHighlighted];
 
   switch (state)
   {
-  case MWMBookmarksButtonStateSave:
-    self.label.text = L(@"save");
-    self.button.selected = false;
-    break;
-  case MWMBookmarksButtonStateDelete:
-    self.label.text = L(@"delete");
-    self.button.selected = true;
-    break;
-  case MWMBookmarksButtonStateRecover:
-    self.label.text = L(@"restore");
-    self.button.selected = false;
-    break;
+  case MWMBookmarksButtonStateSave: self.label.text = L(@"save"); break;
+  case MWMBookmarksButtonStateDelete: self.label.text = L(@"delete"); break;
+  case MWMBookmarksButtonStateRecover: self.label.text = L(@"restore"); break;
   }
-}
-
-- (BOOL)needsToHighlightRouteToButton
-{
-  return ![NSUserDefaults.standardUserDefaults boolForKey:kUDDidHighlightRouteToButton];
-}
-
-- (void)disableRouteToButtonHighlight
-{
-  [NSUserDefaults.standardUserDefaults setBool:true forKey:kUDDidHighlightRouteToButton];
 }
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event

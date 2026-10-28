@@ -1323,6 +1323,40 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Translations)
   TEST_EQUAL(name, "Париж", (params));
 }
 
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_NameNorwegianBokmal)
+{
+  struct TestCase
+  {
+    Tags m_tags;
+    std::string m_expected;
+  };
+  std::vector<TestCase> const testCases = {
+      {{{"name:nb", "Bokmål"}}, "Bokmål"},
+      {{{"name:no", "Norsk"}}, "Norsk"},
+      {{{"name:no", "Norsk"}, {"name:nb", "Bokmål"}}, "Bokmål"},
+      {{{"name:nb", "Bokmål"}, {"name:no", "Norsk"}}, "Bokmål"},
+      {{{"name:no", "Norsk"}, {"name:nb", ""}}, "Norsk"},
+      {{{"name:nb", ""}, {"name:no", "Norsk"}}, "Norsk"},
+      {{{"name:no", ""}, {"name:nb", "Bokmål"}}, "Bokmål"},
+      {{{"name:nb", "Bokmål"}, {"name:nn", "Nynorsk"}, {"name:nb:pronunciation", "ignored"}}, "Bokmål"},
+  };
+  for (auto const & testCase : testCases)
+  {
+    Tags tags = {{"place", "city"}, {"name", "Local name"}};
+    tags.insert(tags.end(), testCase.m_tags.begin(), testCase.m_tags.end());
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.name.GetDefaultString(), "Local name", (tags));
+    TEST_EQUAL(params.name.CountLangs(), 2, (tags));
+    std::string_view name;
+    TEST(params.name.GetString(40, name), (tags));
+    TEST_EQUAL(name, testCase.m_expected, (tags));
+    TEST(params.name.GetString("nb", name), (tags));
+    TEST_EQUAL(name, testCase.m_expected, (tags));
+    TEST(!params.name.GetString("nn", name), (tags));
+  }
+}
+
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Cuisine)
 {
   {

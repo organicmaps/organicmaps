@@ -109,7 +109,7 @@ constexpr StringUtf8Multilang::Languages MakeLanguages(bool includeServiceLangs)
   return langs;
 }
 
-// Compile-time perfect hash table for O(1) language code lookup.
+// Compile-time hash table with linear probing for language code lookup.
 constexpr uint32_t LangHash(std::string_view s)
 {
   uint32_t h = 0x811c9dc5u;  // FNV-1a offset basis
@@ -189,10 +189,8 @@ StringUtf8Multilang::Languages const & StringUtf8Multilang::GetSupportedLanguage
 // static
 int8_t StringUtf8Multilang::GetLangIndex(std::string_view lang)
 {
-  if (lang == kReservedLang)
-    return kUnsupportedLanguageCode;
-
-  return LookupLangIndex(lang);
+  // Bokmål shares the existing Norwegian map-name slot.
+  return LookupLangIndex(lang == "nb" ? "no" : lang);
 }
 
 // static
@@ -306,6 +304,8 @@ size_t StringUtf8Multilang::GetNextIndex(size_t i) const
 
 void StringUtf8Multilang::AddString(int8_t lang, std::string_view utf8s)
 {
+  ASSERT(IsSupportedLangCode(lang), (lang));
+
   size_t i = 0;
   size_t const sz = m_s.size();
 

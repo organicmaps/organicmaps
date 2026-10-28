@@ -159,6 +159,7 @@ RuleDrawer::RuleDrawer(TIsCountryLoadedByNameFn const & isLoadedFn, ref_ptr<Engi
   : m_isLoadedFn(isLoadedFn)
   , m_context(engineContext)
   , m_customFeaturesContext(engineContext->GetCustomFeaturesContext().lock())
+  , m_mapStyle(GetStyleReader().GetCurrentStyle())
   , m_deviceLang(deviceLang)
 {
   m_applyParams.Init(m_context->GetTileKey());
@@ -166,11 +167,11 @@ RuleDrawer::RuleDrawer(TIsCountryLoadedByNameFn const & isLoadedFn, ref_ptr<Engi
 
   m_mapShapes[df::OverlayType].reserve(200 /* average overlays count */);
 
-  if (!GetStyleReader().IsCarNavigationStyle())
+  if (m_mapStyle != MapStyleVehicleLight && m_mapStyle != MapStyleVehicleDark)
   {
     /// @todo Make naive implementation for now. Fetch draw settings from EngineContext.
     /// Should refactor and generalize these settings (3D, isolines, hiking, cycling, ...)
-    m_relsSettings.Load();
+    m_relsSettings.Load(m_mapStyle);
   }
 
   m_applyParams.m_insertShape = [this](drape_ptr<MapShape> && shape)
@@ -412,18 +413,17 @@ void RuleDrawer::operator()(FeatureType & f)
 
   feature::GeomType const geomType = f.GetGeomType();
 
-  // Force use Outdoor style (mainly because of visibility), for the hiking/cycling related Features
-  // (has correspondent Relation references). Otherwise, we get routes torn to separate pieces
-  // (e.g. highway=path is visible from z15, but highway=secondary from z13 in a regular Map style).
-  bool forceOutdoorStyle = false;
+  // Outdoors rules give hiking/cycling relation members consistent low-zoom visibility, so routes
+  // remain continuous even when their member roads have different visibility in the base style.
+  auto style = m_mapStyle;
   if (m_applyParams.IsRelationRoutes() && geomType == feature::GeomType::Line && !m_relsSettings.IsEmpty())
   {
     RelationsDrawInfo drawInfo(m_relsSettings);
     if (drawInfo.HasHikingOrCycling(f))
-      forceOutdoorStyle = true;
+      style = MapStyleIsDark(m_mapStyle) ? MapStyleOutdoorsDark : MapStyleOutdoorsLight;
   }
 
-  Stylist const s(f, m_zoomLevel, m_deviceLang, forceOutdoorStyle);
+  Stylist const s(f, m_zoomLevel, m_deviceLang, style);
 
   // No drawing rules.
   if (!s.m_symbolRule && !s.m_captionRule && !s.m_houseNumberRule && s.m_lineRules.empty() && !s.m_areaRule &&
@@ -483,14 +483,14 @@ void RuleDrawer::DrawTileNet()
 
   std::vector<m2::PointD> path;
   path.reserve(4);
-  path.push_back(m_globalRect.LeftBottom());
-  path.push_back(m_globalRect.LeftTop());
-  path.push_back(m_globalRect.RightTop());
-  path.push_back(m_globalRect.RightBottom());
+  path.push_back(m_applyParams.m_tileRect.LeftBottom());
+  path.push_back(m_applyParams.m_tileRect.LeftTop());
+  path.push_back(m_applyParams.m_tileRect.RightTop());
+  path.push_back(m_applyParams.m_tileRect.RightBottom());
 
   m2::SharedSpline spline(path);
   df::LineViewParams p;
-  p.m_tileCenter = m_globalRect.Center();
+  p.m_tileCenter = m_applyParams.m_tileRect.Center();
   p.m_baseGtoPScale = 1.0;
   p.m_cap = dp::ButtCap;
   p.m_color = dp::Color::Blue();
@@ -507,7 +507,7 @@ void RuleDrawer::DrawTileNet()
 
   df::TextViewParams tp;
   tp.m_markId = kml::kDebugMarkId;
-  tp.m_tileCenter = m_globalRect.Center();
+  tp.m_tileCenter = p.m_tileCenter;
   tp.m_titleDecl.m_anchor = dp::Center;
   tp.m_depth = dp::kMaxDepth;
   tp.m_depthLayer = DepthLayer::OverlayLayer;
@@ -516,7 +516,7 @@ void RuleDrawer::DrawTileNet()
   tp.m_titleDecl.m_primaryTextFont = dp::FontDecl(dp::Color::Red(), 30);
   tp.m_titleDecl.m_primaryOffset = {0.0f, 0.0f};
   auto textShape =
-      make_unique_dp<TextShape>(m_globalRect.Center(), tp, key, m2::PointF(0.0f, 0.0f) /* symbolSize */,
+      make_unique_dp<TextShape>(p.m_tileCenter, tp, key, m2::PointF(0.0f, 0.0f) /* symbolSize */,
                                 m2::PointF(0.0f, 0.0f) /* symbolOffset */, dp::Anchor::Center, 0 /* textIndex */);
   textShape->DisableDisplacing();
 

@@ -343,6 +343,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">منطقه ای را که در آن جستجو می کنید دانلود کنید یا نام شهر/ روستای اطراف را اضافه کنید.</string>
     <string name="search_history_title">سوابق جستجو</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">پشتیبان‌گیری از نشانک‌ها و مسیرها</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">اگر پشتیبان‌گیری در این دستگاه فعال باشد و نشانک‌ها و مسیرها از محدودیت حجم آن بیشتر نشوند، می‌توانند در پشتیبان‌های سیستم Android گنجانده شوند.</string>
     <string name="search_history_text">جستجوهای اخیر خود را مشاهده کنید.</string>
     <string name="clear_search">پاک کردن سابقه جستجوها</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -570,6 +574,11 @@
         <item quantity="other">%d فایل پیدا شد. بعد از تبدیل آنها را خواهید دید.</item>
     </plurals>
     <string name="restore">بازیابی</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d ناحیه</item>
+        <item quantity="other">%d ناحیه</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="one">%d رد</item>
         <item quantity="other">%d رد</item>
@@ -585,6 +594,7 @@
     <string name="button_layer_cycling">دوچرخه‌سواری</string>
     <!-- Map layers menu: toggle button for the satellite imagery layer -->
     <string name="button_layer_satellite">ماهواره</string>
+    <!-- Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges. -->
     <string name="button_layer_subway">مترو</string>
     <string name="layers_title">سبک ها و لایه های نقشه</string>
     <string name="bookmarks_empty_list_title">این فهرست خالی است</string>
@@ -626,7 +636,7 @@
     <string name="routing_options_driving">رانندگی</string>
     <!-- Cycling profile in routing options settings. -->
     <string name="routing_options_cycling">دوچرخه‌سواری</string>
-    <!-- Walking profile in routing options settings. -->
+    <!-- Walking profile in routing options settings; also the label of a walking leg in transit route details. -->
     <string name="routing_options_walking">پیاده‌روی</string>
     <!-- Section heading for routing settings shared by every routing mode. -->
     <string name="routing_options_all_modes">همه روش‌های جابه‌جایی</string>
@@ -913,4 +923,19 @@
     <string name="track_recording_finish">پایان</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">معکوس کردن مسیر</string>
+    <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
+    <string name="transit_details_title">جزئیات سفر</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">توقف %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d ایستگاه</item>
+        <item quantity="other">%d ایستگاه</item>
+    </plurals>
+    <!-- Spoken name of the bus transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_bus">اتوبوس</string>
+    <!-- Spoken name of the train transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_train">قطار</string>
+    <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_tram">تراموا</string>
 </resources>

@@ -64,7 +64,7 @@ You need a Linux or a macOS machine to build a desktop version of Organic Maps. 
 
 Ensure that you have at least 20GB of free space.
 
-Install CMake (**3.22.1** minimum), Qt 6, and the other dependencies.
+Install CMake (**3.22.1** minimum), Python **3.10+**, Qt 6, and the other dependencies.
 
 Installing *ccache* can speed up active development.
 
@@ -81,7 +81,10 @@ sudo apt update && sudo apt install -y \
     ninja-build \
     python3 \
     qt6-base-dev \
+    qt6-l10n-tools \
     qt6-positioning-dev \
+    qt6-tools-dev \
+    qt6-translations-l10n \
     libc++-dev \
     libfreetype-dev \
     libglvnd-dev \
@@ -101,11 +104,6 @@ sudo apt update && sudo apt install -y \
 | FreeType  | `2.13.1`        | `22.04` and older       | Install newer `libfreetype6` and `libfreetype-dev` from [PPA](https://launchpad.net/~reviczky/+archive/ubuntu/freetype) |
 | GeoClue   | `2.5.7`         | `20.04` and older       | Install newer `geoclue-2.0` from [PPA](https://launchpad.net/~savoury1/+archive/ubuntu/backports) |
 | Qt 6      | `6.4.0`         | `22.04` and older       | Build and install Qt 6.4 manually |
-
-
-```bash
-sudo add-apt-repository -y ppa:savoury1/qt-6-2
-```
 
 #### Linux Mint
 
@@ -129,6 +127,8 @@ sudo dnf install -y \
     qt6-qtpositioning \
     qt6-qtpositioning-devel \
     qt6-qtsvg-devel \
+    qt6-qttools-devel \
+    qt6-qttranslations \
     sqlite-devel
 ```
 
@@ -145,6 +145,8 @@ sudo apk add \
     qt6-qtbase-dev \
     qt6-qtpositioning-dev \
     qt6-qtsvg-dev \
+    qt6-qttools-dev \
+    qt6-qttranslations \
     samurai \
     sqlite-dev
 ```
@@ -311,6 +313,17 @@ Rendering tests need offscreen GL, so they are run via a separate preset:
 
 ```bash
 ctest --preset drape-debug
+```
+
+OpenGL tests are enabled by default and fail if a working context is unavailable.
+Configure with `-DBUILD_OPENGL_TESTS=OFF` to exclude them while keeping CPU tests and offline shader compilation tests.
+Windows CI disables GL tests until a suitable rendering backend is configured; see [#14007](https://github.com/organicmaps/organicmaps/issues/14007).
+On macOS, use the native Cocoa platform (`QT_QPA_PLATFORM=cocoa`). On headless Linux, install `xvfb`,
+`xauth`, and Mesa's software drivers, then run:
+
+```bash
+QT_QPA_PLATFORM=xcb LIBGL_ALWAYS_SOFTWARE=true \
+  xvfb-run -a -s '-screen 0 1280x1024x24 -noreset' ctest --preset drape-debug
 ```
 
 To run a limited set of tests, use `-R <regex>` flag. To exclude some tests, use `-E <regex>` flag:
@@ -529,7 +542,7 @@ Check if you have a system-wide Java Runtime Environment (JRE) installed:
 java -version
 ```
 
-If your system doesn't have a JRE installed or Java version is less than 17 (OpenJDK)
+If your system doesn't have a JRE installed or Java version is less than 21 (OpenJDK)
 or you want command line builds to use a JRE version bundled with the Studio
 then set the `JAVA_HOME` environment variable:
 

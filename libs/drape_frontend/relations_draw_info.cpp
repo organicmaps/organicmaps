@@ -1,16 +1,16 @@
 #include "relations_draw_info.hpp"
 
 #include "indexer/feature.hpp"
-#include "indexer/map_style_reader.hpp"
 
 #include "platform/settings.hpp"
 
 namespace df
 {
-void RelationsDrawSettings::Load()
+void RelationsDrawSettings::Load(MapStyle style)
 {
   hiking = settings::IsEnabled(kHikingEnabledKey);
   cycling = settings::IsEnabled(kCyclingEnabledKey);
+  dark = MapStyleIsDark(style);
 }
 
 bool RelationsDrawSettings::MatchHikingOrCycling(feature::RouteRelationBase::Type type) const
@@ -77,8 +77,8 @@ void RelationsDrawInfo::Init(FeatureType & ft)
   if (m_colors.empty())
     return;
 
-  // Adjust colors to the current theme for readability.
-  bool const isLightTheme = !MapStyleIsDark(GetStyleReader().GetCurrentStyle());
+  // Keep relation colors readable in the tile's captured theme.
+  bool const isLightTheme = !m_sett.dark;
   for (auto & [c, _] : m_colors)
   {
     dp::HSL hsl = dp::Color2HSL(c);

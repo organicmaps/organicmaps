@@ -3,9 +3,6 @@
 #include "storage/downloader.hpp"
 
 #include "platform/downloader_defines.hpp"
-#include "platform/platform.hpp"
-
-#include "defines.hpp"
 
 #include <functional>
 
@@ -47,7 +44,8 @@ void HttpMapFilesDownloader::Download()
 {
   CHECK_THREAD_CHECKER(m_checker, ());
 
-  auto const & queuedCountry = m_queue.GetFirstCountry();
+  auto const queuedCountry = m_queue.GetFirstCountry();
+  auto const generation = ++m_downloadGeneration;
 
   auto const urls = MakeUrlList(queuedCountry.GetRelativeUrl());
   auto const path = queuedCountry.GetFileDownloadPath();
@@ -58,6 +56,9 @@ void HttpMapFilesDownloader::Download()
   if (IsDownloadingAllowed())
   {
     queuedCountry.OnStartDownloading();
+    // Subscribers can cancel or replace this attempt, even with the same country ID.
+    if (generation != m_downloadGeneration)
+      return;
 
     using namespace std::placeholders;
     // doCleanOnCancel=false: keep .downloading and .resume on destruction so a graceful
@@ -71,8 +72,7 @@ void HttpMapFilesDownloader::Download()
   else
   {
     ErrorHttpRequest error(path);
-    auto const copy = queuedCountry;
-    OnMapFileDownloaded(copy, error);
+    OnMapFileDownloaded(queuedCountry, error);
   }
 }
 
@@ -85,12 +85,16 @@ void HttpMapFilesDownloader::Remove(CountryId const & id)
   if (!m_queue.Contains(id))
     return;
 
-  if (m_request && m_queue.GetFirstId() == id)
+  bool const wasFirst = m_queue.GetFirstId() == id;
+  if (wasFirst)
+  {
+    ++m_downloadGeneration;
     m_request.reset();
+  }
 
   m_queue.Remove(id);
 
-  if (!m_queue.IsEmpty() && !m_request)
+  if (wasFirst && !m_queue.IsEmpty())
     Download();
 }
 
@@ -98,18 +102,8 @@ void HttpMapFilesDownloader::Clear()
 {
   CHECK_THREAD_CHECKER(m_checker, ());
 
+  ++m_downloadGeneration;
   MapFilesDownloader::Clear();
-
-  // Wipe in-flight artifacts before tearing down m_request, since the dtor preserves them
-  // (doCleanOnCancel=false). Clear() is "throw everything away" — leaving .downloading and
-  // .resume on disk would orphan files that nothing else cleans up.
-  if (m_request && !m_queue.IsEmpty())
-  {
-    auto const path = m_queue.GetFirstCountry().GetFileDownloadPath();
-    Platform::RemoveFileIfExists(path);
-    Platform::RemoveFileIfExists(path + DOWNLOADING_FILE_EXTENSION);
-    Platform::RemoveFileIfExists(path + RESUME_FILE_EXTENSION);
-  }
 
   m_request.reset();
   m_queue.Clear();

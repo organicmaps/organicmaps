@@ -7,7 +7,7 @@
 "search" = "Sök";
 
 /* "Bookmarks and Tracks" dialog title. Also used in iPhone home screen quick actions. */
-"bookmarks_and_tracks" = "Bokmärken och rutter";
+"bookmarks_and_tracks" = "Bokmärken och spår";
 
 
 /********** Other translations **********/
@@ -28,4 +28,4 @@
 
 
 /* Needed to explain why we require access to GPS coordinates when the app is active. */
-"NSLocationWhenInUseUsageDescription" = "Definitionen av aktuell plats används i vissa funktioner som t.ex. att spåra rutt eller att spara nyligen tillryggalagda rutter.";
+"NSLocationWhenInUseUsageDescription" = "Din plats behöver fastställas för navigering och för att spara spåret från din senaste resa.";

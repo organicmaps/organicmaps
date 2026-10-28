@@ -343,6 +343,10 @@
     <!-- The message when user did not find anything in the search. -->
     <string name="search_not_found_query">Спампуйце рэгіён, у якім вы шукаеце, або паспрабуйце дадаць назву бліжэйшага горада/вёскі.</string>
     <string name="search_history_title">Гісторыя пошуку</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_title">Рэзервовая копія закладак і трэкаў</string>
+    <!-- Tracks are recorded or imported GPS paths. -->
+    <string name="bookmarks_backup_description">Закладкі і трэкі могуць трапляць у сістэмныя рэзервовыя копіі Android, калі на прыладзе ўключана рэзервовае капіраванне і яны не перавышаюць яго ліміт памеру.</string>
     <string name="search_history_text">Прагляд апошніх выкарыстаных пошукавых запытаў.</string>
     <string name="clear_search">Ачысціць гісторыю пошуку</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -576,6 +580,13 @@
         <item quantity="other">Знойдзена %d файлаў. Вы можаце ўбачыць іх пасля пераўтварэння.</item>
     </plurals>
     <string name="restore">Аднавіць</string>
+    <!-- Number of imported polygon areas (zones or regions) saved in a bookmark list, not their surface size. -->
+    <plurals name="areas">
+        <item quantity="one">%d зона</item>
+        <item quantity="few">%d зоны</item>
+        <item quantity="many">%d зон</item>
+        <item quantity="other">%d зоны</item>
+    </plurals>
     <plurals name="tracks">
         <item quantity="zero">%d сцежак</item>
         <item quantity="one">%d сцежка</item>
@@ -594,6 +605,7 @@
     <string name="button_layer_cycling">Пакатушкі</string>
     <!-- Map layers menu: toggle button for the satellite imagery layer -->
     <string name="button_layer_satellite">Спадарожнік</string>
+    <!-- Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges. -->
     <string name="button_layer_subway">Метро</string>
     <string name="layers_title">Стылі і слаі мапы</string>
     <string name="bookmarks_empty_list_title">Гэты спіс пусты</string>
@@ -635,7 +647,7 @@
     <string name="routing_options_driving">Аўтамабілем</string>
     <!-- Cycling profile in routing options settings. -->
     <string name="routing_options_cycling">Веласіпедам</string>
-    <!-- Walking profile in routing options settings. -->
+    <!-- Walking profile in routing options settings; also the label of a walking leg in transit route details. -->
     <string name="routing_options_walking">Пешшу</string>
     <!-- Section heading for routing settings shared by every routing mode. -->
     <string name="routing_options_all_modes">Для ўсіх спосабаў перамяшчэння</string>
@@ -928,4 +940,21 @@
     <string name="track_recording_finish">Завяршыць</string>
     <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
     <string name="reverse_route">Развярнуць маршрут</string>
+    <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
+    <string name="transit_details_title">Дэталі маршруту</string>
+    <!-- Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). -->
+    <string name="transit_waypoint_label">Прыпынак %1$d</string>
+    <!-- Number of stops ridden on a single transit line. -->
+    <plurals name="transit_stops_count">
+        <item quantity="one">%d прыпынак</item>
+        <item quantity="few">%d прыпынкі</item>
+        <item quantity="many">%d прыпынкаў</item>
+        <item quantity="other">%d прыпынка</item>
+    </plurals>
+    <!-- Spoken name of the bus transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_bus">Аўтобус</string>
+    <!-- Spoken name of the train transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_train">Цягнік</string>
+    <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
+    <string name="transit_type_tram">Трамвай</string>
 </resources>
