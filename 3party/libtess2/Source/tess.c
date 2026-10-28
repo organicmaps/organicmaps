@@ -424,13 +424,14 @@ int stackEmpty( EdgeStack *stack )
 	return stack->top == NULL;
 }
 
-void stackPush( EdgeStack *stack, TESShalfEdge *e )
+int stackPush( EdgeStack *stack, TESShalfEdge *e )
 {
 	EdgeStackNode *node = (EdgeStackNode *)bucketAlloc( stack->nodeBucket );
-	if ( ! node ) return;
+	if ( ! node ) return 0;
 	node->edge = e;
 	node->next = stack->top;
 	stack->top = node;
+	return 1;
 }
 
 TESShalfEdge *stackPop( EdgeStack *stack )
@@ -463,13 +464,16 @@ int tessMeshRefineDelaunay( TESSmesh *mesh, TESSalloc *alloc )
 	EdgeStack stack;
 	TESShalfEdge *e;
 	TESShalfEdge *edges[4];
-	stackInit(&stack, alloc);
+	if (!stackInit(&stack, alloc)) return 0;
 	for( f = mesh->fHead.next; f != &mesh->fHead; f = f->next ) {
 		if ( f->inside) {
 			e = f->anEdge;
 			do {
 				e->mark = EdgeIsInternal(e); /* Mark internal edges */
-				if (e->mark && !e->Sym->mark) stackPush(&stack, e); /* Insert into queue */
+				if (e->mark && !e->Sym->mark && !stackPush(&stack, e)) {
+					stackDelete(&stack);
+					return 0;
+				}
 				e = e->Lnext;
 			} while (e != f->anEdge);
 		}
@@ -492,7 +496,10 @@ int tessMeshRefineDelaunay( TESSmesh *mesh, TESSalloc *alloc )
 			for (i=0;i<3;i++) {
 				if (!edges[i]->mark && EdgeIsInternal(edges[i])) {
 					edges[i]->mark = edges[i]->Sym->mark = 1;
-					stackPush(&stack, edges[i]);
+					if (!stackPush(&stack, edges[i])) {
+						stackDelete(&stack);
+						return 0;
+					}
 				}
 			}
 		}
@@ -1053,7 +1060,7 @@ int tessTesselate( TESStesselator *tess, int windingRule, int elementType,
 		rc = tessMeshSetWindingNumber( mesh, 1, TRUE );
 	} else {
 		rc = tessMeshTessellateInterior( mesh );
-		if (elementType == TESS_CONSTRAINED_DELAUNAY_TRIANGLES) {
+		if (rc && elementType == TESS_CONSTRAINED_DELAUNAY_TRIANGLES) {
 			rc = tessMeshRefineDelaunay( mesh, &tess->alloc );
 			elementType = TESS_POLYGONS;
 			polySize = 3;

@@ -245,7 +245,8 @@ UNIT_TEST(Tesselator_AllocationFailures)
 
   for (auto const & contours : {square, selfIntersection, holes, RadialContour(31, 13), RadialContour(1000)})
   {
-    for (int type : {TESS_POLYGONS, TESS_CONNECTED_POLYGONS, TESS_BOUNDARY_CONTOURS})
+    for (int type :
+         {TESS_POLYGONS, TESS_CONNECTED_POLYGONS, TESS_BOUNDARY_CONTOURS, TESS_CONSTRAINED_DELAUNAY_TRIANGLES})
     {
       auto const calls = CheckAllocationFailure(contours, type, 0);
       for (size_t failAt = 1; failAt <= calls; ++failAt)
@@ -279,7 +280,7 @@ UNIT_TEST(Tesselator_DiscardContours)
 UNIT_TEST(Tesselator_Reuse)
 {
   Contours const square = {{{0, 0}, {10, 0}, {10, 10}, {0, 10}}};
-  for (int type : {TESS_POLYGONS, TESS_CONNECTED_POLYGONS, TESS_BOUNDARY_CONTOURS})
+  for (int type : {TESS_POLYGONS, TESS_CONNECTED_POLYGONS, TESS_BOUNDARY_CONTOURS, TESS_CONSTRAINED_DELAUNAY_TRIANGLES})
   {
     Allocations state;
     auto alloc = MakeAllocator(state);
