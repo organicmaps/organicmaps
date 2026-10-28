@@ -158,6 +158,7 @@ Format: `[subsystem] Summary in imperative mood` (max 80 chars). Examples of sub
 - See [docs/PR_GUIDE.md](docs/PR_GUIDE.md) for full guide
 
 ## Main focus
+- Follow the [Android SDK ownership and release policy](android/sdk/README.md#sdk-release-consumer-checks) when changing the SDK or its CI
 - On performance, simplicity, regressions, impact and code quality
 - Tests covering most/all corner cases or changes
 - Less code/cleaner code/less changes

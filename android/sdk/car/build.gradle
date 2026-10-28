@@ -19,7 +19,6 @@ dependencies {
 }
 
 Publish(project, [
-    'artifactId' : 'car',
     'name'       : 'Organic Maps SDK for Android Auto and Android Automotive',
     'description': 'A library that provides Organic Maps integration for Android Auto and Android Automotive'
 ])
