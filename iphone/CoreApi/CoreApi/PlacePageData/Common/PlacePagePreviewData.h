@@ -1,5 +1,7 @@
 #import <Foundation/Foundation.h>
 
+#include <stdint.h>
+
 @class PlacePageScheduleData;
 @class TrackInfo;
 
@@ -27,6 +29,9 @@ typedef struct
   PlacePageDataOpeningHours state;
   time_t nextTimeOpen;
   time_t nextTimeClosed;
+  // Compute each offset at its own instant because a DST change may lie between them.
+  int32_t utcOffsetNowSeconds;
+  int32_t utcOffsetNextSeconds;
 } PlacePageDataSchedule;
 
 NS_ASSUME_NONNULL_BEGIN
