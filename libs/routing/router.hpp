@@ -41,6 +41,7 @@ enum class RouterType
 };
 
 std::string ToString(RouterType type);
+/// Returns Vehicle for unknown identifiers.
 RouterType FromString(std::string const & str);
 std::string DebugPrint(RouterType type);
 
