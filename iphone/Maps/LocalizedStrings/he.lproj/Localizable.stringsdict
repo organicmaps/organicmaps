@@ -76,5 +76,30 @@
 		</dict>
 	</dict>
 
+
+<!-- ********** gps strings **********/ -->
+
+<!-- Number of stops ridden on a single transit line. -->
+	<key>transit_stops_count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@value@</string>
+		<key>value</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>תחנה אחת</string>
+			<key>two</key>
+			<string>2 תחנות</string>
+			<key>many</key>
+			<string>%d תחנות</string>
+			<key>other</key>
+			<string>%d תחנות</string>
+		</dict>
+	</dict>
+
 </dict>
 </plist>
