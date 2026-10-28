@@ -68,6 +68,9 @@ Install CMake (**3.22.1** minimum), Python **3.10+**, Qt 6, and the other depend
 
 Installing *ccache* can speed up active development.
 
+Location on Linux uses GIO callbacks, so the Qt app needs Qt's GLib event dispatcher. It is the default
+when Qt is built with GLib; don't set `QT_NO_GLIB=1`.
+
 #### Ubuntu
 
 ##### Fully supported versions
@@ -82,11 +85,11 @@ sudo apt update && sudo apt install -y \
     python3 \
     qt6-base-dev \
     qt6-l10n-tools \
-    qt6-positioning-dev \
     qt6-tools-dev \
     qt6-translations-l10n \
     libc++-dev \
     libfreetype-dev \
+    libgeoclue-2-dev \
     libglvnd-dev \
     libgl1-mesa-dev \
     libharfbuzz-dev \
@@ -119,13 +122,12 @@ sudo dnf install -y \
     gcc-c++ \
     ninja-build \
     freetype-devel \
+    geoclue2-devel \
     libicu-devel \
     libstdc++-devel \
     mesa-libGL-devel \
     libglvnd-devel \
     qt6-qtbase-devel \
-    qt6-qtpositioning \
-    qt6-qtpositioning-devel \
     qt6-qtsvg-devel \
     qt6-qttools-devel \
     qt6-qttranslations \
@@ -139,11 +141,11 @@ sudo apk add \
     cmake \
     freetype-dev \
     g++ \
+    geoclue-dev \
     icu-dev \
     mesa-gl \
     ninja-build \
     qt6-qtbase-dev \
-    qt6-qtpositioning-dev \
     qt6-qtsvg-dev \
     qt6-qttools-dev \
     qt6-qttranslations \
@@ -325,6 +327,10 @@ On macOS, use the native Cocoa platform (`QT_QPA_PLATFORM=cocoa`). On headless L
 QT_QPA_PLATFORM=xcb LIBGL_ALWAYS_SOFTWARE=true \
   xvfb-run -a -s '-screen 0 1280x1024x24 -noreset' ctest --preset drape-debug
 ```
+
+On Linux, `location_service_tests` start a private D-Bus bus and need the `dbus-daemon` executable
+(the `dbus-daemon` package on Ubuntu, Debian and Fedora, `dbus` on Arch and Alpine). A running system bus
+or `dbus-broker` alone is not enough.
 
 To run a limited set of tests, use `-R <regex>` flag. To exclude some tests, use `-E <regex>` flag:
 
