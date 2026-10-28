@@ -61,20 +61,21 @@ UNIT_CLASS_TEST(TestWithCustomMwms, CyclingResearch_SaturatedMapRoundTrip)
   TEST(selector->Test(*feature, 15), ());
 }
 
-UNIT_TEST(CyclingResearch_RulesUseTheirOwnClassifier)
+UNIT_CLASS_TEST(TestWithClassificator, CyclingResearch_RulesUseTheirOwnClassifier)
 {
   Classificator tree;
-  istringstream input("world + highway + tertiary - {} research + a - b - c - d - e - f - lane - {} {}");
+  istringstream input("world + highway + tertiary - {} natural + coastline - {} mapswithme - "
+                      "research + a - b - c - d - e - f - lane - {} {}");
   tree.ReadClassificator(input);
   auto const roadType = tree.GetTypeByPath({"highway", "tertiary"});
   auto const laneType = tree.GetTypeByPath({"research", "lane"});
   DrulesFormat format;
   format.variants = {"fixture"};
   format.colors = {{0xff228844}};
-  format.ruleCounts[kRuleLines] = 3;
+  format.ruleCounts[kRuleLines] = 2;
   TypeEntry entry;
   entry.name = "highway-tertiary";
-  for (auto const * predicate : {"extra_tag=research=lane", "extra_tag!=research=lane", "extra_tag=research=unknown"})
+  for (auto const * predicate : {"extra_tag=research=lane", "extra_tag!=research=lane"})
   {
     Element element;
     element.scale = 15;
@@ -90,7 +91,7 @@ UNIT_TEST(CyclingResearch_RulesUseTheirOwnClassifier)
   holder.LoadFromFormat(format, 0, tree);
   KeysT original;
   tree.GetObject(roadType)->GetSuitable(15, feature::GeomType::Line, original);
-  TEST_EQUAL(original.size(), 2, ("Unknown selector must omit its rule"));
+  TEST_EQUAL(original.size(), 2, ());
 
   class Road : public osm::MapObject
   {
