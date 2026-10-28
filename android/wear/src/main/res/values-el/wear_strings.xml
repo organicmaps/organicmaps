@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="hour">Ωρα</string>
+    <string name="minute">λπτ</string>
+
+    <!-- SECTION: Uncategorized -->
+    <!-- abbreviation for meters -->
+    <string name="m">μ</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">χμ</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">μι</string>
+    <!-- A unit of measure -->
+    <string name="ft">πόδια</string>
+</resources>

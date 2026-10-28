@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="hour">ժ</string>
+    <string name="minute">ր</string>
+
+    <!-- SECTION: Uncategorized -->
+    <!-- abbreviation for meters -->
+    <string name="m">մ</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">կմ</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">մղ</string>
+    <!-- A unit of measure -->
+    <string name="ft">ֆուտ</string>
+</resources>

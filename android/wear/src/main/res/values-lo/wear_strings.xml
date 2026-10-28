@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="hour">ຊມ</string>
+    <string name="minute">ນາທີ</string>
+
+    <!-- SECTION: Uncategorized -->
+    <!-- abbreviation for meters -->
+    <string name="m">ມ</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">ກມ</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">ໄມລ໌</string>
+    <!-- A unit of measure -->
+    <string name="ft">ຟຸດ</string>
+</resources>

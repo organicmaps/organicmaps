@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="hour">ชม.</string>
+    <string name="minute">น.</string>
+
+    <!-- SECTION: Uncategorized -->
+    <!-- abbreviation for meters -->
+    <string name="m">ม.</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">กม.</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">ไมล์</string>
+    <!-- A unit of measure -->
+    <string name="ft">ฟุต</string>
+</resources>

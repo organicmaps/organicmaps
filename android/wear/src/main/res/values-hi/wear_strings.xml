@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="hour">घंटे</string>
+    <string name="minute">मिनट</string>
+
+    <!-- SECTION: Uncategorized -->
+    <!-- abbreviation for meters -->
+    <string name="m">मी</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">किमी</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">मील</string>
+    <!-- A unit of measure -->
+    <string name="ft">फीट</string>
+</resources>

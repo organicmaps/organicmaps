@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="hour">س</string>
+    <string name="minute">د</string>
+
+    <!-- SECTION: Uncategorized -->
+    <!-- abbreviation for meters -->
+    <string name="m">متر</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">كم</string>
+    <!-- abbreviation for mile(s) -->
+    <string name="mi">ميل</string>
+    <!-- A unit of measure -->
+    <string name="ft">قدم</string>
+</resources>
