@@ -19,6 +19,8 @@ import Foundation
 
   private override init() { super.init() }
 
+  /// Begins listening for MFi accessory connect/disconnect notifications and opens sessions for any
+  /// supported receiver that is already connected. Call when the app becomes active.
   @objc func start() {
     LOG(.info, "ExternalGPSManager: start — scanning for connected accessories")
     let manager = EAAccessoryManager.shared()
@@ -37,6 +39,8 @@ import Foundation
     }
   }
 
+  /// Closes all open sessions, stops observing accessory notifications, and re-enables native GPS.
+  /// Call when the app resigns active (unless it must keep running in the background).
   @objc func stop() {
     LOG(.info, "ExternalGPSManager: stop — closing \(sessions.count) session(s)")
     NotificationCenter.default.removeObserver(self)
@@ -48,12 +52,15 @@ import Foundation
     LocationManager.setExternalGPSActive(false)
   }
 
+  /// Notification handler: opens a session when a supported accessory connects while the app is running.
   @objc private func accessoryConnected(_ note: Notification) {
     guard let acc = note.userInfo?[EAAccessoryKey] as? EAAccessory else { return }
     LOG(.info, "ExternalGPSManager: accessory connected — '\(acc.name)' protocols: \(acc.protocolStrings)")
     open(acc)
   }
 
+  /// Notification handler: tears down the session for a disconnected accessory and, once no sessions
+  /// remain, re-enables native GPS.
   @objc private func accessoryDisconnected(_ note: Notification) {
     guard let acc = note.userInfo?[EAAccessoryKey] as? EAAccessory else { return }
     LOG(.info, "ExternalGPSManager: accessory disconnected — '\(acc.name)' id:\(acc.connectionID)")
@@ -67,6 +74,8 @@ import Foundation
     }
   }
 
+  /// Opens an input/output stream session for the accessory if it advertises a supported protocol and
+  /// has no session yet, then suppresses native GPS so the external fix is not overridden.
   private func open(_ accessory: EAAccessory) {
     let id = accessory.connectionID
     guard sessions[id] == nil else {
@@ -94,6 +103,8 @@ import Foundation
     session.outputStream?.open()
   }
 
+  /// Unschedules and closes both streams of a session. Does not touch the suppression state; callers
+  /// decide whether native GPS should be re-enabled.
   private func closeSession(_ session: EASession) {
     LOG(.info, "ExternalGPSManager: closing session for '\(session.accessory?.name ?? "unknown")'")
     session.inputStream?.delegate = nil
@@ -107,6 +118,8 @@ import Foundation
 // MARK: - StreamDelegate
 
 extension ExternalGPSManager: StreamDelegate {
+  /// Stream event callback: reads available bytes, forwards decodable ASCII to the NMEA parser, and
+  /// silently drops the device's proprietary binary status packets.
   func stream(_ aStream: Stream, handle event: Stream.Event) {
     switch event {
     case .hasBytesAvailable:
@@ -135,10 +148,11 @@ extension ExternalGPSManager: StreamDelegate {
 extension ExternalGPSManager {
   private static var lineBuffers: [Int: String] = [:]
 
+  /// Appends a chunk to the per-connection buffer and extracts every complete NMEA sentence from it,
+  /// leaving any trailing partial sentence buffered for the next read.
   private func parseChunk(_ chunk: String, id: Int) {
     ExternalGPSManager.lineBuffers[id, default: ""] += chunk
     var buf = ExternalGPSManager.lineBuffers[id]!
-    var sentenceCount = 0
 
     // NMEA sentences have no guaranteed line terminator on this device; delimit by $…*XX.
     while let dollarIdx = buf.firstIndex(of: "$") {
@@ -158,13 +172,14 @@ extension ExternalGPSManager {
         afterSentence = buf.index(after: afterSentence)
       }
       buf.removeSubrange(..<afterSentence)
-      sentenceCount += 1
       parseSentence(sentence, id: id)
     }
 
     ExternalGPSManager.lineBuffers[id] = buf
   }
 
+  /// Validates the checksum of a single sentence and dispatches recognised talker types (RMC, GGA)
+  /// to their handlers; unknown types are ignored.
   private func parseSentence(_ sentence: String, id: Int) {
     guard checksumValid(sentence) else {
       LOG(.warning, "ExternalGPSManager: checksum FAILED for: \(sentence)")
@@ -180,7 +195,9 @@ extension ExternalGPSManager {
     }
   }
 
-  // RMC: recommended minimum — provides lat/lon/speed/course/timestamp
+  /// Parses an RMC (recommended minimum) sentence into a `CLLocation` — lat/lon/speed/course/timestamp,
+  /// combined with the altitude and accuracy cached from the most recent GGA — and dispatches it to
+  /// `LocationManager`. Ignores sentences with an invalid ("V") fix status.
   private func parseRMC(_ f: [String], id: Int) {
     guard f.count >= 10 else {
       LOG(.warning, "ExternalGPSManager: RMC too short (\(f.count) fields)")
@@ -223,7 +240,8 @@ extension ExternalGPSManager {
     LocationManager.processExternalGPSLocation(location)
   }
 
-  // GGA: fix data — altitude and HDOP, cached for the next RMC
+  /// Parses a GGA (fix data) sentence and caches its altitude and HDOP for the next RMC. GGA carries no
+  /// timestamp of its own, so it does not emit a location on its own. Ignores sentences with no fix.
   private func parseGGA(_ f: [String], id: Int) {
     guard f.count >= 10 else {
       LOG(.warning, "ExternalGPSManager: GGA too short (\(f.count) fields)")
@@ -238,16 +256,18 @@ extension ExternalGPSManager {
     altCache[id] = AltState(altitude: altitude, hdop: hdop)
   }
 
+  /// Converts an NMEA latitude field and hemisphere ("N"/"S") to signed decimal degrees.
   private func nmealat(_ s: String, _ hem: String) -> Double? {
     nmeaDeg(s).map { hem == "S" ? -$0 : $0 }
   }
 
+  /// Converts an NMEA longitude field and hemisphere ("E"/"W") to signed decimal degrees.
   private func nmealon(_ s: String, _ hem: String) -> Double? {
     nmeaDeg(s).map { hem == "W" ? -$0 : $0 }
   }
 
-  // Convert NMEA DDMM.MMMM / DDDMM.MMMM to decimal degrees.
-  // The minute field is always exactly 2 digits before the decimal point.
+  /// Converts an NMEA DDMM.MMMM / DDDMM.MMMM coordinate string to decimal degrees.
+  /// The minute field is always exactly 2 digits before the decimal point.
   private func nmeaDeg(_ s: String) -> Double? {
     guard !s.isEmpty, let dotIdx = s.firstIndex(of: "."),
           dotIdx >= s.index(s.startIndex, offsetBy: 2) else { return nil }
@@ -257,7 +277,7 @@ extension ExternalGPSManager {
     return deg + min / 60.0
   }
 
-  // Parse HHMMSS.ss (UTC) + DDMMYY into a Date.
+  /// Parses an NMEA UTC time field (HHMMSS.ss) and date field (DDMMYY) into a `Date`.
   private func nmeaDate(time t: String, date d: String) -> Date? {
     guard t.count >= 6, d.count >= 6 else { return nil }
     let ti = t.startIndex
@@ -278,7 +298,8 @@ extension ExternalGPSManager {
       nanosecond: Int((sec - Double(Int(sec))) * 1_000_000_000)))
   }
 
-  // Validate NMEA checksum: XOR of bytes between '$' (excl.) and '*' (excl.)
+  /// Validates an NMEA checksum: the XOR of all bytes between '$' (exclusive) and '*' (exclusive)
+  /// must equal the two hex digits following '*'.
   private func checksumValid(_ s: String) -> Bool {
     guard let dollarIdx = s.firstIndex(of: "$"),
           let starIdx   = s.firstIndex(of: "*"),
