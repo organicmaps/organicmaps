@@ -31,6 +31,9 @@ public:
   /// @param finder pointer to a router for generated absent wmwms.
   void SetRouter(std::unique_ptr<IRouter> && router, std::unique_ptr<AbsentRegionsFinder> && finder);
 
+  /// Call on the same thread as SetRouter(). Safe during route calculation.
+  bool IsTrafficSensitive() const { return m_router && m_router->IsTrafficSensitive(); }
+
   /// Main method to calculate new route from startPt to finalPt with start direction
   /// Processed result will be passed to callback. Callback will be called at the GUI thread.
   ///
