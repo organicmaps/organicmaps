@@ -74,6 +74,9 @@ public:
                                           bool adjust, bool needAlternatives, RouterDelegate const & delegate,
                                           RoutesResult & result) = 0;
 
+  /// Whether traffic updates can affect this router's geometry or timing. Fixed for its lifetime.
+  virtual bool IsTrafficSensitive() const { return true; }
+
   virtual bool FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction, double radius,
                                            EdgeProj & proj) = 0;
 

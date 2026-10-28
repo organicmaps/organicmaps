@@ -130,6 +130,9 @@ void RoutingSession::RemoveRoute()
 void RoutingSession::RebuildRouteOnTrafficUpdate()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
+  if (!m_routerIsTrafficSensitive)
+    return;
+
   m2::PointD startPoint;
 
   {
@@ -611,7 +614,9 @@ void RoutingSession::SetRouter(std::unique_ptr<IRouter> && router, std::unique_p
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(m_router != nullptr, ());
+  ASSERT(router != nullptr, ());
   Reset();
+  m_routerIsTrafficSensitive = router->IsTrafficSensitive();
   m_router->SetRouter(std::move(router), std::move(finder));
 }
 
