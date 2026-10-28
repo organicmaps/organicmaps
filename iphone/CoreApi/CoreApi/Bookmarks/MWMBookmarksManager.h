@@ -56,6 +56,13 @@ typedef void (^SharingResultCompletionHandler)(MWMBookmarksShareStatus status, N
 - (void)recoverRecentlyDeletedCategoriesAtURLs:(NSArray<NSURL *> *)urls;
 @end
 
+NS_SWIFT_NAME(BookmarkFileUpdate)
+@interface MWMBookmarkFileUpdate : NSObject
+/// Runs off the Core thread, serialized with native saves and deletion. Returns NO if the category changed.
+- (BOOL)performIfUnchanged:(NS_NOESCAPE void (^)(void))write;
+- (instancetype)init NS_UNAVAILABLE;
+@end
+
 NS_SWIFT_NAME(BookmarksManager)
 @interface MWMBookmarksManager : NSObject <BookmarksObservable, RecentlyDeletedCategoriesManager>
 
@@ -67,7 +74,20 @@ NS_SWIFT_NAME(BookmarksManager)
 - (void)loadBookmarks;
 - (void)loadBookmarkFile:(NSURL *)url;
 - (void)reloadCategoryAtFilePath:(NSString *)filePath;
-- (void)deleteCategoryAtFilePath:(NSString *)filePath;
+/// Makes a preserved copy visible without discarding edits to an already loaded copy.
+- (void)loadCategoryAtFilePathIfNeeded:(NSString *)filePath NS_SWIFT_NAME(loadCategoryIfNeeded(atFilePath:));
+/// Returns nil while loading or saving. An unparsed or absent file can still be updated.
+- (nullable MWMBookmarkFileUpdate *)beginFileUpdateAtPath:(NSString *)filePath;
+/// Reloads the immutable incoming file only if the captured category has no newer local edits.
+- (void)reloadCategoryWithUpdate:(MWMBookmarkFileUpdate *)update
+                    fromFilePath:(NSString *)sourcePath
+                      completion:(void (^)(BOOL applied))completion
+    NS_SWIFT_NAME(reloadCategory(with:fromFilePath:completion:));
+/// Trashes the file, including a file that could not be loaded as a category.
+/// @return NO while bookmarks are loading or saving, or when the file could not be moved to the trash.
+- (BOOL)deleteCategoryAtFilePath:(NSString *)filePath;
+/// True while a loaded category has changes waiting to be saved to this file.
+- (BOOL)isCategoryFileSavingAtPath:(NSString *)filePath NS_SWIFT_NAME(isCategoryFileSaving(atPath:));
 
 - (BOOL)areAllCategoriesEmpty;
 - (BOOL)isCategoryEmpty:(MWMMarkGroupID)groupId;
@@ -92,7 +112,8 @@ NS_SWIFT_NAME(BookmarksManager)
 - (void)setCategory:(MWMMarkGroupID)groupId isVisible:(BOOL)isVisible;
 - (void)setUserCategoriesVisible:(BOOL)isVisible;
 - (void)setTrack:(MWMTrackID)trackId isVisible:(BOOL)isVisible;
-- (void)deleteCategory:(MWMMarkGroupID)groupId;
+/// @return NO when there is no such category or its file could not be moved to the trash.
+- (BOOL)deleteCategory:(MWMMarkGroupID)groupId;
 - (BOOL)checkCategoryName:(NSString *)name;
 - (BOOL)hasCategory:(MWMMarkGroupID)groupId;
 - (BOOL)hasBookmark:(MWMMarkID)bookmarkId;
