@@ -32,8 +32,10 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * This class wraps android::Framework.cpp class
- * via static methods
+ * Low-level JNI access to the process-wide native framework.
+ * Call on the main thread after {@link OrganicMaps#init} reports map-loading completion, unless a method states
+ * otherwise. Prefer feature managers such as {@link app.organicmaps.sdk.routing.RoutingController} and
+ * {@link app.organicmaps.sdk.search.SearchEngine}, which also keep their Java state synchronized with the core.
  */
 public class Framework
 {
@@ -134,10 +136,13 @@ public class Framework
   @NonNull
   public static native ShareData nativeGetShareDataForBookmark(long bookmarkId);
 
+  /** Returns the best available offline address at a WGS84 latitude and longitude in degrees. */
   public static native String nativeGetAddress(double lat, double lon);
 
+  /** Replaces the process-wide map-selection listener; remove it when its host ends. */
   public static native void nativePlacePageActivationListener(@NonNull PlacePageActivationListener listener);
 
+  /** Removes the supplied map-selection listener. */
   public static native void nativeRemovePlacePageActivationListener(@NonNull PlacePageActivationListener listener);
 
   //  @UiThread
@@ -197,7 +202,10 @@ public class Framework
   public static native double[] nativeGetParsedCenterLatLon();
   public static native @Nullable String nativeGetParsedBackUrl();
 
-  /// @return true if a transit route selection was recovered.
+  /**
+   * Clears the current map selection. Returns {@code true} only when restoring a previous transit-route selection;
+   * ordinary deactivation returns {@code false}.
+   */
   public static native boolean nativeDeactivatePopup();
   public static native void nativeDeactivateMapSelectionCircle(boolean restoreViewport);
 
@@ -232,6 +240,7 @@ public class Framework
 
   public static native void nativeDisableFollowing();
 
+  /** Returns a JNI-created snapshot of current route guidance, or {@code null} when unavailable. */
   @FastNative
   @Nullable
   public static native RoutingInfo nativeGetRouteFollowingInfo();

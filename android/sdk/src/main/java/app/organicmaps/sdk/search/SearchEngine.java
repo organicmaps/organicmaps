@@ -10,6 +10,13 @@ import app.organicmaps.sdk.util.concurrency.UiThread;
 import java.nio.charset.StandardCharsets;
 import org.chromium.base.ObserverList;
 
+/**
+ * Process-wide asynchronous search over installed maps and bookmark collections.
+ * Use on the main thread after {@link app.organicmaps.sdk.OrganicMaps#init} completes map loading.
+ * Register listeners before starting a request and remove them when the host ends. Supply a new monotonically
+ * increasing request timestamp and compare it in callbacks to ignore results from older requests. Search
+ * results are successive complete snapshots, not batches to append. Detailed offline results require region maps.
+ */
 public enum SearchEngine implements SearchListener, MapSearchListener,
                                     BookmarkSearchListener
 {
@@ -73,11 +80,17 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
 
   private final ObserverList<BookmarkSearchListener> mBookmarkListeners = new ObserverList<>();
 
+  /**
+   * Registers an ordinary search listener; registration does not replay cached results.
+   */
   public void addListener(SearchListener listener)
   {
     mListeners.addObserver(listener);
   }
 
+  /**
+   * Removes an ordinary search listener. Already queued callbacks should still be checked against request state.
+   */
   public void removeListener(SearchListener listener)
   {
     mListeners.removeObserver(listener);
@@ -104,10 +117,16 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   }
 
   /**
+   * Starts an ordinary search using the current keyboard locale. Results arrive through {@link SearchListener}.
    *
-   * @param context
-   * @param timestamp Search results are filtered according to it after multiple requests.
-   * @return whether search was actually started.
+   * @param context context used to choose the query locale
+   * @param query text to search for
+   * @param isCategory whether the query is a category rather than free text
+   * @param timestamp monotonically increasing request identifier echoed by callbacks
+   * @param hasLocation whether the following coordinates are available for ranking
+   * @param lat WGS84 latitude in degrees, ignored when {@code hasLocation} is false
+   * @param lon WGS84 longitude in degrees, ignored when {@code hasLocation} is false
+   * @return whether the native engine started a search
    */
   @MainThread
   public boolean search(@NonNull Context context, @NonNull String query, boolean isCategory, long timestamp,
@@ -120,6 +139,19 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
     return started;
   }
 
+  /**
+   * Starts a search that updates with the map viewport.
+   *
+   * @param query search text
+   * @param isCategory whether this is a category query
+   * @param locale query language code
+   * @param timestamp monotonically increasing request identifier echoed by callbacks
+   * @param isMapAndTable whether to deliver list results as well as map marks; false searches the viewport only
+   * @param hasLocation whether a current location is available for ranking
+   * @param lat current WGS84 latitude in degrees
+   * @param lon current WGS84 longitude in degrees
+   * @return whether the native engine started a search
+   */
   @MainThread
   public boolean searchInteractive(@NonNull String query, boolean isCategory, @NonNull String locale, long timestamp,
                                    boolean isMapAndTable, boolean hasLocation, double lat, double lon)
@@ -134,6 +166,10 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
     return started;
   }
 
+  /**
+   * Starts interactive search with an explicit locale and without a current-location ranking hint.
+   * @see #searchInteractive(String, boolean, String, long, boolean, boolean, double, double)
+   */
   @MainThread
   public boolean searchInteractive(@NonNull String query, boolean isCategory, @NonNull String locale, long timestamp,
                                    boolean isMapAndTable)
@@ -141,6 +177,10 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
     return searchInteractive(query, isCategory, locale, timestamp, isMapAndTable, false, 0, 0);
   }
 
+  /**
+   * Starts interactive search using the keyboard locale and no current-location ranking hint.
+   * @see #searchInteractive(String, boolean, String, long, boolean, boolean, double, double)
+   */
   @MainThread
   public boolean searchInteractive(@NonNull Context context, @NonNull String query, boolean isCategory, long timestamp,
                                    boolean isMapAndTable)
@@ -149,29 +189,52 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
                              0);
   }
 
+  /**
+   * Searches downloadable region names; results arrive through {@link MapSearchListener}.
+   * @param context context used to select the query locale
+   * @param query region-name query
+   * @param timestamp request identifier echoed by callbacks
+   */
   @MainThread
   public static void searchMaps(@NonNull Context context, @NonNull String query, long timestamp)
   {
     nativeRunSearchMaps(query.getBytes(StandardCharsets.UTF_8), Language.getKeyboardLocale(context), timestamp);
   }
 
+  /**
+   * Searches bookmarks in a category; results arrive through {@link BookmarkSearchListener}.
+   * @param query search text
+   * @param categoryId native bookmark-category identifier
+   * @param timestamp request identifier echoed by callbacks
+   * @return whether the native engine started a search
+   */
   @MainThread
   public boolean searchInBookmarks(@NonNull String query, long categoryId, long timestamp)
   {
     return nativeRunSearchInBookmarks(query.getBytes(StandardCharsets.UTF_8), categoryId, timestamp);
   }
 
+  /**
+   * Stores the query associated with map search presentation; this does not start a search.
+   */
   public void setQuery(@Nullable String query)
   {
     mQuery = query;
   }
 
+  /**
+   * Returns the query stored for map presentation, or {@code null} if none was set.
+   */
   @Nullable
   public String getQuery()
   {
     return mQuery;
   }
 
+  /**
+   * Cancels active searches, clears cached query/results, and clears map API points.
+   * Callbacks already queued may still arrive; invalidate the host's request identifier too.
+   */
   @MainThread
   public void cancel()
   {
@@ -185,6 +248,9 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
     Framework.nativeClearApiPoints();
   }
 
+  /**
+   * Cancels viewport search and clears its cached query/results. Already queued callbacks may still arrive.
+   */
   @MainThread
   public void cancelInteractiveSearch()
   {
@@ -203,6 +269,10 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
     nativeCancelAllSearches();
   }
 
+  /**
+   * Selects a result from the latest native result snapshot, adjusts the viewport, and clears the stored query.
+   * @param index index in the latest result snapshot, not an index in a filtered display list
+   */
   @MainThread
   public void showResult(int index)
   {
@@ -210,6 +280,10 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
     nativeShowResult(index);
   }
 
+  /**
+   * Selects a result while preserving interactive-search highlighting.
+   * @param index index in the latest native result snapshot
+   */
   @MainThread
   public void selectResult(int index)
   {
@@ -218,7 +292,7 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   }
 
   /**
-   * Applies the search results viewport policy to the last results, see Framework::UpdateViewport().
+   * Fits the viewport to the last search results according to the native search viewport policy.
    */
   @MainThread
   public void updateViewportWithLastResults()
@@ -226,18 +300,29 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
     nativeUpdateViewportWithLastResults();
   }
 
+  /**
+   * Returns the last delivered ordinary result snapshot, or {@code null} after cancellation or before results.
+   * Treat the returned array as read-only.
+   */
   @Nullable
   public SearchResult[] getCachedResults()
   {
     return mCachedResults;
   }
 
+  /**
+   * Returns the query associated with cached list results, or {@code null} when none is cached.
+   */
   @Nullable
   public String getCachedSearchBarQuery()
   {
     return mCachedSearchBarQuery;
   }
 
+  /**
+   * Installs native search callbacks. Called by {@link app.organicmaps.sdk.OrganicMaps#init}; hosts should not repeat
+   * it.
+   */
   public void initialize()
   {
     nativeInit();
