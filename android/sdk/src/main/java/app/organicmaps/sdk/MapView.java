@@ -18,6 +18,12 @@ import app.organicmaps.sdk.display.DisplayType;
 import app.organicmaps.sdk.util.Utils;
 import app.organicmaps.sdk.util.log.Logger;
 
+/**
+ * Surface view displaying the process-wide native map.
+ * Wait for {@link OrganicMaps#init} map-loading completion before inflating this view. Bind a
+ * {@link MapController} before it is attached to a window so location and rendering callbacks are installed.
+ * Touch gestures are forwarded automatically. View and controller operations belong on the main thread.
+ */
 public class MapView extends SurfaceView
 {
   private static final String TAG = MapView.class.getSimpleName();
@@ -80,6 +86,9 @@ public class MapView extends SurfaceView
     getHolder().addCallback(new SurfaceHolderCallback());
   }
 
+  /**
+   * Draws an Android Studio layout preview; the native engine renders the runtime map on the surface.
+   */
   public final void onDraw(@NonNull Canvas canvas)
   {
     super.onDraw(canvas);
@@ -87,6 +96,9 @@ public class MapView extends SurfaceView
       drawMapPreview(canvas);
   }
 
+  /**
+   * Forwards the view's touch events to the native gesture handler.
+   */
   @Override
   public boolean onTouchEvent(@NonNull MotionEvent event)
   {
