@@ -2460,6 +2460,7 @@ bool Framework::BuildTrackPlacePage(Track::TrackSelectionInfo const & trackSelec
 
   info.SetSelectedObject(df::SelectionShape::OBJECT_TRACK);
   FillTrackInfo(*track, selectedInfo, info);
+  GetSelectionProcessor().SetPlacePageLocation(info);
   bm.SetTrackSelectionInfo(selectedInfo, true /* notifyListeners */);
   return true;
 }
@@ -2613,7 +2614,6 @@ place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & bui
       if (trackToSelect.IsValid())
       {
         outInfo.SetSelectedObject(df::SelectionShape::OBJECT_TRACK);
-        sp.SetPlacePageLocation(outInfo);
         if (BuildTrackPlacePage(trackToSelect, outInfo))
         {
           outInfo.SetTrackCandidates(std::move(trackSelectionCandidates));
