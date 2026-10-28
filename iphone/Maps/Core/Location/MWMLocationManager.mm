@@ -155,6 +155,7 @@ void setShowLocationAlert(BOOL needShow)
 @interface MWMLocationManager () <CLLocationManagerDelegate>
 
 @property(nonatomic) BOOL started;
+@property(nonatomic) BOOL externalGPSActive;
 @property(nonatomic) CLLocationManager * locationManager;
 @property(nonatomic) GeoMode geoMode;
 @property(nonatomic) CLHeading * lastHeadingInfo;
@@ -233,6 +234,7 @@ void setShowLocationAlert(BOOL needShow)
 + (void)applicationDidBecomeActive
 {
   [self start];
+  [ExternalGPSManager.shared start];
 }
 
 + (void)applicationWillResignActive
@@ -243,6 +245,8 @@ void setShowLocationAlert(BOOL needShow)
   if ([locationManager respondsToSelector:@selector(setAllowsBackgroundLocationUpdates:)])
     [locationManager setAllowsBackgroundLocationUpdates:keepRunning];
   manager.started = keepRunning;
+  if (!keepRunning)
+    [ExternalGPSManager.shared stop];
 }
 
 #pragma mark - Getters
@@ -315,6 +319,26 @@ void setShowLocationAlert(BOOL needShow)
   for (Observer observer in self.observers)
     if ([observer respondsToSelector:@selector(onLocationUpdate:)])
       [observer onLocationUpdate:locationInfo];
+}
+
+#pragma mark - External GPS
+
++ (void)processExternalGPSLocation:(CLLocation *)location
+{
+  if (!location || location.horizontalAccuracy < 0.)
+    return;
+  MWMLocationManager * manager = [self manager];
+  manager.lastLocationStatus = MWMLocationStatusNoError;
+  [manager onLocationUpdate:location source:location::EAppleNative];
+  if (![manager.lastLocationInfo isEqual:location])
+    [manager.predictor reset:location];
+}
+
++ (void)setExternalGPSActive:(BOOL)active
+{
+  LOG(LINFO, ("External GPS", active ? "active — suppressing native location updates"
+                                     : "inactive — resuming native location updates"));
+  [self manager].externalGPSActive = active;
 }
 
 #pragma mark - Location Status
@@ -500,6 +524,8 @@ void setShowLocationAlert(BOOL needShow)
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
+  if (self.externalGPSActive)
+    return;
   CLLocation * location = locations.lastObject;
   // According to documentation, lat and lon are valid only if horizontalAccuracy is non-negative.
   // So we filter out such events completely.
