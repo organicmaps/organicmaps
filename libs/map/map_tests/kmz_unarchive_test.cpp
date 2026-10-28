@@ -5,20 +5,13 @@
 
 #include "platform/platform.hpp"
 
-#include "base/scope_guard.hpp"
-
 UNIT_TEST(KMZ_UnzipTest)
 {
   std::string const kmzFile = GetPlatform().TestsDataPathForFile("test_data/kml/test.kmz");
-  auto const filePaths = GetKMLOrGPXFilesPathsToLoad(kmzFile);
-  TEST_EQUAL(1, filePaths.size(), ());
-  auto const & filePath = filePaths[0];
+  auto const kmlDataCollection = LoadBookmarkFileForImport(kmzFile);
+  TEST_EQUAL(1, kmlDataCollection.size(), ());
+  auto const & [filePath, kmlData] = kmlDataCollection[0];
   TEST(filePath.ends_with("doc.kml"), (filePath));
-
-  SCOPE_GUARD(fileGuard, std::bind(&base::DeleteFileX, filePath));
-
-  auto const kmlData = LoadKmlFile(filePath, FileType::Kml);
-  TEST(kmlData != nullptr, ());
 
   TEST_EQUAL(kmlData->m_bookmarksData.size(), 6, ("Category wrong number of bookmarks"));
 
@@ -45,12 +38,10 @@ UNIT_TEST(KMZ_RealLifeAreas)
   // Dartmoor National Park Authority, "Backpack camping on Dartmoor commons", Open Government Licence v3.0:
   // https://www.arcgis.com/home/item.html?id=3d00736c2b2a44d4b59d58e7fccba07a
   std::string const kmzFile = GetPlatform().TestsDataPathForFile("test_data/kml/dartmoor_backpack_camping.kmz");
-  auto const filePaths = GetKMLOrGPXFilesPathsToLoad(kmzFile);
-  TEST_EQUAL(filePaths.size(), 1, ());
-  SCOPE_GUARD(fileGuard, std::bind(&base::DeleteFileX, filePaths[0]));
+  auto const kmlDataCollection = LoadBookmarkFileForImport(kmzFile);
+  TEST_EQUAL(kmlDataCollection.size(), 1, ());
 
-  auto const kmlData = LoadKmlFile(filePaths[0], FileType::Kml);
-  TEST(kmlData != nullptr, ());
+  auto const & kmlData = kmlDataCollection[0].second;
   auto const & areas = kmlData->m_areasData;
   TEST_EQUAL(areas.size(), 70, ());
   size_t polygons = 0;
@@ -75,12 +66,7 @@ UNIT_TEST(KMZ_RealLifeAreas)
 UNIT_TEST(Multi_KML_KMZ_UnzipTest)
 {
   std::string const kmzFile = GetPlatform().TestsDataPathForFile("test_data/kml/BACRNKMZ.kmz");
-  auto const filePaths = GetKMLOrGPXFilesPathsToLoad(kmzFile);
-  SCOPE_GUARD(filesGuard, [&filePaths]()
-  {
-    for (auto const & path : filePaths)
-      base::DeleteFileX(path);
-  });
+  auto const kmlDataCollection = LoadBookmarkFileForImport(kmzFile);
 
   base::StringIL expectedFileNames = {
       "BACRNKMZfilesCampgrounds 26may2022 green and tree icon",
@@ -90,10 +76,11 @@ UNIT_TEST(Multi_KML_KMZ_UnzipTest)
       "BACRNKMZfilesRoute Connector Canada - West-East Daily Segments",
       "BACRNKMZdoc",
   };
-  TEST_EQUAL(expectedFileNames.size(), filePaths.size(), ());
+  TEST_EQUAL(expectedFileNames.size(), kmlDataCollection.size(), ());
 
-  for (auto const & filePath : filePaths)
+  for (auto const & kmlFile : kmlDataCollection)
   {
+    auto const & filePath = kmlFile.first;
     auto matched = false;
     for (auto const & expectedFileName : expectedFileNames)
     {

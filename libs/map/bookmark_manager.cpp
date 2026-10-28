@@ -2170,30 +2170,12 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
 
     auto collection = std::make_shared<KMLDataCollection>();
 
-    // Convert KMZ/KMB files to temp KML file and copy KML/GPX/GeoJson to temp file.
-    for (auto const & fileToLoad : GetKMLOrGPXFilesPathsToLoad(filePath))
+    for (auto & [fileToLoad, kmlData] : LoadBookmarkFileForImport(filePath))
     {
-      std::unique_ptr<kml::FileData> kmlData;
-      if (auto const fileType = GetFileType(fileToLoad))
-      {
-        switch (*fileType)
-        {
-        case FileType::Kml: kmlData = LoadKmlFile(fileToLoad, FileType::Kml); break;
-        case FileType::Gpx: kmlData = LoadKmlFile(fileToLoad, FileType::Gpx); break;
-        case FileType::GeoJson: kmlData = LoadKmlFile(fileToLoad, FileType::GeoJson); break;
-        case FileType::Json: kmlData = LoadKmlFile(fileToLoad, FileType::Json); break;
-        default: ASSERT(false, ("Unsupported bookmarks file type", (*fileType)));
-        }
-      }
-      else
-        ASSERT(false, ("Unknown file type for ", filePath));
-
-      base::DeleteFileX(fileToLoad);
-
       if (m_needTeardown)
         return;
 
-      if (kmlData && kmlData->HasContent())
+      if (kmlData->HasContent())
       {
         // Set last modified date for imported tracks before saving them, if it wasn't set in KML/GPX file.
         if (kmlData->m_categoryData.m_lastModified == kml::Timestamp{})
