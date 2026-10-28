@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <!-- Short label for hours (time unit), placed after a number -->
+    <string name="hour">小时</string>
+    <!-- Short label for minutes (time unit), placed after a number -->
+    <string name="minute">分钟</string>
+
+    <!-- SECTION: Uncategorized -->
+    <!-- abbreviation for meters -->
+    <string name="m">米</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">公里</string>
+    <!-- Short label for miles (length unit, 1 mi = 1609.344 m), placed after a number -->
+    <string name="mi">英里</string>
+    <!-- Short label for feet (1 ft = 0.3048 m), after numbers; local abbreviations and uninflected unit names are allowed -->
+    <string name="ft">英尺</string>
+</resources>
