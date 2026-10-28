@@ -27,6 +27,11 @@ import app.organicmaps.sdk.util.NetworkPolicy;
 import app.organicmaps.sdk.util.log.Logger;
 import org.chromium.base.ObserverList;
 
+/**
+ * Process-wide Android location and compass integration, obtained from {@link app.organicmaps.sdk.OrganicMaps}.
+ * Call from the main thread. The host owns runtime location permission requests and the policy for starting
+ * and stopping polling. A background navigation host also owns its foreground service and notification.
+ */
 public class LocationHelper implements BaseLocationProvider.Listener
 {
   // Replaced 0 with 100ms. Seems like it is not working on Lineage, EOS, MicroG, ...
@@ -305,9 +310,8 @@ public class LocationHelper implements BaseLocationProvider.Listener
   }
 
   /**
-   * Registers listener to obtain location updates.
-   *
-   * @param listener    listener to be registered.
+   * Registers a main-thread location listener and immediately replays a saved location if one is available.
+   * Remove the listener when its host ends.
    */
   @UiThread
   public void addListener(@NonNull LocationListener listener)
@@ -319,10 +323,6 @@ public class LocationHelper implements BaseLocationProvider.Listener
       listener.onLocationUpdated(mSavedLocation);
   }
 
-  /**
-   * Removes given location listener.
-   * @param listener listener to unregister.
-   */
   @UiThread
   public void removeListener(@NonNull LocationListener listener)
   {
@@ -348,7 +348,8 @@ public class LocationHelper implements BaseLocationProvider.Listener
   }
 
   /**
-   * Restart the location with a new refresh interval if changed.
+   * Starts location polling or updates its interval for the current position, recording, and navigation mode.
+   * The host must have a coarse or fine location permission before calling.
    */
   @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
   public void restartWithNewMode()
@@ -370,7 +371,8 @@ public class LocationHelper implements BaseLocationProvider.Listener
   }
 
   /**
-   * Starts polling location updates.
+   * Starts polling and, with fine permission, compass/GNSS updates. Repeated calls while active do nothing.
+   * The host must already hold a coarse or fine location permission.
    */
   @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
   public void start()
@@ -398,7 +400,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
   }
 
   /**
-   * Stops the polling location updates.
+   * Stops polling, sensors, and the location timeout. Repeated calls while inactive do nothing.
    */
   public void stop()
   {
@@ -417,7 +419,8 @@ public class LocationHelper implements BaseLocationProvider.Listener
   }
 
   /**
-   * Resume location services when entering the foreground.
+   * Resumes polling when the renderer exists, permission is granted, and the position mode allows it.
+   * Safe to call when entering the foreground; it does nothing if these prerequisites are absent.
    */
   public void resumeLocationInForeground()
   {
