@@ -1,9 +1,12 @@
 package app.organicmaps.wear
 
+import app.organicmaps.wear.protocol.WearNavigationData
 import com.google.android.gms.wearable.DataEvent
 import com.google.android.gms.wearable.Node
 
 internal object NavigationStateSource {
+    fun isPhoneCapability(name: String): Boolean = name == WearNavigationData.CAPABILITY_PHONE_APP
+
     fun selectCompanion(nodes: Collection<Node>): Node? =
         nodes.minWithOrNull(compareByDescending<Node> { it.isNearby }.thenBy { it.id })
 

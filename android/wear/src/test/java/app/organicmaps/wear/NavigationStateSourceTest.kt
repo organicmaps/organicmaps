@@ -12,6 +12,12 @@ import org.mockito.Mockito.`when`
 
 class NavigationStateSourceTest {
     @Test
+    fun phoneCapabilityReconnectRequiresRefresh() {
+        assertTrue(NavigationStateSource.isPhoneCapability("organic_maps_phone_app"))
+        assertFalse(NavigationStateSource.isPhoneCapability("organic_maps_active_navigation_watch_ui"))
+    }
+
+    @Test
     fun emptyCollectionHasNoCompanion() {
         assertNull(NavigationStateSource.selectCompanion(emptyList()))
     }

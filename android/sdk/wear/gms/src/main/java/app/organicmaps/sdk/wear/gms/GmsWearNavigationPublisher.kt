@@ -1,49 +1,163 @@
 package app.organicmaps.sdk.wear.gms
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
+import android.os.SystemClock
 import android.util.Log
 import app.organicmaps.sdk.wear.WearNavigationPublisher
 import app.organicmaps.wear.protocol.WearNavigationData
-import app.organicmaps.wear.protocol.WearNavigationState
+import app.organicmaps.wear.protocol.WearNavigationDetails
+import app.organicmaps.wear.protocol.WearNavigationMode
 import app.organicmaps.wear.protocol.gms.WearNavigationDataMapCodec
+import app.organicmaps.wear.protocol.gms.WearNavigationDetailsDataMapCodec
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.CommonStatusCodes
+import com.google.android.gms.wearable.CapabilityClient
+import com.google.android.gms.wearable.DataMap
 import com.google.android.gms.wearable.PutDataMapRequest
 import com.google.android.gms.wearable.Wearable
+import com.google.android.gms.wearable.WearableStatusCodes
 
 /**
- * Publishes navigation state to a paired Wear OS device through the Google Wear Data Layer.
+ * Publishes persistent navigation mode through DataClient and transient details through
+ * MessageClient, targeting only watch UIs that currently advertise an active consumer.
  *
- * Lives in the google-only `:sdk:wear:gms` module and is registered into
- * [app.organicmaps.sdk.wear.WearBridge] at startup by [WearBridgeInitProvider].
+ * All mutable state, task listeners, and capability events run on the main thread.
  */
 internal class GmsWearNavigationPublisher(context: Context) : WearNavigationPublisher {
-    private val context = context.applicationContext
+    private val appContext = context.applicationContext
+    private val dataClient = Wearable.getDataClient(appContext)
+    private val messageClient = Wearable.getMessageClient(appContext)
+    private val capabilityClient = Wearable.getCapabilityClient(appContext)
+    private val handler = Handler(Looper.getMainLooper())
+    private val delivery =
+        WearNavigationDeliveryState(
+            nowMs = SystemClock::elapsedRealtime,
+            send = ::sendDetailsToNodes,
+        )
 
-    override fun publish(state: WearNavigationState) {
-        val dataMapRequest = PutDataMapRequest.create(WearNavigationData.PATH_NAVIGATION_STATE)
-        WearNavigationDataMapCodec.encode(dataMapRequest.dataMap, state)
+    private val heartbeatRunnable =
+        Runnable {
+            requireMainThread()
+            delivery.heartbeat()
+            scheduleHeartbeat()
+        }
 
-        val request = dataMapRequest.asPutDataRequest()
-        request.setUrgent()
+    private val consumerListener =
+        CapabilityClient.OnCapabilityChangedListener { capability ->
+            requireMainThread()
+            if (capability.name == WearNavigationData.CAPABILITY_ACTIVE_WATCH_UI) {
+                delivery.onTopologyChanged(capability.nodes.mapTo(mutableSetOf()) { it.id })
+                scheduleHeartbeat()
+            }
+        }
 
-        Wearable
-            .getDataClient(context)
-            .putDataItem(request)
+    init {
+        // One process-lifetime listener, rather than one connectedNodes lookup per GPS fix.
+        // The UI's capability is advertised dynamically and disappears on pause.
+        capabilityClient
+            .addListener(consumerListener, WearNavigationData.CAPABILITY_ACTIVE_WATCH_UI)
             .addOnSuccessListener {
-                Log.d(TAG, "Published Wear navigation state: ${state.mode}")
-            }.addOnFailureListener(::logFailure)
+                requireMainThread()
+                // Close the gap if a watch became active during listener registration.
+                if (delivery.isActive) discoverActiveWatches()
+            }.addOnFailureListener { exception ->
+                logFailure("active-watch capability listener", exception)
+            }
     }
 
-    // API_NOT_CONNECTED reports that the Wearable API is unavailable, not that delivery failed, so
-    // it is expected whenever no watch is around and does not deserve a warning.
-    private fun logFailure(exception: Exception) {
+    override fun publish(mode: WearNavigationMode) {
+        requireMainThread()
+        val newlyStarted = mode == WearNavigationMode.NAVIGATION && !delivery.isActive
+        delivery.setMode(mode)
+        scheduleHeartbeat()
+        if (newlyStarted) {
+            discoverActiveWatches()
+        }
+
+        val dataMapRequest = PutDataMapRequest.create(WearNavigationData.PATH_NAVIGATION_STATE)
+        WearNavigationDataMapCodec.encode(dataMapRequest.dataMap, mode)
+        val request = dataMapRequest.asPutDataRequest()
+        request.setUrgent()
+        dataClient
+            .putDataItem(request)
+            .addOnSuccessListener { Log.d(TAG, "Published Wear navigation mode: $mode") }
+            .addOnFailureListener { exception -> logFailure("navigation mode", exception) }
+    }
+
+    override fun publish(details: WearNavigationDetails) {
+        requireMainThread()
+        delivery.publishDetails(details)
+        scheduleHeartbeat()
+    }
+
+    override fun invalidateDetails() {
+        requireMainThread()
+        // No old instruction may be retransmitted after source updates stop. The watch's own
+        // expiry timer clears its last rendered instruction without another Data Layer packet.
+        delivery.invalidateDetails()
+        scheduleHeartbeat()
+    }
+
+    private fun discoverActiveWatches() {
+        val token = delivery.beginDiscovery() ?: return // One lookup in flight per session.
+        capabilityClient
+            .getCapability(
+                WearNavigationData.CAPABILITY_ACTIVE_WATCH_UI,
+                CapabilityClient.FILTER_REACHABLE,
+            ).addOnSuccessListener { capability ->
+                requireMainThread()
+                // The token also rejects a late result from a previous/stopped navigation.
+                delivery.completeDiscovery(token, capability.nodes.mapTo(mutableSetOf()) { it.id })
+                scheduleHeartbeat()
+            }.addOnFailureListener { exception ->
+                requireMainThread()
+                delivery.failDiscovery(token)
+                logFailure("active-watch discovery", exception)
+            }
+    }
+
+    private fun sendDetailsToNodes(nodeIds: Set<String>, details: WearNavigationDetails, session: Long) {
+        val dataMap = DataMap()
+        WearNavigationDetailsDataMapCodec.encode(dataMap, details)
+        val payload = dataMap.toByteArray()
+        nodeIds.forEach { nodeId ->
+            messageClient
+                .sendMessage(nodeId, WearNavigationData.PATH_NAVIGATION_DETAILS, payload)
+                .addOnFailureListener { exception ->
+                    requireMainThread()
+                    // A failure from an earlier session must not drop a newly reconnected watch.
+                    delivery.onSendFailure(nodeId, session)
+                    scheduleHeartbeat()
+                    logFailure("navigation details", exception)
+                }
+        }
+    }
+
+    private fun scheduleHeartbeat() {
+        handler.removeCallbacks(heartbeatRunnable)
+        if (delivery.shouldHeartbeat) {
+            handler.postDelayed(heartbeatRunnable, WearNavigationDeliveryState.HEARTBEAT_INTERVAL_MS)
+        }
+    }
+
+    private fun requireMainThread() {
+        check(Looper.myLooper() == Looper.getMainLooper()) {
+            "Wear navigation publisher must be used from the main thread"
+        }
+    }
+
+    private fun logFailure(what: String, exception: Exception) {
         if (exception is ApiException &&
-            exception.statusCode == CommonStatusCodes.API_NOT_CONNECTED
+            (
+                exception.statusCode == CommonStatusCodes.API_NOT_CONNECTED ||
+                    exception.statusCode == WearableStatusCodes.TARGET_NODE_NOT_CONNECTED
+                )
         ) {
-            Log.d(TAG, "Wear Data Layer unavailable, navigation state not published")
+            Log.d(TAG, "Wear Data Layer unavailable, $what not published")
         } else {
-            Log.w(TAG, "Failed to publish Wear navigation state", exception)
+            Log.w(TAG, "Failed to publish Wear $what", exception)
         }
     }
 
