@@ -1232,3 +1232,18 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "경로를 반대로 설정";
+
+/* Title of the transit route details screen, shown when the user taps the public transport summary tile. */
+"transit_details_title" = "경로 세부 정보";
+
+/* Heading for a user-added intermediate point (Add Stop) in the transit details breakdown (%1$d = its order in the route, starting at 1). */
+"transit_waypoint_label" = "스톱 %1$d";
+
+/* Spoken name of the bus transport type, read by screen readers before a line number on transit line badges (route summary and details). */
+"transit_type_bus" = "버스";
+
+/* Spoken name of the train transport type, read by screen readers before a line number on transit line badges (route summary and details). */
+"transit_type_train" = "기차";
+
+/* Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). */
+"transit_type_tram" = "트램";
