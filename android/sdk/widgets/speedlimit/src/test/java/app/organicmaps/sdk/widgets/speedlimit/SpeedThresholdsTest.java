@@ -43,7 +43,7 @@ public class SpeedThresholdsTest
   @Test
   public void unknownLimitsResetEveryMode()
   {
-    for (Mode previous : Mode.values())
+    for (Mode previous : Mode.getEntries())
     {
       assertEquals(Mode.Normal, mThresholds.modeFor(100, null, previous));
       assertEquals(Mode.Normal, mThresholds.modeFor(100, 0, previous));
@@ -55,7 +55,7 @@ public class SpeedThresholdsTest
   public void zeroHysteresisUsesEntryBoundariesForReset()
   {
     SpeedThresholds thresholds = new SpeedThresholds(5, 10);
-    for (Mode previous : Mode.values())
+    for (Mode previous : Mode.getEntries())
     {
       assertEquals(Mode.Normal, thresholds.modeFor(55, 50, previous));
       assertEquals(Mode.Warning, thresholds.modeFor(56, 50, previous));

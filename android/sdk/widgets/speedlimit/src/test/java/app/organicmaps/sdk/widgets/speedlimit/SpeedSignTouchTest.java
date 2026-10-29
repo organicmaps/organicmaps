@@ -11,6 +11,7 @@ import android.os.Looper;
 import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.view.View;
+import androidx.annotation.NonNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
@@ -90,6 +91,7 @@ public class SpeedSignTouchTest
     assertClickDelivered(view, 50, 150);
   }
 
+  @NonNull
   private static CombinedSpeedView composite()
   {
     CombinedSpeedView view = new CombinedSpeedView(RuntimeEnvironment.getApplication());
@@ -99,7 +101,7 @@ public class SpeedSignTouchTest
     return view;
   }
 
-  private static void assertGestureConsumed(View view, float x, float y)
+  private static void assertGestureConsumed(@NonNull View view, float x, float y)
   {
     assertFalse(view.isClickable());
     for (int end : new int[] {MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL})
@@ -111,7 +113,7 @@ public class SpeedSignTouchTest
     assertFalse(view.isClickable());
   }
 
-  private static void assertClickDelivered(View view, float x, float y)
+  private static void assertClickDelivered(@NonNull View view, float x, float y)
   {
     View.OnClickListener listener = mock(View.OnClickListener.class);
     view.setOnClickListener(listener);
@@ -121,7 +123,7 @@ public class SpeedSignTouchTest
     verify(listener).onClick(view);
   }
 
-  private static boolean touch(View view, int action, float x, float y)
+  private static boolean touch(@NonNull View view, int action, float x, float y)
   {
     long time = SystemClock.uptimeMillis();
     MotionEvent event = MotionEvent.obtain(time, time, action, x, y, 0);
@@ -135,7 +137,7 @@ public class SpeedSignTouchTest
     }
   }
 
-  private static void layout(View view, int width, int height)
+  private static void layout(@NonNull View view, int width, int height)
   {
     view.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
                  View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY));

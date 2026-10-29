@@ -58,12 +58,14 @@
   <declare-styleable name="OmWidgetCombinedSpeedView">
     <attr name="om_widget_shape" />
     <attr name="om_widget_mode" />
-    <!-- Position of the current speed relative to the speed limit. Left/right are physical directions. -->
+    <!-- Position of the current speed relative to the speed limit. Only start/end follow layout direction. -->
     <attr name="om_widget_current_speed_position" format="enum">
       <enum name="top" value="0" />
       <enum name="bottom" value="1" />
       <enum name="left" value="2" />
       <enum name="right" value="3" />
+      <enum name="start" value="4" />
+      <enum name="end" value="5" />
     </attr>
     <!-- A color set per mode; only the background color is used. -->
     <attr name="om_widget_background_palette" format="reference" />

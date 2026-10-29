@@ -60,12 +60,6 @@ constructor(
             invalidate()
         }
 
-    /**
-     * Corner radius of the sign as a fraction of its size, the one of the current [shape] unless
-     * it is overridden in the style.
-     */
-    val cornerRadiusRatio: Float get() = shapeDrawer.cornerRadiusRatio
-
     /** Corner radius ratio from the style, null when it follows the [shape]. */
     private var styledCornerRadiusRatio: Float? = null
 

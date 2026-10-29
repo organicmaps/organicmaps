@@ -20,7 +20,7 @@ import androidx.annotation.StyleRes
  * The current speed is always visible, hide the whole widget to hide it. The speed limit is hidden
  * when it is unknown, see [setSpeedLimit].
  *
- * Use `wrap_content` width and a fixed height for left/right positions, or a fixed width and
+ * Use `wrap_content` width and a fixed height for horizontal positions, or a fixed width and
  * `wrap_content` height for top/bottom, to keep the sign size when the speed limit is hidden.
  *
  * The signs are created in the code, so that they can be styled from here: set
@@ -35,12 +35,14 @@ constructor(
     @AttrRes defStyleAttr: Int = R.attr.om_widget_combined_speed_view_style,
     @StyleRes defStyleRes: Int = R.style.OmWidget_CombinedSpeedView,
 ) : ViewGroup(context, attrs, defStyleAttr, defStyleRes) {
-    /** Position of the current speed relative to the speed limit, independent of layout direction. */
+    /** Position of the current speed relative to the speed limit; only Start/End follow layout direction. */
     enum class CurrentSpeedPosition {
         Top,
         Bottom,
         Left,
         Right,
+        Start,
+        End,
     }
 
     private val fillPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -65,6 +67,14 @@ constructor(
 
     private val isVertical: Boolean
         get() = currentSpeedPosition == CurrentSpeedPosition.Top || currentSpeedPosition == CurrentSpeedPosition.Bottom
+
+    private val isCurrentSpeedFirst: Boolean
+        get() = when (currentSpeedPosition) {
+            CurrentSpeedPosition.Top, CurrentSpeedPosition.Left -> true
+            CurrentSpeedPosition.Bottom, CurrentSpeedPosition.Right -> false
+            CurrentSpeedPosition.Start -> layoutDirection != LAYOUT_DIRECTION_RTL
+            CurrentSpeedPosition.End -> layoutDirection == LAYOUT_DIRECTION_RTL
+        }
 
     /** Shape of the speed-limit sign; the current speed is always square. */
     var shape: Shape = Shape.Circle
@@ -224,6 +234,7 @@ constructor(
         return true
     }
 
+    @SuppressLint("UseKtx")
     private fun containsPoint(x: Float, y: Float): Boolean {
         if (currentSpeedView.visibility == VISIBLE &&
             currentSpeedView.containsPoint(x - currentSpeedView.left, y - currentSpeedView.top)
@@ -239,6 +250,7 @@ constructor(
             connectorBounds.contains(x, y)
     }
 
+    @SuppressLint("UseKtx")
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val signsCount = if (speedLimitView.visibility == GONE) 1 else 2
         val columns = if (isVertical) 1 else signsCount
@@ -267,6 +279,13 @@ constructor(
         )
     }
 
+    override fun onRtlPropertiesChanged(layoutDirection: Int) {
+        super.onRtlPropertiesChanged(layoutDirection)
+        requestLayout()
+        invalidate()
+    }
+
+    @SuppressLint("UseKtx")
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         val signsCount = if (speedLimitView.visibility == GONE) 1 else 2
         val signSize = currentSpeedView.measuredWidth
@@ -276,9 +295,10 @@ constructor(
         val rows = if (isVertical) signsCount else 1
         var signLeft = paddingLeft + (contentWidth - columns * signSize) / 2
         var signTop = paddingTop + (contentHeight - rows * signSize) / 2
-        val signs = when (currentSpeedPosition) {
-            CurrentSpeedPosition.Top, CurrentSpeedPosition.Left -> listOf(currentSpeedView, speedLimitView)
-            CurrentSpeedPosition.Bottom, CurrentSpeedPosition.Right -> listOf(speedLimitView, currentSpeedView)
+        val signs = if (isCurrentSpeedFirst) {
+            listOf(currentSpeedView, speedLimitView)
+        } else {
+            listOf(speedLimitView, currentSpeedView)
         }
         for (sign in signs) {
             if (sign.visibility == GONE) {
