@@ -64,8 +64,9 @@ UNIT_CLASS_TEST(TestWithCustomMwms, CyclingResearch_SaturatedMapRoundTrip)
 UNIT_CLASS_TEST(TestWithClassificator, CyclingResearch_RulesUseTheirOwnClassifier)
 {
   Classificator tree;
-  istringstream input("world + highway + tertiary - {} natural + coastline - {} mapswithme - "
-                      "research + a - b - c - d - e - f - lane - {} {}");
+  istringstream input(
+      "world + highway + tertiary - {} natural + coastline - {} mapswithme - "
+      "research + a - b - c - d - e - f - lane - {} {}");
   tree.ReadClassificator(input);
   auto const roadType = tree.GetTypeByPath({"highway", "tertiary"});
   auto const laneType = tree.GetTypeByPath({"research", "lane"});
