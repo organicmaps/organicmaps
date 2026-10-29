@@ -73,6 +73,7 @@
     <string name="opens_in">Yn agor mewn %s</string>
     <string name="closes_in">Yn cau mewn %s</string>
     <string name="closed">Ar gau</string>
+    <!-- Short label for minutes (time unit), placed after a number -->
     <string name="minute">mun</string>
     <string name="big_font">Cynyddu maint labeli\'r map</string>
     <string name="transliteration_title">Trosi i\'r wyddor Ladin</string>

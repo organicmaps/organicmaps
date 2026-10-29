@@ -15,7 +15,7 @@
     <string name="downloading">Λήψη…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
     <string name="kilometres">Χιλιόμετρα</string>
-    <!-- Choose measurement on first launch alert - choose imperial system button -->
+    <!-- Imperial measurement option: 1 mile = 1609.344 m; Swedish/Norwegian "mil" = 10 km -->
     <string name="miles">Μίλια</string>
     <!-- Update maps later button text -->
     <string name="later">Αργότερα</string>
@@ -99,7 +99,7 @@
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Μονάδες μέτρησης</string>
     <!-- Detailed description of Measurement Units settings button -->
-    <string name="measurement_units_summary">Επιλέξετε ανάμεσα σε μίλια και χιλιόμετρα</string>
+    <string name="measurement_units_summary">Επιλέξτε ανάμεσα σε μίλια και χιλιόμετρα</string>
 
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
@@ -476,10 +476,15 @@
     <string name="current_location_unknown_error_title">Η τρέχουσα τοποθεσία είναι άγνωστη.</string>
     <!-- abbreviation for kilometers per hour -->
     <string name="kilometers_per_hour">χμ/ω</string>
+    <!-- Short label for miles per hour (1 mile = 1609.344 m), placed after a number; e.g. mph or mi/h -->
     <string name="miles_per_hour">mph</string>
-    <string name="hour">Ωρα</string>
-    <string name="minute">λπτ</string>
-    <string name="day">Μέρα</string>
+    <!-- Short label for hours (time unit), placed after a number -->
+    <string name="hour">ώ.</string>
+    <!-- Short label for minutes (time unit), placed after a number -->
+    <string name="minute">λεπ.</string>
+    <!-- Short label for days (time unit), placed after a number -->
+    <string name="day">ημ.</string>
+    <!-- Short label for seconds (time unit), placed after a number -->
     <string name="second">δ</string>
     <string name="placepage_more_button">Περισσότερα</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->

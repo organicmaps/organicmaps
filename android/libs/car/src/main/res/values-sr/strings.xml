@@ -73,6 +73,7 @@
     <string name="opens_in">Отвара се за %s</string>
     <string name="closes_in">Затвара се за %s</string>
     <string name="closed">Затворено</string>
+    <!-- Short label for minutes (time unit), placed after a number -->
     <string name="minute">мин</string>
     <string name="big_font">Увећана слова на мапи</string>
     <string name="transliteration_title">Транслитерација у латиницу</string>
