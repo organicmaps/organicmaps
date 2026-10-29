@@ -24,6 +24,7 @@ import com.google.android.gms.wearable.MessageEvent
 import com.google.android.gms.wearable.Node
 import com.google.android.gms.wearable.PutDataMapRequest
 import com.google.android.gms.wearable.Wearable
+import java.util.concurrent.TimeUnit
 import org.junit.After
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -43,7 +44,6 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.LooperMode
-import java.util.concurrent.TimeUnit
 
 @RunWith(RobolectricTestRunner::class)
 @LooperMode(LooperMode.Mode.PAUSED)
@@ -66,7 +66,9 @@ class MainActivityRobolectricTest {
         stubClientTasks()
         mockedWearable = mockStatic(Wearable::class.java)
         mockedWearable.`when`<DataClient> { Wearable.getDataClient(any(Context::class.java)) }.thenReturn(dataClient)
-        mockedWearable.`when`<MessageClient> { Wearable.getMessageClient(any(Context::class.java)) }.thenReturn(messageClient)
+        mockedWearable.`when`<MessageClient> {
+            Wearable.getMessageClient(any(Context::class.java))
+        }.thenReturn(messageClient)
         mockedWearable.`when`<CapabilityClient> { Wearable.getCapabilityClient(any(Context::class.java)) }
             .thenReturn(capabilityClient)
     }
