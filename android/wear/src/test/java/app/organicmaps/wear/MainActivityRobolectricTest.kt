@@ -44,6 +44,7 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.LooperMode
+import org.robolectric.shadows.ShadowPausedLooper
 
 @RunWith(RobolectricTestRunner::class)
 @LooperMode(LooperMode.Mode.PAUSED)
@@ -64,19 +65,29 @@ class MainActivityRobolectricTest {
         messageClient = mock(MessageClient::class.java)
         capabilityClient = mock(CapabilityClient::class.java)
         stubClientTasks()
-        mockedWearable = mockStatic(Wearable::class.java)
-        mockedWearable.`when`<DataClient> { Wearable.getDataClient(any(Context::class.java)) }.thenReturn(dataClient)
-        mockedWearable.`when`<MessageClient> {
-            Wearable.getMessageClient(any(Context::class.java))
-        }.thenReturn(messageClient)
-        mockedWearable.`when`<CapabilityClient> { Wearable.getCapabilityClient(any(Context::class.java)) }
-            .thenReturn(capabilityClient)
+        // Mockito static mocks are thread-local. PAUSED Robolectric executes Activity
+        // lifecycle callbacks on the main-looper thread, not on the JUnit test thread.
+        onMainLooper {
+            mockedWearable = mockStatic(Wearable::class.java)
+            mockedWearable.`when`<DataClient> { Wearable.getDataClient(any(Context::class.java)) }
+                .thenReturn(dataClient)
+            mockedWearable.`when`<MessageClient> {
+                Wearable.getMessageClient(any(Context::class.java))
+            }.thenReturn(messageClient)
+            mockedWearable.`when`<CapabilityClient> {
+                Wearable.getCapabilityClient(any(Context::class.java))
+            }.thenReturn(capabilityClient)
+        }
     }
 
     @After
     fun tearDown() {
-        mockedWearable.close()
+        onMainLooper { mockedWearable.close() }
         ActiveWearUiCapabilityRegistry.resetForTests()
+    }
+
+    private fun onMainLooper(action: () -> Unit) {
+        (mainLooper as ShadowPausedLooper).postSync(Runnable { action() })
     }
 
     @Test
