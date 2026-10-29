@@ -45,8 +45,6 @@ std::vector<MetalineData> ReadMetalinesFromFile(MwmSet::MwmId const & mwmId)
           data.m_features.emplace_back(featureId);
           if (version >= 3)
             data.m_dashPhaseOffsets.push_back(ReadPrimitiveFromSource<double>(src));
-          else if (version == 2)
-            data.m_dashPhaseOffsets.push_back(ReadPrimitiveFromSource<float>(src));
           if (fid <= 0)
             data.m_reversed.insert(featureId);
         }

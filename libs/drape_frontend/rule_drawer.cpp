@@ -162,7 +162,6 @@ RuleDrawer::RuleDrawer(TCheckCancelledCallback const & checkCancelled, TIsCountr
   , m_customFeaturesContext(engineContext->GetCustomFeaturesContext().lock())
   , m_mapStyle(GetStyleReader().GetCurrentStyle())
   , m_deviceLang(deviceLang)
-  , m_isPatternedCyclingInfrastructure({{"cyclewaytag", "lane"}, {"cyclewaytag", "shared_lane"}})
 {
   ASSERT(m_checkCancelled != nullptr, ());
 
@@ -332,7 +331,9 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s)
   bool const hasDashedLine =
       std::any_of(s.m_lineRules.begin(), s.m_lineRules.end(),
                   [](drule::LineRule const * rule) { return rule->dashdot.has_value(); });
-  bool const needsDashPhase = hasDashedLine && m_isPatternedCyclingInfrastructure(f);
+  bool const needsDashPhase =
+      hasDashedLine && (ftypes::IsCyclewayLaneChecker::Instance()(f) ||
+                        ftypes::IsCyclewaySharedLaneChecker::Instance()(f));
   std::optional<MetalineInfo> metalineInfo;
   if (needsDashPhase || s.m_pathtextRule || s.m_shieldRule)
     metalineInfo = m_context->GetMetalineManager()->GetMetalineInfo(f.GetID());

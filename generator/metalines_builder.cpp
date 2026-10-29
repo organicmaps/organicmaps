@@ -6,6 +6,7 @@
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_processor.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
 #include "coding/files_container.hpp"
 #include "coding/read_write_utils.hpp"
@@ -24,6 +25,12 @@ namespace feature
 {
 namespace
 {
+// Stable chain separators for patterned cycling infrastructure. These are
+// written to the intermediate metalines file and must not depend on the
+// platform's std::hash implementation.
+uint64_t constexpr kCyclewayLaneChainKey = 0x9E3779B97F4A7C15ULL;
+uint64_t constexpr kCyclewaySharedLaneChainKey = 0x9E3779B97F4A7C16ULL;
+
 std::vector<double> ReadFeatureLengths(std::string const & mwmPath)
 {
   std::vector<double> lengths;
@@ -235,12 +242,10 @@ void MetalinesBuilder::CollectFeature(FeatureBuilder const & feature, OsmElement
     // Unnamed painted cycle lanes are common and still need a stable dash
     // phase across OSM way boundaries. Keep the two patterns in separate
     // chains so an intersection cannot join incompatible stipples.
-    static auto const laneType = classif().GetTypeByPath({"cyclewaytag", "lane"});
-    static auto const sharedLaneType = classif().GetTypeByPath({"cyclewaytag", "shared_lane"});
-    if (feature.HasType(laneType))
-      WriteVarUint(*m_writer, static_cast<uint64_t>(std::hash<std::string>{}("cyclewaytag-lane")));
-    else if (feature.HasType(sharedLaneType))
-      WriteVarUint(*m_writer, static_cast<uint64_t>(std::hash<std::string>{}("cyclewaytag-shared_lane")));
+    if (ftypes::IsCyclewayLaneChecker::Instance()(feature.GetTypes()))
+      WriteVarUint(*m_writer, kCyclewayLaneChainKey);
+    else if (ftypes::IsCyclewaySharedLaneChecker::Instance()(feature.GetTypes()))
+      WriteVarUint(*m_writer, kCyclewaySharedLaneChainKey);
     else
       return;
 
