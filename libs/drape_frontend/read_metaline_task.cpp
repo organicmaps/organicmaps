@@ -24,7 +24,20 @@ std::vector<MetalineData> ReadMetalinesFromFile(MwmSet::MwmId const & mwmId)
     FilesContainerR cont(mwmId.GetInfo()->GetLocalFile().GetPath(MapFileType::Map));
     ReaderSource src(cont.GetReader(METALINES_FILE_TAG));
 
-    return detail::ReadMetalines(src, mwmId);
+    auto model = detail::ReadMetalines(src, mwmId);
+    if (cont.IsExist(METALINES_OFFSETS_FILE_TAG))
+    {
+      // The legacy section remains authoritative. A missing, stale or damaged
+      // optional section must not discard merged labels and shields.
+      try
+      {
+        ReaderSource offsets(cont.GetReader(METALINES_OFFSETS_FILE_TAG));
+        detail::TryReadMetalineOffsets(offsets, mwmId, model);
+      }
+      catch (Reader::Exception const &)
+      {}
+    }
+    return model;
   }
   catch (Reader::Exception const &)
   {

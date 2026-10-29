@@ -12,6 +12,8 @@
 
 namespace df
 {
+uint8_t constexpr kLegacyMetalinesSectionVersion = 1;
+// New phase data reuses the v3 layout in its own optional section.
 uint8_t constexpr kMetaLinesSectionVersion = 3;
 
 namespace detail
@@ -22,6 +24,19 @@ struct MetalineData
   std::vector<double> m_dashPhaseOffsets;
   std::set<FeatureID> m_reversed;
 };
+
+inline bool ApplyMetalineOffsets(std::vector<MetalineData> & model, std::vector<MetalineData> && offsets)
+{
+  if (model.size() != offsets.size())
+    return false;
+  for (size_t i = 0; i < model.size(); ++i)
+    if (model[i].m_features != offsets[i].m_features || model[i].m_reversed != offsets[i].m_reversed ||
+        offsets[i].m_dashPhaseOffsets.size() != model[i].m_features.size())
+      return false;
+  for (size_t i = 0; i < model.size(); ++i)
+    model[i].m_dashPhaseOffsets = std::move(offsets[i].m_dashPhaseOffsets);
+  return true;
+}
 
 template <typename Source>
 std::vector<MetalineData> ReadMetalines(Source & src, MwmSet::MwmId const & mwmId)
@@ -52,6 +67,20 @@ std::vector<MetalineData> ReadMetalines(Source & src, MwmSet::MwmId const & mwmI
       model.push_back(std::move(data));
   }
   return model;
+}
+
+template <typename Source>
+bool TryReadMetalineOffsets(Source & src, MwmSet::MwmId const & mwmId, std::vector<MetalineData> & model)
+{
+  try
+  {
+    auto offsets = ReadMetalines(src, mwmId);
+    return src.Size() == 0 && ApplyMetalineOffsets(model, std::move(offsets));
+  }
+  catch (Reader::Exception const &)
+  {
+    return false;
+  }
 }
 }  // namespace detail
 }  // namespace df
