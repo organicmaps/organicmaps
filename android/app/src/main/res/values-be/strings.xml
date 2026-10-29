@@ -15,7 +15,7 @@
     <string name="downloading">Спампоўванне…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
     <string name="kilometres">Кіламетры</string>
-    <!-- Choose measurement on first launch alert - choose imperial system button -->
+    <!-- Imperial measurement option: 1 mile = 1609.344 m; Swedish/Norwegian "mil" = 10 km -->
     <string name="miles">Мілі</string>
     <!-- Update maps later button text -->
     <string name="later">Потым</string>
@@ -476,10 +476,15 @@
     <string name="current_location_unknown_error_title">Месцазнаходжанне невядома.</string>
     <!-- abbreviation for kilometers per hour -->
     <string name="kilometers_per_hour">км/г</string>
+    <!-- Short label for miles per hour (1 mile = 1609.344 m), placed after a number; e.g. mph or mi/h -->
     <string name="miles_per_hour">міль/г</string>
+    <!-- Short label for hours (time unit), placed after a number -->
     <string name="hour">г</string>
+    <!-- Short label for minutes (time unit), placed after a number -->
     <string name="minute">хв</string>
+    <!-- Short label for days (time unit), placed after a number -->
     <string name="day">д</string>
+    <!-- Short label for seconds (time unit), placed after a number -->
     <string name="second">с</string>
     <string name="placepage_more_button">Яшчэ</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->

@@ -73,6 +73,7 @@
     <string name="opens_in">Адчыняецца праз %s</string>
     <string name="closes_in">Зачыняецца праз %s</string>
     <string name="closed">Закрыта</string>
+    <!-- Short label for minutes (time unit), placed after a number -->
     <string name="minute">хв</string>
     <string name="big_font">Павялічыць шрыфт мапы</string>
     <string name="transliteration_title">Транслітарацыя лацінкай</string>

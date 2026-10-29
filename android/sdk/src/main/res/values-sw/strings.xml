@@ -36,9 +36,9 @@
     <string name="m">m</string>
     <!-- abbreviation for kilometers -->
     <string name="km">km</string>
-    <!-- abbreviation for mile(s) -->
+    <!-- Short label for miles (length unit, 1 mi = 1609.344 m), placed after a number -->
     <string name="mi">mi</string>
-    <!-- A unit of measure -->
+    <!-- Short label for feet (1 ft = 0.3048 m), after numbers; local abbreviations and uninflected unit names are allowed -->
     <string name="ft">ft</string>
     <!-- Toast text when the maps version should be updated to display the OSM hiking and cycling routes -->
     <string name="routes_update_maps_text">Ili kuonyesha njia, ramani lazima zisasishwe.</string>

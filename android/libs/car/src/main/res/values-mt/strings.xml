@@ -73,6 +73,7 @@
     <string name="opens_in">Jiftaħ f’ %s</string>
     <string name="closes_in">Jagħlaq f’ %s</string>
     <string name="closed">Magħluq</string>
+    <!-- Short label for minutes (time unit), placed after a number -->
     <string name="minute">min</string>
     <string name="big_font">Żid id-daqs għat-tikketti tal-mapep</string>
     <string name="transliteration_title">Jittraduċi ruħu fl-alfabett Latin</string>
