@@ -135,8 +135,9 @@
     switch urlType {
     case .route:
       if let adapter = DeepLinkRouteStrategyAdapter(url) {
+        // Validation can notify the map before the build call returns.
+        MapsAppDelegate.theApp().mainNavigationController.popToRootViewController(animated: false)
         MWMRouter.buildApiRoute(with: adapter.type, start: adapter.p1, finish: adapter.p2)
-        MapsAppDelegate.theApp().showMap()
         return true
       }
       return false
