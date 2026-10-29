@@ -18,6 +18,10 @@ android {
         minSdk 26
     }
 
+    testOptions {
+        unitTests.includeAndroidResources = true
+    }
+
     flavorDimensions 'default'
 
     productFlavors {
