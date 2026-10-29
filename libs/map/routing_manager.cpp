@@ -1258,6 +1258,19 @@ void RoutingManager::MoveRoutePoint(size_t currentIndex, size_t targetIndex)
   routePoints.MoveRoutePoint(currentType, currentIndex, targetType, targetIndex);
 }
 
+bool RoutingManager::SwapRoutePointEndpoints()
+{
+  ASSERT(m_bmManager != nullptr, ());
+  RoutePointsLayout routePoints(*m_bmManager);
+  auto * start = routePoints.GetRoutePointForEdit(RouteMarkType::Start);
+  auto * finish = routePoints.GetRoutePointForEdit(RouteMarkType::Finish);
+  if (start != nullptr)
+    start->SetRoutePointFullType(RouteMarkType::Finish, 0);
+  if (finish != nullptr)
+    finish->SetRoutePointFullType(RouteMarkType::Start, 0);
+  return start != nullptr || finish != nullptr;
+}
+
 bool RoutingManager::ReverseRoutePoints()
 {
   ASSERT(m_bmManager != nullptr, ());
