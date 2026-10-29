@@ -231,8 +231,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       restoreRoutingUI(MapButtonsController.LayoutMode.planning);
     else if (RoutingController.get().isNavigating())
       restoreRoutingUI(MapButtonsController.LayoutMode.navigation);
-    else if (RoutingController.get().hasSavedRoute())
-      RoutingController.get().restoreRoute();
     if (mSearchPageViewModel.getSearchEnabled().getValue() == null && mSearchPageViewModel.isSearchPersistedActive())
     {
       mSearchPageViewModel.setSearchPageLastState(mSearchPageViewModel.getPersistedSheetState());
@@ -248,14 +246,24 @@ public class MwmActivity extends BaseMwmFragmentActivity
       saveAndStopTrackRecording();
     }
 
-    processIntent();
+    processStartupIntent();
     migrateOAuthCredentials();
+  }
+
+  void processStartupIntent()
+  {
+    processIntent();
+    // Planning can have no native points yet; it still takes precedence over recovery.
+    final RoutingController routing = RoutingController.get();
+    if (!routing.isPlanning() && !routing.isNavigating())
+      routing.restoreRoute();
   }
 
   /**
    * Process intents AFTER rendering is initialized.
    */
-  private void processIntent()
+  @VisibleForTesting
+  void processIntent()
   {
     if (!Map.isEngineCreated())
       throw new AssertionError("Must be called with initialized Drape");
@@ -956,12 +964,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mSearchPageViewModel.persistSearchState(isSearchActive, query != null ? query : "",
                                             isSearchActive ? sheetState : BottomSheetBehavior.STATE_HIDDEN, isCategory);
 
-    if (!isChangingConfigurations())
-      RoutingController.get().saveRoute();
-    else
-      // We no longer need in a saved route if it's a configuration changing: theme switching,
-      // orientation changing, etc. Otherwise, the saved route might be restored at undesirable moment.
-      RoutingController.get().deleteSavedRoute();
+    RoutingController.get().saveRoute();
 
     outState.putBoolean(POWER_SAVE_DISCLAIMER_SHOWN, mPowerSaveDisclaimerShown);
     outState.putBoolean(EXTRA_CONSUMED, mIntentConsumed);
@@ -1333,21 +1336,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void showRoutePlan(boolean show, @Nullable Runnable completionListener)
+  public void showRoutePlan(boolean show)
   {
-    if (show)
-    {
-      setRoutingBottomSheetActive(true);
-      if (completionListener != null)
-        completionListener.run();
-    }
-    else
-    {
-      setRoutingBottomSheetActive(false);
+    setRoutingBottomSheetActive(show);
+    if (!show)
       mRoutingPlanViewModel.setShowRoutingBottomSheet(false);
-      if (completionListener != null)
-        completionListener.run();
-    }
   }
 
   @Override

@@ -272,16 +272,6 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   }
 
   @Override
-  public void showRoutePlan(boolean show, @Nullable Runnable completionListener)
-  {
-    if (!show)
-      return;
-
-    if (completionListener != null)
-      completionListener.run();
-  }
-
-  @Override
   public void showNavigation(boolean show)
   {
     if (show)
