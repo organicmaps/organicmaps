@@ -12,6 +12,11 @@ import Foundation
   private var sessions: [Int: EASession] = [:]  // keyed by EAAccessory.connectionID
   private var altCache: [Int: AltState] = [:]   // altitude + HDOP from most recent GGA
 
+  // Latched once iOS proves it delivers the accessory fix through Core Location (sourceInformation
+  // .isProducedByAccessory). From then on we stop reading the device ourselves to avoid parsing the
+  // same stream twice. Stays our job on OS versions where the native path is broken.
+  private var nativeAccessoryActive = false
+
   private struct AltState {
     var altitude: Double = 0
     var hdop: Double = 5.0
@@ -52,6 +57,19 @@ import Foundation
     LocationManager.setExternalGPSActive(false)
   }
 
+  /// Called by LocationManager when iOS begins delivering the external accessory's fix through Core
+  /// Location natively. Latches that state and closes our sessions so the same device is not read twice.
+  /// The caller clears the native-GPS suppression; we must not re-enable it here.
+  @objc func standDownForNativeAccessory() {
+    guard !nativeAccessoryActive else { return }
+    nativeAccessoryActive = true
+    LOG(.info, "ExternalGPSManager: native Core Location is delivering the accessory fix — standing down")
+    sessions.values.forEach { closeSession($0) }
+    sessions.removeAll()
+    altCache.removeAll()
+    ExternalGPSManager.lineBuffers.removeAll()
+  }
+
   /// Notification handler: opens a session when a supported accessory connects while the app is running.
   @objc private func accessoryConnected(_ note: Notification) {
     guard let acc = note.userInfo?[EAAccessoryKey] as? EAAccessory else { return }
@@ -77,6 +95,10 @@ import Foundation
   /// Opens an input/output stream session for the accessory if it advertises a supported protocol and
   /// has no session yet, then suppresses native GPS so the external fix is not overridden.
   private func open(_ accessory: EAAccessory) {
+    guard !nativeAccessoryActive else {
+      LOG(.info, "ExternalGPSManager: native Core Location handles the accessory — not opening a session")
+      return
+    }
     let id = accessory.connectionID
     guard sessions[id] == nil else {
       LOG(.debug, "ExternalGPSManager: '\(accessory.name)' id:\(id) already has an open session — skipping")

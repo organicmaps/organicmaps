@@ -524,9 +524,25 @@ void setShowLocationAlert(BOOL needShow)
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
+  CLLocation * location = locations.lastObject;
+
+  // If iOS is delivering the fix from an external MFi accessory (e.g. the XGPS160 via a working Core
+  // Location path), prefer the native feed and retire our redundant ExternalAccessory reader so the
+  // same device is not parsed twice. On OS versions where that path is broken this never fires and
+  // ExternalGPSManager stays the active source.
+  if (@available(iOS 15.0, *))
+  {
+    if (location.sourceInformation.isProducedByAccessory && self.externalGPSActive)
+    {
+      [ExternalGPSManager.shared standDownForNativeAccessory];
+      self.externalGPSActive = NO;
+    }
+  }
+
+  // While our ExternalAccessory reader is the active source, ignore native (internal/Wi-Fi) fixes.
   if (self.externalGPSActive)
     return;
-  CLLocation * location = locations.lastObject;
+
   // According to documentation, lat and lon are valid only if horizontalAccuracy is non-negative.
   // So we filter out such events completely.
   if (location.horizontalAccuracy < 0.)
