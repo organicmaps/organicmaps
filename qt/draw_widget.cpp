@@ -183,11 +183,9 @@ void DrawWidget::initializeGL()
 
   MapWidget::initializeGL();
 
-  m_framework.GetRoutingManager().LoadRoutePoints([this](bool success)
-  {
-    if (success)
-      m_framework.GetRoutingManager().BuildRoute();
-  });
+  auto & routingManager = m_framework.GetRoutingManager();
+  if (routingManager.LoadRoutePoints())
+    routingManager.BuildRoute();
 
   if (m_screenshotMode)
     m_screenshoter->Start();

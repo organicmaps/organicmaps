@@ -42,6 +42,17 @@ final class MWMRoutePointSelectionTests: XCTestCase {
     waitUntilRouteReady()
   }
 
+  func testApiRouteReplacesExistingStopsWithTheSameRouterType() {
+    seedRoute()
+
+    MWMRouter.buildApiRoute(with: .ruler,
+                            start: makePoint(type: .start, title: "API start", coordinate: 8),
+                            finish: makePoint(type: .finish, title: "API finish", coordinate: 9))
+
+    XCTAssertEqual(MWMRouter.points().map(\.title), ["API start", "API finish"])
+    waitUntilRouteReady()
+  }
+
   func test_GivenReversedRouteWithoutFollowMode_WhenReady_ThenCanReverseAgain() {
     seedEndpoints()
     MWMRouter.rebuild(withBestRouter: false)

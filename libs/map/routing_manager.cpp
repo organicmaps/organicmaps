@@ -343,24 +343,16 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
 
   m_routingSession.SetCheckpointCallback([this](size_t passedCheckpointIdx)
   {
-    GetPlatform().RunTask(Platform::Thread::Gui, [this, passedCheckpointIdx]()
-    {
-      size_t const pointsCount = GetRoutePointsCount();
-
-      // TODO(@bykoianko). Since routing system may invoke callbacks from different threads and here
-      // we have to use gui thread, ASSERT is not correct. Uncomment it and delete condition after
-      // refactoring of threads usage in routing system.
-      // ASSERT_LESS(passedCheckpointIdx, pointsCount, ());
-      if (passedCheckpointIdx >= pointsCount)
-        return;
-
-      if (passedCheckpointIdx == 0)
-        OnRoutePointPassed(RouteMarkType::Start, 0);
-      else if (passedCheckpointIdx + 1 == pointsCount)
-        OnRoutePointPassed(RouteMarkType::Finish, 0);
-      else
-        OnRoutePointPassed(RouteMarkType::Intermediate, passedCheckpointIdx - 1);
-    });
+    size_t const pointsCount = GetRoutePointsCount();
+    CHECK_GREATER(passedCheckpointIdx, 0, ());
+    // Native point edits can precede the caller's session rebuild.
+    ASSERT_LESS(passedCheckpointIdx, pointsCount, ());
+    if (passedCheckpointIdx >= pointsCount)
+      return;
+    if (passedCheckpointIdx + 1 == pointsCount)
+      OnRoutePointPassed(RouteMarkType::Finish, 0);
+    else
+      OnRoutePointPassed(RouteMarkType::Intermediate, passedCheckpointIdx - 1);
   });
 
   m_routingSession.SetSpeedCamShowCallback([this](m2::PointD const & point, double cameraSpeedKmPH)
@@ -461,7 +453,6 @@ void RoutingManager::OnRemoveRoute(routing::RouterResultCode code)
 
 void RoutingManager::OnRoutePointPassed(RouteMarkType type, size_t intermediateIndex)
 {
-  // Remove route point.
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(*m_bmManager);
   routePoints.PassRoutePoint(type, intermediateIndex);
@@ -1010,10 +1001,7 @@ void RoutingManager::CloseRouting(bool removeRoutePoints)
   RemoveRoute(true /* deactivateFollowing */);
 
   if (removeRoutePoints)
-  {
-    m_bmManager->GetEditSession().ClearGroup(UserMark::Type::ROUTING);
-    CancelRecommendation(Recommendation::RebuildAfterPointsLoading);
-  }
+    RemoveRoutePoints();
 }
 
 void RoutingManager::SetLastUsedRouter(RouterType type)
@@ -1174,6 +1162,7 @@ void RoutingManager::RemoveRoutePoint(RouteMarkType type, size_t intermediateInd
 
 void RoutingManager::RemoveRoutePoints()
 {
+  CancelRecommendation(Recommendation::RebuildAfterPointsLoading);
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(*m_bmManager);
   routePoints.RemoveRoutePoints();
@@ -1366,6 +1355,8 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
 
+  // Retire the previous build before notifying observers, including on validation failures.
+  CloseRouting(false /* remove route points */);
   m_bmManager->GetEditSession().ClearGroup(UserMark::Type::TRANSIT);
 
   // Remove already passed intermediate points so they don't affect the new route.
@@ -1378,7 +1369,6 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
   if (routePoints.size() < 2)
   {
     CallRouteBuilded(RouterResultCode::Cancelled, storage::CountriesSet());
-    CloseRouting(false /* remove route points */);
     return;
   }
 
@@ -1405,14 +1395,10 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
       if (routePoints[i].m_position.EqualDxDy(routePoints[j].m_position, mercator::kPointEqualityEps))
       {
         CallRouteBuilded(RouterResultCode::Cancelled, storage::CountriesSet());
-        CloseRouting(false /* remove route points */);
         return;
       }
     }
   }
-
-  if (IsRoutingActive())
-    CloseRouting(false /* remove route points */);
 
   ShowPreviewSegments(routePoints);
 
@@ -1617,8 +1603,8 @@ void RoutingManager::SetRouter(RouterType type)
   SetLastUsedRouter(type);
 
   // m_numMwmIDs is initialized in Init(), which runs on the GUI thread after async map loading
-  // completes (Framework::InitRouting). SetRouter() can be called earlier (e.g. route restoration
-  // triggers onRoutePointsLoaded → RoutingController.prepare → Router.set before maps finish loading).
+  // completes (Framework::InitRouting). An API/deep-link RoutingController.prepare() can call
+  // Router.set before maps finish loading.
   // Deferring is safe: Init() calls SetRouterImpl(GetLastUsedRouter()), picking up the type saved above.
   /// @TODO(AB): The proper fix is to not set mFrameworkInitialized=true in Android's OrganicMaps.java
   /// until the async native callback fires, so Java subsystems never see a half-initialized core.
@@ -1653,7 +1639,7 @@ void RoutingManager::ApplyRoutePointsTransaction(uint32_t transactionId)
     return;
 
   // If we apply a transaction we can remove all earlier transactions.
-  // All older transactions must be kept since they can be applied or cancelled later.
+  // Newer transactions remain available to be applied or cancelled.
   for (auto it = m_routePointsTransactions.begin(); it != m_routePointsTransactions.end();)
     if (it->first <= transactionId)
       it = m_routePointsTransactions.erase(it);
@@ -1690,83 +1676,71 @@ bool RoutingManager::HasSavedRoutePoints() const
   return GetPlatform().IsFileExistsByFullPath(fileName);
 }
 
-void RoutingManager::LoadRoutePoints(LoadRouteHandler const & handler)
+std::vector<RouteMarkData> RoutingManager::ReadAndDeleteSavedRoutePoints() const
 {
-  GetPlatform().RunTask(Platform::Thread::File, [this, handler]()
+  if (!HasSavedRoutePoints())
+    return {};
+
+  auto const fileName = GetPlatform().SettingsPathForFile(kRoutePointsFile);
+  // Consume the file before applying points and notifying mark observers.
+  SCOPE_GUARD(routePointsFileGuard, [&fileName] { FileWriter::DeleteFileX(fileName); });
+  try
   {
-    if (!HasSavedRoutePoints())
-    {
-      if (handler)
-        handler(false /* success */);
-      return;
-    }
-
-    // Delete file after loading.
-    auto const fileName = GetPlatform().SettingsPathForFile(kRoutePointsFile);
-    SCOPE_GUARD(routePointsFileGuard, std::bind(&FileWriter::DeleteFileX, std::cref(fileName)));
-
     std::string data;
-    try
+    ReaderPtr<Reader>(GetPlatform().GetReader(fileName)).ReadAsString(data);
+    return DeserializeRoutePoints(data);
+  }
+  catch (RootException const & ex)
+  {
+    // Recovery is optional; file read errors must not prevent opening the map.
+    LOG(LWARNING, ("Loading route points failed:", ex.Msg()));
+    return {};
+  }
+}
+
+bool RoutingManager::LoadRoutePoints()
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  ASSERT(m_bmManager != nullptr, ());
+  if (IsRoutingActive() || !m_bmManager->GetUserMarkIds(UserMark::Type::ROUTING).empty())
+    return false;
+
+  auto points = ReadAndDeleteSavedRoutePoints();
+  if (points.empty())
+    return false;
+
+  bool routeUsedPosition = false;
+  auto const & myPosMark = m_bmManager->MyPositionMark();
+  auto editSession = m_bmManager->GetEditSession();
+  // Saved points have no intermediate indices; replay their order without optimization.
+  for (auto & p : points)
+  {
+    bool const positionStart = p.m_replaceWithMyPositionAfterRestart && p.m_pointType == RouteMarkType::Start;
+    routeUsedPosition |= positionStart;
+    if (positionStart && myPosMark.HasPosition())
     {
-      ReaderPtr<Reader>(GetPlatform().GetReader(fileName)).ReadAsString(data);
+      RouteMarkData startPt;
+      startPt.m_pointType = RouteMarkType::Start;
+      startPt.m_isMyPosition = true;
+      startPt.m_title = m_callbacks.m_stringsBundleGetter().GetString("core_my_position");
+      startPt.m_position = myPosMark.GetPivot();
+      AddRoutePoint(std::move(startPt), false /* optimize */);
     }
-    catch (RootException const & ex)
+    else
     {
-      LOG(LWARNING, ("Loading road points failed:", ex.Msg()));
-      if (handler)
-        handler(false /* success */);
-      return;
+      AddRoutePoint(std::move(p), false /* optimize */);
     }
+  }
 
-    auto points = DeserializeRoutePoints(data);
-    if (handler && points.empty())
-    {
-      handler(false /* success */);
-      return;
-    }
-
-    GetPlatform().RunTask(Platform::Thread::Gui, [this, handler, points = std::move(points)]() mutable
-    {
-      ASSERT(m_bmManager != nullptr, ());
-      // If we have found my position and the saved route used the user's position, we use my position as start point.
-      bool routeUsedPosition = false;
-      auto const & myPosMark = m_bmManager->MyPositionMark();
-      auto editSession = m_bmManager->GetEditSession();
-      editSession.ClearGroup(UserMark::Type::ROUTING);
-      // Saved points have no intermediate indices; replay their order without optimization.
-      for (auto & p : points)
-      {
-        // Check if the saved route used the user's position
-        if (p.m_replaceWithMyPositionAfterRestart && p.m_pointType == RouteMarkType::Start)
-          routeUsedPosition = true;
-
-        if (p.m_replaceWithMyPositionAfterRestart && p.m_pointType == RouteMarkType::Start && myPosMark.HasPosition())
-        {
-          RouteMarkData startPt;
-          startPt.m_pointType = RouteMarkType::Start;
-          startPt.m_isMyPosition = true;
-          startPt.m_position = myPosMark.GetPivot();
-          AddRoutePoint(std::move(startPt), false /* optimize */);
-        }
-        else
-        {
-          AddRoutePoint(std::move(p), false /* optimize */);
-        }
-      }
-
-      // If we don't have my position and the saved route used it, save loading timestamp.
-      // Probably we will get my position soon.
-      if (routeUsedPosition && !myPosMark.HasPosition())
-        m_loadRoutePointsTimestamp = std::chrono::steady_clock::now();
-
-      if (handler)
-        handler(true /* success */);
-    });
-  });
+  // An imminent first position fix can replace the saved My Position origin.
+  if (routeUsedPosition && !myPosMark.HasPosition())
+    m_loadRoutePointsTimestamp = std::chrono::steady_clock::now();
+  return true;
 }
 
 void RoutingManager::SaveRoutePoints()
 {
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto points = GetRoutePointsToSave();
   if (points.empty())
   {
@@ -1774,20 +1748,17 @@ void RoutingManager::SaveRoutePoints()
     return;
   }
 
-  GetPlatform().RunTask(Platform::Thread::File, [points = std::move(points)]()
+  try
   {
-    try
-    {
-      auto const fileName = GetPlatform().SettingsPathForFile(kRoutePointsFile);
-      FileWriter writer(fileName);
-      std::string const pointsData = SerializeRoutePoints(points);
-      writer.Write(pointsData.c_str(), pointsData.length());
-    }
-    catch (RootException const & ex)
-    {
-      LOG(LWARNING, ("Saving road points failed:", ex.Msg()));
-    }
-  });
+    auto const fileName = GetPlatform().SettingsPathForFile(kRoutePointsFile);
+    FileWriter writer(fileName);
+    std::string const pointsData = SerializeRoutePoints(points);
+    writer.Write(pointsData.c_str(), pointsData.length());
+  }
+  catch (RootException const & ex)
+  {
+    LOG(LWARNING, ("Saving route points failed:", ex.Msg()));
+  }
 }
 
 std::vector<RouteMarkData> RoutingManager::GetRoutePointsToSave() const
@@ -1829,14 +1800,8 @@ void RoutingManager::OnExtrapolatedLocationUpdate(location::GpsInfo const & info
 
 void RoutingManager::DeleteSavedRoutePoints()
 {
-  if (!HasSavedRoutePoints())
-    return;
-
-  GetPlatform().RunTask(Platform::Thread::File, []()
-  {
-    auto const fileName = GetPlatform().SettingsPathForFile(kRoutePointsFile);
-    FileWriter::DeleteFileX(fileName);
-  });
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  Platform::RemoveFileIfExists(GetPlatform().SettingsPathForFile(kRoutePointsFile));
 }
 
 void RoutingManager::UpdatePreviewMode()

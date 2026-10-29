@@ -798,15 +798,6 @@ void CallRouteRecommendationListener(std::shared_ptr<jobject> listener, RoutingM
   env->CallVoidMethod(*listener, methodId, routing_jni::GetRouteRecommendationType(env, recommendation));
 }
 
-void CallSetRoutingLoadPointsListener(std::shared_ptr<jobject> listener, bool success)
-{
-  JNIEnv * env = jni::GetEnv();
-  jmethodID const methodId = jni::GetMethodID(env, *listener, "onRoutePointsLoaded", "(Z)V");
-  env->CallVoidMethod(*listener, methodId, static_cast<jboolean>(success));
-}
-
-RoutingManager::LoadRouteHandler g_loadRouteHandler;
-
 /// @name JNI EXPORTS
 JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeGetAddress(JNIEnv * env, jclass clazz, jdouble lat,
                                                                       jdouble lon)
@@ -1262,11 +1253,6 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeBuildRoute(JNIEnv * env,
   frm()->GetRoutingManager().BuildRoute();
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveRoute(JNIEnv * env, jclass)
-{
-  frm()->GetRoutingManager().RemoveRoute(false /* deactivateFollowing */);
-}
-
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeFollowRoute(JNIEnv * env, jclass)
 {
   frm()->GetRoutingManager().FollowRoute();
@@ -1424,15 +1410,6 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetRoutingRecommendation
 {
   frm()->GetRoutingManager().SetRouteRecommendationListener(
       std::bind(&CallRouteRecommendationListener, jni::make_global_ref(listener), std::placeholders::_1));
-}
-
-JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetRoutingLoadPointsListener(JNIEnv *, jclass, jobject listener)
-{
-  if (listener != nullptr)
-    g_loadRouteHandler =
-        std::bind(&CallSetRoutingLoadPointsListener, jni::make_global_ref(listener), std::placeholders::_1);
-  else
-    g_loadRouteHandler = nullptr;
 }
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeDeactivatePopup(JNIEnv * env, jclass)
@@ -1779,9 +1756,9 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeHasSavedRoutePoints(
   return frm()->GetRoutingManager().HasSavedRoutePoints();
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeLoadRoutePoints(JNIEnv *, jclass)
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeLoadRoutePoints(JNIEnv *, jclass)
 {
-  frm()->GetRoutingManager().LoadRoutePoints(g_loadRouteHandler);
+  return frm()->GetRoutingManager().LoadRoutePoints();
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSaveRoutePoints(JNIEnv *, jclass)

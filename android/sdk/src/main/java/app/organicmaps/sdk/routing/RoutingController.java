@@ -5,6 +5,7 @@ import androidx.annotation.IntRange;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.core.util.Pair;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Router;
@@ -54,7 +55,7 @@ public class RoutingController
 
   public interface Container
   {
-    default void showRoutePlan(boolean show, @Nullable Runnable completionListener) {}
+    default void showRoutePlan(boolean show) {}
     default void showNavigation(boolean show) {}
     default void updateMenu() {}
     default void onNavigationCancelled() {}
@@ -154,12 +155,6 @@ public class RoutingController
     updateProgress();
   };
 
-  private final RoutingLoadPointsListener mRoutingLoadPointsListener = success ->
-  {
-    if (success)
-      prepare(getStartPoint(), getEndPoint());
-  };
-
   public static RoutingController get()
   {
     return sInstance;
@@ -257,20 +252,8 @@ public class RoutingController
 
   private void showRoutePlan()
   {
-    showRoutePlan(null, null);
-  }
-
-  private void showRoutePlan(final @Nullable MapObject startPoint, final @Nullable MapObject endPoint)
-  {
     if (mContainer != null)
-    {
-      mContainer.showRoutePlan(true, () -> {
-        if (startPoint == null || endPoint == null)
-          updatePlan();
-        else
-          build();
-      });
-    }
+      mContainer.showRoutePlan(true);
   }
 
   public void attach(@NonNull Container container)
@@ -288,7 +271,6 @@ public class RoutingController
       if (recommendation == RouteRecommendationType.RebuildAfterPointsLoading)
         setStartPoint(locationHelper.getMyPosition());
     }));
-    Framework.nativeSetRoutingLoadPointsListener(mRoutingLoadPointsListener);
   }
 
   public void detach()
@@ -317,10 +299,9 @@ public class RoutingController
     mHasContainerSavedState = true;
   }
 
-  private void build()
+  @VisibleForTesting
+  void build()
   {
-    Framework.nativeRemoveRoute();
-
     Logger.d(TAG, "build");
     mLastBuildProgress = 0;
     mRouteSaved = false;
@@ -338,7 +319,9 @@ public class RoutingController
 
   public void restoreRoute()
   {
-    Framework.nativeLoadRoutePoints();
+    // Recovery preserves the user's last-used router.
+    if (Framework.nativeLoadRoutePoints())
+      rebuildLastRoute();
   }
 
   public boolean hasSavedRoute()
@@ -409,11 +392,13 @@ public class RoutingController
       rebuildLastRoute();
   }
 
+  /** Recalculates the existing native itinerary with the selected router and its current options. */
   public void rebuildLastRoute()
   {
-    setState(State.NONE);
+    mContainsCachedResult = false;
+    setState(State.PREPARE);
     setBuildState(BuildState.NONE);
-    prepare(getStartPoint(), getEndPoint());
+    startPlanning(getStartPoint(), getEndPoint());
   }
 
   public void prepare(@Nullable MapObject startPoint, @Nullable MapObject endPoint)
@@ -431,7 +416,11 @@ public class RoutingController
 
   public void prepare(final @Nullable MapObject startPoint, final @Nullable MapObject endPoint, Router routerType)
   {
-    cancel();
+    if (!cancel())
+    {
+      Framework.nativeRemoveRoutePoints();
+      Framework.nativeDeleteSavedRoutePoints();
+    }
     setState(State.PREPARE);
 
     mLastRouterType = routerType;
@@ -550,7 +539,7 @@ public class RoutingController
   {
     build();
     setState(State.PREPARE);
-    startPlanning();
+    showRoutePlan();
     if (mContainer != null)
       mContainer.updateMenu();
     if (mContainer != null)
@@ -576,7 +565,7 @@ public class RoutingController
   {
     setState(State.PREPARE);
     cancelNavigation(false);
-    startPlanning();
+    showRoutePlan();
     if (mContainer != null)
       mContainer.updateMenu();
     if (mContainer != null)
@@ -666,28 +655,22 @@ public class RoutingController
     return false;
   }
 
-  private void startPlanning()
-  {
-    if (mContainer != null)
-    {
-      showRoutePlan();
-    }
-  }
-
   private void startPlanning(final @Nullable MapObject startPoint, final @Nullable MapObject endPoint)
   {
+    showRoutePlan();
+    if (startPoint != null && endPoint != null)
+      build();
+    else
+      updatePlan();
     if (mContainer != null)
-    {
-      showRoutePlan(startPoint, endPoint);
       mContainer.onPlanningStarted();
-    }
   }
 
   private void cancelPlanning(boolean fireEvent)
   {
     if (mContainer != null)
     {
-      mContainer.showRoutePlan(false, null);
+      mContainer.showRoutePlan(false);
       if (fireEvent)
         mContainer.onPlanningCancelled();
     }

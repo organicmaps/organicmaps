@@ -77,7 +77,7 @@ Swift services/UI or legacy ObjC -> ObjC/ObjC++ wrappers (`MWM*`) -> CoreApi -> 
 
 ## C++ callback bridging
 - `MWMFrameworkListener.mm` routes C++ events to ObjC observers via `NSHashTable` (weak refs)
-- Dispatch C++ callbacks to the main queue before notifying UI observers
+- C++ callbacks reach `MWMFrameworkListener` on the main thread; it registers and notifies observers synchronously
 - Never call C++ Framework methods on background threads without checking thread safety
 
 ## Build and validation

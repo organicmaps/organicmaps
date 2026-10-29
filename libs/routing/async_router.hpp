@@ -69,7 +69,7 @@ private:
   static void LogCode(RouterResultCode code, double const elapsedSec);
 
   /// Blocks callbacks when routing has been cancelled
-  class RouterDelegateProxy
+  class RouterDelegateProxy : public std::enable_shared_from_this<RouterDelegateProxy>
   {
   public:
     RouterDelegateProxy(ReadyCallbackOwnership const & onReady, NeedMoreMapsCallback const & onNeedMoreMaps,
