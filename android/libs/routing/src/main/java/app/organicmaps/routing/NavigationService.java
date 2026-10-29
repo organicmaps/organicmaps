@@ -302,6 +302,12 @@ public class NavigationService extends Service implements LocationListener
   }
 
   @Override
+  public void onLocationResolutionRequired(@NonNull PendingIntent pendingIntent)
+  {
+    WearBridge.invalidateDetails();
+  }
+
+  @Override
   public void onLocationUpdated(@NonNull Location location)
   {
     // Ignore any pending notifications when service is being stopping.

@@ -4,7 +4,6 @@ import app.organicmaps.wear.protocol.WearNavigationDetails
 import app.organicmaps.wear.protocol.WearNavigationMode
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
-import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -13,61 +12,53 @@ class WearNavigationUiStateTest {
     private fun details(street: String) = WearNavigationDetails(nextStreet = street)
 
     @Test
-    fun pauseClearsRenderedSourceAndRejectsOldDeliveryAfterResume() {
+    fun pauseClearsGuidanceAndRejectsMessagesUntilResumed() {
         val state = WearNavigationUiState()
         val oldGeneration = state.resume()
         state.setMode(WearNavigationMode.NAVIGATION)
-        assertNotNull(state.acceptDetails(details("Old street"), oldGeneration))
+        assertTrue(state.acceptDetails(details("Old street")))
         state.pause()
         assertNull(state.details)
-        assertFalse(state.resumed)
-
+        assertFalse(state.acceptDetails(details("Paused street")))
         val newGeneration = state.resume()
-        assertNull(state.acceptDetails(details("Delayed old delivery"), oldGeneration))
-        assertNull(state.details)
-        assertNotNull(state.acceptDetails(details("Current street"), newGeneration))
-        assertEquals("Current street", state.details?.nextStreet)
+        assertFalse(state.isCurrent(oldGeneration))
+        assertTrue(state.isCurrent(newGeneration))
+        assertTrue(state.acceptDetails(details("New street")))
+        assertEquals("New street", state.details?.nextStreet)
     }
 
     @Test
-    fun secondMessageExtendsExpiryAndFirstTimerCannotClearIt() {
+    fun newerMessageReplacesGuidanceUntilTimerExpires() {
         val state = WearNavigationUiState()
-        val generation = state.resume()
+        state.resume()
         state.setMode(WearNavigationMode.NAVIGATION)
-        val firstExpiry = state.acceptDetails(details("First"), generation)!!
-        val secondExpiry = state.acceptDetails(details("Second"), generation)!!
-        assertFalse(state.expireDetails(firstExpiry))
+        assertTrue(state.acceptDetails(details("First")))
+        assertTrue(state.acceptDetails(details("Second")))
         assertEquals("Second", state.details?.nextStreet)
-        assertTrue(state.expireDetails(secondExpiry))
+        assertTrue(state.expireDetails())
         assertNull(state.details)
     }
 
     @Test
-    fun normalModeClearsOldRouteAndRejectsTransientGuidance() {
+    fun normalModeClearsAndRejectsDetails() {
         val state = WearNavigationUiState()
-        val generation = state.resume()
+        state.resume()
         state.setMode(WearNavigationMode.NAVIGATION)
-        val oldTimer = state.acceptDetails(details("Cancelled route"), generation)!!
+        assertTrue(state.acceptDetails(details("Old route")))
         state.setMode(WearNavigationMode.NORMAL)
         assertNull(state.details)
-        assertNull(state.acceptDetails(details("Old packet"), generation))
-        state.setMode(WearNavigationMode.NAVIGATION)
-        assertFalse(state.expireDetails(oldTimer))
-        assertNull(state.details)
-        assertNotNull(state.acceptDetails(details("New route"), generation))
-        assertEquals("New route", state.details?.nextStreet)
+        assertFalse(state.acceptDetails(details("Stale route")))
+        assertFalse(state.expireDetails())
     }
 
     @Test
-    fun delayedExpiryAfterPauseIsHarmless() {
+    fun expiryAfterPauseDoesNotRestoreOrClearAnything() {
         val state = WearNavigationUiState()
-        val generation = state.resume()
-        state.setMode(WearNavigationMode.NAVIGATION)
-        val staleToken = state.acceptDetails(details("Old"), generation)!!
-        state.pause()
-        assertFalse(state.expireDetails(staleToken))
         state.resume()
-        assertFalse(state.expireDetails(staleToken))
+        state.setMode(WearNavigationMode.NAVIGATION)
+        assertTrue(state.acceptDetails(details("Old")))
+        state.pause()
+        assertFalse(state.expireDetails())
         assertNull(state.details)
     }
 }

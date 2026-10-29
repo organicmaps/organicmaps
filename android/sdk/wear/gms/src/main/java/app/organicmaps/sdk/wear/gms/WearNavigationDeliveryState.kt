@@ -13,10 +13,9 @@ import app.organicmaps.wear.protocol.WearNavigationMode
  */
 internal class WearNavigationDeliveryState(
     private val nowMs: () -> Long,
-    private val send: (Set<String>, WearNavigationDetails, Long) -> Unit,
+    private val send: (Set<String>, WearNavigationDetails) -> Unit,
 ) {
     private var navigationActive = false
-    private var session = 0L
     private var discoverySequence = 0L
     private var pendingDiscovery: Long? = null
     private var activeNodes: Set<String> = emptySet()
@@ -35,7 +34,6 @@ internal class WearNavigationDeliveryState(
         } else {
             navigationActive = false
         }
-        session++
         pendingDiscovery = null
         invalidateDetails()
     }
@@ -80,8 +78,10 @@ internal class WearNavigationDeliveryState(
         updateNodes(nodeIds)
     }
 
-    fun failDiscovery(token: Long) {
-        if (pendingDiscovery == token) pendingDiscovery = null
+    fun failDiscovery(token: Long): Boolean {
+        if (!navigationActive || pendingDiscovery != token) return false
+        pendingDiscovery = null
+        return true
     }
 
     fun heartbeat() {
@@ -90,12 +90,6 @@ internal class WearNavigationDeliveryState(
         val lastTime = lastSentAtMs
         if (lastTime == null || nowMs() - lastTime >= HEARTBEAT_INTERVAL_MS) {
             deliver(activeNodes, details)
-        }
-    }
-
-    fun onSendFailure(nodeId: String, sentSession: Long) {
-        if (sentSession == session) {
-            activeNodes = activeNodes - nodeId
         }
     }
 
@@ -121,11 +115,13 @@ internal class WearNavigationDeliveryState(
         if (nodes.isEmpty()) return
         lastSentDetails = details
         lastSentAtMs = nowMs()
-        send(nodes, details, session)
+        send(nodes, details)
     }
 
     companion object {
         const val HEARTBEAT_INTERVAL_MS = 2_000L
-        private const val SOURCE_FRESHNESS_MS = 5_000L
+
+        // Match LocationHelper's 30-second source location timeout.
+        private const val SOURCE_FRESHNESS_MS = 30_000L
     }
 }

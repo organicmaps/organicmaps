@@ -42,14 +42,26 @@ class MainActivity :
     private lateinit var dataClient: DataClient
     private lateinit var messageClient: MessageClient
     private lateinit var capabilityClient: CapabilityClient
+    private lateinit var activeCapabilityOwner: ActiveWearUiCapabilityOwner
 
     private val uiState = WearNavigationUiState()
-    private var staleDetailsRunnable: Runnable? = null
+    private val staleDetailsRunnable = Runnable {
+        if (uiState.expireDetails()) renderNavigationDetails(null)
+    }
     private var refreshGeneration = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        setupViews()
+
+        dataClient = Wearable.getDataClient(this)
+        messageClient = Wearable.getMessageClient(this)
+        capabilityClient = Wearable.getCapabilityClient(this)
+        activeCapabilityOwner = ActiveWearUiCapabilityRegistry.get(applicationContext)
+    }
+
+    private fun setupViews() {
         val layout =
             LinearLayout(this).apply {
                 gravity = Gravity.CENTER
@@ -113,10 +125,6 @@ class MainActivity :
         layout.addView(remaining)
 
         setContentView(layout)
-
-        dataClient = Wearable.getDataClient(this)
-        messageClient = Wearable.getMessageClient(this)
-        capabilityClient = Wearable.getCapabilityClient(this)
     }
 
     override fun onResume() {
@@ -131,15 +139,7 @@ class MainActivity :
             .addListener(this)
             .addOnSuccessListener {
                 if (isResumed(generation)) {
-                    capabilityClient
-                        .addLocalCapability(WearNavigationData.CAPABILITY_ACTIVE_WATCH_UI)
-                        .addOnSuccessListener {
-                            if (!uiState.resumed) {
-                                capabilityClient.removeLocalCapability(WearNavigationData.CAPABILITY_ACTIVE_WATCH_UI)
-                            }
-                        }.addOnFailureListener { exception ->
-                            Log.w(TAG, "Failed to advertise active Wear UI", exception)
-                        }
+                    activeCapabilityOwner.activate(this)
                 } else if (!uiState.resumed) {
                     messageClient.removeListener(this)
                 }
@@ -194,13 +194,7 @@ class MainActivity :
                 Log.w(TAG, "Failed to stop navigation details listener", exception)
             }
 
-        capabilityClient.removeLocalCapability(WearNavigationData.CAPABILITY_ACTIVE_WATCH_UI)
-            .addOnSuccessListener {
-                // Handles a quick pause/resume racing with asynchronous capability removal.
-                if (uiState.resumed) capabilityClient.addLocalCapability(WearNavigationData.CAPABILITY_ACTIVE_WATCH_UI)
-            }.addOnFailureListener { exception ->
-                Log.w(TAG, "Failed to hide inactive Wear UI", exception)
-            }
+        activeCapabilityOwner.deactivate(this)
         capabilityClient.removeListener(this, WearNavigationData.CAPABILITY_PHONE_APP)
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Failed to stop phone capability listener", exception)
@@ -216,7 +210,7 @@ class MainActivity :
     }
 
     override fun onCapabilityChanged(capability: CapabilityInfo) {
-        if (uiState.resumed && NavigationStateSource.isPhoneCapability(capability.name)) {
+        if (uiState.resumed && capability.name == WearNavigationData.CAPABILITY_PHONE_APP) {
             refreshNavigationState()
         }
     }
@@ -240,13 +234,10 @@ class MainActivity :
             return
         }
 
-        val generation = uiState.generation
-        runOnUiThread {
-            val expiryToken = uiState.acceptDetails(details, generation)
-            if (expiryToken != null) {
-                renderNavigationDetails(details)
-                scheduleStaleDetailsTimer(expiryToken)
-            }
+        // MessageClient listeners run on the main thread by default.
+        if (uiState.acceptDetails(details)) {
+            renderNavigationDetails(details)
+            scheduleStaleDetailsTimer()
         }
     }
 
@@ -339,20 +330,12 @@ class MainActivity :
     }
 
     private fun cancelStaleDetailsTimer() {
-        staleDetailsRunnable?.let { remaining.removeCallbacks(it) }
-        staleDetailsRunnable = null
+        remaining.removeCallbacks(staleDetailsRunnable)
     }
 
-    private fun scheduleStaleDetailsTimer(token: Long) {
+    private fun scheduleStaleDetailsTimer() {
         cancelStaleDetailsTimer()
-        val callback = Runnable {
-            staleDetailsRunnable = null
-            if (uiState.expireDetails(token)) {
-                renderNavigationDetails(null)
-            }
-        }
-        staleDetailsRunnable = callback
-        remaining.postDelayed(callback, DETAILS_STALE_TIMEOUT_MS)
+        remaining.postDelayed(staleDetailsRunnable, DETAILS_STALE_TIMEOUT_MS)
     }
 
     private fun renderNavigationDetails(details: WearNavigationDetails?) {

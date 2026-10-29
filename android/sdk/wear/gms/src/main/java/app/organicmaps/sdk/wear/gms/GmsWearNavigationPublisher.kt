@@ -37,6 +37,8 @@ internal class GmsWearNavigationPublisher(context: Context) : WearNavigationPubl
             send = ::sendDetailsToNodes,
         )
 
+    private val discoveryRetryRunnable = Runnable { discoverActiveWatches() }
+
     private val heartbeatRunnable =
         Runnable {
             requireMainThread()
@@ -48,6 +50,7 @@ internal class GmsWearNavigationPublisher(context: Context) : WearNavigationPubl
         CapabilityClient.OnCapabilityChangedListener { capability ->
             requireMainThread()
             if (capability.name == WearNavigationData.CAPABILITY_ACTIVE_WATCH_UI) {
+                handler.removeCallbacks(discoveryRetryRunnable)
                 delivery.onTopologyChanged(capability.nodes.mapTo(mutableSetOf()) { it.id })
                 scheduleHeartbeat()
             }
@@ -71,6 +74,7 @@ internal class GmsWearNavigationPublisher(context: Context) : WearNavigationPubl
         requireMainThread()
         val newlyStarted = mode == WearNavigationMode.NAVIGATION && !delivery.isActive
         delivery.setMode(mode)
+        if (mode != WearNavigationMode.NAVIGATION) handler.removeCallbacks(discoveryRetryRunnable)
         scheduleHeartbeat()
         if (newlyStarted) {
             discoverActiveWatches()
@@ -101,6 +105,7 @@ internal class GmsWearNavigationPublisher(context: Context) : WearNavigationPubl
     }
 
     private fun discoverActiveWatches() {
+        handler.removeCallbacks(discoveryRetryRunnable)
         val token = delivery.beginDiscovery() ?: return // One lookup in flight per session.
         capabilityClient
             .getCapability(
@@ -113,12 +118,14 @@ internal class GmsWearNavigationPublisher(context: Context) : WearNavigationPubl
                 scheduleHeartbeat()
             }.addOnFailureListener { exception ->
                 requireMainThread()
-                delivery.failDiscovery(token)
+                if (delivery.failDiscovery(token)) {
+                    handler.postDelayed(discoveryRetryRunnable, DISCOVERY_RETRY_DELAY_MS)
+                }
                 logFailure("active-watch discovery", exception)
             }
     }
 
-    private fun sendDetailsToNodes(nodeIds: Set<String>, details: WearNavigationDetails, session: Long) {
+    private fun sendDetailsToNodes(nodeIds: Set<String>, details: WearNavigationDetails) {
         val dataMap = DataMap()
         WearNavigationDetailsDataMapCodec.encode(dataMap, details)
         val payload = dataMap.toByteArray()
@@ -127,9 +134,7 @@ internal class GmsWearNavigationPublisher(context: Context) : WearNavigationPubl
                 .sendMessage(nodeId, WearNavigationData.PATH_NAVIGATION_DETAILS, payload)
                 .addOnFailureListener { exception ->
                     requireMainThread()
-                    // A failure from an earlier session must not drop a newly reconnected watch.
-                    delivery.onSendFailure(nodeId, session)
-                    scheduleHeartbeat()
+                    // Membership remains authoritative across transient send failures.
                     logFailure("navigation details", exception)
                 }
         }
@@ -162,6 +167,7 @@ internal class GmsWearNavigationPublisher(context: Context) : WearNavigationPubl
     }
 
     companion object {
+        private const val DISCOVERY_RETRY_DELAY_MS = 2_000L
         private val TAG = GmsWearNavigationPublisher::class.java.simpleName
     }
 }

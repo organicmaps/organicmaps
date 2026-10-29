@@ -4,9 +4,8 @@ import app.organicmaps.wear.protocol.WearNavigationDetails
 import app.organicmaps.wear.protocol.WearNavigationMode
 
 /**
- * Android-independent UI lifecycle policy. MainActivity supplies the actual timer and views.
- * A message posted before pause cannot update a newly resumed Activity; a superseded expiry
- * callback cannot clear later guidance.
+ * Android-independent navigation UI state. MessageClient and the resettable expiry Runnable
+ * run on the main thread. Generations guard asynchronous registration and state-read Tasks.
  */
 internal class WearNavigationUiState {
     var resumed = false
@@ -17,8 +16,6 @@ internal class WearNavigationUiState {
         private set
     var details: WearNavigationDetails? = null
         private set
-
-    private var detailsToken = 0L
 
     fun resume(): Int {
         resumed = true
@@ -39,27 +36,19 @@ internal class WearNavigationUiState {
         if (newMode == WearNavigationMode.NORMAL) clearDetails()
     }
 
-    /** Returns the expiry token if details were accepted, or null if an old callback arrived. */
-    fun acceptDetails(value: WearNavigationDetails, expectedGeneration: Int): Long? {
-        if (!isCurrent(expectedGeneration) || mode != WearNavigationMode.NAVIGATION) return null
+    fun acceptDetails(value: WearNavigationDetails): Boolean {
+        if (!resumed || mode != WearNavigationMode.NAVIGATION) return false
         details = value
-        return ++detailsToken
+        return true
     }
 
-    /** True only when the currently displayed details were cleared by this expiry. */
-    fun expireDetails(expectedToken: Long): Boolean {
-        val navigationVisible = resumed && mode == WearNavigationMode.NAVIGATION
-        val detailsCurrent = details != null && detailsToken == expectedToken
-
-        if (!navigationVisible || !detailsCurrent) {
-            return false
-        }
+    fun expireDetails(): Boolean {
+        if (!resumed || mode != WearNavigationMode.NAVIGATION || details == null) return false
         clearDetails()
         return true
     }
 
     private fun clearDetails() {
         details = null
-        detailsToken++
     }
 }

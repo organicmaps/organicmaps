@@ -10,12 +10,12 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class WearNavigationDeliveryStateTest {
-    private data class Packet(val nodes: Set<String>, val details: WearNavigationDetails, val session: Long)
+    private data class Packet(val nodes: Set<String>, val details: WearNavigationDetails)
 
     private var clock = 0L
     private val packets = mutableListOf<Packet>()
-    private val state = WearNavigationDeliveryState({ clock }) { nodes, details, session ->
-        packets += Packet(nodes, details, session)
+    private val state = WearNavigationDeliveryState({ clock }) { nodes, details ->
+        packets += Packet(nodes, details)
     }
 
     private fun route(street: String) = WearNavigationDetails(nextStreet = street)
@@ -61,14 +61,44 @@ class WearNavigationDeliveryStateTest {
         clock = 4_000L
         state.heartbeat()
         assertEquals(3, packets.size)
-        clock = 6_000L
+        clock = 10_000L
         state.heartbeat()
-        assertEquals(3, packets.size)
-        assertFalse(state.shouldHeartbeat)
-        clock = 7_000L
-        state.publishDetails(route("New fix"))
         assertEquals(4, packets.size)
+        assertTrue(state.shouldHeartbeat)
+        clock = 30_000L
+        state.heartbeat()
+        assertEquals(4, packets.size)
+        assertFalse(state.shouldHeartbeat)
+        clock = 31_000L
+        state.publishDetails(route("New fix"))
+        assertEquals(5, packets.size)
         assertEquals("New fix", packets.last().details.nextStreet)
+    }
+
+    @Test
+    fun failedInitialDiscoveryCanRetryWithoutTopologyEvent() {
+        state.setMode(WearNavigationMode.NAVIGATION)
+        val failed = state.beginDiscovery()!!
+        assertTrue(state.failDiscovery(failed))
+        val retry = state.beginDiscovery()!!
+        state.publishDetails(route("New guidance"))
+        state.completeDiscovery(retry, setOf("watch"))
+        assertEquals("New guidance", packets.single().details.nextStreet)
+        assertTrue(state.shouldHeartbeat)
+    }
+
+    @Test
+    fun sourceUpdatesTenSecondsApartKeepHeartbeatActive() {
+        state.setMode(WearNavigationMode.NAVIGATION)
+        state.onTopologyChanged(setOf("watch"))
+        state.publishDetails(route("Initial"))
+        for (second in 2..20 step 2) {
+            clock = second * 1_000L
+            state.heartbeat()
+            assertTrue(state.shouldHeartbeat)
+            if (second % 10 == 0) state.publishDetails(route("Updated"))
+        }
+        assertTrue(packets.size >= 10)
     }
 
     @Test
@@ -113,14 +143,12 @@ class WearNavigationDeliveryStateTest {
         state.setMode(WearNavigationMode.NAVIGATION)
         state.onTopologyChanged(setOf("watch"))
         state.publishDetails(route("Old"))
-        val oldSession = packets.last().session
         state.invalidateDetails()
         clock += 2_000L
         state.heartbeat()
         assertEquals(1, packets.size)
         state.setMode(WearNavigationMode.NORMAL)
         state.setMode(WearNavigationMode.NAVIGATION)
-        state.onSendFailure("watch", oldSession)
         state.publishDetails(route("New"))
         assertEquals(2, packets.size)
         assertEquals("New", packets.last().details.nextStreet)
