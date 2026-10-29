@@ -322,11 +322,24 @@ void RuleDrawer::ProcessAreaAndPointStyle(FeatureType & f, Stylist const & s)
 void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s)
 {
   bool const isIsoline = m_isIsoline(f);
+  double dashPhaseOffset = 0.0;
+  bool dashPhaseReversed = false;
+  bool const hasDashedLine =
+      std::any_of(s.m_lineRules.begin(), s.m_lineRules.end(),
+                  [](drule::LineRule const * rule) { return rule->dashdot.has_value(); });
+  bool const needsDashPhase =
+      hasDashedLine && (ftypes::IsCyclewayLaneChecker::Instance()(f) ||
+                        ftypes::IsCyclewaySharedLaneChecker::Instance()(f));
   std::optional<MetalineInfo> metalineInfo;
-  if (s.m_pathtextRule || s.m_shieldRule)
+  if (needsDashPhase || s.m_pathtextRule || s.m_shieldRule)
     metalineInfo = m_context->GetMetalineManager()->GetMetalineInfo(f.GetID());
 
-  ApplyLineFeatureGeometry applyGeom(m_applyParams, f, m_relsSettings);
+  if (needsDashPhase && metalineInfo)
+  {
+    dashPhaseOffset = metalineInfo->m_dashPhaseOffset;
+    dashPhaseReversed = metalineInfo->m_dashPhaseReversed;
+  }
+  ApplyLineFeatureGeometry applyGeom(m_applyParams, f, m_relsSettings, dashPhaseOffset, dashPhaseReversed);
   applyGeom.BuildGeometry(m_zoomLevel, isIsoline);
 
   if (applyGeom.HasGeometry())

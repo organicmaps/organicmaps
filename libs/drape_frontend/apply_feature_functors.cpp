@@ -707,10 +707,13 @@ void ApplyAreaFeature::ProcessRule(drule::AreaRule const & areaRule, double area
 }
 
 ApplyLineFeatureGeometry::ApplyLineFeatureGeometry(Params const & params, FeatureType & f,
-                                                   RelationsDrawSettings const & relsSettings)
+                                                   RelationsDrawSettings const & relsSettings,
+                                                   double dashPhaseOffset, bool dashPhaseReversed)
   : TBase(params, f, {})
   , m_relsInfo(relsSettings)
   , m_builder(params)
+  , m_dashPhaseOffset(dashPhaseOffset)
+  , m_dashPhaseReversed(dashPhaseReversed)
 {
   if (m_params.IsRelationRoutes())
     m_relsInfo.Init(f);
@@ -738,7 +741,10 @@ void ApplyLineFeatureGeometry::ProcessLineRules(Stylist::LineRulesT const & line
   // Builds clipped splines from the (possibly simplified) feature path.
   // Directions/lengths are computed only on the splines actually returned —
   // see ClipSplinesBuilder::Release.
-  m_clippedSplines = m_builder.Release(isIsoline);
+  bool const needSplineOffsets =
+      m_relsInfo.HasColors() || std::any_of(lineRules.begin(), lineRules.end(),
+                                           [](drule::LineRule const * rule) { return rule->dashdot.has_value(); });
+  m_clippedSplines = m_builder.Release(isIsoline, needSplineOffsets);
 
   if (m_clippedSplines.empty())
     return;
@@ -781,8 +787,15 @@ void ApplyLineFeatureGeometry::ProcessRule(drule::LineRule const & lineRule)
     params.m_baseGtoPScale = m_params.m_currentScaleGtoP;
     params.m_zoomLevel = m_params.m_tileKey.m_zoomLevel;
 
-    for (auto const & spline : m_clippedSplines)
-      m_params.m_insertShape(make_unique_dp<LineShape>(spline, params));
+    auto const & splineOffsets = m_builder.GetSplineOffsets();
+    ASSERT(splineOffsets.empty() || splineOffsets.size() == m_clippedSplines.size(), ());
+    for (size_t i = 0; i < m_clippedSplines.size(); ++i)
+    {
+      double const splineOffset = splineOffsets.empty() ? 0.0 : splineOffsets[i];
+      params.m_dashPhaseOffset = m_dashPhaseOffset + (m_dashPhaseReversed ? -splineOffset : splineOffset);
+      params.m_dashPhaseReversed = m_dashPhaseReversed;
+      m_params.m_insertShape(make_unique_dp<LineShape>(m_clippedSplines[i], params));
+    }
 
     // Place rainbow color stripes using a color strip texture on the same geometry.
     if (m_relsInfo.HasColors())
@@ -806,8 +819,13 @@ void ApplyLineFeatureGeometry::ProcessRule(drule::LineRule const & lineRule)
       rParams.m_zoomLevel = m_params.m_tileKey.m_zoomLevel;
       rParams.m_rainbowColors = colors;
 
-      for (auto const & spline : m_clippedSplines)
-        m_params.m_insertShape(make_unique_dp<LineShape>(spline, rParams));
+      for (size_t i = 0; i < m_clippedSplines.size(); ++i)
+      {
+        double const splineOffset = splineOffsets.empty() ? 0.0 : splineOffsets[i];
+        rParams.m_dashPhaseOffset = m_dashPhaseOffset + (m_dashPhaseReversed ? -splineOffset : splineOffset);
+        rParams.m_dashPhaseReversed = m_dashPhaseReversed;
+        m_params.m_insertShape(make_unique_dp<LineShape>(m_clippedSplines[i], rParams));
+      }
     }
   }
 }
