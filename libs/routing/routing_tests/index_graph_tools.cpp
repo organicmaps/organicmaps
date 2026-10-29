@@ -144,7 +144,7 @@ void TestTransitGraphLoader::AddGraph(NumMwmId mwmId, unique_ptr<TransitGraph> g
 double WeightedEdgeEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry const & road,
                                                 EdgeEstimator::Purpose /* purpose */, time_t arrivalTime) const
 {
-  auto const it = m_segmentWeights.find(segment);
+  auto const it = m_segmentWeights.find(segment.WithoutPassThroughState());
   CHECK(it != m_segmentWeights.cend(), ());
   double const weight = it->second;
   double const speed = road.GetSpeed(segment.IsForward(), arrivalTime).m_weight;
@@ -487,27 +487,35 @@ unique_ptr<TransitWorldGraph> BuildWorldGraph(unique_ptr<TestGeometryLoader> geo
 }
 
 AlgorithmForWorldGraph::Result CalculateRoute(IndexGraphStarter & starter, vector<Segment> & roadPoints,
-                                              double & timeSec)
+                                              double & timeSec, bool passThroughState)
 {
+  starter.EnablePassThroughStateRouting(passThroughState);
   AlgorithmForWorldGraph algorithm;
   RoutingResult<Segment, RouteWeight> routingResult;
-
   AlgorithmForWorldGraph::ParamsForTests<AStarLengthChecker> params(
       starter, starter.GetStartSegment(), starter.GetFinishSegment(), AStarLengthChecker(starter));
-
   auto const resultCode = algorithm.FindPathBidirectional(params, routingResult);
-
+  for (auto & segment : routingResult.m_path)
+    segment = segment.WithoutPassThroughState();
+  starter.EnablePassThroughStateRouting(false);
   timeSec = routingResult.m_distance.GetWeight();
-  roadPoints = routingResult.m_path;
+  roadPoints = std::move(routingResult.m_path);
   return resultCode;
 }
 
 void TestRouteGeometry(IndexGraphStarter & starter, AlgorithmForWorldGraph::Result expectedRouteResult,
                        vector<m2::PointD> const & expectedRouteGeom)
 {
+  for (bool const passThroughState : {false, true})
+    TestRouteGeometry(starter, expectedRouteResult, expectedRouteGeom, passThroughState);
+}
+
+void TestRouteGeometry(IndexGraphStarter & starter, AlgorithmForWorldGraph::Result expectedRouteResult,
+                       vector<m2::PointD> const & expectedRouteGeom, bool passThroughState)
+{
   vector<Segment> routeSegs;
   double timeSec = 0.0;
-  auto const resultCode = CalculateRoute(starter, routeSegs, timeSec);
+  auto const resultCode = CalculateRoute(starter, routeSegs, timeSec, passThroughState);
 
   TEST_EQUAL(resultCode, expectedRouteResult, ());
 

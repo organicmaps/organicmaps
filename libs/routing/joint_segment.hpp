@@ -24,6 +24,8 @@ public:
   uint32_t GetEndSegmentId() const { return m_endSegmentId; }
   uint32_t GetSegmentId(bool start) const { return start ? m_startSegmentId : m_endSegmentId; }
   bool IsForward() const { return m_forward; }
+  PassThroughState GetPassThroughState() const { return m_passThroughState; }
+  void SetPassThroughState(PassThroughState state) { m_passThroughState = state; }
 
   void AssignID(Segment const & seg);
   void AssignID(JointSegment const & seg);
@@ -45,6 +47,7 @@ private:
 
   NumMwmId m_numMwmId = kFakeNumMwmId;
   bool m_forward = false;
+  PassThroughState m_passThroughState = PassThroughState::None;
 };
 
 class JointEdge
