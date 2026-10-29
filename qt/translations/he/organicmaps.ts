@@ -27,7 +27,7 @@
 <translation>ק&quot;מ</translation>
 </message>
 <message id="miles">
-<extracomment>Choose measurement on first launch alert - choose imperial system button</extracomment>
+<extracomment>Imperial measurement option: 1 mile = 1609.344 m; Swedish/Norwegian &quot;mil&quot; = 10 km</extracomment>
 <source>Miles</source>
 <translation>מייל</translation>
 </message>
@@ -403,24 +403,29 @@
 <translation>קמ״ש</translation>
 </message>
 <message id="miles_per_hour">
+<extracomment>Short label for miles per hour (1 mile = 1609.344 m), placed after a number; e.g. mph or mi/h</extracomment>
 <source>mph</source>
 <translation>מייל לשעה</translation>
 </message>
 <message id="hour">
+<extracomment>Short label for hours (time unit), placed after a number</extracomment>
 <source>h</source>
-<translation>ש׳</translation>
+<translation>שע׳</translation>
 </message>
 <message id="minute">
+<extracomment>Short label for minutes (time unit), placed after a number</extracomment>
 <source>min</source>
-<translation>ד׳</translation>
+<translation>דק׳</translation>
 </message>
 <message id="day">
+<extracomment>Short label for days (time unit), placed after a number</extracomment>
 <source>d</source>
-<translation>י</translation>
+<translation>י׳</translation>
 </message>
 <message id="second">
+<extracomment>Short label for seconds (time unit), placed after a number</extracomment>
 <source>s</source>
-<translation>ש׳׳</translation>
+<translation>שנ׳</translation>
 </message>
 <message id="placepage_more_button">
 <source>More</source>
@@ -774,14 +779,14 @@
 <translation>ק״מ</translation>
 </message>
 <message id="mi">
-<extracomment>abbreviation for mile(s)</extracomment>
+<extracomment>Short label for miles (length unit, 1 mi = 1609.344 m), placed after a number</extracomment>
 <source>mi</source>
 <translation>מייל</translation>
 </message>
 <message id="ft">
-<extracomment>A unit of measure</extracomment>
+<extracomment>Short label for feet (1 ft = 0.3048 m), after numbers; local abbreviations and uninflected unit names are allowed</extracomment>
 <source>ft</source>
-<translation>רגל</translation>
+<translation>ft</translation>
 </message>
 <message id="core_exit">
 <extracomment>Subway exits for public transport marks on the map</extracomment>

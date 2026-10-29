@@ -73,6 +73,7 @@
     <string name="opens_in">%s barru irekiko da</string>
     <string name="closes_in">%s barru itxiko da</string>
     <string name="closed">Itxita</string>
+    <!-- Short label for minutes (time unit), placed after a number -->
     <string name="minute">min</string>
     <string name="big_font">Handitu letra tamaina mapan</string>
     <string name="transliteration_title">Latinezko transliterazioa</string>

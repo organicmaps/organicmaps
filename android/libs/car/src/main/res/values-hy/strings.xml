@@ -73,6 +73,7 @@
     <string name="opens_in">Բացվում է %s</string>
     <string name="closes_in">Փակվում է %s</string>
     <string name="closed">Փակ է</string>
+    <!-- Short label for minutes (time unit), placed after a number -->
     <string name="minute">ր</string>
     <string name="big_font">Մեծացնել քարտեզի գրությունների չափսը</string>
     <string name="transliteration_title">Տառադարձել լատինատառի</string>

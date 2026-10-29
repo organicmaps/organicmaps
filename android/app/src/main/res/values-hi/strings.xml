@@ -15,7 +15,7 @@
     <string name="downloading">डाउनलोड हो रहा है…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
     <string name="kilometres">किलोमीटर</string>
-    <!-- Choose measurement on first launch alert - choose imperial system button -->
+    <!-- Imperial measurement option: 1 mile = 1609.344 m; Swedish/Norwegian "mil" = 10 km -->
     <string name="miles">मील</string>
     <!-- Update maps later button text -->
     <string name="later">बाद में</string>
@@ -476,10 +476,15 @@
     <string name="current_location_unknown_error_title">वर्तमान स्थान अज्ञात है।</string>
     <!-- abbreviation for kilometers per hour -->
     <string name="kilometers_per_hour">किमी/घंटा</string>
+    <!-- Short label for miles per hour (1 mile = 1609.344 m), placed after a number; e.g. mph or mi/h -->
     <string name="miles_per_hour">mph</string>
+    <!-- Short label for hours (time unit), placed after a number -->
     <string name="hour">घंटे</string>
+    <!-- Short label for minutes (time unit), placed after a number -->
     <string name="minute">मिनट</string>
+    <!-- Short label for days (time unit), placed after a number -->
     <string name="day">दिन</string>
+    <!-- Short label for seconds (time unit), placed after a number -->
     <string name="second">सेकंड</string>
     <string name="placepage_more_button">और</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->

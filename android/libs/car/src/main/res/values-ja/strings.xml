@@ -73,6 +73,7 @@
     <string name="opens_in">あと %s に営業</string>
     <string name="closes_in">あと %s に閉店</string>
     <string name="closed">閉店</string>
+    <!-- Short label for minutes (time unit), placed after a number -->
     <string name="minute">分</string>
     <string name="big_font">地図上のフォントサイズを大きくする</string>
     <string name="transliteration_title">ラテン文字への翻字</string>

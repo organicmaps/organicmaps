@@ -15,7 +15,7 @@
     <string name="downloading">Pobieranie…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
     <string name="kilometres">Kilometry</string>
-    <!-- Choose measurement on first launch alert - choose imperial system button -->
+    <!-- Imperial measurement option: 1 mile = 1609.344 m; Swedish/Norwegian "mil" = 10 km -->
     <string name="miles">Mile</string>
     <!-- Update maps later button text -->
     <string name="later">Później</string>
@@ -99,7 +99,7 @@
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Jednostki miary</string>
     <!-- Detailed description of Measurement Units settings button -->
-    <string name="measurement_units_summary">Wybiera pomiędzy milami, a kilometrami</string>
+    <string name="measurement_units_summary">Wybierz między milami a kilometrami</string>
 
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
@@ -476,10 +476,15 @@
     <string name="current_location_unknown_error_title">Aktualna lokalizacja jest nieznana.</string>
     <!-- abbreviation for kilometers per hour -->
     <string name="kilometers_per_hour">km/h</string>
+    <!-- Short label for miles per hour (1 mile = 1609.344 m), placed after a number; e.g. mph or mi/h -->
     <string name="miles_per_hour">mph</string>
+    <!-- Short label for hours (time unit), placed after a number -->
     <string name="hour">godz</string>
+    <!-- Short label for minutes (time unit), placed after a number -->
     <string name="minute">min</string>
+    <!-- Short label for days (time unit), placed after a number -->
     <string name="day">d</string>
+    <!-- Short label for seconds (time unit), placed after a number -->
     <string name="second">s</string>
     <string name="placepage_more_button">Więcej</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->

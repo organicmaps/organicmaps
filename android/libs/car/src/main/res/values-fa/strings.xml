@@ -73,6 +73,7 @@
     <string name="opens_in">در %s باز می‌شود</string>
     <string name="closes_in">در %s بسته می‌شود</string>
     <string name="closed">تعطیل</string>
+    <!-- Short label for minutes (time unit), placed after a number -->
     <string name="minute">دقیقه</string>
     <string name="big_font">افزایش اندازه متن بر روی نقشه</string>
     <string name="transliteration_title">ترجمه به الفبای لاتین</string>

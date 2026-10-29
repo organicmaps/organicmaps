@@ -16,7 +16,7 @@
 /* Choose measurement on first launch alert - choose metric system button */
 "kilometres" = "Kilometre";
 
-/* Choose measurement on first launch alert - choose imperial system button */
+/* Imperial measurement option: 1 mile = 1609.344 m; Swedish/Norwegian "mil" = 10 km */
 "miles" = "Míle";
 
 /* Update maps later button text */
@@ -598,10 +598,20 @@
 
 /* abbreviation for kilometers per hour */
 "kilometers_per_hour" = "km/h";
+
+/* Short label for miles per hour (1 mile = 1609.344 m), placed after a number; e.g. mph or mi/h */
 "miles_per_hour" = "mph";
+
+/* Short label for hours (time unit), placed after a number */
 "hour" = "hod";
+
+/* Short label for minutes (time unit), placed after a number */
 "minute" = "min";
+
+/* Short label for days (time unit), placed after a number */
 "day" = "d";
+
+/* Short label for seconds (time unit), placed after a number */
 "second" = "s";
 "placepage_more_button" = "Viac";
 "placepage_personal_notes_hint" = "Osobné poznámky (text alebo html)";
@@ -1160,11 +1170,11 @@
 /* abbreviation for kilometers */
 "km" = "km";
 
-/* abbreviation for mile(s) */
+/* Short label for miles (length unit, 1 mi = 1609.344 m), placed after a number */
 "mi" = "mi";
 
-/* A unit of measure */
-"ft" = "stopa";
+/* Short label for feet (1 ft = 0.3048 m), after numbers; local abbreviations and uninflected unit names are allowed */
+"ft" = "ft";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
 "routes_update_maps_text" = "Na zobrazenie trás je potrebné aktualizovať mapy.";

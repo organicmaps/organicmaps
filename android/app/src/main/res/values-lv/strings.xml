@@ -15,7 +15,7 @@
     <string name="downloading">Lejupielādē…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
     <string name="kilometres">Kilometri</string>
-    <!-- Choose measurement on first launch alert - choose imperial system button -->
+    <!-- Imperial measurement option: 1 mile = 1609.344 m; Swedish/Norwegian "mil" = 10 km -->
     <string name="miles">Jūdzes</string>
     <!-- Update maps later button text -->
     <string name="later">Vēlāk</string>
@@ -476,10 +476,15 @@
     <string name="current_location_unknown_error_title">Pašreizējā vieta nav zināma.</string>
     <!-- abbreviation for kilometers per hour -->
     <string name="kilometers_per_hour">km/h</string>
+    <!-- Short label for miles per hour (1 mile = 1609.344 m), placed after a number; e.g. mph or mi/h -->
     <string name="miles_per_hour">mph</string>
+    <!-- Short label for hours (time unit), placed after a number -->
     <string name="hour">st.</string>
+    <!-- Short label for minutes (time unit), placed after a number -->
     <string name="minute">min.</string>
+    <!-- Short label for days (time unit), placed after a number -->
     <string name="day">d</string>
+    <!-- Short label for seconds (time unit), placed after a number -->
     <string name="second">s</string>
     <string name="placepage_more_button">Vairāk</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->

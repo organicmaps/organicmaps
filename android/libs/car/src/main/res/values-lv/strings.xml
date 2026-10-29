@@ -73,6 +73,7 @@
     <string name="opens_in">Atveras pēc %s</string>
     <string name="closes_in">Slēgts pēc %s</string>
     <string name="closed">Slēgts</string>
+    <!-- Short label for minutes (time unit), placed after a number -->
     <string name="minute">min.</string>
     <string name="big_font">Palielināt fonta lielumu kartē</string>
     <string name="transliteration_title">Transliterācija uz latīņu alfabētu</string>

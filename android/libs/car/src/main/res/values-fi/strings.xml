@@ -73,6 +73,7 @@
     <string name="opens_in">Avautuu %s kuluttua</string>
     <string name="closes_in">Sulkeutuu %s kuluttua</string>
     <string name="closed">Suljettu</string>
+    <!-- Short label for minutes (time unit), placed after a number -->
     <string name="minute">min</string>
     <string name="big_font">Suurenna fonttikokoa kartalla</string>
     <string name="transliteration_title">Translitterointi latinalaisiksi aakkosiksi</string>
