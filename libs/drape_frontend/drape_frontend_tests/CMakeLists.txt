@@ -5,6 +5,7 @@ set(SRC
   clip_splines_builder_tests.cpp
   frame_values_tests.cpp
   message_queue_tests.cpp
+  metaline_data_tests.cpp
   my_position_controller_tests.cpp
   navigator_test.cpp
   path_text_test.cpp

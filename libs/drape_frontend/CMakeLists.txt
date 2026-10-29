@@ -120,6 +120,7 @@ set(SRC
   message_queue.cpp
   message_queue.hpp
   message_subclasses.hpp
+  metaline_data.hpp
   metaline_manager.cpp
   metaline_manager.hpp
   my_position.cpp
