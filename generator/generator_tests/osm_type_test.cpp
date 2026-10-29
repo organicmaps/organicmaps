@@ -20,6 +20,7 @@
 #include "base/file_name_utils.hpp"
 #include "base/stl_helpers.hpp"
 
+#include <algorithm>
 #include <set>
 #include <string>
 #include <vector>
@@ -566,6 +567,35 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Amenity)
 
     TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"amenity", "bbq"})), ());
+  }
+}
+
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_MotorVehiclePermissive)
+{
+  for (char const * highway : {"path", "footway", "pedestrian", "cycleway"})
+  {
+    for (char const * access : {"yes", "designated", "permissive"})
+    {
+      auto const params = GetFeatureBuilderParams({{"highway", highway}, {"motor_vehicle", access}});
+      TEST(params.IsTypeExist(GetType({"hwtag", "yescar"})), (highway, access, params));
+      TEST(!params.IsTypeExist(GetType({"hwtag", "nocar"})), (highway, access, params));
+
+      for (bool reverse : {false, true})
+      {
+        Tags tags = {{"highway", highway}, {"motor_vehicle", access}, {"motorcar", "no"}};
+        if (reverse)
+          std::reverse(tags.begin(), tags.end());
+        auto const restricted = GetFeatureBuilderParams(tags);
+        TEST(restricted.IsTypeExist(GetType({"hwtag", "nocar"})), (highway, access, reverse, restricted));
+        TEST(!restricted.IsTypeExist(GetType({"hwtag", "yescar"})), (highway, access, reverse, restricted));
+      }
+    }
+    for (char const * access : {"no", "private"})
+    {
+      auto const params = GetFeatureBuilderParams({{"highway", highway}, {"motor_vehicle", access}});
+      TEST(params.IsTypeExist(GetType({"hwtag", "nocar"})), (highway, access, params));
+      TEST(!params.IsTypeExist(GetType({"hwtag", "yescar"})), (highway, access, params));
+    }
   }
 }
 
