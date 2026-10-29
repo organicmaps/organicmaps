@@ -46,6 +46,11 @@ internal class ActiveWearUiCapabilityOwner(private val changeCapability: (Boolea
 internal object ActiveWearUiCapabilityRegistry {
     private var owner: ActiveWearUiCapabilityOwner? = null
 
+    /** Test-only cleanup: no caller may hold an active Activity when invoked. */
+    internal fun resetForTests() {
+        owner = null
+    }
+
     fun get(context: Context): ActiveWearUiCapabilityOwner {
         check(Looper.myLooper() == Looper.getMainLooper())
         return owner ?: create(context.applicationContext).also { owner = it }
