@@ -4,25 +4,18 @@
 #include "indexer/feature_decl.hpp"
 
 #include "coding/files_container.hpp"
-#include "coding/varint.hpp"
 
 #include "defines.hpp"
 
 #include <algorithm>
 #include <map>
-#include <set>
 #include <vector>
 
 namespace df
 {
 namespace
 {
-struct MetalineData
-{
-  std::vector<FeatureID> m_features;
-  std::vector<double> m_dashPhaseOffsets;
-  std::set<FeatureID> m_reversed;
-};
+using detail::MetalineData;
 
 std::vector<MetalineData> ReadMetalinesFromFile(MwmSet::MwmId const & mwmId)
 {
@@ -31,28 +24,7 @@ std::vector<MetalineData> ReadMetalinesFromFile(MwmSet::MwmId const & mwmId)
     FilesContainerR cont(mwmId.GetInfo()->GetLocalFile().GetPath(MapFileType::Map));
     ReaderSource src(cont.GetReader(METALINES_FILE_TAG));
 
-    std::vector<MetalineData> model;
-    auto const version = ReadPrimitiveFromSource<uint8_t>(src);
-    if (version >= 1 && version <= kMetaLinesSectionVersion)
-    {
-      for (auto metalineIndex = ReadVarUint<uint32_t>(src); metalineIndex > 0; --metalineIndex)
-      {
-        MetalineData data;
-        for (auto i = ReadVarUint<uint32_t>(src); i > 0; --i)
-        {
-          auto const fid = ReadVarInt<int32_t>(src);
-          FeatureID const featureId(mwmId, static_cast<uint32_t>(std::abs(fid)));
-          data.m_features.emplace_back(featureId);
-          if (version >= 3)
-            data.m_dashPhaseOffsets.push_back(ReadPrimitiveFromSource<double>(src));
-          if (fid <= 0)
-            data.m_reversed.insert(featureId);
-        }
-        if (!data.m_features.empty())
-          model.push_back(std::move(data));
-      }
-    }
-    return model;
+    return detail::ReadMetalines(src, mwmId);
   }
   catch (Reader::Exception const &)
   {
@@ -173,9 +145,8 @@ void ReadMetalineTask::Run()
 
       bool const reversed = metaline.m_reversed.find(fid) != metaline.m_reversed.end();
       double const length = GetPathLength(it->second);
-      double const phaseOffset = metaline.m_dashPhaseOffsets.empty()
-                                     ? chainOffset + (reversed ? length : 0.0)
-                                     : metaline.m_dashPhaseOffsets[i];
+      double const phaseOffset = metaline.m_dashPhaseOffsets.empty() ? chainOffset + (reversed ? length : 0.0)
+                                                                     : metaline.m_dashPhaseOffsets[i];
       phases.emplace(fid, std::pair(phaseOffset, reversed));
       chainOffset += length;
     }
