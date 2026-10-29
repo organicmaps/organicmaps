@@ -60,6 +60,7 @@ microg-gms-location = "0.3.14.250932"
 
 mockito-core = "5.24.0"
 mockito-inline = "5.2.0"
+robolectric = "4.16.1"
 
 nmcp = "1.6.2"
 
@@ -109,6 +110,7 @@ microg-gms-location = { module = "org.microg.gms:play-services-location", versio
 
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito-core" }
 mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockito-inline" }
+robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
 
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 
