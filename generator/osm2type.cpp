@@ -1170,11 +1170,12 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
           {"oneway:bicycle", "~", [&AddParam] { AddParam(CachedTypes::BicycleOnedir); }},
           {"cycleway", "opposite", [&AddParam] { AddParam(CachedTypes::BicycleBidir); }},
 
-          // For YesCar process only strict =yes/designated.
+          // Explicit motor access includes permission granted on a permissive basis.
           {"motor_vehicle", "private", [&flags] { flags[Flags::MotorVehicle] = -1; }},
           {"motor_vehicle", "!", [&flags] { flags[Flags::MotorVehicle] = -1; }},
           {"motor_vehicle", "yes", [&flags] { flags[Flags::MotorVehicle] = 1; }},
           {"motor_vehicle", "designated", [&flags] { flags[Flags::MotorVehicle] = 1; }},
+          {"motor_vehicle", "permissive", [&flags] { flags[Flags::MotorVehicle] = 1; }},
           {"motorcar", "private", [&flags] { flags[Flags::MotorCar] = -1; }},
           {"motorcar", "!", [&flags] { flags[Flags::MotorCar] = -1; }},
           {"motorcar", "yes", [&flags] { flags[Flags::MotorCar] = 1; }},
