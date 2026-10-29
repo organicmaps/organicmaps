@@ -135,9 +135,9 @@ APIs accepting Mercator coordinates or screen pixels identify those explicitly.
 
 Attach one `RoutingController.Container` and call `restore()` to replay the current
 state. Use `prepare(origin, destination, profile)` to build a plan asynchronously.
-Implement `showRoutePlan(show, completion)` and invoke `completion` once the plan
-UI is ready, even if your controls are always visible: the controller starts its
-build from that continuation.
+Implement `showRoutePlan(show)` to display the planning UI. Route calculation
+starts independently of UI attachment; `restore()` replays deferred results
+when the host returns.
 Implement progress, build success, and `onCommonBuildError()` callbacks. A failed
 build can return region IDs that must be downloaded before rebuilding. World
 overview maps alone do not contain the road graph for detailed routing.
