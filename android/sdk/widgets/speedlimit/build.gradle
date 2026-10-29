@@ -9,11 +9,16 @@ android {
   namespace = 'app.organicmaps.sdk.widgets.speedlimit'
   enableKotlin = true
   resourcePrefix = 'om_widget_'
+  testOptions.unitTests.includeAndroidResources = true
 }
 
 dependencies {
   implementation libs.androidx.annotation
   implementation libs.androidx.core
+
+  testImplementation libs.androidx.junit
+  testImplementation libs.mockito.core
+  testImplementation libs.robolectric
 }
 
 Publish(project, [

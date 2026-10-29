@@ -101,7 +101,6 @@
     <item name="om_widget_square_palette">@style/OmWidget.SpeedLimit.Combined.Palette.Square</item>
     <item name="om_widget_frame_width_ratio">0.04</item>
     <item name="om_widget_outline_width_ratio">0.04</item>
-    <item name="om_widget_value">60</item>
   </style>
 
   <style name="OmWidget.CurrentSpeedView.Combined" parent="">
@@ -109,7 +108,6 @@
     <item name="om_widget_square_palette">@style/OmWidget.CurrentSpeed.Combined.Palette</item>
     <item name="om_widget_frame_width_ratio">0.04</item>
     <item name="om_widget_outline_width_ratio">0.0</item>
-    <item name="om_widget_value">200</item>
     <item name="om_widget_units">@string/om_widget_units_kmh</item>
   </style>
 

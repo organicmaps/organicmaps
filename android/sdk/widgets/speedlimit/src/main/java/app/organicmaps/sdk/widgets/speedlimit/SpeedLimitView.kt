@@ -27,17 +27,20 @@ constructor(
             super.shape = value
         }
 
-    /** Speed limit to display, must be in [[MIN_VALUE], [MAX_VALUE]]. */
+    /** Speed limit; values outside [[MIN_VALUE], [MAX_VALUE]] are displayed as unavailable (–). */
     var speedLimit: Int = valueText.toInt()
         set(value) {
-            require(value in MIN_VALUE..MAX_VALUE) {
-                "Speed limit must be in [$MIN_VALUE, $MAX_VALUE], but was $value"
-            }
             if (field == value) {
                 return
             }
             field = value
-            valueText = value.toString()
+            valueText = formatValue(value)
             invalidate()
         }
+
+    init {
+        if (isInEditMode) {
+            speedLimit = 90
+        }
+    }
 }

@@ -7,13 +7,11 @@ import androidx.annotation.Nullable;
 import androidx.car.app.CarContext;
 import androidx.car.app.SurfaceContainer;
 import androidx.core.content.ContextCompat;
-import androidx.core.util.Consumer;
 import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.sdk.MapRenderingListener;
 import app.organicmaps.sdk.display.DisplayManager;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.util.log.Logger;
-import app.organicmaps.sdk.widgets.speedlimit.CombinedSpeedViewController;
 import java.util.Objects;
 
 final class SurfaceCallback extends SurfaceCallbackBase
@@ -39,8 +37,12 @@ final class SurfaceCallback extends SurfaceCallbackBase
   @Nullable
   private CarPresentation mPresentation;
 
+  private int mCurrentSpeed = 0;
+  @NonNull
+  private String mSpeedUnits = "";
   @Nullable
-  private Consumer<CombinedSpeedViewController> mSpeedLimitControllerListener;
+  private Integer mSpeedLimit;
+  private boolean mAlertForced = false;
 
   public SurfaceCallback(@NonNull CarContext carContext, @NonNull LifecycleOwner lifecycleOwner,
                          @NonNull LocationHelper locationHelper, @NonNull MapRenderingListener mapRenderingListener,
@@ -119,18 +121,26 @@ final class SurfaceCallback extends SurfaceCallbackBase
       mPresentation.startPresenting();
   }
 
-  @Nullable
-  CombinedSpeedViewController getSpeedLimitController()
+  void setCurrentSpeed(int speed, @NonNull String units)
   {
-    return mPresentation == null ? null : mPresentation.getSpeedLimitController();
+    mCurrentSpeed = speed;
+    mSpeedUnits = units;
+    if (mPresentation != null)
+      mPresentation.setCurrentSpeed(speed, units);
   }
 
-  void setSpeedLimitControllerListener(@Nullable Consumer<CombinedSpeedViewController> listener)
+  void setSpeedLimit(@Nullable Integer speedLimit)
   {
-    mSpeedLimitControllerListener = listener;
-    final CombinedSpeedViewController controller = getSpeedLimitController();
-    if (listener != null && controller != null)
-      listener.accept(controller);
+    mSpeedLimit = speedLimit;
+    if (mPresentation != null)
+      mPresentation.setSpeedLimit(speedLimit);
+  }
+
+  void setAlertForced(boolean alertForced)
+  {
+    mAlertForced = alertForced;
+    if (mPresentation != null)
+      mPresentation.setAlertForced(alertForced);
   }
 
   private void createPresentation()
@@ -142,8 +152,9 @@ final class SurfaceCallback extends SurfaceCallbackBase
                                         mMapRenderingListener);
     mPresentation.create();
     mPresentation.setVisibleArea(mVisibleArea);
-    if (mSpeedLimitControllerListener != null)
-      mSpeedLimitControllerListener.accept(mPresentation.getSpeedLimitController());
+    mPresentation.setCurrentSpeed(mCurrentSpeed, mSpeedUnits);
+    mPresentation.setSpeedLimit(mSpeedLimit);
+    mPresentation.setAlertForced(mAlertForced);
   }
 
   private void clearPresentation()

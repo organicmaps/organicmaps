@@ -20480,7 +20480,7 @@ zh-Hant = 目前位置未知。
 
 [kilometers_per_hour]
 comment = abbreviation for kilometers per hour
-tags = android-app,android-libs-car,apple-maps,qt
+tags = android-app,apple-maps,qt
 en = km/h
 af = km/h
 ar = كم/ساعة
@@ -20536,7 +20536,7 @@ zh-Hans = 公里每小时
 zh-Hant = 公里每小時
 
 [miles_per_hour]
-tags = android-app,android-libs-car,apple-maps,qt
+tags = android-app,apple-maps,qt
 en = mph
 af = mph
 ar = ميل/ساعة

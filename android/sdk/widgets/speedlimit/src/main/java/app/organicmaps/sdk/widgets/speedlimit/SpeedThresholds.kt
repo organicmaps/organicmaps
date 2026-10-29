@@ -4,6 +4,9 @@ package app.organicmaps.sdk.widgets.speedlimit
  * How much the speed limit may be exceeded, in the units of the shown speed, before the widget
  * switches to [Mode.Warning] and then to [Mode.Alert].
  *
+ * Entry requires an excess strictly greater than the threshold. An active mode clears when the
+ * excess is at or below its threshold minus hysteresis.
+ *
  * @param warning excess above which [Mode.Warning] starts.
  * @param alert excess above which [Mode.Alert] starts, must not be less than [warning].
  * @param warningHysteresis amount below [warning] at which an active warning clears.
@@ -43,6 +46,10 @@ data class SpeedThresholds @JvmOverloads constructor(
     }
 
     companion object {
+        /**
+         * Warns at more than 5 and alerts at more than 10 units above the limit.
+         * For a limit of 50, entry speeds are 56 and 61; alert resets at 57, warning at 53.
+         */
         @JvmField
         val DEFAULT = SpeedThresholds(warning = 5, alert = 10, warningHysteresis = 2, alertHysteresis = 3)
     }

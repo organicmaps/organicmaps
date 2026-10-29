@@ -30,6 +30,9 @@ constructor(
     /** Text of the value, cached to avoid allocating a string on every frame. */
     protected var valueText: String = MIN_VALUE.toString()
 
+    /** External samples outside the drawing range are unavailable, not capped to a misleading value. */
+    protected fun formatValue(value: Int): String = if (value in MIN_VALUE..MAX_VALUE) value.toString() else "–"
+
     /** Units drawn below the value, null when the sign shows the value only. */
     protected open val unitsText: String? get() = null
 
@@ -67,10 +70,6 @@ constructor(
     private var styledCornerRadiusRatio: Float? = null
 
     init {
-        // The widget is placed on top of the map, so it must consume touches instead of letting
-        // them through to the map below. Clicks are reported via setOnClickListener() as usual.
-        isClickable = true
-
         val attributes = context.theme.obtainStyledAttributes(
             attrs,
             R.styleable.OmWidgetSignView,
@@ -111,11 +110,6 @@ constructor(
                 attributes.getResourceId(R.styleable.OmWidgetSignView_om_widget_square_palette, 0),
                 SignColors.DEFAULT,
             )
-            if (isInEditMode) {
-                valueText = attributes.getInt(R.styleable.OmWidgetSignView_om_widget_value, MIN_VALUE)
-                    .coerceIn(MIN_VALUE, MAX_VALUE)
-                    .toString()
-            }
         } finally {
             attributes.recycle()
         }
@@ -148,7 +142,6 @@ constructor(
     /** Tests the visible sign shape in this view's local coordinates. */
     internal fun containsPoint(x: Float, y: Float): Boolean = shapeDrawer.contains(x, y)
 
-    // Clicks are detected and reported by View.onTouchEvent(), which is called below.
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         // Touches outside of the sign, e.g. in the corners of a circle one, are not consumed
@@ -156,7 +149,11 @@ constructor(
         if (event.actionMasked == MotionEvent.ACTION_DOWN && !containsPoint(event.x, event.y)) {
             return false
         }
-        return super.onTouchEvent(event)
+        if (isClickable || isLongClickable) {
+            super.onTouchEvent(event)
+        }
+        // Block map gestures without exposing a click action on a display-only sign.
+        return true
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

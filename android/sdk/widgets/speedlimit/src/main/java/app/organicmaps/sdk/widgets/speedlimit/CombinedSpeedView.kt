@@ -92,7 +92,6 @@ constructor(
 
     init {
         setWillNotDraw(false)
-        isClickable = true
 
         // Read twice: the styles set on this very view must win over the ones from the theme,
         // while the ones coming from a default style must not, see signStyle().
@@ -153,13 +152,12 @@ constructor(
                     currentSpeedPosition.ordinal,
                 ),
             ]
-            val speedLimit = if (isInEditMode) {
-                attributes.getInt(R.styleable.OmWidgetCombinedSpeedView_om_widget_value, UNKNOWN_VALUE)
-                    .takeIf { it != UNKNOWN_VALUE }
+            if (isInEditMode) {
+                currentSpeedView.speed = 60
+                setSpeedLimit(90)
             } else {
-                null
+                setSpeedLimit(null)
             }
-            setSpeedLimit(speedLimit)
         } finally {
             attributes.recycle()
             ownAttributes.recycle()
@@ -212,12 +210,18 @@ constructor(
         canvas.drawRect(connectorBounds, fillPaint)
     }
 
+    // The composite owns gestures, even though its child signs also consume touches on their own.
+    override fun onInterceptTouchEvent(event: MotionEvent): Boolean = true
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         if (event.actionMasked == MotionEvent.ACTION_DOWN && !containsPoint(event.x, event.y)) {
             return false
         }
-        return super.onTouchEvent(event)
+        if (isClickable || isLongClickable) {
+            super.onTouchEvent(event)
+        }
+        return true
     }
 
     private fun containsPoint(x: Float, y: Float): Boolean {
@@ -331,9 +335,6 @@ constructor(
     private companion object {
         /** Not limited by the parent, see [MeasureSpec.UNSPECIFIED]. */
         const val UNBOUNDED = Int.MAX_VALUE
-
-        /** The preview speed limit is hidden when it is not set in the attributes. */
-        const val UNKNOWN_VALUE = -1
 
         /** No style is set, so the next one in the resolution order is used. */
         const val NO_STYLE = 0

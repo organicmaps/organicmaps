@@ -14,6 +14,18 @@ constructor(
     private val view: CombinedSpeedView,
     thresholds: SpeedThresholds = SpeedThresholds.DEFAULT,
 ) {
+    private var speedMode: Mode = Mode.Normal
+
+    /** Forces alert colors, e.g. for an exceeded speed-camera limit, without changing speed hysteresis. */
+    var isAlertForced: Boolean = false
+        set(value) {
+            if (field == value) {
+                return
+            }
+            field = value
+            updateMode()
+        }
+
     /** How much the speed limit may be exceeded before warning and alerting about it. */
     var thresholds: SpeedThresholds = thresholds
         set(value) {
@@ -56,7 +68,11 @@ constructor(
     var units: String
         get() = view.units
         set(value) {
+            if (view.units == value) {
+                return
+            }
             view.units = value
+            updateMode(Mode.Normal)
         }
 
     /** Shape of the speed-limit sign; the current speed is always square. */
@@ -86,8 +102,9 @@ constructor(
     }
 
     // The mode warns about exceeding the limit that is shown, so a hidden one is not compared.
-    private fun updateMode(previousMode: Mode = view.mode) {
-        view.mode = thresholds.modeFor(speed, shownSpeedLimit(), previousMode)
+    private fun updateMode(previousMode: Mode = speedMode) {
+        speedMode = thresholds.modeFor(speed, shownSpeedLimit(), previousMode)
+        view.mode = if (isAlertForced) Mode.Alert else speedMode
     }
 
     private fun shownSpeedLimit(): Int? = speedLimit.takeIf { isSpeedLimitVisible }

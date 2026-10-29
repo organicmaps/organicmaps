@@ -22,8 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="4dp"
-        app:om_widget_current_speed_position="bottom"
-        app:om_widget_value="50" />
+        app:om_widget_current_speed_position="bottom" />
   </FrameLayout>
 
 </FrameLayout>

@@ -1,7 +1,6 @@
 package app.organicmaps.sdk.widgets.speedlimit
 
 import android.content.Context
-import android.graphics.Typeface
 import android.util.AttributeSet
 import androidx.annotation.AttrRes
 import androidx.annotation.StyleRes
@@ -21,17 +20,14 @@ constructor(
     @AttrRes defStyleAttr: Int = R.attr.om_widget_current_speed_view_style,
     @StyleRes defStyleRes: Int = R.style.OmWidget_CurrentSpeedView_Combined,
 ) : SignView(context, attrs, defStyleAttr, defStyleRes, fixedShape = Shape.Square) {
-    /** Current speed to display, must be in [[MIN_VALUE], [MAX_VALUE]]. */
+    /** Current speed; values outside [[MIN_VALUE], [MAX_VALUE]] are displayed as unavailable (–). */
     var speed: Int = valueText.toInt()
         set(value) {
-            require(value in MIN_VALUE..MAX_VALUE) {
-                "Speed must be in [$MIN_VALUE, $MAX_VALUE], but was $value"
-            }
             if (field == value) {
                 return
             }
             field = value
-            valueText = value.toString()
+            valueText = formatValue(value)
             invalidate()
         }
 
@@ -50,6 +46,9 @@ constructor(
     override val unitsText: String get() = units
 
     init {
+        if (isInEditMode) {
+            speed = 60
+        }
         val attributes = context.theme.obtainStyledAttributes(
             attrs,
             R.styleable.OmWidgetCurrentSpeedView,

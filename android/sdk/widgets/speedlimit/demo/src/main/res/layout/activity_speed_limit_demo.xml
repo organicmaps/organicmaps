@@ -84,7 +84,6 @@
           android:layout_width="wrap_content"
           android:layout_height="88dp"
           android:layout_marginTop="8dp"
-          app:om_widget_value="60"
           app:om_widget_shape="circle" />
 
       <app.organicmaps.sdk.widgets.speedlimit.CombinedSpeedView
@@ -92,7 +91,6 @@
           android:layout_width="wrap_content"
           android:layout_height="88dp"
           android:layout_marginTop="8dp"
-          app:om_widget_value="60"
           app:om_widget_shape="square" />
 
       <!-- The speed limit of the combined views is hidden and shown by the controller. -->
@@ -106,20 +104,17 @@
             android:id="@+id/show_speed_limit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="?android:attr/buttonBarButtonStyle"
             android:text="@string/show_speed_limit" />
 
         <Button
             android:id="@+id/hide_speed_limit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_marginStart="8dp"
             android:text="@string/hide_speed_limit" />
       </LinearLayout>
     </LinearLayout>
   </LinearLayout>
 </ScrollView>
-
-
-
-
-

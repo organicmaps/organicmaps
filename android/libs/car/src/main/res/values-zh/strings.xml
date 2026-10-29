@@ -73,9 +73,6 @@
     <string name="opens_in">将于 %s 后营业</string>
     <string name="closes_in">将于 %s 后不营业</string>
     <string name="closed">已停止营业</string>
-    <!-- abbreviation for kilometers per hour -->
-    <string name="kilometers_per_hour">公里每小时</string>
-    <string name="miles_per_hour">英里每小时</string>
     <string name="minute">分钟</string>
     <string name="big_font">增大地图上的字体大小</string>
     <string name="transliteration_title">拉丁字母音译</string>

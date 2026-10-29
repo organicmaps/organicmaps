@@ -9,7 +9,6 @@ import android.graphics.Typeface
 import androidx.annotation.ColorInt
 import kotlin.math.hypot
 import kotlin.math.max
-import kotlin.math.sqrt
 
 /**
  * Draws a numeric value with optional units inside a sign shape.
@@ -18,8 +17,8 @@ import kotlin.math.sqrt
  * so the text does not jump when the value changes:
  * - without units the value is centered and fitted per digit count, so 2-digit values, which are
  *   wider when scaled to the same height, are not needlessly small;
- * - with units all values share the size and baseline fitted for the widest, 3-digit value above
- *   the bottom-aligned units.
+ * - with units the sign is square, and all values share the size and baseline fitted for the
+ *   widest, 3-digit value above the bottom-aligned units.
  */
 internal class SignTextDrawer {
     private val valuePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -56,7 +55,7 @@ internal class SignTextDrawer {
     /**
      * Recalculates the text sizes and baselines.
      *
-     * @param shape shape of the sign, defines how the text is fitted.
+     * @param shape shape of a value-only sign; signs with units are always square.
      * @param shapeRect bounds of the shape outline, used to center the text.
      * @param innerSize size of the square/circle area bounded by the inner edge of the outline.
      * @param units units drawn below the value, no units row is drawn when it is null or empty.
@@ -69,7 +68,7 @@ internal class SignTextDrawer {
         if (unitsText == null) {
             updateValueOnly(shape, shapeRect, innerSize)
         } else {
-            updateValueWithUnits(shape, shapeRect, innerSize, unitsText)
+            updateValueWithUnits(shapeRect, innerSize, unitsText)
         }
     }
 
@@ -95,7 +94,7 @@ internal class SignTextDrawer {
         longValueBaselineY = centeredBaselineY(longValueTextSize, shapeRect)
     }
 
-    private fun updateValueWithUnits(shape: Shape, shapeRect: RectF, innerSize: Float, units: String) {
+    private fun updateValueWithUnits(shapeRect: RectF, innerSize: Float, units: String) {
         // Measure the two rows at the reference size, their ratio does not depend on the scale.
         valuePaint.textSize = REFERENCE_TEXT_SIZE
         valuePaint.getTextBounds(LONG_REFERENCE_VALUE, 0, LONG_REFERENCE_VALUE.length, textBounds)
@@ -110,7 +109,7 @@ internal class SignTextDrawer {
         val rowsGap = REFERENCE_TEXT_SIZE * ROWS_GAP_RATIO
         val blockWidth = max(valueWidth, unitsWidth)
         val blockHeight = valueHeight + rowsGap + unitsHeight
-        val scale = fitScale(shape, innerSize, blockWidth, blockHeight)
+        val scale = fitScale(Shape.Square, innerSize, blockWidth, blockHeight)
 
         unitsTextSize = REFERENCE_TEXT_SIZE * scale * UNITS_TEXT_SIZE_RATIO
 
@@ -118,55 +117,33 @@ internal class SignTextDrawer {
         unitsPaint.getTextBounds(units, 0, units.length, textBounds)
         val scaledUnitsTop = textBounds.top.toFloat()
         val scaledUnitsBottom = textBounds.bottom.toFloat()
-        val unitsHalfWidth = textBounds.width() * 0.5f
 
         val scaledGap = rowsGap * scale
 
-        // The bottom corners of the units must stay inside the circle, not just the baseline center.
         val halfSize = innerSize * TEXT_FILL_RATIO * 0.5f
-        val bottomOffset = when (shape) {
-            Shape.Circle -> sqrt((halfSize * halfSize - unitsHalfWidth * unitsHalfWidth).coerceAtLeast(0f))
-            Shape.Square -> halfSize
-        }
-        unitsBaselineY = shapeRect.centerY() + bottomOffset - scaledUnitsBottom
-        updateValueAboveUnits(shape, shapeRect, innerSize, unitsBaselineY + scaledUnitsTop - scaledGap)
+        unitsBaselineY = shapeRect.centerY() + halfSize - scaledUnitsBottom
+        updateValueAboveUnits(shapeRect, innerSize, unitsBaselineY + scaledUnitsTop - scaledGap)
     }
 
-    private fun updateValueAboveUnits(shape: Shape, shapeRect: RectF, innerSize: Float, bottom: Float) {
+    private fun updateValueAboveUnits(shapeRect: RectF, innerSize: Float, bottom: Float) {
         valuePaint.textSize = REFERENCE_TEXT_SIZE
         valuePaint.getTextBounds(LONG_REFERENCE_VALUE, 0, LONG_REFERENCE_VALUE.length, textBounds)
         val width = textBounds.width().toFloat()
         val height = textBounds.height().toFloat()
         val halfSize = innerSize * TEXT_FILL_RATIO * 0.5f
         val bottomOffset = bottom - shapeRect.centerY()
-        var scale = fitScale(shape, innerSize, width, height)
+        var scale = fitScale(Shape.Square, innerSize, width, height)
 
         if (height * scale * 0.5f > bottomOffset) {
-            scale = when (shape) {
-                Shape.Circle -> {
-                    // With the value's bottom fixed, its top corners constrain the largest scale:
-                    // (scale * width / 2)^2 + (bottomOffset - scale * height)^2 = halfSize^2.
-                    val halfWidthSquared = width * width * 0.25f
-                    val a = halfWidthSquared + height * height
-                    val discriminant = a * halfSize * halfSize - bottomOffset * bottomOffset * halfWidthSquared
-                    (bottomOffset * height + sqrt(discriminant.coerceAtLeast(0f))) / a
-                }
-
-                Shape.Square -> (bottomOffset + halfSize) / height
-            }.coerceAtMost(scale)
+            scale = ((bottomOffset + halfSize) / height).coerceAtMost(scale)
         }
 
         longValueTextSize = REFERENCE_TEXT_SIZE * scale
         shortValueTextSize = longValueTextSize
         valuePaint.textSize = longValueTextSize
         valuePaint.getTextBounds(LONG_REFERENCE_VALUE, 0, LONG_REFERENCE_VALUE.length, textBounds)
-        val halfWidth = textBounds.width() * 0.5f
-        val verticalExtent = when (shape) {
-            Shape.Circle -> sqrt((halfSize * halfSize - halfWidth * halfWidth).coerceAtLeast(0f))
-            Shape.Square -> halfSize
-        }
-        val availableTop = shapeRect.centerY() - verticalExtent
-        val availableBottom = (shapeRect.centerY() + verticalExtent).coerceAtMost(bottom)
+        val availableTop = shapeRect.centerY() - halfSize
+        val availableBottom = (shapeRect.centerY() + halfSize).coerceAtMost(bottom)
         // Center the ink in the space above the units, not against its bottom edge.
         longValueBaselineY = (availableTop + availableBottom - textBounds.top - textBounds.bottom) * 0.5f
         shortValueBaselineY = longValueBaselineY

@@ -73,9 +73,6 @@
     <string name="opens_in">Адчыняецца праз %s</string>
     <string name="closes_in">Зачыняецца праз %s</string>
     <string name="closed">Закрыта</string>
-    <!-- abbreviation for kilometers per hour -->
-    <string name="kilometers_per_hour">км/г</string>
-    <string name="miles_per_hour">міль/г</string>
     <string name="minute">хв</string>
     <string name="big_font">Павялічыць шрыфт мапы</string>
     <string name="transliteration_title">Транслітарацыя лацінкай</string>

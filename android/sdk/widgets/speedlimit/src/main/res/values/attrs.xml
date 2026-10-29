@@ -48,8 +48,6 @@
     <attr name="om_widget_outline_width_ratio" format="float" />
     <!-- Corner radius as a fraction of the sign size, 0.5 makes a circle. Defaults to the shape. -->
     <attr name="om_widget_corner_radius_ratio" format="float" />
-    <!-- Preview value only for standalone signs; set runtime values from code. -->
-    <attr name="om_widget_value" format="integer" />
   </declare-styleable>
 
   <declare-styleable name="OmWidgetCurrentSpeedView">
@@ -71,8 +69,6 @@
     <attr name="om_widget_background_palette" format="reference" />
     <!-- Fallback for background colors missing from the palette. -->
     <attr name="om_widget_background_color" />
-    <!-- Preview speed limit; omitted means hidden. Set runtime values from code. -->
-    <attr name="om_widget_value" />
     <!--
       Styles applied to the nested signs. When not set, the signs are styled by the
       corresponding theme attributes, exactly as the standalone ones.

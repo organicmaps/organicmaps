@@ -4,6 +4,7 @@ import android.location.Location;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.car.app.CarContext;
 import androidx.car.app.CarToast;
 import androidx.car.app.model.Action;
@@ -38,7 +39,6 @@ import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.sound.TtsPlayer;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.log.Logger;
-import app.organicmaps.sdk.widgets.speedlimit.CombinedSpeedViewController;
 import java.util.List;
 import java.util.Objects;
 
@@ -316,13 +316,16 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
 
   private void updateSpeedLimit(@Nullable RoutingInfo info)
   {
-    final CombinedSpeedViewController controller = getSurfaceRenderer().getSpeedLimitController();
-    if (controller == null)
-      return;
-    controller.setSpeedLimit(mRoutingController.isNavigating() && info != null && info.speedLimitMps > 0
-                                 ? StringUtils.nativeFormatSpeed(info.speedLimitMps)
-                                 : null);
-    controller.showSpeedLimit();
+    updateSpeedLimit(getSurfaceRenderer(), mRoutingController.isNavigating(), info);
+  }
+
+  @VisibleForTesting
+  static void updateSpeedLimit(@NonNull Renderer renderer, boolean navigating, @Nullable RoutingInfo info)
+  {
+    renderer.setSpeedLimit(navigating && info != null && info.speedLimitMps > 0
+                               ? StringUtils.nativeFormatSpeed(info.speedLimitMps)
+                               : null);
+    renderer.setAlertForced(navigating && info != null && info.isSpeedCamLimitExceeded());
   }
 
   /**

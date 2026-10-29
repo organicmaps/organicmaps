@@ -112,7 +112,6 @@
     android:layout_width="wrap_content"
     android:layout_height="68dp"
     android:layout_margin="@dimen/margin_half"
-    tools:om_widget_value="60"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintTop_toBottomOf="@id/street_frame" />
 </androidx.constraintlayout.widget.ConstraintLayout>

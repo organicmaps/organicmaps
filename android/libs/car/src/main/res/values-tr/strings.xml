@@ -73,9 +73,6 @@
     <string name="opens_in">%s sonra açılıyor</string>
     <string name="closes_in">%s sonra kapanıyor</string>
     <string name="closed">Kapalı</string>
-    <!-- abbreviation for kilometers per hour -->
-    <string name="kilometers_per_hour">km/sa</string>
-    <string name="miles_per_hour">saatte mil</string>
     <string name="minute">dk</string>
     <string name="big_font">Haritadaki yazı tipi boyutunu artır</string>
     <string name="transliteration_title">Latin alfabesine çevir</string>

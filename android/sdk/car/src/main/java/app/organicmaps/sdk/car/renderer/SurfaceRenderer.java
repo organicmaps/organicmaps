@@ -3,11 +3,9 @@ package app.organicmaps.sdk.car.renderer;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.car.app.CarContext;
-import androidx.core.util.Consumer;
 import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.sdk.display.DisplayManager;
 import app.organicmaps.sdk.location.LocationHelper;
-import app.organicmaps.sdk.widgets.speedlimit.CombinedSpeedViewController;
 
 final class SurfaceRenderer extends RendererImpl
 {
@@ -46,15 +44,20 @@ final class SurfaceRenderer extends RendererImpl
   }
 
   @Override
-  @Nullable
-  public CombinedSpeedViewController getSpeedLimitController()
+  public void setCurrentSpeed(int speed, @NonNull String units)
   {
-    return mSurfaceCallback.getSpeedLimitController();
+    mSurfaceCallback.setCurrentSpeed(speed, units);
   }
 
   @Override
-  public void setSpeedLimitControllerListener(@Nullable Consumer<CombinedSpeedViewController> listener)
+  public void setSpeedLimit(@Nullable Integer speedLimit)
   {
-    mSurfaceCallback.setSpeedLimitControllerListener(listener);
+    mSurfaceCallback.setSpeedLimit(speedLimit);
+  }
+
+  @Override
+  public void setAlertForced(boolean alertForced)
+  {
+    mSurfaceCallback.setAlertForced(alertForced);
   }
 }

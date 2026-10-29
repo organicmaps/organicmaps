@@ -17,6 +17,8 @@ import app.organicmaps.R;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.sound.TtsPlayer;
 import app.organicmaps.sdk.util.StringUtils;
+import app.organicmaps.sdk.widgets.speedlimit.Mode;
+import app.organicmaps.sdk.widgets.speedlimit.SpeedThresholds;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
@@ -49,6 +51,8 @@ public class NavMenu implements DefaultLifecycleObserver
   private final Runnable mTtsStateListener = this::refreshTts;
 
   private int currentPeekHeight = 0;
+  private Mode mSpeedMode = Mode.Normal;
+  private int mSpeedLimit = 0;
 
   public interface OnMenuSizeChangedListener
   {
@@ -236,21 +240,37 @@ public class NavMenu implements DefaultLifecycleObserver
     if (last == null)
       return;
 
-    Pair<String, String> speedAndUnits = StringUtils.nativeFormatSpeedAndUnits(last.getSpeed());
+    final double speedMps = last.hasSpeed() ? last.getSpeed() : 0;
+    final Pair<String, String> speedAndUnits = StringUtils.nativeFormatSpeedAndUnits(speedMps);
     mSpeedValue.setText(speedAndUnits.first);
 
-    if (info.speedLimitMps > 0.0 && last.getSpeed() > info.speedLimitMps)
+    final int speed = StringUtils.nativeFormatSpeed(speedMps);
+    final int speedLimit = info.speedLimitMps > 0 ? StringUtils.nativeFormatSpeed(info.speedLimitMps) : 0;
+    if (mSpeedLimit != speedLimit || !speedAndUnits.second.contentEquals(mSpeedUnits.getText()))
+      mSpeedMode = Mode.Normal;
+    mSpeedLimit = speedLimit;
+    mSpeedMode = SpeedThresholds.DEFAULT.modeFor(speed, speedLimit, mSpeedMode);
+
+    switch (info.isSpeedCamLimitExceeded() ? Mode.Alert : mSpeedMode)
     {
-      if (info.isSpeedCamLimitExceeded())
-        mSpeedValue.setTextColor(ContextCompat.getColor(mActivity, R.color.white_primary));
-      else
-        mSpeedValue.setTextColor(ContextCompat.getColor(mActivity, R.color.base_red));
-    }
-    else
+    case Normal ->
+    {
+      mSpeedViewContainer.setActivated(false);
       mSpeedValue.setTextColor(ThemeUtils.getColor(mActivity, android.R.attr.textColorPrimary));
+    }
+    case Warning ->
+    {
+      mSpeedViewContainer.setActivated(false);
+      mSpeedValue.setTextColor(ContextCompat.getColor(mActivity, R.color.base_yellow));
+    }
+    case Alert ->
+    {
+      mSpeedViewContainer.setActivated(true);
+      mSpeedValue.setTextColor(ContextCompat.getColor(mActivity, R.color.white_primary));
+    }
+    }
 
     mSpeedUnits.setText(speedAndUnits.second);
-    mSpeedViewContainer.setActivated(info.isSpeedCamLimitExceeded());
   }
 
   public void update(@NonNull RoutingInfo info)

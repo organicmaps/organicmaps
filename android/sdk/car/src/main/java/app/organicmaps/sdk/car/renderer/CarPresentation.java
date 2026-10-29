@@ -17,6 +17,7 @@ import app.organicmaps.sdk.MapView;
 import app.organicmaps.sdk.car.R;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.widgets.speedlimit.CombinedSpeedViewController;
+import app.organicmaps.sdk.widgets.speedlimit.Shape;
 
 final class CarPresentation extends Presentation
 {
@@ -62,8 +63,8 @@ final class CarPresentation extends Presentation
 
     final MapView mapView = findViewById(R.id.map_view);
     mSpeedLimitController = new CombinedSpeedViewController(findViewById(R.id.speed_limit_view));
-    mSpeedLimitController.setSpeed(0);
-    mSpeedLimitController.hideSpeedLimit();
+    // TODO: add support for MUTCD switch
+    mSpeedLimitController.setShape(Shape.Circle);
     mVisibleAreaContainer = findViewById(R.id.visible_area_container);
     applyVisibleArea();
 
@@ -107,10 +108,20 @@ final class CarPresentation extends Presentation
     dismiss();
   }
 
-  @NonNull
-  CombinedSpeedViewController getSpeedLimitController()
+  void setCurrentSpeed(int speed, @NonNull String units)
   {
-    return mSpeedLimitController;
+    mSpeedLimitController.setUnits(units);
+    mSpeedLimitController.setSpeed(speed);
+  }
+
+  void setSpeedLimit(@Nullable Integer speedLimit)
+  {
+    mSpeedLimitController.setSpeedLimit(speedLimit);
+  }
+
+  void setAlertForced(boolean alertForced)
+  {
+    mSpeedLimitController.setAlertForced(alertForced);
   }
 
   void setVisibleArea(@NonNull Rect visibleArea)

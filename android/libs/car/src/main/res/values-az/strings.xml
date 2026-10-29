@@ -73,9 +73,6 @@
     <string name="opens_in">%s sonra açılır</string>
     <string name="closes_in">%s sonra bağlanır</string>
     <string name="closed">Bağlı</string>
-    <!-- abbreviation for kilometers per hour -->
-    <string name="kilometers_per_hour">km/saat</string>
-    <string name="miles_per_hour">mil/saat</string>
     <string name="minute">dəq</string>
     <string name="big_font">Xəritədə şrift ölçüsünü artırın</string>
     <string name="transliteration_title">Latın transliterasiyası</string>

@@ -39,9 +39,6 @@
     <string name="twentyfour_seven">24/7</string>
     <string name="midnight">Medianueche</string>
     <string name="noon">Mediudía</string>
-    <!-- abbreviation for kilometers per hour -->
-    <string name="kilometers_per_hour">km/h</string>
-    <string name="miles_per_hour">mph</string>
     <string name="minute">min</string>
     <string name="driving_options_title">Opciones d’encaminamientu</string>
     <string name="trip_finished">Aportesti.</string>

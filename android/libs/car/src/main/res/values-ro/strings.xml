@@ -73,9 +73,6 @@
     <string name="opens_in">Deschide în %s</string>
     <string name="closes_in">Închide în %s</string>
     <string name="closed">Închis</string>
-    <!-- abbreviation for kilometers per hour -->
-    <string name="kilometers_per_hour">km/h</string>
-    <string name="miles_per_hour">mph</string>
     <string name="minute">min</string>
     <string name="big_font">Mărește dimensiunea literelor pe hartă</string>
     <string name="transliteration_title">Transcrie în alfabet latin</string>

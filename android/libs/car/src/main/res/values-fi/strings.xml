@@ -73,9 +73,6 @@
     <string name="opens_in">Avautuu %s kuluttua</string>
     <string name="closes_in">Sulkeutuu %s kuluttua</string>
     <string name="closed">Suljettu</string>
-    <!-- abbreviation for kilometers per hour -->
-    <string name="kilometers_per_hour">km/h</string>
-    <string name="miles_per_hour">mph</string>
     <string name="minute">min</string>
     <string name="big_font">Suurenna fonttikokoa kartalla</string>
     <string name="transliteration_title">Translitterointi latinalaisiksi aakkosiksi</string>

@@ -5,7 +5,6 @@
   <public type="attr" name="om_widget_combined_speed_view_style" />
   <public type="attr" name="om_widget_shape" />
   <public type="attr" name="om_widget_mode" />
-  <public type="attr" name="om_widget_value" />
   <public type="attr" name="om_widget_units" />
   <public type="attr" name="om_widget_outline_width_ratio" />
   <public type="attr" name="om_widget_corner_radius_ratio" />

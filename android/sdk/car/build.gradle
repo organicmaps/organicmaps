@@ -13,7 +13,7 @@ android {
 dependencies {
   api project(':sdk')
   implementation project(':sdk:widgets:lanes')
-  api project(':sdk:widgets:speedlimit')
+  implementation project(':sdk:widgets:speedlimit')
   api libs.androidx.car.app
 
   testImplementation libs.androidx.junit

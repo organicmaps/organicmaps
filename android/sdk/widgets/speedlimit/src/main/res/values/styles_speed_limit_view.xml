@@ -58,6 +58,5 @@
     <item name="om_widget_square_palette">@style/OmWidget.SpeedLimit.Palette.Square</item>
     <item name="om_widget_frame_width_ratio">0.04</item>
     <item name="om_widget_outline_width_ratio">0.04</item>
-    <item name="om_widget_value">60</item>
   </style>
 </resources>

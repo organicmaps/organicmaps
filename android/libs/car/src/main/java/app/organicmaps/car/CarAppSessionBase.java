@@ -31,12 +31,9 @@ import app.organicmaps.sdk.location.LocationListener;
 import app.organicmaps.sdk.location.LocationState;
 import app.organicmaps.sdk.location.LocationUtils;
 import app.organicmaps.sdk.routing.RoutingController;
-import app.organicmaps.sdk.settings.UnitLocale;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.widget.placepage.PlacePageData;
-import app.organicmaps.sdk.widgets.speedlimit.CombinedSpeedViewController;
-import app.organicmaps.sdk.widgets.speedlimit.Shape;
 
 public abstract class CarAppSessionBase
     extends Session implements DefaultLifecycleObserver, LocationState.ModeChangeListener, PlacePageActivationListener
@@ -124,7 +121,7 @@ public abstract class CarAppSessionBase
   public void onStart(@NonNull LifecycleOwner owner)
   {
     Logger.d(TAG);
-    mSurfaceRenderer.setSpeedLimitControllerListener(this::configureSpeedView);
+    updateCurrentSpeed(mOrganicMapsContext.getLocationHelper().getSavedLocation());
     mOrganicMapsContext.getLocationHelper().addListener(mSpeedLocationListener);
     if (mDisplayManager.isCarDisplayUsed())
     {
@@ -150,7 +147,6 @@ public abstract class CarAppSessionBase
     Logger.d(TAG);
 
     mOrganicMapsContext.getLocationHelper().removeListener(mSpeedLocationListener);
-    mSurfaceRenderer.setSpeedLimitControllerListener(null);
 
     mSensorsManager.onStop();
 
@@ -166,23 +162,11 @@ public abstract class CarAppSessionBase
   @NonNull
   protected abstract Screen prepareScreens();
 
-  private void configureSpeedView(@NonNull CombinedSpeedViewController controller)
-  {
-    // TODO: add support for MUTCD switch
-    controller.setShape(Shape.Circle);
-    updateCurrentSpeed(mOrganicMapsContext.getLocationHelper().getSavedLocation());
-  }
-
   private void updateCurrentSpeed(@Nullable Location location)
   {
-    final CombinedSpeedViewController controller = mSurfaceRenderer.getSpeedLimitController();
-    if (controller != null)
-    {
-      final boolean imperial = UnitLocale.getUnits() == UnitLocale.UNITS_FOOT;
-      controller.setUnits(getCarContext().getString(imperial ? R.string.miles_per_hour : R.string.kilometers_per_hour));
-      controller.setSpeed(
-          StringUtils.nativeFormatSpeed(location != null && location.hasSpeed() ? location.getSpeed() : 0));
-    }
+    mSurfaceRenderer.setCurrentSpeed(
+        StringUtils.nativeFormatSpeed(location != null && location.hasSpeed() ? location.getSpeed() : 0),
+        StringUtils.nativeGetLocalizedSpeedUnits());
   }
 
   @Override

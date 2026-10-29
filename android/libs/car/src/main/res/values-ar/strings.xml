@@ -73,9 +73,6 @@
     <string name="opens_in">يفتح بعد %s</string>
     <string name="closes_in">يغلق في غضون %s</string>
     <string name="closed">مغلق</string>
-    <!-- abbreviation for kilometers per hour -->
-    <string name="kilometers_per_hour">كم/ساعة</string>
-    <string name="miles_per_hour">ميل/ساعة</string>
     <string name="minute">د</string>
     <string name="big_font">زيادة حجم الخط على الخريطة</string>
     <string name="transliteration_title">ترجمة حرفية إلى الأبجدية اللاتينية</string>
