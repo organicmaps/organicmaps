@@ -1,6 +1,7 @@
 package app.organicmaps.wear
 
 import android.app.Activity
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
@@ -28,6 +29,17 @@ import com.google.android.gms.wearable.Node
 import com.google.android.gms.wearable.PutDataRequest
 import com.google.android.gms.wearable.Wearable
 
+/**
+ * Wear Data Layer clients used by an Activity. The provider is instance-scoped so lifecycle
+ * tests can supply clients without process-global or thread-local Play services mocks.
+ */
+internal class WearClients(
+    val dataClient: DataClient,
+    val messageClient: MessageClient,
+    val capabilityClient: CapabilityClient,
+    val capabilityOwner: ActiveWearUiCapabilityOwner,
+)
+
 class MainActivity :
     Activity(),
     DataClient.OnDataChangedListener,
@@ -44,6 +56,16 @@ class MainActivity :
     private lateinit var capabilityClient: CapabilityClient
     private lateinit var activeCapabilityOwner: ActiveWearUiCapabilityOwner
 
+    // Defaults to real Play services; tests configure the instance before onCreate().
+    internal var wearClientsFactory: (Context) -> WearClients = { context ->
+        WearClients(
+            dataClient = Wearable.getDataClient(context),
+            messageClient = Wearable.getMessageClient(context),
+            capabilityClient = Wearable.getCapabilityClient(context),
+            capabilityOwner = ActiveWearUiCapabilityRegistry.get(context.applicationContext),
+        )
+    }
+
     private val uiState = WearNavigationUiState()
     private val staleDetailsRunnable = Runnable {
         if (uiState.expireDetails()) renderNavigationDetails(null)
@@ -55,10 +77,11 @@ class MainActivity :
 
         setupViews()
 
-        dataClient = Wearable.getDataClient(this)
-        messageClient = Wearable.getMessageClient(this)
-        capabilityClient = Wearable.getCapabilityClient(this)
-        activeCapabilityOwner = ActiveWearUiCapabilityRegistry.get(applicationContext)
+        val clients = wearClientsFactory(this)
+        dataClient = clients.dataClient
+        messageClient = clients.messageClient
+        capabilityClient = clients.capabilityClient
+        activeCapabilityOwner = clients.capabilityOwner
     }
 
     private fun setupViews() {
