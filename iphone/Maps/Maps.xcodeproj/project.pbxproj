@@ -692,6 +692,7 @@
 		A13811000000000000000002 /* TransportTransitWrappingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13811000000000000000001 /* TransportTransitWrappingTests.swift */; };
 		A13812000000000000000002 /* TransportTransitRTLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13812000000000000000001 /* TransportTransitRTLTests.swift */; };
 		A13813000000000000000002 /* TransportRulerAppearanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13813000000000000000001 /* TransportRulerAppearanceTests.swift */; };
+		AF1492000000000000000012 /* libtess2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AF1492000000000000000011 /* libtess2.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1869,6 +1870,7 @@
 		A13811000000000000000001 /* TransportTransitWrappingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportTransitWrappingTests.swift; sourceTree = "<group>"; };
 		A13812000000000000000001 /* TransportTransitRTLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportTransitRTLTests.swift; sourceTree = "<group>"; };
 		A13813000000000000000001 /* TransportRulerAppearanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportRulerAppearanceTests.swift; sourceTree = "<group>"; };
+		AF1492000000000000000011 /* libtess2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtess2.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1895,6 +1897,7 @@
 				FA853BA926BC3B8A0026D455 /* libbase.a in Frameworks */,
 				FA853BAB26BC3B8A0026D455 /* libcoding.a in Frameworks */,
 				FA853BAD26BC3B8A0026D455 /* libdrape.a in Frameworks */,
+				AF1492000000000000000012 /* libtess2.a in Frameworks */,
 				FA853BAF26BC3B8A0026D455 /* libdrape_frontend.a in Frameworks */,
 				FA853BB126BC3B8A0026D455 /* libeditor.a in Frameworks */,
 				FA853BB326BC3B8A0026D455 /* libgeometry.a in Frameworks */,
@@ -1988,6 +1991,7 @@
 				FA853BA826BC3B8A0026D455 /* libbase.a */,
 				FA853BAA26BC3B8A0026D455 /* libcoding.a */,
 				FA853BAC26BC3B8A0026D455 /* libdrape.a */,
+				AF1492000000000000000011 /* libtess2.a */,
 				FA853BAE26BC3B8A0026D455 /* libdrape_frontend.a */,
 				FA853BB026BC3B8A0026D455 /* libeditor.a */,
 				FA853BB226BC3B8A0026D455 /* libgeometry.a */,
