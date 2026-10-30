@@ -181,7 +181,7 @@ void Screenshoter::ProcessNextKml()
 
     ChangeState(State::LoadKml);
     kmlData = LoadKmlFile(filePath, FileType::Kml);
-    if (kmlData != nullptr && kmlData->m_bookmarksData.empty() && kmlData->m_tracksData.empty())
+    if (kmlData != nullptr && !kmlData->HasContent())
       kmlData.reset();
   }
 

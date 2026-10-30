@@ -98,6 +98,4 @@ add_subdirectory(succinct)
 
 add_subdirectory(vulkan_wrapper)
 
-if (PLATFORM_DESKTOP)
-  add_subdirectory(libtess2)
-endif()
+add_subdirectory(libtess2)
