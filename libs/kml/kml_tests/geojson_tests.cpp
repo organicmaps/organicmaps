@@ -5,6 +5,7 @@
 #include "base/timer.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
+#include "indexer/map_style_reader.hpp"
 
 #include "geometry/mercator.hpp"
 #include "geometry/point_with_altitude.hpp"
@@ -764,6 +765,7 @@ UNIT_TEST(GeoJson_Parse_FeatureCollection_NoProperties)
 
 kml::FileData GenerateKmlFileData()
 {
+  classificator::EnsureStyleLoaded(GetStyleReader().GetCurrentStyle());
   auto const kDefaultLang = StringUtf8Multilang::kDefaultCode;
   auto const kEnLang = StringUtf8Multilang::kEnglishCode;
   auto const kEsLang = static_cast<int8_t>(21);
