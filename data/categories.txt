@@ -17227,6 +17227,98 @@ vi:Tháp Nước
 zh-Hans:水塔
 zh-Hant:水塔
 
+man_made-reservoir_covered
+en:Covered Reservoir|service reservoir|water reservoir|underground reservoir|reservoir
+ar:خزان مياه مغطى|خزان مياه
+be:Крыты рэзервуар|рэзервуар чыстай вады
+bg:Покрит резервоар|резервоар за вода
+ca:Dipòsit d’aigua cobert|dipòsit d’aigua
+cs:Zemní vodojem|vodojem|nádrž
+cy:Cronfa Ddŵr Dan Do|cronfa ddŵr
+da:Overdækket reservoir|rentvandsbeholder|vandreservoir
+de:Wasserbehälter|Hochbehälter|Tiefbehälter|Trinkwasserbehälter|Wasserspeicher|Reservoir
+el:Καλυμμένη δεξαμενή νερού|δεξαμενή νερού|υδατοδεξαμενή
+es:Depósito de agua cubierto|depósito de agua|reservorio
+et:Kaetud veereservuaar|veereservuaar|reservuaar
+eu:Ur depositu estalia|ur depositua
+fa:مخزن آب سرپوشیده|مخزن آب
+fi:Katettu vesisäiliö|vesisäiliö|alavesisäiliö|säiliö
+fr:Réservoir couvert|réservoir d'eau|réservoir enterré
+he:מאגר מים מקורה|מאגר מים
+hi:ढका हुआ जलाशय|जलाशय
+hu:Fedett víztároló|víztároló|rezervoár
+id:Reservoir air tertutup|reservoir air|tandon air
+it:Serbatoio idrico coperto|serbatoio idrico|serbatoio interrato
+ja:配水池|貯水池
+ko:배수지|저수조
+lt:Uždengtas vandens rezervuaras|vandens rezervuaras
+lv:Segts ūdens rezervuārs|ūdens rezervuārs
+mr:झाकलेला जलाशय|जलाशय
+nb:Overdekket reservoar|høydebasseng|vannreservoar
+nl:Overdekt reservoir|waterreservoir|reinwaterkelder
+pl:Zakryty zbiornik wody|zbiornik wody|zbiornik wody pitnej
+pt:Reservatório coberto|reservatório de água
+pt-BR:Reservatório coberto|reservatório de água
+ro:Rezervor de apă acoperit|rezervor de apă
+ru:Крытый резервуар|резервуар чистой воды|РЧВ|резервуар
+sk:Zemný vodojem|vodojem|nádrž
+sl:Vodohran|vodni zbiralnik|rezervoar
+sr:Покривени резервоар|резервоар за воду|Pokriveni rezervoar
+sv:Täckt reservoar|vattenreservoar|lågreservoar
+sw:Hifadhi ya maji iliyofunikwa|hifadhi ya maji
+th:อ่างเก็บน้ำแบบปิด|ถังเก็บน้ำ|อ่างเก็บน้ำ
+tr:Kapalı Su Deposu|su deposu|rezervuar
+uk:Критий резервуар|резервуар чистої води|резервуар
+vi:Bể chứa nước có mái che|bể chứa nước
+zh-Hans:加盖蓄水池|蓄水池|清水池
+zh-Hant:加蓋蓄水池|蓄水池|配水池
+
+man_made-water_works
+en:Waterworks|water works|water treatment plant|drinking water plant|water plant
+ar:محطة تنقية المياه|محطة مياه|محطة معالجة المياه
+be:Водаправодная станцыя|водазабор
+bg:Водопроводна станция|пречиствателна станция за питейна вода|ПСПВ
+ca:Planta potabilitzadora|potabilitzadora|ETAP
+cs:Úpravna vody|vodárna
+cy:Gwaith Dŵr
+da:Vandværk
+de:Wasserwerk|Wasseraufbereitung
+el:Μονάδα επεξεργασίας νερού|διυλιστήριο νερού
+es:Planta potabilizadora|potabilizadora|ETAP|planta de tratamiento de agua potable
+et:Veepuhastusjaam|veejaam|veevärk
+eu:Ur-araztegia
+fa:تصفیه‌خانه آب
+fi:Vesilaitos|vedenpuhdistamo
+fr:Usine d'eau potable|usine de traitement d'eau|station de traitement d'eau potable|usine des eaux
+he:מפעל מים
+hi:जल शोधन संयंत्र|जलकल|वाटर वर्क्स
+hu:Vízmű|víztisztító
+id:Instalasi pengolahan air|IPA|PDAM
+it:Impianto di potabilizzazione|potabilizzatore|acquedotto
+ja:浄水場|浄水所
+ko:정수장|정수 처리장
+lt:Vandenvietė|vandens ruošimo stotis|vandentiekis
+lv:Ūdens attīrīšanas stacija|ūdensapgāde
+mr:जलशुद्धीकरण केंद्र|जलशुद्धीकरण प्रकल्प
+nb:Vannverk|vannbehandlingsanlegg
+nl:Drinkwaterbedrijf|waterleidingbedrijf|pompstation|waterzuivering
+pl:Stacja uzdatniania wody|SUW|wodociągi
+pt:Estação de tratamento de água|ETA
+pt-BR:Estação de tratamento de água|ETA
+ro:Stație de tratare a apei|uzină de apă
+ru:Водопроводная станция|водоочистная станция|станция водоподготовки|водозабор|водоканал
+sk:Vodáreň|úpravňa vody
+sl:Vodarna|vodovod
+sr:Постројење за прераду воде|фабрика воде|Postrojenje za preradu vode|fabrika vode
+sv:Vattenverk|vattenreningsverk
+sw:Kituo cha kusafisha maji
+th:โรงผลิตน้ำประปา|การประปา|โรงกรองน้ำ
+tr:Su Arıtma Tesisi|içme suyu arıtma tesisi
+uk:Водопровідна станція|станція водопідготовки|водозабір|водоканал
+vi:Nhà máy nước|nhà máy xử lý nước
+zh-Hans:自来水厂|净水厂|水厂
+zh-Hant:自來水廠|淨水場|濾水廠
+
 man_made-windmill
 en:Windmill
 ar:طاحونة هواء
