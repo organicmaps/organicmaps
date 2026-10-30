@@ -1,19 +1,40 @@
 final class TransportTransitStepsCollectionView: UICollectionView {
   var steps: [MWMRouterTransitStepInfo] = [] {
     didSet {
-      reloadData()
+      updateDisplayedSteps()
     }
+  }
+
+  private struct DisplayedStep {
+    let info: MWMRouterTransitStepInfo
+    let number: String
+    let isContinuation: Bool
+  }
+
+  private var displayedSteps = [DisplayedStep]()
+  private var displayedWidth: CGFloat = 0
+  private(set) var stepFrames: (cells: [CGRect], separators: [CGRect]) = ([], [])
+
+  override func layoutSubviews() {
+    if displayedWidth != bounds.width {
+      updateDisplayedSteps()
+    }
+    super.layoutSubviews()
   }
 
   override var frame: CGRect {
     didSet {
-      collectionViewLayout.invalidateLayout()
+      if oldValue.size != frame.size {
+        collectionViewLayout.invalidateLayout()
+      }
     }
   }
 
   override var bounds: CGRect {
     didSet {
-      collectionViewLayout.invalidateLayout()
+      if oldValue.size != bounds.size {
+        collectionViewLayout.invalidateLayout()
+      }
     }
   }
 
@@ -40,8 +61,7 @@ final class TransportTransitStepsCollectionView: UICollectionView {
     }
   }
 
-  private func cellClass(item: Int) -> TransportTransitCell.Type {
-    let step = steps[item]
+  private func cellClass(step: MWMRouterTransitStepInfo) -> TransportTransitCell.Type {
     switch step.type {
     case .intermediatePoint: return TransportTransitIntermediatePoint.self
     case .pedestrian: return TransportTransitPedestrian.self
@@ -52,21 +72,53 @@ final class TransportTransitStepsCollectionView: UICollectionView {
     }
   }
 
-  func estimatedCellSize(item: Int) -> CGSize {
-    cellClass(item: item).estimatedCellSize(step: steps[item])
+  private func updateDisplayedSteps() {
+    displayedWidth = bounds.width
+    var cursor = TransportTransitFlowLayout.Cursor(width: displayedWidth)
+    displayedSteps = steps.enumerated().flatMap { index, step -> [DisplayedStep] in
+      let hasFollowingStep = index + 1 < steps.count
+      var numbers = [step.number ?? ""]
+      if displayedWidth > 0, cellClass(step: step) == TransportTransitTrain.self {
+        numbers = TransportTransitTrain.numberGroups(step.number, maximumWidth: displayedWidth,
+                                                     firstRowWidth: cursor.remainingWidth,
+                                                     hasFollowingStep: hasFollowingStep)
+      }
+      return numbers.enumerated().map { fragmentIndex, number in
+        let fragment = DisplayedStep(info: step, number: number, isContinuation: fragmentIndex > 0)
+        let size = estimatedCellSize(step: fragment)
+        cursor.append(size: size, hasFollowingStep: hasFollowingStep && fragmentIndex + 1 == numbers.count,
+                      isContinuation: fragment.isContinuation)
+        return fragment
+      }
+    }
+    stepFrames = cursor.frames
+    reloadData()
+  }
+
+  private func estimatedCellSize(step: DisplayedStep) -> CGSize {
+    if cellClass(step: step.info) == TransportTransitTrain.self {
+      return TransportTransitTrain.estimatedCellSize(number: step.number, isContinuation: step.isContinuation)
+    }
+    return cellClass(step: step.info).estimatedCellSize(step: step.info)
   }
 }
 
 extension TransportTransitStepsCollectionView: UICollectionViewDataSource {
   func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-    steps.count
+    displayedSteps.count
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let item = indexPath.item
-    let cellClass = cellClass(item: item)
+    let displayedStep = displayedSteps[item]
+    let step = displayedStep.info
+    let cellClass = cellClass(step: step)
     let cell = collectionView.dequeueReusableCell(withCellClass: cellClass, indexPath: indexPath) as! TransportTransitCell
-    cell.config(step: steps[item])
+    if let trainCell = cell as? TransportTransitTrain {
+      trainCell.config(step: step, number: displayedStep.number, isContinuation: displayedStep.isContinuation)
+    } else {
+      cell.config(step: step)
+    }
     return cell
   }
 }
