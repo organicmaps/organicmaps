@@ -5,6 +5,7 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Size;
+import androidx.annotation.UiThread;
 import app.organicmaps.sdk.api.ParsedRoutingData;
 import app.organicmaps.sdk.api.ParsedSearchRequest;
 import app.organicmaps.sdk.api.RequestType;
@@ -16,7 +17,6 @@ import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.routing.RoutingListener;
-import app.organicmaps.sdk.routing.RoutingLoadPointsListener;
 import app.organicmaps.sdk.routing.RoutingProgressListener;
 import app.organicmaps.sdk.routing.RoutingRecommendationListener;
 import app.organicmaps.sdk.routing.TransitRouteInfo;
@@ -226,8 +226,6 @@ public class Framework
 
   public static native void nativeBuildRoute();
 
-  public static native void nativeRemoveRoute();
-
   public static native void nativeFollowRoute();
 
   public static native void nativeDisableFollowing();
@@ -263,8 +261,6 @@ public class Framework
   public static native void nativeSetRouteProgressListener(@NonNull RoutingProgressListener listener);
 
   public static native void nativeSetRoutingRecommendationListener(@NonNull RoutingRecommendationListener listener);
-
-  public static native void nativeSetRoutingLoadPointsListener(@NonNull RoutingLoadPointsListener listener);
 
   public static native void nativeShowCountry(String countryId, boolean zoomToDownloadButton);
 
@@ -403,8 +399,11 @@ public class Framework
   public static native void nativeRunFirstLaunchAnimation();
 
   public static native boolean nativeHasSavedRoutePoints();
-  public static native void nativeLoadRoutePoints();
+  @UiThread
+  public static native boolean nativeLoadRoutePoints();
+  @UiThread
   public static native void nativeSaveRoutePoints();
+  @UiThread
   public static native void nativeDeleteSavedRoutePoints();
   public static native void nativeMakeCrash();
 

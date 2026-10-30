@@ -22,6 +22,7 @@
 #include "base/thread_checker.hpp"
 
 #include <chrono>
+#include <cstdint>
 #include <functional>
 #include <map>
 #include <memory>
@@ -280,13 +281,12 @@ public:
 
   /// \returns true if there are route points saved in file and false otherwise.
   bool HasSavedRoutePoints() const;
-  /// \brief It loads road points from file and delete file after loading.
-  /// The result of the loading will be sent via SafeCallback.
-  using LoadRouteHandler = platform::SafeCallback<void(bool success)>;
-  void LoadRoutePoints(LoadRouteHandler const & handler);
-  /// \brief It saves route points to file.
+  /// Synchronously restores into an empty, inactive itinerary on the GUI thread. Returns whether points were restored.
+  /// Leaves recovery untouched while an itinerary is present or active; consumes the file after a read attempt.
+  bool LoadRoutePoints();
+  /// Saves remaining route points synchronously on the GUI thread; incomplete or finished routes discard recovery.
   void SaveRoutePoints();
-  /// \brief It deletes file with saved route points if it exists.
+  /// Deletes saved recovery synchronously on the GUI thread.
   void DeleteSavedRoutePoints();
 
   void UpdatePreviewMode();
@@ -360,6 +360,7 @@ private:
 
   void CancelRecommendation(Recommendation recommendation);
 
+  std::vector<RouteMarkData> ReadAndDeleteSavedRoutePoints() const;
   std::vector<RouteMarkData> GetRoutePointsToSave() const;
 
   void OnExtrapolatedLocationUpdate(location::GpsInfo const & info);

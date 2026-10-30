@@ -5,6 +5,8 @@
 
 #include "platform/downloader_defines.hpp"
 
+#include "base/assert.hpp"
+
 namespace
 {
 using Observer = id<MWMFrameworkObserver>;
@@ -18,13 +20,12 @@ Protocol * pDrapeObserver = @protocol(MWMFrameworkDrapeObserver);
 
 using TLoopBlock = void (^)(__kindof Observer observer);
 
-void loopWrappers(Observers * observers, TLoopBlock block)
+void NotifyObservers(Observers * observers, TLoopBlock block)
 {
-  dispatch_async(dispatch_get_main_queue(), ^{
-    for (Observer observer in observers)
-      if (observer)
-        block(observer);
-  });
+  ASSERT(NSThread.isMainThread, ());
+  // A handler may register or remove observers while processing a notification.
+  for (Observer observer in observers.allObjects)
+    block(observer);
 }
 }  // namespace
 
@@ -39,6 +40,7 @@ void loopWrappers(Observers * observers, TLoopBlock block)
 
 + (MWMFrameworkListener *)listener
 {
+  ASSERT(NSThread.isMainThread, ());
   static MWMFrameworkListener * listener;
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{ listener = [[super alloc] initListener]; });
@@ -47,22 +49,18 @@ void loopWrappers(Observers * observers, TLoopBlock block)
 
 + (void)addObserver:(Observer)observer
 {
-  dispatch_async(dispatch_get_main_queue(), ^{
-    MWMFrameworkListener * listener = [MWMFrameworkListener listener];
-    if ([observer conformsToProtocol:pRouteBuildingObserver])
-      [listener.routeBuildingObservers addObject:observer];
-    if ([observer conformsToProtocol:pDrapeObserver])
-      [listener.drapeObservers addObject:observer];
-  });
+  MWMFrameworkListener * listener = [MWMFrameworkListener listener];
+  if ([observer conformsToProtocol:pRouteBuildingObserver])
+    [listener.routeBuildingObservers addObject:observer];
+  if ([observer conformsToProtocol:pDrapeObserver])
+    [listener.drapeObservers addObject:observer];
 }
 
 + (void)removeObserver:(Observer)observer
 {
-  dispatch_async(dispatch_get_main_queue(), ^{
-    MWMFrameworkListener * listener = [MWMFrameworkListener listener];
-    [listener.routeBuildingObservers removeObject:observer];
-    [listener.drapeObservers removeObject:observer];
-  });
+  MWMFrameworkListener * listener = [MWMFrameworkListener listener];
+  [listener.routeBuildingObservers removeObject:observer];
+  [listener.drapeObservers removeObject:observer];
 }
 
 - (instancetype)initListener
@@ -89,12 +87,12 @@ void loopWrappers(Observers * observers, TLoopBlock block)
   auto & rm = GetFramework().GetRoutingManager();
   rm.SetRouteBuildingListener([observers](RouterResultCode code, CountriesSet const & absentCountries)
   {
-    loopWrappers(observers, [code, absentCountries](TRouteBuildingObserver observer)
+    NotifyObservers(observers, [code, &absentCountries](TRouteBuildingObserver observer)
     { [observer processRouteBuilderEvent:code countries:absentCountries]; });
   });
   rm.SetRouteProgressListener([observers](float progress)
   {
-    loopWrappers(observers, [progress](TRouteBuildingObserver observer)
+    NotifyObservers(observers, [progress](TRouteBuildingObserver observer)
     {
       if ([observer respondsToSelector:@selector(processRouteBuilderProgress:)])
         [observer processRouteBuilderProgress:progress];
@@ -109,7 +107,7 @@ void loopWrappers(Observers * observers, TLoopBlock block)
       rec = MWMRouterRecommendationRebuildAfterPointsLoading;
       break;
     }
-    loopWrappers(observers, [rec](TRouteBuildingObserver observer)
+    NotifyObservers(observers, [rec](TRouteBuildingObserver observer)
     {
       if ([observer respondsToSelector:@selector(processRouteRecommendation:)])
         [observer processRouteRecommendation:rec];
@@ -117,7 +115,7 @@ void loopWrappers(Observers * observers, TLoopBlock block)
   });
   rm.SetRouteSpeedCamShowListener([observers](m2::PointD const & point, double cameraSpeedKmPH)
   {
-    loopWrappers(observers, [cameraSpeedKmPH](TRouteBuildingObserver observer)
+    NotifyObservers(observers, [cameraSpeedKmPH](TRouteBuildingObserver observer)
     {
       if ([observer respondsToSelector:@selector(speedCameraShowedUpOnRoute:)])
         [observer speedCameraShowedUpOnRoute:cameraSpeedKmPH];
@@ -125,7 +123,7 @@ void loopWrappers(Observers * observers, TLoopBlock block)
   });
   rm.SetRouteSpeedCamsClearListener([observers]()
   {
-    loopWrappers(observers, ^(TRouteBuildingObserver observer) {
+    NotifyObservers(observers, ^(TRouteBuildingObserver observer) {
       if ([observer respondsToSelector:@selector(speedCameraLeftVisibleArea)])
         [observer speedCameraLeftVisibleArea];
     });
@@ -140,14 +138,14 @@ void loopWrappers(Observers * observers, TLoopBlock block)
   auto & f = GetFramework();
   f.SetCurrentCountryChangedListener([observers](CountryId const & countryId)
   {
-    for (TDrapeObserver observer in observers)
+    for (TDrapeObserver observer in observers.allObjects)
       if ([observer respondsToSelector:@selector(processViewportCountryEvent:)])
         [observer processViewportCountryEvent:countryId];
   });
 
   f.SetViewportListener([observers](ScreenBase const & screen)
   {
-    for (TDrapeObserver observer in observers)
+    for (TDrapeObserver observer in observers.allObjects)
       if ([observer respondsToSelector:@selector(processViewportChangedEvent)])
         [observer processViewportChangedEvent];
   });
