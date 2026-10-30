@@ -35,5 +35,5 @@ UNIT_TEST(BearingToAngle)
   TEST_ALMOST_EQUAL_ULPS(location::BearingToAngle(30.), 60., ());
   TEST_ALMOST_EQUAL_ULPS(location::BearingToAngle(100.), 350., ());
   TEST_ALMOST_EQUAL_ULPS(location::BearingToAngle(370.), 80., ());
-  TEST_ALMOST_EQUAL_ULPS(location::AngleToBearing(-370.), 100., ());
+  TEST_ALMOST_EQUAL_ULPS(location::BearingToAngle(-370.), 100., ());
 }
