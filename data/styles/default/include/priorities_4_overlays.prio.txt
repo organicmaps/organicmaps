@@ -1163,6 +1163,7 @@ junction-circular                                   # caption z17-
 junction-roundabout                                 # caption z17-
 man_made-breakwater                                 # caption z17- (also has line z14-, area z12-)
 man_made-pier                                       # caption z17- (also has line z14-, area z12-)
+man_made-water_works                                # icon z16- (also has caption(optional) z17-)
 man_made-works                                      # icon z16- (also has caption(optional) z17-)
 public_transport-platform                           # caption z17- (also has line z16-, area z16-)
 waterway-lock_gate                                  # icon z16-
@@ -1249,6 +1250,7 @@ man_made-mast                                       # icon z16-
 man_made-monitoring_station                         # icon z16- (also has caption(optional) z16-)
 man_made-monitoring_station-water_level             # icon z16- (also has caption(optional) z16-)
 man_made-monitoring_station-weather                 # icon z16- (also has caption(optional) z16-)
+man_made-reservoir_covered                          # icon z16- (also has caption(optional) z18-)
 man_made-silo                                       # icon z16- (also has caption(optional) z18-)
 man_made-storage_tank                               # icon z16- (also has caption(optional) z18-)
 man_made-water_tower                                # icon z16- (also has caption(optional) z18-)
@@ -2171,6 +2173,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # man_made-tower-communication                      # caption(optional) z18- (also has icon z16-)
 # === -9150
 
+# man_made-water_works                              # caption(optional) z17- (also has icon z16-)
 # man_made-works                                    # caption(optional) z17- (also has icon z16-)
 # === -9300
 
@@ -2252,6 +2255,7 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # man_made-monitoring_station                       # caption(optional) z16- (also has icon z16-)
 # man_made-monitoring_station-water_level           # caption(optional) z16- (also has icon z16-)
 # man_made-monitoring_station-weather               # caption(optional) z16- (also has icon z16-)
+# man_made-reservoir_covered                        # caption(optional) z18- (also has icon z16-)
 # man_made-silo                                     # caption(optional) z18- (also has icon z16-)
 # man_made-storage_tank                             # caption(optional) z18- (also has icon z16-)
 # man_made-water_tower                              # caption(optional) z18- (also has icon z16-)
