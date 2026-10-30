@@ -1829,14 +1829,9 @@ void RoutingManager::OnExtrapolatedLocationUpdate(location::GpsInfo const & info
 
 void RoutingManager::DeleteSavedRoutePoints()
 {
-  if (!HasSavedRoutePoints())
-    return;
-
-  GetPlatform().RunTask(Platform::Thread::File, []()
-  {
-    auto const fileName = GetPlatform().SettingsPathForFile(kRoutePointsFile);
-    FileWriter::DeleteFileX(fileName);
-  });
+  // Always enqueue deletion: a preceding save may create the file before it runs.
+  GetPlatform().RunTask(Platform::Thread::File,
+                        []() { Platform::RemoveFileIfExists(GetPlatform().SettingsPathForFile(kRoutePointsFile)); });
 }
 
 void RoutingManager::UpdatePreviewMode()

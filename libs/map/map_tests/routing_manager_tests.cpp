@@ -20,6 +20,7 @@
 #include "base/thread_safe_queue.hpp"
 
 #include <algorithm>
+#include <chrono>
 #include <future>
 #include <memory>
 #include <utility>
@@ -770,6 +771,35 @@ UNIT_TEST(RoutingManager_SaveLoadRoutePointsRestoresMyPosition)
 {
   TestSavedRouteOrder(true /* myPositionStart */, 0 /* passedStops */, false /* hasCurrentPosition */);
   TestSavedRouteOrder(true /* myPositionStart */, 0 /* passedStops */, true /* hasCurrentPosition */);
+}
+
+UNIT_TEST(RoutingManager_DeletingRecoveryRetiresAPendingSave)
+{
+  WithSavedRoute([](RoutingManager & manager, BookmarkManager &, TestGuiThread &)
+  {
+    manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Start, 0, 1), false);
+    manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Finish, 0, 2), false);
+    auto started = std::make_shared<std::promise<void>>();
+    auto ready = started->get_future();
+    {
+      auto release = std::make_shared<std::promise<void>>();
+      auto released = release->get_future().share();
+      SCOPE_GUARD(resumeFileThread, [release] { release->set_value(); });
+      GetPlatform().RunTask(Platform::Thread::File, [started, released]
+      {
+        started->set_value();
+        released.wait();
+      });
+      TEST(ready.wait_for(std::chrono::seconds(30)) == std::future_status::ready, ());
+
+      manager.SaveRoutePoints();
+      manager.CloseRouting(true /* remove route points */);
+      manager.DeleteSavedRoutePoints();
+      TEST(!manager.HasSavedRoutePoints(), ("The save is still waiting on the file queue."));
+    }
+    WaitForFileThread();
+    TEST(!manager.HasSavedRoutePoints(), ("Cancelling an itinerary must retire its pending save."));
+  });
 }
 
 UNIT_TEST(RoutingManager_ContinueRouteToPointAtLimitKeepsFinish)

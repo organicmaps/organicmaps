@@ -631,6 +631,7 @@ void DrawWidget::ClearRoute()
 
   bool const wasActive = routingManager.IsRoutingActive() && routingManager.IsRoutingFollowing();
   routingManager.CloseRouting(true /* remove route points */);
+  routingManager.DeleteSavedRoutePoints();
 
   if (wasActive)
     SetMapStyleToDefault();
