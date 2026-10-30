@@ -633,6 +633,7 @@
 		AA01B2C3D4E5F60718293A02 /* MWMRoutePointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01B2C3D4E5F60718293A01 /* MWMRoutePointTests.swift */; };
 		A8D43EE031D5000000000004 /* MWMNavigationDashboardEntityTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = A8D43EE031D5000000000003 /* MWMNavigationDashboardEntityTests.mm */; };
 		A13803000000000000000002 /* MWMRouterTransitStepInfoTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = A13803000000000000000001 /* MWMRouterTransitStepInfoTests.mm */; };
+		A12678000000000000000002 /* MWMFrameworkListenerTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = A12678000000000000000001 /* MWMFrameworkListenerTests.mm */; };
 		A13803000000000000000004 /* TransportTransitStepsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13803000000000000000003 /* TransportTransitStepsTests.swift */; };
 		A13729000000000000000001 /* RoutingOptionsSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13729000000000000000002 /* RoutingOptionsSettingsTests.swift */; };
 		D48A5E31FA0C45748F11AD48 /* MWMRoutePointSelectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C7250731AB471A81905386 /* MWMRoutePointSelectionTests.swift */; };
@@ -1730,6 +1731,7 @@
 		AA01B2C3D4E5F60718293A01 /* MWMRoutePointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWMRoutePointTests.swift; sourceTree = "<group>"; };
 		A8D43EE031D5000000000003 /* MWMNavigationDashboardEntityTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNavigationDashboardEntityTests.mm; sourceTree = "<group>"; };
 		A13803000000000000000001 /* MWMRouterTransitStepInfoTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRouterTransitStepInfoTests.mm; sourceTree = "<group>"; };
+		A12678000000000000000001 /* MWMFrameworkListenerTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMFrameworkListenerTests.mm; sourceTree = "<group>"; };
 		A13803000000000000000003 /* TransportTransitStepsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportTransitStepsTests.swift; sourceTree = "<group>"; };
 		A13729000000000000000002 /* RoutingOptionsSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutingOptionsSettingsTests.swift; sourceTree = "<group>"; };
 		B9C7250731AB471A81905386 /* MWMRoutePointSelectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWMRoutePointSelectionTests.swift; sourceTree = "<group>"; };
@@ -4109,6 +4111,7 @@
 				AA01B2C3D4E5F60718293A01 /* MWMRoutePointTests.swift */,
 				A8D43EE031D5000000000003 /* MWMNavigationDashboardEntityTests.mm */,
 				A13803000000000000000001 /* MWMRouterTransitStepInfoTests.mm */,
+				A12678000000000000000001 /* MWMFrameworkListenerTests.mm */,
 				A13803000000000000000003 /* TransportTransitStepsTests.swift */,
 				B9C7250731AB471A81905386 /* MWMRoutePointSelectionTests.swift */,
 				A13729000000000000000002 /* RoutingOptionsSettingsTests.swift */,
@@ -5087,6 +5090,7 @@
 				AA01B2C3D4E5F60718293A02 /* MWMRoutePointTests.swift in Sources */,
 				A8D43EE031D5000000000004 /* MWMNavigationDashboardEntityTests.mm in Sources */,
 				A13803000000000000000002 /* MWMRouterTransitStepInfoTests.mm in Sources */,
+				A12678000000000000000002 /* MWMFrameworkListenerTests.mm in Sources */,
 				A13803000000000000000004 /* TransportTransitStepsTests.swift in Sources */,
 				A13729000000000000000001 /* RoutingOptionsSettingsTests.swift in Sources */,
 				D48A5E31FA0C45748F11AD48 /* MWMRoutePointSelectionTests.swift in Sources */,

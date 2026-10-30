@@ -5,6 +5,7 @@ protocol BottomMenuPresenterProtocol: UITableViewDelegate, UITableViewDataSource
 
 class BottomMenuPresenter: NSObject {
   enum CellType: Int, CaseIterable {
+    case returnToCaller
     case addPlace
     case recordTrack
     case downloadMaps
@@ -34,7 +35,13 @@ class BottomMenuPresenter: NSObject {
     self.interactor = interactor
     self.sections = sections
     let disableDonate = Settings.donateUrl() == nil
-    menuCells = CellType.allCases.filter { disableDonate ? $0 != .donate : true }
+    menuCells = CellType.allCases.filter {
+      switch $0 {
+      case .donate: return !disableDonate
+      case .returnToCaller: return DeepLinkHandler.shared.getBackUrl() != nil
+      default: return true
+      }
+    }
     let mapsStorage = Storage.shared()
     self.mapsStorage = mapsStorage
     countryId = mapsStorage.countryForViewportCenter()
@@ -97,6 +104,8 @@ extension BottomMenuPresenter {
     case .items:
       let cell = tableView.dequeueReusableCell(cell: BottomMenuItemCell.self)!
       switch menuCells[indexPath.row] {
+      case .returnToCaller:
+        cell.configure(image: UIImage(resource: .icNavBarBackSys), title: L("back"))
       case .addPlace:
         cell.configure(image: shouldUpdateMapToContribute ? UIImage(resource: .icMenuAddPlaceExclamation) : UIImage(resource: .icMenuAddPlace),
                        title: L("placepage_add_place_button"),
@@ -145,6 +154,8 @@ extension BottomMenuPresenter {
       return;
     case .items:
       switch menuCells[indexPath.row] {
+      case .returnToCaller:
+        interactor.returnToCaller()
       case .addPlace:
         if shouldUpdateMapToContribute {
           guard let countryId else {

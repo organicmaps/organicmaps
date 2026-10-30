@@ -4,6 +4,9 @@
 
 
 /* Button text (should be short) */
+"back" = "Quay lại";
+
+/* Button text (should be short) */
 "cancel" = "Huỷ bỏ";
 
 /* Button which deletes downloaded country */

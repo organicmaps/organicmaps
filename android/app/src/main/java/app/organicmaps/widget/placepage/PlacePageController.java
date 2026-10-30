@@ -44,6 +44,7 @@ import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.settings.RoadType;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.util.Utils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.widget.colorpicker.ColorPickerFragment;
@@ -570,6 +571,12 @@ public class PlacePageController
   {
     if (mMapObject == null)
       return;
+    final Activity activity = requireActivity();
+    if (!shouldReturnApiResult())
+    {
+      Utils.returnToCaller(activity);
+      return;
+    }
     final Intent result = new Intent();
     result.putExtra(Const.EXTRA_POINT_LAT, mMapObject.getLat())
         .putExtra(Const.EXTRA_POINT_LON, mMapObject.getLon())
@@ -578,6 +585,12 @@ public class PlacePageController
         .putExtra(Const.EXTRA_ZOOM_LEVEL, Framework.nativeGetDrawScale());
     requireActivity().setResult(Activity.RESULT_OK, result);
     requireActivity().finish();
+  }
+
+  boolean shouldReturnApiResult()
+  {
+    final Intent intent = requireActivity().getIntent();
+    return (intent != null && Factory.isStartedForApiResult(intent)) || Framework.nativeHasLegacyBackUrl();
   }
 
   private void onRouteFromBtnClicked()
