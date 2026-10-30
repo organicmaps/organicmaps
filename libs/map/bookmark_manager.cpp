@@ -183,11 +183,16 @@ BookmarkManager::SharingResult ExportMultipleFiles(BookmarkManager::KMLDataColle
   });
 
   int suffix = 1;
+  // The index shares the temporary directory; names must also be distinct on case-insensitive filesystems.
+  std::unordered_set<std::string> reservedNames{"doc"};
   for (auto const & kmlToExport : *collection)
   {
-    std::string fileName = base::FilenameWithoutExt(GetFileNameForExport(kmlToExport));
+    std::string fileName = GetFileNameForExport(kmlToExport);
     if (!strings::IsASCIIString(fileName))
       fileName = "OrganicMaps_" + std::to_string(suffix++);
+    auto const stem = fileName;
+    for (size_t counter = 1; !reservedNames.insert(strings::MakeLowerCase(fileName)).second; ++counter)
+      fileName = stem + std::to_string(counter);
     auto const kmlPath = base::JoinPath(GetPlatform().TmpDir(), fileName + std::string{kKmlExtension});
     auto const filePathInArchive = filesDir + fileName + std::string{kKmlExtension};
     if (!SaveKmlFileSafe(*kmlToExport.second, kmlPath, FileType::Kml))

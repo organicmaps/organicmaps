@@ -2500,6 +2500,58 @@ UNIT_CLASS_TEST(Runner, Bookmarks_AutoSave)
   TEST_EQUAL(kml::GetDefaultStr(kmlData2->m_bookmarksData.front().m_name), "name 3", ());
 }
 
+UNIT_CLASS_TEST(AreasTestFixture, Bookmarks_BackupPreservesDistinctCategories)
+{
+  std::vector<std::string> const names = {"survey.one", "survey.two", "A/B",           "AB",
+                                          "doc",        "Doc",        "OrganicMaps_1", "東京"};
+  std::map<std::string, std::string> expected;
+  BookmarkManager::KMLDataCollection collection;
+  for (size_t i = 0; i < names.size(); ++i)
+  {
+    auto data = std::make_unique<kml::FileData>();
+    kml::SetDefaultStr(data->m_categoryData.m_name, names[i]);
+    data->m_categoryData.m_lastModified = kml::TimestampClock::from_time_t(1000);
+    auto & bookmark = data->m_bookmarksData.emplace_back();
+    bookmark.m_point = {0, 0};
+    auto const marker = "marker " + std::to_string(i);
+    kml::SetDefaultStr(bookmark.m_name, marker);
+    expected.emplace(names[i], marker);
+    collection.emplace_back("source-" + std::to_string(i) + ".kml", std::move(data));
+  }
+  BookmarkManager manager(BM_CALLBACKS);
+  manager.EnableTestMode(true);
+  manager.CreateCategories(std::move(collection));
+  bool finished = false;
+  manager.PrepareAllFilesForSharing([&](BookmarkManager::SharingResult const & result)
+  {
+    TEST(result.m_code == BookmarkManager::SharingResult::Code::Success, (result.m_errorString));
+    SCOPE_GUARD(deleteArchive, [&] { base::DeleteFileX(result.m_sharingPath); });
+    ZipFileReader::FileList files;
+    ZipFileReader::FilesList(result.m_sharingPath, files);
+    TEST_EQUAL(files.size(), names.size() + 1, ());
+    std::set<std::string> portableNames;
+    std::map<std::string, std::string> recovered;
+    for (auto const & [entry, size] : files)
+    {
+      TEST(portableNames.insert(strings::MakeLowerCase(entry)).second, (entry));
+      if (entry == "doc.kml")
+        continue;
+      auto reader = ZipFileReader::CreateModelReader(result.m_sharingPath, entry);
+      auto data = LoadKmlData(*reader, FileType::Kml);
+      TEST(data != nullptr, (entry));
+      TEST_EQUAL(data->m_bookmarksData.size(), 1, (entry));
+      auto const name = kml::GetDefaultStr(data->m_categoryData.m_name);
+      TEST(recovered.emplace(name, kml::GetDefaultStr(data->m_bookmarksData.front().m_name)).second, (entry, name));
+    }
+    TEST(portableNames.contains("files/survey.one.kml"), ());
+    TEST(portableNames.contains("files/survey.two.kml"), ());
+    TEST_EQUAL(recovered, expected, ());
+    finished = true;
+  });
+  while (!finished)
+    RunNextGuiTask();
+}
+
 UNIT_CLASS_TEST(Runner, ExportAll)
 {
   std::string const gpxFiles[] = {GetPlatform().TestsDataPathForFile("test_data/gpx/route.gpx"),
