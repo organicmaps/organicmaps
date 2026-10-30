@@ -99,18 +99,10 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
       final boolean hasIncorrectEndPoint =
           isPlanningMode && (!MapObject.same(mMapObject, mRoutingController.getEndPoint()));
       final boolean hasIncorrectRouterType = mRoutingController.getLastRouterType() != ROUTER;
-      if (hasIncorrectRouterType)
-      {
+      if (hasIncorrectEndPoint || !isPlanningMode)
+        mRoutingController.prepare(getLocationHelper().getMyPosition(), mMapObject, ROUTER);
+      else if (hasIncorrectRouterType)
         mRoutingController.setRouterType(ROUTER);
-        if (isPlanningMode)
-          mRoutingController.rebuildLastRoute();
-        else
-          mRoutingController.prepare(getLocationHelper().getMyPosition(), mMapObject);
-      }
-      else if (hasIncorrectEndPoint || !isPlanningMode)
-      {
-        mRoutingController.prepare(getLocationHelper().getMyPosition(), mMapObject);
-      }
     }
   }
 

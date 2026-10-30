@@ -42,6 +42,7 @@
 
 #include <glaze/json.hpp>
 
+#include <algorithm>
 #include <map>
 
 using namespace routing;
@@ -1258,6 +1259,41 @@ void RoutingManager::MoveRoutePoint(size_t currentIndex, size_t targetIndex)
   routePoints.MoveRoutePoint(currentType, currentIndex, targetType, targetIndex);
 }
 
+bool RoutingManager::ReorderRoutePoints(std::vector<size_t> const & order)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  RoutePointsLayout layout(*m_bmManager);
+  auto const points = layout.GetRoutePoints();
+  if (points.size() < 2 || points.front()->GetRoutePointType() != RouteMarkType::Start ||
+      points.back()->GetRoutePointType() != RouteMarkType::Finish)
+    return false;
+
+  CHECK_EQUAL(order.size(), points.size(), ());
+  std::vector<bool> used(points.size(), false);
+  bool changed = false;
+  for (size_t i = 0; i < order.size(); ++i)
+  {
+    CHECK_LESS(order[i], points.size(), ());
+    CHECK(!used[order[i]], ("Duplicate route point index", order[i]));
+    used[order[i]] = true;
+    changed |= order[i] != i;
+  }
+  if (!changed)
+    return false;
+
+  for (size_t i = 0; i < order.size(); ++i)
+  {
+    auto * point = points[order[i]];
+    if (i == 0)
+      point->SetRoutePointFullType(RouteMarkType::Start, 0);
+    else if (i + 1 == order.size())
+      point->SetRoutePointFullType(RouteMarkType::Finish, 0);
+    else
+      point->SetRoutePointFullType(RouteMarkType::Intermediate, i - 1);
+  }
+  return true;
+}
+
 bool RoutingManager::ReverseRoutePoints()
 {
   ASSERT(m_bmManager != nullptr, ());
@@ -1298,6 +1334,14 @@ bool RoutingManager::ReorderIntermediatePoints(RoutePointsLayout & layout, Route
   ASSERT(points.front()->GetRoutePointType() == RouteMarkType::Start, ());
   ASSERT(points.back()->GetRoutePointType() == RouteMarkType::Finish, ());
 
+  auto const & myPosition = m_bmManager->MyPositionMark();
+  // An unresolved My Position mark must not change stop order.
+  if (!myPosition.HasPosition() &&
+      std::any_of(points.begin(), points.end(), [](auto const * point) { return point->IsMyPosition(); }))
+    return false;
+  auto const pivotOf = [&myPosition](RouteMarkPoint const * point) -> m2::PointD const &
+  { return point->IsMyPosition() ? myPosition.GetPivot() : point->GetPivot(); };
+
   // Passed stops keep their slots; the rest of the route starts from the last of them.
   size_t lastPassedIndex = 0;
   for (size_t i = 1; i + 1 < points.size(); ++i)
@@ -1314,13 +1358,13 @@ bool RoutingManager::ReorderIntermediatePoints(RoutePointsLayout & layout, Route
 
   std::vector<m2::PointD> positions;
   for (auto const * point : ordered)
-    positions.push_back(point->GetPivot());
+    positions.push_back(pivotOf(point));
 
-  CheckpointPredictor const predictor(points[lastPassedIndex]->GetPivot(), points.back()->GetPivot());
+  CheckpointPredictor const predictor(pivotOf(points[lastPassedIndex]), pivotOf(points.back()));
   for (auto * point : toPlace)
   {
-    size_t const index = predictor.PredictPosition(positions, point->GetPivot());
-    positions.insert(positions.begin() + index, point->GetPivot());
+    size_t const index = predictor.PredictPosition(positions, pivotOf(point));
+    positions.insert(positions.begin() + index, pivotOf(point));
     ordered.insert(ordered.begin() + index, point);
   }
 
@@ -1330,16 +1374,16 @@ bool RoutingManager::ReorderIntermediatePoints(RoutePointsLayout & layout, Route
   {
     double currentLength = 0.0;
     for (size_t i = lastPassedIndex; i + 1 < points.size(); ++i)
-      currentLength += mercator::DistanceOnEarth(points[i]->GetPivot(), points[i + 1]->GetPivot());
+      currentLength += mercator::DistanceOnEarth(pivotOf(points[i]), pivotOf(points[i + 1]));
 
     double optimizedLength = 0.0;
-    m2::PointD const * previous = &points[lastPassedIndex]->GetPivot();
+    m2::PointD const * previous = &pivotOf(points[lastPassedIndex]);
     for (auto const & position : positions)
     {
       optimizedLength += mercator::DistanceOnEarth(*previous, position);
       previous = &position;
     }
-    optimizedLength += mercator::DistanceOnEarth(*previous, points.back()->GetPivot());
+    optimizedLength += mercator::DistanceOnEarth(*previous, pivotOf(points.back()));
     if (optimizedLength >= currentLength)
       return false;
   }
@@ -1451,8 +1495,16 @@ void RoutingManager::SetUserCurrentPosition(m2::PointD const & position)
     auto const sec = std::chrono::duration_cast<std::chrono::duration<double>>(elapsed).count();
     if (sec <= kFoundLocationInterval)
     {
-      m_routeRecommendCallback(Recommendation::RebuildAfterPointsLoading);
+      bool const replaceOrigin = [this]
+      {
+        RoutePointsLayout points(*m_bmManager);
+        auto const * start = points.GetRoutePoint(RouteMarkType::Start);
+        // Explicit origin edits must not be replaced by an imminent position fix.
+        return start != nullptr && start->GetMarkData().m_replaceWithMyPositionAfterRestart;
+      }();
       CancelRecommendation(Recommendation::RebuildAfterPointsLoading);
+      if (replaceOrigin)
+        m_routeRecommendCallback(Recommendation::RebuildAfterPointsLoading);
     }
   }
 }
@@ -1829,14 +1881,9 @@ void RoutingManager::OnExtrapolatedLocationUpdate(location::GpsInfo const & info
 
 void RoutingManager::DeleteSavedRoutePoints()
 {
-  if (!HasSavedRoutePoints())
-    return;
-
-  GetPlatform().RunTask(Platform::Thread::File, []()
-  {
-    auto const fileName = GetPlatform().SettingsPathForFile(kRoutePointsFile);
-    FileWriter::DeleteFileX(fileName);
-  });
+  // Always enqueue deletion: a preceding save may create the file before it runs.
+  GetPlatform().RunTask(Platform::Thread::File,
+                        []() { Platform::RemoveFileIfExists(GetPlatform().SettingsPathForFile(kRoutePointsFile)); });
 }
 
 void RoutingManager::UpdatePreviewMode()

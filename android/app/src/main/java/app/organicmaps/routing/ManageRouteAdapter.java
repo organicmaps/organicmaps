@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RouteMarkType;
-import app.organicmaps.sdk.util.Assert;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import java.util.ArrayList;
@@ -99,7 +98,7 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     int iconId;
-    switch (mRoutePoints.get(position).mPointType)
+    switch (getRoutePointType(position))
     {
     case Start:
       if (mRoutePoints.get(position).mIsMyPosition)
@@ -110,7 +109,7 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     case Intermediate:
       TypedArray iconArray = mContext.getResources().obtainTypedArray(R.array.route_stop_icons);
       // The last item is the generic marker for stops beyond the numbered drawables.
-      final int stopIndex = Math.min(mRoutePoints.get(position).mIntermediateIndex, iconArray.length() - 1);
+      final int stopIndex = Math.min(position - 1, iconArray.length() - 1);
       iconId = iconArray.getResourceId(stopIndex, R.drawable.route_point_20);
       iconArray.recycle();
       break;
@@ -195,35 +194,20 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     if (draggedItemIndex == targetIndex) // Dragged to the same spot, nothing to reorder.
       return;
     mRoutePoints.add(targetIndex, mRoutePoints.remove(draggedItemIndex));
-    updateRoutePointsData();
     notifyItemMoved(draggedItemIndex, targetIndex);
   }
 
-  private void updateRoutePointsData()
+  RouteMarkType getRoutePointType(int position)
   {
-    Assert.debug(mRoutePoints.size() >= 2, "There must be at least two route points");
-
-    // Set starting point.
-    mRoutePoints.get(0).mPointType = RouteMarkType.Start;
-    // Set finish point.
-    mRoutePoints.get(mRoutePoints.size() - 1).mPointType = RouteMarkType.Finish;
-    // Set intermediate point(s).
-    for (int pos = 1; pos < mRoutePoints.size() - 1; pos++)
-    {
-      mRoutePoints.get(pos).mPointType = RouteMarkType.Intermediate;
-      mRoutePoints.get(pos).mIntermediateIndex = pos - 1;
-    }
+    final int last = isPartial() ? 1 : mRoutePoints.size() - 1;
+    if (position < 0 || position > last)
+      throw new IndexOutOfBoundsException("No route-point row at " + position);
+    return position == 0 ? RouteMarkType.Start : position == last ? RouteMarkType.Finish : RouteMarkType.Intermediate;
   }
 
   public ArrayList<RouteMarkData> getRoutePoints()
   {
     return mRoutePoints;
-  }
-
-  @NonNull
-  public RouteMarkData getRoutePointAt(int position)
-  {
-    return mRoutePoints.get(isPartial() ? 0 : position);
   }
 
   // Resync the existing adapter with the native route points, keeping the same adapter/touch-helper instances.

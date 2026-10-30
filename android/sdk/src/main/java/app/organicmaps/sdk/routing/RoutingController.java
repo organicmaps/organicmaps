@@ -10,8 +10,10 @@ import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.location.LocationHelper;
+import app.organicmaps.sdk.util.Assert;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
+import java.util.List;
 import org.chromium.base.ObserverList;
 
 @androidx.annotation.UiThread
@@ -372,7 +374,8 @@ public class RoutingController
 
   /**
    * Tries to reduce the straight-line distance between route marks by reordering intermediate stops. The core leaves
-   * the marks unchanged while navigating, in Ruler mode, without both endpoints, or with fewer than three points.
+   * the marks unchanged while navigating, in Ruler mode, without both endpoints, with fewer than three points,
+   * or while a My Position mark has no usable location fix.
    *
    * @return whether the order changed, which means the route has to be rebuilt.
    */
@@ -544,6 +547,31 @@ public class RoutingController
     if (isNavigating())
       transitionToPlanning();
     resetPoiPickState();
+  }
+
+  /** Commits the same snapshot objects in their requested order while planning, then rebuilds once. */
+  public boolean reorderRoutePoints(@NonNull List<RouteMarkData> snapshot, @NonNull List<RouteMarkData> newOrder)
+  {
+    if (!isPlanning() || snapshot.size() < 2)
+      return false;
+    Assert.debug(snapshot.size() == newOrder.size(), "Reordering must retain every captured point");
+    final RouteMarkData[] current = Framework.nativeGetRoutePoints();
+    if (snapshot.size() != current.length)
+      return false;
+    for (int i = 0; i < current.length; ++i)
+      if (!snapshot.get(i).hasSameData(current[i]))
+        return false;
+    final int[] order = new int[newOrder.size()];
+    for (int i = 0; i < order.length; ++i)
+    {
+      order[i] = snapshot.indexOf(newOrder.get(i));
+      Assert.debug(order[i] >= 0, "Reordering must use captured point objects");
+    }
+    if (!Framework.nativeReorderRoutePoints(order))
+      return false;
+    mContainsCachedResult = false;
+    build();
+    return true;
   }
 
   public void launchPlanning()
