@@ -53,8 +53,8 @@ Explicit tunnels and negative-layer water features are excluded from water
 geometry; nearby river endpoints may be connected by a pedestrian bypass.
 Coastline polygons describe land and do not provide ocean water. Their bounding
 rectangles are not missing coverage and must not mask independently mapped
-rivers or lakes, including near river mouths. Display geometry
-may be simplified, and underground connections may be absent from the map.
+rivers or lakes, including near river mouths. Display geometry may be simplified,
+and underground connections may be absent from the map.
 Water routing does not assess navigability, depth, currents or access restrictions.
 A suggested portage does not establish that carrying a boat is physically necessary.
 
@@ -183,14 +183,15 @@ with its reverse in `WaterLong_KuyavianPomeranianReverse`. Both use ordinary
 2026-07-14 maps for Poland's Kuyavian-Pomeranian and Pomeranian voivodeships,
 explicit endpoints and no intermediate points, and require zero walking distance.
 
-After the capacity update, all 92 Water unit tests (with a 1 MiB stack) and
-50 Water integration tests (nine MWM and 41 real-map tests) passed on macOS
-ARM64. APK `2026.10.30-1-FDroid-debug` passed all eight table directions in
-the Android API 29 ARM64 emulator. The cross-region route measured 168.6 km
-water and zero walking in both directions. The earlier Pomeranian mixed route
-now measured approximately 97 km water and 5–6 km walking; neither long route
-confirmed optimality. This update was not tested on the reporting Xiaomi or
-rerun on iOS.
+After the capacity and coastline fixes, all 92 Water unit tests (with a 1 MiB
+stack) and 53 Water integration tests (ten MWM and 43 real-map tests) passed on
+macOS ARM64. APK `2026.10.30-3-FDroid-debug` passed ten directions in the Android
+API 29 ARM64 emulator: all eight table directions and the Vistula-mouth report
+below in both directions. The cross-region route measured 168.6 km water and
+the Vistula-mouth route 170.7 km water, each with zero walking in both directions.
+The earlier Pomeranian mixed route measured approximately 97 km water and
+5–6 km walking. Long-route optimality remained unconfirmed. This update was
+not tested on the reporting Xiaomi or rerun on iOS.
 
 The code-6 report from `53.09858890, 18.15192177` to
 `54.33892355, 18.94185916` is retained in `WaterReported_VistulaMouth` and
