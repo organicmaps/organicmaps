@@ -113,8 +113,8 @@ request's progress.
 
 `libs/routing/routing_integration_tests/water_reported_routes_test.cpp` retains
 the reported failing coordinates and My position flags, long routes in both
-directions, continuous-water controls and intermediate stops. Its 39 tests make
-40 route calculations: the Pomeranian regression runs with and without walking
+directions, continuous-water controls and intermediate stops. Its 41 tests make
+42 route calculations: the Pomeranian regression runs with and without walking
 graph reuse and compares the complete coordinate sequence. No reported route
 was removed when this duplicate calculation was consolidated.
 
@@ -122,12 +122,14 @@ Run these integration tests with ordinary MWMs in `--data_path` and matching
 application resources in `--user_resource_path`. The pinned reference catalog is
 2026-07-14. Dutch cases use `Netherlands_Flevoland`,
 `Netherlands_North Holland_Amsterdam` and `Netherlands_Utrecht_Amersfoort`;
-Polish cases use `Poland_Pomeranian Voivodeship`.
+Polish cases use `Poland_Pomeranian Voivodeship`; the cross-region case also
+requires `Poland_Kuyavian-Pomeranian Voivodeship`.
 
 Useful phone checks include:
 
 | Start | Finish | Purpose |
 | --- | --- | --- |
+| 53.09396078, 18.16890286 | 54.30863264, 18.93380513 | Cross-region water-only route; also check reverse direction |
 | 54.12300877, 17.75593190 | 53.84449881, 18.35696959 | Long mixed route; also check reverse direction |
 | 54.09895, 17.784224 | 54.093102, 17.785852 | Short pedestrian bypass and both transfer icons |
 | 52.3542366, 5.18088336 | 52.354523, 5.238218 | Rameaugracht continuous-water control |
@@ -145,16 +147,16 @@ tests cover controls, progress and diagnostics.
 iOS tests cover Water selection and core mapping, separate distances, the
 conditional shortest-route qualification, progress reset and hidden Start controls.
 
-On macOS ARM64, the Debug builds passed 385 routing unit tests, 31 selected map
+Before the capacity update, on macOS ARM64, the Debug builds passed 385 routing unit tests, 31 selected map
 tests, seven spatial-index tests and all 47 Water integration tests (eight MWM
 tests plus the 39 real-map tests). The four ordinary MWMs matched the sizes and
 hashes in catalog 2026-07-14. Android passed 122 app/SDK unit tests and lint; iOS
-passed 34 routing, settings and presentation tests. All routes in the table,
+passed 34 routing, settings and presentation tests. The original five routes in the table,
 including the reverse long route, were also calculated through the Android
 API 29 ARM64 emulator and iOS 18.6 iPhone 16 Pro simulator interfaces. Both showed
 approximately 94 km water and 24 km walking on the long route.
 
-A connected iPhone 8 running iOS 16.7.16 also completed all six table directions
+A connected iPhone 8 running iOS 16.7.16 also completed all six original table directions
 with the same ordinary maps, showing 58 mi water and 15 mi walking on the long
 route in both directions. Device UI checks covered cancellation, switching to
 pedestrian routing, portrait/landscape layout, light/dark themes and rebuilding
@@ -178,3 +180,12 @@ The reported cross-region Polish route from `53.09396078, 18.16890286` to
 with its reverse in `WaterLong_KuyavianPomeranianReverse`. Both use ordinary
 2026-07-14 maps for Poland's Kuyavian-Pomeranian and Pomeranian voivodeships,
 explicit endpoints and no intermediate points, and require zero walking distance.
+
+After the capacity update, all 92 Water unit tests (with a 1 MiB stack) and
+50 Water integration tests (nine MWM and 41 real-map tests) passed on macOS
+ARM64. APK `2026.10.30-1-FDroid-debug` passed all eight table directions in
+the Android API 29 ARM64 emulator. The cross-region route measured 168.6 km
+water and zero walking in both directions. The earlier Pomeranian mixed route
+now measured approximately 97 km water and 5–6 km walking; neither long route
+confirmed optimality. This update was not tested on the reporting Xiaomi or
+rerun on iOS.
