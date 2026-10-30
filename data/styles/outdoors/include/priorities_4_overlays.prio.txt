@@ -946,6 +946,10 @@ railway-level_crossing                              # icon z17-
 railway-platform                                    # caption z16- (also has area z16-)
 === 1650
 
+sport-pilates                                       # icon z17- (also has caption(optional) z17-)
+sport-yoga                                          # icon z17- (also has caption(optional) z17-)
+=== 1610
+
 amenity-car_wash                                    # icon z17- (also has caption(optional) z17-)
 amenity-childcare                                   # icon z17- (also has caption(optional) z17-)
 amenity-doctors                                     # icon z17- (also has caption(optional) z17-, area z14-)
@@ -1078,7 +1082,6 @@ sport-swimming                                      # icon z17- (also has captio
 sport-table_tennis                                  # icon z17- (also has caption(optional) z17-)
 sport-tennis                                        # icon z17- (also has caption(optional) z17-)
 sport-volleyball                                    # icon z17- (also has caption(optional) z17-)
-sport-yoga                                          # icon z17- (also has caption(optional) z17-)
 === 1400
 
 sport-10pin                                         # icon z17- (also has caption(optional) z17-)
@@ -1972,6 +1975,10 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # tourism-picnic_site                               # caption(optional) z14- (also has icon z14-)
 # === -8200
 
+# sport-pilates                                     # caption(optional) z17- (also has icon z17-)
+# sport-yoga                                        # caption(optional) z17- (also has icon z17-)
+# === -8390
+
 # amenity-car_wash                                  # caption(optional) z17- (also has icon z17-)
 # amenity-childcare                                 # caption(optional) z17- (also has icon z17-)
 # amenity-doctors                                   # caption(optional) z17- (also has icon z17-, area z14-)
@@ -2103,7 +2110,6 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # sport-table_tennis                                # caption(optional) z17- (also has icon z17-)
 # sport-tennis                                      # caption(optional) z17- (also has icon z17-)
 # sport-volleyball                                  # caption(optional) z17- (also has icon z17-)
-# sport-yoga                                        # caption(optional) z17- (also has icon z17-)
 # === -8600
 
 # sport-10pin                                       # caption(optional) z17- (also has icon z17-)

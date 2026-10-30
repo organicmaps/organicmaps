@@ -1448,7 +1448,9 @@ node|z17-[sport=beachvolleyball],
 area|z17-[sport=beachvolleyball],
 {icon-image: volleyball-m.svg;}
 node|z17-[sport=yoga],
-area|z17-[sport=yoga]
+area|z17-[sport=yoga],
+node|z17-[sport=pilates],
+area|z17-[sport=pilates]
 {icon-image: yoga-m.svg;}
 node|z17-[sport=padel],
 area|z17-[sport=padel]

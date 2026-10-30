@@ -2826,6 +2826,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
       {"sport", "multi"},
       {"sport", "netball"},
       {"sport", "pickleball"},
+      {"sport", "pilates"},
       {"sport", "rugby_union"},
       {"sport", "running"},
       {"sport", "scuba_diving"},
