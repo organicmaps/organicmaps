@@ -462,6 +462,9 @@ private:
     void OnDeleteLine(kml::TrackId lineId);
     void OnUpdateLine(kml::TrackId lineId);
 
+    void OnAddArea(kml::AreaId areaId);
+    void OnDeleteArea(kml::AreaId areaId);
+
     void OnAddGroup(kml::MarkGroupId groupId);
     void OnDeleteGroup(kml::MarkGroupId groupId);
 
@@ -496,6 +499,10 @@ private:
     kml::TrackIdSet const & GetGroupLineIds(kml::MarkGroupId groupId) const override;
     df::UserPointMark const * GetUserPointMark(kml::MarkId markId) const override;
     df::UserLineMark const * GetUserLineMark(kml::TrackId lineId) const override;
+    kml::AreaIdSet const & GetGroupAreaIds(kml::MarkGroupId groupId) const override;
+    kml::AreaIdSet const & GetCreatedAreaIds() const override { return m_createdAreas; }
+    kml::AreaIdSet const & GetRemovedAreaIds() const override { return m_removedAreas; }
+    kml::AreaData const * GetUserArea(kml::AreaId areaId) const override;
 
   private:
     void OnUpdateGroup(kml::MarkGroupId groupId);
@@ -515,6 +522,9 @@ private:
     kml::TrackIdSet m_createdLines;
     kml::TrackIdSet m_removedLines;
     kml::TrackIdSet m_updatedLines;
+
+    kml::AreaIdSet m_createdAreas;
+    kml::AreaIdSet m_removedAreas;
 
     kml::GroupIdSet m_createdGroups;
     kml::GroupIdSet m_removedGroups;

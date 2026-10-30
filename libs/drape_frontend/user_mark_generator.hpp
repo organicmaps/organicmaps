@@ -21,6 +21,7 @@ public:
 
   void SetUserMarks(drape_ptr<UserMarksRenderCollection> && marks);
   void SetUserLines(drape_ptr<UserLinesRenderCollection> && lines);
+  void SetUserAreas(drape_ptr<UserAreasRenderCollection> && areas);
   void SetRemovedUserMarks(drape_ptr<IDCollections> && ids);
   void SetJustCreatedUserMarks(drape_ptr<IDCollections> && ids);
 
@@ -30,6 +31,8 @@ public:
 
   void GenerateUserMarksGeometry(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
                                  ref_ptr<dp::TextureManager> textures);
+
+  UserAreasToCache GetAreasToCache(m2::RectD const & tileRect) const;
 
 private:
   void UpdateIndex(kml::MarkGroupId groupId);
@@ -45,6 +48,7 @@ private:
 
   UserMarksRenderCollection m_marks;
   UserLinesRenderCollection m_lines;
+  UserAreasRenderCollection m_areas;
 
   MarksIndex m_index;
 

@@ -272,6 +272,7 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider, bool firstTime)
 
   auto marksRenderCollection = make_unique_dp<UserMarksRenderCollection>();
   auto linesRenderCollection = make_unique_dp<UserLinesRenderCollection>();
+  auto areasRenderCollection = make_unique_dp<UserAreasRenderCollection>();
   auto justCreatedIdCollection = make_unique_dp<IDCollections>();
   auto removedIdCollection = make_unique_dp<IDCollections>();
 
@@ -315,6 +316,16 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider, bool firstTime)
     }
   };
 
+  auto const collectAreaIds = [&](kml::AreaIdSet const & areaIds, IDCollections & collection)
+  { collection.m_areaIds.insert(collection.m_areaIds.end(), areaIds.begin(), areaIds.end()); };
+
+  auto const collectAreaRenderData = [&](kml::AreaIdSet const & areaIds, kml::AreaIdSet const * createdIds)
+  {
+    for (auto const areaId : areaIds)
+      if (createdIds == nullptr || createdIds->contains(areaId))
+        areasRenderCollection->emplace(areaId, GenerateAreaRenderInfo(*provider->GetUserArea(areaId)));
+  };
+
   if (firstTime)
   {
     for (auto groupId : provider->GetAllGroupIds())
@@ -327,6 +338,8 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider, bool firstTime)
                    *visibleIdCollection);
         collectRenderData(provider->GetGroupPointIds(groupId), provider->GetGroupLineIds(groupId),
                           nullptr /* filter */);
+        collectAreaIds(provider->GetGroupAreaIds(groupId), *visibleIdCollection);
+        collectAreaRenderData(provider->GetGroupAreaIds(groupId), nullptr /* createdIds */);
       }
       groupsVisibleIds.emplace(groupId, std::move(visibleIdCollection));
     }
@@ -340,6 +353,10 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider, bool firstTime)
       {
         collectIds(provider->GetGroupPointIds(groupId), provider->GetGroupLineIds(groupId), nullptr /* filter */,
                    *visibleIdCollection);
+        collectAreaIds(provider->GetGroupAreaIds(groupId), *visibleIdCollection);
+        // Areas are created only within their groups, so they are filtered by the updated groups.
+        if (groupFilter(groupId))
+          collectAreaRenderData(provider->GetGroupAreaIds(groupId), &provider->GetCreatedAreaIds());
       }
       groupsVisibleIds.emplace(groupId, std::move(visibleIdCollection));
     }
@@ -347,27 +364,33 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider, bool firstTime)
     collectIds(provider->GetCreatedMarkIds(), provider->GetCreatedLineIds(), groupFilter, *justCreatedIdCollection);
     collectIds(provider->GetRemovedMarkIds(), provider->GetRemovedLineIds(), nullptr /* filter */,
                *removedIdCollection);
+    collectAreaIds(provider->GetRemovedAreaIds(), *removedIdCollection);
 
     collectRenderData(provider->GetCreatedMarkIds(), provider->GetCreatedLineIds(), groupFilter);
     collectRenderData(provider->GetUpdatedMarkIds(), provider->GetUpdatedLineIds(), groupFilter);
 
     for (auto const groupId : provider->GetBecameVisibleGroupIds())
+    {
       collectRenderData(provider->GetGroupPointIds(groupId), provider->GetGroupLineIds(groupId), nullptr /* filter */);
+      collectAreaRenderData(provider->GetGroupAreaIds(groupId), nullptr /* createdIds */);
+    }
 
     for (auto const groupId : provider->GetBecameInvisibleGroupIds())
     {
       collectIds(provider->GetGroupPointIds(groupId), provider->GetGroupLineIds(groupId), nullptr /* filter */,
                  *removedIdCollection);
+      collectAreaIds(provider->GetGroupAreaIds(groupId), *removedIdCollection);
     }
   }
 
-  if (!marksRenderCollection->empty() || !linesRenderCollection->empty() || !removedIdCollection->IsEmpty() ||
-      !justCreatedIdCollection->IsEmpty())
+  if (!marksRenderCollection->empty() || !linesRenderCollection->empty() || !areasRenderCollection->empty() ||
+      !removedIdCollection->IsEmpty() || !justCreatedIdCollection->IsEmpty())
   {
     m_threadCommutator->PostMessage(
         ThreadsCommutator::ResourceUploadThread,
         make_unique_dp<UpdateUserMarksMessage>(std::move(justCreatedIdCollection), std::move(removedIdCollection),
-                                               std::move(marksRenderCollection), std::move(linesRenderCollection)),
+                                               std::move(marksRenderCollection), std::move(linesRenderCollection),
+                                               std::move(areasRenderCollection)),
         MessagePriority::Normal);
   }
 

@@ -1,5 +1,6 @@
 #include "drape_frontend/user_mark_shapes.hpp"
 
+#include "drape_frontend/area_shape.hpp"
 #include "drape_frontend/colored_symbol_shape.hpp"
 #include "drape_frontend/line_shape.hpp"
 #include "drape_frontend/map_shape.hpp"
@@ -20,11 +21,20 @@
 #include "indexer/feature_decl.hpp"
 #include "indexer/scales.hpp"
 
+#include "kml/area_data.hpp"
+
 #include "geometry/clipping.hpp"
+#include "geometry/mercator.hpp"
+#include "geometry/robust_orientation.hpp"
+
+#include "base/logging.hpp"
+
+#include "3party/libtess2/Include/tesselator.h"
 
 #include <algorithm>
 #include <array>
 #include <cmath>
+#include <memory>
 #include <vector>
 
 namespace df
@@ -718,5 +728,145 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
       }
     }
   });
+}
+
+drape_ptr<UserAreaRenderParams> GenerateAreaRenderInfo(kml::AreaData const & area)
+{
+  auto renderInfo = make_unique_dp<UserAreaRenderParams>();
+
+  m2::RectD geoRect;
+  for (auto const & polygon : area.m_polygons)
+    for (auto const & point : polygon.m_outer)
+      geoRect.Add({point.m_latLon.m_lon, point.m_latLon.m_lat});
+  // Global and polar footprints need a separate wrapping/clipping implementation.
+  double const maxLat = mercator::YToLat(mercator::Bounds::kMaxY);
+  if (geoRect.SizeX() > 180 || geoRect.minY() < -maxLat || geoRect.maxY() > maxLat)
+  {
+    LOG(LWARNING, ("Area lies outside the supported display extent", area.m_id));
+    return renderInfo;
+  }
+
+  auto const & style = area.m_style;
+  if (style.m_fill)
+    renderInfo->m_fillColor = dp::Color(style.m_fillColor);
+  renderInfo->m_outlineColor = dp::Color(style.m_outlineColor);
+  if (style.m_outline && style.m_outlineWidth > 0 && renderInfo->m_outlineColor.GetAlpha() > 0)
+    renderInfo->m_outlineWidth = static_cast<float>(style.m_outlineWidth);
+
+  auto const makeRing = [](kml::AreaRing const & ring)
+  {
+    ASSERT_GREATER_OR_EQUAL(ring.size(), 3, ());
+    auto const closing = (mercator::FromLatLon(ring.front().m_latLon) + mercator::FromLatLon(ring.back().m_latLon)) / 2;
+    auto spline = std::make_unique<m2::Spline>(ring.size() + 2);
+    spline->AddPoint(closing);
+    // Skips zero-length segments between vertices that differ only in height.
+    for (auto const & point : ring)
+      spline->AddPoint(mercator::FromLatLon(point.m_latLon));
+    spline->AddPoint(closing);
+    return m2::SharedSpline(std::move(spline));
+  };
+  for (auto const & polygon : area.m_polygons)
+  {
+    auto & rings = renderInfo->m_polygons.emplace_back();
+    rings.push_back(makeRing(polygon.m_outer));
+    for (auto const & hole : polygon.m_holes)
+      rings.push_back(makeRing(hole));
+    renderInfo->m_limitRect.Add(rings.front()->GetRect());
+  }
+  return renderInfo;
+}
+
+void TessellateUserArea(UserAreaRenderParams & area)
+{
+  if (area.m_fillColor.GetAlpha() == 0)
+    return;
+
+  std::unique_ptr<TESStesselator, decltype(&tessDeleteTess)> const tess(tessNewTess(nullptr), &tessDeleteTess);
+  // Polygons are tessellated separately, so that the overlapping ones don't cancel each other out.
+  for (auto const & rings : area.m_polygons)
+  {
+    for (auto const & ring : rings)
+    {
+      // Without the closing points in the middle of an edge.
+      auto const & path = ring->GetPath();
+      tessAddContour(tess.get(), 2, path.data() + 1, sizeof(m2::PointD), static_cast<int>(path.size() - 2));
+    }
+    // Fails only when out of memory.
+    VERIFY(tessTesselate(tess.get(), TESS_WINDING_ODD, TESS_POLYGONS, 3, 2, nullptr), ());
+
+    auto const * vertices = reinterpret_cast<m2::PointD const *>(tessGetVertices(tess.get()));
+    auto const * indices = tessGetElements(tess.get());
+    for (int i = 0, count = tessGetElementCount(tess.get()); i < count; ++i, indices += 3)
+    {
+      auto const & a = vertices[indices[0]];
+      auto const & b = vertices[indices[1]];
+      auto const & c = vertices[indices[2]];
+      // ClipTriangleByRect takes clockwise triangles, while libtess2 keeps the rings' winding
+      // and emits zero-area triangles over collinear vertices.
+      double const s = m2::robust::OrientedS(a, b, c);
+      if (s < 0)
+        area.m_triangles.insert(area.m_triangles.end(), {a, b, c});
+      else if (s > 0)
+        area.m_triangles.insert(area.m_triangles.end(), {a, c, b});
+    }
+  }
+}
+
+void CacheUserAreas(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
+                    UserAreasToCache const & areas, dp::Batcher & batcher)
+{
+  double const vs = VisualParams::Instance().GetVisualScale();
+  bool const simplify = tileKey.m_zoomLevel <= 15;
+  double const minSegmentSqrLength = math::Pow2(4.0 * vs * GetScreenScale(tileKey.m_zoomLevel));
+  m2::RectD const tileRect = tileKey.GetWrappedDataRect();
+
+  for (auto const & [area, depth] : areas)
+  {
+    std::vector<m2::PointD> triangles;
+    auto const & t = area->m_triangles;
+    for (size_t i = 0; i < t.size(); i += 3)
+    {
+      m2::ClipTriangleByRect(tileRect, t[i], t[i + 1], t[i + 2],
+                             [&triangles](auto const & a, auto const & b, auto const & c)
+      { triangles.insert(triangles.end(), {a, b, c}); });
+    }
+    if (!triangles.empty())
+    {
+      // Fills keep the default 0 depth, so they never cover any outline.
+      AreaViewParams params;
+      params.m_tileCenter = tileRect.Center();
+      params.m_depthLayer = DepthLayer::UserAreaLayer;
+      params.m_color = area->m_fillColor;
+      params.m_blendInPaintOrder = true;
+      AreaShape(std::move(triangles), {}, params).Draw(context, make_ref(&batcher), textures);
+    }
+
+    if (area->m_outlineWidth == 0)
+      continue;
+
+    LineViewParams params;
+    params.m_tileCenter = tileRect.Center();
+    params.m_depthLayer = DepthLayer::UserAreaLayer;
+    params.m_depth = depth;
+    params.m_depthFunction = dp::TestFunction::Less;
+    params.m_width = static_cast<float>(area->m_outlineWidth * vs);
+    params.m_color = area->m_outlineColor;
+    params.m_cap = dp::ButtCap;
+    params.m_join = dp::RoundJoin;
+    params.m_zoomLevel = tileKey.m_zoomLevel;
+    for (auto const & rings : area->m_polygons)
+    {
+      for (auto ring : rings)
+      {
+        if (simplify)
+          ring = SimplifySpline(ring, minSegmentSqrLength);
+        if (ring->GetSize() < 2)
+          continue;
+        // An outline along a tile side is cached by both tiles, but its second copy fails the depth test.
+        for (auto const & spline : m2::ClipSplineByRect(tileRect, ring))
+          LineShape(spline, params).Draw(context, make_ref(&batcher), textures);
+      }
+    }
+  }
 }
 }  // namespace df

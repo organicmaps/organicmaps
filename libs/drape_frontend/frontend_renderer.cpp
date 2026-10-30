@@ -1507,6 +1507,7 @@ bool FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
     RenderTileBackgroundLayer(modelView);
 
     Render2dLayer(modelView);
+    RenderUserMarksLayer(modelView, DepthLayer::UserAreaLayer);
     RenderUserMarksLayer(modelView, DepthLayer::UserLineLayer);
 
     bool const hasTransitRouteData = HasTransitRouteData();

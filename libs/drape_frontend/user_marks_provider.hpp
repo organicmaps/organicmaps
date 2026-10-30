@@ -17,19 +17,26 @@
 #include <optional>
 #include <vector>
 
+namespace kml
+{
+struct AreaData;
+}  // namespace kml
+
 namespace df
 {
 struct IDCollections
 {
   kml::MarkIdCollection m_markIds;
   kml::TrackIdCollection m_lineIds;
+  kml::AreaIdCollection m_areaIds;
 
-  bool IsEmpty() { return m_markIds.empty() && m_lineIds.empty(); }
+  bool IsEmpty() { return m_markIds.empty() && m_lineIds.empty() && m_areaIds.empty(); }
 
   void Clear()
   {
     m_markIds.clear();
     m_lineIds.clear();
+    m_areaIds.clear();
   }
 };
 
@@ -151,5 +158,9 @@ public:
   virtual UserPointMark const * GetUserPointMark(kml::MarkId markId) const = 0;
   /// Never store UserLineMark reference.
   virtual UserLineMark const * GetUserLineMark(kml::TrackId lineId) const = 0;
+  virtual kml::AreaIdSet const & GetGroupAreaIds(kml::MarkGroupId groupId) const = 0;
+  virtual kml::AreaIdSet const & GetCreatedAreaIds() const = 0;
+  virtual kml::AreaIdSet const & GetRemovedAreaIds() const = 0;
+  virtual kml::AreaData const * GetUserArea(kml::AreaId areaId) const = 0;
 };
 }  // namespace df

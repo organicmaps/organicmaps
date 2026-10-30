@@ -46,6 +46,7 @@ public:
   /// Cache user lines into the current batch. Only valid inside the Render() callback.
   void AddUserLines(TileKey const & tileKey, TracksSource const & source,
                     UserLinesRenderCollection const & renderParams);
+  void AddUserAreas(TileKey const & tileKey, UserAreasToCache const & areas);
 
   /// Sets the scale from world coordinates to pixels. Must be called before Render().
   void SetWorldToPixelScale(float scale) { m_worldToPixelScale = scale; }
