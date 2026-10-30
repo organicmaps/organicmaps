@@ -356,25 +356,24 @@ water::Geometry WaterGeometryProvider::ExtractFeatures(DataSource const & dataSo
       auto const rect = feature.GetLimitRect(FeatureType::BEST_GEOMETRY);
       if (!rect.IsIntersect(bounds))
         return;
+      // Coastline polygons encode land, not missing coverage. Their bounding
+      // rectangles can contain mapped rivers and must not mask that water.
+      if (::water::IsCoastline(types))
+        return;
       // Unrelated buildings and roads must not exhaust the water geometry budget.
       if (++features > water::kMaxWaterFeatures)
       {
         exceeded = true;
         return;
       }
-      // Coastline polygons encode land. Bridge/aqueduct/lock restrictions are not
-      // modelled in display-data measurements. Underground features allow a walking bypass.
+      // Bridge/aqueduct/lock restrictions are not modelled in display-data
+      // measurements. Underground features allow a walking bypass.
       bool underground = feature.GetLayer() < 0;
       feature.ForEachType([&](uint32_t type)
       {
         auto const name = classif().GetReadableObjectName(type);
         underground = underground || name.find("tunnel") != std::string::npos;
       });
-      if (::water::IsCoastline(types))
-      {
-        result.m_unknownAreas.push_back(rect);
-        return;
-      }
       if (underground)
       {
         result.m_portageAreas.push_back(rect);
