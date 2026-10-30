@@ -710,7 +710,7 @@ using namespace routing;
 
 + (void)optimizeRoutePointsAndRebuild
 {
-  // The core keeps the approved order while following or in Ruler mode.
+  // The core keeps the order while following, in Ruler mode, or while a My Position mark is unresolved.
   if ([self isRoutingActive] && GetFramework().GetRoutingManager().OptimizeRoutePoints())
     [self rebuildWithBestRouter:NO];
 }

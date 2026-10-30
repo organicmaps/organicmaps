@@ -12,6 +12,7 @@
 #include "platform/gui_thread.hpp"
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
+#include "platform/settings.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -228,6 +229,38 @@ double GetRouteLengthMeters(RoutingManager const & manager)
   for (size_t i = 1; i < points.size(); ++i)
     length += mercator::DistanceOnEarth(points[i - 1].m_position, points[i].m_position);
   return length;
+}
+std::vector<std::string> OptimizeMyPositionRoute(RoutingManager & manager, RouteMarkType myPositionType,
+                                                 m2::PointD const & storedPosition, bool insertOnly)
+{
+  manager.RemoveRoutePoints();
+  std::vector<RouteMarkData> points{MakeRoutePointOnXAxis(RouteMarkType::Start, 0, -1),
+                                    MakeRoutePointOnXAxis(RouteMarkType::Intermediate, 0, 8),
+                                    MakeRoutePointOnXAxis(RouteMarkType::Finish, 0, 10)};
+  for (size_t i = 0; i < points.size(); ++i)
+  {
+    auto & point = points[i];
+    point.m_title = std::to_string(i);
+    if (point.m_pointType == myPositionType)
+    {
+      point.m_isMyPosition = true;
+      point.m_position = storedPosition;
+    }
+    TEST(manager.AddRoutePoint(std::move(point), false), ());
+  }
+  auto added = MakeRoutePointOnXAxis(RouteMarkType::Intermediate, 0, 3);
+  added.m_title = "new";
+  TEST(manager.AddRoutePoint(std::move(added), insertOnly), ());
+  if (!insertOnly)
+    manager.OptimizeRoutePoints();
+  std::vector<std::string> titles;
+  for (auto const & point : manager.GetRoutePoints())
+  {
+    if (point.m_isMyPosition)
+      TEST_EQUAL(point.m_position, storedPosition, ("Optimization must not replace mark metadata."));
+    titles.push_back(point.m_title);
+  }
+  return titles;
 }
 }  // namespace
 
@@ -899,6 +932,55 @@ UNIT_TEST(RoutingManager_FirstFixRecommendationIsReentrantlySingleUse)
     manager.SetUserCurrentPosition(fix);
     manager.SetUserCurrentPosition(fix);
     TEST_EQUAL(recommendations, 1, ());
+  });
+}
+
+UNIT_TEST(RoutingManager_OptimizationResolvesMyPosition)
+{
+  WithSavedRoute([](RoutingManager & manager, BookmarkManager & bookmarks, TestGuiThread &)
+  {
+    std::string savedRouter;
+    bool const hadRouter = settings::Get("router", savedRouter);
+    SCOPE_GUARD(restoreRouter, [&]
+    {
+      if (hadRouter)
+        settings::Set("router", savedRouter);
+      else
+        settings::Delete("router");
+    });
+    manager.SetRouter(routing::RouterType::Vehicle);
+    TEST(manager.GetRouter() == routing::RouterType::Vehicle, ());
+    struct Position
+    {
+      char const * m_name;
+      RouteMarkType m_type;
+      m2::PointD m_live;
+      m2::PointD m_stale;
+      std::vector<std::string> m_expected;
+    };
+    Position const positions[] = {{"start", RouteMarkType::Start, {-1, 0}, {11, 0}, {"0", "new", "1", "2"}},
+                                  {"stop", RouteMarkType::Intermediate, {1, 0}, {9, 5}, {"0", "1", "new", "2"}},
+                                  {"finish", RouteMarkType::Finish, {10, 0}, {-2, 0}, {"0", "new", "1", "2"}}};
+    struct Mode
+    {
+      char const * m_name;
+      bool m_hasPosition;
+      bool m_insertOnly;
+    };
+    Mode const modes[] = {{"insert/live", true, true},
+                          {"all/live", true, false},
+                          {"insert/unresolved", false, true},
+                          {"all/unresolved", false, false}};
+    std::vector<std::string> const unchanged{"0", "1", "new", "2"};
+    for (auto const & position : positions)
+    {
+      for (auto const & mode : modes)
+      {
+        bookmarks.MyPositionMark().SetUserPosition(position.m_live, mode.m_hasPosition);
+        auto const actual = OptimizeMyPositionRoute(manager, position.m_type, position.m_stale, mode.m_insertOnly);
+        TEST_EQUAL(actual, mode.m_hasPosition ? position.m_expected : unchanged, (position.m_name, mode.m_name));
+      }
+    }
   });
 }
 

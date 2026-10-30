@@ -372,7 +372,8 @@ public class RoutingController
 
   /**
    * Tries to reduce the straight-line distance between route marks by reordering intermediate stops. The core leaves
-   * the marks unchanged while navigating, in Ruler mode, without both endpoints, or with fewer than three points.
+   * the marks unchanged while navigating, in Ruler mode, without both endpoints, with fewer than three points,
+   * or while a My Position mark has no usable location fix.
    *
    * @return whether the order changed, which means the route has to be rebuilt.
    */

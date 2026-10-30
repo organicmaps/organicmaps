@@ -42,6 +42,7 @@
 
 #include <glaze/json.hpp>
 
+#include <algorithm>
 #include <map>
 
 using namespace routing;
@@ -1298,6 +1299,14 @@ bool RoutingManager::ReorderIntermediatePoints(RoutePointsLayout & layout, Route
   ASSERT(points.front()->GetRoutePointType() == RouteMarkType::Start, ());
   ASSERT(points.back()->GetRoutePointType() == RouteMarkType::Finish, ());
 
+  auto const & myPosition = m_bmManager->MyPositionMark();
+  // An unresolved My Position mark must not change stop order.
+  if (!myPosition.HasPosition() &&
+      std::any_of(points.begin(), points.end(), [](auto const * point) { return point->IsMyPosition(); }))
+    return false;
+  auto const pivotOf = [&myPosition](RouteMarkPoint const * point) -> m2::PointD const &
+  { return point->IsMyPosition() ? myPosition.GetPivot() : point->GetPivot(); };
+
   // Passed stops keep their slots; the rest of the route starts from the last of them.
   size_t lastPassedIndex = 0;
   for (size_t i = 1; i + 1 < points.size(); ++i)
@@ -1314,13 +1323,13 @@ bool RoutingManager::ReorderIntermediatePoints(RoutePointsLayout & layout, Route
 
   std::vector<m2::PointD> positions;
   for (auto const * point : ordered)
-    positions.push_back(point->GetPivot());
+    positions.push_back(pivotOf(point));
 
-  CheckpointPredictor const predictor(points[lastPassedIndex]->GetPivot(), points.back()->GetPivot());
+  CheckpointPredictor const predictor(pivotOf(points[lastPassedIndex]), pivotOf(points.back()));
   for (auto * point : toPlace)
   {
-    size_t const index = predictor.PredictPosition(positions, point->GetPivot());
-    positions.insert(positions.begin() + index, point->GetPivot());
+    size_t const index = predictor.PredictPosition(positions, pivotOf(point));
+    positions.insert(positions.begin() + index, pivotOf(point));
     ordered.insert(ordered.begin() + index, point);
   }
 
@@ -1330,16 +1339,16 @@ bool RoutingManager::ReorderIntermediatePoints(RoutePointsLayout & layout, Route
   {
     double currentLength = 0.0;
     for (size_t i = lastPassedIndex; i + 1 < points.size(); ++i)
-      currentLength += mercator::DistanceOnEarth(points[i]->GetPivot(), points[i + 1]->GetPivot());
+      currentLength += mercator::DistanceOnEarth(pivotOf(points[i]), pivotOf(points[i + 1]));
 
     double optimizedLength = 0.0;
-    m2::PointD const * previous = &points[lastPassedIndex]->GetPivot();
+    m2::PointD const * previous = &pivotOf(points[lastPassedIndex]);
     for (auto const & position : positions)
     {
       optimizedLength += mercator::DistanceOnEarth(*previous, position);
       previous = &position;
     }
-    optimizedLength += mercator::DistanceOnEarth(*previous, points.back()->GetPivot());
+    optimizedLength += mercator::DistanceOnEarth(*previous, pivotOf(points.back()));
     if (optimizedLength >= currentLength)
       return false;
   }

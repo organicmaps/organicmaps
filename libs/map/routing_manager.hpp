@@ -216,15 +216,16 @@ public:
 
   /// Appends an intermediate stop before the finish, ignoring markData.m_intermediateIndex; Start/Finish replace the
   /// existing endpoint instead. A new stop is dropped at capacity, except when it takes over an existing My Position
-  /// mark. optimize places only the new stop at the predicted position (needs both endpoints, ignored in Ruler mode,
-  /// still applied while following). Returns false when a new point cannot be added at capacity.
+  /// mark. optimize places only the new stop at the predicted position (needs both endpoints and a fix for any
+  /// My Position mark, ignored in Ruler mode, still applied while following).
+  /// Returns false when a new point cannot be added at capacity.
   bool AddRoutePoint(RouteMarkData && markData, bool optimize);
   /// Replaces an existing slot without optimization. If the target is gone, adds the point normally; otherwise the
   /// target slot's current type overrides markData.
   void ReplaceRoutePoint(RouteMarkType type, size_t intermediateIndex, RouteMarkData && markData);
   /// Reorders stops after the last passed mark in place, keeping endpoints, passed marks, and earlier stops fixed.
   /// Returns whether the order changed; the caller rebuilds. No-op while following, in Ruler mode, or without
-  /// both endpoints.
+  /// both endpoints, or while a My Position mark is unresolved.
   bool OptimizeRoutePoints();
   bool ContinueRouteToPoint(RouteMarkData && markData);
   std::vector<RouteMarkData> GetRoutePoints() const;
