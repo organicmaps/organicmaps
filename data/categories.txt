@@ -20721,6 +20721,52 @@ vi:Thợ đồng hồ
 zh-Hans:钟表匠
 zh-Hant:鐘錶匠
 
+craft-window_construction
+en:Window Construction|windows|window maker|window fitter|window installer|double glazing
+ar:تصنيع النوافذ|نوافذ|شبابيك
+be:Вытворчасць вокнаў|вокны|вокнаў
+bg:Производство на прозорци|прозорци|дограма
+ca:Fabricació de finestres|finestres
+cs:Výroba oken|okna|plastová okna
+cy:Gwneuthuro Ffenestri|ffenestri
+da:Vinduesproduktion|vinduer|vinduesfabrik
+de:Fensterbau|Fenster|Fensterbauer|Fensterhersteller
+el:Κατασκευή παραθύρων|παράθυρα|κουφώματα
+es:Fabricación de ventanas|ventanas|ventanas de PVC
+et:Akende valmistamine|aknad
+eu:Leihogintza|leihoak
+fa:ساخت پنجره|پنجره|پنجره دوجداره
+fi:Ikkunoiden valmistus|ikkunat|ikkunatehdas
+fr:Fabrication de fenêtres|fenêtres|menuiserie PVC
+he:ייצור חלונות|חלונות
+hi:खिड़की निर्माण|खिड़की|खिड़कियाँ
+hu:Ablakgyártás|ablak|ablakok|nyílászáró
+id:Pembuatan jendela|jendela|kusen
+it:Serramentista|serramenti|finestre|infissi
+ja:窓製造|窓|サッシ
+ko:창호 제작|창호|창문
+lt:Langų gamyba|langai|plastikiniai langai
+lv:Logu ražošana|logi
+mr:खिडकी निर्मिती|खिडकी|खिडक्या
+nb:Vindusproduksjon|vinduer
+nl:Kozijnenbedrijf|kozijnen|ramen|kozijnenmaker
+pl:Produkcja okien|okna|okna PCV|stolarka okienna
+pt:Fabrico de janelas|janelas|caixilharia
+pt-BR:Fabricação de janelas|janelas|esquadrias
+ro:Producție de ferestre|ferestre|termopane
+ru:Изготовление окон|окна|окон|пластиковые окна|стеклопакеты
+sk:Výroba okien|okná|plastové okná
+sl:Izdelava oken|okna
+sr:Израда прозора|прозори|Izrada prozora|prozori
+sv:Fönstertillverkning|fönster
+sw:Utengenezaji wa madirisha|madirisha|dirisha
+th:ช่างทำหน้าต่าง|หน้าต่าง
+tr:Pencere İmalatı|pencere|PVC pencere
+uk:Виготовлення вікон|вікна|вікон|металопластикові вікна
+vi:Sản xuất cửa sổ|cửa sổ|cửa nhôm kính
+zh-Hans:门窗制作|门窗|窗户
+zh-Hant:門窗製作|門窗|窗戶
+
 shop-wholesale|@shop
 en:Wholesale|wholesale store
 ar:متجر مواد بالجملة
