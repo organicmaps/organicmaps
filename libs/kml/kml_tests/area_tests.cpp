@@ -12,6 +12,7 @@
 #include "base/math.hpp"
 
 #include <algorithm>
+#include <random>
 #include <utility>
 
 namespace area_tests
@@ -62,18 +63,10 @@ UNIT_TEST(Area_RejectInvalidGeometry)
   auto const shell = Ring({{0, 0}, {10, 0}, {10, 10}, {0, 10}});
   std::vector<kml::AreaPolygon> polygons;
   TEST(!kml::NormalizeAreaGeometry(polygons), ());
-  polygons = {{Ring({{0, 0}, {4, 4}, {0, 4}, {4, 0}}), {}}};
-  TEST(!kml::NormalizeAreaGeometry(polygons), ());
-  polygons = {{shell, {Ring({{12, 12}, {14, 12}, {14, 14}, {12, 14}})}}};
-  TEST(!kml::NormalizeAreaGeometry(polygons), ());
+  // Parsers reject non-finite coordinates, see Area_*RejectsNonFiniteCoordinates tests,
+  // while the range checks can't reject NaN with -ffast-math.
   for (auto const invalid : {math::Infinity(), -math::Infinity(), math::Nan()})
   {
-    polygons = {{shell, {}}};
-    polygons.front().m_outer[1].m_latLon.m_lon = invalid;
-    TEST(!kml::NormalizeAreaGeometry(polygons), (invalid));
-    polygons = {{shell, {}}};
-    polygons.front().m_outer[1].m_latLon.m_lat = invalid;
-    TEST(!kml::NormalizeAreaGeometry(polygons), (invalid));
     polygons = {{shell, {}}};
     polygons.front().m_outer[1].m_altitude = invalid;
     TEST(!kml::NormalizeAreaGeometry(polygons), (invalid));
@@ -84,6 +77,150 @@ UNIT_TEST(Area_RejectInvalidGeometry)
   polygons = {{shell, {}}};
   polygons.front().m_outer[1].m_latLon.m_lon = 181;
   TEST(!kml::NormalizeAreaGeometry(polygons), ());
+}
+
+UNIT_TEST(Area_KeepInvalidTopology)
+{
+  // Self-crossing rings and holes outside their shell are retained and interpreted by the even-odd rule.
+  auto const shell = Ring({{0, 0}, {10, 0}, {10, 10}, {0, 10}});
+  std::vector<kml::AreaPolygon> polygons{{Ring({{0, 0}, {4, 4}, {0, 4}, {4, 0}}), {}},
+                                         {shell, {Ring({{12, 12}, {14, 12}, {14, 14}, {12, 14}})}}};
+  TEST(kml::NormalizeAreaGeometry(polygons), ());
+  TEST_EQUAL(polygons.size(), 2, ());
+  TEST_EQUAL(polygons[0].m_outer.size(), 4, ());
+  TEST_EQUAL(polygons[1].m_holes.size(), 1, ());
+
+  // A hole touching itself at a vertex, as in ArcGIS exports.
+  polygons = {{shell, {Ring({{3, 3}, {2, 4}, {2, 2}, {3, 3}, {4, 2}, {4, 4}})}}};
+  TEST(kml::NormalizeAreaGeometry(polygons), ());
+  TEST_EQUAL(polygons.front().m_holes.front().size(), 6, ());
+  TEST_EQUAL(SignedRingArea(polygons.front().m_holes.front()), -2, ());
+}
+
+UNIT_TEST(Area_ZeroAreaRingIsStable)
+{
+  // Bow-ties with cancelling lobes have zero signed area or a rounding noise of it, which depends on
+  // the summation order in Release builds, so their winding must not alternate.
+  for (auto const & ring : {Ring({{0, 0}, {4, 4}, {0, 4}, {4, 0}}),
+                            Ring({{-37.821, -32.04}, {-37.767, -32.218}, {-37.665, -32.082}, {-37.923, -32.176}})})
+  {
+    kml::FileData data;
+    auto & polygons = data.m_areasData.emplace_back().m_polygons;
+    polygons = {{ring, {}}};
+    TEST(kml::NormalizeAreaGeometry(polygons), ());
+    auto const normalized = polygons;
+    TEST(kml::NormalizeAreaGeometry(polygons), ());
+    TEST(polygons == normalized, ());
+
+    std::string native;
+    MemWriter nativeWriter(native);
+    kml::KmlWriter(nativeWriter).Write(data);
+    auto const stored = ReadKml(native);
+    TEST_EQUAL(stored.m_areasData, data.m_areasData, (native));
+    std::string json;
+    MemWriter jsonWriter(json);
+    kml::GeoJsonWriter(jsonWriter).Write(stored, true /* minimize */);
+    kml::FileData loaded;
+    kml::GeoJsonReader(loaded).Deserialize(json);
+    TEST(loaded.m_areasData.front().m_polygons == normalized, (json));
+  }
+
+  // Bow-ties of parallelograms with decimal coordinates.
+  std::mt19937 rng(1);
+  std::uniform_int_distribution<int> coordinate(-90000, 90000);
+  std::uniform_int_distribution<int> side(-300, 300);
+  for (int i = 0; i < 1000; ++i)
+  {
+    double const x = coordinate(rng) / 1000.0, y = coordinate(rng) / 2000.0;
+    double const ux = side(rng) / 1000.0, uy = side(rng) / 1000.0, vx = side(rng) / 1000.0, vy = side(rng) / 1000.0;
+    std::vector<kml::AreaPolygon> polygons{
+        {Ring({{x, y}, {x + ux + vx, y + uy + vy}, {x + ux, y + uy}, {x + vx, y + vy}}), {}}};
+    if (!kml::NormalizeAreaGeometry(polygons))
+      continue;
+    auto const normalized = polygons;
+    TEST(kml::NormalizeAreaGeometry(polygons), ());
+    TEST(polygons == normalized, (i));
+  }
+}
+
+UNIT_TEST(Area_RemoveSpikesAndDegenerateRings)
+{
+  std::vector<kml::AreaPolygon> polygons{
+      {Ring({{0, 0}, {5, 0}, {5, -3}, {5, 0}, {10, 0}, {10, 10}, {10, 10}, {0, 10}, {-2, 12}, {0, 10}, {0, 0}}), {}}};
+  TEST(kml::NormalizeAreaGeometry(polygons), ());
+  TEST(polygons.front().m_outer == Ring({{0, 0}, {5, 0}, {10, 0}, {10, 10}, {0, 10}}), ());
+
+  // Spike at the start of the ring.
+  polygons = {{Ring({{-3, -3}, {0, 0}, {10, 0}, {10, 10}, {0, 10}, {0, 0}}), {}}};
+  TEST(kml::NormalizeAreaGeometry(polygons), ());
+  TEST(polygons.front().m_outer == Ring({{0, 0}, {10, 0}, {10, 10}, {0, 10}}), ());
+
+  // A nested spike in any position across the start of the ring.
+  auto const spiked = Ring({{0, 0}, {-1, -1}, {-2, -2}, {-1, -1}, {0, 0}, {10, 0}, {0, 10}});
+  for (size_t shift = 0; shift < spiked.size(); ++shift)
+  {
+    auto ring = spiked;
+    std::rotate(ring.begin(), ring.begin() + shift, ring.end());
+    polygons = {{ring, {}}};
+    TEST(kml::NormalizeAreaGeometry(polygons), (shift));
+    TEST_EQUAL(polygons.front().m_outer.size(), 3, (shift));
+    TEST_EQUAL(SignedRingArea(polygons.front().m_outer), 50, (shift));
+  }
+
+  // A long out-and-back chain across the start of the ring is removed in linear time.
+  kml::AreaRing chain;
+  size_t constexpr kChain = 40000;
+  for (size_t i = kChain; i > 0; --i)
+    chain.push_back({ms::LatLon(-1e-3 * i, -1e-3 * i), {}});
+  for (auto const & point : Ring({{0, 0}, {10, 0}, {0, 10}, {0, 0}}))
+    chain.push_back(point);
+  for (size_t i = 1; i < kChain; ++i)
+    chain.push_back({ms::LatLon(-1e-3 * i, -1e-3 * i), {}});
+  polygons = {{chain, {}}};
+  TEST(kml::NormalizeAreaGeometry(polygons), ());
+  TEST_EQUAL(polygons.front().m_outer.size(), 3, ());
+
+  // Degenerate holes and polygons are dropped, and the area is rejected only without polygons.
+  auto const shell = Ring({{0, 0}, {10, 0}, {10, 10}, {0, 10}});
+  polygons = {{shell, {Ring({{2, 2}, {4, 2}, {2, 2}}), Ring({{1, 1}, {2, 1}, {3, 1}})}},
+              {Ring({{20, 20}, {21, 20}, {20, 20}}), {}}};
+  TEST(kml::NormalizeAreaGeometry(polygons), ());
+  TEST_EQUAL(polygons.size(), 1, ());
+  TEST(polygons.front().m_holes.empty(), ());
+  polygons = {{Ring({{0, 0}, {1, 0}, {2, 0}}), {}}};
+  TEST(!kml::NormalizeAreaGeometry(polygons), ());
+}
+
+UNIT_TEST(Area_RetainAltitudeOnlyVertices)
+{
+  // Heights 1, 2 and 3 at the same position aren't a spike, even after removing a spike between them.
+  std::pair<std::string, kml::AreaRing> const cases[] = {
+      {"1,1,1 1,1,2 1,1,3 4,4,0 1,4,0 1,1,1", {{{1, 1}, 1}, {{1, 1}, 2}, {{1, 1}, 3}, {{4, 4}, 0}, {{4, 1}, 0}}},
+      {"1,1,1 1,1,2 4,1,0 1,1,3 4,4,0 1,4,0 1,1,1", {{{1, 1}, 1}, {{1, 1}, 2}, {{1, 1}, 3}, {{4, 4}, 0}, {{4, 1}, 0}}},
+      // The same across the start of the ring.
+      {"1,1,2 1,1,3 4,4,0 1,4,0 1,1,1 1,1,2", {{{1, 1}, 2}, {{1, 1}, 3}, {{4, 4}, 0}, {{4, 1}, 0}, {{1, 1}, 1}}},
+      {"4,1,0 1,1,3 4,4,0 1,4,0 1,1,1 1,1,2 4,1,0", {{{1, 1}, 3}, {{4, 4}, 0}, {{4, 1}, 0}, {{1, 1}, 1}, {{1, 1}, 2}}}};
+  for (auto const & [coordinates, expected] : cases)
+  {
+    auto data = ReadKml("<kml><Document><Placemark><Polygon><outerBoundaryIs><LinearRing><coordinates>" + coordinates +
+                        "</coordinates></LinearRing></outerBoundaryIs></Polygon></Placemark></Document></kml>");
+    TEST_EQUAL(data.m_areasData.size(), 1, (coordinates));
+    TEST(data.m_areasData.front().m_polygons.front().m_outer == expected, (coordinates));
+
+    // Normalization is stable after save and load, also with heights exported to GeoJSON.
+    data.m_areasData.front().m_altitudeIsWgs84 = true;
+    std::string native;
+    MemWriter nativeWriter(native);
+    kml::KmlWriter(nativeWriter).Write(data);
+    auto const stored = ReadKml(native);
+    TEST_EQUAL(stored.m_areasData, data.m_areasData, (native));
+    std::string json;
+    MemWriter jsonWriter(json);
+    kml::GeoJsonWriter(jsonWriter).Write(stored, true /* minimize */);
+    kml::FileData loaded;
+    kml::GeoJsonReader(loaded).Deserialize(json);
+    TEST_EQUAL(loaded.m_areasData, data.m_areasData, (json));
+  }
 }
 
 UNIT_TEST(Area_IndependentPolygonsMayOverlap)
@@ -140,18 +277,6 @@ UNIT_TEST(Area_WideShellRetainsHolesOnBothSides)
   TEST_EQUAL(polygons.front().m_holes.size(), 2, ());
   for (auto const & hole : polygons.front().m_holes)
     TEST_LESS(SignedRingArea(hole), 0, ());
-}
-
-UNIT_TEST(Area_WideShellRejectsInvalidTopology)
-{
-  auto const shell = Ring({{179, -10}, {-179, -10}, {-179, 10}, {179, 10}});
-  std::vector<kml::AreaPolygon> polygons{{shell, {Ring({{179.5, 12}, {-179.5, 12}, {-179.5, 14}, {179.5, 14}})}}};
-  TEST(!kml::NormalizeAreaGeometry(polygons), ());
-  // The hole spans 359 degrees and lies outside the 358-degree shell.
-  polygons = {{shell, {Ring({{179.5, -5}, {179.5, 5}, {-179.5, 5}, {-179.5, -5}})}}};
-  TEST(!kml::NormalizeAreaGeometry(polygons), ());
-  polygons = {{Ring({{179, -10}, {-179, 10}, {179, 10}, {-179, -10}}), {}}};
-  TEST(!kml::NormalizeAreaGeometry(polygons), ());
 }
 
 UNIT_TEST(Area_UnsupportedFormatsDoNotWritePartialOutput)
@@ -744,6 +869,32 @@ UNIT_TEST(Area_KmlRejectsNonFiniteCoordinates)
   }
 }
 
+UNIT_TEST(Area_GeoJsonEmptyPartsAreDropped)
+{
+  kml::FileData data;
+  kml::GeoJsonReader(data).Deserialize(R"({"type":"FeatureCollection","features":[
+    {"type":"Feature","geometry":{"type":"MultiPolygon","coordinates":[[],[[[0,0],[4,0],[0,4],[0,0]]],[[]]]}},
+    {"type":"Feature","geometry":{"type":"Polygon","coordinates":[]}}
+  ]})");
+  TEST_EQUAL(data.m_areasData.size(), 1, ());
+  TEST_EQUAL(data.m_areasData.front().m_polygons.size(), 1, ());
+}
+
+UNIT_TEST(Area_GeoJsonRejectsNonFiniteCoordinates)
+{
+  for (std::string const tuple :
+       {"NaN,0", "0,NaN", "0,0,NaN", "Infinity,0", "0,-Infinity", "0,0,Infinity", "1e309,0", "0,1e309", "0,0,1e309"})
+  {
+    kml::FileData data;
+    kml::GeoJsonReader(data).Deserialize(R"({"type":"FeatureCollection","features":[
+      {"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[0,0],[)" +
+                                         tuple + R"(],[4,0],[0,4],[0,0]]]}},
+      {"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[10,10],[12,10],[10,12],[10,10]]]}}
+    ]})");
+    TEST_EQUAL(data.m_areasData.size(), 1, (tuple));
+  }
+}
+
 UNIT_TEST(Area_KmlInvalidOutlineWidthsKeepSharedStyle)
 {
   for (std::string const width : {"NaN", "INF", "-INF", "1e309", "-1"})
@@ -778,22 +929,32 @@ UNIT_TEST(Area_KmlMultipleInnerRings)
   TEST_EQUAL(ReadKml(output).m_areasData, data.m_areasData, (output));
 }
 
-UNIT_TEST(Area_KmlRejectsInvalidTopology)
+UNIT_TEST(Area_KmlKeepsInvalidTopologyAndRejectsBadCoordinates)
 {
-  for (std::string const polygon :
-       {"<outerBoundaryIs><LinearRing><coordinates>0,0 4,4 0,4 4,0 0,0</coordinates></LinearRing></outerBoundaryIs>",
-        "<outerBoundaryIs><LinearRing><coordinates>0,0 4,0 4,4 0,4 0,0</coordinates></LinearRing></outerBoundaryIs>"
-        "<innerBoundaryIs><LinearRing><coordinates>5,5 6,5 6,6 5,6 5,5</coordinates></LinearRing></innerBoundaryIs>",
-        "<outerBoundaryIs><LinearRing><coordinates>0,0 4,0 0,91 0,0</coordinates></LinearRing></outerBoundaryIs>"})
+  auto const read = [](std::string const & polygon)
   {
-    auto const data =
-        ReadKml("<kml><Document><Placemark><Polygon>" + polygon +
-                "</Polygon></Placemark>"
-                "<Placemark><Polygon><outerBoundaryIs><LinearRing><coordinates>0,0 4,0 0,4 0,0</coordinates>"
-                "</LinearRing></outerBoundaryIs></Polygon></Placemark></Document></kml>");
-    TEST_EQUAL(data.m_areasData.size(), 1, (polygon));
-    TEST_EQUAL(data.m_areasData.front().m_polygons.front().m_outer.size(), 3, ());
-  }
+    return ReadKml("<kml><Document><Placemark><Polygon>" + polygon +
+                   "</Polygon></Placemark>"
+                   "<Placemark><Polygon><outerBoundaryIs><LinearRing><coordinates>0,0 4,0 0,4 0,0</coordinates>"
+                   "</LinearRing></outerBoundaryIs></Polygon></Placemark></Document></kml>");
+  };
+
+  // A self-crossing ring and a hole outside its shell are retained.
+  auto data = read(
+      "<outerBoundaryIs><LinearRing><coordinates>0,0 4,4 0,4 4,0 0,0</coordinates></LinearRing></outerBoundaryIs>");
+  TEST_EQUAL(data.m_areasData.size(), 2, ());
+  TEST(data.m_areasData.front().m_polygons.front().m_outer == Ring({{0, 0}, {4, 4}, {0, 4}, {4, 0}}), ());
+  data = read(
+      "<outerBoundaryIs><LinearRing><coordinates>0,0 4,0 4,4 0,4 0,0</coordinates></LinearRing></outerBoundaryIs>"
+      "<innerBoundaryIs><LinearRing><coordinates>5,5 6,5 6,6 5,6 5,5</coordinates></LinearRing></innerBoundaryIs>");
+  TEST_EQUAL(data.m_areasData.size(), 2, ());
+  TEST_EQUAL(data.m_areasData.front().m_polygons.front().m_holes.size(), 1, ());
+
+  // Coordinates out of range reject the area.
+  data =
+      read("<outerBoundaryIs><LinearRing><coordinates>0,0 4,0 0,91 0,0</coordinates></LinearRing></outerBoundaryIs>");
+  TEST_EQUAL(data.m_areasData.size(), 1, ());
+  TEST(data.m_areasData.front().m_polygons.front().m_outer == Ring({{0, 0}, {4, 0}, {0, 4}}), ());
 }
 
 UNIT_TEST(Area_KmlCyclicAndMissingStylesKeepInlineOverrides)

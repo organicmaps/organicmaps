@@ -474,6 +474,10 @@ UNIT_CLASS_TEST(Runner, Bookmarks_AreaCategoryBoundsPreservePolygonFootprints)
     <Placemark><Point><coordinates>-10,0</coordinates></Point></Placemark>
     <Placemark><Point><coordinates>10,0</coordinates></Point></Placemark>
     <Placemark><LineString><coordinates>-5,0 5,1</coordinates></LineString></Placemark>)";
+  std::string const outsideHole = R"(<Placemark><Polygon>
+    <outerBoundaryIs><LinearRing><coordinates>0,0 4,0 4,4 0,4 0,0</coordinates></LinearRing></outerBoundaryIs>
+    <innerBoundaryIs><LinearRing><coordinates>10,0 12,0 12,2 10,2 10,0</coordinates></LinearRing></innerBoundaryIs>
+    </Polygon></Placemark>)";
   std::string const seamBookmarks = R"(
     <Placemark><Point><coordinates>-179.5,0</coordinates></Point></Placemark>
     <Placemark><Point><coordinates>179.5,0</coordinates></Point></Placemark>)";
@@ -492,6 +496,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_AreaCategoryBoundsPreservePolygonFootprints)
                                                              {wholeWorld, 360},
                                                              {independent, 360},
                                                              {areaFree, 20},
+                                                             {outsideHole, 12},
                                                              {seamBookmarks, 359},
                                                              {seamBookmarks + rectangle(170), 359},
                                                              {rectangle(-101) + rectangle(100) + rectangle(0), 202},

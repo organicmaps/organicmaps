@@ -314,10 +314,9 @@ static geojson::GenericJsonMap const & GetFeatureProperties(geojson::GeoJsonFeat
   return feature.properties ? *feature.properties : empty;
 }
 
+// Empty components are dropped later by NormalizeAreaGeometry, like other degenerate ones.
 static bool ReadAreaPolygon(geojson::PolygonCoords const & coordinates, AreaPolygon & polygon)
 {
-  if (coordinates.empty())
-    return false;
   for (size_t i = 0; i < coordinates.size(); ++i)
   {
     auto & ring = i == 0 ? polygon.m_outer : polygon.m_holes.emplace_back();

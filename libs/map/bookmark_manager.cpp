@@ -1742,6 +1742,10 @@ m2::RectD BookmarkManager::GetCategoryRect(kml::MarkGroupId categoryId, bool add
       ASSERT_GREATER_OR_EQUAL(polygon.m_outer.size(), 3, (areaId));
       for (auto const & point : polygon.m_outer)
         categoryRect.Add(mercator::FromLatLon(point.m_latLon));
+      // Holes may lie outside their shell.
+      for (auto const & hole : polygon.m_holes)
+        for (auto const & point : hole)
+          categoryRect.Add(mercator::FromLatLon(point.m_latLon));
     }
   }
   return categoryRect;

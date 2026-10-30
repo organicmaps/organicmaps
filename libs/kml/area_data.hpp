@@ -59,11 +59,15 @@ struct AreaData
   bool operator==(AreaData const & other) const;
 };
 
-// Removes consecutive exact duplicates and the closing vertex, and normalizes ring winding.
-// Closing vertices use the first vertex's height; mismatches are logged.
-// Topology is validated in the longitude/latitude plane: edges do not cross the antimeridian,
-// so 170 -> -170 spans 340 degrees. Source coordinates and altitude are retained.
-// Independent polygons are allowed to overlap, as in KML MultiGeometry.
+// Removes consecutive identical vertices, exact A-B-A backtracking and the closing vertex, drops
+// degenerate rings and polygons, and normalizes ring winding in the longitude/latitude plane: edges
+// do not cross the antimeridian, so 170 -> -170 spans 340 degrees. Source coordinates and altitude
+// are retained; closing vertices use the first vertex's height, and mismatches are logged.
+// Topology isn't validated, as real-life rings may touch or cross themselves or each other: the rings
+// of a polygon are interpreted by the even-odd rule, while independent polygons may overlap, as in
+// KML MultiGeometry. The winding of a self-crossing ring follows its net signed area, unless rounding
+// makes its sign uncertain.
+// Returns false for invalid coordinates or if no polygon remains.
 bool NormalizeAreaGeometry(std::vector<AreaPolygon> & polygons);
 std::string DebugPrint(AreaData const & area);
 }  // namespace kml

@@ -43,6 +43,40 @@ UNIT_TEST(KMZ_UnzipTest)
   }
 }
 
+UNIT_TEST(KMZ_RealLifeAreas)
+{
+  TEST(Platform::MkDirChecked(GetBookmarksDirectory()), ());
+
+  // Dartmoor National Park Authority, "Backpack camping on Dartmoor commons", Open Government Licence v3.0:
+  // https://www.arcgis.com/home/item.html?id=3d00736c2b2a44d4b59d58e7fccba07a
+  std::string const kmzFile = GetPlatform().TestsDataPathForFile("test_data/kml/dartmoor_backpack_camping.kmz");
+  auto const filePaths = GetKMLOrGPXFilesPathsToLoad(kmzFile);
+  TEST_EQUAL(filePaths.size(), 1, ());
+  SCOPE_GUARD(fileGuard, std::bind(&base::DeleteFileX, filePaths[0]));
+
+  auto const kmlData = LoadKmlFile(filePaths[0], FileType::Kml);
+  TEST(kmlData != nullptr, ());
+  auto const & areas = kmlData->m_areasData;
+  TEST_EQUAL(areas.size(), 70, ());
+  size_t polygons = 0;
+  size_t holes = 0;
+  for (auto const & area : areas)
+  {
+    TEST_EQUAL(kml::GetDefaultStr(area.m_name), "Camping Permitted", ());
+    TEST_EQUAL(area.m_style.m_fillColor, 0xBF7FBF97, ());
+    TEST_EQUAL(area.m_style.m_outlineColor, 0x891289FF, ());
+    TEST_EQUAL(area.m_style.m_outlineWidth, 2, ());
+    polygons += area.m_polygons.size();
+    for (auto const & polygon : area.m_polygons)
+      holes += polygon.m_holes.size();
+  }
+  TEST_EQUAL(polygons, 76, ());
+  TEST_EQUAL(holes, 18, ());
+  // The largest area has a hole that touches itself at a vertex, which is valid for ArcGIS.
+  TEST(std::ranges::any_of(areas, [](kml::AreaData const & area) { return area.m_polygons[0].m_holes.size() == 12; }),
+       ());
+}
+
 UNIT_TEST(Multi_KML_KMZ_UnzipTest)
 {
   TEST(Platform::MkDirChecked(GetBookmarksDirectory()), ());
