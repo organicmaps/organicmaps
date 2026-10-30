@@ -13,6 +13,11 @@
 
 namespace routing::water
 {
+// Shared extraction/search ceilings: reject oversized geometry consistently before building the graph.
+inline constexpr size_t kMaxGraphVertices = 524288;
+inline constexpr size_t kMaxTriangles = 262144;
+inline constexpr size_t kMaxWaterFeatures = 65536;
+
 // Node identities come from the source waterway topology, not coordinate proximity.
 struct Vertex
 {

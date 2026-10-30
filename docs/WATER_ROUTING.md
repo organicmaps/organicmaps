@@ -82,7 +82,12 @@ Up to 16 neighboring regions can participate. Optional-section searches require
 one section to cover the window and use a distance-dependent margin capped at
 30 km. Antimeridian windows and oversized extractions are unsupported.
 
-Geometry, visibility and walking-candidate budgets bound memory and work. These
+Standard-map extraction and graph construction share capacity limits (524,288
+graph vertices, 262,144 triangles and 65,536 water features). Line accounting
+uses vertices retained after clipping, including new boundary intersections,
+rather than charging the entire source line outside the query window. Large
+multi-region river routes therefore use the same capacity at both stages.
+Geometry, visibility and walking-candidate budgets still bound memory and work. These
 limits can leave a valid route undiscovered. The walking fallback allows up to
 32 rejected pedestrian candidates per leg; successful transfers do not consume
 that limit. Cancellation is checked during extraction and search.
@@ -167,3 +172,9 @@ Android Debug error dialogs provide **Copy** for the selected coordinates,
 My position flags, app version, mode, error code and map/download context.
 The snapshot is captured when the error opens; copying does not dismiss it.
 The Debug overlay shows the app version before scale/FPS information.
+
+The reported cross-region Polish route from `53.09396078, 18.16890286` to
+`54.30863264, 18.93380513` is retained in `WaterReported_KuyavianPomeranianLong`,
+with its reverse in `WaterLong_KuyavianPomeranianReverse`. Both use ordinary
+2026-07-14 maps for Poland's Kuyavian-Pomeranian and Pomeranian voivodeships,
+explicit endpoints and no intermediate points, and require zero walking distance.
