@@ -1451,8 +1451,16 @@ void RoutingManager::SetUserCurrentPosition(m2::PointD const & position)
     auto const sec = std::chrono::duration_cast<std::chrono::duration<double>>(elapsed).count();
     if (sec <= kFoundLocationInterval)
     {
-      m_routeRecommendCallback(Recommendation::RebuildAfterPointsLoading);
+      bool const replaceOrigin = [this]
+      {
+        RoutePointsLayout points(*m_bmManager);
+        auto const * start = points.GetRoutePoint(RouteMarkType::Start);
+        // Explicit origin edits must not be replaced by an imminent position fix.
+        return start != nullptr && start->GetMarkData().m_replaceWithMyPositionAfterRestart;
+      }();
       CancelRecommendation(Recommendation::RebuildAfterPointsLoading);
+      if (replaceOrigin)
+        m_routeRecommendCallback(Recommendation::RebuildAfterPointsLoading);
     }
   }
 }

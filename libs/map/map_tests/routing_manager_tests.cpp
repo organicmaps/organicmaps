@@ -802,6 +802,106 @@ UNIT_TEST(RoutingManager_DeletingRecoveryRetiresAPendingSave)
   });
 }
 
+UNIT_TEST(RoutingManager_FirstFixRespectsEditsToARestoredOrigin)
+{
+  enum class Edit
+  {
+    None,
+    AddStart,
+    ReplaceStart,
+    RemoveStart,
+    Reverse,
+    MoveFinishToStart,
+    AddStop,
+    ReplaceFinish
+  };
+  for (auto edit : {Edit::None, Edit::AddStart, Edit::ReplaceStart, Edit::RemoveStart, Edit::Reverse,
+                    Edit::MoveFinishToStart, Edit::AddStop, Edit::ReplaceFinish})
+  {
+    WithSavedRoute([edit](RoutingManager & manager, BookmarkManager & bookmarks, TestGuiThread & gui)
+    {
+      auto origin = MakeRoutePoint(RouteMarkType::Start, 0, 1);
+      origin.m_isMyPosition = true;
+      bookmarks.MyPositionMark().SetUserPosition(origin.m_position, true);
+      manager.AddRoutePoint(std::move(origin), false);
+      manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Intermediate, 0, 2), false);
+      manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Finish, 0, 3), false);
+      manager.SaveRoutePoints();
+      WaitForFileThread();
+      manager.RemoveRoutePoints();
+      bookmarks.MyPositionMark().SetUserPosition({1, 1}, false);
+      TEST(LoadRoutePoints(manager, gui), ());
+      TEST(manager.GetRoutePoints().front().m_replaceWithMyPositionAfterRestart, ());
+
+      bool expectRecommendation = false;
+      switch (edit)
+      {
+      case Edit::None: expectRecommendation = true; break;
+      case Edit::AddStart: manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Start, 0, 4), false); break;
+      case Edit::ReplaceStart:
+        manager.ReplaceRoutePoint(RouteMarkType::Start, 0, MakeRoutePoint(RouteMarkType::Start, 0, 4));
+        break;
+      case Edit::RemoveStart: manager.RemoveRoutePoint(RouteMarkType::Start); break;
+      case Edit::Reverse: TEST(manager.ReverseRoutePoints(), ()); break;
+      case Edit::MoveFinishToStart: manager.MoveRoutePoint(2, 0); break;
+      case Edit::AddStop:
+        manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Intermediate, 0, 4), false);
+        expectRecommendation = true;
+        break;
+      case Edit::ReplaceFinish:
+        manager.ReplaceRoutePoint(RouteMarkType::Finish, 0, MakeRoutePoint(RouteMarkType::Finish, 0, 4));
+        expectRecommendation = true;
+        break;
+      }
+
+      auto const editedOrigin = manager.GetRoutePoints().front().m_position;
+      m2::PointD const livePosition(10, 10);
+      int recommendations = 0;
+      manager.SetRouteRecommendationListener([&](RoutingManager::Recommendation recommendation)
+      {
+        TEST(recommendation == RoutingManager::Recommendation::RebuildAfterPointsLoading, ());
+        ++recommendations;
+        auto liveOrigin = MakeRoutePoint(RouteMarkType::Start, 0, 10);
+        liveOrigin.m_isMyPosition = true;
+        manager.AddRoutePoint(std::move(liveOrigin), false);
+      });
+      bookmarks.MyPositionMark().SetUserPosition(livePosition, true);
+      manager.SetUserCurrentPosition(livePosition);
+      manager.SetUserCurrentPosition(livePosition);
+      TEST_EQUAL(recommendations, expectRecommendation ? 1 : 0, (static_cast<int>(edit)));
+      TEST_EQUAL(manager.GetRoutePoints().front().m_position, expectRecommendation ? livePosition : editedOrigin,
+                 (static_cast<int>(edit)));
+    });
+  }
+}
+
+UNIT_TEST(RoutingManager_FirstFixRecommendationIsReentrantlySingleUse)
+{
+  WithSavedRoute([](RoutingManager & manager, BookmarkManager & bookmarks, TestGuiThread & gui)
+  {
+    auto start = MakeRoutePoint(RouteMarkType::Start, 0, 1);
+    start.m_replaceWithMyPositionAfterRestart = true;
+    manager.AddRoutePoint(std::move(start), false);
+    manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Finish, 0, 3), false);
+    manager.SaveRoutePoints();
+    WaitForFileThread();
+    manager.RemoveRoutePoints();
+    bookmarks.MyPositionMark().SetUserPosition({1, 1}, false);
+    TEST(LoadRoutePoints(manager, gui), ());
+    m2::PointD const fix(2, 2);
+    int recommendations = 0;
+    manager.SetRouteRecommendationListener([&](RoutingManager::Recommendation)
+    {
+      if (++recommendations == 1)
+        manager.SetUserCurrentPosition(fix);
+    });
+    bookmarks.MyPositionMark().SetUserPosition(fix, true);
+    manager.SetUserCurrentPosition(fix);
+    manager.SetUserCurrentPosition(fix);
+    TEST_EQUAL(recommendations, 1, ());
+  });
+}
+
 UNIT_TEST(RoutingManager_ContinueRouteToPointAtLimitKeepsFinish)
 {
   Framework framework(FrameworkParams(false /* m_enableDiffs */));
