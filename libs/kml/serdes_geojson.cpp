@@ -398,40 +398,6 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
 {
   using namespace geojson;
 
-  GeoJsonData geoJsonData;
-
-  glz::opts constexpr opts{.comments = true, .error_on_unknown_keys = false};
-  GeoJsonRoot root;
-  auto ec = glz::read<opts>(root, jsonContent);
-  if (!ec)
-  {
-    if (root.type == "FeatureCollection")
-    {
-      geoJsonData.features.reserve(root.features.size());
-      for (auto const & json : root.features)
-      {
-        GeoJsonFeature feature;
-        if (auto const error = glz::read<opts>(feature, json.str))
-        {
-          LOG(LWARNING, ("Ignoring invalid GeoJSON feature:", glz::format_error(error, json.str)));
-          continue;
-        }
-        geoJsonData.features.push_back(std::move(feature));
-      }
-    }
-    else if (root.type == "Feature")
-      ec = glz::read<opts>(geoJsonData.features.emplace_back(), jsonContent);
-    else
-      ec = glz::read<opts>(geoJsonData.features.emplace_back().geometry, jsonContent);
-  }
-
-  if (ec)
-  {
-    std::string err = glz::format_error(ec, jsonContent);
-    LOG(LWARNING, ("Error parsing GeoJson:", err));
-    return false;
-  }
-
   auto getStringFromJsonMap = [](GenericJsonMap const & propsJson,
                                  std::string const & fieldName) -> std::optional<std::string>
   {
@@ -440,15 +406,14 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
     return {};
   };
 
-  // Copy bookmarks from parsed geoJsonData into m_fileData.
-  for (auto const & feature : geoJsonData.features)
+  auto importFeature = [&](GeoJsonFeature const & feature)
   {
     if (auto const * point = std::get_if<GeoJsonGeometryPoint>(&feature.geometry))
     {
       if (point->coordinates.size() < 2)
       {
         LOG(LWARNING, ("Ignoring GeoJSON point with incomplete position", point->coordinates));
-        continue;
+        return;
       }
       double longitude = point->coordinates[0];
       double latitude = point->coordinates[1];
@@ -500,7 +465,7 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
       if (!IsValidLatLon(latitude, longitude))
       {
         LOG(LWARNING, ("Skipping GeoJson point with invalid coordinates", latitude, longitude));
-        continue;
+        return;
       }
 
       // Parse description
@@ -549,11 +514,6 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
     {
       LOG(LWARNING, ("GeoJson contains unsupported geometry type:", unknownGeometry->type));
     }
-  }
-
-  // Copy tracks from parsed geoJsonData into m_fileData.
-  for (auto const & feature : geoJsonData.features)
-  {
     auto const * lineGeometry = std::get_if<GeoJsonGeometryLine>(&feature.geometry);
     auto const * multilineGeometry = std::get_if<GeoJsonGeometryMultiLine>(&feature.geometry);
 
@@ -636,14 +596,10 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
       else
         LOG(LWARNING, ("GeoJson track without geometry:", GetDefaultStr(track.m_name)));
     }
-  }
-
-  for (auto const & feature : geoJsonData.features)
-  {
     auto const * polygon = std::get_if<GeoJsonGeometryPolygon>(&feature.geometry);
     auto const * multiPolygon = std::get_if<GeoJsonGeometryMultiPolygon>(&feature.geometry);
     if (!polygon && !multiPolygon)
-      continue;
+      return;
     AreaData area;
     area.m_isMultiPolygon = multiPolygon != nullptr;
     bool valid = true;
@@ -659,7 +615,7 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
     if (!valid || !NormalizeAreaGeometry(area.m_polygons))
     {
       LOG(LWARNING, ("Ignoring invalid GeoJSON polygon"));
-      continue;
+      return;
     }
     // Normalization can remove a closing vertex, so inspect only retained heights.
     auto const hasAltitude = [](AreaRing const & ring)
@@ -688,6 +644,41 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
       if (std::string json; !glz::write_json(it->second, json))
         area.m_properties["_umap_options"] = std::move(json);
     m_fileData.m_areasData.push_back(std::move(area));
+  };
+
+  glz::opts constexpr opts{.comments = true, .error_on_unknown_keys = false};
+  GeoJsonRoot root;
+  auto ec = glz::read<opts>(root, jsonContent);
+  if (!ec)
+  {
+    if (root.type == "FeatureCollection")
+    {
+      for (auto const & json : root.features)
+      {
+        GeoJsonFeature feature;
+        if (auto const error = glz::read<opts>(feature, json.str))
+        {
+          LOG(LWARNING, ("Ignoring invalid GeoJSON feature:", glz::format_error(error, json.str)));
+          continue;
+        }
+        importFeature(feature);
+      }
+    }
+    else
+    {
+      GeoJsonFeature feature;
+      if (root.type == "Feature")
+        ec = glz::read<opts>(feature, jsonContent);
+      else
+        ec = glz::read<opts>(feature.geometry, jsonContent);
+      if (!ec)
+        importFeature(feature);
+    }
+  }
+  if (ec)
+  {
+    LOG(LWARNING, ("Error parsing GeoJson:", glz::format_error(ec, jsonContent)));
+    return false;
   }
   return true;
 }
