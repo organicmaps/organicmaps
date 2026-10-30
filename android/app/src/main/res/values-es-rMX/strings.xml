@@ -60,6 +60,8 @@
     <!-- SECTION: Search categories -->
     <!-- Search category for grocery stores; any changes should be duplicated in categories.txt @category_food! -->
     <string name="category_food">Comestibles</string>
+    <!-- Search category for car charging stations; any changes should be duplicated in categories.txt @category_car_charging! -->
+    <string name="category_car_charging">Cargadores de autos</string>
     <!-- Search category sight seeings and touristic attractions; any changes should be duplicated in categories.txt @category_tourism! -->
     <string name="category_tourism">Visores</string>
     <!-- Search category for water park/disneyland/playground/toys store; any changes should be duplicated in categories.txt @category_children! -->

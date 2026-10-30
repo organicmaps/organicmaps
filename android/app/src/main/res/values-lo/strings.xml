@@ -101,6 +101,10 @@
     <!-- Detailed description of Measurement Units settings button -->
     <string name="measurement_units_summary">ເລືອກລະຫວ່າງໄມລ໌ ແລະ ກິໂລແມັດ</string>
 
+    <!-- SECTION: Search categories -->
+    <!-- Search category for car charging stations; any changes should be duplicated in categories.txt @category_car_charging! -->
+    <string name="category_car_charging">ຈຸດສາກລົດໄຟຟ້າ</string>
+
     <!-- SECTION: Other translations -->
     <!-- Notes field in Bookmarks view -->
     <string name="description">ບັນທຶກ</string>
