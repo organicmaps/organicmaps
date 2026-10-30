@@ -18,6 +18,11 @@ Copyright: 2003-2008, Yuta Mori
            2016, Samuel Huang <huangs@chromium.org>
 License: MIT
 
+Files: 3party/earcut/*
+Copyright: 2015, Mapbox
+License: ISC
+Comment: https://github.com/mapbox/earcut.hpp
+
 Files: 3party/liboauthcpp/*
 Copyright: 2004-2008, René Nyffenegger
            2011, Stanford University
