@@ -2413,6 +2413,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
       {"craft", "sawmill"},
       {"craft", "shoemaker"},
       {"craft", "tailor"},
+      {"craft", "window_construction"},
       {"craft", "winery"},
       {"cuisine", "african"},
       {"cuisine", "american"},

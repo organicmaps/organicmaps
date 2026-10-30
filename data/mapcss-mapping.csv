@@ -643,7 +643,7 @@ sport|diving;520;
 #~270k uses.
 man_made|utility_pole;521;
 deprecated:boundary|administrative|suburb:04.2024;[boundary=administrative][border_type=suburb];x;name;int_name;522;
-deprecated|deprecated;523;x
+craft|window_construction;523;
 railway|monorail|tunnel;[railway=monorail][tunnel?];;name;int_name;524;
 railway|funicular|bridge;[railway=funicular][bridge?];;name;int_name;525;
 deprecated|deprecated;526;x
