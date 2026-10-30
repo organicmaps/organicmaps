@@ -2,6 +2,7 @@
 #include "drape_frontend/map_data_provider.hpp"
 
 #include "indexer/feature_decl.hpp"
+#include "indexer/metaline_data.hpp"
 
 #include "coding/files_container.hpp"
 
@@ -15,7 +16,7 @@ namespace df
 {
 namespace
 {
-using detail::MetalineData;
+using feature::metalines::MetalineData;
 
 std::vector<MetalineData> ReadMetalinesFromFile(MwmSet::MwmId const & mwmId)
 {
@@ -24,7 +25,7 @@ std::vector<MetalineData> ReadMetalinesFromFile(MwmSet::MwmId const & mwmId)
     FilesContainerR cont(mwmId.GetInfo()->GetLocalFile().GetPath(MapFileType::Map));
     ReaderSource src(cont.GetReader(METALINES_FILE_TAG));
 
-    auto model = detail::ReadMetalines(src, mwmId);
+    auto model = feature::metalines::ReadMetalines(src, mwmId);
     if (cont.IsExist(METALINES_OFFSETS_FILE_TAG))
     {
       // The legacy section remains authoritative. A missing, stale or damaged
@@ -32,7 +33,7 @@ std::vector<MetalineData> ReadMetalinesFromFile(MwmSet::MwmId const & mwmId)
       try
       {
         ReaderSource offsets(cont.GetReader(METALINES_OFFSETS_FILE_TAG));
-        detail::TryReadMetalineOffsets(offsets, mwmId, model);
+        feature::metalines::TryReadMetalineOffsets(offsets, mwmId, model);
       }
       catch (Reader::Exception const &)
       {}
