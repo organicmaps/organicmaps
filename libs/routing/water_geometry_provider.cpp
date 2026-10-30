@@ -23,7 +23,7 @@ namespace
 using Point = m2::PointD;
 size_t constexpr kMaxInputPoints = 16384;
 size_t constexpr kMaxSurfacePoints = 4096;
-size_t constexpr kMaxTriangles = 65536;
+using water::kMaxTriangles;
 size_t constexpr kMaxStandardMaps = 16;
 
 // Clip a convex contour against a rectangle. Intersections use a canonical edge
@@ -357,7 +357,7 @@ water::Geometry WaterGeometryProvider::ExtractFeatures(DataSource const & dataSo
       if (!rect.IsIntersect(bounds))
         return;
       // Unrelated buildings and roads must not exhaust the water geometry budget.
-      if (++features > 16384)
+      if (++features > water::kMaxWaterFeatures)
       {
         exceeded = true;
         return;
@@ -383,19 +383,25 @@ water::Geometry WaterGeometryProvider::ExtractFeatures(DataSource const & dataSo
       if (line)
       {
         auto const & vertices = feature.GetPoints(FeatureType::BEST_GEOMETRY);
-        if (vertices.size() > kMaxInputPoints - points)
-        {
-          exceeded = true;
-          return;
-        }
-        points += vertices.size();
         ::water::Record record;
         record.m_kind = ::water::Kind::Line;
         record.m_rings.emplace_back(vertices.begin(), vertices.end());
         // Never infer node identity from equal quantized coordinates.
         record.m_nodes.resize(vertices.size(), 0);
+        auto const firstLine = result.m_lines.size();
         if (vertices.size() >= 2)
           AddLine(record, bounds, result);
+        // Charge only retained vertices, including clipping intersections. Source
+        // vertices outside the window do not consume graph capacity.
+        for (size_t i = firstLine; i < result.m_lines.size(); ++i)
+        {
+          if (result.m_lines[i].size() > water::kMaxGraphVertices - 2 - points)
+          {
+            exceeded = true;
+            return;
+          }
+          points += result.m_lines[i].size();
+        }
         return;
       }
       FeatureSurface surface;

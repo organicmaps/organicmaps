@@ -330,9 +330,14 @@ UNIT_TEST(Water_ExcessiveGeometryIsUnavailable)
 {
   Geometry geometry;
   geometry.m_complete = true;
-  geometry.m_triangles.resize(65537);
+  geometry.m_triangles.resize(kMaxTriangles + 1);
   Path path;
   TEST(FindPath(geometry, P(0, 0), P(1, 1), false, kNeverCancelled, path) == ResultCode::Unavailable, ());
+  geometry.m_triangles.clear();
+  geometry.m_lines.resize(1);
+  geometry.m_lines.front().resize(kMaxGraphVertices - 1);
+  TEST(FindPath(geometry, P(0, 0), P(1, 1), false, kNeverCancelled, path) == ResultCode::Unavailable, ());
+  TEST(path.m_points.empty(), ());
 }
 
 UNIT_TEST(Water_DetailedRiversDoNotExhaustLakeVisibilityBudget)
@@ -843,7 +848,7 @@ UNIT_TEST(Water_LargeMeshStillAcceptsCoveredDirectRoute)
 {
   Geometry geometry;
   geometry.m_complete = true;
-  for (size_t x = 0; x < 129; ++x)
+  for (size_t x = 0; x < 257; ++x)
     for (size_t y = 0; y < 129; ++y)
       Rectangle(geometry, x * 0.001, y * 0.001, (x + 1) * 0.001, (y + 1) * 0.001);
   geometry.m_triangleIndex = std::make_shared<m4::Tree<size_t>>();
@@ -856,7 +861,7 @@ UNIT_TEST(Water_LargeMeshStillAcceptsCoveredDirectRoute)
   }
   geometry.m_triangleIndex->Optimize();
   Path path;
-  TEST(FindPath(geometry, P(0.0005, 0.0005), P(0.1285, 0.1285), false, kNeverCancelled, path) == ResultCode::Success,
+  TEST(FindPath(geometry, P(0.0005, 0.0005), P(0.2565, 0.1285), false, kNeverCancelled, path) == ResultCode::Success,
        ());
   TEST_EQUAL(path.m_points.size(), 2, ());
   TEST_EQUAL(path.m_landDistance, 0.0, ());

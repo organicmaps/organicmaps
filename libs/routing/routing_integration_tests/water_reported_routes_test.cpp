@@ -298,6 +298,19 @@ UNIT_TEST(WaterLong_CheckpointsChain)
              {"Netherlands_Flevoland", "Netherlands_North Holland_Amsterdam", "Netherlands_Utrecht_Amersfoort"}, false,
              {{52.40677214, 5.21760280}, {52.45889844, 5.41338676}});
 }
+// Reported on Android 16, map catalog 2026-07-14, both maps downloaded, no intermediate points.
+UNIT_TEST(WaterReported_KuyavianPomeranianLong)
+{
+  CheckRoute("KuyavianPomeranianLong", {53.09396078, 18.16890286}, {54.30863264, 18.93380513}, false,
+             {"Poland_Kuyavian-Pomeranian Voivodeship", "Poland_Pomeranian Voivodeship"}, true);
+}
+
+UNIT_TEST(WaterLong_KuyavianPomeranianReverse)
+{
+  CheckRoute("KuyavianPomeranianReverse", {54.30863264, 18.93380513}, {53.09396078, 18.16890286}, false,
+             {"Poland_Kuyavian-Pomeranian Voivodeship", "Poland_Pomeranian Voivodeship"}, true);
+}
+
 UNIT_TEST(WaterReported_PomeranianLongPortage)
 {
   // This reported-route regression also verifies that graph reuse preserves the entire path.

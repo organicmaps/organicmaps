@@ -384,6 +384,38 @@ UNIT_TEST(WaterMwm_UnrelatedCityFeaturesDoNotExhaustWaterBudget)
   TEST_EQUAL(path.m_landDistance, 0.0, ());
 }
 
+UNIT_TEST(WaterMwm_LargeLineNetworkUsesGraphCapacity)
+{
+  classificator::Load();
+  auto const directory = base::JoinPath(GetPlatform().WritableDir(), "water_large_line_test");
+  CHECK(Platform::MkDirRecursively(directory), ());
+  SCOPE_GUARD(cleanup, [&] { Platform::RmDirRecursively(directory); });
+  platform::LocalCountryFile file(directory, platform::CountryFile("WaterLargeLines"), 0);
+  size_t constexpr count = 17000;
+  {
+    tests_support::TestMwmBuilder builder(file, feature::DataHeader::MapType::Country);
+    for (size_t i = 0; i < count; ++i)
+    {
+      double const x = i * 0.0001;
+      auto canal = Line(i + 1, {P(x, 0), P(x, 0.01)}, {"waterway", "canal"});
+      TEST(builder.Add(canal), ());
+    }
+    builder.Finish();
+  }
+  FrozenDataSource data;
+  auto const [id, status] = data.RegisterMap(file);
+  TEST(status == MwmSet::RegResult::Success, ());
+  auto const geometry =
+      routing::WaterGeometryProvider::ExtractFeatures(data, id, {-0.01, -0.01, 2, 0.02}, [] { return false; });
+  TEST(geometry.m_complete, ());
+  TEST_EQUAL(geometry.m_lines.size(), count, ());
+  size_t vertices = 0;
+  for (auto const & line : geometry.m_lines)
+    vertices += line.size();
+  TEST_EQUAL(vertices, 2 * count, ());
+  TEST_LESS(vertices, routing::water::kMaxGraphVertices, ());
+}
+
 UNIT_TEST(WaterMwm_UndergroundFeaturesAllowPortageWithoutInventingWater)
 {
   classificator::Load();
