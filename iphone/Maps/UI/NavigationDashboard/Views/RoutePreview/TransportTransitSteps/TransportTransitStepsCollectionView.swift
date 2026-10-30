@@ -13,6 +13,7 @@ final class TransportTransitStepsCollectionView: UICollectionView {
 
   private var displayedSteps = [DisplayedStep]()
   private var displayedWidth: CGFloat = 0
+  private(set) var stepFrames: (cells: [CGRect], separators: [CGRect]) = ([], [])
 
   override func layoutSubviews() {
     if displayedWidth != bounds.width {
@@ -74,6 +75,8 @@ final class TransportTransitStepsCollectionView: UICollectionView {
   private func updateDisplayedSteps() {
     displayedWidth = bounds.width
     var cursor = TransportTransitFlowLayout.Cursor(width: displayedWidth)
+    var cells = [CGRect]()
+    var separators = [CGRect]()
     displayedSteps = steps.enumerated().flatMap { index, step -> [DisplayedStep] in
       let hasFollowingStep = index + 1 < steps.count
       var numbers = [step.number ?? ""]
@@ -85,20 +88,17 @@ final class TransportTransitStepsCollectionView: UICollectionView {
       return numbers.enumerated().map { fragmentIndex, number in
         let fragment = DisplayedStep(info: step, number: number, isContinuation: fragmentIndex > 0)
         let size = estimatedCellSize(step: fragment)
-        _ = cursor.append(size: size, hasFollowingStep: hasFollowingStep && fragmentIndex + 1 == numbers.count,
-                          isContinuation: fragment.isContinuation)
+        let frames = cursor.append(size: size, hasFollowingStep: hasFollowingStep && fragmentIndex + 1 == numbers.count,
+                                   isContinuation: fragment.isContinuation)
+        cells.append(frames.cell)
+        if let separator = frames.separator {
+          separators.append(separator)
+        }
         return fragment
       }
     }
+    stepFrames = (cells, separators)
     reloadData()
-  }
-
-  func estimatedCellSize(item: Int) -> CGSize {
-    estimatedCellSize(step: displayedSteps[item])
-  }
-
-  func isContinuation(item: Int) -> Bool {
-    displayedSteps[item].isContinuation
   }
 
   private func estimatedCellSize(step: DisplayedStep) -> CGSize {

@@ -192,6 +192,25 @@ final class TransportTransitStepsTests: XCTestCase {
     controller.scrollViewDidEndDragging(scroll, willDecelerate: false)
   }
 
+  func testReplacingStepsClearsOldFragmentsAndTransfers() throws {
+    let collection = TransportTransitStepsCollectionView(layout: TransportTransitFlowLayout())
+    collection.frame = CGRect(x: 0, y: 0, width: 200, height: 10000)
+    collection.steps = [makeStep(type: .bus, number: (101 ... 160).map(String.init).joined(separator: ", ")),
+                        makeStep(type: .ferry, number: "F1")]
+    collection.layoutIfNeeded()
+    XCTAssertGreaterThan(collection.numberOfItems(inSection: 0), 2)
+
+    collection.steps = [makeStep(type: .bus, number: "7")]
+    collection.layoutIfNeeded()
+    XCTAssertEqual(collection.numberOfItems(inSection: 0), 1)
+    let attributes = try XCTUnwrap(collection.collectionViewLayout.layoutAttributesForElements(in: collection.bounds))
+    XCTAssertEqual(attributes.filter { $0.representedElementCategory == .cell }.count, 1)
+    XCTAssertFalse(attributes.contains { $0.representedElementCategory == .decorationView })
+    let cell = try XCTUnwrap(collection.cellForItem(at: IndexPath(item: 0, section: 0)))
+    let label = try XCTUnwrap(descendants(of: cell.contentView).compactMap { $0 as? UILabel }.first)
+    XCTAssertEqual(label.text, "7")
+  }
+
   private func settle(_ controller: UIViewController) {
     RunLoop.main.run(until: Date().addingTimeInterval(0.35))
     controller.view.layoutIfNeeded()

@@ -58,6 +58,23 @@ final class TransportTransitWrappingTests: XCTestCase {
     XCTAssertEqual(groups, [number])
   }
 
+  func testLongListsKeepEveryIdentifierAndOnlySeparateTheNextLeg() {
+    let number = (1 ... 1000).map(String.init).joined(separator: ", ")
+    for width: CGFloat in [200, 430] {
+      let groups = TransportTransitTrain.numberGroups(number, maximumWidth: width,
+                                                      firstRowWidth: 20, hasFollowingStep: true)
+      XCTAssertEqual(groups.joined(separator: " "), number)
+      XCTAssertTrue(groups.dropLast().allSatisfy { $0.hasSuffix(",") })
+      let cellSizes = groups.enumerated().map { index, text in
+        TransportTransitTrain.estimatedCellSize(number: text, isContinuation: index > 0)
+      }
+      let frames = TransportTransitFlowLayout.frames(cellSizes: cellSizes + sizes([40]), width: width,
+                                                     continuationItems: Set(groups.indices.dropFirst()))
+      XCTAssertEqual(frames.separators.count, 1)
+      XCTAssertTrue((frames.cells + frames.separators).allSatisfy { $0.minX >= 0 && $0.maxX <= width })
+    }
+  }
+
   private func sizes(_ widths: [CGFloat]) -> [CGSize] {
     widths.map { CGSize(width: $0, height: 20) }
   }

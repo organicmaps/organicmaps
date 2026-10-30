@@ -52,12 +52,7 @@ final class TransportTransitTrain: TransportTransitCell {
       func measuredWidth(_ text: String) -> CGFloat {
         estimatedCellSize(number: text, isContinuation: isContinuation).width
       }
-      let remainder = remaining.joined(separator: ", ")
       let availableWidth = rowWidth - (hasFollowingStep ? separatorWidth : 0)
-      if measuredWidth(remainder) <= availableWidth {
-        groups.append(remainder)
-        break
-      }
 
       let firstNumber = remaining.first! + (remaining.count > 1 ? "," : "")
       if rowWidth < maximumWidth, measuredWidth(firstNumber) > rowWidth {

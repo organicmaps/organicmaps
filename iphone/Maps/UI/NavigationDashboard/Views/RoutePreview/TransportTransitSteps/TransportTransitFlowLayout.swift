@@ -31,9 +31,7 @@ final class TransportTransitFlowLayout: UICollectionViewLayout {
     super.prepare()
     let cv = collectionView as! TransportTransitStepsCollectionView
 
-    let cellSizes = (0 ..< cv.numberOfItems(inSection: 0)).map { cv.estimatedCellSize(item: $0) }
-    let continuationItems = Set((0 ..< cellSizes.count).filter { cv.isContinuation(item: $0) })
-    let frames = Self.frames(cellSizes: cellSizes, width: cv.width, continuationItems: continuationItems)
+    let frames = cv.stepFrames
     let isRightToLeft = cv.effectiveUserInterfaceLayoutDirection == .rightToLeft
 
     cellsLayoutAttrs = frames.cells.enumerated().map { item, frame in
