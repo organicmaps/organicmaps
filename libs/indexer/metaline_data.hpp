@@ -10,14 +10,12 @@
 #include <utility>
 #include <vector>
 
-namespace df
+namespace feature::metalines
 {
 uint8_t constexpr kLegacyMetalinesSectionVersion = 1;
 // New phase data reuses the v3 layout in its own optional section.
 uint8_t constexpr kMetaLinesSectionVersion = 3;
 
-namespace detail
-{
 struct MetalineData
 {
   std::vector<FeatureID> m_features;
@@ -82,5 +80,4 @@ bool TryReadMetalineOffsets(Source & src, MwmSet::MwmId const & mwmId, std::vect
     return false;
   }
 }
-}  // namespace detail
-}  // namespace df
+}  // namespace feature::metalines

@@ -1,7 +1,5 @@
 #pragma once
 
-#include "drape_frontend/metaline_data.hpp"
-
 #include "indexer/feature_decl.hpp"
 
 #include "geometry/spline.hpp"
