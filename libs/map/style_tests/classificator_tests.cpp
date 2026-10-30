@@ -347,6 +347,16 @@ UNIT_TEST(Classificator_MultipleTypesPoiPriority)
   {
     CheckPriority(
         {// 1
+         {"leisure", "fitness_centre"},
+         // 2
+         {"sport", "pilates"},
+         {"sport", "yoga"}},
+        {1, 2}, drule::symbol);
+  }
+
+  {
+    CheckPriority(
+        {// 1
          {"leisure", "sports_centre"},
          // 2
          {"sport", "shooting"}},
