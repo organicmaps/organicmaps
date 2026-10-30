@@ -305,6 +305,19 @@ UNIT_TEST(WaterReported_KuyavianPomeranianLong)
              {"Poland_Kuyavian-Pomeranian Voivodeship", "Poland_Pomeranian Voivodeship"}, true);
 }
 
+// Reported with code 6 on Android 16, catalog 2026-07-14, both maps downloaded.
+UNIT_TEST(WaterReported_VistulaMouth)
+{
+  CheckRoute("VistulaMouth", {53.09858890, 18.15192177}, {54.33892355, 18.94185916}, false,
+             {"Poland_Kuyavian-Pomeranian Voivodeship", "Poland_Pomeranian Voivodeship"}, true);
+}
+
+UNIT_TEST(WaterLong_VistulaMouthReverse)
+{
+  CheckRoute("VistulaMouthReverse", {54.33892355, 18.94185916}, {53.09858890, 18.15192177}, false,
+             {"Poland_Kuyavian-Pomeranian Voivodeship", "Poland_Pomeranian Voivodeship"}, true);
+}
+
 UNIT_TEST(WaterLong_KuyavianPomeranianReverse)
 {
   CheckRoute("KuyavianPomeranianReverse", {54.30863264, 18.93380513}, {53.09396078, 18.16890286}, false,

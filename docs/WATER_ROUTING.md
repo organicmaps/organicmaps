@@ -51,7 +51,9 @@ are a fallback for missing connections, not reconstructed water topology.
 Bridge, aqueduct and lock restrictions are ignored for these measurements.
 Explicit tunnels and negative-layer water features are excluded from water
 geometry; nearby river endpoints may be connected by a pedestrian bypass.
-Coastline polygons describe land and do not provide ocean water. Display geometry
+Coastline polygons describe land and do not provide ocean water. Their bounding
+rectangles are not missing coverage and must not mask independently mapped
+rivers or lakes, including near river mouths. Display geometry
 may be simplified, and underground connections may be absent from the map.
 Water routing does not assess navigability, depth, currents or access restrictions.
 A suggested portage does not establish that carrying a boat is physically necessary.
@@ -113,8 +115,8 @@ request's progress.
 
 `libs/routing/routing_integration_tests/water_reported_routes_test.cpp` retains
 the reported failing coordinates and My position flags, long routes in both
-directions, continuous-water controls and intermediate stops. Its 41 tests make
-42 route calculations: the Pomeranian regression runs with and without walking
+directions, continuous-water controls and intermediate stops. Its 43 tests make
+44 route calculations: the Pomeranian regression runs with and without walking
 graph reuse and compares the complete coordinate sequence. No reported route
 was removed when this duplicate calculation was consolidated.
 
@@ -189,3 +191,10 @@ water and zero walking in both directions. The earlier Pomeranian mixed route
 now measured approximately 97 km water and 5–6 km walking; neither long route
 confirmed optimality. This update was not tested on the reporting Xiaomi or
 rerun on iOS.
+
+The code-6 report from `53.09858890, 18.15192177` to
+`54.33892355, 18.94185916` is retained in `WaterReported_VistulaMouth` and
+`WaterLong_VistulaMouthReverse`, using the same two Polish maps, explicit
+endpoints and no intermediate points. Both require zero walking distance.
+`WaterMwm_CoastlineDoesNotMaskMappedWater` separately checks mapped water inside
+a coastline land polygon and rejects routes onto land or unsupported sea.

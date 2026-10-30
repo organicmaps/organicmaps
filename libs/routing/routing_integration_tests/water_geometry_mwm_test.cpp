@@ -110,6 +110,44 @@ feature::FeatureBuilder Line(uint64_t id, std::vector<P> points, std::initialize
   return feature;
 }
 
+UNIT_TEST(WaterMwm_CoastlineDoesNotMaskMappedWater)
+{
+  classificator::Load();
+  auto const directory = base::JoinPath(GetPlatform().WritableDir(), "water_coastline_test");
+  CHECK(Platform::MkDirRecursively(directory), ());
+  SCOPE_GUARD(cleanup, [&] { Platform::RmDirRecursively(directory); });
+  platform::LocalCountryFile file(directory, platform::CountryFile("WaterCoastline"), 0);
+  {
+    tests_support::TestMwmBuilder builder(file, feature::DataHeader::MapType::Country);
+    // Land background surrounds independently mapped inland water.
+    feature::FeatureBuilder land;
+    land.SetArea();
+    land.AddType(classif().GetTypeByPath({"natural", "coastline"}));
+    land.AddPolygon({P(0, 0), P(3, 0), P(3, 3), P(0, 3), P(0, 0)});
+    TEST(builder.Add(land), ());
+    feature::FeatureBuilder lake;
+    lake.SetArea();
+    lake.AddType(classif().GetTypeByPath({"natural", "water", "lake"}));
+    lake.AddPolygon({P(1, 1), P(2, 1), P(2, 2), P(1, 2), P(1, 1)});
+    TEST(builder.Add(lake), ());
+    builder.Finish();
+  }
+  FrozenDataSource data;
+  auto const [id, status] = data.RegisterMap(file);
+  TEST(status == MwmSet::RegResult::Success, ());
+  auto const neverCancelled = [] { return false; };
+  auto const geometry = routing::WaterGeometryProvider::ExtractFeatures(data, id, {-1, -1, 4, 4}, neverCancelled);
+  TEST(geometry.m_complete, ());
+  TEST(geometry.m_unknownAreas.empty(), ());
+  routing::water::Path path;
+  using routing::water::ResultCode;
+  TEST(FindPath(geometry, P(1.2, 1.5), P(1.8, 1.5), false, neverCancelled, path) == ResultCode::Success, ());
+  TEST_EQUAL(path.m_landDistance, 0.0, ());
+  // Neither the land background nor the sea outside it supplies water geometry.
+  for (auto const & finish : {P(0.5, 1.5), P(3.5, 1.5)})
+    TEST(FindPath(geometry, P(1.5, 1.5), finish, false, neverCancelled, path) == ResultCode::OutsideWater, ());
+}
+
 UNIT_TEST(WaterMwm_StandardMwmPreservesIslandsWithoutInventingRiverJoins)
 {
   classificator::Load();
