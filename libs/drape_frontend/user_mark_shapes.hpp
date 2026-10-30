@@ -82,6 +82,8 @@ struct UserAreaRenderParams
   /// Closed Mercator rings of each polygon: the outer ring followed by its holes.
   /// Rings start and end in the middle of an edge, so all corners get line joins.
   std::vector<std::vector<m2::SharedSpline>> m_polygons;
+  /// Vertices of the same rings for TessellateUserArea, which releases them: splines skip short segments.
+  std::vector<std::vector<std::vector<m2::PointD>>> m_fillRings;
   /// Clockwise fill triangles, see TessellateUserArea.
   std::vector<m2::PointD> m_triangles;
 };
