@@ -243,7 +243,7 @@ void SaveStringsMap(Writer & writer, std::map<std::string, std::string> const & 
   writer << indent << "<mwm:" << tagName << ">\n";
   for (auto const & p : stringsMap)
   {
-    writer << indent << kIndent2 << "<mwm:value key=\"" << p.first << "\">";
+    writer << indent << kIndent2 << "<mwm:value key=\"" << EscapeXml(p.first) << "\">";
     SaveStringWithCDATA(writer, p.second);
     writer << "</mwm:value>\n";
   }
@@ -259,11 +259,11 @@ void SaveCategoryExtendedData(Writer & writer, CategoryData const & categoryData
   SaveLocalizableString(writer, categoryData.m_description, "description", kIndent4);
 
   if (!categoryData.m_imageUrl.empty())
-    writer << kIndent4 << "<mwm:imageUrl>" << categoryData.m_imageUrl << "</mwm:imageUrl>\n";
+    writer << kIndent4 << "<mwm:imageUrl>" << EscapeXml(categoryData.m_imageUrl) << "</mwm:imageUrl>\n";
 
   if (!categoryData.m_authorId.empty() || !categoryData.m_authorName.empty())
   {
-    writer << kIndent4 << "<mwm:author id=\"" << categoryData.m_authorId << "\">";
+    writer << kIndent4 << "<mwm:author id=\"" << EscapeXml(categoryData.m_authorId) << "\">";
     SaveStringWithCDATA(writer, categoryData.m_authorName);
     writer << "</mwm:author>\n";
   }
