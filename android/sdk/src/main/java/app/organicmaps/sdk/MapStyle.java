@@ -9,9 +9,11 @@ public enum MapStyle
   VehicleClear(3),
   VehicleDark(4),
   OutdoorsClear(5),
-  OutdoorsDark(6);
+  OutdoorsDark(6),
+  ExplorerClear(7),
+  ExplorerDark(8);
 
-  MapStyle(int value)
+    MapStyle(int value)
   {
     this.value = value;
   }

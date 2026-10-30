@@ -76,6 +76,7 @@ private:
     TRANSIT = 0,  // Metro scheme
     ISOLINES,
     OUTDOORS,
+    EXPLORER,
     HIKING,
     CYCLING,
   };
