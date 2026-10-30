@@ -48,6 +48,7 @@ using LocalId = uint8_t;
 
 using MarkIdCollection = std::vector<MarkId>;
 using TrackIdCollection = std::vector<TrackId>;
+using AreaIdCollection = std::vector<AreaId>;
 
 using MarkIdSet = std::set<MarkId, std::greater<MarkId>>;
 using TrackIdSet = std::set<TrackId>;
