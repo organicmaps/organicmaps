@@ -103,6 +103,11 @@
 <source>Gas</source>
 <translation>سوخت</translation>
 </message>
+<message id="category_car_charging">
+<extracomment>Search category for car charging stations; any changes should be duplicated in categories.txt @category_car_charging!</extracomment>
+<source>Car chargers</source>
+<translation>Car chargers</translation>
+</message>
 <message id="category_parking">
 <extracomment>Search category for parking lots; any changes should be duplicated in categories.txt @category_parking!</extracomment>
 <source>Parking</source>
