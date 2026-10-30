@@ -365,6 +365,8 @@ private:
   // Search query params prepared for retrieval.
   std::vector<SearchTrieRequest<strings::LevenshteinDFA>> m_tokenRequests;
   SearchTrieRequest<strings::PrefixDFAModifier<strings::LevenshteinDFA>> m_prefixTokenRequest;
+  // Cleared and rebuilt in SetParamsForCategorialSearch once per query, independent of the MWM.
+  SearchTrieRequest<strings::UniStringDFA> m_categoryTrieRequest;
 
   ResultTracer m_resultTracer;
 

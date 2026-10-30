@@ -42,6 +42,7 @@ enum SearchCategoryIconRenderer {
   private static let styles: [String: IconStyle] = [
     "atm": IconStyle(iconName: "ic_bm_atm", background: .neutral),
     "bank": IconStyle(iconName: "ic_bm_bank", background: .neutral),
+    "car_charging": IconStyle(iconName: "ic_bm_chargingstation", background: .neutral),
     "children": IconStyle(iconName: "ic_bm_family", background: .tourism),
     "eat": IconStyle(iconName: "ic_bm_food", background: .food),
     "entertainment": IconStyle(iconName: "ic_bm_entertainment", background: .tourism),

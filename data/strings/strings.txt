@@ -3688,6 +3688,11 @@ vi = Khí đốt
 zh-Hans = 加油站
 zh-Hant = 加油站
 
+[category_car_charging]
+comment = Search category for car charging stations; any changes should be duplicated in categories.txt @category_car_charging!
+tags = android-app,apple-maps,qt
+en = Car chargers
+
 [category_parking]
 comment = Search category for parking lots; any changes should be duplicated in categories.txt @category_parking!
 tags = android-app,android-libs-car,apple-maps,qt

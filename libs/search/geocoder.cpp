@@ -437,9 +437,31 @@ void Geocoder::ClearCaches()
 void Geocoder::SetParamsForCategorialSearch(Params const & params)
 {
   m_params = params;
+  ASSERT(std::is_sorted(m_params.m_preferredTypes.begin(), m_params.m_preferredTypes.end()), ());
 
   m_tokenRequests.clear();
   m_prefixTokenRequest.Clear();
+  m_categoryTrieRequest.Clear();
+
+  // An explicit subcategory (e.g. bicycle charging) must not leak into its parent's shortcut.
+  // Edited features keep uncategorized types, so match their nearest categorized ancestor.
+  auto const & c = classif();
+  std::vector<uint32_t> indices;
+  for (auto const type : m_params.m_preferredTypes)
+  {
+    c.ForEachInSubtree([&](uint32_t descendant)
+    {
+      auto category = descendant;
+      while (ftype::GetLevel(category) > 1 && !m_categories.IsTypeExist(category))
+        ftype::TruncValue(category, ftype::GetLevel(category) - 1);
+
+      if (std::binary_search(m_params.m_preferredTypes.begin(), m_params.m_preferredTypes.end(), category))
+        indices.push_back(c.GetIndexForType(descendant));
+    }, type);
+  }
+  base::SortUnique(indices);
+  for (auto const index : indices)
+    m_categoryTrieRequest.m_categories.emplace_back(FeatureTypeToString(index));
 
   LOG(LDEBUG, (static_cast<QueryParams const &>(m_params)));
 }
@@ -636,24 +658,18 @@ void Geocoder::InitBaseContext(BaseContext & ctx)
 
   size_t const numTokens = m_params.GetNumTokens();
   ctx.m_tokens.assign(numTokens, BaseContext::TOKEN_TYPE_COUNT);
-  ctx.m_features.resize(numTokens);
-  for (size_t i = 0; i < numTokens; ++i)
+  if (m_params.IsCategorialRequest())
   {
-    if (m_params.IsCategorialRequest())
-    {
-      // Implementation-wise, the simplest way to match a feature by
-      // its category bypassing the matching by name is by using a CategoriesCache.
-      CategoriesCache cache(m_params.m_preferredTypes, m_cancellable);
-      ctx.m_features[i] = Retrieval::ExtendedFeatures(cache.Get(*m_context));
-    }
-    else if (m_params.IsPrefixToken(i))
-    {
-      ctx.m_features[i] = retrieval.RetrieveAddressFeatures(m_prefixTokenRequest);
-    }
-    else
-    {
-      ctx.m_features[i] = retrieval.RetrieveAddressFeatures(m_tokenRequests[i]);
-    }
+    ctx.m_features.assign(numTokens, retrieval.RetrieveAddressFeatures(m_categoryTrieRequest));
+  }
+  else
+  {
+    ctx.m_features.resize(numTokens);
+    for (size_t i = 0; i < numTokens; ++i)
+      if (m_params.IsPrefixToken(i))
+        ctx.m_features[i] = retrieval.RetrieveAddressFeatures(m_prefixTokenRequest);
+      else
+        ctx.m_features[i] = retrieval.RetrieveAddressFeatures(m_tokenRequests[i]);
   }
 
   ctx.m_cuisineFilter = m_cuisineFilter.MakeScopedFilter(*m_context, m_params.m_cuisineTypes);
