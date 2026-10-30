@@ -6,6 +6,12 @@ final class TransportTransitStepsView: SolidTouchView {
   private var stepsCollectionView: TransportTransitStepsCollectionView!
   private var stepsCollectionViewHeight: NSLayoutConstraint!
 
+  weak var scrollViewDelegate: UICollectionViewDelegate? {
+    didSet {
+      stepsCollectionView.delegate = scrollViewDelegate
+    }
+  }
+
   init() {
     super.init(frame: .zero)
     setupViews()
@@ -34,8 +40,10 @@ final class TransportTransitStepsView: SolidTouchView {
       stepsCollectionView.topAnchor.constraint(equalTo: topAnchor, constant: Constants.contentInsets.top),
       stepsCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.contentInsets.left),
       stepsCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: Constants.contentInsets.right),
+      // A hidden arranged view collapses to zero height, including its insets.
       stepsCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: Constants.contentInsets.bottom)
-        .withPriority(.defaultHigh),
+        .withPriority(UILayoutPriority(999)),
+      stepsCollectionView.heightAnchor.constraint(greaterThanOrEqualToConstant: 0),
       stepsCollectionViewHeight,
     ])
   }
@@ -55,6 +63,15 @@ final class TransportTransitStepsView: SolidTouchView {
     animateConstraints(animations: {
       self.stepsCollectionViewHeight.constant = self.stepsCollectionView.collectionViewLayout.collectionViewContentSize.height
     })
+  }
+
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    stepsCollectionView.layoutIfNeeded()
+    let height = stepsCollectionView.collectionViewLayout.collectionViewContentSize.height
+    if stepsCollectionViewHeight.constant != height {
+      stepsCollectionViewHeight.constant = height
+    }
   }
 
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

@@ -113,6 +113,14 @@ final class RoutePointsView: UIView {
 // MARK: - UIScrollViewDelegate
 
 extension RoutePointsView: UIScrollViewDelegate {
+  func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    scrollViewDelegate?.scrollViewWillBeginDragging?(scrollView)
+  }
+
+  func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    scrollViewDelegate?.scrollViewDidEndDragging?(scrollView, willDecelerate: decelerate)
+  }
+
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
     scrollViewDelegate?.scrollViewDidScroll?(scrollView)
   }

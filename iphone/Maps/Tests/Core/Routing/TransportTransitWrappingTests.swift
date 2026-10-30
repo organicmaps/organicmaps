@@ -38,6 +38,26 @@ final class TransportTransitWrappingTests: XCTestCase {
     XCTAssertEqual(frames.cells.last?.minY, 0)
   }
 
+  func testContinuationsOnlySeparateDifferentLegs() throws {
+    let frames = TransportTransitFlowLayout.frames(cellSizes: sizes([180, 180, 40]), width: 200,
+                                                   continuationItems: [1])
+    XCTAssertEqual(frames.separators.count, 1)
+    XCTAssertEqual(frames.cells[1].minX, 0)
+    XCTAssertGreaterThan(frames.cells[1].minY, frames.cells[0].minY)
+    let separator = try XCTUnwrap(frames.separators.first)
+    XCTAssertEqual(separator.minY, frames.cells[1].minY)
+    XCTAssertGreaterThanOrEqual(separator.minX, frames.cells[1].maxX)
+    XCTAssertTrue((frames.cells + frames.separators).allSatisfy { $0.minX >= 0 && $0.maxX <= 200 })
+  }
+
+  func testFirstIdentifierMovesToTheNextRowWhenItsCommaDoesNotFit() {
+    let number = "101, 102"
+    let firstRowWidth = TransportTransitTrain.estimatedCellSize(number: "101").width
+    let groups = TransportTransitTrain.numberGroups(number, maximumWidth: 200,
+                                                    firstRowWidth: firstRowWidth, hasFollowingStep: false)
+    XCTAssertEqual(groups, [number])
+  }
+
   private func sizes(_ widths: [CGFloat]) -> [CGSize] {
     widths.map { CGSize(width: $0, height: 20) }
   }
