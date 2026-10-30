@@ -13,6 +13,8 @@
 #include "drape_frontend/selection_shape.hpp"
 #include "drape_frontend/visual_params.hpp"
 
+#include "kml/serdes_common.hpp"
+
 #include "platform/localization.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
@@ -24,6 +26,7 @@
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
 #include "coding/serdes_json.hpp"
+#include "coding/url.hpp"
 #include "coding/zip_creator.hpp"
 
 #include "base/file_name_utils.hpp"
@@ -155,9 +158,11 @@ std::string BuildIndexFile(std::vector<std::string> const & filesForIndex)
   for (auto const & fileName : filesForIndex)
   {
     content.append("<NetworkLink><name>");
-    content.append(base::GetNameFromFullPathWithoutExt(fileName));
+    content.append(kml::EscapeXml(base::GetNameFromFullPathWithoutExt(fileName)));
     content.append("</name><Link><href>");
-    content.append(fileName);
+    // The archive path is files/<filename>. Only the filename needs URI encoding.
+    auto const nameStart = fileName.rfind('/') + 1;
+    content.append(fileName, 0, nameStart).append(url::UrlEncode(std::string_view{fileName}.substr(nameStart)));
     content.append("</href></Link></NetworkLink>\n");
   }
   content.append(
