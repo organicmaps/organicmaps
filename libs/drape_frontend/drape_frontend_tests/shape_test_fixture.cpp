@@ -144,6 +144,12 @@ void ShapeTestFixture::AddUserLines(TileKey const & tileKey, TracksSource const 
   CacheUserLines(make_ref(m_context), tileKey, make_ref(m_texMng), source, renderParams, *m_batcher);
 }
 
+void ShapeTestFixture::AddUserAreas(TileKey const & tileKey, UserAreasToCache const & areas)
+{
+  CHECK(m_batcher != nullptr, ("Call Init() before AddUserAreas()"));
+  CacheUserAreas(make_ref(m_context), tileKey, make_ref(m_texMng), areas, *m_batcher);
+}
+
 void ShapeTestFixture::Flush()
 {
   CHECK(m_batcher != nullptr, ("Call Init() before Flush()"));
