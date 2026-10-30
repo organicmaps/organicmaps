@@ -635,7 +635,6 @@ UNIT_TEST(GeoJson_Writer_UMap)
   ]
 })";
 
-  // NOTE: Glaze will sort keys alphabetically when exported to GeoJson
   auto const bookmark_umap_properties_str = R"(
   {
     "iconClass": "Drop",
