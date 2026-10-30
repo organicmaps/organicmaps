@@ -1,6 +1,7 @@
 package app.organicmaps.routing;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
@@ -79,7 +80,7 @@ public class ManageRouteAdapterTest
   }
 
   @Test
-  public void nonAdjacentMovesPreserveTheInterveningOrderAndRenumberStops()
+  public void nonAdjacentMovesPreservePointSnapshotsAndUseCurrentRowRoles()
   {
     final int[][] moves = {{0, 3}, {3, 0}, {1, 3}, {3, 1}};
     final List<List<String>> orders = List.of(List.of("B", "C", "D", "A"), List.of("D", "A", "B", "C"),
@@ -100,13 +101,13 @@ public class ManageRouteAdapterTest
       adapter.moveRoutePoint(source, target);
 
       assertEquals(orders.get(caseIndex), adapter.getRoutePoints().stream().map(p -> p.mTitle).toList());
-      assertEquals(RouteMarkType.Start, adapter.getRoutePoints().get(0).mPointType);
-      assertEquals(RouteMarkType.Finish, adapter.getRoutePoints().get(3).mPointType);
+      assertEquals(RouteMarkType.Start, adapter.getRoutePointType(0));
+      assertEquals(RouteMarkType.Finish, adapter.getRoutePointType(3));
       for (int index = 1; index < 3; ++index)
       {
-        assertEquals(RouteMarkType.Intermediate, adapter.getRoutePoints().get(index).mPointType);
-        assertEquals(index - 1, adapter.getRoutePoints().get(index).mIntermediateIndex);
+        assertEquals(RouteMarkType.Intermediate, adapter.getRoutePointType(index));
       }
+      assertSame(points[move[0]], adapter.getRoutePoints().get(move[1]));
       verify(adapter).notifyItemMoved(move[0], move[1]);
     }
   }
@@ -147,5 +148,45 @@ public class ManageRouteAdapterTest
       }
       verify(icons, times(100)).recycle();
     }
+  }
+
+  @Test
+  public void movedRowsBindTheirCurrentEndpointAndStopIcons()
+  {
+    final Context context = mock(Context.class);
+    final Resources resources = mock(Resources.class);
+    final TypedArray icons = mock(TypedArray.class);
+    when(context.getResources()).thenReturn(resources);
+    when(resources.obtainTypedArray(R.array.route_stop_icons)).thenReturn(icons);
+    when(icons.length()).thenReturn(20);
+    when(icons.getResourceId(0, R.drawable.route_point_20)).thenReturn(R.drawable.route_point_01);
+    when(icons.getResourceId(1, R.drawable.route_point_20)).thenReturn(R.drawable.route_point_02);
+    final RouteMarkData start = point("A", RouteMarkType.Start, 0);
+    final ManageRouteAdapter adapter = spy(new ManageRouteAdapter(
+        context,
+        new RouteMarkData[] {start, point("B", RouteMarkType.Intermediate, 0),
+                             point("C", RouteMarkType.Intermediate, 1), point("D", RouteMarkType.Finish, 0)},
+        mock(ManageRouteAdapter.ManageRouteListener.class)));
+    doNothing().when(adapter).notifyItemMoved(anyInt(), anyInt());
+    final RecyclerView.ViewHolder source = mock(RecyclerView.ViewHolder.class);
+    final RecyclerView.ViewHolder target = mock(RecyclerView.ViewHolder.class);
+    when(source.getBindingAdapterPosition()).thenReturn(0);
+    when(target.getBindingAdapterPosition()).thenReturn(2);
+    adapter.moveRoutePoint(source, target);
+    try (MockedStatic<ThemeUtils> theme = mockStatic(ThemeUtils.class);
+         MockedStatic<AppCompatResources> drawables = mockStatic(AppCompatResources.class))
+    {
+      final int[] expected = {R.drawable.route_point_start, R.drawable.route_point_01, R.drawable.route_point_02,
+                              R.drawable.route_point_finish};
+      for (int i = 0; i < expected.length; ++i)
+      {
+        drawables.clearInvocations();
+        adapter.onBindViewHolder(holder(), i);
+        final int icon = expected[i];
+        drawables.verify(() -> AppCompatResources.getDrawable(context, icon));
+      }
+    }
+    assertSame(start, adapter.getRoutePoints().get(2));
+    assertEquals(RouteMarkType.Start, start.mPointType);
   }
 }

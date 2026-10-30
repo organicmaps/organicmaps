@@ -138,6 +138,15 @@ jobs:
         working-directory: android
         run: ./gradlew :wear:assembleGoogleDebug
 
+      - name: Run JVM unit tests
+        if: matrix.run-tests == true
+        shell: bash
+        working-directory: android
+        run: >-
+          ./gradlew -P${{ matrix.arch }} app:test${{ matrix.flavor }} sdk:testDebug
+          :libs:car:testDebugUnitTest :wear:testGoogleDebugUnitTest
+          :libs:wear-protocol-gms:testDebugUnitTest :sdk:wear:core:testDebugUnitTest
+
       - name: Free disk space for emulator
         if: matrix.run-tests == true
         run: |
@@ -153,7 +162,7 @@ jobs:
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
 
-      - name: Run tests
+      - name: Run instrumentation tests
         if: matrix.run-tests == true
         uses: reactivecircus/android-emulator-runner@v2
         with:
@@ -162,9 +171,8 @@ jobs:
           target: google_apis
           working-directory: ./android
           script: >-
-            ./gradlew -P${{ matrix.arch }} app:test${{ matrix.flavor }} sdk:testDebug
-            :libs:car:testDebugUnitTest :wear:testGoogleDebugUnitTest :libs:wear-protocol-gms:testDebugUnitTest
-            :sdk:wear:core:testDebugUnitTest sdk:connectedDebugAndroidTest
+            ./gradlew -P${{ matrix.arch }} sdk:connectedDebugAndroidTest
+            app:connected${{ matrix.flavor }}AndroidTest
 
       - name: Upload ${{ matrix.flavor }} apk
         uses: actions/upload-artifact@v7

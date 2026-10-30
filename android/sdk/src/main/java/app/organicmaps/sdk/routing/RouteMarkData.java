@@ -1,10 +1,12 @@
 package app.organicmaps.sdk.routing;
 
 import androidx.annotation.Keep;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import java.util.Objects;
 
 /**
- * Represents RouteMarkData from core.
+ * Immutable native point snapshot. The role and index describe the itinerary at capture time.
  */
 // Called from JNI.
 @Keep
@@ -15,8 +17,8 @@ public final class RouteMarkData
   public final String mTitle;
   @Nullable
   public final String mSubtitle;
-  public RouteMarkType mPointType;
-  public int mIntermediateIndex;
+  public final RouteMarkType mPointType;
+  public final int mIntermediateIndex;
   public final boolean mIsVisible;
   public final boolean mIsMyPosition;
   public final boolean mIsPassed;
@@ -43,5 +45,14 @@ public final class RouteMarkData
     mIsPassed = isPassed;
     mLat = lat;
     mLon = lon;
+  }
+
+  /** Compares captured values when checking whether a deferred itinerary edit is still current. */
+  public boolean hasSameData(@NonNull RouteMarkData other)
+  {
+    return (mPointType == other.mPointType && mIntermediateIndex == other.mIntermediateIndex
+            && mIsVisible == other.mIsVisible && mIsMyPosition == other.mIsMyPosition && mIsPassed == other.mIsPassed
+            && Double.compare(mLat, other.mLat) == 0 && Double.compare(mLon, other.mLon) == 0
+            && Objects.equals(mTitle, other.mTitle) && Objects.equals(mSubtitle, other.mSubtitle));
   }
 }

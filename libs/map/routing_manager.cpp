@@ -1259,6 +1259,41 @@ void RoutingManager::MoveRoutePoint(size_t currentIndex, size_t targetIndex)
   routePoints.MoveRoutePoint(currentType, currentIndex, targetType, targetIndex);
 }
 
+bool RoutingManager::ReorderRoutePoints(std::vector<size_t> const & order)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  RoutePointsLayout layout(*m_bmManager);
+  auto const points = layout.GetRoutePoints();
+  if (points.size() < 2 || points.front()->GetRoutePointType() != RouteMarkType::Start ||
+      points.back()->GetRoutePointType() != RouteMarkType::Finish)
+    return false;
+
+  CHECK_EQUAL(order.size(), points.size(), ());
+  std::vector<bool> used(points.size(), false);
+  bool changed = false;
+  for (size_t i = 0; i < order.size(); ++i)
+  {
+    CHECK_LESS(order[i], points.size(), ());
+    CHECK(!used[order[i]], ("Duplicate route point index", order[i]));
+    used[order[i]] = true;
+    changed |= order[i] != i;
+  }
+  if (!changed)
+    return false;
+
+  for (size_t i = 0; i < order.size(); ++i)
+  {
+    auto * point = points[order[i]];
+    if (i == 0)
+      point->SetRoutePointFullType(RouteMarkType::Start, 0);
+    else if (i + 1 == order.size())
+      point->SetRoutePointFullType(RouteMarkType::Finish, 0);
+    else
+      point->SetRoutePointFullType(RouteMarkType::Intermediate, i - 1);
+  }
+  return true;
+}
+
 bool RoutingManager::ReverseRoutePoints()
 {
   ASSERT(m_bmManager != nullptr, ());

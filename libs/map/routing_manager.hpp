@@ -235,6 +235,11 @@ public:
   void RemoveIntermediateRoutePoints();
   void RemovePassedRoutePoints();
   void MoveRoutePoint(size_t currentIndex, size_t targetIndex);
+  /// Applies a permutation to a complete itinerary in one edit session, preserving marks and metadata.
+  /// order[i] is the current index of the point for new slot i; invalid permutations are programming errors.
+  /// Returns false for an incomplete itinerary or an unchanged order. The caller rebuilds after a change.
+  /// Passed flags stay with their marks; rebuilding removes visited points.
+  bool ReorderRoutePoints(std::vector<size_t> const & order);
   void MoveRoutePoint(RouteMarkType currentType, size_t currentIntermediateIndex, RouteMarkType targetType,
                       size_t targetIntermediateIndex);
   /// Reverses the complete route, including intermediate points. Returns false without changing points if either

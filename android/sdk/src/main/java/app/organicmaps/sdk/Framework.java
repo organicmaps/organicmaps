@@ -307,7 +307,8 @@ public class Framework
   @NonNull
   public static native RouteMarkData[] nativeGetRoutePoints();
 
-  public static native void nativeMoveRoutePoint(int currentIndex, int targetIndex);
+  /** Applies a complete permutation of current point indices, preserving native marks and metadata. */
+  public static native boolean nativeReorderRoutePoints(@NonNull int[] order);
 
   /**
    * Reverses the complete route, including intermediate points.

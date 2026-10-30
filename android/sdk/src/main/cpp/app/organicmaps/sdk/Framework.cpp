@@ -60,6 +60,7 @@
 
 #include "ge0/url_generator.hpp"
 
+#include <array>
 #include <functional>
 #include <memory>
 #include <string>
@@ -1514,15 +1515,19 @@ JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetRoutePoints(J
   return routing_jni::CreateRouteMarkDataArray(env, frm()->GetRoutingManager().GetRoutePoints());
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeMoveRoutePoint(JNIEnv * env, jclass, jint currentIndex,
-                                                                       jint targetIndex)
-{
-  frm()->GetRoutingManager().MoveRoutePoint(currentIndex, targetIndex);
-}
-
 JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeReverseRoutePoints(JNIEnv * env, jclass)
 {
   return frm()->GetRoutingManager().ReverseRoutePoints();
+}
+
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeReorderRoutePoints(JNIEnv * env, jclass, jintArray newOrder)
+{
+  std::array<jint, RoutePointsLayout::kMaxRoutePointsCount> order;
+  auto const count = env->GetArrayLength(newOrder);
+  CHECK_LESS_OR_EQUAL(static_cast<size_t>(count), order.size(), ());
+  env->GetIntArrayRegion(newOrder, 0, count, order.data());
+  std::vector<size_t> const indices(order.begin(), order.begin() + count);
+  return frm()->GetRoutingManager().ReorderRoutePoints(indices);
 }
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetTransitRouteInfo(JNIEnv * env, jclass)
