@@ -28,6 +28,9 @@ bool IsValidLatLon(double lat, double lon);
 // geometry::kInvalidAltitude. The import parsers guarantee finite inputs.
 geometry::Altitude ToAltitude(double altitude);
 
+// Escapes XML text and quoted attributes, preserving whitespace and dropping forbidden C0 controls.
+std::string EscapeXml(std::string_view value);
+
 void SaveStringWithCDATA(Writer & writer, std::string_view s);
 
 std::string_view constexpr kIndent0{};
