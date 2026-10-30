@@ -112,16 +112,19 @@ dependencies {
   androidTestImplementation libs.androidx.test.runner
 }
 
-// TODO: Running lint task triggers native build. Find a better solution.
+// Lint-only requests need native models without compiling the native library.
 project.afterEvaluate {
-  boolean isLintRun = project.gradle.startParameter.taskNames.any { it.toLowerCase().contains('lint') }
+  def requestedTasks = project.gradle.startParameter.taskNames
+  boolean isLintOnlyRun = !requestedTasks.isEmpty() && requestedTasks.every {
+    it.tokenize(':').last().toLowerCase(Locale.ROOT).contains('lint')
+  }
 
-  if (isLintRun) {
+  if (isLintOnlyRun) {
     tasks.findAll { task ->
       (task.name.startsWith('Native') || task.name.contains('CMake')) &&
           task.project == project
     }.each { nativeTask ->
-      logger.warn("Disabling task ${nativeTask.path} because lint is running.")
+      logger.warn("Disabling task ${nativeTask.path} because only lint tasks were requested.")
       nativeTask.onlyIf { false }
     }
   }
