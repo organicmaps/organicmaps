@@ -2428,6 +2428,82 @@ UNIT_CLASS_TEST(Runner, Bookmarks_Listeners)
   checkBookmarksChanges(false);
 }
 
+UNIT_CLASS_TEST(Runner, Bookmarks_DeferredImportsKeepLocalSaveIntent)
+{
+  BookmarkManager manager(BM_CALLBACKS);
+  manager.EnableTestMode(true);
+  auto const first = base::JoinPath(GetPlatform().SettingsDir(), "paused-first.kml");
+  auto const second = base::JoinPath(GetPlatform().SettingsDir(), "paused-second.kml");
+  auto const third = base::JoinPath(GetPlatform().SettingsDir(), "paused-third.kml");
+  auto const write = [](std::string const & path, std::string const & name, time_t modified)
+  {
+    kml::FileData data;
+    kml::SetDefaultStr(data.m_categoryData.m_name, name);
+    data.m_categoryData.m_lastModified = kml::TimestampClock::from_time_t(modified);
+    data.m_bookmarksData.emplace_back().m_point = {0, 0};
+    TEST(SaveKmlFileSafe(data, path, FileType::Kml), (path));
+    TEST(Platform::SetFileModificationTime(path, modified), (path));
+  };
+  auto const load = [&](std::vector<std::string> const & paths, bool autoSave = true)
+  {
+    BookmarkManager::KMLDataCollection collection;
+    for (auto const & path : paths)
+    {
+      auto data = LoadKmlFile(path, FileType::Kml);
+      TEST(data != nullptr, (path));
+      collection.emplace_back(path, std::move(data));
+    }
+    manager.CreateCategories(std::move(collection), autoSave);
+  };
+
+  write(first, "First", 5000);
+  write(second, "Second", 5000);
+  manager.SetNotificationsEnabled(false);
+  load({first, second});
+  manager.SetNotificationsEnabled(true);
+  TEST_EQUAL(Platform::GetFileModificationTime(first), 5000, ());
+  TEST_EQUAL(Platform::GetFileModificationTime(second), 5000, ());
+
+  auto const firstId = manager.GetCategoryByFileName(first);
+  auto const secondId = manager.GetCategoryByFileName(second);
+  manager.SetNotificationsEnabled(false);
+  manager.GetEditSession().SetCategoryName(firstId, "Edited first");
+  write(second, "External second", 6000);
+  load({second});
+  manager.SetNotificationsEnabled(true);
+  auto saved = LoadKmlFile(first, FileType::Kml);
+  TEST(saved != nullptr, ());
+  TEST_EQUAL(kml::GetDefaultStr(saved->m_categoryData.m_name), "Edited first", ());
+  TEST_EQUAL(Platform::GetFileModificationTime(second), 6000, ());
+
+  manager.SetNotificationsEnabled(false);
+  manager.GetEditSession().SetCategoryName(firstId, "Deleted");
+  manager.GetEditSession().DeleteBmCategory(firstId, true /* permanently */);
+  manager.SetNotificationsEnabled(true);
+  TEST(!Platform::IsFileExistsByFullPath(first), ());
+  TEST_EQUAL(Platform::GetFileModificationTime(second), 6000, ());
+
+  manager.SetNotificationsEnabled(false);
+  manager.GetEditSession().SetCategoryName(secondId, "Edited second");
+  write(third, "Imported third", 7000);
+  load({third});
+  manager.SetNotificationsEnabled(true);
+  saved = LoadKmlFile(second, FileType::Kml);
+  TEST(saved != nullptr, ());
+  TEST_EQUAL(kml::GetDefaultStr(saved->m_categoryData.m_name), "Edited second", ());
+  TEST_EQUAL(Platform::GetFileModificationTime(third), 7000, ());
+
+  manager.SetNotificationsEnabled(false);
+  manager.GetEditSession().SetCategoryName(secondId, "Superseded edit");
+  write(second, "Reloaded second", 8000);
+  load({second}, false /* autoSave */);
+  manager.SetNotificationsEnabled(true);
+  TEST_EQUAL(manager.GetCategoryName(secondId), "Reloaded second", ());
+  TEST_EQUAL(Platform::GetFileModificationTime(second), 8000, ());
+  manager.GetEditSession().SetCategoryName(secondId, "Autosave disabled");
+  TEST_EQUAL(Platform::GetFileModificationTime(second), 8000, ());
+}
+
 UNIT_CLASS_TEST(Runner, Bookmarks_AutoSave)
 {
   BookmarkManager bmManager(BM_CALLBACKS);
