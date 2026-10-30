@@ -7,6 +7,7 @@
 
 #include "platform/location.hpp"
 #include "platform/location_service/location_service.hpp"
+#include "platform/style_utils.hpp"
 
 #include <QtCore/QLocale>
 #include <QtWidgets/QApplication>
@@ -50,7 +51,16 @@ public:
     kDockCount
   };
 
+signals:
+  void positionModeChanged(location::EMyPositionMode mode);
+  void infoChanged();
+  void nightModeChanged();
+
 private:
+  QString m_title, m_subTitle, m_address, m_wikipedia, m_wikimedia, m_description, m_openingHours, m_cuisines, m_phone,
+      m_operator, m_website, m_email, m_facebook, m_instagram, m_twitter, m_vk, m_line, m_level;
+  bool m_bookmark = false, m_atm = false, m_wifi = false;
+
   DrawWidget * m_pDrawWidget = nullptr;
   std::array<QDockWidget *, kDockCount> m_Docks;
 
@@ -68,6 +78,18 @@ private:
   QAction * m_pCreateFeatureAction = nullptr;
   QAction * m_pSearchAction = nullptr;
   QAction * m_rulerAction = nullptr;
+
+  QAction * m_fromAction = nullptr;
+  QAction * m_stopAction = nullptr;
+  QAction * m_toAction = nullptr;
+  QAction * m_alongAction = nullptr;
+  QAction * m_editAction = nullptr;
+
+  QAction * m_transitAction = nullptr;
+  QAction * m_isolinesAction = nullptr;
+  QAction * m_outdoorsAction = nullptr;
+  QAction * m_hikingAction = nullptr;
+  QAction * m_cyclingAction = nullptr;
 
   enum LayerType : uint8_t
   {
@@ -94,6 +116,48 @@ private:
 #endif  // BUILD_DESIGNER
 
   Q_OBJECT
+  QML_ELEMENT
+  QML_UNCREATABLE("")
+
+  Q_PROPERTY(QString title MEMBER m_title NOTIFY infoChanged)
+  Q_PROPERTY(QString subTitle MEMBER m_subTitle NOTIFY infoChanged)
+  Q_PROPERTY(QString address MEMBER m_address NOTIFY infoChanged)
+  Q_PROPERTY(bool bookmark MEMBER m_bookmark NOTIFY infoChanged)
+  Q_PROPERTY(QString wikipedia MEMBER m_wikipedia NOTIFY infoChanged)
+  Q_PROPERTY(QString wikimedia MEMBER m_wikimedia NOTIFY infoChanged)
+  Q_PROPERTY(QString description MEMBER m_description NOTIFY infoChanged)
+  Q_PROPERTY(QString openingHours MEMBER m_openingHours NOTIFY infoChanged)
+  Q_PROPERTY(QString cuisines MEMBER m_cuisines NOTIFY infoChanged)
+  Q_PROPERTY(QString phone MEMBER m_phone NOTIFY infoChanged)
+  Q_PROPERTY(QString operator MEMBER m_operator NOTIFY infoChanged)
+  Q_PROPERTY(bool atm MEMBER m_atm NOTIFY infoChanged)
+  Q_PROPERTY(bool wifi MEMBER m_wifi NOTIFY infoChanged)
+  Q_PROPERTY(QString website MEMBER m_website NOTIFY infoChanged)
+  Q_PROPERTY(QString email MEMBER m_email NOTIFY infoChanged)
+  Q_PROPERTY(QString facebook MEMBER m_facebook NOTIFY infoChanged)
+  Q_PROPERTY(QString instagram MEMBER m_instagram NOTIFY infoChanged)
+  Q_PROPERTY(QString twitter MEMBER m_twitter NOTIFY infoChanged)
+  Q_PROPERTY(QString vk MEMBER m_vk NOTIFY infoChanged)
+  Q_PROPERTY(QString line MEMBER m_line NOTIFY infoChanged)
+  Q_PROPERTY(QString level MEMBER m_level NOTIFY infoChanged)
+
+  Q_PROPERTY(QAction * fromAction MEMBER m_fromAction)
+  Q_PROPERTY(QAction * stopAction MEMBER m_stopAction)
+  Q_PROPERTY(QAction * toAction MEMBER m_toAction)
+  Q_PROPERTY(QAction * alongAction MEMBER m_alongAction NOTIFY infoChanged)
+  Q_PROPERTY(QAction * editAction MEMBER m_editAction NOTIFY infoChanged)
+  Q_PROPERTY(QAction * myPositionAction MEMBER m_pMyPositionAction)
+
+  Q_PROPERTY(QAction * searchAction MEMBER m_pSearchAction)
+
+  Q_PROPERTY(QAction * transitAction MEMBER m_transitAction CONSTANT)
+  Q_PROPERTY(QAction * isolinesAction MEMBER m_isolinesAction CONSTANT)
+  Q_PROPERTY(QAction * outdoorsAction MEMBER m_outdoorsAction CONSTANT)
+  Q_PROPERTY(QAction * hikingAction MEMBER m_hikingAction CONSTANT)
+  Q_PROPERTY(QAction * cyclingAction MEMBER m_cyclingAction CONSTANT)
+
+  style_utils::NightMode GetNightModeSetting() const { return style_utils::GetNightModeSetting(); }
+  Q_PROPERTY(style_utils::NightMode nightMode READ GetNightModeSetting NOTIFY nightModeChanged)
 
 public:
   MainWindow(Framework & framework, std::unique_ptr<ScreenshotParams> && screenshotParams, QRect const & screenGeometry,
@@ -108,6 +172,12 @@ public:
   // (Developer or User variant depending on settings::kDeveloperMode) and shows the dock.
   void ShowPlacePage(place_page::Info const & info);
   void HidePlacePage();
+
+  Q_INVOKABLE void DeactivateMapSelection() const;
+  Q_INVOKABLE void toggleWidgetsUI() const;
+  Q_INVOKABLE void scalePlus() const;
+  Q_INVOKABLE void scaleMinus() const;
+  Q_INVOKABLE QString getCopyrightText() const;
 
 protected:
   Framework & GetFramework() const;

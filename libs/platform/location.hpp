@@ -5,9 +5,18 @@
 
 #include <cmath>
 #include <functional>
+#ifdef QT_CORE_LIB
+#include <QtQmlIntegration/qqmlintegration.h>
+#include <QObject>
+#endif
 
 namespace location
 {
+#ifdef QT_CORE_LIB
+Q_NAMESPACE
+QML_ELEMENT
+#endif
+
 /// @note Do not change values of this constants.
 enum TLocationError
 {
@@ -132,6 +141,9 @@ enum EMyPositionMode
   Follow,
   FollowAndRotate
 };
+#ifdef QT_CORE_LIB
+Q_ENUM_NS(EMyPositionMode)
+#endif
 
 using TMyPositionModeChanged = std::function<void(location::EMyPositionMode, bool)>;
 

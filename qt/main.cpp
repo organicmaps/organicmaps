@@ -172,6 +172,7 @@ int main(int argc, char * argv[])
 #else
   QApplication::setApplicationName("Organic Maps");
 #endif
+  QApplication::setApplicationVersion(QString::fromStdString(platform.Version()));
   auto const & preferred = languages::GetSystemPreferred();
   auto qtTranslator = qt::InstallTranslator(app, {preferred.data(), preferred.size()});
   auto const dataSizeLocale = qt::GetDataSizeLocale(*qtTranslator);

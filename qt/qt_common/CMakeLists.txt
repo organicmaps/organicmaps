@@ -36,6 +36,8 @@ target_link_libraries(${PROJECT_NAME}
     Qt6::Widgets
     Qt6::OpenGL
     Qt6::OpenGLWidgets
+    Qt6::Quick
+    Qt6::QuickWidgets
 )
 
 if (BUILD_TESTING AND BUILD_OPENGL_TESTS)
