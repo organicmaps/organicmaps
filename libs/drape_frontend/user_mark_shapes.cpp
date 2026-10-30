@@ -29,13 +29,30 @@
 
 #include "base/logging.hpp"
 
+#include "3party/earcut/earcut.hpp"
 #include "3party/libtess2/Include/tesselator.h"
 
 #include <algorithm>
 #include <array>
 #include <cmath>
 #include <memory>
+#include <utility>
 #include <vector>
+
+namespace mapbox::util
+{
+template <>
+struct nth<0, m2::PointD>
+{
+  static double get(m2::PointD const & p) { return p.x; }
+};
+
+template <>
+struct nth<1, m2::PointD>
+{
+  static double get(m2::PointD const & p) { return p.y; }
+};
+}  // namespace mapbox::util
 
 namespace df
 {
@@ -451,6 +468,59 @@ std::string GetBackgroundSymbolName(std::string const & symbolName)
     res.append(kDelimiter).append(tokens[2]);
   return res;
 }
+
+using Rings = std::vector<std::vector<m2::PointD>>;
+
+// Removes exactly collinear vertices. Earcut can't clip them as ears and filters them only after a pass without
+// ears or when bridging holes, so long runs of them, e.g. in a densified rectangle, make it quadratic. In Mercator,
+// only runs along meridians and parallels stay exactly collinear, so real-life rings rarely lose a vertex here.
+void RemoveCollinearPoints(std::vector<m2::PointD> & ring)
+{
+  size_t size = 0;
+  for (auto const & point : ring)
+  {
+    while (size > 1 && m2::robust::OrientedS(ring[size - 2], ring[size - 1], point) == 0)
+      --size;
+    ring[size++] = point;
+  }
+
+  // The same across the start of the ring.
+  size_t first = 0;
+  while (size - first > 2)
+    if (m2::robust::OrientedS(ring[size - 2], ring[size - 1], ring[first]) == 0)
+      --size;
+    else if (m2::robust::OrientedS(ring[size - 1], ring[first], ring[first + 1]) == 0)
+      ++first;
+    else
+      break;
+  ring.resize(size);
+  ring.erase(ring.begin(), ring.begin() + first);
+}
+
+// Returns the doubled area.
+double RingArea(std::vector<m2::PointD> const & ring)
+{
+  auto const & origin = ring.front();
+  double area = 0;
+  for (size_t i = 2; i < ring.size(); ++i)
+    area += m2::CrossProduct(ring[i - 1] - origin, ring[i] - origin);
+  return std::fabs(area);
+}
+
+template <class AddTriangleFn>
+void TessellateByLibtess(Rings const & rings, AddTriangleFn const & addTriangle)
+{
+  std::unique_ptr<TESStesselator, decltype(&tessDeleteTess)> const tess(tessNewTess(nullptr), &tessDeleteTess);
+  for (auto const & ring : rings)
+    tessAddContour(tess.get(), 2, ring.data(), sizeof(m2::PointD), static_cast<int>(ring.size()));
+  // Fails only when out of memory.
+  VERIFY(tessTesselate(tess.get(), TESS_WINDING_ODD, TESS_POLYGONS, 3, 2, nullptr), ());
+
+  auto const * vertices = reinterpret_cast<m2::PointD const *>(tessGetVertices(tess.get()));
+  auto const * indices = tessGetElements(tess.get());
+  for (int i = 0, count = tessGetElementCount(tess.get()); i < count; ++i, indices += 3)
+    addTriangle(vertices[indices[0]], vertices[indices[1]], vertices[indices[2]]);
+}
 }  // namespace
 
 drape_ptr<dp::OverlayHandle> CreateUserMarkOverlayHandle(UserMarkRenderParams const & renderInfo,
@@ -753,61 +823,94 @@ drape_ptr<UserAreaRenderParams> GenerateAreaRenderInfo(kml::AreaData const & are
   if (style.m_outline && style.m_outlineWidth > 0 && renderInfo->m_outlineColor.GetAlpha() > 0)
     renderInfo->m_outlineWidth = static_cast<float>(style.m_outlineWidth);
 
-  auto const makeRing = [](kml::AreaRing const & ring)
+  auto const toMercator = [](kml::AreaRing const & ring)
   {
     ASSERT_GREATER_OR_EQUAL(ring.size(), 3, ());
-    auto const closing = (mercator::FromLatLon(ring.front().m_latLon) + mercator::FromLatLon(ring.back().m_latLon)) / 2;
+    std::vector<m2::PointD> points;
+    points.reserve(ring.size());
+    // Without repeats of vertices that differ only in height, also across the start of the ring.
+    for (auto const & point : ring)
+      if (auto const p = mercator::FromLatLon(point.m_latLon); points.empty() || p != points.back())
+        points.push_back(p);
+    if (points.size() > 1 && points.back() == points.front())
+      points.pop_back();
+    return points;
+  };
+  auto const makeSpline = [](std::vector<m2::PointD> const & ring)
+  {
+    auto const closing = (ring.front() + ring.back()) / 2;
     auto spline = std::make_unique<m2::Spline>(ring.size() + 2);
     spline->AddPoint(closing);
-    // Skips zero-length segments between vertices that differ only in height.
+    // Skips segments shorter than the spline's minimum, so a tiny ring collapses into a point.
     for (auto const & point : ring)
-      spline->AddPoint(mercator::FromLatLon(point.m_latLon));
+      spline->AddPoint(point);
     spline->AddPoint(closing);
     return m2::SharedSpline(std::move(spline));
   };
   for (auto const & polygon : area.m_polygons)
   {
-    auto & rings = renderInfo->m_polygons.emplace_back();
-    rings.push_back(makeRing(polygon.m_outer));
+    auto & splines = renderInfo->m_polygons.emplace_back();
+    auto & fillRings = renderInfo->m_fillRings.emplace_back();
+    auto const addRing = [&](kml::AreaRing const & ring)
+    { splines.push_back(makeSpline(fillRings.emplace_back(toMercator(ring)))); };
+    addRing(polygon.m_outer);
     for (auto const & hole : polygon.m_holes)
-      rings.push_back(makeRing(hole));
-    renderInfo->m_limitRect.Add(rings.front()->GetRect());
+      addRing(hole);
+    renderInfo->m_limitRect.Add(splines.front()->GetRect());
   }
   return renderInfo;
 }
 
 void TessellateUserArea(UserAreaRenderParams & area)
 {
+  auto polygons = std::exchange(area.m_fillRings, {});
   if (area.m_fillColor.GetAlpha() == 0)
     return;
 
-  std::unique_ptr<TESStesselator, decltype(&tessDeleteTess)> const tess(tessNewTess(nullptr), &tessDeleteTess);
-  // Polygons are tessellated separately, so that the overlapping ones don't cancel each other out.
-  for (auto const & rings : area.m_polygons)
+  auto & triangles = area.m_triangles;
+  // Returns the doubled area of the triangle.
+  auto const addTriangle = [&triangles](m2::PointD const & a, m2::PointD const & b, m2::PointD const & c)
   {
-    for (auto const & ring : rings)
-    {
-      // Without the closing points in the middle of an edge.
-      auto const & path = ring->GetPath();
-      tessAddContour(tess.get(), 2, path.data() + 1, sizeof(m2::PointD), static_cast<int>(path.size() - 2));
-    }
-    // Fails only when out of memory.
-    VERIFY(tessTesselate(tess.get(), TESS_WINDING_ODD, TESS_POLYGONS, 3, 2, nullptr), ());
+    // ClipTriangleByRect takes clockwise triangles, while tessellators may emit others and zero-area ones.
+    double const s = m2::robust::OrientedS(a, b, c);
+    if (s < 0)
+      triangles.insert(triangles.end(), {a, b, c});
+    else if (s > 0)
+      triangles.insert(triangles.end(), {a, c, b});
+    return std::fabs(s);
+  };
 
-    auto const * vertices = reinterpret_cast<m2::PointD const *>(tessGetVertices(tess.get()));
-    auto const * indices = tessGetElements(tess.get());
-    for (int i = 0, count = tessGetElementCount(tess.get()); i < count; ++i, indices += 3)
+  std::vector<m2::PointD> points;
+  // Polygons are tessellated separately, so that the overlapping ones don't cancel each other out.
+  for (auto & rings : polygons)
+  {
+    for (auto & ring : rings)
+      RemoveCollinearPoints(ring);
+    if (rings.front().size() < 3)
+      continue;
+    std::erase_if(rings, [](auto const & ring) { return ring.size() < 3; });
+
+    points.clear();
+    double expectedArea = 0;
+    for (size_t i = 0; i < rings.size(); ++i)
     {
-      auto const & a = vertices[indices[0]];
-      auto const & b = vertices[indices[1]];
-      auto const & c = vertices[indices[2]];
-      // ClipTriangleByRect takes clockwise triangles, while libtess2 keeps the rings' winding
-      // and emits zero-area triangles over collinear vertices.
-      double const s = m2::robust::OrientedS(a, b, c);
-      if (s < 0)
-        area.m_triangles.insert(area.m_triangles.end(), {a, b, c});
-      else if (s > 0)
-        area.m_triangles.insert(area.m_triangles.end(), {a, c, b});
+      points.insert(points.end(), rings[i].begin(), rings[i].end());
+      expectedArea += i == 0 ? RingArea(rings[i]) : -RingArea(rings[i]);
+    }
+
+    // Earcut is 2-15 times faster than libtess2 on real-life areas, e.g. 0.1 s vs 1.5 s for the England national parks.
+    size_t const start = triangles.size();
+    double earcutArea = 0;
+    auto const indices = mapbox::earcut<uint32_t>(rings);
+    for (size_t i = 0; i < indices.size(); i += 3)
+      earcutArea += addTriangle(points[indices[i]], points[indices[i + 1]], points[indices[i + 2]]);
+
+    // But it misfills invalid polygons, e.g. self-crossing ones or with holes that touch others after
+    // the projection, which libtess2 fills by the even-odd rule.
+    if (std::fabs(earcutArea - expectedArea) > 1e-6 * expectedArea)
+    {
+      triangles.resize(start);
+      TessellateByLibtess(rings, addTriangle);
     }
   }
 }

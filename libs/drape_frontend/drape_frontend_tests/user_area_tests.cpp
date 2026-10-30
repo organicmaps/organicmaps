@@ -4,6 +4,11 @@
 #include "drape_frontend/user_mark_shapes.hpp"
 
 #include "kml/area_data.hpp"
+#include "kml/serdes.hpp"
+
+#include "platform/platform.hpp"
+
+#include "coding/zip_reader.hpp"
 
 #include "geometry/clipping.hpp"
 #include "geometry/mercator.hpp"
@@ -52,6 +57,23 @@ double ClockwiseArea(std::vector<m2::PointD> const & t)
     area -= s / 2;
   }
   return area;
+}
+
+m2::PointD LonLat(double lon, double lat)
+{
+  return mercator::FromLatLon(lat, lon);
+}
+
+// The number of clockwise triangles that cover a point.
+int Coverage(std::vector<m2::PointD> const & t, m2::PointD const & p)
+{
+  int count = 0;
+  for (size_t i = 0; i < t.size(); i += 3)
+  {
+    count += m2::robust::OrientedS(t[i], t[i + 1], p) < 0 && m2::robust::OrientedS(t[i + 1], t[i + 2], p) < 0 &&
+             m2::robust::OrientedS(t[i + 2], t[i], p) < 0;
+  }
+  return count;
 }
 
 UNIT_TEST(UserAreas_RenderInfo)
@@ -120,6 +142,31 @@ UNIT_TEST(UserAreas_TessellationKeepsHolesAndOverlaps)
   TEST_ALMOST_EQUAL_ABS(ClockwiseArea(Tessellate(area)->m_triangles), 2 * kSquareWithHoleArea, 1e-8, ());
 }
 
+UNIT_TEST(UserAreas_FillKeepsVerticesThatSplinesSkip)
+{
+  // A ring shorter than the minimal spline segment is filled, while its outline collapses into a point.
+  kml::AreaData area;
+  area.m_polygons = {{Ring({{0, 0}, {5e-8, 0}, {0, 5e-8}}), {}}};
+  auto info = Tessellate(area);
+  TEST_EQUAL(info->m_polygons.front().front()->GetSize(), 1, ());
+  TEST_EQUAL(info->m_triangles.size(), 3, ());
+
+  area = MakeArea();
+  area.m_polygons.front().m_holes.push_back(Ring({{1, 1}, {1, 1 + 5e-8}, {1 + 5e-8, 1}}));
+  info = Tessellate(area);
+  TEST_EQUAL(info->m_polygons.front().back()->GetSize(), 1, ());
+  TEST_EQUAL(Coverage(info->m_triangles, LonLat(1 + 1e-8, 1 + 1e-8)), 0, ("The tiny hole"));
+  TEST_EQUAL(Coverage(info->m_triangles, LonLat(1, 2)), 1, ());
+
+  // The first and the last vertices differ only in height, so the outline doesn't start in the middle of an edge.
+  area.m_polygons = {{Ring({{1, 1}, {4, 4}, {1, 4}, {1, 1}}), {}}};
+  area.m_polygons.front().m_outer.front().m_altitude = 2;
+  area.m_polygons.front().m_outer.back().m_altitude = 1;
+  info = Tessellate(area);
+  auto const a = LonLat(1, 1), b = LonLat(4, 4), c = LonLat(1, 4);
+  TEST_ALMOST_EQUAL_ABS(ClockwiseArea(info->m_triangles), std::fabs(m2::CrossProduct(b - a, c - a)) / 2, 1e-12, ());
+}
+
 UNIT_TEST(UserAreas_RemovedAreasAreSkippedUntilGroupUpdate)
 {
   // Tiles may be generated between removing an area and updating its group.
@@ -181,6 +228,68 @@ UNIT_TEST(UserAreas_AnyWindingAndCollinearVerticesClipByTiles)
       clipped += ClockwiseArea(inTile);
     }
     TEST_ALMOST_EQUAL_ABS(clipped, kSquareWithHoleArea, 1e-8, (reversed));
+  }
+}
+
+UNIT_TEST(UserAreas_CollinearVerticesAreRemoved)
+{
+  // Otherwise earcut is quadratic on the densified square.
+  kml::AreaData area;
+  auto & outer = area.m_polygons.emplace_back().m_outer;
+  for (auto const & [from, to] : std::initializer_list<std::pair<m2::PointD, m2::PointD>>{
+           {{0, 0}, {10, 0}}, {{10, 0}, {10, 10}}, {{10, 10}, {0, 10}}, {{0, 10}, {0, 0}}})
+  {
+    for (int i = 0; i < 5000; ++i)
+    {
+      auto const p = from + (to - from) * (i / 5000.0);
+      outer.push_back({{p.y, p.x}, {}});
+    }
+  }
+  auto info = Tessellate(area);
+  TEST_EQUAL(info->m_triangles.size(), 6, ());
+  TEST_ALMOST_EQUAL_ABS(ClockwiseArea(info->m_triangles), 10 * mercator::LatToY(10), 1e-8, ());
+}
+
+UNIT_TEST(UserAreas_InvalidPolygonsAreFilledByEvenOddRule)
+{
+  // Earcut misfills a self-crossing ring and a hole outside its shell, so libtess2 fills them.
+  kml::AreaData area;
+  area.m_polygons = {{Ring({{0, 0}, {4, 4}, {0, 4}, {4, 0}}), {}}};
+  TEST_ALMOST_EQUAL_ABS(ClockwiseArea(Tessellate(area)->m_triangles), 2 * mercator::LatToY(4), 1e-8, ());
+  area.m_polygons = {{Ring({{0, 0}, {10, 0}, {10, 10}, {0, 10}}), {Ring({{12, 12}, {14, 12}, {14, 14}, {12, 14}})}}};
+  TEST_ALMOST_EQUAL_ABS(ClockwiseArea(Tessellate(area)->m_triangles),
+                        10 * mercator::LatToY(10) + 2 * (mercator::LatToY(14) - mercator::LatToY(12)), 1e-8, ());
+}
+
+UNIT_TEST(UserAreas_RealLifeTessellation)
+{
+  // Dartmoor camping areas, one with a hole that touches itself at a vertex.
+  kml::FileData data;
+  auto const kmz = GetPlatform().TestsDataPathForFile("test_data/kml/dartmoor_backpack_camping.kmz");
+  kml::DeserializerKml(data).Deserialize(*ZipFileReader::CreateModelReader(kmz, "doc.kml"));
+  TEST_EQUAL(data.m_areasData.size(), 70, ());
+  auto const ringArea = [](kml::AreaRing const & ring)
+  {
+    auto const origin = mercator::FromLatLon(ring.front().m_latLon);
+    double sum = 0;
+    for (size_t i = 2; i < ring.size(); ++i)
+    {
+      sum += m2::CrossProduct(mercator::FromLatLon(ring[i - 1].m_latLon) - origin,
+                              mercator::FromLatLon(ring[i].m_latLon) - origin);
+    }
+    return std::fabs(sum) / 2;
+  };
+  for (auto const & area : data.m_areasData)
+  {
+    auto const info = Tessellate(area);
+    double expected = 0;
+    for (auto const & polygon : area.m_polygons)
+    {
+      expected += ringArea(polygon.m_outer);
+      for (auto const & hole : polygon.m_holes)
+        expected -= ringArea(hole);
+    }
+    TEST_ALMOST_EQUAL_ABS(ClockwiseArea(info->m_triangles), expected, 1e-9 * expected, (area.m_id));
   }
 }
 }  // namespace user_area_tests
