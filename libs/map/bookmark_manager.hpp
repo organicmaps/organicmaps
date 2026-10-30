@@ -733,6 +733,8 @@ private:
   Callbacks m_callbacks;
   MarksChangesTracker m_changesTracker;
   MarksChangesTracker m_bookmarksChangesTracker;
+  // Local save requests survive notification batches containing imports and reloads.
+  kml::GroupIdSet m_pendingSaveGroups;
   MarksChangesTracker m_drapeChangesTracker;
   df::DrapeEngineSafePtr m_drapeEngine;
 

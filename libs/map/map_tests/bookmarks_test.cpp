@@ -16,6 +16,7 @@
 
 #include "coding/internal/file_data.hpp"
 #include "coding/string_utf8_multilang.hpp"
+#include "coding/url.hpp"
 #include "coding/zip_reader.hpp"
 
 #include "base/file_name_utils.hpp"
@@ -26,7 +27,9 @@
 #include "std/target_os.hpp"
 
 #include <utf8.h>  // utf8::is_valid
+#include <pugixml.hpp>
 
+#include <algorithm>
 #include <array>
 #include <chrono>
 #include <cstring>  // strlen
@@ -2425,6 +2428,82 @@ UNIT_CLASS_TEST(Runner, Bookmarks_Listeners)
   checkBookmarksChanges(false);
 }
 
+UNIT_CLASS_TEST(Runner, Bookmarks_DeferredImportsKeepLocalSaveIntent)
+{
+  BookmarkManager manager(BM_CALLBACKS);
+  manager.EnableTestMode(true);
+  auto const first = base::JoinPath(GetPlatform().SettingsDir(), "paused-first.kml");
+  auto const second = base::JoinPath(GetPlatform().SettingsDir(), "paused-second.kml");
+  auto const third = base::JoinPath(GetPlatform().SettingsDir(), "paused-third.kml");
+  auto const write = [](std::string const & path, std::string const & name, time_t modified)
+  {
+    kml::FileData data;
+    kml::SetDefaultStr(data.m_categoryData.m_name, name);
+    data.m_categoryData.m_lastModified = kml::TimestampClock::from_time_t(modified);
+    data.m_bookmarksData.emplace_back().m_point = {0, 0};
+    TEST(SaveKmlFileSafe(data, path, FileType::Kml), (path));
+    TEST(Platform::SetFileModificationTime(path, modified), (path));
+  };
+  auto const load = [&](std::vector<std::string> const & paths, bool autoSave = true)
+  {
+    BookmarkManager::KMLDataCollection collection;
+    for (auto const & path : paths)
+    {
+      auto data = LoadKmlFile(path, FileType::Kml);
+      TEST(data != nullptr, (path));
+      collection.emplace_back(path, std::move(data));
+    }
+    manager.CreateCategories(std::move(collection), autoSave);
+  };
+
+  write(first, "First", 5000);
+  write(second, "Second", 5000);
+  manager.SetNotificationsEnabled(false);
+  load({first, second});
+  manager.SetNotificationsEnabled(true);
+  TEST_EQUAL(Platform::GetFileModificationTime(first), 5000, ());
+  TEST_EQUAL(Platform::GetFileModificationTime(second), 5000, ());
+
+  auto const firstId = manager.GetCategoryByFileName(first);
+  auto const secondId = manager.GetCategoryByFileName(second);
+  manager.SetNotificationsEnabled(false);
+  manager.GetEditSession().SetCategoryName(firstId, "Edited first");
+  write(second, "External second", 6000);
+  load({second});
+  manager.SetNotificationsEnabled(true);
+  auto saved = LoadKmlFile(first, FileType::Kml);
+  TEST(saved != nullptr, ());
+  TEST_EQUAL(kml::GetDefaultStr(saved->m_categoryData.m_name), "Edited first", ());
+  TEST_EQUAL(Platform::GetFileModificationTime(second), 6000, ());
+
+  manager.SetNotificationsEnabled(false);
+  manager.GetEditSession().SetCategoryName(firstId, "Deleted");
+  manager.GetEditSession().DeleteBmCategory(firstId, true /* permanently */);
+  manager.SetNotificationsEnabled(true);
+  TEST(!Platform::IsFileExistsByFullPath(first), ());
+  TEST_EQUAL(Platform::GetFileModificationTime(second), 6000, ());
+
+  manager.SetNotificationsEnabled(false);
+  manager.GetEditSession().SetCategoryName(secondId, "Edited second");
+  write(third, "Imported third", 7000);
+  load({third});
+  manager.SetNotificationsEnabled(true);
+  saved = LoadKmlFile(second, FileType::Kml);
+  TEST(saved != nullptr, ());
+  TEST_EQUAL(kml::GetDefaultStr(saved->m_categoryData.m_name), "Edited second", ());
+  TEST_EQUAL(Platform::GetFileModificationTime(third), 7000, ());
+
+  manager.SetNotificationsEnabled(false);
+  manager.GetEditSession().SetCategoryName(secondId, "Superseded edit");
+  write(second, "Reloaded second", 8000);
+  load({second}, false /* autoSave */);
+  manager.SetNotificationsEnabled(true);
+  TEST_EQUAL(manager.GetCategoryName(secondId), "Reloaded second", ());
+  TEST_EQUAL(Platform::GetFileModificationTime(second), 8000, ());
+  manager.GetEditSession().SetCategoryName(secondId, "Autosave disabled");
+  TEST_EQUAL(Platform::GetFileModificationTime(second), 8000, ());
+}
+
 UNIT_CLASS_TEST(Runner, Bookmarks_AutoSave)
 {
   BookmarkManager bmManager(BM_CALLBACKS);
@@ -2498,6 +2577,106 @@ UNIT_CLASS_TEST(Runner, Bookmarks_AutoSave)
   TEST(kmlData2 != nullptr, ());
   TEST_EQUAL(kmlData2->m_bookmarksData.size(), 1, ());
   TEST_EQUAL(kml::GetDefaultStr(kmlData2->m_bookmarksData.front().m_name), "name 3", ());
+}
+
+UNIT_CLASS_TEST(AreasTestFixture, Bookmarks_BackupPreservesDistinctCategories)
+{
+  std::vector<std::string> const names = {"survey.one", "survey.two", "A/B",           "AB",
+                                          "doc",        "Doc",        "OrganicMaps_1", "東京"};
+  std::map<std::string, std::string> expected;
+  BookmarkManager::KMLDataCollection collection;
+  for (size_t i = 0; i < names.size(); ++i)
+  {
+    auto data = std::make_unique<kml::FileData>();
+    kml::SetDefaultStr(data->m_categoryData.m_name, names[i]);
+    data->m_categoryData.m_lastModified = kml::TimestampClock::from_time_t(1000);
+    auto & bookmark = data->m_bookmarksData.emplace_back();
+    bookmark.m_point = {0, 0};
+    auto const marker = "marker " + std::to_string(i);
+    kml::SetDefaultStr(bookmark.m_name, marker);
+    expected.emplace(names[i], marker);
+    collection.emplace_back("source-" + std::to_string(i) + ".kml", std::move(data));
+  }
+  BookmarkManager manager(BM_CALLBACKS);
+  manager.EnableTestMode(true);
+  manager.CreateCategories(std::move(collection));
+  bool finished = false;
+  manager.PrepareAllFilesForSharing([&](BookmarkManager::SharingResult const & result)
+  {
+    TEST(result.m_code == BookmarkManager::SharingResult::Code::Success, (result.m_errorString));
+    SCOPE_GUARD(deleteArchive, [&] { base::DeleteFileX(result.m_sharingPath); });
+    ZipFileReader::FileList files;
+    ZipFileReader::FilesList(result.m_sharingPath, files);
+    TEST_EQUAL(files.size(), names.size() + 1, ());
+    std::set<std::string> portableNames;
+    std::map<std::string, std::string> recovered;
+    for (auto const & [entry, size] : files)
+    {
+      TEST(portableNames.insert(strings::MakeLowerCase(entry)).second, (entry));
+      if (entry == "doc.kml")
+        continue;
+      auto reader = ZipFileReader::CreateModelReader(result.m_sharingPath, entry);
+      auto data = LoadKmlData(*reader, FileType::Kml);
+      TEST(data != nullptr, (entry));
+      TEST_EQUAL(data->m_bookmarksData.size(), 1, (entry));
+      auto const name = kml::GetDefaultStr(data->m_categoryData.m_name);
+      TEST(recovered.emplace(name, kml::GetDefaultStr(data->m_bookmarksData.front().m_name)).second, (entry, name));
+    }
+    TEST(portableNames.contains("files/survey.one.kml"), ());
+    TEST(portableNames.contains("files/survey.two.kml"), ());
+    TEST_EQUAL(recovered, expected, ());
+    finished = true;
+  });
+  while (!finished)
+    RunNextGuiTask();
+}
+
+UNIT_CLASS_TEST(AreasTestFixture, Bookmarks_BackupEscapesIndexText)
+{
+  BookmarkManager manager(BM_CALLBACKS);
+  manager.EnableTestMode(true);
+  BookmarkManager::KMLDataCollection collection;
+  for (std::string const & name : {"Survey & notes", "Survey & samples", "a#b %20"})
+  {
+    auto data = std::make_unique<kml::FileData>();
+    kml::SetDefaultStr(data->m_categoryData.m_name, name);
+    data->m_categoryData.m_lastModified = kml::TimestampClock::from_time_t(1000);
+    data->m_bookmarksData.emplace_back().m_point = {0, 0};
+    collection.emplace_back(name + ".kml", std::move(data));
+  }
+  manager.CreateCategories(std::move(collection));
+  bool finished = false;
+  manager.PrepareAllFilesForSharing([&](BookmarkManager::SharingResult const & result)
+  {
+    TEST(result.m_code == BookmarkManager::SharingResult::Code::Success, (result.m_errorString));
+    SCOPE_GUARD(deleteArchive, [&] { base::DeleteFileX(result.m_sharingPath); });
+    auto reader = ZipFileReader::CreateModelReader(result.m_sharingPath, "doc.kml");
+    std::string content;
+    reader->ReadAsString(content);
+    TEST(LoadKmlData(MemReader(content.data(), content.size()), FileType::Kml) != nullptr, (content));
+    pugi::xml_document index;
+    auto const parsed = index.load_string(content.c_str());
+    TEST(parsed, (parsed.description(), content));
+    ZipFileReader::FileList files;
+    ZipFileReader::FilesList(result.m_sharingPath, files);
+    std::set<std::string> linkedFiles;
+    for (auto const & link : index.child("kml").child("Document").children("NetworkLink"))
+    {
+      std::string const href = link.child("Link").child("href").text().as_string();
+      TEST(href.starts_with("files/"), (href));
+      TEST_EQUAL(href.find_first_of("#? &"), std::string::npos, (href));
+      url::Url const reference("https://example.com/" + href);
+      auto const path = url::UrlDecode(reference.GetPath());
+      TEST_EQUAL(link.child("name").text().as_string(), base::GetNameFromFullPathWithoutExt(path), ());
+      TEST(linkedFiles.insert(path).second, (path));
+      TEST(std::any_of(files.begin(), files.end(), [&](auto const & file) { return file.first == path; }),
+           (href, path));
+    }
+    TEST_EQUAL(linkedFiles.size(), 3, (content));
+    finished = true;
+  });
+  while (!finished)
+    RunNextGuiTask();
 }
 
 UNIT_CLASS_TEST(Runner, ExportAll)

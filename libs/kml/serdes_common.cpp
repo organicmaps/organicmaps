@@ -63,6 +63,32 @@ geometry::Altitude ToAltitude(double altitude)
   return static_cast<geometry::Altitude>(std::clamp(std::round(altitude), kMinAltitude, kMaxAltitude));
 }
 
+std::string EscapeXml(std::string_view value)
+{
+  std::string escaped;
+  escaped.reserve(value.size());
+  for (char const c : value)
+  {
+    switch (c)
+    {
+    case '&': escaped += "&amp;"; break;
+    case '<': escaped += "&lt;"; break;
+    case '>': escaped += "&gt;"; break;
+    case '"': escaped += "&quot;"; break;
+    case '\'': escaped += "&apos;"; break;
+    // Character references preserve whitespace through XML attribute normalization.
+    case '\t': escaped += "&#9;"; break;
+    case '\n': escaped += "&#10;"; break;
+    case '\r': escaped += "&#13;"; break;
+    default:
+      if (static_cast<unsigned char>(c) >= 0x20)
+        escaped += c;
+      break;
+    }
+  }
+  return escaped;
+}
+
 void SaveStringWithCDATA(Writer & writer, std::string_view s)
 {
   if (s.empty())
@@ -92,7 +118,7 @@ void SaveStringWithCDATA(Writer & writer, std::string_view s)
     clean = filtered;
   }
 
-  // According to kml/xml spec, we need to escape special symbols with CDATA.
+  // CDATA keeps markup in text readable without entity escaping.
   if (clean.find_first_of("<&") != std::string_view::npos)
     writer << "<![CDATA[" << clean << "]]>";
   else
