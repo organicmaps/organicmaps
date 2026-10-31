@@ -29805,7 +29805,7 @@ zh-Hant = 其他
 
 [routing_planning_error]
 comment = Failed planning route message in navigation view
-tags = apple-maps
+tags = android-app,apple-maps
 en = Route Planning Failed
 af = Roeteberekening het misluk
 ar = فشل في تخطيط المسار
@@ -39777,6 +39777,74 @@ uk = Для найбільш точної навігації ми рекомен
 vi = Để điều hướng chính xác nhất, chúng tôi khuyên bạn nên tắt chế độ tiết kiệm năng lượng trong cài đặt pin của điện thoại.
 zh-Hans = 为了获得最准确的导航，我们建议在手机电池设置中停用省电模式。
 zh-Hant = 為了獲得最準確的導航，我們建議在手機電池設定中停用省電模式。
+
+[navigate_track]
+comment = Place Page button that starts navigation along the selected track.
+tags = android-app,apple-maps
+en = Navigate
+be = Навігацыя
+de = Navigieren
+ru = Навигация
+uk = Навігація
+
+[track_no_remaining_geometry]
+comment = Error when the selected connected track section has no geometry left in the requested direction.
+tags = android-app,apple-maps
+en = No track remains in this direction. Select another point.
+
+[track_is_not_available]
+comment = Message shown when the track being followed is not available anymore (e.g. deleted).
+tags = android-app,apple-maps
+en = The track is not available anymore
+be = Трэк больш недаступны
+de = Der Track ist nicht mehr verfügbar
+ru = Трек больше недоступен
+uk = Трек більше недоступний
+
+[routing_type_vehicle]
+comment = Accessibility name of the car routing profile in the transport picker.
+tags = apple-maps
+en = Car
+be = Аўтамабіль
+de = Auto
+ru = Автомобиль
+uk = Автомобіль
+
+[routing_type_pedestrian]
+comment = Accessibility name of the walking routing profile in the transport picker.
+tags = apple-maps
+en = Walk
+be = Пешшу
+de = Zu Fuß
+ru = Пешком
+uk = Пішки
+
+[routing_type_transit]
+comment = Accessibility name of the public transport routing profile in the transport picker.
+tags = apple-maps
+en = Public transport
+be = Грамадскі транспарт
+de = Öffentliche Verkehrsmittel
+ru = Общественный транспорт
+uk = Громадський транспорт
+
+[routing_type_bicycle]
+comment = Accessibility name of the bicycle routing profile in the transport picker.
+tags = apple-maps
+en = Bicycle
+be = Веласіпед
+de = Fahrrad
+ru = Велосипед
+uk = Велосипед
+
+[routing_type_ruler]
+comment = Accessibility name of the ruler (straight line distance) profile in the transport picker.
+tags = apple-maps
+en = Ruler
+be = Лінейка
+de = Lineal
+ru = Линейка
+uk = Лінійка
 
 [start_track_recording]
 comment = Prompt to start recording a track.
