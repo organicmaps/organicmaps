@@ -266,6 +266,42 @@ double GetRouteLengthMeters(RoutingManager const & manager)
     length += mercator::DistanceOnEarth(points[i - 1].m_position, points[i].m_position);
   return length;
 }
+kml::TrackData NavigationTrack()
+{
+  kml::TrackData data;
+  data.m_geometry.m_lines = {
+      {geometry::PointWithAltitude({0, 0}), geometry::PointWithAltitude({1, 0}), geometry::PointWithAltitude({1, 1})}};
+  data.m_geometry.m_timestamps.emplace_back();
+  data.m_layers.emplace_back();
+  kml::SetDefaultStr(data.m_name, "Riverside ride");
+  return data;
+}
+
+kml::TrackId AddNavigationTrack(BookmarkManager & bookmarks, kml::TrackData data = NavigationTrack())
+{
+  auto const categoryId = bookmarks.CreateBookmarkCategory("Navigation", false);
+  auto edit = bookmarks.GetEditSession();
+  auto const trackId = edit.CreateTrack(std::move(data))->GetId();
+  edit.AttachTrack(trackId, categoryId);
+  return trackId;
+}
+
+void BuildMockRoute(RoutingManager & manager, TestGuiThread & guiThread)
+{
+  bool finished = false;
+  auto code = routing::RouterResultCode::InternalError;
+  manager.SetRouteBuildingListener([&](routing::RouterResultCode result, storage::CountriesSet const &)
+  {
+    code = result;
+    finished = true;
+  });
+  manager.BuildRoute();
+  while (!finished)
+    guiThread.RunNext();
+  manager.SetRouteBuildingListener({});
+  TEST_EQUAL(code, routing::RouterResultCode::NoError, ());
+}
+
 }  // namespace
 
 UNIT_TEST(RoutingManager_ReverseRoutePointsRequiresBothEndpoints)
@@ -1087,4 +1123,130 @@ UNIT_TEST(RoutingManager_RebuildClearsUnavailableAlternatives)
     guiThread->RunNext();
   TEST(session.SwapActiveAlternative(1), ("Fresh alternatives must become selectable."));
 }
+UNIT_TEST(RoutingManager_MockTrackUsesSavedTrackGeometry)
+{
+  WithSavedRoute([](RoutingManager & manager, BookmarkManager & bookmarks, TestGuiThread & guiThread)
+  {
+    auto const optimization = routing::RoutingOptions::LoadRouteOptimizationFromSettings();
+    SCOPE_GUARD(restoreOptimization, [=] { routing::RoutingOptions::SaveRouteOptimizationToSettings(optimization); });
+    routing::RoutingOptions::SaveRouteOptimizationToSettings(false);
+    m2::PointD const origin(-1, 0);
+    bookmarks.MyPositionMark().SetUserPosition(origin, true);
+    for (auto const profile :
+         {routing::RouterType::Vehicle, routing::RouterType::Pedestrian, routing::RouterType::Bicycle})
+    {
+      auto const trackId = AddNavigationTrack(bookmarks);
+      manager.SetMockTrackRoute(trackId, origin);
+      manager.SetRouter(profile);
+      TEST_EQUAL(manager.GetMockTrackId(), trackId, ());
+      BuildMockRoute(manager, guiThread);
+      std::vector<m2::PointD> const forward = {origin, origin, {0, 0}, {1, 0}, {1, 1}};
+      TEST_EQUAL(manager.GetRoutePolyline().GetPoints(), forward, ());
+      TEST_EQUAL(manager.GetRouter(), profile, ());
+      TEST(manager.ReverseRoutePoints(), ());
+      TEST(manager.IsMockTrackReversed(), ());
+      BuildMockRoute(manager, guiThread);
+      std::vector<m2::PointD> const reverse = {origin, origin, {1, 1}, {1, 0}, {0, 0}};
+      TEST_EQUAL(manager.GetRoutePolyline().GetPoints(), reverse, ());
+      TEST_EQUAL(manager.GetRoutePoints().front().m_position, origin, ());
+
+      auto const savedId = manager.SaveRoute();
+      auto const * saved = bookmarks.GetTrack(savedId);
+      TEST(saved, ());
+      TEST_EQUAL(saved->GetData().m_properties.at("routing_type"), routing::ToString(profile), ());
+    }
+  });
+}
+
+UNIT_TEST(RoutingManager_MockTrackClearsOnCarPlayAndOrdinaryPointChanges)
+{
+  TestFramework framework;
+  auto & manager = framework.GetRoutingManager();
+  auto const trackId = AddNavigationTrack(framework.GetBookmarkManager());
+  manager.SetMockTrackRoute(trackId, {-1, 0});
+  TEST(manager.IsMockTrackRoute(), ());
+  manager.CloseRouting(true);
+  TEST(!manager.IsMockTrackRoute(), ());
+  TEST(!manager.IsMockTrackReversed(), ());
+  manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Start, 0, 5), false);
+  manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Finish, 0, 6), false);
+  TEST_EQUAL(manager.GetRoutePoints().back().m_position, m2::PointD(6, 6), ());
+  TEST(!manager.IsMockTrackRoute(), ());
+  manager.SetMockTrackRoute(trackId, {-1, 0});
+  manager.RemoveRoutePoints();
+  TEST(!manager.IsMockTrackRoute(), ());
+  TEST_EQUAL(manager.GetRoutePointsCount(), 0, ());
+  manager.SetMockTrackRoute(trackId, {-1, 0});
+  manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Finish, 0, 9), false);
+  TEST(!manager.IsMockTrackRoute(), ());
+  TEST_EQUAL(manager.GetRoutePoints().back().m_position, m2::PointD(9, 9), ());
+}
+
+UNIT_TEST(RoutingManager_MockTrackEntryAndDirectionAreOwnedByCore)
+{
+  WithSavedRoute([](RoutingManager & manager, BookmarkManager & bookmarks, TestGuiThread & guiThread)
+  {
+    auto const optimization = routing::RoutingOptions::LoadRouteOptimizationFromSettings();
+    SCOPE_GUARD(restoreOptimization, [=] { routing::RoutingOptions::SaveRouteOptimizationToSettings(optimization); });
+    routing::RoutingOptions::SaveRouteOptimizationToSettings(true);
+    m2::PointD origin(0.4, 0.1);
+    auto const trackId = AddNavigationTrack(bookmarks);
+    bookmarks.MyPositionMark().SetUserPosition(origin, true);
+    manager.SetMockTrackRoute(trackId, origin);
+    BuildMockRoute(manager, guiThread);
+    auto points = manager.GetRoutePoints();
+    TEST_EQUAL(points.size(), 3, ());
+    TEST_ALMOST_EQUAL_ABS(points[1].m_position.x, 0.4, 1e-6, ());
+    TEST_ALMOST_EQUAL_ABS(points[1].m_position.y, 0.0, 1e-6, ());
+    TEST_EQUAL(points[1].m_subTitle, "Riverside ride", ());
+    TEST(points[1].m_title.empty(), ("UI supplies a localized fallback only when the core name is empty"));
+    TEST_EQUAL(points.back().m_position, m2::PointD(1, 1), ());
+    TEST(manager.ReverseRoutePoints(), ());
+    TEST_EQUAL(manager.GetRoutePoints().back().m_position, m2::PointD(0, 0), ());
+    routing::RoutingOptions::SaveRouteOptimizationToSettings(false);
+    BuildMockRoute(manager, guiThread);
+    TEST_EQUAL(manager.GetRoutePoints()[1].m_position, m2::PointD(1, 1), ());
+    routing::RoutingOptions::SaveRouteOptimizationToSettings(true);
+    origin = {0.7, 0.1};
+    bookmarks.MyPositionMark().SetUserPosition(origin, true);
+    BuildMockRoute(manager, guiThread);
+    TEST_ALMOST_EQUAL_ABS(manager.GetRoutePoints()[1].m_position.x, origin.x, 1e-6, ());
+    routing::RoutingOptions::SaveRouteOptimizationToSettings(false);
+    manager.SetMockTrackRoute(trackId, {0, 0});
+    TEST_EQUAL(manager.GetRoutePointsCount(), 2, ("A coincident origin and entry is one row"));
+    TEST(manager.ReverseRoutePoints(), ());
+    TEST_EQUAL(manager.GetRoutePointsCount(), 2, ("A coincident origin and finish stays a two-row preview"));
+    routing::RoutingOptions::SaveRouteOptimizationToSettings(true);
+    manager.SetMockTrackRoute(trackId, {1, 1});
+    TEST_EQUAL(manager.GetRoutePointsCount(), 2, ("A coincident entry and finish is one row"));
+  });
+}
+
+UNIT_TEST(RoutingManager_MockTrackProfileUsesCanonicalMetadataThenSavedProfile)
+{
+  TestFramework framework;
+  auto & manager = framework.GetRoutingManager();
+  auto check = [&](std::string const & metadata, std::string const & saved, routing::RouterType expected)
+  {
+    if (saved.empty())
+      settings::Delete("router");
+    else
+      settings::Set("router", saved);
+    auto data = NavigationTrack();
+    if (!metadata.empty())
+      data.m_properties["routing_type"] = metadata;
+    auto const trackId = AddNavigationTrack(framework.GetBookmarkManager(), std::move(data));
+    manager.SetMockTrackRoute(trackId, {-1, 0});
+    TEST_EQUAL(manager.GetRouter(), expected, (metadata, saved));
+  };
+  check("bicycle", "vehicle", routing::RouterType::Bicycle);
+  check(" car ", "pedestrian", routing::RouterType::Vehicle);
+  check("PEDESTRIAN", "bicycle", routing::RouterType::Pedestrian);
+  check("unknown", "bicycle", routing::RouterType::Bicycle);
+  check("transit", "vehicle", routing::RouterType::Vehicle);
+  check("", "bicycle", routing::RouterType::Bicycle);
+  check("", "ruler", routing::RouterType::Pedestrian);
+  check("", "", routing::RouterType::Pedestrian);
+}
+
 }  // namespace routing_manager_tests
