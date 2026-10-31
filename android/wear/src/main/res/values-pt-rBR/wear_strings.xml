@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Uncategorized -->
+    <!-- abbreviation for kilometers -->
+    <string name="km">km</string>
+</resources>

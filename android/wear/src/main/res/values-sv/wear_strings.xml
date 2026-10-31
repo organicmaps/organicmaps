@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <!-- Short label for hours (time unit), placed after a number -->
+    <string name="hour">tim</string>
+    <!-- Short label for minutes (time unit), placed after a number -->
+    <string name="minute">min</string>
+
+    <!-- SECTION: Uncategorized -->
+    <!-- abbreviation for meters -->
+    <string name="m">m</string>
+    <!-- abbreviation for kilometers -->
+    <string name="km">km</string>
+    <!-- Short label for miles (length unit, 1 mi = 1609.344 m), placed after a number -->
+    <string name="mi">mi</string>
+    <!-- Short label for feet (1 ft = 0.3048 m), after numbers; local abbreviations and uninflected unit names are allowed -->
+    <string name="ft">fot</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Displayed in the Wear OS app when no navigation is active on the phone. -->
+    <string name="wear_no_navigation_message">Öppna Organic Maps på telefonen för att starta navigeringen.</string>
+    <!-- Displayed in the Wear OS app when navigation is active on the phone. -->
+    <string name="wear_navigation_active_message">Navigeringen pågår på telefonen.</string>
+</resources>
