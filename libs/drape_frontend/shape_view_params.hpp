@@ -12,8 +12,11 @@
 #include "indexer/feature_decl.hpp"
 
 #include "geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
 
 #include <limits>
+#include <optional>
+#include <span>
 #include <string>
 
 namespace df
@@ -81,6 +84,9 @@ struct LineViewParams : CommonViewParams
 {
   dp::Color m_color;
   float m_width = 0;
+  float m_lateralOffsetPixels = 0;
+  std::optional<m2::PointF> m_startOffsetPixels, m_endOffsetPixels;
+  std::vector<m2::PointF> m_pointOffsetsPixels;
   /// @todo Consider set defaults like RoundCap, RoundJoin?
   dp::LineCap m_cap;
   dp::LineJoin m_join;
@@ -142,6 +148,15 @@ struct PathSymbolViewParams : CommonViewParams
   std::string m_symbolName;
   float m_offset = 0;
   float m_step = 0;
+  float m_lateralOffsetPixels = 0;
+  std::vector<m2::PointF> m_pointOffsetsPixels;
+  float m_symbolScale = 1.0f;
+  // Optional placement controls. A negative max deviation disables curvature filtering.
+  float m_placementLength = 0.0f;
+  float m_maxPathDeviation = -1.0f;
+  float m_searchRadius = 0.0f;
+  // Borrowed global-coordinate areas that must not intersect the symbol quad; must outlive Draw().
+  std::span<m2::RectD const> m_exclusionRects;
   double m_baseGtoPScale = 1.0;
 };
 

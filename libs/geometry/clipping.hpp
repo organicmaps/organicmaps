@@ -9,6 +9,14 @@
 
 namespace m2
 {
+struct SplineClipInfo
+{
+  double m_startDistance = 0, m_endDistance = 0;
+  size_t m_startSegment = 0, m_endSegment = 0;
+};
+
+std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::SharedSpline const & spline,
+                                               std::vector<SplineClipInfo> * sourceRanges);
 using ClipTriangleByRectResultIt = std::function<void(m2::PointD const &, m2::PointD const &, m2::PointD const &)>;
 
 void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3,
@@ -22,6 +30,9 @@ void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1, m2::Point
 /// (just redundant), so passing such paths is safe but wasteful.
 void ClipPathByRect(m2::RectD const & rect, std::vector<m2::PointD> const & path, std::vector<m2::SharedSpline> & out);
 std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::SharedSpline const & spline);
+/// As above, also returning each clipped spline's start distance from the source spline's beginning.
+std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::SharedSpline const & spline,
+                                               std::vector<double> & sourceOffsets);
 
 using GuidePointsForSmooth = std::vector<std::pair<m2::PointD, m2::PointD>>;
 void ClipPathByRectBeforeSmooth(m2::RectD const & rect, std::vector<m2::PointD> const & path,

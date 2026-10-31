@@ -9,12 +9,22 @@
 #include "indexer/scales.hpp"
 
 #include "drape/hatching_decl.hpp"
+#include "geometry/spline.hpp"
 
 #include <algorithm>
 #include <limits>
 
 namespace df
 {
+m2::SharedSpline Stylist::SideRules::GetArrowSpline(m2::SharedSpline const & piece) const
+{
+  if (!m_reverseArrow)
+    return piece;
+  auto path = piece->GetPath();
+  std::reverse(path.begin(), path.end());
+  return m2::SharedSpline(std::move(path));
+}
+
 IsHatchingTerritoryChecker::TwoLevel45::TwoLevel45()
   : ftypes::BaseCheckerEx({{"amenity", "prison"},
                            {"boundary", "aboriginal_lands"},
