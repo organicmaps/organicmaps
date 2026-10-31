@@ -2,46 +2,101 @@
 import XCTest
 
 final class TransportTransitWrappingTests: XCTestCase {
-  func testWrappedLineListsStayWithinThePanel() throws {
+  func testWrappedCellsAndSeparatorsStayWithinThePanel() throws {
     for width: CGFloat in [200, 300, 430] {
-      let collection = makeCollection(width: width)
-      collection.layoutIfNeeded()
-      for item in collection.steps.indices {
-        let attributes = try XCTUnwrap(collection.collectionViewLayout.layoutAttributesForItem(at: IndexPath(item: item, section: 0)))
-        XCTAssertGreaterThanOrEqual(attributes.frame.minX, 0)
-        XCTAssertLessThanOrEqual(attributes.frame.maxX, width)
-      }
-      let last = try XCTUnwrap(collection.collectionViewLayout.layoutAttributesForItem(at: IndexPath(item: 2, section: 0)))
-      XCTAssertGreaterThan(last.frame.minY, 0)
+      var cursor = TransportTransitFlowLayout.Cursor(width: width)
+      cursor.append(size: size(40), hasFollowingStep: true)
+      cursor.append(size: size(1000), hasFollowingStep: true)
+      cursor.append(size: size(1000), hasFollowingStep: false)
+      let frames = cursor.frames
+      XCTAssertTrue((frames.cells + frames.separators).allSatisfy { $0.minX >= 0 && $0.maxX <= width })
+      XCTAssertEqual(frames.cells.last?.maxX, width)
+      XCTAssertGreaterThan(try XCTUnwrap(frames.cells.last).minY, 0)
     }
   }
 
-  func testNarrowPanelsKeepNonnegativeCellWidths() throws {
+  func testNarrowPanelsKeepNonnegativeCellWidths() {
     for width: CGFloat in [0, 8, 20, 55] {
-      let collection = makeCollection(width: width)
-      collection.collectionViewLayout.prepare()
-      for item in collection.steps.indices {
-        let attributes = try XCTUnwrap(collection.collectionViewLayout.layoutAttributesForItem(at: IndexPath(item: item, section: 0)))
-        XCTAssertGreaterThanOrEqual(attributes.frame.width, 0)
-        XCTAssertLessThanOrEqual(attributes.frame.maxX, width)
+      var cursor = TransportTransitFlowLayout.Cursor(width: width)
+      cursor.append(size: size(40), hasFollowingStep: true)
+      cursor.append(size: size(1000), hasFollowingStep: false)
+      for frame in cursor.frames.cells {
+        XCTAssertGreaterThanOrEqual(frame.size.width, 0)
+        XCTAssertGreaterThanOrEqual(frame.minX, 0)
+        XCTAssertLessThanOrEqual(frame.maxX, width)
       }
     }
   }
 
-  private func makeCollection(width: CGFloat) -> TransportTransitStepsCollectionView {
-    let collection = TransportTransitStepsCollectionView(layout: TransportTransitFlowLayout())
-    collection.frame = CGRect(x: 0, y: 0, width: width, height: 200)
-    let longNumber = (1 ... 30).map(String.init).joined(separator: ", ")
-    collection.steps = ["12", longNumber, longNumber].map { number in
-      let step = MWMRouterTransitStepInfo()
-      step.type = .bus
-      step.number = number
-      step.distance = "42"
-      step.distanceUnits = "m"
-      step.color = .blue
-      step.intermediateIndex = 0
-      return step
+  func testFirstBadgeUsesTheFullRowWithoutLeavingAnEmptyRow() {
+    var cursor = TransportTransitFlowLayout.Cursor(width: 200)
+    cursor.append(size: size(1000), hasFollowingStep: false)
+    XCTAssertEqual(cursor.frames.cells, [CGRect(x: 0, y: 0, width: 200, height: 20)])
+  }
+
+  func testBadgesReserveSpaceOnlyForFollowingArrows() {
+    var cursor = TransportTransitFlowLayout.Cursor(width: 100)
+    cursor.append(size: size(40), hasFollowingStep: true)
+    cursor.append(size: size(40), hasFollowingStep: false)
+    XCTAssertEqual(cursor.frames.cells.last?.minY, 0)
+
+    cursor = TransportTransitFlowLayout.Cursor(width: 200)
+    cursor.append(size: size(70), hasFollowingStep: true)
+    cursor.append(size: size(100), hasFollowingStep: true)
+    cursor.append(size: size(30), hasFollowingStep: false)
+    XCTAssertGreaterThan(cursor.frames.cells[1].minY, cursor.frames.cells[0].maxY)
+    XCTAssertEqual(cursor.frames.cells[2].minY, cursor.frames.cells[1].minY)
+  }
+
+  func testContinuationsOnlySeparateDifferentLegs() throws {
+    var cursor = TransportTransitFlowLayout.Cursor(width: 200)
+    cursor.append(size: size(180), hasFollowingStep: false)
+    cursor.append(size: size(180), hasFollowingStep: true, isContinuation: true)
+    cursor.append(size: size(40), hasFollowingStep: false)
+    let frames = cursor.frames
+    XCTAssertEqual(frames.separators.count, 1)
+    XCTAssertEqual(frames.cells[1].minX, 0)
+    XCTAssertGreaterThan(frames.cells[1].minY, frames.cells[0].minY)
+    let separator = try XCTUnwrap(frames.separators.first)
+    XCTAssertEqual(separator.minY, frames.cells[1].minY)
+    XCTAssertGreaterThanOrEqual(separator.minX, frames.cells[1].maxX)
+    XCTAssertTrue((frames.cells + frames.separators).allSatisfy { $0.minX >= 0 && $0.maxX <= 200 })
+  }
+
+  func testFullWidthIdentifierMovesTheFollowingArrowToTheNextRow() throws {
+    var cursor = TransportTransitFlowLayout.Cursor(width: 200)
+    cursor.append(size: size(200), hasFollowingStep: true)
+    cursor.append(size: size(40), hasFollowingStep: false)
+    let frames = cursor.frames
+    let separator = try XCTUnwrap(frames.separators.first)
+    XCTAssertEqual(frames.cells[0].width, 200)
+    XCTAssertGreaterThan(separator.minY, frames.cells[0].maxY)
+    XCTAssertEqual(separator.minY, frames.cells[1].minY)
+    XCTAssertTrue((frames.cells + frames.separators).allSatisfy { $0.minX >= 0 && $0.maxX <= 200 })
+  }
+
+  func testFirstIdentifierMovesToTheNextRowWhenItsCommaDoesNotFit() {
+    let number = "101, 102"
+    let firstRowWidth = TransportTransitTrain.estimatedCellSize(number: "101").width
+    let groups = TransportTransitTrain.numberGroups(number, maximumWidth: 200,
+                                                    firstRowWidth: firstRowWidth, hasFollowingStep: false)
+    XCTAssertEqual(groups, [number])
+  }
+
+  func testLongListsKeepEveryIdentifierAndWrapComma() {
+    let number = (1 ... 1000).map(String.init).joined(separator: ", ")
+    for width: CGFloat in [200, 430] {
+      let groups = TransportTransitTrain.numberGroups(number, maximumWidth: width,
+                                                      firstRowWidth: 20, hasFollowingStep: true)
+      XCTAssertEqual(groups.joined(separator: " "), number)
+      XCTAssertTrue(groups.dropLast().allSatisfy { $0.hasSuffix(",") })
+      for (index, text) in groups.enumerated() {
+        XCTAssertLessThanOrEqual(TransportTransitTrain.estimatedCellSize(number: text, isContinuation: index > 0).width, width)
+      }
     }
-    return collection
+  }
+
+  private func size(_ width: CGFloat) -> CGSize {
+    CGSize(width: width, height: 20)
   }
 }

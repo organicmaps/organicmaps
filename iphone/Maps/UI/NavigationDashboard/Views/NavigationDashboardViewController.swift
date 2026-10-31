@@ -21,6 +21,7 @@ final class NavigationDashboardViewController: UIViewController {
 
     static let routeStatusInsets = UIEdgeInsets(top: 8, left: 16, bottom: 0, right: -16)
     static let routeStatusStackSpacing: CGFloat = 4
+    static let transitStepsMaximumHeightMultiplier: CGFloat = 0.5
     static let startButtonSpacing: CGFloat = 4
     static let actionButtonWidthMultiplier: CGFloat = 1.5
 
@@ -59,6 +60,7 @@ final class NavigationDashboardViewController: UIViewController {
   private var navigationControlView: NavigationControlView!
   private let impactGenerator = UIImpactFeedbackGenerator(style: .medium)
   private var internalScrollViewContentOffset: CGFloat = .zero
+  private weak var activeScrollView: UIScrollView?
 
   var interactor: NavigationDashboard.Interactor?
   private var presentationStepStrategy = NavigationDashboardModalPresentationStepStrategy()
@@ -220,6 +222,7 @@ final class NavigationDashboardViewController: UIViewController {
     routeStatusStackView.axis = .vertical
     routeStatusStackView.distribution = .equalSpacing
     routeStatusStackView.spacing = Constants.routeStatusStackSpacing
+    transportTransitStepsView.scrollViewDelegate = self
   }
 
   private func setupElevationProfileView() {
@@ -431,6 +434,10 @@ final class NavigationDashboardViewController: UIViewController {
       routeStatusStackView.trailingAnchor.constraint(equalTo: availableAreaView.trailingAnchor, constant: Constants.routeStatusInsets.right),
       routeStatusStackView.topAnchor.constraint(equalTo: transportOptionsView.bottomAnchor, constant: Constants.routeStatusInsets.top),
 
+      // Keep the height limit independent of the panel's current position.
+      transportTransitStepsView.heightAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.heightAnchor,
+                                                        multiplier: Constants.transitStepsMaximumHeightMultiplier),
+
       settingsButton.heightAnchor.constraint(equalToConstant: Constants.settingsButtonSize),
       settingsButton.widthAnchor.constraint(equalTo: settingsButton.heightAnchor),
       reverseRoutePointsButton.heightAnchor.constraint(equalToConstant: Constants.reverseRouteButtonSize),
@@ -506,33 +513,60 @@ final class NavigationDashboardViewController: UIViewController {
 // MARK: - UIGestureRecognizerDelegate
 
 extension NavigationDashboardViewController: UIGestureRecognizerDelegate {
-  func gestureRecognizerShouldBegin(_: UIGestureRecognizer) -> Bool {
-    true
+  func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    guard let pan = gestureRecognizer as? UIPanGestureRecognizer else { return true }
+    var touchedView = availableAreaView.hitTest(pan.location(in: availableAreaView), with: nil)
+    while let view = touchedView, view !== availableAreaView {
+      if let scrollView = view as? UIScrollView {
+        return isAtTop(scrollView)
+      }
+      touchedView = view.superview
+    }
+    return true
   }
 
   func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-    if gestureRecognizer is UIPanGestureRecognizer, otherGestureRecognizer is UIPanGestureRecognizer {
-      // threshold is used to soften transition from the internal scroll zero content offset
-      return internalScrollViewContentOffset < Constants.panGestureThreshold
+    guard gestureRecognizer is UIPanGestureRecognizer, otherGestureRecognizer is UIPanGestureRecognizer else {
+      return false
     }
-    return false
+    if let scrollView = otherGestureRecognizer.view as? UIScrollView {
+      return isAtTop(scrollView)
+    }
+    return true
+  }
+
+  private func isAtTop(_ scrollView: UIScrollView) -> Bool {
+    scrollView.contentOffset.y <= -scrollView.adjustedContentInset.top + Constants.panGestureThreshold
   }
 }
 
-// MARK: - SearchOnMapScrollViewDelegate
+// MARK: - UICollectionViewDelegate
 
-extension NavigationDashboardViewController: UIScrollViewDelegate {
+extension NavigationDashboardViewController: UICollectionViewDelegate {
+  func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    activeScrollView = scrollView
+    internalScrollViewContentOffset = scrollView.contentOffset.y
+  }
+
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    guard activeScrollView === scrollView, scrollView.isDragging else { return }
+    let topOffset = -scrollView.adjustedContentInset.top
     let hasContainerReachedTheTop = Int(availableAreaView.frame.origin.y) <= Int(presentationStepsController.maxAvailableFrame.origin.y)
-    let isScrollViewScrollingDown = scrollView.contentOffset.y <= 0
-    let scrollViewHasZeroContentOffset = abs(internalScrollViewContentOffset) < Constants.panGestureThreshold
+    let isScrollViewScrollingDown = scrollView.contentOffset.y <= topOffset
+    let scrollViewHasZeroContentOffset = abs(internalScrollViewContentOffset - topOffset) < Constants.panGestureThreshold
     let shouldLockScrollView =
       (scrollViewHasZeroContentOffset && hasContainerReachedTheTop && isScrollViewScrollingDown) ||
       (!hasContainerReachedTheTop && scrollViewHasZeroContentOffset)
     if shouldLockScrollView {
-      scrollView.contentOffset.y = 0
+      scrollView.contentOffset.y = topOffset
     }
     internalScrollViewContentOffset = scrollView.contentOffset.y
+  }
+
+  func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate _: Bool) {
+    if activeScrollView === scrollView {
+      activeScrollView = nil
+    }
   }
 }
 
