@@ -15,6 +15,8 @@
 
 #include "base/file_name_utils.hpp"
 
+#include <algorithm>
+
 #include <QtGui/QPainter>
 
 namespace df::test_support
@@ -150,6 +152,11 @@ void ShapeTestFixture::Flush()
 {
   CHECK(m_batcher != nullptr, ("Call Init() before Flush()"));
   m_batcher->EndSession(make_ref(m_context));
+  // As FrontendRenderer::RenderUserMarksLayer sorts the groups of user areas.
+  auto const areas = std::ranges::stable_partition(
+      m_buckets, [](BucketEntry const & e) { return GetDepthLayer(e.m_state) != DepthLayer::UserAreaLayer; });
+  std::stable_sort(areas.begin(), areas.end(),
+                   [](BucketEntry const & l, BucketEntry const & r) { return l.m_state < r.m_state; });
 
   // Upload any new texture data that was requested during AddShape (color/stipple regions).
   m_texMng->UpdateDynamicTextures(make_ref(m_context));

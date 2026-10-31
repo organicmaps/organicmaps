@@ -82,10 +82,12 @@ struct UserAreaRenderParams
   /// Closed Mercator rings of each polygon: the outer ring followed by its holes.
   /// Rings start and end in the middle of an edge, so all corners get line joins.
   std::vector<std::vector<m2::SharedSpline>> m_polygons;
-  /// Vertices of the same rings for TessellateUserArea, which releases them: splines skip short segments.
+  /// Bounds of each polygon, so that tiles skip the others.
+  std::vector<m2::RectD> m_polygonRects;
+  /// Only for filled areas: vertices of the same rings, which TessellateUserArea releases (splines skip short
+  /// segments), and clockwise fill triangles, which it makes when a tile needs them.
   std::vector<std::vector<std::vector<m2::PointD>>> m_fillRings;
-  /// Clockwise fill triangles, see TessellateUserArea.
-  std::vector<m2::PointD> m_triangles;
+  std::vector<std::vector<m2::PointD>> m_triangles;
 };
 
 using UserMarksRenderCollection = std::unordered_map<kml::MarkId, drape_ptr<UserMarkRenderParams>>;
@@ -194,12 +196,13 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
 
 /// Areas beyond the ordinary Mercator extent get no geometry.
 drape_ptr<UserAreaRenderParams> GenerateAreaRenderInfo(kml::AreaData const & area);
-/// Fills UserAreaRenderParams::m_triangles. It is slow, so it runs on the backend thread.
-void TessellateUserArea(UserAreaRenderParams & area);
+/// Fills UserAreaRenderParams::m_triangles of the polygon once. It is slow, so it runs on the backend thread and
+/// only for polygons that a tile needs.
+void TessellateUserArea(UserAreaRenderParams & area, size_t polygon);
 
 /// Areas in paint order with their outline depths: the same depth in all tiles,
-/// higher than the fills' 0 and growing with the paint order.
-using UserAreasToCache = std::vector<std::pair<UserAreaRenderParams const *, float>>;
+/// higher than the fills' 0 and growing with the paint order. Caching tessellates their polygons on demand.
+using UserAreasToCache = std::vector<std::pair<UserAreaRenderParams *, float>>;
 void CacheUserAreas(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
                     UserAreasToCache const & areas, dp::Batcher & batcher);
 }  // namespace df

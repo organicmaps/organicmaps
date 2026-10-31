@@ -266,17 +266,41 @@ void DrapeEngine::UpdateBookmarksTextPlacement(UserMarksProvider * provider)
 
 void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider, bool firstTime)
 {
+  auto update = CollectUserMarksUpdate(provider, firstTime, m_bookmarksTextPlacement);
+  if (!update.m_marks->empty() || !update.m_lines->empty() || !update.m_areas->empty() ||
+      !update.m_removedIds->IsEmpty() || !update.m_justCreatedIds->IsEmpty())
+  {
+    m_threadCommutator->PostMessage(
+        ThreadsCommutator::ResourceUploadThread,
+        make_unique_dp<UpdateUserMarksMessage>(std::move(update.m_justCreatedIds), std::move(update.m_removedIds),
+                                               std::move(update.m_marks), std::move(update.m_lines),
+                                               std::move(update.m_areas)),
+        MessagePriority::Normal);
+  }
+
+  for (auto & v : update.m_groups)
+  {
+    m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                    make_unique_dp<UpdateUserMarkGroupMessage>(v.first, std::move(v.second)),
+                                    MessagePriority::Normal);
+  }
+}
+
+DrapeEngine::UserMarksUpdate DrapeEngine::CollectUserMarksUpdate(UserMarksProvider const * provider, bool firstTime,
+                                                                 settings::Placement textPlacement)
+{
+  UserMarksUpdate update;
   auto const updatedGroupIds = firstTime ? provider->GetAllGroupIds() : provider->GetUpdatedGroupIds();
-  if (updatedGroupIds.empty())
-    return;
+  // Deleted groups aren't updated, but their marks, lines and areas must be removed.
+  if (updatedGroupIds.empty() && provider->GetRemovedGroupIds().empty())
+    return update;
 
-  auto marksRenderCollection = make_unique_dp<UserMarksRenderCollection>();
-  auto linesRenderCollection = make_unique_dp<UserLinesRenderCollection>();
-  auto areasRenderCollection = make_unique_dp<UserAreasRenderCollection>();
-  auto justCreatedIdCollection = make_unique_dp<IDCollections>();
-  auto removedIdCollection = make_unique_dp<IDCollections>();
-
-  std::unordered_map<kml::MarkGroupId, drape_ptr<IDCollections>> groupsVisibleIds;
+  auto & marksRenderCollection = update.m_marks;
+  auto & linesRenderCollection = update.m_lines;
+  auto & areasRenderCollection = update.m_areas;
+  auto & justCreatedIdCollection = update.m_justCreatedIds;
+  auto & removedIdCollection = update.m_removedIds;
+  auto & groupsVisibleIds = update.m_groups;
 
   auto const groupFilter = [&](kml::MarkGroupId groupId)
   { return provider->IsGroupVisible(groupId) && (provider->GetBecameVisibleGroupIds().count(groupId) == 0); };
@@ -305,7 +329,7 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider, bool firstTime)
     {
       auto const mark = provider->GetUserPointMark(markId);
       if (filter == nullptr || filter(mark->GetGroupId()))
-        marksRenderCollection->emplace(markId, GenerateMarkRenderInfo(mark, outlineColor));
+        marksRenderCollection->emplace(markId, GenerateMarkRenderInfo(mark, outlineColor, textPlacement));
     }
 
     for (auto const lineId : lineIds)
@@ -383,23 +407,7 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider, bool firstTime)
     }
   }
 
-  if (!marksRenderCollection->empty() || !linesRenderCollection->empty() || !areasRenderCollection->empty() ||
-      !removedIdCollection->IsEmpty() || !justCreatedIdCollection->IsEmpty())
-  {
-    m_threadCommutator->PostMessage(
-        ThreadsCommutator::ResourceUploadThread,
-        make_unique_dp<UpdateUserMarksMessage>(std::move(justCreatedIdCollection), std::move(removedIdCollection),
-                                               std::move(marksRenderCollection), std::move(linesRenderCollection),
-                                               std::move(areasRenderCollection)),
-        MessagePriority::Normal);
-  }
-
-  for (auto & v : groupsVisibleIds)
-  {
-    m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                    make_unique_dp<UpdateUserMarkGroupMessage>(v.first, std::move(v.second)),
-                                    MessagePriority::Normal);
-  }
+  return update;
 }
 
 void DrapeEngine::SetRenderingEnabled(ref_ptr<dp::GraphicsContextFactory> contextFactory)
@@ -926,8 +934,8 @@ void DrapeEngine::EnableDebugRectRendering(bool enabled)
                                   make_unique_dp<EnableDebugRectRenderingMessage>(enabled), MessagePriority::Normal);
 }
 
-drape_ptr<UserMarkRenderParams> DrapeEngine::GenerateMarkRenderInfo(UserPointMark const * mark,
-                                                                    dp::Color outlineColor) const
+drape_ptr<UserMarkRenderParams> DrapeEngine::GenerateMarkRenderInfo(UserPointMark const * mark, dp::Color outlineColor,
+                                                                    settings::Placement textPlacement)
 {
   auto renderInfo = make_unique_dp<UserMarkRenderParams>();
   renderInfo->m_markId = mark->GetId();
@@ -939,13 +947,13 @@ drape_ptr<UserMarkRenderParams> DrapeEngine::GenerateMarkRenderInfo(UserPointMar
     renderInfo->m_customDepth = true;
   }
   renderInfo->m_depthLayer = mark->GetDepthLayer();
-  renderInfo->m_titleDepthLayer = mark->GetDepthLayerEx(m_bookmarksTextPlacement);
+  renderInfo->m_titleDepthLayer = mark->GetDepthLayerEx(textPlacement);
   renderInfo->m_minZoom = mark->GetMinZoom();
   renderInfo->m_minTitleZoom = mark->GetMinTitleZoom();
   renderInfo->m_isVisible = mark->IsVisible();
   renderInfo->m_pivot = mark->GetPivot();
   renderInfo->m_pixelOffset = mark->GetPixelOffset();
-  renderInfo->m_titleDecl = mark->GetTitleDeclEx(m_bookmarksTextPlacement, outlineColor);
+  renderInfo->m_titleDecl = mark->GetTitleDeclEx(textPlacement, outlineColor);
   renderInfo->m_symbolNames = mark->GetSymbolNames();
   renderInfo->m_coloredSymbols = mark->GetColoredSymbols();
   renderInfo->m_symbolSizes = mark->GetSymbolSizes();

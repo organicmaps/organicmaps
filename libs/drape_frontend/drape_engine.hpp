@@ -154,6 +154,19 @@ public:
   void UpdateBookmarksTextPlacement(UserMarksProvider * provider);
   void UpdateUserMarks(UserMarksProvider * provider, bool firstTime);
 
+  // What UpdateUserMarks sends to the backend.
+  struct UserMarksUpdate
+  {
+    drape_ptr<IDCollections> m_justCreatedIds = make_unique_dp<IDCollections>();
+    drape_ptr<IDCollections> m_removedIds = make_unique_dp<IDCollections>();
+    drape_ptr<UserMarksRenderCollection> m_marks = make_unique_dp<UserMarksRenderCollection>();
+    drape_ptr<UserLinesRenderCollection> m_lines = make_unique_dp<UserLinesRenderCollection>();
+    drape_ptr<UserAreasRenderCollection> m_areas = make_unique_dp<UserAreasRenderCollection>();
+    std::unordered_map<kml::MarkGroupId, drape_ptr<IDCollections>> m_groups;
+  };
+  static UserMarksUpdate CollectUserMarksUpdate(UserMarksProvider const * provider, bool firstTime,
+                                                settings::Placement textPlacement);
+
   void SetRenderingEnabled(ref_ptr<dp::GraphicsContextFactory> contextFactory = nullptr);
   void SetRenderingDisabled(bool const destroySurface);
   void InvalidateRect(m2::RectD const & rect);
@@ -280,7 +293,8 @@ private:
 
   dp::DrapeID GenerateDrapeID();
 
-  drape_ptr<UserMarkRenderParams> GenerateMarkRenderInfo(UserPointMark const * mark, dp::Color outlineColor) const;
+  static drape_ptr<UserMarkRenderParams> GenerateMarkRenderInfo(UserPointMark const * mark, dp::Color outlineColor,
+                                                                settings::Placement textPlacement);
   static drape_ptr<UserLineRenderParams> GenerateLineRenderInfo(UserLineMark const * mark);
 
   drape_ptr<FrontendRenderer> m_frontend;
