@@ -120,8 +120,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     mDrivingOptionsBadge = mChartPanel.findViewById(R.id.driving_options_badge);
     mDrivingOptionsBtn = mChartPanel.findViewById(R.id.driving_options_btn_img);
     mDrivingOptionsContainer = mChartPanel.findViewById(R.id.driving_options_btn_container);
-    mDrivingOptionsBtn.setOnClickListener(
-        v -> DrivingOptionsActivity.start(requireActivity(), RoutingController.get().getLastRouterType()));
+    mDrivingOptionsBtn.setOnClickListener(v -> DrivingOptionsActivity.start(requireActivity()));
     mReverseRouteBtn = mChartPanel.findViewById(R.id.reverse_route_btn);
     mReverseRouteBtn.setOnClickListener(v -> RoutingController.get().reverseRoute());
 
@@ -459,10 +458,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     new MaterialAlertDialogBuilder(requireContext(), R.style.MwmTheme_AlertDialog)
         .setTitle(R.string.unable_to_calc_alert_title)
         .setMessage(R.string.unable_to_calc_alert_subtitle)
-        .setPositiveButton(
-            R.string.settings,
-            (dialog,
-             which) -> DrivingOptionsActivity.start(requireActivity(), RoutingController.get().getLastRouterType()))
+        .setPositiveButton(R.string.settings, (dialog, which) -> DrivingOptionsActivity.start(requireActivity()))
         .setNegativeButton(R.string.cancel, null)
         .show();
   }

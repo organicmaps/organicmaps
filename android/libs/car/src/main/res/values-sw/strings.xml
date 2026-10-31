@@ -73,7 +73,8 @@
     <string name="opens_in">Inafunguka katika %s</string>
     <string name="closes_in">Inakaribia kwa %s</string>
     <string name="closed">Imefungwa</string>
-    <string name="minute">kidogo</string>
+    <!-- Short label for minutes (time unit), placed after a number -->
+    <string name="minute">dak</string>
     <string name="big_font">Ongeza ukubwa wa lebo za ramani</string>
     <string name="transliteration_title">Tafsiri kwa lugha ya Kilatini</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->

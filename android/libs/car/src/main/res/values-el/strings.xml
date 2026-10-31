@@ -73,7 +73,8 @@
     <string name="opens_in">Ανοίγει σε %s</string>
     <string name="closes_in">Κλείνει σε %s</string>
     <string name="closed">Κλειστό</string>
-    <string name="minute">λπτ</string>
+    <!-- Short label for minutes (time unit), placed after a number -->
+    <string name="minute">λεπ.</string>
     <string name="big_font">Αύξηση μεγέθους γραμματοσειράς στο χάρτη</string>
     <string name="transliteration_title">Μεταγραφή στο λατινικό αλφάβητο</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->

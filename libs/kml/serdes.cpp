@@ -652,6 +652,10 @@ void SaveAreaData(Writer & writer, AreaData const & area)
   SaveLocalizableString(writer, area.m_name, "name", kIndent6);
   SaveLocalizableString(writer, area.m_description, "description", kIndent6);
   SaveStringsMap(writer, area.m_properties, "properties", kIndent6);
+  if (area.m_isMultiPolygon)
+    writer << kIndent6 << "<mwm:multiPolygon>1</mwm:multiPolygon>\n";
+  if (area.m_altitudeIsWgs84)
+    writer << kIndent6 << "<mwm:altitudeIsWgs84>1</mwm:altitudeIsWgs84>\n";
   writer << kIndent4 << kExtendedDataFooter;
   if (area.m_polygons.size() > 1)
     writer << kIndent4 << "<MultiGeometry>\n";
@@ -687,16 +691,16 @@ bool ParsePoint(std::string_view s, char const * delim, m2::PointD & pt, geometr
     return false;
 
   double lon;
-  if (strings::to_double(*iter, lon) && mercator::ValidLon(lon) && ++iter)
+  if (strings::to_double(*iter, lon) && ++iter)
   {
     double lat;
-    if (strings::to_double(*iter, lat) && mercator::ValidLat(lat))
+    if (strings::to_double(*iter, lat) && IsValidLatLon(lat, lon))
     {
       pt = mercator::FromLatLon(lat, lon);
 
       double rawAltitude;
       if (++iter && strings::to_double(*iter, rawAltitude))
-        altitude = static_cast<geometry::Altitude>(round(rawAltitude));
+        altitude = ToAltitude(rawAltitude);
 
       return true;
     }
@@ -787,6 +791,8 @@ void KmlParser::ResetPoint()
   m_polygon.reset();
   m_areaPolygons.clear();
   m_invalidArea = false;
+  m_areaIsMultiPolygon = false;
+  m_areaAltitudeIsWgs84 = false;
   m_areaStyle = {};
   m_inlineAreaStyle = {};
   m_areaStyleReference.clear();
@@ -849,11 +855,14 @@ void KmlParser::ParseAreaRing(std::string_view value, AreaRing & ring)
 
 void KmlParser::SetOrigin(std::string const & s)
 {
-  m_geometryType = GEOMETRY_TYPE_POINT;
-
   m2::PointD pt;
   if (ParsePoint(s, ", \n\r\t", pt))
+  {
+    m_geometryType = GEOMETRY_TYPE_POINT;
     m_org = pt;
+  }
+  else
+    LOG(LWARNING, ("Can not parse KML point coordinates from", s));
 }
 
 void KmlParser::ParseAndAddPoints(MultiGeometry::LineT & line, std::string_view s, char const * blockSeparator,
@@ -871,8 +880,7 @@ void KmlParser::ParseAndAddPoints(MultiGeometry::LineT & line, std::string_view 
 
 void KmlParser::ParseLineString(std::string const & s)
 {
-  // If m_org is not empty, then it's still a Bookmark but with track data
-  if (m_org == m2::PointD::Zero())
+  if (m_geometryType != GEOMETRY_TYPE_POINT)
     m_geometryType = GEOMETRY_TYPE_LINE;
 
   MultiGeometry::LineT line;
@@ -922,15 +930,12 @@ bool KmlParser::MakeValid()
 
   if (GEOMETRY_TYPE_POINT == m_geometryType)
   {
-    if (mercator::ValidX(m_org.x) && mercator::ValidY(m_org.y))
-    {
-      // Set default name.
-      if (m_name.empty() && m_featureTypes.empty())
-        m_name[kDefaultLang] = PointToLineString(m_org);
+    // SetOrigin() sets this type only together with a validated m_org.
+    // Set default name.
+    if (m_name.empty() && m_featureTypes.empty())
+      m_name[kDefaultLang] = PointToLineString(m_org);
 
-      return true;
-    }
-    return false;
+    return true;
   }
   else if (GEOMETRY_TYPE_LINE == m_geometryType)
   {
@@ -1099,6 +1104,8 @@ void KmlParser::Pop(std::string_view tag)
         area.m_timestamp = m_timestamp;
         area.m_properties = m_properties;
         area.m_polygons = std::move(m_areaPolygons);
+        area.m_isMultiPolygon = m_areaIsMultiPolygon;
+        area.m_altitudeIsWgs84 = m_areaAltitudeIsWgs84;
         m_pendingAreaStyles.push_back({m_data.m_areasData.size(), m_areaStyleReference, m_inlineAreaStyle});
         m_data.m_areasData.push_back(std::move(area));
       }
@@ -1206,13 +1213,10 @@ void KmlParser::Pop(std::string_view tag)
   else if ((tag == "LineStyle" && m_tags.size() > 2 && GetTagFromEnd(2) == kPlacemark) ||
            (tag == "mwm:additionalLineStyle" && m_tags.size() > 3 && GetTagFromEnd(3) == kPlacemark))
   {
-    // This code assumes that <Style> is stored inside <Placemark>.
-    // It is a violation of KML format, but it must be here to support
-    // loading of KML files which were stored by older versions of OMaps.
+    // Placemark LineStyle and additionalLineStyle elements contribute track layers.
     TrackLayer layer;
     layer.m_lineWidth = m_trackWidth;
-    // Fix wrongly parsed transparent color, see https://github.com/organicmaps/organicmaps/issues/5800
-    // TODO: Remove this fix in 2024 when all users will have their imported GPX files fixed.
+    // Missing or nearly transparent colors need a visible fallback for track display (#5800).
     if (m_color == 0 || (m_color & 0xFF) < 10)
       layer.m_color.m_rgba = kDefaultTrackColor;
     else
@@ -1229,6 +1233,7 @@ void KmlParser::Pop(std::string_view tag)
     ASSERT(!lines.empty(), ());
     if (lines.back().size() < 2)
     {
+      m_skipTimes.erase(lines.size() - 1);
       lines.pop_back();
       m_geometry.m_timestamps.pop_back();
     }
@@ -1545,7 +1550,11 @@ void KmlParser::CharData(std::string & value)
       }
       else if (prevTag == kExtendedData)
       {
-        if (currTag == "mwm:scale")
+        if (currTag == "mwm:multiPolygon")
+          m_areaIsMultiPolygon = value == "1";
+        else if (currTag == "mwm:altitudeIsWgs84")
+          m_areaAltitudeIsWgs84 = value == "1";
+        else if (currTag == "mwm:scale")
         {
           double scale;
           if (!strings::to_double(value, scale))

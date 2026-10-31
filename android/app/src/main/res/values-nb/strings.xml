@@ -15,8 +15,8 @@
     <string name="downloading">Laster ned …</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
     <string name="kilometres">Kilometer</string>
-    <!-- Choose measurement on first launch alert - choose imperial system button -->
-    <string name="miles">Miles</string>
+    <!-- Imperial measurement option: 1 mile = 1609.344 m; Swedish/Norwegian "mil" = 10 km -->
+    <string name="miles">Engelske mil</string>
     <!-- Update maps later button text -->
     <string name="later">Senere</string>
     <!-- View and button titles for accessibility. Also used in iPhone home screen quick actions. -->
@@ -99,7 +99,7 @@
     <!-- Measurement units title in settings activity -->
     <string name="measurement_units">Måleenheter</string>
     <!-- Detailed description of Measurement Units settings button -->
-    <string name="measurement_units_summary">Velg mellom miles og kilometer</string>
+    <string name="measurement_units_summary">Velg mellom engelske mil og kilometer</string>
 
     <!-- SECTION: Search categories -->
     <!-- Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat! -->
@@ -476,10 +476,15 @@
     <string name="current_location_unknown_error_title">Gjeldende plassering er ukjent.</string>
     <!-- abbreviation for kilometers per hour -->
     <string name="kilometers_per_hour">km/t</string>
+    <!-- Short label for miles per hour (1 mile = 1609.344 m), placed after a number; e.g. mph or mi/h -->
     <string name="miles_per_hour">mph</string>
+    <!-- Short label for hours (time unit), placed after a number -->
     <string name="hour">t</string>
+    <!-- Short label for minutes (time unit), placed after a number -->
     <string name="minute">min</string>
+    <!-- Short label for days (time unit), placed after a number -->
     <string name="day">d</string>
+    <!-- Short label for seconds (time unit), placed after a number -->
     <string name="second">s</string>
     <string name="placepage_more_button">Mer</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->

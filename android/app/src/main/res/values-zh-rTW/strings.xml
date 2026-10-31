@@ -15,7 +15,7 @@
     <string name="downloading">下載中…</string>
     <!-- Choose measurement on first launch alert - choose metric system button -->
     <string name="kilometres">公里</string>
-    <!-- Choose measurement on first launch alert - choose imperial system button -->
+    <!-- Imperial measurement option: 1 mile = 1609.344 m; Swedish/Norwegian "mil" = 10 km -->
     <string name="miles">英哩</string>
     <!-- Update maps later button text -->
     <string name="later">以後再說</string>
@@ -476,10 +476,15 @@
     <string name="current_location_unknown_error_title">目前位置未知。</string>
     <!-- abbreviation for kilometers per hour -->
     <string name="kilometers_per_hour">公里每小時</string>
+    <!-- Short label for miles per hour (1 mile = 1609.344 m), placed after a number; e.g. mph or mi/h -->
     <string name="miles_per_hour">英哩每小時</string>
+    <!-- Short label for hours (time unit), placed after a number -->
     <string name="hour">小時</string>
+    <!-- Short label for minutes (time unit), placed after a number -->
     <string name="minute">分鐘</string>
+    <!-- Short label for days (time unit), placed after a number -->
     <string name="day">天</string>
+    <!-- Short label for seconds (time unit), placed after a number -->
     <string name="second">秒</string>
     <string name="placepage_more_button">更多</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->

@@ -2,8 +2,14 @@
 
 #include "geometry/mercator.hpp"
 
+#include "base/assert.hpp"
+#include "base/math.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
+
+#include <algorithm>
+#include <cmath>
+#include <limits>
 
 namespace kml
 {
@@ -42,6 +48,21 @@ bool LineHasAltitude(TrackGeometry const & line)
   });
 }
 
+bool IsValidLatLon(double lat, double lon)
+{
+  return mercator::ValidLat(lat) && mercator::ValidLon(lon);
+}
+
+geometry::Altitude ToAltitude(double altitude)
+{
+  ASSERT(math::is_finite(altitude), (altitude));
+
+  static_assert(geometry::kInvalidAltitude == std::numeric_limits<geometry::Altitude>::min());
+  double constexpr kMinAltitude = std::numeric_limits<geometry::Altitude>::min() + 1.0;
+  double constexpr kMaxAltitude = std::numeric_limits<geometry::Altitude>::max();
+  return static_cast<geometry::Altitude>(std::clamp(std::round(altitude), kMinAltitude, kMaxAltitude));
+}
+
 void SaveStringWithCDATA(Writer & writer, std::string_view s)
 {
   if (s.empty())
@@ -71,9 +92,20 @@ void SaveStringWithCDATA(Writer & writer, std::string_view s)
     clean = filtered;
   }
 
-  // According to kml/xml spec, we need to escape special symbols with CDATA.
-  if (clean.find_first_of("<&") != std::string_view::npos)
-    writer << "<![CDATA[" << clean << "]]>";
+  auto pos = clean.find("]]>");
+  if (pos != std::string_view::npos || clean.find_first_of("<&") != std::string_view::npos)
+  {
+    writer << "<![CDATA[";
+    // XML forbids a CDATA terminator in character data and inside a CDATA section. Split it
+    // across adjacent sections so a user-supplied name or description stays literal text.
+    while (pos != std::string_view::npos)
+    {
+      writer << clean.substr(0, pos) << "]]]]><![CDATA[>";
+      clean.remove_prefix(pos + 3);
+      pos = clean.find("]]>");
+    }
+    writer << clean << "]]>";
+  }
   else
     writer << clean;
 }

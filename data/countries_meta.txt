@@ -287,7 +287,8 @@
     "languages": [
       "en"
     ],
-    "timezone": "America/Belize"
+    "timezone": "America/Belize",
+    "speed_limit_sign_type": "MUTCD"
   },
   "Benin": {
     "iso3166-1": {
@@ -583,7 +584,8 @@
       "en",
       "fr"
     ],
-    "timezone": "America/Toronto"
+    "timezone": "America/Toronto",
+    "speed_limit_sign_type": "MUTCD"
   },
   "Canada_Alberta": {
     "iso3166-2": [
@@ -1013,7 +1015,8 @@
     "languages": [
       "en"
     ],
-    "timezone": "Pacific/Pohnpei"
+    "timezone": "Pacific/Pohnpei",
+    "speed_limit_sign_type": "MUTCD"
   },
   "Fiji": {
     "driving": "l",
@@ -1610,7 +1613,8 @@
     "languages": [
       "en"
     ],
-    "timezone": "Africa/Monrovia"
+    "timezone": "Africa/Monrovia",
+    "speed_limit_sign_type": "MUTCD"
   },
   "Libya": {
     "iso3166-1": {
@@ -1752,7 +1756,8 @@
       "en",
       "mh"
     ],
-    "timezone": "Pacific/Majuro"
+    "timezone": "Pacific/Majuro",
+    "speed_limit_sign_type": "MUTCD"
   },
   "Martinique": {
     "iso3166-1": {
@@ -2090,7 +2095,8 @@
     "languages": [
       "en"
     ],
-    "timezone": "Pacific/Palau"
+    "timezone": "Pacific/Palau",
+    "speed_limit_sign_type": "MUTCD"
   },
   "Palestine": {
     "iso3166-1": {
@@ -3046,7 +3052,8 @@
     "languages": [
       "en"
     ],
-    "timezone": "America/New_York"
+    "timezone": "America/New_York",
+    "speed_limit_sign_type": "MUTCD"
   },
   "US_Alabama": {
     "iso3166-2": [
@@ -3331,7 +3338,8 @@
     "languages": [
       "en"
     ],
-    "timezone": "America/Puerto_Rico"
+    "timezone": "America/Puerto_Rico",
+    "speed_limit_sign_type": "MUTCD"
   },
   "Uruguay": {
     "iso3166-1": {

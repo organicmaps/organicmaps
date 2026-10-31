@@ -19,6 +19,7 @@ std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::Share
                                                std::vector<SplineClipInfo> * sourceRanges);
 using ClipTriangleByRectResultIt = std::function<void(m2::PointD const &, m2::PointD const &, m2::PointD const &)>;
 
+/// Emits the part of the clockwise triangle inside |rect| as clockwise triangles.
 void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3,
                         ClipTriangleByRectResultIt const & resultIterator);
 

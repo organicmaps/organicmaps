@@ -73,6 +73,7 @@
     <string name="opens_in">Otevírá za %s</string>
     <string name="closes_in">Zavírá za %s</string>
     <string name="closed">Zavřeno</string>
+    <!-- Short label for minutes (time unit), placed after a number -->
     <string name="minute">min</string>
     <string name="big_font">Zvětšit velikost písma na mapě</string>
     <string name="transliteration_title">Přepis do latinky</string>

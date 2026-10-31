@@ -5,6 +5,7 @@
 
 #include "drape_frontend/visual_params.hpp"
 
+#include "routing/router.hpp"
 #include "routing/ruler_router.hpp"
 
 #include "storage/routing_helpers.hpp"
@@ -12,6 +13,7 @@
 #include "platform/gui_thread.hpp"
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
+#include "platform/settings.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -22,6 +24,7 @@
 #include <algorithm>
 #include <future>
 #include <memory>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -29,6 +32,41 @@ namespace routing_manager_tests
 {
 namespace
 {
+// Framework reads the saved router at initialization; optimization cases need a road router.
+class ScopedVehicleRouter
+{
+public:
+  ScopedVehicleRouter() : m_hasOriginal(settings::Get("router", m_original))
+  {
+    settings::Set("router", routing::ToString(routing::RouterType::Vehicle));
+  }
+
+  ~ScopedVehicleRouter()
+  {
+    if (m_hasOriginal)
+      settings::Set("router", m_original);
+    else
+      settings::Delete("router");
+  }
+
+private:
+  std::string m_original;
+  bool const m_hasOriginal;
+};
+
+class TestFramework
+{
+public:
+  RoutingManager & GetRoutingManager() { return m_framework.GetRoutingManager(); }
+  BookmarkManager & GetBookmarkManager() { return m_framework.GetBookmarkManager(); }
+  storage::Storage & GetStorage() { return m_framework.GetStorage(); }
+
+private:
+  // Select the router before Framework reads it, and restore it after Framework is destroyed.
+  ScopedVehicleRouter const m_routerSetting;
+  Framework m_framework{FrameworkParams(false /* m_enableDiffs */)};
+};
+
 // Pump only this fixture's tasks, not callbacks left by earlier Framework instances.
 class TestGuiThread final : public base::TaskLoop
 {
@@ -90,7 +128,7 @@ void WithSavedRoute(Fn && fn)
   SCOPE_GUARD(restoreGuiThread, [&platform] { platform.SetGuiThread(std::make_unique<platform::GuiThread>()); });
 
   // Initialize global settings before redirecting the saved route to its test directory.
-  Framework framework(FrameworkParams(false /* m_enableDiffs */));
+  TestFramework framework;
   auto const originalSettingsDir = platform.SettingsDir();
   platform.SetSettingsDir(testSettingsDir);
   SCOPE_GUARD(restoreSettingsDir, [&] { platform.SetSettingsDir(originalSettingsDir); });
@@ -232,7 +270,7 @@ double GetRouteLengthMeters(RoutingManager const & manager)
 
 UNIT_TEST(RoutingManager_ReverseRoutePointsRequiresBothEndpoints)
 {
-  Framework framework(FrameworkParams(false /* m_enableDiffs */));
+  TestFramework framework;
   auto & manager = framework.GetRoutingManager();
 
   TEST(!manager.ReverseRoutePoints(), ());
@@ -265,7 +303,7 @@ UNIT_TEST(RoutingManager_ReverseRoutePointsRequiresBothEndpoints)
 
 UNIT_TEST(RoutingManager_ReverseRoutePointsReversesEntireRoute)
 {
-  Framework framework(FrameworkParams(false /* m_enableDiffs */));
+  TestFramework framework;
   auto & manager = framework.GetRoutingManager();
 
   auto start = MakeRoutePoint(RouteMarkType::Start, 0, 1.0);
@@ -315,7 +353,7 @@ UNIT_TEST(RoutingManager_ReverseRoutePointsReversesEntireRoute)
 
 UNIT_TEST(RoutingManager_ReverseRoutePointsWithNoStops)
 {
-  Framework framework(FrameworkParams(false /* m_enableDiffs */));
+  TestFramework framework;
   auto & manager = framework.GetRoutingManager();
   manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Start, 0, 1.0), false /* optimize */);
   manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Finish, 0, 2.0), false /* optimize */);
@@ -331,7 +369,7 @@ UNIT_TEST(RoutingManager_ReverseRoutePointsWithNoStops)
 
 UNIT_TEST(RoutingManager_MoveSingleRoutePointBetweenEndpoints)
 {
-  Framework framework(FrameworkParams(false /* m_enableDiffs */));
+  TestFramework framework;
   auto & manager = framework.GetRoutingManager();
   auto point = MakeRoutePoint(RouteMarkType::Start, 0, 1.0);
   point.m_title = "Only point";
@@ -372,7 +410,7 @@ UNIT_TEST(RoutingManager_MoveSingleRoutePointBetweenEndpoints)
 
 UNIT_TEST(RoutingManager_OptimizationWithIncompleteRoute)
 {
-  Framework framework(FrameworkParams(false /* m_enableDiffs */));
+  TestFramework framework;
   auto & manager = framework.GetRoutingManager();
 
   TEST(!manager.OptimizeRoutePoints(), ());
@@ -386,7 +424,7 @@ UNIT_TEST(RoutingManager_OptimizationWithIncompleteRoute)
 
 UNIT_TEST(RoutingManager_OptimizationCannotChangeWhileFollowing)
 {
-  Framework framework(FrameworkParams(false /* m_enableDiffs */));
+  TestFramework framework;
   auto & manager = framework.GetRoutingManager();
 
   AddTestRoute(manager, {3, 1, 2});
@@ -401,12 +439,10 @@ UNIT_TEST(RoutingManager_RulerPreservesMeasurementOrder)
 {
   for (bool const enabled : {false, true})
   {
-    Framework framework(FrameworkParams(false /* m_enableDiffs */));
+    TestFramework framework;
     auto & manager = framework.GetRoutingManager();
     manager.Init(routing::CreateNumMwmIds(framework.GetStorage()));
 
-    auto const originalRouter = manager.GetLastUsedRouter();
-    SCOPE_GUARD(restoreRouter, [&] { manager.SetLastUsedRouter(originalRouter); });
     manager.SetRouter(routing::RouterType::Pedestrian);
     AddTestRoute(manager, {3, 1, 2});
     auto const before = GetStopCoordinates(manager);
@@ -424,7 +460,7 @@ UNIT_TEST(RoutingManager_RulerPreservesMeasurementOrder)
 
 UNIT_TEST(RoutingManager_OptimizeRoutePointsUsesRouteMarks)
 {
-  Framework framework(FrameworkParams(false /* m_enableDiffs */));
+  TestFramework framework;
   auto & manager = framework.GetRoutingManager();
 
   AddTestRoute(manager, {5, 4, 3, 2, 1});
@@ -441,7 +477,7 @@ UNIT_TEST(RoutingManager_OptimizeRoutePointsUsesRouteMarks)
 
 UNIT_TEST(RoutingManager_OptimizationNeverIncreasesRouteLength)
 {
-  Framework framework(FrameworkParams(false /* m_enableDiffs */));
+  TestFramework framework;
   auto & manager = framework.GetRoutingManager();
 
   RouteMarkData start;
@@ -484,7 +520,7 @@ UNIT_TEST(RoutingManager_OptimizationNeverIncreasesRouteLength)
 
 UNIT_TEST(RoutingManager_ManualEditsAndNextAddPreserveExistingOrder)
 {
-  Framework framework(FrameworkParams(false /* m_enableDiffs */));
+  TestFramework framework;
   auto & manager = framework.GetRoutingManager();
 
   AddTestRoute(manager, {5, 4, 3, 2, 1});
@@ -524,7 +560,7 @@ UNIT_TEST(RoutingManager_SaveLoadKeepsVisibleOrder)
 
 UNIT_TEST(RoutingManager_UpdatingMyPositionKeepsAppendOrder)
 {
-  Framework framework(FrameworkParams(false /* m_enableDiffs */));
+  TestFramework framework;
   auto & manager = framework.GetRoutingManager();
 
   AddTestRoute(manager, {4, 3, 2});
@@ -555,7 +591,7 @@ UNIT_TEST(RoutingManager_ReplaceStopWithMyPositionKeepsSlot)
   for (auto const & c : {Case{RouteMarkType::Start, 1, {5, 3}, 1, 10}, Case{RouteMarkType::Start, 0, {2, 3}, 5, 10},
                          Case{RouteMarkType::Finish, 2, {1, 2}, -1, 5}})
   {
-    Framework framework(FrameworkParams(false /* m_enableDiffs */));
+    TestFramework framework;
     auto & manager = framework.GetRoutingManager();
 
     AddTestRoute(manager, {1, 2, 3});
@@ -579,7 +615,7 @@ UNIT_TEST(RoutingManager_ReplaceStopWithMyPositionKeepsSlot)
 
 UNIT_TEST(RoutingManager_AddAppendsRegardlessOfSuppliedIndex)
 {
-  Framework framework(FrameworkParams(false /* m_enableDiffs */));
+  TestFramework framework;
   auto & manager = framework.GetRoutingManager();
 
   AddTestRoute(manager, {4, 2});
@@ -596,7 +632,7 @@ UNIT_TEST(RoutingManager_NewStopInsertionUsesRouteEndpointsAndPreservesPassedSto
 {
   for (bool const passed : {false, true})
   {
-    Framework framework(FrameworkParams(false /* m_enableDiffs */));
+    TestFramework framework;
     auto & manager = framework.GetRoutingManager();
     auto & bookmarks = framework.GetBookmarkManager();
 
@@ -622,7 +658,7 @@ UNIT_TEST(RoutingManager_NewStopInsertionUsesRouteEndpointsAndPreservesPassedSto
 
 UNIT_TEST(RoutingManager_AddingEndpointDoesNotReorderStops)
 {
-  Framework framework(FrameworkParams(false /* m_enableDiffs */));
+  TestFramework framework;
   auto & manager = framework.GetRoutingManager();
 
   auto start = MakeRoutePointOnXAxis(RouteMarkType::Start, 0, -1.0);
@@ -642,7 +678,7 @@ UNIT_TEST(RoutingManager_AddingEndpointDoesNotReorderStops)
 
 UNIT_TEST(RoutingManager_ReplacementAtCapacityKeepsSlot)
 {
-  Framework framework(FrameworkParams(false /* m_enableDiffs */));
+  TestFramework framework;
   auto & manager = framework.GetRoutingManager();
   auto & bookmarks = framework.GetBookmarkManager();
 
@@ -676,7 +712,7 @@ UNIT_TEST(RoutingManager_ReplacementAtCapacityKeepsSlot)
 
 UNIT_TEST(RoutingManager_ReplacingPassedStopMakesItPending)
 {
-  Framework framework(FrameworkParams(false /* m_enableDiffs */));
+  TestFramework framework;
   auto & manager = framework.GetRoutingManager();
   auto & bookmarks = framework.GetBookmarkManager();
 
@@ -702,7 +738,7 @@ UNIT_TEST(RoutingManager_ReplacingPassedStopMakesItPending)
 
 UNIT_TEST(RoutingManager_AddingOptimizedStopAfterPassedStopReplacement)
 {
-  Framework framework(FrameworkParams(false /* m_enableDiffs */));
+  TestFramework framework;
   auto & manager = framework.GetRoutingManager();
   auto & bookmarks = framework.GetBookmarkManager();
 
@@ -725,7 +761,7 @@ UNIT_TEST(RoutingManager_AddingOptimizedStopAfterPassedStopReplacement)
 
 UNIT_TEST(RoutingManager_ReplaceMissingStopAddsNormally)
 {
-  Framework framework(FrameworkParams(false /* m_enableDiffs */));
+  TestFramework framework;
   auto & manager = framework.GetRoutingManager();
 
   AddTestRoute(manager, {1, 2});
@@ -738,7 +774,7 @@ UNIT_TEST(RoutingManager_EndpointReplacementDoesNotOptimize)
 {
   for (auto const type : {RouteMarkType::Start, RouteMarkType::Finish})
   {
-    Framework framework(FrameworkParams(false /* m_enableDiffs */));
+    TestFramework framework;
     auto & manager = framework.GetRoutingManager();
 
     AddTestRoute(manager, {5, 4, 3, 2, 1});
@@ -772,9 +808,73 @@ UNIT_TEST(RoutingManager_SaveLoadRoutePointsRestoresMyPosition)
   TestSavedRouteOrder(true /* myPositionStart */, 0 /* passedStops */, true /* hasCurrentPosition */);
 }
 
+UNIT_TEST(RoutingManager_BuildKeepsResolvedMyPosition)
+{
+  for (auto const type : {RouteMarkType::Start, RouteMarkType::Intermediate, RouteMarkType::Finish})
+  {
+    WithSavedRoute([type](RoutingManager & manager, BookmarkManager & bookmarks, TestGuiThread & guiThread)
+    {
+      auto const originalRouter = manager.GetLastUsedRouter();
+      SCOPE_GUARD(restoreRouter, [&] { manager.SetLastUsedRouter(originalRouter); });
+      manager.SetRouter(routing::RouterType::Ruler);
+      manager.Init(std::make_shared<routing::NumMwmIds>());
+      size_t movingIndex = 0;
+      for (size_t i = 0;
+           auto const pointType : {RouteMarkType::Start, RouteMarkType::Intermediate, RouteMarkType::Finish})
+      {
+        auto point = MakeRoutePoint(pointType, 0, 0.001 * ++i);
+        point.m_isMyPosition = pointType == type;
+        if (point.m_isMyPosition)
+          movingIndex = i - 1;
+        manager.AddRoutePoint(std::move(point), false /* optimize */);
+      }
+      m2::PointD const calculationPosition(0.004, 0.004);
+      bookmarks.MyPositionMark().SetUserPosition(calculationPosition, true /* hasPosition */);
+
+      bool built = false;
+      manager.SetRouteBuildingListener([&](routing::RouterResultCode code, storage::CountriesSet const &)
+      {
+        TEST_EQUAL(code, routing::RouterResultCode::NoError, ());
+        built = true;
+      });
+      manager.BuildRoute();
+      while (!built)
+        guiThread.RunNext();
+      TEST(manager.IsRouteValid(), ());
+
+      m2::PointD const rebuildPosition(0.008, 0.008);
+      bookmarks.MyPositionMark().SetUserPosition(rebuildPosition, true /* hasPosition */);
+      auto const points = manager.GetRoutePoints();
+      TEST_EQUAL(points[movingIndex].m_position, calculationPosition, ());
+      TEST_EQUAL(RoutePointsLayout(bookmarks).GetRoutePoint(type)->GetPivot(), calculationPosition, ());
+      TEST(points[movingIndex].m_isMyPosition, ());
+
+      built = false;
+      manager.BuildRoute();
+      while (!built)
+        guiThread.RunNext();
+      TEST(manager.IsRouteValid(), ());
+      TEST_EQUAL(manager.GetRoutePoints()[movingIndex].m_position, rebuildPosition, ());
+      TEST_EQUAL(RoutePointsLayout(bookmarks).GetRoutePoint(type)->GetPivot(), rebuildPosition, ());
+      TEST(manager.GetRoutePoints()[movingIndex].m_isMyPosition, ());
+
+      bookmarks.MyPositionMark().SetUserPosition({0.012, 0.012}, true /* hasPosition */);
+      // A saved start follows the live position on restart; intermediate and finish points are fixed.
+      if (type != RouteMarkType::Start)
+      {
+        manager.SaveRoutePoints();
+        WaitForFileThread();
+        manager.RemoveRoutePoints();
+        TEST(LoadRoutePoints(manager, guiThread), ());
+        TEST_EQUAL(manager.GetRoutePoints()[movingIndex].m_position, rebuildPosition, ());
+      }
+    });
+  }
+}
+
 UNIT_TEST(RoutingManager_ContinueRouteToPointAtLimitKeepsFinish)
 {
-  Framework framework(FrameworkParams(false /* m_enableDiffs */));
+  TestFramework framework;
   auto & routingManager = framework.GetRoutingManager();
 
   FillRouteToLimit(routingManager);
@@ -797,7 +897,7 @@ UNIT_TEST(RoutingManager_ContinueRouteToPointAtLimitKeepsFinish)
 
 UNIT_TEST(RoutingManager_AddRoutePointAtLimitReportsFailure)
 {
-  Framework framework(FrameworkParams(false /* m_enableDiffs */));
+  TestFramework framework;
   auto & routingManager = framework.GetRoutingManager();
 
   FillRouteToLimit(routingManager);
@@ -817,7 +917,7 @@ UNIT_TEST(RoutingManager_AddRoutePointAtLimitReportsFailure)
 // standing in the slot before adding. Pin that: at the limit only a new intermediate point can be rejected.
 UNIT_TEST(RoutingManager_ReplaceStartAndFinishAtLimitSucceeds)
 {
-  Framework framework(FrameworkParams(false /* m_enableDiffs */));
+  TestFramework framework;
   auto & routingManager = framework.GetRoutingManager();
 
   FillRouteToLimit(routingManager);
@@ -838,7 +938,7 @@ UNIT_TEST(RoutingManager_ReplaceStartAndFinishAtLimitSucceeds)
 // the latter must return false without mutating the (empty) layout.
 UNIT_TEST(RoutingManager_ContinueRouteToPointWithoutFinishFailsCleanly)
 {
-  Framework framework(FrameworkParams(false /* m_enableDiffs */));
+  TestFramework framework;
   auto & routingManager = framework.GetRoutingManager();
 
   TEST_EQUAL(routingManager.GetRoutePointsCount(), 0, ());
@@ -850,7 +950,7 @@ UNIT_TEST(RoutingManager_ContinueRouteToPointWithoutFinishFailsCleanly)
 
 UNIT_TEST(RoutingManager_OptimizeRoutePointsPreservesPassedStops)
 {
-  Framework framework(FrameworkParams(false /* m_enableDiffs */));
+  TestFramework framework;
   auto & routingManager = framework.GetRoutingManager();
   auto & bookmarks = framework.GetBookmarkManager();
 

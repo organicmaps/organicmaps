@@ -2,6 +2,7 @@
 #include "kml/color_parser.hpp"
 #include "kml/serdes_common.hpp"
 
+#include "base/math.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
@@ -11,6 +12,8 @@
 #include "geometry/point_with_altitude.hpp"
 
 #include <algorithm>
+#include <cmath>
+#include <limits>
 #include <map>
 #include <string>
 
@@ -21,7 +24,7 @@ namespace geojson
 std::string DebugPrint(GeoJsonGeometryPoint const & c)
 {
   std::ostringstream out;
-  out << "GeoJsonGeometryPoint [coordinates = " << c.coordinates[1] << ", " << c.coordinates[0] << "]";
+  out << "GeoJsonGeometryPoint [coordinates = " << ::DebugPrint(c.coordinates) << "]";
   return out.str();
 }
 
@@ -47,6 +50,10 @@ std::string DebugPrint(GeoJsonGeometry const & g)
     return DebugPrint(*line);
   if (auto const * multiLine = std::get_if<GeoJsonGeometryMultiLine>(&g))
     return DebugPrint(*multiLine);
+  if (auto const * polygon = std::get_if<GeoJsonGeometryPolygon>(&g))
+    return "GeoJsonGeometryPolygon [rings = " + std::to_string(polygon->coordinates.size()) + "]";
+  if (auto const * polygons = std::get_if<GeoJsonGeometryMultiPolygon>(&g))
+    return "GeoJsonGeometryMultiPolygon [parts = " + std::to_string(polygons->coordinates.size()) + "]";
 
   auto const * geoUnknown = std::get_if<GeoJsonGeometryUnknown>(&g);
   ASSERT(geoUnknown != nullptr, ());
@@ -60,14 +67,14 @@ std::string DebugPrint(GenericJsonMap const & p)
   out << "{";
   for (auto const & [key, value] : p)
   {
-    // Add seperator if needed
     if (isFirst)
       isFirst = false;
     else
       out << ", ";
 
-    out << '"' << key << "\" = " << DebugPrint(value) << ", ";
+    out << '"' << key << "\" = " << DebugPrint(value);
   }
+  out << "}";
   return out.str();
 }
 
@@ -83,7 +90,7 @@ std::string DebugPrint(GeoJsonFeature const & c)
 {
   std::ostringstream out;
   out << "GeoJsonFeature [type = " << c.type << ", geometry = " << DebugPrint(c.geometry)
-      << ", properties = " << DebugPrint(c.properties) << "]";
+      << ", properties = " << (c.properties ? DebugPrint(*c.properties) : "null") << "]";
   return out.str();
 }
 
@@ -181,27 +188,53 @@ PredefinedColor FindPredefinedColor(std::string colorName)
 
 }  // namespace geojson
 
-kml::TrackGeometry CoordsToPoints(std::vector<std::vector<double>> const & coords)
+// A GeoJSON position is a [lon, lat, (alt)] array. Shorter arrays and coordinates outside the
+// WGS84 range are skipped like KML import does; they would put garbage into the map otherwise.
+static bool IsValidPosition(std::vector<double> const & c)
+{
+  return c.size() >= 2 && IsValidLatLon(c[1], c[0]);
+}
+
+// Converts positions to track points, skipping invalid ones. The caller supplies either no
+// timestamps or one per position; aligned timestamps are filtered together with their points.
+static kml::TrackGeometry CoordsToPoints(std::vector<std::vector<double>> const & coords,
+                                         kml::MultiGeometry::TimeT & timestamps)
 {
   // Use kDefaultAltitudeMeters (0) — not kInvalidAltitude — for 2D points when
   // other points in the same line carry a Z coordinate. This preserves the
   // elevation chart for mixed 2D/3D tracks (HasAltitudes returns false on the
   // first kInvalidAltitude, so storing it for every partial-fix point would
   // suppress the chart entirely).
-  bool const hasAnyZ = std::any_of(coords.begin(), coords.end(), [](auto const & c) { return c.size() >= 3; });
+  bool const hasAnyZ =
+      std::any_of(coords.begin(), coords.end(), [](auto const & c) { return IsValidPosition(c) && c.size() >= 3; });
   auto const altFallback = hasAnyZ ? geometry::kDefaultAltitudeMeters : geometry::kInvalidAltitude;
 
+  bool const hasTimestamps = !timestamps.empty();
+  ASSERT(!hasTimestamps || timestamps.size() == coords.size(), (timestamps.size(), coords.size()));
+  kml::MultiGeometry::TimeT keptTimestamps;
+  keptTimestamps.reserve(timestamps.size());
   kml::TrackGeometry points;
   points.reserve(coords.size());
-  for (auto const & c : coords)
+  for (size_t i = 0; i < coords.size(); ++i)
   {
+    auto const & c = coords[i];
+    if (!IsValidPosition(c))
+    {
+      LOG(LWARNING, ("Skipping invalid GeoJson position", c));
+      continue;
+    }
+    if (hasTimestamps)
+      keptTimestamps.push_back(timestamps[i]);
+
     auto const pt = mercator::FromLatLon(c[1], c[0]);
     if (c.size() >= 3)
-      points.emplace_back(pt, static_cast<geometry::Altitude>(std::round(c[2])));
+      points.emplace_back(pt, ToAltitude(c[2]));
     else
       points.emplace_back(pt, altFallback);
   }
 
+  if (hasTimestamps)
+    timestamps = std::move(keptTimestamps);
   return points;
 }
 
@@ -210,7 +243,15 @@ kml::TrackGeometry CoordsToPoints(std::vector<std::vector<double>> const & coord
 static time_t GeoJsonParseTimestamp(glz::generic const & value)
 {
   if (value.is_number())
-    return static_cast<time_t>(value.as<double>());
+  {
+    double const seconds = value.as<double>();
+    static_assert(std::numeric_limits<time_t>::is_signed && std::numeric_limits<time_t>::radix == 2);
+    // 2^digits is the exact exclusive upper bound even when time_t::max() is not representable as double.
+    double const bound = std::ldexp(1.0, std::numeric_limits<time_t>::digits);
+    if (seconds < -bound || seconds >= bound)
+      return base::INVALID_TIME_STAMP;
+    return static_cast<time_t>(seconds);
+  }
   if (value.is_string())
     return base::StringToTimestamp(value.get_string());
   return base::INVALID_TIME_STAMP;
@@ -267,14 +308,121 @@ static glz::generic const * GetCoordTimesValue(kml::geojson::GenericJsonMap cons
   return nullptr;
 }
 
+static geojson::GenericJsonMap const & GetFeatureProperties(geojson::GeoJsonFeature const & feature)
+{
+  static geojson::GenericJsonMap const empty;
+  return feature.properties ? *feature.properties : empty;
+}
+
+// Empty components are dropped later by NormalizeAreaGeometry, like other degenerate ones.
+static bool ReadAreaPolygon(geojson::PolygonCoords const & coordinates, AreaPolygon & polygon)
+{
+  for (size_t i = 0; i < coordinates.size(); ++i)
+  {
+    auto & ring = i == 0 ? polygon.m_outer : polygon.m_holes.emplace_back();
+    ring.reserve(coordinates[i].size());
+    for (auto const & tuple : coordinates[i])
+    {
+      if (tuple.size() < 2)
+        return false;
+      AreaPoint point{ms::LatLon(tuple[1], tuple[0]), {}};
+      if (tuple.size() > 2)
+        point.m_altitude = tuple[2];
+      ring.push_back(point);
+    }
+  }
+  return true;
+}
+
+static AreaStyle ReadAreaStyle(geojson::GenericJsonMap const & properties)
+{
+  AreaStyle style{0x55555599, 0x555555FF, 2.0, true, true};
+  auto const readColor = [](geojson::GenericJsonMap const & source, char const * key, uint32_t & color)
+  {
+    auto const it = source.find(key);
+    if (it != source.end() && it->second.is_string())
+      if (auto const parsed = ParseHexOsmGarminColor(it->second.get_string()))
+        color = (*parsed & 0xFFFFFF00) | (color & 0xFF);
+  };
+  auto const readOpacity = [](geojson::GenericJsonMap const & source, char const * key, uint32_t & color)
+  {
+    auto const it = source.find(key);
+    if (it != source.end() && it->second.is_number())
+    {
+      double const opacity = it->second.get<double>();
+      if (math::is_finite(opacity) && opacity >= 0 && opacity <= 1)
+        color = (color & 0xFFFFFF00) | static_cast<uint32_t>(std::lround(opacity * 255));
+    }
+  };
+  auto const readWidth = [&](geojson::GenericJsonMap const & source, char const * key)
+  {
+    if (auto const it = source.find(key); it != source.end() && it->second.is_number())
+    {
+      double const width = it->second.get<double>();
+      if (math::is_finite(width) && width >= 0)
+        style.m_outlineWidth = std::min(width, kMaxLineWidth);
+    }
+  };
+  readColor(properties, "fill", style.m_fillColor);
+  readColor(properties, "stroke", style.m_outlineColor);
+  readOpacity(properties, "fill-opacity", style.m_fillColor);
+  readOpacity(properties, "stroke-opacity", style.m_outlineColor);
+  readWidth(properties, "stroke-width");
+  if (auto const it = properties.find("_umap_options"); it != properties.end() && it->second.is_object())
+  {
+    auto const & options = it->second.get_object();
+    readColor(options, "color", style.m_outlineColor);
+    readColor(options, "color", style.m_fillColor);
+    readColor(options, "fillColor", style.m_fillColor);
+    readOpacity(options, "opacity", style.m_outlineColor);
+    readOpacity(options, "fillOpacity", style.m_fillColor);
+    readWidth(options, "weight");
+    if (auto const fill = options.find("fill"); fill != options.end() && fill->second.is_boolean())
+      style.m_fill = fill->second.get_boolean();
+    if (auto const stroke = options.find("stroke"); stroke != options.end() && stroke->second.is_boolean())
+      style.m_outline = stroke->second.get_boolean();
+  }
+  style.m_fill = style.m_fill && (style.m_fillColor & 0xFF) != 0;
+  style.m_outline = style.m_outline && (style.m_outlineColor & 0xFF) != 0;
+  return style;
+}
+
+struct GeoJsonRoot
+{
+  std::string type = "FeatureCollection";
+  std::vector<glz::raw_json_view> features;
+};
+
 bool GeoJsonReader::Parse(std::string_view jsonContent)
 {
   using namespace geojson;
 
   GeoJsonData geoJsonData;
 
-  glz::opts constexpr opts{.comments = true, .error_on_unknown_keys = false, .error_on_missing_keys = false};
-  auto const ec = glz::read<opts>(geoJsonData, jsonContent);
+  glz::opts constexpr opts{.comments = true, .error_on_unknown_keys = false};
+  GeoJsonRoot root;
+  auto ec = glz::read<opts>(root, jsonContent);
+  if (!ec)
+  {
+    if (root.type == "FeatureCollection")
+    {
+      geoJsonData.features.reserve(root.features.size());
+      for (auto const & json : root.features)
+      {
+        GeoJsonFeature feature;
+        if (auto const error = glz::read<opts>(feature, json.str))
+        {
+          LOG(LWARNING, ("Ignoring invalid GeoJSON feature:", glz::format_error(error, json.str)));
+          continue;
+        }
+        geoJsonData.features.push_back(std::move(feature));
+      }
+    }
+    else if (root.type == "Feature")
+      ec = glz::read<opts>(geoJsonData.features.emplace_back(), jsonContent);
+    else
+      ec = glz::read<opts>(geoJsonData.features.emplace_back().geometry, jsonContent);
+  }
 
   if (ec)
   {
@@ -296,10 +444,15 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
   {
     if (auto const * point = std::get_if<GeoJsonGeometryPoint>(&feature.geometry))
     {
+      if (point->coordinates.size() < 2)
+      {
+        LOG(LWARNING, ("Ignoring GeoJSON point with incomplete position", point->coordinates));
+        continue;
+      }
       double longitude = point->coordinates[0];
       double latitude = point->coordinates[1];
 
-      auto const & propsJson = feature.properties;
+      auto const & propsJson = GetFeatureProperties(feature);
       BookmarkData bookmark;
       bookmark.m_color = ColorData{.m_predefinedColor = PredefinedColor::Red};
 
@@ -341,6 +494,12 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
           latitude = info.m_lat;
           longitude = info.m_lon;
         }
+      }
+
+      if (!IsValidLatLon(latitude, longitude))
+      {
+        LOG(LWARNING, ("Skipping GeoJson point with invalid coordinates", latitude, longitude));
+        continue;
       }
 
       // Parse description
@@ -400,7 +559,7 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
     if (lineGeometry != nullptr || multilineGeometry != nullptr)
     {
       // Convert GeoJson properties to KML properties
-      auto const & props_json = feature.properties;
+      auto const & props_json = GetFeatureProperties(feature);
       TrackData track;
 
       // Parse "name" or "label"
@@ -434,32 +593,39 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
       // Convert line(s) coordinates. coordTimes may be a flat array (LineString) or an array
       // of per-line arrays (MultiLineString); see GetCoordTimesValue for the property aliases.
       auto const * coordTimesVal = GetCoordTimesValue(props_json);
-      if (lineGeometry && !lineGeometry->coordinates.empty())
+      auto appendLine = [&track](std::vector<std::vector<double>> const & coords, glz::generic const * timestampsValue)
       {
-        auto const & line = track.m_geometry.m_lines.emplace_back(CoordsToPoints(lineGeometry->coordinates));
+        if (coords.empty())
+          return;
+
         kml::MultiGeometry::TimeT timestamps;
-        if (coordTimesVal)
-          timestamps = ParseTimestampArray(*coordTimesVal);
-        track.m_geometry.m_timestamps.push_back(SanitizeTimestamps(std::move(timestamps), line.size()));
-      }
+        if (timestampsValue)
+          timestamps = SanitizeTimestamps(ParseTimestampArray(*timestampsValue), coords.size());
+
+        auto line = CoordsToPoints(coords, timestamps);
+        if (line.size() < 2)
+          return;
+
+        track.m_geometry.m_lines.push_back(std::move(line));
+        track.m_geometry.m_timestamps.push_back(std::move(timestamps));
+      };
+
+      if (lineGeometry)
+        appendLine(lineGeometry->coordinates, coordTimesVal);
       if (multilineGeometry)
       {
-        // lineIdx tracks the position in coordTimes by geometry index (including empty
-        // segments that are skipped below), so timestamps stay aligned to their line.
+        // lineIdx tracks the position in coordTimes by geometry index (including the segments
+        // that appendLine drops), so timestamps stay aligned to their line.
         for (size_t lineIdx = 0; auto const & coords : multilineGeometry->coordinates)
         {
-          if (!coords.empty())
+          glz::generic const * timestampsValue = nullptr;
+          if (coordTimesVal && coordTimesVal->is_array())
           {
-            auto const & line = track.m_geometry.m_lines.emplace_back(CoordsToPoints(coords));
-            kml::MultiGeometry::TimeT timestamps;
-            if (coordTimesVal && coordTimesVal->is_array())
-            {
-              auto const & arr = coordTimesVal->get_array();
-              if (lineIdx < arr.size())
-                timestamps = ParseTimestampArray(arr[lineIdx]);
-            }
-            track.m_geometry.m_timestamps.push_back(SanitizeTimestamps(std::move(timestamps), line.size()));
+            auto const & arr = coordTimesVal->get_array();
+            if (lineIdx < arr.size())
+              timestampsValue = &arr[lineIdx];
           }
+          appendLine(coords, timestampsValue);
           ++lineIdx;
         }
       }
@@ -471,6 +637,57 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
     }
   }
 
+  for (auto const & feature : geoJsonData.features)
+  {
+    auto const * polygon = std::get_if<GeoJsonGeometryPolygon>(&feature.geometry);
+    auto const * multiPolygon = std::get_if<GeoJsonGeometryMultiPolygon>(&feature.geometry);
+    if (!polygon && !multiPolygon)
+      continue;
+    AreaData area;
+    area.m_isMultiPolygon = multiPolygon != nullptr;
+    bool valid = true;
+    if (polygon)
+      valid = ReadAreaPolygon(polygon->coordinates, area.m_polygons.emplace_back());
+    else
+      for (auto const & part : multiPolygon->coordinates)
+        if (!ReadAreaPolygon(part, area.m_polygons.emplace_back()))
+        {
+          valid = false;
+          break;
+        }
+    if (!valid || !NormalizeAreaGeometry(area.m_polygons))
+    {
+      LOG(LWARNING, ("Ignoring invalid GeoJSON polygon"));
+      continue;
+    }
+    // Normalization can remove a closing vertex, so inspect only retained heights.
+    auto const hasAltitude = [](AreaRing const & ring)
+    {
+      return std::any_of(ring.begin(), ring.end(),
+                         [](AreaPoint const & point) { return point.m_altitude.has_value(); });
+    };
+    area.m_altitudeIsWgs84 = std::any_of(area.m_polygons.begin(), area.m_polygons.end(), [&](AreaPolygon const & part)
+    { return hasAltitude(part.m_outer) || std::any_of(part.m_holes.begin(), part.m_holes.end(), hasAltitude); });
+    auto const & properties = GetFeatureProperties(feature);
+    for (char const * key : {"name", "title", "label"})
+      if (auto const name = getStringFromJsonMap(properties, key); name && !name->empty())
+      {
+        SetDefaultStr(area.m_name, *name);
+        break;
+      }
+    if (auto const description = getStringFromJsonMap(properties, "description"); description && !description->empty())
+      SetDefaultStr(area.m_description, *description);
+    if (auto const it = properties.find("visibility"); it != properties.end() && it->second.is_boolean())
+      area.m_visible = it->second.get_boolean();
+    if (auto const it = properties.find("time"); it != properties.end())
+      if (auto const stamp = GeoJsonParseTimestamp(it->second); stamp != base::INVALID_TIME_STAMP)
+        area.m_timestamp = TimestampClock::from_time_t(stamp);
+    area.m_style = ReadAreaStyle(properties);
+    if (auto const it = properties.find("_umap_options"); it != properties.end() && it->second.is_object())
+      if (std::string json; !glz::write_json(it->second, json))
+        area.m_properties["_umap_options"] = std::move(json);
+    m_fileData.m_areasData.push_back(std::move(area));
+  }
   return true;
 }
 
@@ -538,16 +755,46 @@ struct GeoJsonOpts : glz::opts
   static constexpr std::string_view float_format = "{:.10g}";
 };
 
-struct GeoJsonOptsPrettify : GeoJsonOpts
+template <typename Options>
+struct GeoJsonOptsPrettify : Options
 {
   static constexpr bool prettify = true;
   static constexpr auto indentation_width = 2;
 };
 
+template <typename Options>
+static auto WriteJson(geojson::GeoJsonData const & data, std::string & buffer, bool minimize)
+{
+  constexpr Options opts{};
+  constexpr GeoJsonOptsPrettify<Options> prettyOpts{};
+  return minimize ? glz::write<opts>(data, buffer) : glz::write<prettyOpts>(data, buffer);
+}
+
+static geojson::PolygonCoords WriteAreaPolygon(AreaPolygon const & polygon, bool altitudeIsWgs84)
+{
+  geojson::PolygonCoords coordinates;
+  auto const append = [&](AreaRing const & ring)
+  {
+    ASSERT_GREATER_OR_EQUAL(ring.size(), 3, ());
+    auto & points = coordinates.emplace_back();
+    points.reserve(ring.size() + 1);
+    for (auto const & point : ring)
+    {
+      auto & tuple = points.emplace_back(std::initializer_list<double>{point.m_latLon.m_lon, point.m_latLon.m_lat});
+      // GeoJSON Z uses WGS84 ellipsoid heights; KML heights use other references and are omitted.
+      if (point.m_altitude && altitudeIsWgs84)
+        tuple.push_back(*point.m_altitude);
+    }
+    points.push_back(points.front());
+  };
+  append(polygon.m_outer);
+  for (auto const & hole : polygon.m_holes)
+    append(hole);
+  return coordinates;
+}
+
 void GeoJsonWriter::Write(FileData const & fileData, bool minimizeOutput)
 {
-  if (!fileData.m_areasData.empty())
-    MYTHROW(WriteGeoJsonException, ("GeoJSON area serialization is not implemented yet."));
   using namespace geojson;
 
   // Convert FileData to GeoJsonData and then let Glaze generate Json from it.
@@ -668,13 +915,63 @@ void GeoJsonWriter::Write(FileData const & fileData, bool minimizeOutput)
         GeoJsonFeature{.geometry = std::move(trackGeometry), .properties = std::move(trackProps)});
   }
 
+  for (auto const & area : fileData.m_areasData)
+  {
+    ASSERT(!area.m_polygons.empty(), ());
+    GenericJsonMap properties;
+    if (auto const name = GetStringForExport(area.m_name); !name.empty())
+      properties["name"] = std::string(name);
+    if (auto const description = GetStringForExport(area.m_description); !description.empty())
+      properties["description"] = std::string(description);
+    if (!area.m_visible)
+      properties["visibility"] = false;
+    properties["fill"] = "#" + NumToHex(area.m_style.m_fillColor >> 8).substr(2);
+    properties["stroke"] = "#" + NumToHex(area.m_style.m_outlineColor >> 8).substr(2);
+    properties["fill-opacity"] = area.m_style.m_fill ? (area.m_style.m_fillColor & 0xFF) / 255.0 : 0.0;
+    properties["stroke-opacity"] = area.m_style.m_outline ? (area.m_style.m_outlineColor & 0xFF) / 255.0 : 0.0;
+    properties["stroke-width"] = area.m_style.m_outlineWidth;
+    if (area.m_timestamp != Timestamp{})
+      properties["time"] = base::TimestampToString(TimestampClock::to_time_t(area.m_timestamp));
+    if (auto const it = area.m_properties.find("_umap_options"); it != area.m_properties.end())
+    {
+      GenericJsonMap options;
+      if (auto const error = glz::read_json(options, it->second))
+        LOG(LWARNING, ("Error parsing '_umap_options' from KML properties:", glz::format_error(error, it->second)));
+      else
+      {
+        options["color"] = properties["stroke"];
+        options["fillColor"] = properties["fill"];
+        options["opacity"] = (area.m_style.m_outlineColor & 0xFF) / 255.0;
+        options["fillOpacity"] = (area.m_style.m_fillColor & 0xFF) / 255.0;
+        options["weight"] = area.m_style.m_outlineWidth;
+        options["fill"] = area.m_style.m_fill;
+        options["stroke"] = area.m_style.m_outline;
+        properties["_umap_options"] = std::move(options);
+      }
+    }
+    if (area.m_isMultiPolygon)
+    {
+      GeoJsonGeometryMultiPolygon geometry;
+      for (auto const & polygon : area.m_polygons)
+        geometry.coordinates.push_back(WriteAreaPolygon(polygon, area.m_altitudeIsWgs84));
+      geoJsonFeatures.push_back({.geometry = std::move(geometry), .properties = std::move(properties)});
+    }
+    else
+    {
+      // KML MultiGeometry contains independent polygons, which may overlap.
+      // Separate features preserve that meaning without inventing a MultiPolygon union.
+      for (auto const & polygon : area.m_polygons)
+        geoJsonFeatures.push_back(
+            {.geometry = GeoJsonGeometryPolygon{.coordinates = WriteAreaPolygon(polygon, area.m_altitudeIsWgs84)},
+             .properties = properties});
+    }
+  }
   GeoJsonData const geoJsonData{.features = std::move(geoJsonFeatures), .properties = std::nullopt};
 
   std::string buffer;
-  static constexpr GeoJsonOpts opts{};
-  static constexpr GeoJsonOptsPrettify prettyOpts{};
-  auto const error =
-      minimizeOutput ? glz::write<opts>(geoJsonData, buffer) : glz::write<prettyOpts>(geoJsonData, buffer);
+  // Keep full-precision geographic area coordinates, including in files containing points and lines.
+  auto const error = fileData.m_areasData.empty() ? WriteJson<GeoJsonOpts>(geoJsonData, buffer, minimizeOutput)
+                                                  : WriteJson<glz::opts>(geoJsonData, buffer, minimizeOutput);
 
   if (error)
     MYTHROW(WriteGeoJsonException, ("Could not write to GeoJson: " + glz::format_error(error)));

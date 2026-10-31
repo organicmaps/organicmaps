@@ -51,7 +51,7 @@ jobs:
       matrix:
         cmake-build-type: [ Debug, Release ]
         environment:
-          - os: ubuntu-24.04
+          - os: ubuntu-26.04
             cc: clang-19
             cxx: clang++-19
             unity: OFF
@@ -65,9 +65,9 @@ jobs:
             cc: gcc-15
             cxx: g++-15
 
-          - os: ubuntu-24.04-arm
-            cc: gcc-13
-            cxx: g++-13
+          - os: ubuntu-26.04-arm
+            cc: gcc-14
+            cxx: g++-14
 
           - os: macos-26
             cc: clang
@@ -264,8 +264,8 @@ jobs:
 
   without-sandbox:
     name: Linux without optional sandbox dependencies
-    runs-on: ubuntu-24.04
-    container: ubuntu:24.04
+    runs-on: ubuntu-26.04
+    container: ubuntu:26.04
     steps:
       - name: Install ordinary project dependencies
         run: |

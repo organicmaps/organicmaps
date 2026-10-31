@@ -168,6 +168,16 @@ void RouteMarkPoint::SetMarkData(RouteMarkData && data)
     m_titleDecl.m_secondaryText.clear();
 }
 
+void RouteMarkPoint::SetPosition(m2::PointD const & position)
+{
+  ASSERT_EQUAL(m_ptOrg, m_markData.m_position, ());
+  if (m_markData.m_position == position)
+    return;
+  SetDirty();
+  m_ptOrg = position;
+  m_markData.m_position = position;
+}
+
 drape_ptr<df::UserPointMark::TitlesInfo> RouteMarkPoint::GetTitleDecl() const
 {
   bool const isIntermediate = m_markData.m_pointType == RouteMarkType::Intermediate;

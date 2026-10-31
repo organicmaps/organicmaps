@@ -73,7 +73,8 @@
     <string name="opens_in">נפתח עוד %s</string>
     <string name="closes_in">נסגר עוד %s</string>
     <string name="closed">סגור</string>
-    <string name="minute">ד׳</string>
+    <!-- Short label for minutes (time unit), placed after a number -->
+    <string name="minute">דק׳</string>
     <string name="big_font">הגדל תגיות במפה</string>
     <string name="transliteration_title">תעתיק לאותיות לטיניות</string>
     <!-- this text will be shown in application notification preferences opposite checkbox which enable/disable downloader notifications. Devices on Android 8+ are affected. -->

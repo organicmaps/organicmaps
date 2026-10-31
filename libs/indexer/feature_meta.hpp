@@ -187,17 +187,24 @@ class RegionData : public MetadataBase
 public:
   enum Type : int8_t
   {
-    RD_LANGUAGES = 0,      // list of written languages
-    RD_DRIVING,            // left- or right-hand driving (letter 'l' or 'r')
-    RD_TIMEZONE,           // timezone in om::tz::TimeZone format, use separate getter
-    RD_ADDRESS_FORMAT,     // address format, re: mapzen
-    RD_PHONE_FORMAT,       // list of strings in "+N NNN NN-NN-NN" format
-    RD_POSTCODE_FORMAT,    // list of strings in "AAA ANN" format
-    RD_PUBLIC_HOLIDAYS,    // fixed PH dates
-    RD_ALLOW_HOUSENAMES,   // 'y' if housenames are commonly used
-    RD_LEAP_WEIGHT_SPEED,  // speed factor for leap weight computation
+    RD_LANGUAGES = 0,          // list of written languages
+    RD_DRIVING,                // left- or right-hand driving (letter 'l' or 'r')
+    RD_TIMEZONE,               // timezone in om::tz::TimeZone format, use separate getter
+    RD_ADDRESS_FORMAT,         // address format, re: mapzen
+    RD_PHONE_FORMAT,           // list of strings in "+N NNN NN-NN-NN" format
+    RD_POSTCODE_FORMAT,        // list of strings in "AAA ANN" format
+    RD_PUBLIC_HOLIDAYS,        // fixed PH dates
+    RD_ALLOW_HOUSENAMES,       // 'y' if housenames are commonly used
+    RD_LEAP_WEIGHT_SPEED,      // speed factor for leap weight computation
+    RD_SPEED_LIMIT_SIGN_TYPE,  // SpeedLimitSignType encoded as one byte; absent means Vienna, use separate getter
 
     RD_COUNT
+  };
+
+  enum class SpeedLimitSignType : uint8_t
+  {
+    Vienna = 0,
+    MUTCD = 1
   };
 
   // Special values for month references in public holiday definitions.
@@ -247,6 +254,23 @@ public:
   }
 
   std::optional<om::tz::TimeZone> const & GetTimeZone() const { return m_timeZone; }
+
+  void SetSpeedLimitSignType(SpeedLimitSignType type)
+  {
+    Set(RD_SPEED_LIMIT_SIGN_TYPE, std::string(1, static_cast<char>(type)));
+  }
+
+  SpeedLimitSignType GetSpeedLimitSignType() const
+  {
+    auto const type = Get(RD_SPEED_LIMIT_SIGN_TYPE);
+    if (type.empty())
+      return SpeedLimitSignType::Vienna;
+
+    ASSERT_EQUAL(type.size(), 1, ());
+    auto const value = static_cast<SpeedLimitSignType>(type.front());
+    ASSERT(value == SpeedLimitSignType::Vienna || value == SpeedLimitSignType::MUTCD, ());
+    return value;
+  }
 
 private:
   void LoadTimeZone();
