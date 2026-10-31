@@ -28,6 +28,7 @@
 "take_exit_number":"बाहेर पडा वर",
 "take_exit_number_street_verb":"NULL",
 "route_recalculating":"मार्गाची पुनर्गणना करत आहे",
+"you_have_left_the_track":"तुम्ही ट्रॅक सोडला आहे.",
 "destination":"तुम्ही पोहोचाल.",
 "you_have_reached_the_destination":"तुम्ही पोहोचला आहात.",
 "in_50_meters":"पन्नास मीटर मध्ये",

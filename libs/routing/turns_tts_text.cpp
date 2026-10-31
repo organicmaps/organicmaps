@@ -298,6 +298,11 @@ std::string GetTtsText::GetSpeedCameraNotification() const
   return GetTextById("unknown_camera");
 }
 
+std::string GetTtsText::GetOffTrackNotification() const
+{
+  return GetTextById("you_have_left_the_track");
+}
+
 std::string GetTtsText::GetLocale() const
 {
   if (m_getCurLang == nullptr)
