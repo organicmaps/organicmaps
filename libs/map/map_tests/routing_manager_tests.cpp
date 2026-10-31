@@ -1621,6 +1621,111 @@ UNIT_TEST(RoutingManager_CoarseTrackFixDoesNotArriveOrDepart)
   TEST(manager.IsOnRoute(), ("Coarse fixes do not count as departing the track"));
 }
 
+UNIT_TEST(RoutingManager_ReverseTrackPreviewKeepsCapturedEntryAndProfile)
+{
+  ScopedVehicleRouter routerSetting;
+  ScopedSettingsDir settingsDir;
+  AsyncBuildFixture fixture;
+  auto & manager = fixture.m_framework.GetRoutingManager();
+  auto & bookmarks = fixture.m_framework.GetBookmarkManager();
+  manager.SetRouter(routing::RouterType::Pedestrian);
+  auto const id =
+      CreateTestTrack(bookmarks, "bicycle",
+                      {{MeterPoint(100, 0), "Before"}, {MeterPoint(400, 0), "Entry"}, {MeterPoint(600, 0), "After"}},
+                      {{MeterPoint(0, 0), 100}, {MeterPoint(1000, 0), 200}});
+  auto const source = bookmarks.GetTrack(id)->GetData();
+  bookmarks.SetTrackSelectionInfo(
+      {id, MeterPoint(400, 0), mercator::DistanceOnEarth(MeterPoint(0, 0), MeterPoint(400, 0))}, false);
+  bookmarks.MyPositionMark().SetUserPosition(MeterPoint(400, 0), true);
+  TEST_EQUAL(manager.NavigateTrack(id, false), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  TEST_ALMOST_EQUAL_ABS(manager.GetFollowedTrackInfo()->m_lengthM, 600.0, 2.0, ());
+  TEST_EQUAL(manager.ReverseFollowedTrack(), FollowTrackResult::Ok, ());
+  TEST_EQUAL(manager.ReverseFollowedTrack(), FollowTrackResult::Busy,
+             ("Ignore rapid taps before the new preview is built"));
+  fixture.WaitForBuildResult();
+  auto const * route = manager.RoutingSession().GetRoute();
+  TEST_ALMOST_EQUAL_ABS(route->GetTotalDistanceMeters(), 400.0, 2.0, ());
+  TEST_EQUAL(route->GetPoly().Front(), MeterPoint(400, 0), ());
+  TEST_EQUAL(route->GetPoly().Back(), MeterPoint(0, 0), ());
+  TEST_EQUAL(route->GetSubrouteCount(), 3, ("Keep the entry and earlier-direction stop"));
+  TEST(manager.GetFollowedTrackInfo()->m_reversed, ());
+  TEST_EQUAL(manager.GetRenderRouterType(), routing::RouterType::Bicycle, ());
+  TEST_EQUAL(manager.GetLastUsedRouter(), routing::RouterType::Pedestrian, ());
+  TEST_EQUAL(bookmarks.GetTrack(id)->GetData(), source, ());
+
+  // Neither a later graph selection nor a new GPS fix replaces the captured source entry.
+  bookmarks.SetTrackSelectionInfo(
+      {id, MeterPoint(800, 0), mercator::DistanceOnEarth(MeterPoint(0, 0), MeterPoint(800, 0))}, false);
+  bookmarks.MyPositionMark().SetUserPosition(MeterPoint(900, 0), true);
+  TEST_EQUAL(manager.ReverseFollowedTrack(), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  route = manager.RoutingSession().GetRoute();
+  TEST_EQUAL(route->GetPoly().Front(), MeterPoint(900, 0), ());
+  TEST_EQUAL(route->GetPoly().GetPoint(1), MeterPoint(400, 0), ());
+  TEST_ALMOST_EQUAL_ABS(manager.GetFollowedTrackInfo()->m_lengthM, 600.0, 2.0, ());
+  TEST(!manager.GetFollowedTrackInfo()->m_reversed, ());
+  TEST_EQUAL(bookmarks.GetTrack(id)->GetData(), source, ());
+}
+
+UNIT_TEST(RoutingManager_ReverseTrackRefusalsPreservePreview)
+{
+  ScopedVehicleRouter routerSetting;
+  ScopedSettingsDir settingsDir;
+  AsyncBuildFixture fixture;
+  auto & manager = fixture.m_framework.GetRoutingManager();
+  auto & bookmarks = fixture.m_framework.GetBookmarkManager();
+  TEST_EQUAL(manager.ReverseFollowedTrack(), FollowTrackResult::NoTrack, ());
+  auto const id = CreateTestTrack(bookmarks, "pedestrian", {}, {{MeterPoint(0, 0), 100}, {MeterPoint(1000, 0), 100}});
+  bookmarks.SetTrackSelectionInfo({id, MeterPoint(0, 0), 0.0}, false);
+  bookmarks.MyPositionMark().SetUserPosition(MeterPoint(0, 0), true);
+  TEST_EQUAL(manager.NavigateTrack(id, false), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  auto const * original = manager.RoutingSession().GetRoute();
+  TEST_EQUAL(manager.ReverseFollowedTrack(), FollowTrackResult::NoRemainingGeometry, ());
+  TEST_EQUAL(manager.RoutingSession().GetRoute(), original, ());
+  TEST(!manager.GetFollowedTrackInfo()->m_reversed, ());
+  manager.FollowRoute();
+  TEST(manager.IsRoutingFollowing(), ());
+  TEST_EQUAL(manager.ReverseFollowedTrack(), FollowTrackResult::Busy, ());
+  TEST_EQUAL(manager.RoutingSession().GetRoute(), original, ());
+  manager.DisableFollowMode();
+  TEST_EQUAL(manager.FollowTrack(id, false), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  original = manager.RoutingSession().GetRoute();
+  auto changed = bookmarks.GetTrack(id)->GetData();
+  changed.m_geometry.m_lines.front().back().SetPoint(MeterPoint(1100, 0));
+  bookmarks.GetEditSession().UpdateTrack(id, changed);
+  TEST_EQUAL(manager.ReverseFollowedTrack(), FollowTrackResult::InvalidSelection, ());
+  TEST_EQUAL(manager.RoutingSession().GetRoute(), original, ());
+  bookmarks.GetEditSession().DeleteTrack(id);
+  TEST_EQUAL(manager.ReverseFollowedTrack(), FollowTrackResult::NoTrack, ());
+  TEST_EQUAL(manager.RoutingSession().GetRoute(), original, ());
+}
+
+UNIT_TEST(RoutingManager_ReverseTrackUsesSelectedOccurrenceOnReturnSection)
+{
+  ScopedVehicleRouter routerSetting;
+  ScopedSettingsDir settingsDir;
+  AsyncBuildFixture fixture;
+  auto & manager = fixture.m_framework.GetRoutingManager();
+  auto & bookmarks = fixture.m_framework.GetBookmarkManager();
+  auto const id = CreateTestTrack(bookmarks, "pedestrian", {},
+                                  {{MeterPoint(0, 0), 100}, {MeterPoint(1000, 0), 100}, {MeterPoint(0, 0), 100}});
+  double const distance = mercator::DistanceOnEarth(MeterPoint(0, 0), MeterPoint(1000, 0)) +
+                          mercator::DistanceOnEarth(MeterPoint(1000, 0), MeterPoint(400, 0));
+  bookmarks.SetTrackSelectionInfo({id, MeterPoint(400, 0), distance}, false);
+  bookmarks.MyPositionMark().SetUserPosition(MeterPoint(400, 0), true);
+  TEST_EQUAL(manager.NavigateTrack(id, false), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  TEST_ALMOST_EQUAL_ABS(manager.GetFollowedTrackInfo()->m_lengthM, 400.0, 2.0, ());
+  TEST_EQUAL(manager.ReverseFollowedTrack(), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  TEST_ALMOST_EQUAL_ABS(manager.GetFollowedTrackInfo()->m_lengthM, 1600.0, 4.0, ());
+  auto const & points = manager.RoutingSession().GetRoute()->GetPoly();
+  TEST_EQUAL(points.GetPoint(1), MeterPoint(1000, 0), ("Walk backwards through the exact second source occurrence"));
+}
+
 // Stop names need no subtitle; only endpoint names filter unnamed-pin placeholders.
 UNIT_TEST(RoutingManager_SaveRouteKeepsStopNames)
 {

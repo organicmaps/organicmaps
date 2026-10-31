@@ -220,6 +220,8 @@ public:
   FollowTrackResult NavigateTrack(kml::TrackId trackId, bool reverse);
   // Rebuild from the captured entry, preserving it through profile/preview changes.
   FollowTrackResult FollowTrack(kml::TrackId trackId, bool reverse);
+  // Reverse a built preview at its captured source entry; active navigation is unchanged.
+  FollowTrackResult ReverseFollowedTrack();
   // Change this preview's profile without writing the user's global defaults.
   FollowTrackResult SetFollowTrackProfile(routing::RouterType type);
   bool IsFollowingTrack() const { return m_followedTrack.has_value(); }

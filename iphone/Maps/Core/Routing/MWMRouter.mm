@@ -189,6 +189,11 @@ static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
   return OnFollowTrackResult(result);
 }
 
++ (MWMFollowTrackResult)reverseFollowedTrack
+{
+  return OnFollowTrackResult(GetFramework().GetRoutingManager().ReverseFollowedTrack());
+}
+
 + (MWMFollowTrackResult)setFollowTrackProfile:(MWMRouterType)type
 {
   auto const result =

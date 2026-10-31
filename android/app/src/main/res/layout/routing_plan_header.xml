@@ -50,7 +50,22 @@
         style="@style/MwmWidget.RoutingToolbarCell"
         android:button="@drawable/ic_ruler_route" />
 
-      </RadioGroup>
+      <!-- Track direction chip, shown while following a track (Transit and Ruler cells hide:
+           tracks are followed with the vehicle/pedestrian/bicycle profiles only). The label is
+           a language-neutral A→B/B→A glyph set from code; a tap reverses the direction. -->
+      <TextView
+        android:id="@+id/track_direction"
+        style="@style/MwmWidget.RoutingToolbarCell"
+        android:background="@drawable/routing_toolbar_chip"
+        android:contentDescription="@string/reverse_track_direction"
+        android:fontFamily="@string/robotoMedium"
+        android:gravity="center"
+        android:textColor="@color/routing_button_tint"
+        android:textSize="@dimen/text_size_body_2"
+        android:visibility="gone"
+        tools:text="A→B"
+        tools:visibility="visible" />
+    </RadioGroup>
 
   </FrameLayout>
 
