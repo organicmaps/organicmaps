@@ -347,7 +347,10 @@ public:
   SubrouteAttrs const & GetSubrouteAttrs(size_t subrouteIdx) const;
 
   void GetAltitudes(geometry::Altitudes & altitudes) const;
-  bool HaveAltitudes() const { return m_haveAltitudes; }
+  bool HaveAltitudes() const;
+  // Unset for ordinary routes; zero when a geometric track starts without an approach.
+  std::optional<double> GetTrackStartDistanceMeters() const { return m_trackStartDistanceM; }
+  void SetTrackStartDistanceMeters(double distance) { m_trackStartDistanceM = distance; }
   traffic::SpeedGroup GetTraffic(size_t segmentIdx) const;
 
   void GetTurnsForTesting(std::vector<turns::TurnItem> & turns) const;
@@ -393,8 +396,9 @@ protected:
   std::optional<m2::PointD> FindMaxDiffMidpointImpl(DiffFnT const & isDiff) const;
 
   std::vector<RouteSegment> m_routeSegments;
-  // |m_haveAltitudes| is true if and only if all route points have altitude information.
+  // Segment endpoints have altitude information; HaveAltitudes also checks the start point.
   bool m_haveAltitudes = false;
+  std::optional<double> m_trackStartDistanceM;
 
   // Subroute
   size_t m_currentSubrouteIdx = 0;
