@@ -380,6 +380,7 @@ public:
   void FilterInvalidTracks(kml::TrackIdCollection & tracks) const;
 
   void EnableTestMode(bool enable);
+  df::UserMarksProvider const & GetDrapeChangesForTests() const { return m_drapeChangesTracker; }
   bool SaveBookmarkCategory(kml::MarkGroupId groupId);
   bool SaveBookmarkCategory(kml::MarkGroupId groupId, Writer & writer, FileType fileType) const;
 
