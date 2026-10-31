@@ -809,6 +809,9 @@
 "type.man_made.pier" = "מזח";
 "type.man_made.pipeline" = "צינור";
 "type.man_made.pipeline.overground" = "צינור עילי";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "מאגר מים מקורה";
 "type.man_made.silo" = "סילו";
 "type.man_made.storage_tank" = "מיכל אחסון";
 "type.man_made.surveillance" = "מצלמת מעקב";
@@ -831,6 +834,9 @@
 "type.man_made.water_tower" = "מגדל מים";
 "type.man_made.water_well" = "באר מים";
 "type.man_made.water_well.drinking_water_no" = "באר מים";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "מפעל מים";
 "type.man_made.windmill" = "טחנת רוח";
 "type.man_made.works" = "עבודות תעשייה";
 
@@ -1339,6 +1345,9 @@
 "type.shop.greengrocer" = "ירקן";
 "type.shop.grocery" = "מכולת";
 "type.shop.hairdresser" = "מספרה";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "מספרת גברים";
 "type.shop.hardware" = "חנות לחומרי בניין";
 "type.shop.health_food" = "חנות מזון בריאות";
 "type.shop.hearing_aids" = "חנות מכשירי שמיעה";
@@ -1464,6 +1473,7 @@
 "type.sport.rugby_union" = "רוגבי 15";
 "type.sport.running" = "ריצה";
 "type.sport.softball" = "סופטבול";
+"type.sport.pilates" = "פילאטיס";
 "type.tourism" = "תיירות";
 "type.tourism.aquarium" = "אַקוַרִיוּם";
 
@@ -1614,6 +1624,9 @@
 "type.man_made.monitoring_station.weather" = "תחנת ניטור מזג האוויר";
 "type.amenity.student_accommodation" = "מגורים לסטודנטים";
 "type.craft.watchmaker" = "שָׁעָן";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "ייצור חלונות";
 "type.xmas_feature.market" = "שוק חג המולד";
 "type.xmas_feature.tree" = "עץ חג המולד";
 "type.amenity.hookah_lounge" = "בר נרגילה";

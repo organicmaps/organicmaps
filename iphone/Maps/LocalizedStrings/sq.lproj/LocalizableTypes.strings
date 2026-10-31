@@ -809,6 +809,9 @@
 "type.man_made.pier" = "Mol";
 "type.man_made.pipeline" = "Tubacion";
 "type.man_made.pipeline.overground" = "Tubacion mbitokësor";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "Rezervuar uji i mbuluar";
 "type.man_made.silo" = "Silo";
 "type.man_made.storage_tank" = "Depozitë";
 "type.man_made.surveillance" = "Kamera vëzhgimi";
@@ -831,6 +834,9 @@
 "type.man_made.water_tower" = "Kullë uji";
 "type.man_made.water_well" = "Pus uji";
 "type.man_made.water_well.drinking_water_no" = "Pus uji";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "Impiant i trajtimit të ujit";
 "type.man_made.windmill" = "Mulli ere";
 "type.man_made.works" = "Uzinë";
 
@@ -1339,6 +1345,9 @@
 "type.shop.greengrocer" = "Dyqan frutash-perimesh";
 "type.shop.grocery" = "Ushqimore";
 "type.shop.hairdresser" = "Parukeri";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "Berber";
 "type.shop.hardware" = "Knaluri";
 "type.shop.health_food" = "Ushqim i shëndetshëm";
 "type.shop.hearing_aids" = "Aparate dëgjimi";
@@ -1464,6 +1473,7 @@
 "type.sport.rugby_union" = "Ragbi";
 "type.sport.running" = "Vrapim";
 "type.sport.softball" = "Softball";
+"type.sport.pilates" = "Pilates";
 "type.tourism" = "Turizëm";
 "type.tourism.aquarium" = "Akuarium";
 
@@ -1614,6 +1624,9 @@
 "type.man_made.monitoring_station.weather" = "Stacion meteorologjik";
 "type.amenity.student_accommodation" = "Konvikt";
 "type.craft.watchmaker" = "Orëndreqës";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "Prodhim dritaresh";
 "type.xmas_feature.market" = "Treg Krishtlindjesh";
 "type.xmas_feature.tree" = "Pema e Krishtlindjeve";
 "type.amenity.hookah_lounge" = "Shisha bar";

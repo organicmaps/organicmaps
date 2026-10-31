@@ -54,10 +54,14 @@
     <string name="type.leisure.bird_hide">Putnu vērošanas slēpnis</string>
     <string name="type.leisure.track">Skrejceļš</string>
     <string name="type.leisure.track.area">Skrejceļš</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">Segts ūdens rezervuārs</string>
     <!-- A deep hole drilled into the earth to extract oil or gas. -->
     <string name="type.man_made.petroleum_well">Naftas vai gāzes urbums</string>
     <!-- A tower/mast constructed to burn off excess gas. -->
     <string name="type.man_made.flare">Gāzes deglis</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">Ūdens attīrīšanas stacija</string>
     <string name="type.natural.water.intermittent">Pagaidu ūdenstilpe</string>
     <string name="type.natural.hill">Pakalns</string>
     <string name="type.natural.arch">Akmeņu arka</string>
@@ -70,6 +74,8 @@
     <!-- Named part of a city or town, bigger than place=quarter (Wiki: https://wiki.openstreetmap.org/wiki/Tag:place%3Dsuburb) -->
     <string name="type.place.suburb">Pilsētas apgabals</string>
     <string name="type.railway.disused.tunnel">Slēgts dzelzceļa tunelis</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">Bārddzinis</string>
     <string name="type.shop.hearing_aids">Dzirdes aparātu veikals</string>
     <string name="type.shop.leather">Ādas izstrādājumu veikals</string>
     <string name="type.shop.pasta">Makaronu veikals</string>
@@ -86,6 +92,7 @@
     <string name="type.sport.rugby_union">Regbijs-15</string>
     <string name="type.sport.running">Skriešana</string>
     <string name="type.sport.softball">Softbols</string>
+    <string name="type.sport.pilates">Pilates</string>
     <string name="type.attraction.amusement_ride">Atrakciju brauciens</string>
     <string name="type.attraction.carousel">Karuselis</string>
     <string name="type.attraction.historic">Vēsturiska atrakcija</string>
@@ -124,6 +131,8 @@
     <string name="type.man_made.monitoring_station.weather">Laikapstākļu monitoringa stacija</string>
     <string name="type.amenity.student_accommodation">Studentu izmitināšana</string>
     <string name="type.craft.watchmaker">Pulksteņmeistars</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">Logu ražošana</string>
     <string name="type.xmas_feature.market">Ziemassvētku tirdziņš</string>
     <string name="type.xmas_feature.tree">Ziemassvētku eglīte</string>
     <string name="type.amenity.hookah_lounge">Ūdenspīpes bārs</string>

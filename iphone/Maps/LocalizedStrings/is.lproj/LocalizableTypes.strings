@@ -809,6 +809,9 @@
 "type.man_made.pier" = "Bryggja";
 "type.man_made.pipeline" = "Leiðsla";
 "type.man_made.pipeline.overground" = "Leiðsla ofanjarðar";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "Yfirbyggður vatnsgeymir";
 "type.man_made.silo" = "Síló";
 "type.man_made.storage_tank" = "Geymslutankur";
 "type.man_made.surveillance" = "Eftirlitsmyndavél";
@@ -831,6 +834,9 @@
 "type.man_made.water_tower" = "Vatnsturn";
 "type.man_made.water_well" = "Vatnsbrunnur";
 "type.man_made.water_well.drinking_water_no" = "Vatnsbrunnur";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "Vatnsveita";
 "type.man_made.windmill" = "Vindmylla";
 "type.man_made.works" = "Iðnaðarsvæði";
 
@@ -1339,6 +1345,9 @@
 "type.shop.greengrocer" = "Grænmetissala";
 "type.shop.grocery" = "Matvöruverslun";
 "type.shop.hairdresser" = "Hársnyrting";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "Rakarastofa";
 "type.shop.hardware" = "Verkfærabúð";
 "type.shop.health_food" = "Heilsufæðisverslun";
 "type.shop.hearing_aids" = "Heyrnartækjaverslun";
@@ -1464,6 +1473,7 @@
 "type.sport.rugby_union" = "Ruðningur";
 "type.sport.running" = "Hlaup";
 "type.sport.softball" = "Softbolti";
+"type.sport.pilates" = "Pilates";
 "type.tourism" = "Ferðamennska";
 "type.tourism.aquarium" = "Fiskabúr";
 
@@ -1614,6 +1624,9 @@
 "type.man_made.monitoring_station.weather" = "Veðurstöð";
 "type.amenity.student_accommodation" = "Stúdentagarðar";
 "type.craft.watchmaker" = "Úrsmiður";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "Gluggasmíði";
 "type.xmas_feature.market" = "Jólamarkaður";
 "type.xmas_feature.tree" = "Jólatré";
 "type.amenity.hookah_lounge" = "Vatnspípubar";

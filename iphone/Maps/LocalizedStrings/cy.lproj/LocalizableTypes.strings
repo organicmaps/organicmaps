@@ -809,6 +809,9 @@
 "type.man_made.pier" = "Pier";
 "type.man_made.pipeline" = "Piblinell";
 "type.man_made.pipeline.overground" = "Piblinell Uwchben y Ddaear";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "Cronfa Ddŵr Dan Do";
 "type.man_made.silo" = "Seilo";
 "type.man_made.storage_tank" = "Tanc Storio";
 "type.man_made.surveillance" = "Camera Gwyliadwriaeth";
@@ -831,6 +834,9 @@
 "type.man_made.water_tower" = "Tŵr Dŵr";
 "type.man_made.water_well" = "Ffynnon Ddŵr";
 "type.man_made.water_well.drinking_water_no" = "Ffynnon Ddŵr";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "Gwaith Dŵr";
 "type.man_made.windmill" = "Melin Wynt";
 "type.man_made.works" = "Gwaith Diwydiannol";
 
@@ -1339,6 +1345,9 @@
 "type.shop.greengrocer" = "Siop Ffrwythau a Llysiau";
 "type.shop.grocery" = "Siop Fwyd";
 "type.shop.hairdresser" = "Siop Drin Gwallt";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "Barbwr";
 "type.shop.hardware" = "Siop Nwyddau Haearn";
 "type.shop.health_food" = "Siop Fwyd Iach";
 "type.shop.hearing_aids" = "Siop Gymhorthion Clyw";
@@ -1464,6 +1473,7 @@
 "type.sport.rugby_union" = "Rygbi'r Undeb";
 "type.sport.running" = "Rhedeg";
 "type.sport.softball" = "Pêl-feddal";
+"type.sport.pilates" = "Pilates";
 "type.tourism" = "Twristiaeth";
 "type.tourism.aquarium" = "Acwariwm";
 
@@ -1614,6 +1624,9 @@
 "type.man_made.monitoring_station.weather" = "Gorsaf Fonitro'r Tywydd";
 "type.amenity.student_accommodation" = "Llety Myfyrwyr";
 "type.craft.watchmaker" = "Gwneuthurwr Oriorau";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "Gwneuthuro Ffenestri";
 "type.xmas_feature.market" = "Marchnad Nadolig";
 "type.xmas_feature.tree" = "Coeden Nadolig";
 "type.amenity.hookah_lounge" = "Lolfa Shisha";

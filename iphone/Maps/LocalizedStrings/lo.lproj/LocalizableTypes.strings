@@ -809,6 +809,9 @@
 "type.man_made.pier" = "ຂົວທ່າເຮືອ";
 "type.man_made.pipeline" = "ທໍ່ສົ່ງ";
 "type.man_made.pipeline.overground" = "ທໍ່ສົ່ງເທິງດິນ";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "ອ່າງເກັບນໍ້າແບບປິດ";
 "type.man_made.silo" = "ໄຊໂລ";
 "type.man_made.storage_tank" = "ຖັງເກັບ";
 "type.man_made.surveillance" = "ກ້ອງວົງຈອນປິດ";
@@ -831,6 +834,9 @@
 "type.man_made.water_tower" = "ຫໍນໍ້າ";
 "type.man_made.water_well" = "ນໍ້າສ້າງ";
 "type.man_made.water_well.drinking_water_no" = "ນໍ້າສ້າງ";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "ໂຮງງານນໍ້າປະປາ";
 "type.man_made.windmill" = "ກັງຫັນລົມ";
 "type.man_made.works" = "ໂຮງງານອຸດສາຫະກຳ";
 
@@ -1339,6 +1345,9 @@
 "type.shop.greengrocer" = "ຮ້ານຂາຍຜັກແລະໝາກໄມ້";
 "type.shop.grocery" = "ຮ້ານຂາຍເຄື່ອງຍ່ອຍ";
 "type.shop.hairdresser" = "ຮ້ານຕັດຜົມ";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "ຮ້ານຕັດຜົມຊາຍ";
 "type.shop.hardware" = "ຮ້ານຂາຍເຄື່ອງເຕັກນິກ";
 "type.shop.health_food" = "ຮ້ານຂາຍອາຫານເພື່ອສຸຂະພາບ";
 "type.shop.hearing_aids" = "ຮ້ານຂາຍເຄື່ອງຊ່ວຍຟັງ";
@@ -1464,6 +1473,7 @@
 "type.sport.rugby_union" = "ລັກບີ້";
 "type.sport.running" = "ການແລ່ນ";
 "type.sport.softball" = "ຊອບບອລ";
+"type.sport.pilates" = "ພິລາທິສ";
 "type.tourism" = "ການທ່ອງທ່ຽວ";
 "type.tourism.aquarium" = "ສະຖານທີ່ສະແດງສັດນ້ຳ";
 
@@ -1614,6 +1624,9 @@
 "type.man_made.monitoring_station.weather" = "ສະຖານີກວດກາອາກາດ";
 "type.amenity.student_accommodation" = "ຫໍພັກນັກສຶກສາ";
 "type.craft.watchmaker" = "ຊ່າງແປງໂມງ";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "ການຜະລິດປ່ອງຢ້ຽມ";
 "type.xmas_feature.market" = "ຕະຫຼາດຄຣິສມາດ";
 "type.xmas_feature.tree" = "ຕົ້ນຄຣິສມາດ";
 "type.amenity.hookah_lounge" = "ຮ້ານສູບຢາ";

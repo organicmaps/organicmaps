@@ -692,6 +692,8 @@
     <string name="type.man_made.pier">Պիրս</string>
     <string name="type.man_made.pipeline">Խողովակաշար</string>
     <string name="type.man_made.pipeline.overground">Վերգետնյա խողովակաշար</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">Ծածկված ջրամբար</string>
     <string name="type.man_made.silo">Սիլոսային հոր</string>
     <string name="type.man_made.storage_tank">Պահեստային բաք</string>
     <string name="type.man_made.surveillance">Տեսախցիկ</string>
@@ -710,6 +712,8 @@
     <string name="type.man_made.water_tower">Ջրաշտարակ</string>
     <string name="type.man_made.water_well">Ջրհոր</string>
     <string name="type.man_made.water_well.drinking_water_no">Ջրհոր</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">Ջրամաքրման կայան</string>
     <string name="type.man_made.windmill">Հողմաղաց</string>
     <string name="type.man_made.works">Գործարան</string>
     <string name="type.military">Ռազմական</string>
@@ -1198,6 +1202,8 @@
     <string name="type.shop.greengrocer">Մրգի և բանջարեղենի խանութ</string>
     <string name="type.shop.grocery">Մթերային խանութ</string>
     <string name="type.shop.hairdresser">Վարսավիրանոց</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">Տղամարդկանց վարսավիրանոց</string>
     <string name="type.shop.hardware">Շինանյութի խանութ</string>
     <string name="type.shop.health_food">Առողջ սննդի խանութ</string>
     <string name="type.shop.hearing_aids">Լսողական սարքերի խանութ</string>
@@ -1321,6 +1327,7 @@
     <string name="type.sport.rugby_union">Ռեգբի-15</string>
     <string name="type.sport.running">Վազք</string>
     <string name="type.sport.softball">Սոֆթբոլ</string>
+    <string name="type.sport.pilates">Պիլատես</string>
     <string name="type.tourism">Զբոսաշրջություն</string>
     <string name="type.tourism.aquarium">Ակվարիում</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1464,6 +1471,8 @@
     <string name="type.man_made.monitoring_station.weather">Եղանակի մոնիտորինգի կայան</string>
     <string name="type.amenity.student_accommodation">Ուսանողական հանրակացարան</string>
     <string name="type.craft.watchmaker">Ժամագործ</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">Պատուհանների արտադրություն</string>
     <string name="type.xmas_feature.market">Սուրբ Ծննդյան տոնավաճառ</string>
     <string name="type.xmas_feature.tree">Տոնածառ</string>
     <string name="type.amenity.hookah_lounge">Նարգիլե բար</string>

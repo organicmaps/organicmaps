@@ -691,6 +691,8 @@
     <string name="type.man_made.pier">Moll</string>
     <string name="type.man_made.pipeline">Ducte</string>
     <string name="type.man_made.pipeline.overground">Ducte a cel obert</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">Dipòsit d’aigua cobert</string>
     <string name="type.man_made.silo">Sitja</string>
     <string name="type.man_made.storage_tank">Tanc d’emmagatzematge</string>
     <string name="type.man_made.surveillance">Càmera de vigilància</string>
@@ -709,6 +711,8 @@
     <string name="type.man_made.water_tower">Torre d’aigua</string>
     <string name="type.man_made.water_well">Pou d’aigua</string>
     <string name="type.man_made.water_well.drinking_water_no">Pou d’aigua</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">Planta potabilitzadora</string>
     <string name="type.man_made.windmill">Molí de vent</string>
     <string name="type.man_made.works">Fàbrica</string>
     <string name="type.military">Militar</string>
@@ -1198,6 +1202,8 @@
     <string name="type.shop.greengrocer">Fruiteria</string>
     <string name="type.shop.grocery">Botiga de queviures</string>
     <string name="type.shop.hairdresser">Perruqueria</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">Barberia</string>
     <string name="type.shop.hardware">Ferreteria</string>
     <string name="type.shop.health_food">Botiga d’aliments saludables</string>
     <string name="type.shop.hearing_aids">Botiga d’aparells auditius</string>
@@ -1321,6 +1327,7 @@
     <string name="type.sport.rugby_union">Rugbi a quinze</string>
     <string name="type.sport.running">Cursa a peu</string>
     <string name="type.sport.softball">Softbol</string>
+    <string name="type.sport.pilates">Pilates</string>
     <string name="type.tourism">Turisme</string>
     <string name="type.tourism.aquarium">Aquari</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1457,6 +1464,8 @@
     <string name="type.man_made.monitoring_station.weather">Estació de seguiment meteorològic</string>
     <string name="type.amenity.student_accommodation">Allotjament d\'estudiants</string>
     <string name="type.craft.watchmaker">Rellotger</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">Fabricació de finestres</string>
     <string name="type.xmas_feature.market">Mercat de Nadal</string>
     <string name="type.xmas_feature.tree">Arbre de Nadal</string>
     <string name="type.amenity.hookah_lounge">Bar de xixa</string>

@@ -587,6 +587,8 @@
     <string name="type.leisure.water_park">Vannpark</string>
     <string name="type.man_made.chimney">Fabrikkpipe</string>
     <string name="type.man_made.lighthouse">Fyr</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">Overdekket reservoar</string>
     <string name="type.man_made.surveillance">Overvåkingskamera</string>
     <string name="type.man_made.tower">Tårn</string>
     <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
@@ -602,6 +604,8 @@
     <string name="type.man_made.water_tower">Vanntårn</string>
     <string name="type.man_made.water_well">Brønn</string>
     <string name="type.man_made.water_well.drinking_water_no">Brønn</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">Vannverk</string>
     <string name="type.man_made.windmill">Vindmølle</string>
     <string name="type.natural">Natur</string>
     <!-- A rocky land cover. -->
@@ -1037,6 +1041,8 @@
     <string name="type.shop.greengrocer">Frukt- og grønnsakshandler</string>
     <string name="type.shop.grocery">Dagligvare</string>
     <string name="type.shop.hairdresser">Frisør</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">Barber</string>
     <string name="type.shop.health_food">Helsekostbutikk</string>
     <string name="type.shop.hearing_aids">Høreapparatbutikk</string>
     <string name="type.shop.herbalist">Urtebutikk</string>
@@ -1159,6 +1165,7 @@
     <string name="type.sport.rugby_union">Rugby</string>
     <string name="type.sport.running">Løping</string>
     <string name="type.sport.softball">Softball</string>
+    <string name="type.sport.pilates">Pilates</string>
     <string name="type.tourism">Turisme</string>
     <string name="type.tourism.aquarium">Akvarium</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1260,6 +1267,8 @@
     <string name="type.man_made.monitoring_station.weather">Værovervåkningsstasjon</string>
     <string name="type.amenity.student_accommodation">Studentboliger</string>
     <string name="type.craft.watchmaker">Urmaker</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">Vindusproduksjon</string>
     <string name="type.xmas_feature.market">Julemarked</string>
     <string name="type.xmas_feature.tree">Juletre</string>
     <string name="type.amenity.hookah_lounge">Vannpipebar</string>

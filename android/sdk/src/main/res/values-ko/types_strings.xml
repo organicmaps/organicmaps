@@ -581,6 +581,8 @@
     <string name="type.leisure.water_park">워터파크</string>
     <string name="type.man_made.chimney">공장 굴뚝</string>
     <string name="type.man_made.lighthouse">등대</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">배수지</string>
     <string name="type.man_made.surveillance">감시 카메라</string>
     <string name="type.man_made.tower">타워</string>
     <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
@@ -596,6 +598,8 @@
     <string name="type.man_made.water_tower">급수탑</string>
     <string name="type.man_made.water_well">우물</string>
     <string name="type.man_made.water_well.drinking_water_no">우물</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">정수장</string>
     <string name="type.man_made.windmill">풍차</string>
     <string name="type.military.bunker">벙커</string>
     <string name="type.natural">자연</string>
@@ -1028,6 +1032,8 @@
     <string name="type.shop.greengrocer">청과상</string>
     <string name="type.shop.grocery">\"식료품점\"</string>
     <string name="type.shop.hairdresser">이발사</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">이발소</string>
     <string name="type.shop.health_food">\"건강식품 가게\"</string>
     <string name="type.shop.hearing_aids">보청기 스토어</string>
     <string name="type.shop.herbalist">허브 가게</string>
@@ -1150,6 +1156,7 @@
     <string name="type.sport.rugby_union">럭비 유니언</string>
     <string name="type.sport.running">달리기</string>
     <string name="type.sport.softball">소프트볼</string>
+    <string name="type.sport.pilates">필라테스</string>
     <string name="type.tourism.aquarium">수족관</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
     <string name="type.tourism.alpine_hut">마운틴 롯지</string>
@@ -1251,6 +1258,8 @@
     <string name="type.man_made.monitoring_station.weather">날씨 모니터링 스테이션</string>
     <string name="type.amenity.student_accommodation">학생 숙소</string>
     <string name="type.craft.watchmaker">워치메이커</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">창호 제작</string>
     <string name="type.xmas_feature.market">크리스마스 마켓</string>
     <string name="type.xmas_feature.tree">크리스마스 트리</string>
     <string name="type.amenity.hookah_lounge">후카 라운지</string>

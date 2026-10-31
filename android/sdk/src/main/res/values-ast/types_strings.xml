@@ -258,12 +258,16 @@
     <string name="type.leisure.track.area">Pista deportiva</string>
     <string name="type.leisure.water_park">Parque acuáticu</string>
     <string name="type.man_made.survey_point">Puntu xeodésicu</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">Depósitu d’agua cubiertu</string>
     <string name="type.man_made.surveillance">Cámara de vixilancia</string>
     <string name="type.man_made.tower">Torre</string>
     <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
     <string name="type.man_made.communications_tower">Torre de comunicaciones</string>
     <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Torre de comunicaciones</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">Planta potabilizadora</string>
     <string name="type.natural.beach">Sablera</string>
     <string name="type.natural.geyser">Guéiser</string>
     <string name="type.natural.water.river">Ríu</string>
@@ -554,6 +558,8 @@
     <string name="type.shop.books">Llibrería</string>
     <string name="type.shop.chocolate">Chicolatería</string>
     <string name="type.shop.garden_centre">Centru de xardinería</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">Barbería</string>
     <string name="type.shop.hardware">Ferretería</string>
     <string name="type.shop.kiosk">Quioscu</string>
     <string name="type.shop.mall">Centru comercial</string>
@@ -580,6 +586,7 @@
     <string name="type.sport.rugby_union">Rugby union</string>
     <string name="type.sport.running">Carrera</string>
     <string name="type.sport.softball">Softbol</string>
+    <string name="type.sport.pilates">Pilates</string>
     <string name="type.tourism">Turismu</string>
     <string name="type.tourism.aquarium">Acuariu</string>
     <string name="type.tourism.attraction">Atraición</string>
@@ -593,4 +600,6 @@
     <string name="type.traffic_calming">Pacificación del tráficu</string>
     <string name="type.wheelchair">Siella de ruedes</string>
     <string name="type.aerialway.magic_carpet">Alfombra máxica</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">Fabricación de ventanes</string>
 </resources>

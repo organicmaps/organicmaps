@@ -583,6 +583,8 @@
     <string name="type.leisure.water_park">สวนน้ำ</string>
     <string name="type.man_made.chimney">ปล่องควันโรงงาน</string>
     <string name="type.man_made.lighthouse">ประภาคาร</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">อ่างเก็บน้ำแบบปิด</string>
     <string name="type.man_made.surveillance">กล้องวงจรปิด</string>
     <string name="type.man_made.tower">หอคอย</string>
     <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
@@ -598,6 +600,8 @@
     <string name="type.man_made.water_tower">อ่างเก็บน้ำ</string>
     <string name="type.man_made.water_well">บ่อน้ำ</string>
     <string name="type.man_made.water_well.drinking_water_no">บ่อน้ำ</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">โรงผลิตน้ำประปา</string>
     <string name="type.man_made.windmill">กังหันลม</string>
     <string name="type.military.bunker">บังเกอร์</string>
     <string name="type.natural">ธรรมชาติ</string>
@@ -1029,6 +1033,8 @@
     <string name="type.shop.greengrocer">ร้านขายผัด</string>
     <string name="type.shop.grocery">ร้านขายของชำ</string>
     <string name="type.shop.hairdresser">ช่างทำผม</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">ร้านตัดผมชาย</string>
     <string name="type.shop.hardware">ร้านฮาร์ดแวร์</string>
     <string name="type.shop.health_food">ร้านอาหารเพื่อสุขภาพ</string>
     <string name="type.shop.hearing_aids">ร้านเครื่องช่วยฟัง</string>
@@ -1149,6 +1155,7 @@
     <string name="type.sport.rugby_union">รักบี้ยูเนี่ยน</string>
     <string name="type.sport.running">วิ่ง</string>
     <string name="type.sport.softball">ซอฟต์บอล</string>
+    <string name="type.sport.pilates">พิลาทิส</string>
     <string name="type.tourism.aquarium">พิพิธภัณฑ์สัตว์น้ำ</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
     <string name="type.tourism.alpine_hut">บ้านพักบนภูเขา</string>
@@ -1250,6 +1257,8 @@
     <string name="type.man_made.monitoring_station.weather">สถานีตรวจวัดสภาพอากาศ</string>
     <string name="type.amenity.student_accommodation">ที่พักนักศึกษา</string>
     <string name="type.craft.watchmaker">ช่างซ่อมนาฬิกา</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">ช่างทำหน้าต่าง</string>
     <string name="type.xmas_feature.market">ตลาดคริสต์มาส</string>
     <string name="type.xmas_feature.tree">ต้นคริสต์มาส</string>
     <string name="type.amenity.hookah_lounge">ร้านบารากู่</string>
