@@ -2364,6 +2364,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_Listeners)
 
     kml::BookmarkData data1;
     kml::SetDefaultStr(data1.m_name, "name 1");
+    data1.m_point = m2::PointD(1.0, 1.0);
     auto * bookmark1 = editSession.CreateBookmark(std::move(data1));
     editSession.AttachBookmark(bookmark1->GetId(), catId);
 
@@ -2457,16 +2458,19 @@ UNIT_CLASS_TEST(Runner, Bookmarks_AutoSave)
     editSession.GetBookmarkForEdit(bmId0)->SetName("name 0 renamed", kml::kDefaultLangCode);
 
     kml::BookmarkData data1;
+    data1.m_point = m2::PointD(1.0, 1.0);
     kml::SetDefaultStr(data1.m_name, "name 1");
     auto bmId = editSession.CreateBookmark(std::move(data1))->GetId();
     editSession.AttachBookmark(bmId, catId);
 
     kml::BookmarkData data2;
+    data2.m_point = m2::PointD(2.0, 2.0);
     kml::SetDefaultStr(data2.m_name, "name 2");
     bmId = editSession.CreateBookmark(std::move(data2))->GetId();
     editSession.AttachBookmark(bmId, catId);
 
     kml::BookmarkData data3;
+    data3.m_point = m2::PointD(3.0, 3.0);
     kml::SetDefaultStr(data3.m_name, "name 3");
     bmId = editSession.CreateBookmark(std::move(data3))->GetId();
     editSession.AttachBookmark(bmId, catId);
