@@ -809,6 +809,9 @@
 "type.man_made.pier" = "Laituri";
 "type.man_made.pipeline" = "Pipeline";
 "type.man_made.pipeline.overground" = "Overground Pipeline";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "Katettu vesisäiliö";
 "type.man_made.silo" = "Siilo";
 "type.man_made.storage_tank" = "Storage Tank";
 "type.man_made.surveillance" = "Valvontakamera";
@@ -831,6 +834,9 @@
 "type.man_made.water_tower" = "Vesitorni";
 "type.man_made.water_well" = "Kaivo";
 "type.man_made.water_well.drinking_water_no" = "Kaivo";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "Vesilaitos";
 "type.man_made.windmill" = "Tuulimylly";
 "type.man_made.works" = "Industrial Works";
 
@@ -1339,6 +1345,9 @@
 "type.shop.greengrocer" = "Vihanneskauppias";
 "type.shop.grocery" = "Päivittäistavarakauppa";
 "type.shop.hairdresser" = "Kampaamo";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "Parturi";
 "type.shop.hardware" = "Rautakauppa";
 "type.shop.health_food" = "Terveysruokakauppa";
 "type.shop.hearing_aids" = "Kuulolaitteiden myymälä";
@@ -1464,6 +1473,7 @@
 "type.sport.rugby_union" = "Rugby union";
 "type.sport.running" = "Juoksu";
 "type.sport.softball" = "Softball";
+"type.sport.pilates" = "Pilates";
 "type.tourism" = "Turismi";
 "type.tourism.aquarium" = "Akvaario";
 
@@ -1614,6 +1624,9 @@
 "type.man_made.monitoring_station.weather" = "Sään seuranta-asema";
 "type.amenity.student_accommodation" = "Opiskelijoiden majoitus";
 "type.craft.watchmaker" = "Kelloseppä";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "Ikkunoiden valmistus";
 "type.xmas_feature.market" = "Joulumarkkinat";
 "type.xmas_feature.tree" = "Joulukuusi";
 "type.amenity.hookah_lounge" = "Vesipiippubaari";

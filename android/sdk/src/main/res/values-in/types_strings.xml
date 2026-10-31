@@ -572,6 +572,8 @@
     <string name="type.leisure.water_park">Taman air</string>
     <string name="type.man_made.chimney">Cerobong asap pabrik</string>
     <string name="type.man_made.lighthouse">Mercusuar</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">Reservoir air tertutup</string>
     <string name="type.man_made.surveillance">Kamera Pengawas</string>
     <string name="type.man_made.tower">Menara</string>
     <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
@@ -587,6 +589,8 @@
     <string name="type.man_made.water_tower">Menara air</string>
     <string name="type.man_made.water_well">Sumur air</string>
     <string name="type.man_made.water_well.drinking_water_no">Sumur air</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">Instalasi pengolahan air</string>
     <string name="type.man_made.windmill">Kincir angin</string>
     <string name="type.natural">Alam</string>
     <!-- A rocky land cover. -->
@@ -1018,6 +1022,8 @@
     <string name="type.shop.greengrocer">Penjual sayuran</string>
     <string name="type.shop.grocery">Kebutuhan sehari-hari</string>
     <string name="type.shop.hairdresser">Penata rambut</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">Tukang cukur</string>
     <string name="type.shop.health_food">Toko Makanan Kesehatan</string>
     <string name="type.shop.hearing_aids">Toko alat bantu dengar</string>
     <string name="type.shop.herbalist">Toko jamu</string>
@@ -1138,6 +1144,7 @@
     <string name="type.sport.rugby_union">Rugbi</string>
     <string name="type.sport.running">Lari</string>
     <string name="type.sport.softball">Sofbol</string>
+    <string name="type.sport.pilates">Pilates</string>
     <string name="type.tourism.aquarium">Akuarium</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
     <string name="type.tourism.alpine_hut">Penginapan gunung</string>
@@ -1235,6 +1242,8 @@
     <string name="type.man_made.monitoring_station.weather">Stasiun Pemantauan Cuaca</string>
     <string name="type.amenity.student_accommodation">Akomodasi Mahasiswa</string>
     <string name="type.craft.watchmaker">Pembuat jam tangan</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">Pembuatan jendela</string>
     <string name="type.xmas_feature.market">Pasar Natal</string>
     <string name="type.xmas_feature.tree">Pohon Natal</string>
     <string name="type.amenity.hookah_lounge">Kafe Shisha</string>

@@ -809,6 +809,9 @@
 "type.man_made.pier" = "Pier";
 "type.man_made.pipeline" = "Pipeline";
 "type.man_made.pipeline.overground" = "Overground Pipeline";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "Bể chứa nước có mái che";
 "type.man_made.silo" = "Silo";
 "type.man_made.storage_tank" = "Storage Tank";
 "type.man_made.surveillance" = "Camera giám sát";
@@ -831,6 +834,9 @@
 "type.man_made.water_tower" = "Tháp Nước";
 "type.man_made.water_well" = "Giếng Nước";
 "type.man_made.water_well.drinking_water_no" = "Giếng Nước";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "Nhà máy nước";
 "type.man_made.windmill" = "Cối xay gió";
 "type.man_made.works" = "Industrial Works";
 
@@ -1339,6 +1345,9 @@
 "type.shop.greengrocer" = "Cửa hàng rau củ";
 "type.shop.grocery" = "Cửa hàng tạp hóa";
 "type.shop.hairdresser" = "Tiệm làm tóc";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "Tiệm cắt tóc nam";
 "type.shop.hardware" = "Hardware Store";
 "type.shop.health_food" = "Cửa hàng thực phẩm sức khỏe";
 "type.shop.hearing_aids" = "Cửa hàng máy trợ thính";
@@ -1464,6 +1473,7 @@
 "type.sport.rugby_union" = "Rugby";
 "type.sport.running" = "Chạy bộ";
 "type.sport.softball" = "Bóng mềm";
+"type.sport.pilates" = "Pilates";
 "type.tourism" = "Tourism";
 "type.tourism.aquarium" = "Bể nuôi cá";
 
@@ -1614,6 +1624,9 @@
 "type.man_made.monitoring_station.weather" = "Trạm quan trắc thời tiết";
 "type.amenity.student_accommodation" = "Chỗ ở cho sinh viên";
 "type.craft.watchmaker" = "Thợ đồng hồ";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "Sản xuất cửa sổ";
 "type.xmas_feature.market" = "Chợ Giáng sinh";
 "type.xmas_feature.tree" = "Cây Giáng sinh";
 "type.amenity.hookah_lounge" = "Quán shisha";

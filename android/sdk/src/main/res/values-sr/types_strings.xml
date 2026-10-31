@@ -685,6 +685,8 @@
     <string name="type.man_made.pier">Док</string>
     <string name="type.man_made.pipeline">Цевовод</string>
     <string name="type.man_made.pipeline.overground">Подземни цевовод</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">Покривени резервоар</string>
     <string name="type.man_made.silo">Силос</string>
     <string name="type.man_made.storage_tank">Резервоар</string>
     <string name="type.man_made.surveillance">Сигурносна камера</string>
@@ -703,6 +705,8 @@
     <string name="type.man_made.water_tower">Водоторањ</string>
     <string name="type.man_made.water_well">Бунар</string>
     <string name="type.man_made.water_well.drinking_water_no">Бунар</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">Постројење за прераду воде</string>
     <string name="type.man_made.windmill">Ветрењача</string>
     <string name="type.man_made.works">Фабрика</string>
     <string name="type.military">Војска</string>
@@ -1190,6 +1194,8 @@
     <string name="type.shop.greengrocer">Поврће и воће</string>
     <string name="type.shop.grocery">Бакалница</string>
     <string name="type.shop.hairdresser">Фризер</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">Берберница</string>
     <string name="type.shop.hardware">Гвожђара</string>
     <string name="type.shop.health_food">Здрава храна</string>
     <string name="type.shop.hearing_aids">Продавница слушног апарата</string>
@@ -1313,6 +1319,7 @@
     <string name="type.sport.rugby_union">Рагби</string>
     <string name="type.sport.running">Трчање</string>
     <string name="type.sport.softball">Софтбол</string>
+    <string name="type.sport.pilates">Пилатес</string>
     <string name="type.tourism">Туризам</string>
     <string name="type.tourism.aquarium">Акваријум</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1432,5 +1439,7 @@
     <string name="type.amenity.dojo">Дојо</string>
     <!-- https://wiki.openstreetmap.org/wiki/Tag:leisure=sports_hall -->
     <string name="type.leisure.sports_hall">Спортска хала</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">Израда прозора</string>
     <string name="type.amenity.hookah_lounge">Наргила бар</string>
 </resources>

@@ -809,6 +809,9 @@
 "type.man_made.pier" = "Pomol";
 "type.man_made.pipeline" = "Cevovod";
 "type.man_made.pipeline.overground" = "Nadzemni cevovod";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "Vodohran";
 "type.man_made.silo" = "Silos";
 "type.man_made.storage_tank" = "Rezervoar";
 "type.man_made.surveillance" = "Nadzorna kamera";
@@ -831,6 +834,9 @@
 "type.man_made.water_tower" = "Vodni stolp";
 "type.man_made.water_well" = "Vodnjak";
 "type.man_made.water_well.drinking_water_no" = "Vodnjak";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "Vodarna";
 "type.man_made.windmill" = "Mlin na veter";
 "type.man_made.works" = "Industrijski obrat";
 
@@ -1339,6 +1345,9 @@
 "type.shop.greengrocer" = "Zelenjavar";
 "type.shop.grocery" = "Živilska trgovina";
 "type.shop.hairdresser" = "Frizer";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "Brivnica";
 "type.shop.hardware" = "Železnina";
 "type.shop.health_food" = "Trgovina z zdravo prehrano";
 "type.shop.hearing_aids" = "Trgovina s slušnimi aparati";
@@ -1464,6 +1473,7 @@
 "type.sport.rugby_union" = "Ragbi";
 "type.sport.running" = "Tek";
 "type.sport.softball" = "Softball";
+"type.sport.pilates" = "Pilates";
 "type.tourism" = "Turizem";
 "type.tourism.aquarium" = "Akvarij";
 
@@ -1614,6 +1624,9 @@
 "type.man_made.monitoring_station.weather" = "Weather Monitoring Station";
 "type.amenity.student_accommodation" = "Student Accommodation";
 "type.craft.watchmaker" = "Watchmaker";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "Izdelava oken";
 "type.xmas_feature.market" = "Christmas Market";
 "type.xmas_feature.tree" = "Christmas Tree";
 "type.amenity.hookah_lounge" = "Hookah Lounge";

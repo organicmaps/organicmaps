@@ -694,6 +694,8 @@
     <string name="type.man_made.pier">Pier</string>
     <string name="type.man_made.pipeline">Pijpleiding</string>
     <string name="type.man_made.pipeline.overground">Bovengrondse pijpleiding</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">Overdekt reservoir</string>
     <string name="type.man_made.silo">Silo</string>
     <string name="type.man_made.storage_tank">Opslagtank</string>
     <string name="type.man_made.surveillance">Bewakingscamera</string>
@@ -712,6 +714,8 @@
     <string name="type.man_made.water_tower">Watertoren</string>
     <string name="type.man_made.water_well">Waterput</string>
     <string name="type.man_made.water_well.drinking_water_no">Waterput</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">Drinkwaterbedrijf</string>
     <string name="type.man_made.windmill">Windmolen</string>
     <string name="type.man_made.works">Fabriek</string>
     <string name="type.military">Militair</string>
@@ -1201,6 +1205,8 @@
     <string name="type.shop.greengrocer">Groentenwinkel</string>
     <string name="type.shop.grocery">Boodschappen</string>
     <string name="type.shop.hairdresser">Kapper</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">Barbier</string>
     <string name="type.shop.hardware">IJzerwaren</string>
     <string name="type.shop.health_food">Natuurvoedingswinkel</string>
     <string name="type.shop.hearing_aids">Winkel met hoortoestellen</string>
@@ -1324,6 +1330,7 @@
     <string name="type.sport.rugby_union">Rugby union</string>
     <string name="type.sport.running">Hardlopen</string>
     <string name="type.sport.softball">Softbal</string>
+    <string name="type.sport.pilates">Pilates</string>
     <string name="type.tourism">Tourisme</string>
     <string name="type.tourism.aquarium">Aquarium</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1467,6 +1474,8 @@
     <string name="type.man_made.monitoring_station.weather">Weerstation</string>
     <string name="type.amenity.student_accommodation">Studentenhuisvesting</string>
     <string name="type.craft.watchmaker">Horlogemaker</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">Kozijnenbedrijf</string>
     <string name="type.xmas_feature.market">Kerstmarkt</string>
     <string name="type.xmas_feature.tree">Kerstboom</string>
     <string name="type.amenity.hookah_lounge">Shisha bar</string>

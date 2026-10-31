@@ -809,6 +809,9 @@
 "type.man_made.pier" = "Пирс";
 "type.man_made.pipeline" = "Трубопровод";
 "type.man_made.pipeline.overground" = "Наземный трубопровод";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "Крытый резервуар";
 "type.man_made.silo" = "Элеватор";
 "type.man_made.storage_tank" = "Резервуар";
 "type.man_made.surveillance" = "Камера наблюдения";
@@ -831,6 +834,9 @@
 "type.man_made.water_tower" = "Водонапорная башня";
 "type.man_made.water_well" = "Колодец";
 "type.man_made.water_well.drinking_water_no" = "Колодец";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "Водопроводная станция";
 "type.man_made.windmill" = "Ветряная мельница";
 "type.man_made.works" = "Промышленное производство";
 
@@ -1339,6 +1345,9 @@
 "type.shop.greengrocer" = "Овощи и фрукты";
 "type.shop.grocery" = "Бакалея";
 "type.shop.hairdresser" = "Парикмахерская";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "Барбершоп";
 "type.shop.hardware" = "Хозяйственный магазин";
 "type.shop.health_food" = "Магазин здоровой еды";
 "type.shop.hearing_aids" = "Магазин слуховых аппаратов";
@@ -1464,6 +1473,7 @@
 "type.sport.rugby_union" = "Регби-15";
 "type.sport.running" = "Бег";
 "type.sport.softball" = "Софтбол";
+"type.sport.pilates" = "Пилатес";
 "type.tourism" = "Туризм";
 "type.tourism.aquarium" = "Аквариум";
 
@@ -1614,6 +1624,9 @@
 "type.man_made.monitoring_station.weather" = "Станция мониторинга погоды";
 "type.amenity.student_accommodation" = "Проживание студентов";
 "type.craft.watchmaker" = "Часовщик";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "Изготовление окон";
 "type.xmas_feature.market" = "Рождественский рынок";
 "type.xmas_feature.tree" = "Новогодняя ёлка";
 "type.amenity.hookah_lounge" = "Кальянная";

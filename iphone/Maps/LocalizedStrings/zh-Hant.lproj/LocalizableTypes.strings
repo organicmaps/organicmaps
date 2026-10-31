@@ -809,6 +809,9 @@
 "type.man_made.pier" = "碼頭";
 "type.man_made.pipeline" = "管線";
 "type.man_made.pipeline.overground" = "地面管線";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "加蓋蓄水池";
 "type.man_made.silo" = "筒倉";
 "type.man_made.storage_tank" = "儲槽";
 "type.man_made.surveillance" = "監控攝影機";
@@ -831,6 +834,9 @@
 "type.man_made.water_tower" = "水塔";
 "type.man_made.water_well" = "水井";
 "type.man_made.water_well.drinking_water_no" = "水井";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "自來水廠";
 "type.man_made.windmill" = "風車";
 "type.man_made.works" = "工業設施";
 
@@ -1339,6 +1345,9 @@
 "type.shop.greengrocer" = "蔬果零售店";
 "type.shop.grocery" = "雜貨店";
 "type.shop.hairdresser" = "理髮師";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "男士理髮店";
 "type.shop.hardware" = "五金店";
 "type.shop.health_food" = "保健食品店";
 "type.shop.hearing_aids" = "助聽器商店";
@@ -1464,6 +1473,7 @@
 "type.sport.rugby_union" = "聯合式橄欖球";
 "type.sport.running" = "跑步";
 "type.sport.softball" = "壘球";
+"type.sport.pilates" = "皮拉提斯";
 "type.tourism" = "旅遊設施";
 "type.tourism.aquarium" = "水族館";
 
@@ -1614,6 +1624,9 @@
 "type.man_made.monitoring_station.weather" = "氣象監測站";
 "type.amenity.student_accommodation" = "學生住宿";
 "type.craft.watchmaker" = "鐘錶匠";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "門窗製作";
 "type.xmas_feature.market" = "聖誕市場";
 "type.xmas_feature.tree" = "聖誕樹";
 "type.amenity.hookah_lounge" = "水煙館";
