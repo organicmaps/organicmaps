@@ -703,6 +703,8 @@
     <string name="moreyear_ago_sorttype">Cu mai mult de un an în urmă</string>
     <string name="near_me_sorttype">Lângă mine</string>
     <string name="others_sorttype">Altele</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Planificarea traseului a eșuat</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Închis acum</string>
     <string name="opens_tomorrow_at">Deschide mâine la %s</string>

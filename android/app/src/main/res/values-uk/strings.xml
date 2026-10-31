@@ -711,6 +711,8 @@
     <string name="moreyear_ago_sorttype">Понад рік тому</string>
     <string name="near_me_sorttype">Поруч зі мною</string>
     <string name="others_sorttype">Інші</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Збій планування маршруту</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Зараз закрито</string>
     <string name="opens_tomorrow_at">Відкриття завтра о %s</string>
@@ -850,6 +852,10 @@
     <string name="outdoor_seating">Сидіння на відкритому повітрі</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">Для найбільш точної навігації ми рекомендуємо вимкнути режим енергозбереження в налаштуваннях батареї телефону.</string>
+    <!-- Place Page button that starts navigation along the selected track. -->
+    <string name="navigate_track">Навігація</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">Трек більше недоступний</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Записати трек</string>
     <!-- Prompt for stopping a track recording. -->

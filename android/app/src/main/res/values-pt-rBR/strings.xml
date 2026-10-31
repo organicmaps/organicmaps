@@ -485,6 +485,8 @@
     <string name="moremonth_ago_sorttype">Há mais de um mês</string>
     <string name="moreyear_ago_sorttype">Há mais de um ano</string>
     <string name="near_me_sorttype">Próximo de mim</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Falha no planejamento da rota</string>
     <string name="opens_tomorrow_at">Abre amanhã em %s</string>
     <string name="opens_dayoftheweek_at">Abre %1$s em %2$s</string>
     <string name="opens_at">Abre em %s</string>

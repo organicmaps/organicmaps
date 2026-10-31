@@ -706,6 +706,8 @@
     <string name="moreyear_ago_sorttype">Пре више од годину дана</string>
     <string name="near_me_sorttype">Близу мене</string>
     <string name="others_sorttype">Остали</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Планирање руте није успело</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Затворено сада</string>
     <string name="opens_tomorrow_at">Отвара се сутра у %s</string>

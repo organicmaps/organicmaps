@@ -718,6 +718,8 @@
     <string name="moreyear_ago_sorttype">Mwy na blwyddyn yn ôl</string>
     <string name="near_me_sorttype">Gerllaw</string>
     <string name="others_sorttype">Eraill</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Methodd cynllunio llwybr</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Ar gau nawr</string>
     <string name="opens_tomorrow_at">Yn agor yfory am %s</string>

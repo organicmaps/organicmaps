@@ -704,6 +704,8 @@
     <string name="moreyear_ago_sorttype">Vor über einem Jahr</string>
     <string name="near_me_sorttype">In meiner Nähe</string>
     <string name="others_sorttype">Sonstiges</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Routenplanung fehlgeschlagen</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Jetzt geschlossen</string>
     <string name="opens_tomorrow_at">Öffnet morgen um %s</string>
@@ -843,6 +845,10 @@
     <string name="outdoor_seating">Sitzplätze im Freien</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">Für eine möglichst genaue Navigation empfehlen wir, den Energiesparmodus in den Akku-Einstellungen des Telefons zu deaktivieren.</string>
+    <!-- Place Page button that starts navigation along the selected track. -->
+    <string name="navigate_track">Navigieren</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">Der Track ist nicht mehr verfügbar</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Track aufnehmen</string>
     <!-- Prompt for stopping a track recording. -->

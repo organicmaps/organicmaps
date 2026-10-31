@@ -702,6 +702,8 @@
     <string name="moreyear_ago_sorttype">بیش از یک سال قبل</string>
     <string name="near_me_sorttype">نزدیک من</string>
     <string name="others_sorttype">دیگران</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">برنامه ریزی مسیر ناموفق</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">اکنون تعطیل است</string>
     <string name="opens_tomorrow_at">فردا در %s باز می‌شود</string>

@@ -1044,6 +1044,30 @@
 /* To indicate if restaurant or other place has outdoor seating */
 "outdoor_seating" = "Ulkona istuminen";
 
+/* Place Page button that starts navigation along the selected track. */
+"navigate_track" = "Navigate";
+
+/* Error when the selected connected track section has no geometry left in the requested direction. */
+"track_no_remaining_geometry" = "No track remains in this direction. Select another point.";
+
+/* Message shown when the track being followed is not available anymore (e.g. deleted). */
+"track_is_not_available" = "The track is not available anymore";
+
+/* Accessibility name of the car routing profile in the transport picker. */
+"routing_type_vehicle" = "Car";
+
+/* Accessibility name of the walking routing profile in the transport picker. */
+"routing_type_pedestrian" = "Walk";
+
+/* Accessibility name of the public transport routing profile in the transport picker. */
+"routing_type_transit" = "Public transport";
+
+/* Accessibility name of the bicycle routing profile in the transport picker. */
+"routing_type_bicycle" = "Bicycle";
+
+/* Accessibility name of the ruler (straight line distance) profile in the transport picker. */
+"routing_type_ruler" = "Ruler";
+
 /* Prompt to start recording a track. */
 "start_track_recording" = "Reitin tallennus";
 
