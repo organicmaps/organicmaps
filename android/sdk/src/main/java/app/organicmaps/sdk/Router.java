@@ -33,6 +33,15 @@ public enum Router
   }
 
   /**
+   * The router type to present and gate on: while following a track it is the follow profile
+   * (never Transit/Ruler), otherwise the same as {@link #get()}.
+   */
+  public static Router getRender()
+  {
+    return valueOf(Framework.nativeGetRenderRouterType());
+  }
+
+  /**
    * Returns the profile saved by the native routing framework.
    */
   public static Router getLastUsed()
