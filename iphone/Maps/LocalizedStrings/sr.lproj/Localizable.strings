@@ -1188,6 +1188,11 @@
 "show_downloaded_regions" = "Љубичасти преузети региони";
 
 
+/********** Qt UI strings **********/
+
+"intermediate_point" = "Intermediate point";
+
+
 /********** gps strings **********/
 
 
@@ -1232,3 +1237,15 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Обрни руту";
+
+/* Track navigation action. */
+"navigate_track" = "Navigate Track";
+
+/* Track optimization hint. */
+"navigate_track_optimization_description" = "Join at the nearest point on the track. Turn off to join at the beginning in the chosen direction. Reverse changes the direction. The original track remains unchanged.";
+
+/* Track start point label. */
+"navigate_track_start" = "Track start";
+
+/* Track finish point label. */
+"navigate_track_finish" = "Track finish";
