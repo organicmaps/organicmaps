@@ -86,7 +86,7 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
     if (isReordering())
       return;
     // Keep the adapter and touch helper attached so route changes retain the list's scroll position.
-    mManageRouteAdapter.setRoutePoints(Framework.nativeGetRoutePoints());
+    mManageRouteAdapter.setRoutePoints(Framework.nativeGetRoutePoints(), RoutingController.get().isTrackRoute());
   }
 
   @Override
@@ -163,7 +163,8 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
       // instanceof is robust against transient binding-adapter resolution inside ConcatAdapter.
       if (!(viewHolder instanceof ManageRouteAdapter.ManageRouteViewHolder))
         return 0;
-      if (mManageRouteAdapter.getRoutePoints().size() < 2)
+      if (mManageRouteAdapter.getRoutePoints().size() < 2
+          || !mManageRouteAdapter.canMovePoint(viewHolder.getBindingAdapterPosition()))
         return 0;
       // Enable up & down dragging. No left-right swiping is enabled.
       return makeMovementFlags(UP | DOWN, 0);
@@ -175,7 +176,7 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
       if (!(target instanceof ManageRouteAdapter.ManageRouteViewHolder))
         return false;
       final int pos = target.getBindingAdapterPosition();
-      return pos >= 0 && pos < mManageRouteAdapter.getItemCount() - 1;
+      return pos >= 0 && pos < mManageRouteAdapter.getRoutePoints().size() && mManageRouteAdapter.canMovePoint(pos);
     }
     @Override
     public void onSelectedChanged(@Nullable RecyclerView.ViewHolder viewHolder, int actionState)
@@ -235,10 +236,12 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
         // A detached panel or cancelled routing has nothing to update.
         if (!recyclerView.isAttachedToWindow() || !RoutingController.get().isPlanning())
           return;
-        if (newOrder != null)
-          mController.onRouteOrderChanged(newOrder);
-        else
+        if (newOrder == null)
           mController.refresh();
+        else if (mManageRouteAdapter.isTrackRoute())
+          RoutingController.get().reverseRoute();
+        else
+          mController.onRouteOrderChanged(newOrder);
       });
     }
 

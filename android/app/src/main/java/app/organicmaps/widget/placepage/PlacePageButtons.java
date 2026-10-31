@@ -110,6 +110,8 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
   @VisibleForTesting
   static boolean isPrimary(@NonNull ButtonType type, @NonNull List<ButtonType> buttons, boolean needsStart)
   {
+    if (buttons.contains(ButtonType.NAVIGATE_TRACK))
+      return type == ButtonType.NAVIGATE_TRACK;
     return switch (type)
     {
       case ROUTE_ADD, ROUTE_APPEND, ROUTE_REPLACE -> true;
@@ -172,6 +174,7 @@ public final class PlacePageButtons extends Fragment implements Observer<List<Pl
     ROUTE_AVOID_UNPAVED,
     TRACK_RECORDING_SAVE,
     TRACK_RECORDING_DELETE,
+    NAVIGATE_TRACK,
     MORE
   }
 
