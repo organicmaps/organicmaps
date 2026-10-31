@@ -102,6 +102,8 @@
 		F6B283081C1B03320081957A /* gps_track_storage.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6B283001C1B03320081957A /* gps_track_storage.hpp */; };
 		F6B283091C1B03320081957A /* gps_track.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6B283011C1B03320081957A /* gps_track.cpp */; };
 		F6B2830A1C1B03320081957A /* gps_track.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6B283021C1B03320081957A /* gps_track.hpp */; };
+		A17070012F00000000000001 /* track_follow_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A17070032F00000000000001 /* track_follow_data.cpp */; };
+		A17070022F00000000000001 /* track_follow_data.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A17070042F00000000000001 /* track_follow_data.hpp */; };
 		F6D2CE7E1EDEB7F500636DFD /* routing_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6D2CE7C1EDEB7F500636DFD /* routing_manager.cpp */; };
 		F6D2CE7F1EDEB7F500636DFD /* routing_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6D2CE7D1EDEB7F500636DFD /* routing_manager.hpp */; };
 		FAA8387326BB3C09002E54C6 /* check_mwms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40ACC79323191C2600238E21 /* check_mwms.cpp */; };
@@ -250,6 +252,8 @@
 		F6B283001C1B03320081957A /* gps_track_storage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gps_track_storage.hpp; sourceTree = "<group>"; };
 		F6B283011C1B03320081957A /* gps_track.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gps_track.cpp; sourceTree = "<group>"; };
 		F6B283021C1B03320081957A /* gps_track.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gps_track.hpp; sourceTree = "<group>"; };
+		A17070032F00000000000001 /* track_follow_data.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = track_follow_data.cpp; sourceTree = "<group>"; };
+		A17070042F00000000000001 /* track_follow_data.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = track_follow_data.hpp; sourceTree = "<group>"; };
 		F6D2CE7C1EDEB7F500636DFD /* routing_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_manager.cpp; sourceTree = "<group>"; };
 		F6D2CE7D1EDEB7F500636DFD /* routing_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_manager.hpp; sourceTree = "<group>"; };
 		FAA8387726BB3C92002E54C6 /* libbase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libbase.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -424,6 +428,8 @@
 				AC0AE5A32FDF0DDF00A44725 /* raster_tile_provider.hpp */,
 				ACF95D462F74AD0A009D5D9A /* relation_track.cpp */,
 				ACF95D452F74AD0A009D5D9A /* relation_track.hpp */,
+				A17070032F00000000000001 /* track_follow_data.cpp */,
+				A17070042F00000000000001 /* track_follow_data.hpp */,
 				F6D2CE7C1EDEB7F500636DFD /* routing_manager.cpp */,
 				F6D2CE7D1EDEB7F500636DFD /* routing_manager.hpp */,
 				BBD9E2C41EE9D01900DF189A /* routing_mark.cpp */,
@@ -510,6 +516,7 @@
 				BBA014B120754997007402E4 /* user_mark_id_storage.hpp in Headers */,
 				ED85D1CC2D5F4B5B00D8075D /* track_statistics.hpp in Headers */,
 				3DEE1ADF21EE03B400054A91 /* power_manager.hpp in Headers */,
+				A17070022F00000000000001 /* track_follow_data.hpp in Headers */,
 				F6D2CE7F1EDEB7F500636DFD /* routing_manager.hpp in Headers */,
 				670E39411C46C5C700E9C0A6 /* gps_tracker.hpp in Headers */,
 				45580ABF1E2CBD5E00CD535D /* benchmark_tools.hpp in Headers */,
@@ -695,6 +702,7 @@
 				39E3C60423312BA800FB0C37 /* features_fetcher.cpp in Sources */,
 				45201E931CE4AC90008A4842 /* api_mark_point.cpp in Sources */,
 				BBA014AD2073C784007402E4 /* bookmark_helpers.cpp in Sources */,
+				A17070012F00000000000001 /* track_follow_data.cpp in Sources */,
 				F6D2CE7E1EDEB7F500636DFD /* routing_manager.cpp in Sources */,
 				F6B283071C1B03320081957A /* gps_track_storage.cpp in Sources */,
 				670E39401C46C5C700E9C0A6 /* gps_tracker.cpp in Sources */,

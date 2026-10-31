@@ -350,6 +350,7 @@ public:
   bool HaveAltitudes() const { return m_haveAltitudes; }
   // Unset for ordinary routes; zero when a geometric track starts without an approach.
   std::optional<double> GetTrackStartDistanceMeters() const { return m_trackStartDistanceM; }
+  bool IsTrack() const { return m_trackStartDistanceM.has_value(); }
   void SetTrackStartDistanceMeters(double distance) { m_trackStartDistanceM = distance; }
   traffic::SpeedGroup GetTraffic(size_t segmentIdx) const;
 
@@ -552,10 +553,17 @@ private:
   }
 
   void UpdatePolyFakeIdx();
+  bool MoveTrackIterator(location::GpsInfo const & info, m2::RectD const & rect);
 
-  // The followed polyline (geometry + matched-position state + projection cache + fake-segment marks).
-  // For "fresh" Routes built via SetGeometry/SetRouteSegments the polyline is set directly;
-  // for promoted alternatives, it is reconstructed from base segments by RebuildFollowedPolyline().
+  // Entry completion and the last accepted raw fix constrain track source progress.
+  struct TrackFix
+  {
+    m2::PointD m_point;
+    double m_timestamp = 0.0;
+  };
+  bool m_trackJoined = false;
+  std::optional<TrackFix> m_trackFix;
+  // Geometry, matching position and projection cache; rebuilt when promoting a RouteBase.
   FollowedPolyline m_poly;
 
   // Vehicle-specific tuning (matching threshold, finish tolerance, etc.). Set by RoutingSession after

@@ -3,6 +3,7 @@
 #include "geometry/polyline2d.hpp"
 
 #include <limits>
+#include <optional>
 #include <vector>
 
 namespace routing
@@ -74,6 +75,13 @@ public:
 
   /// \brief Updates projection to the closest matched segment if it's possible.
   bool UpdateMatchingProjection(m2::RectD const & posRect);
+  // Match only inside the inclusive geodesic progress window; failure leaves the position unchanged.
+  // Spatially equivalent candidates prefer nearby source progress, then movement direction.
+  // advanceOnForwardChain allows a changed fix to advance across dense, nearly straight samples;
+  // it does not infer unobserved corners or turnarounds. direction is a unit Mercator vector.
+  bool UpdateTrackMatchingProjection(m2::RectD const & posRect, double minProgressM, double maxProgressM,
+                                     std::optional<m2::PointD> const & direction, double progressToleranceM,
+                                     bool advanceOnForwardChain = false);
 
   Iter UpdateProjection(m2::RectD const & posRect);
 
