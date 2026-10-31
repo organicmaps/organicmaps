@@ -15,20 +15,21 @@
 
 #include <CoreApi/ElevationProfileData+Core.h>
 #include <CoreApi/Framework.h>
+#include <CoreApi/MWMBookmarksManager.h>
 #include <CoreApi/RouteElevationPreviewData.h>
 #include <CoreApi/StringUtils+Core.h>
 #include <CoreApi/TrackInfo+Core.h>
 
 #include "routing/routing_options.hpp"
 
-#include "kml/type_utils.hpp"
+#include "geometry/mercator.hpp"
 #include "map/routing_mark.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/localization.hpp"
 
 using namespace routing;
 
-@interface MWMRouter () <MWMLocationObserver, MWMFrameworkRouteBuilderObserver>
+@interface MWMRouter () <MWMLocationObserver, MWMFrameworkRouteBuilderObserver, MWMBookmarksObserver>
 
 @property(nonatomic) uint32_t routeManagerTransactionId;
 @property(nonatomic) BOOL canAutoAddLastLocation;
@@ -155,12 +156,32 @@ using namespace routing;
   return GetFramework().GetRoutingManager().IsSpeedCamLimitExceeded();
 }
 
++ (MWMRoutePoint *)routePointFromCoreData:(RouteMarkData const &)data
+{
+  auto point = data;
+  if ([self isTrackRoute] && point.m_title.empty())
+  {
+    BOOL const reversed = GetFramework().GetRoutingManager().IsMockTrackReversed();
+    NSString * key;
+    if (point.m_isMyPosition)
+      key = @"p2p_your_location";
+    else if (point.m_pointType == RouteMarkType::Finish)
+      key = reversed ? @"navigate_track_start" : @"navigate_track_finish";
+    else if (RoutingOptions::LoadRouteOptimizationFromSettings())
+      key = @"intermediate_point";
+    else
+      key = reversed ? @"navigate_track_finish" : @"navigate_track_start";
+    point.m_title = L(key).UTF8String;
+  }
+  return [[MWMRoutePoint alloc] initWithRouteMarkData:point];
+}
+
 + (NSArray<MWMRoutePoint *> *)points
 {
   NSMutableArray<MWMRoutePoint *> * points = [@[] mutableCopy];
   auto const routePoints = GetFramework().GetRoutingManager().GetRoutePoints();
   for (auto const & routePoint : routePoints)
-    [points addObject:[[MWMRoutePoint alloc] initWithRouteMarkData:routePoint]];
+    [points addObject:[self routePointFromCoreData:routePoint]];
   return [points copy];
 }
 
@@ -175,7 +196,7 @@ using namespace routing;
     return nil;
   auto const & routePoint = routePoints.front();
   if (routePoint.m_pointType == RouteMarkType::Start)
-    return [[MWMRoutePoint alloc] initWithRouteMarkData:routePoint];
+    return [self routePointFromCoreData:routePoint];
   return nil;
 }
 
@@ -186,7 +207,7 @@ using namespace routing;
     return nil;
   auto const & routePoint = routePoints.back();
   if (routePoint.m_pointType == RouteMarkType::Finish)
-    return [[MWMRoutePoint alloc] initWithRouteMarkData:routePoint];
+    return [self routePointFromCoreData:routePoint];
   return nil;
 }
 
@@ -236,7 +257,10 @@ using namespace routing;
 + (void)setType:(MWMRouterType)type
 {
   if (type == self.type)
+  {
+    GetFramework().GetRoutingManager().SetLastUsedRouter(coreRouterType(type));
     return;
+  }
 
   [self doStop:NO];
   GetFramework().GetRoutingManager().SetRouter(coreRouterType(type));
@@ -250,6 +274,51 @@ using namespace routing;
 + (NSString *)stringFromRouterType:(MWMRouterType)type
 {
   return ToNSString(ToString(coreRouterType(type)).c_str());
+}
+
++ (BOOL)isTrackRoute
+{
+  return GetFramework().GetRoutingManager().IsMockTrackRoute();
+}
+
++ (void)exitTrackRoute
+{
+  [[MWMBookmarksManager sharedManager] removeObserver:[self router]];
+  GetFramework().GetRoutingManager().ClearMockTrackRoute();
+}
+
++ (BOOL)buildRouteForTrack:(uint64_t)trackId fromLocation:(CLLocation *)location
+{
+  if (!location || location.horizontalAccuracy < 0 || !CLLocationCoordinate2DIsValid(location.coordinate))
+    return NO;
+  auto const * track = GetFramework().GetBookmarkManager().GetTrack(trackId);
+  if (!track)
+    return NO;
+  [self stopRouting];
+  auto & manager = GetFramework().GetRoutingManager();
+  manager.SetMockTrackRoute(trackId, mercator::FromLatLon(location.coordinate.latitude, location.coordinate.longitude));
+  [[MWMBookmarksManager sharedManager] addObserver:[self router]];
+  [self rebuildWithBestRouter:NO];
+  return YES;
+}
+
+- (void)stopTrackRouteIfDeleted
+{
+  dispatch_async(dispatch_get_main_queue(), ^{
+    auto const trackId = GetFramework().GetRoutingManager().GetMockTrackId();
+    if (trackId != kml::kInvalidTrackId && !GetFramework().GetBookmarkManager().GetTrack(trackId))
+      [MWMRouter stopRouting];
+  });
+}
+
+- (void)onTracksDeleted:(MWMTrackIDCollection)trackIds
+{
+  [self stopTrackRouteIfDeleted];
+}
+
+- (void)onBookmarksCategoryDeleted:(MWMMarkGroupID)groupId
+{
+  [self stopTrackRouteIfDeleted];
 }
 
 + (void)disableFollowMode
@@ -332,7 +401,8 @@ using namespace routing;
 
 + (void)reverseRoute
 {
-  if (!GetFramework().GetRoutingManager().ReverseRoutePoints())
+  auto & manager = GetFramework().GetRoutingManager();
+  if (!manager.ReverseRoutePoints())
     return;
   [self rebuildWithBestRouter:NO];
 }
@@ -383,6 +453,7 @@ using namespace routing;
 {
   if (!startPoint)
     return;
+  [self exitTrackRoute];
   [self addPoint:startPoint];
   [self rebuildWithBestRouter:bestRouter];
 }
@@ -391,6 +462,7 @@ using namespace routing;
 {
   if (!finishPoint)
     return;
+  [self exitTrackRoute];
   [self addPoint:finishPoint];
   if (![self startPoint] && [MWMLocationManager lastLocation] && [MWMRouter router].canAutoAddLastLocation)
     [self addPoint:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart intermediateIndex:0]];
@@ -405,6 +477,8 @@ using namespace routing;
   if (!startPoint || !finishPoint)
     return;
 
+  [self exitTrackRoute];
+
   [MWMRouter setType:type];
 
   auto router = [MWMRouter router];
@@ -418,6 +492,8 @@ using namespace routing;
 
 + (void)rebuildWithBestRouter:(BOOL)bestRouter
 {
+  if ([self isTrackRoute])
+    bestRouter = NO;
   auto & rm = GetFramework().GetRoutingManager();
   auto const & points = rm.GetRoutePoints();
   auto const pointsCount = points.size();
@@ -494,6 +570,8 @@ using namespace routing;
 
 + (void)doStop:(BOOL)removeRoutePoints
 {
+  if (removeRoutePoints)
+    [self exitTrackRoute];
   [[MWMRoutingManager routingManager] stopRoutingAndRemoveRoutePoints:removeRoutePoints];
   if (removeRoutePoints)
     [[MWMRoutingManager routingManager] deleteSavedRoutePoints];
@@ -710,6 +788,12 @@ using namespace routing;
 
 + (void)optimizeRoutePointsAndRebuild
 {
+  if ([self isTrackRoute])
+  {
+    if (![self isOnRoute])
+      [self rebuildWithBestRouter:NO];
+    return;
+  }
   // The core keeps the approved order while following or in Ruler mode.
   if ([self isRoutingActive] && GetFramework().GetRoutingManager().OptimizeRoutePoints())
     [self rebuildWithBestRouter:NO];

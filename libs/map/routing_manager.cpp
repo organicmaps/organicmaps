@@ -7,6 +7,7 @@
 #include "routing/index_router.hpp"
 #include "routing/route.hpp"
 #include "routing/routing_callbacks.hpp"
+#include "routing/routing_helpers.hpp"
 #include "routing/routing_options.hpp"
 #include "routing/ruler_router.hpp"
 #include "routing/speed_camera.hpp"
@@ -222,6 +223,167 @@ private:
   base::SmallMap<uint32_t, RoadWarningMarkType> m_marks;
 };
 
+char constexpr kTrackRouterTypeKey[] = "routing_type";
+
+std::optional<RouterType> SupportedTrackRouter(std::string value)
+{
+  strings::Trim(value);
+  strings::MakeLowerCaseInplace(value);
+  if (value == "car")
+    value = ToString(RouterType::Vehicle);
+  for (auto const type : {RouterType::Vehicle, RouterType::Pedestrian, RouterType::Bicycle})
+    if (value == ToString(type))
+      return FromString(value);
+  return std::nullopt;
+}
+
+RouterType TrackRouterType(kml::TrackData const & data)
+{
+  if (auto const type = SupportedTrackRouter(data.m_routerType))
+    return *type;
+  auto const & properties = data.m_properties;
+  if (auto const it = properties.find(kTrackRouterTypeKey); it != properties.end())
+    if (auto const type = SupportedTrackRouter(it->second))
+      return *type;
+  std::string lastType;
+  if (settings::Get(kRouterTypeKey, lastType))
+    if (auto const type = SupportedTrackRouter(lastType))
+      return *type;
+  return RouterType::Pedestrian;
+}
+
+class MockTrackRouter final : public IRouter
+{
+public:
+  MockTrackRouter(kml::MultiGeometry const & geometry, bool reversed, RouterType type)
+    : m_speedMps((type == RouterType::Vehicle   ? 40.0
+                  : type == RouterType::Bicycle ? 15.0
+                                                : 5.0) /
+                 3.6)
+  {
+    for (auto const & line : geometry.m_lines)
+    {
+      for (size_t i = 0; i < line.size(); ++i)
+      {
+        if (!m_geometry.empty())
+          m_connected.push_back(i != 0);
+        m_geometry.push_back(line[i]);
+      }
+    }
+    CHECK_GREATER_OR_EQUAL(m_geometry.size(), 2, ());
+    if (reversed)
+    {
+      std::reverse(m_geometry.begin(), m_geometry.end());
+      std::reverse(m_connected.begin(), m_connected.end());
+    }
+  }
+
+  std::string GetName() const override { return "temporary-track-router"; }
+  void ClearState() override {}
+  void SetGuides(GuidesTracks &&) override {}
+  bool FindClosestProjectionToRoad(m2::PointD const &, m2::PointD const &, double, EdgeProj &) override
+  {
+    return false;
+  }
+
+  RouterResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const &, bool, bool,
+                                  RouterDelegate const & delegate, RoutesResult & result) override
+  {
+    auto const passed = checkpoints.GetPassedIdx();
+    auto const origin = checkpoints.GetPointFrom();
+    auto requestedEntry = m_geometry.front().GetPoint();
+    if (passed != 0 || RoutingOptions::LoadRouteOptimizationFromSettings())
+      requestedEntry = origin;
+    if (passed == 0 && checkpoints.GetPoints().size() == 3)
+      requestedEntry = checkpoints.GetPoints()[1];
+
+    size_t entrySegment = 0;
+    auto entry = m_geometry.front();
+    double bestDistance = std::numeric_limits<double>::max();
+    for (size_t i = 0; i + 1 < m_geometry.size(); ++i)
+    {
+      if (delegate.IsCancelled())
+        return RouterResultCode::Cancelled;
+      if (!m_connected[i])
+        continue;
+      auto const & a = m_geometry[i];
+      auto const & b = m_geometry[i + 1];
+      m2::ParametrizedSegment<m2::PointD> segment(a.GetPoint(), b.GetPoint());
+      auto const point = segment.ClosestPointTo(requestedEntry);
+      auto const distance = point.SquaredLength(requestedEntry);
+      if (distance >= bestDistance)
+        continue;
+      bestDistance = distance;
+      entrySegment = i;
+      auto const length = a.GetPoint().Length(b.GetPoint());
+      entry = length == 0 ? a : a.Interpolate(b, a.GetPoint().Length(point) / length);
+      entry.SetPoint(point);
+      if (a.GetAltitude() == geometry::kInvalidAltitude || b.GetAltitude() == geometry::kInvalidAltitude)
+        entry.SetAltitude(geometry::kInvalidAltitude);
+    }
+
+    std::vector<geometry::PointWithAltitude> path;
+    path.reserve(m_geometry.size() + 2);
+    path.emplace_back(origin, entry.GetAltitude());
+    if (!origin.EqualDxDy(entry.GetPoint(), mercator::kPointEqualityEps))
+      path.push_back(entry);
+    size_t const approachEnd = path.size();
+    for (size_t i = entrySegment + 1; i < m_geometry.size(); ++i)
+    {
+      if (delegate.IsCancelled())
+        return RouterResultCode::Cancelled;
+      if (!path.back().GetPoint().EqualDxDy(m_geometry[i].GetPoint(), mercator::kPointEqualityEps))
+        path.push_back(m_geometry[i]);
+    }
+    if (path.size() < 2)
+      return RouterResultCode::Cancelled;
+
+    std::vector<RouteSegment> segments;
+    std::vector<double> times;
+    segments.reserve(path.size());
+    times.reserve(path.size());
+    double elapsed = 0;
+    for (size_t i = 0; i < path.size(); ++i)
+    {
+      if (delegate.IsCancelled())
+        return RouterResultCode::Cancelled;
+      if (i != 0)
+        elapsed += mercator::DistanceOnEarth(path[i - 1].GetPoint(), path[i].GetPoint()) / m_speedMps;
+      turns::TurnItem turn(static_cast<uint32_t>(i + 1), turns::CarDirection::None);
+      if (i + 1 == path.size())
+      {
+        turn.m_turn = turns::CarDirection::ReachedYourDestination;
+        turn.m_pedestrianTurn = turns::PedestrianDirection::ReachedYourDestination;
+      }
+      segments.emplace_back(Segment(kFakeNumMwmId, 0, static_cast<uint32_t>(i), true), turn, path[i],
+                            RouteSegment::RoadNameInfo{});
+      times.push_back(elapsed);
+    }
+    FillSegmentInfo(times, segments);
+    Route route;
+    route.SetRouteSegments(std::move(segments));
+
+    std::vector<Route::SubrouteAttrs> subroutes;
+    for (size_t i = 0; i < passed; ++i)
+      subroutes.emplace_back(path.front(), path.front(), 0, 0);
+    if (passed == 0 && checkpoints.GetPoints().size() == 3)
+    {
+      subroutes.emplace_back(path.front(), entry, 0, approachEnd);
+      subroutes.emplace_back(entry, path.back(), approachEnd, path.size());
+    }
+    else
+      subroutes.emplace_back(path.front(), path.back(), 0, path.size());
+    route.SetSubroutes(std::move(subroutes), passed);
+    result.MakeFrom(GetName(), std::move(route));
+    return RouterResultCode::NoError;
+  }
+
+private:
+  std::vector<geometry::PointWithAltitude> m_geometry;
+  std::vector<bool> m_connected;
+  double const m_speedMps;
+};
+
 drape_ptr<df::Subroute> CreateDrapeSubroute(std::vector<RouteSegment> const & segments, m2::PointD const & startPt,
                                             double baseDistance, double baseDepth, routing::RouterType routerType)
 {
@@ -418,8 +580,8 @@ void RoutingManager::OnBuildRouteReady(RoutesResult const & result, RouterResult
   // Validate route (in case of bicycle routing it can be invalid).
   ASSERT(result.IsValid(), ());
   auto const & active = result.GetActive();
-  // Do not show the full route if one or more stops were added, for easier multi-stop trip planning.
-  if (active.IsValid() && active.GetSubrouteCount() < 2 && m_currentRouterType != routing::RouterType::Ruler)
+  if (active.IsValid() && (active.GetSubrouteCount() < 2 || IsMockTrackRoute()) &&
+      m_currentRouterType != routing::RouterType::Ruler)
   {
     m2::RectD routeRect = active.GetLimitRect();
     routeRect.Scale(kRouteScaleMultiplier);
@@ -508,7 +670,13 @@ void RoutingManager::SetRouterImpl(RouterType type)
   std::unique_ptr<IRouter> router;
   std::unique_ptr<AbsentRegionsFinder> absentFinder;
 
-  if (type == RouterType::Ruler)
+  if (IsMockTrackRoute())
+  {
+    auto const * track = m_bmManager->GetTrack(m_mockTrackId);
+    CHECK(track, (m_mockTrackId));
+    router = std::make_unique<MockTrackRouter>(track->GetData().m_geometry, m_mockTrackReversed, type);
+  }
+  else if (type == RouterType::Ruler)
     router = std::make_unique<RulerRouter>();
   else
   {
@@ -840,14 +1008,16 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
     route.GetSubrouteInfo(subrouteIndex, segments);
 
     auto const startPt = route.GetSubrouteAttrs(subrouteIndex).GetStart().GetPoint();
-    auto subroute =
-        CreateDrapeSubroute(segments, startPt, distance,
-                            static_cast<double>(subroutesCount - subrouteIndex - 1) + depthOffset, m_currentRouterType);
+    auto subroute = CreateDrapeSubroute(segments, startPt, distance,
+                                        static_cast<double>(subroutesCount - subrouteIndex - 1) + depthOffset,
+                                        IsMockTrackRoute() ? RouterType::Ruler : m_currentRouterType);
     if (!subroute)
       continue;
     subroute->m_alphaMul = alphaMul;
     distance = segments.back().GetDistFromBeginningMerc();
-    switch (m_currentRouterType)
+    auto const displayType =
+        IsMockTrackRoute() && subroutesCount == 2 && subrouteIndex == 0 ? RouterType::Ruler : m_currentRouterType;
+    switch (displayType)
     {
     case RouterType::Vehicle:
     {
@@ -1000,6 +1170,7 @@ void RoutingManager::CloseRouting(bool removeRoutePoints)
 
   if (removeRoutePoints)
   {
+    ClearMockTrackRoute();
     m_bmManager->GetEditSession().ClearGroup(UserMark::Type::ROUTING);
     CancelRecommendation(Recommendation::RebuildAfterPointsLoading);
   }
@@ -1050,6 +1221,7 @@ bool RoutingManager::CouldAddIntermediatePoint() const
 
 bool RoutingManager::AddRoutePoint(RouteMarkData && markData, bool optimize)
 {
+  ClearMockTrackRoute();
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(*m_bmManager);
   bool const isIntermediate = markData.m_pointType == RouteMarkType::Intermediate;
@@ -1081,6 +1253,7 @@ bool RoutingManager::AddRoutePoint(RouteMarkData && markData, bool optimize)
 
 void RoutingManager::ReplaceRoutePoint(RouteMarkType type, size_t intermediateIndex, RouteMarkData && markData)
 {
+  ClearMockTrackRoute();
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(*m_bmManager);
   auto * target = routePoints.GetRoutePointForEdit(type, intermediateIndex);
@@ -1121,6 +1294,7 @@ bool RoutingManager::OptimizeRoutePoints()
 
 bool RoutingManager::ContinueRouteToPoint(RouteMarkData && markData)
 {
+  ClearMockTrackRoute();
   ASSERT(m_bmManager != nullptr, ());
   ASSERT(markData.m_pointType == RouteMarkType::Finish, ("New route point should have type RouteMarkType::Finish"));
   RoutePointsLayout routePoints(*m_bmManager);
@@ -1156,6 +1330,7 @@ bool RoutingManager::ContinueRouteToPoint(RouteMarkData && markData)
 
 void RoutingManager::RemoveRoutePoint(RouteMarkType type, size_t intermediateIndex)
 {
+  ClearMockTrackRoute();
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(*m_bmManager);
   routePoints.RemoveRoutePoint(type, intermediateIndex);
@@ -1163,6 +1338,7 @@ void RoutingManager::RemoveRoutePoint(RouteMarkType type, size_t intermediateInd
 
 void RoutingManager::RemoveRoutePoints()
 {
+  ClearMockTrackRoute();
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(*m_bmManager);
   routePoints.RemoveRoutePoints();
@@ -1170,6 +1346,7 @@ void RoutingManager::RemoveRoutePoints()
 
 void RoutingManager::RemoveIntermediateRoutePoints()
 {
+  ClearMockTrackRoute();
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(*m_bmManager);
   routePoints.RemoveIntermediateRoutePoints();
@@ -1249,6 +1426,14 @@ void RoutingManager::MoveRoutePoint(size_t currentIndex, size_t targetIndex)
 
 bool RoutingManager::ReverseRoutePoints()
 {
+  if (IsMockTrackRoute())
+  {
+    m_mockTrackReversed = !m_mockTrackReversed;
+    UpdateMockTrackRoutePoints();
+    if (m_numMwmIDs)
+      SetRouterImpl(m_currentRouterType);
+    return true;
+  }
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(*m_bmManager);
   auto const points = routePoints.GetRoutePoints();
@@ -1389,6 +1574,12 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
     auto * mark = layout.GetRoutePointForEdit(p.m_pointType, p.m_intermediateIndex);
     CHECK(mark != nullptr, (static_cast<int>(p.m_pointType), p.m_intermediateIndex));
     mark->SetPosition(p.m_position);
+  }
+
+  if (IsMockTrackRoute() && !IsRoutingFollowing())
+  {
+    UpdateMockTrackRoutePoints();
+    routePoints = GetRoutePoints();
   }
 
   // Check for equal points.
@@ -1607,6 +1798,71 @@ std::optional<m2::PointD> RoutingManager::GetRoutePointAtDistance(double distanc
   auto const & distances = route->GetSegDistanceMeters();
   auto const & points = route->GetPoly().GetPoints();
   return m2::InterpolatePointAtDistance(distances, points, distanceMeters);
+}
+
+void RoutingManager::SetMockTrackRoute(kml::TrackId trackId, m2::PointD const & origin)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  auto const * track = m_bmManager->GetTrack(trackId);
+  CHECK(track, (trackId));
+  auto const type = TrackRouterType(track->GetData());
+  RemoveRoutePoints();
+  m_mockTrackId = trackId;
+  m_mockTrackReversed = false;
+  SetLastUsedRouter(type);
+  if (m_numMwmIDs)
+    SetRouterImpl(type);
+
+  RouteMarkData start;
+  start.m_pointType = RouteMarkType::Start;
+  start.m_isMyPosition = true;
+  start.m_isVisible = false;
+  start.m_position = origin;
+  RoutePointsLayout(*m_bmManager).AddRoutePoint(std::move(start));
+  UpdateMockTrackRoutePoints();
+}
+
+void RoutingManager::ClearMockTrackRoute()
+{
+  if (!IsMockTrackRoute())
+    return;
+  m_mockTrackId = kml::kInvalidTrackId;
+  m_mockTrackReversed = false;
+  if (m_numMwmIDs)
+    SetRouterImpl(m_currentRouterType);
+}
+
+void RoutingManager::UpdateMockTrackRoutePoints()
+{
+  auto const * track = m_bmManager->GetTrack(m_mockTrackId);
+  CHECK(track, (m_mockTrackId));
+  RoutePointsLayout layout(*m_bmManager);
+  auto const * start = layout.GetRoutePoint(RouteMarkType::Start);
+  CHECK(start && start->IsMyPosition(), ());
+  auto const origin = start->GetPivot();
+  auto const & lines = track->GetData().m_geometry.m_lines;
+  RouteMarkData entry;
+  entry.m_pointType = RouteMarkType::Intermediate;
+  entry.m_subTitle = track->GetName();
+  entry.m_position = (m_mockTrackReversed ? lines.back().back() : lines.front().front()).GetPoint();
+  RouteMarkData finish;
+  finish.m_pointType = RouteMarkType::Finish;
+  finish.m_subTitle = entry.m_subTitle;
+  finish.m_position = (m_mockTrackReversed ? lines.front().front() : lines.back().back()).GetPoint();
+  if (RoutingOptions::LoadRouteOptimizationFromSettings())
+  {
+    Track::TrackSelectionInfo nearest;
+    track->UpdateSelectionInfo(origin, nearest);
+    CHECK(nearest.IsValid(), (m_mockTrackId));
+    entry.m_position = nearest.m_trackPoint;
+  }
+  layout.RemoveIntermediateRoutePoints();
+  layout.RemoveRoutePoint(RouteMarkType::Finish);
+  if (!entry.m_position.EqualDxDy(origin, mercator::kPointEqualityEps) &&
+      !entry.m_position.EqualDxDy(finish.m_position, mercator::kPointEqualityEps) &&
+      !origin.EqualDxDy(finish.m_position, mercator::kPointEqualityEps))
+    layout.AddRoutePoint(std::move(entry));
+  layout.AddRoutePoint(std::move(finish));
 }
 
 void RoutingManager::SetRouter(RouterType type)
