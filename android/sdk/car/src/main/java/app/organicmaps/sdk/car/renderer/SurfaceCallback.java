@@ -37,6 +37,13 @@ final class SurfaceCallback extends SurfaceCallbackBase
   @Nullable
   private CarPresentation mPresentation;
 
+  private int mCurrentSpeed = 0;
+  @NonNull
+  private String mSpeedUnits = "";
+  @Nullable
+  private Integer mSpeedLimit;
+  private boolean mAlertForced = false;
+
   public SurfaceCallback(@NonNull CarContext carContext, @NonNull LifecycleOwner lifecycleOwner,
                          @NonNull LocationHelper locationHelper, @NonNull MapRenderingListener mapRenderingListener,
                          @NonNull DisplayManager displayManager)
@@ -114,10 +121,26 @@ final class SurfaceCallback extends SurfaceCallbackBase
       mPresentation.startPresenting();
   }
 
-  void setSpeedLimit(int speedLimit, boolean speedLimitExceeded)
+  void setCurrentSpeed(int speed, @NonNull String units)
   {
+    mCurrentSpeed = speed;
+    mSpeedUnits = units;
     if (mPresentation != null)
-      mPresentation.setSpeedLimit(speedLimit, speedLimitExceeded);
+      mPresentation.setCurrentSpeed(speed, units);
+  }
+
+  void setSpeedLimit(@Nullable Integer speedLimit)
+  {
+    mSpeedLimit = speedLimit;
+    if (mPresentation != null)
+      mPresentation.setSpeedLimit(speedLimit);
+  }
+
+  void setAlertForced(boolean alertForced)
+  {
+    mAlertForced = alertForced;
+    if (mPresentation != null)
+      mPresentation.setAlertForced(alertForced);
   }
 
   private void createPresentation()
@@ -129,6 +152,9 @@ final class SurfaceCallback extends SurfaceCallbackBase
                                         mMapRenderingListener);
     mPresentation.create();
     mPresentation.setVisibleArea(mVisibleArea);
+    mPresentation.setCurrentSpeed(mCurrentSpeed, mSpeedUnits);
+    mPresentation.setSpeedLimit(mSpeedLimit);
+    mPresentation.setAlertForced(mAlertForced);
   }
 
   private void clearPresentation()
