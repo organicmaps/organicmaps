@@ -456,15 +456,26 @@ using namespace routing;
         // restoreRouteIfNeeded.
         [self saveRoute];
 
-        BOOL const needToRebuild = lastLocation && [MWMLocationManager isStarted] && !p2.isMyPosition;
+        if (p2.isMyPosition && lastLocation && [MWMLocationManager isStarted])
+        {
+          [[MWMAlertViewController activeAlertController] presentDefaultAlertWithTitle:L(@"reverse_route")
+                                                                               message:L(@"p2p_reroute_from_current")
+                                                                      rightButtonTitle:L(@"ok")
+                                                                       leftButtonTitle:L(@"cancel")
+                                                                     rightButtonAction:^{ [self reverseRoute]; }];
+        }
+        else
+        {
+          BOOL const needToRebuild = lastLocation && [MWMLocationManager isStarted];
 
-        [[MWMAlertViewController activeAlertController]
-            presentPoint2PointAlertWithOkBlock:^{
-              [self buildFromPoint:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart
-                                                                    intermediateIndex:0]
-                        bestRouter:NO];
-            }
-                                 needToRebuild:needToRebuild];
+          [[MWMAlertViewController activeAlertController]
+              presentPoint2PointAlertWithOkBlock:^{
+                [self buildFromPoint:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart
+                                                                      intermediateIndex:0]
+                          bestRouter:NO];
+              }
+                                   needToRebuild:needToRebuild];
+        }
       }
     }
   };
