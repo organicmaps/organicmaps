@@ -65,6 +65,9 @@ void GpxParser::ResetPoint()
   ResetCoordinates();
   m_altitude = geometry::kInvalidAltitude;
   m_timestamp = base::INVALID_TIME_STAMP;
+  m_rteptName.clear();
+  m_stopCandidates.clear();
+  m_rteptOrdinal = 0;
 }
 
 // A <wpt>/<trkpt>/<rtept> with a missing or unparseable lat/lon attribute must be skipped instead
@@ -266,10 +269,19 @@ void GpxParser::Pop(std::string_view tag)
           ASSERT_LESS_OR_EQUAL(m_timestamps.back(), m_timestamp, ());
         m_timestamps.emplace_back(m_timestamp);
       }
+
+      if (tag == gpx::kRtePt && GetTagFromEnd(1) == gpx::kRte)
+      {
+        if (!m_rteptName.empty())
+          m_stopCandidates.push_back({m_rteptOrdinal, {p, std::move(m_rteptName)}});
+        // Count valid occurrences even when consecutive duplicates are omitted from the geometry.
+        ++m_rteptOrdinal;
+      }
     }
 
     m_altitude = geometry::kInvalidAltitude;
     m_timestamp = base::INVALID_TIME_STAMP;
+    m_rteptName.clear();
   }
   else if (tag == gpx::kTrkSeg || tag == gpx::kRte)
   {
@@ -350,6 +362,13 @@ void GpxParser::Pop(std::string_view tag)
         data.m_layers.push_back(layer);
         data.m_geometry = std::move(m_geometry);
 
+        // Only intermediate route points become stops: the first and the last valid rtept are the
+        // route's start/finish -- already the geometry's endpoints. Filter by position, not by
+        // coordinates, so a loop route's middle stop coinciding with the start survives.
+        for (auto & [ordinal, stop] : m_stopCandidates)
+          if (ordinal != 0 && ordinal + 1 != m_rteptOrdinal)
+            data.m_stops.push_back(std::move(stop));
+
         m_data.m_tracksData.push_back(std::move(data));
       }
     }
@@ -417,6 +436,11 @@ void GpxParser::ParseName(std::string const & value, std::string const & prevTag
   if (prevTag == kWpt)
   {
     m_name = value;
+  }
+  else if (prevTag == kRtePt)
+  {
+    // A named route point becomes a stop of the track (see Pop).
+    m_rteptName = value;
   }
   else if (prevTag == kTrk || prevTag == kRte)
   {
@@ -531,6 +555,16 @@ void SaveBookmarkData(Writer & writer, BookmarkData const & bookmarkData)
   writer << "</wpt>\n";
 }
 
+// Track stops are exported as plain waypoints readable by other apps (GPX has no notion of
+// per-track stops), so reimporting yields bookmarks, not stops. KML keeps full fidelity.
+void SaveTrackStopData(Writer & writer, TrackStopData const & stop)
+{
+  BookmarkData bookmarkData;
+  bookmarkData.m_point = stop.m_point;
+  SetDefaultStr(bookmarkData.m_name, stop.m_name);
+  SaveBookmarkData(writer, bookmarkData);
+}
+
 // True if any line in the track carries real elevation (see LineHasAltitude). Scanning every
 // point (not just the first) keeps GPX export consistent with the elevation chart
 // (Track::HasAltitudes) for mixed tracks whose first point lacks altitude.
@@ -617,6 +651,10 @@ void GpxWriter::Write(FileData const & fileData)
   SaveCategoryData(m_writer, fileData.m_categoryData);
   for (auto const & bookmarkData : fileData.m_bookmarksData)
     SaveBookmarkData(m_writer, bookmarkData);
+  // The GPX schema requires wpt* elements before trk*, so track stops are written here.
+  for (auto const & trackData : fileData.m_tracksData)
+    for (auto const & stop : trackData.m_stops)
+      SaveTrackStopData(m_writer, stop);
   for (auto const & trackData : fileData.m_tracksData)
     SaveTrackData(m_writer, trackData);
   m_writer << kGpxFooter;
