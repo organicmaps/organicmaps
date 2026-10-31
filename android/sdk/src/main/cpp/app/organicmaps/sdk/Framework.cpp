@@ -1525,6 +1525,28 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeReverseRoutePoints(J
   return frm()->GetRoutingManager().ReverseRoutePoints();
 }
 
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetTrackRoute(JNIEnv *, jclass, jlong trackId, jdouble lat,
+                                                                      jdouble lon)
+{
+  frm()->GetRoutingManager().SetMockTrackRoute(static_cast<kml::TrackId>(trackId), mercator::FromLatLon(lat, lon));
+}
+
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsTrackRoute(JNIEnv *, jclass)
+{
+  return frm()->GetRoutingManager().IsMockTrackRoute();
+}
+
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsTrackRouteReversed(JNIEnv *, jclass)
+{
+  return frm()->GetRoutingManager().IsMockTrackReversed();
+}
+
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsTrackRouteDeleted(JNIEnv *, jclass)
+{
+  auto const trackId = frm()->GetRoutingManager().GetMockTrackId();
+  return trackId != kml::kInvalidTrackId && !frm()->GetBookmarkManager().GetTrack(trackId);
+}
+
 JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetTransitRouteInfo(JNIEnv * env, jclass)
 {
   return routing_jni::CreateTransitRouteInfo(env, frm()->GetRoutingManager().GetTransitRouteInfo());
