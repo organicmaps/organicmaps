@@ -41,6 +41,8 @@ set(SRC
   collector_building_parts.hpp
   collector_camera.cpp
   collector_camera.hpp
+  cycling_junctions.cpp
+  cycling_junctions.hpp
   collector_collection.cpp
   collector_collection.hpp
   collector_interface.hpp
