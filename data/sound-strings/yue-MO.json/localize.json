@@ -28,6 +28,7 @@
 "take_exit_number":"出口",
 "take_exit_number_street_verb":"NULL",
 "route_recalculating":"重新計算路線",
+"you_have_left_the_track":"你已經偏離咗軌跡。",
 "destination":"就嚟到目的地。",
 "you_have_reached_the_destination":"你已經到咗目的地。",
 "in_50_meters":"喺五十米後",

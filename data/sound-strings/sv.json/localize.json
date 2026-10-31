@@ -28,6 +28,7 @@
 "take_exit_number":"Ta avfart",
 "take_exit_number_street_verb":"NULL",
 "route_recalculating":"Räknar om rutten",
+"you_have_left_the_track":"Du har lämnat spåret.",
 "destination":"Är du framme.",
 "you_have_reached_the_destination":"Du har anlänt.",
 "in_50_meters":"Om femtio meter",

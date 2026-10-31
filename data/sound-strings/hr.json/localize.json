@@ -28,6 +28,7 @@
 "take_exit_number":"Izađite na izlaz",
 "take_exit_number_street_verb":"NULL",
 "route_recalculating":"Preračunavanje rute",
+"you_have_left_the_track":"Napustili ste stazu.",
 "destination":"Stižete na odredište.",
 "you_have_reached_the_destination":"Stigli ste na odredište.",
 "in_50_meters":"Za pedeset metara",

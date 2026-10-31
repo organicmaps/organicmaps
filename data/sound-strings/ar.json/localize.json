@@ -28,6 +28,7 @@
 "take_exit_number":"خروج إلى",
 "take_exit_number_street_verb":"NULL",
 "route_recalculating":"إعادة حساب المسار",
+"you_have_left_the_track":"لقد غادرت المسار.",
 "destination":"سوف تصل.",
 "you_have_reached_the_destination":"لقد وصلت.",
 "in_50_meters":"بعد خمسين متراً",

@@ -28,6 +28,7 @@
 "take_exit_number":"Nehmen Sie die Ausfahrt auf",
 "take_exit_number_street_verb":"NULL",
 "route_recalculating":"Neuberechnung der Route",
+"you_have_left_the_track":"Sie haben den Track verlassen.",
 "destination":"Kommen Sie an.",
 "you_have_reached_the_destination":"Ihr Ziel ist erreicht.",
 "in_50_meters":"In fünfzig Metern",

@@ -28,6 +28,7 @@
 "take_exit_number":"צא ביציאה",
 "take_exit_number_street_verb":"NULL",
 "route_recalculating":"חישוב מחדש של המסלול",
+"you_have_left_the_track":"יצאת מהמסלול.",
 "destination":"תגיע ליעד.",
 "you_have_reached_the_destination":"הגעת ליעד",
 "in_50_meters":"בעוד חמישים מטר",

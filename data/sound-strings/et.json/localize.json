@@ -28,6 +28,7 @@
 "take_exit_number":"Pööra ära",
 "take_exit_number_street_verb":"NULL",
 "route_recalculating":"Koostan uuesti teekonda",
+"you_have_left_the_track":"Lahkusite rajalt.",
 "destination":"Oled saabumas.",
 "you_have_reached_the_destination":"Oled kohale jõudnud.",
 "in_50_meters":"Viiekümne meetri pärast",
