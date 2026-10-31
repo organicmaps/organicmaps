@@ -74,7 +74,7 @@ jobject CreateTrack(JNIEnv * env, place_page::Info const & info, jni::TScopedLoc
   jni::TScopedLocalObjectArrayRef candidatesArray(env, BuildTrackCandidatesArray(env, info));
   // clang-format off
   jobject mapObject = env->NewObject(g_trackClazz, ctorId,
-    static_cast<jlong>(track->GetGroupId()),
+    static_cast<jlong>(info.GetBookmarkCategoryId()),
     static_cast<jlong>(trackId),
     static_cast<jboolean>(info.IsRelationTrack()),
     jni::ToJavaStringWithSupplementalCharsFix(env, info.GetTitle()),
