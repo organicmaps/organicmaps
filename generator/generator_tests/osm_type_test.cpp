@@ -3190,6 +3190,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
       {{"shop", "clothes", "underwear"}, {{"shop", "clothes"}, {"clothes", "underwear"}}},
       {{"shop", "clothes", "wedding"}, {{"shop", "clothes"}, {"clothes", "wedding"}}},
       {{"shop", "clothes", "women"}, {{"shop", "clothes"}, {"clothes", "women"}}},
+      {{"shop", "hairdresser", "barber"}, {{"shop", "hairdresser"}, {"hairdresser", "barber"}}},
       {{"shop"}, {{"shop", "any_value"}}},
       {{"sport", "boules"}, {{"sport", "boules"}}},
       {{"sport", "boules"}, {{"sport", "petanque"}}},
