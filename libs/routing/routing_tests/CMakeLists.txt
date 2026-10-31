@@ -44,6 +44,7 @@ set(SRC
   tools.hpp
   transit_graph_tests.cpp
   track_router_tests.cpp
+  track_voice_tests.cpp
   turns_generator_test.cpp
   turns_sound_test.cpp
   turns_tts_text_tests.cpp
