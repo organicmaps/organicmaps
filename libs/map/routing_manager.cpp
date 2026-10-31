@@ -1231,6 +1231,16 @@ FollowTrackResult RoutingManager::UpdateFollowedTrackEntry(m2::PointD const & po
                             m_followSession->m_info.m_profile, true /* keepViewport */);
 }
 
+FollowTrackResult RoutingManager::ReverseFollowedTrack()
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  if (!m_followSession)
+    return FollowTrackResult::NoTrack;
+  if (!IsRouteBuilt())
+    return FollowTrackResult::Busy;
+  return RebuildFollowedTrack(!m_followSession->m_info.m_reversed, m_followSession->m_info.m_profile);
+}
+
 FollowTrackResult RoutingManager::SetFollowTrackProfile(RouterType type)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());

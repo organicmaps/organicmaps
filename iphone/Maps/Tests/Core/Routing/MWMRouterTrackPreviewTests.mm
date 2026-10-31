@@ -116,6 +116,34 @@
   XCTAssertEqual(MWMNavigationDashboardManager.sharedManager.state, MWMNavigationDashboardStateClosed);
 }
 
+- (void)testReverseKeepsTheCapturedEntryAndProfile
+{
+  auto const id = [self createPreview];
+  [self waitForPreview];
+  XCTAssertEqual([MWMRouter setFollowTrackProfile:MWMRouterTypeVehicle], MWMFollowTrackResultOk);
+  [self waitForPreview];
+  auto & framework = GetFramework();
+  auto & bookmarks = framework.GetBookmarkManager();
+  auto const start = mercator::FromLatLon(45.0, 19.0);
+  auto const entry = mercator::FromLatLon(45.005, 19.0);
+  bookmarks.SetTrackSelectionInfo({id, entry, mercator::DistanceOnEarth(start, entry)}, false);
+  XCTAssertEqual([MWMRouter updateFollowedTrackEntry], MWMFollowTrackResultOk);
+  [self waitForPreview];
+  XCTAssertEqual([MWMRouter reverseFollowedTrack], MWMFollowTrackResultOk);
+  XCTAssertEqual([MWMRouter reverseFollowedTrack], MWMFollowTrackResultBusy);
+  [self waitForPreview];
+  XCTAssertTrue([MWMRouter followedTrackInfo].isReversed);
+  XCTAssertEqual([MWMRouter renderType], MWMRouterTypeVehicle);
+  auto const * route = framework.GetRoutingManager().RoutingSession().GetRoute();
+  XCTAssertTrue(route->GetPoly().GetPoint(1).EqualDxDy(entry, mercator::kPointEqualityEps));
+  XCTAssertTrue(route->GetPoly().Back().EqualDxDy(start, mercator::kPointEqualityEps));
+  XCTAssertTrue(bookmarks.GetTrack(id)->GetData().m_routerType == "pedestrian");
+  framework.GetRoutingManager().FollowRoute();
+  XCTAssertTrue([MWMRouter isOnRoute]);
+  XCTAssertEqual([MWMRouter reverseFollowedTrack], MWMFollowTrackResultBusy);
+  XCTAssertEqual(framework.GetRoutingManager().RoutingSession().GetRoute(), route);
+}
+
 - (void)testDeletionKeepsAnActiveJourneyOnItsFrozenGeometry
 {
   auto const id = [self createPreview];
