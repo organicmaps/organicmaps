@@ -8,6 +8,8 @@ import androidx.annotation.Nullable;
 import androidx.core.util.Pair;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Router;
+import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
+import app.organicmaps.sdk.bookmarks.data.DataChangedListener;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.util.concurrency.UiThread;
@@ -160,6 +162,11 @@ public class RoutingController
       prepare(getStartPoint(), getEndPoint());
   };
 
+  private final DataChangedListener mBookmarksListener = () -> UiThread.runLater(() -> {
+    if (Framework.nativeIsTrackRouteDeleted())
+      cancel();
+  });
+
   public static RoutingController get()
   {
     return sInstance;
@@ -289,6 +296,7 @@ public class RoutingController
         setStartPoint(locationHelper.getMyPosition());
     }));
     Framework.nativeSetRoutingLoadPointsListener(mRoutingLoadPointsListener);
+    BookmarkManager.INSTANCE.addCategoriesUpdatesListener(mBookmarksListener);
   }
 
   public void detach()
@@ -413,7 +421,13 @@ public class RoutingController
   {
     setState(State.NONE);
     setBuildState(BuildState.NONE);
-    prepare(getStartPoint(), getEndPoint());
+    if (isTrackRoute())
+    {
+      setState(State.PREPARE);
+      startPlanning(getStartPoint(), getEndPoint());
+    }
+    else
+      prepare(getStartPoint(), getEndPoint());
   }
 
   public void prepare(@Nullable MapObject startPoint, @Nullable MapObject endPoint)
@@ -441,6 +455,15 @@ public class RoutingController
       setPointsInternal(startPoint, endPoint);
 
     startPlanning(startPoint, endPoint);
+  }
+
+  public void prepareTrackRoute(long trackId, @NonNull MapObject myPosition)
+  {
+    cancel();
+    setState(State.PREPARE);
+    Framework.nativeSetTrackRoute(trackId, myPosition.getLat(), myPosition.getLon());
+    mLastRouterType = Router.getLastUsed();
+    startPlanning(getStartPoint(), getEndPoint());
   }
 
   public void start()
@@ -593,7 +616,7 @@ public class RoutingController
 
   public boolean isStopPointAllowed()
   {
-    return Framework.nativeCouldAddIntermediatePoint();
+    return !isTrackRoute() && Framework.nativeCouldAddIntermediatePoint();
   }
 
   public boolean isPoiPickReplaceStop()
@@ -715,6 +738,16 @@ public class RoutingController
   public boolean isPlanning()
   {
     return mState == State.PREPARE;
+  }
+
+  public boolean isTrackRoute()
+  {
+    return Framework.nativeIsTrackRoute();
+  }
+
+  public boolean isTrackRouteReversed()
+  {
+    return Framework.nativeIsTrackRouteReversed();
   }
 
   public boolean isTransitType()
