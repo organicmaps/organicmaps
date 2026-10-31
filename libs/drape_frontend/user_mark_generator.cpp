@@ -1,5 +1,6 @@
 #include "drape_frontend/user_mark_generator.hpp"
 #include "drape_frontend/tile_utils.hpp"
+#include "drape_frontend/visual_params.hpp"
 
 #include "drape/batcher.hpp"
 #include "drape/utils/projection.hpp"
@@ -40,6 +41,8 @@ void UserMarkGenerator::RemoveGroup(kml::MarkGroupId groupId)
 
 void UserMarkGenerator::SetGroup(kml::MarkGroupId groupId, drape_ptr<IDCollections> && ids)
 {
+  for (auto const id : ids->m_areaIds)
+    ASSERT(m_areas.contains(id), (id, groupId));
   m_groups[groupId] = std::move(ids);
   UpdateIndex(groupId);
 }
@@ -78,12 +81,9 @@ void UserMarkGenerator::SetUserLines(drape_ptr<UserLinesRenderCollection> && lin
 
 void UserMarkGenerator::SetUserAreas(drape_ptr<UserAreasRenderCollection> && areas)
 {
+  // An area comes once: with the first update of the backend, its creation or its category shown.
   for (auto & [id, area] : *areas)
-  {
-    TessellateUserArea(*area);
-    // Areas can't be edited, so an area is sent only when it's created or shown after its removal.
     VERIFY(m_areas.emplace(id, std::move(area)).second, (id));
-  }
 }
 
 void UserMarkGenerator::UpdateIndex(kml::MarkGroupId groupId)
@@ -240,11 +240,17 @@ SourceT UserMarkGenerator::GetIndexSource(TileKey const & tileKey, LevelsT const
   return source;
 }
 
-UserAreasToCache UserMarkGenerator::GetAreasToCache(m2::RectD const & tileRect) const
+UserAreasToCache UserMarkGenerator::GetAreasToCache(TileKey const & tileKey) const
 {
   // Areas aren't in the tile index: big ones would cover too many tiles of the indexing zooms.
+  // The ranks of the visible areas don't exceed the count of all areas, so an area gets the same depth in all tiles,
+  // distinct even when there are more areas than integers in the depth range.
+  size_t const count = m_areas.size();
+  float const step = count > dp::kMaxDepth ? dp::kMaxDepth / static_cast<float>(count) : 1;
+  double const vs = VisualParams::Instance().GetVisualScale();
+
   UserAreasToCache areas;
-  float depth = 0;
+  size_t rank = 0;
   for (auto const & [groupId, ids] : m_groups)
   {
     if (!m_groupsVisibility.contains(groupId))
@@ -255,10 +261,8 @@ UserAreasToCache UserMarkGenerator::GetAreasToCache(m2::RectD const & tileRect) 
       auto const it = m_areas.find(areaId);
       if (it == m_areas.end())
         continue;
-      // Count all visible areas to give an area the same depth in all tiles. The depth saturates after
-      // kMaxDepth areas, and then the outlines of the later ones aren't drawn where they overlap each other.
-      depth = std::min(depth + 1, dp::kMaxDepth);
-      if (it->second->m_limitRect.IsIntersect(tileRect))
+      float const depth = std::min(static_cast<float>(++rank) * step, dp::kMaxDepth);
+      if (it->second->m_limitRect.IsIntersect(GetUserAreaOutlineRect(*it->second, tileKey, vs)))
         areas.emplace_back(it->second.get(), depth);
     }
   }
@@ -272,7 +276,7 @@ void UserMarkGenerator::GenerateUserMarksGeometry(ref_ptr<dp::GraphicsContext> c
 
   auto marksSource = GetIndexSource<MarksSource>(clippedTileKey, kMarkIndexingLevels);
   auto linesSource = GetIndexSource<TracksSource>(clippedTileKey, kLineIndexingLevels);
-  auto const areas = GetAreasToCache(tileKey.GetWrappedDataRect());
+  auto const areas = GetAreasToCache(tileKey);
 
   if (marksSource.IsEmpty() && linesSource.IsEmpty() && areas.empty())
     return;
