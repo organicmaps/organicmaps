@@ -1796,7 +1796,7 @@ void FrontendRenderer::RenderEmptyFrame()
   if (!m_context->Validate())
     return;
 
-  if (!m_context->BeginRendering())
+  if (m_context->BeginRendering() != dp::FrameStatus::Ready)
     return;
 
   m_context->SetFramebuffer(nullptr /* default */);
@@ -1818,22 +1818,24 @@ void FrontendRenderer::RenderFrame()
   DrapeMeasurerGuard drapeMeasurerGuard;
 
   CHECK(m_context != nullptr, ());
-  if (!m_context->Validate())
-  {
-    m_frameData.m_forceFullRedrawNextFrame = true;
-    m_frameData.m_inactiveFramesCounter = 0;
-    return;
-  }
-
   auto & scaleFpsHelper = gui::DrapeGui::Instance().GetScaleFpsHelper();
   m_frameData.m_timer.Reset();
 
   bool modelViewChanged, viewportChanged, needActiveFrame;
   ScreenBase const & modelView = ProcessEvents(modelViewChanged, viewportChanged, needActiveFrame);
+  bool const zoomChanged = modelViewChanged && ResolveZoomLevel(modelView);
+
+  if (!ValidateContext())
+  {
+    // The event stream consumes resize events even while presentation is unavailable.
+    m_needRestoreSize |= viewportChanged;
+    m_frameData.m_forceFullRedrawNextFrame = true;
+    m_frameData.m_inactiveFramesCounter = 0;
+    return;
+  }
+
   if (viewportChanged || m_needRestoreSize)
     OnResize(modelView);
-
-  bool const zoomChanged = modelViewChanged && ResolveZoomLevel(modelView);
 
 #ifdef SCENARIO_ENABLE
   if (m_scenarioViewportRequest)
@@ -1851,16 +1853,19 @@ void FrontendRenderer::RenderFrame()
   }
 #endif
 
-  // Skip starting a new GPU frame if rendering is being disabled (e.g. the app is going to the
-  // background). SetRenderingEnabled(false) sets the flag on the UI thread and then blocks until this
-  // render thread reaches CheckRenderingEnabled(); bailing out here (before BeginRendering, so GPU frame
-  // scope stays balanced) lets that handshake complete after at most the already in-flight frame instead
-  // of waiting for a full PrepareScene + RenderScene + present. Prevents ANRs in Framework::DetachSurface.
+  // Leave GPU frame scope unopened after a disable request so this thread can
+  // acknowledge the request in CheckRenderingEnabled().
   if (!IsRenderingEnabled())
     return;
 
-  if (!m_context->BeginRendering())
+  auto const frameStatus = m_context->BeginRendering();
+  if (frameStatus != dp::FrameStatus::Ready)
+  {
+    m_frameData.m_forceFullRedrawNextFrame = true;
+    m_frameData.m_inactiveFramesCounter = 0;
+    ProcessFrameFailure(frameStatus);
     return;
+  }
 
   // Check for a frame is active.
   bool isActiveFrame = modelViewChanged || viewportChanged || needActiveFrame;
