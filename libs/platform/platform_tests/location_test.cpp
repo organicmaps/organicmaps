@@ -37,3 +37,9 @@ UNIT_TEST(BearingToAngle)
   TEST_ALMOST_EQUAL_ULPS(location::BearingToAngle(370.), 80., ());
   TEST_ALMOST_EQUAL_ULPS(location::BearingToAngle(-370.), 100., ());
 }
+
+UNIT_TEST(TLocationError_DebugPrint)
+{
+  TEST_EQUAL(DebugPrint(location::ENotSupported), "ENotSupported", ());
+  TEST_EQUAL(DebugPrint(location::EGPSIsOff), "EGPSIsOff", ());
+}

@@ -3,8 +3,11 @@
 #include "geometry/latlon.hpp"
 #include "geometry/point2d.hpp"
 
+#include "base/assert.hpp"
+
 #include <cmath>
 #include <functional>
+#include <string>
 
 namespace location
 {
@@ -18,6 +21,20 @@ enum TLocationError
   ETimeout,  // Only used on Qt https://doc.qt.io/qt-6/qgeopositioninfosource.html#Error-enum
   EUnknown
 };
+
+inline std::string DebugPrint(TLocationError error)
+{
+  switch (error)
+  {
+  case ENoError: return "ENoError";
+  case ENotSupported: return "ENotSupported";
+  case EDenied: return "EDenied";
+  case EGPSIsOff: return "EGPSIsOff";
+  case ETimeout: return "ETimeout";
+  case EUnknown: return "EUnknown";
+  }
+  UNREACHABLE();
+}
 
 enum TLocationSource
 {
