@@ -164,6 +164,8 @@ set(SRC
   speed_camera_prohibition.hpp
   speed_camera_ser_des.cpp
   speed_camera_ser_des.hpp
+  track_router.cpp
+  track_router.hpp
   traffic_stash.cpp
   traffic_stash.hpp
   transit_graph.cpp
