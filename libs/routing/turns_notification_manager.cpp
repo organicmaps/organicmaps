@@ -96,6 +96,11 @@ std::string NotificationManager::GenerateSpeedCameraText() const
   return m_getTtsText.GetSpeedCameraNotification();
 }
 
+std::string NotificationManager::GenerateOffTrackText() const
+{
+  return m_getTtsText.GetOffTrackNotification();
+}
+
 void NotificationManager::GenerateTurnNotifications(std::vector<TurnItemDist> const & turns,
                                                     std::vector<std::string> & turnNotifications)
 {

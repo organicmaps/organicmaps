@@ -55,6 +55,9 @@ public:
   /// \brief Generate text of speed camera notification.
   std::string GenerateSpeedCameraText() const;
 
+  /// Generate text of the track departure notification.
+  std::string GenerateOffTrackText() const;
+
   /// \brief GenerateTurnNotifications updates information about the next turn notification.
   /// It also fills turnNotifications when it's necessary.
   /// If this TurnsSound wants to play a sound message once it should push one item to
