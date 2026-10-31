@@ -28,6 +28,7 @@
 "take_exit_number":"Afkørsel ad",
 "take_exit_number_street_verb":"NULL",
 "route_recalculating":"Genberegning af ruten",
+"you_have_left_the_track":"Du har forladt sporet.",
 "destination":"Ankommer du.",
 "you_have_reached_the_destination":"Du er ankommet.",
 "in_50_meters":"Om halvtreds meter",

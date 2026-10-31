@@ -28,6 +28,7 @@
 "take_exit_number":"ໄປຕາມທາງອອກ",
 "take_exit_number_street_verb":"NULL",
 "route_recalculating":"ພວມຄຳນວນເສັ້ນທາງໃໝ່",
+"you_have_left_the_track":"ທ່ານໄດ້ອອກຈາກເສັ້ນທາງແລ້ວ.",
 "destination":"ທ່ານຈະໄປຮອດ.",
 "you_have_reached_the_destination":"ທ່ານມາຮອດຈຸດໝາຍແລ້ວ.",
 "in_50_meters":"ໃນອີກ ຫ້າສິບ ແມັດ",

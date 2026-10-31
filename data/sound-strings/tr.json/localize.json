@@ -28,6 +28,7 @@
 "take_exit_number":"çıkın yönünde",
 "take_exit_number_street_verb":"NULL",
 "route_recalculating":"Rota yeniden hesaplanıyor",
+"you_have_left_the_track":"İzden çıktınız.",
 "destination":"Varacaksınız.",
 "you_have_reached_the_destination":"Hedef noktasına vardınız.",
 "in_50_meters":"Elli metre sonra",

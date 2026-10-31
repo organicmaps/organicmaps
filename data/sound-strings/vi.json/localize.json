@@ -28,6 +28,7 @@
 "take_exit_number":"Đi theo lối ra số",
 "take_exit_number_street_verb":"NULL",
 "route_recalculating":"Tính toán lại lộ trình",
+"you_have_left_the_track":"Bạn đã rời khỏi tuyến đường.",
 "destination":"Bạn sẽ đến.",
 "you_have_reached_the_destination":"Bạn đã đến.",
 "in_50_meters":"Trong năm mươi mét nữa",
