@@ -89,6 +89,11 @@ public class PlacePageButtonFactory
         titleId = R.string.avoid_ferry;
         yield R.drawable.ic_avoid_ferry;
       }
+      case NAVIGATE_TRACK ->
+      {
+        titleId = R.string.navigate_track;
+        yield R.drawable.ic_navigate_track;
+      }
       case MORE ->
       {
         titleId = R.string.placepage_more_button;

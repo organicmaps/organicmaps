@@ -43954,7 +43954,7 @@ tags = qt
 en = Show bookmarks and tracks; use ALT + RMB to add a bookmark
 
 [intermediate_point]
-tags = qt,apple-maps
+tags = android-app,apple-maps,qt
 en = Intermediate point
 
 [route_point_mouse_shortcut_tooltip]
@@ -46446,21 +46446,21 @@ zh-Hans = 有轨电车
 zh-Hant = 路面電車
 
 [navigate_track]
-tags = apple-maps
+tags = android-app,apple-maps
 comment = Track navigation action.
 en = Navigate Track
 
 [navigate_track_optimization_description]
-tags = apple-maps
+tags = android-app,apple-maps
 comment = Track optimization hint.
 en = Join at the nearest point on the track. Turn off to join at the beginning in the chosen direction. Reverse changes the direction. The original track remains unchanged.
 
 [navigate_track_start]
-tags = apple-maps
+tags = android-app,apple-maps
 comment = Track start point label.
 en = Track start
 
 [navigate_track_finish]
-tags = apple-maps
+tags = android-app,apple-maps
 comment = Track finish point label.
 en = Track finish
