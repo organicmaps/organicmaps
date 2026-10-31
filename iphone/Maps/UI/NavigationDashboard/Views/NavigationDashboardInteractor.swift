@@ -25,15 +25,18 @@ extension NavigationDashboard {
       presenter.process(response)
     }
 
+    private var planningMode: PlanningMode { router.isTrackRoute() ? .navigateTrack : .default }
+
     private func resolve(_ event: Request) -> Response {
       switch event {
       case .updateState(let state):
         return .updateState(state)
 
       case .updateRoutePoints:
-        return .show(points: router.points(), routerType: router.type())
+        return showRoutePoints()
 
       case .selectRouterType(let routerType):
+        guard planningMode.transportOptions.contains(routerType) else { return .none }
         router.setType(routerType)
         router.rebuild(withBestRouter: false)
         return .none
@@ -57,7 +60,7 @@ extension NavigationDashboard {
 
       case .deleteRoutePoint(let point):
         router.removePointAndRebuild(point)
-        return .show(points: router.points(), routerType: router.type())
+        return showRoutePoints()
 
       case .startNavigation:
         clearRouteElevationActivePoint()
@@ -118,11 +121,11 @@ extension NavigationDashboard {
       case .moveRoutePoint(let from, let to):
         router.movePoint(at: from, to: to)
         router.rebuild(withBestRouter: false)
-        return .show(points: router.points(), routerType: router.type())
+        return showRoutePoints()
 
       case .reverseRoutePoints:
         router.reverseRoute()
-        return .show(points: router.points(), routerType: router.type())
+        return showRoutePoints()
 
       case .updateVisibleAreaInsets(let insets):
         mapViewController.updateVisibleAreaInsets(for: self, insets: insets, updatingViewport: true)
@@ -143,6 +146,11 @@ extension NavigationDashboard {
         router.stopRouting()
         return .close
       }
+    }
+
+    private func showRoutePoints() -> Response {
+      .show(points: router.points(), routerType: router.type(),
+            planningMode: planningMode)
     }
 
     fileprivate func clearRouteElevationActivePoint() {

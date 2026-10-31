@@ -1,6 +1,7 @@
 enum NavigationDashboard {
   struct ViewModel: Equatable {
-    var transportOptions: [MWMRouterType]
+    var planningMode: PlanningMode { routePoints.planningMode }
+    var transportOptions: [MWMRouterType] { planningMode.transportOptions }
     var routePoints: RoutePoints
     var routerType: MWMRouterType
     var entity: MWMNavigationDashboardEntity
@@ -35,7 +36,6 @@ enum NavigationDashboard {
 extension NavigationDashboard.ViewModel {
   static var initial: Self {
     NavigationDashboard.ViewModel(
-      transportOptions: MWMRouterType.allCases,
       routePoints: .empty,
       routerType: MWMRouter.type(),
       entity: MWMNavigationDashboardEntity(),
@@ -58,8 +58,12 @@ extension NavigationDashboard.ViewModel {
   var isBottomActionsMenuHidden: Bool { presentationStep == .hidden }
 
   var canReverseRoutePoints: Bool {
+    if planningMode == .navigateTrack {
+      return routePoints.hasStartAndFinish &&
+        (dashboardState == .prepare || dashboardState == .ready || dashboardState == .error)
+    }
     // A fixed start leaves a valid preview in RouteNoFollowing, where isRouteBuilt() is false.
-    routePoints.hasStartAndFinish &&
+    return routePoints.hasStartAndFinish &&
       (dashboardState == .ready || dashboardState == .prepare) &&
       progress == 1 &&
       MWMRouter.isRouteValid()

@@ -77,6 +77,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     vc.canReplaceStop = navigationManager.selectedRoutePoint != nil
     vc.shouldAppendNewPoints = navigationManager.shouldAppendNewPoints
     vc.delegate = interactor
+    vc.isTrackPlanning = MWMRouter.isTrackRoute()
     return vc
   }()
 

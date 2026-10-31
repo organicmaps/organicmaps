@@ -273,6 +273,13 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
       MWMPlacePageManagerHelper.avoidFerry()
     case .more:
       fatalError("More button should've been handled in ActionBarViewContoller")
+    case .navigateTrack:
+      guard let track = placePageData.trackData else { return }
+      if MWMRouter.buildRoute(forTrack: track.trackId, from: LocationManager.lastLocation()) {
+        presenter?.close()
+      } else {
+        Toast.show(withText: L("current_location_unknown_error_title"))
+      }
     case .track:
       guard let trackId = placePageData.trackData?.trackId, bookmarksManager.hasTrack(trackId) else {
         presenter?.close()

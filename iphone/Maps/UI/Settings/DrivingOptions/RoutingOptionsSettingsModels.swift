@@ -56,6 +56,7 @@ extension RoutingOption {
 struct RoutingOptionsSettingsState {
   let options: RoutingOptions
   let canChangeOptimization: Bool
+  var isTrackNavigation = false
 }
 
 typealias RoutingOptionsSettingsViewController = SettingsViewController<RoutingOptionsSettingsSection, RoutingOption>

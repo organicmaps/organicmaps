@@ -7,13 +7,15 @@ final class ActionBarViewController: UIViewController {
   private(set) var downloadButton: ActionBarButton?
 
   var placePageData: PlacePageData!
+  var isTrackPlanning = false
+
   var canAddStop = false
   var canReplaceStop = false
   var shouldAppendNewPoints = false
 
   private var visibleButtons: [ActionBarButtonType] = []
   private var additionalButtons: [ActionBarButtonType] = []
-  private var canRouteToAndFrom: Bool { !canReplaceStop && !shouldAppendNewPoints }
+  private var canRouteToAndFrom: Bool { isTrackPlanning || (!canReplaceStop && !shouldAppendNewPoints) }
 
   weak var delegate: ActionBarViewControllerDelegate?
 
@@ -25,9 +27,9 @@ final class ActionBarViewController: UIViewController {
   // MARK: - Private methods
 
   private func configureButtons() {
-    if placePageData.isRoutePoint {
+    if placePageData.isRoutePoint, !isTrackPlanning {
       visibleButtons.append(.routeRemoveStop)
-    } else if placePageData.roadType != .none {
+    } else if placePageData.roadType != .none, !isTrackPlanning {
       let options = RoutingOptions(routerType: MWMRouter.type())
       switch placePageData.roadType {
       case .toll:
@@ -72,13 +74,18 @@ final class ActionBarViewController: UIViewController {
       if canRouteToAndFrom {
         buttons.append(.routeFrom)
       }
-      if canReplaceStop || shouldAppendNewPoints || canAddStop {
+      if !isTrackPlanning, canReplaceStop || shouldAppendNewPoints || canAddStop {
         buttons.append(routePointButton)
       }
       buttons.append(.bookmark)
       if canRouteToAndFrom {
         buttons.append(.routeTo)
       }
+#if DEBUG
+      if placePageData.objectType == .track {
+        buttons.append(.navigateTrack)
+      }
+#endif
       if placePageData.objectType == .track {
         buttons.append(.track)
       }
@@ -90,8 +97,12 @@ final class ActionBarViewController: UIViewController {
     }
 
     guard !buttons.isEmpty else { return }
-    let maxVisibleButtons = 5
+    let maxVisibleButtons = buttons.contains(.navigateTrack) ? 5 - visibleButtons.count : 5
     if buttons.count > maxVisibleButtons {
+      if let index = buttons.firstIndex(of: .navigateTrack), index >= maxVisibleButtons - 1 {
+        buttons.remove(at: index)
+        buttons.insert(.navigateTrack, at: maxVisibleButtons - 2)
+      }
       visibleButtons.append(contentsOf: buttons.prefix(maxVisibleButtons - 1))
       visibleButtons.append(.more)
       additionalButtons.append(contentsOf: buttons.suffix(from: maxVisibleButtons - 1))
@@ -102,7 +113,7 @@ final class ActionBarViewController: UIViewController {
 
   private func setupButtonsState() {
     // Download takes priority over routing actions.
-    let primaryButton: ActionBarButtonType? = [.download, .routeTo, .routeAddDestination, .routeReplaceStop]
+    let primaryButton: ActionBarButtonType? = [.download, .navigateTrack, .routeTo, .routeAddDestination, .routeReplaceStop]
       .first { visibleButtons.contains($0) }
     for buttonType in visibleButtons {
       let selected = isButtonSelected(buttonType)
