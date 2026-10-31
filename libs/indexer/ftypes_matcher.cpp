@@ -174,10 +174,7 @@ bool BaseCheckerEx::operator()(FeatureType & ft) const
 
 IsPeakChecker::IsPeakChecker() : BaseCheckerEx({{"natural", "peak"}}) {}
 IsCyclewayLaneChecker::IsCyclewayLaneChecker() : BaseCheckerEx({{"cyclewaytag", "lane"}}) {}
-IsCyclewaySharedLaneChecker::IsCyclewaySharedLaneChecker()
-  : BaseCheckerEx({{"cyclewaytag", "shared_lane"}})
-{
-}
+IsCyclewaySharedLaneChecker::IsCyclewaySharedLaneChecker() : BaseCheckerEx({{"cyclewaytag", "shared_lane"}}) {}
 IsATMChecker::IsATMChecker() : BaseCheckerEx({{"amenity", "atm"}}) {}
 IsSpeedCamChecker::IsSpeedCamChecker() : BaseCheckerEx({{"highway", "speed_camera"}}) {}
 IsPostBoxChecker::IsPostBoxChecker() : BaseCheckerEx({{"amenity", "post_box"}}) {}
