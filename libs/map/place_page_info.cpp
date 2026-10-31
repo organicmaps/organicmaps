@@ -246,9 +246,9 @@ void Info::SetFromFeatureType(FeatureType & ft)
   if (emptyTitle)
     m_uiTitle = GetLocalizedType();
 
-  // Append local_ref tag into main title.
+  // Keep explicit names verbatim; a cleared name can retain an empty localized entry.
   auto const lRef = GetMetadata(feature::Metadata::FMD_LOCAL_REF);
-  if (!lRef.empty())
+  if (!lRef.empty() && (!IsBookmark() || kml::GetStringForExport(m_bookmarkData.m_customName).empty()))
   {
     if (IsPublicTransportStop())
       m_uiTitle.append(" (").append(lRef).append(")");
@@ -524,16 +524,13 @@ bool Info::ShouldShowEditPlace() const
   return !IsMyPosition() && IsFeature();
 }
 
-kml::LocalizableString Info::FormatNewBookmarkName() const
+kml::BookmarkData Info::MakeBookmarkData() const
 {
-  kml::LocalizableString bookmarkName;
-  // A custom name (e.g. from a geo: or om:// link) overrides the name of a matched feature.
-  if (!m_customName.empty() && !IsMyPosition())
+  kml::BookmarkData data;
+  auto & bookmarkName = data.m_name;
+  if (IsFeature())
   {
-    kml::SetDefaultStr(bookmarkName, m_customName);
-  }
-  else if (IsFeature())
-  {
+    SaveFeatureTypes(GetTypes(), data);
     m_name.ForEach([&bookmarkName](int8_t langCode, std::string_view localName)
     {
       if (!localName.empty())
@@ -551,7 +548,11 @@ kml::LocalizableString Info::FormatNewBookmarkName() const
       kml::SetDefaultStr(bookmarkName, m_uiTitle);
   }
 
-  return bookmarkName;
+  // Keep link labels separate so the original feature names remain searchable.
+  if (!m_customName.empty() && !IsMyPosition())
+    kml::SetDefaultStr(data.m_customName, m_customName);
+
+  return data;
 }
 
 std::string Info::GetFormattedCoordinate(CoordinatesFormat format) const
