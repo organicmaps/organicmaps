@@ -16,7 +16,7 @@ enum class RouteMarkType : uint8_t
   Finish = 2
 };
 
-struct RouteMarkData
+struct RouteMarkMetadata
 {
   std::string m_title;
   std::string m_subTitle;
@@ -26,6 +26,11 @@ struct RouteMarkData
   bool m_isMyPosition = false;
   bool m_isPassed = false;
   bool m_replaceWithMyPositionAfterRestart = false;
+};
+
+// RouteMarkPoint stores its position in UserMark; only snapshots include it here.
+struct RouteMarkData : RouteMarkMetadata
+{
   m2::PointD m_position;
 };
 
@@ -61,7 +66,7 @@ public:
   uint16_t GetPriority() const override;
   uint32_t GetIndex() const override;
 
-  RouteMarkData const & GetMarkData() const { return m_markData; }
+  RouteMarkData GetMarkData() const { return {m_markData, GetPivot()}; }
   void SetMarkData(RouteMarkData && data);
   void SetPosition(m2::PointD const & position);
 
@@ -75,7 +80,7 @@ public:
   void SetFollowingMode(bool enabled);
 
 private:
-  RouteMarkData m_markData;
+  RouteMarkMetadata m_markData;
   dp::TitleDecl m_titleDecl;
   bool m_followingMode = false;
 };
