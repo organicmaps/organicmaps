@@ -154,12 +154,14 @@ public:
   void BuildGeometry(int zoomLevel, bool isIsoline);
 
   bool HasGeometry() const { return m_builder.HasGeometry(); }
-  void ProcessLineRules(Stylist::LineRulesT const & lineRules, bool isIsoline);
+  void ProcessLineRules(Stylist::LineRulesT const & lineRules, bool isIsoline,
+                        std::vector<Stylist::SideRules> const & sideRules = {});
 
   std::vector<m2::SharedSpline> MoveClippedSplines() { return std::move(m_clippedSplines); }
 
 private:
   void ProcessRule(drule::LineRule const & lineRule);
+  void ProcessSideRules(m2::SharedSpline const & source, std::vector<Stylist::SideRules> const & sideRules);
 
   RelationsDrawInfo m_relsInfo;
   ClipSplinesBuilder m_builder;

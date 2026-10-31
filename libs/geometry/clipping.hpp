@@ -9,6 +9,14 @@
 
 namespace m2
 {
+struct SplineClipInfo
+{
+  double m_startDistance = 0, m_endDistance = 0;
+  size_t m_startSegment = 0, m_endSegment = 0;
+};
+
+std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::SharedSpline const & spline,
+                                               std::vector<SplineClipInfo> * sourceRanges);
 using ClipTriangleByRectResultIt = std::function<void(m2::PointD const &, m2::PointD const &, m2::PointD const &)>;
 
 void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3,

@@ -1,4 +1,5 @@
 #include "drape_frontend/path_symbol_shape.hpp"
+#include "drape_frontend/line_shape_helper.hpp"
 #include "drape_frontend/render_state_extension.hpp"
 #include "drape_frontend/visual_params.hpp"
 
@@ -25,6 +26,7 @@ struct PathSample
 {
   m2::PointD m_position;
   m2::PointD m_direction;
+  size_t m_segment;
 };
 
 class SplineSampler
@@ -50,7 +52,7 @@ public:
         it == m_distances.end() ? m_distances.size() - 2 : static_cast<size_t>(it - m_distances.begin() - 1);
     auto const [direction, length] = m_spline.GetTangentAndLength(index);
     double const segmentDistance = std::min(distance - m_distances[index], length);
-    return {m_spline.GetPath()[index] + direction * segmentDistance, direction};
+    return {m_spline.GetPath()[index] + direction * segmentDistance, direction, index};
   }
 
 private:
@@ -136,27 +138,31 @@ void PathSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Bat
   gpu::VBUnknownSizeT<gpu::SolidTexturingVertex> buffer;
   double const pixelToGlobalScale = 1.0 / m_params.m_baseGtoPScale;
 
-  auto const addSymbol = [&](m2::PointD const & position, m2::PointD const & direction)
+  auto const addSymbol = [&](m2::PointD const & position, m2::PointD const & direction, size_t segment)
   {
     glsl::vec4 const pivot(glsl::ToVec2(ConvertToLocal(position, m_params.m_tileCenter, kShapeCoordScalar)),
                            m_params.m_depth, 0.0f);
 
     glsl::vec2 const n = halfPxSize.y * glsl::normalize(glsl::vec2(-direction.y, direction.x));
     glsl::vec2 const d = halfPxSize.x * glsl::normalize(glsl::vec2(direction.x, direction.y));
+    glsl::vec2 offset = m_params.m_lateralOffsetPixels * glsl::normalize(glsl::vec2(direction.y, -direction.x));
+    if (m_params.m_pointOffsetsPixels.size() == m_spline->GetPath().size())
+      offset = InterpolateLinePixelOffset(m_spline->GetPath(), m_params.m_pointOffsetsPixels, segment, position);
 
     if (!m_params.m_exclusionRects.empty())
     {
-      m2::RectD const bounds(position, (std::abs(d.x) + std::abs(n.x)) * pixelToGlobalScale,
+      m2::PointD const center = position + m2::PointD(offset.x, offset.y) * pixelToGlobalScale;
+      m2::RectD const bounds(center, (std::abs(d.x) + std::abs(n.x)) * pixelToGlobalScale,
                              (std::abs(d.y) + std::abs(n.y)) * pixelToGlobalScale);
       if (std::any_of(m_params.m_exclusionRects.begin(), m_params.m_exclusionRects.end(),
                       [&](auto const & rect) { return rect.IsIntersect(bounds); }))
         return;
     }
 
-    buffer.emplace_back(pivot, -d - n, lt);
-    buffer.emplace_back(pivot, -d + n, lb);
-    buffer.emplace_back(pivot, d - n, rt);
-    buffer.emplace_back(pivot, d + n, rb);
+    buffer.emplace_back(pivot, offset - d - n, lt);
+    buffer.emplace_back(pivot, offset - d + n, lb);
+    buffer.emplace_back(pivot, offset + d - n, rt);
+    buffer.emplace_back(pivot, offset + d + n, rb);
   };
 
   double const offset = m_params.m_offset * pixelToGlobalScale;
@@ -169,7 +175,7 @@ void PathSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Bat
     splineIter.Advance(offset);
     while (!splineIter.BeginAgain())
     {
-      addSymbol(splineIter.m_pos, splineIter.m_dir);
+      addSymbol(splineIter.m_pos, splineIter.m_dir, splineIter.GetIndex());
       splineIter.Advance(step);
     }
   }
@@ -187,7 +193,7 @@ void PathSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Bat
       if (placement)
       {
         auto const sample = sampler.GetPoint(*placement);
-        addSymbol(sample.m_position, sample.m_direction);
+        addSymbol(sample.m_position, sample.m_direction, sample.m_segment);
       }
     }
   }
