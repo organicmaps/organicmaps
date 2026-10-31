@@ -845,6 +845,8 @@
     <string name="power_save_dialog_summary">For the most accurate navigation, we recommend disabling power saving mode in phone\'s battery settings.</string>
     <!-- Place Page button that starts navigation along the selected track. -->
     <string name="navigate_track">Navigate</string>
+    <!-- Button in the track navigation planning screen that reverses the direction of following. -->
+    <string name="reverse_track_direction">Reverse direction</string>
     <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
     <string name="track_no_remaining_geometry">No track remains in this direction. Select another point.</string>
     <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
