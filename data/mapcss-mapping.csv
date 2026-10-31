@@ -647,7 +647,7 @@ craft|window_construction;523;
 railway|monorail|tunnel;[railway=monorail][tunnel?];;name;int_name;524;
 railway|funicular|bridge;[railway=funicular][bridge?];;name;int_name;525;
 sport|pilates;526;
-deprecated|deprecated;527;x
+shop|hairdresser|barber;[shop=hairdresser][hairdresser=barber];;name;int_name;527;
 highway|primary_link|tunnel;[highway=primary_link][tunnel?];;name;int_name;528;
 deprecated:highway|footway|alpine_hiking:04.2024;[highway=footway][sac_scale=alpine_hiking];x;name;int_name;529;highway|path|expert
 man_made|reservoir_covered;530;

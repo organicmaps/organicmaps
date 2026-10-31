@@ -9799,7 +9799,53 @@ vi:Nhà ở trên núi|khách sạn
 zh-Hans:山上住宿|旅馆|旅店|山间小屋
 zh-Hant:1山上住宿|飯店|住宿|旅舍|2高山住宿|山間小屋
 
-shop-hairdresser
+shop-hairdresser-barber
+en:4Barber|barber shop
+ar:حلاق رجالي
+be:4Барбершоп|барбер|мужчынская цырульня
+bg:Бръснарница|бръснар
+ca:Barberia|barber
+cs:Holičství|holič
+cy:Barbwr
+da:Barber|herrefrisør
+de:4Barbier|Barbershop|Herrenfriseur
+el:Κουρείο|κουρέας
+es:4Barbería|barbero
+et:Meestejuuksur|habemeajaja|barber
+eu:Bizargina
+fa:آرایشگاه مردانه
+fi:Parturi
+fr:4Barbier|barbershop
+he:מספרת גברים
+hi:नाई की दुकान
+hu:Borbély
+id:Tukang cukur|barbershop|pangkas rambut
+it:4Barbiere
+ja:理容室|理髪店|床屋|バーバー
+ko:이발소
+lt:Vyrų kirpykla|barzdaskutys
+lv:Bārddzinis
+mr:न्हाव्याचे दुकान
+nb:Barber|herrefrisør
+nl:4Barbier|herenkapper|barbershop
+pl:Fryzjer męski|barber|barber shop|golibroda
+pt:4Barbearia|barbeiro
+pt-BR:4Barbearia|barbeiro
+ro:Frizerie|frizer
+ru:4Барбершоп|барбер|мужская парикмахерская
+sk:Holičstvo|holič
+sl:Brivnica|brivec
+sr:Берберница|бербер|бербера|Berbernica|berber
+sv:Barberare|herrfrisör
+sw:Kinyozi
+th:ร้านตัดผมชาย
+tr:Berber
+uk:4Барбершоп|барбер|чоловіча перукарня
+vi:Tiệm cắt tóc nam|cắt tóc nam
+zh-Hans:男士理发店|理发店
+zh-Hant:男士理髮店|理髮店
+
+shop-hairdresser|shop-hairdresser-barber
 en:3Hairdresser|hair salon|hairdressing saloon|barbershop|hair cuttery|haircut|beauty parlor|coloring|U+2702|U+1F488
 ar:مصفف شعر|حلاق
 be:4Цырулья|цырульнік|цырульня
