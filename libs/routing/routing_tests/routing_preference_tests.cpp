@@ -16,7 +16,9 @@
 
 #include "traffic/traffic_cache.hpp"
 
+#include <algorithm>
 #include <functional>
+#include <vector>
 
 namespace routing_preference_tests
 {
@@ -92,6 +94,43 @@ private:
   RoutingOptionSetter m_bicycle{0, VehicleType::Bicycle};
   RoutingOptionSetter m_pedestrian{0, VehicleType::Pedestrian};
 };
+
+UNIT_CLASS_TEST(RoutingPreferenceFixture, OffRoadStartRetainsAltitudes)
+{
+  for (auto const vehicle : {VehicleType::Pedestrian, VehicleType::Bicycle})
+  {
+    auto router = Router(vehicle);
+    RouterDelegate delegate;
+    RoutesResult result;
+    // The nearest road vertex is about 33 m south of this start.
+    Checkpoints const checkpoints(mercator::FromLatLon(1.0004, 1.0101), mercator::FromLatLon(1, 1.49));
+    TEST_EQUAL(router->CalculateRoute(checkpoints, {}, false, false, delegate, result), RouterResultCode::NoError,
+               (vehicle));
+    auto const & route = result.GetActive();
+    TEST(route.HaveAltitudes(), (vehicle));
+    TEST(!route.GetTrackStartDistanceMeters(), (vehicle));
+
+    double connectorLength = 0.0;
+    auto previous = route.GetSubroutes().front().GetStart().GetPoint();
+    for (auto const & segment : route.GetRouteSegments())
+    {
+      if (segment.GetSegment().IsRealSegment())
+        break;
+      auto const point = segment.GetJunction().GetPoint();
+      connectorLength += mercator::DistanceOnEarth(previous, point);
+      previous = point;
+    }
+    TEST_GREATER(connectorLength, 10.0, (vehicle));
+
+    Route const followed(route);
+    TEST(followed.HaveAltitudes(), (vehicle));
+    geometry::Altitudes altitudes;
+    followed.GetAltitudes(altitudes);
+    TEST(!altitudes.empty(), (vehicle));
+    TEST(std::ranges::none_of(altitudes, [](auto altitude) { return altitude == geometry::kInvalidAltitude; }),
+         (vehicle));
+  }
+}
 
 UNIT_CLASS_TEST(RoutingPreferenceFixture, CarFerryAvoidanceDoesNotAffectOtherRoadModes)
 {

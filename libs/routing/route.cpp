@@ -264,6 +264,12 @@ void RouteBase::GetAltitudes(geometry::Altitudes & altitudes) const
   ForEachPoint([&altitudes](geometry::PointWithAltitude const & p) { altitudes.push_back(p.GetAltitude()); });
 }
 
+bool RouteBase::HaveAltitudes() const
+{
+  return IsValid() && m_haveAltitudes &&
+         GetFirstNonEmptySubroute().GetStart().GetAltitude() != geometry::kInvalidAltitude;
+}
+
 traffic::SpeedGroup RouteBase::GetTraffic(size_t segmentIdx) const
 {
   CHECK_LESS(segmentIdx, m_routeSegments.size(), ());

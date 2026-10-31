@@ -13,6 +13,7 @@
 #include "geometry/point_with_altitude.hpp"
 
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace route_tests
@@ -430,6 +431,50 @@ Route MakeRoute(vector<m2::PointD> const & path, vector<Segment> const & segment
       geometry::PointWithAltitude(path.front(), geometry::kDefaultAltitudeMeters),
       geometry::PointWithAltitude(path.back(), geometry::kDefaultAltitudeMeters), 0, segments.size())});
   return r;
+}
+
+UNIT_TEST(RouteBase_AltitudeAvailability)
+{
+  for (bool const subroutesFirst : {false, true})
+  {
+    for (auto const startAltitude : {geometry::Altitude(100), geometry::kInvalidAltitude})
+    {
+      for (auto const finishAltitude : {geometry::Altitude(200), geometry::kInvalidAltitude})
+      {
+        Route source;
+        TEST(!source.HaveAltitudes(), ());
+        geometry::PointWithAltitude const start({0, 0}, startAltitude);
+        geometry::PointWithAltitude const finish({0.001, 0}, finishAltitude);
+        vector<RouteSegment> segments{
+            {Segment(0, 0, 0, true), turns::TurnItem(1, turns::CarDirection::ReachedYourDestination), finish, {}}};
+        // An unknown altitude in a passed leg must not affect the remaining route's profile.
+        vector<Route::SubrouteAttrs> subroutes{
+            {geometry::PointWithAltitude({-0.001, 0}, geometry::kInvalidAltitude), start, 0, 0}, {start, finish, 0, 1}};
+        if (subroutesFirst)
+        {
+          source.SetSubroutes(std::move(subroutes), 1);
+          TEST(!source.HaveAltitudes(), ());
+          source.SetRouteSegments(std::move(segments));
+        }
+        else
+        {
+          source.SetRouteSegments(std::move(segments));
+          TEST(!source.HaveAltitudes(), ());
+          source.SetSubroutes(std::move(subroutes), 1);
+        }
+
+        bool const expected =
+            startAltitude != geometry::kInvalidAltitude && finishAltitude != geometry::kInvalidAltitude;
+        TEST_EQUAL(source.HaveAltitudes(), expected, (subroutesFirst, startAltitude, finishAltitude));
+        Route const followed(static_cast<RouteBase const &>(source));
+        TEST_EQUAL(followed.HaveAltitudes(), expected, (subroutesFirst, startAltitude, finishAltitude));
+        TEST(!followed.GetTrackStartDistanceMeters(), ());
+        geometry::Altitudes altitudes;
+        followed.GetAltitudes(altitudes);
+        TEST_EQUAL(altitudes, geometry::Altitudes({startAltitude, finishAltitude}), ());
+      }
+    }
+  }
 }
 
 UNIT_TEST(RouteBase_PromoteWithLeadingEmptySubroute)
