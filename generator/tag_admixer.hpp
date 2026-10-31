@@ -28,7 +28,7 @@ public:
       auto pos = oneLine.find(';');
       if (pos != std::string::npos)
       {
-        uint64_t wayId;
+        uint64_t wayId = 0;
         CHECK(strings::to_uint64(oneLine.substr(0, pos), wayId), ());
         m_ways[wayId] = oneLine.substr(pos + 1, oneLine.length() - pos - 1);
       }

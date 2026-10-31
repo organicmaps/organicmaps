@@ -106,7 +106,7 @@ bool TestFeature::Matches(FeatureType & feature) const
   if (sv.empty())
     return false;
 
-  uint64_t id;
+  uint64_t id = 0;
   CHECK(strings::to_uint(sv, id), (sv));
   return id == m_id;
 }

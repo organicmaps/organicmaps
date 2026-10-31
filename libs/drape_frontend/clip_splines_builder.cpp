@@ -55,7 +55,7 @@ void ClipSplinesBuilder::Build(FeatureType & f, int zoomLevel, bool isIsoline)
   // Storing the raw segment + sqrlen lets us run the colinearity check
   // entirely in squared quantities — no sqrts in Build(), so the simplify+Inside
   // path no longer pays for normalization both here and in Spline::InitDirections.
-  m2::PointD lastSeg;
+  m2::PointD lastSeg{};
   double lastSegSqrLen = 0.0;
 
   // Latest input point seen, regardless of whether it ended up in m_path.
