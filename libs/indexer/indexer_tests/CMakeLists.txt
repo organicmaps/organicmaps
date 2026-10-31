@@ -26,6 +26,7 @@ set(SRC
   interval_index_test.cpp
   metadata_serdes_tests.cpp
   map_style_tests.cpp
+  metaline_data_tests.cpp
   mwm_set_test.cpp
   postcodes_matcher_tests.cpp
   rank_table_test.cpp

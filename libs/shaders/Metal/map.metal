@@ -389,7 +389,8 @@ typedef struct
 {
   float4 position [[position]];
   float2 colorTexCoord;
-  float2 maskTexCoord;
+  float2 maskTexCoord;  // x = unbounded offset along the line, y = mask V
+  float2 maskBase;      // x = mask rect min U, y = mask rect width U
   float opacity;
   //float2 halfLength;
 } DashedLineFragment_T;
@@ -408,8 +409,10 @@ vertex DashedLineFragment_T vsDashedLine(const DashedLineVertex_T in [[stage_in]
                                                     uniforms.u_modelView, halfWidth);
   }
 
-  float uOffset = min(length(float4(kShapeCoordScalar, 0.0, 0.0, 0.0) * uniforms.u_modelView) * in.a_maskTexCoord.x, 1.0);
-  out.maskTexCoord = float2(in.a_maskTexCoord.y + uOffset * in.a_maskTexCoord.z, in.a_maskTexCoord.w);
+  // The unbounded offset (distance in mask-length units) wraps in the fragment shader.
+  float uOffset = length(float4(kShapeCoordScalar, 0.0, 0.0, 0.0) * uniforms.u_modelView) * in.a_maskTexCoord.x;
+  out.maskTexCoord = float2(uOffset, in.a_maskTexCoord.w);
+  out.maskBase = in.a_maskTexCoord.yz;
 
   //out.halfLength = float2(sign(in.a_normal.z) * halfWidth, abs(in.a_normal.z));
   float4 pos = float4(transformedAxisPos, in.a_position.z, 1.0) * uniforms.u_projection;
@@ -430,7 +433,9 @@ fragment float4 fsDashedLine(const DashedLineFragment_T in [[stage_in]],
 {
   float4 color = u_colorTex.sample(u_colorTexSampler, in.colorTexCoord);
   color.a *= in.opacity;
-  color.a *= u_maskTex.sample(u_maskTexSampler, in.maskTexCoord).a;
+  // Wrap the mask U seamlessly; the mask length is a whole number of dash periods.
+  float2 maskTexCoord = float2(in.maskBase.x + fract(in.maskTexCoord.x) * in.maskBase.y, in.maskTexCoord.y);
+  color.a *= u_maskTex.sample(u_maskTexSampler, maskTexCoord).a;
   return color;
 }
 
