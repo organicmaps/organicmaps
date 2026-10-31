@@ -707,8 +707,8 @@ void ApplyAreaFeature::ProcessRule(drule::AreaRule const & areaRule, double area
 }
 
 ApplyLineFeatureGeometry::ApplyLineFeatureGeometry(Params const & params, FeatureType & f,
-                                                   RelationsDrawSettings const & relsSettings,
-                                                   double dashPhaseOffset, bool dashPhaseReversed)
+                                                   RelationsDrawSettings const & relsSettings, double dashPhaseOffset,
+                                                   bool dashPhaseReversed)
   : TBase(params, f, {})
   , m_relsInfo(relsSettings)
   , m_builder(params)
@@ -743,7 +743,7 @@ void ApplyLineFeatureGeometry::ProcessLineRules(Stylist::LineRulesT const & line
   // see ClipSplinesBuilder::Release.
   bool const needSplineOffsets =
       m_relsInfo.HasColors() || std::any_of(lineRules.begin(), lineRules.end(),
-                                           [](drule::LineRule const * rule) { return rule->dashdot.has_value(); });
+                                            [](drule::LineRule const * rule) { return rule->dashdot.has_value(); });
   m_clippedSplines = m_builder.Release(isIsoline, needSplineOffsets);
 
   if (m_clippedSplines.empty())

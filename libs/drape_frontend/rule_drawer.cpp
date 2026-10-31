@@ -328,12 +328,10 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s)
   bool const isIsoline = m_isIsoline(f);
   double dashPhaseOffset = 0.0;
   bool dashPhaseReversed = false;
-  bool const hasDashedLine =
-      std::any_of(s.m_lineRules.begin(), s.m_lineRules.end(),
-                  [](drule::LineRule const * rule) { return rule->dashdot.has_value(); });
-  bool const needsDashPhase =
-      hasDashedLine && (ftypes::IsCyclewayLaneChecker::Instance()(f) ||
-                        ftypes::IsCyclewaySharedLaneChecker::Instance()(f));
+  bool const hasDashedLine = std::any_of(s.m_lineRules.begin(), s.m_lineRules.end(),
+                                         [](drule::LineRule const * rule) { return rule->dashdot.has_value(); });
+  bool const needsDashPhase = hasDashedLine && (ftypes::IsCyclewayLaneChecker::Instance()(f) ||
+                                                ftypes::IsCyclewaySharedLaneChecker::Instance()(f));
   std::optional<MetalineInfo> metalineInfo;
   if (needsDashPhase || s.m_pathtextRule || s.m_shieldRule)
     metalineInfo = m_context->GetMetalineManager()->GetMetalineInfo(f.GetID());

@@ -1161,8 +1161,8 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
         }
         return false;
       };
-      auto const ProcessCyclewayTypeTag = [&SetCyclewayType, &HasMotorTrafficSeparation](std::string const & key,
-                                                                                        std::string const & value)
+      auto const ProcessCyclewayTypeTag =
+          [&SetCyclewayType, &HasMotorTrafficSeparation](std::string const & key, std::string const & value)
       {
         CachedTypes::Type type = CachedTypes::Count;
         if (value == "track" || value == "opposite_track" || value == "protected_lane")
@@ -1181,8 +1181,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
         if (type != CachedTypes::Count)
           SetCyclewayType(type);
       };
-      auto const ProcessCyclewayLaneTag = [&SetCyclewayType, p](std::string const & key,
-                                                                std::string const & value)
+      auto const ProcessCyclewayLaneTag = [&SetCyclewayType, p](std::string const & key, std::string const & value)
       {
         string const cyclewayKey = key.substr(0, key.size() - string(":lane").size());
         if (IsNegativeRoutingTagValue(p->GetTag(cyclewayKey)))
@@ -1282,8 +1281,8 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
         else if (IsPositiveRoutingTagValue(tag.m_value))
           flags[Flags::Cycleway] = 1;
 
-        if (tag.m_value == "opposite" || tag.m_value == "opposite_lane" ||
-            tag.m_value == "opposite_track" || tag.m_value == "opposite_share_busway")
+        if (tag.m_value == "opposite" || tag.m_value == "opposite_lane" || tag.m_value == "opposite_track" ||
+            tag.m_value == "opposite_share_busway")
         {
           AddParam(CachedTypes::BicycleBidir);
         }
@@ -1317,8 +1316,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
       bool const bicycleDesignated = p->GetTag("bicycle") == "designated";
       auto const IsPositiveTag = [](std::string const & value)
       { return !value.empty() && IsPositiveRoutingTagValue(value); };
-      bool const bicycleStreet =
-          IsPositiveTag(p->GetTag("bicycle_road")) || IsPositiveTag(p->GetTag("cyclestreet"));
+      bool const bicycleStreet = IsPositiveTag(p->GetTag("bicycle_road")) || IsPositiveTag(p->GetTag("cyclestreet"));
       bool const motorVehiclesForbidden = IsNegativeTagValue(p->GetTag("motor_vehicle")) ||
                                           IsNegativeTagValue(p->GetTag("vehicle")) ||
                                           IsNegativeTagValue(p->GetTag("access"));
