@@ -16,6 +16,7 @@
 
 #include <functional>
 #include <memory>
+#include <optional>
 #include <vector>
 
 namespace df::test_support
@@ -64,11 +65,14 @@ public:
   /// Cache user lines into the current batch. Only valid inside the Render() callback.
   void AddUserLines(TileKey const & tileKey, TracksSource const & source,
                     UserLinesRenderCollection const & renderParams);
+  /// Caches user areas in a batch of the tile, as the backend does.
   void AddUserAreas(TileKey const & tileKey, UserAreasToCache const & areas);
 
   /// Sets the scale from world coordinates to pixels. Must be called before Render().
   void SetWorldToPixelScale(float scale) { m_worldToPixelScale = scale; }
   void SetBackgroundColor(dp::Color color) { m_backgroundColor = color; }
+  /// Sets the world point in the image center for tiles of user areas, the center of the first one by default.
+  void SetViewCenter(m2::PointD const & center) { m_viewCenter = center; }
 
   /// The last rendered frame; valid after Render() returns.
   QImage const & GetLastImage() const { return m_lastImage; }
@@ -86,12 +90,15 @@ private:
   {
     dp::RenderState m_state;
     drape_ptr<dp::RenderBucket> m_bucket;
+    /// Of the tile center from the view center, in pixels.
+    glsl::vec2 m_tileShift = {0, 0};
   };
 
   uint32_t m_width = 0;
   uint32_t m_height = 0;
   float m_worldToPixelScale = 1.0f;
   dp::Color m_backgroundColor = dp::Color::White();
+  std::optional<m2::PointD> m_viewCenter;
   drape_ptr<dp::Framebuffer> m_framebuffer;
 
   std::unique_ptr<dp::GraphicsContext> m_context;
