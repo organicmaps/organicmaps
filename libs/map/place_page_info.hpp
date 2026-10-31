@@ -156,9 +156,8 @@ public:
   bool HasApiUrl() const { return !m_apiUrl.empty(); }
   /// TODO: Support all possible Internet types in UI. @See MapObject::GetInternet().
   bool HasWifi() const { return GetInternet() == feature::Internet::Wlan; }
-  /// Should be used by UI code to generate cool name for new bookmarks.
-  // TODO: Tune new bookmark name. May be add address or some other data.
-  kml::LocalizableString FormatNewBookmarkName() const;
+  /// Captures names and feature types for a new bookmark; callers set its point and color.
+  kml::BookmarkData MakeBookmarkData() const;
 
   /// For showing in UI
   std::string const & GetTitle() const { return m_uiTitle; }

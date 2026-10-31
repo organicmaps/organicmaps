@@ -524,11 +524,13 @@ bool Info::ShouldShowEditPlace() const
   return !IsMyPosition() && IsFeature();
 }
 
-kml::LocalizableString Info::FormatNewBookmarkName() const
+kml::BookmarkData Info::MakeBookmarkData() const
 {
-  kml::LocalizableString bookmarkName;
+  kml::BookmarkData data;
+  auto & bookmarkName = data.m_name;
   if (IsFeature())
   {
+    SaveFeatureTypes(GetTypes(), data);
     m_name.ForEach([&bookmarkName](int8_t langCode, std::string_view localName)
     {
       if (!localName.empty())
@@ -546,7 +548,11 @@ kml::LocalizableString Info::FormatNewBookmarkName() const
       kml::SetDefaultStr(bookmarkName, m_uiTitle);
   }
 
-  return bookmarkName;
+  // Keep link labels separate so the original feature names remain searchable.
+  if (!m_customName.empty() && !IsMyPosition())
+    kml::SetDefaultStr(data.m_customName, m_customName);
+
+  return data;
 }
 
 std::string Info::GetFormattedCoordinate(CoordinatesFormat format) const
