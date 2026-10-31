@@ -1374,32 +1374,32 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
   // https://github.com/organicmaps/organicmaps/issues/11256
   RemovePassedRoutePoints();
 
-  auto routePoints = GetRoutePoints();
-  if (routePoints.size() < 2)
+  if (GetRoutePointsCount() < 2)
   {
     CallRouteBuilded(RouterResultCode::Cancelled, storage::CountriesSet());
     CloseRouting(false /* remove route points */);
     return;
   }
 
-  // Update my position.
-  for (auto & p : routePoints)
+  auto const & myPosition = m_bmManager->MyPositionMark();
+  if (!myPosition.HasPosition() && RoutePointsLayout(*m_bmManager).GetMyPositionPoint() != nullptr)
   {
-    if (!p.m_isMyPosition)
-      continue;
+    CallRouteBuilded(RouterResultCode::NoCurrentPosition, storage::CountriesSet());
+    return;
+  }
 
-    auto const & myPosition = m_bmManager->MyPositionMark();
-    if (!myPosition.HasPosition())
-    {
-      CallRouteBuilded(RouterResultCode::NoCurrentPosition, storage::CountriesSet());
-      return;
-    }
-    p.m_position = myPosition.GetPivot();
-    // Saved stops must use the fix that produced this route, even if GPS moves before Save.
+  std::vector<RouteMarkData> routePoints;
+  {
     RoutePointsLayout layout(*m_bmManager);
-    auto * mark = layout.GetRoutePointForEdit(p.m_pointType, p.m_intermediateIndex);
-    CHECK(mark != nullptr, (static_cast<int>(p.m_pointType), p.m_intermediateIndex));
-    mark->SetPosition(p.m_position);
+    for (auto * mark : layout.GetRoutePoints())
+    {
+      if (mark->IsMyPosition())
+      {
+        // Saved stops must use the fix that produced this route, even if GPS moves before Save.
+        mark->SetPosition(myPosition.GetPivot());
+      }
+      routePoints.push_back(mark->GetMarkData());
+    }
   }
 
   // Check for equal points.

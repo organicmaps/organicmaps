@@ -70,8 +70,6 @@ RouteMarkPoint::RouteMarkPoint(m2::PointD const & ptOrg) : UserMark(ptOrg, Type:
   m_titleDecl.m_secondaryTextFont.m_outlineColor = df::GetColorConstant(kRouteMarkSecondaryTextOutline);
   m_titleDecl.m_secondaryTextFont.m_size = kRouteMarkSecondaryTextSize;
   m_titleDecl.m_secondaryOffset = m2::PointF(0, kRouteMarkSecondaryOffsetY);
-
-  m_markData.m_position = ptOrg;
 }
 
 dp::Anchor RouteMarkPoint::GetAnchor() const
@@ -170,12 +168,10 @@ void RouteMarkPoint::SetMarkData(RouteMarkData && data)
 
 void RouteMarkPoint::SetPosition(m2::PointD const & position)
 {
-  ASSERT_EQUAL(m_ptOrg, m_markData.m_position, ());
-  if (m_markData.m_position == position)
+  if (m_ptOrg == position)
     return;
   SetDirty();
   m_ptOrg = position;
-  m_markData.m_position = position;
 }
 
 drape_ptr<df::UserPointMark::TitlesInfo> RouteMarkPoint::GetTitleDecl() const

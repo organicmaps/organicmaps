@@ -808,6 +808,61 @@ UNIT_TEST(RoutingManager_SaveLoadRoutePointsRestoresMyPosition)
   TestSavedRouteOrder(true /* myPositionStart */, 0 /* passedStops */, true /* hasCurrentPosition */);
 }
 
+UNIT_TEST(RouteMarkPoint_PositionSnapshots)
+{
+  RouteMarkPoint mark({1.0, 2.0});
+  TEST_EQUAL(mark.GetMarkData().m_position, (m2::PointD{1.0, 2.0}), ());
+
+  auto data = MakeRoutePoint(RouteMarkType::Intermediate, 1, 3.0);
+  data.m_title = "Stop";
+  data.m_isMyPosition = true;
+  mark.SetMarkData(std::move(data));
+  auto const snapshot = mark.GetMarkData();
+  TEST_EQUAL(snapshot.m_position, (m2::PointD{3.0, 3.0}), ());
+
+  mark.ResetChanges();
+  mark.SetPosition(snapshot.m_position);
+  TEST(!mark.IsDirty(), ());
+
+  m2::PointD const movedPosition(5.0, 6.0);
+  mark.SetPosition(movedPosition);
+  TEST(mark.IsDirty(), ());
+  auto const movedData = mark.GetMarkData();
+  TEST_EQUAL(movedData.m_position, movedPosition, ());
+  TEST_EQUAL(movedData.m_title, "Stop", ());
+  TEST(movedData.m_isMyPosition, ());
+}
+
+UNIT_TEST(RoutingManager_NoCurrentPositionCallbackCommitsEdits)
+{
+  TestFramework framework;
+  auto & manager = framework.GetRoutingManager();
+  auto & bookmarks = framework.GetBookmarkManager();
+  auto start = MakeRoutePoint(RouteMarkType::Start, 0, 1.0);
+  start.m_isMyPosition = true;
+  manager.AddRoutePoint(std::move(start), false /* optimize */);
+  manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Finish, 0, 2.0), false /* optimize */);
+  bookmarks.MyPositionMark().SetUserPosition({}, false /* hasPosition */);
+
+  bool failed = false;
+  manager.SetRouteBuildingListener([&](routing::RouterResultCode code, storage::CountriesSet const &)
+  {
+    TEST_EQUAL(code, routing::RouterResultCode::NoCurrentPosition, ());
+    RouteMarkPoint const * finish = nullptr;
+    {
+      RoutePointsLayout layout(bookmarks);
+      auto * mark = layout.GetRoutePointForEdit(RouteMarkType::Finish);
+      mark->SetPosition({3.0, 3.0});
+      finish = mark;
+    }
+    // The listener's edit session must commit without waiting for BuildRoute to return.
+    TEST(!finish->IsDirty(), ());
+    failed = true;
+  });
+  manager.BuildRoute();
+  TEST(failed, ());
+}
+
 UNIT_TEST(RoutingManager_BuildKeepsResolvedMyPosition)
 {
   for (auto const type : {RouteMarkType::Start, RouteMarkType::Intermediate, RouteMarkType::Finish})
@@ -828,8 +883,6 @@ UNIT_TEST(RoutingManager_BuildKeepsResolvedMyPosition)
           movingIndex = i - 1;
         manager.AddRoutePoint(std::move(point), false /* optimize */);
       }
-      m2::PointD const calculationPosition(0.004, 0.004);
-      bookmarks.MyPositionMark().SetUserPosition(calculationPosition, true /* hasPosition */);
 
       bool built = false;
       manager.SetRouteBuildingListener([&](routing::RouterResultCode code, storage::CountriesSet const &)
@@ -837,28 +890,22 @@ UNIT_TEST(RoutingManager_BuildKeepsResolvedMyPosition)
         TEST_EQUAL(code, routing::RouterResultCode::NoError, ());
         built = true;
       });
-      manager.BuildRoute();
-      while (!built)
-        guiThread.RunNext();
-      TEST(manager.IsRouteValid(), ());
-
       m2::PointD const rebuildPosition(0.008, 0.008);
-      bookmarks.MyPositionMark().SetUserPosition(rebuildPosition, true /* hasPosition */);
-      auto const points = manager.GetRoutePoints();
-      TEST_EQUAL(points[movingIndex].m_position, calculationPosition, ());
-      TEST_EQUAL(RoutePointsLayout(bookmarks).GetRoutePoint(type)->GetPivot(), calculationPosition, ());
-      TEST(points[movingIndex].m_isMyPosition, ());
+      for (auto const position : {m2::PointD{0.004, 0.004}, rebuildPosition})
+      {
+        bookmarks.MyPositionMark().SetUserPosition(position, true /* hasPosition */);
+        built = false;
+        manager.BuildRoute();
+        while (!built)
+          guiThread.RunNext();
+        TEST(manager.IsRouteValid(), ());
 
-      built = false;
-      manager.BuildRoute();
-      while (!built)
-        guiThread.RunNext();
-      TEST(manager.IsRouteValid(), ());
-      TEST_EQUAL(manager.GetRoutePoints()[movingIndex].m_position, rebuildPosition, ());
-      TEST_EQUAL(RoutePointsLayout(bookmarks).GetRoutePoint(type)->GetPivot(), rebuildPosition, ());
-      TEST(manager.GetRoutePoints()[movingIndex].m_isMyPosition, ());
-
-      bookmarks.MyPositionMark().SetUserPosition({0.012, 0.012}, true /* hasPosition */);
+        bookmarks.MyPositionMark().SetUserPosition({0.012, 0.012}, true /* hasPosition */);
+        auto const points = manager.GetRoutePoints();
+        TEST_EQUAL(points[movingIndex].m_position, position, ());
+        TEST_EQUAL(RoutePointsLayout(bookmarks).GetRoutePoint(type)->GetPivot(), position, ());
+        TEST(points[movingIndex].m_isMyPosition, ());
+      }
       // A saved start follows the live position on restart; intermediate and finish points are fixed.
       if (type != RouteMarkType::Start)
       {
