@@ -6,6 +6,7 @@
 #include "generator/generator_tests_support/test_with_classificator.hpp"
 #include "generator/geometry_holder.hpp"
 
+#include "indexer/cycling_infrastructure.hpp"
 #include "indexer/data_header.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/ftypes_matcher.hpp"
@@ -19,6 +20,35 @@ namespace feature_builder_test
 using namespace feature;
 using namespace generator::tests_support;
 using namespace tests;
+
+UNIT_CLASS_TEST(TestWithClassificator, FBuilder_CyclingExtensionAndLegacyRoundTrip)
+{
+  FeatureBuilder original;
+  FeatureBuilderParams params;
+  base::StringIL types[] = {{"highway", "residential"}};
+  AddTypes(params, types);
+  params.FinishAddingTypes();
+  original.SetParams(params);
+  original.AssignPoints({{0, 0}, {1, 1}});
+  original.SetLinear();
+  TEST(original.PreSerializeAndRemoveUselessNamesForIntermediate(), ());
+  FeatureBuilder::Buffer legacy;
+  original.SerializeForIntermediate(legacy);
+  auto const payload = cycling::Encode({{cycling::Kind::Lane, cycling::Direction::Backward}, {}});
+  original.GetParams().SetCyclingInfrastructure(payload);
+  FeatureBuilder::Buffer encoded;
+  original.SerializeForIntermediate(encoded);
+  FeatureBuilder restored;
+  restored.DeserializeFromIntermediate(encoded);
+  TEST_EQUAL(restored.GetParams().GetCyclingInfrastructure(), payload, ());
+  restored.DeserializeFromIntermediate(legacy);
+  TEST(restored.GetParams().GetCyclingInfrastructure().empty(), ());
+  original.SerializeAccuratelyForIntermediate(encoded);
+  restored.DeserializeAccuratelyFromIntermediate(encoded);
+  TEST_EQUAL(restored.GetParams().GetCyclingInfrastructure(), payload, ());
+  restored.GetParams().MakeZero();
+  TEST(restored.GetParams().GetCyclingInfrastructure().empty(), ());
+}
 
 UNIT_CLASS_TEST(TestWithClassificator, FBuilder_ManyTypes)
 {

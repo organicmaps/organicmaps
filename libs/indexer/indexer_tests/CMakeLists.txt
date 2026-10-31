@@ -8,6 +8,7 @@ set(SRC
   cell_id_test.cpp
   centers_table_test.cpp
   checker_test.cpp
+  cycling_infrastructure_tests.cpp
   cities_boundaries_serdes_tests.cpp
   classificator_tests.cpp
   custom_keyvalue_tests.cpp

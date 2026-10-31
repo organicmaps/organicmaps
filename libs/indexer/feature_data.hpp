@@ -325,10 +325,12 @@ public:
     m_addrTags = rhs.m_addrTags;
     m_metadata = rhs.m_metadata;
     m_reversedGeometry = rhs.m_reversedGeometry;
+    m_cyclingInfrastructure = rhs.m_cyclingInfrastructure;
   }
 
   void MakeZero()
   {
+    m_cyclingInfrastructure.clear();
     m_metadata.Clear();
     m_addrTags.Clear();
     FeatureParams::MakeZero();
@@ -371,6 +373,8 @@ public:
   }
 
   bool GetReversedGeometry() const { return m_reversedGeometry; }
+  std::string const & GetCyclingInfrastructure() const { return m_cyclingInfrastructure; }
+  void SetCyclingInfrastructure(std::string value) { m_cyclingInfrastructure = std::move(value); }
   void SetReversedGeometry(bool reversedGeometry) { m_reversedGeometry = reversedGeometry; }
 
   /// @return true If any inconsistency was found here.
@@ -382,6 +386,8 @@ public:
 
 private:
   bool m_reversedGeometry = false;
+  // Generator-only transport, written to its own optional MWM section.
+  std::string m_cyclingInfrastructure;
   feature::Metadata m_metadata;
   feature::AddressData m_addrTags;
 };
