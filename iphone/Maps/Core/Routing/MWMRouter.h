@@ -82,6 +82,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// Captures the selected point and previews the remaining connected track section.
 /// Refusals preserve the current session; accepted builds report through normal routing events.
 + (MWMFollowTrackResult)navigateTrack:(MWMTrackID)trackId;
+/// Reverses a built preview at the captured source entry; active navigation is refused.
++ (MWMFollowTrackResult)reverseFollowedTrack;
 /// Switches the preview profile without changing the persisted default. Refusals preserve the session.
 + (MWMFollowTrackResult)setFollowTrackProfile:(MWMRouterType)type;
 + (BOOL)isFollowingTrack;

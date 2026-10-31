@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Pressed-state twin of routing_toolbar_button for the non-checkable cells of the routing
+     pill (the track direction chip): the press shows the same highlight an active tab has. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:state_pressed="true">
+    <shape android:shape="rectangle">
+      <solid android:color="?attr/routingTabActiveBg"/>
+      <corners android:radius="@dimen/routing_toolbar_cell_radius"/>
+    </shape>
+  </item>
+  <item android:drawable="@android:color/transparent"/>
+</selector>

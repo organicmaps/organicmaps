@@ -97,14 +97,18 @@ extension NavigationDashboard.ViewModel {
   }
 
   var transportOptionsMode: TransportOptionsView.Mode {
-    guard followedTrack != nil else { return .standard }
-    return .followTrack
+    guard let followedTrack else { return .standard }
+    return .followTrack(isReversed: followedTrack.isReversed)
   }
 
   /// Changing a preview profile rebuilds its route: further taps are ignored until the pending rebuild lands (ready, error or cancelled all
   /// leave the planning state or complete the progress).
   var isTransportOptionsSelectionEnabled: Bool {
     !(isFollowingTrack && dashboardState == .planning && progress < 1)
+  }
+
+  var canReverseTrackDirection: Bool {
+    isFollowingTrack && dashboardState == .ready && progress >= 1
   }
 
   var startButtonState: StartRouteButton.State {

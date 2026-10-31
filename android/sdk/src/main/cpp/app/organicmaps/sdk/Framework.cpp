@@ -1297,6 +1297,11 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeStartFollowedTrack(J
   return manager.IsRoutingFollowing();
 }
 
+JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeReverseFollowedTrack(JNIEnv *, jclass)
+{
+  return static_cast<jint>(frm()->GetRoutingManager().ReverseFollowedTrack());
+}
+
 JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeSetFollowTrackProfile(JNIEnv *, jclass, jint routerType)
 {
   ASSERT_LESS(routerType, static_cast<jint>(routing::RouterType::Count), ());

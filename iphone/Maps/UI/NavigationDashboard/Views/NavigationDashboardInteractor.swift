@@ -106,6 +106,20 @@ extension NavigationDashboard {
         router.saveRouteAsTrack()
         return .setRouteAsTrackSaved
 
+      case .reverseTrackDirectionButtonDidTap:
+        // The rebuild needs the track itself, so it fails once the followed track has been
+        // deleted; the current follow session stays untouched then — but the header must stop
+        // advertising the stale identity, so refresh instead of returning .none.
+        let result = router.reverseFollowedTrack()
+        if result == .busy {
+          return .none
+        }
+        if result != .ok {
+          Toast.show(withText: followTrackErrorMessage(result))
+          return showRoutePoints
+        }
+        return .none
+
       case .updateRouteBuildingProgress(let progress, let routerType):
         return .updateRouteBuildingProgress(progress, routerType: routerType)
 
