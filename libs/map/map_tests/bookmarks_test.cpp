@@ -6,11 +6,15 @@
 
 #include "drape_frontend/drape_frontend_tests/visual_params_fixture.hpp"
 
+#include "search/bookmarks/processor.hpp"
+#include "search/emitter.hpp"
+
 #include "indexer/classificator_loader.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "platform/gui_thread.hpp"
+#include "platform/localization.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 
@@ -18,6 +22,7 @@
 #include "coding/string_utf8_multilang.hpp"
 #include "coding/zip_reader.hpp"
 
+#include "base/cancellable.hpp"
 #include "base/file_name_utils.hpp"
 #include "base/scope_guard.hpp"
 #include "base/thread_safe_queue.hpp"
@@ -1163,6 +1168,141 @@ UNIT_TEST(Bookmarks_AddressInfo)
 
   CheckPlace(fm, mwmInfo, 53.8964918, 27.555559, streetNames, "10" /* houseNumber */);
   CheckPlace(fm, mwmInfo, 53.8964365, 27.5554007, streetNames, "10" /* houseNumber */);
+}
+
+UNIT_CLASS_TEST(VisualParamsFixture, Bookmarks_NamedLink)
+{
+  ScopedBookmarksDir scopedDir;
+  Framework fm(kFrameworkParams, false /* loadMaps */);
+  TEST_EQUAL(fm.RegisterMap(platform::LocalCountryFile::MakeForTesting("minsk-pass")).second,
+             MwmSet::RegResult::Success, ());
+  fm.OnSize(800, 600);
+
+  auto & manager = fm.GetBookmarkManager();
+  manager.EnableTestMode(true);
+  struct Case
+  {
+    char const * m_url;
+    char const * m_customName;
+    bool m_isFeature;
+  };
+  for (auto const & test :
+       {Case{"geo:0,0?q=53.89395,27.567365(Meetingpoint)", "Meetingpoint", true},
+        Case{"om://map?ll=53.89395,27.567365&n=Meetingpoint", "Meetingpoint", true},
+        Case{"geo:53.89395,27.567365", "", true},
+        Case{"geo:0,0?q=53.893603,27.567032(Meetingpoint)", "Meetingpoint", true},
+        Case{"geo:53.893603,27.567032", "", true}, Case{"geo:0,0?q=0,0(Meetingpoint)", "Meetingpoint", false}})
+  {
+    TEST_EQUAL(fm.ParseAndSetApiURL(test.m_url), url_scheme::ParsedMapApi::UrlType::Map, (test.m_url));
+    fm.ExecuteMapApiRequest();
+    auto const info = fm.GetCurrentPlacePageInfo();
+    TEST_EQUAL(info.IsFeature(), test.m_isFeature, (test.m_url));
+    auto const title = info.GetTitle();
+
+    auto data = info.MakeBookmarkData();
+    auto const names = data.m_name;
+    auto const types = data.m_featureTypes;
+    auto const icon = data.m_icon;
+    TEST_EQUAL(kml::GetDefaultStr(data.m_customName), test.m_customName, (test.m_url));
+    if (info.IsFeature())
+    {
+      TEST_EQUAL(kml::GetDefaultStr(names),
+                 info.GetDefaultName().empty() ? info.GetAddress() : string(info.GetDefaultName()), ());
+      info.GetNameMultilang().ForEach([&](int8_t lang, std::string_view name)
+      { TEST_EQUAL(names.at(lang), name, (lang)); });
+      TEST_EQUAL(types.size(), info.GetTypes().Size(), ());
+      for (auto type : info.GetTypes())
+        TEST(base::IsExist(types, type), (type));
+      if (!info.IsBuilding())
+      {
+        TEST_EQUAL(info.GetDefaultName(), "Родны Кут", ());
+        TEST_EQUAL(icon, kml::BookmarkIcon::Food, ());
+      }
+    }
+    else
+    {
+      TEST_EQUAL(kml::GetDefaultStr(names), title, ());
+      TEST(types.empty(), ());
+    }
+    data.m_point = info.GetMercator();
+    data.m_color = fm.LastEditedBMColor();
+    auto const category = manager.CreateBookmarkCategory("Linked places", false /* autoSave */);
+    auto const id = manager.GetEditSession().CreateBookmark(std::move(data), category)->GetId();
+    TEST_EQUAL(manager.GetBookmark(id)->GetPreferredName(), title, ());
+
+    string saved;
+    MemWriter writer(saved);
+    TEST(manager.SaveBookmarkCategory(category, writer, FileType::Kml), ());
+    if (test.m_customName[0] != '\0')
+      TEST(saved.find("<name>" + title + "</name>") != string::npos, (saved));
+    manager.GetEditSession().DeleteBmCategory(category, true /* permanently */);
+
+    BookmarkManager::KMLDataCollection collection;
+    collection.emplace_back("", LoadKmlData(MemReader(saved.data(), saved.size()), FileType::Kml));
+    TEST(collection.back().second, ());
+    manager.CreateCategories(std::move(collection));
+    auto const reloadedCategory = manager.GetCategoryId("Linked places");
+    auto const & ids = manager.GetUserMarkIds(reloadedCategory);
+    TEST_EQUAL(ids.size(), 1, ());
+    auto const * bookmark = manager.GetBookmark(*ids.begin());
+    auto const & reloaded = bookmark->GetData();
+    TEST_EQUAL(reloaded.m_name, names, ());
+    TEST_EQUAL(kml::GetDefaultStr(reloaded.m_customName), test.m_customName, ());
+    TEST_EQUAL(reloaded.m_featureTypes, types, ());
+    TEST_EQUAL(reloaded.m_icon, icon, ());
+
+    place_page::BuildInfo buildInfo;
+    buildInfo.m_userMarkId = bookmark->GetId();
+    fm.BuildAndSetPlacePageInfo(buildInfo);
+    TEST_EQUAL(fm.GetCurrentPlacePageInfo().GetTitle(), title, ());
+
+    search::Emitter emitter;
+    base::Cancellable cancellable;
+    search::bookmarks::Processor processor(emitter, cancellable);
+    processor.Add(bookmark->GetId(), search::bookmarks::Doc(reloaded, "en"));
+    processor.AttachToGroup(bookmark->GetId(), reloadedCategory);
+    processor.EnableIndexingOfBookmarkGroup(reloadedCategory, true /* enable */);
+    for (auto const & query : {title, string(info.GetDefaultName())})
+    {
+      if (query.empty())
+        continue;
+      emitter.Init([](search::Results const &) {});
+      vector<strings::UniString> tokens;
+      auto const isPrefix = search::TokenizeStringAndCheckIfLastTokenIsPrefix(query, tokens);
+      search::bookmarks::Processor::Params params;
+      params.Init(query, tokens, isPrefix);
+      processor.Search(params);
+      auto const & results = emitter.GetResults().GetBookmarksResults();
+      TEST_EQUAL(results.size(), 1, (query));
+      TEST_EQUAL(results.front().m_id, bookmark->GetId(), (query));
+    }
+    manager.GetEditSession().DeleteBmCategory(reloadedCategory, true /* permanently */);
+  }
+}
+
+UNIT_CLASS_TEST(VisualParamsFixture, Bookmarks_MyPositionName)
+{
+  ScopedBookmarksDir scopedDir;
+  Framework fm(kFrameworkParams, false /* loadMaps */);
+  fm.AddString("core_my_position", "My Position");
+  fm.GetBookmarkManager().MyPositionMark().SetUserPosition(mercator::FromLatLon(53.89395, 27.567365),
+                                                           true /* hasPosition */);
+  place_page::BuildInfo buildInfo;
+  buildInfo.m_isMyPosition = true;
+  buildInfo.m_match = place_page::BuildInfo::Match::Nothing;
+  fm.BuildAndSetPlacePageInfo(buildInfo);
+  auto const & info = fm.GetCurrentPlacePageInfo();
+  TEST(info.IsMyPosition(), ());
+  TEST_EQUAL(info.GetTitle(), "My Position", ());
+
+  auto const nameBefore = platform::GetLocalizedMyPositionBookmarkName();
+  auto const data = info.MakeBookmarkData();
+  auto const nameAfter = platform::GetLocalizedMyPositionBookmarkName();
+  auto const & name = kml::GetDefaultStr(data.m_name);
+  TEST(!name.empty(), ());
+  TEST(name == nameBefore || name == nameAfter, (name));
+  TEST(data.m_customName.empty(), ());
+  TEST(data.m_featureTypes.empty(), ());
 }
 
 UNIT_TEST(Bookmarks_IllegalFileName)

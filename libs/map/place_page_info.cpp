@@ -524,16 +524,13 @@ bool Info::ShouldShowEditPlace() const
   return !IsMyPosition() && IsFeature();
 }
 
-kml::LocalizableString Info::FormatNewBookmarkName() const
+kml::BookmarkData Info::MakeBookmarkData() const
 {
-  kml::LocalizableString bookmarkName;
-  // A custom name (e.g. from a geo: or om:// link) overrides the name of a matched feature.
-  if (!m_customName.empty() && !IsMyPosition())
+  kml::BookmarkData data;
+  auto & bookmarkName = data.m_name;
+  if (IsFeature())
   {
-    kml::SetDefaultStr(bookmarkName, m_customName);
-  }
-  else if (IsFeature())
-  {
+    SaveFeatureTypes(GetTypes(), data);
     m_name.ForEach([&bookmarkName](int8_t langCode, std::string_view localName)
     {
       if (!localName.empty())
@@ -551,7 +548,11 @@ kml::LocalizableString Info::FormatNewBookmarkName() const
       kml::SetDefaultStr(bookmarkName, m_uiTitle);
   }
 
-  return bookmarkName;
+  // Keep link labels separate so the original feature names remain searchable.
+  if (!m_customName.empty() && !IsMyPosition())
+    kml::SetDefaultStr(data.m_customName, m_customName);
+
+  return data;
 }
 
 std::string Info::GetFormattedCoordinate(CoordinatesFormat format) const
