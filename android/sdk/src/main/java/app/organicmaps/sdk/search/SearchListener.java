@@ -4,24 +4,24 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
 /**
- * Native search will return results via this interface.
+ * Main-thread ordinary-search callbacks. Timestamps identify requests; ignore callbacks for superseded requests.
  */
 public interface SearchListener
 {
   /**
-   * @param results   Search results.
-   * @param timestamp Timestamp of search request.
+   * Replaces the current result snapshot.
+   * @param results complete current snapshot, including suggestions; do not append it to the previous snapshot
+   * @param timestamp identifier supplied when the search was started
    */
-  // Called by JNI.
   @Keep
   @SuppressWarnings("unused")
   default void onResultsUpdate(@NonNull SearchResult[] results, long timestamp)
   {}
 
   /**
-   * @param timestamp Timestamp of search request.
+   * Signals completion of a search request.
+   * @param timestamp identifier supplied when the search was started
    */
-  // Called by JNI.
   @Keep
   @SuppressWarnings("unused")
   default void onResultsEnd(long timestamp)
