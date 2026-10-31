@@ -318,6 +318,43 @@ UNIT_TEST(Clipping_ClipSplineByRect_SourceOffsets)
   TEST(sourceOffsets.empty(), ());
 }
 
+UNIT_TEST(Clipping_PreSmoothFragments)
+{
+  m2::RectD const rect(0, 0, 10, 10);
+  for (size_t const count : {0, 1, 2, 5})
+  {
+    vector<m2::PointD> path;
+    if (count == 0)
+      path = {{20, 20}, {30, 30}};
+    for (size_t i = 0; i < count; ++i)
+    {
+      double const y = i + 1;
+      path.insert(path.end(), {{20, y}, {5, y}, {20, y}});
+    }
+
+    m2::GuidePointsForSmooth guides;
+    m2::PathsForSmooth fragments;
+    m2::ClipPathByRectBeforeSmooth(rect, path, guides, fragments);
+    TEST_EQUAL(guides.size(), count, ());
+    TEST_EQUAL(fragments.size(), count, ());
+    for (size_t i = 0; i < count; ++i)
+    {
+      double const y = i + 1;
+      TEST(CompareTriangleLists(fragments[i], {{20, y}, {5, y}, {20, y}}), (i));
+    }
+
+    // Smoothing must preserve every fragment and its endpoints after the inline storage spills.
+    m2::SmoothPaths(guides, 4, m2::kCentripetalAlpha, fragments);
+    TEST_EQUAL(fragments.size(), count, ());
+    for (size_t i = 0; i < count; ++i)
+    {
+      TEST_GREATER_OR_EQUAL(fragments[i].size(), 3, (i));
+      TEST_EQUAL(fragments[i].front(), m2::PointD(20, i + 1), (i));
+      TEST_EQUAL(fragments[i].back(), m2::PointD(20, i + 1), (i));
+    }
+  }
+}
+
 UNIT_TEST(Clipping_ClipSplineByRect_GrazingRectCorner)
 {
   // A two-point spline that just touches a rect corner (and lies entirely

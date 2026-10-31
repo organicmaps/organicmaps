@@ -11,6 +11,7 @@
 #include "drape_frontend/text_layout.hpp"
 #include "drape_frontend/text_shape.hpp"
 
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/road_shields_parser.hpp"
 
 #include "geometry/clipping.hpp"
@@ -107,6 +108,7 @@ private:
   std::mutex m_mutex;
 };
 #endif
+}  // namespace
 
 void ExtractLineParams(drule::LineRule const & lineRule, double visScale, LineViewParams & params)
 {
@@ -149,6 +151,8 @@ void CaptionDefToFontDecl(drule::CaptionDef const * capRule, double visScale, dp
     params.m_outlineColor = ToDrapeColor(capRule->stroke_color);
 }
 
+namespace
+{
 void ShieldRuleToFontDecl(drule::ShieldRule const * shieldRule, double visScale, dp::FontDecl & params)
 {
   params.m_color = ToDrapeColor(shieldRule->text_color);
@@ -968,6 +972,7 @@ void ApplyLineFeatureAdditional::ProcessAdditionalLineRules(drule::PathTextRule 
     params.m_textFont = fontDecl;
     params.m_baseGtoPScale = m_params.m_currentScaleGtoP;
     params.m_lang = m_captions.GetMainTextLang();
+    params.m_allowRepositioning = ftypes::IsIsolineChecker::Instance()(m_f);
 
     uint32_t textIndex = kPathTextBaseTextIndex;
     for (auto const & spline : m_clippedSplines)

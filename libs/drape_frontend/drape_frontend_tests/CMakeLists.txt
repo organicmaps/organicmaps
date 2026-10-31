@@ -13,6 +13,7 @@ set(SRC
   read_cancellation_tests.cpp
   shape_batch_tests.cpp
   stylist_tests.cpp
+  terrain_shade_tests.cpp
   tile_background_coverage_tests.cpp
   tile_background_renderer_tests.cpp
   user_event_stream_tests.cpp
@@ -23,9 +24,11 @@ set(SRC
 if (BUILD_OPENGL_TESTS)
   list(APPEND SRC
     area_pattern_gpu_test.cpp
+    path_text_gpu_test.cpp
     rainbow_line_gpu_test.cpp
     shape_test_fixture.cpp
     shape_test_fixture.hpp
+    terrain_shade_gpu_test.cpp
     track_direction_gpu_test.cpp
   )
 endif()

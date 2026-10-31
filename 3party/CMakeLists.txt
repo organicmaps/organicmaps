@@ -87,6 +87,8 @@ if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
 endif()
 
 add_subdirectory(BLAKE3/c)
+add_subdirectory(sperr)
+add_subdirectory(sz3)
 add_subdirectory(bsdiff-courgette)
 add_subdirectory(glaze)
 add_subdirectory(minizip)

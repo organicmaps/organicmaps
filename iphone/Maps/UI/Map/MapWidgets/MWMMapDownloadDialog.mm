@@ -91,7 +91,7 @@ using namespace storage;
     self.node.textColor = [UIColor blackPrimaryText];
     self.nodeSize.hidden = NO;
     self.nodeSize.textColor = [UIColor blackSecondaryText];
-    self.nodeSize.text = formattedSize(nodeAttrs.m_mwmSize);
+    self.nodeSize.text = formattedSize(nodeAttrs.m_downloadSize);
     self.nodeSize.font = UIFont.medium14.dynamic.monospaced;
 
     switch (nodeAttrs.m_status)
@@ -115,10 +115,12 @@ using namespace storage;
       break;
     }
     case NodeStatus::Downloading:
-      if (nodeAttrs.m_downloadingProgress.m_bytesTotal != 0)
-        [self showDownloading:(CGFloat)nodeAttrs.m_downloadingProgress.m_bytesDownloaded /
-                              nodeAttrs.m_downloadingProgress.m_bytesTotal];
+    {
+      auto const progress = s.GetDownloadingProgress(m_countryId);
+      if (progress.m_mwmTotal > 0)
+        [self showDownloading:(CGFloat)progress.m_mwmDownloaded / progress.m_mwmTotal];
       break;
+    }
     case NodeStatus::Applying:
     case NodeStatus::InQueue: [self showInQueue]; break;
     case NodeStatus::Undefined:
@@ -200,6 +202,7 @@ using namespace storage;
 
 - (void)showDownloading:(CGFloat)progress
 {
+  progress *= AppConstants.maxProgress;
   self.nodeSize.textColor = [UIColor blackSecondaryText];
   self.nodeSize.text = [NSString stringWithFormat:@"%@ %.2f%%", L(@"downloader_downloading"), progress * 100.f];
   self.downloadButton.hidden = YES;
@@ -239,10 +242,10 @@ using namespace storage;
     [self removeFromSuperview];
 }
 
-- (void)processCountry:(NSString *)countryId downloadedBytes:(uint64_t)downloadedBytes totalBytes:(uint64_t)totalBytes
+- (void)processCountry:(NSString *)countryId progress:(MWMStorageProgress)progress
 {
-  if (self.superview && m_countryId == countryId.UTF8String)
-    [self showDownloading:(CGFloat)downloadedBytes / totalBytes];
+  if (self.superview && m_countryId == countryId.UTF8String && progress.mwmTotal > 0)
+    [self showDownloading:(CGFloat)progress.mwmDownloaded / progress.mwmTotal];
 }
 
 #pragma mark - MWMCircularProgressDelegate

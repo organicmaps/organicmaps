@@ -5,6 +5,7 @@
 
 #include "drape/batcher.hpp"
 #include "drape/framebuffer.hpp"
+#include "drape/oglcontext.hpp"
 #include "drape/render_bucket.hpp"
 #include "drape/render_state.hpp"
 #include "drape/texture_manager.hpp"
@@ -19,6 +20,23 @@
 
 namespace df::test_support
 {
+/// Lightweight OGLContext wrapper that assumes a GL context is already current
+/// (e.g., set up by RunTestInOpenGLOffscreenEnvironment).
+class CurrentOGLContext : public dp::OGLContext
+{
+public:
+  void MakeCurrent() override {}
+  void DoneCurrent() override {}
+  void Present() override;
+
+  void SetFramebuffer(ref_ptr<dp::BaseFramebuffer>) override {}
+  void ForgetFramebuffer(ref_ptr<dp::BaseFramebuffer>) override {}
+  void ApplyFramebuffer(std::string const &) override {}
+};
+
+/// Initializes texMng with the real colors, patterns and fonts.
+void InitTextureManager(ref_ptr<dp::GraphicsContext> context, dp::TextureManager & texMng);
+
 /// GPU-based test fixture for MapShape subclasses.
 /// Renders shapes through the real OpenGL shader pipeline to an offscreen FBO.
 ///

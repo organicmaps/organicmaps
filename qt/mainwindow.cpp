@@ -469,29 +469,34 @@ void MainWindow::CreateCountryStatusControls()
       return;
 
     auto const & storage = GetFramework().GetStorage();
-    auto status = storage.CountryStatusEx(countryId);
+    storage::NodeAttrs attrs;
+    storage.GetNodeAttrs(countryId, attrs);
+    // Like on Android and iOS: only a missing map is shown, its terrain downloads silently.
+    if (attrs.m_present)
+      return;
+    auto const status = attrs.m_status;
     auto const countryName = QString::fromStdString(storage.GetNodeLocalName(countryId));
 
-    if (status == storage::Status::NotDownloaded)
+    if (status == storage::NodeStatus::NotDownloaded)
     {
       m_downloadButton->setVisible(true);
 
-      auto const size = m_dataSizeLocale.formattedDataSize(
-          static_cast<qint64>(storage.CountrySizeInBytes(countryId).second), 0, QLocale::DataSizeTraditionalFormat);
+      auto const size = m_dataSizeLocale.formattedDataSize(static_cast<qint64>(attrs.m_downloadSize), 0,
+                                                           QLocale::DataSizeTraditionalFormat);
       m_downloadButton->setText(Tr("download_region_with_size").arg(countryName, size));
     }
-    else if (status == storage::Status::Downloading)
+    else if (status == storage::NodeStatus::Downloading || status == storage::NodeStatus::Applying)
     {
       m_downloadingStatusLabel->setText(Tr("downloader_process").arg(countryName));
       m_downloadingStatusLabel->setVisible(true);
     }
-    else if (status == storage::Status::InQueue)
+    else if (status == storage::NodeStatus::InQueue)
     {
       m_downloadingStatusLabel->setVisible(true);
 
       m_downloadingStatusLabel->setText(Tr("region_queued_for_download").arg(countryName));
     }
-    else if (status != storage::Status::OnDisk && status != storage::Status::OnDiskOutOfDate)
+    else if (status != storage::NodeStatus::OnDisk && status != storage::NodeStatus::OnDiskOutOfDate)
     {
       m_retryButton->setVisible(true);
 
@@ -504,15 +509,15 @@ void MainWindow::CreateCountryStatusControls()
   GetFramework().GetStorage().Subscribe(
       [this, onChanged = std::move(OnCountryChanged)](storage::CountryId const & countryId)
   {
-    // Storage also calls notifications for parents, but we are interested in leafs only.
-    if (GetFramework().GetStorage().IsLeaf(countryId))
+    if (countryId == m_lastCountry)
       onChanged(countryId);
-  }, [this](storage::CountryId const & countryId, downloader::Progress const & progress)
+  }, [this](storage::CountryId const & countryId, storage::Progress const & progress)
   {
-    CHECK_GREATER(progress.m_bytesTotal, 0, (countryId));
+    if (countryId != m_lastCountry || progress.m_mwmTotal == 0)
+      return;
     QLocale const locale;
     auto const percent =
-        locale.toString(static_cast<qulonglong>(progress.m_bytesDownloaded * 100 / progress.m_bytesTotal)) +
+        locale.toString(static_cast<qulonglong>(progress.m_mwmDownloaded * 100 / progress.m_mwmTotal)) +
         locale.percent();
     m_downloadingStatusLabel->setText(
         Tr("downloading_region_progress")
@@ -902,7 +907,7 @@ void MainWindow::SetLayerEnabled(LayerType type, bool enable)
     frm.SaveTransitSchemeEnabled(enable);
     break;
   case ISOLINES:
-    frm.GetIsolinesManager().SetEnabled(enable);
+    frm.SetIsolinesEnabled(enable);
     frm.SaveIsolinesEnabled(enable);
     break;
   case OUTDOORS:
