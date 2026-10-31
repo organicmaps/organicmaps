@@ -619,8 +619,49 @@ bool Route::MoveIterator(location::GpsInfo const & info)
 {
   m2::RectD const rect = mercator::MetersToXY(
       info.m_longitude, info.m_latitude, std::max(m_routingSettings.m_matchingThresholdM, info.m_horizontalAccuracy));
+  auto const entryDistance = GetTrackStartDistanceMeters();
+  if (!entryDistance)
+    return m_poly.UpdateMatchingProjection(rect);
+  if (info.m_horizontalAccuracy > m_routingSettings.m_matchingThresholdM)
+    return false;
 
-  return m_poly.UpdateMatchingProjection(rect);
+  auto const position = mercator::FromLatLon(info.m_latitude, info.m_longitude);
+  double const currentDistance = m_poly.GetDistanceFromStartMeters();
+  bool matched = false;
+  if (!m_trackJoined && *entryDistance > 0.0)
+  {
+    matched = m_poly.UpdateTrackMatchingProjection(rect, 0.0, *entryDistance, std::nullopt,
+                                                   std::max(1.0, info.m_horizontalAccuracy));
+    m_trackJoined = matched && m_poly.GetDistanceFromStartMeters() >= *entryDistance - 1.0;
+  }
+  else
+  {
+    m_trackJoined = true;
+    auto const referencePoint = m_trackFix ? m_trackFix->m_point : m_poly.GetCurrentIter().m_pt;
+    double const displacement = mercator::DistanceOnEarth(referencePoint, position);
+    double const elapsed = m_trackFix ? std::clamp(info.m_timestamp - m_trackFix->m_timestamp, 0.0, 120.0) : 0.0;
+    double const speed = info.HasSpeed() ? info.m_speed : 0.0;
+    double const allowance = std::max(2.0 * displacement, speed * elapsed) + std::max(5.0, info.m_horizontalAccuracy);
+    std::optional<m2::PointD> direction;
+    if (m_trackFix && displacement > 1.0 && info.HasBearing() && speed >= 0.5 &&
+        info.m_horizontalAccuracy <= m_routingSettings.m_matchingThresholdM)
+    {
+      double const angle = math::DegToRad(info.m_bearing);
+      direction = m2::PointD(std::sin(angle), std::cos(angle));
+    }
+    else if (m_trackFix && displacement > std::max(5.0, 2.0 * info.m_horizontalAccuracy))
+    {
+      auto const movement = position - referencePoint;
+      if (movement.SquaredLength() > 0.0)
+        direction = movement / movement.Length();
+    }
+    matched = m_poly.UpdateTrackMatchingProjection(
+        rect, std::max(*entryDistance, currentDistance - allowance), currentDistance + allowance, direction,
+        std::max(1.0, info.m_horizontalAccuracy), m_trackFix.has_value() && displacement > 0.0);
+  }
+  if (matched)
+    m_trackFix = TrackFix{position, info.m_timestamp};
+  return matched;
 }
 
 double Route::GetPolySegAngle(size_t ind) const
@@ -679,10 +720,26 @@ bool Route::IsSubroutePassed(size_t subrouteIdx) const
 
   size_t const segmentIdx = endSegmentIdx - 1;
   CHECK_LESS(segmentIdx, m_routeSegments.size(), ());
-  double const lengthMeters = m_routeSegments[segmentIdx].GetDistFromBeginningMeters();
   double const passedDistanceMeters = m_poly.GetDistanceFromStartMeters();
   double const finishToleranceM =
       segmentIdx == m_routeSegments.size() - 1 ? m_routingSettings.m_finishToleranceM : kOnEndToleranceM;
+  auto const trackStartDistance = GetTrackStartDistanceMeters();
+  if (trackStartDistance && segmentIdx + 1 == m_routeSegments.size())
+  {
+    auto const & points = m_poly.GetPolyline();
+    size_t lastDistinct = points.GetSize() - 2;
+    while (lastDistinct > 0 &&
+           points.GetPoint(lastDistinct).EqualDxDy(points.GetPoint(lastDistinct + 1), mercator::kPointEqualityEps))
+      --lastDistinct;
+    // Protect short loops from finishing at their first occurrence. Once confirmed
+    // source progress exceeds the finish tolerance, normal arrival tolerance
+    // also covers a dense final tail whose matching position can lag within GPS accuracy.
+    double const finalSegmentStartM = lastDistinct == 0 ? 0.0 : m_poly.GetSegDistanceMeters()[lastDistinct - 1];
+    double const distanceOnTrackM = passedDistanceMeters - *trackStartDistance;
+    if (passedDistanceMeters < finalSegmentStartM && distanceOnTrackM <= finishToleranceM)
+      return false;
+  }
+  double const lengthMeters = m_routeSegments[segmentIdx].GetDistFromBeginningMeters();
   return lengthMeters - passedDistanceMeters < finishToleranceM;
 }
 

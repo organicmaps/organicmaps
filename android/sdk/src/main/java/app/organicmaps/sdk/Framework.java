@@ -11,6 +11,8 @@ import app.organicmaps.sdk.api.RequestType;
 import app.organicmaps.sdk.bookmarks.data.DistanceAndAzimut;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.products.ProductsConfig;
+import app.organicmaps.sdk.routing.FollowTrackResult;
+import app.organicmaps.sdk.routing.FollowedTrackInfo;
 import app.organicmaps.sdk.routing.JunctionInfo;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RouteMarkType;
@@ -232,6 +234,48 @@ public class Framework
 
   public static native void nativeDisableFollowing();
 
+  /**
+   * Starts navigation along a track: the core follows the track geometry and starts the route
+   * build itself; the outcome arrives via the standard routing listener.
+   *
+   * @return a {@link FollowTrackResult} ordinal.
+   */
+  public static native int nativeNavigateTrack(long trackId);
+
+  /**
+   * Follows the track geometry in the given direction. Only for re-following an already followed
+   * track: {@link #nativeNavigateTrack} captures a fresh selected entry instead.
+   *
+   * @return a {@link FollowTrackResult} ordinal.
+   */
+  public static native int nativeFollowTrack(long trackId, boolean reverse);
+
+  /**
+   * Switches this track preview's profile without changing the persisted default.
+   *
+   * @param routerType an {@link Router} ordinal.
+   * @return a {@link FollowTrackResult} ordinal.
+   */
+  public static native int nativeSetFollowTrackProfile(int routerType);
+
+  public static native boolean nativeIsFollowingTrack();
+
+  /** Starts a ready track preview; false keeps the phone in planning while its approach refreshes. */
+  public static native boolean nativeStartFollowedTrack();
+
+  /** Whether {@link #nativeNavigateTrack} would accept this track's geometry. */
+  public static native boolean nativeCanNavigateTrack(long trackId);
+
+  /** @return {@code null} when no track is being followed. */
+  @Nullable
+  public static native FollowedTrackInfo nativeGetFollowedTrackInfo();
+
+  /**
+   * The router type to present and gate on: while following a track it is the follow profile
+   * (never Transit/Ruler), otherwise the current router type. Encoded like Router.nativeGet().
+   */
+  public static native int nativeGetRenderRouterType();
+
   @FastNative
   @Nullable
   public static native RoutingInfo nativeGetRouteFollowingInfo();
@@ -239,6 +283,9 @@ public class Framework
   @Nullable
   /// @param[in] maxDistM Max distance between points in meters.
   public static native JunctionInfo[] nativeGetRouteJunctionPoints(double maxDistM);
+
+  /** Whether the current route has an elevation profile to chart. */
+  public static native boolean nativeHasRouteAltitude();
 
   @Nullable
   public static native app.organicmaps.sdk.routing.RouteAltitudeData nativeGetRouteAltitudeData();

@@ -25,6 +25,15 @@ public enum Router
     return valueOf(nativeGet());
   }
 
+  /**
+   * The router type to present and gate on: while following a track it is the follow profile
+   * (never Transit/Ruler), otherwise the same as {@link #get()}.
+   */
+  public static Router getRender()
+  {
+    return valueOf(Framework.nativeGetRenderRouterType());
+  }
+
   public static Router getLastUsed()
   {
     return valueOf(nativeGetLastUsed());

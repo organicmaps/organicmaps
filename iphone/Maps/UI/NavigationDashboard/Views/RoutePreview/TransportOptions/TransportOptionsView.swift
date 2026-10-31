@@ -1,9 +1,21 @@
 import UIKit
 
 final class TransportOptionsView: UIView {
+  /// The picker's presentation: the standard picker fills the row with all router types; a
+  /// followed track reduces it to the followable profiles.
+  enum Mode: Equatable {
+    case standard
+    case followTrack
+  }
+
+  private enum Constants {
+    static let velocityThreshold: CGFloat = 5
+  }
+
   private var segmentedControl = UISegmentedControl()
   private var routerTypes: [MWMRouterType] = []
   private var selectedRouterType: MWMRouterType = .vehicle
+  private var mode: Mode = .standard
   private let panelPanGestureRecognizer = UIPanGestureRecognizer()
 
   weak var interactor: NavigationDashboard.Interactor?
@@ -19,19 +31,26 @@ final class TransportOptionsView: UIView {
     fatalError("init(coder:) has not been implemented")
   }
 
-  func set(transportOptions: [MWMRouterType], selectedRouterType: MWMRouterType) {
+  func set(transportOptions: [MWMRouterType], selectedRouterType: MWMRouterType, mode: Mode) {
     let optionsChanged = routerTypes != transportOptions
     let selectionChanged = self.selectedRouterType != selectedRouterType
-    guard optionsChanged || selectionChanged else { return }
+    let modeChanged = self.mode != mode
+    guard optionsChanged || selectionChanged || modeChanged else { return }
 
     routerTypes = transportOptions
     self.selectedRouterType = selectedRouterType
+    self.mode = mode
 
     if optionsChanged {
       reload()
     } else if selectionChanged {
       updateSelection()
     }
+  }
+
+  /// Profile controls are disabled while a preview rebuild is pending.
+  func setSelectionEnabled(_ enabled: Bool) {
+    segmentedControl.isEnabled = enabled
   }
 
   private func setupSegmentedControlView() {
@@ -47,9 +66,9 @@ final class TransportOptionsView: UIView {
     addSubview(segmentedControl)
     NSLayoutConstraint.activate([
       segmentedControl.leadingAnchor.constraint(equalTo: leadingAnchor),
-      segmentedControl.trailingAnchor.constraint(equalTo: trailingAnchor),
       segmentedControl.topAnchor.constraint(equalTo: topAnchor),
       segmentedControl.bottomAnchor.constraint(equalTo: bottomAnchor),
+      segmentedControl.trailingAnchor.constraint(equalTo: trailingAnchor),
     ])
   }
 
@@ -76,11 +95,19 @@ final class TransportOptionsView: UIView {
 
   @objc private func didChangeSegment(_ sender: UISegmentedControl) {
     let index = sender.selectedSegmentIndex
-    guard index < routerTypes.count else { return }
+    guard index >= 0, index < routerTypes.count else { return }
     let routerType = routerTypes[index]
     guard selectedRouterType != routerType else { return }
-    selectedRouterType = routerType
-    interactor?.process(.selectRouterType(routerType))
+    switch mode {
+    case .standard:
+      selectedRouterType = routerType
+      interactor?.process(.selectRouterType(routerType))
+    case .followTrack:
+      // The follow rebuild may be refused (e.g. the followed track has been deleted): keep the
+      // control on the confirmed selection and let the state refresh move it on success.
+      updateSelection()
+      interactor?.process(.selectRouterType(routerType))
+    }
   }
 
   @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
@@ -89,10 +116,6 @@ final class TransportOptionsView: UIView {
 }
 
 extension TransportOptionsView: UIGestureRecognizerDelegate {
-  private enum Constants {
-    static let velocityThreshold: CGFloat = 5
-  }
-
   override func gestureRecognizerShouldBegin(_: UIGestureRecognizer) -> Bool {
     let velocity = panelPanGestureRecognizer.velocity(in: self)
     return abs(velocity.y) > abs(velocity.x) + Constants.velocityThreshold

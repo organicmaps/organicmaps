@@ -54,6 +54,7 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
     LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
     manageRouteList.setLayoutManager(layoutManager);
     mManageRouteAdapter = new ManageRouteAdapter(mContext, Framework.nativeGetRoutePoints(), this);
+    mManageRouteAdapter.showAddButton(!RoutingController.get().isFollowingTrack());
     manageRouteList.addItemDecoration(new RoundedSectionItemDecoration(mContext, mManageRouteAdapter));
     manageRouteList.addItemDecoration(new SectionDividerItemDecoration(mContext, mManageRouteAdapter));
     manageRouteList.setAdapter(new ConcatAdapter(mHeaderAdapter, mManageRouteAdapter));
@@ -64,6 +65,8 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
 
   public void onRouteOrderChanged(@NonNull ArrayList<RouteMarkData> newRoutePoints)
   {
+    if (RoutingController.get().isFollowingTrack())
+      return;
     // Make sure that the new route contains at least 2 points (start and destination).
     Assert.debug(newRoutePoints.size() >= 2, "There must be at least two route points");
 
@@ -86,6 +89,7 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
     if (isReordering())
       return;
     // Keep the adapter and touch helper attached so route changes retain the list's scroll position.
+    mManageRouteAdapter.showAddButton(!RoutingController.get().isFollowingTrack());
     mManageRouteAdapter.setRoutePoints(Framework.nativeGetRoutePoints());
   }
 
@@ -233,7 +237,8 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
           return;
         mController.mDragStartOrder = null;
         // A detached panel or cancelled routing has nothing to update.
-        if (!recyclerView.isAttachedToWindow() || !RoutingController.get().isPlanning())
+        if (!recyclerView.isAttachedToWindow() || !RoutingController.get().isPlanning()
+            || RoutingController.get().isFollowingTrack())
           return;
         if (newOrder != null)
           mController.onRouteOrderChanged(newOrder);

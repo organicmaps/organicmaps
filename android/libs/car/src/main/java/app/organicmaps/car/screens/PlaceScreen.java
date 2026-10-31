@@ -83,6 +83,11 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   public void onCreate(@NonNull LifecycleOwner owner)
   {
     super.onCreate(owner);
+    if (mRoutingController.isFollowingTrack())
+    {
+      finish();
+      return;
+    }
     mRoutingController.restore();
     if (mRoutingController.isNavigating() && mRoutingController.getLastRouterType() == ROUTER)
     {
@@ -118,6 +123,11 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   public void onResume(@NonNull LifecycleOwner owner)
   {
     super.onResume(owner);
+    if (mRoutingController.isFollowingTrack())
+    {
+      finish();
+      return;
+    }
     mRoutingController.attach(this);
   }
 
@@ -125,10 +135,10 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   public void onDestroy(@NonNull LifecycleOwner owner)
   {
     super.onDestroy(owner);
-    if (mRoutingController.isPlanning())
+    if (mRoutingController.isAttachedTo(this) && mRoutingController.isPlanning()
+        && !mRoutingController.isFollowingTrack())
       mRoutingController.onSaveState();
-    if (!mRoutingController.isNavigating())
-      mRoutingController.detach();
+    mRoutingController.detach(this);
   }
 
   @NonNull
@@ -137,7 +147,8 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     final Header.Builder builder = new Header.Builder();
     builder.setStartHeaderAction(Action.BACK);
     getCarContext().getOnBackPressedDispatcher().addCallback(this, mOnBackPressedCallback);
-    builder.addEndHeaderAction(createDrivingOptionsAction());
+    if (!mRoutingController.isFollowingTrack())
+      builder.addEndHeaderAction(createDrivingOptionsAction());
     return builder.build();
   }
 
@@ -155,7 +166,9 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     final Pane.Builder builder = new Pane.Builder();
     final RoutingInfo routingInfo = Framework.nativeGetRouteFollowingInfo();
 
-    if (routingInfo == null && !mRoutingController.isErrorEncountered())
+    // A replaced road preview may outlive its destination mark while returning to the base map.
+    // Keep that transient screen loading instead of dereferencing the missing place.
+    if (mMapObject == null || (routingInfo == null && !mRoutingController.isErrorEncountered()))
     {
       builder.setLoading(true);
       return builder.build();
@@ -165,8 +178,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     if (routingInfo != null)
       builder.addRow(getPlaceRouteInfo(routingInfo));
 
-    final Row placeOpeningHours =
-        UiHelpers.getPlaceOpeningHoursRow(Objects.requireNonNull(mMapObject), getCarContext());
+    final Row placeOpeningHours = UiHelpers.getPlaceOpeningHoursRow(mMapObject, getCarContext());
     if (placeOpeningHours != null)
       builder.addRow(placeOpeningHours);
 
@@ -226,7 +238,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
       builder.addAction(openDialBuilder.build());
     }
 
-    if (!mRoutingController.isBuilt())
+    if (mRoutingController.isFollowingTrack() || !mRoutingController.isBuilt())
       return;
 
     final Action.Builder startRouteBuilder = new Action.Builder();
@@ -236,6 +248,9 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
     startRouteBuilder.setIcon(
         new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_follow_and_rotate)).build());
     startRouteBuilder.setOnClickListener(() -> {
+      if (mRoutingController.isFollowingTrack() || !mRoutingController.isPlanning() || !mRoutingController.isBuilt()
+          || !Framework.nativeIsRouteBuilt())
+        return;
       Config.acceptRoutingDisclaimer();
       mRoutingController.start();
     });
@@ -258,7 +273,8 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
 
   private void onDrivingOptionsResult(@Nullable Object result)
   {
-    if (result == null || result != DrivingOptionsScreen.DRIVING_OPTIONS_RESULT_CHANGED)
+    if (mRoutingController.isFollowingTrack() || result == null
+        || result != DrivingOptionsScreen.DRIVING_OPTIONS_RESULT_CHANGED)
       return;
 
     // Driving Options changed. Let's rebuild the route
@@ -268,6 +284,11 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   @Override
   public void onBackPressed()
   {
+    if (mRoutingController.isFollowingTrack())
+    {
+      finish();
+      return;
+    }
     mRoutingController.cancel();
   }
 
@@ -284,7 +305,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   @Override
   public void showNavigation(boolean show)
   {
-    if (show)
+    if (show && !mRoutingController.isFollowingTrack())
     {
       getScreenManager().popToRoot();
       getScreenManager().push(

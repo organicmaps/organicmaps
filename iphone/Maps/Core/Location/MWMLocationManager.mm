@@ -356,7 +356,8 @@ void setShowLocationAlert(BOOL needShow)
   [manager processLocationStatus:manager.lastLocationStatus];
   if ([MWMRouter isRoutingActive])
   {
-    switch ([MWMRouter type])
+    // The render type resolves a followed track to its follow profile (never ruler/transit).
+    switch ([MWMRouter renderType])
     {
     case MWMRouterTypeVehicle: manager.geoMode = GeoMode::VehicleRouting; break;
     case MWMRouterTypePublicTransport:

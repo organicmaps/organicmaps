@@ -39,6 +39,13 @@ public class PlacePageButtonFactory
         titleId = R.string.save;
         yield R.drawable.ic_track_recording_off;
       }
+      case TRACK_NAVIGATE ->
+      {
+        titleId = R.string.navigate_track;
+        // The follow-mode navigation arrow: reads as "navigate along" and stays distinct from
+        // the route-from/route-to flags shown in the same button row.
+        yield R.drawable.ic_follow;
+      }
       case TRACK_DELETE, TRACK_RECORDING_DELETE ->
       {
         titleId = R.string.delete;

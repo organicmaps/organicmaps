@@ -15,7 +15,7 @@ public class RoutingPlanViewModel extends ViewModel
   private final MutableLiveData<Boolean> mIsSearchActive = new MutableLiveData<>();
   private final MutableLiveData<Boolean> mIsPointChooserActive = new MutableLiveData<>();
   private final MutableLiveData<Integer> mMenuUpdateTrigger = new MutableLiveData<>(0);
-  private final MutableLiveData<int[]> mBuildProgress = new MutableLiveData<>();
+  private final MutableLiveData<Integer> mBuildProgress = new MutableLiveData<>();
   private final MutableLiveData<Integer> mDrivingOptionsCount = new MutableLiveData<>(0);
   private final SingleLiveEvent<Void> mDrivingOptionsError = new SingleLiveEvent<>();
   private int mBottomSheetState = BottomSheetBehavior.STATE_COLLAPSED;
@@ -94,16 +94,14 @@ public class RoutingPlanViewModel extends ViewModel
     mMenuUpdateTrigger.setValue(current == null ? 1 : current + 1);
   }
 
-  // Value layout: {progress, routerOrdinal}. Observers use routerOrdinal to look up the
-  // Router enum and reflect the currently-building router in the tab selector.
-  public LiveData<int[]> getBuildProgress()
+  public LiveData<Integer> getBuildProgress()
   {
     return mBuildProgress;
   }
 
-  public void setBuildProgress(int progress, int routerOrdinal)
+  public void setBuildProgress(int progress)
   {
-    mBuildProgress.setValue(new int[] {progress, routerOrdinal});
+    mBuildProgress.setValue(progress);
   }
 
   public LiveData<Integer> getDrivingOptionsCount()

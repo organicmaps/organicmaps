@@ -39,11 +39,13 @@ import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.RoadWarningMarkType;
 import app.organicmaps.sdk.bookmarks.data.Track;
 import app.organicmaps.sdk.location.TrackRecorder;
+import app.organicmaps.sdk.routing.FollowTrackResult;
 import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.settings.RoadType;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.util.Utils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.widget.colorpicker.ColorPickerFragment;
@@ -507,6 +509,7 @@ public class PlacePageController
     switch (item)
     {
     case BOOKMARK_SAVE, BOOKMARK_DELETE -> onBookmarkBtnClicked();
+    case TRACK_NAVIGATE -> onTrackNavigateClicked();
     case TRACK_DELETE -> onTrackRemoveClicked();
     case TRACK_RECORDING_SAVE -> mPlacePageListener.onTrackRecordingSaved();
     case TRACK_RECORDING_DELETE -> mPlacePageListener.onTrackRecordingCancelled();
@@ -533,6 +536,21 @@ public class PlacePageController
       Framework.nativeDeleteBookmarkFromMapObject();
     else
       BookmarkManager.INSTANCE.addNewBookmark(mMapObject.getLat(), mMapObject.getLon());
+  }
+
+  private void onTrackNavigateClicked()
+  {
+    // mMapObject is set to null when the place page closes
+    // We don't want users to interact with the buttons when the PP is closing
+    if (mMapObject == null)
+      return;
+    // The core rejects missing/degenerate tracks and leaves the current session untouched then:
+    // keep the place page open and say why nothing happened.
+    final FollowTrackResult result = RoutingController.get().navigateTrack(((Track) mMapObject).getTrackId());
+    if (result == FollowTrackResult.Ok)
+      close();
+    else
+      Utils.showFollowTrackError(requireContext(), result);
   }
 
   private void onTrackRemoveClicked()
@@ -729,6 +747,12 @@ public class PlacePageController
         buttons.add(mapObject.isBookmark() ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
                                            : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
       }
+      // A relation track is a transient preview: it has no track actions, so it falls through
+      // to the generic buttons below.
+      else if (mapObject.isTrack() && !((Track) mapObject).isRelationTrack())
+      {
+        addTrackButtons(buttons, (Track) mapObject);
+      }
       else
       {
         if (needToShowRoutingButtons)
@@ -748,8 +772,6 @@ public class PlacePageController
         {
           buttons.add(mapObject.isBookmark() ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
                                              : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
-          if (mapObject.isTrack() && !((Track) mapObject).isRelationTrack())
-            buttons.add(PlacePageButtons.ButtonType.TRACK_DELETE);
         }
 
         if (needToShowRoutingButtons)
@@ -762,6 +784,26 @@ public class PlacePageController
       }
     }
     mViewModel.setCurrentButtons(buttons);
+  }
+
+  // The track actions, in bar order: only pp_buttons_max of them fit, the rest fall into the
+  // More menu. Navigate leads, and the generic "save a bookmark here" -- the least useful action
+  // on a track page -- goes last. A route plan in progress keeps its classic routing buttons
+  // in front and gets Navigate appended after them.
+  private static void addTrackButtons(@NonNull List<PlacePageButtons.ButtonType> buttons, @NonNull Track track)
+  {
+    final RoutingController controller = RoutingController.get();
+    final boolean canNavigate = Framework.nativeCanNavigateTrack(track.getTrackId());
+    if (canNavigate && !controller.isPlanning())
+      buttons.add(PlacePageButtons.ButtonType.TRACK_NAVIGATE);
+    buttons.add(PlacePageButtons.ButtonType.ROUTE_FROM);
+    if (controller.isStopPointAllowed())
+      buttons.add(PlacePageButtons.ButtonType.ROUTE_ADD);
+    buttons.add(PlacePageButtons.ButtonType.ROUTE_TO);
+    if (canNavigate && controller.isPlanning())
+      buttons.add(PlacePageButtons.ButtonType.TRACK_NAVIGATE);
+    buttons.add(PlacePageButtons.ButtonType.TRACK_DELETE);
+    buttons.add(PlacePageButtons.ButtonType.BOOKMARK_SAVE);
   }
 
   @Override
