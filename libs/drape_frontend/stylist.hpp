@@ -2,11 +2,13 @@
 
 #include "indexer/drawing_rules.hpp"
 #include "indexer/ftypes_matcher.hpp"
+#include "indexer/map_style.hpp"
 #include "indexer/road_shields_parser.hpp"
 
 #include "base/buffer_vector.hpp"
-#include "geometry/point2d.hpp"
 
+#include <cstdint>
+#include <deque>
 #include <string>
 #include <vector>
 
@@ -106,6 +108,8 @@ class Stylist
 {
 public:
   static constexpr uint8_t kCyclewaySideMinZoom = 14;
+  static double CyclewayIndicatorWidth(uint8_t zoom) { return zoom >= 17 ? 2.5 : 2.0; }
+
   drule::SymbolRule const * m_symbolRule = nullptr;
   drule::CaptionRule const * m_captionRule = nullptr;
   drule::CaptionRule const * m_houseNumberRule = nullptr;
@@ -123,8 +127,9 @@ public:
     LineRulesT m_rules;
     drule::LineRule const * m_arrowRule = nullptr;
     bool m_reverseArrow = false;
-    float m_roadWidth = 0;  // Excludes bridge/tunnel decoration.
+    float m_roadWidth = 0;  // Style pixels, excluding bridge/tunnel decoration.
     std::vector<m2::PointD> m_junctions = {};
+
     m2::SharedSpline GetArrowSpline(m2::SharedSpline const & piece) const;
   };
   std::vector<SideRules> m_cyclewaySides;
@@ -140,6 +145,7 @@ private:
   void ProcessKey(FeatureType & f, drule::Key const & key);
 
   drule::RulesHolder const & m_rulesHolder;
+  std::deque<drule::LineRule> m_cyclewayIndicatorRules;
 };
 
 }  // namespace df
