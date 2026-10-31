@@ -157,7 +157,7 @@ void Track::UpdateSelectionInfo(m2::PointD const & tapPoint, TrackSelectionInfo 
 
 df::DepthLayer Track::GetDepthLayer() const
 {
-  return df::DepthLayer::UserLineLayer;
+  return m_isSelected ? df::DepthLayer::SelectedUserLineLayer : df::DepthLayer::UserLineLayer;
 }
 
 size_t Track::GetLayerCount() const
