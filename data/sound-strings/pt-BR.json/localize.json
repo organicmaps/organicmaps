@@ -28,6 +28,7 @@
 "take_exit_number":"Pegue a saída",
 "take_exit_number_street_verb":"NULL",
 "route_recalculating":"Recalculando rota",
+"you_have_left_the_track":"Você saiu da trilha.",
 "destination":"Você chegará ao seu destino.",
 "you_have_reached_the_destination":"Você chegou ao seu destino.",
 "in_50_meters":"Em cinquenta metros",
