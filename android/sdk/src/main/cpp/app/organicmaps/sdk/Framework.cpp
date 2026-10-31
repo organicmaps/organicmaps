@@ -1277,6 +1277,62 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeDisableFollowing(JNIEnv 
   frm()->GetRoutingManager().DisableFollowMode();
 }
 
+JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeNavigateTrack(JNIEnv *, jclass, jlong trackId)
+{
+  return static_cast<jint>(
+      frm()->GetRoutingManager().NavigateTrack(static_cast<kml::TrackId>(trackId), false /* reverse */));
+}
+
+JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeFollowTrack(JNIEnv *, jclass, jlong trackId, jboolean reverse)
+{
+  return static_cast<jint>(frm()->GetRoutingManager().FollowTrack(static_cast<kml::TrackId>(trackId), reverse));
+}
+
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeStartFollowedTrack(JNIEnv *, jclass)
+{
+  auto & manager = frm()->GetRoutingManager();
+  if (!manager.IsFollowingTrack())
+    return false;
+  manager.FollowRoute();
+  return manager.IsRoutingFollowing();
+}
+
+JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeSetFollowTrackProfile(JNIEnv *, jclass, jint routerType)
+{
+  ASSERT_LESS(routerType, static_cast<jint>(routing::RouterType::Count), ());
+  return static_cast<jint>(
+      frm()->GetRoutingManager().SetFollowTrackProfile(static_cast<routing::RouterType>(routerType)));
+}
+
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsFollowingTrack(JNIEnv *, jclass)
+{
+  return frm()->GetRoutingManager().IsFollowingTrack();
+}
+
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeCanNavigateTrack(JNIEnv *, jclass, jlong trackId)
+{
+  return frm()->GetRoutingManager().CanNavigateTrack(static_cast<kml::TrackId>(trackId));
+}
+
+JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetFollowedTrackInfo(JNIEnv * env, jclass)
+{
+  auto const info = frm()->GetRoutingManager().GetFollowedTrackInfo();
+  if (!info)
+    return nullptr;
+
+  static jclass const infoClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/routing/FollowedTrackInfo");
+  static jmethodID const infoCtor = jni::GetConstructorID(env, infoClass, "(JLjava/lang/String;DZ)V");
+
+  jni::TScopedLocalRef const name(env, jni::ToJavaString(env, info->m_name));
+  return env->NewObject(infoClass, infoCtor, static_cast<jlong>(info->m_id), name.get(),
+                        static_cast<jdouble>(info->m_lengthM), static_cast<jboolean>(info->m_reversed));
+}
+
+JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetRenderRouterType(JNIEnv *, jclass)
+{
+  return static_cast<jint>(frm()->GetRoutingManager().GetRenderRouterType());
+}
+
 JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGenerateNotifications(JNIEnv * env, jclass,
                                                                                       jboolean announceStreets)
 {
@@ -1342,6 +1398,11 @@ JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetRouteJunction
   }
 
   return routing_jni::CreateJunctionInfoArray(env, result);
+}
+
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeHasRouteAltitude(JNIEnv *, jclass)
+{
+  return frm()->GetRoutingManager().HasRouteAltitude();
 }
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetRouteAltitudeData(JNIEnv * env, jclass)

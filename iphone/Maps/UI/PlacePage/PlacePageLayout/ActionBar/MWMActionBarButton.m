@@ -15,6 +15,7 @@ NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
   case MWMActionBarButtonTypeDeleteTrackRecording: return L(@"delete");
   case MWMActionBarButtonTypeRouteFrom: return L(@"p2p_from_here");
   case MWMActionBarButtonTypeRouteTo: return L(@"p2p_to_here");
+  case MWMActionBarButtonTypeRouteAlongTrack: return L(@"navigate_track");
   case MWMActionBarButtonTypeMore: return L(@"placepage_more_button");
   case MWMActionBarButtonTypeRouteAddStop: return L(@"placepage_add_stop");
   case MWMActionBarButtonTypeRouteAddDestination: return L(@"route_add_destination");
@@ -102,6 +103,9 @@ typedef NS_ENUM(NSInteger, MWMBookmarksButtonState) {
     break;
   case MWMActionBarButtonTypeRouteAddDestination:
     [self.button setImage:[UIImage imageNamed:@"ic_route_to"] forState:UIControlStateNormal];
+    break;
+  case MWMActionBarButtonTypeRouteAlongTrack:
+    [self.button setImage:[UIImage imageNamed:@"ic_route"] forState:UIControlStateNormal];
     break;
   case MWMActionBarButtonTypeMore:
     [self.button setImage:[UIImage imageNamed:@"ic_placepage_more"] forState:UIControlStateNormal];

@@ -2,7 +2,10 @@
 
 #include "routing/route.hpp"
 #include "routing/router_delegate.hpp"
+#include "routing/routing_session.hpp"
 #include "routing/track_router.hpp"
+
+#include "platform/location.hpp"
 
 #include "geometry/mercator.hpp"
 #include "geometry/point_with_altitude.hpp"
@@ -485,6 +488,347 @@ UNIT_TEST(TrackRouter_AlreadyAtFinish)
     TEST_EQUAL(route.GetRouteSegments().back().GetDistFromBeginningMeters(), 0.0, ());
     TEST_EQUAL(route.GetTotalTimeSec(), 0.0, ());
   }
+}
+
+UNIT_TEST(TrackRouter_OrderedMatchingUsesPhysicalDistanceAtHighLatitude)
+{
+  auto const first = mercator::FromLatLon(60.0, 1.0);
+  auto const last = mercator::FromLatLon(80.0, 2.0);
+  TrackRouter router(VehicleType::Pedestrian, MakeData({{first, 100}, {last, 100}}), true);
+  auto route = CalcRoute(router, {first, last});
+  route.SetRoutingSettings(GetRoutingSettings(VehicleType::Pedestrian));
+  auto previous = first;
+  double timestamp = 100.0;
+  for (size_t sample = 0; sample <= 40; ++sample)
+  {
+    auto const point = first + (last - first) * (sample / 40.0);
+    timestamp += mercator::DistanceOnEarth(previous, point);
+    auto const latlon = mercator::ToLatLon(point);
+    location::GpsInfo info;
+    info.m_source = location::EUser;
+    info.m_latitude = latlon.m_lat;
+    info.m_longitude = latlon.m_lon;
+    info.m_horizontalAccuracy = 5;
+    info.m_speed = 1;
+    info.m_timestamp = timestamp;
+    TEST(route.MoveIterator(info), (sample));
+    TEST_ALMOST_EQUAL_ABS(route.GetCurrentDistanceFromBeginMeters(), mercator::DistanceOnEarth(first, point), 0.01,
+                          (sample));
+    previous = point;
+  }
+}
+
+UNIT_TEST(TrackRouter_BacktrackingDoesNotProveTurnaround)
+{
+  auto const first = MeterPoint(0, 0);
+  TrackRouter router(VehicleType::Pedestrian, MakeData({{first, 100}, {MeterPoint(1000, 0), 100}, {first, 100}}), true);
+  auto route = CalcRoute(router, {first, first});
+  route.SetRoutingSettings(GetRoutingSettings(VehicleType::Pedestrian));
+  auto const feed = [&](double x, double timestamp, double bearing)
+  {
+    auto const latlon = mercator::ToLatLon(MeterPoint(x, 0));
+    location::GpsInfo info;
+    info.m_source = location::EUser;
+    info.m_latitude = latlon.m_lat;
+    info.m_longitude = latlon.m_lon;
+    info.m_horizontalAccuracy = 5;
+    info.m_speed = 1;
+    info.m_timestamp = timestamp;
+    info.m_bearing = bearing;
+    TEST(route.MoveIterator(info), ());
+  };
+  feed(0, 100, 90);
+  feed(700, 800, 90);
+  feed(0, 1500, 270);
+  TEST_EQUAL(route.GetCurrentDistanceFromBeginMeters(), 0.0, ());
+  TEST(!route.IsSubroutePassed(0), ("Returning before the unobserved turnaround is not track completion"));
+}
+
+UNIT_TEST(TrackRouter_ShortLoopCannotFinishAtItsFirstOccurrence)
+{
+  auto const first = MeterPoint(0, 0);
+  TrackRouter router(VehicleType::Pedestrian,
+                     MakeData({{first, 100}, {MeterPoint(-2, 0), 100}, {MeterPoint(-2, 2), 100}, {first, 100}}), true);
+  auto route = CalcRoute(router, {first, first});
+  route.SetRoutingSettings(GetRoutingSettings(VehicleType::Pedestrian));
+  location::GpsInfo info;
+  info.m_source = location::EUser;
+  info.m_horizontalAccuracy = 5;
+  info.m_speed = 0;
+  auto const latlon = mercator::ToLatLon(first);
+  info.m_latitude = latlon.m_lat;
+  info.m_longitude = latlon.m_lon;
+  for (size_t i = 0; i < 5; ++i)
+  {
+    info.m_timestamp = 100 + i;
+    TEST(route.MoveIterator(info), ());
+    TEST(!route.IsSubroutePassed(0), ("Stationary fixes cannot infer a lap", i));
+  }
+}
+
+UNIT_TEST(TrackRouter_ShortFinalEdgeDoesNotPreventArrival)
+{
+  for (bool const withBearing : {false, true})
+  {
+    for (bool const repeatEndpoint : {false, true})
+    {
+      auto const first = MeterPoint(0, 0);
+      auto const last = MeterPoint(101, 0);
+      std::vector<PWA> points = {{first, 100}, {MeterPoint(100, 0), 100}, {last, 100}};
+      if (repeatEndpoint)
+        points.emplace_back(last, 100);
+      TrackRouter router(VehicleType::Pedestrian, MakeData(std::move(points)), true);
+      auto route = CalcRoute(router, {first, last});
+      route.SetRoutingSettings(GetRoutingSettings(VehicleType::Pedestrian));
+      double timestamp = 100.0;
+      for (double const x : {0, 100, 101, 101, 101})
+      {
+        timestamp += 100;
+        auto const latlon = mercator::ToLatLon(MeterPoint(x, 0));
+        location::GpsInfo info;
+        info.m_source = location::EUser;
+        info.m_latitude = latlon.m_lat;
+        info.m_longitude = latlon.m_lon;
+        info.m_horizontalAccuracy = 5;
+        info.m_speed = 1;
+        info.m_timestamp = timestamp;
+        if (withBearing)
+          info.m_bearing = 90;
+        TEST(route.MoveIterator(info), (withBearing, repeatEndpoint, x));
+        TEST_EQUAL(route.IsSubroutePassed(0), x >= 100, (withBearing, repeatEndpoint, x));
+      }
+    }
+  }
+}
+
+UNIT_TEST(TrackRouter_NoisyBacktrackDoesNotCompleteUnobservedLoop)
+{
+  auto const first = MeterPoint(0, 0);
+  auto const corner = MeterPoint(-200, 200);
+  auto const last = MeterPoint(1, 0);
+  for (bool const withBearing : {false, true})
+  {
+    TrackRouter router(
+        VehicleType::Pedestrian,
+        MakeData({{first, 100}, {MeterPoint(-200, 0), 100}, {corner, 100}, {MeterPoint(1, 200), 100}, {last, 100}}),
+        true);
+    auto route = CalcRoute(router, {first, last});
+    route.SetRoutingSettings(GetRoutingSettings(VehicleType::Pedestrian));
+    double timestamp = 100.0;
+    auto const feed = [&](m2::PointD const & point, double bearing)
+    {
+      timestamp += 400;
+      auto const latlon = mercator::ToLatLon(point);
+      location::GpsInfo info;
+      info.m_source = location::EUser;
+      info.m_latitude = latlon.m_lat;
+      info.m_longitude = latlon.m_lon;
+      info.m_horizontalAccuracy = 5;
+      info.m_speed = 1;
+      info.m_timestamp = timestamp;
+      if (withBearing)
+        info.m_bearing = bearing;
+      TEST(route.MoveIterator(info), (withBearing));
+    };
+    feed(first, 270);
+    feed(corner, 0);
+    feed(last, 90);
+    TEST_LESS(route.GetCurrentDistanceFromBeginMeters(), 5.0, (withBearing));
+    TEST(!route.IsSubroutePassed(0), ("A one metre GPS error cannot infer the unobserved half of a loop", withBearing));
+
+    // Observing the remaining corners on a later traversal still permits normal completion.
+    feed(MeterPoint(-200, 0), 270);
+    feed(corner, 0);
+    feed(MeterPoint(1, 200), 90);
+    feed(last, 180);
+    TEST(route.IsSubroutePassed(0), (withBearing));
+  }
+}
+
+UNIT_TEST(TrackRouter_DenseFinalTailUsesArrivalTolerance)
+{
+  for (bool const withBearing : {false, true})
+  {
+    for (bool const closed : {false, true})
+    {
+      std::vector<PWA> points;
+      std::vector<m2::PointD> fixes;
+      if (closed)
+      {
+        points = {{MeterPoint(0, 0), 100},
+                  {MeterPoint(-100, 0), 100},
+                  {MeterPoint(-100, 100), 100},
+                  {MeterPoint(0, 100), 100}};
+        for (int y = 99; y >= 0; --y)
+          points.emplace_back(MeterPoint(0, y), 100);
+        fixes = {MeterPoint(0, 0), MeterPoint(-100, 0), MeterPoint(-100, 100), MeterPoint(0, 100),
+                 MeterPoint(0, 4), MeterPoint(0, 0),    MeterPoint(0, 0)};
+      }
+      else
+      {
+        for (int x = 0; x <= 101; ++x)
+          points.emplace_back(MeterPoint(x, 0), 100);
+        fixes = {MeterPoint(0, 0), MeterPoint(97, 0), MeterPoint(101, 0), MeterPoint(101, 0)};
+      }
+      TrackRouter router(VehicleType::Pedestrian, MakeData(std::move(points)), true);
+      auto route = CalcRoute(router, {fixes.front(), fixes.back()});
+      route.SetRoutingSettings(GetRoutingSettings(VehicleType::Pedestrian));
+      double timestamp = 100.0;
+      for (size_t sample = 0; sample < fixes.size(); ++sample)
+      {
+        timestamp += 200;
+        auto const latlon = mercator::ToLatLon(fixes[sample]);
+        location::GpsInfo info;
+        info.m_source = location::EUser;
+        info.m_latitude = latlon.m_lat;
+        info.m_longitude = latlon.m_lon;
+        info.m_horizontalAccuracy = 5;
+        info.m_speed = 1;
+        info.m_timestamp = timestamp;
+        if (withBearing)
+        {
+          if (!closed)
+            info.m_bearing = 90;
+          else
+            info.m_bearing = sample < 2 ? 270 : sample == 2 ? 0 : sample == 3 ? 90 : 180;
+        }
+        TEST(route.MoveIterator(info), (withBearing, closed, sample));
+        TEST_EQUAL(route.IsSubroutePassed(0), sample >= (closed ? 4 : 1), (withBearing, closed, sample));
+      }
+    }
+  }
+}
+
+UNIT_TEST(TrackRouter_ShortDenseRemainderReachesFinish)
+{
+  for (bool const withBearing : {false, true})
+  {
+    for (int const end : {10, 17})
+    {
+      std::vector<PWA> points;
+      for (int x = 0; x <= end; ++x)
+        points.emplace_back(MeterPoint(x, 0), 100);
+      TrackRouter router(VehicleType::Pedestrian, MakeData(std::move(points)), true);
+      auto route = CalcRoute(router, {MeterPoint(0, 0), MeterPoint(end, 0)});
+      route.SetRoutingSettings(GetRoutingSettings(VehicleType::Pedestrian));
+      double timestamp = 100.0;
+      size_t sample = 0;
+      for (int const x : {0, 0, end - 4, end, end, end})
+      {
+        timestamp += 10;
+        auto const latlon = mercator::ToLatLon(MeterPoint(x, 0));
+        location::GpsInfo info;
+        info.m_source = location::EUser;
+        info.m_latitude = latlon.m_lat;
+        info.m_longitude = latlon.m_lon;
+        info.m_horizontalAccuracy = 5;
+        info.m_speed = 1;
+        info.m_timestamp = timestamp;
+        if (withBearing)
+          info.m_bearing = 90;
+        TEST(route.MoveIterator(info), (withBearing, end, sample));
+        if (sample < 2)
+          TEST_EQUAL(route.GetCurrentDistanceFromBeginMeters(), 0.0,
+                     ("Identical fixes cannot advance", withBearing, end));
+        if (x == end)
+        {
+          TEST(route.IsSubroutePassed(0), (withBearing, end, sample));
+          TEST_ALMOST_EQUAL_ABS(route.GetCurrentDistanceFromBeginMeters(), route.GetTotalDistanceMeters(), 1.0E-6,
+                                (withBearing, end, sample));
+        }
+        ++sample;
+      }
+    }
+  }
+}
+
+UNIT_TEST(TrackRouter_TinyLoopApproachDoesNotCountAsSourceProgress)
+{
+  auto const entry = MeterPoint(0, 0);
+  auto const start = MeterPoint(0, -30);
+  for (bool const withBearing : {false, true})
+  {
+    TrackRouter router(VehicleType::Pedestrian,
+                       MakeData({{entry, 100}, {MeterPoint(-2, 0), 100}, {MeterPoint(-2, 2), 100}, {entry, 100}}),
+                       true);
+    auto route = CalcRoute(router, {start, entry});
+    route.SetRoutingSettings(GetRoutingSettings(VehicleType::Pedestrian));
+    TEST(route.GetTrackStartDistanceMeters().has_value(), ());
+    for (size_t sample = 0; sample < 6; ++sample)
+    {
+      auto const latlon = mercator::ToLatLon(sample == 0 ? start : entry);
+      location::GpsInfo info;
+      info.m_source = location::EUser;
+      info.m_latitude = latlon.m_lat;
+      info.m_longitude = latlon.m_lon;
+      info.m_horizontalAccuracy = 5;
+      info.m_speed = 1;
+      info.m_timestamp = 100 + sample * 30;
+      if (withBearing)
+        info.m_bearing = 0;
+      TEST(route.MoveIterator(info), (withBearing, sample));
+      TEST(!route.IsSubroutePassed(0), ("Walking the approach cannot complete a loop", withBearing, sample));
+      if (sample > 0)
+        TEST_ALMOST_EQUAL_ABS(route.GetCurrentDistanceFromBeginMeters(), *route.GetTrackStartDistanceMeters(), 1.0E-6,
+                              (withBearing, sample));
+    }
+  }
+}
+
+UNIT_TEST(TrackRouter_DepartureKeepsMetricsWithoutStaleTurnSpeech)
+{
+  auto const first = MeterPoint(0, 0);
+  auto const last = MeterPoint(200, 300);
+  TrackRouter router(VehicleType::Pedestrian, MakeData({{first, 100}, {MeterPoint(200, 0), 100}, {last, 100}}), true);
+  RoutingSession session;
+  session.Init(nullptr);
+  session.SetRoutingSettings(GetRoutingSettings(VehicleType::Pedestrian));
+  session.SetTurnNotificationsUnits(measurement_utils::Units::Metric);
+  session.SetTurnNotificationsLocale("en");
+  session.EnableTurnNotifications(false);
+  session.AssignRouteForTesting(CalcRoute(router, {first, last}), RouterResultCode::NoError);
+  TEST(session.EnableFollowMode(), ());
+  double timestamp = 100.0;
+  auto const feed = [&](double x, double y)
+  {
+    timestamp += 50;
+    auto const latlon = mercator::ToLatLon(MeterPoint(x, y));
+    location::GpsInfo info;
+    info.m_source = location::EUser;
+    info.m_latitude = latlon.m_lat;
+    info.m_longitude = latlon.m_lon;
+    info.m_horizontalAccuracy = 5;
+    info.m_speed = 1;
+    info.m_timestamp = timestamp;
+    return session.OnLocationPositionChanged(info);
+  };
+  feed(0, 0);
+  feed(190, 0);
+  SessionState state = SessionState::OnRoute;
+  for (double y = -40; y >= -400; y -= 40)
+    state = feed(190, y);
+  TEST_EQUAL(state, SessionState::RouteNeedRebuild, ());
+  TEST(session.IsNavigable(), ("Remaining metrics and Stop stay available off track"));
+  session.EnableTurnNotifications(true);
+  std::vector<std::string> notifications;
+  auto const containsTurn = [&]()
+  {
+    return std::any_of(notifications.begin(), notifications.end(),
+                       [](auto const & text) { return text.find("Turn left.") != std::string::npos; });
+  };
+  for (size_t i = 0; i < 3; ++i)
+  {
+    session.GenerateNotifications(notifications, false);
+    TEST(!containsTurn(), ("The last on-track projection must not announce its turn while off track", notifications));
+  }
+  TEST_EQUAL(feed(190, 0), SessionState::OnRoute, ());
+  bool normalTurn = false;
+  for (size_t i = 0; i < 3; ++i)
+  {
+    session.GenerateNotifications(notifications, false);
+    normalTurn = normalTurn || containsTurn();
+  }
+  TEST(normalTurn, ("Normal turn speech resumes on return to the track"));
 }
 
 }  // namespace track_router_tests

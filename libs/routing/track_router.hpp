@@ -28,11 +28,13 @@ class TrackRouter : public IRouter
 public:
   // Supports car, bicycle and pedestrian profiles.
   // Data must contain at least two points and remain immutable for the lifetime of the router.
-  TrackRouter(VehicleType vehicleType, std::shared_ptr<TrackFollowingData const> data);
+  // startAtBeginning locks a prepared selected entry; otherwise use the nearest projection.
+  TrackRouter(VehicleType vehicleType, std::shared_ptr<TrackFollowingData const> data, bool startAtBeginning = false);
 
   // IRouter overrides:
   std::string GetName() const override { return "track-router"; }
   void ClearState() override {}
+  bool IsTrafficSensitive() const override { return false; }
   void SetGuides(GuidesTracks && /* guides */) override {}
   RouterResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
                                   bool adjustToPrevRoute, bool needAlternatives, RouterDelegate const & delegate,
@@ -67,6 +69,7 @@ private:
   RouteGeometry AssembleRouteGeometry(Checkpoints const & checkpoints, Projection const & proj,
                                       RouterDelegate const & delegate) const;
 
+  bool const m_startAtBeginning;
   bool const m_pedestrian;
   double const m_speedMpS;
   std::shared_ptr<TrackFollowingData const> const m_data;

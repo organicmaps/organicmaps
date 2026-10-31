@@ -20,9 +20,22 @@ extension NavigationDashboard {
       super.init()
     }
 
+    private var isValid = true
+
+    func invalidate() {
+      isValid = false
+    }
+
     func process(_ request: Request) {
+      guard isValid else { return }
       let response = resolve(request)
       presenter.process(response)
+    }
+
+    /// The render router type resolves a followed track to its follow profile, so the dashboard
+    /// never presents or gates on ruler/publicTransport while a track is being followed.
+    private var showRoutePoints: Response {
+      .show(points: router.points(), routerType: router.renderType(), followedTrack: .current(router))
     }
 
     private func resolve(_ event: Request) -> Response {
@@ -31,12 +44,15 @@ extension NavigationDashboard {
         return .updateState(state)
 
       case .updateRoutePoints:
-        return .show(points: router.points(), routerType: router.type())
+        return showRoutePoints
 
       case .selectRouterType(let routerType):
-        router.setType(routerType)
-        router.rebuild(withBestRouter: false)
-        return .none
+        guard router.isFollowingTrack() else {
+          router.setType(routerType)
+          router.rebuild(withBestRouter: false)
+          return .none
+        }
+        return switchFollowedTrackProfile(to: routerType)
 
       case .selectRoutePoint(let selection):
         delegate?.routePreviewDidSelect(selection)
@@ -57,7 +73,7 @@ extension NavigationDashboard {
 
       case .deleteRoutePoint(let point):
         router.removePointAndRebuild(point)
-        return .show(points: router.points(), routerType: router.type())
+        return showRoutePoints
 
       case .startNavigation:
         clearRouteElevationActivePoint()
@@ -118,11 +134,11 @@ extension NavigationDashboard {
       case .moveRoutePoint(let from, let to):
         router.movePoint(at: from, to: to)
         router.rebuild(withBestRouter: false)
-        return .show(points: router.points(), routerType: router.type())
+        return showRoutePoints
 
       case .reverseRoutePoints:
         router.reverseRoute()
-        return .show(points: router.points(), routerType: router.type())
+        return showRoutePoints
 
       case .updateVisibleAreaInsets(let insets):
         mapViewController.updateVisibleAreaInsets(for: self, insets: insets, updatingViewport: true)
@@ -143,6 +159,30 @@ extension NavigationDashboard {
         router.stopRouting()
         return .close
       }
+    }
+
+    /// Switching the profile of a follow session. The core validates the re-follow before it
+    /// touches the running session and keeps the picked profile in this preview, so a refusal only
+    /// leaves the current (frozen) session in place.
+    private func switchFollowedTrackProfile(to routerType: MWMRouterType) -> Response {
+      guard routerType != router.renderType() else { return .none }
+      let result = router.setFollowTrackProfile(routerType)
+      if result != .ok, result != .busy {
+        Toast.show(withText: followTrackErrorMessage(result))
+      }
+      // Refresh either way: after a success to restore the reduced picker selection through the
+      // nested rebuild events, after a refusal to snap the picker selection back and to drop the
+      // identity line of a track that is gone.
+      return showRoutePoints
+    }
+
+    /// A track that has been deleted mid-session needs its own message: the generic planning
+    /// error would blame the routing engine for a track that is simply gone.
+    private func followTrackErrorMessage(_ result: MWMFollowTrackResult) -> String {
+      if result == .noRemainingGeometry {
+        return L("track_no_remaining_geometry")
+      }
+      return L(result == .noTrack ? "track_is_not_available" : "routing_planning_error")
     }
 
     fileprivate func clearRouteElevationActivePoint() {

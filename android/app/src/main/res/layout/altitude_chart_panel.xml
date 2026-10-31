@@ -12,6 +12,40 @@
   android:paddingBottom="@dimen/margin_half_plus"
   tools:showIn="@layout/routing_bottom_sheet">
 
+  <!-- Which track is being followed: name + full length. Only visible while following a track;
+       hidden when the followed track has been deleted meanwhile. -->
+  <LinearLayout
+    android:id="@+id/track_identity_line"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_half"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/routing_plan_horizontal_padding"
+    android:paddingEnd="@dimen/routing_plan_horizontal_padding"
+    android:visibility="gone"
+    tools:visibility="visible">
+
+    <TextView
+      android:id="@+id/track_name"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:ellipsize="end"
+      android:fontFamily="@string/robotoMedium"
+      android:maxLines="1"
+      android:textAppearance="@style/MwmTextAppearance.Body3.Primary"
+      tools:text="Morning ride around the lake" />
+
+    <TextView
+      android:id="@+id/track_length"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/margin_half"
+      android:textAppearance="@style/MwmTextAppearance.Body3"
+      tools:text="12 km" />
+  </LinearLayout>
+
   <LinearLayout
     android:paddingStart="@dimen/routing_plan_horizontal_padding"
     android:paddingEnd="@dimen/routing_plan_horizontal_padding"

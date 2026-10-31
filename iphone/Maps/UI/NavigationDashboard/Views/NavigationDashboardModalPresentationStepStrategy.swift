@@ -1,4 +1,5 @@
 enum NavigationDashboardModalPresentationStep: Int, CaseIterable, ModalPresentationStep {
+  case expanded
   case regular
   case halfScreen
   case compact
@@ -26,6 +27,7 @@ final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationS
       lhs.estimatesHeight == rhs.estimatesHeight &&
       lhs.compactDiscoverabilityOffset == rhs.compactDiscoverabilityOffset &&
       lhs.shouldUseCompactDiscoverabilityOffset == rhs.shouldUseCompactDiscoverabilityOffset &&
+      lhs.shouldShowExpandedStep == rhs.shouldShowExpandedStep &&
       lhs.shouldShowHalfScreenStep == rhs.shouldShowHalfScreenStep &&
       lhs.shouldShowEstimatesStep == rhs.shouldShowEstimatesStep
   }
@@ -35,6 +37,7 @@ final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationS
   var estimatesHeight: CGFloat = .zero
   var compactDiscoverabilityOffset: CGFloat = .zero
   var shouldUseCompactDiscoverabilityOffset = true
+  var shouldShowExpandedStep = true
   var shouldShowHalfScreenStep = false
   var shouldShowEstimatesStep = false
 
@@ -43,7 +46,7 @@ final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationS
   }
 
   var steps: [Step] {
-    var availableSteps: [Step] = [.regular]
+    var availableSteps: [Step] = shouldShowExpandedStep ? [.expanded, .regular] : [.regular]
     if shouldShowHalfScreenStep {
       availableSteps.append(.halfScreen)
     }
@@ -57,7 +60,11 @@ final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationS
 
   func upperTo(_ step: Step) -> Step {
     switch step {
-    case .regular, .halfScreen:
+    case .expanded:
+      return .expanded
+    case .regular:
+      return shouldShowExpandedStep ? .expanded : .regular
+    case .halfScreen:
       return .regular
     case .compact:
       return shouldShowHalfScreenStep ? .halfScreen : .regular
@@ -70,6 +77,8 @@ final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationS
 
   func lowerTo(_ step: Step) -> Step {
     switch step {
+    case .expanded:
+      return .regular
     case .regular:
       return shouldShowHalfScreenStep ? .halfScreen : .compact
     case .halfScreen:
@@ -85,6 +94,8 @@ final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationS
 
   func resolvedStep(_ step: Step) -> Step {
     switch step {
+    case .expanded where !shouldShowExpandedStep:
+      return .regular
     case .halfScreen where !shouldShowHalfScreenStep:
       return .regular
     case .estimates where !shouldShowEstimatesStep:
@@ -108,6 +119,8 @@ final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationS
       frame.size.width = Constants.iPadWidth
       frame.origin.x = Constants.iPadLeadingOffset
       switch step {
+      case .expanded:
+        frame.origin.y = safeAreaInsets.top + Constants.topInset
       case .regular:
         if regularHeight != 0 {
           frame.origin.y = max(containerSize.height - regularHeight, safeAreaInsets.top + Constants.topInset)
@@ -140,6 +153,8 @@ final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationS
       let isPortraitOrientation = traitCollection.verticalSizeClass == .regular
       if isPortraitOrientation {
         switch step {
+        case .expanded:
+          frame.origin.y = safeAreaInsets.top + Constants.topInset
         case .regular:
           if regularHeight != 0 {
             frame.origin.y = max(containerSize.height - regularHeight, safeAreaInsets.top + Constants.topInset)
@@ -169,10 +184,8 @@ final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationS
         frame.size.width = Constants.iPadWidth
         frame.origin.x = safeAreaInsets.left
         switch step {
-        case .regular, .halfScreen:
-          frame.origin.y = regularHeight != 0
-            ? max(containerSize.height - regularHeight, Constants.topInset)
-            : Constants.topInset
+        case .expanded, .regular, .halfScreen:
+          frame.origin.y = Constants.topInset
         case .compact:
           frame.origin.y = containerSize.height - (compactHeight != 0 ? compactHeight : Constants.compactHeightOffset)
         case .estimates:

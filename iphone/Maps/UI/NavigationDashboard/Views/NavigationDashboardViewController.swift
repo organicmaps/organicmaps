@@ -41,6 +41,7 @@ final class NavigationDashboardViewController: UIViewController {
   private let routeControlsStackView = UIStackView()
   private let routeStatusStackView = UIStackView()
   private let estimatesView = EstimatesView()
+  private let followedTrackLabel = UILabel()
   private let transportTransitStepsView = TransportTransitStepsView()
   private let elevationProfileContainerView = UIView()
   private var elevationProfileViewController: ElevationProfileViewController?
@@ -220,6 +221,9 @@ final class NavigationDashboardViewController: UIViewController {
     routeStatusStackView.axis = .vertical
     routeStatusStackView.distribution = .equalSpacing
     routeStatusStackView.spacing = Constants.routeStatusStackSpacing
+    followedTrackLabel.setFontStyle(.regular14, color: .blackSecondary)
+    followedTrackLabel.lineBreakMode = .byTruncatingTail
+    followedTrackLabel.isHidden = true
   }
 
   private func setupElevationProfileView() {
@@ -390,6 +394,7 @@ final class NavigationDashboardViewController: UIViewController {
     estimatesStackView.addArrangedSubview(routeControlsStackView)
 
     routeStatusStackView.addArrangedSubview(estimatesStackView)
+    routeStatusStackView.addArrangedSubview(followedTrackLabel)
     routeStatusStackView.addArrangedSubview(transportTransitStepsView)
     routeStatusStackView.addArrangedSubview(elevationProfileContainerView)
     availableAreaView.addSubview(routeStatusStackView)
@@ -453,9 +458,11 @@ final class NavigationDashboardViewController: UIViewController {
     view.layoutIfNeeded()
   }
 
-  private func updatePresentationStep(_ step: NavigationDashboardModalPresentationStep) {
+  private func updatePresentationStep(_ step: NavigationDashboardModalPresentationStep, isFollowingTrack: Bool) {
     view.layoutIfNeeded()
-    let regularHeight = routePointsView.contentBottom.y
+    // The route points list is hidden while following a track: don't reserve space for it.
+    let routePointsBottomY = routePointsView.isHidden ? routePointsView.origin.y : routePointsView.contentBottom.y
+    let regularHeight = routePointsBottomY
       + bottomActionsMenu.frame.height
       + Constants.startButtonSpacing
 
@@ -467,6 +474,12 @@ final class NavigationDashboardViewController: UIViewController {
       + bottomActionsMenu.frame.height
       + Constants.startButtonSpacing
 
+    // With the route points list hidden, regular already sits at the content bottom: the compact
+    // discoverability offset would only expose a blank strip (and make compact taller than
+    // regular), and expanded would only reveal dead space above the content.
+    let compactDiscoverabilityOffset = isFollowingTrack ? 0 : Constants.routePointsDiscoverabilityPadding
+    let shouldShowExpandedStep = !isFollowingTrack
+
     let containerHeight = view.bounds.height
     let shouldShowHalfScreenStep = traitCollection.verticalSizeClass == .regular &&
       containerHeight > 0 &&
@@ -477,13 +490,16 @@ final class NavigationDashboardViewController: UIViewController {
       presentationStepStrategy.regularHeight != regularHeight ||
       presentationStepStrategy.compactBaseHeight != compactBaseHeight ||
       presentationStepStrategy.estimatesHeight != estimatesHeight ||
+      presentationStepStrategy.compactDiscoverabilityOffset != compactDiscoverabilityOffset ||
+      presentationStepStrategy.shouldShowExpandedStep != shouldShowExpandedStep ||
       presentationStepStrategy.shouldShowEstimatesStep != shouldShowEstimatesStep ||
       presentationStepStrategy.shouldShowHalfScreenStep != shouldShowHalfScreenStep
 
     presentationStepStrategy.regularHeight = regularHeight
     presentationStepStrategy.compactBaseHeight = compactBaseHeight
     presentationStepStrategy.estimatesHeight = estimatesHeight
-    presentationStepStrategy.compactDiscoverabilityOffset = Constants.routePointsDiscoverabilityPadding
+    presentationStepStrategy.compactDiscoverabilityOffset = compactDiscoverabilityOffset
+    presentationStepStrategy.shouldShowExpandedStep = shouldShowExpandedStep
     presentationStepStrategy.shouldShowEstimatesStep = shouldShowEstimatesStep
     presentationStepStrategy.shouldShowHalfScreenStep = shouldShowHalfScreenStep
 
@@ -492,6 +508,7 @@ final class NavigationDashboardViewController: UIViewController {
   }
 
   private func close() {
+    interactor?.invalidate()
     navigationControlView.isVisible = false
     bottomActionsMenu.setHidden(true)
     removeElevationProfileIfNeeded()
@@ -563,7 +580,8 @@ extension NavigationDashboardViewController {
 
     case .prepare, .ready, .planning:
       transportOptionsView.set(transportOptions: viewModel.transportOptions,
-                               selectedRouterType: viewModel.routerType)
+                               selectedRouterType: viewModel.routerType,
+                               mode: viewModel.transportOptionsMode)
       estimatesView.setState(viewModel.estimatesState)
       transportTransitStepsView.setNavigationInfo(viewModel.entity)
       updateElevationProfile(with: viewModel.routeElevationPreviewData,
@@ -585,10 +603,23 @@ extension NavigationDashboardViewController {
     navigationInfoView.state = viewModel.navigationInfo.state
     navigationInfoView.availableArea = viewModel.navigationInfo.availableArea
 
+    updateTrackFollowingMode(viewModel)
     bottomActionsMenu.setHidden(viewModel.isBottomActionsMenuHidden)
     startRouteButton.setState(viewModel.startButtonState)
     reverseRoutePointsButton.isEnabled = viewModel.canReverseRoutePoints
 
-    updatePresentationStep(viewModel.presentationStep)
+    updatePresentationStep(viewModel.presentationStep, isFollowingTrack: viewModel.isFollowingTrack)
+  }
+
+  /// A followed track shows its identity and supported profiles in place of editable route
+  /// points. Hide ordinary route controls because routing options do not change its geometry.
+  private func updateTrackFollowingMode(_ viewModel: NavigationDashboard.ViewModel) {
+    let isFollowingTrack = viewModel.isFollowingTrack
+    transportOptionsView.setSelectionEnabled(viewModel.isTransportOptionsSelectionEnabled)
+    followedTrackLabel.text = viewModel.followedTrackInfo
+    followedTrackLabel.isHidden = viewModel.followedTrackInfo == nil
+    routePointsView.isHidden = isFollowingTrack
+    saveRouteAsTrackButton.isHidden = isFollowingTrack
+    routeControlsStackView.isHidden = isFollowingTrack
   }
 }

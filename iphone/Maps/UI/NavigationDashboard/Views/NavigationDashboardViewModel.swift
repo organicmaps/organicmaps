@@ -1,8 +1,27 @@
 enum NavigationDashboard {
+  /// The presentable state of the followed track. The track may already be deleted while the
+  /// follow session keeps navigating a frozen copy of its geometry: the name is nil then.
+  struct FollowedTrack: Equatable {
+    var isReversed: Bool
+    var name: String?
+    var lengthMeters: Double
+
+    /// nil when no track is being followed.
+    static func current(_ router: MWMRouter.Type) -> Self? {
+      guard let info = router.followedTrackInfo() else { return nil }
+      // The snapshot outlives its track, so naming it takes an existence check of its own.
+      let isTrackAlive = BookmarksManager.shared().hasTrack(info.trackId)
+      return FollowedTrack(isReversed: info.isReversed,
+                           name: isTrackAlive ? info.name : nil,
+                           lengthMeters: info.lengthMeters)
+    }
+  }
+
   struct ViewModel: Equatable {
     var transportOptions: [MWMRouterType]
     var routePoints: RoutePoints
     var routerType: MWMRouterType
+    var followedTrack: FollowedTrack?
     var entity: MWMNavigationDashboardEntity
     var trackRecordingState: TrackRecordingState
     var routingOptions: RoutingOptions
@@ -34,10 +53,12 @@ enum NavigationDashboard {
 
 extension NavigationDashboard.ViewModel {
   static var initial: Self {
-    NavigationDashboard.ViewModel(
-      transportOptions: MWMRouterType.allCases,
+    let followedTrack = NavigationDashboard.FollowedTrack.current(MWMRouter.self)
+    return NavigationDashboard.ViewModel(
+      transportOptions: followedTrack != nil ? MWMRouterType.followTrackCases : MWMRouterType.allCases,
       routePoints: .empty,
-      routerType: MWMRouter.type(),
+      routerType: MWMRouter.renderType(),
+      followedTrack: followedTrack,
       entity: MWMNavigationDashboardEntity(),
       trackRecordingState: TrackRecordingManager.shared.recordingState,
       routingOptions: RoutingOptions(routerType: MWMRouter.type()),
@@ -65,16 +86,42 @@ extension NavigationDashboard.ViewModel {
       MWMRouter.isRouteValid()
   }
 
+  var isFollowingTrack: Bool { followedTrack != nil }
+
+  /// The single identity line of the followed track ("Name · 12 km"): nil hides it. A deleted
+  /// track has no name anymore and shows nothing.
+  var followedTrackInfo: String? {
+    guard let followedTrack, let name = followedTrack.name, !name.isEmpty else { return nil }
+    guard followedTrack.lengthMeters > 0 else { return name }
+    return name + " · " + DistanceFormatter.distanceString(fromMeters: followedTrack.lengthMeters)
+  }
+
+  var transportOptionsMode: TransportOptionsView.Mode {
+    guard followedTrack != nil else { return .standard }
+    return .followTrack
+  }
+
+  /// Changing a preview profile rebuilds its route: further taps are ignored until the pending rebuild lands (ready, error or cancelled all
+  /// leave the planning state or complete the progress).
+  var isTransportOptionsSelectionEnabled: Bool {
+    !(isFollowingTrack && dashboardState == .planning && progress < 1)
+  }
+
   var startButtonState: StartRouteButton.State {
-    if routePoints.count < 2 ||
-      routePoints.start == nil ||
-      routePoints.finish == nil ||
-      dashboardState == .error {
+    if dashboardState == .error {
+      return .disabled
+    }
+    // A followed track defines the route by itself and has no route points.
+    if !isFollowingTrack,
+       routePoints.count < 2 ||
+       routePoints.start == nil ||
+       routePoints.finish == nil {
       return .disabled
     }
     if progress < 1 {
       return .loading(progress: progress)
     }
+    // The routerType is the render type, which is never ruler/publicTransport while following a track.
     let isStartEnabled = routerType != .ruler && routerType != .publicTransport
     return isStartEnabled ? .enabled : .disabled
   }

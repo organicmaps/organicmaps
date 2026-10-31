@@ -26,6 +26,9 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
   private final Context mContext;
   private final ArrayList<RouteMarkData> mRoutePoints;
   private final ManageRouteListener mManageRouteListener;
+  // A followed track has no editable route points: the whole manage-route list, including the
+  // trailing "Add stop" button, is suppressed then.
+  private boolean mShowAddButton = true;
   private static final int TYPE_POINT = 0;
   static final int TYPE_ADD_BUTTON = 1;
   public interface ManageRouteListener
@@ -40,7 +43,9 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
   private boolean isPartial()
   {
-    return mRoutePoints.size() < 2;
+    // A followed track defines the route by itself and has no editable marks: it must never offer
+    // the missing start/finish placeholder slots, so treat it as complete when the add button is off.
+    return mShowAddButton && mRoutePoints.size() < 2;
   }
 
   private boolean isPlaceholderAt(int position)
@@ -185,7 +190,15 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
   {
     if (isPartial())
       return 2;
-    return mRoutePoints.size() + 1;
+    return mRoutePoints.size() + (mShowAddButton ? 1 : 0);
+  }
+
+  public void showAddButton(boolean show)
+  {
+    if (mShowAddButton == show)
+      return;
+    mShowAddButton = show;
+    notifyDataSetChanged();
   }
 
   public void moveRoutePoint(@NonNull RecyclerView.ViewHolder draggedItem, @NonNull RecyclerView.ViewHolder targetItem)

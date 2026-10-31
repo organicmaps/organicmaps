@@ -171,7 +171,8 @@ bool RoutingSession::IsNavigable() const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   return (m_state == SessionState::RouteNotStarted || m_state == SessionState::OnRoute ||
-          m_state == SessionState::RouteFinished);
+          m_state == SessionState::RouteFinished ||
+          (m_state == SessionState::RouteNeedRebuild && m_route && m_route->GetTrackStartDistanceMeters()));
 }
 
 bool RoutingSession::IsBuilt() const
@@ -266,6 +267,15 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
   if (!IsRouteValid())
     return m_state;
 
+  // Track previews retain their selected entry; GPS may update their approach in the manager,
+  // but cannot pass stops or finish the journey before Start.
+  if (!m_isFollowing && m_route->GetTrackStartDistanceMeters())
+    return m_state;
+
+  // A coarse fix must not invent track progress, arrival or a departure announcement.
+  if (m_route->GetTrackStartDistanceMeters() && info.m_horizontalAccuracy > m_routingSettings.m_matchingThresholdM)
+    return m_state;
+
   m_turnNotificationsMgr.SetSpeedMetersPerSecond(info.m_speed);
 
   auto const formerIter = m_route->GetCurrentIteratorTurn();
@@ -318,7 +328,8 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
 
     if (m_moveAwayCounter > kOnRouteMissedCount)
     {
-      m_passedDistanceOnRouteMeters += m_route->GetCurrentDistanceFromBeginMeters();
+      if (!m_route->GetTrackStartDistanceMeters())
+        m_passedDistanceOnRouteMeters += m_route->GetCurrentDistanceFromBeginMeters();
       SetState(SessionState::RouteNeedRebuild);
     }
   }
@@ -518,6 +529,11 @@ void RoutingSession::GenerateNotifications(std::vector<std::string> & notificati
     return;
 
   if (!IsRouteValid() || !IsNavigable())
+    return;
+
+  // Frozen track geometry still supplies remaining metrics while off track, but its
+  // last matched position must not keep announcing ordinary turns until we rejoin.
+  if (m_route->GetTrackStartDistanceMeters() && m_state == SessionState::RouteNeedRebuild)
     return;
 
   // Generate turns notifications.

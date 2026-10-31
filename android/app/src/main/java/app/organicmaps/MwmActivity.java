@@ -80,7 +80,6 @@ import app.organicmaps.sdk.Map;
 import app.organicmaps.sdk.MapController;
 import app.organicmaps.sdk.MapRenderingListener;
 import app.organicmaps.sdk.PlacePageActivationListener;
-import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.TrackRecording;
@@ -1361,9 +1360,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  public void updateBuildProgress(int progress, Router router)
+  public void updateBuildProgress(int progress)
   {
-    mRoutingPlanViewModel.setBuildProgress(progress, router.ordinal());
+    mRoutingPlanViewModel.setBuildProgress(progress);
   }
 
   @Override
@@ -1549,6 +1548,20 @@ public class MwmActivity extends BaseMwmFragmentActivity
     // +S+F-L -> Hide
     // +S+F+L -> Hide
     final MapObject myPosition = MwmApplication.from(this).getLocationHelper().getMyPosition();
+
+    // A followed track has no route marks: with a location fix the route already starts at the
+    // current position (and walking off the track triggers the standard rebuild). Without one
+    // there is nothing to start from -- following would centre the viewport on the default zero
+    // position and count the ETA from the track start -- so show the standard notice instead,
+    // exactly like iOS does (MWMRouter +start).
+    if (controller.isFollowingTrack())
+    {
+      if (myPosition != null)
+        return true;
+      showStartFromCurrentPositionNotice(null /* rerouteAction */);
+      return false;
+    }
+
     if (myPosition != null && controller.getEndPoint() == null)
       return false;
     if (controller.getStartPoint() == null)
@@ -1561,22 +1574,31 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return true;
 
     final MapObject endPoint = Objects.requireNonNull(controller.getEndPoint());
+    showStartFromCurrentPositionNotice(
+        endPoint.isMyPosition() ? (dialog, which) -> controller.swapPoints() : (dialog, which) -> {
+          // The current location may change while this dialog is still shown on the screen.
+          controller.setStartPoint(myPosition);
+        });
+    return false;
+  }
+
+  /**
+   * The standard "navigation is only available from your current location" notice.
+   *
+   * @param rerouteAction what the OK button does, or {@code null} when there is nothing to
+   *                      reroute (no location fix at all): the notice is then informational.
+   */
+  private void showStartFromCurrentPositionNotice(@Nullable DialogInterface.OnClickListener rerouteAction)
+  {
     final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
-        .setTitle(R.string.p2p_only_from_current)
-        .setMessage(R.string.p2p_reroute_from_current)
-        .setCancelable(false)
-        .setNegativeButton(R.string.cancel, null)
-        .setPositiveButton(R.string.ok, endPoint.isMyPosition() ?
-            (dialog, which) -> controller.swapPoints() :
-            (dialog, which) -> {
-              // The current location may change while this dialog is still shown on the screen.
-              controller.setStartPoint(myPosition);
-            }
-        )
-        .setOnDismissListener(dialog -> mAlertDialog = null);
+                                                   .setTitle(R.string.p2p_only_from_current)
+                                                   .setCancelable(false)
+                                                   .setPositiveButton(R.string.ok, rerouteAction)
+                                                   .setOnDismissListener(dialog -> mAlertDialog = null);
+    if (rerouteAction != null)
+      builder.setMessage(R.string.p2p_reroute_from_current).setNegativeButton(R.string.cancel, null);
     dismissAlertDialog();
     mAlertDialog = builder.show();
-    return false;
   }
 
   @Override

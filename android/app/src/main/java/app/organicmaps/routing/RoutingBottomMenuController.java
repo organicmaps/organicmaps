@@ -25,7 +25,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
 import app.organicmaps.sdk.bookmarks.data.DistanceAndAzimut;
+import app.organicmaps.sdk.routing.FollowedTrackInfo;
 import app.organicmaps.sdk.routing.RouteAltitudeData;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RoutingController;
@@ -92,6 +94,12 @@ final class RoutingBottomMenuController
   private final RecyclerView mTransitRecyclerView;
   @NonNull
   private final View mSaveButton;
+  @NonNull
+  private final View mTrackIdentityLine;
+  @NonNull
+  private final TextView mTrackName;
+  @NonNull
+  private final TextView mTrackLength;
   @Nullable
   private final View mManageRoutePanel;
   @Nullable
@@ -171,6 +179,9 @@ final class RoutingBottomMenuController
     mTimeVehicle = timeVehicle;
     mArrival = arrival;
     mSaveButton = saveButton;
+    mTrackIdentityLine = altitudeChartFrame.findViewById(R.id.track_identity_line);
+    mTrackName = altitudeChartFrame.findViewById(R.id.track_name);
+    mTrackLength = altitudeChartFrame.findViewById(R.id.track_length);
     mListener = listener;
     int dividerRes = ThemeUtils.getResource(mContext, R.attr.transitStepDivider);
     Drawable dividerDrawable = ContextCompat.getDrawable(mContext, dividerRes);
@@ -243,7 +254,7 @@ final class RoutingBottomMenuController
   {
     UiUtils.hide(mError, mAltitudeChart, mTimeElevationLine);
 
-    if (!RoutingController.get().isVehicleRouterType() && !RoutingController.get().isRulerRouterType())
+    if (Framework.nativeHasRouteAltitude())
       showRouteAltitudeChart();
     showRoutingDetails();
     UiUtils.show(mAltitudeChartFrame);
@@ -253,13 +264,43 @@ final class RoutingBottomMenuController
 
   void updateSaveButton()
   {
+    refreshTrackFollowMode();
     setSaveButtonEnabled(RoutingController.get().isBuilt() && !RoutingController.get().isRouteSaved());
   }
 
+  // A followed track is already a saved track: don't offer saving it as another one (the core
+  // guards SaveRoute anyway). Instead the details header names the followed track.
+  void refreshTrackFollowMode()
+  {
+    UiUtils.showIf(!RoutingController.get().isFollowingTrack(), mSaveButton);
+    refreshTrackIdentity();
+  }
+
+  // The follow-only identity line: which track is followed and its full length. The snapshot
+  // outlives its track (navigation continues on a frozen snapshot when it is deleted), so the
+  // line is hidden by an explicit existence check — naming a track the user can no longer find
+  // would be worse than naming none.
+  private void refreshTrackIdentity()
+  {
+    final FollowedTrackInfo track = RoutingController.get().getFollowedTrackInfo();
+    final boolean show = track != null && BookmarkManager.INSTANCE.hasTrack(track.getTrackId());
+    UiUtils.showIf(show, mTrackIdentityLine);
+    if (!show)
+      return;
+    mTrackName.setText(track.getName());
+    mTrackLength.setText(StringUtils.nativeFormatDistance(track.getLengthMeters()).toString(mContext));
+  }
+
+  // Keeps the enabled flag and the dimming in sync so a saved (disabled) button is always restored on rebuild.
   private void setSaveButtonEnabled(boolean enabled)
   {
     mSaveButton.setEnabled(enabled);
     mSaveButton.setAlpha(enabled ? 1.0f : SAVE_BUTTON_DISABLED_ALPHA);
+  }
+
+  boolean isErrorVisible()
+  {
+    return UiUtils.isVisible(mError);
   }
 
   void refreshManageRoute()
@@ -438,7 +479,9 @@ final class RoutingBottomMenuController
     }
 
     Spanned spanned = makeSpannedRoutingDetails(mContext, rinfo);
-    if (RoutingController.get().isVehicleRouterType())
+    // The elevation line carries the time next to the ascent/descent; without an elevation
+    // profile (a car route, a followed track being the exception) the standalone line is used.
+    if (!Framework.nativeHasRouteAltitude())
     {
       hideAltitudeChartAndRoutingDetails();
       UiUtils.show(mTimeVehicle);
