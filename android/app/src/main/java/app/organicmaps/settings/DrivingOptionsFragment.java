@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -111,8 +112,10 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     final boolean changed = !RoutingOptions.getActiveRoadTypes(router).equals(mRoadTypes.get(router));
     // A temporary switch to On must not reorder stops if the user switches back before leaving this screen.
     final boolean enabled = RoutingOptions.isRouteOptimizationEnabled();
-    final boolean reordered = enabled && !mOptimizationEnabledOnLoad && RoutingController.get().optimizeRoutePoints();
-    if (changed || reordered)
+    final boolean trackRoute = RoutingController.get().isTrackRoute();
+    final boolean reordered =
+        !trackRoute && enabled && !mOptimizationEnabledOnLoad && RoutingController.get().optimizeRoutePoints();
+    if (trackRoute ? enabled != mOptimizationEnabledOnLoad : changed || reordered)
       RoutingController.get().onRoutingOptionsChanged();
     // Re-baseline so leaving this screen again (e.g. after Home) reports only what changed since.
     for (Router each : Router.values())
@@ -128,6 +131,9 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     optimizationBtn.setChecked(RoutingOptions.isRouteOptimizationEnabled());
     optimizationBtn.setOnCheckedChangeListener(
         (buttonView, isChecked) -> RoutingOptions.setRouteOptimizationEnabled(isChecked));
+    if (RoutingController.get().isTrackRoute())
+      ((TextView) root.findViewById(R.id.route_optimization_description))
+          .setText(R.string.navigate_track_optimization_description);
 
     initRouterTab(root, R.id.vehicle, Router.Vehicle);
     initRouterTab(root, R.id.pedestrian, Router.Pedestrian);

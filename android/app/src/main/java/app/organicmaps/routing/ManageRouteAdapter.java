@@ -10,11 +10,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RouteMarkType;
+import app.organicmaps.sdk.routing.RoutingController;
+import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.sdk.util.Assert;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
@@ -26,6 +29,7 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
   private final Context mContext;
   private final ArrayList<RouteMarkData> mRoutePoints;
   private final ManageRouteListener mManageRouteListener;
+  private boolean mTrackRoute;
   private static final int TYPE_POINT = 0;
   static final int TYPE_ADD_BUTTON = 1;
   public interface ManageRouteListener
@@ -126,12 +130,16 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     else
     {
       title = mRoutePoints.get(position).mTitle;
+      if (mTrackRoute && (title == null || title.isEmpty()))
+        title = mContext.getString(trackPointTitle(mRoutePoints.get(position).mPointType));
     }
     pointHolder.mTextViewTitle.setText(title);
     pointHolder.mTextViewTitle.setTextColor(ThemeUtils.getColor(mContext, android.R.attr.textColorPrimary));
-    UiUtils.show(pointHolder.mImageViewDrag, pointHolder.mImageViewDelete);
+    UiUtils.showIf(canMovePoint(position), pointHolder.mImageViewDrag);
+    UiUtils.showIf(!mTrackRoute, pointHolder.mImageViewDelete);
     pointHolder.itemView.setOnClickListener(
-        v -> { mManageRouteListener.onRoutePointClicked(pointHolder.getBindingAdapterPosition()); });
+        mTrackRoute ? null : v -> mManageRouteListener.onRoutePointClicked(pointHolder.getBindingAdapterPosition()));
+    pointHolder.itemView.setClickable(!mTrackRoute);
 
     // touch listener on drag handle to initiate drag !
     pointHolder.mImageViewDrag.setOnTouchListener((v, event) -> {
@@ -185,7 +193,7 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
   {
     if (isPartial())
       return 2;
-    return mRoutePoints.size() + 1;
+    return mTrackRoute ? mRoutePoints.size() : mRoutePoints.size() + 1;
   }
 
   public void moveRoutePoint(@NonNull RecyclerView.ViewHolder draggedItem, @NonNull RecyclerView.ViewHolder targetItem)
@@ -215,6 +223,27 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
   }
 
+  @StringRes
+  private static int trackPointTitle(@NonNull RouteMarkType type)
+  {
+    final boolean reversed = RoutingController.get().isTrackRouteReversed();
+    if (type == RouteMarkType.Finish)
+      return reversed ? R.string.navigate_track_start : R.string.navigate_track_finish;
+    if (RoutingOptions.isRouteOptimizationEnabled())
+      return R.string.intermediate_point;
+    return reversed ? R.string.navigate_track_finish : R.string.navigate_track_start;
+  }
+
+  boolean isTrackRoute()
+  {
+    return mTrackRoute;
+  }
+
+  boolean canMovePoint(int position)
+  {
+    return !mTrackRoute || (mRoutePoints.size() == 3 && position > 0);
+  }
+
   public ArrayList<RouteMarkData> getRoutePoints()
   {
     return mRoutePoints;
@@ -227,8 +256,9 @@ public class ManageRouteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
   }
 
   // Resync the existing adapter with the native route points, keeping the same adapter/touch-helper instances.
-  public void setRoutePoints(@NonNull RouteMarkData[] routePoints)
+  public void setRoutePoints(@NonNull RouteMarkData[] routePoints, boolean trackRoute)
   {
+    mTrackRoute = trackRoute;
     mRoutePoints.clear();
     mRoutePoints.addAll(Arrays.asList(routePoints));
     notifyDataSetChanged();

@@ -26,6 +26,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import app.organicmaps.BuildConfig;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.api.Const;
@@ -519,6 +520,7 @@ public class PlacePageController
     case ROUTE_AVOID_TOLL -> onAvoidTollBtnClicked();
     case ROUTE_AVOID_UNPAVED -> onAvoidUnpavedBtnClicked();
     case ROUTE_AVOID_FERRY -> onAvoidFerryBtnClicked();
+    case NAVIGATE_TRACK -> onNavigateTrackBtnClicked();
     }
   }
 
@@ -619,6 +621,12 @@ public class PlacePageController
     close();
   }
 
+  private void onNavigateTrackBtnClicked()
+  {
+    if (mMapObject instanceof Track track)
+      ((MwmActivity) requireActivity()).startTrackRoute(track.getTrackId());
+  }
+
   private void onRouteReplaceBtnClicked()
   {
     if (mMapObject != null)
@@ -701,7 +709,7 @@ public class PlacePageController
     {
       buttons.add(roadAvoidButton);
     }
-    else if (RoutingController.get().isRoutePoint(mapObject))
+    else if (RoutingController.get().isRoutePoint(mapObject) && !RoutingController.get().isTrackRoute())
     {
       buttons.add(PlacePageButtons.ButtonType.ROUTE_REMOVE);
     }
@@ -759,6 +767,9 @@ public class PlacePageController
             buttons.add(mapObject.isBookmark() ? PlacePageButtons.ButtonType.BOOKMARK_DELETE
                                                : PlacePageButtons.ButtonType.BOOKMARK_SAVE);
         }
+
+        if (BuildConfig.DEBUG && mapObject.isTrack() && !((Track) mapObject).isRelationTrack())
+          buttons.add(Math.min(buttons.size(), mMaxButtons - 2), PlacePageButtons.ButtonType.NAVIGATE_TRACK);
       }
     }
     mViewModel.setCurrentButtons(buttons);

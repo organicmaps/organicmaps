@@ -938,6 +938,20 @@ public class MwmActivity extends BaseMwmFragmentActivity
     RoutingController.get().prepare(startPoint, endPoint);
   }
 
+  public void startTrackRoute(long trackId)
+  {
+    final MapObject myPosition = MwmApplication.from(this).getLocationHelper().getMyPosition();
+    if (myPosition == null)
+    {
+      Toast.makeText(this, R.string.current_location_unknown_error_title, Toast.LENGTH_SHORT).show();
+      return;
+    }
+    closeFloatingPanels();
+    if (isFullscreen())
+      exitFullscreen();
+    RoutingController.get().prepareTrackRoute(trackId, myPosition);
+  }
+
   private void initOnmapDownloader()
   {
     mOnmapDownloader = new OnmapDownloader(this, this.findViewById(R.id.onmap_downloader));

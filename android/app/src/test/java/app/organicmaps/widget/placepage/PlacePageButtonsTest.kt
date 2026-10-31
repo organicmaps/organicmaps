@@ -54,6 +54,20 @@ class PlacePageButtonsTest {
     }
 
     @Test
+    fun navigateTrackIsTheOnlyPrimaryTrackAction() {
+        val buttons =
+            listOf(
+                ButtonType.ROUTE_FROM,
+                ButtonType.ROUTE_ADD,
+                ButtonType.NAVIGATE_TRACK,
+                ButtonType.ROUTE_TO,
+                ButtonType.BOOKMARK_SAVE,
+            )
+        assertEquals(listOf(ButtonType.NAVIGATE_TRACK), primaries(buttons, false))
+        assertEquals(listOf(ButtonType.NAVIGATE_TRACK), primaries(buttons, true))
+    }
+
+    @Test
     fun nonRoutingButtonsAreNeverPrimary() {
         val routing =
             setOf(
@@ -62,6 +76,7 @@ class PlacePageButtonsTest {
                 ButtonType.ROUTE_ADD,
                 ButtonType.ROUTE_APPEND,
                 ButtonType.ROUTE_REPLACE,
+                ButtonType.NAVIGATE_TRACK,
             )
         val all = ButtonType.entries
         for (type in all.filterNot { it in routing }) {
