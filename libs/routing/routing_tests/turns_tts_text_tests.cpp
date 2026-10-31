@@ -5,10 +5,13 @@
 #include "routing/turns_tts_text.hpp"
 #include "routing/turns_tts_text_i18n.hpp"
 
+#include "platform/languages.hpp"
+
 #include "base/string_utils.hpp"
 
 #include <cstring>
 #include <string>
+#include <string_view>
 
 namespace turns_tts_text_tests
 {
@@ -90,6 +93,24 @@ UNIT_TEST(GetDirectionTextIdTest)
   TEST_EQUAL(GetDirectionTextId(notification4), "destination", ());
   Notification const notification5(0, 0, false, CarDirection::ReachedYourDestination, Units::Metric);
   TEST_EQUAL(GetDirectionTextId(notification5), "you_have_reached_the_destination", ());
+}
+
+UNIT_TEST(GetOffTrackNotificationTest)
+{
+  GetTtsText text;
+  for (auto const & language : routing::turns::sound::kLanguageList)
+  {
+    auto const separator = language.first.find(':');
+    std::string const locale(language.first.substr(separator == std::string_view::npos ? 0 : separator + 1));
+    std::string json;
+    TEST(platform::GetJsonBuffer(platform::TextSource::TtsSound, locale, json), (locale));
+    text.ForTestingSetLocaleWithJson(json, locale);
+    TEST(!text.GetOffTrackNotification().empty(), (locale));
+  }
+  text.SetLocale("en");
+  TEST_EQUAL(text.GetOffTrackNotification(), "You have left the track.", ());
+  text.SetLocale("ru");
+  TEST_EQUAL(text.GetOffTrackNotification(), "Вы сошли с трека.", ());
 }
 
 UNIT_TEST(GetTtsTextTest)

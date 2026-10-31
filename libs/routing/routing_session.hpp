@@ -195,6 +195,11 @@ private:
   // Sound turn notification parameters.
   turns::sound::NotificationManager m_turnNotificationsMgr;
 
+  // Rebuild approaches must not rearm departures until a GPS fix has reached the track.
+  bool m_reachedFollowedTrack = false;
+  // Keep muted departures pending, but discard them when the user rejoins or stops following.
+  bool m_offTrackNotificationPending = false;
+
   SpeedCameraManager m_speedCameraManager;
   RoutingSettings m_routingSettings;
 
