@@ -4,6 +4,7 @@
 
 #include <cstddef>
 #include <functional>
+#include <utility>
 
 template <typename Key, typename Value>
 class LruCacheTest
@@ -11,7 +12,7 @@ class LruCacheTest
 public:
   using Loader = std::function<void(Key const & key, Value & value)>;
 
-  LruCacheTest(size_t maxCacheSize, Loader const & loader) : m_cache(maxCacheSize), m_loader(loader) {}
+  LruCacheTest(size_t maxCacheSize, Loader loader) : m_cache(maxCacheSize), m_loader(std::move(loader)) {}
 
   Value const & GetValue(Key const & key)
   {
