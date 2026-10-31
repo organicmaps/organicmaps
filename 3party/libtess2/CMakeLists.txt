@@ -22,3 +22,8 @@ set(
 )
 
 add_library(${PROJECT_NAME} ${SRC})
+
+# Sweep ordering and intersection interpolation require the original floating-point evaluation order.
+if (CMAKE_C_COMPILER_ID MATCHES "Clang|GNU")
+  target_compile_options(${PROJECT_NAME} PRIVATE -fno-fast-math -ffp-contract=off)
+endif()

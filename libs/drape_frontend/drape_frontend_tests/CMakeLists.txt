@@ -15,6 +15,7 @@ set(SRC
   stylist_tests.cpp
   tile_background_coverage_tests.cpp
   tile_background_renderer_tests.cpp
+  user_area_tests.cpp
   user_event_stream_tests.cpp
   visual_params_fixture.hpp
   visual_params_tests.cpp
@@ -27,9 +28,10 @@ if (BUILD_OPENGL_TESTS)
     shape_test_fixture.cpp
     shape_test_fixture.hpp
     track_direction_gpu_test.cpp
+    user_area_gpu_test.cpp
   )
 endif()
 
 omim_add_test(${PROJECT_NAME} ${SRC})
 
-target_link_libraries(${PROJECT_NAME} PRIVATE drape_frontend qt_tstfrm)
+target_link_libraries(${PROJECT_NAME} PRIVATE drape_frontend kml qt_tstfrm)

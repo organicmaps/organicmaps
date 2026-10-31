@@ -11,7 +11,10 @@
 
 #include "indexer/scales.hpp"
 
+#include "base/math.hpp"
+
 #include <algorithm>
+#include <cmath>
 #include <vector>
 
 namespace df
@@ -47,9 +50,11 @@ struct BaseBuilderParams
   float m_pxHalfWidth;
   float m_depth;
   bool m_depthTestEnabled;
+  dp::TestFunction m_depthFunction;
   DepthLayer m_depthLayer;
   dp::LineCap m_cap;
   dp::LineJoin m_join;
+  bool m_blendInPaintOrder = false;
 
   /// Optional rainbow mode: per-side color UV coords for a color strip texture.
   /// When m_hasRainbow is true, left vertices use m_colorCoordLeft and right use m_colorCoordRight.
@@ -150,11 +155,14 @@ public:
     auto state = CreateRenderState(gpu::Program::Line, m_params.m_depthLayer);
     state.SetColorTexture(m_params.m_hasRainbow ? m_params.m_rainbowTexture : m_params.m_color.GetTexture());
     state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
+    state.SetDepthFunction(m_params.m_depthFunction);
     return state;
   }
 
   dp::BindingInfo const & GetCapBindingInfo() override
   {
+    if (m_params.m_blendInPaintOrder)
+      return GetBindingInfo();
     ASSERT(!m_capGeometry.empty(), ());
 
     static std::unique_ptr<dp::BindingInfo> s_capInfo;
@@ -173,6 +181,8 @@ public:
 
   dp::RenderState GetCapState() override
   {
+    if (m_params.m_blendInPaintOrder)
+      return GetState();
     ASSERT(!m_capGeometry.empty(), ());
 
     auto state = CreateRenderState(gpu::Program::CapJoin, m_params.m_depthLayer);
@@ -182,9 +192,15 @@ public:
     return state;
   }
 
-  ref_ptr<void> GetCapData() override { return make_ref<void>(m_capGeometry.data()); }
+  ref_ptr<void> GetCapData() override
+  {
+    return m_params.m_blendInPaintOrder ? make_ref<void>(m_fanGeometry.data()) : make_ref<void>(m_capGeometry.data());
+  }
 
-  uint32_t GetCapSize() override { return static_cast<uint32_t>(m_capGeometry.size()); }
+  uint32_t GetCapSize() override
+  {
+    return static_cast<uint32_t>(m_params.m_blendInPaintOrder ? m_fanGeometry.size() : m_capGeometry.size());
+  }
 
   void SubmitVertex(glsl::vec3 const & pivot, glsl::vec2 const & normal, bool isLeft)
   {
@@ -193,19 +209,56 @@ public:
                             isLeft ? m_colorCoordLeft : m_colorCoordRight);
   }
 
-  void SubmitJoin(glsl::vec2 const & pos)
+  void SubmitJoin(glsl::vec2 const & pos, glsl::vec2 const & tangentIn, glsl::vec2 const & tangentOut)
   {
-    if (m_params.m_join == dp::RoundJoin)
-      CreateRoundCap(pos);
+    if (m_params.m_join != dp::RoundJoin)
+      return;
+    if (!m_params.m_blendInPaintOrder)
+      return CreateRoundCap(pos);
+
+    // Covers the gap that the segments leave outside the turn. The side and the sweep direction take one sign, since
+    // a reversal makes cross a zero of either sign, while either side fits it.
+    float const cross = tangentIn.x * tangentOut.y - tangentIn.y * tangentOut.x;
+    bool const left = cross >= 0;
+    glsl::vec2 const outer = left ? glsl::vec2(tangentIn.y, -tangentIn.x) : glsl::vec2(-tangentIn.y, tangentIn.x);
+    float const angle = std::atan2(std::fabs(cross), glsl::dot(tangentIn, tangentOut));
+    CreateRoundFan(pos, outer, left ? angle : -angle);
   }
 
   void SubmitCap(glsl::vec2 const & pos)
   {
-    if (m_params.m_cap != dp::ButtCap)
+    if (m_params.m_cap == dp::ButtCap)
+      return;
+    if (m_params.m_blendInPaintOrder)
+      CreateRoundFan(pos, glsl::vec2(1, 0), 2 * static_cast<float>(math::pi));
+    else
       CreateRoundCap(pos);
   }
 
 private:
+  // Unlike caps of their own program, line triangles keep the paint order of translucent lines in one bucket.
+  void CreateRoundFan(glsl::vec2 const & pos, glsl::vec2 const & normal, float angle)
+  {
+    float constexpr kMaxStep = static_cast<float>(math::pi) / 8;
+    int const steps = static_cast<int>(std::ceil(std::fabs(angle) / kMaxStep));
+    float const halfWidth = GetHalfWidth();
+    glsl::vec3 const center(pos, m_params.m_depth);
+    glsl::vec2 rim = normal;
+    for (int i = 1; i <= steps; ++i)
+    {
+      float const a = angle * i / steps;
+      glsl::vec2 const next(normal.x * std::cos(a) - normal.y * std::sin(a),
+                            normal.x * std::sin(a) + normal.y * std::cos(a));
+      // Counterclockwise like caps, since back faces are culled.
+      auto const & first = angle > 0 ? rim : next;
+      auto const & second = angle > 0 ? next : rim;
+      m_fanGeometry.emplace_back(center, TNormal(0, 0, 0), m_colorCoord);
+      m_fanGeometry.emplace_back(center, TNormal(halfWidth * first, halfWidth), m_colorCoord);
+      m_fanGeometry.emplace_back(center, TNormal(halfWidth * second, halfWidth), m_colorCoord);
+      rim = next;
+    }
+  }
+
   void CreateRoundCap(glsl::vec2 const & pos)
   {
     // Here we use an equilateral triangle to render circle (incircle of a triangle).
@@ -224,6 +277,7 @@ private:
 
 private:
   TCapBuffer m_capGeometry;
+  TGeometryBuffer m_fanGeometry;
 };
 
 class SimpleSolidLineBuilder : public BaseLineBuilder<gpu::AreaVertex>
@@ -242,6 +296,7 @@ public:
   {
     auto state = CreateRenderState(gpu::Program::AreaOutline, m_params.m_depthLayer);
     state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
+    state.SetDepthFunction(m_params.m_depthFunction);
     state.SetColorTexture(m_params.m_color.GetTexture());
     state.SetDrawAsLine(true);
     state.SetLineWidth(m_lineWidth);
@@ -278,6 +333,7 @@ public:
   {
     auto state = CreateRenderState(gpu::Program::DashedLine, m_params.m_depthLayer);
     state.SetDepthTestEnabled(m_params.m_depthTestEnabled);
+    state.SetDepthFunction(m_params.m_depthFunction);
     state.SetColorTexture(m_params.m_hasRainbow ? m_params.m_rainbowTexture : m_params.m_color.GetTexture());
     state.SetMaskTexture(m_texCoordGen.GetRegion().GetTexture());
     return state;
@@ -334,6 +390,9 @@ void LineShape::ForEachSplineSection(FnT && fn) const
     {
       tanlen.first = path[j] - path[i];
       tanlen.second = tanlen.first.Length();
+      // A closed path, all points of which are too close to its start, has no sections.
+      if (tanlen.second == 0)
+        continue;
       tanlen.first = tanlen.first / tanlen.second;
     }
 
@@ -407,6 +466,7 @@ void LineShape::Construct<SolidLineBuilder>(SolidLineBuilder & builder) const
   // Skip joins generation for thin lines.
   bool const generateJoins = builder.GetHalfWidth() > 2.5f;
 
+  glsl::vec2 prevTangent(0, 0);
   ForEachSplineSection([&](glsl::vec2 const & p1, glsl::vec2 const & p2, glsl::vec2 const & tangent, double,
                            glsl::vec2 const & leftNormal, glsl::vec2 const & rightNormal, int flag)
   {
@@ -418,10 +478,11 @@ void LineShape::Construct<SolidLineBuilder>(SolidLineBuilder & builder) const
     // Generate joins.
     if (flag & 0x1)  // p1 - first point
       builder.SubmitCap(p1);
+    else if (generateJoins)  // p1 - middle point
+      builder.SubmitJoin(p1, prevTangent, tangent);
     if (flag & 0x2)  // p2 - last point
       builder.SubmitCap(p2);
-    else if (generateJoins)  // p2 - middle point
-      builder.SubmitJoin(p2);
+    prevTangent = tangent;
   });
 }
 
@@ -464,6 +525,8 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
     p.m_cap = m_params.m_cap;
     p.m_color = colorRegion;
     p.m_depthTestEnabled = m_params.m_depthTestEnabled;
+    p.m_depthFunction = m_params.m_depthFunction;
+    p.m_blendInPaintOrder = m_params.m_blendInPaintOrder;
     p.m_depth = m_params.m_depth;
     p.m_depthLayer = m_params.m_depthLayer;
     p.m_join = m_params.m_join;
@@ -494,7 +557,8 @@ void LineShape::Prepare(ref_ptr<dp::TextureManager> textures) const
   if (pattern.empty())
   {
     int lineWidth = 1;
-    m_isSimple = CanBeSimplified(lineWidth);
+    // GL lines need another program.
+    m_isSimple = !m_params.m_blendInPaintOrder && CanBeSimplified(lineWidth);
     if (m_isSimple)
     {
       SimpleSolidLineBuilder::BuilderParams p;

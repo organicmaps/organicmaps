@@ -77,6 +77,8 @@ struct AreaViewParams : CommonViewParams
   bool m_is3D = false;
   std::string_view m_areaPattern;  // analytic pattern key (hatch or solid-fill), empty for a plain fill
   double m_baseGtoPScale = 1.0;
+  // Translucent fills use the opaque fill program too, to share one bucket and blend in their paint order.
+  bool m_blendInPaintOrder = false;
 };
 
 struct LineViewParams : CommonViewParams
@@ -89,6 +91,11 @@ struct LineViewParams : CommonViewParams
   dp::PenPatternT m_pattern;
   double m_baseGtoPScale = 1.0;
   int m_zoomLevel = -1;
+  // Less keeps a translucent line from blending twice where its segments overlap, as caps and joins do.
+  dp::TestFunction m_depthFunction = dp::TestFunction::LessOrEqual;
+  // Round joins and caps are line triangles too, and thin lines aren't GL lines, so that translucent lines of one
+  // bucket blend in their paint order.
+  bool m_blendInPaintOrder = false;
 
   /// Optional rainbow mode: colors for a multi-stripe overlay.
   /// When non-empty, LineShape allocates a color strip texture in Prepare().
