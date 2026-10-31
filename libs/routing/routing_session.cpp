@@ -271,7 +271,7 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
     m_moveAwayCounter = 0;
     m_lastDistance = 0.0;
 
-    PassCheckpoints();
+    PassCheckpoints(info);
 
     if (m_checkpoints.IsFinished())
     {
@@ -475,10 +475,11 @@ double RoutingSession::GetCompletionPercent() const
   return percent;
 }
 
-void RoutingSession::PassCheckpoints()
+void RoutingSession::PassCheckpoints(GpsInfo const & info)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  while (!m_checkpoints.IsFinished() && m_route->IsSubroutePassed(m_checkpoints.GetPassedIdx()))
+  auto const fixPoint = mercator::FromLatLon(info.m_latitude, info.m_longitude);
+  while (!m_checkpoints.IsFinished() && m_route->IsSubroutePassed(m_checkpoints.GetPassedIdx(), fixPoint, info.m_speed))
   {
     m_route->PassNextSubroute();
     // Keep the active RouteBase in m_lastResult in sync so a later RouteCall (e.g. drape engine
