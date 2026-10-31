@@ -73,6 +73,7 @@
     <string name="opens_in">%s sonra açılır</string>
     <string name="closes_in">%s sonra bağlanır</string>
     <string name="closed">Bağlı</string>
+    <!-- Short label for minutes (time unit), placed after a number -->
     <string name="minute">dəq</string>
     <string name="big_font">Xəritədə şrift ölçüsünü artırın</string>
     <string name="transliteration_title">Latın transliterasiyası</string>

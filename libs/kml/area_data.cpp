@@ -45,46 +45,34 @@ bool NormalizeAreaGeometry(std::vector<AreaPolygon> & polygons)
     if (!NormalizeRing(polygon.m_outer))
       return false;
     Polygon validation;
-    auto const copyRing = [](AreaRing const & from, auto & to, double reference)
+    auto const copyRing = [](AreaRing const & from, auto & to)
     {
       to.reserve(from.size());
-      double minX = mercator::NearestWrapX(from.front().m_latLon.m_lon, reference);
-      double maxX = minX;
       for (auto const & point : from)
-      {
-        auto const x = mercator::NearestWrapX(point.m_latLon.m_lon, reference);
-        to.emplace_back(x, point.m_latLon.m_lat);
-        minX = std::min(minX, x);
-        maxX = std::max(maxX, x);
-        reference = x;
-      }
-      return (minX + maxX) / 2;
+        to.emplace_back(point.m_latLon.m_lon, point.m_latLon.m_lat);
     };
-    auto const outerReference = polygon.m_outer.front().m_latLon.m_lon;
-    // Holes share the shell's longitude frame, including shells wider than half the world.
-    auto const holeReference = copyRing(polygon.m_outer, validation.outer(), outerReference);
+    copyRing(polygon.m_outer, validation.outer());
     validation.inners().reserve(polygon.m_holes.size());
     for (auto & hole : polygon.m_holes)
     {
       if (!NormalizeRing(hole))
         return false;
-      copyRing(hole, validation.inners().emplace_back(), holeReference);
+      copyRing(hole, validation.inners().emplace_back());
     }
     bg::correct(validation);
     if (!bg::is_valid(validation))
       return false;
 
     // Mirror Boost's reversals on full vertices to retain exact source coordinates and altitude.
-    auto const orientRing = [](AreaRing & ring, auto const & corrected, double reference)
+    auto const orientRing = [](AreaRing & ring, auto const & corrected)
     {
       auto const & first = ring.front().m_latLon;
-      if (mercator::NearestWrapX(first.m_lon, reference) != corrected.front().x() ||
-          first.m_lat != corrected.front().y())
+      if (first.m_lon != corrected.front().x() || first.m_lat != corrected.front().y())
         std::reverse(ring.begin(), ring.end());
     };
-    orientRing(polygon.m_outer, validation.outer(), outerReference);
+    orientRing(polygon.m_outer, validation.outer());
     for (size_t i = 0; i < polygon.m_holes.size(); ++i)
-      orientRing(polygon.m_holes[i], validation.inners()[i], holeReference);
+      orientRing(polygon.m_holes[i], validation.inners()[i]);
   }
   return true;
 }
@@ -93,7 +81,8 @@ bool AreaData::operator==(AreaData const & other) const
 {
   return m_id == other.m_id && m_name == other.m_name && m_description == other.m_description &&
          m_style == other.m_style && m_visible == other.m_visible && IsEqual(m_timestamp, other.m_timestamp) &&
-         m_properties == other.m_properties && m_polygons == other.m_polygons;
+         m_properties == other.m_properties && m_polygons == other.m_polygons &&
+         m_isMultiPolygon == other.m_isMultiPolygon && m_altitudeIsWgs84 == other.m_altitudeIsWgs84;
 }
 
 std::string DebugPrint(AreaData const & area)

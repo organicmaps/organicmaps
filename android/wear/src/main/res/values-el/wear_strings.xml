@@ -2,16 +2,18 @@
 <resources>
 
     <!-- SECTION: Strings for downloading map from search -->
-    <string name="hour">Ωρα</string>
-    <string name="minute">λπτ</string>
+    <!-- Short label for hours (time unit), placed after a number -->
+    <string name="hour">ώ.</string>
+    <!-- Short label for minutes (time unit), placed after a number -->
+    <string name="minute">λεπ.</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- abbreviation for meters -->
     <string name="m">μ</string>
     <!-- abbreviation for kilometers -->
     <string name="km">χμ</string>
-    <!-- abbreviation for mile(s) -->
+    <!-- Short label for miles (length unit, 1 mi = 1609.344 m), placed after a number -->
     <string name="mi">μι</string>
-    <!-- A unit of measure -->
-    <string name="ft">πόδια</string>
+    <!-- Short label for feet (1 ft = 0.3048 m), after numbers; local abbreviations and uninflected unit names are allowed -->
+    <string name="ft">πδ</string>
 </resources>

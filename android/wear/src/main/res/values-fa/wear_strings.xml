@@ -2,7 +2,9 @@
 <resources>
 
     <!-- SECTION: Strings for downloading map from search -->
+    <!-- Short label for hours (time unit), placed after a number -->
     <string name="hour">ساعت</string>
+    <!-- Short label for minutes (time unit), placed after a number -->
     <string name="minute">دقیقه</string>
 
     <!-- SECTION: Uncategorized -->
@@ -10,8 +12,8 @@
     <string name="m">متر</string>
     <!-- abbreviation for kilometers -->
     <string name="km">کیلومتر</string>
-    <!-- abbreviation for mile(s) -->
+    <!-- Short label for miles (length unit, 1 mi = 1609.344 m), placed after a number -->
     <string name="mi">مایل</string>
-    <!-- A unit of measure -->
+    <!-- Short label for feet (1 ft = 0.3048 m), after numbers; local abbreviations and uninflected unit names are allowed -->
     <string name="ft">فوت</string>
 </resources>

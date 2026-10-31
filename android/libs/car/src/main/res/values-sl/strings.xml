@@ -73,6 +73,7 @@
     <string name="opens_in">Odpira se čez %s</string>
     <string name="closes_in">Zapira se čez %s</string>
     <string name="closed">Zaprto</string>
+    <!-- Short label for minutes (time unit), placed after a number -->
     <string name="minute">min</string>
     <string name="big_font">Povečaj velikost oznak na zemljevidu</string>
     <string name="transliteration_title">Transliteriraj v latinico</string>

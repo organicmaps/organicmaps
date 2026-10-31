@@ -73,6 +73,7 @@
     <string name="opens_in">Otwarcie za %s</string>
     <string name="closes_in">Zamknięcie za %s</string>
     <string name="closed">Zamknięte</string>
+    <!-- Short label for minutes (time unit), placed after a number -->
     <string name="minute">min</string>
     <string name="big_font">Powiększ rozmiar czcionki na mapie</string>
     <string name="transliteration_title">Transkrypcja na alfabet łaciński</string>

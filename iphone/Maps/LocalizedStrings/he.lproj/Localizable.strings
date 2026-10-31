@@ -16,7 +16,7 @@
 /* Choose measurement on first launch alert - choose metric system button */
 "kilometres" = "ק\"מ";
 
-/* Choose measurement on first launch alert - choose imperial system button */
+/* Imperial measurement option: 1 mile = 1609.344 m; Swedish/Norwegian "mil" = 10 km */
 "miles" = "מייל";
 
 /* Update maps later button text */
@@ -598,11 +598,21 @@
 
 /* abbreviation for kilometers per hour */
 "kilometers_per_hour" = "קמ״ש";
+
+/* Short label for miles per hour (1 mile = 1609.344 m), placed after a number; e.g. mph or mi/h */
 "miles_per_hour" = "מייל לשעה";
-"hour" = "ש׳";
-"minute" = "ד׳";
-"day" = "י";
-"second" = "ש׳׳";
+
+/* Short label for hours (time unit), placed after a number */
+"hour" = "שע׳";
+
+/* Short label for minutes (time unit), placed after a number */
+"minute" = "דק׳";
+
+/* Short label for days (time unit), placed after a number */
+"day" = "י׳";
+
+/* Short label for seconds (time unit), placed after a number */
+"second" = "שנ׳";
 "placepage_more_button" = "עוד";
 "placepage_personal_notes_hint" = "הערות אישיות (טקסט או HTML)";
 "editor_comment_hint" = "תגובה…";
@@ -1160,11 +1170,11 @@
 /* abbreviation for kilometers */
 "km" = "ק״מ";
 
-/* abbreviation for mile(s) */
+/* Short label for miles (length unit, 1 mi = 1609.344 m), placed after a number */
 "mi" = "מייל";
 
-/* A unit of measure */
-"ft" = "רגל";
+/* Short label for feet (1 ft = 0.3048 m), after numbers; local abbreviations and uninflected unit names are allowed */
+"ft" = "ft";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
 "routes_update_maps_text" = "כדי להציג מסלולים, יש לעדכן את המפות.";

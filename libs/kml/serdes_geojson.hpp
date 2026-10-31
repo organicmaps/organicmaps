@@ -53,8 +53,23 @@ struct GeoJsonGeometryUnknown
   glz::generic coordinates;
 };
 
+using PolygonCoords = std::vector<std::vector<std::vector<double>>>;
+
+struct GeoJsonGeometryPolygon
+{
+  std::string type{"Polygon"};
+  PolygonCoords coordinates;
+};
+
+struct GeoJsonGeometryMultiPolygon
+{
+  std::string type{"MultiPolygon"};
+  std::vector<PolygonCoords> coordinates;
+};
+
 // clang-format off
-using GeoJsonGeometry = std::variant<GeoJsonGeometryPoint, GeoJsonGeometryLine, GeoJsonGeometryMultiLine, GeoJsonGeometryUnknown>;
+using GeoJsonGeometry = std::variant<GeoJsonGeometryPoint, GeoJsonGeometryLine, GeoJsonGeometryMultiLine,
+                                    GeoJsonGeometryPolygon, GeoJsonGeometryMultiPolygon, GeoJsonGeometryUnknown>;
 // clang-format on
 
 std::string DebugPrint(GeoJsonGeometry const & g);
@@ -63,7 +78,7 @@ struct GeoJsonFeature
 {
   std::string type = "Feature";
   GeoJsonGeometry geometry;
-  GenericJsonMap properties;
+  std::optional<GenericJsonMap> properties = GenericJsonMap{};
 };
 
 std::string DebugPrint(GeoJsonFeature const & c);
@@ -112,11 +127,10 @@ private:
 
 }  // namespace kml
 
-// Tell Glaze to pick GeoJsonGeometryPoint, GeoJsonGeometryLine or GeoJsonGeometryUnknown depending on "type" property
+// Select the geometry representation by its GeoJSON type.
 template <>
 struct glz::meta<kml::geojson::GeoJsonGeometry>
 {
   static constexpr std::string_view tag = "type";  // Field name that serves as tag
-  // TODO: Support Polygon, MultiPoint, and MultiPolygon
-  static constexpr auto ids = std::array{"Point", "LineString", "MultiLineString"};
+  static constexpr auto ids = std::array{"Point", "LineString", "MultiLineString", "Polygon", "MultiPolygon"};
 };

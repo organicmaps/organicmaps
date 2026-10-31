@@ -51,12 +51,17 @@ struct AreaData
   Timestamp m_timestamp = {};
   Properties m_properties;
   std::vector<AreaPolygon> m_polygons;
+  // Preserve GeoJSON MultiPolygon grouping through native KML storage.
+  bool m_isMultiPolygon = false;
+  // GeoJSON Z values use WGS84 ellipsoid heights; KML altitude modes use other references.
+  bool m_altitudeIsWgs84 = false;
 
   bool operator==(AreaData const & other) const;
 };
 
 // Removes consecutive exact duplicates and the closing vertex, and normalizes ring winding.
-// Topology is validated in a continuous longitude frame; source coordinates and altitude are retained.
+// Topology is validated in the longitude/latitude plane: edges do not cross the antimeridian,
+// so 170 -> -170 spans 340 degrees. Source coordinates and altitude are retained.
 // Independent polygons are allowed to overlap, as in KML MultiGeometry.
 bool NormalizeAreaGeometry(std::vector<AreaPolygon> & polygons);
 std::string DebugPrint(AreaData const & area);

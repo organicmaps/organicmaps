@@ -69,12 +69,11 @@ class MainActivityRobolectricTest {
         }
     }
 
-    private fun createActivity() =
-        Robolectric.buildActivity(MainActivity::class.java).apply {
-            get().wearClientsFactory = {
-                WearClients(dataClient, messageClient, capabilityClient, activeOwner)
-            }
-        }.setup()
+    private fun createActivity() = Robolectric.buildActivity(MainActivity::class.java).apply {
+        get().wearClientsFactory = {
+            WearClients(dataClient, messageClient, capabilityClient, activeOwner)
+        }
+    }.setup()
 
     @Test
     fun phoneCapabilityReconnectReadsCachedModeAndAllowsLiveDetails() {

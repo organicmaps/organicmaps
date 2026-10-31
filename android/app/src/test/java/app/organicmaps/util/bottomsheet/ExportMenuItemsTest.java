@@ -11,15 +11,17 @@ import org.junit.Test;
 public class ExportMenuItemsTest
 {
   @Test
-  public void areasOfferOnlyKmz()
+  public void areasOfferKmzAndGeoJson()
   {
     List<FileType> selected = new ArrayList<>();
     List<MenuBottomSheetItem> items = ExportMenuItems.create(true, selected::add);
 
-    assertEquals(1, items.size());
+    assertEquals(2, items.size());
     assertEquals(R.string.export_file, items.get(0).titleRes);
-    items.get(0).onClickListener.onClick();
-    assertEquals(List.of(FileType.Kml), selected);
+    assertEquals(R.string.export_file_geojson, items.get(1).titleRes);
+    for (MenuBottomSheetItem item : items)
+      item.onClickListener.onClick();
+    assertEquals(List.of(FileType.Kml, FileType.GeoJson), selected);
   }
 
   @Test

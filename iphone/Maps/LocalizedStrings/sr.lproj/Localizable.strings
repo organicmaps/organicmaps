@@ -16,7 +16,7 @@
 /* Choose measurement on first launch alert - choose metric system button */
 "kilometres" = "Километри";
 
-/* Choose measurement on first launch alert - choose imperial system button */
+/* Imperial measurement option: 1 mile = 1609.344 m; Swedish/Norwegian "mil" = 10 km */
 "miles" = "Миље";
 
 /* Update maps later button text */
@@ -598,10 +598,20 @@
 
 /* abbreviation for kilometers per hour */
 "kilometers_per_hour" = "км/ч";
+
+/* Short label for miles per hour (1 mile = 1609.344 m), placed after a number; e.g. mph or mi/h */
 "miles_per_hour" = "ми/ч";
+
+/* Short label for hours (time unit), placed after a number */
 "hour" = "ч";
+
+/* Short label for minutes (time unit), placed after a number */
 "minute" = "мин";
+
+/* Short label for days (time unit), placed after a number */
 "day" = "д";
+
+/* Short label for seconds (time unit), placed after a number */
 "second" = "с";
 "placepage_more_button" = "Више";
 "placepage_personal_notes_hint" = "Личне белешке (текст или хтмл)";
@@ -1160,11 +1170,11 @@
 /* abbreviation for kilometers */
 "km" = "км";
 
-/* abbreviation for mile(s) */
+/* Short label for miles (length unit, 1 mi = 1609.344 m), placed after a number */
 "mi" = "ми";
 
-/* A unit of measure */
-"ft" = "стопа";
+/* Short label for feet (1 ft = 0.3048 m), after numbers; local abbreviations and uninflected unit names are allowed */
+"ft" = "ft";
 
 /* Toast text when the maps version should be updated to display the OSM hiking and cycling routes */
 "routes_update_maps_text" = "Да би се приказале руте, мапе морају бити ажуриране.";
