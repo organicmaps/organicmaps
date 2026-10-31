@@ -321,10 +321,7 @@ std::string GetBookmarksDirectory()
 
 std::string GetTrashDirectory()
 {
-  std::string const trashDir = base::JoinPath(GetPlatform().SettingsDir(), std::string{kTrashDirectoryName});
-  if (!Platform::IsFileExistsByFullPath(trashDir) && !Platform::MkDirChecked(trashDir))
-    CHECK(false, ("Failed to create .Trash directory."));
-  return trashDir;
+  return base::JoinPath(GetPlatform().SettingsDir(), std::string{kTrashDirectoryName});
 }
 
 std::string RemoveInvalidSymbols(std::string const & name)
@@ -426,13 +423,26 @@ std::string GenerateValidAndUniqueFilePath(std::string const & fileName, FileTyp
   return GenerateUniqueFileName(GetBookmarksDirectory(), std::move(filePath), GetFileTypeExtension(fileType));
 }
 
-std::string GenerateValidAndUniqueTrashedFilePath(std::string const & fileName)
+bool MoveBookmarkFileToTrash(std::string const & filePath)
 {
-  std::string extension = base::GetFileExtension(fileName);
-  std::string filePath = TruncateToValidFileName(RemoveInvalidSymbols(fileName));
-  if (filePath.empty())
-    filePath = kDefaultBookmarksFileName;
-  return GenerateUniqueFileName(GetTrashDirectory(), std::move(filePath), extension);
+  if (!Platform::IsFileExistsByFullPath(filePath))
+    return true;
+
+  auto const trashDir = GetTrashDirectory();
+  if (!Platform::MkDirChecked(trashDir))
+    return false;
+
+  auto const fileName = base::FileNameFromFullPath(filePath);
+  auto const extension = base::GetFileExtension(fileName);
+  auto name = TruncateToValidFileName(RemoveInvalidSymbols(fileName));
+  if (name.empty())
+    name = kDefaultBookmarksFileName;
+  auto const trashedFilePath = GenerateUniqueFileName(trashDir, std::move(name), extension);
+  // Both directories belong to SettingsDir. A failed rename must leave the source in place.
+  if (!base::RenameFileX(filePath, trashedFilePath))
+    return false;
+  LOG(LINFO, ("Category at", filePath, "is trashed to", trashedFilePath));
+  return true;
 }
 
 std::string const kDefaultBookmarksFileName = "Bookmarks";
@@ -684,8 +694,19 @@ static bool SaveKmlFile(kml::FileData const & kmlData, std::string const & file,
 bool SaveKmlFileSafe(kml::FileData const & kmlData, std::string const & file, FileType fileType)
 {
   LOG(LINFO, ("Save kml file of type", fileType, "to", file));
-  return base::WriteToTempAndRenameToFile(
-      file, [&kmlData, fileType](std::string const & fileName) { return SaveKmlFile(kmlData, fileName, fileType); });
+  return base::WriteToTempAndRenameToFile(file, [&kmlData, fileType](std::string const & fileName)
+  {
+    try
+    {
+      return SaveKmlFile(kmlData, fileName, fileType);
+    }
+    catch (Writer::Exception const & e)
+    {
+      // Opening and final flushing can fail outside the serializer. Return false so temporary-file cleanup runs.
+      LOG(LWARNING, ("KML", fileType, "writing failure:", e.what()));
+      return false;
+    }
+  });
 }
 
 bool SaveKmlFileByExt(kml::FileData const & kmlData, std::string const & file)
