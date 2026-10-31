@@ -263,6 +263,9 @@ public class Framework
   /** Updates the track preview from the current native selection, retaining its profile and direction. */
   public static native int nativeUpdateFollowedTrackEntry();
 
+  /** Reverses a built track preview; returns a FollowTrackResult ordinal. */
+  public static native int nativeReverseFollowedTrack();
+
   /**
    * Switches this track preview's profile without changing the persisted default.
    *
