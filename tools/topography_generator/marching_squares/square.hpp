@@ -154,49 +154,21 @@ private:
 
   ms::LatLon InterpolatePoint(Square::Rib rib, ValueType val)
   {
-    double val1;
-    double val2;
-    double lat;
-    double lon;
+    auto const interpolate = [&](double val1, double val2, double coord1, double coord2)
+    {
+      CHECK_NOT_EQUAL(val, val2, (m_debugId));
+      double const coeff = (val1 - val) / (val - val2);
+      return (coord1 + coord2 * coeff) / (1 + coeff);
+    };
 
     switch (rib)
     {
-    case Rib::Left:
-      val1 = static_cast<double>(m_valueLB);
-      val2 = static_cast<double>(m_valueLT);
-      lon = m_left;
-      break;
-    case Rib::Right:
-      val1 = static_cast<double>(m_valueRB);
-      val2 = static_cast<double>(m_valueRT);
-      lon = m_right;
-      break;
-    case Rib::Top:
-      val1 = static_cast<double>(m_valueLT);
-      val2 = static_cast<double>(m_valueRT);
-      lat = m_top;
-      break;
-    case Rib::Bottom:
-      val1 = static_cast<double>(m_valueLB);
-      val2 = static_cast<double>(m_valueRB);
-      lat = m_bottom;
-      break;
+    case Rib::Left: return {interpolate(m_valueLB, m_valueLT, m_bottom, m_top), m_left};
+    case Rib::Right: return {interpolate(m_valueRB, m_valueRT, m_bottom, m_top), m_right};
+    case Rib::Top: return {m_top, interpolate(m_valueLT, m_valueRT, m_left, m_right)};
+    case Rib::Bottom: return {m_bottom, interpolate(m_valueLB, m_valueRB, m_left, m_right)};
     default: UNREACHABLE();
     }
-
-    CHECK_NOT_EQUAL(val, val2, (m_debugId));
-    double const coeff = (val1 - val) / (val - val2);
-
-    switch (rib)
-    {
-    case Rib::Left:
-    case Rib::Right: lat = (m_bottom + m_top * coeff) / (1 + coeff); break;
-    case Rib::Bottom:
-    case Rib::Top: lon = (m_left + m_right * coeff) / (1 + coeff); break;
-    default: UNREACHABLE();
-    }
-
-    return {lat, lon};
   }
 
   ValueType m_minValue;
