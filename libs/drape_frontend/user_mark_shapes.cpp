@@ -50,6 +50,8 @@ float constexpr kTrackEndpointRadius = 5.0f;
 float constexpr kTrackEndpointOutlineWidth = 1.5f;
 float constexpr kTrackCombinedEndpointDistance = 12.0f;
 float constexpr kTrackShapeDepthOffset = 1.0f;
+float constexpr kSelectedTrackInnerBorderWidth = 2.0f;  // dp on each side.
+float constexpr kSelectedTrackOuterBorderWidth = 1.0f;
 char const kTrackDirectionBlackSymbol[] = "track-direction-arrow-black";
 char const kTrackDirectionWhiteSymbol[] = "track-direction-arrow-white";
 
@@ -649,6 +651,27 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
       return;
 
     auto const & topLayer = GetTopLayer(renderInfo);
+    // All stroke layers share the spline; selection borders surround the widest layer, below every stroke.
+    std::vector<LineLayer> selectedLayers;
+    if (renderInfo.m_depthLayer == DepthLayer::SelectedUserLineLayer)
+    {
+      // Borders stay the same width in dp, while stroke widths scale with zoom.
+      auto const zoomFactor = static_cast<float>(kLineWidthZoomFactor[tileKey.m_zoomLevel - 1]);
+      float const width = std::ranges::max(renderInfo.m_layers, {}, &LineLayer::m_width).m_width;
+      float const depth = std::ranges::min(renderInfo.m_layers, {}, &LineLayer::m_depth).m_depth;
+      auto const innerColor = GetContrastingColor(topLayer.m_color);
+      selectedLayers.reserve(renderInfo.m_layers.size() + 2);
+      selectedLayers.emplace_back(
+          GetContrastingColor(innerColor),
+          width + 2.0f * (kSelectedTrackInnerBorderWidth + kSelectedTrackOuterBorderWidth) / zoomFactor,
+          depth - 2.0f * kTrackShapeDepthOffset);
+      selectedLayers.emplace_back(innerColor, width + 2.0f * kSelectedTrackInnerBorderWidth / zoomFactor,
+                                  depth - kTrackShapeDepthOffset);
+      // Opaque strokes keep the borders underneath from tinting translucent tracks.
+      for (auto const & layer : renderInfo.m_layers)
+        selectedLayers.emplace_back(MakeOpaque(layer.m_color), layer.m_width, layer.m_depth);
+    }
+    auto const & lineLayers = selectedLayers.empty() ? renderInfo.m_layers : selectedLayers;
     float const shapesDepth = topLayer.m_depth + kTrackShapeDepthOffset;
     float const trackWidth =
         topLayer.m_width * static_cast<float>(vs) * static_cast<float>(kLineWidthZoomFactor[tileKey.m_zoomLevel - 1]);
@@ -679,7 +702,7 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
       for (size_t clippedIndex = 0; clippedIndex < clippedSplines.size(); ++clippedIndex)
       {
         auto const & clippedSpline = clippedSplines[clippedIndex];
-        for (auto const & layer : renderInfo.m_layers)
+        for (auto const & layer : lineLayers)
         {
           LineViewParams params;
           params.m_tileCenter = tileRect.Center();

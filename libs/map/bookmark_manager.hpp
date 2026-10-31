@@ -462,6 +462,7 @@ private:
     void OnAddLine(kml::TrackId lineId);
     void OnDeleteLine(kml::TrackId lineId);
     void OnUpdateLine(kml::TrackId lineId);
+    void OnUpdateLineForRendering(kml::TrackId lineId, kml::MarkGroupId groupId);
 
     void OnAddGroup(kml::MarkGroupId groupId);
     void OnDeleteGroup(kml::MarkGroupId groupId);
@@ -720,6 +721,7 @@ private:
   int GetTrackSelectionMarkMinZoom(kml::TrackId trackId) const;
   void SetTrackSelectionMark(kml::TrackId trackId, m2::PointD const & pt, double distance);
   void DeleteTrackSelectionMark(kml::TrackId trackId);
+  void SetTrackHighlight(kml::TrackId trackId, bool selected);
   void ResetTrackInfoMark(kml::TrackId trackId);
 
   bool IsTrackEffectivelyVisible(kml::TrackId trackId) const;
