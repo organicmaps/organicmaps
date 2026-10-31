@@ -19,6 +19,7 @@ class Track : public df::UserLineMark
 public:
   Track(kml::TrackData && data);
 
+  // Rendering owner; temporary relation tracks use a runtime user-mark group, not a bookmark category.
   kml::MarkGroupId GetGroupId() const override { return m_groupID; }
 
   bool IsDirty() const override { return m_isDirty; }
@@ -99,6 +100,10 @@ public:
   bool HasDirection() const override { return GetId() != kml::kTempRelationTrackId; }
   void SetVisibility(bool visible);
 
+  // Runtime-only; BookmarkManager sends the rendering notification without saving the track.
+  bool IsSelected() const { return m_isSelected; }
+  void SetSelected(bool selected) { m_isSelected = selected; }
+
   void Attach(kml::MarkGroupId groupId);
   void Detach();
 
@@ -127,4 +132,5 @@ private:
   mutable std::optional<InteractionData> m_interactionData;
 
   mutable bool m_isDirty = true;
+  bool m_isSelected = false;
 };
