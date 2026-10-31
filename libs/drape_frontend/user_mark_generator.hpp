@@ -32,7 +32,7 @@ public:
   void GenerateUserMarksGeometry(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
                                  ref_ptr<dp::TextureManager> textures);
 
-  UserAreasToCache GetAreasToCache(m2::RectD const & tileRect) const;
+  UserAreasToCache GetAreasToCache(m2::RectD const & tileRect);
 
 private:
   void UpdateIndex(kml::MarkGroupId groupId);

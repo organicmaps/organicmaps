@@ -359,6 +359,46 @@ UNIT_CLASS_TEST(AreasTestFixture, Bookmarks_AreasImportSaveRestartAndDelete)
   }
 }
 
+UNIT_CLASS_TEST(AreasTestFixture, Bookmarks_AreaChangesForDrape)
+{
+  std::string const input = R"(<kml><Document><name>Pending areas</name>
+    <Placemark><Polygon><outerBoundaryIs><LinearRing>
+      <coordinates>1,1 5,1 5,5 1,5 1,1</coordinates>
+    </LinearRing></outerBoundaryIs></Polygon></Placemark>
+  </Document></kml>)";
+  auto parsed = LoadKmlData(MemReader(input.data(), input.size()), FileType::Kml);
+  TEST(parsed != nullptr, ());
+  auto const sourcePath = base::JoinPath(GetPlatform().SettingsDir(), "Pending areas.kml");
+  TEST(SaveKmlFileSafe(*parsed, sourcePath, FileType::Kml), ());
+
+  BookmarkManager manager(BM_CALLBACKS);
+  manager.EnableTestMode(true);
+  bool finished = false;
+  BookmarkManager::AsyncLoadingCallbacks callbacks;
+  callbacks.m_onFinished = [&] { finished = true; };
+  manager.SetAsyncLoadingCallbacks(std::move(callbacks));
+  manager.LoadBookmark(sourcePath, false);
+  manager.LoadBookmarks();
+  while (!finished)
+    RunNextGuiTask();
+  TEST(base::DeleteFileX(sourcePath), ());
+
+  // Without a drape engine, all changes stay pending in one notification.
+  auto const group = manager.GetCategoryId("Pending areas");
+  auto const & changes = manager.GetDrapeChangesForTests();
+  TEST_EQUAL(changes.GetCreatedAreaIds(), manager.GetAreaIds(group), ());
+
+  TEST(changes.GetBecameVisibleGroupIds().contains(group), ());
+  manager.GetEditSession().SetIsVisible(group, false);
+  TEST(!changes.GetBecameVisibleGroupIds().contains(group), ("Never shown"));
+  TEST(!changes.GetBecameInvisibleGroupIds().contains(group), ("Never shown"));
+  manager.GetEditSession().SetIsVisible(group, true);
+  TEST(changes.GetBecameVisibleGroupIds().contains(group), ());
+
+  manager.GetEditSession().DeleteBmCategory(group, true);
+  TEST(changes.GetCreatedAreaIds().empty() && changes.GetRemovedAreaIds().empty(), ("Never reached the drape engine"));
+}
+
 UNIT_CLASS_TEST(AreasTestFixture, Bookmarks_AreaExportCapabilitiesAndSnapshots)
 {
   std::string const input = R"(<kml><Document><name>Sharing areas</name>

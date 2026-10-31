@@ -1778,7 +1778,12 @@ void FrontendRenderer::RenderMwmBorderLayer(ScreenBase const & modelView)
 void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView, DepthLayer layerId)
 {
   TRACE_SECTION("[drape] RenderUserMarksLayer");
-  auto const & renderGroups = m_layers[static_cast<size_t>(layerId)].m_renderGroups;
+  auto & layer = m_layers[static_cast<size_t>(layerId)];
+  // Translucent outlines must be drawn over all fills, while an outline bucket may fill up before the fill one and
+  // outlines of neighbor tiles overlap. Sorting by state puts fills first.
+  if (layerId == DepthLayer::UserAreaLayer)
+    layer.Sort(nullptr);
+  auto const & renderGroups = layer.m_renderGroups;
   if (renderGroups.empty())
     return;
 
