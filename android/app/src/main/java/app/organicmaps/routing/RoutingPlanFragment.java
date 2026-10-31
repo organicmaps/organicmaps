@@ -51,6 +51,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   private TextView mDrivingOptionsBadge;
   private View mSearchBtn;
   private View mBookmarkBtn;
+  private View mSaveBtn;
   private View mRoutingContainer;
   private View mRoutingTypesContainer;
   private MapButtonsController.MapButtonClickListener mMapButtonClickListener;
@@ -126,6 +127,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
 
     mSearchBtn = mRoutingRoot.findViewById(R.id.routing_btn_search);
     mBookmarkBtn = mButtonsLayout.findViewById(R.id.routing_btn_bookmarks);
+    mSaveBtn = mButtonsLayout.findViewById(R.id.btn__save);
     mSearchBtn.setOnClickListener(
         v -> mMapButtonClickListener.onMapButtonClick(MapButtonsController.MapButtons.search));
     mBookmarkBtn.setOnClickListener(
@@ -216,6 +218,8 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   private void updateMenuInternal()
   {
     final RoutingController controller = RoutingController.get();
+    UiUtils.showIf(!controller.isTrackRoute(), mSearchBtn, mBookmarkBtn, mSaveBtn,
+                   mRouterTypes.findViewById(R.id.transit), mRouterTypes.findViewById(R.id.ruler));
 
     if (controller.isPlanning())
     {

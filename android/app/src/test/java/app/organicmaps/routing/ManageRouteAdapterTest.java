@@ -1,6 +1,8 @@
 package app.organicmaps.routing;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
@@ -21,6 +23,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RouteMarkType;
+import app.organicmaps.sdk.routing.RoutingController;
+import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.util.ThemeUtils;
 import java.util.List;
 import org.junit.Test;
@@ -146,6 +150,85 @@ public class ManageRouteAdapterTest
         drawables.verify(() -> AppCompatResources.getDrawable(context, expected));
       }
       verify(icons, times(100)).recycle();
+    }
+  }
+
+  @Test
+  public void navigateTrackRowsCanOnlySwapTheTrackAnchors()
+  {
+    final RouteMarkData start = point("Start", RouteMarkType.Start, 0);
+    final RouteMarkData entry = point("Track start", RouteMarkType.Intermediate, 0);
+    final RouteMarkData finish = point("Track finish", RouteMarkType.Finish, 0);
+    final Context context = mock(Context.class);
+    final Resources resources = mock(Resources.class);
+    when(context.getResources()).thenReturn(resources);
+    when(resources.obtainTypedArray(R.array.route_stop_icons)).thenReturn(mock(TypedArray.class));
+    final ManageRouteAdapter adapter =
+        spy(new ManageRouteAdapter(context, new RouteMarkData[0], mock(ManageRouteAdapter.ManageRouteListener.class)));
+    doNothing().when(adapter).notifyDataSetChanged();
+    try (MockedStatic<ThemeUtils> theme = mockStatic(ThemeUtils.class);
+         MockedStatic<AppCompatResources> drawables = mockStatic(AppCompatResources.class))
+    {
+      adapter.setRoutePoints(new RouteMarkData[] {start, entry, finish}, true);
+      assertEquals(3, adapter.getItemCount());
+      for (int position = 0; position < 3; ++position)
+      {
+        final ManageRouteAdapter.ManageRouteViewHolder holder = holder();
+        adapter.onBindViewHolder(holder, position);
+        verify(holder.mImageViewDelete).setVisibility(View.GONE);
+        verify(holder.mImageViewDrag).setVisibility(position == 0 ? View.GONE : View.VISIBLE);
+        verify(holder.itemView).setOnClickListener(null);
+        assertEquals(position != 0, adapter.canMovePoint(position));
+      }
+
+      adapter.setRoutePoints(new RouteMarkData[] {start, finish}, true);
+      assertFalse(adapter.canMovePoint(0));
+      assertFalse(adapter.canMovePoint(1));
+
+      adapter.setRoutePoints(new RouteMarkData[] {start, entry, finish}, false);
+      assertEquals(4, adapter.getItemCount());
+      assertTrue(adapter.canMovePoint(0));
+    }
+  }
+
+  @Test
+  public void navigateTrackNamesEmptyAnchorsByDirectionAndOptimization()
+  {
+    final Context context = mock(Context.class);
+    final Resources resources = mock(Resources.class);
+    when(context.getResources()).thenReturn(resources);
+    when(resources.obtainTypedArray(R.array.route_stop_icons)).thenReturn(mock(TypedArray.class));
+    when(context.getString(R.string.navigate_track_start)).thenReturn("Track start");
+    when(context.getString(R.string.navigate_track_finish)).thenReturn("Track finish");
+    when(context.getString(R.string.intermediate_point)).thenReturn("Intermediate point");
+    final RouteMarkData[] points = {point("Start", RouteMarkType.Start, 0), point("", RouteMarkType.Intermediate, 0),
+                                    point("", RouteMarkType.Finish, 0)};
+    final ManageRouteAdapter adapter =
+        spy(new ManageRouteAdapter(context, new RouteMarkData[0], mock(ManageRouteAdapter.ManageRouteListener.class)));
+    doNothing().when(adapter).notifyDataSetChanged();
+    adapter.setRoutePoints(points, true);
+    final RoutingController routing = mock(RoutingController.class);
+    try (MockedStatic<ThemeUtils> theme = mockStatic(ThemeUtils.class);
+         MockedStatic<AppCompatResources> drawables = mockStatic(AppCompatResources.class);
+         MockedStatic<RoutingController> singleton = mockStatic(RoutingController.class);
+         MockedStatic<RoutingOptions> options = mockStatic(RoutingOptions.class))
+    {
+      singleton.when(RoutingController::get).thenReturn(routing);
+      final String[][] expected = {{"Track start", "Track finish"},
+                                   {"Track finish", "Track start"},
+                                   {"Intermediate point", "Track finish"},
+                                   {"Intermediate point", "Track start"}};
+      for (int state = 0; state < expected.length; ++state)
+      {
+        when(routing.isTrackRouteReversed()).thenReturn(state % 2 == 1);
+        options.when(RoutingOptions::isRouteOptimizationEnabled).thenReturn(state >= 2);
+        for (int position = 1; position < 3; ++position)
+        {
+          final ManageRouteAdapter.ManageRouteViewHolder holder = holder();
+          adapter.onBindViewHolder(holder, position);
+          verify(holder.mTextViewTitle).setText(expected[state][position - 1]);
+        }
+      }
     }
   }
 }

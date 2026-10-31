@@ -1,6 +1,8 @@
 package app.organicmaps.routing;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -231,6 +233,30 @@ public class ManageRouteControllerTest
       singleton.when(RoutingController::get).thenReturn(routing);
       controller.onRoutePointDeleted(holder(2));
       verify(routing).removeStop(RouteMarkType.Intermediate, 1);
+    }
+  }
+
+  @Test
+  public void navigateTrackDropOnTheOtherAnchorReversesTheTrack() throws ReflectiveOperationException
+  {
+    final DragFixture fixture = new DragFixture();
+    fixture.adapter.setRoutePoints(fixture.adapter.getRoutePoints().toArray(new RouteMarkData[0]), true);
+    try (MockedStatic<RoutingController> singleton = mockStatic(RoutingController.class))
+    {
+      singleton.when(RoutingController::get).thenReturn(fixture.routing);
+      final RecyclerView.ViewHolder source = fixture.pointHolder(1);
+      assertEquals(0, fixture.drag.getMovementFlags(fixture.recycler, fixture.pointHolder(0)));
+      assertNotEquals(0, fixture.drag.getMovementFlags(fixture.recycler, source));
+      assertFalse(fixture.drag.canDropOver(fixture.recycler, source, fixture.pointHolder(0)));
+      assertTrue(fixture.drag.canDropOver(fixture.recycler, source, fixture.pointHolder(2)));
+
+      fixture.drag.onSelectedChanged(source, ItemTouchHelper.ACTION_STATE_DRAG);
+      assertTrue(fixture.drag.onMove(fixture.recycler, source, fixture.pointHolder(2)));
+      doReturn(2).when(source).getBindingAdapterPosition();
+      fixture.drag.clearView(fixture.recycler, source);
+      fixture.posted.get(0).run();
+      verify(fixture.routing).reverseRoute();
+      verify(fixture.controller, never()).onRouteOrderChanged(any());
     }
   }
 }

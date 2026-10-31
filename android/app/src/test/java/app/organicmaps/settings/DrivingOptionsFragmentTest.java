@@ -1,6 +1,7 @@
 package app.organicmaps.settings;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.CALLS_REAL_METHODS;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
@@ -81,6 +82,40 @@ public class DrivingOptionsFragmentTest
       routing.when(RoutingController::get).thenReturn(controller);
       for (Map.Entry<Router, Set<RoadType>> each : withAllModes(current).entrySet())
         options.when(() -> RoutingOptions.getActiveRoadTypes(each.getKey())).thenReturn(each.getValue());
+      fragment.onStop();
+    }
+    return controller;
+  }
+
+  @Test
+  public void navigateTrackRebuildsOnceWhenOptimizationChanges() throws ReflectiveOperationException
+  {
+    verify(stopWithOptimization(true, false, true, Map.of())).onRoutingOptionsChanged();
+    verify(stopWithOptimization(true, true, false, Map.of())).onRoutingOptionsChanged();
+    verify(stopWithOptimization(true, true, true, Map.of()), never()).onRoutingOptionsChanged();
+    verify(stopWithOptimization(true, true, true, Map.of(Router.Pedestrian, EnumSet.of(RoadType.Ferry))), never())
+        .onRoutingOptionsChanged();
+    verify(stopWithOptimization(false, true, false, Map.of()), never()).onRoutingOptionsChanged();
+  }
+
+  private static RoutingController stopWithOptimization(boolean trackRoute, boolean loaded, boolean enabled,
+                                                        Map<Router, Set<RoadType>> loadedRoadTypes)
+      throws ReflectiveOperationException
+  {
+    DrivingOptionsFragment fragment = mock(DrivingOptionsFragment.class, CALLS_REAL_METHODS);
+    doReturn(mock(FragmentActivity.class)).when(fragment).requireActivity();
+    setField(fragment, "mRoadTypes", withAllModes(loadedRoadTypes));
+    setField(fragment, "mOptimizationEnabledOnLoad", loaded);
+    RoutingController controller = mock(RoutingController.class);
+    when(controller.getLastRouterType()).thenReturn(Router.Pedestrian);
+    when(controller.isTrackRoute()).thenReturn(trackRoute);
+
+    try (MockedStatic<RoutingController> routing = mockStatic(RoutingController.class);
+         MockedStatic<RoutingOptions> options = mockStatic(RoutingOptions.class))
+    {
+      routing.when(RoutingController::get).thenReturn(controller);
+      options.when(() -> RoutingOptions.getActiveRoadTypes(any())).thenReturn(EnumSet.noneOf(RoadType.class));
+      options.when(RoutingOptions::isRouteOptimizationEnabled).thenReturn(enabled);
       fragment.onStop();
     }
     return controller;
