@@ -648,6 +648,8 @@
     <string name="type.man_made.pier">桟橋</string>
     <string name="type.man_made.pipeline">パイプライン</string>
     <string name="type.man_made.pipeline.overground">地表のパイプライン</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">配水池</string>
     <string name="type.man_made.surveillance">監視カメラ</string>
     <string name="type.man_made.tower">タワー</string>
     <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
@@ -664,6 +666,8 @@
     <string name="type.man_made.water_tower">給水塔</string>
     <string name="type.man_made.water_well">井戸</string>
     <string name="type.man_made.water_well.drinking_water_no">井戸</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">浄水場</string>
     <string name="type.man_made.windmill">風車</string>
     <string name="type.man_made.works">工場</string>
     <string name="type.military">軍事</string>
@@ -1134,6 +1138,8 @@
     <string name="type.shop.greengrocer">八百屋</string>
     <string name="type.shop.grocery">買い物</string>
     <string name="type.shop.hairdresser">美容院/理容店</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">理容室</string>
     <string name="type.shop.hardware">ホームセンター</string>
     <string name="type.shop.health_food">健康食品店</string>
     <string name="type.shop.hearing_aids">補聴器店</string>
@@ -1257,6 +1263,7 @@
     <string name="type.sport.rugby_union">ラグビーユニオン</string>
     <string name="type.sport.running">ランニング</string>
     <string name="type.sport.softball">ソフトボール</string>
+    <string name="type.sport.pilates">ピラティス</string>
     <string name="type.tourism">観光</string>
     <string name="type.tourism.aquarium">水族館</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1368,6 +1375,8 @@
     <string name="type.man_made.monitoring_station.weather">気象観測ステーション</string>
     <string name="type.amenity.student_accommodation">学生寮</string>
     <string name="type.craft.watchmaker">ウォッチメーカー</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">窓製造</string>
     <string name="type.xmas_feature.market">クリスマス・マーケット</string>
     <string name="type.xmas_feature.tree">クリスマスツリー</string>
     <string name="type.amenity.hookah_lounge">シーシャラウンジ</string>

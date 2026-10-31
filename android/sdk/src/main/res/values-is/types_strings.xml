@@ -693,6 +693,8 @@
     <string name="type.man_made.pier">Bryggja</string>
     <string name="type.man_made.pipeline">Leiðsla</string>
     <string name="type.man_made.pipeline.overground">Leiðsla ofanjarðar</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">Yfirbyggður vatnsgeymir</string>
     <string name="type.man_made.silo">Síló</string>
     <string name="type.man_made.storage_tank">Geymslutankur</string>
     <string name="type.man_made.surveillance">Eftirlitsmyndavél</string>
@@ -711,6 +713,8 @@
     <string name="type.man_made.water_tower">Vatnsturn</string>
     <string name="type.man_made.water_well">Vatnsbrunnur</string>
     <string name="type.man_made.water_well.drinking_water_no">Vatnsbrunnur</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">Vatnsveita</string>
     <string name="type.man_made.windmill">Vindmylla</string>
     <string name="type.man_made.works">Iðnaðarsvæði</string>
     <string name="type.military">Hernaðar</string>
@@ -1200,6 +1204,8 @@
     <string name="type.shop.greengrocer">Grænmetissala</string>
     <string name="type.shop.grocery">Matvöruverslun</string>
     <string name="type.shop.hairdresser">Hársnyrting</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">Rakarastofa</string>
     <string name="type.shop.hardware">Verkfærabúð</string>
     <string name="type.shop.health_food">Heilsufæðisverslun</string>
     <string name="type.shop.hearing_aids">Heyrnartækjaverslun</string>
@@ -1323,6 +1329,7 @@
     <string name="type.sport.rugby_union">Ruðningur</string>
     <string name="type.sport.running">Hlaup</string>
     <string name="type.sport.softball">Softbolti</string>
+    <string name="type.sport.pilates">Pilates</string>
     <string name="type.tourism">Ferðamennska</string>
     <string name="type.tourism.aquarium">Fiskabúr</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1466,6 +1473,8 @@
     <string name="type.man_made.monitoring_station.weather">Veðurstöð</string>
     <string name="type.amenity.student_accommodation">Stúdentagarðar</string>
     <string name="type.craft.watchmaker">Úrsmiður</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">Gluggasmíði</string>
     <string name="type.xmas_feature.market">Jólamarkaður</string>
     <string name="type.xmas_feature.tree">Jólatré</string>
     <string name="type.amenity.hookah_lounge">Vatnspípubar</string>

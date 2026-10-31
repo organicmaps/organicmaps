@@ -578,6 +578,8 @@
     <string name="type.leisure.water_park">Công viên nước</string>
     <string name="type.man_made.chimney">Ống khói nhà máy</string>
     <string name="type.man_made.lighthouse">Hải đăng</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">Bể chứa nước có mái che</string>
     <string name="type.man_made.surveillance">Camera giám sát</string>
     <string name="type.man_made.tower">Tháp</string>
     <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
@@ -593,6 +595,8 @@
     <string name="type.man_made.water_tower">Tháp Nước</string>
     <string name="type.man_made.water_well">Giếng Nước</string>
     <string name="type.man_made.water_well.drinking_water_no">Giếng Nước</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">Nhà máy nước</string>
     <string name="type.man_made.windmill">Cối xay gió</string>
     <string name="type.military.bunker">Boongke</string>
     <string name="type.natural">Tự nhiên</string>
@@ -1024,6 +1028,8 @@
     <string name="type.shop.greengrocer">Cửa hàng rau củ</string>
     <string name="type.shop.grocery">Cửa hàng tạp hóa</string>
     <string name="type.shop.hairdresser">Tiệm làm tóc</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">Tiệm cắt tóc nam</string>
     <string name="type.shop.health_food">Cửa hàng thực phẩm sức khỏe</string>
     <string name="type.shop.hearing_aids">Cửa hàng máy trợ thính</string>
     <string name="type.shop.herbalist">Cửa hàng thảo mộc</string>
@@ -1145,6 +1151,7 @@
     <string name="type.sport.rugby_union">Rugby</string>
     <string name="type.sport.running">Chạy bộ</string>
     <string name="type.sport.softball">Bóng mềm</string>
+    <string name="type.sport.pilates">Pilates</string>
     <string name="type.tourism.aquarium">Bể nuôi cá</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
     <string name="type.tourism.alpine_hut">Nhà nghỉ trên núi</string>
@@ -1246,6 +1253,8 @@
     <string name="type.man_made.monitoring_station.weather">Trạm quan trắc thời tiết</string>
     <string name="type.amenity.student_accommodation">Chỗ ở cho sinh viên</string>
     <string name="type.craft.watchmaker">Thợ đồng hồ</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">Sản xuất cửa sổ</string>
     <string name="type.xmas_feature.market">Chợ Giáng sinh</string>
     <string name="type.xmas_feature.tree">Cây Giáng sinh</string>
     <string name="type.amenity.hookah_lounge">Quán shisha</string>

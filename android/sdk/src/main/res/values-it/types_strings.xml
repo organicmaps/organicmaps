@@ -694,6 +694,8 @@
     <string name="type.man_made.pier">Molo</string>
     <string name="type.man_made.pipeline">Condotto</string>
     <string name="type.man_made.pipeline.overground">Condotto non interrato</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">Serbatoio idrico coperto</string>
     <string name="type.man_made.silo">Silo</string>
     <string name="type.man_made.storage_tank">Cisterna</string>
     <string name="type.man_made.surveillance">Videocamera di sorveglianza</string>
@@ -712,6 +714,8 @@
     <string name="type.man_made.water_tower">Cisterna per acqua</string>
     <string name="type.man_made.water_well">Pozzo d\'acqua</string>
     <string name="type.man_made.water_well.drinking_water_no">Pozzo d\'acqua</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">Impianto di potabilizzazione</string>
     <string name="type.man_made.windmill">Mulino a vento</string>
     <string name="type.man_made.works">Fabbrica</string>
     <string name="type.military">Forze armate</string>
@@ -1201,6 +1205,8 @@
     <string name="type.shop.greengrocer">Fruttivendolo</string>
     <string name="type.shop.grocery">Drogheria</string>
     <string name="type.shop.hairdresser">Parrucchiera</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">Barbiere</string>
     <string name="type.shop.hardware">Ferramenta</string>
     <string name="type.shop.health_food">Negozio di alimenti naturali</string>
     <string name="type.shop.hearing_aids">Negozio di apparecchi acustici</string>
@@ -1324,6 +1330,7 @@
     <string name="type.sport.rugby_union">Rugby a 15</string>
     <string name="type.sport.running">Corsa</string>
     <string name="type.sport.softball">Softball</string>
+    <string name="type.sport.pilates">Pilates</string>
     <string name="type.tourism">Turismo</string>
     <string name="type.tourism.aquarium">Acquario</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1467,6 +1474,8 @@
     <string name="type.man_made.monitoring_station.weather">Stazione di monitoraggio meteo</string>
     <string name="type.amenity.student_accommodation">Alloggio per studenti</string>
     <string name="type.craft.watchmaker">Orologiaio</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">Serramentista</string>
     <string name="type.xmas_feature.market">Mercatino di Natale</string>
     <string name="type.xmas_feature.tree">Albero di Natale</string>
     <string name="type.amenity.hookah_lounge">Shisha bar</string>

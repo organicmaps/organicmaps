@@ -306,6 +306,8 @@
     <string name="type.leisure.sauna">Chumba cha mvuke</string>
     <string name="type.leisure.track">Njia ya mbio</string>
     <string name="type.leisure.track.area">Njia ya mbio</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">Hifadhi ya maji iliyofunikwa</string>
     <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
     <string name="type.man_made.communications_tower">Mnara wa Mawasiliano</string>
     <!-- A regular telecommunications tower / mast. -->
@@ -314,6 +316,8 @@
     <string name="type.man_made.petroleum_well">Kisima ya mafuta au gesi</string>
     <!-- A tower/mast constructed to burn off excess gas. -->
     <string name="type.man_made.flare">Mshumaa wa gesi</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">Kituo cha kusafisha maji</string>
     <string name="type.natural">Uasilia</string>
     <!-- A rocky land cover. -->
     <string name="type.natural.bare_rock">Mwamba tupu</string>
@@ -559,6 +563,8 @@
     <string name="type.shop.fashion_accessories">Vifaa vya Mtindo</string>
     <string name="type.shop.gas">Duka la gesi</string>
     <string name="type.shop.grocery">Chakula cha mboga</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">Kinyozi</string>
     <string name="type.shop.hardware">Duka la vifaa</string>
     <string name="type.shop.health_food">Duka la Chakula cha Afya</string>
     <string name="type.shop.hearing_aids">Duka la misaada ya kusikia</string>
@@ -650,6 +656,7 @@
     <string name="type.sport.rugby_union">Raga</string>
     <string name="type.sport.running">Mbio</string>
     <string name="type.sport.softball">Softball</string>
+    <string name="type.sport.pilates">Pilates</string>
     <string name="type.tourism.aquarium">Aquarium</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
     <string name="type.tourism.alpine_hut">Mlima lodge</string>
@@ -726,6 +733,8 @@
     <string name="type.man_made.monitoring_station.weather">Kituo cha Ufuatiliaji wa Hali ya Hewa</string>
     <string name="type.amenity.student_accommodation">Malazi ya Wanafunzi</string>
     <string name="type.craft.watchmaker">Mtazamaji</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">Utengenezaji wa madirisha</string>
     <string name="type.xmas_feature.market">Soko la Krismasi</string>
     <string name="type.xmas_feature.tree">Mti wa Krismasi</string>
     <string name="type.amenity.hookah_lounge">Eneo la hooka</string>

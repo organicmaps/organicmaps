@@ -646,6 +646,8 @@
     <string name="type.man_made.pier">Pier</string>
     <string name="type.man_made.pipeline">Pypleiding</string>
     <string name="type.man_made.pipeline.overground">Bogrondse pypleiding</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">Bedekte reservoir</string>
     <string name="type.man_made.silo">Silo</string>
     <string name="type.man_made.storage_tank">Opgaartenk</string>
     <string name="type.man_made.surveillance">Bewakingskamera</string>
@@ -664,6 +666,8 @@
     <string name="type.man_made.water_tower">Watertoring</string>
     <string name="type.man_made.water_well">Waterput</string>
     <string name="type.man_made.water_well.drinking_water_no">Waterput</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">Waterwerke</string>
     <string name="type.man_made.windmill">Windmeule</string>
     <string name="type.man_made.works">Fabriek</string>
     <string name="type.military">Militêr</string>
@@ -1135,6 +1139,8 @@
     <string name="type.shop.greengrocer">Groentewinkel</string>
     <string name="type.shop.grocery">Kruidenier</string>
     <string name="type.shop.hairdresser">Haarkapper</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">Barbier</string>
     <string name="type.shop.hardware">Ysterware</string>
     <string name="type.shop.health_food">Gesondheidsvoedsel</string>
     <string name="type.shop.hearing_aids">Gehoorapparaatwinkel</string>
@@ -1255,6 +1261,7 @@
     <string name="type.sport.rugby_union">Rugbyunie</string>
     <string name="type.sport.running">Hardloop</string>
     <string name="type.sport.softball">Sagtebal</string>
+    <string name="type.sport.pilates">Pilates</string>
     <string name="type.tourism">Toerisme</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
     <string name="type.tourism.alpine_hut">Berg lodge</string>
@@ -1371,6 +1378,8 @@
     <string name="type.railway.miniature">Miniatuur Spoorweg</string>
     <string name="type.amenity.kneipp_water_cure">Kneipp Water Cure</string>
     <string name="type.area_highway.traffic_island">Verkeerseiland</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">Venstervervaardiging</string>
     <string name="type.xmas_feature.market">Kersmark</string>
     <string name="type.xmas_feature.tree">Kersboom</string>
 </resources>

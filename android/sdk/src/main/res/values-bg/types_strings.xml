@@ -503,6 +503,8 @@
     <string name="type.leisure.swimming_pool.private">Басейн</string>
     <string name="type.leisure.track">Спортна писта</string>
     <string name="type.leisure.track.area">Спортна писта</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">Покрит резервоар</string>
     <string name="type.man_made.silo">Складова кула</string>
     <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
     <string name="type.man_made.communications_tower">Комуникационна кула</string>
@@ -512,6 +514,8 @@
     <string name="type.man_made.petroleum_well">Нефтена или газова кладенец</string>
     <!-- A tower/mast constructed to burn off excess gas. -->
     <string name="type.man_made.flare">Газова факла</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">Водопроводна станция</string>
     <string name="type.natural">Природа</string>
     <!-- A rocky land cover. -->
     <string name="type.natural.bare_rock">Рок</string>
@@ -696,6 +700,8 @@
     <string name="type.shop.games">Магазин за игри</string>
     <string name="type.shop.gas">Магазин за газ</string>
     <string name="type.shop.grocery">Хранителни стоки</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">Бръснарница</string>
     <string name="type.shop.hardware">Железария</string>
     <string name="type.shop.health_food">Магазин за здравословни храни</string>
     <string name="type.shop.hearing_aids">Магазин за слухови апарати</string>
@@ -783,6 +789,7 @@
     <string name="type.sport.rugby_union">Ръгби юнион</string>
     <string name="type.sport.running">Бягане</string>
     <string name="type.sport.softball">Софтбол</string>
+    <string name="type.sport.pilates">Пилатес</string>
     <string name="type.tourism.aquarium">Аквариум</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
     <string name="type.tourism.alpine_hut">Планинска хижа</string>
@@ -869,6 +876,8 @@
     <string name="type.man_made.monitoring_station.weather">Станция за наблюдение на времето</string>
     <string name="type.amenity.student_accommodation">Настаняване на студенти</string>
     <string name="type.craft.watchmaker">Часовникар</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">Производство на прозорци</string>
     <string name="type.xmas_feature.market">Коледен пазар</string>
     <string name="type.xmas_feature.tree">Коледна елха</string>
     <string name="type.amenity.hookah_lounge">Наргиле бар</string>

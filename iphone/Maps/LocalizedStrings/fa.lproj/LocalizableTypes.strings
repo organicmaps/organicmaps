@@ -809,6 +809,9 @@
 "type.man_made.pier" = "اسکله";
 "type.man_made.pipeline" = "خط لوله";
 "type.man_made.pipeline.overground" = "خط لوله روی زمین";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "مخزن آب سرپوشیده";
 "type.man_made.silo" = "انبار";
 "type.man_made.storage_tank" = "مخزن";
 "type.man_made.surveillance" = "دوربین نظارتی";
@@ -831,6 +834,9 @@
 "type.man_made.water_tower" = "منبع اب";
 "type.man_made.water_well" = "چاه اب";
 "type.man_made.water_well.drinking_water_no" = "چاه اب";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "تصفیه‌خانه آب";
 "type.man_made.windmill" = "توربین بادی";
 "type.man_made.works" = "تأسیسات صنعتی";
 
@@ -1339,6 +1345,9 @@
 "type.shop.greengrocer" = "فروشگاه";
 "type.shop.grocery" = "ﺭﺎﺑﺭﺍﻮﺧ";
 "type.shop.hairdresser" = "ارایشگاه";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "آرایشگاه مردانه";
 "type.shop.hardware" = "ﺭﺍﺰﻓﺍ ﺖﺨﺳ ﻩﺎﮕﺷﻭﺮﻓ";
 "type.shop.health_food" = "ﯽﺘﺷﺍﺪﻬﺑ ﯽﯾﺍﺬﻏ ﺩﺍﻮﻣ ﻩﺎﮕﺷﻭﺮﻓ";
 "type.shop.hearing_aids" = "فروشگاه ساحلی";
@@ -1464,6 +1473,7 @@
 "type.sport.rugby_union" = "راگبی ۱۵ نفره";
 "type.sport.running" = "دویدن";
 "type.sport.softball" = "سافت‌بال";
+"type.sport.pilates" = "پیلاتس";
 "type.tourism" = "Tourism";
 "type.tourism.aquarium" = "آکواریوم";
 
@@ -1614,6 +1624,9 @@
 "type.man_made.monitoring_station.weather" = "ایستگاه پایش آب و هوا";
 "type.amenity.student_accommodation" = "خوابگاه دانشجویی";
 "type.craft.watchmaker" = "ساعت ساز";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "ساخت پنجره";
 "type.xmas_feature.market" = "بازار کریسمس";
 "type.xmas_feature.tree" = "درخت کریسمس";
 "type.amenity.hookah_lounge" = "قلیان‌سرا";

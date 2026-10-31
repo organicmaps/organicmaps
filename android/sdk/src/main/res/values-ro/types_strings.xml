@@ -592,6 +592,8 @@
     <string name="type.leisure.water_park">Parc acvatic</string>
     <string name="type.man_made.chimney">Coș de fabrică</string>
     <string name="type.man_made.lighthouse">Far</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">Rezervor de apă acoperit</string>
     <string name="type.man_made.surveillance">Cameră de supraveghere</string>
     <string name="type.man_made.tower">Turn</string>
     <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
@@ -607,6 +609,8 @@
     <string name="type.man_made.water_tower">Turn de apă</string>
     <string name="type.man_made.water_well">Puț de apă</string>
     <string name="type.man_made.water_well.drinking_water_no">Puț de apă</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">Stație de tratare a apei</string>
     <string name="type.man_made.windmill">Moară de vânt</string>
     <string name="type.military.bunker">Buncăr</string>
     <string name="type.mountain_pass">Pas</string>
@@ -1041,6 +1045,8 @@
     <string name="type.shop.greengrocer">Băcănie</string>
     <string name="type.shop.grocery">Băcănie</string>
     <string name="type.shop.hairdresser">Coafor</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">Frizerie</string>
     <string name="type.shop.hardware">Magazin de hardware</string>
     <string name="type.shop.health_food">Magazin de alimente naturiste</string>
     <string name="type.shop.hearing_aids">Magazin de aparate auditive</string>
@@ -1161,6 +1167,7 @@
     <string name="type.sport.rugby_union">Rugby</string>
     <string name="type.sport.running">Alergare</string>
     <string name="type.sport.softball">Softball</string>
+    <string name="type.sport.pilates">Pilates</string>
     <string name="type.tourism.aquarium">Acvariu</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
     <string name="type.tourism.alpine_hut">Cabana de munte</string>
@@ -1257,6 +1264,8 @@
     <string name="type.man_made.monitoring_station.weather">Stație de monitorizare meteorologică</string>
     <string name="type.amenity.student_accommodation">Cazare pentru studenți</string>
     <string name="type.craft.watchmaker">Ceasornicar</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">Producție de ferestre</string>
     <string name="type.xmas_feature.market">Piață de Crăciun</string>
     <string name="type.xmas_feature.tree">Pom de Crăciun</string>
     <string name="type.amenity.hookah_lounge">Lounge de narghilea</string>

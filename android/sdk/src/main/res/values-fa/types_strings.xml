@@ -598,6 +598,8 @@
     <string name="type.man_made.pier">اسکله</string>
     <string name="type.man_made.pipeline">خط لوله</string>
     <string name="type.man_made.pipeline.overground">خط لوله روی زمین</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">مخزن آب سرپوشیده</string>
     <string name="type.man_made.silo">انبار</string>
     <string name="type.man_made.storage_tank">مخزن</string>
     <string name="type.man_made.surveillance">دوربین نظارتی</string>
@@ -616,6 +618,8 @@
     <string name="type.man_made.water_tower">منبع اب</string>
     <string name="type.man_made.water_well">چاه اب</string>
     <string name="type.man_made.water_well.drinking_water_no">چاه اب</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">تصفیه‌خانه آب</string>
     <string name="type.man_made.windmill">توربین بادی</string>
     <string name="type.man_made.works">تأسیسات صنعتی</string>
     <string name="type.military">ارتش</string>
@@ -1091,6 +1095,8 @@
     <string name="type.shop.greengrocer">فروشگاه</string>
     <string name="type.shop.grocery">ﺭﺎﺑﺭﺍﻮﺧ</string>
     <string name="type.shop.hairdresser">ارایشگاه</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">آرایشگاه مردانه</string>
     <string name="type.shop.hardware">ﺭﺍﺰﻓﺍ ﺖﺨﺳ ﻩﺎﮕﺷﻭﺮﻓ</string>
     <string name="type.shop.health_food">ﯽﺘﺷﺍﺪﻬﺑ ﯽﯾﺍﺬﻏ ﺩﺍﻮﻣ ﻩﺎﮕﺷﻭﺮﻓ</string>
     <string name="type.shop.hearing_aids">فروشگاه ساحلی</string>
@@ -1214,6 +1220,7 @@
     <string name="type.sport.rugby_union">راگبی ۱۵ نفره</string>
     <string name="type.sport.running">دویدن</string>
     <string name="type.sport.softball">سافت‌بال</string>
+    <string name="type.sport.pilates">پیلاتس</string>
     <string name="type.tourism.aquarium">آکواریوم</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
     <string name="type.tourism.alpine_hut">اقامتگاه کوهستانی</string>
@@ -1315,6 +1322,8 @@
     <string name="type.man_made.monitoring_station.weather">ایستگاه پایش آب و هوا</string>
     <string name="type.amenity.student_accommodation">خوابگاه دانشجویی</string>
     <string name="type.craft.watchmaker">ساعت ساز</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">ساخت پنجره</string>
     <string name="type.xmas_feature.market">بازار کریسمس</string>
     <string name="type.xmas_feature.tree">درخت کریسمس</string>
     <string name="type.amenity.hookah_lounge">قلیان‌سرا</string>

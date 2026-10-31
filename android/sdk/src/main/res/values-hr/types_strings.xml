@@ -94,7 +94,11 @@
     <string name="type.leisure.bird_hide">Promatračnica za ptice</string>
     <string name="type.leisure.track">Sportska staza</string>
     <string name="type.leisure.track.area">Sportska staza</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">Vodosprema</string>
     <string name="type.man_made.silo">Silos</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">Vodovodno postrojenje</string>
     <string name="type.natural.water.intermittent">Povremena vodena površina</string>
     <string name="type.natural.hill">Brdo</string>
     <string name="type.natural.arch">Stijenska luč</string>
@@ -123,6 +127,8 @@
     <string name="type.shop.clothes.underwear">Donje rublje</string>
     <string name="type.shop.clothes.wedding">Salon vjenčanica</string>
     <string name="type.shop.clothes.women">Ženska odjeća</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">Brijačnica</string>
     <string name="type.shop.leather">Trgovina kožnom galanterijom</string>
     <string name="type.shop.religion">Trgovina vjerskim predmetima</string>
     <string name="type.sport.boules">Boćanje</string>
@@ -137,6 +143,7 @@
     <string name="type.sport.rugby_union">Ragbi union</string>
     <string name="type.sport.running">Trčanje</string>
     <string name="type.sport.softball">Softball</string>
+    <string name="type.sport.pilates">Pilates</string>
     <string name="type.waterway.access_point">Pristupna točka plovnom putu</string>
     <string name="type.waterway.canal">Kanal</string>
     <string name="type.waterway.canal.intermittent">Povremeni kanal</string>
@@ -156,4 +163,6 @@
     <string name="type.barrier.jersey_barrier">Blok</string>
     <string name="type.barrier.debris">Ruševina</string>
     <string name="type.amenity.boat_rental">Iznajmljivanje čamaca</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">Izrada prozora</string>
 </resources>

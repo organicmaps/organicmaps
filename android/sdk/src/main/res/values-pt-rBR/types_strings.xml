@@ -552,5 +552,7 @@
     <string name="type.man_made.monitoring_station.water_level">Estação de monitoramento do nível de água</string>
     <string name="type.man_made.monitoring_station.weather">Estação de monitoramento meteorológico</string>
     <string name="type.amenity.student_accommodation">Acomodação para estudantes</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">Fabricação de janelas</string>
     <string name="type.amenity.hookah_lounge">Lounge de narguilé</string>
 </resources>
