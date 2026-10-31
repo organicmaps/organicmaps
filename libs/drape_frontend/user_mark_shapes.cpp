@@ -16,6 +16,7 @@
 #include "drape/attribute_provider.hpp"
 #include "drape/batcher.hpp"
 #include "drape/font_constants.hpp"
+#include "drape/utils/projection.hpp"
 #include "drape/utils/vertex_decl.hpp"
 
 #include "indexer/feature_decl.hpp"
@@ -38,6 +39,11 @@
 #include <memory>
 #include <utility>
 #include <vector>
+
+#include <boost/geometry/algorithms/correct.hpp>
+#include <boost/geometry/algorithms/is_valid.hpp>
+#include <boost/geometry/geometries/point_xy.hpp>
+#include <boost/geometry/geometries/polygon.hpp>
 
 namespace mapbox::util
 {
@@ -451,6 +457,24 @@ m2::SharedSpline SimplifySpline(m2::SharedSpline const & in, double minSqrLength
   return spline;
 }
 
+// SimplifySpline collapses a closed ring smaller than its step into a point or a back-and-forth segment, while
+// the ring's stroke is visible.
+m2::SharedSpline SimplifyRing(m2::SharedSpline const & ring, double minSqrLength)
+{
+  if (auto simplified = SimplifySpline(ring, minSqrLength); simplified->GetSize() > 3)
+    return simplified;
+
+  // A few vertices keep the ring drawable.
+  size_t constexpr kMaxPoints = 8;
+  auto const & path = ring->GetPath();
+  size_t const step = std::max<size_t>(1, path.size() / kMaxPoints);
+  auto spline = std::make_unique<m2::Spline>(path.size() / step + 2);
+  for (size_t i = 0; i < path.size(); i += step)
+    spline->AddPoint(path[i]);
+  spline->AddPoint(path.back());
+  return m2::SharedSpline(std::move(spline));
+}
+
 LineLayer const & GetTopLayer(UserLineRenderParams const & renderInfo)
 {
   ASSERT(!renderInfo.m_layers.empty(), ());
@@ -509,19 +533,125 @@ double RingArea(std::vector<m2::PointD> const & ring)
   return std::fabs(area);
 }
 
-template <class AddTriangleFn>
-void TessellateByLibtess(Rings const & rings, AddTriangleFn const & addTriangle)
+// Earcut fills only valid polygons by the even-odd rule, while the import retains invalid ones,
+// and the projection may make others touch or cross.
+bool IsValidPolygon(Rings const & rings)
+{
+  namespace bg = boost::geometry;
+  // The type of geometry/intersection_score.hpp, so that the apps share the is_valid code with the editor.
+  bg::model::polygon<bg::model::d2::point_xy<double>> polygon;
+  auto const copy = [](std::vector<m2::PointD> const & from, auto & to)
+  {
+    to.reserve(from.size());
+    for (auto const & p : from)
+      to.emplace_back(p.x, p.y);
+  };
+  copy(rings.front(), polygon.outer());
+  for (size_t i = 1; i < rings.size(); ++i)
+    copy(rings[i], polygon.inners().emplace_back());
+  // Orients and closes the rings for the type, while the even-odd rule doesn't depend on their winding.
+  bg::correct(polygon);
+  return bg::is_valid(polygon);
+}
+
+// Returns the doubled area of the triangle.
+double AddClockwiseTriangle(std::vector<m2::PointD> & triangles, m2::PointD const & a, m2::PointD const & b,
+                            m2::PointD const & c)
+{
+  // ClipTriangleByRect takes clockwise triangles, while tessellators may emit others and zero-area ones.
+  double const s = m2::robust::OrientedS(a, b, c);
+  if (s < 0)
+    triangles.insert(triangles.end(), {a, b, c});
+  else if (s > 0)
+    triangles.insert(triangles.end(), {a, c, b});
+  return std::fabs(s);
+}
+
+// Fans out a triangle, a convex quadrilateral or a ring that is star-shaped around its bounding box center, as
+// many simple shapes are. Earcut is slow on some of the latter, e.g. 0.6 s vs 1 ms for a jagged 100k-vertex circle.
+bool TryFan(std::vector<m2::PointD> const & ring, std::vector<m2::PointD> & triangles)
+{
+  size_t const n = ring.size();
+  // All turns of a convex quadrilateral are of the same direction, while RemoveCollinearPoints leaves no straight ones.
+  auto const turnsLeft = [&](size_t i)
+  { return m2::robust::OrientedS(ring[i], ring[(i + 1) % n], ring[(i + 2) % n]) > 0; };
+  if (n == 3 ||
+      (n == 4 && turnsLeft(0) == turnsLeft(1) && turnsLeft(1) == turnsLeft(2) && turnsLeft(2) == turnsLeft(3)))
+  {
+    triangles.reserve(3 * (n - 2));
+    for (size_t i = 2; i < n; ++i)
+      AddClockwiseTriangle(triangles, ring[0], ring[i - 1], ring[i]);
+    return true;
+  }
+
+  m2::RectD rect;
+  for (auto const & p : ring)
+    rect.Add(p);
+  auto const center = rect.Center();
+  // Every edge must go around the center in the same direction, by less than pi, and the ring must pass between
+  // the half-planes above and below the center twice, so that it winds once. Otherwise, e.g. for a pentagram or
+  // a ring traced twice, the fan triangles overlap.
+  auto const isUpper = [&center](m2::PointD const & p)
+  { return p.y > center.y || (p.y == center.y && p.x >= center.x); };
+  bool const isLeft = m2::robust::OrientedS(center, ring.back(), ring.front()) > 0;
+  size_t crossings = 0;
+  for (size_t i = 0, j = n - 1; i < n; j = i++)
+  {
+    double const s = m2::robust::OrientedS(center, ring[j], ring[i]);
+    if (s == 0 || (s > 0) != isLeft)
+      return false;
+    crossings += isUpper(ring[j]) != isUpper(ring[i]);
+  }
+  if (crossings != 2)
+    return false;
+
+  triangles.reserve(3 * n);
+  for (size_t i = 0, j = n - 1; i < n; j = i++)
+    AddClockwiseTriangle(triangles, center, ring[j], ring[i]);
+  return true;
+}
+
+void TessellateByLibtess(Rings const & rings, std::vector<m2::PointD> & triangles)
 {
   std::unique_ptr<TESStesselator, decltype(&tessDeleteTess)> const tess(tessNewTess(nullptr), &tessDeleteTess);
   for (auto const & ring : rings)
     tessAddContour(tess.get(), 2, ring.data(), sizeof(m2::PointD), static_cast<int>(ring.size()));
+  // The contours are planar, so libtess2 needn't find their plane and orientation.
+  TESSreal constexpr kNormal[] = {0, 0, 1};
   // Fails only when out of memory.
-  VERIFY(tessTesselate(tess.get(), TESS_WINDING_ODD, TESS_POLYGONS, 3, 2, nullptr), ());
+  VERIFY(tessTesselate(tess.get(), TESS_WINDING_ODD, TESS_POLYGONS, 3, 2, kNormal), ());
 
   auto const * vertices = reinterpret_cast<m2::PointD const *>(tessGetVertices(tess.get()));
   auto const * indices = tessGetElements(tess.get());
-  for (int i = 0, count = tessGetElementCount(tess.get()); i < count; ++i, indices += 3)
-    addTriangle(vertices[indices[0]], vertices[indices[1]], vertices[indices[2]]);
+  int const count = tessGetElementCount(tess.get());
+  triangles.reserve(3 * static_cast<size_t>(count));
+  for (int i = 0; i < count; ++i, indices += 3)
+    AddClockwiseTriangle(triangles, vertices[indices[0]], vertices[indices[1]], vertices[indices[2]]);
+}
+
+// A thinner quad without antialiasing misses pixel centers and breaks up.
+float GetOutlineWidth(UserAreaRenderParams const & area, double vs)
+{
+  ASSERT_GREATER(area.m_outlineWidth, 0, ());
+  return std::max(1.0f, static_cast<float>(area.m_outlineWidth * vs));
+}
+
+// By the even-odd rule, as polygons are filled.
+bool IsInside(std::vector<m2::SharedSpline> const & rings, m2::PointD const & p)
+{
+  bool inside = false;
+  for (auto const & ring : rings)
+  {
+    auto const & path = ring->GetPath();
+    for (size_t i = 0, j = path.size() - 1; i < path.size(); j = i++)
+    {
+      auto const & a = path[j];
+      auto const & b = path[i];
+      if ((a.y > p.y) != (b.y > p.y) && p.x < a.x + (p.y - a.y) * (b.x - a.x) / (b.y - a.y))
+        inside = !inside;
+    }
+  }
+  return inside;
 }
 }  // namespace
 
@@ -826,18 +956,8 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
 drape_ptr<UserAreaRenderParams> GenerateAreaRenderInfo(kml::AreaData const & area)
 {
   auto renderInfo = make_unique_dp<UserAreaRenderParams>();
-
-  m2::RectD geoRect;
-  for (auto const & polygon : area.m_polygons)
-    for (auto const & point : polygon.m_outer)
-      geoRect.Add({point.m_latLon.m_lon, point.m_latLon.m_lat});
-  // Global and polar footprints need a separate wrapping/clipping implementation.
-  double const maxLat = mercator::YToLat(mercator::Bounds::kMaxY);
-  if (geoRect.SizeX() > 180 || geoRect.minY() < -maxLat || geoRect.maxY() > maxLat)
-  {
-    LOG(LWARNING, ("Area lies outside the supported display extent", area.m_id));
+  if (!area.m_visible)
     return renderInfo;
-  }
 
   auto const & style = area.m_style;
   if (style.m_fill)
@@ -845,6 +965,8 @@ drape_ptr<UserAreaRenderParams> GenerateAreaRenderInfo(kml::AreaData const & are
   renderInfo->m_outlineColor = dp::Color(style.m_outlineColor);
   if (style.m_outline && style.m_outlineWidth > 0 && renderInfo->m_outlineColor.GetAlpha() > 0)
     renderInfo->m_outlineWidth = static_cast<float>(style.m_outlineWidth);
+  if (renderInfo->m_fillColor.GetAlpha() == 0 && renderInfo->m_outlineWidth == 0)
+    return renderInfo;
 
   auto const toMercator = [](kml::AreaRing const & ring)
   {
@@ -861,59 +983,81 @@ drape_ptr<UserAreaRenderParams> GenerateAreaRenderInfo(kml::AreaData const & are
   };
   auto const makeSpline = [](std::vector<m2::PointD> const & ring)
   {
-    auto const closing = (ring.front() + ring.back()) / 2;
-    auto spline = std::make_unique<m2::Spline>(ring.size() + 2);
-    spline->AddPoint(closing);
+    auto spline = std::make_unique<m2::Spline>(ring.size() + 1);
     // Skips segments shorter than the spline's minimum, so a tiny ring collapses into a point.
     for (auto const & point : ring)
       spline->AddPoint(point);
-    spline->AddPoint(closing);
+    spline->AddPoint(ring.front());
+    // The closing point too close to the last vertex is skipped, while ClipUserAreaRing recognizes rings by it.
+    if (spline->GetSize() > 1 && spline->GetPath().back() != ring.front())
+      spline->ReplacePoint(ring.front());
     return m2::SharedSpline(std::move(spline));
   };
+
+  // Global and polar footprints need a separate wrapping/clipping implementation.
+  double const maxLat = mercator::YToLat(mercator::Bounds::kMaxY);
   for (auto const & polygon : area.m_polygons)
   {
-    auto & splines = renderInfo->m_polygons.emplace_back();
-    auto & fillRings = renderInfo->m_fillRings.emplace_back();
-    auto const addRing = [&](kml::AreaRing const & ring)
-    { splines.push_back(makeSpline(fillRings.emplace_back(toMercator(ring)))); };
-    addRing(polygon.m_outer);
+    // Holes may lie outside their shell, and the even-odd rule fills them.
+    std::vector<kml::AreaRing const *> rings = {&polygon.m_outer};
     for (auto const & hole : polygon.m_holes)
-      addRing(hole);
-    renderInfo->m_limitRect.Add(splines.front()->GetRect());
+      rings.push_back(&hole);
+
+    m2::RectD geoRect;
+    for (auto const * ring : rings)
+      for (auto const & point : *ring)
+        geoRect.Add({point.m_latLon.m_lon, point.m_latLon.m_lat});
+    if (geoRect.SizeX() > 180 || geoRect.minY() < -maxLat || geoRect.maxY() > maxLat)
+    {
+      LOG(LWARNING, ("Area polygon lies outside the supported display extent", area.m_id));
+      continue;
+    }
+
+    auto & splines = renderInfo->m_polygons.emplace_back();
+    auto & rect = renderInfo->m_polygonRects.emplace_back();
+    std::vector<std::vector<m2::PointD>> fillRings;
+    for (auto const * ring : rings)
+    {
+      auto const & points = fillRings.emplace_back(toMercator(*ring));
+      splines.push_back(makeSpline(points));
+      for (auto const & point : points)
+        rect.Add(point);
+    }
+    renderInfo->m_limitRect.Add(rect);
+    if (renderInfo->m_fillColor.GetAlpha() > 0)
+    {
+      renderInfo->m_fillRings.push_back(std::move(fillRings));
+      renderInfo->m_triangles.emplace_back();
+    }
   }
   return renderInfo;
 }
 
-void TessellateUserArea(UserAreaRenderParams & area)
+void TessellateUserArea(UserAreaRenderParams & area, size_t polygon)
 {
-  auto polygons = std::exchange(area.m_fillRings, {});
-  if (area.m_fillColor.GetAlpha() == 0)
+  ASSERT_LESS(polygon, area.m_fillRings.size(), ());
+  auto rings = std::exchange(area.m_fillRings[polygon], {});
+  // Tessellated already.
+  if (rings.empty())
     return;
 
-  auto & triangles = area.m_triangles;
-  // Returns the doubled area of the triangle.
-  auto const addTriangle = [&triangles](m2::PointD const & a, m2::PointD const & b, m2::PointD const & c)
-  {
-    // ClipTriangleByRect takes clockwise triangles, while tessellators may emit others and zero-area ones.
-    double const s = m2::robust::OrientedS(a, b, c);
-    if (s < 0)
-      triangles.insert(triangles.end(), {a, b, c});
-    else if (s > 0)
-      triangles.insert(triangles.end(), {a, c, b});
-    return std::fabs(s);
-  };
+  auto & triangles = area.m_triangles[polygon];
+  for (auto & ring : rings)
+    RemoveCollinearPoints(ring);
+  // Degenerate rings, even the outer one, change no coverage by the even-odd rule, which tiles without rings use too.
+  std::erase_if(rings, [](auto const & ring) { return ring.size() < 3; });
+  if (rings.empty())
+    return;
+  if (rings.size() == 1 && TryFan(rings.front(), triangles))
+    return;
 
-  std::vector<m2::PointD> points;
-  // Polygons are tessellated separately, so that the overlapping ones don't cancel each other out.
-  for (auto & rings : polygons)
+  // Even with the validity check, earcut is 1.4-11 times faster than libtess2 on real-life areas, e.g. 0.13 s vs
+  // 1.5 s for the Natural England national parks (10 polygons, 490k vertices, arm64 -O2). But it is slower at
+  // bridging many holes, e.g. 18 ms vs 1.5 ms for 1024 ones.
+  size_t constexpr kMaxEarcutRings = 128;
+  if (rings.size() <= kMaxEarcutRings && IsValidPolygon(rings))
   {
-    for (auto & ring : rings)
-      RemoveCollinearPoints(ring);
-    if (rings.front().size() < 3)
-      continue;
-    std::erase_if(rings, [](auto const & ring) { return ring.size() < 3; });
-
-    points.clear();
+    std::vector<m2::PointD> points;
     double expectedArea = 0;
     for (size_t i = 0; i < rings.size(); ++i)
     {
@@ -921,47 +1065,116 @@ void TessellateUserArea(UserAreaRenderParams & area)
       expectedArea += i == 0 ? RingArea(rings[i]) : -RingArea(rings[i]);
     }
 
-    // Earcut is 2-15 times faster than libtess2 on real-life areas, e.g. 0.1 s vs 1.5 s for the England national parks.
-    size_t const start = triangles.size();
     double earcutArea = 0;
     auto const indices = mapbox::earcut<uint32_t>(rings);
+    triangles.reserve(indices.size());
     for (size_t i = 0; i < indices.size(); i += 3)
-      earcutArea += addTriangle(points[indices[i]], points[indices[i + 1]], points[indices[i + 2]]);
+      earcutArea += AddClockwiseTriangle(triangles, points[indices[i]], points[indices[i + 1]], points[indices[i + 2]]);
+    // Guards against earcut failures on valid polygons, like its -ffast-math miscompilation of infinity.
+    if (std::fabs(earcutArea - expectedArea) <= 1e-6 * expectedArea)
+      return;
+    triangles.clear();
+  }
+  // libtess2 fills any polygon by the even-odd rule, which the import keeps for invalid ones.
+  TessellateByLibtess(rings, triangles);
+}
 
-    // But it misfills invalid polygons, e.g. self-crossing ones or with holes that touch others after
-    // the projection, which libtess2 fills by the even-odd rule.
-    if (std::fabs(earcutArea - expectedArea) > 1e-6 * expectedArea)
+std::vector<m2::SharedSpline> ClipUserAreaRing(m2::SharedSpline const & ring, m2::RectD const & rect,
+                                               double minSqrLength)
+{
+  // A tiny ring collapses into a point.
+  if (ring->GetSize() < 2)
+    return {};
+
+  auto pieces = m2::ClipSplineByRect(rect, ring);
+  auto const & start = ring->GetPath().front();
+  if (pieces.size() > 1 && pieces.front()->GetPath().front() == start && pieces.back()->GetPath().back() == start)
+  {
+    auto joined = std::make_unique<m2::Spline>(*pieces.back());
+    auto const & first = pieces.front()->GetPath();
+    for (size_t i = 1; i < first.size(); ++i)
+      joined->AddPoint(first[i]);
+    pieces.front() = m2::SharedSpline(std::move(joined));
+    pieces.pop_back();
+  }
+
+  for (auto & piece : pieces)
+  {
+    bool const isClosed = piece->GetPath().front() == piece->GetPath().back();
+    if (minSqrLength > 0)
     {
-      triangles.resize(start);
-      TessellateByLibtess(rings, addTriangle);
+      // Unless it collapses a visible piece, e.g. a spike or a ring traced several times, into a point.
+      auto simplified = isClosed ? SimplifyRing(piece, minSqrLength) : SimplifySpline(piece, minSqrLength);
+      if (simplified->GetSize() > 1)
+        piece = std::move(simplified);
+    }
+    if (isClosed)
+    {
+      auto repeated = std::make_unique<m2::Spline>(*piece);
+      repeated->AddPoint(piece->GetPath()[1]);
+      piece = m2::SharedSpline(std::move(repeated));
     }
   }
+  return pieces;
+}
+
+m2::RectD GetUserAreaOutlineRect(UserAreaRenderParams const & area, TileKey const & tileKey, double vs)
+{
+  auto rect = tileKey.GetWrappedDataRect();
+  if (area.m_outlineWidth > 0)
+  {
+    double const padding = GetOutlineWidth(area, vs) * GetScreenScale(tileKey.m_zoomLevel);
+    rect.Inflate(padding, padding);
+  }
+  return rect;
 }
 
 void CacheUserAreas(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
                     UserAreasToCache const & areas, dp::Batcher & batcher)
 {
   double const vs = VisualParams::Instance().GetVisualScale();
-  bool const simplify = tileKey.m_zoomLevel <= 15;
-  double const minSegmentSqrLength = math::Pow2(4.0 * vs * GetScreenScale(tileKey.m_zoomLevel));
+  double const minSegmentSqrLength =
+      tileKey.m_zoomLevel <= 15 ? math::Pow2(4.0 * vs * GetScreenScale(tileKey.m_zoomLevel)) : 0;
   m2::RectD const tileRect = tileKey.GetWrappedDataRect();
 
   for (auto const & [area, depth] : areas)
   {
+    ASSERT_EQUAL(area->m_triangles.size(), area->m_fillColor.GetAlpha() > 0 ? area->m_polygons.size() : 0, ());
+    auto const inTile = [&](size_t polygon) { return area->m_polygonRects[polygon].IsIntersect(tileRect); };
+
     std::vector<m2::PointD> triangles;
-    auto const & t = area->m_triangles;
-    for (size_t i = 0; i < t.size(); i += 3)
+    for (size_t p = 0; p < area->m_triangles.size(); ++p)
     {
-      m2::ClipTriangleByRect(tileRect, t[i], t[i + 1], t[i + 2],
-                             [&triangles](auto const & a, auto const & b, auto const & c)
-      { triangles.insert(triangles.end(), {a, b, c}); });
+      if (!inTile(p))
+        continue;
+      // A tile without rings is all inside the polygon or all outside, so it needs no triangles, which may split
+      // the tile into many pieces, e.g. around the center of a fan.
+      auto const & rings = area->m_polygons[p];
+      if (std::ranges::none_of(rings, [&tileRect](auto const & ring) { return m2::IsRealIntersect(tileRect, *ring); }))
+      {
+        if (IsInside(rings, tileRect.Center()))
+        {
+          triangles.insert(triangles.end(), {tileRect.LeftBottom(), tileRect.LeftTop(), tileRect.RightTop(),
+                                             tileRect.LeftBottom(), tileRect.RightTop(), tileRect.RightBottom()});
+        }
+        continue;
+      }
+      TessellateUserArea(*area, p);
+      auto const & t = area->m_triangles[p];
+      for (size_t i = 0; i < t.size(); i += 3)
+      {
+        m2::ClipTriangleByRect(tileRect, t[i], t[i + 1], t[i + 2],
+                               [&triangles](auto const & a, auto const & b, auto const & c)
+        { triangles.insert(triangles.end(), {a, b, c}); });
+      }
     }
     if (!triangles.empty())
     {
-      // Fills keep the default 0 depth, so they never cover any outline.
+      // Below all outlines, in the same order.
       AreaViewParams params;
       params.m_tileCenter = tileRect.Center();
       params.m_depthLayer = DepthLayer::UserAreaLayer;
+      params.m_depth = depth + dp::kMinDepth;
       params.m_color = area->m_fillColor;
       params.m_blendInPaintOrder = true;
       AreaShape(std::move(triangles), {}, params).Draw(context, make_ref(&batcher), textures);
@@ -974,24 +1187,19 @@ void CacheUserAreas(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
     params.m_tileCenter = tileRect.Center();
     params.m_depthLayer = DepthLayer::UserAreaLayer;
     params.m_depth = depth;
-    params.m_depthFunction = dp::TestFunction::Less;
-    params.m_width = static_cast<float>(area->m_outlineWidth * vs);
+    params.m_blendInPaintOrder = true;
+    params.m_width = GetOutlineWidth(*area, vs);
     params.m_color = area->m_outlineColor;
     params.m_cap = dp::ButtCap;
     params.m_join = dp::RoundJoin;
-    params.m_zoomLevel = tileKey.m_zoomLevel;
-    for (auto const & rings : area->m_polygons)
+    auto const outlineRect = GetUserAreaOutlineRect(*area, tileKey, vs);
+    for (size_t p = 0; p < area->m_polygons.size(); ++p)
     {
-      for (auto ring : rings)
-      {
-        if (simplify)
-          ring = SimplifySpline(ring, minSegmentSqrLength);
-        if (ring->GetSize() < 2)
-          continue;
-        // An outline along a tile side is cached by both tiles, but its second copy fails the depth test.
-        for (auto const & spline : m2::ClipSplineByRect(tileRect, ring))
-          LineShape(spline, params).Draw(context, make_ref(&batcher), textures);
-      }
+      if (!area->m_polygonRects[p].IsIntersect(outlineRect))
+        continue;
+      for (auto const & ring : area->m_polygons[p])
+        for (auto const & piece : ClipUserAreaRing(ring, outlineRect, minSegmentSqrLength))
+          LineShape(piece, params).Draw(context, make_ref(&batcher), textures);
     }
   }
 }

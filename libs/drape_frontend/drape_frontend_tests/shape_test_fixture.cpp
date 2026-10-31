@@ -38,6 +38,8 @@ public:
   void ForgetFramebuffer(ref_ptr<dp::BaseFramebuffer>) override {}
   void ApplyFramebuffer(std::string const &) override {}
 };
+
+uint32_t constexpr kBatchSize = 5000;
 }  // namespace
 
 void ShapeTestFixture::Render(char const * title, uint32_t width, uint32_t height, ShapeCreatorFn const & createShapes)
@@ -97,7 +99,7 @@ void ShapeTestFixture::Init(uint32_t width, uint32_t height)
 
   m_context->SetViewport(0, 0, width, height);
   m_context->SetDepthTestEnabled(true);
-  m_context->SetCullingEnabled(false);
+  m_context->SetCullingEnabled(true);
 
   // Global GL state, applied once per context by FrontendRenderer::OnContextCreate. Without it GL keeps
   // its default (GL_ONE, GL_ZERO) and every fragment overwrites the target, so shapes would be validated
@@ -125,7 +127,6 @@ void ShapeTestFixture::Init(uint32_t width, uint32_t height)
   m_texMng->UpdateDynamicTextures(contextRef);
 
   // Create batcher.
-  uint32_t constexpr kBatchSize = 5000;
   m_batcher = std::make_unique<dp::Batcher>(kBatchSize, kBatchSize);
   m_batcher->StartSession([this](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && bucket)
   { m_buckets.push_back({state, std::move(bucket)}); });
@@ -147,7 +148,17 @@ void ShapeTestFixture::AddUserLines(TileKey const & tileKey, TracksSource const 
 void ShapeTestFixture::AddUserAreas(TileKey const & tileKey, UserAreasToCache const & areas)
 {
   CHECK(m_batcher != nullptr, ("Call Init() before AddUserAreas()"));
-  CacheUserAreas(make_ref(m_context), tileKey, make_ref(m_texMng), areas, *m_batcher);
+  auto const tileCenter = tileKey.GetGlobalRect().Center();
+  if (!m_viewCenter)
+    m_viewCenter = tileCenter;
+  auto const offset = (tileCenter - *m_viewCenter) * m_worldToPixelScale;
+  glsl::vec2 const shift(offset.x, -offset.y);
+
+  dp::Batcher batcher(kBatchSize, kBatchSize);
+  dp::SessionGuard guard(make_ref(m_context), batcher,
+                         [this, shift](dp::RenderState const & state, drape_ptr<dp::RenderBucket> && bucket)
+  { m_buckets.push_back({state, std::move(bucket), shift}); });
+  CacheUserAreas(make_ref(m_context), tileKey, make_ref(m_texMng), areas, batcher);
 }
 
 void ShapeTestFixture::Flush()
@@ -169,15 +180,14 @@ void ShapeTestFixture::Render()
 
   // Coordinate pipeline:
   //   world coords -> ToShapeVertex2: (world - tileCenter) * kShapeCoordScalar -> shape coords
-  //   shape coords -> modelView -> pixel coords (m_worldToPixelScale pixels per world unit)
+  //   shape coords -> modelView -> pixel coords (m_worldToPixelScale pixels per world unit, Y down as in production)
   //   pixel coords -> projection -> NDC [-1, 1]
   float const halfW = static_cast<float>(m_width) / 2.0f;
   float const halfH = static_cast<float>(m_height) / 2.0f;
   float const modelViewScale = m_worldToPixelScale / static_cast<float>(kShapeCoordScalar);
 
   gpu::MapProgramParams params;
-  params.m_modelView = glsl::mat4(modelViewScale, 0, 0, 0, 0, modelViewScale, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-  auto const projection = dp::MakeProjection(dp::ApiVersion::OpenGLES3, -halfW, halfW, -halfH, halfH);
+  auto const projection = dp::MakeProjection(dp::ApiVersion::OpenGLES3, -halfW, halfW, halfH, -halfH);
   params.m_projection = glsl::make_mat4(projection.data());
   params.m_pivotTransform = glsl::mat4(1.0f);
   params.m_opacity = 1.0f;
@@ -199,6 +209,9 @@ void ShapeTestFixture::Render()
       m_context->Clear(dp::ClearBits::DepthBit, dp::kClearBitsStoreAll);
       layer = nextLayer;
     }
+    auto const & shift = entry.m_tileShift;
+    params.m_modelView =
+        glsl::mat4(modelViewScale, 0, 0, shift.x, 0, -modelViewScale, 0, shift.y, 0, 0, 1, 0, 0, 0, 0, 1);
     auto const programId = entry.m_state.GetProgram<gpu::Program>();
     auto program = m_progMng->GetProgram(programId);
     program->Bind();
