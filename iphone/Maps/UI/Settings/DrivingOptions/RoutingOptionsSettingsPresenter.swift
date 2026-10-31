@@ -19,9 +19,11 @@ final class RoutingOptionsSettingsPresenter {
       sections.append(SettingsSectionViewModel(section: .options,
                                                items: avoidances.map { item($0, state: state) }))
     }
+    let optimizationDescription = L(state.isTrackNavigation ? "navigate_track_optimization_description" :
+      "route_optimization_description")
     sections.append(SettingsSectionViewModel(section: .optimization,
                                              header: L("routing_options_all_modes"),
-                                             footer: L("route_optimization_description"),
+                                             footer: optimizationDescription,
                                              items: [item(.routeOptimization, state: state)]))
     return sections
   }

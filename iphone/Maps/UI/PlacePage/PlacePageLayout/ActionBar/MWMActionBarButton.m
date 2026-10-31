@@ -11,6 +11,7 @@ NSString * titleForButton(MWMActionBarButtonType type, BOOL isSelected)
   case MWMActionBarButtonTypeCall: return L(@"placepage_call_button");
   case MWMActionBarButtonTypeBookmark: return L(isSelected ? @"delete" : @"save");
   case MWMActionBarButtonTypeTrack: return L(@"delete");
+  case MWMActionBarButtonTypeNavigateTrack: return L(@"navigate_track");
   case MWMActionBarButtonTypeSaveTrackRecording: return L(@"save");
   case MWMActionBarButtonTypeDeleteTrackRecording: return L(@"delete");
   case MWMActionBarButtonTypeRouteFrom: return L(@"p2p_from_here");
@@ -78,6 +79,10 @@ typedef NS_ENUM(NSInteger, MWMBookmarksButtonState) {
         isSelected ? MWMBookmarksButtonStateDelete
                    : (hasRecentlyDeletedBookmark ? MWMBookmarksButtonStateRecover : MWMBookmarksButtonStateSave);
     [self setBookmarkButtonState:state];
+    break;
+  case MWMActionBarButtonTypeNavigateTrack:
+    self.button.accessibilityLabel = L(@"navigate_track");
+    [self.button setImage:[UIImage imageNamed:@"ic_navigate_track"] forState:UIControlStateNormal];
     break;
   case MWMActionBarButtonTypeTrack:
     [self.button setImage:[[UIImage imageNamed:@"ic_route_manager_trash"]
