@@ -50,6 +50,8 @@ float constexpr kTrackEndpointRadius = 5.0f;
 float constexpr kTrackEndpointOutlineWidth = 1.5f;
 float constexpr kTrackCombinedEndpointDistance = 12.0f;
 float constexpr kTrackShapeDepthOffset = 1.0f;
+float constexpr kSelectedTrackInnerBorderWidth = 2.0f;  // dp on each side.
+float constexpr kSelectedTrackOuterBorderWidth = 1.0f;
 char const kTrackDirectionBlackSymbol[] = "track-direction-arrow-black";
 char const kTrackDirectionWhiteSymbol[] = "track-direction-arrow-white";
 
@@ -649,6 +651,10 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
       return;
 
     auto const & topLayer = GetTopLayer(renderInfo);
+    bool const selected = renderInfo.m_depthLayer == DepthLayer::SelectedUserLineLayer;
+    auto const minDepthLayer = std::ranges::min_element(renderInfo.m_layers, {}, &LineLayer::m_depth);
+    float const outlineDepth = minDepthLayer->m_depth - kTrackShapeDepthOffset;
+    float const outlineWidth = std::ranges::max(renderInfo.m_layers, {}, &LineLayer::m_width).m_width;
     float const shapesDepth = topLayer.m_depth + kTrackShapeDepthOffset;
     float const trackWidth =
         topLayer.m_width * static_cast<float>(vs) * static_cast<float>(kLineWidthZoomFactor[tileKey.m_zoomLevel - 1]);
@@ -679,20 +685,43 @@ void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
       for (size_t clippedIndex = 0; clippedIndex < clippedSplines.size(); ++clippedIndex)
       {
         auto const & clippedSpline = clippedSplines[clippedIndex];
+        LineViewParams params;
+        params.m_tileCenter = tileRect.Center();
+        params.m_baseGtoPScale = 1.0f;
+        params.m_cap = dp::RoundCap;
+        params.m_join = dp::RoundJoin;
+        params.m_depthTestEnabled = true;
+        params.m_depthLayer = renderInfo.m_depthLayer;
+        params.m_minVisibleScale = 1;
+        params.m_rank = 0;
+
+        if (selected)
+        {
+          auto const innerBorderColor = GetContrastingColor(topLayer.m_color);
+          auto const outerBorderColor = GetContrastingColor(innerBorderColor);
+          // All stroke layers share this spline; surround the widest one, below every original layer.
+          float const outerBorderWidth =
+              static_cast<float>(outlineWidth * vs * kLineWidthZoomFactor[tileKey.m_zoomLevel - 1] +
+                                 2.0 * (kSelectedTrackInnerBorderWidth + kSelectedTrackOuterBorderWidth) * vs);
+          float const innerBorderWidth =
+              outerBorderWidth - static_cast<float>(2.0 * kSelectedTrackOuterBorderWidth * vs);
+
+          params.m_color = outerBorderColor;
+          params.m_depth = outlineDepth - kTrackShapeDepthOffset;
+          params.m_width = outerBorderWidth;
+          LineShape(clippedSpline, params).Draw(context, make_ref(&batcher), textures);
+
+          params.m_color = innerBorderColor;
+          params.m_depth = outlineDepth;
+          params.m_width = innerBorderWidth;
+          LineShape(clippedSpline, params).Draw(context, make_ref(&batcher), textures);
+        }
+
         for (auto const & layer : renderInfo.m_layers)
         {
-          LineViewParams params;
-          params.m_tileCenter = tileRect.Center();
-          params.m_baseGtoPScale = 1.0f;
-          params.m_cap = dp::RoundCap;
-          params.m_join = dp::RoundJoin;
           params.m_color = layer.m_color;
-          params.m_depthTestEnabled = true;
           params.m_depth = layer.m_depth;
-          params.m_depthLayer = renderInfo.m_depthLayer;
           params.m_width = static_cast<float>(layer.m_width * vs * kLineWidthZoomFactor[tileKey.m_zoomLevel - 1]);
-          params.m_minVisibleScale = 1;
-          params.m_rank = 0;
 
           LineShape(clippedSpline, params).Draw(context, make_ref(&batcher), textures);
         }

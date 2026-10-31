@@ -26,6 +26,8 @@ enum class DepthLayer : uint8_t
   /// - displacing (with each others only) Bookmark titles
   SearchMarkLayer,
   GuiLayer,
+  // Preserve existing IDs; RenderScene draws this immediately after UserLineLayer.
+  SelectedUserLineLayer,
   LayersCount
 };
 
@@ -62,6 +64,7 @@ inline std::string DebugPrint(DepthLayer layer)
   case DepthLayer::RoutingMarkLayer: return "RoutingMarkLayer";
   case DepthLayer::SearchMarkLayer: return "SearchMarkLayer";
   case DepthLayer::GuiLayer: return "GuiLayer";
+  case DepthLayer::SelectedUserLineLayer: return "SelectedUserLineLayer";
   case DepthLayer::LayersCount: CHECK(false, ("Try to output LayersCount"));
   }
   CHECK(false, ("Unknown layer"));

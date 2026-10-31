@@ -82,21 +82,30 @@ struct TestTrack
   std::vector<m2::PointD> m_pathInPixels;
   std::vector<df::LineLayer> m_layers;
   bool m_hasDirection = true;
+  bool m_selected = false;
+  std::vector<std::vector<m2::PointD>> m_otherPathsInPixels = {};
+  bool m_visible = true;
 };
 
 QImage RenderTracks(char const * title, uint32_t width, uint32_t height, std::vector<TestTrack> const & tracks,
-                    int zoom = 11)
+                    int zoom = 11, dp::Color background = dp::Color::White(), bool wrapped = false,
+                    bool groupVisible = true)
 {
   df::VisualParams::Init(1.0 /* visualScale */, 512 /* tileSize */);
-  auto const tileKey = df::GetTileKeyByPoint(mercator::Bounds::FullRect().Center(), zoom);
+  auto tileKey = df::GetTileKeyByPoint(mercator::Bounds::FullRect().Center(), zoom);
+  if (wrapped)
+    tileKey.m_x += 1 << (zoom - 1);
   double const scale = df::GetScreenScale(zoom);
 
   df::test_support::ShapeTestFixture fixture;
   fixture.SetWorldToPixelScale(static_cast<float>(1.0 / scale));
+  fixture.SetBackgroundColor(background);
   fixture.Render(title, width, height, [&](df::test_support::ShapeTestFixture & f)
   {
     kml::MarkGroupId constexpr kGroupId = 1;
-    df::UserGroupsVisibilitySet visibility = {kGroupId};
+    df::UserGroupsVisibilitySet visibility;
+    if (groupVisible)
+      visibility.insert(kGroupId);
     df::MarksIDGroups groups;
     auto ids = make_unique_dp<df::IDCollections>();
     df::UserLinesRenderCollection renderParams;
@@ -110,11 +119,19 @@ QImage RenderTracks(char const * title, uint32_t width, uint32_t height, std::ve
       auto params = make_unique_dp<df::UserLineRenderParams>();
       params->m_layers = track.m_layers;
       params->m_hasDirection = track.m_hasDirection;
-      std::vector<m2::PointD> path;
-      path.reserve(track.m_pathInPixels.size());
-      for (auto const & point : track.m_pathInPixels)
-        path.push_back(center + (point + kPixelOffset) * scale);
-      params->m_splines.emplace_back(std::move(path));
+      params->m_depthLayer = track.m_selected ? df::DepthLayer::SelectedUserLineLayer : df::DepthLayer::UserLineLayer;
+      params->m_visible = track.m_visible;
+      auto const addPath = [&](std::vector<m2::PointD> const & points)
+      {
+        std::vector<m2::PointD> path;
+        path.reserve(points.size());
+        for (auto const & point : points)
+          path.push_back(center + (point + kPixelOffset) * scale);
+        params->m_splines.emplace_back(std::move(path));
+      };
+      addPath(track.m_pathInPixels);
+      for (auto const & path : track.m_otherPathsInPixels)
+        addPath(path);
       renderParams.emplace(lineId, std::move(params));
     }
 
@@ -348,4 +365,113 @@ UNIT_TEST(TrackWithoutDirectionHasNoDecorationsGpuTest)
     for (int x = kCenterX - 75; x < kCenterX + 75; ++x)
       TEST_EQUAL(image.pixel(x, kCenterY), QColor(Qt::blue).rgba(), ("Unexpected direction arrow", zoom, x));
   }
+}
+
+UNIT_TEST(SelectedTrackAboveOverlappingTracksGpuTest)
+{
+  using namespace track_direction_gpu_test;
+  uint32_t constexpr kWidth = 512;
+  uint32_t constexpr kHeight = 160;
+  int constexpr kCenterY = kHeight / 2;
+  TestTrack const selected{.m_pathInPixels = {{-200, 0}, {200, 0}},
+                           .m_layers = {{dp::Color::Blue(), 5.0f, 0.0f}},
+                           .m_hasDirection = true,
+                           .m_selected = true};
+  TestTrack const other{.m_pathInPixels = {{200, 0}, {-200, 0}}, .m_layers = {{dp::Color::Red(), 5.0f, 1000.0f}}};
+  auto const reference = RenderTracks("Selected track alone", kWidth, kHeight, {selected});
+
+  for (auto const & tracks : {std::vector<TestTrack>{selected, other}, std::vector<TestTrack>{other, selected}})
+  {
+    auto const image =
+        RenderTracks("Selected track stays above other tracks and their arrows", kWidth, kHeight, tracks);
+    for (int y = kCenterY - 10; y <= kCenterY + 10; ++y)
+      for (int x = 80; x < static_cast<int>(kWidth) - 80; ++x)
+        TEST_EQUAL(image.pixel(x, y), reference.pixel(x, y), ("Another track covers the selected track", x, y));
+  }
+  uint32_t arrowPixels = 0;
+  for (int y = kCenterY - 1; y <= kCenterY + 1; ++y)
+    for (int x = 80; x < static_cast<int>(kWidth) - 80; ++x)
+    {
+      auto const color = reference.pixelColor(x, y);
+      arrowPixels += color.red() > 225 && color.green() > 225 && color.blue() > 225;
+    }
+  TEST_GREATER(arrowPixels, 0u, ("The selected track lost its direction arrows"));
+  TEST_EQUAL(reference.pixel(kWidth / 2 - 200, kHeight / 2), QColor(Qt::blue).rgba(), ("Start color changed"));
+  TEST_EQUAL(reference.pixel(kWidth / 2 + 200, kHeight / 2), QColor(Qt::blue).rgba(), ("Finish color changed"));
+}
+
+UNIT_TEST(SelectedTrackOutlineContrastGpuTest)
+{
+  using namespace track_direction_gpu_test;
+  uint32_t constexpr kWidth = 400;
+  uint32_t constexpr kHeight = 120;
+  for (auto const background : {dp::Color::White(), dp::Color::Black()})
+  {
+    for (auto const color : {dp::Color::Black(), dp::Color::White(), dp::Color::Red(), dp::Color::Yellow()})
+    {
+      auto const image = RenderTracks("Selected track outline on light and dark backgrounds", kWidth, kHeight,
+                                      {{.m_pathInPixels = {{-160, 0}, {160, 0}},
+                                        .m_layers = {{color, 5.0f, 0.0f}},
+                                        .m_hasDirection = false,
+                                        .m_selected = true}},
+                                      11, background);
+      uint32_t outlinePixels = 0;
+      for (int x = 70; x < static_cast<int>(kWidth) - 70; ++x)
+        for (int dy : {-5, -4, 4, 5})
+        {
+          auto const pixel = image.pixelColor(x, kHeight / 2 + dy);
+          bool const contrasting = background == dp::Color::White() ? pixel.lightness() < 100 : pixel.lightness() > 200;
+          outlinePixels += contrasting;
+        }
+      TEST_GREATER(outlinePixels, 100u, ("No visible selection outside the original stroke", background, color));
+    }
+  }
+}
+
+UNIT_TEST(SelectedTrackPreservesLayersAndSectionsGpuTest)
+{
+  using namespace track_direction_gpu_test;
+  uint32_t constexpr kWidth = 800;
+  uint32_t constexpr kHeight = 200;
+  int constexpr kCenterX = kWidth / 2;
+  int constexpr kCenterY = kHeight / 2;
+  TestTrack const selected{.m_pathInPixels = {{-500, 45}, {-60, 45}},
+                           .m_layers = {{dp::Color::Red(), 9.0f, 0.0f}, {dp::Color::Blue(), 3.0f, 10.0f}},
+                           .m_hasDirection = false,
+                           .m_selected = true,
+                           .m_otherPathsInPixels = {{{60, -45}, {500, -45}}}};
+  auto const image =
+      RenderTracks("Selected track keeps its layers, gaps and tile clipping", kWidth, kHeight, {selected});
+  auto const wrapped = RenderTracks("Selected track in a wrapped tile", kWidth, kHeight, {selected}, 11,
+                                    dp::Color::White(), true /* wrapped */);
+  TEST(image == wrapped, ("Wrapped tile changes the selected geometry"));
+  for (int y = kCenterY - 30; y <= kCenterY + 30; ++y)
+    for (int x = kCenterX - 30; x <= kCenterX + 30; ++x)
+      TEST_EQUAL(image.pixel(x, y), QColor(Qt::white).rgba(), ("Selection bridges disconnected sections", x, y));
+  TEST_EQUAL(image.pixel(kWidth / 2 - 100, kHeight / 2 - 45), QColor(Qt::blue).rgba(), ("Top layer changed"));
+  TEST_EQUAL(image.pixel(kWidth / 2 + 100, kHeight / 2 + 45), QColor(Qt::blue).rgba(), ("A section disappeared"));
+  TEST_EQUAL(image.pixel(kWidth / 2 - 100, kHeight / 2 - 48), QColor(Qt::red).rgba(), ("Original casing disappeared"));
+
+  int const zoom = 11;
+  auto const tile = df::GetTileKeyByPoint(mercator::Bounds::FullRect().Center(), zoom);
+  auto const halfTilePixels = 0.5 * tile.GetWrappedDataRect().SizeX() / df::GetScreenScale(zoom);
+  int const outsideTile = static_cast<int>(kWidth / 2 + halfTilePixels + 12);
+  TEST_LESS(outsideTile, static_cast<int>(kWidth), ());
+  TEST_EQUAL(image.pixel(outsideTile, kHeight / 2 + 45), QColor(Qt::white).rgba(), ("Selection escapes its tile"));
+}
+
+UNIT_TEST(SelectedTrackRespectsVisibilityGpuTest)
+{
+  using namespace track_direction_gpu_test;
+  TestTrack selected{.m_pathInPixels = {{-80, 0}, {80, 0}},
+                     .m_layers = {{dp::Color::Blue(), 5.0f, 0.0f}},
+                     .m_hasDirection = true,
+                     .m_selected = true};
+  auto const empty = RenderTracks("No visible tracks", 240, 120, {});
+  auto const hiddenGroup = RenderTracks("Selected track in a hidden group", 240, 120, {selected}, 11,
+                                        dp::Color::White(), false /* wrapped */, false /* groupVisible */);
+  TEST(hiddenGroup == empty, ("Hidden group still draws a selection"));
+  selected.m_visible = false;
+  auto const hiddenTrack = RenderTracks("Hidden selected track", 240, 120, {selected});
+  TEST(hiddenTrack == empty, ("Hidden track still draws an outline or decorations"));
 }
