@@ -526,10 +526,11 @@ void setShowLocationAlert(BOOL needShow)
 {
   CLLocation * location = locations.lastObject;
 
-  // If iOS is delivering the fix from an external MFi accessory (e.g. the XGPS160 via a working Core
-  // Location path), prefer the native feed and retire our redundant ExternalAccessory reader so the
-  // same device is not parsed twice. On OS versions where that path is broken this never fires and
-  // ExternalGPSManager stays the active source.
+  // If iOS is delivering the fix from an external MFi accessory via a working Core Location path,
+  // prefer the native feed and retire our redundant ExternalAccessory reader so the same device is not
+  // parsed twice. For the XGPS160 this never fires: its firmware has a GPS week-rollover bug and
+  // reports a 2007 date, so Core Location rejects every fix as stale and never delivers one —
+  // ExternalGPSManager feeds OM directly (correcting the rollover) and stays the active source.
   if (@available(iOS 15.0, *))
   {
     if (location.sourceInformation.isProducedByAccessory && self.externalGPSActive)

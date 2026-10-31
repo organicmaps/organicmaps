@@ -14,7 +14,11 @@ import Foundation
 
   // Latched once iOS proves it delivers the accessory fix through Core Location (sourceInformation
   // .isProducedByAccessory). From then on we stop reading the device ourselves to avoid parsing the
-  // same stream twice. Stays our job on OS versions where the native path is broken.
+  // same stream twice. For the XGPS160 this never latches: its firmware has a GPS week-rollover bug and
+  // reports a 2007 date (in NMEA and on the iAP1 native path alike), so Core Location rejects every fix
+  // as stale and never delivers one (Apple's position: device-firmware bug, won't fix). Our reader
+  // feeds OM directly — bypassing that rejection — and corrects the rollover in parseRMC, so we stay
+  // the active source.
   private var nativeAccessoryActive = false
 
   private struct AltState {
@@ -237,10 +241,11 @@ extension ExternalGPSManager {
       LOG(.warning, "ExternalGPSManager: RMC failed to parse longitude '\(f[5])' '\(f[6])'")
       return
     }
-    guard let ts = nmeaDate(time: f[1], date: f[9]) else {
+    guard let parsedTs = nmeaDate(time: f[1], date: f[9]) else {
       LOG(.warning, "ExternalGPSManager: RMC failed to parse time '\(f[1])' date '\(f[9])'")
       return
     }
+    let ts = ExternalGPSManager.correctWeekRollover(parsedTs)
 
     let speed  = f.count > 7 ? (Double(f[7]).map { $0 * 0.514_444 } ?? -1) : -1  // kt → m/s
     let course = f.count > 8 ? (Double(f[8]) ?? -1) : -1
@@ -318,6 +323,22 @@ extension ExternalGPSManager {
       year: year, month: mon, day: day,
       hour: h, minute: m, second: Int(sec),
       nanosecond: Int((sec - Double(Int(sec))) * 1_000_000_000)))
+  }
+
+  /// Corrects a GPS week-number rollover. The XGPS160 firmware (observed on v2.5.4) predates the
+  /// 6 Apr 2019 rollover and reports dates a whole 1024-week period (~19.6 years) in the past — e.g.
+  /// 2007 for a fix taken in 2026 — in both NMEA and its iAP1 native location (hence Core Location
+  /// rejects it as stale, which is why the device never works in Apple Maps). Advances by whole
+  /// rollover periods until the fix is no longer stale, preserving the GPS sub-second timing, so
+  /// downstream track timestamps, speed, and staleness checks see the true time. A healthy fix is
+  /// always within seconds of `now`, so the week of slack never triggers a false correction.
+  static func correctWeekRollover(_ date: Date, now: Date = Date()) -> Date {
+    let rolloverPeriod: TimeInterval = 1024 * 7 * 24 * 60 * 60
+    var corrected = date
+    while corrected < now.addingTimeInterval(-7 * 24 * 60 * 60) {
+      corrected = corrected.addingTimeInterval(rolloverPeriod)
+    }
+    return corrected
   }
 
   /// Validates an NMEA checksum: the XOR of all bytes between '$' (exclusive) and '*' (exclusive)
