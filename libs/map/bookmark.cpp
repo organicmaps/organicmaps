@@ -3,6 +3,8 @@
 
 #include "indexer/scales.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "base/string_utils.hpp"
 
 namespace
@@ -60,6 +62,7 @@ std::string const kCustomImageProperty = "CustomImage";
 
 Bookmark::Bookmark(m2::PointD const & ptOrg) : Base(ptOrg, UserMark::BOOKMARK), m_groupId(kml::kInvalidMarkGroupId)
 {
+  ASSERT(mercator::ValidX(ptOrg.x) && mercator::ValidY(ptOrg.y), (ptOrg));
   m_data.m_point = ptOrg;
   m_data.m_id = GetId();
 }
@@ -69,6 +72,7 @@ Bookmark::Bookmark(kml::BookmarkData && data)
   , m_data(std::move(data))
   , m_groupId(kml::kInvalidMarkGroupId)
 {
+  ASSERT(mercator::ValidX(m_data.m_point.x) && mercator::ValidY(m_data.m_point.y), (m_data.m_point));
   m_data.m_id = GetId();
   m_data.m_color = kml::NormalizeBookmarkColorData(m_data.m_color);
 }
