@@ -14,7 +14,9 @@ import app.organicmaps.wear.protocol.gms.WearNavigationDetailsDataMapCodec
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.wearable.CapabilityClient
+import com.google.android.gms.wearable.DataClient
 import com.google.android.gms.wearable.DataMap
+import com.google.android.gms.wearable.MessageClient
 import com.google.android.gms.wearable.PutDataMapRequest
 import com.google.android.gms.wearable.Wearable
 import com.google.android.gms.wearable.WearableStatusCodes
@@ -25,11 +27,12 @@ import com.google.android.gms.wearable.WearableStatusCodes
  *
  * All mutable state, task listeners, and capability events run on the main thread.
  */
-internal class GmsWearNavigationPublisher(context: Context) : WearNavigationPublisher {
-    private val appContext = context.applicationContext
-    private val dataClient = Wearable.getDataClient(appContext)
-    private val messageClient = Wearable.getMessageClient(appContext)
-    private val capabilityClient = Wearable.getCapabilityClient(appContext)
+internal class GmsWearNavigationPublisher(
+    context: Context,
+    private val dataClient: DataClient = Wearable.getDataClient(context.applicationContext),
+    private val messageClient: MessageClient = Wearable.getMessageClient(context.applicationContext),
+    private val capabilityClient: CapabilityClient = Wearable.getCapabilityClient(context.applicationContext),
+) : WearNavigationPublisher {
     private val handler = Handler(Looper.getMainLooper())
     private val delivery =
         WearNavigationDeliveryState(
