@@ -90,6 +90,8 @@
 		4443DC3822789793000C8E32 /* leaps_postprocessor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4443DC3622789793000C8E32 /* leaps_postprocessor.hpp */; };
 		44642D2D29CDA44700F8813A /* ruler_router.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 44642D2B29CDA44600F8813A /* ruler_router.hpp */; };
 		44642D2E29CDA44700F8813A /* ruler_router.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44642D2C29CDA44700F8813A /* ruler_router.cpp */; };
+		44642D2F2E20A10000F8813A /* track_router.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 44642D312E20A10000F8813A /* track_router.hpp */; };
+		44642D302E20A10000F8813A /* track_router.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44642D322E20A10000F8813A /* track_router.cpp */; };
 		44A95C71225F6A4F00C22F4F /* astar_graph.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 44A95C6F225F6A4F00C22F4F /* astar_graph.hpp */; };
 		44A95C72225F6A4F00C22F4F /* astar_progress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44A95C70225F6A4F00C22F4F /* astar_progress.cpp */; };
 		44AE4A12214FBB8E006321F5 /* speed_camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 44AE4A10214FBB8D006321F5 /* speed_camera.cpp */; };
@@ -358,6 +360,8 @@
 		4443DC3622789793000C8E32 /* leaps_postprocessor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = leaps_postprocessor.hpp; sourceTree = "<group>"; };
 		44642D2B29CDA44600F8813A /* ruler_router.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ruler_router.hpp; sourceTree = "<group>"; };
 		44642D2C29CDA44700F8813A /* ruler_router.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ruler_router.cpp; sourceTree = "<group>"; };
+		44642D312E20A10000F8813A /* track_router.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = track_router.hpp; sourceTree = "<group>"; };
+		44642D322E20A10000F8813A /* track_router.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = track_router.cpp; sourceTree = "<group>"; };
 		448FD3F2228B1BC500180D90 /* bfs_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bfs_tests.cpp; sourceTree = "<group>"; };
 		44A95C6F225F6A4F00C22F4F /* astar_graph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = astar_graph.hpp; path = base/astar_graph.hpp; sourceTree = "<group>"; };
 		44A95C70225F6A4F00C22F4F /* astar_progress.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = astar_progress.cpp; sourceTree = "<group>"; };
@@ -818,6 +822,8 @@
 				5610731A221ABF96008447B2 /* speed_camera_prohibition.cpp */,
 				44E557492136EEC800B01439 /* speed_camera_ser_des.hpp */,
 				44E5574B2136EED000B01439 /* speed_camera_ser_des.cpp */,
+				44642D312E20A10000F8813A /* track_router.hpp */,
+				44642D322E20A10000F8813A /* track_router.cpp */,
 				0C81E1521F02589800DC66DF /* traffic_stash.hpp */,
 				0C81E1511F02589800DC66DF /* traffic_stash.cpp */,
 				4065EA841F8260000094DEF3 /* transit_graph.hpp */,
@@ -928,6 +934,7 @@
 				40576F781F7A788B000B593B /* fake_vertex.hpp in Headers */,
 				670EE5741B664796001E8064 /* pedestrian_directions.hpp in Headers */,
 				44642D2D29CDA44700F8813A /* ruler_router.hpp in Headers */,
+				44642D2F2E20A10000F8813A /* track_router.hpp in Headers */,
 				56CBED5522E9CE2600D51AF7 /* position_accumulator.hpp in Headers */,
 				5694CECB1EBA25F7004576D3 /* road_access_serialization.hpp in Headers */,
 				0C08AA371DF8324D004195DD /* vehicle_mask.hpp in Headers */,
@@ -1191,6 +1198,7 @@
 				0C5FEC641DDE192A0017688C /* joint.cpp in Sources */,
 				0C090C871E4E276700D52AFD /* world_graph.cpp in Sources */,
 				44642D2E29CDA44700F8813A /* ruler_router.cpp in Sources */,
+				44642D302E20A10000F8813A /* track_router.cpp in Sources */,
 				44C56C0B22296498006C2A1D /* routing_options.cpp in Sources */,
 				D526BA7A241FC5580076E0B0 /* guides_connections.cpp in Sources */,
 				ACAE44A427426EDB0054DD15 /* junction_visitor.cpp in Sources */,
