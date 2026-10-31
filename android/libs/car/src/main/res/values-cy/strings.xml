@@ -109,4 +109,8 @@
     <string name="aa_request_permission_activity_text">Mae angen caniatâd lleoliad ar Organic Maps yn Android Auto i weithio\'n effeithiol</string>
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">Rhoi caniatadau</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <string name="reverse_route">Gwrthdroi\'r llwybr</string>
 </resources>

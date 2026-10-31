@@ -10,6 +10,7 @@ import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.location.LocationHelper;
+import app.organicmaps.sdk.util.Assert;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
 import org.chromium.base.ObserverList;
@@ -446,7 +447,7 @@ public class RoutingController
   public void start()
   {
     // Phone and car actions can outlive the built route they were created for.
-    if (!isPlanning() || !isBuilt())
+    if (!canStartNavigation())
       return;
     Logger.d(TAG, "start");
 
@@ -755,6 +756,14 @@ public class RoutingController
   public boolean isBuilt()
   {
     return mBuildState == BuildState.BUILT;
+  }
+
+  public boolean canStartNavigation()
+  {
+    if (!isPlanning() || !isBuilt())
+      return false;
+    final MapObject startPoint = getStartPoint();
+    return startPoint != null && startPoint.isMyPosition();
   }
 
   public void waitForPoiPick(@NonNull RouteMarkType pointType)
@@ -1076,27 +1085,17 @@ public class RoutingController
     return new Pair<>(title, subtitle);
   }
 
-  public void swapPoints()
-  {
-    Logger.d(TAG, "swapPoints");
-
-    MapObject startPoint = getStartPoint();
-    MapObject endPoint = getEndPoint();
-    MapObject point = startPoint;
-    startPoint = endPoint;
-    endPoint = point;
-
-    setPointsInternal(startPoint, endPoint);
-    checkAndBuildRoute();
-    if (mContainer != null)
-      mContainer.updateMenu();
-  }
-
   public void reverseRoute()
   {
     Logger.d(TAG, "reverseRoute");
 
-    if (Framework.nativeReverseRoutePoints())
+    // A car host can deliver another click before the rebuilding template replaces the preview.
+    if (!isPlanning() || !isBuilt())
+      return;
+
+    final boolean reversed = Framework.nativeReverseRoutePoints();
+    Assert.debug(reversed, "A built route preview must have both endpoints");
+    if (reversed)
       build();
   }
 
