@@ -20,8 +20,6 @@ double constexpr kShowLanesMinDistInMeters = 500.0;
 double constexpr kShowPedestrianTurnInMeters = 20.0;
 
 double constexpr kRunawayDistanceSensitivityMeters = 0.01;
-
-double constexpr kCompletionPercentAccuracy = 5;
 }  // namespace
 
 namespace routing
@@ -45,7 +43,6 @@ RoutingSession::RoutingSession()
   , m_speedCameraManager(m_turnNotificationsMgr)
   , m_routingSettings(GetRoutingSettings(VehicleType::Car))
   , m_passedDistanceOnRouteMeters(0.0)
-  , m_lastCompletionPercent(0.0)
 {
   // To call |m_changeSessionStateCallback| on |m_state| initialization.
   SetState(SessionState::NoValidRoute);
@@ -230,7 +227,6 @@ void RoutingSession::Reset()
 
   m_passedDistanceOnRouteMeters = 0.0;
   m_isFollowing = false;
-  m_lastCompletionPercent = 0;
 
   // reset announcement counters
   m_routingRebuildCount = -1;
@@ -468,11 +464,7 @@ double RoutingSession::GetCompletionPercent() const
   if (denominator == 0.0)
     return 0;
 
-  double const percent =
-      100.0 * (m_passedDistanceOnRouteMeters + m_route->GetCurrentDistanceFromBeginMeters()) / denominator;
-  if (percent - m_lastCompletionPercent > kCompletionPercentAccuracy)
-    m_lastCompletionPercent = percent;
-  return percent;
+  return 100.0 * (m_passedDistanceOnRouteMeters + m_route->GetCurrentDistanceFromBeginMeters()) / denominator;
 }
 
 void RoutingSession::PassCheckpoints()
@@ -554,7 +546,6 @@ void RoutingSession::AssignRoute(std::shared_ptr<RoutesResult> const & result, R
 
   RemoveRoute();
   SetState(SessionState::RouteNotStarted);
-  m_lastCompletionPercent = 0;
 
   // Promote the active alternative (RouteBase) to a followed Route.
   auto route = std::make_shared<Route>(result->GetActive());
@@ -589,7 +580,6 @@ bool RoutingSession::SwapActiveAlternative(size_t idx)
   // for the bits that matter when m_lastResult itself is reused.
   m_lastDistance = 0.0;
   m_moveAwayCounter = 0;
-  m_lastCompletionPercent = 0;
   m_passedDistanceOnRouteMeters = 0.0;
   m_turnNotificationsMgr.Reset();
   m_checkpoints.SetPointFrom(m_route->GetPoly().Front());
