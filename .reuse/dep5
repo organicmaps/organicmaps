@@ -21,7 +21,7 @@ License: MIT
 Files: 3party/earcut/*
 Copyright: 2015, Mapbox
 License: ISC
-Comment: https://github.com/mapbox/earcut.hpp
+Comment: https://github.com/mapbox/earcut.hpp v2.2.4, with infinity replaced by max() and an unused variable removed
 
 Files: 3party/liboauthcpp/*
 Copyright: 2004-2008, René Nyffenegger

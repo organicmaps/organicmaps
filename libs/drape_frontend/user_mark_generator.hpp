@@ -36,7 +36,6 @@ public:
 
 private:
   void UpdateIndex(kml::MarkGroupId groupId);
-  void UpdateAreaDepthStep();
 
   ref_ptr<IDCollections> GetIdCollection(TileKey const & tileKey, kml::MarkGroupId groupId);
   void CleanIndex();
@@ -50,7 +49,6 @@ private:
   UserMarksRenderCollection m_marks;
   UserLinesRenderCollection m_lines;
   UserAreasRenderCollection m_areas;
-  float m_areaDepthStep = 1;
 
   MarksIndex m_index;
 

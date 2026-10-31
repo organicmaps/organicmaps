@@ -216,10 +216,13 @@ public:
     if (!m_params.m_blendInPaintOrder)
       return CreateRoundCap(pos);
 
-    // Covers the gap that the segments leave outside the turn.
+    // Covers the gap that the segments leave outside the turn. The side and the sweep direction take one sign, since
+    // a reversal makes cross a zero of either sign, while either side fits it.
     float const cross = tangentIn.x * tangentOut.y - tangentIn.y * tangentOut.x;
-    glsl::vec2 const outer = cross > 0 ? glsl::vec2(tangentIn.y, -tangentIn.x) : glsl::vec2(-tangentIn.y, tangentIn.x);
-    CreateRoundFan(pos, outer, std::atan2(cross, glsl::dot(tangentIn, tangentOut)));
+    bool const left = cross >= 0;
+    glsl::vec2 const outer = left ? glsl::vec2(tangentIn.y, -tangentIn.x) : glsl::vec2(-tangentIn.y, tangentIn.x);
+    float const angle = std::atan2(std::fabs(cross), glsl::dot(tangentIn, tangentOut));
+    CreateRoundFan(pos, outer, left ? angle : -angle);
   }
 
   void SubmitCap(glsl::vec2 const & pos)
@@ -387,6 +390,9 @@ void LineShape::ForEachSplineSection(FnT && fn) const
     {
       tanlen.first = path[j] - path[i];
       tanlen.second = tanlen.first.Length();
+      // A closed path, all points of which are too close to its start, has no sections.
+      if (tanlen.second == 0)
+        continue;
       tanlen.first = tanlen.first / tanlen.second;
     }
 

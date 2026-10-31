@@ -258,7 +258,7 @@ void DrapeEngine::UpdateBookmarksTextPlacement(UserMarksProvider * provider)
   {
     m_bookmarksTextPlacement = s;
 
-    UpdateUserMarks(provider, true /* firstTime */);
+    PostUserMarksUpdate(CollectUserMarksUpdate(provider, UserMarksUpdateMode::Titles, s));
 
     InvalidateUserMarks();
   }
@@ -266,7 +266,12 @@ void DrapeEngine::UpdateBookmarksTextPlacement(UserMarksProvider * provider)
 
 void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider, bool firstTime)
 {
-  auto update = CollectUserMarksUpdate(provider, firstTime, m_bookmarksTextPlacement);
+  PostUserMarksUpdate(CollectUserMarksUpdate(
+      provider, firstTime ? UserMarksUpdateMode::All : UserMarksUpdateMode::Changes, m_bookmarksTextPlacement));
+}
+
+void DrapeEngine::PostUserMarksUpdate(UserMarksUpdate && update)
+{
   if (!update.m_marks->empty() || !update.m_lines->empty() || !update.m_areas->empty() ||
       !update.m_removedIds->IsEmpty() || !update.m_justCreatedIds->IsEmpty())
   {
@@ -286,11 +291,13 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider, bool firstTime)
   }
 }
 
-DrapeEngine::UserMarksUpdate DrapeEngine::CollectUserMarksUpdate(UserMarksProvider const * provider, bool firstTime,
+DrapeEngine::UserMarksUpdate DrapeEngine::CollectUserMarksUpdate(UserMarksProvider const * provider,
+                                                                 UserMarksUpdateMode mode,
                                                                  settings::Placement textPlacement)
 {
   UserMarksUpdate update;
-  auto const updatedGroupIds = firstTime ? provider->GetAllGroupIds() : provider->GetUpdatedGroupIds();
+  auto const updatedGroupIds =
+      mode == UserMarksUpdateMode::Changes ? provider->GetUpdatedGroupIds() : provider->GetAllGroupIds();
   // Deleted groups aren't updated, but their marks, lines and areas must be removed.
   if (updatedGroupIds.empty() && provider->GetRemovedGroupIds().empty())
     return update;
@@ -350,7 +357,13 @@ DrapeEngine::UserMarksUpdate DrapeEngine::CollectUserMarksUpdate(UserMarksProvid
         areasRenderCollection->emplace(areaId, GenerateAreaRenderInfo(*provider->GetUserArea(areaId)));
   };
 
-  if (firstTime)
+  if (mode == UserMarksUpdateMode::Titles)
+  {
+    for (auto groupId : provider->GetAllGroupIds())
+      if (provider->IsGroupVisible(groupId))
+        collectRenderData(provider->GetGroupPointIds(groupId), {} /* lineIds */, nullptr /* filter */);
+  }
+  else if (mode == UserMarksUpdateMode::All)
   {
     for (auto groupId : provider->GetAllGroupIds())
     {

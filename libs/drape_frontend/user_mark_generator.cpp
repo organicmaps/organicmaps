@@ -36,25 +36,14 @@ void UserMarkGenerator::RemoveGroup(kml::MarkGroupId groupId)
   m_groupsVisibility.erase(groupId);
   m_groups.erase(groupId);
   UpdateIndex(groupId);
-  UpdateAreaDepthStep();
 }
 
 void UserMarkGenerator::SetGroup(kml::MarkGroupId groupId, drape_ptr<IDCollections> && ids)
 {
+  for (auto const id : ids->m_areaIds)
+    ASSERT(m_areas.contains(id), (id, groupId));
   m_groups[groupId] = std::move(ids);
   UpdateIndex(groupId);
-  UpdateAreaDepthStep();
-}
-
-void UserMarkGenerator::UpdateAreaDepthStep()
-{
-  size_t count = 0;
-  for (auto const & [groupId, ids] : m_groups)
-    if (m_groupsVisibility.contains(groupId))
-      count += ids->m_areaIds.size();
-  // Distinct depths of more visible areas than the depth range has integers.
-  auto const areas = static_cast<float>(count);
-  m_areaDepthStep = areas > dp::kMaxDepth ? dp::kMaxDepth / areas : 1;
 }
 
 void UserMarkGenerator::SetRemovedUserMarks(drape_ptr<IDCollections> && ids)
@@ -91,9 +80,9 @@ void UserMarkGenerator::SetUserLines(drape_ptr<UserLinesRenderCollection> && lin
 
 void UserMarkGenerator::SetUserAreas(drape_ptr<UserAreasRenderCollection> && areas)
 {
-  // Areas can't be edited, so an area resent by a full refresh, e.g. of bookmark text placement, keeps its mesh.
+  // An area comes once: with the first update of the backend, its creation or its category shown.
   for (auto & [id, area] : *areas)
-    m_areas.try_emplace(id, std::move(area));
+    VERIFY(m_areas.emplace(id, std::move(area)).second, (id));
 }
 
 void UserMarkGenerator::UpdateIndex(kml::MarkGroupId groupId)
@@ -222,7 +211,6 @@ void UserMarkGenerator::SetGroupVisibility(kml::MarkGroupId groupId, bool isVisi
     m_groupsVisibility.insert(groupId);
   else
     m_groupsVisibility.erase(groupId);
-  UpdateAreaDepthStep();
 }
 
 template <class SourceT, class LevelsT>
@@ -254,6 +242,14 @@ SourceT UserMarkGenerator::GetIndexSource(TileKey const & tileKey, LevelsT const
 UserAreasToCache UserMarkGenerator::GetAreasToCache(m2::RectD const & tileRect)
 {
   // Areas aren't in the tile index: big ones would cover too many tiles of the indexing zooms.
+  // All visible areas are counted to give an area the same depth in all tiles, distinct even when there are more
+  // of them than integers in the depth range.
+  size_t count = 0;
+  for (auto const & [groupId, ids] : m_groups)
+    if (m_groupsVisibility.contains(groupId))
+      count += ids->m_areaIds.size();
+  float const step = count > dp::kMaxDepth ? dp::kMaxDepth / static_cast<float>(count) : 1;
+
   UserAreasToCache areas;
   size_t rank = 0;
   for (auto const & [groupId, ids] : m_groups)
@@ -266,8 +262,7 @@ UserAreasToCache UserMarkGenerator::GetAreasToCache(m2::RectD const & tileRect)
       auto const it = m_areas.find(areaId);
       if (it == m_areas.end())
         continue;
-      // Count all visible areas to give an area the same depth in all tiles.
-      float const depth = std::min(static_cast<float>(++rank) * m_areaDepthStep, dp::kMaxDepth);
+      float const depth = std::min(static_cast<float>(++rank) * step, dp::kMaxDepth);
       if (it->second->m_limitRect.IsIntersect(tileRect))
         areas.emplace_back(it->second.get(), depth);
     }

@@ -346,10 +346,16 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   {
     ref_ptr<FlushUserMarksMessage> msg = message;
     TUserMarksRenderData marksRenderData = msg->AcceptRenderData();
+    auto & areaLayer = m_layers[static_cast<size_t>(DepthLayer::UserAreaLayer)];
     for (auto & renderData : marksRenderData)
     {
       if (renderData.m_tileKey.m_zoomLevel == GetCurrentZoom() && CheckTileGenerations(renderData.m_tileKey))
       {
+        // A message holds all user marks of its tile, so the older areas of the tile go now, not after the other
+        // tiles: their translucent fills would blend twice with the new ones meanwhile.
+        areaLayer.m_isDirty |= RemoveGroups([&tileKey = renderData.m_tileKey](drape_ptr<RenderGroup> const & group) {
+          return group->IsPendingOnDelete() && group->GetTileKey() == tileKey;
+        }, areaLayer.m_renderGroups, GetOverlayTree(DepthLayer::UserAreaLayer));
         PrepareBucket(renderData.m_state, renderData.m_bucket);
         AddToRenderGroup<UserMarkRenderGroup>(renderData.m_state, std::move(renderData.m_bucket), renderData.m_tileKey);
       }

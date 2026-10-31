@@ -454,10 +454,11 @@ m2::SharedSpline SimplifySpline(m2::SharedSpline const & in, double minSqrLength
   return spline;
 }
 
-// SimplifySpline collapses a closed ring smaller than its step into a point, while the ring's stroke is visible.
+// SimplifySpline collapses a closed ring smaller than its step into a point or a back-and-forth segment, while
+// the ring's stroke is visible.
 m2::SharedSpline SimplifyRing(m2::SharedSpline const & ring, double minSqrLength)
 {
-  if (auto simplified = SimplifySpline(ring, minSqrLength); simplified->GetSize() > 2)
+  if (auto simplified = SimplifySpline(ring, minSqrLength); simplified->GetSize() > 3)
     return simplified;
 
   // A few vertices keep the ring drawable.
@@ -534,7 +535,8 @@ double RingArea(std::vector<m2::PointD> const & ring)
 bool IsValidPolygon(Rings const & rings)
 {
   namespace bg = boost::geometry;
-  bg::model::polygon<bg::model::d2::point_xy<double>, false /* clockWise */, false /* closed */> polygon;
+  // The type of geometry/intersection_score.hpp, so that the apps share the is_valid code with the editor.
+  bg::model::polygon<bg::model::d2::point_xy<double>> polygon;
   auto const copy = [](std::vector<m2::PointD> const & from, auto & to)
   {
     to.reserve(from.size());
@@ -544,7 +546,7 @@ bool IsValidPolygon(Rings const & rings)
   copy(rings.front(), polygon.outer());
   for (size_t i = 1; i < rings.size(); ++i)
     copy(rings[i], polygon.inners().emplace_back());
-  // The even-odd rule doesn't depend on the winding of rings.
+  // Orients and closes the rings for the type, while the even-odd rule doesn't depend on their winding.
   bg::correct(polygon);
   return bg::is_valid(polygon);
 }
@@ -609,16 +611,17 @@ void TessellateByLibtess(Rings const & rings, AddTriangleFn const & addTriangle)
     addTriangle(vertices[indices[0]], vertices[indices[1]], vertices[indices[2]]);
 }
 
-// By the even-odd rule, as polygons are filled.
+// By the even-odd rule, as polygons are filled. A spline skips the closing point of a ring, if the previous one is too
+// close.
 bool IsInside(std::vector<m2::SharedSpline> const & rings, m2::PointD const & p)
 {
   bool inside = false;
   for (auto const & ring : rings)
   {
     auto const & path = ring->GetPath();
-    for (size_t i = 1; i < path.size(); ++i)
+    for (size_t i = 0, j = path.size() - 1; i < path.size(); j = i++)
     {
-      auto const & a = path[i - 1];
+      auto const & a = path[j];
       auto const & b = path[i];
       if ((a.y > p.y) != (b.y > p.y) && p.x < a.x + (p.y - a.y) * (b.x - a.x) / (b.y - a.y))
         inside = !inside;
@@ -917,6 +920,8 @@ drape_ptr<UserAreaRenderParams> GenerateAreaRenderInfo(kml::AreaData const & are
   renderInfo->m_outlineColor = dp::Color(style.m_outlineColor);
   if (style.m_outline && style.m_outlineWidth > 0 && renderInfo->m_outlineColor.GetAlpha() > 0)
     renderInfo->m_outlineWidth = static_cast<float>(style.m_outlineWidth);
+  if (renderInfo->m_fillColor.GetAlpha() == 0 && renderInfo->m_outlineWidth == 0)
+    return renderInfo;
 
   auto const toMercator = [](kml::AreaRing const & ring)
   {
@@ -933,13 +938,11 @@ drape_ptr<UserAreaRenderParams> GenerateAreaRenderInfo(kml::AreaData const & are
   };
   auto const makeSpline = [](std::vector<m2::PointD> const & ring)
   {
-    auto const closing = (ring.front() + ring.back()) / 2;
-    auto spline = std::make_unique<m2::Spline>(ring.size() + 2);
-    spline->AddPoint(closing);
+    auto spline = std::make_unique<m2::Spline>(ring.size() + 1);
     // Skips segments shorter than the spline's minimum, so a tiny ring collapses into a point.
     for (auto const & point : ring)
       spline->AddPoint(point);
-    spline->AddPoint(closing);
+    spline->AddPoint(ring.front());
     return m2::SharedSpline(std::move(spline));
   };
 
@@ -1005,9 +1008,10 @@ void TessellateUserArea(UserAreaRenderParams & area, size_t polygon)
 
   for (auto & ring : rings)
     RemoveCollinearPoints(ring);
-  if (rings.front().size() < 3)
-    return;
+  // Degenerate rings, even the outer one, change no coverage by the even-odd rule, which tiles without rings use too.
   std::erase_if(rings, [](auto const & ring) { return ring.size() < 3; });
+  if (rings.empty())
+    return;
   if (rings.size() == 1 && TryFan(rings.front(), addTriangle))
     return;
 
@@ -1048,6 +1052,7 @@ void CacheUserAreas(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
 
   for (auto const & [area, depth] : areas)
   {
+    ASSERT_EQUAL(area->m_triangles.size(), area->m_fillColor.GetAlpha() > 0 ? area->m_polygons.size() : 0, ());
     auto const inTile = [&](size_t polygon) { return area->m_polygonRects[polygon].IsIntersect(tileRect); };
 
     std::vector<m2::PointD> triangles;
@@ -1100,20 +1105,40 @@ void CacheUserAreas(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
     params.m_color = area->m_outlineColor;
     params.m_cap = dp::ButtCap;
     params.m_join = dp::RoundJoin;
-    params.m_zoomLevel = tileKey.m_zoomLevel;
     for (size_t p = 0; p < area->m_polygons.size(); ++p)
     {
       if (!inTile(p))
         continue;
-      for (auto ring : area->m_polygons[p])
+      for (auto const & ring : area->m_polygons[p])
       {
-        if (simplify)
-          ring = SimplifyRing(ring, minSegmentSqrLength);
         if (ring->GetSize() < 2)
           continue;
-        // An outline along a tile side is cached by both tiles, but its second copy fails the depth test.
-        for (auto const & spline : m2::ClipSplineByRect(tileRect, ring))
-          LineShape(spline, params).Draw(context, make_ref(&batcher), textures);
+        // Only the pieces in the tile are simplified. The first vertex of a ring gets a line join, like the others:
+        // the end pieces of a ring that starts in the tile are joined, and a whole ring repeats its first segment,
+        // which the depth test draws once.
+        auto pieces = m2::ClipSplineByRect(tileRect, ring);
+        auto const & start = ring->GetPath().front();
+        if (pieces.size() > 1 && pieces.front()->GetPath().front() == start && pieces.back()->GetPath().back() == start)
+        {
+          auto path = pieces.back()->GetPath();
+          auto const & first = pieces.front()->GetPath();
+          path.insert(path.end(), first.begin() + 1, first.end());
+          pieces.front() = m2::SharedSpline(std::make_unique<m2::Spline>(std::move(path)));
+          pieces.pop_back();
+        }
+        for (auto piece : pieces)
+        {
+          if (simplify)
+            piece = SimplifyRing(piece, minSegmentSqrLength);
+          if (auto const & path = piece->GetPath(); path.size() > 2 && path.front() == path.back())
+          {
+            auto closed = path;
+            closed.push_back(path[1]);
+            piece = m2::SharedSpline(std::make_unique<m2::Spline>(std::move(closed)));
+          }
+          // An outline along a tile side is cached by both tiles, but its second copy fails the depth test.
+          LineShape(piece, params).Draw(context, make_ref(&batcher), textures);
+        }
       }
     }
   }

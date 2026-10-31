@@ -10,6 +10,7 @@
 
 #include "base/math.hpp"
 
+#include <array>
 #include <cmath>
 #include <cstdlib>
 
@@ -120,6 +121,80 @@ UNIT_CLASS_TEST(VisualParamsFixture, UserAreas_GpuSmallRingOutlineIsVisible)
     for (int x = 0; x < image.width(); ++x)
       colored += image.pixelColor(x, y) != QColor(Qt::white);
   TEST_GREATER(colored, 0, ());
+}
+
+UNIT_CLASS_TEST(VisualParamsFixture, UserAreas_GpuReversalsGetJoins)
+{
+  // The outline goes along a parallel to (60, 40) and back to (20, 40).
+  kml::AreaData area;
+  area.m_style = {0xFFFFFF00, 0x000000FF, 16, false, true};
+  auto & ring = area.m_polygons.emplace_back().m_outer;
+  for (auto const & p :
+       {m2::PointD(-40, -40), m2::PointD(-40, 40), m2::PointD(60, 40), m2::PointD(20, 40), m2::PointD(20, -40)})
+  {
+    ring.push_back({mercator::ToLatLon(p + m2::PointD(90, 90)), {}});
+  }
+  auto const info = df::GenerateAreaRenderInfo(area);
+
+  df::test_support::ShapeTestFixture fixture;
+  fixture.Render("Outline reversal", 256, 256,
+                 [&](auto & f) { f.AddUserAreas(df::TileKey(0, 0, 2), {{info.get(), 1.0f}}); });
+  // Beyond the reversal, where only its round join reaches.
+  auto const color = fixture.GetLastImage().pixelColor(128 + 65, 128 - 40);
+  TEST(color == QColor(Qt::black), (color.red(), color.green(), color.blue()));
+}
+
+UNIT_CLASS_TEST(VisualParamsFixture, UserAreas_GpuFirstCornersGetJoins)
+{
+  // Rings start at their top right corner and are densified by half a pixel, which simplification merges.
+  auto const square = [](double left)
+  {
+    kml::AreaRing ring;
+    std::array<m2::PointD, 4> const corners = {{{50, 50}, {left, 50}, {left, -50}, {50, -50}}};
+    for (size_t i = 0; i < corners.size(); ++i)
+    {
+      auto const & a = corners[i];
+      auto const & b = corners[(i + 1) % corners.size()];
+      int const steps = static_cast<int>(a.Length(b) / 0.5);
+      for (int k = 0; k < steps; ++k)
+        ring.push_back({mercator::ToLatLon(a + (b - a) * (static_cast<double>(k) / steps) + m2::PointD(90, 90)), {}});
+    }
+    return ring;
+  };
+  // The second ring crosses the tile, so that its outline is clipped.
+  for (double const left : {-50.0, -100.0})
+  {
+    kml::AreaData area;
+    area.m_style = {0xFFFFFF00, 0x000000FF, 16, false, true};
+    area.m_polygons = {{square(left), {}}};
+    auto const info = df::GenerateAreaRenderInfo(area);
+
+    df::test_support::ShapeTestFixture fixture;
+    fixture.Render("First corner of a ring", 256, 256,
+                   [&](auto & f) { f.AddUserAreas(df::TileKey(0, 0, 2), {{info.get(), 1.0f}}); });
+    // Beyond the corner, where only its round join reaches.
+    auto const color = fixture.GetLastImage().pixelColor(128 + 54, 128 - 54);
+    TEST(color == QColor(Qt::black), (left, color.red(), color.green(), color.blue()));
+  }
+}
+
+UNIT_CLASS_TEST(VisualParamsFixture, UserAreas_GpuCollapsedRingsKeepTheirCorners)
+{
+  // Simplification turns the diamond into a segment between its side corners and back.
+  kml::AreaData area;
+  area.m_style = {0xFFFFFF00, 0x000000FF, 8, false, true};
+  auto & ring = area.m_polygons.emplace_back().m_outer;
+  for (auto const & p : {m2::PointD(1, 0), m2::PointD(0, 1), m2::PointD(-1, 0), m2::PointD(0, -1)})
+    ring.push_back({mercator::ToLatLon(m2::PointD(90, 90) + p * 0.38), {}});
+  auto const info = df::GenerateAreaRenderInfo(area);
+
+  df::test_support::ShapeTestFixture fixture;
+  fixture.SetWorldToPixelScale(10);
+  fixture.Render("Collapsed ring outline", 256, 256,
+                 [&](auto & f) { f.AddUserAreas(df::TileKey(0, 0, 2), {{info.get(), 1.0f}}); });
+  // Above the top corner, which is 3.8 px above the center.
+  auto const color = fixture.GetLastImage().pixelColor(128, 128 - 7);
+  TEST(color == QColor(Qt::black), (color.red(), color.green(), color.blue()));
 }
 
 UNIT_CLASS_TEST(VisualParamsFixture, UserAreas_GpuBucketOverflowKeepsFillBelowOutline)

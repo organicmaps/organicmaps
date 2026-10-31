@@ -80,7 +80,6 @@ struct UserAreaRenderParams
   float m_outlineWidth = 0;  ///< 0 means no outline.
   m2::RectD m_limitRect;
   /// Closed Mercator rings of each polygon: the outer ring followed by its holes.
-  /// Rings start and end in the middle of an edge, so all corners get line joins.
   std::vector<std::vector<m2::SharedSpline>> m_polygons;
   /// Bounds of each polygon, so that tiles skip the others.
   std::vector<m2::RectD> m_polygonRects;

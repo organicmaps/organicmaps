@@ -208,18 +208,21 @@ UNIT_TEST(UserAreas_RenderInfo)
   TEST_EQUAL(info->m_polygons.front().size(), 2, ("The outer ring and the hole"));
   for (auto const & ring : info->m_polygons.front())
   {
-    // 4 corners, and both ends in the middle of the closing edge.
+    // 4 corners, and the first one again.
     auto const & path = ring->GetPath();
-    TEST_EQUAL(path.size(), 6, ());
+    TEST_EQUAL(path.size(), 5, ());
     TEST_EQUAL(path.front(), path.back(), ());
-    TEST_EQUAL(path.front(), (path[1] + path[4]) / 2, ());
   }
 
   area.m_style.m_fill = false;
-  area.m_style.m_outlineColor = 0x0000FF00;
   info = Tessellate(area);
   TEST(info->m_triangles.empty(), ("No fill"));
+  TEST_EQUAL(info->m_polygons.size(), 1, ("The outline"));
+
+  area.m_style.m_outlineColor = 0x0000FF00;
+  info = df::GenerateAreaRenderInfo(area);
   TEST_EQUAL(info->m_outlineWidth, 0, ("Transparent outline"));
+  TEST(info->m_polygons.empty() && info->m_limitRect.IsEmptyInterior(), ("Nothing to draw"));
 
   area.m_visible = false;
   info = df::GenerateAreaRenderInfo(area);
@@ -236,7 +239,7 @@ UNIT_TEST(UserAreas_HeightOnlyVerticesKeepValidFootprint)
   TEST(kml::NormalizeAreaGeometry(area.m_polygons), ());
   TEST_EQUAL(ring.size(), 4, ("Altitude fidelity retains both source vertices"));
   auto const info = Tessellate(area);
-  TEST_EQUAL(info->m_polygons.front().front()->GetSize(), 5, ("Splines need nonzero segments"));
+  TEST_EQUAL(info->m_polygons.front().front()->GetSize(), 4, ("Splines need nonzero segments"));
   TEST_ALMOST_EQUAL_ABS(ClockwiseArea(Triangles(*info)), mercator::LatToY(2), 1e-8, ());
 }
 
@@ -300,7 +303,7 @@ UNIT_TEST(UserAreas_FillKeepsVerticesThatSplinesSkip)
   TEST_EQUAL(Coverage(Triangles(*info), LonLat(1 + 1e-8, 1 + 1e-8)), 0, ("The tiny hole"));
   TEST_EQUAL(Coverage(Triangles(*info), LonLat(1, 2)), 1, ());
 
-  // The first and the last vertices differ only in height, so the outline doesn't start in the middle of an edge.
+  // The last vertex repeats the first one, but for its height, and the fill skips it.
   area.m_polygons = {{Ring({{1, 1}, {4, 4}, {1, 4}, {1, 1}}), {}}};
   area.m_polygons.front().m_outer.front().m_altitude = 2;
   area.m_polygons.front().m_outer.back().m_altitude = 1;
@@ -330,17 +333,8 @@ UNIT_TEST(UserAreas_RemovedAreasAreSkippedUntilGroupUpdate)
   generator.SetUserAreas(std::move(areas));
   auto const shown = generator.GetAreasToCache(rect);
   TEST_EQUAL(shown.size(), 2, ());
-
-  // A full refresh resends shown areas, which keep their meshes, made when a tile needs them.
+  // Meshes are made when a tile needs them.
   TEST(shown.back().first->m_triangles.front().empty(), ());
-  df::TessellateUserArea(*shown.back().first, 0);
-  areas = make_unique_dp<df::UserAreasRenderCollection>();
-  areas->emplace(2, df::GenerateAreaRenderInfo(MakeArea()));
-  generator.SetUserAreas(std::move(areas));
-  auto const refreshed = generator.GetAreasToCache(rect);
-  TEST_EQUAL(refreshed.size(), 2, ());
-  TEST_EQUAL(refreshed.back().first, shown.back().first, ());
-  TEST(!refreshed.back().first->m_triangles.front().empty(), ());
 }
 
 UNIT_TEST(UserAreas_UpdatesRemoveAndResendAreas)
@@ -349,7 +343,8 @@ UNIT_TEST(UserAreas_UpdatesRemoveAndResendAreas)
   AreasProvider deleted;
   deleted.m_removedGroups = {kGroupId};
   deleted.m_removedAreas = {1, 2};
-  auto update = df::DrapeEngine::CollectUserMarksUpdate(&deleted, false /* firstTime */, settings::Placement::None);
+  auto update = df::DrapeEngine::CollectUserMarksUpdate(&deleted, df::DrapeEngine::UserMarksUpdateMode::Changes,
+                                                        settings::Placement::None);
   TEST_EQUAL(update.m_removedIds->m_areaIds, kml::AreaIdCollection({1, 2}), ());
   TEST(update.m_areas->empty() && update.m_groups.empty(), ());
 
@@ -357,19 +352,25 @@ UNIT_TEST(UserAreas_UpdatesRemoveAndResendAreas)
   AreasProvider hidden;
   hidden.m_updatedGroups = hidden.m_becameInvisibleGroups = {kGroupId};
   hidden.m_visible = false;
-  update = df::DrapeEngine::CollectUserMarksUpdate(&hidden, false /* firstTime */, settings::Placement::None);
+  update = df::DrapeEngine::CollectUserMarksUpdate(&hidden, df::DrapeEngine::UserMarksUpdateMode::Changes,
+                                                   settings::Placement::None);
   TEST_EQUAL(update.m_removedIds->m_areaIds, kml::AreaIdCollection({1, 2}), ());
   TEST(update.m_groups.at(kGroupId)->m_areaIds.empty(), ());
 
   AreasProvider shown;
   shown.m_updatedGroups = shown.m_becameVisibleGroups = {kGroupId};
-  update = df::DrapeEngine::CollectUserMarksUpdate(&shown, false /* firstTime */, settings::Placement::None);
+  update = df::DrapeEngine::CollectUserMarksUpdate(&shown, df::DrapeEngine::UserMarksUpdateMode::Changes,
+                                                   settings::Placement::None);
   TEST_EQUAL(SentAreaIds(update), std::vector<kml::AreaId>({1, 2}), ());
   TEST_EQUAL(update.m_groups.at(kGroupId)->m_areaIds, kml::AreaIdCollection({1, 2}), ());
 
-  // A full refresh resends shown areas, while the backend keeps their meshes.
-  update = df::DrapeEngine::CollectUserMarksUpdate(&shown, true /* firstTime */, settings::Placement::None);
+  // A new backend gets all shown areas, while a refresh of mark titles sends none.
+  update = df::DrapeEngine::CollectUserMarksUpdate(&shown, df::DrapeEngine::UserMarksUpdateMode::All,
+                                                   settings::Placement::None);
   TEST_EQUAL(SentAreaIds(update), std::vector<kml::AreaId>({1, 2}), ());
+  update = df::DrapeEngine::CollectUserMarksUpdate(&shown, df::DrapeEngine::UserMarksUpdateMode::Titles,
+                                                   settings::Placement::None);
+  TEST(update.m_areas->empty() && update.m_lines->empty() && update.m_groups.empty(), ());
 }
 
 UNIT_TEST(UserAreas_HolesOutsideShellsAreInTileBounds)
@@ -476,6 +477,19 @@ UNIT_TEST(UserAreas_InvalidPolygonsAreFilledByEvenOddRule)
   TEST_EQUAL(Coverage(Triangles(*Tessellate(area)), LonLat(5, 5)), 0, ());
 }
 
+UNIT_TEST(UserAreas_DegenerateOuterRingsLeaveHolesFilled)
+{
+  // By the even-odd rule, as for tiles that no ring crosses: the hole outside of a line is filled.
+  std::vector<m2::PointD> const line = {{0, 0}, {5, 0}, {10, 0}};
+  std::vector<m2::PointD> const hole = {{12, 12}, {14, 12}, {14, 14}, {12, 14}};
+  df::UserAreaRenderParams info;
+  info.m_fillColor = dp::Color(0xFF000080);
+  info.m_fillRings = {{line, hole}};
+  info.m_triangles.resize(1);
+  df::TessellateUserArea(info, 0);
+  TEST_ALMOST_EQUAL_ABS(ClockwiseArea(info.m_triangles.front()), 4.0, 1e-12, ());
+}
+
 UNIT_TEST(UserAreas_StarShapedRingsAreFans)
 {
   // A jagged circle, on which earcut is slow.
@@ -502,7 +516,7 @@ UNIT_TEST(UserAreas_StarShapedRingsAreFans)
 
 UNIT_TEST(UserAreas_IntersectionInterpolationPreservesCoverage)
 {
-  // libtess2 misfills these crossing rings with fast math or contracted multiply-adds.
+  // Optimized libtess2 builds with fast math or contracted multiply-adds crash on or misfill these crossing rings.
   auto const ring = [](std::initializer_list<m2::PointD> points)
   {
     kml::AreaRing result;

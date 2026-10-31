@@ -164,7 +164,15 @@ public:
     drape_ptr<UserAreasRenderCollection> m_areas = make_unique_dp<UserAreasRenderCollection>();
     std::unordered_map<kml::MarkGroupId, drape_ptr<IDCollections>> m_groups;
   };
-  static UserMarksUpdate CollectUserMarksUpdate(UserMarksProvider const * provider, bool firstTime,
+  enum class UserMarksUpdateMode
+  {
+    Changes,
+    // Everything, for the first update of a backend.
+    All,
+    // The marks of visible groups, as only their titles depend on the text placement.
+    Titles,
+  };
+  static UserMarksUpdate CollectUserMarksUpdate(UserMarksProvider const * provider, UserMarksUpdateMode mode,
                                                 settings::Placement textPlacement);
 
   void SetRenderingEnabled(ref_ptr<dp::GraphicsContextFactory> contextFactory = nullptr);
@@ -292,6 +300,8 @@ private:
   void RecacheMapShapes();
 
   dp::DrapeID GenerateDrapeID();
+
+  void PostUserMarksUpdate(UserMarksUpdate && update);
 
   static drape_ptr<UserMarkRenderParams> GenerateMarkRenderInfo(UserPointMark const * mark, dp::Color outlineColor,
                                                                 settings::Placement textPlacement);
