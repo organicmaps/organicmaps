@@ -711,6 +711,8 @@
     <string name="moreyear_ago_sorttype">Больше года назад</string>
     <string name="near_me_sorttype">Рядом со мной</string>
     <string name="others_sorttype">Другие</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Ошибка построения маршрута</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Сейчас закрыто</string>
     <string name="opens_tomorrow_at">Откроется завтра в %s</string>
@@ -850,6 +852,10 @@
     <string name="outdoor_seating">Сидения на открытом воздухе</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">Для наиболее точной навигации мы рекомендуем отключить режим энергосбережения в настройках батареи телефона.</string>
+    <!-- Place Page button that starts navigation along the selected track. -->
+    <string name="navigate_track">Навигация</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">Трек больше недоступен</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Записать трек</string>
     <!-- Prompt for stopping a track recording. -->

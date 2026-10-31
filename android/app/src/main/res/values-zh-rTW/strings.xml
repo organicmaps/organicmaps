@@ -702,6 +702,8 @@
     <string name="moreyear_ago_sorttype">一年多以前</string>
     <string name="near_me_sorttype">在我附近</string>
     <string name="others_sorttype">其他</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">路線規劃失敗</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">現已關門</string>
     <string name="opens_tomorrow_at">明天 %s 營業</string>
