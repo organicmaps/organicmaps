@@ -173,6 +173,8 @@ private:
 
 private:
   std::unique_ptr<AsyncRouter> m_router;
+  // Snapshot before transferring the router to its worker thread.
+  bool m_routerIsTrafficSensitive = true;
   std::shared_ptr<Route> m_route;
   // Latest delivered RoutesResult. Kept alongside m_route so callbacks can pass the whole
   // result (including alternative routes) to higher layers.
