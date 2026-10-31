@@ -185,6 +185,29 @@ UNIT_CLASS_TEST(TestWithClassificator, CategoriesHolder_LoadDefault)
   TEST_GREATER(counter, 0, ());
 }
 
+UNIT_CLASS_TEST(TestWithClassificator, CategoriesHolder_BarberKeepsHairdresserTerms)
+{
+  auto const & holder = GetDefaultCategories();
+  auto const getTypes = [&holder](char const * name)
+  {
+    vector<uint32_t> types;
+    holder.ForEachTypeByName(CategoriesHolder::kEnglishCode, strings::MakeUniString(name),
+                             [&types](uint32_t type) { types.push_back(type); });
+    return types;
+  };
+
+  auto const hairdresser = classif().GetTypeByPath({"shop", "hairdresser"});
+  auto const barber = classif().GetTypeByPath({"shop", "hairdresser", "barber"});
+
+  auto const hairdresserTypes = getTypes("hairdresser");
+  TEST(base::IsExist(hairdresserTypes, hairdresser), ());
+  TEST(base::IsExist(hairdresserTypes, barber), ());
+
+  auto const barberTypes = getTypes("barber");
+  TEST(base::IsExist(barberTypes, barber), ());
+  TEST(!base::IsExist(barberTypes, hairdresser), ());
+}
+
 UNIT_CLASS_TEST(TestWithClassificator, CategoriesHolder_ForEach)
 {
   char const kCategories[] =

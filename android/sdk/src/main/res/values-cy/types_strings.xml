@@ -694,6 +694,8 @@
     <string name="type.man_made.pier">Pier</string>
     <string name="type.man_made.pipeline">Piblinell</string>
     <string name="type.man_made.pipeline.overground">Piblinell Uwchben y Ddaear</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">Cronfa Ddŵr Dan Do</string>
     <string name="type.man_made.silo">Seilo</string>
     <string name="type.man_made.storage_tank">Tanc Storio</string>
     <string name="type.man_made.surveillance">Camera Gwyliadwriaeth</string>
@@ -712,6 +714,8 @@
     <string name="type.man_made.water_tower">Tŵr Dŵr</string>
     <string name="type.man_made.water_well">Ffynnon Ddŵr</string>
     <string name="type.man_made.water_well.drinking_water_no">Ffynnon Ddŵr</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">Gwaith Dŵr</string>
     <string name="type.man_made.windmill">Melin Wynt</string>
     <string name="type.man_made.works">Gwaith Diwydiannol</string>
     <string name="type.military">Milwrol</string>
@@ -1201,6 +1205,8 @@
     <string name="type.shop.greengrocer">Siop Ffrwythau a Llysiau</string>
     <string name="type.shop.grocery">Siop Fwyd</string>
     <string name="type.shop.hairdresser">Siop Drin Gwallt</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">Barbwr</string>
     <string name="type.shop.hardware">Siop Nwyddau Haearn</string>
     <string name="type.shop.health_food">Siop Fwyd Iach</string>
     <string name="type.shop.hearing_aids">Siop Gymhorthion Clyw</string>
@@ -1324,6 +1330,7 @@
     <string name="type.sport.rugby_union">Rygbi\'r Undeb</string>
     <string name="type.sport.running">Rhedeg</string>
     <string name="type.sport.softball">Pêl-feddal</string>
+    <string name="type.sport.pilates">Pilates</string>
     <string name="type.tourism">Twristiaeth</string>
     <string name="type.tourism.aquarium">Acwariwm</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1467,6 +1474,8 @@
     <string name="type.man_made.monitoring_station.weather">Gorsaf Fonitro\'r Tywydd</string>
     <string name="type.amenity.student_accommodation">Llety Myfyrwyr</string>
     <string name="type.craft.watchmaker">Gwneuthurwr Oriorau</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">Gwneuthuro Ffenestri</string>
     <string name="type.xmas_feature.market">Marchnad Nadolig</string>
     <string name="type.xmas_feature.tree">Coeden Nadolig</string>
     <string name="type.amenity.hookah_lounge">Lolfa Shisha</string>

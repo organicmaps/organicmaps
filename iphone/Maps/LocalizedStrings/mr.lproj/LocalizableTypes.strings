@@ -809,6 +809,9 @@
 "type.man_made.pier" = "धक्का";
 "type.man_made.pipeline" = "नळमार्ग";
 "type.man_made.pipeline.overground" = "जमिनीवरील नळमार्ग";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "झाकलेला जलाशय";
 "type.man_made.silo" = "पेव(धान्यसाठा)";
 "type.man_made.storage_tank" = "साठवण टाकी";
 "type.man_made.surveillance" = "संनिरीक्षण कॅमेरा";
@@ -831,6 +834,9 @@
 "type.man_made.water_tower" = "पाण्याचा मनोरा(टाकी)";
 "type.man_made.water_well" = "पाण्याची विहीर";
 "type.man_made.water_well.drinking_water_no" = "पाण्याची विहीर";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "जलशुद्धीकरण केंद्र";
 "type.man_made.windmill" = "पवनचक्की";
 "type.man_made.works" = "औद्योगिक कामे";
 
@@ -1339,6 +1345,9 @@
 "type.shop.greengrocer" = "भाजीवाला";
 "type.shop.grocery" = "Grocery Store";
 "type.shop.hairdresser" = "न्हावी";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "न्हाव्याचे दुकान";
 "type.shop.hardware" = "Hardware Store";
 "type.shop.health_food" = "Health Food Shop";
 "type.shop.hearing_aids" = "श्रवणयंत्र स्टोअर";
@@ -1464,6 +1473,7 @@
 "type.sport.rugby_union" = "रग्बी";
 "type.sport.running" = "धावणे";
 "type.sport.softball" = "सॉफ्टबॉल";
+"type.sport.pilates" = "पिलाटेस";
 "type.tourism" = "पर्यटन";
 "type.tourism.aquarium" = "मत्स्यालय";
 
@@ -1614,6 +1624,9 @@
 "type.man_made.monitoring_station.weather" = "हवामान निरीक्षण स्टेशन";
 "type.amenity.student_accommodation" = "विद्यार्थ्यांची निवास व्यवस्था";
 "type.craft.watchmaker" = "वॉचमेकर";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "खिडकी निर्मिती";
 "type.xmas_feature.market" = "ख्रिसमस मार्केट";
 "type.xmas_feature.tree" = "ख्रिसमस ट्री";
 "type.amenity.hookah_lounge" = "हुक्का पार्लर";

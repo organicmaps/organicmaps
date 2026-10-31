@@ -809,6 +809,9 @@
 "type.man_made.pier" = "Pir";
 "type.man_made.pipeline" = "Pipeline";
 "type.man_made.pipeline.overground" = "Pipeline ovan mark";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "Täckt reservoar";
 "type.man_made.silo" = "Silo";
 "type.man_made.storage_tank" = "Lagringstank";
 "type.man_made.surveillance" = "Övervakningskamera";
@@ -831,6 +834,9 @@
 "type.man_made.water_tower" = "Vattentorn";
 "type.man_made.water_well" = "Brunn";
 "type.man_made.water_well.drinking_water_no" = "Brunn";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "Vattenverk";
 "type.man_made.windmill" = "Väderkvarn";
 "type.man_made.works" = "Fabrik";
 
@@ -1339,6 +1345,9 @@
 "type.shop.greengrocer" = "Grönsakshandlare";
 "type.shop.grocery" = "Livsmedel";
 "type.shop.hairdresser" = "Frisör";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "Barberare";
 "type.shop.hardware" = "Järnaffär";
 "type.shop.health_food" = "Hälsokostbutik";
 "type.shop.hearing_aids" = "Butik för hörapparater";
@@ -1464,6 +1473,7 @@
 "type.sport.rugby_union" = "Rugby";
 "type.sport.running" = "Löpning";
 "type.sport.softball" = "Softboll";
+"type.sport.pilates" = "Pilates";
 "type.tourism" = "Turism";
 "type.tourism.aquarium" = "Akvarium";
 
@@ -1614,6 +1624,9 @@
 "type.man_made.monitoring_station.weather" = "Väderövervakningsstation";
 "type.amenity.student_accommodation" = "Studentboende";
 "type.craft.watchmaker" = "Urmakare";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "Fönstertillverkning";
 "type.xmas_feature.market" = "Julmarknad";
 "type.xmas_feature.tree" = "Julgran";
 "type.amenity.hookah_lounge" = "Shishabar";

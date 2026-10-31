@@ -665,6 +665,8 @@
     <string name="type.man_made.pier">Pomol</string>
     <string name="type.man_made.pipeline">Cevovod</string>
     <string name="type.man_made.pipeline.overground">Nadzemni cevovod</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">Vodohran</string>
     <string name="type.man_made.silo">Silos</string>
     <string name="type.man_made.storage_tank">Rezervoar</string>
     <string name="type.man_made.surveillance">Nadzorna kamera</string>
@@ -683,6 +685,8 @@
     <string name="type.man_made.water_tower">Vodni stolp</string>
     <string name="type.man_made.water_well">Vodnjak</string>
     <string name="type.man_made.water_well.drinking_water_no">Vodnjak</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">Vodarna</string>
     <string name="type.man_made.windmill">Mlin na veter</string>
     <string name="type.man_made.works">Industrijski obrat</string>
     <string name="type.military">Vojaški objekt</string>
@@ -1164,6 +1168,8 @@
     <string name="type.shop.greengrocer">Zelenjavar</string>
     <string name="type.shop.grocery">Živilska trgovina</string>
     <string name="type.shop.hairdresser">Frizer</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">Brivnica</string>
     <string name="type.shop.hardware">Železnina</string>
     <string name="type.shop.health_food">Trgovina z zdravo prehrano</string>
     <string name="type.shop.hearing_aids">Trgovina s slušnimi aparati</string>
@@ -1278,6 +1284,7 @@
     <string name="type.sport.rugby_union">Ragbi</string>
     <string name="type.sport.running">Tek</string>
     <string name="type.sport.softball">Softball</string>
+    <string name="type.sport.pilates">Pilates</string>
     <string name="type.tourism">Turizem</string>
     <string name="type.tourism.aquarium">Akvarij</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1401,4 +1408,6 @@
     <string name="type.office.security">Varnostna pisarna</string>
     <string name="type.power.portal">Daljnovodni stolp (portal)</string>
     <string name="type.shop.lighting">Trgovina s svetili</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">Izdelava oken</string>
 </resources>

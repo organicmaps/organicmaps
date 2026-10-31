@@ -809,6 +809,9 @@
 "type.man_made.pier" = "Mólo";
 "type.man_made.pipeline" = "Potrubie";
 "type.man_made.pipeline.overground" = "Pozemné potrubie";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "Zemný vodojem";
 "type.man_made.silo" = "Silo";
 "type.man_made.storage_tank" = "Skladovacia nádrž";
 "type.man_made.surveillance" = "Bezpečnostná kamera";
@@ -831,6 +834,9 @@
 "type.man_made.water_tower" = "Vodojem";
 "type.man_made.water_well" = "Studňa";
 "type.man_made.water_well.drinking_water_no" = "Studňa";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "Vodáreň";
 "type.man_made.windmill" = "Veterný mlyn";
 "type.man_made.works" = "Továreň";
 
@@ -1339,6 +1345,9 @@
 "type.shop.greengrocer" = "Zelovoc";
 "type.shop.grocery" = "Potraviny";
 "type.shop.hairdresser" = "Kaderníctvo";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "Holičstvo";
 "type.shop.hardware" = "Železiarstvo";
 "type.shop.health_food" = "Obchod so zdravou výživou";
 "type.shop.hearing_aids" = "Obchod s pomôckami na počúvanie";
@@ -1464,6 +1473,7 @@
 "type.sport.rugby_union" = "Rugby";
 "type.sport.running" = "Beh";
 "type.sport.softball" = "Softbal";
+"type.sport.pilates" = "Pilates";
 "type.tourism" = "Turistika";
 "type.tourism.aquarium" = "Akvárium";
 
@@ -1614,6 +1624,9 @@
 "type.man_made.monitoring_station.weather" = "Stanica na monitorovanie počasia";
 "type.amenity.student_accommodation" = "Ubytovanie študentov";
 "type.craft.watchmaker" = "Hodinár";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "Výroba okien";
 "type.xmas_feature.market" = "Vianočný trh";
 "type.xmas_feature.tree" = "Vianočný stromček";
 "type.amenity.hookah_lounge" = "Shisha bar";

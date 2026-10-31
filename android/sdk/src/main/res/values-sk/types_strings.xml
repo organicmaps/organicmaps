@@ -665,6 +665,8 @@
     <string name="type.man_made.pier">Mólo</string>
     <string name="type.man_made.pipeline">Potrubie</string>
     <string name="type.man_made.pipeline.overground">Pozemné potrubie</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">Zemný vodojem</string>
     <string name="type.man_made.storage_tank">Skladovacia nádrž</string>
     <string name="type.man_made.surveillance">Bezpečnostná kamera</string>
     <string name="type.man_made.tower">Veža</string>
@@ -682,6 +684,8 @@
     <string name="type.man_made.water_tower">Vodojem</string>
     <string name="type.man_made.water_well">Studňa</string>
     <string name="type.man_made.water_well.drinking_water_no">Studňa</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">Vodáreň</string>
     <string name="type.man_made.windmill">Veterný mlyn</string>
     <string name="type.man_made.works">Továreň</string>
     <string name="type.military.bunker">Bunker</string>
@@ -1139,6 +1143,8 @@
     <string name="type.shop.greengrocer">Zelovoc</string>
     <string name="type.shop.grocery">Potraviny</string>
     <string name="type.shop.hairdresser">Kaderníctvo</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">Holičstvo</string>
     <string name="type.shop.hardware">Železiarstvo</string>
     <string name="type.shop.health_food">Obchod so zdravou výživou</string>
     <string name="type.shop.hearing_aids">Obchod s pomôckami na počúvanie</string>
@@ -1260,6 +1266,7 @@
     <string name="type.sport.rugby_union">Rugby</string>
     <string name="type.sport.running">Beh</string>
     <string name="type.sport.softball">Softbal</string>
+    <string name="type.sport.pilates">Pilates</string>
     <string name="type.tourism">Turistika</string>
     <string name="type.tourism.aquarium">Akvárium</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1389,6 +1396,8 @@
     <string name="type.man_made.monitoring_station.weather">Stanica na monitorovanie počasia</string>
     <string name="type.amenity.student_accommodation">Ubytovanie študentov</string>
     <string name="type.craft.watchmaker">Hodinár</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">Výroba okien</string>
     <string name="type.xmas_feature.market">Vianočný trh</string>
     <string name="type.xmas_feature.tree">Vianočný stromček</string>
     <string name="type.amenity.hookah_lounge">Shisha bar</string>

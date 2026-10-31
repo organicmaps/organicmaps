@@ -11,11 +11,17 @@
     <string name="type.landuse.basin.intermittent">Għadira temporanja</string>
     <string name="type.leisure.track">Korsa sportiva</string>
     <string name="type.leisure.track.area">Korsa sportiva</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">Ġibjun mgħotti</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">Impjant tat-trattament tal-ilma</string>
     <string name="type.natural.water.intermittent">Ilma temporanju</string>
     <string name="type.natural.hill">Għolja</string>
     <string name="type.natural.arch">Arka tal-blat</string>
     <string name="type.natural.volcano.active">Volkan attiv</string>
     <string name="type.railway.disused.tunnel">Mina tal-ferrovija mitluqa</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">Barbier</string>
     <string name="type.shop.leather">Ħanut tal-oġġetti tal-ġilda</string>
     <string name="type.shop.religion">Ħanut tal-oġġetti reliġjużi</string>
     <string name="type.sport.boules">Boċċi</string>
@@ -30,6 +36,7 @@
     <string name="type.sport.rugby_union">Rugby union</string>
     <string name="type.sport.running">Ġiri</string>
     <string name="type.sport.softball">Softball</string>
+    <string name="type.sport.pilates">Pilates</string>
     <string name="type.waterway.access_point">Punt ta\' Aċċess għall-Kors tal-Ilma</string>
     <string name="type.waterway.canal">Kanal</string>
     <string name="type.waterway.canal.intermittent">Kanal temporanju</string>
@@ -46,4 +53,6 @@
     <string name="type.waterway.stream.intermittent">Nixxiegħa temporanja</string>
     <string name="type.waterway.stream.tunnel">Nixxiegħa</string>
     <string name="type.amenity.stage">Palk</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">Manifattura tat-twieqi</string>
 </resources>
