@@ -58,6 +58,8 @@ set(SRC
   feature_covering.hpp
   feature_data.cpp
   feature_data.hpp
+  cycling_infrastructure.hpp
+  cycling_infrastructure_section.hpp
   feature_decl.cpp
   feature_decl.hpp
   feature_impl.cpp

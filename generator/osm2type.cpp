@@ -1,4 +1,5 @@
 #include "generator/osm2type.hpp"
+#include "indexer/cycling_infrastructure.hpp"
 
 #include "generator/osm2meta.hpp"
 #include "generator/osm_element.hpp"
@@ -1589,5 +1590,12 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params, TypesFilterFn
   // Stage6: Collect additional information about feature such as
   // hotel stars, opening hours, cuisine, ...
   ForEachTag(p, MetadataTagProcessor(params));
+  auto const highway = p->GetTag("highway");
+  bool const dedicated =
+      highway == "cycleway" || ((highway == "path" || highway == "footway") && p->GetTag("bicycle") == "designated");
+  if (p->IsWay() && !highway.empty() && !dedicated)
+    if (auto sides =
+            cycling::ReadSides([p](std::string const & key) { return p->GetTag(key); }, params.GetReversedGeometry()))
+      params.SetCyclingInfrastructure(cycling::Encode(*sides));
 }
 }  // namespace ftype
