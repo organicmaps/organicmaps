@@ -438,7 +438,7 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, flo
                          0.0f);
 
   ASSERT_EQUAL(m_glyphRegions.size(), m_shapedGlyphs.m_glyphs.size(), ());
-  m2::PointD prevTangent;
+  m2::PointD prevTangent{};
   for (size_t i = 0; i < m_glyphRegions.size(); ++i)
   {
     auto const & glyph = m_shapedGlyphs.m_glyphs[i];
