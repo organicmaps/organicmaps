@@ -21,6 +21,7 @@ set(SRC
   cross_mwm_osm_ways_collector_tests.cpp
   descriptions_section_builder_tests.cpp
   feature_builder_test.cpp
+  cycling_junctions_tests.cpp
   feature_merger_test.cpp
   filter_elements_tests.cpp
   gen_mwm_info_tests.cpp
