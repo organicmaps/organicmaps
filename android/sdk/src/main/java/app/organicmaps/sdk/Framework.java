@@ -95,6 +95,10 @@ public class Framework
 
   public static native void nativePokeSearchInViewport();
 
+  public static native void nativeOnAppBackgrounded();
+
+  public static native void nativeReleaseBackgroundResources();
+
   @Size(2)
   public static native double[] nativeGetScreenRectCenter();
 
