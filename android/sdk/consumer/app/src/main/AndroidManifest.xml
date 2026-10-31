@@ -1,0 +1,6 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+  <application android:name=".ConsumerApplication" android:label="SDK consumer check"
+      android:theme="@android:style/Theme.Material.Light.NoActionBar">
+    <activity android:name=".MainActivity" android:exported="true" />
+  </application>
+</manifest>

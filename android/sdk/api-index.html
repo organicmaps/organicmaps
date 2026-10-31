@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Organic Maps Android SDK @SDK_VERSION@</title>
+<style>
+body { font: 1rem/1.6 system-ui, sans-serif; max-width: 58rem; margin: 3rem auto; padding: 0 1rem; }
+table { border-collapse: collapse; width: 100%; }
+th, td { text-align: left; padding: .6rem; border-bottom: 1px solid #aaa; }
+code { font-size: .95em; }
+@media (prefers-color-scheme: dark) { body { background: #202124; color: #eee; } a { color: #9dc5ff; } }
+</style>
+<h1>Organic Maps Android SDK</h1>
+<p>Version <code>@SDK_VERSION@</code></p>
+<p>Start with the <a href="https://github.com/organicmaps/organicmaps/blob/master/android/sdk/README.md">integration guide</a>.
+Create one <a href="sdk/app/organicmaps/sdk/OrganicMaps.html">OrganicMaps</a> instance per process,
+wait for asynchronous map loading, then bind a MapView and MapController to the activity lifecycle.</p>
+<table>
+<thead><tr><th>Artifact</th><th>API documentation</th></tr></thead>
+<tbody>
+@SDK_MODULE_ROWS@
+</tbody>
+</table>
+<p>Coordinates are WGS84 degrees unless an API explicitly specifies Mercator coordinates or screen pixels.
+Call native feature APIs on the main thread after initialization, and remove activity listeners when their host ends.</p>
+</html>

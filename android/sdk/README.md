@@ -154,3 +154,38 @@ resources such as bookmark icons are resolved with `Resources.getIdentifier()`
 (see `Icon` and `Utils`). Keep the map attribution visible and
 include the project's existing [code](../../LICENSE) and
 [binary-data](../../DATA_LICENSE.txt) licensing information in your integration.
+
+## Documentation and consumer checks
+
+Run these commands from `android/` with the build JDK configured in CI:
+
+```bash
+./gradlew -Parm64 sdkApiDocs
+./gradlew -Parm64 -PsdkVersion=0.0.0-sdk-check sdkConsumerCheck
+./gradlew -Parm64 -PsdkVersion=0.0.0-sdk-check sdkConsumerConnectedCheck
+```
+
+`sdkApiDocs` produces a module index and API pages in `build/sdk-api/`. It uses the
+same documentation jars as the Maven publications and checks that core API pages
+exist and local HTML links resolve. Modules containing only assets or private provider implementations have
+no public API pages.
+
+`publishSdkForChecks` clears and republishes the SDK modules into `build/sdk-check/repository`.
+It does not upload to Central or require Central credentials. `sdkVersion` can
+override the normal date-based version for these checks; use a dedicated version
+such as the one above so local checks are distinguishable from releases.
+
+`sdkConsumerCheck` publishes that repository, then builds and lints the independent
+[consumer application](consumer/). Its only SDK dependencies are Maven coordinates:
+there are no SDK project dependencies or fallback SDK repositories. It builds both
+debug and minified release APKs, with separate native, Google and FOSS provider
+variants. Its platform-only instrumentation probe needs no test-specific keep
+rules in the target APK; JNI preservation rules must come from the AAR.
+
+`sdkConsumerConnectedCheck` runs a renderer/JNI smoke test against the minified
+native-location release APK, checks the HTTP JNI return type, verifies in each release
+mapping that the concrete `Call.cancel()` override keeps its name, and fails if no
+instrumentation test executed. The HTTP checks do not send requests. Start
+a device or emulator matching the published ABI first; set `ANDROID_SERIAL` when
+more than one is connected. CI uses an x86_64 Android emulator and publishes with
+`-Px86_64`; local arm64 emulators use `-Parm64`.
