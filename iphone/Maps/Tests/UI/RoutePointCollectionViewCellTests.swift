@@ -12,6 +12,85 @@ final class RoutePointCollectionViewCellTests: XCTestCase {
     }
   }
 
+  func testFixedTrackRowsKeepNativeGeometryTypographyAndConnectorAppearance() throws {
+    for appearance in [UIUserInterfaceStyle.light, .dark] {
+      for direction in [UISemanticContentAttribute.forceLeftToRight, .forceRightToLeft] {
+        let size = CGSize(width: 320, height: RoutePointCollectionViewCell.height())
+        let ordinary = RoutePointCollectionViewCell(frame: CGRect(origin: .zero, size: size))
+        let fixed = RoutePointCollectionViewCell(frame: CGRect(origin: .zero, size: size))
+        var model = try RoutePointCollectionViewCell.PointViewModel(title: "Pier", image: XCTUnwrap(UIImage(named: "route-point-1")),
+                                                                    usesCurrentPositionIcon: false, showCloseButton: false,
+                                                                    maskedCorners: [], isPlaceholder: false, showSeparator: false,
+                                                                    onCloseHandler: nil)
+        ordinary.configure(with: .point(model), topConnector: .solid, bottomConnector: .solid)
+        model.showReorderButton = false
+        model.accessibilityDetail = "Track start · Riverside ride"
+        fixed.configure(with: .point(model), topConnector: .solid, bottomConnector: .solid)
+        for cell in [ordinary, fixed] {
+          cell.overrideUserInterfaceStyle = appearance
+          func apply(_ view: UIView) {
+            view.semanticContentAttribute = direction
+            view.subviews.forEach(apply)
+            view.applyTheme()
+          }
+          apply(cell)
+          cell.layoutIfNeeded()
+        }
+        let ordinaryBackground = try XCTUnwrap(ordinary.contentView.subviews.first)
+        let fixedBackground = try XCTUnwrap(fixed.contentView.subviews.first)
+        XCTAssertEqual(fixedBackground.frame, ordinaryBackground.frame)
+        XCTAssertEqual(fixedBackground.backgroundColor, ordinaryBackground.backgroundColor)
+        XCTAssertEqual(fixedBackground.layer.cornerRadius, ordinaryBackground.layer.cornerRadius)
+        let ordinaryIcon = try XCTUnwrap(ordinaryBackground.subviews.compactMap { $0 as? UIImageView }.first)
+        let fixedIcon = try XCTUnwrap(fixedBackground.subviews.compactMap { $0 as? UIImageView }.first)
+        XCTAssertEqual(fixedIcon.frame, ordinaryIcon.frame)
+        XCTAssertEqual(fixedIcon.bounds.size, CGSize(width: 28, height: 28))
+        let ordinaryText = try XCTUnwrap(ordinaryBackground.subviews.compactMap { $0 as? UIStackView }.first)
+        let fixedText = try XCTUnwrap(fixedBackground.subviews.compactMap { $0 as? UIStackView }.first)
+        XCTAssertEqual(fixedText.arrangedSubviews.count, 1)
+        XCTAssertEqual(fixedText.frame, ordinaryText.frame)
+        let ordinaryTitle = try XCTUnwrap(ordinaryText.arrangedSubviews.first as? UILabel)
+        let fixedTitle = try XCTUnwrap(fixedText.arrangedSubviews.first as? UILabel)
+        XCTAssertEqual(fixedTitle.font, ordinaryTitle.font)
+        XCTAssertEqual(fixedTitle.textColor, ordinaryTitle.textColor)
+        XCTAssertEqual(try iconColumnImage(fixed, direction: direction), try iconColumnImage(ordinary, direction: direction))
+        XCTAssertTrue(fixedBackground.subviews.compactMap { $0 as? UIButton }.allSatisfy(\.isHidden))
+        XCTAssertEqual(fixed.accessibilityLabel, "Pier, Track start · Riverside ride")
+        XCTAssertTrue(fixed.isAccessibilityElement)
+        model.showReorderButton = true
+        model.accessibilityDetail = nil
+        fixed.configure(with: .point(model), topConnector: .solid, bottomConnector: .solid)
+        XCTAssertFalse(fixed.isAccessibilityElement)
+        XCTAssertEqual(fixedBackground.subviews.compactMap { $0 as? UIButton }.filter { !$0.isHidden }.count, 1)
+      }
+    }
+  }
+
+  func testReorderableTrackRowsExposeTrackNameToVoiceOver() {
+    let cell = RoutePointCollectionViewCell(frame: CGRect(origin: .zero, size: cellSize))
+    var model = RoutePointCollectionViewCell.PointViewModel(
+      title: "Track start", image: UIImage.routePointFinish, usesCurrentPositionIcon: false,
+      showCloseButton: false, maskedCorners: [], isPlaceholder: false, showSeparator: true,
+      onCloseHandler: nil
+    )
+    model.accessibilityDetail = "Riverside ride"
+    cell.configure(with: .point(model), topConnector: .solid, bottomConnector: .solid)
+    XCTAssertTrue(cell.isAccessibilityElement)
+    XCTAssertEqual(cell.accessibilityLabel, "Track start, Riverside ride")
+  }
+
+  private func iconColumnImage(_ cell: RoutePointCollectionViewCell, direction: UISemanticContentAttribute) throws -> Data {
+    let originX: CGFloat = direction == .forceRightToLeft ? cell.bounds.width - 52 : 0
+    let size = CGSize(width: 52, height: cell.bounds.height)
+    let format = UIGraphicsImageRendererFormat.default()
+    format.scale = 2
+    let image = UIGraphicsImageRenderer(size: size, format: format).image { context in
+      context.cgContext.translateBy(x: -originX, y: 0)
+      cell.layer.render(in: context.cgContext)
+    }
+    return try XCTUnwrap(image.pngData())
+  }
+
   private func renderPair(direction: UISemanticContentAttribute, finishFirst: Bool) throws -> Data {
     let container = UIView(frame: CGRect(x: 0, y: 0, width: cellSize.width, height: cellSize.height * 2))
     container.backgroundColor = .white

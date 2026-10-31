@@ -105,15 +105,15 @@ extension NavigationDashboard {
       case .updateDrivingOptionsState(let routingOptions):
         viewModel.routingOptions = routingOptions
 
-      case .show(let points, let routerType):
+      case .show(let points, let routerType, let planningMode):
         var canSaveRouteAsTrack = points.count > 1
         if !viewModel.canSaveRouteAsTrack { // track was saved in the previous session
           canSaveRouteAsTrack = points.count > 1 && (viewModel.routePoints.points != points || viewModel.routerType != routerType)
         }
-        viewModel.routePoints = RoutePoints(points: points)
+        viewModel.routePoints = RoutePoints(points: points, planningMode: planningMode)
         viewModel.routerType = routerType
         viewModel.routingOptions = RoutingOptions(routerType: routerType)
-        viewModel.canSaveRouteAsTrack = canSaveRouteAsTrack
+        viewModel.canSaveRouteAsTrack = planningMode == .default && canSaveRouteAsTrack
         if !isSearchOpened, viewModel.presentationStep == .hidden {
           let step = viewModel.latestVisiblePresentationStep.forNavigationState(viewModel.dashboardState)
           viewModel.presentationStep = step

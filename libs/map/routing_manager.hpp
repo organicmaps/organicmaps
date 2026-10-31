@@ -119,6 +119,11 @@ public:
   routing::RoutingSession const & RoutingSession() const { return m_routingSession; }
   routing::RoutingSession & RoutingSession() { return m_routingSession; }
   void SetRouter(routing::RouterType type);
+  void SetMockTrackRoute(kml::TrackId trackId, m2::PointD const & origin);
+  void ClearMockTrackRoute();
+  bool IsMockTrackRoute() const { return m_mockTrackId != kml::kInvalidTrackId; }
+  bool IsMockTrackReversed() const { return m_mockTrackReversed; }
+  kml::TrackId GetMockTrackId() const { return m_mockTrackId; }
   routing::RouterType GetRouter() const { return m_currentRouterType; }
   bool IsRoutingActive() const { return m_routingSession.IsActive(); }
   bool IsRouteBuilt() const { return m_routingSession.IsBuilt(); }
@@ -296,6 +301,7 @@ public:
 
 private:
   void SetRouterImpl(routing::RouterType type);
+  void UpdateMockTrackRoutePoints();
 
   struct RoadInfo
   {
@@ -372,6 +378,8 @@ private:
   df::DrapeEngineSafePtr m_drapeEngine;
   routing::RouterType m_currentRouterType = routing::RouterType::Count;
   bool m_loadAltitudes = false;
+  kml::TrackId m_mockTrackId = kml::kInvalidTrackId;
+  bool m_mockTrackReversed = false;
   routing::RoutingSession m_routingSession;
   Delegate & m_delegate;
 
