@@ -1015,6 +1015,80 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategories)
   TEST(ResultsMatch("residential", {ExactMatch(wonderlandId, namedResidential)}), ());
 }
 
+UNIT_CLASS_TEST(ProcessorTest, CarChargingCategory)
+{
+  TestPOI generic({0, 0.01}, "", "en");
+  generic.SetTypes({{"amenity", "charging_station"}});
+
+  TestPOI car({0, 0.02}, "", "en");
+  car.SetTypes({{"amenity", "charging_station", "motorcar"}});
+
+  TestPOI bicycle({0, 0.03}, "", "en");
+  bicycle.SetTypes({{"amenity", "charging_station", "bicycle"}});
+
+  TestPOI shared({0, 0.04}, "", "en");
+  shared.SetTypes({{"amenity", "charging_station", "motorcar"}, {"amenity", "charging_station", "bicycle"}});
+
+  TestPOI fuel({0, 0.05}, "", "en");
+  fuel.SetTypes({{"amenity", "fuel"}});
+
+  TestPOI cafe({0, 0.06}, "Car chargers", "en");
+  cafe.SetTypes({{"amenity", "cafe"}});
+
+  auto const countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    for (auto const * poi : {&generic, &car, &bicycle, &shared, &fuel, &cafe})
+      builder.Add(*poi);
+  });
+  SetViewport(m2::RectD(-0.5, -0.5, 0.5, 0.5));
+
+  Rules const carChargers = {ExactMatch(countryId, generic), ExactMatch(countryId, car), ExactMatch(countryId, shared)};
+  // English labels also work when a supported UI language has no category translation yet.
+  TEST(CategoryMatch("Car chargers ", carChargers, "de"), ());
+
+  auto params = GetDefaultSearchParams("Car chargers ");
+  params.m_categorialRequest = true;
+  params.m_mode = Mode::Viewport;
+  auto const request = MakeRequest(params);
+  TEST(ResultsMatch(request->Results(), carChargers), ());
+
+  TEST(CategoryMatch("charging station ", {ExactMatch(countryId, generic), ExactMatch(countryId, car),
+                                           ExactMatch(countryId, bicycle), ExactMatch(countryId, shared)}),
+       ());
+  TEST(ResultsMatch("bicycle charging ", {ExactMatch(countryId, bicycle), ExactMatch(countryId, shared)}), ());
+}
+
+UNIT_CLASS_TEST(ProcessorTest, BroadCategoriesIncludeConfiguredSubtypes)
+{
+  TestPOI restaurant({0, 0.01}, "", "en");
+  restaurant.SetTypes({{"amenity", "restaurant"}, {"cuisine", "italian"}});
+  TestPOI bakery({0, 0.02}, "", "en");
+  bakery.SetTypes({{"shop", "bakery"}});
+  TestPOI supermarket({0, 0.03}, "", "en");
+  supermarket.SetTypes({{"shop", "supermarket"}});
+  TestPOI hotel({0, 0.04}, "", "en");
+  hotel.SetTypes({{"tourism", "hotel"}});
+  TestPOI guestHouse({0, 0.05}, "", "en");
+  guestHouse.SetTypes({{"tourism", "guest_house"}});
+  TestPOI clothes({0, 0.06}, "", "en");
+  clothes.SetTypes({{"shop", "clothes"}, {"shop", "clothes", "women"}});
+  TestPOI statue({0, 0.07}, "", "en");
+  statue.SetTypes({{"historic", "memorial", "statue"}});
+
+  auto const countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    for (auto const * poi : {&restaurant, &bakery, &supermarket, &hotel, &guestHouse, &clothes, &statue})
+      builder.Add(*poi);
+  });
+  SetViewport(m2::RectD(-0.5, -0.5, 0.5, 0.5));
+
+  TEST(CategoryMatch("Where to eat ", {ExactMatch(countryId, restaurant), ExactMatch(countryId, bakery)}), ());
+  TEST(CategoryMatch("Groceries ", {ExactMatch(countryId, bakery), ExactMatch(countryId, supermarket)}), ());
+  TEST(CategoryMatch("Hotel ", {ExactMatch(countryId, hotel), ExactMatch(countryId, guestHouse)}), ());
+  TEST(CategoryMatch("Shopping ", {ExactMatch(countryId, clothes)}), ());
+  TEST(CategoryMatch("Sights ", {ExactMatch(countryId, statue)}), ());
+}
+
 // A separate test for the categorial search branch in the geocoder.
 UNIT_CLASS_TEST(ProcessorTest, TestCategorialSearch)
 {

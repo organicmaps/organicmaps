@@ -258,6 +258,11 @@ zh-Hans:加油站
 zh-Hant:加油站
 
 
+# First keyword should match [category_car_charging] definition in strings.txt!
+@category_car_charging
+en:Car chargers
+
+
 # First keyword should match [category_parking] definition in strings.txt!
 @category_parking
 en:4Parking
@@ -15140,7 +15145,7 @@ vi:Trạm sạc|điểm sạc
 zh-Hans:充电站|充电桩|充电
 zh-Hant:充電站|充電樁|充電
 
-amenity-charging_station|@charging_station
+amenity-charging_station|@charging_station|@category_car_charging
 ja:充電ステーション
 ko:충전소|충전 역
 sl:Polnilna postaja
@@ -15190,7 +15195,7 @@ vi:Sạc xe đạp
 zh-Hans:自行车充电|自行车充电站
 zh-Hant:自行車充電|自行車充電站
 
-amenity-charging_station-motorcar|@charging_station
+amenity-charging_station-motorcar|@charging_station|@category_car_charging
 en:2EV Charger|EV Charging|4Motorcar Charging|3Car Charger|Car Charging|3Tesla|Ionity|ChargePoint
 en-GB:2EV Charger|EV Charging|4Motorcar Charging|3Car Charger|Car Charging|3Tesla|Ionity|ChargePoint|Pod Point
 ar:3شاحن سيارة|شحن سيارة كهربائية
