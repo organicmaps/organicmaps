@@ -1,22 +1,25 @@
 final class RoutingOptionsSettingsInteractor {
   var presenter: RoutingOptionsSettingsPresenter?
 
+  private let router: MWMRouter.Type
   private let routingOptionsProvider: () -> RoutingOptions
   private var state: RoutingOptionsSettingsState?
   private var optimizationEnabledOnLoad = false
-
-  init(routerType: MWMRouterType, routingOptionsProvider: (() -> RoutingOptions)? = nil) {
+  init(routerType: MWMRouterType, routingOptionsProvider: (() -> RoutingOptions)? = nil,
+       router: MWMRouter.Type = MWMRouter.self) {
     self.routingOptionsProvider = routingOptionsProvider ?? { RoutingOptions(routerType: routerType) }
+    self.router = router
   }
 
   /// The router type outlives a closed Ruler route, so only an active one blocks the switch.
   private var canChangeOptimization: Bool {
-    !MWMRouter.isOnRoute() && (!MWMRouter.isRoutingActive() || MWMRouter.type() != .ruler)
+    !router.isOnRoute() && (!router.isRoutingActive() || router.type() != .ruler)
   }
 
   func loadSettings() {
     let state = RoutingOptionsSettingsState(options: routingOptionsProvider(),
-                                            canChangeOptimization: canChangeOptimization)
+                                            canChangeOptimization: canChangeOptimization,
+                                            isTrackNavigation: router.isTrackRoute())
     optimizationEnabledOnLoad = state.options.routeOptimizationEnabled
     self.state = state
     present(state, animatingDifferences: false)
@@ -27,7 +30,8 @@ final class RoutingOptionsSettingsInteractor {
     // CarPlay can change avoidance options while this screen is open. Preserve those changes when saving.
     let options = routingOptionsProvider()
     // Navigation can start while the screen is open (e.g. from CarPlay): recheck it and refresh the switch.
-    let state = RoutingOptionsSettingsState(options: options, canChangeOptimization: canChangeOptimization)
+    let state = RoutingOptionsSettingsState(options: options, canChangeOptimization: canChangeOptimization,
+                                            isTrackNavigation: router.isTrackRoute())
     if option != .routeOptimization || state.canChangeOptimization {
       option.setEnabled(enabled, in: options)
       // Optimization persists in its setter; only avoidance options need saving.
@@ -39,10 +43,17 @@ final class RoutingOptionsSettingsInteractor {
     present(state, animatingDifferences: false)
   }
 
-  /// Optimizes the route once after leaving the screen, if the final selection turned optimization on.
   private func applyOptimization() {
+    if router.isTrackRoute() {
+      let enabled = routingOptionsProvider().routeOptimizationEnabled
+      if enabled != optimizationEnabledOnLoad, !router.isOnRoute() {
+        optimizationEnabledOnLoad = enabled
+        router.rebuild(withBestRouter: false)
+      }
+      return
+    }
     guard let options = state?.options, options.routeOptimizationEnabled, !optimizationEnabledOnLoad else { return }
-    MWMRouter.optimizeRoutePointsAndRebuild()
+    router.optimizeRoutePointsAndRebuild()
   }
 
   private func present(_ state: RoutingOptionsSettingsState, animatingDifferences: Bool = true) {

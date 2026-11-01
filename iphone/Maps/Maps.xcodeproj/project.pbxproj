@@ -692,6 +692,7 @@
 		A13811000000000000000002 /* TransportTransitWrappingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13811000000000000000001 /* TransportTransitWrappingTests.swift */; };
 		A13812000000000000000002 /* TransportTransitRTLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13812000000000000000001 /* TransportTransitRTLTests.swift */; };
 		A13813000000000000000002 /* TransportRulerAppearanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13813000000000000000001 /* TransportRulerAppearanceTests.swift */; };
+		E77A4B9FBB5DAFA82825C6A4 = {isa = PBXBuildFile; fileRef = BE8A233017BA499AC6C26F5F; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1869,6 +1870,7 @@
 		A13811000000000000000001 /* TransportTransitWrappingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportTransitWrappingTests.swift; sourceTree = "<group>"; };
 		A13812000000000000000001 /* TransportTransitRTLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportTransitRTLTests.swift; sourceTree = "<group>"; };
 		A13813000000000000000001 /* TransportRulerAppearanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportRulerAppearanceTests.swift; sourceTree = "<group>"; };
+		BE8A233017BA499AC6C26F5F = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackNavigationFlowTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -4103,6 +4105,7 @@
 		AA01B2C3D4E5F60718293A03 /* Routing */ = {
 			isa = PBXGroup;
 			children = (
+				BE8A233017BA499AC6C26F5F,
 				A13811000000000000000001 /* TransportTransitWrappingTests.swift */,
 				A13812000000000000000001 /* TransportTransitRTLTests.swift */,
 				A13813000000000000000001 /* TransportRulerAppearanceTests.swift */,
@@ -5089,6 +5092,7 @@
 				A13803000000000000000002 /* MWMRouterTransitStepInfoTests.mm in Sources */,
 				A13803000000000000000004 /* TransportTransitStepsTests.swift in Sources */,
 				A13729000000000000000001 /* RoutingOptionsSettingsTests.swift in Sources */,
+				E77A4B9FBB5DAFA82825C6A4,
 				D48A5E31FA0C45748F11AD48 /* MWMRoutePointSelectionTests.swift in Sources */,
 				EDF838BF2C00B9D0007E4E67 /* SynchronizationStateManagerTests.swift in Sources */,
 				ED914330300168200081DF0B /* MainSceneDelegateTests.swift in Sources */,

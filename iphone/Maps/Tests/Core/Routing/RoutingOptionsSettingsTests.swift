@@ -8,6 +8,65 @@ final class RoutingOptionsSettingsTests: XCTestCase {
     controller.loadViewIfNeeded()
   }
 
+  func testTrackOptimizationHintIsScopedToTrackPlanning() {
+    let presenter = RoutingOptionsSettingsPresenter(viewController: RoutingOptionsSettingsViewController())
+    let ordinary = RoutingOptionsSettingsState(options: RoutingOptions(routerType: .bicycle), canChangeOptimization: true)
+    var track = ordinary
+    track.isTrackNavigation = true
+    XCTAssertEqual(presenter.sections(from: ordinary).last?.footer, L("route_optimization_description"))
+    XCTAssertEqual(presenter.sections(from: track).last?.footer, L("navigate_track_optimization_description"))
+  }
+
+  func testTrackOptionsOnlyRebuildExplicitlyForOptimizationChanges() {
+    let options = RoutingOptions(routerType: .bicycle)
+    let previous = options.routeOptimizationEnabled
+    let saved = RoutingOptions(routerType: .bicycle)
+    defer {
+      saved.save()
+      options.routeOptimizationEnabled = previous
+      MockTrackRouter.rebuildCount = 0
+    }
+    MockTrackRouter.rebuildCount = 0
+    let interactor = RoutingOptionsSettingsInteractor(routerType: .bicycle, router: MockTrackRouter.self)
+    interactor.handle(.didLoad)
+    interactor.handle(.didChangeSwitch(.ferryCrossings, isOn: !options.avoidFerry))
+    interactor.handle(.didDisappear)
+    XCTAssertEqual(MockTrackRouter.rebuildCount, 0, "updateRoute handles avoidance changes")
+    interactor.handle(.didChangeSwitch(.routeOptimization, isOn: !previous))
+    interactor.handle(.didDisappear)
+    XCTAssertEqual(MockTrackRouter.rebuildCount, 1)
+    interactor.handle(.didDisappear)
+    XCTAssertEqual(MockTrackRouter.rebuildCount, 1)
+    interactor.handle(.didChangeSwitch(.routeOptimization, isOn: previous))
+    interactor.handle(.didDisappear)
+    XCTAssertEqual(MockTrackRouter.rebuildCount, 2, "Turning optimization off also restores the endpoint")
+  }
+
+  func testTrackPlannerHidesActionsAndRestoresOrdinaryLayoutAcrossSizesAndThemes() throws {
+    let controller = NavigationDashboardViewController()
+    controller.loadViewIfNeeded()
+    var model = NavigationDashboard.ViewModel.initial
+    model.dashboardState = .ready
+    model.progress = 1
+    for size in [CGSize(width: 375, height: 812), CGSize(width: 1024, height: 1366)] {
+      for appearance in [UIUserInterfaceStyle.light, .dark] {
+        controller.overrideUserInterfaceStyle = appearance
+        controller.view.frame = CGRect(origin: .zero, size: size)
+        for mode in [NavigationDashboard.PlanningMode.navigateTrack, .default] {
+          model.routePoints.planningMode = mode
+          controller.render(model)
+          controller.view.layoutIfNeeded()
+          let start = try XCTUnwrap(Mirror(reflecting: controller).children.first { $0.label == "startRouteButton" }?.value as? StartRouteButton)
+          XCTAssertEqual(start.bounds.height, 44, accuracy: 0.5)
+          for name in ["searchButton", "bookmarksButton", "saveRouteAsTrackButton"] {
+            let button = try XCTUnwrap(Mirror(reflecting: controller).children.first { $0.label == name }?.value as? UIButton)
+            XCTAssertEqual(button.isHidden, mode == .navigateTrack)
+          }
+        }
+      }
+    }
+  }
+
   func test_RoutingOptionsPersistIndependentlyAndFilterUnsupportedControls() {
     let saved = [MWMRouterType.vehicle, .bicycle, .pedestrian].map { RoutingOptions(routerType: $0) }
     defer { saved.forEach { $0.save() } }
@@ -112,5 +171,14 @@ final class RoutingOptionsSettingsTests: XCTestCase {
     interactor.handle(.didChangeSwitch(.ferryCrossings, isOn: true))
     XCTAssertTrue(RoutingOptions(routerType: .bicycle).avoidFerry)
     XCTAssertFalse(RoutingOptions(routerType: .pedestrian).avoidFerry)
+  }
+
+  private final class MockTrackRouter: MWMRouter {
+    static var rebuildCount = 0
+    override class func isTrackRoute() -> Bool { true }
+    override class func isOnRoute() -> Bool { false }
+    override class func isRoutingActive() -> Bool { true }
+    override class func type() -> MWMRouterType { .bicycle }
+    override class func rebuild(withBestRouter _: Bool) { rebuildCount += 1 }
   }
 }

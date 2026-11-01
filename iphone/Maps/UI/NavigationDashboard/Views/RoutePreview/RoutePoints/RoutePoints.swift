@@ -1,15 +1,28 @@
 extension NavigationDashboard {
+  enum PlanningMode {
+    case `default`, navigateTrack
+
+    var transportOptions: [MWMRouterType] {
+      switch self {
+      case .default: return MWMRouterType.allCases
+      case .navigateTrack: return [.vehicle, .pedestrian, .bicycle]
+      }
+    }
+  }
+
   struct RoutePoints: Equatable {
     let start: MWMRoutePoint?
     let finish: MWMRoutePoint?
     let intermediate: [MWMRoutePoint]
     let points: [MWMRoutePoint]
+    var planningMode: PlanningMode = .default
 
-    init(points: [MWMRoutePoint]) {
+    init(points: [MWMRoutePoint], planningMode: PlanningMode = .default) {
       start = points.first { $0.type == .start }
       finish = points.first { $0.type == .finish }
       intermediate = points.filter { $0.type == .intermediate }
       self.points = points
+      self.planningMode = planningMode
     }
   }
 }
@@ -59,6 +72,15 @@ extension NavigationDashboard.RoutePoints {
     }
   }
 
+  func canMovePoint(at index: Int) -> Bool {
+    guard (0 ..< count).contains(index) else { return false }
+    return planningMode == .default || (count == 3 && index > 0)
+  }
+
+  func canMovePoint(from sourceIndex: Int, to destinationIndex: Int) -> Bool {
+    sourceIndex != destinationIndex && canMovePoint(at: sourceIndex) && canMovePoint(at: destinationIndex)
+  }
+
   mutating func movePoint(from sourceIndex: Int, to destinationIndex: Int) {
     guard sourceIndex != destinationIndex else { return }
     var points = points
@@ -78,6 +100,6 @@ extension NavigationDashboard.RoutePoints {
         }
       }
     }
-    self = NavigationDashboard.RoutePoints(points: points)
+    self = NavigationDashboard.RoutePoints(points: points, planningMode: planningMode)
   }
 }

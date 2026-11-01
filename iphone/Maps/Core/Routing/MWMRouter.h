@@ -43,6 +43,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (MWMRouterType)type;
 + (NSString *)stringFromRouterType:(MWMRouterType)type;
 
++ (BOOL)buildRouteForTrack:(uint64_t)trackId
+              fromLocation:(nullable CLLocation *)location NS_SWIFT_NAME(buildRoute(forTrack:from:));
++ (BOOL)isTrackRoute;
+
 + (void)disableFollowMode;
 
 + (void)enableTurnNotifications:(BOOL)active;
