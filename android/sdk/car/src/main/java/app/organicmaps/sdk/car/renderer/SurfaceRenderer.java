@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.car.app.CarContext;
 import androidx.lifecycle.LifecycleOwner;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.display.DisplayManager;
 import app.organicmaps.sdk.location.LocationHelper;
 
@@ -53,6 +54,12 @@ final class SurfaceRenderer extends RendererImpl
   public void setSpeedLimit(@Nullable Integer speedLimit)
   {
     mSurfaceCallback.setSpeedLimit(speedLimit);
+  }
+
+  @Override
+  public void setSpeedLimitSignType(@Framework.SpeedLimitSignType int type)
+  {
+    mSurfaceCallback.setSpeedLimitSignType(type);
   }
 
   @Override
