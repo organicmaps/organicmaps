@@ -322,6 +322,10 @@ void RuleDrawer::ProcessAreaAndPointStyle(FeatureType & f, Stylist const & s)
 void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s)
 {
   bool const isIsoline = m_isIsoline(f);
+  std::optional<MetalineInfo> metalineInfo;
+  if (s.m_pathtextRule || s.m_shieldRule)
+    metalineInfo = m_context->GetMetalineManager()->GetMetalineInfo(f.GetID());
+
   ApplyLineFeatureGeometry applyGeom(m_applyParams, f, m_relsSettings);
   applyGeom.BuildGeometry(m_zoomLevel, isIsoline);
 
@@ -332,7 +336,7 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s)
   {
     std::vector<m2::SharedSpline> clippedSplines;
 
-    auto const metalineSpline = m_context->GetMetalineManager()->GetMetaline(f.GetID());
+    auto const metalineSpline = metalineInfo ? metalineInfo->m_spline : m2::SharedSpline();
     if (metalineSpline.IsNull())
     {
       // There is no metaline for this feature.
