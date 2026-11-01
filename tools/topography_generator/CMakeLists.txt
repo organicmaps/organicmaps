@@ -29,3 +29,5 @@ target_link_libraries(${PROJECT_NAME}
     coding
     gflags::gflags
 )
+
+omim_add_test_subdirectory(topography_generator_tests)
