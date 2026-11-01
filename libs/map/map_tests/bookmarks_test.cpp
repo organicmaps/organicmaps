@@ -27,6 +27,7 @@
 
 #include <utf8.h>  // utf8::is_valid
 
+#include <algorithm>
 #include <array>
 #include <chrono>
 #include <cstring>  // strlen
@@ -619,6 +620,20 @@ kml::TrackData MakeLineTrackData()
   return trackData;
 }
 
+kml::TrackId CreateLineTrack(BookmarkManager & manager, kml::MarkGroupId category)
+{
+  auto session = manager.GetEditSession();
+  auto const id = session.CreateTrack(MakeLineTrackData())->GetId();
+  session.AttachTrack(id, category);
+  return id;
+}
+
+void SelectTrack(BookmarkManager & manager, kml::TrackId trackId)
+{
+  manager.SetTrackSelectionInfo({trackId, kTrackPoint, kTrackDistance}, false /* notifyListeners */);
+  manager.OnTrackSelected(trackId);
+}
+
 UNIT_CLASS_TEST(Runner, Bookmarks_ReloadPreservesCategoryIdentityAndMetadata)
 {
   auto const filePath = base::JoinPath(GetBookmarksDirectory(), "reload_metadata.kml");
@@ -661,6 +676,8 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ReloadPreservesCategoryIdentityAndMetadata)
   auto reload =
       [&](std::string const & name, std::string const & description, std::time_t modified, size_t bookmarkCount)
   {
+    SelectTrack(bmManager, oldTrackId);
+    TEST(bmManager.GetTrack(oldTrackId)->IsSelected(), ());
     auto data = makeFileData(name, description, modified, bookmarkCount);
     TEST(SaveKmlFileSafe(*data, filePath, FileType::Kml), ());
     TEST(Platform::SetFileModificationTime(filePath, 5000), ());
@@ -682,6 +699,8 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ReloadPreservesCategoryIdentityAndMetadata)
     TEST_EQUAL(Platform::GetFileModificationTime(filePath), 5000, ());
     oldBookmarkId = *bmManager.GetUserMarkIds(groupId).begin();
     oldTrackId = *bmManager.GetTrackIds(groupId).begin();
+    TEST(!bmManager.GetTrack(oldTrackId)->IsSelected(), ("Reloaded tracks do not inherit a stale selection"));
+    bmManager.OnTrackDeselected();
   };
 
   reload("MapName", "same name", 2000, 1);
@@ -735,10 +754,17 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ClearTempRelationTrackDeletesSelectionMark)
   TEST(selectionInfo.m_trackPoint.EqualDxDy(kTrackPoint, 1e-10), ());
   TEST_EQUAL(selectionInfo.m_distFromBegM, kTrackDistance, ());
 
+  bmManager.OnTrackSelected(kml::kTempRelationTrackId);
+  TEST(bmManager.GetTrack(kml::kTempRelationTrackId)->IsSelected(), ());
+  TEST_EQUAL(bmManager.GetTrack(kml::kTempRelationTrackId)->GetGroupId(), UserMark::TRACK_SELECTION, ());
+  TEST_EQUAL(bmManager.GetTrackIds(UserMark::TRACK_SELECTION).count(kml::kTempRelationTrackId), 1, ());
+
   bmManager.ClearTempRelationTrack();
 
   TEST_EQUAL(bmManager.GetTrack(kml::kTempRelationTrackId), nullptr, ());
   TEST_EQUAL(bmManager.GetTrackSelectionInfo(kml::kTempRelationTrackId).m_trackId, kml::kInvalidTrackId, ());
+  TEST(bmManager.GetTrackIds(UserMark::TRACK_SELECTION).empty(), ());
+  bmManager.OnTrackDeselected();
 }
 
 // A selection mark stores the track id only, so a tap on the mark of the current temp relation track
@@ -766,6 +792,11 @@ UNIT_CLASS_TEST(VisualParamsFixture, Bookmarks_TapSelectionMarkOfTempRelationTra
   auto const & info = fm.GetCurrentPlacePageInfo();
   TEST(info.IsRelationTrack(), ());
   TEST_EQUAL(info.GetSelectedObject(), df::SelectionShape::OBJECT_TRACK, ());
+  TEST_EQUAL(info.GetBookmarkCategoryId(), kml::kInvalidMarkGroupId, ());
+  TEST(info.GetBookmarkCategoryName().empty(), ("A runtime rendering group is not a bookmark category"));
+  TEST(bmManager.GetTrack(kml::kTempRelationTrackId)->IsSelected(), ());
+  TapUserMark(fm, markId);
+  TEST(bmManager.GetTrack(kml::kTempRelationTrackId)->IsSelected(), ("Retapping a temp track keeps its highlight"));
 }
 
 // The counterpart: selecting any other track still drops the temp relation track.
@@ -786,6 +817,7 @@ UNIT_CLASS_TEST(VisualParamsFixture, Bookmarks_TapSelectionMarkClearsTempRelatio
   }
   bmManager.SetTrackSelectionInfo({trackId, kTrackPoint, kTrackDistance}, false /* notifyListeners */);
   TEST_EQUAL(bmManager.SetTempRelationTrack(MakeLineTrackData()), kml::kTempRelationTrackId, ());
+  SelectTrack(bmManager, kml::kTempRelationTrackId);
 
   auto const markId = FindTrackSelectionMark(bmManager, trackId);
   TEST_NOT_EQUAL(markId, kml::kInvalidMarkId, ());
@@ -795,6 +827,235 @@ UNIT_CLASS_TEST(VisualParamsFixture, Bookmarks_TapSelectionMarkClearsTempRelatio
   TEST_EQUAL(bmManager.GetTrack(kml::kTempRelationTrackId), nullptr, ());
   TEST(fm.HasPlacePageInfo(), ());
   TEST_EQUAL(fm.GetCurrentPlacePageInfo().GetTrackId(), trackId, ());
+  TEST_EQUAL(fm.GetCurrentPlacePageInfo().GetBookmarkCategoryId(), catId, ());
+  TEST_EQUAL(fm.GetCurrentPlacePageInfo().GetBookmarkCategoryName(), "cat", ());
+  TEST(bmManager.GetTrack(trackId)->IsSelected(), ());
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_SelectedTrackSwitchAndEdit)
+{
+  BookmarkManager manager(BM_CALLBACKS);
+  manager.EnableTestMode(true);
+  auto const category = manager.CreateBookmarkCategory("tracks", false /* autoSave */);
+  std::array<kml::TrackId, 2> const ids = {CreateLineTrack(manager, category), CreateLineTrack(manager, category)};
+  auto const original = manager.GetTrack(ids[0])->GetData();
+  SelectTrack(manager, ids[0]);
+  TEST(manager.GetTrack(ids[0])->IsSelected(), ());
+  TEST(!manager.GetTrack(ids[1])->IsSelected(), ());
+  TEST_EQUAL(manager.GetTrack(ids[0])->GetDepthLayer(), df::DepthLayer::SelectedUserLineLayer, ());
+  TEST_EQUAL(manager.GetTrack(ids[1])->GetDepthLayer(), df::DepthLayer::UserLineLayer, ());
+  TEST(!manager.GetTrack(ids[0])->IsDirty(), ("Selection does not dirty saved track data"));
+
+  manager.OnTrackSelected(ids[0]);
+  TEST(manager.GetTrack(ids[0])->IsSelected(), ("Selecting the same track is idempotent"));
+  SelectTrack(manager, ids[1]);
+  TEST(!manager.GetTrack(ids[0])->IsSelected(), ());
+  TEST(manager.GetTrack(ids[1])->IsSelected(), ());
+  TEST_EQUAL(manager.GetTrack(ids[0])->GetDepthLayer(), df::DepthLayer::UserLineLayer, ());
+  TEST_EQUAL(manager.GetTrack(ids[0])->GetData(), original, ());
+
+  auto edited = manager.GetTrack(ids[1])->GetData();
+  kml::SetDefaultStr(edited.m_name, "edited selection");
+  edited.m_geometry.m_lines.front().back().SetPoint({2.0, 0.0});
+  manager.GetEditSession().UpdateTrack(ids[1], edited);
+  TEST(manager.GetTrack(ids[1])->IsSelected(), ("Editing keeps the current selection on the updated geometry"));
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_SelectedTrackRemovalClearsSelection)
+{
+  BookmarkManager manager(BM_CALLBACKS);
+  manager.EnableTestMode(true);
+  auto const category = manager.CreateBookmarkCategory("tracks", false /* autoSave */);
+  auto const id = CreateLineTrack(manager, category);
+  SelectTrack(manager, id);
+  {
+    auto session = manager.GetEditSession();
+    session.ChangeTrackColor(id, dp::Color(10, 20, 30, 255));
+    session.DeleteTrack(id);
+  }
+  // Removal already cleared the selection; a stale ID would CHECK on the deleted mark.
+  manager.OnTrackDeselected();
+  TEST(!manager.HasTrack(id), ());
+
+  SelectTrack(manager, CreateLineTrack(manager, category));
+  manager.GetEditSession().ClearGroup(category);
+  manager.OnTrackDeselected();
+  TEST(manager.GetTrackIds(category).empty(), ());
+
+  auto const otherCategory = manager.CreateBookmarkCategory("other tracks", false /* autoSave */);
+  auto const otherId = CreateLineTrack(manager, otherCategory);
+  SelectTrack(manager, otherId);
+  manager.GetEditSession().DeleteBmCategory(otherCategory, true /* permanently */);
+  manager.OnTrackDeselected();
+  TEST(!manager.HasTrack(otherId), ());
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_SelectedTrackPendingCreationRemoval)
+{
+  BookmarkManager manager(BM_CALLBACKS);
+  manager.EnableTestMode(true);
+  auto const category = manager.CreateBookmarkCategory("tracks", false /* autoSave */);
+  kml::TrackId pendingId;
+  {
+    auto session = manager.GetEditSession();
+    pendingId = session.CreateTrack(MakeLineTrackData())->GetId();
+    session.AttachTrack(pendingId, category);
+    SelectTrack(manager, pendingId);
+    TEST(manager.GetTrack(pendingId)->IsSelected(), ());
+    session.DeleteTrack(pendingId);
+  }
+  // The cancelled creation must not leave a selected ID referencing its removed mark.
+  manager.OnTrackDeselected();
+  TEST(!manager.HasTrack(pendingId), ());
+  TEST(manager.GetTrackIds(category).empty(), ("A pending creation removed in the same transaction leaves no line"));
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_SelectedTrackVisibilityAndMove)
+{
+  BookmarkManager manager(BM_CALLBACKS);
+  manager.EnableTestMode(true);
+  auto const visibleCategory = manager.CreateBookmarkCategory("visible", false /* autoSave */);
+  auto const hiddenCategory = manager.CreateBookmarkCategory("hidden", false /* autoSave */);
+  kml::TrackId id;
+  {
+    auto session = manager.GetEditSession();
+    id = session.CreateTrack(MakeLineTrackData())->GetId();
+    session.AttachTrack(id, visibleCategory);
+    session.SetIsVisible(hiddenCategory, false);
+  }
+  SelectTrack(manager, id);
+  manager.GetEditSession().SetTrackVisibility(id, false);
+  TEST(manager.GetTrack(id)->IsSelected(), ("Direct visibility changes retain the active selection"));
+  TEST(!manager.GetTrack(id)->IsVisible(), ());
+  manager.GetEditSession().SetTrackVisibility(id, true);
+  manager.GetEditSession().SetIsVisible(visibleCategory, false);
+  TEST(manager.GetTrack(id)->IsSelected(), ());
+  TEST(!manager.IsVisible(visibleCategory), ());
+  manager.GetEditSession().SetIsVisible(visibleCategory, true);
+
+  manager.GetEditSession().MoveTrack(id, visibleCategory, hiddenCategory);
+  TEST_EQUAL(manager.GetTrack(id)->GetGroupId(), hiddenCategory, ());
+  TEST(manager.GetTrack(id)->IsSelected(), ());
+  TEST(!manager.IsVisible(hiddenCategory), ());
+  TEST_EQUAL(manager.GetTrackIds(visibleCategory).count(id), 0, ());
+  TEST_EQUAL(manager.GetTrackIds(hiddenCategory).count(id), 1, ());
+  manager.OnTrackDeselected();
+  manager.GetEditSession().SetIsVisible(hiddenCategory, true);
+  TEST(!manager.GetTrack(id)->IsSelected(), ("Showing a category must not resurrect a closed selection"));
+  SelectTrack(manager, id);
+  manager.GetEditSession().MoveTrack(id, hiddenCategory, visibleCategory);
+  TEST(manager.GetTrack(id)->IsSelected(), ());
+  TEST_EQUAL(manager.GetTrack(id)->GetGroupId(), visibleCategory, ());
+  manager.OnTrackDeselected();
+  TEST_EQUAL(manager.GetTrack(id)->GetDepthLayer(), df::DepthLayer::UserLineLayer, ());
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_SelectedTrackDoesNotSaveOrNotify)
+{
+  BookmarkManager manager(BM_CALLBACKS);
+  manager.EnableTestMode(true);
+  auto const category = manager.CreateBookmarkCategory("saved selection", true /* autoSave */);
+  std::array<kml::TrackId, 2> ids;
+  {
+    auto session = manager.GetEditSession();
+    for (auto & id : ids)
+    {
+      id = session.CreateTrack(MakeLineTrackData())->GetId();
+      session.AttachTrack(id, category);
+    }
+  }
+  auto const filePath = manager.GetCategoryFileName(category);
+  TEST(!filePath.empty(), ());
+  TEST(Platform::SetFileModificationTime(filePath, 5000), ());
+  auto const exportCategory = [&]
+  {
+    std::string result;
+    MemWriter writer(result);
+    TEST(manager.SaveBookmarkCategory(category, writer, FileType::Kml), ());
+    return result;
+  };
+  auto const originalExport = exportCategory();
+  size_t changes = 0;
+  manager.SetBookmarksChangedCallback([&] { ++changes; });
+  manager.SetNotificationsEnabled(false);
+  SelectTrack(manager, ids[0]);
+  manager.OnTrackSelected(ids[0]);
+  SelectTrack(manager, ids[1]);
+  manager.OnTrackDeselected();
+  manager.SetNotificationsEnabled(true);
+  TEST_EQUAL(changes, 0, ("Selection is a rendering change, not a bookmark edit"));
+  TEST_EQUAL(Platform::GetFileModificationTime(filePath), 5000, ());
+  TEST_EQUAL(exportCategory(), originalExport, ("Highlight state is not serialized"));
+
+  // A rendering update in the same outer transaction must not consume a real edit's dirty bit.
+  {
+    auto session = manager.GetEditSession();
+    session.ChangeTrackColor(ids[0], dp::Color(100, 150, 200, 255));
+    SelectTrack(manager, ids[0]);
+    manager.OnTrackDeselected();
+    TEST(manager.GetTrack(ids[0])->IsDirty(), ());
+  }
+  TEST_EQUAL(changes, 1, ());
+  auto const saved = LoadKmlFile(filePath, FileType::Kml);
+  TEST(saved && !saved->m_tracksData.empty(), ());
+  auto const changedColors =
+      std::count_if(saved->m_tracksData.begin(), saved->m_tracksData.end(), [](auto const & track)
+  { return track.m_layers.front().m_color.m_rgba == dp::Color(100, 150, 200, 255).GetRGBA(); });
+  TEST_EQUAL(changedColors, 1, ("The real edit remains eligible for saving"));
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_SelectedTempTrackReplacement)
+{
+  BookmarkManager manager(BM_CALLBACKS);
+  manager.EnableTestMode(true);
+  manager.SetTempRelationTrack(MakeLineTrackData());
+  SelectTrack(manager, kml::kTempRelationTrackId);
+  TEST(manager.GetTrack(kml::kTempRelationTrackId)->IsSelected(), ());
+  TEST(!manager.GetTrack(kml::kTempRelationTrackId)->HasDirection(), ());
+  auto replacement = MakeLineTrackData();
+  kml::SetDefaultStr(replacement.m_name, "replacement relation");
+  manager.SetTempRelationTrack(std::move(replacement));
+  TEST_EQUAL(manager.GetTrackIds(UserMark::TRACK_SELECTION).count(kml::kTempRelationTrackId), 1, ());
+  TEST(!manager.GetTrack(kml::kTempRelationTrackId)->IsSelected(), ("A reused temp ID is a new track object"));
+  TEST_EQUAL(manager.GetTrackSelectionInfo(kml::kTempRelationTrackId).m_trackId, kml::kInvalidTrackId, ());
+  // Replacement already cleared the selection; this must be a no-op, not cleanup.
+  manager.OnTrackDeselected();
+  SelectTrack(manager, kml::kTempRelationTrackId);
+  manager.ClearTempRelationTrack();
+  TEST(manager.GetTrackIds(UserMark::TRACK_SELECTION).empty(), ());
+  TEST_EQUAL(manager.GetTrack(kml::kTempRelationTrackId), nullptr, ());
+  manager.OnTrackDeselected();
+}
+
+UNIT_CLASS_TEST(VisualParamsFixture, Bookmarks_FrameworkTrackHideAndDeleteDeselect)
+{
+  ScopedBookmarksDir scopedDir;
+  Framework framework(kFrameworkParams);
+  auto & manager = framework.GetBookmarkManager();
+  manager.EnableTestMode(true);
+  auto const category = manager.CreateBookmarkCategory("selection", false /* autoSave */);
+  kml::TrackId id;
+  {
+    auto session = manager.GetEditSession();
+    id = session.CreateTrack(MakeLineTrackData())->GetId();
+    session.AttachTrack(id, category);
+  }
+  manager.SetTrackSelectionInfo({id, kTrackPoint, kTrackDistance}, false /* notifyListeners */);
+  auto const markId = FindTrackSelectionMark(manager, id);
+  TapUserMark(framework, markId);
+  TEST(manager.GetTrack(id)->IsSelected(), ());
+  framework.SetTrackVisibility(id, false);
+  TEST(!manager.GetTrack(id)->IsSelected(), ());
+  TEST(!framework.HasPlacePageInfo(), ());
+  manager.GetEditSession().SetTrackVisibility(id, true);
+  TEST(!manager.GetTrack(id)->IsSelected(), ());
+  TapUserMark(framework, markId);
+  TEST(manager.GetTrack(id)->IsSelected(), ());
+  framework.DeleteTrack(id);
+  TEST(!manager.HasTrack(id), ());
+  TEST(!framework.HasPlacePageInfo(), ());
+  // Framework deletion must also clear the manager's private selection identity.
+  manager.OnTrackDeselected();
 }
 
 namespace

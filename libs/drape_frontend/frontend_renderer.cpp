@@ -1508,6 +1508,7 @@ bool FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
 
     Render2dLayer(modelView);
     RenderUserMarksLayer(modelView, DepthLayer::UserLineLayer);
+    RenderUserMarksLayer(modelView, DepthLayer::SelectedUserLineLayer);
 
     bool const hasTransitRouteData = HasTransitRouteData();
     if (m_buildingsFramebuffer->IsSupported() && !m_routeRenderer->IsRulerRoute())

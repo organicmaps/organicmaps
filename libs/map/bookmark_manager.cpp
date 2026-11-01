@@ -1040,7 +1040,10 @@ void BookmarkManager::SetTrackSelectionMark(kml::TrackId trackId, m2::PointD con
 void BookmarkManager::DeleteTrackSelectionMark(kml::TrackId trackId)
 {
   if (trackId == m_selectedTrackId)
+  {
+    SetTrackHighlight(trackId, false);
     m_selectedTrackId = kml::kInvalidTrackId;
+  }
 
   auto const markId = GetTrackSelectionMarkId(trackId);
   if (markId != kml::kInvalidMarkId)
@@ -1082,11 +1085,33 @@ void BookmarkManager::SetTrackSelectionInfo(Track::TrackSelectionInfo const & tr
     m_elevationActivePointChanged(trackSelectionInfo.m_trackId, trackSelectionInfo.m_distFromBegM);
 }
 
+void BookmarkManager::SetTrackHighlight(kml::TrackId trackId, bool selected)
+{
+  Track * track = nullptr;
+  if (trackId == kml::kTempRelationTrackId)
+    track = m_tempRelationTrack.get();
+  else if (auto const it = m_tracks.find(trackId); it != m_tracks.end())
+    track = it->second.get();
+  CHECK(track != nullptr, (trackId));
+  if (track->IsSelected() == selected)
+    return;
+
+  track->SetSelected(selected);
+  // Normal creation notifications read the final selected state into the drape payload.
+  // Avoid a separate update for a line that may still be deleted before the session closes.
+  if (m_changesTracker.GetCreatedLineIds().contains(trackId))
+    return;
+  // Selection must recache geometry without modifying or saving the bookmark category.
+  m_drapeChangesTracker.OnUpdateLineForRendering(trackId, track->GetGroupId());
+}
+
 void BookmarkManager::OnTrackSelected(kml::TrackId trackId)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   auto es = GetEditSession();
+  if (m_selectedTrackId != trackId)
+    OnTrackDeselected();
   ResetTrackInfoMark(trackId);
 
   auto const markId = GetTrackSelectionMarkId(trackId);
@@ -1095,6 +1120,7 @@ void BookmarkManager::OnTrackSelected(kml::TrackId trackId)
   auto * trackSelectionMark = GetMarkForEdit<TrackSelectionMark>(markId);
   trackSelectionMark->SetIsVisible(false);
 
+  SetTrackHighlight(trackId, true);
   m_selectedTrackId = trackId;
 }
 
@@ -1111,6 +1137,7 @@ void BookmarkManager::OnTrackDeselected()
   auto * trackSelectionMark = GetMarkForEdit<TrackSelectionMark>(markId);
   trackSelectionMark->SetIsVisible(false);
 
+  SetTrackHighlight(m_selectedTrackId, false);
   m_selectedTrackId = kml::kInvalidTrackId;
 }
 
@@ -1227,6 +1254,8 @@ kml::TrackId BookmarkManager::SetTempRelationTrack(kml::TrackData && trackData)
 
   trackData.m_id = kml::kTempRelationTrackId;
   m_tempRelationTrack = std::make_unique<Track>(std::move(trackData));
+  m_tempRelationTrack->Attach(UserMark::TRACK_SELECTION);
+  GetGroup(UserMark::TRACK_SELECTION)->AttachTrack(kml::kTempRelationTrackId);
   m_changesTracker.OnAddLine(kml::kTempRelationTrackId);
   return kml::kTempRelationTrackId;
 }
@@ -1240,6 +1269,7 @@ void BookmarkManager::ClearTempRelationTrack()
   if (!m_tempRelationTrack)
     return;
 
+  GetGroup(UserMark::TRACK_SELECTION)->DetachTrack(kml::kTempRelationTrackId);
   m_changesTracker.OnDeleteLine(kml::kTempRelationTrackId);
   m_tempRelationTrack.reset();
 
@@ -3190,6 +3220,12 @@ void BookmarkManager::MarksChangesTracker::OnUpdateLine(kml::TrackId lineId)
     m_updatedLines.insert(lineId);
 }
 
+void BookmarkManager::MarksChangesTracker::OnUpdateLineForRendering(kml::TrackId lineId, kml::MarkGroupId groupId)
+{
+  OnUpdateLine(lineId);
+  OnUpdateGroup(groupId);
+}
+
 void BookmarkManager::MarksChangesTracker::InsertBookmark(kml::MarkId markId, kml::MarkGroupId catId,
                                                           GroupMarkIdSet & setToInsert, GroupMarkIdSet & setToErase)
 {
@@ -3231,6 +3267,7 @@ void BookmarkManager::MarksChangesTracker::OnAddLine(kml::TrackId lineId)
 
 void BookmarkManager::MarksChangesTracker::OnDeleteLine(kml::TrackId lineId)
 {
+  m_updatedLines.erase(lineId);
   auto const it = m_createdLines.find(lineId);
   if (it != m_createdLines.end())
     m_createdLines.erase(it);
