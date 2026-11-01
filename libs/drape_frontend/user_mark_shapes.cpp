@@ -406,7 +406,7 @@ m2::SharedSpline SimplifySpline(m2::SharedSpline const & in, double minSqrLength
 {
   auto spline = std::make_unique<m2::Spline>(in->GetSize());
 
-  m2::PointD lastAddedPoint;
+  m2::PointD lastAddedPoint{};
   for (auto const & point : in->GetPath())
   {
     if (spline->GetSize() > 1 && point.SquaredLength(lastAddedPoint) < minSqrLength)
