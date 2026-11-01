@@ -48,6 +48,7 @@
 #include <algorithm>
 #include <optional>
 #include <sstream>
+#include <string_view>
 
 #include "3party/open-location-code/openlocationcode.h"
 
@@ -147,10 +148,10 @@ bool EatVersion(std::string & s, uint32_t & version)
   }
 
   size_t constexpr kVersionLength = 6;
-  if (s.size() >= kVersionLength && std::all_of(s.begin(), s.begin() + kVersionLength, &strings::IsASCIIDigit<char>) &&
-      (s.size() == kVersionLength || !strings::IsASCIIDigit(s[kVersionLength])))
+  // to_uint() requires all six characters to be digits.
+  if (s.size() >= kVersionLength && (s.size() == kVersionLength || !strings::IsASCIIDigit(s[kVersionLength])) &&
+      strings::to_uint(std::string_view(s).substr(0, kVersionLength), version))
   {
-    VERIFY(strings::to_uint(s.substr(0, kVersionLength), version), ());
     s.erase(0, kVersionLength);
     return true;
   }
