@@ -61,8 +61,8 @@ bool IsPolygonCCW(IterT beg, IterT end)
   ASSERT(TestPolygonPreconditions(beg, end), ());
 
   // find the most down (left) point
-  double minY = std::numeric_limits<double>::max();
-  IterT iRes;
+  double minY = (*beg).y;
+  IterT iRes = beg;
   for (IterT i = beg; i != end; ++i)
   {
     if ((*i).y < minY || ((*i).y == minY && (*i).x < (*iRes).x))
