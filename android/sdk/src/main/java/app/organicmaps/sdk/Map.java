@@ -15,10 +15,21 @@ import app.organicmaps.sdk.util.Utils;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
 
+/**
+ * Low-level bridge to the process-wide renderer and one display surface.
+ * Ordinary Android hosts use {@link MapView} and {@link MapController}, which forward surface and lifecycle events.
+ * Call static gesture and viewport methods on the main thread after the rendering engine exists.
+ */
 public final class Map
 {
+  /**
+   * Receives a failure to create or attach a graphics surface.
+   */
   public interface CallbackUnsupported
   {
+    /**
+     * Called when the surface is unsupported; show an appropriate host error UI.
+     */
     void report();
   }
 
@@ -75,12 +86,19 @@ public final class Map
 
   private static int sCurrentDpi = 0;
 
+  /**
+   * Creates a low-level surface controller for the given display type.
+   * @param mapType target display; bind location and lifecycle callbacks before creating its surface
+   */
   public Map(@NonNull DisplayType mapType)
   {
     mDisplayType = mapType;
     onCreate(false);
   }
 
+  /**
+   * Sets the location helper used when creating the rendering engine; call before {@link #onSurfaceCreated}.
+   */
   public void setLocationHelper(@NonNull LocationHelper locationHelper)
   {
     mLocationHelper = locationHelper;
@@ -90,8 +108,8 @@ public final class Map
    * Moves the map compass using the given offsets.
    *
    * @param context     Context.
-   * @param offsetX     Pixel offset from the top. -1 to keep the previous value.
-   * @param offsetY     Pixel offset from the right.  -1 to keep the previous value.
+   * @param offsetX     Pixel offset from the right; negative keeps the previous value.
+   * @param offsetY     Pixel offset from the top; negative keeps the previous value.
    * @param forceRedraw True to force the compass to redraw
    */
   public void updateCompassOffset(final Context context, int offsetX, int offsetY, boolean forceRedraw)
@@ -108,6 +126,9 @@ public final class Map
     mCurrentCompassOffsetY = y;
   }
 
+  /**
+   * Forwards a compass bearing in radians to the renderer; {@code forceRedraw} requests an immediate update.
+   */
   public static void onCompassUpdated(double north, boolean forceRedraw)
   {
     nativeCompassUpdated(north, forceRedraw);
@@ -117,8 +138,8 @@ public final class Map
    * Moves the ruler and copyright using the given offsets.
    *
    * @param context Context.
-   * @param offsetX Pixel offset from the left.  -1 to keep the previous value.
-   * @param offsetY Pixel offset from the bottom. -1 to keep the previous value.
+   * @param offsetX Pixel offset from the left; negative keeps the previous value.
+   * @param offsetY Pixel offset from the bottom; negative keeps the previous value.
    */
   public void updateBottomWidgetsOffset(final Context context, int offsetX, int offsetY)
   {
@@ -140,6 +161,13 @@ public final class Map
     nativeUpdateMyPositionRoutingOffset(offsetY);
   }
 
+  /**
+   * Creates or reattaches the native engine to a surface.
+   * @param context context used to resolve widget dimensions
+   * @param surface valid surface owned by the host
+   * @param surfaceFrame surface bounds in pixels
+   * @param surfaceDpi display density in dots per inch
+   */
   public void onSurfaceCreated(final Context context, final Surface surface, Rect surfaceFrame, int surfaceDpi)
   {
     Assert.debug(mLocationHelper != null, "LocationHelper must be initialized before calling onSurfaceCreated");
@@ -190,6 +218,13 @@ public final class Map
       mMapRenderingListener.onRenderingCreated();
   }
 
+  /**
+   * Updates surface dimensions and widget placement. Forward the matching {@code SurfaceHolder} event.
+   * @param context context used to resolve widget dimensions
+   * @param surface current surface
+   * @param surfaceFrame current bounds in pixels
+   * @param isSurfaceCreating whether this event belongs to initial surface creation
+   */
   public void onSurfaceChanged(final Context context, final Surface surface, Rect surfaceFrame,
                                boolean isSurfaceCreating)
   {
@@ -206,6 +241,9 @@ public final class Map
       mMapRenderingListener.onRenderingRestored();
   }
 
+  /**
+   * Detaches this surface; preserve graphics resources when the host is changing configuration.
+   */
   public void onSurfaceDestroyed(boolean activityIsChangingConfigurations)
   {
     Logger.d(TAG, "mSurfaceCreated = " + mSurfaceCreated + ", mSurfaceAttached = " + mSurfaceAttached);
@@ -217,16 +255,25 @@ public final class Map
     mSurfaceAttached = false;
   }
 
+  /**
+   * Replaces the surface rendering listener; {@code null} releases it.
+   */
   public void setMapRenderingListener(MapRenderingListener mapRenderingListener)
   {
     mMapRenderingListener = mapRenderingListener;
   }
 
+  /**
+   * Replaces the surface-failure callback; {@code null} releases it.
+   */
   public void setCallbackUnsupported(CallbackUnsupported callback)
   {
     mCallbackUnsupported = callback;
   }
 
+  /**
+   * Resets surface widget offsets and records whether the host was launched by a map API link.
+   */
   public void onCreate(boolean launchByDeeplink)
   {
     mLaunchByDeepLink = launchByDeeplink;
@@ -236,11 +283,17 @@ public final class Map
     mBottomWidgetOffsetY = 0;
   }
 
+  /**
+   * Registers the rendering-initialization callback. Forward the host lifecycle start.
+   */
   public void onStart()
   {
     nativeSetRenderingInitializationFinishedListener(mMapRenderingListener);
   }
 
+  /**
+   * Unregisters the rendering-initialization callback. Forward the host lifecycle stop.
+   */
   public void onStop()
   {
     nativeSetRenderingInitializationFinishedListener(null);
@@ -265,6 +318,9 @@ public final class Map
     return mSurfaceCreated;
   }
 
+  /**
+   * Scrolls the native map by the supplied horizontal and vertical pixel distances.
+   */
   public static void onScroll(double distanceX, double distanceY)
   {
     Map.nativeOnScroll(distanceX, distanceY);
@@ -280,11 +336,24 @@ public final class Map
     nativeScaleMinus();
   }
 
+  /**
+   * Scales around a view-local focus point.
+   * @param factor relative scale factor, with 1 meaning no change
+   * @param focusX focus x coordinate in pixels
+   * @param focusY focus y coordinate in pixels
+   * @param isAnim whether to animate the change
+   */
   public static void onScale(double factor, double focusX, double focusY, boolean isAnim)
   {
     nativeOnScale(factor, focusX, focusY, isAnim);
   }
 
+  /**
+   * Forwards up to two touch pointers to the native engine. {@link MapView} performs this translation for hosts.
+   * @param actionType one of the {@code NATIVE_ACTION_*} constants
+   * @param event view-local Android touch event
+   * @param pointerIndex changed pointer index or {@link #INVALID_POINTER_MASK} for a move
+   */
   public static void onTouch(int actionType, MotionEvent event, int pointerIndex)
   {
     if (event.getPointerCount() == 1)
@@ -298,17 +367,26 @@ public final class Map
     }
   }
 
+  /**
+   * Synthesizes a tap at view-local pixel coordinates.
+   */
   public static void onClick(float x, float y)
   {
     nativeOnTouch(NATIVE_ACTION_DOWN, 0, x, y, Map.INVALID_TOUCH_ID, 0, 0, 0);
     nativeOnTouch(NATIVE_ACTION_UP, 0, x, y, Map.INVALID_TOUCH_ID, 0, 0, 0);
   }
 
+  /**
+   * Returns whether the process-wide native renderer exists; it may outlive a particular activity or surface.
+   */
   public static boolean isEngineCreated()
   {
     return nativeIsEngineCreated();
   }
 
+  /**
+   * Executes a previously parsed map API request after the renderer is ready.
+   */
   public static void executeMapApiRequest()
   {
     nativeExecuteMapApiRequest();
