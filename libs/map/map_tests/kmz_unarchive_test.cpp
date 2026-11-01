@@ -4,14 +4,15 @@
 #include "map/bookmark_helpers.hpp"
 
 #include "platform/platform.hpp"
+#include "platform/platform_tests_support/scoped_dir.hpp"
 
+#include "coding/zip_creator.hpp"
+
+#include "base/file_name_utils.hpp"
 #include "base/scope_guard.hpp"
 
 UNIT_TEST(KMZ_UnzipTest)
 {
-  /// @todo Should put somewhere in core? (like in BookmarkManager::PrepareToSaveBookmarks).
-  TEST(Platform::MkDirChecked(GetBookmarksDirectory()), ());
-
   std::string const kmzFile = GetPlatform().TestsDataPathForFile("test_data/kml/test.kmz");
   auto const filePaths = GetKMLOrGPXFilesPathsToLoad(kmzFile);
   TEST_EQUAL(1, filePaths.size(), ());
@@ -45,8 +46,6 @@ UNIT_TEST(KMZ_UnzipTest)
 
 UNIT_TEST(KMZ_RealLifeAreas)
 {
-  TEST(Platform::MkDirChecked(GetBookmarksDirectory()), ());
-
   // Dartmoor National Park Authority, "Backpack camping on Dartmoor commons", Open Government Licence v3.0:
   // https://www.arcgis.com/home/item.html?id=3d00736c2b2a44d4b59d58e7fccba07a
   std::string const kmzFile = GetPlatform().TestsDataPathForFile("test_data/kml/dartmoor_backpack_camping.kmz");
@@ -79,8 +78,6 @@ UNIT_TEST(KMZ_RealLifeAreas)
 
 UNIT_TEST(Multi_KML_KMZ_UnzipTest)
 {
-  TEST(Platform::MkDirChecked(GetBookmarksDirectory()), ());
-
   std::string const kmzFile = GetPlatform().TestsDataPathForFile("test_data/kml/BACRNKMZ.kmz");
   auto const filePaths = GetKMLOrGPXFilesPathsToLoad(kmzFile);
   SCOPE_GUARD(filesGuard, [&filePaths]()
@@ -109,5 +106,54 @@ UNIT_TEST(Multi_KML_KMZ_UnzipTest)
         break;
     }
     TEST(matched, ("Unexpected file path: " + filePath));
+  }
+}
+
+UNIT_TEST(BookmarkImport_CreatesDirectory)
+{
+  auto & platform = GetPlatform();
+  auto const originalSettingsDir = platform.SettingsDir();
+  SCOPE_GUARD(restoreSettingsDir, [&] { platform.SetSettingsDir(originalSettingsDir); });
+
+  kml::FileData data;
+  kml::SetDefaultStr(data.m_categoryData.m_name, "Cold import");
+  auto & bookmark = data.m_bookmarksData.emplace_back();
+  kml::SetDefaultStr(bookmark.m_name, "Test point");
+  bookmark.m_point = {1.0, 2.0};
+
+  for (auto const fileType :
+       {FileType::Kml, FileType::Gpx, FileType::GeoJson, FileType::Json, FileType::Kmz, FileType::Kmb})
+  {
+    auto const testDir =
+        base::JoinPath(platform.WritableDir(), "bookmark_import" + std::string(GetFileTypeExtension(fileType)));
+    platform::tests_support::ScopedDirCleanup const cleanup(testDir);
+    platform.SetSettingsDir(testDir);
+    auto const sourcePath = base::JoinPath(testDir, "input" + std::string(GetFileTypeExtension(fileType)));
+    if (fileType == FileType::Kmz)
+    {
+      auto const kmlPath = base::JoinPath(testDir, "input.kml");
+      TEST(SaveKmlFileSafe(data, kmlPath, FileType::Kml), ());
+      TEST(CreateZipFromFiles({kmlPath}, sourcePath), ());
+    }
+    else
+      TEST(SaveKmlFileSafe(data, sourcePath, fileType), (fileType));
+
+    TEST(!Platform::IsFileExistsByFullPath(GetBookmarksDirectory()), (fileType));
+    std::string previousPath;
+    for (size_t i = 0; i < 2; ++i)
+    {
+      auto const paths = GetKMLOrGPXFilesPathsToLoad(sourcePath);
+      TEST_EQUAL(paths.size(), 1, (fileType));
+      TEST_NOT_EQUAL(paths[0], previousPath, (fileType));
+      if (!previousPath.empty())
+        TEST(Platform::IsFileExistsByFullPath(previousPath), (fileType));
+      previousPath = paths[0];
+      auto const importedType = fileType == FileType::Kmz || fileType == FileType::Kmb ? FileType::Kml : fileType;
+      auto const imported = LoadKmlFile(paths[0], importedType);
+      TEST(imported != nullptr, (fileType));
+      TEST_EQUAL(imported->m_bookmarksData.size(), 1, (fileType));
+      TEST_EQUAL(kml::GetDefaultStr(imported->m_bookmarksData[0].m_name), "Test point", (fileType));
+      TEST(Platform::IsFileExistsByFullPath(sourcePath), (fileType));
+    }
   }
 }

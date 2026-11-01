@@ -546,6 +546,9 @@ std::vector<std::string> GetKMLOrGPXFilesPathsToLoad(std::string const & filePat
   // Copy or convert or unpack (kmz) file from 'filePath' to GetBookmarksDirectory folder.
   if (auto const fileType = GetFileType(filePath))
   {
+    if (!Platform::MkDirChecked(GetBookmarksDirectory()))
+      return {};
+
     switch (*fileType)
     {
     case FileType::Kml:
