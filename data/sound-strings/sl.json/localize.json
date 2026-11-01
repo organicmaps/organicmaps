@@ -28,6 +28,7 @@
 "take_exit_number":"Izberite izvoz",
 "take_exit_number_street_verb":"NULL",
 "route_recalculating":"Preračunavam",
+"you_have_left_the_track":"Zapustili ste sled.",
 "destination":"Prihajate na cilj.",
 "you_have_reached_the_destination":"Prispeli ste na cilj.",
 "in_50_meters":"Čez petdeset metrov",

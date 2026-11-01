@@ -28,6 +28,7 @@
 "take_exit_number":"Poistu tielle",
 "take_exit_number_street_verb":"NULL",
 "route_recalculating":"Reitin uudelleenlaskenta",
+"you_have_left_the_track":"Olet poistunut reitiltä.",
 "destination":"Olet perillä.",
 "you_have_reached_the_destination":"Olet saapunut.",
 "in_50_meters":"Viidenkymmenen metrin päässä",

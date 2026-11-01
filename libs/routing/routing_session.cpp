@@ -69,6 +69,8 @@ void RoutingSession::BuildRoute(Checkpoints const & checkpoints, uint32_t timeou
   m_isFollowing = false;
   m_routingRebuildCount = -1;  // -1 for the first rebuild.
   m_routingRebuildAnnounceCount = 0;
+  m_reachedFollowedTrack = false;
+  m_offTrackNotificationPending = false;
 
   RebuildRoute(checkpoints.GetStart(), m_buildReadyCallback, m_needMoreMapsCallback, m_removeRouteCallback, timeoutSec,
                SessionState::RouteBuilding, false /* adjust */);
@@ -238,6 +240,8 @@ void RoutingSession::Reset()
   // reset announcement counters
   m_routingRebuildCount = -1;
   m_routingRebuildAnnounceCount = 0;
+  m_reachedFollowedTrack = false;
+  m_offTrackNotificationPending = false;
 }
 
 void RoutingSession::SetState(SessionState state)
@@ -273,6 +277,13 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
   {
     m_moveAwayCounter = 0;
     m_lastDistance = 0.0;
+
+    if (auto const trackStart = m_route->GetTrackStartDistanceMeters();
+        trackStart && m_route->GetCurrentDistanceFromBeginMeters() >= *trackStart)
+    {
+      m_reachedFollowedTrack = true;
+      m_offTrackNotificationPending = false;
+    }
 
     PassCheckpoints();
 
@@ -319,6 +330,11 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
     if (m_moveAwayCounter > kOnRouteMissedCount)
     {
       m_passedDistanceOnRouteMeters += m_route->GetCurrentDistanceFromBeginMeters();
+      if (m_isFollowing && m_reachedFollowedTrack)
+      {
+        m_offTrackNotificationPending = true;
+        m_reachedFollowedTrack = false;
+      }
       SetState(SessionState::RouteNeedRebuild);
     }
   }
@@ -505,8 +521,22 @@ void RoutingSession::GenerateNotifications(std::vector<std::string> & notificati
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   notifications.clear();
 
-  // Generate recalculating notification if needed and reset
-  if (m_routingRebuildCount > m_routingRebuildAnnounceCount)
+  if (m_route && m_route->GetTrackStartDistanceMeters())
+  {
+    // Geometric rebuilds keep following the track rather than calculating a new road route.
+    m_routingRebuildAnnounceCount = m_routingRebuildCount;
+    if (m_offTrackNotificationPending && m_isFollowing && m_turnNotificationsMgr.IsEnabled())
+    {
+      m_offTrackNotificationPending = false;
+      if (auto text = m_turnNotificationsMgr.GenerateOffTrackText(); !text.empty())
+      {
+        notifications.emplace_back(std::move(text));
+        return;
+      }
+    }
+  }
+  // Generate recalculating notification if needed and reset.
+  else if (m_routingRebuildCount > m_routingRebuildAnnounceCount)
   {
     m_routingRebuildAnnounceCount = m_routingRebuildCount;
     notifications.emplace_back(m_turnNotificationsMgr.GenerateRecalculatingText());
@@ -555,12 +585,15 @@ void RoutingSession::AssignRoute(std::shared_ptr<RoutesResult> const & result, R
     return;
   }
 
+  bool const wasOnTrack = m_isFollowing && m_reachedFollowedTrack;
   RemoveRoute();
   SetState(SessionState::RouteNotStarted);
   m_lastCompletionPercent = 0;
 
   // Promote the active alternative (RouteBase) to a followed Route.
   auto route = std::make_shared<Route>(result->GetActive());
+  // A rejoin may have been matched on the retained route while this result was calculating.
+  m_reachedFollowedTrack = wasOnTrack && route->GetTrackStartDistanceMeters().has_value();
   m_checkpoints.SetPointFrom(route->GetPoly().Front());
   route->SetRoutingSettings(m_routingSettings);
   m_route = route;
@@ -595,6 +628,8 @@ bool RoutingSession::SwapActiveAlternative(size_t idx)
   m_lastCompletionPercent = 0;
   m_passedDistanceOnRouteMeters = 0.0;
   m_turnNotificationsMgr.Reset();
+  m_reachedFollowedTrack = false;
+  m_offTrackNotificationPending = false;
   m_checkpoints.SetPointFrom(m_route->GetPoly().Front());
 
   m_speedCameraManager.Reset();
@@ -697,6 +732,8 @@ bool RoutingSession::DisableFollowMode()
   {
     SetState(SessionState::RouteNoFollowing);
     m_isFollowing = false;
+    m_reachedFollowedTrack = false;
+    m_offTrackNotificationPending = false;
     return true;
   }
   return false;
