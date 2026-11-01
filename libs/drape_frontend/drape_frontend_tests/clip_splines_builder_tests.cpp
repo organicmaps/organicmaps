@@ -218,6 +218,33 @@ UNIT_TEST(ClipSplinesBuilder_Simplify_DropsExactDuplicates)
   TestPath(builder, {P(0, 0), P(5, 0), P(10, 5)});
 }
 
+UNIT_TEST(ClipSplinesBuilder_Simplify_ZeroThreshold)
+{
+  auto params = MakeParams(kSimplifyZoom, 0.0);
+  df::ClipSplinesBuilder builder(params);
+  MockTestFeature f({P(0, 0), P(0, 0), P(5, 0), P(5, 0), P(10, 0), P(10, 0)});
+  builder.Build(f, kSimplifyZoom);
+
+  TestPath(builder, {P(0, 0), P(10, 0)});
+}
+
+UNIT_TEST(ClipSplinesBuilder_ReusedForShorterFeature)
+{
+  auto params = MakeParams(kSimplifyZoom, kMinSqr);
+  df::ClipSplinesBuilder builder(params);
+  std::vector<P> points;
+  for (size_t i = 0; i < 129; ++i)
+    points.emplace_back(static_cast<double>(i), static_cast<double>(i));
+
+  MockTestFeature longFeature(points);
+  builder.Build(longFeature, kSimplifyZoom);
+  TestPath(builder, {points.front(), points.back()});
+
+  MockTestFeature shortFeature({P(3, 4)});
+  builder.Build(shortFeature, kSimplifyZoom);
+  TestPath(builder, {P(3, 4)});
+}
+
 UNIT_TEST(ClipSplinesBuilder_LimitRect_Outside)
 {
   // Feature lies entirely outside the tile rect. Build should short-circuit

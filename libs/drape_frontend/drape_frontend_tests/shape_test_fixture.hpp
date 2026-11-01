@@ -53,6 +53,9 @@ public:
   /// The last rendered frame; valid after Render() returns.
   QImage const & GetLastImage() const { return m_lastImage; }
 
+  /// Only valid inside the Render() callback.
+  ref_ptr<dp::TextureManager> GetTextureManager() const { return make_ref(m_texMng); }
+
 private:
   void Init(uint32_t width, uint32_t height);
   void Flush();
