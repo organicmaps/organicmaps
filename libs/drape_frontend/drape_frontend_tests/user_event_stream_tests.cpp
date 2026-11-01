@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "drape_frontend/animation_system.hpp"
 #include "drape_frontend/drape_frontend_tests/visual_params_fixture.hpp"
 #include "drape_frontend/user_event_stream.hpp"
 
@@ -25,6 +26,7 @@ class UserEventStreamTest : df::UserEventStream::Listener
 public:
   explicit UserEventStreamTest(bool filtrateTouches) : m_filtrate(filtrateTouches)
   {
+    m_stream.SetListener(make_ref(static_cast<df::UserEventStream::Listener *>(this)));
     m_stream.SetTestBridge(std::bind(&UserEventStreamTest::TestBridge, this, _1));
   }
 
@@ -38,7 +40,7 @@ public:
   void OnRotated() override {}
   void OnScrolled(m2::PointD const & distance) override {}
 
-  void OnScaleStarted() override {}
+  void OnScaleStarted() override { m_manualScaleStarted = true; }
   void CorrectScalePoint(m2::PointD & pt) const override {}
   void CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) const override {}
   void CorrectGlobalScalePoint(m2::PointD & pt) const override {}
@@ -73,6 +75,13 @@ public:
                                                          nullptr /* parallelAnimCreator */));
   }
 
+  void AddScale(double factor, bool isAnim)
+  {
+    m_stream.AddEvent(make_unique_dp<df::ScaleEvent>(factor, m_stream.GetCurrentScreen().PixelRect().Center(), isAnim));
+  }
+
+  bool WasManualScaleStarted() const { return m_manualScaleStarted; }
+
   ScreenBase const & GetScreen() const { return m_stream.GetCurrentScreen(); }
 
   void AddExpectation(char const * action) { m_expectation.push_back(action); }
@@ -97,6 +106,7 @@ private:
   df::UserEventStream m_stream;
   std::list<char const *> m_expectation;
   bool m_filtrate;
+  bool m_manualScaleStarted = false;
 };
 
 int touchTimeStamp = 1;
@@ -214,6 +224,26 @@ UNIT_CLASS_TEST(VisualParamsFixture, SimpleScale)
   }
   test.AddUserEvent(MakeTouchEvent(pointer1, pointer2, df::TouchEvent::TOUCH_UP));
   test.RunTest();
+  TEST(test.WasManualScaleStarted(), ());
+}
+
+UNIT_CLASS_TEST(VisualParamsFixture, ZoomButtonsDoNotStartManualScaling)
+{
+  for (bool const animated : {false, true})
+  {
+    UserEventStreamTest test(false);
+    test.AddResizeEvent(800, 600);
+    test.SetRect(m2::RectD(-100, -100, 100, 100));
+    test.RunTest();
+
+    for (double const factor : {2.0, 0.5})
+    {
+      test.AddScale(factor, animated);
+      test.RunTest();
+      TEST(!test.WasManualScaleStarted(), ());
+      df::AnimationSystem::Instance().FinishObjectAnimations(df::Animation::Object::MapPlane, false, true);
+    }
+  }
 }
 
 UNIT_CLASS_TEST(VisualParamsFixture, DragThresholdFollowsVisualScale)

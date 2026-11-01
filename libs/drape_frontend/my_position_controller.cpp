@@ -218,7 +218,7 @@ double MyPositionController::GetHorizontalAccuracy() const
 
 bool MyPositionController::IsModeChangeViewport() const
 {
-  return df::IsModeChangeViewport(m_mode);
+  return !m_isLocationFollowPaused && df::IsModeChangeViewport(m_mode);
 }
 
 bool MyPositionController::IsModeHasPosition() const
@@ -229,6 +229,8 @@ bool MyPositionController::IsModeHasPosition() const
 void MyPositionController::DragStarted()
 {
   m_needBlockAnimation = true;
+  if (m_isLocationFollowPaused)
+    StopLocationFollow();
 }
 
 void MyPositionController::DragEnded(m2::PointD const & distance)
@@ -244,6 +246,8 @@ void MyPositionController::DragEnded(m2::PointD const & distance)
 void MyPositionController::ScaleStarted()
 {
   m_needBlockAnimation = true;
+  if (m_isLocationFollowPaused)
+    StopLocationFollow();
   ResetBlockAutoZoomTimer();
 }
 
@@ -337,6 +341,8 @@ void MyPositionController::ResetRenderShape()
 
 void MyPositionController::NextMode(ScreenBase const & screen)
 {
+  m_isLocationFollowPaused = false;
+
   // When the app is awaiting location (indicator is active) and the user presses on the indicator, location updates
   // will be stopped and goes into NotFollowNoPosition state. The next press on the indicator will start location
   // updates again.
@@ -380,10 +386,8 @@ void MyPositionController::NextMode(ScreenBase const & screen)
   if (m_mode == location::Follow)
   {
     if (IsRotationAvailable() || m_isInRouting)
-    {
       ChangeMode(location::FollowAndRotate);
-      UpdateViewport(preferredZoomLevel);
-    }
+    UpdateViewport(preferredZoomLevel);
     return;
   }
 
@@ -603,7 +607,7 @@ void MyPositionController::Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<
 
 bool MyPositionController::IsRouteFollowingActive() const
 {
-  return IsInRouting() && m_mode == location::FollowAndRotate;
+  return !m_isLocationFollowPaused && IsInRouting() && m_mode == location::FollowAndRotate;
 }
 
 bool MyPositionController::AlmostCurrentPosition(m2::PointD const & pos) const
@@ -647,11 +651,25 @@ bool MyPositionController::IsWaitingForLocation() const
 
 void MyPositionController::StopLocationFollow()
 {
+  m_isLocationFollowPaused = false;
+
   if (m_mode == location::Follow || m_mode == location::FollowAndRotate)
     ChangeMode(location::NotFollow);
   m_desiredInitMode = location::NotFollow;
 
   ResetRoutingNotFollowTimer();
+}
+
+void MyPositionController::SetLocationFollowPaused(bool paused)
+{
+  if (paused == m_isLocationFollowPaused || (paused && !df::IsModeChangeViewport(m_mode)))
+    return;
+
+  m_isLocationFollowPaused = paused;
+  m_animCreator = nullptr;
+  m_isPendingAnimation = false;
+  if (!paused)
+    UpdateViewport(kDoNotChangeZoom);
 }
 
 void MyPositionController::OnEnterForeground(double backgroundTime)
@@ -681,17 +699,18 @@ void MyPositionController::OnCompassTapped()
   if (m_mode == location::FollowAndRotate)
   {
     ChangeMode(location::Follow);
-    ChangeModelView(m_position, 0.0, m_visiblePixelRect.Center(), kDoNotChangeZoom);
+    if (!m_isLocationFollowPaused)
+    {
+      ChangeModelView(m_position, 0.0, m_visiblePixelRect.Center(), kDoNotChangeZoom);
+      return;
+    }
   }
-  else
-  {
-    ChangeModelView(0.0);
-  }
+  ChangeModelView(0.0);
 }
 
 void MyPositionController::ChangeModelView(m2::PointD const & center, int zoomLevel)
 {
-  if (m_listener)
+  if (m_listener && !m_isLocationFollowPaused)
     m_listener->ChangeModelView(center, zoomLevel, m_animCreator);
   m_animCreator = nullptr;
 }
@@ -705,7 +724,7 @@ void MyPositionController::ChangeModelView(double azimuth)
 
 void MyPositionController::ChangeModelView(m2::RectD const & rect)
 {
-  if (m_listener)
+  if (m_listener && !m_isLocationFollowPaused)
     m_listener->ChangeModelView(rect, m_animCreator);
   m_animCreator = nullptr;
 }
@@ -713,7 +732,7 @@ void MyPositionController::ChangeModelView(m2::RectD const & rect)
 void MyPositionController::ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero,
                                            int zoomLevel, Animation::TAction const & onFinishAction)
 {
-  if (m_listener)
+  if (m_listener && !m_isLocationFollowPaused)
     m_listener->ChangeModelView(userPos, azimuth, pxZero, zoomLevel, onFinishAction, m_animCreator);
   m_animCreator = nullptr;
 }
@@ -721,7 +740,7 @@ void MyPositionController::ChangeModelView(m2::PointD const & userPos, double az
 void MyPositionController::ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth,
                                            m2::PointD const & pxZero)
 {
-  if (m_listener)
+  if (m_listener && !m_isLocationFollowPaused)
     m_listener->ChangeModelView(autoScale, userPos, azimuth, pxZero, m_animCreator);
   m_animCreator = nullptr;
 }
@@ -839,6 +858,8 @@ void MyPositionController::EnableAutoZoomInRouting(bool enableAutoZoom)
 
 void MyPositionController::ActivateRouting(int zoomLevel, bool enableAutoZoom, bool isArrowGlued)
 {
+  m_isLocationFollowPaused = false;
+
   if (!m_isInRouting)
   {
     m_isInRouting = true;
@@ -856,6 +877,7 @@ void MyPositionController::DeactivateRouting()
 {
   if (m_isInRouting)
   {
+    m_isLocationFollowPaused = false;
     m_isInRouting = false;
     m_isArrowGluedInRouting = false;
 

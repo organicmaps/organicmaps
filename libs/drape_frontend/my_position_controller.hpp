@@ -109,6 +109,8 @@ public:
   void EnableAutoZoomInRouting(bool enableAutoZoom);
 
   void StopLocationFollow();
+  // Suspend camera following while preserving the location mode reported to the UI.
+  void SetLocationFollowPaused(bool paused);
   void NextMode(ScreenBase const & screen);
   void LoseLocation();
   location::EMyPositionMode GetCurrentMode() const { return m_mode; }
@@ -167,6 +169,8 @@ private:
 
   bool m_isInRouting = false;
   bool m_isArrowGluedInRouting = false;
+
+  bool m_isLocationFollowPaused = false;
 
   bool m_needBlockAnimation;
   bool m_wasRotationInScaling;
