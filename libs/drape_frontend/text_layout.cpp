@@ -432,27 +432,39 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, flo
   }
 
   m2::PointD const pxPivot = iter.m_pos;
-  buffer.resize(4 * m_glyphRegions.size());
+  size_t const glyphCount = m_glyphRegions.size();
+  buffer.resize(4 * glyphCount);
 
   glsl::vec4 const pivot(glsl::ToVec2(MapShape::ConvertToLocal(globalPivot, m_tileCenter, kShapeCoordScalar)), depth,
                          0.0f);
 
   ASSERT_EQUAL(m_glyphRegions.size(), m_shapedGlyphs.m_glyphs.size(), ());
-  m2::PointD prevTangent;
-  for (size_t i = 0; i < m_glyphRegions.size(); ++i)
+  if (glyphCount == 0)
+    return true;
+
+  auto const * glyphs = m_shapedGlyphs.m_glyphs.data();
+  auto const * glyphRegions = m_glyphRegions.data();
+  auto const advancePen = [&](size_t i)
   {
-    auto const & glyph = m_shapedGlyphs.m_glyphs[i];
-    m2::PointF const pxSize = m_glyphRegions[i].GetPixelSize() * m_textSizeRatio;
-    float const xAdvance = glyph.m_xAdvance * m_textSizeRatio;
-
-    m2::PointD const baseVector = penIter.m_pos - pxPivot;
-
+    float const xAdvance = glyphs[i].m_xAdvance * m_textSizeRatio;
     constexpr float kEps = 1e-5f;
     if (fabs(xAdvance) > kEps)
+    {
       penIter.Advance(advanceSign * xAdvance);
-    m2::PointD const newTangent = penIter.m_avrDir.Normalize();
+      return true;
+    }
+    return false;
+  };
 
-    glsl::vec2 const tangent = glsl::ToVec2(newTangent);
+  m2::PointD baseVector = penIter.m_pos - pxPivot;
+  advancePen(0);
+  m2::PointD direction = penIter.m_avrDir.Normalize();
+  for (size_t i = 0;;)
+  {
+    auto const & glyph = glyphs[i];
+    m2::PointF const pxSize = glyphRegions[i].GetPixelSize() * m_textSizeRatio;
+
+    glsl::vec2 const tangent = glsl::ToVec2(direction);
     glsl::vec2 const normal = glsl::vec2(-tangent.y, tangent.x);
     glsl::vec2 const formingVector = glsl::ToVec2(baseVector) + halfFontSize * normal;
 
@@ -469,15 +481,15 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, flo
     buffer[baseIndex + 2] = {pivot, formingVector + normal * bottomVector + tangent * (pxSize.x + xOffset)};
     buffer[baseIndex + 3] = {pivot, formingVector + normal * upVector + tangent * (pxSize.x + xOffset)};
 
-    if (i > 0)
-    {
-      auto const dotProduct = static_cast<float>(m2::DotProduct(prevTangent, newTangent));
-      if (dotProduct < kValidSplineTurn)
-        return false;
-    }
-    prevTangent = newTangent;
+    if (++i == glyphCount)
+      return true;
+
+    baseVector = penIter.m_pos - pxPivot;
+    auto const nextDirection = advancePen(i) ? penIter.m_avrDir.Normalize() : direction;
+    if (static_cast<float>(m2::DotProduct(direction, nextDirection)) < kValidSplineTurn)
+      return false;
+    direction = nextDirection;
   }
-  return true;
 }
 
 double PathTextLayout::CalculateTextLength(double textPixelLength)

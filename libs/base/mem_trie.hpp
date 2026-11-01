@@ -4,6 +4,7 @@
 #include "base/macros.hpp"
 
 #include <algorithm>
+#include <iterator>
 #include <map>
 #include <string>
 #include <vector>
@@ -361,8 +362,7 @@ private:
     template <typename It>
     void Assign(It begin, It end)
     {
-      m_label.assign(begin, end);
-      std::reverse(m_label.begin(), m_label.end());
+      m_label.assign(std::make_reverse_iterator(end), std::make_reverse_iterator(begin));
     }
 
     // Drops first |n| characters from the edge.
@@ -514,13 +514,11 @@ private:
       if (root.m_values.Empty() && root.m_moves.Size() == 1)
       {
         Node child;
-        Char c;
-        root.m_moves.ForEach([&](Char const & mc, Node & mn)
+        root.m_moves.ForEach([&](Char const & c, Node & node)
         {
-          c = mc;
-          child.Swap(mn);
+          child.Swap(node);
+          child.m_edge.Prepend(c);
         });
-        child.m_edge.Prepend(c);
         child.m_edge.Prepend(root.m_edge);
         root.Swap(child);
       }

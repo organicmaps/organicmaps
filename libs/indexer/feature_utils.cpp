@@ -369,7 +369,7 @@ void GetPreferredNames(NameParamsIn const & in, NameParamsOut & out)
 
   LangsBufferT mwmLangCodes;
   in.regionData.GetLanguages(mwmLangCodes);
-  secondaryCodes.insert(secondaryCodes.end(), mwmLangCodes.begin(), mwmLangCodes.end());
+  secondaryCodes.append(mwmLangCodes);
 
   secondaryCodes.push_back(StrUtf8::kEnglishCode);
 

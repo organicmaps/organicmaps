@@ -7,6 +7,8 @@
 #include "geometry/clipping.hpp"
 #include "geometry/smoothing.hpp"
 
+#include <span>
+
 namespace df
 {
 namespace
@@ -27,7 +29,7 @@ void ClipSplinesBuilder::Build(FeatureType & f, int zoomLevel, bool isIsoline)
   // Use the feature's pre-parsed limit rect to short-circuit the read of
   // features that lie entirely outside the tile, and to record an Inside hint
   // that lets Release() skip the GetRectCase bbox pass for fully-contained
-  // features. GetLimitRect triggers the same parse that ForEachPoint would,
+  // features. GetLimitRect triggers the same geometry parse as GetPoints,
   // so it doesn't add cost.
   m2::RectD const limitRect = f.GetLimitRect(zoomLevel);
   if (limitRect.IsValid())
@@ -45,44 +47,36 @@ void ClipSplinesBuilder::Build(FeatureType & f, int zoomLevel, bool isIsoline)
       m_knownInside = true;
   }
 
-  m_path.reserve(f.GetPointsCount());
+  std::span const points(f.GetPoints(zoomLevel));
+  if (points.empty())
+  {
+    if (f.GetGeomType() == feature::GeomType::Point)
+      m_path.push_back(f.GetCenter());
+    return;
+  }
+
+  size_t const pointCount = points.size();
+  m_path.reserve(pointCount);
+  m_path.push_back(points.front());
 
   bool const simplify = m_params.IsSimplifyLines();
   double const minSqr = m_params.m_minSegmentSqrLength;
 
-  // Last segment of m_path (un-normalized) and its squared length. Only
-  // meaningful (and only touched) when simplify is true and m_path.size() >= 2.
-  // Storing the raw segment + sqrlen lets us run the colinearity check
-  // entirely in squared quantities — no sqrts in Build(), so the simplify+Inside
-  // path no longer pays for normalization both here and in Spline::InitDirections.
   m2::PointD lastSeg;
   double lastSegSqrLen = 0.0;
 
-  // Latest input point seen, regardless of whether it ended up in m_path.
-  // Used at end-of-stream to preserve the feature's actual endpoint
-  // coordinate when the trailing input was thinned away.
-  // Valid only when m_path is non-empty (i.e. at least one point processed).
-  m2::PointD lastReadPoint;
-
-  f.ForEachPoint([&](m2::PointD const & p)
+  for (size_t i = 1; i < pointCount; ++i)
   {
-    lastReadPoint = p;
-
-    if (m_path.empty())
-    {
-      m_path.push_back(p);
-      return;
-    }
-
+    auto const & p = points[i];
     m2::PointD const d = p - m_path.back();
     if (d.IsAlmostZero())
-      return;  // duplicate, ignore
+      continue;  // duplicate, ignore
 
     if (simplify)
     {
       double const d2 = d.SquaredLength();
       if (d2 < minSqr)
-        return;  // too close — thin
+        continue;  // too close — thin
 
       // Forward-only colinearity check, squared form. Equivalent to
       //   cos(θ) > kProlongingDot
@@ -95,11 +89,10 @@ void ClipSplinesBuilder::Build(FeatureType & f, int zoomLevel, bool isIsoline)
         if (dot > 0 && dot * dot > kProlongingDotSqr * lastSegSqrLen * d2)
         {
           m_path.back() = p;
-          // Recompute lastSeg from the actual merged segment m_path[sz-2] -> p,
-          // so long colinear runs don't drift past the threshold by accumulating per-step error.
+          // Keep the angular test based on the full merged segment.
           lastSeg = m_path[sz - 1] - m_path[sz - 2];
           lastSegSqrLen = lastSeg.SquaredLength();
-          return;
+          continue;
         }
       }
 
@@ -108,14 +101,15 @@ void ClipSplinesBuilder::Build(FeatureType & f, int zoomLevel, bool isIsoline)
     }
 
     m_path.push_back(p);
-  }, zoomLevel);
+  }
 
   // Endpoint preservation: if the latest read point did not end up at the
   // tail of m_path (it was thinned, deduped, or replaced away), commit it
   // now — replacing the kept tail rather than appending if doing so would
   // create a tiny trailing segment.
-  if (simplify && !m_path.empty())
+  if (simplify)
   {
+    auto const & lastReadPoint = points.back();
     m2::PointD const tailD = lastReadPoint - m_path.back();
     if (!tailD.IsAlmostZero())
     {

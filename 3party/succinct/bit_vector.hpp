@@ -42,12 +42,9 @@ namespace succinct {
             : m_size(size)
         {
             m_bits.resize(detail::words_for(size), initBit ? uint64_t(-1) : 0);
-            if (size) {
-                m_cur_word = &m_bits.back();
-                // clear padding bits
-                if (initBit && size % 64) {
-                    *m_cur_word >>= 64 - (size % 64);
-                }
+            // clear padding bits
+            if (initBit && size % 64) {
+                m_bits.back() >>= 64 - (size % 64);
             }
         }
 
@@ -59,9 +56,8 @@ namespace succinct {
             uint64_t pos_in_word = m_size % 64;
             if (pos_in_word == 0) {
                 m_bits.push_back(0);
-                m_cur_word = &m_bits.back();
             }
-            *m_cur_word |= (uint64_t)b << pos_in_word;
+            m_bits.back() |= (uint64_t)b << pos_in_word;
             ++m_size;
         }
 
@@ -103,12 +99,11 @@ namespace succinct {
             if (pos_in_word == 0) {
                 m_bits.push_back(bits);
             } else {
-                *m_cur_word |= bits << pos_in_word;
+                m_bits.back() |= bits << pos_in_word;
                 if (len > 64 - pos_in_word) {
                     m_bits.push_back(bits >> (64 - pos_in_word));
                 }
             }
-            m_cur_word = &m_bits.back();
         }
 
         inline void zero_extend(uint64_t n) {
@@ -116,7 +111,6 @@ namespace succinct {
             uint64_t needed = detail::words_for(m_size) - m_bits.size();
             if (needed) {
                 m_bits.insert(m_bits.end(), needed, 0);
-                m_cur_word = &m_bits.back();
             }
         }
 
@@ -155,7 +149,6 @@ namespace succinct {
                     *++cur_word = rhs.m_bits.back() >> (64 - shift);
                 }
             }
-            m_cur_word = &m_bits.back();
         }
 
         // reverse in place
@@ -191,13 +184,11 @@ namespace succinct {
         {
             m_bits.swap(other.m_bits);
             std::swap(m_size, other.m_size);
-            std::swap(m_cur_word, other.m_cur_word);
         }
 
     private:
         bits_type m_bits;
         uint64_t m_size;
-        uint64_t* m_cur_word;
     };
 
     class bit_vector {
