@@ -20,6 +20,7 @@ import app.organicmaps.R;
 import app.organicmaps.maplayer.MapButtonsViewModel;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Router;
+import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.maplayer.traffic.TrafficManager;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingInfo;
@@ -94,8 +95,6 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     mSpeedView = mTopFrame.findViewById(R.id.nav_speed_limit);
     mSpeedController = new CombinedSpeedViewController(mSpeedView);
     updateCurrentSpeed();
-    // TODO: add support for MUTCD switch
-    mSpeedController.setShape(Shape.Circle);
 
     // Blank rectangle below the navbar that hides menu content behind it.
     final View navigationBarBackground = mFrame.findViewById(R.id.nav_bottom_sheet_nav_bar);
@@ -212,6 +211,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     if (show && !UiUtils.isVisible(mFrame))
     {
       collapseNavMenu();
+      updateSpeedLimitSignType();
       // Seed the panel from the already-built route so it isn't empty until the first GPS fix arrives.
       update(RoutingController.get().getCachedRoutingInfo());
     }
@@ -311,6 +311,22 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     updateCurrentSpeed();
     mSpeedController.setSpeedLimit(info.speedLimitMps > 0 ? StringUtils.nativeFormatSpeed(info.speedLimitMps) : null);
     mSpeedController.setAlertForced(info.isSpeedCamLimitExceeded());
+  }
+
+  private void updateSpeedLimitSignType()
+  {
+    final Location location = MwmApplication.from(mFrame.getContext()).getLocationHelper().getSavedLocation();
+    @Framework.SpeedLimitSignType
+    int type = Framework.SpeedLimitSignType.VIENNA;
+    if (location != null)
+      type = Framework.nativeGetSpeedLimitSignType(location.getLatitude(), location.getLongitude());
+    else
+    {
+      final MapObject startPoint = RoutingController.get().getStartPoint();
+      if (startPoint != null)
+        type = Framework.nativeGetSpeedLimitSignType(startPoint.getLat(), startPoint.getLon());
+    }
+    mSpeedController.setShape(type == Framework.SpeedLimitSignType.MUTCD ? Shape.Square : Shape.Circle);
   }
 
   private void updateCurrentSpeed()
