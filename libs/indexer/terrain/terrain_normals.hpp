@@ -2,6 +2,8 @@
 
 #include "indexer/terrain/terrain_data.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "base/buffer_vector.hpp"
 #include "base/cancellable.hpp"
 
@@ -29,6 +31,8 @@ struct TerrainNormals
 
 // Unnormalized area-weighted normals. Grid cells contribute once; only their
 // perimeter nodes are hashed to combine chunk and TIN-strip contributions.
+// Of the raster interior only the nodes of the cells over drawRect get complete normals.
 TerrainNormals CalculateTerrainNormals(TerrainData const & data, double zScale,
-                                       base::SharedCancellable const & isCancellable = {});
+                                       base::SharedCancellable const & isCancellable = {},
+                                       m2::RectD const & drawRect = mercator::Bounds::FullRect());
 }  // namespace terrain

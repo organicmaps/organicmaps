@@ -1,6 +1,7 @@
 #pragma once
 
 #include "indexer/drules_struct.hpp"
+#include "indexer/map_style.hpp"
 
 #include "platform/measurement_utils.hpp"
 
@@ -13,8 +14,9 @@ namespace terrain
 // data/styles); shared by the drape gate and the isolines availability hint.
 int constexpr kMinIsolinesZoom = 11;
 
-// Resolves the dynamic isolines drawing policy from the current map style for one draw
-// zoom: the altitude step to trace and the line/label drules of every traced altitude.
+// Resolves the dynamic isolines drawing policy from a map style for one draw zoom: the
+// altitude step to trace and the line/label drules of every traced altitude. The caller
+// pins the style of its whole tile read: the current one can switch at any moment.
 // The style is the single source of the steps: a class the style opens at some zoom
 // (e.g. line|z11-[isoline=step_1000]) traces and draws from exactly that zoom, and a
 // level is labeled iff its class has a visible pathtext rule. The altitude -> class
@@ -27,7 +29,7 @@ int constexpr kMinIsolinesZoom = 11;
 class IsolinesStyle
 {
 public:
-  IsolinesStyle(int zoom, measurement_utils::Units units);
+  IsolinesStyle(MapStyle style, int zoom, measurement_utils::Units units);
 
   // The trace step in the display units: the finest class rung with a visible line
   // drule, 0 when the style draws no isolines at this zoom.

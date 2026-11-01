@@ -132,25 +132,7 @@ struct MwmSetEvent
   platform::LocalCountryFile m_oldFile;
 };
 
-class MwmSetEventList
-{
-public:
-  MwmSetEventList() = default;
-
-  void Add(MwmSetEvent const & event) { m_events.push_back(event); }
-
-  void Append(MwmSetEventList const & events)
-  {
-    m_events.insert(m_events.end(), events.m_events.begin(), events.m_events.end());
-  }
-
-  std::vector<MwmSetEvent> const & Get() const { return m_events; }
-
-private:
-  std::vector<MwmSetEvent> m_events;
-
-  DISALLOW_COPY_AND_MOVE(MwmSetEventList);
-};
+using MwmSetEventList = ds::EventList<MwmSetEvent>;
 
 class MwmSet : public ds::ValueSetBase<MwmId, MwmValue, MwmSetEventList>
 {

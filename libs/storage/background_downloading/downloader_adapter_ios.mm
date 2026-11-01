@@ -4,8 +4,11 @@
 
 #include "storage/downloader.hpp"
 
+#include "platform/platform.hpp"
+
 #include "base/assert.hpp"
 #include "base/file_name_utils.hpp"
+#include "base/logging.hpp"
 
 #include <memory>
 #include <utility>
@@ -70,11 +73,25 @@ void BackgroundDownloaderAdapter::Download(QueuedCountry && queuedCountry)
     return;
   }
 
+  auto const path = queuedCountry.GetFileDownloadPath();
+  // A task of the previous session can land while the request waits for the servers list.
+  if (queuedCountry.GetFileType() == MapFileType::Terrain && Platform::IsFileExistsByFullPath(path))
+  {
+    queuedCountry.OnDownloadFinished(downloader::DownloadStatus::Completed);
+    return;
+  }
+
   auto const countryId = queuedCountry.GetCountryId();
   auto urls = MakeUrlList(queuedCountry.GetRelativeUrl());
+  // Without a task nothing would ever finish a queued item.
+  if (urls.empty())
+  {
+    LOG(LWARNING, ("No servers for", countryId));
+    queuedCountry.OnDownloadFinished(downloader::DownloadStatus::Failed);
+    return;
+  }
   // Get urls order from worst to best.
   std::reverse(urls.begin(), urls.end());
-  auto const path = queuedCountry.GetFileDownloadPath();
 
   // The order is important here: add to the queue first, notify start downloading then.
   // Infinite recursion possible here, otherwise:

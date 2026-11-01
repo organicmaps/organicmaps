@@ -72,6 +72,7 @@ static MWMMapNodeStatus convertStatus(storage::NodeStatus status)
     _nodeName = @(attributes.m_nodeLocalName.c_str());
     _nodeDescription = @(attributes.m_nodeLocalDescription.c_str());
     _nodeStatus = convertStatus(attributes.m_status);
+    _mapStatus = convertStatus(attributes.m_mapStatus);
     _hasChildren = hasChildren;
     _hasParent = hasParent;
 

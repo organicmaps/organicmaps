@@ -104,12 +104,12 @@ UNIT_TEST(Share_Build_UnnamedBuilding)
   TEST_EQUAL(Count(r.m_html, "5 Avenue Anatole France"), 1, (r.m_html));
 }
 
-// place_page::Info shows the coordinates and the elevation as the subtitle of an unmatched map point
-// (Info::SetTerrainElevation) - the body prints the coordinates on their own line instead.
+// place_page::Info shows the coordinates as the subtitle of an unmatched map point
+// (SetCustomNameWithCoordinates) - the body prints them on its own line instead.
 UNIT_TEST(Share_Build_UnknownPlace)
 {
   Place place;
-  place.m_typeLabel = "48.858093, 2.294694  ▲ 33 m";
+  place.m_typeLabel = "48.858093, 2.294694";
   place.m_address = "Champ de Mars";
   place.m_ll = {48.858093, 2.294694};
   place.m_zoom = 17;

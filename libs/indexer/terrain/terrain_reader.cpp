@@ -103,7 +103,7 @@ std::optional<double> Reader::GetElevation(m2::PointD const & point) const
   m2::RectD query(point, point);
   query.Inflate(unit, unit);
   query.Intersect(mercator::Bounds::FullRect());
-  TerrainData data(m_header.m_coordBits);
+  TerrainData data;
   ReadTerrain(query, m_header.m_geometries.size() - 1, data);
   return data.GetElevation(point);
 }
@@ -114,7 +114,6 @@ void Reader::ReadTin(m2::RectD const & rect, covering::Intervals const & interva
   ASSERT_LESS(geomIndex, m_header.m_geometries.size(), ());
   ASSERT_EQUAL(m_tables.size(), m_header.m_geometries.size(), ());
   // The mesh dedup keys are raw quantized points: the quantization must be uniform.
-  ASSERT_EQUAL(mesh.GetCoordBits(), m_header.m_coordBits, ());
   // The record mesh index is validated against the same count on the record deserialization.
   ASSERT_EQUAL(m_grids.size(), m_header.m_meshCount, ());
 
@@ -169,8 +168,6 @@ void Reader::ReadTin(m2::RectD const & rect, covering::Intervals const & interva
 void Reader::ReadTerrain(m2::RectD const & rect, size_t geomIndex, TerrainData & data,
                          base::SharedCancellable const & isCancellable, ReadStats * stats) const
 {
-  ASSERT_EQUAL(data.m_mesh.GetCoordBits(), m_header.m_coordBits, ());
-
   if (isCancellable.IsCancelled())
     return;
 
@@ -246,7 +243,6 @@ void Reader::ReadTerrain(m2::RectD const & rect, size_t geomIndex, TerrainData &
           auto const [x0, x1] = CropAxis(columns, queryLB.x, queryRT.x);
           auto const [y0, y1] = CropAxis(rows, queryLB.y, queryRT.y);
           RasterPatch patch;
-          patch.m_coordBits = m_header.m_coordBits;
           patch.m_columns.assign(columns.begin() + x0, columns.begin() + x1 + 1);
           patch.m_rows.assign(rows.begin() + y0, rows.begin() + y1 + 1);
           if (patch.m_columns.size() == columns.size() && patch.m_rows.size() == rows.size())

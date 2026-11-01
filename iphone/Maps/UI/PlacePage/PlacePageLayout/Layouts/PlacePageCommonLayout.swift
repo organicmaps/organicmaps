@@ -128,16 +128,10 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
 
     placePageData.onMapNodeStatusUpdate = { [weak self] in
       guard let self = self else { return }
-      self.actionBarViewController.updateDownloadButton()
       if let buttonsData = self.placePageData.osmContributionData {
         self.buttonsViewController.buttonsData = buttonsData
       }
-      switch self.placePageData.mapNodeAttributes!.nodeStatus {
-      case .onDisk, .onDiskOutOfDate, .undefined, .inQueue:
-        self.actionBarViewController.resetButtons()
-      default:
-        break
-      }
+      self.actionBarViewController.updateMapNodeStatus()
     }
     placePageData.onMapNodeProgressUpdate = { [weak self] downloadedBytes, totalBytes in
       guard let self = self else { return }

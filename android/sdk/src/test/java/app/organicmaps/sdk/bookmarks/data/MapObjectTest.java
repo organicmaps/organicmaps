@@ -23,6 +23,9 @@ public class MapObjectTest
     Field elevation = MapObject.class.getDeclaredField("mFormattedTerrainElevation");
     elevation.setAccessible(true);
     elevation.set(point, "125 m");
+    Field previewSubtitle = MapObject.class.getDeclaredField("mPreviewSubtitle");
+    previewSubtitle.setAccessible(true);
+    previewSubtitle.set(point, "43.7, 7.2  ▲ 125 m");
     assertTrue(point.sameAs(MapObject.createMapObject(MapObject.POI, "Point", "", 43.7, 7.2)));
 
     Parcel parcel = mock(Parcel.class);
@@ -40,6 +43,7 @@ public class MapObjectTest
 
     MapObject restored = MapObject.CREATOR.createFromParcel(parcel);
     assertEquals("125 m", restored.getFormattedTerrainElevation());
+    assertEquals("43.7, 7.2  ▲ 125 m", restored.getPreviewSubtitle());
     assertEquals(point.getTitle(), restored.getTitle());
     assertEquals(point.getLat(), restored.getLat(), 0);
     assertEquals(point.getLon(), restored.getLon(), 0);

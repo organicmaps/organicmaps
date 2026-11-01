@@ -201,7 +201,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
 
       if (mCurrentCountry != null && mCurrentCountry.id.equals(countryId))
       {
-        mCurrentCountry.updateProgress(progress.getDownloadedBytes(), progress.getTotalBytes());
+        mCurrentCountry.updateProgress(progress);
         updateDownloader(mCurrentCountry);
       }
     }
@@ -508,7 +508,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
 
   private void setTextAndColorizeSubtitle()
   {
-    String text = mMapObject.getSubtitle();
+    String text = mMapObject.getPreviewSubtitle();
     UiUtils.setTextAndHideIfEmpty(mTvSubtitle, text);
     if (!TextUtils.isEmpty(text))
     {

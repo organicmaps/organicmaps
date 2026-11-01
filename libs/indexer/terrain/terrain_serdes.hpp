@@ -220,7 +220,7 @@ struct TwmHeader
       MYTHROW(TwmException, ("Unsupported TWM raster version", GetRasterVersion()));
 
     m_coordBits = ReadPrimitiveFromSource<uint8_t>(src);
-    if (m_coordBits == 0 || m_coordBits > kPointCoordBits)
+    if (m_coordBits != kTerrainCoordBits)
       MYTHROW(TwmException, ("Invalid coord bits", m_coordBits));
     auto const geometriesCount = ReadPrimitiveFromSource<uint8_t>(src);
     // GetGeometryTag builds the trgN tags for at most kMaxGeometryCount scales.
@@ -655,7 +655,6 @@ public:
     {
       // A context the scale never coded. One poisoned entry keeps a read from it on the code
       // length ASSERT its caller already makes, instead of an emptiness branch per read.
-      m_tableBits = 0;
       m_tableMask = 0;
       m_table.assign(1, kPoisonEntry);
       return;
@@ -704,26 +703,24 @@ private:
     for (uint8_t const length : lengths)
       maxLength = std::max(maxLength, uint32_t{length});
 
-    m_tableBits = maxLength;
-    m_tableMask = static_cast<size_t>(bits::GetFullMask(static_cast<uint8_t>(m_tableBits)));
-    m_table.assign(size_t{1} << m_tableBits, 0);
+    m_tableMask = static_cast<size_t>(bits::GetFullMask(static_cast<uint8_t>(maxLength)));
+    m_table.assign(size_t{1} << maxLength, 0);
     for (uint32_t symbol = 0; symbol < kTokenAlphabet; ++symbol)
     {
       if ((coded & (uint32_t{1} << symbol)) == 0)
         continue;
       uint32_t const length = lengths[symbol];
       auto const packed = static_cast<uint16_t>((length << kEntrySymbolBits) | symbol);
-      uint32_t const fills = uint32_t{1} << (m_tableBits - length);
+      uint32_t const fills = uint32_t{1} << (maxLength - length);
       for (uint32_t fill = 0; fill < fills; ++fill)
         m_table[(fill << length) | codes[symbol].m_bits] = packed;
     }
   }
 
-  // The flat table of the m_tableBits wide code prefixes. A table that was never deserialized
+  // The flat table of the m_tableMask wide code prefixes. A table that was never deserialized
   // is poisoned like an absent context, so a read from it asserts instead of indexing nothing.
   std::vector<uint16_t> m_table = {kPoisonEntry};
   size_t m_tableMask = 0;
-  uint32_t m_tableBits = 0;
 };
 }  // namespace impl
 

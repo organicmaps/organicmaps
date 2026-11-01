@@ -69,6 +69,24 @@ UNIT_CLASS_TEST(VisualParamsFixture, PathText_Repositioning)
     TEST(movable->CacheDynamicGeometry(0, screen, 0.0f, pivot, buffer), ());
     TEST(pivot.EqualDxDy(recoveredPivot, 1e-8), (pivot, recoveredPivot));
 
+    // A moved caption stays on a closer screen, though a position nearer the corner fits there.
+    double const shortArm = 1.6 * width;
+    m2::SharedSpline const shortBent({{-shortArm, 0}, {0, 0}, {-0.5 * shortArm, std::sqrt(0.75) * shortArm}});
+    ScreenBase closer = screen;
+    closer.SetFromRect(m2::AnyRectD(m2::RectD(-256, -256, 256, 256)));
+    movable = makeContext(shortBent, true);
+    TEST(movable->CacheDynamicGeometry(0, screen, 0.0f, pivot, buffer), ());
+    m2::PointD const movedPivot = pivot;
+    movable->BeforeUpdate();
+    movable->Update(closer);
+    TEST(movable->CacheDynamicGeometry(0, closer, 0.0f, pivot, buffer), ());
+    TEST(pivot.EqualDxDy(movedPivot, 1e-8), (pivot, movedPivot));
+    auto fresh = std::make_unique<df::PathTextContext>(shortBent, 0.0, true);
+    fresh->SetLayout(makeLayout(), 1.0);
+    fresh->Update(closer);
+    TEST(fresh->CacheDynamicGeometry(0, closer, 0.0f, pivot, buffer), ());
+    TEST(!pivot.EqualDxDy(movedPivot, 1e-8), (pivot, movedPivot));
+
     // Successful original placements retain their centers and repetition count.
     m2::SharedSpline const straight({{-600, 0}, {600, 0}});
     fixed = makeContext(straight, false);

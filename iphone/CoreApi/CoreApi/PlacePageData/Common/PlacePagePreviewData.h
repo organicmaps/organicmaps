@@ -35,7 +35,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, readonly, nullable) NSString * title;
 @property(nonatomic, readonly, nullable) NSString * secondaryTitle;
+/// To display only: can show the coordinates and the terrain elevation.
 @property(nonatomic, readonly, nullable) NSString * subtitle;
+/// The place's own subtitle, for the route points.
+@property(nonatomic, readonly, nullable) NSString * routeSubtitle;
+@property(nonatomic, readonly, nullable) NSString * coordinates;
 @property(nonatomic, readonly, nullable) NSString * secondarySubtitle;
 @property(nonatomic, readonly) PlacePageDataSchedule schedule;
 @property(nonatomic, readonly) BOOL isMyPosition;

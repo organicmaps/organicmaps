@@ -73,7 +73,7 @@ final class PlacePagePreviewViewController: UIViewController {
 //                                                              .font : UIFont.regular14]))
 //      }
 
-      if let subtitle = placePagePreviewData.subtitle {
+      if let subtitle = placePagePreviewData.subtitle ?? placePagePreviewData.coordinates {
         subtitleString.append(NSAttributedString(string: !subtitleString.string.isEmpty ? " • " + subtitle : subtitle,
                                                  attributes: [.foregroundColor: UIColor.blackSecondaryText,
                                                               .font: UIFont.emojiRegular14.dynamic]))
@@ -133,7 +133,8 @@ final class PlacePagePreviewViewController: UIViewController {
       return
     }
 
-    fullScreenDirectionView.updateTitle(placePagePreviewData.title, subtitle: placePagePreviewData.subtitle)
+    fullScreenDirectionView.updateTitle(placePagePreviewData.title,
+                                        subtitle: placePagePreviewData.subtitle ?? placePagePreviewData.coordinates)
     fullScreenDirectionView.updateHeading(heading)
     fullScreenDirectionView.updateDistance(distance)
     fullScreenDirectionView.show()

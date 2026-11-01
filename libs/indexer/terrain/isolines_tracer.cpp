@@ -9,6 +9,7 @@
 #include <cmath>
 #include <limits>
 #include <span>
+#include <utility>
 
 namespace terrain
 {
@@ -50,7 +51,7 @@ struct TinView
   TileMesh const & m_mesh;
   std::vector<int32_t> m_feet;
   std::span<int32_t const> m_altitudes;
-  ska::flat_hash_map<uint64_t, uint32_t, impl::PointKeyHash> m_edges;
+  std::vector<uint32_t> m_neighbors;  // Per triangle edge.
 
   explicit TinView(TileMesh const & mesh, measurement_utils::Units units) : m_mesh(mesh)
   {
@@ -62,12 +63,24 @@ struct TinView
         m_feet.push_back(DisplayAltitude(altitude, units));
       m_altitudes = m_feet;
     }
-    m_edges.reserve(mesh.GetTriangles().size());
+    m_neighbors.assign(mesh.GetTriangles().size(), kNone);
+    // Pairing as it goes: only the front of the unpaired edges takes memory.
+    ska::flat_hash_map<uint64_t, uint32_t, impl::PointKeyHash> unpaired;
     for (uint32_t t = 0; t < Count(); ++t)
     {
       auto const v = Triangle(t);
-      for (size_t e = 0; e < 3; ++e)
-        VERIFY(m_edges.emplace(Edge(v[e], v[(e + 1) % 3]), t).second, ());
+      for (uint32_t e = 0; e < 3; ++e)
+      {
+        auto const it = unpaired.find(Edge(v[(e + 1) % 3], v[e]));
+        if (it == unpaired.end())
+        {
+          VERIFY(unpaired.emplace(Edge(v[e], v[(e + 1) % 3]), 3 * t + e).second, ());
+          continue;
+        }
+        m_neighbors[3 * t + e] = it->second / 3;
+        m_neighbors[it->second] = t;
+        unpaired.erase(it);
+      }
     }
   }
   static uint64_t Edge(uint32_t u, uint32_t v) { return (uint64_t{u} << 32) | v; }
@@ -77,27 +90,33 @@ struct TinView
     auto const & indices = m_mesh.GetTriangles();
     return {indices[3 * t], indices[3 * t + 1], indices[3 * t + 2]};
   }
-  uint32_t Neighbor(uint32_t t, uint8_t edge) const
-  {
-    auto const v = Triangle(t);
-    auto const it = m_edges.find(Edge(v[(edge + 1) % 3], v[edge]));
-    return it == m_edges.end() ? kNone : it->second;
-  }
+  uint32_t Neighbor(uint32_t t, uint8_t edge) const { return m_neighbors[3 * t + edge]; }
   m2::PointU PointU(uint32_t v) const { return m_mesh.GetPointU(v); }
   m2::PointD Point(uint32_t v) const { return m_mesh.GetPoints()[v]; }
+};
+
+// The working memory of TraceView, reused by the views of one trace: a tile reads several patches.
+struct TraceBuffers
+{
+  std::vector<int32_t> m_altitudes;
+  std::vector<std::pair<int32_t, int32_t>> m_ranges;
+  std::vector<uint32_t> m_binEnds, m_binned, m_visited;
 };
 
 // Interior topology is implicit: no node deduplication or hashed grid edges.
 struct GridView
 {
   RasterPatch const & m_patch;
-  std::vector<int32_t> m_altitudes;
+  std::vector<int32_t> const & m_altitudes;
 
-  explicit GridView(RasterPatch const & patch, measurement_utils::Units units) : m_patch(patch)
+  GridView(RasterPatch const & patch, measurement_utils::Units units, std::vector<int32_t> & altitudes)
+    : m_patch(patch)
+    , m_altitudes(altitudes)
   {
-    m_altitudes.reserve(patch.m_heights.size());
+    altitudes.clear();
+    altitudes.reserve(patch.m_heights.size());
     for (int32_t altitude : patch.m_heights)
-      m_altitudes.push_back(DisplayAltitude(altitude, units));
+      altitudes.push_back(DisplayAltitude(altitude, units));
   }
   uint32_t Count() const { return 2 * m_patch.CellsX() * m_patch.CellsY(); }
   std::array<uint32_t, 3> Triangle(uint32_t t) const { return m_patch.Triangle(t); }
@@ -158,13 +177,15 @@ void AppendPoint(std::vector<m2::PointD> & points, m2::PointD const & point)
 }
 
 template <typename View, typename Emit>
-void TraceView(View const & view, int32_t step, Emit const & emit, base::SharedCancellable const & isCancellable)
+void TraceView(View const & view, int32_t step, Emit const & emit, TraceBuffers & buffers,
+               base::SharedCancellable const & isCancellable)
 {
   uint32_t const count = view.Count();
   if (count == 0)
     return;
   int32_t first = std::numeric_limits<int32_t>::max(), last = std::numeric_limits<int32_t>::min();
-  std::vector<std::pair<int32_t, int32_t>> ranges(count);
+  auto & ranges = buffers.m_ranges;
+  ranges.resize(count);
   for (uint32_t t = 0; t < count; ++t)
   {
     auto const v = view.Triangle(t);
@@ -182,19 +203,32 @@ void TraceView(View const & view, int32_t step, Emit const & emit, base::SharedC
     return;
   // The int16 meters span ~10.7k levels even in feet at the finest 20 ft step.
   CHECK_LESS(last - first, 1 << 16, (first, last, step));
-  std::vector<std::vector<uint32_t>> bins(last - first + 1);
+  // A counting sort of the triangles by level: every level keeps them in the ascending order.
+  auto & binEnds = buffers.m_binEnds;
+  binEnds.assign(last - first + 1, 0);
   for (uint32_t t = 0; t < count; ++t)
     for (int32_t l = ranges[t].first; l <= ranges[t].second; ++l)
-      bins[l - first].push_back(t);
-  std::vector<uint32_t> visited(count, 0);
-  for (size_t bin = 0; bin < bins.size(); ++bin)
+      ++binEnds[l - first];
+  uint32_t total = 0;
+  for (auto & end : binEnds)  // The start of each bin, the fill below moves it to the end.
+    total += std::exchange(end, total);
+  auto & binned = buffers.m_binned;
+  binned.resize(total);
+  for (uint32_t t = 0; t < count; ++t)
+    for (int32_t l = ranges[t].first; l <= ranges[t].second; ++l)
+      binned[binEnds[l - first]++] = t;
+  auto & visited = buffers.m_visited;
+  visited.assign(count, 0);
+  uint32_t binBegin = 0;
+  for (size_t bin = 0; bin < binEnds.size(); binBegin = binEnds[bin++])
   {
     if (isCancellable.IsCancelled())
       return;
     int32_t const level = (first + static_cast<int32_t>(bin)) * step;
     uint32_t const epoch = static_cast<uint32_t>(bin) + 1;
-    for (uint32_t const seed : bins[bin])
+    for (uint32_t i = binBegin; i < binEnds[bin]; ++i)
     {
+      uint32_t const seed = binned[i];
       if (visited[seed] == epoch)
         continue;
       uint32_t start = seed;
@@ -318,8 +352,9 @@ void TraceIsolines(TileMesh const & mesh, int32_t step, measurement_utils::Units
                    base::SharedCancellable const & isCancellable)
 {
   ASSERT_GREATER(step, 0, ());
+  TraceBuffers buffers;
   TraceView(TinView(mesh, units), step, [&](Fragment && fragment) { EmitLine(std::move(fragment.m_line), fn); },
-            isCancellable);
+            buffers, isCancellable);
 }
 
 void TraceIsolines(TerrainData const & data, int32_t step, measurement_utils::Units units, IsolineFn const & fn,
@@ -333,12 +368,13 @@ void TraceIsolines(TerrainData const & data, int32_t step, measurement_utils::Un
   }
   std::vector<Fragment> fragments;
   auto const emit = [&](Fragment && fragment) { fragments.push_back(std::move(fragment)); };
-  TraceView(TinView(data.m_mesh, units), step, emit, isCancellable);
+  TraceBuffers buffers;
+  TraceView(TinView(data.m_mesh, units), step, emit, buffers, isCancellable);
   for (auto const & patch : data.m_rasterPatches)
   {
     if (isCancellable.IsCancelled())
       return;
-    TraceView(GridView(patch, units), step, emit, isCancellable);
+    TraceView(GridView(patch, units, buffers.m_altitudes), step, emit, buffers, isCancellable);
   }
   JoinFragments(fragments, fn, isCancellable);
 }

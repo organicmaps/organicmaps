@@ -28,7 +28,6 @@ struct ReadStats
   double m_rasterRecordsSeconds = 0;
   double m_rasterReadSeconds = 0;
   double m_rasterDecodeSeconds = 0;
-  double m_appendSeconds = 0;
   uint64_t m_tinCandidates = 0;
   uint64_t m_tinFeatures = 0;
   uint64_t m_rasterCandidates = 0;

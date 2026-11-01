@@ -294,7 +294,14 @@ using namespace storage;
     }
   }
 
-  if (self.progressFinished && m_updatingCountries.empty())
+  // A failed terrain block leaves its region out of date, neither Error nor OnDisk: the maps are
+  // ready and no other event would finish the screen. A failed map goes through processError.
+  auto const & storage = GetFramework().GetStorage();
+  NodeStatuses rootStatuses;
+  storage.GetNodeStatuses(storage.GetRootId(), rootStatuses);
+  bool const downloadEnded = static_cast<MWMAutoupdateView *>(self.view).state == State::Downloading &&
+                             !storage.IsDownloadInProgress() && rootStatuses.m_status != NodeStatus::Error;
+  if ((self.progressFinished && m_updatingCountries.empty()) || downloadEnded)
     [self dismiss];
   else
     [self updateProcessStatus:countryId.UTF8String];

@@ -27,9 +27,10 @@ std::array<ClassDef, 5> constexpr kClassDefs = {{
 }};
 }  // namespace
 
-IsolinesStyle::IsolinesStyle(int zoom, measurement_utils::Units units)
+IsolinesStyle::IsolinesStyle(MapStyle style, int zoom, measurement_utils::Units units)
 {
-  auto const & cl = classif();
+  auto const & cl = classif(style);
+  auto const & rules = drule::GetRules(style);
   auto const resolve = [&](char const * subType, ClassStyle & c)
   {
     uint32_t const type = cl.GetTypeByPath({"isoline", subType});
@@ -40,11 +41,11 @@ IsolinesStyle::IsolinesStyle(int zoom, measurement_utils::Units units)
       if (key.m_type == drule::line)
       {
         if (c.m_line == nullptr)
-          c.m_line = drule::GetCurrentRules().Find(key)->GetLine();
+          c.m_line = rules.Find(key)->GetLine();
       }
       else if (key.m_type == drule::pathtext && c.m_text == nullptr)
       {
-        auto const * rule = drule::GetCurrentRules().Find(key)->GetPathtext();
+        auto const * rule = rules.Find(key)->GetPathtext();
         if (rule != nullptr && rule->primary)
           c.m_text = rule;
       }

@@ -40,7 +40,7 @@ UNIT_TEST(TerrainIsolinesStyle)
       bool seenVisible = false, seenZero = false;
       for (int zoom = 1; zoom <= scales::GetUpperStyleScale(); ++zoom)
       {
-        terrain::IsolinesStyle const isolinesStyle(zoom, units);
+        terrain::IsolinesStyle const isolinesStyle(style, zoom, units);
         int32_t const step = isolinesStyle.GetStep();
 
         // The zero altitude line is a class of its own: once it appears, it stays, and
@@ -93,8 +93,8 @@ UNIT_TEST(TerrainIsolinesStyle)
     // terrain_utils.cpp): the paired rungs resolve the very same drules per zoom.
     for (int zoom = 1; zoom <= scales::GetUpperStyleScale(); ++zoom)
     {
-      terrain::IsolinesStyle const metric(zoom, Units::Metric);
-      terrain::IsolinesStyle const imperial(zoom, Units::Imperial);
+      terrain::IsolinesStyle const metric(style, zoom, Units::Metric);
+      terrain::IsolinesStyle const imperial(style, zoom, Units::Imperial);
       for (auto const & [m, ft] : std::initializer_list<std::pair<int32_t, int32_t>>{
                {1000, 2000}, {500, 1000}, {100, 500}, {50, 100}, {10, 20}})
       {

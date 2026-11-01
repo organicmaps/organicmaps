@@ -9,7 +9,6 @@
 #include "base/cancellable.hpp"
 
 #include <functional>
-#include <mutex>
 #include <optional>
 #include <vector>
 
@@ -60,13 +59,9 @@ public:
                    base::SharedCancellable const & isCancellable = {}) const;
 
 private:
-  void AddInvalidationRect(m2::RectD rect, m2::RectD & invalidRect) const;
   void OnTerrainDeregistered(TwmFile const & file) override;
 
   TerrainDeregisteredCallback m_onTerrainDeregistered;
   TwmSet m_set;
-  // The largest halo of the reads so far bounds the area around a block that the cached tiles read.
-  mutable std::mutex m_readHaloMutex;
-  mutable m2::PointD m_maxReadHalo{0, 0};
 };
 }  // namespace terrain

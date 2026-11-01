@@ -66,9 +66,19 @@ final class ActionBarViewControllerTests: XCTestCase {
     try assertColors(actionBar, primary: .download)
 
     attributes.status = .onDisk
-    // The common place page layout rebuilds the buttons when the download completes.
-    actionBar.updateDownloadButtonState(.onDisk)
-    actionBar.resetButtons()
+    // The place page layouts rebuild the buttons when the download completes.
+    actionBar.updateMapNodeStatus()
+    XCTAssertNil(actionBar.downloadButton)
+    try assertColors(actionBar, primary: .routeTo)
+  }
+
+  func test_GivenInstalledMap_WhenTerrainDownloads_ThenPrimaryActionStaysRouteTo() throws {
+    let data = PlacePageDataStub(objectType: .POI)
+    let attributes = MapNodeAttributesStub()
+    attributes.status = .downloading
+    attributes.stubMapStatus = .onDisk
+    data.stubMapNodeAttributes = attributes
+    let actionBar = makeActionBar(data: data)
     XCTAssertNil(actionBar.downloadButton)
     try assertColors(actionBar, primary: .routeTo)
   }
@@ -183,5 +193,7 @@ private final class PlacePageDataStub: PlacePageData {
 
 private final class MapNodeAttributesStub: MapNodeAttributes {
   var status: MapNodeStatus = .notDownloaded
+  var stubMapStatus: MapNodeStatus?
   override var nodeStatus: MapNodeStatus { status }
+  override var mapStatus: MapNodeStatus { stubMapStatus ?? status }
 }

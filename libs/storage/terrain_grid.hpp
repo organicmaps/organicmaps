@@ -32,7 +32,7 @@ public:
   // The sorted indices of the blocks intersecting a region polygon.
   using Coverage = std::vector<uint32_t>;
 
-  // Throws RootException on any inconsistency leaving the grid untouched.
+  // Throws RootException on any inconsistency.
   void Parse(std::string const & jsonBuffer);
 
   bool IsEmpty() const { return m_blocks.empty(); }
@@ -44,14 +44,12 @@ public:
   // A region missing here has no terrain (World/WorldCoasts by design).
   std::map<CountryId, Coverage> const & GetCoverage() const { return m_coverage; }
   Coverage const * FindCoverage(CountryId const & region) const;
-  // The regions whose coverage contains the block.
-  CountriesSet const & GetRegions(uint32_t index) const { return m_regions[index]; }
+  // The regions whose coverage contains the block: walks the coverage, not for the hot paths.
+  CountriesSet GetRegions(uint32_t index) const;
 
 private:
   int64_t m_version = 0;
-  std::vector<Block> m_blocks;
-  std::map<terrain::TerrainId, uint32_t> m_indices;
+  std::vector<Block> m_blocks;  // Sorted by id.
   std::map<CountryId, Coverage> m_coverage;
-  std::vector<CountriesSet> m_regions;
 };
 }  // namespace storage

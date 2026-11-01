@@ -1,6 +1,12 @@
 #include "geometry/smoothing.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "base/assert.hpp"
+#include "base/math.hpp"
+#include "base/stl_helpers.hpp"
+
+#include <cmath>
 
 namespace m2
 {
@@ -106,7 +112,7 @@ void SmoothPaths(GuidePointsForSmooth const & guidePoints, size_t newPointsPerSe
   }
 }
 
-void SmoothShortSegments(std::vector<m2::PointD> & path, double maxSegmentLength, size_t passes)
+void SmoothShortSegments(std::vector<m2::PointD> & path, double maxSegmentMeters, size_t passes)
 {
   if (path.size() < 3)
     return;
@@ -117,13 +123,25 @@ void SmoothShortSegments(std::vector<m2::PointD> & path, double maxSegmentLength
   if (count < 3)
     return;
 
-  double const maxSquared = maxSegmentLength * maxSegmentLength;
+  double const maxLengthAtEquator = mercator::MetersToMercator(maxSegmentMeters);
   // The segment i joins the vertices i and i + 1, the last one of a closed path returns to the first vertex.
-  auto const isShort = [&](size_t i) { return path[i].SquaredLength(path[i + 1]) <= maxSquared; };
+  // The limit depends on the segment only, so the tiles sharing it move the same vertices.
+  auto const isShort = [&](size_t i)
+  {
+    // The mercator scale is 1 / cos(latitude) == cosh(y).
+    double const maxLength = maxLengthAtEquator * std::cosh(math::DegToRad((path[i].y + path[i + 1].y) / 2));
+    return path[i].SquaredLength(path[i + 1]) <= maxLength * maxLength;
+  };
   std::vector<bool> movable(count, false);
+  bool previous = closed && isShort(count - 1);
   for (size_t i = 0; i < count; ++i)
-    if (closed || (i != 0 && i + 1 != count))
-      movable[i] = isShort(i == 0 ? count - 1 : i - 1) && isShort(i);
+  {
+    bool const next = (closed || i + 1 != count) && isShort(i);
+    movable[i] = previous && next;
+    previous = next;
+  }
+  if (!base::IsExist(movable, true))
+    return;
 
   std::vector<m2::PointD> source;
   for (size_t pass = 0; pass < passes; ++pass)
