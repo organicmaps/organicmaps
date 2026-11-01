@@ -167,6 +167,10 @@ final class CarPlayRouter: NSObject {
       return
     }
     let manager = RoutingManager.routingManager
+    // The service retains phone ownership for geometric track sessions.
+    if MWMRouter.isFollowingTrack() {
+      return
+    }
     MWMRouter.hideNavigationMapControls()
     guard manager.isRoutingActive,
           let startPoint = manager.startPoint,
@@ -196,7 +200,10 @@ final class CarPlayRouter: NSObject {
 
   func restoredNavigationSession() -> (CPTrip, RouteInfo)? {
     let manager = RoutingManager.routingManager
-    if manager.isOnRoute,
+    // A follow-track session cannot be restored as a navigation trip: it is offered for the
+    // phone-owned presentation instead.
+    if !MWMRouter.isFollowingTrack(),
+       manager.isOnRoute,
        manager.type == .vehicle,
        let startPoint = manager.startPoint,
        let endPoint = manager.endPoint,

@@ -265,6 +265,21 @@ extension PlacePageInteractor: ActionBarViewControllerDelegate {
       MWMPlacePageManagerHelper.routeRemoveStop(placePageData)
     case .routeTo:
       MWMPlacePageManagerHelper.route(to: placePageData)
+    case .routeAlongTrack:
+      guard let trackId = placePageData.trackData?.trackId else {
+        presenter?.close()
+        return
+      }
+      let result = MWMRouter.navigateTrack(trackId)
+      guard result == .ok else {
+        // A rejected request keeps the place page open: closing it would leave the user on a
+        // bare map with nothing but the error toast.
+        let message = result == .noRemainingGeometry ? "track_no_remaining_geometry"
+          : result == .noTrack ? "track_is_not_available" : "routing_planning_error"
+        Toast.show(withText: L(message))
+        return
+      }
+      presenter?.close()
     case .avoidToll:
       MWMPlacePageManagerHelper.avoidToll()
     case .avoidDirty:

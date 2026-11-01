@@ -15,6 +15,7 @@
 
 #include <CoreApi/ElevationProfileData+Core.h>
 #include <CoreApi/Framework.h>
+#include <CoreApi/MWMBookmarksManager.h>
 #include <CoreApi/RouteElevationPreviewData.h>
 #include <CoreApi/StringUtils+Core.h>
 #include <CoreApi/TrackInfo+Core.h>
@@ -28,7 +29,35 @@
 
 using namespace routing;
 
-@interface MWMRouter () <MWMLocationObserver, MWMFrameworkRouteBuilderObserver>
+@interface MWMFollowedTrackInfo ()
+
+- (instancetype)initWithCoreInfo:(FollowedTrackInfo const &)info;
+
+@end
+
+@implementation MWMFollowedTrackInfo
+
+- (instancetype)initWithCoreInfo:(FollowedTrackInfo const &)info
+{
+  self = [super init];
+  if (self)
+  {
+    _trackId = info.m_id;
+    _name = @(info.m_name.c_str());
+    _lengthMeters = info.m_lengthM;
+    _isReversed = info.m_reversed;
+    _finishPoint = [[MWMRoutePoint alloc] initWithPoint:info.m_finish
+                                                  title:_name
+                                               subtitle:@""
+                                                   type:MWMRoutePointTypeFinish
+                                      intermediateIndex:0];
+  }
+  return self;
+}
+
+@end
+
+@interface MWMRouter () <MWMLocationObserver, MWMFrameworkRouteBuilderObserver, MWMBookmarksObserver>
 
 @property(nonatomic) uint32_t routeManagerTransactionId;
 @property(nonatomic) BOOL canAutoAddLastLocation;
@@ -52,14 +81,7 @@ using namespace routing;
 
 + (BOOL)hasRouteAltitude
 {
-  switch ([self type])
-  {
-  case MWMRouterTypeVehicle:
-  case MWMRouterTypePublicTransport:
-  case MWMRouterTypeRuler: return NO;
-  case MWMRouterTypePedestrian:
-  case MWMRouterTypeBicycle: return GetFramework().GetRoutingManager().HasRouteAltitude();
-  }
+  return GetFramework().GetRoutingManager().HasRouteAltitude();
 }
 
 + (RouteElevationPreviewData *)routeElevationProfileData
@@ -123,6 +145,69 @@ using namespace routing;
 + (void)stopRouting
 {
   [self stop:YES];
+}
+
+#pragma mark - Track navigation
+
+static MWMFollowTrackResult ToMWMFollowTrackResult(FollowTrackResult result)
+{
+  switch (result)
+  {
+  case FollowTrackResult::Ok: return MWMFollowTrackResultOk;
+  case FollowTrackResult::NoTrack: return MWMFollowTrackResultNoTrack;
+  case FollowTrackResult::DegenerateTrack: return MWMFollowTrackResultDegenerateTrack;
+  case FollowTrackResult::UnsupportedProfile: return MWMFollowTrackResultUnsupportedProfile;
+  case FollowTrackResult::NotInitialized: return MWMFollowTrackResultNotInitialized;
+  case FollowTrackResult::Busy: return MWMFollowTrackResultBusy;
+  case FollowTrackResult::InvalidSelection: return MWMFollowTrackResultInvalidSelection;
+  case FollowTrackResult::NoRemainingGeometry: return MWMFollowTrackResultNoRemainingGeometry;
+  }
+}
+
+// An accepted follow transaction has already started the route build: put the dashboard into the
+// planning state and let the standard route builder events (ready/error/progress) drive it, as
+// +rebuildWithBestRouter: does. A refused one changed nothing, so there is nothing to present.
+static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
+{
+  if (result == FollowTrackResult::Ok)
+  {
+    [[MWMCarPlayService shared] preservePhoneTrackSession];
+    [[MWMMapViewControlsManager manager] onRouteRebuild];
+  }
+  return ToMWMFollowTrackResult(result);
+}
+
++ (MWMFollowTrackResult)navigateTrack:(MWMTrackID)trackId
+{
+  // The core validates before any teardown: it leaves the current routing state untouched when
+  // the track is missing or degenerate, and closes the previous session itself on success.
+  auto const result = GetFramework().GetRoutingManager().NavigateTrack(trackId, false /* reverse */);
+  // Only the UI side of +stopRouting remains for an interrupted navigation: the core teardown
+  // has already run inside NavigateTrack, and a full stop would close the session it just built.
+  if (result == FollowTrackResult::Ok)
+    [self hideNavigationMapControls];
+  return OnFollowTrackResult(result);
+}
+
++ (MWMFollowTrackResult)setFollowTrackProfile:(MWMRouterType)type
+{
+  auto const result =
+      OnFollowTrackResult(GetFramework().GetRoutingManager().SetFollowTrackProfile(coreRouterType(type)));
+  // Refresh presentation from the preview's effective profile.
+  if (result == MWMFollowTrackResultOk)
+    [MWMThemeManager invalidate];
+  return result;
+}
+
++ (BOOL)isFollowingTrack
+{
+  return GetFramework().GetRoutingManager().IsFollowingTrack();
+}
+
++ (MWMFollowedTrackInfo *)followedTrackInfo
+{
+  auto const info = GetFramework().GetRoutingManager().GetFollowedTrackInfo();
+  return info ? [[MWMFollowedTrackInfo alloc] initWithCoreInfo:*info] : nil;
 }
 
 + (BOOL)isRoutingActive
@@ -214,6 +299,7 @@ using namespace routing;
     self.routeManagerTransactionId = RoutingManager::InvalidRoutePointsTransactionId();
     [MWMLocationManager addObserver:self];
     [MWMFrameworkListener addObserver:self];
+    [MWMBookmarksManager.sharedManager addObserver:self];
     _canAutoAddLastLocation = YES;
     _routingOptions = [[MWMRoutingOptions alloc] initWithRouterType:MWMRouter.type];
     _isRestoreProcessCompleted = NO;
@@ -225,12 +311,26 @@ using namespace routing;
 {
   [MWMFrameworkListener addObserver:[MWMRouter router]];
   [MWMLocationManager addObserver:[MWMRouter router]];
+  [MWMBookmarksManager.sharedManager addObserver:[MWMRouter router]];
 }
 
 + (void)unsubscribeFromEvents
 {
   [MWMFrameworkListener removeObserver:[MWMRouter router]];
   [MWMLocationManager removeObserver:[MWMRouter router]];
+  [MWMBookmarksManager.sharedManager removeObserver:[MWMRouter router]];
+}
+
+- (void)onBookmarksChanged
+{
+  if (![MWMRouter isFollowingTrack])
+    return;
+  // Core is still publishing bookmark edits. Recheck the current session after that edit finishes.
+  dispatch_async(dispatch_get_main_queue(), ^{
+    auto const info = [MWMRouter followedTrackInfo];
+    if (info && ![MWMRouter isOnRoute] && ![MWMBookmarksManager.sharedManager hasTrack:info.trackId])
+      [MWMRouter stopRouting];
+  });
 }
 
 + (void)setType:(MWMRouterType)type
@@ -245,6 +345,11 @@ using namespace routing;
 + (MWMRouterType)type
 {
   return routerType(GetFramework().GetRoutingManager().GetRouter());
+}
+
++ (MWMRouterType)renderType
+{
+  return routerType(GetFramework().GetRoutingManager().GetRenderRouterType());
 }
 
 + (NSString *)stringFromRouterType:(MWMRouterType)type
@@ -379,10 +484,23 @@ using namespace routing;
   [self rebuildWithBestRouter:NO];
 }
 
+// Route marks must never land inside a track-follow session: the follow has no editable points,
+// so a mark would neither affect the followed route nor be torn down with it — a hybrid session
+// with an orphan mark presented under the follow header. Leave the follow through the standard
+// stop first, so the fresh plan is built and presented as a normal one.
++ (void)leaveTrackFollowIfNeeded
+{
+  if (![self isFollowingTrack])
+    return;
+  [self doStop:NO];
+  [[MWMMapViewControlsManager manager] onRoutePrepare];
+}
+
 + (void)buildFromPoint:(MWMRoutePoint *)startPoint bestRouter:(BOOL)bestRouter
 {
   if (!startPoint)
     return;
+  [self leaveTrackFollowIfNeeded];
   [self addPoint:startPoint];
   [self rebuildWithBestRouter:bestRouter];
 }
@@ -391,6 +509,7 @@ using namespace routing;
 {
   if (!finishPoint)
     return;
+  [self leaveTrackFollowIfNeeded];
   [self addPoint:finishPoint];
   if (![self startPoint] && [MWMLocationManager lastLocation] && [MWMRouter router].canAutoAddLastLocation)
     [self addPoint:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart intermediateIndex:0]];
@@ -405,6 +524,7 @@ using namespace routing;
   if (!startPoint || !finishPoint)
     return;
 
+  [self leaveTrackFollowIfNeeded];
   [MWMRouter setType:type];
 
   auto router = [MWMRouter router];
@@ -419,6 +539,9 @@ using namespace routing;
 + (void)rebuildWithBestRouter:(BOOL)bestRouter
 {
   auto & rm = GetFramework().GetRoutingManager();
+  // Follow previews rebuild through their own profile/direction APIs, never through route marks.
+  if (rm.IsFollowingTrack())
+    return;
   auto const & points = rm.GetRoutePoints();
   auto const pointsCount = points.size();
   if (pointsCount < 2)
@@ -438,6 +561,25 @@ using namespace routing;
 {
   auto const doStart = ^{
     auto & rm = GetFramework().GetRoutingManager();
+    if (rm.IsFollowingTrack())
+    {
+      // A followed track has no route marks. With a GPS fix the route already starts from the
+      // user's position (or an instant re-projection handles the rest); without one keep the
+      // standard "navigation is only possible from the current location" alert.
+      if ([MWMLocationManager lastLocation])
+      {
+        [[MWMRoutingManager routingManager] startRoute];
+        if (rm.IsRoutingFollowing())
+          [[MWMMapViewControlsManager manager] onRouteStart];
+        else if (rm.IsRouteBuilding())
+          [[MWMMapViewControlsManager manager] onRouteRebuild];
+      }
+      else
+      {
+        [[MWMAlertViewController activeAlertController] presentPoint2PointAlertWithOkBlock:^{} needToRebuild:NO];
+      }
+      return;
+    }
     auto const routePoints = rm.GetRoutePoints();
     if (routePoints.size() >= 2)
     {
@@ -509,10 +651,12 @@ using namespace routing;
   if (!info.IsValid())
     return;
   auto navManager = [MWMNavigationDashboardManager sharedManager];
-  if ([MWMRouter type] == MWMRouterTypePublicTransport)
+  // The render type: a followed track is presented as its follow profile, never as transit.
+  auto const type = [MWMRouter renderType];
+  if (type == MWMRouterTypePublicTransport)
     [navManager updateTransitInfo:rm.GetTransitRouteInfo()];
   else
-    [navManager updateFollowingInfo:info routePoints:[MWMRouter points] type:[MWMRouter type]];
+    [navManager updateFollowingInfo:info routePoints:[MWMRouter points] type:type];
 }
 
 #pragma mark - MWMLocationObserver
@@ -538,9 +682,19 @@ using namespace routing;
 {
   self.routingOptions = [[MWMRoutingOptions alloc] initWithRouterType:MWMRouter.type];
 
-  auto startPoint = [MWMRouter startPoint];
-  if (!startPoint || !startPoint.isMyPosition)
-    dispatch_async(dispatch_get_main_queue(), ^{ [MWMRouter disableFollowMode]; });
+  // A follow-track build has no route marks (the start point is always nil), but core following
+  // must stay enabled: disabling it turns the session into RouteNoFollowing, which
+  // EnableFollowMode() rejects — on every follow build (initial and each reroute) this would
+  // kill starting navigation and the mid-navigation camera follow.
+  dispatch_async(dispatch_get_main_queue(), ^{
+    // Inspect the current session when this runs: another route may have replaced the one
+    // whose ready callback queued this block.
+    if ([MWMRouter isFollowingTrack])
+      return;
+    auto startPoint = [MWMRouter startPoint];
+    if (!startPoint || !startPoint.isMyPosition)
+      [MWMRouter disableFollowMode];
+  });
 
   [[MWMMapViewControlsManager manager] onRouteReady:hasWarnings];
   [self updateFollowingInfo];
@@ -685,7 +839,10 @@ using namespace routing;
 + (void)updateRoute
 {
   MWMRoutingOptions * newOptions = [[MWMRoutingOptions alloc] initWithRouterType:MWMRouter.type];
-  if ((self.isRoutingActive && !self.isOnRoute) && ![newOptions isEqual:[self router].routingOptions])
+  // Driving options don't affect a followed track; skipping the rebuild also protects the
+  // follow session from being torn down by the marks-based build path.
+  if ((self.isRoutingActive && !self.isOnRoute && ![self isFollowingTrack]) &&
+      ![newOptions isEqual:[self router].routingOptions])
     [self rebuildWithBestRouter:YES];
 }
 

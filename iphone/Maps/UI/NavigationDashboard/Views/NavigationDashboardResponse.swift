@@ -2,7 +2,7 @@ extension NavigationDashboard {
   enum Response: Equatable {
     case none
     case updateState(MWMNavigationDashboardState)
-    case show(points: [MWMRoutePoint], routerType: MWMRouterType)
+    case show(points: [MWMRoutePoint], routerType: MWMRouterType, followedTrack: FollowedTrack?)
 
     case updateRouteBuildingProgress(CGFloat, routerType: MWMRouterType)
     case updateNavigationInfo(MWMNavigationDashboardEntity)

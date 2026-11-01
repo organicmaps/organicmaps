@@ -69,6 +69,11 @@ final class ActionBarViewController: UIViewController {
       (shouldAppendNewPoints ? .routeAddDestination : .routeAddStop)
     switch placePageData.objectType {
     case .POI, .bookmark, .track, .relationTrack:
+      if placePageData.objectType == .track,
+         let trackData = placePageData.trackData,
+         trackData.canNavigate {
+        buttons.append(.routeAlongTrack)
+      }
       if canRouteToAndFrom {
         buttons.append(.routeFrom)
       }

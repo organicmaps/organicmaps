@@ -171,8 +171,9 @@ geometry::PointWithAltitude InterpolateJunction(geometry::PointWithAltitude cons
 }
 }  // namespace
 
-TrackRouter::TrackRouter(VehicleType vehicleType, std::shared_ptr<TrackFollowingData const> data)
-  : m_pedestrian(vehicleType == VehicleType::Pedestrian)
+TrackRouter::TrackRouter(VehicleType vehicleType, std::shared_ptr<TrackFollowingData const> data, bool startAtBeginning)
+  : m_startAtBeginning(startAtBeginning)
+  , m_pedestrian(vehicleType == VehicleType::Pedestrian)
   , m_speedMpS(measurement_utils::KmphToMps(GetSpeedKMpH(vehicleType)))
   , m_data(std::move(data))
 {
@@ -300,7 +301,7 @@ RouterResultCode TrackRouter::CalculateRoute(Checkpoints const & checkpoints, m2
 
   CHECK_EQUAL(checkpoints.GetPoints().size(), m_data->m_stopPointIndexes.size() + 2, (checkpoints));
 
-  Projection const proj = ProjectPoint(checkpoints.GetPointFrom(), delegate);
+  auto const proj = m_startAtBeginning ? Projection{} : ProjectPoint(checkpoints.GetPointFrom(), delegate);
   if (delegate.IsCancelled())
     return RouterResultCode::Cancelled;
 

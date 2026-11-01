@@ -557,6 +557,13 @@ private:
   // The followed polyline (geometry + matched-position state + projection cache + fake-segment marks).
   // For "fresh" Routes built via SetGeometry/SetRouteSegments the polyline is set directly;
   // for promoted alternatives, it is reconstructed from base segments by RebuildFollowedPolyline().
+  struct TrackFix
+  {
+    m2::PointD m_point;
+    double m_timestamp = 0.0;
+  };
+  bool m_trackJoined = false;
+  std::optional<TrackFix> m_trackFix;
   FollowedPolyline m_poly;
 
   // Vehicle-specific tuning (matching threshold, finish tolerance, etc.). Set by RoutingSession after

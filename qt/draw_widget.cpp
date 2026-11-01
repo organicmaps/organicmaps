@@ -522,7 +522,7 @@ void DrawWidget::SubmitFakeLocationPoint(m2::PointD const & pt)
 
     routing::FollowingInfo loc;
     routingManager.GetRouteFollowingInfo(loc);
-    if (routingManager.GetCurrentRouterType() == routing::RouterType::Pedestrian)
+    if (routingManager.GetRouter() == routing::RouterType::Pedestrian)
     {
       LOG(LDEBUG, ("Distance:", loc.m_distToTarget, "Time:", loc.m_time, DebugPrint(loc.m_pedestrianTurn), "in",
                    loc.m_distToTurn.ToString(), loc.m_nextStreetName.empty() ? "" : "to " + loc.m_nextStreetName));

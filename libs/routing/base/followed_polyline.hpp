@@ -3,6 +3,7 @@
 #include "geometry/polyline2d.hpp"
 
 #include <limits>
+#include <optional>
 #include <vector>
 
 namespace routing
@@ -74,6 +75,9 @@ public:
 
   /// \brief Updates projection to the closest matched segment if it's possible.
   bool UpdateMatchingProjection(m2::RectD const & posRect);
+  bool UpdateTrackMatchingProjection(m2::RectD const & posRect, double minProgressM, double maxProgressM,
+                                     std::optional<m2::PointD> const & direction, double progressToleranceM,
+                                     bool advanceOnForwardChain = false);
 
   Iter UpdateProjection(m2::RectD const & posRect);
 

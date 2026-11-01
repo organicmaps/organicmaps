@@ -191,6 +191,19 @@ final class CarPlayService: NSObject {
     updateMapPlacement()
   }
 
+  @objc func preservePhoneTrackSession() {
+    mapState.selectPhone()
+    updateRoutingPresentation(for: .device)
+    router?.previewTrip = nil
+    preparedToPreviewTrips = []
+    needsCarPlayRoutingRestore = false
+    MWMRouter.subscribeToEvents()
+    if interfaceController != nil {
+      applyBaseRootTemplate()
+    }
+    updateMapPlacement()
+  }
+
   func openMainCarPlay() {
     activateMainCarPlay()
     guard let dashboardScene, let url = Constants.openCarPlayURL else { return }
@@ -335,6 +348,7 @@ final class CarPlayService: NSObject {
 
     switch destination {
     case .device:
+      routingOwner = .device
       let hadCurrentTrip = router.currentTrip != nil
       let hadPreviewTrip = router.previewTrip != nil
       router.setRoutingPresentationActive(false)
@@ -343,12 +357,25 @@ final class CarPlayService: NSObject {
       MWMRouter.subscribeToEvents()
       router.cancelNavigationSession()
       needsCarPlayRoutingRestore = false
-      if hadCurrentTrip {
+      // A followed track has no route marks, so the rebuild below would see fewer than two
+      // route points, stop the still-running follow and front an empty planning sheet. Hand the
+      // live session back to the phone dashboard instead — the only place left to stop it.
+      if MWMRouter.isFollowingTrack() {
+        if MWMRouter.isOnRoute() {
+          MWMRouter.showNavigationMapControls()
+        }
+      } else if hadCurrentTrip {
         MWMRouter.showNavigationMapControls()
       } else if hadPreviewTrip {
         MWMRouter.rebuild(withBestRouter: true)
       }
     case .carPlay:
+      if MWMRouter.isFollowingTrack() {
+        router.setRoutingPresentationActive(false)
+        needsCarPlayRoutingRestore = false
+        MWMRouter.subscribeToEvents()
+        return
+      }
       if !isCarPlayRouterSubscribed {
         router.subscribeToEvents()
         isCarPlayRouterSubscribed = true
@@ -715,6 +742,10 @@ final class CarPlayService: NSObject {
       isTemplateOperationInProgress = false
       templateCompletion(success, error)
       if success {
+        guard routingOwner == .carPlay, !MWMRouter.isFollowingTrack(), router?.previewTrip === trip else {
+          applyBaseRootTemplate()
+          return
+        }
         restoreCarPlayTemplateUI()
         updatePhoneModeAlert()
         router?.startNavigationSession(forTrip: trip, template: mapTemplate, isRestoring: true)
@@ -769,6 +800,7 @@ final class CarPlayService: NSObject {
   }
 
   func cancelCurrentTrip() {
+    guard !MWMRouter.isFollowingTrack() else { return }
     LOG(.info, "Cancel current trip")
     router?.cancelTrip()
     hideSpeedState()
@@ -964,8 +996,8 @@ extension CarPlayService: CPInterfaceControllerDelegate {
       return
     }
     if info.type == CPConstants.TemplateType.preview {
-      // The alert only covers the preview: the route now belongs to the phone and must survive.
-      guard !mapState.isPhoneSelected else { return }
+      // A phone-owned replacement must survive teardown of an older car preview.
+      guard !mapState.isPhoneSelected, !MWMRouter.isFollowingTrack() else { return }
       router?.completeRouteAndRemovePoints()
     }
   }
@@ -1040,6 +1072,7 @@ extension CarPlayService: CPMapTemplateDelegate {
   }
 
   func mapTemplate(_ mapTemplate: CPMapTemplate, startedTrip trip: CPTrip, using routeChoice: CPRouteChoice) {
+    guard routingOwner == .carPlay, !MWMRouter.isFollowingTrack(), router?.previewTrip === trip else { return }
     guard let info = routeChoice.userInfo as? RouteInfo else {
       if let info = routeChoice.userInfo as? [String: Any],
          let code = info[CPConstants.Trip.errorCode] as? RouterResultCode,
@@ -1088,6 +1121,7 @@ extension CarPlayService: CPMapTemplateDelegate {
   func mapTemplate(_ mapTemplate: CPMapTemplate,
                    selectedPreviewFor trip: CPTrip,
                    using routeChoice: CPRouteChoice) {
+    guard routingOwner == .carPlay, !MWMRouter.isFollowingTrack(), interfaceController?.topTemplate === mapTemplate else { return }
     guard let previewTrip = router?.previewTrip, previewTrip == trip else {
       applyUndefinedEstimates(template: mapTemplate, trip: trip)
       router?.buildRoute(trip: trip)
@@ -1258,7 +1292,8 @@ extension CarPlayService {
     interfaceController.popToRootTemplate(animated: false) { [weak self, weak interfaceController] success, error in
       guard let self, let interfaceController else { return }
       templateCompletion(success, error)
-      guard success, self.interfaceController === interfaceController else { return }
+      guard success, self.interfaceController === interfaceController,
+            routingOwner == .carPlay, !MWMRouter.isFollowingTrack() else { return }
       pushTripPreview(mapTemplate, on: interfaceController)
     }
   }
@@ -1322,7 +1357,10 @@ extension CarPlayService {
   }
 
   func showRerouteAlert(trips: [CPTrip]) {
+    let previousTrip = router?.currentTrip
     let yesAction = CPAlertAction(title: L("yes"), style: .default, handler: { [unowned self] _ in
+      guard routingOwner == .carPlay, !MWMRouter.isFollowingTrack(),
+            let previousTrip, router?.currentTrip === previousTrip else { return }
       router?.cancelTrip()
       updateMapTemplateUIToBase()
       preparedToPreviewTrips = trips
@@ -1380,6 +1418,7 @@ extension CarPlayService {
 
   func showRecoverRouteAlert(trip: CPTrip, isTypeCorrect: Bool) {
     let yesAction = CPAlertAction(title: L("ok"), style: .default, handler: { [unowned self] _ in
+      guard routingOwner == .carPlay, !MWMRouter.isFollowingTrack(), router?.previewTrip === trip else { return }
       var info = trip.userInfo as? [String: MWMRoutePoint]
 
       if let startPoint = MWMRoutePoint(lastLocationAndType: .start,
@@ -1392,6 +1431,7 @@ extension CarPlayService {
       interfaceController?.dismissTemplate(animated: true, completion: templateCompletion)
     })
     let noAction = CPAlertAction(title: L("cancel"), style: .cancel, handler: { [unowned self] _ in
+      guard routingOwner == .carPlay, !MWMRouter.isFollowingTrack(), router?.previewTrip === trip else { return }
       FrameworkHelper.rotateMap(0.0, animated: false)
       router?.completeRouteAndRemovePoints()
       interfaceController?.dismissTemplate(animated: true, completion: templateCompletion)

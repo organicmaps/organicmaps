@@ -21,20 +21,21 @@ import app.organicmaps.R;
 import app.organicmaps.maplayer.MapButtonsController;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Router;
+import app.organicmaps.sdk.routing.FollowTrackResult;
+import app.organicmaps.sdk.routing.FollowedTrackInfo;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.sdk.routing.TransitRouteInfo;
 import app.organicmaps.settings.DrivingOptionsActivity;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.util.Utils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class RoutingPlanFragment extends Fragment implements View.OnLayoutChangeListener, RoutingBottomMenuListener
 {
   public static final String TAG = RoutingPlanFragment.class.getSimpleName();
-
-  private static final Router[] ROUTERS = Router.values();
 
   private RoutingPlanViewModel mViewModel;
   private View mChartPanel;
@@ -43,6 +44,8 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   private View mDrivingOptionsBtn;
   private View mDrivingOptionsContainer;
   private View mReverseRouteBtn;
+  private View mTransitButton;
+  private View mRulerButton;
   private View mFrame;
   private View mRoutingRoot;
   private View mRoutingBottomContainer;
@@ -65,10 +68,10 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   // Show the requested planner sheet only when no place page, search, or point chooser covers it.
   private final MediatorLiveData<Boolean> mSheetVisible = new MediatorLiveData<>();
   private final Observer<Integer> mMenuUpdateObserver = trigger -> updateMenuInternal();
-  private final Observer<int[]> mBuildProgressObserver = progress ->
+  private final Observer<Integer> mBuildProgressObserver = progress ->
   {
     if (progress != null)
-      updateBuildProgress(progress[0], ROUTERS[progress[1]]);
+      updateBuildProgress(progress);
   };
   private final Observer<Integer> mDrivingOptionsCountObserver = this::updateBadgeCount;
   private final Observer<Void> mDrivingOptionsErrorObserver = e -> onDrivingOptionsBuildError();
@@ -123,6 +126,10 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     mDrivingOptionsBtn.setOnClickListener(v -> DrivingOptionsActivity.start(requireActivity()));
     mReverseRouteBtn = mChartPanel.findViewById(R.id.reverse_route_btn);
     mReverseRouteBtn.setOnClickListener(v -> RoutingController.get().reverseRoute());
+
+    mTransitButton = mRouterTypes.findViewById(R.id.transit);
+    mRulerButton = mRouterTypes.findViewById(R.id.ruler);
+    updateTrackFollowMode();
 
     mSearchBtn = mRoutingRoot.findViewById(R.id.routing_btn_search);
     mBookmarkBtn = mButtonsLayout.findViewById(R.id.routing_btn_bookmarks);
@@ -220,6 +227,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     if (controller.isPlanning())
     {
       setRoutingContentActive(false);
+      updateTrackFollowMode();
       mRoutingBottomMenuController.refreshManageRoute();
       mViewModel.setShowRoutingBottomSheet(true);
     }
@@ -285,14 +293,22 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   {
     final View parent = (View) mFrame.getParent();
     final int parentHeight = parent == null ? 0 : parent.getHeight();
-    if (parentHeight > 0)
-      mSheetBehavior.setMaxHeight(parentHeight);
     // Peek excludes the scrollable steps/list: it ends at the steps' top (or the full header when there are
     // none), while setMaxHeight caps a long list to scroll inside the sheet instead of covering the map.
     final boolean stepsVisible = mTransitStepsView.getVisibility() == View.VISIBLE;
     final int chartHeader = stepsVisible ? getTransitStepsTop() : mChartPanel.getHeight();
     final int peekHeight =
         mRoutingTypesContainer.getHeight() + chartHeader + mBottomButtonsMaxHeight + mPeekHeightMargins;
+    if (parentHeight > 0)
+    {
+      // A followed track has no editable route points, so beyond the header/summary the sheet
+      // is empty: cap it at the peek height — dragging up must not reveal a blank card. The
+      // error frame is the exception: its message needs the full height (the collapsed chart
+      // panel contributes nothing to the peek formula and a long text would be clipped).
+      final boolean capSheet =
+          RoutingController.get().isFollowingTrack() && !mRoutingBottomMenuController.isErrorVisible();
+      mSheetBehavior.setMaxHeight(capSheet ? Math.min(peekHeight, parentHeight) : parentHeight);
+    }
     mSheetBehavior.setPeekHeight(peekHeight);
   }
 
@@ -314,13 +330,53 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     setRouterClick(R.id.ruler, Router.Ruler);
   }
 
+  // Track previews use the three supported profiles and hide ordinary road-route controls.
+  private void updateTrackFollowMode()
+  {
+    final FollowedTrackInfo track = RoutingController.get().getFollowedTrackInfo();
+    UiUtils.showIf(track == null, mTransitButton, mRulerButton, mDrivingOptionsContainer, mReverseRouteBtn);
+    if (track != null)
+    {
+      checkRenderRouter();
+    }
+    mRoutingBottomMenuController.refreshTrackFollowMode();
+    // The sheet's height cap depends on the follow mode (see updateSheetHeights()).
+    updateSheetLayout();
+  }
+
   private void setRouterClick(@IdRes int buttonId, @NonNull Router router)
   {
-    mRouterTypes.findViewById(buttonId).setOnClickListener(v -> {
-      RoutingController.get().setRouterType(router);
+    mRouterTypes.findViewById(buttonId).setOnClickListener(v -> onRouterButtonClicked(router));
+  }
+
+  private void onRouterButtonClicked(@NonNull Router router)
+  {
+    final RoutingController controller = RoutingController.get();
+    if (!controller.isFollowingTrack())
+    {
+      controller.setRouterType(router);
       // A partial plan has no calculation callback to refresh its settings controls.
       updateRoutingOptions(router);
-    });
+      return;
+    }
+    // While following a track the picker switches the follow profile instead. The switch is
+    // rejected when the followed track has been deleted meanwhile — and ignored while a follow
+    // rebuild is already in flight (rapid taps).
+    final FollowTrackResult result = controller.setFollowTrackProfile(router);
+    if (result != FollowTrackResult.Ok)
+      Utils.showFollowTrackError(requireContext(), result);
+    // The tap has already checked the radio: re-sync with the profile actually in effect, so a
+    // rejected or ignored switch snaps the picker back (a successful one is a no-op here).
+    updateTrackFollowMode();
+  }
+
+  // The router the picker must reflect: the follow profile while following a track (the user's
+  // own selection may be Transit/Ruler, whose radios are hidden then), the current one
+  // otherwise. Never the router carried by the (sticky) build-progress LiveData: its replay
+  // must not pollute the picker of the next planning session.
+  private void checkRenderRouter()
+  {
+    mRouterTypes.check(routerToButtonId(Router.getRender()));
   }
 
   @IdRes
@@ -387,15 +443,15 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     mViewModel.setDrivingOptionsCount(RoutingOptions.getActiveRoadTypes(router).size());
   }
 
-  private void updateBuildProgress(int progress, @NonNull Router router)
+  private void updateBuildProgress(int progress)
   {
     if (getView() == null)
       return;
 
-    mRouterTypes.check(routerToButtonId(router));
-    updateRoutingOptions(router);
-    updateProgressLabels();
     final RoutingController controller = RoutingController.get();
+    checkRenderRouter();
+    updateRoutingOptions(Router.getRender());
+    updateProgressLabels();
     if (controller.isBuilding())
     {
       mRoutingBottomMenuController.setStartState(RoutingBottomMenuController.StartState.BUILDING);

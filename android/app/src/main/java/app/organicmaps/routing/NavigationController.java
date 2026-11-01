@@ -170,7 +170,9 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     if (info == null)
       return;
 
-    if (Router.get() == Router.Pedestrian)
+    // The render router type, not the selected one: while following a track the navigation runs
+    // on the follow profile, which may differ from the user's (e.g. Transit/Ruler) selection.
+    if (Router.getRender() == Router.Pedestrian)
       updatePedestrian(info);
     else
       updateVehicle(info);

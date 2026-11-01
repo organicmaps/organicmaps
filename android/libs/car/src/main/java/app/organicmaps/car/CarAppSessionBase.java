@@ -207,7 +207,15 @@ public abstract class CarAppSessionBase
     if (!isNavigating && hasNavigatingScreen)
       mScreenManager.popToRoot();
 
-    if (isNavigating && routingController.getLastRouterType() == PlaceScreen.ROUTER && hasNavigatingScreen)
+    // Track previews and journeys remain phone-owned until a geometric car trip is supported.
+    if (routingController.isFollowingTrack())
+    {
+      mScreenManager.popToRoot();
+      return;
+    }
+
+    final boolean isCarNavigation = isNavigating && routingController.getLastRouterType() == PlaceScreen.ROUTER;
+    if (isCarNavigation && hasNavigatingScreen)
     {
       mScreenManager.popTo(NavigationScreen.MARKER);
       return;

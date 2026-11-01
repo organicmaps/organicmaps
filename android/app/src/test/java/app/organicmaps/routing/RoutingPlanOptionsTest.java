@@ -41,6 +41,7 @@ public class RoutingPlanOptionsTest
     RoutingController controller = mock(RoutingController.class);
 
     try (MockedStatic<RoutingController> routing = mockStatic(RoutingController.class);
+         MockedStatic<Router> routers = mockStatic(Router.class, CALLS_REAL_METHODS);
          MockedStatic<RoutingOptions> options = mockStatic(RoutingOptions.class, CALLS_REAL_METHODS))
     {
       routing.when(RoutingController::get).thenReturn(controller);
@@ -51,31 +52,36 @@ public class RoutingPlanOptionsTest
       options.when(() -> RoutingOptions.getActiveRoadTypes(Router.Transit)).thenReturn(EnumSet.noneOf(RoadType.class));
       options.when(() -> RoutingOptions.getActiveRoadTypes(Router.Ruler)).thenReturn(EnumSet.noneOf(RoadType.class));
 
-      updateProgress(fragment, Router.Vehicle);
+      routers.when(Router::getRender).thenReturn(Router.Vehicle);
+      updateProgress(fragment);
       verify(viewModel).setDrivingOptionsCount(3);
       verify(container).setAlpha(1.0f);
       verify(settingsButton).setEnabled(true);
       clearInvocations(viewModel, container, settingsButton);
 
-      updateProgress(fragment, Router.Bicycle);
+      routers.when(Router::getRender).thenReturn(Router.Bicycle);
+      updateProgress(fragment);
       verify(viewModel).setDrivingOptionsCount(0);
       verify(container).setAlpha(1.0f);
       verify(settingsButton).setEnabled(true);
       clearInvocations(viewModel, container, settingsButton);
 
-      updateProgress(fragment, Router.Pedestrian);
+      routers.when(Router::getRender).thenReturn(Router.Pedestrian);
+      updateProgress(fragment);
       verify(viewModel).setDrivingOptionsCount(1);
       verify(container).setAlpha(1.0f);
       verify(settingsButton).setEnabled(true);
       clearInvocations(viewModel, container, settingsButton);
 
-      updateProgress(fragment, Router.Transit);
+      routers.when(Router::getRender).thenReturn(Router.Transit);
+      updateProgress(fragment);
       verify(viewModel).setDrivingOptionsCount(0);
       verify(container).setAlpha(1.0f);
       verify(settingsButton).setEnabled(true);
       clearInvocations(viewModel, container, settingsButton);
 
-      updateProgress(fragment, Router.Ruler);
+      routers.when(Router::getRender).thenReturn(Router.Ruler);
+      updateProgress(fragment);
       verify(viewModel).setDrivingOptionsCount(0);
       verify(container).setAlpha(0.5f);
       verify(settingsButton).setEnabled(false);
@@ -148,11 +154,11 @@ public class RoutingPlanOptionsTest
     verify(sheetBehavior).setPeekHeight(50 + 200 + 40 + 60 + 10);
   }
 
-  private static void updateProgress(RoutingPlanFragment fragment, Router router) throws ReflectiveOperationException
+  private static void updateProgress(RoutingPlanFragment fragment) throws ReflectiveOperationException
   {
-    Method method = RoutingPlanFragment.class.getDeclaredMethod("updateBuildProgress", int.class, Router.class);
+    Method method = RoutingPlanFragment.class.getDeclaredMethod("updateBuildProgress", int.class);
     method.setAccessible(true);
-    method.invoke(fragment, 0, router);
+    method.invoke(fragment, 0);
   }
 
   private static void setField(RoutingPlanFragment fragment, String name, Object value)

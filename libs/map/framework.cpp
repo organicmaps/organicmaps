@@ -2338,7 +2338,10 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
 
   auto placePageInfo = BuildPlacePageInfo(buildInfo);
 
-  if (m_routingManager.IsRoutingActive() && m_routingManager.GetCurrentRouterType() == routing::RouterType::Ruler &&
+  // GetRenderRouterType() and not the persisted type: a followed track is never a Ruler route,
+  // and turning its taps into route continuations would deny the place page for the whole
+  // follow session (there are no route marks to continue).
+  if (m_routingManager.IsRoutingActive() && m_routingManager.GetRenderRouterType() == routing::RouterType::Ruler &&
       !placePageInfo.IsRoutePoint())
   {
     DeactivateMapSelection();
@@ -3035,7 +3038,9 @@ bool Framework::LoadAutoZoom()
 
 void Framework::AllowAutoZoom(bool allowAutoZoom)
 {
-  routing::RouterType const type = m_routingManager.GetRouter();
+  // The follow profile, not the persisted router type: a track followed on foot must get the
+  // pedestrian camera even when the last used router was a car one (and vice versa).
+  routing::RouterType const type = m_routingManager.GetRenderRouterType();
   bool const isPedestrianRoute = type == RouterType::Pedestrian;
 
   if (m_drapeEngine != nullptr)
@@ -3871,7 +3876,9 @@ void Framework::OnRouteFollow(routing::RouterType type)
   // GetRoutingSettings(type).m_matchRoute to the FollowRoute() instead of |isPedestrianRoute|.
   // |isArrowGlued| parameter fully corresponds to |m_matchRoute| in RoutingSettings.
   // For pedestrian and bicycle modes, use compass heading when stopped (isArrowGlued = false).
-  m_drapeEngine->FollowRoute(scale, scale3d, enableAutoZoom, !(isPedestrianRoute || isBicycleRoute) /* isArrowGlued */);
+  if (m_drapeEngine)
+    m_drapeEngine->FollowRoute(scale, scale3d, enableAutoZoom,
+                               !(isPedestrianRoute || isBicycleRoute) /* isArrowGlued */);
 }
 
 // RoutingManager::Delegate
