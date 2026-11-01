@@ -2,6 +2,7 @@ project(base_tests)
 
 set(SRC
   assert_test.cpp
+  atomic_shared_ptr_test.cpp
   beam_tests.cpp
   bidirectional_map_tests.cpp
   bits_test.cpp
