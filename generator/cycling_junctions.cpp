@@ -214,6 +214,11 @@ void CyclingJunctionCollector::CollectFeature(feature::FeatureBuilder const & fb
   cycling_junctions_detail::Record record;
   record.m_kind = cycling_junctions_detail::Dedicated(element) ? cycling_junctions_detail::RecordKind::Connector
                                                                : cycling_junctions_detail::RecordKind::Road;
+  // Match the tested junction opt-in boundary. Modifier-only side facilities
+  // keep their side rendering, but do not acquire new inferred tapers here.
+  if (record.m_kind == cycling_junctions_detail::RecordKind::Road && !element.HasTag("cycleway:left") &&
+      !element.HasTag("cycleway:right") && !element.HasTag("cycleway:both"))
+    return;
   auto & way = record.m_way;
   way.m_sides = fb.GetParams().GetCyclingInfrastructure();
   if (record.m_kind == cycling_junctions_detail::RecordKind::Road && way.m_sides.empty())

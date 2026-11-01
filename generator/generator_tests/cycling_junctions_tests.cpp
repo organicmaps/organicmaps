@@ -105,7 +105,12 @@ UNIT_CLASS_TEST(TestRawGenerator, CyclingJunctions_NormalGeneration)
     {
       TEST(sides->m_left.m_junctions.empty(), (name));
       TEST(sides->m_right.m_junctions.empty(), (name));
+      if (name == "Junction road modifier only")
+      {
+        TEST_EQUAL(static_cast<char>(sides->m_left.m_kind), 'l', ());
+        TEST_EQUAL(static_cast<char>(sides->m_right.m_kind), 'l', ());
+      }
     }
   });
-  TEST_EQUAL(roads, 6, ());
+  TEST_EQUAL(roads, 7, ());
 }
