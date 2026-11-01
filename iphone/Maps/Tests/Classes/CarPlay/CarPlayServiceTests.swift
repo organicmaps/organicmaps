@@ -6,8 +6,10 @@ final class CarPlayServiceTests: XCTestCase {
   var carPlayService: CarPlayService!
   private var bookmarkListObserver: CarPlayBookmarkListObserver?
 
-  override func setUp() {
-    super.setUp()
+  override func setUpWithError() throws {
+    try super.setUpWithError()
+    // These fixtures bypass the bookmark-loading flow that creates the import directory.
+    try FileManager.default.createDirectory(at: FileManager.default.bookmarksDirectoryUrl, withIntermediateDirectories: true)
     carPlayService = CarPlayService()
   }
 
