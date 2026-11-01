@@ -162,10 +162,10 @@ RectCase GetRectCase(m2::RectD const & rect, std::vector<m2::PointD> const & pat
 namespace
 {
 std::vector<m2::SharedSpline> ClipSplineByRectImpl(m2::RectD const & rect, m2::SharedSpline const & spline,
-                                                   std::vector<double> * sourceOffsets)
+                                                   std::vector<m2::SplineClipInfo> * sourceRanges)
 {
-  if (sourceOffsets != nullptr)
-    sourceOffsets->clear();
+  if (sourceRanges != nullptr)
+    sourceRanges->clear();
 
   auto const & src = *spline;
   auto const & path = src.GetPath();
@@ -175,8 +175,8 @@ std::vector<m2::SharedSpline> ClipSplineByRectImpl(m2::RectD const & rect, m2::S
   switch (GetRectCase(rect, path))
   {
   case RectCase::Inside:
-    if (sourceOffsets != nullptr)
-      sourceOffsets->push_back(0.0);
+    if (sourceRanges != nullptr)
+      sourceRanges->push_back({0.0, src.GetLength(), 0, sz - 2});
     return {spline};
   case RectCase::Outside: return {};
   case RectCase::Intersect: break;
@@ -196,14 +196,14 @@ std::vector<m2::SharedSpline> ClipSplineByRectImpl(m2::RectD const & rect, m2::S
 
   std::unique_ptr<m2::Spline> cur;
   double sourceDistance = 0.0;
-  double currentStartDistance = 0.0;
+  m2::SplineClipInfo range;
   auto const emitCurrent = [&]()
   {
     if (cur->GetSize() > 1)
     {
       out.emplace_back(std::move(cur));
-      if (sourceOffsets != nullptr)
-        sourceOffsets->push_back(currentStartDistance);
+      if (sourceRanges != nullptr)
+        sourceRanges->push_back(range);
     }
     else
     {
@@ -231,7 +231,8 @@ std::vector<m2::SharedSpline> ClipSplineByRectImpl(m2::RectD const & rect, m2::S
         // First point of the new sub-spline. The single-arg AddPoint just
         // pushes here (m_position is empty), so it's free.
         cur->AddPoint(p1);
-        currentStartDistance = sourceDistance + DotProduct(p1 - path[i], srcDir);
+        range.m_startDistance = sourceDistance + DotProduct(p1 - path[i], srcDir);
+        range.m_startSegment = i;
       }
       // else: continuation. cur->back() already equals p1 because the
       // previous segment ended cleanly (code2 == 0) and code1 == 0 here.
@@ -242,7 +243,11 @@ std::vector<m2::SharedSpline> ClipSplineByRectImpl(m2::RectD const & rect, m2::S
       // bare 0 so that floating-point noise from the dot-product projection
       // can't slip a sub-ULP positive value past the guard.
       if (len > DBL_EPSILON)
+      {
         cur->AddPoint(p2, srcDir, len);
+        range.m_endDistance = sourceDistance + DotProduct(p2 - path[i], srcDir);
+        range.m_endSegment = i;
+      }
 
       // Right endpoint clipped or last input segment → close out the sub-spline.
       if (code2 != 0 || i + 2 == sz)
@@ -258,7 +263,7 @@ std::vector<m2::SharedSpline> ClipSplineByRectImpl(m2::RectD const & rect, m2::S
     sourceDistance += srcLen;
   }
 
-  ASSERT(sourceOffsets == nullptr || sourceOffsets->size() == out.size(), ());
+  ASSERT(sourceRanges == nullptr || sourceRanges->size() == out.size(), ());
   return out;
 }
 }  // namespace
@@ -271,7 +276,18 @@ std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::Share
 std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::SharedSpline const & spline,
                                                std::vector<double> & sourceOffsets)
 {
-  return ClipSplineByRectImpl(rect, spline, &sourceOffsets);
+  std::vector<m2::SplineClipInfo> ranges;
+  auto result = ClipSplineByRectImpl(rect, spline, &ranges);
+  sourceOffsets.clear();
+  for (auto const & range : ranges)
+    sourceOffsets.push_back(range.m_startDistance);
+  return result;
+}
+
+std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::SharedSpline const & spline,
+                                               std::vector<m2::SplineClipInfo> * sourceRanges)
+{
+  return ClipSplineByRectImpl(rect, spline, sourceRanges);
 }
 
 void ClipPathByRect(m2::RectD const & rect, std::vector<m2::PointD> const & path, std::vector<m2::SharedSpline> & out)

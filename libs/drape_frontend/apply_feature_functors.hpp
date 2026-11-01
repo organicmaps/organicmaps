@@ -149,20 +149,25 @@ class ApplyLineFeatureGeometry : public BaseApplyFeature
   using TBase = BaseApplyFeature;
 
 public:
-  ApplyLineFeatureGeometry(Params const & params, FeatureType & f, RelationsDrawSettings const & relsSettings);
-  void BuildGeometry(int zoomLevel, bool isIsoline);
+  ApplyLineFeatureGeometry(Params const & params, FeatureType & f, RelationsDrawSettings const & relsSettings,
+                           double dashPhaseOffset, bool dashPhaseReversed);
+  void BuildGeometry(int zoomLevel, bool isIsoline, double paddingPixels);
 
   bool HasGeometry() const { return m_builder.HasGeometry(); }
-  void ProcessLineRules(Stylist::LineRulesT const & lineRules, bool isIsoline);
+  void ProcessLineRules(Stylist::LineRulesT const & lineRules, bool isIsoline,
+                        std::vector<Stylist::SideRules> const & sideRules = {});
 
   std::vector<m2::SharedSpline> MoveClippedSplines() { return std::move(m_clippedSplines); }
 
 private:
   void ProcessRule(drule::LineRule const & lineRule);
+  void ProcessSideRules(m2::SharedSpline const & source, std::vector<Stylist::SideRules> const & sideRules);
 
   RelationsDrawInfo m_relsInfo;
   ClipSplinesBuilder m_builder;
   std::vector<m2::SharedSpline> m_clippedSplines;
+  double m_dashPhaseOffset = 0.0;
+  bool m_dashPhaseReversed = false;
 
 #ifdef LINES_GENERATION_CALC_FILTERED_POINTS
   int m_readCount = 0;

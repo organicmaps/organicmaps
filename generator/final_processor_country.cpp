@@ -4,6 +4,7 @@
 #include "generator/addresses_collector.hpp"
 #include "generator/affiliation.hpp"
 #include "generator/coastlines_generator.hpp"
+#include "generator/cycling_junctions.hpp"
 #include "generator/feature_builder.hpp"
 #include "generator/final_processor_utils.hpp"
 #include "generator/isolines_generator.hpp"
@@ -65,6 +66,13 @@ void CountryFinalProcessor::Process()
 
   // DropProhibitedSpeedCameras();
   ProcessBuildingParts();
+
+  if (!m_cyclingJunctionsFilename.empty())
+    ForEachMwmTmp(m_temporaryMwmPath, [&](auto const & country, auto const & path)
+    {
+      if (IsCountry(country))
+        ApplyCountryCyclingJunctions(m_cyclingJunctionsFilename, country, path);
+    }, m_threadsCount);
 
   // Finish();
 }
