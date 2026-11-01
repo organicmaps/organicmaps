@@ -120,6 +120,7 @@ public:
 
   using LineRulesT = buffer_vector<drule::LineRule const *, 4>;
   LineRulesT m_lineRules;
+  double m_lineGeometryPadding = 0;  // Logical style pixels; scaled once by the geometry builder.
 
   struct SideRules
   {
