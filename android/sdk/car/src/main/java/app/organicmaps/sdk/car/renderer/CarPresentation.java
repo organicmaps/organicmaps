@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LifecycleOwner;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.MapController;
 import app.organicmaps.sdk.MapRenderingListener;
 import app.organicmaps.sdk.MapView;
@@ -63,8 +64,6 @@ final class CarPresentation extends Presentation
 
     final MapView mapView = findViewById(R.id.map_view);
     mSpeedLimitController = new CombinedSpeedViewController(findViewById(R.id.speed_limit_view));
-    // TODO: add support for MUTCD switch
-    mSpeedLimitController.setShape(Shape.Circle);
     mVisibleAreaContainer = findViewById(R.id.visible_area_container);
     applyVisibleArea();
 
@@ -117,6 +116,11 @@ final class CarPresentation extends Presentation
   void setSpeedLimit(@Nullable Integer speedLimit)
   {
     mSpeedLimitController.setSpeedLimit(speedLimit);
+  }
+
+  void setSpeedLimitSignType(@Framework.SpeedLimitSignType int type)
+  {
+    mSpeedLimitController.setShape(type == Framework.SpeedLimitSignType.MUTCD ? Shape.Square : Shape.Circle);
   }
 
   void setAlertForced(boolean alertForced)
