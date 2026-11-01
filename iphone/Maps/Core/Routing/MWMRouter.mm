@@ -15,6 +15,7 @@
 
 #include <CoreApi/ElevationProfileData+Core.h>
 #include <CoreApi/Framework.h>
+#include <CoreApi/MWMBookmarksManager.h>
 #include <CoreApi/RouteElevationPreviewData.h>
 #include <CoreApi/StringUtils+Core.h>
 #include <CoreApi/TrackInfo+Core.h>
@@ -56,7 +57,7 @@ using namespace routing;
 
 @end
 
-@interface MWMRouter () <MWMLocationObserver, MWMFrameworkRouteBuilderObserver>
+@interface MWMRouter () <MWMLocationObserver, MWMFrameworkRouteBuilderObserver, MWMBookmarksObserver>
 
 @property(nonatomic) uint32_t routeManagerTransactionId;
 @property(nonatomic) BOOL canAutoAddLastLocation;
@@ -298,6 +299,7 @@ static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
     self.routeManagerTransactionId = RoutingManager::InvalidRoutePointsTransactionId();
     [MWMLocationManager addObserver:self];
     [MWMFrameworkListener addObserver:self];
+    [MWMBookmarksManager.sharedManager addObserver:self];
     _canAutoAddLastLocation = YES;
     _routingOptions = [[MWMRoutingOptions alloc] initWithRouterType:MWMRouter.type];
     _isRestoreProcessCompleted = NO;
@@ -309,12 +311,26 @@ static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
 {
   [MWMFrameworkListener addObserver:[MWMRouter router]];
   [MWMLocationManager addObserver:[MWMRouter router]];
+  [MWMBookmarksManager.sharedManager addObserver:[MWMRouter router]];
 }
 
 + (void)unsubscribeFromEvents
 {
   [MWMFrameworkListener removeObserver:[MWMRouter router]];
   [MWMLocationManager removeObserver:[MWMRouter router]];
+  [MWMBookmarksManager.sharedManager removeObserver:[MWMRouter router]];
+}
+
+- (void)onBookmarksChanged
+{
+  if (![MWMRouter isFollowingTrack])
+    return;
+  // Core is still publishing bookmark edits. Recheck the current session after that edit finishes.
+  dispatch_async(dispatch_get_main_queue(), ^{
+    auto const info = [MWMRouter followedTrackInfo];
+    if (info && ![MWMRouter isOnRoute] && ![MWMBookmarksManager.sharedManager hasTrack:info.trackId])
+      [MWMRouter stopRouting];
+  });
 }
 
 + (void)setType:(MWMRouterType)type
@@ -523,6 +539,9 @@ static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
 + (void)rebuildWithBestRouter:(BOOL)bestRouter
 {
   auto & rm = GetFramework().GetRoutingManager();
+  // Follow previews rebuild through their own profile/direction APIs, never through route marks.
+  if (rm.IsFollowingTrack())
+    return;
   auto const & points = rm.GetRoutePoints();
   auto const pointsCount = points.size();
   if (pointsCount < 2)
