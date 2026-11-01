@@ -253,6 +253,7 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, MapStyle
   auto const sideData = geomType == feature::GeomType::Line ? cycling::Decode(f.GetCyclingInfrastructure())
                                                             : std::optional<cycling::Sides>{};
   bool const useSideLines = sideData && zoomLevel >= kCyclewaySideMinZoom;
+  m_lineGeometryPadding = useSideLines ? 64.0 : 0.0;
   MapStyle const cycleStyle = MapStyleIsDark(style) ? MapStyleCyclingDark : MapStyleCyclingLight;
   auto const & cycleClassif = classif(cycleStyle);
   auto const & cycleRules = drule::GetRules(cycleStyle);

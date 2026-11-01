@@ -109,6 +109,29 @@ UNIT_TEST(ClipSplinesBuilder_CyclingColdStart)
   classificator::Load();
 }
 
+UNIT_TEST(ClipSplinesBuilder_CyclingGeometryPaddingPolicy)
+{
+  classificator::Load();
+  auto const road = classif(MapStyleDefaultLight).GetTypeByPath({"highway", "secondary"});
+  for (auto const style : {MapStyleDefaultLight, MapStyleDefaultDark, MapStyleCyclingLight, MapStyleCyclingDark})
+  {
+    for (uint8_t const zoom : {13, 14, 16, 18})
+    {
+      MockTestFeature plain({P(0, 0), P(10, 0)}, road);
+      TEST_EQUAL(df::Stylist(plain, zoom, 0, style).m_lineGeometryPadding, 0.0, (style, zoom));
+      for (auto const kind : {cycling::Kind::None, cycling::Kind::Lane, cycling::Kind::Shared, cycling::Kind::Track})
+      {
+        MockTestFeature sided({P(0, 0), P(10, 0)}, road);
+        sided.SetCyclingSides(kind, cycling::Kind::None);
+        auto const previousPredicate =
+            cycling::Decode(sided.GetCyclingInfrastructure()).has_value() && zoom >= df::Stylist::kCyclewaySideMinZoom;
+        TEST_EQUAL(df::Stylist(sided, zoom, 0, style).m_lineGeometryPadding, previousPredicate ? 64.0 : 0.0,
+                   (style, zoom, static_cast<char>(kind)));
+      }
+    }
+  }
+}
+
 UNIT_TEST(ClipSplinesBuilder_CyclingCoreWidths)
 {
   classificator::Load();
