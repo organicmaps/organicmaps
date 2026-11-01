@@ -42,15 +42,19 @@ void ReadCyclingExtension(ArrayByteSource & source, FeatureBuilder::Buffer const
   params.SetCyclingInfrastructure({});
   auto const * end = reinterpret_cast<uint8_t const *>(data.data()) + data.size();
   auto const * current = source.PtrUint8();
-  if (current > end || end - current < 8 || std::memcmp(current, "CINF", 4) != 0)
+  if (current == end)
     return;  // Older intermediate features have no extension.
+  CHECK_LESS(current, end, ());
+  CHECK_GREATER_OR_EQUAL(end - current, 8, ());
+  CHECK_EQUAL(std::memcmp(current, "CINF", 4), 0, ());
   source.Advance(4);
   auto const size = ReadPrimitiveFromSource<uint32_t>(source);
-  if (size > cycling::kMaxPayloadSize || size > static_cast<size_t>(end - source.PtrUint8()))
-    return;
+  CHECK_LESS_OR_EQUAL(size, cycling::kMaxPayloadSize, ());
+  CHECK_EQUAL(size, static_cast<size_t>(end - source.PtrUint8()), ());
   std::string payload(reinterpret_cast<char const *>(source.Ptr()), size);
-  if (cycling::Decode(payload))
-    params.SetCyclingInfrastructure(std::move(payload));
+  ASSERT(cycling::Decode(payload), ());
+  params.SetCyclingInfrastructure(std::move(payload));
+  source.Advance(size);
 }
 
 bool IsEqual(double d1, double d2)

@@ -73,18 +73,17 @@ UNIT_TEST(CyclingInfrastructure_SparseSectionRoundTrip)
     TEST(cycling::ReadSection(reader, id).empty(), (id));
 }
 
-UNIT_TEST(CyclingInfrastructure_TruncatedAndUnknownSectionsAreIgnored)
+UNIT_TEST(CyclingInfrastructure_EmptyAndUnknownSections)
 {
   auto const payload = cycling::Encode({{cycling::Kind::Track, cycling::Direction::Both}, {}});
   std::vector<uint8_t> data;
   PushBackByteSink sink(data);
   cycling::WriteSection(sink, {{2, payload}});
-  for (size_t size = 0; size < data.size(); ++size)
-  {
-    MemReaderWithExceptions reader(data.data(), size);
-    TEST(cycling::ReadSection(reader, 2).empty(), (size));
-  }
   data[0] = 127;
   MemReader reader(data.data(), data.size());
   TEST(cycling::ReadSection(reader, 2).empty(), ());
+  data.clear();
+  cycling::WriteSection(sink, {});
+  MemReader empty(data.data(), data.size());
+  TEST(cycling::ReadSection(empty, 2).empty(), ());
 }

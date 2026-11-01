@@ -30,16 +30,8 @@ std::string SharedLoadInfo::GetCyclingInfrastructure(uint32_t featureId) const
 {
   if (!m_cont.IsExist(cycling::kSectionTag))
     return {};
-  try
-  {
-    auto const reader = m_cont.GetReader(cycling::kSectionTag);
-    return cycling::ReadSection(reader, featureId);
-  }
-  catch (::Reader::Exception const &)
-  {
-    // Corrupt optional rendering data must not prevent legacy road rendering.
-    return {};
-  }
+  auto const reader = m_cont.GetReader(cycling::kSectionTag);
+  return cycling::ReadSection(reader, featureId);
 }
 
 SharedLoadInfo::Reader SharedLoadInfo::GetGeometryReader(size_t ind) const
