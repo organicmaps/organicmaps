@@ -1,12 +1,16 @@
 #include "testing/testing.hpp"
 
+#include "base/assert.hpp"
 #include "base/logging.hpp"
+#include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
 #include <cfloat>
 #include <fstream>
 #include <limits>
+#include <source_location>
 #include <string>
+#include <string_view>
 #include <unordered_map>
 #include <vector>
 
@@ -392,6 +396,73 @@ UNIT_TEST(to_uint64)
   s = "-1";
   TEST(strings::to_uint64(s, i), ());
   TEST_EQUAL(18446744073709551615ULL, i, ());
+}
+
+UNIT_TEST(ToUintChecked)
+{
+  TEST_EQUAL(strings::ToUintChecked<uint8_t>("0"), 0, ());
+  TEST_EQUAL(strings::ToUintChecked<uint8_t>("255"), std::numeric_limits<uint8_t>::max(), ());
+  TEST_EQUAL(strings::ToUintChecked<uint32_t>("4294967295"), std::numeric_limits<uint32_t>::max(), ());
+  TEST_EQUAL(strings::ToUintChecked<uint64_t>("18446744073709551615"), std::numeric_limits<uint64_t>::max(), ());
+  TEST_EQUAL(strings::ToUintChecked<uint32_t>("AF", 16), 175, ());
+
+  TEST_EQUAL(strings::ToUint64Checked("0"), 0, ());
+  TEST_EQUAL(strings::ToUint64Checked("18446744073709551615"), std::numeric_limits<uint64_t>::max(), ());
+  TEST_EQUAL(strings::ToUint64Checked("-1"), std::numeric_limits<uint64_t>::max(), ());
+  TEST_EQUAL(strings::ToUint64Checked("-18446744073709551615"), 1, ());
+  TEST_EQUAL(strings::ToUint64Checked("AF", 16), 175, ());
+  TEST_EQUAL(strings::ToUint64Checked("-AF", 16), uint64_t{0} - 175, ());
+}
+
+UNIT_TEST(ToUintChecked_InvalidInput)
+{
+  struct ConversionFailure
+  {
+    base::SrcPoint m_source;
+    std::string m_message;
+  };
+  auto const previous = base::SetAssertFunction([](base::SrcPoint const & source, std::string const & message) -> bool
+  { throw ConversionFailure{source, message}; });
+  SCOPE_GUARD(restoreAssert, [previous] { base::SetAssertFunction(previous); });
+
+  auto const expectFailure = [](auto convert) -> ConversionFailure
+  {
+    try
+    {
+      convert();
+    }
+    catch (ConversionFailure const & failure)
+    {
+      return failure;
+    }
+    TEST(false, ("Invalid input must not return a value"));
+  };
+
+  for (auto const input : {"", "invalid", "123x", " 123", "123 ", "+1", "18446744073709551616"})
+  {
+    expectFailure([input] { (void)strings::ToUintChecked<uint64_t>(input); });
+    expectFailure([input] { (void)strings::ToUint64Checked(input); });
+  }
+  expectFailure([] { (void)strings::ToUintChecked<uint64_t>("-1"); });
+  expectFailure([] { (void)strings::ToUintChecked<uint8_t>("256"); });
+  expectFailure([] { (void)strings::ToUintChecked<uint32_t>("4294967296"); });
+  expectFailure([] { (void)strings::ToUintChecked<uint32_t>("AXF", 16); });
+  expectFailure([] { (void)strings::ToUint64Checked("AXF", 16); });
+  expectFailure([] { (void)strings::ToUint64Checked("-"); });
+  expectFailure([] { (void)strings::ToUint64Checked("-18446744073709551616"); });
+
+  std::source_location location;
+  auto const failure = expectFailure([&location]
+  {
+    location = std::source_location::current();
+    (void)strings::ToUintChecked<uint64_t>("bad id");
+  });
+  auto const after = std::source_location::current();
+  TEST(std::string_view(location.file_name()).ends_with(failure.m_source.FileName()), (failure.m_source));
+  TEST_GREATER(failure.m_source.Line(), static_cast<int>(location.line()), ());
+  TEST_LESS(failure.m_source.Line(), static_cast<int>(after.line()), ());
+  TEST_EQUAL(std::string_view(failure.m_source.Function()), location.function_name(), ());
+  TEST(failure.m_message.find("bad id") != std::string::npos, (failure.m_message));
 }
 
 UNIT_TEST(to_uint32)

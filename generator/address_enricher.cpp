@@ -13,6 +13,8 @@
 
 #include "coding/point_coding.hpp"
 
+#include <string_view>
+
 namespace generator
 {
 using feature::InterpolType;
@@ -340,12 +342,11 @@ AddressEnricher::FoundT AddressEnricher::Match(Entry & e) const
           return;
 
         // Compare ranges.
-        auto const & hnRange = params.ref;
+        std::string_view const hnRange = params.ref;
         size_t const i = hnRange.find(':');
         CHECK(i != std::string::npos, (hnRange));
-        uint64_t left, right;
-        CHECK(strings::to_uint(hnRange.substr(0, i), left) && strings::to_uint(hnRange.substr(i + 1), right),
-              (hnRange));
+        auto const left = strings::ToUintChecked<uint64_t>(hnRange.substr(0, i));
+        auto const right = strings::ToUintChecked<uint64_t>(hnRange.substr(i + 1));
 
         res.interpol = !(left >= range.second || right <= range.first);
       }
