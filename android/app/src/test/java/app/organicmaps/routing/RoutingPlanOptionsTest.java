@@ -10,6 +10,7 @@ import static org.mockito.Mockito.when;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
+import app.organicmaps.R;
 import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingOptions;
@@ -146,6 +147,38 @@ public class RoutingPlanOptionsTest
 
     // The steps' top inside the panel is the tile's offset plus the steps' offset within the tile.
     verify(sheetBehavior).setPeekHeight(50 + 200 + 40 + 60 + 10);
+  }
+
+  @Test
+  public void navigateTrackHidesOrdinaryRouteControls() throws ReflectiveOperationException
+  {
+    RoutingPlanFragment fragment = mock(RoutingPlanFragment.class, CALLS_REAL_METHODS);
+    RadioGroup types = mock(RadioGroup.class);
+    View transit = mock(View.class);
+    View ruler = mock(View.class);
+    when(types.findViewById(R.id.transit)).thenReturn(transit);
+    when(types.findViewById(R.id.ruler)).thenReturn(ruler);
+    View search = mock(View.class);
+    View bookmarks = mock(View.class);
+    View save = mock(View.class);
+    setField(fragment, "mRouterTypes", types);
+    setField(fragment, "mSearchBtn", search);
+    setField(fragment, "mBookmarkBtn", bookmarks);
+    setField(fragment, "mSaveBtn", save);
+    RoutingController controller = mock(RoutingController.class);
+    Method update = RoutingPlanFragment.class.getDeclaredMethod("updateMenuInternal");
+    update.setAccessible(true);
+    try (MockedStatic<RoutingController> routing = mockStatic(RoutingController.class))
+    {
+      routing.when(RoutingController::get).thenReturn(controller);
+      for (boolean trackRoute : new boolean[] {true, false})
+      {
+        when(controller.isTrackRoute()).thenReturn(trackRoute);
+        update.invoke(fragment);
+        for (View view : new View[] {transit, ruler, search, bookmarks, save})
+          verify(view).setVisibility(trackRoute ? View.GONE : View.VISIBLE);
+      }
+    }
   }
 
   private static void updateProgress(RoutingPlanFragment fragment, Router router) throws ReflectiveOperationException

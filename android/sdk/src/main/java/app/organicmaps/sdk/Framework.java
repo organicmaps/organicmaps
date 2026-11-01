@@ -316,6 +316,14 @@ public class Framework
    */
   public static native boolean nativeReverseRoutePoints();
 
+  public static native void nativeSetTrackRoute(long trackId, double lat, double lon);
+
+  public static native boolean nativeIsTrackRoute();
+
+  public static native boolean nativeIsTrackRouteReversed();
+
+  public static native boolean nativeIsTrackRouteDeleted();
+
   @NonNull
   public static native TransitRouteInfo nativeGetTransitRouteInfo();
   /**
