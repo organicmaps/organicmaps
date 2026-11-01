@@ -137,6 +137,10 @@ NSString * const kLocationPermissionRequestedKey = @"kLocationPermissionRequeste
 NSString * const kLocationAlertNeedShowKey = @"kLocationAlertNeedShowKey";
 NSString * const kNavigationOtherLocationActivityKey = @"kNavigationOtherLocationActivityKey";
 
+// Prefer an external GPS fix while it is this fresh; past this gap the receiver is treated as having
+// lost its fix (indoors, a garage, cold start) and native internal/Wi-Fi positions are used instead.
+NSTimeInterval const kExternalGPSFreshnessSeconds = 5;
+
 BOOL needShowLocationAlert()
 {
   NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
@@ -156,6 +160,7 @@ void setShowLocationAlert(BOOL needShow)
 
 @property(nonatomic) BOOL started;
 @property(nonatomic) BOOL externalGPSActive;
+@property(nonatomic) NSDate * lastExternalGPSFixDate;
 @property(nonatomic) CLLocationManager * locationManager;
 @property(nonatomic) GeoMode geoMode;
 @property(nonatomic) CLHeading * lastHeadingInfo;
@@ -329,6 +334,7 @@ void setShowLocationAlert(BOOL needShow)
     return;
   MWMLocationManager * manager = [self manager];
   manager.lastLocationStatus = MWMLocationStatusNoError;
+  manager.lastExternalGPSFixDate = [NSDate date];
   [manager onLocationUpdate:location source:location::EAppleNative];
   if (![manager.lastLocationInfo isEqual:location])
     [manager.predictor reset:location];
@@ -531,17 +537,24 @@ void setShowLocationAlert(BOOL needShow)
   // parsed twice. For the XGPS160 this never fires: its firmware has a GPS week-rollover bug and
   // reports a 2007 date, so Core Location rejects every fix as stale and never delivers one —
   // ExternalGPSManager feeds OM directly (correcting the rollover) and stays the active source.
-  if (@available(iOS 15.0, *))
+  // externalGPSActive is checked first so users without a receiver (nearly everyone) short-circuit
+  // here and never inspect sourceInformation.
+  if (self.externalGPSActive)
   {
-    if (location.sourceInformation.isProducedByAccessory && self.externalGPSActive)
+    if (@available(iOS 15.0, *))
     {
-      [ExternalGPSManager.shared standDownForNativeAccessory];
-      self.externalGPSActive = NO;
+      if (location.sourceInformation.isProducedByAccessory)
+      {
+        [ExternalGPSManager.shared standDownForNativeAccessory];
+        self.externalGPSActive = NO;
+      }
     }
   }
 
-  // While our ExternalAccessory reader is the active source, ignore native (internal/Wi-Fi) fixes.
-  if (self.externalGPSActive)
+  // Prefer the external GPS fix while it is fresh; if the receiver has no recent fix (indoors, a
+  // garage, cold start) fall back to the native internal/Wi-Fi position so the blue dot isn't lost.
+  if (self.externalGPSActive && self.lastExternalGPSFixDate &&
+      -self.lastExternalGPSFixDate.timeIntervalSinceNow < kExternalGPSFreshnessSeconds)
     return;
 
   // According to documentation, lat and lon are valid only if horizontalAccuracy is non-negative.
