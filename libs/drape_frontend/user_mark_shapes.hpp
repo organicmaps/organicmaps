@@ -73,8 +73,25 @@ struct UserLineRenderParams
   bool m_hasDirection = true;
 };
 
+struct UserAreaRenderParams
+{
+  dp::Color m_fillColor = dp::Color::Transparent();
+  dp::Color m_outlineColor;
+  float m_outlineWidth = 0;  ///< 0 means no outline.
+  m2::RectD m_limitRect;
+  /// Closed Mercator rings of each polygon: the outer ring followed by its holes.
+  std::vector<std::vector<m2::SharedSpline>> m_polygons;
+  /// Bounds of each polygon, so that tiles skip the others.
+  std::vector<m2::RectD> m_polygonRects;
+  /// Only for filled areas: vertices of the same rings, which TessellateUserArea releases (splines skip short
+  /// segments), and clockwise fill triangles, which it makes when a tile needs them.
+  std::vector<std::vector<std::vector<m2::PointD>>> m_fillRings;
+  std::vector<std::vector<m2::PointD>> m_triangles;
+};
+
 using UserMarksRenderCollection = std::unordered_map<kml::MarkId, drape_ptr<UserMarkRenderParams>>;
 using UserLinesRenderCollection = std::unordered_map<kml::MarkId, drape_ptr<UserLineRenderParams>>;
+using UserAreasRenderCollection = std::unordered_map<kml::AreaId, drape_ptr<UserAreaRenderParams>>;
 using UserGroupsVisibilitySet = std::unordered_set<kml::MarkGroupId>;
 
 class SourceBase
@@ -175,4 +192,24 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
 
 void CacheUserLines(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
                     TracksSource const & source, UserLinesRenderCollection const & renderParams, dp::Batcher & batcher);
+
+/// Areas beyond the ordinary Mercator extent get no geometry.
+drape_ptr<UserAreaRenderParams> GenerateAreaRenderInfo(kml::AreaData const & area);
+/// Fills UserAreaRenderParams::m_triangles of the polygon once. It is slow, so it runs on the backend thread and
+/// only for polygons that a tile needs.
+void TessellateUserArea(UserAreaRenderParams & area, size_t polygon);
+
+/// Pieces of a closed ring in the rect for its outline, simplified unless minSqrLength is 0. All vertices of the ring
+/// are inner points of the pieces to get line joins: the end pieces of a ring that starts in the rect are joined, and
+/// a ring in the rect repeats its first segment, which the depth test draws once. A start in the middle of an edge
+/// wouldn't do, as simplification can move a corner there.
+std::vector<m2::SharedSpline> ClipUserAreaRing(m2::SharedSpline const & ring, m2::RectD const & rect,
+                                               double minSqrLength);
+
+/// Areas in paint order with their outline depths, the same in all tiles and growing with the paint order. Their
+/// fills get the same order below all outlines, so that fill copies of the replaced tiles fail the depth test.
+/// Caching tessellates polygons on demand.
+using UserAreasToCache = std::vector<std::pair<UserAreaRenderParams *, float>>;
+void CacheUserAreas(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
+                    UserAreasToCache const & areas, dp::Batcher & batcher);
 }  // namespace df

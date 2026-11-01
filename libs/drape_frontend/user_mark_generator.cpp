@@ -2,9 +2,12 @@
 #include "drape_frontend/tile_utils.hpp"
 
 #include "drape/batcher.hpp"
+#include "drape/utils/projection.hpp"
 
 #include "geometry/clipping.hpp"
 #include "geometry/mercator.hpp"
+
+#include <algorithm>
 
 namespace df
 {
@@ -37,6 +40,8 @@ void UserMarkGenerator::RemoveGroup(kml::MarkGroupId groupId)
 
 void UserMarkGenerator::SetGroup(kml::MarkGroupId groupId, drape_ptr<IDCollections> && ids)
 {
+  for (auto const id : ids->m_areaIds)
+    ASSERT(m_areas.contains(id), (id, groupId));
   m_groups[groupId] = std::move(ids);
   UpdateIndex(groupId);
 }
@@ -49,6 +54,8 @@ void UserMarkGenerator::SetRemovedUserMarks(drape_ptr<IDCollections> && ids)
     m_marks.erase(id);
   for (auto const & id : ids->m_lineIds)
     m_lines.erase(id);
+  for (auto const & id : ids->m_areaIds)
+    m_areas.erase(id);
 }
 
 void UserMarkGenerator::SetJustCreatedUserMarks(drape_ptr<IDCollections> && ids)
@@ -69,6 +76,13 @@ void UserMarkGenerator::SetUserLines(drape_ptr<UserLinesRenderCollection> && lin
 {
   for (auto & pair : *lines)
     m_lines.insert_or_assign(pair.first, std::move(pair.second));
+}
+
+void UserMarkGenerator::SetUserAreas(drape_ptr<UserAreasRenderCollection> && areas)
+{
+  // An area comes once: with the first update of the backend, its creation or its category shown.
+  for (auto & [id, area] : *areas)
+    VERIFY(m_areas.emplace(id, std::move(area)).second, (id));
 }
 
 void UserMarkGenerator::UpdateIndex(kml::MarkGroupId groupId)
@@ -225,6 +239,37 @@ SourceT UserMarkGenerator::GetIndexSource(TileKey const & tileKey, LevelsT const
   return source;
 }
 
+UserAreasToCache UserMarkGenerator::GetAreasToCache(m2::RectD const & tileRect)
+{
+  // Areas aren't in the tile index: big ones would cover too many tiles of the indexing zooms.
+  // All visible areas are counted to give an area the same depth in all tiles, distinct even when there are more
+  // of them than integers in the depth range.
+  size_t count = 0;
+  for (auto const & [groupId, ids] : m_groups)
+    if (m_groupsVisibility.contains(groupId))
+      count += ids->m_areaIds.size();
+  float const step = count > dp::kMaxDepth ? dp::kMaxDepth / static_cast<float>(count) : 1;
+
+  UserAreasToCache areas;
+  size_t rank = 0;
+  for (auto const & [groupId, ids] : m_groups)
+  {
+    if (!m_groupsVisibility.contains(groupId))
+      continue;
+    for (auto const areaId : ids->m_areaIds)
+    {
+      // Like marks and tracks, removed areas stay in their groups until the following group update.
+      auto const it = m_areas.find(areaId);
+      if (it == m_areas.end())
+        continue;
+      float const depth = std::min(static_cast<float>(++rank) * step, dp::kMaxDepth);
+      if (it->second->m_limitRect.IsIntersect(tileRect))
+        areas.emplace_back(it->second.get(), depth);
+    }
+  }
+  return areas;
+}
+
 void UserMarkGenerator::GenerateUserMarksGeometry(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKey,
                                                   ref_ptr<dp::TextureManager> textures)
 {
@@ -232,8 +277,9 @@ void UserMarkGenerator::GenerateUserMarksGeometry(ref_ptr<dp::GraphicsContext> c
 
   auto marksSource = GetIndexSource<MarksSource>(clippedTileKey, kMarkIndexingLevels);
   auto linesSource = GetIndexSource<TracksSource>(clippedTileKey, kLineIndexingLevels);
+  auto const areas = GetAreasToCache(tileKey.GetWrappedDataRect());
 
-  if (marksSource.IsEmpty() && linesSource.IsEmpty())
+  if (marksSource.IsEmpty() && linesSource.IsEmpty() && areas.empty())
     return;
 
   uint32_t constexpr kMaxSize = 65000;
@@ -249,6 +295,8 @@ void UserMarkGenerator::GenerateUserMarksGeometry(ref_ptr<dp::GraphicsContext> c
       df::CacheUserMarks(context, tileKey, textures, marksSource, m_marks, batcher);
     if (!linesSource.IsEmpty())
       df::CacheUserLines(context, tileKey, textures, linesSource, m_lines, batcher);
+    if (!areas.empty())
+      df::CacheUserAreas(context, tileKey, textures, areas, batcher);
   }
 
   m_flushFn(std::move(renderData));

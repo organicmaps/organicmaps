@@ -1662,7 +1662,10 @@ void BookmarkManager::ClearGroup(kml::MarkGroupId groupId)
     m_tracks.erase(trackId);
   }
   for (auto areaId : group->GetUserAreas())
+  {
+    m_changesTracker.OnDeleteArea(areaId);
     m_areas.erase(areaId);
+  }
   group->Clear();
 }
 
@@ -2794,6 +2797,7 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
     {
       area.m_id = ++m_lastAreaId;
       group->AttachArea(area.m_id);
+      m_changesTracker.OnAddArea(area.m_id);
       m_areas.emplace(area.m_id, std::move(area));
     }
     UpdateTrackMarksVisibility(groupId);
@@ -3149,6 +3153,16 @@ kml::TrackIdSet const & BookmarkManager::MarksChangesTracker::GetGroupLineIds(km
   return m_bmManager->GetTrackIds(groupId);
 }
 
+kml::AreaIdSet const & BookmarkManager::MarksChangesTracker::GetGroupAreaIds(kml::MarkGroupId groupId) const
+{
+  return m_bmManager->GetAreaIds(groupId);
+}
+
+kml::AreaData const * BookmarkManager::MarksChangesTracker::GetUserArea(kml::AreaId areaId) const
+{
+  return m_bmManager->GetArea(areaId);
+}
+
 df::UserPointMark const * BookmarkManager::MarksChangesTracker::GetUserPointMark(kml::MarkId markId) const
 {
   return m_bmManager->GetMark(markId);
@@ -3236,6 +3250,17 @@ void BookmarkManager::MarksChangesTracker::OnDeleteLine(kml::TrackId lineId)
     m_createdLines.erase(it);
   else
     m_removedLines.insert(lineId);
+}
+
+void BookmarkManager::MarksChangesTracker::OnAddArea(kml::AreaId areaId)
+{
+  m_createdAreas.insert(areaId);
+}
+
+void BookmarkManager::MarksChangesTracker::OnDeleteArea(kml::AreaId areaId)
+{
+  if (m_createdAreas.erase(areaId) == 0)
+    m_removedAreas.insert(areaId);
 }
 
 void BookmarkManager::MarksChangesTracker::OnAddGroup(kml::MarkGroupId groupId)
@@ -3369,6 +3394,9 @@ void BookmarkManager::MarksChangesTracker::ResetChanges()
   m_removedLines.clear();
   m_updatedLines.clear();
 
+  m_createdAreas.clear();
+  m_removedAreas.clear();
+
   m_attachedBookmarks.clear();
   m_detachedBookmarks.clear();
 }
@@ -3413,6 +3441,12 @@ void BookmarkManager::MarksChangesTracker::AddChanges(MarksChangesTracker const 
 
   for (auto const lineId : changes.m_updatedLines)
     OnUpdateLine(lineId);
+
+  for (auto const areaId : changes.m_createdAreas)
+    OnAddArea(areaId);
+
+  for (auto const areaId : changes.m_removedAreas)
+    OnDeleteArea(areaId);
 
   for (auto const & attachedInfo : changes.m_attachedBookmarks)
     for (auto const markId : attachedInfo.second)

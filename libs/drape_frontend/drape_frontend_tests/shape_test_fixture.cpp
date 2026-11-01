@@ -7,12 +7,15 @@
 #include "drape/gl_includes.hpp"
 #include "drape/oglcontext.hpp"
 #include "drape/support_manager.hpp"
+#include "drape/utils/projection.hpp"
 
 #include "qt_tstfrm/test_main_loop.hpp"
 
 #include "platform/platform.hpp"
 
 #include "base/file_name_utils.hpp"
+
+#include <algorithm>
 
 #include <QtGui/QPainter>
 
@@ -139,10 +142,21 @@ void ShapeTestFixture::AddUserLines(TileKey const & tileKey, TracksSource const 
   CacheUserLines(make_ref(m_context), tileKey, make_ref(m_texMng), source, renderParams, *m_batcher);
 }
 
+void ShapeTestFixture::AddUserAreas(TileKey const & tileKey, UserAreasToCache const & areas)
+{
+  CHECK(m_batcher != nullptr, ("Call Init() before AddUserAreas()"));
+  CacheUserAreas(make_ref(m_context), tileKey, make_ref(m_texMng), areas, *m_batcher);
+}
+
 void ShapeTestFixture::Flush()
 {
   CHECK(m_batcher != nullptr, ("Call Init() before Flush()"));
   m_batcher->EndSession(make_ref(m_context));
+  // As FrontendRenderer::RenderUserMarksLayer sorts the groups of user areas.
+  auto const areas = std::ranges::stable_partition(
+      m_buckets, [](BucketEntry const & e) { return GetDepthLayer(e.m_state) != DepthLayer::UserAreaLayer; });
+  std::stable_sort(areas.begin(), areas.end(),
+                   [](BucketEntry const & l, BucketEntry const & r) { return l.m_state < r.m_state; });
 
   // Upload any new texture data that was requested during AddShape (color/stipple regions).
   m_texMng->UpdateDynamicTextures(make_ref(m_context));
@@ -166,7 +180,8 @@ void ShapeTestFixture::Render()
 
   gpu::MapProgramParams params;
   params.m_modelView = glsl::mat4(modelViewScale, 0, 0, 0, 0, modelViewScale, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-  params.m_projection = glsl::mat4(1.0f / halfW, 0, 0, 0, 0, 1.0f / halfH, 0, 0, 0, 0, -0.5f, 0.5f, 0, 0, 0, 1);
+  auto const projection = dp::MakeProjection(dp::ApiVersion::OpenGLES3, -halfW, halfW, -halfH, halfH);
+  params.m_projection = glsl::make_mat4(projection.data());
   params.m_pivotTransform = glsl::mat4(1.0f);
   params.m_opacity = 1.0f;
   params.m_zScale = 1.0f;
