@@ -950,8 +950,7 @@ drape_ptr<UserLineRenderParams> DrapeEngine::GenerateLineRenderInfo(UserLineMark
   renderInfo->m_visible = mark->IsVisible();
   renderInfo->m_hasDirection = mark->HasDirection();
 
-  mark->ForEachGeometry([&renderInfo](std::vector<m2::PointD> && points)
-  { renderInfo->m_splines.emplace_back(std::move(points)); });
+  mark->ForEachGeometry([&renderInfo](std::vector<m2::PointD> && points) { renderInfo->AddSpline(points); });
 
   renderInfo->m_layers.reserve(mark->GetLayerCount());
   for (size_t layerIndex = 0, layersCount = mark->GetLayerCount(); layerIndex < layersCount; ++layerIndex)

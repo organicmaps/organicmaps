@@ -6,6 +6,7 @@
 
 #include "routing/track_router.hpp"
 
+#include "drape_frontend/user_mark_shapes.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "routing/router.hpp"
@@ -1830,5 +1831,24 @@ UNIT_TEST(RoutingManager_SaveRoutePreservesSingleSegmentGeometry)
       TEST_EQUAL(track->GetData().m_routerType, "ruler", ());
     });
   }
+}
+
+UNIT_TEST(Track_RenderSplinesPreserveCoincidentMeasurements)
+{
+  kml::TrackData data;
+  data.m_id = 42;
+  data.m_layers.emplace_back();
+  data.m_geometry.AddLine({{{0, 0}, 100}, {{0.01, 0}, 100}, {{0.01, 0}, 110}, {{0.02, 0}, 110}});
+  data.m_geometry.AddTimestamps({10, 20, 30, 40});
+  data.m_stops.push_back({{0.01, 0}, "Stop"});
+  data.m_routerType = "pedestrian";
+  auto const expected = data;
+  Track track(std::move(data));
+
+  df::UserLineRenderParams params;
+  track.ForEachGeometry([&](std::vector<m2::PointD> && points) { params.AddSpline(points); });
+  TEST_EQUAL(params.m_splines.size(), 1, ());
+  TEST_EQUAL(params.m_splines.front()->GetPath(), (std::vector<m2::PointD>{{0, 0}, {0.01, 0}, {0.02, 0}}), ());
+  TEST_EQUAL(track.GetData(), expected, ());
 }
 }  // namespace routing_manager_tests

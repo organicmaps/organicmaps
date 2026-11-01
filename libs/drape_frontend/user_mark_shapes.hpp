@@ -65,6 +65,9 @@ struct LineLayer
 
 struct UserLineRenderParams
 {
+  // Normalize only the render copy; stored track samples may differ in altitude or time.
+  void AddSpline(std::vector<m2::PointD> const & points);
+
   int m_minZoom = 1;
   DepthLayer m_depthLayer = DepthLayer::UserLineLayer;
   std::vector<LineLayer> m_layers;
