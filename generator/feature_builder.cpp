@@ -2,6 +2,7 @@
 
 #include "routing/routing_helpers.hpp"
 
+#include "indexer/cycling_infrastructure_section.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/ftypes_matcher.hpp"
@@ -25,6 +26,37 @@ namespace feature
 {
 namespace
 {
+template <typename Sink>
+void WriteCyclingExtension(Sink & sink, std::string const & payload)
+{
+  if (payload.empty())
+    return;
+  CHECK_LESS_OR_EQUAL(payload.size(), cycling::kMaxPayloadSize, ());
+  sink.Write("CINF", 4);
+  WriteToSink(sink, static_cast<uint32_t>(payload.size()));
+  sink.Write(payload.data(), payload.size());
+}
+
+void ReadCyclingExtension(ArrayByteSource & source, FeatureBuilder::Buffer const & data, FeatureBuilderParams & params)
+{
+  params.SetCyclingInfrastructure({});
+  auto const * end = reinterpret_cast<uint8_t const *>(data.data()) + data.size();
+  auto const * current = source.PtrUint8();
+  if (current == end)
+    return;  // Older intermediate features have no extension.
+  CHECK_LESS(current, end, ());
+  CHECK_GREATER_OR_EQUAL(end - current, 8, ());
+  CHECK_EQUAL(std::memcmp(current, "CINF", 4), 0, ());
+  source.Advance(4);
+  auto const size = ReadPrimitiveFromSource<uint32_t>(source);
+  CHECK_LESS_OR_EQUAL(size, cycling::kMaxPayloadSize, ());
+  CHECK_EQUAL(size, static_cast<size_t>(end - source.PtrUint8()), ());
+  std::string payload(reinterpret_cast<char const *>(source.Ptr()), size);
+  ASSERT(cycling::Decode(payload), ());
+  params.SetCyclingInfrastructure(std::move(payload));
+  source.Advance(size);
+}
+
 bool IsEqual(double d1, double d2)
 {
   return AlmostEqualAbs(d1, d2, kMwmPointAccuracy);
@@ -331,6 +363,8 @@ void FeatureBuilder::RemoveNameIfInvisible(int minS, int maxS)
 
 bool FeatureBuilder::operator==(FeatureBuilder const & fb) const
 {
+  if (m_params.GetCyclingInfrastructure() != fb.m_params.GetCyclingInfrastructure())
+    return false;
   if (!(m_params == fb.m_params))
     return false;
 
@@ -358,6 +392,8 @@ bool FeatureBuilder::operator==(FeatureBuilder const & fb) const
 
 bool FeatureBuilder::IsExactEq(FeatureBuilder const & fb) const
 {
+  if (m_params.GetCyclingInfrastructure() != fb.m_params.GetCyclingInfrastructure())
+    return false;
   if (m_params.GetGeomType() == GeomType::Point && m_center != fb.m_center)
     return false;
 
@@ -392,6 +428,7 @@ void FeatureBuilder::SerializeForIntermediate(Buffer & data) const
 
   // Save OSM IDs to link meta information with sorted features later.
   rw::WriteVectorOfPOD(sink, m_osmIds);
+  WriteCyclingExtension(sink, m_params.GetCyclingInfrastructure());
 
   // Check for correct serialization.
 #ifdef DEBUG
@@ -434,6 +471,7 @@ void FeatureBuilder::DeserializeFromIntermediate(Buffer & data)
   }
 
   rw::ReadVectorOfPOD(source, m_osmIds);
+  ReadCyclingExtension(source, data, m_params);
 
   CHECK(IsValid(), (*this));
 }
@@ -460,6 +498,7 @@ void FeatureBuilder::SerializeAccuratelyForIntermediate(Buffer & data) const
 
   // Save OSM IDs to link meta information with sorted features later.
   rw::WriteVectorOfPOD(sink, m_osmIds);
+  WriteCyclingExtension(sink, m_params.GetCyclingInfrastructure());
 
   // Check for correct serialization.
 #ifdef DEBUG
@@ -499,6 +538,7 @@ void FeatureBuilder::DeserializeAccuratelyFromIntermediate(Buffer & data)
   }
 
   rw::ReadVectorOfPOD(source, m_osmIds);
+  ReadCyclingExtension(source, data, m_params);
 
   CHECK(IsValid(), (*this));
 }

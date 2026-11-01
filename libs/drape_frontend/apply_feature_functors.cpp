@@ -1,10 +1,12 @@
 #include "drape_frontend/apply_feature_functors.hpp"
+
 #include "drape_frontend/apply_feature_params.hpp"
 
 #include "drape_frontend/area_shape.hpp"
 #include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/colored_symbol_shape.hpp"
 #include "drape_frontend/line_shape.hpp"
+#include "drape_frontend/line_shape_helper.hpp"
 #include "drape_frontend/path_symbol_shape.hpp"
 #include "drape_frontend/path_text_shape.hpp"
 #include "drape_frontend/poi_symbol_shape.hpp"
@@ -707,27 +709,33 @@ void ApplyAreaFeature::ProcessRule(drule::AreaRule const & areaRule, double area
 }
 
 ApplyLineFeatureGeometry::ApplyLineFeatureGeometry(Params const & params, FeatureType & f,
-                                                   RelationsDrawSettings const & relsSettings)
+                                                   RelationsDrawSettings const & relsSettings, double dashPhaseOffset,
+                                                   bool dashPhaseReversed)
   : TBase(params, f, {})
   , m_relsInfo(relsSettings)
   , m_builder(params)
+  , m_dashPhaseOffset(dashPhaseOffset)
+  , m_dashPhaseReversed(dashPhaseReversed)
 {
   if (m_params.IsRelationRoutes())
     m_relsInfo.Init(f);
 }
 
-void ApplyLineFeatureGeometry::BuildGeometry(int zoomLevel, bool isIsoline)
+void ApplyLineFeatureGeometry::BuildGeometry(int zoomLevel, bool isIsoline, double paddingPixels)
 {
 #ifdef LINES_GENERATION_CALC_FILTERED_POINTS
   m_readCount += m_f.GetPointsCount();
 #endif
 
-  m_builder.Build(m_f, zoomLevel, isIsoline);
+  double const padding =
+      paddingPixels != 0.0 ? paddingPixels * m_params.m_vparams.GetVisualScale() / m_params.m_currentScaleGtoP : 0.0;
+  m_builder.Build(m_f, zoomLevel, isIsoline, padding);
 }
 
-void ApplyLineFeatureGeometry::ProcessLineRules(Stylist::LineRulesT const & lineRules, bool isIsoline)
+void ApplyLineFeatureGeometry::ProcessLineRules(Stylist::LineRulesT const & lineRules, bool isIsoline,
+                                                std::vector<Stylist::SideRules> const & sideRules)
 {
-  ASSERT(!lineRules.empty(), ());
+  ASSERT(!lineRules.empty() || !sideRules.empty(), ());
   ASSERT(HasGeometry(), ());
   ASSERT(!isIsoline || lineRules.size() == 1, ());
 
@@ -738,17 +746,108 @@ void ApplyLineFeatureGeometry::ProcessLineRules(Stylist::LineRulesT const & line
   // Builds clipped splines from the (possibly simplified) feature path.
   // Directions/lengths are computed only on the splines actually returned —
   // see ClipSplinesBuilder::Release.
-  m_clippedSplines = m_builder.Release(isIsoline);
-
-  if (m_clippedSplines.empty())
-    return;
+  bool const needSplineOffsets =
+      m_relsInfo.HasColors() || std::any_of(lineRules.begin(), lineRules.end(), [](drule::LineRule const * rule)
+  { return rule->dashdot.has_value() || (rule->pathsym && rule->pathsym->name.starts_with("cycling-arrow-")); });
+  // Keep the road axis in map coordinates; side displacement is pixel-sized
+  // extrusion, just like the road's own width, throughout smooth zooming.
+  m2::SharedSpline const sideSource = sideRules.empty() ? m2::SharedSpline() : m2::SharedSpline(m_builder.GetPath());
+  m_clippedSplines = m_builder.Release(isIsoline, needSplineOffsets);
 
   for (drule::LineRule const * r : lineRules)
     ProcessRule(*r);
+  if (!sideRules.empty())
+    ProcessSideRules(sideSource, sideRules);
 
 #ifdef LINES_GENERATION_CALC_FILTERED_POINTS
   LinesStat::Get().InsertLine(m_f.GetID(), m_tileKey.m_zoomLevel, m_readCount, static_cast<int>(builtSize));
 #endif
+}
+
+void ApplyLineFeatureGeometry::ProcessSideRules(m2::SharedSpline const & source,
+                                                std::vector<Stylist::SideRules> const & sideRules)
+{
+  double const visualScale = m_params.m_vparams.GetVisualScale();
+  double const strokeScale = visualScale;
+  for (auto const & side : sideRules)
+  {
+    double sideWidth = 0.0;
+    for (auto const rule : side.m_rules)
+      sideWidth = std::max(sideWidth, rule->width * strokeScale);
+    float const lateralOffset =
+        SideOffsetPixels(side.m_roadWidth * visualScale, sideWidth, 2.0 * visualScale, side.m_side);
+    auto const rect = mercator::RectByCenterXYAndSizeInMeters(source->GetPath().front(), 8.0);
+    double const geographicSpan = rect.SizeX() / 2;
+    // Avoid a sharp sideways kink at lower zooms. Matching tolerance remains
+    // one metre; a longer visual taper must never authorize a more distant node.
+    double const span = std::max(geographicSpan, 4.0 * std::abs(lateralOffset) / m_params.m_currentScaleGtoP);
+    auto const taper = MakeJunctionTaper(source, side.m_junctions, span, geographicSpan / 8);
+    auto const & taperedSource = taper.m_spline;
+    std::vector<m2::SplineClipInfo> ranges;
+    auto const pieces = m2::ClipSplineByRect(m_params.m_tileRect, taperedSource, &ranges);
+    for (size_t index = 0; index < pieces.size(); ++index)
+    {
+      auto const & piece = pieces[index];
+      auto const & range = ranges[index];
+      double const clippedOffset = range.m_startDistance;
+      auto const & path = taperedSource->GetPath();
+      auto const startOffset =
+          LinePixelOffsetOnSegment(path, range.m_startSegment, piece->GetPath().front(), lateralOffset);
+      auto const endOffset = LinePixelOffsetOnSegment(path, range.m_endSegment, piece->GetPath().back(), lateralOffset);
+      std::vector<m2::PointF> pointOffsets;
+      if (!taper.m_distances.empty())
+      {
+        auto const & piecePath = piece->GetPath();
+        double distance = clippedOffset;
+        for (size_t i = 0; i < piecePath.size(); ++i)
+        {
+          if (i != 0)
+            distance += (piecePath[i] - piecePath[i - 1]).Length();
+          auto const offset = (i == 0                      ? startOffset
+                               : i + 1 == piecePath.size() ? endOffset
+                                                           : LinePixelOffset(piecePath, i, lateralOffset)) *
+                              taper.Scale(distance);
+          pointOffsets.emplace_back(offset.x, offset.y);
+        }
+      }
+      for (auto const rule : side.m_rules)
+      {
+        LineViewParams params;
+        params.m_tileCenter = m_params.m_tileRect.Center();
+        ExtractLineParams(*rule, strokeScale, params);
+        params.m_lateralOffsetPixels = lateralOffset;
+        params.m_startOffsetPixels = m2::PointF(startOffset.x, startOffset.y);
+        params.m_endOffsetPixels = m2::PointF(endOffset.x, endOffset.y);
+        params.m_pointOffsetsPixels = pointOffsets;
+        params.m_depth = PriorityToDepth(rule->priority, drule::line, 0);
+        params.m_rank = m_f.GetRank();
+        params.m_baseGtoPScale = m_params.m_currentScaleGtoP;
+        params.m_zoomLevel = m_params.m_tileKey.m_zoomLevel;
+        params.m_dashPhaseReversed = m_dashPhaseReversed;
+        params.m_dashPhaseOffset = m_dashPhaseOffset + (m_dashPhaseReversed ? -clippedOffset : clippedOffset);
+        m_params.m_insertShape(make_unique_dp<LineShape>(piece, params));
+      }
+      if (side.m_arrowRule)
+      {
+        auto const & symbol = *side.m_arrowRule->pathsym;
+        PathSymbolViewParams params;
+        params.m_tileCenter = m_params.m_tileRect.Center();
+        params.m_depth = PriorityToDepth(side.m_arrowRule->priority, drule::line, 0);
+        params.m_rank = m_f.GetRank();
+        params.m_symbolName = symbol.name;
+        params.m_step = static_cast<float>(symbol.step * visualScale);
+        double const orientedStart = side.m_reverseArrow ? source->GetLength() - range.m_endDistance : clippedOffset;
+        params.m_offset = PathSymbolOffsetForClip(symbol.offset * visualScale, params.m_step,
+                                                  orientedStart * m_params.m_currentScaleGtoP);
+        params.m_lateralOffsetPixels = side.m_reverseArrow ? -lateralOffset : lateralOffset;
+        params.m_pointOffsetsPixels = pointOffsets;
+        if (side.m_reverseArrow)
+          std::reverse(params.m_pointOffsetsPixels.begin(), params.m_pointOffsetsPixels.end());
+        params.m_baseGtoPScale = m_params.m_currentScaleGtoP;
+        m_params.m_insertShape(make_unique_dp<PathSymbolShape>(side.GetArrowSpline(piece), params));
+      }
+    }
+  }
 }
 
 void ApplyLineFeatureGeometry::ProcessRule(drule::LineRule const & lineRule)
@@ -768,8 +867,14 @@ void ApplyLineFeatureGeometry::ProcessRule(drule::LineRule const & lineRule)
     params.m_step = static_cast<float>(symRule.step * visScale);
     params.m_baseGtoPScale = m_params.m_currentScaleGtoP;
 
-    for (auto const & spline : m_clippedSplines)
-      m_params.m_insertShape(make_unique_dp<PathSymbolShape>(spline, params));
+    auto const & offsets = m_builder.GetSplineOffsets();
+    for (size_t i = 0; i < m_clippedSplines.size(); ++i)
+    {
+      if (symRule.name.starts_with("cycling-arrow-") && i < offsets.size())
+        params.m_offset =
+            PathSymbolOffsetForClip(symRule.offset * visScale, params.m_step, offsets[i] * m_params.m_currentScaleGtoP);
+      m_params.m_insertShape(make_unique_dp<PathSymbolShape>(m_clippedSplines[i], params));
+    }
   }
   else
   {
@@ -781,8 +886,15 @@ void ApplyLineFeatureGeometry::ProcessRule(drule::LineRule const & lineRule)
     params.m_baseGtoPScale = m_params.m_currentScaleGtoP;
     params.m_zoomLevel = m_params.m_tileKey.m_zoomLevel;
 
-    for (auto const & spline : m_clippedSplines)
-      m_params.m_insertShape(make_unique_dp<LineShape>(spline, params));
+    auto const & splineOffsets = m_builder.GetSplineOffsets();
+    ASSERT(splineOffsets.empty() || splineOffsets.size() == m_clippedSplines.size(), ());
+    for (size_t i = 0; i < m_clippedSplines.size(); ++i)
+    {
+      double const splineOffset = splineOffsets.empty() ? 0.0 : splineOffsets[i];
+      params.m_dashPhaseOffset = m_dashPhaseOffset + (m_dashPhaseReversed ? -splineOffset : splineOffset);
+      params.m_dashPhaseReversed = m_dashPhaseReversed;
+      m_params.m_insertShape(make_unique_dp<LineShape>(m_clippedSplines[i], params));
+    }
 
     // Place rainbow color stripes using a color strip texture on the same geometry.
     if (m_relsInfo.HasColors())
@@ -806,8 +918,13 @@ void ApplyLineFeatureGeometry::ProcessRule(drule::LineRule const & lineRule)
       rParams.m_zoomLevel = m_params.m_tileKey.m_zoomLevel;
       rParams.m_rainbowColors = colors;
 
-      for (auto const & spline : m_clippedSplines)
-        m_params.m_insertShape(make_unique_dp<LineShape>(spline, rParams));
+      for (size_t i = 0; i < m_clippedSplines.size(); ++i)
+      {
+        double const splineOffset = splineOffsets.empty() ? 0.0 : splineOffsets[i];
+        rParams.m_dashPhaseOffset = m_dashPhaseOffset + (m_dashPhaseReversed ? -splineOffset : splineOffset);
+        rParams.m_dashPhaseReversed = m_dashPhaseReversed;
+        m_params.m_insertShape(make_unique_dp<LineShape>(m_clippedSplines[i], rParams));
+      }
     }
   }
 }

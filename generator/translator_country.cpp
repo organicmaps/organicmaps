@@ -9,6 +9,7 @@
 #include "generator/collector_routing_city_boundaries.hpp"
 #include "generator/collector_tag.hpp"
 #include "generator/cross_mwm_osm_ways_collector.hpp"
+#include "generator/cycling_junctions.hpp"
 #include "generator/feature_maker.hpp"
 #include "generator/filter_collection.hpp"
 #include "generator/filter_elements.hpp"
@@ -73,7 +74,8 @@ bool WikiDataValidator(std::string const & tagValue)
 
 TranslatorCountry::TranslatorCountry(std::shared_ptr<FeatureProcessorInterface> const & processor,
                                      std::shared_ptr<cache::IntermediateData> const & cache,
-                                     feature::GenerateInfo const & info, AffiliationInterfacePtr affiliation)
+                                     feature::GenerateInfo const & info, AffiliationInterfacePtr affiliation,
+                                     bool collectCrossMwm)
   : Translator(processor, cache, std::make_shared<FeatureMaker>(cache->GetCache()))
   /// @todo Looks like ways.csv was in some MM proprietary generator routine?!
   , m_tagAdmixer(std::make_shared<TagAdmixer>(info.GetIntermediateFileName("ways", ".csv"),
@@ -115,7 +117,12 @@ TranslatorCountry::TranslatorCountry(std::shared_ptr<FeatureProcessorInterface> 
   collectors->Append(std::make_shared<AddressesCollector>(info.GetIntermediateFileName(ADDR_INTERPOL_FILENAME)));
 
   if (affiliation)
-    collectors->Append(std::make_shared<CrossMwmOsmWaysCollector>(info.m_intermediateDir, affiliation));
+  {
+    collectors->Append(std::make_shared<CyclingJunctionCollector>(
+        info.GetIntermediateFileName(kCyclingJunctionsFilename), affiliation));
+    if (collectCrossMwm)
+      collectors->Append(std::make_shared<CrossMwmOsmWaysCollector>(info.m_intermediateDir, affiliation));
+  }
 
   if (!info.m_idToWikidataFilename.empty())
   {
