@@ -36,6 +36,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 public class RoutingPlanFragment extends Fragment implements View.OnLayoutChangeListener, RoutingBottomMenuListener
 {
   public static final String TAG = RoutingPlanFragment.class.getSimpleName();
+  private static final String TRACK_DIRECTION_FORWARD = "A→B";
+  private static final String TRACK_DIRECTION_REVERSED = "B→A";
 
   private RoutingPlanViewModel mViewModel;
   private View mChartPanel;
@@ -44,6 +46,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   private View mDrivingOptionsBtn;
   private View mDrivingOptionsContainer;
   private View mReverseRouteBtn;
+  private TextView mDirectionChip;
   private View mTransitButton;
   private View mRulerButton;
   private View mFrame;
@@ -129,6 +132,18 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
 
     mTransitButton = mRouterTypes.findViewById(R.id.transit);
     mRulerButton = mRouterTypes.findViewById(R.id.ruler);
+    mDirectionChip = mRoutingTypesContainer.findViewById(R.id.track_direction);
+    mDirectionChip.setOnClickListener(v -> {
+      final RoutingController controller = RoutingController.get();
+      if (!controller.isPlanning() || !controller.isBuilt() || controller.isBuilding() || controller.isNavigating())
+        return;
+      final FollowTrackResult result = controller.reverseFollowedTrack();
+      if (result == FollowTrackResult.Ok)
+        mDirectionChip.announceForAccessibility(getString(R.string.reverse_track_direction));
+      else
+        Utils.showFollowTrackError(requireContext(), result);
+      updateTrackFollowMode();
+    });
     updateTrackFollowMode();
 
     mSearchBtn = mRoutingRoot.findViewById(R.id.routing_btn_search);
@@ -335,6 +350,16 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   {
     final FollowedTrackInfo track = RoutingController.get().getFollowedTrackInfo();
     UiUtils.showIf(track == null, mTransitButton, mRulerButton, mDrivingOptionsContainer, mReverseRouteBtn);
+    UiUtils.showIf(track != null, mDirectionChip);
+    if (track != null)
+    {
+      final String direction = track.isReversed() ? TRACK_DIRECTION_REVERSED : TRACK_DIRECTION_FORWARD;
+      mDirectionChip.setText(direction);
+      mDirectionChip.setContentDescription(getString(R.string.reverse_track_direction) + ", " + direction);
+      final RoutingController controller = RoutingController.get();
+      mDirectionChip.setEnabled(controller.isPlanning() && controller.isBuilt() && !controller.isBuilding()
+                                && !controller.isNavigating() && Framework.nativeIsRouteBuilt());
+    }
     if (track != null)
     {
       checkRenderRouter();

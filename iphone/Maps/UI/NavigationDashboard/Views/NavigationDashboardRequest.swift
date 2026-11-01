@@ -18,6 +18,7 @@ extension NavigationDashboard {
     case searchButtonDidTap
     case bookmarksButtonDidTap
     case saveRouteAsTrackButtonDidTap
+    case reverseTrackDirectionButtonDidTap
 
     case updateRouteBuildingProgress(CGFloat, routerType: MWMRouterType)
     case updateNavigationInfo(MWMNavigationDashboardEntity)

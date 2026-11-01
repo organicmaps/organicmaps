@@ -615,7 +615,8 @@ extension NavigationDashboardViewController {
   /// points. Hide ordinary route controls because routing options do not change its geometry.
   private func updateTrackFollowingMode(_ viewModel: NavigationDashboard.ViewModel) {
     let isFollowingTrack = viewModel.isFollowingTrack
-    transportOptionsView.setSelectionEnabled(viewModel.isTransportOptionsSelectionEnabled)
+    transportOptionsView.setSelectionEnabled(viewModel.isTransportOptionsSelectionEnabled,
+                                             directionEnabled: viewModel.canReverseTrackDirection)
     followedTrackLabel.text = viewModel.followedTrackInfo
     followedTrackLabel.isHidden = viewModel.followedTrackInfo == nil
     routePointsView.isHidden = isFollowingTrack

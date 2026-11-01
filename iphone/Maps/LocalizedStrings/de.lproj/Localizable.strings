@@ -1047,6 +1047,9 @@
 /* Place Page button that starts navigation along the selected track. */
 "navigate_track" = "Navigieren";
 
+/* Button in the track navigation planning screen that reverses the direction of following. */
+"reverse_track_direction" = "Richtung umkehren";
+
 /* Error when the selected connected track section has no geometry left in the requested direction. */
 "track_no_remaining_geometry" = "No track remains in this direction. Select another point.";
 

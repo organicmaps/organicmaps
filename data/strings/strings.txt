@@ -39787,6 +39787,16 @@ de = Navigieren
 ru = Навигация
 uk = Навігація
 
+[reverse_track_direction]
+comment = Button in the track navigation planning screen that reverses the direction of following.
+tags = android-app,apple-maps
+en = Reverse direction
+be = Адваротны кірунак
+de = Richtung umkehren
+ru = Обратное направление
+uk = Зворотний напрямок
+
+
 [track_no_remaining_geometry]
 comment = Error when the selected connected track section has no geometry left in the requested direction.
 tags = android-app,apple-maps

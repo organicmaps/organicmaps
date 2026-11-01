@@ -854,6 +854,8 @@
     <string name="power_save_dialog_summary">Для найбільш точної навігації ми рекомендуємо вимкнути режим енергозбереження в налаштуваннях батареї телефону.</string>
     <!-- Place Page button that starts navigation along the selected track. -->
     <string name="navigate_track">Навігація</string>
+    <!-- Button in the track navigation planning screen that reverses the direction of following. -->
+    <string name="reverse_track_direction">Зворотний напрямок</string>
     <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
     <string name="track_is_not_available">Трек більше недоступний</string>
     <!-- Prompt to start recording a track. -->

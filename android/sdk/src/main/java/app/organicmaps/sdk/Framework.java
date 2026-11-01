@@ -250,6 +250,9 @@ public class Framework
    */
   public static native int nativeFollowTrack(long trackId, boolean reverse);
 
+  /** Reverses a built track preview; returns a FollowTrackResult ordinal. */
+  public static native int nativeReverseFollowedTrack();
+
   /**
    * Switches this track preview's profile without changing the persisted default.
    *

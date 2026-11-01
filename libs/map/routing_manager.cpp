@@ -1447,6 +1447,21 @@ FollowTrackResult RoutingManager::FollowTrack(kml::TrackId trackId, bool reverse
   return BuildFollowedTrack(m_followTrackSource, m_followTrackEntry, reverse, m_followedTrack->m_profile);
 }
 
+FollowTrackResult RoutingManager::ReverseFollowedTrack()
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  if (!m_followedTrack)
+    return FollowTrackResult::NoTrack;
+  if (!IsRouteBuilt() || IsRouteBuilding() || IsRoutingFollowing())
+    return FollowTrackResult::Busy;
+  if (!m_bmManager->GetTrack(m_followedTrack->m_id))
+    return FollowTrackResult::NoTrack;
+  if (!IsFollowTrackSourceCurrent())
+    return FollowTrackResult::InvalidSelection;
+  return BuildFollowedTrack(m_followTrackSource, m_followTrackEntry, !m_followedTrack->m_reversed,
+                            m_followedTrack->m_profile);
+}
+
 FollowTrackResult RoutingManager::SetFollowTrackProfile(RouterType type)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());

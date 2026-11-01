@@ -2,21 +2,31 @@ import UIKit
 
 final class TransportOptionsView: UIView {
   /// The picker's presentation: the standard picker fills the row with all router types; a
-  /// followed track reduces it to the followable profiles.
+  /// followed track reduces it to the followable profiles and adds the direction chip.
   enum Mode: Equatable {
     case standard
-    case followTrack
+    case followTrack(isReversed: Bool)
   }
 
   private enum Constants {
     static let velocityThreshold: CGFloat = 5
+    static let directionSpacing: CGFloat = 8
+    static let directionHeight: CGFloat = 32
+    static let directionContentInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
+    // Language-neutral: the track is followed from its start (A) to its end (B) or backwards.
+    static let forwardDirectionTitle = "A→B"
+    static let backwardDirectionTitle = "B→A"
   }
 
   private var segmentedControl = UISegmentedControl()
+  private let directionButton = UIButton()
   private var routerTypes: [MWMRouterType] = []
   private var selectedRouterType: MWMRouterType = .vehicle
   private var mode: Mode = .standard
   private let panelPanGestureRecognizer = UIPanGestureRecognizer()
+  private let impactGenerator = UIImpactFeedbackGenerator(style: .medium)
+  private var segmentedControlTrailingConstraint: NSLayoutConstraint!
+  private var followTrackConstraints: [NSLayoutConstraint] = []
 
   weak var interactor: NavigationDashboard.Interactor?
   var onPanGesture: ((UIPanGestureRecognizer) -> Void)?
@@ -24,6 +34,7 @@ final class TransportOptionsView: UIView {
   init() {
     super.init(frame: .zero)
     setupSegmentedControlView()
+    setupDirectionButton()
   }
 
   @available(*, unavailable)
@@ -46,16 +57,24 @@ final class TransportOptionsView: UIView {
     } else if selectionChanged {
       updateSelection()
     }
+    if modeChanged {
+      applyMode()
+    }
   }
 
-  /// Profile controls are disabled while a preview rebuild is pending.
-  func setSelectionEnabled(_ enabled: Bool) {
+  /// A follow rebuild (profile switch or reversal) tears the session down and rebuilds it:
+  /// the controls are disabled while one is pending.
+  func setSelectionEnabled(_ enabled: Bool, directionEnabled: Bool) {
     segmentedControl.isEnabled = enabled
+    directionButton.isEnabled = directionEnabled
   }
 
   private func setupSegmentedControlView() {
     segmentedControl.translatesAutoresizingMaskIntoConstraints = false
     segmentedControl.addTarget(self, action: #selector(didChangeSegment(_:)), for: .valueChanged)
+    // In the follow-track mode nothing pins the trailing edge: on the narrowest layouts the
+    // segments give way to the direction chip instead of pushing it out.
+    segmentedControl.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
 
     panelPanGestureRecognizer.addTarget(self, action: #selector(handlePanGesture(_:)))
     panelPanGestureRecognizer.delegate = self
@@ -64,12 +83,49 @@ final class TransportOptionsView: UIView {
     addGestureRecognizer(panelPanGestureRecognizer)
 
     addSubview(segmentedControl)
+    segmentedControlTrailingConstraint = segmentedControl.trailingAnchor.constraint(equalTo: trailingAnchor)
     NSLayoutConstraint.activate([
       segmentedControl.leadingAnchor.constraint(equalTo: leadingAnchor),
       segmentedControl.topAnchor.constraint(equalTo: topAnchor),
       segmentedControl.bottomAnchor.constraint(equalTo: bottomAnchor),
-      segmentedControl.trailingAnchor.constraint(equalTo: trailingAnchor),
+      segmentedControlTrailingConstraint,
     ])
+  }
+
+  private func setupDirectionButton() {
+    directionButton.setStyle(.flatNormalGrayButtonBig)
+    directionButton.contentEdgeInsets = Constants.directionContentInsets
+    directionButton.addTarget(self, action: #selector(didTapDirectionButton), for: .touchUpInside)
+    directionButton.translatesAutoresizingMaskIntoConstraints = false
+    directionButton.setContentHuggingPriority(.required, for: .horizontal)
+    directionButton.setContentCompressionResistancePriority(.required, for: .horizontal)
+    directionButton.accessibilityLabel = L("reverse_track_direction")
+    directionButton.isHidden = true
+
+    addSubview(directionButton)
+    followTrackConstraints = [
+      directionButton.leadingAnchor.constraint(greaterThanOrEqualTo: segmentedControl.trailingAnchor,
+                                               constant: Constants.directionSpacing),
+      directionButton.trailingAnchor.constraint(equalTo: trailingAnchor),
+      directionButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+      directionButton.heightAnchor.constraint(equalToConstant: Constants.directionHeight),
+    ]
+  }
+
+  private func applyMode() {
+    switch mode {
+    case .standard:
+      directionButton.isHidden = true
+      NSLayoutConstraint.deactivate(followTrackConstraints)
+      segmentedControlTrailingConstraint.isActive = true
+    case .followTrack(let isReversed):
+      let title = isReversed ? Constants.backwardDirectionTitle : Constants.forwardDirectionTitle
+      directionButton.setTitle(title, for: .normal)
+      directionButton.accessibilityValue = title
+      directionButton.isHidden = false
+      segmentedControlTrailingConstraint.isActive = false
+      NSLayoutConstraint.activate(followTrackConstraints)
+    }
   }
 
   private func reload() {
@@ -108,6 +164,11 @@ final class TransportOptionsView: UIView {
       updateSelection()
       interactor?.process(.selectRouterType(routerType))
     }
+  }
+
+  @objc private func didTapDirectionButton() {
+    impactGenerator.impactOccurred()
+    interactor?.process(.reverseTrackDirectionButtonDidTap)
   }
 
   @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
