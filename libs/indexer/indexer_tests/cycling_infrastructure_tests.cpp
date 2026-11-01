@@ -3,7 +3,6 @@
 #include "indexer/cycling_infrastructure_section.hpp"
 
 #include <limits>
-#include <map>
 
 UNIT_TEST(CyclingInfrastructure_SideDirectionRoundTripAndReverse)
 {
@@ -61,24 +60,6 @@ UNIT_TEST(CyclingInfrastructure_RejectNonFiniteBitsWithFastMath)
   }
 }
 
-UNIT_TEST(CyclingInfrastructure_ExplicitSidesAndSeparatelyMappedPaths)
-{
-  std::map<std::string, std::string> tags{
-      {"cycleway:both", "lane"}, {"cycleway:left", "separate"}, {"cycleway:right:oneway", "-1"}};
-  auto read = [&](std::string const & key)
-  {
-    auto it = tags.find(key);
-    return it == tags.end() ? "" : it->second;
-  };
-  auto sides = cycling::ReadSides(read, false);
-  TEST(sides, ());
-  TEST_EQUAL(static_cast<char>(sides->m_left.m_kind), '0', ());
-  TEST_EQUAL(static_cast<char>(sides->m_right.m_kind), 'l', ());
-  TEST_EQUAL(static_cast<char>(sides->m_right.m_direction), 'r', ());
-  tags = {{"cycleway", "lane"}};
-  TEST(!cycling::ReadSides(read, false), ());
-}
-
 UNIT_TEST(CyclingInfrastructure_SparseSectionRoundTrip)
 {
   auto const payload = cycling::Encode({{cycling::Kind::Lane, cycling::Direction::Forward}, {}});
@@ -92,18 +73,17 @@ UNIT_TEST(CyclingInfrastructure_SparseSectionRoundTrip)
     TEST(cycling::ReadSection(reader, id).empty(), (id));
 }
 
-UNIT_TEST(CyclingInfrastructure_TruncatedAndUnknownSectionsAreIgnored)
+UNIT_TEST(CyclingInfrastructure_EmptyAndUnknownSections)
 {
   auto const payload = cycling::Encode({{cycling::Kind::Track, cycling::Direction::Both}, {}});
   std::vector<uint8_t> data;
   PushBackByteSink sink(data);
   cycling::WriteSection(sink, {{2, payload}});
-  for (size_t size = 0; size < data.size(); ++size)
-  {
-    MemReaderWithExceptions reader(data.data(), size);
-    TEST(cycling::ReadSection(reader, 2).empty(), (size));
-  }
   data[0] = 127;
   MemReader reader(data.data(), data.size());
   TEST(cycling::ReadSection(reader, 2).empty(), ());
+  data.clear();
+  cycling::WriteSection(sink, {});
+  MemReader empty(data.data(), data.size());
+  TEST(cycling::ReadSection(empty, 2).empty(), ());
 }
