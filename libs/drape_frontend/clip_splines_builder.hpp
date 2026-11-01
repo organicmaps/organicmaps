@@ -38,12 +38,14 @@ public:
   /// Clips the built path against the tile rect (isoline pipeline if isIsoline).
   /// In the Inside case m_path is moved out into the resulting spline; otherwise
   /// no cleanup is performed — the next Build() resets all state.
-  std::vector<m2::SharedSpline> Release(bool isIsoline);
+  std::vector<m2::SharedSpline> Release(bool isIsoline, bool needSplineOffsets = false);
+  std::vector<double> const & GetSplineOffsets() const { return m_splineOffsets; }
 
 private:
   ApplyFeatureParams const & m_params;
 
   std::vector<m2::PointD> m_path;
+  std::vector<double> m_splineOffsets;
   bool m_knownInside = false;
 };
 }  // namespace df

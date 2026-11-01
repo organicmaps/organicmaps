@@ -7,6 +7,8 @@
 #include "geometry/clipping.hpp"
 #include "geometry/smoothing.hpp"
 
+#include <cmath>
+
 namespace df
 {
 namespace
@@ -22,6 +24,7 @@ double constexpr kIsolineSmoothScale = 1.6;  // same as Inflate(0.3*szX, 0.3*szY
 void ClipSplinesBuilder::Build(FeatureType & f, int zoomLevel, bool isIsoline)
 {
   m_path.clear();
+  m_splineOffsets.clear();
   m_knownInside = false;
 
   // Use the feature's pre-parsed limit rect to short-circuit the read of
@@ -127,9 +130,10 @@ void ClipSplinesBuilder::Build(FeatureType & f, int zoomLevel, bool isIsoline)
   }
 }
 
-std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline)
+std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline, bool needSplineOffsets)
 {
   std::vector<m2::SharedSpline> out;
+  m_splineOffsets.clear();
   if (m_path.size() < 2)
     return out;
 
@@ -140,6 +144,8 @@ std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline)
   // the next Build() — no cleanup needed here.
   if (!isIsoline && m_knownInside)
   {
+    if (needSplineOffsets)
+      m_splineOffsets.push_back(0.0);
     out.emplace_back(std::move(m_path));
     return out;
   }
@@ -166,6 +172,52 @@ std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline)
   }
   else
     m2::ClipPathByRect(m_params.m_tileRect, m_path, out);
+
+  // Every clipped spline starts on the source path. Preserve its distance from
+  // the feature start so independently generated tiles use the same dash phase.
+  // Isolines do not use dashed line rules and smoothing changes their geometry,
+  // so their offsets intentionally remain zero.
+  if (!needSplineOffsets)
+    return out;
+
+  m_splineOffsets.reserve(out.size());
+  if (isIsoline)
+  {
+    m_splineOffsets.resize(out.size(), 0.0);
+  }
+  else
+  {
+    for (auto const & spline : out)
+    {
+      auto const & start = spline->GetPath().front();
+      double offset = 0.0;
+      bool found = false;
+      for (size_t i = 1; i < m_path.size(); ++i)
+      {
+        auto const & p1 = m_path[i - 1];
+        auto const & p2 = m_path[i];
+        auto const segment = p2 - p1;
+        double const squaredLength = segment.SquaredLength();
+        if (squaredLength == 0.0)
+          continue;
+
+        double const t = DotProduct(start - p1, segment) / squaredLength;
+        if (t >= 0.0 && t <= 1.0)
+        {
+          auto const projected = p1 + segment * t;
+          if (projected.EqualDxDy(start, 1e-12))
+          {
+            offset += std::sqrt(squaredLength) * t;
+            found = true;
+            break;
+          }
+        }
+        offset += std::sqrt(squaredLength);
+      }
+      ASSERT(found, (start, m_path));
+      m_splineOffsets.push_back(offset);
+    }
+  }
 
   return out;
 }
