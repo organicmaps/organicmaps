@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Default units of the current speed, usually overridden by the app. -->
+  <string name="om_widget_units_kmh" translatable="false">km/h</string>
+</resources>
+

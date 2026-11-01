@@ -1,8 +1,10 @@
 package app.organicmaps.sdk.car.renderer;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.car.app.CarContext;
 import androidx.lifecycle.LifecycleOwner;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.display.DisplayManager;
 import app.organicmaps.sdk.location.LocationHelper;
 
@@ -43,8 +45,26 @@ final class SurfaceRenderer extends RendererImpl
   }
 
   @Override
-  public void setSpeedLimit(int speedLimit, boolean speedLimitExceeded)
+  public void setCurrentSpeed(int speed, @NonNull String units)
   {
-    mSurfaceCallback.setSpeedLimit(speedLimit, speedLimitExceeded);
+    mSurfaceCallback.setCurrentSpeed(speed, units);
+  }
+
+  @Override
+  public void setSpeedLimit(@Nullable Integer speedLimit)
+  {
+    mSurfaceCallback.setSpeedLimit(speedLimit);
+  }
+
+  @Override
+  public void setSpeedLimitSignType(@Framework.SpeedLimitSignType int type)
+  {
+    mSurfaceCallback.setSpeedLimitSignType(type);
+  }
+
+  @Override
+  public void setAlertForced(boolean alertForced)
+  {
+    mSurfaceCallback.setAlertForced(alertForced);
   }
 }

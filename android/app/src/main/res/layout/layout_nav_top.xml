@@ -107,15 +107,14 @@
       app:lanesBackgroundColor="?navLanesBackgroundColor"
       app:lanesCornerRadius="@dimen/margin_quarter"
       app:lanesEditModeLanesCount="5"
-      tools:visibility="visible" />
+      tools:visibility="gone" />
 
-  <app.organicmaps.sdk.widgets.speedlimit.SpeedLimitView
+  <app.organicmaps.sdk.widgets.speedlimit.CombinedSpeedView
     android:id="@+id/nav_speed_limit"
-    style="@style/MwmWidget.SpeedLimit"
-    android:layout_width="60dp"
+    android:layout_width="wrap_content"
     android:layout_height="60dp"
     android:layout_margin="@dimen/margin_half"
-    app:layout_constraintEnd_toEndOf="@id/nav_next_turn_container"
-    app:layout_constraintStart_toStartOf="@id/nav_next_turn_container"
-    app:layout_constraintTop_toBottomOf="@id/nav_next_turn_container" />
+    app:om_widget_current_speed_position="end"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/lanes" />
 </androidx.constraintlayout.widget.ConstraintLayout>

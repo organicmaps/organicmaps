@@ -11,12 +11,14 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LifecycleOwner;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.MapController;
 import app.organicmaps.sdk.MapRenderingListener;
 import app.organicmaps.sdk.MapView;
 import app.organicmaps.sdk.car.R;
 import app.organicmaps.sdk.location.LocationHelper;
-import app.organicmaps.sdk.widgets.speedlimit.SpeedLimitView;
+import app.organicmaps.sdk.widgets.speedlimit.CombinedSpeedViewController;
+import app.organicmaps.sdk.widgets.speedlimit.Shape;
 
 final class CarPresentation extends Presentation
 {
@@ -31,7 +33,7 @@ final class CarPresentation extends Presentation
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
-  private SpeedLimitView mSpeedLimitView;
+  private CombinedSpeedViewController mSpeedLimitController;
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
@@ -41,8 +43,6 @@ final class CarPresentation extends Presentation
   @NonNull
   private MapController mMapController;
 
-  private int mSpeedLimit = 0;
-  private boolean mSpeedLimitExceeded = false;
   @NonNull
   private final Rect mVisibleArea = new Rect();
 
@@ -63,9 +63,8 @@ final class CarPresentation extends Presentation
     setContentView(R.layout.car_layout);
 
     final MapView mapView = findViewById(R.id.map_view);
-    mSpeedLimitView = findViewById(R.id.speed_limit_view);
+    mSpeedLimitController = new CombinedSpeedViewController(findViewById(R.id.speed_limit_view));
     mVisibleAreaContainer = findViewById(R.id.visible_area_container);
-    mSpeedLimitView.setSpeedLimit(mSpeedLimit, mSpeedLimitExceeded);
     applyVisibleArea();
 
     mMapController = new MapController(mapView, mLocationHelper, mMapRenderingListener, null, false);
@@ -108,11 +107,25 @@ final class CarPresentation extends Presentation
     dismiss();
   }
 
-  void setSpeedLimit(int speedLimit, boolean speedLimitExceeded)
+  void setCurrentSpeed(int speed, @NonNull String units)
   {
-    mSpeedLimit = speedLimit;
-    mSpeedLimitExceeded = speedLimitExceeded;
-    mSpeedLimitView.setSpeedLimit(speedLimit, speedLimitExceeded);
+    mSpeedLimitController.setUnits(units);
+    mSpeedLimitController.setSpeed(speed);
+  }
+
+  void setSpeedLimit(@Nullable Integer speedLimit)
+  {
+    mSpeedLimitController.setSpeedLimit(speedLimit);
+  }
+
+  void setSpeedLimitSignType(@Framework.SpeedLimitSignType int type)
+  {
+    mSpeedLimitController.setShape(type == Framework.SpeedLimitSignType.MUTCD ? Shape.Square : Shape.Circle);
+  }
+
+  void setAlertForced(boolean alertForced)
+  {
+    mSpeedLimitController.setAlertForced(alertForced);
   }
 
   void setVisibleArea(@NonNull Rect visibleArea)

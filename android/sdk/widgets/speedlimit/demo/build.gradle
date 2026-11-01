@@ -1,0 +1,24 @@
+plugins {
+  id 'com.android.application'
+}
+
+apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
+
+// A playground for the widget, not published: `./gradlew :sdk:widgets:speedlimit:demo:installDebug`.
+android {
+  namespace = 'app.organicmaps.sdk.widgets.speedlimit.demo'
+  enableKotlin = true
+
+  defaultConfig {
+    applicationId = 'app.organicmaps.sdk.widgets.speedlimit.demo'
+    versionCode = 1
+    versionName = '1.0'
+  }
+}
+
+dependencies {
+  implementation project(':sdk:widgets:speedlimit')
+
+  implementation libs.androidx.appcompat
+}
+

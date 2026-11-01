@@ -33,7 +33,9 @@
 #include "geometry/mercator.hpp"
 #include "geometry/point_with_altitude.hpp"
 
+#include "indexer/data_source.hpp"
 #include "indexer/feature_altitude.hpp"
+#include "indexer/feature_meta.hpp"
 #include "indexer/validate_and_format_contacts.hpp"
 
 #include "routing/following_info.hpp"
@@ -1050,6 +1052,15 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetDistanceAndAzimuth
 static storage::CountryId RegionAt(jdouble lat, jdouble lon)
 {
   return frm()->GetCountryInfoGetter().GetRegionCountryId(mercator::FromLatLon(lat, lon));
+}
+
+JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetSpeedLimitSignType(JNIEnv *, jclass, jdouble lat,
+                                                                              jdouble lon)
+{
+  auto const mwmId = frm()->GetDataSource().GetMwmIdByCountryFile(platform::CountryFile(RegionAt(lat, lon)));
+  auto const type = mwmId.IsAlive() ? mwmId.GetInfo()->GetRegionData().GetSpeedLimitSignType()
+                                    : feature::RegionData::SpeedLimitSignType::Vienna;
+  return static_cast<jint>(type);
 }
 
 JNIEXPORT jstring Java_app_organicmaps_sdk_Framework_nativeFormatLatLon(JNIEnv * env, jclass, jdouble lat, jdouble lon,

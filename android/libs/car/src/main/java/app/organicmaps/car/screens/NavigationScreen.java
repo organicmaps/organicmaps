@@ -4,6 +4,7 @@ import android.location.Location;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.car.app.CarContext;
 import androidx.car.app.CarToast;
 import androidx.car.app.model.Action;
@@ -27,6 +28,7 @@ import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.routing.NavigationService;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.OrganicMaps;
+import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.car.RoutingUtils;
 import app.organicmaps.sdk.car.renderer.Renderer;
 import app.organicmaps.sdk.car.screens.BaseMapScreen;
@@ -101,6 +103,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     getLocationHelper().removeListener(mLocationListener);
     mNavigationCancelled = true;
     mRoutingController.cancel(false);
+    updateSpeedLimit(null);
   }
 
   /**
@@ -154,6 +157,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     mNavigationManager.setNavigationManagerCallback(this);
     mNavigationManager.navigationStarted();
 
+    updateSpeedLimitSignType();
     getLocationHelper().addListener(mLocationListener);
     TtsPlayer.addStateChangedListener(mTtsStateListener);
     if (LocationUtils.checkFineLocationPermission(getCarContext()))
@@ -184,7 +188,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     ThemeUtils.update(getCarContext(), getSurfaceRenderer().isRenderingActive());
     mNavigationManager.navigationEnded();
     mNavigationManager.clearNavigationManagerCallback();
-    getSurfaceRenderer().hideSpeedLimit();
+    updateSpeedLimit(null);
   }
 
   @NonNull
@@ -308,16 +312,38 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     final RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
     mTrip = RoutingUtils.createTrip(getCarContext(), info, RoutingController.get().getEndPoint(), Colors.DISTANCE);
     mNavigationManager.updateTrip(mTrip);
-    if (info != null)
-      updateSpeedLimit(info, location);
+    updateSpeedLimit(info);
     invalidate();
   }
 
-  private void updateSpeedLimit(@NonNull final RoutingInfo info, @Nullable Location location)
+  private void updateSpeedLimit(@Nullable RoutingInfo info)
   {
-    final boolean speedLimitExceeded =
-        location != null && info.speedLimitMps > 0 && info.speedLimitMps < location.getSpeed();
-    getSurfaceRenderer().setSpeedLimit(StringUtils.nativeFormatSpeed(info.speedLimitMps), speedLimitExceeded);
+    updateSpeedLimit(getSurfaceRenderer(), mRoutingController.isNavigating(), info);
+  }
+
+  private void updateSpeedLimitSignType()
+  {
+    final Location location = getLocationHelper().getSavedLocation();
+    @Framework.SpeedLimitSignType
+    int type = Framework.SpeedLimitSignType.VIENNA;
+    if (location != null)
+      type = Framework.nativeGetSpeedLimitSignType(location.getLatitude(), location.getLongitude());
+    else
+    {
+      final MapObject startPoint = mRoutingController.getStartPoint();
+      if (startPoint != null)
+        type = Framework.nativeGetSpeedLimitSignType(startPoint.getLat(), startPoint.getLon());
+    }
+    getSurfaceRenderer().setSpeedLimitSignType(type);
+  }
+
+  @VisibleForTesting
+  static void updateSpeedLimit(@NonNull Renderer renderer, boolean navigating, @Nullable RoutingInfo info)
+  {
+    renderer.setSpeedLimit(navigating && info != null && info.speedLimitMps > 0
+                               ? StringUtils.nativeFormatSpeed(info.speedLimitMps)
+                               : null);
+    renderer.setAlertForced(navigating && info != null && info.isSpeedCamLimitExceeded());
   }
 
   /**

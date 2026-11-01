@@ -47,6 +47,15 @@ public class Framework
   public static final int DAY_TIME_TYPE_POLAR_DAY = 2;
   public static final int DAY_TIME_TYPE_POLAR_NIGHT = 3;
 
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({SpeedLimitSignType.VIENNA, SpeedLimitSignType.MUTCD})
+  public @interface SpeedLimitSignType
+  {
+    // Keep in sync with feature::RegionData::SpeedLimitSignType.
+    int VIENNA = 0;
+    int MUTCD = 1;
+  }
+
   // Used by JNI.
   @Keep
   @SuppressWarnings("unused")
@@ -235,6 +244,9 @@ public class Framework
   @FastNative
   @Nullable
   public static native RoutingInfo nativeGetRouteFollowingInfo();
+
+  /// Returns Vienna when the region's map or its sign-type metadata is unavailable.
+  public static native @SpeedLimitSignType int nativeGetSpeedLimitSignType(double lat, double lon);
 
   @Nullable
   /// @param[in] maxDistM Max distance between points in meters.

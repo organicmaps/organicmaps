@@ -132,10 +132,4 @@ abstract class RendererImpl implements Renderer, DefaultLifecycleObserver
   {
     Map.zoomOut();
   }
-
-  @Override
-  public void hideSpeedLimit()
-  {
-    setSpeedLimit(0, false);
-  }
 }
