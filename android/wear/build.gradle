@@ -18,6 +18,10 @@ android {
         minSdk 26
     }
 
+    testOptions {
+        unitTests.includeAndroidResources = true
+    }
+
     flavorDimensions 'default'
 
     productFlavors {
@@ -36,4 +40,5 @@ dependencies {
 
     testImplementation libs.androidx.junit
     testImplementation libs.mockito.core
+    testImplementation libs.robolectric
 }
