@@ -44,9 +44,8 @@ double GetSpeedKMpH(VehicleType vehicleType)
   {
   case VehicleType::Car: return 60.0;
   case VehicleType::Bicycle: return 15.0;
-  // Transit has no geometric travel-time model; use walking speed.
-  case VehicleType::Pedestrian:
-  case VehicleType::Transit: return 5.0;
+  case VehicleType::Pedestrian: return 5.0;
+  case VehicleType::Transit:
   case VehicleType::Count: break;
   }
   CHECK(false, ("Invalid vehicle type", vehicleType));

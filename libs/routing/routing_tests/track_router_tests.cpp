@@ -7,7 +7,6 @@
 #include "geometry/mercator.hpp"
 #include "geometry/point_with_altitude.hpp"
 
-#include <algorithm>
 #include <memory>
 #include <optional>
 #include <utility>
@@ -263,82 +262,45 @@ UNIT_TEST(TrackRouter_DuplicateStopsOnCorner)
   }
 }
 
-UNIT_TEST(TrackRouter_InvalidAltitudeIsNotInterpolated)
+UNIT_TEST(TrackRouter_Altitudes)
 {
-  // A track point without an elevation (e.g. a mixed GPX) carries geometry::kInvalidAltitude,
-  // a large negative sentinel. Interpolating it would produce a plausible-looking junction
-  // altitude and a route claiming a complete elevation profile that starts 16 km underground.
-  std::vector<PWA> const track = {
-      {MeterPoint(0, 0), geometry::kInvalidAltitude}, {MeterPoint(100, 0), 110}, {MeterPoint(200, 0), 120}};
-  TrackRouter router(VehicleType::Pedestrian, MakeData(track));
-
-  // The projection falls in the middle of the segment whose start has no elevation; that track
-  // point itself is not part of the route (the route starts at the projection).
-  auto const route = CalcRoute(router, {MeterPoint(50, 10), track.back().GetPoint()});
-
-  TEST(!route.HaveAltitudes(), ());
-  geometry::Altitudes altitudes;
-  route.GetAltitudes(altitudes);
-  // The lead-in start and the projection both keep the sentinel; the known altitudes follow.
-  geometry::Altitudes const expected = {geometry::kInvalidAltitude, geometry::kInvalidAltitude, 110, 120};
-  TEST_EQUAL(altitudes, expected, ());
-}
-
-UNIT_TEST(TrackRouter_KnownVertexAfterUnknownPrefix)
-{
-  std::vector<PWA> const track = {
-      {MeterPoint(0, 0), geometry::kInvalidAltitude}, {MeterPoint(100, 0), 100}, {MeterPoint(200, 0), 200}};
-  for (auto const start : {MeterPoint(100, 0), MeterPoint(100, -10)})
+  struct TestCase
   {
-    TrackRouter router(VehicleType::Pedestrian, MakeData(track));
-    auto const route = CalcRoute(router, {start, track.back().GetPoint()});
-    TEST(route.HaveAltitudes(), (start));
+    char const * m_name;
+    std::vector<PWA> m_track;
+    m2::PointD m_start;
+    bool m_haveAltitudes;
+    geometry::Altitudes m_altitudes;
+    double m_distanceM;
+  };
+  auto constexpr kUnknown = geometry::kInvalidAltitude;
+  std::vector<PWA> const prefix = {{MeterPoint(0, 0), kUnknown}, {MeterPoint(100, 0), 100}, {MeterPoint(200, 0), 200}};
+  std::vector<PWA> const unknownStart = {{MeterPoint(0, 0), kUnknown}, {MeterPoint(100, 0), 100}};
+  std::vector<PWA> const unknownSegment = {
+      {MeterPoint(0, 0), 100}, {MeterPoint(100, 0), kUnknown}, {MeterPoint(200, 0), 200}};
+  std::vector<PWA> const coincident = {{MeterPoint(0, 0), 100},
+                                       {MeterPoint(100, 0), 120},
+                                       {MeterPoint(100, 0), kUnknown},
+                                       {MeterPoint(100, 0), 150},
+                                       {MeterPoint(200, 0), 200}};
+  // Unknown altitudes are never interpolated.
+  TestCase const cases[] = {
+      {"InvalidAltitudeIsNotInterpolated", prefix, MeterPoint(50, 10), false, {kUnknown, kUnknown, 100, 200}, 160.0},
+      {"KnownVertexAfterUnknownPrefix", prefix, MeterPoint(100, 0), true, {100, 200}, 100.0},
+      {"KnownVertexAfterUnknownPrefixWithApproach", prefix, MeterPoint(100, -10), true, {100, 100, 200}, 110.0},
+      {"UnknownStartIsNotCompleteAltitude", unknownStart, MeterPoint(0, 0), false, {kUnknown, 100}, 100.0},
+      {"KnownStartBeforeUnknownSegment", unknownSegment, MeterPoint(0, 0), false, {100, kUnknown, 200}, 200.0},
+      {"CoincidentElevationSamples", coincident, MeterPoint(0, 0), false, {100, 120, kUnknown, 150, 200}, 200.0}};
+  for (auto const & test : cases)
+  {
+    TrackRouter router(VehicleType::Pedestrian, MakeData(test.m_track));
+    auto const route = CalcRoute(router, {test.m_start, test.m_track.back().GetPoint()});
+    TEST_EQUAL(route.HaveAltitudes(), test.m_haveAltitudes, (test.m_name));
     geometry::Altitudes altitudes;
     route.GetAltitudes(altitudes);
-    TEST_EQUAL(altitudes.front(), 100, (start));
-    TEST_EQUAL(altitudes.back(), 200, (start));
-    TEST(std::ranges::none_of(altitudes, [](auto altitude) { return altitude == geometry::kInvalidAltitude; }),
-         (altitudes));
+    TEST_EQUAL(altitudes, test.m_altitudes, (test.m_name));
+    TEST_ALMOST_EQUAL_ABS(route.GetTotalDistanceMeters(), test.m_distanceM, 1.0, (test.m_name));
   }
-}
-
-UNIT_TEST(TrackRouter_UnknownStartIsNotCompleteAltitude)
-{
-  std::vector<PWA> const track = {{MeterPoint(0, 0), geometry::kInvalidAltitude}, {MeterPoint(100, 0), 100}};
-  TrackRouter router(VehicleType::Pedestrian, MakeData(track));
-  auto const route = CalcRoute(router, {track.front().GetPoint(), track.back().GetPoint()});
-  TEST(!route.HaveAltitudes(), ());
-  geometry::Altitudes altitudes;
-  route.GetAltitudes(altitudes);
-  TEST_EQUAL(altitudes, geometry::Altitudes({geometry::kInvalidAltitude, 100}), ());
-}
-
-UNIT_TEST(TrackRouter_KnownStartBeforeUnknownSegment)
-{
-  std::vector<PWA> const track = {
-      {MeterPoint(0, 0), 100}, {MeterPoint(100, 0), geometry::kInvalidAltitude}, {MeterPoint(200, 0), 200}};
-  TrackRouter router(VehicleType::Pedestrian, MakeData(track));
-  auto const route = CalcRoute(router, {track.front().GetPoint(), track.back().GetPoint()});
-  TEST(!route.HaveAltitudes(), ());
-  geometry::Altitudes altitudes;
-  route.GetAltitudes(altitudes);
-  TEST_EQUAL(altitudes, geometry::Altitudes({100, geometry::kInvalidAltitude, 200}), ());
-}
-
-UNIT_TEST(TrackRouter_CoincidentElevationSamples)
-{
-  std::vector<PWA> const track = {{MeterPoint(0, 0), 100},
-                                  {MeterPoint(100, 0), 120},
-                                  {MeterPoint(100, 0), geometry::kInvalidAltitude},
-                                  {MeterPoint(100, 0), 150},
-                                  {MeterPoint(200, 0), 200}};
-  TrackRouter router(VehicleType::Pedestrian, MakeData(track));
-  auto const route = CalcRoute(router, {track.front().GetPoint(), track.back().GetPoint()});
-  TEST(!route.HaveAltitudes(), ());
-  geometry::Altitudes altitudes;
-  route.GetAltitudes(altitudes);
-  TEST_EQUAL(altitudes, geometry::Altitudes({100, 120, geometry::kInvalidAltitude, 150, 200}), ());
-  TEST_ALMOST_EQUAL_ABS(route.GetTotalDistanceMeters(), 200.0, 1.0, ());
 }
 
 UNIT_TEST(TrackRouter_TurnGeneration)
@@ -471,15 +433,33 @@ UNIT_TEST(TrackRouter_CancelledBuild)
              RouterResultCode::Cancelled, ());
 }
 
-UNIT_TEST(TrackRouter_ReversedInput)
+UNIT_TEST(TrackRouter_ProjectionTiesUseEarliestOccurrence)
 {
-  auto track = MakeStraightTrack(3, 100.0);
-  std::reverse(track.begin(), track.end());
-  TrackRouter router(VehicleType::Pedestrian, MakeData(track));
-  auto const route = CalcRoute(router, {track.front().GetPoint(), track.back().GetPoint()});
-  TEST(route.GetPoly().Front().EqualDxDy(track.front().GetPoint(), mercator::kPointEqualityEps), ());
-  TEST(route.GetPoly().Back().EqualDxDy(track.back().GetPoint(), mercator::kPointEqualityEps), ());
-  TEST_ALMOST_EQUAL_ABS(route.GetTotalDistanceMeters(), 200.0, 1.0, ());
+  struct TestCase
+  {
+    char const * m_name;
+    std::vector<PWA> m_track;
+    m2::PointD m_start;
+    double m_distanceM;
+  };
+  std::vector<PWA> const loop = {{MeterPoint(0, 0), 0},
+                                 {MeterPoint(200, 0), 0},
+                                 {MeterPoint(200, 200), 0},
+                                 {MeterPoint(0, 200), 0},
+                                 {MeterPoint(0, 0), 0}};
+  std::vector<PWA> const outAndBack = {{MeterPoint(0, 0), 0}, {MeterPoint(200, 0), 0}, {MeterPoint(0, 0), 0}};
+  TestCase const cases[] = {{"ClosedLoop", loop, MeterPoint(0, 0), 800.0},
+                            {"OutAndBackStart", outAndBack, MeterPoint(0, 0), 400.0},
+                            {"OutAndBackOverlap", outAndBack, MeterPoint(100, 0), 300.0}};
+  for (auto const & test : cases)
+  {
+    TrackRouter router(VehicleType::Pedestrian, MakeData(test.m_track));
+    auto const route = CalcRoute(router, {test.m_start, test.m_track.back().GetPoint()});
+    TEST(route.GetPoly().Front().EqualDxDy(test.m_start, mercator::kPointEqualityEps), (test.m_name));
+    TEST(route.GetPoly().Back().EqualDxDy(test.m_track.back().GetPoint(), mercator::kPointEqualityEps), (test.m_name));
+    TEST_EQUAL(route.GetTrackStartDistanceMeters(), std::optional<double>(0.0), (test.m_name));
+    TEST_ALMOST_EQUAL_ABS(route.GetTotalDistanceMeters(), test.m_distanceM, 2.0, (test.m_name));
+  }
 }
 
 UNIT_TEST(TrackRouter_HighLatitudePartialSegmentDistances)

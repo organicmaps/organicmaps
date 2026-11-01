@@ -26,6 +26,7 @@ struct TrackFollowingData
 class TrackRouter : public IRouter
 {
 public:
+  // Supports car, bicycle and pedestrian profiles.
   // Data must contain at least two points and remain immutable for the lifetime of the router.
   TrackRouter(VehicleType vehicleType, std::shared_ptr<TrackFollowingData const> data);
 

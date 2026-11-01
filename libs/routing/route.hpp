@@ -347,6 +347,7 @@ public:
   SubrouteAttrs const & GetSubrouteAttrs(size_t subrouteIdx) const;
 
   void GetAltitudes(geometry::Altitudes & altitudes) const;
+  // Requires a valid route with altitudes at the start and every segment end.
   bool HaveAltitudes() const;
   // Unset for ordinary routes; zero when a geometric track starts without an approach.
   std::optional<double> GetTrackStartDistanceMeters() const { return m_trackStartDistanceM; }
