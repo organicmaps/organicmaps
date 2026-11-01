@@ -50,6 +50,11 @@
     <tag k="highway" v="residential"/><tag k="cycleway:left" v="lane"/>
     <tag k="name" v="Junction road restricted"/>
   </way>
+  <way id="16"><nd ref="1"/><nd ref="2"/><nd ref="3"/>
+    <tag k="highway" v="tertiary"/><tag k="cycleway" v="lane"/>
+    <tag k="cycleway:both:lane" v="exclusive"/>
+    <tag k="name" v="Junction road modifier only"/>
+  </way>
   <way id="20"><nd ref="2"/><nd ref="4"/><tag k="highway" v="cycleway"/></way>
   <way id="21"><nd ref="6"/><nd ref="8"/><tag k="highway" v="cycleway"/></way>
   <way id="22"><nd ref="12"/><nd ref="13"/><tag k="highway" v="cycleway"/></way>
