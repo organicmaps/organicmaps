@@ -48,14 +48,12 @@ void WriteSection(Sink & sink, std::vector<std::pair<uint32_t, std::string>> con
 template <typename Reader>
 std::string ReadSection(Reader const & reader, uint32_t featureId)
 {
-  if (reader.Size() < kSectionHeaderSize)
-    return {};
+  CHECK_GREATER_OR_EQUAL(reader.Size(), kSectionHeaderSize, ());
   ReaderSource source(reader);
   if (ReadPrimitiveFromSource<uint32_t>(source) != kSectionVersion)
     return {};
   uint32_t const count = ReadPrimitiveFromSource<uint32_t>(source);
-  if (count > (reader.Size() - kSectionHeaderSize) / kIndexEntrySize)
-    return {};
+  CHECK_LESS_OR_EQUAL(count, (reader.Size() - kSectionHeaderSize) / kIndexEntrySize, ());
   uint64_t const dataOffset = kSectionHeaderSize + uint64_t(count) * kIndexEntrySize;
   uint32_t low = 0, high = count;
   while (low < high)
@@ -72,11 +70,16 @@ std::string ReadSection(Reader const & reader, uint32_t featureId)
     {
       uint64_t const offset = ReadPrimitiveFromSource<uint64_t>(row);
       uint32_t const length = ReadPrimitiveFromSource<uint32_t>(row);
-      if (offset < dataOffset || offset > reader.Size() || length > kMaxPayloadSize || length > reader.Size() - offset)
-        return {};
+      CHECK_GREATER_OR_EQUAL(offset, dataOffset, ());
+      CHECK_LESS_OR_EQUAL(offset, reader.Size(), ());
+      CHECK_LESS_OR_EQUAL(length, kMaxPayloadSize, ());
+      CHECK_LESS_OR_EQUAL(length, reader.Size() - offset, ());
       std::string payload(length, '\0');
       reader.Read(offset, payload.data(), length);
-      return Decode(payload) ? payload : std::string{};
+      // Server-produced data is trusted in Release. Catch writer mistakes in
+      // Debug, without decoding/allocating the side vectors twice per lookup.
+      ASSERT(Decode(payload), (featureId));
+      return payload;
     }
   }
   return {};

@@ -19,6 +19,7 @@ set(SRC
   common.hpp
 #  complex_loader_tests.cpp
   cross_mwm_osm_ways_collector_tests.cpp
+  cycling_infrastructure_tests.cpp
   descriptions_section_builder_tests.cpp
   feature_builder_test.cpp
   cycling_junctions_tests.cpp

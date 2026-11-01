@@ -58,6 +58,8 @@ set(SRC
   composite_id.hpp
   cross_mwm_osm_ways_collector.cpp
   cross_mwm_osm_ways_collector.hpp
+  cycling_infrastructure.cpp
+  cycling_infrastructure.hpp
   descriptions_section_builder.cpp
   descriptions_section_builder.hpp
   dumper.cpp

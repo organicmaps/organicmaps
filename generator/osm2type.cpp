@@ -1,5 +1,5 @@
 #include "generator/osm2type.hpp"
-#include "indexer/cycling_infrastructure.hpp"
+#include "generator/cycling_infrastructure.hpp"
 
 #include "generator/osm2meta.hpp"
 #include "generator/osm_element.hpp"
@@ -1619,8 +1619,7 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params, TypesFilterFn
   bool const dedicated =
       highway == "cycleway" || ((highway == "path" || highway == "footway") && p->GetTag("bicycle") == "designated");
   if (p->IsWay() && !highway.empty() && !dedicated)
-    if (auto sides =
-            cycling::ReadSides([p](std::string const & key) { return p->GetTag(key); }, params.GetReversedGeometry()))
+    if (auto sides = generator::ReadCyclingSides(*p, params.GetReversedGeometry()))
       params.SetCyclingInfrastructure(cycling::Encode(*sides));
 }
 }  // namespace ftype
