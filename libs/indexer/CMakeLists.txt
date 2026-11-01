@@ -58,6 +58,8 @@ set(SRC
   feature_covering.hpp
   feature_data.cpp
   feature_data.hpp
+  cycling_infrastructure.hpp
+  cycling_infrastructure_section.hpp
   feature_decl.cpp
   feature_decl.hpp
   feature_impl.cpp
@@ -95,6 +97,7 @@ set(SRC
   map_style_reader.hpp
   metadata_serdes.cpp
   metadata_serdes.hpp
+  metaline_data.hpp
   mwm_set.cpp
   mwm_set.hpp
   postcodes_matcher.cpp  # it's in indexer EditableMapObject depends on postcodes_matcher
