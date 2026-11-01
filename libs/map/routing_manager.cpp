@@ -261,7 +261,8 @@ private:
 };
 
 drape_ptr<df::Subroute> CreateDrapeSubroute(std::vector<RouteSegment> const & segments, m2::PointD const & startPt,
-                                            double baseDistance, double baseDepth, routing::RouterType routerType)
+                                            double baseDistance, double baseDepth, routing::RouterType routerType,
+                                            bool followsTrack)
 {
   auto subroute = make_unique_dp<df::Subroute>();
   subroute->m_baseDistance = baseDistance;
@@ -289,6 +290,15 @@ drape_ptr<df::Subroute> CreateDrapeSubroute(std::vector<RouteSegment> const & se
     return nullptr;
   }
 
+  // Geometry-only routes are solid; ordinary off-road connectors keep their fake-edge style.
+  if (routerType == RouterType::Ruler || followsTrack)
+  {
+    subroute->m_headFakeDistance = -kBias;
+    subroute->m_tailFakeDistance = segments.back().GetDistFromBeginningMerc() - baseDistance + kBias;
+    subroute->m_polyline = m2::PolylineD(std::move(points));
+    return subroute;
+  }
+
   // We support visualization of fake edges only in the head and in the tail of subroute.
   auto constexpr kInvalidId = std::numeric_limits<size_t>::max();
   auto firstReal = kInvalidId;
@@ -303,13 +313,11 @@ drape_ptr<df::Subroute> CreateDrapeSubroute(std::vector<RouteSegment> const & se
     lastReal = i;
   }
 
-  // A geometry-only route (Ruler, a followed track) has no real segments at all: paint it as
-  // fully real instead of fully fake — it is exactly the route the user asked for, not a
-  // connector to a road.
   if (firstReal == kInvalidId)
   {
-    subroute->m_headFakeDistance = -kBias;
-    subroute->m_tailFakeDistance = segments.back().GetDistFromBeginningMerc() - baseDistance + kBias;
+    // All segments are fake.
+    subroute->m_headFakeDistance = 0.0;
+    subroute->m_tailFakeDistance = 0.0;
   }
   else
   {
@@ -1152,9 +1160,9 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
     route.GetSubrouteInfo(subrouteIndex, segments);
 
     auto const startPt = route.GetSubrouteAttrs(subrouteIndex).GetStart().GetPoint();
-    auto subroute =
-        CreateDrapeSubroute(segments, startPt, distance,
-                            static_cast<double>(subroutesCount - subrouteIndex - 1) + depthOffset, renderRouterType);
+    auto subroute = CreateDrapeSubroute(segments, startPt, distance,
+                                        static_cast<double>(subroutesCount - subrouteIndex - 1) + depthOffset,
+                                        renderRouterType, route.GetTrackStartDistanceMeters().has_value());
     if (!subroute)
       continue;
     subroute->m_alphaMul = alphaMul;
