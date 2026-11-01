@@ -107,9 +107,15 @@ inline std::optional<Sides> Decode(std::string_view value)
       return {};
     for (size_t i = 0; i < count; ++i)
     {
-      double const x = std::bit_cast<double>(ReadPrimitiveFromSource<uint64_t>(source));
-      double const y = std::bit_cast<double>(ReadPrimitiveFromSource<uint64_t>(source));
-      if (!std::isfinite(x) || !std::isfinite(y) || std::abs(x) > 180 || std::abs(y) > 180)
+      auto const xBits = ReadPrimitiveFromSource<uint64_t>(source);
+      auto const yBits = ReadPrimitiveFromSource<uint64_t>(source);
+      // Floating-point classification can be optimized away under -ffast-math.
+      uint64_t constexpr kExponentMask = 0x7ff0000000000000;
+      if ((xBits & kExponentMask) == kExponentMask || (yBits & kExponentMask) == kExponentMask)
+        return {};
+      double const x = std::bit_cast<double>(xBits);
+      double const y = std::bit_cast<double>(yBits);
+      if (std::abs(x) > 180 || std::abs(y) > 180)
         return {};
       side->m_junctions.emplace_back(x, y);
     }

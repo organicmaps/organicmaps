@@ -41,6 +41,26 @@ UNIT_TEST(CyclingInfrastructure_RejectMalformedPayloads)
   TEST(!cycling::Decode(cycling::Encode(sides)), ());
 }
 
+UNIT_TEST(CyclingInfrastructure_RejectNonFiniteBitsWithFastMath)
+{
+  cycling::Sides sides{{cycling::Kind::Lane, cycling::Direction::Forward}, {}};
+  sides.m_left.m_junctions = {{1, 2}};
+  for (uint64_t bits : {uint64_t{0x7ff0000000000000}, uint64_t{0xfff0000000000000}, uint64_t{0x7ff8000000000000},
+                        uint64_t{0x7ff0000000000001}, uint64_t{0xfff8000000000001}})
+  {
+    for (size_t coordinate : {size_t{0}, size_t{1}})
+    {
+      auto payload = cycling::Encode(sides);
+      // Write the raw wire value, without asking the fast-math compiler to
+      // materialize a non-finite floating-point value in ordinary arithmetic.
+      auto const offset = 4 + coordinate * sizeof(uint64_t);
+      for (size_t byte = 0; byte < sizeof(bits); ++byte)
+        payload[offset + byte] = static_cast<char>((bits >> (8 * byte)) & 0xff);
+      TEST(!cycling::Decode(payload), (bits, coordinate));
+    }
+  }
+}
+
 UNIT_TEST(CyclingInfrastructure_ExplicitSidesAndSeparatelyMappedPaths)
 {
   std::map<std::string, std::string> tags{
