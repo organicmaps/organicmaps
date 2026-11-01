@@ -8,6 +8,8 @@ import androidx.annotation.Nullable;
 import androidx.core.util.Pair;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Router;
+import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
+import app.organicmaps.sdk.bookmarks.data.DataChangedListener;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.util.concurrency.UiThread;
@@ -162,6 +164,23 @@ public class RoutingController
       prepare(getStartPoint(), getEndPoint());
   };
 
+  // Bookmark changes are published from inside Core's edit session; teardown must wait for it to finish.
+  private final DataChangedListener mBookmarksListener = () -> UiThread.runLater(this::cancelDeletedTrackPreview);
+
+  private void cancelDeletedTrackPreview()
+  {
+    if (!isPlanning())
+      return;
+    final FollowedTrackInfo track = getFollowedTrackInfo();
+    if (track != null && !hasTrack(track.getTrackId()))
+      cancel();
+  }
+
+  boolean hasTrack(long trackId)
+  {
+    return BookmarkManager.INSTANCE.hasTrack(trackId);
+  }
+
   public static RoutingController get()
   {
     return sInstance;
@@ -296,6 +315,7 @@ public class RoutingController
         setStartPoint(locationHelper.getMyPosition());
     }));
     Framework.nativeSetRoutingLoadPointsListener(mRoutingLoadPointsListener);
+    BookmarkManager.INSTANCE.addCategoriesUpdatesListener(mBookmarksListener);
   }
 
   public void detach()
@@ -429,6 +449,9 @@ public class RoutingController
 
   public void rebuildLastRoute()
   {
+    // Road-route settings and stale actions cannot replace a captured track entry.
+    if (isFollowingTrack())
+      return;
     setState(State.NONE);
     setBuildState(BuildState.NONE);
     prepare(getStartPoint(), getEndPoint());

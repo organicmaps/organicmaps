@@ -715,11 +715,11 @@ public class PlacePageController
   {
     List<PlacePageButtons.ButtonType> buttons = new ArrayList<>();
     PlacePageButtons.ButtonType roadAvoidButton = toPlacePageButton(mapObject.getRoadWarningMarkType());
-    if (roadAvoidButton != null)
+    if (roadAvoidButton != null && !RoutingController.get().isFollowingTrack())
     {
       buttons.add(roadAvoidButton);
     }
-    else if (RoutingController.get().isRoutePoint(mapObject))
+    else if (RoutingController.get().isRoutePoint(mapObject) && !RoutingController.get().isFollowingTrack())
     {
       buttons.add(PlacePageButtons.ButtonType.ROUTE_REMOVE);
     }
