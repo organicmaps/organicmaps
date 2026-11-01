@@ -13,7 +13,6 @@
 #include "drape_frontend/text_layout.hpp"
 #include "drape_frontend/text_shape.hpp"
 
-#include "indexer/cycling_infrastructure.hpp"
 #include "indexer/road_shields_parser.hpp"
 
 #include "geometry/clipping.hpp"
@@ -722,16 +721,14 @@ ApplyLineFeatureGeometry::ApplyLineFeatureGeometry(Params const & params, Featur
     m_relsInfo.Init(f);
 }
 
-void ApplyLineFeatureGeometry::BuildGeometry(int zoomLevel, bool isIsoline)
+void ApplyLineFeatureGeometry::BuildGeometry(int zoomLevel, bool isIsoline, double paddingPixels)
 {
 #ifdef LINES_GENERATION_CALC_FILTERED_POINTS
   m_readCount += m_f.GetPointsCount();
 #endif
 
-  auto const infrastructure = cycling::Decode(m_f.GetCyclingInfrastructure());
-  double const padding = infrastructure && zoomLevel >= Stylist::kCyclewaySideMinZoom
-                           ? 64.0 * m_params.m_vparams.GetVisualScale() / m_params.m_currentScaleGtoP
-                           : 0.0;
+  double const padding =
+      paddingPixels != 0.0 ? paddingPixels * m_params.m_vparams.GetVisualScale() / m_params.m_currentScaleGtoP : 0.0;
   m_builder.Build(m_f, zoomLevel, isIsoline, padding);
 }
 

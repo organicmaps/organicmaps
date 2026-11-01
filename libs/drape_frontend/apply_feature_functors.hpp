@@ -151,7 +151,7 @@ class ApplyLineFeatureGeometry : public BaseApplyFeature
 public:
   ApplyLineFeatureGeometry(Params const & params, FeatureType & f, RelationsDrawSettings const & relsSettings,
                            double dashPhaseOffset, bool dashPhaseReversed);
-  void BuildGeometry(int zoomLevel, bool isIsoline);
+  void BuildGeometry(int zoomLevel, bool isIsoline, double paddingPixels);
 
   bool HasGeometry() const { return m_builder.HasGeometry(); }
   void ProcessLineRules(Stylist::LineRulesT const & lineRules, bool isIsoline,
