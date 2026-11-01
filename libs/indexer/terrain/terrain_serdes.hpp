@@ -220,7 +220,7 @@ struct TwmHeader
       MYTHROW(TwmException, ("Unsupported TWM raster version", GetRasterVersion()));
 
     m_coordBits = ReadPrimitiveFromSource<uint8_t>(src);
-    if (m_coordBits == 0 || m_coordBits > kPointCoordBits)
+    if (m_coordBits != kTerrainCoordBits)
       MYTHROW(TwmException, ("Invalid coord bits", m_coordBits));
     auto const geometriesCount = ReadPrimitiveFromSource<uint8_t>(src);
     // GetGeometryTag builds the trgN tags for at most kMaxGeometryCount scales.

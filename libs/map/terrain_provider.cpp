@@ -14,6 +14,22 @@
 
 namespace terrain
 {
+namespace
+{
+void AddInvalidationRect(m2::RectD rect, m2::RectD & invalidRect)
+{
+  // A tile reads the overhang around itself (see df::GetTerrainReadRect), the widest at the coarsest
+  // terrain zoom; the mercator tiles are square. It also covers the raster halo of ReadTerrain, which
+  // starts on the finer zooms, and the edge-touching blocks (the seam normals and contours), which
+  // the drape invalidation skips without a margin.
+  auto const tile = df::TileKey(0, 0, kMinIsolinesZoom).GetGlobalRect();
+  double const overhang = (df::GetTerrainReadRect(tile).SizeX() - tile.SizeX()) / 2;
+  double constexpr kEdgeEps = 1e-9;
+  rect.Inflate(overhang + kEdgeEps, overhang + kEdgeEps);
+  invalidRect.Add(rect);
+}
+}  // namespace
+
 TerrainProvider::TerrainProvider()
 {
   m_set.AddObserver(*this);
@@ -55,24 +71,6 @@ bool TerrainProvider::RegisterBlock(TwmFile const & file, m2::RectD * invalidRec
   return true;
 }
 
-void TerrainProvider::AddInvalidationRect(m2::RectD rect, m2::RectD & invalidRect) const
-{
-  m2::PointD halo;
-  {
-    std::lock_guard lock(m_readHaloMutex);
-    halo = m_maxReadHalo;
-  }
-  // Every cached tile has read the blocks within its halo (see ReadTerrain), and the edge-touching
-  // ones too (the seam normals and contours), which the drape invalidation skips without a margin.
-  // A tile also reads the overhang around itself (see df::GetTerrainReadRect), the widest at the
-  // coarsest terrain zoom; the mercator tiles are square.
-  auto const tile = df::TileKey(0, 0, kMinIsolinesZoom).GetGlobalRect();
-  double const overhang = (df::GetTerrainReadRect(tile).SizeX() - tile.SizeX()) / 2;
-  double constexpr kEdgeEps = 1e-9;
-  rect.Inflate(halo.x + overhang + kEdgeEps, halo.y + overhang + kEdgeEps);
-  invalidRect.Add(rect);
-}
-
 void TerrainProvider::DeleteBlocks(std::vector<TerrainId> const & ids, m2::RectD & invalidRect)
 {
   for (auto const & terrainId : ids)
@@ -101,7 +99,7 @@ std::optional<double> TerrainProvider::GetElevation(m2::PointD const & point) co
       auto const handle = m_set.GetHandleById(id);
       if (!handle.IsAlive())
         continue;
-      if (auto elevation = handle.GetValue()->GetReader().GetElevation(p))
+      if (auto elevation = handle.GetValue()->GetElevation(p))
         return elevation;
     }
     return std::nullopt;
@@ -133,19 +131,16 @@ void TerrainProvider::ReadTerrain(m2::RectD const & rect, int zoom, TerrainData 
     if (!handle.IsAlive())
       continue;
 
-    auto const & reader = handle.GetValue()->GetReader();
+    auto const & reader = *handle.GetValue();
     auto const & header = reader.GetHeader();
     if (header.HasRaster(header.GetGeometryIndex(scale)))
     {
+      // The invalidation of a block relies on this: see AddInvalidationRect.
+      ASSERT_GREATER(zoom, kMinIsolinesZoom, ());
       auto const extent = reader.GetRasterHalo();
       halo.x = std::max(halo.x, extent.x);
       halo.y = std::max(halo.y, extent.y);
     }
-  }
-
-  {
-    std::lock_guard lock(m_readHaloMutex);
-    m_maxReadHalo = {std::max(m_maxReadHalo.x, halo.x), std::max(m_maxReadHalo.y, halo.y)};
   }
 
   auto query = rect;
@@ -154,9 +149,7 @@ void TerrainProvider::ReadTerrain(m2::RectD const & rect, int zoom, TerrainData 
     return;
   m_set.GetBlocksByRect(query, ids);
 
-  // The blocks decode straight into one mesh: its vertices are deduplicated by the raw
-  // quantized points, so the first block fixes the coordinate configuration.
-  uint8_t coordBits = 0;
+  // The blocks decode straight into one mesh: its vertices are deduplicated by the raw quantized points.
   for (auto const & id : ids)
   {
     if (isCancellable.IsCancelled())
@@ -166,19 +159,8 @@ void TerrainProvider::ReadTerrain(m2::RectD const & rect, int zoom, TerrainData 
     if (!handle.IsAlive())
       continue;
 
-    auto const & reader = handle.GetValue()->GetReader();
-    auto const & header = reader.GetHeader();
-    if (coordBits == 0)
-    {
-      coordBits = header.m_coordBits;
-      data = TerrainData(coordBits);
-    }
-    else if (header.m_coordBits != coordBits)
-    {
-      LOG(LWARNING, ("Skipping the terrain block", id, "of another coord bits configuration"));
-      continue;
-    }
-    reader.ReadTerrain(query, header.GetGeometryIndex(scale), data, isCancellable);
+    auto const & reader = *handle.GetValue();
+    reader.ReadTerrain(query, reader.GetHeader().GetGeometryIndex(scale), data, isCancellable);
   }
 }
 }  // namespace terrain

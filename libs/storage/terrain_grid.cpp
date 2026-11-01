@@ -39,11 +39,8 @@ void TerrainGrid::Parse(std::string const & jsonBuffer)
   if (grid.v <= 0)
     MYTHROW(RootException, ("Invalid terrain grid version", grid.v));
 
-  // Into the locals first: a throw below must not leave the grid half-configured
-  // (a truncated coverage would silently download and render terrain with holes).
-  std::vector<Block> blocks;
-  blocks.reserve(grid.blocks.size());
-  std::map<terrain::TerrainId, uint32_t> indices;
+  ASSERT(IsEmpty(), ());
+  m_blocks.reserve(grid.blocks.size());
   for (auto const & json : grid.blocks)
   {
     terrain::GridBlock gridBlock;
@@ -54,40 +51,35 @@ void TerrainGrid::Parse(std::string const & jsonBuffer)
     {
       MYTHROW(RootException, ("Invalid terrain grid block", json.id));
     }
-    if (!indices.emplace(json.id, static_cast<uint32_t>(blocks.size())).second)
+    if (!m_indices.emplace(json.id, static_cast<uint32_t>(m_blocks.size())).second)
       MYTHROW(RootException, ("Duplicate terrain grid block", json.id));
-    blocks.push_back({json.id, gridBlock.GetRectMercator(), json.s, json.h, json.v > 0 ? json.v : grid.v});
+    m_blocks.push_back({json.id, gridBlock.GetRectMercator(), json.s, json.h, json.v > 0 ? json.v : grid.v});
   }
 
   // The coverage ships with the grid: a dangling block id means a broken bundle. An empty
   // grid disables the terrain (e.g. minimal test bundles).
-  if (grid.mwms.empty() && !blocks.empty())
+  if (grid.mwms.empty() && !m_blocks.empty())
     MYTHROW(RootException, ("No region coverage in the terrain grid"));
-  std::map<CountryId, Coverage> coverage;
-  std::vector<CountriesSet> regions(blocks.size());
+  m_regions.resize(m_blocks.size());
   for (auto const & [region, ids] : grid.mwms)
   {
     if (ids.empty())
       MYTHROW(RootException, ("Empty coverage of", region));
-    auto & regionBlocks = coverage[region];
+    auto & regionBlocks = m_coverage[region];
     regionBlocks.reserve(ids.size());
     for (auto const & id : ids)
     {
-      auto const it = indices.find(id);
-      if (it == indices.end())
+      auto const it = m_indices.find(id);
+      if (it == m_indices.end())
         MYTHROW(RootException, ("Unknown block", id, "in the coverage of", region));
       regionBlocks.push_back(it->second);
-      regions[it->second].insert(region);
+      m_regions[it->second].insert(region);
     }
     // Sorted like the group unions; a duplicate id must not double-count the sizes.
     base::SortUnique(regionBlocks);
   }
 
   m_version = grid.v;
-  m_blocks = std::move(blocks);
-  m_indices = std::move(indices);
-  m_coverage = std::move(coverage);
-  m_regions = std::move(regions);
 }
 
 std::optional<uint32_t> TerrainGrid::FindIndex(terrain::TerrainId const & id) const

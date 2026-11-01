@@ -16,6 +16,8 @@
 #include "platform/settings.hpp"
 #include "platform/utm_mgrs_utils.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "base/assert.hpp"
 
 #include "3party/open-location-code/openlocationcode.h"
@@ -482,6 +484,21 @@ void Info::SetCustomNames(std::string const & title, std::string const & subtitl
   m_customName = title;
 }
 
+void Info::SetCustomNameWithCoordinates(m2::PointD const & mercator, std::string const & name)
+{
+  if (IsBookmark())
+  {
+    SetTitlesForBookmark();
+  }
+  else
+  {
+    m_uiTitle = name;
+    m_uiSubtitle = measurement_utils::FormatLatLon(mercator::YToLat(mercator.y), mercator::XToLon(mercator.x),
+                                                   true /* withComma */);
+  }
+  m_customName = name;
+}
+
 void Info::SetFromBookmarkProperties(kml::Properties const & p)
 {
   if (auto const hours = p.find("hours"); hours != p.end() && !hours->second.empty())
@@ -542,16 +559,16 @@ std::string Info::GetFormattedTerrainElevation() const
   return m_terrainElevation ? platform::Distance::FormatAltitude(*m_terrainElevation) : std::string{};
 }
 
-void Info::SetTerrainElevation(std::optional<double> elevation)
+std::string Info::GetPreviewSubtitle() const
 {
-  m_terrainElevation = elevation;
-  if (!m_uiSubtitle.empty())
-    return;
+  if (!m_terrainElevation)
+    return m_uiSubtitle;
 
-  // Called last, with the final subtitle and selection point (the tap inside an area, not its center).
-  m_uiSubtitle = ValueDecimal(GetLatLon());
-  if (elevation)
-    m_uiSubtitle.append("  ▲ ").append(GetFormattedTerrainElevation());
+  // At the selection point: the tap inside an area, not its center.
+  auto coordinates = ValueDecimal(GetLatLon());
+  if (!m_uiSubtitle.empty() && m_uiSubtitle != coordinates)
+    return m_uiSubtitle;
+  return coordinates.append("  ▲ ").append(GetFormattedTerrainElevation());
 }
 
 void Info::SetRoadType(RoadWarningMarkType type, std::string const & localizedType, std::string const & distance)

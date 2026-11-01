@@ -1,8 +1,0 @@
-1. Use the following command to generate a compilation file, "compile_commands.json," so 
-clang-tidy can follow the exact same compilation path.
-
-cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON .
-
-2. I used the following clang-tidy options:
-
-clang-tidy ../src/SPECK3D.cpp -checks=-*,performance-*,portability-*,modernize-*,clang-analyzer-*,-modernize-avoid-c-arrays,-modernize-use-nodiscard  -header-filter=../include/* -fix

@@ -23,6 +23,22 @@
 // locked by outstanding handles is marked and actually deregistered by the last unlock).
 namespace ds
 {
+// The events of one registry operation, delivered after its lock is released.
+template <class EventT>
+class EventList
+{
+public:
+  EventList() = default;
+
+  void Add(EventT const & event) { m_events.push_back(event); }
+  std::vector<EventT> const & Get() const { return m_events; }
+
+private:
+  std::vector<EventT> m_events;
+
+  DISALLOW_COPY_AND_MOVE(EventList);
+};
+
 // The status and the refcount of a registered file, base for the registry infos.
 class SetInfoBase
 {

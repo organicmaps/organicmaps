@@ -269,7 +269,7 @@ void Screenshoter::PrepareCountries()
                                                                                    false /* rough */);
     // Wait for the maps only: their terrain may be missing or fail.
     for (auto const & countryId : countryIds)
-      if (!storage.HasLatestVersion(countryId))
+      if (storage.CountryStatusEx(countryId) == storage::Status::NotDownloaded)
         m_countriesToDownload.insert(countryId);
   }
 

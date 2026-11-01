@@ -136,6 +136,9 @@ public final class MapManager
   /** Bytes of the maps not queued or downloading yet, plus their unqueued missing terrain unless disabled. */
   public static native long nativeGetDownloadSize(@NonNull String[] countries, boolean withTerrain);
 
+  /** The bytes left until the maps are ready: {@link #nativeGetDownloadSize} plus the work in flight. */
+  public static native long nativeGetRemainingDownloadSize(@NonNull String[] countries, boolean withTerrain);
+
   /**
    * Returns {@code true} if there is enough storage space to update maps with specified {@code root}. Or {@code false}
    * otherwise.

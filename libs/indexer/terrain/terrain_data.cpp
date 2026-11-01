@@ -22,7 +22,7 @@ std::optional<double> TerrainData::GetElevation(m2::PointD const & point) const
     auto const cell = [&](std::vector<uint32_t> const & axis, double coordinate, double minC, double maxC)
     {
       auto const it = std::lower_bound(axis.begin() + 1, axis.end(), coordinate, [&](uint32_t value, double c)
-      { return Uint32ToDouble(value, minC, maxC, patch.m_coordBits) < c; });
+      { return Uint32ToDouble(value, minC, maxC, kTerrainCoordBits) < c; });
       return static_cast<size_t>(it - axis.begin() - 1);
     };
     size_t const x = cell(patch.m_columns, point.x, mercator::Bounds::kMinX, mercator::Bounds::kMaxX);

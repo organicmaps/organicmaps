@@ -1,7 +1,9 @@
 NCAR/SPERR source mirror, revision b8012586908aaabba993038d183b3937c8ea9c7c.
 https://github.com/NCAR/SPERR
 
-include/, src/, LICENSE and SperrConfig.h.in come from the pinned upstream revision.
+include/, src/, LICENSE and SperrConfig.h.in come from the pinned upstream revision,
+without the sources nothing here builds: the 3D codec, the OpenMP and C API wrappers,
+SPECK1D_FLT, src/graveyard, src/CMakeLists.txt and src/notes_on_clang-tidy.
 CDF97.cpp sizes the copy_data/take_data 2D scratch buffer to max_col rather than
 max_slice; the transform arithmetic is unchanged.
 SPECK_INT.cpp and SPECK_FLT.cpp have a 32-bit portability patch: compare stream

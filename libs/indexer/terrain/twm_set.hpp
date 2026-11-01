@@ -68,38 +68,15 @@ struct TwmSetEvent
   TwmFile m_file;
 };
 
-class TwmSetEventList
-{
-public:
-  TwmSetEventList() = default;
-
-  void Add(TwmSetEvent const & event) { m_events.push_back(event); }
-  std::vector<TwmSetEvent> const & Get() const { return m_events; }
-
-private:
-  std::vector<TwmSetEvent> m_events;
-
-  DISALLOW_COPY_AND_MOVE(TwmSetEventList);
-};
-
-/// The opened terrain block: the parse-once reader (container, header, interval index).
-/// Values are handed off exclusively by the set, so no internal thread safety is needed.
-class TwmValue
-{
-public:
-  explicit TwmValue(std::string const & filePath) : m_reader(filePath) {}
-
-  Reader const & GetReader() const { return m_reader; }
-
-private:
-  Reader m_reader;
-};
+using TwmSetEventList = ds::EventList<TwmSetEvent>;
 
 /// The registry of the terrain blocks: the MwmSet counterpart for the .twm files.
 /// Blocks are keyed by TerrainId; marked old versions may coexist with their replacements.
-class TwmSet : public ds::ValueSetBase<TwmId, TwmValue, TwmSetEventList>
+/// The values are the parse-once readers (container, header, interval index), handed off
+/// exclusively by the set, so they need no internal thread safety.
+class TwmSet : public ds::ValueSetBase<TwmId, Reader, TwmSetEventList>
 {
-  using BaseT = ds::ValueSetBase<TwmId, TwmValue, TwmSetEventList>;
+  using BaseT = ds::ValueSetBase<TwmId, Reader, TwmSetEventList>;
 
 public:
   explicit TwmSet(size_t cacheSize = 16) : BaseT(cacheSize) {}
@@ -160,7 +137,7 @@ protected:
   /// @name ds::ValueSetBase overrides.
   //@{
   std::string const & GetRegistryKey(TwmInfo const & info) const override { return info.GetTerrainId(); }
-  std::unique_ptr<TwmValue> CreateValue(TwmInfo & info) const override;
+  std::unique_ptr<Reader> CreateValue(TwmInfo & info) const override;
   void SetStatus(TwmInfo & info, TwmInfo::Status status, EventList & events) override;
   void ProcessEvents(EventList & events) override;
   //@}

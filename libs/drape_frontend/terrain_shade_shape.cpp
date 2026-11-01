@@ -47,7 +47,7 @@ TerrainShadeGeometry BuildTerrainShade(terrain::TerrainData const & data, m2::Re
   // deduplicated across features and blocks, so the smoothed per-vertex normals agree
   // along every seam. Triangles outside the tile still contribute to their vertices,
   // only the intersecting ones are emitted.
-  auto const jointNormals = terrain::CalculateTerrainNormals(data, zScale, cancellable);
+  auto const jointNormals = terrain::CalculateTerrainNormals(data, zScale, cancellable, tileRect);
   if (cancellable.IsCancelled())
     return {};
   TerrainShadeGeometry geometry;

@@ -53,10 +53,6 @@ struct PointKeyHash
 class TileMesh
 {
 public:
-  explicit TileMesh(uint8_t coordBits = kTerrainCoordBits) : m_coordBits(coordBits) {}
-
-  uint8_t GetCoordBits() const { return m_coordBits; }
-
   // Returns the index of the vertex, deduplicated by the quantized point. A vertex
   // shared with an already added block of another data version may carry a different
   // altitude there: the first added one wins deterministically.
@@ -66,7 +62,7 @@ public:
     auto const [it, inserted] = m_pointToIndex.emplace(impl::PointKey(pt), static_cast<uint32_t>(m_points.size()));
     if (inserted)
     {
-      m_points.push_back(PointUToPointD(pt, m_coordBits));
+      m_points.push_back(PointUToPointD(pt, kTerrainCoordBits));
       m_altitudes.push_back(altitude);
     }
     return it->second;
@@ -89,15 +85,13 @@ public:
   size_t GetTrianglesCount() const { return m_triangles.size() / 3; }
 
   std::vector<m2::PointD> const & GetPoints() const { return m_points; }
-  m2::PointU GetPointU(size_t index) const { return PointDToPointU(m_points[index], m_coordBits); }
+  m2::PointU GetPointU(size_t index) const { return PointDToPointU(m_points[index], kTerrainCoordBits); }
   // The altitudes are meters (the storage units), per deduplicated vertex.
   std::vector<int32_t> const & GetAltitudes() const { return m_altitudes; }
   // CCW vertex index triples over the deduplicated vertices.
   std::vector<uint32_t> const & GetTriangles() const { return m_triangles; }
 
 private:
-  uint8_t m_coordBits;
-
   std::vector<m2::PointD> m_points;
   std::vector<int32_t> m_altitudes;
   std::vector<uint32_t> m_triangles;

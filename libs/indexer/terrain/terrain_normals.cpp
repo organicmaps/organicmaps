@@ -2,6 +2,9 @@
 
 #include "3party/skarupke/flat_hash_map.hpp"
 
+#include <algorithm>
+#include <utility>
+
 namespace terrain
 {
 namespace
@@ -13,10 +16,22 @@ TerrainNormal Face(m2::PointD const & a, m2::PointD const & b, m2::PointD const 
   double const dzb = (zb - za) * zScale, dzc = (zc - za) * zScale;
   return {ab.y * dzc - dzb * ac.y, dzb * ac.x - ab.x * dzc, ab.x * ac.y - ab.y * ac.x};
 }
+
+// The cells of the axis nodes over [minimum, maximum], widened to the whole vertex fans of the nodes
+// of the cells that only touch the range.
+std::pair<uint32_t, uint32_t> GetCellsRange(std::vector<double> const & axis, double minimum, double maximum)
+{
+  int64_t constexpr kFanMargin = 2;
+  int64_t const lastCell = static_cast<int64_t>(axis.size()) - 2;
+  int64_t const first = std::upper_bound(axis.begin(), axis.end(), minimum) - axis.begin() - 1 - kFanMargin;
+  int64_t const last = std::lower_bound(axis.begin(), axis.end(), maximum) - axis.begin() - 1 + kFanMargin;
+  return {static_cast<uint32_t>(std::clamp<int64_t>(first, 0, lastCell)),
+          static_cast<uint32_t>(std::clamp<int64_t>(last, 0, lastCell))};
+}
 }  // namespace
 
 TerrainNormals CalculateTerrainNormals(TerrainData const & data, double zScale,
-                                       base::SharedCancellable const & isCancellable)
+                                       base::SharedCancellable const & isCancellable, m2::RectD const & drawRect)
 {
   TerrainNormals result;
   auto const & mesh = data.m_mesh;
@@ -41,13 +56,41 @@ TerrainNormals CalculateTerrainNormals(TerrainData const & data, double zScale,
       return {};
     result.m_raster.emplace_back(patch.m_heights.size());
     auto & normals = result.m_raster.back();
-    for (uint32_t t = 0; t < 2 * patch.CellsX() * patch.CellsY(); ++t)
+    // The per-node coordinate conversions would cost several times more than the faces.
+    std::vector<double> xs, ys;
+    xs.reserve(patch.m_columns.size());
+    ys.reserve(patch.m_rows.size());
+    for (auto const column : patch.m_columns)
+      xs.push_back(PointUToPointD({column, 0}, kTerrainCoordBits).x);
+    for (auto const row : patch.m_rows)
+      ys.push_back(PointUToPointD({0, row}, kTerrainCoordBits).y);
+    uint32_t const stride = patch.CellsX() + 1;
+    auto const addFace =
+        [&](std::array<uint32_t, 3> const & v, m2::PointD const & a, m2::PointD const & b, m2::PointD const & c)
     {
-      auto const v = patch.Triangle(t);
-      auto const n = Face(patch.Point(v[0]), patch.Point(v[1]), patch.Point(v[2]), patch.m_heights[v[0]],
-                          patch.m_heights[v[1]], patch.m_heights[v[2]], zScale);
+      auto const & heights = patch.m_heights;
+      auto const n = Face(a, b, c, heights[v[0]], heights[v[1]], heights[v[2]], zScale);
       for (auto const node : v)
         normals[node] += n;
+    };
+    // A patch edge always counts: its nodes join the neighbor patches and the TIN vertices,
+    // which can be drawn by a triangle reaching far beyond the rect.
+    auto const [firstX, lastX] = GetCellsRange(xs, drawRect.minX(), drawRect.maxX());
+    auto const [firstY, lastY] = GetCellsRange(ys, drawRect.minY(), drawRect.maxY());
+    for (uint32_t y = 0; y < patch.CellsY(); ++y)
+    {
+      bool const edgeRow = y == 0 || y + 1 == patch.CellsY();
+      bool const drawnRow = firstY <= y && y <= lastY;
+      for (uint32_t x = 0; x < patch.CellsX(); ++x)
+      {
+        if (!edgeRow && x != 0 && x + 1 != patch.CellsX() && (!drawnRow || x < firstX || x > lastX))
+          continue;
+        // The triangles of RasterPatch::Triangle.
+        uint32_t const sw = y * stride + x, ne = sw + stride + 1;
+        m2::PointD const pointSW(xs[x], ys[y]), pointNE(xs[x + 1], ys[y + 1]);
+        addFace({sw, sw + 1, ne}, pointSW, {pointNE.x, pointSW.y}, pointNE);
+        addFace({sw, ne, ne - 1}, pointSW, pointNE, {pointSW.x, pointNE.y});
+      }
     }
     RasterPerimeter const perimeter(patch.CellsX(), patch.CellsY());
     for (uint32_t i = 0; i < perimeter.Size(); ++i)
@@ -56,19 +99,16 @@ TerrainNormals CalculateTerrainNormals(TerrainData const & data, double zScale,
       interface[impl::PointKey(patch.PointU(node))] += normals[node];
     }
   }
-  // One lookup per TIN vertex: only the few seam vertices match, and nothing is inserted into
-  // the interface after this loop, so the recorded pointers stay valid.
-  std::vector<std::pair<size_t, TerrainNormal const *>> seams;
+  // One lookup per TIN vertex: only the few seam vertices match. The mesh is deduplicated by the
+  // same key, so one vertex completes its interface entry.
   for (size_t v = 0; v < result.m_tin.size(); ++v)
   {
     if (auto it = interface.find(impl::PointKey(mesh.GetPointU(v))); it != interface.end())
     {
       it->second += result.m_tin[v];
-      seams.emplace_back(v, &it->second);
+      result.m_tin[v] = it->second;
     }
   }
-  for (auto const & [v, normal] : seams)
-    result.m_tin[v] = *normal;
   for (size_t p = 0; p < data.m_rasterPatches.size(); ++p)
   {
     auto const & patch = data.m_rasterPatches[p];

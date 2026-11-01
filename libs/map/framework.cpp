@@ -556,8 +556,8 @@ void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
 
 void Framework::OnTerrainChanged(m2::RectD const & rect)
 {
-  // The terrain is drawn with the isolines only.
-  if (m_isolinesManager.IsEnabled() && rect.IsValid())
+  // The isolines layer draws the terrain, the low zooms highlight its downloaded blocks.
+  if ((m_isolinesManager.IsEnabled() || m_showDownloadedRegions) && rect.IsValid())
     InvalidateRect(rect);
   InvalidateIsolines();
   // Skip the opened place page elevation update intentionally, it is not important for UX.
@@ -577,7 +577,8 @@ void Framework::SetIsolinesEnabled(bool enabled)
 
 void Framework::UpdateIsolinesAvailability()
 {
-  // Only the enabled layer on the isolines zooms needs the hint.
+  // Only the enabled layer on the isolines zooms needs the hint. The low zooms keep the last state:
+  // the platforms announce the NoData transition, don't repeat it on every zoom bounce over a place.
   if (m_isolinesManager.IsEnabled() && m_isolinesManager.IsVisible())
     m_isolinesManager.SetHasTerrain(HasViewportTerrain(m_currentModelView.ClipRect()));
 }
@@ -1853,45 +1854,30 @@ m2::PointD Framework::P3dtoG(m2::PointD const & p) const
 
 namespace
 {
-// The synthetic null-mwm FeatureID index space of the downloaded regions highlight:
-// the CountryInfoGetter region ids are small, the terrain block ids start from the
-// base and encode the block's bottom-left corner in integer degrees.
-uint32_t constexpr kTwmBorderIndexBase = 1 << 20;
+// The synthetic null-mwm FeatureID index space of the downloaded regions highlight: the
+// CountryInfoGetter region ids are small, the high bit marks a terrain block encoded by its
+// integer degrees rect: 9 bits of the left, 8 of the bottom, 7 of the width and of the height.
+uint32_t constexpr kTwmBorderIndexBase = 1u << 31;
 
 uint32_t EncodeTwmBorderIndex(m2::RectD const & blockRect)
 {
-  auto const lat = std::lround(mercator::YToLat(blockRect.minY()));
-  auto const lon = std::lround(blockRect.minX());
-  return kTwmBorderIndexBase + static_cast<uint32_t>(lat + 90) * 360u + static_cast<uint32_t>(lon + 180);
+  auto const bottom = std::lround(mercator::YToLat(blockRect.minY()));
+  auto const left = std::lround(blockRect.minX());
+  auto const width = std::lround(blockRect.SizeX());
+  auto const height = std::lround(mercator::YToLat(blockRect.maxY())) - bottom;
+  ASSERT(width > 0 && width <= 128 && height > 0 && height <= 128, (blockRect));
+  return kTwmBorderIndexBase | (static_cast<uint32_t>(left + 180) << 22) | (static_cast<uint32_t>(bottom + 90) << 14) |
+         (static_cast<uint32_t>(width - 1) << 7) | static_cast<uint32_t>(height - 1);
 }
 
-bool GetTwmBorderTriangles(terrain::TerrainProvider const & provider, uint32_t index,
-                           std::vector<m2::PointD> & triangles)
+std::vector<m2::PointD> GetTwmBorderTriangles(uint32_t index)
 {
-  index -= kTwmBorderIndexBase;
-  int const lat = static_cast<int>(index / 360u) - 90;
-  int const lon = static_cast<int>(index % 360u) - 180;
-
-  // Probe around the encoded corner and match the block by it (the corner is shared
-  // with the neighbor blocks, the probe can return them too).
-  m2::PointD const corner(lon, mercator::LatToY(lat));
-  m2::RectD probe(corner, corner);
-  probe.Inflate(0.1, 0.1);
-  // The corners at lon = +-180 inflate beyond the canonical range: clip back.
-  CHECK(probe.Intersect(mercator::Bounds::FullRect()), ());
-  std::vector<m2::RectD> rects;
-  provider.GetDownloadedRects(probe, rects);
-  for (auto const & r : rects)
-  {
-    if (std::lround(r.minX()) == lon && std::lround(mercator::YToLat(r.minY())) == lat)
-    {
-      // The two CW triangles of the block rect (cf. ApplyAreaFeature winding).
-      m2::PointD const a = r.LeftBottom(), b = r.RightBottom(), c = r.RightTop(), d = r.LeftTop();
-      triangles = {a, d, c, a, c, b};
-      return true;
-    }
-  }
-  return false;  // Deregistered between the id and the geometry reads: just skip.
+  auto const bits = [index](uint32_t offset, uint32_t mask) { return static_cast<int>((index >> offset) & mask); };
+  terrain::GridBlock const block{bits(22, 0x1FF) - 180, bits(14, 0xFF) - 90, bits(7, 0x7F) + 1, bits(0, 0x7F) + 1};
+  auto const rect = block.GetRectMercator();
+  // The two CW triangles of the block rect (cf. ApplyAreaFeature winding).
+  m2::PointD const a = rect.LeftBottom(), b = rect.RightBottom(), c = rect.RightTop(), d = rect.LeftTop();
+  return {a, d, c, a, c, b};
 }
 }  // namespace
 
@@ -1907,8 +1893,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
       ASSERT(base::IsSortedAndUnique(names), ());
       m_infoGetter->ForEachRegionId(names, [&fn](size_t id) { fn(FeatureID({}, id)); });
 
-      // The downloaded terrain blocks ride the same synthetic channel; the block
-      // (integer degrees, see terrain::GridBlock) is encoded into the feature index.
+      // The downloaded terrain blocks ride the same synthetic channel.
       std::vector<m2::RectD> rects;
       m_terrainProvider.GetDownloadedRects(r, rects);
       for (auto const & rect : rects)
@@ -1928,12 +1913,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFac
         if (id.m_index >= kTwmBorderIndexBase)
         {
           FeatureType ft(id, twmBorderType);
-          std::vector<m2::PointD> triangles;
-          if (GetTwmBorderTriangles(m_terrainProvider, id.m_index, triangles))
-          {
-            ft.SetTriangles(triangles);
-            fn(ft);
-          }
+          ft.SetTriangles(GetTwmBorderTriangles(id.m_index));
+          fn(ft);
         }
         else
         {
@@ -2671,7 +2652,7 @@ bool Framework::BuildTrackPlacePage(Track::TrackSelectionInfo const & trackSelec
 
 namespace
 {
-bool HasTerrainElevation(place_page::Info const & info)
+bool NeedsTerrainElevation(place_page::Info const & info)
 {
   return !info.IsMyPosition() && !info.IsTrack() && info.GetSelectedObject() != df::SelectionShape::OBJECT_EMPTY;
 }
@@ -2680,7 +2661,7 @@ bool HasTerrainElevation(place_page::Info const & info)
 place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & buildInfo)
 {
   auto info = BuildPlacePageInfoImpl(buildInfo);
-  if (HasTerrainElevation(info))
+  if (NeedsTerrainElevation(info))
     info.SetTerrainElevation(m_terrainProvider.GetElevation(info.GetMercator()));
   return info;
 }

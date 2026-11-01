@@ -505,10 +505,10 @@ void RuleDrawer::DrawTerrain(MapDataProvider const & model)
     return;
 
   // The isolines drawing policy (trace step, line and label rules per altitude) is
-  // resolved from the current style once per tile; the units are read once here, so
+  // resolved from the tile's style once per tile; the units are read once here, so
   // the traced levels, the labels and the steps always agree.
   auto const units = measurement_utils::GetMeasurementUnits();
-  terrain::IsolinesStyle const isolinesStyle(m_zoomLevel, units);
+  terrain::IsolinesStyle const isolinesStyle(m_mapStyle, m_zoomLevel, units);
   /// @todo Separate visibility settings for the isolines and the hillshading.
   bool const drawIsolines = isolinesStyle.GetStep() != 0;
 
@@ -645,7 +645,8 @@ void RuleDrawer::DrawDynamicIsolines(terrain::TerrainData const & data, terrain:
   // of the baked path texts); each shape reserves one index per repeated placement.
   uint32_t textIndex = 128;
 
-  auto const unitSuffix = units == measurement_utils::Units::Imperial ? " " + platform::GetLocalizedString("ft") : "";
+  auto const unitSuffix =
+      units == measurement_utils::Units::Imperial ? " " + platform::GetLocalizedAltitudeUnits().m_low : "";
   // The isolines come in the display units (see terrain::TraceIsolines).
   terrain::TraceIsolines(data, isolinesStyle.GetStep(), units, [&](terrain::Isoline && isoline)
   {

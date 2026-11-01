@@ -8,8 +8,6 @@ namespace terrain
 {
 struct TerrainData
 {
-  explicit TerrainData(uint8_t coordBits = kTerrainCoordBits) : m_mesh(coordBits) {}
-
   TileMesh m_mesh;
   std::vector<RasterPatch> m_rasterPatches;
 

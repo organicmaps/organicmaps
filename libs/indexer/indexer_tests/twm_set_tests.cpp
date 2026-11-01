@@ -210,7 +210,7 @@ UNIT_TEST(TwmSet_ReregisterDeregisteredFile)
   TEST_NOT_EQUAL(newId, id, ());
   auto newHandle = set.GetHandleById(newId);
   TEST(newHandle.IsAlive(), ());
-  TEST_EQUAL(newHandle.GetValue()->GetReader().GetHeader().GetLimitRect(), downloaded.m_rect, ());
+  TEST_EQUAL(newHandle.GetValue()->GetHeader().GetLimitRect(), downloaded.m_rect, ());
 }
 
 UNIT_TEST(TwmSet_ReregisterAfterReaderFailure)

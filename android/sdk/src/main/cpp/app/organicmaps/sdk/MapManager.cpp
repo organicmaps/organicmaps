@@ -137,6 +137,14 @@ JNIEXPORT jlong Java_app_organicmaps_sdk_downloader_MapManager_nativeGetDownload
   return static_cast<jlong>(GetStorage().GetDownloadSize(ToCountriesVec(env, jcountries), withTerrain));
 }
 
+// static long nativeGetRemainingDownloadSize(String[] countries, boolean withTerrain);
+JNIEXPORT jlong Java_app_organicmaps_sdk_downloader_MapManager_nativeGetRemainingDownloadSize(JNIEnv * env, jclass,
+                                                                                              jobjectArray jcountries,
+                                                                                              jboolean withTerrain)
+{
+  return static_cast<jlong>(GetStorage().GetRemainingDownloadSize(ToCountriesVec(env, jcountries), withTerrain));
+}
+
 // static boolean nativeHasSpaceToUpdate(String root);
 JNIEXPORT jboolean Java_app_organicmaps_sdk_downloader_MapManager_nativeHasSpaceToUpdate(JNIEnv * env, jclass clazz,
                                                                                          jstring root)

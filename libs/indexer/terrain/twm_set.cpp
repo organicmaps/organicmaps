@@ -156,9 +156,9 @@ TwmSet::Handle TwmSet::GetHandleById(TwmId const & id)
   return handle;
 }
 
-std::unique_ptr<TwmValue> TwmSet::CreateValue(TwmInfo & info) const
+std::unique_ptr<Reader> TwmSet::CreateValue(TwmInfo & info) const
 {
-  return std::make_unique<TwmValue>(info.GetFilePath());
+  return std::make_unique<Reader>(info.GetFilePath());
 }
 
 void TwmSet::SetStatus(TwmInfo & info, TwmInfo::Status status, EventList & events)

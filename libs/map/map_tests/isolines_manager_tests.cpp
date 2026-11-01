@@ -33,7 +33,6 @@ UNIT_CLASS_TEST(VisualParamsFixture, IsolinesManager_States)
 
   // A disabled layer only remembers the viewport.
   manager.UpdateViewport(MakeScreen(terrain::kMinIsolinesZoom + 2));
-  manager.SetHasTerrain(false);
   TEST_EQUAL(manager.GetState(), State::Disabled, ());
 
   manager.SetEnabled(true);
@@ -47,7 +46,6 @@ UNIT_CLASS_TEST(VisualParamsFixture, IsolinesManager_States)
   // The low zooms keep the last state: no hint on each zoom bounce over the same place.
   manager.UpdateViewport(MakeScreen(terrain::kMinIsolinesZoom - 2));
   TEST(!manager.IsVisible(), ());
-  manager.SetHasTerrain(false);
   TEST_EQUAL(manager.GetState(), State::Enabled, ());
   manager.UpdateViewport(MakeScreen(terrain::kMinIsolinesZoom));
   manager.SetHasTerrain(false);
@@ -55,7 +53,6 @@ UNIT_CLASS_TEST(VisualParamsFixture, IsolinesManager_States)
 
   manager.SetEnabled(false);
   TEST(!manager.IsEnabled(), ());
-  manager.SetHasTerrain(true);
   TEST_EQUAL(manager.GetState(), State::Disabled, ());
   TEST_EQUAL(states,
              (std::vector<State>{State::Enabled, State::NoData, State::Enabled, State::NoData, State::Disabled}), ());

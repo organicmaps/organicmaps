@@ -90,11 +90,6 @@ public class OnmapDownloader
         }
       };
 
-  public void updateState(boolean shouldAutoDownload)
-  {
-    updateStateInternal(shouldAutoDownload);
-  }
-
   private static boolean isMapDownloading(@Nullable CountryItem country)
   {
     if (country == null)
@@ -115,7 +110,7 @@ public class OnmapDownloader
     mCurrentCountry.updateProgress(progress[0], progress[1]);
   }
 
-  private void updateStateInternal(boolean shouldAutoDownload)
+  public void updateState(boolean shouldAutoDownload)
   {
     boolean showFrame = mCurrentCountry != null && !mCurrentCountry.present && !RoutingController.get().isNavigating();
     if (showFrame)

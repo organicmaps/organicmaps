@@ -51,6 +51,8 @@ private:
 private:
   std::vector<m2::PointD> m_globalPivots;
   std::vector<double> m_globalOffsets;
+  // The offset of a caption moved off its pivot or -1, see CacheDynamicGeometry.
+  std::vector<double> m_movedOffsets;
   m2::SharedSpline m_globalSpline;
 
   std::vector<m2::SplineEx> m_pixel3dSplines;

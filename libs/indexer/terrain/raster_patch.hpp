@@ -85,7 +85,6 @@ RasterRecord DeserializeRasterRecord(Source & src)
 // neighboring patches duplicate only perimeter nodes.
 struct RasterPatch
 {
-  uint8_t m_coordBits = kTerrainCoordBits;
   std::vector<uint32_t> m_columns, m_rows;
   std::vector<Altitude> m_heights;
 
@@ -95,7 +94,7 @@ struct RasterPatch
   {
     return {m_columns[node % m_columns.size()], m_rows[node / m_columns.size()]};
   }
-  m2::PointD Point(uint32_t node) const { return PointUToPointD(PointU(node), m_coordBits); }
+  m2::PointD Point(uint32_t node) const { return PointUToPointD(PointU(node), kTerrainCoordBits); }
   m2::RectD GetRect() const { return {Point(0), Point(static_cast<uint32_t>(m_heights.size() - 1))}; }
 
   // CCW SW-SE-NE and SW-NE-NW, with the SW-NE diagonal fixed in every cell.

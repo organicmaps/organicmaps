@@ -36,6 +36,8 @@ NS_SWIFT_NAME(MapNodeAttributes)
 @property(nonatomic, readonly) NSString * nodeName;
 @property(nonatomic, readonly) NSString * nodeDescription;
 @property(nonatomic, readonly) MWMMapNodeStatus nodeStatus;
+/// nodeStatus without the terrain: an installed map keeps its place page actions while its terrain downloads.
+@property(nonatomic, readonly) MWMMapNodeStatus mapStatus;
 @property(nonatomic, readonly) BOOL hasChildren;
 @property(nonatomic, readonly) BOOL hasParent;
 @property(nonatomic, readonly) NSArray<MWMCountryIdAndName *> * parentInfo;

@@ -321,7 +321,7 @@ UNIT_TEST(TerrainReader_RealHybridElevation)
   // The fixture mixes the codecs: the samples read SZ3 and SPERR patches.
   TEST_EQUAL(header.m_version, terrain::kTwmVersion, ());
 
-  terrain::TerrainData coarse(header.m_coordBits), fine(header.m_coordBits);
+  terrain::TerrainData coarse, fine;
   reader.ReadTerrain(header.GetLimitRect(), 0, coarse);
   TEST(!coarse.m_mesh.IsEmpty(), ());
   TEST(coarse.m_rasterPatches.empty(), ());
@@ -397,6 +397,7 @@ UNIT_CLASS_TEST(VisualParamsFixture, Framework_RealTerrainPlacePage)
   TEST(framework.GetCurrentPlacePageInfo().GetFormattedTerrainElevation().empty(), ());
   auto const coordinates = framework.GetCurrentPlacePageInfo().GetSubtitle();
   TEST(coordinates.find("▲") == std::string::npos, (coordinates));
+  TEST_EQUAL(framework.GetCurrentPlacePageInfo().GetPreviewSubtitle(), coordinates, ());
 
   framework.RegisterTerrain(GetElevationTestFile());
   framework.BuildAndSetPlacePageInfo(build);
@@ -406,13 +407,16 @@ UNIT_CLASS_TEST(VisualParamsFixture, Framework_RealTerrainPlacePage)
   TEST_ALMOST_EQUAL_ABS(*info.GetTerrainElevation(), kElevationSamples[1].m_altitude, kElevationSamples[1].m_maxError,
                         ());
   TEST(!info.GetFormattedTerrainElevation().empty(), ());
-  // An unmatched point also shows it next to the coordinates in the subtitle.
-  TEST_EQUAL(info.GetSubtitle(), coordinates + "  ▲ " + info.GetFormattedTerrainElevation(), ());
+  // An unmatched point also shows it next to the coordinates, for display only: the subtitle
+  // becomes a route point description, a route mark label and a CarPlay address.
+  TEST_EQUAL(info.GetPreviewSubtitle(), coordinates + "  ▲ " + info.GetFormattedTerrainElevation(), ());
+  TEST_EQUAL(info.GetSubtitle(), coordinates, ());
 
   // A replaced subtitle (like the postcode search result) keeps its text.
   auto postcode = info;
   postcode.SetCustomNames("06000", "Postal code");
   postcode.SetTerrainElevation(100.0);
+  TEST_EQUAL(postcode.GetPreviewSubtitle(), "Postal code", ());
   TEST_EQUAL(postcode.GetSubtitle(), "Postal code", ());
 
   build.m_mercator = {0, 0};
@@ -420,6 +424,24 @@ UNIT_CLASS_TEST(VisualParamsFixture, Framework_RealTerrainPlacePage)
   TEST(!framework.GetCurrentPlacePageInfo().GetTerrainElevation(), ());
   TEST(framework.GetCurrentPlacePageInfo().GetFormattedTerrainElevation().empty(), ());
   TEST(framework.GetCurrentPlacePageInfo().GetSubtitle().find("▲") == std::string::npos, ());
+}
+
+// A place without a subtitle of its own stays without it when no terrain covers the point.
+UNIT_TEST(PlacePage_PreviewSubtitle)
+{
+  place_page::Info info;
+  info.SetMercator(mercator::FromLatLon(43.7, 7.2));
+  info.SetCustomName("Named search result");
+  TEST(info.GetSubtitle().empty(), ());
+  TEST(info.GetPreviewSubtitle().empty(), ());
+  info.SetTerrainElevation(std::nullopt);
+  TEST(info.GetPreviewSubtitle().empty(), ());
+
+  info.SetTerrainElevation(125.0);
+  TEST(info.GetSubtitle().empty(), ());
+  auto const preview = info.GetPreviewSubtitle();
+  TEST(preview.starts_with("43.7, 7.2"), (preview));
+  TEST(preview.ends_with("  ▲ " + info.GetFormattedTerrainElevation()), (preview));
 }
 
 // An unnamed area (like a forest) has no subtitle of its own: it shows the same coordinates and elevation
@@ -434,7 +456,7 @@ UNIT_CLASS_TEST(VisualParamsFixture, Framework_RealTerrainUnnamedAreaPlacePage)
   build.m_match = place_page::BuildInfo::Match::Nothing;
   build.m_mercator = tap;
   framework.BuildAndSetPlacePageInfo(build);
-  auto const emptyMapSubtitle = framework.GetCurrentPlacePageInfo().GetSubtitle();
+  auto const emptyMapSubtitle = framework.GetCurrentPlacePageInfo().GetPreviewSubtitle();
   TEST(emptyMapSubtitle.find("▲") != std::string::npos, (emptyMapSubtitle));
 
   platform::LocalCountryFile country(GetPlatform().WritableDir(), platform::CountryFile("TerrainAreaLand"),
@@ -454,9 +476,46 @@ UNIT_CLASS_TEST(VisualParamsFixture, Framework_RealTerrainUnnamedAreaPlacePage)
   framework.BuildAndSetPlacePageInfo(build);
   auto const & info = framework.GetCurrentPlacePageInfo();
   TEST(info.IsFeature(), ());
-  TEST_EQUAL(info.GetSubtitle(), emptyMapSubtitle, ());
+  TEST_EQUAL(info.GetPreviewSubtitle(), emptyMapSubtitle, ());
+  TEST(info.GetSubtitle().empty(), (info.GetSubtitle()));
 
   // Windows cannot delete the map while it is still registered, i.e. open.
+  framework.DeregisterAllMaps();
+  platform::CountryIndexes::DeleteFromDisk(country);
+  country.DeleteFromDisk(MapFileType::Map);
+}
+
+// The place page shows both the OSM and the terrain elevation, to compare the data.
+UNIT_CLASS_TEST(VisualParamsFixture, Framework_OsmAndTerrainElevations)
+{
+  ElevationTestFramework framework;
+  framework.RegisterTerrain(GetElevationTestFile());
+
+  auto const point = GetSamplePoint(kElevationSamples[1]);
+  platform::LocalCountryFile country(GetPlatform().WritableDir(), platform::CountryFile("TerrainPeakLand"),
+                                     0 /* version */);
+  platform::CountryIndexes::DeleteFromDisk(country);
+  country.DeleteFromDisk(MapFileType::Map);
+  {
+    generator::tests_support::TestMwmBuilder builder(country, feature::DataHeader::MapType::Country);
+    generator::tests_support::TestPOI peak(point, "Peak", "en");
+    peak.SetTypes({{"natural", "peak"}});
+    peak.GetMetadata().Set(feature::Metadata::FMD_ELE, "4810");
+    builder.Add(peak);
+  }
+  auto const registered = framework.RegisterMap(country);
+  TEST_EQUAL(registered.second, MwmSet::RegResult::Success, ());
+
+  place_page::BuildInfo build;
+  build.m_match = place_page::BuildInfo::Match::FeatureOnly;
+  build.m_mercator = point;
+  build.m_featureId = FeatureID(registered.first, 0 /* index */);
+  framework.BuildAndSetPlacePageInfo(build);
+  auto const & info = framework.GetCurrentPlacePageInfo();
+  TEST(info.IsFeature(), ());
+  TEST(info.GetTerrainElevation(), ());
+  TEST(info.GetSubtitle().find("▲") != std::string::npos, (info.GetSubtitle()));
+
   framework.DeregisterAllMaps();
   platform::CountryIndexes::DeleteFromDisk(country);
   country.DeleteFromDisk(MapFileType::Map);

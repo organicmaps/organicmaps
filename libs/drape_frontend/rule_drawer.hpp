@@ -48,7 +48,7 @@ public:
   using TIsCountryLoadedByNameFn = std::function<bool(std::string_view)>;
 
   RuleDrawer(TIsCountryLoadedByNameFn const & isLoadedFn, ref_ptr<EngineContext> engineContext, int8_t deviceLang,
-             bool drawTerrain = false);
+             bool drawTerrain);
   ~RuleDrawer();
 
   void operator()(FeatureType & f);
@@ -109,7 +109,7 @@ private:
 
   uint8_t m_zoomLevel;
   int8_t m_deviceLang;
-  bool m_drawTerrain = false;
+  bool const m_drawTerrain;
 
   ftypes::IsBuildingHasPartsChecker const & m_isBuildingHasParts = ftypes::IsBuildingHasPartsChecker::Instance();
   ftypes::IsBuildingPartChecker const & m_isBuildingPart = ftypes::IsBuildingPartChecker::Instance();

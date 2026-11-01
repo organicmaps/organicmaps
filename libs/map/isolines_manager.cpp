@@ -55,10 +55,8 @@ void IsolinesManager::UpdateViewport(ScreenBase const & screen)
 
 void IsolinesManager::SetHasTerrain(bool hasTerrain)
 {
-  // Keep the last state on the low zooms: the platforms announce the NoData transition
-  // (the terrain download hint), don't repeat it on every zoom bounce over the same place.
-  if (IsEnabled() && IsVisible())
-    ChangeState(hasTerrain ? IsolinesState::Enabled : IsolinesState::NoData);
+  ASSERT(IsEnabled() && IsVisible(), ());
+  ChangeState(hasTerrain ? IsolinesState::Enabled : IsolinesState::NoData);
 }
 
 std::string DebugPrint(IsolinesManager::IsolinesState state)

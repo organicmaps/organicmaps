@@ -54,7 +54,7 @@ final class ActionBarViewController: UIViewController {
 
   private func configDefaultButtons() {
     if let mapNodeAttributes = placePageData.mapNodeAttributes {
-      switch mapNodeAttributes.nodeStatus {
+      switch mapNodeAttributes.mapStatus {
       case .onDiskOutOfDate, .onDisk, .undefined:
         break
       case .downloading, .applying, .inQueue, .error, .notDownloaded, .partly:
@@ -165,6 +165,19 @@ final class ActionBarViewController: UIViewController {
     additionalButtons.removeAll()
     downloadButton = nil
     configureButtons()
+  }
+
+  /// Every place page layout with this action bar has to follow the node status: the download button
+  /// disappears with the map's own download, and a tap on a stale one has nothing to do.
+  func updateMapNodeStatus() {
+    updateDownloadButton()
+    guard let mapNodeAttributes = placePageData.mapNodeAttributes else { return }
+    switch mapNodeAttributes.mapStatus {
+    case .onDisk, .onDiskOutOfDate, .undefined, .inQueue:
+      resetButtons()
+    default:
+      break
+    }
   }
 
   func updateDownloadButton() {

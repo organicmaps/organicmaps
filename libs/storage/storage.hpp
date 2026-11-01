@@ -63,6 +63,7 @@ struct NodeAttrs
     , m_localMwmSize(0)
     , m_downloadSize(0)
     , m_status(NodeStatus::Undefined)
+    , m_mapStatus(NodeStatus::Undefined)
     , m_error(NodeErrorCode::NoError)
     , m_present(false)
   {}
@@ -129,7 +130,11 @@ struct NodeAttrs
   /// Otherwise if all the mwms in the group have NotDownloaded status the group has NotDownloaded status
   /// Otherwise (that means a part of mwms in the group has OnDisk and the other part has NotDownloaded status)
   ///   the group has Mixed status
+  /// The terrain state is merged in, see |m_mapStatus| for the maps alone.
   NodeStatus m_status;
+  /// |m_status| without the terrain: an installed map keeps its place page actions
+  /// while its terrain downloads.
+  NodeStatus m_mapStatus;
   /// Error code of leaf node. In case of group node |m_error| == NodeErrorCode::NoError.
   NodeErrorCode m_error;
 
@@ -302,8 +307,6 @@ private:
                                           CountriesSet * leafs = nullptr) const;
   // The partial downloader artifacts of the block, deleted by the cancel so it stays cancelled.
   void DeleteTerrainArtifacts(TerrainGrid::Block const & block) const;
-  // Whether a validator still has this ready file open, so it cannot be deleted (Windows only).
-  bool IsTerrainValidationReading(std::string const & readyPath) const;
   // The restored queue serves its downloads; removes the leftovers of cancelled or failed ones.
   void SweepTerrainArtifacts();
   bool IsTerrainOnDisk(uint32_t index) const;
@@ -320,6 +323,8 @@ private:
   void OnTerrainBlockProgress(QueuedCountry const & queuedCountry, downloader::Progress const & progress);
   void OnTerrainBlockDownloaded(QueuedCountry const & queuedCountry, downloader::DownloadStatus status);
   void NotifyTerrainRegions(uint32_t index, bool allCoverage = false);
+  // |queued| is GetQueuedCountries() of the downloader queue.
+  bool IsMapInstalledOrInFlight(CountryId const & region, CountriesSet const & queued) const;
   // Coverage retained by installed/in-flight MWMs or terrain requests outside |excluded|.
   std::set<uint32_t> GetWantedTerrainBlocks(CountriesSet const & excluded) const;
   // The owners of the failed blocks: derived from the live state at both the retry arming and
@@ -334,11 +339,6 @@ private:
   uint64_t m_nextTerrainDownloadId = 0;
   std::optional<CountriesSet> m_pendingTerrainQueue;
   TerrainQueueSubscriber m_terrainSubscriber{*this};
-#ifdef OMIM_OS_WINDOWS
-  // Windows cannot delete a ready file while any cancelled or restarted validator has it open.
-  // Kept across Clear; the validation completion decrements after the file thread closed it.
-  std::map<std::string, size_t> m_terrainValidationReaders;
-#endif
   // The provider executes registration and ID-based deregistration; storage owns file policy.
   TerrainRegisterFn m_terrainRegisterFn = [](terrain::TwmFile const &) {};
   TerrainDeleteFn m_terrainDeleteFn = [this](std::vector<terrain::TwmFile> const & files)
@@ -430,14 +430,17 @@ public:
   // The provider executes registration and ID-based deregistration; storage owns file policy.
   void SetTerrainCallbacks(TerrainRegisterFn registerFn, TerrainDeleteFn deleteFn);
 
-  /// Enqueues terrain for a leaf or the installed MWM leaves of a folder (twm_grid.json "mwms")
-  /// into the shared downloader queue; the blocks on disk or in flight are skipped. The
+  /// Enqueues terrain for a leaf (twm_grid.json "mwms") into the shared downloader queue;
+  /// the blocks on disk or in flight are skipped. The
   /// blocks land into <writable>/terrain/<block version>/ after the countries.json-style
   /// integrity check; the observers get the region id notifications (no separate channel).
   void DownloadTerrain(CountryId const & countryId);
   /// Remote bytes of the maps in |countries| that are not queued, downloading or applying yet, plus
   /// their unqueued missing terrain unless disabled. The work already in flight is not counted.
   MwmSize GetDownloadSize(CountriesVec const & countries, bool withTerrain = true) const;
+  /// GetDownloadSize plus the rest of the work already in flight: the bytes left until the |countries|
+  /// leafs are ready, whichever flow requested them. Shared terrain blocks count once.
+  MwmSize GetRemainingDownloadSize(CountriesVec const & countries, bool withTerrain) const;
   /// Missing current terrain blocks for the batch that are not queued yet, counting shared blocks once.
   /// Folder downloads cover installed MWMs; leaf downloads retain full coverage.
   MwmSize GetTerrainDownloadSize(CountriesVec const & countries) const;

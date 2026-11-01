@@ -5,7 +5,6 @@
 #include "indexer/feature.hpp"
 
 #include "geometry/clipping.hpp"
-#include "geometry/mercator.hpp"
 #include "geometry/smoothing.hpp"
 
 namespace df
@@ -155,9 +154,7 @@ void ClipSplinesBuilder::SetPath(std::vector<m2::PointD> && path)
   // to cell along the integer heights: the Catmull-Rom smoothing of Release() interpolates every
   // vertex and would draw the steps as wiggles. Two passes reach two vertices along a contour, well
   // within the read overhang of the neighbor tiles, which smooth the seam identically.
-  double const maxStep =
-      mercator::RectByCenterXYAndSizeInMeters(m_params.m_tileRect.Center(), kIsolineStepMeters).SizeX() / 2;
-  m2::SmoothShortSegments(path, maxStep, 2 /* passes */);
+  m2::SmoothShortSegments(path, kIsolineStepMeters, 2 /* passes */);
 
   if (!m_params.IsSimplifyLines())
   {
