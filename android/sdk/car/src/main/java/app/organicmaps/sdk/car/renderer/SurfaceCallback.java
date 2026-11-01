@@ -8,6 +8,7 @@ import androidx.car.app.CarContext;
 import androidx.car.app.SurfaceContainer;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.MapRenderingListener;
 import app.organicmaps.sdk.display.DisplayManager;
 import app.organicmaps.sdk.location.LocationHelper;
@@ -42,6 +43,8 @@ final class SurfaceCallback extends SurfaceCallbackBase
   private String mSpeedUnits = "";
   @Nullable
   private Integer mSpeedLimit;
+  @Framework.SpeedLimitSignType
+  private int mSpeedLimitSignType = Framework.SpeedLimitSignType.VIENNA;
   private boolean mAlertForced = false;
 
   public SurfaceCallback(@NonNull CarContext carContext, @NonNull LifecycleOwner lifecycleOwner,
@@ -136,6 +139,13 @@ final class SurfaceCallback extends SurfaceCallbackBase
       mPresentation.setSpeedLimit(speedLimit);
   }
 
+  void setSpeedLimitSignType(@Framework.SpeedLimitSignType int type)
+  {
+    mSpeedLimitSignType = type;
+    if (mPresentation != null)
+      mPresentation.setSpeedLimitSignType(type);
+  }
+
   void setAlertForced(boolean alertForced)
   {
     mAlertForced = alertForced;
@@ -154,6 +164,7 @@ final class SurfaceCallback extends SurfaceCallbackBase
     mPresentation.setVisibleArea(mVisibleArea);
     mPresentation.setCurrentSpeed(mCurrentSpeed, mSpeedUnits);
     mPresentation.setSpeedLimit(mSpeedLimit);
+    mPresentation.setSpeedLimitSignType(mSpeedLimitSignType);
     mPresentation.setAlertForced(mAlertForced);
   }
 

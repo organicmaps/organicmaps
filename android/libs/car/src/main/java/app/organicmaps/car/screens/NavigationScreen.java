@@ -28,6 +28,7 @@ import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.routing.NavigationService;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.OrganicMaps;
+import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.car.RoutingUtils;
 import app.organicmaps.sdk.car.renderer.Renderer;
 import app.organicmaps.sdk.car.screens.BaseMapScreen;
@@ -156,6 +157,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     mNavigationManager.setNavigationManagerCallback(this);
     mNavigationManager.navigationStarted();
 
+    updateSpeedLimitSignType();
     getLocationHelper().addListener(mLocationListener);
     TtsPlayer.addStateChangedListener(mTtsStateListener);
     if (LocationUtils.checkFineLocationPermission(getCarContext()))
@@ -317,6 +319,22 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   private void updateSpeedLimit(@Nullable RoutingInfo info)
   {
     updateSpeedLimit(getSurfaceRenderer(), mRoutingController.isNavigating(), info);
+  }
+
+  private void updateSpeedLimitSignType()
+  {
+    final Location location = getLocationHelper().getSavedLocation();
+    @Framework.SpeedLimitSignType
+    int type = Framework.SpeedLimitSignType.VIENNA;
+    if (location != null)
+      type = Framework.nativeGetSpeedLimitSignType(location.getLatitude(), location.getLongitude());
+    else
+    {
+      final MapObject startPoint = mRoutingController.getStartPoint();
+      if (startPoint != null)
+        type = Framework.nativeGetSpeedLimitSignType(startPoint.getLat(), startPoint.getLon());
+    }
+    getSurfaceRenderer().setSpeedLimitSignType(type);
   }
 
   @VisibleForTesting

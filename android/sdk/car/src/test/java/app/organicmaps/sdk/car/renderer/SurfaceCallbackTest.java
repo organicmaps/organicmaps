@@ -21,6 +21,7 @@ import androidx.car.app.CarContext;
 import androidx.car.app.SurfaceContainer;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
+import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.MapRenderingListener;
 import app.organicmaps.sdk.display.DisplayManager;
 import app.organicmaps.sdk.location.LocationHelper;
@@ -79,11 +80,13 @@ public class SurfaceCallbackTest
 
     mCallback.setCurrentSpeed(54, "km/h");
     mCallback.setSpeedLimit(50);
+    mCallback.setSpeedLimitSignType(Framework.SpeedLimitSignType.VIENNA);
     mCallback.setAlertForced(true);
     mCallback.setAlertForced(false);
 
     verify(presentation).setCurrentSpeed(54, "km/h");
     verify(presentation).setSpeedLimit(50);
+    verify(presentation).setSpeedLimitSignType(Framework.SpeedLimitSignType.VIENNA);
     verify(presentation).setAlertForced(true);
     verify(presentation).setAlertForced(false);
     verifyNoMoreInteractions(presentation);
@@ -96,6 +99,7 @@ public class SurfaceCallbackTest
     mCallback.setSpeedLimit(30);
     mCallback.setCurrentSpeed(54, "km/h");
     mCallback.setSpeedLimit(50);
+    mCallback.setSpeedLimitSignType(Framework.SpeedLimitSignType.MUTCD);
     mCallback.setAlertForced(true);
     assertEquals(0, mPresentations.constructed().size());
 
@@ -105,6 +109,7 @@ public class SurfaceCallbackTest
     replay.verify(presentation).create();
     replay.verify(presentation).setCurrentSpeed(54, "km/h");
     replay.verify(presentation).setSpeedLimit(50);
+    replay.verify(presentation).setSpeedLimitSignType(Framework.SpeedLimitSignType.MUTCD);
     replay.verify(presentation).setAlertForced(true);
     verify(presentation, never()).setCurrentSpeed(20, "km/h");
     verify(presentation, never()).setSpeedLimit(30);
@@ -115,6 +120,7 @@ public class SurfaceCallbackTest
   {
     mCallback.setCurrentSpeed(64, "km/h");
     mCallback.setSpeedLimit(50);
+    mCallback.setSpeedLimitSignType(Framework.SpeedLimitSignType.MUTCD);
     mCallback.setAlertForced(true);
     mCallback.onSurfaceAvailable(mSurface);
     final CarPresentation first = mPresentations.constructed().get(0);
@@ -129,6 +135,7 @@ public class SurfaceCallbackTest
     replay.verify(second).create();
     replay.verify(second).setCurrentSpeed(64, "km/h");
     replay.verify(second).setSpeedLimit(50);
+    replay.verify(second).setSpeedLimitSignType(Framework.SpeedLimitSignType.MUTCD);
     replay.verify(second).setAlertForced(true);
   }
 
@@ -175,7 +182,22 @@ public class SurfaceCallbackTest
   {
     mCallback.onSurfaceAvailable(mSurface);
     verify(mPresentations.constructed().get(0)).setSpeedLimit(null);
+    verify(mPresentations.constructed().get(0)).setSpeedLimitSignType(Framework.SpeedLimitSignType.VIENNA);
     verify(mPresentations.constructed().get(0)).setAlertForced(false);
+  }
+
+  @Test
+  public void changingSignTypeWhileAbsentDoesNotRestoreStaleType()
+  {
+    mCallback.setSpeedLimitSignType(Framework.SpeedLimitSignType.MUTCD);
+    mCallback.onSurfaceAvailable(mSurface);
+    mCallback.destroy();
+    mCallback.setSpeedLimitSignType(Framework.SpeedLimitSignType.VIENNA);
+    mCallback.onSurfaceAvailable(mSurface);
+
+    final CarPresentation second = mPresentations.constructed().get(1);
+    verify(second).setSpeedLimitSignType(Framework.SpeedLimitSignType.VIENNA);
+    verify(second, never()).setSpeedLimitSignType(Framework.SpeedLimitSignType.MUTCD);
   }
 
   @Test
