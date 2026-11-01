@@ -41,6 +41,7 @@
 #include <QtWidgets/QMessageBox>
 #endif  // BUILD_DESIGNER
 
+#include <QtCore/QAbstractEventDispatcher>
 #include <QtCore/QLocale>
 #include <QtGui/QCloseEvent>
 #include <QtWidgets/QDockWidget>
@@ -233,6 +234,14 @@ void MainWindow::LocationStateModeChanged(location::EMyPositionMode mode)
 {
   if (mode == location::PendingPosition)
   {
+#ifdef OMIM_OS_LINUX
+    // GeoClue callbacks need the GLib main context, which only Qt's GLib event dispatcher runs.
+    if (!QAbstractEventDispatcher::instance()->inherits("QEventDispatcherGlib"))
+    {
+      OnLocationError(location::ENotSupported);
+      return;
+    }
+#endif
     m_locationService->Start();
     m_pMyPositionAction->setIcon(QIcon(":/navig64/location-search.png"));
     m_pMyPositionAction->setToolTip(Tr("looking_for_position"));
