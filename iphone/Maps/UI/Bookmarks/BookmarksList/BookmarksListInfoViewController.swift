@@ -37,6 +37,7 @@ final class BookmarksListInfoViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     separatorsConstraints.forEach { $0.constant = 1 / UIScreen.main.scale }
+    titleLabel.accessibilityTraits.insert(.header)
     editButton.accessibilityLabel = L("edit")
     editButton.tintColor = .linkBlue
     descriptionLabel.numberOfLines = 2
