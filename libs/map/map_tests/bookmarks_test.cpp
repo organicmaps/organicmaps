@@ -797,6 +797,29 @@ UNIT_CLASS_TEST(VisualParamsFixture, Bookmarks_TapSelectionMarkClearsTempRelatio
   TEST_EQUAL(fm.GetCurrentPlacePageInfo().GetTrackId(), trackId, ());
 }
 
+UNIT_CLASS_TEST(Runner, Bookmarks_DeleteEditedTrack)
+{
+  BookmarkManager bmManager(BM_CALLBACKS);
+  bmManager.EnableTestMode(true);
+
+  auto const catId = bmManager.CreateBookmarkCategory("cat", false /* autoSave */);
+  kml::TrackId trackId;
+  {
+    auto es = bmManager.GetEditSession();
+    trackId = es.CreateTrack(MakeLineTrackData())->GetId();
+    es.AttachTrack(trackId, catId);
+  }
+
+  // The pending update of a deleted track must be dropped, not applied when the session ends.
+  {
+    auto es = bmManager.GetEditSession();
+    es.GetTrackForEdit(trackId)->SetName("edited");
+    es.DeleteTrack(trackId);
+  }
+  TEST(bmManager.GetTrack(trackId) == nullptr, ());
+  TEST(bmManager.GetTrackIds(catId).empty(), ());
+}
+
 namespace
 {
 // Same as in Framework::BuildPlacePageInfo.
