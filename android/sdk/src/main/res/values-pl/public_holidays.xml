@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: public_holidays -->
+    <!-- Countries: DE, LT, LV, PL -->
+    <string name="_2nd_day_of_christmas">Drugi Dzień Bożego Narodzenia</string>
+    <!-- Countries: AD, AT, BE, ES, FR, HR, HU, IT, LI, LT, MC, PL, PT, SE, SK, SM -->
+    <string name="all_saints_day">Wszystkich Świętych</string>
+    <!-- Countries: AD, AT, BE, ES, FR, HR, IT, LT, MC, MT, PL, PT, RO, SI, SM -->
+    <string name="assumption_of_mary">Wniebowzięcie Najświętszej Maryi Panny</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MT, MX, NL, PL, PT, SE, SI, SK, SM, ZA -->
+    <string name="christmas_day_catholic">Boże Narodzenie</string>
+    <!-- Countries: BG, CZ, EE, LT, LV, PL, SK -->
+    <string name="christmas_eve_catholic">Wigilia Bożego Narodzenia</string>
+    <!-- Countries: AD, ES, MX, PL -->
+    <string name="constitution_day">Święto Narodowe Trzeciego Maja</string>
+    <!-- Countries: AT, HR, LI, MC, PL, PT, SM -->
+    <string name="corpus_christi">Boże Ciało</string>
+    <!-- Countries: AD, AL, AT, BE, BG, CZ, DE, ES-CT, ES-IB, ES-NC, ES-PV, ES-VC, FR, HR, HU, IE, IT, LI, LT, LV, MC, NL, PL, SE, SI, SK, SM -->
+    <string name="easter_monday">Drugi Dzień Wielkanocy</string>
+    <!-- Countries: AL, BG, EE, LT, LV, NL, PL, PT, SE, SI -->
+    <string name="easter_sunday">Wielkanoc</string>
+    <!-- Countries: AD, AT, ES, HR, IT, LI, PL, RO, SE, SK, SM -->
+    <string name="epiphany">Święto Trzech Króli</string>
+    <!-- Countries: BG, CH, CZ, EE, MD, MT, MX, PL, PT -->
+    <string name="independence_day">Narodowe Święto Niepodległości</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CZ, DE, ES, FR, HR, HU, IT, LI, LT, LV, MC, MD, MX, PL, PT, RO, RS, SE, SI, SK, SM -->
+    <string name="labour_day">Święto Pracy</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MD, MT, MX, NL, PL, PT, RO, RS, SE, SI, ZA -->
+    <string name="new_years_day">Nowy Rok</string>
+    <!-- Countries: BE, EE, LV, PL -->
+    <string name="pentecost">Zielone Świątki</string>
+</resources>

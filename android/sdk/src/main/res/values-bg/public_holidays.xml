@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: public_holidays -->
+    <!-- Countries: BG -->
+    <string name="bulgarian_education_and_culture_and_slavic_script_day">Ден на Българската просвета и култура и на славянската писменост</string>
+    <!-- Countries: BG -->
+    <string name="bulgarias_liberation_from_the_ottoman_empire">Ден на Освобождението на България от османско иго</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MT, MX, NL, PL, PT, SE, SI, SK, SM, ZA -->
+    <string name="christmas_day_catholic">Рождество Христово</string>
+    <!-- Countries: BG, CZ, EE, LT, LV, PL, SK -->
+    <string name="christmas_eve_catholic">Бъдни вечер</string>
+    <!-- Countries: AD, AL, AT, BE, BG, CZ, DE, ES-CT, ES-IB, ES-NC, ES-PV, ES-VC, FR, HR, HU, IE, IT, LI, LT, LV, MC, NL, PL, SE, SI, SK, SM -->
+    <string name="easter_monday">Велики понеделник</string>
+    <!-- Countries: AL, BG, EE, LT, LV, NL, PL, PT, SE, SI -->
+    <string name="easter_sunday">Великден</string>
+    <!-- Countries: BG -->
+    <string name="euro_adoption_day">Ден на приемане на еврото</string>
+    <!-- Countries: AD, BG, CZ, DE, EE, ES, HU, LV, MT, NL, PT, RS, SE, SK, ZA -->
+    <string name="good_friday">Разпети петък</string>
+    <!-- Countries: BG -->
+    <string name="holy_saturday">Велика събота</string>
+    <!-- Countries: BG, CH, CZ, EE, MD, MT, MX, PL, PT -->
+    <string name="independence_day">Ден на независимостта на България</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CZ, DE, ES, FR, HR, HU, IT, LI, LT, LV, MC, MD, MX, PL, PT, RO, RS, SE, SI, SK, SM -->
+    <string name="labour_day">Ден на труда</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MD, MT, MX, NL, PL, PT, RO, RS, SE, SI, ZA -->
+    <string name="new_years_day">Нова година</string>
+    <!-- Countries: BG -->
+    <string name="st_georges_day_and_the_bulgarian_armys_day">Гергьовден, Ден на храбростта и Българската армия</string>
+    <!-- Countries: BG -->
+    <string name="unification_day">Ден на Съединението</string>
+</resources>
