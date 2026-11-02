@@ -9,10 +9,8 @@
 
 namespace storage
 {
-/// CountryNameGetter is responsible for generating text name for CountryId in a specified locale
-/// To get this country name use operator().
-/// If the country caption is not available for specified locale, class tries to find it in
-/// English locale.
+/// Looks up country names in a specified locale, falling back to English if the locale file cannot be opened.
+/// If a country name is missing or empty, operator() returns the country ID.
 class CountryNameGetter
 {
 public:
@@ -23,7 +21,7 @@ public:
 
   /// \brief Sets a locale.
   /// @param locale is a string representation of locale. For example "en", "ru", "zh-Hant" and so on.
-  /// \note See countries/languages.txt for the full list of available locales.
+  /// \note See data/countries-strings/ for the available locales.
   void SetLocale(std::string const & locale);
 
   /// \brief Gets localized string for key. If not found returns empty string.
