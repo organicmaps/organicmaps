@@ -955,9 +955,9 @@
 "transit_not_found" = "이 지역의 지하철 노선 기능이 아직 없습니다";
 "dialog_pedestrian_route_is_long_header" = "지하철 루트가 발견되지 않았습니다";
 "dialog_pedestrian_route_is_long_message" = "지하철역에서 가까운 출발점 또는 종점을 선택하세요";
-"button_layer_isolines" = "지형";
-"isolines_activation_error_dialog" = "지형 레이어를 활성화하고 사용하려면 해당 지역의 지도를 업데이트하거나 다운로드하십시오";
-"isolines_location_error_dialog" = "이 지역의 지형 레이어는 아직 사용할 수 없습니다";
+"button_layer_isolines" = "등고선";
+"isolines_activation_error_dialog" = "등고선을 활성화하려면 이 지역의 지도 데이터를 다운로드해야 합니다.";
+"isolines_location_error_dialog" = "이 지역에서는 아직 등고선을 사용할 수 없습니다.";
 "elevation_profile_ascent" = "올라가기";
 "elevation_profile_descent" = "내려가기";
 "elevation_profile_min_elevation" = "최소 높이";
@@ -1023,7 +1023,7 @@
 "car_continue_in_the_car" = "차량 화면으로 이동";
 
 /* Outdoors/hiking map style (activity) name in the Styles and Layers dialog */
-"button_layer_outdoor" = "하이킹";
+"button_layer_outdoor" = "아웃도어";
 
 /* Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks */
 "bookmarks_export" = "모든 북마크 및 트랙 내보내기";
