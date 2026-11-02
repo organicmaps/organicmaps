@@ -446,10 +446,10 @@ UNIT_TEST(Area_GeoJsonNormalizesConflictingClosingHeights)
       {R"([[0,0,1],[4,0],[0,4],[0,0,1.0000000000000002]])", {{{0, 0}, 1}, {{0, 4}, {}}, {{4, 0}, {}}}}};
   for (auto const & [ring, expected] : cases)
   {
-    for (size_t shape = 0;
-         std::string const geometry : {R"({"type":"Polygon","coordinates":[)" + ring + "]}",
-                                       R"({"type":"Polygon","coordinates":[)" + shell + "," + ring + "]}",
-                                       R"({"type":"MultiPolygon","coordinates":[[)" + separate + "],[" + ring + "]]}"})
+    std::string const geometries[] = {R"({"type":"Polygon","coordinates":[)" + ring + "]}",
+                                      R"({"type":"Polygon","coordinates":[)" + shell + "," + ring + "]}",
+                                      R"({"type":"MultiPolygon","coordinates":[[)" + separate + "],[" + ring + "]]}"};
+    for (size_t shape = 0; auto const & geometry : geometries)
     {
       std::string const input = R"({"type":"FeatureCollection","features":[
         {"type":"Feature","geometry":)" +
