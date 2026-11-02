@@ -65,8 +65,7 @@ std::string GetFilePathByUrl(std::string const & url)
   CHECK_GREATER(urlComponents.size(), 2, (urlComponents));
   CHECK_LESS(urlComponents.size(), 5, (urlComponents));
 
-  uint64_t dataVersion = 0;
-  CHECK(strings::to_uint(urlComponents[1], dataVersion), ());
+  auto const dataVersion = strings::ToUintChecked<uint64_t>(urlComponents[1]);
 
   std::string mwmFile = url::UrlDecode(urlComponents.back());
   // remove extension

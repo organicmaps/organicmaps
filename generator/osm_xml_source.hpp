@@ -28,13 +28,13 @@ public:
     std::string_view key(k);
 
     if (key == "id")
-      CHECK(strings::to_uint64(value, m_current->m_id), ("Unknown element with invalid id:", value));
+      m_current->m_id = strings::ToUint64Checked(value);
     else if (key == "lon")
       CHECK(strings::to_double(value, m_current->m_lon), ("Bad node lon:", value));
     else if (key == "lat")
       CHECK(strings::to_double(value, m_current->m_lat), ("Bad node lat:", value));
     else if (key == "ref")
-      CHECK(strings::to_uint64(value, m_current->m_ref), ("Bad node ref in way:", value));
+      m_current->m_ref = strings::ToUint64Checked(value);
     else if (key == "k")
       m_current->m_k = value;
     else if (key == "v")

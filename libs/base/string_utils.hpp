@@ -8,6 +8,7 @@
 #include <cstdint>
 #include <cstdlib>
 #include <iterator>
+#include <source_location>
 #include <sstream>
 #include <string>
 #include <string_view>
@@ -458,6 +459,8 @@ UniChar LastUniChar(std::string const & s);
 //@{
 namespace internal
 {
+[[noreturn]] void FailIntegerConversion(std::string_view s, std::source_location location);
+
 template <std::integral T>
 bool ToInteger(std::string_view s, T & result, int base = 10)
 {
@@ -508,6 +511,28 @@ template <std::unsigned_integral T>
     return true;
   }
   return false;
+}
+
+/// Returns the parsed value or terminates, even if the assertion handler returns false.
+template <std::unsigned_integral T>
+[[nodiscard]] T ToUintChecked(std::string_view s, int base = 10,
+                              std::source_location location = std::source_location::current())
+{
+  T value;
+  if (!to_uint(s, value, base))
+    internal::FailIntegerConversion(s, location);
+  return value;
+}
+
+/// Legacy conversion: accepts -N with unsigned wrapping, matching to_uint64().
+/// Use ToUintChecked<uint64_t>() to reject negative inputs.
+[[nodiscard]] inline uint64_t ToUint64Checked(std::string_view s, int base = 10,
+                                              std::source_location location = std::source_location::current())
+{
+  uint64_t value;
+  if (!to_uint64(s, value, base))
+    internal::FailIntegerConversion(s, location);
+  return value;
 }
 
 [[nodiscard]] bool to_size_t(std::string_view s, size_t & i, int base = 10);

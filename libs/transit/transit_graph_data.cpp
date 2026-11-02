@@ -183,9 +183,7 @@ void DeserializerFromJson::operator()(FeatureIdentifiers & id, char const * name
   // Conversion osm id to feature id.
   std::string osmIdStr;
   GetField(osmIdStr, name);
-  uint64_t osmIdNum;
-  CHECK(strings::to_uint64(osmIdStr, osmIdNum), ("Cann't convert osm id string:", osmIdStr, "to a number."));
-  base::GeoObjectId const osmId(osmIdNum);
+  base::GeoObjectId const osmId(strings::ToUint64Checked(osmIdStr));
   auto const it = m_osmIdToFeatureIds.find(osmId);
   if (it != m_osmIdToFeatureIds.cend())
   {

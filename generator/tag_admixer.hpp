@@ -12,6 +12,7 @@
 #include <map>
 #include <set>
 #include <string>
+#include <string_view>
 #include <utility>
 
 class WaysParserHelper
@@ -28,8 +29,7 @@ public:
       auto pos = oneLine.find(';');
       if (pos != std::string::npos)
       {
-        uint64_t wayId;
-        CHECK(strings::to_uint64(oneLine.substr(0, pos), wayId), ());
+        auto const wayId = strings::ToUint64Checked(std::string_view(oneLine).substr(0, pos));
         m_ways[wayId] = oneLine.substr(pos + 1, oneLine.length() - pos - 1);
       }
     }

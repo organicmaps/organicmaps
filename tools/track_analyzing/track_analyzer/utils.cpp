@@ -205,8 +205,7 @@ void MappingFromCsv(basic_istream<char> & ss, Stats::NameToCountMapping & mappin
   {
     CHECK_EQUAL(row.size(), 2, (row));
     auto const & key = row[0];
-    uint64_t value = 0;
-    CHECK(strings::to_uint64(row[1], value), ());
+    auto const value = strings::ToUint64Checked(row[1]);
     auto const it = mapping.insert(make_pair(key, value));
     CHECK(it.second, ());
   }

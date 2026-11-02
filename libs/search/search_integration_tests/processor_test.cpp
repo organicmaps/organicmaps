@@ -12,10 +12,12 @@
 #include "search/cities_boundaries_table.hpp"
 #include "search/features_layer_path_finder.hpp"
 #include "search/mwm_context.hpp"
+#include "search/processor.hpp"
 #include "search/retrieval.hpp"
 #include "search/token_range.hpp"
 #include "search/token_slice.hpp"
 
+#include "indexer/categories_holder.hpp"
 #include "indexer/feature_impl.hpp"
 
 #include "geometry/mercator.hpp"
@@ -1149,6 +1151,34 @@ UNIT_CLASS_TEST(ProcessorTest, SearchDebug)
 
   TEST(ResultsMatch("?fid=0", {ruleCity, ruleCafe}), ());
   TEST(ResultsMatch("?fid=1 ", {ruleHotel}), ());
+}
+
+UNIT_CLASS_TEST(ProcessorTest, SearchDebugVersions)
+{
+  TestCafe cafe({0, 0}, "", "en");
+  auto const mwmId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder) { builder.Add(cafe); });
+  vector<Suggest> const suggests;
+  Processor processor(m_dataSource, GetDefaultCategories(), suggests, m_engine.GetCountryInfoGetter());
+  processor.SetPreferredLocale("en");
+
+  // Test maps have version zero. Invalid spellings of zero would still match
+  // if the parser incorrectly accepted their length or sign.
+  for (string const version : {"0", "000000", "00000", "0000000", "+00000", "-00000"})
+  {
+    processor.Reset();
+    auto params = GetDefaultSearchParams("?fid={ MwmId [Wonderland, " + version + "], 0 }");
+    bool finished = false;
+    params.m_onResults = [&](Results const & results)
+    {
+      if (!results.IsEndMarker())
+        return;
+      Rules const expected = version == "0" || version == "000000" ? Rules{ExactMatch(mwmId, cafe)} : Rules{};
+      TEST(MatchResults(m_dataSource, expected, results), (version));
+      finished = true;
+    };
+    processor.Search(std::move(params));
+    TEST(finished, (version));
+  }
 }
 #endif
 

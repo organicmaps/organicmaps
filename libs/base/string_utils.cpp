@@ -5,6 +5,7 @@
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
+#include <cstdlib>
 #include <iterator>
 #include <string>
 
@@ -65,6 +66,13 @@ UniChar LastUniChar(std::string const & s)
   utf8::unchecked::iterator iter(s.end());
   --iter;
   return *iter;
+}
+
+[[noreturn]] void internal::FailIntegerConversion(std::string_view s, std::source_location location)
+{
+  base::SrcPoint const source(location.file_name(), static_cast<int>(location.line()), location.function_name());
+  base::OnAssertFailed(source, base::Message("Invalid unsigned integer:", s));
+  std::abort();
 }
 
 bool to_size_t(std::string_view start, size_t & i, int base)
