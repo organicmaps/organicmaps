@@ -6,6 +6,7 @@
 
 #include "routing/track_router.hpp"
 
+#include "drape_frontend/user_mark_shapes.hpp"
 #include "drape_frontend/visual_params.hpp"
 
 #include "routing/router.hpp"
@@ -2031,5 +2032,71 @@ UNIT_TEST(RoutingManager_RebuildAfterEditingNavigationRetiresOldCheckpoints)
     TEST(manager.GetRoutePoints().back().m_isPassed, ());
     TEST(!manager.HasSavedRoutePoints(), ());
   });
+}
+
+UNIT_TEST(RoutingManager_SaveRoutePreservesSingleSegmentGeometry)
+{
+  for (auto const & [finishCoord, canSave] : {std::pair{0.001, true}, std::pair{1e-7, false}})
+  {
+    WithSavedRoute([=](RoutingManager & manager, BookmarkManager & bookmarks, TestGuiThread &)
+    {
+      bookmarks.EnableTestMode(true);
+      SCOPE_GUARD(restoreTestMode, [&] { bookmarks.EnableTestMode(false); });
+      // Saving is profile-independent; Ruler initializes without map regions.
+      manager.SetRouter(routing::RouterType::Ruler);
+      manager.Init(std::make_shared<routing::NumMwmIds>());
+      manager.AddRoutePoint(MakeRoutePointOnXAxis(RouteMarkType::Start, 0, 0.0), false);
+      manager.AddRoutePoint(MakeRoutePointOnXAxis(RouteMarkType::Finish, 0, finishCoord), false);
+
+      geometry::PointWithAltitude const start({0.0, 0.0}, 100);
+      geometry::PointWithAltitude const end({finishCoord, 0.0}, canSave ? 110 : 100);
+      routing::Segment const fake(routing::kFakeNumMwmId, 0, 0, false);
+      std::vector<routing::RouteSegment> segments;
+      segments.emplace_back(fake, routing::turns::TurnItem(1, routing::turns::CarDirection::ReachedYourDestination),
+                            end, routing::RouteSegment::RoadNameInfo{});
+      double const distance = mercator::DistanceOnEarth(start.GetPoint(), end.GetPoint());
+      segments.front().SetDistancesAndTime(distance, finishCoord, distance);
+      routing::Route route;
+      route.SetRouteSegments(std::move(segments));
+      route.SetSubroutes(std::vector<routing::Route::SubrouteAttrs>{{start, end, 0, 1}});
+      routing::RoutesResult result;
+      result.MakeFrom("ruler", std::move(route));
+      manager.RoutingSession().AssignRouteForTesting(routing::Route(result.GetActive()),
+                                                     routing::RouterResultCode::NoError);
+      TEST(manager.IsRouteValid(), ());
+
+      auto const id = manager.SaveRoute();
+      if (!canSave)
+      {
+        TEST_EQUAL(id, kml::kInvalidTrackId, ());
+        return;
+      }
+      TEST_NOT_EQUAL(id, kml::kInvalidTrackId, ());
+      auto const * track = bookmarks.GetTrack(id);
+      TEST(track != nullptr, ());
+      TEST_EQUAL(track->GetData().m_geometry.m_lines.size(), 1, ());
+      TEST_EQUAL(track->GetGeometry(), (kml::TrackGeometry{start, end}), ());
+      TEST_EQUAL(track->GetData().m_routerType, "ruler", ());
+    });
+  }
+}
+
+UNIT_TEST(Track_RenderSplinesPreserveCoincidentMeasurements)
+{
+  kml::TrackData data;
+  data.m_id = 42;
+  data.m_layers.emplace_back();
+  data.m_geometry.AddLine({{{0, 0}, 100}, {{0.01, 0}, 100}, {{0.01, 0}, 110}, {{0.02, 0}, 110}});
+  data.m_geometry.AddTimestamps({10, 20, 30, 40});
+  data.m_stops.push_back({{0.01, 0}, "Stop"});
+  data.m_routerType = "pedestrian";
+  auto const expected = data;
+  Track track(std::move(data));
+
+  df::UserLineRenderParams params;
+  track.ForEachGeometry([&](std::vector<m2::PointD> && points) { params.AddSpline(points); });
+  TEST_EQUAL(params.m_splines.size(), 1, ());
+  TEST_EQUAL(params.m_splines.front()->GetPath(), (std::vector<m2::PointD>{{0, 0}, {0.01, 0}, {0.02, 0}}), ());
+  TEST_EQUAL(track.GetData(), expected, ());
 }
 }  // namespace routing_manager_tests
