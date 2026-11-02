@@ -31,9 +31,8 @@ class RouteMatchingInfo;
 
 namespace routing
 {
-/// \breaf This class is responsible for the route built in the program.
-/// \note All method of this class should be called from ui thread if there's no
-/// a special note near a method.
+/// Owns the active route and its following state.
+/// All methods must be called from the GUI thread unless documented otherwise.
 class RoutingSession
   : public traffic::TrafficObserver
   , public traffic::TrafficCache
@@ -105,8 +104,9 @@ public:
   /// Returns true if following was disabled, false if a route is not ready for the following yet.
   bool DisableFollowMode();
 
-  /// Now indicates only that user pushed start button. Route follows by default.
-  /// Returns true if following was enabled, false if a route is not ready for the following yet.
+  /// Starts navigation and queues a track approach prompt when needed.
+  /// Records that the user pressed Start; GPS matching already runs during route preview.
+  /// Returns true when following is active.
   bool EnableFollowMode();
 
   void SetRoutingSettings(RoutingSettings const & routingSettings);
@@ -165,9 +165,12 @@ public:
 
 private:
   void AssignRoute(std::shared_ptr<RoutesResult> const & result, RouterResultCode e);
-  /// RemoveRoute() removes m_route and resets route attributes (m_lastDistance, m_moveAwayCounter).
+  /// Removes route geometry and resets position metrics (m_lastDistance, m_moveAwayCounter).
+  /// Retains track reach observations and pending speech across rebuilds.
   void RemoveRoute();
   void RebuildRouteOnTrafficUpdate();
+  bool IsTrackRoute() const;
+  void ResetTrackGuidance();
 
   void PassCheckpoints();
 
@@ -194,6 +197,18 @@ private:
 
   // Sound turn notification parameters.
   turns::sound::NotificationManager m_turnNotificationsMgr;
+
+  // Confirmed by GPS or Start within the entry corridor; cleared on departure.
+  // Rebuilds retain this observation rather than infer a reach from their approach geometry.
+  bool m_reachedFollowedTrack = false;
+  enum class TrackNotification
+  {
+    None,
+    Approach,
+    Departure
+  };
+  // One-shot track speech; muting and reaching the track discard it.
+  TrackNotification m_pendingTrackNotification = TrackNotification::None;
 
   SpeedCameraManager m_speedCameraManager;
   RoutingSettings m_routingSettings;
