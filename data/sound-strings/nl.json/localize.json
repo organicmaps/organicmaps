@@ -28,6 +28,8 @@
 "take_exit_number":"Verlaat naar",
 "take_exit_number_street_verb":"Neem",
 "route_recalculating":"De route herberekenen",
+"proceed_to_the_track":"Ga naar de track.",
+"you_have_left_the_track":"U hebt de track verlaten.",
 "destination":"Arriveert u.",
 "you_have_reached_the_destination":"Bestemming bereikt.",
 "in_50_meters":"Over vijftig meter",

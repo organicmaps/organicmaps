@@ -28,6 +28,8 @@
 "take_exit_number":"Merrni daljen",
 "take_exit_number_street_verb":"NULL",
 "route_recalculating":"Duke rillogaritur rrugën",
+"proceed_to_the_track":"Shkoni te gjurma.",
+"you_have_left_the_track":"Keni dalë nga gjurma.",
 "destination":"Do të arrini.",
 "you_have_reached_the_destination":"Keni arritur.",
 "in_50_meters":"Në pesëdhjetë metra",
