@@ -144,11 +144,6 @@ else()
   add_link_options($<${OMIM_OPTIMIZED_CONFIG}:-Wl,--gc-sections>)
 endif()
 
-if (NOT PYTHON_VERSION)
-  # FDroid build server has 3.5.3 Python installed.
-  set(PYTHON_VERSION 3.5)
-endif()
-
 # End of setting environment variables
 
 find_package(Threads REQUIRED)
@@ -235,7 +230,7 @@ if (PLATFORM_DESKTOP AND NOT WITH_SYSTEM_PROVIDED_3PARTY)
 endif()
 
 # Used in qt/ and shaders/
-find_package(Python3 REQUIRED COMPONENTS Interpreter)
+find_package(Python3 3.11 REQUIRED COMPONENTS Interpreter)
 
 add_subdirectory(libs)
 

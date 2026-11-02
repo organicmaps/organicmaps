@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-r"""Reproduce the original 80-second Android Drape queue stress test (Python 3.10+).
+r"""Reproduce the original 80-second Android Drape queue stress test (Python 3.11+).
 
 Example:
   python3 tools/python/drape_queue_stress.py --apk OrganicMaps-release.apk \
