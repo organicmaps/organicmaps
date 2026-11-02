@@ -3231,11 +3231,11 @@ void BookmarkManager::MarksChangesTracker::OnAddLine(kml::TrackId lineId)
 
 void BookmarkManager::MarksChangesTracker::OnDeleteLine(kml::TrackId lineId)
 {
-  auto const it = m_createdLines.find(lineId);
-  if (it != m_createdLines.end())
-    m_createdLines.erase(it);
-  else
+  if (m_createdLines.erase(lineId) == 0)
+  {
+    m_updatedLines.erase(lineId);
     m_removedLines.insert(lineId);
+  }
 }
 
 void BookmarkManager::MarksChangesTracker::OnAddGroup(kml::MarkGroupId groupId)
