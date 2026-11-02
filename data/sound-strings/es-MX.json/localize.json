@@ -28,6 +28,8 @@
 "take_exit_number":"Tome la salida",
 "take_exit_number_street_verb":"NULL",
 "route_recalculating":"Recalculando la ruta",
+"proceed_to_the_track":"Diríjase al trayecto.",
+"you_have_left_the_track":"Ha salido del trayecto.",
 "destination":"Llegará a su destino.",
 "you_have_reached_the_destination":"Ha llegado a su destino.",
 "in_50_meters":"En cincuenta metros",
