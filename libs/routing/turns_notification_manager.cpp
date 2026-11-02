@@ -96,6 +96,16 @@ std::string NotificationManager::GenerateSpeedCameraText() const
   return m_getTtsText.GetSpeedCameraNotification();
 }
 
+std::string NotificationManager::GenerateOffTrackText() const
+{
+  return m_getTtsText.GetOffTrackNotification();
+}
+
+std::string NotificationManager::GenerateTrackApproachText() const
+{
+  return m_getTtsText.GetTrackApproachNotification();
+}
+
 void NotificationManager::GenerateTurnNotifications(std::vector<TurnItemDist> const & turns,
                                                     std::vector<std::string> & turnNotifications)
 {
@@ -289,7 +299,7 @@ CarDirection NotificationManager::GenerateSecondTurnNotification(std::vector<Tur
   if (firstTurn.m_turnItem.m_index != m_secondTurnNotificationIndex)
     m_secondTurnNotificationIndex = 0;  // It's a new closest (first) turn.
   else if (m_secondTurnNotificationIndex != 0)
-    return secondTurn.m_turnItem.m_turn;  // m_secondTurnNotificationIndex was set to true before.
+    return secondTurn.m_turnItem.m_turn;  // Already eligible for this nearest turn.
 
   double const distBetweenTurnsMeters = secondTurn.m_distMeters - firstTurn.m_distMeters;
   ASSERT_LESS_OR_EQUAL(0., distBetweenTurnsMeters, ());

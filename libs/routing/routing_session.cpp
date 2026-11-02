@@ -10,6 +10,8 @@
 
 #include "base/checked_cast.hpp"
 
+#include <utility>
+
 namespace
 {
 int constexpr kOnRouteMissedCount = 10;
@@ -69,6 +71,7 @@ void RoutingSession::BuildRoute(Checkpoints const & checkpoints, uint32_t timeou
   m_isFollowing = false;
   m_routingRebuildCount = -1;  // -1 for the first rebuild.
   m_routingRebuildAnnounceCount = 0;
+  ResetTrackGuidance();
 
   RebuildRoute(checkpoints.GetStart(), m_buildReadyCallback, m_needMoreMapsCallback, m_removeRouteCallback, timeoutSec,
                SessionState::RouteBuilding, false /* adjust */);
@@ -238,6 +241,18 @@ void RoutingSession::Reset()
   // reset announcement counters
   m_routingRebuildCount = -1;
   m_routingRebuildAnnounceCount = 0;
+  ResetTrackGuidance();
+}
+
+bool RoutingSession::IsTrackRoute() const
+{
+  return m_route && m_route->GetTrackStartDistanceMeters().has_value();
+}
+
+void RoutingSession::ResetTrackGuidance()
+{
+  m_reachedFollowedTrack = false;
+  m_pendingTrackNotification = TrackNotification::None;
 }
 
 void RoutingSession::SetState(SessionState state)
@@ -273,6 +288,12 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
   {
     m_moveAwayCounter = 0;
     m_lastDistance = 0.0;
+
+    if (IsTrackRoute() && m_route->GetCurrentDistanceFromBeginMeters() >= *m_route->GetTrackStartDistanceMeters())
+    {
+      m_reachedFollowedTrack = true;
+      m_pendingTrackNotification = TrackNotification::None;
+    }
 
     PassCheckpoints();
 
@@ -319,6 +340,12 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
     if (m_moveAwayCounter > kOnRouteMissedCount)
     {
       m_passedDistanceOnRouteMeters += m_route->GetCurrentDistanceFromBeginMeters();
+      if (m_reachedFollowedTrack)
+      {
+        if (m_isFollowing && m_turnNotificationsMgr.IsEnabled())
+          m_pendingTrackNotification = TrackNotification::Departure;
+        m_reachedFollowedTrack = false;
+      }
       SetState(SessionState::RouteNeedRebuild);
     }
   }
@@ -505,8 +532,18 @@ void RoutingSession::GenerateNotifications(std::vector<std::string> & notificati
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   notifications.clear();
 
-  // Generate recalculating notification if needed and reset
-  if (m_routingRebuildCount > m_routingRebuildAnnounceCount)
+  auto const trackNotification = std::exchange(m_pendingTrackNotification, TrackNotification::None);
+  if (trackNotification != TrackNotification::None)
+  {
+    ASSERT(m_isFollowing && IsTrackRoute() && m_turnNotificationsMgr.IsEnabled(), ());
+    auto text = trackNotification == TrackNotification::Approach ? m_turnNotificationsMgr.GenerateTrackApproachText()
+                                                                 : m_turnNotificationsMgr.GenerateOffTrackText();
+    ASSERT(!text.empty(), ());
+    notifications.emplace_back(std::move(text));
+    return;
+  }
+  // Geometric rebuilds keep following the track rather than calculating a new road route.
+  if (!IsTrackRoute() && m_routingRebuildCount > m_routingRebuildAnnounceCount)
   {
     m_routingRebuildAnnounceCount = m_routingRebuildCount;
     notifications.emplace_back(m_turnNotificationsMgr.GenerateRecalculatingText());
@@ -564,6 +601,8 @@ void RoutingSession::AssignRoute(std::shared_ptr<RoutesResult> const & result, R
   m_checkpoints.SetPointFrom(route->GetPoly().Front());
   route->SetRoutingSettings(m_routingSettings);
   m_route = route;
+  // A rejoin may have been matched on the retained route during calculation, even in preview.
+  m_reachedFollowedTrack = m_reachedFollowedTrack && IsTrackRoute();
 
   m_lastResult = result;
 
@@ -595,6 +634,7 @@ bool RoutingSession::SwapActiveAlternative(size_t idx)
   m_lastCompletionPercent = 0;
   m_passedDistanceOnRouteMeters = 0.0;
   m_turnNotificationsMgr.Reset();
+  ResetTrackGuidance();
   m_checkpoints.SetPointFrom(m_route->GetPoly().Front());
 
   m_speedCameraManager.Reset();
@@ -697,6 +737,7 @@ bool RoutingSession::DisableFollowMode()
   {
     SetState(SessionState::RouteNoFollowing);
     m_isFollowing = false;
+    ResetTrackGuidance();
     return true;
   }
   return false;
@@ -708,6 +749,16 @@ bool RoutingSession::EnableFollowMode()
   LOG(LINFO, ("Routing enables a following mode. SessionState: ", m_state));
   if (m_state == SessionState::RouteNotStarted || m_state == SessionState::OnRoute)
   {
+    if (!m_isFollowing && IsTrackRoute() && !m_reachedFollowedTrack)
+    {
+      // Starting within the entry corridor confirms reach without waiting for another GPS fix.
+      double const distanceToTrack =
+          *m_route->GetTrackStartDistanceMeters() - m_route->GetCurrentDistanceFromBeginMeters();
+      if (distanceToTrack <= m_routingSettings.m_matchingThresholdM)
+        m_reachedFollowedTrack = true;
+      else if (m_turnNotificationsMgr.IsEnabled())
+        m_pendingTrackNotification = TrackNotification::Approach;
+    }
     SetState(SessionState::OnRoute);
     m_isFollowing = true;
   }
@@ -793,6 +844,8 @@ void RoutingSession::EnableTurnNotifications(bool enable)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   m_turnNotificationsMgr.Enable(enable);
+  if (!enable)
+    m_pendingTrackNotification = TrackNotification::None;
 }
 
 bool RoutingSession::AreTurnNotificationsEnabled() const
