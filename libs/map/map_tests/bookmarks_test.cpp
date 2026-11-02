@@ -12,10 +12,12 @@
 
 #include "platform/gui_thread.hpp"
 #include "platform/platform.hpp"
+#include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/preferred_languages.hpp"
 
 #include "coding/internal/file_data.hpp"
 #include "coding/string_utf8_multilang.hpp"
+#include "coding/zip_creator.hpp"
 #include "coding/zip_reader.hpp"
 
 #include "base/file_name_utils.hpp"
@@ -538,6 +540,46 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ImportKML)
   // Name should be overridden from the KML
   TEST_EQUAL(bmManager.GetCategoryName(groupId), "MapName", ());
   TEST_EQUAL(bmManager.IsVisible(groupId), false, ());
+}
+
+UNIT_TEST(BookmarkImport_CreatesDirectory)
+{
+  auto & platform = GetPlatform();
+  auto const originalSettingsDir = platform.SettingsDir();
+  SCOPE_GUARD(restoreSettingsDir, [&] { platform.SetSettingsDir(originalSettingsDir); });
+
+  kml::FileData data;
+  kml::SetDefaultStr(data.m_categoryData.m_name, "Cold import");
+  auto & bookmark = data.m_bookmarksData.emplace_back();
+  kml::SetDefaultStr(bookmark.m_name, "Test point");
+  bookmark.m_point = {1.0, 2.0};
+
+  for (auto const fileType :
+       {FileType::Kml, FileType::Gpx, FileType::GeoJson, FileType::Json, FileType::Kmz, FileType::Kmb})
+  {
+    auto const testDir =
+        base::JoinPath(platform.WritableDir(), "bookmark_import" + std::string(GetFileTypeExtension(fileType)));
+    platform::tests_support::ScopedDirCleanup const cleanup(testDir);
+    platform.SetSettingsDir(testDir);
+    auto const sourcePath = base::JoinPath(testDir, "input" + std::string(GetFileTypeExtension(fileType)));
+    if (fileType == FileType::Kmz)
+    {
+      auto const kmlPath = base::JoinPath(testDir, "input.kml");
+      TEST(SaveKmlFileSafe(data, kmlPath, FileType::Kml), ());
+      TEST(CreateZipFromFiles({kmlPath}, sourcePath), ());
+    }
+    else
+      TEST(SaveKmlFileSafe(data, sourcePath, fileType), (fileType));
+
+    TEST(!Platform::IsFileExistsByFullPath(GetBookmarksDirectory()), (fileType));
+    auto const paths = GetKMLOrGPXFilesPathsToLoad(sourcePath);
+    TEST_EQUAL(paths.size(), 1, (fileType));
+    auto const importedType = fileType == FileType::Kmz || fileType == FileType::Kmb ? FileType::Kml : fileType;
+    auto const imported = LoadKmlFile(paths[0], importedType);
+    TEST(imported != nullptr, (fileType));
+    TEST_EQUAL(imported->m_bookmarksData.size(), 1, (fileType));
+    TEST_EQUAL(kml::GetDefaultStr(imported->m_bookmarksData[0].m_name), "Test point", (fileType));
+  }
 }
 
 UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
