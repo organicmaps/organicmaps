@@ -1,20 +1,19 @@
 final class RoutePointsView: UIView {
-  private enum Constants {
-    static var bottomContentInset: CGFloat {
-      let safeAreaInsets = MapsAppDelegate.theApp().window?.safeAreaInsets ?? .zero
-      let bottomActionBarHeight = RouteActionsBottomMenuView.reservedContentHeight(for: safeAreaInsets)
-      return bottomActionBarHeight + safeAreaInsets.bottom + safeAreaInsets.top
-    }
-  }
-
   private var collectionView: UICollectionView!
   private var routePoints: NavigationDashboard.RoutePoints = .empty
 
   weak var interactor: NavigationDashboard.Interactor?
-  weak var scrollViewDelegate: UIScrollViewDelegate?
 
-  var contentBottom: CGPoint {
-    origin.applying(CGAffineTransform(translationX: .zero, y: collectionView.contentSize.height))
+  private var itemCount: Int {
+    routePoints.hasStartAndFinish ? routePoints.count + 1 : routePoints.count
+  }
+
+  var contentHeight: CGFloat {
+    CGFloat(itemCount) * RoutePointCollectionViewCell.height()
+  }
+
+  override var intrinsicContentSize: CGSize {
+    CGSize(width: UIView.noIntrinsicMetric, height: contentHeight)
   }
 
   init() {
@@ -36,19 +35,10 @@ final class RoutePointsView: UIView {
 
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
     super.traitCollectionDidChange(previousTraitCollection)
-    updateCollectionViewInset()
     if previousTraitCollection?.preferredContentSizeCategory != traitCollection.preferredContentSizeCategory {
       collectionView.collectionViewLayout.invalidateLayout()
+      invalidateIntrinsicContentSize()
     }
-  }
-
-  override func safeAreaInsetsDidChange() {
-    super.safeAreaInsetsDidChange()
-    updateCollectionViewInset()
-  }
-
-  private func updateCollectionViewInset() {
-    collectionView.contentInset.bottom = Constants.bottomContentInset
   }
 
   private func setupView() {
@@ -58,13 +48,13 @@ final class RoutePointsView: UIView {
     collectionView.backgroundColor = .clear
     collectionView.dragInteractionEnabled = true
     collectionView.alwaysBounceVertical = false
-    collectionView.isScrollEnabled = true
+    collectionView.isScrollEnabled = false
+    collectionView.contentInsetAdjustmentBehavior = .never
     collectionView.dragDelegate = self
     collectionView.dropDelegate = self
     collectionView.dataSource = self
     collectionView.delegate = self
     collectionView.register(cell: RoutePointCollectionViewCell.self)
-    updateCollectionViewInset()
   }
 
   private func layout() {
@@ -107,14 +97,7 @@ final class RoutePointsView: UIView {
     guard self.routePoints != routePoints else { return }
     self.routePoints = routePoints
     collectionView.reloadData()
-  }
-}
-
-// MARK: - UIScrollViewDelegate
-
-extension RoutePointsView: UIScrollViewDelegate {
-  func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    scrollViewDelegate?.scrollViewDidScroll?(scrollView)
+    invalidateIntrinsicContentSize()
   }
 }
 
@@ -122,7 +105,7 @@ extension RoutePointsView: UIScrollViewDelegate {
 
 extension RoutePointsView: UICollectionViewDataSource, UICollectionViewDelegate {
   func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-    routePoints.hasStartAndFinish ? routePoints.count + 1 : routePoints.count
+    itemCount
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

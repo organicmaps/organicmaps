@@ -58,14 +58,11 @@ final class RouteActionsBottomMenuView: UIView {
   }
 
   func setShadowVisible(_ visible: Bool) {
-    guard !isHidden else { return }
+    let opacity: Float = visible ? 0.1 : 0
+    guard !isHidden, layer.shadowOpacity != opacity else { return }
     UIView.animate(withDuration: Constants.animationDuration) {
-      self.layer.shadowOpacity = visible ? 0.1 : 0
+      self.layer.shadowOpacity = opacity
     }
-  }
-
-  static func reservedContentHeight(for safeAreaInsets: UIEdgeInsets) -> CGFloat {
-    Constants.height + Constants.topInset + bottomInset(for: safeAreaInsets)
   }
 
   private static func bottomInset(for safeAreaInsets: UIEdgeInsets) -> CGFloat {

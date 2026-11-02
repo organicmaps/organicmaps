@@ -11,10 +11,16 @@ final class TransportTransitTrain: TransportTransitCell {
   }
 
   @IBOutlet private var image: UIImageView!
+  @IBOutlet private var imageAspectRatio: NSLayoutConstraint!
+  @IBOutlet private var imageLeading: NSLayoutConstraint!
+  private lazy var hiddenImageWidth = image.widthAnchor.constraint(equalToConstant: 0)
 
   @IBOutlet private var label: UILabel! {
     didSet {
       label.font = Config.labelTextFont
+      // A full-width identifier may need a little extra room for its trailing comma.
+      label.adjustsFontSizeToFitWidth = true
+      label.minimumScaleFactor = 0.8
     }
   }
 
@@ -27,12 +33,63 @@ final class TransportTransitTrain: TransportTransitCell {
   @IBOutlet private var emptyNumberTrailingOffset: NSLayoutConstraint!
 
   override class func estimatedCellSize(step: MWMRouterTransitStepInfo) -> CGSize {
-    let defaultSize = super.estimatedCellSize(step: step)
-    let labelSize = step.number.size(width: CGFloat.greatestFiniteMagnitude, font: Config.labelTextFont, maxNumberOfLines: 1)
-    return CGSize(width: defaultSize.width + labelSize.width + Config.labelTrailing, height: defaultSize.height)
+    estimatedCellSize(number: step.number)
+  }
+
+  static func estimatedCellSize(number: String, isContinuation: Bool = false) -> CGSize {
+    let defaultSize = TransportTransitCell.Config.cellSize
+    let labelSize = number.size(width: CGFloat.greatestFiniteMagnitude, font: Config.labelTextFont, maxNumberOfLines: 1)
+    let leadingWidth = isContinuation ? Config.labelTrailing : defaultSize.width
+    let trailingWidth = number.isEmpty ? 0 : Config.labelTrailing
+    return CGSize(width: leadingWidth + labelSize.width + trailingWidth, height: defaultSize.height)
+  }
+
+  static func numberGroups(_ number: String, maximumWidth: CGFloat, firstRowWidth: CGFloat,
+                           hasFollowingStep: Bool) -> [String] {
+    var remaining = ArraySlice(number.components(separatedBy: ", "))
+    var groups = [String]()
+    let separatorWidth = TransportTransitFlowLayout.Config.separatorSize.width
+    var rowWidth = firstRowWidth
+
+    while !remaining.isEmpty {
+      let isContinuation = !groups.isEmpty
+      func measuredWidth(_ text: String) -> CGFloat {
+        estimatedCellSize(number: text, isContinuation: isContinuation).width
+      }
+      let availableWidth = rowWidth - (hasFollowingStep ? separatorWidth : 0)
+
+      let firstNumber = remaining.first! + (remaining.count > 1 ? "," : "")
+      if rowWidth < maximumWidth, measuredWidth(firstNumber) > rowWidth {
+        rowWidth = maximumWidth
+        continue
+      }
+
+      var current = remaining.removeFirst()
+      while let next = remaining.first {
+        let candidate = current + ", " + next
+        let suffix = remaining.count > 1 ? "," : ""
+        let limit = remaining.count == 1 ? availableWidth : rowWidth
+        guard measuredWidth(candidate + suffix) <= limit else { break }
+        current = candidate
+        remaining.removeFirst()
+      }
+      let suffix = remaining.isEmpty ? "" : ","
+      groups.append(current + suffix)
+      rowWidth = maximumWidth
+    }
+    return groups
   }
 
   override func config(step: MWMRouterTransitStepInfo) {
+    config(step: step, number: step.number, isContinuation: false)
+  }
+
+  func config(step: MWMRouterTransitStepInfo, number: String, isContinuation: Bool) {
+    imageAspectRatio.isActive = false
+    hiddenImageWidth.isActive = isContinuation
+    imageAspectRatio.isActive = !isContinuation
+    imageLeading.constant = isContinuation ? Config.labelTrailing : 0
+    image.isHidden = isContinuation
     switch step.type {
     case .intermediatePoint, .pedestrian, .ruler: fatalError()
     case .train: image.image = UIImage.ic20PxRoutePlanningTrain
@@ -51,9 +108,9 @@ final class TransportTransitTrain: TransportTransitCell {
     image.tintColor = foreground
     label.textColor = foreground
 
-    emptyNumberTrailingOffset.isActive = step.number.isEmpty
-    label.isHidden = step.number.isEmpty
-    label.text = step.number
+    emptyNumberTrailingOffset.isActive = number.isEmpty
+    label.isHidden = number.isEmpty
+    label.text = number
   }
 
   static func foregroundColor(for color: UIColor) -> UIColor {
