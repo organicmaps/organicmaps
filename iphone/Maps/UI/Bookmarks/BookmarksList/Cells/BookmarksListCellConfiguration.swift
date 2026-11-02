@@ -2,7 +2,7 @@ extension BookmarksListCell {
   struct Configuration {
     enum LeadingItem {
       case none
-      case image(UIImage, tintColor: UIColor?, action: ((UIView) -> Void)?)
+      case image(UIImage, tintColor: UIColor?, accessibilityLabel: String?, action: ((UIView) -> Void)?)
     }
 
     struct TrailingButton {
@@ -58,6 +58,7 @@ extension BookmarksListCell.Configuration {
                                     subtitle: item.subtitle,
                                     leadingItem: .image(item.image,
                                                         tintColor: nil,
+                                                        accessibilityLabel: L("change_color"),
                                                         action: item.colorDidTapAction),
                                     trailingButtons: .one(.info(action: infoAction)))
   }
@@ -67,6 +68,7 @@ extension BookmarksListCell.Configuration {
                                     subtitle: item.subtitle,
                                     leadingItem: .image(item.image,
                                                         tintColor: nil,
+                                                        accessibilityLabel: L("change_color"),
                                                         action: item.colorDidTapAction),
                                     trailingButtons: .two(
                                       inner: .visibility(isVisible: item.isVisible,
@@ -82,6 +84,7 @@ extension BookmarksListCell.Configuration {
                                     subtitle: category.placesCountTitle(),
                                     leadingItem: .image(category.isVisible ? UIImage.icEyeOn : UIImage.icEyeOff,
                                                         tintColor: category.isVisible ? .linkBlue : .blackHintText,
+                                                        accessibilityLabel: L(category.isVisible ? "hide_from_map" : "zoom_to_country"),
                                                         action: leadingAction),
                                     trailingButtons: .one(.more(action: accessoryAction)))
   }
@@ -91,6 +94,7 @@ extension BookmarksListCell.Configuration {
                                     subtitle: nil,
                                     leadingItem: .image(action.image,
                                                         tintColor: .linkBlue,
+                                                        accessibilityLabel: nil,
                                                         action: nil),
                                     trailingButtons: .none)
   }

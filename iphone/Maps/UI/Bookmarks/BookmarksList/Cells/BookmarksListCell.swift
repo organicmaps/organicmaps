@@ -54,6 +54,7 @@ final class BookmarksListCell: MWMTableViewCell {
     subtitleLabel.isHidden = configuration.subtitle?.isEmpty ?? true
     applyLeadingItem(configuration.leadingItem)
     applyTrailingButtons(configuration.trailingButtons)
+    accessibilityTraits.insert(.button)
     updateEditingState()
   }
 
@@ -110,8 +111,6 @@ final class BookmarksListCell: MWMTableViewCell {
     innerTrailingButton.touchInset = Constants.innerTrailingButtonTouchInset
     contentView.addSubview(contentStackView)
     contentView.shouldGroupAccessibilityChildren = true
-
-    leadingButton.isAccessibilityElement = false
   }
 
   private func layoutViews() {
@@ -148,11 +147,13 @@ final class BookmarksListCell: MWMTableViewCell {
     case .none:
       leadingButton.isHidden = true
       leadingButton.setImage(nil, for: .normal)
+      leadingButton.accessibilityLabel = nil
       leadingButton.action = nil
-    case .image(let image, let tintColor, let action):
+    case .image(let image, let tintColor, let accessibilityLabel, let action):
       leadingButton.isHidden = false
       leadingButton.setImage(image, for: .normal)
       leadingButton.tintColor = tintColor
+      leadingButton.accessibilityLabel = accessibilityLabel
       leadingButton.action = action
     }
   }
@@ -186,6 +187,7 @@ final class BookmarksListCell: MWMTableViewCell {
     innerTrailingButton.isHidden = isShowingEditControl || innerTrailingButton.action == nil
     trailingButton.isHidden = isShowingEditControl || trailingButton.action == nil
     leadingButton.isUserInteractionEnabled = !isEditing && leadingButton.action != nil
+    leadingButton.isAccessibilityElement = leadingButton.isUserInteractionEnabled
     updateInsets()
   }
 
