@@ -2,7 +2,7 @@
 
 Organic Maps (OM) is an open-source, privacy-focused offline maps & GPS app built on OpenStreetMap data.
 OM works on iOS, Android, and desktop (Windows, macOS, Linux using Qt 6).
-The codebase is mostly C++23 with platform-specific code in Swift 5, Objective-C/C++, Java 17 and tools in bash and Python 3.10+
+The codebase is mostly C++23 with platform-specific code in Swift 5, Objective-C/C++, Java 17 and tools in bash and Python 3.11+
 
 ## Architecture overview
 

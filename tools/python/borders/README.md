@@ -20,7 +20,7 @@ of a changed region. Review the manual changes separately: the later baseline
 comparison checks the tools' changes and requires matching filenames, titles
 and ring names in the baseline and candidate.
 
-Run the commands from the repository root in the same shell. Python 3.10 or
+Run the commands from the repository root in the same shell. Python 3.11 or
 later is required. `requirements.txt` installs NumPy 1.23+ and Shapely 2.0+.
 Alignment also requires GEOS 3.10+; standard Shapely wheels include GEOS.
 
