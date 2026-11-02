@@ -13,6 +13,7 @@
 #include "platform/platform.hpp"
 
 #include "base/file_name_utils.hpp"
+#include "base/scope_guard.hpp"
 
 #include <QtGui/QPainter>
 
@@ -39,13 +40,13 @@ void ShapeTestFixture::Render(char const * title, uint32_t width, uint32_t heigh
 {
   RunTestInOpenGLOffscreenEnvironment(title, [&]()
   {
+    SCOPE_GUARD(releaseResources, [this] { ReleaseGLResources(); });
     Init(width, height);
 
     createShapes(*this);
 
     Flush();
     Render();
-    ReleaseGLResources();
   });
 
   CHECK(!m_lastImage.isNull(), ("OpenGL render produced no image", title));
