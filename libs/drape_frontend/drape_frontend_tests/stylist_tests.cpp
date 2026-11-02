@@ -81,7 +81,6 @@ void TestSameRules(df::Stylist const & actual, df::Stylist const & expected)
                   expected.m_lineRules.end()),
        ());
 }
-}  // namespace
 
 UNIT_TEST(Stylist_IsHatching)
 {
@@ -211,3 +210,4 @@ UNIT_CLASS_TEST(StyleSnapshotFixture, Stylist_ExplicitStyleIgnoresGlobalSwitches
     }
   }
 }
+}  // namespace
