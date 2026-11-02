@@ -162,7 +162,6 @@ RuleDrawer::RuleDrawer(TCheckCancelledCallback const & checkCancelled, TIsCountr
   , m_customFeaturesContext(engineContext->GetCustomFeaturesContext().lock())
   , m_mapStyle(GetStyleReader().GetCurrentStyle())
   , m_deviceLang(deviceLang)
-  , m_isPatternedCyclingInfrastructure({{"cyclewaytag", "lane"}, {"cyclewaytag", "shared_lane"}})
 {
   ASSERT(m_checkCancelled != nullptr, ());
 
@@ -329,10 +328,16 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s)
   bool const isIsoline = m_isIsoline(f);
   double dashPhaseOffset = 0.0;
   bool dashPhaseReversed = false;
+  bool const hasDashedSides = std::any_of(s.m_cyclewaySides.begin(), s.m_cyclewaySides.end(), [](auto const & side)
+  {
+    return std::any_of(side.m_rules.begin(), side.m_rules.end(),
+                       [](auto const rule) { return rule->dashdot.has_value(); });
+  });
   bool const hasDashedLine =
-      std::any_of(s.m_lineRules.begin(), s.m_lineRules.end(),
-                  [](drule::LineRule const * rule) { return rule->dashdot.has_value(); });
-  bool const needsDashPhase = hasDashedLine && m_isPatternedCyclingInfrastructure(f);
+      hasDashedSides || std::any_of(s.m_lineRules.begin(), s.m_lineRules.end(),
+                                    [](drule::LineRule const * rule) { return rule->dashdot.has_value(); });
+  bool const needsDashPhase = hasDashedLine && (hasDashedSides || ftypes::IsCyclewayLaneChecker::Instance()(f) ||
+                                                ftypes::IsCyclewaySharedLaneChecker::Instance()(f));
   std::optional<MetalineInfo> metalineInfo;
   if (needsDashPhase || s.m_pathtextRule || s.m_shieldRule)
     metalineInfo = m_context->GetMetalineManager()->GetMetalineInfo(f.GetID());
@@ -343,10 +348,10 @@ void RuleDrawer::ProcessLineStyle(FeatureType & f, Stylist const & s)
     dashPhaseReversed = metalineInfo->m_dashPhaseReversed;
   }
   ApplyLineFeatureGeometry applyGeom(m_applyParams, f, m_relsSettings, dashPhaseOffset, dashPhaseReversed);
-  applyGeom.BuildGeometry(m_zoomLevel, isIsoline);
+  applyGeom.BuildGeometry(m_zoomLevel, isIsoline, s.m_lineGeometryPadding);
 
   if (applyGeom.HasGeometry())
-    applyGeom.ProcessLineRules(s.m_lineRules, isIsoline);
+    applyGeom.ProcessLineRules(s.m_lineRules, isIsoline, s.m_cyclewaySides);
 
   if (s.m_pathtextRule || s.m_shieldRule)
   {
@@ -447,13 +452,13 @@ void RuleDrawer::operator()(FeatureType & f)
   Stylist const s(f, m_zoomLevel, m_deviceLang, style);
 
   // No drawing rules.
-  if (!s.m_symbolRule && !s.m_captionRule && !s.m_houseNumberRule && s.m_lineRules.empty() && !s.m_areaRule &&
+  if (!s.m_symbolRule && !s.m_captionRule && !s.m_houseNumberRule && !s.HasLineRules() && !s.m_areaRule &&
       !s.m_hatchingRule)
     return;
 
 #ifdef DEBUG
   // Validate mixing of feature styles.
-  bool const hasLine = !s.m_lineRules.empty();
+  bool const hasLine = s.HasLineRules();
   bool const hasLineAdd = s.m_shieldRule || s.m_pathtextRule;
   bool const hasPoint = s.m_symbolRule || s.m_captionRule || s.m_houseNumberRule;
   bool const hasArea = s.m_areaRule || s.m_hatchingRule;
@@ -472,7 +477,7 @@ void RuleDrawer::operator()(FeatureType & f)
   {
     ProcessAreaAndPointStyle(f, s);
   }
-  else if (!s.m_lineRules.empty())
+  else if (s.HasLineRules())
   {
     ASSERT(geomType == feature::GeomType::Line, ());
     ProcessLineStyle(f, s);

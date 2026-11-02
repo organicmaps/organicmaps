@@ -21,7 +21,7 @@ double constexpr kProlongingDotSqr = math::Pow2(0.995);
 double constexpr kIsolineSmoothScale = 1.6;  // same as Inflate(0.3*szX, 0.3*szY) per side
 }  // namespace
 
-void ClipSplinesBuilder::Build(FeatureType & f, int zoomLevel, bool isIsoline)
+void ClipSplinesBuilder::Build(FeatureType & f, int zoomLevel, bool isIsoline, double padding)
 {
   m_path.clear();
   m_splineOffsets.clear();
@@ -36,6 +36,7 @@ void ClipSplinesBuilder::Build(FeatureType & f, int zoomLevel, bool isIsoline)
   if (limitRect.IsValid())
   {
     m2::RectD checkRect = m_params.m_tileRect;
+    checkRect.Inflate(padding, padding);
     if (isIsoline)
       checkRect.Scale(kIsolineSmoothScale);
 
@@ -152,6 +153,15 @@ std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline, bool n
 
   out.reserve(2);
 
+  if (!isIsoline && needSplineOffsets)
+  {
+    std::vector<m2::SplineClipInfo> ranges;
+    out = m2::ClipSplineByRect(m_params.m_tileRect, m2::SharedSpline(m_path), &ranges);
+    for (auto const & range : ranges)
+      m_splineOffsets.push_back(range.m_startDistance);
+    return out;
+  }
+
   if (isIsoline)
   {
     // Isoline pipeline: clip-before-smooth (with an inflated rect), smooth,
@@ -180,44 +190,7 @@ std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline, bool n
   if (!needSplineOffsets)
     return out;
 
-  m_splineOffsets.reserve(out.size());
-  if (isIsoline)
-  {
-    m_splineOffsets.resize(out.size(), 0.0);
-  }
-  else
-  {
-    for (auto const & spline : out)
-    {
-      auto const & start = spline->GetPath().front();
-      double offset = 0.0;
-      bool found = false;
-      for (size_t i = 1; i < m_path.size(); ++i)
-      {
-        auto const & p1 = m_path[i - 1];
-        auto const & p2 = m_path[i];
-        auto const segment = p2 - p1;
-        double const squaredLength = segment.SquaredLength();
-        if (squaredLength == 0.0)
-          continue;
-
-        double const t = DotProduct(start - p1, segment) / squaredLength;
-        if (t >= 0.0 && t <= 1.0)
-        {
-          auto const projected = p1 + segment * t;
-          if (projected.EqualDxDy(start, 1e-12))
-          {
-            offset += std::sqrt(squaredLength) * t;
-            found = true;
-            break;
-          }
-        }
-        offset += std::sqrt(squaredLength);
-      }
-      ASSERT(found, (start, m_path));
-      m_splineOffsets.push_back(offset);
-    }
-  }
+  m_splineOffsets.resize(out.size(), 0.0);  // Smoothed isolines have no source-distance correspondence.
 
   return out;
 }

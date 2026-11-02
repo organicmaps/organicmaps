@@ -9,8 +9,6 @@
 
 namespace df
 {
-uint8_t constexpr kMetaLinesSectionVersion = 3;
-
 class MapDataProvider;
 
 struct MetalineInfo

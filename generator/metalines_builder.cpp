@@ -1,11 +1,10 @@
 #include "generator/metalines_builder.hpp"
 #include "generator/routing_helpers.hpp"
 
-#include "drape_frontend/read_metaline_task.hpp"  // for kMetaLinesSectionVersion
-
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_processor.hpp"
+#include "indexer/metaline_data.hpp"
 
 #include "coding/files_container.hpp"
 #include "coding/read_write_utils.hpp"
@@ -119,10 +118,8 @@ LineStringMerger::OutputData LineStringMerger::Merge(InputData const & data)
     }
     BlockedNodes blockedNodes;
     for (auto const & [node, count] : endpointCounts)
-    {
       if (count > 2)
         blockedNodes.insert(node);
-    }
 
     Buffer buffer;
     for (auto & lineString : p.second)
@@ -323,6 +320,8 @@ bool WriteMetalinesSection(std::string const & mwmPath, std::string const & meta
   ReaderSource<FileReader> src(reader);
   std::vector<uint8_t> buffer;
   MemWriter<std::vector<uint8_t>> memWriter(buffer);
+  std::vector<uint8_t> legacyBuffer;
+  MemWriter legacyWriter(legacyBuffer);
   uint32_t count = 0;
 
   while (src.Size() > 0)
@@ -348,10 +347,12 @@ bool WriteMetalinesSection(std::string const & mwmPath, std::string const & meta
     {
       // Write vector to buffer if we have got at least two segments.
       WriteVarUint(memWriter, featureIds.size());
+      WriteVarUint(legacyWriter, featureIds.size());
       double chainOffset = 0.0;
       for (auto const & fid : featureIds)
       {
         WriteVarInt(memWriter, fid);
+        WriteVarInt(legacyWriter, fid);
         auto const featureId = static_cast<uint32_t>(std::abs(fid));
         CHECK_LESS(featureId, featureLengths.size(), ());
         double const length = featureLengths[featureId];
@@ -366,7 +367,12 @@ bool WriteMetalinesSection(std::string const & mwmPath, std::string const & meta
   // Write buffer to section.
   FilesContainerW cont(mwmPath, FileWriter::OP_WRITE_EXISTING);
   auto writer = cont.GetWriter(METALINES_FILE_TAG);
-  WriteToSink(writer, df::kMetaLinesSectionVersion);
+  WriteToSink(writer, metalines::kLegacyMetalinesSectionVersion);
+  WriteVarUint(writer, count);
+  writer->Write(legacyBuffer.data(), legacyBuffer.size());
+  writer.reset();
+  writer = cont.GetWriter(METALINES_OFFSETS_FILE_TAG);
+  WriteToSink(writer, metalines::kMetaLinesSectionVersion);
   WriteVarUint(writer, count);
   writer->Write(buffer.data(), buffer.size());
   LOG(LINFO, ("Finished writing metalines section, found", count, "metalines."));

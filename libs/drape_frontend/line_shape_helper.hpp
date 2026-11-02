@@ -3,7 +3,9 @@
 #include "drape/drape_global.hpp"
 #include "drape/glsl_types.hpp"
 
+#include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
+#include "geometry/spline.hpp"
 
 #include <vector>
 
@@ -71,4 +73,23 @@ float GetProjectionLength(glsl::vec2 const & newPoint, glsl::vec2 const & startP
 
 double WrapDashPhase(double phase, double maskLength);
 double AdvanceDashPhase(double phase, double distance, bool reversed);
+float SideOffsetPixels(float roadWidth, float lineWidth, float gap, int side);
+glsl::vec2 LinePixelOffset(std::vector<m2::PointD> const & path, size_t index, float offset);
+glsl::vec2 LinePixelOffsetOnSegment(std::vector<m2::PointD> const & path, size_t segment, m2::PointD const & point,
+                                    float offset);
+double PathSymbolOffsetForClip(double first, double step, double sourceDistance);
+
+// Junctions originate from shared OSM node IDs. Projection only compensates for
+// map quantization/simplification; it must never discover new connections.
+struct JunctionTaper
+{
+  m2::SharedSpline m_spline;
+  std::vector<double> m_distances;
+  double m_span = 0;
+  float Scale(double distance) const;
+};
+JunctionTaper MakeJunctionTaper(m2::SharedSpline const & source, std::vector<m2::PointD> const & junctions, double span,
+                                double tolerance);
+glsl::vec2 InterpolateLinePixelOffset(std::vector<m2::PointD> const & path, std::vector<m2::PointF> const & offsets,
+                                      size_t segment, m2::PointD const & point);
 }  // namespace df

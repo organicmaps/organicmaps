@@ -20,6 +20,7 @@
 #include "base/file_name_utils.hpp"
 #include "base/stl_helpers.hpp"
 
+#include <algorithm>
 #include <set>
 #include <string>
 #include <vector>
@@ -569,6 +570,35 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Amenity)
   }
 }
 
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_MotorVehiclePermissive)
+{
+  for (char const * highway : {"path", "footway", "pedestrian", "cycleway"})
+  {
+    for (char const * access : {"yes", "designated", "permissive"})
+    {
+      auto const params = GetFeatureBuilderParams({{"highway", highway}, {"motor_vehicle", access}});
+      TEST(params.IsTypeExist(GetType({"hwtag", "yescar"})), (highway, access, params));
+      TEST(!params.IsTypeExist(GetType({"hwtag", "nocar"})), (highway, access, params));
+
+      for (bool reverse : {false, true})
+      {
+        Tags tags = {{"highway", highway}, {"motor_vehicle", access}, {"motorcar", "no"}};
+        if (reverse)
+          std::reverse(tags.begin(), tags.end());
+        auto const restricted = GetFeatureBuilderParams(tags);
+        TEST(restricted.IsTypeExist(GetType({"hwtag", "nocar"})), (highway, access, reverse, restricted));
+        TEST(!restricted.IsTypeExist(GetType({"hwtag", "yescar"})), (highway, access, reverse, restricted));
+      }
+    }
+    for (char const * access : {"no", "private"})
+    {
+      auto const params = GetFeatureBuilderParams({{"highway", highway}, {"motor_vehicle", access}});
+      TEST(params.IsTypeExist(GetType({"hwtag", "nocar"})), (highway, access, params));
+      TEST(!params.IsTypeExist(GetType({"hwtag", "yescar"})), (highway, access, params));
+    }
+  }
+}
+
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
 {
   {
@@ -675,8 +705,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
       TEST(params.IsTypeExist(GetType({"hwtag", "oneway"})), (testCase.m_value));
       TEST(params.IsTypeExist(GetType({"hwtag", "yesbicycle"})), (testCase.m_value));
       TEST(params.IsTypeExist(GetType({"hwtag", "bidir_bicycle"})), (testCase.m_value));
-      TEST(params.IsTypeExist(GetType({"cyclewaytag", testCase.m_expectedCyclewayType})),
-           (testCase.m_value));
+      TEST(params.IsTypeExist(GetType({"cyclewaytag", testCase.m_expectedCyclewayType})), (testCase.m_value));
     }
   }
 
@@ -765,8 +794,7 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
       TEST_EQUAL(params.m_types.size(), 3, (params, testCase.m_lane));
       TEST(params.IsTypeExist(GetType({"highway", "secondary"})), (testCase.m_lane));
       TEST(params.IsTypeExist(GetType({"hwtag", "yesbicycle"})), (testCase.m_lane));
-      TEST(params.IsTypeExist(GetType({"cyclewaytag", testCase.m_expected})),
-           (testCase.m_lane, testCase.m_expected));
+      TEST(params.IsTypeExist(GetType({"cyclewaytag", testCase.m_expected})), (testCase.m_lane, testCase.m_expected));
     }
   }
 
@@ -823,14 +851,10 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Hwtag)
       char const * m_expected;
     };
     std::vector<TestCase> const testCases = {
-        {"no", "lane", "lane"},
-        {"separate", "lane", "lane"},
-        {"no", "track", "track"},
-        {"no", "shared_lane", "shared_lane"},
-        {"lane", "no", "lane"},
-        {"lane", "separate", "lane"},
-        {"track", "no", "track"},
-        {"shared_lane", "no", "shared_lane"},
+        {"no", "lane", "lane"},   {"separate", "lane", "lane"},
+        {"no", "track", "track"}, {"no", "shared_lane", "shared_lane"},
+        {"lane", "no", "lane"},   {"lane", "separate", "lane"},
+        {"track", "no", "track"}, {"shared_lane", "no", "shared_lane"},
     };
 
     for (auto const & testCase : testCases)

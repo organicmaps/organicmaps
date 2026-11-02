@@ -1,5 +1,6 @@
-#include "indexer/classificator.hpp"
 #include "indexer/drules_selector.hpp"
+
+#include "indexer/classificator.hpp"
 #include "indexer/drules_selector_parser.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
@@ -7,6 +8,7 @@
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
 namespace drule
 {
@@ -114,26 +116,18 @@ private:
   bool m_testHas;
 };
 
-uint32_t TagSelectorToType(std::string const & value, Classificator const & classificator)
-{
-  auto const path = strings::Tokenize(value, "=");
-  return !path.empty() ? classificator.GetTypeByPathSafe(path) : Classificator::INVALID_TYPE;
-}
-
 class TypeSelector : public ISelector
 {
 public:
-  TypeSelector(uint32_t type, SelectorOperatorType op) : m_type(type), m_equals(op == SelectorOperatorEqual)
-  {
-    ASSERT(op == SelectorOperatorEqual || op == SelectorOperatorNotEqual, ());
-  }
+  TypeSelector(uint32_t type, SelectorOperatorType op) : m_type(type), m_equals(op == SelectorOperatorEqual) {}
 
   bool Test(FeatureType & ft, int /* zoom */) const override
   {
     bool found = false;
-    ft.ForEachType([&found, this](uint32_t type)
+    auto const level = ftype::GetLevel(m_type);
+    ft.ForEachType([&found, this, level](uint32_t type)
     {
-      ftype::TruncValue(type, ftype::GetLevel(m_type));
+      ftype::TruncValue(type, level);
       if (type == m_type)
         found = true;
     });
@@ -212,12 +206,13 @@ std::unique_ptr<ISelector> ParseSelector(std::string const & str, Classificator 
   }
   else if (e.m_tag == "extra_tag")
   {
-    uint32_t const type = TagSelectorToType(e.m_value, classificator);
-    if (type == Classificator::INVALID_TYPE)
-    {
-      LOG(LDEBUG, ("Invalid selector:", str));
+    if ((e.m_operator != SelectorOperatorEqual && e.m_operator != SelectorOperatorNotEqual) || e.m_value.empty() ||
+        e.m_value.front() == '=' || e.m_value.back() == '=' || e.m_value.find("==") != std::string::npos)
       return {};
-    }
+    auto const path = strings::Tokenize(e.m_value, "=");
+    auto const type = classificator.GetTypeByPathSafe(path);
+    if (type == Classificator::INVALID_TYPE)
+      return {};
     return std::make_unique<TypeSelector>(type, e.m_operator);
   }
 

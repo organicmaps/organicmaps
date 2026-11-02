@@ -1,4 +1,5 @@
 #include "generator/osm2type.hpp"
+#include "generator/cycling_infrastructure.hpp"
 
 #include "generator/osm2meta.hpp"
 #include "generator/osm_element.hpp"
@@ -1161,8 +1162,8 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
         }
         return false;
       };
-      auto const ProcessCyclewayTypeTag = [&SetCyclewayType, &HasMotorTrafficSeparation](std::string const & key,
-                                                                                        std::string const & value)
+      auto const ProcessCyclewayTypeTag =
+          [&SetCyclewayType, &HasMotorTrafficSeparation](std::string const & key, std::string const & value)
       {
         CachedTypes::Type type = CachedTypes::Count;
         if (value == "track" || value == "opposite_track" || value == "protected_lane")
@@ -1181,8 +1182,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
         if (type != CachedTypes::Count)
           SetCyclewayType(type);
       };
-      auto const ProcessCyclewayLaneTag = [&SetCyclewayType, p](std::string const & key,
-                                                                std::string const & value)
+      auto const ProcessCyclewayLaneTag = [&SetCyclewayType, p](std::string const & key, std::string const & value)
       {
         string const cyclewayKey = key.substr(0, key.size() - string(":lane").size());
         if (IsNegativeRoutingTagValue(p->GetTag(cyclewayKey)))
@@ -1253,7 +1253,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
           {"oneway:bicycle", "true", [&AddParam] { AddParam(CachedTypes::BicycleOnedir); }},
           {"oneway:bicycle", "-1", [&AddParam] { AddParam(CachedTypes::BicycleOnedir); }},
 
-          // For YesCar process only strict =yes/designated.
+          // Explicit motor access includes permission granted on a permissive basis.
           {"motor_vehicle", "private", [&flags] { flags[Flags::MotorVehicle] = -1; }},
           {"motor_vehicle", "!", [&flags] { flags[Flags::MotorVehicle] = -1; }},
           {"motor_vehicle", "yes", [&flags] { flags[Flags::MotorVehicle] = 1; }},
@@ -1282,8 +1282,8 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
         else if (IsPositiveRoutingTagValue(tag.m_value))
           flags[Flags::Cycleway] = 1;
 
-        if (tag.m_value == "opposite" || tag.m_value == "opposite_lane" ||
-            tag.m_value == "opposite_track" || tag.m_value == "opposite_share_busway")
+        if (tag.m_value == "opposite" || tag.m_value == "opposite_lane" || tag.m_value == "opposite_track" ||
+            tag.m_value == "opposite_share_busway")
         {
           AddParam(CachedTypes::BicycleBidir);
         }
@@ -1317,8 +1317,7 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
       bool const bicycleDesignated = p->GetTag("bicycle") == "designated";
       auto const IsPositiveTag = [](std::string const & value)
       { return !value.empty() && IsPositiveRoutingTagValue(value); };
-      bool const bicycleStreet =
-          IsPositiveTag(p->GetTag("bicycle_road")) || IsPositiveTag(p->GetTag("cyclestreet"));
+      bool const bicycleStreet = IsPositiveTag(p->GetTag("bicycle_road")) || IsPositiveTag(p->GetTag("cyclestreet"));
       bool const motorVehiclesForbidden = IsNegativeTagValue(p->GetTag("motor_vehicle")) ||
                                           IsNegativeTagValue(p->GetTag("vehicle")) ||
                                           IsNegativeTagValue(p->GetTag("access"));
@@ -1591,5 +1590,11 @@ void GetNameAndType(OsmElement * p, FeatureBuilderParams & params, TypesFilterFn
   // Stage6: Collect additional information about feature such as
   // hotel stars, opening hours, cuisine, ...
   ForEachTag(p, MetadataTagProcessor(params));
+  auto const highway = p->GetTag("highway");
+  bool const dedicated =
+      highway == "cycleway" || ((highway == "path" || highway == "footway") && p->GetTag("bicycle") == "designated");
+  if (p->IsWay() && !highway.empty() && !dedicated)
+    if (auto sides = generator::ReadCyclingSides(*p, params.GetReversedGeometry()))
+      params.SetCyclingInfrastructure(cycling::Encode(*sides));
 }
 }  // namespace ftype

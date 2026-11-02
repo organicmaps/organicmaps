@@ -28,7 +28,7 @@ public:
   /// isolines whose tight rect just misses the tile but whose control points
   /// reach into the smoothing buffer aren't dropped. The Inside hint is
   /// suppressed in this mode since Release() ignores it on the isoline path.
-  void Build(FeatureType & f, int zoomLevel, bool isIsoline = false);
+  void Build(FeatureType & f, int zoomLevel, bool isIsoline = false, double padding = 0.0);
 
   bool HasGeometry() const { return m_path.size() > 1; }
   size_t GetPathSize() const { return m_path.size(); }

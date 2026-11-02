@@ -10,6 +10,7 @@
 #include "base/macros.hpp"
 
 #include <array>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -180,6 +181,7 @@ public:
   std::string const & GetRef();
 
   feature::Metadata const & GetMetadata();
+  std::string const & GetCyclingInfrastructure();
 
   // Gets single metadata string. Does not parse all metadata.
   std::string_view GetMetadata(feature::Metadata::EType type);
@@ -261,6 +263,7 @@ private:
 
   PointsBufferT m_points, m_triangles;
   feature::Metadata m_metadata;
+  std::optional<std::string> m_cyclingInfrastructure;
   indexer::MetadataDeserializer::MetaIds m_metaIds;
 
   // Non-owning pointer to shared load info. SharedLoadInfo created once per FeaturesVector.
