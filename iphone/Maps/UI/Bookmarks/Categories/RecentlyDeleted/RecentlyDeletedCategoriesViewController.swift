@@ -65,6 +65,7 @@ final class RecentlyDeletedCategoriesViewController: MWMViewController {
 
   private func setupNavigationBar() {
     title = LocalizedStrings.recentlyDeleted
+    clearButton.accessibilityLabel = L("deselect_all")
   }
 
   private func setupToolBar() {
@@ -87,6 +88,7 @@ final class RecentlyDeletedCategoriesViewController: MWMViewController {
 
   private func setupSearchBar() {
     searchController.searchBar.placeholder = LocalizedStrings.searchInTheList
+    searchController.searchBar.searchTextField.accessibilityLabel = searchController.searchBar.placeholder
     searchController.obscuresBackgroundDuringPresentation = false
     searchController.hidesNavigationBarDuringPresentation = false
     searchController.searchBar.delegate = self

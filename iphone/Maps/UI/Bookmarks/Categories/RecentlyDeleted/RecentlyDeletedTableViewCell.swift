@@ -18,6 +18,7 @@ final class RecentlyDeletedTableViewCell: UITableViewCell {
     detailTextLabel?.text = DateTimeFormatter.dateString(from: viewModel.deletionDate,
                                                          dateStyle: .medium,
                                                          timeStyle: .medium)
+    accessibilityTraits.insert(.button)
   }
 }
 
