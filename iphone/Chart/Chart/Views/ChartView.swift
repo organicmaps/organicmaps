@@ -235,7 +235,9 @@ public class ChartView: UIView {
         lowerIdx -= upperIdx - chartData.pointsCount + 1
         upperIdx = chartData.pointsCount - 1
       }
-      chartPreviewView.setX(min: lowerIdx, max: upperIdx)
+      // Do not echo a programmatic selection back to its source.
+      chartPreviewView.setX(min: lowerIdx, max: upperIdx, notifyDelegate: false)
+      updateViewport()
       lower = chartData.xAxisValueAt(CGFloat(chartPreviewView.minX))
       let updatedUpper = chartData.xAxisValueAt(CGFloat(chartPreviewView.maxX))
       let currentRangeLength = updatedUpper - lower
@@ -254,6 +256,13 @@ public class ChartView: UIView {
     let rangeLength = upper - lower
     guard rangeLength > 0 else { return }
     chartInfoView.myPositionX = CGFloat((x - lower) / rangeLength)
+  }
+
+  private func updateViewport() {
+    xAxisView.setBounds(lower: chartPreviewView.minX, upper: chartPreviewView.maxX)
+    updateCharts(animationStyle: .none)
+    chartInfoView.update()
+    setMyPosition(myPosition)
   }
 
   override public func layoutSubviews() {
@@ -401,11 +410,8 @@ public class ChartView: UIView {
 }
 
 extension ChartView: ChartPreviewViewDelegate {
-  func chartPreviewView(_: ChartPreviewView, didChangeMinX minX: Int, maxX: Int) {
-    xAxisView.setBounds(lower: minX, upper: maxX)
-    updateCharts(animationStyle: .none)
-    chartInfoView.update()
-    setMyPosition(myPosition)
+  func chartPreviewView(_: ChartPreviewView, didChangeMinX _: Int, maxX _: Int) {
+    updateViewport()
     let chartX = chartInfoView.infoX * CGFloat(xAxisView.upperBound - xAxisView.lowerBound) + CGFloat(xAxisView.lowerBound)
     notifySelectedPointChanged(at: chartX)
   }
