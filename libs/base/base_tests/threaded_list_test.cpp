@@ -64,14 +64,11 @@ UNIT_TEST(ThreadedList)
   p.PushBack(1);
   p.PushBack(2);
 
-  bool completed;
-  std::list<int> result;
-  {
-    std::unique_lock lock(resMutex);
-    completed = resCond.wait_for(lock, std::chrono::seconds(30), [&res]() { return res.size() == 3; });
-    // Front() can return default values after cancellation, so snapshot the actual results first.
-    result = res;
-  }
+  std::unique_lock lock(resMutex);
+  bool const completed = resCond.wait_for(lock, std::chrono::seconds(30), [&res]() { return res.size() == 3; });
+  // Consumers can append default values after Cancel(), so copy the results first.
+  auto result = res;
+  lock.unlock();
 
   p.Cancel();
 
@@ -82,4 +79,16 @@ UNIT_TEST(ThreadedList)
   TEST(completed, ("Timed out waiting for consumers", result));
   result.sort();
   TEST_EQUAL(result, (std::list<int>{0, 1, 2}), ());
+}
+
+UNIT_TEST(ThreadedList_Fifo)
+{
+  ThreadedList<int> p;
+  for (int i = 0; i < 3; ++i)
+    p.PushBack(i);
+  for (int i = 0; i < 3; ++i)
+  {
+    int const value = p.Front(true /* doPop */);
+    TEST_EQUAL(value, i, ());
+  }
 }
