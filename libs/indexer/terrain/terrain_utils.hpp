@@ -1,0 +1,59 @@
+#pragma once
+
+#include "indexer/drules_struct.hpp"
+#include "indexer/map_style.hpp"
+
+#include "platform/measurement_utils.hpp"
+
+#include <array>
+#include <cstdint>
+
+namespace terrain
+{
+// The first zoom of the terrain layers (the isoline style classes open here, see
+// data/styles); shared by the drape gate and the isolines availability hint.
+int constexpr kMinIsolinesZoom = 11;
+
+// Resolves the dynamic isolines drawing policy from a map style for one draw zoom: the
+// altitude step to trace and the line/label drules of every traced altitude. The caller
+// pins the style of its whole tile read: the current one can switch at any moment.
+// The style is the single source of the steps: a class the style opens at some zoom
+// (e.g. line|z11-[isoline=step_1000]) traces and draws from exactly that zoom, and a
+// level is labeled iff its class has a visible pathtext rule. The altitude -> class
+// mapping matches the baked isoline features (see generator isolines_generator); the
+// sea depths (negative altitudes) follow the same ladder inverted: -N draws as N does.
+// Constructed once per tile draw (see RuleDrawer::DrawDynamicIsolines), the per-isoline
+// lookups are trivial.
+// TODO(terrain): correct the resolved steps by the tile relief or coordinates, e.g.
+// shift the class visibility a zoom earlier for manually highlighted regions.
+class IsolinesStyle
+{
+public:
+  IsolinesStyle(MapStyle style, int zoom, measurement_utils::Units units);
+
+  // The trace step in the display units: the finest class rung with a visible line
+  // drule, 0 when the style draws no isolines at this zoom.
+  int32_t GetStep() const { return m_step; }
+
+  // The line drule of the altitude's class, nullptr when invisible at this zoom.
+  drule::LineRule const * GetLineRule(int32_t altitude) const { return GetClass(altitude).m_line; }
+
+  // The label drule of the altitude's class (with the primary caption always present),
+  // nullptr when the style does not label this altitude at this zoom.
+  drule::PathTextRule const * GetPathTextRule(int32_t altitude) const { return GetClass(altitude).m_text; }
+
+private:
+  struct ClassStyle
+  {
+    int32_t m_rung = 0;
+    drule::LineRule const * m_line = nullptr;
+    drule::PathTextRule const * m_text = nullptr;
+  };
+
+  ClassStyle const & GetClass(int32_t altitude) const;
+
+  std::array<ClassStyle, 5> m_classes;  // Coarse to fine, see kClassDefs in the cpp.
+  ClassStyle m_zero;                    // The zero altitude line, a style class of its own.
+  int32_t m_step = 0;
+};
+}  // namespace terrain

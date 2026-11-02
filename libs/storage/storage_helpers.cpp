@@ -29,10 +29,9 @@ bool IsEnoughSpaceForDownload(MwmSize mwmSize)
 
 bool IsEnoughSpaceForDownload(CountryId const & countryId, Storage const & storage)
 {
-  NodeAttrs nodeAttrs;
-  storage.GetNodeAttrs(countryId, nodeAttrs);
-
-  return IsEnoughSpaceForDownload(nodeAttrs.m_mwmSize);
+  // The exact bytes still to fetch: an out-of-date map is re-downloaded in FULL while
+  // its old file stays on disk until the swap, so no local-size discount applies.
+  return IsEnoughSpaceForDownload(storage.GetDownloadSize({countryId}));
 }
 
 bool IsEnoughSpaceForUpdate(CountryId const & countryId, Storage const & storage)

@@ -17,6 +17,7 @@
 #include "geometry/latlon.hpp"
 #include "geometry/point2d.hpp"
 
+#include <optional>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -179,6 +180,15 @@ public:
   /// unavailable at this location. Used by the iOS place page (which keeps the array id-indexed).
   std::string GetFormattedCoordinate(CoordinatesFormat format) const;
 
+  // Interpolated TWM elevation in meters; absent when no surface covers the selected point.
+  std::optional<double> GetTerrainElevation() const { return m_terrainElevation; }
+  std::string GetFormattedTerrainElevation() const;
+  void SetTerrainElevation(std::optional<double> elevation) { m_terrainElevation = elevation; }
+  // The subtitle to display only: a place without one of its own (an unmatched point, an unnamed
+  // forest) shows the coordinates and the terrain elevation. GetSubtitle() stays free of them for
+  // the route points, the saved routes and the shared text.
+  std::string GetPreviewSubtitle() const;
+
   /// UI setters
   void SetCustomName(std::string const & name);
   void SetTitlesForBookmark();
@@ -292,6 +302,7 @@ private:
   std::string m_uiSecondaryTitle;
   std::string m_uiAddress;
   std::string m_uiTrackStatistics;
+  std::optional<double> m_terrainElevation;
   std::string m_wikiDescription;
   std::string m_osmDescription;
   /// Booking rating string

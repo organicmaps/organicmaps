@@ -1,6 +1,8 @@
 #pragma once
 
+#include <atomic>
 #include <chrono>
+#include <memory>
 #include <mutex>
 #include <optional>
 #include <string>
@@ -53,4 +55,15 @@ private:
 };
 
 std::string DebugPrint(Cancellable::Status status);
+
+// Copies share cancellation state, which can be set from another thread.
+class SharedCancellable
+{
+public:
+  bool IsCancelled() const { return m_cancelled->load(std::memory_order_relaxed); }
+  void Cancel() { m_cancelled->store(true, std::memory_order_relaxed); }
+
+private:
+  std::shared_ptr<std::atomic_bool> m_cancelled = std::make_shared<std::atomic_bool>(false);
+};
 }  // namespace base

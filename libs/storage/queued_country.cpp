@@ -1,7 +1,5 @@
 #include "storage/queued_country.hpp"
 
-#include "storage/storage_helpers.hpp"
-
 #include "platform/downloader_utils.hpp"
 #include "platform/local_country_file_utils.hpp"
 
@@ -52,6 +50,9 @@ std::string QueuedCountry::GetRelativeUrl() const
 {
   auto const fileName = m_countryFile.GetFileName(m_fileType);
 
+  if (m_fileType == MapFileType::Terrain)
+    return downloader::GetTerrainDownloadUrl(m_currentDataVersion, fileName);
+
   uint64_t diffVersion = 0;
   if (m_fileType == MapFileType::Diff)
     CHECK(m_diffsDataSource->VersionFor(m_countryId, diffVersion), ());
@@ -73,7 +74,7 @@ uint64_t QueuedCountry::GetDownloadSize() const
     return size;
   }
 
-  return GetRemoteSize(*m_diffsDataSource, m_countryFile);
+  return m_countryFile.GetRemoteSize();
 }
 
 void QueuedCountry::OnCountryInQueue() const

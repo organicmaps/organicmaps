@@ -7,8 +7,7 @@
 
 #include "drape/pointers.hpp"
 
-#include <atomic>
-#include <memory>
+#include "base/cancellable.hpp"
 
 namespace dp
 {
@@ -40,8 +39,9 @@ public:
   ref_ptr<dp::TextureManager> GetTextureManager() const;
   ref_ptr<MetalineManager> GetMetalineManager() const;
 
-  void Cancel() { m_readCancelled->store(true, std::memory_order_relaxed); }
-  bool IsCancelled() const { return m_readCancelled->load(std::memory_order_relaxed); }
+  void Cancel() { m_readCancelled.Cancel(); }
+  bool IsCancelled() const { return m_readCancelled.IsCancelled(); }
+  base::SharedCancellable const & GetCancellable() const { return m_readCancelled; }
 
   void BeginReadTile();
   void Flush(TMapShapes && shapes);
@@ -55,7 +55,7 @@ private:
 
   TileKey m_tileKey;
   // Queued shapes outlive the read, including when the same tile is requested again.
-  TileReadCancellation m_readCancelled = std::make_shared<std::atomic<bool>>(false);
+  base::SharedCancellable m_readCancelled;
   TMapShapes m_geometry;
   ref_ptr<ThreadsCommutator> m_commutator;
   ref_ptr<dp::TextureManager> m_texMng;

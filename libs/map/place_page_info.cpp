@@ -554,6 +554,23 @@ std::string Info::GetFormattedCoordinate(CoordinatesFormat format) const
   return FormatCoordinateDisplay(format, GetLatLon(), GetCountryId());
 }
 
+std::string Info::GetFormattedTerrainElevation() const
+{
+  return m_terrainElevation ? platform::Distance::FormatAltitude(*m_terrainElevation) : std::string{};
+}
+
+std::string Info::GetPreviewSubtitle() const
+{
+  if (!m_terrainElevation)
+    return m_uiSubtitle;
+
+  // At the selection point: the tap inside an area, not its center.
+  auto coordinates = ValueDecimal(GetLatLon());
+  if (!m_uiSubtitle.empty() && m_uiSubtitle != coordinates)
+    return m_uiSubtitle;
+  return coordinates.append("  ▲ ").append(GetFormattedTerrainElevation());
+}
+
 void Info::SetRoadType(RoadWarningMarkType type, std::string const & localizedType, std::string const & distance)
 {
   m_roadType = type;

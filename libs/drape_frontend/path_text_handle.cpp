@@ -14,6 +14,7 @@ double const kValidPathSplineTurn = 15 * math::pi / 180;
 double const kCosTurn = cos(kValidPathSplineTurn);
 double constexpr kRoundStep = 23;
 int constexpr kMaxStepsCount = 7;
+double constexpr kNotMoved = -1.0;
 double constexpr kMinSegmentLengthSqr = 1e-12;
 
 size_t GetRoundedSplineReserve(size_t sourcePointCount)
@@ -110,10 +111,11 @@ void AddPointAndRound(m2::SplineEx & spline, m2::PointD const & pt)
   AddPointAndRound(spline, pt, df::VisualParams::Instance().GetVisualScale());
 }
 
-PathTextContext::PathTextContext(m2::SharedSpline const & spline, double xOffset)
+PathTextContext::PathTextContext(m2::SharedSpline const & spline, double xOffset, bool allowRepositioning)
   : m_globalSpline(spline)
   , m_visualScale(df::VisualParams::Instance().GetVisualScale())
   , m_xOffset(xOffset)
+  , m_allowRepositioning(allowRepositioning)
 {}
 
 void PathTextContext::SetLayout(drape_ptr<PathTextLayout> && layout, double baseGtoPScale)
@@ -123,6 +125,7 @@ void PathTextContext::SetLayout(drape_ptr<PathTextLayout> && layout, double base
   m_globalPivots.clear();
   PathTextLayout::CalculatePositions(m_globalSpline->GetLength(), baseGtoPScale, m_layout->GetPixelLength(),
                                      m_globalOffsets);
+  m_movedOffsets.assign(m_globalOffsets.size(), kNotMoved);
   m_globalPivots.reserve(m_globalOffsets.size());
   for (auto const offset : m_globalOffsets)
     m_globalPivots.push_back(m_globalSpline->GetPoint(offset).m_pos);
@@ -179,6 +182,58 @@ bool PathTextContext::GetPivot(size_t textIndex, ScreenBase const & screen, m2::
 
   centerPointIter = pivotInfo.m_centerPointIter;
   return true;
+}
+
+bool PathTextContext::CacheDynamicGeometry(size_t textIndex, ScreenBase const & screen, float depth, m2::PointD & pivot,
+                                           gpu::TTextDynamicVertexBuffer & buffer)
+{
+  bool const repositionable = m_allowRepositioning && textIndex < m_globalOffsets.size() && !m_pixel3dSplines.empty();
+  auto const placeAt = [&](double offset)
+  {
+    auto candidate = m_globalSpline->GetPoint(offset).m_pos;
+    candidate.x += m_xOffset;
+    auto const pixelPoint = screen.GtoP(candidate);
+    if (screen.IsReverseProjection3d(pixelPoint))
+      return false;
+
+    // Alternate offsets are not monotonic; preserve the main projection cursor.
+    auto cursor = m_projectionCursor;
+    auto const iter = GetProjectedPoint(screen.PtoP3d(pixelPoint), cursor);
+    if (!iter.IsAttached() || !m_layout->CacheDynamicGeometry(iter, depth, candidate, buffer))
+      return false;
+    pivot = candidate;
+    m_movedOffsets[textIndex] = offset;
+    return true;
+  };
+
+  // A moved caption stays while it fits: the first fitting position differs between nearby screens.
+  if (repositionable && m_movedOffsets[textIndex] != kNotMoved && placeAt(m_movedOffsets[textIndex]))
+    return true;
+
+  m2::Spline::iterator centerPointIter;
+  if (GetPivot(textIndex, screen, pivot, centerPointIter) &&
+      m_layout->CacheDynamicGeometry(centerPointIter, depth, pivot, buffer))
+  {
+    m_movedOffsets[textIndex] = kNotMoved;
+    return true;
+  }
+
+  if (!repositionable)
+    return false;
+
+  // Keep one caption in each original spacing interval. A curved midpoint need not
+  // discard the caption when a nearby part of the same contour can fit it.
+  double const offset = m_globalOffsets[textIndex];
+  double const begin = textIndex == 0 ? 0.0 : 0.5 * (m_globalOffsets[textIndex - 1] + offset);
+  double const end = textIndex + 1 == m_globalOffsets.size() ? m_globalSpline->GetLength()
+                                                             : 0.5 * (offset + m_globalOffsets[textIndex + 1]);
+  for (double const fraction : {0.25, 0.5, 0.75})
+  {
+    for (double const candidateOffset : {offset - fraction * (offset - begin), offset + fraction * (end - offset)})
+      if (placeAt(candidateOffset))
+        return true;
+  }
+  return false;
 }
 
 void PathTextContext::Update(ScreenBase const & screen)
@@ -332,11 +387,7 @@ bool PathTextHandle::Update(ScreenBase const & screen)
 
   m_context->Update(screen);
 
-  m2::Spline::iterator centerPointIter;
-  if (!m_context->GetPivot(m_textIndex, screen, m_globalPivot, centerPointIter))
-    return false;
-
-  if (!m_context->GetLayout()->CacheDynamicGeometry(centerPointIter, m_depth, m_globalPivot, m_buffer))
+  if (!m_context->CacheDynamicGeometry(m_textIndex, screen, m_depth, m_globalPivot, m_buffer))
     return false;
 
   m_hasDynamicGeometry = true;

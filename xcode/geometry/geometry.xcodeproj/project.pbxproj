@@ -64,6 +64,7 @@
 		670F29971BAABDA600F2ABF4 /* robust_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F29341BA9D2E700F2ABF4 /* robust_test.cpp */; };
 		670F29981BAABDA600F2ABF4 /* screen_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F29351BA9D2E700F2ABF4 /* screen_test.cpp */; };
 		670F299A1BAABDA600F2ABF4 /* simplification_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F29371BA9D2E700F2ABF4 /* simplification_test.cpp */; };
+		5AAD52A337424D25A3E53E83 /* smoothing_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D32B6AAC97944DEDB86CD6B5 /* smoothing_test.cpp */; };
 		670F299B1BAABDA600F2ABF4 /* spline_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F29381BA9D2E700F2ABF4 /* spline_test.cpp */; };
 		670F299C1BAABDA600F2ABF4 /* transformations_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F293A1BA9D2E700F2ABF4 /* transformations_test.cpp */; };
 		670F299D1BAABDA600F2ABF4 /* tree_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F293B1BA9D2E700F2ABF4 /* tree_test.cpp */; };
@@ -193,6 +194,7 @@
 		670F29341BA9D2E700F2ABF4 /* robust_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = robust_test.cpp; sourceTree = "<group>"; };
 		670F29351BA9D2E700F2ABF4 /* screen_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = screen_test.cpp; sourceTree = "<group>"; };
 		670F29371BA9D2E700F2ABF4 /* simplification_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = simplification_test.cpp; sourceTree = "<group>"; };
+		D32B6AAC97944DEDB86CD6B5 /* smoothing_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = smoothing_test.cpp; sourceTree = "<group>"; };
 		670F29381BA9D2E700F2ABF4 /* spline_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = spline_test.cpp; sourceTree = "<group>"; };
 		670F293A1BA9D2E700F2ABF4 /* transformations_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transformations_test.cpp; sourceTree = "<group>"; };
 		670F293B1BA9D2E700F2ABF4 /* tree_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tree_test.cpp; sourceTree = "<group>"; };
@@ -304,6 +306,7 @@
 				670F29351BA9D2E700F2ABF4 /* screen_test.cpp */,
 				56D9D64922A92D0A00F3D443 /* segment2d_tests.cpp */,
 				670F29371BA9D2E700F2ABF4 /* simplification_test.cpp */,
+				D32B6AAC97944DEDB86CD6B5 /* smoothing_test.cpp */,
 				670F29381BA9D2E700F2ABF4 /* spline_test.cpp */,
 				670F297E1BA9D41E00F2ABF4 /* testingmain.cpp */,
 				670F293A1BA9D2E700F2ABF4 /* transformations_test.cpp */,
@@ -567,6 +570,7 @@
 				670F29941BAABDA600F2ABF4 /* rect_test.cpp in Sources */,
 				395D1A9B207BCD8D001164A5 /* convex_hull_tests.cpp in Sources */,
 				670F299A1BAABDA600F2ABF4 /* simplification_test.cpp in Sources */,
+				5AAD52A337424D25A3E53E83 /* smoothing_test.cpp in Sources */,
 				670F298A1BAABDA600F2ABF4 /* common_test.cpp in Sources */,
 				39396ECF210B2FB80054AC20 /* parametrized_segment_tests.cpp in Sources */,
 				45A2D9CE1F75270A003310A0 /* calipers_box_tests.cpp in Sources */,

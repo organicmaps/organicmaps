@@ -1,6 +1,12 @@
 #include "geometry/smoothing.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "base/assert.hpp"
+#include "base/math.hpp"
+#include "base/stl_helpers.hpp"
+
+#include <cmath>
 
 namespace m2
 {
@@ -70,7 +76,7 @@ void SmoothUniform(m2::PointD const & pt0, m2::PointD const & pt1, m2::PointD co
 }  // namespace
 
 void SmoothPaths(GuidePointsForSmooth const & guidePoints, size_t newPointsPerSegmentCount, double smoothAlpha,
-                 std::vector<std::vector<m2::PointD>> & paths)
+                 PathsForSmooth & paths)
 {
   ASSERT_EQUAL(guidePoints.size(), paths.size(), ());
   ASSERT(smoothAlpha >= kUniformAplha && smoothAlpha <= kChordalAlpha, (smoothAlpha));
@@ -104,5 +110,49 @@ void SmoothPaths(GuidePointsForSmooth const & guidePoints, size_t newPointsPerSe
     if (smoothedPath.size() > 2)
       paths[pathInd] = std::move(smoothedPath);
   }
+}
+
+void SmoothShortSegments(std::vector<m2::PointD> & path, double maxSegmentMeters, size_t passes)
+{
+  if (path.size() < 3)
+    return;
+
+  // A closed path repeats its first vertex as the last one.
+  bool const closed = path.front() == path.back();
+  size_t const count = closed ? path.size() - 1 : path.size();
+  if (count < 3)
+    return;
+
+  double const maxLengthAtEquator = mercator::MetersToMercator(maxSegmentMeters);
+  // The segment i joins the vertices i and i + 1, the last one of a closed path returns to the first vertex.
+  // The limit depends on the segment only, so the tiles sharing it move the same vertices.
+  auto const isShort = [&](size_t i)
+  {
+    // The mercator scale is 1 / cos(latitude) == cosh(y).
+    double const maxLength = maxLengthAtEquator * std::cosh(math::DegToRad((path[i].y + path[i + 1].y) / 2));
+    return path[i].SquaredLength(path[i + 1]) <= maxLength * maxLength;
+  };
+  std::vector<bool> movable(count, false);
+  bool previous = closed && isShort(count - 1);
+  for (size_t i = 0; i < count; ++i)
+  {
+    bool const next = (closed || i + 1 != count) && isShort(i);
+    movable[i] = previous && next;
+    previous = next;
+  }
+  if (!base::IsExist(movable, true))
+    return;
+
+  std::vector<m2::PointD> source;
+  for (size_t pass = 0; pass < passes; ++pass)
+  {
+    source.assign(path.begin(), path.begin() + count);
+    for (size_t i = 0; i < count; ++i)
+      if (movable[i])
+        path[i] = (source[i == 0 ? count - 1 : i - 1] + source[i] * 2.0 + source[i + 1 == count ? 0 : i + 1]) * 0.25;
+  }
+
+  if (closed)
+    path.back() = path.front();
 }
 }  // namespace m2

@@ -107,6 +107,7 @@ private:
   std::mutex m_mutex;
 };
 #endif
+}  // namespace
 
 void ExtractLineParams(drule::LineRule const & lineRule, double visScale, LineViewParams & params)
 {
@@ -149,6 +150,8 @@ void CaptionDefToFontDecl(drule::CaptionDef const * capRule, double visScale, dp
     params.m_outlineColor = ToDrapeColor(capRule->stroke_color);
 }
 
+namespace
+{
 void ShieldRuleToFontDecl(drule::ShieldRule const * shieldRule, double visScale, dp::FontDecl & params)
 {
   params.m_color = ToDrapeColor(shieldRule->text_color);
@@ -707,29 +710,30 @@ void ApplyAreaFeature::ProcessRule(drule::AreaRule const & areaRule, double area
 }
 
 ApplyLineFeatureGeometry::ApplyLineFeatureGeometry(Params const & params, FeatureType & f,
-                                                   RelationsDrawSettings const & relsSettings)
+                                                   RelationsDrawSettings const & relsSettings, bool isIsoline)
   : TBase(params, f, {})
   , m_relsInfo(relsSettings)
   , m_builder(params)
+  , m_isIsoline(isIsoline)
 {
   if (m_params.IsRelationRoutes())
     m_relsInfo.Init(f);
 }
 
-void ApplyLineFeatureGeometry::BuildGeometry(int zoomLevel, bool isIsoline)
+void ApplyLineFeatureGeometry::BuildGeometry(int zoomLevel)
 {
 #ifdef LINES_GENERATION_CALC_FILTERED_POINTS
   m_readCount += m_f.GetPointsCount();
 #endif
 
-  m_builder.Build(m_f, zoomLevel, isIsoline);
+  m_builder.Build(m_f, zoomLevel, m_isIsoline);
 }
 
-void ApplyLineFeatureGeometry::ProcessLineRules(Stylist::LineRulesT const & lineRules, bool isIsoline)
+void ApplyLineFeatureGeometry::ProcessLineRules(Stylist::LineRulesT const & lineRules)
 {
   ASSERT(!lineRules.empty(), ());
   ASSERT(HasGeometry(), ());
-  ASSERT(!isIsoline || lineRules.size() == 1, ());
+  ASSERT(!m_isIsoline || lineRules.size() == 1, ());
 
 #ifdef LINES_GENERATION_CALC_FILTERED_POINTS
   size_t const builtSize = m_builder.GetPathSize();
@@ -738,7 +742,7 @@ void ApplyLineFeatureGeometry::ProcessLineRules(Stylist::LineRulesT const & line
   // Builds clipped splines from the (possibly simplified) feature path.
   // Directions/lengths are computed only on the splines actually returned —
   // see ClipSplinesBuilder::Release.
-  m_clippedSplines = m_builder.Release(isIsoline);
+  m_clippedSplines = m_builder.Release(m_isIsoline);
 
   if (m_clippedSplines.empty())
     return;
@@ -968,6 +972,7 @@ void ApplyLineFeatureAdditional::ProcessAdditionalLineRules(drule::PathTextRule 
     params.m_textFont = fontDecl;
     params.m_baseGtoPScale = m_params.m_currentScaleGtoP;
     params.m_lang = m_captions.GetMainTextLang();
+    params.m_allowRepositioning = m_isIsoline;
 
     uint32_t textIndex = kPathTextBaseTextIndex;
     for (auto const & spline : m_clippedSplines)

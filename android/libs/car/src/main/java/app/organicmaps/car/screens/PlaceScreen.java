@@ -182,8 +182,8 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
 
     final Row.Builder builder = new Row.Builder();
     builder.setTitle(mMapObject.getTitle());
-    if (!mMapObject.getSubtitle().isEmpty())
-      builder.addText(mMapObject.getSubtitle());
+    if (!mMapObject.getPreviewSubtitle().isEmpty())
+      builder.addText(mMapObject.getPreviewSubtitle());
     String address = mMapObject.getAddress();
     if (address.isEmpty())
       address = Framework.nativeGetAddress(mMapObject.getLat(), mMapObject.getLon());

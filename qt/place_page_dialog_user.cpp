@@ -62,7 +62,7 @@ PlacePageDialogUser::PlacePageDialogUser(QWidget * parent, qt::DrawWidget * draw
       header->addWidget(titleLabel);
     }
 
-    if (auto const subTitle = info.GetSubtitle(); !subTitle.empty())
+    if (auto const subTitle = info.GetPreviewSubtitle(); !subTitle.empty())
     {
       QLabel * subtitleLabel = new QLabel(QString::fromStdString(subTitle));
       subtitleLabel->setWordWrap(true);

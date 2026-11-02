@@ -72,7 +72,7 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info, int mapObje
   return mapObject;
 }
 
-jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
+static jobject CreateMapObjectImpl(JNIEnv * env, place_page::Info const & info)
 {
   using namespace jni;
 
@@ -107,4 +107,18 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
 
   return CreateMapObject(env, info, kPoi, ll.m_lat, ll.m_lon, true /* parseMeta */, false /* parseApi */,
                          routingPointInfo.get(), jrawTypes.get());
+}
+
+jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
+{
+  jobject const mapObject = CreateMapObjectImpl(env, info);
+  static jfieldID const elevationId =
+      env->GetFieldID(g_mapObjectClazz, "mFormattedTerrainElevation", "Ljava/lang/String;");
+  jni::TScopedLocalRef const elevation(env, jni::ToJavaString(env, info.GetFormattedTerrainElevation()));
+  env->SetObjectField(mapObject, elevationId, elevation.get());
+  static jfieldID const previewSubtitleId = env->GetFieldID(g_mapObjectClazz, "mPreviewSubtitle", "Ljava/lang/String;");
+  jni::TScopedLocalRef const previewSubtitle(env,
+                                             jni::ToJavaStringWithSupplementalCharsFix(env, info.GetPreviewSubtitle()));
+  env->SetObjectField(mapObject, previewSubtitleId, previewSubtitle.get());
+  return mapObject;
 }
