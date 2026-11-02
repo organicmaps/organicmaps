@@ -18,6 +18,7 @@ set(SRC
   tile_background_renderer_tests.cpp
   user_area_tests.cpp
   user_event_stream_tests.cpp
+  user_line_render_params_tests.cpp
   visual_params_fixture.hpp
   visual_params_tests.cpp
 )

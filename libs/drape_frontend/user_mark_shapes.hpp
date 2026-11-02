@@ -65,6 +65,10 @@ struct LineLayer
 
 struct UserLineRenderParams
 {
+  // Drop consecutive duplicate render points and lines with fewer than two distinct points.
+  // Stored samples retain their original altitude/time data.
+  void AddSpline(std::vector<m2::PointD> const & points);
+
   int m_minZoom = 1;
   DepthLayer m_depthLayer = DepthLayer::UserLineLayer;
   std::vector<LineLayer> m_layers;
