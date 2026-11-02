@@ -117,13 +117,15 @@ final class EditTrackViewController: MWMTableViewController {
                        isEnabled: true,
                        isValid: isTitleValid(trackTitle),
                        autocapitalizationType: .sentences,
-                       autocorrectionType: .default)
+                       autocorrectionType: .default,
+                       accessibilityLabel: L("placepage_track_name_hint"))
         return cell
       case .color:
         let cell = tableView.dequeueDefaultCell(for: indexPath)
         cell.accessoryType = .disclosureIndicator
         cell.textLabel?.text = L("change_color")
         cell.imageView?.image = circleImageForColor(trackColor, frameSize: 28, diameter: 22)
+        cell.accessibilityTraits.insert(.button)
         return cell
       case .visibility:
         let cell = tableView.dequeueReusableCell(cell: SettingsTableViewSwitchCell.self, indexPath: indexPath)
@@ -135,6 +137,7 @@ final class EditTrackViewController: MWMTableViewController {
         cell.imageView?.image = UIImage(named: "ic_folder")
         cell.imageView?.setStyle(.black)
         cell.accessoryType = .disclosureIndicator
+        cell.accessibilityTraits.insert(.button)
         return cell
       default:
         fatalError()
