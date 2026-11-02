@@ -339,15 +339,25 @@ public class ChartView: UIView {
   func updateCharts(animationStyle: ChartAnimation = .none) {
     var lower = CGFloat(Int.max)
     var upper = CGFloat(Int.min)
+    let minX = CGFloat(xAxisView.lowerBound)
+    let maxX = CGFloat(xAxisView.upperBound)
 
     for i in 0 ..< chartData.linesCount {
-      let line = chartData.lineAt(i)
-      let subrange = line.aggregatedValues[xAxisView.lowerBound ... xAxisView.upperBound]
-      for item in subrange {
+      // Compare in the X coordinates of the drawn path: converting the viewport to distances can round past
+      // a vertex on the viewport edge, e.g. both vertices of a segment break.
+      let distances = chartData.lineAt(i).aggregatedValues
+      let maxDistance = distances.maxDistance
+      let xScale = maxDistance > 0 ? CGFloat(max(distances.count - 1, 1)) / maxDistance : 0
+      let values = distances.map { ChartValue(xValues: $0.x * xScale, y: $0.y) }
+      // Include the interpolated edges when the viewport cuts through a segment.
+      let lowerAltitude = values.interpolatedAltitude(at: minX)
+      let upperAltitude = values.interpolatedAltitude(at: maxX)
+      lower = min(lower, lowerAltitude, upperAltitude)
+      upper = max(upper, lowerAltitude, upperAltitude)
+      let start = values.firstIndexAtOrAfter(minX, by: \.x) ?? values.endIndex
+      for item in values[start...].prefix(while: { $0.x <= maxX }) {
         upper = max(item.y, upper)
-        if line.type == .line || line.type == .lineArea {
-          lower = min(item.y, lower)
-        }
+        lower = min(item.y, lower)
       }
     }
 
