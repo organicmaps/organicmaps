@@ -57,6 +57,7 @@ final class SelectBookmarkGroupViewController: MWMTableViewController {
     navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonDidTap))
 
     searchController.searchBar.placeholder = L("search")
+    searchController.searchBar.searchTextField.accessibilityLabel = searchController.searchBar.placeholder
     searchController.obscuresBackgroundDuringPresentation = false
     searchController.hidesNavigationBarDuringPresentation = false
     searchController.searchBar.delegate = self
