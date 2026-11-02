@@ -8,6 +8,7 @@ set(SRC
   cell_id_test.cpp
   centers_table_test.cpp
   checker_test.cpp
+  cycling_infrastructure_tests.cpp
   cities_boundaries_serdes_tests.cpp
   classificator_tests.cpp
   custom_keyvalue_tests.cpp
@@ -25,6 +26,7 @@ set(SRC
   index_builder_test.cpp
   interval_index_test.cpp
   metadata_serdes_tests.cpp
+  metaline_data_tests.cpp
   mwm_set_test.cpp
   postcodes_matcher_tests.cpp
   rank_table_test.cpp

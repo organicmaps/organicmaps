@@ -6,10 +6,16 @@
 #include "indexer/road_shields_parser.hpp"
 
 #include "base/buffer_vector.hpp"
+#include "geometry/point2d.hpp"
 
 #include <string>
+#include <vector>
 
 class FeatureType;
+namespace m2
+{
+class SharedSpline;
+}
 
 namespace df
 {
@@ -104,6 +110,7 @@ private:
 class Stylist
 {
 public:
+  static constexpr uint8_t kCyclewaySideMinZoom = 14;
   drule::SymbolRule const * m_symbolRule = nullptr;
   drule::CaptionRule const * m_captionRule = nullptr;
   drule::CaptionRule const * m_houseNumberRule = nullptr;
@@ -114,6 +121,20 @@ public:
 
   using LineRulesT = buffer_vector<drule::LineRule const *, 4>;
   LineRulesT m_lineRules;
+  double m_lineGeometryPadding = 0;  // Logical style pixels; scaled once by the geometry builder.
+
+  struct SideRules
+  {
+    int m_side = 0;  // -1 left, +1 right, 0 shared centerline, relative to stored geometry.
+    LineRulesT m_rules;
+    drule::LineRule const * m_arrowRule = nullptr;
+    bool m_reverseArrow = false;
+    float m_roadWidth = 0;  // Excludes bridge/tunnel decoration.
+    std::vector<m2::PointD> m_junctions = {};
+    m2::SharedSpline GetArrowSpline(m2::SharedSpline const & piece) const;
+  };
+  std::vector<SideRules> m_cyclewaySides;
+  bool HasLineRules() const { return !m_lineRules.empty() || !m_cyclewaySides.empty(); }
 
   ftypes::RoadShieldsSetT m_roadShields;
 
