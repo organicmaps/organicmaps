@@ -128,7 +128,8 @@ final class CategorySettingsViewController: MWMTableViewController {
                        isEnabled: true,
                        isValid: isTitleValid(title),
                        autocapitalizationType: .sentences,
-                       autocorrectionType: .default)
+                       autocorrectionType: .default,
+                       accessibilityLabel: L("bookmarks_accessibility_list_name"))
         return cell
       default:
         fatalError()
@@ -147,6 +148,7 @@ final class CategorySettingsViewController: MWMTableViewController {
       let cell = tableView.dequeueDefaultCell(for: indexPath)
       cell.textLabel?.text = colorActions[indexPath.row].title
       cell.accessoryType = .disclosureIndicator
+      cell.accessibilityTraits.insert(.button)
       return cell
     case .delete:
       let cell = tableView.dequeueReusableCell(cell: MWMButtonCell.self, indexPath: indexPath)

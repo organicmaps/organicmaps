@@ -44461,3 +44461,11 @@ en = Show maps in region
 pl = Pokaż mapy regionu
 ru = Показать карты региона
 uk = Показати мапи регіону
+
+[bookmarks_accessibility_list_name]
+comment = VoiceOver name of the list name text field on the iOS bookmark list editing screen.
+tags = apple-maps
+en = List name
+pl = Nazwa listy
+ru = Название списка
+uk = Назва списку
