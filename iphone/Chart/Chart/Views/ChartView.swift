@@ -146,7 +146,7 @@ public class ChartView: UIView {
       chartInfoView.textColor = textColor
       chartsContainerView.addSubview(chartInfoView)
 
-      xAxisView.values = chartData.xAxisValues.enumerated().map { ChartXAxisView.Value(index: $0.offset, value: $0.element, text: chartData.labels[$0.offset]) }
+      xAxisView.chartData = chartData
       chartPreviewView.chartData = chartData
       xAxisView.setBounds(lower: chartPreviewView.minX, upper: chartPreviewView.maxX)
       updateCharts()
@@ -310,9 +310,9 @@ public class ChartView: UIView {
     let rangeLength = CGFloat(pinchStartUpper - pinchStartLower)
     let dx = Int(round((rangeLength * sender.scale - rangeLength) / 2))
     let lower = max(pinchStartLower + dx, 0)
-    let upper = min(pinchStartUpper - dx, chartData.labels.count - 1)
+    let upper = min(pinchStartUpper - dx, chartData.pointsCount - 1)
 
-    guard upper - lower > max(1, chartData.labels.count / 10) else {
+    guard upper - lower > max(1, chartData.pointsCount / 10) else {
       return
     }
 
@@ -336,7 +336,7 @@ public class ChartView: UIView {
     let dx = Int(round(t.x / chartsContainerView.bounds.width * CGFloat(xAxisView.upperBound - xAxisView.lowerBound)))
     let lower = panStartPoint - dx
     let upper = lower + xAxisView.upperBound - xAxisView.lowerBound
-    if lower < 0 || upper > chartData.labels.count - 1 {
+    if lower < 0 || upper > chartData.pointsCount - 1 {
       return
     }
 
