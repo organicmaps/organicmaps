@@ -28,6 +28,8 @@
 "take_exit_number":"Εξοδος στην",
 "take_exit_number_street_verb":"NULL",
 "route_recalculating":"Επαναϋπολογισμός της διαδρομής",
+"proceed_to_the_track":"Κατευθυνθείτε προς το ίχνος.",
+"you_have_left_the_track":"Βγήκατε εκτός ίχνους.",
 "destination":"Θα φτάσετε.",
 "you_have_reached_the_destination":"Έχετε φτάσει.",
 "in_50_meters":"Σε πενήντα μέτρα",

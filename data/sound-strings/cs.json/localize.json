@@ -28,6 +28,8 @@
 "take_exit_number":"výjezd na",
 "take_exit_number_street_verb":"NULL",
 "route_recalculating":"Přepočítání trasy",
+"proceed_to_the_track":"Vydejte se k trase.",
+"you_have_left_the_track":"Opustili jste trasu.",
 "destination":"Přijedete do cíle.",
 "you_have_reached_the_destination":"Jste v cíli.",
 "in_50_meters":"Po padesáti metrech",
