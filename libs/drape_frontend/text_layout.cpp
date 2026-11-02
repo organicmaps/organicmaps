@@ -432,27 +432,34 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, flo
   }
 
   m2::PointD const pxPivot = iter.m_pos;
+  ASSERT_EQUAL(m_glyphRegions.size(), m_shapedGlyphs.m_glyphs.size(), ());
+  ASSERT(!m_glyphRegions.empty(), ());
   buffer.resize(4 * m_glyphRegions.size());
 
   glsl::vec4 const pivot(glsl::ToVec2(MapShape::ConvertToLocal(globalPivot, m_tileCenter, kShapeCoordScalar)), depth,
                          0.0f);
 
-  ASSERT_EQUAL(m_glyphRegions.size(), m_shapedGlyphs.m_glyphs.size(), ());
-  m2::PointD prevTangent;
+  // Seed leading zero-advance marks from the local spline tangent.
+  m2::PointD direction = penIter.m_dir * advanceSign;
   for (size_t i = 0; i < m_glyphRegions.size(); ++i)
   {
     auto const & glyph = m_shapedGlyphs.m_glyphs[i];
-    m2::PointF const pxSize = m_glyphRegions[i].GetPixelSize() * m_textSizeRatio;
-    float const xAdvance = glyph.m_xAdvance * m_textSizeRatio;
-
     m2::PointD const baseVector = penIter.m_pos - pxPivot;
-
+    float const xAdvance = glyph.m_xAdvance * m_textSizeRatio;
     constexpr float kEps = 1e-5f;
     if (fabs(xAdvance) > kEps)
+    {
       penIter.Advance(advanceSign * xAdvance);
-    m2::PointD const newTangent = penIter.m_avrDir.Normalize();
+      auto const nextDirection = penIter.m_avrDir.Normalize();
+      if (nextDirection == m2::PointD::Zero())
+        return false;
+      if (i > 0 && static_cast<float>(m2::DotProduct(direction, nextDirection)) < kValidSplineTurn)
+        return false;
+      direction = nextDirection;
+    }
 
-    glsl::vec2 const tangent = glsl::ToVec2(newTangent);
+    m2::PointF const pxSize = m_glyphRegions[i].GetPixelSize() * m_textSizeRatio;
+    glsl::vec2 const tangent = glsl::ToVec2(direction);
     glsl::vec2 const normal = glsl::vec2(-tangent.y, tangent.x);
     glsl::vec2 const formingVector = glsl::ToVec2(baseVector) + halfFontSize * normal;
 
@@ -468,14 +475,6 @@ bool PathTextLayout::CacheDynamicGeometry(m2::Spline::iterator const & iter, flo
     buffer[baseIndex + 1] = {pivot, formingVector + normal * upVector + tangent * xOffset};
     buffer[baseIndex + 2] = {pivot, formingVector + normal * bottomVector + tangent * (pxSize.x + xOffset)};
     buffer[baseIndex + 3] = {pivot, formingVector + normal * upVector + tangent * (pxSize.x + xOffset)};
-
-    if (i > 0)
-    {
-      auto const dotProduct = static_cast<float>(m2::DotProduct(prevTangent, newTangent));
-      if (dotProduct < kValidSplineTurn)
-        return false;
-    }
-    prevTangent = newTangent;
   }
   return true;
 }
