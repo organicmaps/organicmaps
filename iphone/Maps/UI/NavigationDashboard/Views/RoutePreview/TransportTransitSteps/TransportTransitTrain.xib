@@ -64,6 +64,8 @@
                 <outlet property="background" destination="kDc-o2-JUp" id="fh8-Ss-FeL"/>
                 <outlet property="emptyNumberTrailingOffset" destination="mCa-Ah-9Xz" id="k8k-Ca-u6s"/>
                 <outlet property="image" destination="9d1-PP-h28" id="Kpo-zR-osU"/>
+                <outlet property="imageAspectRatio" destination="g45-u1-mQs" id="DgH-rS-5Tq"/>
+                <outlet property="imageLeading" destination="cQu-Lg-9xy" id="F3x-4p-zXm"/>
                 <outlet property="label" destination="0Eo-0D-mup" id="Z15-fa-Wkx"/>
                 <outlet property="labelTrailing" destination="YNn-8w-SmG" id="lL1-5q-mjx"/>
             </connections>
