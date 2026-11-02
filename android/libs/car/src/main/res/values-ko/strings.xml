@@ -12,7 +12,7 @@
     <string name="country_status_download_failed">다운로드에 실패하였습니다</string>
     <string name="close">닫기</string>
     <string name="download">다운로드</string>
-    <string name="download_resources">시작하시기 전에 일반 세계 지도를 귀하의 장치로 다운로드하겠습니다.\n%s 데이터가 필요합니다。</string>
+    <string name="download_resources">앱을 사용하기 전에 기기에 세계 개요 지도를 다운로드해 주세요.\n저장 공간 %s가 필요합니다.</string>
     <!-- Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied. -->
     <string name="bookmarks">북마크</string>
     <!-- Settings button in system menu -->
