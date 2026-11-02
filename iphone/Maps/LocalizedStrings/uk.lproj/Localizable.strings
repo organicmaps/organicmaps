@@ -1349,3 +1349,6 @@
 
 /* VoiceOver name of the icon button that opens a group of maps in the iOS downloader. */
 "downloader_accessibility_open_region" = "Показати мапи регіону";
+
+/* VoiceOver name of the list name text field on the iOS bookmark list editing screen. */
+"bookmarks_accessibility_list_name" = "Назва списку";
