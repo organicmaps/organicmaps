@@ -10,25 +10,28 @@ For C++, Java and Objective C/C++ code we use [clang-format](http://clang.llvm.o
 
 - macOS: `brew install clang-format`
 - Windows (MSYS2): `pacman -S clang`
-- Ubuntu 24:
+- Any OS: [install pipx](https://pipx.pypa.io/stable/how-to/install-pipx.html). On Ubuntu 24.04 and newer,
+  use `sudo apt-get update` and `sudo apt-get install -y pipx`. Then install clang-format:
    ```bash
-   wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-   echo 'deb http://apt.llvm.org/noble/ llvm-toolchain-noble-23 main' | sudo tee /etc/apt/sources.list.d/llvm-toolchain-noble-23.list
-   sudo apt-get update
-   sudo apt-get install -y clang-format-23  # Run it as clang-format-23
+   pipx install "clang-format==23.*"
+   pipx ensurepath
    ```
-- Any OS, pinned to an exact version: `pip install clang-format==23.1.0`
 
-Make sure that clang-format 23.x is in your PATH. The formatting scripts reject other major versions to prevent
+To match a specific CI run, use the exact version printed in its log, for example
+`pipx install --force clang-format==23.1.5` (`--force` replaces an existing pipx installation).
+
+After `pipx ensurepath`, open a new terminal. In an existing Bash or Zsh session, run
+`export PATH="${PIPX_BIN_DIR:-$HOME/.local/bin}:$PATH"`.
+Make sure that clang-format 23.x is first in your PATH. The formatting scripts reject other major versions to prevent
 formatting differences between local development and CI. Homebrew and MSYS2 track the current LLVM release, so
-use the pinned `pip` package (or `brew install llvm@23`, binary in `$(brew --prefix llvm@23)/bin`) once they
+use the PyPI package above (or `brew install llvm@23`, binary in `$(brew --prefix llvm@23)/bin`) once they
 move ahead of 23.
 
 ### Usage
 
 - Configuration is in `.clang-format`
 - Set up a `git commit` hook (see below) for automatic formatting of changed files
-- To manually format a file run `clang-format -i file` (`clang-format-23` for Ubuntu)
+- To manually format a file run `clang-format -i file`
 - To format all files in the repository run `tools/unix/clang-format.sh`
 - To format changes added to commit run `git clang-format`
 - To format already committed changes run `git clang-format HEAD~1`

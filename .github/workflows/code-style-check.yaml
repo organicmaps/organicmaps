@@ -25,17 +25,11 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v6
 
-      # The versioned binary is enough: clang-format.sh resolves clang-format-$CLANG_FORMAT_VERSION
-      # by name and verifies its version, so the unversioned one in the image is never used.
+      # PyPI avoids intermittent failures downloading the apt.llvm.org signing key.
       - name: Install clang-format
         run: |
           source tools/hooks/format-config.bash
-          source /etc/os-release
-          sudo install -d -m 0755 /etc/apt/keyrings
-          sudo wget -qO /etc/apt/keyrings/llvm.asc https://apt.llvm.org/llvm-snapshot.gpg.key
-          echo "deb [signed-by=/etc/apt/keyrings/llvm.asc] https://apt.llvm.org/$VERSION_CODENAME/ llvm-toolchain-$VERSION_CODENAME-$CLANG_FORMAT_VERSION main" | sudo tee /etc/apt/sources.list.d/llvm-toolchain-$CLANG_FORMAT_VERSION.list
-          sudo apt-get update
-          sudo apt-get install -y "clang-format-$CLANG_FORMAT_VERSION"
+          pipx install "clang-format==$CLANG_FORMAT_VERSION.*"
 
       - name: Run clang-format
         run: tools/unix/clang-format.sh
