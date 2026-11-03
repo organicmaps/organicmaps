@@ -833,6 +833,10 @@
     <string name="outdoor_seating">बाहेरची आसनव्यवस्था</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">सर्वात अचूक नेव्हिगेशनसाठी, आम्ही फोनच्या बॅटरी सेटिंग्जमध्ये पॉवर सेव्हिंग मोड अक्षम करण्याची शिफारस करतो.</string>
+    <!-- Title of the one-time warning about battery optimization when starting track recording on Android. -->
+    <string name="background_recording_warning_title">पार्श्वभूमीतील ट्रॅक रेकॉर्डिंगबाबत इशारा</string>
+    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
+    <string name="background_recording_warning_message">स्क्रीन बंद असताना ट्रॅक रेकॉर्डिंग थांबू नये म्हणून Organic Maps अॅपला बॅटरी ऑप्टिमायझेशनमधून वगळा. Samsung डिव्हाइसवर ते “कधीही स्लीप मोडमध्ये न जाणारे अॅप्स” या यादीत जोडा.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">ट्रॅक रेकॉर्ड करा</string>
     <!-- Prompt for stopping a track recording. -->

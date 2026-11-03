@@ -841,6 +841,10 @@
     <string name="outdoor_seating">戶外座位</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">為了獲得最準確的導航，我們建議在手機電池設定中停用省電模式。</string>
+    <!-- Title of the one-time warning about battery optimization when starting track recording on Android. -->
+    <string name="background_recording_warning_title">背景軌跡記錄提醒</string>
+    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
+    <string name="background_recording_warning_message">為避免螢幕關閉時軌跡記錄中斷，請將 Organic Maps 排除在電池最佳化之外。在 Samsung 裝置上，請將其加入「永不自動進入休眠的應用程式」清單中。</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">錄製軌跡</string>
     <!-- Prompt for stopping a track recording. -->

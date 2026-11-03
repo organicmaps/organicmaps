@@ -838,6 +838,10 @@
     <string name="outdoor_seating">Места за сядане на открито</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">За най-точна навигация препоръчваме да деактивирате режима за пестене на енергия в настройките на батерията на телефона.</string>
+    <!-- Title of the one-time warning about battery optimization when starting track recording on Android. -->
+    <string name="background_recording_warning_title">Предупреждение за запис във фонов режим</string>
+    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
+    <string name="background_recording_warning_message">За да не се прекъсва записът на трака при изключен екран, изключете Organic Maps от оптимизацията на батерията. На устройствата Samsung добавете приложението в списъка „Приложения, които никога не преминават в режим на сън“.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Запис на маршрут</string>
     <!-- Prompt for stopping a track recording. -->
