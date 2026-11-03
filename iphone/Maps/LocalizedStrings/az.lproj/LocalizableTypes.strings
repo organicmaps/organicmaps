@@ -809,6 +809,9 @@
 "type.man_made.pier" = "Dok";
 "type.man_made.pipeline" = "Boru";
 "type.man_made.pipeline.overground" = "Yerüstü boru kəməri";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "Örtülü su anbarı";
 "type.man_made.silo" = "Anbar";
 "type.man_made.storage_tank" = "Saxlama tankı";
 "type.man_made.surveillance" = "Təhlükəsizlik kamerası";
@@ -831,6 +834,9 @@
 "type.man_made.water_tower" = "Su qalası";
 "type.man_made.water_well" = "Su quyusu";
 "type.man_made.water_well.drinking_water_no" = "Su quyusu";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "Su təmizləmə qurğusu";
 "type.man_made.windmill" = "Yel dəyirmanı";
 "type.man_made.works" = "Sənaye İşləri";
 
@@ -1339,6 +1345,9 @@
 "type.shop.greengrocer" = "Tərəvəzçi";
 "type.shop.grocery" = "Bazar";
 "type.shop.hairdresser" = "Bərbər";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "Bərbərxana";
 "type.shop.hardware" = "Hardware mağazası";
 "type.shop.health_food" = "Sağlamlıq Qida Dükanı";
 "type.shop.hearing_aids" = "Eşitmə yardımı mağazası";
@@ -1464,6 +1473,7 @@
 "type.sport.rugby_union" = "Reqbi ittifaqı";
 "type.sport.running" = "Qaçış";
 "type.sport.softball" = "Softbol";
+"type.sport.pilates" = "Pilates";
 "type.tourism" = "Turizm";
 "type.tourism.aquarium" = "Akvarium";
 
@@ -1614,6 +1624,9 @@
 "type.man_made.monitoring_station.weather" = "Weather Monitoring Station";
 "type.amenity.student_accommodation" = "Student Accommodation";
 "type.craft.watchmaker" = "Watchmaker";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "Pəncərə istehsalı";
 "type.xmas_feature.market" = "Milad bazarı";
 "type.xmas_feature.tree" = "Milad ağacı";
 "type.amenity.hookah_lounge" = "Hookah Lounge";

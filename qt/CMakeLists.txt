@@ -86,7 +86,6 @@ function(omim_compile_qt_catalog ts qm)
 endfunction()
 
 file(GLOB_RECURSE QT_TRANSLATION_TS CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/translations/*/organicmaps.ts")
-find_package(Python3 3.10 REQUIRED COMPONENTS Interpreter)
 set(TWINE_DIR "${OMIM_ROOT}/tools/python/twine/python_twine")
 file(GLOB_RECURSE TWINE_SOURCES CONFIGURE_DEPENDS "${TWINE_DIR}/twine/*.py")
 set(QT_TRANSLATION_QM)

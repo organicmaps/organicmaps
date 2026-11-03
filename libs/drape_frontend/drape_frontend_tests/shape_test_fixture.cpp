@@ -7,14 +7,19 @@
 #include "drape/gl_includes.hpp"
 #include "drape/oglcontext.hpp"
 #include "drape/support_manager.hpp"
+#include "drape/utils/projection.hpp"
 
 #include "qt_tstfrm/test_main_loop.hpp"
 
 #include "platform/platform.hpp"
 
 #include "base/file_name_utils.hpp"
+#include "base/scope_guard.hpp"
 
 #include <QtGui/QPainter>
+
+#include <algorithm>
+#include <optional>
 
 namespace df::test_support
 {
@@ -39,13 +44,13 @@ void ShapeTestFixture::Render(char const * title, uint32_t width, uint32_t heigh
 {
   RunTestInOpenGLOffscreenEnvironment(title, [&]()
   {
+    SCOPE_GUARD(releaseResources, [this] { ReleaseGLResources(); });
     Init(width, height);
 
     createShapes(*this);
 
     Flush();
     Render();
-    ReleaseGLResources();
   });
 
   CHECK(!m_lastImage.isNull(), ("OpenGL render produced no image", title));
@@ -153,7 +158,7 @@ void ShapeTestFixture::Render()
   auto const contextRef = make_ref(m_context);
 
   m_framebuffer->Bind();
-  m_context->SetClearColor(dp::Color::White());
+  m_context->SetClearColor(m_backgroundColor);
   m_context->Clear(dp::ClearBits::ColorBit | dp::ClearBits::DepthBit, 0);
 
   // Coordinate pipeline:
@@ -166,13 +171,28 @@ void ShapeTestFixture::Render()
 
   gpu::MapProgramParams params;
   params.m_modelView = glsl::mat4(modelViewScale, 0, 0, 0, 0, modelViewScale, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-  params.m_projection = glsl::mat4(1.0f / halfW, 0, 0, 0, 0, 1.0f / halfH, 0, 0, 0, 0, -0.5f, 0.5f, 0, 0, 0, 1);
+  auto const projection = dp::MakeProjection(dp::ApiVersion::OpenGLES3, -halfW, halfW, -halfH, halfH);
+  params.m_projection = glsl::make_mat4(projection.data());
   params.m_pivotTransform = glsl::mat4(1.0f);
   params.m_opacity = 1.0f;
   params.m_zScale = 1.0f;
 
+  // FrontendRenderer sorts render groups within each layer and clears depth between user-line passes.
+  std::ranges::stable_sort(m_buckets, [](auto const & lhs, auto const & rhs)
+  {
+    auto const leftLayer = GetDepthLayer(lhs.m_state);
+    auto const rightLayer = GetDepthLayer(rhs.m_state);
+    return leftLayer == rightLayer ? lhs.m_state < rhs.m_state : leftLayer < rightLayer;
+  });
+  std::optional<DepthLayer> layer;
   for (auto & entry : m_buckets)
   {
+    auto const nextLayer = GetDepthLayer(entry.m_state);
+    if (layer != nextLayer)
+    {
+      m_context->Clear(dp::ClearBits::DepthBit, dp::kClearBitsStoreAll);
+      layer = nextLayer;
+    }
     auto const programId = entry.m_state.GetProgram<gpu::Program>();
     auto program = m_progMng->GetProgram(programId);
     program->Bind();

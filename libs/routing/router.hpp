@@ -41,6 +41,7 @@ enum class RouterType
 };
 
 std::string ToString(RouterType type);
+/// Returns Vehicle for unknown identifiers.
 RouterType FromString(std::string const & str);
 std::string DebugPrint(RouterType type);
 
@@ -73,6 +74,10 @@ public:
   virtual RouterResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
                                           bool adjust, bool needAlternatives, RouterDelegate const & delegate,
                                           RoutesResult & result) = 0;
+
+  /// Whether traffic updates can affect this router's geometry or timing.
+  /// Fixed for its lifetime and safe to query during route calculation.
+  virtual bool IsTrafficSensitive() const { return true; }
 
   virtual bool FindClosestProjectionToRoad(m2::PointD const & point, m2::PointD const & direction, double radius,
                                            EdgeProj & proj) = 0;

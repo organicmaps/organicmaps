@@ -694,6 +694,8 @@
     <string name="type.man_made.pier">رصيف بحري</string>
     <string name="type.man_made.pipeline">خط أنبوب</string>
     <string name="type.man_made.pipeline.overground">خط أنبوب فوق الارض</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">خزان مياه مغطى</string>
     <string name="type.man_made.silo">صومعة</string>
     <string name="type.man_made.storage_tank">خزان</string>
     <string name="type.man_made.surveillance">كاميرا مراقبة</string>
@@ -712,6 +714,8 @@
     <string name="type.man_made.water_tower">برج مياه</string>
     <string name="type.man_made.water_well">بئر ماء</string>
     <string name="type.man_made.water_well.drinking_water_no">بئر ماء</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">محطة تنقية المياه</string>
     <string name="type.man_made.windmill">طاحونة هواء</string>
     <string name="type.man_made.works">مُنشأة صناعية</string>
     <string name="type.military">عسكري</string>
@@ -1173,6 +1177,8 @@
     <string name="type.shop.greengrocer">محل خضار</string>
     <string name="type.shop.grocery">محل بقالة</string>
     <string name="type.shop.hairdresser">حلاق</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">حلاق رجالي</string>
     <string name="type.shop.hardware">محل معدات</string>
     <string name="type.shop.health_food">متجر أغذية صحية</string>
     <string name="type.shop.hearing_aids">متجر المعينات السمعية</string>
@@ -1296,6 +1302,7 @@
     <string name="type.sport.rugby_union">رغبي الاتحاد</string>
     <string name="type.sport.running">الجري</string>
     <string name="type.sport.softball">الكرة اللينة</string>
+    <string name="type.sport.pilates">بيلاتس</string>
     <string name="type.tourism.aquarium">حوض سمك</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
     <string name="type.tourism.alpine_hut">لودج الجبل</string>
@@ -1402,6 +1409,8 @@
     <string name="type.man_made.monitoring_station.weather">محطة مراقبة الطقس</string>
     <string name="type.amenity.student_accommodation">سكن الطلاب</string>
     <string name="type.craft.watchmaker">صانع الساعات</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">تصنيع النوافذ</string>
     <string name="type.xmas_feature.market">سوق الكريسماس</string>
     <string name="type.xmas_feature.tree">شجرة الكريسماس</string>
     <string name="type.amenity.hookah_lounge">مقهى شيشة</string>

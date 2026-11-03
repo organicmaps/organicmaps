@@ -9,9 +9,16 @@ set(FT_DISABLE_ZLIB ON)
 
 add_subdirectory(freetype)
 
-# Fix warning with ONE_PIXEL macro clash.
-if(NOT MSVC)
- target_compile_options(freetype PRIVATE -Wno-macro-redefined)
+if (CMAKE_C_COMPILER_ID STREQUAL "GNU")
+  # sdf.c conflicts with smooth.c's ONE_PIXEL; autofit.c triggers GCC's unity-only bounds warning.
+  set_source_files_properties(
+    "${CMAKE_CURRENT_SOURCE_DIR}/freetype/src/sdf/sdf.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/freetype/src/autofit/autofit.c"
+    TARGET_DIRECTORY freetype
+    PROPERTIES SKIP_UNITY_BUILD_INCLUSION ON
+  )
+else()
+  target_compile_options(freetype PRIVATE $<$<C_COMPILER_ID:Clang,AppleClang>:-Wno-macro-redefined>)
 endif()
 
 # Use ft2build.h from the current directory instead of the default.

@@ -692,6 +692,8 @@
     <string name="type.man_made.pier">ຂົວທ່າເຮືອ</string>
     <string name="type.man_made.pipeline">ທໍ່ສົ່ງ</string>
     <string name="type.man_made.pipeline.overground">ທໍ່ສົ່ງເທິງດິນ</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">ອ່າງເກັບນໍ້າແບບປິດ</string>
     <string name="type.man_made.silo">ໄຊໂລ</string>
     <string name="type.man_made.storage_tank">ຖັງເກັບ</string>
     <string name="type.man_made.surveillance">ກ້ອງວົງຈອນປິດ</string>
@@ -710,6 +712,8 @@
     <string name="type.man_made.water_tower">ຫໍນໍ້າ</string>
     <string name="type.man_made.water_well">ນໍ້າສ້າງ</string>
     <string name="type.man_made.water_well.drinking_water_no">ນໍ້າສ້າງ</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">ໂຮງງານນໍ້າປະປາ</string>
     <string name="type.man_made.windmill">ກັງຫັນລົມ</string>
     <string name="type.man_made.works">ໂຮງງານອຸດສາຫະກຳ</string>
     <string name="type.military">ການທະຫານ</string>
@@ -1186,6 +1190,8 @@
     <string name="type.shop.greengrocer">ຮ້ານຂາຍຜັກແລະໝາກໄມ້</string>
     <string name="type.shop.grocery">ຮ້ານຂາຍເຄື່ອງຍ່ອຍ</string>
     <string name="type.shop.hairdresser">ຮ້ານຕັດຜົມ</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">ຮ້ານຕັດຜົມຊາຍ</string>
     <string name="type.shop.hardware">ຮ້ານຂາຍເຄື່ອງເຕັກນິກ</string>
     <string name="type.shop.health_food">ຮ້ານຂາຍອາຫານເພື່ອສຸຂະພາບ</string>
     <string name="type.shop.hearing_aids">ຮ້ານຂາຍເຄື່ອງຊ່ວຍຟັງ</string>
@@ -1309,6 +1315,7 @@
     <string name="type.sport.rugby_union">ລັກບີ້</string>
     <string name="type.sport.running">ການແລ່ນ</string>
     <string name="type.sport.softball">ຊອບບອລ</string>
+    <string name="type.sport.pilates">ພິລາທິສ</string>
     <string name="type.tourism">ການທ່ອງທ່ຽວ</string>
     <string name="type.tourism.aquarium">ສະຖານທີ່ສະແດງສັດນ້ຳ</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1452,6 +1459,8 @@
     <string name="type.man_made.monitoring_station.weather">ສະຖານີກວດກາອາກາດ</string>
     <string name="type.amenity.student_accommodation">ຫໍພັກນັກສຶກສາ</string>
     <string name="type.craft.watchmaker">ຊ່າງແປງໂມງ</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">ການຜະລິດປ່ອງຢ້ຽມ</string>
     <string name="type.xmas_feature.market">ຕະຫຼາດຄຣິສມາດ</string>
     <string name="type.xmas_feature.tree">ຕົ້ນຄຣິສມາດ</string>
     <string name="type.amenity.hookah_lounge">ຮ້ານສູບຢາ</string>

@@ -12,7 +12,7 @@ Files from [data/borders](https://github.com/organicmaps/organicmaps/tree/master
 
 ## Setup
 
-You must have Python version >= 3.7 and complete the following steps:
+You must have Python version >= 3.11 and complete the following steps:
 
 1. Switch to the branch of your app's version (see the note of #maps_generator section). E.g.:
 
@@ -39,7 +39,7 @@ cd tools/python/maps_generator
 4. Install python dependencies:
 
 ```sh
-pip3 install -r requirements_dev.txt
+pip3 install -r requirements.txt
 ```
 
 5. Create a [configuration file with defaults](https://github.com/organicmaps/organicmaps/blob/master/tools/python/maps_generator/var/etc/map_generator.ini.default):

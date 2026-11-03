@@ -722,9 +722,9 @@ void Framework::FillTrackInfo(Track const & track, Track::TrackSelectionInfo con
   info.SetTrackId(track.GetId());
   info.SetTrackRelationId(trackSelectionInfo.m_relationId);
   auto const groupId = track.GetGroupId();
-  info.SetBookmarkCategoryId(groupId);
-  if (groupId != kml::kInvalidMarkGroupId)
-    info.SetBookmarkCategoryName(GetBookmarkManager().GetCategoryName(groupId));
+  bool const isBookmarkCategory = BookmarkManager::IsBookmarkCategory(groupId);
+  info.SetBookmarkCategoryId(isBookmarkCategory ? groupId : kml::kInvalidMarkGroupId);
+  info.SetBookmarkCategoryName(isBookmarkCategory ? GetBookmarkManager().GetCategoryName(groupId) : std::string{});
   info.SetMercator(trackSelectionInfo.m_trackPoint);
   info.SetTitlesForTrack(track);
 }
@@ -2221,7 +2221,10 @@ void Framework::ActivateMapSelection()
   if (m_currentPlacePageInfo->GetSelectedObject() == df::SelectionShape::OBJECT_TRACK)
     bm.OnTrackSelected(m_currentPlacePageInfo->GetTrackId());
   else
+  {
     bm.OnTrackDeselected();
+    bm.ClearTempRelationTrack();
+  }
 
   auto const & featureId = m_currentPlacePageInfo->GetID();
 

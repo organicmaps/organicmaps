@@ -809,6 +809,9 @@
 "type.man_made.pier" = "Pier";
 "type.man_made.pipeline" = "Pipeline";
 "type.man_made.pipeline.overground" = "Overground Pipeline";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "Depósitu d’agua cubiertu";
 "type.man_made.silo" = "Silo";
 "type.man_made.storage_tank" = "Storage Tank";
 "type.man_made.surveillance" = "Cámara de vixilancia";
@@ -831,6 +834,9 @@
 "type.man_made.water_tower" = "Water Tower";
 "type.man_made.water_well" = "Water Well";
 "type.man_made.water_well.drinking_water_no" = "Water Well";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "Planta potabilizadora";
 "type.man_made.windmill" = "Windmill";
 "type.man_made.works" = "Industrial Works";
 
@@ -1339,6 +1345,9 @@
 "type.shop.greengrocer" = "Greengrocer";
 "type.shop.grocery" = "Grocery Store";
 "type.shop.hairdresser" = "Hairdresser";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "Barbería";
 "type.shop.hardware" = "Ferretería";
 "type.shop.health_food" = "Health Food Shop";
 "type.shop.hearing_aids" = "Hearing Aid Store";
@@ -1464,6 +1473,7 @@
 "type.sport.rugby_union" = "Rugby union";
 "type.sport.running" = "Carrera";
 "type.sport.softball" = "Softbol";
+"type.sport.pilates" = "Pilates";
 "type.tourism" = "Turismu";
 "type.tourism.aquarium" = "Acuariu";
 
@@ -1614,6 +1624,9 @@
 "type.man_made.monitoring_station.weather" = "Weather Monitoring Station";
 "type.amenity.student_accommodation" = "Student Accommodation";
 "type.craft.watchmaker" = "Watchmaker";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "Fabricación de ventanes";
 "type.xmas_feature.market" = "Christmas Market";
 "type.xmas_feature.tree" = "Christmas Tree";
 "type.amenity.hookah_lounge" = "Hookah Lounge";

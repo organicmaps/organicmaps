@@ -809,6 +809,9 @@
 "type.man_made.pier" = "Pier";
 "type.man_made.pipeline" = "Pipeline";
 "type.man_made.pipeline.overground" = "Overground Pipeline";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "배수지";
 "type.man_made.silo" = "Silo";
 "type.man_made.storage_tank" = "Storage Tank";
 "type.man_made.surveillance" = "감시 카메라";
@@ -831,6 +834,9 @@
 "type.man_made.water_tower" = "급수탑";
 "type.man_made.water_well" = "우물";
 "type.man_made.water_well.drinking_water_no" = "우물";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "정수장";
 "type.man_made.windmill" = "풍차";
 "type.man_made.works" = "Industrial Works";
 
@@ -1339,6 +1345,9 @@
 "type.shop.greengrocer" = "청과상";
 "type.shop.grocery" = "\"식료품점\"";
 "type.shop.hairdresser" = "이발사";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "이발소";
 "type.shop.hardware" = "Hardware Store";
 "type.shop.health_food" = "\"건강식품 가게\"";
 "type.shop.hearing_aids" = "보청기 스토어";
@@ -1464,6 +1473,7 @@
 "type.sport.rugby_union" = "럭비 유니언";
 "type.sport.running" = "달리기";
 "type.sport.softball" = "소프트볼";
+"type.sport.pilates" = "필라테스";
 "type.tourism" = "Tourism";
 "type.tourism.aquarium" = "수족관";
 
@@ -1614,6 +1624,9 @@
 "type.man_made.monitoring_station.weather" = "날씨 모니터링 스테이션";
 "type.amenity.student_accommodation" = "학생 숙소";
 "type.craft.watchmaker" = "워치메이커";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "창호 제작";
 "type.xmas_feature.market" = "크리스마스 마켓";
 "type.xmas_feature.tree" = "크리스마스 트리";
 "type.amenity.hookah_lounge" = "후카 라운지";

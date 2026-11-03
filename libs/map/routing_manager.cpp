@@ -486,19 +486,8 @@ RouterType RoutingManager::GetBestRouter(m2::PointD const & startPoint, m2::Poin
 RouterType RoutingManager::GetLastUsedRouter() const
 {
   std::string routerTypeStr;
-  if (!settings::Get(kRouterTypeKey, routerTypeStr))
-    return RouterType::Vehicle;
-
-  auto const routerType = FromString(routerTypeStr);
-
-  switch (routerType)
-  {
-  case RouterType::Pedestrian:
-  case RouterType::Bicycle:
-  case RouterType::Transit:
-  case RouterType::Ruler: return routerType;
-  default: return RouterType::Vehicle;
-  }
+  settings::TryGet(kRouterTypeKey, routerTypeStr);
+  return FromString(routerTypeStr);
 }
 
 void RoutingManager::Init(std::shared_ptr<routing::NumMwmIds> ptr)
@@ -1395,6 +1384,11 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
       return;
     }
     p.m_position = myPosition.GetPivot();
+    // Saved stops must use the fix that produced this route, even if GPS moves before Save.
+    RoutePointsLayout layout(*m_bmManager);
+    auto * mark = layout.GetRoutePointForEdit(p.m_pointType, p.m_intermediateIndex);
+    CHECK(mark != nullptr, (static_cast<int>(p.m_pointType), p.m_intermediateIndex));
+    mark->SetPosition(p.m_position);
   }
 
   // Check for equal points.
@@ -1466,6 +1460,11 @@ static std::string GetNameFromPoint(RouteMarkData const & rmd)
 
 kml::TrackId RoutingManager::SaveRoute()
 {
+  auto const routePoints = GetRoutePoints();
+  // RemoveRoutePoints() leaves the built route valid after clearing its editable marks.
+  if (routePoints.size() < 2)
+    return kml::kInvalidTrackId;
+
   RouteJunctions junctions;
   if (!RoutingSession().GetRouteJunctionPoints(junctions))
     return kml::kInvalidTrackId;
@@ -1473,11 +1472,17 @@ kml::TrackId RoutingManager::SaveRoute()
   base::Unique(junctions, [](geometry::PointWithAltitude const & p1, geometry::PointWithAltitude const & p2)
   { return AlmostEqualAbs(p1, p2, kMwmPointAccuracy); });
 
-  auto const routePoints = GetRoutePoints();
   std::string const from = GetNameFromPoint(routePoints.front());
   std::string const to = GetNameFromPoint(routePoints.back());
 
-  return m_bmManager->SaveRoute(std::move(junctions), from, to);
+  // GetRoutePoints() preserves stop order. A stop title needs no subtitle: imported stops have
+  // plain names, whereas from/to use the subtitle guard to filter unnamed-pin placeholders.
+  std::vector<kml::TrackStopData> stops;
+  for (auto const & point : routePoints)
+    if (point.m_pointType == RouteMarkType::Intermediate)
+      stops.push_back({point.m_position, point.m_title});
+
+  return m_bmManager->SaveRoute(std::move(junctions), from, to, std::move(stops), ToString(m_currentRouterType));
 }
 
 bool RoutingManager::DisableFollowMode()

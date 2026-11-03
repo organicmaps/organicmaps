@@ -809,6 +809,9 @@
 "type.man_made.pier" = "Προβλήτα";
 "type.man_made.pipeline" = "Αγωγός";
 "type.man_made.pipeline.overground" = "Υπέργειος αγωγός";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "Καλυμμένη δεξαμενή νερού";
 "type.man_made.silo" = "Σιλό";
 "type.man_made.storage_tank" = "Δεξαμενή αποθήκευσης";
 "type.man_made.surveillance" = "Κάμερα παρακολούθησης";
@@ -831,6 +834,9 @@
 "type.man_made.water_tower" = "Υδατόπυργος";
 "type.man_made.water_well" = "Πηγάδι νερού";
 "type.man_made.water_well.drinking_water_no" = "Πηγάδι νερού";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "Μονάδα επεξεργασίας νερού";
 "type.man_made.windmill" = "Ανεμόμυλος";
 "type.man_made.works" = "Εργοστάσιο βιομηχανίας";
 
@@ -1339,6 +1345,9 @@
 "type.shop.greengrocer" = "Μανάβικο";
 "type.shop.grocery" = "Παντοπωλείο";
 "type.shop.hairdresser" = "Κομμωτής";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "Κουρείο";
 "type.shop.hardware" = "Κατάστημα υλικού";
 "type.shop.health_food" = "Κατάστημα υγιεινής διατροφής";
 "type.shop.hearing_aids" = "Κατάστημα βοηθημάτων ακοής";
@@ -1464,6 +1473,7 @@
 "type.sport.rugby_union" = "Ράγκμπι γιούνιον";
 "type.sport.running" = "Τρέξιμο";
 "type.sport.softball" = "Σόφτμπολ";
+"type.sport.pilates" = "Πιλάτες";
 "type.tourism" = "Τουρισμός";
 "type.tourism.aquarium" = "Ενυδρείο";
 
@@ -1614,6 +1624,9 @@
 "type.man_made.monitoring_station.weather" = "Σταθμός παρακολούθησης καιρού";
 "type.amenity.student_accommodation" = "Φοιτητική Εστία";
 "type.craft.watchmaker" = "Ωρολογοποιός";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "Κατασκευή παραθύρων";
 "type.xmas_feature.market" = "Χριστουγεννιάτικη αγορά";
 "type.xmas_feature.tree" = "Χριστουγεννιάτικο δέντρο";
 "type.amenity.hookah_lounge" = "Ναργιλέ μπαρ";

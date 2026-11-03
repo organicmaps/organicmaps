@@ -694,6 +694,8 @@
     <string name="type.man_made.pier">碼頭</string>
     <string name="type.man_made.pipeline">管線</string>
     <string name="type.man_made.pipeline.overground">地面管線</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">加蓋蓄水池</string>
     <string name="type.man_made.silo">筒倉</string>
     <string name="type.man_made.storage_tank">儲槽</string>
     <string name="type.man_made.surveillance">監控攝影機</string>
@@ -712,6 +714,8 @@
     <string name="type.man_made.water_tower">水塔</string>
     <string name="type.man_made.water_well">水井</string>
     <string name="type.man_made.water_well.drinking_water_no">水井</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">自來水廠</string>
     <string name="type.man_made.windmill">風車</string>
     <string name="type.man_made.works">工業設施</string>
     <string name="type.military">軍事</string>
@@ -1201,6 +1205,8 @@
     <string name="type.shop.greengrocer">蔬果零售店</string>
     <string name="type.shop.grocery">雜貨店</string>
     <string name="type.shop.hairdresser">理髮師</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">男士理髮店</string>
     <string name="type.shop.hardware">五金店</string>
     <string name="type.shop.health_food">保健食品店</string>
     <string name="type.shop.hearing_aids">助聽器商店</string>
@@ -1324,6 +1330,7 @@
     <string name="type.sport.rugby_union">聯合式橄欖球</string>
     <string name="type.sport.running">跑步</string>
     <string name="type.sport.softball">壘球</string>
+    <string name="type.sport.pilates">皮拉提斯</string>
     <string name="type.tourism">旅遊設施</string>
     <string name="type.tourism.aquarium">水族館</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1467,6 +1474,8 @@
     <string name="type.man_made.monitoring_station.weather">氣象監測站</string>
     <string name="type.amenity.student_accommodation">學生住宿</string>
     <string name="type.craft.watchmaker">鐘錶匠</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">門窗製作</string>
     <string name="type.xmas_feature.market">聖誕市場</string>
     <string name="type.xmas_feature.tree">聖誕樹</string>
     <string name="type.amenity.hookah_lounge">水煙館</string>

@@ -391,6 +391,8 @@
     <string name="type.man_made.cairn">स्तूप</string>
     <string name="type.man_made.chimney">धुआँकश</string>
     <string name="type.man_made.lighthouse">प्रकाशस्तम्भ</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">ढका हुआ जलाशय</string>
     <string name="type.man_made.tower">बुर्ज</string>
     <!-- A deep hole drilled into the earth to extract oil or gas. -->
     <string name="type.man_made.petroleum_well">तेल या गैस कुआं</string>
@@ -402,6 +404,8 @@
     <string name="type.man_made.water_tower">पानी का टावर</string>
     <string name="type.man_made.water_well">कुआँ</string>
     <string name="type.man_made.water_well.drinking_water_no">कुआँ</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">जल शोधन संयंत्र</string>
     <string name="type.man_made.windmill">पवनचक्की</string>
     <string name="type.mountain_pass">दर्रा</string>
     <string name="type.natural">प्रकृति</string>
@@ -559,6 +563,8 @@
     <string name="type.shop.greengrocer">फल-सब्ज़ियों की दुकान</string>
     <string name="type.shop.grocery">किराने की दुकान</string>
     <string name="type.shop.hairdresser">नाई</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">नाई की दुकान</string>
     <string name="type.shop.hardware">लौह वस्तुओं की दुकान</string>
     <string name="type.shop.health_food">स्वस्थ भोजन की दुकान</string>
     <string name="type.shop.hearing_aids">श्रवण सहायता भंडार</string>
@@ -659,6 +665,7 @@
     <string name="type.sport.rugby_union">रग्बी यूनियन</string>
     <string name="type.sport.running">दौड़ना</string>
     <string name="type.sport.softball">सॉफ्टबॉल</string>
+    <string name="type.sport.pilates">पिलाटेस</string>
     <string name="type.tourism">पर्यटन</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
     <string name="type.tourism.alpine_hut">माउंटेन लॉज</string>
@@ -741,6 +748,8 @@
     <string name="type.man_made.monitoring_station.weather">मौसम निगरानी स्टेशन</string>
     <string name="type.amenity.student_accommodation">छात्र आवास</string>
     <string name="type.craft.watchmaker">घड़ीसाज़</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">खिड़की निर्माण</string>
     <string name="type.xmas_feature.market">क्रिसमस का बाजार</string>
     <string name="type.xmas_feature.tree">क्रिसमस ट्री</string>
     <string name="type.amenity.hookah_lounge">हुक्का लाउंज</string>

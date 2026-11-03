@@ -809,6 +809,9 @@
 "type.man_made.pier" = "Móló";
 "type.man_made.pipeline" = "Csővezeték";
 "type.man_made.pipeline.overground" = "Felszíni csővezeték";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "Fedett víztároló";
 "type.man_made.silo" = "Falközi siló";
 "type.man_made.storage_tank" = "Tárolótartály";
 "type.man_made.surveillance" = "Térfigyelő kamera";
@@ -831,6 +834,9 @@
 "type.man_made.water_tower" = "Víztorony";
 "type.man_made.water_well" = "Kút";
 "type.man_made.water_well.drinking_water_no" = "Kút (nem ivóvíz)";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "Vízmű";
 "type.man_made.windmill" = "Szélmalom";
 "type.man_made.works" = "Gyár, üzem";
 
@@ -1339,6 +1345,9 @@
 "type.shop.greengrocer" = "Zöldséges";
 "type.shop.grocery" = "Élelmiszerbolt";
 "type.shop.hairdresser" = "Fodrász";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "Borbély";
 "type.shop.hardware" = "Vas-műszaki bolt";
 "type.shop.health_food" = "Egészséges élelmiszerek boltja";
 "type.shop.hearing_aids" = "Hallókészülék bolt";
@@ -1464,6 +1473,7 @@
 "type.sport.rugby_union" = "Rögbi";
 "type.sport.running" = "Futás";
 "type.sport.softball" = "Softball";
+"type.sport.pilates" = "Pilates";
 "type.tourism" = "Turizmus";
 "type.tourism.aquarium" = "Akvárium";
 
@@ -1614,6 +1624,9 @@
 "type.man_made.monitoring_station.weather" = "Időjárás megfigyelő állomás";
 "type.amenity.student_accommodation" = "Diákszállás";
 "type.craft.watchmaker" = "Órás";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "Ablakgyártás";
 "type.xmas_feature.market" = "Karácsonyi piac";
 "type.xmas_feature.tree" = "Karácsonyfa";
 "type.amenity.hookah_lounge" = "Vízipipa bár";

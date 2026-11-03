@@ -694,6 +694,8 @@
     <string name="type.man_made.pier">Móló</string>
     <string name="type.man_made.pipeline">Csővezeték</string>
     <string name="type.man_made.pipeline.overground">Felszíni csővezeték</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">Fedett víztároló</string>
     <string name="type.man_made.silo">Falközi siló</string>
     <string name="type.man_made.storage_tank">Tárolótartály</string>
     <string name="type.man_made.surveillance">Térfigyelő kamera</string>
@@ -712,6 +714,8 @@
     <string name="type.man_made.water_tower">Víztorony</string>
     <string name="type.man_made.water_well">Kút</string>
     <string name="type.man_made.water_well.drinking_water_no">Kút (nem ivóvíz)</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">Vízmű</string>
     <string name="type.man_made.windmill">Szélmalom</string>
     <string name="type.man_made.works">Gyár, üzem</string>
     <string name="type.military">Katonai</string>
@@ -1201,6 +1205,8 @@
     <string name="type.shop.greengrocer">Zöldséges</string>
     <string name="type.shop.grocery">Élelmiszerbolt</string>
     <string name="type.shop.hairdresser">Fodrász</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">Borbély</string>
     <string name="type.shop.hardware">Vas-műszaki bolt</string>
     <string name="type.shop.health_food">Egészséges élelmiszerek boltja</string>
     <string name="type.shop.hearing_aids">Hallókészülék bolt</string>
@@ -1324,6 +1330,7 @@
     <string name="type.sport.rugby_union">Rögbi</string>
     <string name="type.sport.running">Futás</string>
     <string name="type.sport.softball">Softball</string>
+    <string name="type.sport.pilates">Pilates</string>
     <string name="type.tourism">Turizmus</string>
     <string name="type.tourism.aquarium">Akvárium</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1467,6 +1474,8 @@
     <string name="type.man_made.monitoring_station.weather">Időjárás megfigyelő állomás</string>
     <string name="type.amenity.student_accommodation">Diákszállás</string>
     <string name="type.craft.watchmaker">Órás</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">Ablakgyártás</string>
     <string name="type.xmas_feature.market">Karácsonyi piac</string>
     <string name="type.xmas_feature.tree">Karácsonyfa</string>
     <string name="type.amenity.hookah_lounge">Vízipipa bár</string>

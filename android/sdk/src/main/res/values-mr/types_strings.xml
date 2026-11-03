@@ -576,6 +576,8 @@
     <string name="type.man_made.pier">धक्का</string>
     <string name="type.man_made.pipeline">नळमार्ग</string>
     <string name="type.man_made.pipeline.overground">जमिनीवरील नळमार्ग</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">झाकलेला जलाशय</string>
     <string name="type.man_made.silo">पेव(धान्यसाठा)</string>
     <string name="type.man_made.storage_tank">साठवण टाकी</string>
     <string name="type.man_made.surveillance">संनिरीक्षण कॅमेरा</string>
@@ -594,6 +596,8 @@
     <string name="type.man_made.water_tower">पाण्याचा मनोरा(टाकी)</string>
     <string name="type.man_made.water_well">पाण्याची विहीर</string>
     <string name="type.man_made.water_well.drinking_water_no">पाण्याची विहीर</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">जलशुद्धीकरण केंद्र</string>
     <string name="type.man_made.windmill">पवनचक्की</string>
     <string name="type.man_made.works">औद्योगिक कामे</string>
     <string name="type.military">लष्करी</string>
@@ -1040,6 +1044,8 @@
     <string name="type.shop.gift">भेटवस्तूंचे दुकान</string>
     <string name="type.shop.greengrocer">भाजीवाला</string>
     <string name="type.shop.hairdresser">न्हावी</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">न्हाव्याचे दुकान</string>
     <string name="type.shop.hearing_aids">श्रवणयंत्र स्टोअर</string>
     <string name="type.shop.herbalist">औषधी वनस्पतींचे दुकान</string>
     <string name="type.shop.hifi">हायफाय ऑडिओ</string>
@@ -1127,6 +1133,7 @@
     <string name="type.sport.rugby_union">रग्बी</string>
     <string name="type.sport.running">धावणे</string>
     <string name="type.sport.softball">सॉफ्टबॉल</string>
+    <string name="type.sport.pilates">पिलाटेस</string>
     <string name="type.tourism">पर्यटन</string>
     <string name="type.tourism.aquarium">मत्स्यालय</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1232,6 +1239,8 @@
     <string name="type.man_made.monitoring_station.weather">हवामान निरीक्षण स्टेशन</string>
     <string name="type.amenity.student_accommodation">विद्यार्थ्यांची निवास व्यवस्था</string>
     <string name="type.craft.watchmaker">वॉचमेकर</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">खिडकी निर्मिती</string>
     <string name="type.xmas_feature.market">ख्रिसमस मार्केट</string>
     <string name="type.xmas_feature.tree">ख्रिसमस ट्री</string>
     <string name="type.amenity.hookah_lounge">हुक्का पार्लर</string>

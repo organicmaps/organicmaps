@@ -658,6 +658,8 @@
     <string name="type.man_made.lighthouse">Majakka</string>
     <string name="type.man_made.mast">Masto</string>
     <string name="type.man_made.pier">Laituri</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">Katettu vesisäiliö</string>
     <string name="type.man_made.silo">Siilo</string>
     <string name="type.man_made.surveillance">Valvontakamera</string>
     <string name="type.man_made.tower">Torni</string>
@@ -674,6 +676,8 @@
     <string name="type.man_made.water_tower">Vesitorni</string>
     <string name="type.man_made.water_well">Kaivo</string>
     <string name="type.man_made.water_well.drinking_water_no">Kaivo</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">Vesilaitos</string>
     <string name="type.man_made.windmill">Tuulimylly</string>
     <string name="type.military.bunker">Bunkkeri</string>
     <string name="type.natural">Luonto</string>
@@ -1108,6 +1112,8 @@
     <string name="type.shop.greengrocer">Vihanneskauppias</string>
     <string name="type.shop.grocery">Päivittäistavarakauppa</string>
     <string name="type.shop.hairdresser">Kampaamo</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">Parturi</string>
     <string name="type.shop.hardware">Rautakauppa</string>
     <string name="type.shop.health_food">Terveysruokakauppa</string>
     <string name="type.shop.hearing_aids">Kuulolaitteiden myymälä</string>
@@ -1231,6 +1237,7 @@
     <string name="type.sport.rugby_union">Rugby union</string>
     <string name="type.sport.running">Juoksu</string>
     <string name="type.sport.softball">Softball</string>
+    <string name="type.sport.pilates">Pilates</string>
     <string name="type.tourism">Turismi</string>
     <string name="type.tourism.aquarium">Akvaario</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1358,6 +1365,8 @@
     <string name="type.man_made.monitoring_station.weather">Sään seuranta-asema</string>
     <string name="type.amenity.student_accommodation">Opiskelijoiden majoitus</string>
     <string name="type.craft.watchmaker">Kelloseppä</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">Ikkunoiden valmistus</string>
     <string name="type.xmas_feature.market">Joulumarkkinat</string>
     <string name="type.xmas_feature.tree">Joulukuusi</string>
     <string name="type.amenity.hookah_lounge">Vesipiippubaari</string>
