@@ -38,7 +38,7 @@ final class PlacePagePreviewViewController: UIViewController {
 
   private var distance: String?
   private var speedAndAltitude: String?
-  private var heading: CGFloat?
+  private var directionAngle: CGFloat?
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -53,10 +53,9 @@ final class PlacePagePreviewViewController: UIViewController {
       placePageDirectionView?.label.text = distance
     }
 
-    if let heading = heading {
-      updateHeading(heading)
-    } else {
-      placePageDirectionView?.imageView.isHidden = true
+    placePageDirectionView?.imageView.isHidden = directionAngle == nil
+    if let directionAngle {
+      placePageDirectionView?.imageView.transform = DirectionView.arrowTransform(for: directionAngle)
     }
   }
 
@@ -105,17 +104,22 @@ final class PlacePagePreviewViewController: UIViewController {
     fullScreenDirectionView.updateDistance(distance)
   }
 
-  func updateHeading(_ angle: CGFloat) {
-    placePageDirectionView?.imageView.isHidden = false
-    let duration = heading == nil ? .zero : AppConstants.defaultAnimationDuration // skip the initial setup animation
+  func updateBearing(_ bearing: Int) {
+    fullScreenDirectionView.updateBearing(bearing)
+  }
+
+  func updateHeading(_ angle: CGFloat?) {
+    let duration = directionAngle == nil ? .zero : AppConstants.defaultAnimationDuration // skip the initial setup animation
+    directionAngle = angle
+    placePageDirectionView?.imageView.isHidden = angle == nil
+    fullScreenDirectionView.updateHeading(angle)
+    guard let angle else { return }
     UIView.animate(withDuration: duration,
                    delay: 0,
                    options: [.beginFromCurrentState, .curveEaseInOut],
                    animations: { [unowned self] in
-                     placePageDirectionView?.imageView.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2 - angle)
+                     placePageDirectionView?.imageView.transform = DirectionView.arrowTransform(for: angle)
                    })
-    fullScreenDirectionView.updateHeading(angle)
-    heading = angle
   }
 
   func updateSpeedAndAltitude(_ speedAndAltitude: String) {
@@ -129,14 +133,12 @@ final class PlacePagePreviewViewController: UIViewController {
   }
 
   @IBAction func onDirectionPressed(_: Any) {
-    guard let heading = heading else {
+    guard distance != nil else {
       return
     }
 
     fullScreenDirectionView.updateTitle(placePagePreviewData.title,
                                         subtitle: placePagePreviewData.subtitle ?? placePagePreviewData.coordinates)
-    fullScreenDirectionView.updateHeading(heading)
-    fullScreenDirectionView.updateDistance(distance)
     fullScreenDirectionView.show()
   }
 

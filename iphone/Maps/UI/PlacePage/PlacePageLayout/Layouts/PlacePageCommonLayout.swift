@@ -5,7 +5,8 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
   private var placePageData: PlacePageData
   private var interactor: PlacePageInteractor
   private let storyboard: UIStoryboard
-  private var lastLocation: CLLocation?
+  private let headingProvider: () -> CLHeading?
+  private var targetAngle: Float?
   private weak var editBookmarkInteractor: PlacePageEditBookmarkAndTrackSectionInteractor?
 
   weak var presenter: PlacePagePresenterProtocol?
@@ -82,10 +83,12 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
 
   private lazy var placePageNavigationViewController: PlacePageHeaderViewController = PlacePageHeaderBuilder.build(data: placePageData, delegate: interactor, headerType: .fixed)
 
-  init(interactor: PlacePageInteractor, storyboard: UIStoryboard, data: PlacePageData) {
+  init(interactor: PlacePageInteractor, storyboard: UIStoryboard, data: PlacePageData,
+       headingProvider: @escaping () -> CLHeading? = LocationManager.lastHeading) {
     self.interactor = interactor
     self.storyboard = storyboard
     placePageData = data
+    self.headingProvider = headingProvider
   }
 
   private func configureViewControllers() -> [UIViewController] {
@@ -120,10 +123,6 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     LocationManager.add(observer: self)
     if let lastLocation = LocationManager.lastLocation() {
       onLocationUpdate(lastLocation)
-      self.lastLocation = lastLocation
-    }
-    if let lastHeading = LocationManager.lastHeading() {
-      onHeadingUpdate(lastHeading)
     }
 
     placePageData.onMapNodeStatusUpdate = { [weak self] in
@@ -164,9 +163,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
 
 extension PlacePageCommonLayout: MWMLocationObserver {
   func onHeadingUpdate(_ heading: CLHeading) {
-    if !placePageData.isMyPosition {
-      updateHeading(heading.trueHeading)
-    }
+    updateHeading(using: heading)
   }
 
   func onLocationUpdate(_ location: CLLocation) {
@@ -186,19 +183,32 @@ extension PlacePageCommonLayout: MWMLocationObserver {
       let formattedDistance = distanceFormatter.distanceString(fromMeters: distance)
       previewViewController.updateDistance(formattedDistance)
 
-      lastLocation = location
+      let angle = GeoUtil.angle(atPoint: location.coordinate, toPoint: placePageData.locationCoordinate)
+      targetAngle = angle
+      previewViewController.updateBearing(Self.bearingDegrees(from: angle))
+      updateHeading(using: headingProvider())
     }
   }
 
   func onLocationError(_: MWMLocationStatus) {}
 
-  private func updateHeading(_ heading: CLLocationDirection) {
-    guard let location = lastLocation, heading >= 0 else {
+  /// Converts GeoUtil's counterclockwise radians from east to rounded clockwise degrees from true north (0..<360).
+  /// Adding a full turn keeps the remainder nonnegative.
+  static func bearingDegrees(from angle: Float) -> Int {
+    let bearing = (90 - Double(angle) * 180 / .pi + 360)
+      .truncatingRemainder(dividingBy: 360)
+    return Int(bearing.rounded()) % 360
+  }
+
+  private func updateHeading(using heading: CLHeading?) {
+    guard let angle = targetAngle else {
       return
     }
-
-    let rad = heading * Double.pi / 180
-    let angle = GeoUtil.angle(atPoint: location.coordinate, toPoint: placePageData.locationCoordinate)
+    guard let heading, heading.trueHeading >= 0 else {
+      previewViewController.updateHeading(nil)
+      return
+    }
+    let rad = heading.trueHeading * .pi / 180
     previewViewController.updateHeading(CGFloat(angle) + CGFloat(rad))
   }
 }
