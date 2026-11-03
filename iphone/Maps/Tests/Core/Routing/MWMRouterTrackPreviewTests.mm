@@ -4,8 +4,10 @@
 #import "MWMRouter.h"
 #import "MapViewController.h"
 
+#include <CoreApi/ElevationProfileData.h>
 #include <CoreApi/Framework.h>
 #include <CoreApi/MWMBookmarksManager.h>
+#include <CoreApi/RouteElevationPreviewData.h>
 
 #include "geometry/mercator.hpp"
 
@@ -45,11 +47,16 @@
 
 - (kml::TrackId)createPreview
 {
+  return [self createPreviewWithFinishAltitude:110];
+}
+
+- (kml::TrackId)createPreviewWithFinishAltitude:(geometry::Altitude)finishAltitude
+{
   auto & bookmarks = GetFramework().GetBookmarkManager();
   auto const start = mercator::FromLatLon(45.0, 19.0);
   kml::TrackData data;
   data.m_layers.emplace_back();
-  data.m_geometry.AddLine({{start, 100}, {mercator::FromLatLon(45.01, 19.0), 110}});
+  data.m_geometry.AddLine({{start, 100}, {mercator::FromLatLon(45.01, 19.0), finishAltitude}});
   data.m_geometry.AddTimestamps({});
   data.m_routerType = "pedestrian";
   auto const id = bookmarks.GetEditSession().CreateTrack(std::move(data))->GetId();
@@ -75,6 +82,17 @@
   auto drained = [self expectationWithDescription:@"Deferred bookmark changes finished"];
   dispatch_async(dispatch_get_main_queue(), ^{ [drained fulfill]; });
   [self waitForExpectations:@[drained] timeout:5];
+}
+
+- (void)testFlatTrackKeepsTheSourceElevationSelector
+{
+  [self createPreviewWithFinishAltitude:100];
+  [self waitForPreview];
+  auto const profile = [MWMRouter routeElevationProfileData];
+  XCTAssertNotNil(profile);
+  XCTAssertEqual(profile.elevationProfileData.points.count, 2);
+  XCTAssertEqual(profile.elevationProfileData.points.firstObject.altitude, 100.0);
+  XCTAssertEqual(profile.elevationProfileData.points.lastObject.altitude, 100.0);
 }
 
 - (void)testRoadRebuildDoesNotReplaceCapturedPreview
@@ -111,9 +129,34 @@
   auto const id = [self createPreview];
   [MWMBookmarksManager.sharedManager deleteTrack:id];
   XCTAssertTrue([MWMRouter isFollowingTrack], @"Do not tear down routing inside bookmark publication");
+  XCTAssertTrue([MWMRouter routeElevationActivePointDistance] == nil);
   [self drainMainQueue];
   XCTAssertFalse([MWMRouter isFollowingTrack]);
   XCTAssertEqual(MWMNavigationDashboardManager.sharedManager.state, MWMNavigationDashboardStateClosed);
+}
+
+- (void)testRejectedEndpointKeepsTheAcceptedEntryAndPreview
+{
+  auto const id = [self createPreview];
+  [self waitForPreview];
+  auto & framework = GetFramework();
+  auto & bookmarks = framework.GetBookmarkManager();
+  double const finishDistance = bookmarks.GetTrack(id)->GetLengthMeters();
+  double const entryDistance = finishDistance / 2.0;
+  XCTAssertEqual([MWMRouter updateFollowedTrackEntryAtDistance:entryDistance], MWMFollowTrackResultOk);
+  [self waitForPreview];
+  auto const entry = bookmarks.GetTrackSelectionInfo(id);
+  auto const * route = framework.GetRoutingManager().RoutingSession().GetRoute();
+  auto const profile = [MWMRouter renderType];
+
+  XCTAssertEqual([MWMRouter updateFollowedTrackEntryAtDistance:finishDistance],
+                 MWMFollowTrackResultNoRemainingGeometry);
+  XCTAssertEqual(framework.GetRoutingManager().RoutingSession().GetRoute(), route);
+  XCTAssertEqual([MWMRouter renderType], profile);
+  auto const selection = bookmarks.GetTrackSelectionInfo(id);
+  XCTAssertTrue(selection.m_trackPoint.EqualDxDy(entry.m_trackPoint, mercator::kPointEqualityEps));
+  XCTAssertEqual(selection.m_distFromBegM, entry.m_distFromBegM);
+  XCTAssertEqual([MWMRouter routeElevationActivePointDistance].doubleValue, entryDistance);
 }
 
 - (void)testReverseKeepsTheCapturedEntryAndProfile
