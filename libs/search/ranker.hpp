@@ -1,5 +1,6 @@
 #pragma once
 
+#include "search/address_matcher.hpp"
 #include "search/cancel_exception.hpp"
 #include "search/emitter.hpp"
 #include "search/geocoder.hpp"
@@ -17,6 +18,7 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
+#include <map>
 #include <string>
 #include <vector>
 
@@ -123,6 +125,7 @@ private:
 
   std::vector<PreRankerResult> m_preRankerResults;
   std::vector<RankerResult> m_tentativeResults;
+  std::map<FeatureID, AddressResultMatch> m_addressMatches;
   bool m_noSuggests = false;
 };
 }  // namespace search
