@@ -317,9 +317,6 @@ public class ChartView: UIView {
     }
 
     chartPreviewView.setX(min: lower, max: upper)
-    xAxisView.setBounds(lower: lower, upper: upper)
-    updateCharts(animationStyle: .none)
-    chartInfoView.update()
   }
 
   @objc func onPan(_ sender: UIPanGestureRecognizer) {
@@ -341,9 +338,6 @@ public class ChartView: UIView {
     }
 
     chartPreviewView.setX(min: lower, max: upper)
-    xAxisView.setBounds(lower: lower, upper: upper)
-    updateCharts(animationStyle: .none)
-    chartInfoView.update()
   }
 
   func updateCharts(animationStyle: ChartAnimation = .none) {
