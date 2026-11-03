@@ -422,7 +422,8 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_native
   ASSERT(nTrack, ("Track must not be null with id:)", trackId));
 
   auto const isRelationTrack = static_cast<jboolean>(kmlTrackId == kml::kTempRelationTrackId);
-  return env->NewObject(trackClazz, cId, trackId, static_cast<jlong>(nTrack->GetGroupId()), isRelationTrack,
+  auto const categoryId = isRelationTrack ? kml::kInvalidMarkGroupId : nTrack->GetGroupId();
+  return env->NewObject(trackClazz, cId, trackId, static_cast<jlong>(categoryId), isRelationTrack,
                         jni::ToJavaString(env, nTrack->GetName()),
                         ToJavaDistance(env, platform::Distance::CreateFormatted(nTrack->GetLengthMeters())),
                         nTrack->GetColor(0).GetARGB(), static_cast<jboolean>(nTrack->IsVisible()));

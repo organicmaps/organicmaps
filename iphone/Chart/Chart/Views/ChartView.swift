@@ -20,7 +20,6 @@ public class ChartView: UIView {
   var showPreview: Bool = false // Set true to show the preview
 
   private var tapGR: UITapGestureRecognizer!
-  private var hasSelectedPoint = false
   private var panStartPoint = 0
   private var panGR: UIPanGestureRecognizer!
   private var pinchStartLower = 0
@@ -218,8 +217,6 @@ public class ChartView: UIView {
   }
 
   public func setSelectedPoint(_ x: Double) {
-    guard hasSelectedPoint || !x.isZero else { return }
-    hasSelectedPoint = true
     let routeLength = chartData.distance(forChartX: CGFloat(chartData.pointsCount - 1))
     let upper = chartData.xAxisValueAt(CGFloat(chartPreviewView.maxX))
     var lower = chartData.xAxisValueAt(CGFloat(chartPreviewView.minX))
@@ -355,7 +352,8 @@ public class ChartView: UIView {
       }
     }
 
-    let padding = round((upper - lower) / 10)
+    // Keep flat profiles drawable even when both heights fall on an axis tick.
+    let padding: CGFloat = upper == lower ? 1 : round((upper - lower) / 10)
     let paddedLower = lower - padding
     let adjustedLower = lower >= 0 ? max(0, paddedLower) : paddedLower
     lower = chartData.formatter.yAxisLowerBound(from: adjustedLower)
@@ -398,9 +396,7 @@ public class ChartView: UIView {
   }
 
   private func notifySelectedPointChanged(at chartX: CGFloat) {
-    let distance = chartData.distance(forChartX: chartX)
-    hasSelectedPoint = true
-    onSelectedPointChanged?(distance)
+    onSelectedPointChanged?(chartData.distance(forChartX: chartX))
   }
 }
 
@@ -430,8 +426,7 @@ extension ChartView: ChartInfoViewDelegate {
     guard let chartData, bounds.width > 0 else { return nil }
     let p = convert(CGPoint(x: pointX, y: .zero), from: view)
     let chartX = (p.x / bounds.width) * CGFloat(xAxisView.upperBound - xAxisView.lowerBound) + CGFloat(xAxisView.lowerBound)
-    guard !pointX.isZero || view.captured || hasSelectedPoint,
-          chartX >= 0,
+    guard chartX >= 0,
           chartX <= CGFloat(chartData.pointsCount - 1) else { return nil }
     let distance = CGFloat(chartData.distance(forChartX: chartX))
     let label = chartData.labelAt(chartX)

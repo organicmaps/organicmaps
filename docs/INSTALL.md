@@ -64,7 +64,7 @@ You need a Linux or a macOS machine to build a desktop version of Organic Maps. 
 
 Ensure that you have at least 20GB of free space.
 
-Install CMake (**3.22.1** minimum), Python **3.10+**, Qt 6, and the other dependencies.
+Install CMake (**3.22.1** minimum), Python **3.11+**, Qt 6, and the other dependencies.
 
 Installing *ccache* can speed up active development.
 
@@ -101,6 +101,7 @@ sudo apt update && sudo apt install -y \
 | Software  | Minimum version | Impacted Ubuntu release | Workaround                                                  |
 | --------- | --------------- | ----------------------- | ----------------------------------------------------------- |
 | CMake     | `3.22.1`        | `20.04` and older       | Install newer `cmake` from [PPA](https://apt.kitware.com/) or from `snap`<br> with `sudo snap install --classic cmake` |
+| Python    | `3.11`          | `22.04` and older       | Install Python 3.11+ and activate a virtual environment created with it |
 | FreeType  | `2.13.1`        | `22.04` and older       | Install newer `libfreetype6` and `libfreetype-dev` from [PPA](https://launchpad.net/~reviczky/+archive/ubuntu/freetype) |
 | GeoClue   | `2.5.7`         | `20.04` and older       | Install newer `geoclue-2.0` from [PPA](https://launchpad.net/~savoury1/+archive/ubuntu/backports) |
 | Qt 6      | `6.4.0`         | `22.04` and older       | Build and install Qt 6.4 manually |
@@ -196,7 +197,7 @@ LD_PRELOAD=/usr/lib64/libGL.so.1 ./OrganicMaps                  # Fedora/RHEL
 
 Native Windows builds are compiled and unit-tested by CI with MSVC (see the `windows-2025-vs2026` in `.github/workflows/build-cmake.yaml` and `ci-windows` presets in `CMakePresets.json`). Contributions are welcome.
 
-You'll need to have python3, cmake, ninja, and Qt 6 in the PATH, and Visual Studio 2022 or newer (or its Build Tools) installed. Use [Visual Studio Developer Command Prompt](https://learn.microsoft.com/en-us/visualstudio/ide/reference/command-prompt-powershell?view=vs-2022) or generate Visual Studio project files with CMake to build the project.
+You'll need to have Python 3.11+ (`python3`), cmake, ninja, and Qt 6 in the PATH, and Visual Studio 2022 or newer (or its Build Tools) installed. Use [Visual Studio Developer Command Prompt](https://learn.microsoft.com/en-us/visualstudio/ide/reference/command-prompt-powershell?view=vs-2022) or generate Visual Studio project files with CMake to build the project.
 
 Alternatively, WSL (Windows Subsystem for Linux) can be used to run GUI applications.
 
@@ -413,7 +414,7 @@ The `build_omim.sh` script basically runs these commands:
 
 Linux, macOS, or Windows should work to build Organic Maps for Android.
 
-Ensure that you have at least 30GB of free space and Python 3 installed.
+Ensure that you have at least 30GB of free space and Python 3.11+ installed.
 
 Install [Android Studio](https://developer.android.com/studio).
 
