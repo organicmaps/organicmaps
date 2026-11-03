@@ -153,6 +153,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private static final String LAYERS_MENU_ID = "LAYERS_MENU_BOTTOM_SHEET";
 
   private static final String POWER_SAVE_DISCLAIMER_SHOWN = "POWER_SAVE_DISCLAIMER_SHOWN";
+  static final String LOCATION_PERMISSION_REQUESTED_FOR_RECORDING = "location_permission_requested_for_recording";
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
@@ -189,6 +190,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("NotNullFieldNotInitialized")
   private ActivityResultLauncher<String[]> mLocationPermissionRequest;
   private boolean mLocationPermissionRequestedForRecording = false;
+  private boolean mTrackRecordingPending = false;
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   private ActivityResultLauncher<String> mPostNotificationPermissionRequest;
@@ -209,7 +211,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private boolean mRemoveDisplayListener = true;
   private static int mLastUiMode = Configuration.UI_MODE_TYPE_UNDEFINED;
   private final ActivityResultLauncher<Intent> mBatterySettingsLauncher =
-      registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> startTrackRecording());
+      registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (!mTrackRecordingPending)
+          return;
+        mTrackRecordingPending = false;
+        if (!TrackRecorder.nativeIsTrackRecordingEnabled())
+          startTrackRecording();
+      });
+
   public static Intent createShowMapIntent(@NonNull Context context, @Nullable String countryId)
   {
     return new Intent(context, DownloadResourcesLegacyActivity.class).putExtra(EXTRA_COUNTRY_ID, countryId);
@@ -486,8 +495,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   protected void prepareIntentForCoreRestart(@NonNull Intent intent, @Nullable Bundle savedInstanceState)
   {
-    if (savedInstanceState != null)
-      intent.putExtra(EXTRA_CONSUMED, savedInstanceState.getBoolean(EXTRA_CONSUMED, false));
+    if (savedInstanceState == null)
+      return;
+    intent.putExtra(EXTRA_CONSUMED, savedInstanceState.getBoolean(EXTRA_CONSUMED, false));
+    // The replacement activity has no Activity Result registry from the activity waiting for Settings or permission.
+    if (savedInstanceState.getBoolean(EXTRA_START_TRACK_RECORDING, false)
+        || savedInstanceState.getBoolean(LOCATION_PERMISSION_REQUESTED_FOR_RECORDING, false))
+    {
+      intent.putExtra(EXTRA_START_TRACK_RECORDING, true);
+      intent.putExtra(EXTRA_CONSUMED, false);
+    }
   }
 
   /**
@@ -516,6 +533,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     super.onSafeCreate(savedInstanceState);
 
     mIntentConsumed = isIntentConsumed(savedInstanceState, getIntent());
+    if (savedInstanceState != null)
+    {
+      mTrackRecordingPending = savedInstanceState.getBoolean(EXTRA_START_TRACK_RECORDING, false);
+      mLocationPermissionRequestedForRecording =
+          savedInstanceState.getBoolean(LOCATION_PERMISSION_REQUESTED_FOR_RECORDING, false);
+    }
 
     setContentView(R.layout.activity_map);
     makeNavigationBarTransparentInLightMode();
@@ -590,18 +613,18 @@ public class MwmActivity extends BaseMwmFragmentActivity
       onRenderingInitializationFinished();
     updateDrivingOptionCount();
 
-    // Listen for choices made in the Battery Warning Dialog
     getSupportFragmentManager().setFragmentResultListener(
         BatteryOptimizationHelper.REQUEST_KEY, this, (requestKey, result) -> {
           int action = result.getInt(BatteryOptimizationHelper.BUNDLE_KEY_ACTION);
-          if (action == BatteryOptimizationHelper.ACTION_GO_TO_SETTINGS)
+          switch (action)
           {
+          case BatteryOptimizationHelper.ACTION_GO_TO_SETTINGS:
+            mTrackRecordingPending = true;
             Intent settingsIntent = BatteryOptimizationHelper.getSettingsIntent(this);
             mBatterySettingsLauncher.launch(settingsIntent);
-          }
-          else if (action == BatteryOptimizationHelper.ACTION_CONTINUE)
-          {
-            startTrackRecording();
+            break;
+          case BatteryOptimizationHelper.ACTION_CONTINUE: startTrackRecording(); break;
+          default: throw new AssertionError("Unknown battery warning action: " + action);
           }
         });
   }
@@ -981,6 +1004,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       RoutingController.get().deleteSavedRoute();
 
     outState.putBoolean(POWER_SAVE_DISCLAIMER_SHOWN, mPowerSaveDisclaimerShown);
+    outState.putBoolean(EXTRA_START_TRACK_RECORDING, mTrackRecordingPending);
+    outState.putBoolean(LOCATION_PERMISSION_REQUESTED_FOR_RECORDING, mLocationPermissionRequestedForRecording);
     outState.putBoolean(EXTRA_CONSUMED, mIntentConsumed);
     super.onSaveInstanceState(outState);
   }
@@ -2069,9 +2094,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (!LocationUtils.checkFineLocationPermission(this))
     {
       Logger.i(TAG, "Location permission not granted");
-      // This variable is a simple hack to re initiate the flow
-      // according to action of user. Calling it hack because we are avoiding
-      // creation of new methods by using this variable.
+      // Remember whether granting location permission should also start recording.
       mLocationPermissionRequestedForRecording = true;
       mLocationPermissionRequest.launch(new String[] {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION});
       return false;
