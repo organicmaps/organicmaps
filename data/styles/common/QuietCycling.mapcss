@@ -1,0 +1,28 @@
+/* Reduce overview clutter; preserve cycling services and close-up detail. */
+node|z1-17[shop]::*,
+area|z1-17[shop]::*,
+node|z1-17[amenity=restaurant]::*,
+area|z1-17[amenity=restaurant]::*,
+node|z1-17[amenity=cafe]::*,
+area|z1-17[amenity=cafe]::*,
+node|z1-17[amenity=fast_food]::*,
+area|z1-17[amenity=fast_food]::*,
+node|z1-17[amenity=bar]::*,
+area|z1-17[amenity=bar]::*,
+node|z1-17[amenity=pub]::*,
+area|z1-17[amenity=pub]::*,
+node|z1-17[amenity=bank]::*,
+area|z1-17[amenity=bank]::*,
+node|z1-17[amenity=atm]::*,
+area|z1-17[amenity=atm]::*,
+node|z1-17[amenity=parking]::*,
+area|z1-17[amenity=parking]::*,
+node|z1-17[office]::*,
+area|z1-17[office]::*,
+node|z1-17[tourism=artwork]::*,
+area|z1-17[tourism=artwork]::*
+{icon-image: none; text: none;}
+node|z14-17[shop=bicycle], area|z14-17[shop=bicycle] {icon-image: shop-bicycle-m.svg; icon-min-distance: 10; text: name; text-color: @poi_label; text-offset: 1; font-size: 10;}
+node|z1-18[addr:housenumber]::*, area|z1-18[addr:housenumber]::* {text: none;}
+line|z1-14[highway=residential]::*, line|z1-14[highway=living_street]::*, line|z1-14[highway=service]::* {text: none;}
+node|z1-15[tourism=viewpoint]::*, area|z1-15[tourism=viewpoint]::* {icon-image: none; text: none;}

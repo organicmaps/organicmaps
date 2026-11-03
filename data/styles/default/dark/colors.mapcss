@@ -208,3 +208,6 @@
 @label_isoline100: #496149;
 @label_isoline50: #496149;
 @label_isoline10: #496149;
+
+/* Quieter road hierarchy for the cycling presentation. */
+@import("../../common/dark/quiet_roads.mapcss");
