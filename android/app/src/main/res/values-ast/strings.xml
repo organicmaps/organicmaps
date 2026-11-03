@@ -384,6 +384,10 @@
     <!-- To indicate if the place proposed self service… -->
     <string name="self_service">Autoserviciu</string>
     <string name="select_option">Esbilla una opción</string>
+    <!-- Title of the one-time warning about battery optimization when starting track recording on Android. -->
+    <string name="background_recording_warning_title">Avisu de grabación en segundu planu</string>
+    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
+    <string name="background_recording_warning_message">Pa evitar que la grabación del trayeutu se pare cuando la pantalla tea apagada, desactiva la optimización de la batería pa Organic Maps. Nos preseos Samsung, amiesta Organic Maps a la llista «Aplicaciones que nunca entren en suspensión».</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Grabar trayeutu</string>
     <!-- Prompt for stopping a track recording. -->

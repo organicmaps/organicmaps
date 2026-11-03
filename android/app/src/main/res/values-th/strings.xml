@@ -829,6 +829,10 @@
     <string name="outdoor_seating">ที่นั่งกลางแจ้ง</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">เพื่อการนำทางที่แม่นยำที่สุด เราขอแนะนำให้ปิดใช้งานโหมดประหยัดพลังงานในการตั้งค่าแบตเตอรี่ของโทรศัพท์</string>
+    <!-- Title of the one-time warning about battery optimization when starting track recording on Android. -->
+    <string name="background_recording_warning_title">คำเตือนการบันทึกในโหมดพื้นหลัง</string>
+    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
+    <string name="background_recording_warning_message">เพื่อป้องกันไม่ให้การบันทึกเส้นทางหยุดลงเมื่อหน้าจอปิด โปรดยกเว้น Organic Maps จากการปรับประสิทธิภาพแบตเตอรี่ สำหรับอุปกรณ์ Samsung ให้เพิ่มแอปนี้ลงในรายชื่อ “แอปที่ไม่พักการทำงาน”</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">บันทึกเส้นทาง</string>
     <!-- Prompt for stopping a track recording. -->

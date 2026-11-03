@@ -844,6 +844,10 @@
     <string name="outdoor_seating">Sæti utandyra</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">Til að tryggja nákvæma leiðsögn ættirðu að gera orkusparnaðarham óvirkan í raflöðustillingum símans.</string>
+    <!-- Title of the one-time warning about battery optimization when starting track recording on Android. -->
+    <string name="background_recording_warning_title">Viðvörun um skráningu í bakgrunni</string>
+    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
+    <string name="background_recording_warning_message">Til að skráning ferils stöðvist ekki þegar slökkt er á skjánum skaltu slökkva á rafhlöðubestun fyrir Organic Maps. Á Samsung-tækjum skaltu bæta forritinu við listann „Forrit sem sofna aldrei“.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Skrá feril</string>
     <!-- Prompt for stopping a track recording. -->
