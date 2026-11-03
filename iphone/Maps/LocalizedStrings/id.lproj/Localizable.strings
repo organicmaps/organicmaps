@@ -1232,3 +1232,12 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Balikkan rute";
+
+/* Start navigation along the selected track. */
+"navigate_track" = "Navigasi";
+
+/* Track start point label. */
+"navigate_track_start" = "Awal trek";
+
+/* Track finish point label. */
+"navigate_track_finish" = "Akhir trek";
