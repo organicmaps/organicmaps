@@ -2,18 +2,19 @@ package app.organicmaps;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.CALLS_REAL_METHODS;
-import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import android.content.Intent;
 import android.os.Bundle;
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.Test;
-import org.mockito.InOrder;
 
 public class MwmActivityTest
 {
@@ -89,15 +90,13 @@ public class MwmActivityTest
 
   private static void assertRecordingContinuesAfterCoreRestart(Bundle state)
   {
-    final Intent intent = mock(Intent.class);
+    final Intent intent = statefulIntent();
+    intent.putExtra(MwmActivity.EXTRA_CONSUMED, true);
     final MwmActivity activity = mock(MwmActivity.class, CALLS_REAL_METHODS);
     activity.prepareIntentForCoreRestart(intent, state);
 
-    // A fresh recording request must override the consumed mark on the original launch intent.
-    final InOrder order = inOrder(intent);
-    order.verify(intent).putExtra(MwmActivity.EXTRA_CONSUMED, true);
-    order.verify(intent).putExtra(MwmActivity.EXTRA_START_TRACK_RECORDING, true);
-    order.verify(intent).putExtra(MwmActivity.EXTRA_CONSUMED, false);
+    assertTrue(intent.getBooleanExtra(MwmActivity.EXTRA_START_TRACK_RECORDING, false));
+    assertFalse(MwmActivity.isIntentConsumed(null, intent));
   }
 
   @Test
@@ -105,13 +104,12 @@ public class MwmActivityTest
   {
     final Bundle state = mock(Bundle.class);
     when(state.getBoolean(MwmActivity.EXTRA_CONSUMED, false)).thenReturn(true);
-    final Intent intent = mock(Intent.class);
+    final Intent intent = statefulIntent();
+    intent.putExtra(MwmActivity.EXTRA_START_TRACK_RECORDING, true);
     final MwmActivity activity = mock(MwmActivity.class, CALLS_REAL_METHODS);
     activity.prepareIntentForCoreRestart(intent, state);
 
-    verify(intent).putExtra(MwmActivity.EXTRA_CONSUMED, true);
-    verify(intent, never()).putExtra(MwmActivity.EXTRA_START_TRACK_RECORDING, true);
-    verify(intent, never()).putExtra(MwmActivity.EXTRA_CONSUMED, false);
+    assertTrue(MwmActivity.isIntentConsumed(null, intent));
   }
 
   @Test
@@ -122,5 +120,21 @@ public class MwmActivityTest
     activity.prepareIntentForCoreRestart(intent, null);
 
     verifyNoInteractions(intent);
+  }
+
+  private static Intent statefulIntent()
+  {
+    final Map<String, Boolean> extras = new HashMap<>();
+    final Intent intent = mock(Intent.class);
+    doAnswer(call -> {
+      extras.put(call.getArgument(0), call.getArgument(1));
+      return intent;
+    })
+        .when(intent)
+        .putExtra(anyString(), anyBoolean());
+    when(intent.hasExtra(anyString())).thenAnswer(call -> extras.containsKey(call.getArgument(0)));
+    when(intent.getBooleanExtra(anyString(), anyBoolean()))
+        .thenAnswer(call -> extras.getOrDefault(call.getArgument(0), call.getArgument(1)));
+    return intent;
   }
 }
