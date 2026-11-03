@@ -1,10 +1,12 @@
 package app.organicmaps.sdk.location;
 
 import android.content.Context;
+import android.hardware.GeomagneticField;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.Location;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,7 +28,8 @@ public class SensorHelper implements SensorEventListener
   private final float[] mRotationValues = new float[3];
   // Initialized with purposely invalid value.
   private int mLastAccuracy = -42;
-  private double mSavedNorth = Double.NaN;
+  private double mSavedMagneticNorth = Double.NaN;
+  private double mDeclinationRadians = 0;
   private int mRotation = 0;
 
   @NonNull
@@ -64,9 +67,8 @@ public class SensorHelper implements SensorEventListener
     SensorManager.getOrientation(mRotationMatrix, mRotationValues);
 
     // mRotationValues indexes: 0 - yaw (azimuth), 1 - pitch, 2 - roll.
-    mSavedNorth = LocationUtils.correctCompassAngle(mRotation, mRotationValues[0]);
-    for (SensorListener listener : mListeners)
-      listener.onCompassUpdated(mSavedNorth);
+    mSavedMagneticNorth = mRotationValues[0];
+    notifyCompassUpdated();
   }
 
   @Override
@@ -83,15 +85,49 @@ public class SensorHelper implements SensorEventListener
     mSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
   }
 
+  /**
+   * Returns the last heading for the current display rotation, in radians clockwise from true north.
+   * Uses magnetic north until the first accepted location; returns NaN until a usable sensor sample.
+   */
   public double getSavedNorth()
   {
-    return mSavedNorth;
+    return toTrueNorth(LocationUtils.correctCompassAngle(mRotation, mSavedMagneticNorth));
   }
 
+  /** Converts a magnetic heading in radians to [0, 2π), using zero declination until a location is accepted. */
+  public double toTrueNorth(double magneticNorth)
+  {
+    return LocationUtils.correctAngle(magneticNorth, mDeclinationRadians);
+  }
+
+  @UiThread
+  public void updateLocation(@NonNull Location location)
+  {
+    // The model needs WGS84 altitude and the observation time, even for a replayed location.
+    final GeomagneticField field =
+        new GeomagneticField((float) location.getLatitude(), (float) location.getLongitude(),
+                             location.hasAltitude() ? (float) location.getAltitude() : 0, System.currentTimeMillis());
+    mDeclinationRadians = Math.toRadians(field.getDeclination());
+    notifyCompassUpdated();
+  }
+
+  @UiThread
   public void setRotation(int rotation)
   {
+    if (mRotation == rotation)
+      return;
     Logger.i(TAG, "rotation = " + rotation);
     mRotation = rotation;
+    notifyCompassUpdated();
+  }
+
+  private void notifyCompassUpdated()
+  {
+    final double north = getSavedNorth();
+    if (Double.isNaN(north))
+      return;
+    for (SensorListener listener : mListeners)
+      listener.onCompassUpdated(north);
   }
 
   /**
@@ -104,8 +140,9 @@ public class SensorHelper implements SensorEventListener
     Logger.d(TAG, "listener: " + listener + " count was: " + mListeners.size());
 
     mListeners.add(listener);
-    if (!Double.isNaN(mSavedNorth))
-      listener.onCompassUpdated(mSavedNorth);
+    final double north = getSavedNorth();
+    if (!Double.isNaN(north))
+      listener.onCompassUpdated(north);
   }
 
   /**

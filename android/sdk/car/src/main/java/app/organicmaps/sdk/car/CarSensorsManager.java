@@ -102,13 +102,13 @@ public final class CarSensorsManager
       onCarCompassUnsupported();
     else if (data.getStatus() == CarValue.STATUS_SUCCESS)
     {
-      final List<Float> orientations = compass.getOrientations().getValue();
+      final List<Float> orientations = data.getValue();
       if (orientations == null)
         return;
       final float azimuth = orientations.get(0);
-      if (Float.isNaN(azimuth))
+      if (Float.isNaN(azimuth) || Float.isInfinite(azimuth))
         return;
-      Map.onCompassUpdated(Math.toRadians(azimuth), true);
+      Map.onCompassUpdated(mSensorHelper.toTrueNorth(Math.toRadians(azimuth)), true);
     }
   }
 
