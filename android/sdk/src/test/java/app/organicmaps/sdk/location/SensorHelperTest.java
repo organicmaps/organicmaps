@@ -115,6 +115,18 @@ public class SensorHelperTest
   }
 
   @Test
+  public void firstFixWithZeroDeclinationRepublishesTheSavedHeadingOnce()
+  {
+    sample(30, SensorManager.SENSOR_STATUS_ACCURACY_HIGH);
+    clearInvocations(mListener);
+    final Location location = mock(Location.class);
+    mHelper.updateLocation(location);
+    mHelper.updateLocation(location);
+    assertHeading(30, mHelper.getSavedNorth());
+    verify(mListener).onCompassUpdated(mHelper.getSavedNorth());
+  }
+
+  @Test
   public void locationAndRotationBeforeASampleDoNotPublishAHeading()
   {
     mDeclinationDegrees = -20;
@@ -141,7 +153,7 @@ public class SensorHelperTest
     mHelper.updateLocation(location);
     mHelper.updateLocation(location);
     assertHeading(20, mHelper.getSavedNorth());
-    verify(mListener, times(2)).onCompassUpdated(mHelper.getSavedNorth());
+    verify(mListener).onCompassUpdated(mHelper.getSavedNorth());
 
     mDeclinationDegrees = -10;
     mHelper.updateLocation(mock(Location.class));

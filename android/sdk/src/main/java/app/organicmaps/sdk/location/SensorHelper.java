@@ -29,7 +29,7 @@ public class SensorHelper implements SensorEventListener
   // Initialized with purposely invalid value.
   private int mLastAccuracy = -42;
   private double mSavedMagneticNorth = Double.NaN;
-  private double mDeclinationRadians = 0;
+  private double mDeclinationRadians = Double.NaN;
   private int mRotation = 0;
 
   @NonNull
@@ -97,7 +97,7 @@ public class SensorHelper implements SensorEventListener
   /** Converts a magnetic heading in radians to [0, 2π), using zero declination until a location is accepted. */
   public double toTrueNorth(double magneticNorth)
   {
-    return LocationUtils.correctAngle(magneticNorth, mDeclinationRadians);
+    return LocationUtils.correctAngle(magneticNorth, Double.isNaN(mDeclinationRadians) ? 0 : mDeclinationRadians);
   }
 
   @UiThread
@@ -107,7 +107,10 @@ public class SensorHelper implements SensorEventListener
     final GeomagneticField field =
         new GeomagneticField((float) location.getLatitude(), (float) location.getLongitude(),
                              location.hasAltitude() ? (float) location.getAltitude() : 0, System.currentTimeMillis());
-    mDeclinationRadians = Math.toRadians(field.getDeclination());
+    final double declination = Math.toRadians(field.getDeclination());
+    if (declination == mDeclinationRadians)
+      return;
+    mDeclinationRadians = declination;
     notifyCompassUpdated();
   }
 

@@ -106,8 +106,9 @@ public final class CarSensorsManager
       if (orientations == null)
         return;
       final float azimuth = orientations.get(0);
-      if (Float.isNaN(azimuth) || Float.isInfinite(azimuth))
+      if (!Float.isFinite(azimuth))
         return;
+      // AndroidX Compass azimuth is magnetic. Each periodic sample uses the latest declination.
       Map.onCompassUpdated(mSensorHelper.toTrueNorth(Math.toRadians(azimuth)), true);
     }
   }

@@ -126,10 +126,10 @@ public class DirectionFragment extends BaseMwmDialogFragment implements Location
     // TODO(AB): Remove unnecessary null check.
     if (mMapObject != null)
     {
-      final DistanceAndAzimut distanceAndAzimuth = getDistanceAndAzimuth(location, 0.0);
+      final DistanceAndAzimut distanceAndAzimuth = Framework.nativeGetDistanceAndAzimuthFromLatLon(
+          mMapObject.getLat(), mMapObject.getLon(), location.getLatitude(), location.getLongitude(), 0.0);
       mTvDistance.setText(distanceAndAzimuth.getDistance().toString(requireContext()));
-      mTvAzimuth.setText(
-          StringUtils.formatUsingUsLocale("%d°", Math.round(Math.toDegrees(distanceAndAzimuth.getAzimuth())) % 360));
+      mTvAzimuth.setText(formatAzimuth(distanceAndAzimuth.getAzimuth()));
     }
   }
 
@@ -141,15 +141,15 @@ public class DirectionFragment extends BaseMwmDialogFragment implements Location
     if (last == null || mMapObject == null)
       return;
 
-    final DistanceAndAzimut da = getDistanceAndAzimuth(last, north);
+    final DistanceAndAzimut da = Framework.nativeGetDistanceAndAzimuthFromLatLon(
+        mMapObject.getLat(), mMapObject.getLon(), last.getLatitude(), last.getLongitude(), north);
 
     if (da.getAzimuth() >= 0)
       mAvDirection.setAzimuth(da.getAzimuth());
   }
 
-  DistanceAndAzimut getDistanceAndAzimuth(@NonNull Location location, double north)
+  static String formatAzimuth(double azimuth)
   {
-    return Framework.nativeGetDistanceAndAzimuthFromLatLon(mMapObject.getLat(), mMapObject.getLon(),
-                                                           location.getLatitude(), location.getLongitude(), north);
+    return StringUtils.formatUsingUsLocale("%d°", Math.round(Math.toDegrees(azimuth)) % 360);
   }
 }
