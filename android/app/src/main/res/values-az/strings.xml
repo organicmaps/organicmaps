@@ -941,4 +941,13 @@
     <string name="transit_type_train">Qatar</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tramvay</string>
+    <string name="background_location_warning_title">Marşrut qeydi dayana bilər</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_location_warning_message">Ekran söndükdə yazını davam etdirmək üçün Organic Maps tətbiqinin Tətbiq məlumatları bölməsində Tətbiqin batareya istifadəsi və ya Batareya bölməsini açın və arxa planda işləməsinə icazə verin. Əgər Optimized və Restricted seçimləri təklif olunarsa, Optimized-i seçin.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_location_samsung_warning_message">Ekran söndürüldükdə yazını davam etdirmək üçün Tənzimləmələr → Batareya → Fon istifadə məhdudiyyətləri bölməsindəki Heç vaxt yatmayan tətbiqlər siyahısına Organic Maps-i əlavə edin. Bəzi versiyalarda Batareya bölməsi Cihaz baxımı və ya Batareya və cihaz baxımı altında yerləşir.</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_location_warning_message_legacy">Ekran söndükdə yazını davam etdirmək üçün Organic Maps tətbiqinin Tətbiq məlumatları bölməsində Batareya sekmesini açın və Fon məhdudiyyətini söndürün. Menyu adları cihazdan asılı olaraq dəyişir.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_location_samsung_warning_message_legacy">Ekran söndürülüldükdə yazını davam etdirmək üçün Parametrlər → Cihaz baxımı → Batareya → Tətbiqlərin enerji idarəçiliyi bölməsinə daxil olun və Organic Maps-i Yatırılmayacaq tətbiqlər siyahısına əlavə edin. Əgər onun yerində ⋮ → Parametrlər menyusu varsa, Organic Maps-i Yatmış tətbiqlər siyahısından çıxarın.</string>
 </resources>

@@ -948,4 +948,13 @@
     <string name="transit_type_train">Tren</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tranvía</string>
+    <string name="background_location_warning_title">A gravación do traxecto pode interromperse</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_location_warning_message">Para manter a gravación cando a pantalla está apagada, abre o uso de batería da aplicación ou Batería na información da aplicación de Organic Maps e permite o uso en segundo plano. Se se ofrecen Optimizado e Restrito, escolle Optimizado.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_location_samsung_warning_message">Para manter a gravación cando a pantalla está apagada, engade Organic Maps ás aplicacións que nunca durmen en Configuración → Batería → Limites de uso en segundo plano. En algunhas versións, Batería está baixo Coidado do dispositivo ou Coidado de batería e dispositivo.</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_location_warning_message_legacy">Para manter a gravación cando a pantalla está apagada, abre Batería na información da aplicación de Organic Maps e desactiva a restrición de fondo. Os nomes dos menús varían segundo o dispositivo.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_location_samsung_warning_message_legacy">Para manter a gravación cando a pantalla está apagada, abre Configuración → Coidado do dispositivo → Batería → Xestión de enerxía de aplicacións e engade Organic Maps ás aplicacións que non se poñerán en repouso. Se en vez diso aparece un menú ⋮ → Configuración, elimina Organic Maps das aplicacións en repouso.</string>
 </resources>

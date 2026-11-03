@@ -940,4 +940,13 @@
     <string name="transit_type_train">רכבת</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">חשמלית</string>
+    <string name="background_location_warning_title">הקלטת המסלול עשויה להיפסק</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_location_warning_message">כדי להמשיך להקליט כשהמסך כבוי, פתחו את \"שימוש בסוללה של האפליקציה\" או \"סוללה\" במידע על האפליקציה של Organic Maps ואפשרו שימוש ברקע. אם מוצגות האפשרויות \"ממוטב\" ו-\"מוגבל\", בחרו ב-\"ממוטב\".</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_location_samsung_warning_message">כדי להמשיך להקליט כשהמסך כבוי, הוסף את Organic Maps לרשימת \"אפליקציות שלא נכנסות למצב שינה\" ב\"הגדרות\" → \"סוללה\" → \"מגבלות שימוש ברקע\". בגרסאות מסוימות, \"סוללה\" נמצאת תחת \"טיפול במכשיר\" או \"סוללה וטיפול במכשיר\".</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_location_warning_message_legacy">כדי להמשיך להקליט כשהמסך כבוי, פתחו את \"סוללה\" (Battery) במידע על האפליקציה של Organic Maps והשביתו את \"הגבלת הרקע\" (Background restriction). שמות התפריטים משתנים בהתאם למכשיר.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_location_samsung_warning_message_legacy">כדי להמשיך להקליט כשהמסך כבוי, פתחו \"הגדרות\" → \"טיפול במכשיר\" → \"סוללה\" → \"ניהול צריכת חשמל של אפליקציות\" והוסיפו את Organic Maps לרשימת \"אפליקציות שלא יועברו למצב שינה\". אם במקום זאת מופיע תפריט ⋮ → \"הגדרות\", הסירו את Organic Maps מרשימת \"אפליקציות במצב שינה\".</string>
 </resources>

@@ -939,4 +939,13 @@
     <string name="transit_type_train">ट्रेन</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">ट्राम</string>
+    <string name="background_location_warning_title">ट्रॅक रेकॉर्डिंग थांबू शकते</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_location_warning_message">स्क्रीन बंद असतानाही ट्रॅक रेकॉर्डिंग सुरू ठेवण्यासाठी, Organic Maps अॅपच्या माहितीमध्ये “अॅपचा बॅटरी वापर” किंवा “बॅटरी” उघडा आणि पार्श्वभूमीत वापरण्याची परवानगी द्या. “ऑप्टिमाइझ केलेले” आणि “प्रतिबंधित” हे पर्याय असल्यास, “ऑप्टिमाइझ केलेले” निवडा.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_location_samsung_warning_message">स्क्रीन बंद असताना रेकॉर्डिंग सुरू ठेवण्यासाठी, Settings → Battery → Background usage limits मधील Never sleeping apps मध्ये Organic Maps जोडा. काही आवृत्त्यांमध्ये Battery हा विभाग Device care किंवा Battery and device care अंतर्गत असतो.</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_location_warning_message_legacy">स्क्रीन बंद असताना रेकॉर्डिंग सुरू ठेवण्यासाठी, Organic Maps अॅपच्या माहितीमधील बॅटरी विभागात जा आणि पार्श्वभूमीवरील निर्बंध बंद करा. मेनूची नावे डिव्हाइसानुसार बदलतात.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_location_samsung_warning_message_legacy">स्क्रीन बंद असताना रेकॉर्डिंग सुरू ठेवण्यासाठी, Settings → Device care → Battery → App power management उघडा आणि Apps that won\'t be put to sleep यामध्ये Organic Maps जोडा. जर त्याऐवजी ⋮ → Settings मेनू असेल, तर Sleeping apps मधून Organic Maps काढून टाका.</string>
 </resources>

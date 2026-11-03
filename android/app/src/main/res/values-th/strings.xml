@@ -932,4 +932,13 @@
     <string name="transit_type_train">รถไฟ</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">รถราง</string>
+    <string name="background_location_warning_title">การบันทึกเส้นทางอาจหยุดลง</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_location_warning_message">เพื่อบันทึกเส้นทางต่อเมื่อหน้าจอปิด ให้เปิด \"การใช้แบตเตอรี่ของแอป\" หรือ \"แบตเตอรี่\" ใน \"ข้อมูลแอป\" ของ Organic Maps และอนุญาตการใช้งานในพื้นหลัง หากมีตัวเลือก \"เพิ่มประสิทธิภาพ\" และ \"จำกัด\" ให้เลือก \"เพิ่มประสิทธิภาพ\"</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_location_samsung_warning_message">เพื่อบันทึกเส้นทางต่อเมื่อหน้าจอปิด ให้เพิ่ม Organic Maps ไปยัง \"แอปที่ไม่เข้าสู่โหมดพัก\" ใน การตั้งค่า → แบตเตอรี่ → ขีดจำกัดการใช้งานในพื้นหลัง ในบางเวอร์ชัน ตัวเลือก \"แบตเตอรี่\" อาจอยู่ภายใต้ \"การดูแลอุปกรณ์\" หรือ \"แบตเตอรี่และการดูแลอุปกรณ์\"</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_location_warning_message_legacy">เพื่อบันทึกต่อเมื่อหน้าจอปิด ให้เปิด \"แบตเตอรี่\" ในข้อมูลแอปของ Organic Maps และปิด \"การจำกัดการทำงานในพื้นหลัง\" ชื่อเมนูอาจแตกต่างกันไปตามอุปกรณ์</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_location_samsung_warning_message_legacy">เพื่อบันทึกเส้นทางต่อเมื่อหน้าจอปิด ให้เปิด การตั้งค่า → การดูแลอุปกรณ์ → แบตเตอรี่ → การจัดการพลังงานแอป และเพิ่ม Organic Maps ไปยัง แอปที่ไม่ถูกส่งเข้าสู่โหมดพัก หากมีเมนู ⋮ → การตั้งค่า แทน ให้ลบ Organic Maps ออกจาก แอปที่เข้าสู่โหมดพัก</string>
 </resources>

@@ -952,4 +952,13 @@
     <string name="transit_type_train">Vonat</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Villamos</string>
+    <string name="background_location_warning_title">A nyomvonal rögzítése leállhat</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_location_warning_message">Ahhoz, hogy a rögzítés a kikapcsolt képernyő mellett is folytatódjon, nyissa meg az „Alkalmazás akkumulátorhasználata” vagy az „Akkumulátor” menüpontot az Organic Maps alkalmazásinformációi között, és engedélyezze a háttérhasználatot. Ha az „Optimalizált” és a „Korlátozott” opciók közül lehet választani, válassza az „Optimalizált” lehetőséget.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_location_samsung_warning_message">Ahhoz, hogy a rögzítés a kikapcsolt képernyő mellett is folytatódjon, vegye fel az Organic Maps-et a „Soha nem alvó alkalmazások” listájába a Beállítások → Akkumulátor → Háttérhasználati korlátozások menüpontban. Egyes verziókban az „Akkumulátor” menüpont az „Eszközgondozás” vagy az „Akkumulátor és eszközgondozás” alatt található.</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_location_warning_message_legacy">Ahhoz, hogy a rögzítés a kikapcsolt képernyő mellett is folytatódjon, nyissa meg az „Akkumulátor” menüpontot az Organic Maps alkalmazásinformációi között, és kapcsolja ki a „Háttérkorlátozás” opciót. A menünevek eszközönként eltérhetnek.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_location_samsung_warning_message_legacy">Ahhoz, hogy a rögzítés a kikapcsolt képernyő mellett is folytatódjon, nyissa meg a Beállítások → Eszközkarbantartás → Akkumulátor → Alkalmazások energiafelhasználása menüpontot, és vegye fel az Organic Maps alkalmazást az „Alkalmazások, amelyek nem kerülnek alvó módba” listába. Ha helyette egy ⋮ → Beállítások menü jelenik meg, távolítsa el az Organic Maps alkalmazást az „Alvó alkalmazások” listából.</string>
 </resources>

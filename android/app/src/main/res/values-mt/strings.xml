@@ -945,4 +945,13 @@
     <string name="transit_type_train">Ferrovija</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tramm</string>
+    <string name="background_location_warning_title">Ir-reġistrazzjoni tat-traċċa tista\' tieqaf</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_location_warning_message">Biex tibqa\' tirreġistra meta l-iskrin ikun mitfi, iftaħ l-użu tal-batterija tal-app jew il-Batterija fl-informazzjoni tal-app ta\' Organic Maps u ippermetti l-użu fil-isfond. Jekk jidhru l-għażliet Ottimizzat u Ristrett, agħżel Ottimizzat.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_location_samsung_warning_message">Biex tibqa\' tirreġistra meta l-iskrin ikun mitfi, żid Organic Maps mal-apps li qatt ma jorqdu f\'Settings → Battery → Limiti ta\' użu fil-background. F\'xi verżjonijiet, il-Battery tinsab taħt Device care jew Battery and device care.</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_location_warning_message_legacy">Biex tibqa\' tirreġistra meta l-iskrin ikun mitfi, iftaħ il-Batterija fl-Informazzjoni tal-App ta\' Organic Maps u tfi l-Restrizzjoni tal-isfond. L-ismijiet tal-menu jvarjaw skont l-apparat.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_location_samsung_warning_message_legacy">Biex tibqa\' tirreġistra meta l-iskrin ikun mitfi, iftaħ Settings → Device care → Battery → App power management u żid Organic Maps fl-Apps li ma jintbagħtux torqod. Jekk minflok ikun hemm ⋮ → Settings menu, neħħi Organic Maps mill-Apps torqod.</string>
 </resources>

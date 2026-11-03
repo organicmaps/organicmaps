@@ -961,4 +961,13 @@
     <string name="transit_type_train">Pociąg</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tramwaj</string>
+    <string name="background_location_warning_title">Nagrywanie trasy może zostać przerwane</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_location_warning_message">Aby kontynuować rejestrowanie przy wyłączonym ekranie, proszę otworzyć sekcję „Zużycie baterii przez aplikację” lub „Bateria” w informacjach o aplikacji Organic Maps i zezwolić na działanie w tle. Jeśli dostępne są opcje „Zoptymalizowane” i „Ograniczone”, proszę wybrać opcję „Zoptymalizowane”.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_location_samsung_warning_message">Aby kontynuować rejestrowanie przy wyłączonym ekranie, należy dodać aplikację Organic Maps do listy „Aplikacje, które nigdy nie przechodzą w tryb uśpienia” w sekcji Ustawienia → Bateria → Limity zużycia w tle. W niektórych wersjach opcja „Bateria” znajduje się w sekcji „Dbanie o urządzenie” lub „Bateria i dbanie o urządzenie”.</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_location_warning_message_legacy">Aby kontynuować rejestrowanie przy wyłączonym ekranie, proszę otworzyć sekcję „Bateria” w informacjach o aplikacji „Organic Maps” i wyłączyć opcję „Ograniczenie działania w tle”. Nazwy menu różnią się w zależności od urządzenia.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_location_samsung_warning_message_legacy">Aby kontynuować rejestrowanie przy wyłączonym ekranie, proszę otworzyć Ustawienia → Dbanie o urządzenie → Bateria → Zarządzanie energią aplikacji i dodać aplikację Organic Maps do listy aplikacji, które nie będą przechodzić w stan uśpienia. Jeśli zamiast tego widoczne jest menu ⋮ → Ustawienia, proszę usunąć aplikację Organic Maps z listy aplikacji przechodzących w stan uśpienia.</string>
 </resources>

@@ -947,4 +947,13 @@
     <string name="transit_type_train">Train</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tram</string>
+    <string name="background_location_warning_title">Track recording may stop</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_location_warning_message">To keep recording when the screen is off, open App battery usage or Battery in Organic Maps’ App info and allow background usage. If Optimized and Restricted are offered, choose Optimized.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_location_samsung_warning_message">To keep recording when the screen is off, add Organic Maps to Never sleeping apps in Settings → Battery → Background usage limits. On some versions, Battery is under Device care or Battery and device care.</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_location_warning_message_legacy">To keep recording when the screen is off, open Battery in Organic Maps’ App info and turn off Background restriction. Menu names vary by device.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_location_samsung_warning_message_legacy">To keep recording when the screen is off, open Settings → Device care → Battery → App power management and add Organic Maps to Apps that won’t be put to sleep. If there is a ⋮ → Settings menu instead, remove Organic Maps from Sleeping apps.</string>
 </resources>

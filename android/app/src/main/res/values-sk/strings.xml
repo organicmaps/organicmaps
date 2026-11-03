@@ -944,4 +944,13 @@
     <string name="transit_type_train">Vlak</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Električka</string>
+    <string name="background_location_warning_title">Zaznamenávanie trasy sa môže prerušiť</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_location_warning_message">Ak chcete pokračovať v nahrávaní pri vypnutom displeji, otvorte položku „Využitie batérie aplikáciou“ alebo „Batéria“ v informáciách o aplikácii Organic Maps a povoľte činnosť na pozadí. Ak sú k dispozícii možnosti „Optimalizované“ a „Obmedzené“, vyberte možnosť „Optimalizované“.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_location_samsung_warning_message">Ak chcete pokračovať v nahrávaní pri vypnutom displeji, pridajte aplikáciu Organic Maps do zoznamu „Aplikácie, ktoré nikdy neprejdú do režimu spánku“ v Nastaveniach → Batéria → Obmedzenia používania na pozadí. V niektorých verziách sa položka „Batéria“ nachádza v časti „Starostlivosť o zariadenie“ alebo „Batéria a starostlivosť o zariadenie“.</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_location_warning_message_legacy">Ak chcete pokračovať v nahrávaní pri vypnutom displeji, otvorte položku „Batéria“ v informáciách o aplikácii Organic Maps a vypnite obmedzenie na pozadí. Názvy ponúk sa líšia v závislosti od zariadenia.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_location_samsung_warning_message_legacy">Ak chcete pokračovať v nahrávaní pri vypnutom displeji, otvorte Nastavenia → Starostlivosť o zariadenie → Batéria → Správa spotreby aplikácií a pridajte aplikáciu Organic Maps do zoznamu Aplikácie, ktoré nebudú prechádzať do režimu spánku. Ak sa namiesto toho zobrazí ponuka ⋮ → Nastavenia, odstráňte aplikáciu Organic Maps zo zoznamu Aplikácie v režime spánku.</string>
 </resources>

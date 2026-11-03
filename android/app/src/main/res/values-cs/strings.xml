@@ -960,4 +960,13 @@
     <string name="transit_type_train">Vlak</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tramvaj</string>
+    <string name="background_location_warning_title">Záznam trasy se může přerušit</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_location_warning_message">Chcete-li pokračovat v nahrávání při vypnutém displeji, otevřete v informacích o aplikaci Organic Maps položku „Využití baterie aplikací“ nebo „Baterie“ a povolte činnost na pozadí. Pokud jsou k dispozici možnosti „Optimalizováno“ a „Omezeno“, vyberte možnost „Optimalizováno“.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_location_samsung_warning_message">Chcete-li pokračovat v nahrávání při vypnuté obrazovce, přidejte aplikaci Organic Maps do seznamu „Aplikace, které nikdy neusínají“ v Nastavení → Baterie → Limity využití na pozadí. V některých verzích se položka „Baterie“ nachází v části „Péče o zařízení“ nebo „Baterie a péče o zařízení“.</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_location_warning_message_legacy">Chcete-li pokračovat v nahrávání při vypnuté obrazovce, otevřete v informacích o aplikaci Organic Maps položku „Baterie“ a vypněte omezení na pozadí. Názvy položek v nabídce se liší podle zařízení.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_location_samsung_warning_message_legacy">Chcete-li pokračovat v nahrávání při vypnuté obrazovce, otevřete Nastavení → Péče o zařízení → Baterie → Správa spotřeby aplikací a přidejte aplikaci Organic Maps do seznamu Aplikace, které nebudou uvedeny do režimu spánku. Pokud je místo toho k dispozici nabídka ⋮ → Nastavení, odeberte aplikaci Organic Maps ze seznamu Aplikace v režimu spánku.</string>
 </resources>

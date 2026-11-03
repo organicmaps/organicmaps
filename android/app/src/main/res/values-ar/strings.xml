@@ -975,4 +975,13 @@
     <string name="transit_type_train">قطار</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">ترام</string>
+    <string name="background_location_warning_title">قد يتوقف تسجيل المسار</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_location_warning_message">لمواصلة التسجيل عند إيقاف تشغيل الشاشة، افتح «استخدام البطارية للتطبيق» أو «البطارية» في «معلومات التطبيق» في Organic Maps واسمح بالاستخدام في الخلفية. إذا تم عرض الخيارين «مُحسّن» و«مقيد»، فاختر «مُحسّن».</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_location_samsung_warning_message">لمواصلة التسجيل عند إيقاف تشغيل الشاشة، أضف تطبيق «Organic Maps» إلى قائمة «التطبيقات التي لا تدخل في وضع السكون أبدًا» في «الإعدادات» → «البطارية» → «حدود الاستخدام في الخلفية». في بعض الإصدارات، توجد خيار «البطارية» ضمن «العناية بالجهاز» أو «البطارية والعناية بالجهاز».</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_location_warning_message_legacy">لمواصلة التسجيل عند إيقاف تشغيل الشاشة، افتح «البطارية» في «معلومات التطبيق» في تطبيق Organic Maps وقم بإيقاف تشغيل «تقييد الخلفية». تختلف أسماء القوائم باختلاف الجهاز.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_location_samsung_warning_message_legacy">لمواصلة التسجيل عند إيقاف تشغيل الشاشة، افتح «الإعدادات» → «العناية بالجهاز» → «البطارية» → «إدارة طاقة التطبيقات» وأضف تطبيق «Organic Maps» إلى «التطبيقات التي لن يتم وضعها في وضع السكون». إذا كان هناك قائمة «⋮» → «الإعدادات» بدلاً من ذلك، فقم بإزالة تطبيق «Organic Maps» من «التطبيقات في وضع السكون».</string>
 </resources>

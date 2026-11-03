@@ -941,4 +941,13 @@
     <string name="transit_type_train">Tren</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tramvai</string>
+    <string name="background_location_warning_title">Înregistrarea traseului se poate opri</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_location_warning_message">Pentru a continua înregistrarea când ecranul este oprit, deschideți „Utilizarea bateriei de către aplicație” sau „Baterie” din secțiunea „Informații despre aplicație” a Organic Maps și permiteți utilizarea în fundal. Dacă sunt disponibile opțiunile „Optimizat” și „Restricționat”, alegeți „Optimizat”.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_location_samsung_warning_message">Pentru a continua înregistrarea când ecranul este oprit, adăugați Organic Maps la „Aplicații care nu intră niciodată în repaus” din Setări → Baterie → Limite de utilizare în fundal. În unele versiuni, opțiunea „Baterie” se află sub „Îngrijirea dispozitivului” sau „Baterie și îngrijirea dispozitivului”.</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_location_warning_message_legacy">Pentru a continua înregistrarea când ecranul este oprit, deschideți secțiunea „Baterie” din informațiile despre aplicația Organic Maps și dezactivați opțiunea „Restricție în fundal”. Denumirile meniurilor variază în funcție de dispozitiv.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_location_samsung_warning_message_legacy">Pentru a continua înregistrarea când ecranul este oprit, deschideți Setări → Îngrijire dispozitiv → Baterie → Gestionare consum energie aplicații și adăugați Organic Maps la Aplicații care nu vor fi puse în repaus. Dacă există în schimb un meniu ⋮ → Setări, eliminați Organic Maps din Aplicații în repaus.</string>
 </resources>

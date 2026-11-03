@@ -937,4 +937,13 @@
     <string name="transit_type_train">Tog</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Trikk</string>
+    <string name="background_location_warning_title">Sporopptaket kan bli avbrutt</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_location_warning_message">For å fortsette opptaket når skjermen er slått av, åpner du «Appbatteribruk» eller «Batteri» i «Appinfo» i Organic Maps og tillater bakgrunnsbruk. Hvis «Optimalisert» og «Begrenset» er tilgjengelige, velger du «Optimalisert».</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_location_samsung_warning_message">For å fortsette opptaket når skjermen er slått av, legg til Organic Maps under «Apper som aldri går i dvale» i Innstillinger → Batteri → Grenser for bakgrunnsbruk. I noen versjoner finnes «Batteri» under «Enhetsvedlikehold» eller «Batteri og enhetsvedlikehold».</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_location_warning_message_legacy">For å fortsette opptaket når skjermen er slått av, åpner du «Batteri» i «Appinfo» i Organic Maps og slår av «Bakgrunnsbegrensning». Menynavnene varierer fra enhet til enhet.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_location_samsung_warning_message_legacy">For å fortsette opptaket når skjermen er slått av, åpner du Innstillinger → Enhetsvedlikehold → Batteri → Strømstyring for apper og legger til Organic Maps i «Apper som ikke skal settes i hvilemodus». Hvis det i stedet er en ⋮ → Innstillinger-meny, fjerner du Organic Maps fra «Apper i hvilemodus».</string>
 </resources>

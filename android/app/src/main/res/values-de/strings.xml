@@ -951,4 +951,13 @@
     <string name="transit_type_train">Zug</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Straßenbahn</string>
+    <string name="background_location_warning_title">Die Track-Aufzeichnung kann abbrechen</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_location_warning_message">Um die Aufzeichnung bei ausgeschaltetem Bildschirm fortzusetzen, öffne „App-Akkuverbrauch“ oder „Akku“ in den App-Infos von Organic Maps und erlaube die Nutzung im Hintergrund. Wenn „Optimiert“ und „Eingeschränkt“ zur Auswahl stehen, wähle „Optimiert“.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_location_samsung_warning_message">Um die Aufzeichnung bei ausgeschaltetem Bildschirm fortzusetzen, füge Organic Maps unter „Einstellungen“ → „Akku“ → „Grenzen der Hintergrundnutzung“ zu den „Apps, die nie im Standby sind“ hinzu. Bei einigen Versionen findest du „Akku“ unter „Gerätewartung“ oder „Akku und Gerätewartung“.</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_location_warning_message_legacy">Um die Aufzeichnung bei ausgeschaltetem Bildschirm fortzusetzen, öffne „Akku“ in den App-Infos von Organic Maps und deaktiviere die „Hintergrundbeschränkung“. Die Menünamen variieren je nach Gerät.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_location_samsung_warning_message_legacy">Um die Aufzeichnung bei ausgeschaltetem Bildschirm fortzusetzen, öffne „Einstellungen“ → „Gerätewartung“ → „Akku“ → „App-Energieverwaltung“ und füge „Organic Maps“ zu den „Apps, die nicht in den Ruhemodus versetzt werden“ hinzu. Falls stattdessen ein Menü „⋮ → Einstellungen“ angezeigt wird, entferne „Organic Maps“ aus den „Apps im Ruhemodus“.</string>
 </resources>

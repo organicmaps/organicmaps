@@ -654,4 +654,13 @@
     <string name="transit_type_train">Trem</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Bonde</string>
+    <string name="background_location_warning_title">A gravação da trilha pode ser interrompida</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_location_warning_message">Para continuar gravando com a tela desligada, abra “Uso de bateria do app” ou “Bateria” nas informações do app do Organic Maps e permita o uso em segundo plano. Se as opções “Otimizado” e “Restrito” aparecerem, escolha “Otimizado”.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_location_samsung_warning_message">Para continuar gravando com a tela desligada, adicione o Organic Maps à lista de “Aplicativos que nunca entram em modo de suspensão” em Configurações → Bateria → Limites de uso em segundo plano. Em algumas versões, a opção “Bateria” fica em “Cuidados com o aparelho” ou “Bateria e cuidados com o aparelho”.</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_location_warning_message_legacy">Para continuar gravando com a tela desligada, abra a seção “Bateria” nas informações do aplicativo do Organic Maps e desative a “Restrição em segundo plano”. Os nomes dos menus variam de acordo com o aparelho.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_location_samsung_warning_message_legacy">Para continuar gravando com a tela desligada, abra Configurações → Cuidados com o aparelho → Bateria → Gerenciamento de energia dos aplicativos e adicione o Organic Maps aos “Aplicativos que não serão colocados em modo de suspensão”. Se tiver um menu ⋮ → Configurações, remova o Organic Maps da lista de “Aplicativos em suspensão”.</string>
 </resources>

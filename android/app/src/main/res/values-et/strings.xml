@@ -952,4 +952,13 @@
     <string name="transit_type_train">Rong</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tramm</string>
+    <string name="background_location_warning_title">Raja salvestamine võib katkeda</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_location_warning_message">Et jätkata salvestamist ekraani väljalülitatuna, ava „Organic Mapsi“ rakenduse infos „Rakenduse aku kasutamine“ või „Aku“ ja luba taustal töötamine. Kui pakutakse valikuid „Optimeeritud“ ja „Piiratud“, vali „Optimeeritud“.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_location_samsung_warning_message">Et salvestamine jätkuks ka ekraani väljalülitamisel, lisage „Organic Maps“ loendisse „Rakendused, mida ei panda kunagi unerežiimi“ menüüs „Seaded“ → „Aku“ → „Taustakasutuse piirangud“. Mõnes versioonis asub „Aku“ menüü all „Seadme hooldus“ või „Aku ja seadme hooldus“.</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_location_warning_message_legacy">Et jätkata salvestamist ekraani väljalülitatuna, ava „Organic Mapsi“ rakenduse infos „Aku“ ja lülita välja „Taustapiirang“. Menüü nimetused võivad seadmeti erineda.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_location_samsung_warning_message_legacy">Et salvestamine jätkuks ka ekraani väljalülitamisel, ava „Seaded“ → „Seadme hooldus“ → „Aku“ → „Rakenduste energiamajandus“ ja lisa „Organic Maps“ nimekirja „Rakendused, mida ei lülitata puhkeolekusse“. Kui selle asemel on menüü „⋮ → Seaded“, eemalda „Organic Maps“ nimekirjast „Puhkeolekus olevad rakendused“.</string>
 </resources>

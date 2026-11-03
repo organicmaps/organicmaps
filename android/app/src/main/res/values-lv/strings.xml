@@ -944,4 +944,13 @@
     <string name="transit_type_train">Vilciens</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tramvajs</string>
+    <string name="background_location_warning_title">Maršruta ierakstīšana var tikt pārtraukta</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_location_warning_message">Lai turpinātu ierakstīšanu, kad ekrāns ir izslēgts, atveriet „Lietotnes akumulatora izmantošana” vai „Akumulators” sadaļā „Organic Maps” lietotnes informācijā un atļaujiet darbību fonā. Ja tiek piedāvātas opcijas „Optimizēts” un „Ierobežots”, izvēlieties „Optimizēts”.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_location_samsung_warning_message">Lai ierakstīšana turpinātos, kad ekrāns ir izslēgts, pievienojiet „Organic Maps“ sarakstam „Lietotnes, kas nekad neiet miega režīmā“ sadaļā „Iestatījumi“ → „Akumulators“ → „Fona izmantošanas ierobežojumi“. Dažās versijās sadaļa „Akumulators“ atrodas zem „Ierīces kopšana“ vai „Akumulators un ierīces kopšana“.</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_location_warning_message_legacy">Lai turpinātu ierakstīšanu, kad ekrāns ir izslēgts, atveriet sadaļu „Akumulators“ lietotnes „Organic Maps“ informācijā un atslēdziet „Fona ierobežojumu“. Izvēlņu nosaukumi atšķiras atkarībā no ierīces.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_location_samsung_warning_message_legacy">Lai ierakstīšana turpinātos, kad ekrāns ir izslēgts, atveriet „Iestatījumi“ → „Ierīces kopšana“ → „Akumulators“ → „Lietotņu enerģijas pārvaldība“ un pievienojiet „Organic Maps“ sarakstam „Lietotnes, kuras netiks pārslēgtas miega režīmā“. Ja tā vietā ir izvēlne „⋮ → Iestatījumi“, izņemiet „Organic Maps“ no saraksta „Lietotnes miega režīmā“.</string>
 </resources>

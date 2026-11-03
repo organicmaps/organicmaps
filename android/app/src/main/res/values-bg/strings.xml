@@ -944,4 +944,13 @@
     <string name="transit_type_train">Влак</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Трамвай</string>
+    <string name="background_location_warning_title">Записът на трака може да спре</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_location_warning_message">За да продължите записването при изключен екран, отворете „Използване на батерията от приложението“ или „Батерия“ в „Информация за приложението“ на Organic Maps и разрешете използването на приложението във фонов режим. Ако се предлагат опциите „Оптимизирано“ и „Ограничено“, изберете „Оптимизирано“.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_location_samsung_warning_message">За да продължи записването при изключен екран, добавете Organic Maps към „Приложения, които никога не преминават в режим на сън“ в „Настройки“ → „Батерия“ → „Ограничения за използване на заден план“. В някои версии „Батерия“ се намира в „Грижа за устройството“ или „Батерия и грижа за устройството“.</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_location_warning_message_legacy">За да продължите записването при изключен екран, отворете „Батерия“ в „Информация за приложението“ на Organic Maps и деактивирайте „Ограничение на фоновата дейност“. Наименованията на менютата варират в зависимост от устройството.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_location_samsung_warning_message_legacy">За да продължи записването при изключен екран, отворете „Настройки“ → „Грижа за устройството“ → „Батерия“ → „Управление на енергопотреблението на приложенията“ и добавете Organic Maps към „Приложения, които няма да бъдат преминавани в режим на сън“. Ако вместо това има меню ⋮ → „Настройки“, премахнете Organic Maps от „Приложения в режим на сън“.</string>
 </resources>

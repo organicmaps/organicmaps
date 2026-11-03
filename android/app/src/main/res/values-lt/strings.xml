@@ -955,4 +955,13 @@
     <string name="transit_type_train">Traukinys</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tramvajus</string>
+    <string name="background_location_warning_title">Trasos įrašymas gali nutrūkti</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_location_warning_message">Norėdami tęsti įrašymą, kai ekranas išjungtas, „Organic Maps“ programos informacijoje atidarykite „Programos baterijos naudojimas“ arba „Baterija“ ir leiskite veiklą fone. Jei siūlomi variantai „Optimizuota“ ir „Apribota“, pasirinkite „Optimizuota“.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_location_samsung_warning_message">Norėdami, kad įrašymas tęstųsi, kai ekranas išjungtas, „Organic Maps“ pridėkite prie „Niekada nemiegančių programų“ meniu „Nustatymai“ → „Baterija“ → „Fono naudojimo apribojimai“. Kai kuriose versijose „Baterija“ yra skyriuje „Įrenginio priežiūra“ arba „Baterija ir įrenginio priežiūra“.</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_location_warning_message_legacy">Norėdami tęsti įrašymą, kai ekranas išjungtas, „Organic Maps“ programos informacijoje atidarykite skiltį „Baterija“ ir išjunkite „Fono apribojimą“. Meniu pavadinimai skiriasi priklausomai nuo įrenginio.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_location_samsung_warning_message_legacy">Norėdami, kad įrašymas tęstųsi, kai ekranas išjungtas, atidarykite „Nustatymai“ → „Įrenginio priežiūra“ → „Baterija“ → „Programų energijos valdymas“ ir pridėkite „Organic Maps“ prie programų, kurios nebus perkeliamos į miego režimą. Jei vietoj to matote meniu „⋮“ → „Nustatymai“, pašalinkite „Organic Maps“ iš „Miegančių programų“ sąrašo.</string>
 </resources>

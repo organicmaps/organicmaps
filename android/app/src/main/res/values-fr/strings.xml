@@ -952,4 +952,13 @@
     <string name="transit_type_train">Train</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tramway</string>
+    <string name="background_location_warning_title">L\'enregistrement de la trace peut s\'interrompre</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_location_warning_message">Pour poursuivre l’enregistrement lorsque l’écran est éteint, ouvrez « Utilisation de la batterie par l’application » ou « Batterie » dans les informations sur l’application « Organic Maps » et autorisez l’utilisation en arrière-plan. Si les options « Optimisé » et « Restreint » sont proposées, choisissez « Optimisé ».</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_location_samsung_warning_message">Pour poursuivre l’enregistrement lorsque l’écran est éteint, ajoutez Organic Maps à la liste des « Applications jamais en veille » dans Paramètres → Batterie → Limites d’utilisation en arrière-plan. Sur certaines versions, l’option « Batterie » se trouve sous « Entretien de l’appareil » ou « Batterie et entretien de l’appareil ».</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_location_warning_message_legacy">Pour poursuivre l’enregistrement lorsque l’écran est éteint, ouvrez la section « Batterie » dans les informations sur l’application d’Organic Maps et désactivez la restriction d’arrière-plan. Les noms des menus varient selon les appareils.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_location_samsung_warning_message_legacy">Pour poursuivre l’enregistrement lorsque l’écran est éteint, ouvrez Paramètres → Entretien de l’appareil → Batterie → Gestion de l’énergie des applications et ajoutez Organic Maps à la liste des « Applications qui ne seront pas mises en veille ». Si un menu ⋮ → Paramètres s’affiche à la place, retirez Organic Maps de la liste des « Applications en veille ».</string>
 </resources>

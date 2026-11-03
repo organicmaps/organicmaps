@@ -933,4 +933,13 @@
     <string name="transit_type_train">Kereta</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Trem</string>
+    <string name="background_location_warning_title">Perekaman jalur dapat terhenti</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_location_warning_message">Untuk tetap merekam saat layar mati, buka \"Penggunaan Baterai Aplikasi\" atau \"Baterai\" di Info Aplikasi Organic Maps dan izinkan penggunaan di latar belakang. Jika opsi \"Dioptimalkan\" dan \"Dibatasi\" tersedia, pilih \"Dioptimalkan\".</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_location_samsung_warning_message">Untuk tetap merekam saat layar mati, tambahkan Organic Maps ke daftar \"Aplikasi yang tidak pernah tidur\" di Pengaturan → Baterai → Batas penggunaan latar belakang. Pada beberapa versi, opsi \"Baterai\" berada di bawah \"Perawatan Perangkat\" atau \"Baterai dan Perawatan Perangkat\".</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_location_warning_message_legacy">Untuk tetap merekam saat layar mati, buka \"Baterai\" di Info Aplikasi Organic Maps dan nonaktifkan \"Pembatasan Latar Belakang\". Nama menu dapat berbeda-beda tergantung perangkat.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_location_samsung_warning_message_legacy">Untuk tetap merekam saat layar mati, buka Pengaturan → Perawatan Perangkat → Baterai → Manajemen Daya Aplikasi, lalu tambahkan Organic Maps ke daftar \"Aplikasi yang tidak akan ditidurkan\". Jika terdapat menu ⋮ → Pengaturan, hapus Organic Maps dari daftar \"Aplikasi tidur\".</string>
 </resources>

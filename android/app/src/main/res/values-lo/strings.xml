@@ -893,4 +893,13 @@
     <string name="transit_type_train">ລົດໄຟ</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">ລົດລາງ</string>
+    <string name="background_location_warning_title">ການບັນທຶກເສັ້ນທາງອາດຈະຢຸດລົງ</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_location_warning_message">ເພື່ອຮັກສາການບັນທຶກເມື່ອໜ້າຈໍປິດຢູ່, ເປີດການນຳໃຊ້ແບັດເຕີຣີຂອງແອັບ ຫຼື ແບັດເຕີຣີໃນຂໍ້ມູນແອັບ Organic Maps ແລະ ອະນຸຍາດໃຫ້ໃຊ້ໃນພື້ນຫຼັງ. ຖ້າມີການໃຫ້ Optimized ແລະ Restricted, ເລືອກ Optimized.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_location_samsung_warning_message">ເພື່ອສືບຕໍ່ບັນທຶກເມື່ອໜ້າຈໍປິດ, ເພີ່ມ Organic Maps ໃສ່ແອັບ ທີ່ບໍ່ເຂົ້າໂໝດພັກ ໃນການຕັ້ງຄ່າ → ແບັດເຕີຣີ → ຈຳກັດການນຳໃຊ້ພື້ນຫຼັງ. ໃນບາງລຸ້ນ, ແບັດເຕີຣີຢູ່ພາຍໃຕ້ການດູແລອຸປະກອນ ຫຼື ແບັດເຕີຣີ ແລະການດູແລອຸປະກອນ.</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_location_warning_message_legacy">ເພື່ອຮັກສາການບັນທຶກເມື່ອໜ້າຈໍປິດຢູ່, ເປີດແບັດເຕີຣີໃນຂໍ້ມູນແອັບ Organic Maps ແລະປິດການຈຳກັດພື້ນຫຼັງ. ຊື່ເມນູແຕກຕ່າງກັນໄປຕາມອຸປະກອນ.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_location_samsung_warning_message_legacy">ເພື່ອສືບຕໍ່ບັນທຶກເມື່ອໜ້າຈໍປິດຢູ່, ເປີດ ການຕັ້ງຄ່າ → ການດູແລອຸປະກອນ → ແບັດເຕີຣີ → ການຈັດການພະລັງງານຂອງແອັບ ແລະ ເພີ່ມ Organic Maps ໃສ່ແອັບທີ່ຈະບໍ່ນອນ. ຖ້າມີເມນູ ⋮ → ການຕັ້ງຄ່າແທນ, ເອົາ Organic Maps ອອກຈາກແອັບທີ່ຢູ່ໃນໂໝດພັກ.</string>
 </resources>

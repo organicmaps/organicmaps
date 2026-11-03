@@ -928,4 +928,13 @@
     <string name="transit_type_train">Treni</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tramu</string>
+    <string name="background_location_warning_title">Kurekodi njia kunaweza kusitishwa</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_location_warning_message">Ili kuendelea kurekodi skrini ikiwa imezimwa, fungua Matumizi ya betri ya programu au Betri katika taarifa ya programu ya Organic Maps na uruhusu matumizi ya nyuma. Ikiwa Optimized na Restricted zitatolewa, chagua Optimized.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_location_samsung_warning_message">Ili kuendelea kurekodi skrini ikiwa imezimwa, ongeza Organic Maps kwenye programu zisizolala kamwe katika Mipangilio → Betri → Mipaka ya matumizi ya nyuma. Katika baadhi ya matoleo, Betri iko chini ya Utunzaji wa kifaa au Utunzaji wa betri na kifaa.</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_location_warning_message_legacy">Ili kuendelea kurekodi skrini ikiwa imezimwa, fungua Betri katika Taarifa za Programu ya Organic Maps na zima Kizuizi cha Usuli. Majina ya menyu hutofautiana kulingana na kifaa.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_location_samsung_warning_message_legacy">Ili kuendelea kurekodi skrini ikiwa imezimwa, fungua Mipangilio → Utunzaji wa kifaa → Betri → Usimamizi wa matumizi ya betri ya programu na ongeza Organic Maps kwenye Programu ambazo hazitazimwa. Ikiwa badala yake kuna menyu ya ⋮ → Mipangilio, toa Organic Maps kutoka kwenye Programu zinazolala.</string>
 </resources>

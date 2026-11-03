@@ -945,4 +945,13 @@
     <string name="transit_type_train">Vlak</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tramvaj</string>
+    <string name="background_location_warning_title">Snimanje staze može se prekinuti</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_location_warning_message">Za nastavak snimanja kada je zaslon isključen, otvorite Uporabu baterije aplikacije ili Bateriju u informacijama o aplikaciji Organic Maps i dopustite pozadinsku upotrebu. Ako su ponuđene opcije Optimizirano i Ograničeno, odaberite Optimizirano.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_location_samsung_warning_message">Za nastavak snimanja kada je zaslon isključen, dodajte Organic Maps na popis aplikacija koje nikada ne spavaju u Postavke → Baterija → Ograničenja pozadinske upotrebe. Na nekim verzijama, opcija Baterija nalazi se pod Skrb za uređaj ili Baterija i skrb za uređaj.</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_location_warning_message_legacy">Za nastavak snimanja dok je zaslon isključen, otvorite odjeljak Baterija u informacijama o aplikaciji Organic Maps i isključite ograničenje u pozadini. Nazivi izbornika razlikuju se ovisno o uređaju.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_location_samsung_warning_message_legacy">Kako biste nastavili snimanje dok je zaslon isključen, otvorite Postavke → Skrb o uređaju → Baterija → Upravljanje energijom aplikacija i dodajte Organic Maps u aplikacije koje se neće stavljati u mirovanje. Ako umjesto toga vidite izbornik ⋮ → Postavke, uklonite Organic Maps s popisa aplikacija u mirovanju.</string>
 </resources>

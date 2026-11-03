@@ -940,4 +940,13 @@
     <string name="transit_type_train">電車</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">路面電車</string>
+    <string name="background_location_warning_title">トラックの記録が停止する場合があります</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_location_warning_message">画面がオフの状態で記録を継続するには、Organic Mapsの「アプリ情報」にある「アプリのバッテリー使用量」または「バッテリー」を開き、バックグラウンドでの使用を許可してください。「最適化」と「制限」の選択肢が表示された場合は、「最適化」を選択してください。</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_location_samsung_warning_message">画面がオフの状態で記録を継続するには、[設定] → [バッテリー] → [バックグラウンド使用制限] で、Organic Mapsを「スリープしないアプリ」に追加してください。一部のバージョンでは、「バッテリー」は「デバイスケア」または「バッテリーとデバイスケア」の下にあります。</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_location_warning_message_legacy">画面がオフの状態で記録を継続するには、Organic Mapsの「アプリ情報」で「バッテリー」を開き、「バックグラウンド制限」をオフにしてください。メニュー名は端末によって異なります。</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_location_samsung_warning_message_legacy">画面がオフの状態で記録を継続するには、「設定」→「デバイスケア」→「バッテリー」→「アプリの電力管理」を開き、「スリープ状態にならないアプリ」にOrganic Mapsを追加してください。代わりに「⋮」→「設定」メニューが表示される場合は、「スリープ状態になるアプリ」からOrganic Mapsを削除してください。</string>
 </resources>

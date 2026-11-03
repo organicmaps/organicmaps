@@ -948,4 +948,13 @@
     <string name="transit_type_train">Воз</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Трамвај</string>
+    <string name="background_location_warning_title">Снимање путање може да се прекине</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_location_warning_message">Да бисте наставили снимање када је екран искључен, отворите \"Потрошња батерије апликација\" или \"Батерија\" у информацијама о апликацији Organic Maps и дозволите позадинску активност. Ако су понуђене опције \"Оптимизовано\" и \"Ограничено\", изаберите \"Оптимизовано\".</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_location_samsung_warning_message">Да бисте наставили снимање када је екран искључен, додајте апликацију Organic Maps на листу \"Никада не спавају\" у Подешавања → Батерија → Ограничења позадинске употребе. На неким верзијама, опција Батерија се налази под Одржавање уређаја или Одржавање батерије и уређаја.</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_location_warning_message_legacy">Да бисте наставили снимање када је екран искључен, отворите \"Батерија\" у информацијама о апликацији Organic Maps и искључите ограничење у позадини. Имена менија варирају у зависности од уређаја.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_location_samsung_warning_message_legacy">Да бисте наставили снимање када је екран искључен, отворите Подешавања → Нега уређаја → Батерија → Управљање потрошњом апликација и додајте Organic Maps у апликације које се неће ставити у спавање. Ако уместо тога постоји мени ⋮ → Подешавања, уклоните Organic Maps из апликација у спавању.</string>
 </resources>

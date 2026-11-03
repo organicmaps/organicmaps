@@ -952,4 +952,13 @@
     <string name="transit_type_train">Trein</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tram</string>
+    <string name="background_location_warning_title">De trackopname kan worden onderbroken</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_location_warning_message">Om de opname voort te zetten wanneer het scherm is uitgeschakeld, opent u ‘App-batterijgebruik’ of ‘Batterij’ in de app-informatie van Organic Maps en schakelt u achtergrondgebruik in. Indien de opties ‘Geoptimaliseerd’ en ‘Beperkt’ worden aangeboden, kiest u ‘Geoptimaliseerd’.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_location_samsung_warning_message">Om de opname voort te zetten wanneer het scherm is uitgeschakeld, voegt u Organic Maps toe aan de lijst met ‘Apps die nooit in de slaapstand gaan’ in Instellingen → Batterij → Limieten voor gebruik op de achtergrond. In sommige versies vindt u ‘Batterij’ onder ‘Apparaatonderhoud’ of ‘Batterij en apparaatonderhoud’.</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_location_warning_message_legacy">Om de opname voort te zetten wanneer het scherm is uitgeschakeld, opent u ‘Batterij’ in de app-informatie van Organic Maps en schakelt u ‘Achtergrondbeperking’ uit. Menunamen kunnen per apparaat verschillen.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_location_samsung_warning_message_legacy">Om de opname voort te zetten wanneer het scherm is uitgeschakeld, opent u Instellingen → Apparaatonderhoud → Batterij → Energiebeheer voor apps en voegt u Organic Maps toe aan de lijst met apps die niet in de slaapstand worden gezet. Indien er in plaats daarvan een ⋮ → Instellingen-menu is, verwijdert u Organic Maps uit de lijst met apps die in de slaapstand worden gezet.</string>
 </resources>

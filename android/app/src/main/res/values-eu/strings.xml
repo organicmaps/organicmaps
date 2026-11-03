@@ -947,4 +947,13 @@
     <string name="transit_type_train">Trena</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tranbia</string>
+    <string name="background_location_warning_title">Arrastoaren grabaketa eten daiteke</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_location_warning_message">Pantaila itzalita grabazioa jarraitzeko, ireki \'Organic Maps\' aplikazioaren informazioan \'Aplikazioaren bateriaren erabilera\' edo \'Bateria\' atala eta baimendu atzeko planoan exekutatzea. \'Optimized\' eta \'Restricted\' aukerak agertzen badira, hautatu \'Optimized\'.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_location_samsung_warning_message">Pantaila itzalita dagoenean grabazioa jarraitzeko, gehitu Organic Maps \'Inoiz lo egiten ez duten\' aplikazioen zerrendan Ezarpenak → Bateria → Atzealdeko erabilera-mugak atalean. Bertsio batzuetan, Bateria atala \'Gailuaren zaintza\' edo \'Bateria eta gailuaren zaintza\' izenpean dago.</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_location_warning_message_legacy">Pantaila itzalita grabazioa jarraitzeko, ireki Organic Maps aplikazioaren Informazioan \'Bateria\' atala eta desaktibatu \'Atzealdeko murrizketa\'. Menuko izenak gailuaren arabera alda daitezke.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_location_samsung_warning_message_legacy">Pantaila itzalita grabazioa jarraitzeko, ireki Ezarpenak → Gailuaren zaintza → Bateria → Aplikazioen energia-kudeaketa eta gehitu Organic Maps \'Lo moduan jarriko ez diren aplikazioak\' atalera. ⋮ → Ezarpenak menu bat badago, kendu Organic Maps \'Lo dauden aplikazioak\' ataletik.</string>
 </resources>

@@ -947,4 +947,13 @@
     <string name="transit_type_train">Tåg</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Spårvagn</string>
+    <string name="background_location_warning_title">Spårinspelningen kan avbrytas</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_location_warning_message">För att fortsätta spela in när skärmen är avstängd, öppna ”Appbatterianvändning” eller ”Batteri” i Organic Maps appinfo och tillåt bakgrundsanvändning. Om alternativen ”Optimerad” och ”Begränsad” visas, välj ”Optimerad”.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_location_samsung_warning_message">För att fortsätta spela in när skärmen är avstängd, lägg till Organic Maps till ”Appar som aldrig går i viloläge” under Inställningar → Batteri → Gränser för bakgrundsanvändning. I vissa versioner finns ”Batteri” under ”Enhetsvård” eller ”Batteri och enhetsvård”.</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_location_warning_message_legacy">För att fortsätta spela in när skärmen är avstängd, öppna ”Batteri” i ”Organic Maps” appinfo och inaktivera ”Bakgrundsbegränsning”. Menynamn varierar beroende på enhet.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_location_samsung_warning_message_legacy">För att fortsätta spela in när skärmen är avstängd, öppna Inställningar → Enhetsvård → Batteri → Appens energihantering och lägg till Organic Maps till Appar som inte ska sättas i viloläge. Om det istället finns en ⋮ → Inställningar-meny, ta bort Organic Maps från Appar i viloläge.</string>
 </resources>
