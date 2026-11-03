@@ -844,6 +844,10 @@
     <string name="outdoor_seating">Istekohad õues</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">Kõige täpsema tee juhatamise tagamiseks soovitame, et lülitad telefoni akuhalduse seadistused energiasäästurežiimi välja.</string>
+    <!-- Title of the one-time warning about battery optimization when starting track recording on Android. -->
+    <string name="background_recording_warning_title">Taustsalvestuse hoiatus</string>
+    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
+    <string name="background_recording_warning_message">Et raja salvestamine ei katkeks, kui ekraan on välja lülitatud, jäta Organic Maps aku optimeerimisest välja. Samsungi seadmetes lisa see loendisse „Rakendused, mida ei panda kunagi unerežiimi“.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Salvesta rada</string>
     <!-- Prompt for stopping a track recording. -->

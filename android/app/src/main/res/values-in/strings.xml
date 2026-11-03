@@ -830,6 +830,10 @@
     <string name="outdoor_seating">Tempat duduk di luar ruangan</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">Untuk navigasi yang paling akurat, kami sarankan untuk menonaktifkan mode hemat daya dalam pengaturan baterai ponsel.</string>
+    <!-- Title of the one-time warning about battery optimization when starting track recording on Android. -->
+    <string name="background_recording_warning_title">Peringatan Perekaman Jalur di Latar Belakang</string>
+    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
+    <string name="background_recording_warning_message">Agar perekaman jalur tidak terhenti saat layar mati, kecualikan Organic Maps dari pengoptimalan baterai. Pada perangkat Samsung, tambahkan aplikasi ini ke daftar “Aplikasi yang tidak pernah tidur”.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Merekam jalur</string>
     <!-- Prompt for stopping a track recording. -->

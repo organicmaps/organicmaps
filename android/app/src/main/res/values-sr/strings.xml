@@ -843,6 +843,10 @@
     <string name="outdoor_seating">Башта</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">За прецизнију навигацију препоручујемо да се искључи режим чувања батерије у Подешавањима везаним за бетерију телефона.</string>
+    <!-- Title of the one-time warning about battery optimization when starting track recording on Android. -->
+    <string name="background_recording_warning_title">Упозорење о снимању путање у позадини</string>
+    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
+    <string name="background_recording_warning_message">Да се снимање путање не би прекинуло када је екран искључен, изузмите Organic Maps из оптимизације батерије. На Samsung уређајима додајте апликацију на листу „Апликације које никада не спавају“.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Сними путању</string>
     <!-- Prompt for stopping a track recording. -->

@@ -846,6 +846,10 @@
     <string name="outdoor_seating">Sėdimosios vietos lauke</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">Tikslesnei navigacijai pasiekti, rekomenduojame išjungti energijos taupymo veikseną telefono akumuliatoriaus nustatymuose.</string>
+    <!-- Title of the one-time warning about battery optimization when starting track recording on Android. -->
+    <string name="background_recording_warning_title">Įspėjimas apie įrašymą fone</string>
+    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
+    <string name="background_recording_warning_message">Kad trasos įrašymas nenutrūktų išjungus ekraną, išjunkite „Organic Maps“ akumuliatoriaus optimizavimą. „Samsung“ įrenginiuose įtraukite programėlę į sąrašą „Niekada nemiegančios programėlės“.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Įrašyti trasą</string>
     <!-- Prompt for stopping a track recording. -->
