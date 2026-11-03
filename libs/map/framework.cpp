@@ -441,6 +441,7 @@ Framework::~Framework()
 {
   GetPowerManager().UnsubscribeAll();
 
+  GpsTracker::Instance().SetStatisticsCallback(nullptr);
   m_threadRunner.reset();
 
   osm::Editor & editor = osm::Editor::Instance();
