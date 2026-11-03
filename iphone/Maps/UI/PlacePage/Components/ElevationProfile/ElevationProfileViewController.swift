@@ -74,6 +74,11 @@ final class ElevationProfileViewController: UIViewController {
 
   var presenter: ElevationProfilePresenterProtocol?
 
+  var isChartZoomEnabled: Bool {
+    get { chartView.isZoomEnabled }
+    set { chartView.isZoomEnabled = newValue }
+  }
+
   init(presentationStyle: PresentationStyle) {
     super.init(nibName: nil, bundle: nil)
     setPresentationStyle(presentationStyle)
@@ -129,8 +134,14 @@ final class ElevationProfileViewController: UIViewController {
     chartView.translatesAutoresizingMaskIntoConstraints = false
     chartView.placeholderFont = .regular14.dynamic
     chartView.placeholderTextColor = .blackSecondaryText
-    chartView.onSelectedPointChanged = { [weak self] in
-      self?.presenter?.onSelectedPointChanged($0)
+    chartView.onSelectedPointChanged = { [weak self] distance in
+      self?.presenter?.onSelectedPointChanged(distance)
+    }
+    chartView.onSelectionFinished = { [weak self] distance in
+      self?.presenter?.onSelectionFinished(distance)
+    }
+    chartView.onSelectionCancelled = { [weak self] in
+      self?.presenter?.onSelectionCancelled()
     }
   }
 
