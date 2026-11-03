@@ -909,7 +909,7 @@
     <string name="track_recording_stop_and_save">Acha na hifadhi</string>
     <!-- Track recording home screen widget button: opens the app to save or delete the recorded track. -->
     <string name="track_recording_finish">Maliza</string>
-    <!-- Accessibility label for the button that reverses the complete planned route, including intermediate stops. -->
+    <!-- Button accessibility label and confirmation title for reversing the complete route, including intermediate stops. -->
     <string name="reverse_route">Geuza mwelekeo wa njia</string>
     <!-- Title of the transit route details screen, shown when the user taps the public transport summary tile. -->
     <string name="transit_details_title">Maelezo ya safari</string>
