@@ -9,9 +9,6 @@
 
 UNIT_TEST(KMZ_UnzipTest)
 {
-  /// @todo Should put somewhere in core? (like in BookmarkManager::PrepareToSaveBookmarks).
-  TEST(Platform::MkDirChecked(GetBookmarksDirectory()), ());
-
   std::string const kmzFile = GetPlatform().TestsDataPathForFile("test_data/kml/test.kmz");
   auto const filePaths = GetKMLOrGPXFilesPathsToLoad(kmzFile);
   TEST_EQUAL(1, filePaths.size(), ());
@@ -45,8 +42,6 @@ UNIT_TEST(KMZ_UnzipTest)
 
 UNIT_TEST(KMZ_RealLifeAreas)
 {
-  TEST(Platform::MkDirChecked(GetBookmarksDirectory()), ());
-
   // Dartmoor National Park Authority, "Backpack camping on Dartmoor commons", Open Government Licence v3.0:
   // https://www.arcgis.com/home/item.html?id=3d00736c2b2a44d4b59d58e7fccba07a
   std::string const kmzFile = GetPlatform().TestsDataPathForFile("test_data/kml/dartmoor_backpack_camping.kmz");
@@ -79,8 +74,6 @@ UNIT_TEST(KMZ_RealLifeAreas)
 
 UNIT_TEST(Multi_KML_KMZ_UnzipTest)
 {
-  TEST(Platform::MkDirChecked(GetBookmarksDirectory()), ());
-
   std::string const kmzFile = GetPlatform().TestsDataPathForFile("test_data/kml/BACRNKMZ.kmz");
   auto const filePaths = GetKMLOrGPXFilesPathsToLoad(kmzFile);
   SCOPE_GUARD(filesGuard, [&filePaths]()
