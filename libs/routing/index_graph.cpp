@@ -404,7 +404,7 @@ void IndexGraph::GetNeighboringEdge(astar::VertexData<Segment, RouteWeight> cons
 IndexGraph::PenaltyData IndexGraph::GetRoadPenaltyData(Segment const & segment) const
 {
   auto const & road = GetRoadGeometry(segment.GetFeatureId());
-  return {road.IsPassThroughAllowed(), road.GetRoutingOptions().Has(RoutingOptions::Road::Ferry)};
+  return PenaltyData(road.GetRoutingOptions().Has(RoutingOptions::Road::Ferry));
 }
 
 RouteWeight IndexGraph::GetPenalties(EdgeEstimator::Purpose purpose, Segment const & u, Segment const & v,
@@ -412,9 +412,6 @@ RouteWeight IndexGraph::GetPenalties(EdgeEstimator::Purpose purpose, Segment con
 {
   auto const & fromPenaltyData = GetRoadPenaltyData(u);
   auto const & toPenaltyData = GetRoadPenaltyData(v);
-  // Route crosses border of pass-through/non-pass-through area if |u| and |v| have different
-  // pass through restrictions.
-  int8_t const passThroughPenalty = fromPenaltyData.m_passThroughAllowed == toPenaltyData.m_passThroughAllowed ? 0 : 1;
 
   int8_t accessPenalty = 0;
   int8_t accessConditionalPenalties = 0;
@@ -469,8 +466,7 @@ RouteWeight IndexGraph::GetPenalties(EdgeEstimator::Purpose purpose, Segment con
   if (IsBoarding(fromPenaltyData.m_isFerry, toPenaltyData.m_isFerry))
     weightPenalty += m_estimator->GetFerryLandingPenalty(purpose);
 
-  return {weightPenalty /* weight */, passThroughPenalty, accessPenalty, accessConditionalPenalties,
-          0.0 /* transitTime */};
+  return {weightPenalty /* weight */, accessPenalty, accessConditionalPenalties, 0.0 /* transitTime */};
 }
 
 WorldGraphMode IndexGraph::GetMode() const

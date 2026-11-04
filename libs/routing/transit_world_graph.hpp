@@ -50,8 +50,6 @@ public:
   ms::LatLon const & GetPoint(Segment const & segment, bool front) override;
   // All transit features are oneway.
   bool IsOneWay(NumMwmId mwmId, uint32_t featureId) override;
-  // All transit features are allowed for through passage.
-  bool IsPassThroughAllowed(NumMwmId mwmId, uint32_t featureId) override;
   void ClearCachedGraphs() override;
   void SetMode(WorldGraphMode mode) override { m_mode = mode; }
   WorldGraphMode GetMode() const override { return m_mode; }

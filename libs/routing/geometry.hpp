@@ -31,7 +31,7 @@ class RoadAttrsGetter;
 class RoadGeometry final
 {
 public:
-  RoadGeometry() : m_isOneWay(false), m_valid(false), m_isPassThroughAllowed(false), m_inCity(false) {}
+  RoadGeometry() : m_isOneWay(false), m_valid(false), m_inCity(false) {}
 
   /// Used in tests.
   using Points = std::vector<m2::PointD>;
@@ -44,7 +44,6 @@ public:
   SpeedKMpH GetSpeed(bool forward, time_t time = 0) const;
   std::optional<HighwayType> GetHighwayType() const { return m_highwayType; }
   bool IsOneWay() const { return m_isOneWay; }
-  bool IsPassThroughAllowed() const { return m_isPassThroughAllowed; }
   bool IsInCity() const { return m_inCity; }
 
   LatLonWithAltitude const & GetJunction(uint32_t junctionId) const
@@ -72,8 +71,6 @@ public:
     return pointId == 0 || pointId + 1 == GetPointsCount();
   }
 
-  void SetPassThroughAllowedForTests(bool passThroughAllowed) { m_isPassThroughAllowed = passThroughAllowed; }
-
   bool SuitableForOptions(RoutingOptions avoidRoutingOptions) const
   {
     return (avoidRoutingOptions.GetOptions() & m_routingOptions.GetOptions()) == 0;
@@ -92,7 +89,6 @@ private:
   RoutingOptions m_routingOptions;
   bool m_isOneWay : 1;
   bool m_valid : 1;
-  bool m_isPassThroughAllowed : 1;
   bool m_inCity : 1;
 };
 

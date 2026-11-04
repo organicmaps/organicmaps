@@ -68,9 +68,6 @@ public:
   virtual ms::LatLon const & GetPoint(Segment const & segment, bool front) = 0;
   virtual bool IsOneWay(NumMwmId mwmId, uint32_t featureId) = 0;
 
-  // Checks whether feature is allowed for through passage.
-  virtual bool IsPassThroughAllowed(NumMwmId mwmId, uint32_t featureId) = 0;
-
   // Clear memory used by loaded graphs.
   virtual void ClearCachedGraphs() = 0;
   virtual void SetMode(WorldGraphMode mode) = 0;

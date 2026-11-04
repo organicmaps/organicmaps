@@ -55,8 +55,7 @@ RouteWeight TransitGraph::CalcSegmentWeight(Segment const & segment, EdgeEstimat
   {
     time = edge->GetWeight();
     if (!edge->GetTransfer())
-      return RouteWeight(time, 0 /* numPassThroughChanges */, 0 /* numAccessChanges */,
-                         0 /* numAccessConditionalPenalties */, time /* transitTime */);
+      return RouteWeight(time, 0 /* numAccessChanges */, 0 /* numAccessConditionalPenalties */, time /* transitTime */);
   }
   else
   {
@@ -95,8 +94,8 @@ RouteWeight TransitGraph::GetTransferPenalty(transit::LineId fromLineId, Segment
   // The alternative route adds a fixed penalty per boarding to the routing weight only (not to
   // transitTime); it is zero for the primary route.
   double const penalty = it->second + m_estimator->GetTransitAltBoardingPenaltyS();
-  return RouteWeight(penalty /* weight */, 0 /* nonPassThrougCross */, 0 /* numAccessChanges */,
-                     0 /* numAccessConditionalPenalties */, it->second /* transitTime */);
+  return RouteWeight(penalty /* weight */, 0 /* numAccessChanges */, 0 /* numAccessConditionalPenalties */,
+                     it->second /* transitTime */);
 }
 
 std::set<Segment> const & TransitGraph::GetFake(Segment const & real) const

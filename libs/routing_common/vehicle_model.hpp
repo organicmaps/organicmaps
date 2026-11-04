@@ -27,7 +27,6 @@ struct InOutCitySpeedKMpH;
 
 // Each value is equal to the corresponding 0-based type index from types.txt
 // (an ID from mapcss-mapping.csv minus 1).
-// The ascending order is strict. Check for static_cast<HighwayType> in vehicle_model.cpp
 enum class HighwayType : uint16_t
 {
   HighwayResidential = 1,
@@ -221,14 +220,6 @@ public:
 
   /// @returns true iff feature |f| can be used for routing with corresponding vehicle model.
   virtual bool IsRoad(FeatureTypes const & types) const = 0;
-
-  /// @returns true iff feature |f| can be used for through passage with corresponding vehicle model.
-  /// e.g. in Russia roads tagged "highway = service" are not allowed for through passage;
-  /// however, road with this tag can be be used if it is close enough to the start or destination
-  /// point of the route.
-  /// Roads with additional types e.g. "path = ferry", "vehicle_type = yes" considered as allowed
-  /// to pass through.
-  virtual bool IsPassThroughAllowed(FeatureTypes const & types) const = 0;
 };
 
 class VehicleModelFactoryInterface
@@ -246,12 +237,6 @@ public:
 class VehicleModel : public VehicleModelInterface
 {
 public:
-  struct FeatureTypeLimits
-  {
-    HighwayType m_type;
-    bool m_isPassThroughAllowed;  // pass through this road type is allowed
-  };
-
   struct FeatureTypeSurface
   {
     base::StringIL m_type;  // road surface type 'psurface=*'
@@ -265,7 +250,7 @@ public:
   };
 
   using AdditionalRoadsList = std::initializer_list<AdditionalRoad>;
-  using LimitsInitList = std::vector<FeatureTypeLimits>;
+  using LimitsInitList = std::vector<HighwayType>;
   using SurfaceInitList = std::initializer_list<FeatureTypeSurface>;
 
   VehicleModel(Classificator const & classif, LimitsInitList const & featureTypeLimits,
@@ -283,7 +268,6 @@ public:
   /// may be considered as features with forward geometry.
   bool IsOneWay(FeatureTypes const & types) const override;
   bool IsRoad(FeatureTypes const & types) const override;
-  bool IsPassThroughAllowed(FeatureTypes const & types) const override;
   /// @}
 
   // Made public to have simple access from unit tests.
@@ -329,8 +313,8 @@ private:
   HighwayBasedInfo m_highwayBasedInfo;
   uint32_t m_onewayType;
 
-  // HW type -> allow pass through.
-  base::SmallMap<uint32_t, bool> m_roadTypes;
+  // Road feature type -> HW type.
+  base::SmallMap<uint32_t, HighwayType> m_roadTypes;
   // Mapping surface types psurface={paved_good/paved_bad/unpaved_good/unpaved_bad} to surface speed factors.
   base::SmallMapBase<uint32_t, SpeedFactor> m_surfaceFactors;
   SpeedFactor m_minSurfaceFactorForMaxspeed;

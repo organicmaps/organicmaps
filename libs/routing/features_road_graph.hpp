@@ -44,7 +44,6 @@ private:
     SpeedKMpH const & GetOffroadSpeed() const;
     bool IsOneWay(FeatureType & f) const;
     bool IsRoad(FeatureType & f) const;
-    bool IsPassThroughAllowed(FeatureType & f) const;
 
     void Clear();
 
