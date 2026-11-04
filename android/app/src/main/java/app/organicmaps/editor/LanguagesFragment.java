@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import app.organicmaps.base.BaseMwmRecyclerFragment;
 import app.organicmaps.sdk.editor.Editor;
 import app.organicmaps.sdk.editor.data.Language;
+import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -41,7 +42,7 @@ public class LanguagesFragment extends BaseMwmRecyclerFragment<LanguagesAdapter>
       languages.add(lang);
     }
 
-    Collections.sort(languages, Comparator.comparing(lhs -> lhs.name));
+    Collections.sort(languages, Comparator.comparing(lhs -> lhs.name, Collator.getInstance()));
 
     return new LanguagesAdapter(this, languages.toArray(new Language[languages.size()]));
   }
