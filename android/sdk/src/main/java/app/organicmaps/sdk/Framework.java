@@ -100,6 +100,19 @@ public class Framework
   @Size(2)
   public static native double[] nativeGetScreenRectCenter();
 
+  /**
+   * Converts view pixels, as in {@link Map#onTouch}, to WGS84 latitude and longitude in degrees; in 3D, to the point
+   * on the ground.
+   */
+  @Size(2)
+  public static native double[] nativeScreenToLatLon(double x, double y);
+
+  /**
+   * Converts WGS84 latitude and longitude in degrees to view pixels, the inverse of {@link #nativeScreenToLatLon}.
+   */
+  @Size(2)
+  public static native double[] nativeLatLonToScreen(double lat, double lon);
+
   public static native DistanceAndAzimut nativeGetDistanceAndAzimuth(double dstMerX, double dstMerY, double srcLat,
                                                                      double srcLon, double north);
 

@@ -537,6 +537,9 @@ public:
   m2::PointD P3dtoG(m2::PointD const & p) const;
   /// @}
 
+  /// @returns The screen pixel of the world copy of a geo point nearest to the screen center.
+  m2::PointD GtoP3d(m2::PointD const & p) const;
+
   /// Show all model by it's world rect.
   void ShowAll();
 

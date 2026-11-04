@@ -23,6 +23,7 @@
 #include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/gps_track_point.hpp"
 #include "drape_frontend/relations_draw_info.hpp"
+#include "drape_frontend/screen_operations.hpp"
 #include "drape_frontend/tile_key.hpp"
 #include "drape_frontend/visual_params.hpp"
 
@@ -1725,6 +1726,11 @@ m2::PointD Framework::P3dtoG(m2::PointD const & p) const
   auto pt = m_currentModelView.PtoG(m_currentModelView.P3dtoP(p));
   pt.x = mercator::WrapX(pt.x);
   return pt;
+}
+
+m2::PointD Framework::GtoP3d(m2::PointD const & p) const
+{
+  return m_currentModelView.PtoP3d(df::GtoPWrap(p, m_currentModelView));
 }
 
 void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFactory, DrapeCreationParams && params)

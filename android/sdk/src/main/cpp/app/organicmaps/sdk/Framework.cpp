@@ -1156,15 +1156,36 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativePokeSearchInViewport(JNI
   frm()->GetSearchAPI().PokeSearchInViewport();
 }
 
+static jdoubleArray ToJavaPair(JNIEnv * env, double first, double second)
+{
+  double const pair[] = {first, second};
+  jdoubleArray jPair = env->NewDoubleArray(2);
+  env->SetDoubleArrayRegion(jPair, 0, 2, pair);
+  return jPair;
+}
+
+static jdoubleArray ToJavaLatLon(JNIEnv * env, m2::PointD const & pt)
+{
+  ms::LatLon const ll = mercator::ToLatLon(pt);
+  return ToJavaPair(env, ll.m_lat, ll.m_lon);
+}
+
 JNIEXPORT jdoubleArray Java_app_organicmaps_sdk_Framework_nativeGetScreenRectCenter(JNIEnv * env, jclass)
 {
-  m2::PointD const center = frm()->GetViewportCenter();
+  return ToJavaLatLon(env, frm()->GetViewportCenter());
+}
 
-  double latlon[] = {mercator::YToLat(center.y), mercator::XToLon(center.x)};
-  jdoubleArray jLatLon = env->NewDoubleArray(2);
-  env->SetDoubleArrayRegion(jLatLon, 0, 2, latlon);
+JNIEXPORT jdoubleArray Java_app_organicmaps_sdk_Framework_nativeScreenToLatLon(JNIEnv * env, jclass, jdouble x,
+                                                                               jdouble y)
+{
+  return ToJavaLatLon(env, frm()->P3dtoG({x, y}));
+}
 
-  return jLatLon;
+JNIEXPORT jdoubleArray Java_app_organicmaps_sdk_Framework_nativeLatLonToScreen(JNIEnv * env, jclass, jdouble lat,
+                                                                               jdouble lon)
+{
+  m2::PointD const pt = frm()->GtoP3d(mercator::FromLatLon(lat, lon));
+  return ToJavaPair(env, pt.x, pt.y);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRestoreDownloadQueue(JNIEnv * env, jclass)
