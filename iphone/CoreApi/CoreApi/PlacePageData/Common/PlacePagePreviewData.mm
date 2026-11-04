@@ -6,9 +6,13 @@
 
 #include "opening_hours/opening_hours.hpp"
 
-static PlacePageDataSchedule convertOpeningHours(std::string_view rawOH)
+#include <limits>
+#include <optional>
+
+static PlacePageDataSchedule convertOpeningHours(std::string_view rawOH,
+                                                 std::optional<om::tz::TimeZone> const & timeZone)
 {
-  PlacePageDataSchedule schedule;
+  PlacePageDataSchedule schedule{};
 
   if (rawOH.empty())
   {
@@ -30,7 +34,9 @@ static PlacePageDataSchedule convertOpeningHours(std::string_view rawOH)
   }
 
   auto const t = time(nullptr);
-  osmoh::OpeningHours::InfoT info = oh.GetInfo(t);
+  schedule.utcOffsetNowSeconds = osmoh::GetUtcOffset(t, timeZone);
+  // Evaluate in the POI's local time zone (not the device's), see issue #1642.
+  osmoh::OpeningHours::InfoT info = oh.GetInfo(t, timeZone);
   switch (info.state)
   {
   case osmoh::RuleState::Open:
@@ -44,6 +50,13 @@ static PlacePageDataSchedule convertOpeningHours(std::string_view rawOH)
     break;
 
   case osmoh::RuleState::Unknown: schedule.state = PlacePageDataOpeningHoursUnknown; break;
+  }
+
+  if (info.state != osmoh::RuleState::Unknown)
+  {
+    time_t const next = info.state == osmoh::RuleState::Open ? info.nextTimeClosed : info.nextTimeOpen;
+    schedule.utcOffsetNextSeconds =
+        next == std::numeric_limits<time_t>::max() ? schedule.utcOffsetNowSeconds : osmoh::GetUtcOffset(next, timeZone);
   }
 
   return schedule;
@@ -80,7 +93,7 @@ static PlacePageDataSchedule convertOpeningHours(std::string_view rawOH)
     {
       _coordinates = @(rawData.GetFormattedCoordinate(place_page::CoordinatesFormat::LatLonDMS).c_str());
       _isMyPosition = rawData.IsMyPosition();
-      _schedule = convertOpeningHours(rawData.GetOpeningHours());
+      _schedule = convertOpeningHours(rawData.GetOpeningHours(), rawData.GetTimeZone());
     }
   }
   return self;

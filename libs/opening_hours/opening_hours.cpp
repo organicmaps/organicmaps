@@ -829,13 +829,51 @@ oh::OpeningHours<> MakeEval(std::shared_ptr<oh::OpeningHoursExpression const> co
 
 // A value that did not parse has no state to report, which is Unknown -- the
 // same answer GetInfo() gives.
-RuleState EvalState(std::shared_ptr<oh::OpeningHoursExpression const> const & expr, time_t dateTime)
+RuleState EvalState(std::shared_ptr<oh::OpeningHoursExpression const> const & expr, time_t dateTime,
+                    std::optional<om::tz::TimeZone> const & timeZone)
 {
   if (!expr)
     return RuleState::Unknown;
-  return ToRuleState(MakeEval(expr).state(ToNaive(ToZonedSeconds(dateTime, std::nullopt))).first);
+  return ToRuleState(MakeEval(expr).state(ToNaive(ToZonedSeconds(dateTime, timeZone))).first);
+}
+
+std::optional<time_t> NextOffsetChange(time_t from, time_t through, std::optional<om::tz::TimeZone> const & timeZone)
+{
+  if (timeZone)
+  {
+    auto const next = om::tz::NextTransition(from, *timeZone);
+    return next && *next <= through ? next : std::nullopt;
+  }
+
+  // The system zone has no portable transition iterator. Probe only up to the
+  // next schedule boundary, then locate a changed offset to the second.
+  int64_t const offset = ToZonedSeconds(from, timeZone) - from;
+  for (time_t probe = from; probe < through;)
+  {
+    time_t const next = probe + std::min<time_t>(86400, through - probe);
+    if (ToZonedSeconds(next, timeZone) - next != offset)
+    {
+      time_t lo = probe, hi = next;
+      while (lo + 1 < hi)
+      {
+        time_t const mid = lo + (hi - lo) / 2;
+        if (ToZonedSeconds(mid, timeZone) - mid == offset)
+          lo = mid;
+        else
+          hi = mid;
+      }
+      return hi;
+    }
+    probe = next;
+  }
+  return std::nullopt;
 }
 }  // namespace
+
+int32_t GetUtcOffset(time_t time, std::optional<om::tz::TimeZone> const & timeZone)
+{
+  return static_cast<int32_t>(ToZonedSeconds(time, timeZone) - time);
+}
 
 OpeningHours::OpeningHours(std::string_view rule)
 {
@@ -851,19 +889,19 @@ OpeningHours::OpeningHours(TRuleSequences const & rule)
   , m_expr(std::make_shared<oh::OpeningHoursExpression const>(ToPort(rule)))
 {}
 
-bool OpeningHours::IsOpen(time_t const dateTime) const
+bool OpeningHours::IsOpen(time_t const dateTime, std::optional<om::tz::TimeZone> const & timeZone) const
 {
-  return EvalState(m_expr, dateTime) == RuleState::Open;
+  return EvalState(m_expr, dateTime, timeZone) == RuleState::Open;
 }
 
-bool OpeningHours::IsClosed(time_t const dateTime) const
+bool OpeningHours::IsClosed(time_t const dateTime, std::optional<om::tz::TimeZone> const & timeZone) const
 {
-  return EvalState(m_expr, dateTime) == RuleState::Closed;
+  return EvalState(m_expr, dateTime, timeZone) == RuleState::Closed;
 }
 
-bool OpeningHours::IsUnknown(time_t const dateTime) const
+bool OpeningHours::IsUnknown(time_t const dateTime, std::optional<om::tz::TimeZone> const & timeZone) const
 {
-  return EvalState(m_expr, dateTime) == RuleState::Unknown;
+  return EvalState(m_expr, dateTime, timeZone) == RuleState::Unknown;
 }
 
 OpeningHours::InfoT OpeningHours::GetInfo(time_t const dateTime, std::optional<om::tz::TimeZone> const & timeZone) const
@@ -883,14 +921,20 @@ OpeningHours::InfoT OpeningHours::GetInfo(time_t const dateTime, std::optional<o
   if (info.state == RuleState::Unknown)
     return info;
 
+  time_t constexpr kTimeTMax = std::numeric_limits<time_t>::max();
+  if (info.state == RuleState::Open && IsTwentyFourHours())
+  {
+    info.nextTimeOpen = dateTime;
+    info.nextTimeClosed = kTimeTMax;
+    return info;
+  }
+
   // First transition to `target` state at or after `now`, back in time_t.
   // Scanning a bounded window keeps seasonal schedules cheap; kTimeTMax means
   // "no change found" (consumers render this as "never"). Iterate lazily and
   // stop at the first matching interval -- for typical schedules that is 1-3
   // intervals, while materializing the whole window costs hundreds of
   // allocations per call (and GetInfo runs for every search result).
-  time_t constexpr kTimeTMax = std::numeric_limits<time_t>::max();
-
   // The default window covers a full seasonal cycle; schedules pinned to
   // explicit future years ("2028 Jan 01 10:00-11:00") extend it through their
   // last mentioned year, otherwise they would report "never opens".
@@ -952,52 +996,39 @@ OpeningHours::InfoT OpeningHours::GetInfo(time_t const dateTime, std::optional<o
     }
   }
 
-  // Convert a zoned wall-clock instant back to time_t. The naive delta is off
-  // by the DST shift when a transition lies between `now` and the target;
-  // correcting through the forward conversion handles the device zone and an
-  // explicit POI zone alike.
-  auto const toTimeT = [&](int64_t const targetZoned) -> time_t
-  {
-    time_t t = dateTime + (targetZoned - baseZoned);
-    for (int i = 0; i < 2; ++i)
-    {
-      int64_t const diff = ToZonedSeconds(t, timeZone) - targetZoned;
-      if (diff == 0)
-        return t;
-      t -= diff;
-    }
-    if (ToZonedSeconds(t, timeZone) == targetZoned)
-      return t;
-
-    // No instant maps to the target: it falls into a spring-forward gap and
-    // the correction loop oscillates around it. Answer the first valid
-    // instant (the transition itself) -- the evaluator's zone contract snaps
-    // nonexistent local times forward the same way, so IsOpen() agrees.
-    time_t lo = t, hi = t;
-    for (int i = 0; i < 48 && ToZonedSeconds(lo, timeZone) >= targetZoned; ++i)
-      lo -= 1800;
-    for (int i = 0; i < 48 && ToZonedSeconds(hi, timeZone) < targetZoned; ++i)
-      hi += 1800;
-    while (lo + 1 < hi)
-    {
-      time_t const mid = lo + (hi - lo) / 2;
-      if (ToZonedSeconds(mid, timeZone) < targetZoned)
-        lo = mid;
-      else
-        hi = mid;
-    }
-    return hi;
-  };
-
   auto nextTimeOf = [&](oh::RuleKind target) -> time_t
   {
-    oh::TimeDomainIterator<oh::NoLocation> it(m_expr, oh::Context<oh::NoLocation>{}, now, to);
-    while (auto const interval = it.next())
+    // A fall-back moves the local clock backward. Search each constant-offset
+    // UTC segment separately so the repeated local interval is not skipped.
+    time_t const limit = dateTime + (NaiveToZoned(to) - baseZoned) + 86400;
+    for (time_t cursor = dateTime; cursor < limit;)
     {
-      if (!(interval->start < to))
-        break;
-      if (interval->kind == target)
-        return toTimeT(NaiveToZoned(std::max(interval->start, now)));
+      int64_t const zonedCursor = ToZonedSeconds(cursor, timeZone);
+      oh::NaiveDateTime const localCursor = ToNaive(zonedCursor);
+      oh::TimeDomainIterator<oh::NoLocation> it(m_expr, oh::Context<oh::NoLocation>{}, localCursor, to);
+      time_t candidate = limit;
+      bool found = false;
+      while (auto const interval = it.next())
+      {
+        if (!(interval->start < to))
+          break;
+        if (interval->kind == target)
+        {
+          candidate = cursor + (NaiveToZoned(std::max(interval->start, localCursor)) - zonedCursor);
+          found = true;
+          break;
+        }
+      }
+
+      candidate = std::min(candidate, limit);
+      if (auto const transition = NextOffsetChange(cursor, candidate, timeZone))
+      {
+        cursor = *transition;
+        if (eval.state(ToNaive(ToZonedSeconds(cursor, timeZone))).first == target)
+          return cursor;
+        continue;
+      }
+      return found ? candidate : kTimeTMax;
     }
     return kTimeTMax;
   };

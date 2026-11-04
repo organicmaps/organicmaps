@@ -820,10 +820,6 @@ void registerCellsForTableView(std::vector<MWMEditorCellID> const & cells, UITab
 {
   return m_mapObject.GetOpeningHours().empty();
 }
-- (BOOL)isEditor
-{
-  return YES;
-}
 - (BOOL)openingHoursCellExpanded
 {
   return YES;

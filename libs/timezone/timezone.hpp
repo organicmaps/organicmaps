@@ -2,6 +2,8 @@
 
 #include <climits>
 #include <cstdint>
+#include <ctime>
+#include <optional>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -114,4 +116,7 @@ ZonedTime Convert(ZonedTime time, TimeZone const & srcTimeZone, TimeZone const &
  * @return Time in the ZonedTime format for the specified time zone.
  */
 ZonedTime Convert(time_t time, TimeZone const & timeZone);
+
+/// The first encoded UTC offset transition strictly after |time|, if any.
+std::optional<time_t> NextTransition(time_t time, TimeZone const & timeZone);
 }  // namespace om::tz

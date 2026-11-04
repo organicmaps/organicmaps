@@ -23,7 +23,6 @@ using WeekDayView = MWMPlacePageOpeningHoursDayView *;
 
 @property(weak, nonatomic) id<MWMPlacePageOpeningHoursCellProtocol> delegate;
 
-@property(nonatomic, readwrite) BOOL isClosed;
 @property(nonatomic) BOOL haveExpandSchedule;
 
 @end
@@ -68,10 +67,6 @@ WeekDayView getWeekDayView()
   if (MakeTimeTableSet(oh, timeTableSet))
   {
     cd.isCompatibility = NO;
-    if (delegate.isEditor)
-      self.isClosed = NO;
-    else
-      self.isClosed = oh.IsClosed(time(nullptr));
     [self processSchedule];
   }
   else
@@ -159,7 +154,7 @@ WeekDayView getWeekDayView()
   [cd setLabelText:label isRed:NO];
   [cd setOpenTimeText:openTime];
   [cd setBreaks:breaks];
-  [cd setClosed:self.isClosed];
+  [cd setClosed:NO];
 }
 
 - (void)addEmptyCurrentDay

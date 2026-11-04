@@ -27,6 +27,7 @@ import app.organicmaps.sdk.location.LocationState;
 import app.organicmaps.sdk.location.LocationUtils;
 import app.organicmaps.utils.Utils;
 import java.util.Calendar;
+import java.util.SimpleTimeZone;
 
 public final class UiHelpers
 {
@@ -115,11 +116,11 @@ public final class UiHelpers
   public static Row getPlaceOpeningHoursRow(@NonNull MapObject place, @NonNull CarContext context)
   {
     final String ohStr = place.getMetadata(Metadata.MetadataType.FMD_OPEN_HOURS);
+    if (ohStr.isEmpty())
+      return null;
+
     final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(ohStr);
     final boolean isEmptyTT = (timetables == null || timetables.length == 0);
-
-    if (ohStr.isEmpty() && isEmptyTT)
-      return null;
 
     final Row.Builder builder = new Row.Builder();
     builder.setImage(
@@ -142,7 +143,11 @@ public final class UiHelpers
     else
     {
       boolean containsCurrentWeekday = false;
-      final int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+      final long now = System.currentTimeMillis() / 1000L;
+      final int offsetSeconds = OpeningHours.nativeGetUtcOffsetSeconds(place.getLat(), place.getLon(), now);
+      Calendar poiNow = Calendar.getInstance(new SimpleTimeZone(offsetSeconds * 1000, "POI"));
+      poiNow.setTimeInMillis(now * 1000L);
+      final int currentDay = poiNow.get(Calendar.DAY_OF_WEEK);
       for (final Timetable tt : timetables)
       {
         if (tt.containsWeekday(currentDay))
