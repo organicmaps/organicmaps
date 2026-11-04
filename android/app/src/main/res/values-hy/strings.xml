@@ -843,8 +843,8 @@
     <string name="power_save_dialog_summary">Առավել ճշգրիտ նավիգացիայի համար խորհուրդ ենք տալիս անջատել էներգախնայողության ռեժիմը հեռախոսի մարտկոցի կարգավորումներում։</string>
     <!-- Title of the one-time warning about battery optimization when starting track recording on Android. -->
     <string name="background_recording_warning_title">Հետին պլանում գրանցման նախազգուշացում</string>
-    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
-    <string name="background_recording_warning_message">Էկրանն անջատված ժամանակ հետագծի գրանցման ընդհատումից խուսափելու համար Organic Maps-ը բացառեք մարտկոցի օպտիմալացումից։ Samsung սարքերում այն ավելացրեք «Երբեք չքնող հավելվածներ» ցանկում։</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_recording_warning_message">Էկրանն անջատված ժամանակ հետագծի գրանցումը շարունակելու համար Organic Maps հավելվածի տեղեկություններում բացեք «Հավելվածի մարտկոցի օգտագործումը» կամ «Մարտկոց» բաժինը և թույլատրեք աշխատանքը ֆոնային ռեժիմում։ Եթե առկա են «Օպտիմալացված» և «Սահմանափակված» տարբերակները, ընտրեք «Օպտիմալացված»։</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Գրանցել հետագիծը</string>
     <!-- Prompt for stopping a track recording. -->
@@ -943,13 +943,10 @@
     <string name="transit_type_train">Գնացք</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Տրամվայ</string>
-    <string name="background_location_warning_title">Հետագծի գրանցումը կարող է դադարել</string>
-    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
-    <string name="background_location_warning_message">Էկրանն անջատված ժամանակ հետագծի գրանցումը շարունակելու համար Organic Maps հավելվածի տեղեկություններում բացեք «Հավելվածի մարտկոցի օգտագործումը» կամ «Մարտկոց» բաժինը և թույլատրեք աշխատանքը ֆոնային ռեժիմում։ Եթե առկա են «Օպտիմալացված» և «Սահմանափակված» տարբերակները, ընտրեք «Օպտիմալացված»։</string>
-    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
-    <string name="background_location_samsung_warning_message">Էկրանն անջատված ժամանակ հետագծի գրանցումը շարունակելու համար ավելացրեք Organic Maps-ը «Չքնեցվող հավելվածներ» ցուցակին՝ Կարգավորումներ → Մարտկոց → Ֆոնային օգտագործման սահմանափակումներ։ Որոշ տարբերակներում «Մարտկոց» բաժինը գտնվում է «Սարքի խնամք» կամ «Մարտկոցի և սարքի խնամք» բաժնում։</string>
     <!-- Android 9–11 per-app background restriction -->
-    <string name="background_location_warning_message_legacy">Էկրանն անջատված ժամանակ հետագծի գրանցումը շարունակելու համար Organic Maps հավելվածի տեղեկություններում բացեք «Մարտկոց» բաժինը և անջատեք ֆոնային աշխատանքի սահմանափակումը։ Մենյուի անվանումները կարող են տարբերվել՝ կախված սարքից։</string>
+    <string name="background_recording_warning_message_legacy">Էկրանն անջատված ժամանակ հետագծի գրանցումը շարունակելու համար Organic Maps հավելվածի տեղեկություններում բացեք «Մարտկոց» բաժինը և անջատեք ֆոնային աշխատանքի սահմանափակումը։ Մենյուի անվանումները կարող են տարբերվել՝ կախված սարքից։</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_recording_samsung_warning_message">Էկրանն անջատված ժամանակ հետագծի գրանցումը շարունակելու համար ավելացրեք Organic Maps-ը «Չքնեցվող հավելվածներ» ցուցակին՝ Կարգավորումներ → Մարտկոց → Ֆոնային օգտագործման սահմանափակումներ։ Որոշ տարբերակներում «Մարտկոց» բաժինը գտնվում է «Սարքի խնամք» կամ «Մարտկոցի և սարքի խնամք» բաժնում։</string>
     <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
-    <string name="background_location_samsung_warning_message_legacy">Էկրանն անջատված ժամանակ հետագծի գրանցումը շարունակելու համար բացեք Կարգավորումներ → Սարքի խնամք → Մարտկոց → Հավելվածների էներգիայի կառավարում և ավելացրեք Organic Maps-ը «Չքնեցվող հավելվածներ» ցուցակին։ Եթե դրա փոխարեն կա ⋮ → Կարգավորումներ մենյուն, հեռացրեք Organic Maps-ը «Քնած հավելվածներ» ցուցակից։</string>
+    <string name="background_recording_samsung_warning_message_legacy">Էկրանն անջատված ժամանակ հետագծի գրանցումը շարունակելու համար բացեք Կարգավորումներ → Սարքի խնամք → Մարտկոց → Հավելվածների էներգիայի կառավարում և ավելացրեք Organic Maps-ը «Չքնեցվող հավելվածներ» ցուցակին։ Եթե դրա փոխարեն կա ⋮ → Կարգավորումներ մենյուն, հեռացրեք Organic Maps-ը «Քնած հավելվածներ» ցուցակից։</string>
 </resources>

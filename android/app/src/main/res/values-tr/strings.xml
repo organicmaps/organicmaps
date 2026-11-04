@@ -844,8 +844,8 @@
     <string name="power_save_dialog_summary">En doğru navigasyon için telefonunuzun pil ayarlarından güç tutum kipini devre dışı bırakmanızı öneririz.</string>
     <!-- Title of the one-time warning about battery optimization when starting track recording on Android. -->
     <string name="background_recording_warning_title">Arka Planda İz Kaydı Uyarısı</string>
-    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
-    <string name="background_recording_warning_message">Ekran kapalıyken iz kaydının durmasını önlemek için Organic Maps\'i pil optimizasyonundan hariç tutun. Samsung cihazlarda uygulamayı “Hiç uyumayan uygulamalar” listesine ekleyin.</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_recording_warning_message">Ekran kapalıyken kaydı sürdürmek için, Organic Maps’in Uygulama bilgileri bölümünden Uygulama pil kullanımı veya Pil seçeneğini açın ve arka planda çalışmaya izin verin. “Optimize edilmiş” ve “Kısıtlı” seçenekleri sunuluyorsa, “Optimize edilmiş” seçeneğini seçin.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">İzi Kaydet</string>
     <!-- Prompt for stopping a track recording. -->
@@ -950,13 +950,10 @@
     <string name="transit_type_train">Tren</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tramvay</string>
-    <string name="background_location_warning_title">İz kaydı durabilir</string>
-    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
-    <string name="background_location_warning_message">Ekran kapalıyken kaydı sürdürmek için, Organic Maps’in Uygulama bilgileri bölümünden Uygulama pil kullanımı veya Pil seçeneğini açın ve arka planda çalışmaya izin verin. “Optimize edilmiş” ve “Kısıtlı” seçenekleri sunuluyorsa, “Optimize edilmiş” seçeneğini seçin.</string>
-    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
-    <string name="background_location_samsung_warning_message">Ekran kapalıyken kayda devam etmek için, Ayarlar → Pil → Arka plan kullanım sınırları bölümünde \"Organic Maps\" uygulamasını \"Asla uyku moduna geçmeyen uygulamalar\" listesine ekleyin. Bazı sürümlerde \"Pil\" seçeneği, \"Cihaz bakımı\" veya \"Pil ve cihaz bakımı\" başlığı altında yer alır.</string>
     <!-- Android 9–11 per-app background restriction -->
-    <string name="background_location_warning_message_legacy">Ekran kapalıyken kaydı sürdürmek için, Organic Maps’in Uygulama bilgileri bölümünden Pil seçeneğini açın ve Arka plan kısıtlamasını kapatın. Menü adları cihaza göre değişiklik gösterebilir.</string>
+    <string name="background_recording_warning_message_legacy">Ekran kapalıyken kaydı sürdürmek için, Organic Maps’in Uygulama bilgileri bölümünden Pil seçeneğini açın ve Arka plan kısıtlamasını kapatın. Menü adları cihaza göre değişiklik gösterebilir.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_recording_samsung_warning_message">Ekran kapalıyken kayda devam etmek için, Ayarlar → Pil → Arka plan kullanım sınırları bölümünde \"Organic Maps\" uygulamasını \"Asla uyku moduna geçmeyen uygulamalar\" listesine ekleyin. Bazı sürümlerde \"Pil\" seçeneği, \"Cihaz bakımı\" veya \"Pil ve cihaz bakımı\" başlığı altında yer alır.</string>
     <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
-    <string name="background_location_samsung_warning_message_legacy">Ekran kapalıyken kayda devam etmek için Ayarlar → Cihaz bakımı → Pil → Uygulama güç yönetimi bölümünü açın ve Organic Maps\'i \"Uyku moduna alınmayacak uygulamalar\" listesine ekleyin. Bunun yerine ⋮ → Ayarlar menüsü varsa, Organic Maps\'i \"Uyku modundaki uygulamalar\" listesinden kaldırın.</string>
+    <string name="background_recording_samsung_warning_message_legacy">Ekran kapalıyken kayda devam etmek için Ayarlar → Cihaz bakımı → Pil → Uygulama güç yönetimi bölümünü açın ve Organic Maps\'i \"Uyku moduna alınmayacak uygulamalar\" listesine ekleyin. Bunun yerine ⋮ → Ayarlar menüsü varsa, Organic Maps\'i \"Uyku modundaki uygulamalar\" listesinden kaldırın.</string>
 </resources>

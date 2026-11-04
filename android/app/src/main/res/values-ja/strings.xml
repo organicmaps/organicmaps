@@ -839,8 +839,8 @@
     <string name="power_save_dialog_summary">最も正確なナビゲーションのためには、携帯電話のバッテリー設定で省電力モードを無効にすることをお勧めする。</string>
     <!-- Title of the one-time warning about battery optimization when starting track recording on Android. -->
     <string name="background_recording_warning_title">バックグラウンド記録に関する警告</string>
-    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
-    <string name="background_recording_warning_message">画面がオフのときにトラック記録が停止しないようにするには、Organic Mapsをバッテリー最適化の対象から除外してください。Samsung端末では、「自動的にスリープ状態にしないアプリ」リストに追加してください。</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_recording_warning_message">画面がオフの状態で記録を継続するには、Organic Mapsの「アプリ情報」にある「アプリのバッテリー使用量」または「バッテリー」を開き、バックグラウンドでの使用を許可してください。「最適化」と「制限」の選択肢が表示された場合は、「最適化」を選択してください。</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">トラックを記録する</string>
     <!-- Prompt for stopping a track recording. -->
@@ -940,13 +940,10 @@
     <string name="transit_type_train">電車</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">路面電車</string>
-    <string name="background_location_warning_title">トラックの記録が停止する場合があります</string>
-    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
-    <string name="background_location_warning_message">画面がオフの状態で記録を継続するには、Organic Mapsの「アプリ情報」にある「アプリのバッテリー使用量」または「バッテリー」を開き、バックグラウンドでの使用を許可してください。「最適化」と「制限」の選択肢が表示された場合は、「最適化」を選択してください。</string>
-    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
-    <string name="background_location_samsung_warning_message">画面がオフの状態で記録を継続するには、[設定] → [バッテリー] → [バックグラウンド使用制限] で、Organic Mapsを「スリープしないアプリ」に追加してください。一部のバージョンでは、「バッテリー」は「デバイスケア」または「バッテリーとデバイスケア」の下にあります。</string>
     <!-- Android 9–11 per-app background restriction -->
-    <string name="background_location_warning_message_legacy">画面がオフの状態で記録を継続するには、Organic Mapsの「アプリ情報」で「バッテリー」を開き、「バックグラウンド制限」をオフにしてください。メニュー名は端末によって異なります。</string>
+    <string name="background_recording_warning_message_legacy">画面がオフの状態で記録を継続するには、Organic Mapsの「アプリ情報」で「バッテリー」を開き、「バックグラウンド制限」をオフにしてください。メニュー名は端末によって異なります。</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_recording_samsung_warning_message">画面がオフの状態で記録を継続するには、[設定] → [バッテリー] → [バックグラウンド使用制限] で、Organic Mapsを「スリープしないアプリ」に追加してください。一部のバージョンでは、「バッテリー」は「デバイスケア」または「バッテリーとデバイスケア」の下にあります。</string>
     <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
-    <string name="background_location_samsung_warning_message_legacy">画面がオフの状態で記録を継続するには、「設定」→「デバイスケア」→「バッテリー」→「アプリの電力管理」を開き、「スリープ状態にならないアプリ」にOrganic Mapsを追加してください。代わりに「⋮」→「設定」メニューが表示される場合は、「スリープ状態になるアプリ」からOrganic Mapsを削除してください。</string>
+    <string name="background_recording_samsung_warning_message_legacy">画面がオフの状態で記録を継続するには、「設定」→「デバイスケア」→「バッテリー」→「アプリの電力管理」を開き、「スリープ状態にならないアプリ」にOrganic Mapsを追加してください。代わりに「⋮」→「設定」メニューが表示される場合は、「スリープ状態になるアプリ」からOrganic Mapsを削除してください。</string>
 </resources>

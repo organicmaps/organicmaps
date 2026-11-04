@@ -850,8 +850,8 @@
     <string name="power_save_dialog_summary">Para una navegación más precisa, recomendamos que desactive el modo de ahorro de energía en la configuración de la batería del teléfono.</string>
     <!-- Title of the one-time warning about battery optimization when starting track recording on Android. -->
     <string name="background_recording_warning_title">Alerta de grabación en segundo plano</string>
-    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
-    <string name="background_recording_warning_message">Para evitar que la grabación del trayecto se detenga cuando la pantalla esté apagada, excluye Organic Maps de la optimización de la batería. En los dispositivos Samsung, añade la aplicación a la lista «Aplicaciones sin suspensión».</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_recording_warning_message">Para continuar grabando con la pantalla apagada, abra «Uso de batería de la aplicación» o «Batería» en la información de la aplicación de Organic Maps y permita el uso en segundo plano. Si se ofrecen las opciones «Optimizado» y «Restringido», elija «Optimizado».</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Grabar trayecto</string>
     <!-- Prompt for stopping a track recording. -->
@@ -958,13 +958,10 @@
     <string name="transit_type_train">Tren</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tranvía</string>
-    <string name="background_location_warning_title">La grabación del trayecto puede interrumpirse</string>
-    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
-    <string name="background_location_warning_message">Para continuar grabando con la pantalla apagada, abra «Uso de batería de la aplicación» o «Batería» en la información de la aplicación de Organic Maps y permita el uso en segundo plano. Si se ofrecen las opciones «Optimizado» y «Restringido», elija «Optimizado».</string>
-    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
-    <string name="background_location_samsung_warning_message">Para seguir grabando con la pantalla apagada, añada Organic Maps a las «Aplicaciones que nunca se suspenden» en Ajustes → Batería → Límites de uso en segundo plano. En algunas versiones, la opción «Batería» se encuentra en «Cuidado del dispositivo» o en «Batería y cuidado del dispositivo».</string>
     <!-- Android 9–11 per-app background restriction -->
-    <string name="background_location_warning_message_legacy">Para seguir grabando con la pantalla apagada, abra «Batería» en la información de la aplicación de Organic Maps y desactive la «Restricción en segundo plano». Los nombres de los menús varían según el dispositivo.</string>
+    <string name="background_recording_warning_message_legacy">Para seguir grabando con la pantalla apagada, abra «Batería» en la información de la aplicación de Organic Maps y desactive la «Restricción en segundo plano». Los nombres de los menús varían según el dispositivo.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_recording_samsung_warning_message">Para seguir grabando con la pantalla apagada, añada Organic Maps a las «Aplicaciones que nunca se suspenden» en Ajustes → Batería → Límites de uso en segundo plano. En algunas versiones, la opción «Batería» se encuentra en «Cuidado del dispositivo» o en «Batería y cuidado del dispositivo».</string>
     <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
-    <string name="background_location_samsung_warning_message_legacy">Para continuar grabando con la pantalla apagada, abra Ajustes → Cuidado del dispositivo → Batería → Gestión de energía de las aplicaciones y añada Organic Maps a las «Aplicaciones que no se suspenderán». Si, en su lugar, aparece un menú ⋮ → Ajustes, elimine Organic Maps de las «Aplicaciones en suspensión».</string>
+    <string name="background_recording_samsung_warning_message_legacy">Para continuar grabando con la pantalla apagada, abra Ajustes → Cuidado del dispositivo → Batería → Gestión de energía de las aplicaciones y añada Organic Maps a las «Aplicaciones que no se suspenderán». Si, en su lugar, aparece un menú ⋮ → Ajustes, elimine Organic Maps de las «Aplicaciones en suspensión».</string>
 </resources>

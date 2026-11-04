@@ -843,8 +843,8 @@
     <string name="power_save_dialog_summary">برای دقیقu200cترین ناوبری، توصیه میu200cکنیم حالت صرفهu200cجویی در مصرف انرژی را در تنظیمات باتری گوشی غیرفعال کنید.</string>
     <!-- Title of the one-time warning about battery optimization when starting track recording on Android. -->
     <string name="background_recording_warning_title">هشدار ضبط در پس‌زمینه</string>
-    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
-    <string name="background_recording_warning_message">برای جلوگیری از توقف ضبط مسیر هنگام خاموش بودن صفحه‌نمایش، لطفاً Organic Maps را از بهینه‌سازی باتری مستثنی کنید. در دستگاه‌های Samsung، آن را به فهرست «برنامه‌هایی که هرگز به حالت خواب نمی‌روند» اضافه کنید.</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_recording_warning_message">برای ادامه ضبط هنگام خاموش بودن صفحه، «مصرف باتری برنامه‌ها» یا «باتری» را در اطلاعات برنامه Organic Maps باز کرده و استفاده در پس‌زمینه را مجاز کنید. اگر گزینه‌های «بهینه‌سازی‌شده» و «محدودشده» ارائه شدند، «بهینه‌سازی‌شده» را انتخاب کنید.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">ضبط مسیر</string>
     <!-- Prompt for stopping a track recording. -->
@@ -947,13 +947,10 @@
     <string name="transit_type_train">قطار</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">تراموا</string>
-    <string name="background_location_warning_title">ضبط مسیر ممکن است متوقف شود</string>
-    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
-    <string name="background_location_warning_message">برای ادامه ضبط هنگام خاموش بودن صفحه، «مصرف باتری برنامه‌ها» یا «باتری» را در اطلاعات برنامه Organic Maps باز کرده و استفاده در پس‌زمینه را مجاز کنید. اگر گزینه‌های «بهینه‌سازی‌شده» و «محدودشده» ارائه شدند، «بهینه‌سازی‌شده» را انتخاب کنید.</string>
-    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
-    <string name="background_location_samsung_warning_message">برای ادامه ضبط هنگام خاموش بودن صفحه، در تنظیمات → باتری → محدودیت‌های استفاده در پس‌زمینه، برنامه Organic Maps را به لیست «اپلیکیشن‌هایی که هرگز به خواب نمی‌روند» اضافه کنید. در برخی نسخه‌ها، بخش باتری زیر «نگهداری دستگاه» یا «باتری و نگهداری دستگاه» قرار دارد.</string>
     <!-- Android 9–11 per-app background restriction -->
-    <string name="background_location_warning_message_legacy">برای ادامه ضبط هنگام خاموش بودن صفحه، در اطلاعات برنامه «Organic Maps» به بخش باتری بروید و محدودیت پس‌زمینه را خاموش کنید. نام منوها بسته به دستگاه متفاوت است.</string>
+    <string name="background_recording_warning_message_legacy">برای ادامه ضبط هنگام خاموش بودن صفحه، در اطلاعات برنامه «Organic Maps» به بخش باتری بروید و محدودیت پس‌زمینه را خاموش کنید. نام منوها بسته به دستگاه متفاوت است.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_recording_samsung_warning_message">برای ادامه ضبط هنگام خاموش بودن صفحه، در تنظیمات → باتری → محدودیت‌های استفاده در پس‌زمینه، برنامه Organic Maps را به لیست «اپلیکیشن‌هایی که هرگز به خواب نمی‌روند» اضافه کنید. در برخی نسخه‌ها، بخش باتری زیر «نگهداری دستگاه» یا «باتری و نگهداری دستگاه» قرار دارد.</string>
     <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
-    <string name="background_location_samsung_warning_message_legacy">برای ادامه ضبط هنگام خاموش بودن صفحه، به مسیر تنظیمات → مراقبت از دستگاه → باتری → مدیریت مصرف انرژی برنامه‌ها بروید و برنامه Organic Maps را به فهرست برنامه‌هایی که به حالت خواب نمی‌روند اضافه کنید. اگر به جای آن منوی ⋮ → تنظیمات وجود داشت، برنامه Organic Maps را از فهرست برنامه‌های خوابیده حذف کنید.</string>
+    <string name="background_recording_samsung_warning_message_legacy">برای ادامه ضبط هنگام خاموش بودن صفحه، به مسیر تنظیمات → مراقبت از دستگاه → باتری → مدیریت مصرف انرژی برنامه‌ها بروید و برنامه Organic Maps را به فهرست برنامه‌هایی که به حالت خواب نمی‌روند اضافه کنید. اگر به جای آن منوی ⋮ → تنظیمات وجود داشت، برنامه Organic Maps را از فهرست برنامه‌های خوابیده حذف کنید.</string>
 </resources>

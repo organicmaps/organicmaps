@@ -826,8 +826,8 @@
     <string name="power_save_dialog_summary">सबसे सटीक नेविगेशन के लिए, हम फ़ोन की बैटरी सेटिंग्स में पावर सेविंग मोड को अक्षम करने की सलाह देते हैं।</string>
     <!-- Title of the one-time warning about battery optimization when starting track recording on Android. -->
     <string name="background_recording_warning_title">बैकग्राउंड में ट्रैक रिकॉर्डिंग की चेतावनी</string>
-    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
-    <string name="background_recording_warning_message">स्क्रीन बंद होने पर भी ट्रैक रिकॉर्डिंग जारी रखने के लिए, Organic Maps को बैटरी ऑप्टिमाइज़ेशन से बाहर रखें। Samsung डिवाइस पर इसे “कभी स्लीप मोड में न जाने वाले ऐप्स” की सूची में जोड़ें।</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_recording_warning_message">स्क्रीन बंद होने पर रिकॉर्डिंग जारी रखने के लिए, Organic Maps की ऐप जानकारी में ऐप बैटरी उपयोग या बैटरी खोलें और पृष्ठभूमि उपयोग की अनुमति दें। यदि ऑप्टिमाइज़्ड और प्रतिबंधित विकल्प दिए गए हैं, तो ऑप्टिमाइज़्ड चुनें।</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">ट्रैक रिकॉर्ड करें</string>
     <!-- Prompt for stopping a track recording. -->
@@ -928,13 +928,10 @@
     <string name="transit_type_train">ट्रेन</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">ट्राम</string>
-    <string name="background_location_warning_title">ट्रैक रिकॉर्डिंग रुक सकती है</string>
-    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
-    <string name="background_location_warning_message">स्क्रीन बंद होने पर रिकॉर्डिंग जारी रखने के लिए, Organic Maps की ऐप जानकारी में ऐप बैटरी उपयोग या बैटरी खोलें और पृष्ठभूमि उपयोग की अनुमति दें। यदि ऑप्टिमाइज़्ड और प्रतिबंधित विकल्प दिए गए हैं, तो ऑप्टिमाइज़्ड चुनें।</string>
-    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
-    <string name="background_location_samsung_warning_message">स्क्रीन बंद होने पर रिकॉर्डिंग जारी रखने के लिए, सेटिंग्स → बैटरी → बैकग्राउंड उपयोग सीमाओं में \'कभी सोने न वाली ऐप्स\' में Organic Maps जोड़ें। कुछ संस्करणों में, बैटरी \'डिवाइस देखभाल\' या \'बैटरी और डिवाइस देखभाल\' के अंतर्गत होती है।</string>
     <!-- Android 9–11 per-app background restriction -->
-    <string name="background_location_warning_message_legacy">स्क्रीन बंद होने पर रिकॉर्डिंग जारी रखने के लिए, Organic Maps की ऐप जानकारी में बैटरी खोलें और बैकग्राउंड प्रतिबंध बंद करें। मेनू के नाम डिवाइस के अनुसार भिन्न होते हैं।</string>
+    <string name="background_recording_warning_message_legacy">स्क्रीन बंद होने पर रिकॉर्डिंग जारी रखने के लिए, Organic Maps की ऐप जानकारी में बैटरी खोलें और बैकग्राउंड प्रतिबंध बंद करें। मेनू के नाम डिवाइस के अनुसार भिन्न होते हैं।</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_recording_samsung_warning_message">स्क्रीन बंद होने पर रिकॉर्डिंग जारी रखने के लिए, सेटिंग्स → बैटरी → बैकग्राउंड उपयोग सीमाओं में \'कभी सोने न वाली ऐप्स\' में Organic Maps जोड़ें। कुछ संस्करणों में, बैटरी \'डिवाइस देखभाल\' या \'बैटरी और डिवाइस देखभाल\' के अंतर्गत होती है।</string>
     <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
-    <string name="background_location_samsung_warning_message_legacy">स्क्रीन बंद होने पर रिकॉर्डिंग जारी रखने के लिए, सेटिंग्स → डिवाइस केयर → बैटरी → ऐप पावर मैनेजमेंट खोलें और \'Organic Maps\' को उन ऐप्स में जोड़ें जिन्हें सुलाया नहीं जाएगा। यदि इसके बजाय ⋮ → सेटिंग्स मेनू है, तो \'Organic Maps\' को स्लीपिंग ऐप्स से हटा दें।</string>
+    <string name="background_recording_samsung_warning_message_legacy">स्क्रीन बंद होने पर रिकॉर्डिंग जारी रखने के लिए, सेटिंग्स → डिवाइस केयर → बैटरी → ऐप पावर मैनेजमेंट खोलें और \'Organic Maps\' को उन ऐप्स में जोड़ें जिन्हें सुलाया नहीं जाएगा। यदि इसके बजाय ⋮ → सेटिंग्स मेनू है, तो \'Organic Maps\' को स्लीपिंग ऐप्स से हटा दें।</string>
 </resources>
