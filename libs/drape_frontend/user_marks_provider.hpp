@@ -82,6 +82,7 @@ public:
   virtual df::SpecialDisplacement GetDisplacement() const = 0;
   virtual uint32_t GetIndex() const = 0;
   virtual bool SymbolIsPOI() const = 0;
+  virtual bool SymbolUsesFontScale() const { return false; }
   /// @return true  Then GetPriority() and GetDisplacement() are also assigned to TextShape's from GetTitleDecl().
   virtual bool HasTitlePriority() const = 0;
   virtual int GetMinZoom() const = 0;

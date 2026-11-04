@@ -470,19 +470,22 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
 
   source.ForEachMark(tileKey, renderParams, [&](UserMarkRenderParams const & renderInfo)
   {
-    m2::PointF symbolSize(0.0f, 0.0f);
+    m2::PointF spriteSize = m2::PointF::Zero();
     dp::TextureManager::SymbolRegion symbolRegion;
     auto const symbolName = GetSymbolNameForZoomLevel(make_ref(renderInfo.m_symbolNames), tileKey);
     if (!symbolName.empty())
     {
       textures->GetSymbolRegion(symbolName, symbolRegion);
-      symbolSize = symbolRegion.GetPixelSize();
+      spriteSize = symbolRegion.GetPixelSize();
+      if (renderInfo.m_symbolUsesFontScale)
+        spriteSize *= static_cast<float>(VisualParams::Instance().GetFontScale());
     }
 
     m2::PointF symbolOffset = m2::PointF::Zero();
     if (renderInfo.m_symbolIsPOI)
       symbolOffset = GetSymbolOffsetForZoomLevel(make_ref(renderInfo.m_symbolOffsets), tileKey);
 
+    auto symbolSize = spriteSize;
     if (renderInfo.m_coloredSymbols != nullptr)
     {
       GenerateColoredSymbolShapes(context, textures, renderInfo, tileKey, tileCenter, symbolOffset, symbolSize,
@@ -508,15 +511,14 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
 
         m2::RectF const & texRect = symbolRegion.GetTexRect();
         m2::RectF const & bgTexRect = backgroundRegion.GetTexRect();
-        m2::PointF const pxSize = symbolRegion.GetPixelSize();
         dp::Anchor const anchor = renderInfo.m_anchor;
         m2::PointD const pt = MapShape::ConvertToLocal(renderInfo.m_pivot, tileCenter, kShapeCoordScalar);
         glsl::vec3 const pos = glsl::vec3(glsl::ToVec2(pt), renderInfo.m_depth);
         bool const runAnim = renderInfo.m_hasCreationAnimation && renderInfo.m_justCreated;
 
         glsl::vec2 left, right, up, down;
-        AlignHorizontal(pxSize.x * 0.5f, anchor, left, right);
-        AlignVertical(pxSize.y * 0.5f, anchor, up, down);
+        AlignHorizontal(spriteSize.x * 0.5f, anchor, left, right);
+        AlignVertical(spriteSize.y * 0.5f, anchor, up, down);
 
         m2::PointD const pixelOffset = renderInfo.m_pixelOffset;
         glsl::vec2 const offset(pixelOffset.x, pixelOffset.y);

@@ -2965,17 +2965,19 @@ m2::AnyRectD TapInfo::GetDefaultTapRect(m2::PointD const & mercator, ScreenBase 
 }
 
 // static
-m2::AnyRectD TapInfo::GetBookmarkTapRect(m2::PointD const & mercator, ScreenBase const & screen)
+m2::AnyRectD TapInfo::GetBookmarkTapRect(m2::PointD const & mercator, ScreenBase const & screen, double symbolScale)
 {
-  static int constexpr kBmTouchPixelIncrease = 20;
+  int constexpr kVerticalPadding = 20;
+  auto const & visualParams = VisualParams::Instance();
 
-  double const bmAddition = kBmTouchPixelIncrease * VisualParams::Instance().GetVisualScale();
-  double const halfSize = VisualParams::Instance().GetTouchRectRadius();
-  double const pxWidth = halfSize;
-  double const pxHeight = halfSize + bmAddition;
+  // Preserve the minimum touch target when smaller text also shrinks the icon.
+  double const touchScale = std::max(1.0, symbolScale);
+  double const verticalPadding = kVerticalPadding * visualParams.GetVisualScale() * touchScale;
+  double const halfWidth = visualParams.GetTouchRectRadius() * touchScale;
 
   // No need in GtoPWrap since screen.GetTouchRect makes PtoG inside :)
-  return screen.GetTouchRect(screen.GtoP(mercator) + m2::PointD(0, bmAddition), pxWidth, pxHeight);
+  return screen.GetTouchRect(screen.GtoP(mercator) + m2::PointD(0, verticalPadding), halfWidth,
+                             halfWidth + verticalPadding);
 }
 
 // static
