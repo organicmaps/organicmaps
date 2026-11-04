@@ -496,6 +496,19 @@ private:
   EChangeType const m_changeType;
 };
 
+class SetMyPositionVisibilityMessage : public Message
+{
+public:
+  explicit SetMyPositionVisibilityMessage(bool isVisible) : m_isVisible(isVisible) {}
+
+  Type GetType() const override { return Type::SetMyPositionVisibility; }
+
+  bool IsVisible() const { return m_isVisible; }
+
+private:
+  bool const m_isVisible;
+};
+
 class CompassInfoMessage : public Message
 {
 public:

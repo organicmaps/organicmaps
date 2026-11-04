@@ -513,6 +513,12 @@ void DrapeEngine::StopLocationFollow()
                                   MessagePriority::Normal);
 }
 
+void DrapeEngine::SetMyPositionVisibility(bool isVisible)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<SetMyPositionVisibilityMessage>(isVisible), MessagePriority::Normal);
+}
+
 void DrapeEngine::FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d, bool enableAutoZoom, bool isArrowGlued)
 {
   m_threadCommutator->PostMessage(
