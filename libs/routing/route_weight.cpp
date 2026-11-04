@@ -118,10 +118,7 @@ double RouteWeight::GetIntegratedWeight() const
 {
   double res = m_weight;
 
-  // |m_numPassThroughChanges| may be negative: IndexGraphStarter credits the mandatory "leave start /
-  // arrive finish" crossing when an ending lies in a non-pass-through (living/service) zone. Such a
-  // crossing is not a cut-through, so only a positive remainder (a genuine pass-through) is charged.
-  if (m_numPassThroughChanges > 0)
+  if (m_numPassThroughChanges)
     res += m_numPassThroughChanges * s_PassThroughPenaltyS;
 
   if (m_numAccessChanges)
