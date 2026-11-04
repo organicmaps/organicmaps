@@ -77,18 +77,29 @@ public final class RoutingUtils
     if (info.lanes != null)
     {
       for (final LaneInfo laneInfo : info.lanes)
-      {
-        final Lane.Builder laneBuilder = new Lane.Builder();
-        for (final LaneWay laneWay : laneInfo.mLaneWays)
-          laneBuilder.addDirection(
-              RoutingHelpers.createLaneDirection(laneWay, /* isRecommended */ laneWay == laneInfo.mActiveLaneWay));
-        builder.addLane(laneBuilder.build());
-      }
+        builder.addLane(createLane(laneInfo));
       final LanesDrawable lanesDrawable = new LanesDrawable(context, info.lanes);
       final Bitmap lanesBitmap = Graphics.drawableToBitmap(lanesDrawable);
       builder.setLanesImage(new CarIcon.Builder(IconCompat.createWithBitmap(lanesBitmap)).build());
     }
 
+    return builder.build();
+  }
+
+  @NonNull
+  static Lane createLane(@NonNull LaneInfo laneInfo)
+  {
+    final Lane.Builder builder = new Lane.Builder();
+    final LaneWay activeWay = laneInfo.mActiveLaneWay;
+    // An unrestricted lane has no tagged direction; the core supplies its recommended turn separately.
+    if (activeWay != LaneWay.None
+        && (laneInfo.mLaneWays.length == 0
+            || (laneInfo.mLaneWays.length == 1 && laneInfo.mLaneWays[0] == LaneWay.None)))
+      return builder.addDirection(RoutingHelpers.createLaneDirection(activeWay, /* isRecommended */ true)).build();
+
+    for (final LaneWay laneWay : laneInfo.mLaneWays)
+      builder.addDirection(RoutingHelpers.createLaneDirection(
+          laneWay, /* isRecommended */ activeWay != LaneWay.None && laneWay == activeWay));
     return builder.build();
   }
 
