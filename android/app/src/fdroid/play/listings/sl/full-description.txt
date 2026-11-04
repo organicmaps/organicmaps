@@ -1,33 +1,42 @@
-Organic Maps je hitra, podrobna offline aplikacija za karte in GPS navigacijo za potovanja, pohodništvo, treking in kolesarske avanture. Načrtujte, uvozite in beležite poti ter uživajte v gladkem vodenju brez praznjenja baterije ali uporabe internetne povezave. Raziščite kraje in se varno navigirajte med svojimi zunanjimi avanturami in potovanji po svetu. Aplikacija ponuja neomejeno prenos kart in dvotedenske posodobitve. Temelji na OpenStreetMap, jo izdelujejo prostovoljci, daje prednost zasebnosti, je 100 % offline in popolnoma brezplačna.
+Organic Maps je hitra in podrobna aplikacija za offline zemljevide in GPS navigacijo za potovanja, pohodništvo, treking in kolesarske dogodivščine. Načrtujte, uvozite in beležite poti ter uživajte v tekočem vodenju brez praznjenja baterije in brez internetne povezave. Aplikacija ponuja neomejen prenos zemljevidov in posodobitve vsaka dva tedna. Temelji na OpenStreetMap, ustvarjajo jo prostovoljci, daje prednost zasebnosti, deluje 100 % offline in je popolnoma brezplačna.
 
-<b>OFFLINE:</b> Aplikacija deluje 100 % offline — vključno z iskanjem in navigacijo. Karte lahko raziskujete in se navigirate brez internetne povezave, prihranite mobilne podatke in stroške roaminga. Brez prenosa podatkov v ozadju baterija zdrži dlje.
+<b>OFFLINE:</b> Aplikacija deluje 100 % offline – vključno z iskanjem in navigacijo. Zemljevid lahko raziskujete in se po njem vodite brez internetne povezave ter tako prihranite mobilne podatke in stroške gostovanja. Ker v ozadju ni prenosa podatkov, baterija zdrži precej dlje.
 
 <b>HITRO:</b> Povečevanje, iskanje in izračun poti delujejo opazno hitro.
 
-<b>PODROBNÉ IN POSODOBLJENO:</b> Karte so bogate s podrobnostmi in osvežene dvakrat na mesec, da odražajo realne pogoje. Vključujejo oznake stavb, klopi, pohodniške poti in druge koristne informacije.
+<b>PODROBNO IN POSODOBLJENO:</b> Zemljevidi so bogati s podrobnostmi in se osvežijo dvakrat na mesec, da odražajo dejansko stanje. Za razliko od mnogih znanih konkurentov vključujejo imena stavb, klopi, pohodniške poti in druge koristne informacije.
 
-<b>NA PODLAGI OPENSTREETMAP:</b> OpenStreetMap je svetovna karta v slogu wiki, ki jo ustvarjajo in vzdržujejo milijoni prostovoljcev. Organic Maps posodablja podatke vsakih 14 dni, da so vaše karte sveže in zanesljive. Če opazite kaj manjkajočega, lahko to dodate v OpenStreetMap in pomagate izboljšati karto za vse.
+<b>NA PODLAGI OPENSTREETMAP:</b> OpenStreetMap je svetovni zemljevid v slogu wikija, ki ga ustvarjajo in vzdržujejo milijoni prostovoljcev – domačinov, ki svoje okolje najbolje poznajo. Zahvaljujoč temu skupnemu delu so zemljevidi zelo podrobni in na manj kartiranih območjih pogosto natančnejši od komercialnih. Organic Maps posodablja podatke iz OpenStreetMap vsaka dva tedna, zato so vaši zemljevidi vedno sveži in zanesljivi. Če opazite, da kaj manjka, lahko to sami dodate v OpenStreetMap in pomagate izboljšati zemljevid za vse.
 
-<b>ZAŠČITA ZASEBNOSTI:</b> Ne zbiramo nobenih podatkov ali identifikatorjev. Ni tveganja uhajanja podatkov in nobenih motenj, kot so oglasi ali hrupna obvestila — samo čista, zasebna izkušnja z zemljevidom.
+<b>ZASEBNOST NA PRVEM MESTU:</b> Ne zbiramo nobenih podatkov ali identifikatorjev. Ni tveganja za uhajanje podatkov in ni motenj, kot so oglasi ali vsiljiva obvestila – samo čista, zasebna izkušnja z zemljevidom.
 
 <b>POMEMBNE FUNKCIJE</b>
-<b>RAZISKOVANJE MEST:</b> Iščite po naslovu, imenu ali kategoriji, odkrijte milijone POI-jev in si oglejte podrobne informacije.
 
-<b>GPS NAVIGACIJA:</b> Uživajte v glasovno vodeni navigaciji. Ustvarite peš, pohodniške, kolesarske ali avtomobilske poti — vključno s potmi med mesti, državami in več postajami.
+<b>RAZISKOVANJE KRAJEV:</b> Iščite po naslovu, imenu ali kategoriji, odkrijte milijone zanimivih krajev in si oglejte podrobnosti, kot so delovni čas, članki z Wikipedije, dostopnost za invalidske vozičke in druge koristne informacije.
 
-<b>POHODNIŠKE IN KOLESARSKE POTI:</b> Aktivirajte posebne sloje zemljevidov za odkrivanje priljubljenih poti po svetu.
+<b>GPS NAVIGACIJA:</b> Glasovna navodila ob vsakem zavoju. Ustvarite peš, pohodniške, kolesarske ali avtomobilske poti – tudi med mesti in državami ter z več vmesnimi točkami. Poiščite najboljše poti z javnim prevozom za izlete in vsakodnevne vožnje. Podprt je Android Auto.
 
-<b>JAVNI PREVOZ:</b> Oglejte si številke javnega prevoza na postajah.
-<b>STILI ZEMLJEVIDOV:</b> Izberite sloje zemljevidov glede na vašo dejavnost — na prostem, konture, pohodništvo, kolesarjenje ali metro/podzemna železnica.
+<b>POHODNIŠKE IN KOLESARSKE POTI Z VSEGA SVETA:</b> Vklopite posebne sloje zemljevida in odkrijte priljubljene pohodniške in kolesarske poti po vsem svetu – vse iz OpenStreetMap. Preklapljajte med sloji in si oglejte barvne kolesarske in MTB poti ter uradne pohodniške poti.
 
-<b>SNEMALNIK POTI:</b> Beležite, uvozite, izvozite in delite svoje poti in najljubše kraje.
+<b>JAVNI PREVOZ:</b> Načrtujte poti z javnim prevozom – metro, lahka železnica, avtobus in tramvaj. Oglejte si številke linij na postajališčih.
 
-<b>ČLANKI WIKIPEDIJE:</b> Raziščite članke Wikipedije o krajih na zemljevidu.
+<b>SLOGI ZEMLJEVIDA:</b> Izberite sloj glede na dejavnost – Na prostem, Plastnice, Pohodništvo, Kolesarjenje ali Metro.
 
-<b>UREJEVALEC ZEMLJEVIDOV:</b> Prispevajte k OpenStreetMap z dodajanjem manjkajočih krajev ali urejanjem zemljevida neposredno iz Organic Maps.
+<b>SNEMALNIK POTI:</b> Beležite, uvozite, izvozite in delite svoje poti in najljubše kraje. Podprti formati: KML, KMZ, GPX in GeoJSON.
 
-<b>TEMNI NAČIN:</b> Preklopite na temni način za udobno gledanje ponoči.
+<b>ČLANKI Z WIKIPEDIJE:</b> Berite članke z Wikipedije o krajih na zemljevidu. V iskanje vpišite »?wiki« in prikazali se bodo vsi kraji s članki.
 
-Preizkusite aplikacijo — 100 % brezplačna, brez oglasov, hitra in popolnoma offline. Uživajte v zanesljivi GPS navigaciji za pohodništvo, kolesarjenje, treking in potovanja kjerkoli na svetu!
+<b>UREJEVALNIK ZEMLJEVIDA:</b> Prispevajte k OpenStreetMap z dodajanjem manjkajočih krajev ali urejanjem zemljevida neposredno v Organic Maps.
 
-Pridružite se skupnosti na Telegramu: @OrganicMapsApp Podprite projekt: https://organicmaps.app/contribute/
+<b>TEMNI NAČIN:</b> Preklopite na temno temo za udobno uporabo ponoči.
+
+Preizkusite aplikacijo – 100 % brezplačna, brez oglasov, hitra in popolnoma offline.
+
+Organic Maps je neodvisen odprtokodni projekt skupnosti, v katerem na stotine sodelavcev razvija nove funkcije, odpravlja napake, prevaja in izboljšuje projekt.
+
+Pridružite se skupnosti na Telegramu: @OrganicMapsApp
+Podprite projekt: https://organicmaps.app/contribute/
+
+Sledite nam na Instagramu: @organicmaps.app
+
+Vaše ocene in mnenja v trgovini nas motivirajo! Imate vprašanja? Obiščite organicmaps.app.
