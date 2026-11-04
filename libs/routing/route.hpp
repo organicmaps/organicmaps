@@ -420,8 +420,8 @@ public:
 
   Route() = default;
 
-  /// \brief Promote an alternative (RouteBase) to a followed Route. The base's segments and their start
-  /// point are used to (re)build the FollowedPolyline for follow-time matching.
+  /// \brief Promote an alternative (RouteBase) to a followed Route, retaining all segment geometry.
+  /// Matching starts at the active subroute; passed segments remain available for distance and turn queries.
   explicit Route(RouteBase const & base) : RouteBase(base) { RebuildFollowedPolyline(); }
 
   Route(Route const & rhs) = default;
@@ -544,7 +544,12 @@ private:
   void UpdatePolySubrouteIdx()
   {
     ASSERT_LESS(m_currentSubrouteIdx, m_subrouteAttrs.size(), ());
-    m_poly.SetNextCheckpointIndex(m_subrouteAttrs[m_currentSubrouteIdx].GetEndSegmentIdx());
+    auto const & attrs = m_subrouteAttrs[m_currentSubrouteIdx];
+    auto endIdx = attrs.GetEndSegmentIdx();
+    // Matching the first remaining segment lets an empty leg's checkpoint be marked passed.
+    if (attrs.GetSize() == 0 && endIdx + 1 < m_poly.GetPolyline().GetSize())
+      ++endIdx;
+    m_poly.SetNextCheckpointIndex(endIdx);
   }
 
   void UpdatePolyFakeIdx();

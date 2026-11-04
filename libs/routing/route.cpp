@@ -80,8 +80,7 @@ void RouteBase::SetRouteSegments(std::vector<RouteSegment> && routeSegments)
 
 RouteBase::SubrouteAttrs const & RouteBase::GetFirstNonEmptySubroute() const
 {
-  // Leading subroutes can be empty because PushPassedSubroutes() (index_router.cpp:140)
-  // emplaces a [0, 0) subroute per already-passed checkpoint.
+  // Already-passed checkpoints can have [0, 0) subroutes with no retained segments.
   auto const it = std::find_if(m_subrouteAttrs.begin(), m_subrouteAttrs.end(),
                                [](SubrouteAttrs const & attrs) { return attrs.GetSize() != 0; });
   CHECK(it != m_subrouteAttrs.end(), ());
@@ -318,12 +317,14 @@ void Route::RebuildFollowedPolyline()
     FollowedPolyline().Swap(m_poly);
     return;
   }
+  ASSERT_LESS(m_currentSubrouteIdx, m_subrouteAttrs.size(), ());
 
   std::vector<m2::PointD> pts;
   pts.reserve(m_routeSegments.size() + 1);
   ForEachPoint([&pts](geometry::PointWithAltitude const & p) { pts.push_back(p.GetPoint()); });
 
-  FollowedPolyline(pts.begin(), pts.end()).Swap(m_poly);
+  // Start at the active leg while retaining geometry and segment indices used by distances and turns.
+  FollowedPolyline(pts.begin(), pts.end(), m_subrouteAttrs[m_currentSubrouteIdx].GetBeginSegmentIdx()).Swap(m_poly);
   UpdatePolySubrouteIdx();
   UpdatePolyFakeIdx();
 }
