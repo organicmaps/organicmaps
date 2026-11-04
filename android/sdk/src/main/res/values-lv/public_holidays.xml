@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: public_holidays -->
+    <!-- Countries: DE, LT, LV, PL -->
+    <string name="_2nd_day_of_christmas">Otrie Ziemassvētki</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MT, MX, NL, PL, PT, SE, SI, SK, SM, ZA -->
+    <string name="christmas_day_catholic">Pirmie Ziemassvētki</string>
+    <!-- Countries: BG, CZ, EE, LT, LV, PL, SK -->
+    <string name="christmas_eve_catholic">Ziemassvētku vakars</string>
+    <!-- Countries: LV -->
+    <string name="day_of_the_proclamation_of_the_republic_of_latvia">Latvijas Republikas Proklamēšanas diena</string>
+    <!-- Countries: LV -->
+    <string name="day_of_the_restoration_of_independence">Latvijas Republikas Neatkarības atjaunošanas diena</string>
+    <!-- Countries: AD, AL, AT, BE, BG, CZ, DE, ES-CT, ES-IB, ES-NC, ES-PV, ES-VC, FR, HR, HU, IE, IT, LI, LT, LV, MC, NL, PL, SE, SI, SK, SM -->
+    <string name="easter_monday">Otrās Lieldienas</string>
+    <!-- Countries: AL, BG, EE, LT, LV, NL, PL, PT, SE, SI -->
+    <string name="easter_sunday">Pirmās Lieldienas</string>
+    <!-- Countries: AD, BG, CZ, DE, EE, ES, HU, LV, MT, NL, PT, RS, SE, SK, ZA -->
+    <string name="good_friday">Lielā Piektdiena</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CZ, DE, ES, FR, HR, HU, IT, LI, LT, LV, MC, MD, MX, PL, PT, RO, RS, SE, SI, SK, SM -->
+    <string name="labour_day">Darba svētki</string>
+    <!-- Countries: EE, LT, LV, SE -->
+    <string name="midsummer_day">Jāņu diena</string>
+    <!-- Countries: LV -->
+    <string name="midsummers_eve">Līgo diena</string>
+    <!-- Countries: LV -->
+    <string name="mothers_day">Mātes diena</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MD, MT, MX, NL, PL, PT, RO, RS, SE, SI, ZA -->
+    <string name="new_years_day">Jaungada diena</string>
+    <!-- Countries: LV -->
+    <string name="new_years_eve">Vecgada diena</string>
+    <!-- Countries: BE, EE, LV, PL -->
+    <string name="pentecost">Vasarsvētki</string>
+</resources>

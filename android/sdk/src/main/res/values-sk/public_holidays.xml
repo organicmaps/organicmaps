@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: public_holidays -->
+    <!-- Countries: AD, AT, BE, ES, FR, HR, HU, IT, LI, LT, MC, PL, PT, SE, SK, SM -->
+    <string name="all_saints_day">Sviatok všetkých svätých</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MT, MX, NL, PL, PT, SE, SI, SK, SM, ZA -->
+    <string name="christmas_day_catholic">Prvý sviatok vianočný</string>
+    <!-- Countries: BG, CZ, EE, LT, LV, PL, SK -->
+    <string name="christmas_eve_catholic">Štedrý deň</string>
+    <!-- Countries: SK -->
+    <string name="day_of_our_lady_of_the_seven_sorrows">Sedembolestná Panna Mária</string>
+    <!-- Countries: CZ, SK -->
+    <string name="day_of_struggle_for_freedom_and_democracy">Deň boja za slobodu a demokraciu</string>
+    <!-- Countries: SK -->
+    <string name="day_of_the_slovak_republic">Deň vzniku Slovenskej republiky</string>
+    <!-- Countries: SK -->
+    <string name="day_of_victory_over_fascism">Deň víťazstva nad fašizmom</string>
+    <!-- Countries: AD, AL, AT, BE, BG, CZ, DE, ES-CT, ES-IB, ES-NC, ES-PV, ES-VC, FR, HR, HU, IE, IT, LI, LT, LV, MC, NL, PL, SE, SI, SK, SM -->
+    <string name="easter_monday">Veľkonočný pondelok</string>
+    <!-- Countries: AD, AT, ES, HR, IT, LI, PL, RO, SE, SK, SM -->
+    <string name="epiphany">Zjavenie Pána</string>
+    <!-- Countries: AD, BG, CZ, DE, EE, ES, HU, LV, MT, NL, PT, RS, SE, SK, ZA -->
+    <string name="good_friday">Veľký piatok</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CZ, DE, ES, FR, HR, HU, IT, LI, LT, LV, MC, MD, MX, PL, PT, RO, RS, SE, SI, SK, SM -->
+    <string name="labour_day">Sviatok práce</string>
+    <!-- Countries: CZ, RO, SK -->
+    <string name="second_christmas_day">Druhý sviatok vianočný</string>
+    <!-- Countries: SK -->
+    <string name="slovak_national_uprising_anniversary">Výročie Slovenského národného povstania</string>
+    <!-- Countries: CZ, SK -->
+    <string name="st_cyril_and_methodius_day">Sviatok svätého Cyrila a Metoda</string>
+</resources>
