@@ -68,8 +68,13 @@
       if (minutes < 60)
       {  // less than 1 hour
         _openStatusColor = UIColor.systemYellowColor;
-        NSString * time = [NSString stringWithFormat:@"%d %@", minutes, L(@"minute")];
-        _openStatusText = [NSString stringWithFormat:L(@"closes_in"), time];
+        if (minutes == 0)
+          _openStatusText = L(@"closes_in_less_than_a_minute");
+        else
+        {
+          NSString * time = [NSString stringWithFormat:@"%d %@", minutes, L(@"minute")];
+          _openStatusText = [NSString stringWithFormat:L(@"closes_in"), time];
+        }
       }
       else
       {
@@ -83,8 +88,13 @@
       int const minutes = result.GetMinutesUntilOpen();
       if (minutes < 60)
       {  // less than 1 hour
-        NSString * time = [NSString stringWithFormat:@"%d %@", minutes, L(@"minute")];
-        _openStatusText = [NSString stringWithFormat:L(@"opens_in"), time];
+        if (minutes == 0)
+          _openStatusText = L(@"opens_in_less_than_a_minute");
+        else
+        {
+          NSString * time = [NSString stringWithFormat:@"%d %@", minutes, L(@"minute")];
+          _openStatusText = [NSString stringWithFormat:L(@"opens_in"), time];
+        }
       }
       else
       {

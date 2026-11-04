@@ -153,10 +153,16 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
       {
         if (result.description.minutesUntilClosed < 60) // less than 1 hour
         {
-          final String time = result.description.minutesUntilClosed + " " + resources.getString(R.string.minute);
-          final String string = resources.getString(R.string.closes_in, time);
-
-          UiUtils.setTextAndShow(mOpen, string);
+          if (result.description.minutesUntilClosed == 0)
+          {
+            UiUtils.setTextAndShow(mOpen, resources.getString(R.string.closes_in_less_than_a_minute));
+          }
+          else
+          {
+            final String time = result.description.minutesUntilClosed + " " + resources.getString(R.string.minute);
+            final String string = resources.getString(R.string.closes_in, time);
+            UiUtils.setTextAndShow(mOpen, string);
+          }
           mOpen.setTextColor(ContextCompat.getColor(mSearchFragment.getContext(), R.color.base_yellow));
         }
         else
@@ -169,10 +175,16 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
       {
         if (result.description.minutesUntilOpen < 60) // less than 1 hour
         {
-          final String time = result.description.minutesUntilOpen + " " + resources.getString(R.string.minute);
-          final String string = resources.getString(R.string.opens_in, time);
-
-          UiUtils.setTextAndShow(mOpen, string);
+          if (result.description.minutesUntilOpen == 0)
+          {
+            UiUtils.setTextAndShow(mOpen, resources.getString(R.string.opens_in_less_than_a_minute));
+          }
+          else
+          {
+            final String time = result.description.minutesUntilOpen + " " + resources.getString(R.string.minute);
+            final String string = resources.getString(R.string.opens_in, time);
+            UiUtils.setTextAndShow(mOpen, string);
+          }
           mOpen.setTextColor(ContextCompat.getColor(mSearchFragment.getContext(), R.color.base_red));
         }
         else
