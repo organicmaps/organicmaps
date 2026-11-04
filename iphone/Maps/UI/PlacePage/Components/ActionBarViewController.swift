@@ -90,7 +90,7 @@ final class ActionBarViewController: UIViewController {
     }
 
     guard !buttons.isEmpty else { return }
-    let maxVisibleButtons = 5
+    let maxVisibleButtons = 5 - visibleButtons.count
     if buttons.count > maxVisibleButtons {
       visibleButtons.append(contentsOf: buttons.prefix(maxVisibleButtons - 1))
       visibleButtons.append(.more)
@@ -155,6 +155,24 @@ final class ActionBarViewController: UIViewController {
   }
 
   // MARK: - Public methods
+
+  func bindMapDownloadUpdates(onStatusUpdate: (() -> Void)? = nil) {
+    placePageData.onMapNodeStatusUpdate = { [weak self] in
+      guard let self = self else { return }
+      self.updateDownloadButtonState(self.placePageData.mapNodeAttributes!.nodeStatus)
+      onStatusUpdate?()
+      switch self.placePageData.mapNodeAttributes!.nodeStatus {
+      case .onDisk, .onDiskOutOfDate, .undefined, .inQueue:
+        self.resetButtons()
+      default:
+        break
+      }
+    }
+    placePageData.onMapNodeProgressUpdate = { [weak self] downloadedBytes, totalBytes in
+      guard let downloadButton = self?.downloadButton else { return }
+      downloadButton.mapDownloadProgress?.progress = CGFloat(downloadedBytes) / CGFloat(totalBytes)
+    }
+  }
 
   func resetButtons() {
     for arrangedSubview in stackView.arrangedSubviews {
