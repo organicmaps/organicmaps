@@ -83,6 +83,13 @@ double CalcClimbSegment(EdgeEstimator::Purpose purpose, Segment const & segment,
   return distanceM / speedMpS;
 }
 
+// Turns onto and off service roads and living streets, see CarEstimator::GetTurnPenalty.
+double constexpr kServiceTurnPenaltyS = 30.0;
+
+bool IsServiceOrLivingStreet(HighwayType type)
+{
+  return type == HighwayType::HighwayService || type == HighwayType::HighwayLivingStreet;
+}
 }  // namespace
 
 double GetPedestrianClimbPenalty(EdgeEstimator::Purpose purpose, double tangent, geometry::Altitude altitudeM)
@@ -416,6 +423,15 @@ public:
     case Purpose::ETA: return 20 * 60;     // seconds
     }
     UNREACHABLE();
+  }
+
+  double GetTurnPenalty(Purpose purpose, std::optional<HighwayType> from, std::optional<HighwayType> to) const override
+  {
+    // Turns onto and off service roads (parking aisles, driveways) and living streets are slow, and these roads are
+    // not for through traffic. A route preference: the ETA is not changed.
+    if (purpose != Purpose::Weight || !from || !to)
+      return 0.0;
+    return IsServiceOrLivingStreet(*from) != IsServiceOrLivingStreet(*to) ? kServiceTurnPenaltyS : 0.0;
   }
 
 private:

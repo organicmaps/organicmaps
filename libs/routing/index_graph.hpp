@@ -154,8 +154,7 @@ private:
 
   struct PenaltyData
   {
-    explicit PenaltyData(bool isFerry) : m_isFerry(isFerry) {}
-
+    std::optional<HighwayType> m_highwayType;
     bool m_isFerry;
   };
 
@@ -167,6 +166,8 @@ private:
   /// path until |u|.
   RouteWeight GetPenalties(EdgeEstimator::Purpose purpose, Segment const & u, Segment const & v,
                            std::optional<RouteWeight> const & prevWeight) const;
+  /// \returns true if |v| of another feature turns from |u|, rather than continues it straight.
+  bool IsTurn(Segment const & u, Segment const & v) const;
 
   void GetSegmentCandidateForRoadPoint(RoadPoint const & rp, NumMwmId numMwmId, bool isOutgoing,
                                        SegmentListT & children) const;
