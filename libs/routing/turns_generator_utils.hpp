@@ -77,8 +77,10 @@ double CalcEstimatedTimeToPass(double const distanceMeters, ftypes::HighwayClass
 /// \returns true if |path| is loop connected to the PartOfReal segments.
 bool PathIsFakeLoop(RouteJunctions const & path);
 
-// Returns distance in meters between |junctions[start]| and |junctions[end]|.
-double CalcRouteDistanceM(RouteJunctions const & junctions, uint32_t start, uint32_t end);
+// Returns the distance in meters along the whole path.
+double CalcRouteDistanceM(RouteJunctions const & junctions);
+void AddApproachLanes(TUnpackedPathSegments const & loadedSegments, size_t loadedSegmentIndex,
+                      std::vector<RouteSegment> const & routeSegments, TurnItem & turn);
 
 /*!
  * \brief Index of point in TUnpackedPathSegments. |m_segmentIndex| is a zero based index in vector

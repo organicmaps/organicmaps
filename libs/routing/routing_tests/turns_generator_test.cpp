@@ -12,6 +12,8 @@
 
 #include "indexer/ftypes_matcher.hpp"
 
+#include "platform/location.hpp"
+
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/point_with_altitude.hpp"
@@ -63,6 +65,245 @@ public:
 private:
   TUnpackedPathSegments m_segments;
 };
+
+UNIT_TEST(ApproachLanesFollowShortSplitsWithoutCrossingTurns)
+{
+  using namespace turns::lanes;
+
+  vector<m2::PointD> const points = {mercator::FromLatLon(0.0, 0.0), mercator::FromLatLon(0.0, 0.00009),
+                                     mercator::FromLatLon(0.0, 0.00018), mercator::FromLatLon(0.0, 0.00027)};
+  auto const makeLanes = [](size_t count)
+  {
+    LanesInfo lanes(count - 1, {{LaneWay::Through}});
+    lanes.push_back({{LaneWay::Right}});
+    return lanes;
+  };
+
+  TUnpackedPathSegments loadedSegments(3);
+  for (size_t i = 0; i < loadedSegments.size(); ++i)
+  {
+    auto & segment = loadedSegments[i];
+    segment.m_path = {{points[i], geometry::kDefaultAltitudeMeters}, {points[i + 1], geometry::kDefaultAltitudeMeters}};
+    segment.m_segments = {{0, 0, static_cast<uint32_t>(i), true}};
+    segment.m_roadNameInfo = RouteSegment::RoadNameInfo("Main");
+    segment.m_lanes = makeLanes(6 - i);
+  }
+
+  TurnItem turn(3, CarDirection::TurnRight);
+  turn.m_lanes = loadedSegments.back().m_lanes;
+  vector<RouteSegment> routeSegments;
+  RouteSegmentsFrom({}, points, {{1, CarDirection::None}, {2, CarDirection::None}, turn}, {}, routeSegments);
+  AddApproachLanes(loadedSegments, 2, routeSegments, turn);
+  TEST_EQUAL(turn.m_approachLanes.size(), 2, ());
+  TEST_EQUAL(turn.m_approachLanes[0].m_splitIndex, 2, ());
+  TEST_EQUAL(turn.m_approachLanes[0].m_offset, 1, ());
+  TEST_EQUAL(turn.m_approachLanes[0].m_lanes, makeLanes(5), ());
+  TEST_EQUAL(turn.m_approachLanes[1].m_splitIndex, 1, ());
+  TEST_EQUAL(turn.m_approachLanes[1].m_offset, 1, ());
+  TEST_EQUAL(turn.m_approachLanes[1].m_lanes, makeLanes(6), ());
+  TEST_EQUAL(turn.m_approachLanesBeginIndex, 0, ());
+
+  routeSegments.clear();
+  RouteSegmentsFrom({}, points, {{1, CarDirection::None}, {2, CarDirection::None}, turn}, {}, routeSegments);
+  FixupCarTurns(routeSegments);
+  Route route;
+  route.SetRoutingSettings(GetRoutingSettings(VehicleType::Car));
+  route.SetGeometry(points.begin(), points.end());
+  route.SetRouteSegments(std::move(routeSegments));
+
+  auto const getGps = [](m2::PointD const & point)
+  {
+    location::GpsInfo gps;
+    gps.m_latitude = mercator::YToLat(point.y);
+    gps.m_longitude = mercator::XToLon(point.x);
+    gps.m_horizontalAccuracy = 2;
+    return gps;
+  };
+
+  double distance = 0.0;
+  TurnItem nextTurn;
+  for (size_t i = 0; i < 3; ++i)
+  {
+    auto const point = (points[i] + points[i + 1]) / 2;
+    TEST(route.MoveIterator(getGps(point)), ());
+    route.GetNearestTurn(distance, nextTurn);
+    TEST_EQUAL(nextTurn.m_lanes.size(), 6 - i, (i));
+    TEST_EQUAL(nextTurn.m_lanes.back().recommendedWay, LaneWay::Right, (i));
+  }
+
+  // The two short segments together exceed the limit, so only one split is retained.
+  loadedSegments[1].m_path = {{points[0], geometry::kDefaultAltitudeMeters},
+                              {points[2], geometry::kDefaultAltitudeMeters}};
+  loadedSegments[2].m_path = {{points[1], geometry::kDefaultAltitudeMeters},
+                              {points[3], geometry::kDefaultAltitudeMeters}};
+  turn.m_approachLanes.clear();
+  routeSegments.clear();
+  RouteSegmentsFrom({}, points, {{1, CarDirection::None}, {2, CarDirection::None}, turn}, {}, routeSegments);
+  AddApproachLanes(loadedSegments, 2, routeSegments, turn);
+  TEST_EQUAL(turn.m_approachLanes.size(), 1, ());
+  loadedSegments[1].m_path = {{points[1], geometry::kDefaultAltitudeMeters},
+                              {points[2], geometry::kDefaultAltitudeMeters}};
+  loadedSegments[2].m_path = {{points[2], geometry::kDefaultAltitudeMeters},
+                              {points[3], geometry::kDefaultAltitudeMeters}};
+
+  // A previous turn only one short segment away blocks the lookup.
+  routeSegments.clear();
+  RouteSegmentsFrom({}, points, {{1, CarDirection::None}, {2, CarDirection::TurnLeft}, turn}, {}, routeSegments);
+  turn.m_approachLanes.clear();
+  AddApproachLanes(loadedSegments, 2, routeSegments, turn);
+  TEST(turn.m_approachLanes.empty(), ());
+
+  // A change of road blocks it even if there was no explicit maneuver.
+  loadedSegments[1].m_roadNameInfo = RouteSegment::RoadNameInfo("Side");
+  routeSegments.clear();
+  RouteSegmentsFrom({}, points, {{1, CarDirection::None}, {2, CarDirection::None}, turn}, {}, routeSegments);
+  AddApproachLanes(loadedSegments, 2, routeSegments, turn);
+  TEST(turn.m_approachLanes.empty(), ());
+
+  // An older segment across the road boundary must not inherit the five-lane layout.
+  loadedSegments[1].m_roadNameInfo = RouteSegment::RoadNameInfo("Main");
+  loadedSegments[0].m_roadNameInfo = RouteSegment::RoadNameInfo("Side");
+  AddApproachLanes(loadedSegments, 2, routeSegments, turn);
+  TEST_EQUAL(turn.m_approachLanes.size(), 1, ());
+  TEST_EQUAL(turn.m_approachLanesBeginIndex, 1, ());
+
+  routeSegments.clear();
+  RouteSegmentsFrom({}, points, {{1, CarDirection::None}, {2, CarDirection::None}, turn}, {}, routeSegments);
+  FixupCarTurns(routeSegments);
+  Route boundedRoute;
+  boundedRoute.SetRoutingSettings(GetRoutingSettings(VehicleType::Car));
+  boundedRoute.SetGeometry(points.begin(), points.end());
+  boundedRoute.SetRouteSegments(std::move(routeSegments));
+  auto const beforeBoundary = (points[0] + points[1]) / 2;
+  TEST(boundedRoute.MoveIterator(getGps(beforeBoundary)), ());
+  boundedRoute.GetNearestTurn(distance, nextTurn);
+  TEST_EQUAL(nextTurn.m_lanes.size(), 4, ());
+  auto const afterBoundary = (points[1] + points[2]) / 2;
+  TEST(boundedRoute.MoveIterator(getGps(afterBoundary)), ());
+  boundedRoute.GetNearestTurn(distance, nextTurn);
+  TEST_EQUAL(nextTurn.m_lanes.size(), 5, ());
+}
+
+UNIT_TEST(ApproachLanesContinueAcrossIdenticalLayouts)
+{
+  using namespace turns::lanes;
+
+  vector<m2::PointD> const points = {mercator::FromLatLon(0.0, 0.0), mercator::FromLatLon(0.0, 0.00090),
+                                     mercator::FromLatLon(0.0, 0.00099), mercator::FromLatLon(0.0, 0.00108)};
+  auto const makeLanes = [](size_t count)
+  {
+    LanesInfo lanes(count - 1, {{LaneWay::Through}});
+    lanes.push_back({{LaneWay::Right}});
+    return lanes;
+  };
+
+  TUnpackedPathSegments loadedSegments(3);
+  for (size_t i = 0; i < loadedSegments.size(); ++i)
+  {
+    auto & segment = loadedSegments[i];
+    segment.m_path = {{points[i], geometry::kDefaultAltitudeMeters}, {points[i + 1], geometry::kDefaultAltitudeMeters}};
+    segment.m_segments = {{0, 0, static_cast<uint32_t>(i), true}};
+    segment.m_roadNameInfo = RouteSegment::RoadNameInfo("Main");
+  }
+
+  vector<RouteSegment> routeSegments;
+  RouteSegmentsFrom({}, points, {{1, CarDirection::None}, {2, CarDirection::None}, {3, CarDirection::TurnRight}}, {},
+                    routeSegments);
+
+  auto const checkDisplayedLanes = [&](TurnItem const & turn, vector<size_t> const & counts)
+  {
+    vector<RouteSegment> segments;
+    RouteSegmentsFrom({}, points, {{1, CarDirection::None}, {2, CarDirection::None}, turn}, {}, segments);
+    FixupCarTurns(segments);
+    Route route;
+    route.SetRoutingSettings(GetRoutingSettings(VehicleType::Car));
+    route.SetGeometry(points.begin(), points.end());
+    route.SetRouteSegments(std::move(segments));
+
+    for (size_t i = 0; i < counts.size(); ++i)
+    {
+      auto const point = (points[i] + points[i + 1]) / 2;
+      location::GpsInfo gps;
+      gps.m_latitude = mercator::YToLat(point.y);
+      gps.m_longitude = mercator::XToLon(point.x);
+      gps.m_horizontalAccuracy = 2;
+      TEST(route.MoveIterator(gps), (i));
+      double distance;
+      TurnItem nextTurn;
+      route.GetNearestTurn(distance, nextTurn);
+      TEST_EQUAL(nextTurn.m_lanes.size(), counts[i], (i));
+    }
+  };
+
+  loadedSegments[0].m_lanes = makeLanes(6);
+  loadedSegments[1].m_lanes = makeLanes(6);
+  loadedSegments[2].m_lanes = makeLanes(5);
+  TurnItem turn(3, CarDirection::TurnRight);
+  turn.m_lanes = loadedSegments[2].m_lanes;
+  AddApproachLanes(loadedSegments, 2, routeSegments, turn);
+  TEST_EQUAL(turn.m_approachLanes.size(), 1, ());
+  TEST_EQUAL(turn.m_approachLanes[0].m_splitIndex, 2, ());
+  TEST_EQUAL(turn.m_approachLanesBeginIndex, 0, ());
+  checkDisplayedLanes(turn, {6, 6, 5});
+
+  loadedSegments[1].m_lanes = makeLanes(5);
+  turn = TurnItem(3, CarDirection::TurnRight);
+  turn.m_lanes = loadedSegments[2].m_lanes;
+  AddApproachLanes(loadedSegments, 2, routeSegments, turn);
+  TEST_EQUAL(turn.m_approachLanes.size(), 1, ());
+  TEST_EQUAL(turn.m_approachLanes[0].m_splitIndex, 1, ());
+  TEST_EQUAL(turn.m_approachLanesBeginIndex, 0, ());
+  checkDisplayedLanes(turn, {6, 5, 5});
+
+  // A 40 m part after the split is too long to borrow the earlier layout.
+  loadedSegments[2].m_path.back() = {mercator::FromLatLon(0.0, 0.00135), geometry::kDefaultAltitudeMeters};
+  turn = TurnItem(3, CarDirection::TurnRight);
+  turn.m_lanes = loadedSegments[2].m_lanes;
+  AddApproachLanes(loadedSegments, 2, routeSegments, turn);
+  TEST(turn.m_approachLanes.empty(), ());
+}
+
+UNIT_TEST(ApproachLanesRecommendOnlySurvivingLane)
+{
+  using namespace turns::lanes;
+
+  vector<m2::PointD> const points = {mercator::FromLatLon(0.0, 0.0), mercator::FromLatLon(0.0, 0.00009),
+                                     mercator::FromLatLon(0.0, 0.00018)};
+  TUnpackedPathSegments loadedSegments(2);
+  for (size_t i = 0; i < loadedSegments.size(); ++i)
+  {
+    auto & segment = loadedSegments[i];
+    segment.m_path = {{points[i], geometry::kDefaultAltitudeMeters}, {points[i + 1], geometry::kDefaultAltitudeMeters}};
+    segment.m_segments = {{0, 0, static_cast<uint32_t>(i), true}};
+    segment.m_roadNameInfo = RouteSegment::RoadNameInfo("Main");
+  }
+
+  loadedSegments[0].m_lanes = {{{LaneWay::Left}}, {{LaneWay::Left}}, {{LaneWay::Through}}};
+  loadedSegments[1].m_lanes = {{{LaneWay::Left}}, {{LaneWay::Through}}};
+  TurnItem turn(2, CarDirection::TurnLeft);
+  turn.m_lanes = loadedSegments[1].m_lanes;
+  vector<RouteSegment> routeSegments;
+  RouteSegmentsFrom({}, points, {{1, CarDirection::None}, turn}, {}, routeSegments);
+  AddApproachLanes(loadedSegments, 1, routeSegments, turn);
+  TEST_EQUAL(turn.m_approachLanes.size(), 1, ());
+  TEST_EQUAL(turn.m_approachLanes[0].m_offset, 1, ());
+
+  routeSegments.clear();
+  RouteSegmentsFrom({}, points, {{1, CarDirection::None}, turn}, {}, routeSegments);
+  FixupCarTurns(routeSegments);
+  auto const & approach = routeSegments.back().GetTurn().m_approachLanes[0].m_lanes;
+  TEST_EQUAL(approach[0].recommendedWay, LaneWay::None, ());
+  TEST_EQUAL(approach[1].recommendedWay, LaneWay::Left, ());
+  TEST_EQUAL(approach[2].recommendedWay, LaneWay::None, ());
+
+  // Two identical matches cannot identify which lane stays on the route.
+  loadedSegments[0].m_lanes = {{{LaneWay::Left}}, {{LaneWay::Left}}};
+  loadedSegments[1].m_lanes = {{{LaneWay::Left}}};
+  turn = TurnItem(2, CarDirection::TurnLeft);
+  turn.m_lanes = loadedSegments[1].m_lanes;
+  AddApproachLanes(loadedSegments, 1, routeSegments, turn);
+  TEST(turn.m_approachLanes.empty(), ());
+}
 
 UNIT_TEST(TestFixupTurns)
 {

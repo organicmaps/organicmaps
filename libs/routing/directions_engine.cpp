@@ -5,6 +5,7 @@
 #include "routing/lanes/lanes_parser.hpp"
 #include "routing/routing_helpers.hpp"
 #include "routing/turns.hpp"
+#include "routing/turns_generator_utils.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
 
@@ -349,6 +350,8 @@ void DirectionsEngine::MakeTurnAnnotation(IndexRoadGraph::EdgeVector const & rou
     {
       turnItem.m_index = base::asserted_cast<uint32_t>(routeSegments.size() + 1);
       skipTurnSegments = GetTurnDirection(result, idxLoadedSegment + 1, *m_numMwmIds, vehicleSettings, turnItem);
+      if (!turnItem.m_lanes.empty())
+        AddApproachLanes(loadedSegments, idxLoadedSegment, routeSegments, turnItem);
     }
     else
       --skipTurnSegments;
