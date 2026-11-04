@@ -68,31 +68,30 @@ HighwayBasedSpeeds const kDefaultSpeeds = {
 
 // Default, no bridleway.
 VehicleModel::LimitsInitList const kDefaultOptions = {
-    // {HighwayType, passThroughAllowed}
-    {HighwayType::HighwayTrunk, true},
-    {HighwayType::HighwayTrunkLink, true},
-    {HighwayType::HighwayPrimary, true},
-    {HighwayType::HighwayPrimaryLink, true},
-    {HighwayType::HighwaySecondary, true},
-    {HighwayType::HighwaySecondaryLink, true},
-    {HighwayType::HighwayTertiary, true},
-    {HighwayType::HighwayTertiaryLink, true},
-    {HighwayType::HighwayService, true},
-    {HighwayType::HighwayUnclassified, true},
-    {HighwayType::HighwayRoad, true},
-    {HighwayType::HighwayTrack, true},
-    {HighwayType::HighwayPath, true},
+    {HighwayType::HighwayTrunk},
+    {HighwayType::HighwayTrunkLink},
+    {HighwayType::HighwayPrimary},
+    {HighwayType::HighwayPrimaryLink},
+    {HighwayType::HighwaySecondary},
+    {HighwayType::HighwaySecondaryLink},
+    {HighwayType::HighwayTertiary},
+    {HighwayType::HighwayTertiaryLink},
+    {HighwayType::HighwayService},
+    {HighwayType::HighwayUnclassified},
+    {HighwayType::HighwayRoad},
+    {HighwayType::HighwayTrack},
+    {HighwayType::HighwayPath},
     // HighwayBridleway is missing
-    {HighwayType::HighwayCycleway, true},
-    {HighwayType::HighwayResidential, true},
-    {HighwayType::HighwayLivingStreet, true},
+    {HighwayType::HighwayCycleway},
+    {HighwayType::HighwayResidential},
+    {HighwayType::HighwayLivingStreet},
     // HighwayLadder is missing
-    {HighwayType::HighwaySteps, true},
-    {HighwayType::HighwayPedestrian, true},
-    {HighwayType::HighwayPlatform, true},
-    {HighwayType::HighwayFootway, true},
-    {HighwayType::ManMadePier, true},
-    {HighwayType::RouteFerry, true},
+    {HighwayType::HighwaySteps},
+    {HighwayType::HighwayPedestrian},
+    {HighwayType::HighwayPlatform},
+    {HighwayType::HighwayFootway},
+    {HighwayType::ManMadePier},
+    {HighwayType::RouteFerry},
 };
 
 // Same as defaults except trunk and trunk_link are not allowed
@@ -118,7 +117,7 @@ HighwayBasedSpeeds NormalPedestrianSpeed()
 VehicleModel::LimitsInitList AllAllowed()
 {
   auto res = kDefaultOptions;
-  res.push_back({HighwayType::HighwayBridleway, true});
+  res.push_back({HighwayType::HighwayBridleway});
   return res;
 }
 
@@ -155,16 +154,6 @@ HighwayBasedSpeeds PreferFootwaysToRoads()
   res.Replace(HighwayType::HighwayPedestrian, footSpeed);
   res.Replace(HighwayType::HighwayFootway, footSpeed);
 
-  return res;
-}
-
-// No trunk, No pass through living_street and service
-VehicleModel::LimitsInitList UkraineOptions()
-{
-  auto res = NoTrunk();
-  for (auto & e : res)
-    if (e.m_type == HighwayType::HighwayLivingStreet || e.m_type == HighwayType::HighwayService)
-      e.m_isPassThroughAllowed = false;
   return res;
 }
 
@@ -306,7 +295,7 @@ BicycleModelFactory::BicycleModelFactory(CountryParentNameGetterFn const & count
   m_models["Spain"] = make_shared<BicycleModel>(NoTrunk(), NormalPedestrianSpeed());
   m_models["Sweden"] = make_shared<BicycleModel>(kDefaultOptions, NormalPedestrianSpeed());
   m_models["Switzerland"] = make_shared<BicycleModel>(NoTrunk(), NormalPedestrianAndFootwaySpeed());
-  m_models["Ukraine"] = make_shared<BicycleModel>(UkraineOptions());
+  m_models["Ukraine"] = make_shared<BicycleModel>(NoTrunk());
   m_models["United Kingdom"] = make_shared<BicycleModel>(AllAllowed());
   m_models["United States of America"] = make_shared<BicycleModel>(AllAllowed(), NormalPedestrianSpeed());
 }

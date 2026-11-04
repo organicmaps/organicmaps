@@ -24,10 +24,12 @@ string GetRegionParent(string const & id)
 {
   if (id == "Moscow")
     return "Russian Federation";
-  if (id == "Munich")
-    return "Bavaria";
-  if (id == "Bavaria")
-    return "Germany";
+  if (id == "Copenhagen")
+    return "Denmark";
+  if (id == "Aarhus")
+    return "Central Jutland";
+  if (id == "Central Jutland")
+    return "Denmark";
   if (id == "San Francisco")
     return "California";
   if (id == "California")
@@ -96,13 +98,13 @@ UNIT_CLASS_TEST(VehicleModelForCountryTest, PedestrianModel_Default)
   TestVehicleModelDefault<PedestrianModel, PedestrianModelFactory>();
 }
 
-// 1. Test we have nondefault car model for Russia
-// 2. Test we can get car model for Moscow using GetRegionParent callback: car model for Moscow equals
-//    car model for Russia and it's not default model.
+// 1. Test we have nondefault car model for Denmark
+// 2. Test we can get car model for Copenhagen using GetRegionParent callback: car model for Copenhagen equals
+//    car model for Denmark and it's not default model.
 UNIT_CLASS_TEST(VehicleModelForCountryTest, CarModel_DirectParent)
 {
-  TestHaveNondefaultRestrictionForSelectedCountry<CarModel, CarModelFactory>("Russian Federation");
-  ParentTest<CarModel, CarModelFactory>("Moscow", "Russian Federation");
+  TestHaveNondefaultRestrictionForSelectedCountry<CarModel, CarModelFactory>("Denmark");
+  ParentTest<CarModel, CarModelFactory>("Copenhagen", "Denmark");
 }
 
 // 1. Test we have nondefault bicycle model for Russia
@@ -124,12 +126,12 @@ UNIT_CLASS_TEST(VehicleModelForCountryTest, PedestrianModel_DirectParent)
   ParentTest<PedestrianModel, PedestrianModelFactory>("Moscow", "Russian Federation");
 }
 
-// Test has the same idea as previous one except Germany is not direct parent of Munich
-// in GetRegionParent function: Munich -> Bavaria -> Germany
+// Test has the same idea as previous one except Denmark is not direct parent of Aarhus
+// in GetRegionParent function: Aarhus -> Central Jutland -> Denmark
 UNIT_CLASS_TEST(VehicleModelForCountryTest, CarModel_InirectParent)
 {
-  TestHaveNondefaultRestrictionForSelectedCountry<CarModel, CarModelFactory>("Germany");
-  ParentTest<CarModel, CarModelFactory>("Munich", "Germany");
+  TestHaveNondefaultRestrictionForSelectedCountry<CarModel, CarModelFactory>("Denmark");
+  ParentTest<CarModel, CarModelFactory>("Aarhus", "Denmark");
 }
 
 // Test has the same idea as previous one except United States of America are not direct parent of

@@ -44,7 +44,6 @@ public:
   ms::LatLon const & GetPoint(Segment const & segment, bool front) override;
 
   bool IsOneWay(NumMwmId mwmId, uint32_t featureId) override;
-  bool IsPassThroughAllowed(NumMwmId mwmId, uint32_t featureId) override;
   void ClearCachedGraphs() override { m_loader->Clear(); }
 
   void SetMode(WorldGraphMode mode) override { m_mode = mode; }
