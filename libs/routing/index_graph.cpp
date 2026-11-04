@@ -4,10 +4,15 @@
 #include "routing/routing_options.hpp"
 #include "routing/world_graph.hpp"
 
+#include "geometry/angles.hpp"
+#include "geometry/mercator.hpp"
+
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
+#include "base/math.hpp"
 
 #include <algorithm>
+#include <cmath>
 #include <cstdlib>
 #include <iterator>
 #include <limits>
@@ -462,11 +467,30 @@ RouteWeight IndexGraph::GetPenalties(EdgeEstimator::Purpose purpose, Segment con
   double weightPenalty = 0.0;
   if (IsUTurn(u, v))
     weightPenalty += m_estimator->GetUTurnPenalty(purpose);
+  else if (u.GetFeatureId() != v.GetFeatureId())
+    weightPenalty += GetTurnPenalty(purpose, u, v);
 
   if (IsBoarding(fromPenaltyData.m_isFerry, toPenaltyData.m_isFerry))
     weightPenalty += m_estimator->GetFerryLandingPenalty(purpose);
 
   return {weightPenalty /* weight */, accessPenalty, accessConditionalPenalties, 0.0 /* transitTime */};
+}
+
+double IndexGraph::GetTurnPenalty(EdgeEstimator::Purpose purpose, Segment const & u, Segment const & v) const
+{
+  auto const & fromRoad = GetRoadGeometry(u.GetFeatureId());
+  auto const & toRoad = GetRoadGeometry(v.GetFeatureId());
+  double const penalty = m_estimator->GetTurnPenalty(purpose, fromRoad.GetHighwayType(), toRoad.GetHighwayType());
+  if (penalty == 0.0)
+    return 0.0;
+
+  // Only turns are penalized, not a straight continuation onto a road of another type.
+  double constexpr kMinTurnAngle = math::pi / 6;  // 30 degrees
+  auto const junction = mercator::FromLatLon(fromRoad.GetPoint(u.GetPointId(true /* front */)));
+  auto const from = mercator::FromLatLon(fromRoad.GetPoint(u.GetPointId(false /* front */)));
+  auto const to = mercator::FromLatLon(toRoad.GetPoint(v.GetPointId(true /* front */)));
+  double const turnAngle = std::fabs(math::pi - ang::TwoVectorsAngle(junction, from, to));
+  return turnAngle >= kMinTurnAngle ? penalty : 0.0;
 }
 
 WorldGraphMode IndexGraph::GetMode() const

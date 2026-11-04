@@ -167,6 +167,8 @@ private:
   /// path until |u|.
   RouteWeight GetPenalties(EdgeEstimator::Purpose purpose, Segment const & u, Segment const & v,
                            std::optional<RouteWeight> const & prevWeight) const;
+  /// \brief Calculates the penalty for a turn from |u| onto |v| of another feature.
+  double GetTurnPenalty(EdgeEstimator::Purpose purpose, Segment const & u, Segment const & v) const;
 
   void GetSegmentCandidateForRoadPoint(RoadPoint const & rp, NumMwmId numMwmId, bool isOutgoing,
                                        SegmentListT & children) const;
