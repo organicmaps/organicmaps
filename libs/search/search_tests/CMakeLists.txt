@@ -6,6 +6,7 @@ set(SRC
   feature_offset_match_tests.cpp
   highlighting_tests.cpp
   house_numbers_matcher_test.cpp
+  house_to_street_table_tests.cpp
   interval_set_test.cpp
   keyword_lang_matcher_test.cpp
   keyword_matcher_test.cpp

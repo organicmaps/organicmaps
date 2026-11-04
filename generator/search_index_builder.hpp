@@ -2,14 +2,43 @@
 
 #include "generator/generate_info.hpp"
 
+#include "search/types_skipper.hpp"
+
+#include "indexer/data_header.hpp"
 #include "indexer/ftypes_matcher.hpp"
+
+#include "base/buffer_vector.hpp"
 
 #include <string>
 #include <unordered_map>
+#include <utility>
 #include <vector>
+
+class CategoriesHolder;
+
+namespace feature
+{
+class FeatureBuilder;
+}  // namespace feature
 
 namespace indexer
 {
+// Shares search-index eligibility with the feature sorter.
+class SearchFeatureClassifier
+{
+public:
+  explicit SearchFeatureClassifier(std::pair<int, int> scaleRange);
+
+  bool IsSkipped(feature::TypesHolder const & types, StringUtf8Multilang const & names) const;
+  buffer_vector<uint32_t, feature::kMaxTypesCount> GetCategoryTypes(feature::TypesHolder types, bool hasName) const;
+  feature::DataHeader::FeatureGroup GetFeatureGroup(feature::FeatureBuilder const & fb) const;
+
+private:
+  CategoriesHolder const & m_categories;
+  std::pair<int, int> m_scaleRange;
+  search::TypesSkipper m_skipIndex;
+};
+
 class SynonymsHolder
 {
 public:
