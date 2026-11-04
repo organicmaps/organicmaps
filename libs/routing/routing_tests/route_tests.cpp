@@ -86,22 +86,22 @@ UNIT_TEST(FinshRouteOnSomeDistanceToTheFinishPointTest)
       // The route should be finished at some distance to the finish point.
       double const distToFinish = settings.m_finishToleranceM;
 
-      route.MoveIterator(GetGps(kTestGeometry.back().x, kTestGeometry.back().y - 0.1));
-      TEST(!route.IsSubroutePassed(0), ());
+      auto const move = [&route](double y)
+      {
+        auto const info = GetGps(kTestGeometry.back().x, y);
+        route.MoveIterator(info);
+        return route.IsSubroutePassed(0, mercator::FromLatLon(info.m_latitude, info.m_longitude), info.m_speed);
+      };
+
+      TEST(!move(kTestGeometry.back().y - 0.1), ());
       TEST_GREATER(route.GetCurrentDistanceToEndMeters(), distToFinish, ());
 
-      route.MoveIterator(GetGps(kTestGeometry.back().x, kTestGeometry.back().y - 0.02));
-      TEST(!route.IsSubroutePassed(0), ());
+      TEST(!move(kTestGeometry.back().y - 0.02), ());
       TEST_GREATER(route.GetCurrentDistanceToEndMeters(), distToFinish, ());
 
       // Finish tolerance value for cars is greater then for other vehicle types.
       // The iterator for other types should be moved closer to the finish point.
-      if (vehicleType == VehicleType::Car)
-        route.MoveIterator(GetGps(kTestGeometry.back().x, kTestGeometry.back().y - 0.00014));
-      else
-        route.MoveIterator(GetGps(kTestGeometry.back().x, kTestGeometry.back().y - 0.00011));
-
-      TEST(route.IsSubroutePassed(0), ());
+      TEST(move(kTestGeometry.back().y - (vehicleType == VehicleType::Car ? 0.00014 : 0.00011)), ());
       TEST_LESS(route.GetCurrentDistanceToEndMeters(), distToFinish, ());
     }
   }
@@ -456,9 +456,10 @@ UNIT_TEST(RouteBase_PromoteWithLeadingEmptySubroute)
 
   Route route(static_cast<RouteBase const &>(source));
   TEST_EQUAL(route.GetCurrentSubrouteIdx(), 2, ());
-  TEST(route.IsSubroutePassed(0), ());
-  TEST(route.MoveIterator(GetGps(checkpoint.x, checkpoint.y)), ());
-  TEST(!route.IsSubroutePassed(2), ());
+  auto const info = GetGps(checkpoint.x, checkpoint.y);
+  TEST(route.IsSubroutePassed(0, checkpoint, info.m_speed), ());
+  TEST(route.MoveIterator(info), ());
+  TEST(!route.IsSubroutePassed(2, checkpoint, info.m_speed), ());
   TEST_EQUAL(route.GetPoly().GetPoints(), path, (route.GetPoly().GetPoints()));
 
   vector<m2::PointD> points;
