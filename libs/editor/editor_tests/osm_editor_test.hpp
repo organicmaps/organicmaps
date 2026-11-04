@@ -40,6 +40,8 @@ public:
   void HaveMapEditsOrNotesToUploadTest();
   void HaveMapEditsToUploadTest();
   void UploadChangesStartResultTest();
+  void UploadObsoleteFeatureTest();
+  void UploadInSyncFeatureTest();
   void GetStatsTest();
   void IsCreatedFeatureTest();
   void ForEachFeatureInMwmRectAndScaleTest();
