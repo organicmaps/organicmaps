@@ -132,7 +132,6 @@ private:
 RoadGeometry::RoadGeometry(bool oneWay, Maxspeed const & maxspeed, Points const & points)
   : m_isOneWay(oneWay)
   , m_valid(true)
-  , m_isPassThroughAllowed(false)
   , m_inCity(false)
 {
   {
@@ -171,7 +170,6 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
 
   m_valid = vehicleModel.IsRoad(types);
   m_isOneWay = vehicleModel.IsOneWay(types);
-  m_isPassThroughAllowed = vehicleModel.IsPassThroughAllowed(types);
 
   uint32_t const fID = feature.GetID().m_index;
   m_inCity = attrs.m_cityRoads.IsCityRoad(fID);

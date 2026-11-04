@@ -9,7 +9,6 @@
 
 #include "geometry/distance_on_sphere.hpp"
 
-#include <algorithm>
 #include <map>
 
 namespace routing
@@ -150,23 +149,7 @@ std::set<NumMwmId> IndexGraphStarter::GetMwms() const
 
 bool IndexGraphStarter::CheckLength(RouteWeight const & weight)
 {
-  // Avoid transit through living neighbourhoods.
-  // Assume that start or end belongs to the living neighbourhood (HasNoPassThroughAllowed),
-  // if at least one of the projections is non-pass-through road (service, living_street).
-  // Interesting example here: https://github.com/organicmaps/organicmaps/issues/1008
-
-  // Allow pass-through <-> non-pass-through zone changes if start or end belongs
-  // to no-pass-through zone (have to leave or arrive at living neighbourhood).
-
-  /// @todo By VNG: Additional 2 changes to relax this restriction. Or should enchance this mechanics to allow
-  /// pass through say living_street into lower class road (track/road/unclassified?).
-  /// This additional penalty will be included in RouteWeight::GetIntegratedWeight().
-  /// @see RussiaMoscowNotCrossingTollRoadTest
-
-  int8_t const changesAllowed =
-      2 + (HasNoPassThroughAllowed(m_start) ? 1 : 0) + (HasNoPassThroughAllowed(m_finish) ? 1 : 0);
-
-  return weight.GetNumPassThroughChanges() <= changesAllowed && m_graph.CheckLength(weight, m_startToFinishDistanceM);
+  return m_graph.CheckLength(weight, m_startToFinishDistanceM);
 }
 
 void IndexGraphStarter::GetEdgesList(astar::VertexData<Vertex, Weight> const & vertexData, bool isOutgoing,
@@ -590,20 +573,6 @@ void IndexGraphStarter::AddFakeEdges(Segment const & segment, bool isOutgoing, E
     }
   }
   edges.append(fakeEdges.begin(), fakeEdges.end());
-}
-
-bool IndexGraphStarter::HasNoPassThroughAllowed(Ending const & ending) const
-{
-  if (IsRegionsGraphMode())
-    return false;
-
-  return std::any_of(ending.m_real.cbegin(), ending.m_real.cend(), [this](Segment const & s)
-  {
-    if (IsGuidesSegment(s))
-      return false;
-
-    return !m_graph.IsPassThroughAllowed(s.GetMwmId(), s.GetFeatureId());
-  });
 }
 
 Segment IndexGraphStarter::GetFakeSegmentAndIncr()
