@@ -25,12 +25,9 @@ import java.io.IOException
  * Android allows starting a location foreground service only from the foreground.
  */
 class TrackRecordingStartActivity : AppCompatActivity() {
-    private val batterySettings = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        continueRecordingStart()
-    }
     private val locationPermission = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
         if (LocationUtils.checkFineLocationPermission(this)) {
-            continueRecordingStart()
+            startRecording()
         } else {
             Toast.makeText(this, R.string.precise_location_is_disabled_long_text, Toast.LENGTH_LONG).show()
             finishAndRemoveTask()
@@ -41,30 +38,16 @@ class TrackRecordingStartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // Normally done by SplashActivity, no-op if already initialized.
         MwmApplication.from(this).displayManager.init(DisplayType.Device)
-        supportFragmentManager.setFragmentResultListener(BatteryOptimizationHelper.REQUEST_KEY, this) { _, result ->
-            when (val action = result.getInt(BatteryOptimizationHelper.BUNDLE_KEY_ACTION)) {
-                BatteryOptimizationHelper.ACTION_GO_TO_SETTINGS -> {
-                    if (!BatteryOptimizationHelper.openSettings(this, batterySettings)) {
-                        continueRecordingStart()
-                    }
-                }
-
-                BatteryOptimizationHelper.ACTION_CONTINUE -> continueRecordingStart()
-
-                else -> error("Unknown battery warning action: $action")
-            }
+        supportFragmentManager.setFragmentResultListener(BatteryOptimizationHelper.DISMISS_REQUEST_KEY, this) { _, _ ->
+            finishAndRemoveTask()
         }
-        // A restored dialog or Activity Result resumes the unfinished request.
+        // A restored permission result resumes the start; a restored advisory only needs dismissal.
         if (savedInstanceState == null) {
-            if (BatteryOptimizationHelper.shouldShowWarning(this)) {
-                BatteryOptimizationHelper.showOptimizationDialog(this)
-            } else {
-                continueRecordingStart()
-            }
+            startRecording()
         }
     }
 
-    private fun continueRecordingStart() {
+    private fun startRecording() {
         if (!LocationUtils.checkFineLocationPermission(this)) {
             locationPermission.launch(arrayOf(ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION))
             return
@@ -86,7 +69,9 @@ class TrackRecordingStartActivity : AppCompatActivity() {
         }
 
         TrackRecordingService.startForegroundService(this)
-        finishAndRemoveTask()
+        if (!BatteryOptimizationHelper.showWarningIfNeeded(this)) {
+            finishAndRemoveTask()
+        }
     }
 
     private fun openMap() {

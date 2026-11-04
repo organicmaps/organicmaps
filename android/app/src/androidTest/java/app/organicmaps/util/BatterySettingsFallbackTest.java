@@ -1,16 +1,11 @@
 package app.organicmaps.util;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 import android.content.ActivityNotFoundException;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.provider.Settings;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.core.app.ActivityOptionsCompat;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import org.junit.Test;
@@ -22,64 +17,52 @@ public class BatterySettingsFallbackTest
   @Test
   public void missingDestinationFallsBackToSystemSettings()
   {
-    final FailingLauncher launcher = new FailingLauncher(1, new ActivityNotFoundException());
-    assertTrue(BatteryOptimizationHelper.openSettings(InstrumentationRegistry.getInstrumentation().getTargetContext(),
-                                                      launcher));
-    assertEquals(Settings.ACTION_SETTINGS, launcher.lastIntent.getAction());
+    final FailingContext context = new FailingContext(1, new ActivityNotFoundException());
+    BatteryOptimizationHelper.openSettings(context);
+    assertEquals(Settings.ACTION_SETTINGS, context.lastIntent.getAction());
   }
 
   @Test
   public void protectedDestinationFallsBackToSystemSettings()
   {
-    final FailingLauncher launcher = new FailingLauncher(1, new SecurityException());
-    assertTrue(BatteryOptimizationHelper.openSettings(InstrumentationRegistry.getInstrumentation().getTargetContext(),
-                                                      launcher));
-    assertEquals(Settings.ACTION_SETTINGS, launcher.lastIntent.getAction());
+    final FailingContext context = new FailingContext(1, new SecurityException());
+    BatteryOptimizationHelper.openSettings(context);
+    assertEquals(Settings.ACTION_SETTINGS, context.lastIntent.getAction());
   }
 
   @Test
-  public void unavailableSettingsReportThatRecordingCanContinue()
+  public void unavailableSettingsDoNotInterruptTheAdvisory()
   {
-    final FailingLauncher launcher = new FailingLauncher(2, new ActivityNotFoundException());
-    assertFalse(BatteryOptimizationHelper.openSettings(InstrumentationRegistry.getInstrumentation().getTargetContext(),
-                                                       launcher));
+    final FailingContext context = new FailingContext(2, new ActivityNotFoundException());
+    BatteryOptimizationHelper.openSettings(context);
+    assertEquals(Settings.ACTION_SETTINGS, context.lastIntent.getAction());
   }
 
   @Test(expected = IllegalStateException.class)
-  public void invalidLauncherStateFailsAtTheSource()
+  public void unexpectedFailureIsNotSuppressed()
   {
-    BatteryOptimizationHelper.openSettings(InstrumentationRegistry.getInstrumentation().getTargetContext(),
-                                           new FailingLauncher(1, new IllegalStateException()));
+    BatteryOptimizationHelper.openSettings(new FailingContext(1, new IllegalStateException()));
   }
 
-  private static class FailingLauncher extends ActivityResultLauncher<Intent>
+  private static class FailingContext extends ContextWrapper
   {
     private int mFailuresRemaining;
     private final RuntimeException mFailure;
     Intent lastIntent;
 
-    FailingLauncher(int failures, RuntimeException failure)
+    FailingContext(int failures, RuntimeException failure)
     {
+      super(InstrumentationRegistry.getInstrumentation().getTargetContext());
       mFailuresRemaining = failures;
       mFailure = failure;
     }
 
     @Override
-    public void launch(Intent intent, ActivityOptionsCompat options)
+    public void startActivity(Intent intent)
     {
       lastIntent = intent;
       if (mFailuresRemaining-- > 0)
         throw mFailure;
-    }
-
-    @Override
-    public void unregister()
-    {}
-
-    @Override
-    public ActivityResultContract<Intent, ?> getContract()
-    {
-      return new ActivityResultContracts.StartActivityForResult();
     }
   }
 }

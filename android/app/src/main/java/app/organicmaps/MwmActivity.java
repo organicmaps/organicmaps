@@ -190,7 +190,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("NotNullFieldNotInitialized")
   private ActivityResultLauncher<String[]> mLocationPermissionRequest;
   private boolean mLocationPermissionRequestedForRecording = false;
-  private boolean mTrackRecordingPending = false;
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   private ActivityResultLauncher<String> mPostNotificationPermissionRequest;
@@ -210,12 +209,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private boolean mRemoveDisplayListener = true;
   private static int mLastUiMode = Configuration.UI_MODE_TYPE_UNDEFINED;
-  private final ActivityResultLauncher<Intent> mBatterySettingsLauncher =
-      registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-        if (!mTrackRecordingPending)
-          return;
-        continueTrackRecording();
-      });
 
   public static Intent createShowMapIntent(@NonNull Context context, @Nullable String countryId)
   {
@@ -277,7 +270,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (intent.getBooleanExtra(EXTRA_START_TRACK_RECORDING, false))
     {
       if (!TrackRecorder.nativeIsTrackRecordingEnabled())
-        requestTrackRecording();
+        startTrackRecording();
       return;
     }
     if (intent.getBooleanExtra(EXTRA_FINISH_TRACK_RECORDING, false))
@@ -495,9 +488,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (savedInstanceState == null)
       return;
-    // A core restart creates a fresh activity, so unfinished recording requests must travel in the intent.
-    final boolean recordingPending = savedInstanceState.getBoolean(EXTRA_START_TRACK_RECORDING, false)
-                                  || savedInstanceState.getBoolean(LOCATION_PERMISSION_REQUESTED_FOR_RECORDING, false);
+    // A core restart must preserve the recording request that is waiting for location permission.
+    final boolean recordingPending = savedInstanceState.getBoolean(LOCATION_PERMISSION_REQUESTED_FOR_RECORDING, false);
     if (recordingPending)
       intent.putExtra(EXTRA_START_TRACK_RECORDING, true);
     intent.putExtra(EXTRA_CONSUMED, !recordingPending && savedInstanceState.getBoolean(EXTRA_CONSUMED, false));
@@ -530,11 +522,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     mIntentConsumed = isIntentConsumed(savedInstanceState, getIntent());
     if (savedInstanceState != null)
-    {
-      mTrackRecordingPending = savedInstanceState.getBoolean(EXTRA_START_TRACK_RECORDING, false);
       mLocationPermissionRequestedForRecording =
           savedInstanceState.getBoolean(LOCATION_PERMISSION_REQUESTED_FOR_RECORDING, false);
-    }
 
     setContentView(R.layout.activity_map);
     makeNavigationBarTransparentInLightMode();
@@ -608,21 +597,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (Map.isEngineCreated())
       onRenderingInitializationFinished();
     updateDrivingOptionCount();
-
-    getSupportFragmentManager().setFragmentResultListener(
-        BatteryOptimizationHelper.REQUEST_KEY, this, (requestKey, result) -> {
-          int action = result.getInt(BatteryOptimizationHelper.BUNDLE_KEY_ACTION);
-          switch (action)
-          {
-          case BatteryOptimizationHelper.ACTION_GO_TO_SETTINGS:
-            mTrackRecordingPending = true;
-            if (!BatteryOptimizationHelper.openSettings(this, mBatterySettingsLauncher))
-              continueTrackRecording();
-            break;
-          case BatteryOptimizationHelper.ACTION_CONTINUE: continueTrackRecording(); break;
-          default: throw new AssertionError("Unknown battery warning action: " + action);
-          }
-        });
   }
 
   @NonNull
@@ -1000,7 +974,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       RoutingController.get().deleteSavedRoute();
 
     outState.putBoolean(POWER_SAVE_DISCLAIMER_SHOWN, mPowerSaveDisclaimerShown);
-    outState.putBoolean(EXTRA_START_TRACK_RECORDING, mTrackRecordingPending);
     outState.putBoolean(LOCATION_PERMISSION_REQUESTED_FOR_RECORDING, mLocationPermissionRequestedForRecording);
     outState.putBoolean(EXTRA_CONSUMED, mIntentConsumed);
     super.onSaveInstanceState(outState);
@@ -2101,6 +2074,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     showTrackRecordingUi();
     Toast.makeText(this, R.string.track_recording, Toast.LENGTH_SHORT).show();
     TrackRecordingService.startForegroundService(getApplicationContext());
+    BatteryOptimizationHelper.showWarningIfNeeded(this);
     return true;
   }
 
@@ -2141,24 +2115,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (TrackRecorder.nativeIsTrackRecordingEnabled())
       toggleTrackRecordingPP();
     else
-      requestTrackRecording();
-  }
-
-  private void requestTrackRecording()
-  {
-    if (mTrackRecordingPending)
-      return;
-    mTrackRecordingPending = true;
-    if (BatteryOptimizationHelper.shouldShowWarning(this))
-      BatteryOptimizationHelper.showOptimizationDialog(this);
-    else
-      continueTrackRecording();
-  }
-
-  private void continueTrackRecording()
-  {
-    mTrackRecordingPending = false;
-    if (!TrackRecorder.nativeIsTrackRecordingEnabled())
       startTrackRecording();
   }
 

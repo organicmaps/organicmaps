@@ -17,6 +17,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
+import android.view.accessibility.AccessibilityNodeInfo;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -40,6 +41,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -113,52 +115,64 @@ public class TrackRecordingBatteryWarningTest
   }
 
   @Test
-  public void unansweredWarningSurvivesRecreationAndRemainsPendingForCoreRestart()
+  public void recordingStartsBeforeTheAdvisoryAndSurvivesRecreation()
   {
     selectRecordTrack();
+    mScenario.onActivity(activity -> assertTrue(TrackRecorder.nativeIsTrackRecordingEnabled()));
     mScenario.recreate();
     mScenario.onActivity(activity -> {
       assertTrue(warning(activity).requireDialog().isShowing());
-      assertFalse(TrackRecorder.nativeIsTrackRecordingEnabled());
-      assertFalse(mPreferences.getBoolean("battery_optimization_warning_seen", false));
+      assertTrue(TrackRecorder.nativeIsTrackRecordingEnabled());
+      assertTrue(mPreferences.getBoolean("battery_optimization_warning_seen", false));
 
       final Intent restart = coreRestartIntent(activity);
-      assertTrue(restart.getBooleanExtra(MwmActivity.EXTRA_START_TRACK_RECORDING, false));
-      assertFalse(MwmActivity.isIntentConsumed(null, restart));
+      assertFalse(restart.getBooleanExtra(MwmActivity.EXTRA_START_TRACK_RECORDING, false));
+      assertTrue(MwmActivity.isIntentConsumed(null, restart));
     });
   }
 
   @Test
-  public void widgetDefersRecordingUntilTheBatteryWarningIsAcknowledged()
+  public void widgetSettingsStayOpenAfterTheStarterFinishes() throws Exception
   {
+    final AtomicReference<Activity> starterActivity = new AtomicReference<>();
+    final AtomicReference<String> settingsPackage = new AtomicReference<>();
+    final Instrumentation.ActivityMonitor settings = new Instrumentation.ActivityMonitor() {
+      @Override
+      public Instrumentation.ActivityResult onStartActivity(Intent intent)
+      {
+        settingsPackage.set(intent.resolveActivity(mContext.getPackageManager()).getPackageName());
+        return null;
+      }
+    };
     try (ActivityScenario<TrackRecordingStartActivity> starter =
              ActivityScenario.launch(new Intent(mContext, TrackRecordingStartActivity.class)))
     {
+      mInstrumentation.addMonitor(settings);
       starter.onActivity(activity -> {
+        starterActivity.set(activity);
         final AlertDialog dialog = (AlertDialog) warning(activity).requireDialog();
-        assertFalse(TrackRecorder.nativeIsTrackRecordingEnabled());
-        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).performClick();
+        assertTrue(TrackRecorder.nativeIsTrackRecordingEnabled());
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).performClick();
       });
-      await(TrackRecorder::nativeIsTrackRecordingEnabled);
+      await(() -> starterActivity.get().isDestroyed());
+      await(() -> {
+        final AccessibilityNodeInfo root = mInstrumentation.getUiAutomation().getRootInActiveWindow();
+        return root != null && root.getPackageName().equals(settingsPackage.get());
+      });
+      mInstrumentation.runOnMainSync(() -> assertTrue(TrackRecorder.nativeIsTrackRecordingEnabled()));
       assertTrue(mPreferences.getBoolean("battery_optimization_warning_seen", false));
     }
-  }
-
-  @Test
-  public void completedMenuRequestIsNotReplayedAfterCoreRestart()
-  {
-    selectRecordTrack();
-    mScenario.onActivity(activity -> {
-      final AlertDialog dialog = (AlertDialog) warning(activity).requireDialog();
-      dialog.getButton(AlertDialog.BUTTON_NEGATIVE).performClick();
-    });
-    await(TrackRecorder::nativeIsTrackRecordingEnabled);
-    mScenario.onActivity(activity -> assertTrue(MwmActivity.isIntentConsumed(null, coreRestartIntent(activity))));
+    finally
+    {
+      mInstrumentation.removeMonitor(settings);
+      shell("input keyevent KEYCODE_BACK");
+    }
   }
 
   @Test
   public void widgetWarningSurvivesRecreationWithoutTakingTheMapFromTheCar()
   {
+    final AtomicReference<Activity> starterActivity = new AtomicReference<>();
     mScenario.close();
     final DisplayManager displays = MwmApplication.from(mContext).getDisplayManager();
     final DisplayChangedListener listener = new DisplayChangedListener() {
@@ -174,13 +188,15 @@ public class TrackRecordingBatteryWarningTest
     {
       starter.recreate();
       starter.onActivity(activity -> {
+        starterActivity.set(activity);
         assertTrue(displays.isCarDisplayUsed());
         final AlertDialog dialog = (AlertDialog) warning(activity).requireDialog();
-        assertFalse(TrackRecorder.nativeIsTrackRecordingEnabled());
+        assertTrue(TrackRecorder.nativeIsTrackRecordingEnabled());
         dialog.getButton(AlertDialog.BUTTON_NEGATIVE).performClick();
       });
-      await(TrackRecorder::nativeIsTrackRecordingEnabled);
+      await(() -> starterActivity.get().isDestroyed());
       mInstrumentation.runOnMainSync(() -> assertTrue(displays.isCarDisplayUsed()));
+      mInstrumentation.runOnMainSync(() -> assertTrue(TrackRecorder.nativeIsTrackRecordingEnabled()));
     }
     finally
     {
@@ -193,7 +209,7 @@ public class TrackRecordingBatteryWarningTest
   }
 
   @Test
-  public void readingTheGuideKeepsTheWarningAndRecordingRequestPending()
+  public void readingTheGuideKeepsRecordingAndTheAdvisoryAvailable()
   {
     selectRecordTrack();
     final IntentFilter filter = new IntentFilter(Intent.ACTION_VIEW);
@@ -208,8 +224,8 @@ public class TrackRecordingBatteryWarningTest
         dialog.getButton(AlertDialog.BUTTON_NEUTRAL).performClick();
         assertEquals(1, browser.getHits());
         assertTrue(dialog.isShowing());
-        assertFalse(mPreferences.getBoolean("battery_optimization_warning_seen", false));
-        assertFalse(TrackRecorder.nativeIsTrackRecordingEnabled());
+        assertTrue(mPreferences.getBoolean("battery_optimization_warning_seen", false));
+        assertTrue(TrackRecorder.nativeIsTrackRecordingEnabled());
       });
     }
     finally

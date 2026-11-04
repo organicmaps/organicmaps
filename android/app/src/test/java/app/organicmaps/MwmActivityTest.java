@@ -71,25 +71,11 @@ public class MwmActivityTest
   }
 
   @Test
-  public void pendingBatterySettingsRecordingSurvivesCoreRestart()
-  {
-    final Bundle state = mock(Bundle.class);
-    when(state.getBoolean(MwmActivity.EXTRA_CONSUMED, false)).thenReturn(true);
-    when(state.getBoolean(MwmActivity.EXTRA_START_TRACK_RECORDING, false)).thenReturn(true);
-    assertRecordingContinuesAfterCoreRestart(state);
-  }
-
-  @Test
   public void pendingLocationPermissionRecordingSurvivesCoreRestart()
   {
     final Bundle state = mock(Bundle.class);
     when(state.getBoolean(MwmActivity.EXTRA_CONSUMED, false)).thenReturn(true);
     when(state.getBoolean(MwmActivity.LOCATION_PERMISSION_REQUESTED_FOR_RECORDING, false)).thenReturn(true);
-    assertRecordingContinuesAfterCoreRestart(state);
-  }
-
-  private static void assertRecordingContinuesAfterCoreRestart(Bundle state)
-  {
     final Intent intent = statefulIntent();
     intent.putExtra(MwmActivity.EXTRA_CONSUMED, true);
     final MwmActivity activity = mock(MwmActivity.class, CALLS_REAL_METHODS);

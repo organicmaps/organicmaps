@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -31,12 +30,9 @@ public class BatteryOptimizationHelper
       Set.of("asus", "blackview", "htc", "huawei", "lenovo", "meizu", "motorola", "nokia", "oneplus", "oppo", "realme",
              "samsung", "sony", "stock_android", "tecno", "ulefone", "unihertz", "vivo", "wiko", "xiaomi");
 
-  public static final String REQUEST_KEY = "battery_warning_request";
-  public static final String BUNDLE_KEY_ACTION = "action_key";
-  public static final int ACTION_GO_TO_SETTINGS = 1;
-  public static final int ACTION_CONTINUE = 2;
+  public static final String DISMISS_REQUEST_KEY = "battery_warning_dismissed";
 
-  public static boolean shouldShowWarning(@NonNull Context context)
+  static boolean shouldShowWarning(@NonNull Context context)
   {
     SharedPreferences prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     if (prefs.getBoolean(KEY_WARNING_SHOWN, false))
@@ -81,27 +77,31 @@ public class BatteryOptimizationHelper
     return new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + context.getPackageName()));
   }
 
-  public static boolean openSettings(@NonNull Context context, @NonNull ActivityResultLauncher<Intent> launcher)
+  static void openSettings(@NonNull Context context)
   {
     for (Intent intent : new Intent[] {getSettingsIntent(context), new Intent(Settings.ACTION_SETTINGS)})
     {
       try
       {
-        launcher.launch(intent);
-        return true;
+        // Settings must outlive the widget activity's temporary task.
+        context.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        return;
       }
       catch (ActivityNotFoundException | SecurityException e)
       {
         Logger.w("BatteryOptimizationHelper", "Failed to open battery settings: " + intent, e);
       }
     }
-    return false;
   }
 
-  public static void showOptimizationDialog(@NonNull FragmentActivity activity)
+  public static boolean showWarningIfNeeded(@NonNull FragmentActivity activity)
   {
+    if (!shouldShowWarning(activity))
+      return false;
     WarningDialogFragment dialog = new WarningDialogFragment();
     dialog.show(activity.getSupportFragmentManager(), "BatteryOptimizationWarning");
+    markWarningShown(activity);
+    return true;
   }
 
   @StringRes
@@ -140,8 +140,12 @@ public class BatteryOptimizationHelper
       return new AlertDialog.Builder(requireContext())
           .setTitle(R.string.background_recording_warning_title)
           .setMessage(warningMessage(Build.MANUFACTURER, Build.VERSION.SDK_INT))
-          .setPositiveButton(R.string.settings, (dialog, which) -> sendResult(ACTION_GO_TO_SETTINGS))
-          .setNegativeButton(R.string.not_now, (dialog, which) -> sendResult(ACTION_CONTINUE))
+          .setPositiveButton(R.string.settings,
+                             (dialog, which) -> {
+                               openSettings(requireContext());
+                               notifyDismissed();
+                             })
+          .setNegativeButton(R.string.not_now, (dialog, which) -> notifyDismissed())
           .setNeutralButton(R.string.learn_more, null)
           .create();
     }
@@ -150,7 +154,7 @@ public class BatteryOptimizationHelper
     public void onStart()
     {
       super.onStart();
-      // Reading the guide leaves the recording request and its warning available on return.
+      // Keep the advisory available when returning from the manufacturer's guide.
       ((AlertDialog) requireDialog())
           .getButton(DialogInterface.BUTTON_NEUTRAL)
           .setOnClickListener(view -> Utils.openUrl(requireContext(), instructionsUrl(Build.MANUFACTURER)));
@@ -160,15 +164,13 @@ public class BatteryOptimizationHelper
     public void onCancel(@NonNull DialogInterface dialog)
     {
       super.onCancel(dialog);
-      sendResult(ACTION_CONTINUE);
+      notifyDismissed();
     }
 
-    private void sendResult(int action)
+    private void notifyDismissed()
     {
-      markWarningShown(requireContext());
-      Bundle result = new Bundle();
-      result.putInt(BUNDLE_KEY_ACTION, action);
-      getParentFragmentManager().setFragmentResult(REQUEST_KEY, result);
+      // Only user dismissal should finish the widget activity; dialog recreation must keep it open.
+      getParentFragmentManager().setFragmentResult(DISMISS_REQUEST_KEY, Bundle.EMPTY);
     }
   }
 }
