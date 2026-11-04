@@ -95,6 +95,12 @@ public class Framework
 
   public static native int nativeGetDrawScale();
 
+  /** Returns the zoom level of the viewport with its fraction; {@link #nativeGetDrawScale} rounds it. */
+  public static native double nativeGetZoomLevel();
+
+  /** Returns the direction of the viewport's top edge in radians clockwise from north, in {@code [0, 2 * PI)}. */
+  public static native double nativeGetViewportAzimuth();
+
   public static native void nativePokeSearchInViewport();
 
   @Size(2)

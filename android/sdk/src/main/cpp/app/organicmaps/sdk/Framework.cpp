@@ -1151,6 +1151,17 @@ JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetDrawScale(JNIEnv * en
   return static_cast<jint>(frm()->GetDrawScale());
 }
 
+JNIEXPORT jdouble Java_app_organicmaps_sdk_Framework_nativeGetZoomLevel(JNIEnv *, jclass)
+{
+  return df::GetZoomLevel(frm()->GetCurrentModelView().GetScale());
+}
+
+JNIEXPORT jdouble Java_app_organicmaps_sdk_Framework_nativeGetViewportAzimuth(JNIEnv *, jclass)
+{
+  // The model view angle turns the screen's up direction counterclockwise from north.
+  return ang::AngleIn2PI(-frm()->GetCurrentModelView().GetAngle());
+}
+
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativePokeSearchInViewport(JNIEnv * env, jclass)
 {
   frm()->GetSearchAPI().PokeSearchInViewport();
