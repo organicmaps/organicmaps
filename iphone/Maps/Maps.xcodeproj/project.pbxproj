@@ -74,6 +74,8 @@
 		A13418010000000000000002 /* CarPlayManeuverMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13418010000000000000001 /* CarPlayManeuverMapper.swift */; };
 		A13418010000000000000004 /* CarPlayManeuverMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13418010000000000000003 /* CarPlayManeuverMapperTests.swift */; };
 		A630D1EA207CA95900976DEA /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = A630D1E8207CA95900976DEA /* Localizable.stringsdict */; };
+		AA55AEDE30916A15009F424B /* ExternalGPSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA55AEDD30916A15009F424B /* ExternalGPSManager.swift */; };
+		AAB8DFC430964E75005C2023 /* ExternalGPSManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB8DFC330964E75005C2023 /* ExternalGPSManagerTests.swift */; };
 		AB0CA7A50000000000000002 /* CarPlaySceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0CA7A50000000000000001 /* CarPlaySceneDelegate.swift */; };
 		AB0DB0010000000000000002 /* CarPlayDashboardMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0DB0010000000000000001 /* CarPlayDashboardMapViewController.swift */; };
 		AB0DB0020000000000000002 /* DashboardBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0DB0020000000000000001 /* DashboardBuilder.swift */; };
@@ -928,6 +930,8 @@
 		A630D204207CAA3400976DEA /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = vi; path = vi.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		A630D205207CAA3A00976DEA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
 		A630D206207CAA5800976DEA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
+		AA55AEDD30916A15009F424B /* ExternalGPSManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalGPSManager.swift; sourceTree = "<group>"; };
+		AAB8DFC330964E75005C2023 /* ExternalGPSManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalGPSManagerTests.swift; sourceTree = "<group>"; };
 		AB0CA7A50000000000000001 /* CarPlaySceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlaySceneDelegate.swift; sourceTree = "<group>"; };
 		AB0DB0010000000000000001 /* CarPlayDashboardMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlayDashboardMapViewController.swift; sourceTree = "<group>"; };
 		AB0DB0020000000000000001 /* DashboardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardBuilder.swift; sourceTree = "<group>"; };
@@ -2025,6 +2029,7 @@
 		4B4153B62BF9709100EE4B02 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				AAB8DFC330964E75005C2023 /* ExternalGPSManagerTests.swift */,
 				C50A71010000000000000002 /* MWMSearchSpotlightTests.mm */,
 				ED91433C3001A0000081DF0B /* DeepLink */,
 				EDBAB6F12E980415007962B5 /* GeoNavigationToOMURLConverterTests */,
@@ -3742,6 +3747,7 @@
 				ED82C6BB2F90186300FA103D /* MWMLocationPredictor.h */,
 				ED82C6BC2F90186300FA103D /* MWMLocationPredictor.mm */,
 				ED82C6BD2F90186300FA103D /* MWMMyPositionMode.h */,
+				AA55AEDD30916A15009F424B /* ExternalGPSManager.swift */,
 			);
 			path = Location;
 			sourceTree = "<group>";
@@ -4711,6 +4717,7 @@
 				ED82C57D2F90180300FA103D /* TransportTransitFlowLayout.swift in Sources */,
 				ED82C57E2F90180300FA103D /* TransportTransitIntermediatePoint.swift in Sources */,
 				ED82C57F2F90180300FA103D /* TransportTransitPedestrian.swift in Sources */,
+				AA55AEDE30916A15009F424B /* ExternalGPSManager.swift in Sources */,
 				ED82C5802F90180300FA103D /* TransportTransitSeparator.swift in Sources */,
 				ED82C5812F90180300FA103D /* TransportTransitStepsCollectionView.swift in Sources */,
 				ED82C5822F90180300FA103D /* TransportTransitStepsView.swift in Sources */,
@@ -5102,6 +5109,7 @@
 				4B4153B52BF9695500EE4B02 /* MWMTextToSpeechTests.mm in Sources */,
 				C50A71010000000000000001 /* MWMSearchSpotlightTests.mm in Sources */,
 				EDF838C42C00B9D6007E4E67 /* FileManagerMock.swift in Sources */,
+				AAB8DFC430964E75005C2023 /* ExternalGPSManagerTests.swift in Sources */,
 				EDBAB6F52E980421007962B5 /* GeoNavigationToOMURLConverterTests.swift in Sources */,
 				ED914332300168CF0081DF0B /* CarPlaySceneDelegateTests.swift in Sources */,
 			);
