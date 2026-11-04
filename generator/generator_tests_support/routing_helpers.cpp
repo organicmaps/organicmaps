@@ -60,6 +60,13 @@ void TestGeometryLoader::AddRoad(uint32_t featureId, bool oneWay, float speed, R
   CHECK(m_roads.emplace(featureId, std::move(road)).second, ());
 }
 
+void TestGeometryLoader::SetHighwayType(uint32_t featureId, HighwayType type)
+{
+  auto const it = m_roads.find(featureId);
+  CHECK(it != m_roads.end(), ("No feature", featureId));
+  it->second.SetHighwayTypeForTests(type);
+}
+
 std::shared_ptr<EdgeEstimator> CreateEstimatorForCar(std::shared_ptr<TrafficStash> trafficStash)
 {
   auto const carModel = CarModelFactory({}).GetVehicleModel();

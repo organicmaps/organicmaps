@@ -78,6 +78,8 @@ public:
 
   RoutingOptions GetRoutingOptions() const { return m_routingOptions; }
 
+  void SetHighwayTypeForTests(HighwayType type) { m_highwayType = type; }
+
 private:
   std::vector<LatLonWithAltitude> m_junctions;
   mutable std::vector<double> m_distances;  ///< as cache, @see GetDistance()
