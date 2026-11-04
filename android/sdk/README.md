@@ -94,6 +94,10 @@ an existing renderer. Forward system-bar and cutout insets through the controlle
 widget-offset methods: compass offsets are from the right and top edges; bottom
 widget offsets are from the left and bottom edges. Values are screen pixels.
 
+To keep host content in step with the map, register a `Framework.ViewportListener`
+and read the center, zoom, and azimuth when it is called. Like the other native
+listeners, it is a process-wide single listener: remove it when its host ends.
+
 ## Location and selection
 
 Location permissions in the SDK manifest are merged into the host, but the host

@@ -58,6 +58,20 @@ public class Framework
     public boolean buildings;
   }
 
+  /**
+   * Receives changes of the viewport: moves, zooms and rotations, including each frame of an animation.
+   */
+  public interface ViewportListener
+  {
+    /**
+     * Called on the main thread after the viewport has changed. Read it with {@link #nativeGetScreenRectCenter},
+     * {@link #nativeGetZoomLevel} and {@link #nativeGetViewportAzimuth}.
+     */
+    @Keep
+    @SuppressWarnings("unused")
+    void onViewportChanged();
+  }
+
   // this class is just bridge between Java and C++ worlds, we must not create it
   private Framework() {}
 
@@ -100,6 +114,12 @@ public class Framework
 
   /** Returns the direction of the viewport's top edge in radians clockwise from north, in {@code [0, 2 * PI)}. */
   public static native double nativeGetViewportAzimuth();
+
+  /** Replaces the process-wide viewport listener; remove it when its host ends. */
+  public static native void nativeSetViewportListener(@NonNull ViewportListener listener);
+
+  /** Removes the viewport listener. */
+  public static native void nativeRemoveViewportListener();
 
   public static native void nativePokeSearchInViewport();
 
