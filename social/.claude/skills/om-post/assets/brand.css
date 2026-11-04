@@ -1,0 +1,292 @@
+/* Organic Maps — social post design system.
+   Every visual decision lives here. build.py only emits structure. */
+
+:root {
+  --green-900: #003d1e;
+  --green-800: #004a24;
+  --green-700: #006c35; /* canonical brand color */
+  --green-500: #0a8a47;
+  --blue: #249cf2;
+  --ink: #14261c;
+  --ink-soft: #4a5c51;
+  --paper: #f4f6f2;
+
+  --font: -apple-system, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { -webkit-font-smoothing: antialiased; }
+
+body {
+  font-family: var(--font);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  color: var(--ink);
+}
+
+/* ---------- canvas formats ---------- */
+
+/* --bleed-keep: how far above the canvas bottom a bleeding mockup must stop.
+   Only 9x16 needs it, to stay clear of the Stories UI. */
+.fmt-4x5  { width: 1080px; height: 1350px; --pad: 76px; --pad-top: 76px;  --pad-bot: 76px;
+            --title: 76px; --body: 33px; --eyebrow: 23px; --cover-title: 128px;
+            --bleed: 340px; --bleed-keep: 0px; }
+.fmt-1x1  { width: 1080px; height: 1080px; --pad: 68px; --pad-top: 62px;  --pad-bot: 62px;
+            --title: 64px; --body: 29px; --eyebrow: 21px; --cover-title: 108px;
+            --bleed: 260px; --bleed-keep: 0px; }
+.fmt-9x16 { width: 1080px; height: 1920px; --pad: 84px; --pad-top: 250px; --pad-bot: 300px;
+            --title: 86px; --body: 38px; --eyebrow: 26px; --cover-title: 150px;
+            --bleed: 300px; --bleed-keep: 220px; }
+
+/* ---------- themes ---------- */
+
+.theme-green {
+  background: linear-gradient(158deg, var(--green-500) 0%, var(--green-700) 52%, var(--green-800) 100%);
+  color: #fff;
+}
+.theme-blue {
+  background: linear-gradient(158deg, #3fb0ff 0%, var(--blue) 48%, #0e6bb5 100%);
+  color: #fff;
+}
+.theme-light { background: var(--paper); color: var(--ink); }
+.theme-dark  { background: linear-gradient(158deg, #1d2b23 0%, #101a14 100%); color: #fff; }
+
+/* Faint watermark of the logo mark, bleeding off the bottom-right corner. */
+.theme-green .slide::after,
+.theme-blue .slide::after,
+.theme-dark .slide::after {
+  content: "";
+  position: absolute;
+  right: -180px;
+  bottom: -200px;
+  width: 720px;
+  height: 720px;
+  background: var(--mark-white) center / contain no-repeat;
+  opacity: 0.055;
+  pointer-events: none;
+}
+
+/* ---------- slide shell ---------- */
+
+.slide {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: var(--pad-top) var(--pad) var(--pad-bot);
+}
+
+.slide > * { position: relative; z-index: 1; }
+
+/* ---------- type ---------- */
+
+.eyebrow {
+  align-self: flex-start;
+  font-size: var(--eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.62em 1.15em;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+}
+.theme-light .eyebrow {
+  background: rgba(0, 108, 53, 0.1);
+  border-color: rgba(0, 108, 53, 0.2);
+  color: var(--green-700);
+}
+
+.title {
+  font-size: var(--title);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.024em;
+  margin-top: 0.42em;
+  text-wrap: balance;
+}
+
+.body {
+  font-size: var(--body);
+  font-weight: 400;
+  line-height: 1.42;
+  margin-top: 0.72em;
+  max-width: 20.5em;
+  opacity: 0.86;
+}
+
+/* ---------- media + device frames ---------- */
+
+.media {
+  flex: 1;
+  min-height: 0;
+  margin-top: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* room for the bezel + drop shadow, which live outside the image box */
+  padding: 16px 16px 8px;
+}
+
+/* The screenshot itself is the sizing element: max-width/max-height plus its
+   intrinsic ratio give exact fit-inside behaviour. Bezels are drawn with
+   box-shadow spread, which takes no layout space and so cannot distort it. */
+.device {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.device.phone {
+  border-radius: 48px;
+  box-shadow:
+    0 0 0 11px #191d1b,
+    0 0 0 13px rgba(255, 255, 255, 0.16),
+    0 40px 84px rgba(0, 0, 0, 0.42),
+    0 8px 20px rgba(0, 0, 0, 0.26);
+}
+
+/* desktop: the macOS window chrome is already inside the screenshot */
+.device.desktop {
+  border-radius: 16px;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.18),
+    0 40px 80px rgba(0, 0, 0, 0.38),
+    0 8px 18px rgba(0, 0, 0, 0.24);
+}
+
+/* bare card, no device pretence */
+.device.plain {
+  border-radius: 28px;
+  box-shadow: 0 32px 70px rgba(0, 0, 0, 0.32);
+}
+
+/* A portrait phone fitted inside a 4:5 frame ends up tiny. Let it run off the
+   bottom edge instead: bigger presence, and only the app's bottom bar is lost. */
+.slide.bleed .media {
+  align-items: flex-start;
+  padding-bottom: 0;
+  margin-bottom: calc(var(--bleed-keep) - var(--pad-bot));
+}
+.slide.bleed .device.phone {
+  max-height: none;
+  height: calc(100% + var(--bleed));
+  width: auto;
+}
+.slide.bleed .footer { display: none; }
+
+/* A landscape screenshot wants the full canvas width. */
+.slide.wide .media {
+  margin-left: calc(40px - var(--pad));
+  margin-right: calc(40px - var(--pad));
+}
+
+/* ---------- cover ---------- */
+
+.slide.cover { justify-content: center; }
+.cover .kicker {
+  font-size: var(--eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.78;
+}
+.cover .logo {
+  width: 168px;
+  height: 168px;
+  border-radius: 38px;
+  margin-bottom: 52px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+}
+.cover .title {
+  font-size: var(--cover-title);
+  margin-top: 0.2em;
+  letter-spacing: -0.035em;
+}
+.cover .body { margin-top: 0.9em; opacity: 0.9; }
+.cover .rule {
+  width: 132px;
+  height: 7px;
+  border-radius: 999px;
+  background: #fff;
+  opacity: 0.85;
+  margin-top: 52px;
+}
+
+/* ---------- list ---------- */
+
+/* auto margins top and bottom (the footer's) split the free space evenly,
+   so the title stays attached to its list and the block sits centred */
+.slide.list .eyebrow { margin-top: auto; }
+
+.items {
+  list-style: none;
+  margin-top: 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.92em;
+  font-size: var(--body);
+  line-height: 1.34;
+}
+.items li {
+  position: relative;
+  padding-left: 1.85em;
+  opacity: 0.92;
+}
+.items li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.42em;
+  width: 0.62em;
+  height: 0.62em;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.55;
+}
+.theme-light .items li::before { background: var(--green-700); opacity: 1; }
+
+.slide.list .media { margin-top: 40px; }
+
+/* ---------- cta ---------- */
+
+.slide.cta { justify-content: center; align-items: center; text-align: center; }
+.cta .title { max-width: 14em; }
+.cta .url {
+  font-size: calc(var(--body) * 1.28);
+  font-weight: 600;
+  margin-top: 0.8em;
+  padding: 0.55em 1.2em;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 22px;
+  margin-top: 64px;
+  max-width: 100%;
+}
+.badges img { height: 76px; width: auto; border-radius: 12px; }
+
+/* ---------- footer ---------- */
+
+.footer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: auto;
+  padding-top: 48px;
+  font-size: 25px;
+  font-weight: 500;
+  opacity: 0.72;
+}
+.footer img { width: 38px; height: 38px; }
+.footer .spacer { flex: 1; }
+.theme-light .footer img { filter: brightness(0) saturate(100%) invert(21%) sepia(69%) saturate(2270%) hue-rotate(139deg) brightness(94%) contrast(101%); }
