@@ -187,12 +187,9 @@ using namespace storage;
     if (trackGroupId != categoryId && bmManager.HasBmCategory(trackGroupId))
       categoryId = trackGroupId;
   }
-  kml::BookmarkData bmData;
-  bmData.m_name = info.FormatNewBookmarkName();
+  auto bmData = info.MakeBookmarkData();
   bmData.m_color = f.LastEditedBMColor();
   bmData.m_point = location_helpers::ToMercator(data.locationCoordinate);
-  if (info.IsFeature())
-    SaveFeatureTypes(info.GetTypes(), bmData);
   auto editSession = bmManager.GetEditSession();
   auto const * bookmark = editSession.CreateBookmark(std::move(bmData), categoryId);
 
