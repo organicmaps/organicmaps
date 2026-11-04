@@ -46,5 +46,6 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 omim_add_test_subdirectory(editor_tests)
-omim_add_test_subdirectory(editor_tests_support)
+# Search quality tools also depend on this library.
+add_subdirectory(editor_tests_support EXCLUDE_FROM_ALL)
 omim_add_test_subdirectory(osm_auth_tests)
