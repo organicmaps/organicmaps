@@ -30,12 +30,12 @@ public:
   VulkanBaseContext(VkInstance vulkanInstance, VkPhysicalDevice gpu, VkPhysicalDeviceProperties const & gpuProperties,
                     VkDevice device, uint32_t renderingQueueFamilyIndex, ref_ptr<VulkanObjectManager> objectManager,
                     drape_ptr<VulkanPipeline> && pipeline, bool hasPartialTextureUpdates,
-                    bool supportsImageAcquireTimeout);
+                    uint64_t imageAcquireTimeoutNanoseconds = UINT64_MAX, bool swapchainMaintenanceEnabled = false);
   ~VulkanBaseContext() override;
 
   using ContextHandler = std::function<void(uint32_t inflightFrameIndex)>;
 
-  bool BeginRendering() override;
+  FrameStatus BeginRendering() override;
   void EndRendering() override;
   void Present() override;
   void CollectMemory() override;
@@ -78,8 +78,7 @@ public:
   void ApplyParamDescriptor(ParamDescriptor && descriptor);
   void ClearParamDescriptors();
 
-  void SetSurface(VkSurfaceKHR surface, VkSurfaceFormatKHR surfaceFormat,
-                  VkSurfaceCapabilitiesKHR const & surfaceCapabilities);
+  void SetSurface(VkSurfaceKHR surface, VkSurfaceFormatKHR surfaceFormat, m2::PointU const & framebufferSize);
   void ResetSurface(bool allowPipelineDump);
 
   VkPhysicalDevice GetPhysicalDevice() const { return m_gpu; }
@@ -147,13 +146,15 @@ protected:
 
   void CreateSyncPrimitives();
   void DestroySyncPrimitives();
+  VkFence GetPresentFence();
+  void DestroyPresentFences();
 
   void DestroyRenderPassAndFramebuffers();
   void DestroyRenderPassAndFramebuffer(ref_ptr<BaseFramebuffer> framebuffer);
 
   void RecreateDepthTexture();
 
-  void RecreateSwapchainAndDependencies();
+  FrameStatus RecreateSwapchainAndDependencies();
   void ResetSwapchainAndDependencies();
 
   AttachmentsOperations GetAttachmensOperations();
@@ -168,7 +169,8 @@ protected:
   VkDevice const m_device;
   uint32_t const m_renderingQueueFamilyIndex;
   bool const m_hasPartialTextureUpdates;
-  bool const m_supportsImageAcquireTimeout;
+  uint64_t const m_imageAcquireTimeoutNanoseconds;
+  bool const m_swapchainMaintenanceEnabled;
 
   VkQueue m_queue = {};
   VkCommandPool m_commandPool = {};
@@ -181,6 +183,7 @@ protected:
   std::array<VkSemaphore, kMaxInflightFrames> m_acquireSemaphores = {};
   // One semaphore per image; its next acquisition wait makes presentation semaphore reuse safe.
   std::vector<VkSemaphore> m_renderSemaphores;
+  std::vector<VkFence> m_presentFences;
   // All rendering tasks completion.
   std::array<VkFence, kMaxInflightFrames> m_fences = {};
 
@@ -188,7 +191,8 @@ protected:
   drape_ptr<VulkanPipeline> m_pipeline;
   std::optional<VkSurfaceKHR> m_surface;
 
-  VkSurfaceCapabilitiesKHR m_surfaceCapabilities;
+  VkSurfaceCapabilitiesKHR m_surfaceCapabilities = {};
+  m2::PointU m_framebufferSize;
   std::optional<VkSurfaceFormatKHR> m_surfaceFormat;
 
   VkSwapchainKHR m_swapchain = {};
@@ -221,7 +225,6 @@ protected:
   std::array<drape_ptr<VulkanStagingBuffer>, kMaxInflightFrames> m_defaultStagingBuffers = {};
   std::atomic<bool> m_presentAvailable;
   uint32_t m_frameCounter = 0;
-  bool m_needPresent = true;
   uint32_t m_inflightFrameIndex = 0;
 };
 }  // namespace vulkan

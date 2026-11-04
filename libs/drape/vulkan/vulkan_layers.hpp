@@ -30,6 +30,7 @@ public:
   char const * const * GetDeviceExtensions() const;
 
   bool IsValidationFeaturesEnabled() const;
+  bool IsSwapchainMaintenanceEnabled() const;
 
 private:
   bool const m_enableDiagnostics;
@@ -47,6 +48,7 @@ private:
   PFN_vkDebugReportMessageEXT m_vkDebugReportMessageEXT = nullptr;
 
   bool m_validationFeaturesEnabled = false;
+  bool m_swapchainMaintenanceEnabled = false;
 };
 }  // namespace vulkan
 }  // namespace dp

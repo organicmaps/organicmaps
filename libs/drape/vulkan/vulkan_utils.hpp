@@ -16,6 +16,10 @@ namespace vulkan
 {
 extern std::string GetVulkanResultString(VkResult result);
 
+// A zero extent defers allocation until the framebuffer and surface are usable again.
+VkExtent2D ChooseSurfaceExtent(VkSurfaceCapabilitiesKHR const & capabilities, VkExtent2D framebufferSize);
+VkCompositeAlphaFlagBitsKHR ChooseCompositeAlpha(VkCompositeAlphaFlagsKHR supported);
+
 uint32_t constexpr kMaxInflightFrames = 2;
 
 class VulkanFormatUnpacker

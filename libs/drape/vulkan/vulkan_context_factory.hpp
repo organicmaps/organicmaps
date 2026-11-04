@@ -30,7 +30,7 @@ public:
   VkInstance GetVulkanInstance() const;
 
 protected:
-  bool QuerySurfaceSize();
+  bool QuerySurfaceSize(m2::PointU const & framebufferSize);
 
   VkInstance m_vulkanInstance = nullptr;
   drape_ptr<dp::vulkan::Layers> m_layers;
