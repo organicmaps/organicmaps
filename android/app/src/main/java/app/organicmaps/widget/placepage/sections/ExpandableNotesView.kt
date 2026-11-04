@@ -3,6 +3,7 @@ package app.organicmaps.widget.placepage.sections
 import android.annotation.SuppressLint
 import android.app.KeyguardManager
 import android.content.Context
+import android.graphics.Color
 import android.os.Build
 import android.text.Layout
 import android.text.Spannable
@@ -233,6 +234,10 @@ class ExpandableNotesView @JvmOverloads constructor(
         canExpand = false
 
         val webView = ensureWebView()
+        // Full documents keep their own colors on the browser's default white canvas; fragments follow the theme.
+        val isDocument = HTML_DOCUMENT_REGEX.containsMatchIn(html)
+        webView.setBackgroundColor(if (isDocument) Color.WHITE else ContextCompat.getColor(context, R.color.bg_cards))
+        val page = if (isDocument) injectProtectiveHead(html) else wrapWithThemeStyles(extractHtmlBody(html))
         setWebViewHeight(compactHtmlPx)
         UiUtils.show(webView)
         // Reserve moreRegion space from the start so the async measureContentHeight callback
@@ -249,18 +254,16 @@ class ExpandableNotesView @JvmOverloads constructor(
             ) { policy ->
                 if (generation != loadGeneration || wvNotes !== webView) return@checkNetworkPolicy
                 networkAllowed = policy.canUseNetwork()
-                loadHtmlIntoWebView(webView, html)
+                loadHtmlIntoWebView(webView, page)
             }
         } else {
             networkAllowed = NetworkPolicy.getCurrentNetworkUsageStatus()
-            loadHtmlIntoWebView(webView, html)
+            loadHtmlIntoWebView(webView, page)
         }
     }
 
-    private fun loadHtmlIntoWebView(webView: WebView, html: String) {
-        val themedHtml = buildHtml(html)
-        webView.loadDataWithBaseURL(null, themedHtml, Utils.TEXT_HTML, "UTF-8", null)
-    }
+    private fun loadHtmlIntoWebView(webView: WebView, page: String) =
+        webView.loadDataWithBaseURL(null, page, Utils.TEXT_HTML, "UTF-8", null)
 
     private fun clearInternal() {
         pendingPlainNotes = null
@@ -289,7 +292,6 @@ class ExpandableNotesView @JvmOverloads constructor(
         wvNotes?.let { return it }
         findViewById<ViewStub>(R.id.wv__notes_stub).inflate()
         return findViewById<WebView>(R.id.wv__notes).apply {
-            setBackgroundColor(ContextCompat.getColor(context, R.color.bg_cards))
             settings.javaScriptEnabled = true
             settings.defaultTextEncodingName = "UTF-8"
             settings.useWideViewPort = true
@@ -432,14 +434,6 @@ class ExpandableNotesView @JvmOverloads constructor(
     @Suppress("DEPRECATION")
     private fun measureFullLineCount(text: CharSequence, width: Int): Int =
         StaticLayout(text, tvNotes.paint, width, Layout.Alignment.ALIGN_NORMAL, 1f, 0f, false).lineCount
-
-    // Full documents keep their own color/font/background; we inject only the safety layer
-    // (viewport, CSP, media max-width) so author content can't horizontally overflow or run scripts.
-    // Fragments get the safety layer + theme wrapper.
-    private fun buildHtml(userHtml: String): String {
-        if (HTML_DOCUMENT_REGEX.containsMatchIn(userHtml)) return injectProtectiveHead(userHtml)
-        return wrapWithThemeStyles(extractHtmlBody(userHtml))
-    }
 
     private fun extractHtmlBody(html: String): String {
         val open = BODY_OPEN_REGEX.find(html) ?: return html
