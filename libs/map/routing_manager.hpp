@@ -131,9 +131,7 @@ public:
   void BuildRoute(uint32_t timeoutSec = routing::RouterDelegate::kNoTimeout);
   void SetUserCurrentPosition(m2::PointD const & position);
   void ResetRoutingSession() { m_routingSession.Reset(); }
-  // FollowRoute has a bug where the router follows the route even if the method hads't been called.
-  // This method was added because we do not want to break the behaviour that is familiar to our
-  // users.
+  // Disables route following while keeping the route visible.
   bool DisableFollowMode();
   kml::TrackId SaveRoute();
 
@@ -152,7 +150,6 @@ public:
     m_routeSpeedCamsClearCallback = speedCamsClearCallback;
   }
 
-  /// See warning above.
   void SetRouteProgressListener(routing::ProgressCallback const & progressCallback)
   {
     m_routingSession.SetProgressCallback(progressCallback);
