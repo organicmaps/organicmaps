@@ -57,8 +57,15 @@ struct RoutePointInfo
   m2::PointD m_position;
 };
 
+namespace routing_manager_tests
+{
+struct RoutingManagerAltMarksTest;
+}
+
 class RoutingManager final
 {
+  friend struct routing_manager_tests::RoutingManagerAltMarksTest;
+
 public:
   class Delegate
   {
