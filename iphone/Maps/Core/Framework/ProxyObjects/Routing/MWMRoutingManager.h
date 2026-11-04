@@ -20,6 +20,8 @@ NS_SWIFT_NAME(RoutingManager)
 @property(nonatomic, readonly, nullable) MWMRoutePoint * startPoint;
 @property(nonatomic, readonly, nullable) MWMRoutePoint * endPoint;
 @property(nonatomic, readonly) BOOL isOnRoute;
+/// Navigation session state, preserved while its route is rebuilt.
+@property(nonatomic, readonly) BOOL isNavigating;
 @property(nonatomic, readonly) BOOL isRoutingActive;
 @property(nonatomic, readonly) BOOL isRouteFinished;
 @property(nonatomic, readonly, nullable) RouteInfo * routeInfo;
