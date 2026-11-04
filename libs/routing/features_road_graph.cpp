@@ -58,11 +58,6 @@ bool FeaturesRoadGraphBase::CrossCountryVehicleModel::IsRoad(FeatureType & f) co
   return GetVehicleModel(f.GetID())->IsRoad(FeatureTypes(f));
 }
 
-bool FeaturesRoadGraphBase::CrossCountryVehicleModel::IsPassThroughAllowed(FeatureType & f) const
-{
-  return GetVehicleModel(f.GetID())->IsPassThroughAllowed(FeatureTypes(f));
-}
-
 VehicleModelInterface * FeaturesRoadGraphBase::CrossCountryVehicleModel::GetVehicleModel(
     FeatureID const & featureId) const
 {

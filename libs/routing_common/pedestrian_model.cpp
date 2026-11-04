@@ -65,38 +65,37 @@ SpeedKMpH constexpr kSpeedOffroadKMpH = {0.5 /* weight */, 3.0 /* eta */};
 
 // Default, no bridleway and cycleway
 VehicleModel::LimitsInitList const kDefaultOptions = {
-    // {HighwayType, passThroughAllowed}
-    {HighwayType::HighwayTrunk, true},
-    {HighwayType::HighwayTrunkLink, true},
-    {HighwayType::HighwayPrimary, true},
-    {HighwayType::HighwayPrimaryLink, true},
-    {HighwayType::HighwaySecondary, true},
-    {HighwayType::HighwaySecondaryLink, true},
-    {HighwayType::HighwayTertiary, true},
-    {HighwayType::HighwayTertiaryLink, true},
-    {HighwayType::HighwayService, true},
-    {HighwayType::HighwayUnclassified, true},
-    {HighwayType::HighwayRoad, true},
-    {HighwayType::HighwayTrack, true},
-    {HighwayType::HighwayPath, true},
+    {HighwayType::HighwayTrunk},
+    {HighwayType::HighwayTrunkLink},
+    {HighwayType::HighwayPrimary},
+    {HighwayType::HighwayPrimaryLink},
+    {HighwayType::HighwaySecondary},
+    {HighwayType::HighwaySecondaryLink},
+    {HighwayType::HighwayTertiary},
+    {HighwayType::HighwayTertiaryLink},
+    {HighwayType::HighwayService},
+    {HighwayType::HighwayUnclassified},
+    {HighwayType::HighwayRoad},
+    {HighwayType::HighwayTrack},
+    {HighwayType::HighwayPath},
     // HighwayBridleway, HighwayCycleway are missing
-    {HighwayType::HighwayResidential, true},
-    {HighwayType::HighwayLivingStreet, true},
-    {HighwayType::HighwayLadder, true},
-    {HighwayType::HighwaySteps, true},
-    {HighwayType::HighwayPedestrian, true},
-    {HighwayType::HighwayPlatform, true},
-    {HighwayType::HighwayFootway, true},
-    {HighwayType::ManMadePier, true},
-    {HighwayType::RouteFerry, true},
+    {HighwayType::HighwayResidential},
+    {HighwayType::HighwayLivingStreet},
+    {HighwayType::HighwayLadder},
+    {HighwayType::HighwaySteps},
+    {HighwayType::HighwayPedestrian},
+    {HighwayType::HighwayPlatform},
+    {HighwayType::HighwayFootway},
+    {HighwayType::ManMadePier},
+    {HighwayType::RouteFerry},
 };
 
 // Same as defaults except bridleway and cycleway are allowed.
 VehicleModel::LimitsInitList AllAllowed()
 {
   auto res = kDefaultOptions;
-  res.push_back({HighwayType::HighwayBridleway, true});
-  res.push_back({HighwayType::HighwayCycleway, true});
+  res.push_back({HighwayType::HighwayBridleway});
+  res.push_back({HighwayType::HighwayCycleway});
   return res;
 }
 
@@ -113,13 +112,13 @@ VehicleModel::LimitsInitList NoTrunk()
 
 VehicleModel::LimitsInitList YesCycleway(VehicleModel::LimitsInitList res = kDefaultOptions)
 {
-  res.push_back({HighwayType::HighwayCycleway, true});
+  res.push_back({HighwayType::HighwayCycleway});
   return res;
 }
 
 VehicleModel::LimitsInitList YesBridleway(VehicleModel::LimitsInitList res = kDefaultOptions)
 {
-  res.push_back({HighwayType::HighwayBridleway, true});
+  res.push_back({HighwayType::HighwayBridleway});
   return res;
 }
 

@@ -154,9 +154,8 @@ private:
 
   struct PenaltyData
   {
-    PenaltyData(bool passThroughAllowed, bool isFerry) : m_passThroughAllowed(passThroughAllowed), m_isFerry(isFerry) {}
+    explicit PenaltyData(bool isFerry) : m_isFerry(isFerry) {}
 
-    bool m_passThroughAllowed;
     bool m_isFerry;
   };
 

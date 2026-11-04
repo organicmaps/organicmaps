@@ -33,11 +33,11 @@ HighwayBasedFactors const kDefaultFactors = {{HighwayType::HighwayTrunk, InOutCi
                                              {HighwayType::HighwaySecondary, InOutCityFactor(1.0)},
                                              {HighwayType::HighwayResidential, InOutCityFactor(0.5)}};
 
-VehicleModel::LimitsInitList const kTestLimits = {{HighwayType::HighwayTrunk, true},
-                                                  {HighwayType::HighwayPrimary, true},
-                                                  {HighwayType::HighwaySecondary, true},
-                                                  {HighwayType::HighwayResidential, true},
-                                                  {HighwayType::HighwayService, false}};
+VehicleModel::LimitsInitList const kTestLimits = {{HighwayType::HighwayTrunk},
+                                                  {HighwayType::HighwayPrimary},
+                                                  {HighwayType::HighwaySecondary},
+                                                  {HighwayType::HighwayResidential},
+                                                  {HighwayType::HighwayService}};
 
 VehicleModel::SurfaceInitList const kCarSurface = {
     {{"psurface", "paved_good"}, {0.8 /* weightFactor */, 0.9 /* etaFactor */}},
@@ -126,16 +126,6 @@ void CheckOneWay(initializer_list<uint32_t> const & types, bool expectedValue)
   TEST_EQUAL(model.IsOneWay(h), expectedValue, ());
 }
 
-void CheckPassThroughAllowed(initializer_list<uint32_t> const & types, bool expectedValue)
-{
-  VehicleModelStub model;
-  feature::TypesHolder h;
-  for (uint32_t t : types)
-    h.Add(t);
-
-  TEST_EQUAL(model.IsPassThroughAllowed(h), expectedValue, ());
-}
-
 UNIT_CLASS_TEST(VehicleModelStub, MaxSpeed)
 {
   TEST_EQUAL(GetMaxWeightSpeed(), 150.0, ());
@@ -181,13 +171,6 @@ UNIT_CLASS_TEST(VehicleModelTest, DifferentSpeeds)
   CheckSpeed({secondary, primary}, kDefaultSpeeds.Get(HighwayType::HighwaySecondary));
   CheckSpeed({oneway, primary, secondary}, kDefaultSpeeds.Get(HighwayType::HighwayPrimary));
   CheckOneWay({primary, oneway, secondary}, true);
-}
-
-UNIT_CLASS_TEST(VehicleModelTest, PassThroughAllowed)
-{
-  CheckPassThroughAllowed({secondary}, true);
-  CheckPassThroughAllowed({primary}, true);
-  CheckPassThroughAllowed({classif().GetTypeByPath({"highway", "service"})}, false);
 }
 
 UNIT_CLASS_TEST(VehicleModelTest, SpeedFactor)

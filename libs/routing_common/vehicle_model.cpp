@@ -36,7 +36,7 @@ VehicleModel::VehicleModel(Classificator const & classif, LimitsInitList const &
 
     m_maxModelSpeed = Max(m_maxModelSpeed, *speed);
 
-    m_roadTypes.Insert(classif.GetTypeForIndex(static_cast<uint32_t>(v.m_type)), v.m_isPassThroughAllowed);
+    m_roadTypes.Insert(classif.GetTypeForIndex(static_cast<uint32_t>(v.m_type)), v.m_type);
   }
   m_roadTypes.FinishBuilding();
 
@@ -90,9 +90,8 @@ double VehicleModel::GetMaxWeightSpeed() const
 
 std::optional<HighwayType> VehicleModel::GetHighwayType(uint32_t type) const
 {
-  auto const * value = m_roadTypes.Find(type);
-  if (value)
-    return static_cast<HighwayType>(classif().GetIndexForType(type));
+  if (auto const * value = m_roadTypes.Find(type))
+    return *value;
   return {};
 }
 
@@ -202,24 +201,6 @@ bool VehicleModel::IsOneWay(FeatureTypes const & types) const
 bool VehicleModel::IsRoad(FeatureTypes const & types) const
 {
   return types.GetGeomType() == feature::GeomType::Line && IsRoadImpl(types);
-}
-
-bool VehicleModel::IsPassThroughAllowed(FeatureTypes const & types) const
-{
-  for (uint32_t t : types)
-  {
-    ftype::TruncValue(t, 2);
-
-    // Additional types (like ferry) are always pass-through now.
-    if (m_addRoadTypes.Find(t))
-      return true;
-
-    bool const * allow = m_roadTypes.Find(t);
-    if (allow && *allow)
-      return true;
-  }
-
-  return false;
 }
 
 bool VehicleModel::IsRoadType(uint32_t type) const

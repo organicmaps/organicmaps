@@ -99,8 +99,6 @@ public:
   std::set<NumMwmId> const & GetStartMwms() const { return m_start.m_mwmIds; }
   std::set<NumMwmId> const & GetFinishMwms() const { return m_finish.m_mwmIds; }
 
-  // Checks whether |weight| meets non-pass-through crossing restrictions according to placement of
-  // start and finish in pass-through/non-pass-through area and number of non-pass-through crosses.
   bool CheckLength(RouteWeight const & weight);
 
   void GetEdgeList(astar::VertexData<JointSegment, Weight> const & parentVertexData, Segment const & segment,
@@ -229,9 +227,6 @@ private:
   // Adds fake edges of type PartOfReal which correspond real edges from |edges| and are connected
   // to |segment|
   void AddFakeEdges(Segment const & segment, bool isOutgoing, EdgeListT & edges) const;
-
-  // Checks whether ending belongs to non-pass-through zone (service, living street, etc).
-  bool HasNoPassThroughAllowed(Ending const & ending) const;
 
   WorldGraph & m_graph;
   // Start segment id
