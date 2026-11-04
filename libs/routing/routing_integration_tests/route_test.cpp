@@ -78,6 +78,7 @@ UNIT_TEST(Russia_Ufa_UstKatav)
                                    FromLatLon(54.9228, 58.1469), 160565);
 }
 
+/// @todo Fails: the service road crossing saves 236 s, more than two turns onto and off a service road (2 x 30 s).
 UNIT_TEST(RussiaMoscowNoServiceCrossing)
 {
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(55.77787, 37.70405), {0., 0.},
@@ -643,6 +644,8 @@ UNIT_TEST(Hawaii_KeepH1)
 }
 
 // https://github.com/organicmaps/organicmaps/issues/1668
+/// @todo Fails: the finish projection onto the parking service road is 2 m closer than onto Большая Серпуховская,
+/// and 2 m of the 0.01 km/h offroad weight outweigh the 3 min detour through the parking.
 UNIT_TEST(Russia_Moscow_KeepPrimary)
 {
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(55.7083688, 37.6213856), {0., 0.},
@@ -895,8 +898,9 @@ UNIT_TEST(USA_UseDirt_WithMaxspeed)
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(46.5361985, -111.943183),
                                    {0., 0.}, FromLatLon(46.4925409, -112.105446), 20906.5);
 
+  // Big Belt Drive instead of the service road between two parts of Timber Trail Drive.
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(46.7336967, -111.926), {0., 0.},
-                                   FromLatLon(46.7467037, -111.917147), 3527.79);
+                                   FromLatLon(46.7467037, -111.917147), 3324.62);
 
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(42.3889581, 19.7812567), {0., 0.},
                                    FromLatLon(42.3878106, 19.7831402), 247.139);
@@ -905,8 +909,9 @@ UNIT_TEST(USA_UseDirt_WithMaxspeed)
 // https://github.com/organicmaps/organicmaps/issues/8507
 UNIT_TEST(Norway_MotorVehicleBackward_No)
 {
+  // Hausmanns gate instead of the service road with a tunnel between Trondheimsveien and Korsgata.
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(59.91734, 10.75949), {0., 0.},
-                                   FromLatLon(59.91877, 10.75936), 1091.88);
+                                   FromLatLon(59.91877, 10.75936), 1519.57);
 
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(59.919597, 10.759392), {0., 0.},
                                    FromLatLon(59.92056, 10.759317), 419);

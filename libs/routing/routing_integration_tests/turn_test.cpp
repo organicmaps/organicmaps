@@ -1131,6 +1131,8 @@ UNIT_TEST(Crimea_Roundabout_test)
   integration::GetNthTurn(route, 1).TestValid().TestRoundAboutExitNum(3);
 }
 
+/// @todo Fails: the service road from проспект Мельникова to улица Родионова saves 179 s, more than two turns onto
+/// and off a service road (2 x 30 s).
 UNIT_TEST(Russia_Moscow_OnlyUTurnTest1_TurnTest)
 {
   TRouteResult const routeResult = integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),

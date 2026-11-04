@@ -11,6 +11,7 @@
 
 #include <algorithm>
 #include <memory>
+#include <optional>
 
 class DataSource;
 
@@ -95,6 +96,12 @@ public:
                                    time_t arrivalTime = 0) const = 0;
   virtual double GetUTurnPenalty(Purpose purpose) const = 0;
   virtual double GetFerryLandingPenalty(Purpose purpose) const = 0;
+  /// @return Penalty in seconds for a turn from a road of |from| type onto a road of |to| type.
+  virtual double GetTurnPenalty(Purpose /* purpose */, std::optional<HighwayType> /* from */,
+                                std::optional<HighwayType> /* to */) const
+  {
+    return 0.0;
+  }
 
   static std::shared_ptr<EdgeEstimator> Create(VehicleType vehicleType, double maxWeighSpeedKMpH,
                                                SpeedKMpH const & offroadSpeedKMpH,
