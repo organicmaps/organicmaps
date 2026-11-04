@@ -297,10 +297,14 @@ void Framework::OnViewportChanged(ScreenBase const & screen)
 {
   // Drape engine may spuriously call OnViewportChanged. Filter out the calls that
   // change the viewport from the drape engine's point of view but leave it almost
-  // the same from the point of view of the framework and all its subsystems such as search api.
+  // the same on the screen (within half a pixel) and from the point of view of the framework
+  // and all its subsystems such as search api (within kMwmPointAccuracy).
   // Additional filtering may be done by each subsystem.
-  auto const isSameViewport =
-      m2::IsEqual(screen.ClipRect(), m_currentModelView.ClipRect(), kMwmPointAccuracy, kMwmPointAccuracy);
+  double constexpr kEps = 1e-6;
+  double const rectEps = std::min(kMwmPointAccuracy, screen.GetScale() / 2);
+  auto const isSameViewport = m2::IsEqual(screen.ClipRect(), m_currentModelView.ClipRect(), rectEps, rectEps) &&
+                              AlmostEqualAbs(screen.GetAngle(), m_currentModelView.GetAngle(), kEps) &&
+                              AlmostEqualRel(screen.GetScale(), m_currentModelView.GetScale(), kEps);
   if (isSameViewport)
     return;
 
