@@ -7,6 +7,8 @@
 
 #include "base/math.hpp"
 
+#include <vector>
+
 namespace framework_viewport_tests
 {
 namespace
@@ -16,13 +18,58 @@ class TestFramework final : public Framework
 public:
   TestFramework() : Framework({}, false /* loadMaps */) {}
 
+  using Framework::OnViewportChanged;
+
   void SetViewport(ScreenBase const & screen, m2::RectD const & visibleViewport)
   {
     m_currentModelView = screen;
     m_visibleViewport = visibleViewport;
   }
 };
+
+// Returns how many of the |screens|, reported by the drape engine in a row, reach the viewport listener.
+size_t CountViewportChanges(std::vector<ScreenBase> const & screens)
+{
+  size_t count = 0;
+  TestFramework framework;
+  framework.SetViewportListener([&count](ScreenBase const &) { ++count; });
+  for (auto const & screen : screens)
+    framework.OnViewportChanged(screen);
+  return count;
+}
+
+// A pixel is ten times shorter than kMwmPointAccuracy.
+ScreenBase GetHighZoomScreen()
+{
+  ScreenBase screen;
+  screen.SetFromParams(m2::PointD(10.0, 10.0), 0.0 /* angle */, 1e-6 /* scale */);
+  return screen;
+}
 }  // namespace
+
+UNIT_TEST(Framework_ViewportListener_SameScreen)
+{
+  auto const screen = GetHighZoomScreen();
+  auto moved = screen;
+  moved.Move(0.25 /* dx */, 0.0 /* dy */);
+  TEST_EQUAL(CountViewportChanges({screen, screen, moved}), 1, ());
+}
+
+UNIT_TEST(Framework_ViewportListener_OnePixelPan)
+{
+  auto const screen = GetHighZoomScreen();
+  auto moved = screen;
+  moved.Move(1.0 /* dx */, 0.0 /* dy */);
+  TEST_EQUAL(CountViewportChanges({screen, moved}), 2, ());
+}
+
+UNIT_TEST(Framework_ViewportListener_HalfTurn)
+{
+  auto const screen = GetHighZoomScreen();
+  auto rotated = screen;
+  rotated.Rotate(math::pi);
+  TEST_EQUAL(CountViewportChanges({screen, rotated}), 2, ());
+}
 
 UNIT_TEST(Framework_GetViewportCenter)
 {
