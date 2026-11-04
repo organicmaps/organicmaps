@@ -616,8 +616,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
           {
           case BatteryOptimizationHelper.ACTION_GO_TO_SETTINGS:
             mTrackRecordingPending = true;
-            Intent settingsIntent = BatteryOptimizationHelper.getSettingsIntent(this);
-            mBatterySettingsLauncher.launch(settingsIntent);
+            if (!BatteryOptimizationHelper.openSettings(this, mBatterySettingsLauncher))
+              continueTrackRecording();
             break;
           case BatteryOptimizationHelper.ACTION_CONTINUE: continueTrackRecording(); break;
           default: throw new AssertionError("Unknown battery warning action: " + action);
@@ -2101,7 +2101,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     showTrackRecordingUi();
     Toast.makeText(this, R.string.track_recording, Toast.LENGTH_SHORT).show();
     TrackRecordingService.startForegroundService(getApplicationContext());
-    Utils.showBatteryOptimizationWarningIfNeeded(this);
     return true;
   }
 

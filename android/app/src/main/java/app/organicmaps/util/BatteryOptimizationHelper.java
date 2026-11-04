@@ -2,6 +2,7 @@ package app.organicmaps.util;
 
 import android.app.ActivityManager;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -17,13 +19,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 import app.organicmaps.R;
+import app.organicmaps.sdk.util.log.Logger;
 import java.util.Locale;
 import java.util.Set;
 
 public class BatteryOptimizationHelper
 {
-  private static final String PREF_NAME = "battery_optimization_prefs";
-  private static final String KEY_WARNING_SHOWN = "warning_shown";
+  private static final String PREF_NAME = "OrganicMapsPrefs";
+  private static final String KEY_WARNING_SHOWN = "battery_optimization_warning_seen";
   private static final Set<String> GUIDE_MANUFACTURERS =
       Set.of("asus", "blackview", "htc", "huawei", "lenovo", "meizu", "motorola", "nokia", "oneplus", "oppo", "realme",
              "samsung", "sony", "stock_android", "tecno", "ulefone", "unihertz", "vivo", "wiko", "xiaomi");
@@ -63,7 +66,7 @@ public class BatteryOptimizationHelper
   }
 
   @NonNull
-  public static Intent getSettingsIntent(@NonNull Context context)
+  private static Intent getSettingsIntent(@NonNull Context context)
   {
     // Samsung's Never sleeping apps list: https://developer.samsung.com/mobile/app-management.html
     if (isSamsungTarget())
@@ -78,6 +81,23 @@ public class BatteryOptimizationHelper
     return new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + context.getPackageName()));
   }
 
+  public static boolean openSettings(@NonNull Context context, @NonNull ActivityResultLauncher<Intent> launcher)
+  {
+    for (Intent intent : new Intent[] {getSettingsIntent(context), new Intent(Settings.ACTION_SETTINGS)})
+    {
+      try
+      {
+        launcher.launch(intent);
+        return true;
+      }
+      catch (ActivityNotFoundException | SecurityException e)
+      {
+        Logger.w("BatteryOptimizationHelper", "Failed to open battery settings: " + intent, e);
+      }
+    }
+    return false;
+  }
+
   public static void showOptimizationDialog(@NonNull FragmentActivity activity)
   {
     WarningDialogFragment dialog = new WarningDialogFragment();
@@ -88,10 +108,10 @@ public class BatteryOptimizationHelper
   static int warningMessage(@NonNull String manufacturer, int sdk)
   {
     if (sdk >= Build.VERSION_CODES.P && "samsung".equalsIgnoreCase(manufacturer))
-      return sdk >= Build.VERSION_CODES.R ? R.string.background_location_samsung_warning_message
-                                          : R.string.background_location_samsung_warning_message_legacy;
-    return sdk >= Build.VERSION_CODES.S ? R.string.background_location_warning_message
-                                        : R.string.background_location_warning_message_legacy;
+      return sdk >= Build.VERSION_CODES.R ? R.string.background_recording_samsung_warning_message
+                                          : R.string.background_recording_samsung_warning_message_legacy;
+    return sdk >= Build.VERSION_CODES.S ? R.string.background_recording_warning_message
+                                        : R.string.background_recording_warning_message_legacy;
   }
 
   @NonNull
@@ -118,7 +138,7 @@ public class BatteryOptimizationHelper
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState)
     {
       return new AlertDialog.Builder(requireContext())
-          .setTitle(R.string.background_location_warning_title)
+          .setTitle(R.string.background_recording_warning_title)
           .setMessage(warningMessage(Build.MANUFACTURER, Build.VERSION.SDK_INT))
           .setPositiveButton(R.string.settings, (dialog, which) -> sendResult(ACTION_GO_TO_SETTINGS))
           .setNegativeButton(R.string.not_now, (dialog, which) -> sendResult(ACTION_CONTINUE))

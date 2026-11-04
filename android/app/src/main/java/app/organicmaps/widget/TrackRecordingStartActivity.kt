@@ -43,8 +43,11 @@ class TrackRecordingStartActivity : AppCompatActivity() {
         MwmApplication.from(this).displayManager.init(DisplayType.Device)
         supportFragmentManager.setFragmentResultListener(BatteryOptimizationHelper.REQUEST_KEY, this) { _, result ->
             when (val action = result.getInt(BatteryOptimizationHelper.BUNDLE_KEY_ACTION)) {
-                BatteryOptimizationHelper.ACTION_GO_TO_SETTINGS ->
-                    batterySettings.launch(BatteryOptimizationHelper.getSettingsIntent(this))
+                BatteryOptimizationHelper.ACTION_GO_TO_SETTINGS -> {
+                    if (!BatteryOptimizationHelper.openSettings(this, batterySettings)) {
+                        continueRecordingStart()
+                    }
+                }
 
                 BatteryOptimizationHelper.ACTION_CONTINUE -> continueRecordingStart()
 

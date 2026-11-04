@@ -51,7 +51,7 @@ public class TrackRecordingBatteryWarningTest
 {
   private final Instrumentation mInstrumentation = InstrumentationRegistry.getInstrumentation();
   private final Context mContext = mInstrumentation.getTargetContext();
-  private final SharedPreferences mPreferences = mContext.getSharedPreferences("battery_optimization_prefs", 0);
+  private final SharedPreferences mPreferences = mContext.getSharedPreferences("OrganicMapsPrefs", 0);
   private ActivityScenario<MwmActivity> mScenario;
   private boolean mWasAcknowledged;
   private boolean mWasRestricted;
@@ -83,10 +83,10 @@ public class TrackRecordingBatteryWarningTest
     assertTrue("Core initialization timed out", initialized.await(30, TimeUnit.SECONDS));
     assumeFalse("A recording is already active", TrackRecorder.nativeIsTrackRecordingEnabled());
 
-    mWasAcknowledged = mPreferences.getBoolean("warning_shown", false);
+    mWasAcknowledged = mPreferences.getBoolean("battery_optimization_warning_seen", false);
     mWasRestricted = mContext.getSystemService(ActivityManager.class).isBackgroundRestricted();
     mWasLocationEnabled = LocationUtils.areLocationServicesTurnedOn(mContext);
-    mPreferences.edit().putBoolean("warning_shown", false).commit();
+    mPreferences.edit().putBoolean("battery_optimization_warning_seen", false).commit();
     shell("cmd appops set " + packageName + " RUN_ANY_IN_BACKGROUND ignore");
     shell("cmd location set-location-enabled true");
     mScenario = ActivityScenario.launch(new Intent(mContext, MwmActivity.class));
@@ -106,7 +106,7 @@ public class TrackRecordingBatteryWarningTest
       }
     });
     mScenario.close();
-    mPreferences.edit().putBoolean("warning_shown", mWasAcknowledged).commit();
+    mPreferences.edit().putBoolean("battery_optimization_warning_seen", mWasAcknowledged).commit();
     shell("cmd appops set " + mContext.getPackageName() + " RUN_ANY_IN_BACKGROUND "
           + (mWasRestricted ? "ignore" : "allow"));
     shell("cmd location set-location-enabled " + mWasLocationEnabled);
@@ -120,7 +120,7 @@ public class TrackRecordingBatteryWarningTest
     mScenario.onActivity(activity -> {
       assertTrue(warning(activity).requireDialog().isShowing());
       assertFalse(TrackRecorder.nativeIsTrackRecordingEnabled());
-      assertFalse(mPreferences.getBoolean("warning_shown", false));
+      assertFalse(mPreferences.getBoolean("battery_optimization_warning_seen", false));
 
       final Intent restart = coreRestartIntent(activity);
       assertTrue(restart.getBooleanExtra(MwmActivity.EXTRA_START_TRACK_RECORDING, false));
@@ -140,7 +140,7 @@ public class TrackRecordingBatteryWarningTest
         dialog.getButton(AlertDialog.BUTTON_NEGATIVE).performClick();
       });
       await(TrackRecorder::nativeIsTrackRecordingEnabled);
-      assertTrue(mPreferences.getBoolean("warning_shown", false));
+      assertTrue(mPreferences.getBoolean("battery_optimization_warning_seen", false));
     }
   }
 
@@ -208,7 +208,7 @@ public class TrackRecordingBatteryWarningTest
         dialog.getButton(AlertDialog.BUTTON_NEUTRAL).performClick();
         assertEquals(1, browser.getHits());
         assertTrue(dialog.isShowing());
-        assertFalse(mPreferences.getBoolean("warning_shown", false));
+        assertFalse(mPreferences.getBoolean("battery_optimization_warning_seen", false));
         assertFalse(TrackRecorder.nativeIsTrackRecordingEnabled());
       });
     }
