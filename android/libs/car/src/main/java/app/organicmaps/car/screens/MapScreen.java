@@ -13,22 +13,28 @@ import androidx.car.app.model.ItemList;
 import androidx.car.app.model.Template;
 import androidx.car.app.navigation.model.MapWithContentTemplate;
 import androidx.core.graphics.drawable.IconCompat;
+import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.car.R;
 import app.organicmaps.car.screens.bookmarks.BookmarkCategoriesScreen;
 import app.organicmaps.car.screens.search.SearchScreen;
 import app.organicmaps.car.screens.settings.SettingsScreen;
+import app.organicmaps.car.util.DrivingStateDetector;
 import app.organicmaps.car.util.SuggestionsHelpers;
 import app.organicmaps.car.util.UiHelpers;
 import app.organicmaps.sdk.OrganicMaps;
 import app.organicmaps.sdk.car.renderer.Renderer;
 import app.organicmaps.sdk.car.screens.BaseMapScreen;
 
-public class MapScreen extends BaseMapScreen
+public class MapScreen extends BaseMapScreen implements DrivingStateDetector.Callback
 {
+  @NonNull
+  private final DrivingStateDetector mDrivingStateDetector;
+
   public MapScreen(@NonNull CarContext carContext, @NonNull OrganicMaps organicMapsContext,
                    @NonNull Renderer surfaceRenderer)
   {
     super(carContext, organicMapsContext, surfaceRenderer);
+    mDrivingStateDetector = new DrivingStateDetector(organicMapsContext, this);
   }
 
   @NonNull
@@ -42,6 +48,26 @@ public class MapScreen extends BaseMapScreen
     builder.setActionStrip(createActionStrip());
     builder.setContentTemplate(createGridTemplate());
     return builder.build();
+  }
+
+  @Override
+  public void onResume(@NonNull LifecycleOwner owner)
+  {
+    super.onResume(owner);
+    mDrivingStateDetector.start();
+  }
+
+  @Override
+  public void onPause(@NonNull LifecycleOwner owner)
+  {
+    super.onPause(owner);
+    mDrivingStateDetector.stop();
+  }
+
+  @Override
+  public void onEnteredDrivingState()
+  {
+    getScreenManager().push(new FreeDriveScreen(getCarContext(), getOrganicMapsContext(), getSurfaceRenderer()));
   }
 
   @NonNull
