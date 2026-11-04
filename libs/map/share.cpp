@@ -4,6 +4,8 @@
 
 #include "indexer/map_object.hpp"
 
+#include "coding/url.hpp"
+
 #include "platform/measurement_utils.hpp"
 
 #include "base/string_utils.hpp"
@@ -67,6 +69,19 @@ std::string ToTelUri(std::string_view phone)
     if (!strings::IsASCIISpace(c))
       uri += c;
   return uri;
+}
+
+// See https://developer.apple.com/library/archive/featuredarticles/iPhoneURLScheme_Reference/MapLinks/MapLinks.html
+std::string GenerateAppleMapsUrl(Place const & place)
+{
+  std::string lat, lon;
+  measurement_utils::FormatLatLon(place.m_ll.m_lat, place.m_ll.m_lon, lat, lon);
+  std::string url = "https://maps.apple.com/?ll=" + lat + ',' + lon;
+  if (!place.m_name.empty())
+    url += "&q=" + url::UrlEncode(place.m_name);
+  if (!place.m_address.empty())
+    url += "&address=" + url::UrlEncode(place.m_address);
+  return url;
 }
 
 void AppendText(std::string & html, std::string_view text)
@@ -145,6 +160,8 @@ Result Build(Place const & place, Strings const & strings)
   //   2. drop the coordinates line from the plain body below - the link then carries them itself;
   //   3. update the share_tests expectations.
   result.m_url = ge0::GenerateHttpShowMapUrl(place.m_ll.m_lat, place.m_ll.m_lon, place.m_zoom, place.m_name);
+
+  result.m_appleMapsUrl = GenerateAppleMapsUrl(place);
 
   std::string const geoUri = ge0::GenerateGeoUri(place.m_ll.m_lat, place.m_ll.m_lon, place.m_zoom, place.m_name);
   std::string const coords = measurement_utils::FormatLatLon(place.m_ll.m_lat, place.m_ll.m_lon, true /* withComma */);

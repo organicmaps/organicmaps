@@ -42,6 +42,10 @@ UNIT_TEST(Share_Build_Poi)
 
   // The ge0 short link, shared until ParseClearCoordinates is out in the wild (see share.cpp).
   TEST_EQUAL(r.m_url, "https://omaps.app/w4CNuoc9QN/Eiffel_Tower", ());
+  TEST_EQUAL(r.m_appleMapsUrl,
+             "https://maps.apple.com/?ll=48.858093,2.294694&q=Eiffel%20Tower"
+             "&address=Champ%20de%20Mars%2C%205%20Av.%20Anatole%20France",
+             ());
   TEST_EQUAL(r.m_subjectBasis, "Eiffel Tower", ());
   TEST(!r.m_isMyPosition, ());
 
@@ -78,6 +82,7 @@ UNIT_TEST(Share_Build_MyPosition)
 
   // No name in the link; the my-position heading is used instead.
   TEST_EQUAL(r.m_url, "https://omaps.app/04CNuoc9QN", ());
+  TEST_EQUAL(r.m_appleMapsUrl, "https://maps.apple.com/?ll=48.858093,2.294694&address=5%20Av.%20Anatole%20France", ());
   // No name, so the subject basis falls back to the address.
   TEST_EQUAL(r.m_subjectBasis, "5 Av. Anatole France", ());
   TEST_EQUAL(r.m_text,
@@ -130,6 +135,7 @@ UNIT_TEST(Share_Build_BareMapPoint)
 
   Result const r = Build(place, TestStrings());
   TEST_EQUAL(r.m_text, "48.858093, 2.294694\nhttps://omaps.app/04CNuoc9QN", ());
+  TEST_EQUAL(r.m_appleMapsUrl, "https://maps.apple.com/?ll=48.858093,2.294694", ());
   TEST(r.m_subjectBasis.empty(), (r.m_subjectBasis));
   TEST(!r.m_html.starts_with("<br>"), (r.m_html));
   TEST(r.m_html.starts_with("<a href="), (r.m_html));
@@ -158,5 +164,6 @@ UNIT_TEST(Share_Build_HtmlEscaping)
 
   Result const r = Build(place, TestStrings());
   TEST(r.m_html.find("<b>Ben &amp; Jerry's &lt;ice&gt;</b>") != std::string::npos, (r.m_html));
+  TEST_EQUAL(r.m_appleMapsUrl, "https://maps.apple.com/?ll=1,2&q=Ben%20%26%20Jerry%27s%20%3Cice%3E", ());
 }
 }  // namespace share_tests
