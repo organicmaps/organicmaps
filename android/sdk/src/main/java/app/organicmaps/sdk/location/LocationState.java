@@ -68,6 +68,12 @@ public final class LocationState
   public static native void nativeRemoveListener();
 
   /**
+   * Shows or hides the position mark and its accuracy circle, for example when the host draws its own mark.
+   * A hidden mark keeps its mode and is still followed, but it is not tappable. Call after renderer creation.
+   */
+  public static native void nativeSetMyPositionVisible(boolean visible);
+
+  /**
    * Reports a denied location permission or disabled location provider using an {@code ERROR_*} constant.
    */
   public static native void nativeOnLocationError(int errorCode);
