@@ -40,3 +40,15 @@ target_link_libraries(${PROJECT_NAME}
     routing
     map
 )
+
+# This regression needs no country maps, so it also runs with the unit test suites.
+add_test(
+  NAME transit_walk_distance_test
+  COMMAND ${PROJECT_NAME}
+    --filter=Transit_WalkDistanceIncludesGatesAndTransfers
+    --data_path=${OMIM_DATA_DIR}
+    --user_resource_path=${OMIM_USER_RESOURCES_DIR}
+    --writable_path=${CMAKE_BINARY_DIR}/test_writable/transit_walk_distance_test
+  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+)
+set_tests_properties(transit_walk_distance_test PROPERTIES LABELS "omim-test")

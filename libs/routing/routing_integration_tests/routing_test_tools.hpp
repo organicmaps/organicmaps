@@ -129,8 +129,8 @@ TRoutesResult CalculateRoutes(IRouterComponents const & routerComponents, Checkp
 // DataSource — same path the app uses to render the route summary.
 TransitRouteInfo GetTransitRouteInfo(IRouterComponents const & routerComponents, Route const & route);
 
-// Geodesic length in meters of the route's pedestrian (walking) legs — segments without transit
-// info. Useful to assert that a less-walking alternative actually walks less.
+// Geodesic length in meters of walking segments, including gates and station transfers.
+// Only vehicle edges are excluded, matching TransitRouteDisplay's pedestrian totals.
 double GetWalkDistanceMeters(Route const & route);
 
 void TestTurnCount(Route const & route, uint32_t expectedTurnCount);
