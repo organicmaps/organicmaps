@@ -347,6 +347,12 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_OpeningHours_nativeIsTimetabl
   return source.empty() || osmoh::OpeningHours(source).IsValid();
 }
 
+JNIEXPORT jboolean Java_app_organicmaps_sdk_editor_OpeningHours_nativeHasSunEvent(JNIEnv * env, jclass clazz,
+                                                                                  jstring jSource)
+{
+  return osmoh::OpeningHours(jni::ToNativeString(env, jSource)).HasSunEvent();
+}
+
 JNIEXPORT jobject Java_app_organicmaps_sdk_editor_OpeningHours_nativeGetPlacePageOpeningHoursInfo(JNIEnv * env,
                                                                                                   jclass clazz,
                                                                                                   jlong jCurrentTime)
@@ -356,8 +362,8 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_editor_OpeningHours_nativeGetPlacePag
   if (!frm()->HasPlacePageInfo())
     return nullptr;
 
-  // The schedule and the time zone must describe the same POI, hence both are taken from the
-  // currently shown place page instead of accepting the schedule as an argument.
+  // Take all evaluation inputs from the shown place page so they describe the
+  // same POI.
   auto const & placePage = g_framework->GetPlacePageInfo();
   auto const source = placePage.GetOpeningHours();
   if (source.empty())
@@ -367,8 +373,8 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_editor_OpeningHours_nativeGetPlacePag
   if (!oh.IsValid())
     return nullptr;
 
-  // Evaluate in the POI's local time zone, not the device's, see issue #1642.
-  OpeningHours::InfoT const info = oh.GetInfo(static_cast<time_t>(jCurrentTime), placePage.GetTimeZone());
+  OpeningHours::InfoT const info =
+      oh.GetInfo(static_cast<time_t>(jCurrentTime), placePage.GetTimeZone(), placePage.GetLatLon());
   if (info.state == RuleState::Unknown)
     return nullptr;
   time_t const next = info.state == RuleState::Open ? info.nextTimeClosed : info.nextTimeOpen;

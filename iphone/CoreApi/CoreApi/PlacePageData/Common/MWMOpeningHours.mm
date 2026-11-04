@@ -10,8 +10,8 @@ namespace
 {
 // Shows the noon and midnight labels instead of 12:00 and 00:00/24:00. In 12-hour locales both
 // render as "12:00 PM" / "12:00 AM", so the labels are the only way to tell them apart at a
-// glance. Only whole hours are labelled: 00:30 and 12:30 stay numeric. Sun events (sunrise-sunset)
-// have no clock value here, and their 00:00 placeholder must not be labelled as midnight.
+// glance. Only whole hours are labelled: 00:30 and 12:30 stay numeric. Sun-event
+// schedules use their raw expression because this timetable stores only clock times.
 NSString * formatTime(Time const & time, id<IOpeningHoursLocalization> localization)
 {
   if (time.IsHoursMinutes() && time.GetMinutesCount() == 0)
@@ -105,6 +105,9 @@ std::pair<std::vector<osmoh::Day>, bool> processRawString(NSString * str, id<IOp
                                                           std::optional<om::tz::TimeZone> const & timeZone)
 {
   osmoh::OpeningHours oh(str.UTF8String);
+  if (oh.HasSunEvent())
+    return {{}, false};
+
   // Evaluate "is closed now" in the POI's local time zone, not the device's, see issue #1642.
   bool const isClosed = oh.IsClosed(time(nullptr), timeZone);
 

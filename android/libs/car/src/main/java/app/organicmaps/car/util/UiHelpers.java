@@ -119,7 +119,8 @@ public final class UiHelpers
     if (ohStr.isEmpty())
       return null;
 
-    final Timetable[] timetables = OpeningHours.nativeTimetablesFromString(ohStr);
+    final Timetable[] timetables =
+        OpeningHours.nativeHasSunEvent(ohStr) ? null : OpeningHours.nativeTimetablesFromString(ohStr);
     final boolean isEmptyTT = (timetables == null || timetables.length == 0);
 
     final Row.Builder builder = new Row.Builder();
