@@ -1,1 +1,1 @@
-GPS navigasyon Türkçe, çevrimdışı haritalar ve internetsiz yol gösterici.
+Çevrimdışı haritalar ve Türkçe GPS navigasyon. İnternetsiz yol tarifi.
