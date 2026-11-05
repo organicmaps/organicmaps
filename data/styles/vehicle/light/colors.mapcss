@@ -10,6 +10,7 @@
 
 /* ROADS */
 
+@motorway: #024066;
 @trunk0: #FF9140;
 @trunk1: #FF8742;
 @primary0:  #FF8726;
