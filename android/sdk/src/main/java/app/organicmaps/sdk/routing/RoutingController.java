@@ -656,7 +656,7 @@ public class RoutingController
   @NonNull
   public FollowTrackResult setFollowTrackProfile(@NonNull Router router)
   {
-    // A follow rebuild (an earlier profile tap) is still in flight: ignore rapid
+    // A follow rebuild (an earlier profile tap or chart pick) is still in flight: ignore rapid
     // taps instead of stacking teardown/rebuild cycles.
     if (isBuilding() || router == Router.getRender())
       return FollowTrackResult.Ok;

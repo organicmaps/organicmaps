@@ -310,11 +310,20 @@ public class Framework
   /** Whether the current route has an elevation profile to chart. */
   public static native boolean nativeHasRouteAltitude();
 
+  /**
+   * The elevation profile of the current route. A track preview charts the whole followed track instead, so its
+   * distances, including the ones passed to {@link #nativeRouteSetElevationActivePoint}, count from the track start;
+   * once that track is deleted, the preview has no profile.
+   */
   @Nullable
   public static native app.organicmaps.sdk.routing.RouteAltitudeData nativeGetRouteAltitudeData();
 
+  /**
+   * Marks the route point at the given distance on the map. Ignored while a place page is open: it owns the selection.
+   */
   public static native void nativeRouteSetElevationActivePoint(double distanceMeters);
 
+  /** Removes the route point marker from the map; the selection of an open place page stays. */
   public static native void nativeRouteRemoveElevationActivePoint();
 
   // When an end user is going to a turn he gets sound turn instructions.
