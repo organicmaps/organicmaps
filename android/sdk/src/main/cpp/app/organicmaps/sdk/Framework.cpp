@@ -63,8 +63,10 @@
 
 #include "ge0/url_generator.hpp"
 
+#include <algorithm>
 #include <functional>
 #include <memory>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -107,6 +109,53 @@ RouteMarkData MakeRouteMarkData(JNIEnv * env, jstring title, jstring subtitle, R
 android::AndroidVulkanContextFactory * CastFactory(drape_ptr<dp::GraphicsContextFactory> const & f)
 {
   return dynamic_cast<android::AndroidVulkanContextFactory *>(f.get());
+}
+
+// A track preview charts the whole followed track: its route covers only the section after the selected entry.
+bool IsTrackPreview()
+{
+  auto const & manager = frm()->GetRoutingManager();
+  return manager.IsFollowingTrack() && !manager.IsRoutingFollowing();
+}
+
+// Null once the track is deleted: its preview then has no chart until it is cancelled.
+Track const * GetPreviewedTrack()
+{
+  auto const info = frm()->GetRoutingManager().GetFollowedTrackInfo();
+  ASSERT(info, ());
+  return frm()->GetBookmarkManager().GetTrack(info->m_id);
+}
+
+jobject ToRouteAltitudeData(JNIEnv * env, ElevationInfo const & ei, geometry::Altitude altitudeThreshold)
+{
+  static jclass const dataClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/routing/RouteAltitudeData");
+  static jmethodID const constructor = jni::GetConstructorID(env, dataClass, "([D[IIIII)V");
+
+  jsize const size = static_cast<jsize>(ei.GetSize());
+
+  jdoubleArray jDistances = env->NewDoubleArray(size);
+  CHECK(jDistances, ());
+  jintArray jElevs = env->NewIntArray(size);
+  CHECK(jElevs, ());
+
+  jdouble * distances = env->GetDoubleArrayElements(jDistances, nullptr);
+  jint * elevations = env->GetIntArrayElements(jElevs, nullptr);
+
+  size_t i = 0;
+  ei.ForEachPoint([&](double dist, geometry::Altitude alt)
+  {
+    distances[i] = dist;
+    elevations[i] = static_cast<jint>(alt);
+    ++i;
+  });
+
+  env->ReleaseDoubleArrayElements(jDistances, distances, 0);
+  env->ReleaseIntArrayElements(jElevs, elevations, 0);
+
+  auto const altInfo = ei.CalculateAltitudesInfo(altitudeThreshold);
+  return env->NewObject(dataClass, constructor, jDistances, jElevs, static_cast<jint>(altInfo.GetTotalAscent()),
+                        static_cast<jint>(altInfo.GetTotalDescent()), static_cast<jint>(altInfo.m_minAltitude),
+                        static_cast<jint>(altInfo.m_maxAltitude));
 }
 }  // namespace
 
@@ -1286,14 +1335,24 @@ JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeResetFollowedTrackToPlan
   return static_cast<jint>(frm()->GetRoutingManager().ResetFollowedTrackToPlanning());
 }
 
-JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeUpdateFollowedTrackEntry(JNIEnv *, jclass)
+JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeUpdateFollowedTrackEntryAt(JNIEnv *, jclass,
+                                                                                   jdouble distanceMeters)
 {
   auto & manager = frm()->GetRoutingManager();
   auto const info = manager.GetFollowedTrackInfo();
   if (!info)
     return static_cast<jint>(FollowTrackResult::NoTrack);
-  auto const selection = frm()->GetBookmarkManager().GetTrackSelectionInfo(info->m_id);
-  return static_cast<jint>(manager.UpdateFollowedTrackEntry(selection.m_trackPoint, selection.m_distFromBegM));
+  auto & bookmarks = frm()->GetBookmarkManager();
+  auto const * track = bookmarks.GetTrack(info->m_id);
+  if (!track)
+    return static_cast<jint>(FollowTrackResult::NoTrack);
+
+  auto const distance = std::clamp(distanceMeters, 0.0, track->GetLengthMeters());
+  auto const result = manager.UpdateFollowedTrackEntry(track->GetPoint(distance), distance);
+  // The track's place page and its Navigate button start from the track's selection.
+  if (result == FollowTrackResult::Ok)
+    bookmarks.SetElevationActivePoint(info->m_id, distance);
+  return static_cast<jint>(result);
 }
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeStartFollowedTrack(JNIEnv *, jclass)
@@ -1303,11 +1362,6 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeStartFollowedTrack(J
     return false;
   manager.FollowRoute();
   return manager.IsRoutingFollowing();
-}
-
-JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeReverseFollowedTrack(JNIEnv *, jclass)
-{
-  return static_cast<jint>(frm()->GetRoutingManager().ReverseFollowedTrack());
 }
 
 JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeSetFollowTrackProfile(JNIEnv *, jclass, jint routerType)
@@ -1419,42 +1473,20 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeHasRouteAltitude(JNI
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetRouteAltitudeData(JNIEnv * env, jclass)
 {
+  if (IsTrackPreview())
+  {
+    auto const * track = GetPreviewedTrack();
+    auto const * ei = track ? track->GetElevationInfo() : nullptr;
+    return ei ? ToRouteAltitudeData(env, *ei, ElevationInfo::kDefThresholdGPS) : nullptr;
+  }
+
   ElevationInfo ei;
   if (!frm()->GetRoutingManager().GetRouteElevationInfo(ei))
   {
     LOG(LWARNING, ("Can't get distance to route points and altitude."));
     return nullptr;
   }
-
-  auto const altInfo = ei.CalculateAltitudesInfo(ElevationInfo::kDefThresholdMWM);
-
-  static jclass const dataClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/routing/RouteAltitudeData");
-  static jmethodID const constructor = jni::GetConstructorID(env, dataClass, "([D[IIIII)V");
-
-  jsize const size = static_cast<jsize>(ei.GetSize());
-
-  jdoubleArray jDistances = env->NewDoubleArray(size);
-  CHECK(jDistances, ());
-  jintArray jElevs = env->NewIntArray(size);
-  CHECK(jElevs, ());
-
-  jdouble * distances = env->GetDoubleArrayElements(jDistances, nullptr);
-  jint * elevations = env->GetIntArrayElements(jElevs, nullptr);
-
-  size_t i = 0;
-  ei.ForEachPoint([&](double dist, geometry::Altitude alt)
-  {
-    distances[i] = dist;
-    elevations[i] = static_cast<jint>(alt);
-    ++i;
-  });
-
-  env->ReleaseDoubleArrayElements(jDistances, distances, 0);
-  env->ReleaseIntArrayElements(jElevs, elevations, 0);
-
-  return env->NewObject(dataClass, constructor, jDistances, jElevs, static_cast<jint>(altInfo.GetTotalAscent()),
-                        static_cast<jint>(altInfo.GetTotalDescent()), static_cast<jint>(altInfo.m_minAltitude),
-                        static_cast<jint>(altInfo.m_maxAltitude));
+  return ToRouteAltitudeData(env, ei, ElevationInfo::kDefThresholdMWM);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRouteSetElevationActivePoint(JNIEnv * env, jclass,
@@ -1462,7 +1494,12 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRouteSetElevationActiveP
 {
   if (frm()->GetDrapeEngine() == nullptr)
     return;
-  if (auto const pt = frm()->GetRoutingManager().GetRoutePointAtDistance(distanceMeters))
+  std::optional<m2::PointD> pt;
+  if (!IsTrackPreview())
+    pt = frm()->GetRoutingManager().GetRoutePointAtDistance(distanceMeters);
+  else if (auto const * track = GetPreviewedTrack())
+    pt = track->GetPoint(std::clamp(distanceMeters, 0.0, track->GetLengthMeters()));
+  if (pt)
     frm()->GetDrapeEngine()->SelectObject(df::SelectionShape::ESelectedObject::OBJECT_TRACK, *pt, FeatureID(), false,
                                           false, true);
 }

@@ -266,6 +266,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
         final int state = mViewModel.getBottomSheetState();
         mSheetBehavior.setState(state == BottomSheetBehavior.STATE_HIDDEN ? BottomSheetBehavior.STATE_COLLAPSED
                                                                           : state);
+        mRoutingBottomMenuController.restoreElevationActivePoint();
       });
     }
     else

@@ -9,8 +9,9 @@ import app.organicmaps.R;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.routing.RouteAltitudeData;
 import app.organicmaps.widget.placepage.ElevationChartUtils;
-import com.github.mikephil.charting.charts.LineChart;
+import app.organicmaps.widget.placepage.ElevationProfileChart;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class RouteElevationChartController
   @NonNull
   private final Context mContext;
   @Nullable
-  private final LineChart mChart;
+  private final ElevationProfileChart mChart;
   @Nullable
   private final TextView mMaxAltitude;
   @Nullable
@@ -36,6 +37,7 @@ public class RouteElevationChartController
   {
     void onElevationPointSelected(double distanceMeters);
     void onElevationPointDeselected();
+    void onElevationSelectionFinished(double distanceMeters);
   }
 
   public RouteElevationChartController(@NonNull View view)
@@ -66,6 +68,10 @@ public class RouteElevationChartController
         }
       }
     });
+    mChart.setOnSelectionFinishedListener(x -> {
+      if (mListener != null && mData != null)
+        mListener.onElevationSelectionFinished(x);
+    });
   }
 
   public void setListener(@Nullable ElevationSelectionListener listener)
@@ -77,6 +83,35 @@ public class RouteElevationChartController
   {
     if (mChart != null)
       mChart.highlightValue(null, false);
+  }
+
+  public void setZoomEnabled(boolean enabled)
+  {
+    if (mChart != null)
+      mChart.setScaleXEnabled(enabled);
+  }
+
+  public boolean isUserSelecting()
+  {
+    return mChart != null && mChart.isSelectionInProgress();
+  }
+
+  /** @return the selected distance, or NaN without a selection. */
+  public double getSelectedDistance()
+  {
+    return mChart == null ? Double.NaN : mChart.getHighlightX();
+  }
+
+  /** Selects a point picked elsewhere without reporting it back to the listener. */
+  public void select(double distanceMeters)
+  {
+    if (mChart == null)
+      return;
+    // Only a shown chart is selected, and it is shown with data only.
+    final List<Entry> entries = ((LineDataSet) mChart.getData().getDataSetByIndex(0)).getValues();
+    final float x =
+        Math.max(entries.get(0).getX(), Math.min((float) distanceMeters, entries.get(entries.size() - 1).getX()));
+    mChart.highlightValue(new Highlight(x, ElevationChartUtils.interpolateY(entries, x), 0), false);
   }
 
   public void setData(@Nullable RouteAltitudeData data)

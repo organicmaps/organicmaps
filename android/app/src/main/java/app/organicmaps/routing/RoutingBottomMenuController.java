@@ -26,6 +26,7 @@ import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.bookmarks.data.DistanceAndAzimut;
+import app.organicmaps.sdk.routing.FollowTrackResult;
 import app.organicmaps.sdk.routing.RouteAltitudeData;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RoutingController;
@@ -164,6 +165,13 @@ final class RoutingBottomMenuController
       public void onElevationPointDeselected()
       {
         Framework.nativeRouteRemoveElevationActivePoint();
+      }
+
+      @Override
+      public void onElevationSelectionFinished(double distanceMeters)
+      {
+        if (RoutingController.get().isFollowingTrack())
+          updateFollowedTrackEntry(distanceMeters);
       }
     });
     mTime = time;
@@ -423,6 +431,8 @@ final class RoutingBottomMenuController
       UiUtils.hide(mAltitudeChart, mTimeElevationLine);
       return;
     }
+    // Every pick on a track chart rebuilds the route, which resets the zoom, so a track preview offers none.
+    mRouteElevationChartController.setZoomEnabled(!RoutingController.get().isFollowingTrack());
     mRouteElevationChartController.setData(data);
     final int formatResId =
         StringUtils.isRtl() ? R.string.route_ascent_descent_format_rtl : R.string.route_ascent_descent_format_ltr;
@@ -430,6 +440,32 @@ final class RoutingBottomMenuController
     final String descent = Framework.nativeFormatAltitude(data.getTotalDescent());
     mAltitudeDifference.setText(mContext.getString(formatResId, ascent, descent));
     UiUtils.show(mAltitudeDifference, mAltitudeChart);
+    restoreElevationActivePoint();
+  }
+
+  // A track preview selects the point the track is entered at. A closing place page deselects the map marker, so it is
+  // set again whenever the panel is shown.
+  void restoreElevationActivePoint()
+  {
+    if (!UiUtils.isVisible(mAltitudeChart))
+      return;
+    final double entry = RoutingController.get().getFollowedTrackEntryDistance();
+    if (!Double.isNaN(entry) && !mRouteElevationChartController.isUserSelecting())
+      mRouteElevationChartController.select(entry);
+    final double distance = mRouteElevationChartController.getSelectedDistance();
+    if (!Double.isNaN(distance))
+      Framework.nativeRouteSetElevationActivePoint(distance);
+  }
+
+  private void updateFollowedTrackEntry(double distanceMeters)
+  {
+    final FollowTrackResult result = RoutingController.get().updateFollowedTrackEntryAt(distanceMeters);
+    if (result == FollowTrackResult.Ok)
+      return;
+    Utils.showFollowTrackError(mContext, result);
+    // A rejected point, or one picked while the previous pick still rebuilds, keeps the preview's entry: move the
+    // marker back onto it.
+    restoreElevationActivePoint();
   }
 
   private void showRoutingDetails()
@@ -442,9 +478,9 @@ final class RoutingBottomMenuController
     }
 
     Spanned spanned = makeSpannedRoutingDetails(mContext, rinfo);
-    // The elevation line carries the time next to the ascent/descent; without an elevation
-    // profile (a car route, a followed track being the exception) the standalone line is used.
-    if (!Framework.nativeHasRouteAltitude())
+    // The elevation line carries the time next to the chart's ascent/descent; a route without elevation data, such as
+    // a car route, uses the standalone line.
+    if (!UiUtils.isVisible(mAltitudeChart))
     {
       hideAltitudeChartAndRoutingDetails();
       UiUtils.show(mTimeVehicle);
