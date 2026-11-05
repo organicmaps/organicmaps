@@ -120,7 +120,7 @@ public class RoutingControllerTrackPreviewTest
         final Constructor<FollowedTrackInfo> constructor =
             FollowedTrackInfo.class.getDeclaredConstructor(long.class, String.class, double.class, boolean.class);
         constructor.setAccessible(true);
-        controller.track = constructor.newInstance(1L, "Track", 100.0, false);
+        controller.track = constructor.newInstance(1L, "Track", 0.0, false);
         controller.exists = exists;
         setState(controller, "PREPARE");
         // The deferred callback must inspect the state when it runs, including a journey

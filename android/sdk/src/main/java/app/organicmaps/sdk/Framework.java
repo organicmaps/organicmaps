@@ -279,6 +279,12 @@ public class Framework
   /** Starts a ready track preview; false keeps the phone in planning while its approach refreshes. */
   public static native boolean nativeStartFollowedTrack();
 
+  /**
+   * Whether the track has a selected point to start following it from. {@link #nativeNavigateTrack} may still refuse
+   * it, e.g. when no track remains after that point or during active navigation.
+   */
+  public static native boolean nativeCanNavigateTrack(long trackId);
+
   /** @return {@code null} when no track is being followed. */
   @Nullable
   public static native FollowedTrackInfo nativeGetFollowedTrackInfo();
@@ -300,6 +306,9 @@ public class Framework
   @Nullable
   /// @param[in] maxDistM Max distance between points in meters.
   public static native JunctionInfo[] nativeGetRouteJunctionPoints(double maxDistM);
+
+  /** Whether the current route has an elevation profile to chart. */
+  public static native boolean nativeHasRouteAltitude();
 
   @Nullable
   public static native app.organicmaps.sdk.routing.RouteAltitudeData nativeGetRouteAltitudeData();

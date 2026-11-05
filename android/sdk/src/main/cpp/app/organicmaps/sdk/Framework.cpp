@@ -1316,6 +1316,11 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsFollowingTrack(JNI
   return frm()->GetRoutingManager().IsFollowingTrack();
 }
 
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeCanNavigateTrack(JNIEnv *, jclass, jlong trackId)
+{
+  return frm()->GetRoutingManager().CanNavigateTrack(static_cast<kml::TrackId>(trackId));
+}
+
 JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetFollowedTrackInfo(JNIEnv * env, jclass)
 {
   auto const info = frm()->GetRoutingManager().GetFollowedTrackInfo();
@@ -1400,6 +1405,11 @@ JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetRouteJunction
   }
 
   return routing_jni::CreateJunctionInfoArray(env, result);
+}
+
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeHasRouteAltitude(JNIEnv *, jclass)
+{
+  return frm()->GetRoutingManager().HasRouteAltitude();
 }
 
 JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetRouteAltitudeData(JNIEnv * env, jclass)

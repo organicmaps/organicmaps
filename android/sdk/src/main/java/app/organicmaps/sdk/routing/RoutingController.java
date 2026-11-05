@@ -656,7 +656,7 @@ public class RoutingController
   @NonNull
   public FollowTrackResult setFollowTrackProfile(@NonNull Router router)
   {
-    // A follow rebuild (reverse or an earlier profile tap) is still in flight: ignore rapid
+    // A follow rebuild (an earlier profile tap) is still in flight: ignore rapid
     // taps instead of stacking teardown/rebuild cycles.
     if (isBuilding() || router == Router.getRender())
       return FollowTrackResult.Ok;
@@ -707,8 +707,8 @@ public class RoutingController
     updatePlan();
   }
 
-  // There are no route marks while following a track (the track defines the route), so the
-  // planning panel is shown point-less.
+  // A followed track has no route marks (the track defines the route), so planning starts
+  // point-less and the planning panel shows fixed rows for the followed track instead.
   private void enterTrackFollowPlanning()
   {
     setState(State.PREPARE);

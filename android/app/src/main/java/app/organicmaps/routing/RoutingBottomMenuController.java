@@ -243,7 +243,7 @@ final class RoutingBottomMenuController
   {
     UiUtils.hide(mError, mAltitudeChart, mTimeElevationLine);
 
-    if (!RoutingController.get().isVehicleRouterType() && !RoutingController.get().isRulerRouterType())
+    if (Framework.nativeHasRouteAltitude())
       showRouteAltitudeChart();
     showRoutingDetails();
     UiUtils.show(mAltitudeChartFrame);
@@ -253,9 +253,13 @@ final class RoutingBottomMenuController
 
   void updateSaveButton()
   {
+    // A followed track is already a saved track: don't offer saving it as another one (the core
+    // guards SaveRoute anyway).
+    UiUtils.showIf(!RoutingController.get().isFollowingTrack(), mSaveButton);
     setSaveButtonEnabled(RoutingController.get().isBuilt() && !RoutingController.get().isRouteSaved());
   }
 
+  // Keeps the enabled flag and the dimming in sync so a saved (disabled) button is always restored on rebuild.
   private void setSaveButtonEnabled(boolean enabled)
   {
     mSaveButton.setEnabled(enabled);
@@ -438,7 +442,9 @@ final class RoutingBottomMenuController
     }
 
     Spanned spanned = makeSpannedRoutingDetails(mContext, rinfo);
-    if (RoutingController.get().isVehicleRouterType())
+    // The elevation line carries the time next to the ascent/descent; without an elevation
+    // profile (a car route, a followed track being the exception) the standalone line is used.
+    if (!Framework.nativeHasRouteAltitude())
     {
       hideAltitudeChartAndRoutingDetails();
       UiUtils.show(mTimeVehicle);

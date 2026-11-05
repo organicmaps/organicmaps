@@ -21,12 +21,15 @@ import app.organicmaps.R;
 import app.organicmaps.maplayer.MapButtonsController;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Router;
+import app.organicmaps.sdk.routing.FollowTrackResult;
+import app.organicmaps.sdk.routing.FollowedTrackInfo;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.sdk.routing.TransitRouteInfo;
 import app.organicmaps.settings.DrivingOptionsActivity;
 import app.organicmaps.util.UiUtils;
+import app.organicmaps.util.Utils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
@@ -43,6 +46,8 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   private View mDrivingOptionsBtn;
   private View mDrivingOptionsContainer;
   private View mReverseRouteBtn;
+  private View mTransitButton;
+  private View mRulerButton;
   private View mFrame;
   private View mRoutingRoot;
   private View mRoutingBottomContainer;
@@ -61,6 +66,9 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   private View mButtonsLayout;
   private int mTopInset;
   private boolean mRoutingContentActive = true;
+  // The followed track whose built preview the panel shows: it stays on screen while that track rebuilds.
+  @Nullable
+  private Long mShownTrackPreviewId;
 
   // Show the requested planner sheet only when no place page, search, or point chooser covers it.
   private final MediatorLiveData<Boolean> mSheetVisible = new MediatorLiveData<>();
@@ -124,12 +132,16 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     mReverseRouteBtn = mChartPanel.findViewById(R.id.reverse_route_btn);
     mReverseRouteBtn.setOnClickListener(v -> RoutingController.get().reverseRoute());
 
+    mTransitButton = mRouterTypes.findViewById(R.id.transit);
+    mRulerButton = mRouterTypes.findViewById(R.id.ruler);
+
     mSearchBtn = mRoutingRoot.findViewById(R.id.routing_btn_search);
     mBookmarkBtn = mButtonsLayout.findViewById(R.id.routing_btn_bookmarks);
     mSearchBtn.setOnClickListener(
         v -> mMapButtonClickListener.onMapButtonClick(MapButtonsController.MapButtons.search));
     mBookmarkBtn.setOnClickListener(
         v -> mMapButtonClickListener.onMapButtonClick(MapButtonsController.MapButtons.bookmarks));
+    updateTrackFollowMode();
 
     final View closeButton = mRoutingTypesContainer.findViewById(R.id.back);
     closeButton.setOnClickListener(v -> mRoutingPlanController.handleBackPress());
@@ -219,10 +231,13 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
 
     if (controller.isPlanning())
     {
-      setRoutingContentActive(false);
+      setRoutingContentActive(isTrackRebuilding(controller));
+      updateTrackFollowMode();
       mRoutingBottomMenuController.refreshManageRoute();
       mViewModel.setShowRoutingBottomSheet(true);
     }
+    else
+      mShownTrackPreviewId = null;
 
     if (controller.isBuilt())
       setRoutingContentActive(true);
@@ -314,13 +329,42 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     setRouterClick(R.id.ruler, Router.Ruler);
   }
 
+  private void updateTrackFollowMode()
+  {
+    final RoutingController controller = RoutingController.get();
+    final boolean followsTrack = controller.isFollowingTrack();
+    UiUtils.showIf(!followsTrack, mTransitButton, mRulerButton, mDrivingOptionsContainer, mReverseRouteBtn, mSearchBtn,
+                   mBookmarkBtn);
+    // Check the follow profile: the user's own Transit or Ruler pick may still be checked, and its radio is hidden now.
+    if (followsTrack)
+      mRouterTypes.check(routerToButtonId(controller.getLastRouterType()));
+    mRoutingBottomMenuController.updateSaveButton();
+  }
+
   private void setRouterClick(@IdRes int buttonId, @NonNull Router router)
   {
-    mRouterTypes.findViewById(buttonId).setOnClickListener(v -> {
-      RoutingController.get().setRouterType(router);
+    mRouterTypes.findViewById(buttonId).setOnClickListener(v -> onRouterButtonClicked(router));
+  }
+
+  private void onRouterButtonClicked(@NonNull Router router)
+  {
+    final RoutingController controller = RoutingController.get();
+    if (!controller.isFollowingTrack())
+    {
+      controller.setRouterType(router);
       // A partial plan has no calculation callback to refresh its settings controls.
       updateRoutingOptions(router);
-    });
+      return;
+    }
+    // While following a track the picker switches the follow profile instead. The switch is
+    // rejected when the followed track has been deleted meanwhile — and ignored while a follow
+    // rebuild is already in flight (rapid taps).
+    final FollowTrackResult result = controller.setFollowTrackProfile(router);
+    if (result != FollowTrackResult.Ok)
+      Utils.showFollowTrackError(requireContext(), result);
+    // The tap has already checked the radio: re-sync with the profile actually in effect, so a
+    // rejected or ignored switch snaps the picker back (a successful one is a no-op here).
+    updateTrackFollowMode();
   }
 
   @IdRes
@@ -340,6 +384,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   {
     mRoutingBottomMenuController.updateSaveButton();
     final RoutingController controller = RoutingController.get();
+    rememberShownTrackPreview(controller);
     if (controller.getBuildState() != RoutingController.BuildState.BUILT)
     {
       mRoutingBottomMenuController.hideAltitudeChartAndRoutingDetails();
@@ -394,8 +439,10 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
 
     mRouterTypes.check(routerToButtonId(router));
     updateRoutingOptions(router);
-    updateProgressLabels();
     final RoutingController controller = RoutingController.get();
+    if (isTrackRebuilding(controller))
+      return;
+    updateProgressLabels();
     if (controller.isBuilding())
     {
       mRoutingBottomMenuController.setStartState(RoutingBottomMenuController.StartState.BUILDING);
@@ -404,6 +451,22 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     else if (!controller.isBuilt())
       // ERROR / NONE / cancelled: clear the progress fill that BUILDING left behind.
       mRoutingBottomMenuController.setStartState(RoutingBottomMenuController.StartState.DISABLED);
+  }
+
+  // A followed track builds without a road graph almost instantly: hiding, dimming or disabling the
+  // previously built route meanwhile would only make the panel flash.
+  private boolean isTrackRebuilding(@NonNull RoutingController controller)
+  {
+    if (mShownTrackPreviewId == null || !controller.isBuilding())
+      return false;
+    final FollowedTrackInfo track = controller.getFollowedTrackInfo();
+    return track != null && track.getTrackId() == mShownTrackPreviewId;
+  }
+
+  private void rememberShownTrackPreview(@NonNull RoutingController controller)
+  {
+    final FollowedTrackInfo track = controller.isBuilt() ? controller.getFollowedTrackInfo() : null;
+    mShownTrackPreviewId = track == null ? null : track.getTrackId();
   }
 
   public void onBuildStarted()
@@ -426,6 +489,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
     mViewModel.setBottomSheetState(state.getInt(TAG + "_bottom_sheet_state", BottomSheetBehavior.STATE_COLLAPSED));
     if (mRoutingBottomMenuController != null)
       mRoutingBottomMenuController.restoreRoutingPanelState(state);
+    rememberShownTrackPreview(RoutingController.get());
     updateRoutingOptions(RoutingController.get().getLastRouterType());
   }
 

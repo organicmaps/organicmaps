@@ -40,6 +40,7 @@ import app.organicmaps.BuildConfig;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
+import app.organicmaps.sdk.routing.FollowTrackResult;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.Constants;
 import app.organicmaps.sdk.util.Distance;
@@ -488,6 +489,19 @@ public class Utils
     if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
       return getPackageInfoOld(manager, packageName, flags);
     return manager.getPackageInfo(packageName, PackageManager.PackageInfoFlags.of(flags));
+  }
+
+  public static void showFollowTrackError(@NonNull Context context, @NonNull FollowTrackResult result)
+  {
+    if (result == FollowTrackResult.Busy)
+      return;
+    final int message = switch (result)
+    {
+      case NoRemainingGeometry -> R.string.track_no_remaining_geometry;
+      case NoTrack -> R.string.track_is_not_available;
+      default -> R.string.routing_planning_error;
+    };
+    Toast.makeText(context, message, Toast.LENGTH_LONG).show();
   }
 
   /**
