@@ -155,11 +155,29 @@ _LISTINGS_RE = re.compile(r'^android/app/src/(?:fdroid|google)/play/listings/([^
 _RELEASE_NOTES_RE = re.compile(r'^android/app/src/(?:fdroid|google)/play/release-notes/([^/]+)/([^/]+\.txt)$')
 _PLAY_TOPLEVEL_RE = re.compile(r'^android/app/src/(?:fdroid|google)/play/([^/]+\.txt)$')
 _IOS_METADATA_RE = re.compile(r'^iphone/metadata/([^/]+)/([^/]+\.txt)$')
-_EMOJI_RE = re.compile(r'[\U0001F1E6-\U0001F1FF\U0001F300-\U0001FAFF\u2600-\u27BF]')
+# Additional text-style symbols require VS16; plain copyright signs and arrows are valid.
+# Emoji properties: https://www.unicode.org/Public/18.0.0/ucd/emoji/emoji-data.txt
+_EMOJI_RE = re.compile(
+    r'[\U0001F1E6-\U0001F1FF\U0001F300-\U0001FAFF'
+    r'\u2600-\u2604\u260E\u2611\u2614\u2615\u2618\u261D\u2620\u2622\u2623\u2626\u262A\u262E\u262F'
+    r'\u2638-\u263A\u2640\u2642\u2648-\u2653\u265F\u2660\u2663\u2665\u2666\u2668\u267B\u267E\u267F'
+    r'\u2692-\u2697\u2699\u269B\u269C\u26A0\u26A1\u26A7\u26AA\u26AB\u26B0\u26B1\u26BD\u26BE'
+    r'\u26C4\u26C5\u26C8\u26CE\u26CF\u26D1\u26D3\u26D4\u26E9\u26EA\u26F0-\u26F5\u26F7-\u26FA\u26FD'
+    r'\u2702\u2705\u2708-\u270D\u270F\u2712\u2714\u2716\u271D\u2721\u2728\u2733\u2734\u2744\u2747'
+    r'\u274C\u274E\u2753-\u2755\u2757\u2763\u2764\u2795-\u2797\u27A1\u27B0\u27BF'
+    r'\u231A-\u231B\u23E9-\u23EC\u23F0\u23F3\u25FD-\u25FE\u2B1B-\u2B1C\u2B50\u2B55\U0001F004'
+    r'\U0001F0CF\U0001F18E\U0001F191-\U0001F19A\U0001F201\U0001F21A\U0001F22F\U0001F232-\U0001F236'
+    r'\U0001F238-\U0001F23A\U0001F250-\U0001F251]'
+    r'|[#*0-9]\uFE0F?\u20E3'
+    r'|[\u00A9\u00AE\u203C\u2049\u2122\u2139\u2194-\u2199\u21A9-\u21AA\u2328\u23CF\u23ED-\u23EF'
+    r'\u23F1-\u23F2\u23F8-\u23FA\u24C2\u25AA-\u25AB\u25B6\u25C0\u25FB-\u25FC\u2934-\u2935'
+    r'\u2B05-\u2B07\u3030\u303D\u3297\u3299\U0001F170-\U0001F171\U0001F17E-\U0001F17F\U0001F202\U0001F237]'
+    r'\uFE0F'
+)
 
 
 def contains_emoji(text):
-    """Detect common emoji ranges without matching non-Latin letters."""
+    """Detect emoji characters, presentation variants and keycaps."""
     return bool(_EMOJI_RE.search(text))
 
 
