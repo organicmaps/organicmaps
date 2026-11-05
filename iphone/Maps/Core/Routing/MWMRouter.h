@@ -84,6 +84,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (MWMFollowTrackResult)navigateTrack:(MWMTrackID)trackId;
 /// Rebuilds from the current native selection, preserving profile, direction and viewport.
 + (MWMFollowTrackResult)updateFollowedTrackEntry;
+/// Reverses a built preview at the captured source entry; active navigation is refused.
++ (MWMFollowTrackResult)reverseFollowedTrack;
 /// Switches the preview profile without changing the persisted default. Refusals preserve the session.
 + (MWMFollowTrackResult)setFollowTrackProfile:(MWMRouterType)type;
 + (BOOL)isFollowingTrack;

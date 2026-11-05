@@ -199,6 +199,8 @@ public:
   FollowTrackResult ResetFollowedTrackToPlanning();
   // Update a preview from an exact source selection, retaining its direction/profile and viewport.
   FollowTrackResult UpdateFollowedTrackEntry(m2::PointD const & point, double distanceFromBeginningM);
+  // Reverse a ready, built preview at its captured entry; other states, including build errors, return Busy.
+  FollowTrackResult ReverseFollowedTrack();
   // Change this preview's profile without writing the user's global defaults.
   FollowTrackResult SetFollowTrackProfile(routing::RouterType type);
   bool IsFollowingTrack() const { return m_followSession.has_value(); }
