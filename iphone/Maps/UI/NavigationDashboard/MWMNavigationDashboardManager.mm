@@ -184,12 +184,14 @@
   if (wasSelectingRoutePoint)
     [self.searchManager close];
   // Direct ivar access: closing must never lazily build a dashboard just to close it.
-  [_navigationDashboardView stateClosed];
+  id<NavigationDashboardView> view = _navigationDashboardView;
   // The closing view controller stays alive during its slide-out animation but swallows all
   // further events. Drop the reference so that the next routing event (e.g. the instantly built
   // route when the user navigates a track while already navigating) lazily creates a fresh
   // dashboard instead of feeding the dying one.
   _navigationDashboardView = nil;
+  _availableAreaView = nil;
+  [view stateClosed];
 }
 
 - (void)stateHidden
