@@ -163,6 +163,26 @@
     <string name="bookmarks_backup_title">Copia de seguranza de marcadores y trayeutos</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Los marcadores y trayeutos puen incluyise nes copies de seguranza del sistema Android cuando la copia de seguranza ta activada nesti preséu y nun superen la so llende de tamañu.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Sincronización con Google Drive (beta)</string>
+    <string name="bookmarks_sync_enabled">Sincronizar marcadores y trayeutos</string>
+    <string name="bookmarks_sync_account">Cuenta de Google</string>
+    <string name="bookmarks_sync_manage_storage">Xestionar l\'almacenamientu de Google</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">Úsase %1$s de %2$s</string>
+    <string name="bookmarks_sync_mobile_data">Sincronizar colos datos móviles</string>
+    <string name="bookmarks_sync_now">Sincronizar agora</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Última sincronización: %s</string>
+    <string name="bookmarks_sync_status_running">Sincronizando…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Esperando pola Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">Ríquese aniciar sesión</string>
+    <string name="bookmarks_sync_status_quota">Google Drive ta enllenu</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Falló la sincronización: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Desaniciar los datos de Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">¿Quies desaniciar de Google Drive los marcadores y trayeutos sincronizaos? Los marcadores y trayeutos d\'esti preséu caltiénense. Desactiva primero la sincronización nos otros preseos, si non van xubir de nuevo los sos marcadores y trayeutos.</string>
+    <string name="bookmarks_sync_beta_warning">La sincronización ta en beta. Esporta una copia de seguranza de tolos marcadores y trayeutos enantes d\'activala.</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
     <string name="read_in_wikipedia">Wikipedia</string>
     <string name="p2p_start">Entamar</string>
@@ -223,6 +243,12 @@
     <!-- Short label for seconds (time unit), placed after a number -->
     <string name="second">s</string>
     <string name="placepage_more_button">Más</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Semeyes, opiniones, reserves</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">La bonificación por recomendación recibida por cada reserva al traviés d’esti enllaz destínase al desendolcu d’Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Detalles en Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Editar marcador</string>
     <string name="placepage_personal_notes_hint">Notes personales (testu o HTML)</string>
@@ -352,7 +378,7 @@
     <!-- Action that clears the multi-selection in a bookmark list. -->
     <string name="deselect_all">Desesbillar too</string>
     <string name="button_layer_isolines">Curves de nivel</string>
-    <string name="isolines_location_error_dialog">Les curves de nivel entá nun tán disponibles nesta rexón</string>
+    <string name="isolines_location_error_dialog">Anueva esta rexón pa ver les curves de nivel</string>
     <string name="elevation_profile_ascent">Ascensu</string>
     <string name="elevation_profile_descent">Descensu</string>
     <string name="elevation_profile_min_elevation">Elevación mín.</string>
@@ -408,6 +434,8 @@
         <item quantity="one">¿Desaniciar %d elementu?</item>
         <item quantity="other">¿Desaniciar %d elementos?</item>
     </plurals>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Activar</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -435,4 +463,14 @@
     <string name="transit_type_train">Tren</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tranvía</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Navegar</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Entamu del trayeutu</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Final del trayeutu</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">Nun queda trayeutu nesta direición. Esbilla otru puntu.</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">El trayeutu yá nun ta disponible</string>
 </resources>

@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">북마크 및 트랙 백업</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">이 기기에서 백업이 켜져 있고 북마크와 트랙이 백업 용량 한도를 넘지 않으면 Android 시스템 백업에 포함될 수 있습니다.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Google 드라이브 동기화(베타)</string>
+    <string name="bookmarks_sync_enabled">북마크 및 트랙 동기화</string>
+    <string name="bookmarks_sync_account">Google 계정</string>
+    <string name="bookmarks_sync_manage_storage">Google 저장용량 관리</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%2$s 중 %1$s 사용</string>
+    <string name="bookmarks_sync_mobile_data">모바일 데이터로 동기화</string>
+    <string name="bookmarks_sync_now">지금 동기화</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">마지막 동기화: %s</string>
+    <string name="bookmarks_sync_status_running">동기화 중…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Wi-Fi 대기 중</string>
+    <string name="bookmarks_sync_status_sign_in">로그인이 필요합니다</string>
+    <string name="bookmarks_sync_status_quota">Google 드라이브 용량이 가득 찼습니다</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">동기화 실패: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Google 드라이브에서 데이터 삭제</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">동기화된 북마크와 트랙을 Google 드라이브에서 삭제할까요? 이 기기의 북마크와 트랙은 그대로 유지됩니다. 먼저 다른 기기에서 동기화를 끄세요. 그렇지 않으면 해당 기기의 북마크와 트랙이 다시 업로드됩니다.</string>
+    <string name="bookmarks_sync_beta_warning">동기화는 베타 버전입니다. 사용 설정하기 전에 모든 북마크와 트랙의 백업을 내보내세요.</string>
     <string name="search_history_text">최근 검색 쿼리에 신속하게 액세스할 수 있습니다.</string>
     <string name="clear_search">이력 검색 지우기</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -487,6 +507,12 @@
     <!-- Short label for seconds (time unit), placed after a number -->
     <string name="second">초</string>
     <string name="placepage_more_button">자세히</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">사진, 리뷰, 예약</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">이 링크를 통한 예약마다 발생하는 추천 보너스는 Organic Maps 개발에 사용됩니다.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Kayak에서 자세히 보기</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">즐겨찾기 편집</string>
     <string name="placepage_personal_notes_hint">개인 메모 (글자 혹은 html)</string>
@@ -699,6 +725,8 @@
     <string name="moreyear_ago_sorttype">1년 그 이상 전</string>
     <string name="near_me_sorttype">나와 가까운 곳</string>
     <string name="others_sorttype">기타</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">경로 계획 실패</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">지금 닫힘</string>
     <string name="opens_tomorrow_at">내일 %s에 오픈</string>
@@ -733,8 +761,7 @@
     <string name="deselect_all">선택 해제</string>
     <string name="select_list">목록 선택</string>
     <string name="button_layer_isolines">등고선</string>
-    <string name="isolines_activation_error_dialog">등고선을 활성화하려면 이 지역의 지도 데이터를 다운로드해야 합니다.</string>
-    <string name="isolines_location_error_dialog">이 지역에서는 아직 등고선을 사용할 수 없습니다.</string>
+    <string name="isolines_location_error_dialog">이 지역을 업데이트하면 등고선을 볼 수 있습니다</string>
     <string name="elevation_profile_ascent">올라가기</string>
     <string name="elevation_profile_descent">내려가기</string>
     <string name="elevation_profile_min_elevation">최소 높이</string>
@@ -869,6 +896,8 @@
     <string name="hide_track">경로 숨기기</string>
     <!-- Text for the showing track. -->
     <string name="show_track">경로 표시</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">사용</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -933,4 +962,14 @@
     <string name="transit_type_train">기차</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">트램</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">길 안내</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">트랙 시작점</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">트랙 도착점</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">이 방향으로는 남은 트랙이 없습니다. 다른 지점을 선택하세요.</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">트랙을 더 이상 사용할 수 없습니다</string>
 </resources>

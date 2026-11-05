@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Էջանիշների և հետագծերի պահուստավորում</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Էջանիշները և հետագծերը կարող են ներառվել Android համակարգի պահուստային պատճեններում, եթե պահուստավորումը միացված է այս սարքում, և դրանք չեն գերազանցում դրա չափի սահմանաչափը։</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Համաժամացում Google Drive-ի հետ (բետա)</string>
+    <string name="bookmarks_sync_enabled">Համաժամացնել էջանիշները և հետագծերը</string>
+    <string name="bookmarks_sync_account">Google հաշիվ</string>
+    <string name="bookmarks_sync_manage_storage">Կառավարել Google-ի պահոցը</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">Օգտագործված է %1$s / %2$s</string>
+    <string name="bookmarks_sync_mobile_data">Համաժամացնել բջջային ինտերնետով</string>
+    <string name="bookmarks_sync_now">Համաժամացնել հիմա</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Վերջին համաժամացում՝ %s</string>
+    <string name="bookmarks_sync_status_running">Համաժամացում…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Սպասում է Wi-Fi-ին</string>
+    <string name="bookmarks_sync_status_sign_in">Պահանջվում է մուտք</string>
+    <string name="bookmarks_sync_status_quota">Google Drive-ը լցված է</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Համաժամացումը ձախողվեց՝ %s</string>
+    <string name="bookmarks_sync_delete_cloud">Ջնջել տվյալները Google Drive-ից</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Ջնջե՞լ համաժամացված էջանիշները և հետագծերը Google Drive-ից։ Այս սարքի էջանիշները և հետագծերը կմնան։ Նախ անջատեք համաժամացումը ձեր մյուս սարքերում, հակառակ դեպքում դրանք կրկին կվերբեռնեն իրենց էջանիշները և հետագծերը։</string>
+    <string name="bookmarks_sync_beta_warning">Համաժամացումը բետա տարբերակում է։ Միացնելուց առաջ արտահանեք բոլոր էջանիշների և հետագծերի պահուստային պատճենը։</string>
     <string name="search_history_text">Դիտեք ձեր վերջին որոնումները:</string>
     <string name="clear_search">Մաքրել որոնման պատմությունը</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -487,6 +507,12 @@
     <!-- Short label for seconds (time unit), placed after a number -->
     <string name="second">վ</string>
     <string name="placepage_more_button">Ավելին</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Լուսանկարներ, կարծիքներ, ամրագրում</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Այս հղումով կատարված յուրաքանչյուր ամրագրման դիմաց ստացվող ուղղորդման բոնուսը հատկացվում է Organic Maps-ի զարգացմանը։</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Մանրամասներ Kayak-ում</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Խմբագրել էջանիշը</string>
     <string name="placepage_personal_notes_hint">Անձնական նշումներ (տեքստ կամ html)</string>
@@ -702,6 +728,8 @@
     <string name="moreyear_ago_sorttype">Ավելի քան մեկ տարի առաջ</string>
     <string name="near_me_sorttype">Իմ մոտակայքում</string>
     <string name="others_sorttype">Այլ</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Երթուղու պլանավորումը ձախողվեց</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Փակ է</string>
     <string name="opens_tomorrow_at">Բացվում է վաղը %s</string>
@@ -736,8 +764,7 @@
     <string name="deselect_all">Չեղարկել ընտրությունը</string>
     <string name="select_list">Ընտրել ցուցակը</string>
     <string name="button_layer_isolines">Հորիզոնականներ</string>
-    <string name="isolines_activation_error_dialog">Հորիզոնականների ակտիվացումը պահանջում է ներբեռնել այս տարածքի քարտեզի տվյալները</string>
-    <string name="isolines_location_error_dialog">Հորիզոնականները դեռ հասանելի չեն այս տարածքում</string>
+    <string name="isolines_location_error_dialog">Թարմացրեք այս տարածաշրջանը՝ հորիզոնականները տեսնելու համար</string>
     <string name="elevation_profile_ascent">Վերելք</string>
     <string name="elevation_profile_descent">Վայրէջք</string>
     <string name="elevation_profile_min_elevation">Նվազգ. բարձրություն</string>
@@ -878,6 +905,8 @@
     <string name="move">Տեղափոխել</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Փոխել գույնը</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Միացնել</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -943,4 +972,14 @@
     <string name="transit_type_train">Գնացք</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Տրամվայ</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Նավարկում</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Հետագծի սկիզբ</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Հետագծի ավարտ</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">Այս ուղղությամբ հետագիծ չի մնացել։ Ընտրեք այլ կետ։</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">Հետագիծն այլևս հասանելի չէ</string>
 </resources>

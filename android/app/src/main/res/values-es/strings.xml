@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Copia de seguridad de marcadores y trayectos</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Los marcadores y trayectos pueden incluirse en las copias de seguridad del sistema Android si la copia de seguridad está activada en este dispositivo y no superan su límite de tamaño.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Sincronización con Google Drive (beta)</string>
+    <string name="bookmarks_sync_enabled">Sincronizar marcadores y trayectos</string>
+    <string name="bookmarks_sync_account">Cuenta de Google</string>
+    <string name="bookmarks_sync_manage_storage">Administrar el almacenamiento de Google</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%1$s de %2$s usados</string>
+    <string name="bookmarks_sync_mobile_data">Sincronizar con datos móviles</string>
+    <string name="bookmarks_sync_now">Sincronizar ahora</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Última sincronización: %s</string>
+    <string name="bookmarks_sync_status_running">Sincronizando…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Esperando Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">Es necesario iniciar sesión</string>
+    <string name="bookmarks_sync_status_quota">Google Drive está lleno</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Error de sincronización: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Eliminar los datos de Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">¿Eliminar los marcadores y trayectos sincronizados de Google Drive? Los marcadores y trayectos de este dispositivo se conservan. Desactive primero la sincronización en sus otros dispositivos; de lo contrario, volverán a subir sus marcadores y trayectos.</string>
+    <string name="bookmarks_sync_beta_warning">La sincronización está en beta. Exporte una copia de seguridad de todos los marcadores y trayectos antes de activarla.</string>
     <string name="search_history_text">Ver búsquedas recientes.</string>
     <string name="clear_search">Vaciar historial de búsquedas</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -487,6 +507,12 @@
     <!-- Short label for seconds (time unit), placed after a number -->
     <string name="second">s</string>
     <string name="placepage_more_button">Más</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Fotos, opiniones, reservas</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">La bonificación por recomendación recibida por cada reserva a través de este enlace se destina al desarrollo de Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Detalles en Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Editar marcador</string>
     <string name="placepage_personal_notes_hint">Notas personales (texto o html)</string>
@@ -709,6 +735,8 @@
     <string name="moreyear_ago_sorttype">Hace más de un año</string>
     <string name="near_me_sorttype">Cerca de mí</string>
     <string name="others_sorttype">Otros</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Error al planificar la ruta</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Cerrado ahora</string>
     <string name="opens_tomorrow_at">Abre mañana a las %s</string>
@@ -743,8 +771,7 @@
     <string name="deselect_all">Deseleccionar todo</string>
     <string name="select_list">Seleccionar lista</string>
     <string name="button_layer_isolines">Alturas</string>
-    <string name="isolines_activation_error_dialog">Para usar las curvas de nivel, actualice o descargue el mapa del área deseada</string>
-    <string name="isolines_location_error_dialog">La altitud de relieve aún no está disponible en esta región</string>
+    <string name="isolines_location_error_dialog">Actualice esta región para ver las curvas de nivel</string>
     <string name="elevation_profile_ascent">Ascenso</string>
     <string name="elevation_profile_descent">Descenso</string>
     <string name="elevation_profile_min_elevation">Elevación mín.</string>
@@ -893,6 +920,8 @@
     <string name="hide_track">Ocultar trayecto</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Mostrar trayecto</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Activar</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -958,4 +987,14 @@
     <string name="transit_type_train">Tren</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tranvía</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Navegar</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Inicio del trayecto</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Fin del trayecto</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">No queda trayecto en este sentido. Seleccione otro punto.</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">El trayecto ya no está disponible</string>
 </resources>

@@ -614,6 +614,15 @@
 /* Short label for seconds (time unit), placed after a number */
 "second" = "с";
 "placepage_more_button" = "Ще";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Фото, відгуки, бронювання";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Реферальний бонус, отриманий за кожне бронювання за цим посиланням, йде на розробку Organic Maps.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Докладніше на Kayak";
 "placepage_personal_notes_hint" = "Примітка (текст чи html)";
 "editor_comment_hint" = "Коментар…";
 "editor_reset_edits_message" = "Скинути всі локальні виправлення?";
@@ -956,8 +965,7 @@
 "dialog_pedestrian_route_is_long_header" = "Жодного маршруту метро не знайдено";
 "dialog_pedestrian_route_is_long_message" = "Виберіть початкову чи кінцеву точку маршруту ближче до станції метро";
 "button_layer_isolines" = "Висоти";
-"isolines_activation_error_dialog" = "Щоб скористатися лініями висот, оновіть чи завантажте мапу потрібної місцевості";
-"isolines_location_error_dialog" = "Лінії висот ще недоступні в цьому регіоні";
+"isolines_location_error_dialog" = "Оновіть цей регіон, щоб побачити лінії висот";
 "elevation_profile_ascent" = "Підйом";
 "elevation_profile_descent" = "Спуск";
 "elevation_profile_min_elevation" = "Мін. висота";
@@ -1232,3 +1240,12 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Розвернути маршрут";
+
+/* Start navigation along the selected track. */
+"navigate_track" = "Навігація";
+
+/* Track start point label. */
+"navigate_track_start" = "Початок треку";
+
+/* Track finish point label. */
+"navigate_track_finish" = "Кінець треку";

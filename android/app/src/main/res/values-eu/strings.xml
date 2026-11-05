@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Markagailuen eta arrastoen babeskopia</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Markagailuak eta arrastoak Android sistemaren babeskopietan sar daitezke, babeskopiak gailu honetan gaituta badaude eta haren tamaina-muga gainditzen ez badute.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Google Drive sinkronizazioa (beta)</string>
+    <string name="bookmarks_sync_enabled">Sinkronizatu markagailuak eta arrastoak</string>
+    <string name="bookmarks_sync_account">Google kontua</string>
+    <string name="bookmarks_sync_manage_storage">Kudeatu Google-ko biltegiratzea</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%1$s / %2$s erabilita</string>
+    <string name="bookmarks_sync_mobile_data">Sinkronizatu datu mugikorren bidez</string>
+    <string name="bookmarks_sync_now">Sinkronizatu orain</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Azken sinkronizazioa: %s</string>
+    <string name="bookmarks_sync_status_running">Sinkronizatzen…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Wifiaren zain</string>
+    <string name="bookmarks_sync_status_sign_in">Saioa hasi behar da</string>
+    <string name="bookmarks_sync_status_quota">Google Drive beteta dago</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Sinkronizazioak huts egin du: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Ezabatu datuak Google Drive-tik</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Sinkronizatutako markagailuak eta arrastoak Google Drive-tik ezabatu? Gailu honetako markagailuak eta arrastoak mantenduko dira. Desaktibatu lehenik sinkronizazioa beste gailuetan; bestela, beren markagailuak eta arrastoak berriro igoko dituzte.</string>
+    <string name="bookmarks_sync_beta_warning">Sinkronizazioa beta fasean dago. Gaitu aurretik, esportatu markagailu eta arrasto guztien babeskopia.</string>
     <string name="search_history_text">Ikusi azken bilaketak.</string>
     <string name="clear_search">Garbitu bilaketa historia</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -487,6 +507,12 @@
     <!-- Short label for seconds (time unit), placed after a number -->
     <string name="second">s</string>
     <string name="placepage_more_button">Gehiago</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Argazkiak, iritziak, erreserba</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Esteka honen bidez erreserba bakoitzeko jasotzen den erreferentzia-bonua Organic Maps garatzera doa.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Xehetasunak Kayak-en</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Editatu markagailua</string>
     <string name="placepage_personal_notes_hint">Ohar pertsonalak (testua edo html)</string>
@@ -702,6 +728,8 @@
     <string name="moreyear_ago_sorttype">Duela urtebete baino gehiago</string>
     <string name="near_me_sorttype">Nigandik gertu</string>
     <string name="others_sorttype">Beste batzuk</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Ibilbidea planifikatzeko errorea</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Orain itxita</string>
     <string name="opens_tomorrow_at">Bihar %sean irekiko da</string>
@@ -736,8 +764,7 @@
     <string name="deselect_all">Kendu hautapena</string>
     <string name="select_list">Hautatu zerrenda</string>
     <string name="button_layer_isolines">Sestra kurbak</string>
-    <string name="isolines_activation_error_dialog">Sestra kurbak erabiltzeko, eguneratu edo deskargatu nahi duzun eremuko mapa</string>
-    <string name="isolines_location_error_dialog">Erliebearen altitudea oraindik ez dago eskuragarri eskualde honetan</string>
+    <string name="isolines_location_error_dialog">Eguneratu eskualde hau sestra-kurbak ikusteko</string>
     <string name="elevation_profile_ascent">Maldan gora</string>
     <string name="elevation_profile_descent">Maldan behera</string>
     <string name="elevation_profile_min_elevation">Altitude min</string>
@@ -882,6 +909,8 @@
     <string name="hide_track">Ezkutatu arrastoa</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Erakutsi arrastoa</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Gaitu</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -947,4 +976,14 @@
     <string name="transit_type_train">Trena</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tranbia</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Nabigatu</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Arrastoaren hasiera</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Arrastoaren amaiera</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">Ez da arrastorik geratzen norabide honetan. Hautatu beste puntu bat.</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">Arrastoa ez dago erabilgarri jada</string>
 </resources>

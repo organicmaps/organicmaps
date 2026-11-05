@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">النسخ الاحتياطي للإشارات المرجعية والمسارات</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">يمكن تضمين الإشارات المرجعية والمسارات في النسخ الاحتياطية لنظام Android عندما يكون النسخ الاحتياطي مفعّلًا على هذا الجهاز ولا تتجاوز حدّ الحجم المسموح به.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">المزامنة مع Google Drive (تجريبية)</string>
+    <string name="bookmarks_sync_enabled">مزامنة الإشارات المرجعية والمسارات</string>
+    <string name="bookmarks_sync_account">حساب Google</string>
+    <string name="bookmarks_sync_manage_storage">إدارة مساحة تخزين Google</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">تم استخدام %1$s من %2$s</string>
+    <string name="bookmarks_sync_mobile_data">المزامنة عبر بيانات الجوّال</string>
+    <string name="bookmarks_sync_now">المزامنة الآن</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">آخر مزامنة: %s</string>
+    <string name="bookmarks_sync_status_running">جارٍ المزامنة…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">في انتظار شبكة Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">يلزم تسجيل الدخول</string>
+    <string name="bookmarks_sync_status_quota">Google Drive ممتلئ</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">فشلت المزامنة: %s</string>
+    <string name="bookmarks_sync_delete_cloud">حذف البيانات من Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">هل تريد حذف الإشارات المرجعية والمسارات التي تمت مزامنتها من Google Drive؟ ستبقى الإشارات المرجعية والمسارات على هذا الجهاز. أوقف المزامنة على أجهزتك الأخرى أولًا، وإلا فسترفع إشاراتها المرجعية ومساراتها مجددًا.</string>
+    <string name="bookmarks_sync_beta_warning">المزامنة تجريبية. صدِّر نسخة احتياطية من جميع الإشارات المرجعية والمسارات قبل تفعيلها.</string>
     <string name="search_history_text">عرض عمليات البحث الأخيرة.</string>
     <string name="clear_search">مسح سجل البحث</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -487,6 +507,12 @@
     <!-- Short label for seconds (time unit), placed after a number -->
     <string name="second">ث</string>
     <string name="placepage_more_button">المزيد</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">الصور والتعليقات والحجز</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">تذهب مكافأة الإحالة التي يتم تلقيها لكل حجز من خلال هذا الرابط إلى تطوير Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">التفاصيل على Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">تحرير العلامة المرجعية</string>
     <string name="placepage_personal_notes_hint">ملاحظات شخصية (نص أو html)</string>
@@ -718,6 +744,8 @@
     <string name="moreyear_ago_sorttype">منذ أكثر من سنة</string>
     <string name="near_me_sorttype">قريب مني</string>
     <string name="others_sorttype">أخرى</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">فشل في تخطيط المسار</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">مغلق الآن</string>
     <string name="opens_tomorrow_at">يُفتتح غداً في %s</string>
@@ -752,8 +780,7 @@
     <string name="deselect_all">إلغاء تحديد الكل</string>
     <string name="select_list">اختر القائمة</string>
     <string name="button_layer_isolines">تضاريس</string>
-    <string name="isolines_activation_error_dialog">لتفعيل الطبقة الطبوغرافية واستخدامها ، يرجى تحديث أو تنزيل خريطة المنطقة</string>
-    <string name="isolines_location_error_dialog">الطبقة الطبوغرافية ليست متاحة بعد في هذه المنطقة</string>
+    <string name="isolines_location_error_dialog">حدِّث هذه المنطقة لرؤية خطوط الكفاف</string>
     <string name="elevation_profile_ascent">تصاعدي</string>
     <string name="elevation_profile_descent">تنازلي</string>
     <string name="elevation_profile_min_elevation">أقل ارتفاع</string>
@@ -906,6 +933,8 @@
     <string name="hide_track">إخفاء المسار</string>
     <!-- Text for the showing track. -->
     <string name="show_track">عرض المسار</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">تفعيل</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -975,4 +1004,14 @@
     <string name="transit_type_train">قطار</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">ترام</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">الملاحة</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">بداية المسار</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">نهاية المسار</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">لم يتبقَّ أي جزء من المسار في هذا الاتجاه. اختر نقطة أخرى.</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">المسار لم يعد متاحًا</string>
 </resources>

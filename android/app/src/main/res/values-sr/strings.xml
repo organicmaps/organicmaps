@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Резервна копија маркера и путања</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Маркери и путање могу бити укључени у резервне копије система Android ако је на овом уређају укључено прављење резервних копија и не прелазе његово ограничење величине.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Синхронизација са Google диском (бета)</string>
+    <string name="bookmarks_sync_enabled">Синхронизуј маркере и путање</string>
+    <string name="bookmarks_sync_account">Google налог</string>
+    <string name="bookmarks_sync_manage_storage">Управљај Google меморијским простором</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">Искоришћено %1$s од %2$s</string>
+    <string name="bookmarks_sync_mobile_data">Синхронизуј преко мобилних података</string>
+    <string name="bookmarks_sync_now">Синхронизуј сада</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Последња синхронизација: %s</string>
+    <string name="bookmarks_sync_status_running">Синхронизација…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Чека се Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">Потребна је пријава</string>
+    <string name="bookmarks_sync_status_quota">Google диск је пун</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Синхронизација није успела: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Обриши податке са Google диска</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Обрисати синхронизоване маркере и путање са Google диска? Маркери и путање на овом уређају остају. Прво искључите синхронизацију на другим уређајима, иначе ће поново отпремити своје маркере и путање.</string>
+    <string name="bookmarks_sync_beta_warning">Синхронизација је у бета фази. Пре укључивања извезите резервну копију свих маркера и путања.</string>
     <string name="search_history_text">Погледајте ваше недавне претраге.</string>
     <string name="clear_search">Обриши историју претраге</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -487,6 +507,12 @@
     <!-- Short label for seconds (time unit), placed after a number -->
     <string name="second">с</string>
     <string name="placepage_more_button">Више</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Фотографије, утисци, резервације</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Награда за сваку резервацију која је направљена преко овог линка биће усмерена у развој Organic Maps-а.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Детаљи на Kayak-у</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Измени маркер</string>
     <string name="placepage_personal_notes_hint">Личне белешке (текст или хтмл)</string>
@@ -706,6 +732,8 @@
     <string name="moreyear_ago_sorttype">Пре више од годину дана</string>
     <string name="near_me_sorttype">Близу мене</string>
     <string name="others_sorttype">Остали</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Планирање руте није успело</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Затворено сада</string>
     <string name="opens_tomorrow_at">Отвара се сутра у %s</string>
@@ -740,8 +768,7 @@
     <string name="deselect_all">Поништи избор</string>
     <string name="select_list">Изаберите листу</string>
     <string name="button_layer_isolines">Изолиније</string>
-    <string name="isolines_activation_error_dialog">Приказивање изолинија захтева преузмање података са мапе за ову област</string>
-    <string name="isolines_location_error_dialog">Изолиније нису доступне за ову област</string>
+    <string name="isolines_location_error_dialog">Ажурирајте ову област да бисте видели изолиније</string>
     <string name="elevation_profile_ascent">Успон</string>
     <string name="elevation_profile_descent">Спуст</string>
     <string name="elevation_profile_min_elevation">Минимална висина</string>
@@ -882,6 +909,8 @@
     <string name="move">Премести</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Промени боју</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Укључи</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -948,4 +977,14 @@
     <string name="transit_type_train">Воз</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Трамвај</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Навигација</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Почетак путање</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Крај путање</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">У овом смеру више нема путање. Изаберите другу тачку.</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">Путања више није доступна</string>
 </resources>

@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Yer imleri ve izler yedeği</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Bu cihazda yedekleme etkinse ve yer imleri ile izler yedeğin boyut sınırını aşmıyorsa, bunlar Android sistem yedeklerine dahil edilebilir.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Google Drive senkronizasyonu (beta)</string>
+    <string name="bookmarks_sync_enabled">Yer imlerini ve izleri senkronize et</string>
+    <string name="bookmarks_sync_account">Google Hesabı</string>
+    <string name="bookmarks_sync_manage_storage">Google depolama alanını yönet</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%2$s alanın %1$s kadarı kullanılıyor</string>
+    <string name="bookmarks_sync_mobile_data">Mobil veriyle senkronize et</string>
+    <string name="bookmarks_sync_now">Şimdi senkronize et</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Son senkronizasyon: %s</string>
+    <string name="bookmarks_sync_status_running">Senkronize ediliyor…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Wi-Fi bekleniyor</string>
+    <string name="bookmarks_sync_status_sign_in">Oturum açılması gerekiyor</string>
+    <string name="bookmarks_sync_status_quota">Google Drive dolu</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Senkronizasyon başarısız: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Google Drive\'daki verileri sil</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Senkronize edilen yer imleri ve izler Google Drive\'dan silinsin mi? Bu aygıttaki yer imleri ve izler kalır. Önce diğer aygıtlarınızda senkronizasyonu kapatın, aksi takdirde bu aygıtlar yer imlerini ve izlerini yeniden karşıya yükler.</string>
+    <string name="bookmarks_sync_beta_warning">Senkronizasyon beta aşamasında. Etkinleştirmeden önce tüm yer imlerinin ve izlerin yedeğini dışa aktarın.</string>
     <string name="search_history_text">Son aramalarınızı görüntüleyin.</string>
     <string name="clear_search">Arama Geçmişini Temizle</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -487,6 +507,12 @@
     <!-- Short label for seconds (time unit), placed after a number -->
     <string name="second">sn</string>
     <string name="placepage_more_button">Diğer</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Fotoğraflar, yorumlar, rezervasyon</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Bu bağlantı üzerinden yapılan her rezervasyon için alınan yönlendirme bonusu Organic Maps\'in geliştirilmesine harcanmaktadır.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Kayak\'ta ayrıntılar</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Yer İmini Düzenle</string>
     <string name="placepage_personal_notes_hint">Kişisel notlar (metin veya html)</string>
@@ -703,6 +729,8 @@
     <string name="moreyear_ago_sorttype">Bir yıldan daha önce</string>
     <string name="near_me_sorttype">Bana yakınlarda</string>
     <string name="others_sorttype">Diğerleri</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Rota Planlaması Başarısız</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Şu anda kapalı</string>
     <string name="opens_tomorrow_at">Açılış yarın %s</string>
@@ -737,8 +765,7 @@
     <string name="deselect_all">Seçimi kaldır</string>
     <string name="select_list">Liste seç</string>
     <string name="button_layer_isolines">İzohipsler</string>
-    <string name="isolines_activation_error_dialog">Arazi katmanını etkinleştirmek ve kullanmak için lütfen haritayı güncelleyin veya indirin</string>
-    <string name="isolines_location_error_dialog">İzohipsler henüz bu bölgede kullanılamaz</string>
+    <string name="isolines_location_error_dialog">İzohipsleri görmek için bu bölgeyi güncelleyin</string>
     <string name="elevation_profile_ascent">Tırmanış</string>
     <string name="elevation_profile_descent">İniş</string>
     <string name="elevation_profile_min_elevation">Min. yükselti</string>
@@ -885,6 +912,8 @@
     <string name="hide_track">İzi gizle</string>
     <!-- Text for the showing track. -->
     <string name="show_track">İzi göster</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Etkinleştir</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -950,4 +979,14 @@
     <string name="transit_type_train">Tren</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tramvay</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Gezin</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">İz başlangıcı</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">İz bitişi</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">Bu yönde iz kalmadı. Başka bir nokta seçin.</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">İz artık kullanılamıyor</string>
 </resources>

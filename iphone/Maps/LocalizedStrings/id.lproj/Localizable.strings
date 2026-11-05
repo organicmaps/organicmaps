@@ -614,6 +614,15 @@
 /* Short label for seconds (time unit), placed after a number */
 "second" = "dtk";
 "placepage_more_button" = "Lainnya";
+
+/* A referral link on the place page for some hotels */
+"more_on_kayak" = "Foto, ulasan, pemesanan";
+
+/* An explanation dialog shown when clicking on more_on_kayak link. */
+"dialog_kayak_disclaimer" = "Bonus rujukan yang diterima untuk setiap pemesanan melalui tautan ini digunakan untuk pengembangan Organic Maps.";
+
+/* A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. */
+"dialog_kayak_button" = "Perincian di Kayak";
 "placepage_personal_notes_hint" = "Catatan pribadi (teks atau html)";
 "editor_comment_hint" = "Komentar…";
 "editor_reset_edits_message" = "Atur ulang perubahan lokal?";
@@ -956,8 +965,7 @@
 "dialog_pedestrian_route_is_long_header" = "Jalur kereta bawah tanah tidak ditemukan";
 "dialog_pedestrian_route_is_long_message" = "Silakan pilih titik awal atau akhir yang lebih dekat ke stasiun kereta bawah tanah";
 "button_layer_isolines" = "Isometrik";
-"isolines_activation_error_dialog" = "Untuk mengaktifkan dan menggunakan lapisan topografi, silakan perbarui atau unduh peta area";
-"isolines_location_error_dialog" = "Lapisan topografi belum tersedia untuk wilayah ini";
+"isolines_location_error_dialog" = "Perbarui wilayah ini untuk melihat garis kontur";
 "elevation_profile_ascent" = "Menanjak";
 "elevation_profile_descent" = "Menurun";
 "elevation_profile_min_elevation" = "Min. tinggi";
@@ -1232,3 +1240,12 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Balikkan rute";
+
+/* Start navigation along the selected track. */
+"navigate_track" = "Navigasi";
+
+/* Track start point label. */
+"navigate_track_start" = "Awal trek";
+
+/* Track finish point label. */
+"navigate_track_finish" = "Akhir trek";

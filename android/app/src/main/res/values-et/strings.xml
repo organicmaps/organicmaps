@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Järjehoidjate ja radade varundus</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Järjehoidjad ja rajad võivad sattuda Androidi süsteemi varukoopiatesse, kui varundamine on selles seadmes sisse lülitatud ja need ei ületa selle mahupiirangut.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Google Drive\'i sünkroonimine (beeta)</string>
+    <string name="bookmarks_sync_enabled">Sünkrooni järjehoidjad ja rajad</string>
+    <string name="bookmarks_sync_account">Google’i konto</string>
+    <string name="bookmarks_sync_manage_storage">Halda Google’i salvestusruumi</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">Kasutatud %1$s / %2$s</string>
+    <string name="bookmarks_sync_mobile_data">Sünkrooni mobiilse andmeside kaudu</string>
+    <string name="bookmarks_sync_now">Sünkrooni kohe</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Viimane sünkroonimine: %s</string>
+    <string name="bookmarks_sync_status_running">Sünkroonimine…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">WiFi-võrgu ootamine</string>
+    <string name="bookmarks_sync_status_sign_in">Vajalik on sisselogimine</string>
+    <string name="bookmarks_sync_status_quota">Google Drive on täis</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Sünkroonimine ebaõnnestus: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Kustuta andmed Google Drive\'ist</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Kas kustutada sünkroonitud järjehoidjad ja rajad Google Drive\'ist? Selle seadme järjehoidjad ja rajad jäävad alles. Lülita esmalt teistes seadmetes sünkroonimine välja, muidu laadivad need oma järjehoidjad ja rajad uuesti üles.</string>
+    <string name="bookmarks_sync_beta_warning">Sünkroonimine on beetaversioonis. Enne selle sisselülitamist ekspordi kõigi järjehoidjate ja radade varukoopia.</string>
     <string name="search_history_text">Vaata hiljutisi otsinguid.</string>
     <string name="clear_search">Kustuta otsinguajalugu</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -487,6 +507,12 @@
     <!-- Short label for seconds (time unit), placed after a number -->
     <string name="second">sek</string>
     <string name="placepage_more_button">Veel</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Fotod, arvustused, broneerimine</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Iga selle lingi kaudu tehtud broneeringu eest saadav viitamistasu läheb Organic Mapsi arendamiseks.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Üksikasjad Kayakis</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Muuda järjehoidjat</string>
     <string name="placepage_personal_notes_hint">Isiklikud märkmed (tekst või html)</string>
@@ -705,6 +731,8 @@
     <string name="moreyear_ago_sorttype">Üle aasta tagasi</string>
     <string name="near_me_sorttype">Minu lähedal</string>
     <string name="others_sorttype">Muud</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Teekonna planeerimine ei õnnestunud</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Praegu suletud</string>
     <string name="opens_tomorrow_at">Avatakse homme kell %s</string>
@@ -739,8 +767,7 @@
     <string name="deselect_all">Tühista valik</string>
     <string name="select_list">Vali loend</string>
     <string name="button_layer_isolines">Kontuurjooned</string>
-    <string name="isolines_activation_error_dialog">Topograafilise kihi aktiveerimiseks ja kasutamiseks laadi alla piirkonna kaart</string>
-    <string name="isolines_location_error_dialog">Topograafiline kiht ei ole selles piirkonnas veel saadaval</string>
+    <string name="isolines_location_error_dialog">Uuenda seda piirkonda, et näha kõrgusjooni</string>
     <string name="elevation_profile_ascent">Tõus</string>
     <string name="elevation_profile_descent">Langus</string>
     <string name="elevation_profile_min_elevation">Min. kõrgus</string>
@@ -887,6 +914,8 @@
     <string name="hide_track">Peida rada</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Näita rada</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Luba</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -952,4 +981,14 @@
     <string name="transit_type_train">Rong</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tramm</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Navigeeri</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Raja algus</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Raja lõpp</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">Selles suunas rada enam ei jätku. Vali teine punkt.</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">Rada pole enam saadaval</string>
 </resources>

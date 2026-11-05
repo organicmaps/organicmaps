@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Резервная копия меток и треков</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Метки и треки могут попадать в системные резервные копии Android, если на устройстве включено резервное копирование и они не превышают ограничение по размеру.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Синхронизация с Google Диском (бета)</string>
+    <string name="bookmarks_sync_enabled">Синхронизировать метки и треки</string>
+    <string name="bookmarks_sync_account">Аккаунт Google</string>
+    <string name="bookmarks_sync_manage_storage">Управление хранилищем Google</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">Использовано %1$s из %2$s</string>
+    <string name="bookmarks_sync_mobile_data">Синхронизировать через мобильный интернет</string>
+    <string name="bookmarks_sync_now">Синхронизировать сейчас</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Последняя синхронизация: %s</string>
+    <string name="bookmarks_sync_status_running">Синхронизация…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Ожидание Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">Требуется вход</string>
+    <string name="bookmarks_sync_status_quota">Google Диск заполнен</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Ошибка синхронизации: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Удалить данные с Google Диска</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Удалить синхронизированные метки и треки с Google Диска? Метки и треки на этом устройстве останутся. Сначала отключите синхронизацию на других устройствах, иначе они снова загрузят туда свои метки и треки.</string>
+    <string name="bookmarks_sync_beta_warning">Синхронизация в бета-версии. Перед включением экспортируйте резервную копию всех меток и треков.</string>
     <string name="search_history_text">Быстрый доступ к последним поисковым запросам.</string>
     <string name="clear_search">Очистить историю поиска</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -487,6 +507,12 @@
     <!-- Short label for seconds (time unit), placed after a number -->
     <string name="second">с</string>
     <string name="placepage_more_button">Ещё</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Фотографии, отзывы, бронирование</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Реферальный бонус, полученный за каждое бронирование по этой ссылке, идёт на разработку Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Подробнее на Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Редактировать метку</string>
     <string name="placepage_personal_notes_hint">Примечание (текст или html)</string>
@@ -711,6 +737,8 @@
     <string name="moreyear_ago_sorttype">Больше года назад</string>
     <string name="near_me_sorttype">Рядом со мной</string>
     <string name="others_sorttype">Другие</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Ошибка построения маршрута</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Сейчас закрыто</string>
     <string name="opens_tomorrow_at">Откроется завтра в %s</string>
@@ -745,8 +773,7 @@
     <string name="deselect_all">Отменить выбор</string>
     <string name="select_list">Выбрать список</string>
     <string name="button_layer_isolines">Высоты</string>
-    <string name="isolines_activation_error_dialog">Чтобы воспользоваться линиями высот, обновите или загрузите карту нужной местности</string>
-    <string name="isolines_location_error_dialog">Линии высот пока не доступны в этом регионе</string>
+    <string name="isolines_location_error_dialog">Обновите этот регион, чтобы увидеть линии высот</string>
     <string name="elevation_profile_ascent">Подъём</string>
     <string name="elevation_profile_descent">Спуск</string>
     <string name="elevation_profile_min_elevation">Мин. высота</string>
@@ -895,6 +922,8 @@
     <string name="hide_track">Скрыть трек</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Показать трек</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Включить</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -962,4 +991,14 @@
     <string name="transit_type_train">Поезд</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Трамвай</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Навигация</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Начало трека</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Конец трека</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">В этом направлении трека больше нет. Выберите другую точку.</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">Трек больше недоступен</string>
 </resources>

@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Bookmarks and Tracks backup</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Bookmarks and tracks can be included in Android system backups when backup is enabled on this device and they fit within its size limit.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Google Drive sync (Beta)</string>
+    <string name="bookmarks_sync_enabled">Sync bookmarks and tracks</string>
+    <string name="bookmarks_sync_account">Google Account</string>
+    <string name="bookmarks_sync_manage_storage">Manage Google storage</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%1$s of %2$s used</string>
+    <string name="bookmarks_sync_mobile_data">Sync over mobile data</string>
+    <string name="bookmarks_sync_now">Sync now</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Last sync: %s</string>
+    <string name="bookmarks_sync_status_running">Syncing…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Waiting for Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">Sign-in required</string>
+    <string name="bookmarks_sync_status_quota">Google Drive is full</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Sync failed: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Delete data from Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Delete synced bookmarks and tracks from Google Drive? Bookmarks and tracks on this device stay. Turn off sync on your other devices first, otherwise they will upload their bookmarks and tracks again.</string>
+    <string name="bookmarks_sync_beta_warning">Sync is in beta. Export a backup of all bookmarks and tracks before enabling it.</string>
     <string name="search_history_text">View your recent searches.</string>
     <string name="clear_search">Clear Search History</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -487,6 +507,12 @@
     <!-- Short label for seconds (time unit), placed after a number -->
     <string name="second">s</string>
     <string name="placepage_more_button">More</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Photos, reviews, booking</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">The referral bonus received for each booking through this link goes towards the development of Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Details on Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Edit Bookmark</string>
     <string name="placepage_personal_notes_hint">Personal notes (text or html)</string>
@@ -702,6 +728,8 @@
     <string name="moreyear_ago_sorttype">More than a year ago</string>
     <string name="near_me_sorttype">Near me</string>
     <string name="others_sorttype">Others</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Route Planning Failed</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Closed now</string>
     <string name="opens_tomorrow_at">Opens tomorrow at %s</string>
@@ -736,8 +764,7 @@
     <string name="deselect_all">Deselect All</string>
     <string name="select_list">Select list</string>
     <string name="button_layer_isolines">Contour Lines</string>
-    <string name="isolines_activation_error_dialog">Activating contour lines requires downloading map data for this area</string>
-    <string name="isolines_location_error_dialog">Contour lines are not yet available in this area</string>
+    <string name="isolines_location_error_dialog">Update this region to see contour lines</string>
     <string name="elevation_profile_ascent">Ascent</string>
     <string name="elevation_profile_descent">Descent</string>
     <string name="elevation_profile_min_elevation">Min. elevation</string>
@@ -882,6 +909,8 @@
     <string name="hide_track">Hide track</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Show track</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Enable</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -947,4 +976,14 @@
     <string name="transit_type_train">Train</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tram</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Navigate</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Track start</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Track finish</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">No track remains in this direction. Select another point.</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">The track is no longer available</string>
 </resources>

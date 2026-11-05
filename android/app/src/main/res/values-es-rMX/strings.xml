@@ -177,6 +177,26 @@
     <string name="bookmarks_backup_title">Respaldo de marcadores y pistas</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Los marcadores y pistas pueden incluirse en los respaldos del sistema Android si el respaldo está activado en este dispositivo y no superan su límite de tamaño.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Sincronización con Google Drive (beta)</string>
+    <string name="bookmarks_sync_enabled">Sincronizar marcadores y pistas</string>
+    <string name="bookmarks_sync_account">Cuenta de Google</string>
+    <string name="bookmarks_sync_manage_storage">Administrar el almacenamiento de Google</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%1$s de %2$s usados</string>
+    <string name="bookmarks_sync_mobile_data">Sincronizar con datos móviles</string>
+    <string name="bookmarks_sync_now">Sincronizar ahora</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Última sincronización: %s</string>
+    <string name="bookmarks_sync_status_running">Sincronizando…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Esperando Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">Es necesario iniciar sesión</string>
+    <string name="bookmarks_sync_status_quota">Google Drive está lleno</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Error de sincronización: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Eliminar los datos de Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">¿Eliminar los marcadores y pistas sincronizados de Google Drive? Los marcadores y pistas de este dispositivo se conservan. Desactiva primero la sincronización en tus otros dispositivos; de lo contrario, volverán a subir sus marcadores y pistas.</string>
+    <string name="bookmarks_sync_beta_warning">La sincronización está en beta. Exporta un respaldo de todos los marcadores y pistas antes de activarla.</string>
     <string name="search_history_text">Ver tus búsquedas recientes.</string>
     <string name="clear_search">Eliminar el historial de búsqueda</string>
     <string name="p2p_your_location">Tu ubicación</string>
@@ -240,6 +260,12 @@
     <string name="downloader_no_downloaded_maps_title">No has descargado ningún mapa</string>
     <string name="downloader_no_downloaded_maps_message">Descarga mapas para buscar y navegar sin conexión.</string>
     <string name="current_location_unknown_error_title">La ubicación actual es desconocida.</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Fotos, reseñas, reservas</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">El bono de recomendación recibido por cada reserva a través de este enlace se destina al desarrollo de Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Detalles en Kayak</string>
     <string name="editor_comment_hint">Comentar…</string>
     <string name="editor_reset_edits_message">¿Descartar todos los cambios locales?</string>
     <string name="editor_reset_edits_button">Descartar</string>
@@ -364,6 +390,8 @@
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Ordenar favoritos</string>
     <string name="near_me_sorttype">Cerca a mí</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Planificación de ruta fallida</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Cerrado</string>
     <string name="opens_tomorrow_at">Abre mañana en %s</string>
@@ -380,8 +408,6 @@
     <string name="fuel_places">Gasolinería</string>
     <string name="religious_places">Sitios religiosos</string>
     <string name="button_layer_isolines">Líneas de contorno</string>
-    <string name="isolines_activation_error_dialog">Para usar la altitud de relieve, actualice o descargue el mapa del área deseada</string>
-    <string name="isolines_location_error_dialog">La altitud de relieve no está aún disponible en esta región</string>
     <string name="elevation_profile_min_elevation">Elevación mínima</string>
     <string name="elevation_profile_max_elevation">Elevación máxima</string>
     <string name="isolines_toast_zooms_1_10">Zoom para explorar isolíneas</string>
@@ -468,4 +494,14 @@
     <!-- SECTION: gps strings -->
     <!-- Label for the hex color input field in the color picker -->
     <string name="color_picker_hex_label">Color hexadecimal sRGB #</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Navegar</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Inicio del trayecto</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Fin del trayecto</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">No queda pista en esta dirección. Seleccione otro punto.</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">La pista ya no está disponible</string>
 </resources>

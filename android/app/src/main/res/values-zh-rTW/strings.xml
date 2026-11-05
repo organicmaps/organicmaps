@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">書籤和軌跡備份</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">如果此裝置已啟用備份，且書籤和軌跡未超過其容量上限，它們可以包含在 Android 系統備份中。</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Google 雲端硬碟同步（測試版）</string>
+    <string name="bookmarks_sync_enabled">同步書籤和軌跡</string>
+    <string name="bookmarks_sync_account">Google 帳戶</string>
+    <string name="bookmarks_sync_manage_storage">管理 Google 儲存空間</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">已使用 %1$s，共 %2$s</string>
+    <string name="bookmarks_sync_mobile_data">使用行動數據同步</string>
+    <string name="bookmarks_sync_now">立即同步</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">上次同步：%s</string>
+    <string name="bookmarks_sync_status_running">正在同步…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">正在等待 Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">需要登入</string>
+    <string name="bookmarks_sync_status_quota">Google 雲端硬碟空間已滿</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">同步失敗：%s</string>
+    <string name="bookmarks_sync_delete_cloud">從 Google 雲端硬碟刪除資料</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">要從 Google 雲端硬碟刪除已同步的書籤和軌跡嗎？此裝置上的書籤和軌跡會保留。請先在其他裝置上關閉同步，否則它們會再次上傳各自的書籤和軌跡。</string>
+    <string name="bookmarks_sync_beta_warning">同步功能處於測試階段。啟用前請匯出所有書籤和軌跡的備份。</string>
     <string name="search_history_text">查看您最近的搜尋記錄。</string>
     <string name="clear_search">清除搜尋記錄</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -487,6 +507,12 @@
     <!-- Short label for seconds (time unit), placed after a number -->
     <string name="second">秒</string>
     <string name="placepage_more_button">更多</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">照片、評論、預訂</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">每次透過此連結預訂所獲得的推薦獎金將用於 Organic Maps 的開發。</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Kayak 上的詳細資訊</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">編輯書籤</string>
     <string name="placepage_personal_notes_hint">個人備註（文字或 html）</string>
@@ -702,6 +728,8 @@
     <string name="moreyear_ago_sorttype">一年多以前</string>
     <string name="near_me_sorttype">在我附近</string>
     <string name="others_sorttype">其他</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">路線規劃失敗</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">現已關門</string>
     <string name="opens_tomorrow_at">明天 %s 營業</string>
@@ -736,8 +764,7 @@
     <string name="deselect_all">取消全選</string>
     <string name="select_list">選擇列表</string>
     <string name="button_layer_isolines">等高線</string>
-    <string name="isolines_activation_error_dialog">如需使用等高線，請更新或下載所需區域的地圖</string>
-    <string name="isolines_location_error_dialog">暫時無法獲取該地區的等高線</string>
+    <string name="isolines_location_error_dialog">更新該地區以查看等高線</string>
     <string name="elevation_profile_ascent">上坡</string>
     <string name="elevation_profile_descent">下坡</string>
     <string name="elevation_profile_min_elevation">最低高度</string>
@@ -882,6 +909,8 @@
     <string name="hide_track">隱藏軌跡</string>
     <!-- Text for the showing track. -->
     <string name="show_track">顯示軌跡</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">啟用</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -946,4 +975,14 @@
     <string name="transit_type_train">火車</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">路面電車</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">導航</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">軌跡起點</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">軌跡終點</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">此方向上已無剩餘軌跡。請選擇其他點。</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">該軌跡已無法使用</string>
 </resources>

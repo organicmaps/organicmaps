@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Kopje rezervë e faqeshënuesve dhe gjurmëve</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Faqeshënuesit dhe gjurmët mund të përfshihen në kopjet rezervë të sistemit Android, nëse kopjimi rezervë është aktivizuar në këtë pajisje dhe nuk e tejkalojnë kufirin e tij të madhësisë.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Sinkronizimi me Google Drive (beta)</string>
+    <string name="bookmarks_sync_enabled">Sinkronizo faqeshënuesit dhe gjurmët</string>
+    <string name="bookmarks_sync_account">Llogaria e Google</string>
+    <string name="bookmarks_sync_manage_storage">Menaxho hapësirën ruajtëse të Google</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">Përdorur %1$s nga %2$s</string>
+    <string name="bookmarks_sync_mobile_data">Sinkronizo me të dhëna celulare</string>
+    <string name="bookmarks_sync_now">Sinkronizo tani</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Sinkronizimi i fundit: %s</string>
+    <string name="bookmarks_sync_status_running">Po sinkronizohet…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Në pritje të Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">Kërkohet hyrja</string>
+    <string name="bookmarks_sync_status_quota">Google Drive është plot</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Sinkronizimi dështoi: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Fshi të dhënat nga Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Të fshihen faqeshënuesit dhe gjurmët e sinkronizuara nga Google Drive? Faqeshënuesit dhe gjurmët në këtë pajisje mbeten. Fikni fillimisht sinkronizimin në pajisjet e tjera, përndryshe ato do të ngarkojnë sërish faqeshënuesit dhe gjurmët e tyre.</string>
+    <string name="bookmarks_sync_beta_warning">Sinkronizimi është në version beta. Para se ta aktivizoni, eksportoni një kopje rezervë të të gjithë faqeshënuesve dhe gjurmëve.</string>
     <string name="search_history_text">Shikoni kërkimet tuaja të fundit.</string>
     <string name="clear_search">Pastro Historikun e Kërkimit</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -487,6 +507,12 @@
     <!-- Short label for seconds (time unit), placed after a number -->
     <string name="second">s</string>
     <string name="placepage_more_button">Më shumë</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Foto, vlerësime, rezervim</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Bonusi i referimit që merret për çdo rezervim përmes kësaj lidhjeje shkon për zhvillimin e Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Detajet në Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Ndrysho Faqeshënuesin</string>
     <string name="placepage_personal_notes_hint">Shënime personale (tekst ose html)</string>
@@ -690,6 +716,8 @@
     <string name="moreyear_ago_sorttype">Më shumë se një vit më parë</string>
     <string name="near_me_sorttype">Pranë meje</string>
     <string name="others_sorttype">Të tjera</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Planifikimi i Rrugës Dështoi</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Mbyllur tani</string>
     <string name="opens_tomorrow_at">Hapet nesër në %s</string>
@@ -724,8 +752,7 @@
     <string name="deselect_all">Hiq përzgjedhjen</string>
     <string name="select_list">Zgjidh listën</string>
     <string name="button_layer_isolines">Vija Konture</string>
-    <string name="isolines_activation_error_dialog">Aktivizimi i vijave të konturit kërkon shkarkimin e të dhënave të hartës për këtë zonë</string>
-    <string name="isolines_location_error_dialog">Vijat e konturit nuk janë ende të disponueshme në këtë zonë</string>
+    <string name="isolines_location_error_dialog">Përditësoni këtë zonë për të parë vijat e konturit</string>
     <string name="elevation_profile_ascent">Ngjitje</string>
     <string name="elevation_profile_descent">Zbritje</string>
     <string name="elevation_profile_min_elevation">Lartësia min.</string>
@@ -856,6 +883,8 @@
     <string name="move">Lëviz</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Ndrysho Ngjyrën</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Aktivizo</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -921,4 +950,14 @@
     <string name="transit_type_train">Tren</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tramvaj</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Navigo</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Fillimi i gjurmës</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Fundi i gjurmës</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">Nuk ka mbetur gjurmë në këtë drejtim. Zgjidhni një pikë tjetër.</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">Gjurma nuk është më e disponueshme</string>
 </resources>

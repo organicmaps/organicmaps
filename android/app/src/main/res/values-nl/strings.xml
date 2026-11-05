@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Back-up van bladwijzers en tracks</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Bladwijzers en tracks kunnen worden opgenomen in Android-systeemback-ups als back-up op dit apparaat is ingeschakeld en ze de maximale grootte ervan niet overschrijden.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Synchronisatie met Google Drive (bèta)</string>
+    <string name="bookmarks_sync_enabled">Bladwijzers en tracks synchroniseren</string>
+    <string name="bookmarks_sync_account">Google-account</string>
+    <string name="bookmarks_sync_manage_storage">Google-opslag beheren</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%1$s van %2$s gebruikt</string>
+    <string name="bookmarks_sync_mobile_data">Synchroniseren via mobiele data</string>
+    <string name="bookmarks_sync_now">Nu synchroniseren</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Laatst gesynchroniseerd: %s</string>
+    <string name="bookmarks_sync_status_running">Synchroniseren…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Wachten op wifi</string>
+    <string name="bookmarks_sync_status_sign_in">Inloggen vereist</string>
+    <string name="bookmarks_sync_status_quota">Google Drive is vol</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Synchronisatie mislukt: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Gegevens uit Google Drive verwijderen</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Gesynchroniseerde bladwijzers en tracks uit Google Drive verwijderen? Bladwijzers en tracks op dit apparaat blijven behouden. Schakel eerst synchronisatie uit op je andere apparaten, anders uploaden die hun bladwijzers en tracks opnieuw.</string>
+    <string name="bookmarks_sync_beta_warning">Synchronisatie is in bèta. Exporteer een back-up van alle bladwijzers en tracks voordat je deze inschakelt.</string>
     <string name="search_history_text">Snel toegang tot recente zoekopdrachten.</string>
     <string name="clear_search">Wis zoekgeschiedenis</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -487,6 +507,12 @@
     <!-- Short label for seconds (time unit), placed after a number -->
     <string name="second">s</string>
     <string name="placepage_more_button">Meer</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Foto\'s, beoordelingen, boeken</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">De doorverwijsbonus die we ontvangen voor elke boeking via deze link gaat naar de ontwikkeling van Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Details op Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Bewerk bladwijzer</string>
     <string name="placepage_personal_notes_hint">Persoonlijke aantekeningen (tekst of html)</string>
@@ -705,6 +731,8 @@
     <string name="moreyear_ago_sorttype">Meer dan een jaar geleden</string>
     <string name="near_me_sorttype">Dicht bij mij</string>
     <string name="others_sorttype">Andere</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Routeberekening mislukt</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Nu gesloten</string>
     <string name="opens_tomorrow_at">Opent morgen om %s</string>
@@ -739,8 +767,7 @@
     <string name="deselect_all">Selectie opheffen</string>
     <string name="select_list">Kies een lijst</string>
     <string name="button_layer_isolines">Contourlijnen</string>
-    <string name="isolines_activation_error_dialog">Als u gebruik wilt maken van hoogtelijnen, moet u de kaart van het gewenste gebied bijwerken of downloaden</string>
-    <string name="isolines_location_error_dialog">Hoogtelijnen zijn nog niet beschikbaar in deze regio</string>
+    <string name="isolines_location_error_dialog">Werk deze regio bij om hoogtelijnen te zien</string>
     <string name="elevation_profile_ascent">Stijging</string>
     <string name="elevation_profile_descent">Daling</string>
     <string name="elevation_profile_min_elevation">Min. hoogte</string>
@@ -887,6 +914,8 @@
     <string name="hide_track">Route verbergen</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Route tonen</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Schakel in</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -952,4 +981,14 @@
     <string name="transit_type_train">Trein</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tram</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Navigeren</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Begin van track</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Einde van track</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">Er is in deze richting geen track meer over. Selecteer een ander punt.</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">De track is niet meer beschikbaar</string>
 </resources>

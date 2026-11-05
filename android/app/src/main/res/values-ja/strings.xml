@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">ブックマークとトラックのバックアップ</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">このデバイスでバックアップが有効で、ブックマークとトラックがそのサイズ上限内に収まる場合、それらは Android のシステムバックアップに含まれることがあります。</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Google ドライブ同期（ベータ）</string>
+    <string name="bookmarks_sync_enabled">ブックマークとトラックを同期</string>
+    <string name="bookmarks_sync_account">Google アカウント</string>
+    <string name="bookmarks_sync_manage_storage">Google ストレージを管理</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%2$s 中 %1$s を使用</string>
+    <string name="bookmarks_sync_mobile_data">モバイルデータ通信で同期</string>
+    <string name="bookmarks_sync_now">今すぐ同期</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">最終同期: %s</string>
+    <string name="bookmarks_sync_status_running">同期中…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Wi-Fi を待機中</string>
+    <string name="bookmarks_sync_status_sign_in">ログインが必要です</string>
+    <string name="bookmarks_sync_status_quota">Google ドライブの容量がいっぱいです</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">同期に失敗しました: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Google ドライブからデータを削除</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">同期したブックマークとトラックを Google ドライブから削除しますか？このデバイスのブックマークとトラックは残ります。先にほかのデバイスで同期をオフにしてください。そうしないと、それらのデバイスがブックマークとトラックを再びアップロードします。</string>
+    <string name="bookmarks_sync_beta_warning">同期はベータ版です。有効にする前に、すべてのブックマークとトラックのバックアップをエクスポートしてください。</string>
     <string name="search_history_text">最近の検索を表示します。</string>
     <string name="clear_search">検索履歴を消去</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -487,6 +507,12 @@
     <!-- Short label for seconds (time unit), placed after a number -->
     <string name="second">秒</string>
     <string name="placepage_more_button">さらに詳しく</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">写真、レビュー、予約</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">このリンクを経由した予約の紹介ボーナスは、Organic Mapsの開発のために使われます。</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Kayak で詳細表示</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">ブックマークを編集</string>
     <string name="placepage_personal_notes_hint">パーソナルメモ（テキストまたはHTML）</string>
@@ -700,6 +726,8 @@
     <string name="moreyear_ago_sorttype">1年以上前</string>
     <string name="near_me_sorttype">近隣</string>
     <string name="others_sorttype">その他</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">ルート検索に失敗</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">営業時間外</string>
     <string name="opens_tomorrow_at">明日の %s から営業</string>
@@ -734,8 +762,7 @@
     <string name="deselect_all">選択を解除</string>
     <string name="select_list">リストを選択</string>
     <string name="button_layer_isolines">地形</string>
-    <string name="isolines_activation_error_dialog">地形レイヤーを使用するには、このエリアのマップを更新もしくはダウンロードしてください</string>
-    <string name="isolines_location_error_dialog">地形レイヤーはこの地域ではまだ利用できません</string>
+    <string name="isolines_location_error_dialog">この地域を更新すると等高線が表示されます</string>
     <string name="elevation_profile_ascent">上昇</string>
     <string name="elevation_profile_descent">下降</string>
     <string name="elevation_profile_min_elevation">最小標高</string>
@@ -876,6 +903,8 @@
     <string name="hide_track">ルートを非表示</string>
     <!-- Text for the showing track. -->
     <string name="show_track">ルートを表示</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">有効にする</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -940,4 +969,14 @@
     <string name="transit_type_train">電車</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">路面電車</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">ナビゲーション</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">トラックの始点</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">トラックの終点</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">この方向にはトラックが残っていません。別の地点を選択してください。</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">このトラックはもう利用できません</string>
 </resources>

@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Grāmatzīmju un pēdojumu dublējumkopija</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Grāmatzīmes un pēdojumi var tikt iekļauti Android sistēmas dublējumkopijās, ja šajā ierīcē ir ieslēgta dublēšana un tie nepārsniedz tās lieluma ierobežojumu.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Google diska sinhronizācija (beta)</string>
+    <string name="bookmarks_sync_enabled">Sinhronizēt grāmatzīmes un pēdojumus</string>
+    <string name="bookmarks_sync_account">Google konts</string>
+    <string name="bookmarks_sync_manage_storage">Pārvaldīt Google krātuvi</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">Izmantoti %1$s no %2$s</string>
+    <string name="bookmarks_sync_mobile_data">Sinhronizēt, izmantojot mobilos datus</string>
+    <string name="bookmarks_sync_now">Sinhronizēt tagad</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Pēdējā sinhronizācija: %s</string>
+    <string name="bookmarks_sync_status_running">Notiek sinhronizācija…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Gaida Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">Nepieciešama pierakstīšanās</string>
+    <string name="bookmarks_sync_status_quota">Google disks ir pilns</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Sinhronizācija neizdevās: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Dzēst datus no Google diska</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Vai dzēst sinhronizētās grāmatzīmes un pēdojumus no Google diska? Grāmatzīmes un pēdojumi šajā ierīcē paliek. Vispirms izslēdziet sinhronizāciju citās ierīcēs, citādi tās atkal augšupielādēs savas grāmatzīmes un pēdojumus.</string>
+    <string name="bookmarks_sync_beta_warning">Sinhronizācija ir beta versijā. Pirms tās ieslēgšanas eksportējiet visu grāmatzīmju un pēdojumu dublējumkopiju.</string>
     <string name="search_history_text">Apskatiet meklēšanas vēsturi.</string>
     <string name="clear_search">Notīrīt vēsturi</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -487,6 +507,12 @@
     <!-- Short label for seconds (time unit), placed after a number -->
     <string name="second">s</string>
     <string name="placepage_more_button">Vairāk</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Foto, atsauksmes, rezervācija</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">No ieteikuma saites saņemtais bonuss par katru rezervāciju nonāk „Organic Maps“ attīstīšanai.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Vairāk vietnē „Kayak“</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Grāmatzīmes labošana</string>
     <string name="placepage_personal_notes_hint">Personīgi pieraksti (teksts vai HTML)</string>
@@ -700,6 +726,8 @@
     <string name="moreyear_ago_sorttype">Vairāk nekā pirms gada</string>
     <string name="near_me_sorttype">Man tuvumā</string>
     <string name="others_sorttype">Cits</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Maršruta plānošana neizdevās</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Šobrīd slēgts</string>
     <string name="opens_tomorrow_at">Atveras rīt %s</string>
@@ -734,8 +762,7 @@
     <string name="deselect_all">Noņemt atlasi</string>
     <string name="select_list">Izvēlēties sarakstu</string>
     <string name="button_layer_isolines">Reljefa līnijas</string>
-    <string name="isolines_activation_error_dialog">Reljefa līniju parādīšanai nepieciešamas lejupielādēt šī reģiona karti</string>
-    <string name="isolines_location_error_dialog">Topogrāfiskais slānis šim reģionam nav pieejams</string>
+    <string name="isolines_location_error_dialog">Atjauniniet šo reģionu, lai redzētu horizontāles</string>
     <string name="elevation_profile_ascent">Kāpums</string>
     <string name="elevation_profile_descent">Kritums</string>
     <string name="elevation_profile_min_elevation">Zemākais punkts</string>
@@ -878,6 +905,8 @@
     <string name="hide_track">Paslēpt pēdojumu</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Rādīt pēdojumu</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Ieslēgt</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -944,4 +973,14 @@
     <string name="transit_type_train">Vilciens</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tramvajs</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Navigēt</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Pēdojuma sākums</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Pēdojuma beigas</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">Šajā virzienā pēdojums vairs neturpinās. Izvēlieties citu punktu.</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">Pēdojums vairs nav pieejams</string>
 </resources>

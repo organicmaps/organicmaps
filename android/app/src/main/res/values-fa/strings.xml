@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">پشتیبان‌گیری از نشانک‌ها و مسیرها</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">اگر پشتیبان‌گیری در این دستگاه فعال باشد و نشانک‌ها و مسیرها از محدودیت حجم آن بیشتر نشوند، می‌توانند در پشتیبان‌های سیستم Android گنجانده شوند.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">همگام‌سازی با Google Drive (آزمایشی)</string>
+    <string name="bookmarks_sync_enabled">همگام‌سازی نشانک‌ها و مسیرها</string>
+    <string name="bookmarks_sync_account">حساب Google</string>
+    <string name="bookmarks_sync_manage_storage">مدیریت فضای ذخیره‌سازی Google</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%1$s از %2$s استفاده شده</string>
+    <string name="bookmarks_sync_mobile_data">همگام‌سازی با داده تلفن همراه</string>
+    <string name="bookmarks_sync_now">اکنون همگام‌سازی شود</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">آخرین همگام‌سازی: %s</string>
+    <string name="bookmarks_sync_status_running">در حال همگام‌سازی…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">در انتظار Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">ورود لازم است</string>
+    <string name="bookmarks_sync_status_quota">Google Drive پر است</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">همگام‌سازی ناموفق بود: %s</string>
+    <string name="bookmarks_sync_delete_cloud">حذف داده‌ها از Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">نشانک‌ها و مسیرهای همگام‌شده از Google Drive حذف شوند؟ نشانک‌ها و مسیرهای این دستگاه باقی می‌مانند. ابتدا همگام‌سازی را در دستگاه‌های دیگر خود خاموش کنید، وگرنه آن‌ها نشانک‌ها و مسیرهای خود را دوباره بارگذاری می‌کنند.</string>
+    <string name="bookmarks_sync_beta_warning">همگام‌سازی آزمایشی است. پیش از فعال کردن آن، از همه نشانک‌ها و مسیرها پشتیبان صادر کنید.</string>
     <string name="search_history_text">جستجوهای اخیر خود را مشاهده کنید.</string>
     <string name="clear_search">پاک کردن سابقه جستجوها</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -487,6 +507,12 @@
     <!-- Short label for seconds (time unit), placed after a number -->
     <string name="second">ثانیه</string>
     <string name="placepage_more_button">بیشتر</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">عکس‌ها، نظرات، رزرو</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">پاداش ارجاعی دریافت‌شده برای هر رزرو از طریق این پیوند صرف توسعه Organic Maps می‌شود.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">جزئیات در Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">ویرایش نشانک‌ها</string>
     <string name="placepage_personal_notes_hint">یادداشت های شخصی (متن یا html)</string>
@@ -702,6 +728,8 @@
     <string name="moreyear_ago_sorttype">بیش از یک سال قبل</string>
     <string name="near_me_sorttype">نزدیک من</string>
     <string name="others_sorttype">دیگران</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">برنامه ریزی مسیر ناموفق</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">اکنون تعطیل است</string>
     <string name="opens_tomorrow_at">فردا در %s باز می‌شود</string>
@@ -736,8 +764,7 @@
     <string name="deselect_all">لغو انتخاب همه</string>
     <string name="select_list">انتخاب فهرست</string>
     <string name="button_layer_isolines">خط تراز</string>
-    <string name="isolines_activation_error_dialog">برای فعال سازی و استفاده از لایه توپوگرافی نقشه منطقه را به روزرسانی یا دانلود کنید</string>
-    <string name="isolines_location_error_dialog">لایه توپوگرافی هنوز برای این منطقه در دسترس نیست</string>
+    <string name="isolines_location_error_dialog">برای دیدن خطوط تراز، این منطقه را به‌روزرسانی کنید</string>
     <string name="elevation_profile_ascent">بالا رفتن</string>
     <string name="elevation_profile_descent">پایین آمدن</string>
     <string name="elevation_profile_min_elevation">کم ارتفاع</string>
@@ -882,6 +909,8 @@
     <string name="hide_track">مخفی کردن مسیر</string>
     <!-- Text for the showing track. -->
     <string name="show_track">نمایش مسیر</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">فعال کردن</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -947,4 +976,14 @@
     <string name="transit_type_train">قطار</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">تراموا</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">مسیریابی</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">آغاز مسیر</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">پایان مسیر</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">در این جهت مسیری باقی نمانده است. نقطهٔ دیگری را انتخاب کنید.</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">این مسیر دیگر در دسترس نیست</string>
 </resources>

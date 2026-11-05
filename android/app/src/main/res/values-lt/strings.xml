@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Žymių ir trasų atsarginė kopija</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Žymės ir trasos gali būti įtrauktos į Android sistemos atsargines kopijas, jei šiame įrenginyje įjungtas atsarginių kopijų kūrimas ir jos neviršija leistino dydžio.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Sinchronizavimas su „Google“ disku (beta)</string>
+    <string name="bookmarks_sync_enabled">Sinchronizuoti žymes ir trasas</string>
+    <string name="bookmarks_sync_account">„Google“ paskyra</string>
+    <string name="bookmarks_sync_manage_storage">Tvarkyti „Google“ saugyklą</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">Išnaudota %1$s iš %2$s</string>
+    <string name="bookmarks_sync_mobile_data">Sinchronizuoti naudojant mobiliojo ryšio duomenis</string>
+    <string name="bookmarks_sync_now">Sinchronizuoti dabar</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Paskutinis sinchronizavimas: %s</string>
+    <string name="bookmarks_sync_status_running">Sinchronizuojama…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Laukiama „Wi-Fi“</string>
+    <string name="bookmarks_sync_status_sign_in">Reikia prisijungti</string>
+    <string name="bookmarks_sync_status_quota">„Google“ diskas pilnas</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Sinchronizuoti nepavyko: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Ištrinti duomenis iš „Google“ disko</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Ištrinti sinchronizuotas žymes ir trasas iš „Google“ disko? Šio įrenginio žymės ir trasos liks. Pirmiausia išjunkite sinchronizavimą kituose įrenginiuose, kitaip jie vėl įkels savo žymes ir trasas.</string>
+    <string name="bookmarks_sync_beta_warning">Sinchronizavimas yra beta versijos. Prieš įjungdami eksportuokite visų žymių ir trasų atsarginę kopiją.</string>
     <string name="search_history_text">Rodyti paskiausias paieškas.</string>
     <string name="clear_search">Valyti paieškų žurnalą</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -487,6 +507,12 @@
     <!-- Short label for seconds (time unit), placed after a number -->
     <string name="second">s</string>
     <string name="placepage_more_button">Išsamiau</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Nuotraukos, apžvalgos, užsakymas</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Už kiekvieną per šią nuorodą atliktą užsakymą gauta premija skiriama „Organic Maps“ plėtrai.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Išsamiau „Kayak“ svetainėje</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Taisyti žymę</string>
     <string name="placepage_personal_notes_hint">Asmeninės pastabos (tekstas arba HTML)</string>
@@ -707,6 +733,8 @@
     <string name="moreyear_ago_sorttype">Virš metų senumo</string>
     <string name="near_me_sorttype">Netoliese</string>
     <string name="others_sorttype">Kitkas</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Maršruto planavimas nepavyko</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Dabar uždaryta</string>
     <string name="opens_tomorrow_at">Atsidaro rytoj %s</string>
@@ -741,8 +769,7 @@
     <string name="deselect_all">Atšaukti pasirinkimą</string>
     <string name="select_list">Pasirinkite sąrašą</string>
     <string name="button_layer_isolines">Reljefas</string>
-    <string name="isolines_activation_error_dialog">Atsisiųskite vietovės žemėlapį, jei norite aktyvinti ir naudoti reljefo sluoksnį</string>
-    <string name="isolines_location_error_dialog">Reljefo sluoksnis šiai vietovei dar neprieinamas</string>
+    <string name="isolines_location_error_dialog">Atnaujinkite šią vietovę, kad matytumėte izolinijas</string>
     <string name="elevation_profile_ascent">Pakilimas</string>
     <string name="elevation_profile_descent">Nusileidimas</string>
     <string name="elevation_profile_min_elevation">Min. aukštis</string>
@@ -889,6 +916,8 @@
     <string name="hide_track">Paslėpti trasą</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Rodyti trasą</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Įjungti</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -955,4 +984,14 @@
     <string name="transit_type_train">Traukinys</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tramvajus</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Naviguoti</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Trasos pradžia</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Trasos pabaiga</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">Šia kryptimi trasos nebeliko. Pasirinkite kitą tašką.</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">Trasa nebepasiekiama</string>
 </resources>

@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">खूणपत्रे आणि ट्रॅकचा बॅकअप</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">या डिव्हाइसवर बॅकअप सुरू असल्यास आणि खूणपत्रे व ट्रॅक त्याच्या आकार मर्यादेपेक्षा जास्त नसल्यास, ते Android सिस्टम बॅकअपमध्ये समाविष्ट केले जाऊ शकतात.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Google ड्राइव्ह सिंक (बीटा)</string>
+    <string name="bookmarks_sync_enabled">खूणपत्रे आणि ट्रॅक सिंक करा</string>
+    <string name="bookmarks_sync_account">Google खाते</string>
+    <string name="bookmarks_sync_manage_storage">Google स्टोरेज व्यवस्थापित करा</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%2$s पैकी %1$s वापरले</string>
+    <string name="bookmarks_sync_mobile_data">मोबाइल डेटावर सिंक करा</string>
+    <string name="bookmarks_sync_now">आता सिंक करा</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">शेवटचे सिंक: %s</string>
+    <string name="bookmarks_sync_status_running">सिंक होत आहे…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">वाय-फायची प्रतीक्षा आहे</string>
+    <string name="bookmarks_sync_status_sign_in">साइन इन आवश्यक आहे</string>
+    <string name="bookmarks_sync_status_quota">Google ड्राइव्ह भरले आहे</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">सिंक अयशस्वी: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Google ड्राइव्ह मधून डेटा हटवा</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">सिंक केलेली खूणपत्रे आणि ट्रॅक Google ड्राइव्ह मधून हटवायचे? या डिव्हाइसवरील खूणपत्रे आणि ट्रॅक राहतील. आधी तुमच्या इतर डिव्हाइसवर सिंक बंद करा, नाहीतर ते त्यांची खूणपत्रे आणि ट्रॅक पुन्हा अपलोड करतील.</string>
+    <string name="bookmarks_sync_beta_warning">सिंक बीटामध्ये आहे. ते सुरू करण्यापूर्वी सर्व खूणपत्रे आणि ट्रॅकचा बॅकअप निर्यात करा.</string>
     <string name="search_history_text">अलीकडील शोध पहा.</string>
     <string name="clear_search">शोध इतिहास पुसून टाका</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -487,6 +507,12 @@
     <!-- Short label for seconds (time unit), placed after a number -->
     <string name="second">सेकंद</string>
     <string name="placepage_more_button">अधिक</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">फोटो, पुनरावलोकने, बुकिंग</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">या लिंकद्वारे प्रत्येक बुकिंगसाठी मिळणारा रेफरल बोनस Organic Maps च्या विकासासाठी जातो.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Kayak वर तपशील</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">खूणपत्र संपादित करा</string>
     <string name="placepage_personal_notes_hint">वैयक्तिक चिठ्ठ्या (मजकूर किंवा html)</string>
@@ -702,6 +728,8 @@
     <string name="moreyear_ago_sorttype">एक वर्षांपूर्वी</string>
     <string name="near_me_sorttype">माझ्या जवळ</string>
     <string name="others_sorttype">इतर</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">मार्ग नियोजन अयशस्वी</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">आता बंद</string>
     <string name="opens_tomorrow_at">उद्या %s ला उघडेल</string>
@@ -736,8 +764,7 @@
     <string name="deselect_all">निवड रद्द करा</string>
     <string name="select_list">यादी निवडा</string>
     <string name="button_layer_isolines">भूप्रदेश</string>
-    <string name="isolines_activation_error_dialog">भूस्वरूप स्तर वापरण्यासाठी कृपया नकाशा डाउनलोड किंवा अद्ययावत करा</string>
-    <string name="isolines_location_error_dialog">या भागात भूस्वरूप स्तर अद्याप उपलब्ध नाही</string>
+    <string name="isolines_location_error_dialog">समोच्च रेषा पाहण्यासाठी हा भाग अपडेट करा</string>
     <string name="elevation_profile_ascent">चढण</string>
     <string name="elevation_profile_descent">उतरण</string>
     <string name="elevation_profile_min_elevation">किमान उंची</string>
@@ -874,6 +901,8 @@
     <string name="hide_track">मार्ग लपवा</string>
     <!-- Text for the showing track. -->
     <string name="show_track">मार्ग दाखवा</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">सक्षम करा</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -939,4 +968,14 @@
     <string name="transit_type_train">ट्रेन</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">ट्राम</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">नेव्हिगेट करा</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">ट्रॅकची सुरुवात</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">ट्रॅकचा शेवट</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">या दिशेने कोणताही ट्रॅक उरलेला नाही. दुसरा बिंदू निवडा.</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">हा ट्रॅक आता उपलब्ध नाही</string>
 </resources>

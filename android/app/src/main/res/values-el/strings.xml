@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Αντίγραφο ασφαλείας αγαπημένων και διαδρομών</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Τα αγαπημένα και οι διαδρομές μπορούν να συμπεριληφθούν στα αντίγραφα ασφαλείας συστήματος του Android, εάν η δημιουργία αντιγράφων ασφαλείας είναι ενεργοποιημένη σε αυτήν τη συσκευή και δεν υπερβαίνουν το όριο μεγέθους της.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Συγχρονισμός με το Google Drive (beta)</string>
+    <string name="bookmarks_sync_enabled">Συγχρονισμός αγαπημένων και διαδρομών</string>
+    <string name="bookmarks_sync_account">Λογαριασμός Google</string>
+    <string name="bookmarks_sync_manage_storage">Διαχείριση χώρου αποθήκευσης Google</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">Χρησιμοποιούνται %1$s από %2$s</string>
+    <string name="bookmarks_sync_mobile_data">Συγχρονισμός μέσω δεδομένων κινητής</string>
+    <string name="bookmarks_sync_now">Συγχρονισμός τώρα</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Τελευταίος συγχρονισμός: %s</string>
+    <string name="bookmarks_sync_status_running">Συγχρονισμός…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Αναμονή για Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">Απαιτείται σύνδεση</string>
+    <string name="bookmarks_sync_status_quota">Το Google Drive είναι πλήρες</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Ο συγχρονισμός απέτυχε: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Διαγραφή δεδομένων από το Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Διαγραφή των συγχρονισμένων αγαπημένων και διαδρομών από το Google Drive; Τα αγαπημένα και οι διαδρομές σε αυτήν τη συσκευή παραμένουν. Απενεργοποιήστε πρώτα τον συγχρονισμό στις άλλες συσκευές σας, αλλιώς θα ανεβάσουν ξανά τα αγαπημένα και τις διαδρομές τους.</string>
+    <string name="bookmarks_sync_beta_warning">Ο συγχρονισμός είναι σε έκδοση beta. Εξαγάγετε ένα αντίγραφο ασφαλείας όλων των αγαπημένων και διαδρομών πριν τον ενεργοποιήσετε.</string>
     <string name="search_history_text">Προβολή πρόσφατων αναζητήσεων.</string>
     <string name="clear_search">Εκκαθάριση ιστορικού αναζητήσεων</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -487,6 +507,12 @@
     <!-- Short label for seconds (time unit), placed after a number -->
     <string name="second">δ</string>
     <string name="placepage_more_button">Περισσότερα</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Φωτογραφίες, κριτικές, κράτηση</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Το μπόνους παραπομπής που λαμβάνεται για κάθε κράτηση μέσω αυτού του συνδέσμου πηγαίνει στην ανάπτυξη του Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Λεπτομέρειες στο Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Επεξεργασία αγαπημένου</string>
     <string name="placepage_personal_notes_hint">Προσωπικές σημειώσεις (κείμενο ή html)</string>
@@ -703,6 +729,8 @@
     <string name="moreyear_ago_sorttype">Περισσότερο από ένα χρόνο πριν</string>
     <string name="near_me_sorttype">Δίπλα μου</string>
     <string name="others_sorttype">Άλλα</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Ο σχεδιασμός διαδρομής απέτυχε</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Κλειστό τώρα</string>
     <string name="opens_tomorrow_at">Ανοίγει αύριο στις %s</string>
@@ -737,8 +765,7 @@
     <string name="deselect_all">Κατάργηση επιλογής</string>
     <string name="select_list">Επιλογή λίστας</string>
     <string name="button_layer_isolines">Υψομετρικά</string>
-    <string name="isolines_activation_error_dialog">Για να χρησιμοποιήσετε υψομετρικές γραμμές, ενημερώστε ή κατεβάστε τον χάρτη της επιθυμητής περιοχής</string>
-    <string name="isolines_location_error_dialog">Οι υψομετρικές γραμμές δεν είναι ακόμα διαθέσιμες σε αυτή την περιοχή</string>
+    <string name="isolines_location_error_dialog">Ενημερώστε αυτήν την περιοχή για να δείτε τις υψομετρικές γραμμές</string>
     <string name="elevation_profile_ascent">Ανάβαση</string>
     <string name="elevation_profile_descent">Κατάβαση</string>
     <string name="elevation_profile_min_elevation">Ελάχ. υψόμετρο</string>
@@ -883,6 +910,8 @@
     <string name="hide_track">Απόκρυψη διαδρομής</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Εμφάνιση διαδρομής</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Ενεργοποίηση</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -948,4 +977,14 @@
     <string name="transit_type_train">Τρένο</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Τραμ</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Πλοήγηση</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Αρχή ίχνους</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Τέλος ίχνους</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">Δεν απομένει ίχνος προς αυτή την κατεύθυνση. Επιλέξτε άλλο σημείο.</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">Το ίχνος δεν είναι πλέον διαθέσιμο</string>
 </resources>

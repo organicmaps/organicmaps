@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Záloha záložiek a stôp</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Záložky a stopy môžu byť zahrnuté do systémových záloh Androidu, ak je na tomto zariadení zapnuté zálohovanie a neprekračujú jeho limit veľkosti.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Synchronizácia s Diskom Google (beta)</string>
+    <string name="bookmarks_sync_enabled">Synchronizovať záložky a stopy</string>
+    <string name="bookmarks_sync_account">Účet Google</string>
+    <string name="bookmarks_sync_manage_storage">Spravovať úložisko Google</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">Využité %1$s z %2$s</string>
+    <string name="bookmarks_sync_mobile_data">Synchronizovať cez mobilné dáta</string>
+    <string name="bookmarks_sync_now">Synchronizovať teraz</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Posledná synchronizácia: %s</string>
+    <string name="bookmarks_sync_status_running">Synchronizácia…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Čaká sa na Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">Vyžaduje sa prihlásenie</string>
+    <string name="bookmarks_sync_status_quota">Disk Google je plný</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Synchronizácia zlyhala: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Odstrániť údaje z Disku Google</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Odstrániť synchronizované záložky a stopy z Disku Google? Záložky a stopy v tomto zariadení zostanú. Najprv vypnite synchronizáciu v ostatných zariadeniach, inak znova nahrajú svoje záložky a stopy.</string>
+    <string name="bookmarks_sync_beta_warning">Synchronizácia je vo verzii beta. Pred zapnutím exportujte zálohu všetkých záložiek a stôp.</string>
     <string name="search_history_text">Rýchlo pristupujte k nedávnym hľadaným výrazom.</string>
     <string name="clear_search">Vymazať históriu vyhľadávania</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -487,6 +507,12 @@
     <!-- Short label for seconds (time unit), placed after a number -->
     <string name="second">s</string>
     <string name="placepage_more_button">Viac</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Fotografie, recenzie, rezervácie</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">Bonus získaný za každú rezerváciu prostredníctvom tohto odkazu ide na rozvoj služby Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Podrobnosti na Kayaku</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Upraviť záložku</string>
     <string name="placepage_personal_notes_hint">Osobné poznámky (text alebo html)</string>
@@ -705,6 +731,8 @@
     <string name="moreyear_ago_sorttype">Pred viac ako rokom</string>
     <string name="near_me_sorttype">Blízko mňa</string>
     <string name="others_sorttype">Iné</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Plánovanie trasy zlyhalo</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Teraz zatvorené</string>
     <string name="opens_tomorrow_at">Otvoria zajtra o %s</string>
@@ -739,8 +767,7 @@
     <string name="deselect_all">Zrušiť výber</string>
     <string name="select_list">Vybrať zoznam</string>
     <string name="button_layer_isolines">Terén</string>
-    <string name="isolines_activation_error_dialog">Ak chcete aktivovať a používať topografickú vrstvu, aktualizujte alebo stiahnite mapu oblasti</string>
-    <string name="isolines_location_error_dialog">Topografická vrstva ešte nie je v tejto oblasti k dispozícii</string>
+    <string name="isolines_location_error_dialog">Aktualizujte túto oblasť, aby ste videli vrstevnice</string>
     <string name="elevation_profile_ascent">Stúpanie</string>
     <string name="elevation_profile_descent">Klesanie</string>
     <string name="elevation_profile_min_elevation">Min. výška</string>
@@ -877,6 +904,8 @@
     <string name="hide_track">Skryť trasu</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Zobraziť trasu</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Povoliť</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -944,4 +973,14 @@
     <string name="transit_type_train">Vlak</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Električka</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Navigovať</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Začiatok trasy</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Koniec trasy</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">V tomto smere už nezostala žiadna stopa. Vyberte iný bod.</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">Stopa už nie je k dispozícii</string>
 </resources>

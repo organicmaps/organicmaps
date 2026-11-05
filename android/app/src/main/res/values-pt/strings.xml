@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Cópia de segurança de favoritos e trajetos</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Os favoritos e trajetos podem ser incluídos nas cópias de segurança do sistema Android, se a cópia de segurança estiver ativada neste dispositivo e não excederem o respetivo limite de tamanho.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Sincronização com o Google Drive (beta)</string>
+    <string name="bookmarks_sync_enabled">Sincronizar favoritos e trajetos</string>
+    <string name="bookmarks_sync_account">Conta Google</string>
+    <string name="bookmarks_sync_manage_storage">Gerir o armazenamento Google</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%1$s de %2$s utilizados</string>
+    <string name="bookmarks_sync_mobile_data">Sincronizar com dados móveis</string>
+    <string name="bookmarks_sync_now">Sincronizar agora</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Última sincronização: %s</string>
+    <string name="bookmarks_sync_status_running">A sincronizar…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">A aguardar Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">É necessário iniciar sessão</string>
+    <string name="bookmarks_sync_status_quota">O Google Drive está cheio</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Falha na sincronização: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Eliminar dados do Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Eliminar os favoritos e trajetos sincronizados do Google Drive? Os favoritos e trajetos neste dispositivo mantêm-se. Desative primeiro a sincronização nos outros dispositivos; caso contrário, voltarão a carregar os seus favoritos e trajetos.</string>
+    <string name="bookmarks_sync_beta_warning">A sincronização está em beta. Exporte uma cópia de segurança de todos os favoritos e trajetos antes de a ativar.</string>
     <string name="search_history_text">Ver as pesquisas recentes.</string>
     <string name="clear_search">Limpar histórico de pesquisas</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -487,6 +507,12 @@
     <!-- Short label for seconds (time unit), placed after a number -->
     <string name="second">s</string>
     <string name="placepage_more_button">Mais</string>
+    <!-- A referral link on the place page for some hotels -->
+    <string name="more_on_kayak">Fotos, comentários, reservas</string>
+    <!-- An explanation dialog shown when clicking on more_on_kayak link. -->
+    <string name="dialog_kayak_disclaimer">O bónus de referência recebido por cada reserva efetuada através desta ligação reverte a favor do desenvolvimento do Organic Maps.</string>
+    <!-- A confirmation button text in the explanation dialog that opens hotel details page on Kayak website. -->
+    <string name="dialog_kayak_button">Detalhes no Kayak</string>
     <!-- Toolbar title of the Edit Bookmark screen. -->
     <string name="placepage_edit_bookmark_button">Editar favorito</string>
     <string name="placepage_personal_notes_hint">Notas pessoais (texto ou html)</string>
@@ -707,6 +733,8 @@
     <string name="moreyear_ago_sorttype">Mais de um ano atrás</string>
     <string name="near_me_sorttype">Perto de mim</string>
     <string name="others_sorttype">Outros</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Falha no planeamento da rota</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Fechado agora</string>
     <string name="opens_tomorrow_at">Abre amanhã às %s</string>
@@ -741,8 +769,7 @@
     <string name="deselect_all">Desmarcar tudo</string>
     <string name="select_list">Selecionar lista</string>
     <string name="button_layer_isolines">Terreno</string>
-    <string name="isolines_activation_error_dialog">Para ativar e usar a camada Terreno, por favor atualize ou descarregue o mapa da área</string>
-    <string name="isolines_location_error_dialog">A camada Terreno ainda não está disponível nesta área</string>
+    <string name="isolines_location_error_dialog">Atualize esta região para ver as curvas de nível</string>
     <string name="elevation_profile_ascent">Subida</string>
     <string name="elevation_profile_descent">Descida</string>
     <string name="elevation_profile_min_elevation">Elevação mín.</string>
@@ -889,6 +916,8 @@
     <string name="hide_track">Ocultar trajeto</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Mostrar trajeto</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Ativar</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
@@ -954,4 +983,14 @@
     <string name="transit_type_train">Comboio</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Elétrico</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Navegar</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Início do trajeto</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Fim do trajeto</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">Não resta trajeto neste sentido. Selecione outro ponto.</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">O trajeto já não está disponível</string>
 </resources>
