@@ -766,7 +766,7 @@
     <!-- OpenStreetMap text on splash screen -->
     <string name="splash_subtitle">OpenStreetMap داده‌های نقشه از</string>
     <!-- Telegram group url for the "?" About page -->
-    <string name="telegram_url">https://t.me/OrganicMapsApp</string>
+    <string name="telegram_url">https://t.me/OrganicMapsPersian</string>
     <!-- Instagram account url for the "?" About page -->
     <string name="instagram_url">https://www.instagram.com/organicmaps.app</string>
     <!-- A link to the TTS FAQ -->
