@@ -175,8 +175,12 @@ def done(path, ok):
 
 def check_raw(path, max_length, fix=False):
     ok = True
-    with open(path, 'rb') as f:
-        raw = f.read()
+    try:
+        with open(path, 'rb') as f:
+            raw = f.read()
+    except FileNotFoundError:
+        print("🚫", path)
+        return False, ''
     text = raw.decode('utf-8').rstrip()
     if fix and (encoded := text.encode('utf-8')) != raw:
         with open(path, 'wb') as f:
@@ -191,18 +195,16 @@ def check_raw(path, max_length, fix=False):
     return ok, text
 
 def check_text(path, max, optional=False, fix=False):
-    try:
-        return done(path, check_raw(path, max, fix=fix)[0])
-    except FileNotFoundError as e:
-        if optional:
-            return True,
-        print("🚫", path)
-        return False,
+    if optional and not os.path.exists(path):
+        return True
+    return done(path, check_raw(path, max, fix=fix)[0])
 
 def check_url(path, fix=False):
     (ok, url) = check_raw(path, 500, fix=fix)
+    if not ok:
+        return False
     url = urlparse(url)
-    if not url.scheme in ('https', 'http'):
+    if url.scheme not in ('https', 'http'):
         ok = error(path, "invalid URL: {}", url)
     return done(path, ok)
 
@@ -213,7 +215,7 @@ def check_email(path, fix=False):
 
 def check_exact(path, expected, fix=False):
     (ok, value) = check_raw(path, len(expected), fix=fix)
-    if value != expected:
+    if ok and value != expected:
         ok = error(path, "invalid value: got={}, expected={}", value, expected)
     return done(path, ok)
 
