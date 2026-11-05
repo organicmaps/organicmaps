@@ -36,7 +36,7 @@ Vumela izendlalelo zemephu ezikhethekile ukuze uthole izindlela ezidume kakhulu 
 
 <b>EZOKUTHUTHA ZOMPHAKATHI:</b>
 
-Bona izinombolo zemigqa yezokuthutha zomphakathi eziteshini. Uhlelo lokuhamba bukhoma nezindlela okwamanje kusathuthukiswa.
+Hlela imizila yezithuthi zomphakathi. Amashadi wesikhathi abukhoma asathuthukiswa.
 
 <b>IZITAYELA ZEMEPHU:</b>
 
@@ -45,3 +45,5 @@ Khetha izendlalelo zemephu ezifanele umsebenzi wakho — Ngaphandle, Imigqa Yemi
 <b>UMREKHODI WOMZILA:</b>
 
 Rekhoda, ngena, thumela ngaphandle, futhi wabelane ngezindlela zakho nezindawo ozithandayo. Isekela amafomethi e-KML, KMZ, GPX, ne-GeoJSON.
+
+Instagram: @organicmaps.app

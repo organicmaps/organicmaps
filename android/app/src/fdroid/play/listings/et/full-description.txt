@@ -18,7 +18,7 @@ Organic Maps on kiire ja detailne võrguühenduseta kaartide ja GPS-navigatsioon
 
 <b>MATKA- JA RATTAEELISTEGA TEED ÜLE MAAILMA:</b> Lülita sisse spetsiaalsed kaardikihid, et avastada üleilmseid matka- ja rattamarsruute, mis põhinevad OpenStreetMapi andmetel. Vaheta kihtide vahel, et näha värvilisi jalgratta- ja MTB-radasid ning ametlikke matkaradu.
 
-<b>ÜHISTRANSPORT:</b> Vaata peatustes ühistranspordi liinide numbreid. Reaalajas sõiduplaanid ja marsruudid on arendamisel.
+<b>ÜHISTRANSPORT:</b> Planeeri ühistranspordimarsruute. Reaalajas sõiduplaanide tugi on arendamisel.
 
 <b>KAARDISTIILID:</b> Vali endale sobivad kaardikihid — Outdoors, Contour Lines, Hiking, Cycling või Metro/Subway.
 
@@ -35,3 +35,5 @@ Organic Maps on indie-stiilis, kogukonnapõhine avatud lähtekoodiga projekt, ku
 Liitu kogukonnaga Telegramis: @OrganicMapsApp
 
 Sinu aus tagasiside ja arvustused poes innustavad meid! Küsimuste korral külasta palun organicmaps.app jaotist FAQ.
+
+Instagram: @organicmaps.app

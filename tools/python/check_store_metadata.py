@@ -155,45 +155,30 @@ _LISTINGS_RE = re.compile(r'^android/app/src/(?:fdroid|google)/play/listings/([^
 _RELEASE_NOTES_RE = re.compile(r'^android/app/src/(?:fdroid|google)/play/release-notes/([^/]+)/([^/]+\.txt)$')
 _PLAY_TOPLEVEL_RE = re.compile(r'^android/app/src/(?:fdroid|google)/play/([^/]+\.txt)$')
 _IOS_METADATA_RE = re.compile(r'^iphone/metadata/([^/]+)/([^/]+\.txt)$')
+# Additional text-style symbols require VS16; plain copyright signs and arrows are valid.
+# Emoji properties: https://www.unicode.org/Public/18.0.0/ucd/emoji/emoji-data.txt
+_EMOJI_RE = re.compile(
+    r'[\U0001F1E6-\U0001F1FF\U0001F300-\U0001FAFF'
+    r'\u2600-\u2604\u260E\u2611\u2614\u2615\u2618\u261D\u2620\u2622\u2623\u2626\u262A\u262E\u262F'
+    r'\u2638-\u263A\u2640\u2642\u2648-\u2653\u265F\u2660\u2663\u2665\u2666\u2668\u267B\u267E\u267F'
+    r'\u2692-\u2697\u2699\u269B\u269C\u26A0\u26A1\u26A7\u26AA\u26AB\u26B0\u26B1\u26BD\u26BE'
+    r'\u26C4\u26C5\u26C8\u26CE\u26CF\u26D1\u26D3\u26D4\u26E9\u26EA\u26F0-\u26F5\u26F7-\u26FA\u26FD'
+    r'\u2702\u2705\u2708-\u270D\u270F\u2712\u2714\u2716\u271D\u2721\u2728\u2733\u2734\u2744\u2747'
+    r'\u274C\u274E\u2753-\u2755\u2757\u2763\u2764\u2795-\u2797\u27A1\u27B0\u27BF'
+    r'\u231A-\u231B\u23E9-\u23EC\u23F0\u23F3\u25FD-\u25FE\u2B1B-\u2B1C\u2B50\u2B55\U0001F004'
+    r'\U0001F0CF\U0001F18E\U0001F191-\U0001F19A\U0001F201\U0001F21A\U0001F22F\U0001F232-\U0001F236'
+    r'\U0001F238-\U0001F23A\U0001F250-\U0001F251]'
+    r'|[#*0-9]\uFE0F?\u20E3'
+    r'|[\u00A9\u00AE\u203C\u2049\u2122\u2139\u2194-\u2199\u21A9-\u21AA\u2328\u23CF\u23ED-\u23EF'
+    r'\u23F1-\u23F2\u23F8-\u23FA\u24C2\u25AA-\u25AB\u25B6\u25C0\u25FB-\u25FC\u2934-\u2935'
+    r'\u2B05-\u2B07\u3030\u303D\u3297\u3299\U0001F170-\U0001F171\U0001F17E-\U0001F17F\U0001F202\U0001F237]'
+    r'\uFE0F'
+)
 
 
 def contains_emoji(text):
-    """Heuristic emoji detection avoiding false positives for CJK, Korean, Thai.
-
-    We purposefully restrict to well‑known emoji code point ranges and symbols
-    that are almost never used as plain alphabetic text in the app metadata.
-    This avoids broad regex character classes that accidentally match
-    non‑emoji letters in some environments.
-
-    Ranges covered (inclusive):
-      * 0x1F1E6–0x1F1FF (regional indicator symbols / flags)
-      * 0x1F300–0x1FAFF (primary emoji blocks incl. supplemental)
-      * 0x2600–0x26FF (misc symbols) – classic sun, cloud, etc.
-      * 0x2700–0x27BF (dingbats) – arrows, stars, etc.
-      * Variation Selector-16 (U+FE0F) when following an emoji base
-      * Zero Width Joiner sequences (U+200D) – if part of a chain containing
-        an emoji code point.
-    """
-    prev_was_emoji = False
-    for ch in text:
-        cp = ord(ch)
-        is_base = (
-            0x1F1E6 <= cp <= 0x1F1FF or
-            0x1F300 <= cp <= 0x1FAFF or
-            0x2600 <= cp <= 0x26FF or
-            0x2700 <= cp <= 0x27BF
-        )
-        if is_base:
-            return True
-        # Variation Selector-16 turns some symbols into emoji presentation.
-        if cp == 0xFE0F and prev_was_emoji:
-            return True
-        # Zero Width Joiner inside an emoji sequence.
-        if cp == 0x200D and prev_was_emoji:
-            # Keep prev_was_emoji True to allow continuation.
-            continue
-        prev_was_emoji = is_base
-    return False
+    """Detect emoji characters, presentation variants and keycaps."""
+    return bool(_EMOJI_RE.search(text))
 
 
 def error(path, message, *args, **kwargs):
@@ -208,8 +193,12 @@ def done(path, ok):
 
 def check_raw(path, max_length, fix=False):
     ok = True
-    with open(path, 'rb') as f:
-        raw = f.read()
+    try:
+        with open(path, 'rb') as f:
+            raw = f.read()
+    except FileNotFoundError:
+        print("🚫", path)
+        return False, ''
     text = raw.decode('utf-8').rstrip()
     if fix and (encoded := text.encode('utf-8')) != raw:
         with open(path, 'wb') as f:
@@ -224,18 +213,16 @@ def check_raw(path, max_length, fix=False):
     return ok, text
 
 def check_text(path, max, optional=False, fix=False):
-    try:
-        return done(path, check_raw(path, max, fix=fix)[0])
-    except FileNotFoundError as e:
-        if optional:
-            return True,
-        print("🚫", path)
-        return False,
+    if optional and not os.path.exists(path):
+        return True
+    return done(path, check_raw(path, max, fix=fix)[0])
 
 def check_url(path, fix=False):
     (ok, url) = check_raw(path, 500, fix=fix)
+    if not ok:
+        return False
     url = urlparse(url)
-    if not url.scheme in ('https', 'http'):
+    if url.scheme not in ('https', 'http'):
         ok = error(path, "invalid URL: {}", url)
     return done(path, ok)
 
@@ -246,7 +233,7 @@ def check_email(path, fix=False):
 
 def check_exact(path, expected, fix=False):
     (ok, value) = check_raw(path, len(expected), fix=fix)
-    if value != expected:
+    if ok and value != expected:
         ok = error(path, "invalid value: got={}, expected={}", value, expected)
     return done(path, ok)
 

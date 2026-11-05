@@ -29,9 +29,11 @@ Organic Maps é um app rápido e detalhado de mapas offline e navegação GPS pa
 <b>EDITOR DE MAPA:</b> Contribua com o OpenStreetMap adicionando lugares ausentes ou editando o mapa diretamente pelo Organic Maps.
 
 
-Experimente o app — é 100% gratuito, sem anúncios, rápido e totalmente offline. Tenha navegação GPS confiável para trilhas, ciclismo, trekking e viagens em qualquer lugar do mundo! Aproveite um mapa rápido, privado e confiável — e compartilhe com outras pessoas!
+Experimente o app — é 100% gratuito, sem anúncios, rápido e totalmente offline. Tenha navegação GPS confiável para trilhas, ciclismo, trekking e viagens em qualquer lugar do mundo!
 
 Organic Maps é um projeto independente, comunitário e open-source, com centenas de colaboradores que ajudam a desenvolver novos recursos, corrigir problemas, traduzir e fazer o projeto avançar.
 
 Junte-se à comunidade no Telegram: @OrganicMapsApp
 Ou veja outras formas de apoiar o projeto: https://organicmaps.app/contribute/
+
+Instagram: @organicmaps.app

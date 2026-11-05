@@ -5,7 +5,7 @@
 • Recherche rapide hors ligne
 • Créez des signets pour tout ce dont vous avez besoin, importez et partagez des fichiers KML, KMZ, GPX
 • Mode sombre pour protéger vos yeux
-• ... et bien d'autres fonctionnalités !
+• … et bien d'autres fonctionnalités !
 
 Organic Maps est pur et biologique, fait avec amour :
 
@@ -17,8 +17,7 @@ Organic Maps est exempt de trackers et autres éléments indésirables :
 
 • Pas de publicités
 • Pas de pistage
-• Pas de pistage
-• Pas d'appel au domicile
+• Pas de télémétrie
 • Pas d'inscription fastidieuse
 • Pas de tutoriels obligatoires
 • Pas de spam excessif
@@ -37,3 +36,5 @@ Chez Organic Maps, nous pensons que la vie privée est un droit humain fondament
 Rejetez la surveillance, embrassez votre liberté et soutenez la communauté.
 
 Essayez Organic Maps !
+
+Instagram: @organicmaps.app
