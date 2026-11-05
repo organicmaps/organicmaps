@@ -30,11 +30,13 @@ Organic Maps je brza i detaljna offline karta i GPS navigacija bez interneta za 
 
 <b>TAMNI NAČIN:</b> Prebacite se na tamnu temu za ugodno korištenje noću.
 
-Isprobajte aplikaciju — potpuno je besplatna, bez reklama, brza i u potpunosti offline. Doživite pouzdanu navigaciju bez interneta za planinarenje, bicikliranje, trekking i putovanja bilo gdje u svijetu!
+Isprobajte aplikaciju — besplatna je, bez reklama, brza i potpuno offline. Doživite pouzdanu navigaciju bez interneta za planinarenje, bicikliranje i putovanja diljem svijeta!
 
 Organic Maps je neovisni, zajednički, open-source projekt s nekoliko stotina suradnika koji pomažu razvijati nove značajke, ispravljati greške, prevoditi i unapređivati projekt.
 
 Pridružite se zajednici na Telegramu: @OrganicMapsApp
 Saznajte kako podržati projekt: https://organicmaps.app/contribute/
 
-Vaše iskrene recenzije i ocjene u trgovini mnogo nam znače! Ako imate pitanja, posjetite organicmaps.app za više informacija i FAQ
+Vaše iskrene recenzije i ocjene u trgovini mnogo nam znače! Ako imate pitanja, posjetite organicmaps.app za informacije i FAQ
+
+Instagram: @organicmaps.app

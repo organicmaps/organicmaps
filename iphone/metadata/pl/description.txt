@@ -18,7 +18,7 @@ NAWIGACJA GPS: Ciesz się wskazówkami głosowymi krok po kroku. Twórz trasy pi
 
 SZLAKI WĘDRÓWKOWE I ROWEROWE Z CAŁEGO ŚWIATA: Włącz specjalne warstwy map, aby odkrywać popularne szlaki piesze i rowerowe na całym świecie, wszystkie pochodzące z OpenStreetMap. Przełączaj warstwy, aby zobaczyć kolorowe trasy rowerowe i MTB oraz oficjalne szlaki turystyczne.
 
-TRANSPORT PUBLICZNY: Zaplanuj trasy transportu publicznego. Trwają prace nad wprowadzeniem rozkładów jazdy w czasie rzeczywistym.
+TRANSPORT PUBLICZNY: Zaplanuj trasy transportu publicznego. Trwają prace nad wprowadzeniem rozkładów jazdy na żywo.
 
 STYLE MAP: Wybierz warstwy map odpowiednie do swojej aktywności — Na świeżym powietrzu, Linie wysokościowe, Wędrówki, Rower, Metro/Pociąg.
 
@@ -35,3 +35,5 @@ Organic Maps to niezależny, społecznościowy projekt open-source z setkami wsp
 
 Dołącz do społeczności na Telegramie: @OrganicMapsApp
 Lub dowiedz się, jak wspierać projekt: https://organicmaps.app/contribute/
+
+Instagram: @organicmaps.app

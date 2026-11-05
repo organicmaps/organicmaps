@@ -1,4 +1,4 @@
-Organic Maps è un’app di mappe offline e navigazione GPS veloce e dettagliata per viaggi, escursioni e percorsi in bicicletta. Pianifica, importa e registra i percorsi e goditi una guida fluida senza consumare la batteria o usare la connessione Internet. Esplora i luoghi e naviga in sicurezza durante le tue avventure all’aperto e i viaggi in tutto il mondo. L’app offre download illimitati delle mappe e aggiornamenti bisettimanali. Basata su OpenStreetMap, realizzata da volontari, privacy-first, 100% offline e 100% gratuita.
+Organic Maps è un’app di mappe offline e navigazione GPS veloce e dettagliata per viaggi, escursioni e percorsi in bicicletta. Pianifica, importa e registra i percorsi e goditi una guida fluida senza consumare la batteria o usare la connessione Internet. Esplora i luoghi e naviga in sicurezza durante le tue avventure all’aperto e i viaggi in tutto il mondo. L’app offre download illimitati delle mappe e aggiornamenti ogni due settimane. Basata su OpenStreetMap, realizzata da volontari, privacy-first, 100% offline e 100% gratuita.
 
 OFFLINE: L’app funziona al 100% offline — inclusi ricerca e navigazione. Puoi esplorare la mappa e navigare senza connessione internet, risparmiando dati mobili e costi di roaming. Senza trasferimenti di dati in background, la batteria dura molto più a lungo.
 
@@ -35,3 +35,5 @@ Organic Maps è un progetto indie, guidato dalla comunità, open-source, con cen
 
 Unisciti alla comunità su Telegram: @OrganicMapsApp
 Oppure scopri altri modi per supportare il progetto: https://organicmaps.app/contribute/
+
+Instagram: @organicmaps.app

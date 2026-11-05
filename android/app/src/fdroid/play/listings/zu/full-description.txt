@@ -45,3 +45,5 @@ Khetha izendlalelo zemephu ezifanele umsebenzi wakho — Ngaphandle, Imigqa Yemi
 <b>UMREKHODI WOMZILA:</b>
 
 Rekhoda, ngena, thumela ngaphandle, futhi wabelane ngezindlela zakho nezindawo ozithandayo. Isekela amafomethi e-KML, KMZ, GPX, ne-GeoJSON.
+
+Instagram: @organicmaps.app

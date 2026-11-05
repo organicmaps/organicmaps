@@ -30,7 +30,7 @@ Organic Maps — səyahət, yürüş, trekking və velosiped macəraları üçü
 
 <b>TÜND REJİM:</b> Gecələri rahat istifadə üçün tünd rejimə keçin.
 
-Tətbiqi sınayın — 100% pulsuzdur, reklamsızdır, sürətlidir və tam oflayndır. Dünyanın istənilən yerində yürüş, velosiped, trekking və səyahət üçün etibarlı GPS naviqasiyasını kəşf edin! Sürətli, etibarlı və şəxsi xəritə təcrübəsindən zövq alın və başqaları ilə paylaşın!
+Tətbiqi sınayın — 100% pulsuzdur, reklamsızdır, sürətlidir və tam oflayndır. Dünyanın istənilən yerində yürüş, velosiped, trekking və səyahət üçün etibarlı GPS naviqasiyasını kəşf edin!
 
 Organic Maps — yüzlərlə töhfəçinin iştirak etdiyi, açıq mənbəli, icma tərəfindən idarə olunan indie layihəsidir. Onlar yeni funksiyalar əlavə etməyə, problemləri həll etməyə, tərcümə etməyə və layihəni irəli aparmağa kömək edirlər.
 
@@ -38,3 +38,5 @@ Telegram icmasına qoşulun: @OrganicMapsApp
 Layihəni dəstəkləməyin digər yolları: https://organicmaps.app/contribute/
 
 Dürüst rəyləriniz bizi motivasiya edir! Suallarınız varsa, əlavə məlumat və FAQ üçün organicmaps.app saytını ziyarət edin.
+
+Instagram: @organicmaps.app

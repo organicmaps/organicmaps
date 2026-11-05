@@ -16,13 +16,13 @@ TUTKI PAIKKOJA: Hae osoitteen, nimen tai kategorian mukaan, löydä miljoonia PO
 
 GPS-NAVIGOINTI: Nauti puheohjatuista käännös käännökseltä -ohjeista. Luo kävely-, vaellus-, pyöräily- tai ajo-reittejä — mukaan lukien reitit kaupunkien, maiden ja useiden pisteiden välillä. Löydä parhaat reitit metro- ja työmatkoillesi. CarPlay tuettu.
 
-VAELLUS- JA PYÖRÄILYTIIET MAAILMANLAAJUISESTI: Ota käyttöön erityiset karttatasot löytääksesi suosittuja vaellus- ja pyöräilyreittejä maailmanlaajuisesti, kaikki OpenStreetMapista. Vaihda tasojen välillä nähdäksesi värilliset pyörä- ja MTB-reitit sekä viralliset vaellusreitit.
+VAELLUS- JA PYÖRÄILYTIET MAAILMANLAAJUISESTI: Ota käyttöön erityiset karttatasot löytääksesi suosittuja vaellus- ja pyöräilyreittejä maailmanlaajuisesti, kaikki OpenStreetMapista. Vaihda tasojen välillä nähdäksesi värilliset pyörä- ja MTB-reitit sekä viralliset vaellusreitit.
 
 JULKINEN LIIKENNE: Suunnittele joukkoliikenteen reitit. Reaaliaikaiset aikataulut ovat kehitteillä.
 
 KARTTATYYLIT: Valitse karttatasot, jotka sopivat aktiviteettiisi — Ulkoilu, Korkeuskäyrät, Vaellus, Pyöräily tai Metro.
 
-REITTINÄYTTÄJÄ: Tallenna, tuo, vie ja jaa reittejäsi ja suosikkipaikkojasi. Tukee KML-, KMZ-, GPX- ja GeoJSON-muotoja.
+REITTITALLENNIN: Tallenna, tuo, vie ja jaa reittejäsi ja suosikkipaikkojasi. Tukee KML-, KMZ-, GPX- ja GeoJSON-muotoja.
 
 WIKIPEDIA-ARTIKKELIT: Tutki Wikipedia-artikkeleita paikoista, jotka löydät kartalta. Kirjoita “?wiki” hakuun löytääksesi kaikki paikat, joissa on Wikipedia-artikkeleita.
 
@@ -37,3 +37,5 @@ Organic Maps on indie-, yhteisövetoinen ja avoimen lähdekoodin projekti, jossa
 
 Liity yhteisöön Telegramissa: @OrganicMapsApp
 Tai tutustu muihin tapoihin tukea projektia: https://organicmaps.app/contribute/
+
+Instagram: @organicmaps.app

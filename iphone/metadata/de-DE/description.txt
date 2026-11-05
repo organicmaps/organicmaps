@@ -12,7 +12,7 @@ WICHTIGE FUNKTIONEN
 
 ORTE ENTDECKEN: Suche nach Adresse, Name oder Kategorie, entdecke Millionen von POIs und sieh detaillierte Informationen wie Öffnungszeiten, Wikipedia-Artikel, Rollstuhlgerechtigkeit und weitere nützliche Details. Alles offline verfügbar.
 
-GPS-NAVIGATION: Genieße sprachgeführte, Schritt-für-Schritt-Routen. Erstelle Wander-, Wander-, Fahrrad- oder Autofahr-Routen — einschließlich Routen zwischen Städten, Ländern und mehreren Zwischenpunkten. Finde die besten Routen für deine Metro- oder Pendelstrecken. CarPlay wird unterstützt.
+GPS-NAVIGATION: Genieße sprachgeführte, Schritt-für-Schritt-Routen. Erstelle Routen zu Fuß, zum Wandern, mit dem Rad oder dem Auto — einschließlich Routen zwischen Städten, Ländern und mehreren Zwischenpunkten. Finde die besten Routen für deine Metro- oder Pendelstrecken. CarPlay wird unterstützt.
 
 WANDER- & FAHRRADROUTEN WELTWEIT: Aktiviere spezielle Kartenebenen, um beliebte Wander- und Fahrradrouten weltweit zu entdecken, alle von OpenStreetMap. Wechsle zwischen den Ebenen, um farbige Fahrrad- und MTB-Routen sowie offizielle Wanderwege zu sehen.
 
@@ -28,8 +28,10 @@ KARTENEDITOR: Trage zu OpenStreetMap bei, indem du fehlende Orte hinzufügst ode
 
 iCLOUD-SYNC: Sichere und synchronisiere alle deine Lesezeichen und Routen einfach über iCloud.
 
-Probiere die App aus — sie ist 100% kostenlos, werbefrei, schnell und vollständig offline. Genieße ein schnelles, zuverlässiges und privates Kartenerlebnis und teile es mit anderen!
+Probiere die App aus — sie ist 100% kostenlos, werbefrei, schnell und vollständig offline.
 Organic Maps ist ein unabhängiges, community-getriebenes Open-Source-Projekt mit Hunderten von Mitwirkenden, die neue Funktionen entwickeln, Probleme beheben, übersetzen und das Projekt voranbringen.
 
 Werde Teil der Community auf Telegram: @OrganicMapsApp
 Oder entdecke weitere Möglichkeiten, das Projekt zu unterstützen: https://organicmaps.app/contribute/
+
+Instagram: @organicmaps.app
