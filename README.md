@@ -116,14 +116,6 @@ Beloved institutional sponsors below have provided targeted grants to cover some
   </tr>
   <tr>
     <td>
-      <a href="https://44plus.vn"><img src="docs/sponsors/44plus.svg" alt="44+ Technologies" width="200px"></a>
-    </td>
-    <td>
-      <a href="https://44plus.vn">44+ Technologies</a> is <a href="https://44plus.vn/organicmaps">providing us </a>with a free dedicated server worth around $12,000/year to serve maps across Vietnam & Southeast Asia.
-    </td>
-  </tr>
-  <tr>
-    <td>
       <a href="https://futo.org"><img src="docs/sponsors/futo.svg" alt="FUTO" width="200px"></a>
     </td>
     <td>
@@ -134,7 +126,17 @@ Beloved institutional sponsors below have provided targeted grants to cover some
 
 The majority of all expenses have been funded by founders of the project since its inception. The project is far from achieving any sort of financial sustainability. The current level of voluntary donations falls significantly short of covering efforts needed to sustain the app. Any new developments of features are beyond the scope of possibility due to the absence of the necessary financial resources.
 
-Please consider [donating](https://organicmaps.app/donate/) if you want to see this open-source project thriving, not dying. There are [other ways how to support the project](#contributing). No coding skills required.
+Please consider [donating using cards or Apple/Google Pay](https://organicmaps.app/donate/) if you want to see this open-source project thriving, not dying.
+Other ways to donate:
+- [GitHub Sponsors](https://github.com/sponsors/organicmaps) (zero fees)
+- [Open Collective](https://opencollective.com/organicmaps)
+- [LiberaPay](https://liberapay.com/OrganicMaps)
+- [Patreon](https://www.patreon.com/cw/OrganicMaps)
+- [Wise](https://wise.com/pay/business/organicmapsou?Donate%20to%20support%20Organic%20Maps%20project)
+- [Bank transfer](https://organicmaps.app/donate/#bank-transfer)
+- [Crypto](https://organicmaps.app/donate/#crypto)
+
+There are also [other ways how to support the project](#contributing). No coding skills required.
 
 ## Governance
 
@@ -160,22 +162,31 @@ Please join our beta program, suggest your features, and report bugs:
 and [Google Play](https://play.google.com/store/apps/details?id=app.organicmaps)**.
 - **Star us on Github**.
 - Report bugs or issues to [the issue tracker](https://github.com/organicmaps/organicmaps/issues).
-- Subscribe to our [Telegram Channel](https://t.me/OrganicMapsApp) or to the [[matrix] space](https://matrix.to/#/#organicmaps:matrix.org) for updates.
-- Join our [Telegram Group](https://t.me/OrganicMaps) to discuss with other users.
-  - Присоединяйтесь к нашей [русскоязычной группе в Telegram](https://t.me/OrganicMapsRu) для обратной связи и помощи.
-  - Diğer kullanıcılarla tartışmak için [Telegram Grubumuza](https://t.me/OrganicMapsTR) katılın.
-  - Rejoignez notre groupe [Telegram](https://t.me/OrganicMapsFR) pour obtenir de l'aide.
+- Subscribe to our [Telegram Channel](https://t.me/OrganicMapsApp) for news and updates.
+- Join our [English Telegram Group](https://t.me/OrganicMaps) or [[matrix] space](https://matrix.to/#/#organicmaps:matrix.org) to discuss or get support.
+  - [العربية](https://t.me/OrganicMapsAR)
+  - [Deutsch](https://t.me/OrganicMapsDeutsch)
+  - [Español](https://t.me/OrganicMapsES)
+  - [فارسی](https://t.me/OrganicMapsPersian)
+  - [Italiano](https://t.me/OrganicMapsIT)
+  - [Português](https://t.me/OrganicMapsPT)
+  - [Українська](https://t.me/OrganicMapsUA)
+  - [中文](https://t.me/OrganicMapsZH)
+  - [Telegram на русском](https://t.me/OrganicMapsRu)
+  - [Türkçe Telegram](https://t.me/OrganicMapsTR)
+  - [Telegram en français](https://t.me/OrganicMapsFR)
 - Contact us by [email](mailto:hello@organicmaps.app).
 - Follow our updates in social media:
-   - [Mastodon](https://fosstodon.org/@organicmaps)
-   - [Facebook](https://facebook.com/OrganicMaps)
-   - [X (Twitter)](https://x.com/OrganicMapsApp)
-   - [Instagram](https://instagram.com/organicmaps.app/)
-   - [Bluesky](https://bsky.app/profile/organicmaps.bsky.social)
-   - [Threads](https://www.threads.net/@organicmaps)
-   - [Reddit](https://www.reddit.com/r/organicmaps/)
-   - [LinkedIn](https://www.linkedin.com/company/organic-maps/)
-   - [TikTok](https://www.tiktok.com/@organicmaps)
+  - [Mastodon](https://fosstodon.org/@organicmaps)
+  - [Facebook](https://facebook.com/OrganicMaps)
+  - [X (Twitter)](https://x.com/OrganicMapsApp)
+  - [Instagram](https://instagram.com/organicmaps.app/)
+  - [Bluesky](https://bsky.app/profile/organicmaps.bsky.social)
+  - [Threads](https://www.threads.net/@organicmaps)
+  - [Reddit](https://www.reddit.com/r/organicmaps/)
+  - [LinkedIn](https://www.linkedin.com/company/organic-maps/)
+  - [TikTok](https://www.tiktok.com/@organicmaps)
+  - [YouTube](https://www.youtube.com/@OrganicMaps)
 
 The Organic Maps community abides by the CNCF [code of conduct](https://github.com/organicmaps/organicmaps/blob/master/docs/CODE_OF_CONDUCT.md).
 
