@@ -4,15 +4,12 @@
 #include "routing/routing_options.hpp"
 #include "routing/world_graph.hpp"
 
-#include "geometry/angles.hpp"
 #include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
-#include "base/math.hpp"
 
 #include <algorithm>
-#include <cmath>
 #include <cstdlib>
 #include <iterator>
 #include <limits>
@@ -409,14 +406,14 @@ void IndexGraph::GetNeighboringEdge(astar::VertexData<Segment, RouteWeight> cons
 IndexGraph::PenaltyData IndexGraph::GetRoadPenaltyData(Segment const & segment) const
 {
   auto const & road = GetRoadGeometry(segment.GetFeatureId());
-  return PenaltyData(road.GetRoutingOptions().Has(RoutingOptions::Road::Ferry));
+  return {road.GetHighwayType(), road.GetRoutingOptions().Has(RoutingOptions::Road::Ferry)};
 }
 
 RouteWeight IndexGraph::GetPenalties(EdgeEstimator::Purpose purpose, Segment const & u, Segment const & v,
                                      std::optional<RouteWeight> const & prevWeight) const
 {
-  auto const & fromPenaltyData = GetRoadPenaltyData(u);
-  auto const & toPenaltyData = GetRoadPenaltyData(v);
+  auto const fromPenaltyData = GetRoadPenaltyData(u);
+  auto const toPenaltyData = GetRoadPenaltyData(v);
 
   int8_t accessPenalty = 0;
   int8_t accessConditionalPenalties = 0;
@@ -466,9 +463,16 @@ RouteWeight IndexGraph::GetPenalties(EdgeEstimator::Purpose purpose, Segment con
 
   double weightPenalty = 0.0;
   if (IsUTurn(u, v))
+  {
     weightPenalty += m_estimator->GetUTurnPenalty(purpose);
+  }
   else if (u.GetFeatureId() != v.GetFeatureId())
-    weightPenalty += GetTurnPenalty(purpose, u, v);
+  {
+    double const turnPenalty =
+        m_estimator->GetTurnPenalty(purpose, fromPenaltyData.m_highwayType, toPenaltyData.m_highwayType);
+    if (turnPenalty > 0.0 && IsTurn(u, v))
+      weightPenalty += turnPenalty;
+  }
 
   if (IsBoarding(fromPenaltyData.m_isFerry, toPenaltyData.m_isFerry))
     weightPenalty += m_estimator->GetFerryLandingPenalty(purpose);
@@ -476,21 +480,24 @@ RouteWeight IndexGraph::GetPenalties(EdgeEstimator::Purpose purpose, Segment con
   return {weightPenalty /* weight */, accessPenalty, accessConditionalPenalties, 0.0 /* transitTime */};
 }
 
-double IndexGraph::GetTurnPenalty(EdgeEstimator::Purpose purpose, Segment const & u, Segment const & v) const
+bool IndexGraph::IsTurn(Segment const & u, Segment const & v) const
 {
-  auto const & fromRoad = GetRoadGeometry(u.GetFeatureId());
-  auto const & toRoad = GetRoadGeometry(v.GetFeatureId());
-  double const penalty = m_estimator->GetTurnPenalty(purpose, fromRoad.GetHighwayType(), toRoad.GetHighwayType());
-  if (penalty == 0.0)
-    return 0.0;
+  // A road of another type may continue a road straight, e.g. a residential street becomes a service one.
+  // A turn changes the direction by 30 degrees or more.
+  double constexpr kMaxStraightCos = 0.8660254037844386;  // cos(30 degrees)
 
-  // Only turns are penalized, not a straight continuation onto a road of another type.
-  double constexpr kMinTurnAngle = math::pi / 6;  // 30 degrees
-  auto const junction = mercator::FromLatLon(fromRoad.GetPoint(u.GetPointId(true /* front */)));
-  auto const from = mercator::FromLatLon(fromRoad.GetPoint(u.GetPointId(false /* front */)));
-  auto const to = mercator::FromLatLon(toRoad.GetPoint(v.GetPointId(true /* front */)));
-  double const turnAngle = std::fabs(math::pi - ang::TwoVectorsAngle(junction, from, to));
-  return turnAngle >= kMinTurnAngle ? penalty : 0.0;
+  // Copy the points: the next GetRoadGeometry() call may invalidate the returned reference.
+  m2::PointD from, junction;
+  {
+    auto const & road = GetRoadGeometry(u.GetFeatureId());
+    from = mercator::FromLatLon(road.GetPoint(u.GetPointId(false /* front */)));
+    junction = mercator::FromLatLon(road.GetPoint(u.GetPointId(true /* front */)));
+  }
+  auto const to = mercator::FromLatLon(GetRoadGeometry(v.GetFeatureId()).GetPoint(v.GetPointId(true /* front */)));
+
+  auto const in = junction - from;
+  auto const out = to - junction;
+  return m2::DotProduct(in, out) < kMaxStraightCos * in.Length() * out.Length();
 }
 
 WorldGraphMode IndexGraph::GetMode() const

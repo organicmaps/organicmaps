@@ -71,7 +71,7 @@ RouteWeight & RouteWeight::operator+=(RouteWeight const & rhs)
 
 bool RouteWeight::operator<(RouteWeight const & rhs) const
 {
-  // Penalties are integrated into the weight, see https://github.com/organicmaps/organicmaps/issues/1788
+  // Compare with the access penalties, see https://github.com/organicmaps/organicmaps/issues/1788
   auto const w1 = GetIntegratedWeight();
   auto const w2 = rhs.GetIntegratedWeight();
   if (w1 != w2)

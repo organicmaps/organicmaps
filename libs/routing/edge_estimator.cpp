@@ -83,7 +83,10 @@ double CalcClimbSegment(EdgeEstimator::Purpose purpose, Segment const & segment,
   return distanceM / speedMpS;
 }
 
-bool IsServiceRoad(HighwayType type)
+// Turns onto and off service roads and living streets, see CarEstimator::GetTurnPenalty.
+double constexpr kServiceTurnPenaltyS = 30.0;
+
+bool IsServiceOrLivingStreet(HighwayType type)
 {
   return type == HighwayType::HighwayService || type == HighwayType::HighwayLivingStreet;
 }
@@ -428,12 +431,10 @@ public:
     // not for through traffic. A route preference: the ETA is not changed.
     if (purpose != Purpose::Weight || !from || !to)
       return 0.0;
-    return IsServiceRoad(*from) != IsServiceRoad(*to) ? kServiceTurnPenaltyS : 0.0;
+    return IsServiceOrLivingStreet(*from) != IsServiceOrLivingStreet(*to) ? kServiceTurnPenaltyS : 0.0;
   }
 
 private:
-  static double constexpr kServiceTurnPenaltyS = 30.0;
-
   // Between the default tertiary (35-37.5) and secondary (48+) weight speeds: secondary and faster
   // roads tie, tertiary gets a mild penalty, while residential, service, tracks and bad surfaces
   // keep their full cost (and jammed roads keep the traffic factor).

@@ -319,7 +319,7 @@ private:
   HighwayBasedInfo m_highwayBasedInfo;
   uint32_t m_onewayType;
 
-  // HW type -> allow pass through.
+  // Road feature type -> HW type.
   base::SmallMap<uint32_t, HighwayType> m_roadTypes;
   // Mapping surface types psurface={paved_good/paved_bad/unpaved_good/unpaved_bad} to surface speed factors.
   base::SmallMapBase<uint32_t, SpeedFactor> m_surfaceFactors;
