@@ -6,8 +6,6 @@ NHANH: Thu phóng, tìm kiếm và tính toán lộ trình hoạt động rất 
 
 CHI TIẾT & LUÔN CẬP NHẬT: Bản đồ cực kỳ chi tiết và được cập nhật hai lần mỗi tháng để phản ánh điều kiện thực tế. Khác với nhiều đối thủ nổi tiếng, chúng bao gồm tên tòa nhà, ghế ngồi, đường mòn đi bộ và nhiều thông tin hữu ích khác.
 
-DỰA TRÊN OPENSTREETMAP: OpenStreetMap là bản đồ thế giới dạng wiki, được xây dựng và duy trì bởi hàng triệu tình nguyện viên — những người địa phương hiểu rõ khu vực của họ nhất. Nỗ lực cộng đồng này tạo ra bản đồ chi tiết và thường chính xác hơn bản đồ thương mại ở nhiều khu vực. Organic Maps cập nhật dữ liệu từ OpenStreetMap hai tuần một lần để giữ bản đồ luôn mới và đáng tin cậy. Nếu bạn thấy thiếu thông tin, bạn có thể thêm vào OpenStreetMap và giúp cải thiện bản đồ cho mọi người.
-
 ƯU TIÊN QUYỀN RIÊNG TƯ: Chúng tôi không thu thập bất kỳ dữ liệu hay mã định danh nào. Điều này đồng nghĩa không có nguy cơ rò rỉ dữ liệu và không có quảng cáo hay thông báo phiền nhiễu — chỉ là trải nghiệm bản đồ sạch sẽ và riêng tư.
 
 CÁC TÍNH NĂNG QUAN TRỌNG
@@ -37,5 +35,10 @@ Hãy thử ứng dụng — hoàn toàn miễn phí, không quảng cáo, nhanh 
 Organic Maps là một dự án độc lập, định hướng cộng đồng, mã nguồn mở với hàng trăm cộng tác viên đóng góp tính năng, sửa lỗi, dịch thuật và phát triển dự án.
 
 Tham gia cộng đồng trên Telegram: @OrganicMapsApp
+Hoặc tìm hiểu các cách khác để hỗ trợ dự án: https://organicmaps.app/contribute/
+
+Những phản hồi và đánh giá chân thành của bạn trên cửa hàng là động lực cho chúng tôi! Chúng tôi rất mong nhận được ý kiến từ bạn tại đó.
+
+Có thắc mắc? Vui lòng truy cập trang web organicmaps.app để biết thêm chi tiết và xem phần Câu hỏi thường gặp (FAQ).
 
 Instagram: @organicmaps.app

@@ -12,10 +12,6 @@ Kukuza, kutafuta, na kukokotoa njia hufanya kazi kwa haraka inayoonekana.
 
 Ramani zina maelezo ya kina na husasishwa mara mbili kwa mwezi ili kuakisi hali halisi ya dunia. Tofauti na washindani wengi wanaojulikana, zinajumuisha lebo za majengo, benchi, njia za matembezi, na taarifa nyingine muhimu.
 
-<b>IMETENGENEZWA KWA KUTUMIA OPENSTREETMAP:</b>
-
-OpenStreetMap ni ramani ya dunia ya mtindo wa wiki iliyotengenezwa na kudumishwa na mamilioni ya watu wa kujitolea — wenyeji wanaozijua vizuri zaidi maeneo yao. Juhudi hii ya jamii hutoa ramani zenye maelezo ya kina sana, mara nyingi zikiwa sahihi zaidi kuliko zile za kibiashara katika maeneo ambayo hayajaorodheshwa vizuri. Organic Maps husasisha data yake kutoka OpenStreetMap kila baada ya wiki mbili, na hivyo kuweka ramani zako zikiwa mpya na za kuaminika. Na ukiona kitu kimepungua, unaweza kuongeza kwenye OpenStreetMap na kusaidia kuboresha ramani kwa ajili ya kila mtu.
-
 <b>FARAGHA KWANZA:</b>
 
 Sikusanyii data yoyote au vitambulisho. Hii inamaanisha hakuna hatari ya uvujaji wa data na hakuna usumbufu kama matangazo au arifa zenye kelele — ni uzoefu safi tu wa ramani ya faragha.
@@ -58,6 +54,13 @@ Changia OpenStreetMap kwa kuongeza maeneo yanayokosekana au kuhariri ramani moja
 
 Badilisha kuwa mandhari ya giza kwa ajili ya kuangalia kwa starehe usiku.
 
+Jaribu programu — ni bure 100%, haina matangazo, ni ya haraka, na inafanya kazi kabisa bila intaneti. Furahia urambazaji wa kuaminika wa GPS kwa ajili ya matembezi ya miguu, uendeshaji baiskeli, matembezi ya milimani, na safari popote ulimwenguni! Furahia uzoefu wa ramani wa haraka, wa kuaminika, na wa faragha, na ushiriki na wengine!
+
 Jiunge na jumuiya kwenye Telegram: @OrganicMapsApp
+Au jifunze njia zingine za kusaidia mradi: https://organicmaps.app/contribute/
+
+Maoni na tathmini zako za kweli dukani hutuhamasisha! Tunapenda kusikia kutoka kwako huko.
+
+Una maswali? Tafadhali tembelea tovuti ya organicmaps.app kwa maelezo zaidi na Maswali Yanayoulizwa Sana (FAQ).
 
 Instagram: @organicmaps.app
