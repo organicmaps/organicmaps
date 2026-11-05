@@ -104,6 +104,7 @@
 /* 5.ROADS */
 /* 5.1 All roads */
 
+@motorway: #0066A4;
 @trunk0: #FF7326;
 @trunk1: #FF7A26;
 @primary0:  #FF8726;
@@ -111,8 +112,8 @@
 @primary2: #FFA14C;
 @secondary0: #FFB226;
 @secondary1: #FFBF52;
-@tertiary: #f7f7f7;
-@residential: #f2f2f2;
+@tertiary: #fff42c;
+@residential: #fff42c;
 @pedestrian: #f2f2f2;
 @footway: #f2f2f2;
 @cycleway: #5654FF;
