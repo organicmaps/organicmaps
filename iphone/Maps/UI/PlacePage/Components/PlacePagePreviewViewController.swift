@@ -162,6 +162,13 @@ final class PlacePagePreviewViewController: UIViewController {
 
     case .open:
       let nextTimeClosed = placePagePreviewData.schedule.nextTimeClosed
+      // No upcoming closing found: nothing to format.
+      if nextTimeClosed == time_t.max {
+        setScheduleLabel(state: L("editor_time_open"),
+                         stateColor: UIColor.systemGreen,
+                         details: nil)
+        break
+      }
       let minutesUntilClosed = (nextTimeClosed - now) / 60
       let stringTimeInterval = getTimeIntervalString(minutes: minutesUntilClosed)
       let stringTime = stringFromTime(nextTimeClosed)
@@ -183,6 +190,14 @@ final class PlacePagePreviewViewController: UIViewController {
 
     case .closed:
       let nextTimeOpen = placePagePreviewData.schedule.nextTimeOpen
+      // "Closed now" implies a known later reopening; without one (opening_hours=off/closed,
+      // an expired date range) use the plain "Closed".
+      if nextTimeOpen == time_t.max {
+        setScheduleLabel(state: L("closed"),
+                         stateColor: UIColor.systemRed,
+                         details: nil)
+        break
+      }
       let nextTimeOpenDate = Date(timeIntervalSince1970: TimeInterval(nextTimeOpen))
 
       let minutesUntilOpen = (nextTimeOpen - now) / 60
