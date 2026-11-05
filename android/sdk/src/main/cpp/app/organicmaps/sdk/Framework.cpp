@@ -1334,11 +1334,10 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetFollowedTrackInfo(
     return nullptr;
 
   static jclass const infoClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/routing/FollowedTrackInfo");
-  static jmethodID const infoCtor = jni::GetConstructorID(env, infoClass, "(JLjava/lang/String;DZ)V");
+  static jmethodID const infoCtor = jni::GetConstructorID(env, infoClass, "(JLjava/lang/String;)V");
 
   jni::TScopedLocalRef const name(env, jni::ToJavaString(env, info->m_name));
-  return env->NewObject(infoClass, infoCtor, static_cast<jlong>(info->m_id), name.get(),
-                        static_cast<jdouble>(info->m_lengthM), static_cast<jboolean>(info->m_reversed));
+  return env->NewObject(infoClass, infoCtor, static_cast<jlong>(info->m_id), name.get());
 }
 
 JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetRenderRouterType(JNIEnv *, jclass)

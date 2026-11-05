@@ -200,6 +200,7 @@
   <!--   Routing Bottom Buttons -->
   <dimen name="routing_bottom_buttons_padding">10dp</dimen>
   <dimen name="routing_bottom_buttons_max_height">70dp</dimen>
+  <dimen name="routing_bottom_button_size">40dp</dimen>
 
 
   <!-- Placeholder-->

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import app.organicmaps.R;
 import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.routing.FollowedTrackInfo;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.routing.RoutingController;
@@ -53,7 +54,8 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
     RecyclerView manageRouteList = mContainer.findViewById(R.id.manage_route_list);
     LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
     manageRouteList.setLayoutManager(layoutManager);
-    mManageRouteAdapter = new ManageRouteAdapter(mContext, Framework.nativeGetRoutePoints(), this);
+    mManageRouteAdapter = new ManageRouteAdapter(mContext, new RouteMarkData[0], this);
+    updateRoutePoints();
     manageRouteList.addItemDecoration(new RoundedSectionItemDecoration(mContext, mManageRouteAdapter));
     manageRouteList.addItemDecoration(new SectionDividerItemDecoration(mContext, mManageRouteAdapter));
     manageRouteList.setAdapter(new ConcatAdapter(mHeaderAdapter, mManageRouteAdapter));
@@ -64,8 +66,6 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
 
   public void onRouteOrderChanged(@NonNull ArrayList<RouteMarkData> newRoutePoints)
   {
-    if (RoutingController.get().isFollowingTrack())
-      return;
     // Make sure that the new route contains at least 2 points (start and destination).
     Assert.debug(newRoutePoints.size() >= 2, "There must be at least two route points");
 
@@ -88,7 +88,16 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
     if (isReordering())
       return;
     // Keep the adapter and touch helper attached so route changes retain the list's scroll position.
-    mManageRouteAdapter.setRoutePoints(Framework.nativeGetRoutePoints());
+    updateRoutePoints();
+  }
+
+  private void updateRoutePoints()
+  {
+    final FollowedTrackInfo track = RoutingController.get().getFollowedTrackInfo();
+    if (track == null)
+      mManageRouteAdapter.setRoutePoints(Framework.nativeGetRoutePoints());
+    else
+      mManageRouteAdapter.setTrackPoints(track.getName());
   }
 
   @Override
