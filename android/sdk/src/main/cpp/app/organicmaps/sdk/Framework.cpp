@@ -1768,9 +1768,9 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeShowRect(JNIEnv *, jclas
                                                                  jdouble maxLat, jdouble maxLon, jboolean animate)
 {
   m2::RectD const rect(mercator::FromLatLon(minLat, minLon), mercator::FromLatLon(maxLat, maxLon));
-  // North up: with a plain rect, Framework::ShowRect keeps the map's rotation and fits a rect of the area's size
-  // turned as the map is, which cuts off corners of the area.
-  frm()->ShowRect(m2::AnyRectD(rect), animate, true /* useVisibleViewport */);
+  // North up, so that the whole area fits. Through the plain rect, not an m2::AnyRectD: the drape engine then still
+  // widens a tiny area to its minimum and animates across the antimeridian the short way.
+  frm()->ShowRect(rect, animate, true /* useVisibleViewport */, false /* applyRotation */);
 }
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsRouteFinished(JNIEnv * env, jclass)
