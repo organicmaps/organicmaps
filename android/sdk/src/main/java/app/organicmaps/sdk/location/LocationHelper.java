@@ -228,6 +228,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
 
     mSavedLocation = location;
     mMyPosition = null;
+    mSensorHelper.updateLocation(location);
     notifyLocationUpdated();
   }
 

@@ -162,7 +162,7 @@ jobs:
           target: google_apis
           working-directory: ./android
           script: >-
-            ./gradlew -P${{ matrix.arch }} app:test${{ matrix.flavor }} sdk:testDebug
+            ./gradlew -P${{ matrix.arch }} app:test${{ matrix.flavor }} sdk:testDebug :sdk:car:testDebugUnitTest
             :wear:testGoogleDebugUnitTest :libs:wear-protocol-gms:testDebugUnitTest
             :sdk:wear:core:testDebugUnitTest sdk:connectedDebugAndroidTest
 
