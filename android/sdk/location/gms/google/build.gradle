@@ -19,7 +19,6 @@ dependencies {
 }
 
 Publish(project, [
-    'artifactId' : 'location-google',
     'name'       : 'Organic Maps SDK. Google Fused Location',
     'description': 'A library that provides Google fused location services for the Organic Maps SDK'
 ])

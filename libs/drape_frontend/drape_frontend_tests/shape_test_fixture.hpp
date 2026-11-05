@@ -49,9 +49,13 @@ public:
 
   /// Sets the scale from world coordinates to pixels. Must be called before Render().
   void SetWorldToPixelScale(float scale) { m_worldToPixelScale = scale; }
+  void SetBackgroundColor(dp::Color color) { m_backgroundColor = color; }
 
   /// The last rendered frame; valid after Render() returns.
   QImage const & GetLastImage() const { return m_lastImage; }
+
+  /// Only valid inside the Render() callback.
+  ref_ptr<dp::TextureManager> GetTextureManager() const { return make_ref(m_texMng); }
 
 private:
   void Init(uint32_t width, uint32_t height);
@@ -68,6 +72,7 @@ private:
   uint32_t m_width = 0;
   uint32_t m_height = 0;
   float m_worldToPixelScale = 1.0f;
+  dp::Color m_backgroundColor = dp::Color::White();
   drape_ptr<dp::Framebuffer> m_framebuffer;
 
   std::unique_ptr<dp::GraphicsContext> m_context;

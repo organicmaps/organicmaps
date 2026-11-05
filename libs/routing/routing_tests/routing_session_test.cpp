@@ -7,6 +7,7 @@
 #include "routing/routing_callbacks.hpp"
 #include "routing/routing_helpers.hpp"
 #include "routing/routing_session.hpp"
+#include "routing/ruler_router.hpp"
 
 #include "platform/duration.hpp"
 
@@ -330,6 +331,62 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRouteBuilding)
   // Manual check of the routeBuilding mutex to avoid spurious results.
   TEST(timedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not built."));
   TEST_EQUAL(counter, 1, ());
+}
+
+UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestTrafficRebuildRespectsRouter)
+{
+  class TrafficInsensitiveRouter final : public DummyRouter
+  {
+  public:
+    using DummyRouter::DummyRouter;
+    bool IsTrafficSensitive() const override { return false; }
+  };
+  unique_ptr<IRouter> ruler = make_unique<RulerRouter>();
+  TEST(!ruler->IsTrafficSensitive(), ());
+
+  size_t counter = 0;
+  TimedSignal built, rebuilt, switched, checked;
+  GetPlatform().RunTask(Platform::Thread::Gui, [&, this]()
+  {
+    InitRoutingSession();
+    m_session->SetRouter(make_unique<DummyRouter>(counter), nullptr);
+    m_session->SetRoutingCallbacks([&](RoutesResult const &, RouterResultCode) { built.Signal(); },
+                                   [&](RoutesResult const &, RouterResultCode) { rebuilt.Signal(); }, nullptr, nullptr);
+    m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), RouterDelegate::kNoTimeout);
+  });
+  TEST(built.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Route was not built."));
+  TEST_EQUAL(counter, 1, ());
+
+  GetPlatform().RunTask(Platform::Thread::Gui, [this]()
+  {
+    m_session->OnTrafficInfoClear();
+    TEST(m_session->IsRebuildingOnly(), ());
+  });
+  TEST(rebuilt.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Traffic did not rebuild the route."));
+  TEST_EQUAL(counter, 2, ());
+
+  GetPlatform().RunTask(Platform::Thread::Gui, [&, this]()
+  {
+    m_session->SetRouter(make_unique<TrafficInsensitiveRouter>(counter), nullptr);
+    m_session->SetRoutingCallbacks([&](RoutesResult const &, RouterResultCode) { switched.Signal(); }, nullptr, nullptr,
+                                   nullptr);
+    m_session->BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), RouterDelegate::kNoTimeout);
+  });
+  TEST(switched.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Switched route was not built."));
+  TEST_EQUAL(counter, 3, ());
+
+  GetPlatform().RunTask(Platform::Thread::Gui, [&, this]()
+  {
+    auto const * route = m_session->GetRoute();
+    m_session->OnTrafficInfoClear();
+    TEST(!m_session->IsBuilding(), ());
+    TEST(m_session->GetRoute() == route, ());
+    // Join the routing worker before checking the final build count.
+    m_session.reset();
+    checked.Signal();
+  });
+  TEST(checked.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Traffic check timed out."));
+  TEST_EQUAL(counter, 3, ());
 }
 
 // Test on route rebuilding when current position moving from the route. Each next position

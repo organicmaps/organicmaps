@@ -36,7 +36,7 @@ Virkjaðu sérstaka kortalaga til að uppgötva vinsælar göngu- og hjólaleið
 
 <b>ALMENNINGSSAMGÖNGUR:</b>
 
-Sjáðu númer almenningssamgangna á viðkomustöðvum. Upplýsingar um almenningssamgöngur í rauntíma og leiðir eru nú í þróun.
+Þú getur skipulagt leiðir með almenningssamgöngum. Stuðningur við rauntímatímataflur er í þróun.
 
 <b>KORTASTÍLAR:</b>
 
@@ -59,3 +59,5 @@ Leggðu lið við OpenStreetMap með því að bæta við stöðum sem vantar e�
 Skiptu yfir í dökkum stíl til að horfa þægilega á kortið á nóttunni.
 
 Reyndu appið — það er 100% ókeypis, án auglýsinga, hratt og fullkomlega aftengt netinu. Upplifðu áreiðanlega GPS-leiðsögn fyrir gönguferðir, hjólreiðar, fjallgöngur og ferðalög hvar sem er í heiminum! Njóttu hratts, áreiðanlegs og persónulegs kortaupplifunar og deildu henni með öðrum!
+
+Instagram: @organicmaps.app

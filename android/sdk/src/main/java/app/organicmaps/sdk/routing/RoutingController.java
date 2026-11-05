@@ -14,6 +14,13 @@ import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
 import org.chromium.base.ObserverList;
 
+/**
+ * Main-thread, process-wide route planning and navigation coordinator.
+ * Obtain it through {@link #get} after SDK initialization. Attach one {@link Container} for host UI callbacks,
+ * call {@link #restore} when that host becomes active, and detach it when the host stops. The controller
+ * retains route state across activity recreation; it does not provide the host foreground service or UI.
+ * Detailed route building requires all relevant region maps. Missing-map errors are reported to the container.
+ */
 @androidx.annotation.UiThread
 public class RoutingController
 {
@@ -26,6 +33,9 @@ public class RoutingController
     NAVIGATION
   }
 
+  /**
+   * Current asynchronous build state; a selected profile or endpoints alone do not imply a usable route.
+   */
   public enum BuildState
   {
     NONE,
@@ -52,8 +62,20 @@ public class RoutingController
     }
   }
 
+  /**
+   * UI callbacks for the single attached routing host. All callbacks run on the main thread.
+   * Hosts that prepare routes must implement {@link #showRoutePlan} and invoke its completion callback.
+   * Other default methods do nothing, allowing a host to implement only the controls it displays.
+   */
   public interface Container
   {
+    /**
+     * Shows or hides planning UI. Invoke the supplied completion once that UI is ready, including when the host's
+     * controls are always visible; {@link RoutingController#prepare} starts the build from this callback.
+     *
+     * @param show whether planning UI should be shown
+     * @param completionListener optional continuation; invoke once after presenting the requested state
+     */
     default void showRoutePlan(boolean show, @Nullable Runnable completionListener) {}
     default void showNavigation(boolean show) {}
     default void updateMenu() {}
@@ -73,8 +95,12 @@ public class RoutingController
     default void onDrivingOptionsBuildError() {}
 
     /**
-     * @param progress progress to be displayed.
-     * */
+     * Reports build progress. A final progress update may arrive after a build result; read
+     * {@link RoutingController#getBuildState} to decide whether the route is ready.
+     *
+     * @param progress completion percentage
+     * @param router profile associated with the controller's current build
+     */
     default void updateBuildProgress(@IntRange(from = 0, to = 100) int progress, Router router) {}
     default void onStartRouteBuilding() {}
   }
@@ -223,6 +249,10 @@ public class RoutingController
       mContainer.updateMenu();
   }
 
+  /**
+   * Registers a process-wide navigation observer, independent of the attached UI container.
+   * Registration does not replay current state; read {@link #isNavigating} if an initial value is needed.
+   */
   public void addNavigationStateListener(@NonNull NavigationStateListener listener)
   {
     mNavigationStateListeners.addObserver(listener);
@@ -273,11 +303,18 @@ public class RoutingController
     }
   }
 
+  /**
+   * Replaces the single UI container. Call {@link #restore} to replay its current state after attachment.
+   */
   public void attach(@NonNull Container container)
   {
     mContainer = container;
   }
 
+  /**
+   * Installs native routing callbacks using the application location helper. Called automatically by SDK
+   * initialization.
+   */
   public void initialize(@NonNull LocationHelper locationHelper)
   {
     mLastRouterType = Router.getLastUsed();
@@ -291,11 +328,18 @@ public class RoutingController
     Framework.nativeSetRoutingLoadPointsListener(mRoutingLoadPointsListener);
   }
 
+  /**
+   * Releases the attached UI container without cancelling the route or stopping navigation.
+   */
   public void detach()
   {
     mContainer = null;
   }
 
+  /**
+   * Replays planning, navigation, build progress, and any deferred result to the attached container.
+   * Call after attaching a resumed host; this also clears the saved-UI-state flag.
+   */
   @MainThread
   public void restore()
   {
@@ -312,6 +356,9 @@ public class RoutingController
     processRoutingEvent();
   }
 
+  /**
+   * Defers UI result processing while the host has saved its state; {@link #restore} resumes processing.
+   */
   public void onSaveState()
   {
     mHasContainerSavedState = true;
@@ -336,6 +383,9 @@ public class RoutingController
     Framework.nativeBuildRoute();
   }
 
+  /**
+   * Requests loading of route points previously saved by the native framework.
+   */
   public void restoreRoute()
   {
     Framework.nativeLoadRoutePoints();
@@ -346,6 +396,9 @@ public class RoutingController
     return Framework.nativeHasSavedRoutePoints();
   }
 
+  /**
+   * Persists usable planned or navigating route points for process-restart restoration.
+   */
   public void saveRoute()
   {
     if (isNavigating() || (isPlanning() && isBuilt()))
@@ -355,6 +408,9 @@ public class RoutingController
       Framework.nativeDeleteSavedRoutePoints();
   }
 
+  /**
+   * Deletes persisted route points without cancelling the current in-memory route.
+   */
   public void deleteSavedRoute()
   {
     Framework.nativeDeleteSavedRoutePoints();
@@ -365,6 +421,9 @@ public class RoutingController
     return mRouteSaved;
   }
 
+  /**
+   * Marks the current route as saved by the host; this does not persist route points.
+   */
   public void setRouteSaved()
   {
     mRouteSaved = true;
@@ -409,6 +468,9 @@ public class RoutingController
       rebuildLastRoute();
   }
 
+  /**
+   * Returns to planning and rebuilds the current endpoints with the selected profile and settings.
+   */
   public void rebuildLastRoute()
   {
     setState(State.NONE);
@@ -416,6 +478,11 @@ public class RoutingController
     prepare(getStartPoint(), getEndPoint());
   }
 
+  /**
+   * Starts a new route plan and selects a suggested profile for the endpoints.
+   * @param startPoint origin, or {@code null} to leave it unresolved
+   * @param endPoint destination, or {@code null} to leave it unresolved
+   */
   public void prepare(@Nullable MapObject startPoint, @Nullable MapObject endPoint)
   {
     Logger.d(TAG, "prepare (" + (endPoint == null ? "route)" : "p2p)"));
@@ -429,6 +496,12 @@ public class RoutingController
       mLastRouterType = Router.getBest(startPoint.getLat(), startPoint.getLon(), endPoint.getLat(), endPoint.getLon());
   }
 
+  /**
+   * Replaces the current route plan and starts an asynchronous build when both endpoints are available.
+   * @param startPoint origin, or {@code null} to leave it unresolved
+   * @param endPoint destination, or {@code null} to leave it unresolved
+   * @param routerType requested route profile
+   */
   public void prepare(final @Nullable MapObject startPoint, final @Nullable MapObject endPoint, Router routerType)
   {
     cancel();
@@ -443,6 +516,10 @@ public class RoutingController
     startPlanning(startPoint, endPoint);
   }
 
+  /**
+   * Starts following a successfully built planned route; otherwise does nothing.
+   * The host supplies location updates and any foreground-service lifecycle required for navigation.
+   */
   public void start()
   {
     // Phone and car actions can outlive the built route they were created for.
@@ -463,6 +540,11 @@ public class RoutingController
 
     Framework.nativeFollowRoute();
   }
+
+  /**
+   * Commits a place to a previously armed point replacement, then rebuilds the route.
+   * @throws IllegalStateException if no replacement was requested
+   */
   public void replaceStop(@NonNull MapObject mapObject)
   {
     final PendingPoiPick pick = requirePendingPoiPick();
@@ -472,6 +554,9 @@ public class RoutingController
     finalizeStopChange();
   }
 
+  /**
+   * Adds an intermediate stop and rebuilds. Reports the native point limit through the container if rejected.
+   */
   public void addStop(@NonNull MapObject mapObject)
   {
     if (!addRoutePoint(RouteMarkType.Intermediate, mapObject))
@@ -499,7 +584,10 @@ public class RoutingController
     finalizeStopChange();
   }
 
-  // With no pick armed the mode is SET, which is the plain place page path: insert an intermediate point.
+  /**
+   * Commits a selected place according to the currently armed add, replace, or append operation.
+   * With no pick armed, the mode is SET and a plain place-page selection inserts an intermediate point.
+   */
   public void commitStopPick(@NonNull MapObject mapObject)
   {
     switch (getPoiPickMode())
@@ -520,6 +608,9 @@ public class RoutingController
     resetPoiPickState();
   }
 
+  /**
+   * Removes a point carrying route-point metadata, then rebuilds the remaining route.
+   */
   public void removeStop(@NonNull MapObject mapObject)
   {
     RoutePointInfo info = mapObject.getRoutePointInfo();
@@ -529,6 +620,11 @@ public class RoutingController
     removeStop(info.mMarkType, info.mIntermediateIndex);
   }
 
+  /**
+   * Removes the specified point; removing the only point cancels planning.
+   * @param type native point role
+   * @param intermediateIndex zero-based intermediate index; ignored for endpoint roles
+   */
   public void removeStop(@NonNull RouteMarkType type, int intermediateIndex)
   {
     if (Framework.nativeGetRoutePoints().length == 1)
@@ -546,6 +642,9 @@ public class RoutingController
     resetPoiPickState();
   }
 
+  /**
+   * Rebuilds the existing route points and opens planning in the attached container.
+   */
   public void launchPlanning()
   {
     build();
@@ -558,7 +657,8 @@ public class RoutingController
   }
 
   /**
-   * @return False if not navigating, true otherwise
+   * Returns navigation to planning and rebuilds.
+   * @return whether navigation was active and a transition was requested
    */
   public boolean resetToPlanningStateIfNavigating()
   {
@@ -591,6 +691,9 @@ public class RoutingController
                                      point.mSubtitle == null ? "" : point.mSubtitle, point.mLat, point.mLon);
   }
 
+  /**
+   * Returns whether a further intermediate stop is allowed in the current profile and controller state.
+   */
   public boolean isStopPointAllowed()
   {
     return Framework.nativeCouldAddIntermediatePoint();
@@ -633,11 +736,20 @@ public class RoutingController
     Framework.nativeCloseRouting();
   }
 
+  /**
+   * Cancels planning or navigation and deletes persisted route points.
+   * @return whether a planning or navigation session was cancelled
+   */
   public boolean cancel()
   {
     return cancel(true);
   }
 
+  /**
+   * Cancels planning or navigation and clears the route presentation.
+   * @param deleteSavedRoute whether to delete persisted route points too
+   * @return whether a planning or navigation session was cancelled
+   */
   public boolean cancel(boolean deleteSavedRoute)
   {
     if (isPlanning())
@@ -722,6 +834,9 @@ public class RoutingController
     return mLastRouterType == Router.Transit;
   }
 
+  /**
+   * Returns whether the selected profile is driving, independently of navigation state.
+   */
   public boolean isVehicleRouterType()
   {
     return mLastRouterType == Router.Vehicle;
@@ -757,6 +872,9 @@ public class RoutingController
     return mBuildState == BuildState.BUILT;
   }
 
+  /**
+   * Arms a map pick for a start or finish point role.
+   */
   public void waitForPoiPick(@NonNull RouteMarkType pointType)
   {
     if (pointType == RouteMarkType.Intermediate)
@@ -764,11 +882,17 @@ public class RoutingController
     armPoiPick(pointType, PoiPickMode.SET, -1);
   }
 
+  /**
+   * Arms replacement of an existing point; intermediate indexes are zero-based.
+   */
   public void waitForPoiReplacement(@NonNull RouteMarkType pointType, int index)
   {
     armPoiPick(pointType, PoiPickMode.REPLACE, index);
   }
 
+  /**
+   * Arms appending a new destination; the previous destination becomes an intermediate stop.
+   */
   public void waitForPoiPickToAppend()
   {
     // Intermediate selects the "Add destination" labels and keeps the existing finish from being treated
@@ -782,15 +906,21 @@ public class RoutingController
     mCanPickMyPosition = null;
   }
 
-  // A stop pick commits through the place page's Add/Replace button; a pick for an empty start or finish slot uses
-  // the regular routing buttons.
+  /**
+   * Returns whether the host is waiting for a route-point replacement or append pick.
+   * A stop pick commits through the place page's Add/Replace button; an empty endpoint slot uses the regular
+   * routing buttons.
+   */
   public boolean isWaitingStopPick()
   {
     return getPoiPickMode() != PoiPickMode.SET;
   }
 
-  // A commit applies its pick before it closes the search or the map chooser, so this only ever drops a pick that is
-  // already applied or was abandoned.
+  /**
+   * Cancels the armed point pick without changing the route points.
+   * A selection is committed before closing search or the map chooser; this drops state for an applied or abandoned
+   * pick.
+   */
   public void cancelPoiPick()
   {
     resetPoiPickState();
@@ -847,6 +977,9 @@ public class RoutingController
     return true;
   }
 
+  /**
+   * Returns whether current location can fill the armed point pick.
+   */
   public boolean canPickMyPosition()
   {
     if (mPendingPoiPick == null)
@@ -926,6 +1059,9 @@ public class RoutingController
       mContainer.updateMenu();
   }
 
+  /**
+   * Builds the plan when both endpoints are available.
+   */
   public void checkAndBuildRoute()
   {
     // showRoutePlan() runs while POI-pick is still pending on purpose: the plan sheet lands underneath the
@@ -1076,6 +1212,9 @@ public class RoutingController
     return new Pair<>(title, subtitle);
   }
 
+  /**
+   * Exchanges the endpoint roles and rebuilds the plan.
+   */
   public void swapPoints()
   {
     Logger.d(TAG, "swapPoints");
@@ -1092,6 +1231,9 @@ public class RoutingController
       mContainer.updateMenu();
   }
 
+  /**
+   * Reverses the full route-point order, including intermediate stops, and rebuilds.
+   */
   public void reverseRoute()
   {
     Logger.d(TAG, "reverseRoute");
@@ -1100,6 +1242,9 @@ public class RoutingController
       build();
   }
 
+  /**
+   * Changes the routing profile and rebuilds when the profile differs.
+   */
   public void setRouterType(Router router)
   {
     Logger.d(TAG, "setRouterType: " + mLastRouterType + " -> " + router);
@@ -1120,6 +1265,9 @@ public class RoutingController
     return mLastRouterType;
   }
 
+  /**
+   * Commits a selected place to the armed endpoint or stop-pick operation.
+   */
   public void onPoiSelected(@NonNull MapObject point)
   {
     final PendingPoiPick pick = mPendingPoiPick;
@@ -1142,6 +1290,9 @@ public class RoutingController
     resetPoiPickState();
   }
 
+  /**
+   * Returns the point role of the armed pick, or {@code null} when none is armed.
+   */
   @Nullable
   public RouteMarkType getWaitingPoiPickType()
   {

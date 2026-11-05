@@ -489,7 +489,9 @@
 
 /* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.pedestrian.tunnel" = "Jalankulkutunneli";
-"type.highway.platform" = "Platform";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.highway.platform" = "Laituri";
 "type.highway.primary" = "Pääkatu";
 
 /* Default translation for type.highway.*.bridge aliases; individual types can override it. */
@@ -809,6 +811,9 @@
 "type.man_made.pier" = "Laituri";
 "type.man_made.pipeline" = "Pipeline";
 "type.man_made.pipeline.overground" = "Overground Pipeline";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "Katettu vesisäiliö";
 "type.man_made.silo" = "Siilo";
 "type.man_made.storage_tank" = "Storage Tank";
 "type.man_made.surveillance" = "Valvontakamera";
@@ -831,6 +836,9 @@
 "type.man_made.water_tower" = "Vesitorni";
 "type.man_made.water_well" = "Kaivo";
 "type.man_made.water_well.drinking_water_no" = "Kaivo";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "Vesilaitos";
 "type.man_made.windmill" = "Tuulimylly";
 "type.man_made.works" = "Industrial Works";
 
@@ -978,7 +986,9 @@
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "Public Transport";
-"type.public_transport.platform" = "Platform";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.public_transport.platform" = "Laituri";
 "type.railway" = "Railway";
 "type.railway.abandoned" = "Abandoned Railway";
 "type.railway.abandoned.bridge" = "Abandoned Railway Bridge";
@@ -1339,6 +1349,9 @@
 "type.shop.greengrocer" = "Vihanneskauppias";
 "type.shop.grocery" = "Päivittäistavarakauppa";
 "type.shop.hairdresser" = "Kampaamo";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "Parturi";
 "type.shop.hardware" = "Rautakauppa";
 "type.shop.health_food" = "Terveysruokakauppa";
 "type.shop.hearing_aids" = "Kuulolaitteiden myymälä";
@@ -1464,6 +1477,7 @@
 "type.sport.rugby_union" = "Rugby union";
 "type.sport.running" = "Juoksu";
 "type.sport.softball" = "Softball";
+"type.sport.pilates" = "Pilates";
 "type.tourism" = "Turismi";
 "type.tourism.aquarium" = "Akvaario";
 
@@ -1614,6 +1628,9 @@
 "type.man_made.monitoring_station.weather" = "Sään seuranta-asema";
 "type.amenity.student_accommodation" = "Opiskelijoiden majoitus";
 "type.craft.watchmaker" = "Kelloseppä";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "Ikkunoiden valmistus";
 "type.xmas_feature.market" = "Joulumarkkinat";
 "type.xmas_feature.tree" = "Joulukuusi";
 "type.amenity.hookah_lounge" = "Vesipiippubaari";

@@ -165,6 +165,8 @@
     <string name="type.highway.pedestrian.bridge">Ponte peonil</string>
     <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.pedestrian.tunnel">Túnel peonil</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.highway.platform">Andén</string>
     <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.primary.bridge">Ponte</string>
     <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
@@ -258,12 +260,16 @@
     <string name="type.leisure.track.area">Pista deportiva</string>
     <string name="type.leisure.water_park">Parque acuáticu</string>
     <string name="type.man_made.survey_point">Puntu xeodésicu</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">Depósitu d’agua cubiertu</string>
     <string name="type.man_made.surveillance">Cámara de vixilancia</string>
     <string name="type.man_made.tower">Torre</string>
     <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
     <string name="type.man_made.communications_tower">Torre de comunicaciones</string>
     <!-- A regular telecommunications tower / mast. -->
     <string name="type.man_made.tower.communication">Torre de comunicaciones</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">Planta potabilizadora</string>
     <string name="type.natural.beach">Sablera</string>
     <string name="type.natural.geyser">Guéiser</string>
     <string name="type.natural.water.river">Ríu</string>
@@ -293,9 +299,12 @@
     <string name="type.power.generator">Xenerador d’enerxía</string>
     <string name="type.power.generator.solar">Xenerador solar</string>
     <string name="type.public_transport">Tresporte públicu</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.public_transport.platform">Andén</string>
     <string name="type.railway.abandoned.bridge">Ponte ferroviaria abandonada</string>
     <string name="type.railway.abandoned.tunnel">Túnel ferroviariu abandonáu</string>
     <string name="type.railway.disused.tunnel">Túnel ferroviariu en desusu</string>
+    <string name="type.railway.platform">Andén de ferrocarril</string>
     <string name="type.railway.preserved.bridge">Ponte ferroviaria conservada</string>
     <string name="type.railway.preserved.tunnel">Túnel ferroviariu conserváu</string>
     <string name="type.railway.rail.bridge">Ponte ferroviaria</string>
@@ -554,6 +563,8 @@
     <string name="type.shop.books">Llibrería</string>
     <string name="type.shop.chocolate">Chicolatería</string>
     <string name="type.shop.garden_centre">Centru de xardinería</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">Barbería</string>
     <string name="type.shop.hardware">Ferretería</string>
     <string name="type.shop.kiosk">Quioscu</string>
     <string name="type.shop.mall">Centru comercial</string>
@@ -580,6 +591,7 @@
     <string name="type.sport.rugby_union">Rugby union</string>
     <string name="type.sport.running">Carrera</string>
     <string name="type.sport.softball">Softbol</string>
+    <string name="type.sport.pilates">Pilates</string>
     <string name="type.tourism">Turismu</string>
     <string name="type.tourism.aquarium">Acuariu</string>
     <string name="type.tourism.attraction">Atraición</string>
@@ -593,4 +605,6 @@
     <string name="type.traffic_calming">Pacificación del tráficu</string>
     <string name="type.wheelchair">Siella de ruedes</string>
     <string name="type.aerialway.magic_carpet">Alfombra máxica</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">Fabricación de ventanes</string>
 </resources>

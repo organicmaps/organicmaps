@@ -489,7 +489,9 @@
 
 /* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.pedestrian.tunnel" = "Пешачки тунел";
-"type.highway.platform" = "Стајалиште јавног превоза";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.highway.platform" = "Перон";
 "type.highway.primary" = "Пут прве класе";
 
 /* Default translation for type.highway.*.bridge aliases; individual types can override it. */
@@ -809,6 +811,9 @@
 "type.man_made.pier" = "Док";
 "type.man_made.pipeline" = "Цевовод";
 "type.man_made.pipeline.overground" = "Подземни цевовод";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "Покривени резервоар";
 "type.man_made.silo" = "Силос";
 "type.man_made.storage_tank" = "Резервоар";
 "type.man_made.surveillance" = "Сигурносна камера";
@@ -831,6 +836,9 @@
 "type.man_made.water_tower" = "Водоторањ";
 "type.man_made.water_well" = "Бунар";
 "type.man_made.water_well.drinking_water_no" = "Бунар";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "Постројење за прераду воде";
 "type.man_made.windmill" = "Ветрењача";
 "type.man_made.works" = "Фабрика";
 
@@ -978,7 +986,9 @@
 "type.psurface.unpaved_bad" = "Лош макадам";
 "type.psurface.unpaved_good" = "Добар макадам";
 "type.public_transport" = "Јавни превоз";
-"type.public_transport.platform" = "Стајалиште јавног превоза";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.public_transport.platform" = "Перон";
 "type.railway" = "Железница";
 "type.railway.abandoned" = "Напуштена пруга";
 "type.railway.abandoned.bridge" = "Напуштен железнички мост";
@@ -1339,6 +1349,9 @@
 "type.shop.greengrocer" = "Поврће и воће";
 "type.shop.grocery" = "Бакалница";
 "type.shop.hairdresser" = "Фризер";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "Берберница";
 "type.shop.hardware" = "Гвожђара";
 "type.shop.health_food" = "Здрава храна";
 "type.shop.hearing_aids" = "Продавница слушног апарата";
@@ -1464,6 +1477,7 @@
 "type.sport.rugby_union" = "Рагби";
 "type.sport.running" = "Трчање";
 "type.sport.softball" = "Софтбол";
+"type.sport.pilates" = "Пилатес";
 "type.tourism" = "Туризам";
 "type.tourism.aquarium" = "Акваријум";
 
@@ -1614,6 +1628,9 @@
 "type.man_made.monitoring_station.weather" = "Weather Monitoring Station";
 "type.amenity.student_accommodation" = "Student Accommodation";
 "type.craft.watchmaker" = "Watchmaker";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "Израда прозора";
 "type.xmas_feature.market" = "Christmas Market";
 "type.xmas_feature.tree" = "Christmas Tree";
 "type.amenity.hookah_lounge" = "Наргила бар";

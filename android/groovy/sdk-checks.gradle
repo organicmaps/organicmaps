@@ -1,0 +1,83 @@
+// Keep the publication and documentation on the same module set.
+ext.sdkArtifacts = [
+    ':sdk': 'sdk',
+    ':sdk:car': 'car',
+    ':sdk:location:core': 'location-core',
+    ':sdk:location:gms:google': 'location-google',
+    ':sdk:location:gms:foss': 'location-foss',
+    ':sdk:maps:world': 'maps-world',
+    ':sdk:widgets:lanes': 'widgets-lanes',
+    ':sdk:widgets:speedlimit': 'widgets-speedlimit'
+]
+ext.sdkVersion = providers.gradleProperty('sdkVersion').getOrElse(rootProject.ext.versionName)
+def docsTool = rootProject.file('../tools/python/check_sdk_docs.py')
+def runDocsTool = { File directory, List<String> options = [] ->
+  def output = providers.exec {
+    commandLine(['python3', docsTool] + options + [directory])
+    ignoreExitValue = true
+  }
+  def result = output.result.get()
+  if (result.exitValue != 0) {
+    throw new GradleException("SDK documentation check failed: ${output.standardError.asText.get().trim()}")
+  }
+  logger.info(output.standardOutput.asText.get().trim())
+}
+
+rootProject.ext.sdkArtifacts.keySet().each { modulePath ->
+  project(modulePath).tasks.matching { it.name == 'javaDocReleaseGeneration' }.configureEach {
+    inputs.file(docsTool)
+    doLast { task ->
+      // Normalize the generator's navigation before packaging so the site and publication jars match.
+      runDocsTool(task.outputs.files.singleFile, ['--normalize'])
+    }
+  }
+}
+
+tasks.register('sdkApiDocs', Sync) {
+  group = 'documentation'
+  description = 'Generate the published SDK API documentation and its module index.'
+  into layout.buildDirectory.dir('sdk-api')
+  inputs.property('sdkVersion', rootProject.ext.sdkVersion)
+  inputs.property('sdkArtifacts', rootProject.ext.sdkArtifacts)
+  inputs.file(docsTool)
+  from('sdk/api-index.html') {
+    rename { 'index.html' }
+    filter { line -> line.replace('@SDK_VERSION@', rootProject.ext.sdkVersion) }
+  }
+  rootProject.ext.sdkArtifacts.each { modulePath, artifact ->
+    dependsOn "${modulePath}:javaDocReleaseJar"
+    from({ zipTree(project(modulePath).tasks.named('javaDocReleaseJar').get().archiveFile.get()) }) {
+      into artifact
+      exclude 'META-INF/**'
+    }
+  }
+  doLast {
+    def rows = rootProject.ext.sdkArtifacts.values().collect { artifact ->
+      def hasApi = new File(destinationDir, "${artifact}/index.html").isFile()
+      if (!hasApi && !(artifact in ['location-google', 'location-foss', 'maps-world'])) {
+        throw new GradleException("Missing SDK API index: ${artifact}")
+      }
+      def link = hasApi ? "<a href=\"${artifact}/index.html\">API reference</a>" : 'No public Java API'
+      "<tr><td>${artifact}</td><td>${link}</td></tr>"
+    }.join('\n')
+    def index = new File(destinationDir, 'index.html')
+    index.setText(index.getText('UTF-8').replace('@SDK_MODULE_ROWS@', rows), 'UTF-8')
+    runDocsTool(destinationDir)
+  }
+}
+
+def cleanRepository = tasks.register('cleanSdkCheckRepository', Delete) {
+  delete layout.buildDirectory.dir('sdk-check/repository')
+}
+rootProject.ext.sdkArtifacts.keySet().each { modulePath ->
+  project(modulePath).tasks.matching { it.name.endsWith('ToSdkCheckRepository') }.configureEach {
+    mustRunAfter cleanRepository
+  }
+}
+
+tasks.register('publishSdkForChecks') {
+  group = 'verification'
+  description = 'Publish all SDK modules to build/sdk-check/repository, without Central credentials.'
+  dependsOn cleanRepository
+  dependsOn rootProject.ext.sdkArtifacts.keySet().collect { "${it}:publishAllPublicationsToSdkCheckRepository" }
+}

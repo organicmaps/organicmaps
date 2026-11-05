@@ -27,7 +27,9 @@
 
 #include <cstring>
 #include <functional>
+#include <limits>
 #include <sstream>
+#include <utility>
 #include <vector>
 
 namespace
@@ -417,6 +419,8 @@ UNIT_TEST(Kml_Serialization_Text_File_Track_Without_Timestamps)
   }
   TEST_EQUAL(dataFromFileBuffer, dataFromGeneratedFileBuffer, ());
   TEST(dataFromFileBuffer.find("mwm:serverId") == std::string::npos, ());
+  TEST(dataFromFileBuffer.find("mwm:stop") == std::string::npos, ());
+  TEST(dataFromFileBuffer.find("mwm:routerType") == std::string::npos, ());
 }
 
 UNIT_TEST(Kml_Serialization_Text_File_Tracks_With_Timestamps)
@@ -454,6 +458,79 @@ UNIT_TEST(Kml_Serialization_Text_File_Tracks_With_Timestamps)
       },
       ());
   TEST_EQUAL(dataFromFile, data, ());
+}
+
+namespace
+{
+std::string WrapKmlDoc(std::string const & body)
+{
+  return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+         "<kml xmlns=\"http://earth.google.com/kml/2.2\"><Document>" +
+         body + "</Document></kml>";
+}
+
+kml::FileData ParseKmlText(std::string const & text)
+{
+  kml::FileData data;
+  kml::DeserializerKml des(data);
+  MemReader reader(text.c_str(), text.length());
+  des.Deserialize(reader);
+  return data;
+}
+
+std::string SerializeKmlText(kml::FileData & data)
+{
+  std::string buffer;
+  MemWriter<decltype(buffer)> sink(buffer);
+  kml::SerializerKml ser(data);
+  ser.Serialize(sink);
+  return buffer;
+}
+}  // namespace
+
+// Route stops and the router type stored in a track survive the KML text round-trip. The '&' in
+// the values (cannot come from routing::ToString, but KML files are edited by hand) checks that
+// both fields are escaped on write, so the KML stays well-formed.
+UNIT_TEST(Kml_Serialization_Text_Track_With_Stops)
+{
+  classificator::Load();
+
+  auto data = GenerateKmlFileDataForTrackWithoutTimestamps();
+  auto & trackData = data.m_tracksData[0];
+  trackData.m_routerType = "vehicle & bicycle";
+  trackData.m_stops = {
+      {m2::PointD(45.5, 56.5), "Stop 1"}, {m2::PointD(45.3, 56.7), "Кафе «Ёлки» & Co"}, {m2::PointD(45.3, 56.7), ""}};
+
+  auto const buffer = SerializeKmlText(data);
+  kml::FileData dataFromText;
+  TEST_NO_THROW(dataFromText = ParseKmlText(buffer), ());
+  TEST_EQUAL(dataFromText, data, ());
+}
+
+// A stop with an unparseable point is skipped, the track itself and its other stops are kept.
+UNIT_TEST(Kml_Deserialization_Track_With_Malformed_Stop)
+{
+  std::string const input = WrapKmlDoc(
+      "<Placemark>"
+      "<name>Track</name>"
+      "<Style><LineStyle><color>ff0000ff</color></LineStyle></Style>"
+      "<LineString><coordinates>45.0,56.0 45.5,56.5 46.0,57.0</coordinates></LineString>"
+      "<ExtendedData xmlns:mwm=\"https://omaps.app\">"
+      "<mwm:routerType>pedestrian</mwm:routerType>"
+      "<mwm:stops>"
+      "<mwm:stop><mwm:point>broken</mwm:point><mwm:name>Broken</mwm:name></mwm:stop>"
+      "<mwm:stop><mwm:point>45.5,56.5</mwm:point><mwm:name>Good</mwm:name></mwm:stop>"
+      "</mwm:stops>"
+      "</ExtendedData>"
+      "</Placemark>");
+
+  kml::FileData data;
+  TEST_NO_THROW(data = ParseKmlText(input), ());
+
+  TEST_EQUAL(data.m_tracksData.size(), 1, ());
+  auto const & track = data.m_tracksData[0];
+  TEST_EQUAL(track.m_routerType, "pedestrian", ());
+  TEST_EQUAL(track.m_stops, (std::vector<kml::TrackStopData>{{mercator::FromLatLon(56.5, 45.5), "Good"}}), ());
 }
 
 // 8. Check binary deserialization of v.3 format.
@@ -503,25 +580,9 @@ UNIT_TEST(Kml_Deserialization_From_Bin_V6_And_V7)
 
 namespace
 {
-std::string WrapKmlDoc(std::string const & body)
-{
-  return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-         "<kml xmlns=\"http://earth.google.com/kml/2.2\"><Document>" +
-         body + "</Document></kml>";
-}
-
 std::string PointPlacemark(std::string const & styleInner)
 {
   return "<Placemark>" + styleInner + "<Point><coordinates>27.55,53.89</coordinates></Point></Placemark>";
-}
-
-kml::FileData ParseKmlText(std::string const & text)
-{
-  kml::FileData data;
-  kml::DeserializerKml des(data);
-  MemReader reader(text.c_str(), text.length());
-  des.Deserialize(reader);
-  return data;
 }
 
 void TestBinaryCollectionsDropped(std::vector<uint8_t> const & legacyData)
@@ -1069,6 +1130,98 @@ UNIT_TEST(Kml_BadTracks)
   }
 }
 
+UNIT_TEST(Kml_InvalidTrackBeforeValidTrack)
+{
+  std::string_view constexpr input = R"(<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2">
+  <Placemark>
+    <gx:MultiTrack>
+      <gx:Track>
+        <when>2026-01-01T00:00:00Z</when>
+        <gx:coord>181 47 0</gx:coord>
+      </gx:Track>
+      <gx:Track>
+        <when>2026-01-01T00:00:01Z</when>
+        <gx:coord>8 47 0</gx:coord>
+        <when>2026-01-01T00:00:02Z</when>
+        <gx:coord>8.1 47.1 0</gx:coord>
+      </gx:Track>
+    </gx:MultiTrack>
+  </Placemark>
+</kml>)";
+
+  kml::FileData data;
+  TEST_NO_THROW({ kml::DeserializerKml(data).Deserialize(MemReader(input)); }, ());
+  TEST_EQUAL(data.m_tracksData.size(), 1, ());
+  auto const & geometry = data.m_tracksData[0].m_geometry;
+  TEST_EQUAL(geometry.m_lines.size(), 1, ());
+  TEST_EQUAL(geometry.m_lines[0].size(), 2, ());
+  TEST_EQUAL(geometry.m_timestamps[0].size(), 2, ());
+}
+
+UNIT_TEST(Kml_OriginPointWithInvalidLine)
+{
+  std::string_view constexpr input = R"(<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Placemark>
+    <name>origin</name>
+    <MultiGeometry>
+      <Point><coordinates>0,0</coordinates></Point>
+      <LineString><coordinates>181,47 182,48</coordinates></LineString>
+    </MultiGeometry>
+  </Placemark>
+</kml>)";
+
+  kml::FileData data;
+  TEST_NO_THROW({ kml::DeserializerKml(data).Deserialize(MemReader(input)); }, ());
+  TEST_EQUAL(data.m_bookmarksData.size(), 1, ());
+  TEST_EQUAL(data.m_bookmarksData[0].m_point, mercator::FromLatLon(0, 0), ());
+}
+
+UNIT_TEST(Kml_ToAltitude)
+{
+  std::pair<double, geometry::Altitude> constexpr kCases[] = {
+      {0.0, 0},           {0.5, 1},           {-0.5, -1},     {12.4, 12},       {12.5, 13},       {12.6, 13},
+      {-12.4, -12},       {-12.5, -13},       {-12.6, -13},   {32767.4, 32767}, {32767.6, 32767}, {-32767.4, -32767},
+      {-32767.6, -32767}, {-32768.0, -32767}, {1e300, 32767}, {-1e300, -32767}};
+  for (auto const & [altitude, expected] : kCases)
+    TEST_EQUAL(kml::ToAltitude(altitude), expected, (altitude));
+}
+
+UNIT_TEST(Kml_AltitudeClamping)
+{
+  std::string_view constexpr input = R"(<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Placemark>
+    <LineString><coordinates>8.0,47.0,1e300 8.1,47.1,-1e300</coordinates></LineString>
+  </Placemark>
+</kml>)";
+
+  kml::FileData data;
+  TEST_NO_THROW({ kml::DeserializerKml(data).Deserialize(MemReader(input)); }, ());
+  TEST_EQUAL(data.m_tracksData.size(), 1, ());
+  auto const & line = data.m_tracksData[0].m_geometry.m_lines[0];
+  TEST_EQUAL(line[0].GetAltitude(), std::numeric_limits<geometry::Altitude>::max(), ());
+  TEST_EQUAL(line[1].GetAltitude(), geometry::kInvalidAltitude + 1, ());
+}
+
+UNIT_TEST(Kml_InvalidPointCoordinates)
+{
+  // Only placemarks with valid WGS84 coordinates produce bookmarks.
+  std::string_view constexpr input = R"(<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Placemark><name>far</name><Point><coordinates>181.0,47.0</coordinates></Point></Placemark>
+  <Placemark><name>north</name><Point><coordinates>8.0,91.0</coordinates></Point></Placemark>
+  <Placemark><name>ok</name><Point><coordinates>8.0,47.0</coordinates></Point></Placemark>
+</kml>)";
+
+  kml::FileData data;
+  TEST_NO_THROW({ kml::DeserializerKml(data).Deserialize(MemReader(input)); }, ());
+  TEST_EQUAL(data.m_bookmarksData.size(), 1, ());
+  TEST_EQUAL(kml::GetDefaultStr(data.m_bookmarksData[0].m_name), "ok", ());
+  TEST_EQUAL(data.m_bookmarksData[0].m_point, mercator::FromLatLon(47.0, 8.0), ());
+}
+
 namespace
 {
 std::string WriteCDATA(std::string const & input)
@@ -1095,6 +1248,20 @@ UNIT_TEST(SaveStringWithCDATA_SpecialCharsWrappedInCDATA)
   TEST_EQUAL(WriteCDATA("a < b"), "<![CDATA[a < b]]>", ());
   TEST_EQUAL(WriteCDATA("Tom & Jerry"), "<![CDATA[Tom & Jerry]]>", ());
   TEST_EQUAL(WriteCDATA("<tag>"), "<![CDATA[<tag>]]>", ());
+}
+
+UNIT_TEST(SaveStringWithCDATA_TerminatorRoundTrip)
+{
+  TEST_EQUAL(WriteCDATA("a]]>b"), "<![CDATA[a]]]]><![CDATA[>b]]>", ());
+  TEST_EQUAL(WriteCDATA("]]]>"), "<![CDATA[]]]]]><![CDATA[>]]>", ());
+  TEST_EQUAL(WriteCDATA("]]>]]>"), "<![CDATA[]]]]><![CDATA[>]]]]><![CDATA[>]]>", ());
+  for (std::string const name : {"]]>", "a]]>b", "]]]>", "]]>]]>", "<tag> & ]]> inside", "]]> & ]]>"})
+  {
+    kml::FileData data;
+    TEST_NO_THROW(data = ParseKmlText(WrapKmlDoc(PointPlacemark("<name>" + WriteCDATA(name) + "</name>"))), ());
+    TEST_EQUAL(data.m_bookmarksData.size(), 1, ());
+    TEST_EQUAL(kml::GetDefaultStr(data.m_bookmarksData.front().m_name), name, ());
+  }
 }
 
 UNIT_TEST(SaveStringWithCDATA_InvalidXmlCharsStripped)
@@ -1179,15 +1346,6 @@ UNIT_TEST(DefaultLanguageBookmarkCustomNameFallback)
 
 namespace
 {
-std::string SerializeKmlText(kml::FileData & data)
-{
-  std::string buffer;
-  MemWriter<decltype(buffer)> sink(buffer);
-  kml::SerializerKml ser(data);
-  ser.Serialize(sink);
-  return buffer;
-}
-
 // Round-trips a one-bookmark file with the given color through text KML and returns the re-parsed
 // bookmark color.
 kml::ColorData RoundTripBookmarkColor(kml::ColorData const & color)

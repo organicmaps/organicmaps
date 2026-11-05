@@ -16,7 +16,7 @@ GPS NAVIGÁCIÓ: Élvezze a hangvezérelt, kanyarról-kanyarra navigációt. Hoz
 
 TÚRA- ÉS KERÉKPÁROS ÚTVONALAK A VILÁG MINDEN TÁJÁRÓL: Kapcsolja be a speciális térképrétegeket, hogy felfedezze a népszerű túra- és kerékpáros útvonalakat világszerte, mind az OpenStreetMap forrásából. Váltson a rétegek között, hogy színes kerékpár- és MTB útvonalakat, valamint hivatalos túraútvonalakat lásson.
 
-KÖZLEKEDÉS: Nézze meg a megállóknál a tömegközlekedési járatok számát. Az élő menetrendek és útvonaltervezés jelenleg fejlesztés alatt áll.
+KÖZLEKEDÉS: Tömegközlekedési útvonalak tervezése. Az élő menetrendek kidolgozása folyamatban van.
 
 TÉRKÉP STÍLUSOK: Válassza ki a tevékenységéhez illő térképrétegeket — Kültér, Kontúrvonalak, Túrázás, Kerékpározás vagy Metró/Aluljáró.
 
@@ -30,3 +30,5 @@ iCLOUD SZINKRONIZÁCIÓ: Készítsen biztonsági másolatot és szinkronizálja 
 
 Próbálja ki az alkalmazást — 100% ingyenes, reklámmentes, gyors és teljesen offline. Élvezze a gyors, megbízható és privát térképélményt, és ossza meg másokkal!
 Az Organic Maps egy indie, közösség által vezérelt, nyílt forráskódú projekt, amelyben százak járulnak hozzá új funkciók fejlesztéséhez, hibák javításához, fordításhoz és a projekt előremozdításához.
+
+Instagram: @organicmaps.app

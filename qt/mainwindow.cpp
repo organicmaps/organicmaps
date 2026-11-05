@@ -22,6 +22,7 @@
 #include "platform/settings.hpp"
 
 #include "base/assert.hpp"
+#include "base/logging.hpp"
 
 #include <functional>
 #include <string>
@@ -528,20 +529,10 @@ void MainWindow::OnAbout()
 
 void MainWindow::OnLocationError(location::TLocationError errorCode)
 {
-  switch (errorCode)
-  {
-  case location::EDenied: [[fallthrough]];
-  case location::ETimeout: [[fallthrough]];
-  case location::EUnknown:
-  {
-    if (m_pDrawWidget && m_pMyPositionAction)
-      m_pMyPositionAction->setEnabled(false);
-    break;
-  }
+  ASSERT_NOT_EQUAL(errorCode, location::ENoError, ());
+  LOG(LWARNING, ("Location error:", errorCode));
 
-  default: ASSERT(false, ("Not handled location notification:", errorCode)); break;
-  }
-
+  // Keep "My position" enabled so the user can retry after fixing the cause.
   if (m_pDrawWidget != nullptr)
     m_pDrawWidget->GetFramework().OnLocationError(errorCode);
 }
@@ -553,8 +544,7 @@ void MainWindow::OnLocationUpdated(location::GpsInfo const & info)
 
 void MainWindow::OnMyPosition()
 {
-  if (m_pMyPositionAction->isEnabled())
-    m_pDrawWidget->GetFramework().SwitchMyPositionNextMode();
+  m_pDrawWidget->GetFramework().SwitchMyPositionNextMode();
 }
 
 void MainWindow::OnCreateFeatureClicked()

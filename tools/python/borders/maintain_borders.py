@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Simplify .poly boundaries once per shared arc, using Douglas-Peucker.
 
-Requires Python 3.10+, NumPy and Shapely. Coordinates are matched exactly;
+Requires Python 3.11+, NumPy and Shapely. Coordinates are matched exactly;
 existing gaps are not snapped or repaired. Unshared edges of touching regions
 are preserved, so unmatched borders cannot be simplified independently.
 Epsilon is in Organic Maps' Mercator

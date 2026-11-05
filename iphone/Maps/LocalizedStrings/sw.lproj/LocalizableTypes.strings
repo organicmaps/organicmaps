@@ -489,7 +489,9 @@
 
 /* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.pedestrian.tunnel" = "Mtaro";
-"type.highway.platform" = "Platform";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.highway.platform" = "Eneo la kupandia abiria";
 "type.highway.primary" = "Primary Road";
 
 /* Default translation for type.highway.*.bridge aliases; individual types can override it. */
@@ -809,6 +811,9 @@
 "type.man_made.pier" = "Pier";
 "type.man_made.pipeline" = "Pipeline";
 "type.man_made.pipeline.overground" = "Overground Pipeline";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "Hifadhi ya maji iliyofunikwa";
 "type.man_made.silo" = "Silo";
 "type.man_made.storage_tank" = "Storage Tank";
 "type.man_made.surveillance" = "Surveillance Camera";
@@ -831,6 +836,9 @@
 "type.man_made.water_tower" = "Water Tower";
 "type.man_made.water_well" = "Water Well";
 "type.man_made.water_well.drinking_water_no" = "Water Well";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "Kituo cha kusafisha maji";
 "type.man_made.windmill" = "Windmill";
 "type.man_made.works" = "Industrial Works";
 
@@ -978,7 +986,9 @@
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "Public Transport";
-"type.public_transport.platform" = "Platform";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.public_transport.platform" = "Eneo la kupandia abiria";
 "type.railway" = "Railway";
 "type.railway.abandoned" = "Abandoned Railway";
 "type.railway.abandoned.bridge" = "Abandoned Railway Bridge";
@@ -1339,6 +1349,9 @@
 "type.shop.greengrocer" = "Greengrocer";
 "type.shop.grocery" = "Chakula cha mboga";
 "type.shop.hairdresser" = "Hairdresser";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "Kinyozi";
 "type.shop.hardware" = "Duka la vifaa";
 "type.shop.health_food" = "Duka la Chakula cha Afya";
 "type.shop.hearing_aids" = "Duka la misaada ya kusikia";
@@ -1464,6 +1477,7 @@
 "type.sport.rugby_union" = "Raga";
 "type.sport.running" = "Mbio";
 "type.sport.softball" = "Softball";
+"type.sport.pilates" = "Pilates";
 "type.tourism" = "Tourism";
 "type.tourism.aquarium" = "Aquarium";
 
@@ -1614,6 +1628,9 @@
 "type.man_made.monitoring_station.weather" = "Kituo cha Ufuatiliaji wa Hali ya Hewa";
 "type.amenity.student_accommodation" = "Malazi ya Wanafunzi";
 "type.craft.watchmaker" = "Mtazamaji";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "Utengenezaji wa madirisha";
 "type.xmas_feature.market" = "Soko la Krismasi";
 "type.xmas_feature.tree" = "Mti wa Krismasi";
 "type.amenity.hookah_lounge" = "Eneo la hooka";

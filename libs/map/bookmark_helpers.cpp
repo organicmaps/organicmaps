@@ -442,11 +442,7 @@ std::string const kDefaultBookmarksFileName = "Bookmarks";
 // to file name to build names for all unnamed tracks
 void FillEmptyNames(std::unique_ptr<kml::FileData> & kmlData, std::string const & file)
 {
-  auto start = file.find_last_of('/') + 1;
-  auto end = file.find_last_of('.');
-  if (end == std::string::npos)
-    end = file.size();
-  auto const name = file.substr(start, end - start);
+  auto const name = base::GetNameFromFullPathWithoutExt(file);
 
   if (kmlData->m_categoryData.m_name.empty())
     kmlData->m_categoryData.m_name[kml::kDefaultLang] = name;
@@ -550,6 +546,10 @@ std::vector<std::string> GetKMLOrGPXFilesPathsToLoad(std::string const & filePat
   // Copy or convert or unpack (kmz) file from 'filePath' to GetBookmarksDirectory folder.
   if (auto const fileType = GetFileType(filePath))
   {
+    // An import can arrive before a bookmark save creates the directory.
+    if (!Platform::MkDirChecked(GetBookmarksDirectory()))
+      return {};
+
     switch (*fileType)
     {
     case FileType::Kml:

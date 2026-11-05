@@ -118,7 +118,7 @@ final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationS
         frame.origin.y = max(containerSize.height * Constants.halfScreenOriginFactorPortrait, safeAreaInsets.top + Constants.topInset)
       case .compact:
         if compactHeight != 0 {
-          frame.origin.y = containerSize.height - compactHeight
+          frame.origin.y = max(containerSize.height - compactHeight, safeAreaInsets.top + Constants.topInset)
         } else {
           frame.origin.y = containerSize.height * Constants.halfScreenHeightFactorPortrait
         }
@@ -150,7 +150,7 @@ final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationS
           frame.origin.y = max(containerSize.height * Constants.halfScreenOriginFactorPortrait, safeAreaInsets.top + Constants.topInset)
         case .compact:
           if compactHeight != 0 {
-            frame.origin.y = containerSize.height - compactHeight
+            frame.origin.y = max(containerSize.height - compactHeight, safeAreaInsets.top + Constants.topInset)
           } else {
             frame.origin.y = containerSize.height * Constants.halfScreenHeightFactorPortrait
           }
@@ -174,7 +174,7 @@ final class NavigationDashboardModalPresentationStepStrategy: ModalPresentationS
             ? max(containerSize.height - regularHeight, Constants.topInset)
             : Constants.topInset
         case .compact:
-          frame.origin.y = containerSize.height - (compactHeight != 0 ? compactHeight : Constants.compactHeightOffset)
+          frame.origin.y = max(containerSize.height - (compactHeight != 0 ? compactHeight : Constants.compactHeightOffset), Constants.topInset)
         case .estimates:
           let height = estimatesHeight != 0 ? estimatesHeight : compactHeight
           frame.origin.y = containerSize.height - (height != 0 ? height : Constants.compactHeightOffset)

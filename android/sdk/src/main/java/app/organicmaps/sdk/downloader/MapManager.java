@@ -6,10 +6,18 @@ import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
 import java.util.List;
 
+/**
+ * Main-thread access to the native offline-map catalogue and download queue.
+ * Wait for map-loading completion before querying it. Country IDs are catalogue identifiers, not localized names.
+ * Downloads may outlive an activity; remove its status subscription when it stops and read current state on return.
+ * Bundled World maps provide an overview; detailed search and routing require downloaded region maps.
+ */
 @UiThread
 public final class MapManager
 {
-  // Used by JNI.
+  /**
+   * Snapshot of a catalogue node status change. Sizes and current attributes can be queried separately.
+   */
   @Keep
   public static class StorageCallbackData
   {
@@ -18,6 +26,13 @@ public final class MapManager
     public final int errorCode;
     public final boolean isLeafNode;
 
+    /**
+     * Creates a status snapshot.
+     * @param countryId catalogue node identifier
+     * @param newStatus a {@link CountryItem} {@code STATUS_*} value
+     * @param errorCode a {@link CountryItem} {@code ERROR_*} value
+     * @param isLeafNode whether this is one downloadable map rather than a group
+     */
     public StorageCallbackData(String countryId, int newStatus, int errorCode, boolean isLeafNode)
     {
       this.countryId = countryId;
@@ -27,20 +42,32 @@ public final class MapManager
     }
   }
 
+  /**
+   * Main-thread download callbacks registered with {@link #nativeSubscribe}.
+   */
   public interface StorageCallback
   {
-    // Called from JNI.
+    /**
+     * Reports changed node statuses. Refresh affected nodes rather than assuming a single leaf changed.
+     */
     @Keep
     void onStatusChanged(List<StorageCallbackData> data);
 
-    // Called from JNI.
+    /**
+     * Reports downloaded and total byte counts for a catalogue node; guard a zero total in progress UI.
+     */
     @Keep
     void onProgress(String countryId, long localSize, long remoteSize);
   }
 
+  /**
+   * Listener for the region selected by the native map position; only one is installed at a time.
+   */
   public interface CurrentCountryChangedListener
   {
-    // Called from JNI.
+    /**
+     * Reports the current catalogue region identifier.
+     */
     @Keep
     @SuppressWarnings("unused")
     void onCurrentCountryChanged(String countryId);
@@ -49,7 +76,8 @@ public final class MapManager
   private MapManager() {}
 
   /**
-   * Enqueues failed items under given {@code root} node in downloader.
+   * Requeues failed downloads under a catalogue node.
+   * @param countryId node or group identifier
    */
   public static void retryDownload(@NonNull String countryId)
   {
@@ -57,7 +85,8 @@ public final class MapManager
   }
 
   /**
-   * Enqueues given {@code root} node with its children in downloader.
+   * Queues available updates for a catalogue node and its children.
+   * @param root node or group identifier
    */
   public static void startUpdate(@NonNull String root)
   {
@@ -65,7 +94,8 @@ public final class MapManager
   }
 
   /**
-   * Enqueues the given list of nodes and its children in downloader.
+   * Queues the supplied catalogue nodes and their children.
+   * @param countries node identifiers obtained from the catalogue or region-name search
    */
   public static void startDownload(String... countries)
   {
@@ -76,7 +106,8 @@ public final class MapManager
   }
 
   /**
-   * Enqueues given {@code root} node and its children in downloader.
+   * Queues a catalogue node and its children. Observe progress and completion through {@link StorageCallback}.
+   * @param countryId node or group identifier
    */
   public static void startDownload(@NonNull String countryId)
   {

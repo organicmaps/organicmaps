@@ -230,12 +230,14 @@ class ChartPreviewView: ExpandedTouchView {
     }
   }
 
-  func setX(min: Int, max: Int) {
+  func setX(min: Int, max: Int, notifyDelegate: Bool = true) {
     guard min < max else { return }
     minX = min
     maxX = max
     updateViewPort()
-    delegate?.chartPreviewView(self, didChangeMinX: minX, maxX: maxX)
+    if notifyDelegate {
+      delegate?.chartPreviewView(self, didChangeMinX: minX, maxX: maxX)
+    }
   }
 
   func updateViewPort() {

@@ -489,7 +489,9 @@
 
 /* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.pedestrian.tunnel" = "Հետիոտնային թունել";
-"type.highway.platform" = "Հարթակ";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.highway.platform" = "Կառամատույց";
 "type.highway.primary" = "Առաջնային ճանապարհ";
 
 /* Default translation for type.highway.*.bridge aliases; individual types can override it. */
@@ -809,6 +811,9 @@
 "type.man_made.pier" = "Պիրս";
 "type.man_made.pipeline" = "Խողովակաշար";
 "type.man_made.pipeline.overground" = "Վերգետնյա խողովակաշար";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "Ծածկված ջրամբար";
 "type.man_made.silo" = "Սիլոսային հոր";
 "type.man_made.storage_tank" = "Պահեստային բաք";
 "type.man_made.surveillance" = "Տեսախցիկ";
@@ -831,6 +836,9 @@
 "type.man_made.water_tower" = "Ջրաշտարակ";
 "type.man_made.water_well" = "Ջրհոր";
 "type.man_made.water_well.drinking_water_no" = "Ջրհոր";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "Ջրամաքրման կայան";
 "type.man_made.windmill" = "Հողմաղաց";
 "type.man_made.works" = "Գործարան";
 
@@ -978,7 +986,9 @@
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "Հասարակական տրանսպորտ";
-"type.public_transport.platform" = "Հարթակ";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.public_transport.platform" = "Կառամատույց";
 "type.railway" = "Երկաթուղի";
 "type.railway.abandoned" = "Լքված երկաթուղի";
 "type.railway.abandoned.bridge" = "Լքված երկաթուղային կամուրջ";
@@ -1002,7 +1012,7 @@
 "type.railway.narrow_gauge" = "Նեղուղի երկաթգիծ";
 "type.railway.narrow_gauge.bridge" = "Նեղուղի երկաթգծի կամուրջ";
 "type.railway.narrow_gauge.tunnel" = "Նեղուղի երկաթգծի թունել";
-"type.railway.platform" = "Երկաթուղային պլատֆորմ";
+"type.railway.platform" = "Երկաթուղային կառամատույց";
 "type.railway.preserved" = "Պահպանվող երկաթգիծ";
 "type.railway.preserved.bridge" = "Պահպանվող երկաթգծի կամուրջ";
 "type.railway.preserved.tunnel" = "Պահպանվող երկաթգծի թունել";
@@ -1339,6 +1349,9 @@
 "type.shop.greengrocer" = "Մրգի և բանջարեղենի խանութ";
 "type.shop.grocery" = "Մթերային խանութ";
 "type.shop.hairdresser" = "Վարսավիրանոց";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "Տղամարդկանց վարսավիրանոց";
 "type.shop.hardware" = "Շինանյութի խանութ";
 "type.shop.health_food" = "Առողջ սննդի խանութ";
 "type.shop.hearing_aids" = "Լսողական սարքերի խանութ";
@@ -1464,6 +1477,7 @@
 "type.sport.rugby_union" = "Ռեգբի-15";
 "type.sport.running" = "Վազք";
 "type.sport.softball" = "Սոֆթբոլ";
+"type.sport.pilates" = "Պիլատես";
 "type.tourism" = "Զբոսաշրջություն";
 "type.tourism.aquarium" = "Ակվարիում";
 
@@ -1614,6 +1628,9 @@
 "type.man_made.monitoring_station.weather" = "Եղանակի մոնիտորինգի կայան";
 "type.amenity.student_accommodation" = "Ուսանողական հանրակացարան";
 "type.craft.watchmaker" = "Ժամագործ";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "Պատուհանների արտադրություն";
 "type.xmas_feature.market" = "Սուրբ Ծննդյան տոնավաճառ";
 "type.xmas_feature.tree" = "Տոնածառ";
 "type.amenity.hookah_lounge" = "Նարգիլե բար";

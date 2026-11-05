@@ -386,6 +386,8 @@
     <string name="type.highway.pedestrian.bridge">Cầu</string>
     <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.pedestrian.tunnel">Đường hầm</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.highway.platform">Điểm đón trả khách</string>
     <string name="type.highway.primary">Phố</string>
     <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.primary.bridge">Cầu</string>
@@ -578,6 +580,8 @@
     <string name="type.leisure.water_park">Công viên nước</string>
     <string name="type.man_made.chimney">Ống khói nhà máy</string>
     <string name="type.man_made.lighthouse">Hải đăng</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">Bể chứa nước có mái che</string>
     <string name="type.man_made.surveillance">Camera giám sát</string>
     <string name="type.man_made.tower">Tháp</string>
     <!-- A huge telecommunications tower. Often a local monument or a landmark. -->
@@ -593,6 +597,8 @@
     <string name="type.man_made.water_tower">Tháp Nước</string>
     <string name="type.man_made.water_well">Giếng Nước</string>
     <string name="type.man_made.water_well.drinking_water_no">Giếng Nước</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">Nhà máy nước</string>
     <string name="type.man_made.windmill">Cối xay gió</string>
     <string name="type.military.bunker">Boongke</string>
     <string name="type.natural">Tự nhiên</string>
@@ -702,6 +708,8 @@
     <string name="type.power.substation">Trạm biến áp</string>
     <!-- A tower or pylon carrying high voltage electricity cables. -->
     <string name="type.power.tower">Trụ Điện</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.public_transport.platform">Điểm đón trả khách</string>
     <string name="type.railway.disused.tunnel">Hầm đường sắt ngưng sử dụng</string>
     <string name="type.railway.funicular">Đường sắt leo núi</string>
     <string name="type.railway.halt">Đường tàu hỏa</string>
@@ -1024,6 +1032,8 @@
     <string name="type.shop.greengrocer">Cửa hàng rau củ</string>
     <string name="type.shop.grocery">Cửa hàng tạp hóa</string>
     <string name="type.shop.hairdresser">Tiệm làm tóc</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">Tiệm cắt tóc nam</string>
     <string name="type.shop.health_food">Cửa hàng thực phẩm sức khỏe</string>
     <string name="type.shop.hearing_aids">Cửa hàng máy trợ thính</string>
     <string name="type.shop.herbalist">Cửa hàng thảo mộc</string>
@@ -1145,6 +1155,7 @@
     <string name="type.sport.rugby_union">Rugby</string>
     <string name="type.sport.running">Chạy bộ</string>
     <string name="type.sport.softball">Bóng mềm</string>
+    <string name="type.sport.pilates">Pilates</string>
     <string name="type.tourism.aquarium">Bể nuôi cá</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
     <string name="type.tourism.alpine_hut">Nhà nghỉ trên núi</string>
@@ -1246,6 +1257,8 @@
     <string name="type.man_made.monitoring_station.weather">Trạm quan trắc thời tiết</string>
     <string name="type.amenity.student_accommodation">Chỗ ở cho sinh viên</string>
     <string name="type.craft.watchmaker">Thợ đồng hồ</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">Sản xuất cửa sổ</string>
     <string name="type.xmas_feature.market">Chợ Giáng sinh</string>
     <string name="type.xmas_feature.tree">Cây Giáng sinh</string>
     <string name="type.amenity.hookah_lounge">Quán shisha</string>

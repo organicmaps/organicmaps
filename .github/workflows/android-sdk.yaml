@@ -44,6 +44,14 @@ jobs:
         shell: bash
         run: echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
 
+      - name: Verify native libraries in the AAR are stripped
+        shell: bash
+        working-directory: android
+        run: |
+          # AGP must strip native debug symbols before publishing to Maven Central.
+          ./gradlew :sdk:bundleReleaseAar
+          bash ../.github/scripts/check-sdk-aar.sh sdk/build/outputs/aar/sdk-release.aar
+
       - name: Build and deploy the Android SDK to Maven Central
         shell: bash
         working-directory: android

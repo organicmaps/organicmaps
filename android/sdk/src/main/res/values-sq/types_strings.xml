@@ -449,7 +449,8 @@
     <string name="type.highway.pedestrian.bridge">Urë këmbësorësh</string>
     <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.pedestrian.tunnel">Tunel këmbësorësh</string>
-    <string name="type.highway.platform">Platformë</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.highway.platform">Peron</string>
     <string name="type.highway.primary">Rrugë kryesore</string>
     <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.primary.bridge">Urë</string>
@@ -693,6 +694,8 @@
     <string name="type.man_made.pier">Mol</string>
     <string name="type.man_made.pipeline">Tubacion</string>
     <string name="type.man_made.pipeline.overground">Tubacion mbitokësor</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">Rezervuar uji i mbuluar</string>
     <string name="type.man_made.silo">Silo</string>
     <string name="type.man_made.storage_tank">Depozitë</string>
     <string name="type.man_made.surveillance">Kamera vëzhgimi</string>
@@ -711,6 +714,8 @@
     <string name="type.man_made.water_tower">Kullë uji</string>
     <string name="type.man_made.water_well">Pus uji</string>
     <string name="type.man_made.water_well.drinking_water_no">Pus uji</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">Impiant i trajtimit të ujit</string>
     <string name="type.man_made.windmill">Mulli ere</string>
     <string name="type.man_made.works">Uzinë</string>
     <string name="type.military">Ushtria</string>
@@ -838,7 +843,8 @@
     <!-- A single pole supporting various public utilities, such as lighting or telephony. -->
     <string name="type.man_made.utility_pole">Shtyllë utilitare</string>
     <string name="type.public_transport">Transport Publik</string>
-    <string name="type.public_transport.platform">Platformë</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.public_transport.platform">Peron</string>
     <string name="type.railway">Hekurudhë</string>
     <string name="type.railway.abandoned">Hekurudhë e braktisur</string>
     <string name="type.railway.abandoned.bridge">Urë hekurudhore e braktisur</string>
@@ -862,7 +868,7 @@
     <string name="type.railway.narrow_gauge">Hekurudhë me binarë të ngushtë</string>
     <string name="type.railway.narrow_gauge.bridge">Urë hekurudhore e ngushtë</string>
     <string name="type.railway.narrow_gauge.tunnel">Tunel hekurudhor i ngushtë</string>
-    <string name="type.railway.platform">Platformë hekurudhore</string>
+    <string name="type.railway.platform">Peron hekurudhor</string>
     <string name="type.railway.preserved">Hekurudhë e ruajtur</string>
     <string name="type.railway.preserved.bridge">Urë hekurudhore e ruajtur</string>
     <string name="type.railway.preserved.tunnel">Tunel hekurudhor i ruajtur</string>
@@ -1194,6 +1200,8 @@
     <string name="type.shop.greengrocer">Dyqan frutash-perimesh</string>
     <string name="type.shop.grocery">Ushqimore</string>
     <string name="type.shop.hairdresser">Parukeri</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">Berber</string>
     <string name="type.shop.hardware">Knaluri</string>
     <string name="type.shop.health_food">Ushqim i shëndetshëm</string>
     <string name="type.shop.hearing_aids">Aparate dëgjimi</string>
@@ -1317,6 +1325,7 @@
     <string name="type.sport.rugby_union">Ragbi</string>
     <string name="type.sport.running">Vrapim</string>
     <string name="type.sport.softball">Softball</string>
+    <string name="type.sport.pilates">Pilates</string>
     <string name="type.tourism">Turizëm</string>
     <string name="type.tourism.aquarium">Akuarium</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1460,6 +1469,8 @@
     <string name="type.man_made.monitoring_station.weather">Stacion meteorologjik</string>
     <string name="type.amenity.student_accommodation">Konvikt</string>
     <string name="type.craft.watchmaker">Orëndreqës</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">Prodhim dritaresh</string>
     <string name="type.xmas_feature.market">Treg Krishtlindjesh</string>
     <string name="type.xmas_feature.tree">Pema e Krishtlindjeve</string>
     <string name="type.amenity.hookah_lounge">Shisha bar</string>

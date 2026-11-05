@@ -137,7 +137,7 @@ BookmarkManager::SharingResult ExportSingleFileGeoJson(
   auto filePath = base::JoinPath(GetPlatform().TmpDir(), fileName + std::string(kGeoJsonExtension));
   auto const categoryId = kmlToShare.second->m_categoryData.m_id;
   if (!SaveKmlFileSafe(*kmlToShare.second, filePath, FileType::GeoJson))
-    return {{categoryId}, BookmarkManager::SharingResult::Code::FileError, "Bookmarks file does not exist."};
+    return {{categoryId}, BookmarkManager::SharingResult::Code::FileError, "Could not export the list as GeoJSON."};
   return {{categoryId}, std::move(filePath), kGeoJsonMimeType};
 }
 
@@ -1040,7 +1040,10 @@ void BookmarkManager::SetTrackSelectionMark(kml::TrackId trackId, m2::PointD con
 void BookmarkManager::DeleteTrackSelectionMark(kml::TrackId trackId)
 {
   if (trackId == m_selectedTrackId)
+  {
+    SetTrackHighlight(trackId, false);
     m_selectedTrackId = kml::kInvalidTrackId;
+  }
 
   auto const markId = GetTrackSelectionMarkId(trackId);
   if (markId != kml::kInvalidMarkId)
@@ -1082,11 +1085,33 @@ void BookmarkManager::SetTrackSelectionInfo(Track::TrackSelectionInfo const & tr
     m_elevationActivePointChanged(trackSelectionInfo.m_trackId, trackSelectionInfo.m_distFromBegM);
 }
 
+void BookmarkManager::SetTrackHighlight(kml::TrackId trackId, bool selected)
+{
+  Track * track = nullptr;
+  if (trackId == kml::kTempRelationTrackId)
+    track = m_tempRelationTrack.get();
+  else if (auto const it = m_tracks.find(trackId); it != m_tracks.end())
+    track = it->second.get();
+  CHECK(track != nullptr, (trackId));
+  if (track->IsSelected() == selected)
+    return;
+
+  track->SetSelected(selected);
+  // Normal creation notifications read the final selected state into the drape payload.
+  // Avoid a separate update for a line that may still be deleted before the session closes.
+  if (m_changesTracker.GetCreatedLineIds().contains(trackId))
+    return;
+  // Selection must recache geometry without modifying or saving the bookmark category.
+  m_drapeChangesTracker.OnUpdateLineForRendering(trackId, track->GetGroupId());
+}
+
 void BookmarkManager::OnTrackSelected(kml::TrackId trackId)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   auto es = GetEditSession();
+  if (m_selectedTrackId != trackId)
+    OnTrackDeselected();
   ResetTrackInfoMark(trackId);
 
   auto const markId = GetTrackSelectionMarkId(trackId);
@@ -1095,6 +1120,7 @@ void BookmarkManager::OnTrackSelected(kml::TrackId trackId)
   auto * trackSelectionMark = GetMarkForEdit<TrackSelectionMark>(markId);
   trackSelectionMark->SetIsVisible(false);
 
+  SetTrackHighlight(trackId, true);
   m_selectedTrackId = trackId;
 }
 
@@ -1111,6 +1137,7 @@ void BookmarkManager::OnTrackDeselected()
   auto * trackSelectionMark = GetMarkForEdit<TrackSelectionMark>(markId);
   trackSelectionMark->SetIsVisible(false);
 
+  SetTrackHighlight(m_selectedTrackId, false);
   m_selectedTrackId = kml::kInvalidTrackId;
 }
 
@@ -1187,13 +1214,16 @@ std::string BookmarkManager::GenerateSavedRouteName(std::string const & from, st
   return GenerateTrackRecordingName();
 }
 
-kml::TrackId BookmarkManager::SaveRoute(kml::TrackGeometry points, std::string const & from, std::string const & to)
+kml::TrackId BookmarkManager::SaveRoute(kml::TrackGeometry points, std::string const & from, std::string const & to,
+                                        std::vector<kml::TrackStopData> stops, std::string routerType)
 {
   CHECK(!points.empty(), ("Route points should not be empty"));
 
   kml::TrackData trackData;
   trackData.m_geometry.m_lines.push_back(std::move(points));
   trackData.m_geometry.m_timestamps.emplace_back();
+  trackData.m_stops = std::move(stops);
+  trackData.m_routerType = std::move(routerType);
 
   kml::SetDefaultStr(trackData.m_name, GenerateSavedRouteName(from, to));
 
@@ -1224,6 +1254,8 @@ kml::TrackId BookmarkManager::SetTempRelationTrack(kml::TrackData && trackData)
 
   trackData.m_id = kml::kTempRelationTrackId;
   m_tempRelationTrack = std::make_unique<Track>(std::move(trackData));
+  m_tempRelationTrack->Attach(UserMark::TRACK_SELECTION);
+  GetGroup(UserMark::TRACK_SELECTION)->AttachTrack(kml::kTempRelationTrackId);
   m_changesTracker.OnAddLine(kml::kTempRelationTrackId);
   return kml::kTempRelationTrackId;
 }
@@ -1237,6 +1269,7 @@ void BookmarkManager::ClearTempRelationTrack()
   if (!m_tempRelationTrack)
     return;
 
+  GetGroup(UserMark::TRACK_SELECTION)->DetachTrack(kml::kTempRelationTrackId);
   m_changesTracker.OnDeleteLine(kml::kTempRelationTrackId);
   m_tempRelationTrack.reset();
 
@@ -1724,7 +1757,15 @@ m2::RectD BookmarkManager::GetCategoryRect(kml::MarkGroupId categoryId, bool add
   if (category->IsEmpty())
     return categoryRect;
 
-  m2::RectD areasRect;
+  for (auto markId : category->GetUserMarks())
+    categoryRect.Add(GetBookmark(markId)->GetPivot());
+  if (addIconsSize && !category->GetUserMarks().empty())
+  {
+    double const coeff = m_maxBookmarkSymbolSize.y / (m_viewport.PixelRect().SizeY() - m_maxBookmarkSymbolSize.y);
+    categoryRect.Add(categoryRect.LeftTop() + m2::PointD(0.0, categoryRect.SizeY() * coeff));
+  }
+  for (auto trackId : category->GetUserLines())
+    categoryRect.Add(GetTrack(trackId)->GetLimitRect());
   for (auto areaId : category->GetUserAreas())
   {
     auto const * area = GetArea(areaId);
@@ -1732,52 +1773,15 @@ m2::RectD BookmarkManager::GetCategoryRect(kml::MarkGroupId categoryId, bool add
     for (auto const & polygon : area->m_polygons)
     {
       ASSERT_GREATER_OR_EQUAL(polygon.m_outer.size(), 3, (areaId));
-      m2::RectD polygonRect;
-      auto reference = polygon.m_outer.front().m_latLon.m_lon;
       for (auto const & point : polygon.m_outer)
-      {
-        auto projected = mercator::FromLatLon(point.m_latLon);
-        projected.x = mercator::NearestWrapX(projected.x, reference);
-        reference = projected.x;
-        polygonRect.Add(projected);
-      }
-      if (areasRect.IsValid())
-      {
-        auto const center = polygonRect.Center().x;
-        polygonRect.Offset(mercator::NearestWrapX(center, areasRect.Center().x) - center, 0);
-      }
-      areasRect.Add(polygonRect);
+        categoryRect.Add(mercator::FromLatLon(point.m_latLon));
+      // Holes may lie outside their shell.
+      for (auto const & hole : polygon.m_holes)
+        for (auto const & point : hole)
+          categoryRect.Add(mercator::FromLatLon(point.m_latLon));
     }
   }
-
-  // Combine complete polygon bounds and other saved objects in the same world copy.
-  for (auto markId : category->GetUserMarks())
-  {
-    auto const bookmark = GetBookmark(markId);
-    auto pivot = bookmark->GetPivot();
-    if (areasRect.IsValid())
-      pivot.x = mercator::NearestWrapX(pivot.x, areasRect.Center().x);
-    categoryRect.Add(pivot);
-  }
-  if (addIconsSize && !category->GetUserMarks().empty())
-  {
-    double const coeff = m_maxBookmarkSymbolSize.y / (m_viewport.PixelRect().SizeY() - m_maxBookmarkSymbolSize.y);
-    categoryRect.Add(categoryRect.LeftTop() + m2::PointD(0.0, categoryRect.SizeY() * coeff));
-  }
-  for (auto trackId : category->GetUserLines())
-  {
-    auto const track = GetTrack(trackId);
-    auto rect = track->GetLimitRect();
-    if (areasRect.IsValid())
-    {
-      auto const center = rect.Center().x;
-      rect.Offset(mercator::NearestWrapX(center, areasRect.Center().x) - center, 0);
-    }
-    categoryRect.Add(rect);
-  }
-  categoryRect.Add(areasRect);
-
-  return areasRect.IsValid() ? mercator::WrapRectX(categoryRect) : categoryRect;
+  return categoryRect;
 }
 
 kml::CategoryData const & BookmarkManager::GetCategoryData(kml::MarkGroupId categoryId) const
@@ -3023,14 +3027,13 @@ void BookmarkManager::PrepareFileForSharing(kml::GroupIdCollection && categories
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(handler, ());
   // Reject unsupported exports before copying polygon geometry or creating files.
-  if (fileType == FileType::Gpx || fileType == FileType::GeoJson)
+  if (fileType == FileType::Gpx)
   {
     for (auto const groupId : categoriesIds)
     {
       if (!GetAreaIds(groupId).empty())
       {
-        handler(SharingResult({groupId}, SharingResult::Code::FileError,
-                              "Polygon areas can only be exported as KML or KMZ."));
+        handler(SharingResult({groupId}, SharingResult::Code::FileError, "Polygon areas cannot be exported as GPX."));
         return;
       }
     }
@@ -3217,6 +3220,12 @@ void BookmarkManager::MarksChangesTracker::OnUpdateLine(kml::TrackId lineId)
     m_updatedLines.insert(lineId);
 }
 
+void BookmarkManager::MarksChangesTracker::OnUpdateLineForRendering(kml::TrackId lineId, kml::MarkGroupId groupId)
+{
+  OnUpdateLine(lineId);
+  OnUpdateGroup(groupId);
+}
+
 void BookmarkManager::MarksChangesTracker::InsertBookmark(kml::MarkId markId, kml::MarkGroupId catId,
                                                           GroupMarkIdSet & setToInsert, GroupMarkIdSet & setToErase)
 {
@@ -3258,11 +3267,11 @@ void BookmarkManager::MarksChangesTracker::OnAddLine(kml::TrackId lineId)
 
 void BookmarkManager::MarksChangesTracker::OnDeleteLine(kml::TrackId lineId)
 {
-  auto const it = m_createdLines.find(lineId);
-  if (it != m_createdLines.end())
-    m_createdLines.erase(it);
-  else
+  if (m_createdLines.erase(lineId) == 0)
+  {
+    m_updatedLines.erase(lineId);
     m_removedLines.insert(lineId);
+  }
 }
 
 void BookmarkManager::MarksChangesTracker::OnAddGroup(kml::MarkGroupId groupId)

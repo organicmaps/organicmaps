@@ -16,7 +16,7 @@ NAVEGACIÓN GPS: Disfruta de indicaciones por voz, giro a giro. Crea rutas para 
 
 SENDEROS Y RUTAS DE CICLISMO EN TODO EL MUNDO: Activa capas especiales de mapa para descubrir rutas populares de senderismo y ciclismo en todo el mundo, todas provenientes de OpenStreetMap. Cambia entre capas para ver rutas de bicicleta y MTB coloreadas, así como senderos oficiales.
 
-TRANSPORTE PÚBLICO: Consulta los números de las rutas de transporte público en las paradas. Los horarios y rutas en tiempo real están en desarrollo.
+TRANSPORTE PÚBLICO: Planifica rutas de transporte público. Los horarios en tiempo real están en desarrollo.
 
 ESTILOS DE MAPA: Elige capas de mapa que se adapten a tu actividad — Exterior, Líneas de contorno, Senderismo, Ciclismo o Metro.
 
@@ -33,3 +33,5 @@ Organic Maps es un proyecto indie, de código abierto y dirigido por la comunida
 
 Únete a la comunidad en Telegram: @OrganicMapsApp
 O descubre otras formas de apoyar el proyecto: https://organicmaps.app/contribute/
+
+Instagram: @organicmaps.app

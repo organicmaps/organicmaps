@@ -489,7 +489,9 @@
 
 /* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.pedestrian.tunnel" = "Oinezkoen tunela";
-"type.highway.platform" = "Platform";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.highway.platform" = "Nasa";
 "type.highway.primary" = "Errepide nagusia";
 
 /* Default translation for type.highway.*.bridge aliases; individual types can override it. */
@@ -809,6 +811,9 @@
 "type.man_made.pier" = "Pier";
 "type.man_made.pipeline" = "Pipeline";
 "type.man_made.pipeline.overground" = "Overground Pipeline";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "Ur depositu estalia";
 "type.man_made.silo" = "Siloa";
 "type.man_made.storage_tank" = "Storage Tank";
 "type.man_made.surveillance" = "Zaintza Kamera";
@@ -831,6 +836,9 @@
 "type.man_made.water_tower" = "Ur depositua";
 "type.man_made.water_well" = "Ur putzua";
 "type.man_made.water_well.drinking_water_no" = "Ur putzua";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "Ur-araztegia";
 "type.man_made.windmill" = "Haize-errota";
 "type.man_made.works" = "Industrial Works";
 
@@ -978,7 +986,9 @@
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "Garraio publikoa";
-"type.public_transport.platform" = "Platform";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.public_transport.platform" = "Nasa";
 "type.railway" = "Railway";
 "type.railway.abandoned" = "Abandoned Railway";
 "type.railway.abandoned.bridge" = "Abandoned Railway Bridge";
@@ -1339,6 +1349,9 @@
 "type.shop.greengrocer" = "Barazki eta fruta-denda";
 "type.shop.grocery" = "Janariak";
 "type.shop.hairdresser" = "Ile-apaindegia";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "Bizargina";
 "type.shop.hardware" = "Burdindegia";
 "type.shop.health_food" = "Elikagai osasungarrien denda";
 "type.shop.hearing_aids" = "Audiofono denda";
@@ -1464,6 +1477,7 @@
 "type.sport.rugby_union" = "Errugbia";
 "type.sport.running" = "Korrika";
 "type.sport.softball" = "Softball";
+"type.sport.pilates" = "Pilates";
 "type.tourism" = "Turismoa";
 "type.tourism.aquarium" = "Aquariuma";
 
@@ -1614,6 +1628,9 @@
 "type.man_made.monitoring_station.weather" = "Eguraldia Begiratzeko Estazioa";
 "type.amenity.student_accommodation" = "Ikasleentzako ostatua";
 "type.craft.watchmaker" = "Erlojugilea";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "Leihogintza";
 "type.xmas_feature.market" = "Gabonetako Merkatua";
 "type.xmas_feature.tree" = "Gabonetako zuhaitza";
 "type.amenity.hookah_lounge" = "Nargile-taberna";

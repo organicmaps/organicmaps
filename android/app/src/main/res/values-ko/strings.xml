@@ -55,11 +55,11 @@
     <string name="disconnect_usb_cable">Organic Maps를 사용하려면 USB 케이블이나 삽입 메모리 카드를 분리하십시오</string>
     <!-- Used in DownloadResources startup screen -->
     <string name="not_enough_free_space_on_sdcard">앱을 사용하려면 먼저 SD 카드/USB 저장소의 여유 공간을 확보하세요</string>
-    <string name="download_resources">시작하시기 전에 일반 세계 지도를 귀하의 장치로 다운로드하겠습니다.\n%s 데이터가 필요합니다。</string>
+    <string name="download_resources">앱을 사용하기 전에 기기에 세계 개요 지도를 다운로드해 주세요.\n저장 공간 %s가 필요합니다.</string>
     <string name="download_resources_continue">지도로 이동</string>
-    <string name="downloading_country_can_proceed">%s다운로드. 이제지도를 진행할 수 있습니다.</string>
-    <string name="download_country_ask">%s다운로드?</string>
-    <string name="update_country_ask">%s업데이트?</string>
+    <string name="downloading_country_can_proceed">%s 지도를 다운로드 중입니다. 이제 지도로 이동할 수 있습니다.</string>
+    <string name="download_country_ask">%s 지도를 다운로드하시겠습니까?</string>
+    <string name="update_country_ask">%s 지도를 업데이트하시겠습니까?</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
     <string name="pause">중지</string>
     <!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -732,9 +732,9 @@
     <!-- Action that clears the multi-selection in a bookmark list. -->
     <string name="deselect_all">선택 해제</string>
     <string name="select_list">목록 선택</string>
-    <string name="button_layer_isolines">지형</string>
-    <string name="isolines_activation_error_dialog">지형 레이어를 활성화하고 사용하려면 해당 지역의 지도를 업데이트하거나 다운로드하십시오</string>
-    <string name="isolines_location_error_dialog">이 지역의 지형 레이어는 아직 사용할 수 없습니다</string>
+    <string name="button_layer_isolines">등고선</string>
+    <string name="isolines_activation_error_dialog">등고선을 활성화하려면 이 지역의 지도 데이터를 다운로드해야 합니다.</string>
+    <string name="isolines_location_error_dialog">이 지역에서는 아직 등고선을 사용할 수 없습니다.</string>
     <string name="elevation_profile_ascent">올라가기</string>
     <string name="elevation_profile_descent">내려가기</string>
     <string name="elevation_profile_min_elevation">최소 높이</string>
@@ -803,7 +803,7 @@
     <!-- Grant Permissions button. -->
     <string name="aa_grant_permissions">권한 부여</string>
     <!-- Outdoors/hiking map style (activity) name in the Styles and Layers dialog -->
-    <string name="button_layer_outdoor">하이킹</string>
+    <string name="button_layer_outdoor">아웃도어</string>
     <!-- Text displayed when a webview or a browser are disabled, and external links can't be opened. -->
     <string name="browser_not_available">웹 브라우저를 사용할 수 없습니다.</string>
     <string name="volume">볼륨</string>
@@ -830,6 +830,10 @@
     <string name="outdoor_seating">야외 좌석</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">가장 정확한 내비게이션을 위해 휴대폰의 배터리 설정에서 절전 모드를 비활성화하는 것이 좋습니다.</string>
+    <!-- Title of the one-time warning about battery optimization when starting track recording on Android. -->
+    <string name="background_recording_warning_title">백그라운드 트랙 기록 알림</string>
+    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
+    <string name="background_recording_warning_message">화면이 꺼져 있을 때 트랙 기록이 중단되지 않도록 Organic Maps를 배터리 최적화 대상에서 제외해 주세요. Samsung 기기에서는 ‘절전 예외 앱’ 목록에 추가해 주세요.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">트랙 기록</string>
     <!-- Prompt for stopping a track recording. -->

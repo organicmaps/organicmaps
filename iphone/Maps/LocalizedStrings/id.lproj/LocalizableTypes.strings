@@ -489,7 +489,9 @@
 
 /* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.pedestrian.tunnel" = "Terowongan";
-"type.highway.platform" = "Platform";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.highway.platform" = "Peron";
 "type.highway.primary" = "Jalan";
 
 /* Default translation for type.highway.*.bridge aliases; individual types can override it. */
@@ -809,6 +811,9 @@
 "type.man_made.pier" = "Pier";
 "type.man_made.pipeline" = "Pipeline";
 "type.man_made.pipeline.overground" = "Overground Pipeline";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "Reservoir air tertutup";
 "type.man_made.silo" = "Silo";
 "type.man_made.storage_tank" = "Storage Tank";
 "type.man_made.surveillance" = "Kamera Pengawas";
@@ -831,6 +836,9 @@
 "type.man_made.water_tower" = "Menara air";
 "type.man_made.water_well" = "Sumur air";
 "type.man_made.water_well.drinking_water_no" = "Sumur air";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "Instalasi pengolahan air";
 "type.man_made.windmill" = "Kincir angin";
 "type.man_made.works" = "Industrial Works";
 
@@ -978,7 +986,9 @@
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "Public Transport";
-"type.public_transport.platform" = "Platform";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.public_transport.platform" = "Peron";
 "type.railway" = "Railway";
 "type.railway.abandoned" = "Abandoned Railway";
 "type.railway.abandoned.bridge" = "Abandoned Railway Bridge";
@@ -1339,6 +1349,9 @@
 "type.shop.greengrocer" = "Penjual sayuran";
 "type.shop.grocery" = "Kebutuhan sehari-hari";
 "type.shop.hairdresser" = "Penata rambut";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "Tukang cukur";
 "type.shop.hardware" = "Hardware Store";
 "type.shop.health_food" = "Toko Makanan Kesehatan";
 "type.shop.hearing_aids" = "Toko alat bantu dengar";
@@ -1464,6 +1477,7 @@
 "type.sport.rugby_union" = "Rugbi";
 "type.sport.running" = "Lari";
 "type.sport.softball" = "Sofbol";
+"type.sport.pilates" = "Pilates";
 "type.tourism" = "Tourism";
 "type.tourism.aquarium" = "Akuarium";
 
@@ -1614,6 +1628,9 @@
 "type.man_made.monitoring_station.weather" = "Stasiun Pemantauan Cuaca";
 "type.amenity.student_accommodation" = "Akomodasi Mahasiswa";
 "type.craft.watchmaker" = "Pembuat jam tangan";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "Pembuatan jendela";
 "type.xmas_feature.market" = "Pasar Natal";
 "type.xmas_feature.tree" = "Pohon Natal";
 "type.amenity.hookah_lounge" = "Kafe Shisha";

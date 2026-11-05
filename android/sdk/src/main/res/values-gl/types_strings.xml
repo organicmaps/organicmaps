@@ -447,6 +447,7 @@
     <string name="type.highway.pedestrian.bridge">Ponte peonil</string>
     <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.pedestrian.tunnel">Túnel peonil</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
     <string name="type.highway.platform">Plataforma</string>
     <string name="type.highway.primary">Estrada principal</string>
     <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
@@ -689,6 +690,8 @@
     <string name="type.man_made.pier">Peirao</string>
     <string name="type.man_made.pipeline">Ducto</string>
     <string name="type.man_made.pipeline.overground">Ducto ao descuberto</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">Depósito de auga cuberto</string>
     <string name="type.man_made.silo">Silo</string>
     <string name="type.man_made.storage_tank">Cisterna</string>
     <string name="type.man_made.surveillance">Cámara de vixilancia</string>
@@ -707,6 +710,8 @@
     <string name="type.man_made.water_tower">Depósito de auga</string>
     <string name="type.man_made.water_well">Pozo</string>
     <string name="type.man_made.water_well.drinking_water_no">Pozo</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">Planta potabilizadora</string>
     <string name="type.man_made.windmill">Muíño</string>
     <string name="type.man_made.works">Fábrica</string>
     <string name="type.military">Militar</string>
@@ -839,6 +844,7 @@
     <string name="type.psurface.unpaved_bad">psurface-unpaved_bad</string>
     <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
     <string name="type.public_transport">Transporte público</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
     <string name="type.public_transport.platform">Plataforma</string>
     <string name="type.railway">Vía férrea</string>
     <string name="type.railway.abandoned">Vía férrea abandonada</string>
@@ -863,7 +869,7 @@
     <string name="type.railway.narrow_gauge">Vía férrea estreita</string>
     <string name="type.railway.narrow_gauge.bridge">Puente de vía férrea estreita</string>
     <string name="type.railway.narrow_gauge.tunnel">Túnel de vía férrea estreita</string>
-    <string name="type.railway.platform">Plataforma de vía férrea</string>
+    <string name="type.railway.platform">Plataforma ferroviaria</string>
     <string name="type.railway.preserved">Raíl conservado</string>
     <string name="type.railway.preserved.bridge">Ponte ferroviaria conservada</string>
     <string name="type.railway.preserved.tunnel">Túnel ferroviario conservado</string>
@@ -1196,6 +1202,8 @@
     <string name="type.shop.greengrocer">Frutería</string>
     <string name="type.shop.grocery">Tenda de comestibles</string>
     <string name="type.shop.hairdresser">Salón de peiteado</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">Barbería</string>
     <string name="type.shop.hardware">Ferraxería</string>
     <string name="type.shop.health_food">Tenda de comida saudable</string>
     <string name="type.shop.hearing_aids">Tenda de audiófonos</string>
@@ -1318,6 +1326,7 @@
     <string name="type.sport.rugby_union">Rugby</string>
     <string name="type.sport.running">Carreira</string>
     <string name="type.sport.softball">Sóftbol</string>
+    <string name="type.sport.pilates">Pilates</string>
     <string name="type.tourism">Turismo</string>
     <string name="type.tourism.aquarium">Acuario</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1439,4 +1448,6 @@
     <string name="type.leisure.sports_hall">Pavillón deportivo</string>
     <string name="type.sport.diving">Mergullo</string>
     <string name="type.man_made.crane">Guindastre</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">Fabricación de fiestras</string>
 </resources>

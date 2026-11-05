@@ -14,6 +14,8 @@ android {
   }
 
   defaultConfig {
+    consumerProguardFiles 'consumer-rules.pro'
+
     externalNativeBuild {
       def pchFlag = 'OFF'
       if (project.hasProperty('pch')) pchFlag = 'ON'
@@ -128,7 +130,6 @@ project.afterEvaluate {
 }
 
 Publish(project, [
-    'artifactId' : 'sdk',
     'name'       : 'Organic Maps SDK',
     'description': 'An open-source Android library for building fully offline, privacy-respecting map and navigation applications powered by OpenStreetMap data and Organic Maps'
 ])
