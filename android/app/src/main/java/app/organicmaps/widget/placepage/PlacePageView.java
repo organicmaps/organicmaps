@@ -411,9 +411,10 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
 
   private void setCurrentCountry()
   {
-    if (mCurrentCountry != null)
-      return;
     String country = MapManager.nativeGetSelectedCountry();
+    if (mCurrentCountry != null && mCurrentCountry.id.equals(country))
+      return;
+    detachCountry();
     if (country != null && !RoutingController.get().isNavigating())
       attachCountry(country);
   }
@@ -1054,7 +1055,10 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
     if (isInvalidDownloaderStatus(country.status))
     {
       if (mStorageCallbackSlot != 0)
-        UiThread.runLater(this::detachCountry);
+        UiThread.runLater(() -> {
+          if (mCurrentCountry == country && isInvalidDownloaderStatus(country.status))
+            detachCountry();
+        });
       return;
     }
 
@@ -1114,19 +1118,13 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
   {
     if (mapObject == null)
       return;
-    // Starting the download will fire this callback but the object will be the same
-    // Detaching the country in that case will crash the app
-    if (!mapObject.sameAs(mMapObject))
-    {
-      detachCountry();
-      // A null mMapObject is the first delivery after recreation: the activity-scoped view model,
-      // or the core replaying the selection, hands back the object the sheet was opened for, so the
-      // restored sheet is kept. A later switch (e.g. a geo: intent) is real and closes the sheet;
-      // one that coincides with the recreation is indistinguishable here, hence the instanceof
-      // guard in onShareTrackSelected.
-      if (mMapObject != null)
-        dismissTrackShareMenu();
-    }
+    // A null mMapObject is the first delivery after recreation: the activity-scoped view model,
+    // or the core replaying the selection, hands back the object the sheet was opened for, so the
+    // restored sheet is kept. A later switch (e.g. a geo: intent) is real and closes the sheet;
+    // one that coincides with the recreation is indistinguishable here, hence the instanceof
+    // guard in onShareTrackSelected.
+    if (mMapObject != null && !mapObject.sameAs(mMapObject))
+      dismissTrackShareMenu();
     setCurrentCountry();
 
     mMapObject = mapObject;
