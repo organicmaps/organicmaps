@@ -329,6 +329,8 @@
     <string name="trip_finished">Aportesti.</string>
     <!-- max. 10 symbols, both iOS and Android -->
     <string name="sort">Ordenar…</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Nun pudo planificase la ruta</string>
     <string name="editor_add_select_category_all_subtitle">Toles categoríes</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
@@ -436,4 +438,14 @@
     <string name="transit_type_train">Tren</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tranvía</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Navegar</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Entamu del trayeutu</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Final del trayeutu</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">Nun queda trayeutu nesta direición. Esbilla otru puntu.</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">El trayeutu yá nun ta disponible</string>
 </resources>

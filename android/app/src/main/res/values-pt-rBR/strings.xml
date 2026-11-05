@@ -485,6 +485,8 @@
     <string name="moremonth_ago_sorttype">Há mais de um mês</string>
     <string name="moreyear_ago_sorttype">Há mais de um ano</string>
     <string name="near_me_sorttype">Próximo de mim</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Falha no planejamento da rota</string>
     <string name="opens_tomorrow_at">Abre amanhã em %s</string>
     <string name="opens_dayoftheweek_at">Abre %1$s em %2$s</string>
     <string name="opens_at">Abre em %s</string>
@@ -654,4 +656,14 @@
     <string name="transit_type_train">Trem</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Bonde</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Navegar</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Início da trilha</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Fim da trilha</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">Não há mais trilha nesta direção. Selecione outro ponto.</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">A trilha não está mais disponível</string>
 </resources>

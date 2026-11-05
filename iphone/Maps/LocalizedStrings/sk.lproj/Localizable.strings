@@ -1238,7 +1238,7 @@
 "navigate_track" = "Navigovať";
 
 /* Track start point label. */
-"navigate_track_start" = "Začiatok trasy";
+"navigate_track_start" = "Začiatok stopy";
 
 /* Track finish point label. */
-"navigate_track_finish" = "Koniec trasy";
+"navigate_track_finish" = "Koniec stopy";

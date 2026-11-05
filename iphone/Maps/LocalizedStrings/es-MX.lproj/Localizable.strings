@@ -1238,7 +1238,7 @@
 "navigate_track" = "Navegar";
 
 /* Track start point label. */
-"navigate_track_start" = "Inicio del trayecto";
+"navigate_track_start" = "Inicio de la pista";
 
 /* Track finish point label. */
-"navigate_track_finish" = "Fin del trayecto";
+"navigate_track_finish" = "Fin de la pista";

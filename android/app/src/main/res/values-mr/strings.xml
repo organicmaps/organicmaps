@@ -702,6 +702,8 @@
     <string name="moreyear_ago_sorttype">एक वर्षांपूर्वी</string>
     <string name="near_me_sorttype">माझ्या जवळ</string>
     <string name="others_sorttype">इतर</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">मार्ग नियोजन अयशस्वी</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">आता बंद</string>
     <string name="opens_tomorrow_at">उद्या %s ला उघडेल</string>
@@ -939,4 +941,14 @@
     <string name="transit_type_train">ट्रेन</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">ट्राम</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">नेव्हिगेट करा</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">ट्रॅकची सुरुवात</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">ट्रॅकचा शेवट</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">या दिशेने कोणताही ट्रॅक उरलेला नाही. दुसरा बिंदू निवडा.</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">हा ट्रॅक आता उपलब्ध नाही</string>
 </resources>

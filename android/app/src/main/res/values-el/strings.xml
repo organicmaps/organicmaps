@@ -703,6 +703,8 @@
     <string name="moreyear_ago_sorttype">Περισσότερο από ένα χρόνο πριν</string>
     <string name="near_me_sorttype">Δίπλα μου</string>
     <string name="others_sorttype">Άλλα</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Ο σχεδιασμός διαδρομής απέτυχε</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Κλειστό τώρα</string>
     <string name="opens_tomorrow_at">Ανοίγει αύριο στις %s</string>
@@ -948,4 +950,14 @@
     <string name="transit_type_train">Τρένο</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Τραμ</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Πλοήγηση</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Αρχή ίχνους</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Τέλος ίχνους</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">Δεν απομένει ίχνος προς αυτή την κατεύθυνση. Επιλέξτε άλλο σημείο.</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">Το ίχνος δεν είναι πλέον διαθέσιμο</string>
 </resources>
