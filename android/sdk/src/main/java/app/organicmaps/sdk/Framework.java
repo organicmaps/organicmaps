@@ -407,7 +407,7 @@ public class Framework
   public static native void nativeSetVisibleRect(int left, int top, int right, int bottom);
 
   /**
-   * Shows the area between two corners, in WGS84 degrees, as large as it fits in the visible rect set by
+   * Shows the area between two corners, in WGS84 degrees, north up and as large as it fits in the visible rect set by
    * {@link #nativeSetVisibleRect}. It does not stop following the position: call {@link #nativeStopLocationFollow}
    * first.
    */
