@@ -29,3 +29,5 @@ Organic Maps est une application rapide et détaillée de cartes hors ligne et d
 <b>ÉDITEUR DE CARTE :</b> Contribuez à OpenStreetMap en ajoutant des lieux manquants ou en modifiant la carte directement depuis Organic Maps.
 
 <b>MODE SOMBRE :</b> Passez à un thème sombre pour une consultation confortable la nuit.
+
+Rejoignez la communauté sur Telegram : @OrganicMapsFR

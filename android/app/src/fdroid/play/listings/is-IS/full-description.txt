@@ -59,3 +59,5 @@ Leggðu lið við OpenStreetMap með því að bæta við stöðum sem vantar e�
 Skiptu yfir í dökkum stíl til að horfa þægilega á kortið á nóttunni.
 
 Reyndu appið — það er 100% ókeypis, án auglýsinga, hratt og fullkomlega aftengt netinu. Upplifðu áreiðanlega GPS-leiðsögn fyrir gönguferðir, hjólreiðar, fjallgöngur og ferðalög hvar sem er í heiminum! Njóttu hratts, áreiðanlegs og persónulegs kortaupplifunar og deildu henni með öðrum!
+
+Vertu með í samfélaginu á Telegram: @OrganicMaps
