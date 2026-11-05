@@ -829,14 +829,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
     // available instead, without changing the saved preference.
     final CoordinatesFormatEntry[] entries =
         Framework.nativeGetCoordinateFormats(mMapObject.getLat(), mMapObject.getLon());
-    setLatLonText(entries[effectiveIndex(entries)].getDisplay());
+    mTvLatlon.setText(entries[effectiveIndex(entries)].getDisplay());
     UiUtils.hideIf(mMapObject.isTrackRecording() || mMapObject.isTrack(), mFrame.findViewById(R.id.ll__place_latlon));
-  }
-
-  private void setLatLonText(@NonNull String coordinates)
-  {
-    final String elevation = mMapObject.getFormattedTerrainElevation();
-    mTvLatlon.setText(elevation.isEmpty() ? coordinates : coordinates + "  ▲ " + elevation);
   }
 
   private void addOrganisation()
@@ -887,7 +881,7 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
       final CoordinatesFormatEntry next = entries[(effectiveIndex(entries) + 1) % entries.length];
       mCoordsFormatId = next.getId();
       MwmApplication.prefs(context).edit().putInt(PREF_COORDINATES_FORMAT, mCoordsFormatId).apply();
-      setLatLonText(next.getDisplay());
+      mTvLatlon.setText(next.getDisplay());
     }
     else if (id == R.id.ll__place_open_in)
     {

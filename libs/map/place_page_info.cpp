@@ -561,14 +561,14 @@ std::string Info::GetFormattedTerrainElevation() const
 
 std::string Info::GetPreviewSubtitle() const
 {
-  if (!m_terrainElevation)
+  // The OSM elevation is already in the subtitle and has priority.
+  if (!m_terrainElevation || !GetMetadata(MetadataID::FMD_ELE).empty())
     return m_uiSubtitle;
 
-  // At the selection point: the tap inside an area, not its center.
-  auto coordinates = ValueDecimal(GetLatLon());
-  if (!m_uiSubtitle.empty() && m_uiSubtitle != coordinates)
-    return m_uiSubtitle;
-  return coordinates.append("  ▲ ").append(GetFormattedTerrainElevation());
+  auto subtitle = m_uiSubtitle;
+  if (!subtitle.empty())
+    subtitle += feature::kFieldsSeparator;
+  return subtitle.append(feature::FormatElevation(*m_terrainElevation));
 }
 
 void Info::SetRoadType(RoadWarningMarkType type, std::string const & localizedType, std::string const & distance)

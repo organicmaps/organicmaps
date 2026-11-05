@@ -142,9 +142,6 @@ NSString * GetLocalizedMetadataValueString(MapObject::MetadataID metaID, std::st
     for (auto const format : place_page::AllCoordinateFormats())
       [coordFormats addObject:@(rawData.GetFormattedCoordinate(format).c_str())];
     _coordFormats = [coordFormats copy];
-    auto const terrainElevation = rawData.GetFormattedTerrainElevation();
-    if (!terrainElevation.empty())
-      _formattedTerrainElevation = ToNSString(terrainElevation);
   }
   return self;
 }

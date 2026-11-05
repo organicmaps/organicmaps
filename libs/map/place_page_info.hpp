@@ -184,9 +184,8 @@ public:
   std::optional<double> GetTerrainElevation() const { return m_terrainElevation; }
   std::string GetFormattedTerrainElevation() const;
   void SetTerrainElevation(std::optional<double> elevation) { m_terrainElevation = elevation; }
-  // The subtitle to display only: a place without one of its own (an unmatched point, an unnamed
-  // forest) shows the coordinates and the terrain elevation. GetSubtitle() stays free of them for
-  // the route points, the saved routes and the shared text.
+  // The subtitle to display only: adds the terrain elevation when there is no OSM one. GetSubtitle()
+  // stays free of it for the route points, the saved routes and the shared text.
   std::string GetPreviewSubtitle() const;
 
   /// UI setters

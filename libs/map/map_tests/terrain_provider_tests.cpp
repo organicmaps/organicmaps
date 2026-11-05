@@ -12,6 +12,7 @@
 
 #include "storage/storage.hpp"
 
+#include "indexer/feature_utils.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/terrain/terrain_reader.hpp"
 #include "indexer/terrain/terrain_serdes.hpp"
@@ -407,16 +408,16 @@ UNIT_CLASS_TEST(VisualParamsFixture, Framework_RealTerrainPlacePage)
   TEST_ALMOST_EQUAL_ABS(*info.GetTerrainElevation(), kElevationSamples[1].m_altitude, kElevationSamples[1].m_maxError,
                         ());
   TEST(!info.GetFormattedTerrainElevation().empty(), ());
-  // An unmatched point also shows it next to the coordinates, for display only: the subtitle
-  // becomes a route point description, a route mark label and a CarPlay address.
-  TEST_EQUAL(info.GetPreviewSubtitle(), coordinates + "  ▲ " + info.GetFormattedTerrainElevation(), ());
+  // For display only: the subtitle becomes a route point description, a route mark label and a CarPlay address.
+  TEST_EQUAL(info.GetPreviewSubtitle(), coordinates + " • " + feature::FormatElevation(*info.GetTerrainElevation()),
+             ());
   TEST_EQUAL(info.GetSubtitle(), coordinates, ());
 
-  // A replaced subtitle (like the postcode search result) keeps its text.
+  // A replaced subtitle (like the postcode search result) gets it too.
   auto postcode = info;
   postcode.SetCustomNames("06000", "Postal code");
   postcode.SetTerrainElevation(100.0);
-  TEST_EQUAL(postcode.GetPreviewSubtitle(), "Postal code", ());
+  TEST_EQUAL(postcode.GetPreviewSubtitle(), "Postal code • " + feature::FormatElevation(100.0), ());
   TEST_EQUAL(postcode.GetSubtitle(), "Postal code", ());
 
   build.m_mercator = {0, 0};
@@ -426,7 +427,7 @@ UNIT_CLASS_TEST(VisualParamsFixture, Framework_RealTerrainPlacePage)
   TEST(framework.GetCurrentPlacePageInfo().GetSubtitle().find("▲") == std::string::npos, ());
 }
 
-// A place without a subtitle of its own stays without it when no terrain covers the point.
+// A place without a subtitle of its own shows only the terrain elevation, when terrain covers the point.
 UNIT_TEST(PlacePage_PreviewSubtitle)
 {
   place_page::Info info;
@@ -439,13 +440,13 @@ UNIT_TEST(PlacePage_PreviewSubtitle)
 
   info.SetTerrainElevation(125.0);
   TEST(info.GetSubtitle().empty(), ());
-  auto const preview = info.GetPreviewSubtitle();
-  TEST(preview.starts_with("43.7, 7.2"), (preview));
-  TEST(preview.ends_with("  ▲ " + info.GetFormattedTerrainElevation()), (preview));
+  TEST_EQUAL(info.GetPreviewSubtitle(), feature::FormatElevation(125.0), ());
+  info.SetTerrainElevation(0.0);
+  TEST_EQUAL(info.GetPreviewSubtitle(), feature::FormatElevation(0.0), ());
 }
 
-// An unnamed area (like a forest) has no subtitle of its own: it shows the same coordinates and elevation
-// as the empty map at the tap point, not at the area's center.
+// An unnamed area (like a forest) has no subtitle of its own: it shows the elevation at the tap point,
+// not at the area's center.
 UNIT_CLASS_TEST(VisualParamsFixture, Framework_RealTerrainUnnamedAreaPlacePage)
 {
   ElevationTestFramework framework;
@@ -456,8 +457,8 @@ UNIT_CLASS_TEST(VisualParamsFixture, Framework_RealTerrainUnnamedAreaPlacePage)
   build.m_match = place_page::BuildInfo::Match::Nothing;
   build.m_mercator = tap;
   framework.BuildAndSetPlacePageInfo(build);
-  auto const emptyMapSubtitle = framework.GetCurrentPlacePageInfo().GetPreviewSubtitle();
-  TEST(emptyMapSubtitle.find("▲") != std::string::npos, (emptyMapSubtitle));
+  auto const tapElevation = framework.GetCurrentPlacePageInfo().GetTerrainElevation();
+  TEST(tapElevation, ());
 
   platform::LocalCountryFile country(GetPlatform().WritableDir(), platform::CountryFile("TerrainAreaLand"),
                                      0 /* version */);
@@ -476,7 +477,7 @@ UNIT_CLASS_TEST(VisualParamsFixture, Framework_RealTerrainUnnamedAreaPlacePage)
   framework.BuildAndSetPlacePageInfo(build);
   auto const & info = framework.GetCurrentPlacePageInfo();
   TEST(info.IsFeature(), ());
-  TEST_EQUAL(info.GetPreviewSubtitle(), emptyMapSubtitle, ());
+  TEST_EQUAL(info.GetPreviewSubtitle(), feature::FormatElevation(*tapElevation), ());
   TEST(info.GetSubtitle().empty(), (info.GetSubtitle()));
 
   // Windows cannot delete the map while it is still registered, i.e. open.
@@ -485,7 +486,7 @@ UNIT_CLASS_TEST(VisualParamsFixture, Framework_RealTerrainUnnamedAreaPlacePage)
   country.DeleteFromDisk(MapFileType::Map);
 }
 
-// The place page shows both the OSM and the terrain elevation, to compare the data.
+// The OSM elevation has priority over the terrain one.
 UNIT_CLASS_TEST(VisualParamsFixture, Framework_OsmAndTerrainElevations)
 {
   ElevationTestFramework framework;
@@ -514,7 +515,8 @@ UNIT_CLASS_TEST(VisualParamsFixture, Framework_OsmAndTerrainElevations)
   auto const & info = framework.GetCurrentPlacePageInfo();
   TEST(info.IsFeature(), ());
   TEST(info.GetTerrainElevation(), ());
-  TEST(info.GetSubtitle().find("▲") != std::string::npos, (info.GetSubtitle()));
+  TEST(info.GetSubtitle().find(feature::FormatElevation("4810")) != std::string::npos, (info.GetSubtitle()));
+  TEST_EQUAL(info.GetPreviewSubtitle(), info.GetSubtitle(), ());
 
   framework.DeregisterAllMaps();
   platform::CountryIndexes::DeleteFromDisk(country);

@@ -16,16 +16,13 @@ import org.junit.Test;
 public class MapObjectTest
 {
   @Test
-  public void terrainElevationSurvivesParcelWithoutChangingSelectionIdentity() throws Exception
+  public void previewSubtitleSurvivesParcelWithoutChangingSelectionIdentity() throws Exception
   {
     MapObject point = MapObject.createMapObject(MapObject.POI, "Point", "", 43.7, 7.2);
-    assertEquals("", point.getFormattedTerrainElevation());
-    Field elevation = MapObject.class.getDeclaredField("mFormattedTerrainElevation");
-    elevation.setAccessible(true);
-    elevation.set(point, "125 m");
+    assertEquals("", point.getPreviewSubtitle());
     Field previewSubtitle = MapObject.class.getDeclaredField("mPreviewSubtitle");
     previewSubtitle.setAccessible(true);
-    previewSubtitle.set(point, "43.7, 7.2  ▲ 125 m");
+    previewSubtitle.set(point, "43.7, 7.2 • ▲125 m");
     assertTrue(point.sameAs(MapObject.createMapObject(MapObject.POI, "Point", "", 43.7, 7.2)));
 
     Parcel parcel = mock(Parcel.class);
@@ -42,8 +39,7 @@ public class MapObjectTest
     when(parcel.readDouble()).thenReturn(43.7, 7.2);
 
     MapObject restored = MapObject.CREATOR.createFromParcel(parcel);
-    assertEquals("125 m", restored.getFormattedTerrainElevation());
-    assertEquals("43.7, 7.2  ▲ 125 m", restored.getPreviewSubtitle());
+    assertEquals("43.7, 7.2 • ▲125 m", restored.getPreviewSubtitle());
     assertEquals(point.getTitle(), restored.getTitle());
     assertEquals(point.getLat(), restored.getLat(), 0);
     assertEquals(point.getLon(), restored.getLon(), 0);

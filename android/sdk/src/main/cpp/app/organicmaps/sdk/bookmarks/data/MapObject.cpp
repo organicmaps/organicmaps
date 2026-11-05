@@ -112,10 +112,6 @@ static jobject CreateMapObjectImpl(JNIEnv * env, place_page::Info const & info)
 jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
 {
   jobject const mapObject = CreateMapObjectImpl(env, info);
-  static jfieldID const elevationId =
-      env->GetFieldID(g_mapObjectClazz, "mFormattedTerrainElevation", "Ljava/lang/String;");
-  jni::TScopedLocalRef const elevation(env, jni::ToJavaString(env, info.GetFormattedTerrainElevation()));
-  env->SetObjectField(mapObject, elevationId, elevation.get());
   static jfieldID const previewSubtitleId = env->GetFieldID(g_mapObjectClazz, "mPreviewSubtitle", "Ljava/lang/String;");
   jni::TScopedLocalRef const previewSubtitle(env,
                                              jni::ToJavaStringWithSupplementalCharsFix(env, info.GetPreviewSubtitle()));

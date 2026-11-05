@@ -26,7 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly, nullable) NSString * ppOperator;
 @property(nonatomic, readonly, nullable) NSString * address;
 @property(nonatomic, readonly, nullable) NSArray * coordFormats;
-@property(nonatomic, readonly, nullable) NSString * formattedTerrainElevation;
 @property(nonatomic, readonly, nullable) NSString * wifiAvailable;
 @property(nonatomic, readonly, nullable) NSString * level;
 @property(nonatomic, readonly, nullable) NSString * atm;
