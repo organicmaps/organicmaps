@@ -614,28 +614,6 @@ public class RoutingController
     return result;
   }
 
-  /**
-   * Rebuilds the followed track in the opposite direction.
-   *
-   * @return anything but {@link FollowTrackResult#Ok} (e.g. the followed track has been deleted
-   *         meanwhile) leaves the current session untouched.
-   */
-  @NonNull
-  public FollowTrackResult reverseFollowedTrack()
-  {
-    Logger.d(TAG, "reverseFollowedTrack");
-    final FollowTrackResult result = FollowTrackResult.valueOf(Framework.nativeReverseFollowedTrack());
-    if (result == FollowTrackResult.Ok)
-      enterTrackFollowPlanning();
-    return result;
-  }
-
-  /** Whether the planner can offer Reverse; the core rechecks the live session when activated. */
-  public boolean canReverseFollowedTrack()
-  {
-    return isFollowingTrack() && isPlanning() && isBuilt();
-  }
-
   public boolean isFollowingTrack()
   {
     return Framework.nativeIsFollowingTrack();
@@ -652,7 +630,7 @@ public class RoutingController
   @NonNull
   public FollowTrackResult setFollowTrackProfile(@NonNull Router router)
   {
-    // A follow rebuild (reverse or an earlier profile tap) is still in flight: ignore rapid
+    // A follow rebuild (an earlier profile tap) is still in flight: ignore rapid
     // taps instead of stacking teardown/rebuild cycles.
     if (isBuilding() || router == Router.getRender())
       return FollowTrackResult.Ok;
@@ -701,8 +679,8 @@ public class RoutingController
     updatePlan();
   }
 
-  // There are no route marks while following a track (the track defines the route), so the
-  // planning panel is shown point-less.
+  // A followed track has no route marks (the track defines the route), so planning starts
+  // point-less and the planning panel shows fixed rows for the followed track instead.
   private void enterTrackFollowPlanning()
   {
     setState(State.PREPARE);
