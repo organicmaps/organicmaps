@@ -2028,155 +2028,155 @@ type highway-living_street-tunnel
     path_text primary[height=15 color=#00333333/#008C8C8C stroke=#00FFFFFF/#00060600] priority=2350
 type highway-motorway
   z6
-    line width=0.9 color=#B3FF9140/#B37A4A2F join=bevel cap=butt priority=250
+    line width=0.9 color=#B3024066/#B3002D49 join=bevel cap=butt priority=250
   z7
-    line width=1.05 color=#4DFF9140/#4D7A4A2F join=bevel cap=butt priority=250
+    line width=1.05 color=#4D024066/#4D002D49 join=bevel cap=butt priority=250
   z8
-    line width=1.25 color=#4DFF9140/#4D7A4A2F join=bevel cap=butt priority=250
+    line width=1.25 color=#4D024066/#4D002D49 join=bevel cap=butt priority=250
   z9
-    line width=1.4 color=#4DFF9140/#4D7A4A2F join=bevel cap=butt priority=250
+    line width=1.4 color=#4D024066/#4D002D49 join=bevel cap=butt priority=250
   z10
-    line width=2.5 color=#4DFF9140/#4D7A4A2F join=bevel cap=butt priority=250
+    line width=2.5 color=#4D024066/#4D002D49 join=bevel cap=butt priority=250
     path_text primary[height=13 color=#00333333/#008C8C8C stroke=#1AFFFFFF/#1A060600] priority=4350
     shield height=9 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4360 min_distance=30
   z11
-    line width=3.5 color=#4DFF9140/#4D7A4A2F join=bevel cap=butt priority=250
+    line width=3.5 color=#4D024066/#4D002D49 join=bevel cap=butt priority=250
     path_text primary[height=13 color=#00333333/#008C8C8C stroke=#1AFFFFFF/#1A060600] priority=4350
     shield height=9 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4360 min_distance=60
   z12
-    line width=3.7 color=#00FF9140/#007A4A2F join=bevel cap=butt priority=250
+    line width=3.7 color=#00024066/#00002D49 join=bevel cap=butt priority=250
     path_text primary[height=15 color=#00333333/#008C8C8C stroke=#1AFFFFFF/#1A060600] priority=4350
     shield height=9 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4360 min_distance=100
   z13
-    line width=4.6 color=#00FF9140/#007A4A2F join=round cap=butt priority=250
+    line width=4.6 color=#00024066/#00002D49 join=round cap=butt priority=250
     path_text primary[height=15 color=#00333333/#008C8C8C stroke=#1AFFFFFF/#1A060600] priority=4350
     shield height=9 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4360 min_distance=120
   z14
     line width=6.4 color=#4DF5F3E4/#4D252525 join=round cap=butt priority=249
-    line width=4.9 color=#00FF9140/#007A4A2F join=round cap=butt priority=250
+    line width=4.9 color=#00024066/#00002D49 join=round cap=butt priority=250
     path_text primary[height=16 color=#00333333/#00888888 stroke=#1AFFFFFF/#1A060600] priority=4350
     shield height=9 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4360 min_distance=175
   z15
     line width=7.7 color=#4DF5F3E4/#4D252525 join=round cap=butt priority=249
-    line width=6 color=#00FF9140/#007A4A2F join=round cap=butt priority=250
+    line width=6 color=#00024066/#00002D49 join=round cap=butt priority=250
     path_text primary[height=16 color=#00333333/#00888888 stroke=#1AFFFFFF/#1A060600] priority=4350
     shield height=9 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4360 min_distance=250
   z16
     line width=11.2 color=#4DF5F3E4/#4D252525 join=round cap=butt priority=249
-    line width=9 color=#00FF9140/#007A4A2F join=round cap=round priority=250
+    line width=9 color=#00024066/#00002D49 join=round cap=round priority=250
     path_text primary[height=18 color=#00333333/#00888888 stroke=#1AFFFFFF/#1A060600] priority=4350
     shield height=9 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4360 min_distance=300
   z17
     line width=17.2 color=#4DF5F3E4/#4D252525 join=round cap=butt priority=249
-    line width=15 color=#00FF9140/#007A4A2F join=round cap=round priority=250
+    line width=15 color=#00024066/#00002D49 join=round cap=round priority=250
     path_text primary[height=19 color=#00333333/#00888888 stroke=#00FFFFFF/#00060600] priority=4350
     shield height=10 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4360 min_distance=350
   z18
     line width=27.7 color=#4DF5F3E4/#4D252525 join=round cap=butt priority=249
-    line width=25 color=#00FF9140/#007A4A2F join=round cap=round priority=250
+    line width=25 color=#00024066/#00002D49 join=round cap=round priority=250
     path_text primary[height=20 color=#00333333/#00888888 stroke=#00FFFFFF/#00060600] priority=4350
     shield height=10 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4360 min_distance=350
   z19
     line width=37 color=#4DF5F3E4/#4D252525 join=round cap=butt priority=249
-    line width=34 color=#00FF9140/#007A4A2F join=round cap=round priority=250
+    line width=34 color=#00024066/#00002D49 join=round cap=round priority=250
     path_text primary[height=20 color=#00333333/#00888888 stroke=#00FFFFFF/#00060600] priority=4350
     shield height=11 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4360 min_distance=350
   z20
     line width=37 color=#4DF5F3E4/#4D252525 join=round cap=butt priority=249
-    line width=34 color=#00FF9140/#007A4A2F join=round cap=round priority=250
+    line width=34 color=#00024066/#00002D49 join=round cap=round priority=250
     path_text primary[height=20 color=#00333333/#00888888 stroke=#00FFFFFF/#00060600] priority=4350
     shield height=11 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4360 min_distance=350
 type highway-motorway-bridge
   z6
-    line width=0.9 color=#B3FF9140/#B37A4A2F join=bevel cap=butt priority=250
+    line width=0.9 color=#B3024066/#B3002D49 join=bevel cap=butt priority=250
   z7
-    line width=1.05 color=#4DFF9140/#4D7A4A2F join=bevel cap=butt priority=250
+    line width=1.05 color=#4D024066/#4D002D49 join=bevel cap=butt priority=250
   z8
-    line width=1.25 color=#4DFF9140/#4D7A4A2F join=bevel cap=butt priority=250
+    line width=1.25 color=#4D024066/#4D002D49 join=bevel cap=butt priority=250
   z9
-    line width=1.4 color=#4DFF9140/#4D7A4A2F join=bevel cap=butt priority=250
+    line width=1.4 color=#4D024066/#4D002D49 join=bevel cap=butt priority=250
   z10
-    line width=2.5 color=#4DFF9140/#4D7A4A2F join=bevel cap=butt priority=250
+    line width=2.5 color=#4D024066/#4D002D49 join=bevel cap=butt priority=250
     path_text primary[height=13 color=#00333333/#008C8C8C stroke=#1AFFFFFF/#1A060600] priority=4350
     shield height=9 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4360 min_distance=30
   z11
-    line width=3.5 color=#4DFF9140/#4D7A4A2F join=bevel cap=butt priority=250
+    line width=3.5 color=#4D024066/#4D002D49 join=bevel cap=butt priority=250
     path_text primary[height=13 color=#00333333/#008C8C8C stroke=#1AFFFFFF/#1A060600] priority=4350
     shield height=9 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4360 min_distance=60
   z12
-    line width=3.7 color=#00FF9140/#007A4A2F join=bevel cap=butt priority=250
+    line width=3.7 color=#00024066/#00002D49 join=bevel cap=butt priority=250
     path_text primary[height=15 color=#00333333/#008C8C8C stroke=#1AFFFFFF/#1A060600] priority=4350
     shield height=9 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4360 min_distance=100
   z13
     line width=10 color=#4D808080/#4D252525 join=round cap=butt priority=100
     line width=9.6 color=#33E5E4D5/#33121212 join=round cap=butt priority=110
-    line width=4.6 color=#00FF9140/#007A4A2F join=round cap=butt priority=250
+    line width=4.6 color=#00024066/#00002D49 join=round cap=butt priority=250
     path_text primary[height=15 color=#00333333/#008C8C8C stroke=#1AFFFFFF/#1A060600] priority=4350
     shield height=9 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4360 min_distance=120
   z14
     line width=10.6 color=#4D808080/#4D252525 join=round cap=butt priority=100
     line width=9.8 color=#33E5E4D5/#33121212 join=round cap=butt priority=110
     line width=6.4 color=#4DF5F3E4/#4D252525 join=round cap=butt priority=249
-    line width=4.9 color=#00FF9140/#007A4A2F join=round cap=butt priority=250
+    line width=4.9 color=#00024066/#00002D49 join=round cap=butt priority=250
     path_text primary[height=16 color=#00333333/#00888888 stroke=#1AFFFFFF/#1A060600] priority=4350
     shield height=9 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4360 min_distance=175
   z15
     line width=12.8 color=#4D808080/#4D252525 join=round cap=butt priority=100
     line width=12 color=#33E5E4D5/#33121212 join=round cap=butt priority=110
     line width=7.7 color=#4DF5F3E4/#4D252525 join=round cap=butt priority=249
-    line width=6 color=#00FF9140/#007A4A2F join=round cap=butt priority=250
+    line width=6 color=#00024066/#00002D49 join=round cap=butt priority=250
     path_text primary[height=16 color=#00333333/#00888888 stroke=#1AFFFFFF/#1A060600] priority=4350
     shield height=9 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4360 min_distance=250
   z16
     line width=18.8 color=#4D808080/#4D252525 join=round cap=butt priority=100
     line width=18 color=#33E5E4D5/#33121212 join=round cap=butt priority=110
     line width=11.2 color=#4DF5F3E4/#4D252525 join=round cap=butt priority=249
-    line width=9 color=#00FF9140/#007A4A2F join=round cap=round priority=250
+    line width=9 color=#00024066/#00002D49 join=round cap=round priority=250
     path_text primary[height=18 color=#00333333/#00888888 stroke=#1AFFFFFF/#1A060600] priority=4350
     shield height=9 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4360 min_distance=300
   z17
     line width=33.2 color=#4D808080/#4D252525 join=round cap=butt priority=100
     line width=31.6 color=#33E5E4D5/#33121212 join=round cap=butt priority=110
     line width=17.2 color=#4DF5F3E4/#4D252525 join=round cap=butt priority=249
-    line width=15 color=#00FF9140/#007A4A2F join=round cap=round priority=250
+    line width=15 color=#00024066/#00002D49 join=round cap=round priority=250
     path_text primary[height=19 color=#00333333/#00888888 stroke=#00FFFFFF/#00060600] priority=4350
     shield height=10 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4360 min_distance=350
   z18
     line width=54 color=#4D808080/#4D252525 join=round cap=butt priority=100
     line width=52 color=#33E5E4D5/#33121212 join=round cap=butt priority=110
     line width=27.7 color=#4DF5F3E4/#4D252525 join=round cap=butt priority=249
-    line width=25 color=#00FF9140/#007A4A2F join=round cap=round priority=250
+    line width=25 color=#00024066/#00002D49 join=round cap=round priority=250
     path_text primary[height=20 color=#00333333/#00888888 stroke=#00FFFFFF/#00060600] priority=4350
     shield height=10 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4360 min_distance=350
   z19
     line width=72 color=#4D808080/#4D252525 join=round cap=butt priority=100
     line width=70 color=#33E5E4D5/#33121212 join=round cap=butt priority=110
     line width=37 color=#4DF5F3E4/#4D252525 join=round cap=butt priority=249
-    line width=34 color=#00FF9140/#007A4A2F join=round cap=round priority=250
+    line width=34 color=#00024066/#00002D49 join=round cap=round priority=250
     path_text primary[height=20 color=#00333333/#00888888 stroke=#00FFFFFF/#00060600] priority=4350
     shield height=11 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4360 min_distance=350
   z20
     line width=72 color=#4D808080/#4D252525 join=round cap=butt priority=100
     line width=70 color=#33E5E4D5/#33121212 join=round cap=butt priority=110
     line width=37 color=#4DF5F3E4/#4D252525 join=round cap=butt priority=249
-    line width=34 color=#00FF9140/#007A4A2F join=round cap=round priority=250
+    line width=34 color=#00024066/#00002D49 join=round cap=round priority=250
     path_text primary[height=20 color=#00333333/#00888888 stroke=#00FFFFFF/#00060600] priority=4350
     shield height=11 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4360 min_distance=350
 type highway-motorway-tunnel
   z6
-    line width=0.9 color=#B3FF9140/#B37A4A2F join=bevel cap=butt priority=250
+    line width=0.9 color=#B3024066/#B3002D49 join=bevel cap=butt priority=250
   z7
-    line width=1.05 color=#4DFF9140/#4D7A4A2F join=bevel cap=butt priority=250
+    line width=1.05 color=#4D024066/#4D002D49 join=bevel cap=butt priority=250
   z8
-    line width=1.25 color=#4DFF9140/#4D7A4A2F join=bevel cap=butt priority=250
+    line width=1.25 color=#4D024066/#4D002D49 join=bevel cap=butt priority=250
   z9
-    line width=1.4 color=#4DFF9140/#4D7A4A2F join=bevel cap=butt priority=250
+    line width=1.4 color=#4D024066/#4D002D49 join=bevel cap=butt priority=250
   z10
-    line width=2.5 color=#4DFF9140/#4D7A4A2F join=bevel cap=butt priority=250
+    line width=2.5 color=#4D024066/#4D002D49 join=bevel cap=butt priority=250
     path_text primary[height=13 color=#00333333/#008C8C8C stroke=#1AFFFFFF/#1A060600] priority=4350
     shield height=9 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4360 min_distance=30
   z11
-    line width=3.5 color=#4DFF9140/#4D7A4A2F join=bevel cap=butt priority=250
+    line width=3.5 color=#4D024066/#4D002D49 join=bevel cap=butt priority=250
     path_text primary[height=13 color=#00333333/#008C8C8C stroke=#1AFFFFFF/#1A060600] priority=4350
     shield height=9 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4360 min_distance=60
   z12
@@ -2239,133 +2239,133 @@ type highway-motorway_junction
     caption primary[height=10 color=#00333333/#00555555] priority=4200
 type highway-motorway_link
   z10
-    line width=1.3 color=#4DFF9140/#4D7A4A2F join=bevel cap=butt priority=168
+    line width=1.3 color=#4D024066/#4D002D49 join=bevel cap=butt priority=168
     path_text primary[height=13 color=#00333333/#008C8C8C stroke=#1AFFFFFF/#1A060600] priority=4250
     shield height=9 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4240 min_distance=30
   z11
-    line width=2 color=#4DFF9140/#4D7A4A2F join=bevel cap=butt priority=168
+    line width=2 color=#4D024066/#4D002D49 join=bevel cap=butt priority=168
     path_text primary[height=13 color=#00333333/#008C8C8C stroke=#1AFFFFFF/#1A060600] priority=4250
     shield height=9 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4240 min_distance=60
   z12
-    line width=2.5 color=#4DFF9140/#4D7A4A2F join=bevel cap=butt priority=168
+    line width=2.5 color=#4D024066/#4D002D49 join=bevel cap=butt priority=168
     path_text primary[height=15 color=#00333333/#008C8C8C stroke=#1AFFFFFF/#1A060600] priority=4250
     shield height=9 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4240 min_distance=100
   z13
-    line width=2.8 color=#4DFF9140/#4D7A4A2F join=round cap=butt priority=168
+    line width=2.8 color=#4D024066/#4D002D49 join=round cap=butt priority=168
     path_text primary[height=15 color=#00333333/#008C8C8C stroke=#1AFFFFFF/#1A060600] priority=4250
     shield height=9 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4240 min_distance=120
   z14
     line width=4.27 color=#4DF5F3E4/#4D252525 join=round cap=butt priority=167
-    line width=3.37 color=#4DFF9140/#4D7A4A2F join=round cap=butt priority=168
+    line width=3.37 color=#4D024066/#4D002D49 join=round cap=butt priority=168
     path_text primary[height=13 color=#00333333/#008C8C8C stroke=#1AEDEBDB/#1A111100] priority=4250
     shield height=9 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4240 min_distance=175
   z15
     line width=6.1 color=#4DF5F3E4/#4D252525 join=round cap=butt priority=167
-    line width=5 color=#00FF9140/#007A4A2F join=round cap=butt priority=168
+    line width=5 color=#00024066/#00002D49 join=round cap=butt priority=168
     path_text primary[height=14 color=#00333333/#008C8C8C stroke=#1AEDEBDB/#1A111100] priority=4250
     shield height=9 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4240 min_distance=250
   z16
     line width=8.8 color=#4DF5F3E4/#4D252525 join=round cap=butt priority=167
-    line width=7.2 color=#4DFF9140/#4D7A4A2F join=round cap=round priority=168
+    line width=7.2 color=#4D024066/#4D002D49 join=round cap=round priority=168
     path_text primary[height=15 color=#00333333/#008C8C8C stroke=#1AFFFFFF/#1A060600] priority=4250
     shield height=9 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4240 min_distance=300
   z17
     line width=14 color=#4DF5F3E4/#4D252525 join=round cap=butt priority=167
-    line width=12 color=#4DFF9140/#4D7A4A2F join=round cap=round priority=168
+    line width=12 color=#4D024066/#4D002D49 join=round cap=round priority=168
     path_text primary[height=16 color=#00333333/#008C8C8C stroke=#00FFFFFF/#00060600] priority=4250
     shield height=10 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4240 min_distance=350
   z18
     line width=20.3 color=#4DF5F3E4/#4D252525 join=round cap=butt priority=167
-    line width=18 color=#4DFF9140/#4D7A4A2F join=round cap=round priority=168
+    line width=18 color=#4D024066/#4D002D49 join=round cap=round priority=168
     path_text primary[height=16 color=#00333333/#008C8C8C stroke=#00FFFFFF/#00060600] priority=4250
     shield height=10 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4240 min_distance=350
   z19
     line width=26.5 color=#4DF5F3E4/#4D252525 join=round cap=butt priority=167
-    line width=24 color=#4DFF9140/#4D7A4A2F join=round cap=round priority=168
+    line width=24 color=#4D024066/#4D002D49 join=round cap=round priority=168
     path_text primary[height=16 color=#00333333/#008C8C8C stroke=#00FFFFFF/#00060600] priority=4250
     shield height=11 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4240 min_distance=350
   z20
     line width=26.5 color=#4DF5F3E4/#4D252525 join=round cap=butt priority=167
-    line width=24 color=#4DFF9140/#4D7A4A2F join=round cap=round priority=168
+    line width=24 color=#4D024066/#4D002D49 join=round cap=round priority=168
     path_text primary[height=16 color=#00333333/#008C8C8C stroke=#00FFFFFF/#00060600] priority=4250
     shield height=11 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4240 min_distance=350
 type highway-motorway_link-bridge
   z10
-    line width=1.3 color=#4DFF9140/#4D7A4A2F join=bevel cap=butt priority=168
+    line width=1.3 color=#4D024066/#4D002D49 join=bevel cap=butt priority=168
     path_text primary[height=13 color=#00333333/#008C8C8C stroke=#1AFFFFFF/#1A060600] priority=4250
     shield height=9 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4240 min_distance=30
   z11
-    line width=2 color=#4DFF9140/#4D7A4A2F join=bevel cap=butt priority=168
+    line width=2 color=#4D024066/#4D002D49 join=bevel cap=butt priority=168
     path_text primary[height=13 color=#00333333/#008C8C8C stroke=#1AFFFFFF/#1A060600] priority=4250
     shield height=9 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4240 min_distance=60
   z12
-    line width=2.5 color=#4DFF9140/#4D7A4A2F join=bevel cap=butt priority=168
+    line width=2.5 color=#4D024066/#4D002D49 join=bevel cap=butt priority=168
     path_text primary[height=15 color=#00333333/#008C8C8C stroke=#1AFFFFFF/#1A060600] priority=4250
     shield height=9 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4240 min_distance=100
   z13
-    line width=2.8 color=#4DFF9140/#4D7A4A2F join=round cap=butt priority=168
+    line width=2.8 color=#4D024066/#4D002D49 join=round cap=butt priority=168
     path_text primary[height=15 color=#00333333/#008C8C8C stroke=#1AFFFFFF/#1A060600] priority=4250
     shield height=9 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4240 min_distance=120
   z14
     line width=7.54 color=#4D808080/#4D252525 join=round cap=butt priority=100
     line width=6.74 color=#33E5E4D5/#33121212 join=round cap=butt priority=110
     line width=4.27 color=#4DF5F3E4/#4D252525 join=round cap=butt priority=167
-    line width=3.37 color=#4DFF9140/#4D7A4A2F join=round cap=butt priority=168
+    line width=3.37 color=#4D024066/#4D002D49 join=round cap=butt priority=168
     path_text primary[height=13 color=#00333333/#008C8C8C stroke=#1AEDEBDB/#1A111100] priority=4250
     shield height=9 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4240 min_distance=175
   z15
     line width=10.8 color=#4D808080/#4D252525 join=round cap=butt priority=100
     line width=10 color=#33E5E4D5/#33121212 join=round cap=butt priority=110
     line width=6.1 color=#4DF5F3E4/#4D252525 join=round cap=butt priority=167
-    line width=5 color=#00FF9140/#007A4A2F join=round cap=butt priority=168
+    line width=5 color=#00024066/#00002D49 join=round cap=butt priority=168
     path_text primary[height=14 color=#00333333/#008C8C8C stroke=#1AEDEBDB/#1A111100] priority=4250
     shield height=9 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4240 min_distance=250
   z16
     line width=15.2 color=#4D808080/#4D252525 join=round cap=butt priority=100
     line width=14.4 color=#33E5E4D5/#33121212 join=round cap=butt priority=110
     line width=8.8 color=#4DF5F3E4/#4D252525 join=round cap=butt priority=167
-    line width=7.2 color=#4DFF9140/#4D7A4A2F join=round cap=round priority=168
+    line width=7.2 color=#4D024066/#4D002D49 join=round cap=round priority=168
     path_text primary[height=15 color=#00333333/#008C8C8C stroke=#1AFFFFFF/#1A060600] priority=4250
     shield height=9 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4240 min_distance=300
   z17
     line width=27.2 color=#4D808080/#4D252525 join=round cap=butt priority=100
     line width=25.6 color=#33E5E4D5/#33121212 join=round cap=butt priority=110
     line width=14 color=#4DF5F3E4/#4D252525 join=round cap=butt priority=167
-    line width=12 color=#4DFF9140/#4D7A4A2F join=round cap=round priority=168
+    line width=12 color=#4D024066/#4D002D49 join=round cap=round priority=168
     path_text primary[height=16 color=#00333333/#008C8C8C stroke=#00FFFFFF/#00060600] priority=4250
     shield height=10 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4240 min_distance=350
   z18
     line width=40 color=#4D808080/#4D252525 join=round cap=butt priority=100
     line width=38 color=#33E5E4D5/#33121212 join=round cap=butt priority=110
     line width=20.3 color=#4DF5F3E4/#4D252525 join=round cap=butt priority=167
-    line width=18 color=#4DFF9140/#4D7A4A2F join=round cap=round priority=168
+    line width=18 color=#4D024066/#4D002D49 join=round cap=round priority=168
     path_text primary[height=16 color=#00333333/#008C8C8C stroke=#00FFFFFF/#00060600] priority=4250
     shield height=10 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4240 min_distance=350
   z19
     line width=52 color=#4D808080/#4D252525 join=round cap=butt priority=100
     line width=50 color=#33E5E4D5/#33121212 join=round cap=butt priority=110
     line width=26.5 color=#4DF5F3E4/#4D252525 join=round cap=butt priority=167
-    line width=24 color=#4DFF9140/#4D7A4A2F join=round cap=round priority=168
+    line width=24 color=#4D024066/#4D002D49 join=round cap=round priority=168
     path_text primary[height=16 color=#00333333/#008C8C8C stroke=#00FFFFFF/#00060600] priority=4250
     shield height=11 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4240 min_distance=350
   z20
     line width=52 color=#4D808080/#4D252525 join=round cap=butt priority=100
     line width=50 color=#33E5E4D5/#33121212 join=round cap=butt priority=110
     line width=26.5 color=#4DF5F3E4/#4D252525 join=round cap=butt priority=167
-    line width=24 color=#4DFF9140/#4D7A4A2F join=round cap=round priority=168
+    line width=24 color=#4D024066/#4D002D49 join=round cap=round priority=168
     path_text primary[height=16 color=#00333333/#008C8C8C stroke=#00FFFFFF/#00060600] priority=4250
     shield height=11 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4240 min_distance=350
 type highway-motorway_link-tunnel
   z10
-    line width=1.3 color=#4DFF9140/#4D7A4A2F join=bevel cap=butt priority=168
+    line width=1.3 color=#4D024066/#4D002D49 join=bevel cap=butt priority=168
     path_text primary[height=13 color=#00333333/#008C8C8C stroke=#1AFFFFFF/#1A060600] priority=4250
     shield height=9 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4240 min_distance=30
   z11
-    line width=2 color=#4DFF9140/#4D7A4A2F join=bevel cap=butt priority=168
+    line width=2 color=#4D024066/#4D002D49 join=bevel cap=butt priority=168
     path_text primary[height=13 color=#00333333/#008C8C8C stroke=#1AFFFFFF/#1A060600] priority=4250
     shield height=9 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4240 min_distance=60
   z12
-    line width=2.5 color=#4DFF9140/#4D7A4A2F join=bevel cap=butt priority=168
+    line width=2.5 color=#4D024066/#4D002D49 join=bevel cap=butt priority=168
     path_text primary[height=15 color=#00333333/#008C8C8C stroke=#1AFFFFFF/#1A060600] priority=4250
     shield height=9 color=#00FFFFFF/#00999999 stroke=#00000000/#00303030 text_color=#00000000/#00303030 priority=4240 min_distance=100
   z13
