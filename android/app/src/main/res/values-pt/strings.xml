@@ -707,6 +707,8 @@
     <string name="moreyear_ago_sorttype">Mais de um ano atrás</string>
     <string name="near_me_sorttype">Perto de mim</string>
     <string name="others_sorttype">Outros</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Falha no planeamento da rota</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Fechado agora</string>
     <string name="opens_tomorrow_at">Abre amanhã às %s</string>
@@ -954,4 +956,14 @@
     <string name="transit_type_train">Comboio</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Elétrico</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Navegar</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Início do trajeto</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Fim do trajeto</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">Não resta trajeto neste sentido. Selecione outro ponto.</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">O trajeto já não está disponível</string>
 </resources>

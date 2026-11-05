@@ -147,6 +147,9 @@ public class RoutingController
   private TransitRouteInfo mCachedTransitRouteInfo;
 
   private boolean mRouteSaved;
+  // The track's selection mark gives the entry only when the follow starts: map taps and the place page chart move it
+  // later without changing the followed route.
+  private double mFollowedTrackEntryDistance = Double.NaN;
 
   @SuppressWarnings("FieldCanBeLocal")
   private final RoutingListener mRoutingListener = new RoutingListener() {
@@ -595,6 +598,7 @@ public class RoutingController
     final FollowTrackResult result = FollowTrackResult.valueOf(Framework.nativeNavigateTrack(trackId));
     if (result != FollowTrackResult.Ok)
       return result;
+    captureFollowedTrackEntry(trackId);
     // The core has already closed the previous session as part of NavigateTrack; cancel() here
     // would close the just-started build with it (nativeCloseRouting), so only the Java-side
     // session state is reset.
@@ -614,28 +618,6 @@ public class RoutingController
     return result;
   }
 
-  /**
-   * Rebuilds the followed track in the opposite direction.
-   *
-   * @return anything but {@link FollowTrackResult#Ok} (e.g. the followed track has been deleted
-   *         meanwhile) leaves the current session untouched.
-   */
-  @NonNull
-  public FollowTrackResult reverseFollowedTrack()
-  {
-    Logger.d(TAG, "reverseFollowedTrack");
-    final FollowTrackResult result = FollowTrackResult.valueOf(Framework.nativeReverseFollowedTrack());
-    if (result == FollowTrackResult.Ok)
-      enterTrackFollowPlanning();
-    return result;
-  }
-
-  /** Whether the planner can offer Reverse; the core rechecks the live session when activated. */
-  public boolean canReverseFollowedTrack()
-  {
-    return isFollowingTrack() && isPlanning() && isBuilt();
-  }
-
   public boolean isFollowingTrack()
   {
     return Framework.nativeIsFollowingTrack();
@@ -652,7 +634,7 @@ public class RoutingController
   @NonNull
   public FollowTrackResult setFollowTrackProfile(@NonNull Router router)
   {
-    // A follow rebuild (reverse or an earlier profile tap) is still in flight: ignore rapid
+    // A follow rebuild (an earlier profile tap or chart pick) is still in flight: ignore rapid
     // taps instead of stacking teardown/rebuild cycles.
     if (isBuilding() || router == Router.getRender())
       return FollowTrackResult.Ok;
@@ -664,14 +646,37 @@ public class RoutingController
     return result;
   }
 
-  /** Rebuilds from the current native map/chart selection, preserving this preview's profile and direction. */
+  /**
+   * Rebuilds the preview from the track point at the given distance from the track start (a point picked on the
+   * preview's elevation chart), keeping its direction, profile and the viewport.
+   *
+   * @return anything but {@link FollowTrackResult#Ok} (e.g. no track remains in that direction) leaves the current
+   *         session and its entry untouched.
+   */
   @NonNull
-  public FollowTrackResult updateFollowedTrackEntry()
+  public FollowTrackResult updateFollowedTrackEntryAt(double distanceMeters)
   {
-    final FollowTrackResult result = FollowTrackResult.valueOf(Framework.nativeUpdateFollowedTrackEntry());
+    Logger.d(TAG, "updateFollowedTrackEntryAt: " + distanceMeters);
+    final FollowTrackResult result =
+        FollowTrackResult.valueOf(Framework.nativeUpdateFollowedTrackEntryAt(distanceMeters));
     if (result == FollowTrackResult.Ok)
+    {
+      mFollowedTrackEntryDistance = distanceMeters;
       enterTrackFollowPlanning();
+    }
     return result;
+  }
+
+  /** Where the followed track is entered, as a distance from the track start; NaN outside a track follow. */
+  public double getFollowedTrackEntryDistance()
+  {
+    return mFollowedTrackEntryDistance;
+  }
+
+  // The core has just entered the track at its selection mark.
+  private void captureFollowedTrackEntry(long trackId)
+  {
+    mFollowedTrackEntryDistance = BookmarkManager.INSTANCE.getTrack(trackId).getElevationActivePointDistance();
   }
 
   /**
@@ -701,8 +706,8 @@ public class RoutingController
     updatePlan();
   }
 
-  // There are no route marks while following a track (the track defines the route), so the
-  // planning panel is shown point-less.
+  // A followed track has no route marks (the track defines the route), so planning starts
+  // point-less and the planning panel shows fixed rows for the followed track instead.
   private void enterTrackFollowPlanning()
   {
     setState(State.PREPARE);
@@ -917,6 +922,7 @@ public class RoutingController
     Logger.d(TAG, "cancelInternal");
 
     resetPoiPickState();
+    mFollowedTrackEntryDistance = Double.NaN;
 
     setBuildState(BuildState.NONE);
     setState(State.NONE);

@@ -1,13 +1,17 @@
 package app.organicmaps.routing;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import android.content.Context;
@@ -25,6 +29,7 @@ import app.organicmaps.util.ThemeUtils;
 import java.util.List;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InOrder;
 import org.mockito.MockedStatic;
 
 public class ManageRouteAdapterTest
@@ -42,6 +47,98 @@ public class ManageRouteAdapterTest
     when(row.findViewById(R.id.delete_icon)).thenReturn(mock(ImageView.class));
     when(row.findViewById(R.id.drag_icon)).thenReturn(mock(ImageView.class));
     return new ManageRouteAdapter.ManageRouteViewHolder(row);
+  }
+
+  private static Context trackContext()
+  {
+    final Context context = mock(Context.class);
+    final Resources resources = mock(Resources.class);
+    final TypedArray icons = mock(TypedArray.class);
+    when(context.getResources()).thenReturn(resources);
+    when(resources.obtainTypedArray(R.array.route_stop_icons)).thenReturn(icons);
+    when(icons.length()).thenReturn(20);
+    when(context.getString(R.string.navigate_track_start)).thenReturn("Track start");
+    when(context.getString(R.string.navigate_track_finish)).thenReturn("Track finish");
+    return context;
+  }
+
+  private static ManageRouteAdapter adapter(Context context, ManageRouteAdapter.ManageRouteListener listener)
+  {
+    final ManageRouteAdapter adapter = spy(new ManageRouteAdapter(context, new RouteMarkData[0], listener));
+    doNothing().when(adapter).notifyDataSetChanged();
+    return adapter;
+  }
+
+  @Test
+  public void trackPlanHasThreeFixedRows()
+  {
+    final ManageRouteAdapter adapter = adapter(trackContext(), mock(ManageRouteAdapter.ManageRouteListener.class));
+    adapter.setTrackPoints("Ridge");
+
+    assertEquals(3, adapter.getItemCount());
+    final List<RouteMarkData> rows = adapter.getRoutePoints();
+    assertEquals(List.of(RouteMarkType.Start, RouteMarkType.Intermediate, RouteMarkType.Finish),
+                 rows.stream().map(p -> p.mPointType).toList());
+    assertTrue(rows.get(0).mIsMyPosition);
+    assertEquals("Ridge", rows.get(1).mTitle);
+    assertEquals("Track finish", rows.get(2).mTitle);
+  }
+
+  @Test
+  public void unnamedTrackFallsBackToTrackStart()
+  {
+    final ManageRouteAdapter adapter = adapter(trackContext(), mock(ManageRouteAdapter.ManageRouteListener.class));
+    adapter.setTrackPoints("");
+    assertEquals(List.of("Track start", "Track finish"),
+                 adapter.getRoutePoints().subList(1, 3).stream().map(p -> p.mTitle).toList());
+  }
+
+  @Test
+  public void trackRowsCannotBeMovedDeletedOrClicked()
+  {
+    final ManageRouteAdapter.ManageRouteListener listener = mock(ManageRouteAdapter.ManageRouteListener.class);
+    final ManageRouteAdapter adapter = adapter(trackContext(), listener);
+    adapter.setTrackPoints("Ridge");
+    try (MockedStatic<ThemeUtils> theme = mockStatic(ThemeUtils.class);
+         MockedStatic<AppCompatResources> drawables = mockStatic(AppCompatResources.class))
+    {
+      for (int position = 0; position < 3; ++position)
+      {
+        final ManageRouteAdapter.ManageRouteViewHolder holder = holder();
+        adapter.onBindViewHolder(holder, position);
+        verify(holder.mImageViewDelete).setVisibility(View.GONE);
+        verify(holder.mImageViewDrag).setVisibility(View.GONE);
+        // The listener makes a real view clickable again, so it must come first.
+        final InOrder order = inOrder(holder.itemView);
+        final ArgumentCaptor<View.OnClickListener> click = ArgumentCaptor.forClass(View.OnClickListener.class);
+        order.verify(holder.itemView).setOnClickListener(click.capture());
+        order.verify(holder.itemView).setClickable(false);
+        click.getValue().onClick(holder.itemView);
+      }
+    }
+    verifyNoInteractions(listener);
+  }
+
+  @Test
+  public void routePointsLeaveTheTrackMode()
+  {
+    final ManageRouteAdapter adapter = adapter(trackContext(), mock(ManageRouteAdapter.ManageRouteListener.class));
+    adapter.setTrackPoints("Ridge");
+    adapter.setRoutePoints(
+        new RouteMarkData[] {point("Start", RouteMarkType.Start, 0), point("Finish", RouteMarkType.Finish, 0)});
+    assertEquals(3, adapter.getItemCount());
+    try (MockedStatic<ThemeUtils> theme = mockStatic(ThemeUtils.class);
+         MockedStatic<AppCompatResources> drawables = mockStatic(AppCompatResources.class))
+    {
+      final ManageRouteAdapter.ManageRouteViewHolder holder = holder();
+      adapter.onBindViewHolder(holder, 0);
+      verify(holder.mImageViewDrag).setVisibility(View.VISIBLE);
+      verify(holder.mImageViewDelete).setVisibility(View.VISIBLE);
+      verify(holder.itemView).setClickable(true);
+      verify(holder.itemView).setOnClickListener(notNull());
+    }
+    adapter.setRoutePoints(new RouteMarkData[] {point("Start", RouteMarkType.Start, 0)});
+    assertEquals(2, adapter.getItemCount());
   }
 
   @Test

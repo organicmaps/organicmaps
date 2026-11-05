@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
+import androidx.annotation.Nullable;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.highlight.Highlight;
@@ -14,12 +15,22 @@ public class ElevationProfileChart extends LineChart
 {
   private static final float CAPTURE_RADIUS_DP = 22f;
 
+  public interface OnSelectionFinishedListener
+  {
+    void onSelectionFinished(float x);
+  }
+
   private boolean mIsSelecting;
   private boolean mSelectConfirmed;
   private float mMarkerScreenX;
   private float mTouchStartX;
   private float mLastHighlightedX = Float.NaN;
   private int mTouchSlop;
+  @Nullable
+  private OnSelectionFinishedListener mSelectionFinishedListener;
+  @Nullable
+  private Highlight mGestureStartHighlight;
+  private boolean mTouching;
 
   public ElevationProfileChart(Context context)
   {
@@ -50,9 +61,49 @@ public class ElevationProfileChart extends LineChart
     return super.onInterceptTouchEvent(ev);
   }
 
+  /**
+   * Reports the selected X when the finger that changed the selection lifts, and restores the selection a cancelled
+   * gesture started from. A zoomed-in chart can still fling the selection after the lift, which is not reported.
+   */
+  public void setOnSelectionFinishedListener(@Nullable OnSelectionFinishedListener listener)
+  {
+    mSelectionFinishedListener = listener;
+  }
+
+  /** Whether the user is touching the chart and so may still move the selection. */
+  public boolean isSelectionInProgress()
+  {
+    return mTouching;
+  }
+
   @SuppressLint("ClickableViewAccessibility")
   @Override
   public boolean onTouchEvent(MotionEvent event)
+  {
+    final int action = event.getActionMasked();
+    if (action == MotionEvent.ACTION_DOWN)
+      mGestureStartHighlight = getUserHighlight();
+    mTouching = action != MotionEvent.ACTION_UP && action != MotionEvent.ACTION_CANCEL;
+    final boolean handled = handleTouchEvent(event);
+    if (mSelectionFinishedListener != null)
+    {
+      if (action == MotionEvent.ACTION_UP)
+        reportSelectionFinished();
+      else if (action == MotionEvent.ACTION_CANCEL)
+        highlightValue(mGestureStartHighlight, true);
+    }
+    return handled;
+  }
+
+  private void reportSelectionFinished()
+  {
+    final float x = getHighlightX();
+    final float startX = mGestureStartHighlight == null ? Float.NaN : mGestureStartHighlight.getX();
+    if (!Float.isNaN(x) && x != startX)
+      mSelectionFinishedListener.onSelectionFinished(x);
+  }
+
+  private boolean handleTouchEvent(MotionEvent event)
   {
     if (!mTouchEnabled)
       return super.onTouchEvent(event);
@@ -126,8 +177,23 @@ public class ElevationProfileChart extends LineChart
 
   private boolean hasHighlight()
   {
+    return getUserHighlight() != null;
+  }
+
+  /** @return the X of the user-selected highlight, or NaN without one. */
+  public float getHighlightX()
+  {
+    final Highlight h = getUserHighlight();
+    return h == null ? Float.NaN : h.getX();
+  }
+
+  // The user-selected highlight is always last: ChartController.selectAtDistance() passes [curPos, h] in that order;
+  // RouteElevationChartController uses a single highlight.
+  @Nullable
+  private Highlight getUserHighlight()
+  {
     final Highlight[] h = getHighlighted();
-    return h != null && h.length > 0;
+    return h == null || h.length == 0 ? null : h[h.length - 1];
   }
 
   private boolean isZoomedIn()
@@ -138,13 +204,10 @@ public class ElevationProfileChart extends LineChart
 
   private float getCurrentHighlightScreenX()
   {
-    final Highlight[] highlighted = getHighlighted();
-    if (highlighted == null || highlighted.length == 0)
+    final Highlight last = getUserHighlight();
+    if (last == null)
       return getWidth() / 2f;
 
-    // The user-selected highlight is always last: ChartController.selectAtDistance()
-    // passes [curPos, h] in that order; RouteElevationChartController uses a single highlight.
-    final Highlight last = highlighted[highlighted.length - 1];
     final MPPointD pix = getTransformer(YAxis.AxisDependency.LEFT).getPixelForValues(last.getX(), last.getY());
     final float result = (float) pix.x;
     MPPointD.recycleInstance(pix);
