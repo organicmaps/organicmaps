@@ -19,7 +19,7 @@ GPS NAVIGATION: Enjoy voice-guided, turn-by-turn directions. Create walking, hik
 
 HIKING & CYCLING TRAILS FROM AROUND THE WORLD: Enable special map layers to discover popular hiking and cycling routes worldwide, all sourced from OpenStreetMap. Switch between layers to see colored bike and MTB routes, as well as official hiking paths. 
 
-PUBLIC TRANSPORT: See public transport route numbers at stops. Live transport schedules and routing are currently in development. 
+PUBLIC TRANSPORT: Plan subway, light rail, bus and tram routes; see line numbers at stops. Live timetables are in development.
 
 MAP STYLES: Choose map layers that fit your activity — Outdoors, Contour Lines, Hiking, Cycling, or Metro/Subway.
 
