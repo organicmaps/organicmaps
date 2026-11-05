@@ -217,6 +217,7 @@ final class TrackNavigationFlowTests: XCTestCase {
       MockRouter.mapPointRequests = []
       MockRouter.result = .ok
     }
+    interactor.stateReady()
     interactor.updateMapPoint(distance: 700)
     interactor.didCancelSelectingPoint()
     var model = try XCTUnwrap(Mirror(reflecting: presenter).children
