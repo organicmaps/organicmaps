@@ -1,0 +1,67 @@
+name: Sailfish OS
+
+on:
+  workflow_dispatch: # Manual trigger
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - .agents/**
+      - .claude/**
+      - .gemini/**
+      - '**/*.md'
+  pull_request:
+    paths-ignore:
+      - .agents/**
+      - .claude/**
+      - .gemini/**
+      - .gitignore
+      - .github/**
+      - '!.github/workflows/build-sailfish.yaml'  # Run check on self change
+      - '**/*.md'
+      - CONTRIBUTORS
+      - LICENSE
+      - NOTICE
+      - android/**
+      - iphone/**
+      - data/countries-strings/**
+      - data/organic_maps_emoji/**
+      - data/sound-strings/**
+      - data/strings/**
+      - docs/**
+      - packaging/**
+      - xcode/**
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Qt 5.6 (Sailfish OS 5.1 aarch64)
+    runs-on: ubuntu-26.04
+
+    env:
+      SDK_IMAGE: coderus/sailfishos-platform-sdk-aarch64:5.1.0.11
+      SDK_TARGET: SailfishOS-5.1.0.11-aarch64
+
+    steps:
+      - name: Free disk space by removing .NET, Android and Haskell
+        run: sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
+
+      - name: Checkout sources
+        uses: actions/checkout@v6
+
+      - name: Parallel submodules checkout
+        run: git submodule update --depth 1 --init --recursive --jobs=20
+
+      # The SDK user is not the runner user, and Scratchbox 2 only sees its home directory.
+      - name: Compile the Qt 5.6 code paths
+        run: |
+          chmod -R a+rwX .
+          docker run --rm -v "$PWD:/home/mersdk/src" -w /home/mersdk/src $SDK_IMAGE bash -ec "
+            sb2 -t $SDK_TARGET cmake -B build -DSAILFISH=ON -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=OFF
+            sb2 -t $SDK_TARGET cmake --build build --target platform location_service drape -j \$(nproc)"
