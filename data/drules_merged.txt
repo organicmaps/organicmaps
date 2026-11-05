@@ -599,38 +599,38 @@ type aeroway-helipad
     caption primary[height=10 color=#00444444 dy=1 optional] priority=-7500
 type aeroway-runway
   z12
-    line width=1 color=#99E9E9E9 join=bevel cap=butt priority=70
+    line width=1 color=#99E8E6DC join=bevel cap=butt priority=70
   z13
-    line width=1.5 color=#80E9E9E9 join=round cap=butt priority=70
+    line width=1.5 color=#80E8E6DC join=round cap=butt priority=70
   z14
-    line width=2.4 color=#4DE9E9E9 join=round cap=butt priority=70
+    line width=2.4 color=#4DE8E6DC join=round cap=butt priority=70
   z15
-    line width=2.4 color=#4DE9E9E9 join=round cap=butt priority=70
+    line width=2.4 color=#4DE8E6DC join=round cap=butt priority=70
   z16
-    line width=3.5 color=#33E9E9E9 join=round cap=round priority=70
+    line width=3.5 color=#33E8E6DC join=round cap=round priority=70
   z17
-    line width=3.5 color=#33E9E9E9 join=round cap=round priority=70
+    line width=3.5 color=#33E8E6DC join=round cap=round priority=70
   z18
-    line width=3.5 color=#33E9E9E9 join=round cap=round priority=70
+    line width=3.5 color=#33E8E6DC join=round cap=round priority=70
   z19
-    line width=3.5 color=#33E9E9E9 join=round cap=round priority=70
+    line width=3.5 color=#33E8E6DC join=round cap=round priority=70
   z20
-    line width=3.5 color=#33E9E9E9 join=round cap=round priority=70
+    line width=3.5 color=#33E8E6DC join=round cap=round priority=70
 type aeroway-taxiway
   z14
-    line width=0.6 color=#99E9E9E9 join=round cap=butt priority=70
+    line width=0.6 color=#99E8E6DC join=round cap=butt priority=70
   z15
-    line width=1.2 color=#80E9E9E9 join=round cap=butt priority=70
+    line width=1.2 color=#80E8E6DC join=round cap=butt priority=70
   z16
-    line width=1.2 color=#80E9E9E9 join=round cap=round priority=70
+    line width=1.2 color=#80E8E6DC join=round cap=round priority=70
   z17
-    line width=1.2 color=#80E9E9E9 join=round cap=round priority=70
+    line width=1.2 color=#80E8E6DC join=round cap=round priority=70
   z18
-    line width=1.2 color=#80E9E9E9 join=round cap=round priority=70
+    line width=1.2 color=#80E8E6DC join=round cap=round priority=70
   z19
-    line width=1.2 color=#80E9E9E9 join=round cap=round priority=70
+    line width=1.2 color=#80E8E6DC join=round cap=round priority=70
   z20
-    line width=1.2 color=#80E9E9E9 join=round cap=round priority=70
+    line width=1.2 color=#80E8E6DC join=round cap=round priority=70
 type aeroway-terminal
   z14
     symbol name=airport-s priority=6800
@@ -683,23 +683,23 @@ type amenity-atm
     caption primary[height=11 color=#00444444 dy=1 optional] priority=-8750
 type amenity-bank
   z16
-    symbol name=bank-m priority=2700
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-7300
+    symbol name=bank-m priority=200 min_distance=15
+    caption primary[height=13 color=#00444444 dy=1 optional] priority=-9800
   z17
-    symbol name=bank-m priority=2700
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-7300
+    symbol name=bank-m priority=200 min_distance=15
+    caption primary[height=13 color=#00444444 dy=1 optional] priority=-9800
   z18
-    symbol name=bank-m priority=2700
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-7300
+    symbol name=bank-m priority=200 min_distance=10
+    caption primary[height=14 color=#00444444 dy=1 optional] priority=-9800
   z19
-    symbol name=bank-m priority=2700
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-7300
+    symbol name=bank-m priority=200 min_distance=10
+    caption primary[height=14 color=#00444444 dy=1 optional] priority=-9800
   z20
-    symbol name=bank-m priority=2700
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-7300
+    symbol name=bank-m priority=200 min_distance=10
+    caption primary[height=14 color=#00444444 dy=1 optional] priority=-9800
 type amenity-bar
   z15
-    symbol name=bar-m priority=4000 min_distance=12
+    symbol name=bar-m priority=4000 min_distance=28
     caption primary[height=10 color=#00444444 dy=1 optional] priority=-6000
   z16
     symbol name=bar-m priority=4000 min_distance=12
@@ -922,23 +922,23 @@ type amenity-bus_station
     caption primary[height=12 color=#00222222 stroke=#1AFFFFFF dy=1 optional] secondary[height=10 color=#00222222 stroke=#1AFFFFFF dy=1 optional] priority=-3650
 type amenity-cafe
   z15
-    symbol name=cafe-m priority=4100 min_distance=12
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-5900
+    symbol name=cafe-m priority=1100 min_distance=3
+    caption primary[height=12 color=#00444444 dy=1 optional] priority=-8900
   z16
-    symbol name=cafe-m priority=4100 min_distance=12
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-5900
+    symbol name=cafe-m priority=1100 min_distance=10
+    caption primary[height=12 color=#00444444 dy=1 optional] priority=-8900
   z17
-    symbol name=cafe-m priority=4100 min_distance=12
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-5900
+    symbol name=cafe-m priority=1100 min_distance=20
+    caption primary[height=13 color=#00444444 dy=1 optional] priority=-8900
   z18
-    symbol name=cafe-m priority=4100 min_distance=12
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-5900
+    symbol name=cafe-m priority=1100 min_distance=25
+    caption primary[height=14 color=#00444444 dy=1 optional] priority=-8900
   z19
-    symbol name=cafe-m priority=4100 min_distance=12
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-5900
+    symbol name=cafe-m priority=1100 min_distance=35
+    caption primary[height=14 color=#00444444 dy=1 optional] priority=-8900
   z20
-    symbol name=cafe-m priority=4100 min_distance=12
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-5900
+    symbol name=cafe-m priority=1100 min_distance=35
+    caption primary[height=14 color=#00444444 dy=1 optional] priority=-8900
 type amenity-car_rental
   z18
     symbol name=car_sharing-m priority=2500
@@ -1279,23 +1279,23 @@ type amenity-exhibition_centre
     caption primary[height=10 color=#00444444 dy=1 optional] priority=-5700
 type amenity-fast_food
   z15
-    symbol name=fastfood-m priority=4050 min_distance=12
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-5950
+    symbol name=fastfood-m priority=250 min_distance=25
+    caption primary[height=13 color=#00444444 dy=1 optional] priority=-9750
   z16
-    symbol name=fastfood-m priority=4050 min_distance=12
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-5950
+    symbol name=fastfood-m priority=250 min_distance=25
+    caption primary[height=13 color=#00444444 dy=1 optional] priority=-9750
   z17
-    symbol name=fastfood-m priority=4050 min_distance=12
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-5950
+    symbol name=fastfood-m priority=250 min_distance=25
+    caption primary[height=13 color=#00444444 dy=1 optional] priority=-9750
   z18
-    symbol name=fastfood-m priority=4050 min_distance=12
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-5950
+    symbol name=fastfood-m priority=250 min_distance=25
+    caption primary[height=14 color=#00444444 dy=1 optional] priority=-9750
   z19
-    symbol name=fastfood-m priority=4050 min_distance=12
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-5950
+    symbol name=fastfood-m priority=250 min_distance=45
+    caption primary[height=14 color=#00444444 dy=1 optional] priority=-9750
   z20
-    symbol name=fastfood-m priority=4050 min_distance=12
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-5950
+    symbol name=fastfood-m priority=250 min_distance=45
+    caption primary[height=14 color=#00444444 dy=1 optional] priority=-9750
 type amenity-ferry_terminal
   z11
     symbol name=ship-s priority=6800 min_distance=12
@@ -1682,17 +1682,13 @@ type amenity-money_transfer
     caption primary[height=11 color=#00444444 dy=1 optional] priority=-8400
 type amenity-motorcycle_parking
   z17
-    symbol name=motorcycle-parking-m priority=250
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-9750
+    symbol name=motorcycle-parking-m priority=2530
   z18
-    symbol name=motorcycle-parking-m priority=250
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-9750
+    symbol name=motorcycle-parking-m priority=2530
   z19
-    symbol name=motorcycle-parking-m priority=250
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-9750
+    symbol name=motorcycle-parking-m priority=2530
   z20
-    symbol name=motorcycle-parking-m priority=250
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-9750
+    symbol name=motorcycle-parking-m priority=2530
 type amenity-motorcycle_rental
   z17
     symbol name=motorcycle_rental-m priority=2500
@@ -1768,16 +1764,10 @@ type amenity-parking
     area color=#00F2F2BC priority=-1900
   z18
     area color=#00F2F2BC priority=-1900
-    symbol name=parking-m priority=300 min_distance=10
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9700
   z19
     area color=#00F2F2BC priority=-1900
-    symbol name=parking-m priority=300 min_distance=10
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9700
   z20
     area color=#00F2F2BC priority=-1900
-    symbol name=parking-m priority=300 min_distance=10
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9700
 type amenity-parking-fee
   z15
     area color=#00F2F2BC priority=-1900
@@ -1787,16 +1777,10 @@ type amenity-parking-fee
     area color=#00F2F2BC priority=-1900
   z18
     area color=#00F2F2BC priority=-1900
-    symbol name=parking_pay-m priority=300 min_distance=10
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9700
   z19
     area color=#00F2F2BC priority=-1900
-    symbol name=parking_pay-m priority=300 min_distance=10
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9700
   z20
     area color=#00F2F2BC priority=-1900
-    symbol name=parking_pay-m priority=300 min_distance=10
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9700
 type amenity-parking-lane
   z15
     area color=#00F2F2BC priority=-1900
@@ -1806,16 +1790,10 @@ type amenity-parking-lane
     area color=#00F2F2BC priority=-1900
   z18
     area color=#00F2F2BC priority=-1900
-    symbol name=parking-s priority=150
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9850
   z19
     area color=#00F2F2BC priority=-1900
-    symbol name=parking-s priority=150
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9850
   z20
     area color=#00F2F2BC priority=-1900
-    symbol name=parking-s priority=150
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9850
 type amenity-parking-lane-fee
   z15
     area color=#00F2F2BC priority=-1900
@@ -1825,16 +1803,10 @@ type amenity-parking-lane-fee
     area color=#00F2F2BC priority=-1900
   z18
     area color=#00F2F2BC priority=-1900
-    symbol name=parking_pay-s priority=150
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9850
   z19
     area color=#00F2F2BC priority=-1900
-    symbol name=parking_pay-s priority=150
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9850
   z20
     area color=#00F2F2BC priority=-1900
-    symbol name=parking_pay-s priority=150
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9850
 type amenity-parking-lane-private
   z15
     area color=#00F2F2BC priority=-1900
@@ -1846,12 +1818,8 @@ type amenity-parking-lane-private
     area color=#00F2F2BC priority=-1900
   z19
     area color=#00F2F2BC priority=-1900
-    symbol name=parking_private-s priority=100
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9900
   z20
     area color=#00F2F2BC priority=-1900
-    symbol name=parking_private-s priority=100
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9900
 type amenity-parking-multi-storey
   z15
     area color=#00F2F2BC priority=-1900
@@ -1861,16 +1829,10 @@ type amenity-parking-multi-storey
     area color=#00F2F2BC priority=-1900
   z18
     area color=#00F2F2BC priority=-1900
-    symbol name=parking-m priority=300 min_distance=10
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9700
   z19
     area color=#00F2F2BC priority=-1900
-    symbol name=parking-m priority=300 min_distance=10
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9700
   z20
     area color=#00F2F2BC priority=-1900
-    symbol name=parking-m priority=300 min_distance=10
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9700
 type amenity-parking-multi-storey-fee
   z15
     area color=#00F2F2BC priority=-1900
@@ -1880,16 +1842,10 @@ type amenity-parking-multi-storey-fee
     area color=#00F2F2BC priority=-1900
   z18
     area color=#00F2F2BC priority=-1900
-    symbol name=parking_pay-m priority=300 min_distance=10
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9700
   z19
     area color=#00F2F2BC priority=-1900
-    symbol name=parking_pay-m priority=300 min_distance=10
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9700
   z20
     area color=#00F2F2BC priority=-1900
-    symbol name=parking_pay-m priority=300 min_distance=10
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9700
 type amenity-parking-no-access
   z15
     area color=#00F2F2BC priority=-1900
@@ -1899,16 +1855,10 @@ type amenity-parking-no-access
     area color=#00F2F2BC priority=-1900
   z18
     area color=#00F2F2BC priority=-1900
-    symbol name=parking-m priority=100 min_distance=10
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9900
   z19
     area color=#00F2F2BC priority=-1900
-    symbol name=parking-m priority=100 min_distance=10
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9900
   z20
     area color=#00F2F2BC priority=-1900
-    symbol name=parking-m priority=100 min_distance=10
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9900
 type amenity-parking-park_and_ride
   z15
     area color=#00F2F2BC priority=-1900
@@ -1918,16 +1868,10 @@ type amenity-parking-park_and_ride
     area color=#00F2F2BC priority=-1900
   z18
     area color=#00F2F2BC priority=-1900
-    symbol name=parking-m priority=300 min_distance=10
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9700
   z19
     area color=#00F2F2BC priority=-1900
-    symbol name=parking-m priority=300 min_distance=10
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9700
   z20
     area color=#00F2F2BC priority=-1900
-    symbol name=parking-m priority=300 min_distance=10
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9700
 type amenity-parking-permissive
   z15
     area color=#00F2F2BC priority=-1900
@@ -1937,16 +1881,10 @@ type amenity-parking-permissive
     area color=#00F2F2BC priority=-1900
   z18
     area color=#00F2F2BC priority=-1900
-    symbol name=parking-m priority=250 min_distance=10
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9750
   z19
     area color=#00F2F2BC priority=-1900
-    symbol name=parking-m priority=250 min_distance=10
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9750
   z20
     area color=#00F2F2BC priority=-1900
-    symbol name=parking-m priority=250 min_distance=10
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9750
 type amenity-parking-private
   z15
     area color=#00F2F2BC priority=-1900
@@ -1956,16 +1894,10 @@ type amenity-parking-private
     area color=#00F2F2BC priority=-1900
   z18
     area color=#00F2F2BC priority=-1900
-    symbol name=parking_private-m priority=100
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9900
   z19
     area color=#00F2F2BC priority=-1900
-    symbol name=parking_private-m priority=100
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9900
   z20
     area color=#00F2F2BC priority=-1900
-    symbol name=parking_private-m priority=100
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9900
 type amenity-parking-street_side
   z15
     area color=#00F2F2BC priority=-1900
@@ -1975,16 +1907,10 @@ type amenity-parking-street_side
     area color=#00F2F2BC priority=-1900
   z18
     area color=#00F2F2BC priority=-1900
-    symbol name=parking-s priority=150
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9850
   z19
     area color=#00F2F2BC priority=-1900
-    symbol name=parking-s priority=150
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9850
   z20
     area color=#00F2F2BC priority=-1900
-    symbol name=parking-s priority=150
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9850
 type amenity-parking-street_side-fee
   z15
     area color=#00F2F2BC priority=-1900
@@ -1994,16 +1920,10 @@ type amenity-parking-street_side-fee
     area color=#00F2F2BC priority=-1900
   z18
     area color=#00F2F2BC priority=-1900
-    symbol name=parking_pay-s priority=150
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9850
   z19
     area color=#00F2F2BC priority=-1900
-    symbol name=parking_pay-s priority=150
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9850
   z20
     area color=#00F2F2BC priority=-1900
-    symbol name=parking_pay-s priority=150
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9850
 type amenity-parking-street_side-private
   z15
     area color=#00F2F2BC priority=-1900
@@ -2013,100 +1933,86 @@ type amenity-parking-street_side-private
     area color=#00F2F2BC priority=-1900
   z18
     area color=#00F2F2BC priority=-1900
-    symbol name=parking_private-s priority=100
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9900
   z19
     area color=#00F2F2BC priority=-1900
-    symbol name=parking_private-s priority=100
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9900
   z20
     area color=#00F2F2BC priority=-1900
-    symbol name=parking_private-s priority=100
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9900
 type amenity-parking-underground
   z15
-    symbol name=parking_underground-m priority=300 min_distance=10
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9700
+    symbol name=parking_underground-m priority=2550 min_distance=10
   z16
-    symbol name=parking_underground-m priority=300 min_distance=10
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9700
+    symbol name=parking_underground-m priority=2550 min_distance=10
+    caption primary[height=12 color=#00444444 dy=1 optional] priority=-7450
   z17
-    symbol name=parking_underground-m priority=300 min_distance=10
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9700
+    symbol name=parking_underground-m priority=2550 min_distance=15
+    caption primary[height=13 color=#00444444 dy=1 optional] priority=-7450
   z18
-    symbol name=parking_underground-m priority=300 min_distance=10
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9700
+    symbol name=parking_underground-m priority=2550 min_distance=10
+    caption primary[height=14 color=#00444444 dy=1 optional] priority=-7450
   z19
-    symbol name=parking_underground-m priority=300 min_distance=10
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9700
+    symbol name=parking_underground-m priority=2550 min_distance=10
+    caption primary[height=14 color=#00444444 dy=1 optional] priority=-7450
   z20
-    symbol name=parking_underground-m priority=300 min_distance=10
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9700
+    symbol name=parking_underground-m priority=2550 min_distance=10
+    caption primary[height=14 color=#00444444 dy=1 optional] priority=-7450
 type amenity-parking-underground-fee
   z15
-    symbol name=parking_underground_pay-m priority=300 min_distance=10
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9700
+    symbol name=parking_underground_pay-m priority=2550 min_distance=10
   z16
-    symbol name=parking_underground_pay-m priority=300 min_distance=10
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9700
+    symbol name=parking_underground_pay-m priority=2550 min_distance=10
+    caption primary[height=12 color=#00444444 dy=1 optional] priority=-7450
   z17
-    symbol name=parking_underground_pay-m priority=300 min_distance=10
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9700
+    symbol name=parking_underground_pay-m priority=2550 min_distance=15
+    caption primary[height=13 color=#00444444 dy=1 optional] priority=-7450
   z18
-    symbol name=parking_underground_pay-m priority=300 min_distance=10
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9700
+    symbol name=parking_underground_pay-m priority=2550 min_distance=10
+    caption primary[height=14 color=#00444444 dy=1 optional] priority=-7450
   z19
-    symbol name=parking_underground_pay-m priority=300 min_distance=10
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9700
+    symbol name=parking_underground_pay-m priority=2550 min_distance=10
+    caption primary[height=14 color=#00444444 dy=1 optional] priority=-7450
   z20
-    symbol name=parking_underground_pay-m priority=300 min_distance=10
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9700
+    symbol name=parking_underground_pay-m priority=2550 min_distance=10
+    caption primary[height=14 color=#00444444 dy=1 optional] priority=-7450
 type amenity-parking-underground-private
   z17
-    symbol name=parking_underground_private-m priority=100
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9900
+    symbol name=parking_underground_private-m priority=500 min_distance=15
+    caption primary[height=13 color=#00444444 dy=1 optional] priority=-9500
   z18
-    symbol name=parking_underground_private-m priority=100
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9900
+    symbol name=parking_underground_private-m priority=500 min_distance=10
+    caption primary[height=14 color=#00444444 dy=1 optional] priority=-9500
   z19
-    symbol name=parking_underground_private-m priority=100
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9900
+    symbol name=parking_underground_private-m priority=500 min_distance=10
+    caption primary[height=14 color=#00444444 dy=1 optional] priority=-9500
   z20
-    symbol name=parking_underground_private-m priority=100
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9900
+    symbol name=parking_underground_private-m priority=500 min_distance=10
+    caption primary[height=14 color=#00444444 dy=1 optional] priority=-9500
 type amenity-parking_entrance
   z16
-    symbol name=parking_entrance-m priority=250
+    symbol name=parking_entrance-m priority=2530
   z17
-    symbol name=parking_entrance-m priority=250
+    symbol name=parking_entrance-m priority=2530
   z18
-    symbol name=parking_entrance-m priority=250
+    symbol name=parking_entrance-m priority=2530
   z19
-    symbol name=parking_entrance-m priority=250
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-9750
+    symbol name=parking_entrance-m priority=2530
   z20
-    symbol name=parking_entrance-m priority=250
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-9750
+    symbol name=parking_entrance-m priority=2530
 type amenity-parking_entrance-permissive
   z16
-    symbol name=parking_entrance-m priority=250
+    symbol name=parking_entrance-m priority=2530
   z17
-    symbol name=parking_entrance-m priority=250
+    symbol name=parking_entrance-m priority=2530
   z18
-    symbol name=parking_entrance-m priority=250
+    symbol name=parking_entrance-m priority=2530
   z19
-    symbol name=parking_entrance-m priority=250
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-9750
+    symbol name=parking_entrance-m priority=2530
   z20
-    symbol name=parking_entrance-m priority=250
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-9750
+    symbol name=parking_entrance-m priority=2530
 type amenity-parking_entrance-private
   z19
-    symbol name=parking_entrance_private-m priority=100
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-9900
+    symbol name=parking_entrance_private-m priority=500
   z20
-    symbol name=parking_entrance_private-m priority=100
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-9900
+    symbol name=parking_entrance_private-m priority=500
 type amenity-parking_space
   z19
     caption primary[height=10 color=#00444444 dy=1] priority=-9970
@@ -2519,23 +2425,23 @@ type amenity-prison
     caption primary[height=11 color=#00444444 dy=1 optional] priority=-9150
 type amenity-pub
   z15
-    symbol name=pub-m priority=3950 min_distance=12
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-6050
+    symbol name=pub-m priority=750 min_distance=22
+    caption primary[height=12 color=#00444444 dy=1 optional] priority=-9250
   z16
-    symbol name=pub-m priority=3950 min_distance=12
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-6050
+    symbol name=pub-m priority=750 min_distance=22
+    caption primary[height=12 color=#00444444 dy=1 optional] priority=-9250
   z17
-    symbol name=pub-m priority=3950 min_distance=12
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-6050
+    symbol name=pub-m priority=750 min_distance=22
+    caption primary[height=13 color=#00444444 dy=1 optional] priority=-9250
   z18
-    symbol name=pub-m priority=3950 min_distance=12
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-6050
+    symbol name=pub-m priority=750 min_distance=25
+    caption primary[height=14 color=#00444444 dy=1 optional] priority=-9250
   z19
-    symbol name=pub-m priority=3950 min_distance=12
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-6050
+    symbol name=pub-m priority=750 min_distance=40
+    caption primary[height=14 color=#00444444 dy=1 optional] priority=-9250
   z20
-    symbol name=pub-m priority=3950 min_distance=12
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-6050
+    symbol name=pub-m priority=750 min_distance=40
+    caption primary[height=14 color=#00444444 dy=1 optional] priority=-9250
 type amenity-public_bath
   z17
     symbol name=public_bath-m priority=2400
@@ -2616,23 +2522,23 @@ type amenity-recycling-container
     caption primary[height=10 color=#00444444 dy=1 optional] priority=-9800
 type amenity-restaurant
   z15
-    symbol name=restaurant-m priority=4100 min_distance=12
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-5900
+    symbol name=restaurant-m priority=750 min_distance=22
+    caption primary[height=12 color=#00444444 dy=1 optional] priority=-9250
   z16
-    symbol name=restaurant-m priority=4100 min_distance=12
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-5900
+    symbol name=restaurant-m priority=750 min_distance=22
+    caption primary[height=12 color=#00444444 dy=1 optional] priority=-9250
   z17
-    symbol name=restaurant-m priority=4100 min_distance=12
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-5900
+    symbol name=restaurant-m priority=750 min_distance=22
+    caption primary[height=13 color=#00444444 dy=1 optional] priority=-9250
   z18
-    symbol name=restaurant-m priority=4100 min_distance=12
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-5900
+    symbol name=restaurant-m priority=750 min_distance=25
+    caption primary[height=14 color=#00444444 dy=1 optional] priority=-9250
   z19
-    symbol name=restaurant-m priority=4100 min_distance=12
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-5900
+    symbol name=restaurant-m priority=750 min_distance=40
+    caption primary[height=14 color=#00444444 dy=1 optional] priority=-9250
   z20
-    symbol name=restaurant-m priority=4100 min_distance=12
-    caption primary[height=10 color=#00444444 dy=1 optional] priority=-5900
+    symbol name=restaurant-m priority=750 min_distance=40
+    caption primary[height=14 color=#00444444 dy=1 optional] priority=-9250
 type amenity-sanitary_dump_station
   z15
     symbol name=dump-station-m priority=1800 min_distance=20
@@ -5089,57 +4995,57 @@ type highway-bus_stop
     caption primary[height=11 color=#00222222 stroke=#1AFFFFFF dy=1 optional] secondary[height=10 color=#00222222 stroke=#1AFFFFFF dy=1 optional] priority=-6400
 type highway-busway
   z15
-    line width=1.2 color=#00E9E9E9 join=round cap=butt priority=190
+    line width=1.2 color=#00E8E6DC join=round cap=butt priority=190
   z16
-    line width=1.6 color=#00E9E9E9 join=round cap=round priority=190
+    line width=1.6 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=10 color=#00333333 stroke=#00FFFFFF] priority=2250
   z17
-    line width=2 color=#00E9E9E9 join=round cap=round priority=190
+    line width=2 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=10 color=#00333333 stroke=#00FFFFFF] priority=2250
   z18
-    line width=3 color=#00E9E9E9 join=round cap=round priority=190
+    line width=3 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2250
   z19
-    line width=4 color=#00E9E9E9 join=round cap=round priority=190
+    line width=4 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2250
   z20
-    line width=4 color=#00E9E9E9 join=round cap=round priority=190
+    line width=4 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2250
 type highway-busway-bridge
   z15
-    line width=1.2 color=#00E9E9E9 join=round cap=butt priority=190
+    line width=1.2 color=#00E8E6DC join=round cap=butt priority=190
   z16
-    line width=1.6 color=#00E9E9E9 join=round cap=round priority=190
+    line width=1.6 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=10 color=#00333333 stroke=#00FFFFFF] priority=2250
   z17
-    line width=2 color=#00E9E9E9 join=round cap=round priority=190
+    line width=2 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=10 color=#00333333 stroke=#00FFFFFF] priority=2250
   z18
-    line width=3 color=#00E9E9E9 join=round cap=round priority=190
+    line width=3 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2250
   z19
-    line width=4 color=#00E9E9E9 join=round cap=round priority=190
+    line width=4 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2250
   z20
-    line width=4 color=#00E9E9E9 join=round cap=round priority=190
+    line width=4 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2250
 type highway-busway-tunnel
   z15
-    line width=1.2 color=#00E9E9E9 join=round cap=butt priority=190
+    line width=1.2 color=#00E8E6DC join=round cap=butt priority=190
   z16
-    line width=1.6 color=#00E9E9E9 join=round cap=round priority=190
+    line width=1.6 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=10 color=#00333333 stroke=#00FFFFFF] priority=2250
   z17
-    line width=2 color=#00E9E9E9 join=round cap=round priority=190
+    line width=2 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=10 color=#00333333 stroke=#00FFFFFF] priority=2250
   z18
-    line width=3 color=#00E9E9E9 join=round cap=round priority=190
+    line width=3 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2250
   z19
-    line width=4 color=#00E9E9E9 join=round cap=round priority=190
+    line width=4 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2250
   z20
-    line width=4 color=#00E9E9E9 join=round cap=round priority=190
+    line width=4 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2250
 type highway-construction
   z11
@@ -5527,63 +5433,63 @@ type highway-ladder
     symbol name=ladder-s priority=850
 type highway-living_street
   z12
-    line width=0.7 color=#00E9E9E9 join=bevel cap=butt priority=230
+    line width=0.7 color=#00E8E6DC join=bevel cap=butt priority=230
   z13
-    line width=1 color=#00E9E9E9 join=round cap=butt priority=230
+    line width=1 color=#00E8E6DC join=round cap=butt priority=230
   z14
-    line width=1.6 color=#00E9E9E9 join=round cap=butt priority=230
+    line width=1.6 color=#00E8E6DC join=round cap=butt priority=230
   z15
-    line width=2.4 color=#00E9E9E9 join=round cap=butt priority=230
+    line width=2.4 color=#00E8E6DC join=round cap=butt priority=230
     path_text primary[height=10 color=#00444444 stroke=#1AEDEBDB] priority=2450
   z16
-    line width=3.2 color=#00E9E9E9 join=round cap=round priority=230
+    line width=3.2 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=10 color=#00333333 stroke=#00FFFFFF] priority=2450
   z17
-    line width=4.7 color=#00E9E9E9 join=round cap=round priority=230
+    line width=4.7 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=10 color=#00333333 stroke=#00FFFFFF] priority=2450
   z18
-    line width=6.4 color=#00E9E9E9 join=round cap=round priority=230
+    line width=6.4 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2450
   z19
-    line width=8.2 color=#00E9E9E9 join=round cap=round priority=230
+    line width=8.2 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2450
   z20
-    line width=8.2 color=#00E9E9E9 join=round cap=round priority=230
+    line width=8.2 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2450
 type highway-living_street-bridge
   z12
-    line width=0.7 color=#00E9E9E9 join=bevel cap=butt priority=230
+    line width=0.7 color=#00E8E6DC join=bevel cap=butt priority=230
   z13
-    line width=1 color=#00E9E9E9 join=round cap=butt priority=230
+    line width=1 color=#00E8E6DC join=round cap=butt priority=230
   z14
-    line width=1.6 color=#00E9E9E9 join=round cap=butt priority=230
+    line width=1.6 color=#00E8E6DC join=round cap=butt priority=230
   z15
-    line width=2.4 color=#00E9E9E9 join=round cap=butt priority=230
+    line width=2.4 color=#00E8E6DC join=round cap=butt priority=230
     path_text primary[height=10 color=#00444444 stroke=#1AEDEBDB] priority=2450
   z16
-    line width=3.2 color=#00E9E9E9 join=round cap=round priority=230
+    line width=3.2 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=10 color=#00333333 stroke=#00FFFFFF] priority=2450
   z17
-    line width=4.7 color=#00E9E9E9 join=round cap=round priority=230
+    line width=4.7 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=10 color=#00333333 stroke=#00FFFFFF] priority=2450
   z18
-    line width=6.4 color=#00E9E9E9 join=round cap=round priority=230
+    line width=6.4 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2450
   z19
-    line width=8.2 color=#00E9E9E9 join=round cap=round priority=230
+    line width=8.2 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2450
   z20
-    line width=8.2 color=#00E9E9E9 join=round cap=round priority=230
+    line width=8.2 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2450
 type highway-living_street-tunnel
   z12
-    line width=0.7 color=#00E9E9E9 join=bevel cap=butt priority=230
+    line width=0.7 color=#00E8E6DC join=bevel cap=butt priority=230
   z13
-    line width=1 color=#00E9E9E9 join=round cap=butt priority=230
+    line width=1 color=#00E8E6DC join=round cap=butt priority=230
   z14
-    line width=1.6 color=#00E9E9E9 join=round cap=butt priority=230
+    line width=1.6 color=#00E8E6DC join=round cap=butt priority=230
   z15
-    line width=2.4 color=#00E9E9E9 join=round cap=butt priority=230
+    line width=2.4 color=#00E8E6DC join=round cap=butt priority=230
     path_text primary[height=10 color=#00444444 stroke=#1AEDEBDB] priority=2450
   z16
     line width=5.2 color=#4D808080 join=round cap=butt dash=[5,5] priority=229
@@ -5607,186 +5513,186 @@ type highway-living_street-tunnel
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2450
 type highway-motorway
   z6
-    line width=0.8 color=#B3A6A6A6 join=bevel cap=butt priority=310
+    line width=0.8 color=#B3ECBE9B join=bevel cap=butt priority=310
   z7
-    line width=0.9 color=#4DA6A6A6 join=bevel cap=butt priority=310
+    line width=0.9 color=#4DECBE9B join=bevel cap=butt priority=310
   z8
-    line width=1.1 color=#4DA6A6A6 join=bevel cap=butt priority=310
+    line width=1.1 color=#4DECBE9B join=bevel cap=butt priority=310
   z9
-    line width=1.2 color=#4DA6A6A6 join=bevel cap=butt priority=310
+    line width=1.2 color=#4DECBE9B join=bevel cap=butt priority=310
   z10
-    line width=1.5 color=#4DAEAEAE join=bevel cap=butt priority=310
+    line width=1.5 color=#4DECC09B join=bevel cap=butt priority=310
     path_text primary[height=11 color=#00333333 stroke=#1AEDEBDB] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=85
   z11
-    line width=1.7 color=#4DAEAEAE join=bevel cap=butt priority=310
+    line width=1.7 color=#4DECC09B join=bevel cap=butt priority=310
     path_text primary[height=11 color=#00333333 stroke=#1AEDEBDB] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=90
   z12
-    line width=1.9 color=#4DAEAEAE join=bevel cap=butt priority=310
+    line width=1.9 color=#4DECC09B join=bevel cap=butt priority=310
     path_text primary[height=12 color=#00333333 stroke=#00EDEBDB] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=90
   z13
-    line width=2.8 color=#27AEAEAE join=round cap=butt priority=310
+    line width=2.8 color=#27ECC09B join=round cap=butt priority=310
     path_text primary[height=12 color=#00333333 stroke=#00EDEBDB] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=120
   z14
-    line width=3.8 color=#27AEAEAE join=round cap=butt priority=310
+    line width=3.8 color=#27ECC09B join=round cap=butt priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=175
   z15
-    line width=4.4 color=#00AEAEAE join=round cap=butt priority=310
+    line width=4.4 color=#00ECC09B join=round cap=butt priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=250
   z16
-    line width=6 color=#00AEAEAE join=round cap=round priority=310
+    line width=6 color=#00ECC09B join=round cap=round priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=300
   z17
-    line width=8.2 color=#00AEAEAE join=round cap=round priority=310
+    line width=8.2 color=#00ECC09B join=round cap=round priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=300
   z18
-    line width=11 color=#00AEAEAE join=round cap=round priority=310
+    line width=11 color=#00ECC09B join=round cap=round priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=300
   z19
-    line width=13.5 color=#00AEAEAE join=round cap=round priority=310
+    line width=13.5 color=#00ECC09B join=round cap=round priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=350
   z20
-    line width=13.5 color=#00AEAEAE join=round cap=round priority=310
+    line width=13.5 color=#00ECC09B join=round cap=round priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=350
 type highway-motorway-bridge
   z6
-    line width=0.8 color=#B3A6A6A6 join=bevel cap=butt priority=310
+    line width=0.8 color=#B3ECBE9B join=bevel cap=butt priority=310
   z7
-    line width=0.9 color=#4DA6A6A6 join=bevel cap=butt priority=310
+    line width=0.9 color=#4DECBE9B join=bevel cap=butt priority=310
   z8
-    line width=1.1 color=#4DA6A6A6 join=bevel cap=butt priority=310
+    line width=1.1 color=#4DECBE9B join=bevel cap=butt priority=310
   z9
-    line width=1.2 color=#4DA6A6A6 join=bevel cap=butt priority=310
+    line width=1.2 color=#4DECBE9B join=bevel cap=butt priority=310
   z10
-    line width=1.5 color=#4DAEAEAE join=bevel cap=butt priority=310
+    line width=1.5 color=#4DECC09B join=bevel cap=butt priority=310
     path_text primary[height=11 color=#00333333 stroke=#1AEDEBDB] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=85
   z11
-    line width=1.7 color=#4DAEAEAE join=bevel cap=butt priority=310
+    line width=1.7 color=#4DECC09B join=bevel cap=butt priority=310
     path_text primary[height=11 color=#00333333 stroke=#1AEDEBDB] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=90
   z12
-    line width=1.9 color=#4DAEAEAE join=bevel cap=butt priority=310
+    line width=1.9 color=#4DECC09B join=bevel cap=butt priority=310
     path_text primary[height=12 color=#00333333 stroke=#00EDEBDB] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=90
   z13
     line width=6.4 color=#4D808080 join=round cap=butt priority=140
     line width=6 color=#33EDEBDB join=round cap=butt priority=150
-    line width=2.8 color=#27AEAEAE join=round cap=butt priority=310
+    line width=2.8 color=#27ECC09B join=round cap=butt priority=310
     path_text primary[height=12 color=#00333333 stroke=#00EDEBDB] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=120
   z14
     line width=8.4 color=#4D808080 join=round cap=butt priority=140
     line width=7.6 color=#33EDEBDB join=round cap=butt priority=150
-    line width=3.8 color=#27AEAEAE join=round cap=butt priority=310
+    line width=3.8 color=#27ECC09B join=round cap=butt priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=175
   z15
     line width=9.6 color=#4D808080 join=round cap=butt priority=140
     line width=8.8 color=#33EDEBDB join=round cap=butt priority=150
-    line width=4.4 color=#00AEAEAE join=round cap=butt priority=310
+    line width=4.4 color=#00ECC09B join=round cap=butt priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=250
   z16
     line width=12.8 color=#4D808080 join=round cap=butt priority=140
     line width=12 color=#33EDEBDB join=round cap=butt priority=150
-    line width=6 color=#00AEAEAE join=round cap=round priority=310
+    line width=6 color=#00ECC09B join=round cap=round priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=300
   z17
     line width=19.6 color=#4D808080 join=round cap=butt priority=140
     line width=18 color=#33EDEBDB join=round cap=butt priority=150
-    line width=8.2 color=#00AEAEAE join=round cap=round priority=310
+    line width=8.2 color=#00ECC09B join=round cap=round priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=300
   z18
     line width=26 color=#4D808080 join=round cap=butt priority=140
     line width=24 color=#33EDEBDB join=round cap=butt priority=150
-    line width=11 color=#00AEAEAE join=round cap=round priority=310
+    line width=11 color=#00ECC09B join=round cap=round priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=300
   z19
     line width=31 color=#4D808080 join=round cap=butt priority=140
     line width=29 color=#33EDEBDB join=round cap=butt priority=150
-    line width=13.5 color=#00AEAEAE join=round cap=round priority=310
+    line width=13.5 color=#00ECC09B join=round cap=round priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=350
   z20
     line width=31 color=#4D808080 join=round cap=butt priority=140
     line width=29 color=#33EDEBDB join=round cap=butt priority=150
-    line width=13.5 color=#00AEAEAE join=round cap=round priority=310
+    line width=13.5 color=#00ECC09B join=round cap=round priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=350
 type highway-motorway-tunnel
   z6
-    line width=0.8 color=#B3A6A6A6 join=bevel cap=butt priority=310
+    line width=0.8 color=#B3ECBE9B join=bevel cap=butt priority=310
   z7
-    line width=0.9 color=#4DA6A6A6 join=bevel cap=butt priority=310
+    line width=0.9 color=#4DECBE9B join=bevel cap=butt priority=310
   z8
-    line width=1.1 color=#4DA6A6A6 join=bevel cap=butt priority=310
+    line width=1.1 color=#4DECBE9B join=bevel cap=butt priority=310
   z9
-    line width=1.2 color=#4DA6A6A6 join=bevel cap=butt priority=310
+    line width=1.2 color=#4DECBE9B join=bevel cap=butt priority=310
   z10
-    line width=1.5 color=#4DAEAEAE join=bevel cap=butt priority=310
+    line width=1.5 color=#4DECC09B join=bevel cap=butt priority=310
     path_text primary[height=11 color=#00333333 stroke=#1AEDEBDB] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=85
   z11
-    line width=1.7 color=#4DAEAEAE join=bevel cap=butt priority=310
+    line width=1.7 color=#4DECC09B join=bevel cap=butt priority=310
     path_text primary[height=11 color=#00333333 stroke=#1AEDEBDB] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=90
   z12
     line width=2.9 color=#4D808080 join=round cap=butt dash=[2,2] priority=309
-    line width=1.9 color=#1AC4C4C4 join=bevel cap=butt priority=310
+    line width=1.9 color=#1AEBCDAE join=bevel cap=butt priority=310
     path_text primary[height=12 color=#00333333 stroke=#00EDEBDB] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=90
   z13
     line width=4.4 color=#4D808080 join=round cap=butt dash=[4,4] priority=309
-    line width=2.8 color=#33C4C4C4 join=round cap=butt priority=310
+    line width=2.8 color=#33EBCDAE join=round cap=butt priority=310
     path_text primary[height=12 color=#00333333 stroke=#00EDEBDB] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=120
   z14
     line width=5.4 color=#4D808080 join=round cap=butt dash=[4,4] priority=309
-    line width=3.8 color=#33C4C4C4 join=round cap=butt priority=310
+    line width=3.8 color=#33EBCDAE join=round cap=butt priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=175
   z15
     line width=6.4 color=#4D808080 join=round cap=butt dash=[5,5] priority=309
-    line width=4.4 color=#4DC4C4C4 join=round cap=butt priority=310
+    line width=4.4 color=#4DEBCDAE join=round cap=butt priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=250
   z16
     line width=8 color=#4D808080 join=round cap=butt dash=[5,5] priority=309
-    line width=6 color=#4DC4C4C4 join=round cap=round priority=310
+    line width=6 color=#4DEBCDAE join=round cap=round priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=300
   z17
     line width=10.2 color=#4D808080 join=round cap=butt dash=[5,5] priority=309
-    line width=8.2 color=#4DC4C4C4 join=round cap=round priority=310
+    line width=8.2 color=#4DEBCDAE join=round cap=round priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=300
   z18
     line width=13 color=#4D808080 join=round cap=butt dash=[5,5] priority=309
-    line width=11 color=#4DC4C4C4 join=round cap=round priority=310
+    line width=11 color=#4DEBCDAE join=round cap=round priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=300
   z19
     line width=15.5 color=#4D808080 join=round cap=butt dash=[5,5] priority=309
-    line width=13.5 color=#4DC4C4C4 join=round cap=round priority=310
+    line width=13.5 color=#4DEBCDAE join=round cap=round priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=350
   z20
     line width=15.5 color=#4D808080 join=round cap=butt dash=[5,5] priority=309
-    line width=13.5 color=#4DC4C4C4 join=round cap=round priority=310
+    line width=13.5 color=#4DEBCDAE join=round cap=round priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=350
 type highway-motorway_junction
@@ -5804,159 +5710,159 @@ type highway-motorway_junction
     caption primary[height=10 color=#00333333] priority=3300
 type highway-motorway_link
   z10
-    line width=0.8 color=#4DB8B8B8 join=bevel cap=butt priority=228
+    line width=0.8 color=#4DECC49B join=bevel cap=butt priority=228
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=85
   z11
-    line width=1 color=#4DB8B8B8 join=bevel cap=butt priority=228
+    line width=1 color=#4DECC49B join=bevel cap=butt priority=228
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=90
   z12
-    line width=1.3 color=#4DB8B8B8 join=bevel cap=butt priority=228
+    line width=1.3 color=#4DECC49B join=bevel cap=butt priority=228
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=90
   z13
-    line width=1.8 color=#4DB8B8B8 join=round cap=butt priority=228
+    line width=1.8 color=#4DECC49B join=round cap=butt priority=228
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=120
   z14
-    line width=2.6 color=#27B8B8B8 join=round cap=butt priority=228
+    line width=2.6 color=#27ECC49B join=round cap=butt priority=228
     path_text primary[height=11 color=#00333333 stroke=#1AEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=175
   z15
-    line width=3.6 color=#27B8B8B8 join=round cap=butt priority=228
+    line width=3.6 color=#27ECC49B join=round cap=butt priority=228
     path_text primary[height=11 color=#00333333 stroke=#1AEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=250
   z16
-    line width=5 color=#00B8B8B8 join=round cap=round priority=228
+    line width=5 color=#00ECC49B join=round cap=round priority=228
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=300
   z17
-    line width=6.6 color=#00B8B8B8 join=round cap=round priority=228
+    line width=6.6 color=#00ECC49B join=round cap=round priority=228
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6150
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=300
   z18
-    line width=9.4 color=#00B8B8B8 join=round cap=round priority=228
+    line width=9.4 color=#00ECC49B join=round cap=round priority=228
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6150
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=300
   z19
-    line width=11.6 color=#00B8B8B8 join=round cap=round priority=228
+    line width=11.6 color=#00ECC49B join=round cap=round priority=228
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6150
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=350
   z20
-    line width=11.6 color=#00B8B8B8 join=round cap=round priority=228
+    line width=11.6 color=#00ECC49B join=round cap=round priority=228
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6150
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=350
 type highway-motorway_link-bridge
   z10
-    line width=0.8 color=#4DB8B8B8 join=bevel cap=butt priority=228
+    line width=0.8 color=#4DECC49B join=bevel cap=butt priority=228
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=85
   z11
-    line width=1 color=#4DB8B8B8 join=bevel cap=butt priority=228
+    line width=1 color=#4DECC49B join=bevel cap=butt priority=228
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=90
   z12
-    line width=1.3 color=#4DB8B8B8 join=bevel cap=butt priority=228
+    line width=1.3 color=#4DECC49B join=bevel cap=butt priority=228
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=90
   z13
-    line width=1.8 color=#4DB8B8B8 join=round cap=butt priority=228
+    line width=1.8 color=#4DECC49B join=round cap=butt priority=228
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=120
   z14
     line width=6 color=#4D808080 join=round cap=butt priority=140
     line width=5.2 color=#33EDEBDB join=round cap=butt priority=150
-    line width=2.6 color=#27B8B8B8 join=round cap=butt priority=228
+    line width=2.6 color=#27ECC49B join=round cap=butt priority=228
     path_text primary[height=11 color=#00333333 stroke=#1AEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=175
   z15
     line width=8 color=#4D808080 join=round cap=butt priority=140
     line width=7.2 color=#33EDEBDB join=round cap=butt priority=150
-    line width=3.6 color=#27B8B8B8 join=round cap=butt priority=228
+    line width=3.6 color=#27ECC49B join=round cap=butt priority=228
     path_text primary[height=11 color=#00333333 stroke=#1AEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=250
   z16
     line width=10.8 color=#4D808080 join=round cap=butt priority=140
     line width=10 color=#33EDEBDB join=round cap=butt priority=150
-    line width=5 color=#00B8B8B8 join=round cap=round priority=228
+    line width=5 color=#00ECC49B join=round cap=round priority=228
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=300
   z17
     line width=16.4 color=#4D808080 join=round cap=butt priority=140
     line width=14.8 color=#33EDEBDB join=round cap=butt priority=150
-    line width=6.6 color=#00B8B8B8 join=round cap=round priority=228
+    line width=6.6 color=#00ECC49B join=round cap=round priority=228
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6150
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=300
   z18
     line width=22.8 color=#4D808080 join=round cap=butt priority=140
     line width=20.8 color=#33EDEBDB join=round cap=butt priority=150
-    line width=9.4 color=#00B8B8B8 join=round cap=round priority=228
+    line width=9.4 color=#00ECC49B join=round cap=round priority=228
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6150
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=300
   z19
     line width=27.2 color=#4D808080 join=round cap=butt priority=140
     line width=25.2 color=#33EDEBDB join=round cap=butt priority=150
-    line width=11.6 color=#00B8B8B8 join=round cap=round priority=228
+    line width=11.6 color=#00ECC49B join=round cap=round priority=228
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6150
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=350
   z20
     line width=27.2 color=#4D808080 join=round cap=butt priority=140
     line width=25.2 color=#33EDEBDB join=round cap=butt priority=150
-    line width=11.6 color=#00B8B8B8 join=round cap=round priority=228
+    line width=11.6 color=#00ECC49B join=round cap=round priority=228
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6150
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=350
 type highway-motorway_link-tunnel
   z10
-    line width=0.8 color=#4DB8B8B8 join=bevel cap=butt priority=228
+    line width=0.8 color=#4DECC49B join=bevel cap=butt priority=228
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=85
   z11
-    line width=1 color=#4DB8B8B8 join=bevel cap=butt priority=228
+    line width=1 color=#4DECC49B join=bevel cap=butt priority=228
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=90
   z12
-    line width=1.3 color=#4DB8B8B8 join=bevel cap=butt priority=228
+    line width=1.3 color=#4DECC49B join=bevel cap=butt priority=228
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=90
   z13
     line width=3.4 color=#4D808080 join=round cap=butt dash=[4,4] priority=227
-    line width=1.8 color=#33C4C4C4 join=round cap=butt priority=228
+    line width=1.8 color=#33EBCDAE join=round cap=butt priority=228
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=120
   z14
     line width=4.2 color=#4D808080 join=round cap=butt dash=[4,4] priority=227
-    line width=2.6 color=#33C4C4C4 join=round cap=butt priority=228
+    line width=2.6 color=#33EBCDAE join=round cap=butt priority=228
     path_text primary[height=11 color=#00333333 stroke=#1AEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=175
   z15
     line width=5.6 color=#4D808080 join=round cap=butt dash=[5,5] priority=227
-    line width=3.6 color=#4DC4C4C4 join=round cap=butt priority=228
+    line width=3.6 color=#4DEBCDAE join=round cap=butt priority=228
     path_text primary[height=11 color=#00333333 stroke=#1AEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=250
   z16
     line width=7 color=#4D808080 join=round cap=butt dash=[5,5] priority=227
-    line width=5 color=#4DC4C4C4 join=round cap=round priority=228
+    line width=5 color=#4DEBCDAE join=round cap=round priority=228
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=300
   z17
     line width=8.6 color=#4D808080 join=round cap=butt dash=[5,5] priority=227
-    line width=6.6 color=#4DC4C4C4 join=round cap=round priority=228
+    line width=6.6 color=#4DEBCDAE join=round cap=round priority=228
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6150
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=300
   z18
     line width=11.4 color=#4D808080 join=round cap=butt dash=[5,5] priority=227
-    line width=9.4 color=#4DC4C4C4 join=round cap=round priority=228
+    line width=9.4 color=#4DEBCDAE join=round cap=round priority=228
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6150
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=300
   z19
     line width=13.6 color=#4D808080 join=round cap=butt dash=[5,5] priority=227
-    line width=11.6 color=#4DC4C4C4 join=round cap=round priority=228
+    line width=11.6 color=#4DEBCDAE join=round cap=round priority=228
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6150
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=350
   z20
     line width=13.6 color=#4D808080 join=round cap=butt dash=[5,5] priority=227
-    line width=11.6 color=#4DC4C4C4 join=round cap=round priority=228
+    line width=11.6 color=#4DEBCDAE join=round cap=round priority=228
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6150
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=350
 type highway-path
@@ -6298,314 +6204,314 @@ type highway-platform
     line width=5 color=#00F2F2F2 join=round cap=round dash=[16.2,8.1] priority=200
 type highway-primary
   z8
-    line width=0.7 color=#4DB8B8B8 join=bevel cap=butt priority=290
+    line width=0.7 color=#4DECC49B join=bevel cap=butt priority=290
   z9
-    line width=0.8 color=#4DB8B8B8 join=bevel cap=butt priority=290
+    line width=0.8 color=#4DECC49B join=bevel cap=butt priority=290
   z10
-    line width=1.2 color=#4DB8B8B8 join=bevel cap=butt priority=290
+    line width=1.2 color=#4DECC49B join=bevel cap=butt priority=290
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6200
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2975 min_distance=85
   z11
-    line width=1.5 color=#4DBEBEBE join=bevel cap=butt priority=290
+    line width=1.5 color=#4DECC8A3 join=bevel cap=butt priority=290
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6200
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2975 min_distance=90
   z12
-    line width=1.7 color=#4DBEBEBE join=bevel cap=butt priority=290
+    line width=1.7 color=#4DECC8A3 join=bevel cap=butt priority=290
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6200
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2975 min_distance=90
   z13
-    line width=2.3 color=#27BEBEBE join=round cap=butt priority=290
+    line width=2.3 color=#27ECC8A3 join=round cap=butt priority=290
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6200
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2975 min_distance=120
   z14
-    line width=3.2 color=#27BEBEBE join=round cap=butt priority=290
+    line width=3.2 color=#27ECC8A3 join=round cap=butt priority=290
     path_text primary[height=13 color=#00222222 stroke=#1AEDEBDB] priority=6200
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2975 min_distance=175
   z15
-    line width=3.8 color=#00C4C4C4 join=round cap=butt priority=290
+    line width=3.8 color=#00ECCDA7 join=round cap=butt priority=290
     path_text primary[height=13 color=#00222222 stroke=#1AEDEBDB] priority=6200
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2975 min_distance=250
   z16
-    line width=5 color=#00C4C4C4 join=round cap=round priority=290
+    line width=5 color=#00ECCDA7 join=round cap=round priority=290
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6200
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2975 min_distance=300
   z17
-    line width=6.6 color=#00C4C4C4 join=round cap=round priority=290
+    line width=6.6 color=#00ECCDA7 join=round cap=round priority=290
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6200
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2975 min_distance=300
   z18
-    line width=9.4 color=#00C4C4C4 join=round cap=round priority=290
+    line width=9.4 color=#00ECCDA7 join=round cap=round priority=290
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6200
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2975 min_distance=300
   z19
-    line width=11.6 color=#00C4C4C4 join=round cap=round priority=290
+    line width=11.6 color=#00ECCDA7 join=round cap=round priority=290
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6200
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2975 min_distance=350
   z20
-    line width=11.6 color=#00C4C4C4 join=round cap=round priority=290
+    line width=11.6 color=#00ECCDA7 join=round cap=round priority=290
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6200
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2975 min_distance=350
 type highway-primary-bridge
   z8
-    line width=0.7 color=#4DB8B8B8 join=bevel cap=butt priority=290
+    line width=0.7 color=#4DECC49B join=bevel cap=butt priority=290
   z9
-    line width=0.8 color=#4DB8B8B8 join=bevel cap=butt priority=290
+    line width=0.8 color=#4DECC49B join=bevel cap=butt priority=290
   z10
-    line width=1.2 color=#4DB8B8B8 join=bevel cap=butt priority=290
+    line width=1.2 color=#4DECC49B join=bevel cap=butt priority=290
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6200
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2975 min_distance=85
   z11
-    line width=1.5 color=#4DBEBEBE join=bevel cap=butt priority=290
+    line width=1.5 color=#4DECC8A3 join=bevel cap=butt priority=290
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6200
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2975 min_distance=90
   z12
-    line width=1.7 color=#4DBEBEBE join=bevel cap=butt priority=290
+    line width=1.7 color=#4DECC8A3 join=bevel cap=butt priority=290
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6200
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2975 min_distance=90
   z13
-    line width=2.3 color=#27BEBEBE join=round cap=butt priority=290
+    line width=2.3 color=#27ECC8A3 join=round cap=butt priority=290
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6200
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2975 min_distance=120
   z14
     line width=7.2 color=#4D808080 join=round cap=butt priority=140
     line width=6.4 color=#33EDEBDB join=round cap=butt priority=150
-    line width=3.2 color=#27BEBEBE join=round cap=butt priority=290
+    line width=3.2 color=#27ECC8A3 join=round cap=butt priority=290
     path_text primary[height=13 color=#00222222 stroke=#1AEDEBDB] priority=6200
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2975 min_distance=175
   z15
     line width=8.4 color=#4D808080 join=round cap=butt priority=140
     line width=7.6 color=#33EDEBDB join=round cap=butt priority=150
-    line width=3.8 color=#00C4C4C4 join=round cap=butt priority=290
+    line width=3.8 color=#00ECCDA7 join=round cap=butt priority=290
     path_text primary[height=13 color=#00222222 stroke=#1AEDEBDB] priority=6200
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2975 min_distance=250
   z16
     line width=10.8 color=#4D808080 join=round cap=butt priority=140
     line width=10 color=#33EDEBDB join=round cap=butt priority=150
-    line width=5 color=#00C4C4C4 join=round cap=round priority=290
+    line width=5 color=#00ECCDA7 join=round cap=round priority=290
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6200
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2975 min_distance=300
   z17
     line width=16.4 color=#4D808080 join=round cap=butt priority=140
     line width=14.8 color=#33EDEBDB join=round cap=butt priority=150
-    line width=6.6 color=#00C4C4C4 join=round cap=round priority=290
+    line width=6.6 color=#00ECCDA7 join=round cap=round priority=290
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6200
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2975 min_distance=300
   z18
     line width=22.8 color=#4D808080 join=round cap=butt priority=140
     line width=20.8 color=#33EDEBDB join=round cap=butt priority=150
-    line width=9.4 color=#00C4C4C4 join=round cap=round priority=290
+    line width=9.4 color=#00ECCDA7 join=round cap=round priority=290
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6200
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2975 min_distance=300
   z19
     line width=27.2 color=#4D808080 join=round cap=butt priority=140
     line width=25.2 color=#33EDEBDB join=round cap=butt priority=150
-    line width=11.6 color=#00C4C4C4 join=round cap=round priority=290
+    line width=11.6 color=#00ECCDA7 join=round cap=round priority=290
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6200
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2975 min_distance=350
   z20
     line width=27.2 color=#4D808080 join=round cap=butt priority=140
     line width=25.2 color=#33EDEBDB join=round cap=butt priority=150
-    line width=11.6 color=#00C4C4C4 join=round cap=round priority=290
+    line width=11.6 color=#00ECCDA7 join=round cap=round priority=290
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6200
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2975 min_distance=350
 type highway-primary-tunnel
   z8
-    line width=0.7 color=#4DB8B8B8 join=bevel cap=butt priority=290
+    line width=0.7 color=#4DECC49B join=bevel cap=butt priority=290
   z9
-    line width=0.8 color=#4DB8B8B8 join=bevel cap=butt priority=290
+    line width=0.8 color=#4DECC49B join=bevel cap=butt priority=290
   z10
-    line width=1.2 color=#4DB8B8B8 join=bevel cap=butt priority=290
+    line width=1.2 color=#4DECC49B join=bevel cap=butt priority=290
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6200
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2975 min_distance=85
   z11
-    line width=1.5 color=#4DBEBEBE join=bevel cap=butt priority=290
+    line width=1.5 color=#4DECC8A3 join=bevel cap=butt priority=290
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6200
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2975 min_distance=90
   z12
-    line width=1.7 color=#4DBEBEBE join=bevel cap=butt priority=290
+    line width=1.7 color=#4DECC8A3 join=bevel cap=butt priority=290
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6200
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2975 min_distance=90
   z13
-    line width=2.3 color=#27BEBEBE join=round cap=butt priority=290
+    line width=2.3 color=#27ECC8A3 join=round cap=butt priority=290
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6200
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2975 min_distance=120
   z14
     line width=4.8 color=#4D808080 join=round cap=butt dash=[4,4] priority=289
-    line width=3.2 color=#33CECECE join=round cap=butt priority=290
+    line width=3.2 color=#33EBCDAE join=round cap=butt priority=290
     path_text primary[height=13 color=#00222222 stroke=#1AEDEBDB] priority=6200
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2975 min_distance=175
   z15
     line width=5.8 color=#4D808080 join=round cap=butt dash=[5,5] priority=289
-    line width=3.8 color=#4DCECECE join=round cap=butt priority=290
+    line width=3.8 color=#4DEBCDAE join=round cap=butt priority=290
     path_text primary[height=13 color=#00222222 stroke=#1AEDEBDB] priority=6200
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2975 min_distance=250
   z16
     line width=7 color=#4D808080 join=round cap=butt dash=[5,5] priority=289
-    line width=5 color=#4DCECECE join=round cap=round priority=290
+    line width=5 color=#4DEBCDAE join=round cap=round priority=290
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6200
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2975 min_distance=300
   z17
     line width=8.6 color=#4D808080 join=round cap=butt dash=[5,5] priority=289
-    line width=6.6 color=#4DCECECE join=round cap=round priority=290
+    line width=6.6 color=#4DEBCDAE join=round cap=round priority=290
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6200
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2975 min_distance=300
   z18
     line width=11.4 color=#4D808080 join=round cap=butt dash=[5,5] priority=289
-    line width=9.4 color=#4DCECECE join=round cap=round priority=290
+    line width=9.4 color=#4DEBCDAE join=round cap=round priority=290
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6200
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2975 min_distance=300
   z19
     line width=13.6 color=#4D808080 join=round cap=butt dash=[5,5] priority=289
-    line width=11.6 color=#4DCECECE join=round cap=round priority=290
+    line width=11.6 color=#4DEBCDAE join=round cap=round priority=290
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6200
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2975 min_distance=350
   z20
     line width=13.6 color=#4D808080 join=round cap=butt dash=[5,5] priority=289
-    line width=11.6 color=#4DCECECE join=round cap=round priority=290
+    line width=11.6 color=#4DEBCDAE join=round cap=round priority=290
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6200
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2975 min_distance=350
 type highway-primary_link
   z11
-    line width=0.8 color=#4DBEBEBE join=bevel cap=butt priority=226
+    line width=0.8 color=#4DECC8A3 join=bevel cap=butt priority=226
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6100
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2970 min_distance=90
   z12
-    line width=1 color=#4DBEBEBE join=bevel cap=butt priority=226
+    line width=1 color=#4DECC8A3 join=bevel cap=butt priority=226
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6100
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2970 min_distance=90
   z13
-    line width=1.3 color=#27BEBEBE join=round cap=butt priority=226
+    line width=1.3 color=#27ECC8A3 join=round cap=butt priority=226
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6100
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2970 min_distance=120
   z14
-    line width=1.8 color=#27BEBEBE join=round cap=butt priority=226
+    line width=1.8 color=#27ECC8A3 join=round cap=butt priority=226
     path_text primary[height=10 color=#00333333 stroke=#1AEDEBDB] priority=6100
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2970 min_distance=175
   z15
-    line width=2.5 color=#00C4C4C4 join=round cap=butt priority=226
+    line width=2.5 color=#00ECCDA7 join=round cap=butt priority=226
     path_text primary[height=10 color=#00333333 stroke=#1AEDEBDB] priority=6100
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2970 min_distance=250
   z16
-    line width=3.2 color=#00C4C4C4 join=round cap=round priority=226
+    line width=3.2 color=#00ECCDA7 join=round cap=round priority=226
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6100
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2970 min_distance=300
   z17
-    line width=4.7 color=#00C4C4C4 join=round cap=round priority=226
+    line width=4.7 color=#00ECCDA7 join=round cap=round priority=226
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6100
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2970 min_distance=300
   z18
-    line width=6.4 color=#00C4C4C4 join=round cap=round priority=226
+    line width=6.4 color=#00ECCDA7 join=round cap=round priority=226
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6100
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2970 min_distance=300
   z19
-    line width=8.2 color=#00C4C4C4 join=round cap=round priority=226
+    line width=8.2 color=#00ECCDA7 join=round cap=round priority=226
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6100
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2970 min_distance=350
   z20
-    line width=8.2 color=#00C4C4C4 join=round cap=round priority=226
+    line width=8.2 color=#00ECCDA7 join=round cap=round priority=226
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6100
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2970 min_distance=350
 type highway-primary_link-bridge
   z11
-    line width=0.8 color=#4DBEBEBE join=bevel cap=butt priority=226
+    line width=0.8 color=#4DECC8A3 join=bevel cap=butt priority=226
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6100
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2970 min_distance=90
   z12
-    line width=1 color=#4DBEBEBE join=bevel cap=butt priority=226
+    line width=1 color=#4DECC8A3 join=bevel cap=butt priority=226
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6100
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2970 min_distance=90
   z13
-    line width=1.3 color=#27BEBEBE join=round cap=butt priority=226
+    line width=1.3 color=#27ECC8A3 join=round cap=butt priority=226
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6100
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2970 min_distance=120
   z14
     line width=4.4 color=#4D808080 join=round cap=butt priority=140
     line width=3.6 color=#33EDEBDB join=round cap=butt priority=150
-    line width=1.8 color=#27BEBEBE join=round cap=butt priority=226
+    line width=1.8 color=#27ECC8A3 join=round cap=butt priority=226
     path_text primary[height=10 color=#00333333 stroke=#1AEDEBDB] priority=6100
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2970 min_distance=175
   z15
     line width=5.8 color=#4D808080 join=round cap=butt priority=140
     line width=5 color=#33EDEBDB join=round cap=butt priority=150
-    line width=2.5 color=#00C4C4C4 join=round cap=butt priority=226
+    line width=2.5 color=#00ECCDA7 join=round cap=butt priority=226
     path_text primary[height=10 color=#00333333 stroke=#1AEDEBDB] priority=6100
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2970 min_distance=250
   z16
     line width=7.2 color=#4D808080 join=round cap=butt priority=140
     line width=6.4 color=#33EDEBDB join=round cap=butt priority=150
-    line width=3.2 color=#00C4C4C4 join=round cap=round priority=226
+    line width=3.2 color=#00ECCDA7 join=round cap=round priority=226
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6100
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2970 min_distance=300
   z17
     line width=12.6 color=#4D808080 join=round cap=butt priority=140
     line width=11 color=#33EDEBDB join=round cap=butt priority=150
-    line width=4.7 color=#00C4C4C4 join=round cap=round priority=226
+    line width=4.7 color=#00ECCDA7 join=round cap=round priority=226
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6100
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2970 min_distance=300
   z18
     line width=16.8 color=#4D808080 join=round cap=butt priority=140
     line width=14.8 color=#33EDEBDB join=round cap=butt priority=150
-    line width=6.4 color=#00C4C4C4 join=round cap=round priority=226
+    line width=6.4 color=#00ECCDA7 join=round cap=round priority=226
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6100
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2970 min_distance=300
   z19
     line width=20.4 color=#4D808080 join=round cap=butt priority=140
     line width=18.4 color=#33EDEBDB join=round cap=butt priority=150
-    line width=8.2 color=#00C4C4C4 join=round cap=round priority=226
+    line width=8.2 color=#00ECCDA7 join=round cap=round priority=226
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6100
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2970 min_distance=350
   z20
     line width=20.4 color=#4D808080 join=round cap=butt priority=140
     line width=18.4 color=#33EDEBDB join=round cap=butt priority=150
-    line width=8.2 color=#00C4C4C4 join=round cap=round priority=226
+    line width=8.2 color=#00ECCDA7 join=round cap=round priority=226
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6100
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2970 min_distance=350
 type highway-primary_link-tunnel
   z11
-    line width=0.8 color=#4DBEBEBE join=bevel cap=butt priority=226
+    line width=0.8 color=#4DECC8A3 join=bevel cap=butt priority=226
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6100
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2970 min_distance=90
   z12
-    line width=1 color=#4DBEBEBE join=bevel cap=butt priority=226
+    line width=1 color=#4DECC8A3 join=bevel cap=butt priority=226
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6100
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2970 min_distance=90
   z13
-    line width=1.3 color=#27BEBEBE join=round cap=butt priority=226
+    line width=1.3 color=#27ECC8A3 join=round cap=butt priority=226
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6100
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2970 min_distance=120
   z14
     line width=3.4 color=#4D808080 join=round cap=butt dash=[4,4] priority=225
-    line width=1.8 color=#33CECECE join=round cap=butt priority=226
+    line width=1.8 color=#33EBCDAE join=round cap=butt priority=226
     path_text primary[height=10 color=#00333333 stroke=#1AEDEBDB] priority=6100
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2970 min_distance=175
   z15
     line width=4.5 color=#4D808080 join=round cap=butt dash=[5,5] priority=225
-    line width=2.5 color=#4DCECECE join=round cap=butt priority=226
+    line width=2.5 color=#4DEBCDAE join=round cap=butt priority=226
     path_text primary[height=10 color=#00333333 stroke=#1AEDEBDB] priority=6100
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2970 min_distance=250
   z16
     line width=5.2 color=#4D808080 join=round cap=butt dash=[5,5] priority=225
-    line width=3.2 color=#4DCECECE join=round cap=round priority=226
+    line width=3.2 color=#4DEBCDAE join=round cap=round priority=226
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6100
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2970 min_distance=300
   z17
     line width=6.7 color=#4D808080 join=round cap=butt dash=[5,5] priority=225
-    line width=4.7 color=#4DCECECE join=round cap=round priority=226
+    line width=4.7 color=#4DEBCDAE join=round cap=round priority=226
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6100
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2970 min_distance=300
   z18
     line width=8.4 color=#4D808080 join=round cap=butt dash=[5,5] priority=225
-    line width=6.4 color=#4DCECECE join=round cap=round priority=226
+    line width=6.4 color=#4DEBCDAE join=round cap=round priority=226
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6100
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2970 min_distance=300
   z19
     line width=10.2 color=#4D808080 join=round cap=butt dash=[5,5] priority=225
-    line width=8.2 color=#4DCECECE join=round cap=round priority=226
+    line width=8.2 color=#4DEBCDAE join=round cap=round priority=226
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6100
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2970 min_distance=350
   z20
     line width=10.2 color=#4D808080 join=round cap=butt dash=[5,5] priority=225
-    line width=8.2 color=#4DCECECE join=round cap=round priority=226
+    line width=8.2 color=#4DEBCDAE join=round cap=round priority=226
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6100
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2970 min_distance=350
 type highway-raceway
@@ -6630,120 +6536,120 @@ type highway-raceway
     path_text primary[height=10 color=#00333333 stroke=#33FFFFFF] priority=3050
 type highway-residential
   z12
-    line width=0.7 color=#00E9E9E9 join=bevel cap=butt priority=230
+    line width=0.7 color=#00E8E6DC join=bevel cap=butt priority=230
   z13
-    line width=1 color=#00E9E9E9 join=round cap=butt priority=230
+    line width=1 color=#00E8E6DC join=round cap=butt priority=230
   z14
-    line width=1.6 color=#00E9E9E9 join=round cap=butt priority=230
+    line width=1.6 color=#00E8E6DC join=round cap=butt priority=230
   z15
-    line width=2.4 color=#00E9E9E9 join=round cap=butt priority=230
+    line width=2.4 color=#00E8E6DC join=round cap=butt priority=230
     path_text primary[height=10 color=#00333333 stroke=#1AEDEBDB] priority=3000
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2955 min_distance=250
   z16
-    line width=3.2 color=#00E9E9E9 join=round cap=round priority=230
+    line width=3.2 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2955 min_distance=300
   z17
-    line width=4.7 color=#00E9E9E9 join=round cap=round priority=230
+    line width=4.7 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2955 min_distance=300
   z18
-    line width=6.4 color=#00E9E9E9 join=round cap=round priority=230
+    line width=6.4 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2955 min_distance=300
   z19
-    line width=8.2 color=#00E9E9E9 join=round cap=round priority=230
+    line width=8.2 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2955 min_distance=350
   z20
-    line width=8.2 color=#00E9E9E9 join=round cap=round priority=230
+    line width=8.2 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2955 min_distance=350
 type highway-residential-area
   z12
-    line width=0.7 color=#00E9E9E9 join=bevel cap=butt priority=230
+    line width=0.7 color=#00E8E6DC join=bevel cap=butt priority=230
   z13
-    line width=1 color=#00E9E9E9 join=round cap=butt priority=230
+    line width=1 color=#00E8E6DC join=round cap=butt priority=230
   z14
-    line width=1.6 color=#00E9E9E9 join=round cap=butt priority=230
+    line width=1.6 color=#00E8E6DC join=round cap=butt priority=230
   z15
-    line width=2.4 color=#00E9E9E9 join=round cap=butt priority=230
+    line width=2.4 color=#00E8E6DC join=round cap=butt priority=230
     path_text primary[height=10 color=#00333333 stroke=#1AEDEBDB] priority=3000
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2955 min_distance=250
   z16
-    line width=3.2 color=#00E9E9E9 join=round cap=round priority=230
+    line width=3.2 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2955 min_distance=300
   z17
-    line width=4.7 color=#00E9E9E9 join=round cap=round priority=230
+    line width=4.7 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2955 min_distance=300
   z18
-    line width=6.4 color=#00E9E9E9 join=round cap=round priority=230
+    line width=6.4 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2955 min_distance=300
   z19
-    line width=8.2 color=#00E9E9E9 join=round cap=round priority=230
+    line width=8.2 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2955 min_distance=350
   z20
-    line width=8.2 color=#00E9E9E9 join=round cap=round priority=230
+    line width=8.2 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2955 min_distance=350
 type highway-residential-bridge
   z12
-    line width=0.7 color=#00E9E9E9 join=bevel cap=butt priority=230
+    line width=0.7 color=#00E8E6DC join=bevel cap=butt priority=230
   z13
-    line width=1 color=#00E9E9E9 join=round cap=butt priority=230
+    line width=1 color=#00E8E6DC join=round cap=butt priority=230
   z14
     line width=4 color=#4D808080 join=round cap=butt priority=140
     line width=3.2 color=#33EDEBDB join=round cap=butt priority=150
-    line width=1.6 color=#00E9E9E9 join=round cap=butt priority=230
+    line width=1.6 color=#00E8E6DC join=round cap=butt priority=230
   z15
     line width=5.6 color=#4D808080 join=round cap=butt priority=140
     line width=4.8 color=#33EDEBDB join=round cap=butt priority=150
-    line width=2.4 color=#00E9E9E9 join=round cap=butt priority=230
+    line width=2.4 color=#00E8E6DC join=round cap=butt priority=230
     path_text primary[height=10 color=#00333333 stroke=#1AEDEBDB] priority=3000
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2955 min_distance=250
   z16
     line width=7.2 color=#4D808080 join=round cap=butt priority=140
     line width=6.4 color=#33EDEBDB join=round cap=butt priority=150
-    line width=3.2 color=#00E9E9E9 join=round cap=round priority=230
+    line width=3.2 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2955 min_distance=300
   z17
     line width=12.6 color=#4D808080 join=round cap=butt priority=140
     line width=11 color=#33EDEBDB join=round cap=butt priority=150
-    line width=4.7 color=#00E9E9E9 join=round cap=round priority=230
+    line width=4.7 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2955 min_distance=300
   z18
     line width=16.8 color=#4D808080 join=round cap=butt priority=140
     line width=14.8 color=#33EDEBDB join=round cap=butt priority=150
-    line width=6.4 color=#00E9E9E9 join=round cap=round priority=230
+    line width=6.4 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2955 min_distance=300
   z19
     line width=20.4 color=#4D808080 join=round cap=butt priority=140
     line width=18.4 color=#33EDEBDB join=round cap=butt priority=150
-    line width=8.2 color=#00E9E9E9 join=round cap=round priority=230
+    line width=8.2 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2955 min_distance=350
   z20
     line width=20.4 color=#4D808080 join=round cap=butt priority=140
     line width=18.4 color=#33EDEBDB join=round cap=butt priority=150
-    line width=8.2 color=#00E9E9E9 join=round cap=round priority=230
+    line width=8.2 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2955 min_distance=350
 type highway-residential-tunnel
   z12
-    line width=0.7 color=#00E9E9E9 join=bevel cap=butt priority=230
+    line width=0.7 color=#00E8E6DC join=bevel cap=butt priority=230
   z13
-    line width=1 color=#00E9E9E9 join=round cap=butt priority=230
+    line width=1 color=#00E8E6DC join=round cap=butt priority=230
   z14
-    line width=1.6 color=#00E9E9E9 join=round cap=butt priority=230
+    line width=1.6 color=#00E8E6DC join=round cap=butt priority=230
   z15
-    line width=2.4 color=#00E9E9E9 join=round cap=butt priority=230
+    line width=2.4 color=#00E8E6DC join=round cap=butt priority=230
     path_text primary[height=10 color=#00333333 stroke=#1AEDEBDB] priority=3000
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2955 min_distance=250
   z16
@@ -6802,461 +6708,461 @@ type highway-rest_area
     caption primary[height=11 color=#00444444 dy=1 optional] priority=-6200
 type highway-road
   z12
-    line width=0.7 color=#00E9E9E9 join=bevel cap=butt priority=230
+    line width=0.7 color=#00E8E6DC join=bevel cap=butt priority=230
   z13
-    line width=1 color=#00E9E9E9 join=round cap=butt priority=230
+    line width=1 color=#00E8E6DC join=round cap=butt priority=230
   z14
-    line width=1.6 color=#00E9E9E9 join=round cap=butt priority=230
+    line width=1.6 color=#00E8E6DC join=round cap=butt priority=230
     path_text primary[height=10 color=#00333333 stroke=#1AEDEBDB] priority=3000
   z15
-    line width=2.4 color=#00E9E9E9 join=round cap=butt priority=230
+    line width=2.4 color=#00E8E6DC join=round cap=butt priority=230
     path_text primary[height=10 color=#00333333 stroke=#1AEDEBDB] priority=3000
   z16
-    line width=3.2 color=#00E9E9E9 join=round cap=round priority=230
+    line width=3.2 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
   z17
-    line width=4.7 color=#00E9E9E9 join=round cap=round priority=230
+    line width=4.7 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
   z18
-    line width=6.4 color=#00E9E9E9 join=round cap=round priority=230
+    line width=6.4 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
   z19
-    line width=8.2 color=#00E9E9E9 join=round cap=round priority=230
+    line width=8.2 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
   z20
-    line width=8.2 color=#00E9E9E9 join=round cap=round priority=230
+    line width=8.2 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
 type highway-road-bridge
   z12
-    line width=0.7 color=#00E9E9E9 join=bevel cap=butt priority=230
+    line width=0.7 color=#00E8E6DC join=bevel cap=butt priority=230
   z13
-    line width=1 color=#00E9E9E9 join=round cap=butt priority=230
+    line width=1 color=#00E8E6DC join=round cap=butt priority=230
   z14
-    line width=1.6 color=#00E9E9E9 join=round cap=butt priority=230
+    line width=1.6 color=#00E8E6DC join=round cap=butt priority=230
     path_text primary[height=10 color=#00333333 stroke=#1AEDEBDB] priority=3000
   z15
-    line width=2.4 color=#00E9E9E9 join=round cap=butt priority=230
+    line width=2.4 color=#00E8E6DC join=round cap=butt priority=230
     path_text primary[height=10 color=#00333333 stroke=#1AEDEBDB] priority=3000
   z16
     line width=6.8 color=#4D808080 join=round cap=butt priority=140
     line width=6.4 color=#33EDEBDB join=round cap=butt priority=150
-    line width=3.2 color=#00E9E9E9 join=round cap=round priority=230
+    line width=3.2 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
   z17
     line width=9.8 color=#4D808080 join=round cap=butt priority=140
     line width=9.4 color=#33EDEBDB join=round cap=butt priority=150
-    line width=4.7 color=#00E9E9E9 join=round cap=round priority=230
+    line width=4.7 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
   z18
     line width=13.2 color=#4D808080 join=round cap=butt priority=140
     line width=12.8 color=#33EDEBDB join=round cap=butt priority=150
-    line width=6.4 color=#00E9E9E9 join=round cap=round priority=230
+    line width=6.4 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
   z19
     line width=16.8 color=#4D808080 join=round cap=butt priority=140
     line width=16.4 color=#33EDEBDB join=round cap=butt priority=150
-    line width=8.2 color=#00E9E9E9 join=round cap=round priority=230
+    line width=8.2 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
   z20
     line width=16.8 color=#4D808080 join=round cap=butt priority=140
     line width=16.4 color=#33EDEBDB join=round cap=butt priority=150
-    line width=8.2 color=#00E9E9E9 join=round cap=round priority=230
+    line width=8.2 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
 type highway-road-tunnel
   z12
-    line width=0.7 color=#00E9E9E9 join=bevel cap=butt priority=230
+    line width=0.7 color=#00E8E6DC join=bevel cap=butt priority=230
   z13
-    line width=1 color=#00E9E9E9 join=round cap=butt priority=230
+    line width=1 color=#00E8E6DC join=round cap=butt priority=230
   z14
-    line width=1.6 color=#00E9E9E9 join=round cap=butt priority=230
+    line width=1.6 color=#00E8E6DC join=round cap=butt priority=230
     path_text primary[height=10 color=#00333333 stroke=#1AEDEBDB] priority=3000
   z15
-    line width=2.4 color=#00E9E9E9 join=round cap=butt priority=230
+    line width=2.4 color=#00E8E6DC join=round cap=butt priority=230
     path_text primary[height=10 color=#00333333 stroke=#1AEDEBDB] priority=3000
   z16
-    line width=3.2 color=#00E9E9E9 join=round cap=round priority=230
+    line width=3.2 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
   z17
-    line width=4.7 color=#00E9E9E9 join=round cap=round priority=230
+    line width=4.7 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
   z18
-    line width=6.4 color=#00E9E9E9 join=round cap=round priority=230
+    line width=6.4 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
   z19
-    line width=8.2 color=#00E9E9E9 join=round cap=round priority=230
+    line width=8.2 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
   z20
-    line width=8.2 color=#00E9E9E9 join=round cap=round priority=230
+    line width=8.2 color=#00E8E6DC join=round cap=round priority=230
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
 type highway-secondary
   z10
-    line width=1.2 color=#33CECECE join=bevel cap=butt priority=270
+    line width=1.2 color=#33ECD29B join=bevel cap=butt priority=270
     path_text primary[height=10 color=#00444444 stroke=#4DEDEBDB] priority=5600
   z11
-    line width=1.5 color=#33CECECE join=bevel cap=butt priority=270
+    line width=1.5 color=#33ECD29B join=bevel cap=butt priority=270
     path_text primary[height=10 color=#00444444 stroke=#4DEDEBDB] priority=5600
   z12
-    line width=1.7 color=#33CECECE join=bevel cap=butt priority=270
+    line width=1.7 color=#33ECD29B join=bevel cap=butt priority=270
     path_text primary[height=10 color=#00444444 stroke=#4DEDEBDB] priority=5600
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2965 min_distance=90
   z13
-    line width=2.3 color=#1AD4D4D4 join=round cap=butt priority=270
+    line width=2.3 color=#1AECD6A9 join=round cap=butt priority=270
     path_text primary[height=10 color=#00444444 stroke=#4DEDEBDB] priority=5600
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2965 min_distance=120
   z14
-    line width=3.2 color=#1AD4D4D4 join=round cap=butt priority=270
+    line width=3.2 color=#1AECD6A9 join=round cap=butt priority=270
     path_text primary[height=11 color=#00333333 stroke=#1AEDEBDB] priority=5600
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2965 min_distance=175
   z15
-    line width=3.8 color=#00D4D4D4 join=round cap=butt priority=270
+    line width=3.8 color=#00ECD6A9 join=round cap=butt priority=270
     path_text primary[height=11 color=#00333333 stroke=#1AEDEBDB] priority=5600
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2965 min_distance=250
   z16
-    line width=5 color=#00D4D4D4 join=round cap=round priority=270
+    line width=5 color=#00ECD6A9 join=round cap=round priority=270
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=5600
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2965 min_distance=300
   z17
-    line width=6.6 color=#00D4D4D4 join=round cap=round priority=270
+    line width=6.6 color=#00ECD6A9 join=round cap=round priority=270
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=5600
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2965 min_distance=300
   z18
-    line width=9.4 color=#00D4D4D4 join=round cap=round priority=270
+    line width=9.4 color=#00ECD6A9 join=round cap=round priority=270
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=5600
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2965 min_distance=300
   z19
-    line width=11.6 color=#00D4D4D4 join=round cap=round priority=270
+    line width=11.6 color=#00ECD6A9 join=round cap=round priority=270
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=5600
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2965 min_distance=350
   z20
-    line width=11.6 color=#00D4D4D4 join=round cap=round priority=270
+    line width=11.6 color=#00ECD6A9 join=round cap=round priority=270
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=5600
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2965 min_distance=350
 type highway-secondary-bridge
   z10
-    line width=1.2 color=#33CECECE join=bevel cap=butt priority=270
+    line width=1.2 color=#33ECD29B join=bevel cap=butt priority=270
     path_text primary[height=10 color=#00444444 stroke=#4DEDEBDB] priority=5600
   z11
-    line width=1.5 color=#33CECECE join=bevel cap=butt priority=270
+    line width=1.5 color=#33ECD29B join=bevel cap=butt priority=270
     path_text primary[height=10 color=#00444444 stroke=#4DEDEBDB] priority=5600
   z12
-    line width=1.7 color=#33CECECE join=bevel cap=butt priority=270
+    line width=1.7 color=#33ECD29B join=bevel cap=butt priority=270
     path_text primary[height=10 color=#00444444 stroke=#4DEDEBDB] priority=5600
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2965 min_distance=90
   z13
-    line width=2.3 color=#1AD4D4D4 join=round cap=butt priority=270
+    line width=2.3 color=#1AECD6A9 join=round cap=butt priority=270
     path_text primary[height=10 color=#00444444 stroke=#4DEDEBDB] priority=5600
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2965 min_distance=120
   z14
     line width=7.2 color=#4D808080 join=round cap=butt priority=140
     line width=6.4 color=#33EDEBDB join=round cap=butt priority=150
-    line width=3.2 color=#1AD4D4D4 join=round cap=butt priority=270
+    line width=3.2 color=#1AECD6A9 join=round cap=butt priority=270
     path_text primary[height=11 color=#00333333 stroke=#1AEDEBDB] priority=5600
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2965 min_distance=175
   z15
     line width=8.4 color=#4D808080 join=round cap=butt priority=140
     line width=7.6 color=#33EDEBDB join=round cap=butt priority=150
-    line width=3.8 color=#00D4D4D4 join=round cap=butt priority=270
+    line width=3.8 color=#00ECD6A9 join=round cap=butt priority=270
     path_text primary[height=11 color=#00333333 stroke=#1AEDEBDB] priority=5600
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2965 min_distance=250
   z16
     line width=10.8 color=#4D808080 join=round cap=butt priority=140
     line width=10 color=#33EDEBDB join=round cap=butt priority=150
-    line width=5 color=#00D4D4D4 join=round cap=round priority=270
+    line width=5 color=#00ECD6A9 join=round cap=round priority=270
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=5600
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2965 min_distance=300
   z17
     line width=16.4 color=#4D808080 join=round cap=butt priority=140
     line width=14.8 color=#33EDEBDB join=round cap=butt priority=150
-    line width=6.6 color=#00D4D4D4 join=round cap=round priority=270
+    line width=6.6 color=#00ECD6A9 join=round cap=round priority=270
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=5600
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2965 min_distance=300
   z18
     line width=22.8 color=#4D808080 join=round cap=butt priority=140
     line width=20.8 color=#33EDEBDB join=round cap=butt priority=150
-    line width=9.4 color=#00D4D4D4 join=round cap=round priority=270
+    line width=9.4 color=#00ECD6A9 join=round cap=round priority=270
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=5600
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2965 min_distance=300
   z19
     line width=27.2 color=#4D808080 join=round cap=butt priority=140
     line width=25.2 color=#33EDEBDB join=round cap=butt priority=150
-    line width=11.6 color=#00D4D4D4 join=round cap=round priority=270
+    line width=11.6 color=#00ECD6A9 join=round cap=round priority=270
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=5600
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2965 min_distance=350
   z20
     line width=27.2 color=#4D808080 join=round cap=butt priority=140
     line width=25.2 color=#33EDEBDB join=round cap=butt priority=150
-    line width=11.6 color=#00D4D4D4 join=round cap=round priority=270
+    line width=11.6 color=#00ECD6A9 join=round cap=round priority=270
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=5600
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2965 min_distance=350
 type highway-secondary-tunnel
   z10
-    line width=1.2 color=#33CECECE join=bevel cap=butt priority=270
+    line width=1.2 color=#33ECD29B join=bevel cap=butt priority=270
     path_text primary[height=10 color=#00444444 stroke=#4DEDEBDB] priority=5600
   z11
-    line width=1.5 color=#33CECECE join=bevel cap=butt priority=270
+    line width=1.5 color=#33ECD29B join=bevel cap=butt priority=270
     path_text primary[height=10 color=#00444444 stroke=#4DEDEBDB] priority=5600
   z12
-    line width=1.7 color=#33CECECE join=bevel cap=butt priority=270
+    line width=1.7 color=#33ECD29B join=bevel cap=butt priority=270
     path_text primary[height=10 color=#00444444 stroke=#4DEDEBDB] priority=5600
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2965 min_distance=90
   z13
-    line width=2.3 color=#1AD4D4D4 join=round cap=butt priority=270
+    line width=2.3 color=#1AECD6A9 join=round cap=butt priority=270
     path_text primary[height=10 color=#00444444 stroke=#4DEDEBDB] priority=5600
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2965 min_distance=120
   z14
-    line width=3.2 color=#1AD4D4D4 join=round cap=butt priority=270
+    line width=3.2 color=#1AECD6A9 join=round cap=butt priority=270
     path_text primary[height=11 color=#00333333 stroke=#1AEDEBDB] priority=5600
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2965 min_distance=175
   z15
-    line width=3.8 color=#00D4D4D4 join=round cap=butt priority=270
+    line width=3.8 color=#00ECD6A9 join=round cap=butt priority=270
     path_text primary[height=11 color=#00333333 stroke=#1AEDEBDB] priority=5600
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2965 min_distance=250
   z16
     line width=7 color=#4D808080 join=round cap=butt dash=[5,5] priority=269
-    line width=5 color=#4DD8D8D8 join=round cap=round priority=270
+    line width=5 color=#4DECD6A9 join=round cap=round priority=270
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=5600
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2965 min_distance=300
   z17
     line width=8.6 color=#4D808080 join=round cap=butt dash=[5,5] priority=269
-    line width=6.6 color=#4DD8D8D8 join=round cap=round priority=270
+    line width=6.6 color=#4DECD6A9 join=round cap=round priority=270
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=5600
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2965 min_distance=300
   z18
     line width=11.4 color=#4D808080 join=round cap=butt dash=[5,5] priority=269
-    line width=9.4 color=#4DD8D8D8 join=round cap=round priority=270
+    line width=9.4 color=#4DECD6A9 join=round cap=round priority=270
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=5600
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2965 min_distance=300
   z19
     line width=13.6 color=#4D808080 join=round cap=butt dash=[5,5] priority=269
-    line width=11.6 color=#4DD8D8D8 join=round cap=round priority=270
+    line width=11.6 color=#4DECD6A9 join=round cap=round priority=270
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=5600
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2965 min_distance=350
   z20
     line width=13.6 color=#4D808080 join=round cap=butt dash=[5,5] priority=269
-    line width=11.6 color=#4DD8D8D8 join=round cap=round priority=270
+    line width=11.6 color=#4DECD6A9 join=round cap=round priority=270
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=5600
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2965 min_distance=350
 type highway-secondary_link
   z13
-    line width=1.3 color=#1AD4D4D4 join=round cap=butt priority=224
+    line width=1.3 color=#1AECD6A9 join=round cap=butt priority=224
   z14
-    line width=1.8 color=#1AD4D4D4 join=round cap=butt priority=224
+    line width=1.8 color=#1AECD6A9 join=round cap=butt priority=224
   z15
-    line width=2.5 color=#00D4D4D4 join=round cap=butt priority=224
+    line width=2.5 color=#00ECD6A9 join=round cap=butt priority=224
   z16
-    line width=3.2 color=#00D4D4D4 join=round cap=round priority=224
+    line width=3.2 color=#00ECD6A9 join=round cap=round priority=224
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
   z17
-    line width=4.7 color=#00D4D4D4 join=round cap=round priority=224
+    line width=4.7 color=#00ECD6A9 join=round cap=round priority=224
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
   z18
-    line width=6.4 color=#00D4D4D4 join=round cap=round priority=224
+    line width=6.4 color=#00ECD6A9 join=round cap=round priority=224
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
   z19
-    line width=8.2 color=#00D4D4D4 join=round cap=round priority=224
+    line width=8.2 color=#00ECD6A9 join=round cap=round priority=224
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
   z20
-    line width=8.2 color=#00D4D4D4 join=round cap=round priority=224
+    line width=8.2 color=#00ECD6A9 join=round cap=round priority=224
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
 type highway-secondary_link-bridge
   z13
-    line width=1.3 color=#1AD4D4D4 join=round cap=butt priority=224
+    line width=1.3 color=#1AECD6A9 join=round cap=butt priority=224
   z14
     line width=4.4 color=#4D808080 join=round cap=butt priority=140
     line width=3.6 color=#33EDEBDB join=round cap=butt priority=150
-    line width=1.8 color=#1AD4D4D4 join=round cap=butt priority=224
+    line width=1.8 color=#1AECD6A9 join=round cap=butt priority=224
   z15
     line width=5.8 color=#4D808080 join=round cap=butt priority=140
     line width=5 color=#33EDEBDB join=round cap=butt priority=150
-    line width=2.5 color=#00D4D4D4 join=round cap=butt priority=224
+    line width=2.5 color=#00ECD6A9 join=round cap=butt priority=224
   z16
     line width=7.2 color=#4D808080 join=round cap=butt priority=140
     line width=6.4 color=#33EDEBDB join=round cap=butt priority=150
-    line width=3.2 color=#00D4D4D4 join=round cap=round priority=224
+    line width=3.2 color=#00ECD6A9 join=round cap=round priority=224
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
   z17
     line width=12.6 color=#4D808080 join=round cap=butt priority=140
     line width=11 color=#33EDEBDB join=round cap=butt priority=150
-    line width=4.7 color=#00D4D4D4 join=round cap=round priority=224
+    line width=4.7 color=#00ECD6A9 join=round cap=round priority=224
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
   z18
     line width=16.8 color=#4D808080 join=round cap=butt priority=140
     line width=14.8 color=#33EDEBDB join=round cap=butt priority=150
-    line width=6.4 color=#00D4D4D4 join=round cap=round priority=224
+    line width=6.4 color=#00ECD6A9 join=round cap=round priority=224
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
   z19
     line width=20.4 color=#4D808080 join=round cap=butt priority=140
     line width=18.4 color=#33EDEBDB join=round cap=butt priority=150
-    line width=8.2 color=#00D4D4D4 join=round cap=round priority=224
+    line width=8.2 color=#00ECD6A9 join=round cap=round priority=224
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
   z20
     line width=20.4 color=#4D808080 join=round cap=butt priority=140
     line width=18.4 color=#33EDEBDB join=round cap=butt priority=150
-    line width=8.2 color=#00D4D4D4 join=round cap=round priority=224
+    line width=8.2 color=#00ECD6A9 join=round cap=round priority=224
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
 type highway-secondary_link-tunnel
   z13
-    line width=1.3 color=#1AD4D4D4 join=round cap=butt priority=224
+    line width=1.3 color=#1AECD6A9 join=round cap=butt priority=224
   z14
-    line width=1.8 color=#1AD4D4D4 join=round cap=butt priority=224
+    line width=1.8 color=#1AECD6A9 join=round cap=butt priority=224
   z15
-    line width=2.5 color=#00D4D4D4 join=round cap=butt priority=224
+    line width=2.5 color=#00ECD6A9 join=round cap=butt priority=224
   z16
     line width=5.2 color=#4D808080 join=round cap=butt dash=[5,5] priority=223
-    line width=3.2 color=#4DD8D8D8 join=round cap=round priority=224
+    line width=3.2 color=#4DECD6A9 join=round cap=round priority=224
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
   z17
     line width=6.7 color=#4D808080 join=round cap=butt dash=[5,5] priority=223
-    line width=4.7 color=#4DD8D8D8 join=round cap=round priority=224
+    line width=4.7 color=#4DECD6A9 join=round cap=round priority=224
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
   z18
     line width=8.4 color=#4D808080 join=round cap=butt dash=[5,5] priority=223
-    line width=6.4 color=#4DD8D8D8 join=round cap=round priority=224
+    line width=6.4 color=#4DECD6A9 join=round cap=round priority=224
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
   z19
     line width=10.2 color=#4D808080 join=round cap=butt dash=[5,5] priority=223
-    line width=8.2 color=#4DD8D8D8 join=round cap=round priority=224
+    line width=8.2 color=#4DECD6A9 join=round cap=round priority=224
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
   z20
     line width=10.2 color=#4D808080 join=round cap=butt dash=[5,5] priority=223
-    line width=8.2 color=#4DD8D8D8 join=round cap=round priority=224
+    line width=8.2 color=#4DECD6A9 join=round cap=round priority=224
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3000
 type highway-service
   z13
-    line width=1.2 color=#00E9E9E9 join=round cap=butt priority=190
+    line width=1.2 color=#00E8E6DC join=round cap=butt priority=190
   z14
-    line width=1.2 color=#00E9E9E9 join=round cap=butt priority=190
+    line width=1.2 color=#00E8E6DC join=round cap=butt priority=190
   z15
-    line width=1.2 color=#00E9E9E9 join=round cap=butt priority=190
+    line width=1.2 color=#00E8E6DC join=round cap=butt priority=190
   z16
-    line width=1.6 color=#00E9E9E9 join=round cap=round priority=190
+    line width=1.6 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=10 color=#00333333 stroke=#00FFFFFF] priority=2770
   z17
-    line width=2 color=#00E9E9E9 join=round cap=round priority=190
+    line width=2 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=10 color=#00333333 stroke=#00FFFFFF] priority=2770
   z18
-    line width=3 color=#00E9E9E9 join=round cap=round priority=190
+    line width=3 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2770
   z19
-    line width=4 color=#00E9E9E9 join=round cap=round priority=190
+    line width=4 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2770
   z20
-    line width=4 color=#00E9E9E9 join=round cap=round priority=190
+    line width=4 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2770
 type highway-service-area
   z13
-    line width=1.2 color=#00E9E9E9 join=round cap=butt priority=190
+    line width=1.2 color=#00E8E6DC join=round cap=butt priority=190
   z14
-    line width=1.2 color=#00E9E9E9 join=round cap=butt priority=190
+    line width=1.2 color=#00E8E6DC join=round cap=butt priority=190
   z15
-    line width=1.2 color=#00E9E9E9 join=round cap=butt priority=190
+    line width=1.2 color=#00E8E6DC join=round cap=butt priority=190
   z16
-    line width=1.6 color=#00E9E9E9 join=round cap=round priority=190
+    line width=1.6 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=10 color=#00333333 stroke=#00FFFFFF] priority=2770
   z17
-    line width=2 color=#00E9E9E9 join=round cap=round priority=190
+    line width=2 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=10 color=#00333333 stroke=#00FFFFFF] priority=2770
   z18
-    line width=3 color=#00E9E9E9 join=round cap=round priority=190
+    line width=3 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2770
   z19
-    line width=4 color=#00E9E9E9 join=round cap=round priority=190
+    line width=4 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2770
   z20
-    line width=4 color=#00E9E9E9 join=round cap=round priority=190
+    line width=4 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2770
 type highway-service-bridge
   z13
-    line width=1.2 color=#00E9E9E9 join=round cap=butt priority=190
+    line width=1.2 color=#00E8E6DC join=round cap=butt priority=190
   z14
-    line width=1.2 color=#00E9E9E9 join=round cap=butt priority=190
+    line width=1.2 color=#00E8E6DC join=round cap=butt priority=190
   z15
-    line width=1.2 color=#00E9E9E9 join=round cap=butt priority=190
+    line width=1.2 color=#00E8E6DC join=round cap=butt priority=190
   z16
     line width=3.6 color=#4D808080 join=round cap=butt priority=140
     line width=3.2 color=#33EDEBDB join=round cap=butt priority=150
-    line width=1.6 color=#00E9E9E9 join=round cap=round priority=190
+    line width=1.6 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=10 color=#00333333 stroke=#00FFFFFF] priority=2770
   z17
     line width=4.4 color=#4D808080 join=round cap=butt priority=140
     line width=4 color=#33EDEBDB join=round cap=butt priority=150
-    line width=2 color=#00E9E9E9 join=round cap=round priority=190
+    line width=2 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=10 color=#00333333 stroke=#00FFFFFF] priority=2770
   z18
     line width=6.4 color=#4D808080 join=round cap=butt priority=140
     line width=6 color=#33EDEBDB join=round cap=butt priority=150
-    line width=3 color=#00E9E9E9 join=round cap=round priority=190
+    line width=3 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2770
   z19
     line width=8.4 color=#4D808080 join=round cap=butt priority=140
     line width=8 color=#33EDEBDB join=round cap=butt priority=150
-    line width=4 color=#00E9E9E9 join=round cap=round priority=190
+    line width=4 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2770
   z20
     line width=8.4 color=#4D808080 join=round cap=butt priority=140
     line width=8 color=#33EDEBDB join=round cap=butt priority=150
-    line width=4 color=#00E9E9E9 join=round cap=round priority=190
+    line width=4 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2770
 type highway-service-driveway
   z15
-    line width=1.6 color=#00E9E9E9 join=round cap=round priority=190
+    line width=1.6 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=10 color=#00333333 stroke=#00FFFFFF] priority=2770
   z16
-    line width=1.6 color=#00E9E9E9 join=round cap=round priority=190
+    line width=1.6 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=10 color=#00333333 stroke=#00FFFFFF] priority=2770
   z17
-    line width=2 color=#00E9E9E9 join=round cap=round priority=190
+    line width=2 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=10 color=#00333333 stroke=#00FFFFFF] priority=2770
   z18
-    line width=3 color=#00E9E9E9 join=round cap=round priority=190
+    line width=3 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2770
   z19
-    line width=4 color=#00E9E9E9 join=round cap=round priority=190
+    line width=4 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2770
   z20
-    line width=4 color=#00E9E9E9 join=round cap=round priority=190
+    line width=4 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2770
 type highway-service-parking_aisle
   z14
-    line width=1.2 color=#00E9E9E9 join=round cap=butt priority=190
+    line width=1.2 color=#00E8E6DC join=round cap=butt priority=190
   z15
-    line width=1.2 color=#00E9E9E9 join=round cap=butt priority=190
+    line width=1.2 color=#00E8E6DC join=round cap=butt priority=190
   z16
-    line width=1.6 color=#00E9E9E9 join=round cap=round priority=190
+    line width=1.6 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=10 color=#00333333 stroke=#00FFFFFF] priority=2770
   z17
-    line width=2 color=#00E9E9E9 join=round cap=round priority=190
+    line width=2 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=10 color=#00333333 stroke=#00FFFFFF] priority=2770
   z18
-    line width=3 color=#00E9E9E9 join=round cap=round priority=190
+    line width=3 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2770
   z19
-    line width=4 color=#00E9E9E9 join=round cap=round priority=190
+    line width=4 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2770
   z20
-    line width=4 color=#00E9E9E9 join=round cap=round priority=190
+    line width=4 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2770
 type highway-service-tunnel
   z13
-    line width=1.2 color=#00E9E9E9 join=round cap=butt priority=190
+    line width=1.2 color=#00E8E6DC join=round cap=butt priority=190
   z14
-    line width=1.2 color=#00E9E9E9 join=round cap=butt priority=190
+    line width=1.2 color=#00E8E6DC join=round cap=butt priority=190
   z15
-    line width=1.2 color=#00E9E9E9 join=round cap=butt priority=190
+    line width=1.2 color=#00E8E6DC join=round cap=butt priority=190
   z16
-    line width=1.6 color=#00E9E9E9 join=round cap=round priority=190
+    line width=1.6 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=10 color=#00333333 stroke=#00FFFFFF] priority=2770
   z17
-    line width=2 color=#00E9E9E9 join=round cap=round priority=190
+    line width=2 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=10 color=#00333333 stroke=#00FFFFFF] priority=2770
   z18
-    line width=3 color=#00E9E9E9 join=round cap=round priority=190
+    line width=3 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2770
   z19
-    line width=4 color=#00E9E9E9 join=round cap=round priority=190
+    line width=4 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2770
   z20
-    line width=4 color=#00E9E9E9 join=round cap=round priority=190
+    line width=4 color=#00E8E6DC join=round cap=round priority=190
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2770
 type highway-services
   z12
@@ -7407,110 +7313,110 @@ type highway-steps-tunnel
     path_text primary[height=10 color=#00333333 stroke=#33FFFFFF] priority=2810
 type highway-tertiary
   z11
-    line width=0.8 color=#00E0E0E0 join=bevel cap=butt priority=250
+    line width=0.8 color=#00E9E8DE join=bevel cap=butt priority=250
   z12
-    line width=1.3 color=#00E0E0E0 join=bevel cap=butt priority=250
+    line width=1.3 color=#00E9E8DE join=bevel cap=butt priority=250
     path_text primary[height=10 color=#00444444 stroke=#4DEDEBDB] priority=3150
   z13
-    line width=1.8 color=#00E0E0E0 join=round cap=butt priority=250
+    line width=1.8 color=#00E9E8DE join=round cap=butt priority=250
     path_text primary[height=10 color=#00444444 stroke=#4DEDEBDB] priority=3150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2960 min_distance=120
   z14
-    line width=2.7 color=#00E0E0E0 join=round cap=butt priority=250
+    line width=2.7 color=#00E9E8DE join=round cap=butt priority=250
     path_text primary[height=10 color=#00333333 stroke=#1AEDEBDB] priority=3150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2960 min_distance=175
   z15
-    line width=3.8 color=#00E0E0E0 join=round cap=butt priority=250
+    line width=3.8 color=#00E9E8DE join=round cap=butt priority=250
     path_text primary[height=10 color=#00333333 stroke=#1AEDEBDB] priority=3150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2960 min_distance=250
   z16
-    line width=5 color=#00E0E0E0 join=round cap=round priority=250
+    line width=5 color=#00E9E8DE join=round cap=round priority=250
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2960 min_distance=300
   z17
-    line width=6.6 color=#00E0E0E0 join=round cap=round priority=250
+    line width=6.6 color=#00E9E8DE join=round cap=round priority=250
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3150
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2960 min_distance=300
   z18
-    line width=9.4 color=#00E0E0E0 join=round cap=round priority=250
+    line width=9.4 color=#00E9E8DE join=round cap=round priority=250
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3150
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2960 min_distance=300
   z19
-    line width=11.6 color=#00E0E0E0 join=round cap=round priority=250
+    line width=11.6 color=#00E9E8DE join=round cap=round priority=250
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3150
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2960 min_distance=350
   z20
-    line width=11.6 color=#00E0E0E0 join=round cap=round priority=250
+    line width=11.6 color=#00E9E8DE join=round cap=round priority=250
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3150
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2960 min_distance=350
 type highway-tertiary-bridge
   z11
-    line width=0.8 color=#00E0E0E0 join=bevel cap=butt priority=250
+    line width=0.8 color=#00E9E8DE join=bevel cap=butt priority=250
   z12
-    line width=1.3 color=#00E0E0E0 join=bevel cap=butt priority=250
+    line width=1.3 color=#00E9E8DE join=bevel cap=butt priority=250
     path_text primary[height=10 color=#00444444 stroke=#4DEDEBDB] priority=3150
   z13
-    line width=1.8 color=#00E0E0E0 join=round cap=butt priority=250
+    line width=1.8 color=#00E9E8DE join=round cap=butt priority=250
     path_text primary[height=10 color=#00444444 stroke=#4DEDEBDB] priority=3150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2960 min_distance=120
   z14
     line width=6.2 color=#4D808080 join=round cap=butt priority=140
     line width=5.4 color=#33EDEBDB join=round cap=butt priority=150
-    line width=2.7 color=#00E0E0E0 join=round cap=butt priority=250
+    line width=2.7 color=#00E9E8DE join=round cap=butt priority=250
     path_text primary[height=10 color=#00333333 stroke=#1AEDEBDB] priority=3150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2960 min_distance=175
   z15
     line width=8.4 color=#4D808080 join=round cap=butt priority=140
     line width=7.6 color=#33EDEBDB join=round cap=butt priority=150
-    line width=3.8 color=#00E0E0E0 join=round cap=butt priority=250
+    line width=3.8 color=#00E9E8DE join=round cap=butt priority=250
     path_text primary[height=10 color=#00333333 stroke=#1AEDEBDB] priority=3150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2960 min_distance=250
   z16
     line width=10.8 color=#4D808080 join=round cap=butt priority=140
     line width=10 color=#33EDEBDB join=round cap=butt priority=150
-    line width=5 color=#00E0E0E0 join=round cap=round priority=250
+    line width=5 color=#00E9E8DE join=round cap=round priority=250
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2960 min_distance=300
   z17
     line width=16.4 color=#4D808080 join=round cap=butt priority=140
     line width=14.8 color=#33EDEBDB join=round cap=butt priority=150
-    line width=6.6 color=#00E0E0E0 join=round cap=round priority=250
+    line width=6.6 color=#00E9E8DE join=round cap=round priority=250
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3150
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2960 min_distance=300
   z18
     line width=22.8 color=#4D808080 join=round cap=butt priority=140
     line width=20.8 color=#33EDEBDB join=round cap=butt priority=150
-    line width=9.4 color=#00E0E0E0 join=round cap=round priority=250
+    line width=9.4 color=#00E9E8DE join=round cap=round priority=250
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3150
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2960 min_distance=300
   z19
     line width=27.2 color=#4D808080 join=round cap=butt priority=140
     line width=25.2 color=#33EDEBDB join=round cap=butt priority=150
-    line width=11.6 color=#00E0E0E0 join=round cap=round priority=250
+    line width=11.6 color=#00E9E8DE join=round cap=round priority=250
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3150
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2960 min_distance=350
   z20
     line width=27.2 color=#4D808080 join=round cap=butt priority=140
     line width=25.2 color=#33EDEBDB join=round cap=butt priority=150
-    line width=11.6 color=#00E0E0E0 join=round cap=round priority=250
+    line width=11.6 color=#00E9E8DE join=round cap=round priority=250
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3150
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2960 min_distance=350
 type highway-tertiary-tunnel
   z11
-    line width=0.8 color=#00E0E0E0 join=bevel cap=butt priority=250
+    line width=0.8 color=#00E9E8DE join=bevel cap=butt priority=250
   z12
-    line width=1.3 color=#00E0E0E0 join=bevel cap=butt priority=250
+    line width=1.3 color=#00E9E8DE join=bevel cap=butt priority=250
     path_text primary[height=10 color=#00444444 stroke=#4DEDEBDB] priority=3150
   z13
-    line width=1.8 color=#00E0E0E0 join=round cap=butt priority=250
+    line width=1.8 color=#00E9E8DE join=round cap=butt priority=250
     path_text primary[height=10 color=#00444444 stroke=#4DEDEBDB] priority=3150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2960 min_distance=120
   z14
-    line width=2.7 color=#00E0E0E0 join=round cap=butt priority=250
+    line width=2.7 color=#00E9E8DE join=round cap=butt priority=250
     path_text primary[height=10 color=#00333333 stroke=#1AEDEBDB] priority=3150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2960 min_distance=175
   z15
-    line width=3.8 color=#00E0E0E0 join=round cap=butt priority=250
+    line width=3.8 color=#00E9E8DE join=round cap=butt priority=250
     path_text primary[height=10 color=#00333333 stroke=#1AEDEBDB] priority=3150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2960 min_distance=250
   z16
@@ -7540,59 +7446,59 @@ type highway-tertiary-tunnel
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=2960 min_distance=350
 type highway-tertiary_link
   z14
-    line width=1.8 color=#00E0E0E0 join=round cap=butt priority=222
+    line width=1.8 color=#00E9E8DE join=round cap=butt priority=222
   z15
-    line width=2.5 color=#00E0E0E0 join=round cap=butt priority=222
+    line width=2.5 color=#00E9E8DE join=round cap=butt priority=222
   z16
-    line width=3.2 color=#00E0E0E0 join=round cap=round priority=222
+    line width=3.2 color=#00E9E8DE join=round cap=round priority=222
   z17
-    line width=4.7 color=#00E0E0E0 join=round cap=round priority=222
+    line width=4.7 color=#00E9E8DE join=round cap=round priority=222
   z18
-    line width=6.4 color=#00E0E0E0 join=round cap=round priority=222
+    line width=6.4 color=#00E9E8DE join=round cap=round priority=222
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2950
   z19
-    line width=8.2 color=#00E0E0E0 join=round cap=round priority=222
+    line width=8.2 color=#00E9E8DE join=round cap=round priority=222
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2950
   z20
-    line width=8.2 color=#00E0E0E0 join=round cap=round priority=222
+    line width=8.2 color=#00E9E8DE join=round cap=round priority=222
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2950
 type highway-tertiary_link-bridge
   z14
     line width=4.4 color=#4D808080 join=round cap=butt priority=140
     line width=3.6 color=#33EDEBDB join=round cap=butt priority=150
-    line width=1.8 color=#00E0E0E0 join=round cap=butt priority=222
+    line width=1.8 color=#00E9E8DE join=round cap=butt priority=222
   z15
     line width=5.8 color=#4D808080 join=round cap=butt priority=140
     line width=5 color=#33EDEBDB join=round cap=butt priority=150
-    line width=2.5 color=#00E0E0E0 join=round cap=butt priority=222
+    line width=2.5 color=#00E9E8DE join=round cap=butt priority=222
   z16
     line width=7.2 color=#4D808080 join=round cap=butt priority=140
     line width=6.4 color=#33EDEBDB join=round cap=butt priority=150
-    line width=3.2 color=#00E0E0E0 join=round cap=round priority=222
+    line width=3.2 color=#00E9E8DE join=round cap=round priority=222
   z17
     line width=12.6 color=#4D808080 join=round cap=butt priority=140
     line width=11 color=#33EDEBDB join=round cap=butt priority=150
-    line width=4.7 color=#00E0E0E0 join=round cap=round priority=222
+    line width=4.7 color=#00E9E8DE join=round cap=round priority=222
   z18
     line width=16.8 color=#4D808080 join=round cap=butt priority=140
     line width=14.8 color=#33EDEBDB join=round cap=butt priority=150
-    line width=6.4 color=#00E0E0E0 join=round cap=round priority=222
+    line width=6.4 color=#00E9E8DE join=round cap=round priority=222
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2950
   z19
     line width=20.4 color=#4D808080 join=round cap=butt priority=140
     line width=18.4 color=#33EDEBDB join=round cap=butt priority=150
-    line width=8.2 color=#00E0E0E0 join=round cap=round priority=222
+    line width=8.2 color=#00E9E8DE join=round cap=round priority=222
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2950
   z20
     line width=20.4 color=#4D808080 join=round cap=butt priority=140
     line width=18.4 color=#33EDEBDB join=round cap=butt priority=150
-    line width=8.2 color=#00E0E0E0 join=round cap=round priority=222
+    line width=8.2 color=#00E9E8DE join=round cap=round priority=222
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=2950
 type highway-tertiary_link-tunnel
   z14
-    line width=1.8 color=#00E0E0E0 join=round cap=butt priority=222
+    line width=1.8 color=#00E9E8DE join=round cap=butt priority=222
   z15
-    line width=2.5 color=#00E0E0E0 join=round cap=butt priority=222
+    line width=2.5 color=#00E9E8DE join=round cap=butt priority=222
   z16
     line width=5.2 color=#4D808080 join=round cap=butt dash=[5,5] priority=221
     line width=3.2 color=#4DFFFFFF join=round cap=round priority=222
@@ -7779,459 +7685,459 @@ type highway-traffic_signals
     symbol name=traffic_signals-m priority=215
 type highway-trunk
   z6
-    line width=0.8 color=#B3A6A6A6 join=bevel cap=butt priority=310
+    line width=0.8 color=#B3ECBE9B join=bevel cap=butt priority=310
   z7
-    line width=0.9 color=#4DA6A6A6 join=bevel cap=butt priority=310
+    line width=0.9 color=#4DECBE9B join=bevel cap=butt priority=310
   z8
-    line width=1.1 color=#4DA6A6A6 join=bevel cap=butt priority=310
+    line width=1.1 color=#4DECBE9B join=bevel cap=butt priority=310
   z9
-    line width=1.2 color=#4DA6A6A6 join=bevel cap=butt priority=310
+    line width=1.2 color=#4DECBE9B join=bevel cap=butt priority=310
   z10
-    line width=1.5 color=#4DAEAEAE join=bevel cap=butt priority=310
+    line width=1.5 color=#4DECC09B join=bevel cap=butt priority=310
     path_text primary[height=11 color=#00333333 stroke=#1AEDEBDB] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=85
   z11
-    line width=1.7 color=#4DAEAEAE join=bevel cap=butt priority=310
+    line width=1.7 color=#4DECC09B join=bevel cap=butt priority=310
     path_text primary[height=11 color=#00333333 stroke=#1AEDEBDB] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=90
   z12
-    line width=1.9 color=#4DAEAEAE join=bevel cap=butt priority=310
+    line width=1.9 color=#4DECC09B join=bevel cap=butt priority=310
     path_text primary[height=12 color=#00333333 stroke=#00EDEBDB] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=90
   z13
-    line width=2.8 color=#27AEAEAE join=round cap=butt priority=310
+    line width=2.8 color=#27ECC09B join=round cap=butt priority=310
     path_text primary[height=12 color=#00333333 stroke=#00EDEBDB] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=120
   z14
-    line width=3.8 color=#27AEAEAE join=round cap=butt priority=310
+    line width=3.8 color=#27ECC09B join=round cap=butt priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=175
   z15
-    line width=4.4 color=#00AEAEAE join=round cap=butt priority=310
+    line width=4.4 color=#00ECC09B join=round cap=butt priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=250
   z16
-    line width=6 color=#00AEAEAE join=round cap=round priority=310
+    line width=6 color=#00ECC09B join=round cap=round priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=300
   z17
-    line width=8.2 color=#00AEAEAE join=round cap=round priority=310
+    line width=8.2 color=#00ECC09B join=round cap=round priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=300
   z18
-    line width=11 color=#00AEAEAE join=round cap=round priority=310
+    line width=11 color=#00ECC09B join=round cap=round priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=300
   z19
-    line width=13.5 color=#00AEAEAE join=round cap=round priority=310
+    line width=13.5 color=#00ECC09B join=round cap=round priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=350
   z20
-    line width=13.5 color=#00AEAEAE join=round cap=round priority=310
+    line width=13.5 color=#00ECC09B join=round cap=round priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=350
 type highway-trunk-bridge
   z6
-    line width=0.8 color=#B3A6A6A6 join=bevel cap=butt priority=310
+    line width=0.8 color=#B3ECBE9B join=bevel cap=butt priority=310
   z7
-    line width=0.9 color=#4DA6A6A6 join=bevel cap=butt priority=310
+    line width=0.9 color=#4DECBE9B join=bevel cap=butt priority=310
   z8
-    line width=1.1 color=#4DA6A6A6 join=bevel cap=butt priority=310
+    line width=1.1 color=#4DECBE9B join=bevel cap=butt priority=310
   z9
-    line width=1.2 color=#4DA6A6A6 join=bevel cap=butt priority=310
+    line width=1.2 color=#4DECBE9B join=bevel cap=butt priority=310
   z10
-    line width=1.5 color=#4DAEAEAE join=bevel cap=butt priority=310
+    line width=1.5 color=#4DECC09B join=bevel cap=butt priority=310
     path_text primary[height=11 color=#00333333 stroke=#1AEDEBDB] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=85
   z11
-    line width=1.7 color=#4DAEAEAE join=bevel cap=butt priority=310
+    line width=1.7 color=#4DECC09B join=bevel cap=butt priority=310
     path_text primary[height=11 color=#00333333 stroke=#1AEDEBDB] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=90
   z12
-    line width=1.9 color=#4DAEAEAE join=bevel cap=butt priority=310
+    line width=1.9 color=#4DECC09B join=bevel cap=butt priority=310
     path_text primary[height=12 color=#00333333 stroke=#00EDEBDB] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=90
   z13
     line width=6.4 color=#4D808080 join=round cap=butt priority=140
     line width=6 color=#33EDEBDB join=round cap=butt priority=150
-    line width=2.8 color=#27AEAEAE join=round cap=butt priority=310
+    line width=2.8 color=#27ECC09B join=round cap=butt priority=310
     path_text primary[height=12 color=#00333333 stroke=#00EDEBDB] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=120
   z14
     line width=8.4 color=#4D808080 join=round cap=butt priority=140
     line width=7.6 color=#33EDEBDB join=round cap=butt priority=150
-    line width=3.8 color=#27AEAEAE join=round cap=butt priority=310
+    line width=3.8 color=#27ECC09B join=round cap=butt priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=175
   z15
     line width=9.6 color=#4D808080 join=round cap=butt priority=140
     line width=8.8 color=#33EDEBDB join=round cap=butt priority=150
-    line width=4.4 color=#00AEAEAE join=round cap=butt priority=310
+    line width=4.4 color=#00ECC09B join=round cap=butt priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=250
   z16
     line width=12.8 color=#4D808080 join=round cap=butt priority=140
     line width=12 color=#33EDEBDB join=round cap=butt priority=150
-    line width=6 color=#00AEAEAE join=round cap=round priority=310
+    line width=6 color=#00ECC09B join=round cap=round priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=300
   z17
     line width=19.6 color=#4D808080 join=round cap=butt priority=140
     line width=18 color=#33EDEBDB join=round cap=butt priority=150
-    line width=8.2 color=#00AEAEAE join=round cap=round priority=310
+    line width=8.2 color=#00ECC09B join=round cap=round priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=300
   z18
     line width=26 color=#4D808080 join=round cap=butt priority=140
     line width=24 color=#33EDEBDB join=round cap=butt priority=150
-    line width=11 color=#00AEAEAE join=round cap=round priority=310
+    line width=11 color=#00ECC09B join=round cap=round priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=300
   z19
     line width=31 color=#4D808080 join=round cap=butt priority=140
     line width=29 color=#33EDEBDB join=round cap=butt priority=150
-    line width=13.5 color=#00AEAEAE join=round cap=round priority=310
+    line width=13.5 color=#00ECC09B join=round cap=round priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=350
   z20
     line width=31 color=#4D808080 join=round cap=butt priority=140
     line width=29 color=#33EDEBDB join=round cap=butt priority=150
-    line width=13.5 color=#00AEAEAE join=round cap=round priority=310
+    line width=13.5 color=#00ECC09B join=round cap=round priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=350
 type highway-trunk-tunnel
   z6
-    line width=0.8 color=#B3A6A6A6 join=bevel cap=butt priority=310
+    line width=0.8 color=#B3ECBE9B join=bevel cap=butt priority=310
   z7
-    line width=0.9 color=#4DA6A6A6 join=bevel cap=butt priority=310
+    line width=0.9 color=#4DECBE9B join=bevel cap=butt priority=310
   z8
-    line width=1.1 color=#4DA6A6A6 join=bevel cap=butt priority=310
+    line width=1.1 color=#4DECBE9B join=bevel cap=butt priority=310
   z9
-    line width=1.2 color=#4DA6A6A6 join=bevel cap=butt priority=310
+    line width=1.2 color=#4DECBE9B join=bevel cap=butt priority=310
   z10
-    line width=1.5 color=#4DAEAEAE join=bevel cap=butt priority=310
+    line width=1.5 color=#4DECC09B join=bevel cap=butt priority=310
     path_text primary[height=11 color=#00333333 stroke=#1AEDEBDB] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=85
   z11
-    line width=1.7 color=#4DAEAEAE join=bevel cap=butt priority=310
+    line width=1.7 color=#4DECC09B join=bevel cap=butt priority=310
     path_text primary[height=11 color=#00333333 stroke=#1AEDEBDB] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=90
   z12
     line width=2.9 color=#4D808080 join=round cap=butt dash=[2,2] priority=309
-    line width=1.9 color=#1AC4C4C4 join=bevel cap=butt priority=310
+    line width=1.9 color=#1AEBCDAE join=bevel cap=butt priority=310
     path_text primary[height=12 color=#00333333 stroke=#00EDEBDB] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=90
   z13
     line width=4.4 color=#4D808080 join=round cap=butt dash=[4,4] priority=309
-    line width=2.8 color=#33C4C4C4 join=round cap=butt priority=310
+    line width=2.8 color=#33EBCDAE join=round cap=butt priority=310
     path_text primary[height=12 color=#00333333 stroke=#00EDEBDB] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=120
   z14
     line width=5.4 color=#4D808080 join=round cap=butt dash=[4,4] priority=309
-    line width=3.8 color=#33C4C4C4 join=round cap=butt priority=310
+    line width=3.8 color=#33EBCDAE join=round cap=butt priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=175
   z15
     line width=6.4 color=#4D808080 join=round cap=butt dash=[5,5] priority=309
-    line width=4.4 color=#4DC4C4C4 join=round cap=butt priority=310
+    line width=4.4 color=#4DEBCDAE join=round cap=butt priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=250
   z16
     line width=8 color=#4D808080 join=round cap=butt dash=[5,5] priority=309
-    line width=6 color=#4DC4C4C4 join=round cap=round priority=310
+    line width=6 color=#4DEBCDAE join=round cap=round priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=300
   z17
     line width=10.2 color=#4D808080 join=round cap=butt dash=[5,5] priority=309
-    line width=8.2 color=#4DC4C4C4 join=round cap=round priority=310
+    line width=8.2 color=#4DEBCDAE join=round cap=round priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=300
   z18
     line width=13 color=#4D808080 join=round cap=butt dash=[5,5] priority=309
-    line width=11 color=#4DC4C4C4 join=round cap=round priority=310
+    line width=11 color=#4DEBCDAE join=round cap=round priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=300
   z19
     line width=15.5 color=#4D808080 join=round cap=butt dash=[5,5] priority=309
-    line width=13.5 color=#4DC4C4C4 join=round cap=round priority=310
+    line width=13.5 color=#4DEBCDAE join=round cap=round priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=350
   z20
     line width=15.5 color=#4D808080 join=round cap=butt dash=[5,5] priority=309
-    line width=13.5 color=#4DC4C4C4 join=round cap=round priority=310
+    line width=13.5 color=#4DEBCDAE join=round cap=round priority=310
     path_text primary[height=14 color=#00222222 stroke=#00FFFFFF] priority=6750
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6740 min_distance=350
 type highway-trunk_link
   z10
-    line width=0.8 color=#4DB8B8B8 join=bevel cap=butt priority=228
+    line width=0.8 color=#4DECC49B join=bevel cap=butt priority=228
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=85
   z11
-    line width=1 color=#4DB8B8B8 join=bevel cap=butt priority=228
+    line width=1 color=#4DECC49B join=bevel cap=butt priority=228
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=90
   z12
-    line width=1.3 color=#4DB8B8B8 join=bevel cap=butt priority=228
+    line width=1.3 color=#4DECC49B join=bevel cap=butt priority=228
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=90
   z13
-    line width=1.8 color=#4DB8B8B8 join=round cap=butt priority=228
+    line width=1.8 color=#4DECC49B join=round cap=butt priority=228
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=120
   z14
-    line width=2.6 color=#27B8B8B8 join=round cap=butt priority=228
+    line width=2.6 color=#27ECC49B join=round cap=butt priority=228
     path_text primary[height=11 color=#00333333 stroke=#1AEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=175
   z15
-    line width=3.6 color=#27B8B8B8 join=round cap=butt priority=228
+    line width=3.6 color=#27ECC49B join=round cap=butt priority=228
     path_text primary[height=11 color=#00333333 stroke=#1AEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=250
   z16
-    line width=5 color=#00B8B8B8 join=round cap=round priority=228
+    line width=5 color=#00ECC49B join=round cap=round priority=228
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=300
   z17
-    line width=6.6 color=#00B8B8B8 join=round cap=round priority=228
+    line width=6.6 color=#00ECC49B join=round cap=round priority=228
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6150
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=300
   z18
-    line width=9.4 color=#00B8B8B8 join=round cap=round priority=228
+    line width=9.4 color=#00ECC49B join=round cap=round priority=228
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6150
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=300
   z19
-    line width=11.6 color=#00B8B8B8 join=round cap=round priority=228
+    line width=11.6 color=#00ECC49B join=round cap=round priority=228
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6150
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=350
   z20
-    line width=11.6 color=#00B8B8B8 join=round cap=round priority=228
+    line width=11.6 color=#00ECC49B join=round cap=round priority=228
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6150
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=350
 type highway-trunk_link-bridge
   z10
-    line width=0.8 color=#4DB8B8B8 join=bevel cap=butt priority=228
+    line width=0.8 color=#4DECC49B join=bevel cap=butt priority=228
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=85
   z11
-    line width=1 color=#4DB8B8B8 join=bevel cap=butt priority=228
+    line width=1 color=#4DECC49B join=bevel cap=butt priority=228
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=90
   z12
-    line width=1.3 color=#4DB8B8B8 join=bevel cap=butt priority=228
+    line width=1.3 color=#4DECC49B join=bevel cap=butt priority=228
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=90
   z13
-    line width=1.8 color=#4DB8B8B8 join=round cap=butt priority=228
+    line width=1.8 color=#4DECC49B join=round cap=butt priority=228
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=120
   z14
     line width=6 color=#4D808080 join=round cap=butt priority=140
     line width=5.2 color=#33EDEBDB join=round cap=butt priority=150
-    line width=2.6 color=#27B8B8B8 join=round cap=butt priority=228
+    line width=2.6 color=#27ECC49B join=round cap=butt priority=228
     path_text primary[height=11 color=#00333333 stroke=#1AEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=175
   z15
     line width=8 color=#4D808080 join=round cap=butt priority=140
     line width=7.2 color=#33EDEBDB join=round cap=butt priority=150
-    line width=3.6 color=#27B8B8B8 join=round cap=butt priority=228
+    line width=3.6 color=#27ECC49B join=round cap=butt priority=228
     path_text primary[height=11 color=#00333333 stroke=#1AEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=250
   z16
     line width=10.8 color=#4D808080 join=round cap=butt priority=140
     line width=10 color=#33EDEBDB join=round cap=butt priority=150
-    line width=5 color=#00B8B8B8 join=round cap=round priority=228
+    line width=5 color=#00ECC49B join=round cap=round priority=228
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=300
   z17
     line width=16.4 color=#4D808080 join=round cap=butt priority=140
     line width=14.8 color=#33EDEBDB join=round cap=butt priority=150
-    line width=6.6 color=#00B8B8B8 join=round cap=round priority=228
+    line width=6.6 color=#00ECC49B join=round cap=round priority=228
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6150
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=300
   z18
     line width=22.8 color=#4D808080 join=round cap=butt priority=140
     line width=20.8 color=#33EDEBDB join=round cap=butt priority=150
-    line width=9.4 color=#00B8B8B8 join=round cap=round priority=228
+    line width=9.4 color=#00ECC49B join=round cap=round priority=228
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6150
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=300
   z19
     line width=27.2 color=#4D808080 join=round cap=butt priority=140
     line width=25.2 color=#33EDEBDB join=round cap=butt priority=150
-    line width=11.6 color=#00B8B8B8 join=round cap=round priority=228
+    line width=11.6 color=#00ECC49B join=round cap=round priority=228
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6150
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=350
   z20
     line width=27.2 color=#4D808080 join=round cap=butt priority=140
     line width=25.2 color=#33EDEBDB join=round cap=butt priority=150
-    line width=11.6 color=#00B8B8B8 join=round cap=round priority=228
+    line width=11.6 color=#00ECC49B join=round cap=round priority=228
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6150
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=350
 type highway-trunk_link-tunnel
   z10
-    line width=0.8 color=#4DB8B8B8 join=bevel cap=butt priority=228
+    line width=0.8 color=#4DECC49B join=bevel cap=butt priority=228
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=85
   z11
-    line width=1 color=#4DB8B8B8 join=bevel cap=butt priority=228
+    line width=1 color=#4DECC49B join=bevel cap=butt priority=228
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=90
   z12
-    line width=1.3 color=#4DB8B8B8 join=bevel cap=butt priority=228
+    line width=1.3 color=#4DECC49B join=bevel cap=butt priority=228
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=90
   z13
     line width=3.4 color=#4D808080 join=round cap=butt dash=[4,4] priority=227
-    line width=1.8 color=#33C4C4C4 join=round cap=butt priority=228
+    line width=1.8 color=#33EBCDAE join=round cap=butt priority=228
     path_text primary[height=10 color=#00333333 stroke=#4DEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=120
   z14
     line width=4.2 color=#4D808080 join=round cap=butt dash=[4,4] priority=227
-    line width=2.6 color=#33C4C4C4 join=round cap=butt priority=228
+    line width=2.6 color=#33EBCDAE join=round cap=butt priority=228
     path_text primary[height=11 color=#00333333 stroke=#1AEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=175
   z15
     line width=5.6 color=#4D808080 join=round cap=butt dash=[5,5] priority=227
-    line width=3.6 color=#4DC4C4C4 join=round cap=butt priority=228
+    line width=3.6 color=#4DEBCDAE join=round cap=butt priority=228
     path_text primary[height=11 color=#00333333 stroke=#1AEDEBDB] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=250
   z16
     line width=7 color=#4D808080 join=round cap=butt dash=[5,5] priority=227
-    line width=5 color=#4DC4C4C4 join=round cap=round priority=228
+    line width=5 color=#4DEBCDAE join=round cap=round priority=228
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6150
     shield height=9 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=300
   z17
     line width=8.6 color=#4D808080 join=round cap=butt dash=[5,5] priority=227
-    line width=6.6 color=#4DC4C4C4 join=round cap=round priority=228
+    line width=6.6 color=#4DEBCDAE join=round cap=round priority=228
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6150
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=300
   z18
     line width=11.4 color=#4D808080 join=round cap=butt dash=[5,5] priority=227
-    line width=9.4 color=#4DC4C4C4 join=round cap=round priority=228
+    line width=9.4 color=#4DEBCDAE join=round cap=round priority=228
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6150
     shield height=10 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=300
   z19
     line width=13.6 color=#4D808080 join=round cap=butt dash=[5,5] priority=227
-    line width=11.6 color=#4DC4C4C4 join=round cap=round priority=228
+    line width=11.6 color=#4DEBCDAE join=round cap=round priority=228
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6150
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=350
   z20
     line width=13.6 color=#4D808080 join=round cap=butt dash=[5,5] priority=227
-    line width=11.6 color=#4DC4C4C4 join=round cap=round priority=228
+    line width=11.6 color=#4DEBCDAE join=round cap=round priority=228
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=6150
     shield height=11 color=#00FFFFFF stroke=#00000000 text_color=#00000000 priority=6140 min_distance=350
 type highway-unclassified
   z11
-    line width=0.8 color=#00E0E0E0 join=bevel cap=butt priority=250
+    line width=0.8 color=#00E9E8DE join=bevel cap=butt priority=250
   z12
-    line width=1.3 color=#00E0E0E0 join=bevel cap=butt priority=250
+    line width=1.3 color=#00E9E8DE join=bevel cap=butt priority=250
   z13
-    line width=1.8 color=#00E0E0E0 join=round cap=butt priority=250
+    line width=1.8 color=#00E9E8DE join=round cap=butt priority=250
     path_text primary[height=10 color=#00444444 stroke=#4DEDEBDB] priority=3100
   z14
-    line width=2.7 color=#00E0E0E0 join=round cap=butt priority=250
+    line width=2.7 color=#00E9E8DE join=round cap=butt priority=250
     path_text primary[height=10 color=#00333333 stroke=#1AEDEBDB] priority=3100
   z15
-    line width=3.8 color=#00E0E0E0 join=round cap=butt priority=250
+    line width=3.8 color=#00E9E8DE join=round cap=butt priority=250
     path_text primary[height=10 color=#00333333 stroke=#1AEDEBDB] priority=3100
   z16
-    line width=5 color=#00E0E0E0 join=round cap=round priority=250
+    line width=5 color=#00E9E8DE join=round cap=round priority=250
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3100
   z17
-    line width=6.6 color=#00E0E0E0 join=round cap=round priority=250
+    line width=6.6 color=#00E9E8DE join=round cap=round priority=250
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3100
   z18
-    line width=9.4 color=#00E0E0E0 join=round cap=round priority=250
+    line width=9.4 color=#00E9E8DE join=round cap=round priority=250
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3100
   z19
-    line width=11.6 color=#00E0E0E0 join=round cap=round priority=250
+    line width=11.6 color=#00E9E8DE join=round cap=round priority=250
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3100
   z20
-    line width=11.6 color=#00E0E0E0 join=round cap=round priority=250
+    line width=11.6 color=#00E9E8DE join=round cap=round priority=250
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3100
 type highway-unclassified-area
   z11
-    line width=0.8 color=#00E0E0E0 join=bevel cap=butt priority=250
+    line width=0.8 color=#00E9E8DE join=bevel cap=butt priority=250
   z12
-    line width=1.3 color=#00E0E0E0 join=bevel cap=butt priority=250
+    line width=1.3 color=#00E9E8DE join=bevel cap=butt priority=250
   z13
-    line width=1.8 color=#00E0E0E0 join=round cap=butt priority=250
+    line width=1.8 color=#00E9E8DE join=round cap=butt priority=250
     path_text primary[height=10 color=#00444444 stroke=#4DEDEBDB] priority=3100
   z14
-    line width=2.7 color=#00E0E0E0 join=round cap=butt priority=250
+    line width=2.7 color=#00E9E8DE join=round cap=butt priority=250
     path_text primary[height=10 color=#00333333 stroke=#1AEDEBDB] priority=3100
   z15
-    line width=3.8 color=#00E0E0E0 join=round cap=butt priority=250
+    line width=3.8 color=#00E9E8DE join=round cap=butt priority=250
     path_text primary[height=10 color=#00333333 stroke=#1AEDEBDB] priority=3100
   z16
-    line width=5 color=#00E0E0E0 join=round cap=round priority=250
+    line width=5 color=#00E9E8DE join=round cap=round priority=250
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3100
   z17
-    line width=6.6 color=#00E0E0E0 join=round cap=round priority=250
+    line width=6.6 color=#00E9E8DE join=round cap=round priority=250
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3100
   z18
-    line width=9.4 color=#00E0E0E0 join=round cap=round priority=250
+    line width=9.4 color=#00E9E8DE join=round cap=round priority=250
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3100
   z19
-    line width=11.6 color=#00E0E0E0 join=round cap=round priority=250
+    line width=11.6 color=#00E9E8DE join=round cap=round priority=250
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3100
   z20
-    line width=11.6 color=#00E0E0E0 join=round cap=round priority=250
+    line width=11.6 color=#00E9E8DE join=round cap=round priority=250
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3100
 type highway-unclassified-bridge
   z11
-    line width=0.8 color=#00E0E0E0 join=bevel cap=butt priority=250
+    line width=0.8 color=#00E9E8DE join=bevel cap=butt priority=250
   z12
-    line width=1.3 color=#00E0E0E0 join=bevel cap=butt priority=250
+    line width=1.3 color=#00E9E8DE join=bevel cap=butt priority=250
   z13
-    line width=1.8 color=#00E0E0E0 join=round cap=butt priority=250
+    line width=1.8 color=#00E9E8DE join=round cap=butt priority=250
     path_text primary[height=10 color=#00444444 stroke=#4DEDEBDB] priority=3100
   z14
     line width=6.2 color=#4D808080 join=round cap=butt priority=140
     line width=5.4 color=#33EDEBDB join=round cap=butt priority=150
-    line width=2.7 color=#00E0E0E0 join=round cap=butt priority=250
+    line width=2.7 color=#00E9E8DE join=round cap=butt priority=250
     path_text primary[height=10 color=#00333333 stroke=#1AEDEBDB] priority=3100
   z15
     line width=8.4 color=#4D808080 join=round cap=butt priority=140
     line width=7.6 color=#33EDEBDB join=round cap=butt priority=150
-    line width=3.8 color=#00E0E0E0 join=round cap=butt priority=250
+    line width=3.8 color=#00E9E8DE join=round cap=butt priority=250
     path_text primary[height=10 color=#00333333 stroke=#1AEDEBDB] priority=3100
   z16
     line width=10.8 color=#4D808080 join=round cap=butt priority=140
     line width=10 color=#33EDEBDB join=round cap=butt priority=150
-    line width=5 color=#00E0E0E0 join=round cap=round priority=250
+    line width=5 color=#00E9E8DE join=round cap=round priority=250
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3100
   z17
     line width=16.4 color=#4D808080 join=round cap=butt priority=140
     line width=14.8 color=#33EDEBDB join=round cap=butt priority=150
-    line width=6.6 color=#00E0E0E0 join=round cap=round priority=250
+    line width=6.6 color=#00E9E8DE join=round cap=round priority=250
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3100
   z18
     line width=22.8 color=#4D808080 join=round cap=butt priority=140
     line width=20.8 color=#33EDEBDB join=round cap=butt priority=150
-    line width=9.4 color=#00E0E0E0 join=round cap=round priority=250
+    line width=9.4 color=#00E9E8DE join=round cap=round priority=250
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3100
   z19
     line width=27.2 color=#4D808080 join=round cap=butt priority=140
     line width=25.2 color=#33EDEBDB join=round cap=butt priority=150
-    line width=11.6 color=#00E0E0E0 join=round cap=round priority=250
+    line width=11.6 color=#00E9E8DE join=round cap=round priority=250
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3100
   z20
     line width=27.2 color=#4D808080 join=round cap=butt priority=140
     line width=25.2 color=#33EDEBDB join=round cap=butt priority=150
-    line width=11.6 color=#00E0E0E0 join=round cap=round priority=250
+    line width=11.6 color=#00E9E8DE join=round cap=round priority=250
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3100
 type highway-unclassified-tunnel
   z11
-    line width=0.8 color=#00E0E0E0 join=bevel cap=butt priority=250
+    line width=0.8 color=#00E9E8DE join=bevel cap=butt priority=250
   z12
-    line width=1.3 color=#00E0E0E0 join=bevel cap=butt priority=250
+    line width=1.3 color=#00E9E8DE join=bevel cap=butt priority=250
   z13
-    line width=1.8 color=#00E0E0E0 join=round cap=butt priority=250
+    line width=1.8 color=#00E9E8DE join=round cap=butt priority=250
     path_text primary[height=10 color=#00444444 stroke=#4DEDEBDB] priority=3100
   z14
-    line width=2.7 color=#00E0E0E0 join=round cap=butt priority=250
+    line width=2.7 color=#00E9E8DE join=round cap=butt priority=250
     path_text primary[height=10 color=#00333333 stroke=#1AEDEBDB] priority=3100
   z15
-    line width=3.8 color=#00E0E0E0 join=round cap=butt priority=250
+    line width=3.8 color=#00E9E8DE join=round cap=butt priority=250
     path_text primary[height=10 color=#00333333 stroke=#1AEDEBDB] priority=3100
   z16
     line width=7 color=#4D808080 join=round cap=butt dash=[5,5] priority=249
@@ -8255,26 +8161,26 @@ type highway-unclassified-tunnel
     path_text primary[height=12 color=#00333333 stroke=#00FFFFFF] priority=3100
 type highway-world_level
   z4
-    line width=0.5 color=#00AEAEAE join=bevel cap=butt priority=310
+    line width=0.5 color=#00ECC09B join=bevel cap=butt priority=310
   z5
-    line width=0.7 color=#00AEAEAE join=bevel cap=butt priority=310
+    line width=0.7 color=#00ECC09B join=bevel cap=butt priority=310
   z6
-    line width=0.7 color=#00AEAEAE join=bevel cap=butt priority=310
+    line width=0.7 color=#00ECC09B join=bevel cap=butt priority=310
   z7
-    line width=0.7 color=#00AEAEAE join=bevel cap=butt priority=310
+    line width=0.7 color=#00ECC09B join=bevel cap=butt priority=310
   z8
-    line width=0.9 color=#00AEAEAE join=bevel cap=butt priority=310
+    line width=0.9 color=#00ECC09B join=bevel cap=butt priority=310
   z9
-    line width=0.8 color=#00AEAEAE join=bevel cap=butt priority=310
+    line width=0.8 color=#00ECC09B join=bevel cap=butt priority=310
 type highway-world_towns_level
   z6
-    line width=0.9 color=#00AEAEAE join=bevel cap=butt priority=310
+    line width=0.9 color=#00ECC09B join=bevel cap=butt priority=310
   z7
-    line width=0.7 color=#00AEAEAE join=bevel cap=butt priority=310
+    line width=0.7 color=#00ECC09B join=bevel cap=butt priority=310
   z8
-    line width=0.9 color=#00AEAEAE join=bevel cap=butt priority=310
+    line width=0.9 color=#00ECC09B join=bevel cap=butt priority=310
   z9
-    line width=0.8 color=#00AEAEAE join=bevel cap=butt priority=310
+    line width=0.8 color=#00ECC09B join=bevel cap=butt priority=310
 type historic-aircraft
   z15
     symbol name=aircraft-m priority=3050
@@ -13449,7 +13355,7 @@ type office-company
 type office-diplomatic
   z17
     symbol name=embassy-m priority=2450
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-7550
+    caption primary[height=10 color=#00444444 dy=1 optional] priority=-7550
   z18
     symbol name=embassy-m priority=2450
     caption primary[height=11 color=#00444444 dy=1 optional] priority=-7550
@@ -13502,7 +13408,7 @@ type office-insurance
 type office-lawyer
   z17
     symbol name=lawyer-m priority=1600
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-8400
+    caption primary[height=10 color=#00444444 dy=1 optional] priority=-8400
   z18
     symbol name=lawyer-m priority=1600
     caption primary[height=11 color=#00444444 dy=1 optional] priority=-8400
@@ -13524,17 +13430,13 @@ type office-ngo
     caption primary[height=11 color=#00444444 dy=1 optional] priority=-9500
 type office-security
   z17
-    symbol name=security-m priority=470
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9530
+    symbol name=security-m priority=200
   z18
-    symbol name=security-m priority=470
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9530
+    symbol name=security-m priority=200
   z19
-    symbol name=security-m priority=470
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9530
+    symbol name=security-m priority=200
   z20
-    symbol name=security-m priority=470
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-9530
+    symbol name=security-m priority=200
 type office-telecommunication
   z18
     symbol name=office-m priority=500
@@ -23850,99 +23752,99 @@ type tourism-aquarium
     caption primary[height=11 color=#00444444 dy=1 optional] priority=-4800
 type tourism-artwork
   z15
-    symbol name=artwork-m priority=1550 min_distance=24
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-8450
+    symbol name=tourism-m priority=1150
+    caption primary[height=10 color=#00444444 dy=1 optional] priority=-8850
   z16
-    symbol name=artwork-m priority=1550 min_distance=24
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-8450
+    symbol name=tourism-m priority=1150
+    caption primary[height=10 color=#00444444 dy=1 optional] priority=-8850
   z17
-    symbol name=artwork-m priority=1550 min_distance=24
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-8450
+    symbol name=tourism-m priority=1150
+    caption primary[height=10 color=#00444444 dy=1 optional] priority=-8850
   z18
-    symbol name=artwork-m priority=1550 min_distance=24
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-8450
+    symbol name=tourism-m priority=1150
+    caption primary[height=10 color=#00444444 dy=1 optional] priority=-8850
   z19
-    symbol name=artwork-m priority=1550 min_distance=24
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-8450
+    symbol name=tourism-m priority=1150
+    caption primary[height=10 color=#00444444 dy=1 optional] priority=-8850
   z20
-    symbol name=artwork-m priority=1550 min_distance=24
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-8450
+    symbol name=tourism-m priority=1150
+    caption primary[height=10 color=#00444444 dy=1 optional] priority=-8850
 type tourism-artwork-architecture
   z15
-    symbol name=artwork-m priority=1550 min_distance=24
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-8450
+    symbol name=tourism-m priority=1150
+    caption primary[height=10 color=#00444444 dy=1 optional] priority=-8850
   z16
-    symbol name=artwork-m priority=1550 min_distance=24
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-8450
+    symbol name=tourism-m priority=1150
+    caption primary[height=10 color=#00444444 dy=1 optional] priority=-8850
   z17
-    symbol name=artwork-m priority=1550 min_distance=24
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-8450
+    symbol name=tourism-m priority=1150
+    caption primary[height=10 color=#00444444 dy=1 optional] priority=-8850
   z18
-    symbol name=artwork-m priority=1550 min_distance=24
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-8450
+    symbol name=tourism-m priority=1150
+    caption primary[height=10 color=#00444444 dy=1 optional] priority=-8850
   z19
-    symbol name=artwork-m priority=1550 min_distance=24
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-8450
+    symbol name=tourism-m priority=1150
+    caption primary[height=10 color=#00444444 dy=1 optional] priority=-8850
   z20
-    symbol name=artwork-m priority=1550 min_distance=24
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-8450
+    symbol name=tourism-m priority=1150
+    caption primary[height=10 color=#00444444 dy=1 optional] priority=-8850
 type tourism-artwork-painting
   z15
-    symbol name=artwork-m priority=1550 min_distance=24
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-8450
+    symbol name=tourism-m priority=1150
+    caption primary[height=10 color=#00444444 dy=1 optional] priority=-8850
   z16
-    symbol name=artwork-m priority=1550 min_distance=24
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-8450
+    symbol name=tourism-m priority=1150
+    caption primary[height=10 color=#00444444 dy=1 optional] priority=-8850
   z17
-    symbol name=artwork-m priority=1550 min_distance=24
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-8450
+    symbol name=tourism-m priority=1150
+    caption primary[height=10 color=#00444444 dy=1 optional] priority=-8850
   z18
-    symbol name=artwork-m priority=1550 min_distance=24
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-8450
+    symbol name=tourism-m priority=1150
+    caption primary[height=10 color=#00444444 dy=1 optional] priority=-8850
   z19
-    symbol name=artwork-m priority=1550 min_distance=24
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-8450
+    symbol name=tourism-m priority=1150
+    caption primary[height=10 color=#00444444 dy=1 optional] priority=-8850
   z20
-    symbol name=artwork-m priority=1550 min_distance=24
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-8450
+    symbol name=tourism-m priority=1150
+    caption primary[height=10 color=#00444444 dy=1 optional] priority=-8850
 type tourism-artwork-sculpture
   z15
-    symbol name=artwork-m priority=2590 min_distance=24
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-7410
+    symbol name=tourism-m priority=1150
+    caption primary[height=10 color=#00444444 dy=1 optional] priority=-8850
   z16
-    symbol name=artwork-m priority=2590 min_distance=24
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-7410
+    symbol name=tourism-m priority=1150
+    caption primary[height=10 color=#00444444 dy=1 optional] priority=-8850
   z17
-    symbol name=artwork-m priority=2590 min_distance=24
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-7410
+    symbol name=tourism-m priority=1150
+    caption primary[height=10 color=#00444444 dy=1 optional] priority=-8850
   z18
-    symbol name=artwork-m priority=2590 min_distance=24
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-7410
+    symbol name=tourism-m priority=1150
+    caption primary[height=10 color=#00444444 dy=1 optional] priority=-8850
   z19
-    symbol name=artwork-m priority=2590 min_distance=24
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-7410
+    symbol name=tourism-m priority=1150
+    caption primary[height=10 color=#00444444 dy=1 optional] priority=-8850
   z20
-    symbol name=artwork-m priority=2590 min_distance=24
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-7410
+    symbol name=tourism-m priority=1150
+    caption primary[height=10 color=#00444444 dy=1 optional] priority=-8850
 type tourism-artwork-statue
   z15
-    symbol name=statue-m priority=2590 min_distance=24
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-7410
+    symbol name=tourism-m priority=1150
+    caption primary[height=10 color=#00444444 dy=1 optional] priority=-8850
   z16
-    symbol name=statue-m priority=2590 min_distance=24
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-7410
+    symbol name=tourism-m priority=1150
+    caption primary[height=10 color=#00444444 dy=1 optional] priority=-8850
   z17
-    symbol name=statue-m priority=2590 min_distance=24
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-7410
+    symbol name=tourism-m priority=1150
+    caption primary[height=10 color=#00444444 dy=1 optional] priority=-8850
   z18
-    symbol name=statue-m priority=2590 min_distance=24
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-7410
+    symbol name=tourism-m priority=1150
+    caption primary[height=10 color=#00444444 dy=1 optional] priority=-8850
   z19
-    symbol name=statue-m priority=2590 min_distance=24
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-7410
+    symbol name=tourism-m priority=1150
+    caption primary[height=10 color=#00444444 dy=1 optional] priority=-8850
   z20
-    symbol name=statue-m priority=2590 min_distance=24
-    caption primary[height=11 color=#00444444 dy=1 optional] priority=-7410
+    symbol name=tourism-m priority=1150
+    caption primary[height=10 color=#00444444 dy=1 optional] priority=-8850
 type tourism-attraction
   z14
     symbol name=tourism-s priority=4300 min_distance=12
