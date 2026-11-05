@@ -100,6 +100,9 @@
 /* Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! */
 "category_fuel" = "Gas";
 
+/* Search category for car charging stations; any changes should be duplicated in categories.txt @category_car_charging! */
+"category_car_charging" = "Car chargers";
+
 /* Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! */
 "category_parking" = "Parking";
 

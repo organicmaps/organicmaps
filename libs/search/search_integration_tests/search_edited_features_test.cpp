@@ -5,6 +5,7 @@
 
 #include "generator/generator_tests_support/test_feature.hpp"
 
+#include "indexer/classificator.hpp"
 #include "indexer/editable_map_object.hpp"
 
 #include "geometry/point2d.hpp"
@@ -75,6 +76,43 @@ UNIT_CLASS_TEST(SearchEditedFeaturesTest, NonamePoi)
 
     TEST(ResultsMatch("Eat ", rules), ());
   }
+}
+
+UNIT_CLASS_TEST(SearchEditedFeaturesTest, CategoryMatchesEditedUncategorizedSubtype)
+{
+  TestPOI parking({0, 0}, "", "en");
+  parking.SetTypes({{"amenity", "parking", "underground", "fee"}});
+
+  auto const countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder) { builder.Add(parking); });
+  SetViewport({-0.5, -0.5, 0.5, 0.5});
+  Rules const rules = {ExactMatch(countryId, parking)};
+  TEST(CategoryMatch("Parking ", rules), ());
+
+  EditFeature({countryId, 0},
+              [](osm::EditableMapObject & emo) { emo.SetName("Edited", StringUtf8Multilang::kEnglishCode); });
+  TEST(CategoryMatch("Parking ", rules), ());
+}
+
+UNIT_CLASS_TEST(SearchEditedFeaturesTest, CarChargingCategoryMatchesEditedTypes)
+{
+  TestPOI station({0, 0}, "", "en");
+  station.SetTypes({{"amenity", "charging_station", "motorcar"}});
+
+  auto const countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder) { builder.Add(station); });
+  SetViewport({-0.5, -0.5, 0.5, 0.5});
+  Rules const rules = {ExactMatch(countryId, station)};
+  TEST(CategoryMatch("Car chargers ", rules), ());
+
+  EditFeature({countryId, 0},
+              [](osm::EditableMapObject & emo) { emo.SetName("Car chargers", StringUtf8Multilang::kEnglishCode); });
+  TEST(CategoryMatch("Car chargers ", rules), ());
+
+  EditFeature({countryId, 0}, [](osm::EditableMapObject & emo)
+  { emo.SetType(classif().GetTypeByPath({"amenity", "charging_station", "bicycle"})); });
+  TEST(CategoryMatch("Car chargers ", {}), ());
+  TEST(CategoryMatch("charging station ", rules), ());
+  TEST(CategoryMatch("bicycle charging ", rules), ());
+  TEST(CategoryMatch("Car chargers ", {}), ());
 }
 
 UNIT_CLASS_TEST(SearchEditedFeaturesTest, SearchInViewport)
