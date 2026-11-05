@@ -699,6 +699,8 @@
     <string name="moreyear_ago_sorttype">1년 그 이상 전</string>
     <string name="near_me_sorttype">나와 가까운 곳</string>
     <string name="others_sorttype">기타</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">경로 계획 실패</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">지금 닫힘</string>
     <string name="opens_tomorrow_at">내일 %s에 오픈</string>
@@ -933,4 +935,14 @@
     <string name="transit_type_train">기차</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">트램</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">길 안내</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">트랙 시작점</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">트랙 도착점</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">이 방향으로는 남은 트랙이 없습니다. 다른 지점을 선택하세요.</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">트랙을 더 이상 사용할 수 없습니다</string>
 </resources>

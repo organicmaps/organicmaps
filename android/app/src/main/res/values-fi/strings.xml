@@ -702,6 +702,8 @@
     <string name="moreyear_ago_sorttype">Yli vuosi sitten</string>
     <string name="near_me_sorttype">Lähelläni</string>
     <string name="others_sorttype">Muut</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Reitin suunnittelu epäonnistui</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Suljettu nyt</string>
     <string name="opens_tomorrow_at">Aukeaa huomenna kello %s</string>
@@ -945,4 +947,14 @@
     <string name="transit_type_train">Juna</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Raitiovaunu</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Navigoi</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Reitin alku</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Reitin loppu</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">Tähän suuntaan ei ole enää reittiä. Valitse toinen piste.</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">Reitti ei ole enää käytettävissä</string>
 </resources>
