@@ -251,11 +251,13 @@ public class Framework
   /** Explicitly returns a followed track to planning using its captured entry/profile/direction. */
   public static native int nativeResetFollowedTrackToPlanning();
 
-  /** Updates the track preview from the current native selection, retaining its profile and direction. */
-  public static native int nativeUpdateFollowedTrackEntry();
-
-  /** Reverses a built track preview; returns a FollowTrackResult ordinal. */
-  public static native int nativeReverseFollowedTrack();
+  /**
+   * Updates the track preview from the followed track's point at the given distance from the track start, retaining
+   * its profile, direction and viewport. An accepted point also becomes the track's selection.
+   *
+   * @return a {@link FollowTrackResult} ordinal.
+   */
+  public static native int nativeUpdateFollowedTrackEntryAt(double distanceMeters);
 
   /**
    * Switches this track preview's profile without changing the persisted default.
@@ -295,6 +297,11 @@ public class Framework
   /** Whether the current route has an elevation profile to chart. */
   public static native boolean nativeHasRouteAltitude();
 
+  /**
+   * The elevation profile of the current route. A track preview charts the whole followed track instead, so its
+   * distances, including the ones passed to {@link #nativeRouteSetElevationActivePoint}, count from the track start;
+   * once that track is deleted, the preview has no profile.
+   */
   @Nullable
   public static native app.organicmaps.sdk.routing.RouteAltitudeData nativeGetRouteAltitudeData();
 
