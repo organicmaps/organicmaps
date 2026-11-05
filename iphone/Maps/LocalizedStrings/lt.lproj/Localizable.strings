@@ -4,6 +4,9 @@
 
 
 /* Button text (should be short) */
+"back" = "Grįžti";
+
+/* Button text (should be short) */
 "cancel" = "Atsisakyti";
 
 /* Button which deletes downloaded country */

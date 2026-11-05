@@ -21,6 +21,83 @@ final class CarPlayServiceTests: XCTestCase {
     super.tearDown()
   }
 
+  func testRouteLinkRetiresCarPreviewFromEitherDisplay() throws {
+    try prepareRouteTransferTest()
+    for display in [CarPlayMapDisplay.mainCarPlay, .dashboardCarPlay] {
+      let (router, template, trip) = prepareCarPreview(on: display)
+
+      carPlayService.prepareForRouteOnPhone()
+
+      XCTAssertNil(router.previewTrip)
+      XCTAssertNil(carPlayService.previewTemplate)
+      XCTAssertTrue(carPlayService.preparedToPreviewTrips.isEmpty)
+      XCTAssertEqual(carPlayService.routingOwner, .device)
+      XCTAssertTrue(carPlayService.mapState.isPhoneSelected)
+      XCTAssertFalse(MWMRouter.isRoutingActive(), "Transferring a preview must not rebuild it")
+
+      seedPhoneRoute()
+      carPlayService.templateWillDisappear(template, animated: false)
+      carPlayService.mapTemplate(template, selectedPreviewFor: trip, using: trip.routeChoices[0])
+      carPlayService.mapTemplate(template, startedTrip: trip, using: trip.routeChoices[0])
+
+      XCTAssertEqual(MWMRouter.points().map(\.title), ["Phone start", "Phone finish"])
+      XCTAssertFalse(MWMRouter.isRoutingActive())
+    }
+  }
+
+  func testRouteLinkWaitsForPhoneSceneWithoutLosingNewItinerary() throws {
+    try prepareRouteTransferTest()
+    _ = prepareCarPreview(on: .mainCarPlay)
+
+    carPlayService.prepareForRouteOnPhone()
+    seedPhoneRoute()
+    XCTAssertTrue(carPlayService.isCarplayActivated)
+    XCTAssertEqual(carPlayService.routingOwner, .device)
+
+    carPlayService.phoneSceneDidConnect()
+
+    XCTAssertFalse(carPlayService.isCarplayActivated)
+    XCTAssertEqual(carPlayService.mapState.attachedDisplay, .device)
+    XCTAssertEqual(MWMRouter.points().map(\.title), ["Phone start", "Phone finish"])
+    XCTAssertFalse(MWMRouter.isRoutingActive())
+  }
+
+  private func prepareRouteTransferTest() throws {
+    try XCTUnwrap(MapViewController.shared()).loadViewIfNeeded()
+    let previousRouterType = MWMRouter.type()
+    MWMRouter.stopRouting()
+    MWMRouter.setType(.ruler)
+    addTeardownBlock {
+      MWMRouter.stopRouting()
+      MWMRouter.setType(previousRouterType)
+    }
+  }
+
+  private func prepareCarPreview(on display: CarPlayMapDisplay) -> (CarPlayRouter, CPMapTemplate, CPTrip) {
+    let router = CarPlayRouter()
+    let start = MWMRoutePoint(cgPoint: CGPoint(x: 10, y: 10), title: "Car start", subtitle: nil, type: .start, intermediateIndex: 0)
+    let finish = MWMRoutePoint(cgPoint: CGPoint(x: 12, y: 12), title: "Car finish", subtitle: nil, type: .finish, intermediateIndex: 0)
+    MWMRouter.removePoints()
+    MWMRouter.addPoint(start)
+    MWMRouter.addPoint(finish)
+    let trip = router.createTrip(startPoint: start, endPoint: finish)
+    let template = MapTemplateBuilder.buildTripPreviewTemplate(forTrips: [trip])
+    router.previewTrip = trip
+    router.setRoutingPresentationActive(true)
+    carPlayService.router = router
+    carPlayService.routingOwner = .carPlay
+    carPlayService.mapState.didAttach(to: display)
+    carPlayService.previewTemplate = template
+    carPlayService.preparedToPreviewTrips = [trip]
+    return (router, template, trip)
+  }
+
+  private func seedPhoneRoute() {
+    MWMRouter.removePoints()
+    MWMRouter.addPoint(MWMRoutePoint(cgPoint: CGPoint(x: 20, y: 20), title: "Phone start", subtitle: nil, type: .start, intermediateIndex: 0))
+    MWMRouter.addPoint(MWMRoutePoint(cgPoint: CGPoint(x: 23, y: 23), title: "Phone finish", subtitle: nil, type: .finish, intermediateIndex: 0))
+  }
+
   func testTripEstimatesPreserveRawSeconds() {
     let cases: [TimeInterval] = [0, 20.75, 1665, 94485, 2_147_483_647]
     for seconds in cases {

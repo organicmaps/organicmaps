@@ -11,6 +11,7 @@ final class DeepLinkHandlerTests: XCTestCase {
 
   override func tearDown() {
     handler.reset()
+    FrameworkHelper.clearParsedBackUrl()
     super.tearDown()
   }
 
@@ -54,10 +55,11 @@ final class DeepLinkHandlerTests: XCTestCase {
   }
 
   func testHandlingPendingLinkRetainsBackURL() throws {
-    let url = try XCTUnwrap(URL(string: "om://invalid?backurl=testapp%3A%2F%2F"))
+    _ = try prepareMapViewController()
+    let url = try XCTUnwrap(URL(string: "om://map?ll=1,2&backurl=testapp%3A%2F%2F"))
     handler.prepareForColdLaunch(url: url)
 
-    XCTAssertFalse(handler.handlePendingDeepLink())
+    XCTAssertTrue(handler.handlePendingDeepLink())
     XCTAssertFalse(handler.hasPendingColdLaunchDeepLink)
     XCTAssertEqual(handler.getBackUrl(), "testapp://")
     XCTAssertEqual(handler.url, url)
@@ -168,5 +170,83 @@ final class DeepLinkHandlerTests: XCTestCase {
       settled.fulfill()
     }
     wait(for: [settled], timeout: 2)
+  }
+
+  func testHighlightLookupDoesNotReparseRouteOrRearmReturn() throws {
+    let url = try XCTUnwrap(URL(string: "om://v2/dir?destination=1,2&callback=app%3A%2F%2Fback"))
+    handler.prepareForColdLaunch(url: url)
+    XCTAssertEqual(DeepLinkParser.parseAndSetApiURL(url), .route)
+    FrameworkHelper.clearParsedBackUrl()
+
+    XCTAssertNil(handler.getInAppFeatureHighlightData())
+    XCTAssertNil(handler.getBackUrl())
+  }
+
+  func testCallbackNormalizationPreservesNestedEscapes() throws {
+    let url = try XCTUnwrap(MWMRouter.callbackURL(from: "app://done?next=a%2Fb|c&progress=100%"))
+    XCTAssertEqual(url.absoluteString, "app://done?next=a%2Fb%7Cc&progress=100%25")
+  }
+
+  func testCallbackNormalizationRejectsMissingText() {
+    XCTAssertNil(MWMRouter.callbackURL(from: nil))
+    XCTAssertNil(MWMRouter.callbackURL(from: ""))
+  }
+
+  func testLegacyRouteKeepsItsReturnURL() throws {
+    let url = try XCTUnwrap(URL(string: "om://route?sll=1,1&saddr=A&dll=2,2&daddr=B&type=vehicle&backurl=testapp%3A%2F%2Fback"))
+    XCTAssertEqual(DeepLinkParser.parseAndSetApiURL(url), .route)
+    XCTAssertEqual(handler.getBackUrl(), "testapp://back")
+  }
+
+  func testReturnCompletionDoesNotConsumeANewerRequestsCallback() throws {
+    // Identical links are separate requests too, even when both use the same callback URL.
+    for callback in ["app%3A%2F%2Fnew", "app%3A%2F%2Fold"] {
+      try withDelayedURLOpen {
+        let first = try XCTUnwrap(URL(string: "om://v2/dir?destination=1,2&callback=app%3A%2F%2Fold"))
+        XCTAssertEqual(DeepLinkParser.parseAndSetApiURL(first), .route)
+        try XCTUnwrap(MapViewController.shared()).goBack()
+        let completion = try XCTUnwrap(URLOpenMock.completion)
+
+        let second = try XCTUnwrap(URL(string: "om://v2/dir?destination=1,2&callback=\(callback)"))
+        XCTAssertEqual(DeepLinkParser.parseAndSetApiURL(second), .route)
+        let expected = try XCTUnwrap(handler.getBackUrl())
+        completion(true)
+
+        XCTAssertEqual(handler.getBackUrl(), expected)
+      }
+    }
+  }
+
+  func testReturnURLIsConsumedOnlyOnSuccessfulLaunch() throws {
+    for success in [false, true] {
+      try withDelayedURLOpen {
+        let url = try XCTUnwrap(URL(string: "om://v2/dir?destination=1,2&callback=app%3A%2F%2Fback"))
+        XCTAssertEqual(DeepLinkParser.parseAndSetApiURL(url), .route)
+        try XCTUnwrap(MapViewController.shared()).goBack()
+        let completion = try XCTUnwrap(URLOpenMock.completion)
+        completion(success)
+
+        XCTAssertEqual(handler.getBackUrl(), success ? nil : "app://back")
+      }
+    }
+  }
+
+  private func withDelayedURLOpen(_ body: () throws -> Void) throws {
+    let original = try XCTUnwrap(class_getInstanceMethod(UIApplication.self, #selector(UIApplication.open(_:options:completionHandler:))))
+    let replacement = try XCTUnwrap(class_getInstanceMethod(URLOpenMock.self, #selector(URLOpenMock.open(_:options:completionHandler:))))
+    method_exchangeImplementations(original, replacement)
+    defer {
+      method_exchangeImplementations(original, replacement)
+      URLOpenMock.completion = nil
+    }
+    try body()
+  }
+
+  private final class URLOpenMock: NSObject {
+    static var completion: ((Bool) -> Void)?
+
+    @objc func open(_: URL, options _: [UIApplication.OpenExternalURLOptionsKey: Any], completionHandler: ((Bool) -> Void)?) {
+      URLOpenMock.completion = completionHandler
+    }
   }
 }

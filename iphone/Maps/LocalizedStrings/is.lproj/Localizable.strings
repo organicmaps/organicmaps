@@ -4,6 +4,9 @@
 
 
 /* Button text (should be short) */
+"back" = "Til baka";
+
+/* Button text (should be short) */
 "cancel" = "Hætta við";
 
 /* Button which deletes downloaded country */
