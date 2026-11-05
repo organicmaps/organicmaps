@@ -467,7 +467,7 @@ isoline-step_100                                    # line z12- (also has pathte
 isoline-step_1000                                   # line z11- (also has pathtext z11-)
 isoline-step_50                                     # line z14- (also has pathtext z16-)
 isoline-step_500                                    # line z11- (also has pathtext z12-)
-isoline-zero                                        # line z15- (also has pathtext z17-)
+isoline-zero                                        # line z15- (also has pathtext z15-)
 === 60
 
 natural-wetland                                     # area z11- (also has caption z16-)
