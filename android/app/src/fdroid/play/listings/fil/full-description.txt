@@ -36,7 +36,7 @@ I-enable ang mga espesyal na layer ng mapa para matuklasan ang mga sikat na ruta
 
 <b>PAMPUBLIKONG TRANSPORTASYON:</b>
 
-Makita ang mga numero ng ruta ng publikong sasakyan sa mga hintuan. Ang live na iskedyul ng transportasyon at pagba-rute ay kasalukuyang dine-develop.
+Maaari kang magplano ng mga ruta gamit ang pampublikong transportasyon. Kasalukuyang binubuo ang suporta para sa mga iskedyul sa totoong oras.
 
 <b>MGA ISTILO NG MAPA:</b>
 
@@ -48,4 +48,6 @@ I-record, i-import, i-export, at ibahagi ang iyong mga ruta at mga paboritong lu
 
 <b>MGA ARTIKULO NG WIKIPEDIA:</b>
 
-Galugarin ang mga artikulo ng Wikipedia para sa mga lugar na natutuklasan mo sa mapa. I-type ang "?wiki" sa paghahanap para mahanap ang lahat ng lugar na may artikulo sa Wikipedia.
+Galugarin ang mga artikulo ng Wikipedia para sa mga lugar na natutuklasan mo sa mapa. I-type ang "?wiki" sa paghahanap para mahanap ang mga lugar na may artikulo.
+
+Instagram: @organicmaps.app

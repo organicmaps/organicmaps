@@ -26,6 +26,8 @@ Organic Maps bidaia, mendiko ibilaldi, trekking eta txirrindularitza abenturetar
 
 <b>MAPA EDITOREA:</b> Lagundu OpenStreetMap hobetzera tokirik faltan badaude edo mapa zuzenean Organic Maps-etik editatuz.
 
-Probatu aplikazioa — %100 doakoa, iragarkirik gabea, azkarra eta guztiz lineaz kanpokoa. Esperimentatu GPS nabigazio fidagarria mendian, bizikletan, trekkingean eta munduko edozein bidaiatan! Gozatu mapa-esperientzia azkar, fidagarri eta pribatu batez, eta partekatu besteekin!
+Probatu aplikazioa — %100 doakoa, iragarkirik gabea, azkarra eta guztiz lineaz kanpokoa. Esperimentatu GPS nabigazio fidagarria mendian, bizikletan, trekkingean eta munduko edozein bidaiatan!
 
 Organic Maps proiektu independente, komunitatean oinarritua eta kode irekikoa da, eta ehunka laguntzaile ditu ezaugarri berriak garatzen, arazoak konpontzen, itzultzen eta proiektua aurrera eramaten.
+
+Instagram: @organicmaps.app

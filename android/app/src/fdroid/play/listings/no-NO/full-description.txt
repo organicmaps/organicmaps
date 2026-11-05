@@ -10,7 +10,7 @@ DETALJERT & OPPDATERT:
 Kartene inneholder rikelige detaljer og oppdateres to ganger i måneden for å gjenspeile virkelige forhold. I motsetning til mange kjente konkurrenter inkluderer de bygningsnavn, benker, turstier og annen nyttig informasjon.
 
 BASERT PÅ OPENSTREETMAP:
-OpenStreetMap er et verdensdekkende kart i wiki-stil, bygget og vedlikeholdt av millioner av frivillige – lokale folk som kjenner områdene sine best. Dette fellesskapet gir svært detaljerte kart, ofte mer nøyaktige enn kommersielle alternativer i mindre kartlagte områder. Organic Maps oppdaterer OSM-data annenhver uke, slik at kartene dine alltid er friske og pålitelige. Og hvis du legger merke til at noe mangler, kan du legge det til i OSM og hjelpe alle brukere.
+OpenStreetMap er et verdensdekkende kart i wiki-stil, bygget og vedlikeholdt av millioner av frivillige – lokale folk som kjenner områdene sine best. Dette fellesskapet gir svært detaljerte kart, ofte mer nøyaktige enn kommersielle alternativer i mindre kartlagte områder. Organic Maps oppdaterer OpenStreetMap-data annenhver uke, slik at kartene dine alltid er friske og pålitelige. Og hvis du legger merke til at noe mangler, kan du legge det til i OpenStreetMap og hjelpe alle brukere.
 
 PERSONVERN FØRST:
 Vi samler ikke inn noen data eller identifikatorer. Det betyr ingen risiko for datalekkasjer, ingen annonser og ingen forstyrrende varsler – bare en ren og privat kartopplevelse.
@@ -27,7 +27,7 @@ TUR- OG SYKKELSTIER FRA HELE VERDEN:
 Aktiver spesielle kartlag for å finne populære tur- og sykkelruter globalt, hentet fra OpenStreetMap. Bytt lag for å se fargekodede sykkelruter, MTB-stier og offisielle hikingruter.
 
 KOLLEKTIVTRANSPORT:
-Se linjenumre ved stoppesteder. Live-rutetabeller og kollektivruting er under utvikling.
+Du kan planlegge reiseruter med offentlig transport. Støtte for rutetabeller i sanntid er under utvikling.
 
 KARTSTILER:
 Velg kartlag som passer aktiviteten din – Friluftsliv, Høydekurver, Hiking, Sykling eller Metro/T-bane.
@@ -52,3 +52,5 @@ Bli med i fellesskapet på Telegram: @OrganicMapsApp
 Eller finn flere måter å støtte prosjektet på: organicmaps.app/contribute
 
 Din ærlige tilbakemelding og vurdering i appbutikken motiverer oss! Har du spørsmål? Besøk nettsiden organicmaps.app for mer info og FAQ.
+
+Instagram: @organicmaps.app

@@ -16,7 +16,7 @@ GPS NAVIGACIJA: Uživajte u glasovno vođenim uputama korak po korak. Kreirajte 
 
 PLANINARSKE I BICIKLISTIČKE STAZE IZ CIJELOG SVIJETA: Aktivirajte posebne slojeve karte kako biste otkrili popularne planinarske i biciklističke rute širom svijeta, sve iz OpenStreetMap-a. Prebacujte se između slojeva kako biste vidjeli obojene biciklističke i MTB rute, kao i službene planinarske staze.
 
-JAVNI PRIJEVOZ: Pogledajte brojeve linija javnog prijevoza na stajalištima. Trenutno se razvijaju živi rasporedi i planiranje ruta.
+JAVNI PRIJEVOZ: Planirajte rute javnim prijevozom. Podrška za vozne redove u stvarnom vremenu je u razvoju.
 
 STILOVI KARTE: Odaberite slojeve karte koji odgovaraju vašoj aktivnosti — Outdoor, Konturne linije, Planinarenje, Biciklizam ili Metro.
 
@@ -35,3 +35,5 @@ Pridružite se zajednici na Telegramu: @OrganicMapsApp
 Ili saznajte druge načine podrške projektu: https://organicmaps.app/contribute/
 
 Vaše iskrene povratne informacije i recenzije u trgovini motiviraju nas! Volimo čuti vaše mišljenje.
+
+Instagram: @organicmaps.app

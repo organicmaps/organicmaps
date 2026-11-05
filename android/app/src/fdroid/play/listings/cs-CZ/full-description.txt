@@ -18,7 +18,7 @@ Organic Maps je rychlá a detailní mapa offline a GPS navigační aplikace pro 
 
 <b>PĚŠÍ A CYKLISTICKÉ TRASY Z CELÉHO SVĚTA:</b> Aktivujte speciální vrstvy map pro zobrazení populárních pěších a cyklistických tras po celém světě, všechny z OpenStreetMap. Přepínejte mezi vrstvami, abyste viděli barevně označené cyklistické a MTB trasy, stejně jako oficiální pěší cesty.
 
-<b>MHD:</b> Zobrazujte čísla linek na zastávkách. Živé jízdní řády a trasování jsou ve vývoji.
+<b>MHD:</b> Můžete si plánovat trasy s využitím veřejné dopravy. Podpora jízdních řádů v reálném čase se právě vyvíjí.
 
 <b>STYLY MAP:</b> Vyberte mapové vrstvy podle vaší aktivity — outdoor, konturové linie, turistické mapy, cyklistika nebo Metro.
 
@@ -35,6 +35,8 @@ Vyzkoušejte aplikaci — je 100% zdarma, bez reklam, rychlá a zcela offline. U
 Organic Maps je nezávislý, komunitou řízený open-source projekt se stovkami přispěvatelů, kteří pomáhají vyvíjet nové funkce, opravovat chyby, překládat a posouvat projekt dál.
 
 Připojte se ke komunitě na Telegramu: @OrganicMapsApp
-Nebo zjistěte další způsoby, jak podpořit projekt: https://organicmaps.app/contribute/
+Další způsoby podpory projektu: https://organicmaps.app/contribute/
 
 Vaše upřímné hodnocení a recenze v obchodě nás motivují! Máte dotazy? Navštivte web organicmaps.app pro další informace a FAQ.
+
+Instagram: @organicmaps.app

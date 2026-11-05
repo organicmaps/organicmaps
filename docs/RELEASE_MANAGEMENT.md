@@ -8,7 +8,7 @@ Use [GitHub Actions](../.github/workflows/ios-release.yaml).
 
 ### Check metadata
 
-Use [GitHub Actions](../.github/workflows/ios-check.yaml).
+Use [GitHub Actions](../.github/workflows/ios-check-metadata.yaml).
 
 Local check:
 
@@ -54,7 +54,7 @@ Use [GitHub Actions](../.github/workflows/android-release.yaml).
 
 ### Checking metadata
 
-Use [GitHub Actions](../.github/workflows/android-check.yaml).
+Use [GitHub Actions](../.github/workflows/android-check-metadata.yaml).
 
 Checking locally:
 

@@ -36,7 +36,7 @@ Skakel spesiale kaartlae aan om gewilde stap- en fietspaaie wêreldwyd te ontdek
 
 <b>OPENBARE VERVOER:</b>
 
-Sien owerheidsvervoersroetenommers by halte. Lewe-transportskedules en -roetes is tans in ontwikkeling.
+Beplan roetes met openbare vervoer. Intydse roosters is in ontwikkeling.
 
 <b>KAARTSTYLE:</b>
 
@@ -61,3 +61,5 @@ Skakel oor na 'n donker tema vir gemaklike besigtiging snags.
 Probeer die app — dit is 100% gratis, sonder advertensies, vinnig en heeltemal vanlyn. Ervaar betroubare GPS-navigasie vir stap, fietsry, trek en reis oral in die wêreld! Geniet 'n vinnige, betroubare en privaat kaart-ervaring, en deel dit met ander!
 
 Organic Maps is 'n onafhanklike, gemeenskapsgedrewe, oopbronprojek met honderde bydraers wat help om nuwe funksies te ontwikkel, probleme reg te stel, te vertaal en die projek vorentoe te beweeg.
+
+Instagram: @organicmaps.app

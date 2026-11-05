@@ -18,17 +18,17 @@ GPS-NAVIGERING: Njut av röststyrd, sväng-för-sväng-vägledning. Skapa rutter
 
 VANDRINGS- OCH CYKELLEDER FRÅN HELA VÄRLDEN: Aktivera specialkartlager för att upptäcka populära vandrings- och cykelleder världen över, alla från OpenStreetMap. Växla mellan lager för att se färgade cykel- och MTB-rutter samt officiella vandringsleder.
 
-KOLLEKTIVTRAFIK: Se kollektivtrafiklinjers nummer vid hållplatser. Live-scheman och ruttplanering utvecklas för närvarande.
+KOLLEKTIVTRAFIK: Planera resor med kollektivtrafik. Tidtabeller i realtid är under utveckling.
 
 KARTSTILAR: Välj kartlager som passar din aktivitet — Utomhus, Höjdkurvor, Vandring, Cykling eller Tunnelbana.
 
-SPÅRINSPERNING: Spela in, importera, exportera och dela dina rutter och favoriter. Stöder KML, KMZ, GPX och GeoJSON.
+SPÅRINSPELNING: Spela in, importera, exportera och dela dina rutter och favoriter. Stöder KML, KMZ, GPX och GeoJSON.
 
 WIKIPEDIA-ARTIKLAR: Utforska Wikipedia-artiklar för platser du upptäcker på kartan. Skriv “?wiki” i sökningen för att hitta alla platser med Wikipedia-artiklar.
 
 KARTREDAKTÖR: Bidra till OpenStreetMap genom att lägga till saknade platser eller redigera kartan direkt i Organic Maps.
 
-MÖRK LÄGE: Byt till ett mörkt tema för bekväm visning på natten.
+MÖRKT LÄGE: Byt till ett mörkt tema för bekväm visning på natten.
 
 iCLOUD-SYNK: Säkerhetskopiera och synkronisera enkelt alla dina bokmärken och spår via iCloud.
 
@@ -39,3 +39,5 @@ Gå med i communityn på Telegram: @OrganicMapsApp
 Eller lär dig andra sätt att stödja projektet: https://organicmaps.app/contribute/
 
 Din ärliga feedback och recensioner i butiken motiverar oss!
+
+Instagram: @organicmaps.app

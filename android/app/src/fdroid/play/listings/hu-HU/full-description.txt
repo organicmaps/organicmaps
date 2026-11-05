@@ -6,7 +6,7 @@ Az Organic Maps gyors és részletes offline térkép- és GPS-navigációs alka
 
 <b>RÉSZLETES ÉS FRISSÍTETT:</b> A térképek nagyon részletesek, és kéthetente frissülnek, hogy tükrözzék a valós változásokat. Sok ismert versenytárssal ellentétben tartalmaznak épületfeliratokat, padokat, túraösvényeket és sok más hasznos információt.
 
-<b>OPENSTREETMAP-ALAPÚ:</b> Az OpenStreetMap egy wiki-alapú világtérkép, amelyet több millió önkéntes – a saját környezetüket legjobban ismerő helyiek – épít és tart karban. Ennek eredményeként a térképek sok helyen részletesebbek és pontosabbak, mint a kereskedelmi térképek. Az Organic Maps kéthetente frissíti OSM-adatbázisát. Ha valami hiányzik, te is hozzáadhatod az OpenStreetMaphez, és javíthatod a térképet mindenki számára.
+<b>OPENSTREETMAP-ALAPÚ:</b> Az OpenStreetMap egy wiki-alapú világtérkép, amelyet több millió önkéntes – a saját környezetüket legjobban ismerő helyiek – épít és tart karban. Ennek eredményeként a térképek sok helyen részletesebbek és pontosabbak, mint a kereskedelmi térképek. Az Organic Maps kéthetente frissíti OpenStreetMap-adatbázisát. Ha valami hiányzik, te is hozzáadhatod az OpenStreetMaphez, és javíthatod a térképet mindenki számára.
 
 <b>ADATVÉDELEM ELSŐSORBAN:</b> Nem gyűjtünk adatokat vagy azonosítókat. Nincsenek adatvédelmi kockázatok, reklámok vagy zavaró értesítések – csak egy tiszta, privát térképes élmény.
 
@@ -38,3 +38,5 @@ Csatlakozz a Telegram-közösséghez: @OrganicMapsApp
 További támogatási lehetőségek: https://organicmaps.app/contribute/
 
 Visszajelzéseid és értékeléseid motiválnak – köszönjük! Ha kérdésed van, látogass el a weboldalra: organicmaps.app
+
+Instagram: @organicmaps.app

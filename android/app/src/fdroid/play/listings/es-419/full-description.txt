@@ -36,7 +36,7 @@ Activa capas de mapas especiales para descubrir rutas populares de senderismo y 
 
 <b>TRANSPORTE PÚBLICO:</b>
 
-Consulta los números de las rutas de transporte público en las paradas. Los horarios de transporte en tiempo real y el cálculo de rutas están actualmente en desarrollo.
+Planifica rutas de transporte público. Los horarios en tiempo real están en desarrollo.
 
 <b>ESTILOS DE MAPA:</b>
 
@@ -57,3 +57,5 @@ Contribuye a OpenStreetMap añadiendo lugares que falten o editando el mapa dire
 <b>MODO OSCURO:</b>
 
 Cambia a un tema oscuro para una visualización cómoda por la noche.
+
+Instagram: @organicmaps.app
