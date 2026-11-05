@@ -16,7 +16,7 @@ Organic Maps ir ātra un detalizēta bezsaistes karšu un GPS navigācijas lieto
 
 <b>PĀRGĀJIENU UN RITEŅBRAUKŠANAS TAKAS NO VISAS PASAULES:</b> Ieslēdziet īpašus kartes slāņus, lai atklātu populāras pārgājienu un riteņbraukšanas takas visā pasaulē, visas no OpenStreetMap. Pārslēdzieties starp slāņiem, lai redzētu krāsainas velosipēdu un MTB takas, kā arī oficiālās pārgājienu takas.
 
-<b>SABIEDRISKAIS TRANSPORTS:</b> Skatiet sabiedriskā transporta maršruta numurus pieturvietās. Dzīvās transporta saraksti un maršrutēšana pašlaik tiek izstrādāta.
+<b>SABIEDRISKAIS TRANSPORTS:</b> Plānojiet sabiedriskā transporta maršrutus. Tiek izstrādāti reāllaika kustības grafiki.
 
 <b>KARTES STILI:</b> Izvēlieties kartes slāņus, kas atbilst jūsu aktivitātēm — Āra aktivitātes, Kontūrlīnijas, Pārgājieni, Riteņbraukšana vai Metro/Subway.
 

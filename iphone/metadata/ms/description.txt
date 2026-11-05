@@ -18,7 +18,7 @@ NAVIGASI GPS: Nikmati arahan berpandu suara, langkah demi langkah. Cipta laluan 
 
 LALUAN MENDaki & BERBASIKAL DARI SELURUH DUNIA: Aktifkan lapisan peta khas untuk menemui laluan mendaki dan berbasikal yang popular di seluruh dunia, semua daripada OpenStreetMap. Tukar antara lapisan untuk melihat laluan berwarna basikal dan MTB, serta laluan mendaki rasmi.
 
-PENGANGKUTAN AWAM: Lihat nombor laluan pengangkutan awam di hentian. Jadual perjalanan dan laluan masa nyata sedang dibangunkan.
+PENGANGKUTAN AWAM: Rancang laluan pengangkutan awam. Jadual waktu masa nyata sedang dibangunkan.
 
 GAYA PETA: Pilih lapisan peta yang sesuai dengan aktiviti anda — Luar, Garis Ketinggian, Mendaki, Berbasikal, atau Metro/Transit.
 

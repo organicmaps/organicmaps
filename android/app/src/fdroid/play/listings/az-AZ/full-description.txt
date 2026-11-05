@@ -18,7 +18,7 @@ Organic Maps — səyahət, yürüş, trekking və velosiped macəraları üçü
 
 <b>DÜNYANIN YÜRÜŞ VƏ VELOSEPED MARŞRUTLARI:</b> Xüsusi xəritə qatlarını aktiv edin və OpenStreetMap mənbəli məşhur yürüş və velosiped yollarını kəşf edin. Rəngli velosiped və MTB marşrutlarını, eləcə də rəsmi yürüş yollarını görmək üçün qatları dəyişin.
 
-<b>İCTİMAİ NƏQLİYYAT:</b> Dayanacaqlarda avtobus və metro xətt nömrələrini görün. Canlı qrafiklər və marşrutlar hazırlanma mərhələsindədir.
+<b>İCTİMAİ NƏQLİYYAT:</b> İctimai nəqliyyatdan istifadə edərək marşrutları planlaşdıra bilərsiniz. Real vaxt cədvəllərinə dəstək hazırlanır.
 
 <b>XƏRİTƏ ÜSLUBLARI:</b> Açıq hava, relyef xətləri, yürüş, velosiped və ya metro üçün uyğun xəritə üslubu seçin.
 

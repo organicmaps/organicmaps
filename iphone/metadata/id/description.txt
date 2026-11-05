@@ -17,7 +17,7 @@ NAVIGASI GPS: Nikmati petunjuk belok demi belok dengan panduan suara. Buat rute 
 
 JALUR HIKING & BERSEPEDA DARI SELURUH DUNIA: Aktifkan lapisan peta khusus untuk menemukan jalur hiking dan bersepeda populer di seluruh dunia, semuanya dari OpenStreetMap. Beralih antara lapisan untuk melihat rute sepeda dan MTB berwarna, serta jalur hiking resmi.
 
-TRANSPORTASI UMUM: Lihat nomor rute transportasi umum di halte. Jadwal transportasi langsung dan rute sedang dikembangkan.
+TRANSPORTASI UMUM: Rencanakan rute angkutan umum. Jadwal real-time sedang dalam tahap pengembangan.
 
 GAYA PETA: Pilih lapisan peta sesuai aktivitas Anda — Luar Ruangan, Garis Kontur, Hiking, Bersepeda, atau Metro/Rel Bawah Tanah.
 

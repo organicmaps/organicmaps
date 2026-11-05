@@ -18,7 +18,7 @@ GPS-NAVIGOINTI: Nauti ääniopastetusta navigoinnista. Luo kävely-, vaellus-, p
 
 VAELLUS- JA PYÖRÄREITIT MAAILMAN YMPÄRI: Ota käyttöön erityiset karttatasot nähdäksesi suositut vaellus- ja pyöräilyreitit kaikkialla maailmassa. Näe värilliset pyörä- ja MTB-reitit sekä viralliset vaellusreitit.
 
-JOUKKOLIIKENNE: Näe pysäkkien linjanumerot. Live-aikataulut ja reittiopastus ovat kehitteillä.
+JOUKKOLIIKENNE: Suunnittele joukkoliikenteen reitit. Reaaliaikaiset aikataulut ovat kehitteillä.
 
 KARTTATYYLIT: Valitse aktiviteettisi mukaan — Outdoors, korkeuskäyrät, vaellus, pyöräily tai metro.
 

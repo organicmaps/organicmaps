@@ -16,7 +16,7 @@ Organic Maps è un’app veloce e dettagliata per mappe offline e navigazione GP
 
 <b>SENTIERI ESCURSIONISTICI & IN BICICLETTA DA TUTTO IL MONDO:</b> Attiva strati speciali della mappa per scoprire percorsi escursionistici e ciclistici popolari in tutto il mondo, tutti provenienti da OpenStreetMap. Passa tra gli strati per vedere percorsi colorati per bici e MTB, oltre ai sentieri escursionistici ufficiali.
 
-<b>TRASPORTO PUBBLICO:</b> Visualizza i numeri delle linee di trasporto pubblico alle fermate. Orari e instradamenti in tempo reale sono attualmente in sviluppo.
+<b>TRASPORTO PUBBLICO:</b> Pianifica gli itinerari con i mezzi pubblici. Gli orari in tempo reale sono in fase di sviluppo.
 
 <b>STILI DI MAPPA:</b> Scegli strati di mappa adatti alla tua attività — All’aperto, Linee di Contorno, Escursionismo, Ciclismo o Metropolitana.
 

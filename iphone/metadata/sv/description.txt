@@ -18,7 +18,7 @@ GPS-NAVIGERING: Njut av röststyrd, sväng-för-sväng-vägledning. Skapa rutter
 
 VANDRINGS- OCH CYKELLEDER FRÅN HELA VÄRLDEN: Aktivera specialkartlager för att upptäcka populära vandrings- och cykelleder världen över, alla från OpenStreetMap. Växla mellan lager för att se färgade cykel- och MTB-rutter samt officiella vandringsleder.
 
-KOLLEKTIVTRAFIK: Se kollektivtrafiklinjers nummer vid hållplatser. Live-scheman och ruttplanering utvecklas för närvarande.
+KOLLEKTIVTRAFIK: Planera resor med kollektivtrafik. Tidtabeller i realtid är under utveckling.
 
 KARTSTILAR: Välj kartlager som passar din aktivitet — Utomhus, Höjdkurvor, Vandring, Cykling eller Tunnelbana.
 

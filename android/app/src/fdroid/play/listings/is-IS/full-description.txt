@@ -36,7 +36,7 @@ Virkjaðu sérstaka kortalaga til að uppgötva vinsælar göngu- og hjólaleið
 
 <b>ALMENNINGSSAMGÖNGUR:</b>
 
-Sjáðu númer almenningssamgangna á viðkomustöðvum. Upplýsingar um almenningssamgöngur í rauntíma og leiðir eru nú í þróun.
+Þú getur skipulagt leiðir með almenningssamgöngum. Stuðningur við rauntímatímataflur er í þróun.
 
 <b>KORTASTÍLAR:</b>
 

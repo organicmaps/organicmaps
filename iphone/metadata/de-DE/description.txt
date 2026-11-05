@@ -16,7 +16,7 @@ GPS-NAVIGATION: Genieße sprachgeführte, Schritt-für-Schritt-Routen. Erstelle 
 
 WANDER- & FAHRRADROUTEN WELTWEIT: Aktiviere spezielle Kartenebenen, um beliebte Wander- und Fahrradrouten weltweit zu entdecken, alle von OpenStreetMap. Wechsle zwischen den Ebenen, um farbige Fahrrad- und MTB-Routen sowie offizielle Wanderwege zu sehen.
 
-ÖFFENTLICHE VERKEHRSMITTEL: Sieh Liniennummern an Haltestellen. Live-Fahrpläne und Routing sind derzeit in Entwicklung.
+ÖFFENTLICHE VERKEHRSMITTEL: Plane Routen mit öffentlichen Verkehrsmitteln. Live-Fahrpläne sind in Entwicklung.
 
 KARTENSTILE: Wähle Kartenebenen passend zu deiner Aktivität — Outdoor, Höhenlinien, Wandern, Radfahren oder Metro.
 

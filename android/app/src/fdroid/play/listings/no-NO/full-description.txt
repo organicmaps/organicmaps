@@ -27,7 +27,7 @@ TUR- OG SYKKELSTIER FRA HELE VERDEN:
 Aktiver spesielle kartlag for å finne populære tur- og sykkelruter globalt, hentet fra OpenStreetMap. Bytt lag for å se fargekodede sykkelruter, MTB-stier og offisielle hikingruter.
 
 KOLLEKTIVTRANSPORT:
-Se linjenumre ved stoppesteder. Live-rutetabeller og kollektivruting er under utvikling.
+Du kan planlegge reiseruter med offentlig transport. Støtte for rutetabeller i sanntid er under utvikling.
 
 KARTSTILER:
 Velg kartlag som passer aktiviteten din – Friluftsliv, Høydekurver, Hiking, Sykling eller Metro/T-bane.

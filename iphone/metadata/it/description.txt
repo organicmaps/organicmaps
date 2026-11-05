@@ -18,7 +18,7 @@ NAVIGAZIONE GPS: Goditi indicazioni vocali passo passo. Crea percorsi a piedi, e
 
 PERCORSI ESCURSIONISTICI E CICLABILI DAL MONDO: Attiva livelli di mappa speciali per scoprire percorsi escursionistici e ciclabili popolari in tutto il mondo, tutti da OpenStreetMap. Passa tra i livelli per vedere percorsi bici e MTB colorati e sentieri ufficiali.
 
-TRASPORTO PUBBLICO: Vedi i numeri delle linee dei trasporti pubblici alle fermate. Orari e percorsi in tempo reale in fase di sviluppo.
+TRASPORTO PUBBLICO: Pianifica gli itinerari con i mezzi pubblici. Gli orari in tempo reale sono in fase di sviluppo.
 
 STILI MAPPA: Scegli i livelli di mappa adatti alla tua attività — All’aperto, Linee di Contorno, Escursionismo, Ciclismo o Metropolitana/Treno.
 

@@ -36,7 +36,7 @@ I-enable ang mga espesyal na layer ng mapa para matuklasan ang mga sikat na ruta
 
 <b>PAMPUBLIKONG TRANSPORTASYON:</b>
 
-Makita ang mga numero ng ruta ng publikong sasakyan sa mga hintuan. Ang live na iskedyul ng transportasyon at pagba-rute ay kasalukuyang dine-develop.
+Maaari kang magplano ng mga ruta gamit ang pampublikong transportasyon. Kasalukuyang binubuo ang suporta para sa mga iskedyul sa totoong oras.
 
 <b>MGA ISTILO NG MAPA:</b>
 

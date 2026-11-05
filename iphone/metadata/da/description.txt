@@ -18,7 +18,7 @@ GPS-NAVIGATION: Nyd stemmevejledte trin-for-trin instruktioner. Opret gå-, vand
 
 VANDRE- & CYKELRUTER FRA HELE VERDEN: Aktiver specielle kortlag for at opdage populære vandre- og cykelruter verden over, alle hentet fra OpenStreetMap. Skift mellem lagene for at se farvede cykel- og MTB-ruter samt officielle vandrestier.
 
-OFFENTLIG TRANSPORT: Se offentlige transportlinjenumre ved stoppesteder. Live tidsplaner og ruteplanlægning er under udvikling.
+OFFENTLIG TRANSPORT: Planlæg ruter med offentlig transport. Køreplaner i realtid er under udvikling.
 
 KORTSTILE: Vælg kortlag, der passer til din aktivitet — Outdoor, Højdekurver, Vandring, Cykling eller Metro.
 

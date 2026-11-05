@@ -18,7 +18,7 @@ GPS-NAVIGATIE: Geniet van stapsgewijze, gesproken aanwijzingen. Maak wandel-, wa
 
 WANDEL- & FIETSRUTES VAN OVER DE HELE WERELD: Schakel speciale kaartlagen in om populaire wandel- en fietsroutes wereldwijd te ontdekken, allemaal afkomstig van OpenStreetMap. Wissel tussen lagen om gekleurde fiets- en MTB-routes te zien, evenals officiële wandelpaden.
 
-OPENBAAR VERVOER: Bekijk de lijnnummers van het openbaar vervoer bij haltes. Live reisinformatie en routeplanning zijn momenteel in ontwikkeling.
+OPENBAAR VERVOER: Plan routes met het openbaar vervoer. Real-time dienstregelingen zijn in ontwikkeling.
 
 KAARTSTIJLEN: Kies kaartlagen die passen bij je activiteit — Buiten, Hoogtelijnen, Wandelen, Fietsen of Metro.
 

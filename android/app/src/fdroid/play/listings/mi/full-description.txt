@@ -16,7 +16,7 @@ He taupānga mapi ā-roto, tere, taipitopito hoki, ā, he arataki GPS mō ngā h
 
 <b>Ngā Ara Hīkoi me ngā Ara Peke Hākinakina nō te Ao Whānui:</b> Whakahohe i ngā paparanga mahere motuhake kia kitea ai ngā ara hīkoi me ngā ara peke hākinakina rongonui o te ao, nā OpenStreetMap katoa i whakarato. Huri i waenga i ngā paparanga kia kite i ngā ara peke hākinakina tae me ngā ara MTB, me ngā ara hīkoi ā-ture.
 
-<b>Waka Tūmatanui:</b> Tirohia ngā nama ara waka tūmatanui i ngā tauranga. Kei te whakawhanakehia ināianei ngā rārangi wā me ngā huarahi waka tūmatanui ora.
+<b>Waka Tūmatanui:</b> Whakaritea ngā huarahi waka tūmatanui. Kei te whakawhanakehia ngā rārangi wā ora.
 
 <b>ETITA MAPI:</b> Tuku āwhina ki OpenStreetMap mā te tāpiri i ngā wāhi kua ngaro, te whakatika rānei i te mapi i te wāhi kotahi mai i Organic Maps.
 

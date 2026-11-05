@@ -16,7 +16,7 @@ NAVEGACIÓ GPS: Gaudeix de direccions pas a pas amb veu. Crea rutes a peu, per f
 
 RUTES DE CAMINADES I CICLISME D’ARREU DEL MÓN: Activa capes especials del mapa per descobrir rutes populars de caminades i ciclisme a tot el món, totes extretes d’OpenStreetMap. Canvia entre capes per veure rutes de bicicleta i MTB en colors, així com camins oficials de senderisme.
 
-TRANSPORT PÚBLIC: Consulta els números de línia del transport públic a les parades. Els horaris en temps real i el càlcul de rutes estan en desenvolupament.
+TRANSPORT PÚBLIC: Planifica rutes de transport públic. Els horaris en temps real estan en desenvolupament.
 
 ESTILS DE MAPA: Tria les capes del mapa segons la teva activitat — Outdoor, Línies de Contorn, Caminades, Ciclisme o Metro/Subterrani.
 

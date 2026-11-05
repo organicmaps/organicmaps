@@ -18,7 +18,7 @@ Organic Maps là ứng dụng bản đồ ngoại tuyến nhanh, chi tiết và 
 
 <b>ĐƯỜNG MÒN ĐI BỘ & XE ĐẠP TOÀN CẦU:</b> Bật các lớp bản đồ đặc biệt để khám phá các tuyến đi bộ và đạp xe phổ biến trên toàn thế giới từ OpenStreetMap. Chuyển đổi để xem tuyến xe đạp, MTB và các đường mòn đi bộ chính thức.
 
-<b>GIAO THÔNG CÔNG CỘNG:</b> Xem số tuyến giao thông công cộng tại các điểm dừng. Lịch trình trực tiếp và dẫn đường phương tiện công cộng đang được phát triển.
+<b>GIAO THÔNG CÔNG CỘNG:</b> Bạn có thể lập kế hoạch lộ trình bằng phương tiện giao thông công cộng. Tính năng hỗ trợ lịch trình thời gian thực hiện đang được phát triển.
 
 <b>KIỂU BẢN ĐỒ:</b> Chọn chế độ phù hợp với hoạt động của bạn — Outdoors, Đường đồng mức, Đi bộ đường dài, Xe đạp hoặc Metro/Tàu điện ngầm.
 

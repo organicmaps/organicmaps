@@ -18,7 +18,7 @@ GPS-NAVIGOINTI: Nauti puheohjatuista käännös käännökseltä -ohjeista. Luo 
 
 VAELLUS- JA PYÖRÄILYTIIET MAAILMANLAAJUISESTI: Ota käyttöön erityiset karttatasot löytääksesi suosittuja vaellus- ja pyöräilyreittejä maailmanlaajuisesti, kaikki OpenStreetMapista. Vaihda tasojen välillä nähdäksesi värilliset pyörä- ja MTB-reitit sekä viralliset vaellusreitit.
 
-JULKINEN LIIKENNE: Näe julkisen liikenteen reittinumerot pysäkeillä. Live-liikenneaikataulut ja reittisuunnittelu ovat kehitteillä.
+JULKINEN LIIKENNE: Suunnittele joukkoliikenteen reitit. Reaaliaikaiset aikataulut ovat kehitteillä.
 
 KARTTATYYLIT: Valitse karttatasot, jotka sopivat aktiviteettiisi — Ulkoilu, Korkeuskäyrät, Vaellus, Pyöräily tai Metro.
 

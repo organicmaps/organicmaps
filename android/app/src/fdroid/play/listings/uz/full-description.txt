@@ -12,7 +12,7 @@ Organic Maps sayohat, piyoda yurish, tog'da yurish va velosiped sayohatlari uchu
 
 DUNYO BO'YLAB PYEDAL VA VELOSIPED YO'LLAri: Maxsus xarita qatlamlarini yoqib, OpenStreetMap manbasidan olingan dunyo bo'ylab mashhur piyoda va velosiped yo'llarini kashf eting. Qatlamlar o'rtasida almashtirib, rangli velosiped va tog' velosipedi (MTB) yo'llari hamda rasmiy piyoda yo'llarini ko'ring.
 
-<b>JAMOAT TRANSPORT:</b> Bekatlarda jamoat transporti yo'nalish raqamlarini ko'ring. Jonli transport jadvalari va marshrutlar hozirda ishlab chiqilmoqda.
+<b>JAMOAT TRANSPORT:</b> Jamoat transporti yo'nalishlarini rejalashtiring. Jonli jadvallar ustida ishlanmoqda.
 
 **WIKIPEDIA MAQOLALARI:** Xaritada topgan joylaringiz bo'yicha Wikipedia maqolalarini o'rganing. Qidiruvga "?wiki" yozing va Wikipedia maqolalariga ega barcha joylarni toping.
 

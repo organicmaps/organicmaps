@@ -18,7 +18,7 @@ Organic Maps ialah aplikasi peta luar talian yang pantas dan terperinci serta na
 
 <b>LALUAN MENDAKI & BERBASIKAL DARI SELURUH DUNIA:</b> Aktifkan lapisan peta khas untuk menemui laluan mendaki dan berbasikal popular di seluruh dunia, semuanya dari OpenStreetMap. Tukar antara lapisan untuk melihat laluan basikal berwarna dan MTB, serta laluan mendaki rasmi.
 
-<b>TRANSPORT AWAM:</b> Lihat nombor laluan pengangkutan awam di perhentian. Jadual dan laluan pengangkutan langsung sedang dibangunkan.
+<b>TRANSPORT AWAM:</b> Rancang laluan pengangkutan awam. Jadual waktu masa nyata sedang dibangunkan.
 
 <b>GAYA PETA:</b> Pilih lapisan peta yang sesuai dengan aktiviti anda — Luar, Garisan Kontur, Mendaki, Berbasikal, atau Metro/Transit Bawah Tanah.
 

@@ -18,7 +18,7 @@ NAVEGAÇÃO GPS: Aproveite as direções guiadas por voz, passo a passo. Crie ro
 
 TRILHAS DE CAMINHADA E CICLISMO AO REDOR DO MUNDO: Ative camadas de mapa especiais para descobrir rotas populares de caminhada e ciclismo em todo o mundo, todas provenientes do OpenStreetMap. Alterne entre camadas para ver rotas de bicicleta e MTB coloridas, bem como trilhas oficiais de caminhada.
 
-TRANSPORTE PÚBLICO: Veja os números das linhas de transporte público nos pontos. Horários e roteamentos em tempo real estão em desenvolvimento.
+TRANSPORTE PÚBLICO: Planeie percursos de transportes públicos. Os horários em tempo real estão em desenvolvimento.
 
 ESTILOS DE MAPA: Escolha camadas de mapa que se adaptem à sua atividade — Ao ar livre, Linhas de Contorno, Caminhada, Ciclismo ou Metrô.
 
