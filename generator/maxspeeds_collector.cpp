@@ -156,7 +156,7 @@ void MaxspeedsCollector::OrderCollectedData()
 
 void MaxspeedsCollector::MergeInto(MaxspeedsCollector & collector) const
 {
-  CHECK(!m_stream.is_open() || !collector.m_stream.is_open(), ("Finish() has not been called."));
+  CHECK(!m_stream.is_open() && !collector.m_stream.is_open(), ("Finish() has not been called."));
   base::AppendFileToFile(GetTmpFilename(), collector.GetTmpFilename());
 }
 }  // namespace generator
