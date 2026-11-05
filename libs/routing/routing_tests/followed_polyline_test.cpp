@@ -122,4 +122,57 @@ UNIT_TEST(FollowedPolylineGetDistanceFromBeginM)
   double const masterDistance = mercator::DistanceOnEarth(kTestDirectedPolyline1.Front(), point);
   TEST_ALMOST_EQUAL_ULPS(distance, masterDistance, ());
 }
+namespace
+{
+m2::PointD TrackPoint(double x, double y = 0.0)
+{
+  return {mercator::MetersToMercator(x), mercator::MetersToMercator(y)};
+}
+
+m2::RectD TrackFixRect(double x, double y = 0.0)
+{
+  auto const latlon = mercator::ToLatLon(TrackPoint(x, y));
+  return mercator::MetersToXY(latlon.m_lon, latlon.m_lat, 5.0);
+}
+}  // namespace
+
+UNIT_TEST(FollowedPolyline_TrackWindowDoesNotSkipLoop)
+{
+  std::vector<m2::PointD> const points = {TrackPoint(0), TrackPoint(200), TrackPoint(200, 200), TrackPoint(0, 200),
+                                          TrackPoint(0)};
+  FollowedPolyline poly(points.begin(), points.end());
+  for (size_t i = 0; i < 3; ++i)
+  {
+    TEST(poly.UpdateTrackMatchingProjection(TrackFixRect(0), 0.0, 1000.0, std::nullopt, 5.0), ());
+    TEST_EQUAL(poly.GetDistanceFromStartMeters(), 0.0, ("A shared finish coordinate is not an observed lap"));
+  }
+  TEST(!poly.UpdateTrackMatchingProjection(TrackFixRect(200, 200), 0.0, 100.0, std::nullopt, 5.0), ());
+  TEST_EQUAL(poly.GetDistanceFromStartMeters(), 0.0, ("Rejected fixes leave progress unchanged"));
+}
+
+UNIT_TEST(FollowedPolyline_TrackTurnaroundRequiresObservedCorner)
+{
+  std::vector<m2::PointD> const points = {TrackPoint(0), TrackPoint(1000), TrackPoint(0)};
+  FollowedPolyline poly(points.begin(), points.end());
+  TEST(poly.UpdateTrackMatchingProjection(TrackFixRect(700), 0.0, 2000.0, m2::PointD(1, 0), 5.0), ());
+  TEST(poly.UpdateTrackMatchingProjection(TrackFixRect(400), 0.0, 2000.0, m2::PointD(-1, 0), 5.0), ());
+  TEST_ALMOST_EQUAL_ABS(poly.GetDistanceFromStartMeters(), 400.0, 1.0, ("Backtracking remains on the outbound visit"));
+  TEST(poly.UpdateTrackMatchingProjection(TrackFixRect(1000), 0.0, 2000.0, m2::PointD(1, 0), 5.0), ());
+  TEST(poly.UpdateTrackMatchingProjection(TrackFixRect(900), 0.0, 2000.0, m2::PointD(-1, 0), 5.0), ());
+  TEST_ALMOST_EQUAL_ABS(poly.GetDistanceFromStartMeters(), 1100.0, 3.0,
+                        ("An observed corner permits the return visit"));
+}
+
+UNIT_TEST(FollowedPolyline_TrackDenseForwardChainAndDuplicateVertices)
+{
+  std::vector<m2::PointD> points = {TrackPoint(0)};
+  for (size_t i = 0; i <= 100; ++i)
+    points.push_back(TrackPoint(i));
+  FollowedPolyline poly(points.begin(), points.end());
+  TEST(poly.UpdateTrackMatchingProjection(TrackFixRect(97), 0.0, 120.0, m2::PointD(1, 0), 5.0, true), ());
+  TEST_ALMOST_EQUAL_ABS(poly.GetDistanceFromStartMeters(), 97.0, 1.0, ());
+  double const distance = poly.GetDistanceFromStartMeters();
+  TEST(poly.UpdateTrackMatchingProjection(TrackFixRect(97), 0.0, 120.0, std::nullopt, 5.0), ());
+  TEST_EQUAL(poly.GetDistanceFromStartMeters(), distance, ("An unchanged fix does not march through the source"));
+}
 }  // namespace followed_polyline_test

@@ -67,6 +67,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
 
   // Used only in debug builds to simulate route following
   private boolean mRouteSimulationEnabled = false;
+  private boolean mNavigationLifecycleStarted;
 
   private NavigationScreen(@NonNull Builder builder)
   {
@@ -98,6 +99,12 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   @Override
   public void onStopNavigation()
   {
+    if (mRoutingController.isFollowingTrack())
+    {
+      mNavigationCancelled = true;
+      finish();
+      return;
+    }
     getLocationHelper().removeListener(mLocationListener);
     mNavigationCancelled = true;
     mRoutingController.cancel(false);
@@ -113,6 +120,8 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   @Override
   public void onAutoDriveEnabled()
   {
+    if (mRoutingController.isFollowingTrack())
+      return;
     Logger.i(TAG);
 
     /// @todo Pass maxDistM from RouteSimulationProvider?
@@ -149,6 +158,12 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   public void onCreate(@NonNull LifecycleOwner owner)
   {
     super.onCreate(owner);
+    if (mRoutingController.isFollowingTrack())
+    {
+      finish();
+      return;
+    }
+    mNavigationLifecycleStarted = true;
     mRoutingController.attach(this);
     ThemeUtils.update(getCarContext(), getSurfaceRenderer().isRenderingActive());
     mNavigationManager.setNavigationManagerCallback(this);
@@ -165,6 +180,11 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   public void onResume(@NonNull LifecycleOwner owner)
   {
     super.onResume(owner);
+    if (mRoutingController.isFollowingTrack())
+    {
+      finish();
+      return;
+    }
     mRoutingController.attach(this);
   }
 
@@ -174,16 +194,21 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     super.onDestroy(owner);
     if (mRouteSimulationEnabled)
       onAutodriveDisabled();
-    NavigationService.stopService(getCarContext());
+    if (mNavigationLifecycleStarted && !(mRoutingController.isFollowingTrack() && mRoutingController.isNavigating()))
+      NavigationService.stopService(getCarContext());
     getLocationHelper().removeListener(mLocationListener);
     TtsPlayer.removeStateChangedListener(mTtsStateListener);
 
-    if (mRoutingController.isNavigating())
+    if (mRoutingController.isAttachedTo(this) && mRoutingController.isNavigating()
+        && !mRoutingController.isFollowingTrack())
       mRoutingController.onSaveState();
-    mRoutingController.detach();
+    mRoutingController.detach(this);
     ThemeUtils.update(getCarContext(), getSurfaceRenderer().isRenderingActive());
-    mNavigationManager.navigationEnded();
-    mNavigationManager.clearNavigationManagerCallback();
+    if (mNavigationLifecycleStarted)
+    {
+      mNavigationManager.navigationEnded();
+      mNavigationManager.clearNavigationManagerCallback();
+    }
     getSurfaceRenderer().hideSpeedLimit();
   }
 
@@ -194,6 +219,12 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     stopActionBuilder.setIcon(
         new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.ic_close)).build());
     stopActionBuilder.setOnClickListener(() -> {
+      if (mRoutingController.isFollowingTrack())
+      {
+        mNavigationCancelled = true;
+        finish();
+        return;
+      }
       mNavigationCancelled = true;
       mRoutingController.cancel();
     });
@@ -305,6 +336,8 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
 
   private void updateTrip(@Nullable Location location)
   {
+    if (mRoutingController.isFollowingTrack())
+      return;
     final RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
     mTrip = RoutingUtils.createTrip(getCarContext(), info, RoutingController.get().getEndPoint(), Colors.DISTANCE);
     mNavigationManager.updateTrip(mTrip);

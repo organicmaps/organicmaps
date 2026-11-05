@@ -64,6 +64,8 @@ public class ManageRouteController implements ManageRouteAdapter.ManageRouteList
 
   public void onRouteOrderChanged(@NonNull ArrayList<RouteMarkData> newRoutePoints)
   {
+    if (RoutingController.get().isFollowingTrack())
+      return;
     // Make sure that the new route contains at least 2 points (start and destination).
     Assert.debug(newRoutePoints.size() >= 2, "There must be at least two route points");
 

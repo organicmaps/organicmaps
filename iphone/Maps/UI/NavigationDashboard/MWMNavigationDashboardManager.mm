@@ -83,7 +83,7 @@
 {
   if (self.state == MWMNavigationDashboardStateClosed)
     return;
-  [self.navigationDashboardView setRouteBuilderProgress:[MWMRouter type] progress:progress / 100.];
+  [self.navigationDashboardView setRouteBuilderProgress:[MWMRouter renderType] progress:progress / 100.];
 }
 
 #pragma mark - On route updates
@@ -183,7 +183,13 @@
   // A route-point search has no valid target after the route workflow closes.
   if (wasSelectingRoutePoint)
     [self.searchManager close];
-  [self.navigationDashboardView stateClosed];
+  // Direct ivar access: closing must never lazily build a dashboard just to close it.
+  [_navigationDashboardView stateClosed];
+  // The closing view controller stays alive during its slide-out animation but swallows all
+  // further events. Drop the reference so that the next routing event (e.g. the instantly built
+  // route when the user navigates a track while already navigating) lazily creates a fresh
+  // dashboard instead of feeding the dying one.
+  _navigationDashboardView = nil;
 }
 
 - (void)stateHidden

@@ -20,7 +20,14 @@ extension NavigationDashboard {
       super.init()
     }
 
+    private var isValid = true
+
+    func invalidate() {
+      isValid = false
+    }
+
     func process(_ request: Request) {
+      guard isValid else { return }
       let response = resolve(request)
       presenter.process(response)
     }

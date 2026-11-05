@@ -25,10 +25,23 @@
 #include <algorithm>
 #include <array>
 #include <cmath>
+#include <memory>
 #include <vector>
 
 namespace df
 {
+void UserLineRenderParams::AddSpline(std::vector<m2::PointD> const & points)
+{
+  if (points.size() < 2)
+    return;
+
+  auto spline = std::make_unique<m2::Spline>(points.size());
+  for (auto const & point : points)
+    spline->AddPoint(point);
+  if (spline->IsValid())
+    m_splines.emplace_back(std::move(spline));
+}
+
 namespace
 {
 std::array<double, 20> constexpr kLineWidthZoomFactor = {
