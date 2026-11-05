@@ -12,10 +12,6 @@ Ukuzula, ukusesha, nokubala izindlela kusebenza ngokushesha okubonakalayo.
 
 Amamephu agcwele imininingwane futhi avuselelwa kabili ngenyanga ukuze abonise izimo zangempela zomhlaba. Ngokungafani nabancintisana nabo abaningi abaziwayo, afaka izilabelama zokwakha, amabhentshi, izindlela zokuhamba ngezinyawo, nolunye ulwazi oluwusizo.
 
-<b>ESEKELWE KU-OPENSTREETMAP:</b>
-
-I-OpenStreetMap iyimephu yomhlaba yesitayela se-wiki eyakhiwe futhi igcinwe yizigidi zabavolontiya — abantu bendawo abazi kahle izindawo zabo. Lomzamo womphakathi uholela kumamephu anemininingwane eningi, kaningi anembile kakhulu kunalawo ezohwebo ezindaweni ezingakaze zidwetshwe kakhulu. I-Organic Maps ivuselela idatha yayo evela ku-OpenStreetMap njalo ngemva kwamaviki amabili, igcina amamephu akho esesikhathini futhi ethembekile. Futhi uma ubona ukuthi kukhona okushodayo, ungakwengeza ku-OpenStreetMap futhi usize ukuthuthukisa imephu kubo bonke.
-
 <b>IMFIHLO KUZA KUQALA:</b>
 
 Asiqoqi idatha noma izazisi. Lokhu kusho ukuthi akukho ngozi yokuvuza kwedatha futhi akukho ukuphazamiseka okufana nezikhangiso noma izaziso ezinesasaza — isipiliyoni semephu esihlanzekile, esizimele.
@@ -46,4 +42,13 @@ Khetha izendlalelo zemephu ezifanele umsebenzi wakho — Ngaphandle, Imigqa Yemi
 
 Rekhoda, ngena, thumela ngaphandle, futhi wabelane ngezindlela zakho nezindawo ozithandayo. Isekela amafomethi e-KML, KMZ, GPX, ne-GeoJSON.
 
+<b>IZIHLOKO ZE-WIKIPEDIA:</b> Hlola izihloko ze-Wikipedia zezindawo ozithola emephini. Thayipha “?wiki” ekusesheni ukuze uthole zonke izindawo ezinezihloko ze-Wikipedia.
+
+<b>UMHLELI WEMEPHU:</b> Nika umnikelo ku-OpenStreetMap ngokwengeza izindawo ezingekho noma ngokuhlela imephu ngqo kusuka ku-Organic Maps.
+
+<b>IMODI EMNYAMA:</b> Shintsha uye kutimu emnyama ukuze ukubuka kube khululekile ebusuku.
+
 Joyina umphakathi ku-Telegram: @OrganicMaps
+Noma ufunde ezinye izindlela zokusekela iphrojekthi: https://organicmaps.app/contribute/
+
+Imibono yakho eqotho nezibuyekezo esitolo ziyasikhuthaza! Sithokozela ukuzwa kuwe lapho.

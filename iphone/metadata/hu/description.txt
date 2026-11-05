@@ -2,9 +2,9 @@ Az Organic Maps egy gyors, részletes offline térkép- és GPS navigációs alk
 
 OFFLINE: Az alkalmazás 100%-ban offline működik — beleértve a keresést és a navigációt is. Felfedezheti a térképet és navigálhat internetkapcsolat nélkül, megtakarítva a mobiladatot és a roaming költségeket. Háttéradat átvitel nélkül az akkumulátor sokkal tovább bírja.
 
-RÉSZLETES ÉS FRISSÍTETT: A térképek gazdagok részletekben, és havonta kétszer frissítik őket a valós világ állapotának tükrözésére. Sok ismert versenytárssal ellentétben tartalmazzák az épületek címkéit, padokat, túraútvonalakat és más hasznos információkat.
+GYORS: A nagyítás, a keresés és az útvonal-kiszámítás észrevehetően gyorsan működik.
 
-OPENSTREETMAP ALAPÚ: Az OpenStreetMap egy wiki-stílusú világtérkép, amelyet milliók önkéntesei — helyiek, akik a legjobban ismerik a környéküket — építettek és tartanak karban. Ez a közösségi erőfeszítés rendkívül részletes térképeket eredményez, gyakran pontosabbakat, mint a kereskedelmi térképek kevésbé feltérképezett területeken. Az Organic Maps kéthetente frissíti az OpenStreetMap adatait, így a térképek mindig frissek és megbízhatóak. Ha hiányzik valami, hozzáadhatja az OpenStreetMap-hez, és segíthet javítani a térképet mindenki számára.
+RÉSZLETES ÉS FRISSÍTETT: A térképek gazdagok részletekben, és havonta kétszer frissítik őket a valós világ állapotának tükrözésére. Sok ismert versenytárssal ellentétben tartalmazzák az épületek címkéit, padokat, túraútvonalakat és más hasznos információkat.
 
 PRIVACY-FIRST: Nem gyűjtünk adatokat vagy azonosítókat. Ez azt jelenti, hogy nincs adatvesztés kockázata, és nincsenek zavaró tényezők, mint például reklámok vagy hangos értesítések — csak egy tiszta, privát térképélmény.
 
@@ -26,7 +26,16 @@ WIKIPEDIA CIKKEK: Fedezze fel a térképen talált helyek Wikipedia-cikkeit. Ír
 
 TÉRKÉPSZERKESZTŐ: Hozzájárulhat az OpenStreetMap-hez hiányzó helyek hozzáadásával vagy a térkép szerkesztésével közvetlenül az Organic Maps alkalmazásból.
 
+SÖTÉT MÓD: Váltson sötét témára az éjszakai kényelmes megtekintés érdekében.
+
 iCLOUD SZINKRONIZÁCIÓ: Készítsen biztonsági másolatot és szinkronizálja könnyedén az összes könyvjelzőt és útvonalat az iCloudon keresztül.
 
 Próbálja ki az alkalmazást — 100% ingyenes, reklámmentes, gyors és teljesen offline. Élvezze a gyors, megbízható és privát térképélményt, és ossza meg másokkal!
 Az Organic Maps egy indie, közösség által vezérelt, nyílt forráskódú projekt, amelyben százak járulnak hozzá új funkciók fejlesztéséhez, hibák javításához, fordításhoz és a projekt előremozdításához.
+
+Csatlakozzon a közösséghez a Telegramon: @OrganicMaps
+Vagy ismerje meg a projekt támogatásának egyéb módjait: https://organicmaps.app/contribute/
+
+Az áruházban írt őszinte visszajelzései és értékelései motiválnak minket! Örömmel olvassuk az ott megosztott véleményét.
+
+Kérdése van? További részletekért és a GYIK-ért látogasson el az organicmaps.app weboldalra.

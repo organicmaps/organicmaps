@@ -12,10 +12,6 @@ El zoom, la búsqueda y el cálculo de rutas funcionan notablemente rápido.
 
 Los mapas son muy detallados y se actualizan dos veces al mes para reflejar las condiciones del mundo real. A diferencia de muchos competidores conocidos, incluyen nombres de edificios, bancos, senderos y otra información útil.
 
-<b>BASADA EN OPENSTREETMAP:</b>
-
-OpenStreetMap es un mapa mundial de estilo wiki creado y mantenido por millones de voluntarios, gente local que conoce mejor sus zonas. Este esfuerzo comunitario da como resultado mapas muy detallados, a menudo más precisos que los comerciales en regiones menos cartografiadas. Organic Maps actualiza sus datos de OpenStreetMap cada dos semanas, lo que mantiene tus mapas actualizados y confiables. Y si notas que falta algo, puedes agregarlo a OpenStreetMap y ayudar a mejorar el mapa para todos.
-
 <b>LA PRIVACIDAD ES LO PRIMERO:</b>
 
 No recopilamos ningún dato ni identificador. Esto significa que no hay riesgo de fugas de datos ni distracciones como anuncios o notificaciones molestas, solo una experiencia de mapas limpia y privada.
@@ -58,4 +54,11 @@ Contribuye a OpenStreetMap añadiendo lugares que falten o editando el mapa dire
 
 Cambia a un tema oscuro para una visualización cómoda por la noche.
 
+Organic Maps es un proyecto independiente, impulsado por la comunidad y de código abierto, con cientos de colaboradores que ayudan a desarrollar nuevas funciones, solucionar problemas, traducir y hacer avanzar el proyecto.
+
 Únete a la comunidad en Telegram: @OrganicMapsES
+O conoce otras formas de apoyar el proyecto: https://organicmaps.app/contribute/
+
+¡Tus comentarios y reseñas sinceros en la tienda nos motivan! Nos encanta recibir tus comentarios allí.
+
+¿Tienes alguna pregunta? Visita el sitio web organicmaps.app para obtener más detalles y consultar las preguntas frecuentes.
