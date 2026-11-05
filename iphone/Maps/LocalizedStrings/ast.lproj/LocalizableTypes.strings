@@ -489,7 +489,9 @@
 
 /* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.pedestrian.tunnel" = "Túnel peonil";
-"type.highway.platform" = "Platform";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.highway.platform" = "Andén";
 "type.highway.primary" = "Primary Road";
 
 /* Default translation for type.highway.*.bridge aliases; individual types can override it. */
@@ -809,6 +811,9 @@
 "type.man_made.pier" = "Pier";
 "type.man_made.pipeline" = "Pipeline";
 "type.man_made.pipeline.overground" = "Overground Pipeline";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "Depósitu d’agua cubiertu";
 "type.man_made.silo" = "Silo";
 "type.man_made.storage_tank" = "Storage Tank";
 "type.man_made.surveillance" = "Cámara de vixilancia";
@@ -831,6 +836,9 @@
 "type.man_made.water_tower" = "Water Tower";
 "type.man_made.water_well" = "Water Well";
 "type.man_made.water_well.drinking_water_no" = "Water Well";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "Planta potabilizadora";
 "type.man_made.windmill" = "Windmill";
 "type.man_made.works" = "Industrial Works";
 
@@ -978,7 +986,9 @@
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "Tresporte públicu";
-"type.public_transport.platform" = "Platform";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.public_transport.platform" = "Andén";
 "type.railway" = "Railway";
 "type.railway.abandoned" = "Abandoned Railway";
 "type.railway.abandoned.bridge" = "Ponte ferroviaria abandonada";
@@ -1002,7 +1012,7 @@
 "type.railway.narrow_gauge" = "Narrow Gauge Rail";
 "type.railway.narrow_gauge.bridge" = "Narrow Gauge Rail Bridge";
 "type.railway.narrow_gauge.tunnel" = "Narrow Gauge Rail Tunnel";
-"type.railway.platform" = "Railway Platform";
+"type.railway.platform" = "Andén de ferrocarril";
 "type.railway.preserved" = "Preserved Rail";
 "type.railway.preserved.bridge" = "Ponte ferroviaria conservada";
 "type.railway.preserved.tunnel" = "Túnel ferroviariu conserváu";
@@ -1339,6 +1349,9 @@
 "type.shop.greengrocer" = "Greengrocer";
 "type.shop.grocery" = "Grocery Store";
 "type.shop.hairdresser" = "Hairdresser";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "Barbería";
 "type.shop.hardware" = "Ferretería";
 "type.shop.health_food" = "Health Food Shop";
 "type.shop.hearing_aids" = "Hearing Aid Store";
@@ -1464,6 +1477,7 @@
 "type.sport.rugby_union" = "Rugby union";
 "type.sport.running" = "Carrera";
 "type.sport.softball" = "Softbol";
+"type.sport.pilates" = "Pilates";
 "type.tourism" = "Turismu";
 "type.tourism.aquarium" = "Acuariu";
 
@@ -1614,6 +1628,9 @@
 "type.man_made.monitoring_station.weather" = "Weather Monitoring Station";
 "type.amenity.student_accommodation" = "Student Accommodation";
 "type.craft.watchmaker" = "Watchmaker";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "Fabricación de ventanes";
 "type.xmas_feature.market" = "Christmas Market";
 "type.xmas_feature.tree" = "Christmas Tree";
 "type.amenity.hookah_lounge" = "Hookah Lounge";

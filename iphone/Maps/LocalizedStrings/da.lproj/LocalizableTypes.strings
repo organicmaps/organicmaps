@@ -489,7 +489,9 @@
 
 /* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.pedestrian.tunnel" = "Tunnel";
-"type.highway.platform" = "Stoppested";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.highway.platform" = "Perron";
 "type.highway.primary" = "Hovedvej";
 
 /* Default translation for type.highway.*.bridge aliases; individual types can override it. */
@@ -809,6 +811,9 @@
 "type.man_made.pier" = "Bådebro";
 "type.man_made.pipeline" = "Rørledning";
 "type.man_made.pipeline.overground" = "Overjordisk rørledning";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "Overdækket reservoir";
 "type.man_made.silo" = "Silo";
 "type.man_made.storage_tank" = "Tank";
 "type.man_made.surveillance" = "Overvågningskamera";
@@ -831,6 +836,9 @@
 "type.man_made.water_tower" = "Vandtårn";
 "type.man_made.water_well" = "Brønd";
 "type.man_made.water_well.drinking_water_no" = "Brønd";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "Vandværk";
 "type.man_made.windmill" = "Vindmølle";
 "type.man_made.works" = "Fabrik";
 
@@ -978,7 +986,9 @@
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "Offentlig transport";
-"type.public_transport.platform" = "Stoppested";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.public_transport.platform" = "Perron";
 "type.railway" = "Jernbane";
 "type.railway.abandoned" = "Forladt jernbane";
 "type.railway.abandoned.bridge" = "Forladt jernbanebro";
@@ -1339,6 +1349,9 @@
 "type.shop.greengrocer" = "Grønthandler";
 "type.shop.grocery" = "Købmand";
 "type.shop.hairdresser" = "Frisør";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "Barber";
 "type.shop.hardware" = "Byggemarked";
 "type.shop.health_food" = "Helsekostbutik";
 "type.shop.hearing_aids" = "Høreapparatbutik";
@@ -1464,6 +1477,7 @@
 "type.sport.rugby_union" = "Rugby union";
 "type.sport.running" = "Løb";
 "type.sport.softball" = "Softball";
+"type.sport.pilates" = "Pilates";
 "type.tourism" = "Turisme";
 "type.tourism.aquarium" = "Akvarium";
 
@@ -1614,6 +1628,9 @@
 "type.man_made.monitoring_station.weather" = "Station til overvågning af vejret";
 "type.amenity.student_accommodation" = "Indkvartering af studerende";
 "type.craft.watchmaker" = "Urmager";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "Vinduesproduktion";
 "type.xmas_feature.market" = "Julemarked";
 "type.xmas_feature.tree" = "Juletræ";
 "type.amenity.hookah_lounge" = "Vandpibecafé";

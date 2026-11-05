@@ -311,6 +311,7 @@ world  +
         shoemaker  -
         tailor  -
         watchmaker  -
+        window_construction  -
         winery  -
         {}
     cuisine  +
@@ -752,6 +753,7 @@ world  +
         petroleum_well  -
         pier  -
         pipeline  -
+        reservoir_covered  -
         silo  -
         storage_tank  -
         surveillance  -
@@ -768,6 +770,7 @@ world  +
         water_well  +
             drinking_water_no  -
             {}
+        water_works  -
         windmill  -
         works  -
         {}
@@ -1370,7 +1373,9 @@ world  +
         gift  -
         greengrocer  -
         grocery  -
-        hairdresser  -
+        hairdresser  +
+            barber  -
+            {}
         hardware  -
         health_food  -
         hearing_aids  -
@@ -1469,6 +1474,7 @@ world  +
         padel  -
         pelota  -
         pickleball  -
+        pilates  -
         rugby_union  -
         running  -
         scuba_diving  -

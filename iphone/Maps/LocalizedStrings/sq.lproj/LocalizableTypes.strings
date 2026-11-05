@@ -489,7 +489,9 @@
 
 /* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.pedestrian.tunnel" = "Tunel këmbësorësh";
-"type.highway.platform" = "Platformë";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.highway.platform" = "Peron";
 "type.highway.primary" = "Rrugë kryesore";
 
 /* Default translation for type.highway.*.bridge aliases; individual types can override it. */
@@ -809,6 +811,9 @@
 "type.man_made.pier" = "Mol";
 "type.man_made.pipeline" = "Tubacion";
 "type.man_made.pipeline.overground" = "Tubacion mbitokësor";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "Rezervuar uji i mbuluar";
 "type.man_made.silo" = "Silo";
 "type.man_made.storage_tank" = "Depozitë";
 "type.man_made.surveillance" = "Kamera vëzhgimi";
@@ -831,6 +836,9 @@
 "type.man_made.water_tower" = "Kullë uji";
 "type.man_made.water_well" = "Pus uji";
 "type.man_made.water_well.drinking_water_no" = "Pus uji";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "Impiant i trajtimit të ujit";
 "type.man_made.windmill" = "Mulli ere";
 "type.man_made.works" = "Uzinë";
 
@@ -978,7 +986,9 @@
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "Transport Publik";
-"type.public_transport.platform" = "Platformë";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.public_transport.platform" = "Peron";
 "type.railway" = "Hekurudhë";
 "type.railway.abandoned" = "Hekurudhë e braktisur";
 "type.railway.abandoned.bridge" = "Urë hekurudhore e braktisur";
@@ -1002,7 +1012,7 @@
 "type.railway.narrow_gauge" = "Hekurudhë me binarë të ngushtë";
 "type.railway.narrow_gauge.bridge" = "Urë hekurudhore e ngushtë";
 "type.railway.narrow_gauge.tunnel" = "Tunel hekurudhor i ngushtë";
-"type.railway.platform" = "Platformë hekurudhore";
+"type.railway.platform" = "Peron hekurudhor";
 "type.railway.preserved" = "Hekurudhë e ruajtur";
 "type.railway.preserved.bridge" = "Urë hekurudhore e ruajtur";
 "type.railway.preserved.tunnel" = "Tunel hekurudhor i ruajtur";
@@ -1339,6 +1349,9 @@
 "type.shop.greengrocer" = "Dyqan frutash-perimesh";
 "type.shop.grocery" = "Ushqimore";
 "type.shop.hairdresser" = "Parukeri";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "Berber";
 "type.shop.hardware" = "Knaluri";
 "type.shop.health_food" = "Ushqim i shëndetshëm";
 "type.shop.hearing_aids" = "Aparate dëgjimi";
@@ -1464,6 +1477,7 @@
 "type.sport.rugby_union" = "Ragbi";
 "type.sport.running" = "Vrapim";
 "type.sport.softball" = "Softball";
+"type.sport.pilates" = "Pilates";
 "type.tourism" = "Turizëm";
 "type.tourism.aquarium" = "Akuarium";
 
@@ -1614,6 +1628,9 @@
 "type.man_made.monitoring_station.weather" = "Stacion meteorologjik";
 "type.amenity.student_accommodation" = "Konvikt";
 "type.craft.watchmaker" = "Orëndreqës";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "Prodhim dritaresh";
 "type.xmas_feature.market" = "Treg Krishtlindjesh";
 "type.xmas_feature.tree" = "Pema e Krishtlindjeve";
 "type.amenity.hookah_lounge" = "Shisha bar";

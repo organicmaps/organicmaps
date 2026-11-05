@@ -4516,6 +4516,16 @@ type craft-watchmaker
   z20
     symbol name=watchmaker-m priority=500
     caption primary[height=11 color=#00444444/#00A6A6A6 dy=1 optional] priority=-9500
+type craft-window_construction
+  z18
+    symbol name=craft-m priority=500
+    caption primary[height=11 color=#00444444/#00A6A6A6 dy=1 optional] priority=-9500
+  z19
+    symbol name=craft-m priority=500
+    caption primary[height=11 color=#00444444/#00A6A6A6 dy=1 optional] priority=-9500
+  z20
+    symbol name=craft-m priority=500
+    caption primary[height=11 color=#00444444/#00A6A6A6 dy=1 optional] priority=-9500
 type craft-winery
   z17
     symbol name=winery-m priority=2400
@@ -11377,6 +11387,20 @@ type man_made-pier
     line width=8 color=#4DE3E1D2/#4D0F0F0F join=round cap=round priority=30
     area color=#00E3E1D2/#000F0F0F priority=30
     caption primary[height=10 color=#00444444/#00A6A6A6] priority=700
+type man_made-reservoir_covered
+  z16
+    symbol name=reservoir_covered-m priority=450
+  z17
+    symbol name=reservoir_covered-m priority=450
+  z18
+    symbol name=reservoir_covered-m priority=450
+    caption primary[height=11 color=#00444444/#00A6A6A6 dy=1 optional] priority=-9550
+  z19
+    symbol name=reservoir_covered-m priority=450
+    caption primary[height=11 color=#00444444/#00A6A6A6 dy=1 optional] priority=-9550
+  z20
+    symbol name=reservoir_covered-m priority=450
+    caption primary[height=11 color=#00444444/#00A6A6A6 dy=1 optional] priority=-9550
 type man_made-silo
   z13
     symbol name=mast-m priority=450
@@ -11627,6 +11651,21 @@ type man_made-water_well-drinking_water_no
   z20
     symbol name=drinking-water-no-m priority=1200
     caption primary[height=11 color=#00444444/#00A6A6A6 dy=1 optional] priority=-8800
+type man_made-water_works
+  z16
+    symbol name=water_works-m priority=700
+  z17
+    symbol name=water_works-m priority=700
+    caption primary[height=11 color=#00444444/#00A6A6A6 dy=1 optional] priority=-9300
+  z18
+    symbol name=water_works-m priority=700
+    caption primary[height=11 color=#00444444/#00A6A6A6 dy=1 optional] priority=-9300
+  z19
+    symbol name=water_works-m priority=700
+    caption primary[height=11 color=#00444444/#00A6A6A6 dy=1 optional] priority=-9300
+  z20
+    symbol name=water_works-m priority=700
+    caption primary[height=11 color=#00444444/#00A6A6A6 dy=1 optional] priority=-9300
 type man_made-windmill
   z16
     symbol name=windmill-m priority=3050 min_distance=30
@@ -22204,6 +22243,22 @@ type shop-hairdresser
   z20
     symbol name=hairdresser-m priority=2400 min_distance=24
     caption primary[height=10 color=#00444444/#00A6A6A6 dy=1 optional] priority=-7600
+type shop-hairdresser-barber
+  z16
+    symbol name=hairdresser-m priority=2400 min_distance=10
+    caption primary[height=10 color=#00444444/#00A6A6A6 dy=1 optional] priority=-7600
+  z17
+    symbol name=hairdresser-m priority=2400 min_distance=24
+    caption primary[height=10 color=#00444444/#00A6A6A6 dy=1 optional] priority=-7600
+  z18
+    symbol name=hairdresser-m priority=2400 min_distance=24
+    caption primary[height=10 color=#00444444/#00A6A6A6 dy=1 optional] priority=-7600
+  z19
+    symbol name=hairdresser-m priority=2400 min_distance=24
+    caption primary[height=10 color=#00444444/#00A6A6A6 dy=1 optional] priority=-7600
+  z20
+    symbol name=hairdresser-m priority=2400 min_distance=24
+    caption primary[height=10 color=#00444444/#00A6A6A6 dy=1 optional] priority=-7600
 type shop-hardware
   z16
     symbol name=doityourself-m priority=1600 min_distance=10
@@ -23514,6 +23569,19 @@ type sport-pickleball
   z20
     symbol name=padel-m priority=1400 min_distance=10
     caption primary[height=11 color=#00444444/#00A6A6A6 dy=1 optional] priority=-8600
+type sport-pilates
+  z17
+    symbol name=yoga-m priority=1610 min_distance=10
+    caption primary[height=10 color=#00444444/#00A6A6A6 dy=1 optional] priority=-8390
+  z18
+    symbol name=yoga-m priority=1610 min_distance=10
+    caption primary[height=11 color=#00444444/#00A6A6A6 dy=1 optional] priority=-8390
+  z19
+    symbol name=yoga-m priority=1610 min_distance=10
+    caption primary[height=11 color=#00444444/#00A6A6A6 dy=1 optional] priority=-8390
+  z20
+    symbol name=yoga-m priority=1610 min_distance=10
+    caption primary[height=11 color=#00444444/#00A6A6A6 dy=1 optional] priority=-8390
 type sport-rugby_union
   z17
     symbol name=australian-football-m priority=1400 min_distance=10
@@ -23672,17 +23740,17 @@ type sport-volleyball
     caption primary[height=11 color=#00444444/#00A6A6A6 dy=1 optional] priority=-8600
 type sport-yoga
   z17
-    symbol name=yoga-m priority=1400 min_distance=10
-    caption primary[height=10 color=#00444444/#00A6A6A6 dy=1 optional] priority=-8600
+    symbol name=yoga-m priority=1610 min_distance=10
+    caption primary[height=10 color=#00444444/#00A6A6A6 dy=1 optional] priority=-8390
   z18
-    symbol name=yoga-m priority=1400 min_distance=10
-    caption primary[height=11 color=#00444444/#00A6A6A6 dy=1 optional] priority=-8600
+    symbol name=yoga-m priority=1610 min_distance=10
+    caption primary[height=11 color=#00444444/#00A6A6A6 dy=1 optional] priority=-8390
   z19
-    symbol name=yoga-m priority=1400 min_distance=10
-    caption primary[height=11 color=#00444444/#00A6A6A6 dy=1 optional] priority=-8600
+    symbol name=yoga-m priority=1610 min_distance=10
+    caption primary[height=11 color=#00444444/#00A6A6A6 dy=1 optional] priority=-8390
   z20
-    symbol name=yoga-m priority=1400 min_distance=10
-    caption primary[height=11 color=#00444444/#00A6A6A6 dy=1 optional] priority=-8600
+    symbol name=yoga-m priority=1610 min_distance=10
+    caption primary[height=11 color=#00444444/#00A6A6A6 dy=1 optional] priority=-8390
 type tourism-alpine_hut
   z11
     symbol name=alpine_hut-s priority=5800 min_distance=24

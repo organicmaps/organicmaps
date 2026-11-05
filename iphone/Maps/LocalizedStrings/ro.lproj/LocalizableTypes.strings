@@ -489,7 +489,9 @@
 
 /* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.pedestrian.tunnel" = "Tunel";
-"type.highway.platform" = "Platform";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.highway.platform" = "Peron";
 "type.highway.primary" = "Stradă";
 
 /* Default translation for type.highway.*.bridge aliases; individual types can override it. */
@@ -809,6 +811,9 @@
 "type.man_made.pier" = "Pier";
 "type.man_made.pipeline" = "Pipeline";
 "type.man_made.pipeline.overground" = "Overground Pipeline";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "Rezervor de apă acoperit";
 "type.man_made.silo" = "Silo";
 "type.man_made.storage_tank" = "Storage Tank";
 "type.man_made.surveillance" = "Cameră de supraveghere";
@@ -831,6 +836,9 @@
 "type.man_made.water_tower" = "Turn de apă";
 "type.man_made.water_well" = "Puț de apă";
 "type.man_made.water_well.drinking_water_no" = "Puț de apă";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "Stație de tratare a apei";
 "type.man_made.windmill" = "Moară de vânt";
 "type.man_made.works" = "Industrial Works";
 
@@ -978,7 +986,9 @@
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "Public Transport";
-"type.public_transport.platform" = "Platform";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.public_transport.platform" = "Peron";
 "type.railway" = "Cale ferată";
 "type.railway.abandoned" = "Abandoned Railway";
 "type.railway.abandoned.bridge" = "Abandoned Railway Bridge";
@@ -1339,6 +1349,9 @@
 "type.shop.greengrocer" = "Băcănie";
 "type.shop.grocery" = "Băcănie";
 "type.shop.hairdresser" = "Coafor";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "Frizerie";
 "type.shop.hardware" = "Magazin de hardware";
 "type.shop.health_food" = "Magazin de alimente naturiste";
 "type.shop.hearing_aids" = "Magazin de aparate auditive";
@@ -1464,6 +1477,7 @@
 "type.sport.rugby_union" = "Rugby";
 "type.sport.running" = "Alergare";
 "type.sport.softball" = "Softball";
+"type.sport.pilates" = "Pilates";
 "type.tourism" = "Tourism";
 "type.tourism.aquarium" = "Acvariu";
 
@@ -1614,6 +1628,9 @@
 "type.man_made.monitoring_station.weather" = "Stație de monitorizare meteorologică";
 "type.amenity.student_accommodation" = "Cazare pentru studenți";
 "type.craft.watchmaker" = "Ceasornicar";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "Producție de ferestre";
 "type.xmas_feature.market" = "Piață de Crăciun";
 "type.xmas_feature.tree" = "Pom de Crăciun";
 "type.amenity.hookah_lounge" = "Lounge de narghilea";

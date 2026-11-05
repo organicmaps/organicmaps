@@ -450,7 +450,8 @@
     <string name="type.highway.pedestrian.bridge">Πεζογέφυρα</string>
     <!-- Default translation for type.highway.*.tunnel aliases; individual types can override it. -->
     <string name="type.highway.pedestrian.tunnel">Σήραγγα πεζών</string>
-    <string name="type.highway.platform">Πλατφόρμα</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.highway.platform">Αποβάθρα</string>
     <string name="type.highway.primary">Πρωτεύων δρόμος</string>
     <!-- Default translation for type.highway.*.bridge aliases; individual types can override it. -->
     <string name="type.highway.primary.bridge">Γέφυρα</string>
@@ -694,6 +695,8 @@
     <string name="type.man_made.pier">Προβλήτα</string>
     <string name="type.man_made.pipeline">Αγωγός</string>
     <string name="type.man_made.pipeline.overground">Υπέργειος αγωγός</string>
+    <!-- A covered water storage reservoir, usually for drinking water -->
+    <string name="type.man_made.reservoir_covered">Καλυμμένη δεξαμενή νερού</string>
     <string name="type.man_made.silo">Σιλό</string>
     <string name="type.man_made.storage_tank">Δεξαμενή αποθήκευσης</string>
     <string name="type.man_made.surveillance">Κάμερα παρακολούθησης</string>
@@ -712,6 +715,8 @@
     <string name="type.man_made.water_tower">Υδατόπυργος</string>
     <string name="type.man_made.water_well">Πηγάδι νερού</string>
     <string name="type.man_made.water_well.drinking_water_no">Πηγάδι νερού</string>
+    <!-- A facility that treats and supplies drinking water -->
+    <string name="type.man_made.water_works">Μονάδα επεξεργασίας νερού</string>
     <string name="type.man_made.windmill">Ανεμόμυλος</string>
     <string name="type.man_made.works">Εργοστάσιο βιομηχανίας</string>
     <string name="type.military">Στρατιωτικό</string>
@@ -844,7 +849,8 @@
     <string name="type.psurface.unpaved_bad">psurface-unpaved_bad</string>
     <string name="type.psurface.unpaved_good">psurface-unpaved_good</string>
     <string name="type.public_transport">Δημόσια συγκοινωνία</string>
-    <string name="type.public_transport.platform">Πλατφόρμα</string>
+    <!-- Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. -->
+    <string name="type.public_transport.platform">Αποβάθρα</string>
     <string name="type.railway">Σιδηρόδρομος</string>
     <string name="type.railway.abandoned">Εγκαταλελειμμένος σιδηρόδρομος</string>
     <string name="type.railway.abandoned.bridge">Εγκαταλελειμμένη σιδηροδρομική γέφυρα</string>
@@ -868,7 +874,7 @@
     <string name="type.railway.narrow_gauge">Σιδηρόδρομος στενού εύρους</string>
     <string name="type.railway.narrow_gauge.bridge">Σιδηροδρομική γέφυρα στενής γραμμής</string>
     <string name="type.railway.narrow_gauge.tunnel">Σήραγγα σιδηρόδρομου στενού εύρους</string>
-    <string name="type.railway.platform">Σιδηροδρομική πλατφόρμα</string>
+    <string name="type.railway.platform">Σιδηροδρομική αποβάθρα</string>
     <string name="type.railway.preserved">Διατηρητέος σιδηρόδρομος</string>
     <string name="type.railway.preserved.bridge">Γέφυρα διατηρητέου σιδηρόδρομου</string>
     <string name="type.railway.preserved.tunnel">Σήραγγα διατηρητέου σιδηρόδρομου</string>
@@ -1201,6 +1207,8 @@
     <string name="type.shop.greengrocer">Μανάβικο</string>
     <string name="type.shop.grocery">Παντοπωλείο</string>
     <string name="type.shop.hairdresser">Κομμωτής</string>
+    <!-- Traditional men's haircuts and beard trimming -->
+    <string name="type.shop.hairdresser.barber">Κουρείο</string>
     <string name="type.shop.hardware">Κατάστημα υλικού</string>
     <string name="type.shop.health_food">Κατάστημα υγιεινής διατροφής</string>
     <string name="type.shop.hearing_aids">Κατάστημα βοηθημάτων ακοής</string>
@@ -1324,6 +1332,7 @@
     <string name="type.sport.rugby_union">Ράγκμπι γιούνιον</string>
     <string name="type.sport.running">Τρέξιμο</string>
     <string name="type.sport.softball">Σόφτμπολ</string>
+    <string name="type.sport.pilates">Πιλάτες</string>
     <string name="type.tourism">Τουρισμός</string>
     <string name="type.tourism.aquarium">Ενυδρείο</string>
     <!-- Typically serviced, staff is present and food is available (compared to wilderness_hut). -->
@@ -1462,6 +1471,8 @@
     <string name="type.man_made.monitoring_station.weather">Σταθμός παρακολούθησης καιρού</string>
     <string name="type.amenity.student_accommodation">Φοιτητική Εστία</string>
     <string name="type.craft.watchmaker">Ωρολογοποιός</string>
+    <!-- A workshop that makes and installs windows -->
+    <string name="type.craft.window_construction">Κατασκευή παραθύρων</string>
     <string name="type.xmas_feature.market">Χριστουγεννιάτικη αγορά</string>
     <string name="type.xmas_feature.tree">Χριστουγεννιάτικο δέντρο</string>
     <string name="type.amenity.hookah_lounge">Ναργιλέ μπαρ</string>

@@ -1,36 +1,40 @@
-Organic Maps je brza i detaljna aplikacija za offline mape i GPS navigaciju za putovanja, planinarenje, treking i biciklističke avanture. Planirajte, uvozite i snimajte rute i uživajte u glatkoj navigaciji bez pražnjenja baterije ili potrebe za internet vezom. Istražujte mesta i navigirajte bezbedno tokom svojih avantura na otvorenom i putovanja širom sveta. Aplikacija nudi neograničeno preuzimanje mapa i ažuriranja svake dve nedelje. Bazirana je na OpenStreetMap-u, kreirana od strane volontera, sa prioritetom privatnosti, 100% offline i potpuno besplatna.
+Organic Maps je brza i detaljna aplikacija za offline mape i GPS navigaciju za putovanja, planinarenje, treking i biciklističke avanture. Planirajte, uvozite i snimajte rute i uživajte u glatkoj navigaciji bez pražnjenja baterije i bez internet veze. Istražujte mesta i krećite se bezbedno tokom avantura na otvorenom i putovanja širom sveta. Aplikacija nudi neograničeno preuzimanje mapa i ažuriranja svake dve nedelje. Zasnovana je na OpenStreetMap-u, prave je volonteri, privatnost joj je na prvom mestu, radi 100% offline i potpuno je besplatna.
 
 <b>OFFLINE:</b> Aplikacija radi 100% offline — uključujući pretragu i navigaciju. Možete istraživati mapu i navigirati bez internet veze, štedeći mobilne podatke i troškove rominga. Bez prenosa podataka u pozadini, baterija traje znatno duže.
 
 <b>BRZO:</b> Zumiranje, pretraga i računanje ruta rade izuzetno brzo.
 
-<b>DETALJNO I AŽURIRANO:</b> Mape su bogate detaljima i osvežavaju se dva puta mesečno kako bi odražavale stvarne uslove. Za razliku od mnogih poznatih konkurenata, uključuju oznake zgrada, klupe, planinarske staze i druge korisne informacije.
+<b>DETALJNO I AŽURIRANO:</b> Mape su bogate detaljima i osvežavaju se dva puta mesečno kako bi odražavale stvarno stanje. Za razliku od mnogih poznatih konkurenata, sadrže oznake zgrada, klupe, planinarske staze i druge korisne informacije.
 
-<b>BAZIRANO NA OPENSTREETMAP:</b> OpenStreetMap je svetska mapa u stilu vikija koju grade i održavaju milioni volontera — lokalci koji najbolje poznaju svoje područje. Ovaj zajednički napor rezultira veoma detaljnim mapama, često preciznijim od komercijalnih u slabije mapiranim regionima. Organic Maps ažurira svoje podatke sa OpenStreetMap-a svake dve nedelje, održavajući mape svežim i pouzdanim. Ako primetite da nešto nedostaje, možete dodati na OpenStreetMap i pomoći da mapa bude bolja za sve.
+<b>ZASNOVANO NA OPENSTREETMAP-U:</b> OpenStreetMap je svetska mapa u stilu Vikipedije koju grade i održavaju milioni volontera — meštani koji najbolje poznaju svoje područje. Zahvaljujući tome, mape su veoma detaljne i u slabije mapiranim regionima često preciznije od komercijalnih. Organic Maps ažurira podatke sa OpenStreetMap-a svake dve nedelje, pa su mape uvek sveže i pouzdane. Ako primetite da nešto nedostaje, možete to sami dodati u OpenStreetMap i pomoći da mapa bude bolja za sve.
 
-<b>PRIORITET PRIVATNOSTI:</b> Ne prikupljamo nikakve podatke ili identifikatore. To znači da nema rizika od curenja podataka i nema ometanja kao što su oglasi ili zvučne notifikacije — samo čist, privatni doživljaj mape.
+<b>PRIVATNOST NA PRVOM MESTU:</b> Ne prikupljamo nikakve podatke ni identifikatore. To znači da nema rizika od curenja podataka, a nema ni ometanja poput oglasa ili napadnih obaveštenja — samo čista, privatna mapa.
 
-<b>VAŽNE KARAKTERISTIKE</b>
+<b>VAŽNE FUNKCIJE</b>
 
-<b>ISTRAŽITE MESTA:</b> Pretražujte po adresi, imenu ili kategoriji, otkrijte milione POI-a i pogledajte detaljne informacije kao što su radno vreme, Wikipedia članci, pristupačnost za kolica i drugi korisni detalji.
+<b>ISTRAŽITE MESTA:</b> Pretražujte po adresi, nazivu ili kategoriji, otkrijte milione zanimljivih mesta i pogledajte detalje kao što su radno vreme, članci sa Vikipedije, pristupačnost za invalidska kolica i druge korisne informacije.
 
-<b>GPS NAVIGACIJA:</b> Uživajte u glasovno vođenim uputstvima korak-po-korak. Kreirajte pešačke, planinarske, biciklističke ili vozačke rute — uključujući rute između gradova, zemalja i više tačaka. Pronađite najbolje rute za vaše metro i svakodnevne puteve. Podržan je Android Auto.
+<b>GPS NAVIGACIJA:</b> Glasovna navigacija skretanje po skretanje. Kreirajte pešačke, planinarske, biciklističke ili automobilske rute — uključujući rute između gradova i zemalja, kao i rute sa više tačaka. Pronađite najbolje rute za vožnju metroom i svakodnevna putovanja. Podržan je Android Auto.
 
-<b>PLANINARSKE & BICIKLISTIČKE STAZE SA CELOG SVETA:</b> Omogućite posebne slojeve mapa kako biste otkrili popularne planinarske i biciklističke rute širom sveta, sve iz OpenStreetMap-a. Prebacujte slojeve da vidite obojene biciklističke i MTB rute, kao i zvanične planinarske staze.
+<b>PLANINARSKE I BICIKLISTIČKE STAZE IZ CELOG SVETA:</b> Uključite posebne slojeve mape i otkrijte popularne planinarske i biciklističke rute širom sveta, sve iz OpenStreetMap-a. Menjajte slojeve da biste videli obojene biciklističke i MTB rute, kao i zvanične planinarske staze.
 
-<b>JAVNI PREVOZ:</b> Pogledajte brojeve ruta javnog prevoza na stajalištima. Live rasporedi i planiranje ruta su trenutno u razvoju.
+<b>JAVNI PREVOZ:</b> Planirajte rute javnim prevozom — metroom, lakom železnicom, autobusom i tramvajem. Pogledajte brojeve linija na stajalištima.
 
-<b>STILOVI MAPA:</b> Izaberite slojeve mape koji odgovaraju vašoj aktivnosti — Na otvorenom, Konturne linije, Planinarenje, Biciklizam, ili Metro/Podzemna železnica.
+<b>STILOVI MAPE:</b> Izaberite slojeve mape koji odgovaraju vašoj aktivnosti — Na otvorenom, Izohipse, Planinarenje, Biciklizam ili Metro.
 
-<b>SNAJDER ZA RUTE:</b> Snimajte, uvozite, izvozite i delite svoje rute i omiljena mesta. Podržava formate KML, KMZ, GPX i GeoJSON.
+<b>SNIMAČ RUTA:</b> Snimajte, uvozite, izvozite i delite svoje rute i omiljena mesta. Podržani formati: KML, KMZ, GPX i GeoJSON.
 
-<b>WIKIPEDIJA ČLANCI:</b> Istražite Wikipedia članke za mesta koja otkrijete na mapi. Ukucajte “?wiki” u pretrazi da pronađete sva mesta sa Wikipedia člancima.
+<b>ČLANCI SA VIKIPEDIJE:</b> Čitajte članke sa Vikipedije o mestima koja otkrijete na mapi. Ukucajte „?wiki“ u pretragu da biste pronašli sva mesta sa člancima.
 
-<b>UREĐIVAČ MAPA:</b> Doprinesite OpenStreetMap dodavanjem nedostajućih mesta ili uređivanjem mape direktno iz Organic Maps.
+<b>UREĐIVAČ MAPE:</b> Doprinesite OpenStreetMap-u tako što ćete dodati mesta koja nedostaju ili urediti mapu direktno iz Organic Maps.
 
-Isprobajte aplikaciju — 100% je besplatna, bez reklama, brza i potpuno offline. Iskusite pouzdanu GPS navigaciju za planinarenje, biciklizam, treking i putovanja bilo gde u svetu! Uživajte u brzom, pouzdanom i privatnom doživljaju mape i podelite ga sa drugima!
+<b>TAMNI REŽIM:</b> Prebacite se na tamnu temu za udobno korišćenje noću.
 
-Organic Maps je nezavisni, zajednički projekat otvorenog koda sa stotinama saradnika koji pomažu u razvoju novih funkcija, rešavanju problema, prevođenju i unapređivanju projekta.
+Isprobajte aplikaciju — 100% je besplatna, bez reklama, brza i potpuno offline. Iskusite pouzdanu GPS navigaciju za planinarenje, biciklizam, treking i putovanja bilo gde u svetu!
+
+Organic Maps je nezavisan projekat otvorenog koda koji razvija zajednica — stotine saradnika pomažu u razvoju novih funkcija, rešavanju problema, prevođenju i unapređivanju projekta.
 
 Pridružite se zajednici na Telegramu: @OrganicMapsApp
-Ili saznajte druge načine da podržite projekat: https://organicmaps.app/contribute/
+Saznajte druge načine da podržite projekat: https://organicmaps.app/contribute/
+
+Pratite nas na Instagramu: @organicmaps.app

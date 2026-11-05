@@ -18,7 +18,7 @@ NAVIGACIÓ GPS: Gaudiu d’indicacions pas a pas amb guia de veu. Creeu rutes a 
 
 SENDERS DE SENDERISME I CICLISME D’ARREU DEL MÓN: Activeu capes especials per descobrir rutes populars de senderisme i ciclisme d’arreu, provinents d’OpenStreetMap. Canvieu entre capes per veure rutes ciclables i de MTB en colors, així com senders oficials de senderisme.
 
-TRANSPORT PÚBLIC: Vegeu els números de ruta a les parades. Els horaris i la planificació de rutes en directe estan en desenvolupament.
+TRANSPORT PÚBLIC: Planifiqueu rutes de transport públic. Els horaris en temps real estan en desenvolupament.
 
 ESTILS DE MAPA: Trieu capes segons l’activitat — Exteriors, Línies de Nivell, Senderisme, Ciclisme o Metro/Subway.
 
@@ -34,3 +34,5 @@ Organic Maps és un projecte independent, comunitari i de codi obert, amb centen
 
 Uniu-vos a la comunitat a Telegram: @OrganicMapsApp
 O descobriu altres maneres de donar suport: https://organicmaps.app/contribute/
+
+Instagram: @organicmaps.app

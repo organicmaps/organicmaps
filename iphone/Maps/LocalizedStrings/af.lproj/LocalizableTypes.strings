@@ -489,7 +489,9 @@
 
 /* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.pedestrian.tunnel" = "Voetgangertonnel";
-"type.highway.platform" = "Platform";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.highway.platform" = "Instapplek";
 "type.highway.primary" = "Primêre pad";
 
 /* Default translation for type.highway.*.bridge aliases; individual types can override it. */
@@ -809,6 +811,9 @@
 "type.man_made.pier" = "Pier";
 "type.man_made.pipeline" = "Pypleiding";
 "type.man_made.pipeline.overground" = "Bogrondse pypleiding";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "Bedekte reservoir";
 "type.man_made.silo" = "Silo";
 "type.man_made.storage_tank" = "Opgaartenk";
 "type.man_made.surveillance" = "Bewakingskamera";
@@ -831,6 +836,9 @@
 "type.man_made.water_tower" = "Watertoring";
 "type.man_made.water_well" = "Waterput";
 "type.man_made.water_well.drinking_water_no" = "Waterput";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "Waterwerke";
 "type.man_made.windmill" = "Windmeule";
 "type.man_made.works" = "Fabriek";
 
@@ -978,7 +986,9 @@
 "type.psurface.unpaved_bad" = "Ongeteer";
 "type.psurface.unpaved_good" = "Ongeteer";
 "type.public_transport" = "Openbare vervoer";
-"type.public_transport.platform" = "Platform";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.public_transport.platform" = "Instapplek";
 "type.railway" = "Spoorweg";
 "type.railway.abandoned" = "Verlate treinspoor";
 "type.railway.abandoned.bridge" = "Verlate treintonnel";
@@ -1339,6 +1349,9 @@
 "type.shop.greengrocer" = "Groentewinkel";
 "type.shop.grocery" = "Kruidenier";
 "type.shop.hairdresser" = "Haarkapper";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "Barbier";
 "type.shop.hardware" = "Ysterware";
 "type.shop.health_food" = "Gesondheidsvoedsel";
 "type.shop.hearing_aids" = "Gehoorapparaatwinkel";
@@ -1464,6 +1477,7 @@
 "type.sport.rugby_union" = "Rugbyunie";
 "type.sport.running" = "Hardloop";
 "type.sport.softball" = "Sagtebal";
+"type.sport.pilates" = "Pilates";
 "type.tourism" = "Toerisme";
 "type.tourism.aquarium" = "Aquarium";
 
@@ -1614,6 +1628,9 @@
 "type.man_made.monitoring_station.weather" = "Weather Monitoring Station";
 "type.amenity.student_accommodation" = "Student Accommodation";
 "type.craft.watchmaker" = "Watchmaker";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "Venstervervaardiging";
 "type.xmas_feature.market" = "Kersmark";
 "type.xmas_feature.tree" = "Kersboom";
 "type.amenity.hookah_lounge" = "Hookah Lounge";

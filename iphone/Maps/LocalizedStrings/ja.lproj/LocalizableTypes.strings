@@ -489,7 +489,9 @@
 
 /* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.pedestrian.tunnel" = "トンネル";
-"type.highway.platform" = "公共交通機関のプラットホーム";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.highway.platform" = "乗り場";
 "type.highway.primary" = "ストリート";
 
 /* Default translation for type.highway.*.bridge aliases; individual types can override it. */
@@ -809,6 +811,9 @@
 "type.man_made.pier" = "桟橋";
 "type.man_made.pipeline" = "パイプライン";
 "type.man_made.pipeline.overground" = "地表のパイプライン";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "配水池";
 "type.man_made.silo" = "Silo";
 "type.man_made.storage_tank" = "Storage Tank";
 "type.man_made.surveillance" = "監視カメラ";
@@ -831,6 +836,9 @@
 "type.man_made.water_tower" = "給水塔";
 "type.man_made.water_well" = "井戸";
 "type.man_made.water_well.drinking_water_no" = "井戸";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "浄水場";
 "type.man_made.windmill" = "風車";
 "type.man_made.works" = "工場";
 
@@ -978,7 +986,9 @@
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "公共交通機関";
-"type.public_transport.platform" = "公共交通機関のプラットホーム";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.public_transport.platform" = "乗り場";
 "type.railway" = "鉄道";
 "type.railway.abandoned" = "廃線";
 "type.railway.abandoned.bridge" = "廃線(橋)";
@@ -1339,6 +1349,9 @@
 "type.shop.greengrocer" = "八百屋";
 "type.shop.grocery" = "買い物";
 "type.shop.hairdresser" = "美容院/理容店";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "理容室";
 "type.shop.hardware" = "ホームセンター";
 "type.shop.health_food" = "健康食品店";
 "type.shop.hearing_aids" = "補聴器店";
@@ -1464,6 +1477,7 @@
 "type.sport.rugby_union" = "ラグビーユニオン";
 "type.sport.running" = "ランニング";
 "type.sport.softball" = "ソフトボール";
+"type.sport.pilates" = "ピラティス";
 "type.tourism" = "観光";
 "type.tourism.aquarium" = "水族館";
 
@@ -1614,6 +1628,9 @@
 "type.man_made.monitoring_station.weather" = "気象観測ステーション";
 "type.amenity.student_accommodation" = "学生寮";
 "type.craft.watchmaker" = "ウォッチメーカー";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "窓製造";
 "type.xmas_feature.market" = "クリスマス・マーケット";
 "type.xmas_feature.tree" = "クリスマスツリー";
 "type.amenity.hookah_lounge" = "シーシャラウンジ";

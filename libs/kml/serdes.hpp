@@ -11,6 +11,7 @@
 
 #include "base/exception.hpp"
 
+#include <optional>
 #include <string>
 
 namespace kml
@@ -125,6 +126,8 @@ private:
   std::optional<AreaPolygon> m_polygon;
   std::vector<AreaPolygon> m_areaPolygons;
   bool m_invalidArea = false;
+  bool m_areaIsMultiPolygon = false;
+  bool m_areaAltitudeIsWgs84 = false;
   // A shared style or highlight must not replace accumulated placemark overrides.
   AreaStylePatch m_areaStyle;
   AreaStylePatch m_inlineAreaStyle;
@@ -176,6 +179,11 @@ private:
   double m_trackWidth;
   // Collections are not supported, see Push(). Counted here to log them once instead of per element.
   size_t m_droppedCompilations = 0;
+  std::vector<TrackStopData> m_trackStops;
+  // <mwm:stop> being parsed; the point stays unset until it parses successfully (see CharData).
+  std::optional<m2::PointD> m_currentTrackStopPoint;
+  std::string m_currentTrackStopName;
+  std::string m_trackRouterType;
 };
 
 class DeserializerKml

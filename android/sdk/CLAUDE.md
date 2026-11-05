@@ -1,1 +1,2 @@
 - It is safe/advised/allowed to break Android SDK API if necessary for better quality refactoring
+- Follow the [SDK ownership and consumer release policy](README.md#sdk-release-consumer-checks)

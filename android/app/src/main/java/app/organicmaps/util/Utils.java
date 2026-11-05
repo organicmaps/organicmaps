@@ -8,11 +8,13 @@ import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -44,10 +46,13 @@ import app.organicmaps.sdk.util.Distance;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.util.log.LogsManager;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import java.lang.ref.WeakReference;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Keep
@@ -63,6 +68,50 @@ public class Utils
   public static final String EMAIL_MIME_TYPE = "message/rfc822";
 
   private Utils() {}
+
+  public static void showBatteryOptimizationWarningIfNeeded(@NonNull Activity activity)
+  {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+      return;
+
+    final SharedPreferences prefs = activity.getSharedPreferences("OrganicMapsPrefs", Context.MODE_PRIVATE);
+    if (prefs.getBoolean("battery_optimization_warning_seen", false))
+      return;
+
+    new MaterialAlertDialogBuilder(activity, R.style.MwmTheme_AlertDialog)
+        .setTitle(R.string.background_recording_warning_title)
+        .setMessage(R.string.background_recording_warning_message)
+        .setPositiveButton(R.string.settings, (dialog, which) -> openBatteryOptimizationSettings(activity))
+        .setNegativeButton(R.string.not_now, null)
+        .show();
+    prefs.edit().putBoolean("battery_optimization_warning_seen", true).apply();
+  }
+
+  private static void openBatteryOptimizationSettings(@NonNull Activity activity)
+  {
+    final List<Intent> intents = new ArrayList<>();
+    if ("samsung".equalsIgnoreCase(Build.MANUFACTURER))
+    {
+      // https://developer.samsung.com/mobile/app-management.html
+      intents.add(new Intent("com.samsung.android.sm.ACTION_OPEN_CHECKABLE_LISTACTIVITY")
+                      .setPackage("com.samsung.android.lool")
+                      .putExtra("activity_type", 2)); // Never sleeping apps.
+    }
+    intents.add(new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS));
+    intents.add(new Intent(Settings.ACTION_SETTINGS));
+    for (final Intent intent : intents)
+    {
+      try
+      {
+        activity.startActivity(intent);
+        return;
+      }
+      catch (ActivityNotFoundException | SecurityException e)
+      {
+        Logger.w(TAG, "Failed to open battery settings: " + intent, e);
+      }
+    }
+  }
 
   /**
    * Enable to keep screen on.

@@ -1,4 +1,4 @@
-Organic Maps est une application rapide et détaillée de cartes hors ligne et de navigation GPS pour les voyages, la randonnée, le trekking et le vélo. Planifiez, importez et enregistrez des itinéraires, et profitez d’un guidage fluide sans connexion Internet ni perte de batterie. Explorez des lieux et naviguez en toute sécurité partout dans le monde. L’application offre des cartes illimitées, des mises à jour bihebdomadaires, et repose sur OpenStreetMap. Créée par des bénévoles, elle est respectueuse de la vie privée, 100 % hors ligne et entièrement gratuite.
+Organic Maps est une application rapide et détaillée de cartes hors ligne et de navigation GPS pour les voyages, la randonnée, le trekking et le vélo. Planifiez, importez et enregistrez des itinéraires, et profitez d’un guidage fluide sans connexion Internet ni perte de batterie. Explorez des lieux et naviguez en toute sécurité partout dans le monde. L’application offre des cartes illimitées, des mises à jour toutes les deux semaines, et repose sur OpenStreetMap. Créée par des bénévoles, elle est respectueuse de la vie privée, 100 % hors ligne et entièrement gratuite.
 
 <b>HORS LIGNE :</b> L’application fonctionne entièrement hors ligne — y compris la recherche et la navigation. Vous pouvez explorer la carte et naviguer sans connexion Internet, économisant vos données mobiles et évitant les frais d’itinérance. Et sans transferts de données en arrière-plan, votre batterie dure beaucoup plus longtemps.
 
@@ -18,7 +18,7 @@ Organic Maps est une application rapide et détaillée de cartes hors ligne et d
 
 <b>SENTIERS DE RANDONNÉE & DE VÉLO DU MONDE ENTIER :</b> Activez des couches spéciales pour découvrir des itinéraires populaires de randonnée et de vélo dans le monde entier, tous issus d’OpenStreetMap. Basculez entre les couches pour voir les itinéraires vélo et VTT colorés, ainsi que les sentiers officiels.
 
-<b>TRANSPORTS PUBLICS :</b> Consultez les numéros des lignes de transport aux arrêts. Les horaires en direct et le calcul d’itinéraires sont en cours de développement.
+<b>TRANSPORTS PUBLICS :</b> Planifiez des itinéraires en transports en commun. Les horaires en temps réel sont en cours de développement.
 
 <b>STYLES DE CARTE :</b> Choisissez les couches adaptées à votre activité — Extérieur, Courbes de niveau, Randonnée, Cyclisme ou Métro.
 
@@ -29,3 +29,5 @@ Organic Maps est une application rapide et détaillée de cartes hors ligne et d
 <b>ÉDITEUR DE CARTE :</b> Contribuez à OpenStreetMap en ajoutant des lieux manquants ou en modifiant la carte directement depuis Organic Maps.
 
 <b>MODE SOMBRE :</b> Passez à un thème sombre pour une consultation confortable la nuit.
+
+Instagram: @organicmaps.app

@@ -489,6 +489,8 @@
 
 /* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.pedestrian.tunnel" = "Túnel de vianants";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
 "type.highway.platform" = "Andana";
 "type.highway.primary" = "Carretera primària";
 
@@ -809,6 +811,9 @@
 "type.man_made.pier" = "Moll";
 "type.man_made.pipeline" = "Ducte";
 "type.man_made.pipeline.overground" = "Ducte a cel obert";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "Dipòsit d’aigua cobert";
 "type.man_made.silo" = "Sitja";
 "type.man_made.storage_tank" = "Tanc d’emmagatzematge";
 "type.man_made.surveillance" = "Càmera de vigilància";
@@ -831,6 +836,9 @@
 "type.man_made.water_tower" = "Torre d’aigua";
 "type.man_made.water_well" = "Pou d’aigua";
 "type.man_made.water_well.drinking_water_no" = "Pou d’aigua";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "Planta potabilitzadora";
 "type.man_made.windmill" = "Molí de vent";
 "type.man_made.works" = "Fàbrica";
 
@@ -978,6 +986,8 @@
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "Transport públic";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
 "type.public_transport.platform" = "Andana";
 "type.railway" = "Ferrocarril";
 "type.railway.abandoned" = "Ferrocarril abandonat";
@@ -1339,6 +1349,9 @@
 "type.shop.greengrocer" = "Fruiteria";
 "type.shop.grocery" = "Botiga de queviures";
 "type.shop.hairdresser" = "Perruqueria";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "Barberia";
 "type.shop.hardware" = "Ferreteria";
 "type.shop.health_food" = "Botiga d’aliments saludables";
 "type.shop.hearing_aids" = "Botiga d’aparells auditius";
@@ -1464,6 +1477,7 @@
 "type.sport.rugby_union" = "Rugbi a quinze";
 "type.sport.running" = "Cursa a peu";
 "type.sport.softball" = "Softbol";
+"type.sport.pilates" = "Pilates";
 "type.tourism" = "Turisme";
 "type.tourism.aquarium" = "Aquari";
 
@@ -1614,6 +1628,9 @@
 "type.man_made.monitoring_station.weather" = "Estació de seguiment meteorològic";
 "type.amenity.student_accommodation" = "Allotjament d'estudiants";
 "type.craft.watchmaker" = "Rellotger";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "Fabricació de finestres";
 "type.xmas_feature.market" = "Mercat de Nadal";
 "type.xmas_feature.tree" = "Arbre de Nadal";
 "type.amenity.hookah_lounge" = "Bar de xixa";

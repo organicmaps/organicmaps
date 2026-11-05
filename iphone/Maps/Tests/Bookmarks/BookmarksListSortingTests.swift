@@ -152,14 +152,15 @@ final class BookmarksListSortingTests: XCTestCase {
     XCTAssertEqual(view.info?.imageUrl, imageUrl)
   }
 
-  func testAreaCategoryOffersOnlyKmzExport() throws {
+  func testAreaCategoryOffersKmzAndGeoJsonExport() throws {
     interactor.setAreaCount(1)
     presenter.more()
 
     XCTAssertFalse(view.menu.contains { $0.title == L("export_file_gpx") })
-    XCTAssertFalse(view.menu.contains { $0.title == L("export_file_geojson") })
-    try XCTUnwrap(view.menu.first { $0.title == L("export_file") }).action()
-    XCTAssertEqual(interactor.exportedTypes, [.kml])
+    for title in ["export_file", "export_file_geojson"] {
+      try XCTUnwrap(view.menu.first { $0.title == L(title) }).action()
+    }
+    XCTAssertEqual(interactor.exportedTypes, [.kml, .geoJson])
   }
 
   func testReloadRestoresExportFormatsWhenCategoryHasNoAreas() throws {

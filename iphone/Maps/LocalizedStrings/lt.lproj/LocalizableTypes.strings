@@ -489,7 +489,9 @@
 
 /* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.pedestrian.tunnel" = "Tunelis";
-"type.highway.platform" = "Platforma";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.highway.platform" = "Peronas";
 "type.highway.primary" = "Pagrindinis kelias";
 
 /* Default translation for type.highway.*.bridge aliases; individual types can override it. */
@@ -809,6 +811,9 @@
 "type.man_made.pier" = "Pirsas";
 "type.man_made.pipeline" = "Vamzdynas";
 "type.man_made.pipeline.overground" = "Antžeminis vamzdynas";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "Uždengtas vandens rezervuaras";
 "type.man_made.silo" = "Silosas";
 "type.man_made.storage_tank" = "Rezervuaras";
 "type.man_made.surveillance" = "Stebėjimo kamera";
@@ -831,6 +836,9 @@
 "type.man_made.water_tower" = "Vandens bokštas";
 "type.man_made.water_well" = "Šulinys";
 "type.man_made.water_well.drinking_water_no" = "Šulinys";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "Vandenvietė";
 "type.man_made.windmill" = "Vėjo malūnas";
 "type.man_made.works" = "Gamykla";
 
@@ -978,7 +986,9 @@
 "type.psurface.unpaved_bad" = "bloga be dangos";
 "type.psurface.unpaved_good" = "gera be dangos";
 "type.public_transport" = "Viešasis transportas";
-"type.public_transport.platform" = "Platforma";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.public_transport.platform" = "Peronas";
 "type.railway" = "Geležinkelis";
 "type.railway.abandoned" = "Apleistas geležinkelis";
 "type.railway.abandoned.bridge" = "Apleistas geležinkelio tiltas";
@@ -1002,7 +1012,7 @@
 "type.railway.narrow_gauge" = "Siaurasis geležinkelis";
 "type.railway.narrow_gauge.bridge" = "Siaurojo geležinkelio tiltas";
 "type.railway.narrow_gauge.tunnel" = "Siaurojo geležinkelio tunelis";
-"type.railway.platform" = "Geležinkelio platforma";
+"type.railway.platform" = "Geležinkelio peronas";
 "type.railway.preserved" = "Išsaugotas geležinkelis";
 "type.railway.preserved.bridge" = "Išsaugoto geležinkelio tiltas";
 "type.railway.preserved.tunnel" = "Išsaugoto geležinkelio tunelis";
@@ -1339,6 +1349,9 @@
 "type.shop.greengrocer" = "Vaisiai ir daržovės";
 "type.shop.grocery" = "Bakalėja";
 "type.shop.hairdresser" = "Kirpykla";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "Vyrų kirpykla";
 "type.shop.hardware" = "Ūkinės prekės";
 "type.shop.health_food" = "Sveiko maisto parduotuvė";
 "type.shop.hearing_aids" = "Klausos aparatų parduotuvė";
@@ -1464,6 +1477,7 @@
 "type.sport.rugby_union" = "Regbis";
 "type.sport.running" = "Bėgimas";
 "type.sport.softball" = "Softbolas";
+"type.sport.pilates" = "Pilatesas";
 "type.tourism" = "Turizmas";
 "type.tourism.aquarium" = "Akvariumas";
 
@@ -1614,6 +1628,9 @@
 "type.man_made.monitoring_station.weather" = "Meteorologinė stebėjimo stotis";
 "type.amenity.student_accommodation" = "Studentų bendrabutis";
 "type.craft.watchmaker" = "Laikrodininkas";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "Langų gamyba";
 "type.xmas_feature.market" = "Kalėdų mugė";
 "type.xmas_feature.tree" = "Kalėdų eglutė";
 "type.amenity.hookah_lounge" = "Kaljanų baras";

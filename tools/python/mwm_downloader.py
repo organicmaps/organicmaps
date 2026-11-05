@@ -153,8 +153,8 @@ def download_mwm_list(version=None, threads=8, folder=None, countries_path=COUNT
 
 
 if __name__ == '__main__':
-    if sys.version_info < (3, 4):
-        raise RuntimeError('This script requires Python 3.4+')
+    if sys.version_info < (3, 11):
+        raise RuntimeError('This script requires Python 3.11+')
 
     parser = argparse.ArgumentParser(description='Script to download \'.mwm\' files in multiple threads')
     parser.add_argument('-v', '--version', help='Map version number e.g. 180126', type=int, default=None)

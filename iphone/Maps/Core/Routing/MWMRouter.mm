@@ -72,7 +72,7 @@ using namespace routing;
     return nil;
 
   auto const altitudesInfo = elevationInfo.CalculateAltitudesInfo(ElevationInfo::kDefThresholdMWM);
-  // A zero vertical range collapses the chart's Y-axis transforms, so suppress the misleading flat preview.
+  // Uniform profiles can be fallback values when elevation data is unavailable.
   if (altitudesInfo.m_maxAltitude == altitudesInfo.m_minAltitude)
     return nil;
 

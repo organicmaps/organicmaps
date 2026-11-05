@@ -63,6 +63,7 @@ public:
 
   RouteMarkData const & GetMarkData() const { return m_markData; }
   void SetMarkData(RouteMarkData && data);
+  void SetPosition(m2::PointD const & position);
 
   drape_ptr<TitlesInfo> GetTitleDecl() const override;
 

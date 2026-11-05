@@ -35,6 +35,7 @@ set(SRC
   routing_algorithm.cpp
   routing_algorithm.hpp
   route_weight_tests.cpp
+  router_tests.cpp
   routing_helpers_tests.cpp
   routing_options_tests.cpp
   routing_preference_tests.cpp
@@ -42,6 +43,7 @@ set(SRC
   speed_cameras_tests.cpp
   tools.cpp
   tools.hpp
+  track_router_tests.cpp
   transit_graph_tests.cpp
   turns_generator_test.cpp
   turns_sound_test.cpp

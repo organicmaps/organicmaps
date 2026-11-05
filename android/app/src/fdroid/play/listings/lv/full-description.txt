@@ -16,7 +16,7 @@ Organic Maps ir ātra un detalizēta bezsaistes karšu un GPS navigācijas lieto
 
 <b>PĀRGĀJIENU UN RITEŅBRAUKŠANAS TAKAS NO VISAS PASAULES:</b> Ieslēdziet īpašus kartes slāņus, lai atklātu populāras pārgājienu un riteņbraukšanas takas visā pasaulē, visas no OpenStreetMap. Pārslēdzieties starp slāņiem, lai redzētu krāsainas velosipēdu un MTB takas, kā arī oficiālās pārgājienu takas.
 
-<b>SABIEDRISKAIS TRANSPORTS:</b> Skatiet sabiedriskā transporta maršruta numurus pieturvietās. Dzīvās transporta saraksti un maršrutēšana pašlaik tiek izstrādāta.
+<b>SABIEDRISKAIS TRANSPORTS:</b> Plānojiet sabiedriskā transporta maršrutus. Tiek izstrādāti reāllaika kustības grafiki.
 
 <b>KARTES STILI:</b> Izvēlieties kartes slāņus, kas atbilst jūsu aktivitātēm — Āra aktivitātes, Kontūrlīnijas, Pārgājieni, Riteņbraukšana vai Metro/Subway.
 
@@ -29,3 +29,5 @@ Organic Maps ir ātra un detalizēta bezsaistes karšu un GPS navigācijas lieto
 Izmēģiniet lietotni — tā ir 100% bez maksas, bez reklāmām, ātra un pilnībā bezsaistē. Piedzīvojiet uzticamu GPS navigāciju pārgājieniem, riteņbraukšanai, trekingam un ceļojumiem visā pasaulē! Izbaudiet ātru, uzticamu un privātu kartes pieredzi un dalieties tajā ar citiem!
 
 Organic Maps ir neatkarīgs, kopienas vadīts, atvērtā koda projekts ar simtiem līdzstrādnieku, kas palīdz izstrādāt jaunas funkcijas, labot problēmas, tulkot un virzīt projektu uz priekšu.
+
+Instagram: @organicmaps.app

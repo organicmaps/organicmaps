@@ -68,6 +68,23 @@ final class TransportTransitStepsTests: XCTestCase {
     XCTAssertTrue(ruler is TransportRuler)
   }
 
+  func testContinuationCellRestoresItsIconWhenReused() throws {
+    let cell = try XCTUnwrap(UINib(nibName: "TransportTransitTrain", bundle: .main)
+      .instantiate(withOwner: nil).first as? TransportTransitTrain)
+    let views = descendants(of: cell.contentView)
+    let label = try XCTUnwrap(views.compactMap { $0 as? UILabel }.first)
+    let icon = try XCTUnwrap(views.compactMap { $0 as? UIImageView }.first)
+    let step = makeStep(type: .bus, number: "101, 102, 103")
+    cell.config(step: step, number: "103", isContinuation: true)
+    XCTAssertTrue(icon.isHidden)
+    XCTAssertEqual(label.text, "103")
+    XCTAssertEqual(step.number, "101, 102, 103")
+
+    cell.config(step: step)
+    XCTAssertFalse(icon.isHidden)
+    XCTAssertEqual(label.text, step.number)
+  }
+
   private func makeStep(type: MWMRouterTransitType, number: String) -> MWMRouterTransitStepInfo {
     let step = MWMRouterTransitStepInfo()
     step.type = type

@@ -701,6 +701,42 @@ UNIT_TEST(GeoJson_Writer_UMap_Invalid_Json)
   TEST_EQUAL(jsonString, expected_geojson, ());
 }
 
+// Track stops export as plain Point features readable by other apps.
+UNIT_TEST(GeoJson_Writer_Track_Stops)
+{
+  kml::FileData fileData;
+  kml::TrackData track;
+  kml::SetDefaultStr(track.m_name, "Track");
+  track.m_layers = {{5.0, {kml::PredefinedColor::Red, 0}}};
+  track.m_geometry.AddLine({{mercator::FromLatLon(47.0, 8.0), 1}, {mercator::FromLatLon(47.2, 8.2), 2}});
+  track.m_geometry.AddTimestamps({});
+  std::vector<kml::TrackStopData> const expectedStops = {{mercator::FromLatLon(47.1, 8.1), "Coffee break"},
+                                                         {mercator::FromLatLon(47.125, 8.125), ""},
+                                                         {mercator::FromLatLon(47.15, 8.15), "Viewpoint"}};
+  track.m_stops = expectedStops;
+  fileData.m_tracksData.emplace_back(std::move(track));
+
+  auto const json = SaveToGeoJsonString(fileData, true);
+  kml::geojson::GeoJsonData exported;
+  TEST(!glz::read_json(exported, json), (json));
+  TEST_EQUAL(exported.features.size(), expectedStops.size() + 1, ());
+  for (size_t i = 0; i < expectedStops.size(); ++i)
+  {
+    auto const & stop = exported.features[i];
+    TEST(std::holds_alternative<kml::geojson::GeoJsonGeometryPoint>(stop.geometry), (stop));
+    auto const & coordinates = std::get<kml::geojson::GeoJsonGeometryPoint>(stop.geometry).coordinates;
+    TEST_EQUAL(coordinates.size(), 2, ());
+    auto const expected = mercator::ToLatLon(expectedStops[i].m_point);
+    TEST_ALMOST_EQUAL_ABS(coordinates[0], expected.m_lon, 1e-6, (i));
+    TEST_ALMOST_EQUAL_ABS(coordinates[1], expected.m_lat, 1e-6, (i));
+    TEST(stop.properties.has_value(), (stop));
+    if (expectedStops[i].m_name.empty())
+      TEST(!stop.properties->contains("name"), (stop));
+    else
+      TEST_EQUAL(stop.properties->at("name").get_string(), expectedStops[i].m_name, ());
+  }
+}
+
 UNIT_TEST(GeoJson_Parse_FeatureCollection_NonStringProperties)
 {
   // FeatureCollection-level "properties" may contain non-string values
@@ -913,6 +949,23 @@ UNIT_TEST(GeoJson_Parse_Elevation)
   TEST_EQUAL(flat.m_tracksData.size(), 1, ());
   for (auto const & pt : flat.m_tracksData[0].m_geometry.m_lines[0])
     TEST_EQUAL(pt.GetAltitude(), geometry::kInvalidAltitude, ());
+
+  // A Z coordinate on a rejected position does not turn surviving 2D positions into sea-level points.
+  std::string_view constexpr inputInvalidPositionZ = R"({
+  "type": "FeatureCollection",
+  "features": [{
+    "type": "Feature",
+    "properties": {},
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [[8.0, 47.0], [181.0, 47.1, 100], [8.2, 47.2]]
+    }
+  }]
+})";
+  auto const invalidPositionZ = LoadGeojsonFromString(inputInvalidPositionZ);
+  TEST_EQUAL(invalidPositionZ.m_tracksData.size(), 1, ());
+  for (auto const & pt : invalidPositionZ.m_tracksData[0].m_geometry.m_lines[0])
+    TEST_EQUAL(pt.GetAltitude(), geometry::kInvalidAltitude, ());
 }
 
 UNIT_TEST(GeoJson_Writer_Elevation_Mixed)
@@ -1085,6 +1138,109 @@ UNIT_TEST(GeoJson_Parse_Timestamps_CountMismatch)
   kml::FileData const data = LoadGeojsonFromString(input);
   TEST_EQUAL(data.m_tracksData.size(), 1, ());
   TEST(!data.m_tracksData[0].m_geometry.HasTimestamps(), ());
+}
+
+UNIT_TEST(GeoJson_Parse_Timestamps_OutOfRangeNumber)
+{
+  std::string_view constexpr input = R"({
+  "type": "FeatureCollection",
+  "features": [{
+    "type": "Feature",
+    "properties": {"coordTimes": [1e300, -1e300]},
+    "geometry": {"type": "LineString", "coordinates": [[8.0, 47.0], [8.1, 47.1]]}
+  }]
+})";
+
+  auto const data = LoadGeojsonFromString(input);
+  TEST_EQUAL(data.m_tracksData.size(), 1, ());
+  TEST(!data.m_tracksData[0].m_geometry.HasTimestamps(), ());
+}
+
+UNIT_TEST(GeoJson_Parse_InvalidCoordinates)
+{
+  // Positions shorter than [lon, lat] or outside the WGS84 range are skipped: such a point does not
+  // become a bookmark, such a line vertex is dropped together with its timestamp.
+  std::string_view constexpr input = R"({
+  "type": "FeatureCollection",
+  "features": [
+    {"type": "Feature", "properties": {"name": "empty"}, "geometry": {"type": "Point", "coordinates": []}},
+    {"type": "Feature", "properties": {"name": "short"}, "geometry": {"type": "Point", "coordinates": [8.0]}},
+    {"type": "Feature", "properties": {"name": "far"}, "geometry": {"type": "Point", "coordinates": [1e300, 47.0]}},
+    {"type": "Feature", "properties": {"name": "north"}, "geometry": {"type": "Point", "coordinates": [8.0, 91.0]}},
+    {"type": "Feature", "properties": {"name": "ok"}, "geometry": {"type": "Point", "coordinates": [8.0, 47.0]}},
+    {
+      "type": "Feature",
+      "properties": {
+        "coordTimes": ["2026-05-31T12:34:56Z", "2026-05-31T12:35:01Z", "2026-05-31T12:35:06Z",
+                       "2026-05-31T12:35:08Z", "2026-05-31T12:35:11Z"]
+      },
+      "geometry": {"type": "LineString", "coordinates": [[8.0, 47.0], [181.0, 47.1], [8.2], [], [8.3, 47.3]]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"name": "all invalid"},
+      "geometry": {"type": "LineString", "coordinates": [[181.0, 47.0], [182.0, 47.1]]}
+    },
+    {
+      "type": "Feature",
+      "properties": {"name": "one survivor"},
+      "geometry": {"type": "LineString", "coordinates": [[8.0, 47.0], [181.0, 47.1]]}
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "mismatched timestamps",
+        "coordTimes": ["2026-05-31T12:34:56Z", "2026-05-31T12:35:01Z", "2026-05-31T12:35:06Z", "2026-05-31T12:35:11Z"]
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [[8.0, 47.0], [181.0, 47.1], [8.2, 47.2], [8.3, 47.3], [8.4, 47.4]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "multi",
+        "coordTimes": [
+          ["2026-05-31T12:40:00Z", "2026-05-31T12:40:05Z"],
+          ["2026-05-31T12:41:00Z", "2026-05-31T12:41:05Z", "2026-05-31T12:41:10Z"]
+        ]
+      },
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [[181.0, 47.0], [182.0, 47.1]],
+          [[8.0, 47.0], [181.0, 47.1], [8.2, 47.2]]
+        ]
+      }
+    }
+  ]
+})";
+
+  kml::FileData const data = LoadGeojsonFromString(input);
+  TEST_EQUAL(data.m_bookmarksData.size(), 1, ());
+  TEST_EQUAL(kml::GetDefaultStr(data.m_bookmarksData[0].m_name), "ok", ());
+  TEST_EQUAL(data.m_bookmarksData[0].m_point, mercator::FromLatLon(47.0, 8.0), ());
+
+  TEST_EQUAL(data.m_tracksData.size(), 3, ());
+  auto const & geometry = data.m_tracksData[0].m_geometry;
+  kml::TrackGeometry const expectedLine = {{mercator::FromLatLon(47.0, 8.0), geometry::kInvalidAltitude},
+                                           {mercator::FromLatLon(47.3, 8.3), geometry::kInvalidAltitude}};
+  TEST_EQUAL(geometry.m_lines, std::vector<kml::TrackGeometry>{expectedLine}, ());
+  kml::MultiGeometry::TimeT const expectedTimes = {base::StringToTimestamp("2026-05-31T12:34:56Z"),
+                                                   base::StringToTimestamp("2026-05-31T12:35:11Z")};
+  TEST_EQUAL(geometry.m_timestamps, std::vector<kml::MultiGeometry::TimeT>{expectedTimes}, ());
+
+  auto const & mismatch = data.m_tracksData[1].m_geometry;
+  TEST_EQUAL(mismatch.m_lines[0].size(), 4, ());
+  TEST(!mismatch.HasTimestamps(), ());
+
+  auto const & multi = data.m_tracksData[2].m_geometry;
+  TEST_EQUAL(multi.m_lines.size(), 1, ());
+  TEST_EQUAL(multi.m_lines[0].size(), 2, ());
+  kml::MultiGeometry::TimeT const expectedMultiTimes = {base::StringToTimestamp("2026-05-31T12:41:00Z"),
+                                                        base::StringToTimestamp("2026-05-31T12:41:10Z")};
+  TEST_EQUAL(multi.m_timestamps, std::vector<kml::MultiGeometry::TimeT>{expectedMultiTimes}, ());
 }
 
 UNIT_TEST(GeoJson_Parse_Timestamps_MultiLine)
@@ -1531,8 +1687,10 @@ std::optional<std::string> ExportedName(kml::BookmarkData bookmark)
   TEST_EQUAL(exported.features.size(), 1, (json));
 
   auto const & properties = exported.features.front().properties;
-  auto const name = properties.find("name");
-  if (name == properties.end())
+  if (!properties)
+    return std::nullopt;
+  auto const name = properties->find("name");
+  if (name == properties->end())
     return std::nullopt;
   TEST(name->second.is_string(), (json));
   return name->second.get_string();

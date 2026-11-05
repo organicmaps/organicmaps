@@ -680,7 +680,7 @@
 </message>
 <message id="button_layer_isolines">
 <source>Contour Lines</source>
-<translation>지형</translation>
+<translation>등고선</translation>
 </message>
 <message id="change_map_locale">
 <extracomment>Current language of the map!</extracomment>
@@ -695,7 +695,7 @@
 <message id="button_layer_outdoor">
 <extracomment>Outdoors/hiking map style (activity) name in the Styles and Layers dialog</extracomment>
 <source>Outdoors</source>
-<translation>하이킹</translation>
+<translation>아웃도어</translation>
 </message>
 <message id="drive_through">
 <source>Drive-through</source>

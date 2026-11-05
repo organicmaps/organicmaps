@@ -489,7 +489,9 @@
 
 /* Default translation for type.highway.*.tunnel aliases; individual types can override it. */
 "type.highway.pedestrian.tunnel" = "Yaya Tüneli";
-"type.highway.platform" = "Platform";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.highway.platform" = "Peron";
 "type.highway.primary" = "Ana Yol";
 
 /* Default translation for type.highway.*.bridge aliases; individual types can override it. */
@@ -809,6 +811,9 @@
 "type.man_made.pier" = "İskele";
 "type.man_made.pipeline" = "Boru Hattı";
 "type.man_made.pipeline.overground" = "Yerüstü Boru Hattı";
+
+/* A covered water storage reservoir, usually for drinking water */
+"type.man_made.reservoir_covered" = "Kapalı Su Deposu";
 "type.man_made.silo" = "Ambar";
 "type.man_made.storage_tank" = "Depolama Tankı";
 "type.man_made.surveillance" = "Güvenlik Kamerası";
@@ -831,6 +836,9 @@
 "type.man_made.water_tower" = "Su Kulesi";
 "type.man_made.water_well" = "Su Kuyusu";
 "type.man_made.water_well.drinking_water_no" = "Su Kuyusu";
+
+/* A facility that treats and supplies drinking water */
+"type.man_made.water_works" = "Su Arıtma Tesisi";
 "type.man_made.windmill" = "Yel Değirmeni";
 "type.man_made.works" = "Sanayi İşleri";
 
@@ -978,7 +986,9 @@
 "type.psurface.unpaved_bad" = "psurface-unpaved_bad";
 "type.psurface.unpaved_good" = "psurface-unpaved_good";
 "type.public_transport" = "Toplu Taşıma";
-"type.public_transport.platform" = "Platform";
+
+/* Short label for a place where passengers wait for, board or leave public transport (bus, tram, train, metro, ferry, taxi, aerialway). Also used for highway=platform; keep the label generic. A raised platform may be absent. Do not translate as a software platform or a theatre stage. */
+"type.public_transport.platform" = "Peron";
 "type.railway" = "Demiryolu";
 "type.railway.abandoned" = "Terk Edilmiş Demir Yolu";
 "type.railway.abandoned.bridge" = "Terk Edilmiş Demir Yolu Köprüsü";
@@ -1002,7 +1012,7 @@
 "type.railway.narrow_gauge" = "Dar Hat Rayı";
 "type.railway.narrow_gauge.bridge" = "Dar Hat Rayı Köprüsü";
 "type.railway.narrow_gauge.tunnel" = "Dar Hat Rayı Tüneli";
-"type.railway.platform" = "Demir Yolu Platformu";
+"type.railway.platform" = "Demiryolu peronu";
 "type.railway.preserved" = "Korunmuş Ray";
 "type.railway.preserved.bridge" = "Korunmuş Ray Köprüsü";
 "type.railway.preserved.tunnel" = "Korunmuş Ray Tüneli";
@@ -1339,6 +1349,9 @@
 "type.shop.greengrocer" = "Manav";
 "type.shop.grocery" = "Market";
 "type.shop.hairdresser" = "Kuaför";
+
+/* Traditional men's haircuts and beard trimming */
+"type.shop.hairdresser.barber" = "Berber";
 "type.shop.hardware" = "Donanım mağazası";
 "type.shop.health_food" = "Sağlık Gıda Mağazası";
 "type.shop.hearing_aids" = "İşitme cihazı mağazası";
@@ -1464,6 +1477,7 @@
 "type.sport.rugby_union" = "Ragbi";
 "type.sport.running" = "Koşu";
 "type.sport.softball" = "Softbol";
+"type.sport.pilates" = "Pilates";
 "type.tourism" = "Turizm";
 "type.tourism.aquarium" = "Akvaryum";
 
@@ -1614,6 +1628,9 @@
 "type.man_made.monitoring_station.weather" = "Hava Durumu İzleme İstasyonu";
 "type.amenity.student_accommodation" = "Öğrenci Konaklama";
 "type.craft.watchmaker" = "Saatçi";
+
+/* A workshop that makes and installs windows */
+"type.craft.window_construction" = "Pencere İmalatı";
 "type.xmas_feature.market" = "Noel Pazarı";
 "type.xmas_feature.tree" = "Noel Ağacı";
 "type.amenity.hookah_lounge" = "Nargile salonu";
