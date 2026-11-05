@@ -155,45 +155,12 @@ _LISTINGS_RE = re.compile(r'^android/app/src/(?:fdroid|google)/play/listings/([^
 _RELEASE_NOTES_RE = re.compile(r'^android/app/src/(?:fdroid|google)/play/release-notes/([^/]+)/([^/]+\.txt)$')
 _PLAY_TOPLEVEL_RE = re.compile(r'^android/app/src/(?:fdroid|google)/play/([^/]+\.txt)$')
 _IOS_METADATA_RE = re.compile(r'^iphone/metadata/([^/]+)/([^/]+\.txt)$')
+_EMOJI_RE = re.compile(r'[\U0001F1E6-\U0001F1FF\U0001F300-\U0001FAFF\u2600-\u27BF]')
 
 
 def contains_emoji(text):
-    """Heuristic emoji detection avoiding false positives for CJK, Korean, Thai.
-
-    We purposefully restrict to well‑known emoji code point ranges and symbols
-    that are almost never used as plain alphabetic text in the app metadata.
-    This avoids broad regex character classes that accidentally match
-    non‑emoji letters in some environments.
-
-    Ranges covered (inclusive):
-      * 0x1F1E6–0x1F1FF (regional indicator symbols / flags)
-      * 0x1F300–0x1FAFF (primary emoji blocks incl. supplemental)
-      * 0x2600–0x26FF (misc symbols) – classic sun, cloud, etc.
-      * 0x2700–0x27BF (dingbats) – arrows, stars, etc.
-      * Variation Selector-16 (U+FE0F) when following an emoji base
-      * Zero Width Joiner sequences (U+200D) – if part of a chain containing
-        an emoji code point.
-    """
-    prev_was_emoji = False
-    for ch in text:
-        cp = ord(ch)
-        is_base = (
-            0x1F1E6 <= cp <= 0x1F1FF or
-            0x1F300 <= cp <= 0x1FAFF or
-            0x2600 <= cp <= 0x26FF or
-            0x2700 <= cp <= 0x27BF
-        )
-        if is_base:
-            return True
-        # Variation Selector-16 turns some symbols into emoji presentation.
-        if cp == 0xFE0F and prev_was_emoji:
-            return True
-        # Zero Width Joiner inside an emoji sequence.
-        if cp == 0x200D and prev_was_emoji:
-            # Keep prev_was_emoji True to allow continuation.
-            continue
-        prev_was_emoji = is_base
-    return False
+    """Detect common emoji ranges without matching non-Latin letters."""
+    return bool(_EMOJI_RE.search(text))
 
 
 def error(path, message, *args, **kwargs):
