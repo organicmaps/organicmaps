@@ -1,39 +1,42 @@
-Organic Maps to szybka i szczegółowa mapa turystyczna oraz aplikacja do GPS offline i map offline i nawigacja po polsku dla podróży, wędrówek i przejażdżek rowerowych. Planuj, importuj i zapisuj trasy, ciesz się płynną nawigacją bez rozładowywania baterii i bez potrzeby połączenia z internetem. Odkrywaj miejsca i poruszaj się bezpiecznie podczas przygód na świeżym powietrzu oraz podróży po całym świecie. Aplikacja oferuje nieograniczoną możliwość pobierania map i aktualizacje co dwa tygodnie. Bazuje na OpenStreetMap, tworzona jest przez wolontariuszy, z pełnym poszanowaniem prywatności, działa 100% offline i jest w pełni darmowa.
+Organic Maps to szybka i szczegółowa mapa turystyczna oraz nawigacja GPS offline po polsku – do podróży, wędrówek i przejażdżek rowerowych. Planuj, importuj i zapisuj trasy, ciesz się płynną nawigacją bez rozładowywania baterii i bez potrzeby połączenia z internetem. Aplikacja oferuje nieograniczone pobieranie map i aktualizacje co dwa tygodnie. Bazuje na OpenStreetMap, tworzona jest przez wolontariuszy, z pełnym poszanowaniem prywatności, działa w 100% offline i jest w pełni darmowa.
 
-OFFLINE: Aplikacja działa w pełni offline, w tym wyszukiwanie i nawigacja. Możesz korzystać z map i nawigować bez połączenia z internetem, oszczędzając transfer danych i unikając opłat roamingowych. Brak transferów w tle oznacza także dłuższą żywotność baterii.
+<b>OFFLINE:</b> Aplikacja działa w pełni offline, w tym wyszukiwanie i nawigacja. Możesz korzystać z map i nawigować bez połączenia z internetem, oszczędzając transfer danych i unikając opłat roamingowych. Brak transferów w tle oznacza też dłuższe działanie baterii.
 
-SZYBKO: Powiększanie mapy, wyszukiwanie i obliczanie tras działa wyjątkowo szybko.
+<b>SZYBKO:</b> Powiększanie mapy, wyszukiwanie i obliczanie tras działają wyjątkowo szybko.
 
-SZCZEGÓŁOWE I AKTUALNE: Mapy turystyczne są bogate w detale i aktualizowane dwa razy w miesiącu, aby odzwierciedlały rzeczywiste warunki. W przeciwieństwie do wielu znanych konkurentów zawierają nazwy budynków, ławki, szlaki turystyczne i inne przydatne informacje.
+<b>SZCZEGÓŁOWE I AKTUALNE:</b> Mapy turystyczne są bogate w detale i aktualizowane dwa razy w miesiącu, aby odzwierciedlały rzeczywiste warunki. W przeciwieństwie do wielu znanych konkurentów zawierają nazwy budynków, ławki, szlaki turystyczne i inne przydatne informacje.
 
-BAZA OPENSTREETMAP: OpenStreetMap to światowa mapa w stylu wiki, tworzona i utrzymywana przez miliony wolontariuszy — lokalnych ekspertów najlepiej znających swoje regiony. Dzięki temu powstają szczegółowe mapy, często dokładniejsze niż komercyjne w mniej zmapowanych regionach. Organic Maps aktualizuje dane z OpenStreetMap co dwa tygodnie, utrzymując mapy świeże i niezawodne. Jeśli zauważysz brakujące miejsca, możesz je dodać do OpenStreetMap i pomóc ulepszyć mapę dla wszystkich.
+<b>OPARTE NA OPENSTREETMAP:</b> OpenStreetMap to światowa mapa w stylu wiki, tworzona i utrzymywana przez miliony wolontariuszy — lokalnych ekspertów najlepiej znających swoje regiony. Dzięki temu powstają szczegółowe mapy, często dokładniejsze niż komercyjne w mniej zmapowanych regionach. Organic Maps aktualizuje dane z OpenStreetMap co dwa tygodnie. Jeśli zauważysz brakujące miejsca, możesz je dodać do OpenStreetMap i pomóc ulepszyć mapę dla wszystkich.
 
-PRYWATNOŚĆ: Nie zbieramy żadnych danych ani identyfikatorów. Oznacza to brak ryzyka wycieku danych i brak rozpraszających elementów, takich jak reklamy czy hałaśliwe powiadomienia — tylko czysta, prywatna mapa.
+<b>PRYWATNOŚĆ:</b> Nie zbieramy żadnych danych ani identyfikatorów. Oznacza to brak ryzyka wycieku danych i brak rozpraszaczy, takich jak reklamy czy natrętne powiadomienia — tylko czysta, prywatna mapa.
 
-WAŻNE FUNKCJE
+<b>WAŻNE FUNKCJE</b>
 
-ODKRYWAJ MIEJSCA: Szukaj po adresie, nazwie lub kategorii, odkrywaj miliony punktów POI i sprawdzaj szczegółowe informacje, takie jak godziny otwarcia, artykuły Wikipedii, dostępność dla wózków inwalidzkich i inne przydatne dane. Wszystko dostępne offline.
+<b>ODKRYWAJ MIEJSCA:</b> Szukaj po adresie, nazwie lub kategorii, odkrywaj miliony ciekawych miejsc i sprawdzaj szczegóły, takie jak godziny otwarcia, artykuły z Wikipedii, dostępność dla wózków inwalidzkich i inne przydatne dane.
 
-GPS NAVIGACJA: Korzystaj z głosowej, krok po kroku, nawigacji. Twórz trasy piesze, wędrówki, rowerowe i samochodowe — także między miastami i krajami, z wieloma punktami pośrednimi. Znajduj najlepsze trasy na podróże metrem i dojazdy do pracy. Obsługiwany Android Auto.
+<b>NAWIGACJA GPS:</b> Korzystaj z głosowej nawigacji zakręt po zakręcie. Twórz trasy piesze, górskie, rowerowe i samochodowe — także między miastami i krajami, z wieloma punktami pośrednimi. Znajduj najlepsze połączenia komunikacją publiczną na wycieczki i codzienne dojazdy. Obsługiwany Android Auto.
 
-SZLAKI TURYSTYCZNE I ROWEROWE Z CAŁEGO ŚWIATA: Włącz specjalne warstwy map, aby odkrywać popularne trasy piesze i rowerowe na całym świecie, wszystkie z OpenStreetMap. Przełączaj warstwy, aby zobaczyć kolorowe trasy rowerowe i MTB oraz oficjalne szlaki turystyczne.
+<b>SZLAKI TURYSTYCZNE I ROWEROWE Z CAŁEGO ŚWIATA:</b> Włącz specjalne warstwy mapy, aby odkrywać popularne trasy piesze i rowerowe na całym świecie, wszystkie z OpenStreetMap. Przełączaj warstwy, aby zobaczyć kolorowe trasy rowerowe i MTB oraz oficjalne szlaki turystyczne.
 
-TRANSPORT PUBLICZNY: Zobacz numery tras transportu publicznego na przystankach. Funkcja rozkładów na żywo i wyznaczania tras jest w trakcie opracowywania.
+<b>TRANSPORT PUBLICZNY:</b> Wyznaczaj trasy komunikacją publiczną — metrem, koleją miejską, autobusem i tramwajem. Sprawdzaj numery linii na przystankach.
 
-STYL MAP: Wybieraj warstwy map dopasowane do aktywności — Outdoor, Linie Konturowe, Turystyka, Rower, Metro/Subway.
+<b>STYLE MAP:</b> Wybieraj warstwy mapy dopasowane do aktywności — Outdoor, Poziomice, Turystyka, Rower, Metro.
 
-REJESTRATOR TRAS: Nagrywaj, importuj, eksportuj i udostępniaj swoje trasy i ulubione miejsca. Obsługiwane formaty: KML, KMZ, GPX i GeoJSON.
+<b>REJESTRATOR TRAS:</b> Nagrywaj, importuj, eksportuj i udostępniaj swoje trasy i ulubione miejsca. Obsługiwane formaty: KML, KMZ, GPX i GeoJSON.
 
-ARTYKUŁY WIKIPEDIA: Odkrywaj artykuły Wikipedii o miejscach na mapie. 
+<b>ARTYKUŁY Z WIKIPEDII:</b> Odkrywaj artykuły z Wikipedii o miejscach na mapie. Wpisz „?wiki” w wyszukiwarce, aby zobaczyć wszystkie miejsca z artykułami.
 
-EDYTOR MAP: Wspieraj OpenStreetMap, dodając brakujące miejsca lub edytując mapę bezpośrednio z Organic Maps.
+<b>EDYTOR MAP:</b> Wspieraj OpenStreetMap, dodając brakujące miejsca lub edytując mapę bezpośrednio w Organic Maps.
 
-TRYB NOCNY: Przełącz się na ciemny motyw dla wygodnego przeglądania w nocy.
+<b>TRYB NOCNY:</b> Przełącz się na ciemny motyw, aby wygodnie korzystać z mapy w nocy.
 
-Wypróbuj aplikację — darmowa nawigacja bez internetu, szybka, w pełni offline i bez reklam. Ciesz się szybkim, niezawodnym i prywatnym doświadczeniem korzystania z map, i dziel się nim z innymi!
+Wypróbuj aplikację — darmowa nawigacja bez internetu, szybka, w pełni offline i bez reklam.
 
-Organic Maps to niezależny, społecznościowy projekt open-source z setkami współtwórców, którzy pomagają rozwijać nowe funkcje, naprawiać błędy, tłumaczyć i rozwijać projekt.
+Organic Maps to niezależny, społecznościowy projekt open source z setkami współtwórców, którzy tworzą nowe funkcje, naprawiają błędy, tłumaczą i rozwijają projekt.
 
 Dołącz do społeczności na Telegramie: @OrganicMapsApp
+Inne sposoby wsparcia projektu: https://organicmaps.app/contribute/
+
+Obserwuj nas na Instagramie: @organicmaps.app
 
 Twoja szczera opinia i recenzje w sklepie motywują nas! Masz pytania? Odwiedź stronę organicmaps.app, aby uzyskać więcej informacji i FAQ.
