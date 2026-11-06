@@ -152,14 +152,24 @@ std::optional<TrackSourcePosition> ResolveTrackEntry(kml::MultiGeometry const & 
 }
 
 std::expected<routing::TrackFollowingData, FollowTrackResult> BuildTrackFollowingData(kml::TrackData const & source,
-                                                                                      TrackSourcePosition const & entry)
+                                                                                      TrackSourcePosition const & entry,
+                                                                                      bool reverse)
 {
   routing::TrackFollowingData result;
   auto const & geometry = source.m_geometry;
   if (entry.m_line >= geometry.m_lines.size() || entry.m_segment + 1 >= geometry.m_lines[entry.m_line].size())
     return std::unexpected(FollowTrackResult::InvalidSelection);
 
+  size_t firstLine = entry.m_line;
   size_t lastLine = entry.m_line;
+  while (firstLine > 0)
+  {
+    auto const & previous = geometry.m_lines[firstLine - 1];
+    if (previous.size() < 2 || !previous.back().GetPoint().EqualDxDy(geometry.m_lines[firstLine].front().GetPoint(),
+                                                                     mercator::kPointEqualityEps))
+      break;
+    --firstLine;
+  }
   while (lastLine + 1 < geometry.m_lines.size())
   {
     auto const & next = geometry.m_lines[lastLine + 1];
@@ -179,8 +189,11 @@ std::expected<routing::TrackFollowingData, FollowTrackResult> BuildTrackFollowin
   events.push_back({entry, PointAtPosition(geometry, entry)});
 
   auto const inRemainder = [&](SourcePosition const & position)
-  { return position.m_line >= entry.m_line && position.m_line <= lastLine && !IsBefore(position, entry); };
-  for (size_t lineIndex = entry.m_line; lineIndex <= lastLine; ++lineIndex)
+  {
+    return position.m_line >= firstLine && position.m_line <= lastLine &&
+           (reverse ? !IsBefore(entry, position) : !IsBefore(position, entry));
+  };
+  for (size_t lineIndex = firstLine; lineIndex <= lastLine; ++lineIndex)
   {
     auto const & line = geometry.m_lines[lineIndex];
     for (size_t pointIndex = 0; pointIndex < line.size(); ++pointIndex)
@@ -233,8 +246,8 @@ std::expected<routing::TrackFollowingData, FollowTrackResult> BuildTrackFollowin
     events.push_back({projected->m_position, anchor, true});
   }
 
-  std::stable_sort(events.begin(), events.end(),
-                   [](Event const & lhs, Event const & rhs) { return IsBefore(lhs.m_position, rhs.m_position); });
+  std::stable_sort(events.begin(), events.end(), [reverse](Event const & lhs, Event const & rhs)
+  { return reverse ? IsBefore(rhs.m_position, lhs.m_position) : IsBefore(lhs.m_position, rhs.m_position); });
   for (auto const & event : events)
   {
     if (result.m_points.empty() || result.m_points.back() != event.m_point)

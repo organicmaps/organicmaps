@@ -248,11 +248,14 @@ public class Framework
    */
   public static native int nativeNavigateTrack(long trackId);
 
-  /** Explicitly returns a followed track to planning using its captured entry/profile. */
+  /** Explicitly returns a followed track to planning using its captured entry/profile/direction. */
   public static native int nativeResetFollowedTrackToPlanning();
 
-  /** Updates the track preview from the current native selection, retaining its profile. */
+  /** Updates the track preview from the current native selection, retaining its profile and direction. */
   public static native int nativeUpdateFollowedTrackEntry();
+
+  /** Reverses a built track preview; returns a FollowTrackResult ordinal. */
+  public static native int nativeReverseFollowedTrack();
 
   /**
    * Switches this track preview's profile without changing the persisted default.

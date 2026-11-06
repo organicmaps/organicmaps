@@ -623,6 +623,28 @@ public class RoutingController
     return result;
   }
 
+  /**
+   * Rebuilds the followed track in the opposite direction.
+   *
+   * @return anything but {@link FollowTrackResult#Ok} (e.g. the followed track has been deleted
+   *         meanwhile) leaves the current session untouched.
+   */
+  @NonNull
+  public FollowTrackResult reverseFollowedTrack()
+  {
+    Logger.d(TAG, "reverseFollowedTrack");
+    final FollowTrackResult result = FollowTrackResult.valueOf(Framework.nativeReverseFollowedTrack());
+    if (result == FollowTrackResult.Ok)
+      enterTrackFollowPlanning();
+    return result;
+  }
+
+  /** Whether the planner can offer Reverse; the core rechecks the live session when activated. */
+  public boolean canReverseFollowedTrack()
+  {
+    return isFollowingTrack() && isPlanning() && isBuilt();
+  }
+
   public boolean isFollowingTrack()
   {
     return Framework.nativeIsFollowingTrack();
