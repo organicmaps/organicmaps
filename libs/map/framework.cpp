@@ -1196,10 +1196,10 @@ void Framework::SetVisibleViewport(m2::RectD const & rect)
   m_drapeEngine->SetVisibleViewport(rect);
 }
 
-void Framework::ShowRect(m2::RectD const & rect, bool animation, bool useVisibleViewport)
+void Framework::ShowRect(m2::RectD const & rect, bool animation, bool useVisibleViewport, bool applyRotation)
 {
   if (m_drapeEngine)
-    m_drapeEngine->SetModelViewRect(rect, true /* applyRotation */, -1 /* zoom */, animation, useVisibleViewport);
+    m_drapeEngine->SetModelViewRect(rect, applyRotation, -1 /* zoom */, animation, useVisibleViewport);
 }
 
 void Framework::ShowRect(m2::AnyRectD const & rect, bool animation, bool useVisibleViewport)

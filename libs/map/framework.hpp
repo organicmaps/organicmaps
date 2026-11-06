@@ -551,7 +551,10 @@ public:
   m2::RectD GetCurrentViewport() const;
   void SetVisibleViewport(m2::RectD const & rect);
 
-  void ShowRect(m2::RectD const & rect, bool animation = true, bool useVisibleViewport = false);
+  /// With applyRotation, the map keeps its rotation and fits a rect of this size turned as the map is, which on a
+  /// rotated map cuts off corners of the rect. Without it, the map turns north up and the whole rect fits.
+  void ShowRect(m2::RectD const & rect, bool animation = true, bool useVisibleViewport = false,
+                bool applyRotation = true);
   void ShowRect(m2::AnyRectD const & rect, bool animation = true, bool useVisibleViewport = false);
 
   void SetViewportListener(TViewportChangedFn const & fn);
