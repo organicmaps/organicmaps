@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, readonly) MWMTrackID trackId;
 @property(nonatomic, readonly) MWMMarkGroupID groupId;
+/// Whether the selected source occurrence is resolvable; navigation validates its remaining geometry.
+@property(nonatomic, readonly) BOOL canNavigate;
 @property(nonatomic, readonly, nullable) NSString * trackCategory;
 @property(nonatomic, readonly) NSArray<PlacePageTrackSelectionData *> * trackSelectionCandidates;
 @property(nonatomic, readonly, nullable) NSString * trackDescription;
