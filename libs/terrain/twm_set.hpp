@@ -90,7 +90,7 @@ public:
   {
     Success,
     AlreadyRegistered,  ///< The same file is registered (a marked file is resurrected).
-    Overlapping,        ///< The block rect overlaps a registered one (see the tracer).
+    Overlapping,        ///< Another file of the block is registered, or the rect overlaps a registered block.
     BadFile,            ///< The header is unreadable.
     ObsoleteVersion,    ///< An old format no build reads anymore; the caller deletes the file.
   };
@@ -123,9 +123,8 @@ public:
   bool RemoveObserver(Observer const & observer) { return m_observers.Remove(observer); }
 
   /// The registered blocks intersecting the mercator rect. The block rects are canonical,
-  /// so a query rect poking beyond the +-180 seam (a TileKey::GetWrappedDataRect of a tile
-  /// straddling or beyond the antimeridian) matches its canonical intersection - the same
-  /// clipping semantics the MWM feature index applies to such tile rects.
+  /// so a query rect reaching beyond the +-180 seam matches only its canonical part, like
+  /// the MWM feature index does.
   void GetBlocksByRect(m2::RectD const & rect, TwmIds & ids) const;
   bool HasBlocks(m2::RectD const & rect) const;
   /// The limit rects of the registered blocks intersecting the mercator rect.
