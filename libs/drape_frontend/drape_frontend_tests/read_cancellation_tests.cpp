@@ -10,7 +10,6 @@
 #include "drape_frontend/visual_params.hpp"
 
 #include <algorithm>
-#include <atomic>
 #include <chrono>
 #include <condition_variable>
 #include <memory>
@@ -157,20 +156,23 @@ UNIT_TEST(ReadCancellation_RejectsPayloadsPostedAfterSweep)
   df::ThreadsCommutator commutator;
   ReadReceiver receiver(commutator);
   auto const key = df::TileKey(1, 2, 15);
-  df::TileReadCancellation cancelled = std::make_shared<std::atomic<bool>>(false);
-  auto geometry = make_unique_dp<df::MapShapeReadedMessage>(key, MakeShape(1, destroyed), cancelled);
-  auto overlays = make_unique_dp<df::OverlayMapShapeReadedMessage>(key, MakeShape(2, destroyed), cancelled);
-  commutator.PostMessage(df::ThreadsCommutator::ResourceUploadThread, make_unique_dp<df::TileReadStartMessage>(key),
-                         df::MessagePriority::Normal);
-  cancelled->store(true, std::memory_order_relaxed);
-  receiver.Sweep();
+  {
+    base::SharedCancellable cancelled;
+    auto geometry = make_unique_dp<df::MapShapeReadedMessage>(key, MakeShape(1, destroyed), cancelled);
+    auto overlays = make_unique_dp<df::OverlayMapShapeReadedMessage>(key, MakeShape(2, destroyed), cancelled);
+    commutator.PostMessage(df::ThreadsCommutator::ResourceUploadThread, make_unique_dp<df::TileReadStartMessage>(key),
+                           df::MessagePriority::Normal);
+    cancelled.Cancel();
+    receiver.Sweep();
 
-  // The producer checked cancellation before preparing these payloads, but enqueues after the sweep.
-  commutator.PostMessage(df::ThreadsCommutator::ResourceUploadThread, std::move(geometry), df::MessagePriority::Normal);
-  commutator.PostMessage(df::ThreadsCommutator::ResourceUploadThread, std::move(overlays), df::MessagePriority::Normal);
-  commutator.PostMessage(df::ThreadsCommutator::ResourceUploadThread, make_unique_dp<df::TileReadEndMessage>(key),
-                         df::MessagePriority::Normal);
-  cancelled.reset();
+    // The producer checked cancellation before preparing these payloads, but enqueues after the sweep.
+    commutator.PostMessage(df::ThreadsCommutator::ResourceUploadThread, std::move(geometry),
+                           df::MessagePriority::Normal);
+    commutator.PostMessage(df::ThreadsCommutator::ResourceUploadThread, std::move(overlays),
+                           df::MessagePriority::Normal);
+    commutator.PostMessage(df::ThreadsCommutator::ResourceUploadThread, make_unique_dp<df::TileReadEndMessage>(key),
+                           df::MessagePriority::Normal);
+  }
   TEST_EQUAL(destroyed, 0, ());
   receiver.Drain();
   TEST_EQUAL(receiver.m_rejected, 2, ());
