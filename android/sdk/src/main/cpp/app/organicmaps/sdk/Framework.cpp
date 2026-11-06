@@ -1274,6 +1274,61 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeDisableFollowing(JNIEnv 
   frm()->GetRoutingManager().DisableFollowMode();
 }
 
+JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeNavigateTrack(JNIEnv *, jclass, jlong trackId)
+{
+  return static_cast<jint>(frm()->GetRoutingManager().NavigateTrack(static_cast<kml::TrackId>(trackId)));
+}
+
+JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeResetFollowedTrackToPlanning(JNIEnv *, jclass)
+{
+  return static_cast<jint>(frm()->GetRoutingManager().ResetFollowedTrackToPlanning());
+}
+
+JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeUpdateFollowedTrackEntry(JNIEnv *, jclass)
+{
+  return static_cast<jint>(frm()->GetRoutingManager().UpdateFollowedTrackEntry());
+}
+
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeStartFollowedTrack(JNIEnv *, jclass)
+{
+  auto & manager = frm()->GetRoutingManager();
+  if (!manager.IsFollowingTrack())
+    return false;
+  manager.FollowRoute();
+  return manager.IsRoutingFollowing();
+}
+
+JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeSetFollowTrackProfile(JNIEnv *, jclass, jint routerType)
+{
+  ASSERT_LESS(routerType, static_cast<jint>(routing::RouterType::Count), ());
+  return static_cast<jint>(
+      frm()->GetRoutingManager().SetFollowTrackProfile(static_cast<routing::RouterType>(routerType)));
+}
+
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsFollowingTrack(JNIEnv *, jclass)
+{
+  return frm()->GetRoutingManager().IsFollowingTrack();
+}
+
+JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetFollowedTrackInfo(JNIEnv * env, jclass)
+{
+  auto const info = frm()->GetRoutingManager().GetFollowedTrackInfo();
+  if (!info)
+    return nullptr;
+
+  static jclass const infoClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/routing/FollowedTrackInfo");
+  static jmethodID const infoCtor = jni::GetConstructorID(env, infoClass, "(JLjava/lang/String;D)V");
+
+  jni::TScopedLocalRef const name(env, jni::ToJavaString(env, info->m_name));
+  return env->NewObject(infoClass, infoCtor, static_cast<jlong>(info->m_id), name.get(),
+                        static_cast<jdouble>(info->m_lengthM));
+}
+
+JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetRenderRouterType(JNIEnv *, jclass)
+{
+  return static_cast<jint>(frm()->GetRoutingManager().GetRenderRouterType());
+}
+
 JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGenerateNotifications(JNIEnv * env, jclass,
                                                                                       jboolean announceStreets)
 {

@@ -12,6 +12,8 @@ import app.organicmaps.sdk.api.RequestType;
 import app.organicmaps.sdk.bookmarks.data.DistanceAndAzimut;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.products.ProductsConfig;
+import app.organicmaps.sdk.routing.FollowTrackResult;
+import app.organicmaps.sdk.routing.FollowedTrackInfo;
 import app.organicmaps.sdk.routing.JunctionInfo;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RouteMarkType;
@@ -246,6 +248,43 @@ public class Framework
   public static native void nativeFollowRoute();
 
   public static native void nativeDisableFollowing();
+
+  /**
+   * Starts navigation along a track: the core follows the track geometry and starts the route
+   * build itself; the outcome arrives via the standard routing listener.
+   *
+   * @return a {@link FollowTrackResult} ordinal.
+   */
+  public static native int nativeNavigateTrack(long trackId);
+
+  /** Explicitly returns a followed track to planning using its captured entry/profile. */
+  public static native int nativeResetFollowedTrackToPlanning();
+
+  /** Updates the track preview from the current native selection, retaining its profile. */
+  public static native int nativeUpdateFollowedTrackEntry();
+
+  /**
+   * Switches this track preview's profile without changing the persisted default.
+   *
+   * @param routerType an {@link Router} ordinal.
+   * @return a {@link FollowTrackResult} ordinal.
+   */
+  public static native int nativeSetFollowTrackProfile(int routerType);
+
+  public static native boolean nativeIsFollowingTrack();
+
+  /** Starts a ready track preview; false keeps the phone in planning while its approach refreshes. */
+  public static native boolean nativeStartFollowedTrack();
+
+  /** @return {@code null} when no track is being followed. */
+  @Nullable
+  public static native FollowedTrackInfo nativeGetFollowedTrackInfo();
+
+  /**
+   * The router type to present and gate on: while following a track it is the follow profile
+   * (never Transit/Ruler), otherwise the current router type. Encoded like Router.nativeGet().
+   */
+  public static native int nativeGetRenderRouterType();
 
   /** Returns a JNI-created snapshot of current route guidance, or {@code null} when unavailable. */
   @FastNative

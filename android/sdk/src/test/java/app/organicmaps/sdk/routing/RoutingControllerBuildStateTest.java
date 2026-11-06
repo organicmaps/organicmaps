@@ -43,7 +43,13 @@ public class RoutingControllerBuildStateTest
 
   private static void verifyModeOptionsError(boolean bicycleOptions) throws ReflectiveOperationException
   {
-    final RoutingController controller = new RoutingController();
+    final RoutingController controller = new RoutingController() {
+      @Override
+      public boolean isFollowingTrack()
+      {
+        return false;
+      }
+    };
     final RoutingController.Container container = mock(RoutingController.Container.class);
     controller.attach(container);
     final Field router = RoutingController.class.getDeclaredField("mLastRouterType");
@@ -98,7 +104,13 @@ public class RoutingControllerBuildStateTest
 
   private static RoutingController cachedResult(int code) throws ReflectiveOperationException
   {
-    final RoutingController controller = new RoutingController();
+    final RoutingController controller = new RoutingController() {
+      @Override
+      public boolean isFollowingTrack()
+      {
+        return false;
+      }
+    };
     setField(controller, "mLastResultCode", code);
     setField(controller, "mContainsCachedResult", true);
     setField(controller, "mLastRouterType", Router.Vehicle);
@@ -116,7 +128,13 @@ public class RoutingControllerBuildStateTest
   private static RoutingController.BuildState onNeedMoreMaps(RoutingController.BuildState state)
       throws ReflectiveOperationException
   {
-    final RoutingController controller = new RoutingController();
+    final RoutingController controller = new RoutingController() {
+      @Override
+      public boolean isFollowingTrack()
+      {
+        return false;
+      }
+    };
     final RoutingController.Container container = mock(RoutingController.Container.class);
     controller.attach(container);
     final Field buildState = RoutingController.class.getDeclaredField("mBuildState");
