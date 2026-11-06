@@ -534,6 +534,7 @@ final class NavigationDashboardViewController: UIViewController {
   }
 
   private func close() {
+    interactor?.invalidate()
     navigationControlView.isVisible = false
     bottomActionsMenu.setHidden(true)
     removeElevationProfileIfNeeded()
