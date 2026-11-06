@@ -123,6 +123,9 @@ public:
   void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
               int zoomLevel, FrameValues const & frameValues);
 
+  void SetVisible(bool isVisible) { m_isVisible = isVisible; }
+  bool IsVisible() const { return m_isVisible; }
+
   bool IsRotationAvailable() const { return m_isDirectionAssigned; }
   bool IsInRouting() const { return m_isInRouting; }
   bool IsRouteFollowingActive() const;
@@ -167,6 +170,7 @@ private:
 
   bool m_isInRouting = false;
   bool m_isArrowGluedInRouting = false;
+  bool m_isVisible = true;
 
   bool m_needBlockAnimation;
   bool m_wasRotationInScaling;

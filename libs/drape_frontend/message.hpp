@@ -115,7 +115,8 @@ public:
     SetTileBackgroundData,
     SetTileBackgroundMode,
     ScenarioViewport,
-    AssignTileBackgroundImage
+    AssignTileBackgroundImage,
+    SetMyPositionVisibility
   };
 
   virtual ~Message() = default;

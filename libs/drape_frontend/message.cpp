@@ -115,6 +115,7 @@ std::string_view DebugPrint(Message::Type msgType)
   case Message::Type::SetTileBackgroundData: return "SetTileBackgroundData";
   case Message::Type::SetTileBackgroundMode: return "SetTileBackgroundMode";
   case Message::Type::AssignTileBackgroundImage: return "AssignTileBackgroundImage";
+  case Message::Type::SetMyPositionVisibility: return "SetMyPositionVisibility";
   }
   UNREACHABLE();
 }

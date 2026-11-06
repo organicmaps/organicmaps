@@ -435,6 +435,13 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     break;
   }
 
+  case Message::Type::SetMyPositionVisibility:
+  {
+    ref_ptr<SetMyPositionVisibilityMessage> msg = message;
+    m_myPositionController->SetVisible(msg->IsVisible());
+    break;
+  }
+
   case Message::Type::CompassInfo:
   {
     ref_ptr<CompassInfoMessage> msg = message;
@@ -2221,7 +2228,7 @@ void FrontendRenderer::OnTap(m2::PointD const & pt, bool isLongTap)
     return;
   }
 
-  if (m_myPositionController->IsModeHasPosition())
+  if (m_myPositionController->IsModeHasPosition() && m_myPositionController->IsVisible())
   {
     m2::PointD const pixelPos = screen.PtoP3d(GtoPWrap(m_myPositionController->Position(), screen));
     isMyPosition = selectRect.IsPointInside(pixelPos);
