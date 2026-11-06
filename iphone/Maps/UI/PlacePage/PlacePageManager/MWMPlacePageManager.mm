@@ -357,7 +357,7 @@ using namespace storage;
 
 - (void)openEmail:(PlacePageData *)data
 {
-  [MailComposer sendEmailWithSubject:nil body:nil toRecipients:@[data.infoData.email] attachmentFileURL:nil];
+  [MailComposer sendEmailWithSubject:nil body:nil toRecipients:@[data.infoData.email]];
 }
 
 #pragma mark - AvailableArea / PlacePageArea
