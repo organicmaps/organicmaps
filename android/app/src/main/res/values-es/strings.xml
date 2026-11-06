@@ -421,7 +421,6 @@
     <string name="select_cuisine">Seleccionar cocina</string>
     <!-- login text field -->
     <string name="email_or_username">Correo electrónico o usuario</string>
-    <string name="editor_add_phone">Añadir teléfono</string>
     <string name="level">Piso</string>
     <!-- Building level -->
     <string name="level_value_generic">Nivel: %s</string>
@@ -574,6 +573,7 @@
     <string name="bookmarks_error_title_list_name_already_taken">Este nombre ya existe</string>
     <string name="bookmarks_error_message_list_name_already_taken">Elija otro nombre</string>
     <string name="please_wait">Espere…</string>
+    <!-- Placeholder for phone input in editor UI -->
     <string name="phone_number">Número de teléfono</string>
     <string name="profile">Perfil de OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
