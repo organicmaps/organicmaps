@@ -555,7 +555,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular15:blackPrimaryText"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular15:blackSecondaryText"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="251" text="12:00 - 18:15" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dNa-uo-9Ny">
@@ -565,7 +565,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular15:blackPrimaryText"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular15:blackSecondaryText"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                         </subviews>
