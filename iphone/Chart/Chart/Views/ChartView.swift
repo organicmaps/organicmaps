@@ -349,15 +349,20 @@ public class ChartView: UIView {
   func updateCharts(animationStyle: ChartAnimation = .none) {
     var lower = CGFloat(Int.max)
     var upper = CGFloat(Int.min)
+    let lowerDistance = CGFloat(chartData.distance(forChartX: CGFloat(xAxisView.lowerBound)))
+    let upperDistance = CGFloat(chartData.distance(forChartX: CGFloat(xAxisView.upperBound)))
 
     for i in 0 ..< chartData.linesCount {
-      let line = chartData.lineAt(i)
-      let subrange = line.aggregatedValues[xAxisView.lowerBound ... xAxisView.upperBound]
-      for item in subrange {
+      let values = chartData.lineAt(i).aggregatedValues
+      // Include the interpolated edges when the viewport cuts through a segment.
+      let lowerAltitude = values.interpolatedAltitude(at: lowerDistance)
+      let upperAltitude = values.interpolatedAltitude(at: upperDistance)
+      lower = min(lower, lowerAltitude, upperAltitude)
+      upper = max(upper, lowerAltitude, upperAltitude)
+      let start = values.firstIndexAtOrAfter(lowerDistance, by: \.x) ?? values.endIndex
+      for item in values[start...].prefix(while: { $0.x <= upperDistance }) {
         upper = max(item.y, upper)
-        if line.type == .line || line.type == .lineArea {
-          lower = min(item.y, lower)
-        }
+        lower = min(item.y, lower)
       }
     }
 
