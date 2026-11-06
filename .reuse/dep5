@@ -76,6 +76,10 @@ Files: 3party/succinct/*
 Copyright: 2011, Giuseppe Ottaviano <giuott@gmail.com>
 License: Apache-2.0
 
+Files: 3party/sz3/*
+Copyright: 2016, UChicago Argonne, LLC
+License: LicenseRef-SZ3
+
 Files: 3party/vulkan_wrapper/vulkan_wrapper.*
 Copyright: 2018 The Android Open Source Project
 License: Apache-2.0
