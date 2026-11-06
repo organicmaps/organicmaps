@@ -94,6 +94,7 @@ add_subdirectory(open-location-code)
 add_subdirectory(sperr)
 add_subdirectory(stb_image)
 add_subdirectory(succinct)
+add_subdirectory(sz3)
 
 add_subdirectory(vulkan_wrapper)
 
