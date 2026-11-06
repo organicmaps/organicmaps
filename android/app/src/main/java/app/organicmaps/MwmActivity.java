@@ -954,7 +954,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   protected void onSaveInstanceState(@NonNull Bundle outState)
   {
-    RoutingController.get().onSaveState();
+    RoutingController.get().onSaveState(this);
 
     Integer sheetState = mSearchPageViewModel.getSearchPageLastState().getValue();
     boolean isSearchActive = Boolean.TRUE.equals(mSearchPageViewModel.getSearchEnabled().getValue())
@@ -1099,8 +1099,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     MwmApplication.from(this).getLocationHelper().removeListener(this);
     if (mDisplayManager.isDeviceDisplayUsed() && !RoutingController.get().isNavigating())
       LocationState.nativeRemoveListener();
-    // Attached unconditionally in onStart()
-    RoutingController.get().detach();
+    RoutingController.get().detach(this);
     MwmApplication.from(getApplicationContext()).getIsolinesManager().detach();
     Utils.keepScreenOn(false, getWindow());
 
@@ -1373,7 +1372,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     closeFloatingToolbarsAndPanels();
     ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
     ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
-    NavigationService.stopService(this);
     cancelNavigationSearch();
     mMapButtonsViewModel.setLayoutMode(MapButtonsController.LayoutMode.regular);
     refreshLightStatusBar();
@@ -1435,7 +1433,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     closeFloatingToolbarsAndPanels();
     ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
     ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
-    NavigationService.stopService(this);
     // Route edits while planning land here too. The routing state is already PREPARE, hence the layout check.
     if (mMapButtonsViewModel.getLayoutMode().getValue() == MapButtonsController.LayoutMode.navigation)
       cancelNavigationSearch();
@@ -1542,6 +1539,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
     // +S+F-L -> Hide
     // +S+F+L -> Hide
     final MapObject myPosition = MwmApplication.from(this).getLocationHelper().getMyPosition();
+
+    // Track navigation needs a position for its approach; show the existing notice until GPS is available.
+    if (controller.isFollowingTrack())
+    {
+      if (myPosition != null)
+        return true;
+      showStartFromCurrentPositionNotice(null /* rerouteAction */);
+      return false;
+    }
+
     if (myPosition != null && controller.getEndPoint() == null)
       return false;
     if (controller.getStartPoint() == null)
@@ -1554,22 +1561,31 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return true;
 
     final MapObject endPoint = Objects.requireNonNull(controller.getEndPoint());
+    showStartFromCurrentPositionNotice(
+        endPoint.isMyPosition() ? (dialog, which) -> controller.swapPoints() : (dialog, which) -> {
+          // The current location may change while this dialog is still shown on the screen.
+          controller.setStartPoint(myPosition);
+        });
+    return false;
+  }
+
+  /**
+   * The standard "navigation is only available from your current location" notice.
+   *
+   * @param rerouteAction what the OK button does, or {@code null} when there is nothing to
+   *                      reroute (no location fix at all): the notice is then informational.
+   */
+  private void showStartFromCurrentPositionNotice(@Nullable DialogInterface.OnClickListener rerouteAction)
+  {
     final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
-        .setTitle(R.string.p2p_only_from_current)
-        .setMessage(R.string.p2p_reroute_from_current)
-        .setCancelable(false)
-        .setNegativeButton(R.string.cancel, null)
-        .setPositiveButton(R.string.ok, endPoint.isMyPosition() ?
-            (dialog, which) -> controller.swapPoints() :
-            (dialog, which) -> {
-              // The current location may change while this dialog is still shown on the screen.
-              controller.setStartPoint(myPosition);
-            }
-        )
-        .setOnDismissListener(dialog -> mAlertDialog = null);
+                                                   .setTitle(R.string.p2p_only_from_current)
+                                                   .setCancelable(false)
+                                                   .setPositiveButton(R.string.ok, rerouteAction)
+                                                   .setOnDismissListener(dialog -> mAlertDialog = null);
+    if (rerouteAction != null)
+      builder.setMessage(R.string.p2p_reroute_from_current).setNegativeButton(R.string.cancel, null);
     dismissAlertDialog();
     mAlertDialog = builder.show();
-    return false;
   }
 
   @Override

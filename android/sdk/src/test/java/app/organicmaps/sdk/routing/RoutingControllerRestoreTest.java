@@ -10,7 +10,6 @@ import static org.mockito.Mockito.verify;
 import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.util.log.Logger;
-import java.lang.reflect.Field;
 import org.junit.Test;
 import org.mockito.MockedStatic;
 
@@ -19,6 +18,12 @@ public class RoutingControllerRestoreTest
   private static final class Controller extends RoutingController
   {
     int builds;
+
+    @Override
+    public boolean isFollowingTrack()
+    {
+      return false;
+    }
 
     @Override
     public MapObject getStartPoint()
@@ -70,17 +75,15 @@ public class RoutingControllerRestoreTest
   }
 
   @Test
-  public void detachedBuildErrorIsDeliveredWhenTheViewReturns() throws ReflectiveOperationException
+  public void detachedBuildErrorIsDeliveredWhenTheViewReturns()
   {
     final Controller controller = new Controller();
     final RoutingController.Container container = mock(RoutingController.Container.class);
-    final Field listener = RoutingController.class.getDeclaredField("mRoutingListener");
-    listener.setAccessible(true);
     try (MockedStatic<Logger> ignored = mockStatic(Logger.class);
          MockedStatic<RoutingOptions> options = mockStatic(RoutingOptions.class))
     {
       controller.rebuildLastRoute();
-      ((RoutingListener) listener.get(controller)).onRoutingEvent(ResultCodes.ROUTE_NOT_FOUND, new String[0]);
+      controller.getRoutingListenerForTesting().onRoutingEvent(ResultCodes.ROUTE_NOT_FOUND, new String[0]);
       controller.attach(container);
       controller.restore();
     }

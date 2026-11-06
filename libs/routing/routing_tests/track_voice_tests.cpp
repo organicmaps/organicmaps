@@ -242,7 +242,11 @@ UNIT_CLASS_TEST(TrackVoiceTest, StartingAtTrackArmsDeparture)
     {
       Build(0, approachY, voiceAtStart);
       if (approachY == -100.0)
+      {
         RunOnGui([&] { Feed(0, 0); });
+        // The manager refreshes the approach from the latest position before starting navigation.
+        Rebuild(0, 0, true /* manual */);
+      }
       Start();
       TEST(Notifications().empty(), (approachY, voiceAtStart));
       Voice(true);
@@ -361,14 +365,30 @@ UNIT_CLASS_TEST(TrackVoiceTest, OnTrackRebuildKeepsConfirmedReach)
   TEST_EQUAL(Notifications(), std::vector<std::string>({kPhrase}), ());
 }
 
-UNIT_CLASS_TEST(TrackVoiceTest, PreviewReachArmsDepartureOnStart)
+UNIT_CLASS_TEST(TrackVoiceTest, PreviewGpsCannotSkipTheCapturedEntry)
 {
   for (bool const rebuild : {false, true})
   {
     Build(0, -100);
-    RunOnGui([&] { Feed(200, 0); });
+    RunOnGui([&]
+    {
+      Feed(200, 0);
+      TEST(!m_session->IsFollowing(), ());
+      TEST_EQUAL(m_session->GetRoute()->GetCurrentDistanceFromBeginMeters(), 0.0, ());
+    });
+    TEST(Notifications().empty(), ());
+    Rebuild(200, 0, true /* manual */);
+    TEST(Notifications().empty(), ());
     Start();
+    TEST_EQUAL(Notifications(), std::vector<std::string>({kApproach}), ());
     TEST(Notifications().empty(), (rebuild));
+    RunOnGui([&]
+    {
+      // GPS movement during preview did not reach the captured entry at the track's beginning.
+      Feed(0, 0);
+      Feed(200, 0);
+      TEST(m_session->IsOnRoute(), ());
+    });
     if (rebuild)
       Rebuild(200, 0);
     RunOnGui([&] { Depart(200, 0 /* fromY */, 40 /* firstOffset */); });
@@ -376,7 +396,7 @@ UNIT_CLASS_TEST(TrackVoiceTest, PreviewReachArmsDepartureOnStart)
   }
 }
 
-UNIT_CLASS_TEST(TrackVoiceTest, LateRebuildPreservesObservedRejoin)
+UNIT_CLASS_TEST(TrackVoiceTest, LateRebuildPreservesRejoinOnlyDuringNavigation)
 {
   for (bool const following : {false, true})
   {
@@ -403,12 +423,24 @@ UNIT_CLASS_TEST(TrackVoiceTest, LateRebuildPreservesObservedRejoin)
 
       m_session->SetState(SessionState::RouteRebuilding);
       Feed(400, 0);
-      TEST(m_session->IsOnRoute(), ());
-      // The old approach origin must not erase the rejoin observed while it was calculating.
+      TEST_EQUAL(m_session->IsOnRoute(), following, ());
+      // Only navigation observes a rejoin while the old approach is being calculated.
       m_session->AssignRouteForTesting(std::move(incoming), RouterResultCode::NoError);
     });
     if (!following)
+    {
+      TEST(Notifications().empty(), ());
+      // Refresh the preview's approach without changing its captured entry before Start.
+      Rebuild(400, 0, true /* manual */);
       Start();
+      TEST_EQUAL(Notifications(), std::vector<std::string>({kApproach}), ());
+      RunOnGui([&]
+      {
+        Feed(0, 0);
+        Feed(400, 0);
+        TEST(m_session->IsOnRoute(), ());
+      });
+    }
     TEST(Notifications().empty(), (following));
     RunOnGui([&] { Depart(400, 0 /* fromY */, 40 /* firstOffset */); });
     TEST_EQUAL(Notifications(), std::vector<std::string>({kPhrase}), (following));
@@ -435,9 +467,11 @@ UNIT_CLASS_TEST(TrackVoiceTest, PreviewDepartureRequiresApproachOnStart)
   {
     Feed(200, 0);
     Depart(200);
+    TEST(!m_session->IsFollowing(), ());
+    TEST_EQUAL(m_session->GetRoute()->GetCurrentDistanceFromBeginMeters(), 0.0, ());
   });
   TEST(Notifications().empty(), ());
-  Rebuild(200, 240);
+  Rebuild(200, 240, true /* manual */);
   Start();
   TEST_EQUAL(Notifications(), std::vector<std::string>({kApproach}), ());
   TEST(Notifications().empty(), ());

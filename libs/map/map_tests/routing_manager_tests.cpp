@@ -8,6 +8,7 @@
 
 #include "routing/router.hpp"
 #include "routing/ruler_router.hpp"
+#include "routing/track_router.hpp"
 
 #include "storage/routing_helpers.hpp"
 
@@ -25,7 +26,12 @@
 
 #include <algorithm>
 #include <chrono>
+#include <cmath>
+#include <condition_variable>
+#include <deque>
 #include <memory>
+#include <mutex>
+#include <optional>
 #include <string>
 #include <utility>
 #include <vector>
@@ -281,6 +287,189 @@ kml::TrackId SaveSingleSegmentRoute(RoutingManager & manager, BookmarkManager & 
                                                  routing::RouterResultCode::NoError);
   TEST(manager.IsRouteValid(), ());
   return manager.SaveRoute();
+}
+
+auto constexpr kAsyncBuildTimeout = std::chrono::seconds(30);
+
+// A point near the equator built from meter offsets (one mercator unit is one degree there).
+m2::PointD MeterPoint(double x, double y)
+{
+  return {mercator::MetersToMercator(x), mercator::MetersToMercator(y)};
+}
+
+// The AsyncRouter delivers route build results via GetPlatform().RunTask(Thread::Gui, ...).
+// Async tests replace the GUI task loop with this manually pumped queue: the tasks execute on
+// the test's main thread (satisfying the thread checkers bound at Framework construction)
+// exactly when the test asks for them, and stale tasks queued by earlier tests in this binary
+// through the default GUI loop stay untouched. Tasks still queued when the loop is replaced
+// back are dropped, so nothing capturing the test's framework can run after its destruction.
+class ManualGuiLoop : public base::TaskLoop
+{
+public:
+  PushResult Push(Task && task) override { return Add(std::move(task)); }
+  PushResult Push(Task const & task) override { return Add(task); }
+
+  // Executes queued tasks on the calling thread until |pred| holds or |timeout| passes.
+  template <class Pred>
+  bool PumpUntil(Pred const & pred, std::chrono::steady_clock::duration timeout)
+  {
+    auto const deadline = std::chrono::steady_clock::now() + timeout;
+    std::unique_lock lock(m_mutex);
+    while (true)
+    {
+      while (!m_tasks.empty())
+      {
+        auto const task = std::move(m_tasks.front());
+        m_tasks.pop_front();
+        lock.unlock();
+        task();
+        lock.lock();
+      }
+      if (pred())
+        return true;
+      if (m_cv.wait_until(lock, deadline) == std::cv_status::timeout)
+        return false;
+    }
+  }
+
+  // Executes everything queued so far (e.g. before the owning framework is destroyed).
+  void Drain()
+  {
+    PumpUntil([]() { return true; }, {});
+  }
+
+private:
+  PushResult Add(Task task)
+  {
+    {
+      std::lock_guard lock(m_mutex);
+      m_tasks.push_back(std::move(task));
+    }
+    m_cv.notify_one();
+    return {true /* m_isSuccess */, kNoId};
+  }
+
+  std::mutex m_mutex;
+  std::condition_variable m_cv;
+  std::deque<Task> m_tasks;
+};
+
+// Scaffold of the async route-build tests. The member order encodes the lifetime rules: the
+// manual GUI loop must be installed before the framework is constructed, and the default GUI
+// thread is restored only after the framework is destroyed (members are destroyed in reverse
+// order). The destructor drains the queue first, so the tasks queued by the trailing
+// interactions run while the framework is still alive.
+struct AsyncBuildFixture
+{
+  // Record the renderer notification while exercising the real routing manager and session.
+  class FrameworkWithFollowDelegate final : public Framework
+  {
+  public:
+    using Framework::Framework;
+
+    std::vector<routing::RouterType> m_followProfiles;
+
+  private:
+    void OnRouteFollow(routing::RouterType type) override { m_followProfiles.push_back(type); }
+  };
+
+  // Installs the manually pumped GUI loop, restoring the default GUI thread on destruction.
+  struct ScopedManualGuiLoop
+  {
+    ScopedManualGuiLoop()
+    {
+      auto ownedGuiLoop = std::make_unique<ManualGuiLoop>();
+      m_loop = ownedGuiLoop.get();
+      GetPlatform().SetGuiThread(std::move(ownedGuiLoop));
+    }
+    ~ScopedManualGuiLoop() { GetPlatform().SetGuiThread(std::make_unique<platform::GuiThread>()); }
+
+    ManualGuiLoop * m_loop;
+  };
+
+  AsyncBuildFixture()
+  {
+    m_framework.GetRoutingManager().Init(routing::CreateNumMwmIds(m_framework.GetStorage()));
+    m_framework.GetRoutingManager().SetRouteBuildingListener(
+        [this](routing::RouterResultCode code, storage::CountriesSet const &) { m_buildCode = code; });
+  }
+
+  ~AsyncBuildFixture() { m_guiLoop.m_loop->Drain(); }
+
+  // Waits until the async build result actually reaches the listener: a lost result (e.g. an
+  // instantly expired RouterDelegate deadline) fails the test instead of being masked.
+  void WaitForBuildResult() { TEST_EQUAL(WaitForAnyBuildResult(), routing::RouterResultCode::NoError, ()); }
+
+  // The same wait accepting whatever terminal code arrives (and returning it): the outcome of
+  // a real road-router build depends on which mwms are registered on the machine (the data dir
+  // may contain developer-downloaded maps), so environment-independent tests assert only the
+  // synchronous state plus the delivery of some result.
+  routing::RouterResultCode WaitForAnyBuildResult()
+  {
+    TEST(m_guiLoop.m_loop->PumpUntil([this]() { return m_buildCode.has_value(); }, kAsyncBuildTimeout),
+         ("The route build result was not delivered"));
+    auto const code = *m_buildCode;
+    m_buildCode.reset();
+    return code;
+  }
+
+  ScopedManualGuiLoop m_guiLoop;
+  FrameworkWithFollowDelegate m_framework{FrameworkParams(false /* m_enableDiffs */)};
+  std::optional<routing::RouterResultCode> m_buildCode;
+};
+
+// Redirects the settings dir (which hosts the bookmarks dir) to a temporary one, so the tests
+// saving bookmark categories don't pollute the default data/bookmarks/ (the bookmarks_test.cpp
+// precedent). Construct before the Framework and keep alive until it is destroyed.
+class ScopedSettingsDir
+{
+public:
+  ScopedSettingsDir()
+    : m_originalDir(GetPlatform().SettingsDir())
+    , m_testDir(base::JoinPath(GetPlatform().WritableDir(), "routing_manager_tests"))
+  {
+    TEST(Platform::MkDirRecursively(base::JoinPath(m_testDir, "bookmarks")), ());
+    GetPlatform().SetSettingsDir(m_testDir);
+  }
+
+  ~ScopedSettingsDir()
+  {
+    GetPlatform().SetSettingsDir(m_originalDir);
+    Platform::RmDirRecursively(m_testDir);
+  }
+
+private:
+  std::string m_originalDir;
+  std::string m_testDir;
+};
+
+kml::TrackId CreateTestTrack(BookmarkManager & bmManager, std::string routerType = {},
+                             std::vector<kml::TrackStopData> stops = {},
+                             std::initializer_list<geometry::PointWithAltitude> geometry = {})
+{
+  kml::TrackData trackData;
+  trackData.m_layers.emplace_back();
+  if (geometry.size() != 0)
+    trackData.m_geometry.AddLine(geometry);
+  else
+    trackData.m_geometry.AddLine({{mercator::FromLatLon(45.0, 19.0), 100},
+                                  {mercator::FromLatLon(45.001, 19.0), 110},
+                                  {mercator::FromLatLon(45.002, 19.0), 120}});
+  trackData.m_geometry.AddTimestamps({});
+  trackData.m_stops = std::move(stops);
+  trackData.m_routerType = std::move(routerType);
+  return bmManager.GetEditSession().CreateTrack(std::move(trackData))->GetId();
+}
+void UpdateGps(AsyncBuildFixture & fixture, RoutingManager & manager, location::GpsInfo const & info)
+{
+  bool delivered = false;
+  auto const point = mercator::FromLatLon(info.m_latitude, info.m_longitude);
+  fixture.m_framework.GetBookmarkManager().MyPositionMark().SetUserPosition(point, true);
+  manager.SetUserCurrentPosition(point);
+  manager.OnLocationUpdate(info);
+  GetPlatform().RunTask(Platform::Thread::Background,
+                        [&] { GetPlatform().RunTask(Platform::Thread::Gui, [&] { delivered = true; }); });
+  TEST(fixture.m_guiLoop.m_loop->PumpUntil([&] { return delivered; }, kAsyncBuildTimeout), ());
 }
 }  // namespace
 
@@ -1111,6 +1300,574 @@ UNIT_TEST(RoutingManager_RebuildClearsUnavailableAlternatives)
   }, nullptr, nullptr, routing::RouterDelegate::kNoTimeout, routing::SessionState::RouteRebuilding, false);
   guiThread->RunUntil([&] { return recovered; });
   TEST(session.SwapActiveAlternative(1), ("Fresh alternatives must become selectable."));
+}
+
+UNIT_TEST(RoutingManager_TrackEntryResolvesBothSidesOfGap)
+{
+  kml::TrackData source;
+  source.m_geometry.AddLine({{MeterPoint(0, 0), 100}, {MeterPoint(100, 0), 110}});
+  source.m_geometry.AddTimestamps({});
+  source.m_geometry.AddLine({{MeterPoint(500, 0), 120}, {MeterPoint(600, 0), 130}});
+  source.m_geometry.AddTimestamps({});
+  double const boundary = mercator::DistanceOnEarth(MeterPoint(0, 0), MeterPoint(100, 0));
+  auto const before = ResolveTrackEntry(source.m_geometry, MeterPoint(100, 0), boundary);
+  auto const after = ResolveTrackEntry(source.m_geometry, MeterPoint(500, 0), boundary);
+  TEST(before && after, ());
+  TEST_EQUAL(before->m_line, 0, ());
+  TEST_EQUAL(after->m_line, 1, ());
+  auto const forward = BuildTrackFollowingData(source, *after);
+  TEST_EQUAL(forward->m_points.front().GetPoint(), MeterPoint(500, 0), ());
+  TEST_EQUAL(forward->m_points.back().GetPoint(), MeterPoint(600, 0), ());
+  TEST(!ResolveTrackEntry(source.m_geometry, MeterPoint(500, 0), 0.0),
+       ("A stale distance must not select a new occurrence"));
+}
+
+UNIT_TEST(RoutingManager_TrackPreparationKeepsSelectedStopAndHill)
+{
+  kml::TrackData source;
+  source.m_geometry.AddLine({{MeterPoint(0, 0), 100}, {MeterPoint(400, 0), 250}, {MeterPoint(1000, 0), 100}});
+  source.m_geometry.AddTimestamps({100, 200, 300});
+  source.m_stops = {{MeterPoint(100, 0), "Before"}, {MeterPoint(400, 0), "Entry"}, {MeterPoint(600, 0), "After"}};
+  auto const original = source;
+  auto const entry = ResolveTrackEntry(source.m_geometry, MeterPoint(400, 0),
+                                       mercator::DistanceOnEarth(MeterPoint(0, 0), MeterPoint(400, 0)));
+  TEST(entry, ());
+  auto const data = BuildTrackFollowingData(source, *entry);
+  TEST_EQUAL(data->m_points.size(), 3, ());
+  TEST_EQUAL(data->m_points[0].GetAltitude(), 250, ());
+  TEST_EQUAL(data->m_points[1].GetPoint(), MeterPoint(600, 0), ());
+  TEST_EQUAL(data->m_stopPointIndexes, std::vector<size_t>({0, 1}), ());
+  TEST_EQUAL(source, original, ());
+}
+
+UNIT_TEST(RoutingManager_FractionalTrackEntryPreservesAltitudesAndStops)
+{
+  struct TestCase
+  {
+    geometry::Altitude m_from;
+    geometry::Altitude m_to;
+    geometry::Altitude m_entry;
+  };
+  auto constexpr kUnknown = geometry::kInvalidAltitude;
+  TestCase const cases[] = {{100, 200, 150}, {kUnknown, 200, kUnknown}, {100, kUnknown, kUnknown}};
+  for (auto const & test : cases)
+  {
+    kml::TrackData source;
+    source.m_geometry.AddLine(
+        {{MeterPoint(0, 0), test.m_from}, {MeterPoint(100, 0), test.m_to}, {MeterPoint(200, 0), 300}});
+    source.m_geometry.AddTimestamps({});
+    source.m_stops = {{MeterPoint(25, 0), "Before"}, {MeterPoint(75, 0), "After"}};
+    auto prepared = BuildTrackFollowingData(source, {0, 0, 0.5});
+    TEST(prepared, ());
+    auto const data = std::make_shared<routing::TrackFollowingData const>(std::move(*prepared));
+    TEST(data->m_points.front().GetPoint().EqualDxDy(MeterPoint(50, 0), mercator::kPointEqualityEps), ());
+    TEST_EQUAL(data->m_points.front().GetAltitude(), test.m_entry, (test.m_from, test.m_to));
+    TEST_EQUAL(data->m_stopPointIndexes, std::vector<size_t>({1}), ());
+    TEST(data->m_points[1].GetPoint().EqualDxDy(MeterPoint(75, 0), mercator::kPointEqualityEps), ());
+
+    auto const start = MeterPoint(150, 10);
+    routing::TrackRouter router(routing::VehicleType::Pedestrian, data);
+    routing::RouterDelegate delegate;
+    routing::RoutesResult result;
+    routing::Checkpoints checkpoints({start, data->m_points[1].GetPoint(), data->m_points.back().GetPoint()});
+    TEST_EQUAL(router.CalculateRoute(checkpoints, {}, false, false, delegate, result),
+               routing::RouterResultCode::NoError, ());
+    routing::Route const route(result.GetActive());
+    TEST_EQUAL(route.GetPoly().GetPoint(1), data->m_points.front().GetPoint(), ());
+    TEST_EQUAL(route.HaveAltitudes(), test.m_entry != kUnknown, (test.m_from, test.m_to));
+  }
+}
+
+UNIT_TEST(RoutingManager_RepeatedStopsPreferLaterSourceVisit)
+{
+  kml::TrackData source;
+  source.m_geometry.AddLine({{MeterPoint(0, 0), 100}, {MeterPoint(1000, 0), 100}, {MeterPoint(0, 0), 100}});
+  source.m_geometry.AddTimestamps({});
+  source.m_stops = {{MeterPoint(500, 0), "Outbound"}, {MeterPoint(500, 0), "Return"}};
+  auto const entry = ResolveTrackEntry(source.m_geometry, MeterPoint(600, 0),
+                                       mercator::DistanceOnEarth(MeterPoint(0, 0), MeterPoint(600, 0)));
+  TEST(entry, ());
+  auto const forward = BuildTrackFollowingData(source, *entry);
+  TEST_EQUAL(forward->m_stopPointIndexes.size(), 1, ());
+  TEST_EQUAL(forward->m_points[forward->m_stopPointIndexes.front()].GetPoint(), MeterPoint(500, 0), ());
+  TEST_GREATER(forward->m_stopPointIndexes.front(), 1, ("Keep the return visit after the turnaround"));
+  source.m_geometry.m_lines[0].pop_back();
+  auto const earlier = ResolveTrackEntry(source.m_geometry, MeterPoint(400, 0),
+                                         mercator::DistanceOnEarth(MeterPoint(0, 0), MeterPoint(400, 0)));
+  TEST(earlier, ());
+  auto const duplicates = BuildTrackFollowingData(source, *earlier);
+  TEST_EQUAL(duplicates->m_stopPointIndexes.size(), 2, ());
+  TEST_EQUAL(duplicates->m_stopPointIndexes[0], duplicates->m_stopPointIndexes[1], ("Keep true collocated duplicates"));
+}
+
+UNIT_TEST(RoutingManager_TrackPreviewLocksEntryWhenGpsIsNearFinish)
+{
+  ScopedVehicleRouter routerSetting;
+  ScopedSettingsDir settingsDir;
+  AsyncBuildFixture fixture;
+  auto & manager = fixture.m_framework.GetRoutingManager();
+  auto & bookmarks = fixture.m_framework.GetBookmarkManager();
+  manager.SetRouter(routing::RouterType::Pedestrian);
+  auto const id = CreateTestTrack(bookmarks, "bicycle", {}, {{MeterPoint(0, 0), 100}, {MeterPoint(1000, 0), 100}});
+  double const entryDistance = mercator::DistanceOnEarth(MeterPoint(0, 0), MeterPoint(400, 0));
+  bookmarks.SetTrackSelectionInfo({id, MeterPoint(400, 0), entryDistance}, false);
+  bookmarks.MyPositionMark().SetUserPosition(MeterPoint(900, 0), true);
+  TEST_EQUAL(manager.NavigateTrack(id), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  auto const * route = manager.RoutingSession().GetRoute();
+  TEST(route, ());
+  TEST_EQUAL(route->GetPoly().Front(), MeterPoint(900, 0), ("Retain the actual GPS position"));
+  TEST_EQUAL(route->GetPoly().GetPoint(1), MeterPoint(400, 0),
+             ("Approach the captured entry, not nearest later geometry"));
+  TEST_ALMOST_EQUAL_ABS(manager.GetFollowedTrackInfo()->m_lengthM, 600.0, 2.0, ());
+  TEST_EQUAL(manager.GetRenderRouterType(), routing::RouterType::Bicycle, ());
+  TEST_EQUAL(manager.GetLastUsedRouter(), routing::RouterType::Pedestrian, ("Saved profile is session-only"));
+
+  // Inspecting another graph point must not redefine the preview's original entry.
+  bookmarks.SetTrackSelectionInfo({id, MeterPoint(800, 0), 2.0 * entryDistance}, false);
+  TEST_EQUAL(manager.SetFollowTrackProfile(routing::RouterType::Vehicle), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  route = manager.RoutingSession().GetRoute();
+  TEST_EQUAL(route->GetPoly().GetPoint(1), MeterPoint(400, 0), ());
+  TEST_EQUAL(manager.GetLastUsedRouter(), routing::RouterType::Pedestrian, ());
+
+  bookmarks.SetTrackSelectionInfo(
+      {id, MeterPoint(1000, 0), mercator::DistanceOnEarth(MeterPoint(0, 0), MeterPoint(1000, 0))}, false);
+  TEST_EQUAL(manager.NavigateTrack(id), FollowTrackResult::NoRemainingGeometry, ());
+  TEST_EQUAL(manager.RoutingSession().GetRoute(), route, ());
+
+  auto modified = bookmarks.GetTrack(id)->GetData();
+  modified.m_geometry.m_lines[0].back() = {MeterPoint(1200, 0), 100};
+  bookmarks.GetEditSession().UpdateTrack(id, modified);
+  TEST_EQUAL(manager.SetFollowTrackProfile(routing::RouterType::Bicycle), FollowTrackResult::InvalidSelection, ());
+  TEST_EQUAL(manager.RoutingSession().GetRoute(), route, ("Refuse before teardown"));
+  bookmarks.GetEditSession().DeleteTrack(id);
+  TEST_EQUAL(manager.SetFollowTrackProfile(routing::RouterType::Bicycle), FollowTrackResult::NoTrack, ());
+  TEST(manager.IsFollowingTrack(), ("The frozen preview remains stoppable"));
+  manager.CloseRouting(true);
+  TEST(!manager.IsFollowingTrack(), ());
+}
+
+UNIT_TEST(RoutingManager_TrackPreviewGpsRefreshDoesNotPassStops)
+{
+  ScopedVehicleRouter routerSetting;
+  ScopedSettingsDir settingsDir;
+  AsyncBuildFixture fixture;
+  auto & manager = fixture.m_framework.GetRoutingManager();
+  auto & bookmarks = fixture.m_framework.GetBookmarkManager();
+  auto const id = CreateTestTrack(bookmarks, "pedestrian", {{MeterPoint(600, 0), "Stop"}},
+                                  {{MeterPoint(0, 0), 100}, {MeterPoint(1000, 0), 100}});
+  auto const entryDistance = mercator::DistanceOnEarth(MeterPoint(0, 0), MeterPoint(400, 0));
+  bookmarks.SetTrackSelectionInfo({id, MeterPoint(400, 0), entryDistance}, false);
+  bookmarks.MyPositionMark().SetUserPosition(MeterPoint(400, 0), true);
+  TEST_EQUAL(manager.NavigateTrack(id), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  location::GpsInfo info;
+  info.m_source = location::EUser;
+  auto const moved = mercator::ToLatLon(MeterPoint(1000, 0));
+  info.m_latitude = moved.m_lat;
+  info.m_longitude = moved.m_lon;
+  info.m_horizontalAccuracy = 5;
+  info.m_timestamp = 100;
+  info.m_speed = 1;
+  bookmarks.MyPositionMark().SetUserPosition(MeterPoint(1000, 0), true);
+  UpdateGps(fixture, manager, info);
+  fixture.WaitForBuildResult();
+  auto const * route = manager.RoutingSession().GetRoute();
+  TEST_EQUAL(route->GetPoly().GetPoint(1), MeterPoint(400, 0), ());
+  TEST(!manager.IsRouteFinished(), ());
+  TEST_EQUAL(route->GetCurrentSubrouteIdx(), 0, ());
+  TEST_EQUAL(route->GetSubrouteCount(), 2, ());
+}
+
+UNIT_TEST(RoutingManager_TrackStartRefreshesGpsWithoutChangingEntry)
+{
+  ScopedVehicleRouter routerSetting;
+  ScopedSettingsDir settingsDir;
+  AsyncBuildFixture fixture;
+  auto & manager = fixture.m_framework.GetRoutingManager();
+  auto & bookmarks = fixture.m_framework.GetBookmarkManager();
+  auto const id = CreateTestTrack(bookmarks, "pedestrian", {}, {{MeterPoint(0, 0), 100}, {MeterPoint(1000, 0), 100}});
+  bookmarks.SetTrackSelectionInfo(
+      {id, MeterPoint(400, 0), mercator::DistanceOnEarth(MeterPoint(0, 0), MeterPoint(400, 0))}, false);
+  bookmarks.MyPositionMark().SetUserPosition(MeterPoint(400, 0), true);
+  TEST_EQUAL(manager.NavigateTrack(id), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  // The location mark may update before the asynchronous GPS projection task runs.
+  bookmarks.MyPositionMark().SetUserPosition(MeterPoint(900, 0), true);
+  manager.FollowRoute();
+  TEST(fixture.m_framework.m_followProfiles.empty(), ());
+  TEST(!manager.IsRoutingFollowing(), ("A stale approach must be refreshed before Start"));
+  if (manager.IsRoutingFollowing())
+    return;
+  TEST(manager.IsRouteBuilding(), ());
+  fixture.WaitForBuildResult();
+  TEST_EQUAL(manager.RoutingSession().GetRoute()->GetPoly().Front(), MeterPoint(900, 0), ());
+  TEST_EQUAL(manager.RoutingSession().GetRoute()->GetPoly().GetPoint(1), MeterPoint(400, 0), ());
+  TEST(fixture.m_framework.m_followProfiles.empty(), ());
+  manager.FollowRoute();
+  TEST(manager.IsRoutingFollowing(), ());
+  TEST_EQUAL(fixture.m_framework.m_followProfiles, std::vector{routing::RouterType::Pedestrian}, ());
+  TEST_EQUAL(manager.GetLastUsedRouter(), routing::RouterType::Vehicle, ());
+}
+
+UNIT_TEST(RoutingManager_TrackNavigationKeepsGeometryAcrossDepartureAndReturn)
+{
+  ScopedVehicleRouter routerSetting;
+  ScopedSettingsDir settingsDir;
+  AsyncBuildFixture fixture;
+  auto & manager = fixture.m_framework.GetRoutingManager();
+  auto & bookmarks = fixture.m_framework.GetBookmarkManager();
+  auto const id = CreateTestTrack(bookmarks, "pedestrian", {},
+                                  {{MeterPoint(0, 0), 100}, {MeterPoint(1000, 0), 100}, {MeterPoint(0, 0), 100}});
+  bookmarks.SetTrackSelectionInfo({id, MeterPoint(0, 0), 0.0}, false);
+  bookmarks.MyPositionMark().SetUserPosition(MeterPoint(0, 0), true);
+  TEST_EQUAL(manager.NavigateTrack(id), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  TEST(manager.RoutingSession().EnableFollowMode(), ());
+  TEST(manager.IsRoutingFollowing(), ());
+  auto const * installed = manager.RoutingSession().GetRoute();
+  double timestamp = 100;
+  auto const feed = [&](double x, double y, double bearing, double elapsed)
+  {
+    timestamp += elapsed;
+    location::GpsInfo info;
+    info.m_source = location::EUser;
+    auto const p = mercator::ToLatLon(MeterPoint(x, y));
+    info.m_latitude = p.m_lat;
+    info.m_longitude = p.m_lon;
+    info.m_timestamp = timestamp;
+    info.m_horizontalAccuracy = 5;
+    info.m_speed = 1;
+    info.m_bearing = bearing;
+    UpdateGps(fixture, manager, info);
+  };
+  for (double x = 0; x <= 1000; x += 50)
+    feed(x, 0, 90, 50);
+  for (double x = 950; x >= 300; x -= 50)
+    feed(x, 0, 270, 50);
+  TEST_ALMOST_EQUAL_ABS(installed->GetCurrentDistanceToEndMeters(), 300.0, 2.0, ());
+  for (double y = 20; y <= 400; y += 20)
+    feed(300, y, 0, 20);
+  TEST_EQUAL(manager.RoutingSession().GetRoute(), installed, ());
+  TEST(manager.RoutingSession().IsNavigable(), ("Keep remaining metrics and Stop usable off track"));
+  for (double y = 380; y >= 0; y -= 20)
+    feed(300, y, 180, 20);
+  TEST(manager.IsOnRoute(), ());
+  TEST_ALMOST_EQUAL_ABS(installed->GetCurrentDistanceToEndMeters(), 300.0, 2.0, ());
+  TEST_ALMOST_EQUAL_ABS(manager.RoutingSession().GetCompletionPercent(), 85.0, 0.1,
+                        ("A frozen route must not count departed prefixes twice"));
+  TEST_EQUAL(manager.RoutingSession().GetRoute(), installed, ("No geometry-reset rebuild"));
+}
+
+UNIT_TEST(RoutingManager_TrackFigureEightDoesNotJumpAtCrossings)
+{
+  ScopedVehicleRouter routerSetting;
+  ScopedSettingsDir settingsDir;
+  AsyncBuildFixture fixture;
+  auto & manager = fixture.m_framework.GetRoutingManager();
+  auto & bookmarks = fixture.m_framework.GetBookmarkManager();
+  std::vector<m2::PointD> const path = {MeterPoint(-200, 0),   MeterPoint(0, 0),      MeterPoint(200, 200),
+                                        MeterPoint(0, 400),    MeterPoint(-200, 200), MeterPoint(0, 0),
+                                        MeterPoint(200, -200), MeterPoint(0, -400),   MeterPoint(-200, -200),
+                                        MeterPoint(0, 0),      MeterPoint(200, 0)};
+  kml::TrackData source;
+  source.m_layers.emplace_back();
+  source.m_routerType = "pedestrian";
+  source.m_geometry.m_lines.emplace_back();
+  source.m_geometry.m_timestamps.emplace_back();
+  for (auto const & point : path)
+    source.m_geometry.m_lines.back().emplace_back(point, 100);
+  auto const id = bookmarks.GetEditSession().CreateTrack(std::move(source))->GetId();
+  bookmarks.SetTrackSelectionInfo({id, path.front(), 0.0}, false);
+  bookmarks.MyPositionMark().SetUserPosition(path.front(), true);
+  TEST_EQUAL(manager.NavigateTrack(id), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  TEST(manager.RoutingSession().EnableFollowMode(), ());
+  auto const * route = manager.RoutingSession().GetRoute();
+  double const total = route->GetTotalDistanceMeters();
+  double walked = 0.0;
+  double time = 1000.0;
+  for (size_t leg = 0; leg + 1 < path.size(); ++leg)
+  {
+    auto const delta = path[leg + 1] - path[leg];
+    double const length = mercator::DistanceOnEarth(path[leg], path[leg + 1]);
+    size_t const samples = static_cast<size_t>(std::ceil(length / 20.0));
+    for (size_t step = 1; step <= samples; ++step)
+    {
+      auto const position = path[leg] + delta * (static_cast<double>(step) / samples);
+      auto const latlon = mercator::ToLatLon(position);
+      location::GpsInfo info;
+      info.m_source = location::EUser;
+      info.m_horizontalAccuracy = 5;
+      info.m_latitude = latlon.m_lat;
+      info.m_longitude = latlon.m_lon;
+      info.m_timestamp = time += length / samples;
+      info.m_speed = 1;
+      info.m_bearing = location::AngleToBearing(math::RadToDeg(std::atan2(delta.y, delta.x)));
+      UpdateGps(fixture, manager, info);
+    }
+    walked += length;
+    TEST_ALMOST_EQUAL_ABS(route->GetCurrentDistanceToEndMeters(), total - walked, 2.0, (leg));
+    if (leg + 2 < path.size())
+      TEST(!manager.IsRouteFinished(), (leg));
+  }
+  TEST(manager.IsRouteFinished(), ());
+}
+
+UNIT_TEST(RoutingManager_JoinedTrackEntryDoesNotInventAltitudeExcursion)
+{
+  kml::TrackData source;
+  source.m_geometry.AddLine({{MeterPoint(0, 0), 50}, {MeterPoint(100, 0), geometry::kInvalidAltitude}});
+  source.m_geometry.AddTimestamps({});
+  source.m_geometry.AddLine({{MeterPoint(100, 0), 100}, {MeterPoint(200, 0), 200}});
+  source.m_geometry.AddTimestamps({});
+  auto const forward = BuildTrackFollowingData(source, {1, 0, 0.0});
+  TEST_EQUAL(forward->m_points.size(), 2, ());
+  TEST_EQUAL(forward->m_points.front().GetAltitude(), 100, ());
+  TEST_EQUAL(forward->m_points.back().GetAltitude(), 200, ());
+}
+
+UNIT_TEST(RoutingManager_CoarseTrackFixDoesNotArriveOrDepart)
+{
+  ScopedVehicleRouter routerSetting;
+  ScopedSettingsDir settingsDir;
+  AsyncBuildFixture fixture;
+  auto & manager = fixture.m_framework.GetRoutingManager();
+  auto & bookmarks = fixture.m_framework.GetBookmarkManager();
+  auto const id = CreateTestTrack(bookmarks, "pedestrian", {},
+                                  {{MeterPoint(0, 0), 100},
+                                   {MeterPoint(-200, 0), 100},
+                                   {MeterPoint(-200, 200), 100},
+                                   {MeterPoint(1, 200), 100},
+                                   {MeterPoint(1, 0), 100}});
+  bookmarks.SetTrackSelectionInfo({id, MeterPoint(0, 0), 0.0}, false);
+  bookmarks.MyPositionMark().SetUserPosition(MeterPoint(0, 0), true);
+  TEST_EQUAL(manager.NavigateTrack(id), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  manager.FollowRoute();
+  auto const * route = manager.RoutingSession().GetRoute();
+  for (size_t i = 0; i < 12; ++i)
+  {
+    auto const latlon = mercator::ToLatLon(MeterPoint(1, 0));
+    location::GpsInfo info;
+    info.m_source = location::EUser;
+    info.m_latitude = latlon.m_lat;
+    info.m_longitude = latlon.m_lon;
+    info.m_timestamp = 100 + i;
+    info.m_speed = 0;
+    info.m_horizontalAccuracy = 1000;
+    UpdateGps(fixture, manager, info);
+    TEST(!manager.IsRouteFinished(), (i));
+    TEST(manager.RoutingSession().IsNavigable(), (i));
+    TEST_EQUAL(route->GetCurrentDistanceFromBeginMeters(), 0.0, (i));
+  }
+  TEST_EQUAL(manager.RoutingSession().GetCompletionPercent(), 0.0, ());
+  TEST(manager.IsOnRoute(), ("Coarse fixes do not count as departing the track"));
+}
+
+UNIT_TEST(RoutingManager_MapChangesPreserveTrackPreviewAndNavigation)
+{
+  ScopedVehicleRouter routerSetting;
+  ScopedSettingsDir settingsDir;
+  AsyncBuildFixture fixture;
+  auto & manager = fixture.m_framework.GetRoutingManager();
+  auto & bookmarks = fixture.m_framework.GetBookmarkManager();
+  auto const id = CreateTestTrack(bookmarks, "pedestrian", {}, {{MeterPoint(0, 0), 100}, {MeterPoint(1000, 0), 100}});
+  bookmarks.SetTrackSelectionInfo({id, MeterPoint(0, 0), 0.0}, false);
+  bookmarks.MyPositionMark().SetUserPosition(MeterPoint(0, 0), true);
+  TEST_EQUAL(manager.NavigateTrack(id), FollowTrackResult::Ok, ());
+
+  // Both map-download and map-deletion callbacks use this soft reset.
+  manager.ResetRoutingSession();
+  TEST(manager.IsFollowingTrack() && manager.IsRouteBuilding(), ());
+  fixture.WaitForBuildResult();
+  auto const * route = manager.RoutingSession().GetRoute();
+  manager.ResetRoutingSession();
+  TEST(manager.IsFollowingTrack() && manager.IsRouteBuilt(), ());
+  TEST_EQUAL(manager.RoutingSession().GetRoute(), route, ());
+
+  manager.FollowRoute();
+  for (size_t i = 0; i < 2; ++i)
+  {
+    manager.ResetRoutingSession();
+    TEST(manager.IsFollowingTrack() && manager.IsRoutingFollowing(), (i));
+    TEST_EQUAL(manager.RoutingSession().GetRoute(), route, (i));
+    TEST_EQUAL(manager.GetFollowedTrackInfo()->m_id, id, (i));
+  }
+
+  manager.CloseRouting(true);
+  manager.RoutingSession().SetRouter(std::make_unique<routing::RulerRouter>(), nullptr);
+  manager.AddRoutePoint(MakeRoutePointOnXAxis(RouteMarkType::Start, 0, 0.0), false);
+  manager.AddRoutePoint(MakeRoutePointOnXAxis(RouteMarkType::Finish, 0, 0.01), false);
+  manager.BuildRoute();
+  fixture.WaitForBuildResult();
+  manager.ResetRoutingSession();
+  TEST(!manager.IsRoutingActive(), ("Ordinary routes still reset when map data changes"));
+}
+
+UNIT_TEST(RoutingManager_ExplicitTrackProfileSurvivesLaterSessions)
+{
+  ScopedVehicleRouter routerSetting;
+  ScopedSettingsDir settingsDir;
+  AsyncBuildFixture fixture;
+  auto & manager = fixture.m_framework.GetRoutingManager();
+  auto & bookmarks = fixture.m_framework.GetBookmarkManager();
+  auto const withoutProfile = CreateTestTrack(bookmarks);
+  auto const withProfile = CreateTestTrack(bookmarks, "bicycle");
+  auto const start = bookmarks.GetTrack(withoutProfile)->GetGeometry().front().GetPoint();
+  auto const preview = [&](kml::TrackId id)
+  {
+    bookmarks.SetTrackSelectionInfo({id, start, 0.0}, false);
+    TEST_EQUAL(manager.NavigateTrack(id), FollowTrackResult::Ok, ());
+    fixture.WaitForBuildResult();
+  };
+
+  preview(withoutProfile);
+  TEST_EQUAL(manager.GetRenderRouterType(), routing::RouterType::Vehicle, ("Initially use the road default"));
+  TEST_EQUAL(manager.SetFollowTrackProfile(routing::RouterType::Pedestrian), FollowTrackResult::Ok, ());
+  TEST_EQUAL(manager.SetFollowTrackProfile(routing::RouterType::Vehicle), FollowTrackResult::Busy, ());
+  fixture.WaitForBuildResult();
+  TEST_EQUAL(manager.SetFollowTrackProfile(routing::RouterType::Transit), FollowTrackResult::UnsupportedProfile, ());
+  manager.CloseRouting(true);
+
+  preview(withProfile);
+  TEST_EQUAL(manager.GetRenderRouterType(), routing::RouterType::Bicycle, ("Honor an explicit KML profile"));
+  manager.CloseRouting(true);
+  preview(withoutProfile);
+  TEST_EQUAL(manager.GetRenderRouterType(), routing::RouterType::Pedestrian,
+             ("Remember the explicit choice, not the last track's KML profile or a refused change"));
+  TEST_EQUAL(manager.GetRouter(), routing::RouterType::Vehicle, ());
+  TEST_EQUAL(manager.GetLastUsedRouter(), routing::RouterType::Vehicle, ());
+  TEST(bookmarks.GetTrack(withoutProfile)->GetData().m_routerType.empty(), ());
+}
+
+UNIT_TEST(RoutingManager_NavigateTrackRefusesActiveNavigation)
+{
+  ScopedVehicleRouter routerSetting;
+  ScopedSettingsDir settingsDir;
+  AsyncBuildFixture fixture;
+  auto & manager = fixture.m_framework.GetRoutingManager();
+  auto & bookmarks = fixture.m_framework.GetBookmarkManager();
+  auto const id = CreateTestTrack(bookmarks, "pedestrian", {}, {{MeterPoint(0, 0), 100}, {MeterPoint(1000, 0), 100}});
+  bookmarks.SetTrackSelectionInfo({id, MeterPoint(0, 0), 0.0}, false);
+  bookmarks.MyPositionMark().SetUserPosition(MeterPoint(0, 0), true);
+
+  manager.RoutingSession().SetRouter(std::make_unique<routing::RulerRouter>(), nullptr);
+  manager.AddRoutePoint(MakeRoutePointOnXAxis(RouteMarkType::Start, 0, 0.0), false);
+  manager.AddRoutePoint(MakeRoutePointOnXAxis(RouteMarkType::Finish, 0, 0.01), false);
+  manager.BuildRoute();
+  fixture.WaitForBuildResult();
+  manager.FollowRoute();
+  auto const * roadRoute = manager.RoutingSession().GetRoute();
+  TEST(manager.IsRoutingFollowing(), ());
+  TEST_EQUAL(manager.NavigateTrack(id), FollowTrackResult::Busy, ());
+  TEST(manager.IsRoutingFollowing() && !manager.IsFollowingTrack(), ());
+  TEST_EQUAL(manager.RoutingSession().GetRoute(), roadRoute, ());
+  TEST_EQUAL(manager.GetRoutePointsCount(), 2, ());
+  manager.CloseRouting(true);
+
+  TEST_EQUAL(manager.NavigateTrack(id), FollowTrackResult::Ok, ());
+  TEST_EQUAL(manager.NavigateTrack(id), FollowTrackResult::Ok, ("Pending previews can be replaced"));
+  fixture.WaitForBuildResult();
+  manager.FollowRoute();
+  auto const * trackRoute = manager.RoutingSession().GetRoute();
+  TEST_EQUAL(manager.NavigateTrack(id), FollowTrackResult::Busy, ());
+  TEST(manager.IsRoutingFollowing() && manager.IsFollowingTrack(), ());
+  TEST_EQUAL(manager.RoutingSession().GetRoute(), trackRoute, ());
+}
+
+UNIT_TEST(RoutingManager_TrackPreviewEntryUpdatePreservesProfileAndOccurrence)
+{
+  ScopedVehicleRouter routerSetting;
+  ScopedSettingsDir settingsDir;
+  AsyncBuildFixture fixture;
+  auto & manager = fixture.m_framework.GetRoutingManager();
+  auto & bookmarks = fixture.m_framework.GetBookmarkManager();
+  manager.SetRouter(routing::RouterType::Pedestrian);
+  auto const id = CreateTestTrack(bookmarks, "bicycle", {},
+                                  {{MeterPoint(0, 0), 100}, {MeterPoint(1000, 0), 100}, {MeterPoint(0, 0), 100}});
+  bookmarks.SetTrackSelectionInfo({id, MeterPoint(0, 0), 0.0}, false);
+  bookmarks.MyPositionMark().SetUserPosition(MeterPoint(0, 0), true);
+  TEST_EQUAL(manager.NavigateTrack(id), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  TEST_EQUAL(manager.SetFollowTrackProfile(routing::RouterType::Pedestrian), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  double const entryDistance = mercator::DistanceOnEarth(MeterPoint(0, 0), MeterPoint(1000, 0)) +
+                               mercator::DistanceOnEarth(MeterPoint(1000, 0), MeterPoint(400, 0));
+  bookmarks.SetTrackSelectionInfo({id, MeterPoint(400, 0), entryDistance}, false);
+  TEST_EQUAL(manager.UpdateFollowedTrackEntry(), FollowTrackResult::Ok, ());
+  TEST_EQUAL(manager.UpdateFollowedTrackEntry(), FollowTrackResult::Busy, ());
+  fixture.WaitForBuildResult();
+  TEST_EQUAL(manager.GetRenderRouterType(), routing::RouterType::Pedestrian,
+             ("Do not reload the saved bicycle profile"));
+  TEST_ALMOST_EQUAL_ABS(manager.GetFollowedTrackInfo()->m_lengthM, 400.0, 2.0, ("Retain the return occurrence"));
+  auto const * preview = manager.RoutingSession().GetRoute();
+  TEST(preview->GetPoly().GetPoint(1).EqualDxDy(MeterPoint(400, 0), mercator::kPointEqualityEps), ());
+  bookmarks.SetTrackSelectionInfo({id, MeterPoint(400, 0), -1.0}, false);
+  TEST_EQUAL(manager.UpdateFollowedTrackEntry(), FollowTrackResult::InvalidSelection, ());
+  TEST_EQUAL(manager.RoutingSession().GetRoute(), preview, ("Invalid selections do not tear down the preview"));
+  manager.FollowRoute();
+  TEST(manager.IsRoutingFollowing(), ());
+  TEST_EQUAL(manager.UpdateFollowedTrackEntry(), FollowTrackResult::Busy, ());
+  TEST_EQUAL(manager.RoutingSession().GetRoute(), preview, ());
+  TEST_EQUAL(manager.ResetFollowedTrackToPlanning(), FollowTrackResult::Ok, ("Explicit reset remains available"));
+  fixture.WaitForBuildResult();
+  TEST(!manager.IsRoutingFollowing(), ());
+  TEST_ALMOST_EQUAL_ABS(manager.GetFollowedTrackInfo()->m_lengthM, 400.0, 2.0, ());
+  TEST_EQUAL(bookmarks.GetTrack(id)->GetData().m_routerType, "bicycle", ());
+}
+
+UNIT_TEST(RoutingManager_TrackPreviewEntryUpdateDistinguishesGapSides)
+{
+  ScopedVehicleRouter routerSetting;
+  ScopedSettingsDir settingsDir;
+  AsyncBuildFixture fixture;
+  auto & manager = fixture.m_framework.GetRoutingManager();
+  auto & bookmarks = fixture.m_framework.GetBookmarkManager();
+  kml::TrackData source;
+  source.m_layers.emplace_back();
+  source.m_geometry.AddLine({{MeterPoint(0, 0), 100}, {MeterPoint(100, 0), 100}});
+  source.m_geometry.AddTimestamps({});
+  source.m_geometry.AddLine({{MeterPoint(500, 0), 100}, {MeterPoint(600, 0), 100}});
+  source.m_geometry.AddTimestamps({});
+  auto const id = bookmarks.GetEditSession().CreateTrack(std::move(source))->GetId();
+  bookmarks.SetTrackSelectionInfo({id, MeterPoint(0, 0), 0.0}, false);
+  bookmarks.MyPositionMark().SetUserPosition(MeterPoint(0, 0), true);
+  TEST_EQUAL(manager.NavigateTrack(id), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  double const boundary = mercator::DistanceOnEarth(MeterPoint(0, 0), MeterPoint(100, 0));
+  bookmarks.SetTrackSelectionInfo({id, MeterPoint(100, 0), boundary}, false);
+  TEST_EQUAL(manager.UpdateFollowedTrackEntry(), FollowTrackResult::NoRemainingGeometry, ());
+  bookmarks.SetTrackSelectionInfo({id, MeterPoint(500, 0), boundary}, false);
+  TEST_EQUAL(manager.UpdateFollowedTrackEntry(), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  auto const * route = manager.RoutingSession().GetRoute();
+  TEST_EQUAL(route->GetPoly().GetPoint(1), MeterPoint(500, 0), ());
+  TEST_EQUAL(route->GetPoly().Back(), MeterPoint(600, 0), ());
+  TEST_ALMOST_EQUAL_ABS(manager.GetFollowedTrackInfo()->m_lengthM, 100.0, 1.0, ());
+  auto const degenerate =
+      CreateTestTrack(bookmarks, "pedestrian", {}, {{MeterPoint(0, 0), 100}, {MeterPoint(0, 0), 200}});
+  TEST_EQUAL(manager.NavigateTrack(degenerate), FollowTrackResult::DegenerateTrack, ());
+  TEST_EQUAL(manager.RoutingSession().GetRoute(), route, ("Degenerate tracks refuse before teardown"));
+}
+
+UNIT_TEST(RoutingManager_LargeTrackPreparationRetainsOrderedStops)
+{
+  kml::TrackData source;
+  kml::TrackGeometry line;
+  for (size_t i = 0; i <= 100000; ++i)
+    line.emplace_back(MeterPoint(i, 0), 100);
+  source.m_geometry.m_lines.push_back(std::move(line));
+  source.m_geometry.AddTimestamps({});
+  for (size_t i = 1; i < 25; ++i)
+    source.m_stops.push_back({MeterPoint(i * 4000, 0), "Stop"});
+  auto const data = BuildTrackFollowingData(source, {0, 0, 0.0});
+  TEST(data, ());
+  TEST_EQUAL(data->m_points.size(), 100001, ());
+  TEST_EQUAL(data->m_stopPointIndexes.size(), 24, ());
+  for (size_t i = 0; i < data->m_stopPointIndexes.size(); ++i)
+    TEST_EQUAL(data->m_stopPointIndexes[i], (i + 1) * 4000, ());
 }
 
 // Stop names need no subtitle; only endpoint names filter unnamed-pin placeholders.

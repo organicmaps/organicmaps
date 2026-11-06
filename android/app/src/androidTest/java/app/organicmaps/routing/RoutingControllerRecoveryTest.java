@@ -12,6 +12,8 @@ import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Router;
+import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
+import app.organicmaps.sdk.bookmarks.data.DataChangedListener;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.routing.ResultCodes;
 import app.organicmaps.sdk.routing.RouteMarkData;
@@ -35,6 +37,7 @@ public class RoutingControllerRecoveryTest
   private final Instrumentation mInstrumentation = InstrumentationRegistry.getInstrumentation();
   private final MwmApplication mApplication = MwmApplication.from(mInstrumentation.getTargetContext());
   private RoutingController mController;
+  private RoutingController.Container mContainer;
   private Router mOriginalRouter;
 
   @Before
@@ -53,7 +56,9 @@ public class RoutingControllerRecoveryTest
       }
     });
     assertTrue("Core initialization did not complete", initialized.await(30, TimeUnit.SECONDS));
+    final DataChangedListener singletonBookmarksListener = getBookmarksListener(RoutingController.get());
     onMain(() -> {
+      BookmarkManager.INSTANCE.removeCategoriesUpdatesListener(singletonBookmarksListener);
       mOriginalRouter = Router.getLastUsed();
       Framework.nativeCloseRouting();
       Framework.nativeDeleteSavedRoutePoints();
@@ -68,12 +73,15 @@ public class RoutingControllerRecoveryTest
   {
     if (mController == null)
       return;
+    final DataChangedListener bookmarksListener = getBookmarksListener(mController);
     onMain(() -> {
-      mController.detach();
+      if (mContainer != null)
+        mController.detach(mContainer);
       mController.cancel();
       Framework.nativeCloseRouting();
       Framework.nativeDeleteSavedRoutePoints();
       Router.set(mOriginalRouter);
+      BookmarkManager.INSTANCE.removeCategoriesUpdatesListener(bookmarksListener);
       RoutingController.get().initialize(mApplication.getLocationHelper());
     });
   }
@@ -112,14 +120,15 @@ public class RoutingControllerRecoveryTest
       assertTrue(Framework.nativeHasSavedRoutePoints());
       assertTrue(mController.isBuilding());
       final int[] shown = {0};
-      mController.attach(new RoutingController.Container() {
+      mContainer = new RoutingController.Container() {
         @Override
         public void showRoutePlan(boolean show)
         {
           assertTrue(show);
           ++shown[0];
         }
-      });
+      };
+      mController.attach(mContainer);
       mController.restore();
       assertEquals(1, shown[0]);
       assertEquals(Router.Ruler, mController.getLastRouterType());
@@ -173,7 +182,8 @@ public class RoutingControllerRecoveryTest
   {
     onMain(() -> {
       saveRouteWithStop();
-      mController.attach(new RoutingController.Container() {});
+      mContainer = new RoutingController.Container() {};
+      mController.attach(mContainer);
       mController.prepare(point("New start", 3), point("New finish", 3), Router.Ruler);
       assertTrue(mController.isPlanning());
       assertEquals(RoutingController.BuildState.NONE, mController.getBuildState());
@@ -189,7 +199,8 @@ public class RoutingControllerRecoveryTest
     onMain(() -> {
       mController.prepare(point("Invalid start", 3), point("Invalid finish", 3), Router.Ruler);
       mController.setEndPoint(point("New finish", 4));
-      mController.attach(new RoutingController.Container() {});
+      mContainer = new RoutingController.Container() {};
+      mController.attach(mContainer);
       mController.restore();
       assertTrue(mController.isBuilding());
     });
@@ -206,7 +217,8 @@ public class RoutingControllerRecoveryTest
       events.onRoutingEvent(ResultCodes.ROUTE_NOT_FOUND, new String[0]);
       assertTrue(mController.cancel());
       mController.prepare(null, null, Router.Ruler);
-      mController.attach(new RoutingController.Container() {});
+      mContainer = new RoutingController.Container() {};
+      mController.attach(mContainer);
       mController.restore();
       assertEquals(RoutingController.BuildState.NONE, mController.getBuildState());
     });
@@ -215,7 +227,9 @@ public class RoutingControllerRecoveryTest
   @Test
   public void configurationRecreationKeepsRouteRecovery() throws Exception
   {
+    final DataChangedListener bookmarksListener = getBookmarksListener(mController);
     onMain(() -> {
+      BookmarkManager.INSTANCE.removeCategoriesUpdatesListener(bookmarksListener);
       mController = RoutingController.get();
       mController.initialize(mApplication.getLocationHelper());
     });
@@ -261,6 +275,14 @@ public class RoutingControllerRecoveryTest
   private static MapObject point(String name, double coordinate)
   {
     return MapObject.createMapObject(MapObject.API_POINT, name, "", coordinate, coordinate);
+  }
+
+  private static DataChangedListener getBookmarksListener(RoutingController controller)
+      throws ReflectiveOperationException
+  {
+    final Field listener = RoutingController.class.getDeclaredField("mBookmarksListener");
+    listener.setAccessible(true);
+    return (DataChangedListener) listener.get(controller);
   }
 
   private void onMain(Runnable action) throws Exception

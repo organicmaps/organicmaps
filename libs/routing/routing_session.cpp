@@ -174,7 +174,8 @@ bool RoutingSession::IsNavigable() const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   return (m_state == SessionState::RouteNotStarted || m_state == SessionState::OnRoute ||
-          m_state == SessionState::RouteFinished);
+          m_state == SessionState::RouteFinished ||
+          (m_state == SessionState::RouteNeedRebuild && m_route && m_route->IsTrack()));
 }
 
 bool RoutingSession::IsBuilt() const
@@ -281,6 +282,10 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
   if (!IsRouteValid())
     return m_state;
 
+  // Track previews must not pass stops or finish before Start; coarse fixes must not trigger departures.
+  if (m_route->IsTrack() && (!m_isFollowing || info.m_horizontalAccuracy > m_routingSettings.m_matchingThresholdM))
+    return m_state;
+
   m_turnNotificationsMgr.SetSpeedMetersPerSecond(info.m_speed);
 
   auto const formerIter = m_route->GetCurrentIteratorTurn();
@@ -339,7 +344,8 @@ SessionState RoutingSession::OnLocationPositionChanged(GpsInfo const & info)
 
     if (m_moveAwayCounter > kOnRouteMissedCount)
     {
-      m_passedDistanceOnRouteMeters += m_route->GetCurrentDistanceFromBeginMeters();
+      if (!m_route->IsTrack())
+        m_passedDistanceOnRouteMeters += m_route->GetCurrentDistanceFromBeginMeters();
       if (m_reachedFollowedTrack)
       {
         if (m_isFollowing && m_turnNotificationsMgr.IsEnabled())
@@ -557,6 +563,11 @@ void RoutingSession::GenerateNotifications(std::vector<std::string> & notificati
   if (!IsRouteValid() || !IsNavigable())
     return;
 
+  // Frozen track geometry still supplies remaining metrics while off track, but its
+  // last matched position must not keep announcing ordinary turns until we rejoin.
+  if (m_route->IsTrack() && m_state == SessionState::RouteNeedRebuild)
+    return;
+
   // Generate turns notifications.
   std::vector<turns::TurnItemDist> turns;
   if (m_route->GetNextTurns(turns))
@@ -601,7 +612,7 @@ void RoutingSession::AssignRoute(std::shared_ptr<RoutesResult> const & result, R
   m_checkpoints.SetPointFrom(route->GetPoly().Front());
   route->SetRoutingSettings(m_routingSettings);
   m_route = route;
-  // A rejoin may have been matched on the retained route during calculation, even in preview.
+  // Navigation may have matched a rejoin on the retained route during calculation.
   m_reachedFollowedTrack = m_reachedFollowedTrack && IsTrackRoute();
 
   m_lastResult = result;
