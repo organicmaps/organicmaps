@@ -174,13 +174,12 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     super.onDestroy(owner);
     if (mRouteSimulationEnabled)
       onAutodriveDisabled();
-    NavigationService.stopService(getCarContext());
     getLocationHelper().removeListener(mLocationListener);
     TtsPlayer.removeStateChangedListener(mTtsStateListener);
 
     if (mRoutingController.isNavigating())
-      mRoutingController.onSaveState();
-    mRoutingController.detach();
+      mRoutingController.onSaveState(this);
+    mRoutingController.detach(this);
     ThemeUtils.update(getCarContext(), getSurfaceRenderer().isRenderingActive());
     mNavigationManager.navigationEnded();
     mNavigationManager.clearNavigationManagerCallback();
