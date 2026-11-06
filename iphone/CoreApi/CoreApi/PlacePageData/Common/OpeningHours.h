@@ -8,7 +8,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, readonly) NSString * workingDays;
 @property(nonatomic, readonly) NSString * workingTimes;
-@property(nonatomic, readonly, nullable) NSString * breaks;
 @property(nonatomic, readonly) BOOL isOpen;
 
 @end
