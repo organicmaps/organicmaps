@@ -2,38 +2,47 @@
 
 require_relative './omim_parsers'
 
-ROOT = File.expand_path(File.dirname(__FILE__))
-OMIM_ROOT = File.join(ROOT, '..', '..', '..')
-CPP_CATEGORIES_FILENAME = File.join(OMIM_ROOT, 'search', 'displayed_categories.cpp')
+OMIM_ROOT = File.expand_path('../..', __dir__)
+CPP_CATEGORIES_FILENAME = File.join(OMIM_ROOT, 'libs', 'search', 'displayed_categories.cpp')
 CATEGORIES_FILENAME = File.join(OMIM_ROOT, 'data', 'categories.txt')
 STRINGS_FILENAME = File.join(OMIM_ROOT, 'data', 'strings', 'strings.txt')
-CATEGORIES_MATCHER = /m_keys = \{(.*)\};/m
+CATEGORIES_MATCHER = /\bm_keys\s*=\s*\{(.*?)\}\s*;/m
 
 def load_categories_from_cpp(filename)
-  raw_categories = File.read(CPP_CATEGORIES_FILENAME)
+  raw_categories = File.read(filename, encoding: 'UTF-8')
   match = CATEGORIES_MATCHER.match(raw_categories)
-  if match
-    cpp_categories = match[1].split(/,\s+/)
-    # Delete quotes
-    cpp_categories.map { |cat| cat.gsub!(/^"|"$/, '') }
-    cpp_categories
-  end
+  keys = match ? match[1].scan(/"([^"]+)"/).flatten : []
+  raise ArgumentError, "No displayed category keys found in #{filename}" if keys.empty?
+
+  keys
 end
 
-def compare_categories(string_cats, search_cats)
+def compare_categories(string_cats, search_cats, keys = string_cats.keys | search_cats.keys)
   inconsistent_strings = {}
+  consistent = !keys.empty?
 
-  string_cats.each do |category_name, category|
-    if !search_cats.include? category_name
-      puts "Category '#{category_name}' not found in categories.txt"
+  keys.each do |category_name|
+    missing = []
+    missing << 'strings.txt' unless string_cats.key? category_name
+    missing << 'categories.txt' unless search_cats.key? category_name
+    unless missing.empty?
+      puts "Category '#{category_name}' not found in #{missing.join(' and ')}"
+      consistent = false
       next
     end
-    category.each do |lang, translation|
-      if search_cats[category_name].include? lang
-        if !search_cats[category_name][lang].include? translation
-          not_found_cats_list = search_cats[category_name][lang]
-          (inconsistent_strings[category_name] ||= {})[lang] = [translation, not_found_cats_list]
-        end
+
+    # Locales without search translations fall back to English; compare the translations both files provide.
+    languages = string_cats[category_name].keys & search_cats[category_name].keys
+    if languages.empty?
+      puts "Category '#{category_name}' has no shared translation languages"
+      consistent = false
+      next
+    end
+    languages.each do |lang|
+      translation = string_cats[category_name][lang]
+      synonyms = search_cats[category_name][lang]
+      unless synonyms.include? translation
+        (inconsistent_strings[category_name] ||= {})[lang] = [translation, synonyms]
       end
     end
   end
@@ -45,7 +54,7 @@ def compare_categories(string_cats, search_cats)
       puts "\t#{lang} : \"#{string_value}\" is not matched by #{category_value}"
     end
   end
-  inconsistent_strings.empty?
+  consistent && inconsistent_strings.empty?
 end
 
 def check_search_categories_consistent
@@ -56,7 +65,7 @@ def check_search_categories_consistent
   search_categories = categories_txt_parser.parse_file(CATEGORIES_FILENAME)
   string_categories = strings_txt_parser.parse_file(STRINGS_FILENAME)
 
-  compare_categories(string_categories, search_categories) ? 0 : 1
+  compare_categories(string_categories, search_categories, cpp_categories) ? 0 : 1
 end
 
 
