@@ -5,7 +5,6 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol IOpeningHoursLocalization
 
 @property(nonatomic, readonly) NSString * closedString;
-@property(nonatomic, readonly) NSString * breakString;
 @property(nonatomic, readonly) NSString * twentyFourSevenString;
 @property(nonatomic, readonly) NSString * allDayString;
 @property(nonatomic, readonly) NSString * dailyString;

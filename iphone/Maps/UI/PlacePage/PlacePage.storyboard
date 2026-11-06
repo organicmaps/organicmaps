@@ -450,7 +450,7 @@
                                                     <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular16:blackPrimaryText"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="251" text="12:00 - 18:15" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yw5-Jp-V9B">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="251" text="12:00 - 18:15" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yw5-Jp-V9B">
                                                 <rect key="frame" x="47.5" y="0.0" width="231.5" height="44"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -466,23 +466,14 @@
                                             <constraint firstItem="sw2-Oa-u57" firstAttribute="leading" secondItem="Uvb-Ju-e8X" secondAttribute="leading" id="8FR-ww-mC8"/>
                                             <constraint firstItem="Yw5-Jp-V9B" firstAttribute="leading" secondItem="sw2-Oa-u57" secondAttribute="trailing" constant="4" id="9Jg-oZ-8n0"/>
                                             <constraint firstItem="Yw5-Jp-V9B" firstAttribute="top" secondItem="Uvb-Ju-e8X" secondAttribute="top" id="9ee-Eo-f2m"/>
-                                            <constraint firstAttribute="bottom" secondItem="sw2-Oa-u57" secondAttribute="bottom" id="RKu-mb-B0V"/>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="sw2-Oa-u57" secondAttribute="bottom" id="RKu-mb-B0V"/>
                                             <constraint firstAttribute="bottom" secondItem="Yw5-Jp-V9B" secondAttribute="bottom" id="aKL-HR-TXq"/>
                                             <constraint firstItem="sw2-Oa-u57" firstAttribute="top" secondItem="Uvb-Ju-e8X" secondAttribute="top" id="eGg-GV-YEx"/>
                                             <constraint firstAttribute="trailing" secondItem="Yw5-Jp-V9B" secondAttribute="trailing" id="uAI-9S-bWD"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Break 13:30 - 15:00" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7TB-4U-fQD">
-                                        <rect key="frame" x="0.0" y="44" width="279" height="16"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular13:blackSecondaryText"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Closed now" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qD3-TV-sFW">
-                                        <rect key="frame" x="0.0" y="60" width="279" height="16"/>
+                                        <rect key="frame" x="0.0" y="44" width="279" height="16"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" systemColor="systemRedColor"/>
                                         <nil key="highlightedColor"/>
@@ -528,7 +519,6 @@
                     <size key="freeformSize" width="375" height="100"/>
                     <connections>
                         <outlet property="arrowImageView" destination="EVy-Wt-5En" id="Vjf-nO-hCi"/>
-                        <outlet property="breaksLabel" destination="7TB-4U-fQD" id="4Lm-iV-puV"/>
                         <outlet property="closedLabel" destination="qD3-TV-sFW" id="h24-GB-aMM"/>
                         <outlet property="scheduleLabel" destination="Yw5-Jp-V9B" id="gMW-SW-mTI"/>
                         <outlet property="todayLabel" destination="sw2-Oa-u57" id="Ef9-oY-2Ys"/>
@@ -567,7 +557,7 @@
                                                     <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular15:blackPrimaryText"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="251" text="12:00 - 18:15" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dNa-uo-9Ny">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="251" text="12:00 - 18:15" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dNa-uo-9Ny">
                                                 <rect key="frame" x="213.5" y="0.0" width="89.5" height="49.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -581,7 +571,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="dNa-uo-9Ny" secondAttribute="trailing" id="HA6-5J-Ku5"/>
-                                            <constraint firstAttribute="bottom" secondItem="cWv-35-rjm" secondAttribute="bottom" id="Hbq-1N-RQG"/>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="cWv-35-rjm" secondAttribute="bottom" id="Hbq-1N-RQG"/>
                                             <constraint firstItem="dNa-uo-9Ny" firstAttribute="top" secondItem="JTm-pw-ok2" secondAttribute="top" id="X4M-1w-OY4"/>
                                             <constraint firstItem="dNa-uo-9Ny" firstAttribute="leading" secondItem="cWv-35-rjm" secondAttribute="trailing" id="aG0-GJ-LLv"/>
                                             <constraint firstItem="cWv-35-rjm" firstAttribute="leading" secondItem="JTm-pw-ok2" secondAttribute="leading" id="sSR-db-S5M"/>
@@ -589,15 +579,6 @@
                                             <constraint firstItem="cWv-35-rjm" firstAttribute="top" secondItem="JTm-pw-ok2" secondAttribute="top" id="woG-9Z-TOq"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Break 13:30 - 15:00" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xxl-ZA-Grg">
-                                        <rect key="frame" x="0.0" y="50" width="303" height="26"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular13:blackSecondaryText"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -615,7 +596,6 @@
                     </view>
                     <size key="freeformSize" width="375" height="100"/>
                     <connections>
-                        <outlet property="breaksLabel" destination="Xxl-ZA-Grg" id="V72-wv-FlO"/>
                         <outlet property="scheduleLabel" destination="dNa-uo-9Ny" id="vuw-Ws-yQ5"/>
                         <outlet property="todayLabel" destination="cWv-35-rjm" id="X8T-7b-jho"/>
                     </connections>

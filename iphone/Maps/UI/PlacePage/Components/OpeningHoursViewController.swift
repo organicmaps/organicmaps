@@ -3,7 +3,6 @@ import UIKit
 class OpeningHoursTodayViewController: UIViewController {
   @IBOutlet var todayLabel: UILabel!
   @IBOutlet var scheduleLabel: UILabel!
-  @IBOutlet var breaksLabel: UILabel!
   @IBOutlet var closedLabel: UILabel!
   @IBOutlet var arrowImageView: UIImageView!
 
@@ -16,7 +15,6 @@ class OpeningHoursTodayViewController: UIViewController {
 
     todayLabel.text = workingDay.workingDays
     scheduleLabel.text = workingDay.workingTimes
-    breaksLabel.text = workingDay.breaks
     closedLabel.isHidden = !closedNow
   }
 
@@ -28,7 +26,6 @@ class OpeningHoursTodayViewController: UIViewController {
 class OpeningHoursDayViewController: UIViewController {
   @IBOutlet var todayLabel: UILabel!
   @IBOutlet var scheduleLabel: UILabel!
-  @IBOutlet var breaksLabel: UILabel!
 
   var workingDay: WorkingDay!
 
@@ -37,7 +34,6 @@ class OpeningHoursDayViewController: UIViewController {
 
     todayLabel.text = workingDay.workingDays
     scheduleLabel.text = workingDay.workingTimes
-    breaksLabel.text = workingDay.breaks
   }
 }
 

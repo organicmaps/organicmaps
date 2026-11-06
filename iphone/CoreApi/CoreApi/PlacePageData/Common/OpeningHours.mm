@@ -7,7 +7,6 @@
 
 @property(nonatomic, copy) NSString * workingDays;
 @property(nonatomic, copy) NSString * workingTimes;
-@property(nonatomic, copy) NSString * breaks;
 @property(nonatomic) BOOL isOpen;
 
 @end
@@ -39,7 +38,6 @@
       wd.isOpen = day.m_isOpen;
       wd.workingDays = day.m_workingDays;
       wd.workingTimes = day.m_isOpen ? day.m_workingTimes : localization.closedString;
-      wd.breaks = day.m_breaks;
       [array addObject:wd];
     }
     if (array.count == 0)

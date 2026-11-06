@@ -6,10 +6,6 @@ class OpeinigHoursLocalization: NSObject, IOpeningHoursLocalization {
     L("closed")
   }
 
-  var breakString: String {
-    L("editor_hours_closed")
-  }
-
   var twentyFourSevenString: String {
     L("twentyfour_seven")
   }
