@@ -67,6 +67,8 @@ class OpeningHoursViewController: UIViewController {
       let vc = createDayItem(item)
       otherDaysViews.append(vc)
       addToStack(vc)
+      // Today's row is narrowed by the arrow, so take its days column width to line up the times.
+      vc.todayLabel.widthAnchor.constraint(equalTo: todayView.todayLabel.widthAnchor).isActive = true
     }
 
     todayView.onExpand = { [weak self] in
