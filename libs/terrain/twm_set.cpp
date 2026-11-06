@@ -31,7 +31,7 @@ std::pair<TwmId, TwmSet::RegResult> TwmSet::Register(TwmFile const & file)
       return;
     }
 
-    // The tracer cannot merge overlapping registered blocks. Marked old blocks only
+    // The contour tracer can't merge overlapping registered blocks. Marked old blocks only
     // serve outstanding readers and must not prevent their replacements.
     for (auto const & [terrainId, infos] : m_registry)
     {
@@ -121,9 +121,8 @@ template <typename Fn>
 void TwmSet::ForEachBlockByRectImpl(m2::RectD const & rect, Fn && fn) const
 {
   std::lock_guard<std::mutex> lock(m_lock);
-  // The block rects are canonical, so a query rect poking beyond the +-180 seam (see
-  // TileKey::GetWrappedDataRect) intersects exactly the blocks of its canonical part -
-  // no explicit clipping or splitting is needed here.
+  // The block rects are canonical, so a query rect reaching beyond the +-180 seam intersects
+  // exactly the blocks of its canonical part: no explicit clipping or splitting is needed here.
   ASSERT(rect.IsValid(), (rect));
   for (auto const & [terrainId, infos] : m_registry)
     if (!infos.empty() && infos.back()->IsRegistered() && rect.IsIntersect(infos.back()->GetLimitRect()))

@@ -6,17 +6,17 @@
 #include "coding/reader.hpp"
 #include "coding/varint.hpp"
 
-#include <zlib.h>
-
 #include <algorithm>
 #include <array>
 #include <cmath>
+
+#include <zlib.h>
 
 namespace terrain
 {
 namespace
 {
-// Reused between the patches decoded on a thread.
+// Reused between the patches decoded on a thread, for its lifetime (see DecodeSperr for the memory).
 struct Sz3Workspace
 {
   SZ3::Config m_config{2, 2};

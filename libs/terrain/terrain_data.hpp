@@ -13,7 +13,7 @@ struct TerrainData
 
   bool IsEmpty() const { return m_mesh.IsEmpty() && m_rasterPatches.empty(); }
 
-  // Interpolates the rendered triangles in meters; empty outside the collected surface.
+  // Interpolates the rendered triangles in meters; empty outside the collected surface. A linear scan.
   std::optional<double> GetElevation(m2::PointD const & point) const;
 };
 }  // namespace terrain

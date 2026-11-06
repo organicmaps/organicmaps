@@ -16,7 +16,8 @@ std::vector<Altitude> DecodeSperr(std::span<uint8_t const> frame, uint32_t nodes
          (nodesX, nodesY, kMaxRasterCells + 1));
   ASSERT(!frame.empty(), ());
   ASSERT_LESS_OR_EQUAL(minimum, maximum, ());
-  // Reuse workspace across this thread's requests without sharing mutable state between threads.
+  // Reuse workspace across this thread's requests without sharing mutable state between threads. With the SZ3
+  // workspace it keeps about 650 KB on each decoding thread (129x129 patches) for the thread's lifetime.
   thread_local sperr::SPECK2D_FLT decoder;
   decoder.set_dims({nodesX, nodesY, 1});
   VERIFY(decoder.use_bitstream(frame.data(), frame.size()) == sperr::RTNType::Good, ());
