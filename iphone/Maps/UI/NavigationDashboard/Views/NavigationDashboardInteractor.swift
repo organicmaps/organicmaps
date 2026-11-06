@@ -222,8 +222,8 @@ extension NavigationDashboard.Interactor: NavigationDashboardView {
   }
 
   func stateClosed() {
+    clearRouteElevationActivePoint()
     process(.updateState(.closed))
-    process(.stopNavigation)
   }
 
   func onRouteStart() {

@@ -40,7 +40,7 @@ final class NavigationDashboardLifecycleTests: XCTestCase {
     XCTAssertEqual(manager.dashboardRequests, 0)
   }
 
-  func testReplacementRouteGetsANewDashboardWhileTheOldOneIsRetained() throws {
+  func testReplacementDashboardIgnoresTheRetiringDashboardsCommands() throws {
     buildRoute(prefix: "Old")
     waitUntilRouteReady()
     let oldDashboard = try activeDashboard()
@@ -48,22 +48,9 @@ final class NavigationDashboardLifecycleTests: XCTestCase {
 
     MWMRouter.stopRouting()
     buildRoute(prefix: "Replacement")
-
     let replacement = try XCTUnwrap(manager.value(forKey: "_navigationDashboardView") as? NavigationDashboard.Interactor)
     XCTAssertFalse(replacement === oldInteractor)
     XCTAssertTrue(dashboards.contains { $0.interactor === replacement })
-    waitUntilRouteReady()
-    withExtendedLifetime(oldDashboard) {}
-  }
-
-  func testClosingDashboardCannotCancelAReplacementRoute() throws {
-    buildRoute(prefix: "Old")
-    waitUntilRouteReady()
-    let oldDashboard = try activeDashboard()
-    let oldInteractor = try XCTUnwrap(oldDashboard.interactor)
-
-    MWMRouter.stopRouting()
-    buildRoute(prefix: "Replacement")
     oldInteractor.process(.close)
 
     XCTAssertEqual(MWMRouter.points().map(\.title), ["Replacement start", "Replacement finish"])
@@ -75,27 +62,32 @@ final class NavigationDashboardLifecycleTests: XCTestCase {
     let (dashboard, interactor) = makeElevationDashboard()
     interactor.updateMapPoint(distance: 25)
     interactor.stateClosed()
+    XCTAssertEqual(ElevationRouter.resetCount, 1)
 
     interactor.updateMapPoint(distance: 75)
     interactor.statePrepare()
+    interactor.stateClosed()
 
     XCTAssertEqual(ElevationRouter.selectedDistances, [25])
-    XCTAssertEqual(ElevationRouter.resetCount, 0)
+    XCTAssertEqual(ElevationRouter.resetCount, 1)
     withExtendedLifetime(dashboard) {}
   }
 
   func testClosingDashboardIgnoresQueuedElevationRestore() {
     let (dashboard, interactor) = makeElevationDashboard()
-    interactor.updateMapPoint(distance: 25)
     interactor.stateReady()
-    let selectedBeforeClosing = ElevationRouter.selectedDistances
+    interactor.updateMapPoint(distance: 25)
     interactor.stateClosed()
+    XCTAssertEqual(ElevationRouter.resetCount, 1)
+    interactor.stateClosed()
+    interactor.stateReady()
 
     let drained = expectation(description: "Queued elevation restore completed")
     DispatchQueue.main.async { drained.fulfill() }
     wait(for: [drained], timeout: 5)
 
-    XCTAssertEqual(ElevationRouter.selectedDistances, selectedBeforeClosing)
+    XCTAssertEqual(ElevationRouter.selectedDistances, [25])
+    XCTAssertEqual(ElevationRouter.resetCount, 1)
     withExtendedLifetime(dashboard) {}
   }
 
