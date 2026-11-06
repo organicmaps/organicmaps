@@ -49,14 +49,12 @@ public class RoutingControllerBuildStateTest
     final Field router = RoutingController.class.getDeclaredField("mLastRouterType");
     router.setAccessible(true);
     router.set(controller, Router.Bicycle);
-    final Field listener = RoutingController.class.getDeclaredField("mRoutingListener");
-    listener.setAccessible(true);
     try (MockedStatic<Logger> ignored = mockStatic(Logger.class);
          MockedStatic<RoutingOptions> options = mockStatic(RoutingOptions.class))
     {
       options.when(() -> RoutingOptions.hasAnyOptions(Router.Vehicle)).thenReturn(true);
       options.when(() -> RoutingOptions.hasAnyOptions(Router.Bicycle)).thenReturn(bicycleOptions);
-      ((RoutingListener) listener.get(controller)).onRoutingEvent(ResultCodes.ROUTE_NOT_FOUND, new String[0]);
+      controller.getRoutingListenerForTesting().onRoutingEvent(ResultCodes.ROUTE_NOT_FOUND, new String[0]);
       options.verify(() -> RoutingOptions.hasAnyOptions(Router.Vehicle), never());
     }
     if (bicycleOptions)
@@ -88,8 +86,8 @@ public class RoutingControllerBuildStateTest
   {
     final RoutingController controller = cachedResult(ResultCodes.HAS_WARNINGS);
     final RoutingController.Container container = mock(RoutingController.Container.class);
-    controller.onSaveState();
     controller.attach(container);
+    controller.onSaveState(container);
     try (MockedStatic<Logger> ignored = mockStatic(Logger.class))
     {
       controller.restore();
@@ -124,12 +122,10 @@ public class RoutingControllerBuildStateTest
     final Field buildState = RoutingController.class.getDeclaredField("mBuildState");
     buildState.setAccessible(true);
     buildState.set(controller, state);
-    final Field listener = RoutingController.class.getDeclaredField("mRoutingListener");
-    listener.setAccessible(true);
 
     try (MockedStatic<Logger> ignored = mockStatic(Logger.class))
     {
-      ((RoutingListener) listener.get(controller)).onRoutingEvent(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
+      controller.getRoutingListenerForTesting().onRoutingEvent(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
     }
 
     verify(container).onCommonBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);

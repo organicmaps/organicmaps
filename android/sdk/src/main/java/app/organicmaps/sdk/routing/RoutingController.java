@@ -309,11 +309,13 @@ public class RoutingController
   }
 
   /**
-   * Releases the attached UI container without cancelling the route or stopping navigation.
+   * Releases the calling UI container without cancelling routing. A stale host's lifecycle callback
+   * may arrive after a newer host attaches, so only the attached container may release itself.
    */
-  public void detach()
+  public void detach(@NonNull Container container)
   {
-    mContainer = null;
+    if (mContainer == container)
+      mContainer = null;
   }
 
   /**
@@ -323,25 +325,43 @@ public class RoutingController
   @MainThread
   public void restore()
   {
+    final Container container = mContainer;
     mHasContainerSavedState = false;
-    if (isPlanning())
-      showRoutePlan();
+    if (container == null)
+      return;
 
-    if (mContainer != null)
+    // Presentation callbacks can replace this host; its successor must restore its own UI and result.
+    if (isPlanning())
     {
-      mContainer.showNavigation(isNavigating());
-      mContainer.updateMenu();
-      updateProgress();
+      container.showRoutePlan(true);
+      if (mContainer != container)
+        return;
     }
-    processRoutingEvent();
+    container.showNavigation(isNavigating());
+    if (mContainer != container)
+      return;
+    container.updateMenu();
+    if (mContainer != container)
+      return;
+    updateProgress();
+    if (mContainer == container)
+      processRoutingEvent();
   }
 
   /**
-   * Defers UI result processing while the host has saved its state; {@link #restore} resumes processing.
+   * Defers UI results while the calling host has saved its state; {@link #restore} resumes processing.
+   * A stale host's lifecycle callback must not defer results for a newer attached host.
    */
-  public void onSaveState()
+  public void onSaveState(@NonNull Container container)
   {
-    mHasContainerSavedState = true;
+    if (mContainer == container)
+      mHasContainerSavedState = true;
+  }
+
+  @VisibleForTesting
+  RoutingListener getRoutingListenerForTesting()
+  {
+    return mRoutingListener;
   }
 
   @VisibleForTesting
@@ -787,12 +807,16 @@ public class RoutingController
     }
   }
 
-  private void startNavigation()
+  @VisibleForTesting
+  void startNavigation()
   {
-    if (mContainer != null)
+    final Container container = mContainer;
+    if (container != null)
     {
-      mContainer.showNavigation(true);
-      mContainer.onNavigationStarted();
+      container.showNavigation(true);
+      // The planning host can be destroyed before its navigation successor attaches.
+      if (mContainer == container)
+        container.onNavigationStarted();
     }
   }
 
