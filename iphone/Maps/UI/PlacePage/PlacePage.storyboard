@@ -440,7 +440,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uvb-Ju-e8X">
                                         <rect key="frame" x="0.0" y="0.0" width="279" height="44"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Today" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sw2-Oa-u57">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Today" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sw2-Oa-u57">
                                                 <rect key="frame" x="0.0" y="0.0" width="43.5" height="44"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -450,7 +450,7 @@
                                                     <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular16:blackPrimaryText"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="251" text="12:00 - 18:15" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yw5-Jp-V9B">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="251" text="12:00 - 18:15" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yw5-Jp-V9B">
                                                 <rect key="frame" x="47.5" y="0.0" width="231.5" height="44"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -464,7 +464,8 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="sw2-Oa-u57" firstAttribute="leading" secondItem="Uvb-Ju-e8X" secondAttribute="leading" id="8FR-ww-mC8"/>
-                                            <constraint firstItem="Yw5-Jp-V9B" firstAttribute="leading" secondItem="sw2-Oa-u57" secondAttribute="trailing" constant="4" id="9Jg-oZ-8n0"/>
+                                            <constraint firstItem="Yw5-Jp-V9B" firstAttribute="leading" secondItem="sw2-Oa-u57" secondAttribute="trailing" id="9Jg-oZ-8n0"/>
+                                            <constraint firstItem="sw2-Oa-u57" firstAttribute="width" secondItem="Uvb-Ju-e8X" secondAttribute="width" multiplier="0.4" id="oh1-Wd-4Tc"/>
                                             <constraint firstItem="Yw5-Jp-V9B" firstAttribute="top" secondItem="Uvb-Ju-e8X" secondAttribute="top" id="9ee-Eo-f2m"/>
                                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="sw2-Oa-u57" secondAttribute="bottom" id="RKu-mb-B0V"/>
                                             <constraint firstAttribute="bottom" secondItem="Yw5-Jp-V9B" secondAttribute="bottom" id="aKL-HR-TXq"/>
@@ -472,7 +473,7 @@
                                             <constraint firstAttribute="trailing" secondItem="Yw5-Jp-V9B" secondAttribute="trailing" id="uAI-9S-bWD"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Closed now" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qD3-TV-sFW">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Closed now" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qD3-TV-sFW">
                                         <rect key="frame" x="0.0" y="44" width="279" height="16"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" systemColor="systemRedColor"/>
@@ -547,7 +548,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JTm-pw-ok2">
                                         <rect key="frame" x="0.0" y="0.0" width="303" height="50"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Today" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cWv-35-rjm">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Today" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cWv-35-rjm">
                                                 <rect key="frame" x="0.0" y="0.0" width="213.5" height="50"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -557,7 +558,7 @@
                                                     <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="regular15:blackPrimaryText"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="251" text="12:00 - 18:15" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dNa-uo-9Ny">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="251" text="12:00 - 18:15" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dNa-uo-9Ny">
                                                 <rect key="frame" x="213.5" y="0.0" width="89.5" height="49.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -575,7 +576,7 @@
                                             <constraint firstItem="dNa-uo-9Ny" firstAttribute="top" secondItem="JTm-pw-ok2" secondAttribute="top" id="X4M-1w-OY4"/>
                                             <constraint firstItem="dNa-uo-9Ny" firstAttribute="leading" secondItem="cWv-35-rjm" secondAttribute="trailing" id="aG0-GJ-LLv"/>
                                             <constraint firstItem="cWv-35-rjm" firstAttribute="leading" secondItem="JTm-pw-ok2" secondAttribute="leading" id="sSR-db-S5M"/>
-                                            <constraint firstAttribute="bottom" secondItem="dNa-uo-9Ny" secondAttribute="bottom" constant="0.33333333333333215" id="wft-Kx-gCl"/>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="dNa-uo-9Ny" secondAttribute="bottom" constant="0.33333333333333215" id="wft-Kx-gCl"/>
                                             <constraint firstItem="cWv-35-rjm" firstAttribute="top" secondItem="JTm-pw-ok2" secondAttribute="top" id="woG-9Z-TOq"/>
                                         </constraints>
                                     </view>
