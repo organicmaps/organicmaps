@@ -126,9 +126,8 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   {
     super.onDestroy(owner);
     if (mRoutingController.isPlanning())
-      mRoutingController.onSaveState();
-    if (!mRoutingController.isNavigating())
-      mRoutingController.detach();
+      mRoutingController.onSaveState(this);
+    mRoutingController.detach(this);
   }
 
   @NonNull

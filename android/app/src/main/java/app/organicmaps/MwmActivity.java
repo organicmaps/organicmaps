@@ -954,7 +954,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   protected void onSaveInstanceState(@NonNull Bundle outState)
   {
-    RoutingController.get().onSaveState();
+    RoutingController.get().onSaveState(this);
 
     Integer sheetState = mSearchPageViewModel.getSearchPageLastState().getValue();
     boolean isSearchActive = Boolean.TRUE.equals(mSearchPageViewModel.getSearchEnabled().getValue())
@@ -1099,8 +1099,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     MwmApplication.from(this).getLocationHelper().removeListener(this);
     if (mDisplayManager.isDeviceDisplayUsed() && !RoutingController.get().isNavigating())
       LocationState.nativeRemoveListener();
-    // Attached unconditionally in onStart()
-    RoutingController.get().detach();
+    RoutingController.get().detach(this);
     MwmApplication.from(getApplicationContext()).getIsolinesManager().detach();
     Utils.keepScreenOn(false, getWindow());
 
