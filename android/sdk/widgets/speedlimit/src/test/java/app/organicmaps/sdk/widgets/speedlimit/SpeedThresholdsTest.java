@@ -6,7 +6,20 @@ import org.junit.Test;
 
 public class SpeedThresholdsTest
 {
-  private final SpeedThresholds mThresholds = SpeedThresholds.DEFAULT;
+  private final SpeedThresholds mThresholds = new SpeedThresholds(5, 10, 2, 3);
+
+  @Test
+  public void defaultsAlertAtAnyExcessInEitherUnitSystem()
+  {
+    for (int limit : new int[] {20, 30, 50, 70, 120})
+    {
+      for (Mode previous : Mode.getEntries())
+      {
+        assertEquals(Mode.Normal, SpeedThresholds.DEFAULT.modeFor(limit, limit, previous));
+        assertEquals(Mode.Alert, SpeedThresholds.DEFAULT.modeFor(limit + 1, limit, previous));
+      }
+    }
+  }
 
   @Test
   public void entryRequiresMoreThanTheThreshold()

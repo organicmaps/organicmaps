@@ -46,11 +46,8 @@ data class SpeedThresholds @JvmOverloads constructor(
     }
 
     companion object {
-        /**
-         * Warns at more than 5 and alerts at more than 10 units above the limit.
-         * For a limit of 50, entry speeds are 56 and 61; alert resets at 57, warning at 53.
-         */
+        /** Preserves the navigation signs' alert for any excess, in both km/h and mph. */
         @JvmField
-        val DEFAULT = SpeedThresholds(warning = 5, alert = 10, warningHysteresis = 2, alertHysteresis = 3)
+        val DEFAULT = SpeedThresholds(warning = 0, alert = 0)
     }
 }

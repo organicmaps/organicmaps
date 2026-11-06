@@ -19,13 +19,13 @@ public class CombinedSpeedViewControllerTest
   public void setUp()
   {
     mView = mock(CombinedSpeedView.class);
-    mController = new CombinedSpeedViewController(mView);
+    mController = new CombinedSpeedViewController(mView, new SpeedThresholds(5, 10, 2, 3));
     mController.setSpeedLimit(50);
     clearInvocations(mView);
   }
 
   @Test
-  public void defaultEntryAndResetBoundaries()
+  public void customEntryAndResetBoundaries()
   {
     setSpeed(55);
     assertMode(Mode.Normal);
