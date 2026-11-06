@@ -41,6 +41,12 @@ void CategoriesIndex::AddCategoryByTypeAndLang(uint32_t type, int8_t lang)
   });
 }
 
+void CategoriesIndex::AddCategoryName(uint32_t type, std::string const & name)
+{
+  ASSERT_NOT_EQUAL(type, 0, ());
+  TokenizeAndAddAllSubstrings(m_trie, name, type);
+}
+
 void CategoriesIndex::AddCategoryByTypeAllLangs(uint32_t type)
 {
   m_catHolder->ForEachNameByType(

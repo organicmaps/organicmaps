@@ -56,6 +56,7 @@ std::string locale()
 - (void)load
 {
   m_categories = GetFramework().GetEditorCategories();
+  m_categories.AddLocalizedNames(platform::GetLocalizedTypeName);
   m_categories.AddLanguage(locale());
   m_categories.AddLanguage("en");
 

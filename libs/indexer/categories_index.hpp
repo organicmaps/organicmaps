@@ -9,8 +9,8 @@
 
 namespace indexer
 {
-// Indexes synonym tokens from a CategoriesHolder for substring searches, such as the editor's
-// category picker. Returned types are classifier types.
+// Indexes synonym tokens from a CategoriesHolder and additional display names for substring searches,
+// such as the editor's category picker. Returned types are classifier types.
 class CategoriesIndex
 {
   DISALLOW_COPY(CategoriesIndex);
@@ -28,6 +28,9 @@ public:
   // Indexes synonyms for |type| in category locale |lang|. Locale codes are defined in categories_holder.hpp.
   void AddCategoryByTypeAndLang(uint32_t type, int8_t lang);
 
+  // Indexes an additional name for |type| using the same token normalization as category synonyms.
+  void AddCategoryName(uint32_t type, std::string const & name);
+
   // Indexes synonyms for |type| in all languages.
   void AddCategoryByTypeAllLangs(uint32_t type);
 
@@ -38,11 +41,12 @@ public:
   void AddAllCategoriesInAllLangs();
 
   // Appends holder records for matched types, including synonyms in languages not added to this index.
+  // Additional names indexed with AddCategoryName() do not alter those records.
   // Beware weird results when query is a malformed UTF-8 string.
   void GetCategories(std::string const & query, std::vector<Category> & result) const;
 
   // Appends matching types in classifier order. Each normalized query token must match a substring
-  // of an indexed synonym; tokens may match different synonyms. An empty query adds no types.
+  // of an indexed name; tokens may match different names or synonyms. An empty query adds no types.
   // Beware weird results when query is a malformed UTF-8 string.
   void GetAssociatedTypes(std::string const & query, std::vector<uint32_t> & result) const;
 
