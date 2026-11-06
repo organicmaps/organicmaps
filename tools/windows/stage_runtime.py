@@ -36,6 +36,13 @@ def copy_inputs(source: Path, stage: Path, resources=None) -> None:
         shutil.copyfile(source / name, licenses / name)
     shutil.copytree(source / "LICENSES", licenses / "LICENSES", symlinks=False)
 
+    # Keep the source texts outside LICENSES/: REUSE expects SPDX-named project licenses there.
+    qt_licenses = licenses / "LICENSES" / "Windows"
+    qt_licenses.mkdir()
+    for name in ("GPL-3.0-only", "LGPL-3.0-only"):
+        shutil.copyfile(source / "tools" / "windows" / f"COPYING.{name}",
+                        qt_licenses / f"{name}.txt")
+
 
 def file_hashes(stage: Path) -> dict:
     files = {}

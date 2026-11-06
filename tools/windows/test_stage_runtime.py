@@ -31,12 +31,21 @@ class StageRuntimeTest(unittest.TestCase):
                 (source / name).write_text(name)
             (source / "LICENSES").mkdir()
             (source / "LICENSES" / "Apache-2.0.txt").write_text("license")
+            qt_licenses = source / "tools" / "windows"
+            qt_licenses.mkdir(parents=True)
+            for name in ("GPL-3.0-only", "LGPL-3.0-only"):
+                (qt_licenses / f"COPYING.{name}").write_text(name)
 
             copy_inputs(source, stage, resources=("linked.txt",))
 
             self.assertFalse((stage / "data" / "linked.txt").is_symlink())
             self.assertEqual((stage / "data" / "linked.txt").read_bytes(), b"map data")
-            self.assertEqual(file_hashes(stage)["data/linked.txt"]["size"], 8)
+            hashes = file_hashes(stage)
+            self.assertEqual(hashes["data/linked.txt"]["size"], 8)
+            for name in ("GPL-3.0-only", "LGPL-3.0-only"):
+                relative = f"licenses/LICENSES/Windows/{name}.txt"
+                self.assertEqual((stage / relative).read_text(), name)
+                self.assertEqual(hashes[relative]["size"], len(name))
 
 
 if __name__ == "__main__":
