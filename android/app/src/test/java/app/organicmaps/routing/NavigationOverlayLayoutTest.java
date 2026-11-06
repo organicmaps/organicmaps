@@ -1,6 +1,7 @@
 package app.organicmaps.routing;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import android.app.Application;
@@ -63,6 +64,51 @@ public class NavigationOverlayLayoutTest
     Application application = RuntimeEnvironment.getApplication();
     application.getApplicationInfo().flags |= ApplicationInfo.FLAG_SUPPORTS_RTL;
     return new ContextThemeWrapper(application, R.style.MwmTheme);
+  }
+
+  @Test
+  public void recordingControlClearsOverlaysInEveryNavigationLayout()
+  {
+    for (boolean landscape : new boolean[] {false, true})
+    {
+      for (boolean tall : new boolean[] {false, true})
+      {
+        int width = landscape ? 800 : 320;
+        int height = tall ? (landscape ? 480 : 800) : 360;
+        RuntimeEnvironment.setQualifiers("w" + width + "dp-h" + height + "dp-" + (landscape ? "land" : "port")
+                                         + "-mdpi");
+        Context context = new ContextThemeWrapper(RuntimeEnvironment.getApplication(), R.style.MwmTheme);
+        for (int direction : new int[] {View.LAYOUT_DIRECTION_LTR, View.LAYOUT_DIRECTION_RTL})
+        {
+          ViewGroup overlay = (ViewGroup) LayoutInflater.from(context).inflate(R.layout.layout_nav_top, null);
+          ViewGroup buttons =
+              (ViewGroup) LayoutInflater.from(context).inflate(R.layout.map_buttons_layout_navigation, null);
+          overlay.setLayoutDirection(direction);
+          buttons.setLayoutDirection(direction);
+          overlay.findViewById(R.id.street_frame).setPadding(0, 24, 0, 0);
+          buttons.setPadding(0, 24, 0, 0);
+          View recording = buttons.findViewById(R.id.track_recording_status);
+          assertNotNull(recording);
+          recording.setVisibility(View.VISIBLE);
+
+          for (boolean pedestrian : new boolean[] {false, true})
+          {
+            overlay.findViewById(R.id.nav_speed_limit).setVisibility(pedestrian ? View.GONE : View.VISIBLE);
+            for (int lanesVisibility : new int[] {View.VISIBLE, View.GONE})
+            {
+              overlay.findViewById(R.id.lanes).setVisibility(lanesVisibility);
+              layout(overlay, width, height);
+              ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) recording.getLayoutParams();
+              lp.topMargin = NavigationController.topButtonsMargin(overlay);
+              recording.setLayoutParams(lp);
+              layout(buttons, width, height);
+              assertTrue(recording.getHeight() > 0);
+              assertTrue(recording.getTop() >= NavigationController.lowestVisibleChildBottom(overlay) + 8);
+            }
+          }
+        }
+      }
+    }
   }
 
   private static void layout(View view, int width, int height)

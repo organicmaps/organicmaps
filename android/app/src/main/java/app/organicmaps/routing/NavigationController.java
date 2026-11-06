@@ -77,8 +77,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
 
     // Top frame
     mTopFrame = mFrame.findViewById(R.id.nav_top_frame);
-    mTopFrame.addOnLayoutChangeListener(
-        (v, l, t, r, b, ol, ot, or, ob) -> mMapButtonsViewModel.setTopHeaderHeight(computeNavContentHeight()));
+    mTopFrame.getViewTreeObserver().addOnGlobalLayoutListener(this::updateTopHeader);
     View turnFrame = mTopFrame.findViewById(R.id.nav_next_turn_frame);
     mNextTurnImage = turnFrame.findViewById(R.id.turn);
     mNextTurnDistance = turnFrame.findViewById(R.id.distance);
@@ -152,6 +151,22 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     return UiUtils.isVisible(mFrame) ? lowestVisibleChildBottom(mTopFrame) : 0;
   }
 
+  private void updateTopHeader()
+  {
+    mMapButtonsViewModel.setTopHeaderHeight(computeNavContentHeight());
+    if (UiUtils.isVisible(mFrame))
+      mMapButtonsViewModel.setTopButtonsMarginTop(topButtonsMargin(mTopFrame));
+  }
+
+  @VisibleForTesting
+  static int topButtonsMargin(@NonNull ViewGroup parent)
+  {
+    // The map-button frame already applies the top system inset.
+    final int topInset = parent.findViewById(R.id.street_frame).getPaddingTop();
+    return Math.max(0, lowestVisibleChildBottom(parent) - topInset)
+  + dimen(parent.getContext(), R.dimen.nav_frame_padding);
+  }
+
   @VisibleForTesting
   static int lowestVisibleChildBottom(@NonNull ViewGroup parent)
   {
@@ -212,10 +227,6 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     if (!TextUtils.isEmpty(info.nextStreet))
       mNextStreet.setText(RoadShieldUtils.createStreetTextWithShields(info.nextStreet, info.nextStreetRoadShields,
                                                                       mNextStreet.getTextSize()));
-    int margin = dimen(mFrame.getContext(), R.dimen.nav_frame_padding);
-    if (hasStreet)
-      margin += mStreetFrame.getHeight();
-    mMapButtonsViewModel.setTopButtonsMarginTop(margin);
   }
 
   public void show(boolean show)
@@ -228,7 +239,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
       update(RoutingController.get().getCachedRoutingInfo());
     }
     UiUtils.showIf(show, mFrame);
-    mMapButtonsViewModel.setTopHeaderHeight(computeNavContentHeight());
+    updateTopHeader();
   }
 
   public boolean isNavMenuCollapsed()
