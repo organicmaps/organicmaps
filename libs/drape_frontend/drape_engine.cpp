@@ -513,6 +513,15 @@ void DrapeEngine::StopLocationFollow()
                                   MessagePriority::Normal);
 }
 
+void DrapeEngine::SetLocationFollowPaused(bool paused)
+{
+  using Mode = ChangeMyPositionModeMessage::EChangeType;
+  m_threadCommutator->PostMessage(
+      ThreadsCommutator::RenderThread,
+      make_unique_dp<ChangeMyPositionModeMessage>(paused ? Mode::PauseFollowing : Mode::ResumeFollowing),
+      MessagePriority::Normal);
+}
+
 void DrapeEngine::FollowRoute(int preferredZoomLevel, int preferredZoomLevel3d, bool enableAutoZoom, bool isArrowGlued)
 {
   m_threadCommutator->PostMessage(
