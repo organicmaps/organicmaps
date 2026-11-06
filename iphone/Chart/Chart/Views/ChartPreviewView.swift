@@ -166,7 +166,7 @@ class ChartPreviewView: ExpandedTouchView {
     guard sender.state == .changed else { return }
 
     let p = sender.translation(in: viewPortView)
-    let count = chartData.labels.count - 1
+    let count = chartData.pointsCount - 1
     let x = Int((viewPortView.frame.minX + p.x) / bounds.width * CGFloat(count))
     let dx = maxX - minX
     let mx = x + dx
@@ -190,7 +190,7 @@ class ChartPreviewView: ExpandedTouchView {
     guard sender.state == .changed else { return }
 
     let p = sender.translation(in: leftBoundView)
-    let count = chartData.labels.count - 1
+    let count = chartData.pointsCount - 1
     let x = Int((viewPortView.frame.minX + p.x) / bounds.width * CGFloat(count))
 
     if x > 0, x < maxX, maxX - x >= count / 10 {
@@ -212,7 +212,7 @@ class ChartPreviewView: ExpandedTouchView {
     guard sender.state == .changed else { return }
 
     let p = sender.translation(in: viewPortView)
-    let count = chartData.labels.count - 1
+    let count = chartData.pointsCount - 1
     let x = Int((viewPortView.frame.maxX + p.x) / bounds.width * CGFloat(count))
 
     if x > minX, x < count, x - minX >= count / 10 {
@@ -241,7 +241,7 @@ class ChartPreviewView: ExpandedTouchView {
   }
 
   func updateViewPort() {
-    let count = CGFloat(chartData.labels.count - 1)
+    let count = CGFloat(chartData.pointsCount - 1)
     viewPortView.frame = CGRect(x: CGFloat(minX) / count * bounds.width,
                                 y: bounds.minY,
                                 width: CGFloat(maxX - minX) / count * bounds.width,
