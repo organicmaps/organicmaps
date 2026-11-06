@@ -33,6 +33,15 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     return vc
   }()
 
+  private lazy var openingHoursViewController: OpeningHoursViewController? = {
+    guard let infoData = placePageData.infoData, let rawHours = infoData.openingHoursString else { return nil }
+    let vc = storyboard.instantiateViewController(ofType: OpeningHoursViewController.self)
+    vc.openingHours = infoData.openingHours
+    vc.status = OpeningHoursStatus(placePageData.previewData.schedule)
+    vc.rawHours = rawHours
+    return vc
+  }()
+
   private lazy var osmDescriptionViewController: UIViewController? = {
     guard let osmDescription = placePageData.osmDescription else { return nil }
     return PlacePageExpandableDetailsSectionBuilder.buildOSMDescriptionSection(osmDescription)
@@ -56,7 +65,6 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
   private lazy var infoViewController: PlacePageInfoViewController = {
     let vc = storyboard.instantiateViewController(ofType: PlacePageInfoViewController.self)
     vc.placePageInfoData = placePageData.infoData
-    vc.openingHoursSchedule = placePageData.previewData.schedule
     vc.delegate = interactor
     return vc
   }()
@@ -96,6 +104,10 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     if let bookmarkData = placePageData.bookmarkData {
       editBookmarkViewController.view.isHidden = false
       editBookmarkInteractor?.data = .bookmark(bookmarkData)
+    }
+
+    if let openingHoursViewController {
+      viewControllers.append(openingHoursViewController)
     }
 
     if let osmDescriptionViewController {
@@ -152,7 +164,8 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     var steps: [PlacePageState] = []
     let scrollHeight = scrollView.height
     steps.append(.closed(-scrollHeight))
-    guard let preview = previewViewController.view else {
+    // Like on Android, the preview also shows whether the place is open now.
+    guard let preview = openingHoursViewController?.headerView ?? previewViewController.view else {
       return steps
     }
     preview.layoutIfNeeded()

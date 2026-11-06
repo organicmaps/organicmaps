@@ -201,18 +201,6 @@
                                         <gestureRecognizers/>
                                         <edgeInsets key="layoutMargins" top="0.0" left="12" bottom="0.0" right="12"/>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fKt-f3-qqN">
-                                        <rect key="frame" x="4" y="78" width="367" height="76"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="Open" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caI-ec-meo">
-                                                <rect key="frame" x="12" y="0.0" width="343" height="76"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <edgeInsets key="layoutMargins" top="0.0" left="12" bottom="0.0" right="12"/>
-                                    </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="DpF-gz-Yio">
                                         <rect key="frame" x="4" y="162" width="367" height="50"/>
                                         <subviews>
@@ -291,8 +279,6 @@
                         <outlet property="addressDirectionView" destination="y54-Rh-kGm" id="Fa9-i4-QDc"/>
                         <outlet property="addressLabel" destination="i56-oA-HiT" id="pN5-0N-LdP"/>
                         <outlet property="popularView" destination="Jgo-Sd-tyF" id="WLf-FG-SSA"/>
-                        <outlet property="scheduleContainerView" destination="fKt-f3-qqN" id="uqC-c2-IS6"/>
-                        <outlet property="scheduleLabel" destination="caI-ec-meo" id="dqL-Ov-367"/>
                         <outlet property="stackView" destination="Gmb-Zm-Z10" id="M2z-ue-zMa"/>
                         <outlet property="subtitleContainerView" destination="YyN-l5-4le" id="k1n-hA-QbV"/>
                         <outlet property="subtitleDirectionView" destination="jaa-Yj-XQR" id="hhg-oX-YnF"/>

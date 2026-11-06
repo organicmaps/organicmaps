@@ -1,6 +1,6 @@
 import UIKit
 
-/// Whether the place is open now and when that changes, as the place page header and the opening hours show it.
+/// Whether the place is open now and when that changes, e.g. "Closed now" and "Opens in 2 h 4 min • 17:00".
 struct OpeningHoursStatus {
   let state: String
   let stateColor: UIColor
@@ -141,11 +141,26 @@ class OpeningHoursViewController: UIViewController {
 
   private var expanded = false
 
-  var openingHours: OpeningHours!
-  var status: OpeningHoursStatus!
+  /// Nil when the hours can't be listed.
+  var openingHours: OpeningHours?
+  /// Nil when the open or closed state is unknown.
+  var status: OpeningHoursStatus?
+  /// Shown as is when either of the above is missing, same as Android.
+  var rawHours: String!
+
+  /// The part that is always shown: the state, or the raw hours.
+  var headerView: UIView? { stackView?.arrangedSubviews.first }
 
   override func viewDidLoad() {
     super.viewDidLoad()
+
+    guard let openingHours, status != nil else {
+      let rawHoursView = InfoItemView()
+      rawHoursView.setTitle(rawHours)
+      rawHoursView.setIcon(image: UIImage(resource: .icPlacepageOpenHours).withRenderingMode(.alwaysTemplate))
+      stackView.addArrangedSubview(rawHoursView)
+      return
+    }
 
     addToStack(statusView)
 

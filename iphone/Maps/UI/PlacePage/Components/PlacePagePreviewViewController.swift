@@ -8,7 +8,6 @@ final class PlacePagePreviewViewController: UIViewController {
   @IBOutlet var popularView: UIView!
   @IBOutlet var subtitleLabel: UILabel!
   @IBOutlet var subtitleContainerView: UIStackView!
-  @IBOutlet var scheduleLabel: UILabel!
   @IBOutlet var reviewsLabel: UILabel!
   @IBOutlet var addReviewButton: UIButton! {
     didSet {
@@ -18,7 +17,6 @@ final class PlacePagePreviewViewController: UIViewController {
 
   @IBOutlet var addressLabel: UILabel!
   @IBOutlet var addressContainerView: UIStackView!
-  @IBOutlet var scheduleContainerView: UIStackView!
 
   @IBOutlet var subtitleDirectionView: PlacePageDirectionView!
   @IBOutlet var addressDirectionView: PlacePageDirectionView!
@@ -46,7 +44,6 @@ final class PlacePagePreviewViewController: UIViewController {
     updateViews()
 
     subtitleLabel.adjustsFontForContentSizeCategory = true
-    scheduleLabel.adjustsFontForContentSizeCategory = true
 
     if let distance = distance {
       placePageDirectionView?.isHidden = false
@@ -95,7 +92,6 @@ final class PlacePagePreviewViewController: UIViewController {
       addressContainerView.isHidden = true
     }
     placePageDirectionView?.imageView.changeColoringToOpposite()
-    configSchedule()
   }
 
   func updateDistance(_ distance: String) {
@@ -138,30 +134,5 @@ final class PlacePagePreviewViewController: UIViewController {
     fullScreenDirectionView.updateHeading(heading)
     fullScreenDirectionView.updateDistance(distance)
     fullScreenDirectionView.show()
-  }
-
-  // MARK: private
-
-  private func configSchedule() {
-    guard let status = OpeningHoursStatus(placePagePreviewData.schedule) else {
-      scheduleContainerView.isHidden = true
-      return
-    }
-    setScheduleLabel(state: status.state, stateColor: status.stateColor, details: status.details)
-  }
-
-  private func setScheduleLabel(state: String, stateColor: UIColor, details: String?) {
-    let attributedString = NSMutableAttributedString()
-    let stateString = NSAttributedString(string: state,
-                                         attributes: [NSAttributedString.Key.font: UIFont.regular14.dynamic,
-                                                      NSAttributedString.Key.foregroundColor: stateColor])
-    attributedString.append(stateString)
-    if details != nil {
-      let detailsString = NSAttributedString(string: " • " + details!,
-                                             attributes: [NSAttributedString.Key.font: UIFont.regular14.dynamic,
-                                                          NSAttributedString.Key.foregroundColor: UIColor.blackSecondaryText])
-      attributedString.append(detailsString)
-    }
-    scheduleLabel.attributedText = attributedString
   }
 }
