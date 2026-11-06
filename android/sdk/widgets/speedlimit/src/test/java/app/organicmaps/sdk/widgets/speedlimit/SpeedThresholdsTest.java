@@ -52,6 +52,16 @@ public class SpeedThresholdsTest
   }
 
   @Test
+  public void unavailableSpeedsResetEveryMode()
+  {
+    for (Mode previous : Mode.getEntries())
+    {
+      for (Integer speed : new Integer[] {null, -1, 1000, Integer.MAX_VALUE, Integer.MIN_VALUE})
+        assertEquals(Mode.Normal, mThresholds.modeFor(speed, 50, previous));
+    }
+  }
+
+  @Test
   public void zeroHysteresisUsesEntryBoundariesForReset()
   {
     SpeedThresholds thresholds = new SpeedThresholds(5, 10);

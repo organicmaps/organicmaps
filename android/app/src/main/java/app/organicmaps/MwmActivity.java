@@ -1657,6 +1657,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @UiThread
   public void onLocationUpdateTimeout()
   {
+    mNavigationController.onLocationUnavailable();
     requestBatterySaverPermission();
   }
 
@@ -1862,6 +1863,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @UiThread
   public void onLocationDisabled()
   {
+    mNavigationController.onLocationUnavailable();
     Logger.d(LOCATION_TAG, "settings = " + LocationUtils.areLocationServicesTurnedOn(this));
 
     // Calls onMyPositionModeChanged(NOT_FOLLOW_NO_POSITION).

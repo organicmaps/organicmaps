@@ -172,6 +172,8 @@ public class CombinedSpeedViewControllerTest
   @Test
   public void roadWarningHysteresisUpdatesDuringCameraAlert()
   {
+    setSpeed(50);
+    assertMode(Mode.Normal);
     mController.setAlertForced(true);
     assertMode(Mode.Alert);
     setSpeed(56);
@@ -187,6 +189,8 @@ public class CombinedSpeedViewControllerTest
   @Test
   public void cameraAlertWorksWithUnknownRoadLimit()
   {
+    setSpeed(50);
+    assertMode(Mode.Normal);
     mController.setSpeedLimit(null);
     assertMode(Mode.Normal);
     mController.setAlertForced(true);
@@ -208,10 +212,29 @@ public class CombinedSpeedViewControllerTest
     assertMode(Mode.Alert);
   }
 
-  private void setSpeed(int speed)
+  @Test
+  public void unavailableSpeedClearsRoadAndCameraAlertsAndRecovers()
+  {
+    setSpeed(61);
+    assertMode(Mode.Alert);
+    mController.setAlertForced(true);
+    assertMode(Mode.Alert);
+    for (Integer speed : new Integer[] {null, -1, 1000, Integer.MAX_VALUE})
+    {
+      setSpeed(speed);
+      assertMode(Mode.Normal);
+    }
+    setSpeed(60);
+    assertMode(Mode.Alert);
+    mController.setAlertForced(false);
+    assertMode(Mode.Warning);
+  }
+
+  private void setSpeed(Integer speed)
   {
     when(mView.getSpeed()).thenReturn(speed);
     mController.setSpeed(speed);
+    verify(mView).setSpeed(speed);
   }
 
   private void assertMode(Mode mode)

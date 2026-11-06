@@ -333,9 +333,13 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
 
   private void updateCurrentSpeed()
   {
-    final Location location = MwmApplication.from(mFrame.getContext()).getLocationHelper().getSavedLocation();
     mSpeedController.setUnits(StringUtils.nativeGetLocalizedSpeedUnits());
-    mSpeedController.setSpeed(
-        StringUtils.nativeFormatSpeed(location != null && location.hasSpeed() ? location.getSpeed() : 0));
+    mSpeedController.setSpeed(MwmApplication.from(mFrame.getContext()).getLocationHelper().getSavedSpeed());
+  }
+
+  public void onLocationUnavailable()
+  {
+    mSpeedController.setSpeed(null);
+    mNavMenu.onLocationUnavailable();
   }
 }

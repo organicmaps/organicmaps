@@ -10,6 +10,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.SystemClock;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresPermission;
@@ -24,6 +25,7 @@ import app.organicmaps.sdk.routing.JunctionInfo;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.NetworkPolicy;
+import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.log.Logger;
 import org.chromium.base.ObserverList;
 
@@ -146,6 +148,23 @@ public class LocationHelper implements BaseLocationProvider.Listener
   public Location getSavedLocation()
   {
     return mSavedLocation;
+  }
+
+  /** Current speed in the configured units, or null if missing, stale or outside the widget's range. */
+  @Nullable
+  public Integer getSavedSpeed()
+  {
+    final Location location = getSavedLocation();
+    if (location == null || !location.hasSpeed()
+        || SystemClock.elapsedRealtime() - location.getElapsedRealtimeNanos() / 1_000_000 >= LOCATION_UPDATE_TIMEOUT_MS)
+      return null;
+
+    final float speedMps = location.getSpeed();
+    // Larger values cannot fit in either km/h or mph; reject them before native integer conversion.
+    if (!(speedMps >= 0 && speedMps <= 999))
+      return null;
+    final int speed = StringUtils.nativeFormatSpeed(speedMps);
+    return speed <= 999 ? speed : null;
   }
 
   /**

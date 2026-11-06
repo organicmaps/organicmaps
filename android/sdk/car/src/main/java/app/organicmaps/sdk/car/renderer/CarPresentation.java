@@ -107,7 +107,7 @@ final class CarPresentation extends Presentation
     dismiss();
   }
 
-  void setCurrentSpeed(int speed, @NonNull String units)
+  void setCurrentSpeed(@Nullable Integer speed, @NonNull String units)
   {
     mSpeedLimitController.setUnits(units);
     mSpeedLimitController.setSpeed(speed);

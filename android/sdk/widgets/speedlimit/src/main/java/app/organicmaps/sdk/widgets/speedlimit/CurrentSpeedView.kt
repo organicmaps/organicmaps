@@ -21,13 +21,13 @@ constructor(
     @StyleRes defStyleRes: Int = R.style.OmWidget_CurrentSpeedView_Combined,
 ) : SignView(context, attrs, defStyleAttr, defStyleRes, fixedShape = Shape.Square) {
     /** Current speed; values outside [[MIN_VALUE], [MAX_VALUE]] are displayed as unavailable (–). */
-    var speed: Int = valueText.toInt()
+    var speed: Int? = null
         set(value) {
             if (field == value) {
                 return
             }
             field = value
-            valueText = formatValue(value)
+            valueText = value?.let(::formatValue) ?: "–"
             invalidate()
         }
 
@@ -46,6 +46,7 @@ constructor(
     override val unitsText: String get() = units
 
     init {
+        valueText = "–"
         if (isInEditMode) {
             speed = 60
         }

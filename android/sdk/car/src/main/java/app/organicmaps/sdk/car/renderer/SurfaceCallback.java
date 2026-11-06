@@ -38,7 +38,8 @@ final class SurfaceCallback extends SurfaceCallbackBase
   @Nullable
   private CarPresentation mPresentation;
 
-  private int mCurrentSpeed = 0;
+  @Nullable
+  private Integer mCurrentSpeed;
   @NonNull
   private String mSpeedUnits = "";
   @Nullable
@@ -124,7 +125,7 @@ final class SurfaceCallback extends SurfaceCallbackBase
       mPresentation.startPresenting();
   }
 
-  void setCurrentSpeed(int speed, @NonNull String units)
+  void setCurrentSpeed(@Nullable Integer speed, @NonNull String units)
   {
     mCurrentSpeed = speed;
     mSpeedUnits = units;

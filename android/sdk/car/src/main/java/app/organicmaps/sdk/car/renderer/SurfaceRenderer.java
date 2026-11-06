@@ -45,7 +45,7 @@ final class SurfaceRenderer extends RendererImpl
   }
 
   @Override
-  public void setCurrentSpeed(int speed, @NonNull String units)
+  public void setCurrentSpeed(@Nullable Integer speed, @NonNull String units)
   {
     mSurfaceCallback.setCurrentSpeed(speed, units);
   }

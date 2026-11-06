@@ -56,8 +56,8 @@ constructor(
             updateSpeedLimit()
         }
 
-    /** Current speed, in the units of [units]. */
-    var speed: Int
+    /** Current speed in [units], or null when unavailable. */
+    var speed: Int?
         get() = view.speed
         set(value) {
             view.speed = value
@@ -104,7 +104,7 @@ constructor(
     // The mode warns about exceeding the limit that is shown, so a hidden one is not compared.
     private fun updateMode(previousMode: Mode = speedMode) {
         speedMode = thresholds.modeFor(speed, shownSpeedLimit(), previousMode)
-        view.mode = if (isAlertForced) Mode.Alert else speedMode
+        view.mode = if (isAlertForced && speed in 0..999) Mode.Alert else speedMode
     }
 
     private fun shownSpeedLimit(): Int? = speedLimit.takeIf { isSpeedLimitVisible }

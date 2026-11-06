@@ -60,7 +60,25 @@ public abstract class CarAppSessionBase
   protected CarSensorsManager mSensorsManager;
 
   @NonNull
-  private final LocationListener mSpeedLocationListener = this::updateSpeed;
+  private final LocationListener mSpeedLocationListener = new LocationListener() {
+    @Override
+    public void onLocationUpdated(@NonNull Location location)
+    {
+      updateSpeed(location);
+    }
+
+    @Override
+    public void onLocationUpdateTimeout()
+    {
+      updateSpeed(null);
+    }
+
+    @Override
+    public void onLocationDisabled()
+    {
+      updateSpeed(null);
+    }
+  };
   private boolean mSpeedLimitSignTypeInitialized;
 
   public CarAppSessionBase(@NonNull OrganicMaps organicMapsContext, @NonNull DisplayManager displayManager,
@@ -172,9 +190,8 @@ public abstract class CarAppSessionBase
           Framework.nativeGetSpeedLimitSignType(location.getLatitude(), location.getLongitude()));
       mSpeedLimitSignTypeInitialized = true;
     }
-    mSurfaceRenderer.setCurrentSpeed(
-        StringUtils.nativeFormatSpeed(location != null && location.hasSpeed() ? location.getSpeed() : 0),
-        StringUtils.nativeGetLocalizedSpeedUnits());
+    mSurfaceRenderer.setCurrentSpeed(location != null ? mOrganicMapsContext.getLocationHelper().getSavedSpeed() : null,
+                                     StringUtils.nativeGetLocalizedSpeedUnits());
   }
 
   @Override

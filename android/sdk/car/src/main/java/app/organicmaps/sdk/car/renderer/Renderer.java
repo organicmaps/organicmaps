@@ -15,7 +15,7 @@ public interface Renderer
   void onZoomOut();
 
   /** Retains the current speed and localized units, including while no presentation exists. */
-  void setCurrentSpeed(int speed, @NonNull String units);
+  void setCurrentSpeed(@Nullable Integer speed, @NonNull String units);
 
   /** Retains the limit in the current speed units; null hides the limit. */
   void setSpeedLimit(@Nullable Integer speedLimit);

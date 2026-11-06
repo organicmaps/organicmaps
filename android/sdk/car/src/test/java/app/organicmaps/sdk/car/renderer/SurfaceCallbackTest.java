@@ -181,9 +181,21 @@ public class SurfaceCallbackTest
   public void initialPresentationHasNoKnownLimit()
   {
     mCallback.onSurfaceAvailable(mSurface);
+    verify(mPresentations.constructed().get(0)).setCurrentSpeed(null, "");
     verify(mPresentations.constructed().get(0)).setSpeedLimit(null);
     verify(mPresentations.constructed().get(0)).setSpeedLimitSignType(Framework.SpeedLimitSignType.VIENNA);
     verify(mPresentations.constructed().get(0)).setAlertForced(false);
+  }
+
+  @Test
+  public void unavailableSpeedReplacesCachedSpeed()
+  {
+    mCallback.setCurrentSpeed(54, "km/h");
+    mCallback.setCurrentSpeed(null, "km/h");
+    mCallback.onSurfaceAvailable(mSurface);
+    final CarPresentation presentation = mPresentations.constructed().get(0);
+    verify(presentation).setCurrentSpeed(null, "km/h");
+    verify(presentation, never()).setCurrentSpeed(54, "km/h");
   }
 
   @Test

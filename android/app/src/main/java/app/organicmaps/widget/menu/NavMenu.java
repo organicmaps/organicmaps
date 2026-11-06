@@ -1,8 +1,6 @@
 package app.organicmaps.widget.menu;
 
 import android.graphics.drawable.Drawable;
-import android.location.Location;
-import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -236,17 +234,20 @@ public class NavMenu implements DefaultLifecycleObserver
 
   private void updateSpeedView(@NonNull RoutingInfo info)
   {
-    final Location last = MwmApplication.from(mActivity).getLocationHelper().getSavedLocation();
-    if (last == null)
+    final Integer currentSpeed = MwmApplication.from(mActivity).getLocationHelper().getSavedSpeed();
+    final String units = StringUtils.nativeGetLocalizedSpeedUnits();
+    if (currentSpeed == null)
+    {
+      mSpeedUnits.setText(units);
+      onLocationUnavailable();
       return;
+    }
 
-    final double speedMps = last.hasSpeed() ? last.getSpeed() : 0;
-    final Pair<String, String> speedAndUnits = StringUtils.nativeFormatSpeedAndUnits(speedMps);
-    mSpeedValue.setText(speedAndUnits.first);
+    mSpeedValue.setText(String.valueOf(currentSpeed));
 
-    final int speed = StringUtils.nativeFormatSpeed(speedMps);
+    final int speed = currentSpeed;
     final int speedLimit = info.speedLimitMps > 0 ? StringUtils.nativeFormatSpeed(info.speedLimitMps) : 0;
-    if (mSpeedLimit != speedLimit || !speedAndUnits.second.contentEquals(mSpeedUnits.getText()))
+    if (mSpeedLimit != speedLimit || !units.contentEquals(mSpeedUnits.getText()))
       mSpeedMode = Mode.Normal;
     mSpeedLimit = speedLimit;
     mSpeedMode = SpeedThresholds.DEFAULT.modeFor(speed, speedLimit, mSpeedMode);
@@ -270,7 +271,15 @@ public class NavMenu implements DefaultLifecycleObserver
     }
     }
 
-    mSpeedUnits.setText(speedAndUnits.second);
+    mSpeedUnits.setText(units);
+  }
+
+  public void onLocationUnavailable()
+  {
+    mSpeedMode = Mode.Normal;
+    mSpeedViewContainer.setActivated(false);
+    mSpeedValue.setText("–");
+    mSpeedValue.setTextColor(ThemeUtils.getColor(mActivity, android.R.attr.textColorPrimary));
   }
 
   public void update(@NonNull RoutingInfo info)

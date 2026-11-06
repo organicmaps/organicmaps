@@ -31,9 +31,21 @@ public class SpeedSignValueTest
     for (int i = 0; i < SAMPLES.length; ++i)
     {
       view.setSpeed(SAMPLES[i]);
-      assertEquals(SAMPLES[i], view.getSpeed());
+      assertEquals(Integer.valueOf(SAMPLES[i]), view.getSpeed());
       assertDrawnValue(view, DISPLAY_VALUES[i]);
     }
+  }
+
+  @Test
+  public void missingSpeedIsUnavailableButZeroIsStationary()
+  {
+    CurrentSpeedView view = new CurrentSpeedView(RuntimeEnvironment.getApplication());
+    layout(view);
+    assertDrawnValue(view, "–");
+    view.setSpeed(0);
+    assertDrawnValue(view, "0");
+    view.setSpeed(null);
+    assertDrawnValue(view, "–");
   }
 
   @Test

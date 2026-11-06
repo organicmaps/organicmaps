@@ -188,8 +188,8 @@ constructor(
         fillPaint.color = backgroundPalette[mode].background
     }
 
-    /** Current speed, shown by the always visible sign. */
-    var speed: Int
+    /** Current speed, or null when unavailable, shown as –. */
+    var speed: Int?
         get() = currentSpeedView.speed
         set(value) {
             currentSpeedView.speed = value
