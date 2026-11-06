@@ -8,8 +8,10 @@ import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
 
 import app.organicmaps.sdk.util.log.Logger;
+import java.util.function.Consumer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -178,28 +180,37 @@ public class RoutingControllerContainerTest
   @Test
   public void restoringDoesNotUpdateAReentrantReplacementBeforeItRestores()
   {
-    final RoutingController controller = new RoutingController();
-    final RoutingController.Container previous = mock(RoutingController.Container.class);
-    final RoutingController.Container current = mock(RoutingController.Container.class);
-    cacheBuildError(controller, previous);
-    doAnswer(invocation -> {
-      controller.attach(current);
-      return null;
-    })
-        .when(previous)
-        .showNavigation(false);
-
-    controller.restore();
+    final RoutingController.Container previous =
+        assertReplacementPreservesQueuedResult(container -> container.showNavigation(false));
     verify(previous, never()).updateMenu();
-    verify(current, never()).updateMenu();
-    verify(current, never()).onCommonBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
-    controller.restore();
-
-    verify(current).onCommonBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
   }
 
   @Test
   public void restoringPlanningCannotConsumeItsSuccessorsQueuedResult()
+  {
+    final RoutingController.Container previous =
+        assertReplacementPreservesQueuedResult(container -> container.showRoutePlan(true));
+    verify(previous, never()).showNavigation(false);
+  }
+
+  @Test
+  public void restoringMenuCannotConsumeItsSuccessorsQueuedResult()
+  {
+    final RoutingController.Container previous =
+        assertReplacementPreservesQueuedResult(RoutingController.Container::updateMenu);
+    verify(previous, never()).updateBuildProgress(anyInt(), any());
+  }
+
+  @Test
+  public void restoringProgressCannotConsumeItsSuccessorsQueuedResult()
+  {
+    final RoutingController.Container previous =
+        assertReplacementPreservesQueuedResult(container -> container.updateBuildProgress(anyInt(), any()));
+    verify(previous, never()).onCommonBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
+  }
+
+  private static RoutingController.Container assertReplacementPreservesQueuedResult(
+      Consumer<RoutingController.Container> replacementTrigger)
   {
     final RoutingController controller = new RoutingController() {
       @Override
@@ -211,60 +222,18 @@ public class RoutingControllerContainerTest
     final RoutingController.Container previous = mock(RoutingController.Container.class);
     final RoutingController.Container current = mock(RoutingController.Container.class);
     cacheBuildError(controller, previous);
-    doAnswer(invocation -> {
-      controller.attach(current);
-      return null;
-    })
-        .when(previous)
-        .showRoutePlan(true);
+    replacementTrigger.accept(doAnswer(invocation -> {
+                                controller.attach(current);
+                                return null;
+                              }).when(previous));
 
     controller.restore();
-    verify(current, never()).onCommonBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
+    verifyNoInteractions(current);
     controller.restore();
-
-    verify(current).onCommonBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
-  }
-
-  @Test
-  public void restoringMenuCannotConsumeItsSuccessorsQueuedResult()
-  {
-    final RoutingController controller = new RoutingController();
-    final RoutingController.Container previous = mock(RoutingController.Container.class);
-    final RoutingController.Container current = mock(RoutingController.Container.class);
-    cacheBuildError(controller, previous);
-    doAnswer(invocation -> {
-      controller.attach(current);
-      return null;
-    })
-        .when(previous)
-        .updateMenu();
-
-    controller.restore();
-    verify(current, never()).onCommonBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
     controller.restore();
 
     verify(current).onCommonBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
-  }
-
-  @Test
-  public void restoringProgressCannotConsumeItsSuccessorsQueuedResult()
-  {
-    final RoutingController controller = new RoutingController();
-    final RoutingController.Container previous = mock(RoutingController.Container.class);
-    final RoutingController.Container current = mock(RoutingController.Container.class);
-    cacheBuildError(controller, previous);
-    doAnswer(invocation -> {
-      controller.attach(current);
-      return null;
-    })
-        .when(previous)
-        .updateBuildProgress(anyInt(), any());
-
-    controller.restore();
-    verify(current, never()).onCommonBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
-    controller.restore();
-
-    verify(current).onCommonBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
+    return previous;
   }
 
   private static void cacheBuildError(RoutingController controller, RoutingController.Container container)
