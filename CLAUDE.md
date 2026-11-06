@@ -10,7 +10,7 @@ Libraries in `libs/` are strictly layered -- no circular or upward dependencies 
 
 1. **Foundation:** `base` (logging, assertions, caches), `coding` (serialization, I/O), `geometry` (points, rects, mercator)
 2. **Platform:** `platform` (file paths, HTTP, location -- OS-abstracted via `*_ios.mm`, `*_android.cpp`, `*_qt.cpp`)
-3. **Data:** `indexer` (map features, classification), `kml`, `transit`, `routing_common`, `editor`
+3. **Data:** `indexer` (map features, classification), `terrain` (`.twm` terrain files, contours), `kml`, `transit`, `routing_common`, `editor`
 4. **Domain:** `search`, `routing`, `storage` (map downloads), `traffic`
 5. **Rendering:** `drape` (OpenGL/Vulkan/Metal abstraction), `drape_frontend` (scene management), `shaders`
 6. **Application:** `map` (Framework class -- aggregates all subsystems)
@@ -169,6 +169,13 @@ Format: `[subsystem] Summary in imperative mood` (max 80 chars). Examples of sub
   they come from our servers. On-disk corruption afterwards is out of OM scope: crashing on corrupted
   data is fine, do not harden the code against it. Exception: `Framework::RegisterAllMaps()` must
   survive broken map files so the app still starts and bookmarks can be exported.
+- Basic format and constraint checks when reading file headers may reject data with `MYTHROW`.
+  Regular map/terrain tile records and payloads are trusted after download verification: use
+  debug-only `ASSERT` for their invariants, not runtime validation with `MYTHROW` or corruption
+  recovery. Keep required reads and decompression outside `ASSERT` (or use `VERIFY`).
+- Exception: `CHECK` (with the value and bound in the message) is appropriate in the once-per-file
+  header/prologue loading and on the section offsets a record reads from. The repeated per-element
+  decoding (coordinates, indices, counts) keeps `ASSERT`, even for stream-derived values.
 - Fail fast: use `ASSERT` liberally to catch developer mistakes in Debug. Asserts are compiled out of
   Release for performance, so keep them side-effect free (`VERIFY` still evaluates its expression).
   Use `CHECK` when the condition must also hold in Release, and don't add defensive fallbacks for
