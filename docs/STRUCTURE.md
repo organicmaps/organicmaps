@@ -104,6 +104,7 @@ Automatically [generated](TRANSLATIONS.md#technical-details):
 - `shaders/` - shaders for rendering.
 - `std/` - standard headers wrappers, for Boost, STL, C-rt.
 - `storage/` - map reading function.
+- `terrain/` - terrain (`.twm`) files: TIN and raster reading, decoding, contour tracing.
 - `testing/` - common interfaces for tests.
 - `track_analyzing/` -
 - `tracking/` -
