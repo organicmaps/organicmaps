@@ -34,7 +34,7 @@ Keep the host awake while capturing; on macOS, prefix the command with caffeinat
 Without it, the runner uses ANDROID_SDK_ROOT, ANDROID_HOME, or the standard
 macOS/Linux SDK location.
 
-Build from android/: ./gradlew :app:assembleGoogleRelease -PdrapeBenchmark=ON
+Build from android/: ./gradlew :app:assembleGoogleRelease -Papp.organicmaps.drapeBenchmark=ON
 Add the ABI option for your emulator, e.g. -Parm64.
 This enables DRAPE_QUEUE_TRACE and DRAPE_SCENARIO; retain native Release flags.
 Debug signing is fine; the app
@@ -676,7 +676,7 @@ def evaluate(output):
             eligible = [record for record in queues if record["data"].get("renderer") == renderer and
                         record.get("uptime_s") is not None and record["uptime_s"] <= end]
             if not eligible or any(not any(a <= q["uptime_s"] <= b for q in eligible) for a, b in windows):
-                errors.append(f"Missing {renderer} queue samples in a phase; build with -PdrapeBenchmark=ON")
+                errors.append(f"Missing {renderer} queue samples in a phase; build with -Papp.organicmaps.drapeBenchmark=ON")
                 continue
             # Ready acknowledgements prove backend progress even if a slow final render follows its last trace.
             # Timed stress needs fresh queue traces: its finish marker alone says nothing about backend progress.
