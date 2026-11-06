@@ -1,0 +1,316 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AAF8B9259926B1B5DCF357C8 /* Bitmask.h in Headers */ = {isa = PBXBuildFile; fileRef = D50AB8615AAFD5EA17B39A88 /* Bitmask.h */; };
+		D6C2DE1EC1FB956FCEE243AD /* Bitstream.h in Headers */ = {isa = PBXBuildFile; fileRef = CD564E033BBD6A1F734206D0 /* Bitstream.h */; };
+		6E5E90536601DFC70B7B582C /* CDF97.h in Headers */ = {isa = PBXBuildFile; fileRef = CC82F309F880BFAADB7D737E /* CDF97.h */; };
+		5514CA5C7FE58770109927CA /* Conditioner.h in Headers */ = {isa = PBXBuildFile; fileRef = 93DDD9EA405C005A8DC20A1A /* Conditioner.h */; };
+		E1417ABC1C8D4D2A5706ACFD /* Outlier_Coder.h in Headers */ = {isa = PBXBuildFile; fileRef = 64627B545F2230BBD30D218F /* Outlier_Coder.h */; };
+		7C590CF041F7FF5C13BC0746 /* SPECK1D_INT.h in Headers */ = {isa = PBXBuildFile; fileRef = D0A0E38B1A9DE1FD7C009851 /* SPECK1D_INT.h */; };
+		B10F9827218A58840B2B5012 /* SPECK1D_INT_DEC.h in Headers */ = {isa = PBXBuildFile; fileRef = 940CD9D6F86A3DAF7FA3F4E4 /* SPECK1D_INT_DEC.h */; };
+		1268D1EE656E0A47DFE75249 /* SPECK1D_INT_ENC.h in Headers */ = {isa = PBXBuildFile; fileRef = C54C3A1680BA036A22E845B1 /* SPECK1D_INT_ENC.h */; };
+		D6F865EF428041E53C26C825 /* SPECK2D_FLT.h in Headers */ = {isa = PBXBuildFile; fileRef = 45997049E2314110B7B45102 /* SPECK2D_FLT.h */; };
+		79788D45D43413E4A847D83A /* SPECK2D_INT.h in Headers */ = {isa = PBXBuildFile; fileRef = ED24C99BA953EC8CB970365E /* SPECK2D_INT.h */; };
+		320034B784B160C6E7B44805 /* SPECK2D_INT_DEC.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FC5949290E7398B849473EC /* SPECK2D_INT_DEC.h */; };
+		3ABD2CAD44F97EB09B7ECB4B /* SPECK2D_INT_ENC.h in Headers */ = {isa = PBXBuildFile; fileRef = BD479FAE528ED54067FAEABE /* SPECK2D_INT_ENC.h */; };
+		5A131EA75161F1E22EA7714A /* SPECK_FLT.h in Headers */ = {isa = PBXBuildFile; fileRef = CB86FC63CF08B404F2A79C71 /* SPECK_FLT.h */; };
+		99243921FFAF0C29B9932B4D /* SPECK_INT.h in Headers */ = {isa = PBXBuildFile; fileRef = FC5715B9F248403B56F93746 /* SPECK_INT.h */; };
+		8BD920A68A6F90280C28A905 /* SperrConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A73399800161BFF4D5A864B /* SperrConfig.h */; };
+		5804BB10F3BB103E3E62E896 /* sperr_helper.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D47FFE98F03ABD69005B31E /* sperr_helper.h */; };
+		ED3A3F0926185594BD67FCE9 /* Bitmask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8BB82FADA2F7C2107E23DF7 /* Bitmask.cpp */; };
+		5A749B291929F016F1711A43 /* Bitstream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 16A91FBC82D7B8EE7CF4E7EB /* Bitstream.cpp */; };
+		1BC6DE1A1A47F82488942ACA /* CDF97.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FAF5C8591D0CB6CDF16C520 /* CDF97.cpp */; };
+		1AC7587B7D5F1C799A5A5C7D /* Conditioner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 331F1078B5620CCCDE63F4A0 /* Conditioner.cpp */; };
+		198E80F74295B85CDCC9383B /* Outlier_Coder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 224679B9164D2FE0B915BAC5 /* Outlier_Coder.cpp */; };
+		BC600D0B330DF51EC079D819 /* SPECK1D_INT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9362E465DD22EB3551604B15 /* SPECK1D_INT.cpp */; };
+		C6B26606DDA648C7230F9AD5 /* SPECK1D_INT_DEC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FB2FD658512CBA1F9CD93CE0 /* SPECK1D_INT_DEC.cpp */; };
+		342FB0881A98604AE3C836DC /* SPECK1D_INT_ENC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C1C8E0F53C9522F0B1A2877 /* SPECK1D_INT_ENC.cpp */; };
+		9BFC7C8857DC8EFB5F0932A8 /* SPECK2D_FLT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 979D07BBDD274DED04CEA0CC /* SPECK2D_FLT.cpp */; };
+		0DA0B599637546F3F46250CB /* SPECK2D_INT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 081AAF9E2B7122ADF8D9E437 /* SPECK2D_INT.cpp */; };
+		48D4763DD7A2C1AEF8918A73 /* SPECK2D_INT_DEC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9F0AA0CC002C0B557E8A937 /* SPECK2D_INT_DEC.cpp */; };
+		81C95F8394318ADC67FC648C /* SPECK2D_INT_ENC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7023A1617112E8C7FC42F42 /* SPECK2D_INT_ENC.cpp */; };
+		B6412B6AA7674C63CD6A8407 /* SPECK_FLT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 47CF9FF2D4D8EBD806098E97 /* SPECK_FLT.cpp */; };
+		4983DA62AD64428B6D95C59A /* SPECK_INT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96B0313E532B0E485BDA3020 /* SPECK_INT.cpp */; };
+		CE0F071F8ED510902CB5B8F5 /* sperr_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27FFEE8DAB5AD6F72B6B0C59 /* sperr_helper.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D4DBCC2D2AFE17363481E87B /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
+		F3A0EAC2A699D2382DE5A40B /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+		2858AEBD6D8014A8528922F2 /* libsperr.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsperr.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D50AB8615AAFD5EA17B39A88 /* Bitmask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Bitmask.h; path = include/Bitmask.h; sourceTree = "<group>"; };
+		CD564E033BBD6A1F734206D0 /* Bitstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Bitstream.h; path = include/Bitstream.h; sourceTree = "<group>"; };
+		CC82F309F880BFAADB7D737E /* CDF97.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDF97.h; path = include/CDF97.h; sourceTree = "<group>"; };
+		93DDD9EA405C005A8DC20A1A /* Conditioner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Conditioner.h; path = include/Conditioner.h; sourceTree = "<group>"; };
+		64627B545F2230BBD30D218F /* Outlier_Coder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Outlier_Coder.h; path = include/Outlier_Coder.h; sourceTree = "<group>"; };
+		D0A0E38B1A9DE1FD7C009851 /* SPECK1D_INT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPECK1D_INT.h; path = include/SPECK1D_INT.h; sourceTree = "<group>"; };
+		940CD9D6F86A3DAF7FA3F4E4 /* SPECK1D_INT_DEC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPECK1D_INT_DEC.h; path = include/SPECK1D_INT_DEC.h; sourceTree = "<group>"; };
+		C54C3A1680BA036A22E845B1 /* SPECK1D_INT_ENC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPECK1D_INT_ENC.h; path = include/SPECK1D_INT_ENC.h; sourceTree = "<group>"; };
+		45997049E2314110B7B45102 /* SPECK2D_FLT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPECK2D_FLT.h; path = include/SPECK2D_FLT.h; sourceTree = "<group>"; };
+		ED24C99BA953EC8CB970365E /* SPECK2D_INT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPECK2D_INT.h; path = include/SPECK2D_INT.h; sourceTree = "<group>"; };
+		9FC5949290E7398B849473EC /* SPECK2D_INT_DEC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPECK2D_INT_DEC.h; path = include/SPECK2D_INT_DEC.h; sourceTree = "<group>"; };
+		BD479FAE528ED54067FAEABE /* SPECK2D_INT_ENC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPECK2D_INT_ENC.h; path = include/SPECK2D_INT_ENC.h; sourceTree = "<group>"; };
+		CB86FC63CF08B404F2A79C71 /* SPECK_FLT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPECK_FLT.h; path = include/SPECK_FLT.h; sourceTree = "<group>"; };
+		FC5715B9F248403B56F93746 /* SPECK_INT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPECK_INT.h; path = include/SPECK_INT.h; sourceTree = "<group>"; };
+		1A73399800161BFF4D5A864B /* SperrConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SperrConfig.h; path = include/SperrConfig.h; sourceTree = "<group>"; };
+		6D47FFE98F03ABD69005B31E /* sperr_helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sperr_helper.h; path = include/sperr_helper.h; sourceTree = "<group>"; };
+		B8BB82FADA2F7C2107E23DF7 /* Bitmask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Bitmask.cpp; path = src/Bitmask.cpp; sourceTree = "<group>"; };
+		16A91FBC82D7B8EE7CF4E7EB /* Bitstream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Bitstream.cpp; path = src/Bitstream.cpp; sourceTree = "<group>"; };
+		1FAF5C8591D0CB6CDF16C520 /* CDF97.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CDF97.cpp; path = src/CDF97.cpp; sourceTree = "<group>"; };
+		331F1078B5620CCCDE63F4A0 /* Conditioner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Conditioner.cpp; path = src/Conditioner.cpp; sourceTree = "<group>"; };
+		224679B9164D2FE0B915BAC5 /* Outlier_Coder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Outlier_Coder.cpp; path = src/Outlier_Coder.cpp; sourceTree = "<group>"; };
+		9362E465DD22EB3551604B15 /* SPECK1D_INT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SPECK1D_INT.cpp; path = src/SPECK1D_INT.cpp; sourceTree = "<group>"; };
+		FB2FD658512CBA1F9CD93CE0 /* SPECK1D_INT_DEC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SPECK1D_INT_DEC.cpp; path = src/SPECK1D_INT_DEC.cpp; sourceTree = "<group>"; };
+		0C1C8E0F53C9522F0B1A2877 /* SPECK1D_INT_ENC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SPECK1D_INT_ENC.cpp; path = src/SPECK1D_INT_ENC.cpp; sourceTree = "<group>"; };
+		979D07BBDD274DED04CEA0CC /* SPECK2D_FLT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SPECK2D_FLT.cpp; path = src/SPECK2D_FLT.cpp; sourceTree = "<group>"; };
+		081AAF9E2B7122ADF8D9E437 /* SPECK2D_INT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SPECK2D_INT.cpp; path = src/SPECK2D_INT.cpp; sourceTree = "<group>"; };
+		E9F0AA0CC002C0B557E8A937 /* SPECK2D_INT_DEC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SPECK2D_INT_DEC.cpp; path = src/SPECK2D_INT_DEC.cpp; sourceTree = "<group>"; };
+		D7023A1617112E8C7FC42F42 /* SPECK2D_INT_ENC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SPECK2D_INT_ENC.cpp; path = src/SPECK2D_INT_ENC.cpp; sourceTree = "<group>"; };
+		47CF9FF2D4D8EBD806098E97 /* SPECK_FLT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SPECK_FLT.cpp; path = src/SPECK_FLT.cpp; sourceTree = "<group>"; };
+		96B0313E532B0E485BDA3020 /* SPECK_INT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SPECK_INT.cpp; path = src/SPECK_INT.cpp; sourceTree = "<group>"; };
+		27FFEE8DAB5AD6F72B6B0C59 /* sperr_helper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sperr_helper.cpp; path = src/sperr_helper.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		12236730649E5A163D11A8B3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1B44C410A228BF8F43F0AA6A = {
+			isa = PBXGroup;
+			children = (
+				D4DBCC2D2AFE17363481E87B /* common-debug.xcconfig */,
+				F3A0EAC2A699D2382DE5A40B /* common-release.xcconfig */,
+				5E109ED9DD6191DA4610D7B3 /* sperr */,
+				C529F811DE86687A84025DFD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C529F811DE86687A84025DFD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2858AEBD6D8014A8528922F2 /* libsperr.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5E109ED9DD6191DA4610D7B3 /* sperr */ = {
+			isa = PBXGroup;
+			children = (
+				D50AB8615AAFD5EA17B39A88 /* Bitmask.h */,
+				CD564E033BBD6A1F734206D0 /* Bitstream.h */,
+				CC82F309F880BFAADB7D737E /* CDF97.h */,
+				93DDD9EA405C005A8DC20A1A /* Conditioner.h */,
+				64627B545F2230BBD30D218F /* Outlier_Coder.h */,
+				D0A0E38B1A9DE1FD7C009851 /* SPECK1D_INT.h */,
+				940CD9D6F86A3DAF7FA3F4E4 /* SPECK1D_INT_DEC.h */,
+				C54C3A1680BA036A22E845B1 /* SPECK1D_INT_ENC.h */,
+				45997049E2314110B7B45102 /* SPECK2D_FLT.h */,
+				ED24C99BA953EC8CB970365E /* SPECK2D_INT.h */,
+				9FC5949290E7398B849473EC /* SPECK2D_INT_DEC.h */,
+				BD479FAE528ED54067FAEABE /* SPECK2D_INT_ENC.h */,
+				CB86FC63CF08B404F2A79C71 /* SPECK_FLT.h */,
+				FC5715B9F248403B56F93746 /* SPECK_INT.h */,
+				6D47FFE98F03ABD69005B31E /* sperr_helper.h */,
+				1A73399800161BFF4D5A864B /* SperrConfig.h */,
+				B8BB82FADA2F7C2107E23DF7 /* Bitmask.cpp */,
+				16A91FBC82D7B8EE7CF4E7EB /* Bitstream.cpp */,
+				1FAF5C8591D0CB6CDF16C520 /* CDF97.cpp */,
+				331F1078B5620CCCDE63F4A0 /* Conditioner.cpp */,
+				224679B9164D2FE0B915BAC5 /* Outlier_Coder.cpp */,
+				9362E465DD22EB3551604B15 /* SPECK1D_INT.cpp */,
+				FB2FD658512CBA1F9CD93CE0 /* SPECK1D_INT_DEC.cpp */,
+				0C1C8E0F53C9522F0B1A2877 /* SPECK1D_INT_ENC.cpp */,
+				979D07BBDD274DED04CEA0CC /* SPECK2D_FLT.cpp */,
+				081AAF9E2B7122ADF8D9E437 /* SPECK2D_INT.cpp */,
+				E9F0AA0CC002C0B557E8A937 /* SPECK2D_INT_DEC.cpp */,
+				D7023A1617112E8C7FC42F42 /* SPECK2D_INT_ENC.cpp */,
+				47CF9FF2D4D8EBD806098E97 /* SPECK_FLT.cpp */,
+				96B0313E532B0E485BDA3020 /* SPECK_INT.cpp */,
+				27FFEE8DAB5AD6F72B6B0C59 /* sperr_helper.cpp */,
+			);
+			name = sperr;
+			path = ../../3party/sperr;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		BC0A619CA92EFC4E6CCE3F7B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAF8B9259926B1B5DCF357C8 /* Bitmask.h in Headers */,
+				D6C2DE1EC1FB956FCEE243AD /* Bitstream.h in Headers */,
+				6E5E90536601DFC70B7B582C /* CDF97.h in Headers */,
+				5514CA5C7FE58770109927CA /* Conditioner.h in Headers */,
+				E1417ABC1C8D4D2A5706ACFD /* Outlier_Coder.h in Headers */,
+				7C590CF041F7FF5C13BC0746 /* SPECK1D_INT.h in Headers */,
+				B10F9827218A58840B2B5012 /* SPECK1D_INT_DEC.h in Headers */,
+				1268D1EE656E0A47DFE75249 /* SPECK1D_INT_ENC.h in Headers */,
+				D6F865EF428041E53C26C825 /* SPECK2D_FLT.h in Headers */,
+				79788D45D43413E4A847D83A /* SPECK2D_INT.h in Headers */,
+				320034B784B160C6E7B44805 /* SPECK2D_INT_DEC.h in Headers */,
+				3ABD2CAD44F97EB09B7ECB4B /* SPECK2D_INT_ENC.h in Headers */,
+				5A131EA75161F1E22EA7714A /* SPECK_FLT.h in Headers */,
+				99243921FFAF0C29B9932B4D /* SPECK_INT.h in Headers */,
+				8BD920A68A6F90280C28A905 /* SperrConfig.h in Headers */,
+				5804BB10F3BB103E3E62E896 /* sperr_helper.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		6AE7ED5FA1616B0E02BBE603 /* sperr */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E25657ECB4FD853AC55504F4 /* Build configuration list for PBXNativeTarget "sperr" */;
+			buildPhases = (
+				D99D5705838297D0E159F843 /* Sources */,
+				12236730649E5A163D11A8B3 /* Frameworks */,
+				BC0A619CA92EFC4E6CCE3F7B /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = sperr;
+			productName = sperr;
+			productReference = 2858AEBD6D8014A8528922F2 /* libsperr.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B49DFF7DD62A12F8AAFB1212 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				DefaultBuildSystemTypeForWorkspace = Latest;
+				LastUpgradeCheck = 2700;
+			};
+			buildConfigurationList = D5DC9CA03A2BBB8874801E3C /* Build configuration list for PBXProject "sperr" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1B44C410A228BF8F43F0AA6A;
+			productRefGroup = C529F811DE86687A84025DFD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6AE7ED5FA1616B0E02BBE603 /* sperr */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D99D5705838297D0E159F843 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED3A3F0926185594BD67FCE9 /* Bitmask.cpp in Sources */,
+				5A749B291929F016F1711A43 /* Bitstream.cpp in Sources */,
+				1BC6DE1A1A47F82488942ACA /* CDF97.cpp in Sources */,
+				1AC7587B7D5F1C799A5A5C7D /* Conditioner.cpp in Sources */,
+				198E80F74295B85CDCC9383B /* Outlier_Coder.cpp in Sources */,
+				BC600D0B330DF51EC079D819 /* SPECK1D_INT.cpp in Sources */,
+				C6B26606DDA648C7230F9AD5 /* SPECK1D_INT_DEC.cpp in Sources */,
+				342FB0881A98604AE3C836DC /* SPECK1D_INT_ENC.cpp in Sources */,
+				9BFC7C8857DC8EFB5F0932A8 /* SPECK2D_FLT.cpp in Sources */,
+				0DA0B599637546F3F46250CB /* SPECK2D_INT.cpp in Sources */,
+				48D4763DD7A2C1AEF8918A73 /* SPECK2D_INT_DEC.cpp in Sources */,
+				81C95F8394318ADC67FC648C /* SPECK2D_INT_ENC.cpp in Sources */,
+				B6412B6AA7674C63CD6A8407 /* SPECK_FLT.cpp in Sources */,
+				4983DA62AD64428B6D95C59A /* SPECK_INT.cpp in Sources */,
+				CE0F071F8ED510902CB5B8F5 /* sperr_helper.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		39B9A3BEAED3F1BF5387F236 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D4DBCC2D2AFE17363481E87B /* common-debug.xcconfig */;
+			buildSettings = {
+				GCC_FAST_MATH = NO;
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/sperr/include",
+				);
+				OTHER_CPLUSPLUSFLAGS = "$(inherited) -ffp-contract=off";
+			};
+			name = Debug;
+		};
+		283790851D4F7A723DE6E0AA /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F3A0EAC2A699D2382DE5A40B /* common-release.xcconfig */;
+			buildSettings = {
+				GCC_FAST_MATH = NO;
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/sperr/include",
+				);
+				OTHER_CPLUSPLUSFLAGS = "$(inherited) -ffp-contract=off";
+			};
+			name = Release;
+		};
+		79FD3BB39E0C4DDFE5E8097D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		84EE626020E0427D8BA86462 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D5DC9CA03A2BBB8874801E3C /* Build configuration list for PBXProject "sperr" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				39B9A3BEAED3F1BF5387F236 /* Debug */,
+				283790851D4F7A723DE6E0AA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E25657ECB4FD853AC55504F4 /* Build configuration list for PBXNativeTarget "sperr" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				79FD3BB39E0C4DDFE5E8097D /* Debug */,
+				84EE626020E0427D8BA86462 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B49DFF7DD62A12F8AAFB1212 /* Project object */;
+}
