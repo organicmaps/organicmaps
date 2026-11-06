@@ -1,7 +1,6 @@
 package app.organicmaps.sdk.car.renderer;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -57,8 +56,10 @@ public class SurfaceCallbackTest
         .thenReturn(displayManager);
     when(displayManager.createVirtualDisplay(anyString(), anyInt(), anyInt(), anyInt(), any(), anyInt()))
         .thenReturn(virtualDisplay);
+    final DisplayManager displayMode = mock(DisplayManager.class);
+    when(displayMode.isCarDisplayUsed()).thenReturn(true);
     mCallback = new SurfaceCallback(carContext, mock(LifecycleOwner.class), mock(LocationHelper.class),
-                                    mock(MapRenderingListener.class), mock(DisplayManager.class));
+                                    mock(MapRenderingListener.class), displayMode);
   }
 
   @After
@@ -108,73 +109,64 @@ public class SurfaceCallbackTest
     final InOrder replay = inOrder(presentation);
     replay.verify(presentation).create();
     replay.verify(presentation).setCurrentSpeed(54, "km/h");
-    replay.verify(presentation).setSpeedLimit(50);
-    replay.verify(presentation).setSpeedLimitSignType(Framework.SpeedLimitSignType.MUTCD);
-    replay.verify(presentation).setAlertForced(true);
+    verify(presentation).setSpeedLimit(50);
+    verify(presentation).setSpeedLimitSignType(Framework.SpeedLimitSignType.MUTCD);
+    verify(presentation).setAlertForced(true);
     verify(presentation, never()).setCurrentSpeed(20, "km/h");
     verify(presentation, never()).setSpeedLimit(30);
   }
 
   @Test
-  public void replaysStateAfterPresentationRecreationWithoutLocationUpdate()
+  public void hostReconnectReusesPresentationWithLatestState()
   {
     mCallback.setCurrentSpeed(64, "km/h");
     mCallback.setSpeedLimit(50);
     mCallback.setSpeedLimitSignType(Framework.SpeedLimitSignType.MUTCD);
     mCallback.setAlertForced(true);
     mCallback.onSurfaceAvailable(mSurface);
-    final CarPresentation first = mPresentations.constructed().get(0);
-    mCallback.destroy();
-    verify(first).destroy();
+    final CarPresentation presentation = mPresentations.constructed().get(0);
+    clearInvocations(presentation);
+
+    mCallback.onSurfaceDestroyed(mSurface);
+    mCallback.setCurrentSpeed(42, "mph");
+    mCallback.setSpeedLimit(40);
+    mCallback.setSpeedLimitSignType(Framework.SpeedLimitSignType.VIENNA);
+    mCallback.setAlertForced(false);
     mCallback.onSurfaceAvailable(mSurface);
 
-    assertEquals(2, mPresentations.constructed().size());
-    final CarPresentation second = mPresentations.constructed().get(1);
-    assertNotSame(first, second);
-    final InOrder replay = inOrder(second);
-    replay.verify(second).create();
-    replay.verify(second).setCurrentSpeed(64, "km/h");
-    replay.verify(second).setSpeedLimit(50);
-    replay.verify(second).setSpeedLimitSignType(Framework.SpeedLimitSignType.MUTCD);
-    replay.verify(second).setAlertForced(true);
+    assertEquals(1, mPresentations.constructed().size());
+    verify(presentation).stopPresenting();
+    verify(presentation).setCurrentSpeed(42, "mph");
+    verify(presentation).setSpeedLimit(40);
+    verify(presentation).setSpeedLimitSignType(Framework.SpeedLimitSignType.VIENNA);
+    verify(presentation).setAlertForced(false);
+    verify(presentation).startPresenting();
+    verify(presentation, never()).destroy();
   }
 
   @Test
-  public void retainsUpdatesMadeWhilePresentationIsAbsent()
+  public void unavailableSpeedAndClearedLimitSurviveHostReconnect()
   {
     mCallback.setCurrentSpeed(64, "km/h");
     mCallback.setSpeedLimit(50);
     mCallback.setAlertForced(true);
     mCallback.onSurfaceAvailable(mSurface);
-    mCallback.destroy();
-    mCallback.setCurrentSpeed(42, "mph");
-    mCallback.setSpeedLimit(40);
+    final CarPresentation presentation = mPresentations.constructed().get(0);
+    clearInvocations(presentation);
+
+    mCallback.onSurfaceDestroyed(mSurface);
+    mCallback.setCurrentSpeed(null, "km/h");
+    mCallback.setSpeedLimit(null);
     mCallback.setAlertForced(false);
     mCallback.onSurfaceAvailable(mSurface);
 
-    final CarPresentation second = mPresentations.constructed().get(1);
-    verify(second).setCurrentSpeed(42, "mph");
-    verify(second).setSpeedLimit(40);
-    verify(second).setAlertForced(false);
-    verify(second, never()).setAlertForced(true);
-    verify(second, never()).setCurrentSpeed(64, "km/h");
-    verify(second, never()).setSpeedLimit(50);
-  }
-
-  @Test
-  public void clearingLimitWhileAbsentDoesNotRestoreStaleLimit()
-  {
-    mCallback.setCurrentSpeed(64, "km/h");
-    mCallback.setSpeedLimit(50);
-    mCallback.onSurfaceAvailable(mSurface);
-    mCallback.destroy();
-    mCallback.setSpeedLimit(null);
-    mCallback.onSurfaceAvailable(mSurface);
-
-    final CarPresentation second = mPresentations.constructed().get(1);
-    verify(second).setCurrentSpeed(64, "km/h");
-    verify(second).setSpeedLimit(null);
-    verify(second, never()).setSpeedLimit(50);
+    assertEquals(1, mPresentations.constructed().size());
+    verify(presentation).setCurrentSpeed(null, "km/h");
+    verify(presentation).setSpeedLimit(null);
+    verify(presentation).setAlertForced(false);
+    verify(presentation, never()).setCurrentSpeed(64, "km/h");
+    verify(presentation, never()).setSpeedLimit(50);
+    verify(presentation, never()).setAlertForced(true);
   }
 
   @Test
@@ -199,17 +191,12 @@ public class SurfaceCallbackTest
   }
 
   @Test
-  public void changingSignTypeWhileAbsentDoesNotRestoreStaleType()
+  public void terminalDestructionReleasesPresentation()
   {
-    mCallback.setSpeedLimitSignType(Framework.SpeedLimitSignType.MUTCD);
     mCallback.onSurfaceAvailable(mSurface);
+    final CarPresentation presentation = mPresentations.constructed().get(0);
     mCallback.destroy();
-    mCallback.setSpeedLimitSignType(Framework.SpeedLimitSignType.VIENNA);
-    mCallback.onSurfaceAvailable(mSurface);
-
-    final CarPresentation second = mPresentations.constructed().get(1);
-    verify(second).setSpeedLimitSignType(Framework.SpeedLimitSignType.VIENNA);
-    verify(second, never()).setSpeedLimitSignType(Framework.SpeedLimitSignType.MUTCD);
+    verify(presentation).destroy();
   }
 
   @Test
