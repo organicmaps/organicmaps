@@ -35,6 +35,7 @@ public class RoutingControllerRecoveryTest
   private final Instrumentation mInstrumentation = InstrumentationRegistry.getInstrumentation();
   private final MwmApplication mApplication = MwmApplication.from(mInstrumentation.getTargetContext());
   private RoutingController mController;
+  private RoutingController.Container mContainer;
   private Router mOriginalRouter;
 
   @Before
@@ -69,7 +70,8 @@ public class RoutingControllerRecoveryTest
     if (mController == null)
       return;
     onMain(() -> {
-      mController.detach();
+      if (mContainer != null)
+        mController.detach(mContainer);
       mController.cancel();
       Framework.nativeCloseRouting();
       Framework.nativeDeleteSavedRoutePoints();
@@ -112,14 +114,15 @@ public class RoutingControllerRecoveryTest
       assertTrue(Framework.nativeHasSavedRoutePoints());
       assertTrue(mController.isBuilding());
       final int[] shown = {0};
-      mController.attach(new RoutingController.Container() {
+      mContainer = new RoutingController.Container() {
         @Override
         public void showRoutePlan(boolean show)
         {
           assertTrue(show);
           ++shown[0];
         }
-      });
+      };
+      mController.attach(mContainer);
       mController.restore();
       assertEquals(1, shown[0]);
       assertEquals(Router.Ruler, mController.getLastRouterType());
@@ -173,7 +176,8 @@ public class RoutingControllerRecoveryTest
   {
     onMain(() -> {
       saveRouteWithStop();
-      mController.attach(new RoutingController.Container() {});
+      mContainer = new RoutingController.Container() {};
+      mController.attach(mContainer);
       mController.prepare(point("New start", 3), point("New finish", 3), Router.Ruler);
       assertTrue(mController.isPlanning());
       assertEquals(RoutingController.BuildState.NONE, mController.getBuildState());
@@ -189,7 +193,8 @@ public class RoutingControllerRecoveryTest
     onMain(() -> {
       mController.prepare(point("Invalid start", 3), point("Invalid finish", 3), Router.Ruler);
       mController.setEndPoint(point("New finish", 4));
-      mController.attach(new RoutingController.Container() {});
+      mContainer = new RoutingController.Container() {};
+      mController.attach(mContainer);
       mController.restore();
       assertTrue(mController.isBuilding());
     });
@@ -206,7 +211,8 @@ public class RoutingControllerRecoveryTest
       events.onRoutingEvent(ResultCodes.ROUTE_NOT_FOUND, new String[0]);
       assertTrue(mController.cancel());
       mController.prepare(null, null, Router.Ruler);
-      mController.attach(new RoutingController.Container() {});
+      mContainer = new RoutingController.Container() {};
+      mController.attach(mContainer);
       mController.restore();
       assertEquals(RoutingController.BuildState.NONE, mController.getBuildState());
     });
