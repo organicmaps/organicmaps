@@ -32,8 +32,7 @@ void TokenizeAndAddAllSubstrings(base::MemTrie<std::string, base::VectorValues<u
 
 void CategoriesIndex::AddCategoryByTypeAndLang(uint32_t type, int8_t lang)
 {
-  ASSERT(lang >= 1 && static_cast<size_t>(lang) <= CategoriesHolder::kLocaleMapping.size(),
-         ("Invalid lang code:", lang));
+  ASSERT(lang >= 1 && static_cast<size_t>(lang) <= CategoriesHolder::kLocales.size(), ("Invalid lang code:", lang));
   m_catHolder->ForEachNameByType(type, [&](Category::Name const & name)
   {
     if (name.m_locale == lang)
@@ -49,8 +48,7 @@ void CategoriesIndex::AddCategoryByTypeAllLangs(uint32_t type)
 
 void CategoriesIndex::AddAllCategoriesInLang(int8_t lang)
 {
-  ASSERT(lang >= 1 && static_cast<size_t>(lang) <= CategoriesHolder::kLocaleMapping.size(),
-         ("Invalid lang code:", lang));
+  ASSERT(lang >= 1 && static_cast<size_t>(lang) <= CategoriesHolder::kLocales.size(), ("Invalid lang code:", lang));
   m_catHolder->ForEachTypeAndCategory([&](uint32_t type, Category const & cat)
   {
     for (auto const & name : cat.m_synonyms)
