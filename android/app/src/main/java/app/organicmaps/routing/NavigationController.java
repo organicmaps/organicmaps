@@ -237,7 +237,9 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
   public void refresh()
   {
     mNavMenu.refreshTts();
-    update(Framework.nativeGetRouteFollowingInfo());
+    // Refresh navigation values on resume in case measurement units changed in Settings.
+    if (RoutingController.get().isNavigating())
+      update(Framework.nativeGetRouteFollowingInfo());
   }
 
   @Override
