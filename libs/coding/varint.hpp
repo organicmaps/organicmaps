@@ -1,5 +1,6 @@
 #pragma once
 
+#include "coding/byte_stream.hpp"
 #include "coding/write_to_sink.hpp"
 
 #include "base/assert.hpp"
@@ -226,7 +227,7 @@ private:
 };
 
 template <typename ConverterT, typename F, class WhileConditionT>
-void const * ReadVarInt64Array(void const * pBeg, WhileConditionT whileCondition, F f, ConverterT converter)
+void const * ReadVarInt64Array(void const * pBeg, WhileConditionT whileCondition, F && f, ConverterT converter)
 {
   uint8_t const * const pBegChar = static_cast<uint8_t const *>(pBeg);
   uint64_t res64 = 0;
@@ -265,30 +266,40 @@ void const * ReadVarInt64Array(void const * pBeg, WhileConditionT whileCondition
 }  // namespace varint_impl
 
 template <typename F>
-void const * ReadVarInt64Array(void const * pBeg, void const * pEnd, F f)
+void const * ReadVarInt64Array(void const * pBeg, void const * pEnd, F && f)
 {
   return ::varint_impl::ReadVarInt64Array<int64_t (*)(uint64_t)>(
       pBeg, ::varint_impl::ReadVarInt64ArrayUntilBufferEnd(pEnd), f, &bits::ZigZagDecode);
 }
 
 template <typename F>
-void const * ReadVarUint64Array(void const * pBeg, void const * pEnd, F f)
+void const * ReadVarUint64Array(void const * pBeg, void const * pEnd, F && f)
 {
   return ::varint_impl::ReadVarInt64Array(pBeg, ::varint_impl::ReadVarInt64ArrayUntilBufferEnd(pEnd), f,
                                           base::IdFunctor());
 }
 
 template <typename F>
-void const * ReadVarInt64Array(void const * pBeg, size_t count, F f)
+void const * ReadVarInt64Array(void const * pBeg, size_t count, F && f)
 {
   return ::varint_impl::ReadVarInt64Array<int64_t (*)(uint64_t)>(pBeg, ::varint_impl::ReadVarInt64ArrayGivenSize(count),
                                                                  f, &bits::ZigZagDecode);
 }
 
 template <typename F>
-void const * ReadVarUint64Array(void const * pBeg, size_t count, F f)
+void const * ReadVarUint64Array(void const * pBeg, size_t count, F && f)
 {
   return ::varint_impl::ReadVarInt64Array(pBeg, ::varint_impl::ReadVarInt64ArrayGivenSize(count), f, base::IdFunctor());
+}
+
+template <typename F>
+void ReadVarInt64Array(ArrayByteSource & src, size_t count, F && f)
+{
+  if (count == 0)
+    return;
+  auto const * begin = src.PtrUint8();
+  auto const * end = static_cast<uint8_t const *>(ReadVarInt64Array(begin, count, f));
+  src.Advance(end - begin);
 }
 
 template <class Cont, class Sink>
