@@ -2,6 +2,7 @@
 
 #import "IOpeningHoursLocalization.h"
 
+#include <optional>
 #include <vector>
 
 namespace osmoh
@@ -21,7 +22,9 @@ struct Day
   bool m_isOpen = true;
 };
 
-/// @return { Days schedule list, is closed now }
-std::pair<std::vector<osmoh::Day>, bool> processRawString(NSString * str, id<IOpeningHoursLocalization> localization);
+/// @param today 1 = Sunday … 7 = Saturday, as in NSCalendar.
+/// @return Rows of the week starting from today, a single 24/7 row, or nothing if the hours can't be listed.
+std::optional<std::vector<osmoh::Day>> processRawString(NSString * str, id<IOpeningHoursLocalization> localization,
+                                                        NSInteger today);
 
 }  // namespace osmoh
