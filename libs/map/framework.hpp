@@ -549,6 +549,7 @@ public:
                          bool trackVisibleViewport = false);
 
   m2::RectD GetCurrentViewport() const;
+  ScreenBase const & GetCurrentModelView() const { return m_currentModelView; }
   void SetVisibleViewport(m2::RectD const & rect);
 
   void ShowRect(m2::RectD const & rect, bool animation = true, bool useVisibleViewport = false);
