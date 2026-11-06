@@ -319,7 +319,8 @@ constructor(
         val contentHeight = (height - paddingTop - paddingBottom).coerceAtLeast(0)
         val columns = if (isVertical) 1 else signsCount
         val rows = if (isVertical) signsCount else 1
-        var signLeft = paddingLeft + (contentWidth - columns * signSize) / 2
+        val extraWidth = contentWidth - columns * signSize
+        var signLeft = paddingLeft + horizontalOffset(extraWidth)
         var signTop = paddingTop + (contentHeight - rows * signSize) / 2
         val signs = if (isCurrentSpeedFirst) {
             listOf(currentSpeedView, speedLimitView)
@@ -361,6 +362,12 @@ constructor(
         } else {
             connectorBounds.setEmpty()
         }
+    }
+
+    private fun horizontalOffset(extraWidth: Int): Int = when (currentSpeedPosition) {
+        CurrentSpeedPosition.Start -> if (layoutDirection == LAYOUT_DIRECTION_RTL) extraWidth else 0
+        CurrentSpeedPosition.End -> if (layoutDirection == LAYOUT_DIRECTION_RTL) 0 else extraWidth
+        else -> extraWidth / 2
     }
 
     private inline fun forEachVisibleSign(action: (View) -> Unit) {

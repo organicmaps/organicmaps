@@ -62,6 +62,16 @@ public class SpeedSignTouchTest
   }
 
   @Test
+  public void reservedSpaceForUnknownLimitPassesThroughMapGestures()
+  {
+    CombinedSpeedView view = new CombinedSpeedView(RuntimeEnvironment.getApplication());
+    view.setCurrentSpeedPosition(CombinedSpeedView.CurrentSpeedPosition.End);
+    layout(view, 136, 68);
+    assertFalse(touch(view, MotionEvent.ACTION_DOWN, 34, 34));
+    assertGestureConsumed(view, 102, 34);
+  }
+
+  @Test
   public void gestureStaysConsumedAfterMovingOutsideSign()
   {
     View view = new SpeedLimitView(RuntimeEnvironment.getApplication());

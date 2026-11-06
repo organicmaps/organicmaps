@@ -67,6 +67,31 @@ public class NavigationOverlayLayoutTest
   }
 
   @Test
+  public void landscapeLanesAndCurrentSpeedStayPutWhenTheLimitChanges()
+  {
+    Context context = context(true);
+    for (int direction : new int[] {View.LAYOUT_DIRECTION_LTR, View.LAYOUT_DIRECTION_RTL})
+    {
+      ViewGroup parent = (ViewGroup) LayoutInflater.from(context).inflate(R.layout.layout_nav_top, null);
+      parent.setLayoutDirection(direction);
+      View lanes = parent.findViewById(R.id.lanes);
+      lanes.setVisibility(View.VISIBLE);
+      CombinedSpeedView speed = parent.findViewById(R.id.nav_speed_limit);
+      speed.setSpeedLimit(90);
+      layout(parent, 800, 360);
+      int laneWidth = lanes.getWidth();
+      int speedLeft = speed.getLeft() + speed.getChildAt(0).getLeft();
+      for (Integer limit : new Integer[] {null, 50, null, 120})
+      {
+        speed.setSpeedLimit(limit);
+        layout(parent, 800, 360);
+        assertEquals(laneWidth, lanes.getWidth());
+        assertEquals(speedLeft, speed.getLeft() + speed.getChildAt(0).getLeft());
+      }
+    }
+  }
+
+  @Test
   public void recordingControlClearsOverlaysInEveryNavigationLayout()
   {
     for (boolean landscape : new boolean[] {false, true})

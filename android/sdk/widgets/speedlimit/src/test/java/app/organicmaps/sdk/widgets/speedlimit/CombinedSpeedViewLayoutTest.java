@@ -90,6 +90,23 @@ public class CombinedSpeedViewLayoutTest
     assertEquals(60 - expectedLeft, view.getChildAt(1).getLeft());
   }
 
+  @Test
+  public void fixedWidthKeepsCurrentSpeedAtTheRelativeEdge()
+  {
+    for (int direction : new int[] {View.LAYOUT_DIRECTION_LTR, View.LAYOUT_DIRECTION_RTL})
+    {
+      CombinedSpeedView view = composite("end");
+      view.setLayoutDirection(direction);
+      for (Integer limit : new Integer[] {90, null, 50})
+      {
+        view.setSpeedLimit(limit);
+        layout(view, 136, 68);
+        assertEquals(direction == View.LAYOUT_DIRECTION_RTL ? 0 : 68, view.getChildAt(0).getLeft());
+        assertEquals(68, view.getChildAt(0).getWidth());
+      }
+    }
+  }
+
   @NonNull
   private static CombinedSpeedView composite(String position)
   {
