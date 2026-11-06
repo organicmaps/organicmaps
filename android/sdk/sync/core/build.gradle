@@ -1,0 +1,20 @@
+plugins {
+  id 'com.android.library'
+}
+
+apply from: "${rootProject.rootDir}/groovy/common-config.gradle"
+
+android {
+  namespace = 'app.organicmaps.sdk.sync'
+  enableKotlin = true  // see app/build.gradle
+}
+
+dependencies {
+  // Suspend functions and StateFlow are part of this module's public API.
+  api libs.kotlinx.coroutines.android
+
+  testImplementation libs.androidx.junit
+  testImplementation libs.kotlinx.coroutines.test
+  // android.jar stubs of org.json throw in JVM unit tests.
+  testImplementation libs.org.json
+}

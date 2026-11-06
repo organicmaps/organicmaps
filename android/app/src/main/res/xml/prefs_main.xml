@@ -190,6 +190,13 @@
       android:summary="@string/bookmarks_backup_description"
       android:persistent="false"
       android:order="3" />
+    <Preference
+      android:key="@string/pref_bookmarks_sync"
+      android:title="@string/bookmarks_sync_title"
+      app:singleLineTitle="false"
+      android:persistent="false"
+      app:isPreferenceVisible="false"
+      android:order="4" />
   </androidx.preference.PreferenceCategory>
   <androidx.preference.PreferenceCategory
     android:key="@string/pref_information"

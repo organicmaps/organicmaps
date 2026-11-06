@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <SwitchPreferenceCompat
+      android:key="@string/pref_bookmarks_sync_enabled"
+      android:title="@string/bookmarks_sync_enabled"
+      app:singleLineTitle="false"
+      android:persistent="false"
+      android:order="1" />
+  <app.organicmaps.settings.BookmarksSyncStatusPreference
+      android:key="@string/pref_bookmarks_sync_status"
+      app:singleLineTitle="false"
+      android:persistent="false"
+      app:isPreferenceVisible="false"
+      android:order="2" />
+  <Preference
+      android:key="@string/pref_bookmarks_sync_account"
+      android:title="@string/bookmarks_sync_account"
+      app:singleLineTitle="false"
+      android:persistent="false"
+      app:isPreferenceVisible="false"
+      android:order="3" />
+  <Preference
+      android:key="@string/pref_bookmarks_sync_storage"
+      android:title="@string/bookmarks_sync_manage_storage"
+      app:singleLineTitle="false"
+      android:persistent="false"
+      app:isPreferenceVisible="false"
+      android:order="4" />
+  <SwitchPreferenceCompat
+      android:key="@string/pref_bookmarks_sync_mobile_data"
+      android:title="@string/bookmarks_sync_mobile_data"
+      app:singleLineTitle="false"
+      android:persistent="false"
+      app:isPreferenceVisible="false"
+      android:order="5" />
+  <Preference
+      android:key="@string/pref_bookmarks_sync_delete"
+      android:title="@string/bookmarks_sync_delete_cloud"
+      app:singleLineTitle="false"
+      android:persistent="false"
+      app:isPreferenceVisible="false"
+      android:order="6" />
+</androidx.preference.PreferenceScreen>
