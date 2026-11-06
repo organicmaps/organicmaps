@@ -55,7 +55,8 @@ public:
                    base::SharedCancellable const & isCancellable = {}, ReadStats * stats = nullptr) const;
   m2::PointD GetRasterHalo() const { return m_rasterHalo; }
 
-  // Reads only indexed features near the point, using the finest stored geometry.
+  // Reads only indexed features near the point, using the finest stored geometry. It decodes the whole raster
+  // patches around the point: fine for a place page, too slow for a per-frame or per-track-point use.
   std::optional<double> GetElevation(m2::PointD const & point) const;
 
 private:

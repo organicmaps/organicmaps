@@ -8,9 +8,10 @@
 #include "base/bits.hpp"
 #include "base/buffer_vector.hpp"
 
-#include <zlib.h>
 #include <algorithm>
 #include <limits>
+
+#include <zlib.h>
 
 namespace terrain
 {
@@ -127,7 +128,9 @@ std::vector<Altitude> DecodeRasterPayload(RasterRecord const & record, std::span
     buffer_vector<uint8_t, 8 * kMaxRasterCells + 2> inflated;
     if (record.m_codec == RasterCodec::SperrZlibBorder || record.m_codec == RasterCodec::Sz3ZlibBorder)
     {
-      // Each packed correction and its count take at most two bytes.
+      // Each varuint below takes at most two bytes: the count is at most the perimeter size, and a packed
+      // correction is (ordinal delta << 3) | zigzag(-3..3) with the delta below the perimeter size.
+      static_assert(4 * kMaxRasterCells * 8 <= (1 << 14), "A larger perimeter needs a bigger buffer");
       inflated.resize(perimeter.Size() * 2 + 2);
       auto length = static_cast<uLongf>(inflated.size());
       VERIFY(uncompress(inflated.data(), &length, border.data(), border.size()) == Z_OK, ());

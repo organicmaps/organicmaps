@@ -3,6 +3,8 @@
 #include "indexer/classificator.hpp"
 #include "indexer/drawing_rules.hpp"
 
+#include "base/assert.hpp"
+
 namespace terrain
 {
 namespace
@@ -73,9 +75,7 @@ IsolinesStyle::ClassStyle const & IsolinesStyle::GetClass(int32_t altitude) cons
     if (altitude % c.m_rung == 0)
       return c;
 
-  // Not on the ladder (an altitude of a finer trace than this style draws).
-  ASSERT(false, (altitude, m_step));
-  static ClassStyle const kNone;
-  return kNone;
+  // The callers trace at the finest visible rung (GetStep), so every altitude is on the ladder.
+  UNREACHABLE();
 }
 }  // namespace terrain

@@ -3,8 +3,10 @@ project(terrain_tests)
 set(SRC
   isolines_tracer_tests.cpp
   sz3_decoder_tests.cpp
+  terrain_reader_tests.cpp
   terrain_utils_tests.cpp
   tile_mesh_tests.cpp
+  twm_grid_tests.cpp
   twm_set_tests.cpp
 )
 

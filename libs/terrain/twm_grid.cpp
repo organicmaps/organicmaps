@@ -14,8 +14,9 @@
 
 #include "defines.hpp"
 
-#include <cmath>
+#include <algorithm>
 #include <cstdio>
+#include <cstdlib>
 
 namespace terrain
 {
@@ -52,11 +53,16 @@ m2::RectD GridBlock::GetRectMercator() const
 
 bool ParseBlockName(std::string_view name, int & bottom, int & left)
 {
-  if (name.size() != 7 || (name[0] != 'N' && name[0] != 'S') || (name[3] != 'E' && name[3] != 'W'))
+  // Digits only: strings::to_int also accepts a sign.
+  if (name.size() != 7 || (name[0] != 'N' && name[0] != 'S') || (name[3] != 'E' && name[3] != 'W') ||
+      !strings::IsASCIINumeric(name.substr(1, 2)) || !strings::IsASCIINumeric(name.substr(4, 3)))
     return false;
   int lat;
   int lon;
   if (!strings::to_int(name.substr(1, 2), lat) || !strings::to_int(name.substr(4, 3), lon))
+    return false;
+  // The zero degree is always N/E, as GetFileName writes it.
+  if ((name[0] == 'S' && lat == 0) || (name[3] == 'W' && lon == 0))
     return false;
   bottom = (name[0] == 'N' ? 1 : -1) * lat;
   left = (name[3] == 'E' ? 1 : -1) * lon;

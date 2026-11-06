@@ -15,6 +15,7 @@
 
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
+#include "base/scope_guard.hpp"
 
 #include <string>
 #include <vector>
@@ -279,5 +280,40 @@ UNIT_TEST(TwmSet_ObsoleteVersion)
   terrain::TwmFile file;
   TEST_EQUAL(terrain::TwmSet::ReadFile(path, 0, file), terrain::TwmSet::RegResult::ObsoleteVersion, ());
   TEST_EQUAL(terrain::TwmSet::ReadFile(path, 0, file), terrain::TwmSet::RegResult::ObsoleteVersion, ());
+}
+
+// Registration keeps the scanned file identity and rejects overlapping active blocks.
+UNIT_TEST(TwmSet_RejectsOverlappingBlocks)
+{
+  std::string const source = base::JoinPath(GetPlatform().ResourcesDir(), "N43E007.twm");
+  // Two copies of the same block = the same header rect = a guaranteed overlap.
+  std::string const newerPath = base::JoinPath(GetPlatform().TmpDir(), "twm_v2.twm");
+  std::string const olderPath = base::JoinPath(GetPlatform().TmpDir(), "twm_v1.twm");
+  TEST(base::CopyFileX(source, newerPath), ());
+  TEST(base::CopyFileX(source, olderPath), ());
+  SCOPE_GUARD(cleanup, [&]()
+  {
+    base::DeleteFileX(newerPath);
+    base::DeleteFileX(olderPath);
+  });
+
+  terrain::TwmFile newer, older;
+  TEST_EQUAL(terrain::TwmSet::ReadFile(newerPath, 2 /* version */, newer), terrain::TwmSet::RegResult::Success, ());
+  TEST_EQUAL(terrain::TwmSet::ReadFile(olderPath, 1 /* version */, older), terrain::TwmSet::RegResult::Success, ());
+  TEST(newer.m_rect.IsValid(), ());
+
+  terrain::TwmSet set;
+  auto const [id, result] = set.Register(newer);
+  TEST_EQUAL(result, terrain::TwmSet::RegResult::Success, ());
+  TEST_EQUAL(set.GetId(newer.m_id), id, ());
+  TEST_EQUAL(id.GetInfo()->GetFilePath(), newerPath, ());
+  TEST_EQUAL(id.GetInfo()->GetVersion(), 2, ());
+  TEST_EQUAL(set.Register(older).second, terrain::TwmSet::RegResult::Overlapping, ());
+  TEST(set.HasBlocks(newer.m_rect), ());
+
+  set.Deregister(newer.m_id);
+  TEST(!set.GetId(newer.m_id).IsAlive(), ());
+  TEST_EQUAL(set.Register(older).second, terrain::TwmSet::RegResult::Success, ());
+  TEST_EQUAL(set.GetId(older.m_id).GetInfo()->GetVersion(), 1, ());
 }
 }  // namespace twm_set_tests
