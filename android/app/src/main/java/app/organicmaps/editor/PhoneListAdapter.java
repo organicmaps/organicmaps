@@ -52,10 +52,10 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.View
   {
     if (sourcePhonesData == null)
       return true;
-    if (sourcePhonesData.size()+1 != phonesData.size())
+    if (sourcePhonesData.size() + 1 != phonesData.size())
       return true;
 
-    for (int i=0; i<sourcePhonesData.size(); i++)
+    for (int i = 0; i < sourcePhonesData.size(); i++)
       if (!Objects.equals(sourcePhonesData.get(i), phonesData.get(i)))
         return true;
 
