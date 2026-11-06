@@ -1372,7 +1372,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     closeFloatingToolbarsAndPanels();
     ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
     ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
-    NavigationService.stopService(this);
     cancelNavigationSearch();
     mMapButtonsViewModel.setLayoutMode(MapButtonsController.LayoutMode.regular);
     refreshLightStatusBar();
@@ -1434,7 +1433,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     closeFloatingToolbarsAndPanels();
     ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
     ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
-    NavigationService.stopService(this);
     // Route edits while planning land here too. The routing state is already PREPARE, hence the layout check.
     if (mMapButtonsViewModel.getLayoutMode().getValue() == MapButtonsController.LayoutMode.navigation)
       cancelNavigationSearch();

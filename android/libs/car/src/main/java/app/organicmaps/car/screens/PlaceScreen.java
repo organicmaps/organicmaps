@@ -83,7 +83,6 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   public void onCreate(@NonNull LifecycleOwner owner)
   {
     super.onCreate(owner);
-    mRoutingController.restore();
     if (mRoutingController.isNavigating() && mRoutingController.getLastRouterType() == ROUTER)
     {
       showNavigation(true);
@@ -119,6 +118,7 @@ public class PlaceScreen extends BaseMapScreen implements OnBackPressedCallback.
   {
     super.onResume(owner);
     mRoutingController.attach(this);
+    mRoutingController.restore();
   }
 
   @Override
