@@ -150,6 +150,36 @@ UNIT_TEST(TEST_FLOAT_DOUBLE_EQUAL_macros)
   TEST_NOT_ALMOST_EQUAL_ULPS(dx, 2.0, ());
 }
 
+UNIT_TEST(FloorDiv_CeilDiv)
+{
+  static_assert(math::FloorDiv(7, 3) == 2);
+  static_assert(math::FloorDiv(6, 3) == 2);
+  static_assert(math::FloorDiv(1, 3) == 0);
+  static_assert(math::FloorDiv(0, 3) == 0);
+  static_assert(math::FloorDiv(-1, 3) == -1);
+  static_assert(math::FloorDiv(-3, 3) == -1);
+  static_assert(math::FloorDiv(-4, 3) == -2);
+  static_assert(math::FloorDiv(int64_t{-10}, int64_t{5}) == -2);
+  static_assert(math::FloorDiv(7u, 3u) == 2u);
+
+  static_assert(math::CeilDiv(7, 3) == 3);
+  static_assert(math::CeilDiv(6, 3) == 2);
+  static_assert(math::CeilDiv(1, 3) == 1);
+  static_assert(math::CeilDiv(0, 3) == 0);
+  static_assert(math::CeilDiv(-1, 3) == 0);
+  static_assert(math::CeilDiv(-3, 3) == -1);
+  static_assert(math::CeilDiv(-4, 3) == -1);
+  static_assert(math::CeilDiv(int64_t{10}, int64_t{4}) == 3);
+  static_assert(math::CeilDiv(7u, 3u) == 3u);
+
+  // No overflow on the extremes.
+  static_assert(math::FloorDiv(std::numeric_limits<int32_t>::min(), 1) == std::numeric_limits<int32_t>::min());
+  static_assert(math::FloorDiv(std::numeric_limits<int32_t>::min() + 1, 2) == -1073741824);
+  static_assert(math::CeilDiv(std::numeric_limits<int32_t>::max(), 1) == std::numeric_limits<int32_t>::max());
+  static_assert(math::CeilDiv(std::numeric_limits<int32_t>::max(), 2) == 1073741824);
+  static_assert(math::CeilDiv(std::numeric_limits<uint32_t>::max(), 2u) == 2147483648u);
+}
+
 UNIT_TEST(GCD)
 {
   TEST_EQUAL(GCD(6, 3), 3, ());

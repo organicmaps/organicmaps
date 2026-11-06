@@ -132,6 +132,7 @@ set(SRC
   utils.hpp
   validate_and_format_contacts.cpp
   validate_and_format_contacts.hpp
+  value_set.hpp
 )
 
 omim_add_library(${PROJECT_NAME} ${SRC})
