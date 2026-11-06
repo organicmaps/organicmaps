@@ -64,6 +64,8 @@ jobs:
           - os: ubuntu-26.04
             cc: gcc-15
             cxx: g++-15
+            # libadwaita 1.6+ is not available on Ubuntu 24.04.
+            gtk: ON
 
           - os: ubuntu-26.04-arm
             cc: gcc-14
@@ -135,6 +137,10 @@ jobs:
               xauth \
               xvfb \
 
+      - name: Install GTK app dependencies (Linux)
+        if: ${{ matrix.environment.gtk == 'ON' }}
+        run: sudo apt install -y libadwaita-1-dev libgeoclue-2-dev libgtk-4-dev mutter dbus-daemon dbus-bin
+
       - name: Install build tools and dependencies (macOS)
         if: ${{ runner.os == 'macOS' }}
         env:
@@ -179,7 +185,8 @@ jobs:
         run: |
           cmake --preset $PRESET \
             -DCMAKE_BUILD_TYPE=${{ matrix.cmake-build-type }} \
-            -DCMAKE_UNITY_BUILD=${UNITY_BUILD}
+            -DCMAKE_UNITY_BUILD=${UNITY_BUILD} \
+            -DBUILD_GTK_APP=${{ matrix.environment.gtk || 'OFF' }}
 
       # Surface compiler warnings and errors as inline annotations on the PR diff.
       - name: Enable inline compiler annotations
@@ -239,6 +246,12 @@ jobs:
           else
             ctest --preset "$PRESET_DRAPE" --verbose
           fi
+
+      - name: Run GTK window tests in an isolated compositor
+        if: ${{ matrix.environment.gtk == 'ON' }}
+        env:
+          LIBGL_ALWAYS_SOFTWARE: 1
+        run: ctest --test-dir build --output-on-failure --stop-on-failure --no-tests=error -L gtk-display-test
 
       # Reconfigure after the existing tests so they keep their development paths.
       - name: Build Windows direct staging variant
