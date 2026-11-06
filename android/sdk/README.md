@@ -145,9 +145,12 @@ overview maps alone do not contain the road graph for detailed routing.
 Enable the start action only after a successful build in planning mode. Starting
 navigation requires a usable current position and location updates. Stop or
 cancel through the controller. Detaching the UI alone does not cancel navigation.
-Call `onSaveState()` when the host saves its UI and `restore()` when it is active
-again. Route state survives activity recreation; the host still owns its controls,
-listener cleanup, and any background service.
+Call `onSaveState(container)` when the host saves its UI, `restore()` after
+reattaching the active host, and `detach(container)` when that host stops. Only the
+currently attached container can save or detach its UI, so late callbacks from a
+previous host do not affect its replacement. Route state survives activity
+recreation; the host still owns its controls, listener cleanup, and any background
+service.
 
 ## Release consumers
 
