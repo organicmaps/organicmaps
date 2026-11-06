@@ -16,7 +16,6 @@ import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.sound.TtsPlayer;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.widgets.speedlimit.Mode;
-import app.organicmaps.sdk.widgets.speedlimit.SpeedThresholds;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
@@ -49,8 +48,6 @@ public class NavMenu implements DefaultLifecycleObserver
   private final Runnable mTtsStateListener = this::refreshTts;
 
   private int currentPeekHeight = 0;
-  private Mode mSpeedMode = Mode.Normal;
-  private int mSpeedLimit = 0;
 
   public interface OnMenuSizeChangedListener
   {
@@ -232,7 +229,7 @@ public class NavMenu implements DefaultLifecycleObserver
     mTimeEstimate.setText(Utils.formatArrivalTime(mActivity, seconds));
   }
 
-  private void updateSpeedView(@NonNull RoutingInfo info)
+  private void updateSpeedView(@NonNull Mode mode)
   {
     final Integer currentSpeed = MwmApplication.from(mActivity).getLocationHelper().getSavedSpeed();
     final String units = StringUtils.nativeGetLocalizedSpeedUnits();
@@ -245,14 +242,7 @@ public class NavMenu implements DefaultLifecycleObserver
 
     mSpeedValue.setText(String.valueOf(currentSpeed));
 
-    final int speed = currentSpeed;
-    final int speedLimit = info.speedLimitMps > 0 ? StringUtils.nativeFormatSpeed(info.speedLimitMps) : 0;
-    if (mSpeedLimit != speedLimit || !units.contentEquals(mSpeedUnits.getText()))
-      mSpeedMode = Mode.Normal;
-    mSpeedLimit = speedLimit;
-    mSpeedMode = SpeedThresholds.DEFAULT.modeFor(speed, speedLimit, mSpeedMode);
-
-    switch (info.isSpeedCamLimitExceeded() ? Mode.Alert : mSpeedMode)
+    switch (mode)
     {
     case Normal ->
     {
@@ -276,15 +266,14 @@ public class NavMenu implements DefaultLifecycleObserver
 
   public void onLocationUnavailable()
   {
-    mSpeedMode = Mode.Normal;
     mSpeedViewContainer.setActivated(false);
     mSpeedValue.setText("–");
     mSpeedValue.setTextColor(ThemeUtils.getColor(mActivity, android.R.attr.textColorPrimary));
   }
 
-  public void update(@NonNull RoutingInfo info)
+  public void update(@NonNull RoutingInfo info, @NonNull Mode speedMode)
   {
-    updateSpeedView(info);
+    updateSpeedView(speedMode);
     updateTime(info.totalTimeInSeconds);
     mDistanceValue.setText(info.distToTarget.mDistanceStr);
     mDistanceUnits.setText(info.distToTarget.getUnitsStr(mActivity.getApplicationContext()));

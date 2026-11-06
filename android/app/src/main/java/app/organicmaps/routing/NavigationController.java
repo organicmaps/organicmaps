@@ -29,6 +29,7 @@ import app.organicmaps.sdk.widget.roadshield.RoadShieldUtils;
 import app.organicmaps.sdk.widgets.lanes.LanesView;
 import app.organicmaps.sdk.widgets.speedlimit.CombinedSpeedView;
 import app.organicmaps.sdk.widgets.speedlimit.CombinedSpeedViewController;
+import app.organicmaps.sdk.widgets.speedlimit.Mode;
 import app.organicmaps.sdk.widgets.speedlimit.Shape;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
@@ -188,7 +189,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
       updateVehicle(info);
 
     updateStreetView(info);
-    mNavMenu.update(info);
+    mNavMenu.update(info, isPedestrian ? Mode.Normal : mSpeedView.getMode());
   }
 
   private void updateStreetView(@NonNull RoutingInfo info)
