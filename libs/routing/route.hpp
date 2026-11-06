@@ -4,6 +4,7 @@
 #include "routing/routing_options.hpp"
 #include "routing/routing_settings.hpp"
 #include "routing/segment.hpp"
+#include "routing/track_matcher.hpp"
 #include "routing/transit_info.hpp"
 #include "routing/turns.hpp"
 
@@ -350,6 +351,7 @@ public:
   bool HaveAltitudes() const { return m_haveAltitudes; }
   // Unset for ordinary routes; zero when a geometric track starts without an approach.
   std::optional<double> GetTrackStartDistanceMeters() const { return m_trackStartDistanceM; }
+  bool IsTrack() const { return m_trackStartDistanceM.has_value(); }
   void SetTrackStartDistanceMeters(double distance) { m_trackStartDistanceM = distance; }
   traffic::SpeedGroup GetTraffic(size_t segmentIdx) const;
 
@@ -523,6 +525,7 @@ public:
   void GetCurrentDirectionPoint(m2::PointD & pt) const;
 
   bool MoveIterator(location::GpsInfo const & info);
+  void CopyTrackMatchingState(Route const & previous);
 
   /// \brief Finds projection of |location| to the nearest route and sets |routeMatchingInfo|.
   /// fields accordingly.
@@ -553,9 +556,8 @@ private:
 
   void UpdatePolyFakeIdx();
 
-  // The followed polyline (geometry + matched-position state + projection cache + fake-segment marks).
-  // For "fresh" Routes built via SetGeometry/SetRouteSegments the polyline is set directly;
-  // for promoted alternatives, it is reconstructed from base segments by RebuildFollowedPolyline().
+  TrackMatcher m_trackMatcher;
+  // Geometry, matching position and projection cache; rebuilt when promoting a RouteBase.
   FollowedPolyline m_poly;
 
   // Vehicle-specific tuning (matching threshold, finish tolerance, etc.). Set by RoutingSession after
