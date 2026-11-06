@@ -22,7 +22,10 @@ extension NavigationDashboard {
     }
 
     func invalidate() {
+      guard isValid else { return }
       isValid = false
+      // Closing frame callbacks are ignored after retirement.
+      mapViewController.updateVisibleAreaInsets(for: self, insets: .zero, updatingViewport: true)
     }
 
     func process(_ request: Request) {
@@ -222,8 +225,8 @@ extension NavigationDashboard.Interactor: NavigationDashboardView {
   }
 
   func stateClosed() {
+    clearRouteElevationActivePoint()
     process(.updateState(.closed))
-    process(.stopNavigation)
   }
 
   func onRouteStart() {
