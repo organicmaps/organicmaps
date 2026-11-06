@@ -87,21 +87,13 @@ final class LinePathBuilder: ChartPathBuilder {
   func build(_ lines: [ChartPresentationLine]) {
     for item in lines {
       item.aggregatedValues = item.values
-      if item.type == .lineArea {
-        item.minY = 0
-        for val in item.values {
-          item.maxY = max(val.y, item.maxY)
-        }
-        item.path = makePercentLinePath(line: item, bottomLine: nil)
-        item.previewPath = makePercentLinePreviewPath(line: item, bottomLine: nil)
-      } else {
-        for val in item.values {
-          item.minY = min(val.y, item.minY)
-          item.maxY = max(val.y, item.maxY)
-        }
-        item.path = makeLinePath(line: item)
-        item.previewPath = makeLinePreviewPath(line: item)
+      item.fillsToBottom = item.type == .lineArea
+      for val in item.values {
+        item.minY = min(val.y, item.minY)
+        item.maxY = max(val.y, item.maxY)
       }
+      item.path = makeLinePath(line: item)
+      item.previewPath = makeLinePreviewPath(line: item)
     }
   }
 }

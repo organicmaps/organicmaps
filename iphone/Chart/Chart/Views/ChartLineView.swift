@@ -93,6 +93,14 @@ class ChartLineView: UIView {
     let transform = scale.concatenating(translate)
     realPath.apply(transform)
 
+    if chartLine.fillsToBottom {
+      // Close regular area fills at the viewport bottom, regardless of sea level.
+      let startX = realPath.cgPath.boundingBoxOfPath.minX
+      realPath.addLine(to: CGPoint(x: realPath.currentPoint.x, y: 0))
+      realPath.addLine(to: CGPoint(x: startX, y: 0))
+      realPath.close()
+    }
+
     if animationStyle != .none {
       let timingFunction = CAMediaTimingFunction(name: animationStyle == .interactive ? .linear : .easeInEaseOut)
       if shapeLayer.animationKeys()?.contains("path") ?? false,
