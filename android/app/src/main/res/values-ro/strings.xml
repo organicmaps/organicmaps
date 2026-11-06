@@ -421,7 +421,6 @@
     <string name="select_cuisine">Alege bucătăria</string>
     <!-- login text field -->
     <string name="email_or_username">E-mail sau nume de utilizator</string>
-    <string name="editor_add_phone">Adaugă un număr</string>
     <string name="level">Etaj</string>
     <!-- Building level -->
     <string name="level_value_generic">Nivel: %s</string>
@@ -572,6 +571,7 @@
     <string name="bookmarks_error_title_list_name_already_taken">Acest nume este deja folosit</string>
     <string name="bookmarks_error_message_list_name_already_taken">Alege un alt nume</string>
     <string name="please_wait">Așteaptă…</string>
+    <!-- Placeholder for phone input in editor UI -->
     <string name="phone_number">Număr de telefon</string>
     <string name="profile">Profil OpenStreetMap</string>
     <plurals name="bookmarks_detect_message">
