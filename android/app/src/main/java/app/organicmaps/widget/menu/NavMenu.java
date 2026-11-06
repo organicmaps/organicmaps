@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.MwmApplication;
@@ -15,9 +14,7 @@ import app.organicmaps.R;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.sound.TtsPlayer;
 import app.organicmaps.sdk.util.StringUtils;
-import app.organicmaps.sdk.widgets.speedlimit.Mode;
 import app.organicmaps.util.Graphics;
-import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -32,6 +29,7 @@ public class NavMenu implements DefaultLifecycleObserver
 
   private final ImageView mTts;
   private final View mSpeedViewContainer;
+  private final View mSpeedViewSpacer;
   private final TextView mSpeedValue;
   private final TextView mSpeedUnits;
   private final TextView mTimeHourValue;
@@ -95,6 +93,7 @@ public class NavMenu implements DefaultLifecycleObserver
 
     // Bottom frame
     mSpeedViewContainer = bottomFrame.findViewById(R.id.speed_view_container);
+    mSpeedViewSpacer = bottomFrame.findViewById(R.id.speed_view_spacer);
     mSpeedValue = bottomFrame.findViewById(R.id.speed_value);
     mSpeedUnits = bottomFrame.findViewById(R.id.speed_dimen);
     mTimeHourValue = bottomFrame.findViewById(R.id.time_hour_value);
@@ -229,51 +228,27 @@ public class NavMenu implements DefaultLifecycleObserver
     mTimeEstimate.setText(Utils.formatArrivalTime(mActivity, seconds));
   }
 
-  private void updateSpeedView(@NonNull Mode mode)
+  public void showCurrentSpeed(boolean show)
   {
-    final Integer currentSpeed = MwmApplication.from(mActivity).getLocationHelper().getSavedSpeed();
-    final String units = StringUtils.nativeGetLocalizedSpeedUnits();
-    if (currentSpeed == null)
-    {
-      mSpeedUnits.setText(units);
-      onLocationUnavailable();
-      return;
-    }
+    UiUtils.showIf(show, mSpeedViewContainer, mSpeedViewSpacer);
+  }
 
-    mSpeedValue.setText(String.valueOf(currentSpeed));
-
-    switch (mode)
-    {
-    case Normal ->
-    {
-      mSpeedViewContainer.setActivated(false);
-      mSpeedValue.setTextColor(ThemeUtils.getColor(mActivity, android.R.attr.textColorPrimary));
-    }
-    case Warning ->
-    {
-      mSpeedViewContainer.setActivated(false);
-      mSpeedValue.setTextColor(ContextCompat.getColor(mActivity, R.color.base_yellow));
-    }
-    case Alert ->
-    {
-      mSpeedViewContainer.setActivated(true);
-      mSpeedValue.setTextColor(ContextCompat.getColor(mActivity, R.color.white_primary));
-    }
-    }
-
-    mSpeedUnits.setText(units);
+  private void updateSpeedView()
+  {
+    final Integer speed = MwmApplication.from(mActivity).getLocationHelper().getSavedSpeed();
+    mSpeedValue.setText(speed == null ? "–" : String.valueOf(speed));
+    mSpeedUnits.setText(StringUtils.nativeGetLocalizedSpeedUnits());
   }
 
   public void onLocationUnavailable()
   {
-    mSpeedViewContainer.setActivated(false);
     mSpeedValue.setText("–");
-    mSpeedValue.setTextColor(ThemeUtils.getColor(mActivity, android.R.attr.textColorPrimary));
   }
 
-  public void update(@NonNull RoutingInfo info, @NonNull Mode speedMode)
+  public void update(@NonNull RoutingInfo info)
   {
-    updateSpeedView(speedMode);
+    if (UiUtils.isVisible(mSpeedViewContainer))
+      updateSpeedView();
     updateTime(info.totalTimeInSeconds);
     mDistanceValue.setText(info.distToTarget.mDistanceStr);
     mDistanceUnits.setText(info.distToTarget.getUnitsStr(mActivity.getApplicationContext()));
