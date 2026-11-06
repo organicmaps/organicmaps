@@ -252,8 +252,8 @@ public class Framework
   @Nullable
   public static native RoutingInfo nativeGetRouteFollowingInfo();
 
-  /// Returns Vienna when the region's map or its sign-type metadata is unavailable.
-  public static native @SpeedLimitSignType int nativeGetSpeedLimitSignType(double lat, double lon);
+  /// Uses the current position, then the route start; defaults to Vienna when no region metadata is available.
+  public static native @SpeedLimitSignType int nativeGetSpeedLimitSignType();
 
   @Nullable
   /// @param[in] maxDistM Max distance between points in meters.

@@ -79,7 +79,6 @@ public abstract class CarAppSessionBase
       updateSpeed(null);
     }
   };
-  private boolean mSpeedLimitSignTypeInitialized;
 
   public CarAppSessionBase(@NonNull OrganicMaps organicMapsContext, @NonNull DisplayManager displayManager,
                            @NonNull SessionInfo sessionInfo, boolean isDebug)
@@ -140,8 +139,8 @@ public abstract class CarAppSessionBase
   public void onStart(@NonNull LifecycleOwner owner)
   {
     Logger.d(TAG);
-    mSpeedLimitSignTypeInitialized = false;
-    updateSpeed(mOrganicMapsContext.getLocationHelper().getSavedLocation());
+    if (mOrganicMapsContext.getLocationHelper().getSavedLocation() == null)
+      updateSpeed(null);
     mOrganicMapsContext.getLocationHelper().addListener(mSpeedLocationListener);
     if (mDisplayManager.isCarDisplayUsed())
     {
@@ -184,12 +183,6 @@ public abstract class CarAppSessionBase
 
   private void updateSpeed(@Nullable Location location)
   {
-    if (location != null && !mSpeedLimitSignTypeInitialized)
-    {
-      mSurfaceRenderer.setSpeedLimitSignType(
-          Framework.nativeGetSpeedLimitSignType(location.getLatitude(), location.getLongitude()));
-      mSpeedLimitSignTypeInitialized = true;
-    }
     mSurfaceRenderer.setCurrentSpeed(location != null ? mOrganicMapsContext.getLocationHelper().getSavedSpeed() : null,
                                      StringUtils.nativeGetLocalizedSpeedUnits());
   }

@@ -1045,12 +1045,25 @@ static storage::CountryId RegionAt(jdouble lat, jdouble lon)
   return frm()->GetCountryInfoGetter().GetRegionCountryId(mercator::FromLatLon(lat, lon));
 }
 
-JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetSpeedLimitSignType(JNIEnv *, jclass, jdouble lat,
-                                                                              jdouble lon)
+JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetSpeedLimitSignType(JNIEnv *, jclass)
 {
-  auto const mwmId = frm()->GetDataSource().GetMwmIdByCountryFile(platform::CountryFile(RegionAt(lat, lon)));
-  auto const type = mwmId.IsAlive() ? mwmId.GetInfo()->GetRegionData().GetSpeedLimitSignType()
-                                    : feature::RegionData::SpeedLimitSignType::Vienna;
+  auto * framework = frm();
+  auto position = framework->GetCurrentPosition();
+  if (!position)
+  {
+    auto const routePoints = framework->GetRoutingManager().GetRoutePoints();
+    if (!routePoints.empty())
+      position = routePoints.front().m_position;
+  }
+
+  auto type = feature::RegionData::SpeedLimitSignType::Vienna;
+  if (position)
+  {
+    auto const countryId = framework->GetCountryInfoGetter().GetRegionCountryId(*position);
+    auto const mwmId = framework->GetDataSource().GetMwmIdByCountryFile(platform::CountryFile(countryId));
+    if (mwmId.IsAlive())
+      type = mwmId.GetInfo()->GetRegionData().GetSpeedLimitSignType();
+  }
   return static_cast<jint>(type);
 }
 

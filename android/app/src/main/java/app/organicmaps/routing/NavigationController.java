@@ -2,7 +2,6 @@ package app.organicmaps.routing;
 
 import static app.organicmaps.sdk.util.Utils.dimen;
 
-import android.location.Location;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,6 @@ import app.organicmaps.R;
 import app.organicmaps.maplayer.MapButtonsViewModel;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Router;
-import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.maplayer.traffic.TrafficManager;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingInfo;
@@ -318,17 +316,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
 
   private void updateSpeedLimitSignType()
   {
-    final Location location = MwmApplication.from(mFrame.getContext()).getLocationHelper().getSavedLocation();
-    @Framework.SpeedLimitSignType
-    int type = Framework.SpeedLimitSignType.VIENNA;
-    if (location != null)
-      type = Framework.nativeGetSpeedLimitSignType(location.getLatitude(), location.getLongitude());
-    else
-    {
-      final MapObject startPoint = RoutingController.get().getStartPoint();
-      if (startPoint != null)
-        type = Framework.nativeGetSpeedLimitSignType(startPoint.getLat(), startPoint.getLon());
-    }
+    final int type = Framework.nativeGetSpeedLimitSignType();
     mSpeedController.setShape(type == Framework.SpeedLimitSignType.MUTCD ? Shape.Square : Shape.Circle);
   }
 
