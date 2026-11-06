@@ -45,6 +45,7 @@ using namespace routing;
     _trackId = info.m_id;
     _name = @(info.m_name.c_str());
     _lengthMeters = info.m_lengthM;
+    _isReversed = info.m_reversed;
     _finishPoint = [[MWMRoutePoint alloc] initWithPoint:info.m_finish
                                                   title:_name
                                                subtitle:@""
@@ -187,6 +188,11 @@ static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
 + (MWMFollowTrackResult)updateFollowedTrackEntry
 {
   return OnFollowTrackResult(GetFramework().GetRoutingManager().UpdateFollowedTrackEntry());
+}
+
++ (MWMFollowTrackResult)reverseFollowedTrack
+{
+  return OnFollowTrackResult(GetFramework().GetRoutingManager().ReverseFollowedTrack());
 }
 
 + (MWMFollowTrackResult)setFollowTrackProfile:(MWMRouterType)type

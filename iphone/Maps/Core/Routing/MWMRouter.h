@@ -39,7 +39,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) MWMTrackID trackId;
 @property(copy, nonatomic, readonly) NSString * name;
 @property(nonatomic, readonly) double lengthMeters;
-/// The end of the selected connected section.
+@property(nonatomic, readonly) BOOL isReversed;
+/// The end of the selected connected section in the chosen direction.
 @property(nonatomic, readonly) MWMRoutePoint * finishPoint;
 
 @end
@@ -81,8 +82,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// Captures the selected point and previews the remaining connected track section.
 /// Refusals preserve the current session; accepted builds report through normal routing events.
 + (MWMFollowTrackResult)navigateTrack:(MWMTrackID)trackId;
-/// Rebuilds from the current native selection, preserving profile and viewport.
+/// Rebuilds from the current native selection, preserving profile, direction and viewport.
 + (MWMFollowTrackResult)updateFollowedTrackEntry;
+/// Reverses a built preview at the captured source entry; active navigation is refused.
++ (MWMFollowTrackResult)reverseFollowedTrack;
 /// Switches the preview profile without changing the persisted default. Refusals preserve the session.
 + (MWMFollowTrackResult)setFollowTrackProfile:(MWMRouterType)type;
 + (BOOL)isFollowingTrack;
