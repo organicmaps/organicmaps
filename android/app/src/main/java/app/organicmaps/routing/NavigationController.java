@@ -162,8 +162,8 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
   {
     // The map-button frame already applies the top system inset.
     final int topInset = parent.findViewById(R.id.street_frame).getPaddingTop();
-    return Math.max(0, lowestVisibleChildBottom(parent) - topInset)
-  + dimen(parent.getContext(), R.dimen.nav_frame_padding);
+    final int contentBottom = lowestVisibleChildBottom(parent);
+    return Math.max(0, contentBottom - topInset) + dimen(parent.getContext(), R.dimen.nav_frame_padding);
   }
 
   @VisibleForTesting

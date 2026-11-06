@@ -21,4 +21,3 @@ dependencies {
 
   implementation libs.androidx.appcompat
 }
-

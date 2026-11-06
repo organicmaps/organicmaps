@@ -32,7 +32,10 @@ data class SpeedThresholds @JvmOverloads constructor(
      */
     @JvmOverloads
     fun modeFor(speed: Int?, speedLimit: Int?, previousMode: Mode = Mode.Normal): Mode {
-        if (speed == null || speed !in 0..999 || speedLimit == null || speedLimit <= 0) {
+        if (speed == null || speed !in 0..999) {
+            return Mode.Normal
+        }
+        if (speedLimit == null || speedLimit <= 0) {
             return Mode.Normal
         }
         val warningThreshold = if (previousMode != Mode.Normal) warning - warningHysteresis else warning
