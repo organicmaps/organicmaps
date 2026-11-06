@@ -5,6 +5,7 @@
 
 #include <QtGui/QOpenGLContext>
 
+#include <functional>
 #include <latch>
 #include <memory>
 
@@ -19,6 +20,9 @@ public:
   ~QtOGLContextFactory() override;
 
   void PrepareToShutdown();
+  // Register before creating the drape engine.
+  // The listener runs on the render thread under the frame mutex; queue work without re-entering the context.
+  void SetPresentListener(std::function<void()> fn);
 
   bool AcquireFrame();
   GLuint GetTextureHandle() const;
@@ -35,6 +39,7 @@ private:
   std::unique_ptr<QOffscreenSurface> CreateSurface();
 
   QOpenGLContext * m_rootContext;
+  std::function<void()> m_onPresent;
   std::unique_ptr<QtRenderOGLContext> m_drawContext;
   std::unique_ptr<QOffscreenSurface> m_drawSurface;
   std::unique_ptr<QtUploadOGLContext> m_uploadContext;
