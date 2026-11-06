@@ -2214,14 +2214,14 @@ zh-Hans:礼品店|商店
 zh-Hant:禮品店|1購物|店鋪|商店|雜貨店|便利商店
 
 shop-beauty
-en:4Beauty Shop|barber|beautician|hairdresser|hairdressing|haircut|beauty salon|hair salon|beauty parlor|hair and nail salon|nail salon|coloring|U+1F484
-ar:صالون تجميل|كوافير|متجر
+en:4Beauty Shop|beautician|beauty salon|beauty parlor|nail salon|U+1F484
+ar:صالون تجميل|متجر
 be:5Салон прыгажосці
-bg:5Салон за красота|фризьорски салон|козметичен салон|маникюр|педикюр|подстригване|кола маска
+bg:5Салон за красота|козметичен салон|маникюр|педикюр|кола маска
 cs:4Kosmetický salon
-cy:4Siop Harddwch|barbwr|harddwr|triniwr gwallt|trin gwallt|torri gwallt|salon harddwch|salon gwallt|salon ewinedd|lliwio gwallt
+cy:4Siop Harddwch|harddwr|salon harddwch|salon ewinedd
 da:Skønhedssalon
-de:5Schönheitssalon|Schönheitsshop|Kosmetiker|Friseur|Frisör|Haarschnitt|Kosmetikstudio|Friseursalon|Kosmetiksalon|Nagelstudio|Färbung
+de:5Schönheitssalon|Schönheitsshop|Kosmetiker|Kosmetikstudio|Kosmetiksalon|Nagelstudio
 el:Σαλόνι αισθητικής
 es:Centro de belleza|Salón de belleza
 et:Ilusalong|ilupood
@@ -2235,19 +2235,19 @@ hu:Szépségszalon
 id:Salon kecantikan
 it:Estetista|Salone di bellezza
 ja:ビューティーサロン|美粧院|美容品店
-ko:미용실|미용원|미장실|미장원|헤어샵|헤어살롱
-lt:5Grožio salonas|5Kirpėja|5Kirpykla
-lv:Skaistumkopšanas salons|frizētava
+ko:미용실|미용원|미장실|미장원
+lt:5Grožio salonas
+lv:Skaistumkopšanas salons
 mr:शृंगार|मेकअप|सौन्दर्य|ब्युटी|सौंदर्य प्रसाधनगृह
 nb:Skjønnhetssalong
-nl:Schoonheidssalon|kapper|nagelstudio
+nl:Schoonheidssalon|nagelstudio
 pl:Salon piękności
-pt:Salão de beleza|cabeleireiro|cabeleireira|brabeiro
+pt:Salão de beleza
 pt-BR:Salão de beleza
 ro:Salon de înfrumusețare
-ru:5Салон красоты|косметический салон|парикмахерская|стрижка|маникюр|маникюрный салон|красота|студия красоты|центр красоты
+ru:5Салон красоты|косметический салон|маникюр|маникюрный салон|красота|студия красоты|центр красоты
 sk:Kozmetický salón
-sl:Salon lepote|5kozmetični salon|frizerski salon|kozmetična trgovina
+sl:Salon lepote|5kozmetični salon|kozmetična trgovina
 sr:Салон лепоте|salon lepote|козметички салон
 sv:Skönhetssalong
 sw:Uzuri saluni
@@ -9846,14 +9846,14 @@ zh-Hans:男士理发店|理发店
 zh-Hant:男士理髮店|理髮店
 
 shop-hairdresser|shop-hairdresser-barber
-en:3Hairdresser|hair salon|hairdressing saloon|barbershop|hair cuttery|haircut|beauty parlor|coloring|U+2702|U+1F488
-ar:مصفف شعر|حلاق
+en:3Hairdresser|hair salon|hairdressing saloon|barbershop|hair cuttery|haircut|coloring|U+2702|U+1F488
+ar:مصفف شعر|حلاق|كوافير
 be:4Цырулья|цырульнік|цырульня
-bg:подстрижка|фризьор|салон|красота|маникюр|педикюр|стилист
+bg:подстрижка|фризьор|стилист|фризьорски салон|подстригване
 cs:4Kadeřnictví|4holičství
-cy:3Siop Drin Gwallt|salon gwallt|barbwr|torri gwallt|trin gwallt|lliwio gwallt
+cy:3Siop Drin Gwallt|salon gwallt|barbwr|torri gwallt|trin gwallt|lliwio gwallt|triniwr gwallt
 da:3Frisør
-de:3Friseur|Frisiersalon|Frisör|4Coiffeur
+de:3Friseur|Frisiersalon|Frisör|4Coiffeur|Friseursalon|Haarschnitt|Färbung
 el:Κομμωτής
 es:4Peluquería
 et:Juuksur
@@ -9865,18 +9865,18 @@ hi:नाई
 hu:3Fodrász
 id:Penata rambut
 it:4Parrucchiera
-ja:1美容師|床屋|髪|パーマ|散髪|理髪|美容院/理容店
-ko:이발사|미용실|이발소|바버샵
-lt:5Kirpėja|5Kirpykla|5Grožio salonas
+ja:1美容師|床屋|髪|パーマ|散髪|理髪|美容院|理容店
+ko:이발사|미용실|이발소|바버샵|헤어샵|헤어살롱
+lt:5Kirpėja|5Kirpykla
 lv:Frizētava
 mr:न्हावी|केशभूषाकार|हेअर कट
 nb:Frisør
 nl:3Kapper|kapsalon|haarsalon|kapperszaak
 pl:4Fryzjer
-pt:Cabeleireiro|cabeleireira|barbeiro|cabeleireiro(a)
+pt:Cabeleireiro|cabeleireira|barbeiro
 pt-BR:Cabeleireiro|barbeiro
 ro:Coafor
-ru:4Парикмахерская|стрижка|укладка|покраска|салон красоты|стрижка волос|салон парикмахерская|парикмахер|стилист
+ru:4Парикмахерская|стрижка|укладка|покраска|стрижка волос|салон парикмахерская|парикмахер|стилист
 sk:4Kaderníctvo|4holičstvo
 sl:4Frizerski salon|frizura|striženje|brivnica|frizer
 sr:Фризер|Frizer
@@ -18873,7 +18873,7 @@ zh-Hant:情趣用品店
 shop-massage
 en:Massage salon|Massage Parlour|4massage|spa|massage center|massage therapy|massage services|spa treatment|spa services
 ar:قاعة تدليك
-bg:4Масаж|спа|Масажен салон|красота|терапия
+bg:4Масаж|спа|Масажен салон|терапия
 cs:4Masážní salon
 cy:Salon tylino|Parlwr Tylino|4tylino|sba|therapi tylino
 da:4Massageklinik
@@ -18900,7 +18900,7 @@ pl:Salon masażu
 pt:Centro de massagens|spa|4massagista|massagens
 pt-BR:4Massagista
 ro:Salon de masaj
-ru:Массажный салон|4массаж|спа|спа-салон|салон красоты|массажный кабинет
+ru:Массажный салон|4массаж|спа|спа-салон|массажный кабинет
 sk:4Masážny salón
 sl:4Masaža|Masažni salon|Spa
 sr:Масажа|Салон за масажу|Masaža|Salon za masažu
