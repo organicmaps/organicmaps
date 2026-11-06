@@ -46,6 +46,7 @@ android {
   // it disabled by default (see groovy/common-config.gradle) and can opt in by
   // uncommenting the `enableKotlin = true` stub in their own build.gradle.
   enableKotlin = true
+  testOptions.unitTests.includeAndroidResources = true
 
   buildFeatures {
     dataBinding = true
@@ -271,6 +272,7 @@ dependencies {
   testImplementation libs.androidx.junit
   testImplementation libs.mockito.core
   testImplementation libs.mockito.inline
+  testImplementation libs.robolectric
   androidTestImplementation libs.androidx.junit
   androidTestImplementation libs.androidx.test.runner
 }
@@ -334,6 +336,8 @@ androidComponents {
           new BuildConfigField("String", "\"${appId}.provider\"", null)
         })
     variant.manifestPlaceholders.put("FILE_PROVIDER_PLACEHOLDER",
+        variant.applicationId.map { it + ".provider" })
+    variant.unitTest?.manifestPlaceholders?.put("FILE_PROVIDER_PLACEHOLDER",
         variant.applicationId.map { it + ".provider" })
     variant.resValues.put(
         variant.makeResValueKey("string", "app_id"),

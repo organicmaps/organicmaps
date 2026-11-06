@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.lifecycle.ViewModelProvider;
@@ -58,7 +59,6 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
 
   private final MapButtonsViewModel mMapButtonsViewModel;
   private final ViewGroup mTopFrame;
-  private final View mNextTurnContainer;
 
   private final NavMenu mNavMenu;
   View.OnClickListener mOnSettingsClickListener;
@@ -98,18 +98,11 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     // Blank rectangle below the navbar that hides menu content behind it.
     final View navigationBarBackground = mFrame.findViewById(R.id.nav_bottom_sheet_nav_bar);
     final View navBottomSheet = mFrame.findViewById(R.id.nav_bottom_sheet);
-    mNextTurnContainer = mFrame.findViewById(R.id.nav_next_turn_container);
 
     ViewCompat.setOnApplyWindowInsetsListener(mStreetFrame, BaselinePaddingInsetsListener.excludeBottom());
 
     ViewCompat.setOnApplyWindowInsetsListener(mTopFrame, (v, windowInsets) -> {
-      final Insets safeDrawing = windowInsets.getInsets(WindowInsetUtils.TYPE_SAFE_DRAWING);
-      // Pad the start edge (LTR: left, RTL: right) so the next-turn container clears side
-      // cutouts and system bars regardless of layout direction.
-      final boolean isRtl = v.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
-      final int startInset = isRtl ? safeDrawing.right : safeDrawing.left;
-      mNextTurnContainer.setPaddingRelative(startInset, mNextTurnContainer.getPaddingTop(),
-                                            mNextTurnContainer.getPaddingEnd(), mNextTurnContainer.getPaddingBottom());
+      applySideInsets(mTopFrame, windowInsets.getInsets(WindowInsetUtils.TYPE_SAFE_DRAWING));
       return windowInsets;
     });
 
@@ -131,6 +124,26 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
         navigationBarBackground.setLayoutParams(lp);
       }
     });
+  }
+
+  @VisibleForTesting
+  static void applySideInsets(@NonNull ViewGroup parent, @NonNull Insets safeDrawing)
+  {
+    final boolean isRtl = parent.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+    final int startInset = isRtl ? safeDrawing.right : safeDrawing.left;
+    final int endInset = isRtl ? safeDrawing.left : safeDrawing.right;
+    final View turn = parent.findViewById(R.id.nav_next_turn_container);
+    turn.setPaddingRelative(startInset, turn.getPaddingTop(), turn.getPaddingEnd(), turn.getPaddingBottom());
+
+    final int margin = dimen(parent.getContext(), R.dimen.margin_half);
+    for (int id : new int[] {R.id.nav_speed_limit, R.id.lanes})
+    {
+      final View view = parent.findViewById(id);
+      final ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams) view.getLayoutParams();
+      // Landscape lanes already inherit the speed widget's safe end edge.
+      lp.setMarginEnd(margin + (lp.endToEnd == ConstraintLayout.LayoutParams.PARENT_ID ? endInset : 0));
+      view.setLayoutParams(lp);
+    }
   }
 
   // The search sheet must clear the lowest visible child, including layout offsets and overlaps.
