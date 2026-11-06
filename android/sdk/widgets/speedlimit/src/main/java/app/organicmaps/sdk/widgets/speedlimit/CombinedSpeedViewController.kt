@@ -39,6 +39,7 @@ constructor(
     /** The last known speed limit, null when it is unknown for the current road. */
     var speedLimit: Int? = null
         set(value) {
+            require(value == null || value in 1..999) { "Speed limit must be between 1 and 999" }
             if (field == value) {
                 return
             }

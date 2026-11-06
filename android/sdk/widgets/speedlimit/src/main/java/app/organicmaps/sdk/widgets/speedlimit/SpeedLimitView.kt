@@ -27,18 +27,20 @@ constructor(
             super.shape = value
         }
 
-    /** Speed limit; values outside [[MIN_VALUE], [MAX_VALUE]] are displayed as unavailable (–). */
-    var speedLimit: Int = valueText.toInt()
+    /** Positive speed limit up to [MAX_VALUE], or null when unavailable (–). */
+    var speedLimit: Int? = null
         set(value) {
+            require(value == null || value in 1..MAX_VALUE) { "Speed limit must be between 1 and $MAX_VALUE" }
             if (field == value) {
                 return
             }
             field = value
-            valueText = formatValue(value)
+            valueText = value?.let(::formatValue) ?: "–"
             invalidate()
         }
 
     init {
+        valueText = "–"
         if (isInEditMode) {
             speedLimit = 90
         }

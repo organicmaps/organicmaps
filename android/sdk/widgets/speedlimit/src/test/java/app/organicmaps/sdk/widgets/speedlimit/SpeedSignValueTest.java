@@ -1,6 +1,7 @@
 package app.organicmaps.sdk.widgets.speedlimit;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyFloat;
 import static org.mockito.ArgumentMatchers.eq;
@@ -49,16 +50,21 @@ public class SpeedSignValueTest
   }
 
   @Test
-  public void speedLimitRepresentsOutliersAndRecovers()
+  public void speedLimitAcceptsOnlyPositiveValuesOrUnknown()
   {
     SpeedLimitView view = new SpeedLimitView(RuntimeEnvironment.getApplication());
     layout(view);
-    for (int i = 0; i < SAMPLES.length; ++i)
+    assertDrawnValue(view, "–");
+    for (int limit : new int[] {1, 999, 42})
     {
-      view.setSpeedLimit(SAMPLES[i]);
-      assertEquals(SAMPLES[i], view.getSpeedLimit());
-      assertDrawnValue(view, DISPLAY_VALUES[i]);
+      view.setSpeedLimit(limit);
+      assertEquals(Integer.valueOf(limit), view.getSpeedLimit());
+      assertDrawnValue(view, String.valueOf(limit));
     }
+    for (int limit : new int[] {0, -1, 1000, Integer.MAX_VALUE, Integer.MIN_VALUE})
+      assertThrows(IllegalArgumentException.class, () -> view.setSpeedLimit(limit));
+    view.setSpeedLimit(null);
+    assertDrawnValue(view, "–");
   }
 
   private static void assertDrawnValue(View view, String expected)

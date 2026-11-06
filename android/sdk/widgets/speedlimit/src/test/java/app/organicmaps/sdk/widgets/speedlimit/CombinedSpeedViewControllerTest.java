@@ -1,5 +1,6 @@
 package app.organicmaps.sdk.widgets.speedlimit;
 
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.clearInvocations;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -120,16 +121,20 @@ public class CombinedSpeedViewControllerTest
     assertMode(Mode.Alert);
     mController.setSpeedLimit(null);
     assertMode(Mode.Normal);
-    mController.setSpeedLimit(0);
-    assertMode(Mode.Normal);
-    mController.setSpeedLimit(-1);
-    assertMode(Mode.Normal);
     setSpeed(64);
     assertMode(Mode.Normal);
     mController.setSpeedLimit(60);
     assertMode(Mode.Normal);
     setSpeed(66);
     assertMode(Mode.Warning);
+  }
+
+  @Test
+  public void invalidLimitsAreRejectedEvenWhileHidden()
+  {
+    mController.hideSpeedLimit();
+    for (int limit : new int[] {-1, 0, 1000, Integer.MAX_VALUE})
+      assertThrows(IllegalArgumentException.class, () -> mController.setSpeedLimit(limit));
   }
 
   @Test

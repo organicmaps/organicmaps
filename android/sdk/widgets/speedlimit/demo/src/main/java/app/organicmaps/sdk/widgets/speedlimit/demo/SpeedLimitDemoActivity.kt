@@ -48,7 +48,7 @@ class SpeedLimitDemoActivity : AppCompatActivity() {
         controllers[1].units = getString(R.string.units_mph)
 
         setUpBar(R.id.speed_bar, speed) { speed = it }
-        setUpBar(R.id.speed_limit_bar, speedLimit) { speedLimit = it }
+        setUpBar(R.id.speed_limit_bar, speedLimit, minValue = 1) { speedLimit = it }
 
         findViewById<Button>(R.id.show_speed_limit).setOnClickListener {
             controllers.forEach { it.showSpeedLimit() }
@@ -68,12 +68,12 @@ class SpeedLimitDemoActivity : AppCompatActivity() {
         update()
     }
 
-    private inline fun setUpBar(barId: Int, initialValue: Int, crossinline onValue: (Int) -> Unit) {
+    private inline fun setUpBar(barId: Int, initialValue: Int, minValue: Int = 0, crossinline onValue: (Int) -> Unit) {
         findViewById<SeekBar>(barId).apply {
-            max = MAX_SPEED
+            max = MAX_SPEED - minValue
             setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                 override fun onProgressChanged(bar: SeekBar, progress: Int, fromUser: Boolean) {
-                    onValue(progress)
+                    onValue(progress + minValue)
                     update()
                 }
 
@@ -81,7 +81,7 @@ class SpeedLimitDemoActivity : AppCompatActivity() {
 
                 override fun onStopTrackingTouch(bar: SeekBar) = Unit
             })
-            progress = initialValue
+            progress = initialValue - minValue
         }
     }
 
