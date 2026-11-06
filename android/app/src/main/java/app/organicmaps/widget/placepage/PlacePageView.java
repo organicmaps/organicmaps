@@ -405,9 +405,10 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
 
   private void setCurrentCountry()
   {
-    if (mCurrentCountry != null)
-      return;
     String country = MapManager.nativeGetSelectedCountry();
+    if (mCurrentCountry != null && mCurrentCountry.id.equals(country))
+      return;
+    detachCountry();
     if (country != null && !RoutingController.get().isNavigating())
       attachCountry(country);
   }
