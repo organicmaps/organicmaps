@@ -1457,6 +1457,8 @@ kml::TrackId RoutingManager::SaveRoute()
 
   base::Unique(junctions, [](geometry::PointWithAltitude const & p1, geometry::PointWithAltitude const & p2)
   { return AlmostEqualAbs(p1, p2, kMwmPointAccuracy); });
+  if (junctions.size() < 2)
+    return kml::kInvalidTrackId;
 
   std::string const from = GetNameFromPoint(routePoints.front());
   std::string const to = GetNameFromPoint(routePoints.back());
