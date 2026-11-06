@@ -6,10 +6,6 @@ class OpeinigHoursLocalization: NSObject, IOpeningHoursLocalization {
     L("closed")
   }
 
-  var twentyFourSevenString: String {
-    L("twentyfour_seven")
-  }
-
   var allDayString: String {
     L("editor_time_allday")
   }

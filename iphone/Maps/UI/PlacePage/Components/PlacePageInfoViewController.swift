@@ -39,6 +39,7 @@ class PlacePageInfoViewController: UIViewController {
   private weak var routesSelectorViewController: PopoverListSelectorViewController?
 
   weak var placePageInfoData: PlacePageInfoData!
+  var openingHoursSchedule = PlacePageDataSchedule()
   weak var delegate: PlacePageInfoViewControllerDelegate?
 
   var coordinatesFormatId: Int {
@@ -72,8 +73,10 @@ class PlacePageInfoViewController: UIViewController {
   // MARK: private
 
   private func setupViews() {
-    if let openingHours = placePageInfoData.openingHours {
+    // Without a known open or closed state only the raw hours are shown, same as Android.
+    if let openingHours = placePageInfoData.openingHours, let status = OpeningHoursStatus(openingHoursSchedule) {
       openingHoursViewController.openingHours = openingHours
+      openingHoursViewController.status = status
       addChild(openingHoursViewController)
       addToStack(openingHoursViewController.view)
       openingHoursViewController.didMove(toParent: self)

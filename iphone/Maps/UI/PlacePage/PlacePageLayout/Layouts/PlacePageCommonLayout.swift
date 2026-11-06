@@ -56,6 +56,7 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
   private lazy var infoViewController: PlacePageInfoViewController = {
     let vc = storyboard.instantiateViewController(ofType: PlacePageInfoViewController.self)
     vc.placePageInfoData = placePageData.infoData
+    vc.openingHoursSchedule = placePageData.previewData.schedule
     vc.delegate = interactor
     return vc
   }()

@@ -23,7 +23,7 @@ struct Day
 };
 
 /// @param today 1 = Sunday … 7 = Saturday, as in NSCalendar.
-/// @return Rows of the week starting from today, a single 24/7 row, or nothing if the hours can't be listed.
+/// @return Rows of the week starting from today, no rows when open 24/7, or nothing if the hours can't be listed.
 std::optional<std::vector<osmoh::Day>> processRawString(NSString * str, id<IOpeningHoursLocalization> localization,
                                                         NSInteger today);
 
