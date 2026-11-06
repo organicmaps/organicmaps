@@ -2,27 +2,29 @@ import CoreApi
 import XCTest
 
 final class OpeningHoursTests: XCTestCase {
+  /// NSCalendar weekday numbers.
+  private enum Weekday: Int {
+    case sunday = 1, monday, tuesday, wednesday, thursday, friday, saturday
+  }
+
   private let localization = MockOpeningHoursLocalization()
-  /// The place page joins the bounds of a time span with thin spaces around the dash.
-  private let separator = "\u{2009}-\u{2009}"
 
   func test_GivenSpanFromMidnightToNoon_WhenFormatted_ThenBothBoundsAreLabelled() throws {
     let day = try today("Mo-Su 00:00-12:00")
 
-    XCTAssertEqual(day.workingTimes, "MIDNIGHT" + separator + "NOON")
+    XCTAssertEqual(day.workingTimes, "MIDNIGHT—NOON")
   }
 
   func test_GivenSpanFromNoonToMidnight_WhenFormatted_ThenBothBoundsAreLabelled() throws {
     let day = try today("Mo-Su 12:00-24:00")
 
-    XCTAssertEqual(day.workingTimes, "NOON" + separator + "MIDNIGHT")
+    XCTAssertEqual(day.workingTimes, "NOON—MIDNIGHT")
   }
 
   func test_GivenHalfHourBounds_WhenFormatted_ThenTimesStayNumeric() throws {
     let day = try today("Mo-Su 00:30-12:30")
 
-    XCTAssertFalse(day.workingTimes.contains("MIDNIGHT"))
-    XCTAssertFalse(day.workingTimes.contains("NOON"))
+    XCTAssertEqual(day.workingTimes, time(0, 30) + "—" + time(12, 30))
   }
 
   func test_GivenSunEventBounds_WhenFormatted_ThenPlaceholderIsNotLabelled() throws {
@@ -36,49 +38,105 @@ final class OpeningHoursTests: XCTestCase {
   func test_GivenLunchBreak_WhenFormatted_ThenOpenShiftsAreListedOnSeparateLines() throws {
     let day = try today("Mo-Su 08:00-12:00,13:00-16:30")
 
-    XCTAssertEqual(day.workingTimes, lines(time(8) + separator + "NOON", time(13) + separator + time(16, 30)))
+    XCTAssertEqual(day.workingTimes, lines(time(8) + "—NOON", time(13) + "—" + time(16, 30)))
   }
 
   func test_GivenTwoBreaks_WhenFormatted_ThenThreeShiftsAreListed() throws {
     let day = try today("Mo-Su 08:00-11:00,13:00-16:30,18:00-22:00")
 
-    XCTAssertEqual(day.workingTimes, lines(time(8) + separator + time(11),
-                                           time(13) + separator + time(16, 30),
-                                           time(18) + separator + time(22)))
+    XCTAssertEqual(day.workingTimes, lines(time(8) + "—" + time(11),
+                                           time(13) + "—" + time(16, 30),
+                                           time(18) + "—" + time(22)))
   }
 
   func test_GivenOvernightShiftAfterBreak_WhenFormatted_ThenItEndsNextMorning() throws {
     let day = try today("Mo-Su 11:45-14:00,18:00-02:00")
 
-    XCTAssertEqual(day.workingTimes, lines(time(11, 45) + separator + time(14), time(18) + separator + time(2)))
+    XCTAssertEqual(day.workingTimes, lines(time(11, 45) + "—" + time(14), time(18) + "—" + time(2)))
   }
 
   func test_GivenEqualBoundsWithoutBreaks_WhenFormatted_ThenTheWholeSpanIsListed() throws {
     // Issue #13920: 08:00-08:00 is open round the clock from 08:00, not closed.
     let day = try today("Mo-Su 08:00-08:00")
 
-    XCTAssertEqual(day.workingTimes, time(8) + separator + time(8))
+    XCTAssertEqual(day.workingTimes, time(8) + "—" + time(8))
   }
 
-  func test_GivenWeekdayAndFridayShifts_WhenFormatted_ThenEachRowListsItsShifts() throws {
-    // Issue #13927. Row 0 is today; the weekly rows follow in rule order.
-    let days = try XCTUnwrap(OpeningHours(rawString: "Mo-Th 08:00-12:00, 13:00-16:30; Fr 08:00-12:00, 13:00-15:00",
-                                          localization: localization)).days
+  func test_GivenWeekdayAndFridayHours_WhenTodayIsThursday_ThenWeekStartsFromToday() throws {
+    // Issue #13927.
+    let days = try week("Mo-Th 08:00-12:00, 13:00-16:30; Fr 08:00-12:00, 13:00-15:00", today: .thursday)
 
-    XCTAssertEqual(days.count, 4)
-    XCTAssertEqual(days[1].workingTimes, lines(time(8) + separator + "NOON", time(13) + separator + time(16, 30)))
-    XCTAssertEqual(days[2].workingTimes, lines(time(8) + separator + "NOON", time(13) + separator + time(15)))
+    XCTAssertEqual(days.map(\.workingDays),
+                   [name(.thursday), name(.friday), name(.saturday, .sunday), name(.monday, .wednesday)])
+    XCTAssertEqual(days.map(\.workingTimes), [lunchBreak(until: 16, 30), lunchBreak(until: 15), "CLOSED",
+                                              lunchBreak(until: 16, 30)])
+    XCTAssertEqual(days.map(\.isOpen), [true, true, false, true])
+  }
+
+  func test_GivenClosedToday_WhenListed_ThenTodaysClosedDaysComeFirst() throws {
+    let days = try week("Mo-Th 08:00-12:00, 13:00-16:30; Fr 08:00-12:00, 13:00-15:00", today: .saturday)
+
+    XCTAssertEqual(days.map(\.workingDays), [name(.saturday, .sunday), name(.monday, .thursday), name(.friday)])
+    XCTAssertEqual(days.map(\.workingTimes), ["CLOSED", lunchBreak(until: 16, 30), lunchBreak(until: 15)])
+  }
+
+  func test_GivenSameHoursEveryDay_WhenListed_ThenOneRowSpansTheWeekFromToday() throws {
+    let days = try week("Mo-Su 10:00-20:00", today: .friday)
+
+    XCTAssertEqual(days.map(\.workingDays), [name(.friday, .thursday)])
+    XCTAssertEqual(days.map(\.workingTimes), [time(10) + "—" + time(20)])
+  }
+
+  func test_GivenSeasonalHours_WhenListed_ThenThereIsNoWeek() {
+    // The place page shows such hours as they are.
+    XCTAssertNil(openingHours("Oct-Feb 06:00-18:00; Mar-Sep 06:00-21:00"))
+  }
+
+  func test_GivenFreeFormHours_WhenListed_ThenThereIsNoWeek() {
+    XCTAssertNil(openingHours("\"by appointment\""))
+  }
+
+  func test_GivenAllDayOnWeekdays_WhenListed_ThenTheirRowSaysAllDay() throws {
+    let days = try week("Mo-Fr 00:00-24:00; Sa 10:00-12:00,13:00-14:00", today: .monday)
+
+    XCTAssertEqual(days.map(\.workingDays), [name(.monday, .friday), name(.saturday), name(.sunday)])
+    XCTAssertEqual(days.map(\.workingTimes), ["ALLDAY", lines(time(10) + "—NOON", time(13) + "—" + time(14)),
+                                              "CLOSED"])
+  }
+
+  func test_GivenOpenTwentyFourSeven_WhenListed_ThenOneRowSaysSo() throws {
+    let days = try week("24/7", today: .monday)
+
+    XCTAssertEqual(days.map(\.workingDays), ["TWENTYFOURSEVEN"])
+    XCTAssertEqual(days.map(\.workingTimes), [""])
+  }
+
+  private func week(_ rawString: String, today: Weekday) throws -> [WorkingDay] {
+    try XCTUnwrap(openingHours(rawString, today: today)).days
+  }
+
+  private func openingHours(_ rawString: String, today: Weekday = .monday) -> OpeningHours? {
+    OpeningHours(rawString: rawString, localization: localization, today: today.rawValue)
   }
 
   private func today(_ rawString: String) throws -> WorkingDay {
-    let openingHours = try XCTUnwrap(OpeningHours(rawString: rawString, localization: localization))
-    return try XCTUnwrap(openingHours.days.first)
+    try XCTUnwrap(week(rawString, today: .monday).first)
   }
 
   /// Formats a bound the way the place page does, so expectations hold in any test locale.
   private func time(_ hour: Int, _ minute: Int = 0) -> String {
     let date = Calendar.current.date(from: DateComponents(hour: hour, minute: minute))!
     return DateTimeFormatter.dateString(from: date, dateStyle: .none, timeStyle: .short)
+  }
+
+  private func name(_ first: Weekday, _ last: Weekday? = nil) -> String {
+    let names = Calendar.current.shortStandaloneWeekdaySymbols
+    guard let last else { return names[first.rawValue - 1] }
+    return names[first.rawValue - 1] + "-" + names[last.rawValue - 1]
+  }
+
+  private func lunchBreak(until hour: Int, _ minute: Int = 0) -> String {
+    lines(time(8) + "—NOON", time(13) + "—" + time(hour, minute))
   }
 
   private func lines(_ shifts: String...) -> String {
@@ -88,11 +146,8 @@ final class OpeningHoursTests: XCTestCase {
 
 private final class MockOpeningHoursLocalization: NSObject, IOpeningHoursLocalization {
   var closedString: String { "CLOSED" }
-  var twentyFourSevenString: String { "24/7" }
+  var twentyFourSevenString: String { "TWENTYFOURSEVEN" }
   var allDayString: String { "ALLDAY" }
-  var dailyString: String { "DAILY" }
-  var todayString: String { "TODAY" }
-  var dayOffString: String { "DAYOFF" }
   var noonString: String { "NOON" }
   var midnightString: String { "MIDNIGHT" }
 }
