@@ -26,13 +26,24 @@
 
 - (instancetype)initWithRawString:(NSString *)rawString localization:(id<IOpeningHoursLocalization>)localization
 {
+  NSInteger const today = [NSCalendar.currentCalendar component:NSCalendarUnitWeekday fromDate:NSDate.date];
+  return [self initWithRawString:rawString localization:localization today:today];
+}
+
+- (instancetype)initWithRawString:(NSString *)rawString
+                     localization:(id<IOpeningHoursLocalization>)localization
+                            today:(NSInteger)today
+{
+  auto const days = osmoh::processRawString(rawString, localization, today);
+  if (!days)
+    return nil;
+
   self = [super init];
   if (self)
   {
-    auto const [days, isClosed] = osmoh::processRawString(rawString, localization);
-    _isClosedNow = isClosed;
-    NSMutableArray * array = [NSMutableArray arrayWithCapacity:days.size()];
-    for (auto const & day : days)
+    _isClosedNow = osmoh::OpeningHours(rawString.UTF8String).IsClosed(time(nullptr));
+    NSMutableArray * array = [NSMutableArray arrayWithCapacity:days->size()];
+    for (auto const & day : *days)
     {
       WorkingDay * wd = [[WorkingDay alloc] init];
       wd.isOpen = day.m_isOpen;
@@ -40,8 +51,6 @@
       wd.workingTimes = day.m_isOpen ? day.m_workingTimes : localization.closedString;
       [array addObject:wd];
     }
-    if (array.count == 0)
-      return nil;
     _days = [array copy];
   }
   return self;

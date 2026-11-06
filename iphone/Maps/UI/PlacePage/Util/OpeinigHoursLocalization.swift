@@ -14,18 +14,6 @@ class OpeinigHoursLocalization: NSObject, IOpeningHoursLocalization {
     L("editor_time_allday")
   }
 
-  var dailyString: String {
-    L("daily")
-  }
-
-  var todayString: String {
-    L("today")
-  }
-
-  var dayOffString: String {
-    L("day_off_today")
-  }
-
   var noonString: String {
     L("noon")
   }
