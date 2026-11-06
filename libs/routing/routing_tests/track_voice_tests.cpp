@@ -106,7 +106,7 @@ public:
   }
 
   // GUI-thread-only so a replay can assert its state before polling speech.
-  void Feed(double x, double y)
+  void Feed(double x, double y, double accuracyM = 5.0)
   {
     auto const distance = m_hasFix ? std::hypot(x - m_x, y - m_y) : 0.0;
     m_time += std::max(1.0, distance / 2.0);
@@ -115,7 +115,7 @@ public:
     info.m_latitude = latLon.m_lat;
     info.m_longitude = latLon.m_lon;
     info.m_timestamp = m_time;
-    info.m_horizontalAccuracy = 5.0;
+    info.m_horizontalAccuracy = accuracyM;
     info.m_speed = 2.0;
     if (distance > 0.0)
     {
@@ -242,7 +242,11 @@ UNIT_CLASS_TEST(TrackVoiceTest, StartingAtTrackArmsDeparture)
     {
       Build(0, approachY, voiceAtStart);
       if (approachY == -100.0)
+      {
         RunOnGui([&] { Feed(0, 0); });
+        // The manager refreshes the approach from the latest position before starting navigation.
+        Rebuild(0, 0, true /* manual */);
+      }
       Start();
       TEST(Notifications().empty(), (approachY, voiceAtStart));
       Voice(true);
@@ -361,14 +365,30 @@ UNIT_CLASS_TEST(TrackVoiceTest, OnTrackRebuildKeepsConfirmedReach)
   TEST_EQUAL(Notifications(), std::vector<std::string>({kPhrase}), ());
 }
 
-UNIT_CLASS_TEST(TrackVoiceTest, PreviewReachArmsDepartureOnStart)
+UNIT_CLASS_TEST(TrackVoiceTest, PreviewGpsCannotSkipTheCapturedEntry)
 {
   for (bool const rebuild : {false, true})
   {
     Build(0, -100);
-    RunOnGui([&] { Feed(200, 0); });
+    RunOnGui([&]
+    {
+      Feed(200, 0);
+      TEST(!m_session->IsFollowing(), ());
+      TEST_EQUAL(m_session->GetRoute()->GetCurrentDistanceFromBeginMeters(), 0.0, ());
+    });
+    TEST(Notifications().empty(), ());
+    Rebuild(200, 0, true /* manual */);
+    TEST(Notifications().empty(), ());
     Start();
+    TEST_EQUAL(Notifications(), std::vector<std::string>({kApproach}), ());
     TEST(Notifications().empty(), (rebuild));
+    RunOnGui([&]
+    {
+      // GPS movement during preview did not reach the captured entry at the track's beginning.
+      Feed(0, 0);
+      Feed(200, 0);
+      TEST(m_session->IsOnRoute(), ());
+    });
     if (rebuild)
       Rebuild(200, 0);
     RunOnGui([&] { Depart(200, 0 /* fromY */, 40 /* firstOffset */); });
@@ -376,7 +396,7 @@ UNIT_CLASS_TEST(TrackVoiceTest, PreviewReachArmsDepartureOnStart)
   }
 }
 
-UNIT_CLASS_TEST(TrackVoiceTest, LateRebuildPreservesObservedRejoin)
+UNIT_CLASS_TEST(TrackVoiceTest, LateRebuildPreservesRejoinOnlyDuringNavigation)
 {
   for (bool const following : {false, true})
   {
@@ -403,12 +423,24 @@ UNIT_CLASS_TEST(TrackVoiceTest, LateRebuildPreservesObservedRejoin)
 
       m_session->SetState(SessionState::RouteRebuilding);
       Feed(400, 0);
-      TEST(m_session->IsOnRoute(), ());
-      // The old approach origin must not erase the rejoin observed while it was calculating.
+      TEST_EQUAL(m_session->IsOnRoute(), following, ());
+      // Only navigation observes a rejoin while the old approach is being calculated.
       m_session->AssignRouteForTesting(std::move(incoming), RouterResultCode::NoError);
     });
     if (!following)
+    {
+      TEST(Notifications().empty(), ());
+      // Refresh the preview's approach without changing its captured entry before Start.
+      Rebuild(400, 0, true /* manual */);
       Start();
+      TEST_EQUAL(Notifications(), std::vector<std::string>({kApproach}), ());
+      RunOnGui([&]
+      {
+        Feed(0, 0);
+        Feed(400, 0);
+        TEST(m_session->IsOnRoute(), ());
+      });
+    }
     TEST(Notifications().empty(), (following));
     RunOnGui([&] { Depart(400, 0 /* fromY */, 40 /* firstOffset */); });
     TEST_EQUAL(Notifications(), std::vector<std::string>({kPhrase}), (following));
@@ -435,9 +467,11 @@ UNIT_CLASS_TEST(TrackVoiceTest, PreviewDepartureRequiresApproachOnStart)
   {
     Feed(200, 0);
     Depart(200);
+    TEST(!m_session->IsFollowing(), ());
+    TEST_EQUAL(m_session->GetRoute()->GetCurrentDistanceFromBeginMeters(), 0.0, ());
   });
   TEST(Notifications().empty(), ());
-  Rebuild(200, 240);
+  Rebuild(200, 240, true /* manual */);
   Start();
   TEST_EQUAL(Notifications(), std::vector<std::string>({kApproach}), ());
   TEST(Notifications().empty(), ());
@@ -503,4 +537,109 @@ UNIT_CLASS_TEST(TrackVoiceTest, GeometricTurnsUseLocalizedSpeech)
     previous = std::move(spoken);
   }
 }
+
+UNIT_CLASS_TEST(TrackVoiceTest, JoinsDownstreamWithoutReachingSelectedEntry)
+{
+  Build(0, -300, false);
+  Start();
+  RunOnGui([&]
+  {
+    Feed(0, -300);
+    for (int sample = 1; sample < 12; ++sample)
+      Feed(200, -300 + sample * 25);
+    TEST(!m_session->IsOnRoute(), ());
+    Feed(200, 0);
+    TEST(m_session->IsOnRoute(), ("Joining the source downstream must end the departure state"));
+    TEST_ALMOST_EQUAL_ABS(m_session->GetRoute()->GetCurrentDistanceFromBeginMeters(), 500.0, 2.0, ());
+    Feed(400, 0);
+    Feed(1000, 0);
+    TEST(m_session->IsFinished(), ("Arrival must remain available after a downstream join"));
+  });
+}
+
+UNIT_CLASS_TEST(TrackVoiceTest, CoarseLoopFixesCannotInventACompletedLap)
+{
+  m_track = {{Point(0, 0), 100}, {Point(20, 0), 100}, {Point(20, 20), 100}, {Point(0, 20), 100}, {Point(0, 0), 100}};
+  for (double const accuracy : {30.0, 1000.0})
+  {
+    Build();
+    Start();
+    RunOnGui([&]
+    {
+      Feed(0, 0);
+      for (auto const & fix : {m2::PointD(20, 0), m2::PointD(20, 20), m2::PointD(0, 20), m2::PointD(0, 0)})
+      {
+        // At 30 m accuracy this whole loop can be jitter around a stationary receiver.
+        Feed(fix.x, fix.y, accuracy);
+        TEST(m_session->IsOnRoute(), (accuracy));
+        TEST_EQUAL(m_session->GetRoute()->GetCurrentDistanceFromBeginMeters(), 0.0, (accuracy));
+      }
+      Feed(0, 0);
+      TEST(!m_session->IsFinished(), ("A subsequent accurate fix cannot validate a noisy lap", accuracy));
+    });
+  }
+}
+
+UNIT_CLASS_TEST(TrackVoiceTest, DenseNoisyRecordingKeepsFollowingAndArrives)
+{
+  for (double const noiseM : {1.0, 2.0})
+  {
+    m_track.clear();
+    for (int x = 0; x <= 1000; ++x)
+      m_track.emplace_back(Point(x, x % 2 == 0 ? noiseM : -noiseM), 100);
+    Build();
+    Start();
+    RunOnGui([&]
+    {
+      for (int sample = 0; sample <= 725; ++sample)
+      {
+        Feed(std::min(1000.0, sample * 1.4), 0.0);
+        TEST(m_session->IsOnRoute() || m_session->IsFinished(), (noiseM, sample));
+        std::vector<std::string> notifications;
+        m_session->GenerateNotifications(notifications, false);
+        TEST(std::find(notifications.begin(), notifications.end(), kPhrase) == notifications.end(), (noiseM, sample));
+      }
+      TEST(m_session->IsFinished(), ("Accurate fixes at the finish must detect arrival", noiseM));
+    });
+  }
+}
+
+UNIT_CLASS_TEST(TrackVoiceTest, DepartureKeepsCompletionAndSuppressesStaleTurns)
+{
+  m_track = {{Point(0, 0), 100}, {Point(200, 0), 100}, {Point(200, 300), 100}};
+  Build(0, 0, false);
+  Start();
+  double completion = 0.0;
+  RunOnGui([&]
+  {
+    m_session->SetTurnNotificationsLocale("en");
+    Feed(0, 0);
+    Feed(190, 0);
+    completion = m_session->GetCompletionPercent();
+    for (double y = -40; y >= -400; y -= 40)
+      Feed(190, y);
+    TEST(!m_session->IsOnRoute(), ());
+    TEST(m_session->IsNavigable(), ("Keep remaining metrics and navigation presentation available off track"));
+    TEST_ALMOST_EQUAL_ABS(m_session->GetCompletionPercent(), completion, 1.0E-6, ());
+  });
+  Voice(true);
+  auto const containsTurn = [](std::vector<std::string> const & notifications)
+  {
+    return std::any_of(notifications.begin(), notifications.end(),
+                       [](auto const & text) { return text.find("Turn left.") != std::string::npos; });
+  };
+  for (size_t i = 0; i < 3; ++i)
+    TEST(!containsTurn(Notifications()), ("An off-track iterator must not announce stale turns"));
+  RunOnGui([&]
+  {
+    Feed(190, 0);
+    TEST(m_session->IsOnRoute(), ());
+    TEST_ALMOST_EQUAL_ABS(m_session->GetCompletionPercent(), completion, 1.0E-6, ());
+  });
+  bool resumedTurns = false;
+  for (size_t i = 0; i < 3; ++i)
+    resumedTurns = containsTurn(Notifications()) || resumedTurns;
+  TEST(resumedTurns, ("Normal turn speech resumes after rejoining"));
+}
+
 }  // namespace track_voice_tests

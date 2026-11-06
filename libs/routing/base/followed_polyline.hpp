@@ -3,6 +3,7 @@
 #include "geometry/polyline2d.hpp"
 
 #include <limits>
+#include <optional>
 #include <vector>
 
 namespace routing
@@ -43,6 +44,7 @@ public:
   double GetTotalDistanceMeters() const;
   double GetDistanceFromStartMeters() const;
   double GetDistanceToEndMeters() const;
+  double GetLastNonZeroSegmentStartMeters() const;
   double GetDistFromCurPointToRoutePointMerc() const;
   double GetDistFromCurPointToRoutePointMeters() const;
 
@@ -67,6 +69,13 @@ public:
 
   Iter GetCurrentIter() const { return m_current; }
 
+  void SetCurrentIter(Iter const & iter)
+  {
+    ASSERT(iter.IsValid(), ());
+    ASSERT_LESS(iter.m_ind, m_segProj.size(), ());
+    m_current = iter;
+  }
+
   double GetDistanceM(Iter const & it1, Iter const & it2) const;
 
   /// \brief Sets indexes of all unmatching segments on route.
@@ -74,6 +83,27 @@ public:
 
   /// \brief Updates projection to the closest matched segment if it's possible.
   bool UpdateMatchingProjection(m2::RectD const & posRect);
+  struct TrackMatchQuery
+  {
+    m2::RectD m_positionRect;
+    double m_minProgressM = 0.0;
+    double m_maxProgressM = 0.0;
+    // Trusted unit heading for source-visit ties.
+    std::optional<m2::PointD> m_direction = {};
+    double m_toleranceM = 0.0;
+    // Fix displacement permits local continuation; m_direction resolves source visits.
+    std::optional<m2::PointD> m_forwardDirection = {};
+    // Entry-to-fix displacement can widen the search, but does not confirm forward traversal.
+    bool m_isFirstFix = false;
+    // Rejoining requires a compatible heading, rather than using it only for ties.
+    bool m_requireDirectionMatch = false;
+  };
+
+  // Preserve source occurrence within the progress window. Forward continuation can also cross
+  // recording noise within the same physical allowance. Failure leaves progress unchanged.
+  bool UpdateTrackMatchingProjection(TrackMatchQuery const & query);
+  // Search without advancing the confirmed position while a rejoin is being observed.
+  Iter GetTrackMatchingProjection(TrackMatchQuery const & query) const;
 
   Iter UpdateProjection(m2::RectD const & posRect);
 
@@ -130,6 +160,8 @@ private:
 
   Iter GetBestMatchingProjection(m2::RectD const & posRect) const;
 
+  size_t FindNextNonZeroSegment(size_t segment) const;
+  size_t GetForwardChainEnd(m2::PointD const & direction, double maxDistanceM, double toleranceM) const;
   void Update();
 
   m2::PolylineD m_poly;
@@ -138,7 +170,8 @@ private:
 
   /// Iterator with the current position. Position sets with UpdateProjection methods.
   Iter m_current;
-  size_t m_nextCheckpointIndex;
+  size_t m_nextCheckpointIndex = 0;
+  size_t m_lastNonZeroSegment = 0;
   /// Precalculated info for fast projection finding.
   std::vector<m2::ParametrizedSegment<m2::PointD>> m_segProj;
   /// Accumulated cache of segments length in meters.

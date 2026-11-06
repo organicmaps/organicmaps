@@ -611,10 +611,24 @@ void Route::GetCurrentDirectionPoint(m2::PointD & pt) const
 
 bool Route::MoveIterator(location::GpsInfo const & info)
 {
+  if (auto const entryDistance = GetTrackStartDistanceMeters())
+    return m_trackMatcher.Update(m_poly, info, m_routingSettings, *entryDistance);
+
   m2::RectD const rect = mercator::MetersToXY(
       info.m_longitude, info.m_latitude, std::max(m_routingSettings.m_matchingThresholdM, info.m_horizontalAccuracy));
-
   return m_poly.UpdateMatchingProjection(rect);
+}
+
+void Route::CopyTrackMatchingState(Route const & previous)
+{
+  ASSERT(IsTrack() && previous.IsTrack(), ());
+  // Track rebuilds keep the source geometry and change only the approach start.
+  ASSERT(std::equal(GetPoly().Begin() + 1, GetPoly().End(), previous.GetPoly().Begin() + 1, previous.GetPoly().End()),
+         ());
+  m_trackMatcher = previous.m_trackMatcher;
+  auto const iter = previous.GetCurrentIter();
+  if (iter.m_ind > 0)
+    m_poly.SetCurrentIter(iter);
 }
 
 double Route::GetPolySegAngle(size_t ind) const
@@ -666,6 +680,7 @@ bool Route::MatchLocationToRoute(location::GpsInfo & location, location::RouteMa
 
 bool Route::IsSubroutePassed(size_t subrouteIdx) const
 {
+  ASSERT(IsValid(), ());
   size_t const endSegmentIdx = GetSubrouteAttrs(subrouteIdx).GetEndSegmentIdx();
   // If all subroutes up to subrouteIdx are empty.
   if (endSegmentIdx == 0)
@@ -673,10 +688,21 @@ bool Route::IsSubroutePassed(size_t subrouteIdx) const
 
   size_t const segmentIdx = endSegmentIdx - 1;
   CHECK_LESS(segmentIdx, m_routeSegments.size(), ());
-  double const lengthMeters = m_routeSegments[segmentIdx].GetDistFromBeginningMeters();
   double const passedDistanceMeters = m_poly.GetDistanceFromStartMeters();
-  double const finishToleranceM =
-      segmentIdx == m_routeSegments.size() - 1 ? m_routingSettings.m_finishToleranceM : kOnEndToleranceM;
+  bool const isLast = segmentIdx + 1 == m_routeSegments.size();
+  double const finishToleranceM = isLast ? m_routingSettings.m_finishToleranceM : kOnEndToleranceM;
+  auto const trackStartDistance = GetTrackStartDistanceMeters();
+  if (trackStartDistance && isLast)
+  {
+    // Protect short loops from finishing at their first occurrence. Once confirmed
+    // source progress exceeds the finish tolerance, normal arrival tolerance
+    // also covers a dense final tail whose matching position can lag within GPS accuracy.
+    double const finalSegmentStartM = m_poly.GetLastNonZeroSegmentStartMeters();
+    double const distanceOnTrackM = passedDistanceMeters - *trackStartDistance;
+    if (passedDistanceMeters < finalSegmentStartM && distanceOnTrackM <= finishToleranceM)
+      return false;
+  }
+  double const lengthMeters = m_routeSegments[segmentIdx].GetDistFromBeginningMeters();
   return lengthMeters - passedDistanceMeters < finishToleranceM;
 }
 
