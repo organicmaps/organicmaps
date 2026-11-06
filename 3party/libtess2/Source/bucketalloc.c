@@ -100,6 +100,8 @@ struct BucketAlloc* createBucketAlloc( TESSalloc* alloc, const char* name,
 									  unsigned int itemSize, unsigned int bucketSize )
 {
 	BucketAlloc* ba = (BucketAlloc*)alloc->memalloc( alloc->userData, sizeof(BucketAlloc) );
+	if (ba == NULL)
+		return NULL;
 
 	ba->alloc = alloc;
 	ba->name = name;
@@ -176,6 +178,8 @@ void bucketFree( struct BucketAlloc *ba, void *ptr )
 
 void deleteBucketAlloc( struct BucketAlloc *ba )
 {
+	if (ba == NULL)
+		return;
 	TESSalloc* alloc = ba->alloc;
 	Bucket *bucket = ba->buckets;
 	Bucket *next;
