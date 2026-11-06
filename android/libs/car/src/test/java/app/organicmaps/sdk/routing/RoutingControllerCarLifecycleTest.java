@@ -37,6 +37,12 @@ public class RoutingControllerCarLifecycleTest
     final MapObject destination = MapObject.createMapObject(MapObject.POI, "Finish", "", 1, 2);
     final RoutingController controller = new RoutingController() {
       @Override
+      public boolean isFollowingTrack()
+      {
+        return false;
+      }
+
+      @Override
       public boolean isPlanning()
       {
         return true;
@@ -81,7 +87,30 @@ public class RoutingControllerCarLifecycleTest
   @Test
   public void destroyedCarScreenLeavesPhoneResultsAndNavigationServiceAlone() throws ReflectiveOperationException
   {
+    checkDestroyedCarScreen(false);
+  }
+
+  @Test
+  public void destroyedCarScreenLeavesPhoneTrackAndNavigationServiceAlone() throws ReflectiveOperationException
+  {
+    checkDestroyedCarScreen(true);
+  }
+
+  private void checkDestroyedCarScreen(boolean followingTrack) throws ReflectiveOperationException
+  {
     final RoutingController controller = new RoutingController() {
+      @Override
+      public boolean isFollowingTrack()
+      {
+        return followingTrack;
+      }
+
+      @Override
+      public Router getLastRouterType()
+      {
+        return Router.Vehicle;
+      }
+
       @Override
       public boolean isNavigating()
       {
@@ -103,6 +132,7 @@ public class RoutingControllerCarLifecycleTest
     }));
     setField(screen, NavigationScreen.class, "mRoutingController", controller);
     setField(screen, NavigationScreen.class, "mNavigationManager", mock(NavigationManager.class));
+    setField(screen, NavigationScreen.class, "mNavigationLifecycleStarted", true);
     doCallRealMethod().when(screen).onDestroy(any());
     final RoutingController.Container phone = mock(RoutingController.Container.class);
     controller.attach(screen);

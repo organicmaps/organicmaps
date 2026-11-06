@@ -12,6 +12,8 @@ import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Router;
+import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
+import app.organicmaps.sdk.bookmarks.data.DataChangedListener;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.routing.ResultCodes;
 import app.organicmaps.sdk.routing.RouteMarkData;
@@ -54,7 +56,9 @@ public class RoutingControllerRecoveryTest
       }
     });
     assertTrue("Core initialization did not complete", initialized.await(30, TimeUnit.SECONDS));
+    final DataChangedListener singletonBookmarksListener = getBookmarksListener(RoutingController.get());
     onMain(() -> {
+      BookmarkManager.INSTANCE.removeCategoriesUpdatesListener(singletonBookmarksListener);
       mOriginalRouter = Router.getLastUsed();
       Framework.nativeCloseRouting();
       Framework.nativeDeleteSavedRoutePoints();
@@ -69,6 +73,7 @@ public class RoutingControllerRecoveryTest
   {
     if (mController == null)
       return;
+    final DataChangedListener bookmarksListener = getBookmarksListener(mController);
     onMain(() -> {
       if (mContainer != null)
         mController.detach(mContainer);
@@ -76,6 +81,7 @@ public class RoutingControllerRecoveryTest
       Framework.nativeCloseRouting();
       Framework.nativeDeleteSavedRoutePoints();
       Router.set(mOriginalRouter);
+      BookmarkManager.INSTANCE.removeCategoriesUpdatesListener(bookmarksListener);
       RoutingController.get().initialize(mApplication.getLocationHelper());
     });
   }
@@ -221,7 +227,9 @@ public class RoutingControllerRecoveryTest
   @Test
   public void configurationRecreationKeepsRouteRecovery() throws Exception
   {
+    final DataChangedListener bookmarksListener = getBookmarksListener(mController);
     onMain(() -> {
+      BookmarkManager.INSTANCE.removeCategoriesUpdatesListener(bookmarksListener);
       mController = RoutingController.get();
       mController.initialize(mApplication.getLocationHelper());
     });
@@ -267,6 +275,14 @@ public class RoutingControllerRecoveryTest
   private static MapObject point(String name, double coordinate)
   {
     return MapObject.createMapObject(MapObject.API_POINT, name, "", coordinate, coordinate);
+  }
+
+  private static DataChangedListener getBookmarksListener(RoutingController controller)
+      throws ReflectiveOperationException
+  {
+    final Field listener = RoutingController.class.getDeclaredField("mBookmarksListener");
+    listener.setAccessible(true);
+    return (DataChangedListener) listener.get(controller);
   }
 
   private void onMain(Runnable action) throws Exception

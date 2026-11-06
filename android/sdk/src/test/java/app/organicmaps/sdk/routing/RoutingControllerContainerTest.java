@@ -9,6 +9,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.util.log.Logger;
 import org.junit.After;
 import org.junit.Before;
@@ -32,10 +33,19 @@ public class RoutingControllerContainerTest
     mLogger.close();
   }
 
+  private static class TestRoutingController extends RoutingController
+  {
+    @Override
+    public Router getLastRouterType()
+    {
+      return Router.Vehicle;
+    }
+  }
+
   @Test
   public void replacedContainerCannotDetachItsReplacement()
   {
-    final RoutingController controller = new RoutingController();
+    final RoutingController controller = new TestRoutingController();
     final RoutingController.Container previous = mock(RoutingController.Container.class);
     final RoutingController.Container current = mock(RoutingController.Container.class);
     controller.attach(previous);
@@ -50,7 +60,7 @@ public class RoutingControllerContainerTest
   @Test
   public void currentContainerCanDetachItself()
   {
-    final RoutingController controller = new RoutingController();
+    final RoutingController controller = new TestRoutingController();
     final RoutingController.Container current = mock(RoutingController.Container.class);
     controller.attach(current);
     controller.restore();
@@ -65,7 +75,7 @@ public class RoutingControllerContainerTest
   @Test
   public void replacedContainersSavedStateDoesNotDeferReplacementResults()
   {
-    final RoutingController controller = new RoutingController();
+    final RoutingController controller = new TestRoutingController();
     final RoutingController.Container previous = mock(RoutingController.Container.class);
     final RoutingController.Container current = mock(RoutingController.Container.class);
     controller.attach(previous);
@@ -82,7 +92,7 @@ public class RoutingControllerContainerTest
   @Test
   public void currentContainersSavedStateDefersResultsUntilRestore()
   {
-    final RoutingController controller = new RoutingController();
+    final RoutingController controller = new TestRoutingController();
     final RoutingController.Container current = mock(RoutingController.Container.class);
     controller.attach(current);
     controller.onSaveState(current);
@@ -98,7 +108,7 @@ public class RoutingControllerContainerTest
   @Test
   public void lateCallbacksWithoutAnAttachedContainerDoNotDeferFutureResults()
   {
-    final RoutingController controller = new RoutingController();
+    final RoutingController controller = new TestRoutingController();
     final RoutingController.Container previous = mock(RoutingController.Container.class);
     final RoutingController.Container current = mock(RoutingController.Container.class);
     controller.attach(previous);
@@ -115,7 +125,7 @@ public class RoutingControllerContainerTest
   @Test
   public void navigationPresentationCanDetachBeforeItsSuccessorAttaches()
   {
-    final RoutingController controller = new RoutingController();
+    final RoutingController controller = new TestRoutingController();
     final RoutingController.Container previous = mock(RoutingController.Container.class);
     final RoutingController.Container current = mock(RoutingController.Container.class);
     controller.attach(previous);
@@ -138,7 +148,7 @@ public class RoutingControllerContainerTest
   @Test
   public void navigationPresentationDoesNotNotifyAReplacementHost()
   {
-    final RoutingController controller = new RoutingController();
+    final RoutingController controller = new TestRoutingController();
     final RoutingController.Container previous = mock(RoutingController.Container.class);
     final RoutingController.Container current = mock(RoutingController.Container.class);
     controller.attach(previous);
@@ -159,7 +169,7 @@ public class RoutingControllerContainerTest
   @Test
   public void restoringCanDetachThePresentingContainer()
   {
-    final RoutingController controller = new RoutingController();
+    final RoutingController controller = new TestRoutingController();
     final RoutingController.Container previous = mock(RoutingController.Container.class);
     controller.attach(previous);
     doAnswer(invocation -> {
@@ -178,7 +188,7 @@ public class RoutingControllerContainerTest
   @Test
   public void restoringDoesNotUpdateAReentrantReplacementBeforeItRestores()
   {
-    final RoutingController controller = new RoutingController();
+    final RoutingController controller = new TestRoutingController();
     final RoutingController.Container previous = mock(RoutingController.Container.class);
     final RoutingController.Container current = mock(RoutingController.Container.class);
     cacheBuildError(controller, previous);
@@ -201,7 +211,7 @@ public class RoutingControllerContainerTest
   @Test
   public void restoringPlanningCannotConsumeItsSuccessorsQueuedResult()
   {
-    final RoutingController controller = new RoutingController() {
+    final RoutingController controller = new TestRoutingController() {
       @Override
       public boolean isPlanning()
       {
@@ -228,7 +238,7 @@ public class RoutingControllerContainerTest
   @Test
   public void restoringMenuCannotConsumeItsSuccessorsQueuedResult()
   {
-    final RoutingController controller = new RoutingController();
+    final RoutingController controller = new TestRoutingController();
     final RoutingController.Container previous = mock(RoutingController.Container.class);
     final RoutingController.Container current = mock(RoutingController.Container.class);
     cacheBuildError(controller, previous);
@@ -249,7 +259,7 @@ public class RoutingControllerContainerTest
   @Test
   public void restoringProgressCannotConsumeItsSuccessorsQueuedResult()
   {
-    final RoutingController controller = new RoutingController();
+    final RoutingController controller = new TestRoutingController();
     final RoutingController.Container previous = mock(RoutingController.Container.class);
     final RoutingController.Container current = mock(RoutingController.Container.class);
     cacheBuildError(controller, previous);
