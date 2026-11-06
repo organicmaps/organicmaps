@@ -2,5 +2,7 @@
 <resources>
   <!-- Default units of the current speed, usually overridden by the app. -->
   <string name="om_widget_units_kmh" translatable="false">km/h</string>
+  <string name="om_widget_accessibility_current_speed">Current speed: %1$d %2$s</string>
+  <string name="om_widget_accessibility_speed_unavailable">Current speed unavailable</string>
+  <string name="om_widget_accessibility_speed_limit">Speed limit: %1$d %2$s</string>
 </resources>
-

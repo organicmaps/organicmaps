@@ -180,8 +180,12 @@ constructor(
 
         currentSpeedView.isClickable = false
         speedLimitView.isClickable = false
+        importantForAccessibility = IMPORTANT_FOR_ACCESSIBILITY_YES
+        currentSpeedView.importantForAccessibility = IMPORTANT_FOR_ACCESSIBILITY_NO
+        speedLimitView.importantForAccessibility = IMPORTANT_FOR_ACCESSIBILITY_NO
         addView(currentSpeedView)
         addView(speedLimitView)
+        updateContentDescription()
     }
 
     private fun applyBackgroundColor() {
@@ -193,6 +197,7 @@ constructor(
         get() = currentSpeedView.speed
         set(value) {
             currentSpeedView.speed = value
+            updateContentDescription()
         }
 
     /** Localized units of the speed, e.g. "km/h". */
@@ -200,16 +205,37 @@ constructor(
         get() = currentSpeedView.units
         set(value) {
             currentSpeedView.units = value
+            updateContentDescription()
         }
 
     /** Sets the speed limit, null hides it, e.g. when it is unknown for the current road. */
     fun setSpeedLimit(speedLimit: Int?) {
         if (speedLimit == null) {
             speedLimitView.visibility = GONE
+            updateContentDescription()
             return
         }
         speedLimitView.speedLimit = speedLimit
         speedLimitView.visibility = VISIBLE
+        updateContentDescription()
+    }
+
+    private fun updateContentDescription() {
+        val currentSpeed = speed
+        val speedDescription = if (currentSpeed != null && currentSpeed in 0..999) {
+            context.getString(R.string.om_widget_accessibility_current_speed, currentSpeed, units)
+        } else {
+            context.getString(R.string.om_widget_accessibility_speed_unavailable)
+        }
+        contentDescription = if (speedLimitView.visibility == VISIBLE) {
+            speedDescription + ", " + context.getString(
+                R.string.om_widget_accessibility_speed_limit,
+                speedLimitView.speedLimit,
+                units,
+            )
+        } else {
+            speedDescription
+        }
     }
 
     override fun onDraw(canvas: Canvas) {
