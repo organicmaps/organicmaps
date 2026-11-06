@@ -28,6 +28,8 @@
 "take_exit_number":"Изађите на излаз",
 "take_exit_number_street_verb":"NULL",
 "route_recalculating":"Прерачунавање руте",
+"proceed_to_the_track":"Упутите се ка путањи.",
+"you_have_left_the_track":"Напустили сте путању.",
 "destination":"Стижете на одредиште.",
 "you_have_reached_the_destination":"Стигли сте.",
 "in_50_meters":"За педесет метара",

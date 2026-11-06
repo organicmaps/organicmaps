@@ -19,7 +19,6 @@
 #include <mutex>
 #include <string>
 #include <thread>
-#include <type_traits>
 #include <utility>
 #include <vector>
 
@@ -171,17 +170,6 @@ uint64_t WaitReady(ReadyRequest & ready)
   auto const [id, code] = ready.m_future.get();
   TEST_EQUAL(code, RouterResultCode::NoError, ());
   return id;
-}
-
-template <typename Fn>
-auto RunOnGui(Fn && fn)
-{
-  // Return GUI-thread assertion failures to the test thread, keeping the task alive on timeout.
-  auto task = make_shared<packaged_task<invoke_result_t<Fn>()>>(std::forward<Fn>(fn));
-  auto done = task->get_future();
-  GetPlatform().RunTask(Platform::Thread::Gui, [task] { (*task)(); });
-  TEST(done.wait_for(30s) == future_status::ready, ("GUI task did not finish."));
-  return done.get();
 }
 
 UNIT_CLASS_TEST(AsyncGuiThreadTest, RouterCallsWhileCalculating)

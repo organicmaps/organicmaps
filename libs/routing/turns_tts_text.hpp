@@ -15,10 +15,8 @@ namespace sound
 {
 struct Notification;
 
-/// GetTtsText is responsible for generating text message for TTS in a specified locale
-/// by notification. To get this message use operator().
-/// If the message is not available for specified locale GetTtsText tries to find it in
-/// English locale.
+/// Generates localized navigation speech from turn notifications and phrase identifiers.
+/// Falls back to English for missing locale files; a missing phrase in a loaded locale returns empty.
 class GetTtsText
 {
 public:
@@ -27,6 +25,10 @@ public:
   std::string GetRecalculatingNotification() const;
 
   std::string GetSpeedCameraNotification() const;
+
+  std::string GetOffTrackNotification() const;
+
+  std::string GetTrackApproachNotification() const;
 
   /// \brief Sets a locale.
   /// @param locale is a string representation of locale. For example "en", "ru", "zh-Hant" and so on.
