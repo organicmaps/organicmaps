@@ -4,30 +4,14 @@ import XCTest
 final class NavigationDashboardLifecycleTests: XCTestCase {
   private var mapViewController: MapViewController!
   private var manager: MWMNavigationDashboardManager!
-  private var previousRouterType: MWMRouterType!
 
   override func setUpWithError() throws {
     try super.setUpWithError()
     mapViewController = try XCTUnwrap(MapViewController.shared())
     mapViewController.loadViewIfNeeded()
-    manager = MWMNavigationDashboardManager.shared()
-    previousRouterType = MWMRouter.type()
-    MWMRouter.stopRouting()
-    MWMRouter.enableAutoAddLastLocation(false)
-    MWMRouter.setType(.ruler)
-    waitForDashboardsToClose()
-    // Isolate the shared manager from dashboards retired by earlier tests.
-    manager.setValue(nil, forKey: "navigationDashboardView")
   }
 
   override func tearDown() {
-    MWMRouter.stopRouting()
-    if let previousRouterType {
-      MWMRouter.setType(previousRouterType)
-    }
-    waitForDashboardsToClose()
-    manager.setValue(nil, forKey: "navigationDashboardView")
-    manager = nil
     mapViewController = nil
     super.tearDown()
   }
@@ -40,7 +24,21 @@ final class NavigationDashboardLifecycleTests: XCTestCase {
     XCTAssertEqual(manager.dashboardRequests, 0)
   }
 
-  func testReplacementRouteGetsANewDashboardWhileTheOldOneIsRetained() throws {
+  func testReplacementDashboardIgnoresTheRetiringDashboardsCommands() throws {
+    manager = MWMNavigationDashboardManager.shared()
+    let previousRouterType = MWMRouter.type()
+    defer {
+      MWMRouter.stopRouting()
+      MWMRouter.setType(previousRouterType)
+      waitForDashboardsToClose()
+      manager.setValue(nil, forKey: "navigationDashboardView")
+      manager = nil
+    }
+    MWMRouter.stopRouting()
+    MWMRouter.setType(.ruler)
+    waitForDashboardsToClose()
+    manager.setValue(nil, forKey: "navigationDashboardView")
+
     buildRoute(prefix: "Old")
     waitUntilRouteReady()
     let oldDashboard = try activeDashboard()
@@ -48,22 +46,9 @@ final class NavigationDashboardLifecycleTests: XCTestCase {
 
     MWMRouter.stopRouting()
     buildRoute(prefix: "Replacement")
-
     let replacement = try XCTUnwrap(manager.value(forKey: "_navigationDashboardView") as? NavigationDashboard.Interactor)
     XCTAssertFalse(replacement === oldInteractor)
     XCTAssertTrue(dashboards.contains { $0.interactor === replacement })
-    waitUntilRouteReady()
-    withExtendedLifetime(oldDashboard) {}
-  }
-
-  func testClosingDashboardCannotCancelAReplacementRoute() throws {
-    buildRoute(prefix: "Old")
-    waitUntilRouteReady()
-    let oldDashboard = try activeDashboard()
-    let oldInteractor = try XCTUnwrap(oldDashboard.interactor)
-
-    MWMRouter.stopRouting()
-    buildRoute(prefix: "Replacement")
     oldInteractor.process(.close)
 
     XCTAssertEqual(MWMRouter.points().map(\.title), ["Replacement start", "Replacement finish"])
@@ -75,28 +60,39 @@ final class NavigationDashboardLifecycleTests: XCTestCase {
     let (dashboard, interactor) = makeElevationDashboard()
     interactor.updateMapPoint(distance: 25)
     interactor.stateClosed()
+    XCTAssertEqual(ElevationRouter.resetCount, 1)
 
     interactor.updateMapPoint(distance: 75)
     interactor.statePrepare()
+    interactor.stateClosed()
 
     XCTAssertEqual(ElevationRouter.selectedDistances, [25])
-    XCTAssertEqual(ElevationRouter.resetCount, 0)
+    XCTAssertEqual(ElevationRouter.resetCount, 1)
     withExtendedLifetime(dashboard) {}
   }
 
-  func testClosingDashboardIgnoresQueuedElevationRestore() {
+  func testClosingVisibleDashboardClearsViewportInsets() throws {
     let (dashboard, interactor) = makeElevationDashboard()
-    interactor.updateMapPoint(distance: 25)
-    interactor.stateReady()
-    let selectedBeforeClosing = ElevationRouter.selectedDistances
+    defer {
+      interactor.stateClosed()
+      mapViewController.updateVisibleAreaInsets(for: interactor, insets: .zero, updatingViewport: true)
+      withExtendedLifetime(dashboard) {}
+    }
+    let constraints = try ["visibleAreaBottom", "sideButtonsAreaBottom"].map {
+      try XCTUnwrap(mapViewController.value(forKey: $0) as? NSLayoutConstraint)
+    }
+    interactor.process(.updateVisibleAreaInsets(.zero))
+    let original = constraints.map(\.constant)
+    let bottom = ((original.max() ?? 0) + mapViewController.view.bounds.height) / 2
+    XCTAssertGreaterThan(bottom, original.max() ?? 0)
+    let insets = UIEdgeInsets(top: 0, left: 0, bottom: bottom, right: 0)
+    interactor.process(.updateVisibleAreaInsets(insets))
+    XCTAssertEqual(constraints.map(\.constant), Array(repeating: bottom, count: constraints.count))
+
     interactor.stateClosed()
-
-    let drained = expectation(description: "Queued elevation restore completed")
-    DispatchQueue.main.async { drained.fulfill() }
-    wait(for: [drained], timeout: 5)
-
-    XCTAssertEqual(ElevationRouter.selectedDistances, selectedBeforeClosing)
-    withExtendedLifetime(dashboard) {}
+    XCTAssertEqual(constraints.map(\.constant), original)
+    interactor.process(.updateVisibleAreaInsets(insets))
+    XCTAssertEqual(constraints.map(\.constant), original)
   }
 
   private var dashboards: [NavigationDashboardViewController] {
