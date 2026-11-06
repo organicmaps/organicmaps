@@ -316,6 +316,13 @@ public class RoutingController
     mContainer = null;
   }
 
+  /** Releases the calling UI container only if it is still attached. */
+  public void detach(@NonNull Container container)
+  {
+    if (mContainer == container)
+      detach();
+  }
+
   /**
    * Replays planning, navigation, build progress, and any deferred result to the attached container.
    * Call after attaching a resumed host; this also clears the saved-UI-state flag.
@@ -342,6 +349,13 @@ public class RoutingController
   public void onSaveState()
   {
     mHasContainerSavedState = true;
+  }
+
+  /** Defers UI results only while the calling container still owns the controller. */
+  public void onSaveState(@NonNull Container container)
+  {
+    if (mContainer == container)
+      onSaveState();
   }
 
   @VisibleForTesting
