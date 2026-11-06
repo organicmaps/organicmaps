@@ -273,8 +273,15 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     int invalidPhoneIdx = mPhonesAdapter.findInvalidPhone();
     if (invalidPhoneIdx != -1)
     {
-      View invalidPhoneView = mPhonesRecycler.findViewHolderForAdapterPosition(invalidPhoneIdx).itemView;
-      InputUtils.showKeyboard(invalidPhoneView);
+      mPhonesRecycler.scrollToPosition(invalidPhoneIdx);
+      mPhonesRecycler.post(() -> {
+        final var holder = mPhonesRecycler.findViewHolderForAdapterPosition(invalidPhoneIdx);
+        if (holder == null)
+          return;
+        final View input = holder.itemView.findViewById(R.id.input);
+        input.requestFocus();
+        InputUtils.showKeyboard(input);
+      });
       return false;
     }
 
