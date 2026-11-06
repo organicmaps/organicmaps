@@ -83,7 +83,7 @@
 {
   if (self.state == MWMNavigationDashboardStateClosed)
     return;
-  [self.navigationDashboardView setRouteBuilderProgress:[MWMRouter type] progress:progress / 100.];
+  [self.navigationDashboardView setRouteBuilderProgress:[MWMRouter renderType] progress:progress / 100.];
 }
 
 #pragma mark - On route updates
