@@ -8,18 +8,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, readonly) NSString * workingDays;
 @property(nonatomic, readonly) NSString * workingTimes;
-@property(nonatomic, readonly, nullable) NSString * breaks;
 @property(nonatomic, readonly) BOOL isOpen;
 
 @end
 
 @interface OpeningHours : NSObject
 
+/// The week starting from today's row. Empty when open 24/7.
 @property(nonatomic, readonly) NSArray<WorkingDay *> * days;
-@property(nonatomic, readonly) BOOL isClosedNow;
 
 - (nullable instancetype)initWithRawString:(NSString *)rawString
                               localization:(id<IOpeningHoursLocalization>)localization;
+/// @param today 1 = Sunday … 7 = Saturday, as in NSCalendar.
+- (nullable instancetype)initWithRawString:(NSString *)rawString
+                              localization:(id<IOpeningHoursLocalization>)localization
+                                     today:(NSInteger)today;
 
 @end
 
