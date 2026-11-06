@@ -4,6 +4,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MWMFrameworkListener : NSObject
 
+/// Registration and notifications are synchronous and must run on the main thread.
 + (MWMFrameworkListener *)listener;
 + (void)addObserver:(id<MWMFrameworkObserver>)observer;
 + (void)removeObserver:(id<MWMFrameworkObserver>)observer;

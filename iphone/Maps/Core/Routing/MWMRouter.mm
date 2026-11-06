@@ -32,7 +32,6 @@ using namespace routing;
 
 @property(nonatomic) uint32_t routeManagerTransactionId;
 @property(nonatomic) BOOL canAutoAddLastLocation;
-@property(nonatomic) BOOL isAPICall;
 @property(nonatomic) BOOL isRestoreProcessCompleted;
 @property(strong, nonatomic) MWMRoutingOptions * routingOptions;
 
@@ -405,13 +404,14 @@ using namespace routing;
   if (!startPoint || !finishPoint)
     return;
 
-  [MWMRouter setType:type];
-
-  auto router = [MWMRouter router];
-  router.isAPICall = YES;
-  [self addPoint:startPoint];
-  [self addPoint:finishPoint];
-  router.isAPICall = NO;
+  // Notify mark observers only after both endpoints have replaced the itinerary.
+  {
+    auto editSession = GetFramework().GetBookmarkManager().GetEditSession();
+    [self doStop:YES];
+    GetFramework().GetRoutingManager().SetRouter(coreRouterType(type));
+    [self addPoint:startPoint];
+    [self addPoint:finishPoint];
+  }
 
   [self rebuildWithBestRouter:NO];
 }
@@ -540,7 +540,7 @@ using namespace routing;
 
   auto startPoint = [MWMRouter startPoint];
   if (!startPoint || !startPoint.isMyPosition)
-    dispatch_async(dispatch_get_main_queue(), ^{ [MWMRouter disableFollowMode]; });
+    [MWMRouter disableFollowMode];
 
   [[MWMMapViewControlsManager manager] onRouteReady:hasWarnings];
   [self updateFollowingInfo];
@@ -654,17 +654,9 @@ using namespace routing;
   if ([MapsAppDelegate theApp].isDrapeEngineCreated)
   {
     auto & rm = GetFramework().GetRoutingManager();
-    if ([self isRoutingActive] || ![self hasSavedRoute])
-    {
-      self.router.isRestoreProcessCompleted = YES;
-      return;
-    }
-    rm.LoadRoutePoints([self](bool success)
-    {
-      if (success)
-        [self rebuildWithBestRouter:YES];
-      self.router.isRestoreProcessCompleted = YES;
-    });
+    if (rm.LoadRoutePoints())
+      [self rebuildWithBestRouter:YES];
+    self.router.isRestoreProcessCompleted = YES;
   }
   else
   {

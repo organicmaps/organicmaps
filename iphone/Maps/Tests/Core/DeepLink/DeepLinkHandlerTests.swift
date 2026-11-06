@@ -1,5 +1,17 @@
 @testable import Organic_Maps__Debug_
+import UIKit
 import XCTest
+
+private final class RouteValidationObserver: NSObject, RoutingManagerListener {
+  var onEvent: ((RouterResultCode) -> Void)?
+
+  func processRouteBuilderEvent(with code: RouterResultCode, countries _: [String]) {
+    onEvent?(code)
+  }
+
+  func didLocationUpdate(_: [String]) {}
+  func updateCameraInfo(isCameraOnRoute _: Bool, speedLimitMps _: Double) {}
+}
 
 final class DeepLinkHandlerTests: XCTestCase {
   private let handler = DeepLinkHandler.shared
@@ -70,6 +82,37 @@ final class DeepLinkHandlerTests: XCTestCase {
     XCTAssertFalse(handler.hasPendingColdLaunchDeepLink)
     XCTAssertNil(handler.url)
     XCTAssertNil(handler.getInAppFeatureHighlightData())
+  }
+
+  func testRouteValidationIsDeliveredAfterReturningToTheMap() throws {
+    let map = try prepareMapViewController()
+    let navigation = try XCTUnwrap(map.navigationController)
+    MWMRouter.subscribeToEvents()
+    let previousRouter = MWMRouter.type()
+    let routing = RoutingManager.routingManager
+    let observer = RouteValidationObserver()
+    var validations = 0
+    observer.onEvent = { code in
+      XCTAssertEqual(code, .cancelled)
+      XCTAssertTrue(navigation.topViewController === map)
+      validations += 1
+    }
+    routing.add(observer)
+    defer {
+      routing.remove(observer)
+      MWMRouter.stopRouting()
+      MWMRouter.setType(previousRouter)
+      navigation.popToRootViewController(animated: false)
+    }
+    navigation.pushViewController(UIViewController(), animated: false)
+    let url = try XCTUnwrap(URL(string: "om://route?sll=1,1&saddr=Start&dll=1,1&daddr=Finish&type=vehicle"))
+
+    XCTAssertTrue(handler.applicationDidOpenUrl(url))
+
+    XCTAssertTrue(navigation.topViewController === map)
+    XCTAssertEqual(validations, 1)
+    XCTAssertEqual(MWMNavigationDashboardManager.shared().state, .prepare)
+    XCTAssertEqual(MWMRouter.points().map(\.title), ["Start", "Finish"])
   }
 
   func testColdSettingsHighlightSurvivesUntilPresentation() throws {
