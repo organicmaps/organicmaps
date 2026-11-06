@@ -13,7 +13,8 @@ std::array<RenderStateExtension, static_cast<size_t>(DepthLayer::LayersCount)> k
     RenderStateExtension(DepthLayer::OverlayLayer),     RenderStateExtension(DepthLayer::TransitSchemeLayer),
     RenderStateExtension(DepthLayer::UserMarkLayer),    RenderStateExtension(DepthLayer::RoutingBottomMarkLayer),
     RenderStateExtension(DepthLayer::RoutingMarkLayer), RenderStateExtension(DepthLayer::SearchMarkLayer),
-    RenderStateExtension(DepthLayer::GuiLayer),         RenderStateExtension(DepthLayer::SelectedUserLineLayer)};
+    RenderStateExtension(DepthLayer::GuiLayer),         RenderStateExtension(DepthLayer::SelectedUserLineLayer),
+    RenderStateExtension(DepthLayer::UserAreaLayer)};
 
 struct RenderStateExtensionFactory
 {

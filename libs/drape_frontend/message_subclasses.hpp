@@ -263,17 +263,20 @@ class UpdateUserMarksMessage : public Message
 public:
   UpdateUserMarksMessage(drape_ptr<IDCollections> && justCreatedIds, drape_ptr<IDCollections> && removedIds,
                          drape_ptr<UserMarksRenderCollection> && marksRenderParams,
-                         drape_ptr<UserLinesRenderCollection> && linesRenderParams)
+                         drape_ptr<UserLinesRenderCollection> && linesRenderParams,
+                         drape_ptr<UserAreasRenderCollection> && areasRenderParams)
     : m_justCreatedIds(std::move(justCreatedIds))
     , m_removedIds(std::move(removedIds))
     , m_marksRenderParams(std::move(marksRenderParams))
     , m_linesRenderParams(std::move(linesRenderParams))
+    , m_areasRenderParams(std::move(areasRenderParams))
   {}
 
   Type GetType() const override { return Type::UpdateUserMarks; }
 
   drape_ptr<UserMarksRenderCollection> AcceptMarkRenderParams() { return std::move(m_marksRenderParams); }
   drape_ptr<UserLinesRenderCollection> AcceptLineRenderParams() { return std::move(m_linesRenderParams); }
+  drape_ptr<UserAreasRenderCollection> AcceptAreaRenderParams() { return std::move(m_areasRenderParams); }
   drape_ptr<IDCollections> AcceptRemovedIds() { return std::move(m_removedIds); }
   drape_ptr<IDCollections> AcceptJustCreatedIds() { return std::move(m_justCreatedIds); }
 
@@ -282,6 +285,7 @@ private:
   drape_ptr<IDCollections> m_removedIds;
   drape_ptr<UserMarksRenderCollection> m_marksRenderParams;
   drape_ptr<UserLinesRenderCollection> m_linesRenderParams;
+  drape_ptr<UserAreasRenderCollection> m_areasRenderParams;
 };
 
 class UpdateUserMarkGroupMessage : public Message

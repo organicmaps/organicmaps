@@ -45,8 +45,8 @@ void RenderAndCheck(char const * title, std::string_view hatching)
   uint32_t constexpr kW = 256, kH = 256;
   fixture.Render(title, kW, kH, [hatching](df::test_support::ShapeTestFixture & f)
   {
-    // Quad covering most of the viewport (two triangles), in world == pixel-from-center coords.
-    std::vector<m2::PointD> triangles = {{-110, -110}, {110, -110}, {110, 110}, {-110, -110}, {110, 110}, {-110, 110}};
+    // Clockwise quad covering most of the viewport (two triangles), one world unit per pixel from the center.
+    std::vector<m2::PointD> triangles = {{-110, -110}, {110, 110}, {110, -110}, {-110, -110}, {-110, 110}, {110, 110}};
     f.AddShape(make_unique_dp<df::AreaShape>(std::move(triangles), df::BuildingOutline{}, MakeParams(hatching)));
   });
 
@@ -87,8 +87,8 @@ void RenderSolidPatternAndCheck(char const * title, std::string_view patternKey)
     {
       df::AreaViewParams p = MakeParams(patternKey);
       p.m_color = color;
-      std::vector<m2::PointD> triangles = {{x, -110}, {x + 112, -110}, {x + 112, 110},
-                                           {x, -110}, {x + 112, 110},  {x, 110}};
+      std::vector<m2::PointD> triangles = {{x, -110}, {x + 112, 110}, {x + 112, -110},
+                                           {x, -110}, {x, 110},       {x + 112, 110}};
       f.AddShape(make_unique_dp<df::AreaShape>(std::move(triangles), df::BuildingOutline{}, p));
     }
   });
