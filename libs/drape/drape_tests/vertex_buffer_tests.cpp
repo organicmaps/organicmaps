@@ -4,6 +4,7 @@
 
 #include "base/buffer_vector.hpp"
 #include "base/random.hpp"
+#include "base/timer.hpp"
 
 #include <boost/container/small_vector.hpp>
 

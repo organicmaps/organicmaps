@@ -7,6 +7,8 @@
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
+#include "base/timer.hpp"
+
 #include <chrono>
 #include <cstddef>
 #include <functional>
