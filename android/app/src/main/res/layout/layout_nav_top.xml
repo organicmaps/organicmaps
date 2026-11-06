@@ -110,6 +110,16 @@
       tools:visibility="visible" />
 
   <app.organicmaps.sdk.widgets.speedlimit.SpeedLimitView
+    android:id="@+id/nav_speedometer"
+    style="@style/MwmWidget.Speedometer"
+    android:layout_width="60dp"
+    android:layout_height="60dp"
+    android:layout_margin="@dimen/margin_half"
+    app:layout_constraintEnd_toEndOf="@id/nav_next_turn_container"
+    app:layout_constraintStart_toStartOf="@id/nav_next_turn_container"
+    app:layout_constraintTop_toBottomOf="@id/nav_next_turn_container" />
+
+  <app.organicmaps.sdk.widgets.speedlimit.SpeedLimitView
     android:id="@+id/nav_speed_limit"
     style="@style/MwmWidget.SpeedLimit"
     android:layout_width="60dp"
@@ -117,5 +127,5 @@
     android:layout_margin="@dimen/margin_half"
     app:layout_constraintEnd_toEndOf="@id/nav_next_turn_container"
     app:layout_constraintStart_toStartOf="@id/nav_next_turn_container"
-    app:layout_constraintTop_toBottomOf="@id/nav_next_turn_container" />
+    app:layout_constraintTop_toBottomOf="@id/nav_speedometer" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,7 @@ import static app.organicmaps.sdk.util.Utils.dimen;
 import android.content.res.Configuration;
 import android.location.Location;
 import android.text.TextUtils;
+import android.util.Pair;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -50,6 +51,8 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
   private final LanesView mLanesView;
   @NonNull
   private final SpeedLimitView mSpeedLimit;
+  @NonNull
+  private final SpeedLimitView mSpeedometer;
 
   private final MapButtonsViewModel mMapButtonsViewModel;
   private final View mTopFrame;
@@ -87,6 +90,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     mLanesView = mTopFrame.findViewById(R.id.lanes);
 
     mSpeedLimit = mTopFrame.findViewById(R.id.nav_speed_limit);
+    mSpeedometer = mTopFrame.findViewById(R.id.nav_speedometer);
 
     // Blank rectangle below the navbar that hides menu content behind it.
     final View navigationBarBackground = mFrame.findViewById(R.id.nav_bottom_sheet_nav_bar);
@@ -137,6 +141,8 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     {
       if (UiUtils.isVisible(mNextTurnContainer))
         turnAndSpeedHeight += mNextTurnContainer.getHeight();
+      if (UiUtils.isVisible(mSpeedometer))
+        turnAndSpeedHeight += mSpeedometer.getHeight();
       if (UiUtils.isVisible(mSpeedLimit))
         turnAndSpeedHeight += mSpeedLimit.getHeight();
     }
@@ -157,12 +163,14 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     mLanesView.setLanes(info.lanes);
 
     updateSpeedLimit(info);
+    updateSpeedometer(info);
   }
 
   private void updatePedestrian(@NonNull RoutingInfo info)
   {
     mNextTurnDistance.setText(Utils.formatDistance(mFrame.getContext(), info.distToTurn));
     mNextTurnImage.setImageResource(info.pedestrianDirection.getTurnRes());
+    UiUtils.hide(mSpeedometer);
   }
 
   public void update(@Nullable RoutingInfo info)
@@ -298,5 +306,23 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     final Location location = MwmApplication.from(mFrame.getContext()).getLocationHelper().getSavedLocation();
     final boolean speedLimitExceeded = location != null && info.speedLimitMps < location.getSpeed();
     mSpeedLimit.setSpeedLimit(StringUtils.nativeFormatSpeed(info.speedLimitMps), speedLimitExceeded);
+  }
+
+  private void updateSpeedometer(@NonNull final RoutingInfo info)
+  {
+    final Location location = MwmApplication.from(mFrame.getContext()).getLocationHelper().getSavedLocation();
+    if (location == null || !location.hasSpeed())
+    {
+      UiUtils.hide(mSpeedometer);
+      return;
+    }
+
+    final float speedMps = location.getSpeed();
+    final boolean speedLimitExceeded = info.speedLimitMps > 0.0 && speedMps > info.speedLimitMps;
+    // Nothing is drawn while the rounded speed is 0, e.g. when stopped.
+    mSpeedometer.setSpeedLimit(StringUtils.nativeFormatSpeed(speedMps), speedLimitExceeded);
+    final Pair<String, String> speedAndUnits = StringUtils.nativeFormatSpeedAndUnits(speedMps);
+    mSpeedometer.setContentDescription(speedAndUnits.first + " " + speedAndUnits.second);
+    UiUtils.show(mSpeedometer);
   }
 }

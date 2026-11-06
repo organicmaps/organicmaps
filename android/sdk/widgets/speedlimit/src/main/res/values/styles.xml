@@ -7,4 +7,9 @@
     <item name="speedLimitAlertColor">@color/red</item>
     <item name="speedLimitBorderColor">@color/red</item>
   </style>
+
+  <!-- Current speed shown next to the speed limit sign: same look with a black ring. -->
+  <style name="MwmWidget.Speedometer" parent="MwmWidget.SpeedLimit">
+    <item name="speedLimitBorderColor">@android:color/black</item>
+  </style>
 </resources>

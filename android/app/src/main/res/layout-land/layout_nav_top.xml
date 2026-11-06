@@ -115,4 +115,13 @@
     android:layout_margin="@dimen/margin_half"
     app:layout_constraintStart_toEndOf="@id/nav_next_turn_container"
     app:layout_constraintTop_toBottomOf="@id/street_frame" />
+
+  <app.organicmaps.sdk.widgets.speedlimit.SpeedLimitView
+    android:id="@+id/nav_speedometer"
+    style="@style/MwmWidget.Speedometer"
+    android:layout_width="60dp"
+    android:layout_height="60dp"
+    android:layout_margin="@dimen/margin_half"
+    app:layout_constraintStart_toEndOf="@id/nav_next_turn_container"
+    app:layout_constraintTop_toBottomOf="@id/nav_speed_limit" />
 </androidx.constraintlayout.widget.ConstraintLayout>
