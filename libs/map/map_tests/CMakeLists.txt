@@ -10,6 +10,7 @@ set(SRC
   editor_notes_tests.cpp
   extrapolator_tests.cpp
   feature_getters_tests.cpp
+  framework_track_tests.cpp
   framework_viewport_tests.cpp
   gps_track_collection_test.cpp
   gps_track_filter_test.cpp
