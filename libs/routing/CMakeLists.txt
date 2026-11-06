@@ -20,6 +20,8 @@ set(SRC
   lanes/lane_info.hpp
   lanes/lane_way.cpp
   lanes/lane_way.hpp
+  lanes/lanes_collapse.cpp
+  lanes/lanes_collapse.hpp
   lanes/lanes_parser.cpp
   lanes/lanes_parser.hpp
   lanes/lanes_recommendation.cpp

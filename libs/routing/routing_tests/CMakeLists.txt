@@ -1,6 +1,7 @@
 project(routing_tests)
 
 set(SRC
+  lanes/lanes_collapse_tests.cpp
   lanes/lanes_parser_tests.cpp
   lanes/lanes_recommendation_tests.cpp
   applying_traffic_test.cpp
