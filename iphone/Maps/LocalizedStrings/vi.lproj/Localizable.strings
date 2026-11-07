@@ -1233,3 +1233,12 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Đảo ngược tuyến đường";
+
+/* Start navigation along the selected track. */
+"navigate_track" = "Dẫn đường";
+
+/* Track start point label. */
+"navigate_track_start" = "Điểm đầu hành trình";
+
+/* Track finish point label. */
+"navigate_track_finish" = "Điểm cuối hành trình";
