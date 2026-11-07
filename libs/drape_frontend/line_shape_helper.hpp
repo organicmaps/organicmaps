@@ -11,6 +11,18 @@
 
 namespace df
 {
+struct ConnectorTarget
+{
+  m2::PointD m_junction;
+  std::vector<m2::PointD> m_roadPath;
+  float m_offsetPixels = 0;
+};
+
+// Pixel extrusion only: map geometry and phase remain unchanged.
+std::vector<m2::PointF> ConnectorEndpointOffsets(std::vector<m2::PointD> const & path,
+                                                 std::vector<ConnectorTarget> const & targets, double scaleGtoP,
+                                                 double tolerance);
+
 enum EPointType
 {
   StartPoint = 0,
@@ -89,7 +101,7 @@ struct JunctionTaper
   float Scale(double distance) const;
 };
 JunctionTaper MakeJunctionTaper(m2::SharedSpline const & source, std::vector<m2::PointD> const & junctions, double span,
-                                double tolerance);
+                                double tolerance, std::vector<std::vector<m2::PointD>> const & approaches = {});
 glsl::vec2 InterpolateLinePixelOffset(std::vector<m2::PointD> const & path, std::vector<m2::PointF> const & offsets,
                                       size_t segment, m2::PointD const & point);
 }  // namespace df

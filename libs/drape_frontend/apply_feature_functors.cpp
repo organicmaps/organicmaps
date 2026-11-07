@@ -17,6 +17,7 @@
 
 #include "geometry/clipping.hpp"
 #include "geometry/mercator.hpp"
+#include "geometry/parametrized_segment.hpp"
 #include "geometry/robust_orientation.hpp"
 
 #include "drape/color.hpp"
@@ -28,6 +29,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <limits>
 
 namespace df
 {
@@ -733,7 +735,8 @@ void ApplyLineFeatureGeometry::BuildGeometry(int zoomLevel, bool isIsoline, doub
 }
 
 void ApplyLineFeatureGeometry::ProcessLineRules(Stylist::LineRulesT const & lineRules, bool isIsoline,
-                                                std::vector<Stylist::SideRules> const & sideRules)
+                                                std::vector<Stylist::SideRules> const & sideRules,
+                                                std::vector<ConnectorTarget> const & connectorTargets)
 {
   ASSERT(!lineRules.empty() || !sideRules.empty(), ());
   ASSERT(HasGeometry(), ());
@@ -752,7 +755,38 @@ void ApplyLineFeatureGeometry::ProcessLineRules(Stylist::LineRulesT const & line
   // Keep the road axis in map coordinates; side displacement is pixel-sized
   // extrusion, just like the road's own width, throughout smooth zooming.
   m2::SharedSpline const sideSource = sideRules.empty() ? m2::SharedSpline() : m2::SharedSpline(m_builder.GetPath());
+  auto const connectorPath = connectorTargets.empty() ? std::vector<m2::PointD>{} : m_builder.GetPath();
+  auto targets = connectorTargets;
+  for (auto & target : targets)
+    target.m_offsetPixels *= m_params.m_vparams.GetVisualScale();
+  auto const tolerance =
+      connectorPath.empty() ? 0.0 : mercator::RectByCenterXYAndSizeInMeters(connectorPath.front(), 1.0).SizeX() / 2;
+  auto const connectorOffsets =
+      ConnectorEndpointOffsets(connectorPath, targets, m_params.m_currentScaleGtoP, tolerance);
   m_clippedSplines = m_builder.Release(isIsoline, needSplineOffsets);
+  if (!connectorOffsets.empty())
+    for (auto const & piece : m_clippedSplines)
+    {
+      auto & offsets = m_connectorPointOffsets.emplace_back();
+      for (auto const & point : piece->GetPath())
+      {
+        size_t bestSegment = 0;
+        double best = std::numeric_limits<double>::max();
+        for (size_t i = 1; i < connectorPath.size(); ++i)
+        {
+          auto const p =
+              m2::ParametrizedSegment<m2::PointD>(connectorPath[i - 1], connectorPath[i]).ClosestPointTo(point);
+          double const error = (p - point).SquaredLength();
+          if (error < best)
+          {
+            best = error;
+            bestSegment = i - 1;
+          }
+        }
+        auto const offset = InterpolateLinePixelOffset(connectorPath, connectorOffsets, bestSegment, point);
+        offsets.emplace_back(offset.x, offset.y);
+      }
+    }
 
   for (drule::LineRule const * r : lineRules)
     ProcessRule(*r);
@@ -778,10 +812,10 @@ void ApplyLineFeatureGeometry::ProcessSideRules(m2::SharedSpline const & source,
         SideOffsetPixels(side.m_roadWidth * visualScale, sideWidth, 2.0 * visualScale, side.m_side);
     auto const rect = mercator::RectByCenterXYAndSizeInMeters(source->GetPath().front(), 8.0);
     double const geographicSpan = rect.SizeX() / 2;
-    // Avoid a sharp sideways kink at lower zooms. Matching tolerance remains
-    // one metre; a longer visual taper must never authorize a more distant node.
+    // Where connector contacts exist the solid connector moves instead. Keep the
+    // old taper only for legacy maps without approach geometry.
     double const span = std::max(geographicSpan, 4.0 * std::abs(lateralOffset) / m_params.m_currentScaleGtoP);
-    auto const taper = MakeJunctionTaper(source, side.m_junctions, span, geographicSpan / 8);
+    auto const taper = MakeJunctionTaper(source, side.m_junctions, span, geographicSpan / 8, side.m_approaches);
     auto const & taperedSource = taper.m_spline;
     std::vector<m2::SplineClipInfo> ranges;
     auto const pieces = m2::ClipSplineByRect(m_params.m_tileRect, taperedSource, &ranges);
@@ -873,6 +907,8 @@ void ApplyLineFeatureGeometry::ProcessRule(drule::LineRule const & lineRule)
       if (symRule.name.starts_with("cycling-arrow-") && i < offsets.size())
         params.m_offset =
             PathSymbolOffsetForClip(symRule.offset * visScale, params.m_step, offsets[i] * m_params.m_currentScaleGtoP);
+      if (i < m_connectorPointOffsets.size())
+        params.m_pointOffsetsPixels = m_connectorPointOffsets[i];
       m_params.m_insertShape(make_unique_dp<PathSymbolShape>(m_clippedSplines[i], params));
     }
   }
@@ -893,6 +929,8 @@ void ApplyLineFeatureGeometry::ProcessRule(drule::LineRule const & lineRule)
       double const splineOffset = splineOffsets.empty() ? 0.0 : splineOffsets[i];
       params.m_dashPhaseOffset = m_dashPhaseOffset + (m_dashPhaseReversed ? -splineOffset : splineOffset);
       params.m_dashPhaseReversed = m_dashPhaseReversed;
+      if (i < m_connectorPointOffsets.size())
+        params.m_pointOffsetsPixels = m_connectorPointOffsets[i];
       m_params.m_insertShape(make_unique_dp<LineShape>(m_clippedSplines[i], params));
     }
 
