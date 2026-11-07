@@ -43,6 +43,8 @@ public:
   static auto constexpr kWriteException = -2;
   static auto constexpr kInconsistentFileSize = -3;
   static auto constexpr kCancelled = -6;
+  // A status line arrived, but transport or content processing did not complete.
+  static auto constexpr kIncompleteResponse = -7;
 
   using Headers = std::unordered_map<std::string, std::string>;
 
