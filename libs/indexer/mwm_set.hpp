@@ -114,22 +114,12 @@ struct MwmSetEvent
 
   MwmSetEvent() = default;
   MwmSetEvent(Type type, platform::LocalCountryFile const & file) : m_type(type), m_file(file) {}
-  MwmSetEvent(Type type, platform::LocalCountryFile const & newFile, platform::LocalCountryFile const & oldFile)
-    : m_type(type)
-    , m_file(newFile)
-    , m_oldFile(oldFile)
-  {}
-
-  bool operator==(MwmSetEvent const & rhs) const
-  {
-    return m_type == rhs.m_type && m_file == rhs.m_file && m_oldFile == rhs.m_oldFile;
-  }
+  bool operator==(MwmSetEvent const & rhs) const { return m_type == rhs.m_type && m_file == rhs.m_file; }
 
   bool operator!=(MwmSetEvent const & rhs) const { return !(*this == rhs); }
 
   Type m_type;
   platform::LocalCountryFile m_file;
-  platform::LocalCountryFile m_oldFile;
 };
 
 using MwmSetEventList = ds::EventList<MwmSetEvent>;
@@ -219,8 +209,7 @@ public:
   /// @return 0 if country is not loaded.
   int64_t GetMwmVersion(platform::CountryFile const & countryFile) const;
 
-  /// Get ids of all mwms. Some of them may be with not active status.
-  /// In that case, LockValue returns NULL.
+  /// The latest info per map, including files awaiting deregistration.
   /// @todo In fact, std::shared_ptr<MwmInfo> is a MwmId. Seems like better to make vector<MwmId> interface.
   void GetMwmsInfo(std::vector<std::shared_ptr<MwmInfo>> & info) const { GetInfos(info); }
 

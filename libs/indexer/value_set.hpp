@@ -257,13 +257,6 @@ protected:
     return false;
   }
 
-  std::unique_ptr<ValueT> LockValue(IdT const & id)
-  {
-    std::unique_ptr<ValueT> result;
-    WithEventLog([&](EventsT & events) { result = LockValueImpl(id, events); });
-    return result;
-  }
-
   /// @precondition Always called under m_lock.
   std::unique_ptr<ValueT> LockValueImpl(IdT const & id, EventsT & events)
   {
