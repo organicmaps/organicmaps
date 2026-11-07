@@ -2,26 +2,21 @@
 #include "drape_frontend/map_data_provider.hpp"
 
 #include "indexer/feature_decl.hpp"
+#include "indexer/metaline_data.hpp"
 
 #include "coding/files_container.hpp"
-#include "coding/varint.hpp"
 
 #include "defines.hpp"
 
 #include <algorithm>
 #include <map>
-#include <set>
 #include <vector>
 
 namespace df
 {
 namespace
 {
-struct MetalineData
-{
-  std::vector<FeatureID> m_features;
-  std::set<FeatureID> m_reversed;
-};
+using feature::metalines::MetalineData;
 
 std::vector<MetalineData> ReadMetalinesFromFile(MwmSet::MwmId const & mwmId)
 {
@@ -30,24 +25,18 @@ std::vector<MetalineData> ReadMetalinesFromFile(MwmSet::MwmId const & mwmId)
     FilesContainerR cont(mwmId.GetInfo()->GetLocalFile().GetPath(MapFileType::Map));
     ReaderSource src(cont.GetReader(METALINES_FILE_TAG));
 
-    std::vector<MetalineData> model;
-    auto const version = ReadPrimitiveFromSource<uint8_t>(src);
-    if (version == kMetaLinesSectionVersion)
+    auto model = feature::metalines::ReadMetalines(src, mwmId);
+    if (cont.IsExist(METALINES_OFFSETS_FILE_TAG))
     {
-      for (auto metalineIndex = ReadVarUint<uint32_t>(src); metalineIndex > 0; --metalineIndex)
+      // The legacy section remains authoritative. A missing, stale or damaged
+      // optional section must not discard merged labels and shields.
+      try
       {
-        MetalineData data;
-        for (auto i = ReadVarUint<uint32_t>(src); i > 0; --i)
-        {
-          auto const fid = ReadVarInt<int32_t>(src);
-          FeatureID const featureId(mwmId, static_cast<uint32_t>(std::abs(fid)));
-          data.m_features.emplace_back(featureId);
-          if (fid <= 0)
-            data.m_reversed.insert(featureId);
-        }
-        if (!data.m_features.empty())
-          model.push_back(std::move(data));
+        ReaderSource offsets(cont.GetReader(METALINES_OFFSETS_FILE_TAG));
+        feature::metalines::TryReadMetalineOffsets(offsets, mwmId, model);
       }
+      catch (Reader::Exception const &)
+      {}
     }
     return model;
   }
@@ -118,6 +107,14 @@ std::vector<m2::PointD> MergePoints(std::map<FeatureID, std::vector<m2::PointD>>
 
   return result;
 }
+
+double GetPathLength(std::vector<m2::PointD> const & points)
+{
+  double length = 0.0;
+  for (size_t i = 1; i < points.size(); ++i)
+    length += points[i - 1].Length(points[i]);
+  return length;
+}
 }  // namespace
 
 ReadMetalineTask::ReadMetalineTask(MapDataProvider & model, MwmSet::MwmId const & mwmId)
@@ -150,13 +147,36 @@ void ReadMetalineTask::Run()
     if (failed)
       continue;
 
-    auto mergedPoints = MergePoints(ReadPoints(m_model, metaline), metaline.m_features);
+    auto points = ReadPoints(m_model, metaline);
+    std::map<FeatureID, std::pair<double, bool>> phases;
+    double chainOffset = 0.0;
+    for (size_t i = 0; i < metaline.m_features.size(); ++i)
+    {
+      auto const & fid = metaline.m_features[i];
+      auto const it = points.find(fid);
+      if (it == points.end())
+        continue;
+
+      bool const reversed = metaline.m_reversed.find(fid) != metaline.m_reversed.end();
+      double const length = GetPathLength(it->second);
+      double const phaseOffset = metaline.m_dashPhaseOffsets.empty() ? chainOffset + (reversed ? length : 0.0)
+                                                                     : metaline.m_dashPhaseOffsets[i];
+      phases.emplace(fid, std::pair(phaseOffset, reversed));
+      chainOffset += length;
+    }
+
+    auto mergedPoints = MergePoints(std::move(points), metaline.m_features);
     if (mergedPoints.size() < 2)
       continue;
 
     m2::SharedSpline const spline(std::move(mergedPoints));
     for (auto & fid : metaline.m_features)
-      m_metalines.emplace(std::move(fid), spline);
+    {
+      auto const phase = phases.find(fid);
+      if (phase == phases.end())
+        continue;
+      m_metalines.emplace(std::move(fid), MetalineInfo{spline, phase->second.first, phase->second.second});
+    }
   }
 }
 

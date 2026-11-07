@@ -21,6 +21,7 @@ public:
   void SetFakeNodes(std::string const & filename) { m_fakeNodesFilename = filename; }
   void SetMiniRoundabouts(std::string const & filename) { m_miniRoundaboutsFilename = filename; }
   void SetAddrInterpolation(std::string const & filename) { m_addrInterpolFilename = filename; }
+  void SetCyclingJunctions(std::string const & filename) { m_cyclingJunctionsFilename = filename; }
 
   void SetIsolinesDir(std::string const & dir) { m_isolinesPath = dir; }
   void SetAddressesDir(std::string const & dir) { m_addressPath = dir; }
@@ -54,6 +55,7 @@ private:
   std::string m_fakeNodesFilename;
   std::string m_miniRoundaboutsFilename;
   std::string m_addrInterpolFilename;
+  std::string m_cyclingJunctionsFilename;
 
   std::string m_hierarchySrcFilename;
 

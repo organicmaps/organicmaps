@@ -851,13 +851,19 @@
   <symbol maxX="1685" maxY="1672" minX="1627" minY="1647" name="subway-baku-m"/>
   <symbol maxX="1710" maxY="1672" minX="1685" minY="1647" name="star-s"/>
   <symbol maxX="1735" maxY="1672" minX="1710" minY="1647" name="peak-xs"/>
-  <symbol maxX="1793" maxY="1669" minX="1735" minY="1647" name="subway-chongqing-m"/>
-  <symbol maxX="1815" maxY="1669" minX="1793" minY="1647" name="power-tower-s"/>
-  <symbol maxX="1867" maxY="1669" minX="1815" minY="1647" name="arrow-m"/>
-  <symbol maxX="1886" maxY="1666" minX="1867" minY="1647" name="zero-icon"/>
-  <symbol maxX="1902" maxY="1663" minX="1886" minY="1647" name="mast-s"/>
-  <symbol maxX="1918" maxY="1663" minX="1902" minY="1647" name="dot-m"/>
-  <symbol maxX="1955" maxY="1663" minX="1918" minY="1647" name="arrow-s"/>
-  <symbol maxX="1980" maxY="1657" minX="1955" minY="1647" name="arrow-xs"/>
+  <symbol maxX="1790" maxY="1672" minX="1735" minY="1647" name="cycling-arrow-solid-m"/>
+  <symbol maxX="1848" maxY="1669" minX="1790" minY="1647" name="subway-chongqing-m"/>
+  <symbol maxX="1870" maxY="1669" minX="1848" minY="1647" name="power-tower-s"/>
+  <symbol maxX="1922" maxY="1669" minX="1870" minY="1647" name="cycling-arrow-patterned-m"/>
+  <symbol maxX="1974" maxY="1669" minX="1922" minY="1647" name="arrow-m"/>
+  <symbol maxX="1993" maxY="1666" minX="1974" minY="1647" name="zero-icon"/>
+  <symbol maxX="2033" maxY="1666" minX="1993" minY="1647" name="cycling-arrow-solid-s"/>
+  <symbol maxX="16" maxY="1697" minX="0" minY="1681" name="mast-s"/>
+  <symbol maxX="32" maxY="1697" minX="16" minY="1681" name="dot-m"/>
+  <symbol maxX="69" maxY="1697" minX="32" minY="1681" name="cycling-arrow-patterned-s"/>
+  <symbol maxX="106" maxY="1697" minX="69" minY="1681" name="arrow-s"/>
+  <symbol maxX="134" maxY="1694" minX="106" minY="1681" name="cycling-arrow-solid-xs"/>
+  <symbol maxX="159" maxY="1691" minX="134" minY="1681" name="cycling-arrow-patterned-xs"/>
+  <symbol maxX="184" maxY="1691" minX="159" minY="1681" name="arrow-xs"/>
  </file>
 </root>

@@ -1655,3 +1655,6 @@ amenity|recycling|container
 *amenity|stage
 *natural|hill
 *natural|arch
+*cyclewaytag|track
+*cyclewaytag|lane
+*cyclewaytag|shared_lane

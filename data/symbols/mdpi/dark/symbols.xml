@@ -851,13 +851,19 @@
   <symbol maxX="835" maxY="478" minX="813" minY="467" name="subway-baku-m"/>
   <symbol maxX="846" maxY="478" minX="835" minY="467" name="star-s"/>
   <symbol maxX="857" maxY="478" minX="846" minY="467" name="peak-xs"/>
-  <symbol maxX="879" maxY="477" minX="857" minY="467" name="subway-chongqing-m"/>
-  <symbol maxX="889" maxY="477" minX="879" minY="467" name="power-tower-s"/>
-  <symbol maxX="909" maxY="477" minX="889" minY="467" name="arrow-m"/>
-  <symbol maxX="918" maxY="476" minX="909" minY="467" name="zero-icon"/>
-  <symbol maxX="926" maxY="475" minX="918" minY="467" name="mast-s"/>
-  <symbol maxX="934" maxY="475" minX="926" minY="467" name="dot-m"/>
-  <symbol maxX="949" maxY="475" minX="934" minY="467" name="arrow-s"/>
-  <symbol maxX="960" maxY="473" minX="949" minY="467" name="arrow-xs"/>
+  <symbol maxX="878" maxY="478" minX="857" minY="467" name="cycling-arrow-solid-m"/>
+  <symbol maxX="900" maxY="477" minX="878" minY="467" name="subway-chongqing-m"/>
+  <symbol maxX="910" maxY="477" minX="900" minY="467" name="power-tower-s"/>
+  <symbol maxX="930" maxY="477" minX="910" minY="467" name="cycling-arrow-patterned-m"/>
+  <symbol maxX="950" maxY="477" minX="930" minY="467" name="arrow-m"/>
+  <symbol maxX="959" maxY="476" minX="950" minY="467" name="zero-icon"/>
+  <symbol maxX="975" maxY="476" minX="959" minY="467" name="cycling-arrow-solid-s"/>
+  <symbol maxX="983" maxY="475" minX="975" minY="467" name="mast-s"/>
+  <symbol maxX="991" maxY="475" minX="983" minY="467" name="dot-m"/>
+  <symbol maxX="1006" maxY="475" minX="991" minY="467" name="cycling-arrow-patterned-s"/>
+  <symbol maxX="1021" maxY="475" minX="1006" minY="467" name="arrow-s"/>
+  <symbol maxX="12" maxY="488" minX="0" minY="481" name="cycling-arrow-solid-xs"/>
+  <symbol maxX="23" maxY="487" minX="12" minY="481" name="cycling-arrow-patterned-xs"/>
+  <symbol maxX="34" maxY="487" minX="23" minY="481" name="arrow-xs"/>
  </file>
 </root>
