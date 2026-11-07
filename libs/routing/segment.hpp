@@ -5,10 +5,22 @@
 
 #include "routing_common/num_mwm_id.hpp"
 
+#include <cstdint>
 #include <string>
 
 namespace routing
 {
+// A service episode is charged only when it exits onto a public road.
+enum class PassThroughState : int8_t
+{
+  InitialService,
+  NoPaidExit,
+  OnePaidExit,
+  None
+};
+
+std::string DebugPrint(PassThroughState state);
+
 // This is directed road segment used as vertex in index graph.
 //
 // You can imagine the segment as a material arrow.
@@ -35,6 +47,15 @@ public:
   uint32_t GetSegmentIdx() const { return m_segmentIdx; }
   bool IsForward() const { return m_forward; }
 
+  PassThroughState GetPassThroughState() const { return m_passThroughState; }
+  void SetPassThroughState(PassThroughState state) { m_passThroughState = state; }
+  Segment WithoutPassThroughState() const
+  {
+    auto segment = *this;
+    segment.m_passThroughState = PassThroughState::None;
+    return segment;
+  }
+
   uint32_t GetPointId(bool front) const;
 
   uint32_t GetMinPointId() const { return m_segmentIdx; }
@@ -47,7 +68,12 @@ public:
   bool operator!=(Segment const & seg) const { return !(*this == seg); }
 
   bool IsInverse(Segment const & seg) const;
-  Segment GetReversed() const { return {m_mwmId, m_featureId, m_segmentIdx, !m_forward}; }
+  Segment GetReversed() const
+  {
+    auto segment = *this;
+    segment.m_forward = !m_forward;
+    return segment;
+  }
 
   /// @todo Logically, these functions should be equal, but keep existing logic,
   /// and investigate possible enhancements in future.
@@ -63,6 +89,8 @@ private:
   uint32_t m_segmentIdx = 0;
   NumMwmId m_mwmId = kFakeNumMwmId;
   bool m_forward = false;
+  // A* label: the initial service episode is free; at most one later episode may exit.
+  PassThroughState m_passThroughState = PassThroughState::None;
 };
 
 class SegmentEdge final

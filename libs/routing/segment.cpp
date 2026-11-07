@@ -8,6 +8,20 @@
 
 namespace routing
 {
+static_assert(sizeof(Segment) == 12);
+
+std::string DebugPrint(PassThroughState state)
+{
+  switch (state)
+  {
+  case PassThroughState::InitialService: return "InitialService";
+  case PassThroughState::NoPaidExit: return "NoPaidExit";
+  case PassThroughState::OnePaidExit: return "OnePaidExit";
+  case PassThroughState::None: return "None";
+  }
+  UNREACHABLE();
+}
+
 // Segment -----------------------------------------------------------------------------------------
 uint32_t Segment::GetPointId(bool front) const
 {
@@ -25,13 +39,15 @@ bool Segment::operator<(Segment const & seg) const
   if (m_mwmId != seg.m_mwmId)
     return m_mwmId < seg.m_mwmId;
 
-  return m_forward < seg.m_forward;
+  if (m_forward != seg.m_forward)
+    return m_forward < seg.m_forward;
+  return m_passThroughState < seg.m_passThroughState;
 }
 
 bool Segment::operator==(Segment const & seg) const
 {
   return m_featureId == seg.m_featureId && m_segmentIdx == seg.m_segmentIdx && m_mwmId == seg.m_mwmId &&
-         m_forward == seg.m_forward;
+         m_forward == seg.m_forward && m_passThroughState == seg.m_passThroughState;
 }
 
 bool Segment::IsInverse(Segment const & seg) const
@@ -60,7 +76,10 @@ std::string DebugPrint(Segment const & segment)
 {
   std::ostringstream out;
   out << std::boolalpha << "Segment(" << segment.GetMwmId() << ", " << segment.GetFeatureId() << ", "
-      << segment.GetSegmentIdx() << ", " << segment.IsForward() << ")";
+      << segment.GetSegmentIdx() << ", " << segment.IsForward();
+  if (segment.GetPassThroughState() != PassThroughState::None)
+    out << ", state=" << DebugPrint(segment.GetPassThroughState());
+  out << ")";
   return out.str();
 }
 
@@ -81,6 +100,7 @@ size_t std::hash<routing::Segment>::operator()(routing::Segment const & segment)
   boost::hash_combine(seed, segment.GetSegmentIdx());
   boost::hash_combine(seed, segment.GetMwmId());
   boost::hash_combine(seed, segment.IsForward());
+  boost::hash_combine(seed, segment.GetPassThroughState());
   return seed;
 }
 }  // namespace std

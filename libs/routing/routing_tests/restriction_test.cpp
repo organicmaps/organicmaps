@@ -7,12 +7,18 @@
 #include "routing/routing_tests/index_graph_tools.hpp"
 #include "routing/routing_tests/world_graph_builder.hpp"
 
+#include "routing/base/routing_result.hpp"
 #include "routing/fake_ending.hpp"
 #include "routing/geometry.hpp"
+#include "routing/index_graph_starter_joints.hpp"
 #include "routing/restriction_loader.hpp"
+#include "routing/routing_helpers.hpp"
 
 #include "geometry/point2d.hpp"
 
+#include "base/scope_guard.hpp"
+
+#include <algorithm>
 #include <memory>
 #include <utility>
 #include <vector>
@@ -722,8 +728,7 @@ UNIT_CLASS_TEST(RestrictionTest, FGraph_RestrictionF0F2Only)
                    MakeFakeEnding(1, 0, m2::PointD(1, 1), *m_graph), std::move(restrictionsNo), *this);
 }
 
-/// @todo By VNG: no-pass-through behaviour was changed.
-/// @see IndexGraphStarter::CheckLength
+// Allow one paid interior service episode; leaving the start and arriving at the finish are free.
 //                  *---F4---*
 //                  |        |
 //                 F3        F5
@@ -784,7 +789,8 @@ UNIT_CLASS_TEST(RestrictionTest, NonPassThroughShortWay)
   SetStarter(MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(0, 0), *m_graph),
              MakeFakeEnding(2, 0, m2::PointD(3, 0), *m_graph));
 
-  // vector<m2::PointD> const expectedGeom = {{0 /* x */, 0 /* y */}, {1, 0}, {1, 1}, {2, 1}, {2, 0}, {3, 0}};
+  // One service cut-through is allowed. Its one-hour penalty is smaller than
+  // the extra travel time of the public-road detour in this graph.
   vector<m2::PointD> const expectedGeom = {{0 /* x */, 0 /* y */}, {1, 0}, {2, 0}, {3, 0}};
   TestRouteGeometry(*m_starter, Algorithm::Result::OK, expectedGeom);
 }
@@ -811,6 +817,288 @@ UNIT_CLASS_TEST(RestrictionTest, NontransiStartAndShortWay)
   SetStarter(MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(0, 0), *m_graph),
              MakeFakeEnding(2, 0, m2::PointD(3, 0), *m_graph));
   TestRouteGeometry(*m_starter, Algorithm::Result::OK, expectedGeom);
+}
+
+// S--F0--A--F1--B--F2--C--F3--D--F4--F
+//        |                   |
+//        F5                  F7
+//        |                   |
+//        U--------F6---------V
+// F8 and F9 are disconnected alternative projections near S and F.
+unique_ptr<SingleVehicleWorldGraph> BuildNonPassThroughEndingGraph(bool passThroughStart, bool passThroughFinish,
+                                                                   bool passThroughShortWay, bool passThroughLongWay)
+{
+  auto loader = make_unique<TestGeometryLoader>();
+  vector<RoadGeometry::Points> const roads = {
+      {{0, 0}, {0.001, 0}},
+      {{0.001, 0}, {0.002, 0}},
+      {{0.002, 0}, {0.003, 0}},
+      {{0.003, 0}, {0.004, 0}},
+      {{0.004, 0}, {0.005, 0}},
+      {{0.001, 0}, {0.001, 0.001}},
+      {{0.001, 0.001}, {0.004, 0.001}},
+      {{0.004, 0.001}, {0.004, 0}},
+      {{-0.0005, -0.0001}, {0.0005, -0.0001}},
+      {{0.0045, -0.0001}, {0.0055, -0.0001}},
+  };
+  // Roads are a few hundred meters long, so the pass-through penalty outweighs the detour.
+  for (uint32_t featureId = 0; featureId < roads.size(); ++featureId)
+    loader->AddRoad(featureId, false /* oneWay */, 50.0 /* speed */, roads[featureId]);
+
+  loader->SetPassThroughAllowed(0, passThroughStart);
+  loader->SetPassThroughAllowed(2, passThroughShortWay);
+  loader->SetPassThroughAllowed(4, passThroughFinish);
+  for (uint32_t featureId : {5, 6, 7})
+    loader->SetPassThroughAllowed(featureId, passThroughLongWay);
+  loader->SetPassThroughAllowed(8, !passThroughStart);
+  loader->SetPassThroughAllowed(9, !passThroughFinish);
+
+  vector<Joint> const joints = {
+      MakeJoint({{0, 0}}),
+      MakeJoint({{0, 1}, {1, 0}, {5, 0}}),
+      MakeJoint({{1, 1}, {2, 0}}),
+      MakeJoint({{2, 1}, {3, 0}}),
+      MakeJoint({{3, 1}, {4, 0}, {7, 1}}),
+      MakeJoint({{4, 1}}),
+      MakeJoint({{5, 1}, {6, 0}}),
+      MakeJoint({{6, 1}, {7, 0}}),
+      MakeJoint({{8, 0}}),
+      MakeJoint({{8, 1}}),
+      MakeJoint({{9, 0}}),
+      MakeJoint({{9, 1}}),
+  };
+
+  traffic::TrafficCache const trafficCache;
+  return BuildWorldGraph(std::move(loader), CreateEstimatorForCar(trafficCache), joints);
+}
+
+FakeEnding MakeMixedPassThroughEnding(uint32_t featureId, uint32_t alternativeFeatureId, m2::PointD const & point,
+                                      WorldGraph & graph)
+{
+  return MakeFakeEnding({Segment(kTestNumMwmId, featureId, 0, true /* forward */),
+                         Segment(kTestNumMwmId, alternativeFeatureId, 0, true /* forward */)},
+                        point, graph);
+}
+
+void TestNonPassThroughGeometry(IndexGraphStarter & starter, Algorithm::Result expectedResult,
+                                vector<m2::PointD> const & expectedGeom, bool passThroughState = true)
+{
+  TestRouteGeometry(starter, expectedResult, expectedGeom, passThroughState);
+
+  auto const mode = starter.GetGraph().GetMode();
+  // These synthetic graphs have no cross-MWM graph.
+  starter.GetGraph().SetMode(WorldGraphMode::JointSingleMwm);
+  starter.EnablePassThroughStateRouting(passThroughState);
+  SCOPE_GUARD(restore, [&]
+  {
+    starter.EnablePassThroughStateRouting(false);
+    starter.GetGraph().SetMode(mode);
+  });
+
+  IndexGraphStarterJoints<IndexGraphStarter> jointStarter(starter, starter.GetStartSegment(),
+                                                          starter.GetFinishSegment());
+  using JointAlgorithm = AStarAlgorithm<JointSegment, JointEdge, RouteWeight>;
+  JointAlgorithm::ParamsForTests<AStarLengthChecker> params(jointStarter, jointStarter.GetStartJoint(),
+                                                            jointStarter.GetFinishJoint(), AStarLengthChecker(starter));
+  RoutingResult<JointSegment, RouteWeight> routingResult;
+  auto const resultCode = JointAlgorithm{}.FindPathBidirectional(params, routingResult);
+  TEST_EQUAL(static_cast<Algorithm::Result>(resultCode), expectedResult, ());
+  if (resultCode != JointAlgorithm::Result::OK)
+    return;
+
+  vector<m2::PointD> geom;
+  for (auto const & joint : routingResult.m_path)
+  {
+    for (auto const & segment : jointStarter.ReconstructJoint(joint))
+    {
+      auto const point = mercator::FromLatLon(starter.GetPoint(segment, false /* front */));
+      if (geom.empty() || geom.back() != point)
+        geom.push_back(point);
+    }
+  }
+  TEST_EQUAL(geom.size(), expectedGeom.size(), (geom, expectedGeom));
+  for (size_t i = 0; i < geom.size(); ++i)
+    TEST(AlmostEqualAbs(geom[i], expectedGeom[i], 1e-8), (i, geom, expectedGeom));
+}
+
+UNIT_CLASS_TEST(RestrictionTest, NonPassThroughEndingCredit)
+{
+  for (bool const passThroughStart : {false, true})
+  {
+    for (bool const passThroughFinish : {false, true})
+    {
+      for (bool const reverse : {false, true})
+      {
+        Init(BuildNonPassThroughEndingGraph(passThroughStart, passThroughFinish, true /* passThroughShortWay */,
+                                            false /* passThroughLongWay */));
+        auto const start = MakeFakeEnding(0, 0, m2::PointD(0, 0), *m_graph);
+        auto const finish = MakeFakeEnding(4, 0, m2::PointD(0.005, 0), *m_graph);
+        SetStarter(reverse ? finish : start, reverse ? start : finish);
+
+        // Leaving and arriving at service roads must not favor the longer all-service route.
+        vector<m2::PointD> expectedGeom = {{0, 0}, {0.001, 0}, {0.002, 0}, {0.003, 0}, {0.004, 0}, {0.005, 0}};
+        if (reverse)
+          std::reverse(expectedGeom.begin(), expectedGeom.end());
+        for (bool const passThroughState : {false, true})
+          TestNonPassThroughGeometry(*m_starter, Algorithm::Result::OK, expectedGeom, passThroughState);
+      }
+    }
+  }
+}
+
+UNIT_CLASS_TEST(RestrictionTest, NonPassThroughMixedEndingsAvoidShortcut)
+{
+  for (bool const reverse : {false, true})
+  {
+    Init(BuildNonPassThroughEndingGraph(true /* passThroughStart */, true /* passThroughFinish */,
+                                        false /* passThroughShortWay */, true /* passThroughLongWay */));
+    auto const start = MakeMixedPassThroughEnding(0, 8, m2::PointD(0, 0), *m_graph);
+    auto const finish = MakeMixedPassThroughEnding(4, 9, m2::PointD(0.005, 0), *m_graph);
+    SetStarter(reverse ? finish : start, reverse ? start : finish);
+
+    // Unused service projections must not erase the interior shortcut's pass-through penalty.
+    vector<m2::PointD> expectedGeom = {{0, 0}, {0.001, 0}, {0.001, 0.001}, {0.004, 0.001}, {0.004, 0}, {0.005, 0}};
+    if (reverse)
+      std::reverse(expectedGeom.begin(), expectedGeom.end());
+    TestNonPassThroughGeometry(*m_starter, Algorithm::Result::OK, expectedGeom);
+  }
+}
+
+// Follow-up reproducer: independent leap pieces still grant credit for unused service projections.
+UNIT_CLASS_TEST(RestrictionTest, NonPassThroughMixedEndingsLegacyCredits)
+{
+  for (bool const reverse : {false, true})
+  {
+    Init(BuildNonPassThroughEndingGraph(true /* passThroughStart */, true /* passThroughFinish */,
+                                        false /* passThroughShortWay */, true /* passThroughLongWay */));
+    auto const start = MakeMixedPassThroughEnding(0, 8, m2::PointD(0, 0), *m_graph);
+    auto const finish = MakeMixedPassThroughEnding(4, 9, m2::PointD(0.005, 0), *m_graph);
+    SetStarter(reverse ? finish : start, reverse ? start : finish);
+
+    // Legacy endpoint credits erase the service shortcut's penalty; the stateful test above avoids it.
+    vector<m2::PointD> expectedGeom = {{0, 0}, {0.001, 0}, {0.002, 0}, {0.003, 0}, {0.004, 0}, {0.005, 0}};
+    if (reverse)
+      std::reverse(expectedGeom.begin(), expectedGeom.end());
+    TestNonPassThroughGeometry(*m_starter, Algorithm::Result::OK, expectedGeom, false /* passThroughState */);
+  }
+}
+
+UNIT_CLASS_TEST(RestrictionTest, NonPassThroughMixedEndingsRetainCredit)
+{
+  for (bool const reverse : {false, true})
+  {
+    Init(BuildNonPassThroughEndingGraph(false /* passThroughStart */, false /* passThroughFinish */,
+                                        true /* passThroughShortWay */, false /* passThroughLongWay */));
+    auto const start = MakeMixedPassThroughEnding(0, 8, m2::PointD(0, 0), *m_graph);
+    auto const finish = MakeMixedPassThroughEnding(4, 9, m2::PointD(0.005, 0), *m_graph);
+    SetStarter(reverse ? finish : start, reverse ? start : finish);
+
+    // The chosen service projections still need their ending credit despite unused public ones.
+    vector<m2::PointD> expectedGeom = {{0, 0}, {0.001, 0}, {0.002, 0}, {0.003, 0}, {0.004, 0}, {0.005, 0}};
+    if (reverse)
+      std::reverse(expectedGeom.begin(), expectedGeom.end());
+    TestNonPassThroughGeometry(*m_starter, Algorithm::Result::OK, expectedGeom);
+  }
+}
+
+UNIT_CLASS_TEST(RestrictionTest, NonPassThroughMixedEndingsAllowOnlyShortcut)
+{
+  for (bool const reverse : {false, true})
+  {
+    Init(BuildNonPassThroughEndingGraph(true /* passThroughStart */, true /* passThroughFinish */,
+                                        false /* passThroughShortWay */, true /* passThroughLongWay */));
+    SetRestrictions({{0, 5}, {1, 5}, {3, 7}, {4, 7}});
+    auto const start = MakeMixedPassThroughEnding(0, 8, m2::PointD(0, 0), *m_graph);
+    auto const finish = MakeMixedPassThroughEnding(4, 9, m2::PointD(0.005, 0), *m_graph);
+    SetStarter(reverse ? finish : start, reverse ? start : finish);
+
+    // One service cut-through remains allowed when there is no public alternative.
+    vector<m2::PointD> expectedGeom = {{0, 0}, {0.001, 0}, {0.002, 0}, {0.003, 0}, {0.004, 0}, {0.005, 0}};
+    if (reverse)
+      std::reverse(expectedGeom.begin(), expectedGeom.end());
+    TestNonPassThroughGeometry(*m_starter, Algorithm::Result::OK, expectedGeom);
+  }
+}
+
+// The all-service branch through U is slightly longer than the public branch through V.
+// Both prefixes merge onto F5 before the common continuation crosses more zone boundaries.
+//                 U
+//              F1/ \F2
+// S--F0--A           B--F5--C--F6--D--F7--F
+//              F3\ /F4
+//                 V
+unique_ptr<SingleVehicleWorldGraph> BuildSharedRoadCreditGraph(bool additionalServiceEpisode)
+{
+  auto loader = make_unique<TestGeometryLoader>();
+  vector<RoadGeometry::Points> roads = {
+      {{0, 0}, {0.001, 0}},           {{0.001, 0}, {0.002, 0.0005}},  {{0.002, 0.0005}, {0.003, 0}},
+      {{0.001, 0}, {0.002, -0.0001}}, {{0.002, -0.0001}, {0.003, 0}}, {{0.003, 0}, {0.004, 0}},
+      {{0.004, 0}, {0.005, 0}},       {{0.005, 0}, {0.006, 0}},
+  };
+  if (additionalServiceEpisode)
+  {
+    roads.push_back({{0.006, 0}, {0.007, 0}});
+    roads.push_back({{0.007, 0}, {0.008, 0}});
+  }
+  for (uint32_t featureId = 0; featureId < roads.size(); ++featureId)
+  {
+    loader->AddRoad(featureId, false /* oneWay */, 50.0 /* speed */, roads[featureId]);
+    loader->SetPassThroughAllowed(featureId, false);
+  }
+  for (uint32_t featureId : {3, 4, 6})
+    loader->SetPassThroughAllowed(featureId, true);
+  if (additionalServiceEpisode)
+    loader->SetPassThroughAllowed(8, true);
+
+  vector<Joint> joints = {
+      MakeJoint({{0, 0}}),         MakeJoint({{0, 1}, {1, 0}, {3, 0}}), MakeJoint({{1, 1}, {2, 0}}),
+      MakeJoint({{3, 1}, {4, 0}}), MakeJoint({{2, 1}, {4, 1}, {5, 0}}),
+  };
+  for (uint32_t featureId = 5; featureId + 1 < roads.size(); ++featureId)
+    joints.push_back(MakeJoint({{featureId, 1}, {featureId + 1, 0}}));
+  joints.push_back(MakeJoint({{static_cast<uint32_t>(roads.size() - 1), 1}}));
+
+  traffic::TrafficCache const trafficCache;
+  return BuildWorldGraph(std::move(loader), CreateEstimatorForCar(trafficCache), joints);
+}
+
+UNIT_CLASS_TEST(RestrictionTest, NonPassThroughSharedRoadCredit)
+{
+  for (bool const reverse : {false, true})
+  {
+    Init(BuildSharedRoadCreditGraph(false /* additionalServiceEpisode */));
+    auto const start = MakeFakeEnding(0, 0, m2::PointD(0, 0), *m_graph);
+    auto const finish = MakeFakeEnding(7, 0, m2::PointD(0.006, 0), *m_graph);
+    SetStarter(reverse ? finish : start, reverse ? start : finish);
+
+    // The cheaper public prefix cannot discard a longer prefix that retains its ending credit.
+    vector<m2::PointD> expectedGeom = {{0, 0},     {0.001, 0}, {0.002, 0.0005}, {0.003, 0},
+                                       {0.004, 0}, {0.005, 0}, {0.006, 0}};
+    if (reverse)
+      std::reverse(expectedGeom.begin(), expectedGeom.end());
+    TestNonPassThroughGeometry(*m_starter, Algorithm::Result::OK, expectedGeom);
+  }
+}
+
+UNIT_CLASS_TEST(RestrictionTest, NonPassThroughSharedRoadBudget)
+{
+  for (bool const reverse : {false, true})
+  {
+    Init(BuildSharedRoadCreditGraph(true /* additionalServiceEpisode */));
+    auto const start = MakeFakeEnding(0, 0, m2::PointD(0, 0), *m_graph);
+    auto const finish = MakeFakeEnding(9, 0, m2::PointD(0.008, 0), *m_graph);
+    SetStarter(reverse ? finish : start, reverse ? start : finish);
+
+    // Only the all-service prefix leaves enough budget for the unavoidable service cut-through.
+    vector<m2::PointD> expectedGeom = {{0, 0},     {0.001, 0}, {0.002, 0.0005}, {0.003, 0}, {0.004, 0},
+                                       {0.005, 0}, {0.006, 0}, {0.007, 0},      {0.008, 0}};
+    if (reverse)
+      std::reverse(expectedGeom.begin(), expectedGeom.end());
+    TestNonPassThroughGeometry(*m_starter, Algorithm::Result::OK, expectedGeom);
+
+    SetRestrictions({{0, 1}, {5, 2}});
+    TestNonPassThroughGeometry(*m_starter, Algorithm::Result::NoPath, {});
+  }
 }
 
 // 2                 *

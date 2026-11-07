@@ -266,6 +266,10 @@ private:
   std::vector<EdgeRequest> m_edgeRequests;
 };
 
+std::unique_ptr<IndexGraph> BuildIndexGraph(std::unique_ptr<TestGeometryLoader> loader,
+                                            std::shared_ptr<EdgeEstimator> estimator,
+                                            std::vector<Joint> const & joints);
+
 std::unique_ptr<SingleVehicleWorldGraph> BuildWorldGraph(std::unique_ptr<TestGeometryLoader> loader,
                                                          std::shared_ptr<EdgeEstimator> estimator,
                                                          std::vector<Joint> const & joints);
@@ -275,11 +279,15 @@ std::unique_ptr<SingleVehicleWorldGraph> BuildWorldGraph(std::unique_ptr<ZeroGeo
 
 AStarAlgorithm<Segment, SegmentEdge, RouteWeight>::Result CalculateRoute(IndexGraphStarter & starter,
                                                                          std::vector<Segment> & roadPoints,
-                                                                         double & timeSec);
+                                                                         double & timeSec,
+                                                                         bool passThroughState = true);
 
 void TestRouteGeometry(IndexGraphStarter & starter,
                        AStarAlgorithm<Segment, SegmentEdge, RouteWeight>::Result expectedRouteResult,
                        std::vector<m2::PointD> const & expectedRouteGeom);
+void TestRouteGeometry(IndexGraphStarter & starter,
+                       AStarAlgorithm<Segment, SegmentEdge, RouteWeight>::Result expectedRouteResult,
+                       std::vector<m2::PointD> const & expectedRouteGeom, bool passThroughState);
 
 /// \brief Applies |restrictions| to graph in |restrictionTest| and
 /// tests the resulting route.
