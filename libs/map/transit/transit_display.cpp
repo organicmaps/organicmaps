@@ -18,16 +18,14 @@ std::map<TransitType, std::string> const kTransitSymbols = {{TransitType::Subway
                                                             {TransitType::Tram, "transit_tram"},
                                                             {TransitType::Bus, "transit_bus"},
                                                             {TransitType::Ferry, "transit_ferry"},
-                                                            // Cable trams reuse the tram icon.
-                                                            {TransitType::CableTram, "transit_tram"},
+                                                            {TransitType::CableTram, "transit_cable_tram"},
                                                             {TransitType::AerialLift, "transit_aerial_lift"},
                                                             {TransitType::Funicular, "transit_funicular"},
                                                             // Trolleybuses reuse the bus icon (no dedicated
                                                             // trolleybus symbol; cities don't distinguish them).
                                                             {TransitType::Trolleybus, "transit_bus"},
                                                             {TransitType::AirService, "transit_air_service"},
-                                                            // Water services (water taxis, etc.) reuse the ferry icon.
-                                                            {TransitType::WaterService, "transit_ferry"}};
+                                                            {TransitType::WaterService, "transit_water_service"}};
 
 std::string DebugPrint(TransitType type)
 {
