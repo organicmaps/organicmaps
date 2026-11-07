@@ -116,8 +116,10 @@ jobs:
           sudo apt update -y
           sudo apt install -y \
               clang-19 \
+              dbus-daemon \
               libgl1-mesa-dev \
               libgl1-mesa-dri \
+              libgeoclue-2-dev \
               libglx-mesa0 \
               libglvnd-dev \
               libharfbuzz-dev \
@@ -129,7 +131,6 @@ jobs:
               ninja-build \
               qt6-base-dev \
               qt6-l10n-tools \
-              qt6-positioning-dev \
               qt6-tools-dev \
               qt6-translations-l10n \
               xauth \
@@ -149,7 +150,6 @@ jobs:
         uses: jurplel/install-qt-action@v4
         with:
           version: '6.8.*'
-          modules: qtpositioning
           cache: true
 
       - name: Set up MSVC environment (Windows)
@@ -271,8 +271,8 @@ jobs:
         run: |
           apt-get update
           apt-get install -y --no-install-recommends \
-            build-essential ca-certificates clang-19 cmake git libgl1-mesa-dev libglvnd-dev \
-            libqt6svg6-dev ninja-build python3 qt6-base-dev qt6-l10n-tools qt6-positioning-dev qt6-tools-dev qt6-translations-l10n
+            build-essential ca-certificates clang-19 cmake git libgeoclue-2-dev libgl1-mesa-dev libglvnd-dev \
+            libqt6svg6-dev ninja-build python3 qt6-base-dev qt6-l10n-tools qt6-tools-dev qt6-translations-l10n
 
       - uses: actions/checkout@v6
         with:
