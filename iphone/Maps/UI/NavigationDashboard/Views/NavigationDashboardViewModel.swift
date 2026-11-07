@@ -1,6 +1,7 @@
 enum NavigationDashboard {
   struct ViewModel: Equatable {
-    var transportOptions: [MWMRouterType]
+    var planningMode: PlanningMode { routePoints.planningMode }
+    var transportOptions: [MWMRouterType] { planningMode.transportOptions }
     var routePoints: RoutePoints
     var routerType: MWMRouterType
     var entity: MWMNavigationDashboardEntity
@@ -35,12 +36,12 @@ enum NavigationDashboard {
 extension NavigationDashboard.ViewModel {
   static var initial: Self {
     NavigationDashboard.ViewModel(
-      transportOptions: MWMRouterType.allCases,
-      routePoints: .empty,
-      routerType: MWMRouter.type(),
+      routePoints: MWMRouter.isFollowingTrack()
+        ? .init(trackName: MWMRouter.followedTrackInfo()?.name ?? "") : .empty,
+      routerType: MWMRouter.renderType(),
       entity: MWMNavigationDashboardEntity(),
       trackRecordingState: TrackRecordingManager.shared.recordingState,
-      routingOptions: RoutingOptions(routerType: MWMRouter.type()),
+      routingOptions: RoutingOptions(routerType: MWMRouter.renderType()),
       routeElevationPreviewData: nil,
       routeElevationActivePointDistance: nil,
       navigationInfo: .hidden,
@@ -57,18 +58,28 @@ extension NavigationDashboard.ViewModel {
 
   var isBottomActionsMenuHidden: Bool { presentationStep == .hidden }
 
+  var isTransportSelectionEnabled: Bool {
+    guard planningMode == .navigateTrack, dashboardState == .planning else { return true }
+    return progress >= 1
+  }
+
+  var supportsElevationProfile: Bool {
+    planningMode == .navigateTrack || routerType == .pedestrian || routerType == .bicycle
+  }
+
   var canReverseRoutePoints: Bool {
+    if planningMode == .navigateTrack {
+      return routePoints.hasStartAndFinish && dashboardState == .ready && progress == 1
+    }
     // A fixed start leaves a valid preview in RouteNoFollowing, where isRouteBuilt() is false.
-    routePoints.hasStartAndFinish &&
+    return routePoints.hasStartAndFinish &&
       (dashboardState == .ready || dashboardState == .prepare) &&
       progress == 1 &&
       MWMRouter.isRouteValid()
   }
 
   var startButtonState: StartRouteButton.State {
-    if routePoints.count < 2 ||
-      routePoints.start == nil ||
-      routePoints.finish == nil ||
+    if !routePoints.hasStartAndFinish ||
       dashboardState == .error {
       return .disabled
     }

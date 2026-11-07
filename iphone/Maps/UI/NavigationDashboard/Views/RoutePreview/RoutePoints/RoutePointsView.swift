@@ -5,7 +5,7 @@ final class RoutePointsView: UIView {
   weak var interactor: NavigationDashboard.Interactor?
 
   private var itemCount: Int {
-    routePoints.hasStartAndFinish ? routePoints.count + 1 : routePoints.count
+    routePoints.hasStartAndFinish && routePoints.planningMode == .default ? routePoints.count + 1 : routePoints.count
   }
 
   var contentHeight: CGFloat {
@@ -75,7 +75,7 @@ final class RoutePointsView: UIView {
     let bottomConnector: RoutePointCollectionViewCell.ConnectorStyle
     if index < routePoints.count - 1 {
       bottomConnector = .solid
-    } else if index == routePoints.count - 1, routePoints.hasStartAndFinish {
+    } else if index == routePoints.count - 1, routePoints.hasStartAndFinish, routePoints.planningMode == .default {
       bottomConnector = .threeDots
     } else {
       bottomConnector = .none
@@ -96,6 +96,7 @@ final class RoutePointsView: UIView {
   func setRoutePoints(_ routePoints: NavigationDashboard.RoutePoints) {
     guard self.routePoints != routePoints else { return }
     self.routePoints = routePoints
+    collectionView.dragInteractionEnabled = routePoints.planningMode == .default
     collectionView.reloadData()
     invalidateIntrinsicContentSize()
   }
@@ -115,6 +116,7 @@ extension RoutePointsView: UICollectionViewDataSource, UICollectionViewDelegate 
   }
 
   func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    guard routePoints.planningMode == .default else { return }
     switch indexPath.item {
     case routePoints.count:
       interactor?.process(.addRoutePointButtonDidTap)
@@ -143,12 +145,11 @@ extension RoutePointsView: UICollectionViewDelegateFlowLayout {
 
 extension RoutePointsView: UICollectionViewDragDelegate, UICollectionViewDropDelegate {
   func collectionView(_: UICollectionView, itemsForBeginning _: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-    guard indexPath.item < routePoints.count else { return [] }
-    let item = routePoints[indexPath.item]
+    guard routePoints.canMovePoint(at: indexPath.item) else { return [] }
     let title = routePoints.title(for: indexPath.item)
     let itemProvider = NSItemProvider(object: title as NSString)
     let dragItem = UIDragItem(itemProvider: itemProvider)
-    dragItem.localObject = item
+    dragItem.localObject = routePoints[indexPath.item]
     return [dragItem]
   }
 
@@ -160,15 +161,11 @@ extension RoutePointsView: UICollectionViewDragDelegate, UICollectionViewDropDel
 
   func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
     guard let destinationIndexPath = coordinator.destinationIndexPath,
-          destinationIndexPath.row < routePoints.count else { return }
+          routePoints.canMovePoint(at: destinationIndexPath.item) else { return }
 
     for item in coordinator.items {
       if let sourceIndexPath = item.sourceIndexPath {
-        guard sourceIndexPath != destinationIndexPath,
-              sourceIndexPath.row < routePoints.count
-        else {
-          return
-        }
+        guard routePoints.canMovePoint(from: sourceIndexPath.item, to: destinationIndexPath.item) else { return }
 
         routePoints.movePoint(from: sourceIndexPath.row, to: destinationIndexPath.row)
         collectionView.performBatchUpdates {
@@ -186,13 +183,11 @@ extension RoutePointsView: UICollectionViewDragDelegate, UICollectionViewDropDel
   }
 
   func collectionView(_: UICollectionView, canHandle _: UIDropSession) -> Bool {
-    true
+    routePoints.planningMode == .default
   }
 
   func collectionView(_: UICollectionView, dropSessionDidUpdate _: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
-    guard let destinationIndexPath = destinationIndexPath,
-          destinationIndexPath.item < routePoints.count
-    else {
+    guard let destinationIndexPath, routePoints.canMovePoint(at: destinationIndexPath.item) else {
       return UICollectionViewDropProposal(operation: .forbidden)
     }
     return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
@@ -208,11 +203,13 @@ extension RoutePointsView: UICollectionViewDragDelegate, UICollectionViewDropDel
 private extension NavigationDashboard.RoutePoints {
   func cellViewModel(for index: Int, onCloseHandler: (() -> Void)?) -> RoutePointCollectionViewCell.CellType {
     let point = self[index]
-    let usesCurrentPositionIcon = index == 0 && point?.isMyPosition == true
+    let usesCurrentPositionIcon = index == 0 && (planningMode == .navigateTrack || point?.isMyPosition == true)
     let maskedCorners: CACornerMask
     switch index {
     case 0:
       maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    case count - 1 where planningMode == .navigateTrack:
+      maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
     default:
       maskedCorners = hasStartAndFinish ? [] : [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
     }
@@ -220,11 +217,12 @@ private extension NavigationDashboard.RoutePoints {
       title: title(for: index),
       image: usesCurrentPositionIcon ? UIImage.icCurrentPosition : defaultImage(for: index),
       usesCurrentPositionIcon: usesCurrentPositionIcon,
-      showCloseButton: point != nil,
+      showCloseButton: point != nil && planningMode == .default,
       maskedCorners: maskedCorners,
-      isPlaceholder: point == nil,
-      showSeparator: hasStartAndFinish ? true : index < points.count,
-      onCloseHandler: onCloseHandler
+      isPlaceholder: planningMode == .default && point == nil,
+      showSeparator: planningMode == .navigateTrack ? index < count - 1 : (hasStartAndFinish ? true : index < points.count),
+      onCloseHandler: onCloseHandler,
+      showReorderButton: canMovePoint(at: index)
     )
     return .point(viewModel)
   }
