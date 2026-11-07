@@ -37,8 +37,13 @@ import app.organicmaps.sdk.sound.MediaPlayerWrapper;
 import app.organicmaps.sdk.sound.TtsPlayer;
 import app.organicmaps.sdk.util.Assert;
 import app.organicmaps.sdk.util.Config;
+import app.organicmaps.sdk.util.Distance;
 import app.organicmaps.sdk.util.Graphics;
 import app.organicmaps.sdk.util.log.Logger;
+import app.organicmaps.sdk.wear.WearBridge;
+import app.organicmaps.wear.protocol.WearDistance;
+import app.organicmaps.wear.protocol.WearDistanceUnit;
+import app.organicmaps.wear.protocol.WearNavigationDetails;
 
 public class NavigationService extends Service implements LocationListener
 {
@@ -184,6 +189,7 @@ public class NavigationService extends Service implements LocationListener
     Logger.i(TAG);
 
     mNotificationBuilder = null;
+    WearBridge.invalidateDetails();
     sOrganicMaps.getLocationHelper().removeListener(this);
     TtsPlayer.INSTANCE.stop();
 
@@ -266,13 +272,51 @@ public class NavigationService extends Service implements LocationListener
     return null;
   }
 
+  @Nullable
+  private static WearDistance toWearDistance(@NonNull Distance distance)
+  {
+    if (!distance.isValid() || distance.mDistanceStr.isEmpty())
+      return null;
+
+    final WearDistanceUnit unit = switch (distance.mUnits)
+    {
+      case Meters -> WearDistanceUnit.METERS;
+      case Kilometers -> WearDistanceUnit.KILOMETERS;
+      case Feet -> WearDistanceUnit.FEET;
+      case Miles -> WearDistanceUnit.MILES;
+    };
+
+    return new WearDistance(distance.mDistanceStr, unit);
+  }
+
+  @Override
+  public void onLocationUpdateTimeout()
+  {
+    WearBridge.invalidateDetails();
+  }
+
+  @Override
+  public void onLocationDisabled()
+  {
+    WearBridge.invalidateDetails();
+  }
+
+  @Override
+  public void onLocationResolutionRequired(@NonNull PendingIntent pendingIntent)
+  {
+    WearBridge.invalidateDetails();
+  }
+
   @Override
   public void onLocationUpdated(@NonNull Location location)
   {
     // Ignore any pending notifications when service is being stopping.
     final RoutingController routingController = RoutingController.get();
     if (!routingController.isNavigating())
+    {
+      WearBridge.invalidateDetails();
       return;
+    }
 
     // Voice the turn notification first.
     final String[] turnNotifications = Framework.nativeGenerateNotifications(Config.TTS.getAnnounceStreets());
@@ -293,7 +337,14 @@ public class NavigationService extends Service implements LocationListener
 
     final RoutingInfo routingInfo = Framework.nativeGetRouteFollowingInfo();
     if (routingInfo == null)
+    {
+      WearBridge.invalidateDetails();
       return;
+    }
+
+    WearBridge.publishDetails(new WearNavigationDetails(toWearDistance(routingInfo.distToTurn), routingInfo.nextStreet,
+                                                        toWearDistance(routingInfo.distToTarget),
+                                                        routingInfo.totalTimeInSeconds));
 
     if (routingInfo.shouldPlayWarningSignal())
       mPlayer.playback(R.raw.speed_cams_beep);

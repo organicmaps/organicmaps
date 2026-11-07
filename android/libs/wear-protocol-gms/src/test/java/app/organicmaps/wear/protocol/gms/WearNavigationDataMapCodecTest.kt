@@ -2,7 +2,6 @@ package app.organicmaps.wear.protocol.gms
 
 import app.organicmaps.wear.protocol.WearNavigationData
 import app.organicmaps.wear.protocol.WearNavigationMode
-import app.organicmaps.wear.protocol.WearNavigationState
 import com.google.android.gms.wearable.DataMap
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -12,29 +11,29 @@ class WearNavigationDataMapCodecTest {
     @Test
     fun roundTripNavigation() {
         val dataMap = DataMap()
-        WearNavigationDataMapCodec.encode(dataMap, WearNavigationState.navigation())
+        WearNavigationDataMapCodec.encode(dataMap, WearNavigationMode.NAVIGATION)
 
-        assertEquals(WearNavigationMode.NAVIGATION, WearNavigationDataMapCodec.decode(dataMap)?.mode)
+        assertEquals(WearNavigationMode.NAVIGATION, WearNavigationDataMapCodec.decode(dataMap))
     }
 
     @Test
     fun roundTripNormal() {
         val dataMap = DataMap()
-        WearNavigationDataMapCodec.encode(dataMap, WearNavigationState.normal())
+        WearNavigationDataMapCodec.encode(dataMap, WearNavigationMode.NORMAL)
 
-        assertEquals(WearNavigationMode.NORMAL, WearNavigationDataMapCodec.decode(dataMap)?.mode)
+        assertEquals(WearNavigationMode.NORMAL, WearNavigationDataMapCodec.decode(dataMap))
     }
 
     @Test
     fun encodeUsesStableSchema() {
         val normalDataMap = DataMap()
-        WearNavigationDataMapCodec.encode(normalDataMap, WearNavigationState.normal())
+        WearNavigationDataMapCodec.encode(normalDataMap, WearNavigationMode.NORMAL)
 
         assertEquals(WearNavigationData.VERSION, normalDataMap.getInt("version", -1))
         assertEquals("NORMAL", normalDataMap.getString("mode"))
 
         val navigationDataMap = DataMap()
-        WearNavigationDataMapCodec.encode(navigationDataMap, WearNavigationState.navigation())
+        WearNavigationDataMapCodec.encode(navigationDataMap, WearNavigationMode.NAVIGATION)
 
         assertEquals(WearNavigationData.VERSION, navigationDataMap.getInt("version", -1))
         assertEquals("NAVIGATION", navigationDataMap.getString("mode"))
@@ -71,7 +70,7 @@ class WearNavigationDataMapCodecTest {
         val dataMap = dataMap(WearNavigationData.VERSION, "NAVIGATION")
         dataMap.putBoolean("unknown", true)
 
-        assertEquals(WearNavigationMode.NAVIGATION, WearNavigationDataMapCodec.decode(dataMap)?.mode)
+        assertEquals(WearNavigationMode.NAVIGATION, WearNavigationDataMapCodec.decode(dataMap))
     }
 
     private fun dataMap(version: Int, mode: String) = DataMap().apply {
