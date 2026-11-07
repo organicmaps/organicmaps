@@ -16,6 +16,7 @@ import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -272,23 +273,48 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     return validateNames();
   }
 
-  private boolean validateNames()
+  @VisibleForTesting
+  interface NameValidator {
+    boolean isNameValid(String name);
+  }
+
+  @VisibleForTesting
+  static boolean validateNames(@NonNull MultilanguageAdapter adapter, @NonNull RecyclerView namesView,
+                               @NonNull NameValidator validator)
   {
-    for (int pos = 0; pos < mNamesAdapter.getItemCount(); pos++)
+    for (int pos = 0; pos < adapter.getItemCount(); pos++)
     {
-      LocalizedName localizedName = mNamesAdapter.getNameAtPos(pos);
-      if (Editor.nativeIsNameValid(localizedName.name))
+      LocalizedName localizedName = adapter.getNameAtPos(pos);
+      if (validator.isNameValid(localizedName.name))
         continue;
 
-      View nameView = mNamesView.getChildAt(pos);
-      nameView.requestFocus();
-
-      InputUtils.showKeyboard(nameView);
+      namesView.scrollToPosition(pos);
+      // The row may not be attached until scrollToPosition() takes effect on the next layout.
+      final int invalidPos = pos;
+      if (!focusNameInput(namesView, invalidPos))
+        UiUtils.waitLayout(namesView, () -> focusNameInput(namesView, invalidPos));
 
       return false;
     }
 
     return true;
+  }
+
+  private static boolean focusNameInput(@NonNull RecyclerView namesView, int pos)
+  {
+    final MultilanguageAdapter.Holder holder =
+        (MultilanguageAdapter.Holder) namesView.findViewHolderForAdapterPosition(pos);
+    if (holder == null)
+      return false;
+
+    holder.input.requestFocus();
+    InputUtils.showKeyboard(holder.input);
+    return true;
+  }
+
+  private boolean validateNames()
+  {
+    return validateNames(mNamesAdapter, mNamesView, Editor::nativeIsNameValid);
   }
 
   private void refreshEditableFields()
