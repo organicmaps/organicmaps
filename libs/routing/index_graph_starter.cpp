@@ -9,7 +9,6 @@
 
 #include "geometry/distance_on_sphere.hpp"
 
-#include <algorithm>
 #include <map>
 
 namespace routing
@@ -150,41 +149,7 @@ std::set<NumMwmId> IndexGraphStarter::GetMwms() const
 
 bool IndexGraphStarter::CheckLength(RouteWeight const & weight)
 {
-  // Avoid transit through living neighbourhoods.
-  // Assume that start or end belongs to the living neighbourhood (HasNoPassThroughAllowed),
-  // if at least one of the projections is non-pass-through road (service, living_street).
-  // Interesting example here: https://github.com/organicmaps/organicmaps/issues/1008
-
-  // Allow pass-through <-> non-pass-through zone changes if start or end belongs
-  // to no-pass-through zone (have to leave or arrive at living neighbourhood).
-
-  /// @todo By VNG: Additional 2 changes to relax this restriction. Or should enchance this mechanics to allow
-  /// pass through say living_street into lower class road (track/road/unclassified?).
-  /// This additional penalty will be included in RouteWeight::GetIntegratedWeight().
-  /// @see RussiaMoscowNotCrossingTollRoadTest
-
-  // The mandatory "leave start / arrive finish" crossings of an NA-zone ending are already credited
-  // in CreditEndingPassThrough, so |weight| counts genuine pass-throughs only; allow up to one.
-  return weight.GetNumPassThroughChanges() <= 2 && m_graph.CheckLength(weight, m_startToFinishDistanceM);
-}
-
-void IndexGraphStarter::CreditEndingPassThrough(Segment const & segment, bool isOutgoing, EdgeListT & edges) const
-{
-  // Apply the whole credit on the forward expansion of the fake start, so a forward partial that
-  // already left the start and re-entered the finish neighbourhood is not over-penalized while the
-  // bidirectional waves haven't met yet (a split start/finish credit makes the wave settle on a
-  // worse all-non-pass-through detour).
-  if (!(isOutgoing && segment == GetStartSegment()))
-    return;
-
-  int8_t const credit = (HasNoPassThroughAllowed(m_start) ? 1 : 0) + (HasNoPassThroughAllowed(m_finish) ? 1 : 0);
-  if (credit == 0)
-    return;
-
-  RouteWeight const delta(0.0 /* weight */, credit /* numPassThroughChanges */, 0 /* numAccessChanges */,
-                          0 /* numAccessConditionalPenalties */, 0.0 /* transitTime */);
-  for (auto & edge : edges)
-    edge.GetWeight() = edge.GetWeight() - delta;
+  return m_graph.CheckLength(weight, m_startToFinishDistanceM);
 }
 
 void IndexGraphStarter::GetEdgesList(astar::VertexData<Vertex, Weight> const & vertexData, bool isOutgoing,
@@ -242,7 +207,6 @@ void IndexGraphStarter::GetEdgesList(astar::VertexData<Vertex, Weight> const & v
   }
 
   AddFakeEdges(segment, isOutgoing, edges);
-  CreditEndingPassThrough(segment, isOutgoing, edges);
 }
 
 RouteWeight IndexGraphStarter::CalcGuidesSegmentWeight(Segment const & segment, EdgeEstimator::Purpose purpose) const
@@ -609,20 +573,6 @@ void IndexGraphStarter::AddFakeEdges(Segment const & segment, bool isOutgoing, E
     }
   }
   edges.append(fakeEdges.begin(), fakeEdges.end());
-}
-
-bool IndexGraphStarter::HasNoPassThroughAllowed(Ending const & ending) const
-{
-  if (IsRegionsGraphMode())
-    return false;
-
-  return std::any_of(ending.m_real.cbegin(), ending.m_real.cend(), [this](Segment const & s)
-  {
-    if (IsGuidesSegment(s))
-      return false;
-
-    return !m_graph.IsPassThroughAllowed(s.GetMwmId(), s.GetFeatureId());
-  });
 }
 
 Segment IndexGraphStarter::GetFakeSegmentAndIncr()

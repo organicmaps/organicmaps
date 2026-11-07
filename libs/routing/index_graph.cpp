@@ -4,6 +4,8 @@
 #include "routing/routing_options.hpp"
 #include "routing/world_graph.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "base/assert.hpp"
 #include "base/checked_cast.hpp"
 
@@ -404,17 +406,14 @@ void IndexGraph::GetNeighboringEdge(astar::VertexData<Segment, RouteWeight> cons
 IndexGraph::PenaltyData IndexGraph::GetRoadPenaltyData(Segment const & segment) const
 {
   auto const & road = GetRoadGeometry(segment.GetFeatureId());
-  return {road.IsPassThroughAllowed(), road.GetRoutingOptions().Has(RoutingOptions::Road::Ferry)};
+  return {road.GetHighwayType(), road.GetRoutingOptions().Has(RoutingOptions::Road::Ferry)};
 }
 
 RouteWeight IndexGraph::GetPenalties(EdgeEstimator::Purpose purpose, Segment const & u, Segment const & v,
                                      std::optional<RouteWeight> const & prevWeight) const
 {
-  auto const & fromPenaltyData = GetRoadPenaltyData(u);
-  auto const & toPenaltyData = GetRoadPenaltyData(v);
-  // Route crosses border of pass-through/non-pass-through area if |u| and |v| have different
-  // pass through restrictions.
-  int8_t const passThroughPenalty = fromPenaltyData.m_passThroughAllowed == toPenaltyData.m_passThroughAllowed ? 0 : 1;
+  auto const fromPenaltyData = GetRoadPenaltyData(u);
+  auto const toPenaltyData = GetRoadPenaltyData(v);
 
   int8_t accessPenalty = 0;
   int8_t accessConditionalPenalties = 0;
@@ -464,13 +463,41 @@ RouteWeight IndexGraph::GetPenalties(EdgeEstimator::Purpose purpose, Segment con
 
   double weightPenalty = 0.0;
   if (IsUTurn(u, v))
+  {
     weightPenalty += m_estimator->GetUTurnPenalty(purpose);
+  }
+  else if (u.GetFeatureId() != v.GetFeatureId())
+  {
+    double const turnPenalty =
+        m_estimator->GetTurnPenalty(purpose, fromPenaltyData.m_highwayType, toPenaltyData.m_highwayType);
+    if (turnPenalty > 0.0 && IsTurn(u, v))
+      weightPenalty += turnPenalty;
+  }
 
   if (IsBoarding(fromPenaltyData.m_isFerry, toPenaltyData.m_isFerry))
     weightPenalty += m_estimator->GetFerryLandingPenalty(purpose);
 
-  return {weightPenalty /* weight */, passThroughPenalty, accessPenalty, accessConditionalPenalties,
-          0.0 /* transitTime */};
+  return {weightPenalty /* weight */, accessPenalty, accessConditionalPenalties, 0.0 /* transitTime */};
+}
+
+bool IndexGraph::IsTurn(Segment const & u, Segment const & v) const
+{
+  // A road of another type may continue a road straight, e.g. a residential street becomes a service one.
+  // A turn changes the direction by 30 degrees or more.
+  double constexpr kMaxStraightCos = 0.8660254037844386;  // cos(30 degrees)
+
+  // Copy the points: the next GetRoadGeometry() call may invalidate the returned reference.
+  m2::PointD from, junction;
+  {
+    auto const & road = GetRoadGeometry(u.GetFeatureId());
+    from = mercator::FromLatLon(road.GetPoint(u.GetPointId(false /* front */)));
+    junction = mercator::FromLatLon(road.GetPoint(u.GetPointId(true /* front */)));
+  }
+  auto const to = mercator::FromLatLon(GetRoadGeometry(v.GetFeatureId()).GetPoint(v.GetPointId(true /* front */)));
+
+  auto const in = junction - from;
+  auto const out = to - junction;
+  return m2::DotProduct(in, out) < kMaxStraightCos * in.Length() * out.Length();
 }
 
 WorldGraphMode IndexGraph::GetMode() const

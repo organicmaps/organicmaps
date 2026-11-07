@@ -57,16 +57,14 @@ void TestGeometryLoader::Load(uint32_t featureId, RoadGeometry & road)
 void TestGeometryLoader::AddRoad(uint32_t featureId, bool oneWay, float speed, RoadGeometry::Points const & points)
 {
   RoadGeometry road(oneWay, {measurement_utils::Units::Metric, MaxspeedType(speed), kInvalidSpeed}, points);
-  road.SetPassThroughAllowedForTests(true);
-
   CHECK(m_roads.emplace(featureId, std::move(road)).second, ());
 }
 
-void TestGeometryLoader::SetPassThroughAllowed(uint32_t featureId, bool passThroughAllowed)
+void TestGeometryLoader::SetHighwayType(uint32_t featureId, HighwayType type)
 {
   auto const it = m_roads.find(featureId);
   CHECK(it != m_roads.end(), ("No feature", featureId));
-  m_roads[featureId].SetPassThroughAllowedForTests(passThroughAllowed);
+  it->second.SetHighwayTypeForTests(type);
 }
 
 std::shared_ptr<EdgeEstimator> CreateEstimatorForCar(std::shared_ptr<TrafficStash> trafficStash)

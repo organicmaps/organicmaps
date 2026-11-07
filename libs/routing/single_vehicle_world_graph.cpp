@@ -124,11 +124,6 @@ bool SingleVehicleWorldGraph::IsOneWay(NumMwmId mwmId, uint32_t featureId)
   return GetRoadGeometry(mwmId, featureId).IsOneWay();
 }
 
-bool SingleVehicleWorldGraph::IsPassThroughAllowed(NumMwmId mwmId, uint32_t featureId)
-{
-  return GetRoadGeometry(mwmId, featureId).IsPassThroughAllowed();
-}
-
 RouteWeight SingleVehicleWorldGraph::HeuristicCostEstimate(ms::LatLon const & from, ms::LatLon const & to)
 {
   // In LeapsOnly mode the search sees leap edges and precomputed cross-mwm weights whose effective
