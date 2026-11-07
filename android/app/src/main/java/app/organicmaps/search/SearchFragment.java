@@ -84,6 +84,11 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
   // Matches the zoom the deep-link handlers use when centering on a single place.
   private static final int PICKED_POINT_ZOOM = 16;
+  @Nullable
+  private ContactAddress mPendingContactAddress;
+  @Nullable
+  private String mPendingContactSourceQuery;
+  private long mPendingContactRequestId;
 
   // Debouncer for runSearch() — collapses bursts of keystrokes into a single engine invocation.
   // searchInteractive() fans out to both SearchInViewport + EverywhereSearch internally, so the
@@ -510,6 +515,9 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     updateFrames();
     SearchEngine.INSTANCE.addListener(this);
 
+    if (mToolbarController.hasQuery())
+      searchContactAddresses();
+
     // Pre-warm tabs after the activity's critical path so the first sheet open is instant.
     // Idempotent — if the sheet opens before the post runs, setupTabsIfNeeded() fires from the
     // bottom-sheet observer instead and this no-ops.
@@ -586,7 +594,12 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   public void onResume()
   {
     super.onResume();
+    if (!Config.isContactSearchEnabled() || !ContactAddressSearch.hasPermission(requireContext()))
+      clearPendingContactAddress();
     MwmApplication.from(requireContext()).getLocationHelper().addListener(mLocationListener);
+
+    if (mToolbarController.hasQuery())
+      searchContactAddresses();
 
     if (mTabAdapter != null)
       setupTabsIfNeeded();
@@ -618,6 +631,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   @Override
   public void onDestroyView()
   {
+    clearPendingContactAddress();
     mSearchDebounceHandler.removeCallbacks(mDebouncedRunSearch);
     SearchEngine.INSTANCE.removeListener(this);
     if (mPickerActionsAnimator != null)
@@ -638,6 +652,96 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   void setQuery(String text, boolean isCategory)
   {
     mToolbarController.setQuery(text, isCategory);
+  }
+
+  void selectContactAddress(@NonNull ContactAddress contactAddress)
+  {
+    clearPendingContactAddress();
+    if (!Config.isContactSearchEnabled() || !ContactAddressSearch.hasPermission(requireContext()))
+    {
+      mSearchAdapter.refreshContactData(List.of());
+      updateResultsPlaceholder();
+      return;
+    }
+    mSearchDebounceHandler.removeCallbacks(mDebouncedRunSearch);
+    SearchEngine.INSTANCE.cancel();
+    updateSearchView();
+    final ContactMapManager.ResolvedAddress resolved = ContactMapManager.INSTANCE.getResolved(contactAddress);
+    if (resolved != null)
+    {
+      showContactAddress(contactAddress, resolved.lat, resolved.lon);
+      return;
+    }
+    final String locale = Language.getKeyboardLocale(requireContext());
+    if (ContactMapManager.INSTANCE.hasRecentResolutionMiss(contactAddress, locale))
+    {
+      showContactAddressFallback(contactAddress);
+      return;
+    }
+    final List<ContactAddress.SearchQuery> queries = contactAddress.getSearchQueries();
+    if (queries.isEmpty())
+    {
+      showContactAddressFallback(contactAddress);
+      return;
+    }
+    mPendingContactAddress = contactAddress;
+    mPendingContactSourceQuery = getQuery();
+    mSearchAdapter.setResolvingContact(contactAddress);
+    mToolbarController.showProgress(true);
+    mPendingContactRequestId = SearchEngine.INSTANCE.resolveAddress(
+        queries.stream().map(query -> query.query).toArray(String[] ::new),
+        queries.stream().map(query -> query.expectedStreet).toArray(String[] ::new), locale, false,
+        (requestId, found, complete, lat, lon) -> {
+          if (requestId != mPendingContactRequestId || !isAdded())
+            return;
+          clearPendingContactAddress();
+          updateSearchView();
+          if (!Config.isContactSearchEnabled() || !ContactAddressSearch.hasPermission(requireContext()))
+            return;
+          if (found)
+          {
+            ContactMapManager.INSTANCE.recordResolved(contactAddress, lat, lon);
+            showContactAddress(contactAddress, lat, lon);
+          }
+          else
+          {
+            ContactMapManager.INSTANCE.recordUnresolved(contactAddress, complete, locale);
+            showContactAddressFallback(contactAddress);
+          }
+        });
+  }
+
+  private void showContactAddress(@NonNull ContactAddress contactAddress, double lat, double lon)
+  {
+    mToolbarController.deactivate();
+    final RoutingController controller = RoutingController.get();
+    if (controller.isWaitingPoiPick())
+    {
+      controller.onPoiSelected(
+          MapObject.createMapObject(MapObject.SEARCH, contactAddress.name, contactAddress.address, lat, lon));
+      if (controller.getStartPoint() == null || controller.getEndPoint() == null)
+        Framework.nativeSetViewportCenter(lat, lon, PICKED_POINT_ZOOM);
+    }
+    else
+      SearchEngine.INSTANCE.selectResolvedAddress(lat, lon, contactAddress.name, contactAddress.address);
+  }
+
+  private void showContactAddressFallback(@NonNull ContactAddress contactAddress)
+  {
+    clearPendingContactAddress();
+    mSearchViewModel.setCurrentQueryContactDerived(true);
+    setQuery(contactAddress.address, false);
+  }
+
+  private void clearPendingContactAddress()
+  {
+    if (mPendingContactRequestId != 0)
+      SearchEngine.INSTANCE.cancelAddressResolution(mPendingContactRequestId);
+    mPendingContactRequestId = 0;
+    mPendingContactAddress = null;
+    mPendingContactSourceQuery = null;
+    if (mSearchAdapter != null)
+      mSearchAdapter.setResolvingContact(null);
   }
 
   private boolean tryRecognizeHiddenCommand(@NonNull String query)
@@ -667,7 +771,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   void showSingleResultOnMap(@NonNull SearchResult result, int resultIndex)
   {
     final String query = getQuery();
-    if (Config.isSearchHistoryEnabled())
+    if (Config.isSearchHistoryEnabled() && !mSearchViewModel.isCurrentQueryContactDerived())
     {
       SearchRecents.add(query, requireContext());
       mSearchViewModel.notifyHistoryChanged();
@@ -727,7 +831,31 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     // The previous search should be cancelled before the new one is started, since previous search
     // results are no longer needed.
     SearchEngine.INSTANCE.cancel();
+    mSearchAdapter.refreshContactData(List.of());
+    searchContactAddresses();
 
+    if (!startInteractiveSearch(getQuery(), isCategory()))
+    {
+      clearPendingContactAddress();
+      stopSearch();
+      return;
+    }
+
+    mSearchRunning = true;
+    mToolbarController.showProgress(true);
+    updateResultsPlaceholder();
+
+    if (mSearchAdapter.getItemCount() == 0)
+    {
+      UiUtils.show(mShimmerView);
+      mShimmerView.startShimmer();
+    }
+
+    updateFrames();
+  }
+
+  private boolean startInteractiveSearch(@NonNull String query, boolean isCategory)
+  {
     boolean hasLocation = mLastPosition.valid;
     double lat = mLastPosition.lat;
     double lon = mLastPosition.lon;
@@ -751,26 +879,29 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
         (request != null && request.locale != null) ? request.locale : Language.getKeyboardLocale(requireContext());
     mSearchViewModel.clearPendingRequest();
 
-    SearchEngine.INSTANCE.setQuery(getQuery());
-    boolean started = SearchEngine.INSTANCE.searchInteractive(getQuery(), isCategory(), locale, System.nanoTime(),
-                                                              true /* isMapAndTable */, hasLocation, lat, lon);
-    if (!started)
+    SearchEngine.INSTANCE.setQuery(query);
+    final long searchTimestamp = System.nanoTime();
+    return SearchEngine.INSTANCE.searchInteractive(query, isCategory, locale, searchTimestamp, true /* isMapAndTable */,
+                                                   hasLocation, lat, lon);
+  }
+
+  private void searchContactAddresses()
+  {
+    if (isCategory() || !Config.isContactSearchEnabled() || !ContactAddressSearch.hasPermission(requireContext()))
     {
-      stopSearch();
+      mSearchAdapter.refreshContactData(List.of());
       return;
     }
 
-    mSearchRunning = true;
-    mToolbarController.showProgress(true);
-    updateResultsPlaceholder();
+    final ContactAddressSearch contactAddressSearch = ContactAddressSearch.getInstance(requireContext());
 
-    if (mSearchAdapter.getItemCount() == 0)
-    {
-      UiUtils.show(mShimmerView);
-      mShimmerView.startShimmer();
-    }
-
-    updateFrames();
+    contactAddressSearch.search(getQuery(), (query, results) -> {
+      if (!isAdded() || isCategory() || !query.equals(getQuery()) || !Config.isContactSearchEnabled()
+          || !ContactAddressSearch.hasPermission(requireContext()))
+        return;
+      mSearchAdapter.refreshContactData(results);
+      updateResultsPlaceholder();
+    });
   }
 
   @Override
@@ -785,6 +916,8 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   @Override
   public void onResultsEnd(long timestamp)
   {
+    if (mPendingContactAddress != null)
+      return;
     onSearchEnd();
   }
 
@@ -1060,6 +1193,11 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       if (!isAdded())
         return;
 
+      if (mPendingContactAddress != null && !query.equals(mPendingContactSourceQuery))
+        clearPendingContactAddress();
+      if (query.isEmpty())
+        mSearchViewModel.setCurrentQueryContactDerived(false);
+
       mSearchViewModel.setCurrentToolbarCategorical(isCategory());
 
       if (query.trim().isEmpty())
@@ -1088,7 +1226,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
     @Override
     protected boolean onStartSearchClick()
     {
-      if (Config.isSearchHistoryEnabled())
+      if (Config.isSearchHistoryEnabled() && !mSearchViewModel.isCurrentQueryContactDerived())
       {
         SearchRecents.add(getQuery(), requireContext());
         mSearchViewModel.notifyHistoryChanged();

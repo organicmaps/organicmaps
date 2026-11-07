@@ -14511,6 +14511,18 @@ vi = Các đánh dấu và dấu vết có thể được đưa vào bản sao l
 zh-Hans = 如果此设备已启用备份，且书签和轨迹未超过其容量上限，它们可以包含在 Android 系统备份中。
 zh-Hant = 如果此裝置已啟用備份，且書籤和軌跡未超過其容量上限，它們可以包含在 Android 系統備份中。
 
+[search_contacts_title]
+tags = android-app
+en = Contacts
+
+[search_contacts_summary]
+tags = android-app
+en = Show saved contact addresses in search results and on the map
+
+[search_contacts_permission_message]
+tags = android-app
+en = Allow Contacts access in system settings to search saved addresses.
+
 [search_history_text]
 tags = android-app,android-libs-car,apple-maps
 en = View your recent searches.
