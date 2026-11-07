@@ -293,13 +293,25 @@ void EmitLine(Isoline && line, IsolineFn const & fn)
 void JoinFragments(std::vector<Fragment> & fragments, IsolineFn const & fn,
                    base::SharedCancellable const & isCancellable)
 {
-  ska::flat_hash_map<EdgeLevel, size_t, EdgeLevelHash> entries, exits;
+  size_t constexpr kNoFragment = std::numeric_limits<size_t>::max();
+  ska::flat_hash_map<EdgeLevel, size_t, EdgeLevelHash> entries;
+  entries.reserve(fragments.size());
+  for (size_t i = 0; i < fragments.size(); ++i)
+    if (!fragments[i].m_line.m_closed)
+      VERIFY(entries.emplace(fragments[i].m_entry, i).second, ());
+  std::vector<size_t> successors(fragments.size(), kNoFragment);
+  std::vector<bool> hasPrevious(fragments.size(), false);
   for (size_t i = 0; i < fragments.size(); ++i)
   {
     if (fragments[i].m_line.m_closed)
       continue;
-    VERIFY(entries.emplace(fragments[i].m_entry, i).second, ());
-    VERIFY(exits.emplace(fragments[i].m_exit, i).second, ());
+    auto const next = entries.find(fragments[i].m_exit);
+    if (next == entries.end())
+      continue;
+    // A seam edge joins exactly one exit to one entry.
+    ASSERT(!hasPrevious[next->second], (i, next->second));
+    successors[i] = next->second;
+    hasPrevious[next->second] = true;
   }
   std::vector<bool> visited(fragments.size(), false);
   auto const walk = [&](size_t start)
@@ -307,16 +319,13 @@ void JoinFragments(std::vector<Fragment> & fragments, IsolineFn const & fn,
     Isoline line;
     line.m_altitude = fragments[start].m_line.m_altitude;
     size_t current = start;
-    while (!visited[current])
+    while (current != kNoFragment && !visited[current])
     {
       visited[current] = true;
       auto const & fragment = fragments[current];
       for (auto const & point : fragment.m_line.m_points)
         AppendPoint(line.m_points, point);
-      auto const next = entries.find(fragment.m_exit);
-      if (next == entries.end())
-        break;
-      current = next->second;
+      current = successors[current];
       if (current == start)
       {
         line.m_closed = true;
@@ -335,7 +344,7 @@ void JoinFragments(std::vector<Fragment> & fragments, IsolineFn const & fn,
       EmitLine(std::move(fragments[i].m_line), fn);
       visited[i] = true;
     }
-    else if (exits.find(fragments[i].m_entry) == exits.end())
+    else if (!hasPrevious[i])
       walk(i);
   }
   for (size_t i = 0; i < fragments.size(); ++i)
