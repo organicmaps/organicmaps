@@ -17,6 +17,9 @@ public abstract class BaseLocationProvider
     void onLocationChanged(@NonNull Location location);
     @UiThread
     void onLocationDisabled();
+    /** Reports loss of both coarse and fine location access. */
+    @UiThread
+    void onLocationPermissionDenied();
     // Used by GoogleFusedLocationProvider.
     @SuppressWarnings("unused")
     @UiThread
