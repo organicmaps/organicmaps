@@ -7,8 +7,10 @@
 #include "base/logging.hpp"
 #include "base/math.hpp"
 
+#include <atomic>
 #include <chrono>
 #include <memory>
+#include <utility>
 
 namespace
 {
@@ -35,6 +37,14 @@ private:
   uint64_t m_timeBetweenMs;
   uint64_t m_timeAfterMs;
 };
+
+bool IsSameFix(location::GpsInfo const & lhs, location::GpsInfo const & rhs)
+{
+  return lhs.m_source == rhs.m_source && lhs.m_timestamp == rhs.m_timestamp && lhs.m_latitude == rhs.m_latitude &&
+         lhs.m_longitude == rhs.m_longitude && lhs.m_horizontalAccuracy == rhs.m_horizontalAccuracy &&
+         lhs.m_altitude == rhs.m_altitude && lhs.m_verticalAccuracy == rhs.m_verticalAccuracy &&
+         lhs.m_bearing == rhs.m_bearing && lhs.m_speed == rhs.m_speed;
+}
 }  // namespace
 
 namespace extrapolation
@@ -115,92 +125,115 @@ bool AreCoordsGoodForExtrapolation(location::GpsInfo const & info1, location::Gp
          timeS <= kMaxExtrapolationTimeSeconds;
 }
 
-// Extrapolator ------------------------------------------------------------------------------------
-Extrapolator::Extrapolator(ExtrapolatedLocationUpdateFn const & update)
-  : m_isEnabled(false)
-  , m_extrapolatedLocationUpdate(update)
+struct Extrapolator::State
 {
-  RunTaskOnBackgroundThread(false /* delayed */);
+  ExtrapolatedLocationUpdateFn m_update;
+  NowFn m_now;
+  BackgroundTaskFn m_background;
+  GuiTaskFn m_gui;
+  std::atomic<uint64_t> m_generation = 0;
+  bool m_enabled = false;
+  location::GpsInfo m_last;
+  location::GpsInfo m_beforeLast;
+  Clock::time_point m_lastDistinctUpdate;
+};
+
+Extrapolator::Extrapolator(ExtrapolatedLocationUpdateFn const & update)
+  : Extrapolator(update, [] { return Clock::now(); }, [](std::chrono::milliseconds delay, Task task) {
+    GetPlatform().RunDelayedTask(Platform::Thread::Background, delay, std::move(task));
+  }, [](Task task) { GetPlatform().RunTask(Platform::Thread::Gui, std::move(task)); })
+{}
+
+Extrapolator::Extrapolator(ExtrapolatedLocationUpdateFn const & update, NowFn now, BackgroundTaskFn background,
+                           GuiTaskFn gui)
+  : m_state(std::make_shared<State>())
+{
+  m_state->m_update = update;
+  m_state->m_now = std::move(now);
+  m_state->m_background = std::move(background);
+  m_state->m_gui = std::move(gui);
+}
+
+Extrapolator::~Extrapolator()
+{
+  ++m_state->m_generation;
 }
 
 void Extrapolator::OnLocationUpdate(location::GpsInfo const & gpsInfo)
 {
+  auto const state = m_state;
+  if (state->m_last.IsValid() && IsSameFix(state->m_last, gpsInfo))
+    return;
+
+  auto const now = state->m_now();
+  bool const correction = state->m_last.IsValid() && state->m_last.m_timestamp == gpsInfo.m_timestamp;
+  if (!correction)
   {
-    std::lock_guard<std::mutex> guard(m_mutex);
-    m_beforeLastGpsInfo = m_lastGpsInfo;
-    m_lastGpsInfo = gpsInfo;
-    m_consecutiveRuns = 0;
-    // Canceling all background tasks which are put to the queue before the task run in this method.
-    ++m_locationUpdateCounter;
-    m_locationUpdateMinValid = m_locationUpdateCounter;
+    // UTC can roll back. Start a new baseline instead of extrapolating across the change.
+    state->m_beforeLast = gpsInfo.m_timestamp > state->m_last.m_timestamp ? state->m_last : location::GpsInfo{};
+    state->m_lastDistinctUpdate = now;
   }
-  RunTaskOnBackgroundThread(false /* delayed */);
+  state->m_last = gpsInfo;
+
+  auto const generation = ++state->m_generation;
+  if (correction && now - state->m_lastDistinctUpdate >= std::chrono::milliseconds(kMaxExtrapolationTimeMs))
+    return;
+
+  Schedule(state, generation, true /* isUpdate */, std::chrono::milliseconds::zero());
 }
 
 void Extrapolator::Enable(bool enabled)
 {
-  std::lock_guard<std::mutex> guard(m_mutex);
-  m_isEnabled = enabled;
+  if (m_state->m_enabled == enabled)
+    return;
+
+  Reset();
+  m_state->m_enabled = enabled;
 }
 
-void Extrapolator::ExtrapolatedLocationUpdate(uint64_t locationUpdateCounter)
+void Extrapolator::Reset()
 {
-  location::GpsInfo gpsInfo;
+  ++m_state->m_generation;
+  m_state->m_last = {};
+  m_state->m_beforeLast = {};
+}
+
+void Extrapolator::Schedule(std::shared_ptr<State> const & state, uint64_t generation, bool isUpdate,
+                            std::chrono::milliseconds delay)
+{
+  std::weak_ptr<State> const weak = state;
+  state->m_background(delay, [weak, generation, isUpdate]
   {
-    std::lock_guard<std::mutex> guard(m_mutex);
-    // Canceling all calls of the method which were activated before |m_locationUpdateMinValid|.
-    if (locationUpdateCounter < m_locationUpdateMinValid)
+    auto const state = weak.lock();
+    if (!state || state->m_generation != generation)
       return;
 
-    uint64_t const extrapolationTimeMs = kExtrapolationPeriodMs * m_consecutiveRuns;
-    if (extrapolationTimeMs < kMaxExtrapolationTimeMs && m_lastGpsInfo.IsValid())
+    state->m_gui([weak, generation, isUpdate]
     {
-      if (DoesExtrapolationWork())
-        gpsInfo = LinearExtrapolation(m_beforeLastGpsInfo, m_lastGpsInfo, extrapolationTimeMs);
-      else
-        gpsInfo = m_lastGpsInfo;
-    }
-  }
-
-  if (gpsInfo.IsValid())
-    GetPlatform().RunTask(Platform::Thread::Gui, [this, gpsInfo]() { m_extrapolatedLocationUpdate(gpsInfo); });
-
-  {
-    std::lock_guard<std::mutex> guard(m_mutex);
-    if (m_consecutiveRuns != kExtrapolationCounterUndefined)
-      ++m_consecutiveRuns;
-  }
-
-  // Calling ExtrapolatedLocationUpdate() in |kExtrapolationPeriodMs| milliseconds.
-  RunTaskOnBackgroundThread(true /* delayed */);
+      if (auto const state = weak.lock())
+        Deliver(state, generation, isUpdate);
+    });
+  });
 }
 
-void Extrapolator::RunTaskOnBackgroundThread(bool delayed)
+void Extrapolator::Deliver(std::shared_ptr<State> const & state, uint64_t generation, bool isUpdate)
 {
-  uint64_t locationUpdateCounter = 0;
-  {
-    std::lock_guard<std::mutex> guard(m_mutex);
-    locationUpdateCounter = m_locationUpdateCounter;
-  }
+  if (state->m_generation != generation || !state->m_last.IsValid())
+    return;
 
-  if (delayed)
-  {
-    auto constexpr period = std::chrono::milliseconds(kExtrapolationPeriodMs);
-    GetPlatform().RunDelayedTask(Platform::Thread::Background, period,
-                                 [this, locationUpdateCounter] { ExtrapolatedLocationUpdate(locationUpdateCounter); });
-  }
-  else
-  {
-    GetPlatform().RunTask(Platform::Thread::Background,
-                          [this, locationUpdateCounter] { ExtrapolatedLocationUpdate(locationUpdateCounter); });
-  }
-}
+  auto const elapsed =
+      std::chrono::duration_cast<std::chrono::milliseconds>(state->m_now() - state->m_lastDistinctUpdate);
+  bool const expired = elapsed >= std::chrono::milliseconds(kMaxExtrapolationTimeMs);
+  bool const canPredict = state->m_enabled && AreCoordsGoodForExtrapolation(state->m_beforeLast, state->m_last);
+  if (!isUpdate && (expired || !canPredict))
+    return;
 
-bool Extrapolator::DoesExtrapolationWork() const
-{
-  if (!m_isEnabled || m_consecutiveRuns == kExtrapolationCounterUndefined)
-    return false;
+  location::GpsInfo const gpsInfo = !isUpdate && canPredict
+                                      ? LinearExtrapolation(state->m_beforeLast, state->m_last, elapsed.count())
+                                      : state->m_last;
+  state->m_update(gpsInfo);
 
-  return AreCoordsGoodForExtrapolation(m_beforeLastGpsInfo, m_lastGpsInfo);
+  if (!expired && canPredict && state->m_generation == generation)
+    Schedule(state, generation, false /* isUpdate */, std::chrono::milliseconds(kExtrapolationPeriodMs));
 }
 }  // namespace extrapolation
