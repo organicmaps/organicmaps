@@ -4,6 +4,62 @@
 
 #include <limits>
 
+UNIT_TEST(CyclingInfrastructure_V1V2Approaches)
+{
+  cycling::Sides sides{{cycling::Kind::Lane, cycling::Direction::Forward}, {}};
+  sides.m_left.m_junctions = {{1, 2}};
+  sides.m_left.m_approaches = {{{1, 3}, {2, 4}}};
+  auto const payload = cycling::Encode(sides);
+  TEST_EQUAL(static_cast<uint8_t>(payload[0]), 3, ());
+  auto restored = cycling::Decode(payload);
+  TEST(restored, ());
+  TEST_EQUAL(restored->m_left.m_approaches, sides.m_left.m_approaches, ());
+  restored->Reverse();
+  TEST_EQUAL(restored->m_right.m_approaches, sides.m_left.m_approaches, ());
+  // Exact v1 wire layout: version, flags, left count/point, right count.
+  auto legacy = payload.substr(0, 21);
+  legacy[0] = 1;
+  restored = cycling::Decode(legacy);
+  TEST(restored, ());
+  TEST_EQUAL(restored->m_left.m_junctions, sides.m_left.m_junctions, ());
+  TEST(restored->m_left.m_approaches.empty(), ());
+  auto v2 = payload.substr(0, payload.size() - 1);
+  v2[0] = 2;
+  restored = cycling::Decode(v2);
+  TEST(restored, ());
+  TEST_EQUAL(restored->m_left.m_approaches, sides.m_left.m_approaches, ());
+  TEST(restored->m_contacts.empty(), ());
+  // The old decoder's version gate rejects v2, falling back to ordinary styling.
+  TEST_NOT_EQUAL(static_cast<uint8_t>(payload[0]), 1, ());
+  for (size_t size = 21; size < payload.size(); ++size)
+    TEST(!cycling::Decode(std::string_view(payload).substr(0, size)), (size));
+  sides.m_left.m_approaches[0].resize(cycling::kMaxApproachesPerJunction + 1, {1, 3});
+  restored = cycling::Decode(cycling::Encode(sides));
+  TEST(restored, ());
+  TEST(restored->m_left.m_approaches[0].empty(), ());
+  auto excessive = payload;
+  excessive[21] = static_cast<char>(cycling::kMaxApproachesPerJunction + 1);
+  TEST(!cycling::Decode(excessive), ());
+  sides.m_left.m_approaches = {{{std::numeric_limits<double>::infinity(), 3}}};
+  TEST(!cycling::Decode(cycling::Encode(sides)), ());
+}
+
+UNIT_TEST(CyclingInfrastructure_ConnectorV3RoundTrip)
+{
+  cycling::Sides data;
+  data.m_contacts.push_back({{0, 0}, {{-1, 0}, {0, 0}}, 42, cycling::Kind::Lane, -1});
+  auto const payload = cycling::Encode(data);
+  auto restored = cycling::Decode(payload);
+  TEST(restored, ());
+  TEST_EQUAL(restored->m_contacts.size(), 1, ());
+  TEST_EQUAL(restored->m_contacts[0].m_roadPath, data.m_contacts[0].m_roadPath, ());
+  TEST_EQUAL(cycling::Encode(*restored), payload, ());
+  restored->Reverse();
+  TEST_EQUAL(cycling::Encode(*restored), payload, ("Connector reversal must not reverse road-relative sides"));
+  for (size_t length = 0; length < payload.size(); ++length)
+    TEST(!cycling::Decode(std::string_view(payload).substr(0, length)), (length));
+}
+
 UNIT_TEST(CyclingInfrastructure_SideDirectionRoundTripAndReverse)
 {
   cycling::Sides sides{{cycling::Kind::Track, cycling::Direction::Backward},
