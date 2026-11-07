@@ -38,6 +38,10 @@ std::map<uint64_t, cycling::Sides> FindCyclingJunctions(std::vector<CyclingWay> 
                                                         std::vector<CyclingWay> const & connectors,
                                                         std::function<bool(uint64_t)> const & blocked);
 
+std::map<uint64_t, std::vector<cycling::ConnectorContact>> FindCyclingConnectorContacts(
+    std::vector<CyclingWay> const & roads, std::vector<CyclingWay> const & connectors,
+    std::map<uint64_t, uint32_t> const & roadTypes, std::function<bool(uint64_t)> const & blocked);
+
 class CyclingJunctionCollector : public CollectorInterface
 {
 public:
