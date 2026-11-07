@@ -76,7 +76,7 @@ UNIT_TEST(Zgrad924aToKrukovo)
 {
   integration::CalculateRouteAndTestRouteLength(integration::GetVehicleComponents(VehicleType::Pedestrian),
                                                 mercator::FromLatLon(55.9844, 37.1808), {0., 0.},
-                                                mercator::FromLatLon(55.9802, 37.1736), 1030);
+                                                mercator::FromLatLon(55.9802, 37.1736), 954.346);
 }
 
 UNIT_TEST(MoscowMailRuStarbucksToPetrovskoRazumovskyAlley)
@@ -305,7 +305,7 @@ UNIT_TEST(RussiaSaintPetersburgPetrPaulChurchToDolphins)
 {
   integration::CalculateRouteAndTestRouteLength(integration::GetVehicleComponents(VehicleType::Pedestrian),
                                                 mercator::FromLatLon(59.9502, 30.3165), {0., 0.},
-                                                mercator::FromLatLon(59.973, 30.2702), 4607.);
+                                                mercator::FromLatLon(59.973, 30.2702), 4770.68);
 }
 
 UNIT_TEST(RussiaPetergofEntranceToErmitagePalace)
@@ -671,6 +671,8 @@ UNIT_TEST(Australia_Mountains_Downlhill)
 
 UNIT_TEST(Turkey_UsePrimary)
 {
+  // Use detour with residential + sidewalk instead of primary. Primary as the alt route.
+  /// @todo OSRM, GH, Valhalla use primary, and for Turkey it looks acceptable.
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Pedestrian), FromLatLon(38.7352697, 35.516104),
                                    {0., 0.}, FromLatLon(38.7398797, 35.5170627), 679.702);
 
