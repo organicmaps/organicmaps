@@ -166,18 +166,12 @@ public:
     virtual void OnMapDeregistered(platform::LocalCountryFile const & /* localFile */) {}
   };
 
-  /// Registers a new map.
-  ///
-  /// \return An active mwm handle when an mwm file with this version
-  /// already exists (in this case mwm handle will point to already
-  /// registered file) or when all registered corresponding mwm files
-  /// are older than the localFile (in this case mwm handle will point
-  /// to just-registered file).
-
 protected:
   std::pair<MwmId, RegResult> RegisterImpl(platform::LocalCountryFile const & localFile, EventList & events);
 
 public:
+  /// Registers a new map or reactivates an existing registration of the same version.
+  /// Returns its ID on success, or a null ID when registration fails.
   std::pair<MwmId, RegResult> Register(platform::LocalCountryFile const & localFile);
   //@}
 
