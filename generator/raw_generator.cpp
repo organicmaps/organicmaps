@@ -1,4 +1,5 @@
 #include "generator/raw_generator.hpp"
+#include "generator/cycling_junctions.hpp"
 
 // #include "generator/complex_loader.hpp"
 #include "generator/features_processing_helpers.hpp"
@@ -112,7 +113,7 @@ void RawGenerator::GenerateCountries(bool isTests /* = false*/)
   /// Now we have at least 2x similar work in OsmElement->GetNameAndType->FeatureBuilder (for Country and World).
 
   m_translators->Append(
-      CreateTranslator(TranslatorType::Country, processor, m_cache, m_genInfo, isTests ? nullptr : affiliation));
+      CreateTranslator(TranslatorType::Country, processor, m_cache, m_genInfo, affiliation, !isTests));
 
   m_finalProcessors.emplace(CreateCountryFinalProcessor(affiliation, false));
   m_finalProcessors.emplace(CreatePlacesFinalProcessor(affiliation));
@@ -183,6 +184,7 @@ RawGenerator::FinalProcessorPtr RawGenerator::CreateCountryFinalProcessor(Affili
   finalProcessor->SetAddressesDir(m_genInfo.m_addressesDir);
   finalProcessor->SetMiniRoundabouts(m_genInfo.GetIntermediateFileName(MINI_ROUNDABOUTS_FILENAME));
   finalProcessor->SetAddrInterpolation(m_genInfo.GetIntermediateFileName(ADDR_INTERPOL_FILENAME));
+  finalProcessor->SetCyclingJunctions(m_genInfo.GetIntermediateFileName(kCyclingJunctionsFilename));
   if (addAds)
     finalProcessor->SetFakeNodes(base::JoinPath(GetPlatform().ResourcesDir(), MIXED_NODES_FILE));
 

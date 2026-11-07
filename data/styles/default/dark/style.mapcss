@@ -7,3 +7,5 @@
 @import("../include/Icons.mapcss");
 @import("../include/Subways.mapcss");
 @import("../../common/dark/gui_colors.mapcss");
+
+@import("../../common/QuietCycling.mapcss");

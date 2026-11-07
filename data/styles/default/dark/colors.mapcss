@@ -208,3 +208,19 @@
 @label_isoline100: #496149;
 @label_isoline50: #496149;
 @label_isoline10: #496149;
+
+/* Quieter road hierarchy for the cycling presentation. */
+@import("../../common/dark/quiet_roads.mapcss");
+/* Local quiet colored-road experiment. */
+@trunk0: #30170A;
+@trunk1: #30190A;
+@primary0: #301B0A;
+@primary1: #301B0A;
+@primary2: #301C0A;
+@secondary0: #30220A;
+@secondary1: #30220A;
+@tertiary: #232323;
+@residential: #202020;
+@trunk_tunnel: #23130A;
+@primary_tunnel: #23150A;
+@secondary_tunnel: #231A0A;

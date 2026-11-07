@@ -3,9 +3,237 @@
 #include "drape/glsl_func.hpp"
 
 #include "base/assert.hpp"
+#include "geometry/parametrized_segment.hpp"
+#include "geometry/segment2d.hpp"
+
+#include <algorithm>
+#include <bit>
+#include <cmath>
+#include <limits>
+#include <optional>
 
 namespace df
 {
+std::vector<m2::PointF> ConnectorEndpointOffsets(std::vector<m2::PointD> const & path,
+                                                 std::vector<ConnectorTarget> const & targets, double scaleGtoP,
+                                                 double tolerance)
+{
+  auto const finite = [](double value)
+  { return (std::bit_cast<uint64_t>(value) & 0x7ff0000000000000ULL) != 0x7ff0000000000000ULL; };
+  if (path.size() < 2 || targets.empty() || !finite(scaleGtoP) || scaleGtoP <= 0 || !finite(tolerance) || tolerance < 0)
+    return {};
+  // A closed loop has no unambiguous terminal. Self-crossing geometry would also
+  // make the clipped-vertex mapping below attach an offset to the wrong pass.
+  if (path.size() > 2 && path.front() == path.back())
+    return {};
+  for (size_t i = 1; i < path.size(); ++i)
+    for (size_t j = i + 2; j < path.size(); ++j)
+      if (m2::SegmentsIntersect(path[i - 1], path[i], path[j - 1], path[j]))
+        return {};
+  std::vector<m2::PointF> result(path.size(), m2::PointF::Zero());
+  bool changed = false;
+  for (size_t end : {size_t{0}, path.size() - 1})
+  {
+    auto const & endpoint = path[end];
+    auto const & neighbor = path[end == 0 ? 1 : end - 1];
+    if ((neighbor - endpoint).SquaredLength() == 0)
+      continue;
+    double best = std::numeric_limits<double>::max();
+    std::optional<m2::PointD> candidate;
+    bool connected = false;
+    for (auto const & target : targets)
+    {
+      auto const & road = target.m_roadPath;
+      double const offset = target.m_offsetPixels;
+      // Contacts at the other end of a long connector must not suppress this end.
+      if ((endpoint - target.m_junction).Length() > tolerance || road.size() < 2 || !finite(offset) || offset == 0 ||
+          !finite(4 * offset / scaleGtoP))
+        continue;
+      double const bound = std::min(4 * std::abs(offset) / scaleGtoP, (neighbor - endpoint).Length());
+      for (size_t i = 1; i < road.size(); ++i)
+      {
+        auto const axis = m2::ParametrizedSegment<m2::PointD>(road[i - 1], road[i]);
+        if ((axis.ClosestPointTo(target.m_junction) - target.m_junction).Length() > tolerance)
+          continue;
+        auto const a = LinePixelOffset(road, i - 1, offset);
+        auto const b = LinePixelOffset(road, i, offset);
+        auto const start = road[i - 1] + m2::PointD(a.x, a.y) / scaleGtoP;
+        auto const finish = road[i] + m2::PointD(b.x, b.y) / scaleGtoP;
+        for (size_t j = 1; j < path.size(); ++j)
+          connected |= m2::SegmentsIntersect(start, finish, path[j - 1], path[j]);
+        auto const point = m2::ParametrizedSegment<m2::PointD>(start, finish).ClosestPointTo(endpoint);
+        double const distance = (point - endpoint).SquaredLength();
+        if (distance >= best || distance > bound * bound || DotProduct(point - neighbor, endpoint - neighbor) <= 0)
+          continue;
+        // The connector must approach from the lane's side of the road axis.
+        // Segment intersection alone misses a crossing past the road endpoint.
+        auto const axisDirection = road[i] - road[i - 1];
+        auto const candidateSide = CrossProduct(axisDirection, point - road[i - 1]);
+        auto const approachSide = CrossProduct(axisDirection, neighbor - road[i - 1]);
+        if (candidateSide * approachSide < 0)
+          continue;
+        // Never authorize a terminal adjustment through the car-road axis.
+        bool crosses = false;
+        for (size_t j = 1; j < road.size(); ++j)
+          crosses |= m2::SegmentsIntersect(point, neighbor, road[j - 1], road[j]);
+        if (!crosses)
+        {
+          best = distance;
+          candidate = point;
+        }
+      }
+    }
+    if (!connected && candidate)
+    {
+      auto const pixels = (*candidate - endpoint) * scaleGtoP;
+      result[end] = m2::PointF(pixels.x, pixels.y);
+      changed = true;
+    }
+  }
+  return changed ? result : std::vector<m2::PointF>{};
+}
+
+glsl::vec2 InterpolateLinePixelOffset(std::vector<m2::PointD> const & path, std::vector<m2::PointF> const & offsets,
+                                      size_t segment, m2::PointD const & point)
+{
+  ASSERT_EQUAL(path.size(), offsets.size(), ());
+  segment = std::min(segment, path.size() - 2);
+  double const length = (path[segment + 1] - path[segment]).Length();
+  float const t = length == 0 ? 0 : std::clamp((point - path[segment]).Length() / length, 0.0, 1.0);
+  return glsl::ToVec2(offsets[segment]) * (1 - t) + glsl::ToVec2(offsets[segment + 1]) * t;
+}
+
+float JunctionTaper::Scale(double distance) const
+{
+  double factor = 1;
+  if (m_span > 0)
+    for (double junction : m_distances)
+      factor = std::min(factor, std::abs(distance - junction) / m_span);
+  return factor * factor * (3 - 2 * factor);
+}
+
+JunctionTaper MakeJunctionTaper(m2::SharedSpline const & source, std::vector<m2::PointD> const & junctions, double span,
+                                double tolerance, std::vector<std::vector<m2::PointD>> const & approaches)
+{
+  JunctionTaper result{source, {}, span};
+  auto const & path = source->GetPath();
+  if (junctions.empty() || path.size() < 2 || span <= 0 || tolerance <= 0)
+    return result;
+  std::vector<double> distances{0};
+  for (size_t i = 1; i < path.size(); ++i)
+    distances.push_back(distances.back() + (path[i] - path[i - 1]).Length());
+  for (size_t junctionIndex = 0; junctionIndex < junctions.size(); ++junctionIndex)
+  {
+    // Known connector approaches move the solid connector instead, so the
+    // roadside offset line must stay straight. Maps without this metadata keep
+    // the legacy taper.
+    if (junctionIndex < approaches.size() && !approaches[junctionIndex].empty())
+      continue;
+    auto const & junction = junctions[junctionIndex];
+    double best = tolerance * tolerance;
+    double earliest = distances.back();
+    double latest = 0;
+    std::optional<double> position;
+    for (size_t i = 1; i < path.size(); ++i)
+    {
+      auto const p = m2::ParametrizedSegment<m2::PointD>(path[i - 1], path[i]).ClosestPointTo(junction);
+      double const error = (p - junction).SquaredLength();
+      double const along = distances[i - 1] + (p - path[i - 1]).Length();
+      if (error <= tolerance * tolerance)
+      {
+        earliest = std::min(earliest, along);
+        latest = std::max(latest, along);
+      }
+      if (error <= best)
+      {
+        best = error;
+        position = along;
+      }
+    }
+    // The debug payload has coordinates, not a vertex identity in simplified
+    // geometry. At loops/self-crossings an ambiguous match must leave a gap.
+    if (position && latest - earliest <= 4 * tolerance)
+      result.m_distances.push_back(*position);
+  }
+  if (result.m_distances.empty())
+    return result;
+  auto samples = distances;
+  for (double junction : result.m_distances)
+    for (int i = -4; i <= 4; ++i)
+      samples.push_back(std::clamp(junction + span * i / 4, 0.0, distances.back()));
+  std::sort(samples.begin(), samples.end());
+  samples.erase(std::unique(samples.begin(), samples.end()), samples.end());
+  std::vector<m2::PointD> points;
+  size_t segment = 1;
+  for (double distance : samples)
+  {
+    while (segment + 1 < distances.size() && distances[segment] < distance)
+      ++segment;
+    double const length = distances[segment] - distances[segment - 1];
+    if (length <= 0)
+      continue;
+    double const t = (distance - distances[segment - 1]) / length;
+    points.push_back(path[segment - 1] * (1 - t) + path[segment] * t);
+  }
+  if (points.size() >= 2)
+    result.m_spline = m2::SharedSpline(std::move(points));
+  return result;
+}
+
+double PathSymbolOffsetForClip(double first, double step, double sourceDistance)
+{
+  ASSERT_GREATER(step, 0.0, ());
+  sourceDistance = std::max(0.0, sourceDistance);
+  if (sourceDistance <= first)
+    return first - sourceDistance;
+  double result = std::fmod(first - sourceDistance, step);
+  return result < 0 ? result + step : result;
+}
+
+glsl::vec2 LinePixelOffsetOnSegment(std::vector<m2::PointD> const & path, size_t segment, m2::PointD const & point,
+                                    float offset)
+{
+  if (point.EqualDxDy(path[segment], 1e-12))
+    return LinePixelOffset(path, segment, offset);
+  if (point.EqualDxDy(path[segment + 1], 1e-12))
+    return LinePixelOffset(path, segment + 1, offset);
+  auto const delta = path[segment + 1] - path[segment];
+  double const length = delta.Length();
+  if (length == 0)
+    return {0.0f, 0.0f};
+  return glsl::vec2(delta.y * offset / length, -delta.x * offset / length);
+}
+
+float SideOffsetPixels(float roadWidth, float lineWidth, float gap, int side)
+{
+  return side * (0.5f * (roadWidth + lineWidth) + gap);
+}
+
+glsl::vec2 LinePixelOffset(std::vector<m2::PointD> const & path, size_t index, float offset)
+{
+  if (offset == 0)
+    return {0.0f, 0.0f};
+  ASSERT_GREATER(path.size(), 1, ());
+  auto incoming = index == 0 ? path[1] - path[0] : path[index] - path[index - 1];
+  auto outgoing = index + 1 == path.size() ? incoming : path[index + 1] - path[index];
+  if (incoming.SquaredLength() == 0)
+    incoming = outgoing;
+  if (outgoing.SquaredLength() == 0)
+    outgoing = incoming;
+  if (incoming.SquaredLength() == 0)
+    return {0.0f, 0.0f};
+  incoming = incoming / incoming.Length();
+  outgoing = outgoing / outgoing.Length();
+  m2::PointD const a(incoming.y, -incoming.x), b(outgoing.y, -outgoing.x);
+  double const denominator = 1.0 + DotProduct(incoming, outgoing);
+  auto miter = denominator < 0.01 ? b : (a + b) / denominator;
+  // Bound near-reversals rather than producing arbitrarily long spikes.
+  double const length = miter.Length();
+  if (length > 4.0)
+    miter = miter * (4.0 / length);
+  return glsl::vec2(miter.x * offset, miter.y * offset);
+}
+
 namespace
 {
 void UpdateNormalBetweenSegments(LineSegment * segment1, LineSegment * segment2)
@@ -259,5 +487,17 @@ float GetProjectionLength(glsl::vec2 const & newPoint, glsl::vec2 const & startP
   float const squareLen = glsl::dot(v1, v1);
   float const proj = glsl::dot(v1, v2) / squareLen;
   return sqrt(squareLen) * math::Clamp(proj, 0.0f, 1.0f);
+}
+
+double WrapDashPhase(double phase, double maskLength)
+{
+  ASSERT_GREATER(maskLength, 0.0, ());
+  double const wrapped = std::fmod(phase, maskLength);
+  return wrapped < 0.0 ? wrapped + maskLength : wrapped;
+}
+
+double AdvanceDashPhase(double phase, double distance, bool reversed)
+{
+  return phase + (reversed ? -distance : distance);
 }
 }  // namespace df

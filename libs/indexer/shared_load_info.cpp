@@ -1,4 +1,5 @@
 #include "indexer/shared_load_info.hpp"
+#include "indexer/cycling_infrastructure_section.hpp"
 
 #include "indexer/feature_impl.hpp"
 #include "indexer/features_offsets_table.hpp"
@@ -23,6 +24,14 @@ SharedLoadInfo::SharedLoadInfo(FilesContainerR const & cont, DataHeader const & 
 SharedLoadInfo::Reader SharedLoadInfo::GetDataReader() const
 {
   return m_cont.GetReader(FEATURES_FILE_TAG);
+}
+
+std::string SharedLoadInfo::GetCyclingInfrastructure(uint32_t featureId) const
+{
+  if (!m_cont.IsExist(cycling::kSectionTag))
+    return {};
+  auto const reader = m_cont.GetReader(cycling::kSectionTag);
+  return cycling::ReadSection(reader, featureId);
 }
 
 SharedLoadInfo::Reader SharedLoadInfo::GetGeometryReader(size_t ind) const

@@ -1,0 +1,17 @@
+/* Neutral road hierarchy and subdued building context. */
+@trunk0: #666666;
+@trunk1: #626262;
+@primary0: #5C5C5C;
+@primary1: #585858;
+@primary2: #555555;
+@secondary0: #505050;
+@secondary1: #4C4C4C;
+@tertiary: #444444;
+@residential: #383838;
+@trunk_tunnel: #404040;
+@primary_tunnel: #3C3C3C;
+@secondary_tunnel: #383838;
+@building0: #242424;
+@building1: #282828;
+@building_border0: #303030;
+@building_border1: #333333;
