@@ -283,6 +283,17 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         .show(mFragment.getChildFragmentManager(), DOWNLOADER_MENU_ID);
   }
 
+  @Nullable
+  String getSelectedItemId()
+  {
+    return mSelectedItem != null ? mSelectedItem.id : null;
+  }
+
+  void setSelectedItem(@NonNull CountryItem item)
+  {
+    mSelectedItem = item;
+  }
+
   public ArrayList<MenuBottomSheetItem> getMenuItems()
   {
     ArrayList<MenuBottomSheetItem> items = new ArrayList<>();
