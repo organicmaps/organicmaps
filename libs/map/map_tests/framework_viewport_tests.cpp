@@ -117,8 +117,50 @@ UNIT_TEST(Framework_GtoP3d)
     auto const geo = framework.P3dtoG(pixel);
     TEST_LESS(geo.x, 0.0, (perspective));
     auto const actual = framework.GtoP3d(geo);
-    TEST_ALMOST_EQUAL_ABS(actual.x, pixel.x, kEps, (perspective));
-    TEST_ALMOST_EQUAL_ABS(actual.y, pixel.y, kEps, (perspective));
+    TEST(actual, (perspective));
+    TEST_ALMOST_EQUAL_ABS(actual->x, pixel.x, kEps, (perspective));
+    TEST_ALMOST_EQUAL_ABS(actual->y, pixel.y, kEps, (perspective));
+  }
+}
+
+UNIT_TEST(Framework_GtoP3d_BehindCamera)
+{
+  m2::RectD const pixelRect(0.0, 0.0, 1000.0, 1000.0);
+  // South of the camera, which in 3D sits south of the screen center and looks north.
+  m2::PointD const behind = mercator::FromLatLon(41.89, 12.5);
+  double constexpr kEps = 1e-3;
+
+  TestFramework framework;
+  for (bool const perspective : {false, true})
+  {
+    ScreenBase screen;
+    screen.OnSize(m2::RectI(pixelRect));
+    // The automatic perspective tilts the map by 45 degrees at this scale.
+    screen.SetFromParams(mercator::FromLatLon(41.9, 12.5), 0.0 /* angle */, 3e-6 /* scale */);
+    screen.SetAutoPerspective(perspective);
+    TEST_EQUAL(screen.isPerspective(), perspective, ());
+    framework.SetViewport(screen, pixelRect);
+
+    // Off the screen but in front of the camera, beyond each edge.
+    for (m2::PointD const pixel :
+         {m2::PointD(500.0, -300.0), m2::PointD(1300.0, 500.0), m2::PointD(-300.0, 500.0), m2::PointD(500.0, 2000.0)})
+    {
+      auto const actual = framework.GtoP3d(framework.P3dtoG(pixel));
+      TEST(actual, (perspective, pixel));
+      TEST_ALMOST_EQUAL_ABS(actual->x, pixel.x, kEps, (perspective, pixel));
+      TEST_ALMOST_EQUAL_ABS(actual->y, pixel.y, kEps, (perspective, pixel));
+    }
+
+    auto const actual = framework.GtoP3d(behind);
+    if (perspective)
+    {
+      TEST(!actual, (*actual));
+    }
+    else
+    {
+      TEST(actual, ());
+      TEST_GREATER(actual->y, pixelRect.maxY(), ());
+    }
   }
 }
 }  // namespace framework_viewport_tests

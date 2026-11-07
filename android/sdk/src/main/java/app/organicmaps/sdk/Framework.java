@@ -108,8 +108,10 @@ public class Framework
   public static native double[] nativeScreenToLatLon(double x, double y);
 
   /**
-   * Converts WGS84 latitude and longitude in degrees to view pixels, the inverse of {@link #nativeScreenToLatLon}.
+   * Converts WGS84 latitude and longitude in degrees to view pixels, the inverse of {@link #nativeScreenToLatLon}. A
+   * point off the screen gets pixels outside the view, but in 3D a point behind the camera has no pixel and gets null.
    */
+  @Nullable
   @Size(2)
   public static native double[] nativeLatLonToScreen(double lat, double lon);
 

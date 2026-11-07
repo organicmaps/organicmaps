@@ -1184,8 +1184,10 @@ JNIEXPORT jdoubleArray Java_app_organicmaps_sdk_Framework_nativeScreenToLatLon(J
 JNIEXPORT jdoubleArray Java_app_organicmaps_sdk_Framework_nativeLatLonToScreen(JNIEnv * env, jclass, jdouble lat,
                                                                                jdouble lon)
 {
-  m2::PointD const pt = frm()->GtoP3d(mercator::FromLatLon(lat, lon));
-  return ToJavaPair(env, pt.x, pt.y);
+  auto const pt = frm()->GtoP3d(mercator::FromLatLon(lat, lon));
+  if (!pt)
+    return nullptr;
+  return ToJavaPair(env, pt->x, pt->y);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRestoreDownloadQueue(JNIEnv * env, jclass)

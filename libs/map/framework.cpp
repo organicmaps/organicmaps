@@ -1732,9 +1732,12 @@ m2::PointD Framework::P3dtoG(m2::PointD const & p) const
   return pt;
 }
 
-m2::PointD Framework::GtoP3d(m2::PointD const & p) const
+std::optional<m2::PointD> Framework::GtoP3d(m2::PointD const & p) const
 {
-  return m_currentModelView.PtoP3d(df::GtoPWrap(p, m_currentModelView));
+  m2::PointD const pt = df::GtoPWrap(p, m_currentModelView);
+  if (m_currentModelView.IsReverseProjection3d(pt))
+    return {};
+  return m_currentModelView.PtoP3d(pt);
 }
 
 void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFactory, DrapeCreationParams && params)
