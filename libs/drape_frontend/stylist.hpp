@@ -1,5 +1,7 @@
 #pragma once
 
+#include "drape_frontend/line_shape_helper.hpp"
+
 #include "indexer/drawing_rules.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/map_style.hpp"
@@ -130,10 +132,12 @@ public:
     bool m_reverseArrow = false;
     float m_roadWidth = 0;  // Style pixels, excluding bridge/tunnel decoration.
     std::vector<m2::PointD> m_junctions = {};
+    std::vector<std::vector<m2::PointD>> m_approaches = {};
 
     m2::SharedSpline GetArrowSpline(m2::SharedSpline const & piece) const;
   };
   std::vector<SideRules> m_cyclewaySides;
+  std::vector<ConnectorTarget> m_connectorTargets;
   bool HasLineRules() const { return !m_lineRules.empty() || !m_cyclewaySides.empty(); }
 
   ftypes::RoadShieldsSetT m_roadShields;

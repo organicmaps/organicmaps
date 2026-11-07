@@ -155,7 +155,8 @@ public:
 
   bool HasGeometry() const { return m_builder.HasGeometry(); }
   void ProcessLineRules(Stylist::LineRulesT const & lineRules, bool isIsoline,
-                        std::vector<Stylist::SideRules> const & sideRules = {});
+                        std::vector<Stylist::SideRules> const & sideRules = {},
+                        std::vector<ConnectorTarget> const & connectorTargets = {});
 
   std::vector<m2::SharedSpline> MoveClippedSplines() { return std::move(m_clippedSplines); }
 
@@ -166,6 +167,7 @@ private:
   RelationsDrawInfo m_relsInfo;
   ClipSplinesBuilder m_builder;
   std::vector<m2::SharedSpline> m_clippedSplines;
+  std::vector<std::vector<m2::PointF>> m_connectorPointOffsets;
   double m_dashPhaseOffset = 0.0;
   bool m_dashPhaseReversed = false;
 
