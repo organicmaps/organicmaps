@@ -143,8 +143,18 @@ void PathSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::Bat
     glsl::vec4 const pivot(glsl::ToVec2(ConvertToLocal(position, m_params.m_tileCenter, kShapeCoordScalar)),
                            m_params.m_depth, 0.0f);
 
-    glsl::vec2 const n = halfPxSize.y * glsl::normalize(glsl::vec2(-direction.y, direction.x));
-    glsl::vec2 const d = halfPxSize.x * glsl::normalize(glsl::vec2(direction.x, direction.y));
+    auto tangent = direction;
+    if (m_params.m_pointOffsetsPixels.size() == m_spline->GetPath().size())
+    {
+      auto const & path = m_spline->GetPath();
+      segment = std::min(segment, path.size() - 2);
+      auto const delta = m_params.m_pointOffsetsPixels[segment + 1] - m_params.m_pointOffsetsPixels[segment];
+      tangent = path[segment + 1] - path[segment] + m2::PointD(delta.x, delta.y) * pixelToGlobalScale;
+      if (tangent.SquaredLength() == 0)
+        tangent = direction;
+    }
+    glsl::vec2 const n = halfPxSize.y * glsl::normalize(glsl::vec2(-tangent.y, tangent.x));
+    glsl::vec2 const d = halfPxSize.x * glsl::normalize(glsl::vec2(tangent.x, tangent.y));
     glsl::vec2 offset = m_params.m_lateralOffsetPixels * glsl::normalize(glsl::vec2(direction.y, -direction.x));
     if (m_params.m_pointOffsetsPixels.size() == m_spline->GetPath().size())
       offset = InterpolateLinePixelOffset(m_spline->GetPath(), m_params.m_pointOffsetsPixels, segment, position);
