@@ -9,10 +9,13 @@
 #include "geometry/mercator.hpp"
 
 #include "base/file_name_utils.hpp"
+#include "base/math.hpp"
 
 #include <algorithm>
 #include <cmath>
 #include <map>
+#include <utility>
+#include <vector>
 
 namespace isolines_tracer_tests
 {
@@ -60,7 +63,7 @@ UNIT_TEST(TerrainIsolines_RealHybridInvariants)
     }
     for (auto const & point : points)
     {
-      TEST(std::isfinite(point.x) && std::isfinite(point.y), (isoline.m_altitude));
+      TEST(math::is_finite(point.x) && math::is_finite(point.y), (isoline.m_altitude));
       TEST(rect.IsPointInside(point), (isoline.m_altitude, point));
     }
   });
@@ -94,6 +97,55 @@ UNIT_TEST(TerrainIsolines_SteepTriangle)
     });
     // 7000 m is 700 levels at 10 m and 1148 levels at 20 ft.
     TEST_GREATER(lines, units == measurement_utils::Units::Metric ? 690 : 1140, (lines));
+  }
+}
+
+UNIT_TEST(TerrainIsolines_SplitGridContours)
+{
+  auto const trace = [](terrain::TerrainData const & data, measurement_utils::Units units)
+  {
+    std::map<int32_t, std::pair<bool, std::vector<m2::PointD>>> lines;
+    terrain::TraceIsolines(data, 20, units, [&](terrain::Isoline && line)
+    {
+      if (line.m_closed)
+      {
+        auto & points = line.m_points;
+        points.pop_back();
+        std::rotate(points.begin(), std::min_element(points.begin(), points.end()), points.end());
+        points.push_back(points.front());
+      }
+      // Each surface has one contour per level; a broken seam must not split it into fragments.
+      TEST(lines.emplace(line.m_altitude, std::make_pair(line.m_closed, std::move(line.m_points))).second, ());
+    });
+    return lines;
+  };
+  for (auto const & heights : {std::vector<terrain::Altitude>{0, 0, 0, 0, 40, 0, 0, 0, 0},
+                               std::vector<terrain::Altitude>{-20, -10, 0, -10, 0, 10, 0, 10, 20}})
+  {
+    terrain::RasterPatch const whole{{1000000, 2000000, 3000000}, {1000000, 2000000, 3000000}, heights};
+    terrain::TerrainData full;
+    full.m_rasterPatches.push_back(whole);
+    terrain::TerrainData split;
+    for (size_t y = 0; y < 2; ++y)
+      for (size_t x = 0; x < 2; ++x)
+        split.m_rasterPatches.push_back(
+            {{whole.m_columns[x], whole.m_columns[x + 1]},
+             {whole.m_rows[y], whole.m_rows[y + 1]},
+             {heights[3 * y + x], heights[3 * y + x + 1], heights[3 * (y + 1) + x], heights[3 * (y + 1) + x + 1]}});
+    auto hybrid = split;
+    auto const & corner = hybrid.m_rasterPatches.front();
+    for (uint32_t v = 0; v < 4; ++v)
+      hybrid.m_mesh.AddVertex(corner.PointU(v), corner.m_heights[v]);
+    hybrid.m_mesh.AddTriangle(0, 1, 3);
+    hybrid.m_mesh.AddTriangle(0, 3, 2);
+    hybrid.m_rasterPatches.erase(hybrid.m_rasterPatches.begin());
+    for (auto const units : {measurement_utils::Units::Metric, measurement_utils::Units::Imperial})
+    {
+      auto const expected = trace(full, units);
+      TEST(!expected.empty(), ());
+      TEST_EQUAL(trace(split, units), expected, (static_cast<int>(units), "Raster seams"));
+      TEST_EQUAL(trace(hybrid, units), expected, (static_cast<int>(units), "TIN/raster seams"));
+    }
   }
 }
 
@@ -198,7 +250,7 @@ UNIT_TEST(TerrainNormals_RealHybridInterfaces)
     {
       auto const node = perimeter(i);
       auto const & actual = normals.m_raster[p][node];
-      TEST(std::isfinite(actual.m_x) && std::isfinite(actual.m_y), (p, node));
+      TEST(math::is_finite(actual.m_x) && math::is_finite(actual.m_y), (p, node));
       TEST_GREATER(actual.m_z, 0.0, (p, node));
       auto const [it, inserted] = interface.emplace(terrain::impl::PointKey(patch.PointU(node)), actual);
       if (!inserted)
