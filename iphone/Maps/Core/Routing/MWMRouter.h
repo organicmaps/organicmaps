@@ -84,6 +84,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (MWMFollowTrackResult)navigateTrack:(MWMTrackID)trackId;
 /// Rebuilds from the current native selection, preserving profile, direction and viewport.
 + (MWMFollowTrackResult)updateFollowedTrackEntry;
++ (MWMFollowTrackResult)updateFollowedTrackEntryAtDistance:(double)distance
+    NS_SWIFT_NAME(updateFollowedTrackEntry(atDistance:));
 /// Reverses a built preview at the captured source entry; active navigation is refused.
 + (MWMFollowTrackResult)reverseFollowedTrack;
 /// Switches the preview profile without changing the persisted default. Refusals preserve the session.
@@ -117,6 +119,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)hasRouteAltitude;
 + (void)saveRouteAsTrack;
 + (nullable RouteElevationPreviewData *)routeElevationProfileData;
++ (nullable NSNumber *)routeElevationActivePointDistance;
 + (void)setRouteElevationActivePointDistance:(double)distance;
 + (void)resetRouteElevationActivePoint;
 

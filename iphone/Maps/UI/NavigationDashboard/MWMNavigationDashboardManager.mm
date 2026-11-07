@@ -181,6 +181,7 @@
   // Closing must not create a dashboard or reuse its retiring view.
   id<NavigationDashboardView> navigationDashboardView = _navigationDashboardView;
   _navigationDashboardView = nil;
+  _availableAreaView = nil;
   BOOL const wasSelectingRoutePoint = self.isRoutePointSelectionActive;
   [self cancelRoutePointSelection];
   // A route-point search has no valid target after the route workflow closes.
