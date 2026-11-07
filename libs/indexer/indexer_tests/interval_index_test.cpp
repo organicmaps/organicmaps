@@ -9,6 +9,7 @@
 #include "base/macros.hpp"
 #include "base/stl_helpers.hpp"
 
+#include <limits>
 #include <utility>
 #include <vector>
 
@@ -217,6 +218,33 @@ UNIT_TEST(IntervalIndex_Empty)
     index.ForEach(IndexValueInserter(values), 0ULL, 0xFFFFFFFFFFULL);
     TEST_EQUAL(values, vector<uint32_t>(), ());
   }
+}
+
+UNIT_TEST(IntervalIndex_ClampedRanges)
+{
+  vector<CellIdFeaturePairForTest> const data = {{0, 1}, {0xffff, 2}};
+  vector<uint8_t> buffer;
+  MemWriter writer(buffer);
+  IntervalIndexBuilder(16, 1, 4).BuildIndex(writer, data.begin(), data.end());
+  MemReader reader(buffer.data(), buffer.size());
+  IntervalIndex<MemReader, uint32_t> index(reader);
+  uint64_t const end = index.KeyEnd();
+
+  auto const check = [&](uint64_t beg, uint64_t limit, vector<uint32_t> const & expected)
+  {
+    vector<uint32_t> values;
+    index.ForEach(IndexValueInserter(values), beg, limit);
+    TEST_EQUAL(values, expected, (beg, limit));
+  };
+  check(0, 0, {});
+  check(0, 1, {1});
+  check(end - 1, end, {2});
+  check(end - 1, end + 1, {2});
+  check(0, end + 1, {1, 2});
+  check(end, end, {});
+  check(end, end + 1, {});
+  check(end + 1, end + 2, {});
+  check(numeric_limits<uint64_t>::max() - 1, numeric_limits<uint64_t>::max(), {});
 }
 
 UNIT_TEST(IntervalIndex_Simple2)
