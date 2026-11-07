@@ -173,13 +173,13 @@ UNIT_CLASS_TEST(TestRawGenerator, CyclingJunctions_NormalGeneration)
       if (auto const data = cycling::Decode(feature->GetCyclingInfrastructure()))
       {
         ++connectors;
-        TEST_EQUAL(data->m_left.m_kind, cycling::Kind::None, ());
-        TEST_EQUAL(data->m_right.m_kind, cycling::Kind::None, ());
+        TEST(data->m_left.m_kind == cycling::Kind::None, ());
+        TEST(data->m_right.m_kind == cycling::Kind::None, ());
         TEST(!data->m_contacts.empty(), ());
         for (auto const & contact : data->m_contacts)
         {
           TEST(contact.m_roadPath.size() >= 2 && contact.m_roadPath.size() <= 5, ());
-          TEST_EQUAL(contact.m_kind, cycling::Kind::Lane, ());
+          TEST(contact.m_kind == cycling::Kind::Lane, ());
           TEST(contact.m_side == -1 || contact.m_side == 1, ());
           TEST_NOT_EQUAL(contact.m_roadType, 0, ());
         }
