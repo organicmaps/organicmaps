@@ -45,6 +45,27 @@ ScreenBase GetHighZoomScreen()
   screen.SetFromParams(m2::PointD(10.0, 10.0), 0.0 /* angle */, 1e-6 /* scale */);
   return screen;
 }
+
+// Converts |pixel| to a point on |screen|, reports |changed| as the next viewport and returns the new pixel of the
+// point, after checking that the reverse conversion agrees.
+m2::PointD GetPixelAfterChange(ScreenBase const & screen, ScreenBase const & changed, m2::PointD const & pixel)
+{
+  TestFramework framework;
+  framework.OnViewportChanged(screen);
+  auto const geo = framework.P3dtoG(pixel);
+  framework.OnViewportChanged(changed);
+  auto const actual = framework.GtoP3d(geo);
+  TEST(actual, ());
+  TEST(m2::AlmostEqualAbs(framework.P3dtoG(*actual), geo, 1e-12), ());
+  return *actual;
+}
+
+ScreenBase GetSquareHighZoomScreen()
+{
+  auto screen = GetHighZoomScreen();
+  screen.OnSize(0, 0, 1000, 1000);
+  return screen;
+}
 }  // namespace
 
 UNIT_TEST(Framework_ViewportListener_SameScreen)
@@ -69,6 +90,24 @@ UNIT_TEST(Framework_ViewportListener_HalfTurn)
   auto rotated = screen;
   rotated.Rotate(math::pi);
   TEST_EQUAL(CountViewportChanges({screen, rotated}), 2, ());
+}
+
+UNIT_TEST(Framework_GtoP3d_AfterSmallPan)
+{
+  auto const screen = GetSquareHighZoomScreen();
+  auto moved = screen;
+  moved.Move(5.0 /* dx */, 0.0 /* dy */);
+  auto const actual = GetPixelAfterChange(screen, moved, m2::PointD(700.0, 300.0));
+  TEST(m2::AlmostEqualAbs(actual, m2::PointD(705.0, 300.0), 1e-6), (actual));
+}
+
+UNIT_TEST(Framework_GtoP3d_AfterHalfTurn)
+{
+  auto const screen = GetSquareHighZoomScreen();
+  auto rotated = screen;
+  rotated.Rotate(math::pi);
+  auto const actual = GetPixelAfterChange(screen, rotated, m2::PointD(700.0, 300.0));
+  TEST(m2::AlmostEqualAbs(actual, m2::PointD(300.0, 700.0), 1e-6), (actual));
 }
 
 UNIT_TEST(Framework_IsViewportInitialized)
