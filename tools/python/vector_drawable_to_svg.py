@@ -1,126 +1,160 @@
 #!/usr/bin/env python3
 
-from xml.dom.minidom import parse, parseString
 import sys
+import xml.etree.ElementTree as ET
+
+A = "{http://schemas.android.com/apk/res/android}"
+AAPT_ATTR = "{http://schemas.android.com/aapt}attr"
+# Android path attribute -> SVG attribute.
+PATH_ATTRS = {
+    "strokeWidth": "stroke-width",
+    "strokeLineCap": "stroke-linecap",
+    "strokeLineJoin": "stroke-linejoin",
+}
 
 
-def renameAttr(tag, old, new):
-    if not tag.getAttribute(old):
-        return
-    value = tag.getAttribute(old)
-    if new == 'fill-rule':
-        value = value.lower()
+def color(value):
+    # Android colors are #RGB, #RRGGBB or #AARRGGBB; SVG takes the alpha separately.
+    if value == "@android:color/transparent":
+        return "#000000", 0
+    if value.startswith("@android:color/"):
+        return {"white": "#ffffff", "black": "#000000", "holo_blue_light": "#33b5e5"}[value.split("/")[1]], None
+    if len(value) == 9:
+        return "#" + value[3:], int(value[1:3], 16) / 255
+    return value, None
 
-    tag.setAttribute(new, value)
-    tag.removeAttribute(old)
+
+def group_transform(group):
+    def num(name, default):
+        return float(group.get(A + name, default))
+
+    px, py = num("pivotX", 0), num("pivotY", 0)
+    tx, ty = num("translateX", 0), num("translateY", 0)
+    sx, sy, rotation = num("scaleX", 1), num("scaleY", 1), num("rotation", 0)
+    if (sx, sy, rotation, tx, ty) == (1, 1, 0, 0, 0):
+        return None
+    # Android applies scale and rotation around the pivot, then the translation.
+    return "translate(%g %g) rotate(%g) scale(%g %g) translate(%g %g)" % (tx + px, ty + py, rotation, sx, sy, -px, -py)
 
 
-def colorAndAlpha(value):
-    if len(value) == 9 and value[0] == '#':
-        return f"#{value[3:]}", str(int(value[1:3], 16) / 255.0)
-    return value, ''
+def gradient(attr, defs):
+    # Adds the gradient of an aapt:attr to defs, and returns the reference to it.
+    (child,) = attr
+    if child.tag != "gradient" or child.get(A + "type") != "linear":
+        raise ValueError("Unsupported gradient: " + ET.tostring(child, encoding="unicode"))
+    gradient_id = "gradient%d" % len(defs)
+    coords = {
+        svg: child.get(A + name) for svg, name in zip(("x1", "y1", "x2", "y2"), ("startX", "startY", "endX", "endY"))
+    }
+    element = ET.SubElement(defs, "linearGradient", id=gradient_id, gradientUnits="userSpaceOnUse", **coords)
+    for item in child:
+        rgb, alpha = color(item.get(A + "color"))
+        stop = ET.SubElement(element, "stop", {"offset": item.get(A + "offset"), "stop-color": rgb})
+        if alpha is not None and alpha < 1:
+            stop.set("stop-opacity", "%.3f" % alpha)
+    return "url(#%s)" % gradient_id
+
+
+def convert(node, out, clip_ids, defs):
+    for child in node:
+        tag = child.tag
+        if tag == "group":
+            group = ET.SubElement(out, "g")
+            transform = group_transform(child)
+            if transform:
+                group.set("transform", transform)
+            convert(child, group, clip_ids, defs)
+        elif tag == "clip-path":
+            clip_id = "clip%d" % len(clip_ids)
+            clip_ids.append(clip_id)
+            clip = ET.SubElement(out, "clipPath", id=clip_id)
+            ET.SubElement(clip, "path", d=child.get(A + "pathData"))
+            # A clip path applies to the following siblings, so nest them into a clipped group.
+            out = ET.SubElement(out, "g", {"clip-path": "url(#%s)" % clip_id})
+        elif tag == "path":
+            attrs = {"d": child.get(A + "pathData")}
+            gradients = {}
+            for attr in child:
+                if attr.tag != AAPT_ATTR or attr.get("name") not in ("android:fillColor", "android:strokeColor"):
+                    raise ValueError("Unsupported path child: " + attr.tag)
+                gradients[attr.get("name").removeprefix("android:")] = gradient(attr, defs)
+            for kind in ("fill", "stroke"):
+                value = child.get(A + kind + "Color")
+                if kind + "Color" in gradients:
+                    rgb, alpha = gradients[kind + "Color"], None
+                else:
+                    rgb, alpha = color(value) if value else ("none", None)
+                attrs[kind] = rgb
+                # Android multiplies the color's alpha by fillAlpha / strokeAlpha.
+                alpha = (1 if alpha is None else alpha) * float(child.get(A + kind + "Alpha", 1))
+                if alpha < 1:
+                    attrs[kind + "-opacity"] = "%.3f" % alpha
+            if child.get(A + "fillType") == "evenOdd":
+                attrs["fill-rule"] = "evenodd"
+            for android_name, svg_name in PATH_ATTRS.items():
+                value = child.get(A + android_name)
+                if value is not None:
+                    attrs[svg_name] = value.lower()
+            if attrs["fill"] == "none" and attrs["stroke"] == "none":
+                raise ValueError("Path without a fill or stroke")
+            ET.SubElement(out, "path", attrs)
+        else:
+            raise ValueError("Unsupported vector element: " + tag)
+
+
+def recolor(svg, rgb):
+    for element in svg.iter():
+        for attr in ("fill", "stroke"):
+            value = element.get(attr)
+            if value is not None and value.startswith("url("):
+                raise ValueError("A gradient can't be recolored")
+            if value not in (None, "none"):
+                element.set(attr, rgb)
+
+
+def to_svg(root, recolor_to=None):
+    # A layer list stretches every item over the same bounds, so the vector viewport is the canvas.
+    items = [item[0] for item in root] if root.tag == "layer-list" else [root]
+    vector = next(item for item in items if item.tag == "vector")
+    w, h = float(vector.get(A + "viewportWidth")), float(vector.get(A + "viewportHeight"))
+    svg = ET.Element(
+        "svg", xmlns="http://www.w3.org/2000/svg", width="%g" % w, height="%g" % h, viewBox="0 0 %g %g" % (w, h)
+    )
+    defs = ET.SubElement(svg, "defs")
+    for item in items:
+        if item.tag == "vector":
+            content = svg
+            if float(item.get(A + "alpha", 1)) < 1:
+                content = ET.SubElement(svg, "g", opacity=item.get(A + "alpha"))
+            convert(item, content, [], defs)
+        elif item.tag == "shape" and item.get(A + "shape") == "oval":
+            rgb, alpha = color(item.find("solid").get(A + "color"))
+            circle = ET.SubElement(
+                svg, "ellipse", cx="%g" % (w / 2), cy="%g" % (h / 2), rx="%g" % (w / 2), ry="%g" % (h / 2), fill=rgb
+            )
+            if alpha is not None and alpha < 1:
+                circle.set("fill-opacity", "%.3f" % alpha)
+        else:
+            raise ValueError("Unsupported drawable item: " + item.tag)
+    if len(defs) == 0:
+        svg.remove(defs)
+    # A tint replaces the colors; a theme one needs recolor_to.
+    tint = vector.get(A + "tint")
+    if recolor_to:
+        recolor(svg, recolor_to)
+    elif tint is not None:
+        rgb, alpha = color(tint) if tint.startswith(("#", "@android:color/")) else (None, None)
+        if rgb is None or alpha is not None:
+            print("Unsupported tint, the colors are kept: " + tint, file=sys.stderr)
+        else:
+            recolor(svg, rgb)
+    ET.indent(svg)
+    return ET.ElementTree(svg)
 
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print('Converts Android XML icons into SVG and prints it')
-        print(
-            f"Usage: {sys.argv[0]} <Android vector drawable xml icon>", file=sys.stderr)
+        print("Converts Android XML icons into SVG and prints it")
+        print(f"Usage: {sys.argv[0]} <Android vector drawable xml icon>", file=sys.stderr)
         exit(1)
-    xml = parse(sys.argv[1])
-    svg = xml.documentElement
-    svg.tagName = 'svg'
-    if svg.hasAttribute('xmlns:aapt'):
-        svg.removeAttribute('xmlns:aapt')
-    if svg.hasAttribute('xmlns:android'):
-        svg.removeAttribute('xmlns:android')
-    svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg')
-
-    vw = svg.getAttribute('android:viewportWidth')
-    svg.removeAttribute('android:viewportWidth')
-    vh = svg.getAttribute('android:viewportHeight')
-    svg.removeAttribute('android:viewportHeight')
-    svg.setAttribute('viewbox', f"0 0 {vw} {vh}")
-
-    svg.removeAttribute('android:width')
-    svg.removeAttribute('android:height')
-    svg.setAttribute('width', vw)
-    svg.setAttribute('height', vh)
-
-    # Used for gradients if any.
-    defs = xml.createElement('defs')
-
-    for path in svg.getElementsByTagName('path'):
-        renameAttr(path, 'android:pathData', 'd')
-        renameAttr(path, 'android:fillType', 'fill-rule')
-        renameAttr(path, 'android:strokeWidth', 'stroke-width')
-        if path.hasAttribute('android:strokeColor'):
-            renameAttr(path, 'android:strokeColor', 'stroke')
-            stroke = path.getAttribute('stroke')
-            # Extract alpha if necessary.
-            color, alpha = colorAndAlpha(stroke)
-            path.setAttribute('stroke', color)
-            if len(alpha) > 0:
-                path.setAttribute('stroke-opacity', alpha)
-
-        # Fill color.
-        if path.hasAttribute('android:fillColor'):
-            renameAttr(path, 'android:fillColor', 'fill')
-        else:
-            fillColor = 'none'
-            for child in filter(lambda c: c.nodeType == c.ELEMENT_NODE, path.childNodes):
-                if child.tagName == 'aapt:attr':
-                    attrName = child.getAttribute('name')
-                    if attrName == 'android:fillColor':
-                        for grad in filter(lambda c: c.nodeType == c.ELEMENT_NODE, child.childNodes):
-                            if grad.tagName != 'gradient':
-                                print(
-                                    f"Unsupported fill: {grad.tagName}", file=sys.stderr)
-                                continue
-                            gradType = grad.getAttribute('android:type')
-                            if gradType != 'linear':
-                                print(
-                                    f"Unsupported gradient type: {gradType}", file=sys.stderr)
-                                continue
-                            # Extract linear gradient.
-                            x1 = grad.getAttribute('android:startX')
-                            x2 = grad.getAttribute('android:endX')
-                            y1 = grad.getAttribute('android:startY')
-                            y2 = grad.getAttribute('android:endY')
-                            linearGradient = xml.createElement(
-                                'linearGradient')
-                            linearGradient.setAttribute('x1', x1)
-                            linearGradient.setAttribute('x2', x2)
-                            linearGradient.setAttribute('y1', y1)
-                            linearGradient.setAttribute('y2', y2)
-                            id = f"Gradient{len(defs.childNodes) + 1}"
-                            linearGradient.setAttribute('id', id)
-                            for item in filter(lambda c: c.nodeType == c.ELEMENT_NODE, grad.childNodes):
-                                stop = xml.createElement('stop')
-                                stop.setAttribute(
-                                    'offset', item.getAttribute('android:offset'))
-                                color, alpha = colorAndAlpha(
-                                    item.getAttribute('android:color'))
-                                stop.setAttribute('stop-color', color)
-                                if len(alpha):
-                                    stop.setAttribute('stop-opacity', alpha)
-                                linearGradient.appendChild(stop)
-                            defs.appendChild(linearGradient)
-                            fillColor = f"url(#{id})"
-                        path.removeChild(child)
-                    else:
-                        print(
-                            f"Unsupported aapt:attr {attrName}", file=sys.stderr)
-                else:
-                    print(
-                        f"Unsupported path child tag {child.tagName}", file=sys.stderr)
-
-            path.setAttribute('fill', fillColor)
-
-    # Insert gradients (if any).
-    if len(defs.childNodes) > 0:
-        svg.insertBefore(defs, svg.firstChild)
-    pretty = svg.toprettyxml()
-    pretty = pretty.replace('\t', '    ')
-    pretty = "".join([s for s in pretty.splitlines(True) if s.strip()])
-    print(pretty)
+    print(ET.tostring(to_svg(ET.parse(sys.argv[1]).getroot()).getroot(), encoding="unicode"))
