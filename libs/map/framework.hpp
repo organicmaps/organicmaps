@@ -536,6 +536,8 @@ public:
   /// @{
   m2::PointD PtoG(m2::PointD const & p) const;
   m2::PointD P3dtoG(m2::PointD const & p) const;
+  /// @returns Nothing for a pixel above the horizon in 3D, which shows no ground.
+  std::optional<m2::PointD> TryP3dtoG(m2::PointD const & p) const;
   /// @}
 
   /// @returns true once the drape engine has reported the viewport. Until then the conversions between screen pixels

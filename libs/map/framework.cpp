@@ -1733,6 +1733,13 @@ m2::PointD Framework::P3dtoG(m2::PointD const & p) const
   return pt;
 }
 
+std::optional<m2::PointD> Framework::TryP3dtoG(m2::PointD const & p) const
+{
+  if (m_currentModelView.IsReverseProjection3d(m_currentModelView.P3dtoP(p)))
+    return {};
+  return P3dtoG(p);
+}
+
 std::optional<m2::PointD> Framework::GtoP3d(m2::PointD const & p) const
 {
   m2::PointD const pt = df::GtoPWrap(p, m_currentModelView);

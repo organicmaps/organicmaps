@@ -103,8 +103,10 @@ public class Framework
   /**
    * Converts view pixels, as in {@link Map#onTouch}, to WGS84 latitude and longitude in degrees; in 3D, to the point
    * on the ground. Call it on the main thread once the map has drawn its first frame: until then there is no viewport
-   * to convert with, and the result is meaningless.
+   * to convert with, and the result is meaningless. In 3D, a pixel above the horizon, always off the view, shows no
+   * ground and gets null.
    */
+  @Nullable
   @Size(2)
   public static native double[] nativeScreenToLatLon(double x, double y);
 

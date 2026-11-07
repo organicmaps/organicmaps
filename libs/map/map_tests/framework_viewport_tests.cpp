@@ -192,7 +192,9 @@ UNIT_TEST(Framework_GtoP3d_BehindCamera)
     for (m2::PointD const pixel :
          {m2::PointD(500.0, -300.0), m2::PointD(1300.0, 500.0), m2::PointD(-300.0, 500.0), m2::PointD(500.0, 2000.0)})
     {
-      auto const actual = framework.GtoP3d(framework.P3dtoG(pixel));
+      auto const geo = framework.TryP3dtoG(pixel);
+      TEST(geo, (perspective, pixel));
+      auto const actual = framework.GtoP3d(*geo);
       TEST(actual, (perspective, pixel));
       TEST_ALMOST_EQUAL_ABS(actual->x, pixel.x, kEps, (perspective, pixel));
       TEST_ALMOST_EQUAL_ABS(actual->y, pixel.y, kEps, (perspective, pixel));
@@ -207,6 +209,46 @@ UNIT_TEST(Framework_GtoP3d_BehindCamera)
     {
       TEST(actual, ());
       TEST_GREATER(actual->y, pixelRect.maxY(), ());
+    }
+  }
+}
+
+UNIT_TEST(Framework_TryP3dtoG_AboveHorizon)
+{
+  m2::RectD const pixelRect(0.0, 0.0, 1000.0, 1000.0);
+  double constexpr kEps = 1e-3;
+  // In 3D the horizon is above the view: about 366 pixels above at a 45 degree tilt, and 115 at 54 degrees.
+  struct
+  {
+    double m_scale;
+    m2::PointD m_belowHorizon;
+    m2::PointD m_aboveHorizon;
+  } const cases[] = {{3e-6, {500.0, -300.0}, {500.0, -400.0}}, {1e-6, {500.0, -100.0}, {500.0, -200.0}}};
+
+  TestFramework framework;
+  for (auto const & c : cases)
+  {
+    for (bool const perspective : {false, true})
+    {
+      ScreenBase screen;
+      screen.OnSize(m2::RectI(pixelRect));
+      screen.SetFromParams(mercator::FromLatLon(41.9, 12.5), 0.0 /* angle */, c.m_scale);
+      screen.SetAutoPerspective(perspective);
+      TEST_EQUAL(screen.isPerspective(), perspective, ());
+      framework.SetViewport(screen, pixelRect);
+
+      for (m2::PointD const pixel : {pixelRect.LeftTop(), pixelRect.RightTop(), pixelRect.LeftBottom(),
+                                     pixelRect.RightBottom(), c.m_belowHorizon})
+      {
+        auto const geo = framework.TryP3dtoG(pixel);
+        TEST(geo, (c.m_scale, perspective, pixel));
+        auto const actual = framework.GtoP3d(*geo);
+        TEST(actual, (c.m_scale, perspective, pixel));
+        TEST(m2::AlmostEqualAbs(*actual, pixel, kEps), (c.m_scale, perspective, pixel, *actual));
+      }
+
+      auto const geo = framework.TryP3dtoG(c.m_aboveHorizon);
+      TEST_EQUAL(geo.has_value(), !perspective, (c.m_scale, mercator::ToLatLon(framework.P3dtoG(c.m_aboveHorizon))));
     }
   }
 }

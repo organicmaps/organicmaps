@@ -1179,7 +1179,10 @@ JNIEXPORT jdoubleArray Java_app_organicmaps_sdk_Framework_nativeScreenToLatLon(J
                                                                                jdouble y)
 {
   ASSERT(frm()->IsViewportInitialized(), ("Call it once the map has drawn"));
-  return ToJavaLatLon(env, frm()->P3dtoG({x, y}));
+  auto const pt = frm()->TryP3dtoG({x, y});
+  if (!pt)
+    return nullptr;
+  return ToJavaLatLon(env, *pt);
 }
 
 JNIEXPORT jdoubleArray Java_app_organicmaps_sdk_Framework_nativeLatLonToScreen(JNIEnv * env, jclass, jdouble lat,
