@@ -5,6 +5,7 @@
 #include "base/stl_helpers.hpp"
 
 #include <functional>
+#include <memory>
 
 namespace tree_test
 {
@@ -60,6 +61,50 @@ UNIT_TEST(Tree4D_Smoke)
   test.clear();
   theTree.ForEachInRect(searchR, base::MakeBackInsertFunctor(test));
   TEST_EQUAL(1, test.size(), ());
+}
+
+UNIT_TEST(Tree4D_LargeOrderedInput)
+{
+  size_t constexpr count = 22000;
+  m4::Tree<size_t> tree;
+  for (bool reverse : {false, true})
+  {
+    for (size_t i = 0; i < count; ++i)
+    {
+      auto const value = reverse ? count - 1 - i : i;
+      auto const x = static_cast<double>(value);
+      tree.Add(value, R(x, x, x + 0.5, x + 0.5));
+    }
+    TEST_EQUAL(tree.GetSize(), count, ());
+    tree.Clear();
+    TEST(tree.IsEmpty(), ());
+  }
+  // Equal rectangles also produce an unbalanced tree.
+  for (size_t i = 0; i < count; ++i)
+    tree.Add(i, R(0, 0, 1, 1));
+  TEST_EQUAL(tree.GetSize(), count, ());
+  tree.Clear();
+  TEST(tree.IsEmpty(), ());
+}
+
+UNIT_TEST(Tree4D_CleanupReleasesPayloads)
+{
+  auto const payload = std::make_shared<int>(0);
+  auto const populate = [&](auto & tree)
+  {
+    // Both branches have children, so cleanup must return through parent links.
+    for (double x : {4, 2, 6, 1, 3, 5, 7})
+      tree.Add(payload, R(x, x, x + 0.5, x + 0.5));
+    TEST_EQUAL(payload.use_count(), 8, ());
+  };
+  {
+    m4::Tree<std::shared_ptr<int>> tree;
+    populate(tree);
+    tree.Clear();
+    TEST_EQUAL(payload.use_count(), 1, ());
+    populate(tree);
+  }
+  TEST_EQUAL(payload.use_count(), 1, ());
 }
 
 UNIT_TEST(Tree4D_ForAnyInRect)
