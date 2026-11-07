@@ -52,7 +52,9 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v6
         with:
-          fetch-depth: 100 # enough to get all commits for the current day
+          # Version counters need complete ancestry, without historical blob downloads.
+          fetch-depth: 0
+          filter: blob:none
 
       - name: Parallel submodules checkout
         shell: bash

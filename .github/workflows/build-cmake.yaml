@@ -104,7 +104,7 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v6
         with:
-          # version.sh counts commits in its 128-commit history window.
+          # Test artifacts only need a bounded history for version labels.
           fetch-depth: 128
 
       - name: Parallel submodules checkout
