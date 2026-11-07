@@ -90,6 +90,11 @@ extension NavigationDashboard {
         router.saveRouteAsTrack()
         return .setRouteAsTrackSaved
 
+      case .transitStepsDidTap(let steps):
+        let details = TransitDetailsViewController(steps: steps, routePoints: router.points())
+        mapViewController.navigationController?.pushViewController(details, animated: true)
+        return .none
+
       case .updateRouteBuildingProgress(let progress, let routerType):
         return .updateRouteBuildingProgress(progress, routerType: routerType)
 

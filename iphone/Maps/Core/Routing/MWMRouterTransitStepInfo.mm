@@ -42,6 +42,24 @@ UIColor * convertColor(uint32_t colorARGB)
 
 @implementation MWMRouterTransitStepInfo
 
+- (instancetype)init
+{
+  self = [super init];
+  if (self)
+  {
+    // Steps built on the iOS side (ruler routes) set only the fields their cells show.
+    _distance = @"";
+    _distanceUnits = @"";
+    _number = @"";
+    _color = UIColor.clearColor;
+    _lineNumber = @"";
+    _startStopName = @"";
+    _endStopName = @"";
+    _intermediateStopNames = @[];
+  }
+  return self;
+}
+
 - (instancetype)initWithStepInfo:(TransitStepInfo const &)info
 {
   self = [super init];
@@ -53,6 +71,15 @@ UIColor * convertColor(uint32_t colorARGB)
     _number = @(info.m_number.c_str());
     _color = convertColor(info.m_colorARGB);
     _intermediateIndex = info.m_intermediateIndex;
+    _timeInSec = info.m_timeInSec;
+    _lineNumber = @(info.m_lineNumber.c_str());
+    _startStopName = @(info.m_startStopName.c_str());
+    _endStopName = @(info.m_endStopName.c_str());
+    NSMutableArray<NSString *> * intermediates = [NSMutableArray arrayWithCapacity:info.m_intermediateStopNames.size()];
+    for (auto const & name : info.m_intermediateStopNames)
+      [intermediates addObject:@(name.c_str())];
+    _intermediateStopNames = intermediates;
+    _stopCount = info.m_stopCount;
   }
   return self;
 }
