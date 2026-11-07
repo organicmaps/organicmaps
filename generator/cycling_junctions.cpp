@@ -8,6 +8,7 @@
 #include "coding/internal/file_data.hpp"
 #include "coding/read_write_utils.hpp"
 
+#include "indexer/classificator.hpp"
 #include "platform/platform.hpp"
 
 #include "base/file_name_utils.hpp"
@@ -142,7 +143,9 @@ std::map<uint64_t, cycling::Sides> FindCyclingJunctions(std::vector<CyclingWay> 
       continue;
     sides->m_left.m_junctions.clear();
     sides->m_right.m_junctions.clear();
-    std::set<std::pair<int, uint64_t>> seen;
+    sides->m_left.m_approaches.clear();
+    sides->m_right.m_approaches.clear();
+    std::map<std::pair<int, uint64_t>, size_t> seen;
     for (size_t i = 0; i < road.m_nodes.size(); ++i)
     {
       auto const & node = road.m_nodes[i];
@@ -163,17 +166,109 @@ std::map<uint64_t, cycling::Sides> FindCyclingJunctions(std::vector<CyclingWay> 
           continue;
         int const sign = (cross > 0) != road.m_reversed ? -1 : 1;
         auto & side = sign < 0 ? sides->m_left : sides->m_right;
-        if ((side.m_kind == cycling::Kind::Track || side.m_kind == cycling::Kind::Lane) &&
-            side.m_junctions.size() < cycling::kMaxJunctionsPerSide && seen.emplace(sign, node.m_id).second)
+        if (side.m_kind != cycling::Kind::Track && side.m_kind != cycling::Kind::Lane)
+          continue;
+        auto const key = std::make_pair(sign, node.m_id);
+        if (!seen.contains(key))
+        {
+          if (side.m_junctions.size() == cycling::kMaxJunctionsPerSide)
+            continue;
+          seen.emplace(key, side.m_junctions.size());
           side.m_junctions.push_back(node.m_point);
+          side.m_approaches.emplace_back();
+        }
+        auto & approaches = side.m_approaches[seen.at(key)];
+        // One excess entry marks unknown geometry on encoding, without unbounded growth.
+        if (approaches.size() <= cycling::kMaxApproachesPerJunction &&
+            std::find(approaches.begin(), approaches.end(), incident.m_point) == approaches.end())
+          approaches.push_back(incident.m_point);
       }
     }
+    for (auto * side : {&sides->m_left, &sides->m_right})
+      for (auto & approaches : side->m_approaches)
+      {
+        std::sort(approaches.begin(), approaches.end(),
+                  [](auto const & a, auto const & b) { return a.x == b.x ? a.y < b.y : a.x < b.x; });
+        approaches.erase(std::unique(approaches.begin(), approaches.end()), approaches.end());
+      }
     auto [entry, inserted] = result.emplace(road.m_id, *sides);
     if (!inserted && cycling::Encode(entry->second) != cycling::Encode(*sides))
       conflictingRoads.insert(road.m_id);
   }
   for (auto id : conflictingRoads)
     result.erase(id);
+  return result;
+}
+
+std::map<uint64_t, std::vector<cycling::ConnectorContact>> FindCyclingConnectorContacts(
+    std::vector<CyclingWay> const & roads, std::vector<CyclingWay> const & connectors,
+    std::map<uint64_t, uint32_t> const & roadTypes, std::function<bool(uint64_t)> const & blocked)
+{
+  std::map<uint64_t, std::vector<std::pair<CyclingWay const *, size_t>>> nodes;
+  for (auto const & road : roads)
+    if (road.m_nodes.size() >= 2 && roadTypes.contains(road.m_id))
+      for (size_t i = 0; i < road.m_nodes.size(); ++i)
+        nodes[road.m_nodes[i].m_id].emplace_back(&road, i);
+  std::map<uint64_t, std::vector<cycling::ConnectorContact>> result;
+  std::set<uint64_t> overflow;
+  for (auto const & connector : connectors)
+  {
+    if (connector.m_nodes.size() < 2)
+      continue;
+    for (size_t end : {size_t{0}, connector.m_nodes.size() - 1})
+    {
+      auto const & node = connector.m_nodes[end];
+      if (blocked(node.m_id) || !nodes.contains(node.m_id))
+        continue;
+      auto const ray = connector.m_nodes[end == 0 ? 1 : end - 1].m_point - node.m_point;
+      for (auto const & [road, i] : nodes.at(node.m_id))
+      {
+        if (road->m_id == connector.m_id || road->m_layer != connector.m_layer || road->m_level != connector.m_level)
+          continue;
+        auto const sides = cycling::Decode(road->m_sides);
+        if (!sides)
+          continue;
+        auto const tangent = road->m_nodes[std::min(i + 1, road->m_nodes.size() - 1)].m_point -
+                             road->m_nodes[i == 0 ? 0 : i - 1].m_point;
+        double const norm = tangent.Length() * ray.Length();
+        double const cross = tangent.x * ray.y - tangent.y * ray.x;
+        if (norm == 0 || std::abs(cross) / norm < 0.15)
+          continue;
+        int const sign = (cross > 0) != road->m_reversed ? -1 : 1;
+        auto const kind = sign < 0 ? sides->m_left.m_kind : sides->m_right.m_kind;
+        if (kind != cycling::Kind::Track && kind != cycling::Kind::Lane)
+          continue;
+        cycling::ConnectorContact contact;
+        contact.m_junction = node.m_point;
+        contact.m_roadType = roadTypes.at(road->m_id);
+        contact.m_kind = kind;
+        contact.m_side = sign;
+        // Two neighbors on each side preserve the renderer's endpoint miters.
+        for (size_t j = i > 1 ? i - 2 : 0; j < std::min(i + 3, road->m_nodes.size()); ++j)
+          contact.m_roadPath.push_back(road->m_nodes[j].m_point);
+        if (road->m_reversed)
+          std::reverse(contact.m_roadPath.begin(), contact.m_roadPath.end());
+        if (!overflow.contains(connector.m_id))
+          result[connector.m_id].push_back(std::move(contact));
+      }
+    }
+    auto & contacts = result[connector.m_id];
+    auto const key = [](auto const & contact)
+    {
+      cycling::Sides data;
+      data.m_contacts.push_back(contact);
+      return cycling::Encode(data);
+    };
+    std::sort(contacts.begin(), contacts.end(), [&](auto const & a, auto const & b) { return key(a) < key(b); });
+    contacts.erase(
+        std::unique(contacts.begin(), contacts.end(), [&](auto const & a, auto const & b) { return key(a) == key(b); }),
+        contacts.end());
+    if (contacts.size() > cycling::kMaxConnectorContacts)
+    {
+      contacts.clear();
+      overflow.insert(connector.m_id);
+    }
+  }
   return result;
 }
 
@@ -347,11 +442,23 @@ void ApplyCountryCyclingJunctions(std::string const & filename, std::string cons
       connectors.push_back(std::move(record.m_way));
   }
   auto const junctions = FindCyclingJunctions(roads, connectors, isBlocked);
+  std::map<uint64_t, uint32_t> roadTypes;
+  auto const highway = classif().GetTypeByPath({"highway"});
+  feature::ForEachFeatureRawFormat<feature::serialization_policy::MaxAccuracy>(
+      rawFeaturesPath, [&](feature::FeatureBuilder && fb, uint64_t)
+  {
+    if (!fb.IsLine() || !fb.HasOsmIds())
+      return;
+    for (auto type : fb.GetParams().m_types)
+      if (ftype::Trunc(type, 1) == highway)
+        roadTypes[fb.GetMostGenericOsmId().GetSerialId()] = ftype::Trunc(type, 2);
+  });
+  auto const contacts = FindCyclingConnectorContacts(roads, connectors, roadTypes, isBlocked);
   feature::FeatureBuilderWriter<feature::serialization_policy::MaxAccuracy> writer(rawFeaturesPath, true);
   feature::ForEachFeatureRawFormat<feature::serialization_policy::MaxAccuracy>(
       rawFeaturesPath, [&](feature::FeatureBuilder && fb, uint64_t)
   {
-    if (fb.IsLine() && fb.HasOsmIds() && !fb.GetParams().GetCyclingInfrastructure().empty())
+    if (fb.IsLine() && fb.HasOsmIds())
     {
       auto const id = fb.GetMostGenericOsmId();
       if (id.GetType() == base::GeoObjectId::Type::OsmWay || id.GetType() == base::GeoObjectId::Type::ObsoleteOsmWay)
@@ -359,6 +466,13 @@ void ApplyCountryCyclingJunctions(std::string const & filename, std::string cons
         auto const found = junctions.find(id.GetSerialId());
         if (found != junctions.end())
           fb.GetParams().SetCyclingInfrastructure(cycling::Encode(found->second));
+        auto const joined = contacts.find(id.GetSerialId());
+        if (joined != contacts.end() && !joined->second.empty())
+        {
+          auto data = cycling::Decode(fb.GetParams().GetCyclingInfrastructure()).value_or(cycling::Sides{});
+          data.m_contacts = joined->second;
+          fb.GetParams().SetCyclingInfrastructure(cycling::Encode(data));
+        }
       }
     }
     writer.Write(fb);
