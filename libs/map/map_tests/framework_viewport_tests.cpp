@@ -82,6 +82,7 @@ UNIT_TEST(Framework_GetViewportCenter)
   for (bool const perspective : {false, true})
   {
     ScreenBase screen;
+    screen.OnSize(m2::RectI(pixelRect));
     screen.SetFromRects(m2::AnyRectD(m2::RectD(170.0, -10.0, 190.0, 10.0)), pixelRect);
     if (perspective)
       screen.ApplyPerspective(math::pi4, math::pi4, math::pi / 3.0);
@@ -105,9 +106,12 @@ UNIT_TEST(Framework_GtoP3d)
   for (bool const perspective : {false, true})
   {
     ScreenBase screen;
+    screen.OnSize(m2::RectI(pixelRect));
     screen.SetFromRects(m2::AnyRectD(m2::RectD(170.0, -10.0, 190.0, 10.0)), pixelRect);
     if (perspective)
       screen.ApplyPerspective(math::pi4, math::pi4, math::pi / 3.0);
+
+    TEST(screen.PixelRectIn3d().IsPointInside(pixel), (perspective));
 
     framework.SetViewport(screen, pixelRect);
     auto const geo = framework.P3dtoG(pixel);
