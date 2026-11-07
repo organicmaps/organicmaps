@@ -41,6 +41,7 @@ public:
 
   void Cancel() { m_readCancelled.Cancel(); }
   bool IsCancelled() const { return m_readCancelled.IsCancelled(); }
+  base::SharedCancellable const & GetCancellable() const { return m_readCancelled; }
 
   void BeginReadTile();
   void Flush(TMapShapes && shapes);

@@ -5,6 +5,9 @@
 
 namespace downloader
 {
+// The terrain blocks CDN layout: terrain/<YYMMDD>/<name>.twm, using each block's
+// immutable revision from data/twm_grid.json (see storage terrain downloading).
+std::string GetTerrainDownloadUrl(int64_t dataVersion, std::string const & fileName);
 std::string GetFileDownloadUrl(std::string const & fileName, int64_t dataVersion, uint64_t diffVersion = 0);
 bool IsUrlSupported(std::string const & url);
 std::string GetFilePathByUrl(std::string const & url);

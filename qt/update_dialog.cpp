@@ -32,8 +32,8 @@ enum
 {
   //  KItemIndexFlag = 0,
   KColumnIndexCountry,
-  KColumnIndexStatus,
-  KColumnIndexSize,
+  KColumnIndexStatus,  // The combined map and terrain status.
+  KColumnIndexSize,    // The combined map and terrain size.
   KColumnIndexMatchedBy,
   KColumnIndexPositionInRanking,
   KNumberOfColumns
@@ -148,7 +148,7 @@ void UpdateDialog::OnItemClick(QTreeWidgetItem * item, int column)
   st.GetChildren(countryId, children);
 
   // For group process only click on the column #.
-  if (!children.empty() && column != 1)
+  if (!children.empty() && column != KColumnIndexStatus)
     return;
 
   switch (attrs.m_status)
@@ -491,15 +491,17 @@ void UpdateDialog::OnCountryChanged(CountryId const & countryId)
 {
   UpdateRowWithCountryInfo(countryId);
 
-  // Now core does not support callbacks about parent country change, therefore emulate it.
-  auto const items = GetTreeItemsByCountryId(countryId);
-  for (auto const item : items)
-    for (auto p = item->parent(); p != nullptr; p = p->parent())
-      UpdateRowWithCountryInfo(GetCountryIdByTreeItem(p));
+  // Core reports ancestors except the root.
+  auto const & root = GetStorage().GetRootId();
+  if (countryId != root)
+    UpdateRowWithCountryInfo(root);
 }
 
-void UpdateDialog::OnCountryDownloadProgress(CountryId const & countryId, downloader::Progress const & progress)
+void UpdateDialog::OnCountryDownloadProgress(CountryId const & countryId, storage::Progress const & snapshot)
 {
+  auto const progress = snapshot.GetCombined();
+  if (progress.m_bytesTotal == 0)
+    return;
   auto const items = GetTreeItemsByCountryId(countryId);
   QLocale const locale;
   for (auto const item : items)

@@ -1,6 +1,9 @@
 #include "drape_frontend/clip_splines_builder.hpp"
 
 #include "drape_frontend/apply_feature_params.hpp"
+#include "drape_frontend/tile_key.hpp"
+
+#include "terrain/terrain_utils.hpp"
 
 #include "indexer/feature.hpp"
 
@@ -11,6 +14,19 @@
 
 namespace df
 {
+m2::RectD GetTerrainInvalidationRect(m2::RectD rect)
+{
+  // A tile reads the overhang around itself (see GetTerrainReadRect), the widest at the coarsest
+  // terrain zoom; the mercator tiles are square. It also covers the raster halo of the terrain reading,
+  // which starts on the finer zooms, and the edge-touching blocks (the seam normals and contours),
+  // which the tile invalidation skips without a margin.
+  auto const tile = TileKey(0, 0, terrain::kMinIsolinesZoom).GetGlobalRect();
+  double const overhang = (GetTerrainReadRect(tile).SizeX() - tile.SizeX()) / 2;
+  double constexpr kEdgeEps = 1e-9;
+  rect.Inflate(overhang + kEdgeEps, overhang + kEdgeEps);
+  return rect;
+}
+
 namespace
 {
 // Same threshold as Spline::IsProlonging — but squared, since the colinearity
@@ -18,7 +34,103 @@ namespace
 //   cos(θ) > kThreshold  ⟺  dot(a, b) > 0  AND  dot(a, b)² > kThreshold² · |a|² · |b|²
 double constexpr kProlongingDotSqr = math::Pow2(0.995);
 
-double constexpr kIsolineSmoothScale = 1.6;  // same as Inflate(0.3*szX, 0.3*szY) per side
+// The terrain DEM lattice is 1 arc second (~31 m): the dynamic isoline vertices with both segments
+// up to two cells long are the raster steps to average out (see SetPath).
+double constexpr kIsolineStepMeters = 62.0;
+
+// Appends the points of a line to |path|: drops the duplicates and, when simplifying, the too
+// short segments and the forward colinear runs, preserving the line's actual endpoint.
+class PathThinner
+{
+public:
+  PathThinner(std::vector<m2::PointD> & path, bool simplify, double minSqr)
+    : m_path(path)
+    , m_simplify(simplify)
+    , m_minSqr(minSqr)
+  {}
+
+  void Add(m2::PointD const & p)
+  {
+    m_lastReadPoint = p;
+
+    if (m_path.empty())
+    {
+      m_path.push_back(p);
+      return;
+    }
+
+    m2::PointD const d = p - m_path.back();
+    if (d.IsAlmostZero())
+      return;  // duplicate, ignore
+
+    if (m_simplify)
+    {
+      double const d2 = d.SquaredLength();
+      if (d2 < m_minSqr)
+        return;  // too close — thin
+
+      // Forward-only colinearity check, squared form. Equivalent to
+      //   cos(θ) > kProlongingDot
+      // when dot > 0 (the forward guard — leaves backward U-turn segments
+      // alone instead of collapsing them into a degenerate zero-length tail).
+      size_t const sz = m_path.size();
+      if (sz >= 2)
+      {
+        double const dot = DotProduct(m_lastSeg, d);
+        if (dot > 0 && dot * dot > kProlongingDotSqr * m_lastSegSqrLen * d2)
+        {
+          m_path.back() = p;
+          // Recompute lastSeg from the actual merged segment m_path[sz-2] -> p,
+          // so long colinear runs don't drift past the threshold by accumulating per-step error.
+          m_lastSeg = m_path[sz - 1] - m_path[sz - 2];
+          m_lastSegSqrLen = m_lastSeg.SquaredLength();
+          return;
+        }
+      }
+
+      m_lastSeg = d;
+      m_lastSegSqrLen = d2;
+    }
+
+    m_path.push_back(p);
+  }
+
+  // Endpoint preservation: if the latest read point did not end up at the
+  // tail of m_path (it was thinned, deduped, or replaced away), commit it
+  // now — replacing the kept tail rather than appending if doing so would
+  // create a tiny trailing segment.
+  void Finish()
+  {
+    if (!m_simplify || m_path.empty())
+      return;
+    m2::PointD const tailD = m_lastReadPoint - m_path.back();
+    if (tailD.IsAlmostZero())
+      return;
+    if (m_path.size() >= 2 && tailD.SquaredLength() < m_minSqr)
+      m_path.back() = m_lastReadPoint;
+    else
+      m_path.push_back(m_lastReadPoint);
+  }
+
+private:
+  std::vector<m2::PointD> & m_path;
+  bool const m_simplify;
+  double const m_minSqr;
+
+  // Last segment of m_path (un-normalized) and its squared length. Only
+  // meaningful (and only touched) when simplifying and m_path.size() >= 2.
+  // Storing the raw segment + sqrlen lets us run the colinearity check
+  // entirely in squared quantities — no sqrts here, so the simplify+Inside
+  // path doesn't pay for normalization both here and in Spline::InitDirections.
+  m2::PointD m_lastSeg;
+  double m_lastSegSqrLen = 0.0;
+
+  // Latest input point seen, regardless of whether it ended up in m_path: preserves the
+  // line's actual endpoint when the trailing input was thinned away. Valid only when
+  // m_path is non-empty.
+  m2::PointD m_lastReadPoint;
+};
+
 }  // namespace
 
 void ClipSplinesBuilder::Build(FeatureType & f, int zoomLevel, bool isIsoline)
@@ -48,75 +160,34 @@ void ClipSplinesBuilder::Build(FeatureType & f, int zoomLevel, bool isIsoline)
   }
 
   std::span const points(f.GetPoints(zoomLevel));
-  if (points.empty())
+  m_path.reserve(points.size());
+  PathThinner thinner(m_path, m_params.IsSimplifyLines(), m_params.m_minSegmentSqrLength);
+  for (auto const & p : points)
+    thinner.Add(p);
+  thinner.Finish();
+}
+
+void ClipSplinesBuilder::SetPath(std::vector<m2::PointD> && path)
+{
+  m_knownInside = false;
+  // On gentle slopes an altitude meter spans several raster cells, and the contours step from cell
+  // to cell along the integer heights: the Catmull-Rom smoothing of Release() interpolates every
+  // vertex and would draw the steps as wiggles. Two passes reach two vertices along a contour, well
+  // within the read overhang of the neighbor tiles, which smooth the seam identically.
+  m2::SmoothShortSegments(path, kIsolineStepMeters, 2 /* passes */);
+
+  if (!m_params.IsSimplifyLines())
+  {
+    m_path = std::move(path);
     return;
-
-  size_t const pointCount = points.size();
-  m_path.reserve(pointCount);
-  m_path.push_back(points.front());
-
-  bool const simplify = m_params.IsSimplifyLines();
-  double const minSqr = m_params.m_minSegmentSqrLength;
-
-  // Cached unnormalized tail segment and squared length, valid when simplify && m_path.size() >= 2.
-  // Keep the collinearity check in squared form so Build() needs no sqrt.
-  m2::PointD lastSeg;
-  double lastSegSqrLen = 0.0;
-
-  for (size_t i = 1; i < pointCount; ++i)
-  {
-    auto const & p = points[i];
-    m2::PointD const d = p - m_path.back();
-    if (d.IsAlmostZero())
-      continue;  // duplicate, ignore
-
-    if (simplify)
-    {
-      double const d2 = d.SquaredLength();
-      if (d2 < minSqr)
-        continue;  // too close — thin
-
-      // Forward-only colinearity check, squared form. Equivalent to
-      //   cos(θ) > kProlongingDot
-      // when dot > 0 (the forward guard — leaves backward U-turn segments
-      // alone instead of collapsing them into a degenerate zero-length tail).
-      size_t const sz = m_path.size();
-      if (sz >= 2)
-      {
-        double const dot = DotProduct(lastSeg, d);
-        if (dot > 0 && dot * dot > kProlongingDotSqr * lastSegSqrLen * d2)
-        {
-          m_path.back() = p;
-          // Keep the angular test based on the full merged segment.
-          lastSeg = m_path[sz - 1] - m_path[sz - 2];
-          lastSegSqrLen = lastSeg.SquaredLength();
-          continue;
-        }
-      }
-
-      lastSeg = d;
-      lastSegSqrLen = d2;
-    }
-
-    m_path.push_back(p);
   }
-
-  // Endpoint preservation: if the latest read point did not end up at the
-  // tail of m_path (it was thinned, deduped, or replaced away), commit it
-  // now — replacing the kept tail rather than appending if doing so would
-  // create a tiny trailing segment.
-  if (simplify)
-  {
-    auto const & lastReadPoint = points.back();
-    m2::PointD const tailD = lastReadPoint - m_path.back();
-    if (!tailD.IsAlmostZero())
-    {
-      if (m_path.size() >= 2 && tailD.SquaredLength() < minSqr)
-        m_path.back() = lastReadPoint;
-      else
-        m_path.push_back(lastReadPoint);
-    }
-  }
+  // The same z10-12 thinning as the baked lines get in Build().
+  m_path.clear();
+  m_path.reserve(path.size());
+  PathThinner thinner(m_path, true /* simplify */, m_params.m_minSegmentSqrLength);
+  for (auto const & p : path)
+    thinner.Add(p);
+  thinner.Finish();
 }
 
 std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline)
@@ -136,14 +207,12 @@ std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline)
     return out;
   }
 
-  out.reserve(2);
-
   if (isIsoline)
   {
     // Isoline pipeline: clip-before-smooth (with an inflated rect), smooth,
     // then re-clip with the actual tile rect.
     m2::GuidePointsForSmooth guidePoints;
-    std::vector<std::vector<m2::PointD>> clippedPaths;
+    m2::PathsForSmooth clippedPaths;
     auto extTileRect = m_params.m_tileRect;
     extTileRect.Scale(kIsolineSmoothScale);
     m2::ClipPathByRectBeforeSmooth(extTileRect, m_path, guidePoints, clippedPaths);
@@ -157,7 +226,10 @@ std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline)
     }
   }
   else
+  {
+    out.reserve(2);
     m2::ClipPathByRect(m_params.m_tileRect, m_path, out);
+  }
 
   return out;
 }

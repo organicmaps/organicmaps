@@ -502,11 +502,16 @@ std::string FormatElevation(std::string_view elevation)
   {
     double value;
     if (strings::to_double(elevation, value))
-      return std::string{kMountainSymbol} + platform::Distance::FormatAltitude(value);
+      return FormatElevation(value);
     else
       LOG(LWARNING, ("Invalid elevation metadata:", elevation));
   }
   return {};
+}
+
+std::string FormatElevation(double elevation)
+{
+  return std::string{kMountainSymbol} + platform::Distance::FormatAltitude(elevation);
 }
 
 std::string FormatCapacity(std::string_view capacity, TypesHolder const & types)

@@ -71,20 +71,22 @@ public:
   StorageHttpTest() : m_version(std::to_string(m_storage.GetCurrentDataVersion())), m_cleanupVersionDir(m_version) {}
 
 protected:
-  Storage m_storage;
+  Storage m_storage{ReadCountriesJson(), GetDownloader()};
   string const m_version;
   tests_support::ScopedDir const m_cleanupVersionDir;
 };
 
 UNIT_CLASS_TEST(StorageHttpTest, StorageDownloadNodeAndDeleteNode)
 {
-  auto const progressFunction = [this](CountryId const & countryId, downloader::Progress const & progress)
+  auto const progressFunction = [this](CountryId const & countryId, storage::Progress const & progress)
   {
+    if (countryId == m_storage.GetRootId())
+      return;
     NodeAttrs nodeAttrs;
     m_storage.GetNodeAttrs(countryId, nodeAttrs);
 
-    TEST_EQUAL(progress.m_bytesDownloaded, nodeAttrs.m_downloadingProgress.m_bytesDownloaded, (countryId));
-    TEST_EQUAL(progress.m_bytesTotal, nodeAttrs.m_downloadingProgress.m_bytesTotal, (countryId));
+    TEST_EQUAL(progress.m_mwmDownloaded, nodeAttrs.m_downloadingProgress.m_bytesDownloaded, (countryId));
+    TEST_EQUAL(progress.m_mwmTotal, nodeAttrs.m_downloadingProgress.m_bytesTotal, (countryId));
     TEST_EQUAL(countryId, kCountryId, (countryId));
   };
 
@@ -117,13 +119,15 @@ UNIT_CLASS_TEST(StorageHttpTest, StorageDownloadNodeAndDeleteNode)
 
 UNIT_CLASS_TEST(StorageHttpTest, StorageDownloadAndDeleteDisputedNode)
 {
-  auto const progressFunction = [this](CountryId const & countryId, downloader::Progress const & progress)
+  auto const progressFunction = [this](CountryId const & countryId, storage::Progress const & progress)
   {
+    if (countryId == m_storage.GetRootId())
+      return;
     NodeAttrs nodeAttrs;
     m_storage.GetNodeAttrs(countryId, nodeAttrs);
 
-    TEST_EQUAL(progress.m_bytesDownloaded, nodeAttrs.m_downloadingProgress.m_bytesDownloaded, (countryId));
-    TEST_EQUAL(progress.m_bytesTotal, nodeAttrs.m_downloadingProgress.m_bytesTotal, (countryId));
+    TEST_EQUAL(progress.m_mwmDownloaded, nodeAttrs.m_downloadingProgress.m_bytesDownloaded, (countryId));
+    TEST_EQUAL(progress.m_mwmTotal, nodeAttrs.m_downloadingProgress.m_bytesTotal, (countryId));
   };
 
   InitStorage(m_storage, UpdateWithoutChecks, progressFunction);

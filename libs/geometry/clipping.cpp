@@ -286,7 +286,7 @@ void ClipPathByRect(m2::RectD const & rect, std::vector<m2::PointD> const & path
 }
 
 void ClipPathByRectBeforeSmooth(m2::RectD const & rect, std::vector<m2::PointD> const & path,
-                                GuidePointsForSmooth & guidePoints, std::vector<std::vector<m2::PointD>> & clippedPaths)
+                                GuidePointsForSmooth & guidePoints, PathsForSmooth & clippedPaths)
 {
   if (path.size() < 2)
     return;
@@ -317,7 +317,6 @@ void ClipPathByRectBeforeSmooth(m2::RectD const & rect, std::vector<m2::PointD> 
   }
 
   // Divide spline into parts.
-  clippedPaths.reserve(2);
   std::vector<m2::PointD> currentPath;
   m2::PointD currentGuideFront;
   m2::PointD currentGuideBack;

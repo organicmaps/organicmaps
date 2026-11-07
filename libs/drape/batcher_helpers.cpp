@@ -458,7 +458,10 @@ uint32_t FanStripHelper::AlignICount(uint32_t iCount) const
   return iCount - iCount % 3;
 }
 
-TriangleStripBatch::TriangleStripBatch(BatchCallbacks & callbacks) : TBase(callbacks) {}
+TriangleStripBatch::TriangleStripBatch(BatchCallbacks & callbacks, bool canDivide) : TBase(callbacks)
+{
+  SetCanDivideStreams(canDivide);
+}
 
 void TriangleStripBatch::BatchData(ref_ptr<GraphicsContext> context, ref_ptr<AttributeProvider> streams)
 {
