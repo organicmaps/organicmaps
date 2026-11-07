@@ -1232,3 +1232,12 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "경로를 반대로 설정";
+
+/* Start navigation along the selected track. */
+"navigate_track" = "길 안내";
+
+/* Track start point label. */
+"navigate_track_start" = "트랙 시작점";
+
+/* Track finish point label. */
+"navigate_track_finish" = "트랙 도착점";
