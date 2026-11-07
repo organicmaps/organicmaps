@@ -1175,6 +1175,11 @@ JNIEXPORT jdoubleArray Java_app_organicmaps_sdk_Framework_nativeGetScreenRectCen
   return ToJavaLatLon(env, frm()->GetViewportCenter());
 }
 
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsViewportInitialized(JNIEnv *, jclass)
+{
+  return frm()->IsViewportInitialized();
+}
+
 JNIEXPORT jdoubleArray Java_app_organicmaps_sdk_Framework_nativeScreenToLatLon(JNIEnv * env, jclass, jdouble x,
                                                                                jdouble y)
 {
