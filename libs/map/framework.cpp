@@ -299,11 +299,13 @@ void Framework::OnViewportChanged(ScreenBase const & screen)
   // Drape engine may spuriously call OnViewportChanged. Filter out the calls that
   // change the viewport from the drape engine's point of view but leave it almost
   // the same on the screen (within half a pixel) and from the point of view of the framework
-  // and all its subsystems such as search api (within kMwmPointAccuracy).
+  // and all its subsystems such as search api (within kMwmPointAccuracy). A resized view is never
+  // the same, so that the viewport always gets the current size.
   // Additional filtering may be done by each subsystem.
   double constexpr kEps = 1e-6;
   double const rectEps = std::min(kMwmPointAccuracy, screen.GetScale() / 2);
-  auto const isSameViewport = m2::IsEqual(screen.ClipRect(), m_currentModelView.ClipRect(), rectEps, rectEps) &&
+  auto const isSameViewport = screen.PixelRectIn3d() == m_currentModelView.PixelRectIn3d() &&
+                              m2::IsEqual(screen.ClipRect(), m_currentModelView.ClipRect(), rectEps, rectEps) &&
                               AlmostEqualAbs(screen.GetAngle(), m_currentModelView.GetAngle(), kEps) &&
                               AlmostEqualRel(screen.GetScale(), m_currentModelView.GetScale(), kEps);
   if (isSameViewport)
@@ -1235,8 +1237,11 @@ void Framework::StopLocationFollow()
 
 void Framework::OnSize(int w, int h)
 {
+  int const width = std::max(w, 2);
+  int const height = std::max(h, 2);
+  m_surfaceRect = m2::RectD(0, 0, width, height);
   if (m_drapeEngine != nullptr)
-    m_drapeEngine->Resize(std::max(w, 2), std::max(h, 2));
+    m_drapeEngine->Resize(width, height);
 
   /// @todo Expected that DrapeEngine::Resize does all the work, but nope ..
   /// - Strange, but seems like iOS works fine without it.

@@ -112,10 +112,41 @@ UNIT_TEST(Framework_GtoP3d_AfterHalfTurn)
 
 UNIT_TEST(Framework_IsViewportInitialized)
 {
+  auto const screen = GetSquareHighZoomScreen();
   TestFramework framework;
+  framework.OnSize(1000, 1000);
   TEST(!framework.IsViewportInitialized(), ());
-  framework.OnViewportChanged(GetHighZoomScreen());
+  framework.OnViewportChanged(screen);
   TEST(framework.IsViewportInitialized(), ());
+
+  // The surface comes back with the same size, as after the app was in the background.
+  framework.OnSize(1000, 1000);
+  TEST(framework.IsViewportInitialized(), ());
+
+  // The surface comes back with another size, as after a rotation of the device: viewports of the old size, still on
+  // their way from the drape engine, do not count.
+  framework.OnSize(1000, 600);
+  TEST(!framework.IsViewportInitialized(), ());
+  auto moved = screen;
+  moved.Move(10.0 /* dx */, 0.0 /* dy */);
+  framework.OnViewportChanged(moved);
+  TEST(!framework.IsViewportInitialized(), ());
+
+  auto resized = moved;
+  resized.OnSize(0, 0, 1000, 600);
+  framework.OnViewportChanged(resized);
+  TEST(framework.IsViewportInitialized(), ());
+  auto const actual = framework.GtoP3d(resized.PtoG(m2::PointD(700.0, 300.0)));
+  TEST(actual, ());
+  TEST(m2::AlmostEqualAbs(*actual, m2::PointD(700.0, 300.0), 1e-6), (*actual));
+}
+
+UNIT_TEST(Framework_ViewportListener_OnePixelResize)
+{
+  auto const screen = GetSquareHighZoomScreen();
+  auto resized = screen;
+  resized.OnSize(0, 0, 1000, 999);
+  TEST_EQUAL(CountViewportChanges({screen, resized}), 2, ());
 }
 
 UNIT_TEST(Framework_GetViewportCenter)

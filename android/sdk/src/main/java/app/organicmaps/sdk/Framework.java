@@ -101,8 +101,9 @@ public class Framework
   public static native double[] nativeGetScreenRectCenter();
 
   /**
-   * Tells, on the main thread, whether the map has drawn its first frame, after which {@link #nativeScreenToLatLon}
-   * and {@link #nativeLatLonToScreen} can convert.
+   * Tells, on the main thread, whether the map has drawn a frame at the current size of its view, after which
+   * {@link #nativeScreenToLatLon} and {@link #nativeLatLonToScreen} can convert. It is false from the start, and from
+   * each resize, such as a rotation of the device, until that frame.
    */
   public static native boolean nativeIsViewportInitialized();
 

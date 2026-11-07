@@ -158,6 +158,8 @@ protected:
 
   ScreenBase m_currentModelView;
   bool m_isViewportInitialized = false;
+  // The view size that the drape engine was last given, which a current viewport has.
+  m2::RectD m_surfaceRect;
   m2::RectD m_visibleViewport;
 
   using TViewportChangedFn = df::DrapeEngine::ModelViewChangedHandler;
@@ -540,9 +542,12 @@ public:
   std::optional<m2::PointD> TryP3dtoG(m2::PointD const & p) const;
   /// @}
 
-  /// @returns true once the drape engine has reported the viewport. Until then the conversions between screen pixels
-  /// and geo points use a default viewport and give meaningless results.
-  bool IsViewportInitialized() const { return m_isViewportInitialized; }
+  /// @returns true once the drape engine has reported a viewport of the current view size. Until then, after the start
+  /// or a resize, the conversions between screen pixels and geo points use a default or outdated viewport.
+  bool IsViewportInitialized() const
+  {
+    return m_isViewportInitialized && m_currentModelView.PixelRectIn3d() == m_surfaceRect;
+  }
 
   /// @returns The screen pixel of the world copy of a geo point nearest to the screen center, or nothing for a point
   /// behind the camera in 3D, which has no pixel.
