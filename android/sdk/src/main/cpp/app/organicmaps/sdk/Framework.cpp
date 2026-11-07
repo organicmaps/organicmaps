@@ -1158,15 +1158,48 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativePokeSearchInViewport(JNI
   frm()->GetSearchAPI().PokeSearchInViewport();
 }
 
+static jdoubleArray ToJavaPair(JNIEnv * env, double first, double second)
+{
+  double const pair[] = {first, second};
+  jdoubleArray jPair = env->NewDoubleArray(2);
+  env->SetDoubleArrayRegion(jPair, 0, 2, pair);
+  return jPair;
+}
+
+static jdoubleArray ToJavaLatLon(JNIEnv * env, m2::PointD const & pt)
+{
+  ms::LatLon const ll = mercator::ToLatLon(pt);
+  return ToJavaPair(env, ll.m_lat, ll.m_lon);
+}
+
 JNIEXPORT jdoubleArray Java_app_organicmaps_sdk_Framework_nativeGetScreenRectCenter(JNIEnv * env, jclass)
 {
-  m2::PointD const center = frm()->GetViewportCenter();
+  return ToJavaLatLon(env, frm()->GetViewportCenter());
+}
 
-  double latlon[] = {mercator::YToLat(center.y), mercator::XToLon(center.x)};
-  jdoubleArray jLatLon = env->NewDoubleArray(2);
-  env->SetDoubleArrayRegion(jLatLon, 0, 2, latlon);
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsViewportInitialized(JNIEnv *, jclass)
+{
+  return frm()->IsViewportInitialized();
+}
 
-  return jLatLon;
+JNIEXPORT jdoubleArray Java_app_organicmaps_sdk_Framework_nativeScreenToLatLon(JNIEnv * env, jclass, jdouble x,
+                                                                               jdouble y)
+{
+  ASSERT(frm()->IsViewportInitialized(), ("Call it once the map has drawn"));
+  auto const pt = frm()->TryP3dtoG({x, y});
+  if (!pt)
+    return nullptr;
+  return ToJavaLatLon(env, *pt);
+}
+
+JNIEXPORT jdoubleArray Java_app_organicmaps_sdk_Framework_nativeLatLonToScreen(JNIEnv * env, jclass, jdouble lat,
+                                                                               jdouble lon)
+{
+  ASSERT(frm()->IsViewportInitialized(), ("Call it once the map has drawn"));
+  auto const pt = frm()->GtoP3d(mercator::FromLatLon(lat, lon));
+  if (!pt)
+    return nullptr;
+  return ToJavaPair(env, pt->x, pt->y);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRestoreDownloadQueue(JNIEnv * env, jclass)

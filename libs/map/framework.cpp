@@ -23,6 +23,7 @@
 #include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/gps_track_point.hpp"
 #include "drape_frontend/relations_draw_info.hpp"
+#include "drape_frontend/screen_operations.hpp"
 #include "drape_frontend/tile_key.hpp"
 #include "drape_frontend/visual_params.hpp"
 
@@ -297,14 +298,21 @@ void Framework::OnViewportChanged(ScreenBase const & screen)
 {
   // Drape engine may spuriously call OnViewportChanged. Filter out the calls that
   // change the viewport from the drape engine's point of view but leave it almost
-  // the same from the point of view of the framework and all its subsystems such as search api.
+  // the same on the screen (within half a pixel) and from the point of view of the framework
+  // and all its subsystems such as search api (within kMwmPointAccuracy). A resized view is never
+  // the same, so that the viewport always gets the current size.
   // Additional filtering may be done by each subsystem.
-  auto const isSameViewport =
-      m2::IsEqual(screen.ClipRect(), m_currentModelView.ClipRect(), kMwmPointAccuracy, kMwmPointAccuracy);
+  double constexpr kEps = 1e-6;
+  double const rectEps = std::min(kMwmPointAccuracy, screen.GetScale() / 2);
+  auto const isSameViewport = screen.PixelRectIn3d() == m_currentModelView.PixelRectIn3d() &&
+                              m2::IsEqual(screen.ClipRect(), m_currentModelView.ClipRect(), rectEps, rectEps) &&
+                              AlmostEqualAbs(screen.GetAngle(), m_currentModelView.GetAngle(), kEps) &&
+                              AlmostEqualRel(screen.GetScale(), m_currentModelView.GetScale(), kEps);
   if (isSameViewport)
     return;
 
   m_currentModelView = screen;
+  m_isViewportInitialized = true;
 
   GetSearchAPI().OnViewportChanged(GetCurrentViewport());
 
@@ -1233,8 +1241,11 @@ void Framework::StopLocationFollow()
 
 void Framework::OnSize(int w, int h)
 {
+  int const width = std::max(w, 2);
+  int const height = std::max(h, 2);
+  m_surfaceRect = m2::RectD(0, 0, width, height);
   if (m_drapeEngine != nullptr)
-    m_drapeEngine->Resize(std::max(w, 2), std::max(h, 2));
+    m_drapeEngine->Resize(width, height);
 
   /// @todo Expected that DrapeEngine::Resize does all the work, but nope ..
   /// - Strange, but seems like iOS works fine without it.
@@ -1729,6 +1740,21 @@ m2::PointD Framework::P3dtoG(m2::PointD const & p) const
   auto pt = m_currentModelView.PtoG(m_currentModelView.P3dtoP(p));
   pt.x = mercator::WrapX(pt.x);
   return pt;
+}
+
+std::optional<m2::PointD> Framework::TryP3dtoG(m2::PointD const & p) const
+{
+  if (m_currentModelView.IsReverseProjection3d(m_currentModelView.P3dtoP(p)))
+    return {};
+  return P3dtoG(p);
+}
+
+std::optional<m2::PointD> Framework::GtoP3d(m2::PointD const & p) const
+{
+  m2::PointD const pt = df::GtoPWrap(p, m_currentModelView);
+  if (m_currentModelView.IsReverseProjection3d(pt))
+    return {};
+  return m_currentModelView.PtoP3d(pt);
 }
 
 void Framework::CreateDrapeEngine(ref_ptr<dp::GraphicsContextFactory> contextFactory, DrapeCreationParams && params)
