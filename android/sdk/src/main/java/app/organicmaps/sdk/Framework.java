@@ -102,14 +102,16 @@ public class Framework
 
   /**
    * Converts view pixels, as in {@link Map#onTouch}, to WGS84 latitude and longitude in degrees; in 3D, to the point
-   * on the ground.
+   * on the ground. Call it on the main thread once the map has drawn its first frame: until then there is no viewport
+   * to convert with, and the result is meaningless.
    */
   @Size(2)
   public static native double[] nativeScreenToLatLon(double x, double y);
 
   /**
-   * Converts WGS84 latitude and longitude in degrees to view pixels, the inverse of {@link #nativeScreenToLatLon}. A
-   * point off the screen gets pixels outside the view, but in 3D a point behind the camera has no pixel and gets null.
+   * Converts WGS84 latitude and longitude in degrees to view pixels, the inverse of {@link #nativeScreenToLatLon}, with
+   * the same requirements. A point off the screen gets pixels outside the view, but in 3D a point behind the camera has
+   * no pixel and gets null.
    */
   @Nullable
   @Size(2)

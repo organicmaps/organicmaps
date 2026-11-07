@@ -157,6 +157,7 @@ protected:
   std::unique_ptr<SearchAPI> m_searchAPI;
 
   ScreenBase m_currentModelView;
+  bool m_isViewportInitialized = false;
   m2::RectD m_visibleViewport;
 
   using TViewportChangedFn = df::DrapeEngine::ModelViewChangedHandler;
@@ -536,6 +537,10 @@ public:
   m2::PointD PtoG(m2::PointD const & p) const;
   m2::PointD P3dtoG(m2::PointD const & p) const;
   /// @}
+
+  /// @returns true once the drape engine has reported the viewport. Until then the conversions between screen pixels
+  /// and geo points use a default viewport and give meaningless results.
+  bool IsViewportInitialized() const { return m_isViewportInitialized; }
 
   /// @returns The screen pixel of the world copy of a geo point nearest to the screen center, or nothing for a point
   /// behind the camera in 3D, which has no pixel.

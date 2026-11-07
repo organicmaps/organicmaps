@@ -71,6 +71,14 @@ UNIT_TEST(Framework_ViewportListener_HalfTurn)
   TEST_EQUAL(CountViewportChanges({screen, rotated}), 2, ());
 }
 
+UNIT_TEST(Framework_IsViewportInitialized)
+{
+  TestFramework framework;
+  TEST(!framework.IsViewportInitialized(), ());
+  framework.OnViewportChanged(GetHighZoomScreen());
+  TEST(framework.IsViewportInitialized(), ());
+}
+
 UNIT_TEST(Framework_GetViewportCenter)
 {
   m2::RectD const pixelRect(0.0, 0.0, 1000.0, 1000.0);

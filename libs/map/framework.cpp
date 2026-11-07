@@ -310,6 +310,7 @@ void Framework::OnViewportChanged(ScreenBase const & screen)
     return;
 
   m_currentModelView = screen;
+  m_isViewportInitialized = true;
 
   GetSearchAPI().OnViewportChanged(GetCurrentViewport());
 
