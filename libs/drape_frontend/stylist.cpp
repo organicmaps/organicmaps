@@ -252,7 +252,9 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, MapStyle
   auto const geomType = types.GetGeomType();
   auto const sideData = geomType == feature::GeomType::Line ? cycling::Decode(f.GetCyclingInfrastructure())
                                                             : std::optional<cycling::Sides>{};
-  bool const useSideLines = sideData && zoomLevel >= kCyclewaySideMinZoom;
+  bool const useSideLines =
+      sideData && zoomLevel >= kCyclewaySideMinZoom &&
+      (sideData->m_left.m_kind != cycling::Kind::None || sideData->m_right.m_kind != cycling::Kind::None);
   m_lineGeometryPadding = useSideLines ? 64.0 : 0.0;
   MapStyle const cycleStyle = MapStyleIsDark(style) ? MapStyleCyclingDark : MapStyleCyclingLight;
   auto const & cycleClassif = classif(cycleStyle);
@@ -285,6 +287,31 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, MapStyle
            (bicycleFootway != Classificator::INVALID_TYPE && ftype::Trunc(type, 3) == bicycleFootway) ||
            (bicyclePath != Classificator::INVALID_TYPE && ftype::Trunc(type, 3) == bicyclePath);
   };
+  if (sideData && zoomLevel >= kCyclewaySideMinZoom && std::any_of(types.begin(), types.end(), isDedicated))
+    for (auto const & contact : sideData->m_contacts)
+    {
+      drule::KeysT roadKeys;
+      normalClassif.GetObject(contact.m_roadType)->GetSuitable(zoomLevel, feature::GeomType::Line, roadKeys);
+      float roadWidth = 0;
+      for (auto const & key : roadKeys)
+        if (key.m_type == drule::line)
+        {
+          auto const rule = normalRules.Find(key)->GetLine();
+          if (rule && !rule->pathsym)
+            roadWidth = std::max(roadWidth, rule->width);
+        }
+      drule::KeysT sideKeys;
+      cycleClassif.GetObject(cycleClassif.GetTypeByPath({"cyclewaytag", cycling::TypeName(contact.m_kind)}))
+          ->GetSuitable(zoomLevel, feature::GeomType::Line, sideKeys);
+      bool const visible =
+          std::any_of(sideKeys.begin(), sideKeys.end(), [](auto const & key) { return key.m_type == drule::line; });
+      if (roadWidth > 0 && visible)
+        m_connectorTargets.push_back(
+            {contact.m_junction, contact.m_roadPath,
+             SideOffsetPixels(roadWidth, CyclewayIndicatorWidth(zoomLevel), 2, contact.m_side)});
+    }
+  if (!m_connectorTargets.empty())
+    m_lineGeometryPadding = 64;
   bool const restoreCore = geomType == feature::GeomType::Line && style != cycleStyle &&
                            std::any_of(types.begin(), types.end(), isDedicated);
   drule::KeysT cycleCoreKeys;
@@ -336,7 +363,10 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, MapStyle
       cycleClassif.GetObject(type)->GetSuitable(zoomLevel, geomType, sideKeys);
       SideRules rules{sign, {}};
       if (sign != 0)
+      {
         rules.m_junctions = side.m_junctions;
+        rules.m_approaches = side.m_approaches;
+      }
       drule::LineRule const * stroke = nullptr;
       for (auto const & key : sideKeys)
       {
@@ -543,6 +573,13 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, MapStyle
       m_lineRules.push_back(normalized);
     }
   }
+
+  drule::LineRule const * connectorStroke = nullptr;
+  for (auto const rule : m_lineRules)
+    if (!rule->pathsym && rule->width > 0 && (!connectorStroke || rule->priority > connectorStroke->priority))
+      connectorStroke = rule;
+  if (!connectorStroke || connectorStroke->dashdot)
+    m_connectorTargets.clear();
 
   if (m_captionRule || m_pathtextRule)
   {
