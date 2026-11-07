@@ -859,8 +859,8 @@
     <string name="power_save_dialog_summary">Ar gyfer y llywio mwyaf cywir, rydym yn argymell analluogi modd arbed pŵer yng ngosodiadau batri\'r ffôn.</string>
     <!-- Title of the one-time warning about battery optimization when starting track recording on Android. -->
     <string name="background_recording_warning_title">Rhybudd recordio yn y cefndir</string>
-    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
-    <string name="background_recording_warning_message">I atal recordio\'r llwybr rhag stopio pan fydd y sgrin wedi\'i diffodd, eithrwch Organic Maps o optimeiddio\'r batri. Ar ddyfeisiau Samsung, ychwanegwch ef at y rhestr \"Apiau sy\'n aros yn effro\".</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_recording_warning_message">I barhau i recordio pan fydd y sgrin wedi\'i diffodd, agor Defnydd batri ap neu Fatri yn y wybodaeth am ap Organic Maps a chaniatáu defnydd yn y cefndir. Os cynigir Optimeiddiedig a Cyfyngedig, dewiswch Optimeiddiedig.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Recordio trac</string>
     <!-- Prompt for stopping a track recording. -->
@@ -971,4 +971,10 @@
     <string name="transit_type_train">Trên</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tram</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_recording_warning_message_legacy">I barhau i recordio pan fydd y sgrin wedi\'i diffodd, agor Batri yn Gwybodaeth Ap Organic Maps a diffodd Cyfyngiad Cefndir. Mae enwau\'r ddewislen yn amrywio yn ôl y ddyfais.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_recording_samsung_warning_message">I barhau i recordio pan fydd y sgrin wedi\'i diffodd, ychwanegwch Organic Maps i\'r apiau nad ydynt byth yn cysgu yn Gosodiadau → Batri → Terfynau defnydd yn y cefndir. Ar rai fersiynau, mae Batri o dan Gofal dyfais neu Gofal batris a dyfais.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_recording_samsung_warning_message_legacy">I barhau i recordio pan fydd y sgrin wedi\'i diffodd, agorwch Gosodiadau → Gofal dyfais → Batri → Rheoli pŵer apiau ac ychwanegwch Organic Maps at yr Apiau na fyddant yn cael eu rhoi i gysgu. Os oes dewislen ⋮ → Gosodiadau yn lle hynny, tynnwch Organic Maps o\'r Apiau sy\'n cysgu.</string>
 </resources>

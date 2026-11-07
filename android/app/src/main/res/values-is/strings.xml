@@ -846,8 +846,8 @@
     <string name="power_save_dialog_summary">Til að tryggja nákvæma leiðsögn ættirðu að gera orkusparnaðarham óvirkan í raflöðustillingum símans.</string>
     <!-- Title of the one-time warning about battery optimization when starting track recording on Android. -->
     <string name="background_recording_warning_title">Viðvörun um skráningu í bakgrunni</string>
-    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
-    <string name="background_recording_warning_message">Til að skráning ferils stöðvist ekki þegar slökkt er á skjánum skaltu slökkva á rafhlöðubestun fyrir Organic Maps. Á Samsung-tækjum skaltu bæta forritinu við listann „Forrit sem sofna aldrei“.</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_recording_warning_message">Til að halda áfram upptöku þegar skjárinn er slökkt, opnaðu App battery usage eða Battery í App info í Organic Maps og leyfðu bakgrunnsvinnu. Ef Optimized og Restricted eru í boði, veldu Optimized.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Skrá feril</string>
     <!-- Prompt for stopping a track recording. -->
@@ -948,4 +948,10 @@
     <string name="transit_type_train">Lest</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Sporvagn</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_recording_warning_message_legacy">Til að halda áfram upptöku þegar skjárinn er slökkt, opnaðu Batterí í Upplýsingum um Organic Maps-forritið og slökkvaðu á takmörkun í bakgrunni. Valmyndarnöfn eru mismunandi eftir tækjum.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_recording_samsung_warning_message">Til að halda áfram upptöku þegar skjárinn er slökkt, bættu við Organic Maps undir \"Aldrei sofandi forrit\" í Stillingar → Rafhlaða → Takmarkanir á bakgrunnsnotkun. Í sumum útgáfum er Rafhlaða undir Tækiumsjón eða Rafhlaða og tækiumsjón.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_recording_samsung_warning_message_legacy">Til að halda áfram upptöku þegar skjárinn er slökkt, opnaðu Stillingar → Umönnun tækis → Rafhlöðu → Stjórnun rafmagns forrita og bættu Organic Maps við forrit sem ekki verða sett í dvala. Ef í staðinn er ⋮ → Stillingar valmynd, fjarlægðu Organic Maps úr forritum í dvala.</string>
 </resources>

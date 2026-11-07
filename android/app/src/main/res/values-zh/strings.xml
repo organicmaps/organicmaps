@@ -843,8 +843,8 @@
     <string name="power_save_dialog_summary">为了获得最准确的导航，我们建议在手机电池设置中停用省电模式。</string>
     <!-- Title of the one-time warning about battery optimization when starting track recording on Android. -->
     <string name="background_recording_warning_title">后台轨迹记录提醒</string>
-    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
-    <string name="background_recording_warning_message">为防止屏幕关闭时轨迹记录中断，请将 Organic Maps 排除在电池优化之外。在三星设备上，请将其添加到“从不自动休眠的应用程序”列表中。</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_recording_warning_message">若要在屏幕关闭时继续记录，请在Organic Maps的“应用信息”中打开“应用电池使用情况”或“电池”选项，并允许后台使用。如果出现“优化”和“受限”选项，请选择“优化”。</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">录制轨迹</string>
     <!-- Prompt for stopping a track recording. -->
@@ -946,4 +946,10 @@
     <string name="transit_type_train">火车</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">有轨电车</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_recording_warning_message_legacy">若要在屏幕关闭时继续记录，请在Organic Maps的“应用信息”中打开“电池”选项，并关闭“后台限制”。菜单名称因设备而异。</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_recording_samsung_warning_message">若要在屏幕关闭时继续记录，请在“设置”→“电池”→“后台使用限制”中将Organic Maps添加到“永不休眠的应用”列表中。在某些版本中，“电池”选项位于“设备护理”或“电池与设备护理”下。</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_recording_samsung_warning_message_legacy">若要在屏幕关闭时继续记录，请打开“设置”→“设备护理”→“电池”→“应用电源管理”，并将Organic Maps添加到“不会进入休眠状态的应用”中。如果出现⋮→“设置”菜单，请将Organic Maps从“休眠应用”中移除。</string>
 </resources>

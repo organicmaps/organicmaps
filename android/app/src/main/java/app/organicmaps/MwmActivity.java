@@ -113,6 +113,7 @@ import app.organicmaps.search.SearchFragmentController;
 import app.organicmaps.search.SearchPageViewModel;
 import app.organicmaps.search.SearchRequest;
 import app.organicmaps.settings.SettingsActivity;
+import app.organicmaps.util.BatteryOptimizationHelper;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.ThemeUtils;
@@ -152,6 +153,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private static final String LAYERS_MENU_ID = "LAYERS_MENU_BOTTOM_SHEET";
 
   private static final String POWER_SAVE_DISCLAIMER_SHOWN = "POWER_SAVE_DISCLAIMER_SHOWN";
+  static final String LOCATION_PERMISSION_REQUESTED_FOR_RECORDING = "location_permission_requested_for_recording";
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
@@ -492,8 +494,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   protected void prepareIntentForCoreRestart(@NonNull Intent intent, @Nullable Bundle savedInstanceState)
   {
-    if (savedInstanceState != null)
-      intent.putExtra(EXTRA_CONSUMED, savedInstanceState.getBoolean(EXTRA_CONSUMED, false));
+    if (savedInstanceState == null)
+      return;
+    // A core restart must preserve the recording request that is waiting for location permission.
+    final boolean recordingPending = savedInstanceState.getBoolean(LOCATION_PERMISSION_REQUESTED_FOR_RECORDING, false);
+    if (recordingPending)
+      intent.putExtra(EXTRA_START_TRACK_RECORDING, true);
+    intent.putExtra(EXTRA_CONSUMED, !recordingPending && savedInstanceState.getBoolean(EXTRA_CONSUMED, false));
   }
 
   /**
@@ -522,6 +529,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
     super.onSafeCreate(savedInstanceState);
 
     mIntentConsumed = isIntentConsumed(savedInstanceState, getIntent());
+    if (savedInstanceState != null)
+      mLocationPermissionRequestedForRecording =
+          savedInstanceState.getBoolean(LOCATION_PERMISSION_REQUESTED_FOR_RECORDING, false);
 
     setContentView(R.layout.activity_map);
     makeNavigationBarTransparentInLightMode();
@@ -967,6 +977,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     RoutingController.get().saveRoute();
 
     outState.putBoolean(POWER_SAVE_DISCLAIMER_SHOWN, mPowerSaveDisclaimerShown);
+    outState.putBoolean(LOCATION_PERMISSION_REQUESTED_FOR_RECORDING, mLocationPermissionRequestedForRecording);
     outState.putBoolean(EXTRA_CONSUMED, mIntentConsumed);
     super.onSaveInstanceState(outState);
   }
@@ -2045,9 +2056,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (!LocationUtils.checkFineLocationPermission(this))
     {
       Logger.i(TAG, "Location permission not granted");
-      // This variable is a simple hack to re initiate the flow
-      // according to action of user. Calling it hack because we are avoiding
-      // creation of new methods by using this variable.
+      // Remember whether granting location permission should also start recording.
       mLocationPermissionRequestedForRecording = true;
       mLocationPermissionRequest.launch(new String[] {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION});
       return false;
@@ -2058,7 +2067,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     showTrackRecordingUi();
     Toast.makeText(this, R.string.track_recording, Toast.LENGTH_SHORT).show();
     TrackRecordingService.startForegroundService(getApplicationContext());
-    Utils.showBatteryOptimizationWarningIfNeeded(this);
+    BatteryOptimizationHelper.showWarningIfNeeded(this);
     return true;
   }
 

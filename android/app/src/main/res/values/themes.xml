@@ -21,6 +21,12 @@
 
   <style name="MwmTheme.DownloadResourcesLegacy" />
 
+  <style name="MwmTheme.TrackRecordingStart">
+    <item name="android:windowIsTranslucent">true</item>
+    <item name="android:windowBackground">@android:color/transparent</item>
+    <item name="android:windowDisablePreview">true</item>
+  </style>
+
 
   <style name="MwmTheme.CardBg">
     <item name="android:windowBackground">@color/bg_cards</item>

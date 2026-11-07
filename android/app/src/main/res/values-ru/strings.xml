@@ -852,8 +852,8 @@
     <string name="power_save_dialog_summary">Для наиболее точной навигации мы рекомендуем отключить режим энергосбережения в настройках батареи телефона.</string>
     <!-- Title of the one-time warning about battery optimization when starting track recording on Android. -->
     <string name="background_recording_warning_title">Предупреждение о фоновой записи</string>
-    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
-    <string name="background_recording_warning_message">Чтобы запись трека не прерывалась при выключенном экране, отключите оптимизацию батареи для Organic Maps. На устройствах Samsung добавьте приложение в список «Никогда не переходящие в спящий режим».</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_recording_warning_message">Чтобы запись трека продолжалась при выключенном экране, откройте «Расход заряда батареи приложением» или «Батарея» в сведениях о приложении Organic Maps и разрешите фоновую работу. Если доступны варианты «Оптимизировано» и «Ограничено», выберите «Оптимизировано».</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Записать трек</string>
     <!-- Prompt for stopping a track recording. -->
@@ -962,4 +962,10 @@
     <string name="transit_type_train">Поезд</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Трамвай</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_recording_warning_message_legacy">Чтобы запись трека продолжалась при выключенном экране, откройте «Батарея» в сведениях о приложении Organic Maps и отключите ограничение фоновой активности. Названия пунктов меню могут отличаться на разных устройствах.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_recording_samsung_warning_message">Чтобы запись трека продолжалась при выключенном экране, добавьте Organic Maps в список «Неспящие приложения» в настройках: Батарея → Ограничения в фоновом режиме. В некоторых версиях раздел «Батарея» находится в разделе «Обслуживание устройства» или «Батарея и обслуживание устройства».</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_recording_samsung_warning_message_legacy">Чтобы запись трека продолжалась при выключенном экране, откройте настройки: Обслуживание устройства → Батарея → Управление энергопотреблением приложений и добавьте Organic Maps в список «Приложения, которые не будут переведены в спящий режим». Если вместо этого есть меню ⋮ → Настройки, удалите Organic Maps из списка «Спящие приложения».</string>
 </resources>

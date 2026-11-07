@@ -849,8 +849,8 @@
     <string name="power_save_dialog_summary">Per una navigazione più accurata, disabilita la modalità risparmio energetico nelle impostazioni del telefono.</string>
     <!-- Title of the one-time warning about battery optimization when starting track recording on Android. -->
     <string name="background_recording_warning_title">Avviso di registrazione in background</string>
-    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
-    <string name="background_recording_warning_message">Per evitare che la registrazione della traccia si interrompa a schermo spento, escludi Organic Maps dall’ottimizzazione della batteria. Sui dispositivi Samsung, aggiungi l’app all’elenco «App mai in sospensione automatica».</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_recording_warning_message">Per continuare la registrazione a schermo spento, apra la sezione “Utilizzo batteria dell’app” o “Batteria” nelle informazioni sull’app di Organic Maps e autorizzi l’utilizzo in background. Se vengono proposte le opzioni “Ottimizzato” e “Limitato”, scelga “Ottimizzato”.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Registra traccia</string>
     <!-- Prompt for stopping a track recording. -->
@@ -955,4 +955,10 @@
     <string name="transit_type_train">Treno</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tram</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_recording_warning_message_legacy">Per continuare la registrazione a schermo spento, apra la sezione «Batteria» nelle informazioni sull’app di Organic Maps e disattivi la «Restrizione in background». I nomi dei menu variano a seconda del dispositivo.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_recording_samsung_warning_message">Per continuare la registrazione a schermo spento, aggiunga Organic Maps alle «App che non entrano mai in modalità di sospensione» in Impostazioni → Batteria → Limiti di utilizzo in background. In alcune versioni, la voce «Batteria» si trova sotto «Cura del dispositivo» o «Batteria e cura del dispositivo».</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_recording_samsung_warning_message_legacy">Per continuare la registrazione a schermo spento, apra Impostazioni → Cura del dispositivo → Batteria → Gestione energia delle app e aggiunga Organic Maps alle App che non vengono messe in sospensione. Se invece è presente un menu ⋮ → Impostazioni, rimuova Organic Maps dalle App in sospensione.</string>
 </resources>
