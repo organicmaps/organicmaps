@@ -35,8 +35,9 @@ iCLOUD-SYNK: Sikkerhetskopier og synkroniser enkelt alle bokmerker og spor via i
 Prøv appen — den er 100 % gratis, uten annonser, rask og fullstendig offline. Nyt en rask, pålitelig og privat kartopplevelse, og del den med andre.
 Organic Maps er et uavhengig, fellesskapsdrevet, åpen kildekode-prosjekt med hundrevis av bidragsytere som hjelper med å utvikle nye funksjoner, fikse problemer, oversette og drive prosjektet fremover.
 
-Instagram: organicmaps.app
-Telegram: OrganicMapsApp
 Eller lær andre måter å støtte prosjektet på: https://organicmaps.app/contribute/
 
 Ærlig tilbakemelding og anmeldelser i butikken motiverer oss! Har du spørsmål? Besøk organicmaps.app for mer informasjon og FAQ.
+
+Instagram: organicmaps.app
+Telegram: OrganicMapsApp

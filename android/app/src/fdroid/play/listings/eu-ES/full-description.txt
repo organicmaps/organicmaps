@@ -32,10 +32,11 @@ Probatu aplikazioa — %100 doakoa, iragarkirik gabea, azkarra eta guztiz lineaz
 
 Organic Maps proiektu independente, komunitatean oinarritua eta kode irekikoa da, eta ehunka laguntzaile ditu ezaugarri berriak garatzen, arazoak konpontzen, itzultzen eta proiektua aurrera eramaten.
 
-Instagram: organicmaps.app
-Telegram: OrganicMapsApp
 Edo proiektua babesteko beste modu batzuk ikasi: https://organicmaps.app/contribute/
 
 Dendako zure iritzi zintzoek eta berrikuspenek motibatzen gaituzte! Han zure iritzia jasotzea maite dugu.
 
 Galderarik al duzu? Mesedez, bisitatu organicmaps.app webgunea xehetasun gehiagorako eta maiz egiten diren galderak (FAQ) atalera.
+
+Instagram: organicmaps.app
+Telegram: OrganicMapsApp

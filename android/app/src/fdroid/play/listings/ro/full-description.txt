@@ -34,6 +34,7 @@ Organic Maps este o aplicație rapidă și detaliată de hărți și navigație 
 
 Organic Maps este un proiect independent, open-source, condus de comunitate, cu sute de colaboratori care dezvoltă funcții noi, corectează probleme, traduc și îmbunătățesc aplicația.
 
+Află cum poți susține proiectul: https://organicmaps.app/contribute/
+
 Instagram: organicmaps.app
 Telegram: OrganicMapsApp
-Află cum poți susține proiectul: https://organicmaps.app/contribute/

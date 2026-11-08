@@ -48,8 +48,9 @@ Organic Mapsから直接OpenStreetMapに貢献できます。
 
 Organic Mapsはインディーでコミュニティ主導のオープンソースプロジェクトであり、数百名の貢献者が新機能の開発、問題修正、翻訳などを支えています。
 
-Instagram: organicmaps.app
-Telegram: OrganicMapsApp
 サポートの詳細: https://organicmaps.app/contribute/
 
 ご意見・レビューは私たちの励みになります！ご質問があれば公式サイトをご覧ください。
+
+Instagram: organicmaps.app
+Telegram: OrganicMapsApp

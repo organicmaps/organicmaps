@@ -34,8 +34,9 @@ Prøv appen – den er 100 % gratis, uden reklamer, hurtig og fuldstændig offli
 
 Organic Maps er et uafhængigt, community-drevet open source-projekt med hundredvis af bidragydere, der hjælper med at udvikle nye funktioner, rette fejl, oversætte og føre projektet fremad.
 
-Instagram: organicmaps.app
-Telegram: OrganicMapsApp
 Se andre måder at støtte projektet på: https://organicmaps.app/contribute/
 
 Har du spørgsmål? Besøg hjemmesiden organicmaps.app for flere oplysninger og FAQ.
+
+Instagram: organicmaps.app
+Telegram: OrganicMapsApp

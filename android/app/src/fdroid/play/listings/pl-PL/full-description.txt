@@ -34,8 +34,9 @@ Wypróbuj aplikację — darmowa nawigacja bez internetu, szybka, w pełni offli
 
 Organic Maps to niezależny, społecznościowy projekt open source z setkami współtwórców, którzy tworzą nowe funkcje, naprawiają błędy, tłumaczą i rozwijają projekt.
 
-Instagram: organicmaps.app
-Telegram: OrganicMapsApp
 Inne sposoby wsparcia projektu: https://organicmaps.app/contribute/
 
 Twoja szczera opinia i recenzje w sklepie motywują nas! Masz pytania? Odwiedź stronę organicmaps.app, aby uzyskać więcej informacji i FAQ.
+
+Instagram: organicmaps.app
+Telegram: OrganicMapsApp

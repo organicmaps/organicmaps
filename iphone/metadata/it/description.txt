@@ -33,6 +33,7 @@ SINCRONIZZAZIONE iCLOUD: Effettua facilmente il backup e sincronizza tutti i tuo
 Prova l’app — è 100% gratuita, senza pubblicità, veloce e completamente offline. Goditi un’esperienza cartografica veloce, affidabile e privata, e condividila con altri.
 Organic Maps è un progetto indie, guidato dalla comunità, open-source, con centinaia di collaboratori che aiutano a sviluppare nuove funzionalità, correggere problemi, tradurre e far avanzare il progetto.
 
+Oppure scopri altri modi per supportare il progetto: https://organicmaps.app/contribute/
+
 Instagram: organicmaps.app
 Telegram: OrganicMapsIT
-Oppure scopri altri modi per supportare il progetto: https://organicmaps.app/contribute/

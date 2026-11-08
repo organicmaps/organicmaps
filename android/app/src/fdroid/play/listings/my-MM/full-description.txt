@@ -50,6 +50,7 @@ OpenStreetMap မှ ရရှိသော ကမ္ဘာတစ်ဝှမ်�
 
 <b>အမှောင်မုဒ်:</b> ညဘက်တွင် သက်သောင့်သက်သာ ကြည့်ရှုနိုင်ရန် အမှောင်အပြင်အဆင်သို့ ပြောင်းပါ။
 
+သို့မဟုတ် ပရောဂျက်ကို ထောက်ပံ့နိုင်မည့် အခြားနည်းလမ်းများကို လေ့လာရန်: https://organicmaps.app/contribute/
+
 Instagram: organicmaps.app
 Telegram: OrganicMapsApp
-သို့မဟုတ် ပရောဂျက်ကို ထောက်ပံ့နိုင်မည့် အခြားနည်းလမ်းများကို လေ့လာရန်: https://organicmaps.app/contribute/

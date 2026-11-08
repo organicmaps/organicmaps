@@ -34,8 +34,9 @@ SYNCHRONISATION ICLOUD : Sauvegardez et synchronisez facilement tous vos signets
 
 Organic Maps est un projet indépendant, communautaire et open source. Des centaines de bénévoles le développent, le traduisent et corrigent des bugs.
 
-Instagram: organicmaps.app
-Telegram: OrganicMapsFR
 Ou découvrez d’autres moyens de soutenir le projet : https://organicmaps.app/contribute/
 
 Vous avez des questions ? Veuillez consulter le site web organicmaps.app pour obtenir plus de détails et consulter la FAQ.
+
+Instagram: organicmaps.app
+Telegram: OrganicMapsFR

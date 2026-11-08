@@ -34,6 +34,7 @@ Coba aplikasinya — 100% gratis, bebas iklan, cepat, dan sepenuhnya offline. Ra
 
 Organic Maps adalah proyek independen dan open source yang digerakkan komunitas, dengan ratusan kontributor yang membantu mengembangkan fitur baru, memperbaiki masalah, menerjemahkan, dan memajukan proyek.
 
+Pelajari cara lain untuk mendukung proyek: https://organicmaps.app/contribute/
+
 Instagram: organicmaps.app
 Telegram: OrganicMapsApp
-Pelajari cara lain untuk mendukung proyek: https://organicmaps.app/contribute/

@@ -33,6 +33,7 @@ iCLOUD SYNC: Maak eenvoudig back-ups en synchroniseer al je bladwijzers en route
 Probeer de app — hij is 100% gratis, zonder advertenties, snel en volledig offline. Geniet van een snelle, betrouwbare en privékaartervaring en deel deze met anderen!
 Organic Maps is een indie, community-gedreven, open-source project met honderden bijdragers die helpen bij het ontwikkelen van nieuwe functies, oplossen van problemen, vertalen en het project vooruithelpen.
 
+Of ontdek andere manieren om het project te ondersteunen: https://organicmaps.app/contribute/
+
 Instagram: organicmaps.app
 Telegram: OrganicMapsApp
-Of ontdek andere manieren om het project te ondersteunen: https://organicmaps.app/contribute/

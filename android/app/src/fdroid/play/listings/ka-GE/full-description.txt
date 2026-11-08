@@ -34,6 +34,7 @@ Organic Maps არის სწრაფი და დეტალური ო
 
 Organic Maps არის დამოუკიდებელი, საზოგადოების მიერ განვითარებული ღია კოდის პროექტი, რომელშიც ასობით მონაწილე ქმნის ახალ ფუნქციებს, ასწორებს შეცდომებს, თარგმნის და ავითარებს პროექტს.
 
+პროექტის მხარდაჭერის სხვა გზები: https://organicmaps.app/contribute/
+
 Instagram: organicmaps.app
 Telegram: OrganicMapsApp
-პროექტის მხარდაჭერის სხვა გზები: https://organicmaps.app/contribute/

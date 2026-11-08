@@ -35,8 +35,9 @@ iCloud 同步: 轻松通过 iCloud 备份并同步所有书签和轨迹。
 试用这款应用——它 100% 免费、无广告、快速且完全离线。享受快速、可靠且私密的地图体验，并与他人分享！
 Organic Maps 是一个独立、社区驱动的开源项目，拥有数百名贡献者，帮助开发新功能、修复问题、翻译内容并推动项目发展。
 
-Instagram: organicmaps.app
-Telegram: OrganicMapsZH
 或了解支持项目的其他方式: https://organicmaps.app/contribute/
 
 你在应用商店的真实反馈和评价是我们的动力！我们很乐意听取你的意见。如有问题，请访问 organicmaps.app 获取更多详情和常见问题解答。
+
+Instagram: organicmaps.app
+Telegram: OrganicMapsZH
