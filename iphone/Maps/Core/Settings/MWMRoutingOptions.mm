@@ -3,6 +3,7 @@
 #import "MWMCoreRouterType.h"
 
 #include "routing/routing_options.hpp"
+#include "platform/settings.hpp"
 
 static_assert(MWMRoutingAvoidanceToll == static_cast<NSUInteger>(routing::RoutingOptions::Toll));
 static_assert(MWMRoutingAvoidanceMotorway == static_cast<NSUInteger>(routing::RoutingOptions::Motorway));
@@ -75,9 +76,25 @@ static_assert(MWMRoutingAvoidanceDirty == static_cast<NSUInteger>(routing::Routi
   [self setOption:(routing::RoutingOptions::Road::Motorway) enabled:avoid];
 }
 
+- (double)maxSpeedKMpH
+{
+  double speed = 0.0;
+  if (settings::Get("RoutingMaxSpeedKMpH", speed) && speed > 0.0)
+    return speed;
+  return 0.0;
+}
+
+- (void)setMaxSpeedKMpH:(double)maxSpeedKMpH
+{
+  if (maxSpeedKMpH > 0.0)
+    settings::Set("RoutingMaxSpeedKMpH", maxSpeedKMpH);
+  else
+    settings::Delete("RoutingMaxSpeedKMpH");
+}
+
 - (BOOL)hasOptions
 {
-  return self.avoidToll || self.avoidDirty || self.avoidFerry || self.avoidMotorway;
+  return self.avoidToll || self.avoidDirty || self.avoidFerry || self.avoidMotorway || self.maxSpeedKMpH > 0.0;
 }
 
 - (BOOL)routeOptimizationEnabled
@@ -110,13 +127,15 @@ static_assert(MWMRoutingAvoidanceDirty == static_cast<NSUInteger>(routing::Routi
   if (![object isMemberOfClass:self.class])
     return NO;
   MWMRoutingOptions * another = (MWMRoutingOptions *)object;
-  // Only avoidance options: +[MWMRouter updateRoute] must not rebuild when route optimization changes.
-  return another.routerType == self.routerType && another->_options.GetOptions() == _options.GetOptions();
+  // Only avoidance options and max speed: +[MWMRouter updateRoute] must not rebuild when route optimization changes.
+  return another.routerType == self.routerType && another->_options.GetOptions() == _options.GetOptions() &&
+         another.maxSpeedKMpH == self.maxSpeedKMpH;
 }
 
 - (NSUInteger)hash
 {
-  return (static_cast<NSUInteger>(self.routerType) << 8) | _options.GetOptions();
+  return (static_cast<NSUInteger>(self.routerType) << 8) | _options.GetOptions() |
+         (static_cast<NSUInteger>(self.maxSpeedKMpH) << 16);
 }
 
 @end

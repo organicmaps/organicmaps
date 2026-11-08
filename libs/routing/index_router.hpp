@@ -314,5 +314,6 @@ private:
 
   std::optional<RoutingOptions> m_requestRoutingOptions;
   RoutingOptions::RoadType m_previousRoutingOptions = 0;
+  std::optional<double> m_previousMaxSpeed;
 };
 }  // namespace routing

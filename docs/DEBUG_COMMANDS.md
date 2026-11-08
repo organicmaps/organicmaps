@@ -61,6 +61,9 @@ All the following commands require an app restart:
 
 - `?debug-cam`: Force-enables speed cameras in all countries.
 - `?no-debug-cam`: Reverts speed camera setting to default.
+- `?maxspeed`: Shows the current max speed constraint setting.
+- `?maxspeed:35` or `?maxspeed:35mph`: Sets a best-effort max speed constraint for routing (e.g. 35 mph or 50 km/h).
+- `?no-maxspeed` or `?maxspeed:off`: Disables the max speed constraint.
 
 ## Downloader
 

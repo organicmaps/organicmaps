@@ -166,4 +166,73 @@ UNIT_TEST(DistanceBiasedStrategy_CapsFastRoadsKeepsSlowRoads)
                           (c.m_type));
   }
 }
+
+UNIT_TEST(MaxSpeedConstraint_PenaltyApplied)
+{
+  auto const makeRoad = [](uint16_t speedKmPH)
+  {
+    return RoadGeometry(true /* oneWay */, Maxspeed(measurement_utils::Units::Metric, speedKmPH, kInvalidSpeed),
+                        RoadGeometry::Points({{0.0, 0.0}, {0.0, 0.01}}));
+  };
+
+  auto const estimator =
+      EdgeEstimator::Create(VehicleType::Car, 200.0, {0.01 /* weight */, kNotUsed /* eta */},
+                            nullptr /* trafficStash */, nullptr /* dataSourcePtr */, nullptr /* numMwmIds */);
+
+  Segment const segment(0 /* mwmId */, 0 /* featureId */, 0 /* segmentIdx */, true /* forward */);
+
+  auto const road30 = makeRoad(30);
+  auto const road50 = makeRoad(50);
+  auto const road70 = makeRoad(70);
+  auto const road100 = makeRoad(100);
+
+  auto const calc = [&](RoadGeometry const & road, EdgeEstimator::Purpose purpose)
+  { return estimator->CalcSegmentWeight(segment, road, purpose, 0 /* arrivalTime */); };
+
+  double const normalWeight30 = calc(road30, EdgeEstimator::Purpose::Weight);
+  double const normalWeight50 = calc(road50, EdgeEstimator::Purpose::Weight);
+  double const normalWeight70 = calc(road70, EdgeEstimator::Purpose::Weight);
+  double const normalWeight100 = calc(road100, EdgeEstimator::Purpose::Weight);
+
+  double const eta30 = calc(road30, EdgeEstimator::Purpose::ETA);
+  double const eta50 = calc(road50, EdgeEstimator::Purpose::ETA);
+  double const eta70 = calc(road70, EdgeEstimator::Purpose::ETA);
+  double const eta100 = calc(road100, EdgeEstimator::Purpose::ETA);
+
+  // Without max speed constraint, faster roads have lower weight (weight = distance / speed).
+  TEST_GREATER(normalWeight30, normalWeight50, ());
+  TEST_GREATER(normalWeight50, normalWeight70, ());
+  TEST_GREATER(normalWeight70, normalWeight100, ());
+
+  // Set max speed constraint to 50 km/h.
+  estimator->SetMaxSpeedKMpH(50.0);
+  TEST(estimator->GetMaxSpeedKMpH().has_value(), ());
+  TEST_ALMOST_EQUAL_ABS(*estimator->GetMaxSpeedKMpH(), 50.0, kAccuracyEps, ());
+
+  // Roads <= 50 km/h should NOT be penalized.
+  TEST_ALMOST_EQUAL_ABS(calc(road30, EdgeEstimator::Purpose::Weight), normalWeight30, kAccuracyEps, ());
+  TEST_ALMOST_EQUAL_ABS(calc(road50, EdgeEstimator::Purpose::Weight), normalWeight50, kAccuracyEps, ());
+
+  // Roads > 50 km/h should be heavily penalized in Purpose::Weight.
+  double const penalizedWeight70 = calc(road70, EdgeEstimator::Purpose::Weight);
+  double const penalizedWeight100 = calc(road100, EdgeEstimator::Purpose::Weight);
+
+  TEST_GREATER(penalizedWeight70, normalWeight70, ());
+  TEST_GREATER(penalizedWeight100, normalWeight100, ());
+  // Under the penalty, 70 km/h and 100 km/h roads become much more expensive than a 50 km/h road.
+  TEST_GREATER(penalizedWeight70, normalWeight50, ());
+  TEST_GREATER(penalizedWeight100, penalizedWeight70, ());
+
+  // ETA should remain unaffected by the max speed constraint.
+  TEST_ALMOST_EQUAL_ABS(calc(road30, EdgeEstimator::Purpose::ETA), eta30, kAccuracyEps, ());
+  TEST_ALMOST_EQUAL_ABS(calc(road50, EdgeEstimator::Purpose::ETA), eta50, kAccuracyEps, ());
+  TEST_ALMOST_EQUAL_ABS(calc(road70, EdgeEstimator::Purpose::ETA), eta70, kAccuracyEps, ());
+  TEST_ALMOST_EQUAL_ABS(calc(road100, EdgeEstimator::Purpose::ETA), eta100, kAccuracyEps, ());
+
+  // Resetting max speed removes the penalties.
+  estimator->SetMaxSpeedKMpH(std::nullopt);
+  TEST(!estimator->GetMaxSpeedKMpH().has_value(), ());
+  TEST_ALMOST_EQUAL_ABS(calc(road70, EdgeEstimator::Purpose::Weight), normalWeight70, kAccuracyEps, ());
+  TEST_ALMOST_EQUAL_ABS(calc(road100, EdgeEstimator::Purpose::Weight), normalWeight100, kAccuracyEps, ());
+}
 }  // namespace
