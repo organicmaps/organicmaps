@@ -30,6 +30,7 @@ void TestGpsInfo(GpsInfo const & tested, GpsInfo const & expected)
   TEST(AlmostEqualAbs(tested.m_verticalAccuracy, expected.m_verticalAccuracy, kEpsilon), ());
   TEST(AlmostEqualAbs(tested.m_bearing, expected.m_bearing, kEpsilon), ());
   TEST(AlmostEqualAbs(tested.m_speed, expected.m_speed, kEpsilon), ());
+  TEST(tested.m_timing == expected.m_timing, ());
 }
 
 GpsInfo GetGpsInfo(double timestampS, double lat, double lon, double altitude, double speed)
@@ -75,17 +76,16 @@ struct ExtrapolatorFixture
   std::deque<Task> m_gui;
   std::vector<GpsInfo> m_updates;
   std::vector<UpdateType> m_updateTypes;
-  std::function<void()> m_onUpdate;
-  std::unique_ptr<Extrapolator> m_extrapolator =
-      std::make_unique<Extrapolator>([this](GpsInfo const & info, UpdateType type)
+  std::function<void(GpsInfo const &)> m_onUpdate;
+  std::unique_ptr<Extrapolator> m_extrapolator = std::make_unique<Extrapolator>(
+      [this](GpsInfo const & info, UpdateType type)
   {
     m_updates.push_back(info);
     m_updateTypes.push_back(type);
     if (m_onUpdate)
-      m_onUpdate();
-  }, [this] { return m_now; }, [this](Milliseconds delay, Task task) {
-    m_background.push_back({m_now + delay, std::move(task)});
-  }, [this](Task task) { m_gui.push_back(std::move(task)); });
+      m_onUpdate(info);
+  }, [this] { return m_now; },
+      [this](Milliseconds delay, Task task) { m_background.push_back({m_now + delay, std::move(task)}); });
 
   void RunBackground()
   {
@@ -95,9 +95,8 @@ struct ExtrapolatorFixture
                                    [this](PendingTask const & task) { return task.m_when <= m_now; });
       if (it == m_background.end())
         return;
-      Task task = std::move(it->m_task);
+      m_gui.push_back(std::move(it->m_task));
       m_background.erase(it);
-      task();
     }
   }
 
@@ -258,12 +257,83 @@ UNIT_TEST(Extrapolator_OldMeasurementCannotBeginNewPredictionLifetime)
   f.Update(TimedFix(1000, 0));
   f.Update(TimedFix(1001, 1000));
   auto const count = f.m_updates.size();
+  TEST_EQUAL(count, 2, ());
   f.Advance(200);
   TEST_EQUAL(f.m_updates.size(), count, ());
   TEST(!f.m_updates.back().IsFresh(f.m_now), ());
 }
 
-UNIT_TEST(Extrapolator_MeasurementProvenanceDoesNotDependOnDispatchTime)
+UNIT_TEST(Extrapolator_DelayedMeasurementUsesRemainingPredictionLifetime)
+{
+  ExtrapolatorFixture f;
+  f.m_extrapolator->Enable(true);
+  auto const first = TimedFix(1000, 0);
+  auto const second = TimedFix(1001, 1000);
+  f.Update(first);
+  f.m_now += ExtrapolatorFixture::Milliseconds(2500);
+  f.m_extrapolator->OnLocationUpdate(second);
+  TEST_EQUAL(f.m_updates.size(), 2, ());
+  TestGpsInfo(f.m_updates.back(), second);
+  f.Advance(200);
+  TEST_EQUAL(f.m_updates.size(), 3, ());
+  TestGpsInfo(f.m_updates.back(), LinearExtrapolation(first, second, 1700));
+  f.Advance(300);
+  TEST_EQUAL(f.m_updates.size(), 3, ());
+  TEST(f.m_background.empty(), ());
+}
+
+UNIT_TEST(Extrapolator_HistoricalCorrectionUpdatesDisplayWithoutRenewingFreshness)
+{
+  ExtrapolatorFixture f;
+  f.m_extrapolator->Enable(true);
+  f.Update(TimedFix(1000, 0));
+  f.Advance(1000);
+  auto corrected = TimedFix(1001, 1000);
+  f.Update(corrected);
+  f.Advance(6000);
+  auto const count = f.m_updates.size();
+  corrected.m_longitude += 5e-6;
+  corrected.m_horizontalAccuracy = 9.0;
+  f.m_extrapolator->OnLocationUpdate(corrected);
+  TEST_EQUAL(f.m_updates.size(), count + 1, ());
+  TestGpsInfo(f.m_updates.back(), corrected);
+  TEST(!f.m_updates.back().IsFresh(f.m_now), ());
+  f.m_extrapolator->Enable(false);
+  f.m_extrapolator->Enable(true);
+  f.Advance(1000);
+  TEST_EQUAL(f.m_updates.size(), count + 1, ());
+  TEST(f.m_background.empty(), ());
+}
+
+UNIT_TEST(Extrapolator_EnableDoesNotLoseReceivedFix)
+{
+  ExtrapolatorFixture f;
+  f.m_extrapolator->OnLocationUpdate(MovingFix(1.0));
+  TEST_EQUAL(f.m_updates.size(), 1, ());
+  f.m_extrapolator->Enable(true);
+  f.Run();
+  TEST_EQUAL(f.m_updates.size(), 1, ());
+  TestGpsInfo(f.m_updates.back(), MovingFix(1.0));
+}
+
+UNIT_TEST(Extrapolator_ExpiredCorrectionStillUpdatesMeasuredPosition)
+{
+  ExtrapolatorFixture f;
+  f.StartMoving();
+  f.Advance(2000);
+  auto const count = f.m_updates.size();
+  auto corrected = MovingFix(2.0);
+  corrected.m_longitude += 5e-6;
+  corrected.m_horizontalAccuracy = 9.0;
+  f.Update(corrected);
+  TEST_EQUAL(f.m_updates.size(), count + 1, ());
+  TestGpsInfo(f.m_updates.back(), corrected);
+  f.Advance(1000);
+  TEST_EQUAL(f.m_updates.size(), count + 1, ());
+  TEST(f.m_background.empty(), ());
+}
+
+UNIT_TEST(Extrapolator_CallbackProvenanceMatchesReceivedAndPredictedPositions)
 {
   ExtrapolatorFixture f;
   f.StartMoving();
@@ -273,14 +343,19 @@ UNIT_TEST(Extrapolator_MeasurementProvenanceDoesNotDependOnDispatchTime)
 
   auto correction = MovingFix(2.0);
   correction.m_horizontalAccuracy = 9.0;
+  auto const count = f.m_updates.size();
   f.m_extrapolator->OnLocationUpdate(correction);
-  f.RunBackground();
-  f.m_now += ExtrapolatorFixture::Milliseconds(400);
-  f.RunGui();
+  TEST_EQUAL(f.m_updates.size(), count + 1, ());
   TEST(f.m_updateTypes.back() == UpdateType::Measurement, ());
   TestGpsInfo(f.m_updates.back(), correction);
   f.Advance(200);
   TEST(f.m_updateTypes.back() == UpdateType::Prediction, ());
+
+  f.Advance(2000);
+  correction.m_horizontalAccuracy = 8.0;
+  f.m_extrapolator->OnLocationUpdate(correction);
+  TEST(f.m_updateTypes.back() == UpdateType::Measurement, ());
+  TestGpsInfo(f.m_updates.back(), correction);
 }
 
 UNIT_TEST(Extrapolator_ExactRepeatsDoNotExtendPrediction)
@@ -310,7 +385,8 @@ UNIT_TEST(Extrapolator_CorrectionsDoNotExtendPrediction)
   corrected.m_horizontalAccuracy = 8.0;
   f.Update(corrected);
   f.Advance(1000);
-  TEST_EQUAL(f.m_updates.size(), count, ());
+  TEST_EQUAL(f.m_updates.size(), count + 1, ());
+  TestGpsInfo(f.m_updates.back(), corrected);
   TEST(f.m_background.empty(), ());
 }
 
@@ -333,32 +409,24 @@ UNIT_TEST(Extrapolator_DelayedGuiUsesElapsedTime)
   TEST(f.m_background.empty(), ());
 }
 
-UNIT_TEST(Extrapolator_DelayedNewFixRemainsMeasured)
+UNIT_TEST(Extrapolator_MeasurementsAreDeliveredBeforePredictionQueue)
 {
   ExtrapolatorFixture f;
   f.StartMoving();
+  auto const count = f.m_updates.size();
   f.m_extrapolator->OnLocationUpdate(MovingFix(3.0));
-  f.RunBackground();
-  f.m_now += ExtrapolatorFixture::Milliseconds(400);
-  f.RunGui();
+  TEST_EQUAL(f.m_updates.size(), count + 1, ());
   TestGpsInfo(f.m_updates.back(), MovingFix(3.0));
-  f.Advance(200);
-  TestGpsInfo(f.m_updates.back(), LinearExtrapolation(MovingFix(2.0), MovingFix(3.0), 600));
-}
-
-UNIT_TEST(Extrapolator_DelayedCorrectionRemainsMeasured)
-{
-  ExtrapolatorFixture f;
-  f.StartMoving();
-  auto corrected = MovingFix(2.0);
+  auto corrected = MovingFix(3.0);
   corrected.m_longitude += 5e-6;
   f.m_extrapolator->OnLocationUpdate(corrected);
-  f.RunBackground();
+  TEST_EQUAL(f.m_updates.size(), count + 2, ());
+  TestGpsInfo(f.m_updates.back(), corrected);
   f.m_now += ExtrapolatorFixture::Milliseconds(400);
   f.RunGui();
-  TestGpsInfo(f.m_updates.back(), corrected);
+  TEST_EQUAL(f.m_updates.size(), count + 2, ());
   f.Advance(200);
-  TestGpsInfo(f.m_updates.back(), LinearExtrapolation(MovingFix(1.0), corrected, 600));
+  TestGpsInfo(f.m_updates.back(), LinearExtrapolation(MovingFix(2.0), corrected, 600));
 }
 
 UNIT_TEST(Extrapolator_NewerFixInvalidatesQueuedGuiPrediction)
@@ -370,28 +438,29 @@ UNIT_TEST(Extrapolator_NewerFixInvalidatesQueuedGuiPrediction)
   auto const count = f.m_updates.size();
   f.m_extrapolator->OnLocationUpdate(MovingFix(3.0));
   f.RunGui();
-  TEST_EQUAL(f.m_updates.size(), count, ());
+  TEST_EQUAL(f.m_updates.size(), count + 1, ());
   f.Run();
   TEST_EQUAL(f.m_updates.size(), count + 1, ());
   TestGpsInfo(f.m_updates.back(), MovingFix(3.0));
 }
 
-UNIT_TEST(Extrapolator_ResetInvalidatesQueuedFixAndHistory)
+UNIT_TEST(Extrapolator_ResetInvalidatesQueuedPredictionAndHistory)
 {
   ExtrapolatorFixture f;
-  f.m_extrapolator->Enable(true);
-  f.m_extrapolator->OnLocationUpdate(MovingFix(1.0));
+  f.StartMoving();
+  f.m_now += ExtrapolatorFixture::Milliseconds(200);
   f.RunBackground();
+  auto const count = f.m_updates.size();
   f.m_extrapolator->Reset();
   f.RunGui();
-  TEST(f.m_updates.empty(), ());
-  f.Update(MovingFix(2.0));
+  TEST_EQUAL(f.m_updates.size(), count, ());
+  f.Update(MovingFix(3.0));
   f.Advance(200);
-  TEST_EQUAL(f.m_updates.size(), 1, ());
-  TestGpsInfo(f.m_updates.back(), MovingFix(2.0));
+  TEST_EQUAL(f.m_updates.size(), count + 1, ());
+  TestGpsInfo(f.m_updates.back(), MovingFix(3.0));
 }
 
-UNIT_TEST(Extrapolator_DisableAndReenableRequireNewFixes)
+UNIT_TEST(Extrapolator_EnableChangesPreserveReceivedMeasurements)
 {
   ExtrapolatorFixture f;
   f.StartMoving();
@@ -399,16 +468,26 @@ UNIT_TEST(Extrapolator_DisableAndReenableRequireNewFixes)
   f.RunBackground();
   auto const count = f.m_updates.size();
   f.m_extrapolator->Enable(false);
-  f.m_extrapolator->Enable(true);
   f.RunGui();
-  f.Advance(1000);
   TEST_EQUAL(f.m_updates.size(), count, ());
   f.Update(MovingFix(3.0));
-  f.Advance(1000);
   TEST_EQUAL(f.m_updates.size(), count + 1, ());
-  f.Update(MovingFix(4.0));
+  f.m_extrapolator->Enable(true);
   f.Advance(200);
-  TestGpsInfo(f.m_updates.back(), LinearExtrapolation(MovingFix(3.0), MovingFix(4.0), 200));
+  TestGpsInfo(f.m_updates.back(), LinearExtrapolation(MovingFix(2.0), MovingFix(3.0), 200));
+}
+
+UNIT_TEST(Extrapolator_EnableDoesNotReviveExpiredPrediction)
+{
+  ExtrapolatorFixture f;
+  f.StartMoving();
+  f.m_extrapolator->Enable(false);
+  f.Advance(3000);
+  auto const count = f.m_updates.size();
+  f.m_extrapolator->Enable(true);
+  f.Advance(1000);
+  TEST_EQUAL(f.m_updates.size(), count, ());
+  TEST(f.m_background.empty(), ());
 }
 
 UNIT_TEST(Extrapolator_UtcRollbackStartsNewHistory)
@@ -441,6 +520,61 @@ UNIT_TEST(Extrapolator_DestructionInvalidatesQueuedCallbacks)
   TEST_EQUAL(f.m_updates.size(), count, ());
 }
 
+UNIT_TEST(Extrapolator_DestructionInsideMeasurementCallbackIsSafe)
+{
+  ExtrapolatorFixture f;
+  f.StartMoving();
+  auto const count = f.m_updates.size();
+  f.m_onUpdate = [&f](GpsInfo const &) { f.m_extrapolator.reset(); };
+  f.Update(MovingFix(3.0));
+  TEST_EQUAL(f.m_updates.size(), count + 1, ());
+  TestGpsInfo(f.m_updates.back(), MovingFix(3.0));
+  f.Advance(1000);
+  TEST_EQUAL(f.m_updates.size(), count + 1, ());
+  TEST(f.m_background.empty(), ());
+}
+
+UNIT_TEST(Extrapolator_EnableInsideMeasurementCallbackKeepsHistory)
+{
+  ExtrapolatorFixture f;
+  f.m_onUpdate = [&f](GpsInfo const &) { f.m_extrapolator->Enable(true); };
+  f.Update(MovingFix(1.0));
+  f.m_onUpdate = {};
+  f.Advance(1000);
+  f.Update(MovingFix(2.0));
+  f.Advance(200);
+  TestGpsInfo(f.m_updates.back(), LinearExtrapolation(MovingFix(1.0), MovingFix(2.0), 200));
+}
+
+UNIT_TEST(Extrapolator_ReentrantMeasurementDoesNotMutateCallbackArgument)
+{
+  ExtrapolatorFixture f;
+  bool nested = false;
+  f.m_onUpdate = [&f, &nested](GpsInfo const & info)
+  {
+    if (!nested)
+    {
+      nested = true;
+      f.m_extrapolator->OnLocationUpdate(MovingFix(2.0));
+      TestGpsInfo(info, MovingFix(1.0));
+    }
+  };
+  f.Update(MovingFix(1.0));
+  TEST_EQUAL(f.m_updates.size(), 2, ());
+  TestGpsInfo(f.m_updates.back(), MovingFix(2.0));
+}
+
+UNIT_TEST(Extrapolator_UndefinedFixStopsPredictionWithoutDelivery)
+{
+  ExtrapolatorFixture f;
+  f.StartMoving();
+  auto const count = f.m_updates.size();
+  f.Update(GpsInfo{});
+  f.Advance(1000);
+  TEST_EQUAL(f.m_updates.size(), count, ());
+  TEST(f.m_background.empty(), ());
+}
+
 UNIT_TEST(Extrapolator_NoIdleOrDisabledPredictionTasks)
 {
   ExtrapolatorFixture f;
@@ -456,7 +590,7 @@ UNIT_TEST(Extrapolator_ResetInsideCallbackStopsPrediction)
 {
   ExtrapolatorFixture f;
   f.StartMoving();
-  f.m_onUpdate = [&f] { f.m_extrapolator->Reset(); };
+  f.m_onUpdate = [&f](GpsInfo const &) { f.m_extrapolator->Reset(); };
   f.Advance(200);
   auto const count = f.m_updates.size();
   f.Advance(1000);

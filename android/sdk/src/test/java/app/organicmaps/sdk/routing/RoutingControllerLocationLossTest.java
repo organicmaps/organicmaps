@@ -67,6 +67,7 @@ public class RoutingControllerLocationLossTest
   public void setUp() throws ReflectiveOperationException
   {
     NativeLocation.resets = 0;
+    NativeLocation.resetsWithFix = 0;
     mLogger = mockStatic(Logger.class);
     mRouter = mockStatic(Router.class);
     mNetwork = mockStatic(NetworkPolicy.class);
@@ -160,6 +161,26 @@ public class RoutingControllerLocationLossTest
     assertSame(cached, mController.getCachedRoutingInfo());
 
     reportRawFix();
+    NativeRouting.listener.onRoutingInfoUpdated(RoutingControllerRoutingInfoTest.snapshot(5, 10, false));
+    assertEquals(2, mReceived.size());
+    assertEquals(5, mReceived.get(1).currentSpeedMps, 0);
+    assertFalse(mReceived.get(1).shouldPlayWarningSignal());
+  }
+
+  @Test
+  public void freshSourceHandoffResetsPredictionWithoutInvalidatingHealthyGuidance() throws ReflectiveOperationException
+  {
+    final RoutingInfo cached = mController.getCachedRoutingInfo();
+    final Location precise = new Location(mHelper.getSavedLocation());
+    precise.setProvider(LocationUtils.FUSED_PROVIDER);
+    precise.setAccuracy(4);
+    mHelper.onLocationChanged(precise);
+    assertTrue(mHelper.isActive());
+    assertEquals(0, NativeLocation.resets);
+    assertEquals(2, NativeLocation.resetsWithFix);
+    assertEquals(1, mReceived.size());
+    assertSame(cached, mController.getCachedRoutingInfo());
+
     NativeRouting.listener.onRoutingInfoUpdated(RoutingControllerRoutingInfoTest.snapshot(5, 10, false));
     assertEquals(2, mReceived.size());
     assertEquals(5, mReceived.get(1).currentSpeedMps, 0);
@@ -278,12 +299,16 @@ public class RoutingControllerLocationLossTest
   public static class NativeLocation
   {
     static int resets;
+    static int resetsWithFix;
 
     @Implementation
     public static void nativeLocationUpdated(long utc, double latitude, double longitude, float accuracy,
                                              double altitude, float altitudeAccuracy, float speed, float bearing,
                                              long elapsed, long liveUntil, boolean reset)
-    {}
+    {
+      if (reset)
+        ++resetsWithFix;
+    }
 
     @Implementation
     public static void nativeResetLocationPrediction()

@@ -34,8 +34,7 @@ public:
   using Clock = location::Clock;
   using Task = std::function<void()>;
   using NowFn = std::function<Clock::time_point()>;
-  using BackgroundTaskFn = std::function<void(std::chrono::milliseconds, Task)>;
-  using GuiTaskFn = std::function<void(Task)>;
+  using ScheduleFn = std::function<void(std::chrono::milliseconds, Task)>;
 
   // Prediction stops this long after the observation, or receipt for legacy producers.
   static uint64_t constexpr kMaxExtrapolationTimeMs = 2000;
@@ -45,8 +44,8 @@ public:
   /// \param update is a function which is called with params according to extrapolated position.
   /// |update| will be called on gui thread.
   explicit Extrapolator(ExtrapolatedLocationUpdateFn const & update);
-  // Injected clock and queues allow deterministic tests without sleeping.
-  Extrapolator(ExtrapolatedLocationUpdateFn const & update, NowFn now, BackgroundTaskFn background, GuiTaskFn gui);
+  // The scheduler delivers tasks on the GUI thread after the given delay.
+  Extrapolator(ExtrapolatedLocationUpdateFn const & update, NowFn now, ScheduleFn schedule);
   ~Extrapolator();
 
   Extrapolator(Extrapolator const &) = delete;
@@ -61,9 +60,8 @@ public:
 
 private:
   struct State;
-  static void Schedule(std::shared_ptr<State> const & state, uint64_t generation, bool isUpdate,
-                       std::chrono::milliseconds delay);
-  static void Deliver(std::shared_ptr<State> const & state, uint64_t generation, bool isUpdate);
+  static void Schedule(std::shared_ptr<State> const & state, uint64_t generation);
+  static void Deliver(std::shared_ptr<State> const & state, uint64_t generation);
 
   std::shared_ptr<State> m_state;
 };

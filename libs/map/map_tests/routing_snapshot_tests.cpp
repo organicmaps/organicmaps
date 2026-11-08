@@ -152,21 +152,13 @@ public:
   void Update(double longitude, double speed, double y = 1.0)
   {
     Manager().OnLocationUpdate(Gps(longitude, speed, y));
-    m_gui->RunUntil([&] { return m_received == m_sequence; });
+    TEST_EQUAL(m_received, m_sequence, ("Received measurements publish their snapshot synchronously."));
   }
 
   void UpdateWithoutListener(double longitude, double speed)
   {
     Manager().OnLocationUpdate(Gps(longitude, speed));
-    m_gui->RunUntil([&] { return Manager().RoutingSession().GetCompletionPercent() > 0.0; });
-  }
-
-  void FlushLocationTasks()
-  {
-    bool done = false;
-    GetPlatform().RunDelayedTask(Platform::Thread::Background, std::chrono::milliseconds::zero(),
-                                 [&] { GetPlatform().RunTask(Platform::Thread::Gui, [&] { done = true; }); });
-    m_gui->RunUntil([&] { return done; });
+    TEST_GREATER(Manager().RoutingSession().GetCompletionPercent(), 0.0, ());
   }
 
   location::GpsInfo Gps(double longitude, double speed, double y = 1.0)
@@ -293,7 +285,6 @@ UNIT_CLASS_TEST(RoutingSnapshotTest, HistoricalMeasurementCannotPublishGuidanceO
   auto const now = location::Clock::now();
   historical.m_timing = location::GpsInfo::Timing{now - std::chrono::seconds(40), now - std::chrono::seconds(35)};
   Manager().OnLocationUpdate(historical);
-  FlushLocationTasks();
 
   TEST(!published, ());
   TEST_EQUAL(Manager().RoutingSession().GetCompletionPercent(), completion, ());
