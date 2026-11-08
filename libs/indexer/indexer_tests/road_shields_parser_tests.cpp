@@ -66,3 +66,29 @@ UNIT_TEST(RoadShields_Smoke)
   TEST_EQUAL(shields[0].m_type, RoadShieldType::Generic_Red, ());
   TEST_EQUAL(shields[0].m_name, "26", ());
 }
+
+// https://github.com/organicmaps/organicmaps/issues/1103
+// The same road number written with and without a space should get one shield.
+UNIT_TEST(RoadShields_SameNumberWithoutSpace)
+{
+  using namespace ftypes;
+
+  auto shields = GetRoadShields("France_Provence", "D 106;FR:83/D106");
+  TEST_EQUAL(shields.size(), 1, (shields));
+  TEST_EQUAL(shields[0].m_name, "D 106", (shields));
+  TEST_EQUAL(shields[0].m_type, RoadShieldType::Generic_Orange, (shields));
+
+  shields = GetRoadShields("Germany_Bavaria", "A 7;A7");
+  TEST_EQUAL(shields.size(), 1, (shields));
+
+  // A network style wins over the plain shield of the same number.
+  shields = GetRoadShields("Poland_Masovian Voivodeship", "S 7;PL:national/S7");
+  TEST_EQUAL(shields.size(), 1, (shields));
+  TEST_EQUAL(shields[0].m_type, RoadShieldType::Generic_Red, (shields));
+
+  // Different numbers or styles are kept.
+  shields = GetRoadShields("France_Provence", "D 106;D 1060");
+  TEST_EQUAL(shields.size(), 2, (shields));
+  shields = GetRoadShields("France_Provence", "D 7;e-road/D7");
+  TEST_EQUAL(shields.size(), 2, (shields));
+}

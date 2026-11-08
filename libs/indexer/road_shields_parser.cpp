@@ -125,6 +125,34 @@ public:
     return RoadShieldType::Default;
   }
 
+  // "D 106" and "D106" are the same road number, often from the way's and its route relation's ref.
+  static bool IsSameNumber(std::string_view a, std::string_view b)
+  {
+    size_t i = 0, j = 0;
+    while (true)
+    {
+      while (i < a.size() && a[i] == ' ')
+        ++i;
+      while (j < b.size() && b[j] == ' ')
+        ++j;
+      if (i == a.size() || j == b.size())
+        return i == a.size() && j == b.size();
+      if (a[i++] != b[j++])
+        return false;
+    }
+  }
+
+  static bool IsSameShield(RoadShield const & a, RoadShield const & b)
+  {
+    return a.m_type == b.m_type && a.m_additionalText == b.m_additionalText && IsSameNumber(a.m_name, b.m_name);
+  }
+
+  static bool Contains(RoadShieldsSetT const & shields, RoadShield const & shield)
+  {
+    return std::any_of(shields.begin(), shields.end(),
+                       [&shield](RoadShield const & other) { return IsSameShield(other, shield); });
+  }
+
   RoadShieldsSetT GetRoadShields() const
   {
     RoadShieldsSetT result, defaultShields;
@@ -152,7 +180,7 @@ public:
             shield.m_type = networkType;
         }
       }
-      if (!shield.m_name.empty() && shield.m_type != RoadShieldType::Hidden)
+      if (!shield.m_name.empty() && shield.m_type != RoadShieldType::Hidden && !Contains(result, shield))
       {
         if (shield.m_type != RoadShieldType::Default)
         {
@@ -163,8 +191,7 @@ public:
       }
     });
 
-    result.erase_if([&defaultShields](RoadShield const & shield)
-    { return std::find(defaultShields.begin(), defaultShields.end(), shield) != defaultShields.end(); });
+    result.erase_if([&defaultShields](RoadShield const & shield) { return Contains(defaultShields, shield); });
 
     return result;
   }
