@@ -15,8 +15,17 @@ public abstract class BaseLocationProvider
   {
     @UiThread
     void onLocationChanged(@NonNull Location location);
+    /** Delivers an authorized native-source handoff with its first complete fix. */
+    @UiThread
+    default void onLocationChanged(@NonNull Location location, boolean sourceChanged)
+    {
+      onLocationChanged(location);
+    }
     @UiThread
     void onLocationDisabled();
+    /** Reports loss of coarse and fine location access detected by the Google provider. */
+    @UiThread
+    void onLocationPermissionDenied();
     // Used by GoogleFusedLocationProvider.
     @SuppressWarnings("unused")
     @UiThread

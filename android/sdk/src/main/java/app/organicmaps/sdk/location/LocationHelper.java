@@ -34,7 +34,7 @@ import org.chromium.base.ObserverList;
  */
 public class LocationHelper implements BaseLocationProvider.Listener
 {
-  // Replaced 0 with 100ms. Seems like it is not working on Lineage, EOS, MicroG, ...
+  // Use a nonzero interval because some LineageOS, /e/OS, and microG setups stall with zero.
   // https://github.com/organicmaps/organicmaps/issues/11076
   // Probably https://github.com/organicmaps/organicmaps/issues/10133
   // Probably https://github.com/organicmaps/organicmaps/issues/9018
@@ -58,13 +58,17 @@ public class LocationHelper implements BaseLocationProvider.Listener
 
   @Nullable
   private Location mSavedLocation;
+  // A new backend's first fix must not be filtered against the displayed location from the old backend.
+  @Nullable
+  private Location mLocationForFiltering;
   private MapObject mMyPosition;
   @NonNull
-  private final LocationProviderFactory mLocationProviderFactory = new LocationProviderFactory();
+  private final LocationProviderFactory mLocationProviderFactory;
   @NonNull
   private BaseLocationProvider mLocationProvider;
-  @Nullable
-  private BaseLocationProvider mOldLocationProvider;
+  private long mProviderGeneration;
+  private long mLocationRevision;
+  private boolean mSimulating;
   private long mInterval;
   private boolean mInFirstRun;
   private boolean mActive;
@@ -110,10 +114,106 @@ public class LocationHelper implements BaseLocationProvider.Listener
 
   public LocationHelper(@NonNull Context context, @NonNull SensorHelper sensorHelper)
   {
+    this(context, sensorHelper, new LocationProviderFactory(), new Handler(Looper.getMainLooper()));
+  }
+
+  LocationHelper(@NonNull Context context, @NonNull SensorHelper sensorHelper,
+                 @NonNull LocationProviderFactory providerFactory, @NonNull Handler handler)
+  {
     mContext = context;
     mSensorHelper = sensorHelper;
-    mLocationProvider = mLocationProviderFactory.getProvider(mContext, this);
-    mHandler = new Handler(Looper.getMainLooper());
+    mLocationProviderFactory = providerFactory;
+    mHandler = handler;
+    mLocationProvider = createProvider(false, createProviderListener());
+  }
+
+  private BaseLocationProvider.Listener createProviderListener()
+  {
+    final long generation = ++mProviderGeneration;
+    return new BaseLocationProvider.Listener() {
+      private boolean isCurrent()
+      {
+        return mActive && generation == mProviderGeneration;
+      }
+
+      @Override
+      public void onLocationChanged(@NonNull Location location)
+      {
+        if (isCurrent())
+          LocationHelper.this.onLocationChanged(location);
+      }
+
+      @Override
+      public void onLocationChanged(@NonNull Location location, boolean sourceChanged)
+      {
+        if (isCurrent())
+          LocationHelper.this.onLocationChanged(location, sourceChanged);
+      }
+
+      @Override
+      public void onLocationDisabled()
+      {
+        if (isCurrent())
+          LocationHelper.this.onLocationDisabled();
+      }
+
+      @Override
+      public void onLocationPermissionDenied()
+      {
+        if (isCurrent())
+          LocationHelper.this.onLocationPermissionDenied();
+      }
+
+      @Override
+      public void onLocationResolutionRequired(@NonNull PendingIntent pendingIntent)
+      {
+        if (isCurrent())
+          LocationHelper.this.onLocationResolutionRequired(pendingIntent);
+      }
+
+      @Override
+      public void onFusedLocationUnsupported()
+      {
+        if (isCurrent())
+          LocationHelper.this.onFusedLocationUnsupported();
+      }
+    };
+  }
+
+  private BaseLocationProvider createProvider(boolean nativeOnly, @NonNull BaseLocationProvider.Listener listener)
+  {
+    return nativeOnly ? mLocationProviderFactory.getNativeProvider(mContext, listener)
+                      : mLocationProviderFactory.getProvider(mContext, listener);
+  }
+
+  // Permission is checked before restarting; an inactive replacement needs none.
+  @SuppressLint("MissingPermission")
+  private void replaceProvider(boolean nativeOnly)
+  {
+    final BaseLocationProvider.Listener listener = createProviderListener();
+    if (mActive)
+      mLocationProvider.stop();
+    mLocationForFiltering = null;
+    mLocationProvider = createProvider(nativeOnly, listener);
+    if (mActive)
+    {
+      if (LocationUtils.checkLocationPermission(mContext))
+      {
+        mHandler.removeCallbacks(mLocationTimeoutRunnable);
+        mHandler.postDelayed(mLocationTimeoutRunnable, LOCATION_UPDATE_TIMEOUT_MS);
+        mLocationProvider.start(mInterval);
+      }
+      else
+        onLocationPermissionDenied();
+    }
+  }
+
+  /** Applies the location backend preference without starting inactive acquisition or interrupting simulation. */
+  @UiThread
+  public void reloadProvider()
+  {
+    if (!mSimulating)
+      replaceProvider(false);
   }
 
   /**
@@ -160,13 +260,21 @@ public class LocationHelper implements BaseLocationProvider.Listener
   {
     if (mSavedLocation == null)
       throw new IllegalStateException("No saved location");
+    final Location location = mSavedLocation;
+    final long providerGeneration = mProviderGeneration;
+    final long locationRevision = ++mLocationRevision;
 
     mHandler.removeCallbacks(mLocationTimeoutRunnable);
     mHandler.postDelayed(mLocationTimeoutRunnable, LOCATION_UPDATE_TIMEOUT_MS); // Reset the timeout.
 
     mListenersIterator.rewind();
     while (mListenersIterator.hasNext())
-      mListenersIterator.next().onLocationUpdated(mSavedLocation);
+    {
+      mListenersIterator.next().onLocationUpdated(location);
+      // A listener can stop/restart acquisition, replace its backend, or deliver a newer fix synchronously.
+      if (providerGeneration != mProviderGeneration || locationRevision != mLocationRevision)
+        return;
+    }
 
     // If we are still in the first run mode, i.e. user is staying on the first run screens,
     // not on the map, we mustn't post location update to the core. Only this preserving allows us
@@ -177,12 +285,11 @@ public class LocationHelper implements BaseLocationProvider.Listener
       return;
     }
 
-    final LocationCompatExtractor.Altitude altitude = LocationCompatExtractor.getAltitude(mSavedLocation);
+    final LocationCompatExtractor.Altitude altitude = LocationCompatExtractor.getAltitude(location);
     LocationState.nativeLocationUpdated(
-        mSavedLocation.getTime(), mSavedLocation.getLatitude(), mSavedLocation.getLongitude(),
-        mSavedLocation.getAccuracy(), altitude != null ? altitude.altitude() : 0,
-        altitude != null ? altitude.accuracy() : -1, mSavedLocation.hasSpeed() ? mSavedLocation.getSpeed() : -1,
-        mSavedLocation.hasBearing() ? mSavedLocation.getBearing() : -1);
+        location.getTime(), location.getLatitude(), location.getLongitude(), location.getAccuracy(),
+        altitude != null ? altitude.altitude() : 0, altitude != null ? altitude.accuracy() : -1,
+        location.hasSpeed() ? location.getSpeed() : -1, location.hasBearing() ? location.getBearing() : -1);
   }
 
   private void notifyLocationUpdateTimeout()
@@ -217,15 +324,16 @@ public class LocationHelper implements BaseLocationProvider.Listener
       return;
     }
 
-    if (mSavedLocation != null)
+    if (mLocationForFiltering != null)
     {
-      if (!LocationUtils.isLocationBetterThanLast(location, mSavedLocation))
+      if (!LocationUtils.isLocationBetterThanLast(location, mLocationForFiltering))
       {
-        Logger.d(TAG, "The new " + location + " is worse than the last " + mSavedLocation);
+        Logger.d(TAG, "The new " + location + " is worse than the last " + mLocationForFiltering);
         return;
       }
     }
 
+    mLocationForFiltering = location;
     mSavedLocation = location;
     mMyPosition = null;
     notifyLocationUpdated();
@@ -256,18 +364,26 @@ public class LocationHelper implements BaseLocationProvider.Listener
 
   // Used by GoogleFusedLocationProvider.
   @SuppressWarnings("unused")
-  @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
   @Override
   @UiThread
   public void onFusedLocationUnsupported()
   {
+    if (!mActive)
+      return;
+    if (!LocationUtils.checkLocationPermission(mContext))
+    {
+      onLocationPermissionDenied();
+      return;
+    }
+    if (!LocationUtils.areLocationServicesTurnedOn(mContext))
+    {
+      onLocationDisabled();
+      return;
+    }
     // Try to downgrade to the native provider first and restart the service before notifying the user.
     Logger.d(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() + " is not supported,"
                       + " downgrading to use native provider");
-    mLocationProvider.stop();
-    mLocationProvider = new AndroidNativeProvider(mContext, this);
-    mActive = true;
-    mLocationProvider.start(mInterval);
+    replaceProvider(true);
   }
 
   // RouteSimulationProvider doesn't really require location permissions.
@@ -275,9 +391,14 @@ public class LocationHelper implements BaseLocationProvider.Listener
   public void startNavigationSimulation(JunctionInfo[] points)
   {
     Logger.i(TAG);
-    mOldLocationProvider = mLocationProvider;
-    mLocationProvider.stop();
-    mLocationProvider = new RouteSimulationProvider(mContext, this, points);
+    if (mSimulating)
+      throw new IllegalStateException("Simulation is already started");
+    final BaseLocationProvider.Listener listener = createProviderListener();
+    if (mActive)
+      mLocationProvider.stop();
+    mLocationForFiltering = null;
+    mSimulating = true;
+    mLocationProvider = new RouteSimulationProvider(mContext, listener, points);
     mActive = true;
     mLocationProvider.start(mInterval);
   }
@@ -286,18 +407,28 @@ public class LocationHelper implements BaseLocationProvider.Listener
   public void stopNavigationSimulation()
   {
     Logger.i(TAG);
-    mLocationProvider.stop();
-    if (mOldLocationProvider == null)
+    if (!mSimulating)
       throw new IllegalStateException("Should be called only after startNavigationSimulation()");
-    mLocationProvider = mOldLocationProvider;
-    mActive = true;
-    mLocationProvider.start(mInterval);
+    mSimulating = false;
+    replaceProvider(false);
+  }
+
+  @Override
+  @UiThread
+  public void onLocationPermissionDenied()
+  {
+    if (!mActive)
+      return;
+    stop();
+    LocationState.nativeOnLocationError(LocationState.ERROR_DENIED);
   }
 
   @Override
   @UiThread
   public void onLocationDisabled()
   {
+    if (!mActive)
+      return;
     Logger.d(TAG, "provider = " + mLocationProvider.getClass().getSimpleName()
                       + " settings = " + LocationUtils.areLocationServicesTurnedOn(mContext));
 
@@ -411,11 +542,12 @@ public class LocationHelper implements BaseLocationProvider.Listener
     }
 
     Logger.i(TAG);
+    mActive = false;
+    ++mLocationRevision;
     mLocationProvider.stop();
     unsubscribeFromGnssStatusUpdates();
     mSensorHelper.stop();
     mHandler.removeCallbacks(mLocationTimeoutRunnable);
-    mActive = false;
   }
 
   /**

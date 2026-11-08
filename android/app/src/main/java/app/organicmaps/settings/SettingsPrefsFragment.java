@@ -1,6 +1,5 @@
 package app.organicmaps.settings;
 
-import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Build;
@@ -302,7 +301,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
     {
       ((TwoStatePreference) pref).setChecked(Config.useGoogleServices());
       pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-        @SuppressLint("MissingPermission")
         @Override
         public boolean onPreferenceChange(@NonNull Preference preference, Object newValue)
         {
@@ -312,11 +310,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
           if (oldVal != newVal)
           {
             Config.setUseGoogleService(newVal);
-            if (locationHelper.isActive())
-            {
-              locationHelper.stop();
-              locationHelper.start();
-            }
+            locationHelper.reloadProvider();
           }
           return true;
         }
