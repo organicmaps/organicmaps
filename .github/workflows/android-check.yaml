@@ -56,9 +56,6 @@ jobs:
 
       - name: Set up Gradle
         uses: ./.github/actions/setup-gradle
-        with:
-          # PRs reuse master's downloads without creating per-PR copies.
-          cache-read-only: ${{ github.ref != 'refs/heads/master' }}
 
       - name: Lint
         shell: bash
@@ -119,7 +116,8 @@ jobs:
       - name: Set up Gradle
         uses: ./.github/actions/setup-gradle
         with:
-          cache-read-only: ${{ github.ref != 'refs/heads/master' }}
+          # One writer covers the app, Wear and tests without duplicating dependency bundles.
+          cache-read-only: ${{ github.ref != 'refs/heads/master' || matrix.flavor != 'WebDebug' }}
 
       - name: Parallel submodules checkout
         shell: bash

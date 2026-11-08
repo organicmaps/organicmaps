@@ -3,7 +3,7 @@ description: Cache Gradle distributions and downloaded Android dependencies
 
 inputs:
   cache-read-only:
-    description: Only restore caches; Android Check on master populates them
+    description: Only restore caches; WebDebug on master populates them
     default: 'true'
 
 runs:
@@ -12,10 +12,10 @@ runs:
     - uses: gradle/actions/setup-gradle@v4
       with:
         cache-read-only: ${{ inputs.cache-read-only }}
-        # The repository quota is shared with C++ and iOS build caches.
+        # setup-gradle caches wrapper distributions and dependency artifacts separately.
+        # Limit the remaining state to dependency metadata to preserve the shared quota.
         gradle-home-cache-includes: caches/modules-2
-        # setup-gradle extracts these independently of the included paths.
-        # Version-specific caches contain generated jars, scripts and transforms.
+        # Exclude generated jars, scripts and transforms from the separate caches too.
         gradle-home-cache-excludes: |
           caches/[0-9]*
           caches/jars-*

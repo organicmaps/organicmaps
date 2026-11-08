@@ -40,6 +40,9 @@ jobs:
           distribution: temurin
           java-version: 21
       - uses: ./.github/actions/setup-gradle
+        with:
+          # Reuse Android Check's downloads without writing another cache snapshot.
+          cache-read-only: true
       - name: Generate and check API documentation
         working-directory: android
         run: ./gradlew -Parm64 sdkApiDocs
