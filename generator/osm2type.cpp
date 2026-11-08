@@ -274,6 +274,8 @@ public:
     BicycleOnedir,
     Ferry,
     ShuttleTrain,
+    JunctionRoundabout,
+    JunctionCircular,
     Count
   };
 
@@ -313,6 +315,8 @@ public:
         {BicycleOnedir, {"hwtag", "onedir_bicycle"}},
         {Ferry, {"route", "ferry"}},
         {ShuttleTrain, {"route", "shuttle_train"}},
+        {JunctionRoundabout, {"junction", "roundabout"}},
+        {JunctionCircular, {"junction", "circular"}},
     };
 
     m_types.resize(static_cast<size_t>(Count));
@@ -1285,6 +1289,13 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
 
       railwayDone = true;
     }
+  }
+
+  // Roundabout types are meaningful only for roads (e.g. not for highway=proposed).
+  if (!highwayDone)
+  {
+    params.PopExactType(types.Get(CachedTypes::JunctionRoundabout));
+    params.PopExactType(types.Get(CachedTypes::JunctionCircular));
   }
 }
 }  // namespace

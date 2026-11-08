@@ -118,6 +118,29 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Oneway)
   }
 }
 
+UNIT_CLASS_TEST(TestWithClassificator, OsmType_Roundabout)
+{
+  {
+    Tags const tags = {{"highway", "secondary"}, {"junction", "roundabout"}, {"name", "Бульвар"}};
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST(params.IsTypeExist(GetType({"highway", "secondary"})), (params));
+    TEST(params.IsTypeExist(GetType({"junction", "roundabout"})), (params));
+  }
+
+  // https://github.com/organicmaps/organicmaps/issues/12861
+  // Without a highway type the roundabout is not a road, and its name should not be shown.
+  for (char const * junction : {"roundabout", "circular"})
+  {
+    Tags const tags = {{"highway", "proposed"}, {"proposed", "secondary"}, {"junction", junction}, {"name", "Бульвар"}};
+
+    auto const params = GetFeatureBuilderParams(tags);
+
+    TEST_EQUAL(params.m_types.size(), 0, (params));
+  }
+}
+
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Location)
 {
   {
@@ -2568,8 +2591,9 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
       {"hwtag", "yescar"},
       {"hwtag", "yesfoot"},
       {"internet_access", "wlan"},
-      {"junction", "circular"},
-      {"junction", "roundabout"},
+      // Kept only together with a highway type, see OsmType_Roundabout.
+      // {"junction", "circular"},
+      // {"junction", "roundabout"},
       {"landuse", "allotments"},
       {"landuse", "basin"},
       {"landuse", "cemetery"},
