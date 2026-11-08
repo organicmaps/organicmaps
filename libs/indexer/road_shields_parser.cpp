@@ -127,7 +127,7 @@ public:
 
   RoadShieldsSetT GetRoadShields() const
   {
-    RoadShieldsSetT result, defaultShields;
+    RoadShieldsSetT result, defaultShields, networkShields;
 
     strings::Tokenize(m_baseRoadNumber, ";", [&](std::string_view rawText)
     {
@@ -151,6 +151,8 @@ public:
           if (networkType != RoadShieldType::Default)
             shield.m_type = networkType;
         }
+        if (shield.m_type == RoadShieldType::Default)
+          networkShields.push_back(shield);
       }
       if (!shield.m_name.empty() && shield.m_type != RoadShieldType::Hidden)
       {
@@ -165,6 +167,19 @@ public:
 
     result.erase_if([&defaultShields](RoadShield const & shield)
     { return std::find(defaultShields.begin(), defaultShields.end(), shield) != defaultShields.end(); });
+
+    // A route relation often has only the number of the way's ref, e.g. "NN" for "CTH NN".
+    // Drop such a default relation shield instead of drawing the number twice.
+    RoadShieldsSetT numberOnlyShields;
+    for (auto const & shield : networkShields)
+    {
+      std::string const suffix = " " + shield.m_name;
+      if (std::any_of(result.begin(), result.end(),
+                      [&suffix](RoadShield const & other) { return other.m_name.ends_with(suffix); }))
+        numberOnlyShields.push_back(shield);
+    }
+    result.erase_if([&numberOnlyShields](RoadShield const & shield)
+    { return std::find(numberOnlyShields.begin(), numberOnlyShields.end(), shield) != numberOnlyShields.end(); });
 
     return result;
   }
