@@ -169,6 +169,33 @@ public class LocationTimingTest
   }
 
   @Test
+  public void authorizedHandoffDoesNotUsePreviousSourcesAccuracyBaseline()
+  {
+    mHelper.onLocationChanged(fix("gps", 1000, 0, 1));
+    ShadowSystemClock.advanceBy(Duration.ofSeconds(1));
+    final Location coarse = fix("fused", 2000, 0, 1000);
+    mHelper.onLocationChanged(coarse);
+    assertEquals(1000, mHelper.getSavedLocation().getTime());
+    mHelper.onLocationChanged(coarse, true);
+    assertSame(coarse, mHelper.getSavedLocation());
+    assertTrue(lastUpdate().reset());
+    assertEquals(2000, lastUpdate().utc());
+  }
+
+  @Test
+  public void samePayloadNameHandoffStillResetsPredictionAtomically()
+  {
+    mHelper.onLocationChanged(fix("gps", 1000, 0, 1));
+    ShadowSystemClock.advanceBy(Duration.ofSeconds(1));
+    final Location otherRegisteredSource = fix("gps", 2000, 0, 5);
+    mHelper.onLocationChanged(otherRegisteredSource, true);
+    assertTrue(lastUpdate().reset());
+    ShadowSystemClock.advanceBy(Duration.ofSeconds(1));
+    mHelper.onLocationChanged(fix("gps", 3000, 0, 5));
+    assertFalse(lastUpdate().reset());
+  }
+
+  @Test
   public void advancingElapsedTimeWithEqualUtcIsForwarded()
   {
     mHelper.onLocationChanged(fix("gps", 1000, 0, 5));
