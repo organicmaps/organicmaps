@@ -1,18 +1,17 @@
 package app.organicmaps.widget.menu;
 
 import android.graphics.drawable.Drawable;
-import android.location.Location;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
-import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.sdk.routing.RoutingInfo;
 import app.organicmaps.sdk.sound.TtsPlayer;
@@ -234,24 +233,21 @@ public class NavMenu implements DefaultLifecycleObserver
     mTimeEstimate.setText(Utils.formatArrivalTime(mActivity, seconds));
   }
 
-  private void updateSpeedView(@NonNull RoutingInfo info)
+  private void updateSpeedView(@Nullable RoutingInfo info)
   {
-    final Location last = MwmApplication.from(mActivity).getLocationHelper().getSavedLocation();
-    if (last == null)
-      return;
-
-    final double speedMps = last.hasSpeed() ? last.getSpeed() : 0;
+    final double speedMps = info != null && info.currentSpeedMps >= 0 ? info.currentSpeedMps : 0;
     final Pair<String, String> speedAndUnits = StringUtils.nativeFormatSpeedAndUnits(speedMps);
     mSpeedValue.setText(speedAndUnits.first);
 
     final int speed = StringUtils.nativeFormatSpeed(speedMps);
-    final int speedLimit = info.speedLimitMps > 0 ? StringUtils.nativeFormatSpeed(info.speedLimitMps) : 0;
+    final int speedLimit =
+        info != null && info.speedLimitMps > 0 ? StringUtils.nativeFormatSpeed(info.speedLimitMps) : 0;
     if (mSpeedLimit != speedLimit || !speedAndUnits.second.contentEquals(mSpeedUnits.getText()))
       mSpeedMode = Mode.Normal;
     mSpeedLimit = speedLimit;
     mSpeedMode = SpeedThresholds.DEFAULT.modeFor(speed, speedLimit, mSpeedMode);
 
-    switch (info.isSpeedCamLimitExceeded() ? Mode.Alert : mSpeedMode)
+    switch (info != null && info.isSpeedCamLimitExceeded() ? Mode.Alert : mSpeedMode)
     {
     case Normal ->
     {
@@ -273,9 +269,11 @@ public class NavMenu implements DefaultLifecycleObserver
     mSpeedUnits.setText(speedAndUnits.second);
   }
 
-  public void update(@NonNull RoutingInfo info)
+  public void update(@Nullable RoutingInfo info)
   {
     updateSpeedView(info);
+    if (info == null)
+      return;
     updateTime(info.totalTimeInSeconds);
     mDistanceValue.setText(info.distToTarget.mDistanceStr);
     mDistanceUnits.setText(info.distToTarget.getUnitsStr(mActivity.getApplicationContext()));

@@ -702,6 +702,28 @@ public class LocationHelperTest
   }
 
   @Test
+  public void authorizedHandoffThroughTheCurrentBackendAcceptsAnOlderWorseFix()
+  {
+    mHelper.start();
+    final Provider provider = mProviders.get(0);
+    final Location first = location(2000, 1);
+    first.setProvider(LocationManager.GPS_PROVIDER);
+    provider.emit(first);
+    advance(1000);
+    final Location latest = location(3000, 1);
+    latest.setProvider(LocationManager.GPS_PROVIDER);
+    provider.emit(latest);
+
+    final Location cachedFallback = location(2500, 100);
+    cachedFallback.setProvider(LocationManager.NETWORK_PROVIDER);
+    provider.mListener.onLocationChanged(cachedFallback, false);
+    assertSame(latest, mHelper.getSavedLocation());
+    provider.mListener.onLocationChanged(cachedFallback, true);
+    assertSame(cachedFallback, mHelper.getSavedLocation());
+    assertEquals(List.of(2000L, 3000L, 2500L), LocationStateShadow.sUpdateTimes);
+  }
+
+  @Test
   public void callbacksFromOldStopCannotDisableOrReplaceTheNewBackend()
   {
     mHelper.start();

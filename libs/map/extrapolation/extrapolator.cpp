@@ -182,7 +182,7 @@ void Extrapolator::OnLocationUpdate(location::GpsInfo const & gpsInfo)
   state->m_last = measurement;
 
   auto const generation = ++state->m_generation;
-  state->m_update(measurement);
+  state->m_update(measurement, UpdateType::Measurement);
   if (state->m_generation == generation)
     Schedule(state, generation);
 }
@@ -235,7 +235,7 @@ void Extrapolator::Deliver(std::shared_ptr<State> const & state, uint64_t genera
     return;
 
   location::GpsInfo const gpsInfo = LinearExtrapolation(state->m_beforeLast, state->m_last, elapsed.count());
-  state->m_update(gpsInfo);
+  state->m_update(gpsInfo, UpdateType::Prediction);
 
   if (state->m_generation == generation)
     Schedule(state, generation);

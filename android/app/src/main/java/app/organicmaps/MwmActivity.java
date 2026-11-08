@@ -99,6 +99,7 @@ import app.organicmaps.sdk.location.SensorListener;
 import app.organicmaps.sdk.location.TrackRecorder;
 import app.organicmaps.sdk.maplayer.isolines.IsolinesState;
 import app.organicmaps.sdk.routing.RoutingController;
+import app.organicmaps.sdk.routing.RoutingInfoListener;
 import app.organicmaps.sdk.routing.RoutingOptions;
 import app.organicmaps.sdk.search.SearchEngine;
 import app.organicmaps.sdk.settings.RoadType;
@@ -163,6 +164,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private TextView mPointChooserHint;
 
   private NavigationController mNavigationController;
+  private final RoutingInfoListener mRoutingInfoListener = info ->
+  {
+    if (mNavigationController != null)
+      mNavigationController.update(info);
+  };
   @Nullable
   private OnmapDownloader mOnmapDownloader;
 
@@ -1085,6 +1091,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     updateDrivingOptionCount();
     RoutingController.get().applyPendingRoutingOptions();
     LocationState.nativeSetListener(this);
+    RoutingController.get().addRoutingInfoListener(mRoutingInfoListener);
     MwmApplication.from(this).getLocationHelper().addListener(this);
     Utils.keepScreenOn(Config.isKeepScreenOnEnabled() || RoutingController.get().isNavigating(), getWindow());
   }
@@ -1097,6 +1104,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Framework.nativeRemovePlacePageActivationListener(this);
     BookmarkManager.INSTANCE.removeLoadingListener(this);
     MwmApplication.from(this).getLocationHelper().removeListener(this);
+    RoutingController.get().removeRoutingInfoListener(mRoutingInfoListener);
     if (mDisplayManager.isDeviceDisplayUsed() && !RoutingController.get().isNavigating())
       LocationState.nativeRemoveListener();
     // Attached unconditionally in onStart()
@@ -1645,12 +1653,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public void onLocationUpdated(@NonNull Location location)
   {
     dismissLocationErrorDialog();
-
-    final RoutingController routing = RoutingController.get();
-    if (!routing.isNavigating())
-      return;
-
-    mNavigationController.update(Framework.nativeGetRouteFollowingInfo());
   }
 
   @Override

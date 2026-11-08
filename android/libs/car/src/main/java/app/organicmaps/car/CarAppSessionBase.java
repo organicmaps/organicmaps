@@ -172,6 +172,8 @@ public abstract class CarAppSessionBase
           Framework.nativeGetSpeedLimitSignType(location.getLatitude(), location.getLongitude()));
       mSpeedLimitSignTypeInitialized = true;
     }
+    if (RoutingController.get().isNavigating())
+      return;
     mSurfaceRenderer.setCurrentSpeed(
         StringUtils.nativeFormatSpeed(location != null && location.hasSpeed() ? location.getSpeed() : 0),
         StringUtils.nativeGetLocalizedSpeedUnits());

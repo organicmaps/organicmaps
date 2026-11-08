@@ -753,6 +753,8 @@ public class LocationHelper implements BaseLocationProvider.Listener
     unsubscribeFromGnssStatusUpdates();
     mSensorHelper.stop();
     mHandler.removeCallbacks(mLocationTimeoutRunnable);
+    for (final LocationListener listener : mListeners)
+      listener.onLocationStopped();
   }
 
   /**
