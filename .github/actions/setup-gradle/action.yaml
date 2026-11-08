@@ -9,7 +9,7 @@ inputs:
 runs:
   using: composite
   steps:
-    - uses: gradle/actions/setup-gradle@v4
+    - uses: gradle/actions/setup-gradle@v5
       with:
         cache-read-only: ${{ inputs.cache-read-only }}
         # setup-gradle caches wrapper distributions and dependency artifacts separately.
