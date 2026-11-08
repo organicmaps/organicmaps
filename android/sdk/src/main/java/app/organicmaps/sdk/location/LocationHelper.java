@@ -457,6 +457,12 @@ public class LocationHelper implements BaseLocationProvider.Listener
   @Override
   public void onLocationChanged(@NonNull Location location)
   {
+    onLocationChanged(location, false);
+  }
+
+  @Override
+  public void onLocationChanged(@NonNull Location location, boolean sourceChanged)
+  {
     Logger.d(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() + " location = " + location);
 
     if (!isActive())
@@ -481,6 +487,14 @@ public class LocationHelper implements BaseLocationProvider.Listener
     final long maxAgeNanos = TimeUnit.MILLISECONDS.toNanos(Math.max(5000, 3 * mInterval));
     final long liveUntilNanos = observedAt + maxAgeNanos;
     final boolean fresh = LocationUtils.isLocationFresh(location, nowNanos, liveUntilNanos);
+    if (sourceChanged && !fresh)
+      return;
+    if (sourceChanged)
+    {
+      // The native selector has already compared quality and timing across sources.
+      ++mSourceSession;
+      mLastSourceTimes.clear();
+    }
     final Source source =
         new Source(mLocationProvider, mSourceSession, location.getProvider(), LocationCompat.isMock(location));
     final Long lastObservedAt = mLastSourceTimes.get(source);
@@ -497,7 +511,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
       if (!fresh && previousFresh)
         return;
       final boolean compareAccuracy = !fresh || previousFresh;
-      if (compareAccuracy
+      if (compareAccuracy && !sourceChanged
           && !LocationUtils.isLocationBetterThanLast(location, mSavedLocation, source.equals(mSavedSource)))
       {
         Logger.d(TAG, "The new " + location + " is worse than the last " + mSavedLocation);
@@ -683,9 +697,8 @@ public class LocationHelper implements BaseLocationProvider.Listener
       return;
 
     Logger.i(TAG, "update refresh interval: old = " + mInterval + " new = " + newInterval);
-    mLocationProvider.stop();
     mInterval = newInterval;
-    mLocationProvider.start(newInterval);
+    mLocationProvider.updateInterval(newInterval);
   }
 
   /**
@@ -755,6 +768,8 @@ public class LocationHelper implements BaseLocationProvider.Listener
         onLocationPermissionDenied();
       else if (mFusedWatchdog != null)
         mFusedWatchdog.run();
+      if (mActive)
+        mLocationProvider.onForeground();
       return;
     }
     else if (!Map.isEngineCreated())

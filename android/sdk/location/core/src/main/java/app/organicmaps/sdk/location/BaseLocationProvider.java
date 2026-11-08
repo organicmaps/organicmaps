@@ -59,4 +59,16 @@ public abstract class BaseLocationProvider
   @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
   protected abstract void start(long interval);
   protected abstract void stop();
+
+  @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
+  protected void updateInterval(long interval)
+  {
+    stop();
+    start(interval);
+  }
+
+  /** Rechecks deadlines and availability after returning from suspend. */
+  @UiThread
+  protected void onForeground()
+  {}
 }

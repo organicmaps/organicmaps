@@ -572,22 +572,28 @@ public class LocationHelperTest
 
     assertEquals(List.of(true), sourceChanges);
     assertSame(first, mHelper.getSavedLocation());
+    final Location coarse = location(1500, 1000);
+    old.mListener.onLocationChanged(coarse, false);
+    assertSame(first, mHelper.getSavedLocation());
+    old.mListener.onLocationChanged(coarse, true);
+    assertEquals(List.of(true, false, true), sourceChanges);
+    assertSame(coarse, mHelper.getSavedLocation());
     mHelper.reloadProvider();
     old.mListener.onLocationChanged(location(2000, 1), false);
     old.mListener.onLocationChanged(location(2000, 1), true);
 
-    assertEquals(List.of(true), sourceChanges);
-    assertSame(first, mHelper.getSavedLocation());
+    assertEquals(List.of(true, false, true), sourceChanges);
+    assertSame(coarse, mHelper.getSavedLocation());
     final Provider current = mProviders.get(2);
     ShadowSystemClock.advanceBy(Duration.ofSeconds(2));
     final Location next = location(3000, 10);
     current.mListener.onLocationChanged(next, false);
 
-    assertEquals(List.of(true, false), sourceChanges);
+    assertEquals(List.of(true, false, true, false), sourceChanges);
     assertSame(next, mHelper.getSavedLocation());
     mHelper.stop();
     current.mListener.onLocationChanged(location(4000, 1), true);
-    assertEquals(List.of(true, false), sourceChanges);
+    assertEquals(List.of(true, false, true, false), sourceChanges);
     assertSame(next, mHelper.getSavedLocation());
   }
 
