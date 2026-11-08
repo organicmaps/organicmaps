@@ -45,7 +45,7 @@ public final class LocationState
   // These constants should correspond to values defined in platform/location.hpp
   // Leave 0-value as no any error.
   // private static final int ERROR_UNKNOWN = 0;
-  // private static final int ERROR_NOT_SUPPORTED = 1;
+  public static final int ERROR_NOT_SUPPORTED = 1;
   public static final int ERROR_DENIED = 2;
   public static final int ERROR_GPS_OFF = 3;
   // public static final int ERROR_TIMEOUT = 4; // Unused on Android (only used on Qt)
@@ -68,7 +68,7 @@ public final class LocationState
   public static native void nativeRemoveListener();
 
   /**
-   * Reports a denied location permission or disabled location provider using an {@code ERROR_*} constant.
+   * Reports unavailable location providers, denied permission, or disabled location using an {@code ERROR_*} constant.
    */
   public static native void nativeOnLocationError(int errorCode);
 

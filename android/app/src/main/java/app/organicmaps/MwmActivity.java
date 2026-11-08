@@ -1840,7 +1840,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   /**
-   * Called by AndroidNativeLocationProvider when no suitable location methods are available.
+   * Called when system location is turned off.
    */
   @Override
   @UiThread
