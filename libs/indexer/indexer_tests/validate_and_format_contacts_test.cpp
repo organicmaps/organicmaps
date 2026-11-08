@@ -23,6 +23,20 @@ UNIT_TEST(EditableMapObject_ValidateAndFormat_facebook)
   TEST_EQUAL(osm::ValidateAndFormat_facebook("some.good.page"), "some.good.page", ());
   TEST_EQUAL(osm::ValidateAndFormat_facebook("@tree-house-interiors"), "tree-house-interiors", ());
 
+  // https://github.com/organicmaps/organicmaps/issues/4840
+  // Percent-encoded non-ASCII page names are shown to users, so they are decoded.
+  TEST_EQUAL(
+      osm::ValidateAndFormat_facebook("https://www.facebook.com/"
+                                      "%E4%BE%86%E5%8E%BB%E5%81%A5%E8%BA%AB-LuckyGym-%E5%A4%A7%E9%87%8C%E5%BA%97-"
+                                      "880179549008233"),
+      "來去健身-LuckyGym-大里店-880179549008233", ());
+  TEST_EQUAL(osm::ValidateAndFormat_facebook("https://facebook.com/Caf%C3%A9-Ol%C3%A9"), "Café-Olé", ());
+  // Escaped ASCII, '+' and escapes that are not valid UTF-8 are kept as is, and then nothing is decoded.
+  TEST_EQUAL(osm::ValidateAndFormat_facebook("https://facebook.com/a%2Fb+c%20d"), "a%2Fb+c%20d", ());
+  TEST_EQUAL(osm::ValidateAndFormat_facebook("https://facebook.com/bad%E4%BE-%FF%C3"), "bad%E4%BE-%FF%C3", ());
+  TEST_EQUAL(osm::ValidateAndFormat_facebook("https://facebook.com/end%E4%B"), "end%E4%B", ());
+  TEST_EQUAL(osm::ValidateAndFormat_facebook("https://facebook.com/%E4%BE%86%20Gym"), "%E4%BE%86%20Gym", ());
+
   TEST_EQUAL(osm::ValidateAndFormat_facebook("instagram.com/openstreetmapus"), "", ());
   TEST_EQUAL(osm::ValidateAndFormat_facebook("https://instagram.com/openstreetmapus"), "", ());
   TEST_EQUAL(osm::ValidateAndFormat_facebook("osm"), "", ());
