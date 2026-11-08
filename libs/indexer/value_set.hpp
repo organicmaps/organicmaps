@@ -97,9 +97,9 @@ protected:
   std::shared_ptr<InfoT> m_info;
 };
 
-// The registry machinery. The derived set owns the actual registry (its keys and lookup)
-// and the typed events/observers; EventsT is the derived event list (default-constructible,
-// filled under the lock, processed by ProcessEvents strictly outside of it).
+// Owns the registry, exclusive value cache and handle lifetimes. Derived sets supply
+// keys, value creation and typed events/observers. Events are collected under m_lock
+// and delivered by ProcessEvents after releasing it.
 template <typename IdT, typename ValueT, typename EventsT>
 class ValueSetBase
 {
@@ -255,13 +255,6 @@ protected:
 
     SetStatus(*info, SetInfoBase::STATUS_MARKED_TO_DEREGISTER, events);
     return false;
-  }
-
-  std::unique_ptr<ValueT> LockValue(IdT const & id)
-  {
-    std::unique_ptr<ValueT> result;
-    WithEventLog([&](EventsT & events) { result = LockValueImpl(id, events); });
-    return result;
   }
 
   /// @precondition Always called under m_lock.
