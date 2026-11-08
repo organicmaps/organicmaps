@@ -1717,6 +1717,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (hasFineLocationPermission)
       {
         Logger.i(LOCATION_TAG, "ACCESS_FINE_LOCATION permission granted");
+        MwmApplication.from(this).getLocationHelper().resumeLocationInForeground();
       }
       else
       {
@@ -1840,7 +1841,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   /**
-   * Called by AndroidNativeLocationProvider when no suitable location methods are available.
+   * Called when system location is turned off.
    */
   @Override
   @UiThread
