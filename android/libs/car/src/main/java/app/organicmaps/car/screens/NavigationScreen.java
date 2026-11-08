@@ -32,11 +32,11 @@ import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.car.RoutingUtils;
 import app.organicmaps.sdk.car.renderer.Renderer;
 import app.organicmaps.sdk.car.screens.BaseMapScreen;
-import app.organicmaps.sdk.location.LocationListener;
 import app.organicmaps.sdk.location.LocationUtils;
 import app.organicmaps.sdk.routing.JunctionInfo;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingInfo;
+import app.organicmaps.sdk.routing.RoutingInfoListener;
 import app.organicmaps.sdk.sound.TtsPlayer;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.log.Logger;
@@ -55,7 +55,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   @NonNull
   private final NavigationManager mNavigationManager;
   @NonNull
-  private final LocationListener mLocationListener = this::updateTrip;
+  private final RoutingInfoListener mRoutingInfoListener = this::updateTrip;
   @NonNull
   private final Runnable mTtsStateListener = this::invalidate;
 
@@ -100,7 +100,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   @Override
   public void onStopNavigation()
   {
-    getLocationHelper().removeListener(mLocationListener);
+    mRoutingController.removeRoutingInfoListener(mRoutingInfoListener);
     mNavigationCancelled = true;
     mRoutingController.cancel(false);
     updateSpeedLimit(null);
@@ -158,11 +158,11 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     mNavigationManager.navigationStarted();
 
     updateSpeedLimitSignType();
-    getLocationHelper().addListener(mLocationListener);
+    mRoutingController.addRoutingInfoListener(mRoutingInfoListener);
     TtsPlayer.addStateChangedListener(mTtsStateListener);
     if (LocationUtils.checkFineLocationPermission(getCarContext()))
       NavigationService.startForegroundService(getCarContext());
-    updateTrip(/* location */ null);
+    updateTrip(mRoutingController.getCachedRoutingInfo());
   }
 
   @Override
@@ -179,7 +179,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     if (mRouteSimulationEnabled)
       onAutodriveDisabled();
     NavigationService.stopService(getCarContext());
-    getLocationHelper().removeListener(mLocationListener);
+    mRoutingController.removeRoutingInfoListener(mRoutingInfoListener);
     TtsPlayer.removeStateChangedListener(mTtsStateListener);
 
     if (mRoutingController.isNavigating())
@@ -307,9 +307,8 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
     return simulateRouteActionBuilder.build();
   }
 
-  private void updateTrip(@Nullable Location location)
+  private void updateTrip(@Nullable RoutingInfo info)
   {
-    final RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
     mTrip = RoutingUtils.createTrip(getCarContext(), info, RoutingController.get().getEndPoint(), Colors.DISTANCE);
     mNavigationManager.updateTrip(mTrip);
     updateSpeedLimit(info);
@@ -340,6 +339,9 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   @VisibleForTesting
   static void updateSpeedLimit(@NonNull Renderer renderer, boolean navigating, @Nullable RoutingInfo info)
   {
+    renderer.setCurrentSpeed(StringUtils.nativeFormatSpeed(
+                                 navigating && info != null && info.currentSpeedMps >= 0 ? info.currentSpeedMps : 0),
+                             StringUtils.nativeGetLocalizedSpeedUnits());
     renderer.setSpeedLimit(navigating && info != null && info.speedLimitMps > 0
                                ? StringUtils.nativeFormatSpeed(info.speedLimitMps)
                                : null);

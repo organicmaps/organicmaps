@@ -1,5 +1,6 @@
 package app.organicmaps.sdk.routing;
 
+import android.location.Location;
 import android.text.TextUtils;
 import androidx.annotation.IntRange;
 import androidx.annotation.MainThread;
@@ -11,6 +12,7 @@ import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.location.LocationHelper;
+import app.organicmaps.sdk.location.LocationListener;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
 import org.chromium.base.ObserverList;
@@ -121,9 +123,40 @@ public class RoutingController
 
   @NonNull
   private final ObserverList<NavigationStateListener> mNavigationStateListeners = new ObserverList<>();
+  @NonNull
+  private final ObserverList<RoutingInfoListener> mRoutingInfoListeners = new ObserverList<>();
+  @Nullable
+  private LocationHelper mObservedLocationHelper;
+  private boolean mHasObservedLocation;
+  private final LocationListener mLocationLossListener = new LocationListener() {
+    @Override
+    public void onLocationUpdated(@NonNull Location location)
+    {
+      mHasObservedLocation = mObservedLocationHelper != null && mObservedLocationHelper.isActive();
+    }
+
+    @Override
+    public void onLocationUpdateTimeout()
+    {
+      onRoutingInfoUpdated(null);
+    }
+
+    @Override
+    public void onLocationDisabled()
+    {
+      onRoutingInfoUpdated(null);
+    }
+
+    @Override
+    public void onLocationStopped()
+    {
+      onRoutingInfoUpdated(null);
+    }
+  };
 
   private BuildState mBuildState = BuildState.NONE;
   private State mState = State.NONE;
+  private long mRoutingInfoRevision;
   @Nullable
   private PendingPoiPick mPendingPoiPick;
   // Cached computeCanPickMyPosition() of the armed pick. Filled on the first ask, so arming a pick does not call into
@@ -164,6 +197,7 @@ public class RoutingController
 
   private void onBuiltRoute()
   {
+    ++mRoutingInfoRevision;
     mCachedRoutingInfo = Framework.nativeGetRouteFollowingInfo();
     if (mLastRouterType == Router.Transit)
       mCachedTransitRouteInfo = Framework.nativeGetTransitRouteInfo();
@@ -231,6 +265,14 @@ public class RoutingController
     final boolean wasNavigating = mState == State.NAVIGATION;
     mState = newState;
     final boolean isNavigating = mState == State.NAVIGATION;
+    if (wasNavigating != isNavigating)
+      ++mRoutingInfoRevision;
+
+    if (wasNavigating && !isNavigating)
+    {
+      mCachedRoutingInfo = null;
+      dispatchRoutingInfo(null);
+    }
 
     if (isNavigating != wasNavigating)
     {
@@ -301,11 +343,24 @@ public class RoutingController
     mLastRouterType = Router.getLastUsed();
 
     Framework.nativeSetRoutingListener(mRoutingListener);
+    Framework.nativeSetRoutingInfoListener(this::onRoutingInfoUpdated);
     Framework.nativeSetRouteProgressListener(mRoutingProgressListener);
     Framework.nativeSetRoutingRecommendationListener(recommendation -> UiThread.run(() -> {
       if (recommendation == RouteRecommendationType.RebuildAfterPointsLoading)
         setStartPoint(locationHelper.getMyPosition());
     }));
+    if (mObservedLocationHelper != locationHelper)
+    {
+      if (mObservedLocationHelper != null)
+      {
+        mObservedLocationHelper.removeListener(mLocationLossListener);
+        onRoutingInfoUpdated(null);
+      }
+      mObservedLocationHelper = locationHelper;
+      locationHelper.addListener(mLocationLossListener);
+      // Listener registration may replay a historical display fix, not a live acquisition event.
+      mHasObservedLocation = false;
+    }
   }
 
   /**
@@ -1014,7 +1069,47 @@ public class RoutingController
   @Nullable
   public RoutingInfo getCachedRoutingInfo()
   {
-    return mCachedRoutingInfo;
+    return mCachedRoutingInfo == null ? null : mCachedRoutingInfo.withCurrentUnits();
+  }
+
+  /** Registers for fresh guidance events. Read the cache separately to seed display without replaying alerts. */
+  public void addRoutingInfoListener(@NonNull RoutingInfoListener listener)
+  {
+    mRoutingInfoListeners.addObserver(listener);
+  }
+
+  /** Removes the original listener instance when its host stops. */
+  public void removeRoutingInfoListener(@NonNull RoutingInfoListener listener)
+  {
+    mRoutingInfoListeners.removeObserver(listener);
+  }
+
+  @VisibleForTesting
+  void onRoutingInfoUpdated(@Nullable RoutingInfo info)
+  {
+    if (info == null)
+      mHasObservedLocation = false;
+    if (!isNavigating())
+      return;
+    if (info != null && mObservedLocationHelper != null
+        && (!mObservedLocationHelper.isActive() || !mHasObservedLocation))
+      return;
+    if (info == null && mCachedRoutingInfo == null)
+      return;
+    ++mRoutingInfoRevision;
+    mCachedRoutingInfo = info == null ? null : info.withoutWarningSignal();
+    dispatchRoutingInfo(info);
+  }
+
+  private void dispatchRoutingInfo(@Nullable RoutingInfo info)
+  {
+    final long revision = mRoutingInfoRevision;
+    for (final RoutingInfoListener listener : mRoutingInfoListeners)
+    {
+      if (revision != mRoutingInfoRevision)
+        break;
+      listener.onRoutingInfoUpdated(info);
+    }
   }
 
   @Nullable

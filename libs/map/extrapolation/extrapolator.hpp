@@ -9,6 +9,12 @@
 
 namespace extrapolation
 {
+enum class UpdateType
+{
+  Measurement,
+  Prediction
+};
+
 /// \brief Returns extrapolated position after |point2| in |timeAfterPoint2Ms|.
 /// \note |timeAfterPoint2Ms| should be reasonably small (several seconds maximum).
 location::GpsInfo LinearExtrapolation(location::GpsInfo const & gpsInfo1, location::GpsInfo const & gpsInfo2,
@@ -24,7 +30,7 @@ bool AreCoordsGoodForExtrapolation(location::GpsInfo const & info1, location::Gp
 class Extrapolator
 {
 public:
-  using ExtrapolatedLocationUpdateFn = std::function<void(location::GpsInfo const &)>;
+  using ExtrapolatedLocationUpdateFn = std::function<void(location::GpsInfo const &, UpdateType)>;
   using Clock = location::Clock;
   using Task = std::function<void()>;
   using NowFn = std::function<Clock::time_point()>;

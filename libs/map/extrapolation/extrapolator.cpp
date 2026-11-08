@@ -252,7 +252,7 @@ void Extrapolator::Deliver(std::shared_ptr<State> const & state, uint64_t genera
   location::GpsInfo const gpsInfo = !isUpdate && canPredict
                                       ? LinearExtrapolation(state->m_beforeLast, state->m_last, elapsed.count())
                                       : state->m_last;
-  state->m_update(gpsInfo);
+  state->m_update(gpsInfo, isUpdate ? UpdateType::Measurement : UpdateType::Prediction);
 
   if (!expired && canPredict && state->m_generation == generation)
     Schedule(state, generation, false /* isUpdate */, std::chrono::milliseconds(kExtrapolationPeriodMs));

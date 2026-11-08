@@ -82,5 +82,9 @@ public:
   // Current speed limit in meters per second.
   // If no info about speed limit then m_speedLimitMps < 0.
   double m_speedLimitMps = -1.0;
+  // Present only on snapshots produced by a processed measurement.
+  double m_currentSpeedMps = -1.0;
+  bool m_isSpeedCamLimitExceeded = false;
+  bool m_shouldPlayWarningSignal = false;
 };
 }  // namespace routing
