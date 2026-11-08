@@ -11,6 +11,14 @@ import androidx.annotation.UiThread;
 
 public abstract class BaseLocationProvider
 {
+  /** Startup progress from a Play-services-compatible location provider. */
+  public enum StartupPhase
+  {
+    CHECKING_SETTINGS,
+    REGISTERING_UPDATES,
+    REGISTERED
+  }
+
   public interface Listener
   {
     @UiThread
@@ -34,6 +42,10 @@ public abstract class BaseLocationProvider
     @SuppressWarnings("unused")
     @UiThread
     void onFusedLocationUnsupported();
+    /** Reports progress from the Play-services-compatible backend, not the native system fused source. */
+    @UiThread
+    default void onFusedLocationProgress(@NonNull StartupPhase phase)
+    {}
   }
 
   @NonNull

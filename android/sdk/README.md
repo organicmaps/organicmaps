@@ -105,6 +105,15 @@ starting updates. Stop updates when the host no longer needs them.
 Listener registration may precede renderer creation and does not replay the
 current mode. Read or change the mode only after the renderer exists.
 
+The Google-compatible backend can fall back to native providers when startup
+stalls, an API error occurs, or fresh updates stop with precise permission.
+Recovery preserves the saved backend preference. Initial acquisition remains
+bounded with approximate permission too. After a live fix, coarse-only tracking
+has no loss deadline because Android can throttle updates beyond the requested
+interval. The normal update-timeout event still reaches listeners. Call
+`resumeLocationInForeground()` when the host returns to recheck permission and
+tracking deadlines.
+
 Position mode and place-selection listeners are process-wide single listeners.
 Register them for the active host and remove them when that host ends. Selection
 callbacks provide `PlacePageData`; inspect its type before treating it as a

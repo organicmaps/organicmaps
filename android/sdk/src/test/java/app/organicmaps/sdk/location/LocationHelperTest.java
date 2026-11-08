@@ -15,8 +15,10 @@ import static org.mockito.Mockito.when;
 
 import android.content.Context;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.SystemClock;
 import androidx.annotation.NonNull;
 import androidx.core.location.LocationManagerCompat;
 import app.organicmaps.sdk.Map;
@@ -24,6 +26,7 @@ import app.organicmaps.sdk.routing.JunctionInfo;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.NetworkPolicy;
 import app.organicmaps.sdk.util.log.Logger;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
@@ -33,9 +36,11 @@ import org.junit.runner.RunWith;
 import org.mockito.MockedStatic;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
+import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 import org.robolectric.annotation.Implementation;
 import org.robolectric.annotation.Implements;
+import org.robolectric.shadows.ShadowSystemClock;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = Config.NONE, sdk = 28,
@@ -103,6 +108,11 @@ public class LocationHelperTest
     void emit(Location location)
     {
       mListener.onLocationChanged(location);
+    }
+
+    void progress(StartupPhase phase)
+    {
+      mListener.onFusedLocationProgress(phase);
     }
   }
 
@@ -173,6 +183,412 @@ public class LocationHelperTest
     location.setTime(elapsedMillis);
     location.setAccuracy(accuracy);
     return location;
+  }
+
+  private static void advance(long milliseconds)
+  {
+    Shadows.shadowOf(Looper.getMainLooper()).idleFor(Duration.ofMillis(milliseconds));
+  }
+
+  private Provider startFused(BaseLocationProvider.StartupPhase phase)
+  {
+    mHelper.start();
+    final Provider provider = mProviders.get(mProviders.size() - 1);
+    provider.progress(phase);
+    return provider;
+  }
+
+  private static Location freshLocation(float accuracy)
+  {
+    return location(SystemClock.elapsedRealtime(), accuracy);
+  }
+
+  @Test
+  public void settingsSilenceFallsBackWithoutChangingPreference()
+  {
+    try (MockedStatic<app.organicmaps.sdk.util.Config> config = mockStatic(app.organicmaps.sdk.util.Config.class))
+    {
+      final Provider old = startFused(BaseLocationProvider.StartupPhase.CHECKING_SETTINGS);
+      advance(5001);
+      assertFalse(old.mStarted);
+      assertEquals(1, mNativeProviders.size());
+      assertTrue(mNativeProviders.get(0).mStarted);
+      assertTrue(mHelper.isActive());
+      config.verifyNoInteractions();
+    }
+  }
+
+  @Test
+  public void registrationAndFirstFixHaveSeparateDeadlines()
+  {
+    final Provider provider = startFused(BaseLocationProvider.StartupPhase.CHECKING_SETTINGS);
+    advance(4000);
+    provider.progress(BaseLocationProvider.StartupPhase.REGISTERING_UPDATES);
+    advance(4000);
+    assertTrue(mNativeProviders.isEmpty());
+    provider.progress(BaseLocationProvider.StartupPhase.REGISTERED);
+    advance(14_999);
+    assertTrue(mNativeProviders.isEmpty());
+    advance(2);
+    assertEquals(1, mNativeProviders.size());
+  }
+
+  @Test
+  public void pendingRegistrationCannotWaitForever()
+  {
+    final Provider provider = startFused(BaseLocationProvider.StartupPhase.CHECKING_SETTINGS);
+    advance(4000);
+    provider.progress(BaseLocationProvider.StartupPhase.REGISTERING_UPDATES);
+    advance(5001);
+    assertEquals(1, mNativeProviders.size());
+    provider.progress(BaseLocationProvider.StartupPhase.REGISTERED);
+    provider.emit(freshLocation(1));
+    assertNull(mHelper.getSavedLocation());
+    assertEquals(1, mNativeProviders.size());
+  }
+
+  @Test
+  public void freshFixBeforeRegistrationCompletionOverridesStartupDeadline()
+  {
+    final Provider provider = startFused(BaseLocationProvider.StartupPhase.REGISTERING_UPDATES);
+    advance(4000);
+    provider.emit(freshLocation(10));
+    advance(4000);
+    assertTrue(mNativeProviders.isEmpty());
+    provider.progress(BaseLocationProvider.StartupPhase.REGISTERED);
+    advance(1002);
+    assertEquals(1, mNativeProviders.size());
+  }
+
+  @Test
+  public void coarseFreshFixesKeepTheSelectedBackendHealthy()
+  {
+    mUtils.when(() -> LocationUtils.checkFineLocationPermission(mContext)).thenReturn(false);
+    final Provider provider = startFused(BaseLocationProvider.StartupPhase.REGISTERED);
+    final Location first = freshLocation(1000);
+    provider.emit(first);
+    for (int i = 0; i < 5; ++i)
+    {
+      advance(4000);
+      provider.emit(freshLocation(2000));
+    }
+    assertTrue(mNativeProviders.isEmpty());
+    assertTrue(provider.mStarted);
+    assertSame(first, mHelper.getSavedLocation());
+  }
+
+  @Test
+  public void coarseTenSecondCadenceSurvivesUnavailableNativeFallback()
+  {
+    mUtils.when(() -> LocationUtils.checkFineLocationPermission(mContext)).thenReturn(false);
+    final LocationListener listener = mock(LocationListener.class);
+    mHelper.addListener(listener);
+    final LocationManager manager = mContext.getSystemService(LocationManager.class);
+    Shadows.shadowOf(manager).setProviderEnabled(LocationManager.GPS_PROVIDER, false);
+    Shadows.shadowOf(manager).setProviderEnabled(LocationManager.NETWORK_PROVIDER, false);
+    when(mFactory.getNativeProvider(any(Context.class), any(BaseLocationProvider.Listener.class)))
+        .thenAnswer(invocation -> new AndroidNativeProvider(mContext, invocation.getArgument(1)));
+    final Provider provider = startFused(BaseLocationProvider.StartupPhase.REGISTERED);
+    provider.emit(freshLocation(1000));
+    for (int i = 0; i < 3; ++i)
+    {
+      advance(10_000);
+      final Location next = freshLocation(1000);
+      provider.emit(next);
+      assertTrue(mHelper.isActive());
+      assertSame(next, mHelper.getSavedLocation());
+    }
+    verify(mFactory, never()).getNativeProvider(any(Context.class), any(BaseLocationProvider.Listener.class));
+    assertTrue(provider.mStarted);
+    assertTrue(LocationStateShadow.sErrors.isEmpty());
+    advance(30_001);
+    verify(listener).onLocationUpdateTimeout();
+    assertTrue(mHelper.isActive());
+    assertTrue(LocationStateShadow.sErrors.isEmpty());
+
+    provider.mListener.onFusedLocationUnsupported();
+    advance(0);
+    assertFalse(mHelper.isActive());
+    assertEquals(List.of(LocationState.ERROR_NOT_SUPPORTED), LocationStateShadow.sErrors);
+  }
+
+  @Test
+  public void coarseInitialAcquisitionStillHasBoundedWaits()
+  {
+    mUtils.when(() -> LocationUtils.checkFineLocationPermission(mContext)).thenReturn(false);
+    for (BaseLocationProvider.StartupPhase phase : BaseLocationProvider.StartupPhase.values())
+    {
+      final int nativeCount = mNativeProviders.size();
+      final Provider provider = startFused(phase);
+      advance(phase == BaseLocationProvider.StartupPhase.REGISTERED ? 15_001 : 5001);
+      assertEquals(nativeCount + 1, mNativeProviders.size());
+      assertFalse(provider.mStarted);
+      assertNull(mHelper.getSavedLocation());
+      mHelper.stop();
+    }
+  }
+
+  @Test
+  public void preciseTrackingLossStillStartsNative()
+  {
+    startFused(BaseLocationProvider.StartupPhase.REGISTERED).emit(freshLocation(10));
+    advance(4999);
+    assertTrue(mNativeProviders.isEmpty());
+    advance(2);
+    assertEquals(1, mNativeProviders.size());
+    assertTrue(mNativeProviders.get(0).mStarted);
+  }
+
+  @Test
+  public void fineToCoarseResumeCancelsOnlyTrackingDeadline()
+  {
+    final Provider provider = startFused(BaseLocationProvider.StartupPhase.REGISTERING_UPDATES);
+    provider.emit(freshLocation(1000));
+    advance(4000);
+    mUtils.when(() -> LocationUtils.checkFineLocationPermission(mContext)).thenReturn(false);
+    mHelper.resumeLocationInForeground();
+    advance(2000);
+    provider.progress(BaseLocationProvider.StartupPhase.REGISTERED);
+    advance(20_000);
+    assertTrue(mNativeProviders.isEmpty());
+    assertTrue(mHelper.isActive());
+  }
+
+  @Test
+  public void coarsePermissionAtTrackingExpiryKeepsGoogle()
+  {
+    final Provider provider = startFused(BaseLocationProvider.StartupPhase.REGISTERED);
+    provider.emit(freshLocation(1000));
+    mUtils.when(() -> LocationUtils.checkFineLocationPermission(mContext)).thenReturn(false);
+    advance(5001);
+    assertTrue(mNativeProviders.isEmpty());
+    assertTrue(provider.mStarted);
+  }
+
+  @Test
+  public void coarseToFineResumeArmsTrackingFromLatestFix()
+  {
+    mUtils.when(() -> LocationUtils.checkFineLocationPermission(mContext)).thenReturn(false);
+    final Provider provider = startFused(BaseLocationProvider.StartupPhase.REGISTERED);
+    provider.emit(freshLocation(1000));
+    advance(10_000);
+    provider.emit(freshLocation(1000));
+    advance(1000);
+    mHelper.resumeLocationInForeground();
+    mUtils.when(() -> LocationUtils.checkFineLocationPermission(mContext)).thenReturn(true);
+    mHelper.resumeLocationInForeground();
+    advance(3999);
+    assertTrue(mNativeProviders.isEmpty());
+    advance(2);
+    assertEquals(1, mNativeProviders.size());
+  }
+
+  @Test
+  public void coarseToFineResumeChecksAlreadyExpiredFix()
+  {
+    mUtils.when(() -> LocationUtils.checkFineLocationPermission(mContext)).thenReturn(false);
+    startFused(BaseLocationProvider.StartupPhase.REGISTERED).emit(freshLocation(1000));
+    advance(6000);
+    mUtils.when(() -> LocationUtils.checkFineLocationPermission(mContext)).thenReturn(true);
+    mHelper.resumeLocationInForeground();
+    assertEquals(1, mNativeProviders.size());
+  }
+
+  @Test
+  public void oldHistoricalAndRepeatedFixesDoNotRefreshHealth()
+  {
+    advance(3_600_000);
+    final Provider provider = startFused(BaseLocationProvider.StartupPhase.REGISTERED);
+    provider.emit(location(1000, 1));
+    advance(14_000);
+    provider.emit(location(1000, 1));
+    advance(1002);
+    assertEquals(1, mNativeProviders.size());
+  }
+
+  @Test
+  public void replayingAnInitiallyFreshFixCannotExtendTracking()
+  {
+    final Provider provider = startFused(BaseLocationProvider.StartupPhase.REGISTERED);
+    final Location fix = freshLocation(10);
+    provider.emit(fix);
+    advance(4000);
+    provider.emit(fix);
+    advance(1002);
+    assertEquals(1, mNativeProviders.size());
+  }
+
+  @Test
+  public void futureFixesDoNotEstablishHealth()
+  {
+    final Provider provider = startFused(BaseLocationProvider.StartupPhase.REGISTERED);
+    provider.emit(location(SystemClock.elapsedRealtime() + 60_000, 1));
+    advance(15_001);
+    assertEquals(1, mNativeProviders.size());
+  }
+
+  @Test
+  public void intervalChangesCannotExtendStartupIndefinitely()
+  {
+    final Provider provider = startFused(BaseLocationProvider.StartupPhase.CHECKING_SETTINGS);
+    for (int i = 0; i < 6; ++i)
+    {
+      advance(4000);
+      when(mRouting.isNavigating()).thenReturn(i % 2 != 0);
+      mHelper.restartWithNewMode();
+      provider.progress(BaseLocationProvider.StartupPhase.CHECKING_SETTINGS);
+    }
+    assertTrue(mNativeProviders.isEmpty());
+    advance(1002);
+    assertEquals(1, mNativeProviders.size());
+  }
+
+  @Test
+  public void intervalChangesKeepRuntimeFallbackUntilANewAcquisition()
+  {
+    final Provider old = startFused(BaseLocationProvider.StartupPhase.CHECKING_SETTINGS);
+    advance(5001);
+    final Provider fallback = mNativeProviders.get(0);
+    when(mRouting.isNavigating()).thenReturn(false);
+    mHelper.restartWithNewMode();
+    assertTrue(fallback.mStarted);
+    assertEquals(3000, fallback.mInterval);
+    old.progress(BaseLocationProvider.StartupPhase.REGISTERED);
+    assertEquals(1, mProviders.size());
+    assertEquals(1, mNativeProviders.size());
+    mHelper.stop();
+    mHelper.start();
+    assertEquals(2, mProviders.size());
+    assertTrue(mProviders.get(1).mStarted);
+  }
+
+  @Test
+  public void slowIntervalsRetainTheirLongerLossDeadline()
+  {
+    when(mRouting.isNavigating()).thenReturn(false);
+    final Provider provider = startFused(BaseLocationProvider.StartupPhase.REGISTERED);
+    provider.emit(freshLocation(10));
+    advance(6000);
+    provider.progress(BaseLocationProvider.StartupPhase.REGISTERED);
+    assertTrue(mNativeProviders.isEmpty());
+    advance(3002);
+    assertEquals(1, mNativeProviders.size());
+  }
+
+  @Test
+  public void resumeChecksExpiredElapsedDeadlineAfterSuspend()
+  {
+    startFused(BaseLocationProvider.StartupPhase.CHECKING_SETTINGS);
+    ShadowSystemClock.simulateDeepSleep(Duration.ofSeconds(6));
+    assertTrue(mNativeProviders.isEmpty());
+    mHelper.resumeLocationInForeground();
+    assertEquals(1, mNativeProviders.size());
+  }
+
+  @Test
+  public void repeatedResumeBeforeDeadlineDoesNotExtendOrDuplicateIt()
+  {
+    startFused(BaseLocationProvider.StartupPhase.CHECKING_SETTINGS);
+    ShadowSystemClock.simulateDeepSleep(Duration.ofSeconds(2));
+    mHelper.resumeLocationInForeground();
+    mHelper.resumeLocationInForeground();
+    advance(2999);
+    assertTrue(mNativeProviders.isEmpty());
+    advance(2);
+    assertEquals(1, mNativeProviders.size());
+    advance(6000);
+    assertEquals(1, mNativeProviders.size());
+  }
+
+  @Test
+  public void resumeCancelsAcquisitionWhenPermissionWasRevoked()
+  {
+    startFused(BaseLocationProvider.StartupPhase.CHECKING_SETTINGS);
+    mUtils.when(() -> LocationUtils.checkLocationPermission(mContext)).thenReturn(false);
+    mHelper.resumeLocationInForeground();
+    advance(6000);
+    assertFalse(mHelper.isActive());
+    assertTrue(mNativeProviders.isEmpty());
+    assertEquals(List.of(LocationState.ERROR_DENIED), LocationStateShadow.sErrors);
+  }
+
+  @Test
+  public void stopReloadAndSimulationCancelOldDeadlines()
+  {
+    startFused(BaseLocationProvider.StartupPhase.CHECKING_SETTINGS);
+    advance(4000);
+    mHelper.stop();
+    advance(2000);
+    assertTrue(mNativeProviders.isEmpty());
+    mHelper.start();
+    mProviders.get(0).progress(BaseLocationProvider.StartupPhase.CHECKING_SETTINGS);
+    mHelper.reloadProvider();
+    advance(6000);
+    assertTrue(mNativeProviders.isEmpty());
+    mProviders.get(1).progress(BaseLocationProvider.StartupPhase.CHECKING_SETTINGS);
+    mHelper.startNavigationSimulation(new JunctionInfo[0]);
+    advance(6000);
+    assertTrue(mNativeProviders.isEmpty());
+    mHelper.stopNavigationSimulation();
+  }
+
+  @Test
+  public void permissionLossAtExpiryDoesNotStartNative()
+  {
+    startFused(BaseLocationProvider.StartupPhase.CHECKING_SETTINGS);
+    mUtils.when(() -> LocationUtils.checkLocationPermission(mContext)).thenReturn(false);
+    advance(5001);
+    assertTrue(mNativeProviders.isEmpty());
+    assertFalse(mHelper.isActive());
+    assertEquals(List.of(LocationState.ERROR_DENIED), LocationStateShadow.sErrors);
+  }
+
+  @Test
+  public void disabledSystemAtExpiryDoesNotStartNative()
+  {
+    startFused(BaseLocationProvider.StartupPhase.CHECKING_SETTINGS);
+    mUtils.when(() -> LocationUtils.areLocationServicesTurnedOn(mContext)).thenReturn(false);
+    advance(5001);
+    assertTrue(mNativeProviders.isEmpty());
+    assertFalse(mHelper.isActive());
+    assertEquals(List.of(LocationState.ERROR_GPS_OFF), LocationStateShadow.sErrors);
+  }
+
+  @Test
+  public void noNativeProviderWithLocationEnabledIsNotGpsOff()
+  {
+    final LocationListener listener = mock(LocationListener.class);
+    mHelper.addListener(listener);
+    startFused(BaseLocationProvider.StartupPhase.CHECKING_SETTINGS);
+    advance(5001);
+    mNativeProviders.get(0).mListener.onLocationDisabled();
+    assertFalse(mHelper.isActive());
+    assertEquals(List.of(LocationState.ERROR_NOT_SUPPORTED), LocationStateShadow.sErrors);
+    verify(listener).onLocationUpdateTimeout();
+    verify(listener, never()).onLocationDisabled();
+    assertEquals(1, mNativeProviders.size());
+  }
+
+  @Test
+  public void unavailableNotificationCanRestartAcquisition()
+  {
+    mHelper.addListener(new LocationListener() {
+      @Override
+      public void onLocationUpdated(@NonNull Location location)
+      {}
+
+      @Override
+      public void onLocationUpdateTimeout()
+      {
+        mHelper.start();
+      }
+    });
+    startFused(BaseLocationProvider.StartupPhase.CHECKING_SETTINGS);
+    advance(5001);
+    mNativeProviders.get(0).mListener.onLocationDisabled();
+    assertTrue(mHelper.isActive());
+    assertEquals(2, mProviders.size());
+    assertTrue(mProviders.get(1).mStarted);
   }
 
   @Test

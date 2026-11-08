@@ -10,7 +10,7 @@ public interface LocationListener
   /** Receives a current location, or the most recently saved fix when the listener is registered. */
   void onLocationUpdated(@NonNull Location location);
 
-  /** Called when the location update timeout expires; the host may offer provider or permission settings. */
+  /** Called when updates time out or no provider is available; the host may offer provider or permission settings. */
   default void onLocationUpdateTimeout()
   {
     // No op.
