@@ -50,6 +50,15 @@ GpsInfo MovingFix(double timestamp)
   return GetGpsInfo(timestamp, 1.0 /* lat */, 10.0 + timestamp * 1e-4 /* lon */, 1.0 /* altitude */, 10.0 /* speed */);
 }
 
+GpsInfo TimedFix(double utc, int observedMilliseconds)
+{
+  auto info = MovingFix(1.0 + observedMilliseconds / 1000.0);
+  info.m_timestamp = utc;
+  auto const observed = Extrapolator::Clock::time_point(std::chrono::milliseconds(observedMilliseconds));
+  info.m_timing = GpsInfo::Timing{observed, observed + std::chrono::seconds(5)};
+  return info;
+}
+
 struct ExtrapolatorFixture
 {
   using Task = Extrapolator::Task;
@@ -138,6 +147,117 @@ UNIT_TEST(Extrapolator_EqualTimeCorrectionPreservesHistory)
   TestGpsInfo(f.m_updates.back(), corrected);
   f.Advance(200);
   TestGpsInfo(f.m_updates.back(), LinearExtrapolation(MovingFix(1.0), corrected, 220));
+}
+
+UNIT_TEST(Extrapolator_MonotonicTimeSurvivesUtcRollback)
+{
+  ExtrapolatorFixture f;
+  f.m_extrapolator->Enable(true);
+  auto const first = TimedFix(1000, 0);
+  auto const second = TimedFix(-1000, 1000);
+  f.Update(first);
+  f.Advance(1000);
+  f.Update(second);
+  TestGpsInfo(f.m_updates.back(), second);
+  f.Advance(200);
+  TestGpsInfo(f.m_updates.back(), LinearExtrapolation(first, second, 200));
+  TEST(f.m_updates.back().m_timing == second.m_timing, ());
+}
+
+UNIT_TEST(Extrapolator_SameUtcWithAdvancingMonotonicTimeIsDistinct)
+{
+  ExtrapolatorFixture f;
+  f.m_extrapolator->Enable(true);
+  auto const first = TimedFix(1000, 0);
+  auto const second = TimedFix(1000, 1000);
+  f.Update(first);
+  f.Advance(1000);
+  f.Update(second);
+  f.Advance(200);
+  TestGpsInfo(f.m_updates.back(), LinearExtrapolation(first, second, 200));
+}
+
+UNIT_TEST(Extrapolator_FastInputKeepsIntegerMeasurementPrecision)
+{
+  using namespace std::chrono_literals;
+  ExtrapolatorFixture f;
+  auto const observed = Extrapolator::Clock::time_point(24h * 30);
+  f.m_now = observed;
+  auto first = MovingFix(1);
+  first.m_longitude = 10;
+  first.m_timing = GpsInfo::Timing{observed, observed + 5s};
+  auto second = first;
+  second.m_longitude += 1e-6;
+  second.m_timing = GpsInfo::Timing{observed + 50ms, observed + 5050ms};
+  f.m_extrapolator->Enable(true);
+  f.Update(first);
+  f.Advance(50);
+  f.Update(second);
+  f.Advance(200);
+
+  double const expected = second.m_longitude + 4 * (second.m_longitude - first.m_longitude);
+  TEST_ALMOST_EQUAL_ABS(f.m_updates.back().m_longitude, expected, 1e-12, ());
+  TEST(f.m_updates.back().m_timing == second.m_timing, ());
+}
+
+UNIT_TEST(Extrapolator_MonotonicClockRejectsDelayedAndFutureInput)
+{
+  ExtrapolatorFixture f;
+  f.m_extrapolator->Enable(true);
+  auto const first = TimedFix(1000, 0);
+  auto const second = TimedFix(1001, 1000);
+  f.Update(first);
+  f.Advance(1000);
+  f.Update(second);
+  auto const count = f.m_updates.size();
+  f.Update(TimedFix(2000, 500));
+  f.Update(TimedFix(3000, 2000));
+  TEST_EQUAL(f.m_updates.size(), count, ());
+  f.Advance(200);
+  TestGpsInfo(f.m_updates.back(), LinearExtrapolation(first, second, 200));
+}
+
+UNIT_TEST(Extrapolator_ClockDomainChangeClearsHistory)
+{
+  ExtrapolatorFixture f;
+  f.StartMoving();
+  f.Update(TimedFix(3, 1000));
+  auto const count = f.m_updates.size();
+  f.Advance(200);
+  TEST_EQUAL(f.m_updates.size(), count, ());
+  f.Update(MovingFix(4));
+  f.Advance(200);
+  TEST_EQUAL(f.m_updates.size(), count + 1, ());
+}
+
+UNIT_TEST(Extrapolator_SuspendDoesNotRefreshObservationAge)
+{
+  ExtrapolatorFixture f;
+  f.m_extrapolator->Enable(true);
+  f.Update(TimedFix(1000, 0));
+  f.Advance(1000);
+  f.Update(TimedFix(1001, 1000));
+  f.m_now += ExtrapolatorFixture::Milliseconds(200);
+  f.RunBackground();
+  auto const count = f.m_updates.size();
+  f.m_now += std::chrono::minutes(1);
+  f.RunGui();
+  TEST_EQUAL(f.m_updates.size(), count, ());
+  TEST(!f.m_updates.back().IsFresh(f.m_now), ());
+  TEST(f.m_updates.back().m_timing->m_observedAt == Extrapolator::Clock::time_point(std::chrono::seconds(1)), ());
+}
+
+UNIT_TEST(Extrapolator_OldMeasurementCannotBeginNewPredictionLifetime)
+{
+  ExtrapolatorFixture f;
+  f.m_extrapolator->Enable(true);
+  f.m_now += std::chrono::seconds(10);
+  f.Update(TimedFix(1000, 0));
+  f.Update(TimedFix(1001, 1000));
+  auto const count = f.m_updates.size();
+  f.Advance(200);
+  TEST_EQUAL(f.m_updates.size(), count, ());
+  TEST(!f.m_updates.back().IsFresh(f.m_now), ());
 }
 
 UNIT_TEST(Extrapolator_ExactRepeatsDoNotExtendPrediction)

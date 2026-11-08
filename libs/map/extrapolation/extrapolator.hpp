@@ -25,13 +25,13 @@ class Extrapolator
 {
 public:
   using ExtrapolatedLocationUpdateFn = std::function<void(location::GpsInfo const &)>;
-  using Clock = std::chrono::steady_clock;
+  using Clock = location::Clock;
   using Task = std::function<void()>;
   using NowFn = std::function<Clock::time_point()>;
   using BackgroundTaskFn = std::function<void(std::chrono::milliseconds, Task)>;
   using GuiTaskFn = std::function<void(Task)>;
 
-  // Prediction stops this long after the latest distinct measurement arrives.
+  // Prediction stops this long after the observation, or receipt for legacy producers.
   static uint64_t constexpr kMaxExtrapolationTimeMs = 2000;
   // Target interval between prediction updates.
   static uint64_t constexpr kExtrapolationPeriodMs = 200;

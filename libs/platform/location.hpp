@@ -1,5 +1,7 @@
 #pragma once
 
+#include "platform/location_clock.hpp"
+
 #include "geometry/latlon.hpp"
 #include "geometry/point2d.hpp"
 
@@ -7,6 +9,7 @@
 
 #include <cmath>
 #include <functional>
+#include <optional>
 #include <string>
 
 namespace location
@@ -54,13 +57,15 @@ enum TLocationSource
 class GpsInfo
 {
 public:
+  struct Timing
+  {
+    Clock::time_point m_observedAt;
+    Clock::time_point m_liveUntil;
+
+    bool operator==(Timing const &) const = default;
+  };
+
   TLocationSource m_source = EUndefined;
-  /// @TODO(bykoianko) |m_timestamp| is calculated based on platform methods which don't
-  /// guarantee that |m_timestamp| is monotonic. |m_monotonicTimeMs| should be added to
-  /// class |GpsInfo|. This time should be calculated based on Location::getElapsedRealtimeNanos()
-  /// method in case of Android. How to calculate such time in case of iOS should be
-  /// investigated.
-  /// \note For most cases |m_timestamp| is monotonic.
   double m_timestamp = 0.0;             //!< seconds from 1st Jan 1970
   double m_latitude = 0.0;              //!< degrees
   double m_longitude = 0.0;             //!< degrees
@@ -69,8 +74,16 @@ public:
   double m_verticalAccuracy = -1.0;     //!< metres
   double m_bearing = -1.0;              //!< positive degrees from the true North
   double m_speed = -1.0;                //!< metres per second
+  // Transient observation metadata. Predictions retain the observation's age.
+  // Producers without a compatible clock leave this unset; recording keeps UTC.
+  std::optional<Timing> m_timing = std::nullopt;
 
   bool IsValid() const { return m_source != EUndefined; }
+  bool IsFresh(Clock::time_point now = Clock::now()) const
+  {
+    return !m_timing || (m_timing->m_observedAt <= now && now < m_timing->m_liveUntil);
+  }
+  bool HasSameClock(GpsInfo const & other) const { return m_timing.has_value() == other.m_timing.has_value(); }
   bool HasBearing() const { return m_bearing >= 0.0; }
   bool HasSpeed() const { return m_speed >= 0.0; }
   bool HasAltitude() const { return m_verticalAccuracy >= 0.0; }

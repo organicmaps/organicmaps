@@ -17,6 +17,7 @@ import androidx.annotation.RequiresPermission;
 import androidx.annotation.UiThread;
 import androidx.core.content.ContextCompat;
 import androidx.core.location.GnssStatusCompat;
+import androidx.core.location.LocationCompat;
 import androidx.core.location.LocationManagerCompat;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Map;
@@ -26,6 +27,8 @@ import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.NetworkPolicy;
 import app.organicmaps.sdk.util.log.Logger;
+import java.util.HashMap;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import org.chromium.base.ObserverList;
 
@@ -36,6 +39,25 @@ import org.chromium.base.ObserverList;
  */
 public class LocationHelper implements BaseLocationProvider.Listener
 {
+  private record Source(BaseLocationProvider provider, long session, String name, boolean mock)
+  {
+    @Override
+    public boolean equals(Object object)
+    {
+      return object instanceof Source other && provider == other.provider && session == other.session
+   && Objects.equals(name, other.name) && mock == other.mock;
+    }
+
+    @Override
+    public int hashCode()
+    {
+      int hash = System.identityHashCode(provider);
+      hash = 31 * hash + Long.hashCode(session);
+      hash = 31 * hash + Objects.hashCode(name);
+      return 31 * hash + Boolean.hashCode(mock);
+    }
+  }
+
   // Replaced 0 with 100ms. Seems like it is not working on Lineage, EOS, MicroG, ...
   // https://github.com/organicmaps/organicmaps/issues/11076
   // Probably https://github.com/organicmaps/organicmaps/issues/10133
@@ -63,8 +85,14 @@ public class LocationHelper implements BaseLocationProvider.Listener
 
   @Nullable
   private Location mSavedLocation;
+  private long mSavedLiveUntilNanos;
+  private long mLocationRevision;
   @Nullable
-  private Location mLocationForFiltering;
+  private Source mSavedSource;
+  @Nullable
+  private Source mCoreSource;
+  private long mSourceSession;
+  private final HashMap<Source, Long> mLastSourceTimes = new HashMap<>();
   private MapObject mMyPosition;
   @NonNull
   private final LocationProviderFactory mLocationProviderFactory;
@@ -139,7 +167,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
   {
     clearFusedWatchdog();
     final long generation = ++mProviderGeneration;
-    mLocationForFiltering = null;
+    resetPrediction();
     return new BaseLocationProvider.Listener() {
       private boolean isCurrent()
       {
@@ -352,28 +380,51 @@ public class LocationHelper implements BaseLocationProvider.Listener
     if (mSavedLocation == null)
       throw new IllegalStateException("No saved location");
 
-    mHandler.removeCallbacks(mLocationTimeoutRunnable);
-    mHandler.postDelayed(mLocationTimeoutRunnable, LOCATION_UPDATE_TIMEOUT_MS); // Reset the timeout.
+    final Location location = mSavedLocation;
+    final long liveUntilNanos = mSavedLiveUntilNanos;
+    final long revision = mLocationRevision;
+    final BaseLocationProvider provider = mLocationProvider;
+    final Source source = Objects.requireNonNull(mSavedSource);
+    if (LocationUtils.isLocationFresh(location, SystemClock.elapsedRealtimeNanos(), liveUntilNanos))
+    {
+      mHandler.removeCallbacks(mLocationTimeoutRunnable);
+      mHandler.postDelayed(mLocationTimeoutRunnable, LOCATION_UPDATE_TIMEOUT_MS);
 
-    mListenersIterator.rewind();
-    while (mListenersIterator.hasNext())
-      mListenersIterator.next().onLocationUpdated(mSavedLocation);
+      mListenersIterator.rewind();
+      while (mListenersIterator.hasNext() && mActive && provider == mLocationProvider && revision == mLocationRevision)
+        mListenersIterator.next().onLocationUpdated(location);
+    }
 
     // If we are still in the first run mode, i.e. user is staying on the first run screens,
     // not on the map, we mustn't post location update to the core. Only this preserving allows us
     // to play nice zoom animation once a user will leave first screens and will see a map.
+    if (!mActive || provider != mLocationProvider || revision != mLocationRevision)
+      return;
     if (mInFirstRun)
     {
       Logger.d(TAG, "Location update is obtained and must be ignored, because the app is in a first run mode");
       return;
     }
 
-    final LocationCompatExtractor.Altitude altitude = LocationCompatExtractor.getAltitude(mSavedLocation);
+    final boolean reset = !source.equals(mCoreSource);
+    mCoreSource = source;
+    final LocationCompatExtractor.Altitude altitude = LocationCompatExtractor.getAltitude(location);
     LocationState.nativeLocationUpdated(
-        mSavedLocation.getTime(), mSavedLocation.getLatitude(), mSavedLocation.getLongitude(),
-        mSavedLocation.getAccuracy(), altitude != null ? altitude.altitude() : 0,
-        altitude != null ? altitude.accuracy() : -1, mSavedLocation.hasSpeed() ? mSavedLocation.getSpeed() : -1,
-        mSavedLocation.hasBearing() ? mSavedLocation.getBearing() : -1);
+        location.getTime(), location.getLatitude(), location.getLongitude(), location.getAccuracy(),
+        altitude != null ? altitude.altitude() : 0, altitude != null ? altitude.accuracy() : -1,
+        location.hasSpeed() ? location.getSpeed() : -1, location.hasBearing() ? location.getBearing() : -1,
+        location.getElapsedRealtimeNanos(), liveUntilNanos, reset);
+  }
+
+  private void resetPrediction()
+  {
+    ++mLocationRevision;
+    ++mSourceSession;
+    mLastSourceTimes.clear();
+    mSavedLiveUntilNanos = Math.min(mSavedLiveUntilNanos, SystemClock.elapsedRealtimeNanos());
+    if (mCoreSource != null)
+      LocationState.nativeResetLocationPrediction();
+    mCoreSource = null;
   }
 
   private void notifyLocationUpdateTimeout()
@@ -413,20 +464,44 @@ public class LocationHelper implements BaseLocationProvider.Listener
       return;
     }
 
-    // Fresh valid output proves backend liveness even when the display retains a more accurate fix.
+    final long nowNanos = SystemClock.elapsedRealtimeNanos();
+    final long observedAt = location.getElapsedRealtimeNanos();
+    if (observedAt <= 0 || observedAt > nowNanos)
+    {
+      Logger.w(TAG, "Invalid elapsed measurement time");
+      return;
+    }
+    final long maxAgeNanos = TimeUnit.MILLISECONDS.toNanos(Math.max(5000, 3 * mInterval));
+    final long liveUntilNanos = observedAt + maxAgeNanos;
+    final boolean fresh = LocationUtils.isLocationFresh(location, nowNanos, liveUntilNanos);
+    final Source source =
+        new Source(mLocationProvider, mSourceSession, location.getProvider(), LocationCompat.isMock(location));
+    final Long lastObservedAt = mLastSourceTimes.get(source);
+    if (lastObservedAt != null && observedAt < lastObservedAt)
+      return;
+    mLastSourceTimes.put(source, observedAt);
+
+    // Fresh valid output proves backend liveness before display-quality selection.
     updateFusedFreshness(location);
 
-    if (mLocationForFiltering != null)
+    if (mSavedLocation != null)
     {
-      if (!LocationUtils.isLocationBetterThanLast(location, mLocationForFiltering))
+      final boolean previousFresh = LocationUtils.isLocationFresh(mSavedLocation, nowNanos, mSavedLiveUntilNanos);
+      if (!fresh && previousFresh)
+        return;
+      final boolean compareAccuracy = !fresh || previousFresh;
+      if (compareAccuracy
+          && !LocationUtils.isLocationBetterThanLast(location, mSavedLocation, source.equals(mSavedSource)))
       {
-        Logger.d(TAG, "The new " + location + " is worse than the last " + mLocationForFiltering);
+        Logger.d(TAG, "The new " + location + " is worse than the last " + mSavedLocation);
         return;
       }
     }
 
-    mLocationForFiltering = location;
     mSavedLocation = location;
+    mSavedSource = source;
+    mSavedLiveUntilNanos = liveUntilNanos;
+    ++mLocationRevision;
     mMyPosition = null;
     notifyLocationUpdated();
   }
@@ -554,7 +629,8 @@ public class LocationHelper implements BaseLocationProvider.Listener
     Logger.d(TAG, "listener: " + listener + " count was: " + mListeners.size());
 
     mListeners.addObserver(listener);
-    if (mSavedLocation != null)
+    if (mSavedLocation != null
+        && LocationUtils.isLocationFresh(mSavedLocation, SystemClock.elapsedRealtimeNanos(), mSavedLiveUntilNanos))
       listener.onLocationUpdated(mSavedLocation);
   }
 
@@ -651,6 +727,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
     Logger.i(TAG);
     mActive = false;
     clearFusedWatchdog();
+    resetPrediction();
     mLocationProvider.stop();
     unsubscribeFromGnssStatusUpdates();
     mSensorHelper.stop();

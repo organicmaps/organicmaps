@@ -16,6 +16,7 @@
 #include <algorithm>
 #include <array>
 #include <chrono>
+#include <cmath>
 
 namespace df
 {
@@ -399,6 +400,12 @@ void MyPositionController::NextMode(ScreenBase const & screen)
 
 void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool isNavigable, ScreenBase const & screen)
 {
+  auto const now = location::Clock::now();
+  bool const fresh = info.IsFresh(now);
+  bool const newObservation = info.m_timing
+                                ? !m_locationTiming || m_locationTiming->m_observedAt != info.m_timing->m_observedAt
+                                : m_locationTiming || fabs(m_lastLocationTimestamp - info.m_timestamp) > 1.0E-5;
+  m_locationTiming = info.m_timing;
   m2::PointD const oldPos = GetDrawablePosition();
   double const oldAzimut = GetDrawableAzimut();
 
@@ -409,7 +416,7 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
   m_errorRadius = rect.SizeX() * 0.5;
   m_horizontalAccuracy = info.m_horizontalAccuracy;
 
-  if (info.m_speed > 0.0)
+  if (fresh && info.m_speed > 0.0)
   {
     double const mercatorPerMeter = m_errorRadius / info.m_horizontalAccuracy;
     m_autoScale2d = mercatorPerMeter * CalculateZoomBySpeed(info.m_speed, false /* isPerspectiveAllowed */);
@@ -428,10 +435,11 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
   bool const isMovingFast = info.HasSpeed() && info.m_speed > kMinSpeedThresholdMps;
   bool const glueArrowInRouting = isNavigable && m_isArrowGluedInRouting;
 
-  if ((!m_isCompassAvailable || glueArrowInRouting || isMovingFast) && info.HasBearing())
+  if (fresh && (!m_isCompassAvailable || glueArrowInRouting || isMovingFast) && info.HasBearing())
   {
     SetDirection(math::DegToRad(info.m_bearing));
-    m_lastGPSBearingTimer.Reset();
+    if (newObservation)
+      m_lastGPSBearingTimer.Reset();
   }
 
   if (m_isPositionAssigned && (!AlmostCurrentPosition(oldPos) || !AlmostCurrentAzimut(oldAzimut)))
@@ -440,10 +448,10 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
     m_isDirtyViewport = true;
   }
 
-  // Assume that every new position is fresh enough. We can't make some straightforward filtering here
-  // like comparing system_clock::now().time_since_epoch() and info.m_timestamp, because can't rely
-  // on valid time settings on endpoint device.
-  m_positionIsObsolete = false;
+  // UTC-only producers keep the receipt-time fallback; known clocks preserve observation age.
+  m_positionIsObsolete =
+      m_locationTiming &&
+      std::chrono::duration<double>(now - m_locationTiming->m_observedAt).count() >= kMaxUpdateLocationInvervalSec;
 
   if (!m_isPositionAssigned)
   {
@@ -509,7 +517,7 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
   if (m_listener != nullptr)
     m_listener->PositionChanged(Position(), IsModeHasPosition());
 
-  if (fabs(m_lastLocationTimestamp - info.m_timestamp) > 1.0E-5)
+  if (fresh && newObservation)
   {
     m_lastLocationTimestamp = info.m_timestamp;
     m_updateLocationTimer.Reset();
@@ -868,17 +876,18 @@ void MyPositionController::DeactivateRouting()
 
 // This code schedules the execution of checkFunction on FR after timeout. Additionally
 // there is the protection from multiple scheduling.
-#define CHECK_ON_TIMEOUT(id, timeout, checkFunction)                                                               \
-  if (id == DrapeNotifier::kInvalidId)                                                                             \
-  {                                                                                                                \
-    id = m_notifier->Notify(ThreadsCommutator::RenderThread, std::chrono::seconds(static_cast<uint32_t>(timeout)), \
-                            false /* repeating */, [this](uint64_t notifyId)                                       \
-    {                                                                                                              \
-      if (notifyId != id)                                                                                          \
-        return;                                                                                                    \
-      checkFunction();                                                                                             \
-      id = DrapeNotifier::kInvalidId;                                                                              \
-    });                                                                                                            \
+#define CHECK_ON_TIMEOUT(id, timeout, checkFunction)                                                      \
+  if (id == DrapeNotifier::kInvalidId)                                                                    \
+  {                                                                                                       \
+    id = m_notifier->Notify(ThreadsCommutator::RenderThread,                                              \
+                            std::chrono::milliseconds(static_cast<int64_t>(std::ceil((timeout) * 1000))), \
+                            false /* repeating */, [this](uint64_t notifyId)                              \
+    {                                                                                                     \
+      if (notifyId != id)                                                                                 \
+        return;                                                                                           \
+      checkFunction();                                                                                    \
+      id = DrapeNotifier::kInvalidId;                                                                     \
+    });                                                                                                   \
   }
 
 void MyPositionController::CheckNotFollowRouting()
@@ -911,11 +920,19 @@ void MyPositionController::CheckUpdateLocation()
 {
   if (!m_positionIsObsolete)
   {
-    CHECK_ON_TIMEOUT(m_updateLocationNotifyId, kMaxUpdateLocationInvervalSec, CheckUpdateLocation);
-    if (m_updateLocationTimer.ElapsedSeconds() >= kMaxUpdateLocationInvervalSec)
+    double const age =
+        m_locationTiming
+            ? std::chrono::duration<double>(location::Clock::now() - m_locationTiming->m_observedAt).count()
+            : m_updateLocationTimer.ElapsedSeconds();
+    double const remaining = kMaxUpdateLocationInvervalSec - age;
+    if (remaining <= 0)
     {
       m_positionIsObsolete = true;
       m_autoScale2d = m_autoScale3d = kUnknownAutoZoom;
+    }
+    else
+    {
+      CHECK_ON_TIMEOUT(m_updateLocationNotifyId, remaining, CheckUpdateLocation);
     }
   }
 }

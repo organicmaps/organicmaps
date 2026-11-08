@@ -50,6 +50,7 @@ public class LocationHelperTest
   {
     static final List<Integer> sErrors = new ArrayList<>();
     static int sUpdates;
+    static int sResets;
 
     @Implementation
     protected static void nativeOnLocationError(int error)
@@ -59,9 +60,16 @@ public class LocationHelperTest
 
     @Implementation
     protected static void nativeLocationUpdated(long time, double latitude, double longitude, float accuracy,
-                                                double altitude, float altitudeAccuracy, float speed, float bearing)
+                                                double altitude, float altitudeAccuracy, float speed, float bearing,
+                                                long elapsedRealtimeNanos, long liveUntilNanos, boolean resetPrediction)
     {
       ++sUpdates;
+    }
+
+    @Implementation
+    protected static void nativeResetLocationPrediction()
+    {
+      ++sResets;
     }
   }
 
@@ -131,6 +139,8 @@ public class LocationHelperTest
   {
     LocationStateShadow.sErrors.clear();
     LocationStateShadow.sUpdates = 0;
+    LocationStateShadow.sResets = 0;
+    ShadowSystemClock.advanceBy(Duration.ofSeconds(2));
     mContext = RuntimeEnvironment.getApplication();
     mLogger = mockStatic(Logger.class);
     mNetwork = mockStatic(NetworkPolicy.class);
