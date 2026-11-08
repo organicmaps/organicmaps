@@ -170,12 +170,9 @@ jobs:
         if: ${{ runner.os == 'Windows' }}
         run: |
           qt_root="$(cygpath -m "$RUNNER_TEMP")/Qt/$WINDOWS_QT_VERSION/$WINDOWS_QT_ARCH"
+          test -f "$qt_root/bin/qmake.exe"
           echo "$qt_root/bin" >> "$GITHUB_PATH"
-          {
-            echo "QT_ROOT_DIR=$qt_root"
-            echo "QT_PLUGIN_PATH=$qt_root/plugins"
-            echo "QML2_IMPORT_PATH=$qt_root/qml"
-          } >> "$GITHUB_ENV"
+          echo "QT_PATH=$qt_root" >> "$GITHUB_ENV"
 
       # The Qt installer has no restore-only mode. Only master may save a
       # shared installation; PRs must not create a copy after a cache miss.
