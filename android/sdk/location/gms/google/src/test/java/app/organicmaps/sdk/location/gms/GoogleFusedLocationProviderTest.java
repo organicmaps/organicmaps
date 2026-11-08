@@ -2,12 +2,12 @@ package app.organicmaps.sdk.location.gms;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import android.app.PendingIntent;
@@ -19,6 +19,7 @@ import app.organicmaps.sdk.location.LocationUtils;
 import app.organicmaps.sdk.util.log.Logger;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationAvailability;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
@@ -38,6 +39,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InOrder;
 import org.mockito.MockedStatic;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
@@ -149,6 +151,59 @@ public class GoogleFusedLocationProviderTest
     return result;
   }
 
+  private void verifyNoLocationEvents()
+  {
+    verify(mListener, never()).onLocationChanged(any(Location.class));
+    verify(mListener, never()).onLocationDisabled();
+    verify(mListener, never()).onLocationPermissionDenied();
+    verify(mListener, never()).onFusedLocationUnsupported();
+    verify(mListener, never()).onLocationResolutionRequired(any(PendingIntent.class));
+  }
+
+  @Test
+  public void startupProgressTracksTaskCompletion()
+  {
+    final InOrder order = inOrder(mListener);
+    mProvider.start(100);
+    order.verify(mListener).onFusedLocationProgress(BaseLocationProvider.StartupPhase.CHECKING_SETTINGS);
+    register(0);
+    order.verify(mListener).onFusedLocationProgress(BaseLocationProvider.StartupPhase.REGISTERING_UPDATES);
+    mRegistrations.get(0).setResult(null);
+    mQueue.drain();
+    order.verify(mListener).onFusedLocationProgress(BaseLocationProvider.StartupPhase.REGISTERED);
+    order.verifyNoMoreInteractions();
+  }
+
+  @Test
+  public void fixCanArriveBeforeRegistrationCompletion()
+  {
+    mProvider.start(100);
+    register(0);
+    final Location location = mock(Location.class);
+    mCallbacks.get(0).onLocationResult(result(location));
+    final InOrder order = inOrder(mListener);
+    order.verify(mListener).onFusedLocationProgress(BaseLocationProvider.StartupPhase.CHECKING_SETTINGS);
+    order.verify(mListener).onFusedLocationProgress(BaseLocationProvider.StartupPhase.REGISTERING_UPDATES);
+    order.verify(mListener).onLocationChanged(location);
+    mRegistrations.get(0).setResult(null);
+    mQueue.drain();
+    order.verify(mListener).onFusedLocationProgress(BaseLocationProvider.StartupPhase.REGISTERED);
+  }
+
+  @Test
+  public void unavailableHintDoesNotFailARegisteredRequest()
+  {
+    mProvider.start(100);
+    register(0);
+    final LocationAvailability availability = mock(LocationAvailability.class);
+    when(availability.isLocationAvailable()).thenReturn(false);
+    mCallbacks.get(0).onLocationAvailability(availability);
+    verifyNoLocationEvents();
+    final Location location = mock(Location.class);
+    mCallbacks.get(0).onLocationResult(result(location));
+    verify(mListener).onLocationChanged(location);
+  }
+
   @Test
   public void stoppedSettingsRequestCannotRegisterUpdates()
   {
@@ -157,7 +212,7 @@ public class GoogleFusedLocationProviderTest
     register(0);
 
     assertEquals(0, mCallbacks.size());
-    verifyNoInteractions(mListener);
+    verifyNoLocationEvents();
   }
 
   @Test
@@ -189,11 +244,12 @@ public class GoogleFusedLocationProviderTest
     mRegistrations.get(0).setResult(null);
     mQueue.drain();
 
+    verify(mListener).onFusedLocationProgress(BaseLocationProvider.StartupPhase.REGISTERED);
     verify(mLocationClient, times(2)).removeLocationUpdates(oldCallback);
     verify(mLocationClient, never()).removeLocationUpdates(currentCallback);
     final Location oldLocation = mock(Location.class);
     oldCallback.onLocationResult(result(oldLocation));
-    verifyNoInteractions(mListener);
+    verifyNoLocationEvents();
     final Location currentLocation = mock(Location.class);
     currentCallback.onLocationResult(result(currentLocation));
     verify(mListener).onLocationChanged(currentLocation);
@@ -276,7 +332,7 @@ public class GoogleFusedLocationProviderTest
     mQueue.drain();
 
     assertEquals(1, mCallbacks.size());
-    verifyNoInteractions(mListener);
+    verifyNoLocationEvents();
   }
 
   @Test
@@ -292,7 +348,7 @@ public class GoogleFusedLocationProviderTest
     mProvider.start(3000);
     mSettings.get(0).setException(error);
     mQueue.drain();
-    verifyNoInteractions(mListener);
+    verifyNoLocationEvents();
     mSettings.get(1).setException(error);
     mQueue.drain();
 
