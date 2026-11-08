@@ -95,6 +95,7 @@ jobs:
       DEVELOPER_DIR: ${{ matrix.environment.developer-dir }}
       PRESET: ci${{ matrix.environment.cmake-preset-suffix || '' }}
       PRESET_DRAPE: ci-drape${{ matrix.environment.cmake-preset-suffix || '' }}
+      # Bump this pinned version to update Qt and its cache key together.
       WINDOWS_QT_VERSION: '6.8.3'
       WINDOWS_QT_ARCH: msvc2022_64
       WINDOWS_QT_MODULES: qtpositioning
@@ -174,10 +175,12 @@ jobs:
           echo "$qt_root/bin" >> "$GITHUB_PATH"
           echo "QT_PATH=$qt_root" >> "$GITHUB_ENV"
 
-      # The Qt installer has no restore-only mode. Only master may save a
-      # shared installation; PRs must not create a copy after a cache miss.
+      # The installer has no restore-only mode. Only Release on master saves here.
+      # Evicted caches are repopulated by master; PRs install Qt without saving.
       - name: Save Qt (Windows)
-        if: ${{ runner.os == 'Windows' && github.ref == 'refs/heads/master' && steps.qt-cache.outputs.cache-hit != 'true' }}
+        if: >-
+          ${{ runner.os == 'Windows' && github.ref == 'refs/heads/master' &&
+              matrix.cmake-build-type == 'Release' && steps.qt-cache.outputs.cache-hit != 'true' }}
         uses: actions/cache/save@v4
         with:
           path: ${{ runner.temp }}/Qt
