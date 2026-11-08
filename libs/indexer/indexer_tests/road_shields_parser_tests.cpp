@@ -66,3 +66,27 @@ UNIT_TEST(RoadShields_Smoke)
   TEST_EQUAL(shields[0].m_type, RoadShieldType::Generic_Red, ());
   TEST_EQUAL(shields[0].m_name, "26", ());
 }
+
+// https://github.com/organicmaps/organicmaps/issues/4028
+// A-road motorways are signed blue like other motorways, not green like A-roads.
+UNIT_TEST(RoadShields_UKARoadMotorways)
+{
+  using namespace ftypes;
+
+  auto shields = GetRoadShields("UK_England_North East England", "A1(M)");
+  TEST_EQUAL(shields.size(), 1, (shields));
+  TEST_EQUAL(shields[0].m_type, RoadShieldType::Generic_Blue, (shields));
+  TEST_EQUAL(shields[0].m_name, "A1(M)", (shields));
+
+  shields = GetRoadShields("UK_Scotland_South", "A74(M)");
+  TEST_EQUAL(shields.size(), 1, (shields));
+  TEST_EQUAL(shields[0].m_type, RoadShieldType::Generic_Blue, (shields));
+
+  shields = GetRoadShields("UK_England_North East England", "A1");
+  TEST_EQUAL(shields.size(), 1, (shields));
+  TEST_EQUAL(shields[0].m_type, RoadShieldType::UK_Highway, (shields));
+
+  shields = GetRoadShields("UK_Scotland_South", "M74");
+  TEST_EQUAL(shields.size(), 1, (shields));
+  TEST_EQUAL(shields[0].m_type, RoadShieldType::Generic_Blue, (shields));
+}
