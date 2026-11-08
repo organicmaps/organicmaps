@@ -659,7 +659,7 @@ void ApplyAreaFeature::ProcessAreaRules(drule::AreaRule const * areaRule, drule:
   {
     // Calculate areaDepth for BG-by-size areas only.
     if (areaRule->priority < drule::kBasePriorityBgTop)
-      areaDepth = drule::CalcAreaBySizeDepth(m_f);
+      areaDepth = drule::CalcAreaBySizeDepth(m_f.GetLimitRectChecked(), areaRule->priority);
     ProcessRule(*areaRule, areaDepth, {}, patternKey);
   }
 }
