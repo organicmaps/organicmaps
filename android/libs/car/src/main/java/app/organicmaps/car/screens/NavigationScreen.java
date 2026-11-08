@@ -67,7 +67,6 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   // True: navigation is cancelled by the user or host -> don't show toast
   private boolean mNavigationCancelled = false;
 
-  // Used only in debug builds to simulate route following
   private boolean mRouteSimulationEnabled = false;
 
   private NavigationScreen(@NonNull Builder builder)
@@ -117,6 +116,8 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   public void onAutoDriveEnabled()
   {
     Logger.i(TAG);
+    if (mRouteSimulationEnabled)
+      return;
 
     /// @todo Pass maxDistM from RouteSimulationProvider?
     /// Result speed between points will be in range (25, 50] km/h (for 1 second update interval).

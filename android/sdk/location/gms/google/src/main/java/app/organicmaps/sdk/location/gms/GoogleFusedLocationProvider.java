@@ -8,6 +8,7 @@ import android.content.Context;
 import android.location.Location;
 import android.os.Looper;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresPermission;
 import app.organicmaps.sdk.location.BaseLocationProvider;
 import app.organicmaps.sdk.location.LocationUtils;
@@ -37,12 +38,16 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
   private final SettingsClient mSettingsClient;
   @NonNull
   private final Context mContext;
+  @Nullable
+  private GoogleLocationCallback mCallback;
 
   private class GoogleLocationCallback extends LocationCallback
   {
     @Override
     public void onLocationResult(@NonNull LocationResult result)
     {
+      if (mCallback != this)
+        return;
       final Location location = result.getLastLocation();
       if (location != null)
         mListener.onLocationChanged(location);
@@ -51,17 +56,24 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
     @Override
     public void onLocationAvailability(@NonNull LocationAvailability availability)
     {
-      Logger.w(TAG, "isLocationAvailable = " + availability.isLocationAvailable());
+      if (mCallback == this)
+        Logger.w(TAG, "isLocationAvailable = " + availability.isLocationAvailable());
     }
   }
 
-  private final GoogleLocationCallback mCallback = new GoogleLocationCallback();
-
   GoogleFusedLocationProvider(@NonNull Context context, @NonNull BaseLocationProvider.Listener listener)
   {
+    this(context, listener, LocationServices.getFusedLocationProviderClient(context),
+         LocationServices.getSettingsClient(context));
+  }
+
+  GoogleFusedLocationProvider(@NonNull Context context, @NonNull BaseLocationProvider.Listener listener,
+                              @NonNull FusedLocationProviderClient locationClient,
+                              @NonNull SettingsClient settingsClient)
+  {
     super(listener);
-    mFusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
-    mSettingsClient = LocationServices.getSettingsClient(context);
+    mFusedLocationClient = locationClient;
+    mSettingsClient = settingsClient;
     mContext = context;
   }
 
@@ -70,6 +82,10 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
   public void start(long interval)
   {
     Logger.d(TAG);
+    if (mCallback != null)
+      throw new IllegalStateException("Already started");
+    final GoogleLocationCallback callback = new GoogleLocationCallback();
+    mCallback = callback;
 
     final LocationRequest locationRequest =
         new LocationRequest
@@ -91,61 +107,79 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
     builder.setAlwaysShow(true); // improves the wording/appearance of the dialog
     final LocationSettingsRequest locationSettingsRequest = builder.build();
 
-    mSettingsClient.checkLocationSettings(locationSettingsRequest)
-        .addOnSuccessListener(locationSettingsResponse -> {
-          Logger.d(TAG, "Service is available");
-          mFusedLocationClient.requestLocationUpdates(locationRequest, mCallback, Looper.myLooper());
-        })
-        .addOnFailureListener(e -> {
-          try
-          {
-            int statusCode = ((ApiException) e).getStatusCode();
-            if (statusCode == LocationSettingsStatusCodes.RESOLUTION_REQUIRED)
+    mSettingsClient.checkLocationSettings(locationSettingsRequest).addOnCompleteListener(UiThread::runLater, task -> {
+      if (mCallback != callback)
+        return;
+      if (task.isSuccessful())
+      {
+        Logger.d(TAG, "Location settings are satisfied");
+        requestLocationUpdates(locationRequest, callback);
+        return;
+      }
+
+      final Exception error = task.getException();
+      if (error instanceof ApiException apiError
+          && apiError.getStatusCode() == LocationSettingsStatusCodes.RESOLUTION_REQUIRED)
+      {
+        // Keep using satellite positioning when optional network settings are disabled.
+        // https://github.com/organicmaps/organicmaps/issues/3846
+        if (LocationUtils.areLocationServicesTurnedOn(mContext))
+        {
+          Logger.d(TAG, "Location is enabled; trying without optional Google location settings");
+          requestLocationUpdates(locationRequest, callback);
+          return;
+        }
+        if (error instanceof ResolvableApiException resolvable)
+        {
+          final PendingIntent pendingIntent = resolvable.getResolution();
+          mCallback = null;
+          mListener.onLocationResolutionRequired(pendingIntent);
+          return;
+        }
+      }
+      fail(error);
+    });
+  }
+
+  @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
+  private void requestLocationUpdates(@NonNull LocationRequest request, @NonNull GoogleLocationCallback callback)
+  {
+    try
+    {
+      mFusedLocationClient.requestLocationUpdates(request, callback, Looper.getMainLooper())
+          .addOnCompleteListener(UiThread::runLater, task -> {
+            if (mCallback != callback)
             {
-              // This case happens if at least one of the following system settings is off:
-              // 1. Location Services a.k.a GPS;
-              // 2. Google Location Accuracy a.k.a High Accuracy;
-              // 3. Both Wi-Fi && Mobile Data together (needed for 2).
-              //
-              // PendingIntent below will show a special Google "For better experience... enable (1) and/or (2) and/or
-              // (3)" dialog. This system dialog can change system settings if "Yes" is pressed. We can't do it from our
-              // app. However, we don't want to annoy a user who disabled (2) or (3) intentionally. GPS (1) is mandatory
-              // to continue, while (2) and (3) are not dealbreakers here.
-              //
-              // See https://github.com/organicmaps/organicmaps/issues/3846
-              //
-              if (LocationUtils.areLocationServicesTurnedOn(mContext))
-              {
-                Logger.d(TAG, "Don't show 'location resolution' dialog because location services are already on");
-                mFusedLocationClient.requestLocationUpdates(locationRequest, mCallback, Looper.myLooper());
-                return;
-              }
-              Logger.d(TAG, "Requesting 'location resolution' dialog");
-              final ResolvableApiException resolvable = (ResolvableApiException) e;
-              final PendingIntent pendingIntent = resolvable.getResolution();
-              // Call this callback in the next event loop to allow LocationHelper::start() to finish.
-              UiThread.runLater(() -> mListener.onLocationResolutionRequired(pendingIntent));
+              if (task.isSuccessful())
+                mFusedLocationClient.removeLocationUpdates(callback);
               return;
             }
-          }
-          catch (ClassCastException ex)
-          {
-            // Ignore, should be an impossible error.
-            // https://developers.google.com/android/reference/com/google/android/gms/location/SettingsClient
-            Logger.e(TAG, "An error that should be impossible: " + ex);
-          }
-          // Location settings are not satisfied. However, we have no way to fix the
-          // settings so we won't show the dialog.
-          Logger.w(TAG, "Service is not available: " + e);
-          // Call this callback in the next event loop to allow LocationHelper::start() to finish.
-          UiThread.runLater(mListener::onFusedLocationUnsupported);
-        });
+            if (!task.isSuccessful())
+              fail(task.getException());
+            else
+              Logger.d(TAG, "Location updates registered");
+          });
+    }
+    catch (SecurityException error)
+    {
+      fail(error);
+    }
+  }
+
+  private void fail(@Nullable Exception error)
+  {
+    Logger.w(TAG, "Location request failed or canceled: " + error);
+    stop();
+    mListener.onFusedLocationFailure();
   }
 
   @Override
   protected void stop()
   {
     Logger.d(TAG);
-    mFusedLocationClient.removeLocationUpdates(mCallback);
+    final GoogleLocationCallback callback = mCallback;
+    mCallback = null;
+    if (callback != null)
+      mFusedLocationClient.removeLocationUpdates(callback);
   }
 }
