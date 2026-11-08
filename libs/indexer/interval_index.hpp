@@ -58,13 +58,13 @@ public:
   {
     if (m_Header.m_Levels != 0 && beg != end)
     {
-      // ASSERT_LESS_OR_EQUAL(beg, KeyEnd(), (end));
-      // ASSERT_LESS_OR_EQUAL(end, KeyEnd(), (beg));
       if (beg > KeyEnd())
         beg = KeyEnd();
       if (end > KeyEnd())
         end = KeyEnd();
-      --end;  // end is inclusive in ForEachImpl().
+      if (beg == end)
+        return;
+      --end;  // ForEachNode uses an inclusive end.
       ForEachNode(f, beg, end, m_Header.m_Levels, 0,
                   m_LevelOffsets[m_Header.m_Levels + 1] - m_LevelOffsets[m_Header.m_Levels], 0 /* started keyBase */);
     }

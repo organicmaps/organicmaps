@@ -9,6 +9,7 @@
 #include "geometry/mercator.hpp"
 
 #include "base/file_name_utils.hpp"
+#include "base/math.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -60,7 +61,7 @@ UNIT_TEST(TerrainIsolines_RealHybridInvariants)
     }
     for (auto const & point : points)
     {
-      TEST(std::isfinite(point.x) && std::isfinite(point.y), (isoline.m_altitude));
+      TEST(math::is_finite(point.x) && math::is_finite(point.y), (isoline.m_altitude));
       TEST(rect.IsPointInside(point), (isoline.m_altitude, point));
     }
   });
@@ -198,7 +199,7 @@ UNIT_TEST(TerrainNormals_RealHybridInterfaces)
     {
       auto const node = perimeter(i);
       auto const & actual = normals.m_raster[p][node];
-      TEST(std::isfinite(actual.m_x) && std::isfinite(actual.m_y), (p, node));
+      TEST(math::is_finite(actual.m_x) && math::is_finite(actual.m_y), (p, node));
       TEST_GREATER(actual.m_z, 0.0, (p, node));
       auto const [it, inserted] = interface.emplace(terrain::impl::PointKey(patch.PointU(node)), actual);
       if (!inserted)
