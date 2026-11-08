@@ -182,6 +182,13 @@ public class LocationHelper implements BaseLocationProvider.Listener
       }
 
       @Override
+      public void onLocationChanged(@NonNull Location location, boolean sourceChanged)
+      {
+        if (isCurrent())
+          LocationHelper.this.onLocationChanged(location, sourceChanged);
+      }
+
+      @Override
       public void onLocationDisabled()
       {
         if (isCurrent())

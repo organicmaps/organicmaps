@@ -554,6 +554,44 @@ public class LocationHelperTest
   }
 
   @Test
+  public void currentBackendForwardsSourceChangesAndObsoleteBackendCannot()
+  {
+    final List<Boolean> sourceChanges = new ArrayList<>();
+    mHelper = new LocationHelper(mContext, mSensors, mFactory, new Handler(Looper.getMainLooper())) {
+      @Override
+      public void onLocationChanged(@NonNull Location location, boolean sourceChanged)
+      {
+        sourceChanges.add(sourceChanged);
+        super.onLocationChanged(location, sourceChanged);
+      }
+    };
+    mHelper.start();
+    final Provider old = mProviders.get(1);
+    final Location first = location(1000, 10);
+    old.mListener.onLocationChanged(first, true);
+
+    assertEquals(List.of(true), sourceChanges);
+    assertSame(first, mHelper.getSavedLocation());
+    mHelper.reloadProvider();
+    old.mListener.onLocationChanged(location(2000, 1), false);
+    old.mListener.onLocationChanged(location(2000, 1), true);
+
+    assertEquals(List.of(true), sourceChanges);
+    assertSame(first, mHelper.getSavedLocation());
+    final Provider current = mProviders.get(2);
+    ShadowSystemClock.advanceBy(Duration.ofSeconds(2));
+    final Location next = location(3000, 10);
+    current.mListener.onLocationChanged(next, false);
+
+    assertEquals(List.of(true, false), sourceChanges);
+    assertSame(next, mHelper.getSavedLocation());
+    mHelper.stop();
+    current.mListener.onLocationChanged(location(4000, 1), true);
+    assertEquals(List.of(true, false), sourceChanges);
+    assertSame(next, mHelper.getSavedLocation());
+  }
+
+  @Test
   public void callbacksFromOldStopCannotDisableOrReplaceTheNewBackend()
   {
     mHelper.start();
