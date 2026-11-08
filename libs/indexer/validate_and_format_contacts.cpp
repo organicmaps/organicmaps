@@ -7,6 +7,8 @@
 #include <cstring>  // strlen
 #include <regex>
 
+#include <utf8.h>
+
 namespace osm
 {
 static auto const s_instaRegex = std::regex(R"(^@?[A-Za-z0-9_][A-Za-z0-9_.]{0,28}[A-Za-z0-9_]$)");
@@ -81,6 +83,54 @@ bool containsInvalidFBSymbol(std::string const & facebookPage, size_t startIndex
   return false;
 }
 
+// Page names in OSM URLs are often percent-encoded, e.g. %E4%BE%86 for 來. Decode them only if all escapes
+// form valid non-ASCII UTF-8: escaped ASCII like %2F keeps its meaning, and a partly decoded value would be
+// encoded twice when opened as a link.
+static std::string DecodeNonAsciiEscapes(std::string const & s)
+{
+  auto const hexDigit = [](char c) -> int
+  {
+    if (c >= '0' && c <= '9')
+      return c - '0';
+    if (c >= 'A' && c <= 'F')
+      return c - 'A' + 10;
+    if (c >= 'a' && c <= 'f')
+      return c - 'a' + 10;
+    return -1;
+  };
+
+  std::string result;
+  result.reserve(s.size());
+  size_t i = 0;
+  while (i < s.size())
+  {
+    // Collect a run of %XX escapes of non-ASCII bytes.
+    std::string bytes;
+    size_t end = i;
+    while (end + 2 < s.size() && s[end] == '%')
+    {
+      int const hi = hexDigit(s[end + 1]);
+      int const lo = hexDigit(s[end + 2]);
+      if (hi < 8 || lo < 0)
+        break;
+      bytes += static_cast<char>(hi * 16 + lo);
+      end += 3;
+    }
+
+    if (bytes.empty())
+      result += s[i++];
+    else
+    {
+      if (utf8::is_valid(bytes.begin(), bytes.end()))
+        result += bytes;
+      else
+        result.append(s.substr(i, end - i));
+      i = end;
+    }
+  }
+  return result.find('%') == std::string::npos ? result : s;
+}
+
 std::string ValidateAndFormat_website(std::string const & v)
 {
   if (!v.empty() && !IsProtocolSpecified(v))
@@ -127,7 +177,7 @@ std::string ValidateAndFormat_facebook(std::string const & facebookPage)
 
     // Strip last '/' symbol.
     webPath.erase(webPath.find_last_not_of('/') + 1);
-    return webPath;
+    return DecodeNonAsciiEscapes(webPath);
   }
 
   return {};
