@@ -13,7 +13,6 @@ import android.content.Intent;
 import android.content.pm.ServiceInfo;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.location.Location;
 import android.os.Build;
 import android.os.IBinder;
 import androidx.annotation.NonNull;
@@ -29,10 +28,10 @@ import androidx.core.content.ContextCompat;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.OrganicMaps;
 import app.organicmaps.sdk.location.LocationHelper;
-import app.organicmaps.sdk.location.LocationListener;
 import app.organicmaps.sdk.location.LocationUtils;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingInfo;
+import app.organicmaps.sdk.routing.RoutingInfoListener;
 import app.organicmaps.sdk.sound.MediaPlayerWrapper;
 import app.organicmaps.sdk.sound.TtsPlayer;
 import app.organicmaps.sdk.util.Assert;
@@ -40,7 +39,7 @@ import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.Graphics;
 import app.organicmaps.sdk.util.log.Logger;
 
-public class NavigationService extends Service implements LocationListener
+public class NavigationService extends Service implements RoutingInfoListener
 {
   private static final String TAG = NavigationService.class.getSimpleName();
   private static final String STOP_NAVIGATION = "STOP_NAVIGATION";
@@ -184,7 +183,7 @@ public class NavigationService extends Service implements LocationListener
     Logger.i(TAG);
 
     mNotificationBuilder = null;
-    sOrganicMaps.getLocationHelper().removeListener(this);
+    RoutingController.get().removeRoutingInfoListener(this);
     TtsPlayer.INSTANCE.stop();
 
     // The notification is cancelled automatically by the system.
@@ -249,8 +248,7 @@ public class NavigationService extends Service implements LocationListener
 
     final LocationHelper locationHelper = sOrganicMaps.getLocationHelper();
 
-    // Subscribe to location updates. This call is idempotent.
-    locationHelper.addListener(this);
+    RoutingController.get().addRoutingInfoListener(this);
 
     // Restart the location with more frequent refresh interval for navigation.
     locationHelper.restartWithNewMode();
@@ -267,17 +265,17 @@ public class NavigationService extends Service implements LocationListener
   }
 
   @Override
-  public void onLocationUpdated(@NonNull Location location)
+  public void onRoutingInfoUpdated(@Nullable RoutingInfo routingInfo)
   {
     // Ignore any pending notifications when service is being stopping.
     final RoutingController routingController = RoutingController.get();
-    if (!routingController.isNavigating())
+    if (!routingController.isNavigating() || routingInfo == null)
       return;
 
     // Voice the turn notification first.
     final String[] turnNotifications = Framework.nativeGenerateNotifications(Config.TTS.getAnnounceStreets());
     if (turnNotifications != null)
-      TtsPlayer.INSTANCE.playTurnNotifications(turnNotifications);
+      playTurnNotifications(turnNotifications);
 
     // TODO: consider to create callback mechanism to transfer 'ROUTE_IS_FINISHED' event from
     // the core to the platform code (https://github.com/organicmaps/organicmaps/issues/3589),
@@ -290,10 +288,6 @@ public class NavigationService extends Service implements LocationListener
       stopSelf();
       return;
     }
-
-    final RoutingInfo routingInfo = Framework.nativeGetRouteFollowingInfo();
-    if (routingInfo == null)
-      return;
 
     if (routingInfo.shouldPlayWarningSignal())
       mPlayer.playback(R.raw.speed_cams_beep);
@@ -328,5 +322,10 @@ public class NavigationService extends Service implements LocationListener
 
     // The notification object must be re-created for every update.
     NotificationManagerCompat.from(this).notify(NOTIFICATION_ID, notificationBuilder.build());
+  }
+
+  void playTurnNotifications(@NonNull String[] notifications)
+  {
+    TtsPlayer.INSTANCE.playTurnNotifications(notifications);
   }
 }

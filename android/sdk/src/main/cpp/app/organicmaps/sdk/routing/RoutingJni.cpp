@@ -230,7 +230,7 @@ routing::RoutingOptions::Road ToRoutingOptionsRoad(jint option)
 }
 }  // namespace
 
-jobject CreateRoutingInfo(JNIEnv * env, routing::FollowingInfo const & info, RoutingManager & rm)
+jobject CreateRoutingInfo(JNIEnv * env, routing::FollowingInfo const & info)
 {
   using namespace jni;
 
@@ -252,6 +252,9 @@ jobject CreateRoutingInfo(JNIEnv * env, routing::FollowingInfo const & info, Rou
     "I"                                                        // exitNum
     "I"                                                        // totalTime
     "[Lapp/organicmaps/sdk/routing/LaneInfo;"                  // lanes
+    "D"                                                        // distToTargetMeters
+    "D"                                                        // distToTurnMeters
+    "D"                                                        // currentSpeedMps
     "D"                                                        // speedLimitMps
     "Z"                                                        // speedLimitExceeded
     "Z"                                                        // shouldPlayWarningSignal
@@ -275,9 +278,12 @@ jobject CreateRoutingInfo(JNIEnv * env, routing::FollowingInfo const & info, Rou
     info.m_exitNum,
     info.m_time,
     CreateLanesInfo(env, info.m_lanes),
+    info.m_distToTargetMeters,
+    info.m_distToTurnMeters,
+    info.m_currentSpeedMps,
     info.m_speedLimitMps,
-    static_cast<jboolean>(rm.IsSpeedCamLimitExceeded()),
-    static_cast<jboolean>(rm.GetSpeedCamManager().ShouldPlayBeepSignal())
+    static_cast<jboolean>(info.m_isSpeedCamLimitExceeded),
+    static_cast<jboolean>(info.m_shouldPlayWarningSignal)
   );
   // clang-format on
   ASSERT(result, (DescribeException()));

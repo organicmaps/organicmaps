@@ -149,6 +149,13 @@ Call `onSaveState()` when the host saves its UI and `restore()` when it is activ
 again. Route state survives activity recreation; the host still owns its controls,
 listener cleanup, and any background service.
 
+Use `RoutingController.addRoutingInfoListener()` for navigation updates after
+location processing. Each event carries a measured speed with its route limit
+and camera state; null clears live state on location loss, acquisition stop, or
+navigation end. Registration does not replay events. Seed resumed display with
+`getCachedRoutingInfo()`, which omits one-shot warnings and reformats distances
+for the current units, and remove the listener when the host stops.
+
 ## Release consumers
 
 The SDK packages consumer R8 rules for JNI access by name. Resource shrinking needs

@@ -434,16 +434,19 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
   if (!IsNavigable())
   {
     info = FollowingInfo();
-    info.m_distToTarget = platform::Distance::CreateFormatted(m_route->GetTotalDistanceMeters());
+    info.m_distToTargetMeters = m_route->GetTotalDistanceMeters();
+    info.m_distToTarget = platform::Distance::CreateFormatted(info.m_distToTargetMeters);
     info.m_time = static_cast<int>(m_route->GetCurrentTimeToEndSec());
     return;
   }
 
-  info.m_distToTarget = platform::Distance::CreateFormatted(m_route->GetCurrentDistanceToEndMeters());
+  info.m_distToTargetMeters = m_route->GetCurrentDistanceToEndMeters();
+  info.m_distToTarget = platform::Distance::CreateFormatted(info.m_distToTargetMeters);
 
   double distanceToTurnMeters = 0.;
   turns::TurnItem turn;
   m_route->GetNearestTurn(distanceToTurnMeters, turn);
+  info.m_distToTurnMeters = distanceToTurnMeters;
   info.m_distToTurn = platform::Distance::CreateFormatted(distanceToTurnMeters);
   info.m_turn = turn.m_turn;
 

@@ -40,10 +40,13 @@ public:
 
   /// @name Formatted covered distance.
   platform::Distance m_distToTarget;
+  // Unrounded values let platforms reformat a cached snapshot after a units change.
+  double m_distToTargetMeters = -1.0;
 
   /// @name Formatted distance to the next turn.
   //@{
   platform::Distance m_distToTurn;
+  double m_distToTurnMeters = -1.0;
   turns::CarDirection m_turn;
   /// Turn after m_turn. Returns NoTurn if there is no turns after.
   turns::CarDirection m_nextTurn;
@@ -82,5 +85,9 @@ public:
   // Current speed limit in meters per second.
   // If no info about speed limit then m_speedLimitMps < 0.
   double m_speedLimitMps = -1.0;
+  // Present only on snapshots produced by a processed measurement.
+  double m_currentSpeedMps = -1.0;
+  bool m_isSpeedCamLimitExceeded = false;
+  bool m_shouldPlayWarningSignal = false;
 };
 }  // namespace routing

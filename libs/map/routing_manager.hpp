@@ -99,6 +99,7 @@ public:
   using RouteBuildingCallback = std::function<void(routing::RouterResultCode, storage::CountriesSet const &)>;
   using RouteSpeedCamShowCallback = std::function<void(m2::PointD const &, double)>;
   using RouteSpeedCamsClearCallback = std::function<void()>;
+  using RouteFollowingCallback = std::function<void(routing::FollowingInfo const &)>;
 
   using RouteStartBuildCallback = std::function<void(std::vector<RouteMarkData> const & points)>;
 
@@ -153,6 +154,10 @@ public:
     m_routeSpeedCamsClearCallback = speedCamsClearCallback;
   }
 
+  // Publishes guidance after processing a measurement, not an extrapolated position.
+  void SetRouteFollowingListener(RouteFollowingCallback listener) { m_routeFollowingCallback = std::move(listener); }
+  void OnLocationError();
+
   /// See warning above.
   void SetRouteProgressListener(routing::ProgressCallback const & progressCallback)
   {
@@ -174,7 +179,13 @@ public:
   /// a tap-area threshold (kTapPixels * |mercatorPerPixel|), swaps it to active and returns true.
   /// No-op when navigation is active (alts aren't drawn then) or there are no alternatives.
   bool TryTapOnAlternativeRoute(m2::PointD const & mercator, double mercatorPerPixel);
-  void GetRouteFollowingInfo(routing::FollowingInfo & info) const { m_routingSession.GetRouteFollowingInfo(info); }
+  void GetRouteFollowingInfo(routing::FollowingInfo & info) const
+  {
+    m_routingSession.GetRouteFollowingInfo(info);
+    info.m_currentSpeedMps = -1.0;
+    info.m_isSpeedCamLimitExceeded = m_routingSession.IsSpeedCamLimitExceeded();
+    info.m_shouldPlayWarningSignal = false;
+  }
 
   TransitRouteInfo GetTransitRouteInfo() const;
 
@@ -344,8 +355,7 @@ private:
 
   /// \returns false if the location could not be matched to the route and should be matched to the
   /// road graph. Otherwise returns true.
-  void MatchLocationToRoute(location::GpsInfo & info, location::RouteMatchingInfo & routeMatchingInfo);
-  location::RouteMatchingInfo GetRouteMatchingInfo(location::GpsInfo & info);
+  bool MatchLocationToRoute(location::GpsInfo & info, location::RouteMatchingInfo & routeMatchingInfo);
   uint32_t GenerateRoutePointsTransactionId() const;
 
   void SetPointsFollowingMode(bool enabled);
@@ -364,11 +374,12 @@ private:
   std::vector<RouteMarkData> ReadAndDeleteSavedRoutePoints() const;
   std::vector<RouteMarkData> GetRoutePointsToSave() const;
 
-  void OnExtrapolatedLocationUpdate(location::GpsInfo const & info);
+  void OnExtrapolatedLocationUpdate(location::GpsInfo const & info, extrapolation::UpdateType type);
 
   RouteBuildingCallback m_routingBuildingCallback;
   RouteSpeedCamShowCallback m_routeSpeedCamShowCallback;
   RouteSpeedCamsClearCallback m_routeSpeedCamsClearCallback;
+  RouteFollowingCallback m_routeFollowingCallback;
   RouteRecommendCallback m_routeRecommendCallback;
   Callbacks m_callbacks;
   df::DrapeEngineSafePtr m_drapeEngine;

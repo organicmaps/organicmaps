@@ -15,7 +15,9 @@ import app.organicmaps.sdk.products.ProductsConfig;
 import app.organicmaps.sdk.routing.JunctionInfo;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RouteMarkType;
+import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingInfo;
+import app.organicmaps.sdk.routing.RoutingInfoListener;
 import app.organicmaps.sdk.routing.RoutingListener;
 import app.organicmaps.sdk.routing.RoutingProgressListener;
 import app.organicmaps.sdk.routing.RoutingRecommendationListener;
@@ -247,7 +249,10 @@ public class Framework
 
   public static native void nativeDisableFollowing();
 
-  /** Returns a JNI-created snapshot of current route guidance, or {@code null} when unavailable. */
+  /**
+   * Returns current guidance without consuming warning events. Measured speed and warning events are
+   * supplied through {@link RoutingController#addRoutingInfoListener} after location processing.
+   */
   @FastNative
   @Nullable
   public static native RoutingInfo nativeGetRouteFollowingInfo();
@@ -278,6 +283,9 @@ public class Framework
   private static native void nativeSetSpeedCamManagerMode(int mode);
 
   public static native void nativeSetRoutingListener(@NonNull RoutingListener listener);
+
+  /** Installs the process-wide callback for guidance from processed measurements. */
+  public static native void nativeSetRoutingInfoListener(@NonNull RoutingInfoListener listener);
 
   public static native void nativeSetRouteProgressListener(@NonNull RoutingProgressListener listener);
 

@@ -313,7 +313,8 @@ drape_ptr<df::Subroute> CreateDrapeSubroute(std::vector<RouteSegment> const & se
 RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
   : m_callbacks(std::move(callbacks))
   , m_delegate(delegate)
-  , m_extrapolator([this](location::GpsInfo const & gpsInfo) { this->OnExtrapolatedLocationUpdate(gpsInfo); })
+  , m_extrapolator([this](location::GpsInfo const & gpsInfo, extrapolation::UpdateType type)
+{ this->OnExtrapolatedLocationUpdate(gpsInfo, type); })
 {
   m_routingSession.Init(
 #ifdef SHOW_ROUTE_DEBUG_MARKS
@@ -1517,27 +1518,16 @@ void RoutingManager::CallRouteBuilded(RouterResultCode code, storage::CountriesS
   m_routingBuildingCallback(code, absentCountries);
 }
 
-void RoutingManager::MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo)
+bool RoutingManager::MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo)
 {
   if (!IsRoutingActive())
-    return;
+    return false;
 
   bool const matchedToRoute = m_routingSession.MatchLocationToRoute(location, routeMatchingInfo);
 
   if (!matchedToRoute && m_currentRouterType == RouterType::Vehicle)
     m_routingSession.MatchLocationToRoadGraph(location);
-}
-
-location::RouteMatchingInfo RoutingManager::GetRouteMatchingInfo(location::GpsInfo & info)
-{
-  if (!info.IsFresh())
-    return {};
-
-  CheckLocationForRouting(info);
-
-  location::RouteMatchingInfo routeMatchingInfo;
-  MatchLocationToRoute(info, routeMatchingInfo);
-  return routeMatchingInfo;
+  return matchedToRoute;
 }
 
 void RoutingManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine, bool is3dAllowed)
@@ -1812,14 +1802,42 @@ std::vector<RouteMarkData> RoutingManager::GetRoutePointsToSave() const
   return result;
 }
 
-void RoutingManager::OnExtrapolatedLocationUpdate(location::GpsInfo const & info)
+void RoutingManager::OnLocationError()
+{
+  ResetLocationPrediction();
+  if (m_routeFollowingCallback)
+    m_routeFollowingCallback({});
+}
+
+void RoutingManager::OnExtrapolatedLocationUpdate(location::GpsInfo const & info, extrapolation::UpdateType type)
 {
   location::GpsInfo gpsInfo(info);
   if (!m_drapeEngine)
     m_gpsInfoCache = std::make_unique<location::GpsInfo>(gpsInfo);
 
-  auto routeMatchingInfo = GetRouteMatchingInfo(gpsInfo);
+  bool matchedToRoute = false;
+  location::RouteMatchingInfo routeMatchingInfo;
+  if (gpsInfo.IsFresh())
+  {
+    CheckLocationForRouting(gpsInfo);
+    matchedToRoute = MatchLocationToRoute(gpsInfo, routeMatchingInfo);
+  }
   m_drapeEngine.SafeCall(&df::DrapeEngine::SetGpsInfo, gpsInfo, m_routingSession.IsNavigable(), routeMatchingInfo);
+
+  if (type == extrapolation::UpdateType::Measurement && gpsInfo.IsFresh() && m_routingSession.IsFollowing() &&
+      m_routeFollowingCallback)
+  {
+    routing::FollowingInfo followingInfo;
+    GetRouteFollowingInfo(followingInfo);
+    followingInfo.m_currentSpeedMps = info.m_speed;
+    bool const matched = m_routingSession.IsOnRoute() && matchedToRoute;
+    if (!matched)
+      followingInfo.m_speedLimitMps = -1.0;
+    followingInfo.m_isSpeedCamLimitExceeded = matched && followingInfo.m_isSpeedCamLimitExceeded;
+    if (followingInfo.IsValid() && (matched || m_routingSession.IsFinished()))
+      followingInfo.m_shouldPlayWarningSignal = m_routingSession.GetSpeedCamManager().ShouldPlayBeepSignal();
+    m_routeFollowingCallback(followingInfo);
+  }
 }
 
 void RoutingManager::DeleteSavedRoutePoints()
