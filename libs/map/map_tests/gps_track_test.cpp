@@ -214,6 +214,33 @@ UNIT_TEST(GpsTrack_BatchesBackupWrites)
   TEST(!file.Exists(), ());
 }
 
+UNIT_TEST(GpsTrack_RejectsPreSessionCacheButKeepsDelayedMeasurements)
+{
+  using ObservationClock = location::Clock;
+  TrackFile file("observation_session");
+  GpsTrack track(file.m_path, {}, 1h);
+  auto const started = ObservationClock::now() - 1h;
+  track.Start(started);
+
+  auto before = MakePoint(100, 0);
+  before.m_timing = location::GpsInfo::Timing{started - 1s, started + 4s};
+  auto delayed = MakePoint(101, 15);
+  delayed.m_timing = location::GpsInfo::Timing{started + 1ms, started + 2ms};
+  auto later = MakePoint(102, 30);
+  later.m_timing = location::GpsInfo::Timing{started + 2ms, started + 3ms};
+  TEST(!delayed.IsFresh(), ());
+  track.AddPoint(before);
+  track.AddPoints({before, delayed, later});
+
+  TEST_EQUAL(track.Finalize(), 2, ());
+  auto const points = GetPoints(track);
+  CheckPoints(points, {delayed, later});
+  auto const stored = file.Load();
+  CheckPoints(stored, {delayed, later});
+  TEST(!stored[0].m_timing, ());
+  TEST(!stored[1].m_timing, ());
+}
+
 UNIT_TEST(GpsTrack_BackupTimerWithoutNewPoints)
 {
   TrackFile file("timer");

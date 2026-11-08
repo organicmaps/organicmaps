@@ -38,6 +38,8 @@ set(SRC
   localization.cpp
   localization.hpp
   location.hpp
+  location_clock.cpp
+  location_clock.hpp
   measurement_utils.cpp
   measurement_utils.hpp
   mwm_traits.cpp

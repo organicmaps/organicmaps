@@ -37,13 +37,11 @@ private:
   uint64_t m_timeAfterMs;
 };
 
-bool IsSameFix(location::GpsInfo const & lhs, location::GpsInfo const & rhs)
+double TimeBetween(location::GpsInfo const & first, location::GpsInfo const & second)
 {
-  // Keep this comparison in sync with GpsInfo, including any new measurement metadata.
-  return lhs.m_source == rhs.m_source && lhs.m_timestamp == rhs.m_timestamp && lhs.m_latitude == rhs.m_latitude &&
-         lhs.m_longitude == rhs.m_longitude && lhs.m_horizontalAccuracy == rhs.m_horizontalAccuracy &&
-         lhs.m_altitude == rhs.m_altitude && lhs.m_verticalAccuracy == rhs.m_verticalAccuracy &&
-         lhs.m_bearing == rhs.m_bearing && lhs.m_speed == rhs.m_speed;
+  return first.m_timing && second.m_timing
+           ? std::chrono::duration<double>(second.m_timing->m_observedAt - first.m_timing->m_observedAt).count()
+           : second.m_timestamp - first.m_timestamp;
 }
 }  // namespace
 
@@ -52,13 +50,17 @@ namespace extrapolation
 location::GpsInfo LinearExtrapolation(location::GpsInfo const & gpsInfo1, location::GpsInfo const & gpsInfo2,
                                       uint64_t timeAfterPoint2Ms)
 {
-  if (gpsInfo2.m_timestamp <= gpsInfo1.m_timestamp)
+  if (!gpsInfo1.HasSameClock(gpsInfo2) || TimeBetween(gpsInfo1, gpsInfo2) <= 0)
   {
     ASSERT(false, ("Incorrect gps data"));
     return gpsInfo2;
   }
 
-  auto const timeBetweenPointsMs = static_cast<uint64_t>((gpsInfo2.m_timestamp - gpsInfo1.m_timestamp) * 1000);
+  auto const timeBetweenPointsMs = gpsInfo1.m_timing
+                                     ? std::chrono::duration_cast<std::chrono::milliseconds>(
+                                           gpsInfo2.m_timing->m_observedAt - gpsInfo1.m_timing->m_observedAt)
+                                           .count()
+                                     : static_cast<int64_t>(TimeBetween(gpsInfo1, gpsInfo2) * 1000);
   if (timeBetweenPointsMs == 0)
     return gpsInfo2;
 
@@ -78,12 +80,12 @@ location::GpsInfo LinearExtrapolation(location::GpsInfo const & gpsInfo1, locati
 
 bool AreCoordsGoodForExtrapolation(location::GpsInfo const & info1, location::GpsInfo const & info2)
 {
-  if (!info1.IsValid() || !info2.IsValid())
+  if (!info1.IsValid() || !info2.IsValid() || !info1.HasSameClock(info2))
     return false;
 
   double const distM = ms::DistanceOnEarth(info1.m_latitude, info1.m_longitude, info2.m_latitude, info2.m_longitude);
 
-  double const timeS = info2.m_timestamp - info1.m_timestamp;
+  double const timeS = TimeBetween(info1, info2);
   if (timeS <= 0.0)
     return false;
 
@@ -155,16 +157,26 @@ void Extrapolator::OnLocationUpdate(location::GpsInfo const & gpsInfo)
   }
 
   auto const state = m_state;
-  if (state->m_last.IsValid() && IsSameFix(state->m_last, gpsInfo))
+  auto const now = state->m_now();
+  if (gpsInfo.m_timing && gpsInfo.m_timing->m_observedAt > now)
     return;
 
-  auto const now = state->m_now();
-  bool const correction = state->m_last.IsValid() && state->m_last.m_timestamp == gpsInfo.m_timestamp;
+  if (state->m_last.IsValid() && !state->m_last.HasSameClock(gpsInfo))
+    Reset();
+
+  if (state->m_last.IsValid() && state->m_last == gpsInfo)
+    return;
+
+  double const delta = state->m_last.IsValid() ? TimeBetween(state->m_last, gpsInfo) : 0;
+  if (gpsInfo.m_timing && state->m_last.IsValid() && delta < 0)
+    return;
+
+  bool const correction = state->m_last.IsValid() && delta == 0;
   if (!correction)
   {
     // UTC can roll back. Start a new baseline instead of extrapolating across the change.
-    state->m_beforeLast = gpsInfo.m_timestamp > state->m_last.m_timestamp ? state->m_last : location::GpsInfo{};
-    state->m_lastDistinctUpdate = now;
+    state->m_beforeLast = delta > 0 ? state->m_last : location::GpsInfo{};
+    state->m_lastDistinctUpdate = gpsInfo.m_timing ? gpsInfo.m_timing->m_observedAt : now;
   }
   location::GpsInfo const measurement = gpsInfo;
   state->m_last = measurement;
