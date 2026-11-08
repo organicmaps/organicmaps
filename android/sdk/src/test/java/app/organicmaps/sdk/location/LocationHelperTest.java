@@ -55,6 +55,10 @@ public class LocationHelperTest
     static int sUpdates;
 
     @Implementation
+    protected static void nativeResetLocationPrediction()
+    {}
+
+    @Implementation
     protected static void nativeOnLocationError(int error)
     {
       sErrors.add(error);
@@ -62,7 +66,8 @@ public class LocationHelperTest
 
     @Implementation
     protected static void nativeLocationUpdated(long time, double latitude, double longitude, float accuracy,
-                                                double altitude, float altitudeAccuracy, float speed, float bearing)
+                                                double altitude, float altitudeAccuracy, float speed, float bearing,
+                                                long elapsed, long liveUntil, boolean reset)
     {
       ++sUpdates;
       sUpdateTimes.add(time);
@@ -133,6 +138,7 @@ public class LocationHelperTest
   @Before
   public void setUp()
   {
+    ShadowSystemClock.advanceBy(Duration.ofSeconds(2));
     LocationStateShadow.sErrors.clear();
     LocationStateShadow.sUpdateTimes.clear();
     LocationStateShadow.sUpdates = 0;
@@ -271,10 +277,11 @@ public class LocationHelperTest
     {
       advance(4000);
       provider.emit(freshLocation(2000));
+      if (i == 0)
+        assertSame(first, mHelper.getSavedLocation());
     }
     assertTrue(mNativeProviders.isEmpty());
     assertTrue(provider.mStarted);
-    assertSame(first, mHelper.getSavedLocation());
   }
 
   @Test
@@ -682,6 +689,7 @@ public class LocationHelperTest
     assertEquals(List.of(true), sourceChanges);
     assertSame(first, mHelper.getSavedLocation());
     final Provider current = mProviders.get(2);
+    ShadowSystemClock.advanceBy(Duration.ofSeconds(2));
     final Location next = location(3000, 10);
     current.mListener.onLocationChanged(next, false);
 

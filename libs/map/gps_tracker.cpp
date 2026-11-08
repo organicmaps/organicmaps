@@ -53,7 +53,7 @@ void GpsTracker::SetEnabled(bool enabled)
   m_enabled = enabled;
 
   if (enabled)
-    m_track.Start();
+    m_track.Start(location::Clock::now());
   else
     m_track.Finalize();
 }

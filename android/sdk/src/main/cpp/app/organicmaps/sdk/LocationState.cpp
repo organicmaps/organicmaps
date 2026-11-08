@@ -49,16 +49,17 @@ JNIEXPORT void Java_app_organicmaps_sdk_location_LocationState_nativeOnLocationE
   g_framework->OnLocationError(errorCode);
 }
 
-JNIEXPORT void Java_app_organicmaps_sdk_location_LocationState_nativeLocationUpdated(JNIEnv * env, jclass clazz,
-                                                                                     jlong time, jdouble lat,
-                                                                                     jdouble lon, jfloat accuracyH,
-                                                                                     jdouble altitude, jfloat accuracyV,
-                                                                                     jfloat speed, jfloat bearing)
+JNIEXPORT void Java_app_organicmaps_sdk_location_LocationState_nativeLocationUpdated(
+    JNIEnv * env, jclass clazz, jlong time, jdouble lat, jdouble lon, jfloat accuracyH, jdouble altitude,
+    jfloat accuracyV, jfloat speed, jfloat bearing, jlong elapsedRealtimeNanos, jlong liveUntilNanos,
+    jboolean resetPrediction)
 {
   location::GpsInfo info;
   info.m_source = location::EAndroidNative;
 
   info.m_timestamp = static_cast<double>(time) / 1000.0;
+  info.m_timing = location::GpsInfo::Timing{location::Clock::time_point(std::chrono::nanoseconds(elapsedRealtimeNanos)),
+                                            location::Clock::time_point(std::chrono::nanoseconds(liveUntilNanos))};
   info.m_latitude = lat;
   info.m_longitude = lon;
 
@@ -77,7 +78,16 @@ JNIEXPORT void Java_app_organicmaps_sdk_location_LocationState_nativeLocationUpd
   if (speed >= 0)
     info.m_speed = speed;
 
+  if (info.m_timing->m_observedAt > location::Clock::now())
+    return;
+  if (resetPrediction)
+    g_framework->GetRoutingManager().ResetLocationPrediction();
   g_framework->OnLocationUpdated(info);
   GpsTracker::Instance().OnLocationUpdated(info);
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_location_LocationState_nativeResetLocationPrediction(JNIEnv *, jclass)
+{
+  g_framework->GetRoutingManager().ResetLocationPrediction();
 }
 }  // extern "C"

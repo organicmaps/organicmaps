@@ -1,6 +1,8 @@
 package app.organicmaps.sdk.location;
 
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.never;
@@ -10,6 +12,7 @@ import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Looper;
+import android.os.SystemClock;
 import app.organicmaps.sdk.util.log.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,6 +31,7 @@ public class AndroidNativeProviderLifecycleTest
     try (var logger = mockStatic(Logger.class))
     {
       final Context context = RuntimeEnvironment.getApplication();
+      Shadows.shadowOf(RuntimeEnvironment.getApplication()).grantPermissions(ACCESS_FINE_LOCATION);
       final LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
       final var shadowManager = Shadows.shadowOf(manager);
       shadowManager.setProviderEnabled(LocationManager.GPS_PROVIDER, false);
@@ -42,9 +46,14 @@ public class AndroidNativeProviderLifecycleTest
 
       verify(listener, never()).onLocationDisabled();
       final Location location = new Location(LocationManager.GPS_PROVIDER);
+      location.setLatitude(49);
+      location.setLongitude(8);
+      location.setAccuracy(5);
+      location.setTime(System.currentTimeMillis());
+      location.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
       shadowManager.simulateLocation(location);
       Shadows.shadowOf(Looper.getMainLooper()).idle();
-      verify(listener).onLocationChanged(any(Location.class));
+      verify(listener).onLocationChanged(any(Location.class), anyBoolean());
       provider.stop();
     }
   }

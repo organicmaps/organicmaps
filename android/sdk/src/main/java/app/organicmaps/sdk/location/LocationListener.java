@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 /** Main-thread location events. Register and remove instances through {@link LocationHelper}. */
 public interface LocationListener
 {
-  /** Receives a current location, or the most recently saved fix when the listener is registered. */
+  /** Receives a fresh location, including a saved fix that is still fresh when the listener is registered. */
   void onLocationUpdated(@NonNull Location location);
 
   /** Called when updates time out or no provider is available; the host may offer provider or permission settings. */

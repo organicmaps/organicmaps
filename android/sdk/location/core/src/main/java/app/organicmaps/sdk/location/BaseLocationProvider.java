@@ -23,7 +23,10 @@ public abstract class BaseLocationProvider
   {
     @UiThread
     void onLocationChanged(@NonNull Location location);
-    /** Delivers an authorized native-source handoff with its first complete fix. */
+    /**
+     * Delivers a selected native stream. A handoff authorizes this complete fix independently of the previous
+     * source's quality and resets prediction; listener wrappers must preserve the flag.
+     */
     @UiThread
     default void onLocationChanged(@NonNull Location location, boolean sourceChanged)
     {
@@ -59,4 +62,16 @@ public abstract class BaseLocationProvider
   @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
   protected abstract void start(long interval);
   protected abstract void stop();
+
+  @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
+  protected void updateInterval(long interval)
+  {
+    stop();
+    start(interval);
+  }
+
+  /** Rechecks deadlines and availability after returning from suspend. */
+  @UiThread
+  protected void onForeground()
+  {}
 }
