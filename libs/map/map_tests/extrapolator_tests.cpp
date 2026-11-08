@@ -305,32 +305,22 @@ UNIT_TEST(Extrapolator_HistoricalCorrectionUpdatesDisplayWithoutRenewingFreshnes
   TEST(f.m_background.empty(), ());
 }
 
-UNIT_TEST(Extrapolator_EnableDoesNotLoseReceivedFix)
+UNIT_TEST(Extrapolator_EnableStartsPredictionFromDisabledMeasurements)
 {
   ExtrapolatorFixture f;
+  TEST(f.m_background.empty(), ());
   f.m_extrapolator->OnLocationUpdate(MovingFix(1.0));
   TEST_EQUAL(f.m_updates.size(), 1, ());
+  f.Advance(1000);
+  f.Update(MovingFix(2.0));
+  TEST_EQUAL(f.m_updates.size(), 2, ());
+  TEST(f.m_background.empty(), ());
   f.m_extrapolator->Enable(true);
   f.Run();
-  TEST_EQUAL(f.m_updates.size(), 1, ());
-  TestGpsInfo(f.m_updates.back(), MovingFix(1.0));
-}
-
-UNIT_TEST(Extrapolator_ExpiredCorrectionStillUpdatesMeasuredPosition)
-{
-  ExtrapolatorFixture f;
-  f.StartMoving();
-  f.Advance(2000);
-  auto const count = f.m_updates.size();
-  auto corrected = MovingFix(2.0);
-  corrected.m_longitude += 5e-6;
-  corrected.m_horizontalAccuracy = 9.0;
-  f.Update(corrected);
-  TEST_EQUAL(f.m_updates.size(), count + 1, ());
-  TestGpsInfo(f.m_updates.back(), corrected);
-  f.Advance(1000);
-  TEST_EQUAL(f.m_updates.size(), count + 1, ());
-  TEST(f.m_background.empty(), ());
+  TEST_EQUAL(f.m_updates.size(), 2, ());
+  TestGpsInfo(f.m_updates.back(), MovingFix(2.0));
+  f.Advance(200);
+  TestGpsInfo(f.m_updates.back(), LinearExtrapolation(MovingFix(1.0), MovingFix(2.0), 200));
 }
 
 UNIT_TEST(Extrapolator_CallbackProvenanceMatchesReceivedAndPredictedPositions)
@@ -372,15 +362,18 @@ UNIT_TEST(Extrapolator_ExactRepeatsDoNotExtendPrediction)
   TEST(f.m_background.empty(), ());
 }
 
-UNIT_TEST(Extrapolator_CorrectionsDoNotExtendPrediction)
+UNIT_TEST(Extrapolator_CorrectionsUpdateMeasurementsWithoutExtendingPrediction)
 {
   ExtrapolatorFixture f;
   f.StartMoving();
   f.Advance(1800);
   auto corrected = MovingFix(2.0);
+  corrected.m_longitude += 5e-6;
   corrected.m_horizontalAccuracy = 9.0;
   f.Update(corrected);
   auto const count = f.m_updates.size();
+  f.Advance(200);
+  TEST_EQUAL(f.m_updates.size(), count, ());
   f.Advance(200);
   corrected.m_horizontalAccuracy = 8.0;
   f.Update(corrected);
@@ -572,17 +565,6 @@ UNIT_TEST(Extrapolator_UndefinedFixStopsPredictionWithoutDelivery)
   f.Update(GpsInfo{});
   f.Advance(1000);
   TEST_EQUAL(f.m_updates.size(), count, ());
-  TEST(f.m_background.empty(), ());
-}
-
-UNIT_TEST(Extrapolator_NoIdleOrDisabledPredictionTasks)
-{
-  ExtrapolatorFixture f;
-  TEST(f.m_background.empty(), ());
-  f.Update(MovingFix(1.0));
-  f.Advance(1000);
-  f.Update(MovingFix(2.0));
-  TEST_EQUAL(f.m_updates.size(), 2, ());
   TEST(f.m_background.empty(), ());
 }
 

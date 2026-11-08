@@ -320,11 +320,11 @@ final class NativeLocationSelector
     if (Build.VERSION.SDK_INT >= 34 && location.hasMslAltitude())
     {
       final float accuracy = location.hasMslAltitudeAccuracy() ? location.getMslAltitudeAccuracyMeters() : Float.NaN;
-      return new Attribute(Float.isNaN(accuracy) || accuracy > 0, accuracy);
+      return new Attribute(Float.isNaN(accuracy) || accuracy >= 0, accuracy);
     }
     final float accuracy = Build.VERSION.SDK_INT >= 26 && location.hasVerticalAccuracy()
                              ? location.getVerticalAccuracyMeters()
                              : Float.NaN;
-    return new Attribute(location.hasAltitude() && (Float.isNaN(accuracy) || accuracy > 0), accuracy);
+    return new Attribute(location.hasAltitude() && (Float.isNaN(accuracy) || accuracy >= 0), accuracy);
   }
 }

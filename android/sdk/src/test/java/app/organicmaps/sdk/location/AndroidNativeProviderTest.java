@@ -54,13 +54,11 @@ public class AndroidNativeProviderTest
   private final LocationManager mManager = mock(LocationManager.class);
   private final Set<String> mEnabled = new HashSet<>(List.of("gps", "fused", "network"));
   private final HashMap<String, LocationListenerCompat> mActive = new HashMap<>();
-  private final HashMap<String, LocationListenerCompat> mLastListener = new HashMap<>();
   private final HashMap<String, Long> mIntervals = new HashMap<>();
   private final List<LocationListenerCompat> mRemoved = new ArrayList<>();
   private final List<Delivery> mDeliveries = new ArrayList<>();
   private int mDisabled;
   private Runnable mOnDelivery;
-  private boolean mImmediatelyEmitGps;
   private Context mContext;
   private AndroidNativeProvider mProvider;
   private MockedStatic<Logger> mLogger;
@@ -87,10 +85,7 @@ public class AndroidNativeProviderTest
           final LocationRequestCompat request = invocation.getArgument(2);
           final LocationListenerCompat listener = invocation.getArgument(3);
           mActive.put(source, listener);
-          mLastListener.put(source, listener);
           mIntervals.put(source, request.getIntervalMillis());
-          if (mImmediatelyEmitGps && source.equals("gps"))
-            listener.onLocationChanged(point(source, 1));
           return null;
         });
     mCompat.when(() -> LocationManagerCompat.removeUpdates(eq(mManager), any(LocationListenerCompat.class)))
@@ -177,9 +172,17 @@ public class AndroidNativeProviderTest
   public void silentFusedDoesNotPreventNetworkAndGpsDiscovery()
   {
     mProvider.start(100);
+    final LocationListenerCompat gps = mActive.get("gps");
     emit("network", 100);
-    advance(3100);
+    // A cold receiver can take much longer than the candidate probe to obtain a fix.
+    for (int i = 0; i < 30; ++i)
+    {
+      advance(1000);
+      emit("network", 100);
+    }
     assertEquals(Set.of("network", "gps"), mActive.keySet());
+    assertEquals(gps, mActive.get("gps"));
+    assertFalse(mRemoved.contains(gps));
     emit("gps", 2);
     advance(1000);
     emit("gps", 2);
@@ -271,33 +274,98 @@ public class AndroidNativeProviderTest
   }
 
   @Test
-  public void stoppedProviderCannotResurrectFromOldCallbacksOrTimers()
+  public void slowLocationListenerDoesNotDelayExpiredSourceRecovery()
   {
     mProvider.start(100);
-    final LocationListenerCompat old = mActive.get("gps");
-    mProvider.stop();
-    old.onLocationChanged(point("gps", 1));
-    old.onProviderEnabled("gps");
-    mContext.sendBroadcast(new Intent(LocationManager.PROVIDERS_CHANGED_ACTION));
-    advance(70_000);
-    assertTrue(mActive.isEmpty());
-    assertTrue(mDeliveries.isEmpty());
+    emit("gps", 1);
+    advance(3100);
+    assertEquals(Set.of("gps"), mActive.keySet());
+    mOnDelivery = () -> ShadowSystemClock.advanceBy(Duration.ofSeconds(6));
+    emit("gps", 1);
+
+    assertEquals(Set.of("gps", "fused", "network"), mActive.keySet());
     assertEquals(0, mDisabled);
-    mProvider.start(100);
-    old.onLocationChanged(point("gps", 1));
-    assertTrue(mDeliveries.isEmpty());
   }
 
   @Test
-  public void coarsePermissionDoesNotRequestFineGpsOrRequireFineQuality()
+  public void listenerTimeCountsTowardTheRemainingFreshnessDeadline()
+  {
+    mProvider.start(100);
+    emit("gps", 1);
+    advance(3100);
+    mOnDelivery = () -> ShadowSystemClock.advanceBy(Duration.ofSeconds(2));
+    emit("gps", 1);
+    assertEquals(Set.of("gps"), mActive.keySet());
+    advance(3100);
+
+    assertEquals(Set.of("gps", "fused", "network"), mActive.keySet());
+  }
+
+  @Test
+  public void newlyEnabledProviderIsProbedBeforeThePeriodicDeadline()
+  {
+    mEnabled.remove("gps");
+    mProvider.start(100);
+    emit("fused", 5);
+    advance(3100);
+    assertEquals(Set.of("fused"), mActive.keySet());
+    mEnabled.add("gps");
+    mContext.sendBroadcast(new Intent(LocationManager.PROVIDERS_CHANGED_ACTION));
+    ShadowLooper.shadowMainLooper().idle();
+
+    assertEquals(Set.of("gps", "fused", "network"), mActive.keySet());
+    emit("gps", 1);
+    advance(1000);
+    emit("gps", 1);
+    assertEquals("gps", mDeliveries.get(mDeliveries.size() - 1).location().getProvider());
+  }
+
+  @Test
+  public void stoppedProviderCancelsTimersAndProviderChanges()
+  {
+    mProvider.start(100);
+    emit("gps", 1);
+    advance(3100);
+    mProvider.stop();
+    mContext.sendBroadcast(new Intent(LocationManager.PROVIDERS_CHANGED_ACTION));
+    advance(70_000);
+    assertTrue(mActive.isEmpty());
+    assertEquals(1, mDeliveries.size());
+    assertEquals(0, mDisabled);
+    mProvider.start(100);
+    emit("gps", 1);
+    assertEquals(2, mDeliveries.size());
+    assertTrue(mDeliveries.get(1).changed());
+  }
+
+  @Test
+  public void coarsePermissionUsesProvidersReportedByThePlatform()
   {
     mUtils.when(() -> LocationUtils.checkFineLocationPermission(mContext)).thenReturn(false);
+    // Android 10 and older omit GPS from getProviders() for coarse-only callers.
+    mEnabled.remove("gps");
     mProvider.start(100);
     assertEquals(Set.of("fused", "network"), mActive.keySet());
     emit("network", 2000);
     advance(3100);
     assertEquals(Set.of("network"), mActive.keySet());
     assertEquals(1, mDeliveries.size());
+  }
+
+  @Test
+  @Config(sdk = 30)
+  public void coarsePermissionRetainsGpsWhenThePlatformAllowsIt()
+  {
+    mUtils.when(() -> LocationUtils.checkFineLocationPermission(mContext)).thenReturn(false);
+    mEnabled.clear();
+    mEnabled.add("gps");
+    mProvider.start(100);
+    ShadowLooper.shadowMainLooper().idle();
+
+    assertEquals(Set.of("gps"), mActive.keySet());
+    emit("gps", 2000);
+    assertEquals(1, mDeliveries.size());
+    assertEquals(0, mDisabled);
   }
 
   @Test
@@ -313,11 +381,11 @@ public class AndroidNativeProviderTest
       mOnDelivery = null;
       mProvider.stop();
       ShadowSystemClock.advanceBy(Duration.ofMinutes(1));
-      mImmediatelyEmitGps = true;
       mProvider.start(3000);
     };
     mProvider.onForeground();
     assertEquals(Long.valueOf(3000), mIntervals.get("gps"));
+    emit("gps", 1);
     advance(7000);
     assertEquals(Set.of("gps"), mActive.keySet());
     assertEquals(0, mDisabled);
@@ -331,8 +399,8 @@ public class AndroidNativeProviderTest
     LocationCompat.setMock(fake, true);
     mActive.get("gps").onLocationChanged(fake);
     assertEquals(Set.of("gps"), mActive.keySet());
-    final int count = mDeliveries.size();
-    mLastListener.get("fused").onLocationChanged(point("fused", 1));
-    assertEquals(count, mDeliveries.size());
+    advance(1000);
+    emit("gps", 1);
+    assertEquals(1, mDeliveries.size());
   }
 }

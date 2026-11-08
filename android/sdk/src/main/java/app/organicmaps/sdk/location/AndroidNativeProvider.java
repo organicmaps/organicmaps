@@ -45,13 +45,16 @@ public class AndroidNativeProvider extends BaseLocationProvider
   private boolean mDegraded;
   @Nullable
   private BroadcastReceiver mProviderChanges;
-  @Nullable
-  private Runnable mCheck;
+  private final Runnable mCheck = this::evaluate;
+  private final Runnable mReportDisabled = () ->
+  {
+    if (mActive && mEnabled.isEmpty())
+      mListener.onLocationDisabled();
+  };
 
   private final class NativeLocationListener implements LocationListenerCompat
   {
     private final String mProvider;
-    private final long mSession = mGeneration;
 
     NativeLocationListener(String provider)
     {
@@ -60,7 +63,7 @@ public class AndroidNativeProvider extends BaseLocationProvider
 
     private boolean isCurrent()
     {
-      return mActive && mSession == mGeneration && mSubscriptions.get(mProvider) == this;
+      return mActive && mSubscriptions.get(mProvider) == this;
     }
 
     @Override
@@ -71,7 +74,7 @@ public class AndroidNativeProvider extends BaseLocationProvider
       final long now = SystemClock.elapsedRealtimeNanos();
       deliver(mSelector.observe(mProvider, location, now), now);
       if (isCurrent())
-        evaluate(now);
+        evaluate();
     }
 
     @Override
@@ -110,7 +113,6 @@ public class AndroidNativeProvider extends BaseLocationProvider
     mContext = context;
     mLocationManager = manager;
     mHandler = handler;
-    mSelector = new NativeLocationSelector(100);
   }
 
   @Override
@@ -159,7 +161,7 @@ public class AndroidNativeProvider extends BaseLocationProvider
                                                    mHandler.getLooper());
     }
     if (mActive && generation == mGeneration)
-      evaluate(SystemClock.elapsedRealtimeNanos());
+      evaluate();
   }
 
   @Override
@@ -197,43 +199,43 @@ public class AndroidNativeProvider extends BaseLocationProvider
   {
     if (!mActive)
       return;
+    // Android filters inaccessible providers; newer versions also allow coarse GPS observations.
     final Set<String> enabled = new HashSet<>(mLocationManager.getProviders(true));
     enabled.remove(LocationManager.PASSIVE_PROVIDER);
-    if (!LocationUtils.checkFineLocationPermission(mContext))
-      enabled.remove(LocationManager.GPS_PROVIDER);
+    final boolean newlyEnabled = !mEnabled.containsAll(enabled);
     for (String previous : mEnabled)
       if (!enabled.contains(previous))
         mSelector.unavailable(previous);
     mEnabled.clear();
     mEnabled.addAll(enabled);
     final long now = SystemClock.elapsedRealtimeNanos();
+    if (newlyEnabled && !mSelector.selectedMock())
+      beginProbe(now);
+    mHandler.removeCallbacks(mReportDisabled);
     if (mEnabled.isEmpty())
-    {
-      final long generation = mGeneration;
-      mHandler.post(() -> {
-        if (mActive && generation == mGeneration && mEnabled.isEmpty())
-          mListener.onLocationDisabled();
-      });
-    }
-    evaluate(now);
+      mHandler.post(mReportDisabled);
+    evaluate();
   }
 
   @SuppressLint("MissingPermission")
-  private void evaluate(long now)
+  private void evaluate()
   {
     if (!mActive)
       return;
     final long generation = mGeneration;
+    long now = SystemClock.elapsedRealtimeNanos();
     deliver(mSelector.expire(now), now);
     if (!mActive || generation != mGeneration)
       return;
+    // Application callbacks can consume the remaining lifetime of a cached selection.
+    now = SystemClock.elapsedRealtimeNanos();
     if (mProbeUntil > 0 && mProbeUntil <= now)
     {
       Logger.d(TAG, "Native location probe ended: requested=" + mSubscriptions.keySet()
                         + " observations=" + mSelector.probeSummary(now));
       mProbeUntil = 0;
     }
-    final boolean degraded = LocationUtils.checkFineLocationPermission(mContext) && mSelector.degraded(now);
+    final boolean degraded = mSelector.degraded(now) && LocationUtils.checkFineLocationPermission(mContext);
     if (degraded && !mDegraded && mProbeUntil <= now)
       beginProbe(now);
     mDegraded = degraded;
@@ -248,11 +250,13 @@ public class AndroidNativeProvider extends BaseLocationProvider
     if (mSelector.needsSatelliteAcquisition(now) && mEnabled.contains(LocationManager.GPS_PROVIDER))
       wanted.add(LocationManager.GPS_PROVIDER);
 
-    for (String provider : new HashSet<>(mSubscriptions.keySet()))
+    for (var iterator = mSubscriptions.entrySet().iterator(); iterator.hasNext();)
     {
-      if (wanted.contains(provider))
+      final var entry = iterator.next();
+      if (wanted.contains(entry.getKey()))
         continue;
-      final NativeLocationListener listener = mSubscriptions.remove(provider);
+      final NativeLocationListener listener = entry.getValue();
+      iterator.remove();
       LocationManagerCompat.removeUpdates(mLocationManager, listener);
     }
     for (String provider : wanted)
@@ -282,9 +286,7 @@ public class AndroidNativeProvider extends BaseLocationProvider
 
   private void scheduleCheck(long now)
   {
-    if (mCheck != null)
-      mHandler.removeCallbacks(mCheck);
-    mCheck = null;
+    mHandler.removeCallbacks(mCheck);
     // With no selected stream all discovery sources are already requested.
     // Await their callbacks or provider changes instead of polling a silent receiver.
     if (!mSelector.hasFreshSelection(now))
@@ -294,17 +296,8 @@ public class AndroidNativeProvider extends BaseLocationProvider
       deadline = Math.min(deadline, mProbeUntil);
     if (!mSelector.selectedMock())
       deadline = Math.min(deadline, mNextProbe);
-    final long generation = mGeneration;
-    mCheck = new Runnable() {
-      @Override
-      public void run()
-      {
-        if (mCheck != this || !mActive || generation != mGeneration)
-          return;
-        evaluate(SystemClock.elapsedRealtimeNanos());
-      }
-    };
-    mHandler.postDelayed(mCheck, Math.max(1, TimeUnit.NANOSECONDS.toMillis(deadline - now) + 1));
+    mHandler.postDelayed(mCheck,
+                         Math.max(1, TimeUnit.NANOSECONDS.toMillis(deadline - SystemClock.elapsedRealtimeNanos()) + 1));
   }
 
   @Override
@@ -315,9 +308,8 @@ public class AndroidNativeProvider extends BaseLocationProvider
       return;
     mActive = false;
     ++mGeneration;
-    if (mCheck != null)
-      mHandler.removeCallbacks(mCheck);
-    mCheck = null;
+    mHandler.removeCallbacks(mCheck);
+    mHandler.removeCallbacks(mReportDisabled);
     if (mProviderChanges != null)
       mContext.unregisterReceiver(mProviderChanges);
     mProviderChanges = null;

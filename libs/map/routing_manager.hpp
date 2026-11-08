@@ -356,7 +356,6 @@ private:
   /// \returns false if the location could not be matched to the route and should be matched to the
   /// road graph. Otherwise returns true.
   bool MatchLocationToRoute(location::GpsInfo & info, location::RouteMatchingInfo & routeMatchingInfo);
-  location::RouteMatchingInfo GetRouteMatchingInfo(location::GpsInfo & info, bool * matchedToRoute = nullptr);
   uint32_t GenerateRoutePointsTransactionId() const;
 
   void SetPointsFollowingMode(bool enabled);

@@ -16,6 +16,8 @@ public final class RoutingInfo
   public final Distance distToTarget;
   // Next turn.
   public final Distance distToTurn;
+  private final double distToTargetMeters;
+  private final double distToTurnMeters;
 
   // Remaining time in seconds; UI formatters choose the display precision.
   public final int totalTimeInSeconds;
@@ -54,11 +56,14 @@ public final class RoutingInfo
                       @Nullable RoadShieldInfo nextNextStreetRoadShields, double completionPercent,
                       @NonNull CarDirection carTurnDirection, @NonNull CarDirection carNextTurnDirection,
                       @NonNull PedestrianDirection pedestrianDirection, int exitNum, int totalTime,
-                      @Nullable LaneInfo[] lanes, double currentSpeedMps, double speedLimitMps,
-                      boolean speedLimitExceeded, boolean shouldPlayWarningSignal)
+                      @Nullable LaneInfo[] lanes, double distToTargetMeters, double distToTurnMeters,
+                      double currentSpeedMps, double speedLimitMps, boolean speedLimitExceeded,
+                      boolean shouldPlayWarningSignal)
   {
     this.distToTarget = distToTarget;
     this.distToTurn = distToTurn;
+    this.distToTargetMeters = distToTargetMeters;
+    this.distToTurnMeters = distToTurnMeters;
     this.currentStreet = currentStreet;
     this.nextStreet = nextStreet;
     this.nextStreetRoadShields = nextStreetRoadShields;
@@ -86,24 +91,17 @@ public final class RoutingInfo
 
   RoutingInfo withCurrentUnits()
   {
-    final Distance target = reformatDistance(distToTarget);
-    final Distance turn = reformatDistance(distToTurn);
+    final Distance target = reformatDistance(distToTarget, distToTargetMeters);
+    final Distance turn = reformatDistance(distToTurn, distToTurnMeters);
     if (target == distToTarget && turn == distToTurn && !shouldPlayWarningSignal)
       return this;
     return copyWithDistances(target, turn);
   }
 
-  private static Distance reformatDistance(Distance distance)
+  private static Distance reformatDistance(Distance distance, double meters)
   {
     if (!distance.isValid() || distance.mDistanceStr.isEmpty())
       return distance;
-    final double meters = switch (distance.mUnits)
-    {
-      case Meters -> distance.mDistance;
-      case Kilometers -> distance.mDistance * 1000;
-      case Feet -> distance.mDistance * 0.3048;
-      case Miles -> distance.mDistance * 1609.344;
-    };
     return StringUtils.nativeFormatDistance(meters);
   }
 
@@ -111,8 +109,8 @@ public final class RoutingInfo
   {
     return new RoutingInfo(target, turn, currentStreet, nextStreet, nextStreetRoadShields, nextNextStreet,
                            nextNextStreetRoadShields, completionPercent, carDirection, nextCarDirection,
-                           pedestrianDirection, exitNum, totalTimeInSeconds, lanes, currentSpeedMps, speedLimitMps,
-                           speedCamLimitExceeded, false);
+                           pedestrianDirection, exitNum, totalTimeInSeconds, lanes, distToTargetMeters,
+                           distToTurnMeters, currentSpeedMps, speedLimitMps, speedCamLimitExceeded, false);
   }
 
   public boolean isSpeedCamLimitExceeded()

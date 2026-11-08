@@ -358,7 +358,7 @@ public class RoutingController
       }
       mObservedLocationHelper = locationHelper;
       locationHelper.addListener(mLocationLossListener);
-      // Listener registration may replay a historical display fix, not a live acquisition event.
+      // Registration can replay a still-fresh saved fix, not a new acquisition event.
       mHasObservedLocation = false;
     }
   }
@@ -511,8 +511,8 @@ public class RoutingController
   public void rebuildLastRoute()
   {
     mContainsCachedResult = false;
-    setState(State.PREPARE);
     setBuildState(BuildState.NONE);
+    setState(State.PREPARE);
     startPlanning(getStartPoint(), getEndPoint());
   }
 

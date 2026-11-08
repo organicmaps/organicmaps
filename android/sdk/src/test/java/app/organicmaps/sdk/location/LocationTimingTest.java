@@ -1,5 +1,7 @@
 package app.organicmaps.sdk.location;
 
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
@@ -19,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.core.location.LocationCompat;
 import androidx.core.location.LocationManagerCompat;
 import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.routing.JunctionInfo;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.NetworkPolicy;
 import app.organicmaps.sdk.util.log.Logger;
@@ -33,6 +36,7 @@ import org.junit.runner.RunWith;
 import org.mockito.MockedStatic;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
+import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 import org.robolectric.annotation.Implementation;
 import org.robolectric.annotation.Implements;
@@ -117,6 +121,8 @@ public class LocationTimingTest
     when(routing.isNavigating()).thenReturn(true);
     mNetwork = mockStatic(NetworkPolicy.class);
     mContext = RuntimeEnvironment.getApplication();
+    Shadows.shadowOf(RuntimeEnvironment.getApplication())
+        .grantPermissions(ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION);
     mHelper = new LocationHelper(mContext, mSensors);
     ReflectionHelpers.setField(mHelper, "mLocationProvider", new Provider(mHelper));
     ReflectionHelpers.setField(mHelper, "mActive", true);
@@ -236,20 +242,28 @@ public class LocationTimingTest
   }
 
   @Test
-  public void changedBackendWithTheSameSourceNameResetsHistory()
+  public void simulationTransitionsResetHistoryEvenWithTheSameSourceName()
   {
     mHelper.onLocationChanged(fix("fused", 1000, 10, 10));
-    ReflectionHelpers.setField(mHelper, "mLocationProvider", new Provider(mHelper));
-    final Location better = fix("fused", 1001, 20, 5);
-    mHelper.onLocationChanged(better);
-    assertSame(better, mHelper.getSavedLocation());
+    mHelper.startNavigationSimulation(new JunctionInfo[0]);
+    final Location simulated = fix("fused", 1001, 20, 1000);
+    mHelper.onLocationChanged(simulated);
+    assertSame(simulated, mHelper.getSavedLocation());
     assertEquals(2, LocationStateShadow.sUpdates.size());
     assertTrue(lastUpdate().reset());
+    assertEquals(1, LocationStateShadow.sResets);
 
-    ReflectionHelpers.setField(mHelper, "mLocationProvider", new Provider(mHelper));
-    mHelper.onLocationChanged(fix("fused", 1002, 30, 1000));
-    assertEquals(2, LocationStateShadow.sUpdates.size());
-    assertSame(better, mHelper.getSavedLocation());
+    mHelper.stopNavigationSimulation();
+    final Location resumed = fix("fused", 1002, 30, 2000);
+    mHelper.onLocationChanged(resumed);
+    assertSame(resumed, mHelper.getSavedLocation());
+    assertEquals(3, LocationStateShadow.sUpdates.size());
+    assertTrue(lastUpdate().reset());
+    assertEquals(2, LocationStateShadow.sResets);
+
+    mHelper.onLocationChanged(fix("fused", 1003, 40, 1));
+    assertSame(resumed, mHelper.getSavedLocation());
+    assertEquals(3, LocationStateShadow.sUpdates.size());
   }
 
   @Test
@@ -324,6 +338,19 @@ public class LocationTimingTest
     mHelper.onLocationChanged(current);
     verify(listener).onLocationUpdated(current);
     assertSame(current, mHelper.getSavedLocation());
+  }
+
+  @Test
+  public void betterHistoricalSourceRetainsItsOlderObservationDeadline()
+  {
+    mHelper.onLocationChanged(fix("gps", 1000, 6000, 10));
+    final Location historical = fix("fused", 1001, 26_000, 5);
+    mHelper.onLocationChanged(historical);
+    assertSame(historical, mHelper.getSavedLocation());
+    assertEquals(2, LocationStateShadow.sUpdates.size());
+    assertEquals(historical.getElapsedRealtimeNanos(), lastUpdate().elapsed());
+    assertEquals(historical.getElapsedRealtimeNanos() + 5_000_000_000L, lastUpdate().liveUntil());
+    assertTrue(lastUpdate().reset());
   }
 
   @Test

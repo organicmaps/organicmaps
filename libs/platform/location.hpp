@@ -78,6 +78,8 @@ public:
   // Producers without a compatible clock leave this unset; recording keeps UTC.
   std::optional<Timing> m_timing = std::nullopt;
 
+  bool operator==(GpsInfo const &) const = default;
+
   bool IsValid() const { return m_source != EUndefined; }
   bool IsFresh(Clock::time_point now = Clock::now()) const
   {

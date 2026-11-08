@@ -68,6 +68,7 @@ public class RoutingControllerLocationLossTest
   {
     NativeLocation.resets = 0;
     NativeLocation.resetsWithFix = 0;
+    NativeRouting.buildRequests = 0;
     mLogger = mockStatic(Logger.class);
     mRouter = mockStatic(Router.class);
     mNetwork = mockStatic(NetworkPolicy.class);
@@ -118,6 +119,7 @@ public class RoutingControllerLocationLossTest
     NativeRouting.listener.onRoutingInfoUpdated(RoutingControllerRoutingInfoTest.snapshot(25, 10, true));
     shadowOf(Looper.getMainLooper()).idleFor(Duration.ofSeconds(31));
     assertFalse(mHelper.isActive());
+    assertEquals(1, NativeLocation.resets);
     assertEquals(2, mReceived.size());
     assertNull(mReceived.get(1));
     assertNull(mController.getCachedRoutingInfo());
@@ -188,17 +190,21 @@ public class RoutingControllerLocationLossTest
   }
 
   @Test
-  public void cachedDistanceUnitsRefreshWithoutReadingANewerRouteSnapshot() throws ReflectiveOperationException
+  public void cachedDistanceUnitsRefreshFromTheUnroundedMeasurement() throws ReflectiveOperationException
   {
     final Constructor<?> constructor = RoutingInfo.class.getDeclaredConstructors()[0];
     constructor.setAccessible(true);
-    final Distance meters = new Distance(100, "100", (byte) Distance.Units.Meters.ordinal());
+    final Distance target = new Distance(15, "15", (byte) Distance.Units.Kilometers.ordinal());
+    final Distance turn = new Distance(500, "500", (byte) Distance.Units.Meters.ordinal());
     final RoutingInfo snapshot = (RoutingInfo) constructor.newInstance(
-        meters, meters, "", "", null, "", null, 0.0, CarDirection.NoTurn, CarDirection.NoTurn,
-        PedestrianDirection.NoTurn, 0, 0, null, 20.0, 10.0, true, true);
+        target, turn, "", "", null, "", null, 0.0, CarDirection.NoTurn, CarDirection.NoTurn, PedestrianDirection.NoTurn,
+        0, 0, null, 14500.0, 499.0, 20.0, 10.0, true, true);
     NativeRouting.listener.onRoutingInfoUpdated(snapshot);
     final RoutingInfo refreshed = mController.getCachedRoutingInfo();
     assertEquals(Distance.Units.Feet, refreshed.distToTurn.mUnits);
+    assertEquals(14500 / 0.3048, refreshed.distToTarget.mDistance, 1e-8);
+    assertEquals(499 / 0.3048, refreshed.distToTurn.mDistance, 1e-8);
+    assertEquals(refreshed.distToTurn.mDistance, mController.getCachedRoutingInfo().distToTurn.mDistance, 0);
     assertEquals(20, refreshed.currentSpeedMps, 0);
     assertEquals(10, refreshed.speedLimitMps, 0);
     assertFalse(refreshed.shouldPlayWarningSignal());
@@ -224,6 +230,26 @@ public class RoutingControllerLocationLossTest
     reportRawFix();
     NativeRouting.listener.onRoutingInfoUpdated(RoutingControllerRoutingInfoTest.snapshot(5, 10, false));
     assertEquals(5, mController.getCachedRoutingInfo().currentSpeedMps, 0);
+  }
+
+  @Test
+  public void rebuildingCannotRestartTheOldRouteFromAClearCallback()
+  {
+    NativeRouting.routeListener.onRoutingEvent(ResultCodes.NO_ERROR, null);
+    final List<Boolean> states = new ArrayList<>();
+    mController.addNavigationStateListener(states::add);
+    mController.addRoutingInfoListener(info -> {
+      if (info == null)
+        mController.start();
+    });
+
+    mController.rebuildLastRoute();
+
+    assertFalse(mController.isNavigating());
+    assertTrue(mController.isPlanning());
+    assertEquals(RoutingController.BuildState.BUILDING, mController.getBuildState());
+    assertEquals(List.of(false), states);
+    assertEquals(1, NativeRouting.buildRequests);
   }
 
   @Test
@@ -268,10 +294,14 @@ public class RoutingControllerLocationLossTest
   public static class NativeRouting
   {
     static RoutingInfoListener listener;
+    static RoutingListener routeListener;
+    static int buildRequests;
 
     @Implementation
-    public static void nativeSetRoutingListener(RoutingListener ignored)
-    {}
+    public static void nativeSetRoutingListener(RoutingListener callback)
+    {
+      routeListener = callback;
+    }
     @Implementation
     public static void nativeSetRouteProgressListener(RoutingProgressListener ignored)
     {}
@@ -283,6 +313,36 @@ public class RoutingControllerLocationLossTest
     {
       listener = callback;
     }
+
+    @Implementation
+    public static RouteMarkData[] nativeGetRoutePoints()
+    {
+      return new RouteMarkData[] {
+          new RouteMarkData("Start", "", RouteMarkType.Start, 0, false, true, false, 49, 8),
+          new RouteMarkData("Finish", "", RouteMarkType.Finish, 0, true, false, false, 49.01, 8.01)};
+    }
+
+    @Implementation
+    public static RoutingInfo nativeGetRouteFollowingInfo()
+    {
+      return mock(RoutingInfo.class);
+    }
+
+    @Implementation
+    public static void nativeBuildRoute()
+    {
+      ++buildRequests;
+    }
+
+    @Implementation
+    public static void nativeSaveRoutePoints()
+    {}
+    @Implementation
+    public static void nativeFollowRoute()
+    {}
+    @Implementation
+    public static void nativeRouteRemoveElevationActivePoint()
+    {}
   }
 
   @Implements(value = StringUtils.class, isInAndroidSdk = false)

@@ -175,7 +175,7 @@ public class RoutingControllerRoutingInfoTest
     constructor.setAccessible(true);
     return (RoutingInfo) constructor.newInstance(Distance.EMPTY, Distance.EMPTY, "", "", null, "", null, 0.0,
                                                  CarDirection.NoTurn, CarDirection.NoTurn, PedestrianDirection.NoTurn,
-                                                 0, 0, null, speed, limit, false, beep);
+                                                 0, 0, null, 0.0, 0.0, speed, limit, false, beep);
   }
 
   @SuppressWarnings({"rawtypes", "unchecked"})

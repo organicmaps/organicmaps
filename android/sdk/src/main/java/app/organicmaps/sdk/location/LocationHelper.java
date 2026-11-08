@@ -39,26 +39,11 @@ import org.chromium.base.ObserverList;
  */
 public class LocationHelper implements BaseLocationProvider.Listener
 {
-  private record Source(BaseLocationProvider provider, long session, String name, boolean mock)
+  private record Source(long session, String name, boolean mock)
   {
-    @Override
-    public boolean equals(Object object)
-    {
-      return object instanceof Source other && provider == other.provider && session == other.session
-   && Objects.equals(name, other.name) && mock == other.mock;
-    }
-
-    @Override
-    public int hashCode()
-    {
-      int hash = System.identityHashCode(provider);
-      hash = 31 * hash + Long.hashCode(session);
-      hash = 31 * hash + Objects.hashCode(name);
-      return 31 * hash + Boolean.hashCode(mock);
-    }
   }
 
-  // Replaced 0 with 100ms. Seems like it is not working on Lineage, EOS, MicroG, ...
+  // Use a nonzero interval because some LineageOS, /e/OS, and microG setups stall with zero.
   // https://github.com/organicmaps/organicmaps/issues/11076
   // Probably https://github.com/organicmaps/organicmaps/issues/10133
   // Probably https://github.com/organicmaps/organicmaps/issues/9018
@@ -86,7 +71,6 @@ public class LocationHelper implements BaseLocationProvider.Listener
   @Nullable
   private Location mSavedLocation;
   private long mSavedLiveUntilNanos;
-  private long mLocationRevision;
   @Nullable
   private Source mSavedSource;
   @Nullable
@@ -99,6 +83,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
   @NonNull
   private BaseLocationProvider mLocationProvider;
   private long mProviderGeneration;
+  private long mLocationRevision;
   private boolean mSimulating;
   private long mInterval;
   private boolean mInFirstRun;
@@ -165,9 +150,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
 
   private BaseLocationProvider.Listener createProviderListener()
   {
-    clearFusedWatchdog();
     final long generation = ++mProviderGeneration;
-    resetPrediction();
     return new BaseLocationProvider.Listener() {
       private boolean isCurrent()
       {
@@ -236,6 +219,8 @@ public class LocationHelper implements BaseLocationProvider.Listener
   private void replaceProvider(boolean nativeOnly)
   {
     mNativeFallback = nativeOnly;
+    clearFusedAcquisition();
+    resetPrediction();
     final BaseLocationProvider.Listener listener = createProviderListener();
     if (mActive)
       mLocationProvider.stop();
@@ -266,19 +251,31 @@ public class LocationHelper implements BaseLocationProvider.Listener
     return TimeUnit.MILLISECONDS.toNanos(Math.max(FUSED_TASK_TIMEOUT_MS, 3 * mInterval));
   }
 
-  private void clearFusedWatchdog()
+  private void cancelFusedDeadline()
   {
     if (mFusedWatchdog != null)
       mHandler.removeCallbacks(mFusedWatchdog);
     mFusedWatchdog = null;
+  }
+
+  private void clearFusedAcquisition()
+  {
+    cancelFusedDeadline();
     mFusedAcquisitionStartedNanos = -1;
     mLastFreshFixNanos = -1;
   }
 
+  private boolean isCoarseFusedTracking()
+  {
+    // After a valid fix, coarse-only Google updates may be throttled without a promised interval.
+    if (mLastFreshFixNanos < 0)
+      return false;
+    return !LocationUtils.checkFineLocationPermission(mContext) && LocationUtils.checkLocationPermission(mContext);
+  }
+
   private void watchFusedDeadline(@NonNull String reason, long deadline)
   {
-    if (mFusedWatchdog != null)
-      mHandler.removeCallbacks(mFusedWatchdog);
+    cancelFusedDeadline();
     final long generation = mProviderGeneration;
     mFusedWatchdog = new Runnable() {
       @Override
@@ -286,7 +283,13 @@ public class LocationHelper implements BaseLocationProvider.Listener
       {
         if (mFusedWatchdog != this || !mActive || mSimulating || generation != mProviderGeneration)
           return;
+        if (isCoarseFusedTracking())
+        {
+          cancelFusedDeadline();
+          return;
+        }
         mHandler.removeCallbacks(this);
+        // Handler delays pause in deep sleep; foreground resume also checks this elapsed-time deadline.
         final long remaining = deadline - SystemClock.elapsedRealtimeNanos();
         if (remaining > 0)
         {
@@ -327,19 +330,17 @@ public class LocationHelper implements BaseLocationProvider.Listener
 
   private void updateFusedFreshness(@NonNull Location location)
   {
-    if (mSimulating)
+    // Google reports startup before any fix; native and simulated fixes need no watchdog bookkeeping.
+    if (mFusedAcquisitionStartedNanos < 0)
       return;
     final long timestamp = location.getElapsedRealtimeNanos();
     final long age = SystemClock.elapsedRealtimeNanos() - timestamp;
     if (timestamp <= mLastFreshFixNanos || age < 0 || age > fusedFixTimeoutNanos())
       return;
     mLastFreshFixNanos = timestamp;
-    if (mFusedAcquisitionStartedNanos >= 0)
-    {
-      Logger.d(TAG, "Fused fix time = " + location.getTime() + " elapsed nanos = " + timestamp
-                        + " age millis = " + TimeUnit.NANOSECONDS.toMillis(age));
-      watchFusedDeadline("fresh fixes stopped", timestamp + fusedFixTimeoutNanos());
-    }
+    Logger.d(TAG, "Fused fix time = " + location.getTime() + " elapsed nanos = " + timestamp
+                      + " age millis = " + TimeUnit.NANOSECONDS.toMillis(age));
+    watchFusedDeadline("fresh fixes stopped", timestamp + fusedFixTimeoutNanos());
   }
 
   /**
@@ -365,7 +366,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
   }
 
   /**
-   * Obtains last known location.
+   * Obtains the last known location, which may be historical. Live consumers should register a LocationListener.
    * @return {@code null} if no location is saved.
    */
   @Nullable
@@ -389,8 +390,8 @@ public class LocationHelper implements BaseLocationProvider.Listener
 
     final Location location = mSavedLocation;
     final long liveUntilNanos = mSavedLiveUntilNanos;
-    final long revision = mLocationRevision;
-    final BaseLocationProvider provider = mLocationProvider;
+    final long revision = ++mLocationRevision;
+    final long providerGeneration = mProviderGeneration;
     final Source source = Objects.requireNonNull(mSavedSource);
     if (LocationUtils.isLocationFresh(location, SystemClock.elapsedRealtimeNanos(), liveUntilNanos))
     {
@@ -398,15 +399,15 @@ public class LocationHelper implements BaseLocationProvider.Listener
       mHandler.postDelayed(mLocationTimeoutRunnable, LOCATION_UPDATE_TIMEOUT_MS);
 
       mListenersIterator.rewind();
-      while (mListenersIterator.hasNext() && mActive && provider == mLocationProvider && revision == mLocationRevision)
+      while (mListenersIterator.hasNext() && mActive && providerGeneration == mProviderGeneration
+             && revision == mLocationRevision)
         mListenersIterator.next().onLocationUpdated(location);
     }
 
-    // If we are still in the first run mode, i.e. user is staying on the first run screens,
-    // not on the map, we mustn't post location update to the core. Only this preserving allows us
-    // to play nice zoom animation once a user will leave first screens and will see a map.
-    if (!mActive || provider != mLocationProvider || revision != mLocationRevision)
+    // Listeners can stop/restart acquisition, replace its backend, or deliver a newer fix synchronously.
+    if (!mActive || providerGeneration != mProviderGeneration || revision != mLocationRevision)
       return;
+    // Keep first-run input out of the core so map entry can animate its first position.
     if (mInFirstRun)
     {
       Logger.d(TAG, "Location update is obtained and must be ignored, because the app is in a first run mode");
@@ -495,8 +496,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
       ++mSourceSession;
       mLastSourceTimes.clear();
     }
-    final Source source =
-        new Source(mLocationProvider, mSourceSession, location.getProvider(), LocationCompat.isMock(location));
+    final Source source = new Source(mSourceSession, location.getProvider(), LocationCompat.isMock(location));
     final Long lastObservedAt = mLastSourceTimes.get(source);
     if (lastObservedAt != null && observedAt < lastObservedAt)
       return;
@@ -522,7 +522,6 @@ public class LocationHelper implements BaseLocationProvider.Listener
     mSavedLocation = location;
     mSavedSource = source;
     mSavedLiveUntilNanos = liveUntilNanos;
-    ++mLocationRevision;
     mMyPosition = null;
     notifyLocationUpdated();
   }
@@ -581,6 +580,8 @@ public class LocationHelper implements BaseLocationProvider.Listener
     Logger.i(TAG);
     if (mSimulating)
       throw new IllegalStateException("Simulation is already started");
+    clearFusedAcquisition();
+    resetPrediction();
     final BaseLocationProvider.Listener listener = createProviderListener();
     if (mActive)
       mLocationProvider.stop();
@@ -641,7 +642,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
   }
 
   /**
-   * Registers a main-thread location listener and immediately replays a saved location if one is available.
+   * Registers a main-thread location listener and immediately replays a saved location if it is still fresh.
    * Remove the listener when its host ends.
    */
   @UiThread
@@ -746,7 +747,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
 
     Logger.i(TAG);
     mActive = false;
-    clearFusedWatchdog();
+    clearFusedAcquisition();
     resetPrediction();
     mLocationProvider.stop();
     unsubscribeFromGnssStatusUpdates();
@@ -766,8 +767,14 @@ public class LocationHelper implements BaseLocationProvider.Listener
     {
       if (!mSimulating && !LocationUtils.checkLocationPermission(mContext))
         onLocationPermissionDenied();
-      else if (mFusedWatchdog != null)
-        mFusedWatchdog.run();
+      else
+      {
+        // Permission changes can suspend or restore tracking deadlines without a new fix.
+        if (mFusedAcquisitionStartedNanos >= 0 && mLastFreshFixNanos >= 0)
+          watchFusedDeadline("fresh fixes stopped", mLastFreshFixNanos + fusedFixTimeoutNanos());
+        if (mFusedWatchdog != null)
+          mFusedWatchdog.run();
+      }
       if (mActive)
         mLocationProvider.onForeground();
       return;

@@ -106,8 +106,6 @@ public class NativeLocationSelectorTest
   {
     final NativeLocationSelector selector = new NativeLocationSelector(100);
     final Location gps = fix("gps", 1000, 1.25f);
-    gps.setAltitude(151);
-    gps.setVerticalAccuracyMeters(0);
     gps.setSpeed(14);
     gps.setBearing(141);
     selector.observe("gps", gps, ns(1000));
@@ -128,6 +126,43 @@ public class NativeLocationSelectorTest
         assertEquals(14, selected.location().getSpeed(), 0);
       }
     }
+  }
+
+  @Test
+  public void zeroVerticalUncertaintyIsAValidAltitude()
+  {
+    final NativeLocationSelector selector = new NativeLocationSelector(100);
+    final Location current = fix("gps", 1000, 5);
+    current.setAltitude(100);
+    current.setVerticalAccuracyMeters(0);
+    selector.observe("gps", current, ns(1000));
+    for (long time : new long[] {1100, 1200})
+    {
+      final Location candidate = fix("fused", time, 5);
+      candidate.setAltitude(101);
+      candidate.setVerticalAccuracyMeters(1.5f);
+      assertNull(selector.observe("fused", candidate, ns(time)));
+    }
+    assertEquals("gps", selector.selectedProvider());
+  }
+
+  @Test
+  @Config(sdk = 34)
+  public void zeroMslUncertaintyIsAValidAltitude()
+  {
+    final NativeLocationSelector selector = new NativeLocationSelector(100);
+    final Location current = fix("gps", 1000, 5);
+    current.setMslAltitudeMeters(100);
+    current.setMslAltitudeAccuracyMeters(0);
+    selector.observe("gps", current, ns(1000));
+    for (long time : new long[] {1100, 1200})
+    {
+      final Location candidate = fix("fused", time, 5);
+      candidate.setMslAltitudeMeters(101);
+      candidate.setMslAltitudeAccuracyMeters(1.5f);
+      assertNull(selector.observe("fused", candidate, ns(time)));
+    }
+    assertEquals("gps", selector.selectedProvider());
   }
 
   @Test

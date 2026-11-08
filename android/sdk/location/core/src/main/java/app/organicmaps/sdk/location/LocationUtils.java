@@ -78,7 +78,7 @@ public class LocationUtils
     if (isFromGpsProvider(location))
       return true;
 
-    // Completely ignore locations without lat and lon.
+    // Other providers must report positive horizontal accuracy.
     return location.getAccuracy() > 0.0f;
   }
 

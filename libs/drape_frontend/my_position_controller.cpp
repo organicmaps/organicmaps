@@ -521,8 +521,9 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
   {
     m_lastLocationTimestamp = info.m_timestamp;
     m_updateLocationTimer.Reset();
-    ResetNotification(m_updateLocationNotifyId);
   }
+  if (newObservation)
+    ResetNotification(m_updateLocationNotifyId);
 }
 
 void MyPositionController::LoseLocation()

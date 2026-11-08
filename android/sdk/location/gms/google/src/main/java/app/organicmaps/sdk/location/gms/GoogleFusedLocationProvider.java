@@ -144,7 +144,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
           if (error instanceof ResolvableApiException resolvable)
           {
             final PendingIntent pendingIntent = resolvable.getResolution();
-            stop();
+            mCallback = null;
             mListener.onLocationResolutionRequired(pendingIntent);
             return;
           }
@@ -154,7 +154,8 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
     }
     catch (SecurityException error)
     {
-      fail(callback, error);
+      // Let LocationHelper.start() finish before reporting a synchronous permission error.
+      mExecutor.execute(() -> fail(callback, error));
     }
   }
 
@@ -188,18 +189,16 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
 
   private void fail(@NonNull GoogleLocationCallback callback, @Nullable Exception error)
   {
-    mExecutor.execute(() -> {
-      if (mCallback != callback)
-        return;
-      Logger.w(TAG, "Location request failed or canceled: " + error);
-      stop();
-      if (!LocationUtils.checkLocationPermission(mContext))
-        mListener.onLocationPermissionDenied();
-      else if (!LocationUtils.areLocationServicesTurnedOn(mContext))
-        mListener.onLocationDisabled();
-      else
-        mListener.onFusedLocationUnsupported();
-    });
+    if (mCallback != callback)
+      return;
+    Logger.w(TAG, "Location request failed or canceled: " + error);
+    stop();
+    if (!LocationUtils.checkLocationPermission(mContext))
+      mListener.onLocationPermissionDenied();
+    else if (!LocationUtils.areLocationServicesTurnedOn(mContext))
+      mListener.onLocationDisabled();
+    else
+      mListener.onFusedLocationUnsupported();
   }
 
   @Override

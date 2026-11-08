@@ -70,7 +70,7 @@ public class NavigationScreenTest
     constructor.setAccessible(true);
     final RoutingInfo info = (RoutingInfo) constructor.newInstance(
         null, null, "", "", null, "", null, 0.0, CarDirection.NoTurn, CarDirection.NoTurn, PedestrianDirection.NoTurn,
-        0, 0, null, 12.0, 8.0, true, false);
+        0, 0, null, 0.0, 0.0, 12.0, 8.0, true, false);
     NavigationScreen.updateSpeedLimit(mRenderer, true, info);
     verify(mRenderer).setCurrentSpeed(43, "km/h");
     verify(mRenderer).setSpeedLimit(29);

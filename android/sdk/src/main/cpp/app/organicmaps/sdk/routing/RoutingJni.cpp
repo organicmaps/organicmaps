@@ -252,6 +252,8 @@ jobject CreateRoutingInfo(JNIEnv * env, routing::FollowingInfo const & info)
     "I"                                                        // exitNum
     "I"                                                        // totalTime
     "[Lapp/organicmaps/sdk/routing/LaneInfo;"                  // lanes
+    "D"                                                        // distToTargetMeters
+    "D"                                                        // distToTurnMeters
     "D"                                                        // currentSpeedMps
     "D"                                                        // speedLimitMps
     "Z"                                                        // speedLimitExceeded
@@ -276,6 +278,8 @@ jobject CreateRoutingInfo(JNIEnv * env, routing::FollowingInfo const & info)
     info.m_exitNum,
     info.m_time,
     CreateLanesInfo(env, info.m_lanes),
+    info.m_distToTargetMeters,
+    info.m_distToTurnMeters,
     info.m_currentSpeedMps,
     info.m_speedLimitMps,
     static_cast<jboolean>(info.m_isSpeedCamLimitExceeded),

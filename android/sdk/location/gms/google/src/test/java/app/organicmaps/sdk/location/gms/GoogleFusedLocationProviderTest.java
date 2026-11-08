@@ -2,11 +2,11 @@ package app.organicmaps.sdk.location.gms;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.clearInvocations;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -65,6 +65,7 @@ public class GoogleFusedLocationProviderTest
     }
   }
 
+  // microG's CancellationTokenSource does not notify token listeners.
   private static final class Cancellation extends CancellationToken
   {
     private final List<OnTokenCanceledListener> mListeners = new ArrayList<>();
@@ -195,6 +196,8 @@ public class GoogleFusedLocationProviderTest
   {
     mProvider.start(100);
     register(0);
+    mRegistrations.get(0).setResult(null);
+    mQueue.drain();
     final LocationAvailability availability = mock(LocationAvailability.class);
     when(availability.isLocationAvailable()).thenReturn(false);
     mCallbacks.get(0).onLocationAvailability(availability);
@@ -237,6 +240,7 @@ public class GoogleFusedLocationProviderTest
     register(0);
     final LocationCallback oldCallback = mCallbacks.get(0);
     mProvider.stop();
+    clearInvocations(mLocationClient);
     mProvider.start(3000);
     register(1);
     final LocationCallback currentCallback = mCallbacks.get(1);
@@ -245,7 +249,7 @@ public class GoogleFusedLocationProviderTest
     mQueue.drain();
 
     verify(mListener).onFusedLocationProgress(BaseLocationProvider.StartupPhase.REGISTERED);
-    verify(mLocationClient, times(2)).removeLocationUpdates(oldCallback);
+    verify(mLocationClient).removeLocationUpdates(oldCallback);
     verify(mLocationClient, never()).removeLocationUpdates(currentCallback);
     final Location oldLocation = mock(Location.class);
     oldCallback.onLocationResult(result(oldLocation));
@@ -354,6 +358,20 @@ public class GoogleFusedLocationProviderTest
 
     verify(mListener).onLocationResolutionRequired(intent);
     assertEquals(0, mCallbacks.size());
+  }
+
+  @Test
+  public void synchronousSettingsPermissionFailureIsDeferred()
+  {
+    mLocationUtils.when(() -> LocationUtils.checkLocationPermission(mContext)).thenReturn(false);
+    when(mSettingsClient.checkLocationSettings(any(LocationSettingsRequest.class)))
+        .thenThrow(new SecurityException("Permission revoked"));
+    mProvider.start(100);
+
+    verifyNoLocationEvents();
+    mQueue.drain();
+    verify(mListener).onLocationPermissionDenied();
+    verify(mListener, never()).onFusedLocationUnsupported();
   }
 
   @Test

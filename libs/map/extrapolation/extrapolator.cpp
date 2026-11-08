@@ -37,15 +37,6 @@ private:
   uint64_t m_timeAfterMs;
 };
 
-bool IsSameFix(location::GpsInfo const & lhs, location::GpsInfo const & rhs)
-{
-  // Keep this comparison in sync with GpsInfo, including any new measurement metadata.
-  return lhs.m_source == rhs.m_source && lhs.m_timestamp == rhs.m_timestamp && lhs.m_latitude == rhs.m_latitude &&
-         lhs.m_longitude == rhs.m_longitude && lhs.m_horizontalAccuracy == rhs.m_horizontalAccuracy &&
-         lhs.m_altitude == rhs.m_altitude && lhs.m_verticalAccuracy == rhs.m_verticalAccuracy &&
-         lhs.m_bearing == rhs.m_bearing && lhs.m_speed == rhs.m_speed && lhs.m_timing == rhs.m_timing;
-}
-
 double TimeBetween(location::GpsInfo const & first, location::GpsInfo const & second)
 {
   return first.m_timing && second.m_timing
@@ -80,13 +71,6 @@ location::GpsInfo LinearExtrapolation(location::GpsInfo const & gpsInfo1, locati
   result.m_longitude = math::Clamp(e.Extrapolate(gpsInfo1.m_longitude, gpsInfo2.m_longitude), -180.0, 180.0);
   result.m_latitude = math::Clamp(e.Extrapolate(gpsInfo1.m_latitude, gpsInfo2.m_latitude), -90.0, 90.0);
   result.m_altitude = e.Extrapolate(gpsInfo1.m_altitude, gpsInfo2.m_altitude);
-
-  // @TODO(bykoianko) Now |result.m_bearing| == |gpsInfo2.m_bearing|.
-  // In case of |gpsInfo1.HasBearing() && gpsInfo2.HasBearing() == true|
-  // consider finding an average value between |gpsInfo1.m_bearing| and |gpsInfo2.m_bearing|
-  // taking into account that they are periodic. It's important to implement it
-  // because current implementation leads to changing course by steps. It doesn't
-  // look nice when the road changes its direction.
 
   if (gpsInfo1.HasSpeed() && gpsInfo2.HasSpeed())
     result.m_speed = e.Extrapolate(gpsInfo1.m_speed, gpsInfo2.m_speed);
@@ -126,11 +110,6 @@ bool AreCoordsGoodForExtrapolation(location::GpsInfo const & info1, location::Gp
     return false;
   }
 
-  // Note. |timeS| may be less than zero. (info1.m_timestampS >=
-  // info2.m_timestampS) It may happen in rare cases because GpsInfo::m_timestampS is not
-  // monotonic generally. Please see comment in declaration of class GpsInfo for details.
-
-  // @TODO(bykoianko) Switching off extrapolation based on acceleration should be implemented.
   // Switching off extrapolation based on speed, distance and time.
   return distM / timeS <= kMaxExtrapolationSpeedMPS && distM <= kMaxExtrapolationDistMeters &&
          timeS <= kMaxExtrapolationTimeSeconds;
@@ -185,7 +164,7 @@ void Extrapolator::OnLocationUpdate(location::GpsInfo const & gpsInfo)
   if (state->m_last.IsValid() && !state->m_last.HasSameClock(gpsInfo))
     Reset();
 
-  if (state->m_last.IsValid() && IsSameFix(state->m_last, gpsInfo))
+  if (state->m_last.IsValid() && state->m_last == gpsInfo)
     return;
 
   double const delta = state->m_last.IsValid() ? TimeBetween(state->m_last, gpsInfo) : 0;
@@ -244,16 +223,16 @@ void Extrapolator::Schedule(std::shared_ptr<State> const & state, uint64_t gener
 
 void Extrapolator::Deliver(std::shared_ptr<State> const & state, uint64_t generation)
 {
-  if (state->m_generation != generation || !state->m_last.IsValid())
+  if (state->m_generation != generation)
     return;
+
+  // Eligibility changes invalidate the generation checked above.
+  ASSERT(state->m_enabled && AreCoordsGoodForExtrapolation(state->m_beforeLast, state->m_last), ());
 
   auto const elapsed =
       std::chrono::duration_cast<std::chrono::milliseconds>(state->m_now() - state->m_lastDistinctUpdate);
-  if (!state->m_enabled || elapsed >= std::chrono::milliseconds(kMaxExtrapolationTimeMs) ||
-      !AreCoordsGoodForExtrapolation(state->m_beforeLast, state->m_last))
-  {
+  if (elapsed >= std::chrono::milliseconds(kMaxExtrapolationTimeMs))
     return;
-  }
 
   location::GpsInfo const gpsInfo = LinearExtrapolation(state->m_beforeLast, state->m_last, elapsed.count());
   state->m_update(gpsInfo, UpdateType::Prediction);

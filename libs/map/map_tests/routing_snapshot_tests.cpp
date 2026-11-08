@@ -190,6 +190,12 @@ UNIT_CLASS_TEST(RoutingSnapshotTest, SpeedLimitUsesTheProcessedMeasurement)
   Manager().SetRouteFollowingListener([&](routing::FollowingInfo const & info)
   {
     TEST(info.IsValid(), ());
+    auto const * route = Manager().RoutingSession().GetRoute();
+    TEST_EQUAL(info.m_distToTargetMeters, route->GetCurrentDistanceToEndMeters(), ());
+    double distanceToTurn = 0;
+    routing::turns::TurnItem turn;
+    route->GetNearestTurn(distanceToTurn, turn);
+    TEST_EQUAL(info.m_distToTurnMeters, distanceToTurn, ());
     snapshots.emplace_back(info.m_currentSpeedMps, info.m_speedLimitMps);
     ++m_received;
   });

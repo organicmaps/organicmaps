@@ -23,7 +23,10 @@ public abstract class BaseLocationProvider
   {
     @UiThread
     void onLocationChanged(@NonNull Location location);
-    /** Delivers an authorized native-source handoff with its first complete fix. */
+    /**
+     * Delivers a selected native stream. A handoff authorizes this complete fix independently of the previous
+     * source's quality and resets prediction; listener wrappers must preserve the flag.
+     */
     @UiThread
     default void onLocationChanged(@NonNull Location location, boolean sourceChanged)
     {
@@ -31,7 +34,7 @@ public abstract class BaseLocationProvider
     }
     @UiThread
     void onLocationDisabled();
-    /** Reports loss of both coarse and fine location access. */
+    /** Reports loss of coarse and fine location access detected by the Google provider. */
     @UiThread
     void onLocationPermissionDenied();
     // Used by GoogleFusedLocationProvider.

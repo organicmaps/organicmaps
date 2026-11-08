@@ -1530,20 +1530,6 @@ bool RoutingManager::MatchLocationToRoute(location::GpsInfo & location, location
   return matchedToRoute;
 }
 
-location::RouteMatchingInfo RoutingManager::GetRouteMatchingInfo(location::GpsInfo & info, bool * matchedToRoute)
-{
-  if (!info.IsFresh())
-    return {};
-
-  CheckLocationForRouting(info);
-
-  location::RouteMatchingInfo routeMatchingInfo;
-  bool const matched = MatchLocationToRoute(info, routeMatchingInfo);
-  if (matchedToRoute != nullptr)
-    *matchedToRoute = matched;
-  return routeMatchingInfo;
-}
-
 void RoutingManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine, bool is3dAllowed)
 {
   m_drapeEngine.Set(engine);
@@ -1830,7 +1816,12 @@ void RoutingManager::OnExtrapolatedLocationUpdate(location::GpsInfo const & info
     m_gpsInfoCache = std::make_unique<location::GpsInfo>(gpsInfo);
 
   bool matchedToRoute = false;
-  auto routeMatchingInfo = GetRouteMatchingInfo(gpsInfo, &matchedToRoute);
+  location::RouteMatchingInfo routeMatchingInfo;
+  if (gpsInfo.IsFresh())
+  {
+    CheckLocationForRouting(gpsInfo);
+    matchedToRoute = MatchLocationToRoute(gpsInfo, routeMatchingInfo);
+  }
   m_drapeEngine.SafeCall(&df::DrapeEngine::SetGpsInfo, gpsInfo, m_routingSession.IsNavigable(), routeMatchingInfo);
 
   if (type == extrapolation::UpdateType::Measurement && gpsInfo.IsFresh() && m_routingSession.IsFollowing() &&

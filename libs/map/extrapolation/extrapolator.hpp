@@ -25,7 +25,7 @@ location::GpsInfo LinearExtrapolation(location::GpsInfo const & gpsInfo1, locati
 /// \param info2 the latest location information.
 bool AreCoordsGoodForExtrapolation(location::GpsInfo const & info1, location::GpsInfo const & info2);
 
-/// Extrapolates the two most recent distinct measurement times.
+/// Extrapolates the two most recent distinct input times.
 /// All public methods and location callbacks run on the GUI thread.
 class Extrapolator
 {
@@ -41,8 +41,7 @@ public:
   // Target interval between prediction updates.
   static uint64_t constexpr kExtrapolationPeriodMs = 200;
 
-  /// \param update is a function which is called with params according to extrapolated position.
-  /// |update| will be called on gui thread.
+  // Delivers received locations immediately and predictions on the GUI thread.
   explicit Extrapolator(ExtrapolatedLocationUpdateFn const & update);
   // The scheduler delivers tasks on the GUI thread after the given delay.
   Extrapolator(ExtrapolatedLocationUpdateFn const & update, NowFn now, ScheduleFn schedule);
@@ -52,8 +51,6 @@ public:
   Extrapolator & operator=(Extrapolator const &) = delete;
 
   void OnLocationUpdate(location::GpsInfo const & gpsInfo);
-  // @TODO(bykoianko) Gyroscope information should be taken into account as well for calculation
-  // extrapolated position.
 
   void Enable(bool enabled);
   void Reset();

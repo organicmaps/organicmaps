@@ -2,6 +2,7 @@ package app.organicmaps.sdk.location;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
@@ -14,6 +15,7 @@ import static org.mockito.Mockito.when;
 
 import android.content.Context;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
@@ -49,8 +51,12 @@ public class LocationHelperTest
   public static class LocationStateShadow
   {
     static final List<Integer> sErrors = new ArrayList<>();
+    static final List<Long> sUpdateTimes = new ArrayList<>();
     static int sUpdates;
-    static int sResets;
+
+    @Implementation
+    protected static void nativeResetLocationPrediction()
+    {}
 
     @Implementation
     protected static void nativeOnLocationError(int error)
@@ -61,15 +67,10 @@ public class LocationHelperTest
     @Implementation
     protected static void nativeLocationUpdated(long time, double latitude, double longitude, float accuracy,
                                                 double altitude, float altitudeAccuracy, float speed, float bearing,
-                                                long elapsedRealtimeNanos, long liveUntilNanos, boolean resetPrediction)
+                                                long elapsed, long liveUntil, boolean reset)
     {
       ++sUpdates;
-    }
-
-    @Implementation
-    protected static void nativeResetLocationPrediction()
-    {
-      ++sResets;
+      sUpdateTimes.add(time);
     }
   }
 
@@ -137,10 +138,10 @@ public class LocationHelperTest
   @Before
   public void setUp()
   {
-    LocationStateShadow.sErrors.clear();
-    LocationStateShadow.sUpdates = 0;
-    LocationStateShadow.sResets = 0;
     ShadowSystemClock.advanceBy(Duration.ofSeconds(2));
+    LocationStateShadow.sErrors.clear();
+    LocationStateShadow.sUpdateTimes.clear();
+    LocationStateShadow.sUpdates = 0;
     mContext = RuntimeEnvironment.getApplication();
     mLogger = mockStatic(Logger.class);
     mNetwork = mockStatic(NetworkPolicy.class);
@@ -248,7 +249,7 @@ public class LocationHelperTest
     assertEquals(1, mNativeProviders.size());
     provider.progress(BaseLocationProvider.StartupPhase.REGISTERED);
     provider.emit(freshLocation(1));
-    assertEquals(null, mHelper.getSavedLocation());
+    assertNull(mHelper.getSavedLocation());
     assertEquals(1, mNativeProviders.size());
   }
 
@@ -266,30 +267,138 @@ public class LocationHelperTest
   }
 
   @Test
-  public void freshFixBeforeProgressStillEstablishesWorkingTracking()
-  {
-    mHelper.start();
-    final Provider provider = mProviders.get(0);
-    provider.emit(freshLocation(10));
-    advance(4000);
-    provider.progress(BaseLocationProvider.StartupPhase.REGISTERED);
-    advance(1002);
-    assertEquals(1, mNativeProviders.size());
-  }
-
-  @Test
   public void coarseFreshFixesKeepTheSelectedBackendHealthy()
   {
     mUtils.when(() -> LocationUtils.checkFineLocationPermission(mContext)).thenReturn(false);
     final Provider provider = startFused(BaseLocationProvider.StartupPhase.REGISTERED);
-    provider.emit(freshLocation(1000));
+    final Location first = freshLocation(1000);
+    provider.emit(first);
     for (int i = 0; i < 5; ++i)
     {
       advance(4000);
       provider.emit(freshLocation(2000));
+      if (i == 0)
+        assertSame(first, mHelper.getSavedLocation());
     }
     assertTrue(mNativeProviders.isEmpty());
     assertTrue(provider.mStarted);
+  }
+
+  @Test
+  public void coarseTenSecondCadenceSurvivesUnavailableNativeFallback()
+  {
+    mUtils.when(() -> LocationUtils.checkFineLocationPermission(mContext)).thenReturn(false);
+    final LocationListener listener = mock(LocationListener.class);
+    mHelper.addListener(listener);
+    final LocationManager manager = mContext.getSystemService(LocationManager.class);
+    Shadows.shadowOf(manager).setProviderEnabled(LocationManager.GPS_PROVIDER, false);
+    Shadows.shadowOf(manager).setProviderEnabled(LocationManager.NETWORK_PROVIDER, false);
+    when(mFactory.getNativeProvider(any(Context.class), any(BaseLocationProvider.Listener.class)))
+        .thenAnswer(invocation -> new AndroidNativeProvider(mContext, invocation.getArgument(1)));
+    final Provider provider = startFused(BaseLocationProvider.StartupPhase.REGISTERED);
+    provider.emit(freshLocation(1000));
+    for (int i = 0; i < 3; ++i)
+    {
+      advance(10_000);
+      final Location next = freshLocation(1000);
+      provider.emit(next);
+      assertTrue(mHelper.isActive());
+      assertSame(next, mHelper.getSavedLocation());
+    }
+    verify(mFactory, never()).getNativeProvider(any(Context.class), any(BaseLocationProvider.Listener.class));
+    assertTrue(provider.mStarted);
+    assertTrue(LocationStateShadow.sErrors.isEmpty());
+    advance(30_001);
+    verify(listener).onLocationUpdateTimeout();
+    assertTrue(mHelper.isActive());
+    assertTrue(LocationStateShadow.sErrors.isEmpty());
+
+    provider.mListener.onFusedLocationUnsupported();
+    advance(0);
+    assertFalse(mHelper.isActive());
+    assertEquals(List.of(LocationState.ERROR_NOT_SUPPORTED), LocationStateShadow.sErrors);
+  }
+
+  @Test
+  public void coarseInitialAcquisitionStillHasBoundedWaits()
+  {
+    mUtils.when(() -> LocationUtils.checkFineLocationPermission(mContext)).thenReturn(false);
+    for (BaseLocationProvider.StartupPhase phase : BaseLocationProvider.StartupPhase.values())
+    {
+      final int nativeCount = mNativeProviders.size();
+      final Provider provider = startFused(phase);
+      advance(phase == BaseLocationProvider.StartupPhase.REGISTERED ? 15_001 : 5001);
+      assertEquals(nativeCount + 1, mNativeProviders.size());
+      assertFalse(provider.mStarted);
+      assertNull(mHelper.getSavedLocation());
+      mHelper.stop();
+    }
+  }
+
+  @Test
+  public void preciseTrackingLossStillStartsNative()
+  {
+    startFused(BaseLocationProvider.StartupPhase.REGISTERED).emit(freshLocation(10));
+    advance(4999);
+    assertTrue(mNativeProviders.isEmpty());
+    advance(2);
+    assertEquals(1, mNativeProviders.size());
+    assertTrue(mNativeProviders.get(0).mStarted);
+  }
+
+  @Test
+  public void fineToCoarseResumeCancelsOnlyTrackingDeadline()
+  {
+    final Provider provider = startFused(BaseLocationProvider.StartupPhase.REGISTERING_UPDATES);
+    provider.emit(freshLocation(1000));
+    advance(4000);
+    mUtils.when(() -> LocationUtils.checkFineLocationPermission(mContext)).thenReturn(false);
+    mHelper.resumeLocationInForeground();
+    advance(2000);
+    provider.progress(BaseLocationProvider.StartupPhase.REGISTERED);
+    advance(20_000);
+    assertTrue(mNativeProviders.isEmpty());
+    assertTrue(mHelper.isActive());
+  }
+
+  @Test
+  public void coarsePermissionAtTrackingExpiryKeepsGoogle()
+  {
+    final Provider provider = startFused(BaseLocationProvider.StartupPhase.REGISTERED);
+    provider.emit(freshLocation(1000));
+    mUtils.when(() -> LocationUtils.checkFineLocationPermission(mContext)).thenReturn(false);
+    advance(5001);
+    assertTrue(mNativeProviders.isEmpty());
+    assertTrue(provider.mStarted);
+  }
+
+  @Test
+  public void coarseToFineResumeArmsTrackingFromLatestFix()
+  {
+    mUtils.when(() -> LocationUtils.checkFineLocationPermission(mContext)).thenReturn(false);
+    final Provider provider = startFused(BaseLocationProvider.StartupPhase.REGISTERED);
+    provider.emit(freshLocation(1000));
+    advance(10_000);
+    provider.emit(freshLocation(1000));
+    advance(1000);
+    mHelper.resumeLocationInForeground();
+    mUtils.when(() -> LocationUtils.checkFineLocationPermission(mContext)).thenReturn(true);
+    mHelper.resumeLocationInForeground();
+    advance(3999);
+    assertTrue(mNativeProviders.isEmpty());
+    advance(2);
+    assertEquals(1, mNativeProviders.size());
+  }
+
+  @Test
+  public void coarseToFineResumeChecksAlreadyExpiredFix()
+  {
+    mUtils.when(() -> LocationUtils.checkFineLocationPermission(mContext)).thenReturn(false);
+    startFused(BaseLocationProvider.StartupPhase.REGISTERED).emit(freshLocation(1000));
+    advance(6000);
+    mUtils.when(() -> LocationUtils.checkFineLocationPermission(mContext)).thenReturn(true);
+    mHelper.resumeLocationInForeground();
+    assertEquals(1, mNativeProviders.size());
   }
 
   @Test
@@ -380,6 +489,21 @@ public class LocationHelperTest
     ShadowSystemClock.simulateDeepSleep(Duration.ofSeconds(6));
     assertTrue(mNativeProviders.isEmpty());
     mHelper.resumeLocationInForeground();
+    assertEquals(1, mNativeProviders.size());
+  }
+
+  @Test
+  public void repeatedResumeBeforeDeadlineDoesNotExtendOrDuplicateIt()
+  {
+    startFused(BaseLocationProvider.StartupPhase.CHECKING_SETTINGS);
+    ShadowSystemClock.simulateDeepSleep(Duration.ofSeconds(2));
+    mHelper.resumeLocationInForeground();
+    mHelper.resumeLocationInForeground();
+    advance(2999);
+    assertTrue(mNativeProviders.isEmpty());
+    advance(2);
+    assertEquals(1, mNativeProviders.size());
+    advance(6000);
     assertEquals(1, mNativeProviders.size());
   }
 
@@ -475,20 +599,6 @@ public class LocationHelperTest
   }
 
   @Test
-  public void nativeFallbackCannotEnterAnotherGoogleRecoveryLoop()
-  {
-    startFused(BaseLocationProvider.StartupPhase.CHECKING_SETTINGS);
-    advance(5001);
-    final Provider fallback = mNativeProviders.get(0);
-    fallback.progress(BaseLocationProvider.StartupPhase.CHECKING_SETTINGS);
-    fallback.mListener.onFusedLocationUnsupported();
-    advance(20_000);
-    assertEquals(1, mNativeProviders.size());
-    assertEquals(1, mProviders.size());
-    assertTrue(fallback.mStarted);
-  }
-
-  @Test
   public void activeReloadReplacesTheBackendWithoutRestartingSensors()
   {
     mHelper.start();
@@ -572,29 +682,45 @@ public class LocationHelperTest
 
     assertEquals(List.of(true), sourceChanges);
     assertSame(first, mHelper.getSavedLocation());
-    final Location coarse = location(1500, 1000);
-    old.mListener.onLocationChanged(coarse, false);
-    assertSame(first, mHelper.getSavedLocation());
-    old.mListener.onLocationChanged(coarse, true);
-    assertEquals(List.of(true, false, true), sourceChanges);
-    assertSame(coarse, mHelper.getSavedLocation());
     mHelper.reloadProvider();
     old.mListener.onLocationChanged(location(2000, 1), false);
     old.mListener.onLocationChanged(location(2000, 1), true);
 
-    assertEquals(List.of(true, false, true), sourceChanges);
-    assertSame(coarse, mHelper.getSavedLocation());
+    assertEquals(List.of(true), sourceChanges);
+    assertSame(first, mHelper.getSavedLocation());
     final Provider current = mProviders.get(2);
     ShadowSystemClock.advanceBy(Duration.ofSeconds(2));
     final Location next = location(3000, 10);
     current.mListener.onLocationChanged(next, false);
 
-    assertEquals(List.of(true, false, true, false), sourceChanges);
+    assertEquals(List.of(true, false), sourceChanges);
     assertSame(next, mHelper.getSavedLocation());
     mHelper.stop();
     current.mListener.onLocationChanged(location(4000, 1), true);
-    assertEquals(List.of(true, false, true, false), sourceChanges);
+    assertEquals(List.of(true, false), sourceChanges);
     assertSame(next, mHelper.getSavedLocation());
+  }
+
+  @Test
+  public void authorizedHandoffThroughTheCurrentBackendAcceptsAnOlderWorseFix()
+  {
+    mHelper.start();
+    final Provider provider = mProviders.get(0);
+    final Location first = location(2000, 1);
+    first.setProvider(LocationManager.GPS_PROVIDER);
+    provider.emit(first);
+    advance(1000);
+    final Location latest = location(3000, 1);
+    latest.setProvider(LocationManager.GPS_PROVIDER);
+    provider.emit(latest);
+
+    final Location cachedFallback = location(2500, 100);
+    cachedFallback.setProvider(LocationManager.NETWORK_PROVIDER);
+    provider.mListener.onLocationChanged(cachedFallback, false);
+    assertSame(latest, mHelper.getSavedLocation());
+    provider.mListener.onLocationChanged(cachedFallback, true);
+    assertSame(cachedFallback, mHelper.getSavedLocation());
+    assertEquals(List.of(2000L, 3000L, 2500L), LocationStateShadow.sUpdateTimes);
   }
 
   @Test
@@ -656,7 +782,7 @@ public class LocationHelperTest
     mHelper.reloadProvider();
     old.emit(location(1000, 1));
     assertEquals(1, mProviders.size());
-    assertEquals(null, mHelper.getSavedLocation());
+    assertNull(mHelper.getSavedLocation());
     mHelper.stopNavigationSimulation();
 
     assertEquals(2, mProviders.size());
@@ -688,6 +814,60 @@ public class LocationHelperTest
     assertEquals(1, mProviders.size());
     assertEquals(3000, mProviders.get(0).mInterval);
     assertTrue(mProviders.get(0).mStarted);
+  }
+
+  @Test
+  public void listenerCanStopAcquisitionBeforeTheFixReachesTheCore()
+  {
+    mHelper.addListener(location -> mHelper.stop());
+    mHelper.start();
+    mProviders.get(0).emit(location(1000, 10));
+
+    assertFalse(mHelper.isActive());
+    assertTrue(LocationStateShadow.sUpdateTimes.isEmpty());
+  }
+
+  @Test
+  public void listenerCanReplaceTheBackendBeforeTheFixReachesTheCore()
+  {
+    mHelper.addListener(location -> mHelper.reloadProvider());
+    mHelper.start();
+    mProviders.get(0).emit(location(1000, 10));
+
+    assertTrue(mProviders.get(1).mStarted);
+    assertTrue(LocationStateShadow.sUpdateTimes.isEmpty());
+  }
+
+  @Test
+  public void nestedFixIsDeliveredOnceWithoutReplayingTheSupersededFix()
+  {
+    final Location first = location(1000, 10);
+    final Location next = location(2000, 10);
+    mHelper.addListener(location -> {
+      if (location == first)
+        mProviders.get(0).emit(next);
+    });
+    final List<Location> delivered = new ArrayList<>();
+    mHelper.addListener(delivered::add);
+    mHelper.start();
+    mProviders.get(0).emit(first);
+
+    assertEquals(List.of(next), delivered);
+    assertEquals(List.of(2000L), LocationStateShadow.sUpdateTimes);
+  }
+
+  @Test
+  public void listenerCanStopAndRestartBeforeTheFixReachesTheCore()
+  {
+    mHelper.addListener(location -> {
+      mHelper.stop();
+      mHelper.start();
+    });
+    mHelper.start();
+    mProviders.get(0).emit(location(1000, 10));
+
+    assertTrue(mHelper.isActive());
+    assertTrue(LocationStateShadow.sUpdateTimes.isEmpty());
   }
 
   @Test
