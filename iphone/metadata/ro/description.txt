@@ -33,6 +33,5 @@ SINCRONIZARE iCLOUD: Fă backup și sincronizează cu ușurință toate marcajel
 Încearcă aplicația — este 100% gratuită, fără reclame, rapidă și complet offline. Bucură-te de o experiență de hartă rapidă, de încredere și privată și împărtășește-o cu alții.
 Organic Maps este un proiect indie, open-source, condus de comunitate, cu sute de contribuitori care ajută la dezvoltarea de funcții noi, rezolvarea problemelor, traduceri și dezvoltarea proiectului.
 
-Alătură-te comunității pe Telegram: @OrganicMapsApp
-
-Instagram: @organicmaps.app
+Instagram: organicmaps.app
+Telegram: OrganicMapsApp

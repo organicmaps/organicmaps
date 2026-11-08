@@ -48,9 +48,8 @@ Organic Maps থেকেই OpenStreetMap-এ তথ্য যোগ বা স
 
 Organic Maps হলো একটি স্বাধীন, কমিউনিটি-চালিত, ওপেন-সোর্স প্রকল্প যেখানে শত শত অবদানকারী ফিচার উন্নয়ন, বাগ ফিক্স, অনুবাদ এবং প্রকল্পের অগ্রগতিতে সহায়তা করেন।
 
-টেলিগ্রামে যোগ দিন: @OrganicMapsApp
+Instagram: organicmaps.app
+Telegram: OrganicMapsApp
 প্রকল্পকে সমর্থনের আরও উপায় জানুন: https://organicmaps.app/contribute/
 
 আপনার সৎ মতামত ও রিভিউ আমাদের অনুপ্রাণিত করে! প্রশ্ন থাকলে organicmaps.app ওয়েবসাইটে যান।
-
-Instagram: @organicmaps.app

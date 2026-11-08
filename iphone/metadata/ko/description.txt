@@ -35,10 +35,9 @@ iCloud 동기화: iCloud를 통해 북마크와 경로를 쉽게 백업 및 동�
 앱을 사용해보세요 — 100% 무료, 광고 없음, 빠르고 완전히 오프라인. 빠르고 신뢰할 수 있으며 개인적인 지도 경험을 즐기고 다른 사람과 공유하세요.
 Organic Maps는 커뮤니티 중심의 오픈소스 프로젝트로, 수백 명의 기여자가 새로운 기능 개발, 문제 해결, 번역, 프로젝트 진행을 지원합니다.
 
-Telegram에서 커뮤니티 참여: @OrganicMapsApp
+Instagram: organicmaps.app
+Telegram: OrganicMapsApp
 다른 지원 방법 보기: https://organicmaps.app/contribute/
 
 스토어에서 솔직한 피드백과 리뷰가 저희에게 큰 힘이 됩니다! 질문이 있으신가요? 자세한 내용과 FAQ는 organicmaps.app
  방문.
-
-Instagram: @organicmaps.app

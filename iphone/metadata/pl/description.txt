@@ -33,7 +33,6 @@ SYNC iCLOUD: Łatwo wykonaj kopię zapasową i synchronizuj wszystkie zakładki 
 Wypróbuj aplikację — jest w 100% darmowa, bez reklam, szybka i całkowicie offline. Ciesz się szybką, niezawodną i prywatną obsługą mapy i dziel się nią z innymi.
 Organic Maps to niezależny, społecznościowy projekt open-source z setkami współtwórców, którzy pomagają rozwijać nowe funkcje, naprawiać błędy, tłumaczyć i rozwijać projekt.
 
-Dołącz do społeczności na Telegramie: @OrganicMapsApp
+Instagram: organicmaps.app
+Telegram: OrganicMapsApp
 Lub dowiedz się, jak wspierać projekt: https://organicmaps.app/contribute/
-
-Instagram: @organicmaps.app

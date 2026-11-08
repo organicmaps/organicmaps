@@ -33,6 +33,6 @@ SINKRONISASI iCLOUD: Cadangkan dan sinkronkan semua bookmark dan rute Anda denga
 
 Coba aplikasi ini — 100% gratis, bebas iklan, cepat, dan sepenuhnya offline. Organic Maps adalah proyek indie, digerakkan komunitas, dan open-source dengan ratusan kontributor yang membantu mengembangkan fitur baru, memperbaiki masalah, menerjemahkan, dan mendorong proyek maju.
 
-Bergabung dengan komunitas di Telegram: @OrganicMapsApp. Atau pelajari cara lain untuk mendukung proyek: https://organicmaps.app/contribute
-
-Instagram: @organicmaps.app
+Instagram: organicmaps.app
+Telegram: OrganicMapsApp
+Atau pelajari cara lain untuk mendukung proyek: https://organicmaps.app/contribute
