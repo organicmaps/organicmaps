@@ -189,8 +189,10 @@ public:
   FollowTrackResult NavigateTrack(kml::TrackId trackId);
   // Explicitly leave active track navigation and return to its captured preview.
   FollowTrackResult ResetFollowedTrackToPlanning();
-  // Update a preview from an exact source selection, retaining its profile and viewport.
-  FollowTrackResult UpdateFollowedTrackEntry();
+  // Update from a finite distance along the full source track, clamped to its endpoints.
+  // Retain the profile and viewport; update the selection and elevation marker only on Ok.
+  // At a disconnected boundary, the distance selects the preceding section's endpoint.
+  FollowTrackResult UpdateFollowedTrackEntryAt(double distanceM);
   // Change this preview's profile without writing the user's global defaults.
   FollowTrackResult SetFollowTrackProfile(routing::RouterType type);
   bool IsFollowingTrack() const { return m_followSession.has_value(); }

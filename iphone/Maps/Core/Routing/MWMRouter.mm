@@ -184,9 +184,9 @@ static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
   return OnFollowTrackResult(result);
 }
 
-+ (MWMFollowTrackResult)updateFollowedTrackEntry
++ (MWMFollowTrackResult)updateFollowedTrackEntryAtDistance:(double)distance
 {
-  return OnFollowTrackResult(GetFramework().GetRoutingManager().UpdateFollowedTrackEntry());
+  return OnFollowTrackResult(GetFramework().GetRoutingManager().UpdateFollowedTrackEntryAt(distance));
 }
 
 + (MWMFollowTrackResult)setFollowTrackProfile:(MWMRouterType)type

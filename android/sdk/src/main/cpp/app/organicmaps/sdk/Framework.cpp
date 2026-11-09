@@ -1284,9 +1284,10 @@ JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeResetFollowedTrackToPlan
   return static_cast<jint>(frm()->GetRoutingManager().ResetFollowedTrackToPlanning());
 }
 
-JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeUpdateFollowedTrackEntry(JNIEnv *, jclass)
+JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeUpdateFollowedTrackEntryAt(JNIEnv *, jclass,
+                                                                                   jdouble distanceMeters)
 {
-  return static_cast<jint>(frm()->GetRoutingManager().UpdateFollowedTrackEntry());
+  return static_cast<jint>(frm()->GetRoutingManager().UpdateFollowedTrackEntryAt(distanceMeters));
 }
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeStartFollowedTrack(JNIEnv *, jclass)

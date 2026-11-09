@@ -648,11 +648,15 @@ public class RoutingController
     return result;
   }
 
-  /** Rebuilds from the current native map/chart selection, preserving this preview's profile and direction. */
+  /**
+   * Rebuilds from a finite distance along the full track, preserving profile and viewport.
+   * Refusals leave the preview and selection unchanged.
+   */
   @NonNull
-  public FollowTrackResult updateFollowedTrackEntry()
+  public FollowTrackResult updateFollowedTrackEntryAt(double distanceMeters)
   {
-    final FollowTrackResult result = FollowTrackResult.valueOf(Framework.nativeUpdateFollowedTrackEntry());
+    final FollowTrackResult result =
+        FollowTrackResult.valueOf(Framework.nativeUpdateFollowedTrackEntryAt(distanceMeters));
     if (result == FollowTrackResult.Ok)
       enterTrackFollowPlanning();
     return result;

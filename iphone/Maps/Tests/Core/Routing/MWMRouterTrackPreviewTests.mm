@@ -88,22 +88,32 @@
   XCTAssertEqual(GetFramework().GetRoutingManager().RoutingSession().GetRoute(), route);
 }
 
-- (void)testEntryUpdateKeepsTheChosenProfile
+- (void)testChartEntryUpdateKeepsTheChosenProfileAndPreservesRefusals
 {
   auto const id = [self createPreview];
   [self waitForPreview];
   XCTAssertEqual([MWMRouter setFollowTrackProfile:MWMRouterTypeVehicle], MWMFollowTrackResultOk);
   [self waitForPreview];
   auto & bookmarks = GetFramework().GetBookmarkManager();
-  auto const start = mercator::FromLatLon(45.0, 19.0);
-  auto const entry = mercator::FromLatLon(45.005, 19.0);
-  bookmarks.SetTrackSelectionInfo({id, entry, mercator::DistanceOnEarth(start, entry)}, false);
-  XCTAssertEqual([MWMRouter updateFollowedTrackEntry], MWMFollowTrackResultOk);
+  auto const * track = bookmarks.GetTrack(id);
+  auto const & line = track->GetData().m_geometry.m_lines.front();
+  auto const entry = (line.front().GetPoint() + line.back().GetPoint()) * 0.5;
+  double const distance = track->GetLengthMeters() * 0.5;
+  XCTAssertEqual([MWMRouter updateFollowedTrackEntryAtDistance:distance], MWMFollowTrackResultOk);
+  XCTAssertEqual(MWMNavigationDashboardManager.sharedManager.state, MWMNavigationDashboardStatePlanning);
   [self waitForPreview];
   XCTAssertEqual([MWMRouter renderType], MWMRouterTypeVehicle);
   XCTAssertTrue(bookmarks.GetTrack(id)->GetData().m_routerType == "pedestrian");
   auto const & point = GetFramework().GetRoutingManager().RoutingSession().GetRoute()->GetPoly().GetPoint(1);
   XCTAssertTrue(point.EqualDxDy(entry, mercator::kPointEqualityEps));
+  XCTAssertEqual(bookmarks.GetElevationActivePoint(id), distance);
+
+  auto const * route = GetFramework().GetRoutingManager().RoutingSession().GetRoute();
+  XCTAssertEqual([MWMRouter updateFollowedTrackEntryAtDistance:bookmarks.GetTrack(id)->GetLengthMeters()],
+                 MWMFollowTrackResultNoRemainingGeometry);
+  XCTAssertEqual(GetFramework().GetRoutingManager().RoutingSession().GetRoute(), route);
+  XCTAssertEqual(MWMNavigationDashboardManager.sharedManager.state, MWMNavigationDashboardStateReady);
+  XCTAssertEqual(bookmarks.GetElevationActivePoint(id), distance);
 }
 
 - (void)testDeletionCancelsPreviewWhileItsBuildIsPending

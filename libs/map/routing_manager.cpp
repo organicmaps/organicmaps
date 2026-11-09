@@ -1209,7 +1209,7 @@ FollowTrackResult RoutingManager::ResetFollowedTrackToPlanning()
   return BuildFollowedTrack(m_followSession->m_source, m_followSession->m_entry, m_followSession->m_info.m_profile);
 }
 
-FollowTrackResult RoutingManager::UpdateFollowedTrackEntry()
+FollowTrackResult RoutingManager::UpdateFollowedTrackEntryAt(double distanceM)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   if (!m_followSession)
@@ -1218,15 +1218,23 @@ FollowTrackResult RoutingManager::UpdateFollowedTrackEntry()
     return FollowTrackResult::Busy;
   if (auto const result = CheckFollowedTrackSource(); result != FollowTrackResult::Ok)
     return result;
-  auto const selection = m_bmManager->GetTrackSelectionInfo(m_followSession->m_info.m_id);
-  if (!selection.IsValid())
+
+  if (!math::is_finite(distanceM))
     return FollowTrackResult::InvalidSelection;
-  auto const entry =
-      ResolveTrackEntry(m_followSession->m_source->m_geometry, selection.m_trackPoint, selection.m_distFromBegM);
+  auto const trackId = m_followSession->m_info.m_id;
+  auto const * track = m_bmManager->GetTrack(trackId);
+  distanceM = std::clamp(distanceM, 0.0, track->GetLengthMeters());
+  auto const entry = ResolveTrackEntry(m_followSession->m_source->m_geometry, track->GetPoint(distanceM), distanceM);
   if (!entry)
     return FollowTrackResult::InvalidSelection;
-  return BuildFollowedTrack(m_followSession->m_source, *entry, m_followSession->m_info.m_profile,
-                            true /* keepViewport */);
+  auto const result =
+      BuildFollowedTrack(m_followSession->m_source, *entry, m_followSession->m_info.m_profile, true /* keepViewport */);
+  if (result == FollowTrackResult::Ok)
+  {
+    auto editSession = m_bmManager->GetEditSession();
+    m_bmManager->SetElevationActivePoint(trackId, distanceM);
+  }
+  return result;
 }
 
 FollowTrackResult RoutingManager::SetFollowTrackProfile(RouterType type)
