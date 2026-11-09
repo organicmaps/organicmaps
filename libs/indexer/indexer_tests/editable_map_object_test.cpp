@@ -71,6 +71,41 @@ UNIT_TEST(EditableMapObject_SetWebsite)
   }
 }
 
+// https://github.com/organicmaps/organicmaps/issues/4840
+// Maps generated before page names were decoded store them encoded. Clients submit unchanged fields on save,
+// so an unchanged page must not become an edit.
+UNIT_TEST(EditableMapObject_SetFacebookFromOldMap)
+{
+  struct OldMapObject : public EditableMapObject
+  {
+    void SetStored(std::string value) { m_metadata.Set(feature::Metadata::FMD_CONTACT_FACEBOOK, std::move(value)); }
+  };
+
+  std::string const encoded = "people/Caf%C3%A9-Ol%C3%A9/1000123456789";
+  OldMapObject emo;
+  emo.SetStored(encoded);
+  emo.SetMetadata(feature::Metadata::FMD_CONTACT_FACEBOOK, "https://facebook.com/" + encoded);
+  TEST_EQUAL(emo.GetMetadata(feature::Metadata::FMD_CONTACT_FACEBOOK), encoded, ());
+  // A plain page name is resubmitted as is.
+  emo.SetStored("Caf%C3%A9-Gym");
+  emo.SetMetadata(feature::Metadata::FMD_CONTACT_FACEBOOK, "https://facebook.com/Caf%C3%A9-Gym");
+  TEST_EQUAL(emo.GetMetadata(feature::Metadata::FMD_CONTACT_FACEBOOK), "Caf%C3%A9-Gym", ());
+
+  // Clearing the field removes a stored value, whatever its form.
+  for (auto const & stored : {encoded, std::string("people/Paillote-Lgm/100012630853826"), std::string("Caf%C3%A9")})
+  {
+    emo.SetStored(stored);
+    emo.SetMetadata(feature::Metadata::FMD_CONTACT_FACEBOOK, "");
+    TEST_EQUAL(emo.GetMetadata(feature::Metadata::FMD_CONTACT_FACEBOOK), "", (stored));
+  }
+
+  // A real change is still stored, formatted.
+  emo.SetMetadata(feature::Metadata::FMD_CONTACT_FACEBOOK, "https://facebook.com/Caf%C3%A9-Gym");
+  TEST_EQUAL(emo.GetMetadata(feature::Metadata::FMD_CONTACT_FACEBOOK), "Café-Gym", ());
+  emo.SetMetadata(feature::Metadata::FMD_CONTACT_FACEBOOK, "");
+  TEST_EQUAL(emo.GetMetadata(feature::Metadata::FMD_CONTACT_FACEBOOK), "", ());
+}
+
 UNIT_TEST(EditableMapObject_ValidateBuildingLevels)
 {
   TEST(EditableMapObject::ValidateBuildingLevels(""), ());

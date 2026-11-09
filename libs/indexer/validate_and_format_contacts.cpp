@@ -4,6 +4,8 @@
 
 #include "base/string_utils.hpp"
 
+#include <algorithm>
+#include <cstdint>
 #include <cstring>  // strlen
 #include <regex>
 
@@ -84,8 +86,9 @@ bool containsInvalidFBSymbol(std::string const & facebookPage, size_t startIndex
 }
 
 // Page names in OSM URLs are often percent-encoded, e.g. %E4%BE%86 for 來. Decode them only if all escapes
-// form valid non-ASCII UTF-8: escaped ASCII like %2F keeps its meaning, and a partly decoded value would be
-// encoded twice when opened as a link.
+// form valid non-ASCII UTF-8 within the BMP: escaped ASCII like %2F keeps its meaning, a partly decoded value
+// would be encoded twice when opened as a link, and Android's JNI string conversions mangle characters beyond
+// U+FFFF, so such names stay encoded.
 static std::string DecodeNonAsciiEscapes(std::string const & s)
 {
   auto const hexDigit = [](char c) -> int
@@ -121,14 +124,19 @@ static std::string DecodeNonAsciiEscapes(std::string const & s)
       result += s[i++];
     else
     {
-      if (utf8::is_valid(bytes.begin(), bytes.end()))
-        result += bytes;
-      else
-        result.append(s.substr(i, end - i));
+      // A four-byte UTF-8 sequence starts with 0b11110xxx.
+      bool const beyondBmp =
+          std::any_of(bytes.begin(), bytes.end(), [](char c) { return (static_cast<uint8_t>(c) & 0xF8) == 0xF0; });
+      if (beyondBmp || !utf8::is_valid(bytes.begin(), bytes.end()))
+        return s;
+      result += bytes;
       i = end;
     }
   }
-  return result.find('%') == std::string::npos ? result : s;
+  // Escaped ASCII or a malformed escape is left in the result: keep the value as is.
+  if (result.find('%') != std::string::npos)
+    return s;
+  return result;
 }
 
 std::string ValidateAndFormat_website(std::string const & v)

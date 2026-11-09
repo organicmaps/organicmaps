@@ -31,7 +31,13 @@ UNIT_TEST(EditableMapObject_ValidateAndFormat_facebook)
                                       "880179549008233"),
       "來去健身-LuckyGym-大里店-880179549008233", ());
   TEST_EQUAL(osm::ValidateAndFormat_facebook("https://facebook.com/Caf%C3%A9-Ol%C3%A9"), "Café-Olé", ());
-  // Escaped ASCII, '+' and escapes that are not valid UTF-8 are kept as is, and then nothing is decoded.
+  TEST_EQUAL(osm::ValidateAndFormat_facebook("https://facebook.com/Caf%c3%a9+Ol%c3%a9"), "Café+Olé", ());
+  // A literal '+' is kept. ASCII or malformed escapes, invalid UTF-8 and characters beyond U+FFFF, which
+  // Android can't pass through JNI, keep the whole path unchanged.
+  TEST_EQUAL(osm::ValidateAndFormat_facebook("https://facebook.com/Caf%C3%A9-Gym-%F0%9F%8F%8B"),
+             "Caf%C3%A9-Gym-%F0%9F%8F%8B", ());
+  TEST_EQUAL(osm::ValidateAndFormat_facebook("https://facebook.com/Caf%C3%A9%G0"), "Caf%C3%A9%G0", ());
+  TEST_EQUAL(osm::ValidateAndFormat_facebook("https://facebook.com/Caf%C3%A9%8G"), "Caf%C3%A9%8G", ());
   TEST_EQUAL(osm::ValidateAndFormat_facebook("https://facebook.com/a%2Fb+c%20d"), "a%2Fb+c%20d", ());
   TEST_EQUAL(osm::ValidateAndFormat_facebook("https://facebook.com/bad%E4%BE-%FF%C3"), "bad%E4%BE-%FF%C3", ());
   TEST_EQUAL(osm::ValidateAndFormat_facebook("https://facebook.com/end%E4%B"), "end%E4%B", ());
@@ -113,8 +119,6 @@ UNIT_TEST(EditableMapObject_ValidateAndFormat_contactLine)
   TEST_EQUAL(osm::ValidateAndFormat_contactLine("http://line.me/R/home/public/main?id=hmczqsbav5"), "hmczqsbav5", ());
   TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://line.me/R/home/public/main?id=wa1gvx91jb"), "wa1gvx91jb", ());
   TEST_EQUAL(osm::ValidateAndFormat_contactLine("http://line.me/R/home/public/profile?id=5qll5dyqqu"), "5qll5dyqqu",
-             ());
-  TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://line.me/R/home/public/profile?id=r90ck7n1rq"), "r90ck7n1rq",
              ());
   TEST_EQUAL(osm::ValidateAndFormat_contactLine("https://line.me/R/home/public/profile?id=r90ck7n1rq"), "r90ck7n1rq",
              ());
@@ -265,7 +269,6 @@ UNIT_TEST(EditableMapObject_ValidateLinePage)
   TEST(osm::ValidateLinePage("http://line.me/R/home/public/main?id=hmczqsbav5"), ());
   TEST(osm::ValidateLinePage("https://line.me/R/home/public/main?id=wa1gvx91jb"), ());
   TEST(osm::ValidateLinePage("http://line.me/R/home/public/profile?id=5qll5dyqqu"), ());
-  TEST(osm::ValidateLinePage("https://line.me/R/home/public/profile?id=r90ck7n1rq"), ());
   TEST(osm::ValidateLinePage("https://line.me/R/home/public/profile?id=r90ck7n1rq"), ());
   TEST(osm::ValidateLinePage("https://page.line.me/fom5198h"), ());
   TEST(osm::ValidateLinePage("https://page.line.me/qn58n8g?web=mobile"), ());
