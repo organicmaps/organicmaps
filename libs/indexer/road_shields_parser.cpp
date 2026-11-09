@@ -127,7 +127,7 @@ public:
 
   RoadShieldsSetT GetRoadShields() const
   {
-    RoadShieldsSetT result, defaultShields, networkShields;
+    RoadShieldsSetT result, defaultShields;
 
     strings::Tokenize(m_baseRoadNumber, ";", [&](std::string_view rawText)
     {
@@ -151,8 +151,6 @@ public:
           if (networkType != RoadShieldType::Default)
             shield.m_type = networkType;
         }
-        if (shield.m_type == RoadShieldType::Default)
-          networkShields.push_back(shield);
       }
       if (!shield.m_name.empty() && shield.m_type != RoadShieldType::Hidden)
       {
@@ -168,19 +166,6 @@ public:
     result.erase_if([&defaultShields](RoadShield const & shield)
     { return std::find(defaultShields.begin(), defaultShields.end(), shield) != defaultShields.end(); });
 
-    // A route relation often has only the number of the way's ref, e.g. "NN" for "CTH NN".
-    // Drop such a default relation shield instead of drawing the number twice.
-    RoadShieldsSetT numberOnlyShields;
-    for (auto const & shield : networkShields)
-    {
-      std::string const suffix = " " + shield.m_name;
-      if (std::any_of(result.begin(), result.end(),
-                      [&suffix](RoadShield const & other) { return other.m_name.ends_with(suffix); }))
-        numberOnlyShields.push_back(shield);
-    }
-    result.erase_if([&numberOnlyShields](RoadShield const & shield)
-    { return std::find(numberOnlyShields.begin(), numberOnlyShields.end(), shield) != numberOnlyShields.end(); });
-
     return result;
   }
 
@@ -192,6 +177,25 @@ class USRoadShieldParser : public RoadShieldParser
 {
 public:
   explicit USRoadShieldParser(std::string const & baseRoadNumber) : RoadShieldParser(baseRoadNumber) {}
+
+  RoadShieldsSetT GetRoadShields() const
+  {
+    // A county road is often tagged "CTH NN" on the way and only "NN" in its route relation (or in the
+    // generated ref, which drops long networks). Draw such a number once, as the county shield.
+    auto result = RoadShieldParser::GetRoadShields();
+    RoadShieldsSetT const shields = result;
+    result.erase_if([&shields](RoadShield const & number)
+    {
+      return number.m_type == RoadShieldType::Default &&
+             std::any_of(shields.begin(), shields.end(), [&number](RoadShield const & county)
+      {
+        return county.m_type == RoadShieldType::Default && county.m_additionalText == number.m_additionalText &&
+               IsCountyRefOf(county.m_name, number.m_name);
+      });
+    });
+    return result;
+  }
+
   RoadShield ParseRoadShield(std::string_view rawText) const override
   {
     std::string shieldText(rawText);
@@ -245,6 +249,20 @@ public:
       return RoadShield(RoadShieldType::Generic_White, roadNumber, additionalInfo);
 
     return RoadShield(RoadShieldType::Default, rawText);
+  }
+
+private:
+  static bool IsCountyRefOf(std::string_view ref, std::string_view number)
+  {
+    for (std::string_view const prefix : {"CTH", "CR"})
+    {
+      if (ref.size() > prefix.size() + 1 && ref.starts_with(prefix) &&
+          (ref[prefix.size()] == ' ' || ref[prefix.size()] == '-') && ref.substr(prefix.size() + 1) == number)
+      {
+        return true;
+      }
+    }
+    return false;
   }
 };
 
