@@ -73,6 +73,34 @@ final class ActionBarViewControllerTests: XCTestCase {
     try assertColors(actionBar, primary: .routeTo)
   }
 
+  func test_GivenMapStatusUpdateBeforeViewLoads_WhenButtonsReset_ThenUsesLatestStatusOnLoad() {
+    let cases: [(MapNodeStatus, [ActionBarButtonType])] = [
+      (.inQueue, [.download, .routeFrom, .bookmark, .routeTo]),
+      (.onDisk, [.routeFrom, .bookmark, .routeTo]),
+    ]
+    for (status, expectedButtons) in cases {
+      let data = PlacePageDataStub(objectType: .POI)
+      let attributes = MapNodeAttributesStub()
+      data.stubMapNodeAttributes = attributes
+      let actionBar = makeActionBar(data: data, loadView: false)
+      XCTAssertFalse(actionBar.isViewLoaded)
+
+      attributes.status = status
+      actionBar.resetButtons()
+      XCTAssertFalse(actionBar.isViewLoaded)
+
+      actionBar.loadViewIfNeeded()
+      XCTAssertEqual(actionBar.stackView.arrangedSubviews.compactMap { ($0 as? ActionBarButton)?.type }, expectedButtons)
+      XCTAssertEqual(actionBar.downloadButton != nil, expectedButtons.contains(.download))
+      if status == .inQueue {
+        let settled = expectation(description: "Apply queued download state")
+        DispatchQueue.main.async { settled.fulfill() }
+        wait(for: [settled], timeout: 2)
+        XCTAssertEqual(actionBar.downloadButton?.mapDownloadProgress?.state, .spinner)
+      }
+    }
+  }
+
   func test_GivenOldHighlightPreference_WhenConfigured_ThenRouteToIsBlue() throws {
     let key = "kUDDidHighlightPoint2PointButton"
     let defaults = UserDefaults.standard
@@ -147,7 +175,8 @@ final class ActionBarViewControllerTests: XCTestCase {
     return (view as? UIButton).flatMap { $0.image(for: .normal) == nil ? nil : $0 }
   }
 
-  private func makeActionBar(data: PlacePageDataStub, routeState: RouteState = RouteState()) -> ActionBarViewController {
+  private func makeActionBar(data: PlacePageDataStub, routeState: RouteState = RouteState(),
+                             loadView: Bool = true) -> ActionBarViewController {
     if !StyleManager.shared.hasTheme() {
       StyleManager.shared.setTheme(MainTheme())
     }
@@ -156,7 +185,9 @@ final class ActionBarViewControllerTests: XCTestCase {
     actionBar.canAddStop = routeState.canAddStop
     actionBar.canReplaceStop = routeState.canReplaceStop
     actionBar.shouldAppendNewPoints = routeState.shouldAppendNewPoints
-    actionBar.loadViewIfNeeded()
+    if loadView {
+      actionBar.loadViewIfNeeded()
+    }
     return actionBar
   }
 
