@@ -340,14 +340,8 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::RemoveSubroute:
   {
-    ref_ptr<RemoveSubrouteMessage> msg = message;
+    // The frontend has retired the descriptions and rejects any late uploads for their IDs.
     m_routeBuilder->ClearRouteCache();
-    // We have to resend the message to FR, because it guaranties that
-    // RemoveSubroute will be processed after FlushSubrouteMessage.
-    m_commutator->PostMessage(
-        ThreadsCommutator::RenderThread,
-        make_unique_dp<RemoveSubrouteMessage>(msg->GetSegmentId(), msg->NeedDeactivateFollowing()),
-        MessagePriority::Normal);
     break;
   }
 

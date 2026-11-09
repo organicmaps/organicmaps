@@ -619,23 +619,23 @@ void DrapeEngine::SetSelectionLines(SelectionInfo && info)
 dp::DrapeID DrapeEngine::AddSubroute(SubrouteConstPtr subroute)
 {
   dp::DrapeID const id = GenerateDrapeID();
-  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<AddSubrouteMessage>(id, subroute), MessagePriority::Normal);
+  // The frontend orders description registration, removal and recaching before GPU builds.
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<AddSubrouteMessage>(id, subroute, 0 /* assigned by frontend */),
+                                  MessagePriority::Normal);
   return id;
 }
 
 void DrapeEngine::RemoveSubroute(dp::DrapeID subrouteId, bool deactivateFollowing)
 {
-  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
                                   make_unique_dp<RemoveSubrouteMessage>(subrouteId, deactivateFollowing),
                                   MessagePriority::Normal);
 }
 
 void DrapeEngine::RemoveAlternativeSubroutes()
 {
-  // UberHighSingleton so this is processed before any pending High-priority UpdateMapStyle
-  // message. Otherwise UpdateContextDependentResources would iterate m_subroutes while it
-  // still has alternatives and re-issue AddSubroute for them — defeating the clear.
+  // Retire frontend descriptions before a pending style reload can requeue their GPU builds.
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread, make_unique_dp<RemoveAlternativeSubroutesMessage>(),
                                   MessagePriority::UberHighSingleton);
 }
