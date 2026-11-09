@@ -82,6 +82,12 @@ UNIT_TEST(RoadShields_UKARoadMotorways)
   TEST_EQUAL(shields.size(), 1, (shields));
   TEST_EQUAL(shields[0].m_type, RoadShieldType::Generic_Blue, (shields));
 
+  // Refs in a list keep the padding after the semicolon.
+  shields = GetRoadShields("UK_England_North East England", "M1; A1(M)");
+  TEST_EQUAL(shields.size(), 2, (shields));
+  TEST_EQUAL(shields[1].m_type, RoadShieldType::Generic_Blue, (shields));
+  TEST_EQUAL(shields[1].m_name, "A1(M)", (shields));
+
   shields = GetRoadShields("UK_England_North East England", "A1");
   TEST_EQUAL(shields.size(), 1, (shields));
   TEST_EQUAL(shields[0].m_type, RoadShieldType::UK_Highway, (shields));
