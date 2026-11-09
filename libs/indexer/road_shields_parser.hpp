@@ -68,6 +68,7 @@ RoadShieldsSetT GetRoadShields(std::string const & rawRoadNumber);
 // |allSpellings| keeps every spelling of a number ("D 106" and "D106"), as search needs; otherwise they are
 // merged like the drawn shields.
 std::vector<std::string> GetRoadShieldsNames(FeatureType & ft, bool allSpellings = false);
+// Returns names of road shields parsed from |rawRoadNumber|, without a feature type check.
 std::vector<std::string> GetRoadShieldsNames(std::string const & rawRoadNumber, bool allSpellings = false);
 
 std::string DebugPrint(RoadShieldType shieldType);
