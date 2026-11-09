@@ -128,8 +128,10 @@ impl::MultiPolygon TrianglesToPolygon(Container const & points)
     for (size_t j = i; j < i + kTriangleSize; ++j)
       outer.push_back(impl::PointXY(points[j].x, points[j].y));
     boost::geometry::correct(p);
+    // Degenerate (zero-area) triangles, e.g. collinear or repeated points after coordinate quantization,
+    // are invalid for boost but add no area, so skip them.
     if (!boost::geometry::is_valid(polygon))
-      MYTHROW(geometry::NotAPolygonException, ("The triangle is not valid"));
+      continue;
     polygons.push_back(polygon);
   }
 
