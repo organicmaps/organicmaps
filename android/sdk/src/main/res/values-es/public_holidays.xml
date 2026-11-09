@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: public_holidays -->
+    <!-- Countries: AD, AT, BE, ES, FR, HR, HU, IT, LI, LT, MC, PL, PT, SE, SK, SM -->
+    <string name="all_saints_day">Todos los Santos</string>
+    <!-- Countries: AD, AT, BE, ES, FR, HR, IT, LT, MC, MT, PL, PT, RO, SI, SM -->
+    <string name="assumption_of_mary">Asunción de la Virgen</string>
+    <!-- Countries: MX -->
+    <string name="benito_juarezs_birthday">Natalicio de Benito Juárez</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MT, MX, NL, PL, PT, SE, SI, SK, SM, ZA -->
+    <string name="christmas_day_catholic">Navidad</string>
+    <!-- Countries: AD, ES, MX, PL -->
+    <string name="constitution_day">Día de la Constitución Española</string>
+    <!-- Countries: AD, AL, AT, BE, BG, CZ, DE, ES-CT, ES-IB, ES-NC, ES-PV, ES-VC, FR, HR, HU, IE, IT, LI, LT, LV, MC, NL, PL, SE, SI, SK, SM -->
+    <string name="easter_monday">Lunes de Pascua</string>
+    <!-- Countries: ES-CE, ES-ML -->
+    <string name="end_of_ramadan_eid_al_fitr">Fiesta del fin del Ramadán (Eid al-Fitr)</string>
+    <!-- Countries: AD, AT, ES, HR, IT, LI, PL, RO, SE, SK, SM -->
+    <string name="epiphany">Epifanía del Señor</string>
+    <!-- Countries: ES-CE, ES-ML -->
+    <string name="feast_of_sacrifice_eid_al_adha">Fiesta del Sacrificio (Eid al-Adha)</string>
+    <!-- Countries: AD, AT, ES, IT, LI, MC, MT, PT, SM -->
+    <string name="feast_of_the_immaculate_conception">Inmaculada Concepción</string>
+    <!-- Countries: AD, BG, CZ, DE, EE, ES, HU, LV, MT, NL, PT, RS, SE, SK, ZA -->
+    <string name="good_friday">Viernes Santo</string>
+    <!-- Countries: BG, CH, CZ, EE, MD, MT, MX, PL, PT -->
+    <string name="independence_day">Día de la Independencia</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CZ, DE, ES, FR, HR, HU, IT, LI, LT, LV, MC, MD, MX, PL, PT, RO, RS, SE, SI, SK, SM -->
+    <string name="labour_day">Día del Trabajador</string>
+    <!-- Countries: ES-CE, ES-CN, ES-IB, ES-ML, ES-NC, ES-PV -->
+    <string name="maundy_thursday">Jueves Santo</string>
+    <!-- Countries: ES-CN, ES-NC -->
+    <string name="monday_following_all_saints_day">Lunes siguiente a Todos los Santos</string>
+    <!-- Countries: ES-ML -->
+    <string name="monday_following_constitution_day">Lunes siguiente al Día de la Constitución Española</string>
+    <!-- Countries: ES-CT -->
+    <string name="national_day_of_catalonia">Fiesta Nacional de Cataluña</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MD, MT, MX, NL, PL, PT, RO, RS, SE, SI, ZA -->
+    <string name="new_years_day">Año Nuevo</string>
+    <!-- Countries: ES-CE -->
+    <string name="regional_holiday_in_ceuta">Día de Ceuta</string>
+    <!-- Countries: ES-ML -->
+    <string name="regional_holiday_in_meilla">Día de Melilla</string>
+    <!-- Countries: ES-ML -->
+    <string name="regional_holiday_in_melilla">Estatuto de Autonomía de Melilla</string>
+    <!-- Countries: ES-VC -->
+    <string name="regional_holiday_in_valencia">Día de la Comunitat Valenciana</string>
+    <!-- Countries: ES-IB -->
+    <string name="regional_holiday_on_the_balearic_islands">Día siguiente del Día de les Illes Balears</string>
+    <!-- Countries: ES-CN -->
+    <string name="regional_holiday_on_the_canary_islands">Día de Canarias</string>
+    <!-- Countries: MX -->
+    <string name="revolution_day">Revolución Mexicana</string>
+    <!-- Countries: ES-NC, ES-PV -->
+    <string name="saint_james_day">Santiago Apóstol</string>
+    <!-- Countries: ES-NC -->
+    <string name="san_francisco_javier">San Francisco Javier</string>
+    <!-- Countries: ES -->
+    <string name="spanish_national_day">Fiesta Nacional de España</string>
+    <!-- Countries: ES-CE -->
+    <string name="st_anthony">San Antonio</string>
+    <!-- Countries: ES-CT, ES-VC -->
+    <string name="st_johns_day">San Juan</string>
+    <!-- Countries: ES-NC, ES-PV, ES-VC -->
+    <string name="st_josephs_day">Día de San José</string>
+    <!-- Countries: AD, AT, ES-CT, ES-IB, IE, IT, LI -->
+    <string name="st_stephens_day">San Esteban</string>
+</resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: public_holidays -->
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MT, MX, NL, PL, PT, SE, SI, SK, SM, ZA -->
+    <string name="christmas_day_catholic">Католическое Рождество</string>
+    <!-- Countries: BY, RS -->
+    <string name="christmas_day_orthodox">Православное Рождество</string>
+    <!-- Countries: BY -->
+    <string name="day_of_the_republic">День Республики</string>
+    <!-- Countries: BY, MD, ZA -->
+    <string name="international_womens_day">День женщин</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CZ, DE, ES, FR, HR, HU, IT, LI, LT, LV, MC, MD, MX, PL, PT, RO, RS, SE, SI, SK, SM -->
+    <string name="labour_day">Праздник труда</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MD, MT, MX, NL, PL, PT, RO, RS, SE, SI, ZA -->
+    <string name="new_years_day">Новый год</string>
+    <!-- Countries: BY -->
+    <string name="october_revolution_day">День Октябрьской революции</string>
+    <!-- Countries: BY -->
+    <string name="radunitsa">Радуница</string>
+    <!-- Countries: BY, EE, FR, MD -->
+    <string name="victory_day">День Победы</string>
+</resources>
