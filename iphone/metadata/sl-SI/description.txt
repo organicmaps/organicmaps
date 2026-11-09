@@ -27,7 +27,7 @@ POHODNIŠKE IN KOLESARSKE POTI:
 Aktivirajte posebne sloje zemljevidov za odkrivanje priljubljenih poti po svetu.
 
 JAVNI PREVOZ:
-Oglejte si številke javnega prevoza na postajah.
+Načrtujte poti z javnim prevozom. Oglejte si številke linij na postajališčih. Vozni redi v realnem času so v razvoju.
 
 STILI ZEMLJEVIDOV:
 Izberite sloje zemljevidov glede na vašo dejavnost — na prostem, konture, pohodništvo, kolesarjenje ali metro/podzemna železnica.

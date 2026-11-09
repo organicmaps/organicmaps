@@ -12,7 +12,7 @@ FONCTIONNALITÉS IMPORTANTES
 
 EXPLORER LES LIEUX : Recherchez par adresse, nom ou catégorie, découvrez des millions de points d’intérêt et consultez des informations détaillées telles que horaires d’ouverture, articles Wikipedia, accessibilité fauteuil roulant et autres informations utiles.
 
-NAVIGATION GPS : Profitez d’instructions vocales détaillées. Créez des itinéraires à pied, randonnée, vélo ou voiture — y compris des itinéraires entre villes, pays et plusieurs étapes. Trouvez les meilleurs itinéraires pour vos trajets en métro et domicile-travail. CarPlay est pris en charge.
+NAVIGATION GPS : Profitez d’instructions vocales détaillées. Créez des itinéraires à pied, randonnée, vélo ou voiture — y compris des itinéraires entre villes, pays et plusieurs étapes. Planifiez vos trajets en transports en commun et vos déplacements quotidiens. CarPlay est pris en charge.
 
 SENTIERS DE RANDONNÉE & CYCLISME DANS LE MONDE : Activez des couches de carte spéciales pour découvrir les itinéraires populaires de randonnée et de vélo dans le monde entier, tous issus d’OpenStreetMap. Basculez entre les couches pour voir les itinéraires vélo et VTT colorés, ainsi que les sentiers de randonnée officiels.
 

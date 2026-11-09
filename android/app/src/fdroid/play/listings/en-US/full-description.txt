@@ -14,7 +14,7 @@ Organic Maps is a fast, detailed offline map and GPS navigation app for travel, 
 
 <b>EXPLORE PLACES:</b> Search by address, name, or category, discover millions of POIs, and view detailed information such as opening hours, Wikipedia articles, wheelchair accessibility, and other helpful details.
 
-<b>GPS NAVIGATION:</b> Enjoy voice-guided, turn-by-turn directions. Create walking, hiking, cycling, or driving routes — including routes between cities, countries, and multiple waypoints. Find the best routes for your metro journeys and commutes. Android Auto is supported.
+<b>GPS NAVIGATION:</b> Enjoy voice-guided, turn-by-turn directions. Create walking, hiking, cycling, or driving routes — including routes between cities, countries, and multiple waypoints. Plan public transport journeys and daily commutes. Android Auto is supported.
 
 <b>HIKING & CYCLING TRAILS FROM AROUND THE WORLD:</b> Enable special map layers to discover popular hiking and cycling routes worldwide, all sourced from OpenStreetMap. Switch between layers to see colored bike and MTB routes, as well as official hiking paths.
 

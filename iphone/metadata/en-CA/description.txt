@@ -15,7 +15,7 @@ IMPORTANT FEATURES
 
 EXPLORE PLACES: Search by address, name, or category, discover millions of POIs, and view detailed information such as opening hours, Wikipedia articles, wheelchair accessibility, and other helpful details. All available offline.
 
-GPS NAVIGATION: Enjoy voice-guided, turn-by-turn directions. Create walking, hiking, cycling, or driving routes — including routes between cities, countries, and multiple waypoints. Find the best routes for your metro journeys and commutes. CarPlay is supported.
+GPS NAVIGATION: Enjoy voice-guided, turn-by-turn directions. Create walking, hiking, cycling, or driving routes — including routes between cities, countries, and multiple waypoints. Plan public transport journeys and daily commutes. CarPlay is supported.
 
 HIKING & CYCLING TRAILS FROM AROUND THE WORLD: Enable special map layers to discover popular hiking and cycling routes worldwide, all sourced from OpenStreetMap. Switch between layers to see colored bike and MTB routes, as well as official hiking paths. 
 

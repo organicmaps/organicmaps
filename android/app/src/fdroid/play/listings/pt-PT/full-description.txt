@@ -18,7 +18,7 @@ Organic Maps é um app rápido e detalhado de mapas offline e navegação GPS pa
 
 <b>TRILHAS DE CAMINHADA E CICLISMO DO MUNDO TODO:</b> Ative camadas especiais do mapa para descobrir rotas populares de caminhada e ciclismo em todo o mundo, todas baseadas no OpenStreetMap. Alterne entre camadas para ver rotas coloridas de bike e MTB, além de trilhas oficiais de caminhada.
 
-<b>TRANSPORTE PÚBLICO:</b> Veja números de linhas de transporte público nos pontos. 
+<b>TRANSPORTE PÚBLICO:</b> Planeie percursos e consulte os números das linhas nas paragens. Os horários em tempo real estão em desenvolvimento.
 
 <b>ESTILOS DE MAPA:</b> Escolha camadas de mapa adequadas à sua atividade — Outdoor, Linhas de Contorno, Caminhada, Ciclismo ou Metrô.
 

@@ -16,7 +16,7 @@ Organic Maps bidaia, mendiko ibilaldi, trekking eta txirrindularitza abenturetar
 
 <b>MUNDU OSOKO MENDI- ETA TXIRRINDULARITZA-IBILBIDEAK:</b> Gaitu mapa-geruza bereziak mundu osoko mendiko eta txirrindularitza ibilbide ezagunak aurkitzeko, guztiak OpenStreetMap-etik jasotakoak. Aldatu geruzen artean koloretako bizikleta eta MTB ibilbideak, baita mendiko ibilbide ofizialak ikusteko.
 
-<b>GARRAIO PUBLIKOA:</b> Ikusi garraio publikoaren lineako zenbakiak geltokietan.
+<b>GARRAIO PUBLIKOA:</b> Planifikatu ibilbideak garraio publikoz. Ikusi lineen zenbakiak geltokietan. Denbora errealeko ordutegiak garatzen ari dira.
 
 <b>MAPA-ESTILOAK:</b> Aukeratu zure jarduerari egokitzen zaizkion geruzak — “Kanpoa”, “Kurba-lerroak”, “Mendiko ibilaldiak”, “Txirrindularitza” edo “Metroa/Trena”.
 
