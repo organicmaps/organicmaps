@@ -18,7 +18,6 @@
 @interface OpeningHours ()
 
 @property(nonatomic, strong) NSArray<WorkingDay *> * days;
-@property(nonatomic) BOOL isClosedNow;
 
 @end
 
@@ -41,7 +40,6 @@
   self = [super init];
   if (self)
   {
-    _isClosedNow = osmoh::OpeningHours(rawString.UTF8String).IsClosed(time(nullptr));
     NSMutableArray * array = [NSMutableArray arrayWithCapacity:days->size()];
     for (auto const & day : *days)
     {

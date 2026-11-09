@@ -104,11 +104,18 @@ final class OpeningHoursTests: XCTestCase {
                                               "CLOSED"])
   }
 
-  func test_GivenOpenTwentyFourSeven_WhenListed_ThenOneRowSaysSo() throws {
+  func test_GivenOpenTwentyFourSeven_WhenListed_ThenThereAreNoRows() throws {
     let days = try week("24/7", today: .monday)
 
-    XCTAssertEqual(days.map(\.workingDays), ["TWENTYFOURSEVEN"])
-    XCTAssertEqual(days.map(\.workingTimes), [""])
+    XCTAssertTrue(days.isEmpty)
+  }
+
+  func test_GivenAllDayEveryDay_WhenListed_ThenOneRowSaysAllDay() throws {
+    // Unlike 24/7, every day's hours are spelled out, so they are listed (same as Android).
+    let days = try week("Mo-Su 00:00-24:00", today: .monday)
+
+    XCTAssertEqual(days.map(\.workingDays), [name(.monday, .sunday)])
+    XCTAssertEqual(days.map(\.workingTimes), ["ALLDAY"])
   }
 
   private func week(_ rawString: String, today: Weekday) throws -> [WorkingDay] {
@@ -146,7 +153,6 @@ final class OpeningHoursTests: XCTestCase {
 
 private final class MockOpeningHoursLocalization: NSObject, IOpeningHoursLocalization {
   var closedString: String { "CLOSED" }
-  var twentyFourSevenString: String { "TWENTYFOURSEVEN" }
   var allDayString: String { "ALLDAY" }
   var noonString: String { "NOON" }
   var midnightString: String { "MIDNIGHT" }

@@ -14,9 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface OpeningHours : NSObject
 
-/// The week starting from today's row, or a single 24/7 row.
+/// The week starting from today's row. Empty when open 24/7.
 @property(nonatomic, readonly) NSArray<WorkingDay *> * days;
-@property(nonatomic, readonly) BOOL isClosedNow;
 
 - (nullable instancetype)initWithRawString:(NSString *)rawString
                               localization:(id<IOpeningHoursLocalization>)localization;

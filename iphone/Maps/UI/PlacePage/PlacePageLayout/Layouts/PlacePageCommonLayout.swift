@@ -33,6 +33,23 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     return vc
   }()
 
+  private lazy var openingHoursViewController: OpeningHoursViewController? = {
+    guard let infoData = placePageData.infoData, let rawHours = infoData.openingHoursString else { return nil }
+    let vc = storyboard.instantiateViewController(ofType: OpeningHoursViewController.self)
+    vc.openingHours = infoData.openingHours
+    vc.status = OpeningHoursStatus(placePageData.previewData.schedule)
+    vc.rawHours = rawHours
+    return vc
+  }()
+
+  /// Whether the place is open now, or else the bookmark, is shown when the place page opens.
+  var openingAnchor: UIView? {
+    if let openingHoursViewController {
+      return openingHoursViewController.headerView
+    }
+    return placePageData.bookmarkData == nil ? nil : editBookmarkViewController.view
+  }
+
   private lazy var osmDescriptionViewController: UIViewController? = {
     guard let osmDescription = placePageData.osmDescription else { return nil }
     return PlacePageExpandableDetailsSectionBuilder.buildOSMDescriptionSection(osmDescription)
@@ -97,6 +114,10 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
       editBookmarkInteractor?.data = .bookmark(bookmarkData)
     }
 
+    if let openingHoursViewController {
+      viewControllers.append(openingHoursViewController)
+    }
+
     if let osmDescriptionViewController {
       viewControllers.append(osmDescriptionViewController)
     }
@@ -153,7 +174,9 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     let previewFrame = scrollView.convert(preview.bounds, from: preview)
     steps.append(.preview(previewFrame.maxY - scrollHeight))
     if !compact, placePageData.isPreviewPlus {
-      steps.append(.previewPlus(-scrollHeight * 0.55))
+      // A long bookmark description can push the anchor below this stop.
+      let anchorOffset = openingAnchor.map { scrollView.convert($0.bounds, from: $0).maxY - scrollHeight }
+      steps.append(.previewPlus(max(-scrollHeight * 0.55, anchorOffset ?? -.infinity)))
     }
     steps.append(.full)
     return steps
