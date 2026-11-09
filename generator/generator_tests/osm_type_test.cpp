@@ -120,24 +120,22 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Oneway)
 
 UNIT_CLASS_TEST(TestWithClassificator, OsmType_Roundabout)
 {
-  {
-    Tags const tags = {{"highway", "secondary"}, {"junction", "roundabout"}, {"name", "Бульвар"}};
-
-    auto const params = GetFeatureBuilderParams(tags);
-
-    TEST(params.IsTypeExist(GetType({"highway", "secondary"})), (params));
-    TEST(params.IsTypeExist(GetType({"junction", "roundabout"})), (params));
-  }
-
-  // https://github.com/organicmaps/organicmaps/issues/12861
-  // Without a highway type the roundabout is not a road, and its name should not be shown.
   for (char const * junction : {"roundabout", "circular"})
   {
-    Tags const tags = {{"highway", "proposed"}, {"proposed", "secondary"}, {"junction", junction}, {"name", "Бульвар"}};
+    for (char const * highway : {"secondary", "construction"})
+    {
+      TestTypes({{"highway", highway}, {"junction", junction}, {"name", "Бульвар"}},
+                {{"highway", highway}, {"junction", junction}, {"hwtag", "oneway"}});
+    }
 
-    auto const params = GetFeatureBuilderParams(tags);
+    // https://github.com/organicmaps/organicmaps/issues/12861
+    // Without a highway type the roundabout is not a road, and its name should not be shown.
+    TestTypes({{"highway", "proposed"}, {"proposed", "secondary"}, {"junction", junction}, {"name", "Бульвар"}}, {});
+    TestTypes({{"junction", junction}, {"name", "Бульвар"}}, {});
 
-    TEST_EQUAL(params.m_types.size(), 0, (params));
+    // A stray junction tag must not hide an address.
+    TestTypes({{"addr:housenumber", "42"}, {"addr:street", "Test Street"}, {"junction", junction}},
+              {{"building", "address"}});
   }
 }
 
@@ -1712,7 +1710,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_Junctions)
   {
     Tags const tags = {{"junction", value}};
 
-    // Useless now, because they don't have any rules and are not set as an exception.
     auto const params = GetFeatureBuilderParams(tags);
     TEST_EQUAL(params.m_types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType({"junction"})), (params));
@@ -2591,9 +2588,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_SimpleTypesSmoke)
       {"hwtag", "yescar"},
       {"hwtag", "yesfoot"},
       {"internet_access", "wlan"},
-      // Kept only together with a highway type, see OsmType_Roundabout.
-      // {"junction", "circular"},
-      // {"junction", "roundabout"},
       {"landuse", "allotments"},
       {"landuse", "basin"},
       {"landuse", "cemetery"},
@@ -3088,7 +3082,6 @@ UNIT_CLASS_TEST(TestWithClassificator, OsmType_ComplexTypesSmoke)
       {{"landuse", "forest", "mixed"}, {{"natural", "wood"}, {"leaf_type", "mixed"}}},
       {{"landuse", "forest", "mixed"}, {{"natural", "wood"}, {"wood", "mixed"}}},
       {{"leisure", "park", "no-access"}, {{"leisure", "park"}, {"access", "no"}}},
-      {{"leisure", "park", "private"}, {{"leisure", "park"}, {"access", "private"}}},
       {{"leisure", "park", "private"}, {{"leisure", "park"}, {"access", "private"}}},
       {{"leisure", "sports_centre"}, {{"leisure", "sports_centre"}}},
       {{"leisure", "track", "area"}, {{"leisure", "track"}, {"area", "any_value"}}},
