@@ -94,7 +94,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
 
     mSpeedView = mTopFrame.findViewById(R.id.nav_speed_limit);
     mSpeedController = new CombinedSpeedViewController(mSpeedView);
-    updateCurrentSpeed();
+    updateCurrentSpeed(RoutingController.get().getCachedRoutingInfo());
 
     // Blank rectangle below the navbar that hides menu content behind it.
     final View navigationBarBackground = mFrame.findViewById(R.id.nav_bottom_sheet_nav_bar);
@@ -180,7 +180,11 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     UiUtils.showIf(!isPedestrian, mSpeedView);
 
     if (info == null)
+    {
+      updateSpeedLimit(null);
+      mNavMenu.update(null);
       return;
+    }
 
     if (isPedestrian)
       updatePedestrian(info);
@@ -239,7 +243,7 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     mNavMenu.refreshTts();
     // Refresh navigation values on resume in case measurement units changed in Settings.
     if (RoutingController.get().isNavigating())
-      update(Framework.nativeGetRouteFollowingInfo());
+      update(RoutingController.get().getCachedRoutingInfo());
   }
 
   @Override
@@ -308,11 +312,12 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     RoutingController.get().cancel();
   }
 
-  private void updateSpeedLimit(@NonNull final RoutingInfo info)
+  private void updateSpeedLimit(@Nullable final RoutingInfo info)
   {
-    updateCurrentSpeed();
-    mSpeedController.setSpeedLimit(info.speedLimitMps > 0 ? StringUtils.nativeFormatSpeed(info.speedLimitMps) : null);
-    mSpeedController.setAlertForced(info.isSpeedCamLimitExceeded());
+    updateCurrentSpeed(info);
+    mSpeedController.setSpeedLimit(
+        info != null && info.speedLimitMps > 0 ? StringUtils.nativeFormatSpeed(info.speedLimitMps) : null);
+    mSpeedController.setAlertForced(info != null && info.isSpeedCamLimitExceeded());
   }
 
   private void updateSpeedLimitSignType()
@@ -331,11 +336,10 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
     mSpeedController.setShape(type == Framework.SpeedLimitSignType.MUTCD ? Shape.Square : Shape.Circle);
   }
 
-  private void updateCurrentSpeed()
+  private void updateCurrentSpeed(@Nullable RoutingInfo info)
   {
-    final Location location = MwmApplication.from(mFrame.getContext()).getLocationHelper().getSavedLocation();
     mSpeedController.setUnits(StringUtils.nativeGetLocalizedSpeedUnits());
     mSpeedController.setSpeed(
-        StringUtils.nativeFormatSpeed(location != null && location.hasSpeed() ? location.getSpeed() : 0));
+        StringUtils.nativeFormatSpeed(info != null && info.currentSpeedMps >= 0 ? info.currentSpeedMps : 0));
   }
 }

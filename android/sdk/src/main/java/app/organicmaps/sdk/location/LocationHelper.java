@@ -485,6 +485,8 @@ public class LocationHelper implements BaseLocationProvider.Listener
     mSensorHelper.stop();
     mHandler.removeCallbacks(mLocationTimeoutRunnable);
     mActive = false;
+    for (final LocationListener listener : mListeners)
+      listener.onLocationStopped();
   }
 
   /**

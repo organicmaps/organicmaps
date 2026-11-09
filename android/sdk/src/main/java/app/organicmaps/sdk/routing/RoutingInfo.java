@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import app.organicmaps.sdk.routing.roadshield.RoadShieldInfo;
 import app.organicmaps.sdk.util.Distance;
+import app.organicmaps.sdk.util.StringUtils;
 
 // Called from JNI.
 @Keep
@@ -15,6 +16,8 @@ public final class RoutingInfo
   public final Distance distToTarget;
   // Next turn.
   public final Distance distToTurn;
+  private final double distToTargetMeters;
+  private final double distToTurnMeters;
 
   // Remaining time in seconds; UI formatters choose the display precision.
   public final int totalTimeInSeconds;
@@ -40,6 +43,8 @@ public final class RoutingInfo
   // For pedestrian routing.
   @NonNull
   public final PedestrianDirection pedestrianDirection;
+  // Speed of the measurement that produced this snapshot; negative when unavailable.
+  public final double currentSpeedMps;
   // Current speed limit in meters per second.
   // If no info about speed limit then speedLimitMps < 0.
   public final double speedLimitMps;
@@ -51,11 +56,14 @@ public final class RoutingInfo
                       @Nullable RoadShieldInfo nextNextStreetRoadShields, double completionPercent,
                       @NonNull CarDirection carTurnDirection, @NonNull CarDirection carNextTurnDirection,
                       @NonNull PedestrianDirection pedestrianDirection, int exitNum, int totalTime,
-                      @Nullable LaneInfo[] lanes, double speedLimitMps, boolean speedLimitExceeded,
+                      @Nullable LaneInfo[] lanes, double distToTargetMeters, double distToTurnMeters,
+                      double currentSpeedMps, double speedLimitMps, boolean speedLimitExceeded,
                       boolean shouldPlayWarningSignal)
   {
     this.distToTarget = distToTarget;
     this.distToTurn = distToTurn;
+    this.distToTargetMeters = distToTargetMeters;
+    this.distToTurnMeters = distToTurnMeters;
     this.currentStreet = currentStreet;
     this.nextStreet = nextStreet;
     this.nextStreetRoadShields = nextStreetRoadShields;
@@ -68,9 +76,41 @@ public final class RoutingInfo
     this.lanes = lanes;
     this.exitNum = exitNum;
     this.pedestrianDirection = pedestrianDirection;
+    this.currentSpeedMps = currentSpeedMps;
     this.speedLimitMps = speedLimitMps;
     this.speedCamLimitExceeded = speedLimitExceeded;
     this.shouldPlayWarningSignal = shouldPlayWarningSignal;
+  }
+
+  RoutingInfo withoutWarningSignal()
+  {
+    if (!shouldPlayWarningSignal)
+      return this;
+    return copyWithDistances(distToTarget, distToTurn);
+  }
+
+  RoutingInfo withCurrentUnits()
+  {
+    final Distance target = reformatDistance(distToTarget, distToTargetMeters);
+    final Distance turn = reformatDistance(distToTurn, distToTurnMeters);
+    if (target == distToTarget && turn == distToTurn && !shouldPlayWarningSignal)
+      return this;
+    return copyWithDistances(target, turn);
+  }
+
+  private static Distance reformatDistance(Distance distance, double meters)
+  {
+    if (!distance.isValid() || distance.mDistanceStr.isEmpty())
+      return distance;
+    return StringUtils.nativeFormatDistance(meters);
+  }
+
+  private RoutingInfo copyWithDistances(Distance target, Distance turn)
+  {
+    return new RoutingInfo(target, turn, currentStreet, nextStreet, nextStreetRoadShields, nextNextStreet,
+                           nextNextStreetRoadShields, completionPercent, carDirection, nextCarDirection,
+                           pedestrianDirection, exitNum, totalTimeInSeconds, lanes, distToTargetMeters,
+                           distToTurnMeters, currentSpeedMps, speedLimitMps, speedCamLimitExceeded, false);
   }
 
   public boolean isSpeedCamLimitExceeded()

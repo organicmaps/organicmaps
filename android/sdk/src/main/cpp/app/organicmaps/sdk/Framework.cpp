@@ -1310,7 +1310,7 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetRouteFollowingInfo
   if (!info.IsValid())
     return nullptr;
 
-  return routing_jni::CreateRoutingInfo(env, info, rm);
+  return routing_jni::CreateRoutingInfo(env, info);
 }
 
 JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGetRouteJunctionPoints(JNIEnv * env, jclass,
@@ -1408,6 +1408,19 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetRoutingListener(JNIEn
   frm()->GetRoutingManager().SetRouteBuildingListener(
       [rf = jni::make_global_ref(listener)](routing::RouterResultCode e, storage::CountriesSet const & countries)
   { CallRoutingListener(rf, static_cast<int>(e), countries); });
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetRoutingInfoListener(JNIEnv * env, jclass, jobject listener)
+{
+  frm()->GetRoutingManager().SetRouteFollowingListener(
+      [rf = jni::make_global_ref(listener)](routing::FollowingInfo const & info)
+  {
+    auto * env = jni::GetEnv();
+    auto const method =
+        jni::GetMethodID(env, *rf, "onRoutingInfoUpdated", "(Lapp/organicmaps/sdk/routing/RoutingInfo;)V");
+    jni::TScopedLocalRef snapshot(env, info.IsValid() ? routing_jni::CreateRoutingInfo(env, info) : nullptr);
+    env->CallVoidMethod(*rf, method, snapshot.get());
+  });
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetRouteProgressListener(JNIEnv * env, jclass, jobject listener)

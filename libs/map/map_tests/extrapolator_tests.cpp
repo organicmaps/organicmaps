@@ -75,15 +75,17 @@ struct ExtrapolatorFixture
   std::vector<PendingTask> m_background;
   std::deque<Task> m_gui;
   std::vector<GpsInfo> m_updates;
+  std::vector<UpdateType> m_updateTypes;
   std::function<void(GpsInfo const &)> m_onUpdate;
-  std::unique_ptr<Extrapolator> m_extrapolator = std::make_unique<Extrapolator>([this](GpsInfo const & info)
+  std::unique_ptr<Extrapolator> m_extrapolator = std::make_unique<Extrapolator>(
+      [this](GpsInfo const & info, UpdateType type)
   {
     m_updates.push_back(info);
+    m_updateTypes.push_back(type);
     if (m_onUpdate)
       m_onUpdate(info);
-  }, [this] { return m_now; }, [this](Milliseconds delay, Task task) {
-    m_background.push_back({m_now + delay, std::move(task)});
-  });
+  }, [this] { return m_now; },
+      [this](Milliseconds delay, Task task) { m_background.push_back({m_now + delay, std::move(task)}); });
 
   void RunBackground()
   {
@@ -319,6 +321,31 @@ UNIT_TEST(Extrapolator_EnableStartsPredictionFromDisabledMeasurements)
   TestGpsInfo(f.m_updates.back(), MovingFix(2.0));
   f.Advance(200);
   TestGpsInfo(f.m_updates.back(), LinearExtrapolation(MovingFix(1.0), MovingFix(2.0), 200));
+}
+
+UNIT_TEST(Extrapolator_CallbackProvenanceMatchesReceivedAndPredictedPositions)
+{
+  ExtrapolatorFixture f;
+  f.StartMoving();
+  TEST(f.m_updateTypes.back() == UpdateType::Measurement, ());
+  f.Advance(200);
+  TEST(f.m_updateTypes.back() == UpdateType::Prediction, ());
+
+  auto correction = MovingFix(2.0);
+  correction.m_horizontalAccuracy = 9.0;
+  auto const count = f.m_updates.size();
+  f.m_extrapolator->OnLocationUpdate(correction);
+  TEST_EQUAL(f.m_updates.size(), count + 1, ());
+  TEST(f.m_updateTypes.back() == UpdateType::Measurement, ());
+  TestGpsInfo(f.m_updates.back(), correction);
+  f.Advance(200);
+  TEST(f.m_updateTypes.back() == UpdateType::Prediction, ());
+
+  f.Advance(2000);
+  correction.m_horizontalAccuracy = 8.0;
+  f.m_extrapolator->OnLocationUpdate(correction);
+  TEST(f.m_updateTypes.back() == UpdateType::Measurement, ());
+  TestGpsInfo(f.m_updates.back(), correction);
 }
 
 UNIT_TEST(Extrapolator_ExactRepeatsDoNotExtendPrediction)

@@ -22,6 +22,12 @@ public interface LocationListener
     // No op.
   }
 
+  /** Called after the host stops acquisition; backend handoffs do not stop the acquisition session. */
+  default void onLocationStopped()
+  {
+    // No op.
+  }
+
   /** Requests that the host launch the supplied resolution intent, for example for provider settings. */
   default void onLocationResolutionRequired(@NonNull PendingIntent pendingIntent)
   {
