@@ -236,16 +236,24 @@ using namespace routing;
   GetFramework().GetRoutingManager().SetTurnNotificationsLocale(locale.UTF8String);
 }
 
-+ (NSArray<NSString *> *)turnNotifications
++ (void)playGuidance
 {
-  NSMutableArray<NSString *> * turnNotifications = [@[] mutableCopy];
-  std::vector<std::string> notifications;
-  auto announceStreets = [NSUserDefaults.standardUserDefaults boolForKey:@"UserDefaultsNeedToEnableStreetNamesTTS"];
-  GetFramework().GetRoutingManager().GenerateNotifications(notifications, announceStreets);
+  auto & manager = GetFramework().GetRoutingManager();
+  if (!manager.IsRoutingFollowing())
+    return;
 
+  auto tts = [MWMTextToSpeech tts];
+  std::vector<std::string> notifications;
+  // Poll even while muted to update the turn-after-next direction.
+  manager.GenerateNotifications(notifications, [MWMTextToSpeech isStreetNamesTTSEnabled]);
+  if (!tts.active)
+    return;
+
+  NSMutableArray<NSString *> * phrases = [NSMutableArray arrayWithCapacity:notifications.size()];
   for (auto const & text : notifications)
-    [turnNotifications addObject:@(text.c_str())];
-  return [turnNotifications copy];
+    [phrases addObject:ToNSString(text)];
+  [tts playTurnNotifications:phrases];
+  [tts playWarningSound];
 }
 
 + (void)removePointAndRebuild:(MWMRoutePoint *)point
@@ -485,17 +493,9 @@ using namespace routing;
 
 - (void)onLocationUpdate:(CLLocation *)location
 {
-  if (![MWMRouter isRoutingActive])
-    return;
-  auto tts = [MWMTextToSpeech tts];
-  NSArray<NSString *> * turnNotifications = [MWMRouter turnNotifications];
-  if ([MWMRouter isOnRoute] && tts.active)
-  {
-    [tts playTurnNotifications:turnNotifications];
-    [tts playWarningSound];
-  }
-
-  [self updateFollowingInfo];
+  // Location observer removal is asynchronous during a CarPlay handoff.
+  if (![MWMCarPlayService shared].isCarPlayRoutingActive)
+    [self updateFollowingInfo];
 }
 
 #pragma mark - MWMFrameworkRouteBuilderObserver

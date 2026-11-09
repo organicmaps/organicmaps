@@ -658,32 +658,13 @@ using Observers = NSHashTable<Observer>;
 - (void)playTurnNotifications:(NSArray<NSString *> *)turnNotifications
 {
   ASSERT(NSThread.isMainThread, ());
-  auto stopSession = ^{
-    // Reads the ivar: there is nothing to stop while no synthesizer has been created.
-    if (self->_speechSynthesizer.isSpeaking)
-      return;
-    [[AVAudioSession sharedInstance] setActive:NO
-                                   withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation
-                                         error:nil];
-  };
-
-  if (![MWMRouter isOnRoute] || !self.active)
+  if (![self speechVoiceInUse] || turnNotifications.count == 0)
   {
-    stopSession();
-    return;
-  }
-
-  if (![self speechVoiceInUse])
-  {
-    stopSession();
-    return;
-  }
-
-  // Most location updates carry no notification at all; a preview may only be preempted by speech
-  // that is actually about to start.
-  if (turnNotifications.count == 0)
-  {
-    stopSession();
+    // Reading the ivar avoids creating a synthesizer for a silent update.
+    if (!_speechSynthesizer.isSpeaking)
+      [[AVAudioSession sharedInstance] setActive:NO
+                                     withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation
+                                           error:nil];
     return;
   }
 

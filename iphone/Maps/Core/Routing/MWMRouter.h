@@ -50,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)enableTurnNotifications:(BOOL)active;
 + (BOOL)areTurnNotificationsEnabled;
 + (void)setTurnNotificationsLocale:(NSString *)locale;
-+ (NSArray<NSString *> *)turnNotifications;
++ (void)playGuidance;
 
 + (void)addPoint:(MWMRoutePoint *)point;
 + (void)addPointAndRebuild:(MWMRoutePoint *)point;
