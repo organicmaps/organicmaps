@@ -95,6 +95,10 @@ jobs:
       DEVELOPER_DIR: ${{ matrix.environment.developer-dir }}
       PRESET: ci${{ matrix.environment.cmake-preset-suffix || '' }}
       PRESET_DRAPE: ci-drape${{ matrix.environment.cmake-preset-suffix || '' }}
+      # Bump this pinned version to update Qt and its cache key together.
+      WINDOWS_QT_VERSION: '6.8.3'
+      WINDOWS_QT_ARCH: msvc2022_64
+      WINDOWS_QT_MODULES: qtpositioning
 
     steps:
       - name: Free disk space by removing .NET, Android and Haskell
@@ -144,13 +148,43 @@ jobs:
           brew install qt@6
           pip3 install tornado --break-system-packages
 
-      - name: Install Qt (Windows)
+      - name: Restore Qt (Windows)
         if: ${{ runner.os == 'Windows' }}
+        id: qt-cache
+        uses: actions/cache/restore@v4
+        with:
+          path: ${{ runner.temp }}/Qt
+          key: qt-v1-${{ runner.os }}-${{ runner.arch }}-${{ env.WINDOWS_QT_VERSION }}-${{ env.WINDOWS_QT_ARCH }}-${{ env.WINDOWS_QT_MODULES }}
+
+      - name: Install Qt (Windows)
+        if: ${{ runner.os == 'Windows' && steps.qt-cache.outputs.cache-hit != 'true' }}
         uses: jurplel/install-qt-action@v4
         with:
-          version: '6.8.*'
-          modules: qtpositioning
-          cache: true
+          dir: ${{ runner.temp }}
+          version: ${{ env.WINDOWS_QT_VERSION }}
+          arch: win64_${{ env.WINDOWS_QT_ARCH }}
+          modules: ${{ env.WINDOWS_QT_MODULES }}
+          cache: false
+          set-env: false
+
+      - name: Configure Qt (Windows)
+        if: ${{ runner.os == 'Windows' }}
+        run: |
+          qt_root="$(cygpath -m "$RUNNER_TEMP")/Qt/$WINDOWS_QT_VERSION/$WINDOWS_QT_ARCH"
+          test -f "$qt_root/bin/qmake.exe"
+          echo "$qt_root/bin" >> "$GITHUB_PATH"
+          echo "QT_PATH=$qt_root" >> "$GITHUB_ENV"
+
+      # The installer has no restore-only mode. Only Release on master saves here.
+      # Evicted caches are repopulated by master; PRs install Qt without saving.
+      - name: Save Qt (Windows)
+        if: >-
+          ${{ runner.os == 'Windows' && github.ref == 'refs/heads/master' &&
+              matrix.cmake-build-type == 'Release' && steps.qt-cache.outputs.cache-hit != 'true' }}
+        uses: actions/cache/save@v4
+        with:
+          path: ${{ runner.temp }}/Qt
+          key: ${{ steps.qt-cache.outputs.cache-primary-key }}
 
       - name: Set up MSVC environment (Windows)
         if: ${{ runner.os == 'Windows' }}

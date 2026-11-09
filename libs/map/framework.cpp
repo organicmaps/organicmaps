@@ -1004,7 +1004,11 @@ void Framework::ShowTrack(kml::TrackId trackId)
 
   place_page::BuildInfo info;
   info.m_trackId = trackId;
-  info.m_mercator = rect.Center();
+  info.m_mercator = track->GetPoint(0.0);
+  info.m_match = place_page::BuildInfo::Match::TrackOnly;
+  // Seed the start before building: the place-page builder reads the stored selection mark,
+  // so reopening must replace any previous map or elevation selection.
+  bm.SetTrackSelectionInfo({trackId, info.m_mercator, 0.0}, false /* notifyListeners */);
 
   m_currentPlacePageInfo = BuildPlacePageInfo(info);
 
@@ -2536,38 +2540,25 @@ place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & bui
     return outInfo;
   }
 
-  // 4. User Tracks. Using VisualParams inside FindTracksInTapPosition/GetDefaultTapRect requires drapeEngine.
-  if (m_drapeEngine != nullptr && buildInfo.IsTrackMatchingEnabled())
+  // 4. User Tracks. Spatial matching needs VisualParams; an explicit ID only reads its selection mark.
+  if (buildInfo.IsTrackMatchingEnabled() && (buildInfo.m_trackId != kml::kInvalidTrackId || m_drapeEngine != nullptr))
   {
-    Track::TrackSelectionInfo trackToSelect;
-    std::vector<Track::TrackSelectionInfo> trackSelectionCandidates;
+    auto trackSelectionCandidates = FindTracksInTapPosition(buildInfo);
+    if (buildInfo.m_trackId != kml::kInvalidTrackId && trackSelectionCandidates.empty())
+      return outInfo;
+    if (!trackSelectionCandidates.empty() && buildInfo.m_trackId == kml::kInvalidTrackId && isFeatureMatchingEnabled)
+    {
+      auto const searchRect = df::TapInfo::GetDefaultTapRect(buildInfo.m_mercator, m_currentModelView).GetGlobalRect();
+      auto relationTrackCandidates = FindRelationTracksInTapPosition(
+          sp.FindFeaturesInRect(buildInfo.m_mercator, searchRect).m_lineCandidates, buildInfo.m_mercator);
+      trackSelectionCandidates.insert(trackSelectionCandidates.end(), relationTrackCandidates.begin(),
+                                      relationTrackCandidates.end());
+      std::sort(trackSelectionCandidates.begin(), trackSelectionCandidates.end(), HasHigherTrackSelectionPriority);
+    }
 
-    if (buildInfo.m_trackId != kml::kInvalidTrackId)
-    {
-      // Known track: find the closest point to the track's bounding-rect center, no distance limit.
-      auto const * track = GetBookmarkManager().GetTrack(buildInfo.m_trackId);
-      if (track == nullptr)
-        return outInfo;
-      track->UpdateSelectionInfo(track->GetLimitRect().Center(), trackToSelect);
-      ASSERT(trackToSelect.IsValid(), ());
-      trackSelectionCandidates.push_back(trackToSelect);
-    }
-    else
-    {
-      trackSelectionCandidates = FindTracksInTapPosition(buildInfo);
-      if (!trackSelectionCandidates.empty() && isFeatureMatchingEnabled)
-      {
-        auto const searchRect =
-            df::TapInfo::GetDefaultTapRect(buildInfo.m_mercator, m_currentModelView).GetGlobalRect();
-        auto relationTrackCandidates = FindRelationTracksInTapPosition(
-            sp.FindFeaturesInRect(buildInfo.m_mercator, searchRect).m_lineCandidates, buildInfo.m_mercator);
-        trackSelectionCandidates.insert(trackSelectionCandidates.end(), relationTrackCandidates.begin(),
-                                        relationTrackCandidates.end());
-        std::sort(trackSelectionCandidates.begin(), trackSelectionCandidates.end(), HasHigherTrackSelectionPriority);
-      }
-      if (!trackSelectionCandidates.empty())
-        trackToSelect = trackSelectionCandidates.front();
-    }
+    Track::TrackSelectionInfo trackToSelect;
+    if (!trackSelectionCandidates.empty())
+      trackToSelect = trackSelectionCandidates.front();
 
     if (trackToSelect.IsValid() && BuildTrackPlacePage(trackToSelect, outInfo))
     {
@@ -3857,6 +3848,8 @@ std::vector<MwmSet::MwmId> Framework::GetMwmsByRect(m2::RectD const & rect, bool
 // RoutingManager::Delegate
 void Framework::OnRouteFollow(routing::RouterType type)
 {
+  CHECK(m_drapeEngine, ());
+
   bool const isPedestrianRoute = type == RouterType::Pedestrian;
   bool const enableAutoZoom = isPedestrianRoute ? false : LoadAutoZoom();
   int const scale = isPedestrianRoute ? scales::GetPedestrianNavigationScale() : scales::GetNavigationScale();

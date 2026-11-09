@@ -63,6 +63,10 @@ Files: 3party/skarupke/__bytell_hash_map.hpp
 Copyright: 2017, Malte Skarupke
 License: BSL-1.0
 
+Files: 3party/sperr/*
+Copyright: University Corporation for Atmospheric Research
+License: Apache-2.0
+
 Files: 3party/stb_image/stb_image.h
        3party/stb_image/stb_image_write.h
 Copyright: 2010-2017, Sean Barrett and others
@@ -71,6 +75,10 @@ License: MIT
 Files: 3party/succinct/*
 Copyright: 2011, Giuseppe Ottaviano <giuott@gmail.com>
 License: Apache-2.0
+
+Files: 3party/sz3/*
+Copyright: 2016, UChicago Argonne, LLC
+License: LicenseRef-SZ3
 
 Files: 3party/vulkan_wrapper/vulkan_wrapper.*
 Copyright: 2018 The Android Open Source Project

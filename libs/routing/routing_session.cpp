@@ -917,12 +917,8 @@ bool RoutingSession::GetRouteJunctionPoints(RouteJunctions & routeJunctionPoints
   if (!IsRouteValid())
     return false;
 
-  auto const & segments = m_route->GetRouteSegments();
-  CHECK(!segments.empty(), ());
-
-  routeJunctionPoints.reserve(segments.size());
-  for (auto const & s : segments)
-    routeJunctionPoints.push_back(s.GetJunction());
+  routeJunctionPoints.reserve(m_route->GetRouteSegments().size() + 1);
+  m_route->ForEachPoint([&](geometry::PointWithAltitude const & point) { routeJunctionPoints.push_back(point); });
 
   return true;
 }

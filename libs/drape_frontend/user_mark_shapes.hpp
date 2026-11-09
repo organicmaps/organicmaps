@@ -65,6 +65,10 @@ struct LineLayer
 
 struct UserLineRenderParams
 {
+  // Skips points closer than Spline's minimum segment length to the previously kept point,
+  // and lines left with fewer than two points.
+  void AddSpline(std::vector<m2::PointD> const & points);
+
   int m_minZoom = 1;
   DepthLayer m_depthLayer = DepthLayer::UserLineLayer;
   std::vector<LineLayer> m_layers;

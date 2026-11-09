@@ -2,6 +2,7 @@
 
 #include "map/framework.hpp"
 #include "map/routing_mark.hpp"
+#include "map/track.hpp"
 
 #include "drape_frontend/visual_params.hpp"
 
@@ -251,6 +252,35 @@ double GetRouteLengthMeters(RoutingManager const & manager)
   for (size_t i = 1; i < points.size(); ++i)
     length += mercator::DistanceOnEarth(points[i - 1].m_position, points[i].m_position);
   return length;
+}
+
+kml::TrackId SaveSingleSegmentRoute(RoutingManager & manager, BookmarkManager & bookmarks,
+                                    geometry::PointWithAltitude const & finish)
+{
+  bookmarks.EnableTestMode(true);
+  SCOPE_GUARD(restoreTestMode, [&] { bookmarks.EnableTestMode(false); });
+  // Saving is profile-independent; Ruler initializes without map regions.
+  manager.SetRouter(routing::RouterType::Ruler);
+  manager.Init(std::make_shared<routing::NumMwmIds>());
+  manager.AddRoutePoint(MakeRoutePointOnXAxis(RouteMarkType::Start, 0, 0.0), false);
+  manager.AddRoutePoint(MakeRoutePointOnXAxis(RouteMarkType::Finish, 0, finish.GetPoint().x), false);
+
+  geometry::PointWithAltitude const start({0.0, 0.0}, 100);
+  routing::Segment const fake(routing::kFakeNumMwmId, 0, 0, false);
+  std::vector<routing::RouteSegment> segments;
+  segments.emplace_back(fake, routing::turns::TurnItem(1, routing::turns::CarDirection::ReachedYourDestination), finish,
+                        routing::RouteSegment::RoadNameInfo{});
+  double const distance = mercator::DistanceOnEarth(start.GetPoint(), finish.GetPoint());
+  segments.front().SetDistancesAndTime(distance, finish.GetPoint().x, distance);
+  routing::Route route;
+  route.SetRouteSegments(std::move(segments));
+  route.SetSubroutes(std::vector<routing::Route::SubrouteAttrs>{{start, finish, 0, 1}});
+  routing::RoutesResult result;
+  result.MakeFrom("ruler", std::move(route));
+  manager.RoutingSession().AssignRouteForTesting(routing::Route(result.GetActive()),
+                                                 routing::RouterResultCode::NoError);
+  TEST(manager.IsRouteValid(), ());
+  return manager.SaveRoute();
 }
 }  // namespace
 
@@ -1372,6 +1402,31 @@ UNIT_TEST(RoutingManager_RebuildAfterEditingNavigationRetiresOldCheckpoints)
     TEST(session.IsFinished(), ());
     TEST(manager.GetRoutePoints().back().m_isPassed, ());
     TEST(!manager.HasSavedRoutePoints(), ());
+  });
+}
+
+UNIT_TEST(RoutingManager_SaveRoutePreservesSingleSegmentGeometry)
+{
+  WithSavedRoute([](RoutingManager & manager, BookmarkManager & bookmarks, TestGuiThread &)
+  {
+    geometry::PointWithAltitude const start({0.0, 0.0}, 100);
+    geometry::PointWithAltitude const finish({0.001, 0.0}, 110);
+    auto const id = SaveSingleSegmentRoute(manager, bookmarks, finish);
+    TEST_NOT_EQUAL(id, kml::kInvalidTrackId, ());
+    auto const * track = bookmarks.GetTrack(id);
+    TEST(track != nullptr, ());
+    TEST_EQUAL(track->GetData().m_geometry.m_lines.size(), 1, ());
+    TEST_EQUAL(track->GetGeometry(), (kml::TrackGeometry{start, finish}), ());
+    TEST_EQUAL(track->GetData().m_routerType, "ruler", ());
+  });
+}
+
+UNIT_TEST(RoutingManager_SaveRouteRejectsCollapsedGeometry)
+{
+  WithSavedRoute([](RoutingManager & manager, BookmarkManager & bookmarks, TestGuiThread &)
+  {
+    geometry::PointWithAltitude const finish({1e-7, 0.0}, 100);
+    TEST_EQUAL(SaveSingleSegmentRoute(manager, bookmarks, finish), kml::kInvalidTrackId, ());
   });
 }
 }  // namespace routing_manager_tests

@@ -2,6 +2,7 @@
 #include "indexer/data_header.hpp"
 #include "indexer/feature_meta.hpp"
 #include "indexer/house_to_street_iface.hpp"
+#include "indexer/value_set.hpp"
 
 #include "platform/local_country_file.hpp"
 #include "platform/mwm_version.hpp"
@@ -15,13 +16,8 @@
 
 #include "defines.hpp"
 
-#include <atomic>
-#include <deque>
-#include <map>
 #include <memory>
-#include <mutex>
 #include <string>
-#include <utility>
 #include <vector>
 
 namespace feature
@@ -34,7 +30,7 @@ class MetadataDeserializer;
 }
 
 /// Information about stored mwm.
-class MwmInfo
+class MwmInfo : public ds::SetInfoBase
 {
 public:
   friend class DataSource;
@@ -47,15 +43,7 @@ public:
     COASTS
   };
 
-  enum Status
-  {
-    STATUS_REGISTERED,            ///< Mwm is registered and up to date.
-    STATUS_MARKED_TO_DEREGISTER,  ///< Mwm is marked to be deregistered as soon as possible.
-    STATUS_DEREGISTERED,          ///< Mwm is deregistered.
-  };
-
-  MwmInfo();
-  virtual ~MwmInfo() = default;
+  MwmInfo() : m_minScale(0), m_maxScale(0) {}
 
   /// @obsolete Rect around region border. Features which cross region border may cross this rect.
   /// @todo VNG: Not true. This rect accumulates all features in MWM. Since we don't crop features by border,
@@ -66,12 +54,6 @@ public:
   uint8_t m_minScale;             ///< Min zoom level of mwm.
   uint8_t m_maxScale;             ///< Max zoom level of mwm.
   version::MwmVersion m_version;  ///< Mwm file version.
-
-  Status GetStatus() const { return m_status; }
-
-  bool IsUpToDate() const { return IsRegistered(); }
-
-  bool IsRegistered() const { return m_status == STATUS_REGISTERED; }
 
   platform::LocalCountryFile const & GetLocalFile() const { return m_file; }
 
@@ -85,18 +67,11 @@ public:
   bool IsAddressLikeUS() const;
 
 protected:
-  Status SetStatus(Status status)
-  {
-    Status result = m_status;
-    m_status = status;
-    return result;
-  }
+  using ds::SetInfoBase::SetStatus;
 
   feature::RegionData m_data;
 
   platform::LocalCountryFile m_file;  ///< Path to the mwm file.
-  std::atomic<Status> m_status;       ///< Current country status.
-  uint32_t m_numRefs;                 ///< Number of active handles.
 };
 
 class MwmInfoEx : public MwmInfo
@@ -118,115 +93,53 @@ private:
 
 class MwmValue;
 
-class MwmSet
+class MwmId : public ds::SetId<MwmInfo>
 {
 public:
-  class MwmId
+  using SetId::SetId;
+
+  bool IsDeregistered(platform::LocalCountryFile const & deregisteredCountryFile) const;
+
+  friend std::string DebugPrint(MwmId const & id);
+};
+
+// The MwmSet events: registration status changes of the local country files.
+struct MwmSetEvent
+{
+  enum Type
   {
-  public:
-    friend class MwmSet;
-
-    MwmId() = default;
-    explicit MwmId(std::shared_ptr<MwmInfo> const & info) : m_info(info) {}
-
-    void Reset() { m_info.reset(); }
-    bool IsNull() const { return m_info == nullptr; }
-    /// @todo I suppose that m_info->GetStatus() == MwmInfo::STATUS_REGISTERED is better and more precise.
-    bool IsAlive() const { return (m_info && m_info->GetStatus() != MwmInfo::STATUS_DEREGISTERED); }
-    bool IsDeregistered(platform::LocalCountryFile const & deregisteredCountryFile) const;
-
-    std::shared_ptr<MwmInfo> const & GetInfo() const { return m_info; }
-
-    bool operator==(MwmId const & rhs) const { return GetInfo() == rhs.GetInfo(); }
-    bool operator!=(MwmId const & rhs) const { return !(*this == rhs); }
-    bool operator<(MwmId const & rhs) const { return GetInfo() < rhs.GetInfo(); }
-
-    friend std::string DebugPrint(MwmId const & id);
-
-  private:
-    std::shared_ptr<MwmInfo> m_info;
+    TYPE_REGISTERED,
+    TYPE_DEREGISTERED,
   };
 
+  MwmSetEvent() = default;
+  MwmSetEvent(Type type, platform::LocalCountryFile const & file) : m_type(type), m_file(file) {}
+  bool operator==(MwmSetEvent const & rhs) const { return m_type == rhs.m_type && m_file == rhs.m_file; }
+
+  bool operator!=(MwmSetEvent const & rhs) const { return !(*this == rhs); }
+
+  Type m_type;
+  platform::LocalCountryFile m_file;
+};
+
+using MwmSetEventList = ds::EventList<MwmSetEvent>;
+
+class MwmSet : public ds::ValueSetBase<MwmId, MwmValue, MwmSetEventList>
+{
+  using BaseT = ds::ValueSetBase<::MwmId, MwmValue, MwmSetEventList>;
+
 public:
-  explicit MwmSet(size_t cacheSize = 64) : m_cacheSize(cacheSize) {}
-  virtual ~MwmSet() = default;
+  // Expose the map ID type to MwmSet callers.
+  using MwmId = ::MwmId;
+
+  explicit MwmSet(size_t cacheSize = 64) : BaseT(cacheSize) {}
 
   // Mwm handle, which is used to refer to mwm and prevent it from
   // deletion when its FileContainer is used.
-  class MwmHandle
-  {
-  public:
-    MwmHandle();
-    MwmHandle(MwmHandle && handle);
-    ~MwmHandle();
+  using MwmHandle = BaseT::Handle;
 
-    // Returns a non-owning ptr.
-    MwmValue * GetValue() const { return m_value.get(); }
-
-    bool IsAlive() const { return m_value.get() != nullptr; }
-    MwmId const & GetId() const { return m_mwmId; }
-    std::shared_ptr<MwmInfo> const & GetInfo() const;
-
-    MwmHandle & operator=(MwmHandle && handle);
-
-  private:
-    friend class MwmSet;
-    MwmHandle(MwmSet & mwmSet, MwmId const & mwmId, std::unique_ptr<MwmValue> && value);
-
-    MwmId m_mwmId;
-    MwmSet * m_mwmSet;
-    std::unique_ptr<MwmValue> m_value;
-
-    DISALLOW_COPY(MwmHandle);
-  };
-
-  struct Event
-  {
-    enum Type
-    {
-      TYPE_REGISTERED,
-      TYPE_DEREGISTERED,
-    };
-
-    Event() = default;
-    Event(Type type, platform::LocalCountryFile const & file) : m_type(type), m_file(file) {}
-    Event(Type type, platform::LocalCountryFile const & newFile, platform::LocalCountryFile const & oldFile)
-      : m_type(type)
-      , m_file(newFile)
-      , m_oldFile(oldFile)
-    {}
-
-    bool operator==(Event const & rhs) const
-    {
-      return m_type == rhs.m_type && m_file == rhs.m_file && m_oldFile == rhs.m_oldFile;
-    }
-
-    bool operator!=(Event const & rhs) const { return !(*this == rhs); }
-
-    Type m_type;
-    platform::LocalCountryFile m_file;
-    platform::LocalCountryFile m_oldFile;
-  };
-
-  class EventList
-  {
-  public:
-    EventList() = default;
-
-    void Add(Event const & event) { m_events.push_back(event); }
-
-    void Append(EventList const & events)
-    {
-      m_events.insert(m_events.end(), events.m_events.begin(), events.m_events.end());
-    }
-
-    std::vector<Event> const & Get() const { return m_events; }
-
-  private:
-    std::vector<Event> m_events;
-
-    DISALLOW_COPY_AND_MOVE(EventList);
-  };
+  using Event = MwmSetEvent;
+  using EventList = MwmSetEventList;
 
   enum class RegResult
   {
@@ -253,18 +166,12 @@ public:
     virtual void OnMapDeregistered(platform::LocalCountryFile const & /* localFile */) {}
   };
 
-  /// Registers a new map.
-  ///
-  /// \return An active mwm handle when an mwm file with this version
-  /// already exists (in this case mwm handle will point to already
-  /// registered file) or when all registered corresponding mwm files
-  /// are older than the localFile (in this case mwm handle will point
-  /// to just-registered file).
-
 protected:
   std::pair<MwmId, RegResult> RegisterImpl(platform::LocalCountryFile const & localFile, EventList & events);
 
 public:
+  /// Registers a new map or reactivates an existing registration of the same version.
+  /// Returns its ID on success, or a null ID when registration fails.
   std::pair<MwmId, RegResult> Register(platform::LocalCountryFile const & localFile);
   //@}
 
@@ -277,10 +184,8 @@ protected:
   /// \param countryFile A countryFile denoting a map to be deregistered.
   /// \return True if the map was successfully deregistered. If map is locked
   ///         now, returns false.
-  //@{
-  bool DeregisterImpl(MwmId const & id, EventList & events);
+  using BaseT::DeregisterImpl;
   bool DeregisterImpl(platform::CountryFile const & countryFile, EventList & events);
-  //@}
 
 public:
   bool Deregister(platform::CountryFile const & countryFile);
@@ -298,15 +203,9 @@ public:
   /// @return 0 if country is not loaded.
   int64_t GetMwmVersion(platform::CountryFile const & countryFile) const;
 
-  /// Get ids of all mwms. Some of them may be with not active status.
-  /// In that case, LockValue returns NULL.
+  /// The latest info per map, including files awaiting deregistration.
   /// @todo In fact, std::shared_ptr<MwmInfo> is a MwmId. Seems like better to make vector<MwmId> interface.
-  void GetMwmsInfo(std::vector<std::shared_ptr<MwmInfo>> & info) const;
-
-  // Clears caches and mwm's registry. All known mwms won't be marked as DEREGISTERED.
-  void Clear();
-
-  void ClearCache();
+  void GetMwmsInfo(std::vector<std::shared_ptr<MwmInfo>> & info) const { GetInfos(info); }
 
   MwmId GetMwmIdByCountryFile(platform::CountryFile const & countryFile) const;
 
@@ -321,62 +220,18 @@ public:
 
 protected:
   virtual std::unique_ptr<MwmInfo> CreateInfo(platform::LocalCountryFile const & localFile) const = 0;
-  virtual std::unique_ptr<MwmValue> CreateValue(MwmInfo & info) const = 0;
 
-private:
-  using Cache = std::deque<std::pair<MwmId, std::unique_ptr<MwmValue>>>;
-
-  // This is the only valid way to take |m_lock| and use *Impl()
-  // functions. The reason is that event processing requires
-  // triggering of observers, but it's generally unsafe to call
-  // user-provided functions while |m_lock| is taken, as it may lead
-  // to deadlocks or locks without any time guarantees. Instead, a
-  // list of Events is used to collect all events and then send them
-  // to observers without |m_lock| protection.
-  template <typename TFn>
-  void WithEventLog(TFn && fn)
-  {
-    EventList events;
-    {
-      std::lock_guard<std::mutex> lock(m_lock);
-      fn(events);
-    }
-    ProcessEventList(events);
-  }
-
-  // Sets |status| in |info|, adds corresponding event to |event|.
-  void SetStatus(MwmInfo & info, MwmInfo::Status status, EventList & events);
-
-  // Triggers observers on each event in |events|.
-  void ProcessEventList(EventList & events);
-
-  /// @precondition This function is always called under mutex m_lock.
-  MwmHandle GetMwmHandleByIdImpl(MwmId const & id, EventList & events);
-
-  std::unique_ptr<MwmValue> LockValue(MwmId const & id);
-  std::unique_ptr<MwmValue> LockValueImpl(MwmId const & id, EventList & events);
-  void UnlockValue(MwmId const & id, std::unique_ptr<MwmValue> p);
-  void UnlockValueImpl(MwmId const & id, std::unique_ptr<MwmValue> p, EventList & events);
-
-  /// Do the cleaning for [beg, end) without acquiring the mutex.
-  /// @precondition This function is always called under mutex m_lock.
-  void ClearCacheImpl(Cache::iterator beg, Cache::iterator end);
-
-  Cache m_cache;
-  size_t const m_cacheSize;
-
-protected:
-  /// @precondition This function is always called under mutex m_lock.
-  void ClearCache(MwmId const & id);
+  /// @name ds::ValueSetBase overrides.
+  //@{
+  // std::unique_ptr<MwmValue> CreateValue(MwmInfo & info) const, stays pure for the descendants.
+  std::string const & GetRegistryKey(MwmInfo const & info) const override { return info.GetCountryName(); }
+  void SetStatus(MwmInfo & info, MwmInfo::Status status, EventList & events) override;
+  void ProcessEvents(EventList & events) override;
+  //@}
 
   /// Find mwm with a given name.
   /// @precondition This function is always called under mutex m_lock.
   MwmId GetMwmIdByCountryFileImpl(platform::CountryFile const & countryFile) const;
-
-  /// @todo Why vector of MwmInfo's ?!
-  std::map<std::string, std::vector<std::shared_ptr<MwmInfo>>> m_info;
-
-  mutable std::mutex m_lock;
 
 private:
   base::ObserverListSafe<Observer> m_observers;
@@ -420,8 +275,8 @@ std::string DebugPrint(MwmSet::Event const & event);
 namespace std
 {
 template <>
-struct hash<MwmSet::MwmId>
+struct hash<MwmId>
 {
-  size_t operator()(MwmSet::MwmId const & id) const { return std::hash<std::shared_ptr<MwmInfo>>()(id.GetInfo()); }
+  size_t operator()(MwmId const & id) const { return std::hash<std::shared_ptr<MwmInfo>>()(id.GetInfo()); }
 };
 }  // namespace std

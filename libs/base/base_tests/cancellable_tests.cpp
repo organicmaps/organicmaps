@@ -4,9 +4,11 @@
 #include "base/math.hpp"
 #include "base/thread.hpp"
 
+#include <atomic>
 #include <chrono>
 #include <cmath>
 #include <future>
+#include <thread>
 
 namespace cancellable_tests
 {
@@ -60,5 +62,52 @@ UNIT_TEST(Cancellable_Deadline)
   cancellable.Cancel();
   TEST(cancellable.IsCancelled(), ());
   TEST_EQUAL(cancellable.CancellationStatus(), Cancellable::Status::CancelCalled, ());
+}
+
+UNIT_TEST(SharedCancellable_CopiesShareCancellation)
+{
+  base::SharedCancellable cancellable;
+  auto copy = cancellable;
+  base::SharedCancellable const independent;
+  TEST(!cancellable.IsCancelled(), ());
+  TEST(!copy.IsCancelled(), ());
+
+  copy.Cancel();
+  TEST(cancellable.IsCancelled(), ());
+  TEST(copy.IsCancelled(), ());
+  TEST(!independent.IsCancelled(), ());
+
+  auto const moved = std::move(copy);
+  TEST(moved.IsCancelled(), ());
+  TEST(copy.IsCancelled(), ("A moved-from token keeps the shared flag"));
+}
+
+UNIT_TEST(SharedCancellable_CopyOutlivesOwner)
+{
+  base::SharedCancellable observer;
+  {
+    base::SharedCancellable owner;
+    observer = owner;
+    owner.Cancel();
+  }
+  TEST(observer.IsCancelled(), ());
+}
+
+UNIT_TEST(SharedCancellable_CancelAcrossThreads)
+{
+  base::SharedCancellable cancellable;
+  // A separate signal ends the wait, so a slow cancelling thread can't fail the test.
+  atomic_bool cancelIssued{false};
+  bool observed = false;
+  threads::SimpleThread thread([token = cancellable, &cancelIssued, &observed]
+  {
+    while (!token.IsCancelled() && !cancelIssued.load(memory_order_acquire))
+      this_thread::yield();
+    observed = token.IsCancelled();
+  });
+  cancellable.Cancel();
+  cancelIssued.store(true, memory_order_release);
+  thread.join();
+  TEST(observed, ());
 }
 }  // namespace cancellable_tests

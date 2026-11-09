@@ -1,0 +1,284 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		882ED7451AB4EFC1735EE924 /* isolines_tracer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D31C12CE449ADA8F7302D172 /* isolines_tracer.cpp */; };
+		F0EF1A08BBE4BE496314B631 /* isolines_tracer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DF6E0FCB11F3ABE4CBA33B6 /* isolines_tracer.hpp */; };
+		C6A1D4E0C4CF354C417E6CFB /* raster_patch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93D64D0DF0CB06AF77E5365E /* raster_patch.cpp */; };
+		3489665FB540D23CB475FD19 /* raster_patch.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 973C7A8B20242CEAE3C14857 /* raster_patch.hpp */; };
+		B22BAC30FAE8E642FB6A214E /* sperr_decoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CAB71F45D896D26DE3AE8441 /* sperr_decoder.cpp */; settings = {COMPILER_FLAGS = "-fno-fast-math -ffp-contract=off"; }; };
+		FC3D197AFE4508A6539F2953 /* sperr_decoder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 987895103BC28313D5EF6A91 /* sperr_decoder.hpp */; };
+		F605C8DE5672F1FAB4A691F4 /* sz3_decoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7B839C79764D9A7505E68982 /* sz3_decoder.cpp */; settings = {COMPILER_FLAGS = "-fno-fast-math -ffp-contract=off -DSZ3_ASSUME_STRICT_FP"; }; };
+		B7C9655F8E013DFD66F5B6A1 /* sz3_decoder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 5514B410557E24F6BDAC6BF3 /* sz3_decoder.hpp */; };
+		32CCD3DF8181A980DE349B47 /* sz3_profile.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 595FC490ACDFF6587A171DC6 /* sz3_profile.hpp */; };
+		9CCDB208FCF8C3688E0A14E7 /* terrain_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5B18004559B315D2920E8B10 /* terrain_data.cpp */; };
+		C823C2BC959E135D834D544A /* terrain_data.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 719861E71353E4764BDE5917 /* terrain_data.hpp */; };
+		44D2227D63DFADA372E97AE3 /* terrain_normals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F2DC9B1B8047CF81A2244EEF /* terrain_normals.cpp */; };
+		945F46B11ACB971DC8148618 /* terrain_normals.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D59751EA80BE5FAC0E21004D /* terrain_normals.hpp */; };
+		F73AF95E46B650FC794FA62F /* terrain_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99763B7CBB78D980475B8EF5 /* terrain_reader.cpp */; };
+		85C70CE340A5734B9C710D97 /* terrain_reader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 5135C254E7BFCB443E43894C /* terrain_reader.hpp */; };
+		64F1B71DCAA7696714828348 /* terrain_serdes.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 980BBAA3F953CD1CE2F11A68 /* terrain_serdes.hpp */; };
+		B649C51B30618C80DF3BEF96 /* terrain_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF149FEAAFB97D1624AB9624 /* terrain_utils.cpp */; };
+		6110B07582A21F359BA1E0D6 /* terrain_utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = E9B916789E44A701A36E8626 /* terrain_utils.hpp */; };
+		295DBE33A736A2A5C133FB95 /* tile_mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF3BC5577BF2564979403F79 /* tile_mesh.cpp */; };
+		6190D0E6DF7C5064AD51F56B /* tile_mesh.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 9F0A39BA7DC3544ED13C8D6F /* tile_mesh.hpp */; };
+		63AED00A807F059725690AB8 /* twm_grid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A28536D8A220C631B6AA4EE1 /* twm_grid.cpp */; };
+		49D47AE3FD7BBF7F8C454B75 /* twm_grid.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 87515DDA08D2421FA22592BA /* twm_grid.hpp */; };
+		D65FB64F196E226B1BE97B95 /* twm_set.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2942224BF48F2CDA2F62BAB9 /* twm_set.cpp */; };
+		B3129E69659D40D0F04DBAF4 /* twm_set.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 423AC201261C277CA3ECA1FC /* twm_set.hpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		FB59D5129A756F75D8BBBD5B /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
+		226ECF5B98B1D432754E5582 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+		1A8B68C843B6A8BE003B622A /* libterrain.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libterrain.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D31C12CE449ADA8F7302D172 /* isolines_tracer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = isolines_tracer.cpp; sourceTree = "<group>"; };
+		3DF6E0FCB11F3ABE4CBA33B6 /* isolines_tracer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = isolines_tracer.hpp; sourceTree = "<group>"; };
+		93D64D0DF0CB06AF77E5365E /* raster_patch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = raster_patch.cpp; sourceTree = "<group>"; };
+		973C7A8B20242CEAE3C14857 /* raster_patch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = raster_patch.hpp; sourceTree = "<group>"; };
+		CAB71F45D896D26DE3AE8441 /* sperr_decoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sperr_decoder.cpp; sourceTree = "<group>"; };
+		987895103BC28313D5EF6A91 /* sperr_decoder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sperr_decoder.hpp; sourceTree = "<group>"; };
+		7B839C79764D9A7505E68982 /* sz3_decoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sz3_decoder.cpp; sourceTree = "<group>"; };
+		5514B410557E24F6BDAC6BF3 /* sz3_decoder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sz3_decoder.hpp; sourceTree = "<group>"; };
+		595FC490ACDFF6587A171DC6 /* sz3_profile.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sz3_profile.hpp; sourceTree = "<group>"; };
+		5B18004559B315D2920E8B10 /* terrain_data.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = terrain_data.cpp; sourceTree = "<group>"; };
+		719861E71353E4764BDE5917 /* terrain_data.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = terrain_data.hpp; sourceTree = "<group>"; };
+		F2DC9B1B8047CF81A2244EEF /* terrain_normals.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = terrain_normals.cpp; sourceTree = "<group>"; };
+		D59751EA80BE5FAC0E21004D /* terrain_normals.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = terrain_normals.hpp; sourceTree = "<group>"; };
+		99763B7CBB78D980475B8EF5 /* terrain_reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = terrain_reader.cpp; sourceTree = "<group>"; };
+		5135C254E7BFCB443E43894C /* terrain_reader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = terrain_reader.hpp; sourceTree = "<group>"; };
+		980BBAA3F953CD1CE2F11A68 /* terrain_serdes.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = terrain_serdes.hpp; sourceTree = "<group>"; };
+		DF149FEAAFB97D1624AB9624 /* terrain_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = terrain_utils.cpp; sourceTree = "<group>"; };
+		E9B916789E44A701A36E8626 /* terrain_utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = terrain_utils.hpp; sourceTree = "<group>"; };
+		DF3BC5577BF2564979403F79 /* tile_mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tile_mesh.cpp; sourceTree = "<group>"; };
+		9F0A39BA7DC3544ED13C8D6F /* tile_mesh.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = tile_mesh.hpp; sourceTree = "<group>"; };
+		A28536D8A220C631B6AA4EE1 /* twm_grid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = twm_grid.cpp; sourceTree = "<group>"; };
+		87515DDA08D2421FA22592BA /* twm_grid.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = twm_grid.hpp; sourceTree = "<group>"; };
+		2942224BF48F2CDA2F62BAB9 /* twm_set.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = twm_set.cpp; sourceTree = "<group>"; };
+		423AC201261C277CA3ECA1FC /* twm_set.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = twm_set.hpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		76BE1EC6B9C34846AEDA9E34 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C83AB251E90EF432AC22C06F = {
+			isa = PBXGroup;
+			children = (
+				FB59D5129A756F75D8BBBD5B /* common-debug.xcconfig */,
+				226ECF5B98B1D432754E5582 /* common-release.xcconfig */,
+				B4BAB72B1DD0D492F7F0B28E /* terrain */,
+				D3956C9E0CBC982AF396C4E6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D3956C9E0CBC982AF396C4E6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1A8B68C843B6A8BE003B622A /* libterrain.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B4BAB72B1DD0D492F7F0B28E /* terrain */ = {
+			isa = PBXGroup;
+			children = (
+				D31C12CE449ADA8F7302D172 /* isolines_tracer.cpp */,
+				3DF6E0FCB11F3ABE4CBA33B6 /* isolines_tracer.hpp */,
+				93D64D0DF0CB06AF77E5365E /* raster_patch.cpp */,
+				973C7A8B20242CEAE3C14857 /* raster_patch.hpp */,
+				CAB71F45D896D26DE3AE8441 /* sperr_decoder.cpp */,
+				987895103BC28313D5EF6A91 /* sperr_decoder.hpp */,
+				7B839C79764D9A7505E68982 /* sz3_decoder.cpp */,
+				5514B410557E24F6BDAC6BF3 /* sz3_decoder.hpp */,
+				595FC490ACDFF6587A171DC6 /* sz3_profile.hpp */,
+				5B18004559B315D2920E8B10 /* terrain_data.cpp */,
+				719861E71353E4764BDE5917 /* terrain_data.hpp */,
+				F2DC9B1B8047CF81A2244EEF /* terrain_normals.cpp */,
+				D59751EA80BE5FAC0E21004D /* terrain_normals.hpp */,
+				99763B7CBB78D980475B8EF5 /* terrain_reader.cpp */,
+				5135C254E7BFCB443E43894C /* terrain_reader.hpp */,
+				980BBAA3F953CD1CE2F11A68 /* terrain_serdes.hpp */,
+				DF149FEAAFB97D1624AB9624 /* terrain_utils.cpp */,
+				E9B916789E44A701A36E8626 /* terrain_utils.hpp */,
+				DF3BC5577BF2564979403F79 /* tile_mesh.cpp */,
+				9F0A39BA7DC3544ED13C8D6F /* tile_mesh.hpp */,
+				A28536D8A220C631B6AA4EE1 /* twm_grid.cpp */,
+				87515DDA08D2421FA22592BA /* twm_grid.hpp */,
+				2942224BF48F2CDA2F62BAB9 /* twm_set.cpp */,
+				423AC201261C277CA3ECA1FC /* twm_set.hpp */,
+			);
+			name = terrain;
+			path = ../../libs/terrain;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		14152B7585EFE8A34D34A053 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0EF1A08BBE4BE496314B631 /* isolines_tracer.hpp in Headers */,
+				3489665FB540D23CB475FD19 /* raster_patch.hpp in Headers */,
+				FC3D197AFE4508A6539F2953 /* sperr_decoder.hpp in Headers */,
+				B7C9655F8E013DFD66F5B6A1 /* sz3_decoder.hpp in Headers */,
+				32CCD3DF8181A980DE349B47 /* sz3_profile.hpp in Headers */,
+				C823C2BC959E135D834D544A /* terrain_data.hpp in Headers */,
+				945F46B11ACB971DC8148618 /* terrain_normals.hpp in Headers */,
+				85C70CE340A5734B9C710D97 /* terrain_reader.hpp in Headers */,
+				64F1B71DCAA7696714828348 /* terrain_serdes.hpp in Headers */,
+				6110B07582A21F359BA1E0D6 /* terrain_utils.hpp in Headers */,
+				6190D0E6DF7C5064AD51F56B /* tile_mesh.hpp in Headers */,
+				49D47AE3FD7BBF7F8C454B75 /* twm_grid.hpp in Headers */,
+				B3129E69659D40D0F04DBAF4 /* twm_set.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		E92958DD6C300B3F8760BF23 /* terrain */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 948150A8EF4163AC497A50FF /* Build configuration list for PBXNativeTarget "terrain" */;
+			buildPhases = (
+				A345859C0FFF1C6AF1F2455C /* Sources */,
+				76BE1EC6B9C34846AEDA9E34 /* Frameworks */,
+				14152B7585EFE8A34D34A053 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = terrain;
+			productName = terrain;
+			productReference = 1A8B68C843B6A8BE003B622A /* libterrain.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		095C2AD38654D98AC6CDB394 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				DefaultBuildSystemTypeForWorkspace = Latest;
+				LastUpgradeCheck = 2700;
+			};
+			buildConfigurationList = 11D25094EF003A3A9A751A04 /* Build configuration list for PBXProject "terrain" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C83AB251E90EF432AC22C06F;
+			productRefGroup = D3956C9E0CBC982AF396C4E6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E92958DD6C300B3F8760BF23 /* terrain */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A345859C0FFF1C6AF1F2455C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				882ED7451AB4EFC1735EE924 /* isolines_tracer.cpp in Sources */,
+				C6A1D4E0C4CF354C417E6CFB /* raster_patch.cpp in Sources */,
+				B22BAC30FAE8E642FB6A214E /* sperr_decoder.cpp in Sources */,
+				F605C8DE5672F1FAB4A691F4 /* sz3_decoder.cpp in Sources */,
+				9CCDB208FCF8C3688E0A14E7 /* terrain_data.cpp in Sources */,
+				44D2227D63DFADA372E97AE3 /* terrain_normals.cpp in Sources */,
+				F73AF95E46B650FC794FA62F /* terrain_reader.cpp in Sources */,
+				B649C51B30618C80DF3BEF96 /* terrain_utils.cpp in Sources */,
+				295DBE33A736A2A5C133FB95 /* tile_mesh.cpp in Sources */,
+				63AED00A807F059725690AB8 /* twm_grid.cpp in Sources */,
+				D65FB64F196E226B1BE97B95 /* twm_set.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		DFAE6A3B94B7A255E5307300 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FB59D5129A756F75D8BBBD5B /* common-debug.xcconfig */;
+			buildSettings = {
+				SYSTEM_HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/sperr/include",
+					"$(OMIM_ROOT)/3party/sz3/include",
+				);
+			};
+			name = Debug;
+		};
+		2FBCDF431BF186DD4B498C3C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 226ECF5B98B1D432754E5582 /* common-release.xcconfig */;
+			buildSettings = {
+				SYSTEM_HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/sperr/include",
+					"$(OMIM_ROOT)/3party/sz3/include",
+				);
+			};
+			name = Release;
+		};
+		09B2F03697A34CB005D75BF1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		137B7BEF96F55FB158E813D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		11D25094EF003A3A9A751A04 /* Build configuration list for PBXProject "terrain" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DFAE6A3B94B7A255E5307300 /* Debug */,
+				2FBCDF431BF186DD4B498C3C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		948150A8EF4163AC497A50FF /* Build configuration list for PBXNativeTarget "terrain" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				09B2F03697A34CB005D75BF1 /* Debug */,
+				137B7BEF96F55FB158E813D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 095C2AD38654D98AC6CDB394 /* Project object */;
+}

@@ -1,0 +1,13 @@
+#ifndef SPERR_CONFIG
+#define SPERR_CONFIG
+
+#define SPERR_VERSION_MAJOR 0
+#define SPERR_VERSION_MINOR 8
+#define SPERR_VERSION_PATCH 5
+
+#define SPERR_GIT_SHA1 "b8012586908aaabba993038d183b3937c8ea9c7c"
+#define SPERR_GIT_BRANCH "pinned"
+
+/* #undef USE_OMP */
+
+#endif

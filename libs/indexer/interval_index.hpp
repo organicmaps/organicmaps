@@ -54,17 +54,17 @@ public:
   uint64_t KeyEnd() const { return 1ULL << (m_Header.m_Levels * m_Header.m_BitsPerLevel + m_Header.m_LeafBytes * 8); }
 
   template <typename F>
-  void ForEach(F const & f, uint64_t beg, uint64_t end) const
+  void ForEach(F && f, uint64_t beg, uint64_t end) const
   {
     if (m_Header.m_Levels != 0 && beg != end)
     {
-      // ASSERT_LESS_OR_EQUAL(beg, KeyEnd(), (end));
-      // ASSERT_LESS_OR_EQUAL(end, KeyEnd(), (beg));
       if (beg > KeyEnd())
         beg = KeyEnd();
       if (end > KeyEnd())
         end = KeyEnd();
-      --end;  // end is inclusive in ForEachImpl().
+      if (beg == end)
+        return;
+      --end;  // ForEachNode uses an inclusive end.
       ForEachNode(f, beg, end, m_Header.m_Levels, 0,
                   m_LevelOffsets[m_Header.m_Levels + 1] - m_LevelOffsets[m_Header.m_Levels], 0 /* started keyBase */);
     }
@@ -72,7 +72,7 @@ public:
 
 private:
   template <typename F>
-  void ForEachLeaf(F const & f, uint64_t const beg, uint64_t const end, uint32_t const offset, uint32_t const size,
+  void ForEachLeaf(F && f, uint64_t const beg, uint64_t const end, uint32_t const offset, uint32_t const size,
                    uint64_t keyBase /* discarded part of object key value in the parent nodes*/) const
   {
     buffer_vector<uint8_t, 1024> data;
@@ -97,7 +97,7 @@ private:
   }
 
   template <typename F>
-  void ForEachNode(F const & f, uint64_t beg, uint64_t end, int level, uint32_t offset, uint32_t size,
+  void ForEachNode(F && f, uint64_t beg, uint64_t end, int level, uint32_t offset, uint32_t size,
                    uint64_t keyBase /* discarded part of object key value in the parent nodes */) const
   {
     ASSERT(size > 0, ());

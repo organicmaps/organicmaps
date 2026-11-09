@@ -54,6 +54,9 @@
          location = "container:pugixml/pugixml.xcodeproj">
       </FileRef>
       <FileRef
+         location = "container:sperr/sperr.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "container:stb_image/stb_image.xcodeproj">
       </FileRef>
       <FileRef
@@ -125,6 +128,9 @@
    </FileRef>
    <FileRef
       location = "container:storage/storage.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:terrain/terrain.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:timezone/timezone.xcodeproj">
