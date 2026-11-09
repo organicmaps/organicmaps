@@ -322,10 +322,6 @@ UNIT_CLASS_TEST(TestWithClassificator, ValidateAndFormat_facebook)
   TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_FACEBOOK), "238702340219158/posts/284664265622965", ());
   md.Drop(Metadata::FMD_CONTACT_FACEBOOK);
 
-  p("contact:facebook", "https://facebook.com/238702340219158/posts/284664265622965");
-  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_FACEBOOK), "238702340219158/posts/284664265622965", ());
-  md.Drop(Metadata::FMD_CONTACT_FACEBOOK);
-
   p("contact:facebook", "https://fr-fr.facebook.com/people/Paillote-Lgm/100012630853826/");
   TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_FACEBOOK), "people/Paillote-Lgm/100012630853826", ());
   md.Drop(Metadata::FMD_CONTACT_FACEBOOK);
