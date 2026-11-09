@@ -73,7 +73,10 @@ public final class LocationState
   public static native void nativeOnLocationError(int errorCode);
 
   static native void nativeLocationUpdated(long time, double lat, double lon, float accuracyH, double altitude,
-                                           float accuracyV, float speed, float bearing);
+                                           float accuracyV, float speed, float bearing, long elapsedRealtimeNanos,
+                                           long liveUntilNanos, boolean resetPrediction);
+
+  static native void nativeResetLocationPrediction();
 
   private LocationState() {}
 

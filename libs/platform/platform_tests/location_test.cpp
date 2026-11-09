@@ -43,3 +43,31 @@ UNIT_TEST(TLocationError_DebugPrint)
   TEST_EQUAL(DebugPrint(location::ENotSupported), "ENotSupported", ());
   TEST_EQUAL(DebugPrint(location::EGPSIsOff), "EGPSIsOff", ());
 }
+
+UNIT_TEST(LocationTiming_FreshnessUsesTheObservationClock)
+{
+  using namespace std::chrono_literals;
+  location::GpsInfo fix;
+  auto const observed = location::Clock::time_point(100s);
+  fix.m_timing = location::GpsInfo::Timing{observed, observed + 5s};
+
+  TEST(!fix.IsFresh(observed - 1ns), ());
+  TEST(fix.IsFresh(observed), ());
+  TEST(fix.IsFresh(observed + 4999ms), ());
+  TEST(!fix.IsFresh(observed + 5s), ());
+  TEST(fix.m_timing->m_observedAt == observed, ());
+}
+
+UNIT_TEST(LocationTiming_LegacyInputsKeepTheirClockDomain)
+{
+  location::GpsInfo legacy;
+  legacy.m_timestamp = 12345;
+  TEST(legacy.IsFresh(), ());
+
+  auto timed = legacy;
+  timed.m_timing = location::GpsInfo::Timing{location::Clock::time_point(std::chrono::seconds(1)),
+                                             location::Clock::time_point(std::chrono::seconds(6))};
+  TEST(!legacy.HasSameClock(timed), ());
+  TEST(timed.m_timing->m_observedAt == location::Clock::time_point(std::chrono::seconds(1)), ());
+  TEST_EQUAL(timed.m_timestamp, legacy.m_timestamp, ());
+}

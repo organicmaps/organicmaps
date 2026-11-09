@@ -17,6 +17,7 @@
 
 #include <cstdint>
 #include <functional>
+#include <optional>
 
 namespace df
 {
@@ -129,6 +130,7 @@ public:
   bool IsModeChangeViewport() const;
 
   bool IsWaitingForLocation() const;
+  bool IsPositionObsolete() const { return m_positionIsObsolete; }
   m2::PointD GetDrawablePosition();
   void UpdateRoutingOffsetY(bool useDefault, int offsetY);
 
@@ -192,6 +194,7 @@ private:
   base::Timer m_blockAutoZoomTimer;
   base::Timer m_updateLocationTimer;
   double m_lastLocationTimestamp;
+  std::optional<location::GpsInfo::Timing> m_locationTiming;
 
   m2::RectD m_pixelRect;
   m2::RectD m_visiblePixelRect;
