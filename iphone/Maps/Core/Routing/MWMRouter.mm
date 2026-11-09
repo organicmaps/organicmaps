@@ -282,6 +282,17 @@ using namespace routing;
   return [turnNotifications copy];
 }
 
++ (void)playGuidance
+{
+  auto tts = [MWMTextToSpeech tts];
+  NSArray<NSString *> * notifications = [self turnNotifications];
+  if ([self isOnRoute] && tts.active)
+  {
+    [tts playTurnNotifications:notifications];
+    [tts playWarningSound];
+  }
+}
+
 + (void)removePointAndRebuild:(MWMRoutePoint *)point
 {
   if (!point)
@@ -521,13 +532,8 @@ using namespace routing;
 {
   if (![MWMRouter isRoutingActive])
     return;
-  auto tts = [MWMTextToSpeech tts];
-  NSArray<NSString *> * turnNotifications = [MWMRouter turnNotifications];
-  if ([MWMRouter isOnRoute] && tts.active)
-  {
-    [tts playTurnNotifications:turnNotifications];
-    [tts playWarningSound];
-  }
+  if (![MWMCarPlayService shared].isCarPlayRoutingActive)
+    [MWMRouter playGuidance];
 
   [self updateFollowingInfo];
 }

@@ -49,6 +49,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)areTurnNotificationsEnabled;
 + (void)setTurnNotificationsLocale:(NSString *)locale;
 + (NSArray<NSString *> *)turnNotifications;
+/// Poll guidance for the active presentation, including while muted to discard stale prompts.
++ (void)playGuidance;
 
 + (void)addPoint:(MWMRoutePoint *)point;
 + (void)addPointAndRebuild:(MWMRoutePoint *)point;
