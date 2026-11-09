@@ -791,39 +791,39 @@ UNIT_TEST(schedule_with_tz)
     auto o = A("dusk-sunset");
     check_schedule(o, "2020-04-01", "00:00 open 18:25 | 20:16 open 24:00");
   }
-  // The sun is already set in winter.
+  // Polar day in the southern summer.
   {
     auto o = A("sunrise-20:00");
-    check_schedule_empty(o, "2020-01-01");
+    check_schedule(o, "2020-01-01", "00:00 open 20:00");
   }
   {
     auto o = A("10:00-sunset");
-    check_schedule_empty(o, "2020-01-01");
+    check_schedule(o, "2020-01-01", "10:00 open 24:00");
   }
   {
     auto o = A("sunset-dusk");
-    check_schedule_empty(o, "2020-01-01");
-  }
-  {
-    auto o = A("dusk-sunset");
     check_schedule(o, "2020-01-01", "00:00 open 24:00");
   }
-  // The sun never sets in summer.
+  {
+    auto o = A("dusk-sunset");
+    check_schedule_empty(o, "2020-01-01");
+  }
+  // Polar night in the southern winter.
   {
     auto o = A("sunrise-20:00");
-    check_schedule(o, "2020-06-01", "00:00 open 20:00");
+    check_schedule_empty(o, "2020-06-01");
   }
   {
     auto o = A("10:00-sunset");
-    check_schedule(o, "2020-06-01", "10:00 open 24:00");
+    check_schedule_empty(o, "2020-06-01");
   }
   {
     auto o = A("sunset-dusk");
-    check_schedule(o, "2020-06-01", "00:00 open 24:00");
+    check_schedule_empty(o, "2020-06-01");
   }
   {
     auto o = A("dusk-sunset");
-    check_schedule_empty(o, "2020-06-01");
+    check_schedule(o, "2020-06-01", "00:00 open 24:00");
   }
 }
 
