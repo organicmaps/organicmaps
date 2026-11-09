@@ -230,6 +230,8 @@ final class NavigationDashboardViewController: UIViewController {
     routeControlsStackView.axis = .horizontal
     routeControlsStackView.alignment = .center
     routeControlsStackView.spacing = 4
+    routeControlsStackView.isLayoutMarginsRelativeArrangement = true
+    routeControlsStackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 4)
   }
 
   private func setupRouteStatusView() {
