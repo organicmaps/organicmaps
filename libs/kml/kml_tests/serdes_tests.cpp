@@ -1568,6 +1568,49 @@ UNIT_TEST(Kml_BookmarkColor_NoIconLineColorBleed)
              ("Track must use the line color, not the icon color"));
 }
 
+UNIT_TEST(Kml_TrackStyle_DeclaredAfterPlacemark)
+{
+  // Some apps (e.g. Guru Maps) write the shared <Style> after the placemarks that use it (#7441).
+  std::string const track =
+      "<Placemark><styleUrl>#line</styleUrl>"
+      "<LineString><coordinates>27.55,53.89 27.56,53.90</coordinates></LineString></Placemark>";
+  std::string const trackWithMap =
+      "<Placemark><styleUrl>#map</styleUrl>"
+      "<LineString><coordinates>27.55,53.89 27.56,53.90</coordinates></LineString></Placemark>";
+  // The sample from the issue: two lines in a MultiGeometry.
+  std::string const multiTrack =
+      "<Placemark><styleUrl>#line</styleUrl><MultiGeometry>"
+      "<LineString><coordinates>27.55,53.89 27.56,53.90</coordinates></LineString>"
+      "<LineString><coordinates>27.57,53.91 27.58,53.92</coordinates></LineString>"
+      "</MultiGeometry></Placemark>";
+  // A track stored inside a bookmark.
+  std::string const pointWithTrack =
+      "<Placemark><styleUrl>#line</styleUrl><MultiGeometry>"
+      "<Point><coordinates>27.55,53.89</coordinates></Point>"
+      "<LineString><coordinates>27.55,53.89 27.56,53.90</coordinates></LineString>"
+      "</MultiGeometry></Placemark>";
+  std::string const style = "<Style id=\"line\"><LineStyle><color>C8DE52AF</color><width>7</width></LineStyle></Style>";
+  std::string const styleMap =
+      "<StyleMap id=\"map\"><Pair><key>normal</key><styleUrl>#line</styleUrl></Pair></StyleMap>";
+
+  for (auto const & body : {track + style, track + styleMap + style, trackWithMap + styleMap + style,
+                            style + styleMap + trackWithMap, multiTrack + style, pointWithTrack + style})
+  {
+    auto const data = ParseKmlText(WrapKmlDoc(body));
+    TEST_EQUAL(data.m_tracksData.size(), 1, (body));
+    auto const & layers = data.m_tracksData.front().m_layers;
+    TEST_EQUAL(layers.size(), 1, (body));
+    TEST_EQUAL(layers.front().m_color.m_rgba, 0xAF52DEC8u, (body));
+    TEST_EQUAL(layers.front().m_lineWidth, 7.0, (body));
+  }
+
+  // A style that is never declared keeps the default track look.
+  auto const data = ParseKmlText(WrapKmlDoc(track));
+  auto const & layer = data.m_tracksData.front().m_layers.front();
+  TEST_EQUAL(layer.m_color.m_rgba, kml::kDefaultTrackColor, ());
+  TEST_EQUAL(layer.m_lineWidth, kml::kDefaultTrackWidth, ());
+}
+
 UNIT_TEST(Kml_BookmarkColor_ForcedOpaqueAndTransparent)
 {
   // Alpha < FF is forced opaque.

@@ -64,6 +64,8 @@ public:
 
   size_t GetDroppedCompilationsCount() const { return m_droppedCompilations; }
   void ResolveAreaStyles();
+  // Applies shared styles that were declared after the tracks referencing them.
+  void ResolveTrackStyles();
 
   static kml::TrackLayer GetDefaultTrackLayer();
 
@@ -92,6 +94,9 @@ private:
   // not leak a bookmark color into a track or vice versa.
   bool GetIconColorForStyle(std::string_view styleUrl, uint32_t & color) const;
   double GetTrackWidthForStyle(std::string_view styleUrl) const;
+  // Sets the color and width of a track layer from a shared style, following a StyleMap alias.
+  // Returns false if no such style is declared (yet).
+  bool ApplyTrackStyle(std::string_view styleUrl, TrackLayer & layer) const;
 
   struct AreaStylePatch
   {
@@ -122,6 +127,7 @@ private:
     AreaStylePatch m_inline;
   };
   void ParseAreaRing(std::string_view value, AreaRing & ring);
+  void AddPendingTrackStyles();
 
   std::optional<AreaPolygon> m_polygon;
   std::vector<AreaPolygon> m_areaPolygons;
@@ -134,6 +140,15 @@ private:
   std::string m_areaStyleReference;
   std::map<std::string, AreaStylePatch, std::less<>> m_areaStyles;
   std::vector<PendingAreaStyle> m_pendingAreaStyles;
+  struct PendingTrackStyle
+  {
+    size_t m_trackIndex;
+    size_t m_layerIndex;
+    std::string m_styleUrl;
+  };
+  // Track layers of the current placemark whose style is not declared yet: layer index and styleUrl.
+  std::vector<std::pair<size_t, std::string>> m_unresolvedTrackLayers;
+  std::vector<PendingTrackStyle> m_pendingTrackStyles;
 
   FileData & m_data;
 
@@ -209,6 +224,7 @@ public:
     }
 
     parser.ResolveAreaStyles();
+    parser.ResolveTrackStyles();
     if (auto const count = parser.GetDroppedCompilationsCount(); count > 0)
       LOG(LWARNING, ("Ignored", count, "unsupported collections in a KML file"));
   }
