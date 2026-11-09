@@ -28,8 +28,6 @@ class PlacePageInfoViewController: UIViewController {
 
   @IBOutlet var stackView: UIStackView!
 
-  private lazy var openingHoursViewController: OpeningHoursViewController = storyboard!.instantiateViewController(ofType: OpeningHoursViewController.self)
-
   private var coordinatesView: InfoItemView?
   private var openWithAppView: InfoItemView?
   private var routeRefsView: InfoItemView?
@@ -72,15 +70,6 @@ class PlacePageInfoViewController: UIViewController {
   // MARK: private
 
   private func setupViews() {
-    if let openingHours = placePageInfoData.openingHours {
-      openingHoursViewController.openingHours = openingHours
-      addChild(openingHoursViewController)
-      addToStack(openingHoursViewController.view)
-      openingHoursViewController.didMove(toParent: self)
-    } else if let openingHoursString = placePageInfoData.openingHoursString {
-      createInfoItem(openingHoursString, icon: UIImage(resource: .icPlacepageOpenHours))
-    }
-
     if let cuisine = placePageInfoData.cuisine {
       createInfoItem(cuisine, icon: UIImage(resource: .icPlacepageCuisine))
     }

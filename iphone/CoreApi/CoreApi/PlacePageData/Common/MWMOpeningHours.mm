@@ -79,13 +79,14 @@ namespace osmoh
 std::optional<std::vector<Day>> processRawString(NSString * str, id<IOpeningHoursLocalization> localization,
                                                  NSInteger today)
 {
-  ui::TimeTableSet timeTables;
-  if (!MakeTimeTableSet(osmoh::OpeningHours(str.UTF8String), timeTables))
-    return std::nullopt;
+  osmoh::OpeningHours const oh(str.UTF8String);
+  // Open 24/7: the status already says so and there is no week to list (same as Android).
+  if (oh.IsTwentyFourHours())
+    return std::vector<Day>{};
 
-  // Open 24/7: one row instead of the week.
-  if (auto const & tt = *timeTables.begin(); timeTables.Size() == 1 && isEveryDay(tt) && tt.IsTwentyFourHours())
-    return std::vector<Day>{Day(localization.twentyFourSevenString, @"")};
+  ui::TimeTableSet timeTables;
+  if (!MakeTimeTableSet(oh, timeTables))
+    return std::nullopt;
 
   // Same as Android's WeekScheduleBuilder: the week starts today, and each row joins the following days
   // that share a time table, or have none and are closed.
