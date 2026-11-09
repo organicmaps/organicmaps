@@ -62,6 +62,25 @@ final class OpeningHoursTests: XCTestCase {
     XCTAssertEqual(day.workingTimes, time(8) + "—" + time(8))
   }
 
+  func test_GivenClosureAtOpening_WhenFormatted_ThenOnlyTheLaterShiftIsListed() throws {
+    let day = try today("Mo-Su 08:00-18:00; Mo-Su 08:00-12:00 off")
+
+    XCTAssertEqual(day.workingTimes, "NOON—" + time(18))
+  }
+
+  func test_GivenClosureAtClosing_WhenFormatted_ThenOnlyTheEarlierShiftIsListed() throws {
+    let day = try today("Mo-Su 08:00-18:00; Mo-Su 12:00-18:00 off")
+
+    XCTAssertEqual(day.workingTimes, time(8) + "—NOON")
+  }
+
+  func test_GivenFullSpanClosure_WhenFormatted_ThenTheDayIsClosed() throws {
+    let day = try today("Mo-Su 08:00-18:00; Mo-Su 08:00-18:00 off")
+
+    XCTAssertEqual(day.workingTimes, "CLOSED")
+    XCTAssertFalse(day.isOpen)
+  }
+
   func test_GivenWeekdayAndFridayHours_WhenTodayIsThursday_ThenWeekStartsFromToday() throws {
     // Issue #13927.
     let days = try week("Mo-Th 08:00-12:00, 13:00-16:30; Fr 08:00-12:00, 13:00-15:00", today: .thursday)
@@ -104,11 +123,18 @@ final class OpeningHoursTests: XCTestCase {
                                               "CLOSED"])
   }
 
-  func test_GivenOpenTwentyFourSeven_WhenListed_ThenOneRowSaysSo() throws {
+  func test_GivenOpenTwentyFourSeven_WhenListed_ThenThereAreNoRows() throws {
     let days = try week("24/7", today: .monday)
 
-    XCTAssertEqual(days.map(\.workingDays), ["TWENTYFOURSEVEN"])
-    XCTAssertEqual(days.map(\.workingTimes), [""])
+    XCTAssertTrue(days.isEmpty)
+  }
+
+  func test_GivenAllDayEveryDay_WhenListed_ThenOneRowSaysAllDay() throws {
+    // Unlike 24/7, every day's hours are spelled out, so they are listed (same as Android).
+    let days = try week("Mo-Su 00:00-24:00", today: .monday)
+
+    XCTAssertEqual(days.map(\.workingDays), [name(.monday, .sunday)])
+    XCTAssertEqual(days.map(\.workingTimes), ["ALLDAY"])
   }
 
   private func week(_ rawString: String, today: Weekday) throws -> [WorkingDay] {
@@ -146,7 +172,6 @@ final class OpeningHoursTests: XCTestCase {
 
 private final class MockOpeningHoursLocalization: NSObject, IOpeningHoursLocalization {
   var closedString: String { "CLOSED" }
-  var twentyFourSevenString: String { "TWENTYFOURSEVEN" }
   var allDayString: String { "ALLDAY" }
   var noonString: String { "NOON" }
   var midnightString: String { "MIDNIGHT" }
