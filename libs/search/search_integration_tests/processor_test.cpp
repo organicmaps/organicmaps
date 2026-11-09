@@ -2632,6 +2632,33 @@ UNIT_CLASS_TEST(ProcessorTest, StreetNumberEnriched)
   }
 }
 
+UNIT_CLASS_TEST(ProcessorTest, StreetNumberSpellings)
+{
+  // The way and its route relation spell the number differently: both spellings must be found.
+  TestStreet spaceFirst({{-1.0, -1.0}, {1.0, 1.0}}, "Route de Toulon", "fr");
+  spaceFirst.SetRoadNumber("D 106;FR:83/D106");
+  TestStreet spaceLast({{-1.0, 1.0}, {1.0, -1.0}}, "Route de Marseille", "fr");
+  spaceLast.SetRoadNumber("M42;FR:83/M 42");
+
+  auto countryId = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(spaceFirst);
+    builder.Add(spaceLast);
+  });
+
+  SetViewport(m2::RectD(0.0, 0.0, 1.0, 2.0));
+  {
+    Rules rules = {ExactMatch(countryId, spaceFirst)};
+    TEST(ResultsMatch("D106 ", rules), ());
+    TEST(ResultsMatch("D 106 ", rules), ());
+  }
+  {
+    Rules rules = {ExactMatch(countryId, spaceLast)};
+    TEST(ResultsMatch("M42 ", rules), ());
+    TEST(ResultsMatch("M 42 ", rules), ());
+  }
+}
+
 UNIT_CLASS_TEST(ProcessorTest, PostcodesErrorTest)
 {
   TestPOI postbox({0.0, 0.0}, "127001", "default");

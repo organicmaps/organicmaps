@@ -78,17 +78,30 @@ UNIT_TEST(RoadShields_SameNumberWithoutSpace)
   TEST_EQUAL(shields[0].m_name, "D 106", (shields));
   TEST_EQUAL(shields[0].m_type, RoadShieldType::Generic_Orange, (shields));
 
-  shields = GetRoadShields("Germany_Bavaria", "A 7;A7");
-  TEST_EQUAL(shields.size(), 1, (shields));
-
-  // A network style wins over the plain shield of the same number.
+  // A network style wins over the plain shield of the same number, in either order.
   shields = GetRoadShields("Poland_Masovian Voivodeship", "S 7;PL:national/S7");
   TEST_EQUAL(shields.size(), 1, (shields));
   TEST_EQUAL(shields[0].m_type, RoadShieldType::Generic_Red, (shields));
+  shields = GetRoadShields("Poland_Masovian Voivodeship", "PL:national/S7;S 7");
+  TEST_EQUAL(shields.size(), 1, (shields));
+  TEST_EQUAL(shields[0].m_type, RoadShieldType::Generic_Red, (shields));
+
+  // A modifier makes a different shield.
+  shields = GetRoadShields("US", "US 30;US 30 Bus");
+  TEST_EQUAL(shields.size(), 2, (shields));
+  TEST_EQUAL(shields[1].m_additionalText, "Bus", (shields));
 
   // Different numbers or styles are kept.
   shields = GetRoadShields("France_Provence", "D 106;D 1060");
   TEST_EQUAL(shields.size(), 2, (shields));
   shields = GetRoadShields("France_Provence", "D 7;e-road/D7");
   TEST_EQUAL(shields.size(), 2, (shields));
+}
+
+// Search indexes every spelling, so that both "D 106" and "D106" find the road.
+UNIT_TEST(RoadShields_SearchNamesKeepSpellings)
+{
+  TEST_EQUAL(ftypes::GetRoadShieldsNames("D 106;FR:83/D106"), std::vector<std::string>({"D 106", "D106"}), ());
+  TEST_EQUAL(ftypes::GetRoadShieldsNames("D106;FR:83/D 106"), std::vector<std::string>({"D106", "D 106"}), ());
+  TEST_EQUAL(ftypes::GetRoadShieldsNames("M-11;ru:national/M-11"), std::vector<std::string>({"M-11"}), ());
 }
