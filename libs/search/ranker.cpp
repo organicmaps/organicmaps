@@ -281,7 +281,7 @@ public:
     }
 
     if (type == Model::TYPE_STREET)
-      for (auto const & shield : ftypes::GetRoadShieldsNames(ft))
+      for (auto const & shield : ftypes::GetRoadShieldsNames(ft, true /* allSpellings */))
         UpdateNameScores(shield, StringUtf8Multilang::kDefaultCode, sliceNoCategories, bestScores);
 
     return bestScores;

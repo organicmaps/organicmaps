@@ -745,25 +745,25 @@ RoadShieldsSetT GetRoadShields(std::string const & rawRoadNumber)
   return SimpleRoadShieldParser(rawRoadNumber, SimpleRoadShieldParser::ShieldTypes()).GetRoadShields();
 }
 
-std::vector<std::string> GetRoadShieldsNames(std::string const & rawRoadNumber)
+std::vector<std::string> GetRoadShieldsNames(std::string const & rawRoadNumber, bool allSpellings)
 {
   std::vector<std::string> names;
   if (rawRoadNumber.empty())
     return names;
   for (auto && shield :
-       SimpleRoadShieldParser(rawRoadNumber, SimpleRoadShieldParser::ShieldTypes()).GetRoadShields(false))
+       SimpleRoadShieldParser(rawRoadNumber, SimpleRoadShieldParser::ShieldTypes()).GetRoadShields(!allSpellings))
   {
     names.push_back(std::move(shield.m_name));
   }
   return names;
 }
 
-std::vector<std::string> GetRoadShieldsNames(FeatureType & ft)
+std::vector<std::string> GetRoadShieldsNames(FeatureType & ft, bool allSpellings)
 {
   auto const & ref = ft.GetRef();
   if (ref.empty() || !IsStreetOrSquareChecker::Instance()(ft))
     return {};
-  return GetRoadShieldsNames(ref);
+  return GetRoadShieldsNames(ref, allSpellings);
 }
 
 std::string DebugPrint(RoadShieldType shieldType)

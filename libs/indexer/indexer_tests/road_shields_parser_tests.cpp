@@ -98,10 +98,14 @@ UNIT_TEST(RoadShields_SameNumberWithoutSpace)
   TEST_EQUAL(shields.size(), 2, (shields));
 }
 
-// Search indexes every spelling, so that both "D 106" and "D106" find the road.
-UNIT_TEST(RoadShields_SearchNamesKeepSpellings)
+// Search indexes every spelling, so that both "D 106" and "D106" find the road. The place page shows one.
+UNIT_TEST(RoadShields_NamesSpellings)
 {
-  TEST_EQUAL(ftypes::GetRoadShieldsNames("D 106;FR:83/D106"), std::vector<std::string>({"D 106", "D106"}), ());
-  TEST_EQUAL(ftypes::GetRoadShieldsNames("D106;FR:83/D 106"), std::vector<std::string>({"D106", "D 106"}), ());
-  TEST_EQUAL(ftypes::GetRoadShieldsNames("M-11;ru:national/M-11"), std::vector<std::string>({"M-11"}), ());
+  using Names = std::vector<std::string>;
+  TEST_EQUAL(ftypes::GetRoadShieldsNames("D 106;FR:83/D106", true), Names({"D 106", "D106"}), ());
+  TEST_EQUAL(ftypes::GetRoadShieldsNames("D106;FR:83/D 106", true), Names({"D106", "D 106"}), ());
+  TEST_EQUAL(ftypes::GetRoadShieldsNames("M-11;ru:national/M-11", true), Names({"M-11"}), ());
+
+  TEST_EQUAL(ftypes::GetRoadShieldsNames("D 106;FR:83/D106"), Names({"D 106"}), ());
+  TEST_EQUAL(ftypes::GetRoadShieldsNames("D106;FR:83/D 106"), Names({"D106"}), ());
 }
