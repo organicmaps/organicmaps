@@ -2379,6 +2379,7 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
   }
 
   auto const prevTrackId = m_currentPlacePageInfo ? m_currentPlacePageInfo->GetTrackId() : kml::kInvalidTrackId;
+  auto const prevCountryId = m_currentPlacePageInfo ? m_currentPlacePageInfo->GetCountryId() : storage::CountryId();
   DeactivateHotelSearchMark();
 
   m_currentPlacePageInfo = placePageInfo;
@@ -2386,9 +2387,11 @@ void Framework::OnTapEvent(place_page::BuildInfo const & buildInfo)
   auto const newTrackId = m_currentPlacePageInfo->GetTrackId();
   if (newTrackId != kml::kInvalidTrackId)
   {
-    // For user tracks: tapping the same track at a different point just moves the selection circle.
+    // For user tracks: tapping the same track at a different point of the same region just moves the selection
+    // circle. Another region changes the map to download, so the PlacePage is updated then.
     // Temp relation tracks always reuse the same ID, so always update the PlacePage for them.
-    if (newTrackId == prevTrackId && newTrackId != kml::kTempRelationTrackId)
+    if (newTrackId == prevTrackId && newTrackId != kml::kTempRelationTrackId &&
+        m_currentPlacePageInfo->GetCountryId() == prevCountryId)
     {
       if (m_drapeEngine)
       {
@@ -2467,6 +2470,10 @@ bool Framework::BuildTrackPlacePage(Track::TrackSelectionInfo const & trackSelec
 
   info.SetSelectedObject(df::SelectionShape::OBJECT_TRACK);
   FillTrackInfo(*track, selectedInfo, info);
+  // A switch between track candidates reuses the info: the map to download follows the new selected point.
+  info.SetCountryId({});
+  info.SetTopmostCountryIds(storage::CountriesVec{});
+  GetSelectionProcessor().SetPlacePageLocation(info);
   bm.SetTrackSelectionInfo(selectedInfo, true /* notifyListeners */);
   return true;
 }
@@ -2607,7 +2614,6 @@ place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & bui
       if (trackToSelect.IsValid())
       {
         outInfo.SetSelectedObject(df::SelectionShape::OBJECT_TRACK);
-        sp.SetPlacePageLocation(outInfo);
         if (BuildTrackPlacePage(trackToSelect, outInfo))
         {
           outInfo.SetTrackCandidates(std::move(trackSelectionCandidates));

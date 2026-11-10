@@ -74,6 +74,8 @@ class PlacePageTrackLayout: IPlacePageLayout {
       viewControllers.append(elevationMapViewController)
     }
 
+    actionBarViewController.bindMapDownloadUpdates()
+
     return viewControllers
   }
 

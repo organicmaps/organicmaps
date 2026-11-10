@@ -6,6 +6,7 @@
 
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/drape_frontend_tests/visual_params_fixture.hpp"
+#include "drape_frontend/relations_draw_info.hpp"
 
 #include "indexer/classificator_loader.hpp"
 #include "indexer/feature_utils.hpp"
@@ -15,6 +16,7 @@
 #include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/preferred_languages.hpp"
+#include "platform/settings.hpp"
 
 #include "coding/internal/file_data.hpp"
 #include "coding/string_utf8_multilang.hpp"
@@ -710,13 +712,18 @@ namespace
 double constexpr kTrackDistance = 10.0;
 m2::PointD constexpr kTrackPoint(0.5, 0.0);
 
-kml::TrackData MakeLineTrackData()
+kml::TrackData MakeTrackData(m2::PointD const & from, m2::PointD const & to)
 {
   kml::TrackData trackData;
   trackData.m_layers.push_back(kml::TrackLayer());
-  trackData.m_geometry.AddLine({{{0.0, 0.0}, 1}, {{1.0, 0.0}, 2}});
+  trackData.m_geometry.AddLine({{from, 1}, {to, 2}});
   trackData.m_geometry.AddTimestamps({});
   return trackData;
+}
+
+kml::TrackData MakeLineTrackData()
+{
+  return MakeTrackData({0.0, 0.0}, {1.0, 0.0});
 }
 
 kml::TrackId CreateLineTrack(BookmarkManager & manager, kml::MarkGroupId category)
@@ -835,6 +842,10 @@ void TapUserMark(Framework & fm, kml::MarkId markId)
   buildInfo.m_userMarkId = markId;
   fm.BuildAndSetPlacePageInfo(buildInfo);
 }
+
+// Sochaczew and Łowicz, on both sides of the border of two regions.
+m2::PointD const kMasovianPoint = mercator::FromLatLon(52.229, 20.238);
+m2::PointD const kLodzPoint = mercator::FromLatLon(52.106, 19.94);
 }  // namespace
 
 UNIT_CLASS_TEST(Runner, Bookmarks_ClearTempRelationTrackDeletesSelectionMark)
@@ -1205,6 +1216,112 @@ UNIT_CLASS_TEST(Runner, Bookmarks_DeleteEditedTrack)
   }
   TEST(bmManager.GetTrack(trackId) == nullptr, ());
   TEST(bmManager.GetTrackIds(catId).empty(), ());
+}
+
+// The track place page offers to download the map of the selected track point, like a map point does.
+UNIT_CLASS_TEST(VisualParamsFixture, Bookmarks_TrackPlacePageHasCountryOfSelectedPoint)
+{
+  ScopedBookmarksDir scopedDir;
+  Framework fm(kFrameworkParams);
+
+  auto & bmManager = fm.GetBookmarkManager();
+  bmManager.EnableTestMode(true);
+
+  // The country the platforms get when the place page is published, not just the core snapshot.
+  vector<storage::CountryId> published;
+  fm.SetPlacePageListeners([&]() { published.push_back(fm.GetCurrentPlacePageInfo().GetCountryId()); },
+                           {} /* onClose */, {} /* onUpdate */, {} /* onSwitchFullScreen */);
+
+  auto const trackLength = mercator::DistanceOnEarth(kMasovianPoint, kLodzPoint);
+  auto const trackData = MakeTrackData(kMasovianPoint, kLodzPoint);
+
+  auto const tapTrack = [&](kml::TrackId trackId, double fraction)
+  {
+    auto const pt = kMasovianPoint + (kLodzPoint - kMasovianPoint) * fraction;
+    bmManager.SetTrackSelectionInfo({trackId, pt, trackLength * fraction}, false /* notifyListeners */);
+    TapUserMark(fm, FindTrackSelectionMark(bmManager, trackId));
+    TEST(fm.HasPlacePageInfo(), ());
+  };
+
+  auto const catId = bmManager.CreateBookmarkCategory("cat", false /* autoSave */);
+  kml::TrackId trackId;
+  {
+    auto es = bmManager.GetEditSession();
+    trackId = es.CreateTrack(kml::TrackData(trackData))->GetId();
+    es.AttachTrack(trackId, catId);
+  }
+  tapTrack(trackId, 0.0);
+  TEST_EQUAL(published, vector<storage::CountryId>({"Poland_Masovian Voivodeship"}), ());
+
+  tapTrack(trackId, 1.0);
+  TEST_EQUAL(published, vector<storage::CountryId>({"Poland_Masovian Voivodeship", "Poland_Lodz Voivodeship"}), ());
+
+  // Another point of the same region only moves the selection.
+  tapTrack(trackId, 0.95);
+  TEST_EQUAL(fm.GetCurrentPlacePageInfo().GetCountryId(), "Poland_Lodz Voivodeship", ());
+  TEST_EQUAL(published.size(), 2, ());
+
+  TEST_EQUAL(bmManager.SetTempRelationTrack(kml::TrackData(trackData)), kml::kTempRelationTrackId, ());
+  tapTrack(kml::kTempRelationTrackId, 1.0);
+  TEST_EQUAL(published.size(), 3, ());
+  TEST_EQUAL(published.back(), "Poland_Lodz Voivodeship", ());
+}
+
+// The place page of the other track candidate offers the map of its own selected point.
+UNIT_CLASS_TEST(VisualParamsFixture, Bookmarks_TrackCandidateSwitchUpdatesCountry)
+{
+  ScopedBookmarksDir scopedDir;
+  Framework fm(kFrameworkParams);
+
+  auto & bmManager = fm.GetBookmarkManager();
+  bmManager.EnableTestMode(true);
+
+  auto const offset = m2::PointD(0.001, 0.0);
+  auto const catId = bmManager.CreateBookmarkCategory("cat", false /* autoSave */);
+  kml::TrackId masovianTrackId;
+  kml::TrackId lodzTrackId;
+  {
+    auto es = bmManager.GetEditSession();
+    masovianTrackId = es.CreateTrack(MakeTrackData(kMasovianPoint, kMasovianPoint + offset))->GetId();
+    es.AttachTrack(masovianTrackId, catId);
+    lodzTrackId = es.CreateTrack(MakeTrackData(kLodzPoint, kLodzPoint + offset))->GetId();
+    es.AttachTrack(lodzTrackId, catId);
+  }
+
+  bmManager.SetTrackSelectionInfo({masovianTrackId, kMasovianPoint, 0.0}, false /* notifyListeners */);
+  TapUserMark(fm, FindTrackSelectionMark(bmManager, masovianTrackId));
+  TEST(fm.HasPlacePageInfo(), ());
+  TEST_EQUAL(fm.GetCurrentPlacePageInfo().GetCountryId(), "Poland_Masovian Voivodeship", ());
+
+  fm.GetCurrentPlacePageInfo().SetTrackCandidates(
+      {bmManager.GetTrackSelectionInfo(masovianTrackId), {lodzTrackId, kLodzPoint, 0.0}});
+  fm.SelectTrackCandidate(lodzTrackId, {} /* relationId */);
+
+  auto const & info = fm.GetCurrentPlacePageInfo();
+  TEST_EQUAL(info.GetTrackId(), lodzTrackId, ());
+  TEST_EQUAL(info.GetCountryId(), "Poland_Lodz Voivodeship", ());
+}
+
+// A cycling route tapped on the map is built from its relation and offers the map of the tapped point.
+UNIT_TEST(Bookmarks_RouteRelationPlacePageHasCountryOfTappedPoint)
+{
+  settings::Set(df::RelationsDrawSettings::kCyclingEnabledKey, true);
+  SCOPE_GUARD(cyclingResetter, []() { settings::Delete(df::RelationsDrawSettings::kCyclingEnabledKey); });
+
+  Framework fm({} /* params */, false /* loadMaps */);
+  TEST_EQUAL(fm.RegisterMap(platform::LocalCountryFile::MakeForTesting("minsk-pass")).second,
+             MwmSet::RegResult::Success, ());
+
+  // A point of the "Мінская роварная дарожка" cycling route.
+  place_page::BuildInfo buildInfo;
+  buildInfo.m_source = place_page::BuildInfo::Source::User;
+  buildInfo.m_mercator = mercator::FromLatLon(53.8761724, 27.574977);
+  fm.BuildAndSetPlacePageInfo(buildInfo);
+
+  TEST(fm.HasPlacePageInfo(), ());
+  auto const & info = fm.GetCurrentPlacePageInfo();
+  TEST(info.IsRelationTrack(), ());
+  TEST_EQUAL(info.GetCountryId(), "Belarus_Minsk Region", ());
 }
 
 namespace
