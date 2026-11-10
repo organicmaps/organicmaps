@@ -351,7 +351,6 @@
 		ED82C5E92F90180300FA103D /* BadgeWithNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4932F90180300FA103D /* BadgeWithNumber.swift */; };
 		ED82C5EA2F90180300FA103D /* Checkmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4942F90180300FA103D /* Checkmark.swift */; };
 		ED82C5EB2F90180300FA103D /* DimBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4952F90180300FA103D /* DimBackground.swift */; };
-		ED82C5EC2F90180300FA103D /* InsetsLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4962F90180300FA103D /* InsetsLabel.swift */; };
 		ED82C5ED2F90180300FA103D /* MWMButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C4982F90180300FA103D /* MWMButton.m */; };
 		ED82C5EE2F90180300FA103D /* MWMMailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C49B2F90180300FA103D /* MWMMailViewController.m */; };
 		ED82C5EF2F90180300FA103D /* MWMNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED82C49D2F90180300FA103D /* MWMNavigationController.m */; };
@@ -537,7 +536,6 @@
 		ED82C7832F90186300FA103D /* ChartViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7012F90186300FA103D /* ChartViewRenderer.swift */; };
 		ED82C7842F90186300FA103D /* CheckmarkRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7022F90186300FA103D /* CheckmarkRenderer.swift */; };
 		ED82C7862F90186300FA103D /* DifficultyViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7042F90186300FA103D /* DifficultyViewRenderer.swift */; };
-		ED82C7872F90186300FA103D /* InsetsLabelRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7052F90186300FA103D /* InsetsLabelRenderer.swift */; };
 		ED82C7882F90186300FA103D /* MWMButtonRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7062F90186300FA103D /* MWMButtonRenderer.swift */; };
 		ED82C7892F90186300FA103D /* MWMTableViewCellRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7072F90186300FA103D /* MWMTableViewCellRenderer.swift */; };
 		ED82C78A2F90186300FA103D /* TabViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED82C7082F90186300FA103D /* TabViewRenderer.swift */; };
@@ -1386,7 +1384,6 @@
 		ED82C4932F90180300FA103D /* BadgeWithNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeWithNumber.swift; sourceTree = "<group>"; };
 		ED82C4942F90180300FA103D /* Checkmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkmark.swift; sourceTree = "<group>"; };
 		ED82C4952F90180300FA103D /* DimBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimBackground.swift; sourceTree = "<group>"; };
-		ED82C4962F90180300FA103D /* InsetsLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetsLabel.swift; sourceTree = "<group>"; };
 		ED82C4972F90180300FA103D /* MWMButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMButton.h; sourceTree = "<group>"; };
 		ED82C4982F90180300FA103D /* MWMButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMButton.m; sourceTree = "<group>"; };
 		ED82C4992F90180300FA103D /* MWMController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMController.h; sourceTree = "<group>"; };
@@ -1567,7 +1564,6 @@
 		ED82C7012F90186300FA103D /* ChartViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewRenderer.swift; sourceTree = "<group>"; };
 		ED82C7022F90186300FA103D /* CheckmarkRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckmarkRenderer.swift; sourceTree = "<group>"; };
 		ED82C7042F90186300FA103D /* DifficultyViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifficultyViewRenderer.swift; sourceTree = "<group>"; };
-		ED82C7052F90186300FA103D /* InsetsLabelRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetsLabelRenderer.swift; sourceTree = "<group>"; };
 		ED82C7062F90186300FA103D /* MWMButtonRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWMButtonRenderer.swift; sourceTree = "<group>"; };
 		ED82C7072F90186300FA103D /* MWMTableViewCellRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWMTableViewCellRenderer.swift; sourceTree = "<group>"; };
 		ED82C7082F90186300FA103D /* TabViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewRenderer.swift; sourceTree = "<group>"; };
@@ -3378,7 +3374,6 @@
 				ED82C4932F90180300FA103D /* BadgeWithNumber.swift */,
 				ED82C4942F90180300FA103D /* Checkmark.swift */,
 				ED82C4952F90180300FA103D /* DimBackground.swift */,
-				ED82C4962F90180300FA103D /* InsetsLabel.swift */,
 				ED82C4972F90180300FA103D /* MWMButton.h */,
 				ED82C4982F90180300FA103D /* MWMButton.m */,
 				ED82C4992F90180300FA103D /* MWMController.h */,
@@ -3878,7 +3873,6 @@
 				ED82C7012F90186300FA103D /* ChartViewRenderer.swift */,
 				ED82C7022F90186300FA103D /* CheckmarkRenderer.swift */,
 				ED82C7042F90186300FA103D /* DifficultyViewRenderer.swift */,
-				ED82C7052F90186300FA103D /* InsetsLabelRenderer.swift */,
 				ED82C7062F90186300FA103D /* MWMButtonRenderer.swift */,
 				ED82C7072F90186300FA103D /* MWMTableViewCellRenderer.swift */,
 				ED82C7082F90186300FA103D /* TabViewRenderer.swift */,
@@ -4813,7 +4807,6 @@
 				ED82C7832F90186300FA103D /* ChartViewRenderer.swift in Sources */,
 				ED82C7842F90186300FA103D /* CheckmarkRenderer.swift in Sources */,
 				ED82C7862F90186300FA103D /* DifficultyViewRenderer.swift in Sources */,
-				ED82C7872F90186300FA103D /* InsetsLabelRenderer.swift in Sources */,
 				ED82C7882F90186300FA103D /* MWMButtonRenderer.swift in Sources */,
 				ED82C7892F90186300FA103D /* MWMTableViewCellRenderer.swift in Sources */,
 				ED82C78A2F90186300FA103D /* TabViewRenderer.swift in Sources */,
@@ -4953,7 +4946,6 @@
 				ED82C5E92F90180300FA103D /* BadgeWithNumber.swift in Sources */,
 				ED82C5EA2F90180300FA103D /* Checkmark.swift in Sources */,
 				ED82C5EB2F90180300FA103D /* DimBackground.swift in Sources */,
-				ED82C5EC2F90180300FA103D /* InsetsLabel.swift in Sources */,
 				ED82C5ED2F90180300FA103D /* MWMButton.m in Sources */,
 				ED82C5EE2F90180300FA103D /* MWMMailViewController.m in Sources */,
 				ED82C5EF2F90180300FA103D /* MWMNavigationController.m in Sources */,
