@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">ブックマークとトラックのバックアップ</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">このデバイスでバックアップが有効で、ブックマークとトラックがそのサイズ上限内に収まる場合、それらは Android のシステムバックアップに含まれることがあります。</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Google ドライブ同期（ベータ）</string>
+    <string name="bookmarks_sync_enabled">ブックマークとトラックを同期</string>
+    <string name="bookmarks_sync_account">Google アカウント</string>
+    <string name="bookmarks_sync_manage_storage">Google ストレージを管理</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%2$s 中 %1$s を使用</string>
+    <string name="bookmarks_sync_mobile_data">モバイルデータ通信で同期</string>
+    <string name="bookmarks_sync_now">今すぐ同期</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">最終同期: %s</string>
+    <string name="bookmarks_sync_status_running">同期中…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Wi-Fi を待機中</string>
+    <string name="bookmarks_sync_status_sign_in">ログインが必要です</string>
+    <string name="bookmarks_sync_status_quota">Google ドライブの容量がいっぱいです</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">同期に失敗しました: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Google ドライブからデータを削除</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">同期したブックマークとトラックを Google ドライブから削除しますか？このデバイスのブックマークとトラックは残ります。先にほかのデバイスで同期をオフにしてください。そうしないと、それらのデバイスがブックマークとトラックを再びアップロードします。</string>
+    <string name="bookmarks_sync_beta_warning">同期はベータ版です。有効にする前に、すべてのブックマークとトラックのバックアップをエクスポートしてください。</string>
     <string name="search_history_text">最近の検索を表示します。</string>
     <string name="clear_search">検索履歴を消去</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -862,6 +882,8 @@
     <string name="hide_track">ルートを非表示</string>
     <!-- Text for the showing track. -->
     <string name="show_track">ルートを表示</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">有効にする</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->

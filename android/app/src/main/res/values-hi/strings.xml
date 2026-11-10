@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">बुकमार्क और ट्रैक बैकअप</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">अगर इस डिवाइस पर बैकअप चालू है और बुकमार्क व ट्रैक उसकी आकार सीमा से ज़्यादा नहीं हैं, तो उन्हें Android सिस्टम बैकअप में शामिल किया जा सकता है।</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Google डिस्क सिंक (बीटा)</string>
+    <string name="bookmarks_sync_enabled">बुकमार्क और ट्रैक सिंक करें</string>
+    <string name="bookmarks_sync_account">Google खाता</string>
+    <string name="bookmarks_sync_manage_storage">Google स्टोरेज प्रबंधित करें</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%2$s में से %1$s इस्तेमाल किया गया</string>
+    <string name="bookmarks_sync_mobile_data">मोबाइल डेटा पर सिंक करें</string>
+    <string name="bookmarks_sync_now">अभी सिंक करें</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">अंतिम सिंक: %s</string>
+    <string name="bookmarks_sync_status_running">सिंक हो रहा है…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">वाई-फ़ाई का इंतज़ार है</string>
+    <string name="bookmarks_sync_status_sign_in">साइन इन करना ज़रूरी है</string>
+    <string name="bookmarks_sync_status_quota">Google डिस्क का स्टोरेज भर गया है</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">सिंक विफल रहा: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Google डिस्क से डेटा हटाएँ</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">सिंक किए गए बुकमार्क और ट्रैक Google डिस्क से हटाएँ? इस डिवाइस पर बुकमार्क और ट्रैक बने रहेंगे। पहले अपने दूसरे डिवाइस पर सिंक बंद करें, वरना वे अपने बुकमार्क और ट्रैक फिर से अपलोड कर देंगे।</string>
+    <string name="bookmarks_sync_beta_warning">सिंक बीटा में है। इसे चालू करने से पहले सभी बुकमार्क और ट्रैक का बैकअप एक्सपोर्ट करें।</string>
     <string name="search_history_text">अपनी हालिया खोजें देखें।</string>
     <string name="clear_search">स्पष्ट इतिहास की खोज</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -848,6 +868,8 @@
     <string name="hide_track">मार्ग छिपाएँ</string>
     <!-- Text for the showing track. -->
     <string name="show_track">मार्ग दिखाएँ</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">सक्षम करें</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->

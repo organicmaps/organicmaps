@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Էջանիշների և հետագծերի պահուստավորում</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Էջանիշները և հետագծերը կարող են ներառվել Android համակարգի պահուստային պատճեններում, եթե պահուստավորումը միացված է այս սարքում, և դրանք չեն գերազանցում դրա չափի սահմանաչափը։</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Համաժամացում Google Drive-ի հետ (բետա)</string>
+    <string name="bookmarks_sync_enabled">Համաժամացնել էջանիշները և հետագծերը</string>
+    <string name="bookmarks_sync_account">Google հաշիվ</string>
+    <string name="bookmarks_sync_manage_storage">Կառավարել Google-ի պահոցը</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">Օգտագործված է %1$s / %2$s</string>
+    <string name="bookmarks_sync_mobile_data">Համաժամացնել բջջային ինտերնետով</string>
+    <string name="bookmarks_sync_now">Համաժամացնել հիմա</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Վերջին համաժամացում՝ %s</string>
+    <string name="bookmarks_sync_status_running">Համաժամացում…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Սպասում է Wi-Fi-ին</string>
+    <string name="bookmarks_sync_status_sign_in">Պահանջվում է մուտք</string>
+    <string name="bookmarks_sync_status_quota">Google Drive-ը լցված է</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Համաժամացումը ձախողվեց՝ %s</string>
+    <string name="bookmarks_sync_delete_cloud">Ջնջել տվյալները Google Drive-ից</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Ջնջե՞լ համաժամացված էջանիշները և հետագծերը Google Drive-ից։ Այս սարքի էջանիշները և հետագծերը կմնան։ Նախ անջատեք համաժամացումը ձեր մյուս սարքերում, հակառակ դեպքում դրանք կրկին կվերբեռնեն իրենց էջանիշները և հետագծերը։</string>
+    <string name="bookmarks_sync_beta_warning">Համաժամացումը բետա տարբերակում է։ Միացնելուց առաջ արտահանեք բոլոր էջանիշների և հետագծերի պահուստային պատճենը։</string>
     <string name="search_history_text">Դիտեք ձեր վերջին որոնումները:</string>
     <string name="clear_search">Մաքրել որոնման պատմությունը</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -863,6 +883,8 @@
     <string name="move">Տեղափոխել</string>
     <!-- Text for the editing the Track's color button. -->
     <string name="change_color">Փոխել գույնը</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Միացնել</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
