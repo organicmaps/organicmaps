@@ -32,6 +32,5 @@ Organic Maps е брза и детална офлајн мапа и GPS нави
 
 Organic Maps е независен, заеднички, open-source проект со стотици придонесувачи кои помагаат во развој на нови функции, решавање проблеми, преводи и развој на проектот.
 
-Придружете се на заедницата на Telegram: @OrganicMapsApp
-
 Instagram: @organicmaps.app
+Telegram: @OrganicMapsApp

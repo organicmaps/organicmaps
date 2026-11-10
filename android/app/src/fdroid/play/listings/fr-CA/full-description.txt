@@ -6,8 +6,6 @@ Organic Maps est une application rapide et détaillée de cartes hors ligne et d
 
 <b>DÉTAILLÉE & À JOUR :</b> Les cartes sont riches en détails et mises à jour deux fois par mois pour refléter les conditions réelles. Contrairement à de nombreux concurrents bien connus, elles incluent les noms de bâtiments, les bancs, les sentiers de randonnée et d’autres informations utiles.
 
-<b>BASÉE SUR OPENSTREETMAP :</b> OpenStreetMap est une carte mondiale collaborative, construite et maintenue par des millions de bénévoles — des habitants qui connaissent le mieux leur région. Cet effort communautaire produit des cartes très détaillées, souvent plus précises que les cartes commerciales dans les zones peu cartographiées. Organic Maps met à jour ses données OpenStreetMap toutes les deux semaines, garantissant des cartes fraîches et fiables. Et si vous remarquez un élément manquant, vous pouvez l’ajouter sur OpenStreetMap pour aider toute la communauté.
-
 <b>CONFIDENTIALITÉ AVANT TOUT :</b> Nous ne collectons aucune donnée ni identifiant. Cela signifie aucun risque de fuite de données et aucune distraction comme des publicités ou notifications intrusives — juste une expérience de carte propre et privée.
 
 <b>FONCTIONNALITÉS IMPORTANTES</b>
@@ -30,6 +28,13 @@ Organic Maps est une application rapide et détaillée de cartes hors ligne et d
 
 <b>MODE SOMBRE :</b> Passez à un thème sombre pour une consultation confortable la nuit.
 
-Rejoignez la communauté sur Telegram : @OrganicMapsFR
+Organic Maps est un projet indépendant, communautaire et open source, comptant des centaines de contributeurs qui aident à développer de nouvelles fonctionnalités, à corriger les problèmes, à traduire et à faire avancer le projet.
+
+Ou découvrez d’autres moyens de soutenir le projet : https://organicmaps.app/contribute/
+
+Vos commentaires et vos avis sincères sur la boutique nous motivent ! Nous apprécions vos retours.
+
+Vous avez des questions ? Veuillez consulter le site web organicmaps.app pour obtenir plus de détails et consulter la FAQ.
 
 Instagram: @organicmaps.app
+Telegram: @OrganicMapsFR

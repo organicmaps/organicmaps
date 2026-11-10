@@ -34,9 +34,9 @@ Prova appen — den är 100 % gratis, reklamfri, snabb och helt offline. Upplev 
 
 Organic Maps är ett oberoende, communitydrivet open source-projekt med hundratals bidragsgivare som skapar funktioner, fixar buggar, översätter och utvecklar appen framåt.
 
-Gå med i communityn på Telegram: @OrganicMapsApp
 Läs mer om hur du kan stödja projektet: organicmaps.app/contribute
 
 Din ärliga feedback och dina recensioner i butiken hjälper oss att växa! Har du frågor? Besök vår webbplats organicmaps.app för mer information och FAQ.
 
 Instagram: @organicmaps.app
+Telegram: @OrganicMapsApp

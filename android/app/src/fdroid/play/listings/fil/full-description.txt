@@ -12,10 +12,6 @@ Ang pag-zoom, paghahanap, at pagkalkula ng ruta ay talagang mabilis.
 
 Ang mga mapa ay sagana sa detalye at ina-update nang dalawang beses sa isang buwan upang ipakita ang aktwal na kalagayan. Hindi tulad ng maraming kilalang kakumpitensya, kasama rito ang mga label ng gusali, bangko, mga daanan sa pag-hiking, at iba pang kapaki-pakinabang na impormasyon.
 
-<b>BATAY SA OPENSTREETMAP:</b>
-
-Ang OpenStreetMap ay isang world map na parang wiki na binuo at pinananatili ng milyun-milyong boluntaryo — mga lokal na pinakamakakilala sa kanilang mga lugar. Ang pagsisikap na ito ng komunidad ay nagreresulta sa napaka-detalyadong mga mapa, na madalas mas tumpak kaysa sa mga komersyal na mapa sa mga rehiyong hindi gaanong na-map. Ina-update ng Organic Maps ang datos nito mula sa OpenStreetMap tuwing dalawang linggo, kaya't nananatiling bago at maaasahan ang iyong mga mapa. At kung may mapansin kang nawawala, maaari mo itong idagdag sa OpenStreetMap at tumulong na mapabuti ang mapa para sa lahat.
-
 <b>UNA ANG PRIVACY:</b>
 
 Hindi kami nangongolekta ng anumang datos o identifier. Ibig sabihin, walang panganib ng pagtagas ng datos at walang istorbo gaya ng mga ad o maingay na notification — puro lang malinis at pribadong karanasan sa mapa.
@@ -50,4 +46,15 @@ I-record, i-import, i-export, at ibahagi ang iyong mga ruta at mga paboritong lu
 
 Galugarin ang mga artikulo ng Wikipedia para sa mga lugar na natutuklasan mo sa mapa. I-type ang "?wiki" sa paghahanap para mahanap ang mga lugar na may artikulo.
 
+<b>EDITOR NG MAPA:</b> Mag-ambag sa OpenStreetMap sa pamamagitan ng pagdaragdag ng mga nawawalang lugar o pag-edit ng mapa nang direkta mula sa Organic Maps.
+
+<b>DARK MODE:</b> Lumipat sa madilim na tema para sa komportableng pagtingin sa gabi.
+
+O alamin ang iba pang paraan para suportahan ang proyekto: https://organicmaps.app/contribute/
+
+Ang inyong tapat na puna at mga pagsusuri sa tindahan ang nagbibigay sa amin ng motibasyon! Ikinagagalak naming marinig mula sa inyo doon.
+
+May mga tanong? Mangyaring bisitahin ang website ng organicmaps.app para sa karagdagang detalye at FAQ.
+
 Instagram: @organicmaps.app
+Telegram: @OrganicMapsApp

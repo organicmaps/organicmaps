@@ -2,9 +2,9 @@ Organic Maps ialah aplikasi peta luar talian yang pantas dan terperinci serta na
 
 <b>LUAR TALIAN:</b> Aplikasi ini berfungsi 100% tanpa sambungan internet — termasuk carian dan navigasi. Anda boleh meneroka peta dan menavigasi tanpa sambungan internet, menjimatkan data mudah alih dan kos roaming. Dengan tiada pemindahan data latar, bateri anda bertahan lebih lama.
 
-<b>TERPERINCI & DIKEMAS KINI:</b> Peta kaya dengan butiran dan dikemas kini dua kali sebulan untuk mencerminkan keadaan dunia sebenar. Berbeza dengan banyak pesaing terkenal, ia merangkumi label bangunan, bangku, laluan mendaki, dan maklumat berguna lain.
+<b>PANTAS:</b> Zum, carian, dan pengiraan laluan berfungsi dengan sangat pantas.
 
-<b>BERASASKAN OPENSTREETMAP:</b> OpenStreetMap ialah peta dunia gaya wiki yang dibina dan diselenggara oleh jutaan sukarelawan — penduduk tempatan yang paling mengetahui kawasan mereka. Usaha komuniti ini menghasilkan peta yang sangat terperinci, selalunya lebih tepat daripada peta komersial di kawasan yang kurang dipetakan. Organic Maps mengemas kini datanya dari OpenStreetMap setiap dua minggu, memastikan peta anda segar dan boleh dipercayai. Jika anda perasan sesuatu yang hilang, anda boleh menambahnya ke OpenStreetMap dan membantu memperbaiki peta untuk semua.
+<b>TERPERINCI & DIKEMAS KINI:</b> Peta kaya dengan butiran dan dikemas kini dua kali sebulan untuk mencerminkan keadaan dunia sebenar. Berbeza dengan banyak pesaing terkenal, ia merangkumi label bangunan, bangku, laluan mendaki, dan maklumat berguna lain.
 
 <b>PRIVASI DIUTAMAKAN:</b> Kami tidak mengumpul sebarang data atau pengecam. Ini bermakna tiada risiko kebocoran data dan tiada gangguan seperti iklan atau pemberitahuan bising — hanya pengalaman peta yang bersih dan peribadi.
 
@@ -26,10 +26,17 @@ Organic Maps ialah aplikasi peta luar talian yang pantas dan terperinci serta na
 
 <b>EDITOR PETA:</b> Sumbang kepada OpenStreetMap dengan menambah tempat yang hilang atau mengedit peta terus dari Organic Maps.
 
+<b>MOD GELAP:</b> Tukar kepada tema gelap untuk tontonan yang selesa pada waktu malam.
+
 Cuba aplikasi ini — ia 100% percuma, tanpa iklan, pantas, dan sepenuhnya luar talian. Alami navigasi GPS yang boleh dipercayai untuk mendaki, berbasikal, trekking, dan perjalanan di mana-mana sahaja di dunia! Nikmati pengalaman peta yang pantas, boleh dipercayai, dan peribadi, dan kongsikannya dengan orang lain!
 
 Organic Maps ialah projek sumber terbuka, dikendalikan komuniti, dengan ratusan penyumbang yang membantu membangunkan ciri baru, membaiki isu, menterjemah, dan memajukan projek.
 
-Sertailah komuniti di Telegram: @OrganicMapsApp
+Atau ketahui cara lain untuk menyokong projek ini: https://organicmaps.app/contribute/
+
+Maklum balas dan ulasan jujur anda di kedai memotivasi kami! Kami suka mendengar daripada anda di sana.
+
+Ada sebarang pertanyaan? Sila layari laman web organicmaps.app untuk maklumat lanjut dan Soalan Lazim.
 
 Instagram: @organicmaps.app
+Telegram: @OrganicMapsApp

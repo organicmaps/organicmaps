@@ -2,9 +2,9 @@ Organic Maps bidaia, mendiko ibilaldi, trekking eta txirrindularitza abenturetar
 
 <b>LINEAZ KANPO:</b> Aplikazioa %100 lineaz kanpo funtzionatzen du — bilaketa eta nabigazioa barne. Mapa araka dezakezu eta nabigatu Internet konexiorik gabe, datu mugikorrean eta roaming-gastuetan aurrezteko. Atzeko planoko datu-transferentziarik gabe, bateriak askoz gehiago irauten du.
 
-<b>XEHATZA ETA EGUNERATUA:</b> Mapak xehetasunez beteak daude eta hilean bitan eguneratzen dira benetako baldintzak islatzeko. Ohiko lehiakide askok ez bezala, eraikinen izenak, bankuak, mendi-ibilbideak eta bestelako informazio erabilgarria biltzen dituzte.
+<b>AZKAR:</b> Zoom egitea, bilaketa eta ibilbide-kalkuluak nabarmen azkarrak dira.
 
-<b>OPENSTREETMAP-OINARRITUA:</b> OpenStreetMap munduko mapa kolaboratiboa da, milioika boluntariok eraikia — euren tokirik ondoen ezagutzen duten bertakoek. Komunitate-lan horrek xehetasun handiko mapak sortzen ditu, askotan komertzialak baino zehatzagoak gutxi mapatutako eskualdeetan. Organic Maps-ek OpenStreetMap datuak bi astetik behin eguneratzen ditu, zure mapak eguneratuta eta fidagarri mantenduz. Eta zerbait falta dela ikusten baduzu, zuk zeuk gehi dezakezu OpenStreetMap-era eta lagundu mapa guztiontzat hobetzen.
+<b>XEHATZA ETA EGUNERATUA:</b> Mapak xehetasunez beteak daude eta hilean bitan eguneratzen dira benetako baldintzak islatzeko. Ohiko lehiakide askok ez bezala, eraikinen izenak, bankuak, mendi-ibilbideak eta bestelako informazio erabilgarria biltzen dituzte.
 
 <b>PRIBATUTASUNA LEHENIK:</b> Ez dugu daturik edo identifikatzailerik biltzen. Horrek esan nahi du ez dagoela datu-ihesen arriskurik eta ez zaituela distraituko iragarkiek edo jakinarazpen gogaikariek — mapa-esperientzia garbia eta pribatua besterik ez duzu izango.
 
@@ -16,7 +16,7 @@ Organic Maps bidaia, mendiko ibilaldi, trekking eta txirrindularitza abenturetar
 
 <b>MUNDU OSOKO MENDI- ETA TXIRRINDULARITZA-IBILBIDEAK:</b> Gaitu mapa-geruza bereziak mundu osoko mendiko eta txirrindularitza ibilbide ezagunak aurkitzeko, guztiak OpenStreetMap-etik jasotakoak. Aldatu geruzen artean koloretako bizikleta eta MTB ibilbideak, baita mendiko ibilbide ofizialak ikusteko.
 
-<b>GARRAIO PUBLIKOA:</b> Ikusi garraio publikoaren lineako zenbakiak geltokietan.
+<b>GARRAIO PUBLIKOA:</b> Planifikatu ibilbideak garraio publikoz. Ikusi lineen zenbakiak geltokietan. Denbora errealeko ordutegiak garatzen ari dira.
 
 <b>MAPA-ESTILOAK:</b> Aukeratu zure jarduerari egokitzen zaizkion geruzak — “Kanpoa”, “Kurba-lerroak”, “Mendiko ibilaldiak”, “Txirrindularitza” edo “Metroa/Trena”.
 
@@ -26,8 +26,17 @@ Organic Maps bidaia, mendiko ibilaldi, trekking eta txirrindularitza abenturetar
 
 <b>MAPA EDITOREA:</b> Lagundu OpenStreetMap hobetzera tokirik faltan badaude edo mapa zuzenean Organic Maps-etik editatuz.
 
+<b>MODU ILUNA:</b> Aldatu gai ilunera gauean mapa eroso ikusteko.
+
 Probatu aplikazioa — %100 doakoa, iragarkirik gabea, azkarra eta guztiz lineaz kanpokoa. Esperimentatu GPS nabigazio fidagarria mendian, bizikletan, trekkingean eta munduko edozein bidaiatan!
 
 Organic Maps proiektu independente, komunitatean oinarritua eta kode irekikoa da, eta ehunka laguntzaile ditu ezaugarri berriak garatzen, arazoak konpontzen, itzultzen eta proiektua aurrera eramaten.
 
+Edo proiektua babesteko beste modu batzuk ikasi: https://organicmaps.app/contribute/
+
+Dendako zure iritzi zintzoek eta berrikuspenek motibatzen gaituzte! Han zure iritzia jasotzea maite dugu.
+
+Galderarik al duzu? Mesedez, bisitatu organicmaps.app webgunea xehetasun gehiagorako eta maiz egiten diren galderak (FAQ) atalera.
+
 Instagram: @organicmaps.app
+Telegram: @OrganicMapsApp

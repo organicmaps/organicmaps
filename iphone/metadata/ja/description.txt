@@ -35,10 +35,10 @@ iCloud同期: iCloud経由でブックマークやルートを簡単にバック
 アプリを試してみてください — 100%無料、広告なし、高速、完全オフライン。高速で信頼性が高く、プライベートな地図体験を楽しみ、他の人と共有しましょう。
 Organic Mapsは、コミュニティ主導のオープンソースプロジェクトで、数百人の貢献者が新機能の開発、問題の修正、翻訳、プロジェクト推進をサポートしています。
 
-Telegramでコミュニティに参加: @OrganicMapsApp
 その他のサポート方法: https://organicmaps.app/contribute/
 
 ストアでの率直なフィードバックとレビューは私たちの励みになります！質問がありますか？詳細とFAQは organicmaps.app
  をご覧ください。
 
 Instagram: @organicmaps.app
+Telegram: @OrganicMapsApp
