@@ -10,6 +10,39 @@ protocol PlacePageViewProtocol: AnyObject {
 }
 
 final class PlacePageScrollView: UIScrollView {
+  private enum Constants {
+    /// Keeps the blur from the shadow's lower edge below the frame, even with the upward offset.
+    static let bottomShadowHeight: CGFloat = 10
+    /// Ignores sub-point leftovers of the scroll offset at the end of the content.
+    static let hiddenContentTolerance: CGFloat = 1
+  }
+
+  /// Shows that a part of the content is hidden under the action bar.
+  private let bottomShadowView = RectShadowView()
+
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    // The view sits right below the frame, which clips the shadow to the part that falls on the content.
+    bottomShadowView.setStyle(.ppActionBarShadowView)
+    bottomShadowView.isHidden = true
+    bottomShadowView.translatesAutoresizingMaskIntoConstraints = false
+    addSubview(bottomShadowView)
+    NSLayoutConstraint.activate([
+      bottomShadowView.leadingAnchor.constraint(equalTo: frameLayoutGuide.leadingAnchor),
+      bottomShadowView.trailingAnchor.constraint(equalTo: frameLayoutGuide.trailingAnchor),
+      bottomShadowView.topAnchor.constraint(equalTo: frameLayoutGuide.bottomAnchor),
+      bottomShadowView.heightAnchor.constraint(equalToConstant: Constants.bottomShadowHeight),
+    ])
+  }
+
+  /// Runs on every scroll frame and after the content or the frame changes size.
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    let isHidden = contentSize.height - bounds.maxY <= Constants.hiddenContentTolerance
+    guard bottomShadowView.isHidden != isHidden else { return }
+    bottomShadowView.setHidden(isHidden)
+  }
+
   override func point(inside point: CGPoint, with _: UIEvent?) -> Bool {
     point.y > 0
   }
@@ -17,6 +50,14 @@ final class PlacePageScrollView: UIScrollView {
   override func scrollRectToVisible(_ rect: CGRect, animated: Bool) {
     guard isScrollEnabled else { return }
     super.scrollRectToVisible(rect, animated: animated)
+  }
+}
+
+/// With an explicit path, Core Animation draws the shadow without an offscreen pass for the layer's alpha.
+private final class RectShadowView: UIView {
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    layer.shadowPath = UIBezierPath(rect: bounds).cgPath
   }
 }
 
@@ -189,7 +230,7 @@ final class PlacePageScrollView: UIScrollView {
   private func setupLayout(_ layout: IPlacePageLayout) {
     let showSeparator = layout.sectionSpacing > 0
     stackView.spacing = layout.sectionSpacing
-    fillHeader(with: layout.headerViewControllers, showSeparator: showSeparator)
+    fillHeader(with: layout.headerViewControllers)
     fillBody(with: layout.bodyViewControllers, showSeparator: showSeparator)
 
     layout.headerViewController.didStartEditingTitle = { [weak self] isEditing in
@@ -211,26 +252,26 @@ final class PlacePageScrollView: UIScrollView {
     }
   }
 
-  private func fillHeader(with viewControllers: [UIViewController], showSeparator: Bool = true) {
+  private func fillHeader(with viewControllers: [UIViewController]) {
     viewControllers.forEach { [self] viewController in
       if !stackView.arrangedSubviews.contains(headerStackView) {
         stackView.addArrangedSubview(headerStackView)
       }
       headerStackView.addArrangedSubview(viewController.view)
     }
-    if showSeparator {
-      headerStackView.addSeparator(.bottom)
-    }
   }
 
   private func fillBody(with viewControllers: [UIViewController], showSeparator: Bool = true) {
+    // A section draws both lines of the gap above it, the upper one outside its bounds at the top of the gap: neither
+    // the content nor the preview ends with a line at the action bar, and a hidden section takes its gap and lines.
+    let upperLineInsets = UIEdgeInsets(top: -stackView.spacing, left: 0, bottom: 0, right: 0)
     viewControllers.forEach { [self] viewController in
       addChild(viewController)
       stackView.addArrangedSubview(viewController.view)
       viewController.didMove(toParent: self)
       if showSeparator {
         viewController.view.addSeparator(.top)
-        viewController.view.addSeparator(.bottom)
+        viewController.view.addSeparator(.top, insets: upperLineInsets)
       }
     }
   }
