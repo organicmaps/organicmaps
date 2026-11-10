@@ -497,6 +497,15 @@ Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeAreNotificationsEn
   return static_cast<jboolean>(frm()->GetBookmarkManager().AreNotificationsEnabled());
 }
 
+JNIEXPORT jboolean Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeIsBookmarkOrTrackSelected(JNIEnv *,
+                                                                                                           jclass)
+{
+  if (!frm()->HasPlacePageInfo())
+    return false;
+  auto const & info = g_framework->GetPlacePageInfo();
+  return static_cast<jboolean>(info.IsBookmark() || info.IsTrack());
+}
+
 JNIEXPORT jobject JNICALL
 Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeGetBookmarkCategory(JNIEnv * env, jobject, jlong id)
 {

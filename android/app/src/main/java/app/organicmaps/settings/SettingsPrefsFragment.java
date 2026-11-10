@@ -34,6 +34,7 @@ import app.organicmaps.sdk.util.NetworkPolicy;
 import app.organicmaps.sdk.util.PowerManagment;
 import app.organicmaps.sdk.util.SharedPropertiesUtils;
 import app.organicmaps.sdk.util.log.LogsManager;
+import app.organicmaps.sync.BookmarksSync;
 import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.Utils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -76,6 +77,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
     initScreenSleepEnabledPrefsCallbacks();
     initShowOnLockScreenPrefsCallbacks();
     initNightNavigationPrefsCallbacks();
+    initBookmarksSyncPrefsCallbacks();
   }
 
   private void updateVoiceInstructionsPrefsSummary()
@@ -152,6 +154,11 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
       {
         startActivity(new Intent(requireActivity(), HelpActivity.class));
       }
+      else if (key.equals(getString(R.string.pref_bookmarks_sync)))
+      {
+        getSettingsActivity().stackFragment(BookmarksSyncSettingsFragment.class,
+                                            getString(R.string.bookmarks_sync_title), null);
+      }
       else if (key.equals(getString(R.string.pref_map_locale)))
       {
         LanguagesFragment langFragment = (LanguagesFragment) getSettingsActivity().stackFragment(
@@ -160,6 +167,11 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
       }
     }
     return super.onPreferenceTreeClick(preference);
+  }
+
+  private void initBookmarksSyncPrefsCallbacks()
+  {
+    getPreference(getString(R.string.pref_bookmarks_sync)).setVisible(BookmarksSync.isAvailable());
   }
 
   private void openSystemBackupSettings()
