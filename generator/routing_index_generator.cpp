@@ -164,6 +164,11 @@ public:
   Segment GetStartSegment() const { return m_start; }
   Segment GetFinishSegment() const { return {}; }
   bool ConvertToReal(Segment const & /* segment */) const { return false; }
+  RouteWeight CalcSegmentWeight(Segment const & /* segment */, EdgeEstimator::Purpose /* purpose */) const
+  {
+    CHECK(false, ("This method exists only for compatibility with IndexGraphStarterJoints"));
+    return GetAStarWeightZero<RouteWeight>();
+  }
   RouteWeight HeuristicCostEstimate(Segment const & /* from */, ms::LatLon const & /* to */)
   {
     CHECK(false, ("This method exists only for compatibility with IndexGraphStarterJoints"));

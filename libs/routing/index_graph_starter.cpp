@@ -186,6 +186,13 @@ void IndexGraphStarter::GetEdgesList(astar::VertexData<Vertex, Weight> const & v
           astar::VertexData const replacedFakeSegment(real, vertexData.m_realDistance);
           m_graph.GetEdgeList(replacedFakeSegment, isOutgoing, true /* useRoutingOptions */, useAccessConditional,
                               edges);
+          // The ingoing edges have the weight of the whole |real| segment, but the route takes its part only.
+          if (!isOutgoing)
+          {
+            auto const realWeight = CalcSegmentWeight(real, EdgeEstimator::Purpose::Weight);
+            for (auto & edge : edges)
+              edge.GetWeight() += ingoingSegmentWeight - realWeight;
+          }
         }
       }
     }
@@ -257,6 +264,17 @@ RouteWeight IndexGraphStarter::CalcSegmentWeight(Segment const & segment, EdgeEs
   }
 
   return m_graph.CalcOffroadWeight(vertex.GetPointFrom(), vertex.GetPointTo(), purpose);
+}
+
+RouteWeight IndexGraphStarter::CalcRouteEdgeWeight(Segment const & from, Segment const & to) const
+{
+  EdgeListT edges;
+  GetEdgesList(from, true /* isOutgoing */, edges);
+  for (auto const & edge : edges)
+    if (edge.GetTarget() == to)
+      return edge.GetWeight();
+
+  return CalcSegmentWeight(to, EdgeEstimator::Purpose::Weight);
 }
 
 double IndexGraphStarter::CalculateETA(Segment const & from, Segment const & to, time_t arrivalTime) const
@@ -564,11 +582,20 @@ void IndexGraphStarter::AddFakeEdges(Segment const & segment, bool isOutgoing, E
       //  *------------>*----------->
       bool const sIsIngoing = GetJunction(s, true /* front */) == GetJunction(segment, false /* front */);
 
-      if ((isOutgoing && sIsOutgoing) || (!isOutgoing && sIsIngoing))
+      if (isOutgoing && sIsOutgoing)
+      {
+        auto weight = CalcSegmentWeight(s, EdgeEstimator::Purpose::Weight);
+        // |s| is a part of the |edge| target: it replaces the target weight and keeps the transition penalties.
+        // The regions graph has no penalties, and its edge weights differ from the segment ones.
+        if (!IsRegionsGraphMode())
+          weight += edge.GetWeight() - CalcSegmentWeight(edge.GetTarget(), EdgeEstimator::Purpose::Weight);
+        fakeEdges.emplace_back(s, weight);
+      }
+      else if (!isOutgoing && sIsIngoing)
       {
         // For ingoing edges we use source weight which is the same for |s| and for |edge| and is
         // already calculated.
-        fakeEdges.emplace_back(s, isOutgoing ? CalcSegmentWeight(s, EdgeEstimator::Purpose::Weight) : edge.GetWeight());
+        fakeEdges.emplace_back(s, edge.GetWeight());
       }
     }
   }

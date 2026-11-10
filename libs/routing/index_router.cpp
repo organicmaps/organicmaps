@@ -1245,13 +1245,18 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints, m2::P
 
   starter.Append(*m_lastFakeEdges);
 
+  // The wave looks for a way to the previous route near the new start, and its edges have the transition
+  // penalties. So the previous route edges get them too, but only in the mwm of the start: the wave doesn't
+  // go far, and the edges of the other mwms would load their graphs.
+  NumMwmId const startMwmId = startSegments.front().GetMwmId();
   std::vector<SegmentEdge> prevEdges;
   CHECK_LESS_OR_EQUAL(rebuiltSubroute.GetEndSegmentIdx(), steps.size(), ());
   for (size_t i = rebuiltSubroute.GetBeginSegmentIdx(); i < rebuiltSubroute.GetEndSegmentIdx(); ++i)
   {
-    auto const & step = steps[i];
-    prevEdges.emplace_back(step.GetSegment(),
-                           starter.CalcSegmentWeight(step.GetSegment(), EdgeEstimator::Purpose::Weight));
+    auto const & segment = steps[i].GetSegment();
+    bool const withPenalties = i > rebuiltSubroute.GetBeginSegmentIdx() && segment.GetMwmId() == startMwmId;
+    prevEdges.emplace_back(segment, withPenalties ? starter.CalcRouteEdgeWeight(steps[i - 1].GetSegment(), segment)
+                                                  : starter.CalcSegmentWeight(segment, EdgeEstimator::Purpose::Weight));
   }
 
   using Visitor = JunctionVisitor<IndexGraphStarter>;
