@@ -12,10 +12,6 @@ Að stækka kort, leita og reikna leiðir gengur verulega hratt fyrir sig.
 
 Kortin eru rík af smáatriðum og uppfærð tvisvar í mánuði til að endurspegla raunverulegar aðstæður. Ólíkt mörgum þekktum keppinautum innihalda þau byggingamerkingar, bekki, gönguleiðir og aðrar gagnlegar upplýsingar.
 
-<b>BYGGT Á OPENSTREETMAP:</b>
-
-OpenStreetMap er heimakort í wiki-stíl sem er byggt og viðhaldið af milljónum sjálfboðaliða — heimamanna sem þekkja svæðin sín best. Þessi samfélagslega viðleitni skilar mjög nákvæmum kortum, oft nákvæmari en þau sem eru í atvinnuskyni í minna kortlagðum héruðum. Organic Maps uppfærir gögnin sín úr OpenStreetMap á tveggja vikna fresti, sem heldur kortunum þínum ferskum og áreiðanlegum. Og ef þú tekur eftir einhverju sem vantar geturðu bætt því við OpenStreetMap og hjálpað til við að bæta kortið fyrir alla.
-
 <b>PERSÓNUVERND FYRST:</b>
 
 Við söfnum engum gögnum né auðkennum. Þetta þýðir að engin hætta er á gagnaleka og engar truflanir eins og auglýsingar eða hávaðarík tilkynningakerfi — bara hrein og persónuleg kortaupplifun.
@@ -60,6 +56,13 @@ Skiptu yfir í dökkum stíl til að horfa þægilega á kortið á nóttunni.
 
 Reyndu appið — það er 100% ókeypis, án auglýsinga, hratt og fullkomlega aftengt netinu. Upplifðu áreiðanlega GPS-leiðsögn fyrir gönguferðir, hjólreiðar, fjallgöngur og ferðalög hvar sem er í heiminum! Njóttu hratts, áreiðanlegs og persónulegs kortaupplifunar og deildu henni með öðrum!
 
-Vertu með í samfélaginu á Telegram: @OrganicMapsApp
+Organic Maps er sjálfstætt, samfélagsdrifið verkefni með opnum hugbúnaðarkóða og hundruðum þátttakenda sem hjálpa til við að þróa nýja eiginleika, laga vandamál, þýða og færa verkefnið áfram.
+
+Eða kynnstu öðrum leiðum til að styðja verkefnið: https://organicmaps.app/contribute/
+
+Hreinskilnar athugasemdir þínar og umsagnir í versluninni hvetja okkur áfram! Við elskum að heyra frá þér þar.
+
+Ertu með spurningar? Heimsæktu organicmaps.app fyrir frekari upplýsingar og algengar spurningar.
 
 Instagram: @organicmaps.app
+Telegram: @OrganicMapsApp

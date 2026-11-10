@@ -35,9 +35,9 @@ iCLOUD SYNC: Snadno zálohujte a synchronizujte všechny své záložky a trasy 
 Vyzkoušejte aplikaci — je 100% zdarma, bez reklam, rychlá a plně offline. Užijte si rychlý, spolehlivý a soukromý zážitek s mapou a sdílejte jej s ostatními!
 Organic Maps je nezávislý, komunitou řízený open-source projekt se stovkami přispěvatelů, kteří pomáhají vyvíjet nové funkce, opravovat problémy, překládat a posouvat projekt vpřed.
 
-Připojte se ke komunitě na Telegramu: @OrganicMapsApp
 Nebo zjistěte další způsoby, jak projekt podpořit: https://organicmaps.app/contribute/
 
 Vaše upřímná zpětná vazba a recenze v obchodě nás motivují! Rádi slyšíme váš názor. Máte otázky? Navštivte web organicmaps.app pro více informací a FAQ.
 
 Instagram: @organicmaps.app
+Telegram: @OrganicMapsApp

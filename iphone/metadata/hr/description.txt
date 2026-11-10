@@ -31,9 +31,9 @@ iCLOUD SINHRONIZACIJA: Jednostavno izrađujte sigurnosne kopije i sinkronizirajt
 Isprobajte aplikaciju — 100% je besplatna, bez oglasa, brza i potpuno offline. Uživajte u brzom, pouzdanom i privatnom iskustvu karte i podijelite ga s drugima!
 Organic Maps je indie, zajednicom vođen, open-source projekt sa stotinama suradnika koji pomažu u razvoju novih funkcija, ispravljanju problema, prevođenju i napretku projekta.
 
-Pridružite se zajednici na Telegramu: @OrganicMapsApp
 Ili saznajte druge načine podrške projektu: https://organicmaps.app/contribute/
 
 Vaše iskrene povratne informacije i recenzije u trgovini motiviraju nas! Volimo čuti vaše mišljenje.
 
 Instagram: @organicmaps.app
+Telegram: @OrganicMapsApp

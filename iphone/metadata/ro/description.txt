@@ -18,7 +18,7 @@ NAVIGAȚIE GPS: Bucură-te de indicații vocale pas cu pas. Creează trasee de m
 
 TRASEE DE DRUMEȚII ȘI CICLISM DIN ÎNTREAGA LUME: Activează straturi speciale de hartă pentru a descoperi trasee populare de drumeții și ciclism la nivel mondial, toate provenind din OpenStreetMap. Comută între straturi pentru a vedea trasee colorate pentru biciclete și MTB, precum și trasee oficiale de drumeții.
 
-TRANSPORT PUBLIC: Vezi numerele de rute de transport public la stații.
+TRANSPORT PUBLIC: Planifică rute și vezi numerele liniilor la stații. Orarele în timp real sunt în dezvoltare.
 
 STILURI DE HARTĂ: Alege straturi de hartă potrivite pentru activitatea ta — În aer liber, Linii de contur, Drumeții, Ciclism sau Metrou.
 
@@ -30,9 +30,8 @@ EDITOR DE HARTĂ: Contribuie la OpenStreetMap adăugând locuri lipsă sau edit�
 
 SINCRONIZARE iCLOUD: Fă backup și sincronizează cu ușurință toate marcajele și traseele prin iCloud.
 
-Încearcă aplicația — este 100% gratuită, fără reclame, rapidă și complet offline. Bucură-te de o experiență de hartă rapidă, de încredere și privată și împărtășește-o cu alții.
+Încearcă aplicația — este 100% gratuită, fără reclame, rapidă și complet offline. Bucură-te de o hartă rapidă, fiabilă și privată și împărtășește-o cu alții.
 Organic Maps este un proiect indie, open-source, condus de comunitate, cu sute de contribuitori care ajută la dezvoltarea de funcții noi, rezolvarea problemelor, traduceri și dezvoltarea proiectului.
 
-Alătură-te comunității pe Telegram: @OrganicMapsApp
-
 Instagram: @organicmaps.app
+Telegram: @OrganicMapsApp

@@ -2,9 +2,9 @@ Organic Maps è un’app veloce e dettagliata per mappe offline e navigazione GP
 
 <b>OFFLINE:</b> L’app funziona al 100% offline — comprese ricerca e navigazione. Puoi esplorare la mappa e navigare senza connessione internet, risparmiando dati mobili e costi di roaming. Senza trasferimenti di dati in background, la batteria dura molto più a lungo.
 
-<b>DETTAGLIATA E AGGIORNATA:</b> Le mappe sono ricche di dettagli e aggiornate due volte al mese per riflettere le condizioni reali. A differenza di molti concorrenti noti, includono etichette degli edifici, panchine, sentieri escursionistici e altre informazioni utili.
+<b>VELOCE:</b> lo zoom, la ricerca e il calcolo dei percorsi funzionano in modo notevolmente veloce.
 
-<b>BASATA SU OPENSTREETMAP:</b> OpenStreetMap è una mappa mondiale in stile wiki costruita e mantenuta da milioni di volontari — locali che conoscono meglio le loro aree. Questo sforzo comunitario produce mappe molto dettagliate, spesso più precise di quelle commerciali in regioni meno mappate. Organic Maps aggiorna i dati da OpenStreetMap ogni due settimane, mantenendo le mappe fresche e affidabili. Se noti qualcosa di mancante, puoi aggiungerlo su OpenStreetMap e contribuire a migliorare la mappa per tutti.
+<b>DETTAGLIATA E AGGIORNATA:</b> Le mappe sono ricche di dettagli e aggiornate due volte al mese per riflettere le condizioni reali. A differenza di molti concorrenti noti, includono etichette degli edifici, panchine, sentieri escursionistici e altre informazioni utili.
 
 <b>PRIVACY-FIRST:</b> Non raccogliamo dati o identificatori. Ciò significa che non ci sono rischi di perdita dei dati e nessuna distrazione come pubblicità o notifiche rumorose — solo un’esperienza di mappa pulita e privata.
 
@@ -26,8 +26,17 @@ Organic Maps è un’app veloce e dettagliata per mappe offline e navigazione GP
 
 <b>EDITOR DI MAPPE:</b> Contribuisci a OpenStreetMap aggiungendo luoghi mancanti o modificando la mappa direttamente da Organic Maps.
 
+<b>MODALITÀ SCURA:</b> Passa a un tema scuro per una visione confortevole durante la notte.
+
 Prova l’app — è 100% gratuita, senza pubblicità, veloce e completamente offline. Vivi una navigazione GPS affidabile per escursionismo, ciclismo, trekking e viaggi in tutto il mondo! Goditi un’esperienza di mappa veloce, affidabile e privata e condividila con altri!
 
 Organic Maps è un progetto indipendente open-source guidato dalla comunità, con centinaia di collaboratori che aiutano a sviluppare nuove funzionalità, risolvere problemi, tradurre e far avanzare il progetto.
 
+Oppure scopri altri modi per sostenere il progetto: https://organicmaps.app/contribute/
+
+I tuoi commenti e le tue recensioni sincere sullo store ci motivano! Ci fa piacere ricevere i tuoi riscontri.
+
+Hai domande? Visita il sito web organicmaps.app per ulteriori dettagli e le domande frequenti.
+
 Instagram: @organicmaps.app
+Telegram: @OrganicMapsIT
