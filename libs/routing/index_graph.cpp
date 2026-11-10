@@ -471,7 +471,10 @@ RouteWeight IndexGraph::GetPenalties(EdgeEstimator::Purpose purpose, Segment con
     double const turnPenalty =
         m_estimator->GetTurnPenalty(purpose, fromPenaltyData.m_highwayType, toPenaltyData.m_highwayType);
     if (turnPenalty > 0.0 && IsTurn(u, v))
-      weightPenalty += turnPenalty;
+    {
+      weightPenalty +=
+          turnPenalty * m_estimator->GetTurnPenaltyFactor(toPenaltyData.m_highwayType, GetPoint(u, true /* front */));
+    }
   }
 
   if (IsBoarding(fromPenaltyData.m_isFerry, toPenaltyData.m_isFerry))

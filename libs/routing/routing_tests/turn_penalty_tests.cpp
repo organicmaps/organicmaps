@@ -65,7 +65,7 @@ UNIT_TEST(TurnPenalty_CarEstimator)
 //          F3
 //          |
 //          S
-unique_ptr<SingleVehicleWorldGraph> BuildJunctionGraph()
+unique_ptr<SingleVehicleWorldGraph> BuildJunctionGraph(shared_ptr<EdgeEstimator> estimator = nullptr)
 {
   auto loader = make_unique<TestGeometryLoader>();
   vector<RoadGeometry::Points> const roads = {
@@ -82,7 +82,7 @@ unique_ptr<SingleVehicleWorldGraph> BuildJunctionGraph()
                                 MakeJoint({{2, 1}}), MakeJoint({{3, 1}})};
 
   traffic::TrafficCache const trafficCache;
-  return BuildWorldGraph(std::move(loader), CreateEstimatorForCar(trafficCache), joints);
+  return BuildWorldGraph(std::move(loader), estimator ? estimator : CreateEstimatorForCar(trafficCache), joints);
 }
 
 double GetEdgeWeight(IndexGraph const & graph, Segment const & from, Segment const & to, bool isOutgoing)
@@ -122,6 +122,47 @@ UNIT_TEST(TurnPenalty_EdgeWeights)
   traffic::TrafficCache const trafficCache;
   double const uTurnPenalty = CreateEstimatorForCar(trafficCache)->GetUTurnPenalty(Purpose::Weight);
   TEST_ALMOST_EQUAL_ABS(GetEdgeWeight(graph, fromW, backToW, true /* isOutgoing */), straight + uTurnPenalty, 1e-6, ());
+}
+
+// A route leaves the service road of its start and enters the one of its finish for free,
+// the opposite turns pay for both turns of a passage through a service road.
+UNIT_TEST(TurnPenalty_ServiceEndings)
+{
+  classificator::Load();
+  traffic::TrafficCache const trafficCache;
+  auto const estimator = CreateEstimatorForCar(trafficCache);
+  auto worldGraph = BuildJunctionGraph(estimator);
+  auto const & graph = worldGraph->GetIndexGraphForTests(kTestNumMwmId);
+
+  Segment const fromW(kTestNumMwmId, 0, 0, true /* forward */);
+  Segment const toW(kTestNumMwmId, 0, 0, false /* forward */);
+  Segment const fromN(kTestNumMwmId, 2, 0, false /* forward */);
+  Segment const toN(kTestNumMwmId, 2, 0, true /* forward */);
+  Segment const toS(kTestNumMwmId, 3, 0, true /* forward */);
+  // All the segments have the same weight.
+  double const noPenalty = GetEdgeWeight(graph, fromW, toS, true /* isOutgoing */);
+  auto const testPenalties = [&](double onto, double off)
+  {
+    TEST_ALMOST_EQUAL_ABS(GetEdgeWeight(graph, fromW, toN, true /* isOutgoing */), noPenalty + onto, kWeightEps, ());
+    TEST_ALMOST_EQUAL_ABS(GetEdgeWeight(graph, toN, fromW, false /* isOutgoing */), noPenalty + onto, kWeightEps, ());
+    TEST_ALMOST_EQUAL_ABS(GetEdgeWeight(graph, fromN, toW, true /* isOutgoing */), noPenalty + off, kWeightEps, ());
+  };
+
+  auto const west = mercator::ToLatLon(m2::PointD(-0.001, 0));
+  auto const east = mercator::ToLatLon(m2::PointD(0.002, 0));
+  testPenalties(kServiceTurnPenaltyS, kServiceTurnPenaltyS);
+
+  estimator->SetServiceEndings({west /* start */, {} /* finish */});
+  testPenalties(2 * kServiceTurnPenaltyS, 0.0);
+
+  estimator->SetServiceEndings({{} /* start */, west /* finish */});
+  testPenalties(0.0, 2 * kServiceTurnPenaltyS);
+
+  // The junction is closer to the west ending.
+  estimator->SetServiceEndings({west /* start */, east /* finish */});
+  testPenalties(2 * kServiceTurnPenaltyS, 0.0);
+  estimator->SetServiceEndings({east /* start */, west /* finish */});
+  testPenalties(0.0, 2 * kServiceTurnPenaltyS);
 }
 
 // An edge to a part of a segment has the penalties of the edge to the whole segment.
@@ -344,6 +385,63 @@ UNIT_CLASS_TEST(RestrictionTest, TurnPenalty_AvoidServiceShortcut)
     if (reverse)
       std::reverse(expectedGeom.begin(), expectedGeom.end());
     TestRoute(*m_starter, expectedGeom, 2 * kServiceTurnPenaltyS);
+  }
+}
+
+//          B --F2-- * --F5-- D
+//          |                 |
+//          F1                F4      F1 residential, the others service
+//          |                 |
+// * --F0-- A -------F3------ C
+// The route from F0 to F2 by the service roads F3, F4, F5 is 222 m (16 s) longer than by the street F1.
+UNIT_CLASS_TEST(RestrictionTest, TurnPenalty_ServiceEndingsRoute)
+{
+  vector<RoadGeometry::Points> const roads = {
+      {{0, 0}, {0.001, 0}},               // F0
+      {{0.001, 0}, {0.001, 0.003}},       // F1
+      {{0.001, 0.003}, {0.002, 0.003}},   // F2
+      {{0.001, 0}, {0.0025, 0}},          // F3
+      {{0.0025, 0}, {0.0025, 0.003}},     // F4
+      {{0.0025, 0.003}, {0.002, 0.003}},  // F5
+  };
+  vector<Joint> const joints = {
+      MakeJoint({{0, 0}}),         MakeJoint({{0, 1}, {1, 0}, {3, 0}}), MakeJoint({{1, 1}, {2, 0}}),
+      MakeJoint({{3, 1}, {4, 0}}), MakeJoint({{4, 1}, {5, 0}}),         MakeJoint({{5, 1}, {2, 1}}),
+  };
+  m2::PointD const startPoint(0.0005, 0);
+  m2::PointD const finishPoint(0.0015, 0.003);
+  vector<m2::PointD> const streetGeom = {startPoint, {0.001, 0}, {0.001, 0.003}, finishPoint};
+
+  traffic::TrafficCache const trafficCache;
+  for (bool const reverse : {false, true})
+  {
+    auto loader = make_unique<TestGeometryLoader>();
+    for (uint32_t featureId = 0; featureId < roads.size(); ++featureId)
+    {
+      loader->AddRoad(featureId, false /* oneWay */, 50.0 /* speed */, roads[featureId]);
+      loader->SetHighwayType(featureId, featureId == 1 ? HighwayType::HighwayResidential : HighwayType::HighwayService);
+    }
+    auto const estimator = CreateEstimatorForCar(trafficCache);
+    Init(BuildWorldGraph(std::move(loader), estimator, joints));
+    auto const start = MakeFakeEnding(0, 0, startPoint, *m_graph);
+    auto const finish = MakeFakeEnding(2, 0, finishPoint, *m_graph);
+    SetStarter(reverse ? finish : start, reverse ? start : finish);
+
+    // The turns onto and off the street make it slower than the service roads.
+    vector<m2::PointD> expectedGeom = {startPoint,      {0.001, 0},     {0.0025, 0},
+                                       {0.0025, 0.003}, {0.002, 0.003}, finishPoint};
+    if (reverse)
+      std::reverse(expectedGeom.begin(), expectedGeom.end());
+    TestRoute(*m_starter, expectedGeom, 0.0 /* expectedPenalty */);
+
+    // These turns are free for the endings on the service roads.
+    auto const startLatLon = mercator::ToLatLon(reverse ? finishPoint : startPoint);
+    auto const finishLatLon = mercator::ToLatLon(reverse ? startPoint : finishPoint);
+    estimator->SetServiceEndings({startLatLon, finishLatLon});
+    expectedGeom = streetGeom;
+    if (reverse)
+      std::reverse(expectedGeom.begin(), expectedGeom.end());
+    TestRoute(*m_starter, expectedGeom, 0.0 /* expectedPenalty */);
   }
 }
 
