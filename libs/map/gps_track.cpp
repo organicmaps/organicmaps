@@ -24,13 +24,14 @@ GpsTrack::~GpsTrack()
   Finalize();
 }
 
-void GpsTrack::Start()
+void GpsTrack::Start(std::optional<location::Clock::time_point> earliestMeasurement)
 {
   std::lock_guard lg(m_threadGuard);
   if (m_recording)
     return;
 
   m_recording = true;
+  m_earliestMeasurement = earliestMeasurement;
   m_needRestore = true;
   ScheduleTask();
 }
@@ -38,7 +39,8 @@ void GpsTrack::Start()
 void GpsTrack::AddPoint(location::GpsInfo const & point)
 {
   std::lock_guard lg(m_threadGuard);
-  if (!m_recording)
+  if (!m_recording ||
+      (m_earliestMeasurement && point.m_timing && point.m_timing->m_observedAt < *m_earliestMeasurement))
     return;
   m_points.push_back(point);
   ScheduleTask();
@@ -49,7 +51,9 @@ void GpsTrack::AddPoints(std::vector<location::GpsInfo> const & points)
   std::lock_guard lg(m_threadGuard);
   if (!m_recording)
     return;
-  m_points.insert(m_points.end(), points.begin(), points.end());
+  for (auto const & point : points)
+    if (!m_earliestMeasurement || !point.m_timing || point.m_timing->m_observedAt >= *m_earliestMeasurement)
+      m_points.push_back(point);
   ScheduleTask();
 }
 

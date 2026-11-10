@@ -11,6 +11,7 @@
 #include <functional>
 #include <memory>
 #include <mutex>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -28,7 +29,7 @@ public:
   ~GpsTrack();
 
   /// Starts recording, restoring a previous crash backup if present.
-  void Start();
+  void Start(std::optional<location::Clock::time_point> earliestMeasurement = {});
 
   /// Adds point or collection of points to gps tracking
   /// @note Callback is called with 'toAdd' and 'toRemove' points, if some points were added or removed.
@@ -110,6 +111,7 @@ private:
   std::vector<location::GpsInfo> m_backupPoints;
   Clock::time_point m_nextBackup;
   bool m_recording = false;
+  std::optional<location::Clock::time_point> m_earliestMeasurement;
   bool m_needRestore = false;
   bool m_needClear = false;
   threads::SimpleThread m_thread;

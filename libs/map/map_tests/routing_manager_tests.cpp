@@ -1296,6 +1296,44 @@ UNIT_TEST(RoutingManager_ValidationObserverCanStartANewBuild)
   });
 }
 
+UNIT_TEST(RoutingManager_HistoricalMeasurementDoesNotPassCheckpoint)
+{
+  WithSavedRoute([](RoutingManager & manager, BookmarkManager &, TestGuiThread & gui)
+  {
+    using namespace std::chrono_literals;
+    manager.RoutingSession().SetRouter(std::make_unique<routing::RulerRouter>(), nullptr);
+    manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Start, 0, 1), false);
+    manager.AddRoutePoint(MakeRoutePoint(RouteMarkType::Finish, 0, 2), false);
+    bool built = false;
+    manager.SetRouteBuildingListener([&](routing::RouterResultCode code, storage::CountriesSet const &)
+    {
+      TEST(code == routing::RouterResultCode::NoError, ());
+      built = true;
+    });
+    manager.BuildRoute();
+    gui.RunUntil([&] { return built; });
+    auto & session = manager.RoutingSession();
+    TEST(session.EnableFollowMode(), ());
+
+    location::GpsInfo info;
+    info.m_source = location::EAndroidNative;
+    info.m_longitude = 2;
+    info.m_latitude = mercator::YToLat(2);
+    info.m_horizontalAccuracy = 1;
+    auto const old = location::Clock::now() - 1h;
+    info.m_timing = location::GpsInfo::Timing{old, old + 5s};
+    manager.OnLocationUpdate(info);
+    TEST(!session.IsFinished(), ());
+    TEST(!manager.GetRoutePoints().back().m_isPassed, ());
+
+    auto const now = location::Clock::now();
+    info.m_timing = location::GpsInfo::Timing{now, now + 5s};
+    manager.OnLocationUpdate(info);
+    TEST(session.IsFinished(), ());
+    TEST(manager.GetRoutePoints().back().m_isPassed, ());
+  });
+}
+
 UNIT_TEST(RoutingManager_CheckpointPassUpdatesRecoveryBeforeReturning)
 {
   WithSavedRoute([](RoutingManager & manager, BookmarkManager &, TestGuiThread & gui)
