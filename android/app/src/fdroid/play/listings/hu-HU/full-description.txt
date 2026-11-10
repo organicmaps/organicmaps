@@ -18,7 +18,7 @@ Az Organic Maps gyors és részletes offline térkép- és GPS-navigációs alka
 
 <b>TÚRA- ÉS KERÉKPÁRUTAK VILÁGSZERTE:</b> Kapcsold be a speciális térképrétegeket, hogy felfedezd a népszerű túra- és kerékpárútvonalakat. Válts rétegeket a színes kerékpár-, MTB- és hivatalos túraútvonalak megjelenítéséhez.
 
-<b>TÖMEGKÖZLEKEDÉS:</b> Lásd a megállókban futó járatok számát. Élő menetrendek fejlesztés alatt állnak.
+<b>TÖMEGKÖZLEKEDÉS:</b> Tervezz tömegközlekedési útvonalakat, és nézd meg a járatszámokat a megállókban. A valós idejű menetrendek fejlesztés alatt állnak.
 
 <b>TÉRKÉPSTÍLUSOK:</b> Válassz a tevékenységedhez illő rétegeket – Outdoor, Szintvonalak, Túra, Kerékpár, Metró/Metro.
 
@@ -34,9 +34,9 @@ Próbáld ki az alkalmazást – teljesen ingyenes, reklámmentes, gyors és tel
 
 Az Organic Maps független, közösségi, nyílt forráskódú projekt, amelyhez több száz közreműködő járul hozzá fejlesztésekkel, fordításokkal és hibajavításokkal.
 
-Csatlakozz a Telegram-közösséghez: @OrganicMapsApp
 További támogatási lehetőségek: https://organicmaps.app/contribute/
 
 Visszajelzéseid és értékeléseid motiválnak – köszönjük! Ha kérdésed van, látogass el a weboldalra: organicmaps.app
 
 Instagram: @organicmaps.app
+Telegram: @OrganicMapsApp

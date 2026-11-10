@@ -16,7 +16,7 @@ Organic Maps est une application rapide et détaillée de cartes hors ligne et d
 
 <b>SENTIERS DE RANDONNÉE & DE VÉLO DU MONDE ENTIER :</b> Activez des couches spéciales pour découvrir des itinéraires populaires de randonnée et de cyclisme dans le monde entier, tous issus d’OpenStreetMap. 
 
-<b>TRANSPORTS PUBLICS :</b> Consultez les numéros des lignes de transport aux arrêts.
+<b>TRANSPORTS PUBLICS :</b> Planifiez vos itinéraires en transports en commun et consultez les numéros de ligne aux arrêts. Les horaires en temps réel sont en développement.
 
 <b>STYLES DE CARTE :</b> Choisissez les couches adaptées à votre activité — Extérieur, Courbes de niveau, Randonnée, Cyclisme ou Métro.
 
@@ -31,7 +31,7 @@ Essayez l’application — elle est 100 % gratuite, sans publicité, rapide et 
 
 Organic Maps est un projet indépendant, communautaire et open-source, auquel contribuent des centaines de personnes — développement, corrections, traductions et amélioration continue.
 
-Rejoignez la communauté sur Telegram : @OrganicMapsFR
 Ou découvrez d’autres façons de soutenir le projet : https://organicmaps.app/contribute/
 
 Instagram: @organicmaps.app
+Telegram: @OrganicMapsFR

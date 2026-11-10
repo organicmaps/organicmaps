@@ -14,7 +14,7 @@ Organic Maps is a fast, detailed offline map and GPS navigation app for travel, 
 
 <b>EXPLORE PLACES:</b> Search by address, name, or category, discover millions of POIs, and view detailed information such as opening hours, Wikipedia articles, wheelchair accessibility, and other helpful details.
 
-<b>GPS NAVIGATION:</b> Enjoy voice-guided, turn-by-turn directions. Create walking, hiking, cycling, or driving routes — including routes between cities, countries, and multiple waypoints. Find the best routes for your metro journeys and commutes. Android Auto is supported.
+<b>GPS NAVIGATION:</b> Enjoy voice-guided, turn-by-turn directions. Create walking, hiking, cycling, or driving routes — including routes between cities, countries, and multiple waypoints. Plan public transport journeys and daily commutes. Android Auto is supported.
 
 <b>HIKING & CYCLING TRAILS FROM AROUND THE WORLD:</b> Enable special map layers to discover popular hiking and cycling routes worldwide, all sourced from OpenStreetMap. Switch between layers to see colored bike and MTB routes, as well as official hiking paths.
 
@@ -34,9 +34,9 @@ Try the app — it’s 100% free, ad-free, fast, and fully offline. Experience r
 
 Organic Maps is an indie, community-driven, open-source project with hundreds of contributors who help develop new features, fix issues, translate, and move the project forward.
 
-Join the community on Telegram: @OrganicMapsApp
 Or learn other ways to support the project: https://organicmaps.app/contribute/
 
-Follow us on Instagram: @organicmaps.app
-
 Your honest feedback and reviews in the store motivate us! We love hearing from you there. Have questions? Please visit the organicmaps.app website for additional details and FAQ
+
+Instagram: @organicmaps.app
+Telegram: @OrganicMapsApp

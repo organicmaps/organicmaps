@@ -34,9 +34,9 @@ Kokeile sovellusta — se on 100 % ilmainen, mainokseton, nopea ja täysin offli
 
 Organic Maps on itsenäinen, yhteisölähtöinen ja avoimen lähdekoodin projekti, jossa sadat avustajat kehittävät uusia ominaisuuksia, korjaavat virheitä, kääntävät ja vievät projektia eteenpäin.
 
-Liity yhteisöön Telegramissa: @OrganicMapsApp
 Katso muita tapoja tukea projektia: organicmaps.app/contribute
 
 Arvostelusi motivoi meitä — kerro kokemuksesi sovelluskaupassa! Kysyttävää? Katso lisätietoja ja usein kysytyt kysymykset osoitteesta organicmaps.app.
 
 Instagram: @organicmaps.app
+Telegram: @OrganicMapsApp
