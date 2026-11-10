@@ -109,4 +109,8 @@ private:
   std::vector<BucketEntry> m_buckets;
   QImage m_lastImage;
 };
+
+/// Compares rendered images of the same size. On mismatch, logs difference statistics and saves
+/// <name>-actual.png, <name>-expected.png and <name>-difference-mask.png in the writable directory for CI upload.
+bool ImagesEqual(char const * name, QImage const & actual, QImage const & expected);
 }  // namespace df::test_support
