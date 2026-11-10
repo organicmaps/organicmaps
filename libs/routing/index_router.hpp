@@ -128,6 +128,8 @@ private:
 
   RouterResultCode AdjustRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
                                RouterDelegate const & delegate, Route & route);
+  /// Tells the estimator which endings of the search are on service roads. |finish| may be unknown.
+  void SetServiceEndings(FakeEnding const & start, FakeEnding const * finish, WorldGraph & graph);
 
   std::unique_ptr<WorldGraph> MakeWorldGraph();
 

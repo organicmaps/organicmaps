@@ -809,6 +809,8 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints, 
       }
     }
 
+    SetServiceEndings(startFakeEnding, &finishFakeEnding, *graph);
+
     uint32_t const fakeNumerationStart = starter ? starter->GetNumFakeSegments() + startIdx : startIdx;
     IndexGraphStarter subrouteStarter(startFakeEnding, finishFakeEnding, fakeNumerationStart,
                                       isStartSegmentStrictForward, *graph);
@@ -1214,6 +1216,30 @@ RouterResultCode IndexRouter::CalculateSubrouteLeapsOnlyMode(Checkpoints const &
   return RouterResultCode::NoError;
 }
 
+void IndexRouter::SetServiceEndings(FakeEnding const & start, FakeEnding const * finish, WorldGraph & graph)
+{
+  // Only the car routing has the turn penalty, see EdgeEstimator::GetTurnPenaltyFactor().
+  if (m_vehicleType != VehicleType::Car)
+    return;
+
+  auto const getServiceEnding = [&graph](FakeEnding const * ending) -> std::optional<ms::LatLon>
+  {
+    if (!ending || ending->m_projections.empty())
+      return {};
+
+    // The projections are sorted by the distance to the ending.
+    auto const & segment = ending->m_projections.front().m_segment;
+    if (IndexGraphStarter::IsGuidesSegment(segment))
+      return {};
+
+    auto const type = graph.GetIndexGraph(segment.GetMwmId()).GetRoadGeometry(segment.GetFeatureId()).GetHighwayType();
+    if (!type || !IsServiceOrLivingStreet(*type))
+      return {};
+    return ending->m_originJunction.GetLatLon();
+  };
+  m_estimator->SetServiceEndings({getServiceEnding(&start), getServiceEnding(finish)});
+}
+
 RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
                                           RouterDelegate const & delegate, Route & route)
 {
@@ -1240,8 +1266,10 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints, m2::P
   CHECK(!steps.empty(), ());
 
   FakeEnding dummy{};
-  IndexGraphStarter starter(MakeFakeEnding(startSegments, pointFrom, *graph), dummy, m_lastFakeEdges->GetNumFakeEdges(),
-                            bestSegmentIsAlmostCodirectional, *graph);
+  auto const startEnding = MakeFakeEnding(startSegments, pointFrom, *graph);
+  SetServiceEndings(startEnding, nullptr /* finish */, *graph);
+  IndexGraphStarter starter(startEnding, dummy, m_lastFakeEdges->GetNumFakeEdges(), bestSegmentIsAlmostCodirectional,
+                            *graph);
 
   starter.Append(*m_lastFakeEdges);
 

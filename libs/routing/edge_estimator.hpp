@@ -60,6 +60,21 @@ public:
   }
   Strategy GetStrategy() const { return m_strategy; }
 
+  /// The endings of the current search that are on service roads, see GetTurnPenaltyFactor().
+  struct ServiceEndings
+  {
+    std::optional<ms::LatLon> m_start;
+    std::optional<ms::LatLon> m_finish;
+  };
+  void SetServiceEndings(ServiceEndings const & endings) { m_serviceEndings = endings; }
+
+  /// A route has to leave the service road of its start and to enter the one of its finish, so these turns
+  /// are free. To keep the price of a passage through a service road, after such a start the turns onto
+  /// service roads pay for both turns of a passage and the turns off them are free. It is the opposite
+  /// before such a finish. If both endings are on service roads, a turn follows the rule of its nearest one.
+  /// @return The GetTurnPenalty() factor for a turn at |junction| onto a road of |to| type.
+  double GetTurnPenaltyFactor(std::optional<HighwayType> to, ms::LatLon const & junction) const;
+
   /// \brief Transit alternative route bias, applied to the routing weight only (Purpose::Weight,
   /// ETA stays the real time): scales walking legs and adds a fixed penalty per boarding, to favour
   /// an alternative with less walking and fewer transfers (e.g. a direct bus over subway + walk).
@@ -127,6 +142,7 @@ private:
   bool m_tightHeuristicAllowed = true;
   double m_transitWalkWeightFactor = 1.0;
   double m_transitAltBoardingPenaltyS = 0.0;
+  ServiceEndings m_serviceEndings;
 
   // DataSource * m_dataSourcePtr;
   // std::shared_ptr<NumMwmIds> m_numMwmIds;
@@ -136,6 +152,9 @@ private:
   double GetLeapWeightSpeed(NumMwmId mwmId);
   // double LoadLeapWeightSpeed(NumMwmId mwmId);
 };
+
+/// The car routing penalizes the turns onto and off these roads, see EdgeEstimator::GetTurnPenalty().
+bool IsServiceOrLivingStreet(HighwayType type);
 
 double GetPedestrianClimbPenalty(EdgeEstimator::Purpose purpose, double tangent, geometry::Altitude altitudeM);
 double GetBicycleClimbPenalty(EdgeEstimator::Purpose purpose, double tangent, geometry::Altitude altitudeM);

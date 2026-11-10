@@ -1006,6 +1006,9 @@ UNIT_TEST(Russia_Nsk_NoPassThrough)
   // Detour route via "Порт-Артурская" avoiding pass through service
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(54.9886261, 82.8091597), {0., 0.},
                                    FromLatLon(54.9924478, 82.8082036), 1254.17);
+  // Direct route via "Магаданская" between the start and the finish on service roads
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(55.074347, 82.939134), {0., 0.},
+                                   FromLatLon(55.076779, 82.935965), 389.916);
 }
 
 // The destination (43.5298373, 5.44563164) lies on Rue de la Treille. The route must
