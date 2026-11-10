@@ -1,9 +1,12 @@
-• OSM: 28. september; Wikipedia: 21. september
-• Paremad alternatiivmarsruudid ja saabumise prognoosid
-• Uus seade optimeerib vahepeatuste järjekorda
-• Uued nupud lisavad või asendavad peatusi planeeritud marsruutidel
-• Navigeerimise ajal säilitatakse valitud alternatiivne marsruut
-• Radade salvestamine parandatud ja täiustatud
-• KMB-failide importimine on parandatud
-• Kasutajaliidese parandused ja täiustused
-…lisateave aadressil omaps.org/et/news
+• 3D-maastik, ookeanisügavused, kõrgusjooned (m/ft), kõrgus igas punktis
+• OSM: 10. november
+• KML/KMZ/GeoJSON-alade import ja kuvamine
+• Ühistranspordiliinide üksikasjad
+• Uus kiirusnäit
+• Raja salvestamise vidin
+• GPS-kõrgus üle merepinna
+• Raja suunanooled ja esiletõst
+• Eraldi seaded autole, rattale ja jalakäijale
+• Marsruudi ümberpööramine koos peatustega
+• Parandatud salvestusnupud, saabumisajad ja Android Auto krahhid
+…omaps.org/et/news

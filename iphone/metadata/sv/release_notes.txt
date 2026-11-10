@@ -1,33 +1,55 @@
-## Ruttplanering
-• Förbättrade alternativa rutter och deras beräknade ankomsttider
-• Knappar har lagts till för att lägga till eller byta ut ett stopp i en planerad rutt
-• En inställning har lagts till för att optimera ordningen på mellanliggande ruttstopp
-• Den valda alternativa rutten bevaras nu när navigeringen beräknar om rutten
-• Ordningen på ruttstopp återställs nu efter omstart av appen
+## Karta och terräng
+• NYTT: 3D-terräng och havsdjup, detaljerade höjdkurvor i meter och fot samt höjdangivelser för valfri punkt på kartan
+• OpenStreetMap-data per den 10 november, Wikipedia-artiklar per den 1 november
+• Streckade tidvis vattenförande vattendrag, tydligare vattennamn och nya konturer för järnvägsbroar
+• Barberare, pilatesstudior, fönstermontörer, vattenverk och täckta reservoarer har lagts till
+• Korrigerad translitterering och visning av kartetiketter på hebreiska och arabiska
+• Minskad minnesanvändning och krascher vid byte av kartstilar har åtgärdats
 
-## Karta
-• OpenStreetMap-data per den 28 september
-• Wikipedia-data per den 21 september
-• Vattenreservoarer syns nu när man zoomar ut ytterligare
-• Vattentunnlar visas inte längre på kartan
-• Ikonerna för Suzhou Metros stationer och ingångar har korrigerats
-• Åtgärdat sällsynta fall där etiketter hamnade fel på tunnelbanekartlagret
+## Ruttplanering och navigering
+• Uppdaterad ruttplanerare med en knapp för att vända planerade rutter med alla mellanstopp
+• Separata inställningar för vad som ska undvikas med bil, cykel och till fots
+• Ta bort start- eller målplatsen direkt från ruttplaneraren
+• Lägg till ett nytt resmål även om den föregående rutten inte kunde beräknas
+• Förbättrad återställning av rutter, omberäkning, alternativa rutter och uppskattningar av restid
+• Förbättrade ankomsttider för kollektivtrafik, gångförbindelser och markörer för stationsingångar
+• Sparade rutter behåller sitt startsegment och använder en aktuell position
+• Korrigerade föråldrade varningar om hastighetskameror
+• Åtgärdat byte av ruttpunkter vid maxantalet stopp och avklippt indikator för ruttinställningar
+
+## Bokmärken, spår och områden
+• NYTT: Importera och visa områden från KML-, KMZ- och GeoJSON-filer, inklusive fyllningar, konturer och hål
+• Lagt till riktningspilar för spår och en kontrasterande kontur för valda spår
+• När ett spår öppnas från en lista markeras dess startpunkt
+• Automatisk säkerhetskopia av spårinspelningen varje minut för återställning efter en krasch
+• KML-filer bevarar mellanstopp och färdsätt för sparade rutter
+• Bokmärken och spår sorteras efter namn enligt språket
+• Namn, beskrivningar och bilder i bokmärkeslistan uppdateras korrekt efter omladdning
+• Korrigerade höjdprofiler efter återgång till kartan och vid visning av plana eller inzoomade avsnitt
+• Krascher vid radering av redigerade spår och fel vid den första importen av bokmärken har åtgärdats
+• Förbättrad import av KML-, GPX- och GeoJSON-filer
 
 ## CarPlay
-• Manöverinstruktioner har lagts till på stödda head-up-displayer (HUD) i bilar och på CarPlay-instrumentpanelen
-• Korrigeringar av CarPlay-knappar och sökfunktion
+• Bokmärkeslistor uppdateras efter redigeringar, omladdningar och raderingar
+• Åtgärdat problem med saknade bokmärken vid listgränsen samt krascher vid val av raderade poster
 
-## Spår
-• Lagt till en ögonikon för att dölja enskilda spår
-• Buggar har åtgärdats och spårinspelningen har förbättrats
-• Import av KMB-filer har åtgärdats
+## Sökning och nedladdningar
+• Sökförslag behåller accenter och versaler
+• Förbättrad kartregionsdetektering, även över 180°-meridianen
+• Förbättrad avbrytning, omförsök, återupptagning och nedladdning i bakgrunden av kartor
+• Åtgärdat dubbla kartantal och överdrivna uppdateringsstorlekar
+• Bättre kategorisökning i kartredigeraren, sortering efter typ av kök och redigering av namn på norska (bokmål)
 
-## Sök
-• Sökningar har korrigerats när det synliga kartområdet korsar 180°-meridianen (±180° longitud)
-• Kategorisökningen i Spotlight har återställts
+## Användargränssnitt och översättningar
+• Lagt till walesiska
+• Förbättrad sortering av navigationsröster och korrigerade fraser i röstförhandsvisningen
+• Bättre förhandsvisning av kollektivtrafik med fler symboler, radbrytning av linjenummer och layout från höger till vänster
+• Kompassens placering i höger-till-vänster-layouter och kontrasten i rutttexten i mörkt läge har korrigerats
+• Navigeringens bekräftelseknappar är tillgängliga även med stor text
+• Åtgärdat fel vid dragning och stängning av platsdetaljer och vid öppning av kartlänkar i följd
+• Åtgärdat en krasch när en kartnedladdning uppdaterar platsdetaljer som ännu läses in
+• Korrigering av länkar och markeringar i menyn och inställningarna
+• Förbättrade översättningar, röstvägbeskrivningar och språkval
+• Korrigering av länkar till användargemenskapen i ”Om”
 
-## Användargränssnitt
-• Öppettiderna visar nu ”Middagstid” för kl. 12:00 och ”Midnatt” för kl. 00:00 eller 24:00
-• Olika buggar har åtgärdats och användargränssnittet har förbättrats
-• Korrigerade översättningar till engelska, franska och asturiska
-• Stöd för att välja och förhandslyssna på en installerad navigationsröst har lagts till
+Se de detaljerade releaseanteckningarna på organicmaps.app/sv/news

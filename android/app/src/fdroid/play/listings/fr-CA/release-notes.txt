@@ -1,9 +1,12 @@
-• OSM : 28 sept.; Wikipédia : 21 sept.
-• Itinéraires de rechange et heures d’arrivée estimées améliorés
-• Nouveau réglage pour optimiser l’ordre des étapes
-• Boutons pour ajouter ou remplacer une étape d’un itinéraire prévu
-• L’itinéraire de rechange choisi reste actif en navigation
-• Enregistrement des tracés corrigé et amélioré
-• Importation des fichiers KMB corrigée
-• Interface améliorée et bogues corrigés
-…plus sur omaps.org/fr/news
+• Relief 3D, fonds marins, courbes de niveau (m/pi), altitude partout
+• OSM au 10 novembre
+• Importer et afficher des zones KML/KMZ/GeoJSON
+• Détail des lignes de transport collectif
+• Indicateur de vitesse revu
+• Widget d’enregistrement de traces
+• Altitude GPS au-dessus de la mer
+• Flèches et surbrillance des traces
+• Réglages distincts auto, vélo et marche
+• Inverser les itinéraires et étapes
+• Commandes d’enregistrement, heures d’arrivée et plantages Android Auto corrigés
+…omaps.org/fr/news

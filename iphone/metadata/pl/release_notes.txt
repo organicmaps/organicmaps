@@ -1,33 +1,55 @@
-## Planowanie trasy
-• Ulepszone trasy alternatywne i szacowany czas przybycia na miejsce
-• Dodano przyciski do dodawania lub zastępowania punktu pośredniego na zaplanowanej trasie
-• Dodano ustawienie pozwalające zoptymalizować kolejność pośrednich punktów trasy
-• Wybrana trasa alternatywna jest teraz zachowywana podczas ponownego obliczania trasy przez nawigację
-• Kolejność punktów pośrednich na trasie jest teraz przywracana po ponownym uruchomieniu aplikacji
+## Mapa i teren
+• NOWOŚĆ: Teren 3D i głębokości oceanów, szczegółowe poziomice w metrach i stopach oraz wysokość w dowolnym punkcie mapy
+• Dane OpenStreetMap z 10 listopada, artykuły Wikipedii z 1 listopada
+• Okresowe cieki oznaczono linią przerywaną, nazwy wód są czytelniejsze, a mosty kolejowe mają nowe obrysy
+• Dodano zakłady barberskie, studia pilatesu, firmy montujące okna, obiekty wodociągowe i kryte zbiorniki wodne
+• Naprawiono transliterację i wyświetlanie hebrajskich i arabskich nazw na mapie
+• Zmniejszono zużycie pamięci i naprawiono awarie podczas zmiany stylów mapy
 
-## Mapa
-• Dane OpenStreetMap na dzień 28 września
-• Dane z Wikipedii na dzień 21 września
-• Zbiorniki wodne są teraz widoczne przy większym oddaleniu widoku
-• Tunele wodne nie są już wyświetlane na mapie
-• Poprawiono ikony stacji i wejść do metra w Suzhou
-• Naprawiono rzadkie przypadki, w których etykiety przesuwały się poza właściwe położenie na warstwie mapy metra
+## Trasy i nawigacja
+• Ulepszone planowanie tras i przycisk odwracania trasy ze wszystkimi punktami pośrednimi
+• Osobne ustawienia omijania odcinków dla kierowców, rowerzystów i pieszych
+• Usuń punkt początkowy lub docelowy bezpośrednio z planera trasy
+• Dodaj nowy cel podróży, nawet jeśli nie udało się obliczyć poprzedniej trasy
+• Ulepszono przywracanie i ponowne wyznaczanie tras, trasy alternatywne oraz szacowanie czasu podróży
+• Dokładniejsze prognozy przyjazdów transportu publicznego, lepsze połączenia piesze i oznaczenia wejść do stacji
+• Zapisane trasy nie tracą początkowego odcinka ani nie korzystają z nieaktualnej pozycji
+• Naprawiono nieaktualne ostrzeżenia o fotoradarach
+• Naprawiono zamianę punktu po osiągnięciu limitu punktów pośrednich i przycięty wskaźnik ustawień trasy
+
+## Zakładki, ślady i obszary
+• NOWOŚĆ: Import i wyświetlanie obszarów z plików KML, KMZ i GeoJSON wraz z wypełnieniami, obrysami i otworami
+• Ślady mają strzałki kierunku, a wybrane ślady wyróżnia kontrastowy obrys
+• Otwarcie śladu z listy zaznacza jego początek
+• Kopia zapasowa zapisu śladu jest aktualizowana co minutę na wypadek awarii
+• Pliki KML zachowują punkty pośrednie zapisanej trasy i tryb podróży
+• Zakładki i ślady są sortowane według nazw zgodnie z regułami danego języka
+• Nazwy, opisy i obrazy list zakładek odświeżają się po ponownym wczytaniu
+• Naprawiono profile wysokości po powrocie do mapy oraz przy wyświetlaniu płaskich lub powiększonych odcinków
+• Naprawiono awarie przy usuwaniu edytowanych śladów i błędy przy pierwszym imporcie zakładek
+• Ulepszono import plików KML, GPX i GeoJSON
 
 ## CarPlay
-• Dodano instrukcje manewrów na obsługiwanych wyświetlaczach head-up (HUD) w samochodach oraz na pulpicie nawigacyjnym CarPlay
-• Naprawiono działanie przycisków CarPlay i funkcji wyszukiwania
+• Listy zakładek są odświeżane po edycjach, ponownym ładowaniu i usunięciach
+• Naprawiono znikanie zakładek przy limicie listy i awarie przy wybieraniu usuniętych pozycji
 
-## Ślady
-• Dodano ikonę oka, umożliwiającą ukrycie poszczególnych śladów
-• Naprawiono błędy i ulepszono rejestrowanie śladów
-• Naprawiono import plików KMB
+## Wyszukiwanie i pobieranie
+• Sugestie wyszukiwania zachowują znaki diakrytyczne i wielkość liter
+• Ulepszono rozpoznawanie regionów map także po drugiej stronie południka 180°
+• Ulepszono anulowanie i ponawianie pobierania map, wznawianie i pobieranie w tle
+• Naprawiono podwójne zliczanie map i zawyżone rozmiary aktualizacji
+• Ulepszono wyszukiwanie kategorii w edytorze map, sortowanie według kuchni oraz edycję nazw w języku norweskim (Bokmål)
 
-## Wyszukiwanie
-• Naprawiono błąd wyszukiwania, gdy widoczny obszar mapy przekraczał południk 180° (±180° długości geograficznej)
-• Przywrócono wyszukiwanie według kategorii w Spotlight
+## Interfejs użytkownika i tłumaczenia
+• Dodano język walijski
+• Ulepszono sortowanie głosów nawigacji i poprawiono przykładowe wypowiedzi
+• Lepszy podgląd transportu publicznego z dodatkowymi symbolami, zawijaniem numerów linii i układem od prawej do lewej
+• Poprawiono położenie kompasu w układach od prawej do lewej oraz kontrast tekstu trasy w trybie ciemnym
+• Przyciski potwierdzania nawigacji pozostają dostępne przy dużym tekście
+• Naprawiono przeciąganie i zamykanie panelu informacji o miejscu oraz otwieranie kolejnych linków do mapy
+• Naprawiono awarię, gdy pobranie mapy aktualizowało informacje o miejscu przed zakończeniem ich wczytywania
+• Naprawiono linki w menu i ustawieniach oraz ich podświetlenie
+• Ulepszono tłumaczenia, wskazówki głosowe i opcje wyboru języka
+• Naprawiono linki do społeczności w sekcji „O aplikacji”
 
-## Interfejs użytkownika
-• Godziny otwarcia są teraz wyświetlane jako „Południe” dla godziny 12:00 oraz „Północ” dla godziny 00:00 lub 24:00
-• Naprawiono różne błędy i ulepszono interfejs użytkownika
-• Poprawiono tłumaczenia na język angielski, francuski i asturyjski
-• Dodano możliwość wyboru i odsłuchania próbki zainstalowanego głosu nawigacyjnego
+Zobacz szczegółowe informacje o wydaniu na stronie organicmaps.app/pl/news

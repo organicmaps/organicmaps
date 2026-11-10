@@ -1,33 +1,55 @@
-## Routenplanung
-• Verbesserte Alternativrouten und deren voraussichtliche Ankunftszeiten
-• Es wurden Schaltflächen zum Hinzufügen oder Ersetzen eines Zwischenstopps in einer geplanten Route hinzugefügt
-• Es wurde eine Einstellung hinzugefügt, um die Reihenfolge der Zwischenstopps auf der Route zu optimieren
-• Die ausgewählte alternative Route bleibt nun erhalten, wenn die Navigation die Route neu berechnet
-• Die Reihenfolge der Routenstopps wird nun nach einem Neustart der App wiederhergestellt
+## Karte & Gelände
+• NEU: 3D-Gelände und Meerestiefen, detaillierte Höhenlinien in Metern und Fuß und Höhe an jedem Kartenpunkt
+• OpenStreetMap-Daten vom 10. November, Wikipedia-Artikel vom 1. November
+• Gestrichelte zeitweise wasserführende Gewässer, klarere Gewässernamen und neue Umrisse von Eisenbahnbrücken
+• Barbiere, Pilatesstudios, Fenstermonteure, Wasserwerke und überdachte Wasserspeicher hinzugefügt
+• Die Transliteration und Anzeige von Kartenbeschriftungen in Hebräisch und Arabisch wurden korrigiert
+• Weniger Speicherverbrauch und behobene Abstürze beim Wechsel des Kartenstils
 
-## Karte
-• OpenStreetMap-Daten vom 28. September
-• Wikipedia-Daten vom 21. September
-• Wasserreservoire sind nun sichtbar, wenn weiter herausgezoomt wird
-• Wassertunnel werden nicht mehr auf der Karte angezeigt
-• Die Symbole für die Stationen und Eingänge der Suzhou-U-Bahn wurden korrigiert
-• Seltene Fälle behoben, in denen Beschriftungen auf der U-Bahn-Kartenebene verschoben wurden
+## Routenplanung & Navigation
+• Überarbeitete Routenplanung mit einer Schaltfläche zum Umkehren von Routen samt allen Zwischenstopps
+• Separate Vermeidungsoptionen für Autofahrten, Radfahrten und Fußwege
+• Start oder Ziel direkt im Routenplaner entfernen
+• Neues Ziel festlegen, auch wenn eine Routenberechnung fehlschlägt
+• Verbesserte Routenwiederherstellung, Neuberechnung, alternative Routen und Dauerabschätzungen
+• Genauere Ankunftsprognosen für öffentliche Verkehrsmittel, bessere Fußwegverbindungen und Markierungen für Stationseingänge
+• Gespeicherte Routen behalten ihren Startabschnitt und nutzen eine aktuelle Position
+• Veraltete Warnungen vor Radarkontrollen wurden korrigiert
+• Ersetzen von Routenpunkten am Limit für Zwischenstopps und abgeschnittene Anzeige der Routeneinstellungen korrigiert
+
+## Lesezeichen, Tracks und Gebiete
+• NEU: Importieren und Anzeigen von KML-, KMZ- und GeoJSON-Bereichen mit Füllungen, Umrissen und Aussparungen
+• Richtungspfeile für Tracks und kontrastreiche Umrisse für ausgewählte Tracks
+• Beim Öffnen eines Tracks aus einer Liste wird dessen Anfang ausgewählt
+• Trackaufzeichnungen werden jede Minute automatisch gesichert und lassen sich nach einem Absturz wiederherstellen
+• KML-Dateien behalten Zwischenstopps und Fortbewegungsart gespeicherter Routen bei
+• Lesezeichen und Tracks werden nach Namen entsprechend der Sprache sortiert
+• Die Namen, Beschreibungen und Bilder der Lesezeichenliste werden nach dem Neuladen korrekt aktualisiert
+• Höhenprofile nach der Rückkehr zur Karte sowie auf ebenen oder vergrößerten Abschnitten wurden korrigiert
+• Abstürze beim Löschen bearbeiteter Tracks und Fehler beim ersten Import von Lesezeichen wurden behoben
+• Verbesserte KML-, GPX- und GeoJSON-Importe
 
 ## CarPlay
-• Abbiegehinweise werden nun auf unterstützten Head-up-Displays (HUDs) im Auto und auf dem CarPlay-Dashboard angezeigt
-• CarPlay-Schaltflächen und Suche korrigiert
+• Lesezeichenlisten werden nach Bearbeitungen, Neuladungen und Löschvorgängen aktualisiert
+• Fehlende Lesezeichen am Listenlimit und Abstürze beim Auswählen gelöschter Einträge behoben
 
-## Tracks
-• Ein Augensymbol zum Ausblenden einzelner Tracks wurde hinzugefügt
-• Fehler behoben und die Trackaufzeichnung verbessert
-• Fehler beim Import von KMB-Dateien behoben
+## Suche & Downloads
+• Suchvorschläge behalten Akzente und Großschreibung bei
+• Verbesserte Erkennung von Kartenregionen, auch über den 180°-Meridian hinweg
+• Verbesserungen beim Abbrechen, Wiederholen, Fortsetzen und Herunterladen von Karten im Hintergrund
+• Doppelte Kartenzahlen und überhöhte Update-Größen wurden behoben
+• Verbesserte Kategoriesuche im Karteneditor, Sortierung nach Küchenart und Bearbeitung von Namen auf Norwegisch (Bokmål)
 
-## Suche
-• Fehler bei der Suche behoben, wenn der sichtbare Kartenbereich den 180°-Meridian (±180° Längengrad) überschreitet
-• Die Kategoriesuche in Spotlight wurde wiederhergestellt
+## Benutzeroberfläche & Übersetzungen
+• Walisisch hinzugefügt
+• Bessere Sortierung der Navigationsstimmen und Korrektur der Vorschausätze
+• Verbesserte ÖPNV-Vorschau mit mehr Verkehrssymbolen, Zeilenumbrüchen bei Liniennummern und Layouts von rechts nach links
+• Die Position des Kompasses in Layouts mit Schreibrichtung von rechts nach links und der Kontrast des Routentextes im Dunkelmodus wurden korrigiert
+• Bestätigungsschaltflächen für die Navigation bleiben bei großer Schriftgröße zugänglich
+• Fehler beim Ziehen und Schließen von Ortsdetails und beim Öffnen mehrerer Kartenlinks nacheinander behoben
+• Absturz behoben, wenn Kartendownloads noch nicht vollständig geladene Ortsdetails aktualisieren
+• Links und Hervorhebungen in Menüs und Einstellungen wurden korrigiert
+• Verbesserte Übersetzungen, gesprochene Wegbeschreibungen und Sprachauswahl
+• Community-Links im Bereich „Über“ wurden korrigiert
 
-## Benutzeroberfläche
-• Bei den Öffnungszeiten wird nun für 12:00 Uhr „Mittag“ und für 00:00 Uhr bzw. 24:00 Uhr „Mitternacht“ angezeigt
-• Verschiedene Fehler wurden behoben und die Benutzeroberfläche verbessert
-• Korrigierte Übersetzungen ins Englische, Französische und Asturische
-• Unterstützung für die Auswahl und das Probehören einer installierten Navigationsstimme hinzugefügt
+Vollständige Versionshinweise unter organicmaps.app/de/news
