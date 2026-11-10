@@ -12,7 +12,6 @@ enum GlobalStyleSheet: String, CaseIterable {
   case starRatingView = "StarRatingView"
   case difficultyView = "DifficultyView"
   case divider = "Divider"
-  case solidDivider = "SolidDivider"
   case background = "Background"
   case pressBackground = "PressBackground"
   case primaryBackground = "PrimaryBackground"
@@ -152,10 +151,6 @@ extension GlobalStyleSheet: IStyleSheet {
     case .divider:
       return .add { s in
         s.backgroundColor = .blackDividers
-      }
-    case .solidDivider:
-      return .add { s in
-        s.backgroundColor = .solidDividers
       }
     case .background:
       return .add { s in
