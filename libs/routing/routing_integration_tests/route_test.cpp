@@ -78,11 +78,11 @@ UNIT_TEST(Russia_Ufa_UstKatav)
                                    FromLatLon(54.9228, 58.1469), 160565);
 }
 
-/// @todo Fails: the service road crossing saves 236 s, more than two turns onto and off a service road (2 x 30 s).
-UNIT_TEST(RussiaMoscowNoServiceCrossing)
+// By the service road, like OSRM, GraphHopper and Valhalla: the way around is 3140 m.
+UNIT_TEST(RussiaMoscowServiceCrossing)
 {
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(55.77787, 37.70405), {0., 0.},
-                                   FromLatLon(55.77682, 37.70391), 3140.);
+                                   FromLatLon(55.77682, 37.70391), 211.634);
 }
 
 UNIT_TEST(PriceIslandLoadCrossGeometryTest)
@@ -645,6 +645,13 @@ UNIT_TEST(Russia_Moscow_KeepPrimary)
                                    FromLatLon(55.724623, 37.62588), 1921.88);
 }
 
+UNIT_TEST(Russia_Moscow_KeepPrimary_WayBack)
+{
+  // Like OSRM and GraphHopper, without the 6.3 km detour of Valhalla.
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(55.724623, 37.62588), {0., 0.},
+                                   FromLatLon(55.7083688, 37.6213856), 4199.75);
+}
+
 // https://github.com/organicmaps/organicmaps/issues/1727
 // https://github.com/organicmaps/organicmaps/issues/2020
 // https://github.com/organicmaps/organicmaps/issues/2057
@@ -1009,6 +1016,43 @@ UNIT_TEST(Russia_Nsk_NoPassThrough)
   // Direct route via "Магаданская" between the start and the finish on service roads
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(55.074347, 82.939134), {0., 0.},
                                    FromLatLon(55.076779, 82.935965), 389.916);
+}
+
+// https://github.com/organicmaps/organicmaps/issues/3715
+UNIT_TEST(USA_Salem_CustomersParking)
+{
+  // Around the customers parking, like GraphHopper and Valhalla.
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(44.9435, -123.0331), {0., 0.},
+                                   FromLatLon(44.9423, -123.0332), 489.673);
+  /// @todo The way back is 589 m around the parking: its passage costs two turn penalties.
+  /// GraphHopper and Valhalla go 179 m through the parking, OSRM 294 m.
+}
+
+// https://github.com/organicmaps/organicmaps/issues/7081
+UNIT_TEST(UK_Scotland_Biggar_KeepMainRoad)
+{
+  // The main road, not the longer residential one, like OSRM, GraphHopper and Valhalla.
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(55.49446, -3.69184), {0., 0.},
+                                   FromLatLon(55.49042, -3.69469), 535.159);
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(55.49042, -3.69469), {0., 0.},
+                                   FromLatLon(55.49446, -3.69184), 535.159);
+}
+
+/// @todo Fails: 847 m by two residential streets, OSRM, GraphHopper and Valhalla keep the primary road (870 m).
+/// It is not about service roads: the turn penalty doesn't apply to the residential streets.
+UNIT_TEST(Cyprus_Episkopi_KeepPrimary)
+{
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(34.665564, 32.906134), {0., 0.},
+                                   FromLatLon(34.663808, 32.897648), 870.);
+}
+
+UNIT_TEST(Cyprus_Larnaca_Roundabout)
+{
+  // The way back is long by the one-way roads, like OSRM, GraphHopper and Valhalla.
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(34.905396, 33.568956), {0., 0.},
+                                   FromLatLon(34.907287, 33.564954), 521.9);
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(34.907287, 33.564954), {0., 0.},
+                                   FromLatLon(34.905396, 33.568956), 12927.4);
 }
 
 // The destination (43.5298373, 5.44563164) lies on Rue de la Treille. The route must

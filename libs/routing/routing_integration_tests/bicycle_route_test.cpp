@@ -246,6 +246,9 @@ UNIT_TEST(Munich_OnewayBicycle2)
                                    201.532 /* expectedRouteMeters */);
 }
 
+/// @todo Fails: 1182.51 m. The route still takes the tunnel, but goes around to the other end of the finish segment:
+/// the part of this segment has its own weight now, not the weight of the whole segment from both ends.
+/// OSRM, GraphHopper and Valhalla: 1032, 967 and 1086 m.
 UNIT_TEST(London_GreenwichTunnel)
 {
   // Use the bicycle=dismount foot tunnel https://www.openstreetmap.org/way/4358990

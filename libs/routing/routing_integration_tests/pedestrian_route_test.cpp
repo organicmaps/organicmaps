@@ -265,6 +265,9 @@ UNIT_TEST(CzechPragueHiltonToKvetniceViewpoint)
                                                 mercator::FromLatLon(50.0806, 14.3973), 4649.68);
 }
 
+/// @todo Aborts in Debug: the ASSERT in CorrectCandidatesSegmentByOutgoing() (turns_generator.cpp) fires for the last
+/// turn before the finish of the 2260.88 m route. The same ASSERT fires for this approach to the finish without
+/// the route change, e.g. from 59.9382486, 30.3169028.
 UNIT_TEST(RussiaSaintPetersburgMoyka93ToAlexanderColumn)
 {
   // Should use "Большая Морская улица" as a final street segment.
