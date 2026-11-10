@@ -68,6 +68,7 @@ struct FollowedTrackInfo
   std::string m_name;
   /// Captured distance along the full source, independent of the map selection.
   double m_entryDistanceM = 0.0;
+  bool m_reversed = false;
   /// The router type the track is followed and rendered as (never Transit or Ruler).
   routing::RouterType m_profile = routing::RouterType::Vehicle;
 };
@@ -186,9 +187,11 @@ public:
   // Explicitly leave active track navigation and return to its captured preview.
   FollowTrackResult ResetFollowedTrackToPlanning();
   // Update from a finite distance along the full source track, clamped to its endpoints.
-  // Retain the profile and viewport; update the selection and elevation marker only on Ok.
+  // Retain the direction/profile and viewport; update the selection and elevation marker only on Ok.
   // At a disconnected boundary, the distance selects the preceding section's endpoint.
   FollowTrackResult UpdateFollowedTrackEntryAt(double distanceM);
+  // Reverse a ready, built preview at its captured entry; other states, including build errors, return Busy.
+  FollowTrackResult ReverseFollowedTrack();
   // Change this preview's profile without writing the user's global defaults.
   FollowTrackResult SetFollowTrackProfile(routing::RouterType type);
   bool IsFollowingTrack() const { return m_followSession.has_value(); }
@@ -340,12 +343,13 @@ private:
   // replacing the current session.
   std::expected<TrackSourcePosition, FollowTrackResult> CheckTrackFollowable(kml::TrackId trackId) const;
   FollowTrackResult CheckFollowedTrackSource() const;
-  FollowTrackResult RebuildFollowedTrack(routing::RouterType profile);
+  FollowTrackResult RebuildFollowedTrack(bool reverse, routing::RouterType profile);
   bool RefreshFollowedTrackPreview(m2::PointD const & position);
 
   bool IsFollowTrackSourceCurrent() const;
   FollowTrackResult BuildFollowedTrack(std::shared_ptr<kml::TrackData const> source, TrackSourcePosition entry,
-                                       double entryDistanceM, routing::RouterType profile, bool keepViewport = false);
+                                       double entryDistanceM, bool reverse, routing::RouterType profile,
+                                       bool keepViewport = false);
   void BuildFollowedTrackPreview(std::optional<m2::PointD> position = {});
 
   /// \brief Leaves the follow-track mode (no-op otherwise) and restores the regular router of

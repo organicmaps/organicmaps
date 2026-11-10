@@ -14,6 +14,38 @@ import org.junit.Test;
 public class RoutingControllerTrackPreviewTest
 {
   @Test
+  public void reverseIsOfferedOnlyForAReadyTrackPreview() throws ReflectiveOperationException
+  {
+    class Controller extends RoutingController
+    {
+      boolean followingTrack = true;
+      @Override
+      public boolean isFollowingTrack()
+      {
+        assertTrue("Skip track JNI outside a ready preview", isPlanning() && isBuilt());
+        return followingTrack;
+      }
+    }
+    Controller controller = new Controller();
+    setState(controller, "PREPARE");
+    set(controller, "mBuildState", RoutingController.BuildState.BUILT);
+    assertTrue(controller.canReverseFollowedTrack());
+    for (RoutingController.BuildState state :
+         List.of(RoutingController.BuildState.NONE, RoutingController.BuildState.BUILDING,
+                 RoutingController.BuildState.ERROR))
+    {
+      set(controller, "mBuildState", state);
+      assertFalse(controller.canReverseFollowedTrack());
+    }
+    set(controller, "mBuildState", RoutingController.BuildState.BUILT);
+    setState(controller, "NAVIGATION");
+    assertFalse(controller.canReverseFollowedTrack());
+    setState(controller, "PREPARE");
+    controller.followingTrack = false;
+    assertFalse(controller.canReverseFollowedTrack());
+  }
+
+  @Test
   public void roadOptionsDoNotRebuildGeometricTrackPreview() throws ReflectiveOperationException
   {
     class TrackController extends RoutingController
@@ -86,9 +118,9 @@ public class RoutingControllerTrackPreviewTest
       {
         Controller controller = new Controller();
         final Constructor<FollowedTrackInfo> constructor =
-            FollowedTrackInfo.class.getDeclaredConstructor(long.class, String.class, double.class);
+            FollowedTrackInfo.class.getDeclaredConstructor(long.class, String.class, double.class, boolean.class);
         constructor.setAccessible(true);
-        controller.track = constructor.newInstance(1L, "Track", 100.0);
+        controller.track = constructor.newInstance(1L, "Track", 100.0, false);
         controller.exists = exists;
         setState(controller, "PREPARE");
         // The deferred callback must inspect the state when it runs, including a journey

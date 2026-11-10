@@ -1299,6 +1299,11 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeStartFollowedTrack(J
   return manager.IsRoutingFollowing();
 }
 
+JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeReverseFollowedTrack(JNIEnv *, jclass)
+{
+  return static_cast<jint>(frm()->GetRoutingManager().ReverseFollowedTrack());
+}
+
 JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeSetFollowTrackProfile(JNIEnv *, jclass, jint routerType)
 {
   ASSERT_LESS(routerType, static_cast<jint>(routing::RouterType::Count), ());
@@ -1318,11 +1323,11 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetFollowedTrackInfo(
     return nullptr;
 
   static jclass const infoClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/routing/FollowedTrackInfo");
-  static jmethodID const infoCtor = jni::GetConstructorID(env, infoClass, "(JLjava/lang/String;D)V");
+  static jmethodID const infoCtor = jni::GetConstructorID(env, infoClass, "(JLjava/lang/String;DZ)V");
 
   jni::TScopedLocalRef const name(env, jni::ToJavaStringWithSupplementalCharsFix(env, info->m_name));
   return env->NewObject(infoClass, infoCtor, static_cast<jlong>(info->m_id), name.get(),
-                        static_cast<jdouble>(info->m_entryDistanceM));
+                        static_cast<jdouble>(info->m_entryDistanceM), static_cast<jboolean>(info->m_reversed));
 }
 
 JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetRenderRouterType(JNIEnv *, jclass)

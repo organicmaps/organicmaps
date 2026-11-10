@@ -18,7 +18,7 @@ public enum FollowTrackResult
   UnsupportedProfile,
   /** Called before the core was initialized. */
   NotInitialized,
-  /** A preview is building or the journey is already active. */
+  /** A preview is building or unavailable, or the journey is already active. */
   Busy,
   /** The selected source geometry is unavailable or has changed. */
   InvalidSelection,
