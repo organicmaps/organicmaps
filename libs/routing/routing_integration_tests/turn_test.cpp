@@ -1139,8 +1139,8 @@ UNIT_TEST(Crimea_Roundabout_test)
   integration::GetNthTurn(route, 1).TestValid().TestRoundAboutExitNum(3);
 }
 
-/// @todo Fails: the service road from проспект Мельникова to улица Родионова saves 179 s, more than two turns onto
-/// and off a service road (2 x 30 s).
+// By the service road from проспект Мельникова to улица Родионова, like OSRM, GraphHopper and Valhalla:
+// the way around with the U-turn is 2497 m.
 UNIT_TEST(Russia_Moscow_OnlyUTurnTest1_TurnTest)
 {
   TRouteResult const routeResult = integration::CalculateRoute(integration::GetVehicleComponents(VehicleType::Car),
@@ -1151,14 +1151,12 @@ UNIT_TEST(Russia_Moscow_OnlyUTurnTest1_TurnTest)
   RouterResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, RouterResultCode::NoError, ());
-  integration::TestRouteLength(route, 2496.61);
+  integration::TestRouteLength(route, 432.879);
 
-  integration::TestTurnCount(route, 5 /* expectedTurnCount */);
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnLeft);
-  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnLeft);
-  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnLeft);
-  integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::EnterRoundAbout);
-  integration::GetNthTurn(route, 4).TestValid().TestDirection(CarDirection::LeaveRoundAbout);
+  integration::TestTurnCount(route, 3 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnRight);
+  integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnRight);
 }
 /*
 UNIT_TEST(Russia_Moscow_OnlyUTurnTest1WithDirection_TurnTest)
