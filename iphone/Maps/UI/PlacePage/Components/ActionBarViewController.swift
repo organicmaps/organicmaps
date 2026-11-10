@@ -157,6 +157,8 @@ final class ActionBarViewController: UIViewController {
   // MARK: - Public methods
 
   func resetButtons() {
+    // Outlets are not connected before the view loads; viewDidLoad builds the buttons from current data.
+    guard isViewLoaded else { return }
     for arrangedSubview in stackView.arrangedSubviews {
       stackView.removeArrangedSubview(arrangedSubview)
       arrangedSubview.removeFromSuperview()
