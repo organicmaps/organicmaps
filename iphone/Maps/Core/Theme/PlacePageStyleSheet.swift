@@ -12,6 +12,7 @@ enum PlacePageStyleSheet: String, CaseIterable {
   case ppRatingSummaryView12User = "RatingSummaryView12User"
   case ppHeaderView = "PPHeaderView"
   case ppNavigationShadowView = "PPNavigationShadowView"
+  case ppActionBarShadowView = "PPActionBarShadowView"
   case ppBackgroundView = "PPBackgroundView"
   case ppView = "PPView"
   case ppHeaderCircleIcon = "PPHeaderCircleIcon"
@@ -121,10 +122,14 @@ extension PlacePageStyleSheet: IStyleSheet {
       return .add { s in
         s.backgroundColor = .whitePrimary
         s.shadowColor = UIColor.black
-        s.shadowOffset = CGSize(width: 0, height: 1)
-        s.shadowOpacity = 0.3
-        s.shadowRadius = 6
+        s.shadowOffset = CGSize(width: 0, height: 3)
+        s.shadowOpacity = 0.1
+        s.shadowRadius = 3
         s.clip = false
+      }
+    case .ppActionBarShadowView:
+      return .addFrom(Self.ppNavigationShadowView) { s in
+        s.shadowOffset = CGSize(width: 0, height: -3)
       }
     case .ppBackgroundView:
       return .addFrom(GlobalStyleSheet.modalSheetBackground) { s in

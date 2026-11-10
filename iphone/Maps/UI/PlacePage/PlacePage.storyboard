@@ -42,16 +42,6 @@
                                     <outlet property="delegate" destination="bX8-ZQ-XDA" id="ASo-bI-N1l"/>
                                 </connections>
                             </scrollView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RZh-69-00e" userLabel="Divider View">
-                                <rect key="frame" x="0.0" y="616" width="375" height="1"/>
-                                <color key="backgroundColor" systemColor="separatorColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="G2u-nx-IJt"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="styleName" value="SolidDivider"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="inM-UW-vpv">
                                 <rect key="frame" x="0.0" y="617" width="375" height="50"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -66,9 +56,6 @@
                         <constraints>
                             <constraint firstItem="inM-UW-vpv" firstAttribute="bottom" secondItem="WOB-EV-vjA" secondAttribute="bottom" id="4Rb-yo-7re"/>
                             <constraint firstItem="dJ0-97-CDh" firstAttribute="top" secondItem="gXh-A8-hCx" secondAttribute="top" id="6c7-Ms-Eds"/>
-                            <constraint firstItem="RZh-69-00e" firstAttribute="leading" secondItem="WOB-EV-vjA" secondAttribute="leading" id="CGh-aB-3sF"/>
-                            <constraint firstAttribute="trailing" secondItem="RZh-69-00e" secondAttribute="trailing" id="E3X-vD-uKf"/>
-                            <constraint firstItem="inM-UW-vpv" firstAttribute="top" secondItem="RZh-69-00e" secondAttribute="bottom" id="NBm-e9-pWh"/>
                             <constraint firstItem="dJ0-97-CDh" firstAttribute="leading" secondItem="WOB-EV-vjA" secondAttribute="leading" id="QIH-SU-FfF"/>
                             <constraint firstAttribute="trailing" secondItem="dJ0-97-CDh" secondAttribute="trailing" id="RTC-Oh-LAb"/>
                             <constraint firstItem="inM-UW-vpv" firstAttribute="leading" secondItem="WOB-EV-vjA" secondAttribute="leading" id="apX-d6-VvF"/>
