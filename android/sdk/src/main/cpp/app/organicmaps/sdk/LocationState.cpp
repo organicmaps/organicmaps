@@ -65,7 +65,7 @@ JNIEXPORT void Java_app_organicmaps_sdk_location_LocationState_nativeLocationUpd
   if (accuracyH > 0)
     info.m_horizontalAccuracy = accuracyH;
 
-  if (accuracyV > 0)
+  if (accuracyV >= 0)
   {
     info.m_altitude = altitude;
     info.m_verticalAccuracy = accuracyV;

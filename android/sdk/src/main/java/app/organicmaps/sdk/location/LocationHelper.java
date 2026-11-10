@@ -139,7 +139,10 @@ public class LocationHelper implements BaseLocationProvider.Listener
   }
 
   /**
-   * Obtains last known location.
+   * Obtains the last accepted location. MSL altitude, when available, is stored in
+   * {@link androidx.core.location.LocationCompat} metadata.
+   * The accepted provider location is augmented in place before it is saved and delivered to listeners.
+   * {@link Location#getAltitude()} retains the provider's WGS84 ellipsoidal altitude.
    * @return {@code null} if no location is saved.
    */
   @Nullable
@@ -200,7 +203,9 @@ public class LocationHelper implements BaseLocationProvider.Listener
       mListenersIterator.next().onLocationUpdateTimeout();
   }
 
+  /** Adds MSL metadata to accepted provider locations in place before notifying listeners. */
   @Override
+  @UiThread
   public void onLocationChanged(@NonNull Location location)
   {
     Logger.d(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() + " location = " + location);
@@ -226,6 +231,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
       }
     }
 
+    MslAltitudeConverter.addMslAltitude(mContext, location);
     mSavedLocation = location;
     mMyPosition = null;
     notifyLocationUpdated();
