@@ -1700,6 +1700,8 @@ bool BookmarkManager::IsCategorySaving(kml::MarkGroupId categoryId) const
 BookmarkManager::FileUpdatePtr BookmarkManager::GetFileUpdate(std::string const & filePath) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
+  if (!m_notificationsEnabled)
+    return {};
   auto update = std::make_shared<FileUpdate>();
   update->m_filePath = filePath;
   update->m_groupId = GetCategoryByFileName(filePath);
@@ -1730,7 +1732,9 @@ bool BookmarkManager::FileUpdate::PerformIfUnchanged(std::function<void()> const
 bool BookmarkManager::IsFileUpdateCurrent(FileUpdate const & update) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  if (GetCategoryByFileName(update.m_filePath) != update.m_groupId)
+  if (!m_notificationsEnabled || GetCategoryByFileName(update.m_filePath) != update.m_groupId)
+    return false;
+  if (update.m_applyCondition && !update.m_applyCondition())
     return false;
   return !update.m_saveState || (GetBmCategory(update.m_groupId)->m_fileSaveState == update.m_saveState &&
                                  update.m_saveState->m_revision == update.m_revision);

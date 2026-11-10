@@ -64,6 +64,8 @@ public:
   {
   public:
     bool PerformIfUnchanged(std::function<void()> const & write) const;
+    /// Checked on the GUI thread together with the revision, also in the task that applies the parsed data.
+    void SetApplyCondition(std::function<bool()> condition) { m_applyCondition = std::move(condition); }
 
   private:
     friend class BookmarkManager;
@@ -71,6 +73,7 @@ public:
     kml::MarkGroupId m_groupId = kml::kInvalidMarkGroupId;
     std::shared_ptr<BookmarkCategory::FileSaveState> m_saveState;
     uint64_t m_revision = 0;
+    std::function<bool()> m_applyCondition;
   };
   using FileUpdatePtr = std::shared_ptr<FileUpdate>;
 
@@ -300,7 +303,8 @@ public:
   std::string GetCategoryFileName(kml::MarkGroupId categoryId) const;
   /// True while the category has a queued or in-flight autosave that has not reached disk yet.
   bool IsCategorySaving(kml::MarkGroupId categoryId) const;
-  /// Returns null while a loaded category has saves pending. Called on the GUI thread.
+  /// Returns null while a loaded category has saves pending or notifications are disabled: edits made then do not
+  /// change the revision. Called on the GUI thread.
   FileUpdatePtr GetFileUpdate(std::string const & filePath) const;
   kml::MarkGroupId GetCategoryByFileName(std::string const & fileName) const;
   m2::RectD GetCategoryRect(kml::MarkGroupId categoryId, bool addIconsSize) const;
