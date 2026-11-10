@@ -149,6 +149,9 @@ public:
   }
 
   RouteWeight CalcSegmentWeight(Segment const & segment, EdgeEstimator::Purpose purpose) const;
+  /// \returns the weight of the |from| -> |to| edge as the forward wave gets it: the |to| weight with
+  /// the transition penalties, or the |to| weight only if the wave has no such edge.
+  RouteWeight CalcRouteEdgeWeight(Segment const & from, Segment const & to) const;
   RouteWeight CalcGuidesSegmentWeight(Segment const & segment, EdgeEstimator::Purpose purpose) const;
   double CalculateETA(Segment const & from, Segment const & to, time_t arrivalTime) const;
   double CalculateETAWithoutPenalty(Segment const & segment) const;

@@ -7,6 +7,7 @@
 #include "routing/routing_tests/index_graph_tools.hpp"
 
 #include "routing/edge_estimator.hpp"
+#include "routing/fake_edges_container.hpp"
 #include "routing/geometry.hpp"
 #include "routing/index_graph.hpp"
 #include "routing/index_graph_starter_joints.hpp"
@@ -123,6 +124,31 @@ UNIT_TEST(TurnPenalty_EdgeWeights)
   TEST_ALMOST_EQUAL_ABS(GetEdgeWeight(graph, fromW, backToW, true /* isOutgoing */), straight + uTurnPenalty, 1e-6, ());
 }
 
+// An edge to a part of a segment has the penalties of the edge to the whole segment.
+UNIT_CLASS_TEST(RestrictionTest, TurnPenalty_PartOfSegment)
+{
+  Init(BuildJunctionGraph());
+  // The finish is in the middle of the service road F2.
+  SetStarter(MakeFakeEnding(0, 0, m2::PointD(-0.001, 0), *m_graph),
+             MakeFakeEnding(2, 0, m2::PointD(0, 0.0005), *m_graph));
+
+  Segment const fromW(kTestNumMwmId, 0, 0, true /* forward */);
+  IndexGraphStarter::EdgeListT edges;
+  m_starter->GetEdgesList(fromW, true /* isOutgoing */, edges);
+  auto it = find_if(edges.begin(), edges.end(),
+                    [](SegmentEdge const & e) { return IndexGraphStarter::IsFakeSegment(e.GetTarget()); });
+  TEST(it != edges.end(), ());
+  Segment const part = it->GetTarget();
+  double const expected = m_starter->CalcSegmentWeight(part, Purpose::Weight).GetWeight() + kServiceTurnPenaltyS;
+  TEST_ALMOST_EQUAL_ABS(it->GetWeight().GetWeight(), expected, kWeightEps, ());
+
+  // The backward wave gets the same weight.
+  m_starter->GetEdgesList(part, false /* isOutgoing */, edges);
+  it = find_if(edges.begin(), edges.end(), [&fromW](SegmentEdge const & e) { return e.GetTarget() == fromW; });
+  TEST(it != edges.end(), ());
+  TEST_ALMOST_EQUAL_ABS(it->GetWeight().GetWeight(), expected, kWeightEps, ());
+}
+
 // Returns the penalty between the |residential| road and the |service| one, which starts at its last point.
 // |reverse| goes from the service road to the residential one.
 double GetTypeChangePenalty(RoadGeometry::Points const & residential, RoadGeometry::Points const & service,
@@ -194,7 +220,7 @@ UNIT_TEST(TurnPenalty_ZeroLengthSegments)
 //                                |
 //                                * --F5-- F
 // The detour F3, F4 is 69 m (5 s) longer than the service road F1 with two turns.
-unique_ptr<SingleVehicleWorldGraph> BuildServiceShortcutGraph()
+unique_ptr<SingleVehicleWorldGraph> BuildServiceShortcutGraph(double detourSpeedKMpH = 50.0)
 {
   auto loader = make_unique<TestGeometryLoader>();
   vector<RoadGeometry::Points> const roads = {
@@ -208,7 +234,8 @@ unique_ptr<SingleVehicleWorldGraph> BuildServiceShortcutGraph()
   };
   for (uint32_t featureId = 0; featureId < roads.size(); ++featureId)
   {
-    loader->AddRoad(featureId, false /* oneWay */, 50.0 /* speed */, roads[featureId]);
+    bool const isDetour = featureId == 3 || featureId == 4;
+    loader->AddRoad(featureId, false /* oneWay */, isDetour ? detourSpeedKMpH : 50.0, roads[featureId]);
     loader->SetHighwayType(featureId, featureId == 1 ? HighwayType::HighwayService : HighwayType::HighwayResidential);
   }
 
@@ -249,6 +276,25 @@ double CalculateJointsRoute(IndexGraphStarter & starter, vector<Segment> & route
   return result.m_distance.GetWeight();
 }
 
+void TestGeometry(IndexGraphStarter const & starter, vector<Segment> const & route,
+                  vector<m2::PointD> const & expectedGeom)
+{
+  vector<m2::PointD> geom;
+  for (auto const & segment : route)
+  {
+    for (bool const front : {false, true})
+    {
+      auto const point = mercator::FromLatLon(starter.GetPoint(segment, front));
+      if (geom.empty() || !AlmostEqualAbs(geom.back(), point, 1e-8))
+        geom.push_back(point);
+    }
+  }
+
+  TEST_EQUAL(geom.size(), expectedGeom.size(), (geom, expectedGeom));
+  for (size_t i = 0; i < geom.size(); ++i)
+    TEST(AlmostEqualAbs(geom[i], expectedGeom[i], 1e-8), (geom, expectedGeom));
+}
+
 // Checks the geometry and the weight of the routes calculated by segments and by joints.
 void TestRoute(IndexGraphStarter & starter, vector<m2::PointD> const & expectedGeom, double expectedPenalty)
 {
@@ -261,23 +307,19 @@ void TestRoute(IndexGraphStarter & starter, vector<m2::PointD> const & expectedG
     else
       TEST_EQUAL(CalculateRoute(starter, route, weight), Algorithm::Result::OK, ());
 
-    vector<m2::PointD> geom;
-    double segmentsWeight = 0.0;
-    for (auto const & segment : route)
-    {
-      segmentsWeight += starter.CalcSegmentWeight(segment, Purpose::Weight).GetWeight();
-      for (bool const front : {false, true})
-      {
-        auto const point = mercator::FromLatLon(starter.GetPoint(segment, front));
-        if (geom.empty() || !AlmostEqualAbs(geom.back(), point, 1e-8))
-          geom.push_back(point);
-      }
-    }
+    TestGeometry(starter, route, expectedGeom);
 
-    TEST_EQUAL(geom.size(), expectedGeom.size(), (joints, geom, expectedGeom));
-    for (size_t i = 0; i < geom.size(); ++i)
-      TEST(AlmostEqualAbs(geom[i], expectedGeom[i], 1e-8), (joints, geom, expectedGeom));
+    // The route weight is the sum of its edges: the segments with the transition penalties.
+    double segmentsWeight = 0.0;
+    double edgesWeight = 0.0;
+    for (size_t i = 0; i < route.size(); ++i)
+    {
+      segmentsWeight += starter.CalcSegmentWeight(route[i], Purpose::Weight).GetWeight();
+      if (i > 0)
+        edgesWeight += starter.CalcRouteEdgeWeight(route[i - 1], route[i]).GetWeight();
+    }
     TEST_ALMOST_EQUAL_ABS(weight, segmentsWeight + expectedPenalty, kWeightEps, (joints));
+    TEST_ALMOST_EQUAL_ABS(weight, edgesWeight, kWeightEps, (joints));
   }
 }
 
@@ -303,5 +345,66 @@ UNIT_CLASS_TEST(RestrictionTest, TurnPenalty_AvoidServiceShortcut)
       std::reverse(expectedGeom.begin(), expectedGeom.end());
     TestRoute(*m_starter, expectedGeom, 2 * kServiceTurnPenaltyS);
   }
+}
+
+// The route starts or finishes in the middle of the service road F1.
+UNIT_CLASS_TEST(RestrictionTest, TurnPenalty_PartialEnding)
+{
+  for (bool const reverse : {false, true})
+  {
+    Init(BuildServiceShortcutGraph());
+    auto const start = MakeFakeEnding(6, 0, m2::PointD(-0.001, 0), *m_graph);
+    auto const finish = MakeFakeEnding(1, 0, m2::PointD(0.001, 0.0005), *m_graph);
+    SetStarter(reverse ? finish : start, reverse ? start : finish);
+
+    vector<m2::PointD> expectedGeom = {{-0.001, 0}, {0, 0}, {0.001, 0}, {0.001, 0.0005}};
+    if (reverse)
+      std::reverse(expectedGeom.begin(), expectedGeom.end());
+    TestRoute(*m_starter, expectedGeom, kServiceTurnPenaltyS);
+  }
+}
+
+// Rerouting, like IndexRouter::AdjustRoute(): the previous route suffix keeps the turn penalties.
+UNIT_CLASS_TEST(RestrictionTest, TurnPenalty_AdjustRoute)
+{
+  // The detour is slow, so the previous route takes the service road.
+  Init(BuildServiceShortcutGraph(12.0 /* detourSpeedKMpH */));
+  auto const finish = MakeFakeEnding(5, 0, m2::PointD(0.002, 0.003), *m_graph);
+  SetStarter(MakeFakeEnding(6, 0, m2::PointD(-0.001, 0), *m_graph), finish);
+  vector<Segment> prevRoute;
+  double weight = 0.0;
+  TEST_EQUAL(CalculateRoute(*m_starter, prevRoute, weight), Algorithm::Result::OK, ());
+  TestGeometry(*m_starter, prevRoute,
+               {{-0.001, 0}, {0, 0}, {0.001, 0}, {0.001, 0.001}, {0.002, 0.001}, {0.002, 0.002}, {0.002, 0.003}});
+
+  // The car has passed the service road by the detour. Going back to the service road is faster
+  // than the rest of the detour only without the penalty of the turn off the service road.
+  auto const newStart = MakeFakeEnding(3, 0, m2::PointD(0.0014, 0), *m_graph);
+  FakeEdgesContainer const prevFakeEdges(std::move(*m_starter));
+  IndexGraphStarter starter(newStart, FakeEnding{}, prevFakeEdges.GetNumFakeEdges(), false /* strictForward */,
+                            *m_graph);
+  starter.Append(prevFakeEdges);
+
+  vector<SegmentEdge> prevEdges;
+  for (size_t i = 0; i < prevRoute.size(); ++i)
+  {
+    prevEdges.emplace_back(prevRoute[i], i == 0 ? starter.CalcSegmentWeight(prevRoute[i], Purpose::Weight)
+                                                : starter.CalcRouteEdgeWeight(prevRoute[i - 1], prevRoute[i]));
+  }
+
+  Algorithm::ParamsForTests<AdjustLengthChecker> params(starter, starter.GetStartSegment(), {} /* finalVertex */,
+                                                        AdjustLengthChecker(starter));
+  RoutingResult<Segment, RouteWeight> adjusted;
+  TEST_EQUAL(Algorithm().AdjustRoute(params, prevEdges, adjusted), Algorithm::Result::OK, ());
+
+  // The route goes on by the detour with the weight of a new search.
+  vector<m2::PointD> const expectedGeom = {{0.0014, 0}, {0.0025, 0}, {0.002, 0.001}, {0.002, 0.002}, {0.002, 0.003}};
+  TestGeometry(starter, adjusted.m_path, expectedGeom);
+
+  SetStarter(newStart, finish);
+  vector<Segment> newRoute;
+  TEST_EQUAL(CalculateRoute(*m_starter, newRoute, weight), Algorithm::Result::OK, ());
+  TestGeometry(*m_starter, newRoute, expectedGeom);
+  TEST_ALMOST_EQUAL_ABS(adjusted.m_distance.GetWeight(), weight, kWeightEps, ());
 }
 }  // namespace turn_penalty_tests

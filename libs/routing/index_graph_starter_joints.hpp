@@ -3,6 +3,7 @@
 #include "routing/base/astar_graph.hpp"
 #include "routing/base/astar_vertex_data.hpp"
 
+#include "routing/edge_estimator.hpp"
 #include "routing/joint_segment.hpp"
 #include "routing/segment.hpp"
 
@@ -563,7 +564,16 @@ typename IndexGraphStarterJoints<Graph>::EdgeListT IndexGraphStarterJoints<Graph
     JointSegment fakeJoint;
     fakeJoint =
         fromStart ? CreateFakeJoint(startSegment, segment, firstFeatureId) : CreateFakeJoint(segment, startSegment);
-    result.emplace_back(fakeJoint, weight[beforeConvert]);
+
+    auto fakeWeight = weight[beforeConvert];
+    // The edges into the finish joint add the weight of the whole real |segment| as the parent weight,
+    // but the route takes its part |beforeConvert| only.
+    if (!fromStart && beforeConvert != segment)
+    {
+      fakeWeight += m_graph.CalcSegmentWeight(beforeConvert, EdgeEstimator::Purpose::Weight) -
+                    m_graph.CalcSegmentWeight(segment, EdgeEstimator::Purpose::Weight);
+    }
+    result.emplace_back(fakeJoint, fakeWeight);
 
     std::vector<Segment> path = reconstructPath(beforeConvert, fromStart);
     m_reconstructedFakeJoints.emplace(fakeJoint, ReconstructedPath(std::move(path), fromStart));
