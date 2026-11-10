@@ -1,33 +1,55 @@
-## Calcul d’itinéraire
-• Amélioration des itinéraires de rechange et de leurs heures d’arrivée estimées
-• Ajout de boutons permettant d’ajouter ou de remplacer un arrêt dans un itinéraire planifié
-• Ajout d’un paramètre permettant d’optimiser l’ordre des arrêts intermédiaires d’un itinéraire
-• L’itinéraire de rechange sélectionné est désormais conservé lorsque la navigation recalcule l’itinéraire
-• L’ordre des arrêts de l’itinéraire est désormais rétabli après le redémarrage de l’application
+## Carte et relief
+• NOUVEAU : relief 3D, profondeurs océaniques, courbes de niveau détaillées en mètres et pieds, altitude en tout point de la carte
+• Données OpenStreetMap du 10 novembre et articles Wikipédia du 1er novembre
+• Cours d’eau intermittents en pointillés, étiquettes d’eau plus lisibles et nouveaux contours des ponts ferroviaires
+• Ajout de barbiers, studios de Pilates, poseurs de fenêtres, ouvrages d’aqueduc et réservoirs couverts
+• Translittération et affichage corrigés pour les étiquettes en hébreu et en arabe
+• Consommation de mémoire réduite et plantages corrigés au changement de style de carte
 
-## Carte
-• Données OpenStreetMap en date du 28 septembre
-• Données de Wikipédia en date du 21 septembre
-• Les réservoirs d’eau sont désormais visibles lorsque l’on effectue un zoom arrière
-• Les tunnels de cours d’eau n’apparaissent plus sur la carte
-• Correction des icônes des stations et des entrées du métro de Suzhou
-• Correction de rares cas où les étiquettes se déplaçaient hors de leur position sur la couche cartographique du métro
+## Itinéraires et navigation
+• Planification revue et bouton pour inverser un itinéraire avec toutes ses étapes
+• Options d’évitement distinctes en auto, à vélo et à pied
+• Retirez le départ ou la destination dans le planificateur
+• Ajoutez une destination après un échec du calcul d’itinéraire
+• Restauration, recalcul, alternatives et estimations de durée améliorés
+• Meilleures estimations d’arrivée des transports collectifs, liaisons à pied et repères d’entrée des stations
+• Les itinéraires enregistrés conservent leur segment de départ et utilisent une position à jour
+• Correction des alertes de radars photo périmées
+• Correction du remplacement de points à la limite d’étapes et de l’indicateur d’options d’itinéraire tronqué
+
+## Signets, parcours et zones
+• NOUVEAU : import et affichage de zones KML, KMZ et GeoJSON avec remplissage, contours et trous
+• Flèches de direction et contour contrasté pour les parcours sélectionnés
+• Ouvrir un parcours depuis une liste sélectionne son début
+• Copie automatique de l’enregistrement chaque minute pour récupérer le parcours après un plantage
+• Les fichiers KML conservent les étapes et modes de déplacement des itinéraires enregistrés
+• Tri des signets et parcours par nom selon la langue
+• Les noms, descriptions et images des listes de signets se mettent à jour au rechargement
+• Profils d’altitude corrigés au retour à la carte et dans les portions plates ou agrandies
+• Correction des plantages à la suppression de parcours modifiés et des échecs au premier import de signets
+• Importation KML, GPX et GeoJSON améliorée
 
 ## CarPlay
-• Ajout d’instructions de manœuvre sur les affichages tête haute (HUD) des autos compatibles et sur le tableau de bord CarPlay
-• Correction des boutons CarPlay et de la fonction de recherche
+• Actualisation des listes de signets après modification, rechargement et suppression
+• Correction des signets manquants à la limite de la liste et des plantages à la sélection d’entrées supprimées
 
-## Tracés
-• Ajout d’une icône en forme d’œil pour masquer des tracés individuels
-• Correction de bogues et amélioration de l’enregistrement des tracés
-• Correction de l’importation des fichiers KMB
+## Recherche et téléchargements
+• Les suggestions de recherche conservent les accents et la casse
+• Meilleure détection des régions de carte, y compris au-delà du méridien de 180°
+• Meilleure gestion de l’annulation, des reprises, des réessais et des téléchargements de cartes en arrière-plan
+• Correction des doubles décomptes et des tailles de mise à jour surestimées
+• Meilleure recherche de catégories dans l’éditeur, tri par cuisine et édition des noms en norvégien bokmål
 
-## Recherche
-• Correction des recherches lorsque la zone visible de la carte traverse le méridien de 180° (longitude ±180°)
-• La recherche par catégorie a été rétablie dans Spotlight
+## Interface et traductions
+• Ajout du gallois
+• Meilleur tri des voix de navigation et correction des phrases d’aperçu
+• Aperçus des transports collectifs améliorés avec plus de symboles, numéros de ligne sur plusieurs rangées et affichage de droite à gauche
+• Position de la boussole corrigée en affichage de droite à gauche et texte d’itinéraire plus lisible en mode sombre
+• Boutons de confirmation de navigation accessibles avec du texte agrandi
+• Glissement et fermeture des fiches de lieu et ouverture successive de liens cartographiques corrigés
+• Correction d’un plantage quand une carte téléchargée actualise une fiche de lieu en cours de chargement
+• Liens et surbrillance corrigés dans le menu et les paramètres
+• Traductions, guidage vocal et choix de langues améliorés
+• Liens de la communauté corrigés dans « À propos »
 
-## Interface utilisateur
-• Les heures d’ouverture affichent désormais « Midi » pour 12 h et « Minuit » pour 00 h ou 24 h
-• Correction de divers bogues et amélioration de l’interface utilisateur
-• Corrections apportées aux traductions en anglais, en français et en asturien
-• Ajout de la possibilité de choisir une voix de navigation installée et d’en écouter un extrait
+Notes de mise à jour complètes à l’adresse organicmaps.app/news

@@ -1,33 +1,55 @@
-## Planiranje ruta
-• Poboljšane alternativne rute i njihova procijenjena vremena dolaska
-• Dodani su gumbi za dodavanje ili zamjenu usputne točke u isplaniranoj ruti
-• Dodana je postavka za optimizaciju redoslijeda usputnih točaka na ruti
-• Odabrana alternativna ruta sada se zadržava kada navigacija ponovno izračuna rutu
-• Redoslijed usputnih točaka na ruti sada je vraćen nakon ponovnog pokretanja aplikacije
+## Karta i teren
+• NOVO: 3D teren, dubine oceana, detaljne izohipse u metrima i stopama te nadmorska visina u bilo kojoj točki na karti
+• Podaci OpenStreetMapa od 10. studenoga, članci Wikipedije od 1. studenoga
+• Povremeni vodotoci prikazuju se isprekidano, oznake voda jasnije su, a željeznički mostovi imaju nove obrise
+• Dodane su brijačnice, studiji pilatesa, montažeri prozora, vodoopskrbna postrojenja i natkriveni spremnici vode
+• Ispravljena transliteracija i prikaz hebrejskih i arapskih natpisa na karti
+• Smanjena potrošnja memorije i ispravljena rušenja pri promjeni stila karte
 
-## Karta
-• Podaci OpenStreetMapa od 28. rujna
-• Podaci iz Wikipedije od 21. rujna
-• Vodeni rezervoari sada su vidljivi pri većem odmaku
-• Vodeni tuneli više se ne prikazuju na karti
-• Popravljene ikone stanica i ulaza Suzhou Metroa
-• Popravljeni rijetki slučajevi pomicanja oznaka s položaja na sloju karte metroa
+## Rute i navigacija
+• Poboljšano planiranje i dodan gumb za obrtanje rute sa svim usputnim točkama
+• Zasebne postavke izbjegavanja za vožnju, bicikl i hodanje
+• Uklonite polaznu točku ili odredište izravno iz planera rute
+• Dodajte novo odredište čak i ako prethodnu rutu nije bilo moguće izračunati
+• Bolja obnova i ponovni izračun rute, alternativne rute i procjene trajanja
+• Bolje procjene dolazaka javnog prijevoza, pješačke veze i oznake ulaza u postaje
+• Spremljene rute više ne gube početnu dionicu niti upotrebljavaju zastarjelu trenutačnu lokaciju
+• Ispravljena zastarjela upozorenja na kamere za nadzor brzine
+• Ispravljena zamjena točaka pri najvećem broju usputnih točaka i odrezani pokazatelj postavki rute
+
+## Zabilješke, staze i područja
+• NOVO: Uvoz i prikaz područja iz datoteka KML, KMZ i GeoJSON, s ispunama, obrisima i otvorima
+• Dodane su strelice smjera staze i kontrastni obrub za odabrane staze
+• Otvaranje staze s popisa sada odabire njezin početak
+• Sigurnosna kopija snimke staze osvježava se svake minute za oporavak nakon rušenja
+• Datoteke KML čuvaju usputne točke i način putovanja spremljene rute
+• Zabilješke i staze sortiraju se po nazivu prema pravilima vašeg jezika
+• Nazivi, opisi i slike popisa zabilješki osvježavaju se pri ponovnom učitavanju
+• Popravljeni su profili nadmorske visine nakon povratka na kartu i pri pregledavanju ravnih ili zumiranih dionica
+• Ispravljena rušenja pri brisanju uređenih staza i pogreške pri prvom uvozu zabilješki
+• Poboljšan uvoz datoteka KML, GPX i GeoJSON
 
 ## CarPlay
-• Dodane su upute za manevriranje na podržanim automobilskim HUD-ovima i na nadzornoj ploči CarPlay.
-• Popravljeni su gumbi za CarPlay i pretraživanje
+• Popisi zabilješki osvježavaju se nakon uređivanja, ponovnog učitavanja i brisanja
+• Ispravljeni su izostanak zabilješki pri najvećem broju stavki i rušenja pri odabiru izbrisanih stavki
 
-## Staze
-• Dodana je ikona oka za skrivanje pojedinačnih staza
-• Ispravljene su greške i poboljšano snimanje staze
-• Ispravljen je uvoz KMB datoteka
+## Pretraživanje i preuzimanja
+• Prijedlozi za pretraživanje zadržavaju dijakritičke znakove te velika i mala slova
+• Bolje prepoznavanje područja karte, uključujući ona preko meridijana 180°
+• Poboljšano otkazivanje, ponavljanje i nastavljanje preuzimanja karata te preuzimanje u pozadini
+• Ispravljeno dvostruko brojanje karata i precijenjene veličine ažuriranja
+• Bolja pretraga kategorija u uređivaču karte, razvrstavanje po kuhinjama i uređivanje naziva na norveškom Bokmålu
 
-## Pretraživanje
-• Popravljeno pretraživanje kada vidljivo područje karte prelazi 180° meridijan (±180° geografske dužine)
-• Obnovljena je pretraga kategorija u Spotlightu
+## Korisničko sučelje i prijevodi
+• Dodan velški
+• Bolje razvrstavanje glasova za navigaciju i ispravljene rečenice u zvučnom pregledu
+• Bolji prikaz javnog prijevoza s više simbola, prijelomom brojeva linija u novi redak i rasporedom zdesna nalijevo
+• Ispravljen položaj kompasa u rasporedu zdesna nalijevo i kontrast teksta rute u tamnom načinu rada
+• Gumbi za potvrdu navigacije dostupni su i uz velik tekst
+• Ispravljeno povlačenje i zatvaranje pojedinosti o mjestu i uzastopno otvaranje poveznica na kartu
+• Ispravljeno rušenje kada preuzeta karta osvježi pojedinosti o mjestu prije završetka njihova učitavanja
+• Ispravljene poveznice i isticanje u izborniku i postavkama
+• Poboljšani prijevodi, glasovne upute i odabir jezika
+• Ispravljene poveznice na zajednicu u odjeljku „O aplikaciji”
 
-## Korisničko sučelje
-• Radno vrijeme sada prikazuje „Podne” za 12:00 i „Ponoć” za 00:00 ili 24:00
-• Ispravljene su razne greške i poboljšano je korisničko sučelje
-• Ispravljeni prijevodi na engleski, francuski i asturijski jezik
-• Dodana je mogućnost odabira instaliranog navigacijskog glasa i preslušavanja primjera
+Detaljne bilješke o izdanju potražite na organicmaps.app/news

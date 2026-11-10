@@ -1,33 +1,55 @@
-## Calcolo del percorso
-• Miglioramento dei percorsi alternativi e dei relativi tempi di arrivo stimati
-• Aggiunti pulsanti per aggiungere o sostituire una tappa in un percorso pianificato
-• Aggiunta un’impostazione per ottimizzare l’ordine delle tappe intermedie del percorso
-• Il percorso alternativo selezionato viene ora mantenuto quando la navigazione ricalcola il percorso
-• L’ordine delle tappe del percorso viene ora ripristinato dopo il riavvio dell’app
+## Mappa e terreno
+• NOVITÀ: terreno 3D, fondali marini, curve di livello dettagliate in metri e piedi e quota in ogni punto
+• Dati OpenStreetMap del 10 novembre e articoli di Wikipedia del 1º novembre
+• Corsi d’acqua intermittenti tratteggiati, etichette delle acque più chiare e nuovi contorni dei ponti ferroviari
+• Aggiunti barbieri, studi di Pilates, installatori di finestre, acquedotti e serbatoi coperti
+• Corretta la traslitterazione e la resa delle etichette in ebraico e arabo
+• Meno memoria e correzione dei crash al cambio di stile della mappa
 
-## Mappa
-• Dati OpenStreetMap aggiornati al 28 settembre
-• Dati di Wikipedia aggiornati al 21 settembre
-• I bacini idrici sono ora visibili quando si allarga ulteriormente la visuale
-• I tunnel idrici non vengono più visualizzati sulla mappa
-• Corrette le icone delle stazioni e degli ingressi della metropolitana di Suzhou
-• Sono stati risolti rari casi in cui le etichette si spostavano fuori posizione sul livello della mappa della metropolitana
+## Percorsi e navigazione
+• Pianificazione aggiornata e pulsante per invertire il percorso con tutte le tappe
+• Opzioni di esclusione separate per auto, bicicletta e spostamenti a piedi
+• Rimuovi la partenza o la destinazione dal pianificatore
+• Imposta una nuova destinazione se il calcolo del percorso non riesce
+• Migliorati il ripristino e il ricalcolo dei percorsi, le alternative e le stime dei tempi
+• Migliorati gli orari di arrivo previsti dei mezzi pubblici, i collegamenti a piedi e i simboli degli ingressi delle stazioni
+• I percorsi salvati mantengono il tratto iniziale e usano la posizione aggiornata
+• Corretti gli avvisi di autovelox obsoleti
+• Corretti la sostituzione dei punti al limite delle tappe e l’indicatore troncato delle opzioni di percorso
+
+## Preferiti, tracce e aree
+• NOVITÀ: importa e mostra aree KML, KMZ e GeoJSON con riempimenti, contorni e fori
+• Frecce di direzione e contorno a contrasto per le tracce selezionate
+• Aprendo una traccia da un elenco se ne seleziona l’inizio
+• Backup automatico della registrazione ogni minuto per recuperare la traccia dopo un crash
+• I file KML mantengono tappe e modalità di viaggio dei percorsi salvati
+• Preferiti e tracce ordinati per nome secondo la lingua
+• Nomi, descrizioni e immagini degli elenchi dei preferiti si aggiornano al ricaricamento
+• Profili altimetrici corretti al ritorno alla mappa e nei tratti pianeggianti o ingranditi
+• Corretti crash eliminando tracce modificate ed errori al primo import dei preferiti
+• Migliorata l’importazione di KML, GPX e GeoJSON
 
 ## CarPlay
-• Aggiunte le istruzioni di manovra sugli head-up display (HUD) delle auto supportate e sulla dashboard di CarPlay
-• Corretto il funzionamento dei pulsanti e della ricerca in CarPlay
+• Gli elenchi dei preferiti si aggiornano dopo modifiche, ricaricamenti ed eliminazioni
+• Corretti preferiti mancanti al limite dell’elenco e crash selezionando voci eliminate
 
-## Tracce
-• Aggiunta un'icona a forma di occhio per nascondere singole tracce
-• Correzione di bug e miglioramento della registrazione dei tracciati
-• Risolto il problema di importazione dei file KMB
+## Ricerca e download
+• I suggerimenti di ricerca mantengono gli accenti e le maiuscole
+• Migliorato il rilevamento delle regioni della mappa, anche oltre il meridiano di 180°
+• Migliorati annullamento, nuovi tentativi, ripresa e download in background delle mappe
+• Corretti i conteggi doppi delle mappe e le dimensioni sovrastimate degli aggiornamenti
+• Migliorate ricerca per categoria nell’editor, ordinamento per tipo di cucina e modifica dei nomi in norvegese bokmål
 
-## Cerca
-• Risolto il problema delle ricerche quando l’area visibile della mappa attraversa il meridiano dei 180° (longitudine ±180°)
-• Ripristinata la ricerca per categoria in Spotlight
+## Interfaccia utente e traduzioni
+• Aggiunto il gallese
+• Migliorato l’ordine delle voci di navigazione e corrette le frasi di anteprima
+• Anteprime dei mezzi pubblici migliorate con più simboli, numeri di linea a capo e layout da destra a sinistra
+• Corrette la posizione della bussola nei layout da destra a sinistra e la leggibilità del testo del percorso in modalità scura
+• Pulsanti di conferma della navigazione accessibili con testo grande
+• Corretti il trascinamento e la chiusura delle schede dei luoghi e l’apertura di link consecutivi alla mappa
+• Corretto un crash quando il download di mappe aggiorna schede dei luoghi ancora in caricamento
+• Corretti link ed evidenziazioni nel menu e nelle Impostazioni
+• Traduzioni, indicazioni vocali e opzioni di lingua migliorate
+• Corretti i link alla comunità in «Informazioni»
 
-## Interfaccia utente
-• Gli orari di apertura ora mostrano «Mezzogiorno» per le 12:00 e «Mezzanotte» per le 00:00 o le 24:00
-• Sono stati corretti vari bug e migliorata l’interfaccia utente
-• Traduzioni corrette in inglese, francese e asturiano
-• Aggiunta la possibilità di selezionare una voce di navigazione installata e ascoltarne un’anteprima
+Note di rilascio complete su organicmaps.app/news

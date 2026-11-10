@@ -1,9 +1,12 @@
-• OSM: 28 settembre; Wikipedia: 21 settembre
-• Percorsi alternativi e orari d’arrivo stimati migliorati
-• Nuova impostazione per ottimizzare l’ordine delle tappe
-• Pulsanti per aggiungere o sostituire tappe su un percorso pianificato
-• Il percorso alternativo scelto resta selezionato durante la navigazione
-• Registrazione dei tracciati corretta e migliorata
-• Importazione dei file KMB corretta
-• Interfaccia migliorata e bug corretti
-…altro su omaps.org/it/news
+• Terreno 3D, fondali marini, curve di livello (m/ft), quota in ogni punto
+• Dati OSM del 10 novembre
+• Importa e mostra aree KML/KMZ/GeoJSON
+• Dettagli sulle linee del trasporto pubblico
+• Nuovo indicatore di velocità
+• Widget per registrare tracce
+• Quota GPS sul livello del mare
+• Frecce e risalto delle tracce
+• Opzioni separate per auto, bici e a piedi
+• Inverti i percorsi con le tappe
+• Corretti i comandi di registrazione, i tempi di arrivo e i crash di Android Auto
+…omaps.org/it/news

@@ -1,9 +1,12 @@
-• Data OSM per 28 September, Wikipedia per 21 September
-• Rute alternatif sing luwih apik lan perkiraan wektu teka
-• Ditambahaké setelan kanggo ngoptimalaké urutan mandhègan rute antaran
-• Ditambah tombol kanggo nambah utawa ngganti mandeg ing rute sing wis direncanakake
-• Rute alternatif sing dipilih saiki dijaga sajrone navigasi
-• Rekaman trek wis dibenerake lan ditingkatake
-• Masalah ngimpor berkas KMB wis didandani
-• Peningkatan lan perbaikan antarmuka pangguna
+• Topografi 3D lan jerone segara, garis kontur ing meter/kaki, elevasi ing sembarang titik peta
+• Data OSM tanggal 10 November
+• Impor lan tampilake area KML/KMZ/GeoJSON
+• Rincian rute transportasi umum
+• Tampilan kacepetan anyar
+• Widget rekaman trek
+• Elevasi GPS saka rata-rata lumahing segara
+• Panah arah trek lan sorotan
+• Pilihan misah kanggo nyopir, numpak sepeda, lan mlaku
+• Walikke rute lan titik mampire
+• Ndandani kontrol rekaman, wektu tekan, lan crash Android Auto
 …omaps.org/news

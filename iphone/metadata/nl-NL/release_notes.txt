@@ -1,33 +1,55 @@
-## Routebepaling
-• Verbeterde alternatieve routes en de geschatte aankomsttijden daarvan
-• Er zijn knoppen toegevoegd om een tussenstop in een geplande route toe te voegen of te vervangen
-• Er is een instelling toegevoegd om de volgorde van tussenliggende routestops te optimaliseren
-• De geselecteerde alternatieve route blijft nu behouden wanneer de navigatie de route opnieuw berekent
-• De volgorde van de routestops wordt nu hersteld na het opnieuw opstarten van de app
+## Kaart en terrein
+• NIEUW: 3D-terrein en oceaandieptes, gedetailleerde hoogtelijnen in meters en voeten en de hoogte op elk kaartpunt
+• OpenStreetMap-gegevens per 10 november, Wikipedia-artikelen per 1 november
+• Tijdelijke waterlopen met streepjeslijnen, duidelijkere waternamen en nieuwe contouren van spoorbruggen
+• Barbiers, pilatesstudio’s, raaminstallateurs, waterwerken en overdekte reservoirs toegevoegd
+• Transliteratie en weergave van Hebreeuwse en Arabische kaartlabels hersteld
+• Minder geheugengebruik en verholpen crashes bij wisselen van kaartstijl
 
-## Kaart
-• OpenStreetMap-gegevens per 28 september
-• Wikipedia-gegevens per 21 september
-• Waterreservoirs zijn nu zichtbaar wanneer je verder uitzoomt
-• Watertunnels worden niet langer op de kaart weergegeven
-• De pictogrammen voor de stations en ingangen van de metro van Suzhou zijn gecorrigeerd
-• Zeldzame gevallen verholpen waarbij labels op de metrokaartlaag uit positie raakten
+## Routebepaling en navigatie
+• Vernieuwde routeplanner met een knop om een route met alle tussenstops om te keren
+• Aparte vermijdingsopties voor autorijden, fietsen en wandelen
+• Verwijder het vertrekpunt of de bestemming rechtstreeks uit de routeplanner
+• Voeg een nieuwe bestemming toe, zelfs als de vorige route niet kon worden berekend
+• Beter routeherstel, herberekening, alternatieve routes en reistijdschattingen
+• Verbeterde aankomsttijdschattingen voor het openbaar vervoer, loopverbindingen en markeringen voor stationingangen
+• Opgeslagen routes behouden hun beginsegment en gebruiken een actuele positie
+• Verouderde waarschuwingen voor flitspalen zijn verholpen
+• Vervanging van routepunten bij het maximumaantal stops en de afgeknotte indicator voor route-instellingen hersteld
+
+## Bladwijzers, tracks en gebieden
+• NIEUW: Importeer en toon KML-, KMZ- en GeoJSON-gebieden met vullingen, contouren en gaten
+• Richtingspijlen voor tracks en een contrasterende rand rond geselecteerde tracks
+• Als je een track uit een lijst opent, wordt het begin ervan geselecteerd
+• Elke minuut een automatische back-up van de trackopname voor herstel na een crash
+• KML-bestanden behouden de tussenstops en de vervoerswijze van een opgeslagen route
+• Bladwijzers en tracks worden op naam gesorteerd volgens de taalinstelling
+• Namen, beschrijvingen en afbeeldingen van bladwijzerlijsten worden bijgewerkt bij het herladen
+• Hoogteprofielen zijn gecorrigeerd na terugkeer naar de kaart en bij het bekijken van vlakke of ingezoomde delen
+• Crashes bij het verwijderen van bewerkte tracks en fouten bij de eerste import van bladwijzers verholpen
+• Verbeterde import van KML-, GPX- en GeoJSON-bestanden
 
 ## CarPlay
-• Er zijn manoeuvreerinstructies toegevoegd op ondersteunde head-up displays (HUD’s) in auto’s en op het CarPlay-dashboard
-• CarPlay-knoppen en zoekfunctie gerepareerd
+• Bladwijzerlijsten worden vernieuwd na bewerkingen, herlaadbeurten en verwijderingen
+• Ontbrekende bladwijzers bij de limiet van de lijst en crashes bij het selecteren van verwijderde vermeldingen zijn verholpen
 
-## Tracks
-• Er is een oogpictogram toegevoegd om afzonderlijke tracks te verbergen
-• Bugs verholpen en het opnemen van tracks verbeterd
-• Problemen bij het importeren van KMB-bestanden verholpen
+## Zoeken & downloads
+• Zoeksuggesties behouden accenten en hoofdletters
+• Verbeterde detectie van kaartregio’s, ook over de 180°-meridiaan heen
+• Het annuleren, opnieuw proberen, hervatten en op de achtergrond downloaden van kaarten is verbeterd
+• Dubbele kaarttellingen en opgeblazen updategroottes zijn verholpen
+• Verbeterd zoeken in categorieën in de kaarteditor, sorteren op keuken en aanpassingen aan Noorse Bokmål-namen
 
-## Zoeken
-• Problemen met zoeken verholpen wanneer het zichtbare kaartgebied de 180°-meridiaan (±180° lengtegraad) overschrijdt
-• Zoeken op categorie in Spotlight is hersteld
+## Gebruikersinterface en vertalingen
+• Welsh toegevoegd
+• Betere sortering van navigatiestemmen en gecorrigeerde voorbeeldzinnen
+• Verbeterde voorbeelden van openbaar vervoer met meer vervoerssymbolen, regelafbreking bij lijnnummers en lay-outs van rechts naar links
+• De positie van het kompas in lay-outs van rechts naar links en het contrast van de routetekst in de donkere modus zijn gecorrigeerd
+• De bevestigingsknoppen voor navigatie blijven toegankelijk bij grote tekstgroottes
+• Problemen bij het slepen en sluiten van plaatsdetails en bij het achter elkaar openen van kaartlinks verholpen
+• Crash verholpen wanneer een kaartdownload plaatsdetails bijwerkt die nog aan het laden zijn
+• Links en markeringen in het menu en de instellingen zijn gecorrigeerd
+• Verbeterde vertalingen, gesproken routebeschrijvingen en taalkeuzes
+• Community-links in 'Over' zijn gecorrigeerd
 
-## UI
-• Bij openingstijden wordt nu „Middaguur“ weergegeven voor 12:00 en „Middernacht“ voor 00:00 of 24:00
-• Diverse bugs zijn verholpen en de gebruikersinterface is verbeterd
-• De Engelse, Franse en Asturische vertalingen zijn gecorrigeerd
-• Ondersteuning toegevoegd voor het kiezen en beluisteren van een geïnstalleerde navigatiestem
+Volledige versie-informatie op organicmaps.app/news

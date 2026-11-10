@@ -1,33 +1,55 @@
-## Rutes
-• Millora de les rutes alternatives i dels seus horaris d'arribada estimats
-• S'han afegit botons per afegir o substituir una parada en una ruta planificada
-• S'ha afegit una configuració per optimitzar l'ordre de les parades intermèdies de la ruta
-• La ruta alternativa seleccionada ara es conserva quan la navegació recalcula la ruta
-• L'ordre de les parades de la ruta ara es restaura després de reiniciar l'aplicació
+## Mapa i terreny
+• NOVETAT: relleu 3D, profunditat oceànica, corbes de nivell detallades en metres i peus i altitud en qualsevol punt del mapa
+• Dades d’OpenStreetMap del 10 de novembre i articles de la Viquipèdia de l’1 de novembre
+• Cursos d’aigua intermitents amb traç discontinu, etiquetes d’aigua més clares i contorns nous de ponts ferroviaris
+• Noves barberies, estudis de pilates, instal·ladors de finestres, instal·lacions d’aigua i dipòsits coberts
+• S’han corregit la transliteració i la visualització de les etiquetes en hebreu i àrab
+• Menys consum de memòria i correcció de bloquejos en canviar l’estil del mapa
 
-## Mapa
-• Dades d'OpenStreetMap a data del 28 de setembre
-• Dades de la Viquipèdia a data de 21 de setembre
-• Els embassaments ara són visibles quan s’allunya més la vista
-• Els túnels d'aigua ja no es mostren al mapa
-• S'han corregit les icones de les estacions i d'entrades del metro de Suzhou
-• S'han corregit casos rars en què les etiquetes es desplaçaven de la seva posició a la capa del mapa de metro
+## Rutes i navegació
+• Planificació renovada i botó per invertir la ruta amb totes les parades intermèdies
+• Opcions per evitar vies diferents segons si aneu amb cotxe, amb bicicleta o a peu
+• Podeu suprimir l’origen o la destinació al planificador de rutes
+• Podeu triar una destinació nova si falla el càlcul de la ruta
+• Millores en la recuperació i el recàlcul de rutes, les alternatives i les estimacions de durada
+• Millors previsions d’arribada del transport públic, connexions a peu i indicadors d’entrada a les estacions
+• Les rutes desades ja no perden el tram inicial ni fan servir una posició actual desfasada
+• S’han corregit els avisos de radars obsolets
+• S’ha corregit la substitució de punts al límit de parades i l’indicador retallat d’opcions de ruta
+
+## Marcadors, recorreguts i àrees
+• NOVETAT: importació i visualització d’àrees KML, KMZ i GeoJSON amb farciments, contorns i forats
+• Fletxes de direcció i contorn contrastat per als recorreguts seleccionats
+• En obrir un recorregut des d’una llista se’n selecciona l’inici
+• Còpia automàtica de l’enregistrament del recorregut cada minut per recuperar-lo després d’un bloqueig
+• Els fitxers KML conserven les parades intermèdies i el mode de desplaçament de les rutes desades
+• Marcadors i recorreguts ordenats per nom segons l’idioma
+• En recarregar la llista de marcadors s’actualitzen els noms, les descripcions i les imatges
+• Perfils d’altitud corregits en tornar al mapa i en trams plans o ampliats
+• Correcció de bloquejos en suprimir recorreguts editats i d’errors en la primera importació de marcadors
+• Millores en la importació de KML, GPX i GeoJSON
 
 ## CarPlay
-• S’han afegit indicacions de maniobra a les pantalles de visualització frontal (HUD) dels vehicles compatibles i al tauler de CarPlay
-• S'han solucionat els botons de CarPlay i la cerca
+• Les llistes de marcadors s’actualitzen després d’editar, recarregar o suprimir
+• Correcció de marcadors absents al límit de la llista i de bloquejos en triar entrades suprimides
 
-## Traçats
-• S'ha afegit una icona d'ull per amagar els traçats individuals
-• S'han corregit errors i s'ha millorat la gravació de traçats
-• S'ha solucionat la importació de fitxers KMB
+## Cerca i baixades
+• Els suggeriments de cerca conserven els accents i les majúscules
+• Millor detecció de regions del mapa, també quan travessen el meridià de 180°
+• Millores en la cancel·lació, els reintents, la represa i les baixades de mapes en segon pla
+• S’han corregit els recomptes duplicats de mapes i les mides exagerades de les actualitzacions
+• Millores en la cerca de categories a l’editor, l’ordenació per tipus de cuina i l’edició de noms en noruec bokmål
 
-## Cerca
-• S'han solucionat els problemes de cerca quan l'àrea visible del mapa creua el meridià 180° (±180° de longitud).
-• S'ha restablert la cerca per categoria a Spotlight
+## Interfície i traduccions
+• S’ha afegit el gal·lès
+• Millor ordenació de veus de navegació i correcció de les frases de mostra
+• Previsualitzacions del transport públic amb més símbols, números de línia en diverses files i dissenys de dreta a esquerra
+• S’han corregit la posició de la brúixola en dissenys de dreta a esquerra i el contrast del text de ruta en mode fosc
+• Botons de confirmació de navegació accessibles amb text gran
+• S’ha corregit l’arrossegament i el tancament de la fitxa del lloc i l’obertura de diversos enllaços al mapa seguits
+• S’ha corregit un bloqueig quan una baixada de mapa actualitza una fitxa de lloc encara en càrrega
+• Correcció d’enllaços i ressaltats del menú i de la configuració
+• Millores en traduccions, instruccions de veu i opcions d’idioma
+• Correcció d’enllaços de la comunitat a «Quant a»
 
-## IU
-• L'horari ara mostra "Migdia" per a les 12:00 i "Mitjanit" per a les 00:00 o 24:00
-• S'han corregit diversos errors i s'ha millorat la interfície d'usuari
-• Correcció de les traduccions a l'anglès, al francès i a l'asturià
-• S'ha afegit l'opció de triar i escoltar una mostra d'una veu de navegació instal·lada
+Notes completes de la versió a organicmaps.app/news

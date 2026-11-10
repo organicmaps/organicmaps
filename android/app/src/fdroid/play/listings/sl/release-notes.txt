@@ -1,9 +1,12 @@
-• Podatki OSM: 28. september; podatki Wikipedije: 21. september
-• Izboljšane alternativne poti in ocene časa prihoda
-• Nova nastavitev optimizira vrstni red vmesnih postankov
-• Novi gumbi dodajajo ali zamenjujejo postanke na načrtovani poti
-• Izbrana alternativna pot ostane izbrana med navigacijo
-• Popravljeno in izboljšano snemanje sledi
-• Popravljen uvoz datotek KMB
-• Izboljšave in popravki uporabniškega vmesnika
-…več podrobnosti na omaps.org/news
+• 3D teren, globine oceanov, plastnice (m/ft), nadmorska višina kjerkoli
+• Podatki OSM z 10. novembra
+• Uvoz in prikaz območij KML/KMZ/GeoJSON
+• Podrobnosti linij javnega prevoza
+• Nov prikaz hitrosti
+• Pripomoček za snemanje sledi
+• Nadmorska višina po GPS
+• Smerne puščice in poudarjanje sledi
+• Ločene možnosti za avto, kolo in hojo
+• Obračanje poti z vmesnimi postanki
+• Popravki gumbov za snemanje, časov prihoda in sesutij v Android Auto
+…omaps.org/news

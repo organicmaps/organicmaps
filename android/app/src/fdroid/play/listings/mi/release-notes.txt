@@ -1,9 +1,12 @@
-• OSM: 28 o Hepetema; Wikipedia: 21 o Hepetema
-• Ngā huarahi kē pai ake me ngā tatauranga taenga mai
-• He tautuhinga hou e whakapai ana i te raupapa o ngā tūnga
-• Ngā pātene hou hei tāpiri, hei whakakapi rānei i ngā tūnga i ngā huarahi kua whakamaheretia
-• Ka puritia te huarahi kē kua tohua i te wā e whakatere ana
-• Ngā whakatikatika me ngā whakapainga o te hopu ara
-• Kua whakatikahia te kawemai KMB
-• Ngā whakatikatika me ngā whakapainga o te atanga kaiwhakamahi
-…he nui ake kei omaps.org/news
+• Whenua 3D, hōhonu moana, rārangi teitei (m/ft), teitei ki ia pūwāhi
+• Raraunga OSM, 10 o Whiringa-ā-rangi
+• Kawe mai, whakaatu i ngā rohe KML/KMZ/GeoJSON
+• Taipitopito ara waka tūmatanui
+• Whakaaturanga tere hou
+• Widget hopu ara
+• Teitei GPS mai i te taumata moana toharite
+• Pere ahunga me te miramira i ngā ara kua hopukina
+• Kōwhiringa motokā, paihikara, hīkoi motuhake
+• Whakamuri i te ara me ōna tūnga
+• Kua ea ngā hapa pātene hopu, wā taenga me ngā tukinga Android Auto
+…omaps.org/news

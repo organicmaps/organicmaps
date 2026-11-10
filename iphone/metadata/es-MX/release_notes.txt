@@ -1,33 +1,55 @@
-## Rutas
-• Rutas alternativas mejoradas y sus tiempos estimados de llegada
-• Se agregaron botones para agregar o reemplazar una parada en una ruta planificada
-• Se agregó una configuración para optimizar el orden de las paradas intermedias de la ruta
-• Ahora se conserva la ruta alternativa seleccionada cuando la navegación vuelve a calcular la ruta
-• Ahora se restaura el orden de las paradas de la ruta después de reiniciar la aplicación
+## Mapa y terreno
+• NUEVO: relieve 3D, profundidad oceánica, curvas de nivel detalladas en metros y pies y elevación en cualquier punto
+• Datos de OpenStreetMap del 10 de noviembre y artículos de Wikipedia del 1 de noviembre
+• Cauces intermitentes con trazos discontinuos, etiquetas de agua más claras y contornos nuevos de puentes ferroviarios
+• Nuevas barberías, estudios de pilates, instaladores de ventanas, instalaciones de agua y reservorios cubiertos
+• Se corrigen la transliteración y la visualización de etiquetas en hebreo y árabe
+• Menor uso de memoria y corrección de cierres al cambiar de estilo de mapa
 
-## Mapa
-• Datos de OpenStreetMap al 28 de septiembre
-• Datos de Wikipedia al 21 de septiembre
-• Ahora los embalses de agua son visibles al alejar el zoom
-• Los túneles de agua ya no se muestran en el mapa
-• Se corrigieron los íconos de las estaciones y entradas del Metro de Suzhou
-• Se corrigieron casos poco frecuentes en los que las etiquetas se desplazaban fuera de su posición en la capa del mapa del metro
+## Rutas y navegación
+• Planificación renovada y botón para invertir la ruta con todas sus paradas intermedias
+• Configura por separado qué evitar en auto, en bici o a pie
+• Quita el origen o el destino desde el planificador
+• Agrega un destino nuevo si falla el cálculo de la ruta
+• Mejoras al restaurar y recalcular rutas, buscar alternativas y estimar la duración
+• Mejoras en las previsiones de llegada del transporte público, los enlaces a pie y los marcadores de acceso a estaciones
+• Las rutas guardadas ya no pierden el tramo inicial ni usan una posición actual desfasada
+• Se corrigen los avisos de cámaras de velocidad obsoletos
+• Se corrigen el reemplazo de puntos al alcanzar el límite de paradas y el indicador de configuración de ruta recortado
+
+## Marcadores, pistas y áreas
+• NUEVO: importa y muestra áreas KML, KMZ y GeoJSON con rellenos, contornos y huecos
+• Flechas de dirección y borde de contraste para las pistas seleccionadas
+• Al abrir una pista desde una lista se selecciona su inicio
+• Copia automática de la grabación cada minuto para recuperar la pista tras un cierre inesperado
+• Los archivos KML conservan las paradas intermedias y el modo de transporte de las rutas guardadas
+• Marcadores y pistas ordenados por nombre según el idioma
+• Al recargar listas de marcadores se actualizan sus nombres, descripciones e imágenes
+• Se corrigen los perfiles de elevación al volver al mapa y en tramos planos o ampliados
+• Se corrigen cierres al borrar pistas editadas y errores en la primera importación de marcadores
+• Mejor importación de KML, GPX y GeoJSON
 
 ## CarPlay
-• Se agregaron instrucciones de maniobra en las pantallas de visualización frontal (HUD) compatibles de los autos y en el tablero de CarPlay
-• Se corrigieron los botones y la búsqueda de CarPlay
+• Las listas de marcadores se actualizan tras editar, recargar o borrar
+• Se corrigen marcadores ausentes al alcanzar el límite y cierres al seleccionar entradas borradas
 
-## Trazas
-• Se agregó un ícono de ojo para ocultar trazas individuales
-• Se corrigieron errores y se mejoró el registro de trazas
-• Se corrigió la importación de archivos KMB
+## Búsqueda y descargas
+• Las sugerencias conservan acentos y mayúsculas
+• Mejor detección de regiones de mapas, incluso al cruzar el meridiano de 180°
+• Mejoras al cancelar, reintentar y reanudar descargas de mapas, y al descargar en segundo plano
+• Se corrigen recuentos duplicados de mapas y tamaños de actualización exagerados
+• Mejor búsqueda de categorías en el editor, orden por tipo de cocina y edición de nombres en noruego bokmål
 
-## Buscar
-• Se corrigió el funcionamiento de las búsquedas cuando el área visible del mapa cruza el meridiano de 180° (±180° de longitud).
-• Se restableció la búsqueda por categoría en Spotlight
+## Interfaz y traducciones
+• Se agrega el galés
+• Mejor orden de las voces de navegación y corrección de las frases de muestra
+• Vistas previas del transporte público con más símbolos, números de línea en varias filas y diseños de derecha a izquierda
+• Se corrigen la posición de la brújula en diseños de derecha a izquierda y el contraste del texto de ruta en modo oscuro
+• Botones de confirmación de navegación accesibles con texto grande
+• Se corrigen el arrastre y cierre de fichas de lugares y la apertura de enlaces consecutivos al mapa
+• Se corrige un cierre cuando una descarga actualiza una ficha de lugar que aún se está cargando
+• Se corrigen enlaces y resaltados del menú y de Configuración
+• Mejoras en traducciones, indicaciones de voz y opciones de idioma
+• Se corrigen los enlaces a la comunidad en «Acerca de»
 
-## Interfaz de usuario
-• Los horarios de apertura ahora muestran «Mediodía» para las 12:00 y «Medianoche» para las 00:00 o 24:00
-• Se corrigieron varios errores y se mejoró la interfaz de usuario
-• Se corrigieron las traducciones al inglés, francés y asturiano
-• Se agregó la posibilidad de elegir y escuchar una muestra de la voz de navegación instalada
+Notas completas de la versión en organicmaps.app/news

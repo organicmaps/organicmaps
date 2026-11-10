@@ -1,9 +1,12 @@
-• OSM-data: 28 September; Wikipedia-data: 21 September
-• Verbeterde alternatiewe roetes en aankomstydskattinge
-• Nuwe instelling optimaliseer die volgorde van tussenstoppe
-• Nuwe knoppies voeg 'n tussenstop by of vervang een op 'n beplande roete
-• Gekose alternatiewe roete bly gekies tydens navigasie
-• Spooropname is reggestel en verbeter
-• KMB-lêerinvoer reggestel
-• UI-verbeterings en -regstellings
-…meer besonderhede by omaps.org/af/news
+• 3D-terrein, seedieptes, kontoerlyne (m/ft), hoogte by enige kaartpunt
+• OSM-data van 10 November
+• Voer KML/KMZ/GeoJSON-gebiede in en vertoon dit
+• Besonderhede van openbare vervoerroetes
+• Nuwe spoedaanwyser
+• Legstuk vir spooropname
+• GPS-hoogte bo gemiddelde seevlak
+• Rigtingpyle en uitlig van spore
+• Aparte opsies vir ry, fietsry en stap
+• Keer roetes met tussenstops om
+• Opnameknoppies, aankomstye en omvalle in Android Auto reggestel
+…omaps.org/af/news
