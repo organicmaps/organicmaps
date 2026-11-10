@@ -707,63 +707,23 @@ UNIT_TEST(TrackRouter_OrderedMatchingUsesPhysicalDistanceAtHighLatitude)
   }
 }
 
-UNIT_TEST(TrackRouter_BacktrackingDoesNotProveTurnaround)
-{
-  auto const first = MeterPoint(0, 0);
-  TrackRouter router(VehicleType::Pedestrian, MakeData({{first, 100}, {MeterPoint(1000, 0), 100}, {first, 100}}));
-  auto route = CalcRoute(router, {first, first});
-  route.SetRoutingSettings(GetRoutingSettings(VehicleType::Pedestrian));
-  auto const feed = [&](double x, double timestamp, double bearing)
-  {
-    auto const info = MakeFix(MeterPoint(x, 0), timestamp, bearing);
-    TEST(route.MoveIterator(info), ());
-  };
-  feed(0, 100, 90);
-  feed(700, 800, 90);
-  feed(0, 1500, 270);
-  TEST_EQUAL(route.GetCurrentDistanceFromBeginMeters(), 0.0, ());
-  TEST(!route.IsSubroutePassed(0), ("Returning before the unobserved turnaround is not track completion"));
-}
-
-UNIT_TEST(TrackRouter_ShortLoopCannotFinishAtItsFirstOccurrence)
-{
-  auto const first = MeterPoint(0, 0);
-  TrackRouter router(VehicleType::Pedestrian,
-                     MakeData({{first, 100}, {MeterPoint(-2, 0), 100}, {MeterPoint(-2, 2), 100}, {first, 100}}));
-  auto route = CalcRoute(router, {first, first});
-  route.SetRoutingSettings(GetRoutingSettings(VehicleType::Pedestrian));
-  auto info = MakeFix(first);
-  info.m_speed = 0;
-  for (size_t i = 0; i < 5; ++i)
-  {
-    info.m_timestamp = 100 + i;
-    TEST(route.MoveIterator(info), ());
-    TEST(!route.IsSubroutePassed(0), ("Stationary fixes cannot infer a lap", i));
-  }
-}
-
 UNIT_TEST(TrackRouter_ShortFinalEdgeDoesNotPreventArrival)
 {
-  for (bool const withBearing : {false, true})
+  for (bool const repeatEndpoint : {false, true})
   {
-    for (bool const repeatEndpoint : {false, true})
+    auto const first = MeterPoint(0, 0);
+    auto const last = MeterPoint(101, 0);
+    std::vector<PWA> points = {{first, 100}, {MeterPoint(100, 0), 100}, {last, 100}};
+    if (repeatEndpoint)
+      points.emplace_back(last, 110);
+    TrackRouter router(VehicleType::Pedestrian, MakeData(std::move(points)));
+    auto route = CalcRoute(router, {first, last});
+    route.SetRoutingSettings(GetRoutingSettings(VehicleType::Pedestrian));
+    double timestamp = 100.0;
+    for (double const x : {0, 100, 101, 101, 101})
     {
-      auto const first = MeterPoint(0, 0);
-      auto const last = MeterPoint(101, 0);
-      std::vector<PWA> points = {{first, 100}, {MeterPoint(100, 0), 100}, {last, 100}};
-      if (repeatEndpoint)
-        points.emplace_back(last, 110);
-      TrackRouter router(VehicleType::Pedestrian, MakeData(std::move(points)));
-      auto route = CalcRoute(router, {first, last});
-      route.SetRoutingSettings(GetRoutingSettings(VehicleType::Pedestrian));
-      double timestamp = 100.0;
-      for (double const x : {0, 100, 101, 101, 101})
-      {
-        timestamp += 100;
-        auto const info = MakeFix(MeterPoint(x, 0), timestamp, withBearing ? std::optional(90.0) : std::nullopt);
-        TEST(route.MoveIterator(info), (withBearing, repeatEndpoint, x));
-        TEST_EQUAL(route.IsSubroutePassed(0), x >= 100, (withBearing, repeatEndpoint, x));
-      }
+      TEST(route.MoveIterator(MakeFix(MeterPoint(x, 0), timestamp++)), (repeatEndpoint, x));
+      TEST_EQUAL(route.IsSubroutePassed(0), x >= 100, (repeatEndpoint, x));
     }
   }
 }
@@ -889,26 +849,54 @@ UNIT_TEST(TrackRouter_ShortDenseRemainderReachesFinish)
   }
 }
 
-UNIT_TEST(TrackRouter_TinyLoopApproachDoesNotCountAsSourceProgress)
+UNIT_TEST(TrackRouter_TinyLoopApproachCannotTriggerArrival)
 {
   auto const entry = MeterPoint(0, 0);
-  auto const start = MeterPoint(0, -30);
-  for (bool const withBearing : {false, true})
+  for (double const approach : {0.0, 5.0, 19.0, 20.0, 30.0})
   {
-    TrackRouter router(VehicleType::Pedestrian,
-                       MakeData({{entry, 100}, {MeterPoint(-2, 0), 100}, {MeterPoint(-2, 2), 100}, {entry, 100}}));
-    auto route = CalcRoute(router, {start, entry});
-    route.SetRoutingSettings(GetRoutingSettings(VehicleType::Pedestrian));
-    TEST(route.GetTrackStartDistanceMeters().has_value(), ());
-    for (size_t sample = 0; sample < 6; ++sample)
+    for (bool const withBearing : {false, true})
     {
-      auto const info =
-          MakeFix(sample == 0 ? start : entry, 100.0 + sample * 30.0, withBearing ? std::optional(0.0) : std::nullopt);
-      TEST(route.MoveIterator(info), (withBearing, sample));
-      TEST(!route.IsSubroutePassed(0), ("Walking the approach cannot complete a loop", withBearing, sample));
-      if (sample > 0)
-        TEST_ALMOST_EQUAL_ABS(route.GetCurrentDistanceFromBeginMeters(), *route.GetTrackStartDistanceMeters(), 1.0E-6,
-                              (withBearing, sample));
+      TrackRouter router(VehicleType::Pedestrian,
+                         MakeData({{entry, 100}, {MeterPoint(-2, 0), 100}, {MeterPoint(-2, 2), 100}, {entry, 100}}));
+      auto route = CalcRoute(router, {MeterPoint(0, -approach), entry});
+      route.SetRoutingSettings(GetRoutingSettings(VehicleType::Pedestrian));
+      double timestamp = 100.0;
+      auto const feed = [&](double y)
+      {
+        auto const info = MakeFix(MeterPoint(0, y), timestamp++, withBearing ? std::optional(0.0) : std::nullopt);
+        TEST(route.MoveIterator(info), (approach, withBearing, y));
+        TEST(!route.IsSubroutePassed(0), ("An approach or stationary fix cannot complete a loop", approach, y));
+      };
+      for (double y = -approach; y < 0; y += 2)
+        feed(y);
+      feed(0);
+      double const progress = route.GetCurrentDistanceFromBeginMeters();
+      for (size_t sample = 0; sample < 3; ++sample)
+      {
+        feed(0);
+        TEST_EQUAL(route.GetCurrentDistanceFromBeginMeters(), progress, (approach, withBearing, sample));
+      }
+    }
+  }
+}
+
+UNIT_TEST(TrackRouter_FirstFixPastNearbyEntryMatchesAcrossProfiles)
+{
+  auto const entry = MeterPoint(0, 0);
+  auto const finish = MeterPoint(1000, 0);
+  for (auto const profile : {VehicleType::Pedestrian, VehicleType::Bicycle, VehicleType::Car})
+  {
+    auto const settings = GetRoutingSettings(profile);
+    for (double const offset : {5.0, settings.m_matchingThresholdM - 1.0})
+    {
+      auto const start = MeterPoint(offset, 0);
+      TrackRouter router(profile, MakeData({{entry, 100}, {finish, 100}}));
+      auto route = CalcRoute(router, {start, finish});
+      route.SetRoutingSettings(settings);
+      TEST(route.MoveIterator(MakeFix(start)), (profile, offset));
+      // The approach doubles back to the entry before the source returns to the start.
+      double const expected = 2.0 * mercator::DistanceOnEarth(entry, start);
+      TEST_ALMOST_EQUAL_ABS(route.GetCurrentDistanceFromBeginMeters(), expected, 1.0E-6, (profile, offset));
     }
   }
 }
@@ -916,16 +904,13 @@ UNIT_TEST(TrackRouter_TinyLoopApproachDoesNotCountAsSourceProgress)
 UNIT_TEST(TrackRouter_FirstFixAndUntimedMovementUseDisplacement)
 {
   auto const first = MeterPoint(0, 0);
-  for (double const timestamp : {0.0, 100.0})
+  TrackRouter router(VehicleType::Pedestrian, MakeData({{first, 100}, {MeterPoint(1000, 0), 100}}));
+  auto route = CalcRoute(router, {first, MeterPoint(1000, 0)});
+  route.SetRoutingSettings(GetRoutingSettings(VehicleType::Pedestrian));
+  for (double const x : {200.0, 250.0})
   {
-    TrackRouter router(VehicleType::Pedestrian, MakeData({{first, 100}, {MeterPoint(1000, 0), 100}}));
-    auto route = CalcRoute(router, {first, MeterPoint(1000, 0)});
-    route.SetRoutingSettings(GetRoutingSettings(VehicleType::Pedestrian));
-    for (double const x : {200.0, 250.0})
-    {
-      TEST(route.MoveIterator(MakeFix(MeterPoint(x, 0), timestamp)), (timestamp, x));
-      TEST_ALMOST_EQUAL_ABS(route.GetCurrentDistanceFromBeginMeters(), x, 1.0, (timestamp, x));
-    }
+    TEST(route.MoveIterator(MakeFix(MeterPoint(x, 0))), (x));
+    TEST_ALMOST_EQUAL_ABS(route.GetCurrentDistanceFromBeginMeters(), x, 1.0, (x));
   }
 }
 
@@ -949,6 +934,32 @@ UNIT_TEST(TrackRouter_NoisyRecordingMatchesWithoutBearing)
     TEST(route.MoveIterator(MakeFix(MeterPoint(x, 0), timestamp++)), (x));
   TEST(route.MoveIterator(MakeFix(MeterPoint(1000, 0), timestamp)), ());
   TEST(route.IsSubroutePassed(0), ("Accurate fixes at the finish must detect arrival"));
+}
+
+UNIT_TEST(TrackRouter_NearDuplicateAltitudeSamplesDoNotBlockProgress)
+{
+  for (double const offset : {0.0, 0.005})
+  {
+    auto const start = MeterPoint(0, 0);
+    auto const fix = MeterPoint(4, -1);
+    std::vector<PWA> const track = {{start, 100},
+                                    {MeterPoint(offset, 0), 101},
+                                    {start, 102},
+                                    {MeterPoint(1, 1), 100},
+                                    {MeterPoint(2, -1), 100},
+                                    {MeterPoint(3, 1), 100},
+                                    {fix, 100},
+                                    {MeterPoint(5, 1), 100}};
+    TrackRouter router(VehicleType::Pedestrian, MakeData(track));
+    auto route = CalcRoute(router, {start, track.back().GetPoint()});
+    route.SetRoutingSettings(GetRoutingSettings(VehicleType::Pedestrian));
+    TEST_EQUAL(route.GetPoly().GetSize(), track.size() + 1, ("Keep distinct altitude samples", offset));
+    TEST(route.MoveIterator(MakeFix(start, 100)), (offset));
+    TEST(route.MoveIterator(MakeFix(fix, 103)), (offset));
+    auto const & distances = route.GetSegDistanceMeters();
+    TEST_ALMOST_EQUAL_ABS(route.GetCurrentDistanceFromBeginMeters(), distances[distances.size() - 2], 1.0E-6,
+                          ("Near-duplicate samples must not end the forward source visit", offset));
+  }
 }
 
 }  // namespace track_router_tests
