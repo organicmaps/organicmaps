@@ -20,7 +20,7 @@ final class InfoItemView: UIView {
   private let contentStackView = UIStackView()
 
   let iconButton = UIButton()
-  let textLabel = InsetsLabel()
+  let textLabel = UILabel()
   let accessoryButton = UIButton()
 
   var infoLabelTapHandler: TapHandler?
@@ -59,6 +59,7 @@ final class InfoItemView: UIView {
     contentStackView.spacing = Constants.stackSpacing
     contentStackView.alignment = .center
     contentStackView.distribution = .fill
+    contentStackView.isLayoutMarginsRelativeArrangement = true
   }
 
   private func layout() {
@@ -91,8 +92,12 @@ final class InfoItemView: UIView {
   }
 
   private func updateTextLabelLayout() {
-    textLabel.insets.left = iconButton.isHidden ? Constants.infoLabelHorizontalInset : 0
-    textLabel.insets.right = accessoryButton.isHidden ? Constants.infoLabelHorizontalInset : 0
+    contentStackView.directionalLayoutMargins = NSDirectionalEdgeInsets(
+      top: 0,
+      leading: iconButton.isHidden ? Constants.infoLabelHorizontalInset : 0,
+      bottom: 0,
+      trailing: accessoryButton.isHidden ? Constants.infoLabelHorizontalInset : 0
+    )
   }
 
   // MARK: - Actions
