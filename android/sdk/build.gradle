@@ -90,6 +90,12 @@ android {
     }
   }
 
+  testOptions.unitTests.all { unitTest ->
+    def geoidModel = file('src/main/assets/geoid_model.bin')
+    unitTest.inputs.file(geoidModel)
+    unitTest.systemProperty 'geoidModelPath', geoidModel.absolutePath
+  }
+
   compileOptions {
     coreLibraryDesugaringEnabled = true
   }
