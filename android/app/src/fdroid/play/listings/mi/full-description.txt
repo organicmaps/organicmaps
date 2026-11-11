@@ -16,11 +16,13 @@ He taupānga mapi ā-roto, tere, taipitopito hoki, ā, he arataki GPS mō ngā h
 
 <b>Ngā Ara Hīkoi me ngā Ara Peke Hākinakina nō te Ao Whānui:</b> Whakahohe i ngā paparanga mahere motuhake kia kitea ai ngā ara hīkoi me ngā ara peke hākinakina rongonui o te ao, nā OpenStreetMap katoa i whakarato. Huri i waenga i ngā paparanga kia kite i ngā ara peke hākinakina tae me ngā ara MTB, me ngā ara hīkoi ā-ture.
 
+<b>PAPA WHENUA 3D ME NGĀ HŌHONUTANGA:</b> Tirohia te papa whenua 3D, te hōhonu o ngā moana, me ngā rārangi teitei taipitopito. Pāwhiritia tētahi ira hei kite i tōna teitei, i uta, i te moana rānei.
+
 <b>Waka Tūmatanui:</b> Whakaritea ngā huarahi waka tūmatanui. Kei te whakawhanakehia ngā rārangi wā ora.
 
 <b>ETITA MAPI:</b> Tuku āwhina ki OpenStreetMap mā te tāpiri i ngā wāhi kua ngaro, te whakatika rānei i te mapi i te wāhi kotahi mai i Organic Maps.
 
-Whakamātauria te taupānga — he 100% kore utu, kāore he pānui, he tere, ā, ka taea te whakamahi katoa i waho o te ipurangi. Whakamātauria te aratohu GPS pono mō te hīkoi, te eke pahikara, te hikoi roa, me te haerenga ki ngā wāhi katoa o te ao! Kia pai ki te wheako mahere tere, pono, me te tūmataiti, ā, tiritiria ki ētahi atu!
+Whakamātauria te taupānga — he 100% kore utu, kāore he pānui, he tere, ā, ka taea te whakamahi katoa i waho o te ipurangi.
 
 He kaupapa tūwhera, ā-hapori, ā-tangata takitahi a Organic Maps, me ngā rau o ngā kaiāwhina e āwhina ana ki te whakawhanake i ngā āhuatanga hou, ki te whakatika i ngā take, ki te whakamāori, me te whakamua i te kaupapa.
 
