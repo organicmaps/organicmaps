@@ -20,7 +20,7 @@ TÚRA- ÉS KERÉKPÁROS ÚTVONALAK A VILÁG MINDEN TÁJÁRÓL: Kapcsolja be a sp
 
 KÖZLEKEDÉS: Tömegközlekedési útvonalak tervezése. Az élő menetrendek kidolgozása folyamatban van.
 
-TÉRKÉP STÍLUSOK: Válassza ki a tevékenységéhez illő térképrétegeket — Kültér, Kontúrvonalak, Túrázás, Kerékpározás vagy Metró/Aluljáró.
+TÉRKÉP STÍLUSOK: Válassza ki a tevékenységéhez illő térképrétegeket — Kültér, Szintvonalak, Túrázás, Kerékpározás vagy Metró.
 
 ÚTVONAL FELVEVŐ: Rögzítse, importálja, exportálja és ossza meg útvonalait és kedvenc helyeit. Támogatja a KML, KMZ, GPX és GeoJSON formátumokat.
 
