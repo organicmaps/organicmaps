@@ -2,7 +2,7 @@ Organic Maps je rýchla, detailná offline mapa a GPS navigačná aplikácia pre
 
 OFFLINE: Aplikácia funguje 100 % offline — vrátane vyhľadávania a navigácie. Môžete skúmať mapu a navigovať bez internetového pripojenia, čím šetríte mobilné dáta a roamingové poplatky. A bez prenosov dát na pozadí vydrží batéria oveľa dlhšie.
 
-RYCHLÁ: Zoomovanie, vyhľadávanie a výpočty trás fungujú viditeľne rýchlo.
+RÝCHLA: Zoomovanie, vyhľadávanie a výpočty trás fungujú viditeľne rýchlo.
 
 DETAILNÉ A AKTUALIZOVANÉ: Mapy sú bohaté na detaily a aktualizované dvakrát mesačne, aby odrážali skutočné podmienky. Na rozdiel od mnohých známych konkurentov obsahujú označenia budov, lavičky, turistické chodníky a ďalšie užitočné informácie.
 
@@ -18,11 +18,13 @@ GPS NAVIGÁCIA: Užite si hlasové pokyny krok za krokom. Vytvárajte trasy na p
 
 TÚRY A CYKLISTICKÉ TRASY Z CELÉHO SVETA: Aktivujte špeciálne mapové vrstvy na objavovanie populárnych turistických a cyklistických trás po celom svete, všetky zo zdroja OpenStreetMap. Prepnite medzi vrstvami a zobrazte farebné cyklistické a MTB trasy, ako aj oficiálne turistické chodníky.
 
-MESTSKÁ DOPRAVA: Môžete si plánovať trasy s využitím verejnej dopravy. Podpora cestovných poriadkov v reálnom čase sa momentálne vyvíja.
+3D TERÉN A HĹBKY: Prezerajte si 3D terén, hĺbky oceánov a morí a podrobné vrstevnice. Ťuknutím na ľubovoľný bod zistíte jeho nadmorskú výšku, na súši aj na mori.
+
+VEREJNÁ DOPRAVA: Môžete si plánovať trasy s využitím verejnej dopravy. Podpora cestovných poriadkov v reálnom čase sa momentálne vyvíja.
 
 ŠTÝLY MÁP: Vyberte mapové vrstvy podľa svojej aktivity — Vonku, Výškové čiary, Túry, Cyklistika alebo Metro.
 
-ZAZNAMENAŤ TRASY: Zaznamenávajte, importujte, exportujte a zdieľajte svoje trasy a obľúbené miesta. Podporuje formáty KML, KMZ, GPX a GeoJSON.
+ZÁZNAM TRÁS: Zaznamenávajte, importujte, exportujte a zdieľajte svoje trasy a obľúbené miesta. Podporuje formáty KML, KMZ, GPX a GeoJSON.
 
 ČLÁNKY WIKIPÉDIE: Preskúmajte články na Wikipédii pre miesta, ktoré objavíte na mape. Do vyhľadávania zadajte „?wiki“ pre zobrazenie všetkých miest s článkami.
 
@@ -32,8 +34,8 @@ TMAVÝ REŽIM: Prepnite na tmavú tému pre pohodlné prezeranie v noci.
 
 SYNC iCLOUD: Jednoducho zálohujte a synchronizujte všetky záložky a trasy cez iCloud.
 
-Vyskúšajte aplikáciu — je 100 % zadarmo, bez reklám, rýchla a plne offline. Užite si rýchly, spoľahlivý a súkromný zážitok z mapy a zdieľajte ho s ostatnými.
-Organic Maps je indie, komunitou vedený open-source projekt so stovkami prispievateľov, ktorí pomáhajú vyvíjať nové funkcie, opravovať chyby, prekladať a posúvať projekt vpred.
+Vyskúšajte aplikáciu — je 100 % zadarmo, bez reklám, rýchla a plne offline.
+Organic Maps je indie, komunitou vedený open-source projekt so stovkami prispievateľov, ktorí vyvíjajú funkcie, opravujú chyby a prekladajú.
 
 Alebo sa dozviete iné spôsoby, ako podporiť projekt: https://organicmaps.app/contribute/
 
