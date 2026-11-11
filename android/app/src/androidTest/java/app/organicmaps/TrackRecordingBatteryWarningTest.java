@@ -58,6 +58,7 @@ public class TrackRecordingBatteryWarningTest
   private boolean mWasAcknowledged;
   private boolean mWasRestricted;
   private boolean mWasLocationEnabled;
+  private boolean mSettingsCaptured;
 
   @Before
   public void setUp() throws Exception
@@ -88,6 +89,7 @@ public class TrackRecordingBatteryWarningTest
     mWasAcknowledged = mPreferences.getBoolean("battery_optimization_warning_seen", false);
     mWasRestricted = mContext.getSystemService(ActivityManager.class).isBackgroundRestricted();
     mWasLocationEnabled = LocationUtils.areLocationServicesTurnedOn(mContext);
+    mSettingsCaptured = true;
     mPreferences.edit().putBoolean("battery_optimization_warning_seen", false).commit();
     shell("cmd appops set " + packageName + " RUN_ANY_IN_BACKGROUND ignore");
     shell("cmd location set-location-enabled true");
@@ -98,20 +100,33 @@ public class TrackRecordingBatteryWarningTest
   @After
   public void tearDown() throws Exception
   {
-    if (mScenario == null)
+    if (!mSettingsCaptured)
       return;
-    mInstrumentation.runOnMainSync(() -> {
-      if (TrackRecorder.nativeIsTrackRecordingEnabled())
+    try
+    {
+      mInstrumentation.runOnMainSync(() -> {
+        if (TrackRecorder.nativeIsTrackRecordingEnabled())
+        {
+          TrackRecorder.nativeDiscardTrackRecording();
+          TrackRecordingService.stopService(mContext);
+        }
+      });
+      if (mScenario != null)
+        mScenario.close();
+    }
+    finally
+    {
+      mPreferences.edit().putBoolean("battery_optimization_warning_seen", mWasAcknowledged).commit();
+      try
       {
-        TrackRecorder.nativeDiscardTrackRecording();
-        TrackRecordingService.stopService(mContext);
+        shell("cmd appops set " + mContext.getPackageName() + " RUN_ANY_IN_BACKGROUND "
+              + (mWasRestricted ? "ignore" : "allow"));
       }
-    });
-    mScenario.close();
-    mPreferences.edit().putBoolean("battery_optimization_warning_seen", mWasAcknowledged).commit();
-    shell("cmd appops set " + mContext.getPackageName() + " RUN_ANY_IN_BACKGROUND "
-          + (mWasRestricted ? "ignore" : "allow"));
-    shell("cmd location set-location-enabled " + mWasLocationEnabled);
+      finally
+      {
+        shell("cmd location set-location-enabled " + mWasLocationEnabled);
+      }
+    }
   }
 
   @Test
