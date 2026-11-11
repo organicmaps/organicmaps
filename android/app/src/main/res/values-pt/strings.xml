@@ -848,8 +848,8 @@
     <string name="power_save_dialog_summary">Para uma navegação mais precisa, recomendamos que desactive o modo de poupança de energia nas definições da bateria do telemóvel.</string>
     <!-- Title of the one-time Android dialog shown when starting track recording, warning that battery restrictions may interrupt it. -->
     <string name="background_recording_warning_title">A gravação do trajeto pode ser interrompida</string>
-    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
-    <string name="background_recording_warning_message">Para evitar que a gravação de trajetos seja interrompida quando o ecrã estiver desligado, exclua o Organic Maps da otimização da bateria. Nos dispositivos Samsung, adicione-o à lista «Aplicações que nunca entram em modo de suspensão».</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_recording_warning_message">Para continuar a gravar com o ecrã desligado, abra «Utilização da bateria da aplicação» ou «Bateria» nas «Informações da aplicação» do Organic Maps e permita a utilização em segundo plano. Se forem apresentadas as opções «Otimizado» e «Restrito», escolha «Otimizado».</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Gravar trajeto</string>
     <!-- Prompt for stopping a track recording. -->
@@ -954,4 +954,10 @@
     <string name="transit_type_train">Comboio</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Elétrico</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_recording_warning_message_legacy">Para continuar a gravar com o ecrã desligado, abra a secção «Bateria» nas «Informações da aplicação» do Organic Maps e desative a «Restrição em segundo plano». Os nomes dos menus variam consoante o dispositivo.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_recording_samsung_warning_message">Para continuar a gravar com o ecrã desligado, adicione o Organic Maps à lista de «Aplicações que nunca entram em modo de suspensão» em «Definições» → «Bateria» → «Limites de utilização em segundo plano». Em algumas versões, a opção «Bateria» encontra-se em «Manutenção do dispositivo» ou «Bateria e manutenção do dispositivo».</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_recording_samsung_warning_message_legacy">Para continuar a gravar com o ecrã desligado, abra «Definições» → «Manutenção do dispositivo» → «Bateria» → «Gestão de energia das aplicações» e adicione o «Organic Maps» às «Aplicações que não entram em modo de suspensão». Se, em vez disso, existir um menu «⋮» → «Definições», remova o «Organic Maps» das «Aplicações em suspensão».</string>
 </resources>

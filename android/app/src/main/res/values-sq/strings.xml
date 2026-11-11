@@ -831,8 +831,8 @@
     <string name="power_save_dialog_summary">Për lundrimin më të saktë, rekomandojmë çaktivizimin e modalitetit të kursimit të energjisë në cilësimet e baterisë së telefonit.</string>
     <!-- Title of the one-time Android dialog shown when starting track recording, warning that battery restrictions may interrupt it. -->
     <string name="background_recording_warning_title">Regjistrimi i gjurmës mund të ndalet</string>
-    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
-    <string name="background_recording_warning_message">Për të parandaluar ndalimin e regjistrimit të gjurmës kur ekrani është i fikur, përjashtoni Organic Maps nga optimizimi i baterisë. Në pajisjet Samsung, shtojeni në listën “Aplikacionet që nuk flenë kurrë”.</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_recording_warning_message">Për të vazhduar regjistrimin kur ekrani është i fikur, hapni Përdorimin e baterisë së aplikacionit ose Baterinë në informacionin e aplikacionit Organic Maps dhe lejoni përdorimin në sfond. Nëse ofrohen Opsionet e Optimizuara dhe të Kufizuara, zgjidhni Optimizuar.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Regjistro Gjurmën</string>
     <!-- Prompt for stopping a track recording. -->
@@ -921,4 +921,10 @@
     <string name="transit_type_train">Tren</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tramvaj</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_recording_warning_message_legacy">Për të vazhduar regjistrimin kur ekrani është i fikur, hapni Baterinë në Informacionin e Aplikacionit të Organic Maps dhe fikni Kufizimin e sfondit. Emrat e menysë ndryshojnë sipas pajisjes.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_recording_samsung_warning_message">Për të vazhduar regjistrimin kur ekrani është i fikur, shtoni Organic Maps në aplikacionet që kurrë nuk flejnë në Cilësimet → Bateria → Kufizimet e përdorimit në sfond. Në disa versione, Bateria gjendet nën Kujdesi i pajisjes ose Kujdesi i baterisë dhe pajisjes.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_recording_samsung_warning_message_legacy">Për të vazhduar regjistrimin kur ekrani është i fikur, hapni Cilësimet → Kujdesi i pajisjes → Bateria → Menaxhimi i energjisë së aplikacioneve dhe shtoni Organic Maps në Aplikacionet që nuk do të vendosen në gjumë. Nëse në vend të kësaj ka ⋮ → Cilësimet, hiqni Organic Maps nga Aplikacionet në gjumë.</string>
 </resources>

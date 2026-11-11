@@ -850,8 +850,8 @@
     <string name="power_save_dialog_summary">Per a una navegació més precisa, recomanem desactivar el mode d\'estalvi d\'energia a la configuració de la bateria del telèfon.</string>
     <!-- Title of the one-time Android dialog shown when starting track recording, warning that battery restrictions may interrupt it. -->
     <string name="background_recording_warning_title">L\'enregistrament del recorregut es pot aturar</string>
-    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
-    <string name="background_recording_warning_message">Per evitar que l\'enregistrament de la ruta s\'aturi quan la pantalla està apagada, si us plau, excloeu Organic Maps de l\'optimització de la bateria. Als dispositius Samsung, afegiu-lo a la llista \"Aplicacions que no s\'adormen mai\".</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_recording_warning_message">Per continuar gravant quan la pantalla està apagada, obriu l\'ús de bateria de l\'aplicació o Bateria a la informació de l\'aplicació d’Organic Maps i permeteu l\'ús en segon pla. Si s\'ofereixen Optimitzat i Restringit, trieu Optimitzat.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Enregistra el recorregut</string>
     <!-- Prompt for stopping a track recording. -->
@@ -958,4 +958,10 @@
     <string name="transit_type_train">Tren</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tramvia</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_recording_warning_message_legacy">Per continuar gravant quan la pantalla està apagada, obriu Bateria a la informació de l\'aplicació d’Organic Maps i desactiveu la restricció en segon pla. Els noms dels menús varien segons el dispositiu.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_recording_samsung_warning_message">Per continuar gravant quan la pantalla està apagada, afegeix Organic Maps a les aplicacions que mai no dormen a Configuració → Bateria → Límits d\'ús en segon pla. En algunes versions, la Bateria es troba a Cura del dispositiu o a Cura de bateria i dispositiu.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_recording_samsung_warning_message_legacy">Per continuar gravant quan la pantalla està apagada, obriu Configuració → Cura del dispositiu → Bateria → Gestió d\'energia de les aplicacions i afegiu-hi Organic Maps a les aplicacions que no s\'adormiran. Si en lloc d\'això hi ha un menú ⋮ → Configuració, traieu Organic Maps de les aplicacions adormides.</string>
 </resources>

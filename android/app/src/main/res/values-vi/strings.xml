@@ -830,8 +830,8 @@
     <string name="power_save_dialog_summary">Để điều hướng chính xác nhất, chúng tôi khuyên bạn nên tắt chế độ tiết kiệm năng lượng trong cài đặt pin của điện thoại.</string>
     <!-- Title of the one-time Android dialog shown when starting track recording, warning that battery restrictions may interrupt it. -->
     <string name="background_recording_warning_title">Việc ghi lại hành trình có thể bị gián đoạn</string>
-    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
-    <string name="background_recording_warning_message">Để tránh việc ghi lộ trình bị gián đoạn khi màn hình tắt, hãy loại trừ Organic Maps khỏi tính năng tối ưu hóa pin. Trên thiết bị Samsung, hãy thêm ứng dụng vào danh sách “Ứng dụng không bao giờ ngủ”.</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_recording_warning_message">Để tiếp tục ghi lại khi màn hình tắt, hãy mở mục \"Sử dụng pin của ứng dụng\" hoặc \"Pin\" trong phần Thông tin ứng dụng của Organic Maps và cho phép sử dụng nền. Nếu có các tùy chọn \"Tối ưu hóa\" và \"Hạn chế\", hãy chọn \"Tối ưu hóa\".</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Ghi âm đường đi</string>
     <!-- Prompt for stopping a track recording. -->
@@ -931,4 +931,10 @@
     <string name="transit_type_train">Tàu hỏa</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Xe điện</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_recording_warning_message_legacy">Để tiếp tục ghi lại khi màn hình tắt, hãy mở mục “Pin” trong phần Thông tin ứng dụng của Organic Maps và tắt tùy chọn “Hạn chế nền”. Tên các mục menu có thể khác nhau tùy theo thiết bị.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_recording_samsung_warning_message">Để tiếp tục ghi lại khi màn hình tắt, hãy thêm Organic Maps vào danh sách “Ứng dụng không bao giờ ngủ” trong Cài đặt → Pin → Giới hạn sử dụng nền. Trên một số phiên bản, mục “Pin” nằm trong phần “Chăm sóc thiết bị” hoặc “Pin và chăm sóc thiết bị”.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_recording_samsung_warning_message_legacy">Để tiếp tục ghi lại khi màn hình tắt, hãy mở Cài đặt → Chăm sóc thiết bị → Pin → Quản lý năng lượng ứng dụng và thêm Organic Maps vào danh sách “Các ứng dụng không bị chuyển sang chế độ ngủ”. Nếu thay vào đó có menu ⋮ → Cài đặt, hãy xóa Organic Maps khỏi danh sách “Ứng dụng ngủ”.</string>
 </resources>

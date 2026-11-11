@@ -846,8 +846,8 @@
     <string name="power_save_dialog_summary">Voor de meest nauwkeurige navigatie raden we aan om de energiebesparende modus uit te schakelen in de batterij-instellingen van de telefoon.</string>
     <!-- Title of the one-time Android dialog shown when starting track recording, warning that battery restrictions may interrupt it. -->
     <string name="background_recording_warning_title">De trackopname kan worden onderbroken</string>
-    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
-    <string name="background_recording_warning_message">Om te voorkomen dat de trackopname stopt als het scherm uit is, sluit u Organic Maps uit van batterijoptimalisatie. Voeg de app op Samsung-toestellen toe aan de lijst ‘Apps die nooit sluimeren’.</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_recording_warning_message">Om de opname voort te zetten wanneer het scherm is uitgeschakeld, opent u ‘App-batterijgebruik’ of ‘Batterij’ in de app-informatie van Organic Maps en schakelt u achtergrondgebruik in. Indien de opties ‘Geoptimaliseerd’ en ‘Beperkt’ worden aangeboden, kiest u ‘Geoptimaliseerd’.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Route opnemen</string>
     <!-- Prompt for stopping a track recording. -->
@@ -952,4 +952,10 @@
     <string name="transit_type_train">Trein</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tram</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_recording_warning_message_legacy">Om de opname voort te zetten wanneer het scherm is uitgeschakeld, opent u ‘Batterij’ in de app-informatie van Organic Maps en schakelt u ‘Achtergrondbeperking’ uit. Menunamen kunnen per apparaat verschillen.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_recording_samsung_warning_message">Om de opname voort te zetten wanneer het scherm is uitgeschakeld, voegt u Organic Maps toe aan de lijst met ‘Apps die nooit in de slaapstand gaan’ in Instellingen → Batterij → Limieten voor gebruik op de achtergrond. In sommige versies vindt u ‘Batterij’ onder ‘Apparaatonderhoud’ of ‘Batterij en apparaatonderhoud’.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_recording_samsung_warning_message_legacy">Om de opname voort te zetten wanneer het scherm is uitgeschakeld, opent u Instellingen → Apparaatonderhoud → Batterij → Energiebeheer voor apps en voegt u Organic Maps toe aan de lijst met apps die niet in de slaapstand worden gezet. Indien er in plaats daarvan een ⋮ → Instellingen-menu is, verwijdert u Organic Maps uit de lijst met apps die in de slaapstand worden gezet.</string>
 </resources>

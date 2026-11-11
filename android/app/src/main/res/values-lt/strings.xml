@@ -848,8 +848,8 @@
     <string name="power_save_dialog_summary">Tikslesnei navigacijai pasiekti, rekomenduojame išjungti energijos taupymo veikseną telefono akumuliatoriaus nustatymuose.</string>
     <!-- Title of the one-time Android dialog shown when starting track recording, warning that battery restrictions may interrupt it. -->
     <string name="background_recording_warning_title">Trasos įrašymas gali nutrūkti</string>
-    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
-    <string name="background_recording_warning_message">Kad trasos įrašymas nenutrūktų išjungus ekraną, išjunkite „Organic Maps“ akumuliatoriaus optimizavimą. „Samsung“ įrenginiuose įtraukite programėlę į sąrašą „Niekada nemiegančios programėlės“.</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_recording_warning_message">Norėdami tęsti įrašymą, kai ekranas išjungtas, „Organic Maps“ programos informacijoje atidarykite „Programos baterijos naudojimas“ arba „Baterija“ ir leiskite veiklą fone. Jei siūlomi variantai „Optimizuota“ ir „Apribota“, pasirinkite „Optimizuota“.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Įrašyti trasą</string>
     <!-- Prompt for stopping a track recording. -->
@@ -955,4 +955,10 @@
     <string name="transit_type_train">Traukinys</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tramvajus</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_recording_warning_message_legacy">Norėdami tęsti įrašymą, kai ekranas išjungtas, „Organic Maps“ programos informacijoje atidarykite skiltį „Baterija“ ir išjunkite „Fono apribojimą“. Meniu pavadinimai skiriasi priklausomai nuo įrenginio.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_recording_samsung_warning_message">Norėdami, kad įrašymas tęstųsi, kai ekranas išjungtas, „Organic Maps“ pridėkite prie „Niekada nemiegančių programų“ meniu „Nustatymai“ → „Baterija“ → „Fono naudojimo apribojimai“. Kai kuriose versijose „Baterija“ yra skyriuje „Įrenginio priežiūra“ arba „Baterija ir įrenginio priežiūra“.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_recording_samsung_warning_message_legacy">Norėdami, kad įrašymas tęstųsi, kai ekranas išjungtas, atidarykite „Nustatymai“ → „Įrenginio priežiūra“ → „Baterija“ → „Programų energijos valdymas“ ir pridėkite „Organic Maps“ prie programų, kurios nebus perkeliamos į miego režimą. Jei vietoj to matote meniu „⋮“ → „Nustatymai“, pašalinkite „Organic Maps“ iš „Miegančių programų“ sąrašo.</string>
 </resources>

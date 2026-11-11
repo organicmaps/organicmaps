@@ -794,8 +794,8 @@
     <string name="power_save_dialog_summary">ເພື່ອການນຳທາງທີ່ຊັດເຈນທີ່ສຸດ, ພວກເຮົາແນະນຳໃຫ້ປິດໂໝດປະຢັດພະລັງງານໃນການຕັ້ງຄ່າແບັດເຕີຣີຂອງໂທລະສັບ.</string>
     <!-- Title of the one-time Android dialog shown when starting track recording, warning that battery restrictions may interrupt it. -->
     <string name="background_recording_warning_title">ການບັນທຶກເສັ້ນທາງອາດຈະຢຸດລົງ</string>
-    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
-    <string name="background_recording_warning_message">ເພື່ອປ້ອງກັນບໍ່ໃຫ້ການບັນທຶກເສັ້ນທາງຢຸດເມື່ອໜ້າຈໍປິດ, ກະລຸນາຍົກເວັ້ນ Organic Maps ຈາກການປັບປຸງປະສິດທິພາບແບັດເຕີຣີ. ໃນອຸປະກອນ Samsung, ໃຫ້ເພີ່ມແອັບນີ້ໃສ່ລາຍການ «ແອັບທີ່ບໍ່ເຂົ້າໂໝດພັກ».</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_recording_warning_message">ເພື່ອຮັກສາການບັນທຶກເມື່ອໜ້າຈໍປິດຢູ່, ເປີດການນຳໃຊ້ແບັດເຕີຣີຂອງແອັບ ຫຼື ແບັດເຕີຣີໃນຂໍ້ມູນແອັບ Organic Maps ແລະ ອະນຸຍາດໃຫ້ໃຊ້ໃນພື້ນຫຼັງ. ຖ້າມີການໃຫ້ Optimized ແລະ Restricted, ເລືອກ Optimized.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">ບັນທຶກເສັ້ນທາງ</string>
     <!-- Prompt for stopping a track recording. -->
@@ -893,4 +893,10 @@
     <string name="transit_type_train">ລົດໄຟ</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">ລົດລາງ</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_recording_warning_message_legacy">ເພື່ອຮັກສາການບັນທຶກເມື່ອໜ້າຈໍປິດຢູ່, ເປີດແບັດເຕີຣີໃນຂໍ້ມູນແອັບ Organic Maps ແລະປິດການຈຳກັດພື້ນຫຼັງ. ຊື່ເມນູແຕກຕ່າງກັນໄປຕາມອຸປະກອນ.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_recording_samsung_warning_message">ເພື່ອສືບຕໍ່ບັນທຶກເມື່ອໜ້າຈໍປິດ, ເພີ່ມ Organic Maps ໃສ່ແອັບ ທີ່ບໍ່ເຂົ້າໂໝດພັກ ໃນການຕັ້ງຄ່າ → ແບັດເຕີຣີ → ຈຳກັດການນຳໃຊ້ພື້ນຫຼັງ. ໃນບາງລຸ້ນ, ແບັດເຕີຣີຢູ່ພາຍໃຕ້ການດູແລອຸປະກອນ ຫຼື ແບັດເຕີຣີ ແລະການດູແລອຸປະກອນ.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_recording_samsung_warning_message_legacy">ເພື່ອສືບຕໍ່ບັນທຶກເມື່ອໜ້າຈໍປິດຢູ່, ເປີດ ການຕັ້ງຄ່າ → ການດູແລອຸປະກອນ → ແບັດເຕີຣີ → ການຈັດການພະລັງງານຂອງແອັບ ແລະ ເພີ່ມ Organic Maps ໃສ່ແອັບທີ່ຈະບໍ່ນອນ. ຖ້າມີເມນູ ⋮ → ການຕັ້ງຄ່າແທນ, ເອົາ Organic Maps ອອກຈາກແອັບທີ່ຢູ່ໃນໂໝດພັກ.</string>
 </resources>

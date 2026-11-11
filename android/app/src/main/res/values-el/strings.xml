@@ -844,8 +844,8 @@
     <string name="power_save_dialog_summary">Για την πιο ακριβή πλοήγηση, συνιστούμε να απενεργοποιήσετε τη λειτουργία εξοικονόμησης ενέργειας στις ρυθμίσεις μπαταρίας του τηλεφώνου.</string>
     <!-- Title of the one-time Android dialog shown when starting track recording, warning that battery restrictions may interrupt it. -->
     <string name="background_recording_warning_title">Η καταγραφή διαδρομής ενδέχεται να διακοπεί</string>
-    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
-    <string name="background_recording_warning_message">Για να αποτρέψετε τη διακοπή της καταγραφής διαδρομής όταν η οθόνη είναι απενεργοποιημένη, παρακαλούμε να εξαιρέσετε το Organic Maps από τη βελτιστοποίηση της μπαταρίας. Στις συσκευές Samsung, προσθέστε την εφαρμογή στη λίστα «Εφαρμογές που δεν τίθενται ποτέ σε κατάσταση αναστολής λειτουργίας».</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_recording_warning_message">Για να συνεχίσετε την καταγραφή όταν η οθόνη είναι απενεργοποιημένη, ανοίξτε την «Χρήση μπαταρίας εφαρμογής» ή την «Μπαταρία» στις «Πληροφορίες εφαρμογής» του Organic Maps και επιτρέψτε τη χρήση στο παρασκήνιο. Εάν εμφανίζονται οι επιλογές «Βελτιστοποιημένη» και «Περιορισμένη», επιλέξτε «Βελτιστοποιημένη».</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Εγγραφή διαδρομής</string>
     <!-- Prompt for stopping a track recording. -->
@@ -948,4 +948,10 @@
     <string name="transit_type_train">Τρένο</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Τραμ</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_recording_warning_message_legacy">Για να συνεχίσετε την καταγραφή όταν η οθόνη είναι απενεργοποιημένη, ανοίξτε την επιλογή «Μπαταρία» στις πληροφορίες της εφαρμογής «Organic Maps» και απενεργοποιήστε τον «Περιορισμό λειτουργίας στο παρασκήνιο». Τα ονόματα των μενού διαφέρουν ανάλογα με τη συσκευή.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_recording_samsung_warning_message">Για να συνεχίσει η καταγραφή όταν η οθόνη είναι απενεργοποιημένη, προσθέστε το Organic Maps στις «Εφαρμογές που δεν τίθενται ποτέ σε κατάσταση αναστολής» στις Ρυθμίσεις → Μπαταρία → Όρια χρήσης στο παρασκήνιο. Σε ορισμένες εκδόσεις, η επιλογή «Μπαταρία» βρίσκεται στην ενότητα «Φροντίδα συσκευής» ή «Μπαταρία και φροντίδα συσκευής».</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_recording_samsung_warning_message_legacy">Για να συνεχίσετε την καταγραφή όταν η οθόνη είναι απενεργοποιημένη, ανοίξτε «Ρυθμίσεις» → «Φροντίδα συσκευής» → «Μπαταρία» → «Διαχείριση ενέργειας εφαρμογών» και προσθέστε το Organic Maps στις «Εφαρμογές που δεν θα τεθούν σε κατάσταση αναστολής λειτουργίας». Εάν υπάρχει αντ\' αυτού το μενού ⋮ → «Ρυθμίσεις», αφαιρέστε το Organic Maps από τις «Εφαρμογές σε κατάσταση αναστολής λειτουργίας».</string>
 </resources>

@@ -841,8 +841,8 @@
     <string name="power_save_dialog_summary">Jotta navigointi olisi mahdollisimman tarkkaa, suosittelemme virransäästötilan poistamista käytöstä puhelimen akkuasetuksista.</string>
     <!-- Title of the one-time Android dialog shown when starting track recording, warning that battery restrictions may interrupt it. -->
     <string name="background_recording_warning_title">Reitin tallennus saattaa keskeytyä</string>
-    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
-    <string name="background_recording_warning_message">Jotta reitin tallennus ei keskeydy näytön ollessa pois päältä, poista Organic Maps akun optimoinnin piiristä. Lisää sovellus Samsung-laitteissa luetteloon ”Sovellukset, joita ei siirretä lepotilaan”.</string>
+    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <string name="background_recording_warning_message">Jotta tallennus jatkuu näytön ollessa pois päältä, avaa ”Sovelluksen akunkäyttö” tai ”Akku” Organic Mapsin sovellustiedoista ja salli taustakäyttö. Jos vaihtoehdoista ”Optimoitu” ja ”Rajoitettu” on valittavissa, valitse ”Optimoitu”.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Reitin tallennus</string>
     <!-- Prompt for stopping a track recording. -->
@@ -945,4 +945,10 @@
     <string name="transit_type_train">Juna</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Raitiovaunu</string>
+    <!-- Android 9–11 per-app background restriction -->
+    <string name="background_recording_warning_message_legacy">Jotta tallennus jatkuu näytön ollessa pois päältä, avaa Organic Maps -sovelluksen tiedoista kohta ”Akku” ja poista ”Taustarajoitus” käytöstä. Valikkonimikkeet vaihtelevat laitteittain.</string>
+    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <string name="background_recording_samsung_warning_message">Jotta tallennus jatkuu näytön ollessa pois päältä, lisää Organic Maps-sovellus kohtaan ”Sovellukset, jotka eivät koskaan siirry lepotilaan” kohdassa Asetukset → Akku → Taustakäytön rajoitukset. Joissakin versioissa Akku-kohta löytyy kohdasta Laitteen huolto tai Akku ja laitteen huolto.</string>
+    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <string name="background_recording_samsung_warning_message_legacy">Jotta tallennus jatkuu näytön ollessa pois päältä, avaa Asetukset → Laitteen huolto → Akku → Sovellusten virrankäyttö ja lisää Organic Maps-sovellus kohtaan Sovellukset, joita ei siirretä lepotilaan. Jos siinä on sen sijaan ⋮ → Asetukset-valikko, poista Organic Maps-sovellus kohdasta Lepotilassa olevat sovellukset.</string>
 </resources>
