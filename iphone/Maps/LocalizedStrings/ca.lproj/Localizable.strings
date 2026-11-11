@@ -955,7 +955,9 @@
 "transit_not_found" = "La navegació en metro en aquesta regió encara no és disponible";
 "dialog_pedestrian_route_is_long_header" = "No s’ha trobat cap ruta en metro";
 "dialog_pedestrian_route_is_long_message" = "Trieu un altre punt, inicial o final, més proper a una estació de metro";
-"button_layer_isolines" = "Corbes de nivell";
+
+/* Layers menu: label of the 3D terrain layer button */
+"button_layer_terrain" = "Relleu 3D";
 "isolines_location_error_dialog" = "Actualitzeu aquesta regió per veure les corbes de nivell";
 "elevation_profile_ascent" = "Ascens";
 "elevation_profile_descent" = "Descens";

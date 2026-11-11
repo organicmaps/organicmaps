@@ -751,7 +751,8 @@
     <!-- Action that clears the multi-selection in a bookmark list. -->
     <string name="deselect_all">Dad-ddewis popeth</string>
     <string name="select_list">Dewis rhestr</string>
-    <string name="button_layer_isolines">Llinellau cyfuchlin</string>
+    <!-- Layers menu: label of the 3D terrain layer button -->
+    <string name="button_layer_terrain">Tirwedd 3D</string>
     <string name="isolines_location_error_dialog">Diweddarwch y rhanbarth hwn i weld llinellau cyfuchlin</string>
     <string name="elevation_profile_ascent">Esgyniad</string>
     <string name="elevation_profile_descent">Disgyniad</string>

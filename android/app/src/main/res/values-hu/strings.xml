@@ -738,7 +738,8 @@
     <!-- Action that clears the multi-selection in a bookmark list. -->
     <string name="deselect_all">Kijelölés megszüntetése</string>
     <string name="select_list">Lista kiválasztása</string>
-    <string name="button_layer_isolines">Szintvonalak</string>
+    <!-- Layers menu: label of the 3D terrain layer button -->
+    <string name="button_layer_terrain">3D domborzat</string>
     <string name="isolines_location_error_dialog">Frissítse ezt a területet a szintvonalak megjelenítéséhez</string>
     <string name="elevation_profile_ascent">Növekvő</string>
     <string name="elevation_profile_descent">Csökkenő</string>

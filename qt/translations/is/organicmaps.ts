@@ -678,9 +678,10 @@
 <source>Religious places</source>
 <translation>Trúarlegir staðir</translation>
 </message>
-<message id="button_layer_isolines">
-<source>Contour Lines</source>
-<translation>Hæðarlínur</translation>
+<message id="button_layer_terrain">
+<extracomment>Layers menu: label of the 3D terrain layer button</extracomment>
+<source>3D Terrain</source>
+<translation>3D-landslag</translation>
 </message>
 <message id="change_map_locale">
 <extracomment>Current language of the map!</extracomment>

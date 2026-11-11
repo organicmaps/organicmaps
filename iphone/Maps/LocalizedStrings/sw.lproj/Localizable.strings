@@ -955,7 +955,9 @@
 "transit_not_found" = "Uabiri wa njia ya chini kwa chini katika mkoa huu haupatikani bado";
 "dialog_pedestrian_route_is_long_header" = "Njia ya chini kwa chini haipatikani";
 "dialog_pedestrian_route_is_long_message" = "Chagua nyota au alama ya mwisho karibu ya kituo cha njia ya chini kwa chini";
-"button_layer_isolines" = "Topografia";
+
+/* Layers menu: label of the 3D terrain layer button */
+"button_layer_terrain" = "Topografia ya 3D";
 "isolines_location_error_dialog" = "Sasisha eneo hili ili kuona mistari ya mwinuko";
 "elevation_profile_ascent" = "Upandaji";
 "elevation_profile_descent" = "Ushukaji";

@@ -735,7 +735,8 @@
     <!-- Action that clears the multi-selection in a bookmark list. -->
     <string name="deselect_all">Kendu hautapena</string>
     <string name="select_list">Hautatu zerrenda</string>
-    <string name="button_layer_isolines">Sestra kurbak</string>
+    <!-- Layers menu: label of the 3D terrain layer button -->
+    <string name="button_layer_terrain">3D erliebea</string>
     <string name="isolines_location_error_dialog">Eguneratu eskualde hau sestra-kurbak ikusteko</string>
     <string name="elevation_profile_ascent">Maldan gora</string>
     <string name="elevation_profile_descent">Maldan behera</string>

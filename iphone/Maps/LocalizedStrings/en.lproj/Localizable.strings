@@ -955,7 +955,9 @@
 "transit_not_found" = "Subway navigation in this region is not available yet";
 "dialog_pedestrian_route_is_long_header" = "No subway route found";
 "dialog_pedestrian_route_is_long_message" = "Please choose a start or end point closer to a subway station";
-"button_layer_isolines" = "Contour Lines";
+
+/* Layers menu: label of the 3D terrain layer button */
+"button_layer_terrain" = "3D Terrain";
 "isolines_location_error_dialog" = "Update this region to see contour lines";
 "elevation_profile_ascent" = "Ascent";
 "elevation_profile_descent" = "Descent";

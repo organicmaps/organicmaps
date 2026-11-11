@@ -732,7 +732,8 @@
     <!-- Action that clears the multi-selection in a bookmark list. -->
     <string name="deselect_all">선택 해제</string>
     <string name="select_list">목록 선택</string>
-    <string name="button_layer_isolines">등고선</string>
+    <!-- Layers menu: label of the 3D terrain layer button -->
+    <string name="button_layer_terrain">3D 지형</string>
     <string name="isolines_location_error_dialog">이 지역을 업데이트하면 등고선을 볼 수 있습니다</string>
     <string name="elevation_profile_ascent">올라가기</string>
     <string name="elevation_profile_descent">내려가기</string>

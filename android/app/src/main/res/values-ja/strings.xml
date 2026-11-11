@@ -733,7 +733,8 @@
     <!-- Action that clears the multi-selection in a bookmark list. -->
     <string name="deselect_all">選択を解除</string>
     <string name="select_list">リストを選択</string>
-    <string name="button_layer_isolines">地形</string>
+    <!-- Layers menu: label of the 3D terrain layer button -->
+    <string name="button_layer_terrain">3D地形</string>
     <string name="isolines_location_error_dialog">この地域を更新すると等高線が表示されます</string>
     <string name="elevation_profile_ascent">上昇</string>
     <string name="elevation_profile_descent">下降</string>

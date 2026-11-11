@@ -955,7 +955,9 @@
 "transit_not_found" = "本區域的捷運導航目前不可用";
 "dialog_pedestrian_route_is_long_header" = "未找到捷運路線";
 "dialog_pedestrian_route_is_long_message" = "選擇捷運站附近的起點和終點";
-"button_layer_isolines" = "等高線";
+
+/* Layers menu: label of the 3D terrain layer button */
+"button_layer_terrain" = "3D 地形";
 "isolines_location_error_dialog" = "更新該地區以查看等高線";
 "elevation_profile_ascent" = "上坡";
 "elevation_profile_descent" = "下坡";

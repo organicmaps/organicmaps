@@ -735,7 +735,8 @@
     <!-- Action that clears the multi-selection in a bookmark list. -->
     <string name="deselect_all">取消全選</string>
     <string name="select_list">選擇列表</string>
-    <string name="button_layer_isolines">等高線</string>
+    <!-- Layers menu: label of the 3D terrain layer button -->
+    <string name="button_layer_terrain">3D 地形</string>
     <string name="isolines_location_error_dialog">更新該地區以查看等高線</string>
     <string name="elevation_profile_ascent">上坡</string>
     <string name="elevation_profile_descent">下坡</string>

@@ -678,9 +678,10 @@
 <source>Religious places</source>
 <translation>धार्मिक स्थळ</translation>
 </message>
-<message id="button_layer_isolines">
-<source>Contour Lines</source>
-<translation>भूप्रदेश</translation>
+<message id="button_layer_terrain">
+<extracomment>Layers menu: label of the 3D terrain layer button</extracomment>
+<source>3D Terrain</source>
+<translation>3D भूप्रदेश</translation>
 </message>
 <message id="change_map_locale">
 <extracomment>Current language of the map!</extracomment>

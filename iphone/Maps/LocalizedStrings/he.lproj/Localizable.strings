@@ -955,7 +955,9 @@
 "transit_not_found" = "ניווט ברכבת תחתית עוד לא זמין באזור זה";
 "dialog_pedestrian_route_is_long_header" = "מסלול רכבת תחתית לא נמצא";
 "dialog_pedestrian_route_is_long_message" = "נא לבחור נקודת התחלה או סוף קרובה יותר לתחנת רכבת תחתית";
-"button_layer_isolines" = "קווי מתאר";
+
+/* Layers menu: label of the 3D terrain layer button */
+"button_layer_terrain" = "תבליט בתלת-מימד";
 "isolines_location_error_dialog" = "עדכן את האזור הזה כדי לראות קווי מתאר";
 "elevation_profile_ascent" = "עלייה";
 "elevation_profile_descent" = "ירידה";

@@ -955,7 +955,9 @@
 "transit_not_found" = "Tee juhatamine metroos ei ole selles piirkonnas veel saadaval";
 "dialog_pedestrian_route_is_long_header" = "Metroo marsruuti ei leidu";
 "dialog_pedestrian_route_is_long_message" = "Palun vali metroojaamale lähemal asuv alg- või lõpp-punkt";
-"button_layer_isolines" = "Kontuurjooned";
+
+/* Layers menu: label of the 3D terrain layer button */
+"button_layer_terrain" = "3D-maastik";
 "isolines_location_error_dialog" = "Uuenda seda piirkonda, et näha kõrgusjooni";
 "elevation_profile_ascent" = "Tõus";
 "elevation_profile_descent" = "Langus";

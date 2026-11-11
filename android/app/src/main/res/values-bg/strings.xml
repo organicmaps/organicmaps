@@ -734,7 +734,8 @@
     <!-- Action that clears the multi-selection in a bookmark list. -->
     <string name="deselect_all">Отмяна на избора</string>
     <string name="select_list">Избор на списък</string>
-    <string name="button_layer_isolines">Терен</string>
+    <!-- Layers menu: label of the 3D terrain layer button -->
+    <string name="button_layer_terrain">3D терен</string>
     <string name="isolines_location_error_dialog">Актуализирайте този регион, за да видите хоризонталите</string>
     <string name="elevation_profile_ascent">Изкачване</string>
     <string name="elevation_profile_descent">Спускане</string>

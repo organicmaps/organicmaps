@@ -738,7 +738,8 @@
     <!-- Action that clears the multi-selection in a bookmark list. -->
     <string name="deselect_all">Afvelja allt</string>
     <string name="select_list">Veldu lista</string>
-    <string name="button_layer_isolines">Hæðarlínur</string>
+    <!-- Layers menu: label of the 3D terrain layer button -->
+    <string name="button_layer_terrain">3D-landslag</string>
     <string name="isolines_location_error_dialog">Uppfærðu þetta svæði til að sjá hæðarlínur</string>
     <string name="elevation_profile_ascent">Hækkun</string>
     <string name="elevation_profile_descent">Lækkun</string>

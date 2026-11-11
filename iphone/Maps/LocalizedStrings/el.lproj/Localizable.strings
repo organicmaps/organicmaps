@@ -955,7 +955,9 @@
 "transit_not_found" = "Η πλοήγηση με μετρό γι' αυτή την περιοχή δεν είναι ακόμα διαθέσιμη";
 "dialog_pedestrian_route_is_long_header" = "Δεν βρέθηκε διαδρομή του μετρό";
 "dialog_pedestrian_route_is_long_message" = "Επιλέξτε το σημείο εκκίνησης ή τέλους διαδρομής πιο κοντά στο σταθμό του μετρό";
-"button_layer_isolines" = "Υψομετρικά";
+
+/* Layers menu: label of the 3D terrain layer button */
+"button_layer_terrain" = "3D ανάγλυφο";
 "isolines_location_error_dialog" = "Ενημερώστε αυτήν την περιοχή για να δείτε τις υψομετρικές γραμμές";
 "elevation_profile_ascent" = "Ανάβαση";
 "elevation_profile_descent" = "Κατάβαση";

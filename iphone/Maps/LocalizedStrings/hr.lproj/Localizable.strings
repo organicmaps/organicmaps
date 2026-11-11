@@ -955,7 +955,9 @@
 "transit_not_found" = "Navigacija podzemnom željeznicom u ovom području još nije dostupna";
 "dialog_pedestrian_route_is_long_header" = "Nije pronađena ruta podzemne željeznice";
 "dialog_pedestrian_route_is_long_message" = "Molimo odaberite početnu ili završnu točku bliže stanici metroa";
-"button_layer_isolines" = "Izohipse";
+
+/* Layers menu: label of the 3D terrain layer button */
+"button_layer_terrain" = "3D teren";
 "isolines_location_error_dialog" = "Ažurirajte ovo područje da biste vidjeli izohipse";
 "elevation_profile_ascent" = "Uzbrdo";
 "elevation_profile_descent" = "Nizbrdo";

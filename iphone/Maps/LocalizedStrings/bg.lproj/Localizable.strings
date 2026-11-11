@@ -955,7 +955,9 @@
 "transit_not_found" = "Навигацията за метро все още не е налична в региона";
 "dialog_pedestrian_route_is_long_header" = "Не е открит маршрут за метро";
 "dialog_pedestrian_route_is_long_message" = "Моля, изберете начална или крайна точка по-близо до метростанция";
-"button_layer_isolines" = "Терен";
+
+/* Layers menu: label of the 3D terrain layer button */
+"button_layer_terrain" = "3D терен";
 "isolines_location_error_dialog" = "Актуализирайте този регион, за да видите хоризонталите";
 "elevation_profile_ascent" = "Изкачване";
 "elevation_profile_descent" = "Спускане";

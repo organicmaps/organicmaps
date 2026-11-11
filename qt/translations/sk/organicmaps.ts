@@ -678,9 +678,10 @@
 <source>Religious places</source>
 <translation>Náboženské miesta</translation>
 </message>
-<message id="button_layer_isolines">
-<source>Contour Lines</source>
-<translation>Terén</translation>
+<message id="button_layer_terrain">
+<extracomment>Layers menu: label of the 3D terrain layer button</extracomment>
+<source>3D Terrain</source>
+<translation>3D terén</translation>
 </message>
 <message id="change_map_locale">
 <extracomment>Current language of the map!</extracomment>
