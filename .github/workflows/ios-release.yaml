@@ -55,4 +55,4 @@ jobs:
         shell: bash
         run: ./fastlane.sh upload_screenshots
         working-directory: xcode
-        timeout-minutes: 10
+        timeout-minutes: 30
