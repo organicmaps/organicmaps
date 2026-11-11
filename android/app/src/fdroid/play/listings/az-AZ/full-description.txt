@@ -18,6 +18,8 @@ Organic Maps — səyahət, yürüş, trekking və velosiped macəraları üçü
 
 <b>DÜNYANIN YÜRÜŞ VƏ VELOSEPED MARŞRUTLARI:</b> Xüsusi xəritə qatlarını aktiv edin və OpenStreetMap mənbəli məşhur yürüş və velosiped yollarını kəşf edin. Rəngli velosiped və MTB marşrutlarını, eləcə də rəsmi yürüş yollarını görmək üçün qatları dəyişin.
 
+<b>3D RELYEF VƏ DƏRİNLİKLƏR:</b> 3D relyefi, okean və dəniz dərinliklərini və ətraflı izoxətləri görün. Quruda və ya dənizdə istənilən nöqtəyə toxunaraq onun hündürlüyünü öyrənin.
+
 <b>İCTİMAİ NƏQLİYYAT:</b> İctimai nəqliyyatdan istifadə edərək marşrutları planlaşdıra bilərsiniz. Real vaxt cədvəllərinə dəstək hazırlanır.
 
 <b>XƏRİTƏ ÜSLUBLARI:</b> Açıq hava, relyef xətləri, yürüş, velosiped və ya metro üçün uyğun xəritə üslubu seçin.
@@ -30,7 +32,7 @@ Organic Maps — səyahət, yürüş, trekking və velosiped macəraları üçü
 
 <b>TÜND REJİM:</b> Gecələri rahat istifadə üçün tünd rejimə keçin.
 
-Tətbiqi sınayın — 100% pulsuzdur, reklamsızdır, sürətlidir və tam oflayndır. Dünyanın istənilən yerində yürüş, velosiped, trekking və səyahət üçün etibarlı GPS naviqasiyasını kəşf edin!
+Tətbiqi sınayın — 100% pulsuzdur, reklamsızdır, sürətlidir və tam oflayndır.
 
 Organic Maps — yüzlərlə töhfəçinin iştirak etdiyi, açıq mənbəli, icma tərəfindən idarə olunan indie layihəsidir. Onlar yeni funksiyalar əlavə etməyə, problemləri həll etməyə, tərcümə etməyə və layihəni irəli aparmağa kömək edirlər.
 
