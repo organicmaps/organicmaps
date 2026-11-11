@@ -113,6 +113,7 @@ import app.organicmaps.search.SearchFragmentController;
 import app.organicmaps.search.SearchPageViewModel;
 import app.organicmaps.search.SearchRequest;
 import app.organicmaps.settings.SettingsActivity;
+import app.organicmaps.util.BatteryOptimizationHelper;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.ThemeUtils;
@@ -2042,7 +2043,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     showTrackRecordingUi();
     Toast.makeText(this, R.string.track_recording, Toast.LENGTH_SHORT).show();
     TrackRecordingService.startForegroundService(getApplicationContext());
-    Utils.showBatteryOptimizationWarningIfNeeded(this);
+    BatteryOptimizationHelper.showWarningIfNeeded(this);
     return true;
   }
 

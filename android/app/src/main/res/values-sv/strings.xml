@@ -841,10 +841,10 @@
     <string name="outdoor_seating">Sittplatser utomhus</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">För att få den mest exakta navigeringen rekommenderar vi att du avaktiverar energisparläget i telefonens batteriinställningar.</string>
-    <!-- Title of the one-time Android dialog shown when starting track recording, warning that battery restrictions may interrupt it. -->
+    <!-- Title of the Android dialog shown after recording starts. Manufacturer reminders are shown once; detected restrictions once per app session. -->
     <string name="background_recording_warning_title">Spårinspelningen kan avbrytas</string>
-    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
-    <string name="background_recording_warning_message">För att spårinspelningen inte ska avbrytas när skärmen är avstängd, undanta Organic Maps från batterioptimeringen. På Samsung-enheter lägger du till appen i listan ”Appar som aldrig sätts i viloläge”.</string>
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Android 12+; use localized system Settings labels -->
+    <string name="background_recording_warning_message">För att fortsätta spela in när skärmen är avstängd, öppna ”Appbatterianvändning” eller ”Batteri” i Organic Maps appinfo och tillåt bakgrundsanvändning. Om alternativen ”Optimerad” och ”Begränsad” visas, välj ”Optimerad”.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Spela in spår</string>
     <!-- Prompt for stopping a track recording. -->
@@ -947,4 +947,10 @@
     <string name="transit_type_train">Tåg</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Spårvagn</string>
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Android 9–11; use localized system Settings labels -->
+    <string name="background_recording_warning_message_legacy">För att fortsätta spela in när skärmen är avstängd, öppna ”Batteri” i ”Organic Maps” appinfo och inaktivera ”Bakgrundsbegränsning”. Menynamn varierar beroende på enhet.</string>
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Samsung Android 11+ sleep exception; use localized One UI menu labels -->
+    <string name="background_recording_samsung_warning_message">För att fortsätta spela in när skärmen är avstängd, lägg till Organic Maps till ”Appar som aldrig går i viloläge” under Inställningar → Batteri → Gränser för bakgrundsanvändning. I vissa versioner finns ”Batteri” under ”Enhetsvård” eller ”Batteri och enhetsvård”.</string>
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Samsung Android 9–10 sleep exceptions and older three-dot Settings menu; use localized One UI menu labels -->
+    <string name="background_recording_samsung_warning_message_legacy">För att fortsätta spela in när skärmen är avstängd, öppna Inställningar → Enhetsvård → Batteri → Appens energihantering och lägg till Organic Maps till Appar som inte ska sättas i viloläge. Om det istället finns en ⋮ → Inställningar-meny, ta bort Organic Maps från Appar i viloläge.</string>
 </resources>

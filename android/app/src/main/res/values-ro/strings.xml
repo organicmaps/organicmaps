@@ -832,10 +832,10 @@
     <string name="outdoor_seating">Scaune în aer liber</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">Pentru o navigare cât mai precisă, vă recomandăm să dezactivați modul de economisire a energiei în setările pentru baterie ale telefonului.</string>
-    <!-- Title of the one-time Android dialog shown when starting track recording, warning that battery restrictions may interrupt it. -->
+    <!-- Title of the Android dialog shown after recording starts. Manufacturer reminders are shown once; detected restrictions once per app session. -->
     <string name="background_recording_warning_title">Înregistrarea traseului se poate opri</string>
-    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
-    <string name="background_recording_warning_message">Pentru a evita întreruperea înregistrării traseului când ecranul este stins, excludeți Organic Maps de la optimizarea bateriei. Pe dispozitivele Samsung, adăugați aplicația la lista „Aplicații care nu intră niciodată în repaus”.</string>
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Android 12+; use localized system Settings labels -->
+    <string name="background_recording_warning_message">Pentru a continua înregistrarea când ecranul este oprit, deschideți „Utilizarea bateriei de către aplicație” sau „Baterie” din secțiunea „Informații despre aplicație” a Organic Maps și permiteți utilizarea în fundal. Dacă sunt disponibile opțiunile „Optimizat” și „Restricționat”, alegeți „Optimizat”.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Înregistrați traseul</string>
     <!-- Prompt for stopping a track recording. -->
@@ -941,4 +941,10 @@
     <string name="transit_type_train">Tren</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tramvai</string>
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Android 9–11; use localized system Settings labels -->
+    <string name="background_recording_warning_message_legacy">Pentru a continua înregistrarea când ecranul este oprit, deschideți secțiunea „Baterie” din informațiile despre aplicația Organic Maps și dezactivați opțiunea „Restricție în fundal”. Denumirile meniurilor variază în funcție de dispozitiv.</string>
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Samsung Android 11+ sleep exception; use localized One UI menu labels -->
+    <string name="background_recording_samsung_warning_message">Pentru a continua înregistrarea când ecranul este oprit, adăugați Organic Maps la „Aplicații care nu intră niciodată în repaus” din Setări → Baterie → Limite de utilizare în fundal. În unele versiuni, opțiunea „Baterie” se află sub „Îngrijirea dispozitivului” sau „Baterie și îngrijirea dispozitivului”.</string>
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Samsung Android 9–10 sleep exceptions and older three-dot Settings menu; use localized One UI menu labels -->
+    <string name="background_recording_samsung_warning_message_legacy">Pentru a continua înregistrarea când ecranul este oprit, deschideți Setări → Îngrijire dispozitiv → Baterie → Gestionare consum energie aplicații și adăugați Organic Maps la Aplicații care nu vor fi puse în repaus. Dacă există în schimb un meniu ⋮ → Setări, eliminați Organic Maps din Aplicații în repaus.</string>
 </resources>

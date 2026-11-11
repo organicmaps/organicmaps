@@ -830,10 +830,10 @@
     <string name="outdoor_seating">Buitelug sitplek</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">Vir die mees akkurate navigasie, beveel ons aan dat u kragbesparingsmodus in die foon se batteryinstellings deaktiveer.</string>
-    <!-- Title of the one-time Android dialog shown when starting track recording, warning that battery restrictions may interrupt it. -->
+    <!-- Title of the Android dialog shown after recording starts. Manufacturer reminders are shown once; detected restrictions once per app session. -->
     <string name="background_recording_warning_title">Spooropname kan stop</string>
-    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
-    <string name="background_recording_warning_message">Om te verhoed dat die spooropname stop wanneer die skerm af is, sluit Organic Maps asseblief van batteryoptimalisering uit. Voeg die toepassing op Samsung-toestelle by die lys “Toepassings wat nooit slaap nie”.</string>
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Android 12+; use localized system Settings labels -->
+    <string name="background_recording_warning_message">Om aan te hou met opneem wanneer die skerm af is, maak App-batterygebruik of Battery oop in die App-inligting van Organic Maps en laat agtergrondgebruik toe. As Geoptimaliseer en Beperk aangebied word, kies Geoptimaliseer.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Registreer roete</string>
     <!-- Prompt for stopping a track recording. -->
@@ -935,4 +935,10 @@
     <string name="transit_type_train">Trein</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Trem</string>
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Android 9–11; use localized system Settings labels -->
+    <string name="background_recording_warning_message_legacy">Om aanhoudend op te neem wanneer die skerm af is, maak in die App-inligting van Organic Maps die battery-inligting oop en skakel die agtergrondbeperking uit. Menu-name verskil per toestel.</string>
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Samsung Android 11+ sleep exception; use localized One UI menu labels -->
+    <string name="background_recording_samsung_warning_message">Om aanhoudend op te neem wanneer die skerm af is, voeg Organic Maps by die \'Nooit slapende\' programme in Instellings → Battery → Begrenzing van agtergrondgebruik. Op sommige weergawes is Battery onder Toestelversorging of Battery en toestelversorging.</string>
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Samsung Android 9–10 sleep exceptions and older three-dot Settings menu; use localized One UI menu labels -->
+    <string name="background_recording_samsung_warning_message_legacy">Om aanhoudend op te neem wanneer die skerm af is, maak Instellings oop → Toestelversorging → Battery → App-kragbestuur en voeg Organic Maps by die programme wat nie geslaap sal word nie. As daar eerder \'n ⋮ → Instellings-menu is, verwyder Organic Maps uit die Slaapprogramme.</string>
 </resources>

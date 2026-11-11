@@ -850,10 +850,10 @@
     <string name="outdoor_seating">Сидіння на відкритому повітрі</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">Для найбільш точної навігації ми рекомендуємо вимкнути режим енергозбереження в налаштуваннях батареї телефону.</string>
-    <!-- Title of the one-time Android dialog shown when starting track recording, warning that battery restrictions may interrupt it. -->
+    <!-- Title of the Android dialog shown after recording starts. Manufacturer reminders are shown once; detected restrictions once per app session. -->
     <string name="background_recording_warning_title">Запис треку може перерватися</string>
-    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
-    <string name="background_recording_warning_message">Щоб запис треку не переривався, коли екран вимкнено, вимкніть оптимізацію батареї для Organic Maps. На пристроях Samsung додайте програму до списку «Програми, що ніколи не переходять у режим сну».</string>
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Android 12+; use localized system Settings labels -->
+    <string name="background_recording_warning_message">Щоб запис треку продовжувався, коли екран вимкнено, відкрийте «Використання акумулятора застосунком» або «Акумулятор» у відомостях про застосунок Organic Maps і дозвольте фонову роботу. Якщо доступні варіанти «Оптимізовано» та «Обмежено», виберіть «Оптимізовано».</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Записати трек</string>
     <!-- Prompt for stopping a track recording. -->
@@ -962,4 +962,10 @@
     <string name="transit_type_train">Потяг</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Трамвай</string>
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Android 9–11; use localized system Settings labels -->
+    <string name="background_recording_warning_message_legacy">Щоб запис треку продовжувався, коли екран вимкнено, відкрийте «Акумулятор» у відомостях про застосунок Organic Maps і вимкніть обмеження фонової роботи. Назви пунктів меню можуть відрізнятися на різних пристроях.</string>
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Samsung Android 11+ sleep exception; use localized One UI menu labels -->
+    <string name="background_recording_samsung_warning_message">Щоб запис треку продовжувався, коли екран вимкнено, додайте Organic Maps до списку «Програми, що ніколи не переходять у режим сну» в налаштуваннях: Акумулятор → Обмеження фонового використання. У деяких версіях розділ «Акумулятор» знаходиться в розділі «Обслуговування пристрою» або «Батарея та обслуговування пристрою».</string>
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Samsung Android 9–10 sleep exceptions and older three-dot Settings menu; use localized One UI menu labels -->
+    <string name="background_recording_samsung_warning_message_legacy">Щоб запис треку продовжувався, коли екран вимкнено, відкрийте налаштування: Обслуговування пристрою → Акумулятор → Моніторинг енергоспоживання і додайте Organic Maps до списку «Програми, які не переходять у режим сну». Якщо натомість є меню ⋮ → Налаштування, видаліть Organic Maps зі списку «Програми в режимі сну».</string>
 </resources>

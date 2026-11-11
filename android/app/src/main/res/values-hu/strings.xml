@@ -844,10 +844,10 @@
     <string name="outdoor_seating">Kiülős helyek</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">A legpontosabb navigáció érdekében javasoljuk az energiatakarékos üzemmód kikapcsolását az eszköz akkumulátor-beállításaiban.</string>
-    <!-- Title of the one-time Android dialog shown when starting track recording, warning that battery restrictions may interrupt it. -->
+    <!-- Title of the Android dialog shown after recording starts. Manufacturer reminders are shown once; detected restrictions once per app session. -->
     <string name="background_recording_warning_title">A nyomvonal rögzítése leállhat</string>
-    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
-    <string name="background_recording_warning_message">Annak érdekében, hogy a nyomvonalrögzítés ne álljon le a képernyő kikapcsolásakor, zárja ki az Organic Maps alkalmazást az akkumulátor-optimalizálásból. Samsung-eszközökön adja hozzá az alkalmazást a „Soha nem alvó alkalmazások” listájához.</string>
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Android 12+; use localized system Settings labels -->
+    <string name="background_recording_warning_message">Ahhoz, hogy a rögzítés a kikapcsolt képernyő mellett is folytatódjon, nyissa meg az „Alkalmazás akkumulátorhasználata” vagy az „Akkumulátor” menüpontot az Organic Maps alkalmazásinformációi között, és engedélyezze a háttérhasználatot. Ha az „Optimalizált” és a „Korlátozott” opciók közül lehet választani, válassza az „Optimalizált” lehetőséget.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Nyomvonal rögzítése</string>
     <!-- Prompt for stopping a track recording. -->
@@ -952,4 +952,10 @@
     <string name="transit_type_train">Vonat</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Villamos</string>
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Android 9–11; use localized system Settings labels -->
+    <string name="background_recording_warning_message_legacy">Ahhoz, hogy a rögzítés a kikapcsolt képernyő mellett is folytatódjon, nyissa meg az „Akkumulátor” menüpontot az Organic Maps alkalmazásinformációi között, és kapcsolja ki a „Háttérkorlátozás” opciót. A menünevek eszközönként eltérhetnek.</string>
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Samsung Android 11+ sleep exception; use localized One UI menu labels -->
+    <string name="background_recording_samsung_warning_message">Ahhoz, hogy a rögzítés a kikapcsolt képernyő mellett is folytatódjon, vegye fel az Organic Maps-et a „Soha nem alvó alkalmazások” listájába a Beállítások → Akkumulátor → Háttérhasználati korlátozások menüpontban. Egyes verziókban az „Akkumulátor” menüpont az „Eszközgondozás” vagy az „Akkumulátor és eszközgondozás” alatt található.</string>
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Samsung Android 9–10 sleep exceptions and older three-dot Settings menu; use localized One UI menu labels -->
+    <string name="background_recording_samsung_warning_message_legacy">Ahhoz, hogy a rögzítés a kikapcsolt képernyő mellett is folytatódjon, nyissa meg a Beállítások → Eszközkarbantartás → Akkumulátor → Alkalmazások energiafelhasználása menüpontot, és vegye fel az Organic Maps alkalmazást az „Alkalmazások, amelyek nem kerülnek alvó módba” listába. Ha helyette egy ⋮ → Beállítások menü jelenik meg, távolítsa el az Organic Maps alkalmazást az „Alvó alkalmazások” listából.</string>
 </resources>

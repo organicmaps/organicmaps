@@ -857,10 +857,10 @@
     <string name="outdoor_seating">مقاعد خارجية</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">للحصول على التنقل الأكثر دقة، نوصي بتعطيل وضع توفير الطاقة في إعدادات بطارية الهاتف.</string>
-    <!-- Title of the one-time Android dialog shown when starting track recording, warning that battery restrictions may interrupt it. -->
+    <!-- Title of the Android dialog shown after recording starts. Manufacturer reminders are shown once; detected restrictions once per app session. -->
     <string name="background_recording_warning_title">قد يتوقف تسجيل المسار</string>
-    <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
-    <string name="background_recording_warning_message">لمنع توقف تسجيل المسار عند إيقاف تشغيل الشاشة، يرجى استبعاد Organic Maps من عملية تحسين استهلاك البطارية. على أجهزة Samsung، أضفه إلى قائمة «التطبيقات التي لا تدخل في وضع السكون أبدًا».</string>
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Android 12+; use localized system Settings labels -->
+    <string name="background_recording_warning_message">لمواصلة التسجيل عند إيقاف تشغيل الشاشة، افتح «استخدام البطارية للتطبيق» أو «البطارية» في «معلومات التطبيق» في Organic Maps واسمح بالاستخدام في الخلفية. إذا تم عرض الخيارين «مُحسّن» و«مقيد»، فاختر «مُحسّن».</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">تسجيل المسار</string>
     <!-- Prompt for stopping a track recording. -->
@@ -975,4 +975,10 @@
     <string name="transit_type_train">قطار</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">ترام</string>
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Android 9–11; use localized system Settings labels -->
+    <string name="background_recording_warning_message_legacy">لمواصلة التسجيل عند إيقاف تشغيل الشاشة، افتح «البطارية» في «معلومات التطبيق» في تطبيق Organic Maps وقم بإيقاف تشغيل «تقييد الخلفية». تختلف أسماء القوائم باختلاف الجهاز.</string>
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Samsung Android 11+ sleep exception; use localized One UI menu labels -->
+    <string name="background_recording_samsung_warning_message">لمواصلة التسجيل عند إيقاف تشغيل الشاشة، أضف تطبيق «Organic Maps» إلى قائمة «التطبيقات التي لا تدخل في وضع السكون أبدًا» في «الإعدادات» → «البطارية» → «حدود الاستخدام في الخلفية». في بعض الإصدارات، توجد خيار «البطارية» ضمن «العناية بالجهاز» أو «البطارية والعناية بالجهاز».</string>
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Samsung Android 9–10 sleep exceptions and older three-dot Settings menu; use localized One UI menu labels -->
+    <string name="background_recording_samsung_warning_message_legacy">لمواصلة التسجيل عند إيقاف تشغيل الشاشة، افتح «الإعدادات» → «العناية بالجهاز» → «البطارية» → «إدارة طاقة التطبيقات» وأضف تطبيق «Organic Maps» إلى «التطبيقات التي لن يتم وضعها في وضع السكون». إذا كان هناك قائمة «⋮» → «الإعدادات» بدلاً من ذلك، فقم بإزالة تطبيق «Organic Maps» من «التطبيقات في وضع السكون».</string>
 </resources>
