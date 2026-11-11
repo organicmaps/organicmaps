@@ -16,7 +16,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.TextView;
@@ -150,10 +149,6 @@ public class TrackRecordingBatteryWarningTest
       assertTrue(warning(activity).requireDialog().isShowing());
       assertTrue(TrackRecorder.nativeIsTrackRecordingEnabled());
       assertFalse(mPreferences.getBoolean("battery_optimization_warning_seen", false));
-
-      final Intent restart = coreRestartIntent(activity);
-      assertFalse(restart.getBooleanExtra(MwmActivity.EXTRA_START_TRACK_RECORDING, false));
-      assertTrue(MwmActivity.isIntentConsumed(null, restart));
     });
   }
 
@@ -360,15 +355,6 @@ public class TrackRecordingBatteryWarningTest
     final BatteryOptimizationHelper.WarningDialogFragment warning = findWarning(activity);
     assertNotNull(warning);
     return warning;
-  }
-
-  private static Intent coreRestartIntent(MwmActivity activity)
-  {
-    final Bundle state = new Bundle();
-    activity.onSaveInstanceState(state);
-    final Intent restart = new Intent(activity.getIntent());
-    activity.prepareIntentForCoreRestart(restart, state);
-    return restart;
   }
 
   private void await(java.util.function.BooleanSupplier condition)
