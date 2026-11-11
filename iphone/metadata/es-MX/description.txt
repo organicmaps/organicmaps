@@ -12,9 +12,11 @@ FUNCIONES IMPORTANTES:
 
 EXPLORA LUGARES: Busca por dirección, nombre o categoría, descubre millones de PDI (puntos de interés) y consulta información detallada como horarios, artículos de Wikipedia, accesibilidad para sillas de ruedas y otros datos útiles.
 
-NAVEGACIÓN GPS: Disfruta de indicaciones por voz, giro a giro. Crea rutas para caminar, hacer senderismo, ciclismo o conducir — incluyendo rutas entre ciudades, países y múltiples puntos intermedios. Encuentra las mejores rutas para tus viajes en metro y desplazamientos diarios. 
+NAVEGACIÓN GPS: Disfruta de indicaciones por voz, giro a giro. Crea rutas para caminar, hacer senderismo, ciclismo o conducir — incluyendo rutas entre ciudades, países y múltiples puntos intermedios.
 
 SENDEROS Y RUTAS DE CICLISMO EN TODO EL MUNDO: Activa capas especiales de mapa para descubrir rutas populares de senderismo y ciclismo en todo el mundo, todas provenientes de OpenStreetMap. Cambia entre capas para ver rutas de bicicleta y MTB coloreadas, así como senderos oficiales.
+
+TERRENO 3D Y PROFUNDIDADES: Visualiza el terreno en 3D, la profundidad de océanos y mares y curvas de nivel detalladas. Toca cualquier punto para ver su altitud, en tierra o en el mar.
 
 TRANSPORTE PÚBLICO: Planifica rutas de transporte público. Los horarios en tiempo real están en desarrollo.
 
@@ -28,8 +30,8 @@ EDITOR DE MAPAS: Contribuye a OpenStreetMap agregando lugares que falten o edita
 
 SINCRONIZACIÓN iCLOUD: Realiza fácilmente copias de seguridad y sincroniza todos tus marcadores y rutas a través de iCloud.
 
-Prueba la aplicación — es 100 % gratuita, sin anuncios, rápida y completamente offline. Disfruta de una experiencia de mapas rápida, confiable y privada, y compártela con otros.
-Organic Maps es un proyecto indie, de código abierto y dirigido por la comunidad, con cientos de colaboradores que ayudan a desarrollar nuevas funciones, corregir errores, traducir y avanzar en el proyecto.
+Prueba la aplicación — es 100 % gratuita, sin anuncios, rápida y completamente offline.
+Organic Maps es un proyecto indie, de código abierto y dirigido por la comunidad, con cientos de colaboradores que desarrollan funciones, corrigen errores y traducen.
 
 O descubre otras formas de apoyar el proyecto: https://organicmaps.app/contribute/
 
