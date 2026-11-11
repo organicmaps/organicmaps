@@ -1,3 +1,5 @@
+#include "dev_sandbox/context_factory.hpp"
+
 #include "iphone/Maps/Core/MapRendering/MetalContextFactory.h"
 
 #include "drape/gl_functions.hpp"
@@ -30,8 +32,10 @@ class MacOSVulkanContextFactory : public dp::vulkan::VulkanContextFactory
 public:
   MacOSVulkanContextFactory() : dp::vulkan::VulkanContextFactory(1, 33, false) {}
 
-  void SetSurface(CAMetalLayer * layer)
+  void SetSurface(CAMetalLayer * layer, m2::PointU const & size)
   {
+    m_layer = layer;
+    UpdateSize(size.x, size.y);
     VkMacOSSurfaceCreateInfoMVK createInfo = {
         .sType = VK_STRUCTURE_TYPE_MACOS_SURFACE_CREATE_INFO_MVK,
         .flags = 0,
@@ -57,10 +61,10 @@ public:
     }
     CHECK_EQUAL(supportsPresent, VK_TRUE, ());
 
-    CHECK(QuerySurfaceSize(), ());
+    CHECK(QuerySurfaceSize(size), ());
 
     if (m_drawContext)
-      m_drawContext->SetSurface(m_surface, m_surfaceFormat, m_surfaceCapabilities);
+      m_drawContext->SetSurface(m_surface, m_surfaceFormat, size);
   }
 
   void ResetSurface()
@@ -70,6 +74,14 @@ public:
 
     vkDestroySurfaceKHR(m_vulkanInstance, m_surface, nullptr);
   }
+
+  void UpdateSize(uint32_t w, uint32_t h)
+  {
+    m_layer.drawableSize = CGSize{static_cast<float>(w), static_cast<float>(h)};
+  }
+
+private:
+  CAMetalLayer * m_layer = nil;
 };
 
 class MacGLContext : public dp::OGLContext
@@ -108,7 +120,7 @@ public:
     }
   }
 
-  bool BeginRendering() override { return m_viewSet; }
+  dp::FrameStatus BeginRendering() override { return m_viewSet ? dp::FrameStatus::Ready : dp::FrameStatus::Suspended; }
 
   void Present() override
   {
@@ -267,8 +279,10 @@ private:
   std::mutex m_viewSetMutex;
 };
 
-drape_ptr<dp::GraphicsContextFactory> CreateContextFactory(GLFWwindow * window, dp::ApiVersion api, m2::PointU size)
+drape_ptr<dp::GraphicsContextFactory> CreateContextFactory(GlfwWindows const & windows, dp::ApiVersion api,
+                                                           m2::PointU size)
 {
+  auto * window = windows.m_visible;
   if (api == dp::ApiVersion::Metal)
   {
     CAMetalLayer * layer = [CAMetalLayer layer];
@@ -301,7 +315,7 @@ drape_ptr<dp::GraphicsContextFactory> CreateContextFactory(GLFWwindow * window, 
     nswindow.contentView.layer = layer;
 
     auto contextFactory = make_unique_dp<MacOSVulkanContextFactory>();
-    contextFactory->SetSurface(layer);
+    contextFactory->SetSurface(layer, size);
     return contextFactory;
   }
 
@@ -360,6 +374,11 @@ void UpdateSize(ref_ptr<dp::GraphicsContextFactory> contextFactory, int w, int h
   if (api == dp::ApiVersion::OpenGLES3)
   {
     ref_ptr<MacGLContextFactory> macosContextFactory = contextFactory;
+    macosContextFactory->UpdateSize(w, h);
+  }
+  else if (api == dp::ApiVersion::Vulkan)
+  {
+    ref_ptr<MacOSVulkanContextFactory> macosContextFactory = contextFactory;
     macosContextFactory->UpdateSize(w, h);
   }
 }

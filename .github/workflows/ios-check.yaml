@@ -108,8 +108,10 @@ jobs:
             -scheme OMaps \
             -configuration Debug \
             -sdk iphonesimulator \
-            -destination 'generic/platform=iOS' \
+            -destination 'generic/platform=iOS Simulator' \
             -quiet \
+            ARCHS=arm64 \
+            EXCLUDED_ARCHS=x86_64 \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO
 
@@ -123,5 +125,7 @@ jobs:
             -configuration Release \
             -destination 'generic/platform=iOS' \
             -quiet \
+            ARCHS=arm64 \
+            EXCLUDED_ARCHS=x86_64 \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO

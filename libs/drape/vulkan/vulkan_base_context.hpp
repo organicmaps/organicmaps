@@ -29,16 +29,17 @@ class VulkanBaseContext : public dp::GraphicsContext
 public:
   VulkanBaseContext(VkInstance vulkanInstance, VkPhysicalDevice gpu, VkPhysicalDeviceProperties const & gpuProperties,
                     VkDevice device, uint32_t renderingQueueFamilyIndex, ref_ptr<VulkanObjectManager> objectManager,
-                    drape_ptr<VulkanPipeline> && pipeline, bool hasPartialTextureUpdates);
+                    drape_ptr<VulkanPipeline> && pipeline, bool hasPartialTextureUpdates,
+                    bool supportsImageAcquireTimeout);
   ~VulkanBaseContext() override;
 
   using ContextHandler = std::function<void(uint32_t inflightFrameIndex)>;
 
-  bool BeginRendering() override;
+  FrameStatus BeginRendering() override;
   void EndRendering() override;
   void Present() override;
   void CollectMemory() override;
-  void DoneCurrent() override {}
+  void DoneCurrent() override;
   bool Validate() override { return true; }
   void Resize(uint32_t w, uint32_t h) override;
   void SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer) override;
@@ -77,8 +78,8 @@ public:
   void ApplyParamDescriptor(ParamDescriptor && descriptor);
   void ClearParamDescriptors();
 
-  void SetSurface(VkSurfaceKHR surface, VkSurfaceFormatKHR surfaceFormat,
-                  VkSurfaceCapabilitiesKHR const & surfaceCapabilities);
+  void SetSurface(VkSurfaceKHR surface, VkSurfaceFormatKHR surfaceFormat, m2::PointU const & framebufferSize,
+                  VkPresentModeKHR presentMode = VK_PRESENT_MODE_FIFO_KHR);
   void ResetSurface(bool allowPipelineDump);
 
   VkPhysicalDevice GetPhysicalDevice() const { return m_gpu; }
@@ -146,13 +147,15 @@ protected:
 
   void CreateSyncPrimitives();
   void DestroySyncPrimitives();
+  void CreateRenderSemaphores();
+  void DestroyRenderSemaphores();
 
   void DestroyRenderPassAndFramebuffers();
   void DestroyRenderPassAndFramebuffer(ref_ptr<BaseFramebuffer> framebuffer);
 
   void RecreateDepthTexture();
 
-  void RecreateSwapchainAndDependencies();
+  FrameStatus RecreateSwapchainAndDependencies();
   void ResetSwapchainAndDependencies();
 
   AttachmentsOperations GetAttachmensOperations();
@@ -167,6 +170,7 @@ protected:
   VkDevice const m_device;
   uint32_t const m_renderingQueueFamilyIndex;
   bool const m_hasPartialTextureUpdates;
+  bool const m_supportsImageAcquireTimeout;
 
   VkQueue m_queue = {};
   VkCommandPool m_commandPool = {};
@@ -186,7 +190,9 @@ protected:
   drape_ptr<VulkanPipeline> m_pipeline;
   std::optional<VkSurfaceKHR> m_surface;
 
-  VkSurfaceCapabilitiesKHR m_surfaceCapabilities;
+  VkSurfaceCapabilitiesKHR m_surfaceCapabilities = {};
+  m2::PointU m_framebufferSize;
+  VkPresentModeKHR m_presentMode = VK_PRESENT_MODE_FIFO_KHR;
   std::optional<VkSurfaceFormatKHR> m_surfaceFormat;
 
   VkSwapchainKHR m_swapchain = {};
