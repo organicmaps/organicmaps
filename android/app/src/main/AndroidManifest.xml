@@ -556,7 +556,7 @@
     <activity
       android:name=".widget.TrackRecordingStartActivity"
       android:exported="false"
-      android:launchMode="singleTask"
+      android:launchMode="singleTop"
       android:taskAffinity=""
       android:theme="@style/MwmTheme.TrackRecordingStart" />
 

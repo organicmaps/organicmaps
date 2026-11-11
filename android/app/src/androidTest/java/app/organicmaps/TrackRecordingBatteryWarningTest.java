@@ -209,6 +209,30 @@ public class TrackRecordingBatteryWarningTest
   }
 
   @Test
+  public void widgetStartRestartsRecordingWhileTheAdvisoryIsOpen() throws Exception
+  {
+    try (ActivityScenario<TrackRecordingStartActivity> starter =
+             ActivityScenario.launch(new Intent(mContext, TrackRecordingStartActivity.class)))
+    {
+      final AtomicReference<Activity> original = new AtomicReference<>();
+      starter.onActivity(activity -> {
+        original.set(activity);
+        assertTrue(warning(activity).requireDialog().isShowing());
+        TrackRecorder.nativeDiscardTrackRecording();
+        TrackRecordingService.stopService(mContext);
+      });
+      await(() -> Boolean.FALSE.equals(TrackRecordingService.isRecording().getValue()));
+
+      TrackRecordingStartActivity.Companion.createPendingIntent(mContext).send();
+      await(() -> TrackRecorder.nativeIsTrackRecordingEnabled());
+      starter.onActivity(activity -> {
+        assertEquals(original.get(), activity);
+        assertTrue(warning(activity).requireDialog().isShowing());
+      });
+    }
+  }
+
+  @Test
   public void readingTheGuideKeepsRecordingAndTheAdvisoryAvailable()
   {
     selectRecordTrack();

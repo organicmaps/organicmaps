@@ -49,6 +49,11 @@ class TrackRecordingStartActivity : AppCompatActivity() {
         }
     }
 
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        startRecording()
+    }
+
     private fun startRecording() {
         if (!LocationUtils.checkFineLocationPermission(this)) {
             locationPermission.launch(arrayOf(ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION))
