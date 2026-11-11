@@ -20,7 +20,7 @@ KHÁM PHÁ ĐỊA ĐIỂM: Tìm kiếm theo địa chỉ, tên hoặc danh mục
 
 GIAO THÔNG CÔNG CỘNG: Bạn có thể lập kế hoạch lộ trình bằng phương tiện giao thông công cộng. Tính năng lịch trình thời gian thực đang được phát triển.
 
-KIỂU HIỂN THỊ BẢN ĐỒ: Chọn lớp bản đồ phù hợp với hoạt động của bạn — Outdoors, Contour Lines, Hiking, Cycling hoặc Metro/Subway.
+KIỂU HIỂN THỊ BẢN ĐỒ: Chọn lớp bản đồ phù hợp với hoạt động của bạn — Ngoài trời, Đường đồng mức, Đi bộ đường dài, Đạp xe hoặc Tàu điện ngầm.
 
 GHI LẠI LỘ TRÌNH: Ghi, nhập, xuất và chia sẻ các lộ trình và địa điểm yêu thích. Hỗ trợ KML, KMZ, GPX và GeoJSON.
 
