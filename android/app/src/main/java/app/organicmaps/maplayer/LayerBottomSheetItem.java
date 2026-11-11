@@ -50,7 +50,7 @@ public class LayerBottomSheetItem
       break;
     case ISOLINES:
       drawableResId = R.drawable.ic_layers_isoline;
-      buttonTextResource = R.string.button_layer_isolines;
+      buttonTextResource = R.string.button_layer_terrain;
       break;
     case TRAFFIC:
       drawableResId = R.drawable.ic_layers_traffic;

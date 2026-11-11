@@ -50,7 +50,7 @@ class BottomMenuLayersCell: UITableViewCell {
 
   private func setupButtons() {
     outdoorButton.setupWith(image: UIImage(resource: .btnMenuOutdoors), text: L("button_layer_outdoor"))
-    isoLinesButton.setupWith(image: UIImage(resource: .btnMenuIsomaps), text: L("button_layer_isolines"))
+    isoLinesButton.setupWith(image: UIImage(resource: .btnMenuIsomaps), text: L("button_layer_terrain"))
     hikingButton.setupWith(image: UIImage(resource: .btnMenuHiking), text: L("button_layer_hiking"))
     cyclingButton.setupWith(image: UIImage(resource: .btnMenuCycling), text: L("button_layer_cycling"))
     subwayButton.setupWith(image: UIImage(resource: .btnMenuSubway), text: L("button_layer_subway"))
