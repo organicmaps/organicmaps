@@ -1,4 +1,4 @@
-Organic Maps iyithuluzi elishesha nelinemininingwane elisebenza ngaphandle kokuxhumeka kwe-intanethi futhi line-GPS yokuhola indlela, elenzelwe ukuhamba, ukuhamba ngezintaba, ukuhamba ngezinyawo, kanye nokugibela ibhayisikili. Hlela, uthumele, futhi urekhoda izindlela, futhi ujabulele ukuqondiswa okuhle ngaphandle kokudla ibhethri lakho noma ukusebenzisa uxhumano lwe-intanethi. Hlola izindawo futhi uqondise ngokuphepha ngesikhathi sokuzijabulisa kwakho ngaphandle kanye nohambo lwakho emhlabeni wonke. Lolu hlelo lokusebenza lunikeza ukulanda kwemephu okungenamkhawulo kanye nezibuyekezo eziphindwa kabili ngenyanga. Lusekelwe ku-OpenStreetMap, lwenziwe ngabavolontiya, lugxile ekuvikelweni kwemfihlo, lusebenza ngaphandle kwe-intanethi ngokuphelele, futhi luyamahhala ngokuphelele.
+Organic Maps iyithuluzi elishesha nelinemininingwane elisebenza ngaphandle kokuxhumeka kwe-intanethi futhi line-GPS yokuhola indlela, elenzelwe ukuhamba, ukuhamba ngezintaba, ukuhamba ngezinyawo, kanye nokugibela ibhayisikili. Hlela, uthumele, futhi urekhoda izindlela, futhi ujabulele ukuqondiswa okuhle ngaphandle kokudla ibhethri lakho noma ukusebenzisa uxhumano lwe-intanethi. Lolu hlelo lokusebenza lunikeza ukulanda kwemephu okungenamkhawulo kanye nezibuyekezo eziphindwa kabili ngenyanga. Lusekelwe ku-OpenStreetMap, lwenziwe ngabavolontiya, lugxile ekuvikelweni kwemfihlo, lusebenza ngaphandle kwe-intanethi ngokuphelele, futhi luyamahhala ngokuphelele.
 
 <b>NGAPHANDLE KWENETHIWEKI:</b>
 
@@ -24,11 +24,15 @@ Sesha ngokwekheli, igama, noma isigaba, thola izigidi zama-POI, futhi ubone imin
 
 <b>UKUZULAZULA NGE-GPS:</b>
 
-Jabulela imiyalelo eqondiswa ngamazwi, okujika ngokujika. Dala imizila yokuhamba ngezinyawo, yokuhamba entabeni, yokugibela ibhayisikili, noma yokushayela — kuhlanganisa nemizila phakathi kwamadolobha, amazwe, nezindawo eziningi zokuma. Thola izindlela ezingcono kakhulu zohambo lwakho lwe-metro nokuhamba kwakho kwansuku zonke. I-Android Auto iyasekelwa.
+Jabulela imiyalelo eqondiswa ngamazwi, okujika ngokujika. Dala imizila yokuhamba ngezinyawo, yokuhamba entabeni, yokugibela ibhayisikili, noma yokushayela — kuhlanganisa nemizila phakathi kwamadolobha, amazwe, nezindawo eziningi zokuma. I-Android Auto iyasekelwa.
 
 <b>IZINDLELA ZOKUHAMBA NGEZINYAWO NANGEBHAYISIKILI EMHLABENI WONKE:</b>
 
 Vumela izendlalelo zemephu ezikhethekile ukuze uthole izindlela ezidume kakhulu zokuhamba ngezinyawo nokugibela ibhayisikili emhlabeni wonke, zonke zithathwe ku-OpenStreetMap. Shintsha phakathi kwezendlalelo ukuze ubone imigqa enemibala yamabhayisikili ne-MTB, kanye nemizila esemthethweni yokuhamba ngezinyawo.
+
+<b>ISIMO SEZWE SE-3D NOKUJULA:</b>
+
+Bona isimo sezwe se-3D, ukujula kwezilwandle, kanye nemigqa yokuphakama enemininingwane. Thepha noma iyiphi indawo ukuze ubone ukuphakama kwayo, emhlabeni noma olwandle.
 
 <b>EZOKUTHUTHA ZOMPHAKATHI:</b>
 
