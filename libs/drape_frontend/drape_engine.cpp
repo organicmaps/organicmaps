@@ -977,6 +977,7 @@ drape_ptr<UserMarkRenderParams> DrapeEngine::GenerateMarkRenderInfo(UserPointMar
   renderInfo->m_color = mark->GetColorConstant();
   renderInfo->m_customColor = mark->GetCustomColor();
   renderInfo->m_symbolIsPOI = mark->SymbolIsPOI();
+  renderInfo->m_symbolUsesFontScale = mark->SymbolUsesFontScale();
   renderInfo->m_hasTitlePriority = mark->HasTitlePriority();
   renderInfo->m_priority = mark->GetPriority();
   renderInfo->m_displacement = mark->GetDisplacement();

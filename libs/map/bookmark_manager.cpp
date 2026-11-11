@@ -1764,7 +1764,8 @@ m2::RectD BookmarkManager::GetCategoryRect(kml::MarkGroupId categoryId, bool add
     categoryRect.Add(GetBookmark(markId)->GetPivot());
   if (addIconsSize && !category->GetUserMarks().empty())
   {
-    double const coeff = m_maxBookmarkSymbolSize.y / (m_viewport.PixelRect().SizeY() - m_maxBookmarkSymbolSize.y);
+    double const iconHeight = m_maxBookmarkSymbolSize.y * df::VisualParams::Instance().GetFontScale();
+    double const coeff = iconHeight / (m_viewport.PixelRect().SizeY() - iconHeight);
     categoryRect.Add(categoryRect.LeftTop() + m2::PointD(0.0, categoryRect.SizeY() * coeff));
   }
   for (auto trackId : category->GetUserLines())

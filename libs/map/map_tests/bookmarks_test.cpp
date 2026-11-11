@@ -2,6 +2,7 @@
 
 #include "map/bookmark_helpers.hpp"
 #include "map/framework.hpp"
+#include "map/search_mark.hpp"
 #include "map/track_mark.hpp"
 
 #include "drape_frontend/drape_engine.hpp"
@@ -81,6 +82,16 @@ class BookmarksTestFixture
 };
 
 using Runner = BookmarksTestFixture;
+
+UNIT_CLASS_TEST(Runner, OnlyBookmarkIconsScaleWithText)
+{
+  Bookmark const bookmark({0, 0});
+  SearchMarkPoint const search({0, 0});
+  TrackInfoMark const trackInfo({0, 0});
+  TEST(bookmark.SymbolUsesFontScale(), ());
+  TEST(!search.SymbolUsesFontScale(), ());
+  TEST(!trackInfo.SymbolUsesFontScale(), ());
+}
 
 char const * kmlString =
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"

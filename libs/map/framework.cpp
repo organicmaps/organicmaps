@@ -2674,7 +2674,10 @@ UserMark const * Framework::FindUserMarkInTapPosition(place_page::BuildInfo cons
       return df::TapInfo::GetPreciseTapRect(buildInfo.m_mercator, kEps);
 
     if (type == UserMark::Type::BOOKMARK || type == UserMark::Type::TRACK_INFO)
-      return df::TapInfo::GetBookmarkTapRect(buildInfo.m_mercator, m_currentModelView);
+    {
+      double const symbolScale = type == UserMark::Type::BOOKMARK ? df::VisualParams::Instance().GetFontScale() : 1.0;
+      return df::TapInfo::GetBookmarkTapRect(buildInfo.m_mercator, m_currentModelView, symbolScale);
+    }
 
     if (type == UserMark::Type::ROUTING || type == UserMark::Type::ROAD_WARNING)
       return df::TapInfo::GetRoutingPointTapRect(buildInfo.m_mercator, m_currentModelView);

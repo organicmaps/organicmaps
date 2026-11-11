@@ -2,6 +2,7 @@ project(drape_frontend_tests)
 
 set(SRC
   area_shape_tests.cpp
+  bookmark_scaling_tests.cpp
   clip_splines_builder_tests.cpp
   frame_values_tests.cpp
   message_queue_tests.cpp
@@ -25,6 +26,7 @@ set(SRC
 if (BUILD_OPENGL_TESTS)
   list(APPEND SRC
     area_pattern_gpu_test.cpp
+    bookmark_scaling_gpu_test.cpp
     path_text_layout_gpu_test.cpp
     rainbow_line_gpu_test.cpp
     shape_test_fixture.cpp

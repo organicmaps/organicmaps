@@ -35,6 +35,7 @@ struct UserMarkRenderParams
   // Explicit theme-independent color; nullopt => resolve the preset m_color string instead.
   std::optional<dp::Color> m_customColor;
   bool m_symbolIsPOI = false;
+  bool m_symbolUsesFontScale = false;
   bool m_hasTitlePriority = false;
   uint16_t m_priority = 0;
   SpecialDisplacement m_displacement = SpecialDisplacement::UserMark;
