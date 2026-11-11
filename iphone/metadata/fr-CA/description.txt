@@ -12,31 +12,31 @@ FONCTIONNALITÉS IMPORTANTES
 
 EXPLORER LES LIEUX : Recherchez par adresse, nom ou catégorie, découvrez des millions de points d’intérêt et consultez des informations détaillées telles que horaires d’ouverture, articles Wikipedia, accessibilité fauteuil roulant et autres informations utiles.
 
-NAVIGATION GPS : Profitez d’instructions vocales détaillées. Créez des itinéraires à pied, randonnée, vélo ou voiture — y compris des itinéraires entre villes, pays et plusieurs étapes. Planifiez vos trajets en transports en commun et vos déplacements quotidiens. CarPlay est pris en charge.
+NAVIGATION GPS : Profitez d’instructions vocales détaillées. Créez des itinéraires à pied, randonnée, vélo ou voiture — y compris des itinéraires entre villes, pays et plusieurs étapes. CarPlay est pris en charge.
 
 SENTIERS DE RANDONNÉE & CYCLISME DANS LE MONDE : Activez des couches de carte spéciales pour découvrir les itinéraires populaires de randonnée et de vélo dans le monde entier, tous issus d’OpenStreetMap. Basculez entre les couches pour voir les itinéraires vélo et VTT colorés, ainsi que les sentiers de randonnée officiels.
 
+RELIEF 3D & PROFONDEURS : Visualisez le relief en 3D, la profondeur des océans et des mers, ainsi que des courbes de niveau détaillées. Touchez n’importe quel point pour connaître son altitude, sur terre comme en mer.
+
 TRANSPORT PUBLIC : Planifiez vos trajets en métro, train léger, bus et tram ; consultez les numéros de ligne aux arrêts. Les horaires en temps réel sont en développement.
 
-STYLES DE CARTE : Choisissez des couches de carte adaptées à votre activité — Plein air, Courbes de niveau, Randonnée, Cyclisme ou Métro
+STYLES DE CARTE : Choisissez des couches de carte adaptées à votre activité — Plein air, Courbes de niveau, Randonnée, Cyclisme ou Métro.
 
-RELIEF : Courbes de niveau, profils d’élévation, sommets et pentes
+ENREGISTREUR DE PARCOURS : Enregistrez, importez, exportez et partagez vos itinéraires et lieux favoris. Prend en charge les formats KML, KMZ, GPX et GeoJSON.
 
-ENREGISTREUR DE PARCOURS : Enregistrez, importez, exportez et partagez vos itinéraires et lieux favoris. Prend en charge les formats KML, KMZ, GPX et GeoJSON
+ARTICLES WIKIPEDIA : Explorez les articles Wikipedia pour les lieux découverts sur la carte. Tapez “?wiki” dans la recherche pour trouver tous les lieux avec articles Wikipedia.
 
-ARTICLES WIKIPEDIA : Explorez les articles Wikipedia pour les lieux découverts sur la carte. Tapez “?wiki” dans la recherche pour trouver tous les lieux avec articles Wikipedia
-
-ÉDITEUR DE CARTES : Contribuez à OpenStreetMap en ajoutant des lieux manquants ou en éditant la carte directement depuis Organic Maps
+ÉDITEUR DE CARTES : Contribuez à OpenStreetMap en ajoutant des lieux manquants ou en éditant la carte directement depuis Organic Maps.
 
 MODE SOMBRE : Passez à un thème sombre pour un confort de lecture accru la nuit.
 
-SYNCHRONISATION ICLOUD : Sauvegardez et synchronisez facilement tous vos signets et traces via iCloud
+SYNCHRONISATION ICLOUD : Sauvegardez et synchronisez facilement tous vos signets et traces via iCloud.
 
 Organic Maps est un projet indépendant, communautaire et open source. Des centaines de bénévoles le développent, le traduisent et corrigent des bugs.
 
 Ou découvrez d’autres moyens de soutenir le projet : https://organicmaps.app/contribute/
 
-Vous avez des questions ? Veuillez consulter le site web organicmaps.app pour obtenir plus de détails et consulter la FAQ.
+Des questions ? Consultez la FAQ sur organicmaps.app.
 
 Instagram: @organicmaps.app
 Telegram: @OrganicMapsFR
