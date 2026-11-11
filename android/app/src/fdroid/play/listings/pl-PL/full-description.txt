@@ -14,9 +14,11 @@ Organic Maps to szybka i szczegółowa mapa turystyczna oraz nawigacja GPS offli
 
 <b>ODKRYWAJ MIEJSCA:</b> Szukaj po adresie, nazwie lub kategorii, odkrywaj miliony ciekawych miejsc i sprawdzaj szczegóły, takie jak godziny otwarcia, artykuły z Wikipedii, dostępność dla wózków inwalidzkich i inne przydatne dane.
 
-<b>NAWIGACJA GPS:</b> Korzystaj z głosowej nawigacji zakręt po zakręcie. Twórz trasy piesze, górskie, rowerowe i samochodowe — także między miastami i krajami, z wieloma punktami pośrednimi. Znajduj najlepsze połączenia komunikacją publiczną na wycieczki i codzienne dojazdy. Obsługiwany Android Auto.
+<b>NAWIGACJA GPS:</b> Korzystaj z głosowej nawigacji zakręt po zakręcie. Twórz trasy piesze, górskie, rowerowe i samochodowe — także między miastami i krajami, z wieloma punktami pośrednimi. Obsługiwany Android Auto.
 
 <b>SZLAKI TURYSTYCZNE I ROWEROWE Z CAŁEGO ŚWIATA:</b> Włącz specjalne warstwy mapy, aby odkrywać popularne trasy piesze i rowerowe na całym świecie, wszystkie z OpenStreetMap. Przełączaj warstwy, aby zobaczyć kolorowe trasy rowerowe i MTB oraz oficjalne szlaki turystyczne.
+
+<b>TEREN 3D I GŁĘBOKOŚCI:</b> Oglądaj teren w 3D, głębokości oceanów i mórz oraz szczegółowe poziomice. Dotknij dowolnego punktu, aby sprawdzić jego wysokość, na lądzie lub na morzu.
 
 <b>TRANSPORT PUBLICZNY:</b> Wyznaczaj trasy komunikacją publiczną — metrem, koleją miejską, autobusem i tramwajem. Sprawdzaj numery linii na przystankach.
 
@@ -36,7 +38,7 @@ Organic Maps to niezależny, społecznościowy projekt open source z setkami wsp
 
 Inne sposoby wsparcia projektu: https://organicmaps.app/contribute/
 
-Twoja szczera opinia i recenzje w sklepie motywują nas! Masz pytania? Odwiedź stronę organicmaps.app, aby uzyskać więcej informacji i FAQ.
+Twoja szczera opinia i recenzje w sklepie motywują nas! Masz pytania? Zajrzyj do FAQ na organicmaps.app.
 
 Instagram: @organicmaps.app
 Telegram: @OrganicMapsApp
