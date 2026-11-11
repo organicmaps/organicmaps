@@ -3354,7 +3354,119 @@ bool Framework::ParseRoutingDebugCommand(search::SearchParams const & params)
     settings::Set(kDebugSpeedCamSetting, false);
     return true;
   }
-  return false;
+
+  char const kMaxSpeedPrefix[] = "?maxspeed:";
+  char const kMaxSpeedQuery[] = "?maxspeed";
+  char const kNoMaxSpeedQuery[] = "?no-maxspeed";
+
+  if (params.m_query == kMaxSpeedQuery)
+  {
+    double maxSpeedKMpH = 0.0;
+    if (settings::Get("RoutingMaxSpeedKMpH", maxSpeedKMpH) && maxSpeedKMpH > 0.0)
+    {
+      double const mph = measurement_utils::KmphToMiph(maxSpeedKMpH);
+      EmitDebugCommandResult(params, "Max speed constraint: " + strings::to_string_dac(maxSpeedKMpH, 1) + " km/h (" +
+                                         strings::to_string_dac(mph, 1) + " mph)");
+    }
+    else
+    {
+      EmitDebugCommandResult(params, "Max speed constraint: off");
+    }
+    return true;
+  }
+
+  bool const isNoMaxSpeed = (params.m_query == kNoMaxSpeedQuery);
+  bool const isMaxSpeedSet = params.m_query.starts_with(kMaxSpeedPrefix);
+  if (!isNoMaxSpeed && !isMaxSpeedSet)
+    return false;
+
+  if (isNoMaxSpeed)
+  {
+    settings::Delete("RoutingMaxSpeedKMpH");
+    EmitDebugCommandResult(params, "Max speed constraint: off");
+    if (m_routingManager.IsRoutingActive())
+      m_routingManager.BuildRoute();
+    return true;
+  }
+
+  std::string valStr = params.m_query.substr(sizeof(kMaxSpeedPrefix) - 1);
+  strings::Trim(valStr);
+  strings::AsciiToLower(valStr);
+
+  if (valStr.empty() || valStr == "0" || valStr == "off" || valStr == "none")
+  {
+    settings::Delete("RoutingMaxSpeedKMpH");
+    EmitDebugCommandResult(params, "Max speed constraint: off");
+    if (m_routingManager.IsRoutingActive())
+      m_routingManager.BuildRoute();
+    return true;
+  }
+
+  double multiplier = 1.0;
+  bool explicitUnit = false;
+  if (valStr.ends_with("mph") || valStr.ends_with("miph"))
+  {
+    multiplier = 1.609344;
+    explicitUnit = true;
+    valStr = valStr.substr(0, valStr.rfind('m'));
+  }
+  else if (valStr.ends_with("mi"))
+  {
+    multiplier = 1.609344;
+    explicitUnit = true;
+    valStr = valStr.substr(0, valStr.size() - 2);
+  }
+  else if (valStr.ends_with("km/h"))
+  {
+    multiplier = 1.0;
+    explicitUnit = true;
+    valStr = valStr.substr(0, valStr.size() - 4);
+  }
+  else if (valStr.ends_with("kmh") || valStr.ends_with("kph"))
+  {
+    multiplier = 1.0;
+    explicitUnit = true;
+    valStr = valStr.substr(0, valStr.size() - 3);
+  }
+  else if (valStr.ends_with("kmph"))
+  {
+    multiplier = 1.0;
+    explicitUnit = true;
+    valStr = valStr.substr(0, valStr.size() - 4);
+  }
+  else if (valStr.ends_with("km"))
+  {
+    multiplier = 1.0;
+    explicitUnit = true;
+    valStr = valStr.substr(0, valStr.size() - 2);
+  }
+
+  strings::Trim(valStr);
+  double val = 0.0;
+  if (!strings::to_double(valStr, val) || val <= 0.0)
+  {
+    EmitDebugCommandResult(params, "Invalid max speed value. Example: ?maxspeed:35 or ?maxspeed:35mph");
+    return true;
+  }
+
+  double maxSpeedKMpH = 0.0;
+  if (explicitUnit)
+  {
+    maxSpeedKMpH = val * multiplier;
+  }
+  else
+  {
+    measurement_utils::Units const units = measurement_utils::GetMeasurementUnits();
+    maxSpeedKMpH = measurement_utils::ToSpeedKmPH(val, units);
+  }
+
+  settings::Set("RoutingMaxSpeedKMpH", maxSpeedKMpH);
+  double const mph = measurement_utils::KmphToMiph(maxSpeedKMpH);
+  EmitDebugCommandResult(params, "Max speed constraint set: " + strings::to_string_dac(maxSpeedKMpH, 1) + " km/h (" +
+                                     strings::to_string_dac(mph, 1) + " mph)");
+  if (m_routingManager.IsRoutingActive())
+    m_routingManager.BuildRoute();
+  return true;
 }
 
 bool Framework::ParseDownloaderDebugCommand(search::SearchParams const & params)

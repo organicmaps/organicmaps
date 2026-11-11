@@ -45,6 +45,20 @@ final class RoutingOptionsSettingsInteractor {
     MWMRouter.optimizeRoutePointsAndRebuild()
   }
 
+  private func selectMaxSpeed() {
+    guard let state = self.state else { return }
+    let currentSpeed = state.options.maxSpeedKMpH
+    presenter?.presentSpeedLimitPicker(currentKMpH: currentSpeed) { [weak self] newSpeedKMpH in
+      guard let self = self else { return }
+      let options = self.routingOptionsProvider()
+      options.maxSpeedKMpH = newSpeedKMpH
+      let newState = RoutingOptionsSettingsState(options: options, canChangeOptimization: self.canChangeOptimization)
+      self.state = newState
+      self.present(newState, animatingDifferences: false)
+      MWMRouter.updateRoute()
+    }
+  }
+
   private func present(_ state: RoutingOptionsSettingsState, animatingDifferences: Bool = true) {
     presenter?.present(state, animatingDifferences: animatingDifferences)
   }
@@ -60,6 +74,10 @@ extension RoutingOptionsSettingsInteractor: SettingsViewControllerInteractor {
       loadSettings()
     case .didChangeSwitch(let item, isOn: let isOn):
       set(item, enabled: isOn)
+    case .didSelect(let item):
+      if item == .maxSpeed {
+        selectMaxSpeed()
+      }
     case .didDisappear:
       applyOptimization()
     default:

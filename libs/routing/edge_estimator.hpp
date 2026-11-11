@@ -11,6 +11,7 @@
 
 #include <algorithm>
 #include <memory>
+#include <optional>
 
 class DataSource;
 
@@ -71,6 +72,14 @@ public:
   double GetTransitWalkWeightFactor() const { return m_transitWalkWeightFactor; }
   double GetTransitAltBoardingPenaltyS() const { return m_transitAltBoardingPenaltyS; }
 
+  void SetMaxSpeedKMpH(std::optional<double> maxSpeedKMpH)
+  {
+    if (maxSpeedKMpH && *maxSpeedKMpH <= 0.0)
+      maxSpeedKMpH.reset();
+    m_maxSpeedKMpH = maxSpeedKMpH;
+  }
+  std::optional<double> const & GetMaxSpeedKMpH() const { return m_maxSpeedKMpH; }
+
   /// A* heuristic: straight-line time at the maximum possible speed. Under Strategy::DistanceBiased
   /// every estimator weight is >= distance / cap, so when the caller guarantees the search sees no
   /// edges priced by other models (leap edges and precomputed cross-mwm weights in
@@ -106,6 +115,24 @@ public:
                                                std::shared_ptr<NumMwmIds> numMwmIds);
 
 protected:
+  /// Applies a best-effort quadratic penalty when the road speed exceeds the max speed constraint.
+  /// Only applies to Purpose::Weight; ETA remains unchanged so travel time estimates stay accurate.
+  double ApplyMaxSpeedPenalty(Purpose purpose, double weight, double speedMpS) const
+  {
+    if (purpose == Purpose::Weight && m_maxSpeedKMpH)
+    {
+      double const maxSpeedKMpH = *m_maxSpeedKMpH;
+      double const speedKMpH = speedMpS * 3.6;
+      if (speedKMpH > maxSpeedKMpH + 0.1)
+      {
+        double const excess = speedKMpH - maxSpeedKMpH;
+        double const factor = 1.0 + (excess / 5.0) * (excess / 5.0) * 10.0;
+        return weight * factor;
+      }
+    }
+    return weight;
+  }
+
   /// Applies Strategy::DistanceBiased to a Normal |weight|: roads not slower than the cap tie by
   /// pure distance, slower ones keep their full cost. No-op for Purpose::ETA and Strategy::Normal.
   double ApplyStrategy(Purpose purpose, double weight, double distanceM) const
@@ -123,6 +150,7 @@ private:
   bool m_tightHeuristicAllowed = true;
   double m_transitWalkWeightFactor = 1.0;
   double m_transitAltBoardingPenaltyS = 0.0;
+  std::optional<double> m_maxSpeedKMpH;
 
   // DataSource * m_dataSourcePtr;
   // std::shared_ptr<NumMwmIds> m_numMwmIds;
