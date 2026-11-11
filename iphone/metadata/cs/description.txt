@@ -22,7 +22,7 @@ TURISTICKÉ A CYKLISTICKÉ TRASY Z CELÉHO SVĚTA: Aktivujte speciální vrstvy 
 
 VEŘEJNÁ DOPRAVA: Můžete si plánovat trasy s využitím veřejné dopravy. Podpora jízdních řádů v reálném čase se právě vyvíjí.
 
-STYLY MAP: Vyberte vrstvy mapy podle vaší aktivity — Outdoor, Konturové linie, Turistika, Cyklistika nebo Metro.
+STYLY MAP: Vyberte vrstvy mapy podle vaší aktivity — Outdoor, Vrstevnice, Turistika, Cyklistika nebo Metro.
 
 ZÁZNAMNÍK TRAS: Zaznamenávejte, importujte, exportujte a sdílejte své trasy a oblíbená místa. Podporuje formáty KML, KMZ, GPX a GeoJSON.
 
