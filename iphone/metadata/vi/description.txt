@@ -16,7 +16,9 @@ KHÁM PHÁ ĐỊA ĐIỂM: Tìm kiếm theo địa chỉ, tên hoặc danh mục
 
 ĐƯỜNG MÒN ĐI BỘ & ĐẠP XE TRÊN TOÀN THẾ GIỚI: Bật các lớp bản đồ đặc biệt để khám phá các đường mòn đi bộ và đạp xe nổi tiếng trên toàn thế giới từ dữ liệu OpenStreetMap. Chuyển đổi lớp để xem tuyến đường xe đạp, MTB có màu và các đường mòn đi bộ chính thức.
 
-GIAO THÔNG CÔNG CỘNG: Bạn có thể lập kế hoạch lộ trình bằng phương tiện giao thông công cộng. Tính năng hỗ trợ lịch trình thời gian thực hiện đang được phát triển.
+ĐỊA HÌNH 3D & ĐỘ SÂU: Xem địa hình 3D, độ sâu đại dương và biển cùng các đường đồng mức chi tiết. Chạm vào bất kỳ điểm nào để kiểm tra độ cao, trên đất liền hay trên biển.
+
+GIAO THÔNG CÔNG CỘNG: Bạn có thể lập kế hoạch lộ trình bằng phương tiện giao thông công cộng. Tính năng lịch trình thời gian thực đang được phát triển.
 
 KIỂU HIỂN THỊ BẢN ĐỒ: Chọn lớp bản đồ phù hợp với hoạt động của bạn — Outdoors, Contour Lines, Hiking, Cycling hoặc Metro/Subway.
 
