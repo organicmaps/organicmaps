@@ -110,6 +110,8 @@
     <string name="category_transport">Nəqliyyat</string>
     <!-- Search category for fuel stations; any changes should be duplicated in categories.txt @category_fuel! -->
     <string name="category_fuel">Yanacaq doldurma məntəqəsi</string>
+    <!-- Search category for car charging stations; any changes should be duplicated in categories.txt @category_car_charging! -->
+    <string name="category_car_charging">Avtomobil şarjı</string>
     <!-- Search category for parking lots; any changes should be duplicated in categories.txt @category_parking! -->
     <string name="category_parking">Avtomobil dayanacağı</string>
     <!-- Search category for malls/clothes/shoes/gifts/jewellery/sport shops; any changes should be duplicated in categories.txt @category_shopping! -->
