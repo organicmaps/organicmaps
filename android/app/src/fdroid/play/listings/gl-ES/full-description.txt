@@ -18,7 +18,7 @@ Organic Maps é unha aplicación rápida e detallada de mapas fóra de liña e n
 
 <b>RUTAS DE SENDEIRISMO E CICLISMO DO MUNDO ENTEIRO:</b> Activa capas especiais para descubrir rutas populares de sendeirismo e ciclismo, todas procedentes de OpenStreetMap. Alterna entre capas para ver rutas de bicicleta e MTB en cores, así como camiños oficiais de sendeirismo.
 
-<b>RELEVO 3D E PROFUNDIDADES:</b> Visualiza o relevo en 3D, a profundidade de océanos e mares e curvas de nivel detalladas. Toca calquera punto para ver a súa altitude, en terra ou no mar.
+<b>RELEVO 3D E PROFUNDIDADES:</b> Explora as alturas das montañas, as profundidades do mar e curvas de nivel detalladas. Toca calquera punto do mapa para ver a súa altitude.
 
 <b>TRANSPORTE PÚBLICO:</b> Planifica rutas en transporte público: metro, metro lixeiro, autobús e tranvía. Consulta os números das liñas nas paradas.
 

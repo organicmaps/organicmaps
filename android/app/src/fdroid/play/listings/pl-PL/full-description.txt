@@ -18,7 +18,7 @@ Organic Maps to szybka i szczegółowa mapa turystyczna oraz nawigacja GPS offli
 
 <b>SZLAKI TURYSTYCZNE I ROWEROWE Z CAŁEGO ŚWIATA:</b> Włącz specjalne warstwy mapy, aby odkrywać popularne trasy piesze i rowerowe na całym świecie, wszystkie z OpenStreetMap. Przełączaj warstwy, aby zobaczyć kolorowe trasy rowerowe i MTB oraz oficjalne szlaki turystyczne.
 
-<b>TEREN 3D I GŁĘBOKOŚCI:</b> Oglądaj teren w 3D, głębokości oceanów i mórz oraz szczegółowe poziomice. Dotknij dowolnego punktu, aby sprawdzić jego wysokość, na lądzie lub na morzu.
+<b>TEREN 3D I GŁĘBOKOŚCI:</b> Odkrywaj wysokości gór, głębokości mórz i szczegółowe poziomice. Dotknij dowolnego miejsca na mapie, aby zobaczyć wysokość nad poziomem morza.
 
 <b>TRANSPORT PUBLICZNY:</b> Wyznaczaj trasy komunikacją publiczną — metrem, koleją miejską, autobusem i tramwajem. Sprawdzaj numery linii na przystankach.
 

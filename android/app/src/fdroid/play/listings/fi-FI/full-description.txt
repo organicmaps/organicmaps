@@ -18,7 +18,7 @@ GPS-NAVIGOINTI: Nauti ääniopastetusta navigoinnista. Luo kävely-, vaellus-, p
 
 VAELLUS- JA PYÖRÄREITIT MAAILMAN YMPÄRI: Ota käyttöön erityiset karttatasot nähdäksesi suositut vaellus- ja pyöräilyreitit kaikkialla maailmassa. Näe värilliset pyörä- ja MTB-reitit sekä viralliset vaellusreitit.
 
-3D-MAASTO JA SYVYYDET: Näe 3D-maasto, valtamerten ja merien syvyydet sekä tarkat korkeuskäyrät. Napauta mitä tahansa kohtaa nähdäksesi sen korkeuden, maalla tai merellä.
+3D-MAASTO JA SYVYYDET: Tutki vuorten korkeuksia, merten syvyyksiä ja tarkkoja korkeuskäyriä. Napauta mitä tahansa kohtaa kartalla nähdäksesi sen korkeuden.
 
 JOUKKOLIIKENNE: Suunnittele joukkoliikenteen reitit. Reaaliaikaiset aikataulut ovat kehitteillä.
 

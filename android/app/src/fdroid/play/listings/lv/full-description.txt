@@ -14,7 +14,7 @@ Organic Maps ir ātra un detalizēta bezsaistes karšu un GPS navigācijas lieto
 
 <b>PĀRGĀJIENU UN RITEŅBRAUKŠANAS TAKAS NO VISAS PASAULES:</b> Ieslēdziet īpašus kartes slāņus, lai atklātu populāras pārgājienu un riteņbraukšanas takas visā pasaulē, visas no OpenStreetMap. Pārslēdzieties starp slāņiem, lai redzētu krāsainas velosipēdu un MTB takas, kā arī oficiālās pārgājienu takas.
 
-<b>3D RELJEFS UN DZIĻUMI:</b> Skatiet 3D reljefu, okeānu un jūru dziļumus un detalizētas augstuma līknes. Pieskarieties jebkuram punktam, lai uzzinātu tā augstumu – uz sauszemes vai jūrā.
+<b>3D RELJEFS UN DZIĻUMI:</b> Izpētiet kalnu augstumus, jūras dziļumus un detalizētas augstuma līknes. Pieskarieties jebkurai vietai kartē, lai redzētu tās augstumu.
 
 <b>SABIEDRISKAIS TRANSPORTS:</b> Plānojiet sabiedriskā transporta maršrutus. Tiek izstrādāti reāllaika kustības grafiki.
 

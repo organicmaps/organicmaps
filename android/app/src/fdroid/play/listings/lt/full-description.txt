@@ -18,7 +18,7 @@ Organic Maps – tai greita ir išsami neprisijungus veikiančių žemėlapių i
 
 <b>ŽYGIŲ IR DVIRAČIŲ TAKAI IŠ VISO PASAULIO:</b> Įjunkite specialius žemėlapio sluoksnius ir atraskite populiarius žygių ir dviračių maršrutus visame pasaulyje – visi iš OpenStreetMap. Perjunkite sluoksnius ir matykite spalvotus dviračių bei MTB maršrutus ir oficialius žygių takus.
 
-<b>3D RELJEFAS IR GYLIAI:</b> Peržiūrėkite 3D reljefą, vandenynų ir jūrų gylius bei detalias horizontales. Bakstelėkite bet kurį tašką ir sužinokite jo aukštį – sausumoje ar jūroje.
+<b>3D RELJEFAS IR GYLIAI:</b> Tyrinėkite kalnų aukščius, jūrų gylius ir detalias horizontales. Bakstelėkite bet kurią žemėlapio vietą, kad sužinotumėte jos aukštį.
 
 <b>VIEŠASIS TRANSPORTAS:</b> Planuokite maršrutus viešuoju transportu – metro, lengvuoju geležinkeliu, autobusu ir tramvajumi. Matykite maršrutų numerius stotelėse.
 

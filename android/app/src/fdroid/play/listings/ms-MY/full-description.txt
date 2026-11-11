@@ -16,7 +16,7 @@ Organic Maps ialah aplikasi peta luar talian yang pantas dan terperinci serta na
 
 <b>LALUAN MENDAKI & BERBASIKAL DARI SELURUH DUNIA:</b> Aktifkan lapisan peta khas untuk menemui laluan mendaki dan berbasikal popular di seluruh dunia, semuanya dari OpenStreetMap. Tukar antara lapisan untuk melihat laluan basikal berwarna dan MTB, serta laluan mendaki rasmi.
 
-<b>RUPA BUMI 3D & KEDALAMAN:</b> Lihat rupa bumi 3D, kedalaman lautan dan laut, serta garisan kontur terperinci. Ketik mana-mana titik untuk menyemak ketinggiannya, di darat atau di laut.
+<b>RUPA BUMI 3D & KEDALAMAN:</b> Terokai ketinggian gunung, kedalaman laut dan garisan kontur terperinci. Ketik di mana-mana sahaja pada peta untuk melihat ketinggian.
 
 <b>TRANSPORT AWAM:</b> Rancang laluan pengangkutan awam. Jadual waktu masa nyata sedang dibangunkan.
 

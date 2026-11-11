@@ -32,7 +32,7 @@ I-enable ang mga espesyal na layer ng mapa para matuklasan ang mga sikat na ruta
 
 <b>3D NA TERRAIN AT LALIM:</b>
 
-Tingnan ang 3D na terrain, lalim ng karagatan at dagat, at detalyadong contour lines. I-tap ang anumang punto para malaman ang taas nito, sa lupa man o sa dagat.
+Tingnan ang taas ng mga bundok, lalim ng dagat at detalyadong contour lines. I-tap ang anumang bahagi ng mapa para makita ang taas nito.
 
 <b>PAMPUBLIKONG TRANSPORTASYON:</b>
 

@@ -18,7 +18,7 @@ Organic Maps — səyahət, yürüş, trekking və velosiped macəraları üçü
 
 <b>DÜNYANIN YÜRÜŞ VƏ VELOSEPED MARŞRUTLARI:</b> Xüsusi xəritə qatlarını aktiv edin və OpenStreetMap mənbəli məşhur yürüş və velosiped yollarını kəşf edin. Rəngli velosiped və MTB marşrutlarını, eləcə də rəsmi yürüş yollarını görmək üçün qatları dəyişin.
 
-<b>3D RELYEF VƏ DƏRİNLİKLƏR:</b> 3D relyefi, okean və dəniz dərinliklərini və ətraflı izoxətləri görün. Quruda və ya dənizdə istənilən nöqtəyə toxunaraq onun hündürlüyünü öyrənin.
+<b>3D RELYEF VƏ DƏRİNLİKLƏR:</b> Dağların hündürlüyünü, dənizlərin dərinliyini və ətraflı izoxətləri görün. Hündürlüyü öyrənmək üçün xəritənin istənilən yerinə toxunun.
 
 <b>İCTİMAİ NƏQLİYYAT:</b> İctimai nəqliyyatdan istifadə edərək marşrutları planlaşdıra bilərsiniz. Real vaxt cədvəllərinə dəstək hazırlanır.
 

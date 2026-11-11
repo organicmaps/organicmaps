@@ -18,7 +18,7 @@ Az Organic Maps gyors és részletes offline térkép- és GPS-navigációs alka
 
 <b>TÚRA- ÉS KERÉKPÁRUTAK VILÁGSZERTE:</b> Kapcsold be a speciális térképrétegeket, hogy felfedezd a népszerű túra- és kerékpárútvonalakat. Válts rétegeket a színes kerékpár-, MTB- és hivatalos túraútvonalak megjelenítéséhez.
 
-<b>3D DOMBORZAT ÉS MÉLYSÉGEK:</b> Nézd meg a 3D domborzatot, az óceánok és tengerek mélységét, valamint a részletes szintvonalakat. Koppints bármely pontra a magasság megtekintéséhez, szárazföldön vagy tengeren.
+<b>3D DOMBORZAT ÉS MÉLYSÉGEK:</b> Nézd meg a hegyek magasságát, a tengerek mélységét és a részletes szintvonalakat. Koppints bárhová a térképen a magasság megtekintéséhez.
 
 <b>TÖMEGKÖZLEKEDÉS:</b> Tervezz tömegközlekedési útvonalakat, és nézd meg a járatszámokat a megállókban. A valós idejű menetrendek fejlesztés alatt állnak.
 

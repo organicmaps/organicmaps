@@ -16,7 +16,7 @@ Organic Maps est une application rapide et détaillée de cartes hors ligne et d
 
 <b>SENTIERS DE RANDONNÉE & DE VÉLO DU MONDE ENTIER :</b> Activez des couches spéciales pour découvrir des itinéraires populaires de randonnée et de cyclisme dans le monde entier, tous issus d’OpenStreetMap. 
 
-<b>RELIEF 3D & PROFONDEURS :</b> Visualisez le relief en 3D, la profondeur des océans et des mers, ainsi que des courbes de niveau détaillées. Touchez n’importe quel point pour connaître son altitude, sur terre comme en mer.
+<b>RELIEF 3D & PROFONDEURS :</b> Explorez les reliefs montagneux, les profondeurs marines et les courbes de niveau détaillées. Touchez n’importe quel point de la carte pour connaître son altitude.
 
 <b>TRANSPORTS PUBLICS :</b> Planifiez vos itinéraires en transports en commun et consultez les numéros de ligne aux arrêts. Les horaires en temps réel sont en développement.
 

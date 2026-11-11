@@ -32,7 +32,7 @@ Virkjaðu sérstaka kortalaga til að uppgötva vinsælar göngu- og hjólaleið
 
 <b>3D LANDSLAG OG DÝPI:</b>
 
-Skoðaðu landslag í þrívídd, dýpi úthafa og sjávar og nákvæmar hæðarlínur. Pikkaðu á hvaða punkt sem er til að sjá hæð hans, á landi eða sjó.
+Skoðaðu hæðir fjalla, sjávardýpi og nákvæmar hæðarlínur. Pikkaðu hvar sem er á kortinu til að sjá hæðina.
 
 <b>ALMENNINGSSAMGÖNGUR:</b>
 

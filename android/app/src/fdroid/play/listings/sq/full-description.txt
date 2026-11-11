@@ -32,7 +32,7 @@ Aktivizoni shtresa speciale hartash për të zbuluar shtigje të njohura ecjeje 
 
 <b>TERRENI 3D DHE THELLËSITË:</b>
 
-Shihni terrenin 3D, thellësitë e oqeaneve dhe deteve, si dhe izohipset e detajuara. Prekni çdo pikë për të parë lartësinë e saj, në tokë ose në det.
+Shihni lartësitë e maleve, thellësitë e detit dhe izohipset e detajuara. Prekni çdo pikë në hartë për të parë lartësinë e saj.
 
 <b>TRANSPORTI PUBLIK:</b>
 

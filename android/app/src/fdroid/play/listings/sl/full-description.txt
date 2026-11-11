@@ -18,7 +18,7 @@ Organic Maps je hitra in podrobna aplikacija za offline zemljevide in GPS naviga
 
 <b>POHODNIŠKE IN KOLESARSKE POTI Z VSEGA SVETA:</b> Vklopite posebne sloje zemljevida in odkrijte priljubljene pohodniške in kolesarske poti po vsem svetu – vse iz OpenStreetMap. Preklapljajte med sloji in si oglejte barvne kolesarske in MTB poti ter uradne pohodniške poti.
 
-<b>3D TEREN IN GLOBINE:</b> Oglejte si 3D teren, globine oceanov in morij ter podrobne plastnice. Tapnite katero koli točko in preverite njeno nadmorsko višino, na kopnem ali na morju.
+<b>3D TEREN IN GLOBINE:</b> Raziščite višine gora, globine morja in podrobne plastnice. Tapnite kjerkoli na zemljevidu, da si ogledate nadmorsko višino.
 
 <b>JAVNI PREVOZ:</b> Načrtujte poti z javnim prevozom – metro, lahka železnica, avtobus in tramvaj. Oglejte si številke linij na postajališčih.
 

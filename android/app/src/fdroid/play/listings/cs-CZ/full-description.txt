@@ -18,7 +18,7 @@ Organic Maps je rychlá a detailní mapa offline a GPS navigační aplikace pro 
 
 <b>PĚŠÍ A CYKLISTICKÉ TRASY Z CELÉHO SVĚTA:</b> Aktivujte speciální vrstvy map pro zobrazení populárních pěších a cyklistických tras po celém světě, všechny z OpenStreetMap. Přepínejte mezi vrstvami, abyste viděli barevně označené cyklistické a MTB trasy, stejně jako oficiální pěší cesty.
 
-<b>3D TERÉN A HLOUBKY:</b> Prohlížejte 3D terén, hloubky oceánů a moří a podrobné vrstevnice. Klepnutím na libovolný bod zjistíte jeho nadmořskou výšku, na souši i na moři.
+<b>3D TERÉN A HLOUBKY:</b> Prozkoumejte horské výšky, mořské hloubky a podrobné vrstevnice. Klepnutím kamkoli do mapy zjistíte nadmořskou výšku.
 
 <b>MHD:</b> Můžete si plánovat trasy s využitím veřejné dopravy. Podpora jízdních řádů v reálném čase se právě vyvíjí.
 

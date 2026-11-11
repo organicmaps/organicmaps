@@ -36,7 +36,7 @@ Skakel spesiale kaartlae aan om gewilde stap- en fietspaaie wêreldwyd te ontdek
 
 <b>3D-TERREIN & DIEPTES:</b>
 
-Sien 3D-terrein, oseaan- en seedieptes en gedetailleerde kontoerlyne. Tik op enige punt om die hoogte te sien, op land of op see.
+Verken berghoogtes, seedieptes en gedetailleerde kontoerlyne. Tik enige plek op die kaart om die hoogte te sien.
 
 <b>OPENBARE VERVOER:</b>
 

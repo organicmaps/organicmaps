@@ -18,7 +18,7 @@ Organic Maps è ina app svelta e detagliada per cartas offline e navigaziun GPS 
 
 <b>SENDAS PER EXCURSIUNS & VELO DAL MUND ENTIR:</b> Activai nivels spezials per scuvrir rutas popularas per excursiuns e velo dal mund entir, tut ord OpenStreetMap. Vesai rutas da velo e MTB coloradas sco era sendas d'excursiun uffizialas.
 
-<b>TERREN 3D & PROFUNDITADS:</b> Contempla il terren en 3D, las profunditads dals oceans e da las mars sco er curvas da nivel detagliadas. Tocca in punct qualsevoglia per vesair sia autezza, sin terra u en mar.
+<b>TERREN 3D & PROFUNDITADS:</b> Contemplai las autezzas da las muntognas, las profunditads da la mar e curvas da nivel detagliadas. Tutgai in punct qualsevoglia sin la carta per vesair sia autezza.
 
 <b>TRANSPORT PUBLIC:</b> Planisai rutas cun metro, tram rapid, bus e tram. Vesai numers da rutas a las fermadas. Uraris en temp real èn en svilup.
 

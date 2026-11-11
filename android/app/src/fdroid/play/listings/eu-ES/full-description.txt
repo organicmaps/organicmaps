@@ -16,7 +16,7 @@ Organic Maps bidaia, mendiko ibilaldi, trekking eta txirrindularitza abenturetar
 
 <b>MUNDU OSOKO MENDI- ETA TXIRRINDULARITZA-IBILBIDEAK:</b> Gaitu mapa-geruza bereziak mundu osoko mendiko eta txirrindularitza ibilbide ezagunak aurkitzeko, guztiak OpenStreetMap-etik jasotakoak. Aldatu geruzen artean koloretako bizikleta eta MTB ibilbideak, baita mendiko ibilbide ofizialak ikusteko.
 
-<b>3D ERLIEBEA ETA SAKONERAK:</b> Ikusi 3D erliebea, ozeano eta itsasoen sakonerak eta sestra-kurba zehatzak. Sakatu edozein puntu haren altuera ezagutzeko, lehorrean zein itsasoan.
+<b>3D ERLIEBEA ETA SAKONERAK:</b> Ikusi mendien altuerak, itsasoen sakonerak eta sestra-kurba zehatzak. Sakatu mapako edozein puntu haren altuera ikusteko.
 
 <b>GARRAIO PUBLIKOA:</b> Planifikatu ibilbideak garraio publikoz. Ikusi lineen zenbakiak geltokietan. Denbora errealeko ordutegiak garatzen ari dira.
 

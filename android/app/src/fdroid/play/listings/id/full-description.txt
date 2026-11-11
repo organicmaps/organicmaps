@@ -18,7 +18,7 @@ Organic Maps adalah aplikasi peta dan GPS yang cepat dan detail, berfungsi tanpa
 
 <b>JALUR HIKING & SEPEDA DARI SELURUH DUNIA:</b> Aktifkan lapisan peta khusus untuk menemukan jalur hiking dan bersepeda populer di seluruh dunia, semuanya dari OpenStreetMap. Ganti lapisan untuk melihat jalur sepeda berwarna, jalur MTB, dan jalur hiking resmi.
 
-<b>MEDAN 3D & KEDALAMAN:</b> Lihat medan 3D, kedalaman samudra dan laut, serta garis kontur yang detail. Ketuk titik mana pun untuk memeriksa ketinggiannya, di darat maupun di laut.
+<b>MEDAN 3D & KEDALAMAN:</b> Jelajahi ketinggian gunung, kedalaman laut, dan garis kontur terperinci. Ketuk di mana saja pada peta untuk melihat ketinggian.
 
 <b>TRANSPORTASI UMUM:</b> Rencanakan rute transportasi umum — MRT, LRT, bus, dan trem. Lihat nomor rute di halte.
 

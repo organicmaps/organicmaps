@@ -12,7 +12,7 @@ Organic Maps sayohat, piyoda yurish, tog'da yurish va velosiped sayohatlari uchu
 
 <b>DUNYO BO'YLAB PIYODA VA VELOSIPED YO'LLARI:</b> Maxsus xarita qatlamlarini yoqib, OpenStreetMap manbasidan olingan dunyo bo'ylab mashhur piyoda va velosiped yo'llarini kashf eting. Qatlamlar o'rtasida almashtirib, rangli velosiped va tog' velosipedi (MTB) yo'llari hamda rasmiy piyoda yo'llarini ko'ring.
 
-<b>3D RELYEF VA CHUQURLIKLAR:</b> 3D relyef, okean va dengizlar chuqurligi hamda batafsil balandlik chiziqlarini ko'ring. Quruqlikda yoki dengizda istalgan nuqtaga bosib, uning balandligini bilib oling.
+<b>3D RELYEF VA CHUQURLIKLAR:</b> Tog'larning balandligi, dengizlarning chuqurligi va batafsil balandlik chiziqlarini ko'ring. Balandlikni bilish uchun xaritaning istalgan joyiga bosing.
 
 <b>JAMOAT TRANSPORTI:</b> Jamoat transporti yo'nalishlarini rejalashtiring. Jonli jadvallar ustida ishlanmoqda.
 

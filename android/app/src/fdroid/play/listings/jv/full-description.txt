@@ -18,7 +18,7 @@ Organic Maps iku aplikasi peta offline lan navigasi GPS sing cepet lan rinci kan
 
 <b>JALUR PANJAT GUNUNG & SEPEDA SAK JAGAD:</b> Aktifake lapisan peta khusus kanggo nemokake rute panjat gunung lan sepeda sing populer ing saindenging jagad, kabeh dijupuk saka OpenStreetMap. Ganti antarane lapisan kanggo ndeleng rute sepeda lan MTB sing berwarna, uga jalur panjat gunung resmi.
 
-<b>MEDAN 3D & JERONE:</b> Delengen medan 3D, jeroning samodra lan segara, uga garis kontur sing rinci. Tutul titik apa wae kanggo mriksa dhuwure, ing dharatan utawa ing segara.
+<b>MEDAN 3D & JERONE:</b> Delengen dhuwuré gunung, jeroné segara, lan garis kontur sing rinci. Tutul titik apa waé ing peta kanggo ndeleng dhuwuré.
 
 <b>ANGKUTAN UMUM:</b> Sampeyan bisa ngrancang rute nganggo angkutan umum. Dhukungan kanggo jadwal wektu nyata saiki lagi dikembangake.
 

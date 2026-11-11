@@ -18,7 +18,7 @@ Organic Maps este o aplicație rapidă și detaliată de hărți și navigație 
 
 <b>TRASEE DE DRUMEȚIE ȘI CICLISM DIN TOATĂ LUMEA:</b> Activează straturi speciale de hartă pentru a descoperi trasee populare de drumeție și ciclism din întreaga lume, toate provenind din OpenStreetMap. Comută între straturi pentru a vedea trasee colorate de bicicletă și MTB, precum și trasee oficiale de drumeție.
 
-<b>RELIEF 3D ȘI ADÂNCIMI:</b> Vezi relieful 3D, adâncimile oceanelor și mărilor și curbe de nivel detaliate. Atinge orice punct pentru a-i verifica altitudinea, pe uscat sau pe mare.
+<b>RELIEF 3D ȘI ADÂNCIMI:</b> Explorează înălțimile munților, adâncimile mării și curbe de nivel detaliate. Atinge oriunde pe hartă pentru a vedea altitudinea.
 
 <b>TRANSPORT PUBLIC:</b> Planifică rute cu transportul public — metrou, metrou ușor, autobuz și tramvai. Vezi numerele liniilor în stații.
 

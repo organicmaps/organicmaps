@@ -18,7 +18,7 @@ Organic Maps ist eine schnelle, detaillierte Offline-Karten- und GPS-Navigations
 
 <b>WANDER- & RADWEGE WELTWEIT:</b> Aktivieren Sie spezielle Kartenebenen für farbige Rad-, MTB- und offizielle Wanderwege – alles aus OpenStreetMap.
 
-<b>3D-GELÄNDE & TIEFEN:</b> 3D-Gelände, Meerestiefen und detaillierte Höhenlinien ansehen. Auf einen beliebigen Punkt tippen, um seine Höhe zu sehen – an Land oder auf See.
+<b>3D-GELÄNDE & TIEFEN:</b> Berghöhen, Meerestiefen und detaillierte Höhenlinien erkunden. Auf eine beliebige Stelle der Karte tippen, um die Höhe zu sehen.
 
 <b>ÖPNV:</b> Routen mit dem ÖPNV planen – U-Bahn, Stadtbahn, Bus und Straßenbahn. Liniennummern an Haltestellen anzeigen.
 
