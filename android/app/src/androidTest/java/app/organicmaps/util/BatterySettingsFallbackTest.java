@@ -44,7 +44,7 @@ public class BatterySettingsFallbackTest
   public void availableAppInfoIsOpenedDirectly()
   {
     final FailingContext context = new FailingContext(0, new ActivityNotFoundException());
-    BatteryOptimizationHelper.openSettings(context);
+    BatteryOptimizationHelper.openSettings(context, false);
     assertEquals(List.of(Settings.ACTION_APPLICATION_DETAILS_SETTINGS), context.actions);
     assertEquals("package:" + context.getPackageName(), context.lastIntent.getDataString());
   }
@@ -53,7 +53,7 @@ public class BatterySettingsFallbackTest
   public void missingDestinationFallsBackToSystemSettings()
   {
     final FailingContext context = new FailingContext(1, new ActivityNotFoundException());
-    BatteryOptimizationHelper.openSettings(context);
+    BatteryOptimizationHelper.openSettings(context, false);
     assertEquals(List.of(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Settings.ACTION_SETTINGS), context.actions);
   }
 
@@ -61,7 +61,7 @@ public class BatterySettingsFallbackTest
   public void protectedDestinationFallsBackToSystemSettings()
   {
     final FailingContext context = new FailingContext(1, new SecurityException());
-    BatteryOptimizationHelper.openSettings(context);
+    BatteryOptimizationHelper.openSettings(context, false);
     assertEquals(List.of(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Settings.ACTION_SETTINGS), context.actions);
   }
 
@@ -69,7 +69,7 @@ public class BatterySettingsFallbackTest
   public void unavailableSettingsDoNotInterruptTheAdvisory()
   {
     final FailingContext context = new FailingContext(2, new ActivityNotFoundException());
-    BatteryOptimizationHelper.openSettings(context);
+    BatteryOptimizationHelper.openSettings(context, false);
     assertEquals(List.of(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Settings.ACTION_SETTINGS), context.actions);
   }
 
@@ -81,17 +81,27 @@ public class BatterySettingsFallbackTest
     for (RuntimeException failure : new RuntimeException[] {new ActivityNotFoundException(), new SecurityException()})
     {
       final FailingContext context = new FailingContext(1, failure);
-      BatteryOptimizationHelper.openSettings(context);
+      BatteryOptimizationHelper.openSettings(context, false);
       assertEquals(List.of("com.samsung.android.sm.ACTION_OPEN_CHECKABLE_LISTACTIVITY",
                            Settings.ACTION_APPLICATION_DETAILS_SETTINGS),
                    context.actions);
     }
   }
 
+  @Test
+  @SdkSuppress(minSdkVersion = 28)
+  public void detectedSamsungRestrictionsOpenAppInfo() throws Exception
+  {
+    mManufacturer.set(null, "samsung");
+    final FailingContext context = new FailingContext(0, new ActivityNotFoundException());
+    BatteryOptimizationHelper.openSettings(context, true);
+    assertEquals(List.of(Settings.ACTION_APPLICATION_DETAILS_SETTINGS), context.actions);
+  }
+
   @Test(expected = IllegalStateException.class)
   public void unexpectedFailureIsNotSuppressed()
   {
-    BatteryOptimizationHelper.openSettings(new FailingContext(1, new IllegalStateException()));
+    BatteryOptimizationHelper.openSettings(new FailingContext(1, new IllegalStateException()), false);
   }
 
   private static class FailingContext extends ContextWrapper

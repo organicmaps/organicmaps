@@ -39724,7 +39724,7 @@ zh-Hans = 为了获得最准确的导航，我们建议在手机电池设置中�
 zh-Hant = 為了獲得最準確的導航，我們建議在手機電池設定中停用省電模式。
 
 [background_recording_warning_title]
-comment = Title of the one-time Android dialog shown when starting track recording, warning that battery restrictions may interrupt it.
+comment = Title of the Android dialog shown after recording starts. Manufacturer reminders are shown once; detected restrictions once per app session.
 tags = android-app
 en = Track recording may stop
 af = Spooropname kan stop

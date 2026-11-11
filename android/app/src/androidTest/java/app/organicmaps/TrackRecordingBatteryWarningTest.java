@@ -3,6 +3,7 @@ package app.organicmaps;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeFalse;
 
@@ -18,6 +19,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.view.accessibility.AccessibilityNodeInfo;
+import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -37,6 +39,7 @@ import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
 import app.organicmaps.widget.TrackRecordingStartActivity;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -59,6 +62,8 @@ public class TrackRecordingBatteryWarningTest
   private boolean mWasRestricted;
   private boolean mWasLocationEnabled;
   private boolean mSettingsCaptured;
+  private Field mRestrictionWarning;
+  private boolean mWasRestrictionWarningShown;
 
   @Before
   public void setUp() throws Exception
@@ -89,7 +94,12 @@ public class TrackRecordingBatteryWarningTest
     mWasAcknowledged = mPreferences.getBoolean("battery_optimization_warning_seen", false);
     mWasRestricted = mContext.getSystemService(ActivityManager.class).isBackgroundRestricted();
     mWasLocationEnabled = LocationUtils.areLocationServicesTurnedOn(mContext);
+    mRestrictionWarning = BatteryOptimizationHelper.class.getDeclaredField("sRestrictionWarningShown");
+    mRestrictionWarning.setAccessible(true);
+    mWasRestrictionWarningShown = mRestrictionWarning.getBoolean(null);
     mSettingsCaptured = true;
+    // Each test represents a new app session.
+    mRestrictionWarning.setBoolean(null, false);
     mPreferences.edit().putBoolean("battery_optimization_warning_seen", false).commit();
     shell("cmd appops set " + packageName + " RUN_ANY_IN_BACKGROUND ignore");
     shell("cmd location set-location-enabled true");
@@ -117,6 +127,7 @@ public class TrackRecordingBatteryWarningTest
     finally
     {
       mPreferences.edit().putBoolean("battery_optimization_warning_seen", mWasAcknowledged).commit();
+      mRestrictionWarning.setBoolean(null, mWasRestrictionWarningShown);
       try
       {
         shell("cmd appops set " + mContext.getPackageName() + " RUN_ANY_IN_BACKGROUND "
@@ -138,7 +149,7 @@ public class TrackRecordingBatteryWarningTest
     mScenario.onActivity(activity -> {
       assertTrue(warning(activity).requireDialog().isShowing());
       assertTrue(TrackRecorder.nativeIsTrackRecordingEnabled());
-      assertTrue(mPreferences.getBoolean("battery_optimization_warning_seen", false));
+      assertFalse(mPreferences.getBoolean("battery_optimization_warning_seen", false));
 
       final Intent restart = coreRestartIntent(activity);
       assertFalse(restart.getBooleanExtra(MwmActivity.EXTRA_START_TRACK_RECORDING, false));
@@ -175,7 +186,7 @@ public class TrackRecordingBatteryWarningTest
         return root != null && root.getPackageName().equals(settingsPackage.get());
       });
       mInstrumentation.runOnMainSync(() -> assertTrue(TrackRecorder.nativeIsTrackRecordingEnabled()));
-      assertTrue(mPreferences.getBoolean("battery_optimization_warning_seen", false));
+      assertFalse(mPreferences.getBoolean("battery_optimization_warning_seen", false));
     }
     finally
     {
@@ -248,6 +259,50 @@ public class TrackRecordingBatteryWarningTest
   }
 
   @Test
+  public void aLaterRestrictionIsReportedOnceDespiteTheManufacturerAcknowledgment() throws Exception
+  {
+    final Field manufacturer = Build.class.getField("MANUFACTURER");
+    manufacturer.setAccessible(true);
+    final String original = Build.MANUFACTURER;
+    try
+    {
+      manufacturer.set(null, "samsung");
+      shell("cmd appops set " + mContext.getPackageName() + " RUN_ANY_IN_BACKGROUND allow");
+      selectRecordTrack();
+      mScenario.onActivity(activity -> {
+        assertTrue(mPreferences.getBoolean("battery_optimization_warning_seen", false));
+        final AlertDialog dialog = (AlertDialog) warning(activity).requireDialog();
+        final int message = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
+                              ? R.string.background_recording_samsung_warning_message
+                              : R.string.background_recording_samsung_warning_message_legacy;
+        assertEquals(activity.getString(message), ((TextView) dialog.findViewById(android.R.id.message)).getText());
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).performClick();
+      });
+      mInstrumentation.waitForIdleSync();
+      shell("cmd appops set " + mContext.getPackageName() + " RUN_ANY_IN_BACKGROUND ignore");
+      mScenario.recreate();
+      mScenario.onActivity(activity -> {
+        final AlertDialog dialog = (AlertDialog) warning(activity).requireDialog();
+        final int message = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+                              ? R.string.background_recording_warning_message
+                              : R.string.background_recording_warning_message_legacy;
+        assertEquals(activity.getString(message), ((TextView) dialog.findViewById(android.R.id.message)).getText());
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).performClick();
+      });
+      mInstrumentation.waitForIdleSync();
+      mScenario.recreate();
+      mScenario.onActivity(activity -> {
+        assertNull(findWarning(activity));
+        assertTrue(TrackRecorder.nativeIsTrackRecordingEnabled());
+      });
+    }
+    finally
+    {
+      manufacturer.set(null, original);
+    }
+  }
+
+  @Test
   public void readingTheGuideKeepsRecordingAndTheAdvisoryAvailable()
   {
     selectRecordTrack();
@@ -263,7 +318,7 @@ public class TrackRecordingBatteryWarningTest
         dialog.getButton(AlertDialog.BUTTON_NEUTRAL).performClick();
         assertEquals(1, browser.getHits());
         assertTrue(dialog.isShowing());
-        assertTrue(mPreferences.getBoolean("battery_optimization_warning_seen", false));
+        assertFalse(mPreferences.getBoolean("battery_optimization_warning_seen", false));
         assertTrue(TrackRecorder.nativeIsTrackRecordingEnabled());
       });
     }
