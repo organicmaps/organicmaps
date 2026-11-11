@@ -796,7 +796,7 @@ namespace KDTree
       {
         if (!__n)
           return;
-        _Link_type const __parent = _S_parent(__n);
+        _Base_ptr const __parent = __n->_M_parent;
         // Walk back through parent links without recursion or allocating in clear().
         while (__n)
           {
@@ -814,9 +814,9 @@ namespace KDTree
               }
             else
               {
-                _Link_type __next = _S_parent(__n);
+                _Base_ptr __next = __n->_M_parent;
                 _M_delete_node(__n);
-                __n = __next == __parent ? NULL : __next;
+                __n = __next == __parent ? NULL : static_cast<_Link_type>(__next);
               }
           }
       }
