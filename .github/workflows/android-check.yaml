@@ -165,6 +165,7 @@ jobs:
             ./gradlew -P${{ matrix.arch }} app:test${{ matrix.flavor }} sdk:testDebug
             :wear:testGoogleDebugUnitTest :libs:wear-protocol-gms:testDebugUnitTest
             :sdk:wear:core:testDebugUnitTest :sdk:wear:gms:testDebugUnitTest :libs:car:testDebugUnitTest
+            :sdk:location:gms:google:testDebugUnitTest :sdk:location:gms:foss:testDebugUnitTest
             sdk:connectedDebugAndroidTest
 
       - name: Upload ${{ matrix.flavor }} apk
