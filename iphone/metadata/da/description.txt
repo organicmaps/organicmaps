@@ -4,9 +4,9 @@ OFFLINE: Appen fungerer 100% offline — inklusive søgning og navigation. Du ka
 
 HURTIG: Zoom, søgning og ruteudregninger fungerer bemærkelsesværdigt hurtigt.
 
-DETALJERET & OPDATERET: Kortene er rige på detaljer og opdateres to gange om måneden for at afspejle de reelle forhold. I modsætning til mange velkendte konkurrenter inkluderer de bygningstegn, bænke, vandreruter og andre nyttige oplysninger.
+DETALJERET & OPDATERET: Kortene er rige på detaljer og opdateres to gange om måneden for at afspejle de reelle forhold. I modsætning til mange velkendte konkurrenter inkluderer de bygningsnavne, bænke, vandreruter og andre nyttige oplysninger.
 
-BASERET PÅ OPENSTREETMAP: OpenStreetMap er et wiki-stil verdens kort, bygget og vedligeholdt af millioner af frivillige — lokale, der kender deres områder bedst. Denne fællesskabsindsats resulterer i meget detaljerede kort, ofte mere præcise end kommercielle kort i mindre kortlagte områder. Organic Maps opdaterer sine data fra OpenStreetMap hver anden uge, hvilket holder kortene friske og pålidelige. Hvis du bemærker noget, der mangler, kan du tilføje det til OpenStreetMap og hjælpe med at forbedre kortet for alle.
+BASERET PÅ OPENSTREETMAP: OpenStreetMap er et wiki-lignende verdenskort, bygget og vedligeholdt af millioner af frivillige — lokale, der kender deres områder bedst. Denne fællesskabsindsats resulterer i meget detaljerede kort, ofte mere præcise end kommercielle kort i mindre kortlagte områder. Organic Maps opdaterer sine data fra OpenStreetMap hver anden uge, hvilket holder kortene friske og pålidelige. Hvis du bemærker noget, der mangler, kan du tilføje det til OpenStreetMap og hjælpe med at forbedre kortet for alle.
 
 PRIVATLIV FØRST: Vi indsamler ingen data eller identifikatorer. Det betyder, at der ikke er nogen risiko for datalækager og ingen distraktioner som annoncer eller støjende meddelelser — kun en ren, privat kortoplevelse.
 
@@ -17,6 +17,8 @@ UDFORSK STEDER: Søg efter adresse, navn eller kategori, opdag millioner af POI'
 GPS-NAVIGATION: Nyd stemmevejledte trin-for-trin instruktioner. Opret gå-, vandre-, cykel- eller køreruter — inklusive ruter mellem byer, lande og flere punkter. Find de bedste ruter til metro- og pendlerrejser. CarPlay understøttes.
 
 VANDRE- & CYKELRUTER FRA HELE VERDEN: Aktiver specielle kortlag for at opdage populære vandre- og cykelruter verden over, alle hentet fra OpenStreetMap. Skift mellem lagene for at se farvede cykel- og MTB-ruter samt officielle vandrestier.
+
+3D-TERRÆN & DYBDER: Se 3D-terræn, havdybder og detaljerede højdekurver. Tryk på et vilkårligt punkt for at se højden, på land eller til søs.
 
 OFFENTLIG TRANSPORT: Planlæg ruter med offentlig transport. Køreplaner i realtid er under udvikling.
 
@@ -32,8 +34,8 @@ MØRKT TEMA: Skift til mørkt tema for komfortabel visning om natten.
 
 iCLOUD SYNC: Lav nemt backup og synkroniser alle dine bogmærker og spor via iCloud.
 
-Prøv appen — den er 100% gratis, uden reklamer, hurtig og fuldstændig offline. Nyd en hurtig, pålidelig og privat kortoplevelse, og del den med andre!
-Organic Maps er et indie, community-drevet, open-source projekt med hundredvis af bidragydere, der hjælper med at udvikle nye funktioner, rette problemer, oversætte og drive projektet fremad.
+Prøv appen — den er 100% gratis, uden reklamer, hurtig og fuldstændig offline.
+Organic Maps er et indie, community-drevet, open-source projekt med hundredvis af bidragydere, der udvikler funktioner, retter fejl og oversætter.
 
 Eller lær andre måder at støtte projektet på: https://organicmaps.app/contribute/
 
