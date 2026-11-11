@@ -6,7 +6,7 @@ RÁPIDO: Zoom, pesquisa e cálculos de rotas funcionam perceptivelmente rápido.
 
 DETALHADO E ATUALIZADO: Os mapas são ricos em detalhes e atualizados duas vezes por mês para refletir condições reais. Diferente de muitos concorrentes conhecidos, incluem etiquetas de edifícios, bancos, trilhas de caminhada e outras informações úteis.
 
-BASEADO NO OPENSTREETMAP: OpenStreetMap é um mapa mundial estilo wiki construído e mantido por milhões de voluntários — locais que conhecem melhor suas áreas. Esse esforço comunitário resulta em mapas altamente detalhados, muitas vezes mais precisos que mapas comerciais em regiões menos mapeadas. Organic Maps atualiza seus dados do OpenStreetMap a cada duas semanas, mantendo seus mapas atualizados e confiáveis. E se você notar algo faltando, pode adicionar ao OpenStreetMap e ajudar a melhorar o mapa para todos.
+BASEADO NO OPENSTREETMAP: OpenStreetMap é um mapa mundial estilo wiki construído e mantido por milhões de voluntários — locais que conhecem melhor suas áreas. Isso resulta em mapas altamente detalhados, muitas vezes mais precisos que mapas comerciais em regiões menos mapeadas. Organic Maps atualiza seus dados do OpenStreetMap a cada duas semanas, mantendo seus mapas atualizados e confiáveis. E se você notar algo faltando, pode adicionar ao OpenStreetMap e ajudar a melhorar o mapa para todos.
 
 PRIVACIDADE EM PRIMEIRO LUGAR: Não coletamos nenhum dado ou identificador. Isso significa que não há risco de vazamento de dados e nenhuma distração como anúncios ou notificações barulhentas — apenas uma experiência de mapa limpa e privada.
 
@@ -17,6 +17,8 @@ EXPLORAR LUGARES: Pesquise por endereço, nome ou categoria, descubra milhões d
 NAVEGAÇÃO GPS: Aproveite as direções guiadas por voz, passo a passo. Crie rotas para caminhada, trilha, ciclismo ou carro — incluindo rotas entre cidades, países e múltiplos pontos. Encontre as melhores rotas para viagens de metrô e deslocamentos diários. Suporte a CarPlay.
 
 TRILHAS DE CAMINHADA E CICLISMO AO REDOR DO MUNDO: Ative camadas de mapa especiais para descobrir rotas populares de caminhada e ciclismo em todo o mundo, todas provenientes do OpenStreetMap. Alterne entre camadas para ver rotas de bicicleta e MTB coloridas, bem como trilhas oficiais de caminhada.
+
+TERRENO 3D E PROFUNDIDADES: Veja o terreno em 3D, a profundidade de oceanos e mares e curvas de nível detalhadas. Toque em qualquer ponto para consultar a altitude, em terra ou no mar.
 
 TRANSPORTE PÚBLICO: Planeie percursos de transportes públicos. Os horários em tempo real estão em desenvolvimento.
 
@@ -30,8 +32,8 @@ EDITOR DE MAPA: Contribua para o OpenStreetMap adicionando lugares faltantes ou 
 
 SINCRONIZAÇÃO iCLOUD: Faça backup e sincronize facilmente todos os seus favoritos e rotas pelo iCloud.
 
-Experimente o aplicativo — é 100% gratuito, sem anúncios, rápido e totalmente offline. Desfrute de uma experiência de mapa rápida, confiável e privada e compartilhe com outros.
-Organic Maps é um projeto indie, open-source, conduzido pela comunidade, com centenas de colaboradores que ajudam a desenvolver novos recursos, corrigir problemas, traduzir e impulsionar o projeto.
+Experimente o aplicativo — é 100% gratuito, sem anúncios, rápido e totalmente offline.
+Organic Maps é um projeto indie, open-source, conduzido pela comunidade, com centenas de colaboradores que desenvolvem recursos, corrigem bugs e traduzem.
 
 Instagram: @organicmaps.app
 Telegram: @OrganicMapsPT
