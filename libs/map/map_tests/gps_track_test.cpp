@@ -10,6 +10,7 @@
 #include "base/logging.hpp"
 
 #include <algorithm>
+#include <atomic>
 #include <chrono>
 #include <cmath>
 #include <condition_variable>
@@ -494,6 +495,59 @@ UNIT_TEST(GpsTrack_StatisticsOfRestoredTrack)
 
   TEST(callback.WaitForLength(GetLength(points)), ());
   TEST(!track.IsEmpty(), ());
+}
+
+UNIT_TEST(GpsTrack_StatisticsAfterMapDisconnectAndClear)
+{
+  TrackFile file("statistics_disconnect");
+  TrackCallback mapCallback;
+  StatisticsCallback statistics;
+  GpsTrack track(file.m_path);
+  track.Start();
+  track.SetCallback(mapCallback.GetCallback());
+  track.SetStatisticsCallback(statistics.GetCallback());
+
+  auto points = MakePoints(5);
+  track.AddPoints(points);
+  TEST(mapCallback.WaitForAdded(points.size()), ());
+  TEST(statistics.WaitForLength(GetLength(points)), ());
+
+  track.SetCallback(nullptr);
+  points.push_back(MakePoint(110.0, 150.0));
+  track.AddPoint(points.back());
+  TEST(statistics.WaitForLength(GetLength(points)), ());
+
+  track.Clear();
+  TEST(statistics.WaitForLength(0), ());
+}
+
+UNIT_TEST(GpsTrack_ReplaceStatisticsCallbackDuringRecording)
+{
+  TrackFile file("statistics_replace");
+  std::atomic<size_t> calls = 0;
+  GpsTrack track(file.m_path);
+  track.Start();
+  auto const callback = [&](TrackStatistics const &) { ++calls; };
+  track.SetStatisticsCallback(callback);
+  TEST(WaitFor([&] { return calls.load() > 0; }), ());
+
+  std::thread producer([&]
+  {
+    for (size_t i = 0; i < 500; ++i)
+      track.AddPoint(MakePoint(100.0 + i, 15.0 * i));
+  });
+  for (size_t i = 0; i < 500; ++i)
+  {
+    track.SetStatisticsCallback(callback);
+    track.SetStatisticsCallback(nullptr);
+  }
+  producer.join();
+
+  track.SetStatisticsCallback(nullptr);
+  auto const callsAfterUnsubscribe = calls.load();
+  track.AddPoint(MakePoint(1000.0, 15000.0));
+  track.Finalize();
+  TEST_EQUAL(calls.load(), callsAfterUnsubscribe, ());
 }
 
 UNIT_TEST(GpsTrack_LargeBackupRoundTrip)
