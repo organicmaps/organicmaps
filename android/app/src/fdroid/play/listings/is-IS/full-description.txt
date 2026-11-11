@@ -30,6 +30,10 @@ Njóttu talstýrðra, skref-fyrir-skref leiðbeininga. Búðu til göngu-, göng
 
 Virkjaðu sérstaka kortalaga til að uppgötva vinsælar göngu- og hjólaleiðir um allan heim, allar sóttar úr OpenStreetMap. Skiptu á milli laga til að sjá lituðu hjóla- og fjallahjólaleiðirnar, sem og opinberar gönguleiðir.
 
+<b>3D LANDSLAG OG DÝPI:</b>
+
+Skoðaðu landslag í þrívídd, dýpi úthafa og sjávar og nákvæmar hæðarlínur. Pikkaðu á hvaða punkt sem er til að sjá hæð hans, á landi eða sjó.
+
 <b>ALMENNINGSSAMGÖNGUR:</b>
 
 Þú getur skipulagt leiðir með almenningssamgöngum. Stuðningur við rauntímatímataflur er í þróun.
@@ -54,7 +58,7 @@ Leggðu lið við OpenStreetMap með því að bæta við stöðum sem vantar e�
 
 Skiptu yfir í dökkum stíl til að horfa þægilega á kortið á nóttunni.
 
-Reyndu appið — það er 100% ókeypis, án auglýsinga, hratt og fullkomlega aftengt netinu. Upplifðu áreiðanlega GPS-leiðsögn fyrir gönguferðir, hjólreiðar, fjallgöngur og ferðalög hvar sem er í heiminum! Njóttu hratts, áreiðanlegs og persónulegs kortaupplifunar og deildu henni með öðrum!
+Reyndu appið — það er 100% ókeypis, án auglýsinga, hratt og fullkomlega aftengt netinu.
 
 Organic Maps er sjálfstætt, samfélagsdrifið verkefni með opnum hugbúnaðarkóða og hundruðum þátttakenda sem hjálpa til við að þróa nýja eiginleika, laga vandamál, þýða og færa verkefnið áfram.
 
