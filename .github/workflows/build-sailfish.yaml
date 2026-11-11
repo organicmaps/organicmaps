@@ -61,7 +61,10 @@ jobs:
       # The SDK user is not the runner user, and Scratchbox 2 only sees its home directory.
       - name: Compile the Qt 5.6 code paths
         run: |
+          docker version --format 'Docker {{.Server.Version}}'
           chmod -R a+rwX .
-          docker run --rm -v "$PWD:/home/mersdk/src" -w /home/mersdk/src $SDK_IMAGE bash -ec "
+          # TODO(klahr): Remove seccomp=unconfined once the runner image has Docker 29.4.3 or later:
+          # 29.4.2 blocks the 32-bit socket calls of the SDK tools.
+          docker run --rm --security-opt seccomp=unconfined -v "$PWD:/home/mersdk/src" -w /home/mersdk/src $SDK_IMAGE bash -ec "
             sb2 -t $SDK_TARGET cmake -B build -DSAILFISH=ON -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=OFF
             sb2 -t $SDK_TARGET cmake --build build --target platform location_service drape -j \$(nproc)"
