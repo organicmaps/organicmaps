@@ -16,7 +16,7 @@ NAVIGATION GPS : Profitez d’instructions vocales détaillées. Créez des itin
 
 SENTIERS DE RANDONNÉE & CYCLISME DANS LE MONDE : Activez des couches de carte spéciales pour découvrir les itinéraires populaires de randonnée et de vélo dans le monde entier, tous issus d’OpenStreetMap. Basculez entre les couches pour voir les itinéraires vélo et VTT colorés, ainsi que les sentiers de randonnée officiels.
 
-RELIEF 3D & PROFONDEURS : Visualisez le relief en 3D, la profondeur des océans et des mers, ainsi que des courbes de niveau détaillées. Touchez n’importe quel point pour connaître son altitude, sur terre comme en mer.
+RELIEF 3D & PROFONDEURS : Visualisez les hauteurs des montagnes, les profondeurs marines et les courbes de niveau. Touchez n’importe où sur la carte pour connaître l’altitude.
 
 TRANSPORT PUBLIC : Planifiez vos trajets en métro, train léger, bus et tram ; consultez les numéros de ligne aux arrêts. Les horaires en temps réel sont en développement.
 

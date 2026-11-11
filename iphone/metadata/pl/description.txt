@@ -18,7 +18,7 @@ NAWIGACJA GPS: Ciesz się wskazówkami głosowymi krok po kroku. Twórz trasy pi
 
 SZLAKI WĘDRÓWKOWE I ROWEROWE Z CAŁEGO ŚWIATA: Włącz specjalne warstwy map, aby odkrywać popularne szlaki piesze i rowerowe na całym świecie, wszystkie pochodzące z OpenStreetMap. Przełączaj warstwy, aby zobaczyć kolorowe trasy rowerowe i MTB oraz oficjalne szlaki turystyczne.
 
-TEREN 3D I GŁĘBOKOŚCI: Oglądaj teren w 3D, głębokości oceanów i mórz oraz szczegółowe poziomice. Dotknij dowolnego punktu, aby sprawdzić jego wysokość, na lądzie lub na morzu.
+TEREN 3D I GŁĘBOKOŚCI: Zobacz wysokości gór, głębokości mórz i poziomice. Dotknij dowolnego miejsca na mapie, aby zobaczyć jego wysokość.
 
 TRANSPORT PUBLICZNY: Zaplanuj trasy transportu publicznego. Trwają prace nad wprowadzeniem rozkładów jazdy na żywo.
 

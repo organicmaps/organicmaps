@@ -18,7 +18,7 @@ GPS-NAVIGATION: Nyd stemmevejledte trin-for-trin instruktioner. Opret gå-, vand
 
 VANDRE- & CYKELRUTER FRA HELE VERDEN: Aktiver specielle kortlag for at opdage populære vandre- og cykelruter verden over, alle hentet fra OpenStreetMap. Skift mellem lagene for at se farvede cykel- og MTB-ruter samt officielle vandrestier.
 
-3D-TERRÆN & DYBDER: Se 3D-terræn, havdybder og detaljerede højdekurver. Tryk på et vilkårligt punkt for at se højden, på land eller til søs.
+3D-TERRÆN & DYBDER: Se bjerghøjder, havdybder og højdekurver. Tryk et vilkårligt sted på kortet for at se højden.
 
 OFFENTLIG TRANSPORT: Planlæg ruter med offentlig transport. Køreplaner i realtid er under udvikling.
 

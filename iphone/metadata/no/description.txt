@@ -18,7 +18,7 @@ GPS-NAVIGASJON: Nyt stemmestyrte, sving-for-sving-instruksjoner. Opprett gå-, t
 
 TUR- & SYKKELSTIER FRA HELE VERDEN: Aktiver spesielle kartlag for å oppdage populære tur- og sykkelruter over hele verden, alle hentet fra OpenStreetMap. Bytt mellom lag for å se fargede sykkel- og MTB-ruter, samt offisielle turstier.
 
-3D-TERRENG & DYBDER: Se 3D-terreng, hav- og sjødybder og detaljerte høydekurver. Trykk på et hvilket som helst punkt for å se høyden, på land eller til sjøs.
+3D-TERRENG & DYBDER: Se fjellhøyder, havdybder og høydekurver. Trykk hvor som helst på kartet for å se høyden.
 
 OFFENTLIG TRANSPORT: Du kan planlegge reiseruter med offentlig transport. Støtte for rutetabeller i sanntid er under utvikling.
 

@@ -16,7 +16,7 @@ GPS NAVIGACIJA: Uživajte u glasovno vođenim uputama korak po korak. Kreirajte 
 
 PLANINARSKE I BICIKLISTIČKE STAZE IZ CIJELOG SVIJETA: Aktivirajte posebne slojeve karte kako biste otkrili popularne planinarske i biciklističke rute širom svijeta, sve iz OpenStreetMap-a. Prebacujte se između slojeva kako biste vidjeli obojene biciklističke i MTB rute, kao i službene planinarske staze.
 
-3D TEREN I DUBINE: Pogledajte 3D teren, dubine oceana i mora te detaljne izohipse. Dodirnite bilo koju točku kako biste provjerili njezinu nadmorsku visinu, na kopnu ili na moru.
+3D TEREN I DUBINE: Pogledajte visine planina, morske dubine i izohipse. Dodirnite bilo gdje na karti da vidite nadmorsku visinu.
 
 JAVNI PRIJEVOZ: Planirajte rute javnim prijevozom. Podrška za vozne redove u stvarnom vremenu je u razvoju.
 

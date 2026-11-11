@@ -27,7 +27,7 @@ POHODNIŠKE IN KOLESARSKE POTI:
 Aktivirajte posebne sloje zemljevidov za odkrivanje priljubljenih poti po svetu.
 
 3D TEREN IN GLOBINE:
-Oglejte si 3D teren, globine oceanov in morij ter podrobne plastnice. Tapnite katero koli točko in preverite njeno nadmorsko višino, na kopnem ali na morju.
+Oglejte si višine gora, morske globine in plastnice. Tapnite kjer koli na zemljevidu, da vidite nadmorsko višino.
 
 JAVNI PREVOZ:
 Načrtujte poti z javnim prevozom. Oglejte si številke linij na postajališčih. Vozni redi v realnem času so v razvoju.

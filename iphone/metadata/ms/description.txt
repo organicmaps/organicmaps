@@ -18,7 +18,7 @@ NAVIGASI GPS: Nikmati arahan berpandu suara, langkah demi langkah. Cipta laluan 
 
 LALUAN MENDAKI & BERBASIKAL DARI SELURUH DUNIA: Aktifkan lapisan peta khas untuk menemui laluan mendaki dan berbasikal yang popular di seluruh dunia, semua daripada OpenStreetMap. Tukar antara lapisan untuk melihat laluan berwarna basikal dan MTB, serta laluan mendaki rasmi.
 
-RUPA BUMI 3D & KEDALAMAN: Lihat rupa bumi 3D, kedalaman lautan dan laut, serta garisan kontur terperinci. Ketik mana-mana titik untuk menyemak ketinggiannya, di darat atau di laut.
+RUPA BUMI 3D & KEDALAMAN: Lihat ketinggian gunung, kedalaman laut dan garisan kontur. Ketik di mana-mana pada peta untuk melihat ketinggian.
 
 PENGANGKUTAN AWAM: Rancang laluan pengangkutan awam. Jadual waktu masa nyata sedang dibangunkan.
 

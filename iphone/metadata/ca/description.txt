@@ -16,7 +16,7 @@ NAVEGACIÓ GPS: Gaudeix de direccions pas a pas amb veu. Crea rutes a peu, per f
 
 RUTES DE CAMINADES I CICLISME D’ARREU DEL MÓN: Activa capes especials del mapa per descobrir rutes populars de caminades i ciclisme a tot el món, totes extretes d’OpenStreetMap. Canvia entre capes per veure rutes de bicicleta i MTB en colors, així com camins oficials de senderisme.
 
-TERRENY 3D I PROFUNDITATS: Mira el terreny en 3D, les profunditats d’oceans i mars i corbes de nivell detallades. Toca qualsevol punt per consultar-ne l’altitud, a terra o al mar.
+TERRENY 3D I PROFUNDITATS: Mira les altituds de les muntanyes, les profunditats marines i les corbes de nivell. Toca qualsevol punt del mapa per veure’n l’altitud.
 
 TRANSPORT PÚBLIC: Planifica rutes de transport públic. Els horaris en temps real estan en desenvolupament.
 

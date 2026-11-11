@@ -16,7 +16,7 @@ GPS NAVIGÁCIÓ: Élvezze a hangvezérelt, kanyarról-kanyarra navigációt. Hoz
 
 TÚRA- ÉS KERÉKPÁROS ÚTVONALAK A VILÁG MINDEN TÁJÁRÓL: Kapcsolja be a speciális térképrétegeket, hogy felfedezze a népszerű túra- és kerékpáros útvonalakat világszerte, mind az OpenStreetMap forrásából. Váltson a rétegek között, hogy színes kerékpár- és MTB útvonalakat, valamint hivatalos túraútvonalakat lásson.
 
-3D DOMBORZAT ÉS MÉLYSÉGEK: Tekintse meg a 3D domborzatot, az óceánok és tengerek mélységét, valamint a részletes szintvonalakat. Koppintson bármely pontra a magasság megtekintéséhez, szárazföldön vagy tengeren.
+3D DOMBORZAT ÉS MÉLYSÉGEK: Tekintse meg a hegyek magasságát, a tengerek mélységét és a szintvonalakat. Koppintson bárhol a térképen a magasság megtekintéséhez.
 
 KÖZLEKEDÉS: Tömegközlekedési útvonalak tervezése. Az élő menetrendek kidolgozása folyamatban van.
 

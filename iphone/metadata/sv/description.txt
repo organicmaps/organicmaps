@@ -18,7 +18,7 @@ GPS-NAVIGERING: Njut av röststyrd, sväng-för-sväng-vägledning. Skapa rutter
 
 VANDRINGS- OCH CYKELLEDER FRÅN HELA VÄRLDEN: Aktivera specialkartlager för att upptäcka populära vandrings- och cykelleder världen över, alla från OpenStreetMap. Växla mellan lager för att se färgade cykel- och MTB-rutter samt officiella vandringsleder.
 
-3D-TERRÄNG & DJUP: Se 3D-terräng, havsdjup samt detaljerade höjdkurvor. Tryck på valfri punkt för att se dess höjd, på land eller till sjöss.
+3D-TERRÄNG & DJUP: Se bergshöjder, havsdjup och höjdkurvor. Tryck var som helst på kartan för att se höjden.
 
 KOLLEKTIVTRAFIK: Planera resor med kollektivtrafik. Tidtabeller i realtid är under utveckling.
 

@@ -18,7 +18,7 @@ GPS-NAVIGOINTI: Nauti puheohjatuista käännös käännökseltä -ohjeista. Luo 
 
 VAELLUS- JA PYÖRÄILYTIET MAAILMANLAAJUISESTI: Ota käyttöön erityiset karttatasot löytääksesi suosittuja vaellus- ja pyöräilyreittejä maailmanlaajuisesti, kaikki OpenStreetMapista. Vaihda tasojen välillä nähdäksesi värilliset pyörä- ja MTB-reitit sekä viralliset vaellusreitit.
 
-3D-MAASTO JA SYVYYDET: Näe 3D-maasto, valtamerten ja merien syvyydet sekä tarkat korkeuskäyrät. Napauta mitä tahansa kohtaa nähdäksesi sen korkeuden, maalla tai merellä.
+3D-MAASTO JA SYVYYDET: Katso vuorten korkeuksia, merien syvyyksiä ja korkeuskäyriä. Näet korkeuden napauttamalla mitä tahansa kohtaa kartalla.
 
 JULKINEN LIIKENNE: Suunnittele joukkoliikenteen reitit. Reaaliaikaiset aikataulut ovat kehitteillä.
 

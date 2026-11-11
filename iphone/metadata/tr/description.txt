@@ -16,7 +16,7 @@ GPS NAVİGASYON: Sesli, adım adım yönlendirmelerin keyfini çıkarın. Yürü
 
 DÜNYA ÇAPINDA YÜRÜYÜŞ VE BİSİKLET ROTALARI: Popüler yürüyüş ve bisiklet rotalarını keşfetmek için özel harita katmanlarını etkinleştirin, tümü OpenStreetMap’ten alınmıştır. Renkli bisiklet ve MTB rotalarını ve resmi yürüyüş yollarını görmek için katmanlar arasında geçiş yapın.
 
-3D ARAZİ VE DERİNLİKLER: 3D araziyi, okyanus ve deniz derinliklerini ve ayrıntılı eş yükselti eğrilerini görün. Karada ya da denizde, herhangi bir noktaya dokunarak yüksekliğini öğrenin.
+3D ARAZİ VE DERİNLİKLER: Dağ yüksekliklerini, deniz derinliklerini ve eş yükselti eğrilerini görün. Yüksekliği görmek için haritada herhangi bir yere dokunun.
 
 TOPLU TAŞIMA: Rotaları planlayın, duraklarda hat numaralarını görün. Gerçek zamanlı sefer saatleri geliştirme aşamasında.
 

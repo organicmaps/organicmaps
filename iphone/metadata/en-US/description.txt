@@ -2,7 +2,7 @@ Organic Maps is a fast, detailed offline map and GPS navigation app for travel, 
 
 OFFLINE: The app works 100% offline — including search and navigation. You can explore the map and navigate without an internet connection, saving on mobile data and roaming fees. And with no background data transfers, your battery lasts much longer.
 
-FAST: Zooming, search, and route calculations work noticeably fast. 
+FAST: Zooming, search, and route calculations work noticeably fast.
 
 DETAILED & UPDATED: The maps are rich in detail and refreshed twice a month to reflect real-world conditions. Unlike many well-known competitors, they include building labels, benches, hiking paths, and other helpful information.
 
@@ -11,7 +11,7 @@ OPENSTREETMAP-BASED: OpenStreetMap is a wiki-style world map built and maintaine
 PRIVACY-FIRST: We don’t collect any data or identifiers. This means there’s no risk of data leaks and no distractions like ads or noisy notifications — just a clean, private map experience.
 
 
-IMPORTANT FEATURES 
+IMPORTANT FEATURES
 
 EXPLORE PLACES: Search by address, name, or category, discover millions of POIs, and view detailed information such as opening hours, Wikipedia articles, wheelchair accessibility, and other helpful details. All available offline.
 
@@ -19,7 +19,7 @@ GPS NAVIGATION: Enjoy voice-guided, turn-by-turn directions. Create walking, hik
 
 HIKING & CYCLING TRAILS FROM AROUND THE WORLD: Enable special map layers to discover popular hiking and cycling routes worldwide, all sourced from OpenStreetMap. Switch between layers to see colored bike and MTB routes, as well as official hiking paths.
 
-3D TERRAIN & DEPTHS: See 3D terrain, ocean and sea depths, and detailed contour lines. Tap any point to check its elevation, on land or at sea.
+3D TERRAIN & DEPTHS: See shaded relief, ocean and sea depths, and detailed contour lines. Tap anywhere on the map to see elevation.
 
 PUBLIC TRANSPORT: Plan subway, light rail, bus and tram routes; see line numbers at stops. Live timetables are in development.
 

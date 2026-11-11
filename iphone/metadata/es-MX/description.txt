@@ -16,7 +16,7 @@ NAVEGACIÓN GPS: Disfruta de indicaciones por voz, giro a giro. Crea rutas para 
 
 SENDEROS Y RUTAS DE CICLISMO EN TODO EL MUNDO: Activa capas especiales de mapa para descubrir rutas populares de senderismo y ciclismo en todo el mundo, todas provenientes de OpenStreetMap. Cambia entre capas para ver rutas de bicicleta y MTB coloreadas, así como senderos oficiales.
 
-TERRENO 3D Y PROFUNDIDADES: Visualiza el terreno en 3D, la profundidad de océanos y mares y curvas de nivel detalladas. Toca cualquier punto para ver su altitud, en tierra o en el mar.
+TERRENO 3D Y PROFUNDIDADES: Consulta las alturas de las montañas, las profundidades marinas y las curvas de nivel. Toca cualquier punto del mapa para ver su altitud.
 
 TRANSPORTE PÚBLICO: Planifica rutas de transporte público. Los horarios en tiempo real están en desarrollo.
 

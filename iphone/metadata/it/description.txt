@@ -18,7 +18,7 @@ NAVIGAZIONE GPS: Goditi indicazioni vocali passo passo. Crea percorsi a piedi, e
 
 PERCORSI ESCURSIONISTICI E CICLABILI DAL MONDO: Attiva livelli di mappa speciali per scoprire percorsi escursionistici e ciclabili popolari in tutto il mondo, tutti da OpenStreetMap. Passa tra i livelli per vedere percorsi bici e MTB colorati e sentieri ufficiali.
 
-TERRENO 3D E PROFONDITÀ: Visualizza il terreno in 3D, le profondità di oceani e mari e curve di livello dettagliate. Tocca un punto qualsiasi per verificarne l’altitudine, sulla terraferma o in mare.
+TERRENO 3D E PROFONDITÀ: Visualizza le altitudini delle montagne, le profondità marine e le curve di livello. Tocca un punto qualsiasi della mappa per vederne l’altitudine.
 
 TRASPORTO PUBBLICO: Pianifica gli itinerari con i mezzi pubblici. Gli orari in tempo reale sono in fase di sviluppo.
 

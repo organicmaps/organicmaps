@@ -16,7 +16,7 @@ GPS-NAVIGATION: Genieße sprachgeführte Navigation mit Abbiegehinweisen. Erstel
 
 WANDER- & FAHRRADROUTEN WELTWEIT: Aktiviere spezielle Kartenebenen, um beliebte Wander- und Fahrradrouten weltweit zu entdecken, alle von OpenStreetMap. Wechsle zwischen den Ebenen, um farbige Fahrrad- und MTB-Routen sowie offizielle Wanderwege zu sehen.
 
-3D-GELÄNDE & TIEFEN: Sieh dir 3D-Gelände, Meerestiefen sowie detaillierte Höhenlinien an. Tippe auf einen beliebigen Punkt, um seine Höhe zu prüfen, an Land oder auf See.
+3D-GELÄNDE & TIEFEN: Sieh dir Berghöhen, Meerestiefen und Höhenlinien an. Tippe irgendwo auf die Karte, um die Höhe zu sehen.
 
 ÖFFENTLICHE VERKEHRSMITTEL: Plane Routen mit öffentlichen Verkehrsmitteln. Live-Fahrpläne sind in Entwicklung.
 

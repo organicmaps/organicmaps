@@ -18,7 +18,7 @@ NAVIGAȚIE GPS: Bucură-te de indicații vocale pas cu pas. Creează trasee de m
 
 TRASEE DE DRUMEȚII ȘI CICLISM DIN ÎNTREAGA LUME: Activează straturi speciale de hartă pentru a descoperi trasee populare de drumeții și ciclism la nivel mondial, toate provenind din OpenStreetMap. Comută între straturi pentru a vedea trasee colorate pentru biciclete și MTB, precum și trasee oficiale de drumeții.
 
-RELIEF 3D ȘI ADÂNCIMI: Vezi relieful 3D, adâncimile oceanelor și mărilor și curbe de nivel detaliate. Atinge orice punct pentru a-i verifica altitudinea, pe uscat sau pe mare.
+RELIEF 3D ȘI ADÂNCIMI: Vezi înălțimile munților, adâncimile mărilor și curbele de nivel. Atinge orice punct de pe hartă pentru a vedea altitudinea.
 
 TRANSPORT PUBLIC: Planifică rute și vezi numerele liniilor la stații. Orarele în timp real sunt în dezvoltare.
 

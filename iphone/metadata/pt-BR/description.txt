@@ -18,7 +18,7 @@ NAVEGAÇÃO GPS: Aproveite as direções guiadas por voz, passo a passo. Crie ro
 
 TRILHAS DE CAMINHADA E CICLISMO AO REDOR DO MUNDO: Ative camadas de mapa especiais para descobrir rotas populares de caminhada e ciclismo em todo o mundo, todas provenientes do OpenStreetMap. Alterne entre camadas para ver rotas de bicicleta e MTB coloridas, bem como trilhas oficiais de caminhada.
 
-TERRENO 3D E PROFUNDIDADES: Veja o terreno em 3D, a profundidade de oceanos e mares e curvas de nível detalhadas. Toque em qualquer ponto para conferir a altitude, em terra ou no mar.
+TERRENO 3D E PROFUNDIDADES: Veja as altitudes das montanhas, as profundidades do mar e as curvas de nível. Toque em qualquer ponto do mapa para ver a altitude.
 
 TRANSPORTE PÚBLICO: Planeje rotas de transporte público. Os horários em tempo real estão em desenvolvimento.
 

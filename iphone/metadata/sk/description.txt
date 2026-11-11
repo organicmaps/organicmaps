@@ -18,7 +18,7 @@ GPS NAVIGÁCIA: Užite si hlasové pokyny krok za krokom. Vytvárajte trasy na p
 
 TÚRY A CYKLISTICKÉ TRASY Z CELÉHO SVETA: Aktivujte špeciálne mapové vrstvy na objavovanie populárnych turistických a cyklistických trás po celom svete, všetky zo zdroja OpenStreetMap. Prepnite medzi vrstvami a zobrazte farebné cyklistické a MTB trasy, ako aj oficiálne turistické chodníky.
 
-3D TERÉN A HĹBKY: Prezerajte si 3D terén, hĺbky oceánov a morí a podrobné vrstevnice. Ťuknutím na ľubovoľný bod zistíte jeho nadmorskú výšku, na súši aj na mori.
+3D TERÉN A HĹBKY: Pozrite si výšky hôr, morské hĺbky a vrstevnice. Ťuknutím kamkoľvek na mapu zobrazíte nadmorskú výšku.
 
 VEREJNÁ DOPRAVA: Môžete si plánovať trasy s využitím verejnej dopravy. Podpora cestovných poriadkov v reálnom čase sa momentálne vyvíja.
 

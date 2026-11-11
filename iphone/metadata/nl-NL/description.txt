@@ -18,7 +18,7 @@ GPS-NAVIGATIE: Geniet van stapsgewijze, gesproken aanwijzingen. Maak wandel-, fi
 
 WANDEL- & FIETSROUTES VAN OVER DE HELE WERELD: Schakel speciale kaartlagen in om populaire wandel- en fietsroutes wereldwijd te ontdekken, allemaal afkomstig van OpenStreetMap. Wissel tussen lagen om gekleurde fiets- en MTB-routes te zien, evenals officiële wandelpaden.
 
-3D-TERREIN & DIEPTES: Bekijk 3D-terrein, oceaan- en zeedieptes en gedetailleerde hoogtelijnen. Tik op een willekeurig punt om de hoogte te zien, op land of op zee.
+3D-TERREIN & DIEPTES: Bekijk de hoogtes van bergen, zeedieptes en hoogtelijnen. Tik ergens op de kaart om de hoogte te zien.
 
 OPENBAAR VERVOER: Plan routes met het openbaar vervoer. Real-time dienstregelingen zijn in ontwikkeling.
 

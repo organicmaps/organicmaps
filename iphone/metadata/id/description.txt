@@ -17,7 +17,7 @@ NAVIGASI GPS: Nikmati petunjuk belok demi belok dengan panduan suara. Buat rute 
 
 JALUR HIKING & BERSEPEDA DARI SELURUH DUNIA: Aktifkan lapisan peta khusus untuk menemukan jalur hiking dan bersepeda populer di seluruh dunia, semuanya dari OpenStreetMap. Beralih antara lapisan untuk melihat rute sepeda dan MTB berwarna, serta jalur hiking resmi.
 
-MEDAN 3D & KEDALAMAN: Lihat medan 3D, kedalaman samudra dan laut, serta garis kontur yang detail. Ketuk titik mana pun untuk memeriksa ketinggiannya, di darat maupun di laut.
+MEDAN 3D & KEDALAMAN: Lihat ketinggian gunung, kedalaman laut, dan garis kontur. Ketuk di mana saja pada peta untuk melihat ketinggian.
 
 TRANSPORTASI UMUM: Rencanakan rute angkutan umum. Jadwal real-time sedang dalam tahap pengembangan.
 
