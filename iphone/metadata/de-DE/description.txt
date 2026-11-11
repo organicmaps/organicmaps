@@ -4,7 +4,7 @@ OFFLINE: Die App funktioniert zu 100% offline — einschließlich Suche und Navi
 
 DETAILLIERT & AKTUELL: Die Karten sind sehr detailreich und werden zweimal im Monat aktualisiert, um die realen Gegebenheiten widerzuspiegeln. Im Gegensatz zu vielen bekannten Konkurrenten enthalten sie Gebäude-Beschriftungen, Bänke, Wanderwege und weitere hilfreiche Informationen.
 
-BASIERT AUF OPENSTREETMAP: OpenStreetMap ist eine Wiki-ähnliche Weltkarte, die von Millionen Freiwilligen erstellt und gepflegt wird — von Einheimischen, die ihre Gebiete am besten kennen. Diese Gemeinschaftsarbeit liefert hochdetaillierte Karten, oft genauer als kommerzielle Karten in weniger kartografierten Regionen. Organic Maps aktualisiert seine Daten alle zwei Wochen aus OpenStreetMap, sodass deine Karten immer frisch und zuverlässig bleiben. Wenn dir etwas fehlt, kannst du es zu OpenStreetMap hinzufügen und so die Karte für alle verbessern.
+BASIERT AUF OPENSTREETMAP: OpenStreetMap ist eine Wiki-ähnliche Weltkarte, die von Millionen Freiwilligen erstellt und gepflegt wird — von Einheimischen, die ihre Gebiete am besten kennen. Diese Gemeinschaftsarbeit liefert hochdetaillierte Karten, oft genauer als kommerzielle Karten in weniger kartografierten Regionen. Organic Maps aktualisiert seine Daten alle zwei Wochen aus OpenStreetMap, sodass deine Karten aktuell und zuverlässig bleiben. Wenn dir etwas fehlt, kannst du es zu OpenStreetMap hinzufügen und so die Karte für alle verbessern.
 
 DATENSCHUTZ VORAN: Wir sammeln keine Daten oder Kennungen. Das bedeutet kein Risiko von Datenlecks und keine Ablenkung durch Werbung oder störende Benachrichtigungen — nur ein sauberes, privates Kartenerlebnis.
 
@@ -12,9 +12,11 @@ WICHTIGE FUNKTIONEN
 
 ORTE ENTDECKEN: Suche nach Adresse, Name oder Kategorie, entdecke Millionen von POIs und sieh detaillierte Informationen wie Öffnungszeiten, Wikipedia-Artikel, Rollstuhlgerechtigkeit und weitere nützliche Details. Alles offline verfügbar.
 
-GPS-NAVIGATION: Genieße sprachgeführte, Schritt-für-Schritt-Routen. Erstelle Routen zu Fuß, zum Wandern, mit dem Rad oder dem Auto — einschließlich Routen zwischen Städten, Ländern und mehreren Zwischenpunkten. Finde die besten Routen für deine Metro- oder Pendelstrecken. CarPlay wird unterstützt.
+GPS-NAVIGATION: Genieße sprachgeführte Navigation mit Abbiegehinweisen. Erstelle Routen zu Fuß, zum Wandern, mit dem Rad oder dem Auto — einschließlich Routen zwischen Städten, Ländern und mehreren Zwischenpunkten. CarPlay wird unterstützt.
 
 WANDER- & FAHRRADROUTEN WELTWEIT: Aktiviere spezielle Kartenebenen, um beliebte Wander- und Fahrradrouten weltweit zu entdecken, alle von OpenStreetMap. Wechsle zwischen den Ebenen, um farbige Fahrrad- und MTB-Routen sowie offizielle Wanderwege zu sehen.
+
+3D-GELÄNDE & TIEFEN: Sieh dir 3D-Gelände, Meeres- und Seetiefen sowie detaillierte Höhenlinien an. Tippe auf einen beliebigen Punkt, um seine Höhe zu prüfen, an Land oder auf See.
 
 ÖFFENTLICHE VERKEHRSMITTEL: Plane Routen mit öffentlichen Verkehrsmitteln. Live-Fahrpläne sind in Entwicklung.
 
@@ -29,7 +31,7 @@ KARTENEDITOR: Trage zu OpenStreetMap bei, indem du fehlende Orte hinzufügst ode
 iCLOUD-SYNC: Sichere und synchronisiere alle deine Lesezeichen und Routen einfach über iCloud.
 
 Probiere die App aus — sie ist 100% kostenlos, werbefrei, schnell und vollständig offline.
-Organic Maps ist ein unabhängiges, community-getriebenes Open-Source-Projekt mit Hunderten von Mitwirkenden, die neue Funktionen entwickeln, Probleme beheben, übersetzen und das Projekt voranbringen.
+Organic Maps ist ein unabhängiges, community-getriebenes Open-Source-Projekt mit Hunderten von Mitwirkenden, die Funktionen entwickeln, Fehler beheben und übersetzen.
 
 Oder entdecke weitere Möglichkeiten, das Projekt zu unterstützen: https://organicmaps.app/contribute/
 
