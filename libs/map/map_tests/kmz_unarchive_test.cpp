@@ -8,7 +8,7 @@
 UNIT_TEST(KMZ_UnzipTest)
 {
   std::string const kmzFile = GetPlatform().TestsDataPathForFile("test_data/kml/test.kmz");
-  auto const kmlDataCollection = LoadBookmarkFileForImport(kmzFile);
+  auto const kmlDataCollection = LoadBookmarkFileForImport(kmzFile).m_kmlData;
   TEST_EQUAL(1, kmlDataCollection.size(), ());
   auto const & [filePath, kmlData] = kmlDataCollection[0];
   TEST(filePath.ends_with("doc.kml"), (filePath));
@@ -38,7 +38,7 @@ UNIT_TEST(KMZ_RealLifeAreas)
   // Dartmoor National Park Authority, "Backpack camping on Dartmoor commons", Open Government Licence v3.0:
   // https://www.arcgis.com/home/item.html?id=3d00736c2b2a44d4b59d58e7fccba07a
   std::string const kmzFile = GetPlatform().TestsDataPathForFile("test_data/kml/dartmoor_backpack_camping.kmz");
-  auto const kmlDataCollection = LoadBookmarkFileForImport(kmzFile);
+  auto const kmlDataCollection = LoadBookmarkFileForImport(kmzFile).m_kmlData;
   TEST_EQUAL(kmlDataCollection.size(), 1, ());
 
   auto const & kmlData = kmlDataCollection[0].second;
@@ -66,7 +66,7 @@ UNIT_TEST(KMZ_RealLifeAreas)
 UNIT_TEST(Multi_KML_KMZ_UnzipTest)
 {
   std::string const kmzFile = GetPlatform().TestsDataPathForFile("test_data/kml/BACRNKMZ.kmz");
-  auto const kmlDataCollection = LoadBookmarkFileForImport(kmzFile);
+  auto const kmlDataCollection = LoadBookmarkFileForImport(kmzFile).m_kmlData;
 
   base::StringIL expectedFileNames = {
       "BACRNKMZfilesCampgrounds 26may2022 green and tree icon",

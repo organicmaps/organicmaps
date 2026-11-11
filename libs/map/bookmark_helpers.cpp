@@ -493,16 +493,21 @@ std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, FileType fi
   return kmlData;
 }
 
-static std::vector<std::string> GetFilePathsToLoadFromKmz(std::string const & filePath)
+static std::vector<std::string> GetFilePathsToLoadFromKmz(std::string const & filePath, size_t & failedCount)
 {
   // Extract KML files from KMZ archive and save to temp KMLs with unique name.
   std::vector<std::string> kmlFilePaths;
+  ZipFileReader::FileList files;
   try
   {
-    ZipFileReader::FileList files;
     ZipFileReader::FilesList(filePath, files);
     files.erase(std::remove_if(files.begin(), files.end(),
-                               [](auto const & file) { return GetLowercaseFileExt(file.first) != kKmlExtension; }),
+                               [](auto const & file)
+    {
+      // Skip macOS AppleDouble metadata (._name, also under __MACOSX/), which Finder adds for every archived file.
+      return GetLowercaseFileExt(file.first) != kKmlExtension ||
+             base::FileNameFromFullPath(file.first).starts_with("._");
+    }),
                 files.end());
     for (auto const & [kmlFileInZip, size] : files)
     {
@@ -515,14 +520,15 @@ static std::vector<std::string> GetFilePathsToLoadFromKmz(std::string const & fi
   catch (RootException const & e)
   {
     LOG(LWARNING, ("Error unzipping file", filePath, e.Msg()));
+    // Extraction stops at the first error, so none of the remaining entries are imported.
+    failedCount += files.size() - kmlFilePaths.size();
   }
   return kmlFilePaths;
 }
 
-std::vector<std::pair<std::string, std::unique_ptr<kml::FileData>>> LoadBookmarkFileForImport(
-    std::string const & filePath)
+BookmarkFileImportData LoadBookmarkFileForImport(std::string const & filePath)
 {
-  std::vector<std::pair<std::string, std::unique_ptr<kml::FileData>>> result;
+  BookmarkFileImportData result;
   auto const fileType = GetFileType(filePath);
   if (!fileType)
   {
@@ -537,16 +543,18 @@ std::vector<std::pair<std::string, std::unique_ptr<kml::FileData>>> LoadBookmark
   if (*fileType != FileType::Kmz)
   {
     if (auto kmlData = LoadKmlFile(filePath, *fileType))
-      result.emplace_back(filePath, std::move(kmlData));
+      result.m_kmlData.emplace_back(filePath, std::move(kmlData));
     return result;
   }
 
-  for (auto & kmlFilePath : GetFilePathsToLoadFromKmz(filePath))
+  for (auto & kmlFilePath : GetFilePathsToLoadFromKmz(filePath, result.m_failedCount))
   {
     auto kmlData = LoadKmlFile(kmlFilePath, FileType::Kml);
     base::DeleteFileX(kmlFilePath);
     if (kmlData)
-      result.emplace_back(std::move(kmlFilePath), std::move(kmlData));
+      result.m_kmlData.emplace_back(std::move(kmlFilePath), std::move(kmlData));
+    else
+      ++result.m_failedCount;
   }
   return result;
 }

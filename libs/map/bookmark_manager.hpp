@@ -36,6 +36,28 @@ class CountryInfoGetter;
 class DataSource;
 class SearchAPI;
 
+enum class BookmarkImportStatus : uint8_t
+{
+  Success,
+  // Some categories were imported, but at least one KMZ entry could not be extracted, parsed or saved.
+  PartialSuccess,
+  // No category was imported.
+  Failure
+};
+
+std::string DebugPrint(BookmarkImportStatus status);
+
+struct BookmarkImportSourceResult
+{
+  std::string m_filePath;
+  BookmarkImportStatus m_status;
+  // Categories created from this source, in the order they were read; empty for a failure.
+  kml::GroupIdCollection m_groupIds;
+};
+
+// One result per requested path, in request order.
+using BookmarkImportResult = std::vector<BookmarkImportSourceResult>;
+
 class BookmarkManager final
 {
   using UserMarkLayers = std::vector<std::unique_ptr<UserMarkLayer>>;
@@ -56,14 +78,12 @@ public:
 
   using AsyncLoadingStartedCallback = std::function<void()>;
   using AsyncLoadingFinishedCallback = std::function<void()>;
-  using AsyncLoadingFileCallback = std::function<void(std::string const &, bool)>;
+  using ImportFinishedCallback = std::function<void(BookmarkImportResult const &)>;
 
   struct AsyncLoadingCallbacks
   {
     AsyncLoadingStartedCallback m_onStarted;
     AsyncLoadingFinishedCallback m_onFinished;
-    AsyncLoadingFileCallback m_onFileError;
-    AsyncLoadingFileCallback m_onFileSuccess;
   };
 
   struct Callbacks
@@ -312,7 +332,10 @@ public:
 
   /// Scans and loads all kml files with bookmarks.
   void LoadBookmarks();
-  void LoadBookmark(std::string const & filePath, bool isTemporaryFile);
+  /// Imports the files as one request, queued like the other loading requests. Runs onFinished on the GUI
+  /// thread after the request's categories are created, before the next queued request starts.
+  /// The input files are only read: a caller that made temporary copies deletes them in onFinished.
+  void ImportBookmarks(std::vector<std::string> filePaths, ImportFinishedCallback onFinished);
   void ReloadBookmark(std::string const & filePath);
 
   /// Uses the same file name from which was loaded, or
@@ -395,7 +418,8 @@ public:
   void DeleteRecentlyDeletedCategoriesAtPaths(std::vector<std::string> const & filePaths);
 
   // Preserves nonempty modification timestamps while loading, importing, or reloading categories.
-  void CreateCategories(KMLDataCollection && dataCollection, bool autoSave = false);
+  // Returns one group id per entry, in input order; an entry for an already loaded file yields that category's id.
+  kml::GroupIdCollection CreateCategories(KMLDataCollection && dataCollection, bool autoSave = false);
 
   static std::string GetTracksSortedBlockName();
   static std::string GetBookmarksSortedBlockName();
@@ -644,9 +668,11 @@ private:
 
   std::string GenerateSavedRouteName(std::string const & from, std::string const & to);
   void NotifyAboutStartAsyncLoading();
-  void NotifyAboutFinishAsyncLoading(KMLDataCollectionPtr && collection);
-  void NotifyAboutFile(bool success, std::string const & filePath, bool isTemporaryFile);
-  void LoadBookmarkRoutine(std::string const & filePath, bool isTemporaryFile);
+  // onCategoriesCreated receives the ids CreateCategories returned for the collection.
+  void NotifyAboutFinishAsyncLoading(
+      KMLDataCollectionPtr && collection,
+      std::function<void(kml::GroupIdCollection const &)> && onCategoriesCreated = nullptr);
+  void ImportBookmarksRoutine(std::vector<std::string> filePaths, ImportFinishedCallback onFinished);
   void ReloadBookmarkRoutine(std::string const & filePath);
 
   using BookmarksChecker = std::function<bool(kml::FileData const &)>;
@@ -798,14 +824,14 @@ private:
   bool m_asyncLoadingInProgress = false;
   struct BookmarkLoaderInfo
   {
-    BookmarkLoaderInfo(std::string const & filename, bool isTemporaryFile, bool isReloading)
-      : m_filename(filename)
-      , m_isTemporaryFile(isTemporaryFile)
+    BookmarkLoaderInfo(std::vector<std::string> filePaths, ImportFinishedCallback onFinished, bool isReloading)
+      : m_filePaths(std::move(filePaths))
+      , m_onFinished(std::move(onFinished))
       , m_isReloading(isReloading)
     {}
 
-    std::string m_filename;
-    bool m_isTemporaryFile = false;
+    std::vector<std::string> m_filePaths;
+    ImportFinishedCallback m_onFinished;
     bool m_isReloading = false;
   };
   std::list<BookmarkLoaderInfo> m_bookmarkLoadingQueue;

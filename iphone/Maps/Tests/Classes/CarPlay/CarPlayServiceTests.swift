@@ -412,13 +412,13 @@ final class CarPlayServiceTests: XCTestCase {
     observer.onFileLoaded = {
       guard !queuedSecondFile else { return }
       queuedSecondFile = true
-      manager.loadBookmarkFile(urls[1])
+      manager.loadBookmarkFiles([urls[1]], isTemporaryFile: false)
     }
     observer.onFinished = { imported.fulfill() }
     manager.add(observer)
     defer { manager.remove(observer) }
 
-    manager.loadBookmarkFile(urls[0])
+    manager.loadBookmarkFiles([urls[0]], isTemporaryFile: false)
     wait(for: [imported], timeout: 5)
     waitForBookmarkRefresh()
 
@@ -458,7 +458,7 @@ final class CarPlayServiceTests: XCTestCase {
     try kml.write(to: url, atomically: true, encoding: .utf8)
     addTeardownBlock { try FileManager.default.removeItem(at: url) }
 
-    waitForBookmarkLoad { bookmarkManager.loadBookmarkFile(url) }
+    waitForBookmarkLoad { bookmarkManager.loadBookmarkFiles([url], isTemporaryFile: false) }
 
     let category = try XCTUnwrap(bookmarkManager.sortedUserCategories().first { $0.title == name })
     let categoryId = category.categoryId

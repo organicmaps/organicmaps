@@ -16,6 +16,7 @@
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
+#include <algorithm>
 #include <utility>
 
 static MWMBookmarksSortingType convertSortingType(BookmarkManager::SortingType const & sortingType)
@@ -176,32 +177,6 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
       }];
     };
   }
-  {
-    __weak auto wSelf = self;
-    bookmarkCallbacks.m_onFileSuccess = [wSelf](std::string const & filePath, bool isTemporaryFile)
-    {
-      __strong __typeof(self) self = wSelf;
-      [self loopObservers:^(id<MWMBookmarksObserver> observer) {
-        if ([observer respondsToSelector:@selector(onBookmarksFileLoadSuccess)])
-          [observer onBookmarksFileLoadSuccess];
-      }];
-      if (isTemporaryFile)
-        DeleteTemporaryBookmarksFile(filePath);
-    };
-  }
-  {
-    __weak auto wSelf = self;
-    bookmarkCallbacks.m_onFileError = [wSelf](std::string const & filePath, bool isTemporaryFile)
-    {
-      __strong __typeof(self) self = wSelf;
-      [self loopObservers:^(id<MWMBookmarksObserver> observer) {
-        if ([observer respondsToSelector:@selector(onBookmarksFileLoadError)])
-          [observer onBookmarksFileLoadError];
-      }];
-      if (isTemporaryFile)
-        DeleteTemporaryBookmarksFile(filePath);
-    };
-  }
   self.bm.SetAsyncLoadingCallbacks(std::move(bookmarkCallbacks));
 
   __weak auto wSelf = self;
@@ -226,9 +201,28 @@ static void DeleteTemporaryBookmarksFile(std::string const & filePath)
   self.bm.LoadBookmarks();
 }
 
-- (void)loadBookmarkFile:(NSURL *)url
+- (void)loadBookmarkFiles:(NSArray<NSURL *> *)urls isTemporaryFile:(BOOL)isTemporaryFile
 {
-  self.bm.LoadBookmark(url.path.UTF8String, false /* isTemporaryFile */);
+  std::vector<std::string> filePaths;
+  filePaths.reserve(urls.count);
+  for (NSURL * url in urls)
+    filePaths.emplace_back(url.path.UTF8String);
+
+  __weak auto wSelf = self;
+  self.bm.ImportBookmarks(std::move(filePaths), [wSelf, isTemporaryFile](BookmarkImportResult const & result)
+  {
+    bool const success = std::ranges::all_of(
+        result, [](auto const & source) { return source.m_status == BookmarkImportStatus::Success; });
+    [wSelf loopObservers:^(id<MWMBookmarksObserver> observer) {
+      if (success && [observer respondsToSelector:@selector(onBookmarksFileLoadSuccess)])
+        [observer onBookmarksFileLoadSuccess];
+      else if (!success && [observer respondsToSelector:@selector(onBookmarksFileLoadError)])
+        [observer onBookmarksFileLoadError];
+    }];
+    if (isTemporaryFile)
+      for (auto const & source : result)
+        DeleteTemporaryBookmarksFile(source.m_filePath);
+  });
 }
 
 - (void)reloadCategoryAtFilePath:(NSString *)filePath

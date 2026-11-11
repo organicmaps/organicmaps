@@ -129,10 +129,16 @@ std::string GenerateValidAndUniqueFilePath(std::string const & fileName, FileTyp
 std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, FileType fileType);
 std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, FileType fileType);
 
+struct BookmarkFileImportData
+{
+  // Parsed categories, each paired with the path its storage file name derives from.
+  std::vector<std::pair<std::string, std::unique_ptr<kml::FileData>>> m_kmlData;
+  // KMZ entries that could not be extracted or parsed.
+  size_t m_failedCount = 0;
+};
+
 /// Parses KML/GPX/GeoJSON/JSON/KMB files in place; KMZ entries are extracted to temporary files, parsed and deleted.
-/// @returns parsed categories, each paired with the path its storage file name derives from.
-std::vector<std::pair<std::string, std::unique_ptr<kml::FileData>>> LoadBookmarkFileForImport(
-    std::string const & filePath);
+BookmarkFileImportData LoadBookmarkFileForImport(std::string const & filePath);
 std::string GetLowercaseFileExt(std::string const & filePath);
 std::optional<FileType> GetFileType(std::string const & filePath);
 

@@ -135,22 +135,13 @@ void OnAsyncLoadingFinished(JNIEnv * env)
   jni::HandleJavaException(env);
 }
 
-void OnAsyncLoadingFileSuccess(JNIEnv * env, std::string const & fileName, bool isTemporaryFile)
+void OnBookmarksFileImported(JNIEnv * env, BookmarkImportSourceResult const & source, bool isTemporaryFile)
 {
   ASSERT(g_bookmarkManagerClass, ());
   jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass, g_bookmarkManagerInstanceField);
-  jni::TScopedLocalRef jFileName(env, jni::ToJavaString(env, fileName));
-  env->CallVoidMethod(bookmarkManagerInstance, g_onBookmarksFileLoadedMethod, true /* success */, jFileName.get(),
-                      isTemporaryFile);
-  jni::HandleJavaException(env);
-}
-
-void OnAsyncLoadingFileError(JNIEnv * env, std::string const & fileName, bool isTemporaryFile)
-{
-  ASSERT(g_bookmarkManagerClass, ());
-  jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass, g_bookmarkManagerInstanceField);
-  jni::TScopedLocalRef jFileName(env, jni::ToJavaString(env, fileName));
-  env->CallVoidMethod(bookmarkManagerInstance, g_onBookmarksFileLoadedMethod, false /* success */, jFileName.get(),
+  jni::TScopedLocalRef jFileName(env, jni::ToJavaString(env, source.m_filePath));
+  bool const success = source.m_status == BookmarkImportStatus::Success;
+  env->CallVoidMethod(bookmarkManagerInstance, g_onBookmarksFileLoadedMethod, success, jFileName.get(),
                       isTemporaryFile);
   jni::HandleJavaException(env);
 }
@@ -236,14 +227,10 @@ Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeShowBookmarkCatego
 
 JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeLoadBookmarks(JNIEnv * env, jclass)
 {
-  using namespace std::placeholders;
-
   PrepareClassRefs(env);
   BookmarkManager::AsyncLoadingCallbacks callbacks;
   callbacks.m_onStarted = std::bind(&OnAsyncLoadingStarted, env);
   callbacks.m_onFinished = std::bind(&OnAsyncLoadingFinished, env);
-  callbacks.m_onFileSuccess = std::bind(&OnAsyncLoadingFileSuccess, env, _1, _2);
-  callbacks.m_onFileError = std::bind(&OnAsyncLoadingFileError, env, _1, _2);
   frm()->GetBookmarkManager().SetAsyncLoadingCallbacks(std::move(callbacks));
 
   frm()->GetBookmarkManager().SetBookmarksChangedCallback(std::bind(&OnBookmarksChanged, env));
@@ -355,7 +342,9 @@ JNIEXPORT void Java_app_organicmaps_sdk_bookmarks_data_BookmarkManager_nativeLoa
                                                                                                jstring path,
                                                                                                jboolean isTemporaryFile)
 {
-  frm()->AddBookmarksFile(jni::ToNativeString(env, path), isTemporaryFile);
+  frm()->GetBookmarkManager().ImportBookmarks({jni::ToNativeString(env, path)},
+                                              [env, isTemporaryFile](BookmarkImportResult const & result)
+  { OnBookmarksFileImported(env, result.front(), isTemporaryFile); });
 }
 
 JNIEXPORT jboolean JNICALL

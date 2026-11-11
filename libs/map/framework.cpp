@@ -1112,11 +1112,6 @@ void Framework::ShowFeature(FeatureID const & featureId)
   ActivateMapSelection();
 }
 
-void Framework::AddBookmarksFile(std::string const & filePath, bool isTemporaryFile)
-{
-  GetBookmarkManager().LoadBookmark(filePath, isTemporaryFile);
-}
-
 void Framework::PrepareToShutdown()
 {
   DestroyDrapeEngine();

@@ -21,8 +21,6 @@
 
 namespace qt
 {
-using namespace std::placeholders;
-
 BookmarkDialog::BookmarkDialog(QWidget * parent, Framework & framework)
   : QDialog(parent, Qt::WindowTitleHint | Qt::WindowSystemMenuHint)
   , m_framework(framework)
@@ -75,8 +73,6 @@ BookmarkDialog::BookmarkDialog(QWidget * parent, Framework & framework)
   BookmarkManager::AsyncLoadingCallbacks callbacks;
   callbacks.m_onStarted = std::bind(&BookmarkDialog::OnAsyncLoadingStarted, this);
   callbacks.m_onFinished = std::bind(&BookmarkDialog::OnAsyncLoadingFinished, this);
-  callbacks.m_onFileSuccess = std::bind(&BookmarkDialog::OnAsyncLoadingFileSuccess, this, _1, _2);
-  callbacks.m_onFileError = std::bind(&BookmarkDialog::OnAsyncLoadingFileError, this, _1, _2);
   m_framework.GetBookmarkManager().SetAsyncLoadingCallbacks(std::move(callbacks));
 }
 
@@ -94,16 +90,6 @@ void BookmarkDialog::OnAsyncLoadingStarted()
 void BookmarkDialog::OnAsyncLoadingFinished()
 {
   FillTree();
-}
-
-void BookmarkDialog::OnAsyncLoadingFileSuccess(std::string const & fileName, bool isTemporaryFile)
-{
-  LOG(LINFO, ("OnAsyncLoadingFileSuccess", fileName, isTemporaryFile));
-}
-
-void BookmarkDialog::OnAsyncLoadingFileError(std::string const & fileName, bool isTemporaryFile)
-{
-  LOG(LERROR, ("OnAsyncLoadingFileError", fileName, isTemporaryFile));
 }
 
 void BookmarkDialog::OnItemClick(QTreeWidgetItem * item, int column)
@@ -146,14 +132,20 @@ void BookmarkDialog::OnImportClick()
   auto const files = QFileDialog::getOpenFileNames(this /* parent */, Tr("bookmarks_import"), QString() /* dir */,
                                                    Tr("bookmark_files_filter"));
 
-  for (auto const & name : files)
-  {
-    auto const file = name.toStdString();
-    if (file.empty())
-      continue;
+  if (files.isEmpty())
+    return;
 
-    m_framework.GetBookmarkManager().LoadBookmark(file, false /* isTemporaryFile */);
-  }
+  std::vector<std::string> filePaths;
+  filePaths.reserve(files.size());
+  for (auto const & name : files)
+    filePaths.emplace_back(name.toStdString());
+
+  // Captures nothing, because the dialog may be closed before the import finishes.
+  m_framework.GetBookmarkManager().ImportBookmarks(std::move(filePaths), [](BookmarkImportResult const & result)
+  {
+    for (auto const & source : result)
+      LOG(LINFO, ("Bookmarks import of", source.m_filePath, "finished with status", source.m_status));
+  });
 }
 
 void BookmarkDialog::OnExportClick(FileType exportedFileType)
