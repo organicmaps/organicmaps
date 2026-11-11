@@ -2,23 +2,25 @@ Organic Maps sayohat, piyoda yurish, tog'da yurish va velosiped sayohatlari uchu
 
 
 
-**OPENSTREETMAP ASOSIDA:** OpenStreetMap — bu wiki-uslubidagi dunyo xaritasi bo'lib, uni millionlab ko'ngillilar — o'z hududlarini eng yaxshi biluvchi mahalliy aholi — yaratadi va yangilab boradi. Ushbu jamoaviy sa'y-harakat natijasida yuqori darajada batafsil xaritalar hosil bo'ladi, ular kamroq xaritalangan hududlarda tijorat xaritalaridan ko'ra aniqroq bo'lishi mumkin. Organic Maps har ikki haftada OpenStreetMap ma'lumotlarini yangilab, xaritalaringizni yangi va ishonchli saqlaydi. Agar nimadir yetishmayotganini sezsangiz, uni OpenStreetMapga qo'shib, xaritalarni hammaga yaxshiroq qilishda yordam berishingiz mumkin.
+<b>OPENSTREETMAP ASOSIDA:</b> OpenStreetMap — bu wiki-uslubidagi dunyo xaritasi bo'lib, uni millionlab ko'ngillilar — o'z hududlarini eng yaxshi biluvchi mahalliy aholi — yaratadi va yangilab boradi. Ushbu jamoaviy sa'y-harakat natijasida yuqori darajada batafsil xaritalar hosil bo'ladi, ular kamroq xaritalangan hududlarda tijorat xaritalaridan ko'ra aniqroq bo'lishi mumkin. Organic Maps har ikki haftada OpenStreetMap ma'lumotlarini yangilab, xaritalaringizni yangi va ishonchli saqlaydi. Agar nimadir yetishmayotganini sezsangiz, uni OpenStreetMapga qo'shib, xaritalarni hammaga yaxshiroq qilishda yordam berishingiz mumkin.
 
-**MUHIM XUSUSIYATLAR**
+<b>MUHIM XUSUSIYATLAR</b>
 
-**JOYLARNI KASHF ETING:** Manzil, nom yoki toifaga ko'ra qidiring, millionlab POI-larni (qiziqarli joylarni) kashf eting va ochilish vaqtlari, Vikipediya maqolalari, nogironlar aravachasi uchun mosligi va boshqa foydali ma'lumotlar kabi batafsil ma'lumotlarni ko'ring.
+<b>JOYLARNI KASHF ETING:</b> Manzil, nom yoki toifaga ko'ra qidiring, millionlab POI-larni (qiziqarli joylarni) kashf eting va ochilish vaqtlari, Vikipediya maqolalari, nogironlar aravachasi uchun mosligi va boshqa foydali ma'lumotlar kabi batafsil ma'lumotlarni ko'ring.
 
 <b>GPS NAVIGATSIYASI:</b> Ovozli ko'rsatmalardan foydalanib, burilishma-burilishma yo'nalishlarni oling. Yurish, piyoda sayr, velosipedda sayr yoki avtomobil yo'nalishlarini yarating — shaharlar, mamlakatlar va bir nechta nuqtalar o'rtasidagi yo'llarni ham. Metro safarlari va kundalik qatnovlaringiz uchun eng yaxshi yo'nalishlarni toping. Android Auto qo'llab-quvvatlanadi.
 
-DUNYO BO'YLAB PYEDAL VA VELOSIPED YO'LLAri: Maxsus xarita qatlamlarini yoqib, OpenStreetMap manbasidan olingan dunyo bo'ylab mashhur piyoda va velosiped yo'llarini kashf eting. Qatlamlar o'rtasida almashtirib, rangli velosiped va tog' velosipedi (MTB) yo'llari hamda rasmiy piyoda yo'llarini ko'ring.
+<b>DUNYO BO'YLAB PIYODA VA VELOSIPED YO'LLARI:</b> Maxsus xarita qatlamlarini yoqib, OpenStreetMap manbasidan olingan dunyo bo'ylab mashhur piyoda va velosiped yo'llarini kashf eting. Qatlamlar o'rtasida almashtirib, rangli velosiped va tog' velosipedi (MTB) yo'llari hamda rasmiy piyoda yo'llarini ko'ring.
 
-<b>JAMOAT TRANSPORT:</b> Jamoat transporti yo'nalishlarini rejalashtiring. Jonli jadvallar ustida ishlanmoqda.
+<b>3D RELYEF VA CHUQURLIKLAR:</b> 3D relyef, okean va dengizlar chuqurligi hamda batafsil balandlik chiziqlarini ko'ring. Quruqlikda yoki dengizda istalgan nuqtaga bosib, uning balandligini bilib oling.
 
-**WIKIPEDIA MAQOLALARI:** Xaritada topgan joylaringiz bo'yicha Wikipedia maqolalarini o'rganing. Qidiruvga "?wiki" yozing va Wikipedia maqolalariga ega barcha joylarni toping.
+<b>JAMOAT TRANSPORTI:</b> Jamoat transporti yo'nalishlarini rejalashtiring. Jonli jadvallar ustida ishlanmoqda.
 
-**XARITA MUHARRIRI:** OpenStreetMap'ga hissa qo'shing: yetishmayotgan joylarni qo'shing yoki Organic Maps'dan to'g'ridan-to'g'ri xarita tahrir qiling.
+<b>WIKIPEDIA MAQOLALARI:</b> Xaritada topgan joylaringiz bo'yicha Wikipedia maqolalarini o'rganing. Qidiruvga "?wiki" yozing va Wikipedia maqolalariga ega barcha joylarni toping.
 
-**QORA REŽIM:** Tunda qulay ko'rish uchun qora mavzuga o'ting.
+<b>XARITA MUHARRIRI:</b> OpenStreetMap'ga hissa qo'shing: yetishmayotgan joylarni qo'shing yoki Organic Maps'dan to'g'ridan-to'g'ri xarita tahrir qiling.
+
+<b>QORONG'I REJIM:</b> Tunda qulay ko'rish uchun qora mavzuga o'ting.
 
 Ilovani sinab ko'ring — u 100% bepul, reklamasiz, tez va to'liq oflayn. Dunyoning istalgan burchagida piyoda sayr, velosipedda sayr, trekking va sayohat uchun ishonchli GPS navigatsiyasidan bahramand bo'ling! Tez, ishonchli va maxfiy xarita tajribasidan zavqlaning va uni boshqalar bilan baham ko'ring!
 
