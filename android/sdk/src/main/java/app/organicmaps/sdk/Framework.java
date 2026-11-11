@@ -109,6 +109,32 @@ public class Framework
   @Size(2)
   public static native double[] nativeGetScreenRectCenter();
 
+  /**
+   * Tells, on the main thread, whether the map has drawn a frame at the current size of its view, after which
+   * {@link #nativeScreenToLatLon} and {@link #nativeLatLonToScreen} can convert. It is false from the start, and from
+   * each resize, such as a rotation of the device, until that frame.
+   */
+  public static native boolean nativeIsViewportInitialized();
+
+  /**
+   * Converts view pixels, as in {@link Map#onTouch}, to WGS84 latitude and longitude in degrees; in 3D, to the point
+   * on the ground. Call it on the main thread once {@link #nativeIsViewportInitialized} is true: until then there is
+   * no viewport to convert with, and the result is meaningless. In 3D, a pixel above the horizon, always off the view,
+   * shows no ground and gets null.
+   */
+  @Nullable
+  @Size(2)
+  public static native double[] nativeScreenToLatLon(double x, double y);
+
+  /**
+   * Converts WGS84 latitude and longitude in degrees to view pixels, the inverse of {@link #nativeScreenToLatLon}, with
+   * the same requirements. A point off the screen gets pixels outside the view, but in 3D a point behind the camera has
+   * no pixel and gets null.
+   */
+  @Nullable
+  @Size(2)
+  public static native double[] nativeLatLonToScreen(double lat, double lon);
+
   public static native DistanceAndAzimut nativeGetDistanceAndAzimuth(double dstMerX, double dstMerY, double srcLat,
                                                                      double srcLon, double north);
 
