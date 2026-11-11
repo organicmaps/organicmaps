@@ -688,7 +688,8 @@
     <!-- Action that clears the multi-selection in a bookmark list. -->
     <string name="deselect_all">ຍົກເລີກການເລືອກ</string>
     <string name="select_list">ເລືອກລາຍການ</string>
-    <string name="button_layer_isolines">ເສັ້ນລະດັບຄວາມສູງ</string>
+    <!-- Layers menu: label of the 3D terrain layer button -->
+    <string name="button_layer_terrain">ພູມສັນຖານ 3D</string>
     <string name="isolines_location_error_dialog">ອັບເດດເຂດນີ້ເພື່ອເບິ່ງເສັ້ນລະດັບຄວາມສູງ</string>
     <string name="elevation_profile_ascent">ທາງຂຶ້ນ</string>
     <string name="elevation_profile_descent">ທາງລົງ</string>

@@ -955,7 +955,9 @@
 "transit_not_found" = "Metro navigacija šiame regione dar negalima";
 "dialog_pedestrian_route_is_long_header" = "Metro maršrutas nerastas";
 "dialog_pedestrian_route_is_long_message" = "Pasirinkite pradžios ar pabaigos tašką, esančius arčiau metro stotelės";
-"button_layer_isolines" = "Reljefas";
+
+/* Layers menu: label of the 3D terrain layer button */
+"button_layer_terrain" = "Trimatis reljefas";
 "isolines_location_error_dialog" = "Atnaujinkite šią vietovę, kad matytumėte izolinijas";
 "elevation_profile_ascent" = "Pakilimas";
 "elevation_profile_descent" = "Nusileidimas";

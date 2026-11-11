@@ -740,7 +740,8 @@
     <!-- Action that clears the multi-selection in a bookmark list. -->
     <string name="deselect_all">Tout désélectionner</string>
     <string name="select_list">Sélectionner une liste</string>
-    <string name="button_layer_isolines">Terrain</string>
+    <!-- Layers menu: label of the 3D terrain layer button -->
+    <string name="button_layer_terrain">Relief 3D</string>
     <string name="isolines_location_error_dialog">Mettez à jour cette région pour voir les courbes de niveau</string>
     <string name="elevation_profile_ascent">Montée</string>
     <string name="elevation_profile_descent">Descente</string>

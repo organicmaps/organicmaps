@@ -955,7 +955,9 @@
 "transit_not_found" = "Nid yw llywio trên tanddaearol yn y rhanbarth hwn ar gael eto";
 "dialog_pedestrian_route_is_long_header" = "Ni chanfuwyd unrhyw lwybr trên tanddaearol";
 "dialog_pedestrian_route_is_long_message" = "Dewiswch bwynt cychwyn neu derfyn yn agosach at orsaf trên tanddaearol";
-"button_layer_isolines" = "Llinellau cyfuchlin";
+
+/* Layers menu: label of the 3D terrain layer button */
+"button_layer_terrain" = "Tirwedd 3D";
 "isolines_location_error_dialog" = "Diweddarwch y rhanbarth hwn i weld llinellau cyfuchlin";
 "elevation_profile_ascent" = "Esgyniad";
 "elevation_profile_descent" = "Disgyniad";

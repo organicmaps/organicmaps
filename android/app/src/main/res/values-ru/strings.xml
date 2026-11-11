@@ -744,7 +744,8 @@
     <!-- Action that clears the multi-selection in a bookmark list. -->
     <string name="deselect_all">Отменить выбор</string>
     <string name="select_list">Выбрать список</string>
-    <string name="button_layer_isolines">Высоты</string>
+    <!-- Layers menu: label of the 3D terrain layer button -->
+    <string name="button_layer_terrain">3D-рельеф</string>
     <string name="isolines_location_error_dialog">Обновите этот регион, чтобы увидеть линии высот</string>
     <string name="elevation_profile_ascent">Подъём</string>
     <string name="elevation_profile_descent">Спуск</string>

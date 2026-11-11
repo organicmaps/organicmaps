@@ -502,7 +502,8 @@
     <string name="search_in_the_list">Buscar na lista</string>
     <string name="religious_places">Locais religiosos</string>
     <string name="select_list">Escolher a lista</string>
-    <string name="button_layer_isolines">Relevo</string>
+    <!-- Layers menu: label of the 3D terrain layer button -->
+    <string name="button_layer_terrain">Relevo 3D</string>
     <string name="isolines_location_error_dialog">Atualize esta região para ver as curvas de nível</string>
     <string name="elevation_profile_min_elevation">Elevação mínima</string>
     <string name="elevation_profile_max_elevation">Elevação máxima</string>

@@ -955,7 +955,9 @@
 "transit_not_found" = "Навігація на метро ще недоступна в цьому регіоні";
 "dialog_pedestrian_route_is_long_header" = "Жодного маршруту метро не знайдено";
 "dialog_pedestrian_route_is_long_message" = "Виберіть початкову чи кінцеву точку маршруту ближче до станції метро";
-"button_layer_isolines" = "Висоти";
+
+/* Layers menu: label of the 3D terrain layer button */
+"button_layer_terrain" = "3D-рельєф";
 "isolines_location_error_dialog" = "Оновіть цей регіон, щоб побачити лінії висот";
 "elevation_profile_ascent" = "Підйом";
 "elevation_profile_descent" = "Спуск";

@@ -733,7 +733,8 @@
     <!-- Action that clears the multi-selection in a bookmark list. -->
     <string name="deselect_all">ยกเลิกการเลือก</string>
     <string name="select_list">เลือกรายการ</string>
-    <string name="button_layer_isolines">ความสูง</string>
+    <!-- Layers menu: label of the 3D terrain layer button -->
+    <string name="button_layer_terrain">ภูมิประเทศ 3D</string>
     <string name="isolines_location_error_dialog">อัปเดตพื้นที่นี้เพื่อดูเส้นชั้นความสูง</string>
     <string name="elevation_profile_ascent">การขึ้น</string>
     <string name="elevation_profile_descent">การลง</string>

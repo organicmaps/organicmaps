@@ -955,7 +955,9 @@
 "transit_not_found" = "Leiðsögn í neðanjarðarlestum er ekki tiltæk í augnablikinu á þessu svæði";
 "dialog_pedestrian_route_is_long_header" = "Engin neðanjarðarlestarleið fannst";
 "dialog_pedestrian_route_is_long_message" = "Veldu upphafs- eða endastað sem er nær neðanjarðarlestarstöð";
-"button_layer_isolines" = "Hæðarlínur";
+
+/* Layers menu: label of the 3D terrain layer button */
+"button_layer_terrain" = "3D-landslag";
 "isolines_location_error_dialog" = "Uppfærðu þetta svæði til að sjá hæðarlínur";
 "elevation_profile_ascent" = "Hækkun";
 "elevation_profile_descent" = "Lækkun";

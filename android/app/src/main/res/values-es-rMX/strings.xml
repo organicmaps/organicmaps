@@ -379,7 +379,8 @@
     <string name="parkings">Aparcamientos</string>
     <string name="fuel_places">Gasolinería</string>
     <string name="religious_places">Sitios religiosos</string>
-    <string name="button_layer_isolines">Líneas de contorno</string>
+    <!-- Layers menu: label of the 3D terrain layer button -->
+    <string name="button_layer_terrain">Relieve 3D</string>
     <string name="elevation_profile_min_elevation">Elevación mínima</string>
     <string name="elevation_profile_max_elevation">Elevación máxima</string>
     <string name="isolines_toast_zooms_1_10">Zoom para explorar isolíneas</string>

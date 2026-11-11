@@ -955,7 +955,9 @@
 "transit_not_found" = "T-bane navigasjon er ikke tilgjengelig i denne regionen ennå";
 "dialog_pedestrian_route_is_long_header" = "T-bane rute ikke funnet";
 "dialog_pedestrian_route_is_long_message" = "Velg utgangspunkt eller destinasjon som befinner seg nærmere en T-bane stasjon";
-"button_layer_isolines" = "Høyder";
+
+/* Layers menu: label of the 3D terrain layer button */
+"button_layer_terrain" = "3D-terreng";
 "isolines_location_error_dialog" = "Oppdater dette området for å se høydekurver";
 "elevation_profile_ascent" = "Stigning";
 "elevation_profile_descent" = "Nedstigning";

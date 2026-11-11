@@ -743,7 +743,8 @@
     <!-- Action that clears the multi-selection in a bookmark list. -->
     <string name="deselect_all">Prekliči izbiro</string>
     <string name="select_list">Izberite seznam</string>
-    <string name="button_layer_isolines">Plastnice</string>
+    <!-- Layers menu: label of the 3D terrain layer button -->
+    <string name="button_layer_terrain">3D teren</string>
     <string name="isolines_location_error_dialog">Posodobite to območje, da vidite plastnice</string>
     <string name="elevation_profile_ascent">Vzpon</string>
     <string name="elevation_profile_descent">Spust</string>

@@ -955,7 +955,9 @@
 "transit_not_found" = "Metroko nabigazioa oraindik ez dago erabilgarri eskualde honetan";
 "dialog_pedestrian_route_is_long_header" = "Ez da aurkitu metroko ibilbiderik";
 "dialog_pedestrian_route_is_long_message" = "Aukeratu metrotik hurbilen dagoen ibilbidearen hasiera edo amaiera puntua";
-"button_layer_isolines" = "Sestra kurbak";
+
+/* Layers menu: label of the 3D terrain layer button */
+"button_layer_terrain" = "3D erliebea";
 "isolines_location_error_dialog" = "Eguneratu eskualde hau sestra-kurbak ikusteko";
 "elevation_profile_ascent" = "Maldan gora";
 "elevation_profile_descent" = "Maldan behera";

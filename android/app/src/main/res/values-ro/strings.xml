@@ -736,7 +736,8 @@
     <!-- Action that clears the multi-selection in a bookmark list. -->
     <string name="deselect_all">Deselectează tot</string>
     <string name="select_list">Alege lista</string>
-    <string name="button_layer_isolines">Înălțimi</string>
+    <!-- Layers menu: label of the 3D terrain layer button -->
+    <string name="button_layer_terrain">Relief 3D</string>
     <string name="isolines_location_error_dialog">Actualizați această regiune pentru a vedea curbele de nivel</string>
     <string name="elevation_profile_ascent">Urcare</string>
     <string name="elevation_profile_descent">Coborâre</string>

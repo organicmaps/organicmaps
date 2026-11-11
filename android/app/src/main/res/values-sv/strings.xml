@@ -735,7 +735,8 @@
     <!-- Action that clears the multi-selection in a bookmark list. -->
     <string name="deselect_all">Avmarkera alla</string>
     <string name="select_list">Välj lista</string>
-    <string name="button_layer_isolines">Terräng</string>
+    <!-- Layers menu: label of the 3D terrain layer button -->
+    <string name="button_layer_terrain">3D-terräng</string>
     <string name="isolines_location_error_dialog">Uppdatera det här området för att se höjdkurvor</string>
     <string name="elevation_profile_ascent">Stigning</string>
     <string name="elevation_profile_descent">Backe</string>

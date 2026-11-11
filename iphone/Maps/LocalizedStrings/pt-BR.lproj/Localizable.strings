@@ -955,7 +955,9 @@
 "transit_not_found" = "A navegação por metrô ainda não está disponível nesta região";
 "dialog_pedestrian_route_is_long_header" = "Não foi encontrada nenhuma rota de metrô";
 "dialog_pedestrian_route_is_long_message" = "Escolha outro ponto de início ou fim perto da estação de metrô";
-"button_layer_isolines" = "Relevo";
+
+/* Layers menu: label of the 3D terrain layer button */
+"button_layer_terrain" = "Relevo 3D";
 "isolines_location_error_dialog" = "Atualize esta região para ver as curvas de nível";
 "elevation_profile_ascent" = "Subida";
 "elevation_profile_descent" = "Descida";

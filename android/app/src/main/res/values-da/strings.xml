@@ -735,7 +735,8 @@
     <!-- Action that clears the multi-selection in a bookmark list. -->
     <string name="deselect_all">Fravælg alle</string>
     <string name="select_list">Væg liste</string>
-    <string name="button_layer_isolines">Konturlinjer</string>
+    <!-- Layers menu: label of the 3D terrain layer button -->
+    <string name="button_layer_terrain">3D-terræn</string>
     <string name="isolines_location_error_dialog">Opdater dette område for at se konturlinjer</string>
     <string name="elevation_profile_ascent">Stigning</string>
     <string name="elevation_profile_descent">Nedstigning</string>

@@ -955,7 +955,9 @@
 "transit_not_found" = "Metro navigācija šajā reģionā nav pieejama";
 "dialog_pedestrian_route_is_long_header" = "Metro maršruts nav atrasts";
 "dialog_pedestrian_route_is_long_message" = "Izvēlieties sākuma un beigu punktu tuvāk metro stacijai";
-"button_layer_isolines" = "Reljefa līnijas";
+
+/* Layers menu: label of the 3D terrain layer button */
+"button_layer_terrain" = "3D reljefs";
 "isolines_location_error_dialog" = "Atjauniniet šo reģionu, lai redzētu horizontāles";
 "elevation_profile_ascent" = "Kāpums";
 "elevation_profile_descent" = "Kritums";

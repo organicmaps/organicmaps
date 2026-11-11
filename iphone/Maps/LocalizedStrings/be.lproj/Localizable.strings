@@ -955,7 +955,9 @@
 "transit_not_found" = "Для гэтага рэгіёна навігацыя па метро яшчэ недаступна";
 "dialog_pedestrian_route_is_long_header" = "Маршрут на метро не знойдзены";
 "dialog_pedestrian_route_is_long_message" = "Выберыце пункт адпраўлення альбо прызначэння бліжэй да станцыі метро";
-"button_layer_isolines" = "Рэльеф";
+
+/* Layers menu: label of the 3D terrain layer button */
+"button_layer_terrain" = "3D-рэльеф";
 "isolines_location_error_dialog" = "Абнавіце гэты рэгіён, каб убачыць лініі вышынь";
 "elevation_profile_ascent" = "Пад'ём";
 "elevation_profile_descent" = "Спуск";

@@ -738,7 +738,8 @@
     <!-- Action that clears the multi-selection in a bookmark list. -->
     <string name="deselect_all">Deseleccionar todo</string>
     <string name="select_list">Seleccionar lista</string>
-    <string name="button_layer_isolines">Curvas de nivel</string>
+    <!-- Layers menu: label of the 3D terrain layer button -->
+    <string name="button_layer_terrain">Relevo 3D</string>
     <string name="isolines_location_error_dialog">Actualice esta rexión para ver as curvas de nivel</string>
     <string name="elevation_profile_ascent">Ascenso</string>
     <string name="elevation_profile_descent">Descenso</string>

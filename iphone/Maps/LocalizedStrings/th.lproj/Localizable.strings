@@ -955,7 +955,9 @@
 "transit_not_found" = "ยังไม่สามารถใช้การนำทางรถไฟใต้ดินในภูมิภาคนี้ได้";
 "dialog_pedestrian_route_is_long_header" = "ไม่พบเส้นทางของทางรถไฟใต้ดิน";
 "dialog_pedestrian_route_is_long_message" = "โปรดเลือกจุดเริ่มต้นและสิ้นสุดที่อยู่ใกล้สถานีรถไฟใต้ดิน";
-"button_layer_isolines" = "ความสูง";
+
+/* Layers menu: label of the 3D terrain layer button */
+"button_layer_terrain" = "ภูมิประเทศ 3D";
 "isolines_location_error_dialog" = "อัปเดตพื้นที่นี้เพื่อดูเส้นชั้นความสูง";
 "elevation_profile_ascent" = "การขึ้น";
 "elevation_profile_descent" = "การลง";

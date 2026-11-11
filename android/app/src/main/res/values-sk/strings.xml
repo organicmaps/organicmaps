@@ -738,7 +738,8 @@
     <!-- Action that clears the multi-selection in a bookmark list. -->
     <string name="deselect_all">Zrušiť výber</string>
     <string name="select_list">Vybrať zoznam</string>
-    <string name="button_layer_isolines">Terén</string>
+    <!-- Layers menu: label of the 3D terrain layer button -->
+    <string name="button_layer_terrain">3D terén</string>
     <string name="isolines_location_error_dialog">Aktualizujte túto oblasť, aby ste videli vrstevnice</string>
     <string name="elevation_profile_ascent">Stúpanie</string>
     <string name="elevation_profile_descent">Klesanie</string>

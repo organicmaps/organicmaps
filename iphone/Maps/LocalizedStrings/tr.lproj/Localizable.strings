@@ -955,7 +955,9 @@
 "transit_not_found" = "Metro navigasyonu henüz bu bölgede kullanılamaz";
 "dialog_pedestrian_route_is_long_header" = "Metro rotası bulunamadı";
 "dialog_pedestrian_route_is_long_message" = "Metro istasyonuna en yakın rotanın başlangıç veya bitiş noktasını seçin";
-"button_layer_isolines" = "İzohipsler";
+
+/* Layers menu: label of the 3D terrain layer button */
+"button_layer_terrain" = "3B Arazi";
 "isolines_location_error_dialog" = "İzohipsleri görmek için bu bölgeyi güncelleyin";
 "elevation_profile_ascent" = "Tırmanış";
 "elevation_profile_descent" = "İniş";

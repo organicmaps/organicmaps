@@ -741,7 +741,8 @@
     <!-- Action that clears the multi-selection in a bookmark list. -->
     <string name="deselect_all">Neħħi l-għażla</string>
     <string name="select_list">Agħżel il-lista</string>
-    <string name="button_layer_isolines">Linji tal-Contour</string>
+    <!-- Layers menu: label of the 3D terrain layer button -->
+    <string name="button_layer_terrain">Terren 3D</string>
     <string name="isolines_location_error_dialog">Aġġorna din iż-żona biex tara l-linji tal-kontorn</string>
     <string name="elevation_profile_ascent">Tlugħ</string>
     <string name="elevation_profile_descent">Inżul</string>

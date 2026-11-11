@@ -736,7 +736,8 @@
     <!-- Action that clears the multi-selection in a bookmark list. -->
     <string name="deselect_all">בטל בחירה</string>
     <string name="select_list">בחר רשימה</string>
-    <string name="button_layer_isolines">קווי מתאר</string>
+    <!-- Layers menu: label of the 3D terrain layer button -->
+    <string name="button_layer_terrain">תבליט בתלת-מימד</string>
     <string name="isolines_location_error_dialog">עדכן את האזור הזה כדי לראות קווי מתאר</string>
     <string name="elevation_profile_ascent">עלייה</string>
     <string name="elevation_profile_descent">ירידה</string>

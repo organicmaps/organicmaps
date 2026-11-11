@@ -955,7 +955,9 @@
 "transit_not_found" = "Metrónavigáció ebben a régióban még nem érhető el";
 "dialog_pedestrian_route_is_long_header" = "Nem található metróútvonal";
 "dialog_pedestrian_route_is_long_message" = "Válasszon egy, a metróállomáshoz közelebb eső kiindulási pontot vagy úti célt";
-"button_layer_isolines" = "Szintvonalak";
+
+/* Layers menu: label of the 3D terrain layer button */
+"button_layer_terrain" = "3D domborzat";
 "isolines_location_error_dialog" = "Frissítse ezt a területet a szintvonalak megjelenítéséhez";
 "elevation_profile_ascent" = "Növekvő";
 "elevation_profile_descent" = "Csökkenő";

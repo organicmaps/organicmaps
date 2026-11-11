@@ -955,7 +955,9 @@
 "transit_not_found" = "Навигација у метроу у овом региону још није доступна";
 "dialog_pedestrian_route_is_long_header" = "Није пронађена метро рута";
 "dialog_pedestrian_route_is_long_message" = "Молим вас изаберите почетну и крајњу тачку ближе метро станицама";
-"button_layer_isolines" = "Изолиније";
+
+/* Layers menu: label of the 3D terrain layer button */
+"button_layer_terrain" = "3D терен";
 "isolines_location_error_dialog" = "Ажурирајте ову област да бисте видели изолиније";
 "elevation_profile_ascent" = "Успон";
 "elevation_profile_descent" = "Спуст";
