@@ -792,9 +792,9 @@
     <string name="outdoor_seating">ບ່ອນນັ່ງກາງແຈ້ງ</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">ເພື່ອການນຳທາງທີ່ຊັດເຈນທີ່ສຸດ, ພວກເຮົາແນະນຳໃຫ້ປິດໂໝດປະຢັດພະລັງງານໃນການຕັ້ງຄ່າແບັດເຕີຣີຂອງໂທລະສັບ.</string>
-    <!-- Title of the one-time Android dialog shown when starting track recording, warning that battery restrictions may interrupt it. -->
+    <!-- Title of the Android dialog shown after recording starts. Manufacturer reminders are shown once; detected restrictions once per app session. -->
     <string name="background_recording_warning_title">ການບັນທຶກເສັ້ນທາງອາດຈະຢຸດລົງ</string>
-    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Android 12+; use localized system Settings labels -->
     <string name="background_recording_warning_message">ເພື່ອຮັກສາການບັນທຶກເມື່ອໜ້າຈໍປິດຢູ່, ເປີດການນຳໃຊ້ແບັດເຕີຣີຂອງແອັບ ຫຼື ແບັດເຕີຣີໃນຂໍ້ມູນແອັບ Organic Maps ແລະ ອະນຸຍາດໃຫ້ໃຊ້ໃນພື້ນຫຼັງ. ຖ້າມີການໃຫ້ Optimized ແລະ Restricted, ເລືອກ Optimized.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">ບັນທຶກເສັ້ນທາງ</string>
@@ -893,10 +893,10 @@
     <string name="transit_type_train">ລົດໄຟ</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">ລົດລາງ</string>
-    <!-- Android 9–11 per-app background restriction -->
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Android 9–11; use localized system Settings labels -->
     <string name="background_recording_warning_message_legacy">ເພື່ອຮັກສາການບັນທຶກເມື່ອໜ້າຈໍປິດຢູ່, ເປີດແບັດເຕີຣີໃນຂໍ້ມູນແອັບ Organic Maps ແລະປິດການຈຳກັດພື້ນຫຼັງ. ຊື່ເມນູແຕກຕ່າງກັນໄປຕາມອຸປະກອນ.</string>
-    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Samsung Android 11+ sleep exception; use localized One UI menu labels -->
     <string name="background_recording_samsung_warning_message">ເພື່ອສືບຕໍ່ບັນທຶກເມື່ອໜ້າຈໍປິດ, ເພີ່ມ Organic Maps ໃສ່ແອັບ ທີ່ບໍ່ເຂົ້າໂໝດພັກ ໃນການຕັ້ງຄ່າ → ແບັດເຕີຣີ → ຈຳກັດການນຳໃຊ້ພື້ນຫຼັງ. ໃນບາງລຸ້ນ, ແບັດເຕີຣີຢູ່ພາຍໃຕ້ການດູແລອຸປະກອນ ຫຼື ແບັດເຕີຣີ ແລະການດູແລອຸປະກອນ.</string>
-    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Samsung Android 9–10 sleep exceptions and older three-dot Settings menu; use localized One UI menu labels -->
     <string name="background_recording_samsung_warning_message_legacy">ເພື່ອສືບຕໍ່ບັນທຶກເມື່ອໜ້າຈໍປິດຢູ່, ເປີດ ການຕັ້ງຄ່າ → ການດູແລອຸປະກອນ → ແບັດເຕີຣີ → ການຈັດການພະລັງງານຂອງແອັບ ແລະ ເພີ່ມ Organic Maps ໃສ່ແອັບທີ່ຈະບໍ່ນອນ. ຖ້າມີເມນູ ⋮ → ການຕັ້ງຄ່າແທນ, ເອົາ Organic Maps ອອກຈາກແອັບທີ່ຢູ່ໃນໂໝດພັກ.</string>
 </resources>

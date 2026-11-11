@@ -841,9 +841,9 @@
     <string name="outdoor_seating">Kanpoko eserlekuak</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">Nabigazio zehatzena lortzeko, telefonoaren bateriaren ezarpenetan energia aurrezteko modua desgaitzea gomendatzen dugu.</string>
-    <!-- Title of the one-time Android dialog shown when starting track recording, warning that battery restrictions may interrupt it. -->
+    <!-- Title of the Android dialog shown after recording starts. Manufacturer reminders are shown once; detected restrictions once per app session. -->
     <string name="background_recording_warning_title">Arrastoaren grabaketa eten daiteke</string>
-    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Android 12+; use localized system Settings labels -->
     <string name="background_recording_warning_message">Pantaila itzalita grabazioa jarraitzeko, ireki \'Organic Maps\' aplikazioaren informazioan \'Aplikazioaren bateriaren erabilera\' edo \'Bateria\' atala eta baimendu atzeko planoan exekutatzea. \'Optimized\' eta \'Restricted\' aukerak agertzen badira, hautatu \'Optimized\'.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Grabatu arrastoa</string>
@@ -947,10 +947,10 @@
     <string name="transit_type_train">Trena</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tranbia</string>
-    <!-- Android 9–11 per-app background restriction -->
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Android 9–11; use localized system Settings labels -->
     <string name="background_recording_warning_message_legacy">Pantaila itzalita grabazioa jarraitzeko, ireki Organic Maps aplikazioaren Informazioan \'Bateria\' atala eta desaktibatu \'Atzealdeko murrizketa\'. Menuko izenak gailuaren arabera alda daitezke.</string>
-    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Samsung Android 11+ sleep exception; use localized One UI menu labels -->
     <string name="background_recording_samsung_warning_message">Pantaila itzalita dagoenean grabazioa jarraitzeko, gehitu Organic Maps \'Inoiz lo egiten ez duten\' aplikazioen zerrendan Ezarpenak → Bateria → Atzealdeko erabilera-mugak atalean. Bertsio batzuetan, Bateria atala \'Gailuaren zaintza\' edo \'Bateria eta gailuaren zaintza\' izenpean dago.</string>
-    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Samsung Android 9–10 sleep exceptions and older three-dot Settings menu; use localized One UI menu labels -->
     <string name="background_recording_samsung_warning_message_legacy">Pantaila itzalita grabazioa jarraitzeko, ireki Ezarpenak → Gailuaren zaintza → Bateria → Aplikazioen energia-kudeaketa eta gehitu Organic Maps \'Lo moduan jarriko ez diren aplikazioak\' atalera. ⋮ → Ezarpenak menu bat badago, kendu Organic Maps \'Lo dauden aplikazioak\' ataletik.</string>
 </resources>

@@ -844,9 +844,9 @@
     <string name="outdoor_seating">Asentos ao aire libre</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">Para unha navegación máis precisa, recomendamos que desactive o modo de aforro de enerxía na configuración da batería do teléfono.</string>
-    <!-- Title of the one-time Android dialog shown when starting track recording, warning that battery restrictions may interrupt it. -->
+    <!-- Title of the Android dialog shown after recording starts. Manufacturer reminders are shown once; detected restrictions once per app session. -->
     <string name="background_recording_warning_title">A gravación do traxecto pode interromperse</string>
-    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Android 12+; use localized system Settings labels -->
     <string name="background_recording_warning_message">Para manter a gravación cando a pantalla está apagada, abre o uso de batería da aplicación ou Batería na información da aplicación de Organic Maps e permite o uso en segundo plano. Se se ofrecen Optimizado e Restrito, escolle Optimizado.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Gravar traxecto</string>
@@ -948,10 +948,10 @@
     <string name="transit_type_train">Tren</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tranvía</string>
-    <!-- Android 9–11 per-app background restriction -->
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Android 9–11; use localized system Settings labels -->
     <string name="background_recording_warning_message_legacy">Para manter a gravación cando a pantalla está apagada, abre Batería na información da aplicación de Organic Maps e desactiva a restrición de fondo. Os nomes dos menús varían segundo o dispositivo.</string>
-    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Samsung Android 11+ sleep exception; use localized One UI menu labels -->
     <string name="background_recording_samsung_warning_message">Para manter a gravación cando a pantalla está apagada, engade Organic Maps ás aplicacións que nunca durmen en Configuración → Batería → Limites de uso en segundo plano. En algunhas versións, Batería está baixo Coidado do dispositivo ou Coidado de batería e dispositivo.</string>
-    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Samsung Android 9–10 sleep exceptions and older three-dot Settings menu; use localized One UI menu labels -->
     <string name="background_recording_samsung_warning_message_legacy">Para manter a gravación cando a pantalla está apagada, abre Configuración → Coidado do dispositivo → Batería → Xestión de enerxía de aplicacións e engade Organic Maps ás aplicacións que non se poñerán en repouso. Se en vez diso aparece un menú ⋮ → Configuración, elimina Organic Maps das aplicacións en repouso.</string>
 </resources>

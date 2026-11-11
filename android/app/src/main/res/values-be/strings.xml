@@ -852,10 +852,10 @@
     <string name="outdoor_seating">Месцы на адкрытым паветры</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">Для найбольш дакладнай навігацыі рэкамендуем адключыць рэжым энергазберажэння ў наладах батарэі тэлефона.</string>
-    <!-- Title of the one-time Android dialog shown when starting track recording, warning that battery restrictions may interrupt it. -->
+    <!-- Title of the Android dialog shown after recording starts. Manufacturer reminders are shown once; detected restrictions once per app session. -->
     <string name="background_recording_warning_title">Запіс трэка можа спыніцца</string>
-    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
-    <string name="background_recording_warning_message">Каб працягваць запіс, калі экран выключаны, адкрыйце раздзел «Выкарыстанне батарэі праграмай» або «Батарэя» ў інфармацыі пра праграму «Organic Maps» і дазвольце працу ў фонавым рэжыме. Калі прапануюцца опцыі «Аптымізавана» і «Абмежавана», выберыце «Аптымізавана».</string>
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Android 12+; use localized system Settings labels -->
+    <string name="background_recording_warning_message">Каб працягваць запіс, калі экран выключаны, адкрыйце раздзел «Выкарыстанне батарэі праграмай» або «Батарэя» ў інфармацыі пра праграму Organic Maps і дазвольце працу ў фонавым рэжыме. Калі прапануюцца варыянты «Аптымізавана» і «Абмежавана», выберыце «Аптымізавана».</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">Запіс маршруту</string>
     <!-- Prompt for stopping a track recording. -->
@@ -966,10 +966,10 @@
     <string name="transit_type_train">Цягнік</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Трамвай</string>
-    <!-- Android 9–11 per-app background restriction -->
-    <string name="background_recording_warning_message_legacy">Каб працягваць запіс, калі экран выключаны, адкрыйце раздзел «Батарэя» ў інфармацыі пра дадатак «Organic Maps» і выключыце абмежаванне ў фонавым рэжыме. Назвы меню могуць адрознівацца ў залежнасці ад прылады.</string>
-    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
-    <string name="background_recording_samsung_warning_message">Каб працягваць запіс, калі экран выключаны, дадайце Organic Maps у спіс «Дадаткі, якія ніколі не спяць» у Налады → Батарэя → Абмежаванні фонавага выкарыстання. У некаторых версіях раздзел «Батарэя» знаходзіцца ў раздзеле «Догляд прылады» або «Догляд батарэі і прылады».</string>
-    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
-    <string name="background_recording_samsung_warning_message_legacy">Каб захаваць запіс, калі экран выключаны, адкрыйце Налады → Догляд прылады → Акумулятар → Кіраванне энергаспажываннем праграм і дадайце Organic Maps у спіс праграм, якія не будуць пераводзіцца ў спячы рэжым. Калі замест гэтага ёсць меню ⋮ → Налады, выдаліце Organic Maps са спісу праграм, якія спяць.</string>
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Android 9–11; use localized system Settings labels -->
+    <string name="background_recording_warning_message_legacy">Каб працягваць запіс, калі экран выключаны, адкрыйце раздзел «Батарэя» ў інфармацыі пра праграму Organic Maps і выключыце абмежаванне фонавай працы. Назвы пунктаў меню могуць адрознівацца ў залежнасці ад прылады.</string>
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Samsung Android 11+ sleep exception; use localized One UI menu labels -->
+    <string name="background_recording_samsung_warning_message">Каб працягваць запіс, калі экран выключаны, дадайце Organic Maps у спіс «Праграмы, якія ніколі не спяць» у наладах: Батарэя → Абмежаванні фонавага выкарыстання. У некаторых версіях раздзел «Батарэя» знаходзіцца ў раздзеле «Догляд прылады» або «Батарэя і догляд прылады».</string>
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Samsung Android 9–10 sleep exceptions and older three-dot Settings menu; use localized One UI menu labels -->
+    <string name="background_recording_samsung_warning_message_legacy">Каб працягваць запіс, калі экран выключаны, адкрыйце Налады → Догляд прылады → Батарэя → Кіраванне энергаспажываннем праграм і дадайце Organic Maps у спіс праграм, якія не будуць пераводзіцца ў спячы рэжым. Калі замест гэтага ёсць меню ⋮ → Налады, выдаліце Organic Maps са спісу праграм, якія спяць.</string>
 </resources>

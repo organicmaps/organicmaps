@@ -830,9 +830,9 @@
     <string name="outdoor_seating">야외 좌석</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">가장 정확한 내비게이션을 위해 휴대폰의 배터리 설정에서 절전 모드를 비활성화하는 것이 좋습니다.</string>
-    <!-- Title of the one-time Android dialog shown when starting track recording, warning that battery restrictions may interrupt it. -->
+    <!-- Title of the Android dialog shown after recording starts. Manufacturer reminders are shown once; detected restrictions once per app session. -->
     <string name="background_recording_warning_title">트랙 기록이 중단될 수 있습니다</string>
-    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Android 12+; use localized system Settings labels -->
     <string name="background_recording_warning_message">화면이 꺼진 상태에서도 기록을 계속하려면, Organic Maps의 앱 정보에서 ‘앱 배터리 사용량’ 또는 ‘배터리’를 열고 백그라운드 사용을 허용하세요. ‘최적화’와 ‘제한’ 옵션이 표시되면 ‘최적화’를 선택하세요.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">트랙 기록</string>
@@ -933,10 +933,10 @@
     <string name="transit_type_train">기차</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">트램</string>
-    <!-- Android 9–11 per-app background restriction -->
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Android 9–11; use localized system Settings labels -->
     <string name="background_recording_warning_message_legacy">화면이 꺼진 상태에서도 기록을 계속하려면, Organic Maps의 ‘앱 정보’에서 ‘배터리’를 열고 ‘백그라운드 제한’을 해제하세요. 메뉴 이름은 기기에 따라 다를 수 있습니다.</string>
-    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Samsung Android 11+ sleep exception; use localized One UI menu labels -->
     <string name="background_recording_samsung_warning_message">화면이 꺼진 상태에서도 기록을 계속하려면, 설정 → 배터리 → 백그라운드 사용 제한에서 ‘Organic Maps’를 ‘절대 절전하지 않는 앱’에 추가하세요. 일부 버전에서는 ‘배터리’ 항목이 ‘기기 관리’ 또는 ‘배터리 및 기기 관리’ 아래에 있습니다.</string>
-    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Samsung Android 9–10 sleep exceptions and older three-dot Settings menu; use localized One UI menu labels -->
     <string name="background_recording_samsung_warning_message_legacy">화면이 꺼진 상태에서도 기록을 계속하려면 설정 → 기기 관리 → 배터리 → 앱 전력 관리로 이동하여 ‘Organic Maps’를 ‘절전 모드로 전환되지 않는 앱’에 추가하십시오. 대신 ⋮ → 설정 메뉴가 표시되면, ‘절전 모드 앱’에서 Organic Maps를 제거하십시오.</string>
 </resources>

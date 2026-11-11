@@ -28,7 +28,7 @@
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="fuel_places">Petrol Stations</string>
-    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Android 12+; use localized system Settings labels -->
     <string name="background_recording_warning_message">To keep recording when the screen is off, open App battery usage or Battery in Organic Maps’ App info and allow background usage. If Optimised and Restricted are offered, choose Optimised.</string>
 
     <!-- SECTION: gps strings -->

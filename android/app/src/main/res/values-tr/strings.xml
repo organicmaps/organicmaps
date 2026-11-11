@@ -842,9 +842,9 @@
     <string name="outdoor_seating">Açık oturma alanı</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">En doğru navigasyon için telefonunuzun pil ayarlarından güç tutum kipini devre dışı bırakmanızı öneririz.</string>
-    <!-- Title of the one-time Android dialog shown when starting track recording, warning that battery restrictions may interrupt it. -->
+    <!-- Title of the Android dialog shown after recording starts. Manufacturer reminders are shown once; detected restrictions once per app session. -->
     <string name="background_recording_warning_title">İz kaydı durabilir</string>
-    <!-- Android 12+ per-app battery controls; names vary by manufacturer -->
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Android 12+; use localized system Settings labels -->
     <string name="background_recording_warning_message">Ekran kapalıyken kaydı sürdürmek için, Organic Maps’in Uygulama bilgileri bölümünden Uygulama pil kullanımı veya Pil seçeneğini açın ve arka planda çalışmaya izin verin. “Optimize edilmiş” ve “Kısıtlı” seçenekleri sunuluyorsa, “Optimize edilmiş” seçeneğini seçin.</string>
     <!-- Prompt to start recording a track. -->
     <string name="start_track_recording">İzi Kaydet</string>
@@ -950,10 +950,10 @@
     <string name="transit_type_train">Tren</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tramvay</string>
-    <!-- Android 9–11 per-app background restriction -->
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Android 9–11; use localized system Settings labels -->
     <string name="background_recording_warning_message_legacy">Ekran kapalıyken kaydı sürdürmek için, Organic Maps’in Uygulama bilgileri bölümünden Pil seçeneğini açın ve Arka plan kısıtlamasını kapatın. Menü adları cihaza göre değişiklik gösterebilir.</string>
-    <!-- Samsung Android 11+ sleep exception; Battery location varies by One UI version -->
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Samsung Android 11+ sleep exception; use localized One UI menu labels -->
     <string name="background_recording_samsung_warning_message">Ekran kapalıyken kayda devam etmek için, Ayarlar → Pil → Arka plan kullanım sınırları bölümünde \"Organic Maps\" uygulamasını \"Asla uyku moduna geçmeyen uygulamalar\" listesine ekleyin. Bazı sürümlerde \"Pil\" seçeneği, \"Cihaz bakımı\" veya \"Pil ve cihaz bakımı\" başlığı altında yer alır.</string>
-    <!-- Samsung Android 9–10 sleep exceptions and older three-dot Settings menu -->
+    <!-- Message of the Android track recording battery advisory shown after recording starts. Samsung Android 9–10 sleep exceptions and older three-dot Settings menu; use localized One UI menu labels -->
     <string name="background_recording_samsung_warning_message_legacy">Ekran kapalıyken kayda devam etmek için Ayarlar → Cihaz bakımı → Pil → Uygulama güç yönetimi bölümünü açın ve Organic Maps\'i \"Uyku moduna alınmayacak uygulamalar\" listesine ekleyin. Bunun yerine ⋮ → Ayarlar menüsü varsa, Organic Maps\'i \"Uyku modundaki uygulamalar\" listesinden kaldırın.</string>
 </resources>
