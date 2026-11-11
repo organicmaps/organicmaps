@@ -1,8 +1,9 @@
 {
   "images" : [
     {
-      "filename" : "btn_menu_isomaps_light.svg",
-      "idiom" : "universal"
+      "filename" : "btn_menu_isomaps_light@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
     },
     {
       "appearances" : [
@@ -11,8 +12,9 @@
           "value" : "dark"
         }
       ],
-      "filename" : "btn_menu_isomaps_dark.svg",
-      "idiom" : "universal"
+      "filename" : "btn_menu_isomaps_dark@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {
