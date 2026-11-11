@@ -52,4 +52,4 @@
 • 改进了翻译、语音导航和语言选项
 • 修复了“关于”页面中的社区链接
 
-详细发布说明见 organicmaps.app/news
+详细发布说明见 organicmaps.app/zh-Hans/news

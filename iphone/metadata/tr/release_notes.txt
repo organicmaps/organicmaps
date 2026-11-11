@@ -52,4 +52,4 @@
 • Çeviriler, sesli yol tarifleri ve dil seçenekleri iyileştirildi
 • “Hakkında” bölümündeki topluluk bağlantıları düzeltildi
 
-Ayrıntılı sürüm notlarını organicmaps.app/news adresinde inceleyin
+Ayrıntılı sürüm notlarını organicmaps.app/tr/news adresinde inceleyin

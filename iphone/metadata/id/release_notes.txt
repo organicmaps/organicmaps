@@ -52,4 +52,4 @@
 • Terjemahan, petunjuk suara, dan pilihan bahasa telah ditingkatkan
 • Tautan komunitas di bagian "Tentang" telah diperbaiki
 
-Lihat catatan rilis terperinci di organicmaps.app/news
+Lihat catatan rilis terperinci di organicmaps.app/id/news

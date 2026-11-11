@@ -52,4 +52,4 @@
 • Vylepšeny překlady, hlasové pokyny a výběr jazyků
 • Opraveny odkazy na komunitu v sekci „O aplikaci“
 
-Podrobné poznámky k vydání najdete na adrese organicmaps.app/news
+Podrobné poznámky k vydání najdete na adrese organicmaps.app/cs/news

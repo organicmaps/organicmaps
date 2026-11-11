@@ -52,4 +52,4 @@
 • Verbesserte Übersetzungen, gesprochene Wegbeschreibungen und Sprachauswahl
 • Community-Links im Bereich „Über“ wurden korrigiert
 
-Vollständige Versionshinweise unter organicmaps.app/news
+Vollständige Versionshinweise unter organicmaps.app/de/news

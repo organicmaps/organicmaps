@@ -52,4 +52,4 @@
 • Millores en traduccions, instruccions de veu i opcions d’idioma
 • Correcció d’enllaços de la comunitat a «Quant a»
 
-Notes completes de la versió a organicmaps.app/news
+Notes completes de la versió a organicmaps.app/ca/news

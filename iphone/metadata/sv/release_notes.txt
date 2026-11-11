@@ -52,4 +52,4 @@
 • Förbättrade översättningar, röstvägbeskrivningar och språkval
 • Korrigering av länkar till användargemenskapen i ”Om”
 
-Se de detaljerade releaseanteckningarna på organicmaps.app/news
+Se de detaljerade releaseanteckningarna på organicmaps.app/sv/news

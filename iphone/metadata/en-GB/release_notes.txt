@@ -9,8 +9,8 @@
 ## Routing & navigation
 • Updated route planning and added a button to reverse a planned route, including all intermediate stops
 • Driving, cycling and walking now have separate avoidance settings
-• Remove the start or destination directly from the route planner
-• Add a new destination even when the previous route could not be calculated
+• The start or destination can now be removed directly in the route planner
+• A new destination can be added even when the previous route could not be calculated
 • Improved route restoration, recalculation, alternative routes and duration estimates
 • Improved public transport arrival estimates, walking connections and station entrance markers
 • Fixed saved routes losing their starting segment or using an outdated current-position point

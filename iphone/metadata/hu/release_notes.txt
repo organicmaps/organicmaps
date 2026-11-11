@@ -52,4 +52,4 @@
 • Jobb fordítások, hangutasítások és nyelvválasztási lehetőségek
 • Javított közösségi hivatkozások a Névjegyben
 
-Részletes kiadási megjegyzések az organicmaps.app/news oldalon
+Részletes kiadási megjegyzések az organicmaps.app/hu/news oldalon

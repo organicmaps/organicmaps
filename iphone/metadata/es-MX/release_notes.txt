@@ -52,4 +52,4 @@
 • Mejoras en traducciones, indicaciones de voz y opciones de idioma
 • Se corrigen los enlaces a la comunidad en «Acerca de»
 
-Notas completas de la versión en organicmaps.app/news
+Notas completas de la versión en organicmaps.app/es/news
