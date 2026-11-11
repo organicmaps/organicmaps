@@ -4,7 +4,7 @@ OFFLINE: Aplikacija radi 100% offline — uključujući pretraživanje i navigac
 
 DETALJNO I AŽURIRANO: Karte su bogate detaljima i ažuriraju se dva puta mjesečno kako bi odražavale stvarne uvjete. Za razliku od mnogih poznatih konkurenata, uključuju oznake zgrada, klupe, pješačke staze i druge korisne informacije.
 
-TEMELJENO NA OPENSTREETMAP: OpenStreetMap je wiki-stil svjetske karte koju grade i održavaju milijuni volontera — lokalni stanovnici koji najbolje poznaju svoje područje. Ovaj zajednički napor rezultira vrlo detaljnim kartama, često preciznijim od komercijalnih u slabije kartiranim područjima. Organic Maps ažurira podatke iz OpenStreetMap svaka dva tjedna, održavajući karte svježima i pouzdanim. Ako primijetite da nešto nedostaje, možete to dodati u OpenStreetMap i pomoći poboljšati kartu za sve.
+TEMELJENO NA OPENSTREETMAP: OpenStreetMap je svjetska karta u stilu wikija koju grade i održavaju milijuni volontera — lokalni stanovnici koji najbolje poznaju svoje područje. Ovaj zajednički napor rezultira vrlo detaljnim kartama, često preciznijim od komercijalnih u slabije kartiranim područjima. Organic Maps ažurira podatke iz OpenStreetMap svaka dva tjedna, održavajući karte svježima i pouzdanim. Ako primijetite da nešto nedostaje, možete to dodati u OpenStreetMap i pomoći poboljšati kartu za sve.
 
 PRIORITET PRIVATNOSTI: Ne prikupljamo nikakve podatke ili identifikatore. To znači da nema rizika od curenja podataka i nema smetnji poput oglasa ili bučnih obavijesti — samo čisto, privatno iskustvo karte.
 
@@ -15,6 +15,8 @@ ISTRAŽUJTE MJESTA: Pretražujte po adresi, imenu ili kategoriji, otkrijte milij
 GPS NAVIGACIJA: Uživajte u glasovno vođenim uputama korak po korak. Kreirajte pješačke, planinarske, biciklističke ili vozačke rute — uključujući rute između gradova, država i više točaka. Pronađite najbolje rute za putovanja metroom i dnevne prijevoze. Podržava CarPlay.
 
 PLANINARSKE I BICIKLISTIČKE STAZE IZ CIJELOG SVIJETA: Aktivirajte posebne slojeve karte kako biste otkrili popularne planinarske i biciklističke rute širom svijeta, sve iz OpenStreetMap-a. Prebacujte se između slojeva kako biste vidjeli obojene biciklističke i MTB rute, kao i službene planinarske staze.
+
+3D TEREN I DUBINE: Pogledajte 3D teren, dubine oceana i mora te detaljne izohipse. Dodirnite bilo koju točku kako biste provjerili njezinu nadmorsku visinu, na kopnu ili na moru.
 
 JAVNI PRIJEVOZ: Planirajte rute javnim prijevozom. Podrška za vozne redove u stvarnom vremenu je u razvoju.
 
@@ -28,8 +30,8 @@ UREĐIVAČ KARTE: Doprinijeti OpenStreetMap dodavanjem nedostajućih mjesta ili 
 
 iCLOUD SINHRONIZACIJA: Jednostavno izrađujte sigurnosne kopije i sinkronizirajte sve svoje oznake i rute putem iClouda.
 
-Isprobajte aplikaciju — 100% je besplatna, bez oglasa, brza i potpuno offline. Uživajte u brzom, pouzdanom i privatnom iskustvu karte i podijelite ga s drugima!
-Organic Maps je indie, zajednicom vođen, open-source projekt sa stotinama suradnika koji pomažu u razvoju novih funkcija, ispravljanju problema, prevođenju i napretku projekta.
+Isprobajte aplikaciju — 100% je besplatna, bez oglasa, brza i potpuno offline.
+Organic Maps je indie, zajednicom vođen, open-source projekt sa stotinama suradnika koji razvijaju funkcije, ispravljaju greške i prevode.
 
 Ili saznajte druge načine podrške projektu: https://organicmaps.app/contribute/
 
