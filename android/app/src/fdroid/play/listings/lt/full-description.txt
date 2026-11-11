@@ -14,9 +14,11 @@ Organic Maps – tai greita ir išsami neprisijungus veikiančių žemėlapių i
 
 <b>VIETŲ PAIEŠKA:</b> Ieškokite pagal adresą, pavadinimą ar kategoriją, atraskite milijonus lankytinų vietų ir peržiūrėkite išsamią informaciją: darbo laiką, Vikipedijos straipsnius, pritaikymą neįgaliųjų vežimėliams ir kt.
 
-<b>GPS NAVIGACIJA:</b> Balso nurodymai kiekviename posūkyje. Kurkite maršrutus pėsčiomis, žygiams, dviračiu ar automobiliu – taip pat tarp miestų ir šalių, su keliais tarpiniais taškais. Raskite geriausius viešojo transporto maršrutus kelionėms ir kasdieniams važiavimams. Palaikomas Android Auto.
+<b>GPS NAVIGACIJA:</b> Balso nurodymai kiekviename posūkyje. Kurkite maršrutus pėsčiomis, žygiams, dviračiu ar automobiliu – taip pat tarp miestų ir šalių, su keliais tarpiniais taškais. Palaikomas Android Auto.
 
 <b>ŽYGIŲ IR DVIRAČIŲ TAKAI IŠ VISO PASAULIO:</b> Įjunkite specialius žemėlapio sluoksnius ir atraskite populiarius žygių ir dviračių maršrutus visame pasaulyje – visi iš OpenStreetMap. Perjunkite sluoksnius ir matykite spalvotus dviračių bei MTB maršrutus ir oficialius žygių takus.
+
+<b>3D RELJEFAS IR GYLIAI:</b> Peržiūrėkite 3D reljefą, vandenynų ir jūrų gylius bei detalias horizontales. Bakstelėkite bet kurį tašką ir sužinokite jo aukštį – sausumoje ar jūroje.
 
 <b>VIEŠASIS TRANSPORTAS:</b> Planuokite maršrutus viešuoju transportu – metro, lengvuoju geležinkeliu, autobusu ir tramvajumi. Matykite maršrutų numerius stotelėse.
 
@@ -32,7 +34,7 @@ Organic Maps – tai greita ir išsami neprisijungus veikiančių žemėlapių i
 
 Išbandykite programėlę – ji 100 % nemokama, be reklamų, greita ir veikia neprisijungus.
 
-Organic Maps – nepriklausomas, bendruomenės kuriamas atvirojo kodo projektas, kuriame šimtai bendraautorių kuria naujas funkcijas, taiso klaidas, verčia ir tobulina projektą.
+Organic Maps – nepriklausomas, bendruomenės kuriamas atvirojo kodo projektas, kurį kuria šimtai bendraautorių.
 
 Sužinokite, kaip paremti projektą: https://organicmaps.app/contribute/
 
