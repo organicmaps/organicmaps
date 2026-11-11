@@ -596,19 +596,23 @@ namespace KDTree
 
       iterator
       _M_insert(_Link_type __N, const_reference __V,
-             size_type const __L)
+             size_type __L)
       {
-        if (_Node_compare_(__L % __K, _M_acc, _M_cmp)(__V, __N->_M_value))
+        // Ordered input can produce a chain deeper than the process stack.
+        for (;; ++__L)
           {
-            if (!_S_left(__N))
-              return _M_insert_left(__N, __V);
-            return _M_insert(_S_left(__N), __V, __L+1);
-          }
-        else
-          {
-            if (!_S_right(__N) || __N == _M_get_rightmost())
-              return _M_insert_right(__N, __V);
-            return _M_insert(_S_right(__N), __V, __L+1);
+            if (_Node_compare_(__L % __K, _M_acc, _M_cmp)(__V, __N->_M_value))
+              {
+                if (!_S_left(__N))
+                  return _M_insert_left(__N, __V);
+                __N = _S_left(__N);
+              }
+            else
+              {
+                if (!_S_right(__N) || __N == _M_get_rightmost())
+                  return _M_insert_right(__N, __V);
+                __N = _S_right(__N);
+              }
           }
       }
 
@@ -790,12 +794,30 @@ namespace KDTree
       void
       _M_erase_subtree(_Link_type __n)
       {
+        if (!__n)
+          return;
+        _Base_ptr const __parent = __n->_M_parent;
+        // Walk back through parent links without recursion or allocating in clear().
         while (__n)
           {
-            _M_erase_subtree(_S_right(__n));
-            _Link_type __t = _S_left(__n);
-            _M_delete_node(__n);
-            __n = __t;
+            if (_S_left(__n))
+              {
+                _Link_type __child = _S_left(__n);
+                _S_set_left(__n, NULL);
+                __n = __child;
+              }
+            else if (_S_right(__n))
+              {
+                _Link_type __child = _S_right(__n);
+                _S_set_right(__n, NULL);
+                __n = __child;
+              }
+            else
+              {
+                _Base_ptr __next = __n->_M_parent;
+                _M_delete_node(__n);
+                __n = __next == __parent ? NULL : static_cast<_Link_type>(__next);
+              }
           }
       }
 
