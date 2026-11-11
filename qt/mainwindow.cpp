@@ -278,7 +278,7 @@ void MainWindow::CreateNavigationBar()
                         std::bind(&MainWindow::OnLayerEnabled, this, TRANSIT), true);
     m_layers->setChecked(TRANSIT, Framework::LoadTransitSchemeEnabled());
 
-    m_layers->addAction(QIcon(":/navig64/isolines.png"), Tr("button_layer_isolines"),
+    m_layers->addAction(QIcon(":/navig64/isolines.png"), Tr("button_layer_terrain"),
                         std::bind(&MainWindow::OnLayerEnabled, this, ISOLINES), true);
     m_layers->setChecked(ISOLINES, Framework::LoadIsolinesEnabled());
     // TODO(AB): Are icons drawable? Fix and make different icons for different layers.
