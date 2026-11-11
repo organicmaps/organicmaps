@@ -1,4 +1,4 @@
-Ang Organic Maps ay isang mabilis, detalyadong offline na mapa at GPS navigation app para sa paglalakbay, hiking, trekking, at cycling adventures. Magplano, mag-import, at magrekord ng mga ruta, at mag-enjoy ng tuloy-tuloy na gabay nang hindi nauubos ang iyong baterya o nang hindi gumagamit ng internet. Tuklasin ang mga lugar at mag-navigate nang ligtas sa iyong mga outdoor adventures at paglalakbay sa buong mundo. Nag-aalok ang app ng walang limitasyong pag-download ng mapa at pag-update tuwing dalawang linggo. Batay sa OpenStreetMap, gawa ng mga boluntaryo, prayoridad ang privacy, 100% offline, at 100% libre.
+Ang Organic Maps ay isang mabilis, detalyadong offline na mapa at GPS navigation app para sa paglalakbay, hiking, trekking, at cycling adventures. Magplano, mag-import, at magrekord ng mga ruta, at mag-enjoy ng tuloy-tuloy na gabay nang hindi nauubos ang iyong baterya o nang hindi gumagamit ng internet. Nag-aalok ang app ng walang limitasyong pag-download ng mapa at pag-update tuwing dalawang linggo. Batay sa OpenStreetMap, gawa ng mga boluntaryo, prayoridad ang privacy, 100% offline, at 100% libre.
 
 <b>OFFLINE:</b>
 
@@ -24,11 +24,15 @@ Maghanap gamit ang address, pangalan, o kategorya, tuklasin ang milyun-milyong P
 
 <b>GPS NA NAVIGASYON:</b>
 
-Mag-enjoy ng tinuturong direksyon, hakbang-hakbang. Lumikha ng mga ruta para sa paglalakad, pag-hiking, pagbibisikleta, o pagmamaneho — kabilang ang mga ruta sa pagitan ng mga lungsod, bansa, at maramihang waypoint. Hanapin ang pinakamagagandang ruta para sa iyong mga biyahe sa metro at araw-araw na byahe. Suportado ang Android Auto.
+Mag-enjoy ng tinuturong direksyon, hakbang-hakbang. Lumikha ng mga ruta para sa paglalakad, pag-hiking, pagbibisikleta, o pagmamaneho — kabilang ang mga ruta sa pagitan ng mga lungsod, bansa, at maramihang waypoint. Suportado ang Android Auto.
 
 <b>MGA RUTA PARA SA HIKING AT PAGBIBISIKLETA SA BUONG MUNDO:</b>
 
 I-enable ang mga espesyal na layer ng mapa para matuklasan ang mga sikat na ruta ng hiking at pagsisiklod sa buong mundo, na lahat ay hango sa OpenStreetMap. Lumipat-lipat sa mga layer para makita ang makukulay na ruta ng bisikleta at MTB, pati na rin ang mga opisyal na daanan para sa hiking.
+
+<b>3D NA TERRAIN AT LALIM:</b>
+
+Tingnan ang 3D na terrain, lalim ng karagatan at dagat, at detalyadong contour lines. I-tap ang anumang punto para malaman ang taas nito, sa lupa man o sa dagat.
 
 <b>PAMPUBLIKONG TRANSPORTASYON:</b>
 
