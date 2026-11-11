@@ -956,8 +956,7 @@
 "dialog_pedestrian_route_is_long_header" = "Ni chanfuwyd unrhyw lwybr trên tanddaearol";
 "dialog_pedestrian_route_is_long_message" = "Dewiswch bwynt cychwyn neu derfyn yn agosach at orsaf trên tanddaearol";
 "button_layer_isolines" = "Llinellau cyfuchlin";
-"isolines_activation_error_dialog" = "Mae actifadu llinellau cyfuchlin yn gofyn am lawrlwytho data map ar gyfer yr ardal hon";
-"isolines_location_error_dialog" = "Nid yw llinellau cyfuchlin ar gael yn yr ardal hon eto";
+"isolines_location_error_dialog" = "Diweddarwch y rhanbarth hwn i weld llinellau cyfuchlin";
 "elevation_profile_ascent" = "Esgyniad";
 "elevation_profile_descent" = "Disgyniad";
 "elevation_profile_min_elevation" = "Uchder isaf";
