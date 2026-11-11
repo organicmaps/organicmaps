@@ -21,7 +21,8 @@ import app.organicmaps.util.BatteryOptimizationHelper
 import java.io.IOException
 
 /**
- * Starts recording from the widget without taking the map away from Android Auto.
+ * Starts recording from the widget without opening the map.
+ * Handles permissions and advice here so recording also works while Android Auto owns the map.
  * Android allows starting a location foreground service only from the foreground.
  */
 class TrackRecordingStartActivity : AppCompatActivity() {
@@ -29,7 +30,13 @@ class TrackRecordingStartActivity : AppCompatActivity() {
         if (LocationUtils.checkFineLocationPermission(this)) {
             startRecording()
         } else {
-            Toast.makeText(this, R.string.precise_location_is_disabled_long_text, Toast.LENGTH_LONG).show()
+            val message =
+                if (LocationUtils.checkLocationPermission(this)) {
+                    R.string.precise_location_is_disabled_long_text
+                } else {
+                    R.string.location_is_disabled_long_text
+                }
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
             finishAndRemoveTask()
         }
     }
