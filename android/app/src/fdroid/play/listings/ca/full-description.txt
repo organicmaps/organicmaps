@@ -18,7 +18,7 @@ NAVIGACIÓ GPS: Gaudiu d’indicacions pas a pas amb guia de veu. Creeu rutes a 
 
 SENDERS DE SENDERISME I CICLISME D’ARREU DEL MÓN: Activeu capes especials per descobrir rutes populars de senderisme i ciclisme d’arreu, provinents d’OpenStreetMap. Canvieu entre capes per veure rutes ciclables i de MTB en colors, així com senders oficials de senderisme.
 
-TERRENY 3D I PROFUNDITATS: Mira el terreny en 3D, les profunditats d’oceans i mars i corbes de nivell detallades. Toca qualsevol punt per consultar-ne l’altitud, a terra o al mar.
+TERRENY 3D I PROFUNDITATS: Mireu el terreny en 3D, les profunditats d’oceans i mars i corbes de nivell detallades. Toqueu qualsevol punt per consultar-ne l’altitud, a terra o al mar.
 
 TRANSPORT PÚBLIC: Planifiqueu rutes de transport públic. Els horaris en temps real estan en desenvolupament.
 
