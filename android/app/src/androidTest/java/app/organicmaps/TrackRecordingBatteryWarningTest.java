@@ -53,7 +53,7 @@ public class TrackRecordingBatteryWarningTest
 {
   private final Instrumentation mInstrumentation = InstrumentationRegistry.getInstrumentation();
   private final Context mContext = mInstrumentation.getTargetContext();
-  private final SharedPreferences mPreferences = mContext.getSharedPreferences("OrganicMapsPrefs", 0);
+  private final SharedPreferences mPreferences = MwmApplication.prefs(mContext);
   private ActivityScenario<MwmActivity> mScenario;
   private boolean mWasAcknowledged;
   private boolean mWasRestricted;

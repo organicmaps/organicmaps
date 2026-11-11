@@ -6,7 +6,6 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +16,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
+import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.sdk.util.log.Logger;
 import java.util.ArrayList;
@@ -26,7 +26,6 @@ import java.util.Set;
 
 public class BatteryOptimizationHelper
 {
-  private static final String PREF_NAME = "OrganicMapsPrefs";
   private static final String KEY_WARNING_SHOWN = "battery_optimization_warning_seen";
   private static final Set<String> GUIDE_MANUFACTURERS =
       Set.of("asus", "blackview", "htc", "huawei", "lenovo", "meizu", "motorola", "nokia", "oneplus", "oppo", "realme",
@@ -37,8 +36,7 @@ public class BatteryOptimizationHelper
 
   static boolean shouldShowWarning(@NonNull Context context)
   {
-    SharedPreferences prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-    if (prefs.getBoolean(KEY_WARNING_SHOWN, false))
+    if (MwmApplication.prefs(context).getBoolean(KEY_WARNING_SHOWN, false))
       return false;
     return isSamsungTarget() || isBackgroundRestricted(context);
   }
@@ -50,18 +48,13 @@ public class BatteryOptimizationHelper
 
   private static boolean isBackgroundRestricted(@NonNull Context context)
   {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
-    {
-      ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-      return am != null && am.isBackgroundRestricted();
-    }
-    return false;
+    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
+ && context.getSystemService(ActivityManager.class).isBackgroundRestricted();
   }
 
   private static void markWarningShown(@NonNull Context context)
   {
-    SharedPreferences prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-    prefs.edit().putBoolean(KEY_WARNING_SHOWN, true).apply();
+    MwmApplication.prefs(context).edit().putBoolean(KEY_WARNING_SHOWN, true).apply();
   }
 
   static void openSettings(@NonNull Context context)

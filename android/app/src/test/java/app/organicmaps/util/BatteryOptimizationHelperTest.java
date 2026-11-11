@@ -3,12 +3,15 @@ package app.organicmaps.util;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import org.junit.Test;
+import org.mockito.MockedStatic;
 
 public class BatteryOptimizationHelperTest
 {
@@ -17,10 +20,12 @@ public class BatteryOptimizationHelperTest
   {
     final Context context = mock(Context.class);
     final SharedPreferences preferences = mock(SharedPreferences.class);
-    when(context.getSharedPreferences("OrganicMapsPrefs", Context.MODE_PRIVATE)).thenReturn(preferences);
     when(preferences.getBoolean("battery_optimization_warning_seen", false)).thenReturn(true);
-
-    assertFalse(BatteryOptimizationHelper.shouldShowWarning(context));
+    try (MockedStatic<MwmApplication> application = mockStatic(MwmApplication.class))
+    {
+      application.when(() -> MwmApplication.prefs(context)).thenReturn(preferences);
+      assertFalse(BatteryOptimizationHelper.shouldShowWarning(context));
+    }
   }
 
   @Test
