@@ -654,10 +654,6 @@ private:
 class AddSubrouteMessage : public Message
 {
 public:
-  AddSubrouteMessage(dp::DrapeID subrouteId, SubrouteConstPtr subroute)
-    : AddSubrouteMessage(subrouteId, subroute, -1 /* invalid recache id */)
-  {}
-
   AddSubrouteMessage(dp::DrapeID subrouteId, SubrouteConstPtr subroute, int recacheId)
     : m_subrouteId(subrouteId)
     , m_subroute(subroute)
