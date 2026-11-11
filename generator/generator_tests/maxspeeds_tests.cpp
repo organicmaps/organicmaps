@@ -425,12 +425,126 @@ UNIT_TEST(Maxspeed_CollectorSmoke)
   TEST_EQUAL(osmIdToMaxspeed.size(), 3, ());
 
   TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(1)].GetForward(), static_cast<MaxspeedType>(50), ());
+  TEST(!osmIdToMaxspeed[base::MakeOsmWay(1)].IsBidirectional(), ());
   TEST(osmIdToMaxspeed.find(base::MakeOsmWay(2)) == osmIdToMaxspeed.end(), ());
 
   TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(3)].GetForward(), static_cast<MaxspeedType>(70), ());
   TEST(osmIdToMaxspeed.find(base::MakeOsmWay(4)) == osmIdToMaxspeed.end(), ());
 
   TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(5)].GetForward(), static_cast<MaxspeedType>(20), ());
+}
+
+UNIT_TEST(Maxspeed_CollectorDirectional)
+{
+  classificator::Load();
+  auto const filename = GetFileName();
+  SCOPE_GUARD(_, std::bind(Platform::RemoveFileIfExists, std::cref(filename)));
+
+  feature::FeatureBuilder builder;
+
+  auto c1 = std::make_shared<MaxspeedsCollector>(filename);
+  c1->CollectFeature(builder, MakeOsmElement(1 /* id */, {{"maxspeed", "70"}, {"maxspeed:forward", "90"}} /* tags */,
+                                             OsmElement::EntityType::Way));
+  c1->CollectFeature(builder, MakeOsmElement(2 /* id */, {{"maxspeed", "90"}, {"maxspeed:backward", "70"}} /* tags */,
+                                             OsmElement::EntityType::Way));
+  c1->CollectFeature(builder, MakeOsmElement(1064150630 /* id */,
+                                             {{"maxspeed:forward", "50"},
+                                              {"maxspeed:backward", "70"},
+                                              {"maxspeed:type:forward", "sign"},
+                                              {"maxspeed:type:backward", "sign"},
+                                              {"source:maxspeed:forward", "sign"},
+                                              {"source:maxspeed:backward", "sign"}} /* tags */,
+                                             OsmElement::EntityType::Way));
+  c1->CollectFeature(
+      builder, MakeOsmElement(5 /* id */, {{"oneway", "-1"}, {"maxspeed", "70"}, {"maxspeed:forward", "90"}} /* tags */,
+                              OsmElement::EntityType::Way));
+  c1->CollectFeature(builder,
+                     MakeOsmElement(6 /* id */, {{"maxspeed", "50 mph"}, {"maxspeed:forward", "90"}} /* tags */,
+                                    OsmElement::EntityType::Way));
+  c1->CollectFeature(
+      builder,
+      MakeOsmElement(10 /* id */,
+                     {{"maxspeed", "50 mph"}, {"maxspeed:forward", "60 mph"}, {"maxspeed:backward", "30"}} /* tags */,
+                     OsmElement::EntityType::Way));
+  c1->CollectFeature(builder, MakeOsmElement(14 /* id */,
+                                             {{"maxspeed", "50 mph"},
+                                              {"maxspeed:forward", "none"},
+                                              {"maxspeed:conditional", "100 @ (Nov - Mar)"}} /* tags */,
+                                             OsmElement::EntityType::Way));
+  c1->CollectFeature(
+      builder,
+      MakeOsmElement(15 /* id */, {{"maxspeed", "55 mph"}, {"maxspeed:conditional", "45 mph @ (Nov - Mar)"}} /* tags */,
+                     OsmElement::EntityType::Way));
+  c1->CollectFeature(builder, MakeOsmElement(16 /* id */,
+                                             {{"maxspeed", "90"},
+                                              {"maxspeed:backward", "70"},
+                                              {"maxspeed:conditional", "50 @ (Nov - Mar)"}} /* tags */,
+                                             OsmElement::EntityType::Way));
+  c1->CollectFeature(builder,
+                     MakeOsmElement(17 /* id */, {{"maxspeed", "60"}} /* tags */, OsmElement::EntityType::Way));
+  c1->CollectFeature(builder,
+                     MakeOsmElement(18 /* id */, {{"maxspeed", "120"}, {"maxspeed:backward", "none"}} /* tags */,
+                                    OsmElement::EntityType::Way));
+
+  builder.SetType(classif().GetTypeByPath({"highway", "motorway_link"}));
+  c1->CollectFeature(builder,
+                     MakeOsmElement(8 /* id */, {{"maxspeed:advisory", "70"}, {"maxspeed:backward", "50"}} /* tags */,
+                                    OsmElement::EntityType::Way));
+  c1->CollectFeature(builder,
+                     MakeOsmElement(9 /* id */, {{"maxspeed:backward", "50"}} /* tags */, OsmElement::EntityType::Way));
+
+  c1->Finish();
+  c1->Finalize();
+
+  OsmIdToMaxspeed osmIdToMaxspeed;
+  ParseMaxspeeds(filename, osmIdToMaxspeed);
+  TEST_EQUAL(osmIdToMaxspeed.size(), 13, ());
+
+  TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(1)].GetForward(), static_cast<MaxspeedType>(90), ());
+  TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(1)].GetBackward(), static_cast<MaxspeedType>(70), ());
+
+  TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(2)].GetForward(), static_cast<MaxspeedType>(90), ());
+  TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(2)].GetBackward(), static_cast<MaxspeedType>(70), ());
+
+  TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(1064150630)].GetForward(), static_cast<MaxspeedType>(50), ());
+  TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(1064150630)].GetBackward(), static_cast<MaxspeedType>(70), ());
+
+  TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(5)].GetForward(), static_cast<MaxspeedType>(70), ());
+  TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(5)].GetBackward(), static_cast<MaxspeedType>(90), ());
+
+  TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(6)].GetForward(), static_cast<MaxspeedType>(90), ());
+  TEST(osmIdToMaxspeed[base::MakeOsmWay(6)].GetUnits() == Units::Metric, ());
+  TEST(!osmIdToMaxspeed[base::MakeOsmWay(6)].IsBidirectional(), ());
+
+  TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(10)].GetForward(), static_cast<MaxspeedType>(60), ());
+  TEST(!osmIdToMaxspeed[base::MakeOsmWay(10)].IsBidirectional(), ());
+
+  TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(8)].GetForward(), static_cast<MaxspeedType>(70), ());
+  TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(8)].GetBackward(), static_cast<MaxspeedType>(50), ());
+
+  TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(9)].GetForward(), kCommonMaxSpeedValue, ());
+  TEST(!osmIdToMaxspeed[base::MakeOsmWay(9)].IsBidirectional(), ());
+
+  TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(14)].GetForward(), kNoneMaxSpeed, ());
+  TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(14)].GetBackward(), static_cast<MaxspeedType>(50), ());
+  TEST(osmIdToMaxspeed[base::MakeOsmWay(14)].GetUnits() == Units::Imperial, ());
+  TEST(!osmIdToMaxspeed[base::MakeOsmWay(14)].HasConditional(), ());
+
+  TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(15)].GetForward(), static_cast<MaxspeedType>(55), ());
+  TEST(osmIdToMaxspeed[base::MakeOsmWay(15)].GetUnits() == Units::Imperial, ());
+  TEST(osmIdToMaxspeed[base::MakeOsmWay(15)].HasConditional(), ());
+  TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(15)].GetConditional(), static_cast<MaxspeedType>(45), ());
+
+  TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(16)].GetForward(), static_cast<MaxspeedType>(90), ());
+  TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(16)].GetBackward(), static_cast<MaxspeedType>(70), ());
+  TEST(osmIdToMaxspeed[base::MakeOsmWay(16)].HasConditional(), ());
+  TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(16)].GetConditional(), static_cast<MaxspeedType>(50), ());
+
+  TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(17)].GetForward(), static_cast<MaxspeedType>(60), ());
+  TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(17)].GetBackward(), static_cast<MaxspeedType>(60), ());
+
+  TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(18)].GetForward(), static_cast<MaxspeedType>(120), ());
+  TEST_EQUAL(osmIdToMaxspeed[base::MakeOsmWay(18)].GetBackward(), kNoneMaxSpeed, ());
 }
 
 UNIT_TEST(Maxspeed_ParseConditional)
