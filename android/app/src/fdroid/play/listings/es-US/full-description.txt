@@ -24,11 +24,15 @@ Busca por dirección, nombre o categoría, descubre millones de puntos de inter�
 
 <b>NAVEGACIÓN GPS:</b>
 
-Disfruta de indicaciones paso a paso con guía de voz. Crea rutas a pie, de senderismo, en bicicleta o en auto, incluyendo rutas entre ciudades, países y múltiples puntos de referencia. Encuentra las mejores rutas para tus viajes en metro y desplazamientos diarios. Compatible con Android Auto.
+Disfruta de indicaciones paso a paso con guía de voz. Crea rutas a pie, de senderismo, en bicicleta o en auto, incluyendo rutas entre ciudades, países y múltiples puntos de referencia. Compatible con Android Auto.
 
 <b>RUTAS DE SENDERISMO Y CICLISMO DE TODO EL MUNDO:</b>
 
 Activa capas de mapas especiales para descubrir rutas populares de senderismo y ciclismo en todo el mundo, todas ellas procedentes de OpenStreetMap. Cambia entre capas para ver rutas de bicicleta y MTB en color, así como senderos oficiales de senderismo.
+
+<b>TERRENO 3D Y PROFUNDIDADES:</b>
+
+Visualiza el terreno en 3D, la profundidad de océanos y mares y curvas de nivel detalladas. Toca cualquier punto para ver su altitud, en tierra o en el mar.
 
 <b>TRANSPORTE PÚBLICO:</b>
 
