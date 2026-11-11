@@ -4,9 +4,9 @@ OFFLINE: De app werkt 100% offline — inclusief zoeken en navigatie. Je kunt de
 
 SNEL: In- en uitzoomen, zoeken en routeberekeningen werken merkbaar snel.
 
-DETAILRIJK & GEUPDATE: De kaarten zijn rijk aan details en worden twee keer per maand bijgewerkt om de actuele situatie weer te geven. In tegenstelling tot veel bekende concurrenten bevatten ze gebouwlabels, bankjes, wandelpaden en andere nuttige informatie.
+DETAILRIJK & ACTUEEL: De kaarten zijn rijk aan details en worden twee keer per maand bijgewerkt om de actuele situatie weer te geven. In tegenstelling tot veel bekende concurrenten bevatten ze gebouwlabels, bankjes, wandelpaden en andere nuttige informatie.
 
-GEBASEERD OP OPENSTREETMAP: OpenStreetMap is een wiki-stijl wereldkaart, gebouwd en onderhouden door miljoenen vrijwilligers — lokale bewoners die hun gebied het beste kennen. Deze gemeenschapsinspanning resulteert in zeer gedetailleerde kaarten, vaak nauwkeuriger dan commerciële kaarten in minder gedetailleerde gebieden. Organic Maps werkt zijn gegevens bij vanuit OpenStreetMap om de twee weken, zodat je kaarten fris en betrouwbaar blijven. Als je iets mist, kun je dit toevoegen aan OpenStreetMap en helpen de kaart voor iedereen te verbeteren.
+GEBASEERD OP OPENSTREETMAP: OpenStreetMap is een wiki-stijl wereldkaart, gebouwd en onderhouden door miljoenen vrijwilligers — lokale bewoners die hun gebied het beste kennen. Deze gemeenschapsinspanning resulteert in zeer gedetailleerde kaarten, vaak nauwkeuriger dan commerciële kaarten in minder goed gekarteerde gebieden. Organic Maps werkt zijn gegevens bij vanuit OpenStreetMap om de twee weken, zodat je kaarten fris en betrouwbaar blijven. Als je iets mist, kun je dit toevoegen aan OpenStreetMap en helpen de kaart voor iedereen te verbeteren.
 
 PRIVACY VOOROP: Wij verzamelen geen gegevens of identificatoren. Dit betekent geen risico op datalekken en geen afleiding door advertenties of storende meldingen — alleen een schone, privékaartervaring.
 
@@ -14,9 +14,11 @@ BELANGRIJKE FUNCTIES
 
 ONTDEK PLAATSEN: Zoek op adres, naam of categorie, ontdek miljoenen POI’s en bekijk gedetailleerde informatie zoals openingstijden, Wikipedia-artikelen, rolstoeltoegankelijkheid en andere nuttige details. Alles offline beschikbaar.
 
-GPS-NAVIGATIE: Geniet van stapsgewijze, gesproken aanwijzingen. Maak wandel-, fiets- of autoroutes — inclusief routes tussen steden, landen en meerdere tussenpunten. Vind de beste routes voor je metroreizen en woon-werkverkeer. CarPlay wordt ondersteund.
+GPS-NAVIGATIE: Geniet van stapsgewijze, gesproken aanwijzingen. Maak wandel-, fiets- of autoroutes — inclusief routes tussen steden, landen en meerdere tussenpunten. CarPlay wordt ondersteund.
 
 WANDEL- & FIETSRUTES VAN OVER DE HELE WERELD: Schakel speciale kaartlagen in om populaire wandel- en fietsroutes wereldwijd te ontdekken, allemaal afkomstig van OpenStreetMap. Wissel tussen lagen om gekleurde fiets- en MTB-routes te zien, evenals officiële wandelpaden.
+
+3D-TERREIN & DIEPTES: Bekijk 3D-terrein, oceaan- en zeedieptes en gedetailleerde hoogtelijnen. Tik op een willekeurig punt om de hoogte te zien, op land of op zee.
 
 OPENBAAR VERVOER: Plan routes met het openbaar vervoer. Real-time dienstregelingen zijn in ontwikkeling.
 
@@ -30,7 +32,7 @@ KAARTEDITOR: Draag bij aan OpenStreetMap door ontbrekende plaatsen toe te voegen
 
 iCLOUD SYNC: Maak eenvoudig back-ups en synchroniseer al je bladwijzers en routes via iCloud.
 
-Probeer de app — hij is 100% gratis, zonder advertenties, snel en volledig offline. Geniet van een snelle, betrouwbare en privékaartervaring en deel deze met anderen!
+Probeer de app — hij is 100% gratis, zonder advertenties, snel en volledig offline.
 Organic Maps is een indie, community-gedreven, open-source project met honderden bijdragers die helpen bij het ontwikkelen van nieuwe functies, oplossen van problemen, vertalen en het project vooruithelpen.
 
 Of ontdek andere manieren om het project te ondersteunen: https://organicmaps.app/contribute/
