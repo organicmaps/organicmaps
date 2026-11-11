@@ -1,4 +1,4 @@
-Organic Maps é unha aplicación rápida e detallada de mapas fóra de liña e navegación GPS para viaxes, sendeirismo, trekking e aventuras en bicicleta. Planifica, importa e grava rutas, e goza dunha guía fluída sen gastar batería nin usar conexión a internet. A aplicación ofrece descargas de mapas ilimitadas e actualizacións cada dúas semanas. Baseada en OpenStreetMap, feita por voluntarios, centrada na privacidade, 100% fóra de liña e 100% gratuíta.
+Organic Maps é unha aplicación rápida e detallada de mapas fóra de liña e navegación GPS para viaxes, sendeirismo, trekking e ciclismo. Planifica, importa e grava rutas, e goza dunha guía fluída sen gastar batería nin usar conexión a internet. A aplicación ofrece descargas de mapas ilimitadas e actualizacións cada dúas semanas. Baseada en OpenStreetMap, feita por voluntarios, centrada na privacidade, 100% fóra de liña e 100% gratuíta.
 
 <b>FÓRA DE LIÑA:</b> A aplicación funciona ao 100% fóra de liña — incluíndo busca e navegación. Podes explorar o mapa e navegar sen conexión a internet, aforrando datos móbiles e taxas de roaming. E sen transferencias de datos en segundo plano, a batería dura moito máis.
 
@@ -14,9 +14,11 @@ Organic Maps é unha aplicación rápida e detallada de mapas fóra de liña e n
 
 <b>EXPLORAR LUGARES:</b> Busca por enderezo, nome ou categoría, descobre millóns de puntos de interese e consulta información detallada como horarios, artigos da Wikipedia, accesibilidade para cadeiras de rodas e outros detalles útiles.
 
-<b>NAVEGACIÓN GPS:</b> Goza de indicacións paso a paso con guía de voz. Crea rutas a pé, de sendeirismo, en bicicleta ou en coche — incluíndo rutas entre cidades e países e con múltiples puntos intermedios. Atopa as mellores rutas en transporte público para as túas viaxes e desprazamentos diarios. Compatíbel con Android Auto.
+<b>NAVEGACIÓN GPS:</b> Goza de indicacións paso a paso con guía de voz. Crea rutas a pé, de sendeirismo, en bicicleta ou en coche — incluíndo rutas entre cidades e países e con múltiples puntos intermedios. Compatíbel con Android Auto.
 
 <b>RUTAS DE SENDEIRISMO E CICLISMO DO MUNDO ENTEIRO:</b> Activa capas especiais para descubrir rutas populares de sendeirismo e ciclismo, todas procedentes de OpenStreetMap. Alterna entre capas para ver rutas de bicicleta e MTB en cores, así como camiños oficiais de sendeirismo.
+
+<b>RELEVO 3D E PROFUNDIDADES:</b> Visualiza o relevo en 3D, a profundidade de océanos e mares e curvas de nivel detalladas. Toca calquera punto para ver a súa altitude, en terra ou no mar.
 
 <b>TRANSPORTE PÚBLICO:</b> Planifica rutas en transporte público: metro, metro lixeiro, autobús e tranvía. Consulta os números das liñas nas paradas.
 
