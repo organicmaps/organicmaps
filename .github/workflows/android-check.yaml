@@ -4,44 +4,41 @@ on:
   push:
     branches:
       - master
-    paths-ignore:
-      - .agents/**
-      - .claude/**
-      - .gemini/**
-      - '**/*.md'
+    # Keep common paths in sync with android-beta.yaml, ios-check.yaml and ios-beta.yaml.
+    # Keep Android paths in sync with android-beta.yaml, except workflow/setup-gradle.
+    paths: &android-paths
+      # Common inputs
+      - .gitattributes
+      - .gitmodules
+      - '*.h'
+      - '*.hpp'
+      - 3party/**
+      - data/**
+      - libs/**
+      # Android inputs
+      - .github/actions/setup-gradle/**
+      - .github/workflows/android-check.yaml
+      - android/**
+      - CMakeLists.txt
+      - cmake/**
+      - tools/unix/version.sh  # Required by Gradle version generation
+      # Common exclusions
+      - '!**/*.md'
+      - '!**/*_tests/**'
+      - '!data/borders/**'
+      - '!data/organic_maps_emoji/**'
+      - '!data/strings/**'
+      - '!data/test_data/**'
+      # Android exclusions
+      - '!android/app/src/*/play/**'
+      - '!libs/platform/*apple*'
+      - '!libs/platform/*_ios*'
+      - '!libs/platform/*_linux*'
+      - '!libs/platform/*_mac*'
+      - '!libs/platform/*qt*'
+      - '!libs/platform/*_win*'
   pull_request:
-    paths-ignore:
-      - .agents/**
-      - .claude/**
-      - .gemini/**
-      - .gitignore
-      - .github/**
-      - '!.github/workflows/android-check.yaml'  # Run check on self change
-      - '!.github/actions/setup-gradle/**'
-      - '**/*.md'
-      - '**/*_tests/**'
-      - CONTRIBUTORS
-      - LICENSE
-      - NOTICE
-      - android/app/src/fdroid/**
-      - android/app/src/google/**
-      - iphone/**
-      - data/organic_maps_emoji/**
-      - data/strings/**
-      - docs/**
-      - generator/**
-      - packaging/**
-      - platform/*apple*
-      - platform/*_ios*
-      - platform/*_linux*
-      - platform/*_mac*
-      - platform/*qt*
-      - platform/*_win*
-      - qt*/**
-      - skin_generator/**
-      - tools/**
-      - track_generator/**
-      - xcode/**
+    paths: *android-paths
 
 env:
   JAVA_HOME: /usr/lib/jvm/temurin-21-jdk-amd64  # Java 21 is required by Android Gradle plugin lint

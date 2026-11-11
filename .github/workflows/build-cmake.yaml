@@ -10,30 +10,53 @@ on:
       - .claude/**
       - .gemini/**
       - '**/*.md'
+      # Store metadata is validated separately and is not a native build input.
+      - android/app/src/*/play/**
+      - iphone/metadata/**
   pull_request:
-    paths-ignore:
-      - .agents/**
-      - .claude/**
-      - .gemini/**
-      - .gitignore
-      - .github/**
-      - '!.github/workflows/build-cmake.yaml'  # Run check on self change
-      - '**/*.md'
-      - CONTRIBUTORS
-      - LICENSE
-      - NOTICE
-      - android/**
-      - iphone/**
-      - data/countries-strings/**
-      - data/organic_maps_emoji/**
-      - data/sound-strings/**
-      - data/strings/**
-      - docs/**
-      - packaging/**
-      - tools/**
-      - '!tools/windows/**'
-      - '!tools/python/test_server/**'
-      - xcode/**
+    paths:
+      - '**'
+      - '!.agents/**'
+      - '!.claude/**'
+      - '!.gemini/**'
+      - '!.gitignore'
+      - '!.github/**'
+      - '!CONTRIBUTORS'
+      - '!LICENSE'
+      - '!NOTICE'
+      - '!android/**'
+      - '!iphone/**'
+      - '!data/countries-strings/**'
+      - '!data/organic_maps_emoji/**'
+      - '!data/sound-strings/**'
+      - '!data/strings/sound.txt'
+      - '!data/strings/strings.txt'
+      - '!docs/**'
+      - '!packaging/**'
+      - '!tools/**'
+      - '!xcode/**'
+      - .github/workflows/build-cmake.yaml
+      # CMake tool targets, build helpers and test dependencies.
+      - tools/CMakeLists.txt
+      - tools/macdeployqtfix/macdeployqtfix.py
+      - tools/mwm_viewer/**
+      - tools/openlr/**
+      - tools/poly_borders/**
+      - tools/python/generate_styles_override.py
+      - tools/python/recalculate_geom_index.py
+      - tools/python/stylesheet/**
+      - tools/python/test_server/**
+      - tools/shaders_compiler/**
+      - tools/skin_generator/**
+      - tools/topography_generator/**
+      - tools/track_analyzing/**
+      - tools/track_generator/**
+      - tools/unix/version.sh
+      - tools/windows/**
+      # Git reports submodule updates as paths without a trailing slash.
+      - tools/kothic
+      - tools/python/twine
+      - '!**/*.md'
 
 # Cancels previous jobs if the same branch or PR was updated again.
 # Only cancel PR runs: master runs must finish to populate the shared ccache.
