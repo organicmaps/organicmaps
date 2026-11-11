@@ -3,6 +3,8 @@ package app.organicmaps.wear
 import android.app.Activity
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.Gravity
 import android.widget.LinearLayout
@@ -23,13 +25,27 @@ import com.google.android.gms.wearable.Wearable
 class MainActivity :
     Activity(),
     DataClient.OnDataChangedListener {
-    private lateinit var subtitle: TextView
-    private lateinit var dataClient: DataClient
-    private lateinit var capabilityClient: CapabilityClient
+    internal lateinit var subtitle: TextView
+    internal lateinit var dataClient: DataClient
+    internal lateinit var capabilityClient: CapabilityClient
+
+    private val handler by lazy { Handler(Looper.getMainLooper()) }
+    private var retryPending = false
+    private val retryRunnable = Runnable {
+        retryPending = false
+        if (resumed) {
+            refreshNavigationState()
+        }
+    }
+
+    internal var retryScheduler: ((delayMs: Long, action: Runnable) -> Unit)? = null
+    internal var retryCanceller: ((action: Runnable) -> Unit)? = null
 
     private var resumed = false
     private var lifecycleGeneration = 0
     private var refreshGeneration = 0
+
+    internal fun isRetryPending(): Boolean = retryPending
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,8 +77,12 @@ class MainActivity :
 
         setContentView(layout)
 
-        dataClient = Wearable.getDataClient(this)
-        capabilityClient = Wearable.getCapabilityClient(this)
+        if (!::dataClient.isInitialized) {
+            dataClient = Wearable.getDataClient(this)
+        }
+        if (!::capabilityClient.isInitialized) {
+            capabilityClient = Wearable.getCapabilityClient(this)
+        }
     }
 
     override fun onResume() {
@@ -95,6 +115,7 @@ class MainActivity :
         resumed = false
         lifecycleGeneration += 1
         refreshGeneration += 1
+        cancelRetry()
 
         dataClient
             .removeListener(this)
@@ -112,6 +133,7 @@ class MainActivity :
     }
 
     private fun refreshNavigationState() {
+        cancelRetry()
         val generation = ++refreshGeneration
 
         capabilityClient
@@ -134,6 +156,7 @@ class MainActivity :
                 Log.w(TAG, "Failed to find the companion phone", exception)
                 if (isCurrent(generation)) {
                     renderNormal()
+                    scheduleRetry()
                 }
             }
     }
@@ -149,6 +172,7 @@ class MainActivity :
                 Log.w(TAG, "Failed to read navigation state", exception)
                 if (isCurrent(generation)) {
                     renderNormal()
+                    scheduleRetry()
                 }
             }
     }
@@ -177,6 +201,32 @@ class MainActivity :
         }
     }
 
+    private fun scheduleRetry() {
+        if (!resumed || retryPending) {
+            return
+        }
+        retryPending = true
+        val scheduler = retryScheduler
+        if (scheduler != null) {
+            scheduler(RETRY_DELAY_MS, retryRunnable)
+        } else {
+            handler.postDelayed(retryRunnable, RETRY_DELAY_MS)
+        }
+    }
+
+    private fun cancelRetry() {
+        if (!retryPending) {
+            return
+        }
+        retryPending = false
+        val canceller = retryCanceller
+        if (canceller != null) {
+            canceller(retryRunnable)
+        } else {
+            handler.removeCallbacks(retryRunnable)
+        }
+    }
+
     private fun isCurrent(generation: Int): Boolean = resumed && generation == refreshGeneration
 
     private fun isResumed(generation: Int): Boolean = resumed && generation == lifecycleGeneration
@@ -199,6 +249,7 @@ class MainActivity :
     companion object {
         private val TAG = MainActivity::class.java.simpleName
         private val NAVIGATION_STATE_URI = navigationStateUri("*")
+        internal const val RETRY_DELAY_MS = 2000L
 
         private fun navigationStateUri(authority: String): Uri = Uri
             .Builder()
