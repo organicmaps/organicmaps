@@ -24,6 +24,8 @@ named-colors:
   BookmarkTeal #0000A58C
   BookmarkYellow #00FFC800
   GuiText #244D4D4D/#4DFFFFFF
+  IsolineDepth #002676C4/#002F6BA8
+  IsolineDepthText #001960A8/#004F86BD
   MyPositionAccuracy #EB000000/#F0FFFFFF
   PoiDeletedMask #B3FFFFFF
   RoadShieldBlackText #00000000/#00212121
@@ -13407,6 +13409,21 @@ type organicapp-mwm_border
     area color=#807D8BE6 priority=-970
   z7
     area color=#807D8BE6 priority=-970
+type organicapp-twm_border
+  z1
+    area color=#80E6952E priority=-970
+  z2
+    area color=#80E6952E priority=-970
+  z3
+    area color=#80E6952E priority=-970
+  z4
+    area color=#80E6952E priority=-970
+  z5
+    area color=#80E6952E priority=-970
+  z6
+    area color=#80E6952E priority=-970
+  z7
+    area color=#80E6952E priority=-970
 type piste:type-connection
   z15
     line width=1.4 color=#33C47AFF/#33623D7F join=round cap=butt priority=120
