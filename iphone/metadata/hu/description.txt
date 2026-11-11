@@ -6,7 +6,7 @@ GYORS: A nagyítás, a keresés és az útvonal-kiszámítás észrevehetően gy
 
 RÉSZLETES ÉS FRISSÍTETT: A térképek gazdagok részletekben, és havonta kétszer frissítik őket a valós világ állapotának tükrözésére. Sok ismert versenytárssal ellentétben tartalmazzák az épületek címkéit, padokat, túraútvonalakat és más hasznos információkat.
 
-PRIVACY-FIRST: Nem gyűjtünk adatokat vagy azonosítókat. Ez azt jelenti, hogy nincs adatvesztés kockázata, és nincsenek zavaró tényezők, mint például reklámok vagy hangos értesítések — csak egy tiszta, privát térképélmény.
+ADATVÉDELEM ELŐSZÖR: Nem gyűjtünk adatokat vagy azonosítókat. Ez azt jelenti, hogy nincs adatszivárgás kockázata, és nincsenek zavaró tényezők, mint például reklámok vagy hangos értesítések — csak egy tiszta, privát térképélmény.
 
 FONTOS FUNKCIÓK:
 
@@ -15,6 +15,8 @@ HELYEK FELFEDEZÉSE: Keresés cím, név vagy kategória szerint, fedezze fel a 
 GPS NAVIGÁCIÓ: Élvezze a hangvezérelt, kanyarról-kanyarra navigációt. Hozzon létre gyalogos, túrázó, kerékpáros vagy autós útvonalakat — beleértve városok, országok és több útvonalpont közötti útvonalakat. Keresse meg a legjobb útvonalakat a metró- és ingázási utakhoz. CarPlay támogatott.
 
 TÚRA- ÉS KERÉKPÁROS ÚTVONALAK A VILÁG MINDEN TÁJÁRÓL: Kapcsolja be a speciális térképrétegeket, hogy felfedezze a népszerű túra- és kerékpáros útvonalakat világszerte, mind az OpenStreetMap forrásából. Váltson a rétegek között, hogy színes kerékpár- és MTB útvonalakat, valamint hivatalos túraútvonalakat lásson.
+
+3D DOMBORZAT ÉS MÉLYSÉGEK: Tekintse meg a 3D domborzatot, az óceánok és tengerek mélységét, valamint a részletes szintvonalakat. Koppintson bármely pontra a magasság megtekintéséhez, szárazföldön vagy tengeren.
 
 KÖZLEKEDÉS: Tömegközlekedési útvonalak tervezése. Az élő menetrendek kidolgozása folyamatban van.
 
@@ -30,12 +32,12 @@ SÖTÉT MÓD: Váltson sötét témára az éjszakai kényelmes megtekintés ér
 
 iCLOUD SZINKRONIZÁCIÓ: Készítsen biztonsági másolatot és szinkronizálja könnyedén az összes könyvjelzőt és útvonalat az iCloudon keresztül.
 
-Próbálja ki az alkalmazást — 100% ingyenes, reklámmentes, gyors és teljesen offline. Élvezze a gyors, megbízható és privát térképélményt, és ossza meg másokkal!
+Próbálja ki az alkalmazást — 100% ingyenes, reklámmentes, gyors és teljesen offline.
 Az Organic Maps egy indie, közösség által vezérelt, nyílt forráskódú projekt, amelyben százak járulnak hozzá új funkciók fejlesztéséhez, hibák javításához, fordításhoz és a projekt előremozdításához.
 
 Vagy ismerje meg a projekt támogatásának egyéb módjait: https://organicmaps.app/contribute/
 
-Az áruházban írt őszinte visszajelzései és értékelései motiválnak minket! Örömmel olvassuk az ott megosztott véleményét.
+Az áruházban írt értékelései motiválnak minket!
 
 Kérdése van? További részletekért és a GYIK-ért látogasson el az organicmaps.app weboldalra.
 
