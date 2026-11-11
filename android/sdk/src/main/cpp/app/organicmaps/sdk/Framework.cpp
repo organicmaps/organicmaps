@@ -1153,6 +1153,29 @@ JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetDrawScale(JNIEnv * en
   return static_cast<jint>(frm()->GetDrawScale());
 }
 
+JNIEXPORT jdouble Java_app_organicmaps_sdk_Framework_nativeGetZoomLevel(JNIEnv *, jclass)
+{
+  return df::GetZoomLevel(frm()->GetCurrentModelView().GetScale());
+}
+
+JNIEXPORT jdouble Java_app_organicmaps_sdk_Framework_nativeGetViewportAzimuth(JNIEnv *, jclass)
+{
+  // The model view angle turns the screen's up direction counterclockwise from north.
+  return ang::AngleIn2PI(-frm()->GetCurrentModelView().GetAngle());
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetViewportListener(JNIEnv * env, jclass, jobject listener)
+{
+  jmethodID const methodId = jni::GetMethodID(env, listener, "onViewportChanged", "()V");
+  frm()->SetViewportListener([listener = jni::make_global_ref(listener), methodId](ScreenBase const &)
+  { jni::GetEnv()->CallVoidMethod(*listener, methodId); });
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRemoveViewportListener(JNIEnv *, jclass)
+{
+  frm()->SetViewportListener(nullptr);
+}
+
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativePokeSearchInViewport(JNIEnv * env, jclass)
 {
   frm()->GetSearchAPI().PokeSearchInViewport();
