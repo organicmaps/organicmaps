@@ -1,7 +1,7 @@
-Organic Maps je hitra, podrobna offline aplikacija za karte in GPS navigacijo za potovanja, pohodništvo, treking in kolesarske avanture. Načrtujte, uvozite in beležite poti ter uživajte v gladkem vodenju brez praznjenja baterije ali uporabe internetne povezave. Raziščite kraje in se varno navigirajte med svojimi zunanjimi avanturami in potovanji po svetu. Aplikacija ponuja neomejeno prenos kart in dvotedenske posodobitve. Temelji na OpenStreetMap, jo izdelujejo prostovoljci, daje prednost zasebnosti, je 100 % offline in popolnoma brezplačna.
+Organic Maps je hitra, podrobna offline aplikacija za karte in GPS navigacijo za potovanja, pohodništvo, treking in kolesarske avanture. Načrtujte, uvozite in beležite poti ter uživajte v gladkem vodenju brez praznjenja baterije ali uporabe internetne povezave. Raziščite kraje in varno navigirajte med svojimi zunanjimi avanturami in potovanji po svetu. Aplikacija ponuja neomejen prenos kart in dvotedenske posodobitve. Temelji na OpenStreetMap, jo izdelujejo prostovoljci, daje prednost zasebnosti, je 100 % offline in popolnoma brezplačna.
 
 OFFLINE:
-Aplikacija deluje 100 % offline — vključno z iskanjem in navigacijo. Karte lahko raziskujete in se navigirate brez internetne povezave, prihranite mobilne podatke in stroške roaminga. Brez prenosa podatkov v ozadju baterija zdrži dlje.
+Aplikacija deluje 100 % offline — vključno z iskanjem in navigacijo. Karte lahko raziskujete in navigirate brez internetne povezave ter prihranite mobilne podatke in stroške roaminga. Brez prenosa podatkov v ozadju baterija zdrži dlje.
 
 HITRO:
 Povečevanje, iskanje in izračun poti delujejo opazno hitro.
@@ -25,6 +25,9 @@ Uživajte v glasovno vodeni navigaciji. Ustvarite peš, pohodniške, kolesarske 
 
 POHODNIŠKE IN KOLESARSKE POTI:
 Aktivirajte posebne sloje zemljevidov za odkrivanje priljubljenih poti po svetu.
+
+3D TEREN IN GLOBINE:
+Oglejte si 3D teren, globine oceanov in morij ter podrobne plastnice. Tapnite katero koli točko in preverite njeno nadmorsko višino, na kopnem ali na morju.
 
 JAVNI PREVOZ:
 Načrtujte poti z javnim prevozom. Oglejte si številke linij na postajališčih. Vozni redi v realnem času so v razvoju.
