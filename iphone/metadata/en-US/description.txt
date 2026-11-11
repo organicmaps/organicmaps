@@ -27,7 +27,7 @@ MAP STYLES: Choose map layers that fit your activity — Outdoors, Contour Lines
 
 TRACK RECORDER: Record, import, export, and share your routes and favorite places. Supports KML, KMZ, GPX, and GeoJSON formats.
 
-WIKIPEDIA ARTICLES: Explore Wikipedia articles for places you discover on the map. Type “?wiki” in the search to find all places with Wikipedia articles. 
+WIKIPEDIA ARTICLES: Explore Wikipedia articles for places you discover on the map. Type “?wiki” in the search to find all places with Wikipedia articles.
 
 MAP EDITOR: Contribute to OpenStreetMap by adding missing places or editing the map directly from Organic Maps.
 
