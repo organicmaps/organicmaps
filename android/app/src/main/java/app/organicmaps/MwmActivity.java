@@ -152,6 +152,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private static final String LAYERS_MENU_ID = "LAYERS_MENU_BOTTOM_SHEET";
 
   private static final String POWER_SAVE_DISCLAIMER_SHOWN = "POWER_SAVE_DISCLAIMER_SHOWN";
+  static final String LOCATION_PERMISSION_REQUESTED_FOR_RECORDING = "location_permission_requested_for_recording";
 
   @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
@@ -482,18 +483,23 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   /**
-   * The activity created once the core is up does not inherit this instance's saved state, so the
-   * mark has to travel in the intent, which outlives the flag reset in {@link SplashActivity}.
+   * Carries consumed state and a pending recording request through {@link SplashActivity}, which
+   * creates the replacement without this instance's saved state or permission-result registry.
    * <p>
-   * The mark is written even when it is {@code false}. Its mere presence tells the splash that the
-   * state of this intent is known, so a file that has not been imported yet is not written off as
-   * handled by {@link SplashActivity#markIntentConsumedIfRelaunchedFromHistory}.
+   * A pending recording clears the consumed mark. {@link #processIntent()} handles its start flag
+   * first and returns, so the original payload cannot be replayed.
+   * Writing an explicit {@code false} mark also prevents the splash from treating an unhandled
+   * history intent as already consumed.
    */
   @Override
   protected void prepareIntentForCoreRestart(@NonNull Intent intent, @Nullable Bundle savedInstanceState)
   {
-    if (savedInstanceState != null)
-      intent.putExtra(EXTRA_CONSUMED, savedInstanceState.getBoolean(EXTRA_CONSUMED, false));
+    if (savedInstanceState == null)
+      return;
+    final boolean recordingPending = savedInstanceState.getBoolean(LOCATION_PERMISSION_REQUESTED_FOR_RECORDING, false);
+    if (recordingPending)
+      intent.putExtra(EXTRA_START_TRACK_RECORDING, true);
+    intent.putExtra(EXTRA_CONSUMED, !recordingPending && savedInstanceState.getBoolean(EXTRA_CONSUMED, false));
   }
 
   /**
@@ -522,6 +528,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     super.onSafeCreate(savedInstanceState);
 
     mIntentConsumed = isIntentConsumed(savedInstanceState, getIntent());
+    mLocationPermissionRequestedForRecording =
+        savedInstanceState != null && savedInstanceState.getBoolean(LOCATION_PERMISSION_REQUESTED_FOR_RECORDING, false);
 
     setContentView(R.layout.activity_map);
     makeNavigationBarTransparentInLightMode();
@@ -553,7 +561,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         RoutingController.get().cancelPoiPick();
     });
 
-    // Note: You must call registerForActivityResult() before the fragment or activity is created.
+    // Register before STARTED so pending permission results reach the restored activity.
     mLocationPermissionRequest = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(),
                                                            this::onLocationPermissionsResult);
     mLocationResolutionRequest = registerForActivityResult(new ActivityResultContracts.StartIntentSenderForResult(),
@@ -967,6 +975,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     RoutingController.get().saveRoute();
 
     outState.putBoolean(POWER_SAVE_DISCLAIMER_SHOWN, mPowerSaveDisclaimerShown);
+    outState.putBoolean(LOCATION_PERMISSION_REQUESTED_FOR_RECORDING, mLocationPermissionRequestedForRecording);
     outState.putBoolean(EXTRA_CONSUMED, mIntentConsumed);
     super.onSaveInstanceState(outState);
   }
@@ -2029,9 +2038,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (!LocationUtils.checkFineLocationPermission(this))
     {
       Logger.i(TAG, "Location permission not granted");
-      // This variable is a simple hack to re initiate the flow
-      // according to action of user. Calling it hack because we are avoiding
-      // creation of new methods by using this variable.
+      // Remember whether granting location permission should also start recording.
       mLocationPermissionRequestedForRecording = true;
       mLocationPermissionRequest.launch(new String[] {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION});
       return false;
