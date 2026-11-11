@@ -10,6 +10,9 @@ on:
       - .claude/**
       - .gemini/**
       - '**/*.md'
+      # Store metadata is validated separately and is not a native build input.
+      - android/app/src/*/play/**
+      - iphone/metadata/**
   pull_request:
     paths-ignore:
       - .agents/**

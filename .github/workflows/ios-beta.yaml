@@ -4,33 +4,38 @@ on:
   push:
     branches:
       - master
+    # Keep in sync with ios-check.yaml, plus the version.sh exception below.
     paths-ignore:
       - .agents/**
       - .claude/**
       - .gemini/**
       - .gitignore
       - .github/**
-      - '!.github/workflows/ios-beta.yaml'  # Run check on self change
+      - '!.github/workflows/ios-beta.yaml'  # Upload a beta on self change
       - '**/*.md'
       - '**/*_tests/**'
       - '**/CMakeLists.txt'
+      - CMakePresets.json
       - CONTRIBUTORS
       - LICENSE
       - NOTICE
       - android/**
+      - cmake/**
+      - data/organic_maps_emoji/**
       - data/strings/**
+      - dev_sandbox/**
       - docs/**
       - generator/**
+      - iphone/metadata/**
+      - libs/platform/*_android*
+      - libs/platform/*_linux*
+      - libs/platform/*_mac*
+      - libs/platform/*qt*
+      - libs/platform/*_win*
       - packaging/**
-      - platform/*_android*
-      - platform/*_linux*
-      - platform/*_mac*
-      - platform/*qt*
-      - platform/*_win*
       - qt*/**
-      - skin_generator/**
       - tools/**
-      - track_generator/**
+      - '!tools/unix/version.sh'  # Used by the TestFlight lane to generate the version
 
 jobs:
   ios-beta:

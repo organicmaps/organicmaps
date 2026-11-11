@@ -17,6 +17,7 @@ on:
       - CONTRIBUTORS
       - LICENSE
       - NOTICE
+      - android/app/src/*/play/**
       - iphone/**
       - data/strings/**
       - docs/**

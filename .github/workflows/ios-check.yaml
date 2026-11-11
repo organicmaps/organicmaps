@@ -4,13 +4,9 @@ on:
   push:
     branches:
       - master
-    paths-ignore:
-      - .agents/**
-      - .claude/**
-      - .gemini/**
-      - '**/*.md'
-  pull_request:
-    paths-ignore:
+    # Keep push and PR filters identical so merges do not rebuild ignored changes.
+    # Keep in sync with ios-beta.yaml, except its version.sh exception.
+    paths-ignore: &ios-paths
       - .agents/**
       - .claude/**
       - .gemini/**
@@ -20,25 +16,28 @@ on:
       - '**/*.md'
       - '**/*_tests/**'
       - '**/CMakeLists.txt'
+      - CMakePresets.json
       - CONTRIBUTORS
       - LICENSE
       - NOTICE
       - android/**
+      - cmake/**
       - data/organic_maps_emoji/**
       - data/strings/**
+      - dev_sandbox/**
       - docs/**
       - generator/**
       - iphone/metadata/**
+      - libs/platform/*_android*
+      - libs/platform/*_linux*
+      - libs/platform/*_mac*
+      - libs/platform/*qt*
+      - libs/platform/*_win*
       - packaging/**
-      - platform/*_android*
-      - platform/*_linux*
-      - platform/*_mac*
-      - platform/*qt*
-      - platform/*_win*
       - qt*/**
-      - skin_generator/**
       - tools/**
-      - track_generator/**
+  pull_request:
+    paths-ignore: *ios-paths
 
 jobs:
   ios-check:
