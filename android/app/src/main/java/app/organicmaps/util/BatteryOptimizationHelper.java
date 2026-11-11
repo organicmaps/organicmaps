@@ -19,6 +19,8 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 import app.organicmaps.R;
 import app.organicmaps.sdk.util.log.Logger;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
@@ -62,25 +64,18 @@ public class BatteryOptimizationHelper
     prefs.edit().putBoolean(KEY_WARNING_SHOWN, true).apply();
   }
 
-  @NonNull
-  private static Intent getSettingsIntent(@NonNull Context context)
-  {
-    // Samsung's Never sleeping apps list: https://developer.samsung.com/mobile/app-management.html
-    if (isSamsungTarget())
-    {
-      Intent intent = new Intent("com.samsung.android.sm.ACTION_OPEN_CHECKABLE_LISTACTIVITY");
-      intent.setPackage("com.samsung.android.lool");
-      intent.putExtra("activity_type", 2);
-      if (intent.resolveActivity(context.getPackageManager()) != null)
-        return intent;
-    }
-
-    return new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + context.getPackageName()));
-  }
-
   static void openSettings(@NonNull Context context)
   {
-    for (Intent intent : new Intent[] {getSettingsIntent(context), new Intent(Settings.ACTION_SETTINGS)})
+    final List<Intent> intents = new ArrayList<>();
+    // Samsung's Never sleeping apps list: https://developer.samsung.com/mobile/app-management.html
+    if (isSamsungTarget())
+      intents.add(new Intent("com.samsung.android.sm.ACTION_OPEN_CHECKABLE_LISTACTIVITY")
+                      .setPackage("com.samsung.android.lool")
+                      .putExtra("activity_type", 2));
+    intents.add(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                           Uri.fromParts("package", context.getPackageName(), null)));
+    intents.add(new Intent(Settings.ACTION_SETTINGS));
+    for (Intent intent : intents)
     {
       try
       {

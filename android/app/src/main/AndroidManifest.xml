@@ -49,8 +49,6 @@
   <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
   <queries>
-    <!-- Required to resolve Samsung's Never sleeping apps settings -->
-    <package android:name="com.samsung.android.lool" />
     <intent>
       <action android:name="android.intent.action.TTS_SERVICE"/>
     </intent>
