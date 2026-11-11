@@ -26,6 +26,9 @@ Nyt stemmestyrte sving-for-sving-instruksjoner. Lag ruter for gange, fotturer, s
 TUR- OG SYKKELSTIER FRA HELE VERDEN:
 Aktiver spesielle kartlag for å finne populære tur- og sykkelruter globalt, hentet fra OpenStreetMap. Bytt lag for å se fargekodede sykkelruter, MTB-stier og offisielle hikingruter.
 
+3D-TERRENG & DYBDER:
+Se 3D-terreng, hav- og sjødybder og detaljerte høydekurver. Trykk på et hvilket som helst punkt for å se høyden, på land eller til sjøs.
+
 KOLLEKTIVTRANSPORT:
 Du kan planlegge reiseruter med offentlig transport. Støtte for rutetabeller i sanntid er under utvikling.
 
