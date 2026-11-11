@@ -18,6 +18,8 @@ Organic Maps är en snabb och detaljerad offlinekarta och GPS-navigeringsapp fö
 
 <b>VANDRINGS- & CYKELLEDER FRÅN HELA VÄRLDEN:</b> Aktivera speciella kartlager för att upptäcka populära vandrings- och cykelleder världen över. Se färgmarkerade cykel- och MTB-rutter samt officiella vandringsleder.
 
+<b>3D-TERRÄNG & DJUP:</b> Utforska bergshöjder, havsdjup och detaljerade höjdkurvor. Tryck var som helst på kartan för att se höjden.
+
 <b>KOLLEKTIVTRAFIK:</b> Planera resor med kollektivtrafik. Tidtabeller i realtid är under utveckling.
 
 <b>KARTSTILAR:</b> Välj kartlager som passar din aktivitet — Outdoors, Höjdkurvor, Vandring, Cykling eller Tunnelbana.

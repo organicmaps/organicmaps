@@ -1,4 +1,4 @@
-Organic Maps este o aplicație rapidă și detaliată de hărți și navigație GPS, perfectă pentru călătorii, drumeții, trekking și aventuri cu bicicleta. Planifică, importă și înregistrează rute și bucură-te de o ghidare fluidă fără a consuma bateria și fără conexiune la internet. Aplicația oferă descărcări nelimitate de hărți offline și actualizări la fiecare două săptămâni. Bazată pe OpenStreetMap, creată de voluntari, axată pe confidențialitate, 100% offline și complet gratuită.
+Organic Maps este o aplicație rapidă și detaliată de hărți și navigație GPS, perfectă pentru călătorii, drumeții, trekking și ciclism. Planifică, importă și înregistrează rute și bucură-te de o ghidare fluidă fără a consuma bateria și fără conexiune la internet. Aplicația oferă descărcări nelimitate de hărți offline și actualizări la fiecare două săptămâni. Bazată pe OpenStreetMap, creată de voluntari, axată pe confidențialitate, 100% offline și complet gratuită.
 
 <b>OFFLINE:</b> Aplicația funcționează 100% offline — inclusiv căutarea și navigația. Poți explora harta și naviga fără conexiune la internet, economisind date mobile și costuri de roaming. Fără transferuri de date în fundal, bateria durează mult mai mult.
 
@@ -14,9 +14,11 @@ Organic Maps este o aplicație rapidă și detaliată de hărți și navigație 
 
 <b>EXPLOREAZĂ LOCURI:</b> Caută după adresă, nume sau categorie; descoperă milioane de puncte de interes și vezi detalii precum orele de deschidere, articole Wikipedia, accesibilitatea pentru scaune cu rotile și alte informații utile.
 
-<b>NAVIGAȚIE GPS:</b> Bucură-te de indicații vocale la fiecare viraj. Creează rute pe jos, de drumeție, cu bicicleta sau cu mașina — inclusiv între orașe și țări și cu mai multe puncte de oprire. Găsește cele mai bune rute cu transportul public pentru călătorii și naveta zilnică. Compatibil cu Android Auto.
+<b>NAVIGAȚIE GPS:</b> Bucură-te de indicații vocale la fiecare viraj. Creează rute pe jos, de drumeție, cu bicicleta sau cu mașina — inclusiv între orașe și țări și cu mai multe puncte de oprire. Compatibil cu Android Auto.
 
 <b>TRASEE DE DRUMEȚIE ȘI CICLISM DIN TOATĂ LUMEA:</b> Activează straturi speciale de hartă pentru a descoperi trasee populare de drumeție și ciclism din întreaga lume, toate provenind din OpenStreetMap. Comută între straturi pentru a vedea trasee colorate de bicicletă și MTB, precum și trasee oficiale de drumeție.
+
+<b>RELIEF 3D ȘI ADÂNCIMI:</b> Explorează înălțimile munților, adâncimile mării și curbe de nivel detaliate. Atinge oriunde pe hartă pentru a vedea altitudinea.
 
 <b>TRANSPORT PUBLIC:</b> Planifică rute cu transportul public — metrou, metrou ușor, autobuz și tramvai. Vezi numerele liniilor în stații.
 

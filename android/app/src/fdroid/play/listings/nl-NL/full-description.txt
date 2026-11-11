@@ -18,6 +18,8 @@ Organic Maps is een snelle, gedetailleerde offline kaart- en GPS-navigatieapp vo
 
 <b>WANDEL- & FIETSPADEN VAN OVER DE HELE WERELD:</b> Schakel speciale kaartlagen in om populaire wandel- en fietsroutes wereldwijd te ontdekken, allemaal afkomstig uit OpenStreetMap. Wissel tussen lagen om gekleurde fiets- en MTB-routes en officiële wandelpaden te bekijken.
 
+<b>3D-TERREIN & DIEPTES:</b> Ontdek berghoogtes, zeedieptes en gedetailleerde hoogtelijnen. Tik op een willekeurige plek op de kaart om de hoogte te zien.
+
 <b>OPENBAAR VERVOER:</b> Plan routes met het openbaar vervoer. Real-time dienstregelingen zijn in ontwikkeling.
 
 <b>KAARTSTIJLEN:</b> Kies kaartlagen die passen bij jouw activiteit — Outdoors, Hoogtelijnen, Wandelen, Fietsen of Metro.
@@ -29,7 +31,7 @@ Organic Maps is een snelle, gedetailleerde offline kaart- en GPS-navigatieapp vo
 <b>KAARTBEWERKER:</b> Draag bij aan OpenStreetMap door ontbrekende plaatsen toe te voegen of kaarten direct in Organic Maps te bewerken.
 
 
-Probeer de app — 100% gratis, reclamevrij, snel en volledig offline. Ervaar betrouwbare GPS-navigatie voor wandelen, fietsen, trekking en reizen overal ter wereld! Geniet van een snelle, betrouwbare en privé kaartbeleving, en deel het met anderen!
+Probeer de app — 100% gratis, reclamevrij, snel en volledig offline.
 
 Organic Maps is een onafhankelijk, community-gedreven open-sourceproject met honderden bijdragers die nieuwe functies ontwikkelen, problemen oplossen, vertalen en het project vooruit helpen.
 

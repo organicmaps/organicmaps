@@ -16,6 +16,8 @@ Organic Maps je rýchla, podrobná aplikácia pre offline mapy a GPS navigáciu 
 
 <b>TURISTICKÉ A CYKLISTICKÉ TRASY Z CELEHO SVETA:</b> Aktivujte špeciálne vrstvy máp a objavujte populárne turistické a cyklistické trasy po celom svete, všetko z OpenStreetMap. Prepínajte medzi vrstvami, aby ste videli farebné trasy pre bicykle a MTB, ako aj oficiálne turistické chodníky.
 
+<b>3D TERÉN A HĹBKY:</b> Preskúmajte výšky hôr, hĺbky morí a podrobné vrstevnice. Ťuknutím na ľubovoľné miesto na mape zistíte jeho nadmorskú výšku.
+
 <b>VEREJNÁ DOPRAVA:</b> Môžete si plánovať trasy s využitím verejnej dopravy. Podpora cestovných poriadkov v reálnom čase sa momentálne vyvíja.
 
 <b>ŠTÝLY MÁP:</b> Vyberte si vrstvy máp podľa svojej aktivity — vonkajšie prostredie, izolinie, turistika, cyklistika alebo metro/podzemná doprava.
@@ -26,7 +28,7 @@ Organic Maps je rýchla, podrobná aplikácia pre offline mapy a GPS navigáciu 
 
 <b>EDITOR MÁP:</b> Prispievajte do OpenStreetMap pridávaním chýbajúcich miest alebo úpravou mapy priamo z Organic Maps.
 
-Vyskúšajte aplikáciu — je 100 % zadarmo, bez reklám, rýchla a úplne offline. Zažite spoľahlivú GPS navigáciu pri turistike, cyklistike, trekingu a cestovaní kdekoľvek na svete! Užívajte si rýchly, spoľahlivý a súkromný zážitok z mapy a zdieľajte ho s ostatnými!
+Vyskúšajte aplikáciu — je 100 % zadarmo, bez reklám, rýchla a úplne offline.
 
 Organic Maps je nezávislý, komunitou riadený open-source projekt s stovkami prispievateľov, ktorí pomáhajú vyvíjať nové funkcie, opravovať chyby, prekladať a posúvať projekt dopredu.
 

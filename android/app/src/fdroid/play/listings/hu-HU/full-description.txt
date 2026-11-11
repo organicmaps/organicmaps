@@ -1,4 +1,4 @@
-Az Organic Maps gyors és részletes offline térkép- és GPS-navigációs alkalmazás utazáshoz, túrákhoz, trekkinghez és kerékpáros kalandokhoz. Tervezd meg, importáld és rögzítsd az útvonalakat, és élvezd a zökkenőmentes navigációt anélkül, hogy lemerítenéd az akkumulátort vagy internetkapcsolatra lenne szükséged. Fedezz fel helyeket, és navigálj biztonságosan a szabadtéri kalandok és utazások során szerte a világon. Az alkalmazás korlátlan térkép-letöltést és kétheti frissítéseket kínál. OpenStreetMap-alapú, önkéntesek által készített, adatvédelmet előtérbe helyező, 100% offline és teljesen ingyenes.
+Az Organic Maps gyors és részletes offline térkép- és GPS-navigációs alkalmazás utazáshoz, túrákhoz, trekkinghez és kerékpáros kalandokhoz. Tervezd meg, importáld és rögzítsd az útvonalakat, és élvezd a zökkenőmentes navigációt anélkül, hogy lemerítenéd az akkumulátort vagy internetkapcsolatra lenne szükséged. Az alkalmazás korlátlan térkép-letöltést és kétheti frissítéseket kínál. OpenStreetMap-alapú, önkéntesek által készített, adatvédelmet előtérbe helyező, 100% offline és teljesen ingyenes.
 
 <b>OFFLINE:</b> Az alkalmazás 100%-ban offline működik – beleértve a keresést és a navigációt is. Internet nélkül böngészheted a térképet és navigálhatsz, így spórolsz mobiladaton és roamingdíjakon. Mivel nincs háttéradat-forgalom, az akkumulátorod is tovább bírja.
 
@@ -14,9 +14,11 @@ Az Organic Maps gyors és részletes offline térkép- és GPS-navigációs alka
 
 <b>HELYEK FELFEDEZÉSE:</b> Keress cím, név vagy kategória alapján. Fedezz fel milliónyi POI-t és nézd meg a részletes információkat, például nyitvatartást, Wikipédia-cikkeket, akadálymentességet és egyéb hasznos adatokat.
 
-<b>GPS-NAVIGÁCIÓ:</b> Élvezd a hangos, kanyar-ról kanyarra útmutatást. Készíts gyalogos, túra-, kerékpáros vagy autós útvonalakat, akár országokon és több városon át. Keresd meg a legjobb útvonalakat metróval vagy ingázáshoz. Android Auto támogatott.
+<b>GPS-NAVIGÁCIÓ:</b> Élvezd a hangos, kanyar-ról kanyarra útmutatást. Készíts gyalogos, túra-, kerékpáros vagy autós útvonalakat, akár országokon és több városon át. Android Auto támogatott.
 
 <b>TÚRA- ÉS KERÉKPÁRUTAK VILÁGSZERTE:</b> Kapcsold be a speciális térképrétegeket, hogy felfedezd a népszerű túra- és kerékpárútvonalakat. Válts rétegeket a színes kerékpár-, MTB- és hivatalos túraútvonalak megjelenítéséhez.
+
+<b>3D DOMBORZAT ÉS MÉLYSÉGEK:</b> Nézd meg a hegyek magasságát, a tengerek mélységét és a részletes szintvonalakat. Koppints bárhová a térképen a magasság megtekintéséhez.
 
 <b>TÖMEGKÖZLEKEDÉS:</b> Tervezz tömegközlekedési útvonalakat, és nézd meg a járatszámokat a megállókban. A valós idejű menetrendek fejlesztés alatt állnak.
 

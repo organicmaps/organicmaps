@@ -18,6 +18,8 @@ Organic Maps; seyahat, trekking, doğa yürüyüşleri ve bisiklet maceraları i
 
 <b>DOĞA YÜRÜYÜŞÜ & BİSİKLET ROTALARI:</b> Dünyanın dört bir yanındaki popüler yürüyüş ve bisiklet rotalarını keşfetmek için özel harita katmanlarını etkinleştirin. Renkli bisiklet ve MTB rotaları ile resmi yürüyüş yolları arasında geçiş yapın.
 
+<b>3D ARAZİ VE DERİNLİKLER:</b> Dağların yüksekliklerini, denizlerin derinliklerini ve ayrıntılı eş yükselti eğrilerini görün. Yüksekliği öğrenmek için haritanın herhangi bir yerine dokunun.
+
 <b>TOPLU TAŞIMA:</b> Metro, hafif raylı sistem, otobüs ve tramvay ile toplu taşıma rotaları oluşturun. Duraklarda hat numaralarını görün.
 
 <b>HARİTA STİLLERİ:</b> Aktivitenize uygun katmanı seçin — Doğa, Eş Yükselti Eğrileri, Yürüyüş, Bisiklet veya Metro.
@@ -30,7 +32,7 @@ Organic Maps; seyahat, trekking, doğa yürüyüşleri ve bisiklet maceraları i
 
 <b>KARANLIK MOD:</b> Gece rahat kullanım için koyu temaya geçin.
 
-Uygulamayı deneyin — %100 ücretsiz, reklamsız, hızlı ve tamamen çevrimdışı. Dünyanın her yerinde yürüyüş, bisiklet, trekking ve seyahat için güvenilir GPS navigasyonunu deneyimleyin!
+Uygulamayı deneyin — %100 ücretsiz, reklamsız, hızlı ve tamamen çevrimdışı.
 
 Organic Maps, bağımsız ve topluluk odaklı bir açık kaynak projesidir. Yüzlerce gönüllü yeni özellikler geliştirir, hataları düzeltir, çeviri yapar ve projeyi ileriye taşır.
 

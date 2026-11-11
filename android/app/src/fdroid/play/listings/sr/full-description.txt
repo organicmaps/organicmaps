@@ -14,9 +14,11 @@ Organic Maps je brza i detaljna aplikacija za offline mape i GPS navigaciju za p
 
 <b>ISTRAŽITE MESTA:</b> Pretražujte po adresi, nazivu ili kategoriji, otkrijte milione zanimljivih mesta i pogledajte detalje kao što su radno vreme, članci sa Vikipedije, pristupačnost za invalidska kolica i druge korisne informacije.
 
-<b>GPS NAVIGACIJA:</b> Glasovna navigacija skretanje po skretanje. Kreirajte pešačke, planinarske, biciklističke ili automobilske rute — uključujući rute između gradova i zemalja, kao i rute sa više tačaka. Pronađite najbolje rute za vožnju metroom i svakodnevna putovanja. Podržan je Android Auto.
+<b>GPS NAVIGACIJA:</b> Glasovna navigacija skretanje po skretanje. Kreirajte pešačke, planinarske, biciklističke ili automobilske rute — uključujući rute između gradova i zemalja, kao i rute sa više tačaka. Podržan je Android Auto.
 
 <b>PLANINARSKE I BICIKLISTIČKE STAZE IZ CELOG SVETA:</b> Uključite posebne slojeve mape i otkrijte popularne planinarske i biciklističke rute širom sveta, sve iz OpenStreetMap-a. Menjajte slojeve da biste videli obojene biciklističke i MTB rute, kao i zvanične planinarske staze.
+
+<b>3D TEREN I DUBINE:</b> Istražite planinske visine, morske dubine i detaljne izohipse. Dodirnite bilo koje mesto na mapi da biste videli nadmorsku visinu.
 
 <b>JAVNI PREVOZ:</b> Planirajte rute javnim prevozom — metroom, lakom železnicom, autobusom i tramvajem. Pogledajte brojeve linija na stajalištima.
 
@@ -30,7 +32,7 @@ Organic Maps je brza i detaljna aplikacija za offline mape i GPS navigaciju za p
 
 <b>TAMNI REŽIM:</b> Prebacite se na tamnu temu za udobno korišćenje noću.
 
-Isprobajte aplikaciju — 100% je besplatna, bez reklama, brza i potpuno offline. Iskusite pouzdanu GPS navigaciju za planinarenje, biciklizam, treking i putovanja bilo gde u svetu!
+Isprobajte aplikaciju — 100% je besplatna, bez reklama, brza i potpuno offline.
 
 Organic Maps je nezavisan projekat otvorenog koda koji razvija zajednica — stotine saradnika pomažu u razvoju novih funkcija, rešavanju problema, prevođenju i unapređivanju projekta.
 

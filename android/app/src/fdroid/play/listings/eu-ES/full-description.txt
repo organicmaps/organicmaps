@@ -12,9 +12,11 @@ Organic Maps bidaia, mendiko ibilaldi, trekking eta txirrindularitza abenturetar
 
 <b>TOKIAK ARATU:</b> Bilatu helbidearen, izenaren edo kategoriaren arabera; aurkitu milioika POI; eta ikusi informazio zehatza, adibidez, ordutegiak, Wikipedia artikuluak, gurpil-aulki irisgarritasuna eta bestelako xehetasun erabilgarriak.
 
-<b>GPS NABIGAZIOA:</b> Gozatu ahotsez gidatutako, biraketa bakoitzeko jarraibideekin. Sortu oinezko, mendiko, txirrindularitza edo auto ibilbideak — hirien, herrialdeen eta hainbat geldialdiren artekoak barne. Aurkitu metro-bidaientzako eta joan-etorrietarako ibilbide onenak. Android Auto ere onartzen da.
+<b>GPS NABIGAZIOA:</b> Gozatu ahotsez gidatutako, biraketa bakoitzeko jarraibideekin. Sortu oinezko, mendiko, txirrindularitza edo auto ibilbideak — hirien, herrialdeen eta hainbat geldialdiren artekoak barne. Android Auto ere onartzen da.
 
 <b>MUNDU OSOKO MENDI- ETA TXIRRINDULARITZA-IBILBIDEAK:</b> Gaitu mapa-geruza bereziak mundu osoko mendiko eta txirrindularitza ibilbide ezagunak aurkitzeko, guztiak OpenStreetMap-etik jasotakoak. Aldatu geruzen artean koloretako bizikleta eta MTB ibilbideak, baita mendiko ibilbide ofizialak ikusteko.
+
+<b>3D ERLIEBEA ETA SAKONERAK:</b> Ikusi mendien altuerak, itsasoen sakonerak eta sestra-kurba zehatzak. Sakatu mapako edozein puntu haren altuera ikusteko.
 
 <b>GARRAIO PUBLIKOA:</b> Planifikatu ibilbideak garraio publikoz. Ikusi lineen zenbakiak geltokietan. Denbora errealeko ordutegiak garatzen ari dira.
 
@@ -28,7 +30,7 @@ Organic Maps bidaia, mendiko ibilaldi, trekking eta txirrindularitza abenturetar
 
 <b>MODU ILUNA:</b> Aldatu gai ilunera gauean mapa eroso ikusteko.
 
-Probatu aplikazioa — %100 doakoa, iragarkirik gabea, azkarra eta guztiz lineaz kanpokoa. Esperimentatu GPS nabigazio fidagarria mendian, bizikletan, trekkingean eta munduko edozein bidaiatan!
+Probatu aplikazioa — %100 doakoa, iragarkirik gabea, azkarra eta guztiz lineaz kanpokoa.
 
 Organic Maps proiektu independente, komunitatean oinarritua eta kode irekikoa da, eta ehunka laguntzaile ditu ezaugarri berriak garatzen, arazoak konpontzen, itzultzen eta proiektua aurrera eramaten.
 

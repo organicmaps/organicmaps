@@ -16,6 +16,8 @@ Organic Maps ialah aplikasi peta luar talian yang pantas dan terperinci serta na
 
 <b>LALUAN MENDAKI & BERBASIKAL DARI SELURUH DUNIA:</b> Aktifkan lapisan peta khas untuk menemui laluan mendaki dan berbasikal popular di seluruh dunia, semuanya dari OpenStreetMap. Tukar antara lapisan untuk melihat laluan basikal berwarna dan MTB, serta laluan mendaki rasmi.
 
+<b>RUPA BUMI 3D & KEDALAMAN:</b> Terokai ketinggian gunung, kedalaman laut dan garisan kontur terperinci. Ketik di mana-mana sahaja pada peta untuk melihat ketinggian.
+
 <b>TRANSPORT AWAM:</b> Rancang laluan pengangkutan awam. Jadual waktu masa nyata sedang dibangunkan.
 
 <b>GAYA PETA:</b> Pilih lapisan peta yang sesuai dengan aktiviti anda — Luar, Garisan Kontur, Mendaki, Berbasikal, atau Metro/Transit Bawah Tanah.
@@ -28,7 +30,7 @@ Organic Maps ialah aplikasi peta luar talian yang pantas dan terperinci serta na
 
 <b>MOD GELAP:</b> Tukar kepada tema gelap untuk paparan yang selesa pada waktu malam.
 
-Cuba aplikasi ini — ia 100% percuma, tanpa iklan, pantas, dan sepenuhnya luar talian. Alami navigasi GPS yang boleh dipercayai untuk mendaki, berbasikal, trekking, dan perjalanan di mana-mana sahaja di dunia! Nikmati pengalaman peta yang pantas, boleh dipercayai, dan peribadi, dan kongsikannya dengan orang lain!
+Cuba aplikasi ini — ia 100% percuma, tanpa iklan, pantas, dan sepenuhnya luar talian.
 
 Organic Maps adalah projek indie, berasaskan komuniti, dan sumber terbuka dengan ratusan penyumbang yang membantu membangunkan ciri baharu, membaiki isu, menterjemah, dan memajukan projek ini.
 

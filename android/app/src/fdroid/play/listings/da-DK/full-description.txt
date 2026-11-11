@@ -18,6 +18,8 @@ Organic Maps er en hurtig og detaljeret offline kort- og GPS-navigationsapp til 
 
 <b>VANDRE- & CYKELRUTER FRA HELE VERDEN:</b> Aktivér særlige kortlag for at finde populære vandre- og cykelruter fra hele verden, alle hentet fra OpenStreetMap. Skift mellem lag for at se farvede cykel- og MTB-ruter samt officielle vandrestier.
 
+<b>3D-TERRÆN & DYBDER:</b> Udforsk bjerghøjder, havdybder og detaljerede højdekurver. Tryk hvor som helst på kortet for at se højden.
+
 <b>OFFENTLIG TRANSPORT:</b> Planlæg ruter med offentlig transport – metro, letbane, bus og sporvogn. Se rutenumre på stoppesteder.
 
 <b>KORTSTILE:</b> Vælg kortlag, der passer til din aktivitet – Udendørs, Højdekurver, Vandring, Cykling eller Metro.
@@ -30,7 +32,7 @@ Organic Maps er en hurtig og detaljeret offline kort- og GPS-navigationsapp til 
 
 <b>MØRK TILSTAND:</b> Skift til mørk tilstand for komfortabel visning om natten.
 
-Prøv appen – den er 100 % gratis, uden reklamer, hurtig og fuldstændig offline. Oplev pålidelig GPS-navigation til vandring, cykling, trekking og rejser overalt i verden!
+Prøv appen – den er 100 % gratis, uden reklamer, hurtig og fuldstændig offline.
 
 Organic Maps er et uafhængigt, community-drevet open source-projekt med hundredvis af bidragydere, der hjælper med at udvikle nye funktioner, rette fejl, oversætte og føre projektet fremad.
 

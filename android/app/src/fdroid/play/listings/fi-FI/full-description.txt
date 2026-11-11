@@ -18,6 +18,8 @@ GPS-NAVIGOINTI: Nauti ääniopastetusta navigoinnista. Luo kävely-, vaellus-, p
 
 VAELLUS- JA PYÖRÄREITIT MAAILMAN YMPÄRI: Ota käyttöön erityiset karttatasot nähdäksesi suositut vaellus- ja pyöräilyreitit kaikkialla maailmassa. Näe värilliset pyörä- ja MTB-reitit sekä viralliset vaellusreitit.
 
+3D-MAASTO JA SYVYYDET: Tutki vuorten korkeuksia, merten syvyyksiä ja tarkkoja korkeuskäyriä. Napauta mitä tahansa kohtaa kartalla nähdäksesi sen korkeuden.
+
 JOUKKOLIIKENNE: Suunnittele joukkoliikenteen reitit. Reaaliaikaiset aikataulut ovat kehitteillä.
 
 KARTTATYYLIT: Valitse aktiviteettisi mukaan — Outdoors, korkeuskäyrät, vaellus, pyöräily tai metro.
@@ -30,7 +32,7 @@ KARTTAMUOKKAIN: Lisää puuttuvia kohteita tai muokkaa karttaa suoraan Organic M
 
 TUMMA TEEMA: Vaihda tummaan tilaan mukavampaa käyttöä varten yöllä.
 
-Kokeile sovellusta — se on 100 % ilmainen, mainokseton, nopea ja täysin offline. Saat luotettavan GPS-navigoinnin vaelluksille, pyöräilyyn, retkeilyyn ja matkustamiseen missä päin maailmaa tahansa! Nauti nopeasta, luotettavasta ja yksityisestä karttakokemuksesta ja jaa se muillekin.
+Kokeile sovellusta — se on 100 % ilmainen, mainokseton, nopea ja täysin offline.
 
 Organic Maps on itsenäinen, yhteisölähtöinen ja avoimen lähdekoodin projekti, jossa sadat avustajat kehittävät uusia ominaisuuksia, korjaavat virheitä, kääntävät ja vievät projektia eteenpäin.
 

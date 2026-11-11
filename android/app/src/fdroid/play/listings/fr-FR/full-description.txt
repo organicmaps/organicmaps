@@ -12,9 +12,11 @@ Organic Maps est une application rapide et détaillée de cartes hors ligne et d
 
 <b>FONCTIONNALITÉS IMPORTANTES</b>
 
-<b>NAVIGATION GPS :</b> Profitez d’un guidage vocal, virage par virage. Créez des itinéraires de marche, de randonnée, de vélo ou en voiture — y compris entre villes, pays et avec plusieurs étapes. Trouvez les meilleures routes pour vos trajets en métro et vos déplacements quotidiens. Compatible avec Android Auto.
+<b>NAVIGATION GPS :</b> Profitez d’un guidage vocal, virage par virage. Créez des itinéraires de marche, de randonnée, de vélo ou en voiture — y compris entre villes, pays et avec plusieurs étapes. Compatible avec Android Auto.
 
 <b>SENTIERS DE RANDONNÉE & DE VÉLO DU MONDE ENTIER :</b> Activez des couches spéciales pour découvrir des itinéraires populaires de randonnée et de cyclisme dans le monde entier, tous issus d’OpenStreetMap. 
+
+<b>RELIEF 3D & PROFONDEURS :</b> Explorez les reliefs montagneux, les profondeurs marines et les courbes de niveau détaillées. Touchez n’importe quel point de la carte pour connaître son altitude.
 
 <b>TRANSPORTS PUBLICS :</b> Planifiez vos itinéraires en transports en commun et consultez les numéros de ligne aux arrêts. Les horaires en temps réel sont en développement.
 
@@ -27,7 +29,7 @@ Organic Maps est une application rapide et détaillée de cartes hors ligne et d
 <b>ÉDITEUR DE CARTE :</b> Contribuez à OpenStreetMap en ajoutant des lieux manquants ou en modifiant la carte directement depuis Organic Maps.
 
 
-Essayez l’application — elle est 100 % gratuite, sans publicité, rapide et entièrement hors ligne. Profitez d’une navigation GPS fiable pour la randonnée, le vélo, le trekking et les voyages partout dans le monde !
+Essayez l’application — elle est 100 % gratuite, sans publicité, rapide et entièrement hors ligne.
 
 Organic Maps est un projet indépendant, communautaire et open-source, auquel contribuent des centaines de personnes — développement, corrections, traductions et amélioration continue.
 

@@ -1,4 +1,4 @@
-Organic Maps is 'n vinnige, gedetailleerde aflynkaart- en GPS-navigasie-app vir reis-, stap-, trek- en fietsavonture. Beplan, voer in en teken roetes, en geniet naatlose navigasie sonder om jou battery leeg te maak of 'n internetverbinding te gebruik. Verken plekke en navigeer veilig tydens jou buitelugavonture en reise regoor die wêreld. Die app bied onbeperkte kaartaflaaie en tweeweeklikse opdaterings. Gebaseer op OpenStreetMap, deur vrywilligers gemaak, privaatheid eerste, 100% vanlyn en 100% gratis.
+Organic Maps is 'n vinnige, gedetailleerde aflynkaart- en GPS-navigasie-app vir reis-, stap-, trek- en fietsavonture. Beplan, voer in en teken roetes, en geniet naatlose navigasie sonder om jou battery leeg te maak of 'n internetverbinding te gebruik. Die app bied onbeperkte kaartaflaaie en tweeweeklikse opdaterings. Gebaseer op OpenStreetMap, deur vrywilligers gemaak, privaatheid eerste, 100% vanlyn en 100% gratis.
 
 <b>VANLYN:</b>
 
@@ -28,11 +28,15 @@ Soek volgens adres, naam of kategorie, ontdek miljoene belangrike plekke (POI's)
 
 <b>GPS-NAVIGASIE:</b>
 
-Geniet stemgelaaide, draai-vir-draai-aanwysings. Skep stap-, staptoer-, fietsry- of ryroetes — insluitend roetes tussen stede, lande en verskeie wegpunte. Vind die beste roetes vir jou metroritte en pendelreise. Android Auto word ondersteun.
+Geniet stemgelaaide, draai-vir-draai-aanwysings. Skep stap-, staptoer-, fietsry- of ryroetes — insluitend roetes tussen stede, lande en verskeie wegpunte. Android Auto word ondersteun.
 
 <b>STAP- EN FIETSROETES VAN OOR DIE WÊRELD:</b>
 
 Skakel spesiale kaartlae aan om gewilde stap- en fietspaaie wêreldwyd te ontdek, almal verkry vanaf OpenStreetMap. Skakel tussen lae om gekleurde fiets- en bergfietspaaie, sowel as amptelike staproetes, te sien.
+
+<b>3D-TERREIN & DIEPTES:</b>
+
+Verken berghoogtes, seedieptes en gedetailleerde kontoerlyne. Tik enige plek op die kaart om die hoogte te sien.
 
 <b>OPENBARE VERVOER:</b>
 

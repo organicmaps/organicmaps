@@ -30,6 +30,10 @@ Shijo udhëzime me zë, hap pas hapi. Krijo rrugë për ecje, shëtitje në naty
 
 Aktivizoni shtresa speciale hartash për të zbuluar shtigje të njohura ecjeje dhe çiklizmi në mbarë botën, të gjitha të marra nga OpenStreetMap. Kaloni midis shtresave për të parë shtigje me ngjyra për biçikleta dhe MTB, si dhe shtigje zyrtare ecjeje.
 
+<b>TERRENI 3D DHE THELLËSITË:</b>
+
+Shihni lartësitë e maleve, thellësitë e detit dhe izohipset e detajuara. Prekni çdo pikë në hartë për të parë lartësinë e saj.
+
 <b>TRANSPORTI PUBLIK:</b>
 
 Planifikoni linjat e transportit publik. Oraret e drejtpërdrejta janë në zhvillim.
@@ -54,7 +58,7 @@ Kontribuoni në OpenStreetMap duke shtuar vende që mungojnë ose duke redaktuar
 
 Kaloni në një temë të errët për një pamje të rehatshme natën.
 
-Provoni aplikacionin — është 100% falas, pa reklama, i shpejtë dhe plotësisht jashtë linje. Përjetoni navigim të besueshëm me GPS për ecje në natyrë, çiklizëm, ecje malore dhe udhëtime kudo në botë! Shijoni një përvojë me harta të shpejtë, të besueshme dhe private, dhe ndani atë me të tjerët!
+Provoni aplikacionin — është 100% falas, pa reklama, i shpejtë dhe plotësisht jashtë linje.
 
 Ose mësoni mënyra të tjera për të mbështetur projektin: https://organicmaps.app/contribute/
 

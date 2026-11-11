@@ -18,11 +18,13 @@ Organic Maps je brza, detaljna aplikacija za offline mape i GPS navigaciju za pu
 
 <b>PJEŠAČKE I BICIKLISTIČKE STAZE IZ CIJELOG SVIJETA:</b> Omogućite posebne slojeve karte da biste otkrili popularne pješačke i biciklističke rute širom svijeta, sve preuzete iz OpenStreetMap. Prebacujte se između slojeva da biste vidjeli obojene biciklističke i brdsko-biciklističke (MTB) staze, kao i službene pješačke staze.
 
+<b>3D TEREN I DUBINE:</b> Istražite planinske visine, morske dubine i detaljne izohipse. Dodirnite bilo koje mjesto na mapi da vidite nadmorsku visinu.
+
 <b>JAVNI PREVOZ:</b> Možete planirati rute koristeći javni prijevoz. Podrška za vozne redove u stvarnom vremenu je u razvoju.
 
 <b>STILOVI KARTE:</b> Odaberite slojeve karte koji odgovaraju vašoj aktivnosti — na otvorenom, konturne linije, planinarenje, biciklizam ili metro/podzemna željeznica.
 
-Isprobajte aplikaciju — 100% je besplatna, bez oglasa, brza i potpuno offline. Iskusite pouzdanu GPS navigaciju za planinarenje, biciklizam, trekking i putovanja bilo gdje u svijetu! Uživajte u brzom, pouzdanom i privatnom iskustvu na mapi i podijelite ga s drugima!
+Isprobajte aplikaciju — 100% je besplatna, bez oglasa, brza i potpuno offline.
 
 Organic Maps je nezavisni, zajednicom vođen projekt otvorenog koda sa stotinama saradnika koji pomažu u razvoju novih funkcija, otklanjanju problema, prevođenju i napretku projekta.
 

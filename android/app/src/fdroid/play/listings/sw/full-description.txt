@@ -30,6 +30,10 @@ Furahia maelekezo yanayoongozwa kwa sauti, hatua kwa hatua. Tengeneza njia za ku
 
 Washa tabaka maalum za ramani ili kugundua njia maarufu za upandaji milima na uendeshaji baiskeli duniani kote, zote zikitoka OpenStreetMap. Badilisha kati ya tabaka ili kuona njia za baiskeli na MTB zenye rangi, pamoja na njia rasmi za upandaji milima.
 
+<b>ARDHI YA 3D NA KINA:</b>
+
+Tazama miinuko ya milima, kina cha bahari na mistari ya kontua yenye maelezo ya kina. Gusa sehemu yoyote kwenye ramani ili kuona mwinuko wake.
+
 <b>USAFIRI WA UMMA:</b>
 
 Unaweza kupanga njia kwa kutumia usafiri wa umma. Usaidizi wa ratiba za wakati halisi uko katika maendeleo.
@@ -54,7 +58,7 @@ Changia OpenStreetMap kwa kuongeza maeneo yanayokosekana au kuhariri ramani moja
 
 Badilisha kuwa mandhari ya giza kwa ajili ya kuangalia kwa starehe usiku.
 
-Jaribu programu — ni bure 100%, haina matangazo, ni ya haraka, na inafanya kazi kabisa bila intaneti. Furahia urambazaji wa kuaminika wa GPS kwa ajili ya matembezi ya miguu, uendeshaji baiskeli, matembezi ya milimani, na safari popote ulimwenguni! Furahia uzoefu wa ramani wa haraka, wa kuaminika, na wa faragha, na ushiriki na wengine!
+Jaribu programu — ni bure 100%, haina matangazo, ni ya haraka, na inafanya kazi kabisa bila intaneti.
 
 Au jifunze njia zingine za kusaidia mradi: https://organicmaps.app/contribute/
 

@@ -14,9 +14,11 @@ Organic Maps adalah aplikasi peta dan GPS yang cepat dan detail, berfungsi tanpa
 
 <b>JELAJAHI TEMPAT:</b> Cari berdasarkan alamat, nama, atau kategori. Temukan jutaan tempat menarik dan lihat informasi detail seperti jam buka, artikel Wikipedia, aksesibilitas kursi roda, dan lainnya.
 
-<b>NAVIGASI GPS:</b> Nikmati panduan suara di setiap belokan. Buat rute untuk berjalan kaki, hiking, bersepeda, atau berkendara — termasuk rute antarkota, antarnegara, dan dengan beberapa titik persinggahan. Temukan rute transportasi umum terbaik untuk perjalanan dan aktivitas harian Anda. Mendukung Android Auto.
+<b>NAVIGASI GPS:</b> Nikmati panduan suara di setiap belokan. Buat rute untuk berjalan kaki, hiking, bersepeda, atau berkendara — termasuk rute antarkota, antarnegara, dan dengan beberapa titik persinggahan. Mendukung Android Auto.
 
 <b>JALUR HIKING & SEPEDA DARI SELURUH DUNIA:</b> Aktifkan lapisan peta khusus untuk menemukan jalur hiking dan bersepeda populer di seluruh dunia, semuanya dari OpenStreetMap. Ganti lapisan untuk melihat jalur sepeda berwarna, jalur MTB, dan jalur hiking resmi.
+
+<b>MEDAN 3D & KEDALAMAN:</b> Jelajahi ketinggian gunung, kedalaman laut, dan garis kontur terperinci. Ketuk di mana saja pada peta untuk melihat ketinggian.
 
 <b>TRANSPORTASI UMUM:</b> Rencanakan rute transportasi umum — MRT, LRT, bus, dan trem. Lihat nomor rute di halte.
 
@@ -30,7 +32,7 @@ Organic Maps adalah aplikasi peta dan GPS yang cepat dan detail, berfungsi tanpa
 
 <b>MODE GELAP:</b> Beralih ke tema gelap agar nyaman digunakan di malam hari.
 
-Coba aplikasinya — 100% gratis, bebas iklan, cepat, dan sepenuhnya offline. Rasakan navigasi GPS yang andal untuk hiking, bersepeda, trekking, dan perjalanan di seluruh dunia!
+Coba aplikasinya — 100% gratis, bebas iklan, cepat, dan sepenuhnya offline.
 
 Organic Maps adalah proyek independen dan open source yang digerakkan komunitas, dengan ratusan kontributor yang membantu mengembangkan fitur baru, memperbaiki masalah, menerjemahkan, dan memajukan proyek.
 

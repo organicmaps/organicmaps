@@ -1,4 +1,4 @@
-Organic Maps est une application rapide et détaillée de cartes hors ligne et de navigation GPS pour les voyages, la randonnée, le trekking et le vélo. Planifiez, importez et enregistrez des itinéraires, et profitez d’un guidage fluide sans connexion Internet ni perte de batterie. Explorez des lieux et naviguez en toute sécurité partout dans le monde. L’application offre des cartes illimitées, des mises à jour toutes les deux semaines, et repose sur OpenStreetMap. Créée par des bénévoles, elle est respectueuse de la vie privée, 100 % hors ligne et entièrement gratuite.
+Organic Maps est une application rapide et détaillée de cartes hors ligne et de navigation GPS pour les voyages, la randonnée, le trekking et le vélo. Planifiez, importez et enregistrez des itinéraires, et profitez d’un guidage fluide sans connexion Internet ni perte de batterie. L’application offre des cartes illimitées, des mises à jour toutes les deux semaines, et repose sur OpenStreetMap. Créée par des bénévoles, elle est respectueuse de la vie privée, 100 % hors ligne et entièrement gratuite.
 
 <b>HORS LIGNE :</b> L’application fonctionne entièrement hors ligne — y compris la recherche et la navigation. Vous pouvez explorer la carte et naviguer sans connexion Internet, économisant vos données mobiles et évitant les frais d’itinérance. Et sans transferts de données en arrière-plan, votre batterie dure beaucoup plus longtemps.
 
@@ -12,9 +12,11 @@ Organic Maps est une application rapide et détaillée de cartes hors ligne et d
 
 <b>DÉCOUVRIR DES LIEUX :</b> Recherchez par adresse, nom ou catégorie, découvrez des millions de points d’intérêt, et consultez des détails comme les horaires d’ouverture, les articles Wikipédia, l’accessibilité en fauteuil roulant et bien plus.
 
-<b>NAVIGATION GPS :</b> Profitez d’un guidage vocal, virage par virage. Créez des itinéraires de marche, de randonnée, de vélo ou en voiture — y compris entre villes, pays et avec plusieurs étapes. Trouvez les meilleures routes pour vos trajets en métro et vos déplacements quotidiens. Compatible avec Android Auto.
+<b>NAVIGATION GPS :</b> Profitez d’un guidage vocal, virage par virage. Créez des itinéraires de marche, de randonnée, de vélo ou en voiture — y compris entre villes, pays et avec plusieurs étapes. Compatible avec Android Auto.
 
 <b>SENTIERS DE RANDONNÉE & DE VÉLO DU MONDE ENTIER :</b> Activez des couches spéciales pour découvrir des itinéraires populaires de randonnée et de vélo dans le monde entier, tous issus d’OpenStreetMap. Basculez entre les couches pour voir les itinéraires vélo et VTT colorés, ainsi que les sentiers officiels.
+
+<b>RELIEF 3D & PROFONDEURS :</b> Explorez les reliefs montagneux, les profondeurs marines et les courbes de niveau détaillées. Touchez n’importe quel point de la carte pour connaître son altitude.
 
 <b>TRANSPORTS PUBLICS :</b> Planifiez des itinéraires en transports en commun. Les horaires en temps réel sont en cours de développement.
 
