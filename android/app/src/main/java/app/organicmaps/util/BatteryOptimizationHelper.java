@@ -31,6 +31,7 @@ public class BatteryOptimizationHelper
              "samsung", "sony", "stock_android", "tecno", "ulefone", "unihertz", "vivo", "wiko", "xiaomi");
 
   public static final String DISMISS_REQUEST_KEY = "battery_warning_dismissed";
+  public static final String DIALOG_TAG = "BatteryOptimizationWarning";
 
   static boolean shouldShowWarning(@NonNull Context context)
   {
@@ -96,10 +97,12 @@ public class BatteryOptimizationHelper
 
   public static boolean showWarningIfNeeded(@NonNull FragmentActivity activity)
   {
+    if (activity.getSupportFragmentManager().findFragmentByTag(DIALOG_TAG) != null)
+      return true;
     if (!shouldShowWarning(activity))
       return false;
     WarningDialogFragment dialog = new WarningDialogFragment();
-    dialog.show(activity.getSupportFragmentManager(), "BatteryOptimizationWarning");
+    dialog.show(activity.getSupportFragmentManager(), DIALOG_TAG);
     markWarningShown(activity);
     return true;
   }

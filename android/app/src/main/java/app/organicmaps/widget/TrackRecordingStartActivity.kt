@@ -37,12 +37,14 @@ class TrackRecordingStartActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Normally done by SplashActivity, no-op if already initialized.
-        MwmApplication.from(this).displayManager.init(DisplayType.Device)
+        val app = MwmApplication.from(this)
+        app.displayManager.init(DisplayType.Device)
         supportFragmentManager.setFragmentResultListener(BatteryOptimizationHelper.DISMISS_REQUEST_KEY, this) { _, _ ->
             finishAndRemoveTask()
         }
-        // A restored permission result resumes the start; a restored advisory only needs dismissal.
-        if (savedInstanceState == null) {
+        val restoredAdvisory = supportFragmentManager.findFragmentByTag(BatteryOptimizationHelper.DIALOG_TAG) != null
+        // The advisory can outlive the process that owned the recording service.
+        if (savedInstanceState == null || (restoredAdvisory && !app.organicMaps.arePlatformAndCoreInitialized())) {
             startRecording()
         }
     }
