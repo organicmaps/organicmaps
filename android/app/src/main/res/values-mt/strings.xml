@@ -837,8 +837,8 @@
     <string name="outdoor_seating">Sedili barra</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">Għan-navigazzjoni l-aktar preċiża, nirrakkomandaw li titfi l-mod tal-iffrankar tal-enerġija fl-issettjar tal-batterija tal-mowbajl.</string>
-    <!-- Title of the one-time warning about battery optimization when starting track recording on Android. -->
-    <string name="background_recording_warning_title">Twissija dwar ir-reġistrazzjoni fl-isfond</string>
+    <!-- Title of the one-time Android dialog shown when starting track recording, warning that battery restrictions may interrupt it. -->
+    <string name="background_recording_warning_title">Ir-reġistrazzjoni tat-traċċa tista\' tieqaf</string>
     <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
     <string name="background_recording_warning_message">Biex ir-reġistrazzjoni tat-traċċa ma tieqafx meta l-iskrin ikun mitfi, eskludi Organic Maps mill-ottimizzazzjoni tal-batterija. Fuq apparati Samsung, żid l-app mal-lista «Applikazzjonijiet li qatt ma jorqdu».</string>
     <!-- Prompt to start recording a track. -->
