@@ -15,15 +15,18 @@ IMPORTANT FEATURES
 
 EXPLORE PLACES: Search by address, name, or category, discover millions of POIs, and view detailed information such as opening hours, Wikipedia articles, wheelchair accessibility, and other helpful details. All available offline.
 
-GPS NAVIGATION: Enjoy voice-guided, turn-by-turn directions. Create walking, hiking, cycling, or driving routes — including routes between cities, countries, and multiple waypoints. Plan public transport journeys and daily commutes. CarPlay is supported.
+GPS NAVIGATION: Enjoy voice-guided, turn-by-turn directions. Create walking, hiking, cycling, or driving routes — including routes between cities, countries, and multiple waypoints. CarPlay is supported.
 
-HIKING & CYCLING TRAILS FROM AROUND THE WORLD: Enable special map layers to discover popular hiking and cycling routes worldwide, all sourced from OpenStreetMap. Switch between layers to see colored bike and MTB routes, as well as official hiking paths. 
+HIKING & CYCLING TRAILS FROM AROUND THE WORLD: Enable special map layers to discover popular hiking and cycling routes worldwide, all sourced from OpenStreetMap. Switch between layers to see colored bike and MTB routes, as well as official hiking paths.
+
+3D TERRAIN & DEPTHS: See 3D terrain, ocean and sea depths, and detailed contour lines. Tap any point to check its elevation, on land or at sea.
 
 PUBLIC TRANSPORT: Plan subway, light rail, bus and tram routes; see line numbers at stops. Live timetables are in development.
 
 MAP STYLES: Choose map layers that fit your activity — Outdoors, Contour Lines, Hiking, Cycling, or Metro/Subway.
 
 TRACK RECORDER: Record, import, export, and share your routes and favorite places. Supports KML, KMZ, GPX, and GeoJSON formats.
+
 WIKIPEDIA ARTICLES: Explore Wikipedia articles for places you discover on the map. Type “?wiki” in the search to find all places with Wikipedia articles. 
 
 MAP EDITOR: Contribute to OpenStreetMap by adding missing places or editing the map directly from Organic Maps.
