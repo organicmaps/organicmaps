@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Žymių ir trasų atsarginė kopija</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Žymės ir trasos gali būti įtrauktos į Android sistemos atsargines kopijas, jei šiame įrenginyje įjungtas atsarginių kopijų kūrimas ir jos neviršija leistino dydžio.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Sinchronizavimas su „Google“ disku (beta)</string>
+    <string name="bookmarks_sync_enabled">Sinchronizuoti žymes ir trasas</string>
+    <string name="bookmarks_sync_account">„Google“ paskyra</string>
+    <string name="bookmarks_sync_manage_storage">Tvarkyti „Google“ saugyklą</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">Išnaudota %1$s iš %2$s</string>
+    <string name="bookmarks_sync_mobile_data">Sinchronizuoti naudojant mobiliojo ryšio duomenis</string>
+    <string name="bookmarks_sync_now">Sinchronizuoti dabar</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Paskutinis sinchronizavimas: %s</string>
+    <string name="bookmarks_sync_status_running">Sinchronizuojama…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Laukiama „Wi-Fi“</string>
+    <string name="bookmarks_sync_status_sign_in">Reikia prisijungti</string>
+    <string name="bookmarks_sync_status_quota">„Google“ diskas pilnas</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Sinchronizuoti nepavyko: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Ištrinti duomenis iš „Google“ disko</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Ištrinti sinchronizuotas žymes ir trasas iš „Google“ disko? Šio įrenginio žymės ir trasos liks. Pirmiausia išjunkite sinchronizavimą kituose įrenginiuose, kitaip jie vėl įkels savo žymes ir trasas.</string>
+    <string name="bookmarks_sync_beta_warning">Sinchronizavimas yra beta versijos. Prieš įjungdami eksportuokite visų žymių ir trasų atsarginę kopiją.</string>
     <string name="search_history_text">Rodyti paskiausias paieškas.</string>
     <string name="clear_search">Valyti paieškų žurnalą</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -872,6 +892,8 @@
     <string name="hide_track">Paslėpti trasą</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Rodyti trasą</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Įjungti</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->

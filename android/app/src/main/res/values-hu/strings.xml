@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Könyvjelzők és nyomvonalak biztonsági mentése</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">A könyvjelzők és nyomvonalak bekerülhetnek az Android rendszer biztonsági mentéseibe, ha a biztonsági mentés be van kapcsolva ezen az eszközön, és nem lépik túl a mérethatárát.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Google Drive-szinkronizálás (béta)</string>
+    <string name="bookmarks_sync_enabled">Könyvjelzők és nyomvonalak szinkronizálása</string>
+    <string name="bookmarks_sync_account">Google-fiók</string>
+    <string name="bookmarks_sync_manage_storage">Google-tárhely kezelése</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%1$s / %2$s felhasználva</string>
+    <string name="bookmarks_sync_mobile_data">Szinkronizálás mobiladat-kapcsolaton</string>
+    <string name="bookmarks_sync_now">Szinkronizálás most</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Utolsó szinkronizálás: %s</string>
+    <string name="bookmarks_sync_status_running">Szinkronizálás…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Várakozás Wi-Fi-re</string>
+    <string name="bookmarks_sync_status_sign_in">Bejelentkezés szükséges</string>
+    <string name="bookmarks_sync_status_quota">A Google Drive megtelt</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">A szinkronizálás sikertelen: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Adatok törlése a Google Drive-ról</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Törli a szinkronizált könyvjelzőket és nyomvonalakat a Google Drive-ról? Az eszközön lévő könyvjelzők és nyomvonalak megmaradnak. Előbb kapcsolja ki a szinkronizálást a többi eszközén, különben azok újra feltöltik a könyvjelzőiket és nyomvonalaikat.</string>
+    <string name="bookmarks_sync_beta_warning">A szinkronizálás béta állapotú. Bekapcsolás előtt exportáljon biztonsági mentést az összes könyvjelzőről és nyomvonalról.</string>
     <string name="search_history_text">Legutóbbi keresések megtekintése.</string>
     <string name="clear_search">A keresési előzmények törlése</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -872,6 +892,8 @@
     <string name="hide_track">Nyomvonal elrejtése</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Nyomvonal megjelenítése</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Engedélyezés</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->

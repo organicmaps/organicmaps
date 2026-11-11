@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Còpia de seguretat de marcadors i recorreguts</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Els marcadors i recorreguts es poden incloure a les còpies de seguretat del sistema Android si la còpia de seguretat està activada en aquest dispositiu i no superen el seu límit de mida.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Sincronització amb Google Drive (beta)</string>
+    <string name="bookmarks_sync_enabled">Sincronitza els marcadors i recorreguts</string>
+    <string name="bookmarks_sync_account">Compte de Google</string>
+    <string name="bookmarks_sync_manage_storage">Gestiona l\'emmagatzematge de Google</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">S\'han utilitzat %1$s de %2$s</string>
+    <string name="bookmarks_sync_mobile_data">Sincronitza amb dades mòbils</string>
+    <string name="bookmarks_sync_now">Sincronitza ara</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Darrera sincronització: %s</string>
+    <string name="bookmarks_sync_status_running">S\'està sincronitzant…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">S\'està esperant la Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">Cal iniciar la sessió</string>
+    <string name="bookmarks_sync_status_quota">Google Drive és ple</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">La sincronització ha fallat: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Suprimeix les dades de Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Voleu suprimir de Google Drive els marcadors i recorreguts sincronitzats? Els marcadors i recorreguts d\'aquest dispositiu es conserven. Desactiveu primer la sincronització als altres dispositius o hi tornaran a pujar els seus marcadors i recorreguts.</string>
+    <string name="bookmarks_sync_beta_warning">La sincronització és en beta. Exporteu una còpia de seguretat de tots els marcadors i recorreguts abans d\'activar-la.</string>
     <string name="search_history_text">Mostra les cerques recents.</string>
     <string name="clear_search">Neteja l’historial de cerques</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -877,6 +897,8 @@
     <string name="hide_track">Amaga el recorregut</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Mostra el recorregut</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Activa</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->

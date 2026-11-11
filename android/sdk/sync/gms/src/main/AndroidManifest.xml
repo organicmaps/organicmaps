@@ -1,0 +1,10 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <application>
+    <provider
+      android:name="app.organicmaps.sdk.sync.gms.DriveSyncInitProvider"
+      android:authorities="${applicationId}.drive-sync-init"
+      android:exported="false" />
+  </application>
+
+</manifest>

@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Markagailuen eta arrastoen babeskopia</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Markagailuak eta arrastoak Android sistemaren babeskopietan sar daitezke, babeskopiak gailu honetan gaituta badaude eta haren tamaina-muga gainditzen ez badute.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Google Drive sinkronizazioa (beta)</string>
+    <string name="bookmarks_sync_enabled">Sinkronizatu markagailuak eta arrastoak</string>
+    <string name="bookmarks_sync_account">Google kontua</string>
+    <string name="bookmarks_sync_manage_storage">Kudeatu Google-ko biltegiratzea</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">%1$s / %2$s erabilita</string>
+    <string name="bookmarks_sync_mobile_data">Sinkronizatu datu mugikorren bidez</string>
+    <string name="bookmarks_sync_now">Sinkronizatu orain</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Azken sinkronizazioa: %s</string>
+    <string name="bookmarks_sync_status_running">Sinkronizatzen…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Wifiaren zain</string>
+    <string name="bookmarks_sync_status_sign_in">Saioa hasi behar da</string>
+    <string name="bookmarks_sync_status_quota">Google Drive beteta dago</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Sinkronizazioak huts egin du: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Ezabatu datuak Google Drive-tik</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Sinkronizatutako markagailuak eta arrastoak Google Drive-tik ezabatu? Gailu honetako markagailuak eta arrastoak mantenduko dira. Desaktibatu lehenik sinkronizazioa beste gailuetan; bestela, beren markagailuak eta arrastoak berriro igoko dituzte.</string>
+    <string name="bookmarks_sync_beta_warning">Sinkronizazioa beta fasean dago. Gaitu aurretik, esportatu markagailu eta arrasto guztien babeskopia.</string>
     <string name="search_history_text">Ikusi azken bilaketak.</string>
     <string name="clear_search">Garbitu bilaketa historia</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -867,6 +887,8 @@
     <string name="hide_track">Ezkutatu arrastoa</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Erakutsi arrastoa</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Gaitu</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->

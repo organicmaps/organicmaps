@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">النسخ الاحتياطي للإشارات المرجعية والمسارات</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">يمكن تضمين الإشارات المرجعية والمسارات في النسخ الاحتياطية لنظام Android عندما يكون النسخ الاحتياطي مفعّلًا على هذا الجهاز ولا تتجاوز حدّ الحجم المسموح به.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">المزامنة مع Google Drive (تجريبية)</string>
+    <string name="bookmarks_sync_enabled">مزامنة الإشارات المرجعية والمسارات</string>
+    <string name="bookmarks_sync_account">حساب Google</string>
+    <string name="bookmarks_sync_manage_storage">إدارة مساحة تخزين Google</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">تم استخدام %1$s من %2$s</string>
+    <string name="bookmarks_sync_mobile_data">المزامنة عبر بيانات الجوّال</string>
+    <string name="bookmarks_sync_now">المزامنة الآن</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">آخر مزامنة: %s</string>
+    <string name="bookmarks_sync_status_running">جارٍ المزامنة…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">في انتظار شبكة Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">يلزم تسجيل الدخول</string>
+    <string name="bookmarks_sync_status_quota">Google Drive ممتلئ</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">فشلت المزامنة: %s</string>
+    <string name="bookmarks_sync_delete_cloud">حذف البيانات من Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">هل تريد حذف الإشارات المرجعية والمسارات التي تمت مزامنتها من Google Drive؟ ستبقى الإشارات المرجعية والمسارات على هذا الجهاز. أوقف المزامنة على أجهزتك الأخرى أولًا، وإلا فسترفع إشاراتها المرجعية ومساراتها مجددًا.</string>
+    <string name="bookmarks_sync_beta_warning">المزامنة تجريبية. صدِّر نسخة احتياطية من جميع الإشارات المرجعية والمسارات قبل تفعيلها.</string>
     <string name="search_history_text">عرض عمليات البحث الأخيرة.</string>
     <string name="clear_search">مسح سجل البحث</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -887,6 +907,8 @@
     <string name="hide_track">إخفاء المسار</string>
     <!-- Text for the showing track. -->
     <string name="show_track">عرض المسار</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">تفعيل</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->

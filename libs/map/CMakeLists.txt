@@ -12,6 +12,18 @@ set(SRC
   bookmark_manager.cpp
   bookmark_manager.hpp
   bookmarks_search_params.hpp
+  bookmarks_sync/base_state.cpp
+  bookmarks_sync/base_state.hpp
+  bookmarks_sync/cloud_store.cpp
+  bookmarks_sync/cloud_store.hpp
+  bookmarks_sync/content_hash.cpp
+  bookmarks_sync/content_hash.hpp
+  bookmarks_sync/local_store.cpp
+  bookmarks_sync/local_store.hpp
+  bookmarks_sync/reconciler.cpp
+  bookmarks_sync/reconciler.hpp
+  bookmarks_sync/sync_engine.cpp
+  bookmarks_sync/sync_engine.hpp
   elevation_info.cpp
   elevation_info.hpp
   everywhere_search_params.hpp

@@ -347,6 +347,26 @@
     <string name="bookmarks_backup_title">Sao lưu đánh dấu và dấu vết</string>
     <!-- Tracks are recorded or imported GPS paths. -->
     <string name="bookmarks_backup_description">Các đánh dấu và dấu vết có thể được đưa vào bản sao lưu hệ thống Android khi tính năng sao lưu được bật trên thiết bị này và không vượt quá giới hạn dung lượng của nó.</string>
+    <!-- Settings item and dialog title: syncing bookmarks and tracks through the user's Google Drive. -->
+    <string name="bookmarks_sync_title">Đồng bộ Google Drive (Beta)</string>
+    <string name="bookmarks_sync_enabled">Đồng bộ đánh dấu và dấu vết</string>
+    <string name="bookmarks_sync_account">Tài khoản Google</string>
+    <string name="bookmarks_sync_manage_storage">Quản lý bộ nhớ Google</string>
+    <!-- Storage of the Google account: %1$s is the used size, %2$s is the total, e.g. 1.2 GB of 15 GB used. -->
+    <string name="bookmarks_sync_storage_used">Đã dùng %1$s/%2$s</string>
+    <string name="bookmarks_sync_mobile_data">Đồng bộ qua dữ liệu di động</string>
+    <string name="bookmarks_sync_now">Đồng bộ ngay</string>
+    <!-- %s is the date and time of the last successful sync. -->
+    <string name="bookmarks_sync_status_synced">Lần đồng bộ cuối: %s</string>
+    <string name="bookmarks_sync_status_running">Đang đồng bộ…</string>
+    <string name="bookmarks_sync_status_waiting_wifi">Đang chờ Wi-Fi</string>
+    <string name="bookmarks_sync_status_sign_in">Cần đăng nhập</string>
+    <string name="bookmarks_sync_status_quota">Google Drive đã đầy</string>
+    <!-- %s is an error message, often from Google Drive in English. -->
+    <string name="bookmarks_sync_status_error">Đồng bộ thất bại: %s</string>
+    <string name="bookmarks_sync_delete_cloud">Xóa dữ liệu khỏi Google Drive</string>
+    <string name="bookmarks_sync_delete_cloud_confirm">Xóa các đánh dấu và dấu vết đã đồng bộ khỏi Google Drive? Đánh dấu và dấu vết trên thiết bị này vẫn được giữ lại. Hãy tắt đồng bộ trên các thiết bị khác trước, nếu không chúng sẽ tải lên lại đánh dấu và dấu vết của mình.</string>
+    <string name="bookmarks_sync_beta_warning">Tính năng đồng bộ đang ở bản beta. Hãy xuất một bản sao lưu của tất cả đánh dấu và dấu vết trước khi bật.</string>
     <string name="search_history_text">Truy cập nhanh chóng đến câu hỏi tìm kiếm gần đây.</string>
     <string name="clear_search">Xóa Lịch sử Tìm kiếm</string>
     <!-- Place Page link to Wikipedia article (if map object has it). -->
@@ -853,6 +873,8 @@
     <string name="hide_track">Ẩn tuyến đường</string>
     <!-- Text for the showing track. -->
     <string name="show_track">Hiển thị tuyến đường</string>
+    <!-- Action button that enables a disabled feature, such as iCloud synchronization or location services. -->
+    <string name="enable">Cho phép</string>
 
     <!-- SECTION: Uncategorized -->
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
