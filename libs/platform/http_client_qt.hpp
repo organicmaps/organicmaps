@@ -30,10 +30,9 @@ public:
 
   HttpClientReply(QNetworkReply * reply, HttpClient::CompletionHandler handler,
                   HttpClient::ProgressHandler progressHandler, HttpClient::DataHandler dataHandler,
-                  HttpClient::CancelChecker cancelChecker, bool loadHeaders, bool followRedirects,
-                  std::string urlRequested, std::string cookies, std::string outputFile,
-                  std::optional<HttpClient::ReceivedFileSegment> segment, QNetworkRequest request,
-                  std::string httpMethod, QByteArray bodyBytes, RebindCancel rebindCancel);
+                  HttpClient::CancelChecker cancelChecker, bool loadHeaders, std::string urlRequested,
+                  std::string outputFile, std::optional<HttpClient::ReceivedFileSegment> segment,
+                  QNetworkRequest request, std::string httpMethod, QByteArray bodyBytes, RebindCancel rebindCancel);
 
   // Pure decision predicate for the GOAWAY/REFUSED_STREAM retry. Exposed for
   // unit testing — cancellation is intentionally not part of this, it's an
@@ -47,6 +46,8 @@ private slots:
   void OnFinished();
 
 private:
+  HttpClient::Result MakeResult();
+
   // Validates 206 + Content-Range for segment mode and opens the output file at the target
   // offset on the first call. Idempotent; sets m_writeError + m_segmentErrorCode on failure.
   // Must be called before any write to the output file. Returns true if the segment is ready
@@ -68,9 +69,7 @@ private:
   HttpClient::DataHandler m_dataHandler;
   HttpClient::CancelChecker m_cancelChecker;
   bool m_loadHeaders;
-  bool m_followRedirects;
   std::string m_urlRequested;
-  std::string m_cookies;
   std::string m_outputFile;
   QFile * m_outputFileStream = nullptr;
   bool m_writeError = false;
@@ -84,20 +83,18 @@ private:
   int64_t m_segmentBytesWritten = 0;
   int m_segmentErrorCode = HttpClient::kNoError;  // Overrides result error code when set.
 
-  // Retry state: kept so a single GOAWAY-rejected stream can be re-issued
-  // transparently. Flipped permanently when any body byte is observed by the
-  // caller, so a retry can never silently double-deliver.
+  // Preserve the request so a rejected HTTP/2 stream can be retried once.
   QNetworkRequest m_request;
   std::string m_httpMethod;
   QByteArray m_bodyBytes;
   RebindCancel m_rebindCancel;
   int m_retriesRemaining = 1;
+  // Once body bytes reach a sink, retrying would deliver them twice.
   bool m_anyBytesReceived = false;
 };
 
-// QObject worker living on a dedicated QThread. Owns the QNetworkAccessManager
-// (created on the worker thread). All QNetworkReply objects and their signals
-// live on this thread, so the caller's thread is never blocked for signal delivery.
+// The worker and its child manager move together to a dedicated QThread before
+// requests are issued, so reply signals are delivered on that thread's event loop.
 class NetworkWorker : public QObject
 {
   Q_OBJECT

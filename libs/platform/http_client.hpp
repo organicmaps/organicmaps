@@ -120,7 +120,8 @@ public:
   RequestHandle RunHttpRequestAsync(CompletionHandler handler);
 
   // Synchronous (blocking) wrapper over RunHttpRequestAsync.
-  // @returns true if connection was made and server returned something (200, 404, etc.).
+  // Returns false on transport or response-sink failure. An HTTP error status
+  // alone does not imply failure; inspect ErrorCode() for the HTTP result.
   bool RunHttpRequest();
   // Returns true and copy of server response into [response] in case when RunHttpRequest() and
   // [checker] return true. When [checker] is equal to nullptr then default checker will be used.
@@ -157,7 +158,7 @@ public:
   HttpClient & SetUserAndPassword(std::string const & user, std::string const & password);
   // Set HTTP Cookie header.
   HttpClient & SetCookies(std::string const & cookies);
-  // When set to false (default), clients never get 3XX codes from servers, redirects are handled automatically.
+  // Follow redirects automatically when true. The default, false, exposes 3xx responses.
   HttpClient & SetFollowRedirects(bool follow_redirects);
   HttpClient & SetRawHeader(std::string const & key, std::string const & value);
   HttpClient & SetRawHeaders(Headers const & headers);
@@ -175,8 +176,8 @@ public:
   // @returns empty string in the case of error
   std::string const & UrlReceived() const;
   bool WasRedirected() const;
-  // Mix of HTTP errors (in case of successful connection) and system-dependent error codes,
-  // in the simplest success case use 'if (200 == client.error_code())' // 200 means OK in HTTP
+  // HTTP status or transport/sink error code. Check RunHttpRequest() as well as
+  // ErrorCode() == 200 to require a completed 200 response.
   int ErrorCode() const;
   std::string const & ServerResponse() const;
   std::string const & HttpMethod() const;
