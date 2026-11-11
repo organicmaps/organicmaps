@@ -14,9 +14,11 @@ VIKTIGE FUNKSJONER:
 
 UTFORSK STEDER: Søk etter adresse, navn eller kategori, oppdag millioner av POI-er og se detaljert informasjon som åpningstider, Wikipedia-artikler, tilgjengelighet for rullestol og annen nyttig informasjon. Alt tilgjengelig offline.
 
-GPS-NAVIGASJON: Nyt stemmestyrte, sving-for-sving-instruksjoner. Opprett gå-, tur-, sykkel- eller kjøreruter — inkludert ruter mellom byer, land og flere veikryss. Finn de beste rutene for metro- og pendlerreiser. CarPlay støttes.
+GPS-NAVIGASJON: Nyt stemmestyrte, sving-for-sving-instruksjoner. Opprett gå-, tur-, sykkel- eller kjøreruter — inkludert ruter mellom byer, land og flere veipunkter. Finn de beste rutene for metro- og pendlerreiser. CarPlay støttes.
 
 TUR- & SYKKELSTIER FRA HELE VERDEN: Aktiver spesielle kartlag for å oppdage populære tur- og sykkelruter over hele verden, alle hentet fra OpenStreetMap. Bytt mellom lag for å se fargede sykkel- og MTB-ruter, samt offisielle turstier.
+
+3D-TERRENG & DYBDER: Se 3D-terreng, hav- og sjødybder og detaljerte høydekurver. Trykk på et hvilket som helst punkt for å se høyden, på land eller til sjøs.
 
 OFFENTLIG TRANSPORT: Du kan planlegge reiseruter med offentlig transport. Støtte for rutetabeller i sanntid er under utvikling.
 
@@ -32,7 +34,7 @@ MØRKT MODUS: Bytt til mørkt tema for behagelig visning om natten.
 
 iCLOUD-SYNK: Sikkerhetskopier og synkroniser enkelt alle bokmerker og spor via iCloud.
 
-Prøv appen — den er 100 % gratis, uten annonser, rask og fullstendig offline. Nyt en rask, pålitelig og privat kartopplevelse, og del den med andre.
+Prøv appen — den er 100 % gratis, uten annonser, rask og fullstendig offline.
 Organic Maps er et uavhengig, fellesskapsdrevet, åpen kildekode-prosjekt med hundrevis av bidragsytere som hjelper med å utvikle nye funksjoner, fikse problemer, oversette og drive prosjektet fremover.
 
 Eller lær andre måter å støtte prosjektet på: https://organicmaps.app/contribute/
