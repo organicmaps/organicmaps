@@ -18,6 +18,8 @@ NAVIGASI GPS: Nikmati arahan berpandu suara, langkah demi langkah. Cipta laluan 
 
 LALUAN MENDAKI & BERBASIKAL DARI SELURUH DUNIA: Aktifkan lapisan peta khas untuk menemui laluan mendaki dan berbasikal yang popular di seluruh dunia, semua daripada OpenStreetMap. Tukar antara lapisan untuk melihat laluan berwarna basikal dan MTB, serta laluan mendaki rasmi.
 
+RUPA BUMI 3D & KEDALAMAN: Lihat ketinggian gunung, kedalaman laut dan garisan kontur. Ketik di mana-mana pada peta untuk melihat ketinggian.
+
 PENGANGKUTAN AWAM: Rancang laluan pengangkutan awam. Jadual waktu masa nyata sedang dibangunkan.
 
 GAYA PETA: Pilih lapisan peta yang sesuai dengan aktiviti anda — Luar, Garis Ketinggian, Mendaki, Berbasikal, atau Metro/Transit.
@@ -30,8 +32,8 @@ EDITOR PETA: Sumbang kepada OpenStreetMap dengan menambah tempat yang hilang ata
 
 SYNC iCLOUD: Mudah membuat sandaran dan menyegerakkan semua penanda halaman dan laluan melalui iCloud.
 
-Cuba aplikasi ini — ia 100% percuma, tanpa iklan, pantas, dan sepenuhnya luar talian. Nikmati pengalaman peta yang pantas, boleh dipercayai, dan peribadi, dan kongsi dengan orang lain.
-Organic Maps ialah projek indie sumber terbuka yang dikendalikan komuniti dengan ratusan penyumbang yang membantu membangunkan ciri baru, membaiki isu, menterjemah, dan memajukan projek.
+Cuba aplikasi ini — ia 100% percuma, tanpa iklan, pantas, dan sepenuhnya luar talian.
+Organic Maps ialah projek indie sumber terbuka yang dikendalikan komuniti dengan ratusan penyumbang yang membangunkan ciri, membaiki pepijat dan menterjemah.
 
 Instagram: @organicmaps.app
 Telegram: @OrganicMapsApp

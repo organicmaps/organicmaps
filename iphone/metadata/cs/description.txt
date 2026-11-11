@@ -6,7 +6,7 @@ RYCHLÉ: Přibližování, vyhledávání a výpočty tras fungují výrazně ry
 
 PODROBNÉ A AKTUALIZOVANÉ: Mapy jsou velmi detailní a aktualizují se dvakrát měsíčně, aby odrážely reálné podmínky. Na rozdíl od mnoha známých konkurentů obsahují označení budov, lavičky, turistické stezky a další užitečné informace.
 
-BAZOVÁNO NA OPENSTREETMAP: OpenStreetMap je wiki-styl světová mapa, vytvořená a udržovaná miliony dobrovolníků — místních, kteří nejlépe znají své oblasti. Tento komunitní přístup vede k vysoce detailním mapám, často přesnějším než komerční mapy v méně zmapovaných oblastech. Organic Maps aktualizuje svá data z OpenStreetMap každé dva týdny, udržuje mapy aktuální a spolehlivé. Pokud si všimnete něčeho chybějícího, můžete to přidat do OpenStreetMap a pomoci zlepšit mapu pro všechny.
+ZALOŽENO NA OPENSTREETMAP: OpenStreetMap je světová mapa ve stylu wiki, vytvořená a udržovaná miliony dobrovolníků — místních, kteří nejlépe znají své oblasti. Tento komunitní přístup vede k vysoce detailním mapám, často přesnějším než komerční mapy v méně zmapovaných oblastech. Organic Maps aktualizuje svá data z OpenStreetMap každé dva týdny, udržuje mapy aktuální a spolehlivé. Pokud si všimnete něčeho chybějícího, můžete to přidat do OpenStreetMap a pomoci zlepšit mapu pro všechny.
 
 PRIORITA SOUKROMÍ: Neshromažďujeme žádná data ani identifikátory. To znamená, že nehrozí únik dat a nejsou zde žádné rušivé prvky jako reklamy nebo hlasité notifikace — jen čistý, soukromý zážitek z mapy.
 
@@ -18,9 +18,11 @@ GPS NAVIGACE: Užijte si hlasem vedené navigace krok za krokem. Vytvářejte p�
 
 TURISTICKÉ A CYKLISTICKÉ TRASY Z CELÉHO SVĚTA: Aktivujte speciální vrstvy mapy a objevujte populární turistické a cyklistické trasy po celém světě, všechny z OpenStreetMap. Přepínejte mezi vrstvami a zobrazujte barevné cyklistické a MTB trasy a oficiální turistické stezky.
 
+3D TERÉN A HLOUBKY: Prohlížejte výšky hor, mořské hloubky a vrstevnice. Klepnutím kamkoli do mapy zobrazíte nadmořskou výšku.
+
 VEŘEJNÁ DOPRAVA: Můžete si plánovat trasy s využitím veřejné dopravy. Podpora jízdních řádů v reálném čase se právě vyvíjí.
 
-STYLY MAP: Vyberte vrstvy mapy podle vaší aktivity — Outdoor, Konturové linie, Turistika, Cyklistika nebo Metro.
+STYLY MAP: Vyberte vrstvy mapy podle vaší aktivity — Outdoor, Vrstevnice, Turistika, Cyklistika nebo Metro.
 
 ZÁZNAMNÍK TRAS: Zaznamenávejte, importujte, exportujte a sdílejte své trasy a oblíbená místa. Podporuje formáty KML, KMZ, GPX a GeoJSON.
 
@@ -32,12 +34,12 @@ TMAVÝ REŽIM: Přepněte na tmavé téma pro pohodlné prohlížení v noci.
 
 iCLOUD SYNC: Snadno zálohujte a synchronizujte všechny své záložky a trasy přes iCloud.
 
-Vyzkoušejte aplikaci — je 100% zdarma, bez reklam, rychlá a plně offline. Užijte si rychlý, spolehlivý a soukromý zážitek s mapou a sdílejte jej s ostatními!
-Organic Maps je nezávislý, komunitou řízený open-source projekt se stovkami přispěvatelů, kteří pomáhají vyvíjet nové funkce, opravovat problémy, překládat a posouvat projekt vpřed.
+Vyzkoušejte aplikaci — je 100% zdarma, bez reklam, rychlá a plně offline.
+Organic Maps je nezávislý, komunitou řízený open-source projekt se stovkami přispěvatelů, kteří vyvíjejí funkce, opravují chyby a překládají.
 
 Nebo zjistěte další způsoby, jak projekt podpořit: https://organicmaps.app/contribute/
 
-Vaše upřímná zpětná vazba a recenze v obchodě nás motivují! Rádi slyšíme váš názor. Máte otázky? Navštivte web organicmaps.app pro více informací a FAQ.
+Vaše upřímná zpětná vazba a recenze v obchodě nás motivují! Rádi slyšíme váš názor. Máte otázky? Více na organicmaps.app.
 
 Instagram: @organicmaps.app
 Telegram: @OrganicMapsApp

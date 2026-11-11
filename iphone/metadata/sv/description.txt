@@ -6,7 +6,7 @@ SNABB: Zoomning, sökning och ruttberäkningar fungerar märkbart snabbt.
 
 DETALJERAD OCH UPPDATERAD: Kartorna är rika på detaljer och uppdateras två gånger i månaden för att återspegla verkliga förhållanden. Till skillnad från många välkända konkurrenter inkluderar de byggnadsetiketter, bänkar, vandringsleder och annan användbar information.
 
-BASERAD PÅ OPENSTREETMAP: OpenStreetMap är en wiki-stil världskarta, byggd och underhållen av miljontals volontärer — lokalbefolkning som känner sina områden bäst. Detta gemenskapsarbete resulterar i mycket detaljerade kartor, ofta mer exakta än kommersiella kartor i mindre kartlagda områden. Organic Maps uppdaterar sina data från OpenStreetMap varannan vecka, vilket håller dina kartor färska och pålitliga. Och om du märker att något saknas kan du lägga till det i OpenStreetMap och hjälpa till att förbättra kartan för alla.
+BASERAD PÅ OPENSTREETMAP: OpenStreetMap är en världskarta i wikistil, byggd och underhållen av miljontals volontärer — lokalbefolkning som känner sina områden bäst. Detta gemenskapsarbete resulterar i mycket detaljerade kartor, ofta mer exakta än kommersiella kartor i mindre kartlagda områden. Organic Maps uppdaterar sina data från OpenStreetMap varannan vecka, vilket håller dina kartor färska och pålitliga. Och om du märker att något saknas kan du lägga till det i OpenStreetMap och hjälpa till att förbättra kartan för alla.
 
 INTEGRITET FÖRST: Vi samlar inte in några data eller identifierare. Detta innebär att det inte finns någon risk för dataläckor och inga störande annonser eller högljudda aviseringar — bara en ren och privat kartupplevelse.
 
@@ -17,6 +17,8 @@ UPPTÄCK PLATSER: Sök efter adress, namn eller kategori, upptäck miljontals PO
 GPS-NAVIGERING: Njut av röststyrd, sväng-för-sväng-vägledning. Skapa rutter för promenader, vandring, cykling eller bilkörning — inklusive rutter mellan städer, länder och flera vägpunkter. Hitta de bästa rutterna för dina tunnelbaneresor och pendling. CarPlay stöds.
 
 VANDRINGS- OCH CYKELLEDER FRÅN HELA VÄRLDEN: Aktivera specialkartlager för att upptäcka populära vandrings- och cykelleder världen över, alla från OpenStreetMap. Växla mellan lager för att se färgade cykel- och MTB-rutter samt officiella vandringsleder.
+
+3D-TERRÄNG & DJUP: Se bergshöjder, havsdjup och höjdkurvor. Tryck var som helst på kartan för att se höjden.
 
 KOLLEKTIVTRAFIK: Planera resor med kollektivtrafik. Tidtabeller i realtid är under utveckling.
 
@@ -32,10 +34,10 @@ MÖRKT LÄGE: Byt till ett mörkt tema för bekväm visning på natten.
 
 iCLOUD-SYNK: Säkerhetskopiera och synkronisera enkelt alla dina bokmärken och spår via iCloud.
 
-Prova appen — den är 100 % gratis, utan annonser, snabb och helt offline. Njut av en snabb, pålitlig och privat kartupplevelse och dela den med andra.
-Organic Maps är ett indie, community-drivet, open-source-projekt med hundratals bidragsgivare som hjälper till att utveckla nya funktioner, fixa problem, översätta och driva projektet framåt.
+Prova appen — den är 100 % gratis, utan annonser, snabb och helt offline.
+Organic Maps är ett indie, community-drivet, open-source-projekt med hundratals bidragsgivare som utvecklar funktioner, fixar buggar och översätter.
 
-Eller lär dig andra sätt att stödja projektet: https://organicmaps.app/contribute/
+Stöd projektet: https://organicmaps.app/contribute/
 
 Din ärliga feedback och recensioner i butiken motiverar oss!
 

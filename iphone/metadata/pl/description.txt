@@ -14,9 +14,11 @@ WAŻNE FUNKCJE:
 
 ODKRYWAJ MIEJSCA: Wyszukuj według adresu, nazwy lub kategorii, odkrywaj miliony POI i przeglądaj szczegółowe informacje, takie jak godziny otwarcia, artykuły Wikipedii, dostępność dla wózków inwalidzkich i inne przydatne dane. Wszystko dostępne offline.
 
-NAWIGACJA GPS: Ciesz się wskazówkami głosowymi krok po kroku. Twórz trasy piesze, wędrówki, rowerowe lub samochodowe — w tym między miastami, krajami i z wieloma punktami pośrednimi. Znajdź najlepsze trasy dla podróży metrem i codziennych dojazdów. Obsługa CarPlay.
+NAWIGACJA GPS: Ciesz się wskazówkami głosowymi krok po kroku. Twórz trasy piesze, turystyczne, rowerowe lub samochodowe — w tym między miastami, krajami i z wieloma punktami pośrednimi. Obsługa CarPlay.
 
 SZLAKI WĘDRÓWKOWE I ROWEROWE Z CAŁEGO ŚWIATA: Włącz specjalne warstwy map, aby odkrywać popularne szlaki piesze i rowerowe na całym świecie, wszystkie pochodzące z OpenStreetMap. Przełączaj warstwy, aby zobaczyć kolorowe trasy rowerowe i MTB oraz oficjalne szlaki turystyczne.
+
+TEREN 3D I GŁĘBOKOŚCI: Zobacz wysokości gór, głębokości mórz i poziomice. Dotknij dowolnego miejsca na mapie, aby zobaczyć jego wysokość.
 
 TRANSPORT PUBLICZNY: Zaplanuj trasy transportu publicznego. Trwają prace nad wprowadzeniem rozkładów jazdy na żywo.
 
@@ -30,8 +32,8 @@ EDYTOR MAP: Wspieraj OpenStreetMap, dodając brakujące miejsca lub edytując ma
 
 SYNC iCLOUD: Łatwo wykonaj kopię zapasową i synchronizuj wszystkie zakładki i trasy przez iCloud.
 
-Wypróbuj aplikację — jest w 100% darmowa, bez reklam, szybka i całkowicie offline. Ciesz się szybką, niezawodną i prywatną obsługą mapy i dziel się nią z innymi.
-Organic Maps to niezależny, społecznościowy projekt open-source z setkami współtwórców, którzy pomagają rozwijać nowe funkcje, naprawiać błędy, tłumaczyć i rozwijać projekt.
+Wypróbuj aplikację — jest w 100% darmowa, bez reklam, szybka i całkowicie offline.
+Organic Maps to niezależny, społecznościowy projekt open-source z setkami współtwórców, którzy rozwijają funkcje, naprawiają błędy i tłumaczą.
 
 Lub dowiedz się, jak wspierać projekt: https://organicmaps.app/contribute/
 
