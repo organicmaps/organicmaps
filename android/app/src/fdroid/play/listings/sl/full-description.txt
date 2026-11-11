@@ -14,9 +14,11 @@ Organic Maps je hitra in podrobna aplikacija za offline zemljevide in GPS naviga
 
 <b>RAZISKOVANJE KRAJEV:</b> Iščite po naslovu, imenu ali kategoriji, odkrijte milijone zanimivih krajev in si oglejte podrobnosti, kot so delovni čas, članki z Wikipedije, dostopnost za invalidske vozičke in druge koristne informacije.
 
-<b>GPS NAVIGACIJA:</b> Glasovna navodila ob vsakem zavoju. Ustvarite peš, pohodniške, kolesarske ali avtomobilske poti – tudi med mesti in državami ter z več vmesnimi točkami. Poiščite najboljše poti z javnim prevozom za izlete in vsakodnevne vožnje. Podprt je Android Auto.
+<b>GPS NAVIGACIJA:</b> Glasovna navodila ob vsakem zavoju. Ustvarite peš, pohodniške, kolesarske ali avtomobilske poti – tudi med mesti in državami ter z več vmesnimi točkami. Podprt je Android Auto.
 
 <b>POHODNIŠKE IN KOLESARSKE POTI Z VSEGA SVETA:</b> Vklopite posebne sloje zemljevida in odkrijte priljubljene pohodniške in kolesarske poti po vsem svetu – vse iz OpenStreetMap. Preklapljajte med sloji in si oglejte barvne kolesarske in MTB poti ter uradne pohodniške poti.
+
+<b>3D TEREN IN GLOBINE:</b> Oglejte si 3D teren, globine oceanov in morij ter podrobne plastnice. Tapnite katero koli točko in preverite njeno nadmorsko višino, na kopnem ali na morju.
 
 <b>JAVNI PREVOZ:</b> Načrtujte poti z javnim prevozom – metro, lahka železnica, avtobus in tramvaj. Oglejte si številke linij na postajališčih.
 
