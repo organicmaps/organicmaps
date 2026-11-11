@@ -18,6 +18,8 @@ Organic Maps es una aplicación rápida y detallada de mapas offline y navegaci�
 
 <b>SENDEROS DE TODO EL MUNDO:</b> Activa capas especiales del mapa para descubrir rutas populares de senderismo y ciclismo en todo el mundo, todas basadas en OpenStreetMap. Cambia entre capas para ver rutas en bicicleta y MTB marcadas por colores, así como senderos oficiales de caminata.
 
+<b>TERRENO 3D Y PROFUNDIDADES:</b> Visualiza el terreno en 3D, la profundidad de océanos y mares y curvas de nivel detalladas. Toca cualquier punto para ver su altitud, en tierra o en el mar.
+
 <b>TRANSPORTE PÚBLICO:</b> Planifica rutas de transporte público. Los horarios en tiempo real están en desarrollo.
 
 <b>ESTILOS DE MAPA:</b> Elige capas que se adapten a tu actividad — Exterior, Curvas de Nivel, Senderismo, Ciclismo o Metro.
@@ -28,7 +30,7 @@ Organic Maps es una aplicación rápida y detallada de mapas offline y navegaci�
 
 <b>EDITOR DE MAPAS:</b> Contribuye a OpenStreetMap añadiendo lugares que faltan o editando el mapa directamente desde Organic Maps.
 
-Prueba la app — es 100% gratuita, sin anuncios, rápida y totalmente offline. Disfruta de una navegación GPS confiable para senderismo, ciclismo, trekking y viajes en cualquier lugar del mundo. Vive una experiencia de mapas rápida, privada y confiable, ¡y compártela con otros!
+Prueba la app — es 100% gratuita, sin anuncios, rápida y totalmente offline.
 
 Organic Maps es un proyecto independiente, comunitario y de código abierto con cientos de colaboradores que ayudan a desarrollar nuevas funciones, corregir problemas, traducir y hacer avanzar el proyecto.
 
