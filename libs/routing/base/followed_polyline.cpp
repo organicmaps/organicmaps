@@ -8,7 +8,6 @@
 #include <algorithm>
 #include <cmath>
 #include <limits>
-#include <unordered_set>
 
 namespace routing
 {
@@ -24,14 +23,15 @@ double constexpr kForwardChainMinCosine = 0.9;
 // Allow bearing noise while rejecting perpendicular or opposing rejoin directions.
 double constexpr kMinDirectionMatchCosine = 0.5;
 
+// Appended candidates initialize every field; leave spare inline slots untouched.
 struct TrackCandidate
 {
   Iter m_iter;
-  double m_distanceM = 0.0;
-  double m_signedChangeM = 0.0;
-  double m_alignment = 0.0;
-  bool m_onForwardChain = false;
-  bool m_afterObservedTurn = false;
+  double m_distanceM;
+  double m_signedChangeM;
+  double m_alignment;
+  bool m_onForwardChain;
+  bool m_afterObservedTurn;
 
   // Prefer continuity among projections in the same spatial uncertainty band.
   bool PreferTo(TrackCandidate const & best, double toleranceM) const
@@ -233,22 +233,41 @@ size_t FollowedPolyline::GetForwardChainEnd(m2::PointD const & direction, double
   double const directionLength = direction.Length();
   double const tolerance = toleranceM * directionLength / mercator::DistanceOnEarth(origin, origin + direction);
   double furthest = 0.0;
-  std::unordered_set<m2::PointD, m2::PointD::Hash> visited;
-  visited.insert(origin);
+  buffer_vector<m2::PointD, 64> visited{origin};
+  // Sort along movement so forward samples usually append.
+  auto const less = [&direction](m2::PointD const & lhs, m2::PointD const & rhs)
+  {
+    double const lhsProjection = m2::DotProduct(direction, lhs);
+    double const rhsProjection = m2::DotProduct(direction, rhs);
+    return lhsProjection != rhsProjection ? lhsProjection < rhsProjection : lhs < rhs;
+  };
+  auto const visit = [&visited, &less](m2::PointD const & point)
+  {
+    auto const it =
+        less(visited.back(), point) ? visited.end() : std::lower_bound(visited.begin(), visited.end(), point, less);
+    if (it != visited.end() && *it == point)
+      return false;
+    visited.insert(it, point);
+    return true;
+  };
   // Nearby earlier vertices distinguish source revisits from recording noise.
+  // Sort them together instead of shifting the buffer on each backward insertion.
   for (size_t i = m_current.m_ind + 1; i > 0; --i)
   {
     auto const & point = m_poly.GetPoint(i - 1);
     if (mercator::DistanceOnEarth(origin, point) > toleranceM)
       break;
-    visited.insert(point);
+    if (visited.back() != point)
+      visited.push_back(point);
   }
+  std::sort(visited.begin(), visited.end(), less);
+  visited.erase(std::unique(visited.begin(), visited.end()), visited.end());
   for (size_t i = m_current.m_ind; i < m_segProj.size(); ++i)
   {
     auto const & point = m_poly.GetPoint(i + 1);
     // Consecutive altitude/stop samples belong to one visit; returning to a vertex does not.
     bool const atCurrent = i == m_current.m_ind && point.EqualDxDy(origin, mercator::kPointEqualityEps);
-    if (!point.EqualDxDy(m_poly.GetPoint(i), mercator::kPointEqualityEps) && !visited.insert(point).second && !atCurrent)
+    if (!point.EqualDxDy(m_poly.GetPoint(i), mercator::kPointEqualityEps) && !visit(point) && !atCurrent)
       break;
     auto const chord = point - origin;
     double const projection = m2::DotProduct(direction, chord) / directionLength;
@@ -294,7 +313,7 @@ Iter FollowedPolyline::GetTrackMatchingProjection(TrackMatchQuery const & query)
                               ? GetForwardChainEnd(*query.m_forwardDirection, forwardAllowanceM, query.m_toleranceM)
                               : m_current.m_ind;
   TrackCandidate best;
-  buffer_vector<TrackCandidate, 32> candidates;
+  buffer_vector<TrackCandidate, 64> candidates;
   double nearestDistanceM = std::numeric_limits<double>::max();
   for (size_t i = start; i < m_segProj.size(); ++i)
   {
