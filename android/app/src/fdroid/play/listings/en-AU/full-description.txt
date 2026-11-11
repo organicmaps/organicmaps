@@ -18,6 +18,8 @@ Organic Maps is a fast, detailed offline map and GPS navigation app for travel, 
 
 <b>HIKING & CYCLING TRAILS FROM AROUND THE WORLD:</b> Enable special map layers to discover popular hiking and cycling routes worldwide, all sourced from OpenStreetMap. Switch between layers to see colored bike and MTB routes, as well as official hiking paths.
 
+<b>3D TERRAIN & DEPTHS:</b> See 3D terrain, ocean and sea depths, and detailed contour lines. Tap any point to check its elevation, on land or at sea.
+
 <b>PUBLIC TRANSPORT:</b> Plan subway, light rail, bus and tram routes; see line numbers at stops. Live timetables are in development.
 
 <b>MAP STYLES:</b> Choose map layers that fit your activity — Outdoors, Contour Lines, Hiking, Cycling, or Metro/Subway.
@@ -30,7 +32,7 @@ Organic Maps is a fast, detailed offline map and GPS navigation app for travel, 
 
 <b>DARK MODE:</b> Switch to a dark theme for comfortable viewing at night.
 
-Try the app — it’s 100% free, ad-free, fast, and fully offline. Experience reliable GPS navigation for hiking, biking, trekking, and travel anywhere in the world!
+Try the app — it’s 100% free, ad-free, fast, and fully offline.
 
 Organic Maps is an indie, community-driven, open-source project with hundreds of contributors who help develop new features, fix issues, translate, and move the project forward.
 
