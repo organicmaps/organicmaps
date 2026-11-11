@@ -54,9 +54,9 @@ You will find a list of issues for new contributors [here](https://github.com/or
 
 Sometimes it's better to discuss and confirm your vision of the fix or implementation before working on an issue. Our main focus is on simplicity and convenience for everyone, not only for geeks.
 
-Please [learn how to use `git rebase`](https://git-scm.com/book/en/v2/Git-Branching-Rebasing) (or rebase via any git tool with a graphical interface, e.g. [Fork for Mac](https://git-fork.com/) is quite good) to amend your commits in the PR and maintain a clean logical commit history for your changes/branches.
+Use [`git rebase`](https://git-scm.com/book/en/v2/Git-Branching-Rebasing) to update your PR branch and maintain a clear, logical commit history. Avoid merge commits. Graphical Git clients such as [Fork](https://git-fork.com/) also support rebasing.
 
-While we strive to help onboard new developers we don't have enough time to guide everyone step-by-step and explain in detail how everything works (in many cases we have to study the code ourselves). You'll need to be largely self-sufficient, expect to read a lot of code and documentation.
+We strive to help onboard new developers, but cannot guide everyone step by step. Be prepared to work independently, read code and documentation, and test and explain all your changes.
 
 - [Pull Request Guide](PR_GUIDE.md).
 - [How to write a commit message](COMMIT_MESSAGES.md).
@@ -73,6 +73,7 @@ Please help us:
 - testing upcoming features and bug fixes for Android, iOS and desktop versions
 - keeping [github issues](https://github.com/organicmaps/organicmaps/issues) in order (check for duplicates, organize, assign labels, link related issues, etc.)
 - composing nice user-centric release notes and news items
+- [reviewing code](PR_GUIDE.md#doing-good-code-review)
 - etc.
 
 ## Submitting your changes
@@ -98,9 +99,9 @@ who did what, and for legal reasons.
 
 To sign-off a patch, just add a line in the commit message saying:
 
-    Signed-off-by: Some Developer <somedev@example.com>
+    Signed-off-by: Your Name <your@email.address>
 
-Git has a flag that can sign a commit for you. An example using it is:
+Git has `-s` flag that can sign a commit for you. An example using it is:
 
     git commit -s -m 'An example commit message'
 

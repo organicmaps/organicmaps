@@ -2,7 +2,7 @@
 
 ## Writing a good Pull Request (PR):
 
-- If you used LLM tools (e.g. GitHub Copilot, ChatGPT, etc.) to generate code you should mention it explicitly in the PR description
+- If you use LLM tools (e.g. Claude, Codex, GitHub Copilot, or ChatGPT) to generate code, tests, documentation, or translations, mention this, the model name, and the effort level (if applicable) in the PR description. You (not an LLM tool!) are responsible for all changes
 - Format the code as described in ./docs/CODE_STYLE_GUIDE.md
 - PR should be small and reflect only one idea, a feature, a bugfix, or a refactoring. In most cases, PR of 100 lines or less is considered as PR of normal size and PR of 1000 lines as big one
 - If PR implements different/unrelated features, refactoring, or bugfixes, it should be split into several PRs
@@ -10,7 +10,8 @@
 - If PR implements a complex algorithm, the description should contain a link to the proof of the solution or a link to a trusted source
 - Every commit of PR should be compilable under all platforms. All tests should pass. So if changing of code breaks unit or integration tests these tests should be fixed in the same commit
 - Every commit should reflect a completed idea and have an understandable comment
-- Review fixes can be done in separate commits to ease the review process, but they should be squashed before merging into logical commits
+- Review fixes can be committed separately to ease review. Before merging, squash them into the relevant logical commits, keeping automatically generated files in a separate commit
+- Use rebase to update your PR branch and avoid merge commits
 - New functionality and unit or integration tests for it should be developed in the same PR
 - There are no testers in the project. So every PR should contain information about how the changes were tested. A good testing involves different OS versions, landscape/portrait modes, light/dark themes if applicable, different use cases, etc.
 - Automatically generated files (e.g. strings or styles) should always be in a separate commit
@@ -33,6 +34,7 @@
 - PR may be merged by a reviewer if all the following items are fulfilled: (1) the PR isn't marked as a draft; (2) all reviewers which have started to review the PR, approved it; (3) all reviewers which are added as reviewers of the PR, have approved it
 - If a reviewer doesn't have time to review all the PR they should write about it explicitly. For example, LGTM for android part
 - If a reviewer and a developer cannot find a compromise, a third opinion should be sought
+- Resolve review conversations only after every comment has been addressed with a fix or a reasoned response. Reviewers may reopen conversations resolved without either
 
 ## Recommendations:
 
@@ -43,4 +45,3 @@
 - If you are solving a big task it's worth splitting it into subtasks and develop one or several PRs for every subtask
 - In most cases refactoring should be done in a separate PR
 - If you want to refactor a significant part of the code base, it's worth discussing it with all developers before starting work
-- It's worth using the 'Resolve' conversation button to minimize the list of comments in PR
