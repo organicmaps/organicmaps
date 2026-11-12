@@ -7,7 +7,6 @@
 
 @property(nonatomic, copy) NSString * workingDays;
 @property(nonatomic, copy) NSString * workingTimes;
-@property(nonatomic, copy) NSString * breaks;
 @property(nonatomic) BOOL isOpen;
 
 @end
@@ -19,7 +18,6 @@
 @interface OpeningHours ()
 
 @property(nonatomic, strong) NSArray<WorkingDay *> * days;
-@property(nonatomic) BOOL isClosedNow;
 
 @end
 
@@ -27,23 +25,30 @@
 
 - (instancetype)initWithRawString:(NSString *)rawString localization:(id<IOpeningHoursLocalization>)localization
 {
+  NSInteger const today = [NSCalendar.currentCalendar component:NSCalendarUnitWeekday fromDate:NSDate.date];
+  return [self initWithRawString:rawString localization:localization today:today];
+}
+
+- (instancetype)initWithRawString:(NSString *)rawString
+                     localization:(id<IOpeningHoursLocalization>)localization
+                            today:(NSInteger)today
+{
+  auto const days = osmoh::processRawString(rawString, localization, today);
+  if (!days)
+    return nil;
+
   self = [super init];
   if (self)
   {
-    auto const [days, isClosed] = osmoh::processRawString(rawString, localization);
-    _isClosedNow = isClosed;
-    NSMutableArray * array = [NSMutableArray arrayWithCapacity:days.size()];
-    for (auto const & day : days)
+    NSMutableArray * array = [NSMutableArray arrayWithCapacity:days->size()];
+    for (auto const & day : *days)
     {
       WorkingDay * wd = [[WorkingDay alloc] init];
       wd.isOpen = day.m_isOpen;
       wd.workingDays = day.m_workingDays;
       wd.workingTimes = day.m_isOpen ? day.m_workingTimes : localization.closedString;
-      wd.breaks = day.m_breaks;
       [array addObject:wd];
     }
-    if (array.count == 0)
-      return nil;
     _days = [array copy];
   }
   return self;

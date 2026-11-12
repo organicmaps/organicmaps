@@ -357,7 +357,13 @@ extension PlacePageViewController: PlacePageViewProtocol {
   func updatePreviewOffset() {
     updateSteps()
     guard !beginDragging, isVisible else { return }
-    let estimatedYOffset = isPreviewPlus ? scrollSteps[2].offset : scrollSteps[1].offset + Constants.additionalPreviewOffset
+    var estimatedYOffset = isPreviewPlus ? scrollSteps[2].offset : scrollSteps[1].offset + Constants.additionalPreviewOffset
+    if let anchor = layout.openingAnchor {
+      // As with the preview, a part of the next section shows that there is more, but not past the full place page.
+      let anchorOffset = scrollView.convert(anchor.bounds, from: anchor).maxY - scrollView.height
+      estimatedYOffset = max(estimatedYOffset,
+                             min(anchorOffset + Constants.additionalPreviewOffset, PlacePageState.full.offset))
+    }
     var offset = CGPoint(x: 0, y: estimatedYOffset)
     if let userDefinedStep {
       // Respect user defined offset if possible.
