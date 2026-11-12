@@ -356,8 +356,6 @@ void MapItem::CreateEngine()
         return;
       if (state == IsolinesManager::IsolinesState::NoData)
         emit self->notice(Localized("isolines_location_error_dialog"));
-      else if (state == IsolinesManager::IsolinesState::ExpiredData)
-        emit self->isolinesNeedMaps();
     });
   });
   m_framework.CreateDrapeEngine(make_ref(m_contextFactory), std::move(p));

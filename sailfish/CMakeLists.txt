@@ -91,7 +91,8 @@ install(FILES qml/organicmaps.qml DESTINATION ${APP_DATA_DIR}/qml RENAME ${APP_N
 set(SVG_ICONS_DIR "${CMAKE_CURRENT_BINARY_DIR}/icons")
 # The RES_DIRS of the converter.
 file(GLOB ANDROID_DRAWABLES CONFIGURE_DEPENDS
-  "${OMIM_ROOT}/android/*/src/main/res/drawable*/*.xml" "${OMIM_ROOT}/android/libs/*/src/main/res/drawable*/*.xml")
+  "${OMIM_ROOT}/android/*/src/main/res/drawable*/*.xml" "${OMIM_ROOT}/android/libs/*/src/main/res/drawable*/*.xml"
+  "${CMAKE_CURRENT_SOURCE_DIR}/res/drawable*/*.xml")
 add_custom_command(
   OUTPUT "${SVG_ICONS_DIR}/.stamp"
   # Starts afresh, so that icons no longer converted aren't installed.

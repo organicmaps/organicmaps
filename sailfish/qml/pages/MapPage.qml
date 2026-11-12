@@ -55,7 +55,6 @@ Page {
         target: map
         onEngineCreated: urlHandler.processPending()
         onNotice: Toast.showLong(message)
-        onIsolinesNeedMaps: Toast.showLong(appInfo.localized("isolines_activation_error_dialog"))
     }
     Connections {
         target: appSettings
@@ -210,7 +209,7 @@ Page {
                         { layer: MapItem.Outdoors, icon: "ic_layers_outdoors",
                           text: appInfo.localized("button_layer_outdoor") },
                         { layer: MapItem.Isolines, icon: "ic_layers_isoline",
-                          text: appInfo.localized("button_layer_isolines") },
+                          text: appInfo.localized("button_layer_terrain") },
                         { layer: MapItem.Hiking, icon: "ic_layers_hiking",
                           text: appInfo.localized("button_layer_hiking") },
                         { layer: MapItem.Cycling, icon: "ic_layers_cycling",

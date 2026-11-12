@@ -15,11 +15,12 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")
 sys.path.insert(0, os.path.join(ROOT, "tools", "python"))
 from vector_drawable_to_svg import to_svg
 
-# The app resources, then the SDK and branding ones.
+# The app resources, then the SDK, branding and Sailfish OS ones.
 RES_DIRS = [
     os.path.join(ROOT, "android/app/src/main/res"),
     os.path.join(ROOT, "android/sdk/src/main/res"),
     os.path.join(ROOT, "android/libs/branding/src/main/res"),
+    os.path.join(ROOT, "sailfish/res"),
 ]
 # The light/night layer previews.
 LAYERS = [

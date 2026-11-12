@@ -102,8 +102,6 @@ signals:
   void topWidgetsOffsetChanged();
   void positionInfoChanged();
   void notice(QString const & message);
-  // Contour lines need newer maps here.
-  void isolinesNeedMaps();
   void horizontalInsetsChanged();
 
 protected:
