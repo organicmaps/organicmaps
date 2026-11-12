@@ -2,6 +2,7 @@
 #include "visual_params.hpp"
 
 #include <algorithm>
+#include <cmath>
 
 namespace df
 {
@@ -108,6 +109,33 @@ private:
   TObjectProperties m_properties;
 };
 
+namespace
+{
+/// @param direction Unit direction of the viewport center movement in mercator space.
+/// @param speed Unfiltered speed in pixels per second.
+drape_ptr<Animation> CreateAnimation(ScreenBase const & modelView, m2::PointD const & direction, double speed)
+{
+  double const vs = VisualParams::Instance().GetVisualScale();
+  if (speed < kInstantVelocityThreshold * vs || direction.IsAlmostZero())
+    return {};
+
+  ASSERT(std::abs(direction.SquaredLength() - 1.0) < 1e-6, (direction));
+
+  double const clampedSpeed = std::min(speed, CalculateKineticMaxSpeed(modelView) * vs);
+  auto const center = modelView.GlobalRect().GlobalCenter();
+
+  // PtoG scales both axes equally; rotation and the Y flip preserve length.
+  auto const displacement = direction * (modelView.GetScale() * clampedSpeed * kKineticAcceleration);
+
+  double const targetY = (center + displacement).y;
+  auto const & world = GetWorldRect();
+  if (targetY < world.minY() || targetY > world.maxY())
+    return {};
+
+  return make_unique_dp<KineticScrollAnimation>(center, displacement, kKineticDuration);
+}
+}  // namespace
+
 void KineticScroller::Init(ScreenBase const & modelView)
 {
   ASSERT(!m_isActive, ());
@@ -153,18 +181,12 @@ std::pair<m2::PointD, double> KineticScroller::GetDirectionAndVelocity(ScreenBas
 
   double const lengthPixel = (modelView.GtoP(currentCenter) - modelView.GtoP(m_points.front().first)).Length();
   double const elapsedSec = std::max(kMinDragTimeSec, GetDurationSeconds(ClockT::now(), m_points.front().second));
-  double const vs = VisualParams::Instance().GetVisualScale();
-
-  // Most touch filtrations happen here.
-  double const velocity = lengthPixel / elapsedSec;
-  if (velocity < kInstantVelocityThreshold * vs)
-    return {{}, 0};
 
   m2::PointD const delta = currentCenter - m_points.front().first;
   if (delta.IsAlmostZero())
-    return {{}, 0};
+    return {{}, 0.0};
 
-  return {delta.Normalize(), std::min(velocity, CalculateKineticMaxSpeed(modelView) * vs)};
+  return {delta.Normalize(), lengthPixel / elapsedSec};
 }
 
 void KineticScroller::Cancel()
@@ -174,22 +196,20 @@ void KineticScroller::Cancel()
 
 drape_ptr<Animation> KineticScroller::CreateKineticAnimation(ScreenBase const & modelView)
 {
-  auto const [dir, velocity] = GetDirectionAndVelocity(modelView);
+  auto const [direction, speed] = GetDirectionAndVelocity(modelView);
   // Cancel current animation in any case.
   Cancel();
-  if (velocity < 1E-6)
-    return {};
 
-  // Before we start animation we have to convert velocity vector from pixel space to mercator space.
-  m2::PointD const center = modelView.GlobalRect().GlobalCenter();
-  double const offset = (modelView.PtoG(modelView.GtoP(center) + dir * velocity) - center).Length();
-  double const glbLength = kKineticAcceleration * offset;
-  m2::PointD const glbDirection = dir * glbLength;
-  double const targetY = (center + glbDirection).y;
-  m2::RectD const & worldR = df::GetWorldRect();
-  if (targetY < worldR.minY() || targetY > worldR.maxY())
-    return {};
+  return CreateAnimation(modelView, direction, speed);
+}
 
-  return make_unique_dp<KineticScrollAnimation>(center, glbDirection, kKineticDuration);
+drape_ptr<Animation> KineticScroller::CreateFlingAnimation(ScreenBase const & modelView, double velocityX,
+                                                           double velocityY)
+{
+  // Viewport center moves opposite to the fling (finger) direction.
+  m2::PointD const pixelVelocity(-velocityX, -velocityY);
+  auto const center = modelView.GlobalRect().GlobalCenter();
+  auto const direction = (modelView.PtoG(modelView.GtoP(center) + pixelVelocity) - center).Normalize();
+  return CreateAnimation(modelView, direction, pixelVelocity.Length());
 }
 }  // namespace df

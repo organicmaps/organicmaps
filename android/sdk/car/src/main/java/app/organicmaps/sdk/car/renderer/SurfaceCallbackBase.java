@@ -66,7 +66,7 @@ abstract class SurfaceCallbackBase implements SurfaceCallback
   public void onFling(float velocityX, float velocityY)
   {
     Logger.d(TAG, "velocityX: " + velocityX + ", velocityY: " + velocityY);
-    // TODO: Implement fling in the native code.
+    Map.onFling(velocityX, velocityY);
   }
 
   @Override
