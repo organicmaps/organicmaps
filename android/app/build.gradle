@@ -286,7 +286,6 @@ def allowedPermissions = [
     // foreground services
     "name='android.permission.FOREGROUND_SERVICE'",
     "name='android.permission.FOREGROUND_SERVICE_LOCATION'",
-    "name='android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK'",
     "name='android.permission.FOREGROUND_SERVICE_DATA_SYNC'",
     // notifications
     "name='android.permission.POST_NOTIFICATIONS'",
