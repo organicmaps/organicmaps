@@ -29803,6 +29803,11 @@ vi = Khác
 zh-Hans = 其他
 zh-Hant = 其他
 
+[navigation_start_error]
+comment = Shown when Android refuses to start navigation; the route remains available for retry
+tags = android-app,android-libs-car
+en = Unable to start navigation. Please try again.
+
 [routing_planning_error]
 comment = Failed planning route message in navigation view
 tags = apple-maps

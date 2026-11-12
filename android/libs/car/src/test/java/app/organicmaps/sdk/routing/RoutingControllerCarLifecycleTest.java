@@ -23,6 +23,7 @@ import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.sound.TtsPlayer;
 import app.organicmaps.sdk.util.log.Logger;
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import org.junit.Test;
 import org.mockito.Answers;
 import org.mockito.MockedStatic;
@@ -119,6 +120,33 @@ public class RoutingControllerCarLifecycleTest
       verify(phone).onCommonBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
       service.verifyNoInteractions();
     }
+  }
+
+  @Test
+  public void resumedNavigationScreenReportsAFailureThatArrivedWithoutAHost() throws ReflectiveOperationException
+  {
+    final RoutingController controller = new RoutingController() {
+      @Override
+      void build()
+      {}
+    };
+    final Object navigation =
+        Arrays.stream(Class.forName(RoutingController.class.getName() + "$State").getEnumConstants())
+            .filter(state -> state.toString().equals("NAVIGATION"))
+            .findFirst()
+            .orElseThrow();
+    setField(controller, RoutingController.class, "mState", navigation);
+    final NavigationScreen screen = mock(NavigationScreen.class);
+    setField(screen, NavigationScreen.class, "mRoutingController", controller);
+    doCallRealMethod().when(screen).onResume(any());
+
+    try (MockedStatic<Logger> ignored = mockStatic(Logger.class))
+    {
+      controller.onNavigationStartFailed();
+      screen.onResume(mock(LifecycleOwner.class));
+      screen.onResume(mock(LifecycleOwner.class));
+    }
+    verify(screen).onNavigationStartFailed();
   }
 
   private static void setField(Object target, Class<?> type, String name, Object value)

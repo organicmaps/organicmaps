@@ -3,6 +3,7 @@ package app.organicmaps.routing;
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.POST_NOTIFICATIONS;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import android.app.ActivityManager;
@@ -12,11 +13,14 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.SystemClock;
 import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.filters.SdkSuppress;
 import androidx.test.platform.app.InstrumentationRegistry;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
+import app.organicmaps.maplayer.MapButtonsController;
+import app.organicmaps.maplayer.MapButtonsViewModel;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
@@ -122,6 +126,26 @@ public class NavigationServiceLifetimeTest
     action.get().send();
     await("Notification action did not end navigation", () -> !mController.isNavigating());
     await("Notification action left the service running", () -> !isServiceRunning());
+  }
+
+  @Test
+  public void failedStartPreservesTheDestinationWhenThePhoneReturns() throws Exception
+  {
+    onMain(mController::onNavigationStartFailed);
+    await("Failed start left the navigation service running", () -> !isServiceRunning());
+    await("The route did not rebuild for retry", mController::isBuilt);
+    mScenario.moveToState(Lifecycle.State.RESUMED);
+    mScenario.onActivity(activity -> {
+      final MapButtonsViewModel buttons = new ViewModelProvider(activity).get(MapButtonsViewModel.class);
+      assertEquals(MapButtonsController.LayoutMode.planning, buttons.getLayoutMode().getValue());
+    });
+    onMain(() -> {
+      assertTrue(mController.isPlanning());
+      assertEquals(1.0, mController.getStartPoint().getLat(), 1e-7);
+      assertEquals(1.0, mController.getStartPoint().getLon(), 1e-7);
+      assertEquals(2.0, mController.getEndPoint().getLat(), 1e-7);
+      assertEquals(2.0, mController.getEndPoint().getLon(), 1e-7);
+    });
   }
 
   private void grantPermission(String permission)

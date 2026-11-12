@@ -5,6 +5,7 @@ import static android.Manifest.permission.POST_NOTIFICATIONS;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static app.organicmaps.sdk.util.Constants.Vendor.XIAOMI;
 
+import android.app.ForegroundServiceStartNotAllowedException;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -16,6 +17,7 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Build;
 import android.os.IBinder;
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresPermission;
@@ -39,6 +41,7 @@ import app.organicmaps.sdk.util.Assert;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.Distance;
 import app.organicmaps.sdk.util.Graphics;
+import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.wear.WearBridge;
 import app.organicmaps.wear.protocol.WearDistance;
@@ -54,6 +57,8 @@ public class NavigationService extends Service implements LocationListener
   private static final int NOTIFICATION_ID = 12345678;
 
   private static OrganicMaps sOrganicMaps;
+  // Run after RoutingController.start() finishes, and cancel if navigation ends or another start is requested.
+  private static final Runnable sOnStartFailed = () -> RoutingController.get().onNavigationStartFailed();
   @Nullable
   private static NotificationCompat.Extender sCarNotificationExtender;
   @Nullable
@@ -88,26 +93,47 @@ public class NavigationService extends Service implements LocationListener
   }
 
   /**
-   * Start the foreground service for turn-by-turn voice-guided navigation.
+   * Starts the foreground service that keeps navigation running in the background.
    *
    * @param context Context to start service from.
    */
   @RequiresPermission(value = ACCESS_FINE_LOCATION)
+  @MainThread
   public static void startForegroundService(@NonNull Context context)
   {
     Logger.i(TAG);
-    ContextCompat.startForegroundService(context, new Intent(context, NavigationService.class));
+    UiThread.cancelDelayedTasks(sOnStartFailed);
+    try
+    {
+      ContextCompat.startForegroundService(context, new Intent(context, NavigationService.class));
+    }
+    catch (SecurityException | IllegalStateException e)
+    {
+      if (!isStartRefused(e))
+        throw e;
+      Logger.e(TAG, "The system refused to start the navigation service", e);
+      UiThread.runLater(sOnStartFailed);
+    }
   }
 
   /**
-   * Stop the foreground service for  turn-by-turn voice-guided navigation.
+   * Stops the navigation foreground service.
    *
    * @param context Context to stop service from.
    */
+  @MainThread
   public static void stopService(@NonNull Context context)
   {
     Logger.i(TAG);
+    UiThread.cancelDelayedTasks(sOnStartFailed);
     context.stopService(new Intent(context, NavigationService.class));
+  }
+
+  private static boolean isStartRefused(@NonNull RuntimeException e)
+  {
+    if (e instanceof SecurityException)
+      return true;
+    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && e instanceof ForegroundServiceStartNotAllowedException;
   }
 
   /**
@@ -217,24 +243,20 @@ public class NavigationService extends Service implements LocationListener
 
     if (!sOrganicMaps.arePlatformAndCoreInitialized())
     {
-      // The system restarts the service if the app's process has crashed or been stopped. It would be nice to
-      // automatically restore the last route and resume navigation. Unfortunately, the current implementation of
-      // the routing state machine (RoutingController and underlying NDK part) requires a complete re-planning of
-      // the route. Such operation can fail for some reason. We have no UI (i.e. RoutePlanFragment) started to
-      // handle any route planning errors. Starting any new Activities from Services is not allowed also.
+      // Unattended route restoration can fail without a UI to handle route-building errors.
       // https://github.com/organicmaps/organicmaps/issues/6233
       Logger.w(TAG, "Application is not initialized");
       stopSelf();
-      return START_NOT_STICKY; // The service will be stopped by stopSelf().
+      return START_NOT_STICKY;
     }
 
     if (!LocationUtils.checkFineLocationPermission(this))
     {
-      // In a hypothetical scenario, the user could revoke location permissions after the app's process crashed,
-      // but before the service with START_STICKY was restarted by the system.
+      // Permission may change before Android delivers a pending start command.
       Logger.w(TAG, "Permission ACCESS_FINE_LOCATION is not granted, skipping NavigationService");
-      stopSelf();
-      return START_NOT_STICKY; // The service will be stopped by stopSelf().
+      if (stopSelfResult(startId))
+        UiThread.runLater(sOnStartFailed);
+      return START_NOT_STICKY;
     }
 
     Logger.i(TAG, "Starting Navigation Foreground service");
@@ -245,11 +267,14 @@ public class NavigationService extends Service implements LocationListener
           this, NavigationService.NOTIFICATION_ID, getNotificationBuilder(this).build(),
           ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION | ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK);
     }
-    catch (SecurityException e)
+    catch (SecurityException | IllegalStateException e)
     {
-      // It is unknown why, but on Android 14+ devices starting services fails despite permission checks above.
+      if (!isStartRefused(e))
+        throw e;
+      // Android 14+ can deny while-in-use location access even when the permission check succeeds.
       Logger.e(TAG, "Failed to start foreground service, stopping the service", e);
-      stopSelf();
+      if (stopSelfResult(startId))
+        UiThread.runLater(sOnStartFailed);
       return START_NOT_STICKY;
     }
 
@@ -261,7 +286,6 @@ public class NavigationService extends Service implements LocationListener
     // Restart the location with more frequent refresh interval for navigation.
     locationHelper.restartWithNewMode();
 
-    // Please make this service START_STICKY after fixing the issues at the beginning of the function.
     return START_NOT_STICKY;
   }
 
@@ -310,7 +334,7 @@ public class NavigationService extends Service implements LocationListener
   @Override
   public void onLocationUpdated(@NonNull Location location)
   {
-    // Ignore any pending notifications when service is being stopping.
+    // Ignore callbacks after navigation ends.
     final RoutingController routingController = RoutingController.get();
     if (!routingController.isNavigating())
     {

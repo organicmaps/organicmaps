@@ -149,6 +149,17 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   }
 
   @Override
+  public void onNavigationStartFailed()
+  {
+    CarToast.makeText(getCarContext(), R.string.navigation_start_error, CarToast.LENGTH_LONG).show();
+    getScreenManager().popToRoot();
+    getScreenManager().push(new PlaceScreen.Builder(getCarContext(), getOrganicMapsContext(), getSurfaceRenderer())
+                                .setMapObject(mRoutingController.getEndPoint())
+                                .setDebugMode(mIsDebug)
+                                .build());
+  }
+
+  @Override
   public void onCreate(@NonNull LifecycleOwner owner)
   {
     super.onCreate(owner);
@@ -170,6 +181,7 @@ public class NavigationScreen extends BaseMapScreen implements RoutingController
   {
     super.onResume(owner);
     mRoutingController.attach(this);
+    mRoutingController.restore();
   }
 
   @Override
