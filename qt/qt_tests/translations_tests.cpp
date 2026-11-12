@@ -43,6 +43,7 @@ UNIT_TEST(Translations_PreferenceOrderAndLocaleVariants)
   {
     auto translator = qt::InstallTranslator(App(), test.m_preferred);
     TEST_EQUAL(translator->language().toStdString(), test.m_language, (test.m_preferred));
+    TEST_EQUAL(translator->objectName().toStdString(), test.m_language, (test.m_preferred));
     TEST_NOT_EQUAL(qt::Tr("download_maps").toStdString(), "download_maps", (test.m_language));
   }
 }

@@ -265,6 +265,10 @@ endif()
 
 omim_add_test_subdirectory(libs/qt_tstfrm)
 
+if (OMIM_QT_VERSION STREQUAL "5")
+  add_subdirectory(qt/translations_check)
+endif()
+
 if (PLATFORM_ANDROID)
   add_subdirectory(android/sdk/src/main/cpp)
 endif()

@@ -9,10 +9,10 @@ target_link_libraries(update_dialog_tests
     map
     gflags::gflags
     location_service
+    qt_translations
 )
 
 set_target_properties(update_dialog_tests PROPERTIES AUTOMOC ON)
-omim_add_qt_translations(update_dialog_tests)
 set_tests_properties(update_dialog_tests PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 
 omim_add_test(bookmark_export_tests NO_PLATFORM_INIT
@@ -22,8 +22,7 @@ omim_add_test(bookmark_export_tests NO_PLATFORM_INIT
 target_link_libraries(bookmark_export_tests PRIVATE Qt6::Core)
 
 omim_add_test(translations_tests NO_PLATFORM_INIT translations_tests.cpp)
-target_link_libraries(translations_tests PRIVATE qt_common)
-omim_add_qt_translations(translations_tests)
+target_link_libraries(translations_tests PRIVATE qt_common qt_translations)
 set_tests_properties(translations_tests PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 
 add_test(NAME strict_lrelease_tests
@@ -41,13 +40,11 @@ target_link_libraries(place_page_dialog_common_tests PRIVATE Qt6::Widgets)
 set_tests_properties(place_page_dialog_common_tests PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 
 omim_add_test(editor_dialog_tests editor_dialog_tests.cpp ../editor_dialog.cpp)
-target_link_libraries(editor_dialog_tests PRIVATE qt_common)
+target_link_libraries(editor_dialog_tests PRIVATE qt_common qt_translations)
 set_target_properties(editor_dialog_tests PROPERTIES AUTOMOC ON)
-omim_add_qt_translations(editor_dialog_tests)
 set_tests_properties(editor_dialog_tests PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 
 omim_add_test(create_feature_dialog_tests create_feature_dialog_tests.cpp ../create_feature_dialog.cpp)
-target_link_libraries(create_feature_dialog_tests PRIVATE qt_common)
+target_link_libraries(create_feature_dialog_tests PRIVATE qt_common qt_translations)
 set_target_properties(create_feature_dialog_tests PROPERTIES AUTOMOC ON)
-omim_add_qt_translations(create_feature_dialog_tests)
 set_tests_properties(create_feature_dialog_tests PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
