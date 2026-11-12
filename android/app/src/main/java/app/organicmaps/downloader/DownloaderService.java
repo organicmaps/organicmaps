@@ -78,11 +78,8 @@ public class DownloaderService extends Service implements MapManager.StorageCall
       cancelError();
       var notification = mNotifier.buildProgressNotification();
       Logger.i(TAG, "Starting Downloader Foreground Service");
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
-        ServiceCompat.startForeground(this, DownloaderNotifier.NOTIFICATION_ID, notification,
-                                      ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC);
-      else
-        ServiceCompat.startForeground(this, DownloaderNotifier.NOTIFICATION_ID, notification, 0);
+      ServiceCompat.startForeground(this, DownloaderNotifier.NOTIFICATION_ID, notification,
+                                    ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC);
 
       // A no-op country can synchronously report an idle queue before the next country is enqueued.
       mEnqueuingDownloads = true;

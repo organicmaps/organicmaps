@@ -229,13 +229,8 @@ public class TrackRecordingService
     Logger.i(TAG, "Starting Track Recording Foreground service");
     try
     {
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
-        ServiceCompat.startForeground(this, TrackRecordingService.TRACK_REC_NOTIFICATION_ID,
-                                      getNotificationBuilder(this).build(),
-                                      ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION);
-      else
-        ServiceCompat.startForeground(this, TrackRecordingService.TRACK_REC_NOTIFICATION_ID,
-                                      getNotificationBuilder(this).build(), 0);
+      ServiceCompat.startForeground(this, TrackRecordingService.TRACK_REC_NOTIFICATION_ID,
+                                    getNotificationBuilder(this).build(), ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION);
     }
     catch (IllegalStateException | SecurityException e)
     {
