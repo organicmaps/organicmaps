@@ -31,8 +31,17 @@ std::unique_ptr<QTranslator> InstallTranslator(QGuiApplication & app, std::span<
     // Prefer an exact regional catalog, then let the core parser select the language and Chinese script.
     auto original = QString::fromStdString(language);
     original.replace('_', '-');
-    candidates << original.section('.', 0, 0).toLower()
-               << QString::fromStdString(languages::GetTwine(language)).toLower();
+    // Drop the charset, modifier and BCP 47 extensions, e.g. of pt_BR.UTF-8, de@euro and pt-BR-u-hc-h12.
+    auto subtags = original.section('.', 0, 0).section('@', 0, 0).split('-');
+    for (int i = 1; i < subtags.size(); ++i)
+    {
+      if (subtags[i].size() == 1)
+      {
+        subtags = subtags.mid(0, i);
+        break;
+      }
+    }
+    candidates << subtags.join('-').toLower() << QString::fromStdString(languages::GetTwine(language)).toLower();
   }
   candidates << "en";
   candidates.removeDuplicates();

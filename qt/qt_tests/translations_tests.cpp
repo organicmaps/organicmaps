@@ -34,6 +34,8 @@ UNIT_TEST(Translations_PreferenceOrderAndLocaleVariants)
                                              {{"de@euro"}, "de"},
                                              {{"pt_BR.UTF-8"}, "pt-BR"},
                                              {{"pt-br"}, "pt-BR"},
+                                             {{"pt-BR-u-hc-h12"}, "pt-BR"},
+                                             {{"fr-CA-u-ca-gregory"}, "fr-CA"},
                                              {{"en_GB.UTF-8"}, "en-GB"},
                                              {{"fr_CA.UTF-8"}, "fr-CA"},
                                              {{"eo", "fr"}, "fr"},
