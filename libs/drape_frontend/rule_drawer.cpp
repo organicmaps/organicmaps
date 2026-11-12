@@ -181,7 +181,7 @@ RuleDrawer::RuleDrawer(TIsCountryLoadedByNameFn const & isLoadedFn, ref_ptr<Engi
 
   m_mapShapes[df::OverlayType].reserve(200 /* average overlays count */);
 
-  if (m_mapStyle != MapStyleVehicleLight && m_mapStyle != MapStyleVehicleDark)
+  if (!MapStyleIsVehicle(m_mapStyle))
   {
     /// @todo Make naive implementation for now. Fetch draw settings from EngineContext.
     /// Should refactor and generalize these settings (3D, isolines, hiking, cycling, ...)

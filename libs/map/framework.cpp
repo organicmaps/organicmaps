@@ -558,7 +558,7 @@ void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
 void Framework::OnTerrainChanged(m2::RectD const & rect)
 {
   // The isolines layer draws the terrain, the ?terrain-blocks debug highlight its downloaded blocks.
-  if ((m_isolinesManager.IsEnabled() || m_showTerrainBlocks) && rect.IsValid())
+  if ((IsTerrainDrawn() || m_showTerrainBlocks) && rect.IsValid())
     InvalidateRect(df::GetTerrainInvalidationRect(rect));
   InvalidateIsolines();
   // Skip the opened place page elevation update intentionally, it is not important for UX.
@@ -580,8 +580,14 @@ void Framework::UpdateIsolinesAvailability()
 {
   // Only the enabled layer on the isolines zooms needs the hint. The low zooms keep the last state:
   // the platforms announce the NoData transition, don't repeat it on every zoom bounce over a place.
-  if (m_isolinesManager.IsEnabled() && m_isolinesManager.IsVisible())
+  // No hint in the vehicle styles: they draw no terrain.
+  if (IsTerrainDrawn() && m_isolinesManager.IsVisible())
     m_isolinesManager.SetHasTerrain(HasViewportTerrain(m_currentModelView.ClipRect()));
+}
+
+bool Framework::IsTerrainDrawn() const
+{
+  return m_isolinesManager.IsEnabled() && !MapStyleIsVehicle(GetMapStyle());
 }
 
 bool Framework::HasViewportTerrain(m2::RectD const & rect)
@@ -2274,6 +2280,8 @@ void Framework::SetMapStyle(MapStyle mapStyle)
   InvalidateUserMarks();
   UpdateBookmarksTextPlacement();
   UpdateMinBuildingsTapZoom();
+  // The isolines hint is skipped in the vehicle styles, re-evaluate it after.
+  UpdateIsolinesAvailability();
 }
 
 MapStyle Framework::GetMapStyle() const
@@ -2292,7 +2300,7 @@ void Framework::SetupMeasurementSystem()
   m_isolinesUnits = units;
 
   // Include off-screen tiles so panning cannot reveal contours in the old units.
-  if (m_drapeEngine && m_isolinesManager.IsEnabled())
+  if (m_drapeEngine && IsTerrainDrawn())
     InvalidateRect(mercator::Bounds::FullRect());
 }
 
