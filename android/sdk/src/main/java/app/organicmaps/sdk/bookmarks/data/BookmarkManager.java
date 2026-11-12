@@ -1,5 +1,18 @@
 package app.organicmaps.sdk.bookmarks.data;
 
+import java.text.Normalizer;
+import java.util.LinkedHashSet;
+import java.util.regex.Pattern;
+import android.util.Xml;
+import java.io.FileInputStream;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Locale;
+import java.util.Set;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
@@ -263,6 +276,20 @@ public enum BookmarkManager {
     nativeDeleteCategory(catId);
   }
 
+    /**
+     * Deletes every list together with its bookmarks and tracks. The app expects at least one list to exist, so an
+     * empty one with the given name is created afterwards, unless the core has already done that.
+     */
+    @MainThread
+    public void deleteAllCategories(@NonNull String defaultCategoryName)
+    {
+        for (BookmarkCategory category : nativeGetBookmarkCategories())
+            nativeDeleteCategory(category.getId());
+
+        if (nativeGetBookmarkCategoriesCount() == 0)
+            nativeCreateCategory(defaultCategoryName);
+    }
+
   public void deleteTrack(long trackId)
   {
     nativeDeleteTrack(trackId);
@@ -459,40 +486,179 @@ public enum BookmarkManager {
     }
   }
 
-  @WorkerThread
-  public boolean importBookmarksFile(@NonNull ContentResolver resolver, @NonNull Uri uri, @NonNull File tempDir)
-  {
-    Logger.i(TAG, "Importing bookmarks from " + uri);
-    try
+    public enum ImportResult
     {
-      String filename = getBookmarksFilenameFromUri(resolver, uri);
-      if (filename == null)
-      {
-        Logger.w(TAG, "Could not find a supported file type in " + uri);
-        UiThread.run(() -> {
-          for (BookmarksLoadingListener listener : mListeners)
-            listener.onBookmarksFileUnsupported(uri);
-        });
-        return false;
-      }
+        IMPORTED,
+        SKIPPED,
+        FAILED
+    }
 
-      Logger.d(TAG, "Downloading bookmarks file from " + uri + " into " + filename);
-      final File tempFile = new File(tempDir, filename);
-      StorageUtils.copyFile(resolver, uri, tempFile);
-      Logger.d(TAG, "Downloaded bookmarks file from " + uri + " into " + filename);
-      UiThread.run(() -> loadBookmarksFile(tempFile.getAbsolutePath(), true));
-      return true;
-    }
-    catch (IOException | SecurityException e)
+    @WorkerThread
+    public boolean importBookmarksFile(@NonNull ContentResolver resolver, @NonNull Uri uri, @NonNull File tempDir)
     {
-      Logger.e(TAG, "Could not download bookmarks file from " + uri, e);
-      UiThread.run(() -> {
-        for (BookmarksLoadingListener listener : mListeners)
-          listener.onBookmarksFileDownloadFailed(uri, e.toString());
-      });
-      return false;
+        return importBookmarksFile(resolver, uri, tempDir, null) == ImportResult.IMPORTED;
     }
-  }
+
+    /**
+     * @param knownListNames normalized names of lists that must not be imported again, or {@code null} to import
+     *                       everything. The name of every imported file is added to the set, so duplicates within
+     *                       one import run are skipped as well. Must only be touched from the calling thread.
+     */
+    @WorkerThread
+    public ImportResult importBookmarksFile(@NonNull ContentResolver resolver, @NonNull Uri uri, @NonNull File tempDir,
+                                            @Nullable Set<String> knownListNames)
+    {
+        Logger.i(TAG, "Importing bookmarks from " + uri);
+        try
+        {
+            String filename = getBookmarksFilenameFromUri(resolver, uri);
+            if (filename == null)
+            {
+                Logger.w(TAG, "Could not find a supported file type in " + uri);
+                UiThread.run(() -> {
+                    for (BookmarksLoadingListener listener : mListeners)
+                        listener.onBookmarksFileUnsupported(uri);
+                });
+                return ImportResult.FAILED;
+            }
+
+            Logger.d(TAG, "Downloading bookmarks file from " + uri + " into " + filename);
+            final File tempFile = new File(tempDir, filename);
+            StorageUtils.copyFile(resolver, uri, tempFile);
+            Logger.d(TAG, "Downloaded bookmarks file from " + uri + " into " + filename);
+
+            if (knownListNames != null)
+            {
+                final Set<String> names = readListNameCandidates(tempFile, filename);
+                boolean alreadyKnown = false;
+                for (String name : names)
+                {
+                    if (knownListNames.contains(name))
+                    {
+                        alreadyKnown = true;
+                        break;
+                    }
+                }
+                Logger.i(TAG, (alreadyKnown ? "Skipping " : "Importing ") + filename + ", list name candidates: " + names);
+                if (alreadyKnown)
+                {
+                    if (!tempFile.delete())
+                        Logger.w(TAG, "Could not delete temporary file " + tempFile);
+                    return ImportResult.SKIPPED;
+                }
+                knownListNames.addAll(names);
+            }
+
+            UiThread.run(() -> loadBookmarksFile(tempFile.getAbsolutePath(), true));
+            return ImportResult.IMPORTED;
+        }
+        catch (IOException | SecurityException e)
+        {
+            Logger.e(TAG, "Could not download bookmarks file from " + uri, e);
+            UiThread.run(() -> {
+                for (BookmarksLoadingListener listener : mListeners)
+                    listener.onBookmarksFileDownloadFailed(uri, e.toString());
+            });
+            return ImportResult.FAILED;
+        }
+    }
+
+    private static final Pattern DOWNLOAD_SUFFIX = Pattern.compile("\\s*\\(\\d+\\)$");
+
+    @NonNull
+    public static String normalizeListName(@NonNull String name)
+    {
+        return Normalizer.normalize(name, Normalizer.Form.NFC).trim().replaceAll("\\s+", " ").toLowerCase(Locale.ROOT);
+    }
+
+    private static void addCandidate(@NonNull Set<String> names, @Nullable String name)
+    {
+        if (name != null && !name.trim().isEmpty())
+            names.add(normalizeListName(name));
+    }
+
+    /** All names under which the list of this file could show up in the app, normalized. */
+    @WorkerThread
+    @NonNull
+    private static Set<String> readListNameCandidates(@NonNull File file, @NonNull String filename)
+    {
+        final Set<String> names = new LinkedHashSet<>();
+        final String lower = filename.toLowerCase(Locale.ROOT);
+        try
+        {
+            if (lower.endsWith(".kml"))
+            {
+                try (InputStream is = new FileInputStream(file))
+                {
+                    addCandidate(names, readXmlName(is, "Document", true));
+                }
+            }
+            else if (lower.endsWith(".kmz"))
+            {
+                try (ZipInputStream zis = new ZipInputStream(new FileInputStream(file)))
+                {
+                    ZipEntry entry;
+                    while ((entry = zis.getNextEntry()) != null)
+                    {
+                        if (entry.getName().toLowerCase(Locale.ROOT).endsWith(".kml"))
+                        {
+                            addCandidate(names, readXmlName(zis, "Document", true));
+                            break;
+                        }
+                    }
+                }
+            }
+            else if (lower.endsWith(".gpx"))
+            {
+                for (String[] query : new String[][] {{"metadata", "true"}, {"trk", "false"}, {"rte", "false"}})
+                {
+                    try (InputStream is = new FileInputStream(file))
+                    {
+                        addCandidate(names, readXmlName(is, query[0], Boolean.parseBoolean(query[1])));
+                    }
+                }
+            }
+        }
+        catch (IOException | XmlPullParserException e)
+        {
+            Logger.w(TAG, "Could not read list name from " + filename + ": " + e);
+        }
+
+        final int dot = filename.lastIndexOf('.');
+        final String stem = dot > 0 ? filename.substring(0, dot) : filename;
+        addCandidate(names, stem);
+        addCandidate(names, DOWNLOAD_SUFFIX.matcher(stem).replaceFirst(""));
+        return names;
+    }
+
+    /**
+     * @param stopAtContent stop at the first point/track, because the list name always comes before them
+     */
+    @Nullable
+    private static String readXmlName(@NonNull InputStream is, @NonNull String parentTag, boolean stopAtContent)
+            throws XmlPullParserException, IOException
+    {
+        final XmlPullParser parser = Xml.newPullParser();
+        parser.setInput(is, null);
+        final Deque<String> stack = new ArrayDeque<>();
+        for (int event = parser.getEventType(); event != XmlPullParser.END_DOCUMENT; event = parser.next())
+        {
+            if (event == XmlPullParser.START_TAG)
+            {
+                final String tag = parser.getName();
+                if (stopAtContent && (tag.equals("Placemark") || tag.equals("wpt") || tag.equals("trk") || tag.equals("rte")))
+                    return null;
+                if (tag.equals("name") && parentTag.equals(stack.peek()))
+                    return parser.nextText();
+                stack.push(tag);
+            }
+            else if (event == XmlPullParser.END_TAG)
+            {
+                stack.pop();
+            }
+        }
+        return null;
+    }
 
   @WorkerThread
   public void importBookmarksFiles(@NonNull ContentResolver resolver, @NonNull List<Uri> uris, @NonNull File tempDir)

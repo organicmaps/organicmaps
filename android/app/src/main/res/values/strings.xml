@@ -562,7 +562,12 @@
     </plurals>
     <string name="bookmarks_create_new_group">Create a new list</string>
     <!-- Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files -->
+    <string name="bookmarks_delete_all">Delete all bookmarks and tracks</string>
+    <string name="bookmarks_delete_all_confirm">Delete %1$d lists with %2$d bookmarks and %3$d tracks? This cannot be undone.</string>
     <string name="bookmarks_import">Import Bookmarks and Tracks</string>
+    <string name="bookmarks_import_skip_existing">Skip existing lists</string>
+    <string name="bookmarks_import_skipped">%d existing lists skipped</string>
+    <string name="bookmarks_import_totals">Total: %1$d lists, %2$d bookmarks, %3$d tracks</string>
     <string name="bookmarks_error_message_share_general">Unable to share due to an application error</string>
     <string name="bookmarks_error_title_share_empty">Sharing error</string>
     <string name="bookmarks_error_message_share_empty">Cannot share an empty list</string>
