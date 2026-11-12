@@ -10,6 +10,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresPermission;
 import androidx.core.location.LocationListenerCompat;
 import androidx.core.location.LocationManagerCompat;
@@ -27,12 +28,15 @@ public class AndroidNativeProvider extends BaseLocationProvider
     @Override
     public void onLocationChanged(@NonNull Location location)
     {
-      mListener.onLocationChanged(location);
+      if (mNativeLocationListener == this)
+        mListener.onLocationChanged(location);
     }
 
     @Override
     public void onProviderDisabled(@NonNull String provider)
     {
+      if (mNativeLocationListener != this)
+        return;
       Logger.d(TAG, "Disabled location provider: " + provider);
       mProviders.remove(provider);
       if (mProviders.isEmpty())
@@ -42,6 +46,8 @@ public class AndroidNativeProvider extends BaseLocationProvider
     @Override
     public void onProviderEnabled(@NonNull String provider)
     {
+      if (mNativeLocationListener != this)
+        return;
       Logger.d(TAG, "Enabled location provider: " + provider);
       mProviders.add(provider);
     }
@@ -57,8 +63,8 @@ public class AndroidNativeProvider extends BaseLocationProvider
   private final LocationManager mLocationManager;
   private final Set<String> mProviders;
 
-  @NonNull
-  final private NativeLocationListener mNativeLocationListener = new NativeLocationListener();
+  @Nullable
+  private NativeLocationListener mNativeLocationListener;
 
   public AndroidNativeProvider(@NonNull Context context, @NonNull BaseLocationProvider.Listener listener)
   {
@@ -105,11 +111,13 @@ public class AndroidNativeProvider extends BaseLocationProvider
       return;
     }
 
+    final NativeLocationListener listener = new NativeLocationListener();
+    mNativeLocationListener = listener;
     for (String provider : mProviders)
     {
       Logger.d(TAG, "Request Android native provider '" + provider + "' to get locations at this interval = " + interval
                         + " ms");
-      LocationManagerCompat.requestLocationUpdates(mLocationManager, provider, locationRequest, mNativeLocationListener,
+      LocationManagerCompat.requestLocationUpdates(mLocationManager, provider, locationRequest, listener,
                                                    Looper.myLooper());
     }
   }
@@ -121,6 +129,9 @@ public class AndroidNativeProvider extends BaseLocationProvider
   {
     Logger.d(TAG);
     mProviders.clear();
-    LocationManagerCompat.removeUpdates(mLocationManager, mNativeLocationListener);
+    final NativeLocationListener listener = mNativeLocationListener;
+    mNativeLocationListener = null;
+    if (listener != null)
+      LocationManagerCompat.removeUpdates(mLocationManager, listener);
   }
 }
