@@ -42,6 +42,7 @@ class EditBookmarkFragment :
     private lateinit var etDescription: TextInputEditText
     private lateinit var tvBookmarkGroup: TextInputEditText
     private lateinit var ivColor: ImageView
+    private lateinit var colorRow: View
     private lateinit var ivVisibility: ImageView
     private lateinit var nestedScrollView: NestedScrollView
     private lateinit var toolbar: Toolbar
@@ -78,11 +79,11 @@ class EditBookmarkFragment :
         tvBookmarkGroup = view.findViewById<TextInputEditText>(R.id.tv__bookmark_set)
             .apply { setOnClickListener { selectBookmarkSet() } }
         ivColor = view.findViewById(R.id.iv__bookmark_color)
+        colorRow = view.findViewById<View>(R.id.color_row).apply { setOnClickListener { selectBookmarkColor() } }
         ivVisibility = view.findViewById<ImageView>(R.id.iv__track_visibility)
             .apply { setOnClickListener { toggleVisibility() } }
         toolbar = view.findViewById(R.id.toolbar)
         nestedScrollView = view.findViewById(R.id.edit_bookmark_scroll)
-        view.findViewById<View>(R.id.color_row).setOnClickListener { selectBookmarkColor() }
 
         target = loadTarget(args, savedInstanceState)
         bookmarkCategory = savedInstanceState?.let {
@@ -320,11 +321,19 @@ class EditBookmarkFragment :
         refreshCategory()
         refreshSwatch()
         refreshVisibility()
+        updateColorRowVisibility()
+    }
+
+    private fun updateColorRowVisibility() {
+        val t = target ?: return
+        colorRow.isVisible =
+            !(t is BookmarkEditTarget && BookmarkManager.INSTANCE.isContactCategory(bookmarkCategory.id))
     }
 
     override fun onCategoryChanged(newCategory: BookmarkCategory) {
         bookmarkCategory = newCategory
         refreshCategory()
+        updateColorRowVisibility()
     }
 
     private enum class TargetKind { BOOKMARK, TRACK }

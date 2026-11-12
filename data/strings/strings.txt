@@ -46574,3 +46574,67 @@ uk = Трамвай
 vi = Xe điện
 zh-Hans = 有轨电车
 zh-Hant = 路面電車
+
+[bookmarks_import_contacts]
+tags = android-app
+en = Import contacts
+
+[bookmarks_contacts_list_name]
+tags = android-app
+en = Contacts
+
+[bookmarks_contacts_import_explanation]
+tags = android-app
+en = Import saved postal addresses as bookmarks in a Contacts list. Contacts are read only during this import. Imported bookmarks remain until deleted and are included in bookmark backups and exports. Re-import to update changed contacts; your own bookmark edits will be kept.
+
+[bookmarks_contacts_permission_denied]
+tags = android-app
+en = Contacts access is needed for this import. You can allow it in system settings, then try again.
+
+[bookmarks_contacts_import_reading]
+tags = android-app
+en = Reading contacts…
+
+[bookmarks_contacts_import_resolving]
+tags = android-app
+en = Locating contacts… %1$d of %2$d
+
+[bookmarks_contacts_import_saving]
+tags = android-app
+en = Saving bookmarks…
+
+[bookmarks_contacts_import_result]
+tags = android-app
+comment = Counts: added, updated, unchanged, locally edited and preserved, skipped (including addresses not found).
+en = Added: %1$d\nUpdated: %2$d\nUnchanged: %3$d\nYour edits kept: %4$d\nSkipped or address not found: %5$d
+
+[bookmarks_contacts_import_maps]
+tags = android-app
+en = Download the maps covering your contacts’ addresses before importing them.
+
+[bookmarks_contacts_import_empty]
+tags = android-app
+en = No contacts with saved postal addresses were found.
+
+[bookmarks_contacts_import_read_error]
+tags = android-app
+en = Could not read contacts. Please try again.
+
+[bookmarks_contacts_import_save_error]
+tags = android-app
+en = Could not finish importing contacts. Please try again.
+[bookmarks_contacts_import_interrupted]
+tags = android-app
+en = The previous contact import was interrupted. Retry the import? Existing bookmarks will be kept and duplicates avoided.
+
+[bookmark_search_show_all]
+tags = android-app
+en = Show all bookmarks (%1$d)
+
+[bookmark_search_show_less]
+tags = android-app
+en = Show fewer bookmarks
+
+[bookmark_search_limit_reached]
+tags = android-app
+en = Showing up to %1$d bookmarks. Refine your search for more.

@@ -12,6 +12,7 @@
 #include "base/cancellable.hpp"
 #include "base/string_utils.hpp"
 
+#include <algorithm>
 #include <string>
 #include <vector>
 
@@ -50,7 +51,7 @@ public:
   void AttachToGroup(Id const & id, GroupId const & group) { m_processor.AttachToGroup(id, group); }
   void DetachFromGroup(Id const & id, GroupId const & group) { m_processor.DetachFromGroup(id, group); }
 
-  Ids Search(string const & query, GroupId const & groupId = kInvalidGroupId)
+  Ids Search(string const & query, GroupId const & groupId = kInvalidGroupId, bool requireAllTokens = false)
   {
     m_emitter.Init([](::search::Results const & /* results */) {} /* onResults */);
 
@@ -61,6 +62,7 @@ public:
     params.Init(query, tokens, isPrefix);
 
     params.m_groupId = groupId;
+    params.m_requireAllTokens = requireAllTokens;
 
     m_processor.Search(params);
     Ids ids;
@@ -68,6 +70,8 @@ public:
       ids.emplace_back(result.m_id);
     return ids;
   }
+
+  Ids SearchGlobal(string const & query) { return Search(query, kInvalidGroupId, true); }
 
 protected:
   Emitter m_emitter;
@@ -93,6 +97,39 @@ kml::BookmarkData MakeBookmarkData(string const & name, string const & customNam
   }
 
   return b;
+}
+
+UNIT_CLASS_TEST(BookmarksProcessorTest, FullNameMatchRanksBeforePartialMatch)
+{
+  GetProcessor().EnableIndexingOfBookmarkGroup(GroupId{0}, true);
+  Add(Id{10}, GroupId{0}, MakeBookmarkData("Maya", "", "", {}));
+  Add(Id{12}, GroupId{0}, MakeBookmarkData("Maya Patel", "", "", {}));
+  auto const results = Search("maya patel");
+  TEST_EQUAL(results.size(), 2, ());
+  TEST_EQUAL(results.front(), Id{12}, ());
+}
+
+UNIT_CLASS_TEST(BookmarksProcessorTest, GlobalSearchRequiresEveryQueryToken)
+{
+  GetProcessor().EnableIndexingOfBookmarkGroup(GroupId{0}, true);
+  GetProcessor().EnableIndexingOfBookmarkGroup(GroupId{1}, true);
+  Add(Id{10}, GroupId{0}, MakeBookmarkData("Ben Example", "", "868 W 67 Avenue", {}));
+  Add(Id{12}, GroupId{1}, MakeBookmarkData("868 W 67 Bay", "", "", {}));
+  TEST_EQUAL(SearchGlobal("868 W 67 B"), Ids({12}), ());
+  TEST_EQUAL(SearchGlobal("868 W 67 B "), Ids{}, ());
+  TEST_EQUAL(SearchGlobal("868 W 68 B"), Ids{}, ());
+  TEST_EQUAL(SearchGlobal("nonexistent Ben"), Ids{}, ());
+}
+
+UNIT_CLASS_TEST(BookmarksProcessorTest, GlobalSearchRetainsFuzzyNamesAndPrefixes)
+{
+  GetProcessor().EnableIndexingOfBookmarkGroup(GroupId{0}, true);
+  Add(Id{10}, GroupId{0}, MakeBookmarkData("Maya", "", "", {}));
+  Add(Id{12}, GroupId{0}, MakeBookmarkData("Maya Patel", "", "", {}));
+  TEST_EQUAL(SearchGlobal("maya pat"), Ids({12}), ());
+  TEST_EQUAL(SearchGlobal("maya patal "), Ids({12}), ());
+  TEST_EQUAL(SearchGlobal("patel maya "), Ids({12}), ());
+  TEST_EQUAL(Search("maya pat", GroupId{0}).size(), 2, ());
 }
 
 UNIT_CLASS_TEST(BookmarksProcessorTest, Smoke)
@@ -142,6 +179,23 @@ UNIT_CLASS_TEST(BookmarksProcessorTest, Smoke)
 
   GetProcessor().Reset();
   TEST_EQUAL(Search("place", GroupId{0}), Ids{}, ());
+}
+
+UNIT_CLASS_TEST(BookmarksProcessorTest, GlobalNameSearchIncludesAllListsAndUpdates)
+{
+  GetProcessor().EnableIndexingOfBookmarkGroup(GroupId{1}, true);
+  GetProcessor().EnableIndexingOfBookmarkGroup(GroupId{2}, true);
+  Add(Id{10}, GroupId{1}, MakeBookmarkData("Maya Patel", "", "", {}));
+  Add(Id{12}, GroupId{2}, MakeBookmarkData("Maya Park", "", "", {}));
+  auto results = Search("maya");
+  std::sort(results.begin(), results.end());
+  TEST_EQUAL(results, Ids({10, 12}), ());
+  TEST_EQUAL(Search("maya", GroupId{1}), Ids({10}), ());
+  Update(Id{10}, MakeBookmarkData("Jordan Patel", "", "", {}));
+  TEST_EQUAL(Search("maya"), Ids({12}), ());
+  DetachFromGroup(Id{12}, GroupId{2});
+  Erase(Id{12});
+  TEST(Search("maya").empty(), ());
 }
 
 UNIT_CLASS_TEST(BookmarksProcessorTest, SearchByType)

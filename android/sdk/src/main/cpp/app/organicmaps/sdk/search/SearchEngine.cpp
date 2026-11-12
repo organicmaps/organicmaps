@@ -34,6 +34,7 @@ search::Results g_results;
 
 // Timestamp of last search query. Results with older stamps are ignored.
 jlong g_queryTimestamp;
+jlong g_bookmarksQueryTimestamp;
 // Implements 'SearchListener' java interface.
 jobject g_javaListener;
 jmethodID g_updateResultsId;
@@ -199,7 +200,7 @@ void OnBookmarksSearchResults(search::BookmarksSearchParams::Results results,
                               search::BookmarksSearchParams::Status status, long long timestamp)
 {
   // Ignore results from obsolete searches.
-  if (g_queryTimestamp > timestamp)
+  if (g_bookmarksQueryTimestamp > timestamp)
     return;
 
   JNIEnv * env = jni::GetEnv();
@@ -331,13 +332,19 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_search_SearchEngine_nativeRunSearchI
                                                                                            jbyteArray query,
                                                                                            jlong catId, jlong timestamp)
 {
+  if (static_cast<kml::MarkGroupId>(catId) == kml::kInvalidMarkGroupId)
+  {
+    auto & manager = g_framework->NativeFramework()->GetBookmarkManager();
+    for (auto const category : manager.GetSortedBmGroupIdList())
+      manager.PrepareForSearch(category);
+  }
   search::BookmarksSearchParams params{
       jni::ToNativeString(env, query), static_cast<kml::MarkGroupId>(catId),
       std::bind(&OnBookmarksSearchResults, std::placeholders::_1, std::placeholders::_2, timestamp)};
 
   bool const searchStarted = g_framework->NativeFramework()->GetSearchAPI().SearchInBookmarks(std::move(params));
   if (searchStarted)
-    g_queryTimestamp = timestamp;
+    g_bookmarksQueryTimestamp = timestamp;
   return searchStarted;
 }
 
