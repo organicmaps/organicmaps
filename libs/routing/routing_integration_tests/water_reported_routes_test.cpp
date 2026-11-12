@@ -54,8 +54,10 @@ std::vector<m2::PointD> CheckRoute(std::string const & name, ms::LatLon const & 
   }, [&](auto const & names, auto const & bounds) { return coverage->IsRectCoveredByRegions(names, bounds); });
   traffic::TrafficCache traffic;
   auto pedestrian =
-      std::make_unique<routing::IndexRouter>(routing::VehicleType::Pedestrian, false, [](std::string const & country) {
-    return country.substr(0, country.find('_'));
+      std::make_unique<routing::IndexRouter>(routing::VehicleType::Pedestrian, false, [](std::string const & country)
+  {
+    auto const separator = country.find('_');
+    return separator == std::string::npos ? std::string{} : country.substr(0, separator);
   }, [&](auto const & point) { return info->GetRegionCountryId(point); }, [&](auto const & country) {
     return info->GetLimitRectForLeaf(country);
   }, ids, routing::MakeNumMwmTree(*ids, *info), traffic, data, cacheWalkingGraph);
@@ -120,6 +122,14 @@ void CheckAlmere(std::string const & name, ms::LatLon const & finish)
 {
   CheckRoute(name, {52.35483470, 5.17963790}, finish, true,
              {"Netherlands_Flevoland", "Netherlands_North Holland_Amsterdam", "Netherlands_Utrecht_Amersfoort"});
+}
+
+UNIT_TEST(WaterReported_NerisNemencia)
+{
+  // PR #13968: ordinary-map river fragments meet at 54.8530534438, 25.4651406815.
+  // Missing connectivity caused a 920 m walking detour instead of following Nemenčia.
+  CheckRoute("NerisNemencia", {54.85352075179435, 25.45188769698143}, {54.856528849207365, 25.472672134637833}, false,
+             {"Lithuania_East"}, true);
 }
 
 UNIT_TEST(WaterReported_AlmereSouthGooimeer)

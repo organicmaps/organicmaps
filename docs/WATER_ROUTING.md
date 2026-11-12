@@ -44,9 +44,13 @@ ends take precedence over terminal walking access.
 Normal downloaded country MWMs work without regeneration. The provider reads
 their best available waterway lines and water-surface triangles, preserves
 represented islands, and joins actual river/surface intersections. Separate
-river features do not join solely because their coordinates coincide or cross:
-ordinary maps lack the original OpenStreetMap node identities. Endpoint walks
-are a fallback for missing connections, not reconstructed water topology.
+waterway lines join at exactly coincident stored endpoints on the same layer,
+including endpoints from neighboring maps. Names need not match, so a tributary
+can meet a differently named river. Ordinary maps lack the original OpenStreetMap
+node identities: interior crossings, near endpoints and artificial extraction
+cuts do not establish a connection. Endpoint walks remain a fallback for missing
+connections. This reconstruction uses the attributes retained in the MWM and
+cannot recover omitted bridge/aqueduct information.
 
 Bridge, aqueduct and lock restrictions are ignored for these measurements.
 Explicit tunnels and negative-layer water features are excluded from water
@@ -57,6 +61,19 @@ rivers or lakes, including near river mouths. Display geometry may be simplified
 and underground connections may be absent from the map.
 Water routing does not assess navigability, depth, currents or access restrictions.
 A suggested portage does not establish that carrying a boat is physically necessary.
+
+`WaterReported_NerisNemencia` retains the exact explicit start
+54.85352075179435, 25.45188769698143 and finish
+54.856528849207365, 25.472672134637833 from PR #13968, without intermediate points.
+With `Lithuania_East.mwm` from catalog 260714 it requires a wholly water route
+(approximately 3.33 km).
+Previously, two Nemenčia line features meeting at the same endpoint were treated
+as disconnected, producing a 920 m walking detour. Synthetic MWM tests cover
+same-layer endpoint joins, cross-map joins, tunnels, different layers, near misses,
+interior crossings and extraction cuts.
+The endpoint-join change passed 445 routing unit tests and all 57 Water integration
+tests (13 synthetic-MWM and 44 real-map tests) on macOS ARM64. Device UI testing
+was not repeated for this core-only change.
 
 Checkpoints need downloaded map coverage. Packed map borders certify local
 coverage, including unions of neighboring regions; feature bounding boxes do
@@ -115,8 +132,8 @@ request's progress.
 
 `libs/routing/routing_integration_tests/water_reported_routes_test.cpp` retains
 the reported failing coordinates and My position flags, long routes in both
-directions, continuous-water controls and intermediate stops. Its 43 tests make
-44 route calculations: the Pomeranian regression runs with and without walking
+directions, continuous-water controls and intermediate stops. Its 44 tests make
+45 route calculations: the Pomeranian regression runs with and without walking
 graph reuse and compares the complete coordinate sequence. No reported route
 was removed when this duplicate calculation was consolidated.
 
@@ -125,7 +142,8 @@ application resources in `--user_resource_path`. The pinned reference catalog is
 2026-07-14. Dutch cases use `Netherlands_Flevoland`,
 `Netherlands_North Holland_Amsterdam` and `Netherlands_Utrecht_Amersfoort`;
 Polish cases use `Poland_Pomeranian Voivodeship`; the cross-region case also
-requires `Poland_Kuyavian-Pomeranian Voivodeship`.
+requires `Poland_Kuyavian-Pomeranian Voivodeship`. The Nemenčia regression uses
+`Lithuania_East`.
 
 Useful phone checks include:
 

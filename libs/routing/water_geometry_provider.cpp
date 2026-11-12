@@ -13,6 +13,7 @@
 #include <algorithm>
 #include <array>
 #include <cmath>
+#include <map>
 #include <memory>
 #include <numeric>
 
@@ -336,6 +337,7 @@ water::Geometry WaterGeometryProvider::ExtractFeatures(DataSource const & dataSo
 {
   water::Geometry result;
   result.m_hasSourceTopology = false;
+  std::map<std::pair<int8_t, Point>, uint64_t> endpoints;
   std::vector<FeatureSurface> surfaces;
   size_t points = 0, triangles = 0, features = 0;
   bool exceeded = false;
@@ -385,8 +387,16 @@ water::Geometry WaterGeometryProvider::ExtractFeatures(DataSource const & dataSo
         ::water::Record record;
         record.m_kind = ::water::Kind::Line;
         record.m_rings.emplace_back(vertices.begin(), vertices.end());
-        // Never infer node identity from equal quantized coordinates.
         record.m_nodes.resize(vertices.size(), 0);
+        // Ordinary MWMs omit source node IDs. Recover only exact stored endpoint
+        // contacts on the same layer, never crossings, proximity or clipping cuts.
+        if (vertices.size() >= 2)
+          for (auto const i : {size_t{0}, vertices.size() - 1})
+          {
+            auto const [it, inserted] =
+                endpoints.emplace(std::pair{feature.GetLayer(), vertices[i]}, endpoints.size() + 1);
+            record.m_nodes[i] = it->second;
+          }
         auto const firstLine = result.m_lines.size();
         if (vertices.size() >= 2)
           AddLine(record, bounds, result);

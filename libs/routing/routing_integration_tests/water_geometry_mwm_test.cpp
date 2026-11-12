@@ -110,6 +110,90 @@ feature::FeatureBuilder Line(uint64_t id, std::vector<P> points, std::initialize
   return feature;
 }
 
+void CheckStoredEndpointJoin(std::vector<P> first, std::vector<P> second, bool joined, int8_t layer = 0,
+                             bool tunnel = false, bool separateMaps = false, m2::RectD bounds = {-10, -10, 10, 10})
+{
+  classificator::Load();
+  auto const directory = base::JoinPath(GetPlatform().WritableDir(), "water_endpoint_test");
+  CHECK(Platform::MkDirRecursively(directory), ());
+  SCOPE_GUARD(cleanup, [&] { Platform::RmDirRecursively(directory); });
+  platform::LocalCountryFile left(directory, platform::CountryFile("WaterLeft"), 0);
+  platform::LocalCountryFile right(directory, platform::CountryFile("WaterRight"), 0);
+  auto a = Line(1, std::move(first), {"waterway", "river"});
+  auto b = tunnel ? Line(2, std::move(second), {"waterway", "stream", "tunnel"})
+                  : Line(2, std::move(second), {"waterway", "stream"});
+  b.GetParams().layer = layer;
+  {
+    tests_support::TestMwmBuilder builder(left, feature::DataHeader::MapType::Country);
+    TEST(builder.Add(a), ());
+    if (!separateMaps)
+    {
+      // Undrawn tunnel types are omitted from ordinary display maps.
+      TEST_EQUAL(builder.Add(b), !tunnel, ());
+    }
+    builder.Finish();
+  }
+  if (separateMaps)
+  {
+    tests_support::TestMwmBuilder builder(right, feature::DataHeader::MapType::Country);
+    TEST(builder.Add(b), ());
+    builder.Finish();
+  }
+  FrozenDataSource data;
+  std::vector<MwmSet::MwmId> ids{data.RegisterMap(left).first};
+  if (separateMaps)
+    ids.push_back(data.RegisterMap(right).first);
+  auto const geometry = routing::WaterGeometryProvider::ExtractFeatures(data, ids, bounds, [] { return false; });
+  TEST(geometry.m_complete, ());
+  if (tunnel || layer < 0)
+  {
+    TEST_EQUAL(geometry.m_lines.size(), 1, ());
+    return;
+  }
+  TEST_EQUAL(geometry.m_lines.size(), 2, ());
+  bool shared = false;
+  for (auto const & from : geometry.m_lines[0])
+    for (auto const & to : geometry.m_lines[1])
+      shared = shared || (from.m_nodeId != 0 && from.m_nodeId == to.m_nodeId);
+  TEST_EQUAL(shared, joined, ());
+  if (joined)
+  {
+    auto const & a = geometry.m_lines[0];
+    auto const & b = geometry.m_lines[1];
+    auto const sharedWith = [](auto const & vertex, auto const & line)
+    { return vertex.m_nodeId == line.front().m_nodeId || vertex.m_nodeId == line.back().m_nodeId; };
+    auto const start = (sharedWith(a.front(), b) ? a.back() : a.front()).m_point;
+    auto const finish = (sharedWith(b.front(), a) ? b.back() : b.front()).m_point;
+    routing::water::Path path;
+    TEST(FindPath(geometry, start, finish, false, [] { return false; }, path) == routing::water::ResultCode::Success,
+         ());
+    TEST_EQUAL(path.m_landDistance, 0.0, ());
+    TEST_GREATER(path.m_waterDistance, 0.0, ());
+  }
+}
+
+UNIT_TEST(WaterMwm_StoredSurfaceEndpointsConnect)
+{
+  CheckStoredEndpointJoin({P(0, 0), P(1, 0)}, {P(1, 0), P(2, 1)}, true);
+  CheckStoredEndpointJoin({P(1, 0), P(0, 0)}, {P(2, 1), P(1, 0)}, true);
+  CheckStoredEndpointJoin({P(0, 0), P(1, 0)}, {P(1, 0), P(2, 1)}, true, 0, false, true);
+}
+
+UNIT_TEST(WaterMwm_EndpointJoinsRespectLayersAndTunnels)
+{
+  CheckStoredEndpointJoin({P(0, 0), P(1, 0)}, {P(1, 0), P(2, 1)}, false, 1);
+  CheckStoredEndpointJoin({P(0, 0), P(1, 0)}, {P(1, 0), P(2, 1)}, false, -1);
+  CheckStoredEndpointJoin({P(0, 0), P(1, 0)}, {P(1, 0), P(2, 1)}, false, 0, true);
+}
+
+UNIT_TEST(WaterMwm_EndpointJoinsDoNotSnapCrossOrUseClippingCuts)
+{
+  CheckStoredEndpointJoin({P(0, 0), P(1, 0)}, {P(1.00001, 0), P(2, 1)}, false);
+  CheckStoredEndpointJoin({P(0, 0), P(2, 0)}, {P(1, -1), P(1, 1)}, false);
+  CheckStoredEndpointJoin({P(0, 0), P(1, 0), P(2, 0)}, {P(1, 0), P(1, 1)}, false);
+  CheckStoredEndpointJoin({P(-2, -1), P(2, 1)}, {P(-2, 1), P(2, -1)}, false, 0, false, false, {0, -3, 3, 3});
+}
+
 UNIT_TEST(WaterMwm_CoastlineDoesNotMaskMappedWater)
 {
   classificator::Load();
@@ -206,6 +290,11 @@ UNIT_TEST(WaterMwm_StandardMwmPreservesIslandsWithoutInventingRiverJoins)
     if (&line != &*river && &line != &*aqueduct)
     {
       TEST(FindPath(geometry, start, line.back().m_point, false, neverCancelled, path) == ResultCode::Success, ());
+      if (line.front().m_point == river->back().m_point)
+      {
+        TEST_EQUAL(path.m_landDistance, 0.0, ());
+        continue;
+      }
       TEST_GREATER(path.m_landDistance, 0.0, ());
       TEST_EQUAL(std::count(path.m_landGaps.begin(), path.m_landGaps.end(), true), 1, ());
       auto const isEndpoint = [&](auto const & point)
