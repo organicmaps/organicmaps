@@ -20,13 +20,24 @@ final class PlacePageScrollView: UIScrollView {
   }
 }
 
+/// With an explicit path, Core Animation draws the shadow without an offscreen pass for the layer's alpha.
+private final class RectShadowView: UIView {
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    layer.shadowPath = UIBezierPath(rect: bounds).cgPath
+  }
+}
+
 @objc final class PlacePageViewController: UIViewController {
   private enum Constants {
     static let actionBarHeight: CGFloat = 50
+    static let actionBarShadowHeight: CGFloat = 10
     static let additionalPreviewOffset: CGFloat = 80
     static let additionalRevealOffset: CGFloat = 12
     static let fastSwipeDownVelocity: CGFloat = -3.0
     static let fastSwipeUpVelocity: CGFloat = 2.0
+    /// Ignores sub-point leftovers of the scroll offset at the end of the content.
+    static let hiddenContentTolerance: CGFloat = 1
   }
 
   @IBOutlet private var scrollView: PlacePageScrollView!
@@ -37,6 +48,7 @@ final class PlacePageScrollView: UIScrollView {
 
   private let headerStackView = UIStackView()
   private let backgroundView = UIView()
+  private let actionBarShadowView = RectShadowView()
   private var beginDragging = false
   private var previousTraitCollection: UITraitCollection?
   private var scrollSteps: [PlacePageState] = []
@@ -69,7 +81,7 @@ final class PlacePageScrollView: UIScrollView {
     // See https://github.com/organicmaps/organicmaps/issues/6917 for the details.
     panGesture.isEnabled = alternativeSizeClass(iPhone: false, iPad: true)
     previousTraitCollection = traitCollection
-    updateBackgroundViewFrame()
+    updateScrollDependentViews()
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -128,7 +140,7 @@ final class PlacePageScrollView: UIScrollView {
 
   private func updateSteps() {
     layoutIfNeeded()
-    updateBackgroundViewFrame()
+    updateScrollDependentViews()
     scrollSteps = layout.calculateSteps(inScrollView: scrollView,
                                         compact: traitCollection.verticalSizeClass == .compact)
   }
@@ -172,6 +184,8 @@ final class PlacePageScrollView: UIScrollView {
 
     stackView.backgroundColor = .clear
 
+    setupActionBarShadow()
+
     if isiPad {
       let bottomCorners: CACornerMask = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
       actionBarContainerView.layer.setCornerRadius(.modalSheet, maskedCorners: bottomCorners)
@@ -186,10 +200,24 @@ final class PlacePageScrollView: UIScrollView {
     }
   }
 
+  private func setupActionBarShadow() {
+    // The view sits right below the scroll view frame, which clips the shadow to the part that falls on the content.
+    actionBarShadowView.setStyle(.ppActionBarShadowView)
+    actionBarShadowView.isHidden = true
+    actionBarShadowView.translatesAutoresizingMaskIntoConstraints = false
+    scrollView.addSubview(actionBarShadowView)
+    NSLayoutConstraint.activate([
+      actionBarShadowView.leadingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.leadingAnchor),
+      actionBarShadowView.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor),
+      actionBarShadowView.topAnchor.constraint(equalTo: scrollView.frameLayoutGuide.bottomAnchor),
+      actionBarShadowView.heightAnchor.constraint(equalToConstant: Constants.actionBarShadowHeight),
+    ])
+  }
+
   private func setupLayout(_ layout: IPlacePageLayout) {
     let showSeparator = layout.sectionSpacing > 0
     stackView.spacing = layout.sectionSpacing
-    fillHeader(with: layout.headerViewControllers, showSeparator: showSeparator)
+    fillHeader(with: layout.headerViewControllers)
     fillBody(with: layout.bodyViewControllers, showSeparator: showSeparator)
 
     layout.headerViewController.didStartEditingTitle = { [weak self] isEditing in
@@ -211,26 +239,27 @@ final class PlacePageScrollView: UIScrollView {
     }
   }
 
-  private func fillHeader(with viewControllers: [UIViewController], showSeparator: Bool = true) {
+  private func fillHeader(with viewControllers: [UIViewController]) {
     viewControllers.forEach { [self] viewController in
       if !stackView.arrangedSubviews.contains(headerStackView) {
         stackView.addArrangedSubview(headerStackView)
       }
       headerStackView.addArrangedSubview(viewController.view)
     }
-    if showSeparator {
-      headerStackView.addSeparator(.bottom)
-    }
   }
 
   private func fillBody(with viewControllers: [UIViewController], showSeparator: Bool = true) {
+    // A section draws both lines of the gap above it, the upper one outside its bounds: the content never ends with
+    // a line at the action bar, and a hidden section takes its gap and lines with it.
+    let lineThickness: CGFloat = 1
+    let upperLineInsets = UIEdgeInsets(top: -(stackView.spacing + lineThickness), left: 0, bottom: 0, right: 0)
     viewControllers.forEach { [self] viewController in
       addChild(viewController)
       stackView.addArrangedSubview(viewController.view)
       viewController.didMove(toParent: self)
       if showSeparator {
-        viewController.view.addSeparator(.top)
-        viewController.view.addSeparator(.bottom)
+        viewController.view.addSeparator(.top, thickness: lineThickness)
+        viewController.view.addSeparator(.top, thickness: lineThickness, insets: upperLineInsets)
       }
     }
   }
@@ -297,7 +326,7 @@ final class PlacePageScrollView: UIScrollView {
       }
       ModalPresentationAnimator.animate(animations: { [weak scrollView] in
         scrollView?.contentOffset = contentOffset
-        self.updateBackgroundViewFrame()
+        self.updateScrollDependentViews()
         self.layoutIfNeeded()
       }, completion: { complete in
         if complete {
@@ -306,7 +335,7 @@ final class PlacePageScrollView: UIScrollView {
       })
     } else {
       scrollView?.contentOffset = contentOffset
-      updateBackgroundViewFrame()
+      updateScrollDependentViews()
       completion?()
     }
   }
@@ -326,11 +355,20 @@ final class PlacePageScrollView: UIScrollView {
     }, iPad: {})
   }
 
-  private func updateBackgroundViewFrame() {
+  private func updateScrollDependentViews() {
     backgroundView.frame = CGRect(x: 0,
                                   y: max(scrollView.origin.y, -scrollView.contentOffset.y),
                                   width: scrollView.width,
                                   height: stackView.height + actionBarContainerView.height)
+    updateActionBarShadow()
+  }
+
+  /// The shadow shows that a part of the content is hidden under the action bar.
+  private func updateActionBarShadow() {
+    let hiddenContentHeight = scrollView.contentSize.height - scrollView.contentOffset.y - scrollView.height
+    let isHidden = hiddenContentHeight <= Constants.hiddenContentTolerance
+    guard actionBarShadowView.isHidden != isHidden else { return }
+    actionBarShadowView.setHidden(isHidden)
   }
 }
 
@@ -447,7 +485,7 @@ extension PlacePageViewController: UIScrollViewDelegate {
     let bound = view.height + scrollView.contentOffset.y
     updateTopBound(bound, updatingViewport: false) // Skip updating viewport on every drag.
     onOffsetChanged(scrollView.contentOffset.y)
-    updateBackgroundViewFrame()
+    updateScrollDependentViews()
   }
 
   func scrollViewWillBeginDragging(_: UIScrollView) {
@@ -529,7 +567,7 @@ extension PlacePageViewController: UIScrollViewDelegate {
     let contentOffset = CGPoint(x: 0, y: min(maxOffset, max(minOffset, yOffset)))
     scrollView.contentOffset = contentOffset
     currentScrollContentOffset = contentOffset
-    updateBackgroundViewFrame()
+    updateScrollDependentViews()
   }
 }
 
