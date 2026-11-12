@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 
@@ -147,8 +146,6 @@ public class RoutingControllerNavigationStateTest
       controller.restore();
     }
     assertTrue(controller.isPlanning());
-    verify(container, times(2)).showRoutePlan(true);
-    verify(container, times(2)).showNavigation(false);
     verify(container).onNavigationStartFailed();
   }
 

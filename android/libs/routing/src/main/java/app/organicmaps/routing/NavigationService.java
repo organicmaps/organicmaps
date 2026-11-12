@@ -131,6 +131,7 @@ public class NavigationService extends Service implements LocationListener
 
   private static boolean isStartRefused(@NonNull RuntimeException e)
   {
+    // Android reports AppOps and while-in-use permission refusals as SecurityException.
     if (e instanceof SecurityException)
       return true;
     return Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && e instanceof ForegroundServiceStartNotAllowedException;
@@ -271,7 +272,7 @@ public class NavigationService extends Service implements LocationListener
     {
       if (!isStartRefused(e))
         throw e;
-      // Android 14+ can deny while-in-use location access even when the permission check succeeds.
+      // Android 12+ can refuse background starts; 14+ also checks while-in-use location eligibility.
       Logger.e(TAG, "Failed to start foreground service, stopping the service", e);
       if (stopSelfResult(startId))
         UiThread.runLater(sOnStartFailed);

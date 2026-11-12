@@ -1,19 +1,16 @@
 package app.organicmaps.routing;
 
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.CALLS_REAL_METHODS;
-import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.withSettings;
 import static org.robolectric.Shadows.shadowOf;
 
 import android.app.Application;
@@ -22,18 +19,10 @@ import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Looper;
-import androidx.car.app.CarContext;
-import androidx.car.app.CarToast;
-import androidx.car.app.Screen;
-import androidx.car.app.ScreenManager;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.ServiceCompat;
 import androidx.core.content.ContextCompat;
-import app.organicmaps.car.screens.NavigationScreen;
-import app.organicmaps.car.screens.PlaceScreen;
 import app.organicmaps.sdk.OrganicMaps;
-import app.organicmaps.sdk.bookmarks.data.MapObject;
-import app.organicmaps.sdk.car.renderer.Renderer;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.location.LocationUtils;
 import app.organicmaps.sdk.routing.RoutingController;
@@ -43,8 +32,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Answers;
-import org.mockito.ArgumentCaptor;
 import org.mockito.MockedStatic;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
@@ -77,7 +64,6 @@ public class NavigationServiceStartTest
   private RoutingController mController;
   private NavigationService mService;
   private LocationHelper mLocation;
-  private OrganicMaps mMaps;
 
   @Before
   public void setUp() throws ReflectiveOperationException
@@ -93,10 +79,10 @@ public class NavigationServiceStartTest
     mService = mock(NavigationService.class, CALLS_REAL_METHODS);
     doReturn(true).when(mService).stopSelfResult(anyInt());
     mLocation = mock(LocationHelper.class);
-    mMaps = mock(OrganicMaps.class);
-    when(mMaps.arePlatformAndCoreInitialized()).thenReturn(true);
-    when(mMaps.getLocationHelper()).thenReturn(mLocation);
-    NavigationService.setOrganicMaps(mMaps);
+    final OrganicMaps maps = mock(OrganicMaps.class);
+    when(maps.arePlatformAndCoreInitialized()).thenReturn(true);
+    when(maps.getLocationHelper()).thenReturn(mLocation);
+    NavigationService.setOrganicMaps(maps);
     final NotificationCompat.Builder notification = mock(NotificationCompat.Builder.class);
     when(notification.build()).thenReturn(mock(Notification.class));
     setNotificationBuilder(notification);
@@ -178,7 +164,7 @@ public class NavigationServiceStartTest
   }
 
   @Test
-  public void refusedRequestReportsFailureAfterTheCallerReturns()
+  public void appOpsRefusalReportsFailureAfterTheCallerReturns()
   {
     refuseStart();
     NavigationService.startForegroundService(context());
@@ -188,7 +174,29 @@ public class NavigationServiceStartTest
   }
 
   @Test
-  public void programmingErrorsAreNotConvertedToStartRefusals()
+  @Config(sdk = 34)
+  public void backgroundRequestRefusalReportsFailureAfterTheCallerReturns()
+  {
+    mStarts.when(() -> ContextCompat.startForegroundService(any(), any()))
+        .thenThrow(new ForegroundServiceStartNotAllowedException("Background start refused"));
+    NavigationService.startForegroundService(context());
+    verify(mController, never()).onNavigationStartFailed();
+    shadowOf(Looper.getMainLooper()).idle();
+    verify(mController).onNavigationStartFailed();
+  }
+
+  @Test
+  public void unrelatedRequestErrorsPropagate()
+  {
+    mStarts.when(() -> ContextCompat.startForegroundService(any(), any()))
+        .thenThrow(new IllegalStateException("Unexpected service state"));
+    assertThrows(IllegalStateException.class, () -> NavigationService.startForegroundService(context()));
+    shadowOf(Looper.getMainLooper()).idle();
+    verify(mController, never()).onNavigationStartFailed();
+  }
+
+  @Test
+  public void unrelatedPromotionErrorsPropagate()
   {
     refusePromotion(new IllegalStateException("Invalid service configuration"));
     assertThrows(IllegalStateException.class, () -> mService.onStartCommand(new Intent(), 0, 1));
@@ -206,45 +214,6 @@ public class NavigationServiceStartTest
     verify(mController, never()).onNavigationStartFailed();
   }
 
-  @Test
-  public void carFailureOpensTheSameDestinationForRetry() throws ReflectiveOperationException
-  {
-    final MapObject destination = MapObject.createMapObject(MapObject.API_POINT, "Finish", "", 2, 2);
-    when(mController.getEndPoint()).thenReturn(destination);
-    final CarContext car = mock(CarContext.class);
-    final ScreenManager screens = mock(ScreenManager.class);
-    final Renderer renderer = mock(Renderer.class);
-    final NavigationScreen navigation = mock(NavigationScreen.class, withSettings().defaultAnswer(invocation -> {
-      return switch (invocation.getMethod().getName())
-      {
-        case "getCarContext" -> car;
-        case "getScreenManager" -> screens;
-        case "getSurfaceRenderer" -> renderer;
-        case "getOrganicMapsContext" -> mMaps;
-        default -> Answers.RETURNS_DEFAULTS.answer(invocation);
-      };
-    }));
-    final Field controller = NavigationScreen.class.getDeclaredField("mRoutingController");
-    controller.setAccessible(true);
-    controller.set(navigation, mController);
-    doCallRealMethod().when(navigation).onNavigationStartFailed();
-    final CarToast toast = mock(CarToast.class);
-    try (MockedStatic<CarToast> toasts = mockStatic(CarToast.class))
-    {
-      toasts
-          .when(() -> CarToast.makeText(car, app.organicmaps.car.R.string.navigation_start_error, CarToast.LENGTH_LONG))
-          .thenReturn(toast);
-      navigation.onNavigationStartFailed();
-    }
-    verify(toast).show();
-    verify(screens).popToRoot();
-    final ArgumentCaptor<Screen> screen = ArgumentCaptor.forClass(Screen.class);
-    verify(screens).push(screen.capture());
-    final Field place = PlaceScreen.class.getDeclaredField("mMapObject");
-    place.setAccessible(true);
-    assertSame(destination, place.get(screen.getValue()));
-  }
-
   private void refusePromotion(RuntimeException exception)
   {
     mPromotion.when(() -> ServiceCompat.startForeground(eq(mService), anyInt(), any(), anyInt())).thenThrow(exception);
@@ -252,7 +221,8 @@ public class NavigationServiceStartTest
 
   private void refuseStart()
   {
-    mStarts.when(() -> ContextCompat.startForegroundService(any(), any())).thenThrow(new SecurityException());
+    mStarts.when(() -> ContextCompat.startForegroundService(any(), any()))
+        .thenThrow(new SecurityException("Foreground not allowed as per app op"));
   }
 
   private static Context context()

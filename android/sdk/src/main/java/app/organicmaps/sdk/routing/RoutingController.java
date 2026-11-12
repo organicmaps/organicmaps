@@ -11,6 +11,7 @@ import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.location.LocationHelper;
+import app.organicmaps.sdk.util.Assert;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
 import org.chromium.base.ObserverList;
@@ -232,7 +233,7 @@ public class RoutingController
     Logger.d(TAG, "[S] State: " + mState + " -> " + newState + ", BuildState: " + mBuildState);
     final boolean wasNavigating = mState == State.NAVIGATION;
     mState = newState;
-    if (newState == State.NONE || newState == State.NAVIGATION)
+    if (newState != State.PREPARE)
       mPendingNavigationStartFailure = false;
     final boolean isNavigating = mState == State.NAVIGATION;
 
@@ -687,17 +688,17 @@ public class RoutingController
   /** Returns a refused navigation start to planning, preserving the itinerary for retry. */
   public void onNavigationStartFailed()
   {
-    if (!isNavigating())
+    if (!resetToPlanningStateIfNavigating())
       return;
     mPendingNavigationStartFailure = true;
-    resetToPlanningStateIfNavigating();
     notifyNavigationStartFailed();
   }
 
   private void notifyNavigationStartFailed()
   {
-    if (!mPendingNavigationStartFailure || mHasContainerSavedState || !isPlanning() || mContainer == null)
+    if (!mPendingNavigationStartFailure || mHasContainerSavedState || mContainer == null)
       return;
+    Assert.debug(isPlanning(), "A refused navigation start must return to planning");
     mPendingNavigationStartFailure = false;
     mContainer.onNavigationStartFailed();
   }
