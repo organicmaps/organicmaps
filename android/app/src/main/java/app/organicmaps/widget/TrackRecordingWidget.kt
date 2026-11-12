@@ -14,6 +14,7 @@ import android.text.format.DateUtils
 import android.util.SizeF
 import android.view.View
 import android.widget.RemoteViews
+import androidx.core.app.PendingIntentCompat
 import app.organicmaps.MwmActivity
 import app.organicmaps.R
 import app.organicmaps.location.TrackRecordingService
@@ -154,13 +155,13 @@ class TrackRecordingWidget : AppWidgetProvider() {
         }
 
         private fun createFinishPendingIntent(context: Context): PendingIntent {
-            val immutable = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) 0 else PendingIntent.FLAG_IMMUTABLE
-            val flags = PendingIntent.FLAG_UPDATE_CURRENT or immutable
             val intent =
                 Intent(context, MwmActivity::class.java)
                     .putExtra(MwmActivity.EXTRA_FINISH_TRACK_RECORDING, true)
             // Extras alone don't make a PendingIntent unique.
-            return PendingIntent.getActivity(context, 1, intent, flags)
+            return checkNotNull(
+                PendingIntentCompat.getActivity(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT, false),
+            )
         }
 
         // No core calls here: this runs at process start, before the core is initialized.

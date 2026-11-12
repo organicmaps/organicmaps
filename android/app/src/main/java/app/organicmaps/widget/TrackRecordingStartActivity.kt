@@ -4,8 +4,8 @@ import android.app.Activity
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
+import androidx.core.app.PendingIntentCompat
 import app.organicmaps.MwmActivity
 import app.organicmaps.MwmApplication
 import app.organicmaps.location.TrackRecordingService
@@ -58,10 +58,10 @@ class TrackRecordingStartActivity : Activity() {
         private val TAG = TrackRecordingStartActivity::class.java.simpleName
 
         fun createPendingIntent(context: Context): PendingIntent {
-            val immutable = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) 0 else PendingIntent.FLAG_IMMUTABLE
-            val flags = PendingIntent.FLAG_UPDATE_CURRENT or immutable
             val intent = Intent(context, TrackRecordingStartActivity::class.java)
-            return PendingIntent.getActivity(context, 0, intent, flags)
+            return checkNotNull(
+                PendingIntentCompat.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT, false),
+            )
         }
     }
 }

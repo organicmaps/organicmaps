@@ -14,6 +14,7 @@ import androidx.annotation.StringRes;
 import androidx.core.app.NotificationChannelCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.app.PendingIntentCompat;
 import androidx.core.content.ContextCompat;
 import app.organicmaps.MwmActivity;
 import app.organicmaps.R;
@@ -153,11 +154,10 @@ public class DownloaderNotifier
   @NonNull
   private PendingIntent getNotificationPendingIntent(@Nullable String countryId, int requestCode)
   {
-    final int FLAG_IMMUTABLE = Build.VERSION.SDK_INT < Build.VERSION_CODES.M ? 0 : PendingIntent.FLAG_IMMUTABLE;
     final Intent contentIntent = MwmActivity.createShowMapIntent(mContext, countryId);
     contentIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    return PendingIntent.getActivity(mContext, requestCode, contentIntent,
-                                     PendingIntent.FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
+    return PendingIntentCompat.getActivity(mContext, requestCode, contentIntent, PendingIntent.FLAG_UPDATE_CURRENT,
+                                           false);
   }
 
   @NonNull
