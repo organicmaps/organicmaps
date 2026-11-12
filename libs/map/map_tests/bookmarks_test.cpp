@@ -3723,6 +3723,8 @@ UNIT_TEST(BookmarkSourceImportPoiPresentationPreservesUserAppearance)
   TEST_EQUAL(bookmark->GetAnchor(), dp::Center, ());
   TEST_EQUAL(bookmark->GetMinZoom(), 14, ());
   TEST_EQUAL(bookmark->GetMinTitleZoom(), 15, ());
+  TEST_EQUAL(bookmark->GetDepthLayer(), df::DepthLayer::SearchMarkLayer, ());
+  TEST_EQUAL(bookmark->GetDepthLayerEx(settings::Placement::None), df::DepthLayer::OverlayLayer, ());
   TEST_EQUAL(bookmark->GetSymbolNames()->begin()->first, 14, ());
   TEST_EQUAL(bookmark->GetSymbolNames()->begin()->second, "contact-s", ());
   TEST_EQUAL(bookmark->GetSymbolNames()->rbegin()->first, 15, ());
@@ -3730,6 +3732,7 @@ UNIT_TEST(BookmarkSourceImportPoiPresentationPreservesUserAppearance)
   auto titles = bookmark->GetTitleDeclEx(settings::Placement::None, dp::Color::White());
   TEST(titles != nullptr, ());
   TEST_EQUAL(titles->front().m_primaryTextFont.m_size, 10.0f, ());
+  TEST(titles->front().m_usePoiCaption, ());
   auto edited = bookmark->GetData();
   edited.m_color = kml::MakeCustomBookmarkColorData(bookmark->GetColorForRendering());
   kml::SetDefaultStr(edited.m_description, "Edited description");
@@ -3738,6 +3741,9 @@ UNIT_TEST(BookmarkSourceImportPoiPresentationPreservesUserAppearance)
   TEST(!bookmark->GetCustomColor().has_value(), ());
   manager.GetEditSession().GetBookmarkForEdit(id)->SetColor(dp::Color::Red());
   TEST_EQUAL(bookmark->GetAnchor(), dp::Bottom, ());
+  titles = bookmark->GetTitleDeclEx(settings::Placement::Bottom, dp::Color::White());
+  TEST_EQUAL(bookmark->GetDepthLayerEx(settings::Placement::Bottom), df::DepthLayer::SearchMarkLayer, ());
+  TEST(!titles->front().m_usePoiCaption, ());
   ImportBookmarks(manager, "android-contacts", "Contacts", entries);
   TEST_EQUAL(bookmark->GetAnchor(), dp::Bottom, ());
 }

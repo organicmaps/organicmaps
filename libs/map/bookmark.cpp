@@ -128,6 +128,7 @@ drape_ptr<df::UserPointMark::TitlesInfo> Bookmark::GetTitleDeclEx(settings::Plac
     // by the renderer and is white in the light theme and black in the dark theme.
     bool const isDarkTheme = outlineColor == dp::Color::Black();
     dp::TitleDecl title;
+    title.m_usePoiCaption = true;
     title.m_primaryText = GetPreferredName();
     title.m_primaryTextFont.m_color = isDarkTheme ? dp::Color(0xa6, 0xa6, 0xa6, 255) : dp::Color(0x44, 0x44, 0x44, 255);
     title.m_primaryTextFont.m_outlineColor = outlineColor;
@@ -164,7 +165,7 @@ drape_ptr<df::UserPointMark::TitlesInfo> Bookmark::GetTitleDeclEx(settings::Plac
 df::DepthLayer Bookmark::GetDepthLayerEx(settings::Placement p) const
 {
   if (HasPoiPresentation())
-    return df::DepthLayer::SearchMarkLayer;
+    return df::DepthLayer::OverlayLayer;
   if (p == settings::Placement::None)
     return df::DepthLayer::UserMarkLayer;
 
