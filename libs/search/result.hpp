@@ -14,6 +14,7 @@
 #include "base/checked_cast.hpp"
 
 #include <algorithm>
+#include <optional>
 #include <string>
 #include <utility>
 #include <vector>
@@ -53,6 +54,12 @@ public:
     std::string m_description;
   };
 
+  struct AddressIdentity
+  {
+    std::string m_houseNumber;
+    std::string m_street;
+  };
+
   // Min distance to search result when popularity label has a higher priority (in meters).
   static auto constexpr kPopularityHighPriorityMinDistance = 50000.0;
 
@@ -60,6 +67,10 @@ public:
   void FromFeature(FeatureID const & id, uint32_t mainType, uint32_t matchedType, Details const & details);
 
   void SetAddress(std::string && address) { m_address = std::move(address); }
+  // An empty identity explicitly means this feature has no exact mapped address. Never use
+  // a nearby reverse-geocoded address to validate its location.
+  void SetAddressIdentity(AddressIdentity identity) { m_addressIdentity = std::move(identity); }
+  std::optional<AddressIdentity> const & GetAddressIdentity() const { return m_addressIdentity; }
   void SetType(Result::Type type) { m_resultType = type; }
 
   // For Type::PureSuggest.
@@ -153,6 +164,7 @@ private:
   m2::PointD m_center;
   std::string m_str;
   std::string m_address;
+  std::optional<AddressIdentity> m_addressIdentity;
   uint32_t m_mainType = 0;
   uint32_t m_matchedType = 0;
   std::string m_suggestionStr;

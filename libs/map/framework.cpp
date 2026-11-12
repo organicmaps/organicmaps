@@ -306,7 +306,7 @@ void Framework::OnViewportChanged(ScreenBase const & screen)
 
   m_currentModelView = screen;
 
-  GetSearchAPI().OnViewportChanged(GetCurrentViewport());
+  GetSearchAPI().OnViewportChanged(GetCurrentViewport(), GetDrawScale());
 
   GetBookmarkManager().UpdateViewport(m_currentModelView);
   m_trafficManager.UpdateViewport(m_currentModelView);
@@ -522,6 +522,8 @@ void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
     m_descriptionsLoader->OnMwmDeregistered(localFile);
 
     m_storage.DeleteCustomCountryVersion(localFile);
+    // A deferred deregistration can finish after the initial deletion notification.
+    GetSearchAPI().ClearCaches();
   };
 
   // Call action on thread in which the framework was created
@@ -1486,9 +1488,25 @@ search::DisplayedCategories const & Framework::GetDisplayedCategories()
 
 void Framework::SelectSearchResult(search::Result const & result, bool animation)
 {
+  SelectSearchResult(result, animation, {}, {});
+}
+
+void Framework::SelectResolvedAddress(m2::PointD const & point, std::string const & name, std::string const & address,
+                                      bool animation)
+{
+  search::Result result(point, name);
+  result.SetType(search::Result::Type::LatLon);
+  SelectSearchResult(result, animation, name, address);
+}
+
+void Framework::SelectSearchResult(search::Result const & result, bool animation, std::string const & title,
+                                   std::string const & subtitle)
+{
   using namespace search;
   place_page::BuildInfo info;
   info.m_source = place_page::BuildInfo::Source::Search;
+  info.m_customTitle = title.empty() ? subtitle : title;
+  info.m_customSubtitle = title.empty() ? "" : subtitle;
   info.m_needAnimationOnSelection = false;
   int scale = -1;
   switch (result.GetResultType())
@@ -2633,6 +2651,8 @@ place_page::Info Framework::BuildPlacePageInfo(place_page::BuildInfo const & bui
   }
 
   // 6. Empty place / final POI setup.
+  if (!buildInfo.m_customTitle.empty() || !buildInfo.m_customSubtitle.empty())
+    outInfo.SetCustomNames(buildInfo.m_customTitle, buildInfo.m_customSubtitle);
   outInfo.SetSelectedObject(df::SelectionShape::OBJECT_POI);
   GetBookmarkManager().SelectionMark().SetPtOrg(outInfo.GetMercator());
   sp.SetPlacePageLocation(outInfo);
