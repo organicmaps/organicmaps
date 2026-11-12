@@ -700,6 +700,8 @@
     <string name="moreyear_ago_sorttype">1年以上前</string>
     <string name="near_me_sorttype">近隣</string>
     <string name="others_sorttype">その他</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">ナビゲーションを開始できませんでした。もう一度お試しください。</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">営業時間外</string>
     <string name="opens_tomorrow_at">明日の %s から営業</string>

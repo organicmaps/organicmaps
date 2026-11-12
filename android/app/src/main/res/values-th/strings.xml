@@ -700,6 +700,8 @@
     <string name="moreyear_ago_sorttype">มากกว่าหนึ่งปีที่ผ่านมา</string>
     <string name="near_me_sorttype">ใกล้ฉัน</string>
     <string name="others_sorttype">อื่นๆ</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">ไม่สามารถเริ่มการนำทางได้ โปรดลองอีกครั้ง</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">ปิดตอนนี้</string>
     <string name="opens_tomorrow_at">เปิดพรุ่งนี้ที่ %s</string>

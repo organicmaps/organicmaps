@@ -101,6 +101,8 @@
     <string name="by_date">По датуму</string>
     <!-- Android -->
     <string name="by_name">По називу</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">Немогуће је покренути навигацију. Молимо покушајте поново.</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">Преузимање</string>

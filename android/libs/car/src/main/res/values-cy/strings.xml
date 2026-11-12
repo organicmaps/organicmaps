@@ -101,6 +101,8 @@
     <string name="by_date">Yn ôl dyddiad</string>
     <!-- Android -->
     <string name="by_name">Yn ôl enw</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">Methu dechrau llywio. Ceisiwch eto.</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">Wrthi\'n lawrlwytho</string>

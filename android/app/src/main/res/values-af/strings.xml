@@ -699,6 +699,8 @@
     <string name="moreyear_ago_sorttype">Meer as ’n jaar gelede</string>
     <string name="near_me_sorttype">Naby my</string>
     <string name="others_sorttype">Ander</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">Navigasie kon nie begin nie. Probeer asseblief weer.</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Nou gesluit</string>
     <string name="opens_tomorrow_at">Open môre om %s</string>

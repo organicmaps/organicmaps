@@ -101,6 +101,8 @@
     <string name="by_date">दिनांकानुसार</string>
     <!-- Android -->
     <string name="by_name">नावाने</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">नॅव्हिगेशन सुरू करता येत नाही. कृपया पुन्हा प्रयत्न करा.</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">डाउनलोड करत आहे</string>

@@ -700,6 +700,8 @@
     <string name="moreyear_ago_sorttype">Vairāk nekā pirms gada</string>
     <string name="near_me_sorttype">Man tuvumā</string>
     <string name="others_sorttype">Cits</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">Nav iespējams sākt navigāciju. Lūdzu, mēģiniet vēlreiz.</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Šobrīd slēgts</string>
     <string name="opens_tomorrow_at">Atveras rīt %s</string>

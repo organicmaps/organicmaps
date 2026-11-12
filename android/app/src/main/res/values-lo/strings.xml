@@ -655,6 +655,8 @@
     <string name="moreyear_ago_sorttype">ຫຼາຍກວ່າໜຶ່ງປີຜ່ານມາ</string>
     <string name="near_me_sorttype">ໃກ້ຂ້ອຍ</string>
     <string name="others_sorttype">ອື່ນໆ</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">ບໍ່ສາມາດເລີ່ມການນໍາທາງໄດ້. ກະລຸນາລອງອີກຄັ້ງ.</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">ປິດຢູ່ໃນຂະນະນີ້</string>
     <string name="opens_tomorrow_at">ຈະເປີດມື້ອື່ນເວລາ %s</string>

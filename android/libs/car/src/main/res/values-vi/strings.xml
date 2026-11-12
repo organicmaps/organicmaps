@@ -101,6 +101,8 @@
     <string name="by_date">Theo ngày</string>
     <!-- Android -->
     <string name="by_name">Theo Tên</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">Không thể khởi động tính năng dẫn đường. Vui lòng thử lại.</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">Tải xuống</string>

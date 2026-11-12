@@ -699,6 +699,8 @@
     <string name="moreyear_ago_sorttype">1년 그 이상 전</string>
     <string name="near_me_sorttype">나와 가까운 곳</string>
     <string name="others_sorttype">기타</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">내비게이션을 시작할 수 없습니다. 다시 시도해 주세요.</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">지금 닫힘</string>
     <string name="opens_tomorrow_at">내일 %s에 오픈</string>

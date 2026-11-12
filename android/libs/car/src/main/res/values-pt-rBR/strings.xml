@@ -64,6 +64,8 @@
     <string name="sort_bookmarks">Classificar marcadores</string>
     <!-- Android -->
     <string name="by_default">Por padrão</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">Não foi possível iniciar a navegação. Tente novamente.</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">Baixando</string>

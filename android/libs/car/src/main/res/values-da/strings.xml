@@ -101,6 +101,8 @@
     <string name="by_date">Efter dato</string>
     <!-- Android -->
     <string name="by_name">Efter navn</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">Det er ikke muligt at starte navigationen. Prøv igen.</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">Downloader</string>
