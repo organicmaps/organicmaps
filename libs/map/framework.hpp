@@ -230,6 +230,8 @@ protected:
   void InvalidateIsolines();
   // Pushes the terrain availability of the current viewport into the isolines layer.
   void UpdateIsolinesAvailability();
+  // The isolines layer draws the terrain, except in the vehicle styles.
+  bool IsTerrainDrawn() const;
   bool HasViewportTerrain(m2::RectD const & rect);
 
   void ClearAllCaches();
