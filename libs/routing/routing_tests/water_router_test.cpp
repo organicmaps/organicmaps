@@ -524,8 +524,10 @@ UNIT_TEST(WaterRouter_RetriesUnavailableWaterInWiderWindow)
 {
   size_t expandedCalls = 0;
   size_t walkingCalls = 0;
-  WaterRouter router([](Checkpoints const &, RouterDelegate const &) { return WindowDetour(false); },
-                     std::make_unique<WalkingStub>(walkingCalls), [&](Checkpoints const &, RouterDelegate const &)
+  WaterRouter router(
+      [](Checkpoints const &, RouterDelegate const &) { return WindowDetour(false); },
+      std::make_unique<WalkingStub>(walkingCalls),
+      [&](Checkpoints const &, RouterDelegate const &, water::Geometry const &, std::array<bool, 4> const &, bool)
   {
     ++expandedCalls;
     return WindowDetour(true);
@@ -545,13 +547,73 @@ UNIT_TEST(WaterRouter_RetriesUnavailableWaterInWiderWindow)
   TEST_EQUAL(progress.back(), 100, ());
 }
 
+UNIT_TEST(WaterRouter_ExpandsOnlyReachableFrontiersUntilBendIsIncluded)
+{
+  size_t attempts = 0;
+  WaterRouter router([](Checkpoints const &, RouterDelegate const &) { return WindowDetour(false); }, {},
+                     [&](Checkpoints const &, RouterDelegate const &, water::Geometry const &,
+                         std::array<bool, 4> const & frontiers, bool adaptive)
+  {
+    TEST(adaptive, ());
+    TEST_EQUAL(frontiers, (std::array<bool, 4>{false, false, false, true}), ());
+    if (++attempts == 2)
+      return WindowDetour(true);
+    auto geometry = WindowDetour(false);
+    geometry.m_bounds = m2::RectD(-0.01, -0.01, 0.02, 0.03);
+    geometry.m_lines[0].back().m_point.y = 0.03;
+    geometry.m_lines[1].front().m_point.y = 0.03;
+    return geometry;
+  });
+  RouterDelegate delegate;
+  RoutesResult result;
+  TEST(router.CalculateRoute(Checkpoints({0, 0}, {0.01, 0}), {}, false, false, delegate, result) ==
+           RouterResultCode::NoError,
+       ());
+  TEST_EQUAL(attempts, 2, ());
+  TEST_EQUAL(result.GetActive().GetWaterDistances()->m_landMeters, 0.0, ());
+}
+
+UNIT_TEST(WaterRouter_ClosedDestinationDoesNotExpandTheWholeRiverNetwork)
+{
+  for (bool open : {false, true})
+  {
+    auto const geometry = [open](double boundary)
+    {
+      water::Geometry result;
+      result.m_complete = true;
+      result.m_hasSourceTopology = false;
+      result.m_bounds = m2::RectD(-0.01, -0.01, 0.02, boundary);
+      result.m_lines = {{{{0, 0}, 1}, {{0, open ? boundary : boundary / 2}, 0, !open}},
+                        {{{0.01, -0.003}, 2}, {{0.01, 0.003}, 3}}};
+      return result;
+    };
+    size_t expansions = 0, walks = 0;
+    WaterRouter router([&](auto const &, auto const &) { return geometry(0.02); }, std::make_unique<WalkingStub>(walks),
+                       [&](auto const &, auto const &, auto const &, auto const &, bool adaptive)
+    {
+      TEST(!adaptive, ());
+      ++expansions;
+      return geometry(0.03);
+    });
+    RouterDelegate delegate;
+    RoutesResult result;
+    TEST(router.CalculateRoute(Checkpoints({0, 0.001}, {0.01, 0}), {}, false, false, delegate, result) ==
+             RouterResultCode::NoError,
+         ());
+    TEST_EQUAL(expansions, 1, ());
+    TEST_GREATER(walks, 0, ());
+    TEST_GREATER(result.GetActive().GetWaterDistances()->m_waterMeters, 0.0, ());
+  }
+}
+
 UNIT_TEST(WaterRouter_WiderWindowFailureDoesNotInventRoute)
 {
   for (bool complete : {false, true})
   {
     size_t expandedCalls = 0;
-    WaterRouter router([](Checkpoints const &, RouterDelegate const &) { return WindowDetour(false); }, {},
-                       [&](Checkpoints const &, RouterDelegate const &)
+    WaterRouter router(
+        [](Checkpoints const &, RouterDelegate const &) { return WindowDetour(false); }, {},
+        [&](Checkpoints const &, RouterDelegate const &, water::Geometry const &, std::array<bool, 4> const &, bool)
     {
       ++expandedCalls;
       auto geometry = WindowDetour(false);
@@ -571,8 +633,9 @@ UNIT_TEST(WaterRouter_WiderWindowFailureDoesNotInventRoute)
 UNIT_TEST(WaterRouter_WiderWindowCancellation)
 {
   RouterDelegate delegate;
-  WaterRouter router([](Checkpoints const &, RouterDelegate const &) { return WindowDetour(false); }, {},
-                     [&](Checkpoints const &, RouterDelegate const &)
+  WaterRouter router(
+      [](Checkpoints const &, RouterDelegate const &) { return WindowDetour(false); }, {},
+      [&](Checkpoints const &, RouterDelegate const &, water::Geometry const &, std::array<bool, 4> const &, bool)
   {
     delegate.Cancel();
     return WindowDetour(true);
@@ -635,9 +698,10 @@ UNIT_TEST(WaterRouter_WiderWaterRoutePrecedesLocalWalkingProposal)
       [](Checkpoints const &, RouterDelegate const &)
   {
     auto geometry = DisconnectedRivers();
-    geometry.m_bounds = m2::RectD(-0.01, -0.01, 0.02, 0.02);
+    geometry.m_bounds = m2::RectD(-0.01, -0.01, 0.02, 0.004);
     return geometry;
-  }, std::make_unique<WalkingStub>(calls), [&](Checkpoints const &, RouterDelegate const &)
+  }, std::make_unique<WalkingStub>(calls),
+      [&](Checkpoints const &, RouterDelegate const &, water::Geometry const &, std::array<bool, 4> const &, bool)
   {
     ++expanded;
     water::Geometry geometry;

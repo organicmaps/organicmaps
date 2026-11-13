@@ -146,4 +146,30 @@ UNIT_TEST(WaterProvider_CollinearSurfaceDoesNotAbortOrBecomeWater)
   TEST_EQUAL(path.m_landDistance, 0.0, ());
   TEST(FindPath(geometry, P(0.5, 0), P(1.5, 0), false, kNeverCancelled, path) == ResultCode::Unavailable, ());
 }
+UNIT_TEST(WaterProvider_CoarseBorderCellsDoNotCutCoveredWater)
+{
+  for (bool missing : {false, true})
+  {
+    routing::water::Geometry geometry;
+    geometry.m_complete = true;
+    geometry.m_bounds = m2::RectD(0, 0, 1, 1);
+    P const start(0.2, 0.21), finish(0.8, 0.81);
+    geometry.m_lines = {{{start, 1}, {finish, 2}}};
+    size_t checks = 0;
+    routing::WaterGeometryProvider::SetCoverage(geometry, {start, finish}, [&](auto const & rect)
+    {
+      ++checks;
+      return rect.minY() > rect.maxX() && (!missing || rect.maxX() < 0.49 || rect.minX() > 0.51);
+    }, kNeverCancelled);
+    TEST(!geometry.m_coverageGaps.empty(), ());
+    Path path;
+    auto const code = FindPath(geometry, start, finish, false, kNeverCancelled, path);
+    TEST(code == (missing ? ResultCode::Unavailable : ResultCode::Success), (missing));
+    if (!missing)
+      TEST_EQUAL(path.m_landDistance, 0.0, ());
+    auto const before = checks;
+    TEST(FindPath(geometry, start, finish, false, kNeverCancelled, path) == code, ());
+    TEST_EQUAL(checks, before, ());
+  }
+}
 }  // namespace water_provider_test

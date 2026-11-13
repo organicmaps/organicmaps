@@ -36,6 +36,10 @@ struct Geometry
   std::vector<std::array<m2::PointD, 3>> m_triangles;
   // Missing or grade-separated topology remains unknown here, never dry land.
   std::vector<m2::RectD> m_unknownAreas;
+  // Coarse coverage gaps are only a filter; intersecting segments need certification.
+  std::vector<m2::RectD> m_coverageGaps;
+  std::shared_ptr<m4::Tree<size_t>> m_coverageIndex;
+  std::function<bool(m2::PointD const &, m2::PointD const &)> m_isCovered;
   // Mapped underground water may be bypassed on foot between stored river endpoints.
   std::vector<m2::RectD> m_portageAreas;
   // False for missing maps, unresolved topology or unknown local coverage.
@@ -59,6 +63,8 @@ enum class ResultCode
 
 struct Path
 {
+  std::array<bool, 4> m_frontiers{};
+  bool m_bothEndsReachBoundary = false;
   std::vector<m2::PointD> m_points;
   // One classification per edge, including any explicitly permitted land gap.
   std::vector<bool> m_landGaps;

@@ -9,7 +9,9 @@
 #include "coding/read_write_utils.hpp"
 
 #include "geometry/mercator.hpp"
+#include "geometry/rect_intersect.hpp"
 #include "geometry/region2d.hpp"
+#include "geometry/tree4d.hpp"
 
 #include "base/logging.hpp"
 
@@ -17,6 +19,36 @@
 
 namespace storage
 {
+struct CountryInfoReader::Coverage
+{
+  std::vector<CountryId> m_countries;
+  struct Polygon
+  {
+    m2::RegionD m_outer;
+    std::vector<m2::RegionD> m_holes;
+  };
+  std::vector<Polygon> m_polygons;
+  std::vector<std::pair<m2::PointD, m2::PointD>> m_edges;
+  m4::Tree<size_t> m_index;
+
+  bool Contains(m2::RectD const & rect) const
+  {
+    bool boundary = false;
+    m_index.ForEachInRect(rect, [&](size_t i)
+    {
+      auto [a, b] = m_edges[i];
+      boundary = boundary || m2::Intersect(rect, a, b);
+    });
+    if (boundary)
+      return false;
+    auto const point = rect.Center();
+    return std::any_of(m_polygons.begin(), m_polygons.end(), [&](auto const & polygon)
+    {
+      return polygon.m_outer.Contains(point) && std::none_of(polygon.m_holes.begin(), polygon.m_holes.end(),
+                                                             [&](auto const & hole) { return hole.Contains(point); });
+    });
+  }
+};
 
 // CountryInfoGetterBase ---------------------------------------------------------------------------
 CountryId CountryInfoGetterBase::GetRegionCountryId(m2::PointD const & pt) const
@@ -204,6 +236,8 @@ CountryInfoReader::CountryInfoReader(ModelReaderPtr polyR)
 
 void CountryInfoReader::ClearCachesImpl() const
 {
+  std::lock_guard coverageLock(m_coverageMutex);
+  m_coverage.reset();
   std::lock_guard lock(m_readerMutex);
 
   m_polyCache.ForEachValue([](std::vector<m2::RegionD> & v) { std::vector<m2::RegionD>().swap(v); });
@@ -271,40 +305,65 @@ bool CountryInfoReader::IsRectCoveredByRegions(std::vector<CountryId> const & co
     return false;
   using Coord = int32_t;
   using namespace boost::polygon;
-  polygon_set_data<Coord> covered;
-  for (auto const & country : countries)
+  std::lock_guard lock(m_coverageMutex);
+  if (!m_coverage || m_coverage->m_countries != countries)
   {
-    auto const id = GetRegionId(country);
-    if (id == kInvalidId)
-      return false;
-    WithRegion(id, [&](std::vector<m2::RegionD> const & regions)
+    auto prepared = std::make_shared<Coverage>();
+    prepared->m_countries = countries;
+    polygon_set_data<Coord> covered;
+    for (auto const & country : countries)
     {
-      for (auto const & region : regions)
+      auto const id = GetRegionId(country);
+      if (id == kInvalidId)
+        return false;
+      WithRegion(id, [&](std::vector<m2::RegionD> const & regions)
       {
-        if (!region.GetRect().IsIntersect(proof))
-          continue;
-        std::vector<point_data<Coord>> points;
-        for (auto const & point : region.Data())
+        for (auto const & region : regions)
         {
-          auto const encoded = PointDToPointU(point, kPointCoordBits);
-          points.emplace_back(encoded.x, encoded.y);
+          std::vector<point_data<Coord>> points;
+          for (auto const & point : region.Data())
+          {
+            auto const encoded = PointDToPointU(point, kPointCoordBits);
+            points.emplace_back(encoded.x, encoded.y);
+          }
+          polygon_data<Coord> polygon;
+          set_points(polygon, points.begin(), points.end());
+          covered.insert(polygon);
         }
-        polygon_data<Coord> polygon;
-        set_points(polygon, points.begin(), points.end());
-        covered.insert(polygon);
+      });
+    }
+    std::vector<polygon_with_holes_data<Coord>> polygons;
+    covered.get(polygons);
+    auto const ring = [&](auto const & polygon)
+    {
+      std::vector<m2::PointD> points;
+      for (auto it = begin_points(polygon); it != end_points(polygon); ++it)
+        points.emplace_back(x(*it), y(*it));
+      for (size_t i = 0; i < points.size(); ++i)
+      {
+        auto const & a = points[i];
+        auto const & b = points[(i + 1) % points.size()];
+        prepared->m_index.Add(prepared->m_edges.size(), m2::RectD(a, b));
+        prepared->m_edges.emplace_back(a, b);
       }
-    });
+      return m2::RegionD(std::move(points));
+    };
+    for (auto const & polygon : polygons)
+    {
+      Coverage::Polygon result{ring(polygon), {}};
+      for (auto hole = begin_holes(polygon); hole != end_holes(polygon); ++hole)
+        result.m_holes.push_back(ring(*hole));
+      prepared->m_polygons.push_back(std::move(result));
+    }
+    prepared->m_index.Optimize();
+    m_coverage = std::move(prepared);
   }
-  // Use the packed-border coordinate lattice and round the proof outwards.
-  // Subtracting the union preserves holes and does not treat shared seams as gaps.
+  // Cache the union, including holes, and index its remaining boundary once.
+  // Shared region seams disappear before per-segment coverage queries.
   auto const low = PointDToPointU(proof.LeftBottom(), kPointCoordBits);
   auto const high = PointDToPointU(proof.RightTop(), kPointCoordBits);
-  polygon_set_data<Coord> missing;
-  missing.insert(rectangle_data<Coord>(static_cast<Coord>(low.x) - 1, static_cast<Coord>(low.y) - 1,
-                                       static_cast<Coord>(high.x) + 1, static_cast<Coord>(high.y) + 1));
-  using namespace boost::polygon::operators;
-  missing -= covered;
-  return missing.empty();
+  return m_coverage->Contains(m2::RectD(static_cast<double>(low.x) - 1, static_cast<double>(low.y) - 1,
+                                        static_cast<double>(high.x) + 1, static_cast<double>(high.y) + 1));
 }
 void CountryInfoReader::GetTriangles(RegionId id, FeatureType & ft) const
 {

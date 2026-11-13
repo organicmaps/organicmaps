@@ -99,6 +99,14 @@ UNIT_TEST(WaterMwm_CombinedMapCoveragePreservesSeamsGapsAndHoles)
   TEST(!reader.IsRectCoveredByRegions({"Bottom", "Top", "West", "East"}, {-2, -2, 2, 2}), ());
   TEST(reader.IsRectCoveredByRegions({"Bottom", "Top", "West", "East"}, {-2.5, -2.5, -1.5, -1.5}), ());
   TEST(!reader.IsRectCoveredByRegions({"Left", "Right"}, {-3, -1, 1, 1}), ());
+  for (size_t repeat = 0; repeat < 2; ++repeat)
+  {
+    std::vector<std::string> const frame{"Bottom", "Top", "West", "East"};
+    TEST(!reader.IsRectCoveredByRegions(frame, {-0.5, -0.5, 0.5, 0.5}), ());
+    TEST(!reader.IsRectCoveredByRegions(frame, {-4, -4, 4, 4}), ());
+    TEST(reader.IsRectCoveredByRegions(frame, {-2.5, -0.5, -1.5, 0.5}), ());
+    reader.ClearCaches();
+  }
 }
 feature::FeatureBuilder Line(uint64_t id, std::vector<P> points, std::initializer_list<char const *> type)
 {
@@ -329,13 +337,23 @@ UNIT_TEST(WaterMwm_StandardMwmPreservesIslandsWithoutInventingRiverJoins)
   auto const local = pointProvider.GetGeometry(routing::Checkpoints(point, point), delegate);
   TEST_LESS(mercator::DistanceOnEarth(pointBounds.LeftBottom(), pointBounds.RightTop()), 150.0, ());
   TEST(FindPath(local, point, point, false, neverCancelled, path) == ResultCode::Success, ());
+  routing::Checkpoints const shortLeg(point, P(0.5005, 1.5));
+  auto const smallWindow = covered.GetGeometry(shortLeg, delegate);
+  auto const largerWindow = covered.ExpandGeometry(shortLeg, delegate, smallWindow, {true, true, true, true}, true);
+  TEST(largerWindow.m_complete, ());
+  TEST(largerWindow.m_bounds->IsRectInside(*smallWindow.m_bounds), ());
+  TEST_GREATER(mercator::DistanceOnEarth(largerWindow.m_bounds->LeftBottom(), smallWindow.m_bounds->LeftBottom()),
+               2000.0, ());
   routing::WaterGeometryProvider nearBorder(data,
                                             [](auto const &, auto const & bounds) { return bounds.minX() >= 0.499; });
   auto const near = nearBorder.GetGeometry(routing::Checkpoints(point, P(0.5005, 1.5)), delegate);
   TEST(near.m_complete, ());
   TEST(near.m_bounds.has_value(), ());
-  TEST(!near.m_unknownAreas.empty(), ());
-  TEST(FindPath(near, P(0.4989, 1.5), P(0.5005, 1.5), false, neverCancelled, path) == ResultCode::Unavailable, ());
+  TEST(!near.m_coverageGaps.empty(), ());
+  auto const outside = P(0.4989, 1.5);
+  TEST(!near.m_isCovered(outside, outside), ());
+  auto const outsideCode = FindPath(near, outside, P(0.5005, 1.5), false, neverCancelled, path);
+  TEST(outsideCode == ResultCode::Unavailable, (static_cast<int>(outsideCode), near.m_bounds, near.m_coverageGaps));
   TEST(FindPath(near, point, P(0.5005, 1.5), false, neverCancelled, path) == ResultCode::Success, ());
   auto const close = nearBorder.GetGeometry(routing::Checkpoints(P(0.49901, 1.5), P(0.5005, 1.5)), delegate);
   TEST(close.m_complete, ());
@@ -454,7 +472,7 @@ UNIT_TEST(WaterMwm_StandardMapsShareWaterOnlyWithCombinedCoverage)
   { return combinedCoverage(names, bounds) && !(bounds.minX() < 0.9 && bounds.maxY() > 0.55); });
   auto const known = partial.GetGeometry(routing::Checkpoints(P(0.5, 0.5), P(1.5, 0.6)), delegate);
   TEST(known.m_complete, ());
-  TEST(!known.m_unknownAreas.empty(), ());
+  TEST(!known.m_coverageGaps.empty(), ());
   TEST(FindPath(known, P(0.5, 0.5), P(1.5, 0.6), false, [] { return false; }, path) ==
            routing::water::ResultCode::Success,
        ());

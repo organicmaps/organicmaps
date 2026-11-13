@@ -8,6 +8,7 @@
 
 #include <algorithm>
 #include <map>
+#include <set>
 
 namespace routing
 {
@@ -80,8 +81,9 @@ RouterResultCode WaterRouter::CalculateRoute(Checkpoints const & checkpoints, m2
   std::vector<std::vector<m2::PointD>> approaches(checkpointsPoints.size());
   std::vector<std::vector<m2::PointD>> exits(checkpointsPoints.size());
   bool hasWalkingAccess = false;
-  bool expandedGeometryTried = false;
+
   std::map<std::pair<m2::PointD, m2::PointD>, std::vector<m2::PointD>> walkingPaths;
+  std::set<std::pair<m2::PointD, m2::PointD>> rejectedWalkingPaths;
   for (size_t i = 0; m_pedestrian && i < checkpointsPoints.size(); ++i)
   {
     water::Path membership;
@@ -128,21 +130,6 @@ RouterResultCode WaterRouter::CalculateRoute(Checkpoints const & checkpoints, m2
       return code == water::ResultCode::Success &&
              std::any_of(path.m_landGaps.begin(), path.m_landGaps.end(), [](bool land) { return land; });
     };
-    if ((code == water::ResultCode::Unavailable || needsWalking()) && !expandedGeometryTried &&
-        m_expandedGeometryGetter)
-    {
-      expandedGeometryTried = true;
-      auto expanded = m_expandedGeometryGetter(checkpoints, delegate);
-      if (cancelled())
-        return RouterResultCode::Cancelled;
-      if (expanded.m_complete && expanded.m_bounds && geometry.m_bounds && expanded.m_bounds != geometry.m_bounds)
-      {
-        geometry = std::move(expanded);
-        code = water::FindPath(geometry, checkpointsPoints[i - 1], checkpointsPoints[i],
-                               i == 1 && checkpoints.IsStartMyPosition(), cancelled, path,
-                               [&](double value) { legProgress(0.85 * value); });
-      }
-    }
     // Prefer the wider water search before considering an unconfirmed walking transfer.
     RouterResultCode walkingFailure = RouterResultCode::NoError;
     auto const walkAllowed = [&](m2::PointD const & from, m2::PointD const & to)
@@ -150,18 +137,51 @@ RouterResultCode WaterRouter::CalculateRoute(Checkpoints const & checkpoints, m2
       auto const key = std::pair{from, to};
       if (walkingPaths.contains(key))
         return true;
+      if (rejectedWalkingPaths.contains(key))
+        return false;
       std::vector<m2::PointD> walking;
       auto const result = Walk(*m_pedestrian, from, to, delegate,
                                [&](float value) { legProgress(0.85 + 0.10 * value / 100.0); }, walking);
       if (result != RouterResultCode::NoError)
       {
         walkingFailure = result;
+        rejectedWalkingPaths.insert(key);
         return false;
       }
       walkingPaths.emplace(key, std::move(walking));
       return true;
     };
-    if ((code == water::ResultCode::Unavailable || needsWalking()) && m_pedestrian)
+    bool walkingSearched = false;
+    // A component wholly inside the window cannot gain a water connection
+    // outside it. Retain one local retry for portages instead of growing it.
+    bool const adaptive = path.m_bothEndsReachBoundary;
+    size_t const attempts = adaptive ? 4 : 1;
+    for (size_t attempt = 0; attempt < attempts && (attempt == 0 || path.m_bothEndsReachBoundary) &&
+                             m_expandedGeometryGetter && (code == water::ResultCode::Unavailable || needsWalking());
+         ++attempt)
+    {
+      auto expanded = m_expandedGeometryGetter(checkpoints, delegate, geometry, path.m_frontiers, adaptive);
+      if (cancelled())
+        return RouterResultCode::Cancelled;
+      if (expanded.m_complete && expanded.m_bounds && geometry.m_bounds && expanded.m_bounds != geometry.m_bounds &&
+          expanded.m_bounds->IsRectInside(*geometry.m_bounds))
+      {
+        water::Path expandedPath;
+        bool const lastAttempt = attempt + 1 == attempts && m_pedestrian;
+        auto const expandedCode = water::FindPath(
+            expanded, checkpointsPoints[i - 1], checkpointsPoints[i], i == 1 && checkpoints.IsStartMyPosition(),
+            cancelled, expandedPath, [&](double value) { legProgress(0.85 * value); }, lastAttempt, walkAllowed);
+        if (expandedCode != water::ResultCode::Success && code == water::ResultCode::Success)
+          break;
+        walkingSearched = lastAttempt;
+        geometry = std::move(expanded);
+        path = std::move(expandedPath);
+        code = expandedCode;
+      }
+      else
+        break;
+    }
+    if (!walkingSearched && (code == water::ResultCode::Unavailable || needsWalking()) && m_pedestrian)
       code = water::FindPath(geometry, checkpointsPoints[i - 1], checkpointsPoints[i],
                              i == 1 && checkpoints.IsStartMyPosition(), cancelled, path,
                              [&](double value) { legProgress(0.85 * value); }, true, walkAllowed);

@@ -21,6 +21,7 @@
 #include "base/logging.hpp"
 
 #include <ctime>
+#include <limits>
 #include <string>
 #include <vector>
 
@@ -30,7 +31,8 @@ namespace water_reported_routes_test
 std::vector<m2::PointD> CheckRoute(std::string const & name, ms::LatLon const & start, ms::LatLon const & finish,
                                    bool myPosition, std::vector<std::string> const & countries, bool waterOnly = false,
                                    std::vector<ms::LatLon> const & stops = {}, bool cacheWalkingGraph = true,
-                                   time_t routingTime = 0)
+                                   time_t routingTime = 0, double maxWalking = std::numeric_limits<double>::max(),
+                                   double minWater = 0)
 {
   classificator::Load();
   FrozenDataSource data;
@@ -69,10 +71,15 @@ std::vector<m2::PointD> CheckRoute(std::string const & name, ms::LatLon const & 
     LOG(LINFO, (name, "geometry", margin, result.m_complete, result.m_bounds, result.m_triangles.size()));
     return result;
   };
-  routing::WaterRouter router([&](auto const & checkpoints, auto const & delegate)
-  { return geometry(checkpoints, delegate, 0); }, std::move(pedestrian),
-                              [&](auto const & checkpoints, auto const & delegate)
-  { return geometry(checkpoints, delegate, 2000); });
+  routing::WaterRouter router(
+      [&](auto const & checkpoints, auto const & delegate) { return geometry(checkpoints, delegate, 0); },
+      std::move(pedestrian),
+      [&](auto const & checkpoints, auto const & delegate, auto const & previous, auto const & frontiers, bool adaptive)
+  {
+    auto result = provider.ExpandGeometry(checkpoints, delegate, previous, frontiers, adaptive);
+    LOG(LINFO, (name, "expanded geometry", result.m_complete, result.m_bounds, result.m_triangles.size()));
+    return result;
+  });
   routing::CheckpointsGeometry points{mercator::FromLatLon(start)};
   for (auto const & stop : stops)
     points.push_back(mercator::FromLatLon(stop));
@@ -111,6 +118,8 @@ std::vector<m2::PointD> CheckRoute(std::string const & name, ms::LatLon const & 
   }
   auto const distances = route.GetWaterDistances();
   TEST(distances.has_value(), (name));
+  TEST_LESS_OR_EQUAL(distances->m_landMeters, maxWalking, (name));
+  TEST_GREATER_OR_EQUAL(distances->m_waterMeters, minWater, (name));
   TEST_GREATER(distances->m_waterMeters, 0.0, (name));
   if (waterOnly)
     TEST_EQUAL(distances->m_landMeters, 0.0, (name));
@@ -348,5 +357,23 @@ UNIT_TEST(WaterLong_PomeranianPortageReverse)
 {
   CheckRoute("PomeranianPortageReverse", {53.84449881, 18.35696959}, {54.12300877, 17.75593190}, false,
              {"Poland_Pomeranian Voivodeship"});
+}
+UNIT_TEST(WaterReported_NerisKaunasReservoir)
+{
+  CheckRoute("NerisKaunasReservoir", {54.82539913135153, 25.748180598020554}, {54.900349439028986, 24.087091237306595},
+             false, {"Lithuania_East", "Lithuania_West"}, false, {}, true, 0, 5000.0, 200000.0);
+}
+
+UNIT_TEST(WaterLong_NerisKaunasReservoirReverse)
+{
+  CheckRoute("NerisKaunasReservoirReverse", {54.900349439028986, 24.087091237306595},
+             {54.82539913135153, 25.748180598020554}, false, {"Lithuania_East", "Lithuania_West"}, false, {}, true, 0,
+             5000.0, 200000.0);
+}
+
+UNIT_TEST(WaterLong_NerisConfluence)
+{
+  CheckRoute("NerisConfluence", {54.82539913135153, 25.748180598020554}, {54.9005461209, 23.8703662445}, false,
+             {"Lithuania_East", "Lithuania_West"}, true);
 }
 }  // namespace water_reported_routes_test

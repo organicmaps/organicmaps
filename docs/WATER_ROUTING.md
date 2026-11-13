@@ -25,8 +25,8 @@ Access-point selection uses proximity rather than comparing all possible walking
 routes, so another entry may succeed where the nearest one fails.
 
 Connected water takes priority over walking shortcuts. If the local water search
-fails or proposes a portage, a wider water search is tried before choosing land
-transfers. A journey can include multiple portages, each using the pedestrian
+fails or proposes a portage, the search expands where reachable water meets
+its extraction boundary before choosing land transfers. A journey can include multiple portages, each using the pedestrian
 router's actual geometry and distance. Failed walking candidates are excluded
 and alternatives are tried within bounded limits. There is no straight walking
 fallback and no replacement of the whole journey with a pedestrian-only route.
@@ -71,14 +71,32 @@ Previously, two Nemenčia line features meeting at the same endpoint were treate
 as disconnected, producing a 920 m walking detour. Synthetic MWM tests cover
 same-layer endpoint joins, cross-map joins, tunnels, different layers, near misses,
 interior crossings and extraction cuts.
-The endpoint-join change passed 445 routing unit tests and all 57 Water integration
-tests (13 synthetic-MWM and 44 real-map tests) on macOS ARM64. Device UI testing
-was not repeated for this core-only change.
+The long reported route from `54.82539913135153, 25.748180598020554` to
+`54.900349439028986, 24.087091237306595` crosses from the Neris to the Kaunas
+Reservoir. Adaptive extraction includes the river bends, while transfers across
+the disconnected dam area still require a valid pedestrian route. With catalog
+260714 and both Lithuanian regions, the regression requires at least 200 km on
+water and at most 5 km walking in each direction. The separate confluence control
+ends at `54.9005461209, 23.8703662445` and requires zero walking. These cases use
+explicit endpoints without intermediate points; shortest-route optimality is
+not asserted.
+
+After the coverage, adaptive-window and lazy-transfer changes, macOS ARM64 Debug
+passed 453 routing unit tests, 164 storage tests and all 60 Water integration
+tests (13 synthetic-MWM and 47 real-map tests), using a 1 MiB stack. The reported
+long Neris route measured 271.54 km water / 2.15 km walking forward and
+247.62 km water / 0.78 km walking in reverse; the confluence control measured
+225.34 km water with no walking. The long reservoir calculations took about
+96–97 seconds in this unoptimized Debug build. These are desktop measurements,
+not mobile performance guarantees. Android/iOS device UI testing and APK builds
+were not repeated for this core-only update.
 
 Checkpoints need downloaded map coverage. Packed map borders certify local
 coverage, including unions of neighboring regions; feature bounding boxes do
-not. Unknown portions of a search window cannot supply water edges or transfer
-candidates. A missing, unused corner does not invalidate a known route.
+not. Coarse border cells are only a filter: water segments crossing them receive
+finer coverage checks, so an uncovered corner does not mask a covered river.
+The union of region borders and local coverage answers are cached. Unknown
+portions cannot supply water edges or transfer candidates.
 
 A valid route is shown with **Shortest route not confirmed** if missing coverage,
 search limits or candidate selection prevent proving optimality. Mixed routes
@@ -96,8 +114,13 @@ optional sections is outside its scope.
 ## Search bounds and performance
 
 Ordinary-map searches start with a local margin of at most 3 km. Extraction may
-shrink it when geometry budgets are exceeded; one wider retry adds up to 2 km.
-Up to 16 neighboring regions can participate. Optional-section searches require
+shrink it when geometry budgets are exceeded. Reachable water at an extraction
+boundary triggers directional expansion when both endpoint components reach
+the edge of the window (not necessarily the same side), with at most four attempts and a distance-dependent margin
+capped at 30 km. If one component is closed inside the window, one local retry
+adds at most 2 km before searching for portages; growing the whole river network
+cannot connect that component by water. A failed expansion preserves an
+already available route. Up to 16 neighboring regions can participate. Optional-section searches require
 one section to cover the window and use a distance-dependent margin capped at
 30 km. Antimeridian windows and oversized extractions are unsupported.
 
@@ -106,7 +129,12 @@ graph vertices, 262,144 triangles and 65,536 water features). Line accounting
 uses vertices retained after clipping, including new boundary intersections,
 rather than charging the entire source line outside the query window. Large
 multi-region river routes therefore use the same capacity at both stages.
-Geometry, visibility and walking-candidate budgets still bound memory and work. These
+Walking connections are generated in distance-ordered batches when the search
+needs them. A neighborhood is exhausted before the search widens it; a batch
+does not permanently limit the available landings. Exact
+water distances and pedestrian routes are evaluated for promising paths;
+successful and rejected pedestrian checks are reused within a calculation.
+Geometry, visibility and candidate budgets still bound memory and work. These
 limits can leave a valid route undiscovered. The walking fallback allows up to
 32 rejected pedestrian candidates per leg; successful transfers do not consume
 that limit. Cancellation is checked during extraction and search.
@@ -132,8 +160,8 @@ request's progress.
 
 `libs/routing/routing_integration_tests/water_reported_routes_test.cpp` retains
 the reported failing coordinates and My position flags, long routes in both
-directions, continuous-water controls and intermediate stops. Its 44 tests make
-45 route calculations: the Pomeranian regression runs with and without walking
+directions, continuous-water controls and intermediate stops. Its 47 tests make
+48 route calculations: the Pomeranian regression runs with and without walking
 graph reuse and compares the complete coordinate sequence. No reported route
 was removed when this duplicate calculation was consolidated.
 
@@ -143,12 +171,15 @@ application resources in `--user_resource_path`. The pinned reference catalog is
 `Netherlands_North Holland_Amsterdam` and `Netherlands_Utrecht_Amersfoort`;
 Polish cases use `Poland_Pomeranian Voivodeship`; the cross-region case also
 requires `Poland_Kuyavian-Pomeranian Voivodeship`. The Nemenčia regression uses
-`Lithuania_East`.
+`Lithuania_East`; the long Neris cases use `Lithuania_East` and
+`Lithuania_West`.
 
 Useful phone checks include:
 
 | Start | Finish | Purpose |
 | --- | --- | --- |
+| 54.82539913135153, 25.748180598020554 | 54.900349439028986, 24.087091237306595 | Reported Neris–Kaunas Reservoir route, no intermediate points; also check reverse direction |
+| 54.82539913135153, 25.748180598020554 | 54.9005461209, 23.8703662445 | Water-only control to the Neris/Nemunas confluence |
 | 53.09396078, 18.16890286 | 54.30863264, 18.93380513 | Cross-region water-only route; also check reverse direction |
 | 54.12300877, 17.75593190 | 53.84449881, 18.35696959 | Long mixed route; also check reverse direction |
 | 54.09895, 17.784224 | 54.093102, 17.785852 | Short pedestrian bypass and both transfer icons |
@@ -158,7 +189,11 @@ Useful phone checks include:
 
 Deterministic routing/provider tests cover geometry, islands, source identities,
 endpoint restrictions, missing coverage, numerical precision, budgets,
-cancellation, walking failures, distances, progress and transfer markers.
+cancellation, walking failures, distances, progress and transfer markers. They
+also cover border cells that partially overlap missing coverage, directional
+window growth, 10,000 unrelated waterways, further landings after rejected
+candidates, exact water costs behind lower bounds and directed walking when
+searching from the finish.
 `water_geometry_mwm_test.cpp` uses the existing `TestMwmBuilder` and unchanged
 generator to verify ordinary-map extraction, cross-region coverage and optional
 section compatibility. Spatial-index regressions cover insertion, rebalancing

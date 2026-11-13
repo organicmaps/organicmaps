@@ -446,8 +446,90 @@ water::Geometry WaterGeometryProvider::ExtractFeatures(DataSource const & dataSo
   return result;
 }
 
+void WaterGeometryProvider::SetCoverage(water::Geometry & geometry, std::vector<Point> const & checkpoints,
+                                        RectCoverageFn covered, water::CancelledFn const & cancelled)
+{
+  CHECK(geometry.m_bounds, ());
+  AddCoverageGaps(*geometry.m_bounds, checkpoints, covered, cancelled, geometry.m_coverageGaps);
+  geometry.m_coverageIndex = std::make_shared<m4::Tree<size_t>>();
+  for (size_t i = 0; i < geometry.m_coverageGaps.size(); ++i)
+    geometry.m_coverageIndex->Add(i, geometry.m_coverageGaps[i]);
+  geometry.m_coverageIndex->Optimize();
+  geometry.m_isCovered = [covered = std::move(covered), cache = std::map<std::array<double, 4>, bool>{}](
+                             Point const & a, Point const & b) mutable
+  {
+    auto const query = [&](m2::RectD const & rect)
+    {
+      std::array<double, 4> const key{rect.minX(), rect.minY(), rect.maxX(), rect.maxY()};
+      if (auto const it = cache.find(key); it != cache.end())
+        return it->second;
+      bool const result = covered(rect);
+      if (cache.size() == 65536)
+        cache.clear();
+      cache.emplace(key, result);
+      return result;
+    };
+    auto const certified = [&](m2::RectD const & rect)
+    {
+      // Neighboring mesh edges reuse certified tiles instead of rechecking the
+      // same packed border for every vertex. Uncertified tiles prove nothing.
+      for (double const step : {0.01, 0.001})
+      {
+        auto const x = std::floor(rect.minX() / step) * step;
+        auto const y = std::floor(rect.minY() / step) * step;
+        m2::RectD const tile(x, y, x + step, y + step);
+        if (tile.IsRectInside(rect) && query(tile))
+          return true;
+      }
+      return query(rect);
+    };
+    size_t visits = 0;
+    auto const visit = [&](auto && self, Point const & from, Point const & to, size_t depth) -> bool
+    {
+      if (++visits > 4096)
+        return false;
+      if (certified(m2::RectD(from, to)))
+        return true;
+      auto const middle = (from + to) * 0.5;
+      if (depth == 24 || !certified(m2::RectD(from, from)) || !certified(m2::RectD(to, to)) ||
+          !certified(m2::RectD(middle, middle)))
+        return false;
+      return self(self, from, middle, depth + 1) && self(self, middle, to, depth + 1);
+    };
+    return visit(visit, a, b, 0);
+  };
+}
+
+water::Geometry WaterGeometryProvider::ExpandGeometry(Checkpoints const & checkpoints, RouterDelegate const & delegate,
+                                                      water::Geometry const & previous,
+                                                      std::array<bool, 4> const & frontiers, bool adaptive)
+{
+  if (!adaptive)
+    return GetGeometry(checkpoints, delegate, 2000.0);
+  if (!previous.m_bounds)
+    return {};
+  m2::RectD pins;
+  double direct = 0;
+  for (auto const & point : checkpoints.GetPoints())
+  {
+    pins.Add(point);
+    direct = std::max(direct, mercator::DistanceOnEarth(checkpoints.GetPoints().front(), point));
+  }
+  auto const margin = std::min(std::clamp(2 * direct, 1000.0, 30000.0) + 2000.0, 30000.0);
+  auto const extent = mercator::RectByCenterXYAndSizeInMeters(pins.Center(), margin);
+  auto const & old = *previous.m_bounds;
+  auto const grow = [](double margin, double limit) { return std::min(margin * 3, limit); };
+  m2::RectD bounds(frontiers[0] ? pins.minX() - grow(pins.minX() - old.minX(), extent.SizeX() / 2) : old.minX(),
+                   frontiers[2] ? pins.minY() - grow(pins.minY() - old.minY(), extent.SizeY() / 2) : old.minY(),
+                   frontiers[1] ? pins.maxX() + grow(old.maxX() - pins.maxX(), extent.SizeX() / 2) : old.maxX(),
+                   frontiers[3] ? pins.maxY() + grow(old.maxY() - pins.maxY(), extent.SizeY() / 2) : old.maxY());
+  if (bounds == old)
+    return {};
+  return GetGeometry(checkpoints, delegate, 0.0, bounds);
+}
+
 water::Geometry WaterGeometryProvider::GetGeometry(Checkpoints const & checkpoints, RouterDelegate const & delegate,
-                                                   double extraMargin)
+                                                   double extraMargin, std::optional<m2::RectD> requestedBounds)
 {
   auto const cancelled = [&] { return delegate.IsCancelled(); };
   auto const & points = checkpoints.GetPoints();
@@ -465,6 +547,8 @@ water::Geometry WaterGeometryProvider::GetGeometry(Checkpoints const & checkpoin
   auto const margin = std::min((direct == 0.0 ? 50.0 : std::clamp(2 * direct, 1000.0, 30000.0)) + extraMargin, 30000.0);
   auto const extent = mercator::RectByCenterXYAndSizeInMeters(bounds.Center(), margin);
   bounds.Inflate(extent.SizeX() / 2, extent.SizeY() / 2);
+  if (requestedBounds)
+    bounds = *requestedBounds;
   if (!mercator::Bounds::FullRect().IsRectInside(bounds) || bounds.SizeX() >= 180)
     return {};
   std::vector<std::shared_ptr<MwmInfo>> infos;
@@ -513,6 +597,8 @@ water::Geometry WaterGeometryProvider::GetGeometry(Checkpoints const & checkpoin
     bounds = checkpointBounds;
     auto const localExtent = mercator::RectByCenterXYAndSizeInMeters(bounds.Center(), localMargin);
     bounds.Inflate(localExtent.SizeX() / 2, localExtent.SizeY() / 2);
+    if (requestedBounds)
+      bounds = *requestedBounds;
     for (auto const & ids : mapGroups)
     {
       if (cancelled())
@@ -525,12 +611,13 @@ water::Geometry WaterGeometryProvider::GetGeometry(Checkpoints const & checkpoin
         countries.push_back(info->GetCountryName());
         combinedBounds.Add(info->m_bordersRect);
       }
-      auto const covered = [&](m2::RectD const & rect)
+      auto const covered =
+          [combinedBounds, countries, coverage = m_coverage, multiCoverage = m_multiCoverage](m2::RectD const & rect)
       {
         if (!combinedBounds.IsRectInside(rect))
           return false;
-        return ids.size() == 1 ? m_coverage && m_coverage(countries.front(), rect)
-                               : m_multiCoverage && m_multiCoverage(countries, rect);
+        return countries.size() == 1 ? coverage && coverage(countries.front(), rect)
+                                     : multiCoverage && multiCoverage(countries, rect);
       };
       // Checkpoint membership still requires downloaded coverage. Missing parts
       // elsewhere in the query become unknown areas, never water or portages.
@@ -539,13 +626,13 @@ water::Geometry WaterGeometryProvider::GetGeometry(Checkpoints const & checkpoin
         continue;
       auto result = ExtractFeatures(m_dataSource, ids, bounds, cancelled);
       if (result.m_complete)
-        AddCoverageGaps(bounds, points, covered, cancelled, result.m_unknownAreas);
+        SetCoverage(result, points, covered, cancelled);
       if (cancelled())
         return {};
       if (result.m_complete)
         return result;
     }
-    if (localMargin <= 250.0 || cancelled())
+    if (requestedBounds || localMargin <= 250.0 || cancelled())
       break;
   }
   return {};

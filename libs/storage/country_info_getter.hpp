@@ -175,6 +175,9 @@ protected:
   mutable base::Cache<uint32_t, std::vector<m2::RegionD>> m_polyCache;
   mutable base::Cache<uint32_t, std::vector<m2::PointD>> m_trgCache;
   mutable std::mutex m_readerMutex;
+  struct Coverage;
+  mutable std::shared_ptr<Coverage> m_coverage;
+  mutable std::mutex m_coverageMutex;
 };
 
 // This class allows users to get info about very simply rectangular

@@ -1064,4 +1064,121 @@ UNIT_TEST(Water_ManyValidPortagesDoNotExhaustRejectionBudget)
   TEST_EQUAL(std::count(path.m_landGaps.begin(), path.m_landGaps.end(), true), 40, ());
   CheckAccounting(path);
 }
+UNIT_TEST(Water_LazyPortagesIgnoreThousandsOfUnrelatedWaterways)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  geometry.m_hasSourceTopology = false;
+  geometry.m_lines = {{{P(0, 0)}, {P(0.01, 0)}}, {{P(0.0101, 0)}, {P(0.02, 0)}}};
+  for (size_t i = 0; i < 10000; ++i)
+  {
+    double const x = 1.0 + (i % 100) * 0.001;
+    double const y = 1.0 + (i / 100) * 0.001;
+    geometry.m_lines.push_back({{P(x, y)}, {P(x + 0.0001, y)}});
+  }
+  size_t walkingChecks = 0;
+  Path path;
+  TEST(FindPath(geometry, P(0, 0), P(0.02, 0), false, kNeverCancelled, path, {}, true,
+                [&](auto const &, auto const &)
+  {
+    ++walkingChecks;
+    return true;
+  }) == ResultCode::Success,
+       ());
+  TEST_EQUAL(walkingChecks, 1, ());
+  TEST_LESS(path.m_landDistance, 12.0, ());
+  TEST_GREATER(path.m_waterDistance, 2000.0, ());
+  CheckAccounting(path);
+}
+UNIT_TEST(Water_LazyPortagesTryBeyondSixteenInaccessibleLandings)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  geometry.m_hasSourceTopology = false;
+  geometry.m_lines = {{{P(0, 0), 1}, {P(0.01, 0), 2}}};
+  P const finish(0.03, 0), landing(0.014, 0);
+  for (size_t i = 0; i < 21; ++i)
+    geometry.m_lines.push_back({{P(0.012 + i * 0.0001, 0), i + 10}, {finish, 3}});
+  size_t checks = 0;
+  Path path;
+  TEST(FindPath(geometry, P(0, 0), finish, false, kNeverCancelled, path, {}, true,
+                [&](P const &, P const & to)
+  {
+    ++checks;
+    return m2::AlmostEqualAbs(to, landing, 1e-12);
+  }) == ResultCode::Success,
+       ());
+  TEST_GREATER(checks, 16, ());
+  TEST_LESS_OR_EQUAL(checks, 32, ());
+  CheckAccounting(path);
+}
+UNIT_TEST(Water_LazyPortagesResolveWaterDetoursBeforeChoosingRoute)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  geometry.m_hasSourceTopology = false;
+  geometry.m_lines = {{{P(0, 0), 1}, {P(0.01, 0), 2}},
+                      {{P(0, 0), 1}, {P(1, 1), 3}, {P(0.03, 0), 4}},
+                      {{P(0.01, 0.001), 5}, {P(0.04, 0.001), 6}},
+                      {{P(0.03, 0.001), 7}, {P(0.04, 0.001), 6}}};
+  Path path;
+  TEST(FindPath(geometry, P(0, 0), P(0.04, 0.001), false, kNeverCancelled, path, {}, true) == ResultCode::Success, ());
+  TEST_LESS(path.m_waterDistance, 5000.0, ());
+  TEST_EQUAL(std::count(path.m_landGaps.begin(), path.m_landGaps.end(), true), 1, ());
+  CheckAccounting(path);
+}
+UNIT_TEST(Water_ReversePortageSearchPreservesWalkingDirectionAndSharedLandings)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  geometry.m_hasSourceTopology = false;
+  geometry.m_lines = {{{P(0, 0), 1}, {P(0.01, 0), 2}},
+                      {{P(0, 0), 1}, {P(0, 0.01), 3}},
+                      {{P(0, 0), 1}, {P(0, -0.01), 4}},
+                      {{P(0.0101, 0), 5}, {P(0.02, 0), 6}}};
+  for (size_t i = 0; i < 100; ++i)
+    geometry.m_lines.push_back({{P(0.01, 0), 2}, {P(0, 0), 1}});
+  size_t calls = 0;
+  Path path;
+  TEST(FindPath(geometry, P(0, 0), P(0.02, 0), false, kNeverCancelled, path, {}, true,
+                [&](P const & from, P const & to)
+  {
+    ++calls;
+    return from.x < to.x;
+  }) == ResultCode::Success,
+       ());
+  TEST_EQUAL(path.m_points.front(), P(0, 0), ());
+  TEST_EQUAL(path.m_points.back(), P(0.02, 0), ());
+  TEST_EQUAL(calls, 1, ());
+  TEST_LESS(path.m_landDistance, 12.0, ());
+  CheckAccounting(path);
+}
+UNIT_TEST(Water_UnavoidableTerminalWalkDoesNotExploreEveryRemoteRiver)
+{
+  Geometry geometry;
+  geometry.m_complete = true;
+  geometry.m_hasSourceTopology = false;
+  Rectangle(geometry, -0.0001, -0.0001, 0.0001, 0.0001);
+  Rectangle(geometry, 0.0199, -0.0001, 0.0201, 0.0001);
+  geometry.m_lines = {{{P(0.001, 0)}, {P(0.019, 0)}}};
+  for (size_t i = 0; i < 10000; ++i)
+  {
+    double const x = 1.0 + (i % 100) * 0.001;
+    double const y = 1.0 + (i / 100) * 0.001;
+    geometry.m_lines.push_back({{P(x, y)}, {P(x + 0.0001, y)}});
+  }
+  size_t checks = 0;
+  Path path;
+  TEST(FindPath(geometry, P(0, 0), P(0.02, 0), false, kNeverCancelled, path, {}, true,
+                [&](auto const &, auto const &)
+  {
+    ++checks;
+    return true;
+  }) == ResultCode::Success,
+       ());
+  TEST_EQUAL(checks, 2, ());
+  TEST_LESS(path.m_landDistance, 250.0, ());
+  TEST_GREATER(path.m_waterDistance, 1900.0, ());
+  CheckAccounting(path);
+}
 }  // namespace water_geometry_test

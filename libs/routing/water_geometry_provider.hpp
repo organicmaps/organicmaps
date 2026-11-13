@@ -27,7 +27,13 @@ public:
     , m_multiCoverage(std::move(multiCoverage))
   {}
   water::Geometry GetGeometry(Checkpoints const & checkpoints, RouterDelegate const & delegate,
-                              double extraMargin = 0.0);
+                              double extraMargin = 0.0, std::optional<m2::RectD> requestedBounds = {});
+  water::Geometry ExpandGeometry(Checkpoints const & checkpoints, RouterDelegate const & delegate,
+                                 water::Geometry const & previous, std::array<bool, 4> const & frontiers,
+                                 bool adaptive);
+  using RectCoverageFn = std::function<bool(m2::RectD const &)>;
+  static void SetCoverage(water::Geometry & geometry, std::vector<m2::PointD> const & checkpoints,
+                          RectCoverageFn covered, water::CancelledFn const & cancelled);
   // Also used by deterministic section/provider integration tests.
   static water::Geometry Extract(::water::Reader const & reader, m2::RectD const & bounds,
                                  water::CancelledFn const & cancelled);

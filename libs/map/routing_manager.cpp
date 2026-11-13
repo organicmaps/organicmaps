@@ -518,10 +518,12 @@ void RoutingManager::SetRouterImpl(RouterType type)
     { return m_callbacks.m_countryInfoGetter().GetRegionCountryId(point); }, [this](std::string const & country) {
       return m_callbacks.m_countryInfoGetter().GetLimitRectForLeaf(country);
     }, m_numMwmIDs, m_numMwmTree, m_routingSession, m_callbacks.m_dataSourceGetter(), true /* cacheWalkingGraph */);
-    router = std::make_unique<WaterRouter>([provider](Checkpoints const & checkpoints, RouterDelegate const & delegate)
+    router = std::make_unique<WaterRouter>(
+        [provider](Checkpoints const & checkpoints, RouterDelegate const & delegate)
     { return provider->GetGeometry(checkpoints, delegate); }, std::move(pedestrian),
-                                           [provider](Checkpoints const & checkpoints, RouterDelegate const & delegate)
-    { return provider->GetGeometry(checkpoints, delegate, 2000.0); });
+        [provider](Checkpoints const & checkpoints, RouterDelegate const & delegate,
+                   routing::water::Geometry const & previous, std::array<bool, 4> const & frontiers, bool adaptive)
+    { return provider->ExpandGeometry(checkpoints, delegate, previous, frontiers, adaptive); });
   }
   else
   {
