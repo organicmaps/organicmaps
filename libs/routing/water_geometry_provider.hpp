@@ -27,7 +27,8 @@ public:
     , m_multiCoverage(std::move(multiCoverage))
   {}
   water::Geometry GetGeometry(Checkpoints const & checkpoints, RouterDelegate const & delegate,
-                              double extraMargin = 0.0, std::optional<m2::RectD> requestedBounds = {});
+                              double extraMargin = 0.0, std::optional<m2::RectD> requestedBounds = {},
+                              unsigned corridorRefinement = 0);
   water::Geometry ExpandGeometry(Checkpoints const & checkpoints, RouterDelegate const & delegate,
                                  water::Geometry const & previous, std::array<bool, 4> const & frontiers,
                                  bool adaptive);
@@ -47,8 +48,8 @@ public:
 
   using TileLoader = std::function<water::Geometry(m2::RectD const &)>;
   // Candidate regions only: final routing never has to visit the coarse search nodes.
-  static std::vector<m2::RectD> FindSurfaceCorridor(std::vector<m2::PointD> const & points, TileLoader const & loader,
-                                                    water::CancelledFn const & cancelled);
+  static std::vector<m2::RectD> FindWaterCorridor(std::vector<m2::PointD> const & points, TileLoader const & loader,
+                                                  water::CancelledFn const & cancelled, unsigned refinement = 0);
 
 private:
   static water::Geometry ExtractFeatures(DataSource const & dataSource, std::vector<MwmSet::MwmId> const & ids,

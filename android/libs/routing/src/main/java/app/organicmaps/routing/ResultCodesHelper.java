@@ -72,6 +72,8 @@ public class ResultCodesHelper
       messages.add(resources.getString(R.string.dialog_pedestrian_route_is_long_message));
       cancelBtnResId = R.string.ok;
       break;
+    case ResultCodes.WATER_CORRIDOR_UNAVAILABLE:
+    case ResultCodes.WATER_ROUTE_UNAVAILABLE:
     case ResultCodes.RESOURCE_LIMIT_EXCEEDED:
       messages.add(resources.getString(R.string.dialog_routing_cant_build_route));
       break;

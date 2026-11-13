@@ -14,5 +14,7 @@ typedef NS_CLOSED_ENUM(NSUInteger, MWMRouterResultCode) {
   MWMRouterResultCodeTransitRouteNotFoundTooLongPedestrian = 14,
   MWMRouterResultCodeRouteNotFoundRedressRouteError = 15,
   MWMRouterResultCodeHasWarnings = 16,
-  MWMRouterResultCodeResourceLimitExceeded = 17
+  MWMRouterResultCodeResourceLimitExceeded = 17,
+  MWMRouterResultCodeWaterCorridorUnavailable = 18,
+  MWMRouterResultCodeWaterRouteUnavailable = 19
 } NS_SWIFT_NAME(RouterResultCode);

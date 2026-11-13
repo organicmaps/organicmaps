@@ -599,6 +599,8 @@ using namespace routing;
     [[fallthrough]];
   case routing::RouterResultCode::NoCurrentPosition:
   case routing::RouterResultCode::PointsInDifferentMWM:
+  case routing::RouterResultCode::WaterCorridorUnavailable:
+  case routing::RouterResultCode::WaterRouteUnavailable:
   case routing::RouterResultCode::ResourceLimitExceeded:
   case routing::RouterResultCode::InternalError:
   case routing::RouterResultCode::TransitRouteNotFoundNoNetwork:

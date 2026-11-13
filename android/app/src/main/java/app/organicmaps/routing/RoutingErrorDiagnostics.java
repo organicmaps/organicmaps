@@ -53,6 +53,11 @@ final class RoutingErrorDiagnostics
                              .append(resultCode);
     if (resultCode == ResultCodes.RESOURCE_LIMIT_EXCEEDED)
       text.append("\nReason: Water routing resource limit exceeded; route feasibility is unknown.");
+    if (resultCode == ResultCodes.WATER_CORRIDOR_UNAVAILABLE)
+      text.append("\nReason: Water connectivity corridor search incomplete; route feasibility is unknown.");
+    if (resultCode == ResultCodes.WATER_ROUTE_UNAVAILABLE)
+      text.append("\nReason: Final water search could not find a route within the loaded corridor and search budget; "
+                  + "route feasibility is unknown.");
     for (int i = 0; i < points.length; ++i)
     {
       RouteMarkData point = points[i];

@@ -180,7 +180,7 @@ UNIT_TEST(WaterProvider_SurfaceCorridorDetoursWithoutCrossingLand)
                Area({{P(0.2, -2), P(2, -2), P(2, 2), P(0.2, 2)}}), Area({{P(-2, 1), P(2, 1), P(2, 2), P(-2, 2)}})});
   size_t loads = 0;
   auto const regions =
-      routing::WaterGeometryProvider::FindSurfaceCorridor({P(-0.5, 0), P(0.5, 0)}, [&](auto const & bounds)
+      routing::WaterGeometryProvider::FindWaterCorridor({P(-0.5, 0), P(0.5, 0)}, [&](auto const & bounds)
   {
     ++loads;
     return Extract(bytes, bounds);
@@ -203,13 +203,11 @@ UNIT_TEST(WaterProvider_SurfaceCorridorHonorsUnknownCoverageAndCancellation)
     geometry.m_isCovered = [](auto const &, auto const &) { return false; };
     return geometry;
   };
-  TEST(routing::WaterGeometryProvider::FindSurfaceCorridor({P(-0.5, 0), P(0.5, 0)}, loader, kNeverCancelled).empty(),
-       ());
+  TEST(routing::WaterGeometryProvider::FindWaterCorridor({P(-0.5, 0), P(0.5, 0)}, loader, kNeverCancelled).empty(), ());
   TEST_LESS_OR_EQUAL(loads, 9, ());
   loads = 0;
-  TEST(
-      routing::WaterGeometryProvider::FindSurfaceCorridor({P(-0.5, 0), P(0.5, 0)}, loader, [] { return true; }).empty(),
-      ());
+  TEST(routing::WaterGeometryProvider::FindWaterCorridor({P(-0.5, 0), P(0.5, 0)}, loader, [] { return true; }).empty(),
+       ());
   TEST_EQUAL(loads, 0, ());
 }
 
@@ -233,12 +231,11 @@ UNIT_TEST(WaterProvider_SurfaceCorridorStopsAtWorkBudget)
     }
     return geometry;
   };
-  TEST(routing::WaterGeometryProvider::FindSurfaceCorridor({P(-0.5, 0), P(0.5, 0)}, loader, kNeverCancelled).empty(),
-       ());
+  TEST(routing::WaterGeometryProvider::FindWaterCorridor({P(-0.5, 0), P(0.5, 0)}, loader, kNeverCancelled).empty(), ());
   TEST_LESS_OR_EQUAL(loads, 1024, ());
   TEST_GREATER(loads, 0, ());
   loads = 0;
-  TEST(routing::WaterGeometryProvider::FindSurfaceCorridor({P(-0.5, 0), P(0.5, 0)}, loader, [&] { return loads >= 2; })
+  TEST(routing::WaterGeometryProvider::FindWaterCorridor({P(-0.5, 0), P(0.5, 0)}, loader, [&] { return loads >= 2; })
            .empty(),
        ());
   TEST_LESS_OR_EQUAL(loads, 2, ());
@@ -265,3 +262,72 @@ UNIT_TEST(WaterProvider_SelectedRegionsKeepUnloadedWaterUnknown)
 }
 
 }  // namespace water_provider_test
+
+UNIT_TEST(WaterProvider_CorridorFollowsBentRiverWithoutCellCenters)
+{
+  using namespace water_provider_test;
+  auto const bytes =
+      Section({{::water::Kind::Line, {{P(-0.5, 0.013), P(-0.3, -0.7), P(0.3, -0.7), P(0.5, 0.017)}}, {1, 0, 0, 2}}});
+  auto const regions = routing::WaterGeometryProvider::FindWaterCorridor(
+      {P(-0.5, 0.013), P(0.5, 0.017)}, [&](auto const & bounds) { return Extract(bytes, bounds); }, kNeverCancelled);
+  TEST(!regions.empty(), ());
+  TEST(std::any_of(regions.begin(), regions.end(), [](auto const & r) { return r.minY() < -0.6; }), ());
+}
+
+UNIT_TEST(WaterProvider_CorridorKeepsDisconnectedComponentsSeparate)
+{
+  using namespace water_provider_test;
+  auto const bytes = Section({{::water::Kind::Line, {{P(-0.5, 0.013), P(0.5, 0.013)}}, {1, 2}},
+                              {::water::Kind::Line, {{P(-0.5, 0.017), P(0.5, 0.017)}}, {3, 4}}});
+  auto const regions = routing::WaterGeometryProvider::FindWaterCorridor(
+      {P(-0.5, 0.013), P(0.5, 0.017)}, [&](auto const & bounds) { return Extract(bytes, bounds); }, kNeverCancelled);
+  TEST(regions.empty(), ());
+}
+
+UNIT_TEST(WaterProvider_CorridorSubdividesComplexTiles)
+{
+  using namespace water_provider_test;
+  auto const bytes = Section({Area({{P(-1, -0.1), P(1, -0.1), P(1, 0.1), P(-1, 0.1)}})});
+  size_t split = 0;
+  auto const regions =
+      routing::WaterGeometryProvider::FindWaterCorridor({P(-0.5, 0.013), P(0.5, 0.017)}, [&](auto const & bounds)
+  {
+    if (bounds.SizeX() > 0.1)
+    {
+      ++split;
+      routing::water::Geometry geometry;
+      geometry.m_resourceLimited = true;
+      return geometry;
+    }
+    return Extract(bytes, bounds);
+  }, kNeverCancelled);
+  TEST(!regions.empty(), ());
+  TEST_GREATER(split, 0, ());
+  for (auto const & region : regions)
+    TEST_LESS_OR_EQUAL(region.SizeX(), 0.1, ());
+}
+
+UNIT_TEST(WaterProvider_CorridorIsIndependentOfDirection)
+{
+  using namespace water_provider_test;
+  auto const bytes =
+      Section({Area({{P(-2, -2), P(-0.2, -2), P(-0.2, 2), P(-2, 2)}}),
+               Area({{P(0.2, -2), P(2, -2), P(2, 2), P(0.2, 2)}}), Area({{P(-2, 1), P(2, 1), P(2, 2), P(-2, 2)}})});
+  auto const loader = [&](auto const & bounds) { return Extract(bytes, bounds); };
+  auto const forward =
+      routing::WaterGeometryProvider::FindWaterCorridor({P(-0.5, 0), P(0.5, 0)}, loader, kNeverCancelled);
+  auto const backward =
+      routing::WaterGeometryProvider::FindWaterCorridor({P(0.5, 0), P(-0.5, 0)}, loader, kNeverCancelled);
+  TEST(!forward.empty(), ());
+  TEST_EQUAL(forward, backward, ());
+}
+
+UNIT_TEST(WaterProvider_CorridorStartOnTileBoundary)
+{
+  using namespace water_provider_test;
+  // The source lies on the upper bank; water exists only in the tile below it.
+  auto const bytes = Section({Area({{P(-0.1, -0.1), P(1, -0.1), P(1, 0), P(-0.1, 0)}})});
+  auto const regions = routing::WaterGeometryProvider::FindWaterCorridor(
+      {P(0, 0), P(0.5, -0.01)}, [&](auto const & bounds) { return Extract(bytes, bounds); }, kNeverCancelled);
+  TEST(!regions.empty(), ());
+}

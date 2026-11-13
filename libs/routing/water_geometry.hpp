@@ -96,8 +96,10 @@ struct Geometry
   // False for missing maps, unresolved topology or unknown local coverage.
   bool m_complete = false;
   bool m_resourceLimited = false;
+  bool m_corridorUnavailable = false;
   // Selectively loaded geometry cannot establish global shortest-path optimality.
   bool m_selective = false;
+  unsigned m_corridorRefinement = 0;
   // Display geometry lacks source node identities; transfers use stored line endpoints only.
   bool m_hasSourceTopology = true;
   std::shared_ptr<TriangleIndex> m_triangleIndex;
@@ -133,9 +135,20 @@ using ProgressFn = std::function<void(double)>;
 // Called lazily for a proposed endpoint walk; false excludes that directed link.
 using WalkAllowedFn = std::function<bool(m2::PointD const &, m2::PointD const &)>;
 
-// Certify a straight surface-water segment; used only to guide selective loading.
-bool CoversSurfaceSegment(Geometry const & geometry, m2::PointD const & from, m2::PointD const & to,
-                          CancelledFn const & cancelled);
+// Compact exact local connectivity. Portals describe water on the extraction boundary.
+struct BoundaryPortal
+{
+  m2::PointD m_from, m_to;
+  size_t m_component;
+};
+struct Connectivity
+{
+  bool m_complete = false;
+  std::vector<BoundaryPortal> m_portals;
+  std::array<std::optional<size_t>, 2> m_checkpoints;
+};
+Connectivity GetConnectivity(Geometry const & geometry, std::array<m2::PointD, 2> const & checkpoints,
+                             CancelledFn const & cancelled);
 
 // A nearby entry point for a separately calculated pedestrian approach.
 std::optional<m2::PointD> FindApproachPoint(Geometry const & geometry, m2::PointD const & start,

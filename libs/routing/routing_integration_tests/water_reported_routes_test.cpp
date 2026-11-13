@@ -34,7 +34,7 @@ std::vector<m2::PointD> CheckRoute(std::string const & name, ms::LatLon const & 
                                    bool myPosition, std::vector<std::string> const & countries, bool waterOnly = false,
                                    std::vector<ms::LatLon> const & stops = {}, bool cacheWalkingGraph = true,
                                    time_t routingTime = 0, double maxWalking = std::numeric_limits<double>::max(),
-                                   double minWater = 0)
+                                   double minWater = 0, double maxWater = std::numeric_limits<double>::max())
 {
   classificator::Load();
   FrozenDataSource data;
@@ -128,6 +128,7 @@ std::vector<m2::PointD> CheckRoute(std::string const & name, ms::LatLon const & 
   TEST_LESS_OR_EQUAL(distances->m_landMeters, maxWalking, (name));
   TEST_GREATER_OR_EQUAL(distances->m_waterMeters, minWater, (name));
   TEST_GREATER(distances->m_waterMeters, 0.0, (name));
+  TEST_LESS_OR_EQUAL(distances->m_waterMeters, maxWater, (name));
   if (waterOnly)
     TEST_EQUAL(distances->m_landMeters, 0.0, (name));
   return route.GetPoly().GetPoints();
@@ -433,13 +434,14 @@ UNIT_TEST(WaterReported_NerisSlowRoute)
 UNIT_TEST(WaterReported_LithuaniaLatviaSea)
 {
   water_reported_routes_test::CheckRoute("LithuaniaLatviaSea", {55.31438121, 19.60647214}, {57.56200190, 23.84290724},
-                                         false, {"Lithuania_West", "Latvia"}, true);
+                                         false, {"Lithuania_West", "Latvia"}, true, {}, true, 0, 0.0, 0.0, 529143.0);
 }
 
 UNIT_TEST(WaterReported_LithuaniaLatviaSeaReverse)
 {
   water_reported_routes_test::CheckRoute("LithuaniaLatviaSeaReverse", {57.56200190, 23.84290724},
-                                         {55.31438121, 19.60647214}, false, {"Lithuania_West", "Latvia"}, true);
+                                         {55.31438121, 19.60647214}, false, {"Lithuania_West", "Latvia"}, true, {},
+                                         true, 0, 0.0, 0.0, 529143.0);
 }
 
 UNIT_TEST(WaterReported_LithuaniaLatviaSeaWithNeighboringMaps)
@@ -448,5 +450,34 @@ UNIT_TEST(WaterReported_LithuaniaLatviaSeaWithNeighboringMaps)
                                          {57.56200190, 23.84290724}, false,
                                          {"Lithuania_East", "Lithuania_West", "Latvia", "Belarus_Hrodna Region",
                                           "Belarus_Minsk Region", "Belarus_Vitebsk Region"},
+                                         true, {}, true, 0, 0.0, 0.0, 529143.0);
+}
+
+UNIT_TEST(WaterReported_LatviaOpenSea)
+{
+  water_reported_routes_test::CheckRoute("LatviaOpenSea", {55.72627956, 20.24194466}, {57.28488619, 23.71587488}, false,
+                                         {"Lithuania_West", "Latvia"}, true);
+}
+
+UNIT_TEST(WaterReported_LatviaOpenSeaReverse)
+{
+  water_reported_routes_test::CheckRoute("LatviaOpenSeaReverse", {57.28488619, 23.71587488}, {55.72627956, 20.24194466},
+                                         false, {"Lithuania_West", "Latvia"}, true);
+}
+
+UNIT_TEST(WaterReported_NerisNemunas)
+{
+  // Reported via coordinates describe the incorrect path, not intermediate checkpoints.
+  water_reported_routes_test::CheckRoute("NerisNemunas", {54.857431, 25.746642}, {55.043729, 21.101253}, false,
+                                         {"Lithuania_East", "Lithuania_West", "Latvia", "Russia_Kaliningrad Oblast",
+                                          "Belarus_Hrodna Region", "Belarus_Minsk Region", "Belarus_Vitebsk Region"},
+                                         true);
+}
+
+UNIT_TEST(WaterReported_NerisNemunasReverse)
+{
+  water_reported_routes_test::CheckRoute("NerisNemunasReverse", {55.043729, 21.101253}, {54.857431, 25.746642}, false,
+                                         {"Lithuania_East", "Lithuania_West", "Latvia", "Russia_Kaliningrad Oblast",
+                                          "Belarus_Hrodna Region", "Belarus_Minsk Region", "Belarus_Vitebsk Region"},
                                          true);
 }

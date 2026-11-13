@@ -42,6 +42,8 @@ enum class RouterResultCode
   RouteNotFoundRedressRouteError = 15,
   HasWarnings = 16,
   ResourceLimitExceeded = 17,
+  WaterCorridorUnavailable = 18,
+  WaterRouteUnavailable = 19,
 };
 
 enum class SessionState
@@ -106,6 +108,8 @@ inline std::string ToString(RouterResultCode code)
   case RouterResultCode::RouteNotFoundRedressRouteError: return "RouteNotFoundRedressRouteError";
   case RouterResultCode::HasWarnings: return "HasWarnings";
   case RouterResultCode::ResourceLimitExceeded: return "ResourceLimitExceeded";
+  case RouterResultCode::WaterCorridorUnavailable: return "WaterCorridorUnavailable";
+  case RouterResultCode::WaterRouteUnavailable: return "WaterRouteUnavailable";
   }
 
   std::string result = "Unknown RouterResultCode: " + std::to_string(static_cast<int>(code));

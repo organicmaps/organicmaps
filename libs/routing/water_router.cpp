@@ -70,7 +70,9 @@ RouterResultCode WaterRouter::CalculateRoute(Checkpoints const & checkpoints, m2
   if (cancelled())
     return RouterResultCode::Cancelled;
   if (!geometry.m_complete)
-    return geometry.m_resourceLimited ? RouterResultCode::ResourceLimitExceeded : RouterResultCode::RouteNotFound;
+    return geometry.m_corridorUnavailable ? RouterResultCode::WaterCorridorUnavailable
+         : geometry.m_resourceLimited     ? RouterResultCode::ResourceLimitExceeded
+                                          : RouterResultCode::RouteNotFound;
 
   report(30);
   Route route;
@@ -162,17 +164,21 @@ RouterResultCode WaterRouter::CalculateRoute(Checkpoints const & checkpoints, m2
     // A component wholly inside the window cannot gain a water connection
     // outside it. Retain one local retry for portages instead of growing it.
     bool const adaptive = path.m_bothEndsReachBoundary;
-    size_t const attempts = adaptive ? 4 : 1;
-    for (size_t attempt = 0; attempt < attempts && (attempt == 0 || path.m_bothEndsReachBoundary) &&
-                             m_expandedGeometryGetter && (code == water::ResultCode::Unavailable || needsWalking());
+    size_t const attempts = geometry.m_selective ? 2 : adaptive ? 4 : 1;
+    for (size_t attempt = 0;
+         attempt < attempts && (attempt == 0 || path.m_bothEndsReachBoundary || geometry.m_selective) &&
+         m_expandedGeometryGetter && (code == water::ResultCode::Unavailable || needsWalking());
          ++attempt)
     {
       auto expanded = m_expandedGeometryGetter(checkpoints, delegate, geometry, path.m_frontiers, adaptive);
-      geometryLimited = geometryLimited || expanded.m_resourceLimited || expanded.m_selective;
+      geometryLimited =
+          geometryLimited || expanded.m_resourceLimited || expanded.m_selective || expanded.m_corridorUnavailable;
       if (cancelled())
         return RouterResultCode::Cancelled;
-      if (expanded.m_complete && expanded.m_bounds && geometry.m_bounds && expanded.m_bounds != geometry.m_bounds &&
-          expanded.m_bounds->IsRectInside(*geometry.m_bounds))
+      if (expanded.m_complete && expanded.m_bounds && geometry.m_bounds &&
+          ((expanded.m_bounds != geometry.m_bounds && expanded.m_bounds->IsRectInside(*geometry.m_bounds)) ||
+           (expanded.m_selective &&
+            (!geometry.m_selective || expanded.m_corridorRefinement > geometry.m_corridorRefinement))))
       {
         water::Path expandedPath;
         bool const lastAttempt = attempt + 1 == attempts && m_pedestrian;
@@ -216,7 +222,7 @@ RouterResultCode WaterRouter::CalculateRoute(Checkpoints const & checkpoints, m2
     {
       if (geometryLimited &&
           (walkingFailure == RouterResultCode::NoError || walkingFailure == RouterResultCode::RouteNotFound))
-        return RouterResultCode::ResourceLimitExceeded;
+        return RouterResultCode::WaterRouteUnavailable;
       return walkingFailure != RouterResultCode::NoError ? walkingFailure : RouterResultCode::RouteNotFound;
     }
     auto const gaps = std::count(path.m_landGaps.begin(), path.m_landGaps.end(), true);

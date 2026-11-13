@@ -18,6 +18,7 @@
 #include <numeric>
 #include <queue>
 #include <set>
+#include <tuple>
 
 namespace routing
 {
@@ -436,18 +437,30 @@ water::Geometry WaterGeometryProvider::ExtractFeatures(DataSource const & dataSo
       {
         if (cancelled() || exceeded)
           return;
-        auto const clipped = Clip({a, b, c}, bounds);
-        for (size_t i = 2; i < clipped.size(); ++i)
+        auto const append = [&](m2::RectD const & region)
         {
-          // Quantization and clipping can collapse a triangle to a line.
-          if (m2::robust::OrientedS(clipped[0], clipped[i - 1], clipped[i]) == 0.0)
-            continue;
-          if (++triangles > kMaxTriangles)
+          auto const clipped = Clip({a, b, c}, region);
+          for (size_t i = 2; i < clipped.size(); ++i)
           {
-            exceeded = true;
-            return;
+            if (m2::robust::OrientedS(clipped[0], clipped[i - 1], clipped[i]) == 0.0)
+              continue;
+            if (++triangles > kMaxTriangles)
+            {
+              exceeded = true;
+              return;
+            }
+            surface.m_triangles.push_back({::water::Kind::Area, {{clipped[0], clipped[i - 1], clipped[i]}}, {}});
           }
-          surface.m_triangles.push_back({::water::Kind::Area, {{clipped[0], clipped[i - 1], clipped[i]}}, {}});
+        };
+        if (regions.empty())
+          append(bounds);
+        else
+        {
+          m2::RectD triangleBounds(a, b);
+          triangleBounds.Add(c);
+          for (auto const & region : regions)
+            if (!exceeded && region.IsIntersect(triangleBounds))
+              append(region);
         }
       }, FeatureType::BEST_GEOMETRY);
       if (!surface.m_triangles.empty())
@@ -553,172 +566,186 @@ void WaterGeometryProvider::SetCoverage(water::Geometry & geometry, std::vector<
   };
 }
 
-std::vector<m2::RectD> WaterGeometryProvider::FindSurfaceCorridor(std::vector<Point> const & points,
-                                                                  TileLoader const & loader,
-                                                                  water::CancelledFn const & cancelled)
+std::vector<m2::RectD> WaterGeometryProvider::FindWaterCorridor(std::vector<Point> const & points,
+                                                                TileLoader const & loader,
+                                                                water::CancelledFn const & cancelled,
+                                                                unsigned refinement)
 {
   if (points.size() < 2 || cancelled())
     return {};
-  using Cell = std::pair<int, int>;
   m2::RectD pins;
   for (auto const & point : points)
     pins.Add(point);
-  auto const extent = mercator::RectByCenterXYAndSizeInMeters(pins.Center(), 20000.0);
+  auto const extent =
+      mercator::RectByCenterXYAndSizeInMeters(pins.Center(), std::ldexp(10000.0, -static_cast<int>(refinement)));
   double const step = std::min(extent.SizeX(), extent.SizeY());
-  auto const cell = [step](Point const & p)
-  { return Cell{static_cast<int>(std::floor(p.x / step)), static_cast<int>(std::floor(p.y / step))}; };
-  auto const bounds = [step](Cell const & c)
-  { return m2::RectD(c.first * step, c.second * step, (c.first + 1) * step, (c.second + 1) * step); };
+  using Cell = std::tuple<int, int, unsigned>;
+  auto const bounds = [step](Cell const & cell)
+  {
+    auto const [x, y, level] = cell;
+    double const size = std::ldexp(step, -static_cast<int>(level));
+    return m2::RectD(x * size, y * size, (x + 1) * size, (y + 1) * size);
+  };
   struct Tile
   {
-    std::shared_ptr<water::Geometry> m_geometry;
-    size_t m_used;
-    size_t m_units;
+    bool m_split = false;
+    water::Connectivity m_connectivity;
   };
-  std::map<Cell, Tile> cache;
-  size_t serial = 0, cachedUnits = 0, loads = 0, decodedTriangles = 0;
-  // Cache and work ceilings are independent of geographic detour distance.
-  size_t constexpr kCacheUnits = 65536;
-  size_t constexpr kMaxTileLoads = 1024;
+  size_t loads = 0, decoded = 0, stored = 0;
   bool exhausted = false;
-  auto const load = [&](Cell const & c) -> std::shared_ptr<water::Geometry>
-  {
-    if (auto it = cache.find(c); it != cache.end())
-    {
-      it->second.m_used = ++serial;
-      return it->second.m_geometry;
-    }
-    if (cancelled() || ++loads > kMaxTileLoads || decodedTriangles > 8 * water::kMaxTriangles)
-    {
-      exhausted = true;
-      return {};
-    }
-    auto const rect = bounds(c);
-    if (!mercator::Bounds::FullRect().IsRectInside(rect))
-      return {};
-    auto geometry = loader(rect);
-    decodedTriangles += geometry.m_triangles.size();
-    // Lines are not used by the coarse surface guide. They are loaded normally
-    // for the final route, including approaches and portages.
-    decltype(geometry.m_lines){}.swap(geometry.m_lines);
-    size_t const units = 1 + geometry.m_triangles.capacity() + geometry.m_unknownAreas.capacity() +
-                         geometry.m_portageAreas.capacity() + geometry.m_coverageGaps.capacity();
-    if (!geometry.m_complete || units > kCacheUnits)
-      return {};
-    while (!cache.empty() && cachedUnits + units > kCacheUnits)
-    {
-      auto oldest = std::min_element(cache.begin(), cache.end(),
-                                     [](auto const & a, auto const & b) { return a.second.m_used < b.second.m_used; });
-      cachedUnits -= oldest->second.m_units;
-      cache.erase(oldest);
-    }
-    auto stored = std::make_shared<water::Geometry>(std::move(geometry));
-    cachedUnits += units;
-    cache.emplace(c, Tile{stored, ++serial, units});
-    return stored;
-  };
-  std::set<Cell> selected;
-  auto const cellsBetween = [&](Point const & a, Point const & b)
-  {
-    auto const ca = cell(a), cb = cell(b);
-    std::vector<Cell> result;
-    for (int x = std::min(ca.first, cb.first); x <= std::max(ca.first, cb.first); ++x)
-      for (int y = std::min(ca.second, cb.second); y <= std::max(ca.second, cb.second); ++y)
-        result.emplace_back(x, y);
-    return result;
-  };
+  std::vector<m2::RectD> selected;
   for (size_t leg = 1; leg < points.size(); ++leg)
   {
-    auto const start = cell(points[leg - 1]), finish = cell(points[leg]);
-    auto const point = [&](Cell const & c)
+    std::map<Cell, Tile> tiles;
+    // The loading guide is undirected: use the same corridor when reversing a leg.
+    std::array<Point, 2> const checkpoints{std::min(points[leg - 1], points[leg]),
+                                           std::max(points[leg - 1], points[leg])};
+    auto const load = [&](Cell const & cell) -> Tile &
     {
-      return c == start ? points[leg - 1] : c == finish ? points[leg] : bounds(c).Center();
-    };
-    auto const traversable = [&](Point const & a, Point const & b)
-    {
-      water::Geometry geometry;
-      geometry.m_complete = true;
-      for (auto const & c : cellsBetween(a, b))
+      auto const [it, inserted] = tiles.try_emplace(cell);
+      if (!inserted)
+        return it->second;
+      if (cancelled() || loads >= 1024 || decoded >= 8 * water::kMaxTriangles || stored >= water::kMaxGraphVertices)
       {
-        auto tile = load(c);
-        if (!tile)
-          return false;
-        geometry.m_triangles.insert(geometry.m_triangles.end(), tile->m_triangles.begin(), tile->m_triangles.end());
-        geometry.m_unknownAreas.insert(geometry.m_unknownAreas.end(), tile->m_unknownAreas.begin(),
-                                       tile->m_unknownAreas.end());
-        geometry.m_isCovered = tile->m_isCovered;
+        exhausted = true;
+        return it->second;
       }
-      IndexTriangles(geometry);
-      return water::CoversSurfaceSegment(geometry, a, b, cancelled);
+      auto const rect = bounds(cell);
+      if (!mercator::Bounds::FullRect().IsRectInside(rect))
+        return it->second;
+      ++loads;
+      auto geometry = loader(rect);
+      // Only one tile's geometry is retained at a time; cache compact connectivity instead.
+      size_t units = geometry.m_triangles.size();
+      for (auto const & line : geometry.m_lines)
+        units += line.size();
+      decoded += units;
+      auto & tile = it->second;
+      if ((!geometry.m_complete || units > 32768) && std::get<2>(cell) < 4)
+      {
+        tile.m_split = true;
+        return tile;
+      }
+      geometry.m_bounds = rect;
+      tile.m_connectivity = water::GetConnectivity(geometry, checkpoints, cancelled);
+      stored += tile.m_connectivity.m_portals.size();
+      return tile;
     };
-    if (start == finish)
+    std::function<void(Cell const &, m2::RectD const &, std::vector<Cell> &)> visit;
+    visit = [&](Cell const & cell, m2::RectD const & query, std::vector<Cell> & leaves)
     {
-      if (!traversable(points[leg - 1], points[leg]))
-        return {};
-      selected.insert(start);
-      continue;
-    }
-    using QueueEntry = std::pair<double, Cell>;
-    std::priority_queue<QueueEntry, std::vector<QueueEntry>, std::greater<QueueEntry>> queue;
-    std::map<Cell, double> distances{{start, 0.0}};
-    std::map<Cell, Cell> parents;
-    std::set<Cell> closed;
-    queue.emplace(0.0, start);
-    bool found = false;
+      if (exhausted || cancelled() || !bounds(cell).IsIntersect(query))
+        return;
+      auto const & tile = load(cell);
+      if (!tile.m_split)
+      {
+        if (tile.m_connectivity.m_complete)
+          leaves.push_back(cell);
+        return;
+      }
+      auto const [x, y, level] = cell;
+      for (int dx = 0; dx < 2; ++dx)
+        for (int dy = 0; dy < 2; ++dy)
+          visit({2 * x + dx, 2 * y + dy, level + 1}, query, leaves);
+    };
+    auto const leavesFor = [&](m2::RectD const & query)
+    {
+      std::vector<Cell> leaves;
+      for (int x = std::floor(query.minX() / step); x <= std::floor(query.maxX() / step); ++x)
+        for (int y = std::floor(query.minY() / step); y <= std::floor(query.maxY() / step); ++y)
+          visit({x, y, 0}, query, leaves);
+      return leaves;
+    };
+    using Node = std::pair<Cell, size_t>;
+    using Entry = std::pair<double, Node>;
+    std::priority_queue<Entry, std::vector<Entry>, std::greater<Entry>> queue;
+    std::map<Node, double> distances;
+    std::map<Node, Node> parents;
+    std::set<Node> closed;
+    // A boundary pin can belong to water only on the other side of its grid cell.
+    // Include all incident cells without widening the actual water membership test.
+    auto const & source = checkpoints[0];
+    m2::RectD const sourceCells(std::nextafter(source.x, source.x - 1), std::nextafter(source.y, source.y - 1),
+                                std::nextafter(source.x, source.x + 1), std::nextafter(source.y, source.y + 1));
+    for (auto const & cell : leavesFor(sourceCells))
+      if (auto const component = tiles.at(cell).m_connectivity.m_checkpoints[0])
+      {
+        Node const node{cell, *component};
+        distances[node] = 0;
+        queue.emplace(0, node);
+      }
+    std::optional<Node> finish;
     while (!queue.empty() && !exhausted && !cancelled())
     {
-      auto const current = queue.top().second;
+      auto const node = queue.top().second;
       queue.pop();
-      if (!closed.insert(current).second)
+      if (!closed.insert(node).second)
         continue;
-      if (current == finish)
+      auto const & connectivity = tiles.at(node.first).m_connectivity;
+      if (connectivity.m_checkpoints[1] == node.second)
       {
-        found = true;
+        finish = node;
         break;
       }
-      for (int dx = -1; dx <= 1; ++dx)
-        for (int dy = -1; dy <= 1; ++dy)
+      auto const rect = bounds(node.first);
+      for (auto const & portal : connectivity.m_portals)
+      {
+        if (portal.m_component != node.second)
+          continue;
+        for (size_t side = 0; side < 4; ++side)
         {
-          if ((dx == 0 && dy == 0) || exhausted || cancelled())
+          bool const vertical = side < 2;
+          double const edge = side == 0 ? rect.minX() : side == 1 ? rect.maxX() : side == 2 ? rect.minY() : rect.maxY();
+          auto const coord = [vertical](Point const & p) { return vertical ? p.x : p.y; };
+          if (coord(portal.m_from) != edge || coord(portal.m_to) != edge)
             continue;
-          Cell const next{current.first + dx, current.second + dy};
-          if (closed.contains(next))
-            continue;
-          auto const from = point(current), to = point(next);
-          double const distance = distances.at(current) + mercator::DistanceOnEarth(from, to);
-          if (auto it = distances.find(next); it != distances.end() && distance >= it->second)
-            continue;
-          if (!traversable(from, to))
-            continue;
-          distances[next] = distance;
-          parents[next] = current;
-          queue.emplace(distance + mercator::DistanceOnEarth(to, points[leg]), next);
+          auto a = portal.m_from, b = portal.m_to;
+          double const outside = std::nextafter(edge, edge + (side % 2 == 0 ? -1.0 : 1.0));
+          (vertical ? a.x : a.y) = (vertical ? b.x : b.y) = outside;
+          for (auto const & neighbor : leavesFor(m2::RectD(a, b)))
+            for (auto const & other : tiles.at(neighbor).m_connectivity.m_portals)
+            {
+              if (coord(other.m_from) != edge || coord(other.m_to) != edge)
+                continue;
+              auto const along = [vertical](Point const & p) { return vertical ? p.y : p.x; };
+              if (std::max(along(portal.m_from), along(other.m_from)) > std::min(along(portal.m_to), along(other.m_to)))
+                continue;
+              Node const next{neighbor, other.m_component};
+              if (closed.contains(next))
+                continue;
+              double const cost =
+                  distances.at(node) + mercator::DistanceOnEarth(rect.Center(), bounds(neighbor).Center());
+              if (auto const it = distances.find(next); it != distances.end() && it->second <= cost)
+                continue;
+              distances[next] = cost;
+              parents[next] = node;
+              queue.emplace(cost + mercator::DistanceOnEarth(bounds(neighbor).Center(), checkpoints[1]), next);
+            }
         }
+      }
     }
-    if (!found)
+    if (!finish)
       return {};
-    for (auto current = finish; current != start;)
+    for (auto node = *finish;; node = parents.at(node))
     {
-      auto const parent = parents.at(current);
-      for (auto const & c : cellsBetween(point(parent), point(current)))
-        selected.insert(c);
-      current = parent;
+      if (std::find(selected.begin(), selected.end(), bounds(node.first)) == selected.end())
+        selected.push_back(bounds(node.first));
+      if (!parents.contains(node))
+        break;
     }
   }
-  std::vector<m2::RectD> result;
-  for (auto const & c : selected)
-    result.push_back(bounds(c));
-  return result;
+  return {selected.begin(), selected.end()};
 }
 
 water::Geometry WaterGeometryProvider::ExpandGeometry(Checkpoints const & checkpoints, RouterDelegate const & delegate,
                                                       water::Geometry const & previous,
                                                       std::array<bool, 4> const & frontiers, bool adaptive)
 {
-  // Selective loading already searched beyond the original rectangle within
-  // its work budget. Repeating it cannot expand the chosen corridor.
+  // A failed final search requests a finer connectivity corridor, never the same window.
   if (previous.m_selective)
-    return {};
+    return previous.m_corridorRefinement < 2
+             ? GetGeometry(checkpoints, delegate, 0.0, {}, previous.m_corridorRefinement + 1)
+             : water::Geometry{};
   if (!adaptive)
     return GetGeometry(checkpoints, delegate, 2000.0);
   if (!previous.m_bounds)
@@ -744,7 +771,8 @@ water::Geometry WaterGeometryProvider::ExpandGeometry(Checkpoints const & checkp
 }
 
 water::Geometry WaterGeometryProvider::GetGeometry(Checkpoints const & checkpoints, RouterDelegate const & delegate,
-                                                   double extraMargin, std::optional<m2::RectD> requestedBounds)
+                                                   double extraMargin, std::optional<m2::RectD> requestedBounds,
+                                                   unsigned corridorRefinement)
 {
   auto const cancelled = [&] { return delegate.IsCancelled(); };
   auto const & points = checkpoints.GetPoints();
@@ -839,12 +867,15 @@ water::Geometry WaterGeometryProvider::GetGeometry(Checkpoints const & checkpoin
       if (!std::all_of(points.begin(), points.end(),
                        [&](auto const & point) { return covered(m2::RectD(point, point)); }))
         continue;
-      auto result = ExtractFeatures(m_dataSource, ids, bounds, cancelled);
+      water::Geometry result;
+      if (corridorRefinement == 0)
+        result = ExtractFeatures(m_dataSource, ids, bounds, cancelled);
+      else
+        result.m_resourceLimited = true;
       if (result.m_resourceLimited && !cancelled())
       {
-        // This is an optimistic loading guide, not a route. Display triangles
-        // may extend beyond region borders; only the final search certifies
-        // downloaded coverage, allowing detours inside the selected corridor.
+        // Preserve local water components, including rivers, across tile boundaries.
+        // Both the guide and the final route respect downloaded-region coverage.
         auto const mapsFor = [&](auto const & regions)
         {
           std::vector<MwmSet::MwmId> selected;
@@ -855,15 +886,30 @@ water::Geometry WaterGeometryProvider::GetGeometry(Checkpoints const & checkpoin
               selected.emplace_back(info);
           return selected;
         };
-        auto regions = FindSurfaceCorridor(points, [&](auto const & tileBounds)
+        auto regions = FindWaterCorridor(points, [&](auto const & tileBounds)
         {
           auto const tileMaps = mapsFor(std::array{tileBounds});
           if (tileMaps.size() > kMaxStandardMaps)
             return water::Geometry{};
-          return ExtractFeatures(m_dataSource, tileMaps, tileBounds, cancelled);
-        }, cancelled);
+          auto tile = ExtractFeatures(m_dataSource, tileMaps, tileBounds, cancelled);
+          if (tile.m_complete)
+          {
+            std::vector<std::string> names;
+            for (auto const & id : tileMaps)
+              names.push_back(id.GetInfo()->GetCountryName());
+            SetCoverage(tile, points, [&, names](m2::RectD const & rect)
+            {
+              return names.size() == 1 ? m_coverage && m_coverage(names.front(), rect)
+                                       : !names.empty() && m_multiCoverage && m_multiCoverage(names, rect);
+            }, cancelled);
+          }
+          return tile;
+        }, cancelled, corridorRefinement);
         if (regions.empty())
+        {
+          result.m_corridorUnavailable = !cancelled();
           return result;
+        }
         m2::RectD selectedBounds;
         for (auto const & region : regions)
           selectedBounds.Add(region);
@@ -872,6 +918,7 @@ water::Geometry WaterGeometryProvider::GetGeometry(Checkpoints const & checkpoin
           return result;
         result = ExtractFeatures(m_dataSource, selectedMaps, selectedBounds, cancelled, regions);
         result.m_selective = true;
+        result.m_corridorRefinement = corridorRefinement;
         if (result.m_complete)
         {
           // Selected source features keep their original topology. Unloaded

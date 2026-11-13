@@ -1353,7 +1353,9 @@ extension CarPlayService {
       titleVariants = ["\(L("dialog_routing_change_start_carplay"))"]
     case .endPointNotFound:
       titleVariants = ["\(L("dialog_routing_change_end_carplay"))"]
-    case .resourceLimitExceeded,
+    case .waterCorridorUnavailable,
+         .waterRouteUnavailable,
+         .resourceLimitExceeded,
          .routeNotFoundRedressRouteError,
          .routeNotFound:
       titleVariants = ["\(L("dialog_routing_unable_locate_route_carplay"))"]

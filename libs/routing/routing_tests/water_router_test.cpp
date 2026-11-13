@@ -848,4 +848,68 @@ UNIT_TEST(WaterRouter_TransferMarkersIgnoreNonWaterAndZeroLength)
   TransferRoute pureWater({false, false}, {2});
   TEST(pureWater.GetWaterTransfers().empty(), ());
 }
+
+UNIT_TEST(WaterRouter_SelectiveCorridorReplacesWindowBeforeWalking)
+{
+  size_t calls = 0, expanded = 0;
+  WaterRouter router(
+      [](Checkpoints const &, RouterDelegate const &)
+  {
+    auto geometry = DisconnectedRivers();
+    geometry.m_bounds = m2::RectD(-0.01, -0.01, 0.02, 0.004);
+    return geometry;
+  }, std::make_unique<WalkingStub>(calls),
+      [&](Checkpoints const &, RouterDelegate const &, water::Geometry const &, std::array<bool, 4> const &, bool)
+  {
+    ++expanded;
+    water::Geometry geometry;
+    geometry.m_complete = true;
+    geometry.m_selective = true;
+    // A connected corridor need not contain the old rectangular window.
+    geometry.m_bounds = m2::RectD(-0.001, -0.001, 0.005, 0.02);
+    geometry.m_lines = {{{{0, 0}}, {{0, 0.015}}, {{0.004, 0.015}}, {{0.004, 0}}}};
+    return geometry;
+  });
+  RouterDelegate delegate;
+  RoutesResult result;
+  TEST(router.CalculateRoute(Checkpoints({0, 0.002}, {0.004, 0.002}), {}, false, false, delegate, result) ==
+           RouterResultCode::NoError,
+       ());
+  TEST_EQUAL(expanded, 1, ());
+  TEST_EQUAL(calls, 0, ());
+  TEST_EQUAL(result.GetActive().GetWaterDistances()->m_landMeters, 0.0, ());
+}
+
+UNIT_TEST(WaterRouter_RefinesSelectiveCorridorBeforeWalking)
+{
+  size_t calls = 0, expanded = 0;
+  auto const initial = []
+  {
+    auto geometry = DisconnectedRivers();
+    geometry.m_bounds = m2::RectD(-0.01, -0.01, 0.02, 0.02);
+    geometry.m_selective = true;
+    return geometry;
+  };
+  WaterRouter router([&](Checkpoints const &, RouterDelegate const &) { return initial(); },
+                     std::make_unique<WalkingStub>(calls),
+                     [&](Checkpoints const &, RouterDelegate const &, water::Geometry const & previous,
+                         std::array<bool, 4> const &, bool)
+  {
+    ++expanded;
+    auto geometry = initial();
+    geometry.m_corridorRefinement = previous.m_corridorRefinement + 1;
+    if (geometry.m_corridorRefinement == 2)
+      geometry.m_lines = {{{{0, 0}}, {{0, 0.015}}, {{0.004, 0.015}}, {{0.004, 0}}}};
+    return geometry;
+  });
+  RouterDelegate delegate;
+  RoutesResult result;
+  TEST(router.CalculateRoute(Checkpoints({0, 0.002}, {0.004, 0.002}), {}, false, false, delegate, result) ==
+           RouterResultCode::NoError,
+       ());
+  TEST_EQUAL(expanded, 2, ());
+  TEST_EQUAL(calls, 0, ());
+  TEST_EQUAL(result.GetActive().GetWaterDistances()->m_landMeters, 0.0, ());
+}
+
 }  // namespace water_router_test

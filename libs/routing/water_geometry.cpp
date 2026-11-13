@@ -1055,107 +1055,18 @@ ResultCode FindWalkingPath(Graph const & graph, std::set<Point> const & shore, C
     return ResultCode::Success;
   }
 }
-}  // namespace
-
-std::optional<Point> FindApproachPoint(Geometry const & geometry, Point const & start, CancelledFn const & cancelled)
+struct SurfaceEdge
 {
-  if (!geometry.m_complete || cancelled() || TouchesUnknown(geometry, start, start))
-    return {};
-  auto const selected = Select(geometry, start, true);
-  // Keep approaches local and do not select across missing coverage.
-  if (selected.m_distance > 1000.0 || TouchesUnknown(geometry, selected.m_point, selected.m_point) ||
-      (geometry.m_bounds && selected.m_distance >= ExitDistance(*geometry.m_bounds, start)))
-    return {};
-  return cancelled() ? std::nullopt : std::optional<Point>(selected.m_point);
-}
-bool CoversSurfaceSegment(Geometry const & geometry, Point const & from, Point const & to,
-                          CancelledFn const & cancelled)
+  size_t m_count = 0;
+  Point m_from, m_to;
+};
+ResultCode BuildMesh(Geometry const & geometry, Selection const & from, Selection const & to,
+                     CancelledFn const & cancelled, ProgressFn const & report, Graph & graph,
+                     std::map<Point, size_t> & surfaceVertices,
+                     std::map<std::pair<Point, Point>, SurfaceEdge> & surfaceEdges, std::set<size_t> & surfacePortals,
+                     size_t & lineVertices)
 {
-  size_t visits = 0;
-  // The guide is undirected. Use identical arithmetic for both search directions.
-  auto const a = std::min(from, to), b = std::max(from, to);
-  return geometry.m_complete && (!geometry.m_isCovered || geometry.m_isCovered(a, b)) &&
-         !TouchesUnknown(geometry, a, b) && CoversSegment(geometry, a, b, cancelled, visits);
-}
-
-ResultCode FindPath(Geometry const & geometry, Point const & start, Point const & finish, bool projectStart,
-                    CancelledFn const & cancelled, Path & path, ProgressFn const & progress,
-                    bool allowUnconfirmedTransfer, WalkAllowedFn const & walkAllowed)
-{
-  path = {};
-  auto const report = [&](double value)
-  {
-    if (progress)
-      progress(value);
-  };
-  if (cancelled())
-    return ResultCode::Cancelled;
-  if (!geometry.m_complete)
-    return ResultCode::Unavailable;
-
-  size_t count = 2;
-  if (geometry.m_triangles.size() > kMaxTriangles || geometry.m_lines.size() > kMaxGraphVertices)
-    return ResultCode::Unavailable;
-  for (auto const & line : geometry.m_lines)
-  {
-    if (line.size() > kMaxGraphVertices - std::min(count, kMaxGraphVertices))
-      return ResultCode::Unavailable;
-    count += line.size();
-  }
-  if (count > kMaxGraphVertices)
-    return ResultCode::Unavailable;
-  if ((!projectStart && TouchesUnknown(geometry, start, start)) || TouchesUnknown(geometry, finish, finish))
-    return ResultCode::Unavailable;
-
-  auto const from = Select(geometry, start);
-  auto const to = Select(geometry, finish);
-  // Explicit selections must actually be on the supplied geometry. Only the implicit GPS start projects.
-  if (from.m_distance == kInfinity || to.m_distance == kInfinity)
-    return ResultCode::Unavailable;
-  // Permit only the sub-decimetre quantization error of a selected MWM line.
-  if ((!projectStart && from.m_distance > 0.1) || to.m_distance > 0.1)
-    return ResultCode::OutsideWater;
-  if (TouchesUnknown(geometry, from.m_point, from.m_point) || TouchesUnknown(geometry, to.m_point, to.m_point))
-    return ResultCode::Unavailable;
-  if (geometry.m_bounds && ((!geometry.m_selective && (ExitDistance(*geometry.m_bounds, from.m_point) == 0 ||
-                                                       ExitDistance(*geometry.m_bounds, to.m_point) == 0)) ||
-                            (projectStart && from.m_distance >= ExitDistance(*geometry.m_bounds, start))))
-    return ResultCode::Unavailable;
-  if (projectStart)
-  {
-    auto const couldHideCloserWater = [&](auto const & rect)
-    { return DistanceToUnknown(rect, start) <= from.m_distance; };
-    if (std::any_of(geometry.m_unknownAreas.begin(), geometry.m_unknownAreas.end(), couldHideCloserWater) ||
-        std::any_of(geometry.m_coverageGaps.begin(), geometry.m_coverageGaps.end(), couldHideCloserWater))
-      return ResultCode::Unavailable;
-  }
-
-  // Point eligibility needs only certified membership, not the visibility graph.
-  if (from.m_point == to.m_point)
-  {
-    path.m_points.push_back(from.m_point);
-    report(1.0);
-    return ResultCode::Success;
-  }
-  size_t triangleVisits = 0;
-  if (CoversSegment(geometry, from.m_point, to.m_point, cancelled, triangleVisits) &&
-      !TouchesUnknown(geometry, from.m_point, to.m_point))
-  {
-    Append(path, from.m_point, false);
-    Append(path, to.m_point, false);
-    report(1.0);
-    return ResultCode::Success;
-  }
-  if (cancelled())
-    return ResultCode::Cancelled;
-  if (triangleVisits > kMaxVisibilityTriangleVisits)
-    return ResultCode::Unavailable;
-
-  Graph graph(geometry);
-  graph.Add(from.m_point);
-  graph.Add(to.m_point);
   std::map<uint64_t, size_t> sourceNodes;
-  std::set<size_t> surfacePortals{0, 1};
   for (size_t i = 0; i < geometry.m_lines.size(); ++i)
   {
     if (cancelled())
@@ -1212,14 +1123,7 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
         graph.Connect(split[k - 1], split[k]);
     }
   }
-  auto const lineVertices = graph.m_points.size();
-  std::map<Point, size_t> surfaceVertices;
-  struct SurfaceEdge
-  {
-    size_t m_count = 0;
-    Point m_from, m_to;
-  };
-  std::map<std::pair<Point, Point>, SurfaceEdge> surfaceEdges;
+  lineVertices = graph.m_points.size();
   size_t triangleCount = 0;
   for (auto const & triangle : geometry.m_triangles)
   {
@@ -1297,6 +1201,203 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
       for (auto const & triangle : geometry.m_triangles)
         attach(triangle);
   }
+
+  return ResultCode::Success;
+}
+}  // namespace
+
+Connectivity GetConnectivity(Geometry const & geometry, std::array<Point, 2> const & checkpoints,
+                             CancelledFn const & cancelled)
+{
+  Connectivity result;
+  if (!geometry.m_complete || !geometry.m_bounds || cancelled())
+    return result;
+  std::array<Selection, 2> pins;
+  Graph graph(geometry);
+  for (size_t i = 0; i < pins.size(); ++i)
+  {
+    pins[i].m_point = checkpoints[i];
+    if (geometry.m_bounds->IsPointInside(checkpoints[i]))
+    {
+      auto const selected = Select(geometry, checkpoints[i]);
+      if (selected.m_distance <= 0.1)
+        pins[i] = selected;
+    }
+    graph.Add(pins[i].m_point);
+  }
+  std::map<Point, size_t> vertices;
+  std::map<std::pair<Point, Point>, SurfaceEdge> edges;
+  std::set<size_t> portals{0, 1};
+  size_t lineVertices = 0;
+  if (BuildMesh(geometry, pins[0], pins[1], cancelled, [](double) {}, graph, vertices, edges, portals, lineVertices) !=
+      ResultCode::Success)
+    return result;
+  // Graph::Component is optimistic about unknown coverage. Traverse only certified edges here.
+  size_t const count = graph.m_points.size();
+  std::vector<size_t> components(count, count), stack;
+  for (size_t root = 0; root < count; ++root)
+  {
+    if (cancelled())
+      return {};
+    if (components[root] != count)
+      continue;
+    components[root] = root;
+    stack.push_back(root);
+    while (!stack.empty())
+    {
+      auto const node = stack.back();
+      stack.pop_back();
+      for (auto const & edge : graph.m_edges[node])
+        if (components[edge.m_target] == count &&
+            (!geometry.m_isCovered || geometry.m_isCovered(graph.m_points[node], graph.m_points[edge.m_target])))
+        {
+          components[edge.m_target] = root;
+          stack.push_back(edge.m_target);
+        }
+    }
+  }
+  for (size_t i = 0; i < pins.size(); ++i)
+    if (pins[i].m_distance <= 0.1 && !TouchesUnknown(geometry, pins[i].m_point, pins[i].m_point) &&
+        (!geometry.m_isCovered || geometry.m_isCovered(pins[i].m_point, pins[i].m_point)))
+      result.m_checkpoints[i] = components[i];
+  auto const & bounds = *geometry.m_bounds;
+  for (size_t side = 0; side < 4; ++side)
+  {
+    std::map<size_t, std::vector<Interval>> intervals;
+    auto const coordinate = [side](Point const & point) { return side < 2 ? point.y : point.x; };
+    for (size_t i = 0; i < count; ++i)
+    {
+      auto const & point = graph.m_points[i];
+      if (!bounds.IsPointInside(point) || !OnSide(bounds, point, side) || TouchesUnknown(geometry, point, point) ||
+          (geometry.m_isCovered && !geometry.m_isCovered(point, point)))
+        continue;
+      auto & ranges = intervals[components[i]];
+      ranges.emplace_back(coordinate(point), coordinate(point));
+      for (auto const & edge : graph.m_edges[i])
+        if (OnSide(bounds, graph.m_points[edge.m_target], side) &&
+            (!geometry.m_isCovered || geometry.m_isCovered(point, graph.m_points[edge.m_target])))
+        {
+          auto const other = coordinate(graph.m_points[edge.m_target]);
+          ranges.emplace_back(std::min(coordinate(point), other), std::max(coordinate(point), other));
+        }
+    }
+    for (auto & [component, ranges] : intervals)
+    {
+      std::sort(ranges.begin(), ranges.end());
+      std::vector<Interval> merged;
+      for (auto const & range : ranges)
+        if (!merged.empty() && range.first <= merged.back().second)
+          merged.back().second = std::max(merged.back().second, range.second);
+        else
+          merged.push_back(range);
+      auto const point = [&](double value)
+      {
+        return side < 2 ? Point(side == 0 ? bounds.minX() : bounds.maxX(), value)
+                        : Point(value, side == 2 ? bounds.minY() : bounds.maxY());
+      };
+      for (auto const & range : merged)
+        result.m_portals.push_back({point(range.first), point(range.second), component});
+    }
+  }
+  result.m_complete = true;
+  return result;
+}
+
+std::optional<Point> FindApproachPoint(Geometry const & geometry, Point const & start, CancelledFn const & cancelled)
+{
+  if (!geometry.m_complete || cancelled() || TouchesUnknown(geometry, start, start))
+    return {};
+  auto const selected = Select(geometry, start, true);
+  // Keep approaches local and do not select across missing coverage.
+  if (selected.m_distance > 1000.0 || TouchesUnknown(geometry, selected.m_point, selected.m_point) ||
+      (geometry.m_bounds && selected.m_distance >= ExitDistance(*geometry.m_bounds, start)))
+    return {};
+  return cancelled() ? std::nullopt : std::optional<Point>(selected.m_point);
+}
+ResultCode FindPath(Geometry const & geometry, Point const & start, Point const & finish, bool projectStart,
+                    CancelledFn const & cancelled, Path & path, ProgressFn const & progress,
+                    bool allowUnconfirmedTransfer, WalkAllowedFn const & walkAllowed)
+{
+  path = {};
+  auto const report = [&](double value)
+  {
+    if (progress)
+      progress(value);
+  };
+  if (cancelled())
+    return ResultCode::Cancelled;
+  if (!geometry.m_complete)
+    return ResultCode::Unavailable;
+
+  size_t count = 2;
+  if (geometry.m_triangles.size() > kMaxTriangles || geometry.m_lines.size() > kMaxGraphVertices)
+    return ResultCode::Unavailable;
+  for (auto const & line : geometry.m_lines)
+  {
+    if (line.size() > kMaxGraphVertices - std::min(count, kMaxGraphVertices))
+      return ResultCode::Unavailable;
+    count += line.size();
+  }
+  if (count > kMaxGraphVertices)
+    return ResultCode::Unavailable;
+  if ((!projectStart && TouchesUnknown(geometry, start, start)) || TouchesUnknown(geometry, finish, finish))
+    return ResultCode::Unavailable;
+
+  auto const from = Select(geometry, start);
+  auto const to = Select(geometry, finish);
+  // Explicit selections must actually be on the supplied geometry. Only the implicit GPS start projects.
+  if (from.m_distance == kInfinity || to.m_distance == kInfinity)
+    return ResultCode::Unavailable;
+  // Permit only the sub-decimetre quantization error of a selected MWM line.
+  if ((!projectStart && from.m_distance > 0.1) || to.m_distance > 0.1)
+    return ResultCode::OutsideWater;
+  if (TouchesUnknown(geometry, from.m_point, from.m_point) || TouchesUnknown(geometry, to.m_point, to.m_point))
+    return ResultCode::Unavailable;
+  if (geometry.m_bounds && ((!geometry.m_selective && (ExitDistance(*geometry.m_bounds, from.m_point) == 0 ||
+                                                       ExitDistance(*geometry.m_bounds, to.m_point) == 0)) ||
+                            (projectStart && from.m_distance >= ExitDistance(*geometry.m_bounds, start))))
+    return ResultCode::Unavailable;
+  if (projectStart)
+  {
+    auto const couldHideCloserWater = [&](auto const & rect)
+    { return DistanceToUnknown(rect, start) <= from.m_distance; };
+    if (std::any_of(geometry.m_unknownAreas.begin(), geometry.m_unknownAreas.end(), couldHideCloserWater) ||
+        std::any_of(geometry.m_coverageGaps.begin(), geometry.m_coverageGaps.end(), couldHideCloserWater))
+      return ResultCode::Unavailable;
+  }
+
+  // Point eligibility needs only certified membership, not the visibility graph.
+  if (from.m_point == to.m_point)
+  {
+    path.m_points.push_back(from.m_point);
+    report(1.0);
+    return ResultCode::Success;
+  }
+  size_t triangleVisits = 0;
+  if (CoversSegment(geometry, from.m_point, to.m_point, cancelled, triangleVisits) &&
+      !TouchesUnknown(geometry, from.m_point, to.m_point))
+  {
+    Append(path, from.m_point, false);
+    Append(path, to.m_point, false);
+    report(1.0);
+    return ResultCode::Success;
+  }
+  if (cancelled())
+    return ResultCode::Cancelled;
+  if (triangleVisits > kMaxVisibilityTriangleVisits)
+    return ResultCode::Unavailable;
+
+  Graph graph(geometry);
+  graph.Add(from.m_point);
+  graph.Add(to.m_point);
+  std::map<Point, size_t> surfaceVertices;
+  std::map<std::pair<Point, Point>, SurfaceEdge> surfaceEdges;
+  std::set<size_t> surfacePortals{0, 1};
+  size_t lineVertices = 0;
+  auto const meshCode = BuildMesh(geometry, from, to, cancelled, report, graph, surfaceVertices, surfaceEdges,
+                                  surfacePortals, lineVertices);
+  if (meshCode != ResultCode::Success)
+    return meshCode;
 
   report(0.25);
   std::set<Point> shore;

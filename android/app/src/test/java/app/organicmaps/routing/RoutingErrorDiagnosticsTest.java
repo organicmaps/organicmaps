@@ -13,6 +13,19 @@ import org.junit.Test;
 public class RoutingErrorDiagnosticsTest
 {
   @Test
+  public void reportDistinguishesCorridorAndFinalSearchFailures()
+  {
+    String corridor = RoutingErrorDiagnostics.format("test", Router.Water, ResultCodes.WATER_CORRIDOR_UNAVAILABLE,
+                                                     new RouteMarkData[0], new String[0]);
+    String route = RoutingErrorDiagnostics.format("test", Router.Water, ResultCodes.WATER_ROUTE_UNAVAILABLE,
+                                                  new RouteMarkData[0], new String[0]);
+    assertTrue(corridor.contains("connectivity corridor search incomplete"));
+    assertTrue(route.contains("Final water search"));
+    assertTrue(corridor.contains("feasibility is unknown"));
+    assertTrue(route.contains("feasibility is unknown"));
+  }
+
+  @Test
   public void resourceLimitIsExplicitInCopiedDiagnostics()
   {
     String report = RoutingErrorDiagnostics.format("test", Router.Water, ResultCodes.RESOURCE_LIMIT_EXCEEDED,

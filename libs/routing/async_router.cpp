@@ -224,6 +224,8 @@ void AsyncRouter::LogCode(RouterResultCode code, double const elapsedSec)
   case RouterResultCode::StartPointNotFound: LOG(LWARNING, ("Can't find start or end node")); break;
   case RouterResultCode::EndPointNotFound: LOG(LWARNING, ("Can't find end point node")); break;
   case RouterResultCode::PointsInDifferentMWM: LOG(LWARNING, ("Points are in different MWMs")); break;
+  case RouterResultCode::WaterCorridorUnavailable: LOG(LWARNING, ("Water connectivity corridor unavailable")); break;
+  case RouterResultCode::WaterRouteUnavailable: LOG(LWARNING, ("Final bounded water search unavailable")); break;
   case RouterResultCode::ResourceLimitExceeded: LOG(LWARNING, ("Routing resource limit exceeded")); break;
   case RouterResultCode::RouteNotFound: LOG(LWARNING, ("Route not found")); break;
   case RouterResultCode::NeedMoreMaps:
