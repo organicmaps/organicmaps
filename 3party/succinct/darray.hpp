@@ -11,7 +11,7 @@ namespace succinct {
 
     namespace detail {
 
-        template <typename WordGetter>
+        template <typename WordGetter, class TContainer>
         class darray {
         public:
 
@@ -19,10 +19,10 @@ namespace succinct {
                 : m_positions()
             {}
 
-            darray(bit_vector const& bv)
+            darray(bit_vector_t<TContainer> const& bv)
                 : m_positions()
             {
-                mapper::mappable_vector<uint64_t> const& data = bv.data();
+                TContainer const& data = bv.data();
 
                 std::vector<uint64_t> cur_block_positions;
                 std::vector<int64_t> block_inventory;
@@ -76,7 +76,7 @@ namespace succinct {
                 m_overflow_positions.swap(other.m_overflow_positions);
             }
 
-            inline uint64_t select(bit_vector const& bv, uint64_t idx) const
+            inline uint64_t select(bit_vector_t<TContainer> const& bv, uint64_t idx) const
             {
                 assert(idx < num_positions());
                 uint64_t block = idx / block_size;
@@ -89,7 +89,7 @@ namespace succinct {
                 uint64_t subblock = idx / subblock_size;
                 uint64_t start_pos = uint64_t(block_pos) + m_subblock_inventory[subblock];
                 uint64_t reminder = idx % subblock_size;
-                mapper::mappable_vector<uint64_t> const& data = bv.data();
+                TContainer const& data = bv.data();
 
                 if (!reminder) {
                     return start_pos;
@@ -142,28 +142,30 @@ namespace succinct {
             static const size_t max_in_block_distance = 1 << 16;
 
             uint64_t m_positions;
-            mapper::mappable_vector<int64_t> m_block_inventory;
-            mapper::mappable_vector<uint16_t> m_subblock_inventory;
-            mapper::mappable_vector<uint64_t> m_overflow_positions;
+            typename TContainer::template UnderlyingT<int64_t> m_block_inventory;
+            typename TContainer::template UnderlyingT<uint16_t> m_subblock_inventory;
+            typename TContainer::template UnderlyingT<uint64_t> m_overflow_positions;
         };
 
         struct identity_getter
         {
-            uint64_t operator()(mapper::mappable_vector<uint64_t> const& data, size_t idx) const {
+            template <class TContainer>
+            uint64_t operator()(TContainer const& data, size_t idx) const {
                 return data[idx];
             }
         };
 
         struct negating_getter
         {
-            uint64_t operator()(mapper::mappable_vector<uint64_t> const& data, size_t idx) const {
+            template <class TContainer>
+            uint64_t operator()(TContainer const& data, size_t idx) const {
                 return ~data[idx];
             }
         };
     }
 
-    typedef detail::darray<detail::identity_getter> darray1;
-    typedef detail::darray<detail::negating_getter> darray0;
+    typedef detail::darray<detail::identity_getter, mapper::mappable_vector<uint64_t>> darray1;
+    typedef detail::darray<detail::negating_getter, mapper::mappable_vector<uint64_t>> darray0;
 }
 
 #if defined(__clang__)
