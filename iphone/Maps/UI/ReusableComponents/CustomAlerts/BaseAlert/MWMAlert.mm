@@ -82,6 +82,7 @@
   case routing::RouterResultCode::TransitRouteNotFoundTooLongPedestrian:
     return [MWMDefaultAlert routeNotFoundTooLongPedestrianAlert];
   case routing::RouterResultCode::RouteNotFoundRedressRouteError:
+  case routing::RouterResultCode::ResourceLimitExceeded:
   case routing::RouterResultCode::RouteNotFound: return [MWMDefaultAlert routeNotFoundAlert];
   case routing::RouterResultCode::FileTooOld: return [MWMDefaultAlert routeFileTooOldAlert];
   case routing::RouterResultCode::InternalError: return [MWMDefaultAlert internalRoutingErrorAlert];

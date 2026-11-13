@@ -16,6 +16,8 @@
 #include <map>
 #include <memory>
 #include <numeric>
+#include <queue>
+#include <set>
 
 namespace routing
 {
@@ -339,6 +341,14 @@ water::Geometry WaterGeometryProvider::ExtractFeatures(DataSource const & dataSo
                                                        std::vector<MwmSet::MwmId> const & ids, m2::RectD const & bounds,
                                                        water::CancelledFn const & cancelled)
 {
+  return ExtractFeatures(dataSource, ids, bounds, cancelled, {});
+}
+
+water::Geometry WaterGeometryProvider::ExtractFeatures(DataSource const & dataSource,
+                                                       std::vector<MwmSet::MwmId> const & ids, m2::RectD const & bounds,
+                                                       water::CancelledFn const & cancelled,
+                                                       std::vector<m2::RectD> const & regions)
+{
   water::Geometry result;
   result.m_hasSourceTopology = false;
   std::map<std::pair<int8_t, Point>, uint64_t> endpoints;
@@ -348,7 +358,11 @@ water::Geometry WaterGeometryProvider::ExtractFeatures(DataSource const & dataSo
   for (auto const & id : ids)
   {
     if (cancelled() || exceeded)
-      return {};
+    {
+      result = {};
+      result.m_resourceLimited = exceeded;
+      return result;
+    }
     dataSource.ForEachInRectForMWM([&](FeatureType & feature)
     {
       if (cancelled() || exceeded)
@@ -360,7 +374,9 @@ water::Geometry WaterGeometryProvider::ExtractFeatures(DataSource const & dataSo
       if (!line && !area)
         return;
       auto const rect = feature.GetLimitRect(FeatureType::BEST_GEOMETRY);
-      if (!rect.IsIntersect(bounds))
+      if (!rect.IsIntersect(bounds) ||
+          (!regions.empty() &&
+           std::none_of(regions.begin(), regions.end(), [&](auto const & region) { return rect.IsIntersect(region); })))
         return;
       // Generated coastline cells contain sea triangles with land holes already
       // removed. Read them like inland water; never infer water from empty space.
@@ -439,7 +455,11 @@ water::Geometry WaterGeometryProvider::ExtractFeatures(DataSource const & dataSo
     }, bounds, scales::GetUpperScale(), id);
   }
   if (cancelled() || exceeded || !AddFeatureSurfaces(surfaces, bounds, cancelled, result))
-    return {};
+  {
+    result = {};
+    result.m_resourceLimited = !cancelled();
+    return result;
+  }
   IndexTriangles(result);
   result.m_bounds = bounds;
   result.m_complete = true;
@@ -447,8 +467,41 @@ water::Geometry WaterGeometryProvider::ExtractFeatures(DataSource const & dataSo
 }
 
 void WaterGeometryProvider::SetCoverage(water::Geometry & geometry, std::vector<Point> const & checkpoints,
-                                        RectCoverageFn covered, water::CancelledFn const & cancelled)
+                                        RectCoverageFn covered, water::CancelledFn const & cancelled,
+                                        std::vector<m2::RectD> const & regions)
 {
+  if (!regions.empty())
+    covered = [regions, covered = std::move(covered)](m2::RectD const & rect)
+    {
+      if (!covered(rect))
+        return false;
+      std::vector<m2::RectD> remaining{rect};
+      for (auto const & region : regions)
+      {
+        std::vector<m2::RectD> next;
+        for (auto const & piece : remaining)
+        {
+          auto cut = piece;
+          if (!cut.Intersect(region))
+          {
+            next.push_back(piece);
+            continue;
+          }
+          if (piece.minX() < cut.minX())
+            next.emplace_back(piece.minX(), piece.minY(), cut.minX(), piece.maxY());
+          if (piece.maxX() > cut.maxX())
+            next.emplace_back(cut.maxX(), piece.minY(), piece.maxX(), piece.maxY());
+          if (piece.minY() < cut.minY())
+            next.emplace_back(cut.minX(), piece.minY(), cut.maxX(), cut.minY());
+          if (piece.maxY() > cut.maxY())
+            next.emplace_back(cut.minX(), cut.maxY(), cut.maxX(), piece.maxY());
+        }
+        remaining = std::move(next);
+        if (remaining.empty())
+          return true;
+      }
+      return false;
+    };
   CHECK(geometry.m_bounds, ());
   AddCoverageGaps(*geometry.m_bounds, checkpoints, covered, cancelled, geometry.m_coverageGaps);
   geometry.m_coverageIndex = std::make_shared<m4::Tree<size_t>>();
@@ -500,10 +553,172 @@ void WaterGeometryProvider::SetCoverage(water::Geometry & geometry, std::vector<
   };
 }
 
+std::vector<m2::RectD> WaterGeometryProvider::FindSurfaceCorridor(std::vector<Point> const & points,
+                                                                  TileLoader const & loader,
+                                                                  water::CancelledFn const & cancelled)
+{
+  if (points.size() < 2 || cancelled())
+    return {};
+  using Cell = std::pair<int, int>;
+  m2::RectD pins;
+  for (auto const & point : points)
+    pins.Add(point);
+  auto const extent = mercator::RectByCenterXYAndSizeInMeters(pins.Center(), 20000.0);
+  double const step = std::min(extent.SizeX(), extent.SizeY());
+  auto const cell = [step](Point const & p)
+  { return Cell{static_cast<int>(std::floor(p.x / step)), static_cast<int>(std::floor(p.y / step))}; };
+  auto const bounds = [step](Cell const & c)
+  { return m2::RectD(c.first * step, c.second * step, (c.first + 1) * step, (c.second + 1) * step); };
+  struct Tile
+  {
+    std::shared_ptr<water::Geometry> m_geometry;
+    size_t m_used;
+    size_t m_units;
+  };
+  std::map<Cell, Tile> cache;
+  size_t serial = 0, cachedUnits = 0, loads = 0, decodedTriangles = 0;
+  // Cache and work ceilings are independent of geographic detour distance.
+  size_t constexpr kCacheUnits = 65536;
+  size_t constexpr kMaxTileLoads = 1024;
+  bool exhausted = false;
+  auto const load = [&](Cell const & c) -> std::shared_ptr<water::Geometry>
+  {
+    if (auto it = cache.find(c); it != cache.end())
+    {
+      it->second.m_used = ++serial;
+      return it->second.m_geometry;
+    }
+    if (cancelled() || ++loads > kMaxTileLoads || decodedTriangles > 8 * water::kMaxTriangles)
+    {
+      exhausted = true;
+      return {};
+    }
+    auto const rect = bounds(c);
+    if (!mercator::Bounds::FullRect().IsRectInside(rect))
+      return {};
+    auto geometry = loader(rect);
+    decodedTriangles += geometry.m_triangles.size();
+    // Lines are not used by the coarse surface guide. They are loaded normally
+    // for the final route, including approaches and portages.
+    decltype(geometry.m_lines){}.swap(geometry.m_lines);
+    size_t const units = 1 + geometry.m_triangles.capacity() + geometry.m_unknownAreas.capacity() +
+                         geometry.m_portageAreas.capacity() + geometry.m_coverageGaps.capacity();
+    if (!geometry.m_complete || units > kCacheUnits)
+      return {};
+    while (!cache.empty() && cachedUnits + units > kCacheUnits)
+    {
+      auto oldest = std::min_element(cache.begin(), cache.end(),
+                                     [](auto const & a, auto const & b) { return a.second.m_used < b.second.m_used; });
+      cachedUnits -= oldest->second.m_units;
+      cache.erase(oldest);
+    }
+    auto stored = std::make_shared<water::Geometry>(std::move(geometry));
+    cachedUnits += units;
+    cache.emplace(c, Tile{stored, ++serial, units});
+    return stored;
+  };
+  std::set<Cell> selected;
+  auto const cellsBetween = [&](Point const & a, Point const & b)
+  {
+    auto const ca = cell(a), cb = cell(b);
+    std::vector<Cell> result;
+    for (int x = std::min(ca.first, cb.first); x <= std::max(ca.first, cb.first); ++x)
+      for (int y = std::min(ca.second, cb.second); y <= std::max(ca.second, cb.second); ++y)
+        result.emplace_back(x, y);
+    return result;
+  };
+  for (size_t leg = 1; leg < points.size(); ++leg)
+  {
+    auto const start = cell(points[leg - 1]), finish = cell(points[leg]);
+    auto const point = [&](Cell const & c)
+    {
+      return c == start ? points[leg - 1] : c == finish ? points[leg] : bounds(c).Center();
+    };
+    auto const traversable = [&](Point const & a, Point const & b)
+    {
+      water::Geometry geometry;
+      geometry.m_complete = true;
+      for (auto const & c : cellsBetween(a, b))
+      {
+        auto tile = load(c);
+        if (!tile)
+          return false;
+        geometry.m_triangles.insert(geometry.m_triangles.end(), tile->m_triangles.begin(), tile->m_triangles.end());
+        geometry.m_unknownAreas.insert(geometry.m_unknownAreas.end(), tile->m_unknownAreas.begin(),
+                                       tile->m_unknownAreas.end());
+        geometry.m_isCovered = tile->m_isCovered;
+      }
+      IndexTriangles(geometry);
+      return water::CoversSurfaceSegment(geometry, a, b, cancelled);
+    };
+    if (start == finish)
+    {
+      if (!traversable(points[leg - 1], points[leg]))
+        return {};
+      selected.insert(start);
+      continue;
+    }
+    using QueueEntry = std::pair<double, Cell>;
+    std::priority_queue<QueueEntry, std::vector<QueueEntry>, std::greater<QueueEntry>> queue;
+    std::map<Cell, double> distances{{start, 0.0}};
+    std::map<Cell, Cell> parents;
+    std::set<Cell> closed;
+    queue.emplace(0.0, start);
+    bool found = false;
+    while (!queue.empty() && !exhausted && !cancelled())
+    {
+      auto const current = queue.top().second;
+      queue.pop();
+      if (!closed.insert(current).second)
+        continue;
+      if (current == finish)
+      {
+        found = true;
+        break;
+      }
+      for (int dx = -1; dx <= 1; ++dx)
+        for (int dy = -1; dy <= 1; ++dy)
+        {
+          if ((dx == 0 && dy == 0) || exhausted || cancelled())
+            continue;
+          Cell const next{current.first + dx, current.second + dy};
+          if (closed.contains(next))
+            continue;
+          auto const from = point(current), to = point(next);
+          double const distance = distances.at(current) + mercator::DistanceOnEarth(from, to);
+          if (auto it = distances.find(next); it != distances.end() && distance >= it->second)
+            continue;
+          if (!traversable(from, to))
+            continue;
+          distances[next] = distance;
+          parents[next] = current;
+          queue.emplace(distance + mercator::DistanceOnEarth(to, points[leg]), next);
+        }
+    }
+    if (!found)
+      return {};
+    for (auto current = finish; current != start;)
+    {
+      auto const parent = parents.at(current);
+      for (auto const & c : cellsBetween(point(parent), point(current)))
+        selected.insert(c);
+      current = parent;
+    }
+  }
+  std::vector<m2::RectD> result;
+  for (auto const & c : selected)
+    result.push_back(bounds(c));
+  return result;
+}
+
 water::Geometry WaterGeometryProvider::ExpandGeometry(Checkpoints const & checkpoints, RouterDelegate const & delegate,
                                                       water::Geometry const & previous,
                                                       std::array<bool, 4> const & frontiers, bool adaptive)
 {
+  // Selective loading already searched beyond the original rectangle within
+  // its work budget. Repeating it cannot expand the chosen corridor.
+  if (previous.m_selective)
+    return {};
   if (!adaptive)
     return GetGeometry(checkpoints, delegate, 2000.0);
   if (!previous.m_bounds)
@@ -625,6 +840,62 @@ water::Geometry WaterGeometryProvider::GetGeometry(Checkpoints const & checkpoin
                        [&](auto const & point) { return covered(m2::RectD(point, point)); }))
         continue;
       auto result = ExtractFeatures(m_dataSource, ids, bounds, cancelled);
+      if (result.m_resourceLimited && !cancelled())
+      {
+        // This is an optimistic loading guide, not a route. Display triangles
+        // may extend beyond region borders; only the final search certifies
+        // downloaded coverage, allowing detours inside the selected corridor.
+        auto const mapsFor = [&](auto const & regions)
+        {
+          std::vector<MwmSet::MwmId> selected;
+          for (auto const & info : infos)
+            if (info->GetType() == MwmInfo::COUNTRY &&
+                std::any_of(regions.begin(), regions.end(),
+                            [&](auto const & region) { return info->m_bordersRect.IsIntersect(region); }))
+              selected.emplace_back(info);
+          return selected;
+        };
+        auto regions = FindSurfaceCorridor(points, [&](auto const & tileBounds)
+        {
+          auto const tileMaps = mapsFor(std::array{tileBounds});
+          if (tileMaps.size() > kMaxStandardMaps)
+            return water::Geometry{};
+          return ExtractFeatures(m_dataSource, tileMaps, tileBounds, cancelled);
+        }, cancelled);
+        if (regions.empty())
+          return result;
+        m2::RectD selectedBounds;
+        for (auto const & region : regions)
+          selectedBounds.Add(region);
+        auto const selectedMaps = mapsFor(regions);
+        if (selectedMaps.size() > kMaxStandardMaps)
+          return result;
+        result = ExtractFeatures(m_dataSource, selectedMaps, selectedBounds, cancelled, regions);
+        result.m_selective = true;
+        if (result.m_complete)
+        {
+          // Selected source features keep their original topology. Unloaded
+          // regions remain unknown, including to pedestrian transfer candidates.
+          std::vector<std::string> selectedCountries;
+          m2::RectD selectedMapBounds;
+          for (auto const & id : selectedMaps)
+          {
+            selectedCountries.push_back(id.GetInfo()->GetCountryName());
+            selectedMapBounds.Add(id.GetInfo()->m_bordersRect);
+          }
+          SetCoverage(result, points,
+                      [selectedMapBounds, selectedCountries, coverage = m_coverage,
+                       multiCoverage = m_multiCoverage](m2::RectD const & rect)
+          {
+            if (!selectedMapBounds.IsRectInside(rect) || selectedCountries.empty())
+              return false;
+            return selectedCountries.size() == 1 ? coverage && coverage(selectedCountries.front(), rect)
+                                                 : multiCoverage && multiCoverage(selectedCountries, rect);
+          },
+                      cancelled, regions);
+        }
+        return result;
+      }
       if (result.m_complete)
         SetCoverage(result, points, covered, cancelled);
       if (cancelled())

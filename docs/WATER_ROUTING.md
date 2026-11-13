@@ -199,6 +199,29 @@ Disjoint groups are unioned separately without simplifying their geometry;
 actual intersections, exact contacts and island holes remain intact. The
 temporary grouping index is released before surface tessellation.
 
+If the initial display-geometry extraction exceeds its resource budget, the
+provider switches to a bounded surface-water loading guide instead of repeatedly
+shrinking nearly identical rectangles. The guide reads local cells, caches them
+within the request, and can search beyond the initial checkpoint rectangle to
+find a sea or lake detour. It does not become the route: selected source features
+are extracted with their original topology and processed by the normal exact
+geometry checks and route search. Source lines are not joined at cell cuts, and
+coarse search nodes are not mandatory intermediate points.
+
+The guide is optimistic about map-region borders; final route edges still require
+both downloaded-region coverage and coverage by the selected cells. Unloaded
+areas remain unknown to water paths and pedestrian transfers. The cache charges
+triangle and auxiliary-array capacity, and separate limits bound cell loads and
+decoded geometry. The guide and its cache are discarded after extraction; repeated
+expansion does not rerun an identical selective search.
+
+Selective results always show “Shortest route not confirmed”. This fallback does
+not guarantee finding narrow channels or routes requiring portages outside the
+chosen corridor. Failure under these limits is not proof that no route exists.
+Resource-limited extraction/search returns result code 17; Android's debug Copy
+report explicitly identifies the resource limit. Missing checkpoint maps retain
+the normal download workflow.
+
 Within one Water request, pedestrian legs reuse the decoded road graph. The
 walking algorithm and costs are unchanged; the cache is cleared on completion,
 failure or cancellation and invalidated by routing-option changes. Other modes
@@ -212,8 +235,8 @@ on each retry. Progress is monotone within a request, estimates work rather than
 and reaches 100 only on success. Cancelled requests cannot update a replacement
 request's progress.
 
-The missing-map and surface-grouping changes passed 457 routing unit tests and all
-68 Water integration tests on macOS ARM64 Debug with a 1 MiB stack. The stored
+The missing-map, surface-grouping and selective-loading changes passed 463 routing unit tests and all
+71 Water integration tests on macOS ARM64 Debug with a 1 MiB stack. The stored
 results of 53 real-map calculations retained the same water/land distances
 and shortest-path qualification. Android API 29 and iOS 18.6 Simulator both showed
 Latvia in the normal download prompt and passed cancellation during a long route.
@@ -238,12 +261,26 @@ allocation peaks and are not interchangeable with this kernel-recorded RSS
 maximum. No Release or physical-device performance measurement was made for
 this optimization.
 
+The reported sea route from `55.31438121, 19.60647214` to
+`57.56200190, 23.84290724` previously exhausted the 262,144-triangle input limit
+on each of 13 almost identical extractions, even with current Lithuania_West and
+Latvia maps. The selective fallback produces 529.14 km entirely on water in both
+directions, with shortest route not confirmed. The same result is retained with
+Lithuania_East and the three previously reported Belarus maps also registered.
+On the same 8 GiB M2 host, sequential Debug emulator checks completed four
+calculations per platform: Android API 29 took 56.40–81.23 s and iOS 18.6 took
+36.71–44.76 s from profile selection until the result appeared. Both displayed
+529 km water and zero land gaps. Android VmHWM was 367.7–370.4 MiB; iOS RSS
+sampled every two seconds reached 347.4 MiB, which is not an exact peak or a
+physical-device measurement. Cancellation after 12 seconds passed on both
+platforms; the iOS check also waited another 45 seconds and observed no stale result.
+
 ## Reproduction and tests
 
 `libs/routing/routing_integration_tests/water_reported_routes_test.cpp` retains
 the reported failing coordinates and My position flags, long routes in both
-directions, continuous-water controls and intermediate stops. Its 51 tests make
-52 route calculations: the Pomeranian regression runs with and without walking
+directions, continuous-water controls and intermediate stops. Its 56 tests include the missing-map check and
+56 route calculations: the Pomeranian regression runs with and without walking
 graph reuse and compares the complete coordinate sequence. No reported route
 was removed when this duplicate calculation was consolidated.
 
@@ -264,6 +301,7 @@ Useful phone checks include:
 | 54.82479565, 25.74941456 | 55.07294426, 24.29086921 | Reported near-border start; require a water-only route with Lithuania_East |
 | 55.316761, 21.385615 | 55.336162, 21.219596 | Nemunas delta report; require a wholly water route through the lagoon |
 | 54.71577130, 25.27821850 (My position) | 57.24266941, 24.16273648 | Missing Latvia with Lithuania_East downloaded; require the Latvia download request |
+| 55.31438121, 19.60647214 | 57.56200190, 23.84290724 | Baltic Sea to Latvia; both directions require zero walking; minimal maps and neighboring Lithuania/Belarus maps |
 | 54.82494, 25.749111 | 54.880858, 24.040882 | Slow Neris report; both Lithuania maps and Belarus Hrodna, Minsk and Vitebsk regions |
 | 55.58482353, 20.96625629 | 55.81964426, 20.96674091 | Baltic Sea report; require zero walking in both directions |
 | 54.82539913135153, 25.748180598020554 | 54.900349439028986, 24.087091237306595 | Reported Neris–Kaunas Reservoir route, no intermediate points; also check reverse direction |

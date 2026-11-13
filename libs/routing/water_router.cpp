@@ -70,7 +70,7 @@ RouterResultCode WaterRouter::CalculateRoute(Checkpoints const & checkpoints, m2
   if (cancelled())
     return RouterResultCode::Cancelled;
   if (!geometry.m_complete)
-    return RouterResultCode::RouteNotFound;
+    return geometry.m_resourceLimited ? RouterResultCode::ResourceLimitExceeded : RouterResultCode::RouteNotFound;
 
   report(30);
   Route route;
@@ -158,6 +158,7 @@ RouterResultCode WaterRouter::CalculateRoute(Checkpoints const & checkpoints, m2
       return true;
     };
     bool walkingSearched = false;
+    bool geometryLimited = geometry.m_selective;
     // A component wholly inside the window cannot gain a water connection
     // outside it. Retain one local retry for portages instead of growing it.
     bool const adaptive = path.m_bothEndsReachBoundary;
@@ -167,6 +168,7 @@ RouterResultCode WaterRouter::CalculateRoute(Checkpoints const & checkpoints, m2
          ++attempt)
     {
       auto expanded = m_expandedGeometryGetter(checkpoints, delegate, geometry, path.m_frontiers, adaptive);
+      geometryLimited = geometryLimited || expanded.m_resourceLimited || expanded.m_selective;
       if (cancelled())
         return RouterResultCode::Cancelled;
       if (expanded.m_complete && expanded.m_bounds && geometry.m_bounds && expanded.m_bounds != geometry.m_bounds &&
@@ -211,7 +213,12 @@ RouterResultCode WaterRouter::CalculateRoute(Checkpoints const & checkpoints, m2
                                                : RouterResultCode::IntermediatePointNotFound;
     }
     if (code != water::ResultCode::Success)
+    {
+      if (geometryLimited &&
+          (walkingFailure == RouterResultCode::NoError || walkingFailure == RouterResultCode::RouteNotFound))
+        return RouterResultCode::ResourceLimitExceeded;
       return walkingFailure != RouterResultCode::NoError ? walkingFailure : RouterResultCode::RouteNotFound;
+    }
     auto const gaps = std::count(path.m_landGaps.begin(), path.m_landGaps.end(), true);
     if (gaps != 0)
     {
@@ -295,7 +302,7 @@ RouterResultCode WaterRouter::CalculateRoute(Checkpoints const & checkpoints, m2
       segments.back().SetLandGap(j > 0 && path.m_landGaps[j - 1]);
     }
     subroutes.emplace_back(junction(path.m_points.front()), junction(path.m_points.back()), begin, segments.size());
-    distances.m_shortestConfirmed = distances.m_shortestConfirmed && path.m_shortestConfirmed;
+    distances.m_shortestConfirmed = distances.m_shortestConfirmed && path.m_shortestConfirmed && !geometry.m_selective;
     distances.m_waterMeters += path.m_waterDistance;
     distances.m_landMeters += path.m_landDistance;
   }

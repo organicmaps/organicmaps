@@ -1068,6 +1068,16 @@ std::optional<Point> FindApproachPoint(Geometry const & geometry, Point const & 
     return {};
   return cancelled() ? std::nullopt : std::optional<Point>(selected.m_point);
 }
+bool CoversSurfaceSegment(Geometry const & geometry, Point const & from, Point const & to,
+                          CancelledFn const & cancelled)
+{
+  size_t visits = 0;
+  // The guide is undirected. Use identical arithmetic for both search directions.
+  auto const a = std::min(from, to), b = std::max(from, to);
+  return geometry.m_complete && (!geometry.m_isCovered || geometry.m_isCovered(a, b)) &&
+         !TouchesUnknown(geometry, a, b) && CoversSegment(geometry, a, b, cancelled, visits);
+}
+
 ResultCode FindPath(Geometry const & geometry, Point const & start, Point const & finish, bool projectStart,
                     CancelledFn const & cancelled, Path & path, ProgressFn const & progress,
                     bool allowUnconfirmedTransfer, WalkAllowedFn const & walkAllowed)
@@ -1107,9 +1117,9 @@ ResultCode FindPath(Geometry const & geometry, Point const & start, Point const 
     return ResultCode::OutsideWater;
   if (TouchesUnknown(geometry, from.m_point, from.m_point) || TouchesUnknown(geometry, to.m_point, to.m_point))
     return ResultCode::Unavailable;
-  if (geometry.m_bounds &&
-      (ExitDistance(*geometry.m_bounds, from.m_point) == 0 || ExitDistance(*geometry.m_bounds, to.m_point) == 0 ||
-       (projectStart && from.m_distance >= ExitDistance(*geometry.m_bounds, start))))
+  if (geometry.m_bounds && ((!geometry.m_selective && (ExitDistance(*geometry.m_bounds, from.m_point) == 0 ||
+                                                       ExitDistance(*geometry.m_bounds, to.m_point) == 0)) ||
+                            (projectStart && from.m_distance >= ExitDistance(*geometry.m_bounds, start))))
     return ResultCode::Unavailable;
   if (projectStart)
   {

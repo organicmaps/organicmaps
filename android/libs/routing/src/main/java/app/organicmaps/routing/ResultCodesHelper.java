@@ -72,6 +72,9 @@ public class ResultCodesHelper
       messages.add(resources.getString(R.string.dialog_pedestrian_route_is_long_message));
       cancelBtnResId = R.string.ok;
       break;
+    case ResultCodes.RESOURCE_LIMIT_EXCEEDED:
+      messages.add(resources.getString(R.string.dialog_routing_cant_build_route));
+      break;
     case ResultCodes.ROUTE_NOT_FOUND:
     case ResultCodes.ROUTE_NOT_FOUND_REDRESS_ROUTE_ERROR:
       if (missingCount == 0)

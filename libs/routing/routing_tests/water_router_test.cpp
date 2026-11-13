@@ -51,6 +51,43 @@ UNIT_TEST(WaterRouter_DistanceOnlyWithCheckpoints)
   TEST_GREATER(distance, 0.0, ());
 }
 
+UNIT_TEST(WaterRouter_ResourceLimitIsNotRouteNotFound)
+{
+  for (bool limited : {false, true})
+  {
+    WaterRouter router([&](Checkpoints const &, RouterDelegate const &)
+    {
+      water::Geometry geometry;
+      geometry.m_resourceLimited = limited;
+      return geometry;
+    });
+    RouterDelegate delegate;
+    RoutesResult result;
+    TEST(router.CalculateRoute(Checkpoints({0, 0}, {1, 0}), {}, false, false, delegate, result) ==
+             (limited ? RouterResultCode::ResourceLimitExceeded : RouterResultCode::RouteNotFound),
+         ());
+    TEST(!result.IsValid(), ());
+  }
+}
+
+UNIT_TEST(WaterRouter_SelectiveGeometryDoesNotConfirmShortestPath)
+{
+  WaterRouter router([](Checkpoints const &, RouterDelegate const &)
+  {
+    auto geometry = River();
+    geometry.m_selective = true;
+    geometry.m_bounds = m2::RectD(0, 0, 1, 1);
+    return geometry;
+  });
+  RouterDelegate delegate;
+  RoutesResult result;
+  TEST(router.CalculateRoute(Checkpoints({0, 0}, {0, 1}), {}, false, false, delegate, result) ==
+           RouterResultCode::NoError,
+       ());
+  TEST(result.IsValid(), ());
+  TEST(!result.GetActive().GetWaterDistances()->m_shortestConfirmed, ());
+}
+
 UNIT_TEST(WaterRouter_ProgressTracksWorkAndResets)
 {
   WaterRouter router([](Checkpoints const &, RouterDelegate const &) { return River(); });

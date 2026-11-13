@@ -8,6 +8,7 @@ import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.downloader.CountryItem;
 import app.organicmaps.sdk.downloader.MapManager;
+import app.organicmaps.sdk.routing.ResultCodes;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RoutingController;
 import java.text.SimpleDateFormat;
@@ -50,6 +51,8 @@ final class RoutingErrorDiagnostics
                              .append(router.name())
                              .append("\nResult code: ")
                              .append(resultCode);
+    if (resultCode == ResultCodes.RESOURCE_LIMIT_EXCEEDED)
+      text.append("\nReason: Water routing resource limit exceeded; route feasibility is unknown.");
     for (int i = 0; i < points.length; ++i)
     {
       RouteMarkData point = points[i];

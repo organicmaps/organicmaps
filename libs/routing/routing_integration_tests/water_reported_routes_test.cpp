@@ -429,3 +429,24 @@ UNIT_TEST(WaterReported_NerisSlowRoute)
       "NerisSlowRoute", {54.82494, 25.749111}, {54.880858, 24.040882}, false,
       {"Lithuania_East", "Lithuania_West", "Belarus_Hrodna Region", "Belarus_Minsk Region", "Belarus_Vitebsk Region"});
 }
+
+UNIT_TEST(WaterReported_LithuaniaLatviaSea)
+{
+  water_reported_routes_test::CheckRoute("LithuaniaLatviaSea", {55.31438121, 19.60647214}, {57.56200190, 23.84290724},
+                                         false, {"Lithuania_West", "Latvia"}, true);
+}
+
+UNIT_TEST(WaterReported_LithuaniaLatviaSeaReverse)
+{
+  water_reported_routes_test::CheckRoute("LithuaniaLatviaSeaReverse", {57.56200190, 23.84290724},
+                                         {55.31438121, 19.60647214}, false, {"Lithuania_West", "Latvia"}, true);
+}
+
+UNIT_TEST(WaterReported_LithuaniaLatviaSeaWithNeighboringMaps)
+{
+  water_reported_routes_test::CheckRoute("LithuaniaLatviaSeaWithNeighboringMaps", {55.31438121, 19.60647214},
+                                         {57.56200190, 23.84290724}, false,
+                                         {"Lithuania_East", "Lithuania_West", "Latvia", "Belarus_Hrodna Region",
+                                          "Belarus_Minsk Region", "Belarus_Vitebsk Region"},
+                                         true);
+}

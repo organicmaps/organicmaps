@@ -172,4 +172,96 @@ UNIT_TEST(WaterProvider_CoarseBorderCellsDoNotCutCoveredWater)
     TEST_EQUAL(checks, before, ());
   }
 }
+UNIT_TEST(WaterProvider_SurfaceCorridorDetoursWithoutCrossingLand)
+{
+  // A wall ending well north of both pins requires leaving their initial rectangle.
+  auto const bytes =
+      Section({Area({{P(-2, -2), P(-0.2, -2), P(-0.2, 2), P(-2, 2)}}),
+               Area({{P(0.2, -2), P(2, -2), P(2, 2), P(0.2, 2)}}), Area({{P(-2, 1), P(2, 1), P(2, 2), P(-2, 2)}})});
+  size_t loads = 0;
+  auto const regions =
+      routing::WaterGeometryProvider::FindSurfaceCorridor({P(-0.5, 0), P(0.5, 0)}, [&](auto const & bounds)
+  {
+    ++loads;
+    return Extract(bytes, bounds);
+  }, kNeverCancelled);
+  TEST(!regions.empty(), ());
+  TEST_LESS_OR_EQUAL(loads, 1024, ());
+  TEST(std::any_of(regions.begin(), regions.end(), [](auto const & r) { return r.maxY() > 1; }), ());
+  TEST(std::any_of(regions.begin(), regions.end(), [](auto const & r) { return r.IsPointInside(P(-0.5, 0)); }), ());
+  TEST(std::any_of(regions.begin(), regions.end(), [](auto const & r) { return r.IsPointInside(P(0.5, 0)); }), ());
+}
+
+UNIT_TEST(WaterProvider_SurfaceCorridorHonorsUnknownCoverageAndCancellation)
+{
+  auto const bytes = Section({Area({{P(-2, -2), P(2, -2), P(2, 2), P(-2, 2)}})});
+  size_t loads = 0;
+  auto const loader = [&](auto const & bounds)
+  {
+    ++loads;
+    auto geometry = Extract(bytes, bounds);
+    geometry.m_isCovered = [](auto const &, auto const &) { return false; };
+    return geometry;
+  };
+  TEST(routing::WaterGeometryProvider::FindSurfaceCorridor({P(-0.5, 0), P(0.5, 0)}, loader, kNeverCancelled).empty(),
+       ());
+  TEST_LESS_OR_EQUAL(loads, 9, ());
+  loads = 0;
+  TEST(
+      routing::WaterGeometryProvider::FindSurfaceCorridor({P(-0.5, 0), P(0.5, 0)}, loader, [] { return true; }).empty(),
+      ());
+  TEST_EQUAL(loads, 0, ());
+}
+
+UNIT_TEST(WaterProvider_SurfaceCorridorStopsAtWorkBudget)
+{
+  size_t loads = 0;
+  auto const loader = [&](m2::RectD const & bounds)
+  {
+    ++loads;
+    routing::water::Geometry geometry;
+    geometry.m_complete = true;
+    // Two unbounded seas separated by land: never claim they are connected.
+    for (auto const & sea : {m2::RectD(-180, -180, -0.1, 180), m2::RectD(0.1, -180, 180, 180)})
+    {
+      auto r = bounds;
+      if (r.Intersect(sea))
+      {
+        geometry.m_triangles.push_back({r.LeftBottom(), r.RightBottom(), r.RightTop()});
+        geometry.m_triangles.push_back({r.LeftBottom(), r.RightTop(), r.LeftTop()});
+      }
+    }
+    return geometry;
+  };
+  TEST(routing::WaterGeometryProvider::FindSurfaceCorridor({P(-0.5, 0), P(0.5, 0)}, loader, kNeverCancelled).empty(),
+       ());
+  TEST_LESS_OR_EQUAL(loads, 1024, ());
+  TEST_GREATER(loads, 0, ());
+  loads = 0;
+  TEST(routing::WaterGeometryProvider::FindSurfaceCorridor({P(-0.5, 0), P(0.5, 0)}, loader, [&] { return loads >= 2; })
+           .empty(),
+       ());
+  TEST_LESS_OR_EQUAL(loads, 2, ());
+}
+
+UNIT_TEST(WaterProvider_SelectedRegionsKeepUnloadedWaterUnknown)
+{
+  auto const bytes = Section({Area({{P(0, 0), P(0.003, 0), P(0.003, 0.002), P(0, 0.002)}})});
+  for (bool gap : {false, true})
+  {
+    auto geometry = Extract(bytes, {0, 0, 0.003, 0.002});
+    geometry.m_selective = true;
+    double const right = gap ? 0.002 : 0.001;
+    routing::WaterGeometryProvider::SetCoverage(geometry, {P(0.0005, 0.001), P(0.0025, 0.001)}, [](auto const &)
+    { return true; }, kNeverCancelled, {{0, 0, 0.001, 0.002}, {right, 0, 0.003, 0.002}});
+    TEST_EQUAL(geometry.m_isCovered(P(0.0005, 0.001), P(0.0025, 0.001)), !gap, ());
+    TEST(geometry.m_isCovered(P(0.001, 0.0005), P(0.001, 0.0015)), ());
+    Path path;
+    auto const code = FindPath(geometry, P(0.0005, 0.001), P(0.0025, 0.001), false, kNeverCancelled, path, {}, true);
+    TEST(code == (gap ? ResultCode::Unavailable : ResultCode::Success), ());
+    if (!gap)
+      TEST_EQUAL(path.m_landDistance, 0.0, ());
+  }
+}
+
 }  // namespace water_provider_test

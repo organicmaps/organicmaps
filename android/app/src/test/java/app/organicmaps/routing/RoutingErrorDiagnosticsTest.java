@@ -13,6 +13,16 @@ import org.junit.Test;
 public class RoutingErrorDiagnosticsTest
 {
   @Test
+  public void resourceLimitIsExplicitInCopiedDiagnostics()
+  {
+    String report = RoutingErrorDiagnostics.format("test", Router.Water, ResultCodes.RESOURCE_LIMIT_EXCEEDED,
+                                                   new RouteMarkData[0], new String[0]);
+    assertTrue(report.contains("Result code: 17"));
+    assertTrue(report.contains("resource limit exceeded"));
+    assertTrue(report.contains("feasibility is unknown"));
+  }
+
+  @Test
   public void reportKeepsAllCoordinatesReadableInCommaDecimalLocales()
   {
     Locale previous = Locale.getDefault();

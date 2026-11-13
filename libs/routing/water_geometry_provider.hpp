@@ -33,7 +33,8 @@ public:
                                  bool adaptive);
   using RectCoverageFn = std::function<bool(m2::RectD const &)>;
   static void SetCoverage(water::Geometry & geometry, std::vector<m2::PointD> const & checkpoints,
-                          RectCoverageFn covered, water::CancelledFn const & cancelled);
+                          RectCoverageFn covered, water::CancelledFn const & cancelled,
+                          std::vector<m2::RectD> const & regions = {});
   // Also used by deterministic section/provider integration tests.
   static water::Geometry Extract(::water::Reader const & reader, m2::RectD const & bounds,
                                  water::CancelledFn const & cancelled);
@@ -44,7 +45,15 @@ public:
   static water::Geometry ExtractFeatures(DataSource const & dataSource, std::vector<MwmSet::MwmId> const & ids,
                                          m2::RectD const & bounds, water::CancelledFn const & cancelled);
 
+  using TileLoader = std::function<water::Geometry(m2::RectD const &)>;
+  // Candidate regions only: final routing never has to visit the coarse search nodes.
+  static std::vector<m2::RectD> FindSurfaceCorridor(std::vector<m2::PointD> const & points, TileLoader const & loader,
+                                                    water::CancelledFn const & cancelled);
+
 private:
+  static water::Geometry ExtractFeatures(DataSource const & dataSource, std::vector<MwmSet::MwmId> const & ids,
+                                         m2::RectD const & bounds, water::CancelledFn const & cancelled,
+                                         std::vector<m2::RectD> const & regions);
   DataSource const & m_dataSource;
   CoverageFn m_coverage;
   MultiCoverageFn m_multiCoverage;

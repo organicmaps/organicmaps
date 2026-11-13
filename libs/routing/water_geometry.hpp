@@ -95,6 +95,9 @@ struct Geometry
   std::vector<m2::RectD> m_portageAreas;
   // False for missing maps, unresolved topology or unknown local coverage.
   bool m_complete = false;
+  bool m_resourceLimited = false;
+  // Selectively loaded geometry cannot establish global shortest-path optimality.
+  bool m_selective = false;
   // Display geometry lacks source node identities; transfers use stored line endpoints only.
   bool m_hasSourceTopology = true;
   std::shared_ptr<TriangleIndex> m_triangleIndex;
@@ -129,6 +132,10 @@ using CancelledFn = std::function<bool()>;
 using ProgressFn = std::function<void(double)>;
 // Called lazily for a proposed endpoint walk; false excludes that directed link.
 using WalkAllowedFn = std::function<bool(m2::PointD const &, m2::PointD const &)>;
+
+// Certify a straight surface-water segment; used only to guide selective loading.
+bool CoversSurfaceSegment(Geometry const & geometry, m2::PointD const & from, m2::PointD const & to,
+                          CancelledFn const & cancelled);
 
 // A nearby entry point for a separately calculated pedestrian approach.
 std::optional<m2::PointD> FindApproachPoint(Geometry const & geometry, m2::PointD const & start,
