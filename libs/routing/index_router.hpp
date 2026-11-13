@@ -94,6 +94,9 @@ public:
 
   bool GetBestOutgoingEdges(m2::PointD const & checkpoint, WorldGraph & graph, std::vector<Edge> & edges);
 
+  // Additional restrictions for this router instance, without changing user preferences.
+  void SetAvoidRoads(RoutingOptions::RoadType roads) { m_avoidRoads = roads; }
+
   VehicleType GetVehicleType() const { return m_vehicleType; }
   std::shared_ptr<NumMwmIds> const & GetNumMwmIds() const { return m_numMwmIds; }
 
@@ -317,6 +320,7 @@ private:
 
   TimeGetterT m_currentTimeGetter;
 
+  RoutingOptions::RoadType m_avoidRoads = 0;
   std::optional<RoutingOptions> m_requestRoutingOptions;
   RoutingOptions::RoadType m_previousRoutingOptions = 0;
   std::unique_ptr<WorldGraph> m_cachedWalkingGraph;

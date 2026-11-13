@@ -463,7 +463,7 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
 
   try
   {
-    m_requestRoutingOptions = RoutingOptions::LoadFromSettings(m_vehicleType);
+    m_requestRoutingOptions.emplace(RoutingOptions::LoadFromSettings(m_vehicleType).GetOptions() | m_avoidRoads);
     if (m_previousRoutingOptions != m_requestRoutingOptions->GetOptions())
     {
       m_cachedWalkingGraph.reset();
@@ -1360,7 +1360,9 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints, m2::P
 std::unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
 {
   RoutingOptions const routingOptions =
-      m_requestRoutingOptions ? *m_requestRoutingOptions : RoutingOptions::LoadFromSettings(m_vehicleType);
+      m_requestRoutingOptions
+          ? *m_requestRoutingOptions
+          : RoutingOptions(RoutingOptions::LoadFromSettings(m_vehicleType).GetOptions() | m_avoidRoads);
   /// @DebugNote
   // Add avoid roads here for debug purpose.
   // routingOptions.Add(RoutingOptions::Road::Motorway);

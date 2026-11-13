@@ -63,6 +63,8 @@ std::vector<m2::PointD> CheckRoute(std::string const & name, ms::LatLon const & 
   }, [&](auto const & point) { return info->GetRegionCountryId(point); }, [&](auto const & country) {
     return info->GetLimitRectForLeaf(country);
   }, ids, routing::MakeNumMwmTree(*ids, *info), traffic, data, cacheWalkingGraph);
+  pedestrian->SetAvoidRoads(routing::RoutingOptions::Ferry);
+  auto const savedOptions = routing::RoutingOptions::LoadFromSettings(routing::VehicleType::Pedestrian).GetOptions();
   if (routingTime != 0)
     pedestrian->SetCurrentTimeGetter([routingTime] { return routingTime; });
   auto const geometry = [&](auto const & checkpoints, auto const & delegate, double margin)
@@ -99,6 +101,8 @@ std::vector<m2::PointD> CheckRoute(std::string const & name, ms::LatLon const & 
   });
   routing::RoutesResult result;
   auto const code = router.CalculateRoute(checkpoints, {}, false, false, delegate, result);
+  TEST_EQUAL(routing::RoutingOptions::LoadFromSettings(routing::VehicleType::Pedestrian).GetOptions(), savedOptions,
+             ());
   LOG(LINFO, (name, "result", static_cast<int>(code), result.IsValid()));
   TEST(code == routing::RouterResultCode::NoError, (name));
   TEST(result.IsValid(), (name));
@@ -139,6 +143,19 @@ UNIT_TEST(WaterReported_NerisNemencia)
   // Missing connectivity caused a 920 m walking detour instead of following Nemenčia.
   CheckRoute("NerisNemencia", {54.85352075179435, 25.45188769698143}, {54.856528849207365, 25.472672134637833}, false,
              {"Lithuania_East"}, true);
+}
+
+UNIT_TEST(WaterReported_NerisBorderStart)
+{
+  CheckRoute("NerisBorderStart", {54.82479565, 25.74941456}, {55.07294426, 24.29086921}, false, {"Lithuania_East"},
+             true);
+}
+
+UNIT_TEST(WaterReported_NemunasDeltaNoFerry)
+{
+  // PR #13968: two ferries via Nida were counted as 35.68 km of walking.
+  CheckRoute("NemunasDeltaNoFerry", {55.316761, 21.385615}, {55.336162, 21.219596}, false, {"Lithuania_West"}, false,
+             {}, true, 0, 8000.0, 15000.0);
 }
 
 UNIT_TEST(WaterReported_AlmereSouthGooimeer)

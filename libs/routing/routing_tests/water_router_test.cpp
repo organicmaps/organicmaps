@@ -176,10 +176,11 @@ UNIT_TEST(WaterRouter_RulerRemainsStraight)
 class WalkingStub final : public RulerRouter
 {
 public:
-  explicit WalkingStub(size_t & calls, bool fail = false, size_t failFirst = 0)
+  explicit WalkingStub(size_t & calls, bool fail = false, size_t failFirst = 0, bool ferry = false)
     : m_calls(calls)
     , m_fail(fail)
     , m_failFirst(failFirst)
+    , m_ferry(ferry)
   {}
   RouterResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const &, bool, bool,
                                   RouterDelegate const & delegate, RoutesResult & result) override
@@ -194,6 +195,8 @@ public:
     RulerRouter ruler;
     IRouter & router = ruler;
     auto const code = router.CalculateRoute(bent, {}, false, false, delegate, result);
+    if (m_ferry && result.IsValid())
+      result.GetActive().GetRouteSegments().front().SetRoadTypes(RoutingOptions(RoutingOptions::Ferry));
     delegate.OnProgress(100);
     return code;
   }
@@ -202,6 +205,7 @@ private:
   size_t & m_calls;
   bool m_fail;
   size_t m_failFirst;
+  bool m_ferry;
 };
 
 UNIT_TEST(WaterRouter_WalkingApproachUsesPedestrianGeometry)
@@ -324,6 +328,25 @@ water::Geometry DisconnectedRivers()
   geometry.m_hasSourceTopology = false;
   geometry.m_lines = {{{{0, 0}}, {{0, 0.004}}}, {{{0.004, 0}}, {{0.004, 0.004}}}};
   return geometry;
+}
+
+UNIT_TEST(WaterRouter_FerriesCannotBecomeWalkingLegs)
+{
+  for (size_t leg = 0; leg < 3; ++leg)
+  {
+    size_t calls = 0;
+    WaterRouter router([leg](auto const &, auto const &) { return leg == 2 ? DisconnectedRivers() : River(); },
+                       std::make_unique<WalkingStub>(calls, false, 0, true));
+    RouterDelegate delegate;
+    RoutesResult result;
+    auto const checkpoints = leg == 0 ? Checkpoints({-0.001, 0}, {0, 0.01})
+                           : leg == 1 ? Checkpoints({0, 0.01}, {-0.001, 0})
+                                      : Checkpoints({0, 0.002}, {0.004, 0.002});
+    TEST(router.CalculateRoute(checkpoints, {}, false, false, delegate, result) == RouterResultCode::RouteNotFound,
+         (leg));
+    TEST_GREATER(calls, 0, (leg));
+    TEST(!result.IsValid(), (leg));
+  }
 }
 
 UNIT_TEST(WaterRouter_InternalTransferUsesWalkingGeometry)

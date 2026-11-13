@@ -30,6 +30,9 @@ RouterResultCode Walk(IRouter & pedestrian, m2::PointD const & from, m2::PointD 
   if (!walking.IsValid())
     return RouterResultCode::RouteNotFound;
   Route const route(walking.GetActive());
+  if (std::any_of(route.GetRouteSegments().begin(), route.GetRouteSegments().end(),
+                  [](auto const & segment) { return segment.GetRoadTypes().Has(RoutingOptions::Ferry); }))
+    return RouterResultCode::RouteNotFound;
   points = route.GetPoly().GetPoints();
   if (points.size() < 2 || mercator::DistanceOnEarth(points.front(), from) > 0.1 ||
       mercator::DistanceOnEarth(points.back(), to) > 0.1)

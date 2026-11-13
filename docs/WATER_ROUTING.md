@@ -20,6 +20,8 @@ order is preserved. River selections snap to the displayed centerline.
 
 For an off-water checkpoint, the router selects the nearest known water within
 1 km and calculates the approach or exit with the existing pedestrian router.
+These walking calculations exclude ferries, including approaches, exits and
+internal portages, without changing the user's ordinary pedestrian settings.
 An intermediate land stop includes both the exit and the return to water.
 Access-point selection uses proximity rather than comparing all possible walking
 routes, so another entry may succeed where the nearest one fails.
@@ -81,19 +83,24 @@ ends at `54.9005461209, 23.8703662445` and requires zero walking. These cases us
 explicit endpoints without intermediate points; shortest-route optimality is
 not asserted.
 
-After the coverage, adaptive-window and lazy-transfer changes, macOS ARM64 Debug
-passed 453 routing unit tests, 164 storage tests and all 60 Water integration
-tests (13 synthetic-MWM and 47 real-map tests), using a 1 MiB stack. The reported
-long Neris route measured 271.54 km water / 2.15 km walking forward and
-247.62 km water / 0.78 km walking in reverse; the confluence control measured
-225.34 km water with no walking. The long reservoir calculations took about
-96–97 seconds in this unoptimized Debug build. These are desktop measurements,
-not mobile performance guarantees. Android/iOS device UI testing and APK builds
-were not repeated for this core-only update.
+After the border-coverage and ferry-exclusion fixes, macOS ARM64 Debug passed
+454 routing unit tests, 164 storage tests and all 62 Water integration tests
+(13 synthetic-MWM and 49 real-map tests), using a 1 MiB stack. The new near-border
+start report measured 186.15 km entirely on water with Lithuania_East alone.
+The Nemunas delta report measured 16.26 km water / 7.08 km walking, replacing
+the 35.68 km walking result that incorrectly included ferries via Nida.
+
+The earlier long Neris reservoir route still measured 271.54 km water / 2.15 km
+walking forward and 247.62 km water / 0.78 km walking in reverse; the confluence
+control measured 225.34 km water with no walking. These are desktop checks;
+Android/iOS device UI testing and APK builds were not repeated for these local
+core fixes. Shortest-route optimality remains unconfirmed for the new reports.
 
 Checkpoints need downloaded map coverage. Packed map borders certify local
 coverage, including unions of neighboring regions; feature bounding boxes do
-not. Coarse border cells are only a filter: water segments crossing them receive
+not. Queries use packed-coordinate precision rather than requiring a large
+simplification buffer around the requested point or segment. A covered start
+near a border is therefore usable even when such a buffer would cross it. Coarse border cells are only a filter: water segments crossing them receive
 finer coverage checks, so an uncovered corner does not mask a covered river.
 The union of region borders and local coverage answers are cached. Unknown
 portions cannot supply water edges or transfer candidates.
@@ -160,8 +167,8 @@ request's progress.
 
 `libs/routing/routing_integration_tests/water_reported_routes_test.cpp` retains
 the reported failing coordinates and My position flags, long routes in both
-directions, continuous-water controls and intermediate stops. Its 47 tests make
-48 route calculations: the Pomeranian regression runs with and without walking
+directions, continuous-water controls and intermediate stops. Its 49 tests make
+50 route calculations: the Pomeranian regression runs with and without walking
 graph reuse and compares the complete coordinate sequence. No reported route
 was removed when this duplicate calculation was consolidated.
 
@@ -172,12 +179,15 @@ application resources in `--user_resource_path`. The pinned reference catalog is
 Polish cases use `Poland_Pomeranian Voivodeship`; the cross-region case also
 requires `Poland_Kuyavian-Pomeranian Voivodeship`. The Nemenčia regression uses
 `Lithuania_East`; the long Neris cases use `Lithuania_East` and
-`Lithuania_West`.
+`Lithuania_West`. The border-start regression needs only `Lithuania_East`;
+the Nemunas delta ferry regression uses `Lithuania_West`.
 
 Useful phone checks include:
 
 | Start | Finish | Purpose |
 | --- | --- | --- |
+| 54.82479565, 25.74941456 | 55.07294426, 24.29086921 | Reported near-border start; require a water-only route with Lithuania_East |
+| 55.316761, 21.385615 | 55.336162, 21.219596 | Nemunas delta report; exclude the ferry detour via Nida |
 | 54.82539913135153, 25.748180598020554 | 54.900349439028986, 24.087091237306595 | Reported Neris–Kaunas Reservoir route, no intermediate points; also check reverse direction |
 | 54.82539913135153, 25.748180598020554 | 54.9005461209, 23.8703662445 | Water-only control to the Neris/Nemunas confluence |
 | 53.09396078, 18.16890286 | 54.30863264, 18.93380513 | Cross-region water-only route; also check reverse direction |
@@ -189,7 +199,8 @@ Useful phone checks include:
 
 Deterministic routing/provider tests cover geometry, islands, source identities,
 endpoint restrictions, missing coverage, numerical precision, budgets,
-cancellation, walking failures, distances, progress and transfer markers. They
+cancellation, walking failures, ferry rejection in all walking leg types,
+distances, progress and transfer markers. They
 also cover border cells that partially overlap missing coverage, directional
 window growth, 10,000 unrelated waterways, further landings after rejected
 candidates, exact water costs behind lower bounds and directed walking when

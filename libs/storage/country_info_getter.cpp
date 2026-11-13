@@ -3,7 +3,6 @@
 #include "storage/country_decl.hpp"
 
 #include "indexer/feature.hpp"
-#include "indexer/scales.hpp"
 
 #include "coding/geometry_coding.hpp"
 #include "coding/read_write_utils.hpp"
@@ -268,40 +267,14 @@ bool CountryInfoReader::HasRegionTriangles() const
 
 bool CountryInfoReader::IsRectCoveredByRegion(CountryId const & countryId, m2::RectD const & rect) const
 {
-  auto const id = GetRegionId(countryId);
-  if (id == kInvalidId)
-    return false;
-  // Match the simplification scale in generator/borders.cpp and keep a margin
-  // around packed borders. This describes map regions, not original OSM coverage.
-  auto proof = rect;
-  auto const margin = 2 * scales::GetEpsilonForSimplify(10);
-  proof.Inflate(margin, margin);
-  return WithRegion(id, [&](std::vector<m2::RegionD> const & regions)
-  {
-    bool inside = false;
-    for (auto const & region : regions)
-    {
-      inside = inside || (region.Contains(proof.LeftBottom()) && region.Contains(proof.LeftTop()) &&
-                          region.Contains(proof.RightBottom()) && region.Contains(proof.RightTop()));
-      auto const & points = region.Data();
-      for (size_t i = 0; i < points.size(); ++i)
-        if (proof.IsIntersect(m2::RectD(points[i], points[(i + 1) % points.size()])))
-          return false;
-    }
-    return inside;
-  });
+  return IsRectCoveredByRegions({countryId}, rect);
 }
 
 bool CountryInfoReader::IsRectCoveredByRegions(std::vector<CountryId> const & countries, m2::RectD const & rect) const
 {
   if (countries.empty())
     return false;
-  if (countries.size() == 1)
-    return IsRectCoveredByRegion(countries.front(), rect);
-  auto proof = rect;
-  auto const margin = 2 * scales::GetEpsilonForSimplify(10);
-  proof.Inflate(margin, margin);
-  if (!mercator::Bounds::FullRect().IsRectInside(proof))
+  if (!mercator::Bounds::FullRect().IsRectInside(rect))
     return false;
   using Coord = int32_t;
   using namespace boost::polygon;
@@ -359,9 +332,11 @@ bool CountryInfoReader::IsRectCoveredByRegions(std::vector<CountryId> const & co
     m_coverage = std::move(prepared);
   }
   // Cache the union, including holes, and index its remaining boundary once.
-  // Shared region seams disappear before per-segment coverage queries.
-  auto const low = PointDToPointU(proof.LeftBottom(), kPointCoordBits);
-  auto const high = PointDToPointU(proof.RightTop(), kPointCoordBits);
+  // Shared region seams disappear before per-segment coverage queries. Round
+  // outwards by one packed coordinate unit, not a map-simplification buffer:
+  // that buffer can cross a border even when the requested water is covered.
+  auto const low = PointDToPointU(rect.LeftBottom(), kPointCoordBits);
+  auto const high = PointDToPointU(rect.RightTop(), kPointCoordBits);
   return m_coverage->Contains(m2::RectD(static_cast<double>(low.x) - 1, static_cast<double>(low.y) - 1,
                                         static_cast<double>(high.x) + 1, static_cast<double>(high.y) + 1));
 }

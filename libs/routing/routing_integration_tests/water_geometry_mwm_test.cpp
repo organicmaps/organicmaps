@@ -53,6 +53,11 @@ UNIT_TEST(WaterMwm_StandardCoverageRejectsConcaveBorderGaps)
   TEST(!reader.IsRectCoveredByRegion("Concave", {-2, 1, 2, 2}), ());
   TEST(!reader.IsRectCoveredByRegion("Missing", {-0.5, -2, 0.5, -1}), ());
   TEST(!reader.IsRectCoveredByRegion("Concave", {-3, -2, -2, -1}), ());
+  // A covered point/segment must not require a large buffer inside the border.
+  TEST(reader.IsRectCoveredByRegion("Concave", {2.9999, 0, 2.9999, 0}), ());
+  TEST(reader.IsRectCoveredByRegion("Concave", {2.9999, -1, 2.9999, 1}), ());
+  TEST(!reader.IsRectCoveredByRegion("Concave", {3.0001, 0, 3.0001, 0}), ());
+  TEST(!reader.IsRectCoveredByRegion("Concave", {2.9999, 0, 3.0001, 0}), ());
 }
 
 UNIT_TEST(WaterMwm_CombinedMapCoveragePreservesSeamsGapsAndHoles)
@@ -99,6 +104,8 @@ UNIT_TEST(WaterMwm_CombinedMapCoveragePreservesSeamsGapsAndHoles)
   TEST(!reader.IsRectCoveredByRegions({"Bottom", "Top", "West", "East"}, {-2, -2, 2, 2}), ());
   TEST(reader.IsRectCoveredByRegions({"Bottom", "Top", "West", "East"}, {-2.5, -2.5, -1.5, -1.5}), ());
   TEST(!reader.IsRectCoveredByRegions({"Left", "Right"}, {-3, -1, 1, 1}), ());
+  TEST(reader.IsRectCoveredByRegions({"Left", "Right"}, {2.9999, 0, 2.9999, 0}), ());
+  TEST(!reader.IsRectCoveredByRegions({"Left", "Right"}, {3.0001, 0, 3.0001, 0}), ());
   for (size_t repeat = 0; repeat < 2; ++repeat)
   {
     std::vector<std::string> const frame{"Bottom", "Top", "West", "East"};
