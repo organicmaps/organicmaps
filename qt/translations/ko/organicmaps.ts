@@ -2,6 +2,11 @@
 <TS version="2.1" language="ko">
 <context>
 <name></name>
+<message id="back">
+<extracomment>Button text (should be short)</extracomment>
+<source>Back</source>
+<translation>뒤로</translation>
+</message>
 <message id="cancel">
 <extracomment>Button text (should be short)</extracomment>
 <source>Cancel</source>
@@ -157,6 +162,11 @@
 <extracomment>Detailed description of Measurement Units settings button</extracomment>
 <source>Choose between miles and kilometers</source>
 <translation>마일과 킬로미터 중에서 선택하십시오</translation>
+</message>
+<message id="cancel_download">
+<extracomment>Button which interrupts country download</extracomment>
+<source>Cancel Download</source>
+<translation>다운로드 취소하기</translation>
 </message>
 <message id="category_eat">
 <extracomment>Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat!</extracomment>
@@ -405,6 +415,10 @@
 <source>Custom tile sources are provided by you. Use only services you are allowed to access. You are responsible for attribution, license terms, API keys, quotas, and usage limits.</source>
 <translation>사용자 지정 타일 소스는 사용자가 제공합니다. 접근 권한이 있는 서비스만 사용하세요. 출처 표시, 라이선스 약관, API 키, 할당량 및 사용 한도는 사용자 책임입니다.</translation>
 </message>
+<message id="search_show_on_map">
+<source>View on map</source>
+<translation>지도 보기</translation>
+</message>
 <message id="menu">
 <extracomment>Menu button</extracomment>
 <source>Menu</source>
@@ -459,6 +473,11 @@
 <extracomment>Toast text when compass calibration may improve the correctness of the current position arrow</extracomment>
 <source>Move the phone in a figure-eight motion to calibrate the compass and fix the arrow direction on the map.</source>
 <translation>휴대폰을 8자 모양으로 움직여 나침반을 보정하고 지도에서 화살표 방향을 수정합니다.</translation>
+</message>
+<message id="long_tap_toast">
+<extracomment>Toast text when user hides UI with a long tap anywhere on the map</extracomment>
+<source>Long-tap on the map again to see the interface</source>
+<translation>지도를 다시 길게 탭하면 인터페이스가 표시됩니다.</translation>
 </message>
 <message id="downloader_update_all_button">
 <extracomment>Update all button text</extracomment>
@@ -547,6 +566,10 @@
 <source>bookmark</source>
 <translation>북마크</translation>
 </message>
+<message id="search_without_internet_advertisement">
+<source>To start searching and creating routes, please download the map. After that you will no longer need an Internet connection.</source>
+<translation>경로를 검색하고 만들기시작하려면, 지도를 다운로드하십시오. 그러면, 더 이상 인터넷 연결이 필요하지 않습니다.</translation>
+</message>
 <message id="search_select_map">
 <source>Select Map</source>
 <translation>지도 선택</translation>
@@ -554,6 +577,10 @@
 <message id="categories">
 <source>Categories</source>
 <translation>범주</translation>
+</message>
+<message id="history">
+<source>History</source>
+<translation>내역</translation>
 </message>
 <message id="search_not_found">
 <source>Oops, no results found.</source>
@@ -563,6 +590,14 @@
 <extracomment>The message when user did not find anything in the search.</extracomment>
 <source>Download the region where you are searching or try adding a nearby town/village name.</source>
 <translation>검색하려는 지역을 다운로드하거나 가까운 도시/마을 이름을 추가해 보세요.</translation>
+</message>
+<message id="search_history_title">
+<source>Search History</source>
+<translation>검색 기록</translation>
+</message>
+<message id="clear_search">
+<source>Clear Search History</source>
+<translation>이력 검색 지우기</translation>
 </message>
 <message id="read_in_wikipedia">
 <extracomment>Place Page link to Wikipedia article (if map object has it).</extracomment>
@@ -582,6 +617,15 @@
 <source>Route to</source>
 <translation>목적지</translation>
 </message>
+<message id="editor_time_allday">
+<extracomment>Text for allday switch.</extracomment>
+<source>All Day (24 hours)</source>
+<translation>종일 영업(24시간)</translation>
+</message>
+<message id="editor_time_open">
+<source>Open</source>
+<translation>개점</translation>
+</message>
 <message id="editor_time_title">
 <source>Business Hours</source>
 <translation>영업 시간</translation>
@@ -589,6 +633,34 @@
 <message id="autodownload">
 <source>Auto-download maps</source>
 <translation>자동 다운로드</translation>
+</message>
+<message id="twentyfour_seven">
+<source>24/7</source>
+<translation>24 시간</translation>
+</message>
+<message id="day_off">
+<source>Closed</source>
+<translation>종료됨</translation>
+</message>
+<message id="midnight">
+<source>Midnight</source>
+<translation>자정</translation>
+</message>
+<message id="noon">
+<source>Noon</source>
+<translation>정오</translation>
+</message>
+<message id="opens_in">
+<source>Opens in %1</source>
+<translation>%1에서 열립니다</translation>
+</message>
+<message id="closes_in">
+<source>Closes in %1</source>
+<translation>%1로 마감</translation>
+</message>
+<message id="closed">
+<source>Closed</source>
+<translation>닫음</translation>
 </message>
 <message id="login">
 <source>Login</source>
@@ -631,6 +703,11 @@
 <message id="level">
 <source>Floor</source>
 <translation>층</translation>
+</message>
+<message id="level_value_generic">
+<extracomment>Building level</extracomment>
+<source>Level: %1</source>
+<translation>레벨: %1</translation>
 </message>
 <message id="downloader_search_field_hint">
 <source>Find map</source>
@@ -678,6 +755,11 @@
 <message id="editor_operator">
 <source>Operator</source>
 <translation>연산자</translation>
+</message>
+<message id="operator">
+<extracomment>To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations…</extracomment>
+<source>Operator: %1</source>
+<translation>연산자: %1</translation>
 </message>
 <message id="downloader_no_downloaded_maps_title">
 <source>You haven&#x27;t downloaded any maps</source>
@@ -781,6 +863,11 @@
 <message id="please_wait">
 <source>Please wait…</source>
 <translation>잠시만 기다려주십시오…</translation>
+</message>
+<message id="privacy">
+<extracomment>Settings privacy group in settings screen</extracomment>
+<source>Privacy</source>
+<translation>개인정보 보호</translation>
 </message>
 <message id="privacy_policy">
 <source>Privacy policy</source>
@@ -922,6 +1009,26 @@
 <source>No</source>
 <translation>아니오</translation>
 </message>
+<message id="yes_available">
+<extracomment>E.g. &quot;WiFi:Yes&quot;</extracomment>
+<source>Yes</source>
+<translation>네</translation>
+</message>
+<message id="no_available">
+<extracomment>E.g. &quot;WiFi:No&quot;</extracomment>
+<source>No</source>
+<translation>아니오</translation>
+</message>
+<message id="capacity">
+<extracomment>To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations…</extracomment>
+<source>Capacity: %1</source>
+<translation>수용 인원: %1</translation>
+</message>
+<message id="network">
+<extracomment>To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations…</extracomment>
+<source>Network: %1</source>
+<translation>네트워크: %1</translation>
+</message>
 <message id="ok">
 <source>OK</source>
 <translation>확인</translation>
@@ -950,6 +1057,27 @@
 <source>Others</source>
 <translation>기타</translation>
 </message>
+<message id="closed_now">
+<extracomment>Place Page opening hours text</extracomment>
+<source>Closed now</source>
+<translation>지금 닫힘</translation>
+</message>
+<message id="opens_tomorrow_at">
+<source>Opens tomorrow at %1</source>
+<translation>내일 %1에 오픈</translation>
+</message>
+<message id="opens_dayoftheweek_at">
+<source>Opens %1 at %2</source>
+<translation>%2에서 %1을(를) 엽니다.</translation>
+</message>
+<message id="opens_at">
+<source>Opens at %1</source>
+<translation>%1에 열림</translation>
+</message>
+<message id="closes_at">
+<source>Closes at %1</source>
+<translation>%1에서 닫힘</translation>
+</message>
 <message id="invalid_username_or_password">
 <source>Invalid username or password.</source>
 <translation>잘못된 사용자 이름 또는 암호.</translation>
@@ -961,6 +1089,10 @@
 <message id="editor_add_select_category">
 <source>Select category</source>
 <translation>범주 선택</translation>
+</message>
+<message id="text_more_button">
+<source>…more</source>
+<translation>…기타</translation>
 </message>
 <message id="refresh">
 <source>Update</source>
@@ -1108,6 +1240,11 @@
 <extracomment>Restaurant or other food place&#x27;s menu URL field in the Editor</extracomment>
 <source>Menu Link</source>
 <translation>메뉴 링크</translation>
+</message>
+<message id="view_menu">
+<extracomment>Button in the Place Page which opens a restaurant or other food place&#x27;s menu in a browser</extracomment>
+<source>View Menu</source>
+<translation>메뉴 보기</translation>
 </message>
 <message id="self_service">
 <extracomment>To indicate if the place proposed self service…</extracomment>
@@ -1604,6 +1741,11 @@
 <source>Coordinates</source>
 <translation>Coordinates</translation>
 </message>
+<message id="choose_on_map">
+<extracomment>Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair</extracomment>
+<source>Choose on map</source>
+<translation>지도에서 선택</translation>
+</message>
 <message id="choose_start_location">
 <extracomment>Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field</extracomment>
 <source>Start point</source>
@@ -1613,6 +1755,11 @@
 <extracomment>Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field</extracomment>
 <source>Destination</source>
 <translation>목적지</translation>
+</message>
+<message id="choose_point_on_map_hint">
+<extracomment>Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it</extracomment>
+<source>Move and zoom the map to place the cross</source>
+<translation>지도를 이동하고 확대/축소하여 십자선을 원하는 위치에 배치하세요</translation>
 </message>
 <message id="routing_coordinates_hint">
 <extracomment>Placeholder for a routing endpoint, entered as a latitude and longitude pair.</extracomment>
@@ -1693,6 +1840,16 @@
 <extracomment>About dialog: %@ placeholders are paths to license files. Preserve the Qt company name.</extracomment>
 <source>Qt 6 (C) The Qt Company Ltd. and other contributors. License texts: %1 and %2.</source>
 <translation>Qt 6 (C) The Qt Company Ltd. and other contributors. License texts: %1 and %2.</translation>
+</message>
+<message id="less">
+<extracomment>Sailfish OS: collapses the expanded Wikipedia description on the place page</extracomment>
+<source>Less</source>
+<translation>Less</translation>
+</message>
+<message id="copy_value">
+<extracomment>Sailfish OS: menu item that copies the shown value to the clipboard</extracomment>
+<source>Copy %1</source>
+<translation>Copy %1</translation>
 </message>
 <message id="mobile_data_downloads_off">
 <extracomment>Sailfish OS: a map download was not started because mobile internet is off in the settings</extracomment>

@@ -2,6 +2,11 @@
 <TS version="2.1" language="fa">
 <context>
 <name></name>
+<message id="back">
+<extracomment>Button text (should be short)</extracomment>
+<source>Back</source>
+<translation>بازگشت</translation>
+</message>
 <message id="cancel">
 <extracomment>Button text (should be short)</extracomment>
 <source>Cancel</source>
@@ -157,6 +162,11 @@
 <extracomment>Detailed description of Measurement Units settings button</extracomment>
 <source>Choose between miles and kilometers</source>
 <translation>بین مایل و کیلومتر انتخاب کنید</translation>
+</message>
+<message id="cancel_download">
+<extracomment>Button which interrupts country download</extracomment>
+<source>Cancel Download</source>
+<translation>لغو دانلود</translation>
 </message>
 <message id="category_eat">
 <extracomment>Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat!</extracomment>
@@ -405,6 +415,10 @@
 <source>Custom tile sources are provided by you. Use only services you are allowed to access. You are responsible for attribution, license terms, API keys, quotas, and usage limits.</source>
 <translation>منابع کاشی‌های سفارشی را شما فراهم می‌کنید. فقط از سرویس‌هایی استفاده کنید که اجازهٔ دسترسی به آن‌ها را دارید. شما مسئول ذکر منبع، شرایط مجوز، کلیدهای API، سهمیه‌ها و محدودیت‌های استفاده هستید.</translation>
 </message>
+<message id="search_show_on_map">
+<source>View on map</source>
+<translation>مشاهده بر روی نقشه</translation>
+</message>
 <message id="menu">
 <extracomment>Menu button</extracomment>
 <source>Menu</source>
@@ -459,6 +473,11 @@
 <extracomment>Toast text when compass calibration may improve the correctness of the current position arrow</extracomment>
 <source>Move the phone in a figure-eight motion to calibrate the compass and fix the arrow direction on the map.</source>
 <translation>تلفن را به شکل هشت حرکت دهید تا قطب نما را کالیبره کنید و جهت پیکان را روی نقشه ثابت کنید.</translation>
+</message>
+<message id="long_tap_toast">
+<extracomment>Toast text when user hides UI with a long tap anywhere on the map</extracomment>
+<source>Long-tap on the map again to see the interface</source>
+<translation>دوباره روی نقشه ضربه طولانی بزنید تا رابط کاربری را ببینید</translation>
 </message>
 <message id="downloader_update_all_button">
 <extracomment>Update all button text</extracomment>
@@ -547,6 +566,10 @@
 <source>bookmark</source>
 <translation>نشانک</translation>
 </message>
+<message id="search_without_internet_advertisement">
+<source>To start searching and creating routes, please download the map. After that you will no longer need an Internet connection.</source>
+<translation>برای شروع جستجو و مسیر‌یابی لطفا نقشه رادانلود کنید بعد از آن دیگر نیازی به اتصال به اینترنت ندارید و برنامه کاملا آفلاین اجرا می شود.</translation>
+</message>
 <message id="search_select_map">
 <source>Select Map</source>
 <translation>انتخاب نقشه</translation>
@@ -554,6 +577,10 @@
 <message id="categories">
 <source>Categories</source>
 <translation>دسته‌بندی‌ها</translation>
+</message>
+<message id="history">
+<source>History</source>
+<translation>تاریخچه</translation>
 </message>
 <message id="search_not_found">
 <source>Oops, no results found.</source>
@@ -563,6 +590,14 @@
 <extracomment>The message when user did not find anything in the search.</extracomment>
 <source>Download the region where you are searching or try adding a nearby town/village name.</source>
 <translation>منطقه ای را که در آن جستجو می کنید دانلود کنید یا نام شهر/ روستای اطراف را اضافه کنید.</translation>
+</message>
+<message id="search_history_title">
+<source>Search History</source>
+<translation>سوابق جستجو</translation>
+</message>
+<message id="clear_search">
+<source>Clear Search History</source>
+<translation>پاک کردن سابقه جستجوها</translation>
 </message>
 <message id="read_in_wikipedia">
 <extracomment>Place Page link to Wikipedia article (if map object has it).</extracomment>
@@ -582,6 +617,15 @@
 <source>Route to</source>
 <translation>مسیر به</translation>
 </message>
+<message id="editor_time_allday">
+<extracomment>Text for allday switch.</extracomment>
+<source>All Day (24 hours)</source>
+<translation>شبانه روزی (24 ساعته)</translation>
+</message>
+<message id="editor_time_open">
+<source>Open</source>
+<translation>باز</translation>
+</message>
 <message id="editor_time_title">
 <source>Business Hours</source>
 <translation>ساعات کاری</translation>
@@ -589,6 +633,34 @@
 <message id="autodownload">
 <source>Auto-download maps</source>
 <translation>دانلود خودکار</translation>
+</message>
+<message id="twentyfour_seven">
+<source>24/7</source>
+<translation>شبانه روزی</translation>
+</message>
+<message id="day_off">
+<source>Closed</source>
+<translation>تعطیل است</translation>
+</message>
+<message id="midnight">
+<source>Midnight</source>
+<translation>نیمه‌شب</translation>
+</message>
+<message id="noon">
+<source>Noon</source>
+<translation>ظهر</translation>
+</message>
+<message id="opens_in">
+<source>Opens in %1</source>
+<translation>در %1 باز می‌شود</translation>
+</message>
+<message id="closes_in">
+<source>Closes in %1</source>
+<translation>در %1 بسته می‌شود</translation>
+</message>
+<message id="closed">
+<source>Closed</source>
+<translation>تعطیل</translation>
 </message>
 <message id="login">
 <source>Login</source>
@@ -631,6 +703,11 @@
 <message id="level">
 <source>Floor</source>
 <translation>طبقه</translation>
+</message>
+<message id="level_value_generic">
+<extracomment>Building level</extracomment>
+<source>Level: %1</source>
+<translation>سطح: %1</translation>
 </message>
 <message id="downloader_search_field_hint">
 <source>Find map</source>
@@ -678,6 +755,11 @@
 <message id="editor_operator">
 <source>Operator</source>
 <translation>اپراتور</translation>
+</message>
+<message id="operator">
+<extracomment>To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations…</extracomment>
+<source>Operator: %1</source>
+<translation>اپراتور: %1</translation>
 </message>
 <message id="downloader_no_downloaded_maps_title">
 <source>You haven&#x27;t downloaded any maps</source>
@@ -781,6 +863,11 @@
 <message id="please_wait">
 <source>Please wait…</source>
 <translation>لطفا صبر کنید…</translation>
+</message>
+<message id="privacy">
+<extracomment>Settings privacy group in settings screen</extracomment>
+<source>Privacy</source>
+<translation>حریم شخصی</translation>
 </message>
 <message id="privacy_policy">
 <source>Privacy policy</source>
@@ -922,6 +1009,26 @@
 <source>No</source>
 <translation>خیر</translation>
 </message>
+<message id="yes_available">
+<extracomment>E.g. &quot;WiFi:Yes&quot;</extracomment>
+<source>Yes</source>
+<translation>بلی</translation>
+</message>
+<message id="no_available">
+<extracomment>E.g. &quot;WiFi:No&quot;</extracomment>
+<source>No</source>
+<translation>خیر</translation>
+</message>
+<message id="capacity">
+<extracomment>To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations…</extracomment>
+<source>Capacity: %1</source>
+<translation>ظرفیت: %1</translation>
+</message>
+<message id="network">
+<extracomment>To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations…</extracomment>
+<source>Network: %1</source>
+<translation>شبکه: %1</translation>
+</message>
 <message id="ok">
 <source>OK</source>
 <translation>موافقت کردن</translation>
@@ -950,6 +1057,27 @@
 <source>Others</source>
 <translation>دیگران</translation>
 </message>
+<message id="closed_now">
+<extracomment>Place Page opening hours text</extracomment>
+<source>Closed now</source>
+<translation>اکنون تعطیل است</translation>
+</message>
+<message id="opens_tomorrow_at">
+<source>Opens tomorrow at %1</source>
+<translation>فردا در %1 باز می‌شود</translation>
+</message>
+<message id="opens_dayoftheweek_at">
+<source>Opens %1 at %2</source>
+<translation>باز می‌شود %1 در %2</translation>
+</message>
+<message id="opens_at">
+<source>Opens at %1</source>
+<translation>در %1 باز می‌شود</translation>
+</message>
+<message id="closes_at">
+<source>Closes at %1</source>
+<translation>در %1 بسته می‌شود</translation>
+</message>
 <message id="invalid_username_or_password">
 <source>Invalid username or password.</source>
 <translation>نام کاربری یا رمز عبور نامعتبر است.</translation>
@@ -961,6 +1089,10 @@
 <message id="editor_add_select_category">
 <source>Select category</source>
 <translation>انتخاب دسته بندی</translation>
+</message>
+<message id="text_more_button">
+<source>…more</source>
+<translation>…بیشتر</translation>
 </message>
 <message id="refresh">
 <source>Update</source>
@@ -1108,6 +1240,11 @@
 <extracomment>Restaurant or other food place&#x27;s menu URL field in the Editor</extracomment>
 <source>Menu Link</source>
 <translation>لینک منو</translation>
+</message>
+<message id="view_menu">
+<extracomment>Button in the Place Page which opens a restaurant or other food place&#x27;s menu in a browser</extracomment>
+<source>View Menu</source>
+<translation>مشاهده منو</translation>
 </message>
 <message id="self_service">
 <extracomment>To indicate if the place proposed self service…</extracomment>
@@ -1604,6 +1741,11 @@
 <source>Coordinates</source>
 <translation>Coordinates</translation>
 </message>
+<message id="choose_on_map">
+<extracomment>Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair</extracomment>
+<source>Choose on map</source>
+<translation>انتخاب از نقشه</translation>
+</message>
 <message id="choose_start_location">
 <extracomment>Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field</extracomment>
 <source>Start point</source>
@@ -1613,6 +1755,11 @@
 <extracomment>Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field</extracomment>
 <source>Destination</source>
 <translation>مقصد</translation>
+</message>
+<message id="choose_point_on_map_hint">
+<extracomment>Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it</extracomment>
+<source>Move and zoom the map to place the cross</source>
+<translation>نقشه را جابجا و بزرگنمایی کنید تا صلیب را قرار دهید</translation>
 </message>
 <message id="routing_coordinates_hint">
 <extracomment>Placeholder for a routing endpoint, entered as a latitude and longitude pair.</extracomment>
@@ -1693,6 +1840,16 @@
 <extracomment>About dialog: %@ placeholders are paths to license files. Preserve the Qt company name.</extracomment>
 <source>Qt 6 (C) The Qt Company Ltd. and other contributors. License texts: %1 and %2.</source>
 <translation>Qt 6 (C) The Qt Company Ltd. and other contributors. License texts: %1 and %2.</translation>
+</message>
+<message id="less">
+<extracomment>Sailfish OS: collapses the expanded Wikipedia description on the place page</extracomment>
+<source>Less</source>
+<translation>Less</translation>
+</message>
+<message id="copy_value">
+<extracomment>Sailfish OS: menu item that copies the shown value to the clipboard</extracomment>
+<source>Copy %1</source>
+<translation>Copy %1</translation>
 </message>
 <message id="mobile_data_downloads_off">
 <extracomment>Sailfish OS: a map download was not started because mobile internet is off in the settings</extracomment>
