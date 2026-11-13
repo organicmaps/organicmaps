@@ -704,6 +704,8 @@ UNIT_TEST(WaterMwm_SurfaceGroupsPreserveOverlapContactsAndIslands)
     area({{P(0, 0), P(3, 0), P(3, 3), P(0, 3)}, {P(1, 1), P(1, 2), P(2, 2), P(2, 1)}});
     area({{P(2.5, 0), P(4, 0), P(4, 3), P(2.5, 3)}});
     area({{P(4, 0), P(5, 0), P(5, 3), P(4, 3)}});
+    // This lake lies inside the first feature bounds, but outside its water.
+    area({{P(1.1, 1.1), P(1.4, 1.1), P(1.4, 1.4), P(1.1, 1.4)}});
     for (size_t i = 0; i < 40; ++i)
     {
       double const x = i * 0.2;
@@ -729,6 +731,13 @@ UNIT_TEST(WaterMwm_SurfaceGroupsPreserveOverlapContactsAndIslands)
            routing::water::ResultCode::Success,
        ());
   TEST_EQUAL(path.m_landDistance, 0.0, ());
+  TEST(FindPath(geometry, P(1.2, 1.2), P(1.3, 1.3), false, [] { return false; }, path) ==
+           routing::water::ResultCode::Success,
+       ());
+  TEST_EQUAL(path.m_landDistance, 0.0, ());
+  TEST(FindPath(geometry, P(1.2, 1.2), P(0.5, 1.5), false, [] { return false; }, path, {}, true) ==
+           routing::water::ResultCode::Unavailable,
+       ());
   TEST(FindPath(geometry, P(0.025, 4.025), P(0.5, 1.5), false, [] { return false; }, path, {}, true) ==
            routing::water::ResultCode::Unavailable,
        ());

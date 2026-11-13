@@ -192,8 +192,12 @@ checks, rather than testing every possible pair of water vertices. Spatial
 indexes are balanced after bulk insertion. Water triangles use a balanced
 bounding-volume hierarchy, with exact triangle predicates after spatial filtering.
 This avoids repeated broad KD-tree scans for aligned river geometry.
-Disjoint surface groups are unioned
-separately without simplifying their geometry.
+Surface groups are joined only when bounds of their individual triangles
+intersect or touch, rather than when whole-feature bounds overlap. This avoids
+unioning unrelated lakes enclosed by the broad bounds of a winding river.
+Disjoint groups are unioned separately without simplifying their geometry;
+actual intersections, exact contacts and island holes remain intact. The
+temporary grouping index is released before surface tessellation.
 
 Within one Water request, pedestrian legs reuse the decoded road graph. The
 walking algorithm and costs are unchanged; the cache is cleared on completion,
@@ -208,25 +212,31 @@ on each retry. Progress is monotone within a request, estimates work rather than
 and reaches 100 only on success. Cancelled requests cannot update a replacement
 request's progress.
 
-The missing-map and long-route follow-up passed 457 routing unit tests and all
+The missing-map and surface-grouping changes passed 457 routing unit tests and all
 68 Water integration tests on macOS ARM64 Debug with a 1 MiB stack. The stored
-results of 52 earlier real-map calculations retained the same water/land distances
+results of 53 real-map calculations retained the same water/land distances
 and shortest-path qualification. Android API 29 and iOS 18.6 Simulator both showed
 Latvia in the normal download prompt and passed cancellation during a long route.
 
 For the reported `54.82494, 25.749111` to `54.880858, 24.040882` route, with both
 Lithuania maps and the Hrodna, Minsk and Vitebsk regions of Belarus from catalog
-260714, Android Emulator routing time was 121.48 s before the triangle-index
-change and 81.00 / 80.02 s afterward. iOS Simulator took 57.82 / 56.44 s with the
-change. All runs retained 274.45 km on water and 2.15 km walking, with shortest
-route not confirmed. These are Debug measurements on an 8 GiB Apple M2 Mac,
-using internal router timings after profile selection, not cold-cache or
-physical-device performance guarantees. Emulators ran sequentially without
-concurrent builds during these measurements.
-A separate fresh-process Android comparison recorded the kernel RSS high-water
-mark (VmHWM): 676.8 MiB before and 666.1 MiB afterward, with routing times of
-122.26 s and 80.12 s. Periodic PSS snapshots can miss short allocation peaks and
-are not interchangeable with this kernel-recorded RSS maximum.
+260714, triangle-level surface grouping reduced Android Emulator routing time
+from 80.02–81.00 s to 61.83 / 64.46 s. iOS Simulator time decreased from
+56.44–57.82 s to 45.62 / 42.62 s. An isolated macOS calculation decreased from
+54.32 s to 40.25 s; the final regression run took 40.48 s. All runs retained
+274.45 km on water and 2.15 km walking, with shortest route not confirmed.
+Android API 29 and iOS 18.6 Debug builds passed repeated UI calculations;
+iOS also passed cancellation during the long route.
+
+These are Debug measurements on an 8 GiB Apple M2 Mac, using internal router
+timings after profile selection, not cold-cache or physical-device performance
+guarantees. Emulators ran sequentially without concurrent builds. Android's
+kernel RSS high-water mark (VmHWM) was 653.8 / 663.8 MiB after surface grouping,
+compared with 666.1 MiB for the earlier triangle-index version. The second
+calculation reused the same process. Periodic PSS snapshots can miss short
+allocation peaks and are not interchangeable with this kernel-recorded RSS
+maximum. No Release or physical-device performance measurement was made for
+this optimization.
 
 ## Reproduction and tests
 

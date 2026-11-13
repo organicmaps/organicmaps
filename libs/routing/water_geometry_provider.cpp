@@ -138,7 +138,6 @@ bool AddSurface(std::vector<::water::Record> const & records, m2::RectD const & 
 
 struct FeatureSurface
 {
-  m2::RectD m_bounds;
   std::vector<::water::Record> m_triangles;
 };
 
@@ -156,21 +155,34 @@ bool AddFeatureSurfaces(std::vector<FeatureSurface> & surfaces, m2::RectD const 
     }
     return node;
   };
-  m4::Tree<size_t> index;
-  for (size_t i = 0; i < surfaces.size(); ++i)
-    index.Add(i, surfaces[i].m_bounds);
-  index.Optimize();
-  for (size_t i = 0; i < surfaces.size(); ++i)
+  // Feature bounds can enclose many unrelated lakes along a winding river.
+  // Use triangle bounds conservatively: real intersections and contacts still join.
   {
-    if (cancelled())
-      return false;
-    index.ForEachInRect(surfaces[i].m_bounds, [&](size_t j)
+    std::vector<std::array<Point, 3>> triangles;
+    std::vector<size_t> owners;
+    for (size_t i = 0; i < surfaces.size(); ++i)
+      for (auto const & record : surfaces[i].m_triangles)
+      {
+        auto const & ring = record.m_rings.front();
+        triangles.push_back({ring[0], ring[1], ring[2]});
+        owners.push_back(i);
+      }
+    water::TriangleIndex index(triangles);
+    for (size_t i = 0; i < triangles.size(); ++i)
     {
-      if (j >= i)
-        return;
-      auto const a = root(i), b = root(j);
-      parents[std::max(a, b)] = std::min(a, b);
-    });
+      if (cancelled())
+        return false;
+      m2::RectD triangleBounds;
+      for (auto const & point : triangles[i])
+        triangleBounds.Add(point);
+      index.ForEachInRect(triangleBounds, [&](size_t j)
+      {
+        if (j >= i || owners[i] == owners[j])
+          return;
+        auto const a = root(owners[i]), b = root(owners[j]);
+        parents[std::max(a, b)] = std::min(a, b);
+      });
+    }
   }
   for (size_t i = 0; i < surfaces.size(); ++i)
   {
@@ -182,7 +194,7 @@ bool AddFeatureSurfaces(std::vector<FeatureSurface> & surfaces, m2::RectD const 
       triangles.push_back(std::move(record));
     surfaces[i].m_triangles.clear();
   }
-  // Disjoint bounding-box groups cannot overlap or touch. Union each group
+  // Disjoint triangle-bounds groups cannot overlap or touch. Union each group
   // independently, retaining every triangle, island and exact surface contact.
   for (auto const & surface : surfaces)
     if (!surface.m_triangles.empty() && !AddSurface(surface.m_triangles, bounds, cancelled, result, 3 * kMaxTriangles))
@@ -419,8 +431,6 @@ water::Geometry WaterGeometryProvider::ExtractFeatures(DataSource const & dataSo
             exceeded = true;
             return;
           }
-          for (auto const & point : {clipped[0], clipped[i - 1], clipped[i]})
-            surface.m_bounds.Add(point);
           surface.m_triangles.push_back({::water::Kind::Area, {{clipped[0], clipped[i - 1], clipped[i]}}, {}});
         }
       }, FeatureType::BEST_GEOMETRY);
