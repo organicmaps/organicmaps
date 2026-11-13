@@ -67,6 +67,8 @@ protected:
   void CreateContext();
 
   void CheckRenderingEnabled();
+  bool ValidateContext();
+  void ProcessFrameFailure(dp::FrameStatus status);
 
   virtual std::unique_ptr<threads::IRoutine> CreateRoutine() = 0;
 

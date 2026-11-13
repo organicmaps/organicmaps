@@ -1,6 +1,7 @@
 #include "drape_frontend/base_renderer.hpp"
 #include "drape_frontend/message_subclasses.hpp"
 
+#include <chrono>
 #include <utility>
 
 #if defined(OMIM_METAL_AVAILABLE)
@@ -61,6 +62,23 @@ void BaseRenderer::IterateRenderLoopImpl()
 {
   RenderFrame();
   CheckRenderingEnabled();
+}
+
+bool BaseRenderer::ValidateContext()
+{
+  if (m_context->Validate())
+    return true;
+
+  ProcessFrameFailure(dp::FrameStatus::Suspended);
+  return false;
+}
+
+void BaseRenderer::ProcessFrameFailure(dp::FrameStatus status)
+{
+  ASSERT(status != dp::FrameStatus::Ready, ());
+  auto const timeout =
+      status == dp::FrameStatus::RetryLater ? std::chrono::milliseconds(16) : std::chrono::milliseconds::max();
+  ProcessSingleMessage(status != dp::FrameStatus::Retry, timeout);
 }
 
 void BaseRenderer::SetRenderingEnabled(ref_ptr<dp::GraphicsContextFactory> contextFactory)
