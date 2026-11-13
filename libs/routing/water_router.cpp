@@ -124,10 +124,13 @@ RouterResultCode WaterRouter::CalculateRoute(Checkpoints const & checkpoints, m2
   {
     auto const legProgress = [&](double value)
     { report(waterProgressStart + (98.0 - waterProgressStart) * (i - 1 + value) / (checkpointsPoints.size() - 1)); };
+    // Reserve progress for the initial search, up to four expansions and the
+    // final walking search. A new window must not leave the UI stuck at 80%.
+    size_t searchAttempt = 0;
+    auto const searchProgress = [&](double value) { legProgress(0.85 * (searchAttempt + value) / 6.0); };
     water::Path path;
     auto code = water::FindPath(geometry, checkpointsPoints[i - 1], checkpointsPoints[i],
-                                i == 1 && checkpoints.IsStartMyPosition(), cancelled, path,
-                                [&](double value) { legProgress(0.85 * value); });
+                                i == 1 && checkpoints.IsStartMyPosition(), cancelled, path, searchProgress);
     auto const needsWalking = [&]
     {
       return code == water::ResultCode::Success &&
@@ -171,9 +174,10 @@ RouterResultCode WaterRouter::CalculateRoute(Checkpoints const & checkpoints, m2
       {
         water::Path expandedPath;
         bool const lastAttempt = attempt + 1 == attempts && m_pedestrian;
-        auto const expandedCode = water::FindPath(
-            expanded, checkpointsPoints[i - 1], checkpointsPoints[i], i == 1 && checkpoints.IsStartMyPosition(),
-            cancelled, expandedPath, [&](double value) { legProgress(0.85 * value); }, lastAttempt, walkAllowed);
+        ++searchAttempt;
+        auto const expandedCode = water::FindPath(expanded, checkpointsPoints[i - 1], checkpointsPoints[i],
+                                                  i == 1 && checkpoints.IsStartMyPosition(), cancelled, expandedPath,
+                                                  searchProgress, lastAttempt, walkAllowed);
         if (expandedCode != water::ResultCode::Success && code == water::ResultCode::Success)
           break;
         walkingSearched = lastAttempt;
@@ -185,9 +189,12 @@ RouterResultCode WaterRouter::CalculateRoute(Checkpoints const & checkpoints, m2
         break;
     }
     if (!walkingSearched && (code == water::ResultCode::Unavailable || needsWalking()) && m_pedestrian)
+    {
+      ++searchAttempt;
       code = water::FindPath(geometry, checkpointsPoints[i - 1], checkpointsPoints[i],
-                             i == 1 && checkpoints.IsStartMyPosition(), cancelled, path,
-                             [&](double value) { legProgress(0.85 * value); }, true, walkAllowed);
+                             i == 1 && checkpoints.IsStartMyPosition(), cancelled, path, searchProgress, true,
+                             walkAllowed);
+    }
     if (code == water::ResultCode::Cancelled)
       return RouterResultCode::Cancelled;
     if (code == water::ResultCode::OutsideWater)

@@ -189,7 +189,10 @@ that limit. Cancellation is checked during extraction and search.
 Unlike road routing, ordinary-map Water constructs its graph from display
 geometry at request time. It uses sparse mesh paths and lazy A* visibility
 checks, rather than testing every possible pair of water vertices. Spatial
-indexes are balanced after bulk insertion. Disjoint surface groups are unioned
+indexes are balanced after bulk insertion. Water triangles use a balanced
+bounding-volume hierarchy, with exact triangle predicates after spatial filtering.
+This avoids repeated broad KD-tree scans for aligned river geometry.
+Disjoint surface groups are unioned
 separately without simplifying their geometry.
 
 Within one Water request, pedestrian legs reuse the decoded road graph. The
@@ -199,9 +202,31 @@ retain their existing cache policy.
 
 Geometry loading shows indeterminate progress. Graph construction reports work
 counts, and search uses the same distance-based progress estimate as road
-routing. Progress is monotone within a request, estimates work rather than time,
+routing. Water search progress reserves space for the initial search, up to
+four expansions and a final walking search, rather than reusing the same range
+on each retry. Progress is monotone within a request, estimates work rather than time,
 and reaches 100 only on success. Cancelled requests cannot update a replacement
 request's progress.
+
+The missing-map and long-route follow-up passed 457 routing unit tests and all
+68 Water integration tests on macOS ARM64 Debug with a 1 MiB stack. The stored
+results of 52 earlier real-map calculations retained the same water/land distances
+and shortest-path qualification. Android API 29 and iOS 18.6 Simulator both showed
+Latvia in the normal download prompt and passed cancellation during a long route.
+
+For the reported `54.82494, 25.749111` to `54.880858, 24.040882` route, with both
+Lithuania maps and the Hrodna, Minsk and Vitebsk regions of Belarus from catalog
+260714, Android Emulator routing time was 121.48 s before the triangle-index
+change and 81.00 / 80.02 s afterward. iOS Simulator took 57.82 / 56.44 s with the
+change. All runs retained 274.45 km on water and 2.15 km walking, with shortest
+route not confirmed. These are Debug measurements on an 8 GiB Apple M2 Mac,
+using internal router timings after profile selection, not cold-cache or
+physical-device performance guarantees. Emulators ran sequentially without
+concurrent builds during these measurements.
+A separate fresh-process Android comparison recorded the kernel RSS high-water
+mark (VmHWM): 676.8 MiB before and 666.1 MiB afterward, with routing times of
+122.26 s and 80.12 s. Periodic PSS snapshots can miss short allocation peaks and
+are not interchangeable with this kernel-recorded RSS maximum.
 
 ## Reproduction and tests
 
@@ -229,6 +254,7 @@ Useful phone checks include:
 | 54.82479565, 25.74941456 | 55.07294426, 24.29086921 | Reported near-border start; require a water-only route with Lithuania_East |
 | 55.316761, 21.385615 | 55.336162, 21.219596 | Nemunas delta report; require a wholly water route through the lagoon |
 | 54.71577130, 25.27821850 (My position) | 57.24266941, 24.16273648 | Missing Latvia with Lithuania_East downloaded; require the Latvia download request |
+| 54.82494, 25.749111 | 54.880858, 24.040882 | Slow Neris report; both Lithuania maps and Belarus Hrodna, Minsk and Vitebsk regions |
 | 55.58482353, 20.96625629 | 55.81964426, 20.96674091 | Baltic Sea report; require zero walking in both directions |
 | 54.82539913135153, 25.748180598020554 | 54.900349439028986, 24.087091237306595 | Reported Neris–Kaunas Reservoir route, no intermediate points; also check reverse direction |
 | 54.82539913135153, 25.748180598020554 | 54.9005461209, 23.8703662445 | Water-only control to the Neris/Nemunas confluence |

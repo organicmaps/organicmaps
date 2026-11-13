@@ -289,15 +289,7 @@ void AddLine(::water::Record const & record, m2::RectD const & bounds, water::Ge
 
 void IndexTriangles(water::Geometry & geometry)
 {
-  geometry.m_triangleIndex = std::make_shared<m4::Tree<size_t>>();
-  for (size_t i = 0; i < geometry.m_triangles.size(); ++i)
-  {
-    m2::RectD rect;
-    for (auto const & point : geometry.m_triangles[i])
-      rect.Add(point);
-    geometry.m_triangleIndex->Add(i, rect);
-  }
-  geometry.m_triangleIndex->Optimize();
+  geometry.m_triangleIndex = std::make_shared<water::TriangleIndex>(geometry.m_triangles);
 }
 }  // namespace
 

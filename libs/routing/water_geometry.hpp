@@ -27,6 +27,57 @@ struct Vertex
   bool m_mayTransfer = true;
 };
 
+// A balanced bounding-volume hierarchy prunes both axes at every level, including
+// the many aligned triangles along river banks. Leaves retain original triangle IDs.
+class TriangleIndex
+{
+public:
+  explicit TriangleIndex(std::vector<std::array<m2::PointD, 3>> const & triangles);
+
+  template <typename Fn>
+  void ForEachInRect(m2::RectD const & bounds, Fn && fn) const
+  {
+    if (!m_nodes.empty())
+      Visit(0, bounds, fn);
+  }
+
+private:
+  struct Entry
+  {
+    m2::RectD m_bounds;
+    size_t m_id;
+  };
+  struct Node
+  {
+    m2::RectD m_bounds;
+    size_t m_begin;
+    size_t m_end;
+    size_t m_left = 0;
+    size_t m_right = 0;
+  };
+  size_t Build(size_t begin, size_t end);
+
+  template <typename Fn>
+  void Visit(size_t index, m2::RectD const & bounds, Fn const & fn) const
+  {
+    auto const & node = m_nodes[index];
+    if (!node.m_bounds.IsIntersect(bounds))
+      return;
+    if (node.m_left != 0)
+    {
+      Visit(node.m_left, bounds, fn);
+      Visit(node.m_right, bounds, fn);
+      return;
+    }
+    for (size_t i = node.m_begin; i < node.m_end; ++i)
+      if (m_entries[i].m_bounds.IsIntersect(bounds))
+        fn(m_entries[i].m_id);
+  }
+
+  std::vector<Entry> m_entries;
+  std::vector<Node> m_nodes;
+};
+
 struct Geometry
 {
   // Surface waterways only. Grade-separated overlaps require explicit transitions upstream.
@@ -46,7 +97,7 @@ struct Geometry
   bool m_complete = false;
   // Display geometry lacks source node identities; transfers use stored line endpoints only.
   bool m_hasSourceTopology = true;
-  std::shared_ptr<m4::Tree<size_t>> m_triangleIndex;
+  std::shared_ptr<TriangleIndex> m_triangleIndex;
   // Extraction window. Unknown areas inside it remain excluded from all edges.
   // Artificial boundary cuts never prove disconnection; uncertain optimality
   // is reported separately from the validity of a known path.

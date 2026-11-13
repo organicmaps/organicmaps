@@ -546,18 +546,24 @@ water::Geometry WindowDetour(bool expanded)
 UNIT_TEST(WaterRouter_RetriesUnavailableWaterInWiderWindow)
 {
   size_t expandedCalls = 0;
+  float latestProgress = 0;
   size_t walkingCalls = 0;
   WaterRouter router(
       [](Checkpoints const &, RouterDelegate const &) { return WindowDetour(false); },
       std::make_unique<WalkingStub>(walkingCalls),
       [&](Checkpoints const &, RouterDelegate const &, water::Geometry const &, std::array<bool, 4> const &, bool)
   {
+    TEST_LESS(latestProgress, 50.0f, ("The initial window must leave progress for retries."));
     ++expandedCalls;
     return WindowDetour(true);
   });
   RouterDelegate delegate;
   std::vector<float> progress;
-  delegate.SetProgressCallback([&](float value) { progress.push_back(value); });
+  delegate.SetProgressCallback([&](float value)
+  {
+    latestProgress = value;
+    progress.push_back(value);
+  });
   RoutesResult result;
   TEST(router.CalculateRoute(Checkpoints({0, 0}, {0.01, 0}), {}, false, false, delegate, result) ==
            RouterResultCode::NoError,

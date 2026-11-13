@@ -422,3 +422,10 @@ UNIT_TEST(WaterReported_MissingLatvia)
   TEST(finder.GenerateAbsentRegions(checkpoints, delegate) == RouterResultCode::NeedMoreMaps, ());
   TEST_EQUAL(finder.GetAbsentRegions(), (std::set<std::string>{"Latvia"}), ());
 }
+
+UNIT_TEST(WaterReported_NerisSlowRoute)
+{
+  water_reported_routes_test::CheckRoute(
+      "NerisSlowRoute", {54.82494, 25.749111}, {54.880858, 24.040882}, false,
+      {"Lithuania_East", "Lithuania_West", "Belarus_Hrodna Region", "Belarus_Minsk Region", "Belarus_Vitebsk Region"});
+}

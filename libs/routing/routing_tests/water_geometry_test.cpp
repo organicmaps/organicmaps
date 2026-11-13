@@ -462,14 +462,7 @@ UNIT_TEST(Water_IndexedVisibilityHandlesCancellationNearZero)
   geometry.m_complete = true;
   Rectangle(geometry, -2, 0, 1e-16, 1);
   Rectangle(geometry, 1e-16, 0, 2, 1);
-  geometry.m_triangleIndex = std::make_shared<m4::Tree<size_t>>();
-  for (size_t i = 0; i < geometry.m_triangles.size(); ++i)
-  {
-    m2::RectD bounds;
-    for (auto const & point : geometry.m_triangles[i])
-      bounds.Add(point);
-    geometry.m_triangleIndex->Add(i, bounds);
-  }
+  geometry.m_triangleIndex = std::make_shared<TriangleIndex>(geometry.m_triangles);
   Path path;
   TEST(FindPath(geometry, P(-1, 0.5), P(1, 0.5), false, kNeverCancelled, path) == ResultCode::Success, ());
   TEST_EQUAL(path.m_points.size(), 2, ());
@@ -483,14 +476,7 @@ UNIT_TEST(Water_IndexedVisibilityDoesNotBridgeThinLand)
   geometry.m_hasSourceTopology = false;
   Rectangle(geometry, -2, 0, -1e-15, 1);
   Rectangle(geometry, 1e-15, 0, 2, 1);
-  geometry.m_triangleIndex = std::make_shared<m4::Tree<size_t>>();
-  for (size_t i = 0; i < geometry.m_triangles.size(); ++i)
-  {
-    m2::RectD bounds;
-    for (auto const & point : geometry.m_triangles[i])
-      bounds.Add(point);
-    geometry.m_triangleIndex->Add(i, bounds);
-  }
+  geometry.m_triangleIndex = std::make_shared<TriangleIndex>(geometry.m_triangles);
   Path path;
   TEST(FindPath(geometry, P(-1, 0.5), P(1, 0.5), false, kNeverCancelled, path) == ResultCode::Unavailable, ());
   TEST(path.m_points.empty(), ());
@@ -503,14 +489,7 @@ UNIT_TEST(Water_InteriorMeshDoesNotExhaustVisibilityBudget)
   for (size_t x = 0; x < 33; ++x)
     for (size_t y = 0; y < 33; ++y)
       Rectangle(geometry, x, y, x + 1, y + 1);
-  geometry.m_triangleIndex = std::make_shared<m4::Tree<size_t>>();
-  for (size_t i = 0; i < geometry.m_triangles.size(); ++i)
-  {
-    m2::RectD bounds;
-    for (auto const & point : geometry.m_triangles[i])
-      bounds.Add(point);
-    geometry.m_triangleIndex->Add(i, bounds);
-  }
+  geometry.m_triangleIndex = std::make_shared<TriangleIndex>(geometry.m_triangles);
   Path path;
   TEST(FindPath(geometry, P(0.5, 0.5), P(32.5, 32.5), false, kNeverCancelled, path) == ResultCode::Success, ());
   TEST_EQUAL(path.m_points.size(), 2, ());
@@ -534,15 +513,7 @@ UNIT_TEST(Water_SubmergedRiverBendsDoNotExhaustVisibilityBudget)
       auto const x = row % 2 == 0 ? column : 79 - column;
       line.push_back({P(0.1 + 0.8 * x / 79, 1.1 + 0.8 * row / 59)});
     }
-  geometry.m_triangleIndex = std::make_shared<m4::Tree<size_t>>();
-  for (size_t i = 0; i < geometry.m_triangles.size(); ++i)
-  {
-    m2::RectD bounds;
-    for (auto const & point : geometry.m_triangles[i])
-      bounds.Add(point);
-    geometry.m_triangleIndex->Add(i, bounds);
-  }
-  geometry.m_triangleIndex->Optimize();
+  geometry.m_triangleIndex = std::make_shared<TriangleIndex>(geometry.m_triangles);
   Path path;
   auto const start = P(0.5, 1.5), finish = P(2.5, 1.5);
   TEST(FindPath(geometry, start, finish, false, kNeverCancelled, path) == ResultCode::Success, ());
@@ -670,13 +641,7 @@ UNIT_TEST(Water_RiverLakePortalAlongNearlyParallelShore)
                                P(5.2537514660786825971, 61.720852566665797667),
                                P(5.2528234217526232896, 61.720283938350405606)}};
       if (indexed)
-      {
-        geometry.m_triangleIndex = std::make_shared<m4::Tree<size_t>>();
-        m2::RectD bounds;
-        for (auto const & point : geometry.m_triangles.front())
-          bounds.Add(point);
-        geometry.m_triangleIndex->Add(0, bounds);
-      }
+        geometry.m_triangleIndex = std::make_shared<TriangleIndex>(geometry.m_triangles);
       // The shore destination also detects excessive inward movement of the portal.
       for (P const finish : {a + (b - a) * 0.95, geometry.m_triangles.front()[2]})
       {
@@ -736,17 +701,7 @@ UNIT_TEST(Water_SurfaceTJunctionKeepsWaterDetourConnected)
       Rectangle(geometry, 1 + gap, 0.25, 2, 0.75);
       Rectangle(geometry, 1.75, 0.75, 2, 2);
       if (indexed)
-      {
-        geometry.m_triangleIndex = std::make_shared<m4::Tree<size_t>>();
-        for (size_t i = 0; i < geometry.m_triangles.size(); ++i)
-        {
-          m2::RectD bounds;
-          for (auto const & p : geometry.m_triangles[i])
-            bounds.Add(p);
-          geometry.m_triangleIndex->Add(i, bounds);
-        }
-        geometry.m_triangleIndex->Optimize();
-      }
+        geometry.m_triangleIndex = std::make_shared<TriangleIndex>(geometry.m_triangles);
       Path path;
       auto const code = FindPath(geometry, P(0.5, 0.5), P(1.9, 1.5), false, kNeverCancelled, path);
       if (gap != 0)
@@ -851,15 +806,7 @@ UNIT_TEST(Water_LargeMeshStillAcceptsCoveredDirectRoute)
   for (size_t x = 0; x < 257; ++x)
     for (size_t y = 0; y < 129; ++y)
       Rectangle(geometry, x * 0.001, y * 0.001, (x + 1) * 0.001, (y + 1) * 0.001);
-  geometry.m_triangleIndex = std::make_shared<m4::Tree<size_t>>();
-  for (size_t i = 0; i < geometry.m_triangles.size(); ++i)
-  {
-    m2::RectD bounds;
-    for (auto const & point : geometry.m_triangles[i])
-      bounds.Add(point);
-    geometry.m_triangleIndex->Add(i, bounds);
-  }
-  geometry.m_triangleIndex->Optimize();
+  geometry.m_triangleIndex = std::make_shared<TriangleIndex>(geometry.m_triangles);
   Path path;
   TEST(FindPath(geometry, P(0.0005, 0.0005), P(0.2565, 0.1285), false, kNeverCancelled, path) == ResultCode::Success,
        ());
@@ -880,15 +827,7 @@ UNIT_TEST(Water_LargeSparseGraphIgnoresUnreachableTransferEndpoints)
     double const x = 0.1 + i * 0.00001;
     geometry.m_triangles.push_back({P(x, 0.1), P(x + 0.000001, 0.1), P(x, 0.100001)});
   }
-  geometry.m_triangleIndex = std::make_shared<m4::Tree<size_t>>();
-  for (size_t i = 0; i < geometry.m_triangles.size(); ++i)
-  {
-    m2::RectD bounds;
-    for (auto const & point : geometry.m_triangles[i])
-      bounds.Add(point);
-    geometry.m_triangleIndex->Add(i, bounds);
-  }
-  geometry.m_triangleIndex->Optimize();
+  geometry.m_triangleIndex = std::make_shared<TriangleIndex>(geometry.m_triangles);
   Path path;
   TEST(FindPath(geometry, P(0, 0.001), P(0.003, 0.001), false, kNeverCancelled, path) == ResultCode::Success, ());
   TEST_EQUAL(std::count(path.m_landGaps.begin(), path.m_landGaps.end(), true), 1, ());
@@ -1182,3 +1121,32 @@ UNIT_TEST(Water_UnavoidableTerminalWalkDoesNotExploreEveryRemoteRiver)
   CheckAccounting(path);
 }
 }  // namespace water_geometry_test
+
+UNIT_TEST(Water_TriangleIndexMatchesClosedBounds)
+{
+  using namespace routing::water;
+  std::vector<std::array<m2::PointD, 3>> triangles;
+  for (int x = -20; x <= 20; ++x)
+    for (int y = -3; y <= 3; ++y)
+      triangles.push_back({m2::PointD(x, y), m2::PointD(x + 1, y), m2::PointD(x, y + 1)});
+  TriangleIndex index(triangles);
+  for (int x = -22; x <= 22; ++x)
+    for (double width : {0.0, 0.5, 4.0})
+    {
+      m2::RectD const query(x, 0, x + width, width);
+      std::vector<size_t> expected, actual;
+      for (size_t i = 0; i < triangles.size(); ++i)
+      {
+        m2::RectD bounds;
+        for (auto const & point : triangles[i])
+          bounds.Add(point);
+        if (bounds.IsIntersect(query))
+          expected.push_back(i);
+      }
+      index.ForEachInRect(query, [&](size_t id) { actual.push_back(id); });
+      std::sort(actual.begin(), actual.end());
+      TEST_EQUAL(actual, expected, (query));
+    }
+  TriangleIndex empty({});
+  empty.ForEachInRect(m2::RectD(0, 0, 1, 1), [](size_t) { TEST(false, ()); });
+}

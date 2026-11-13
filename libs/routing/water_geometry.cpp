@@ -20,6 +20,45 @@
 
 namespace routing::water
 {
+TriangleIndex::TriangleIndex(std::vector<std::array<m2::PointD, 3>> const & triangles)
+{
+  m_entries.reserve(triangles.size());
+  for (size_t i = 0; i < triangles.size(); ++i)
+  {
+    m2::RectD bounds;
+    for (auto const & point : triangles[i])
+      bounds.Add(point);
+    m_entries.push_back({bounds, i});
+  }
+  if (!m_entries.empty())
+    Build(0, m_entries.size());
+}
+
+size_t TriangleIndex::Build(size_t begin, size_t end)
+{
+  size_t const index = m_nodes.size();
+  m2::RectD bounds;
+  for (size_t i = begin; i < end; ++i)
+    bounds.Add(m_entries[i].m_bounds);
+  m_nodes.push_back({bounds, begin, end});
+  if (end - begin > 8)
+  {
+    auto const middle = begin + (end - begin) / 2;
+    bool const splitX = bounds.SizeX() >= bounds.SizeY();
+    std::nth_element(m_entries.begin() + begin, m_entries.begin() + middle, m_entries.begin() + end,
+                     [splitX](auto const & a, auto const & b)
+    {
+      auto const ac = a.m_bounds.Center(), bc = b.m_bounds.Center();
+      return splitX ? ac.x < bc.x : ac.y < bc.y;
+    });
+    auto const left = Build(begin, middle);
+    auto const right = Build(middle, end);
+    m_nodes[index].m_left = left;
+    m_nodes[index].m_right = right;
+  }
+  return index;
+}
+
 namespace
 {
 using Point = m2::PointD;
@@ -154,8 +193,7 @@ std::vector<Interval> Coverage(Geometry const & geometry, Point const & a, Point
   };
   if (geometry.m_triangleIndex)
   {
-    // Tree rectangles use open boundaries. Include contacts before the exact
-    // triangle predicate, including zero-width point and shoreline queries.
+    // Include rounding at contacts before the exact triangle predicate.
     auto const bounds = IncludeTreeBoundary(m2::RectD(a, b));
     geometry.m_triangleIndex->ForEachInRect(bounds, [&](size_t i) { visit(geometry.m_triangles[i]); });
   }
