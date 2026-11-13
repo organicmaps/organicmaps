@@ -2,6 +2,11 @@
 <TS version="2.1" language="fr-CA">
 <context>
 <name></name>
+<message id="back">
+<extracomment>Button text (should be short)</extracomment>
+<source>Back</source>
+<translation>Retour</translation>
+</message>
 <message id="cancel">
 <extracomment>Button text (should be short)</extracomment>
 <source>Cancel</source>
@@ -157,6 +162,11 @@
 <extracomment>Detailed description of Measurement Units settings button</extracomment>
 <source>Choose between miles and kilometers</source>
 <translation>Choisir entre miles et kilomètres</translation>
+</message>
+<message id="cancel_download">
+<extracomment>Button which interrupts country download</extracomment>
+<source>Cancel Download</source>
+<translation>Annuler le téléchargement</translation>
 </message>
 <message id="category_eat">
 <extracomment>Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat!</extracomment>
@@ -405,6 +415,10 @@
 <source>Custom tile sources are provided by you. Use only services you are allowed to access. You are responsible for attribution, license terms, API keys, quotas, and usage limits.</source>
 <translation>Les sources de tuiles personnalisées sont fournies par vous. N&#x27;utilisez que les services auxquels vous êtes autorisé à accéder. Vous êtes responsable de l&#x27;attribution, des conditions de licence, des clés API, des quotas et des limites d&#x27;utilisation.</translation>
 </message>
+<message id="search_show_on_map">
+<source>View on map</source>
+<translation>Voir sur la carte</translation>
+</message>
 <message id="menu">
 <extracomment>Menu button</extracomment>
 <source>Menu</source>
@@ -459,6 +473,11 @@
 <extracomment>Toast text when compass calibration may improve the correctness of the current position arrow</extracomment>
 <source>Move the phone in a figure-eight motion to calibrate the compass and fix the arrow direction on the map.</source>
 <translation>Déplacez le téléphone en huit pour calibrer la boussole et fixer la direction de la flèche sur la carte.</translation>
+</message>
+<message id="long_tap_toast">
+<extracomment>Toast text when user hides UI with a long tap anywhere on the map</extracomment>
+<source>Long-tap on the map again to see the interface</source>
+<translation>Appuyer à nouveau longuement sur la carte pour afficher l&#x27;interface</translation>
 </message>
 <message id="downloader_update_all_button">
 <extracomment>Update all button text</extracomment>
@@ -547,6 +566,10 @@
 <source>bookmark</source>
 <translation>signet</translation>
 </message>
+<message id="search_without_internet_advertisement">
+<source>To start searching and creating routes, please download the map. After that you will no longer need an Internet connection.</source>
+<translation>Pour commencer à rechercher et à créer des itinéraires, veuillez télécharger la carte. Après cela, vous n&#x27;aurez plus besoin d&#x27;une connexion Internet.</translation>
+</message>
 <message id="search_select_map">
 <source>Select Map</source>
 <translation>Sélectionner la carte</translation>
@@ -554,6 +577,10 @@
 <message id="categories">
 <source>Categories</source>
 <translation>Catégories</translation>
+</message>
+<message id="history">
+<source>History</source>
+<translation>Historique</translation>
 </message>
 <message id="search_not_found">
 <source>Oops, no results found.</source>
@@ -563,6 +590,14 @@
 <extracomment>The message when user did not find anything in the search.</extracomment>
 <source>Download the region where you are searching or try adding a nearby town/village name.</source>
 <translation>Téléchargez la région dans laquelle vous effectuez votre recherche ou essayez d&#x27;ajouter le nom d&#x27;une ville ou d&#x27;un village proche.</translation>
+</message>
+<message id="search_history_title">
+<source>Search History</source>
+<translation>Historique de recherche</translation>
+</message>
+<message id="clear_search">
+<source>Clear Search History</source>
+<translation>Effacer l&#x27;historique de recherche</translation>
 </message>
 <message id="read_in_wikipedia">
 <extracomment>Place Page link to Wikipedia article (if map object has it).</extracomment>
@@ -582,6 +617,15 @@
 <source>Route to</source>
 <translation>Itinéraire vers</translation>
 </message>
+<message id="editor_time_allday">
+<extracomment>Text for allday switch.</extracomment>
+<source>All Day (24 hours)</source>
+<translation>Toute la journée (24 heures)</translation>
+</message>
+<message id="editor_time_open">
+<source>Open</source>
+<translation>Ouvert</translation>
+</message>
 <message id="editor_time_title">
 <source>Business Hours</source>
 <translation>Heures d&#x27;ouverture</translation>
@@ -589,6 +633,34 @@
 <message id="autodownload">
 <source>Auto-download maps</source>
 <translation>Téléchargement automatique</translation>
+</message>
+<message id="twentyfour_seven">
+<source>24/7</source>
+<translation>24/24 et 7/7</translation>
+</message>
+<message id="day_off">
+<source>Closed</source>
+<translation>Fermé</translation>
+</message>
+<message id="midnight">
+<source>Midnight</source>
+<translation>Minuit</translation>
+</message>
+<message id="noon">
+<source>Noon</source>
+<translation>Midi</translation>
+</message>
+<message id="opens_in">
+<source>Opens in %1</source>
+<translation>Ouvert dans %1</translation>
+</message>
+<message id="closes_in">
+<source>Closes in %1</source>
+<translation>Fermé dans %1</translation>
+</message>
+<message id="closed">
+<source>Closed</source>
+<translation>Fermé</translation>
 </message>
 <message id="login">
 <source>Login</source>
@@ -631,6 +703,11 @@
 <message id="level">
 <source>Floor</source>
 <translation>Étage</translation>
+</message>
+<message id="level_value_generic">
+<extracomment>Building level</extracomment>
+<source>Level: %1</source>
+<translation>Niveau : %1</translation>
 </message>
 <message id="downloader_search_field_hint">
 <source>Find map</source>
@@ -678,6 +755,11 @@
 <message id="editor_operator">
 <source>Operator</source>
 <translation>Opérateur</translation>
+</message>
+<message id="operator">
+<extracomment>To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations…</extracomment>
+<source>Operator: %1</source>
+<translation>Opérateur : %1</translation>
 </message>
 <message id="downloader_no_downloaded_maps_title">
 <source>You haven&#x27;t downloaded any maps</source>
@@ -781,6 +863,11 @@
 <message id="please_wait">
 <source>Please wait…</source>
 <translation>Veuillez patienter…</translation>
+</message>
+<message id="privacy">
+<extracomment>Settings privacy group in settings screen</extracomment>
+<source>Privacy</source>
+<translation>Vie privée</translation>
 </message>
 <message id="privacy_policy">
 <source>Privacy policy</source>
@@ -922,6 +1009,26 @@
 <source>No</source>
 <translation>Non</translation>
 </message>
+<message id="yes_available">
+<extracomment>E.g. &quot;WiFi:Yes&quot;</extracomment>
+<source>Yes</source>
+<translation>Oui</translation>
+</message>
+<message id="no_available">
+<extracomment>E.g. &quot;WiFi:No&quot;</extracomment>
+<source>No</source>
+<translation>Non</translation>
+</message>
+<message id="capacity">
+<extracomment>To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations…</extracomment>
+<source>Capacity: %1</source>
+<translation>Capacité : %1</translation>
+</message>
+<message id="network">
+<extracomment>To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations…</extracomment>
+<source>Network: %1</source>
+<translation>Réseau : %1</translation>
+</message>
 <message id="ok">
 <source>OK</source>
 <translation>Ok</translation>
@@ -950,6 +1057,27 @@
 <source>Others</source>
 <translation>Autres</translation>
 </message>
+<message id="closed_now">
+<extracomment>Place Page opening hours text</extracomment>
+<source>Closed now</source>
+<translation>Fermé actuellement</translation>
+</message>
+<message id="opens_tomorrow_at">
+<source>Opens tomorrow at %1</source>
+<translation>Ouvre demain à %1</translation>
+</message>
+<message id="opens_dayoftheweek_at">
+<source>Opens %1 at %2</source>
+<translation>Ouvre le %1 à %2</translation>
+</message>
+<message id="opens_at">
+<source>Opens at %1</source>
+<translation>Ouvre à %1</translation>
+</message>
+<message id="closes_at">
+<source>Closes at %1</source>
+<translation>Ferme à %1</translation>
+</message>
 <message id="invalid_username_or_password">
 <source>Invalid username or password.</source>
 <translation>Nom d&#x27;utilisateur ou mot de passe invalide.</translation>
@@ -961,6 +1089,10 @@
 <message id="editor_add_select_category">
 <source>Select category</source>
 <translation>Sélectionner une catégorie</translation>
+</message>
+<message id="text_more_button">
+<source>…more</source>
+<translation>…plus</translation>
 </message>
 <message id="refresh">
 <source>Update</source>
@@ -1108,6 +1240,11 @@
 <extracomment>Restaurant or other food place&#x27;s menu URL field in the Editor</extracomment>
 <source>Menu Link</source>
 <translation>Lien vers le menu</translation>
+</message>
+<message id="view_menu">
+<extracomment>Button in the Place Page which opens a restaurant or other food place&#x27;s menu in a browser</extracomment>
+<source>View Menu</source>
+<translation>Voir le menu</translation>
 </message>
 <message id="self_service">
 <extracomment>To indicate if the place proposed self service…</extracomment>
@@ -1604,6 +1741,11 @@
 <source>Coordinates</source>
 <translation>Coordinates</translation>
 </message>
+<message id="choose_on_map">
+<extracomment>Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair</extracomment>
+<source>Choose on map</source>
+<translation>Choisir sur la carte</translation>
+</message>
 <message id="choose_start_location">
 <extracomment>Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field</extracomment>
 <source>Start point</source>
@@ -1613,6 +1755,11 @@
 <extracomment>Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field</extracomment>
 <source>Destination</source>
 <translation>Destination</translation>
+</message>
+<message id="choose_point_on_map_hint">
+<extracomment>Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it</extracomment>
+<source>Move and zoom the map to place the cross</source>
+<translation>Déplacez et zoomez sur la carte pour positionner la croix</translation>
 </message>
 <message id="routing_coordinates_hint">
 <extracomment>Placeholder for a routing endpoint, entered as a latitude and longitude pair.</extracomment>
@@ -1693,6 +1840,16 @@
 <extracomment>About dialog: %@ placeholders are paths to license files. Preserve the Qt company name.</extracomment>
 <source>Qt 6 (C) The Qt Company Ltd. and other contributors. License texts: %1 and %2.</source>
 <translation>Qt 6 (C) The Qt Company Ltd. and other contributors. License texts: %1 and %2.</translation>
+</message>
+<message id="less">
+<extracomment>Sailfish OS: collapses the expanded Wikipedia description on the place page</extracomment>
+<source>Less</source>
+<translation>Moins</translation>
+</message>
+<message id="copy_value">
+<extracomment>Sailfish OS: menu item that copies the shown value to the clipboard</extracomment>
+<source>Copy %1</source>
+<translation>Copier %1</translation>
 </message>
 <message id="mobile_data_downloads_off">
 <extracomment>Sailfish OS: a map download was not started because mobile internet is off in the settings</extracomment>

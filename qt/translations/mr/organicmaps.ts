@@ -2,6 +2,11 @@
 <TS version="2.1" language="mr">
 <context>
 <name></name>
+<message id="back">
+<extracomment>Button text (should be short)</extracomment>
+<source>Back</source>
+<translation>मागे</translation>
+</message>
 <message id="cancel">
 <extracomment>Button text (should be short)</extracomment>
 <source>Cancel</source>
@@ -157,6 +162,11 @@
 <extracomment>Detailed description of Measurement Units settings button</extracomment>
 <source>Choose between miles and kilometers</source>
 <translation>मैल की किलोमीटर ह्यामध्ये निवडा</translation>
+</message>
+<message id="cancel_download">
+<extracomment>Button which interrupts country download</extracomment>
+<source>Cancel Download</source>
+<translation>डाउनलोड रद्द करा</translation>
 </message>
 <message id="category_eat">
 <extracomment>Search category for cafes, bars, restaurants; any changes should be duplicated in categories.txt @category_eat!</extracomment>
@@ -405,6 +415,10 @@
 <source>Custom tile sources are provided by you. Use only services you are allowed to access. You are responsible for attribution, license terms, API keys, quotas, and usage limits.</source>
 <translation>सानुकूल टाइल स्रोत आपण पुरवता. केवळ ज्या सेवांमध्ये प्रवेशाची परवानगी आपल्याला आहे त्याच वापरा. श्रेय, परवाना अटी, API की, कोटा आणि वापर मर्यादांसाठी आपण जबाबदार आहात.</translation>
 </message>
+<message id="search_show_on_map">
+<source>View on map</source>
+<translation>नकाशावर पहा</translation>
+</message>
 <message id="menu">
 <extracomment>Menu button</extracomment>
 <source>Menu</source>
@@ -459,6 +473,11 @@
 <extracomment>Toast text when compass calibration may improve the correctness of the current position arrow</extracomment>
 <source>Move the phone in a figure-eight motion to calibrate the compass and fix the arrow direction on the map.</source>
 <translation>होकायंत्र कॅलिब्रेट करण्यासाठी आणि नकाशावर बाणाची दिशा निश्चित करण्यासाठी फोनला आकृती-आठ मोशनमध्ये हलवा.</translation>
+</message>
+<message id="long_tap_toast">
+<extracomment>Toast text when user hides UI with a long tap anywhere on the map</extracomment>
+<source>Long-tap on the map again to see the interface</source>
+<translation>इंटरफेस पाहण्यासाठी पुन्हा नकाशावर दीर्घ टॅप करा</translation>
 </message>
 <message id="downloader_update_all_button">
 <extracomment>Update all button text</extracomment>
@@ -547,6 +566,10 @@
 <source>bookmark</source>
 <translation>खूणपत्र</translation>
 </message>
+<message id="search_without_internet_advertisement">
+<source>To start searching and creating routes, please download the map. After that you will no longer need an Internet connection.</source>
+<translation>ठिकाण व मार्ग शोध सुरु करण्यासाठी, कृपया नकाशा डाउनलोड करा. त्यानंतर तुम्हाला इंटरनेटची आवश्यकता भासणार नाही.</translation>
+</message>
 <message id="search_select_map">
 <source>Select Map</source>
 <translation>नकाशा निवडा</translation>
@@ -554,6 +577,10 @@
 <message id="categories">
 <source>Categories</source>
 <translation>प्रवर्ग</translation>
+</message>
+<message id="history">
+<source>History</source>
+<translation>इतिहास</translation>
 </message>
 <message id="search_not_found">
 <source>Oops, no results found.</source>
@@ -563,6 +590,14 @@
 <extracomment>The message when user did not find anything in the search.</extracomment>
 <source>Download the region where you are searching or try adding a nearby town/village name.</source>
 <translation>तुम्ही जिथे शोधत आहात तो प्रदेश डाउनलोड करा किंवा जवळच्या शहर/गावाचे नाव जोडण्याचा प्रयत्न करा.</translation>
+</message>
+<message id="search_history_title">
+<source>Search History</source>
+<translation>शोध इतिहास</translation>
+</message>
+<message id="clear_search">
+<source>Clear Search History</source>
+<translation>शोध इतिहास पुसून टाका</translation>
 </message>
 <message id="read_in_wikipedia">
 <extracomment>Place Page link to Wikipedia article (if map object has it).</extracomment>
@@ -582,6 +617,15 @@
 <source>Route to</source>
 <translation>पर्यंतचा मार्ग</translation>
 </message>
+<message id="editor_time_allday">
+<extracomment>Text for allday switch.</extracomment>
+<source>All Day (24 hours)</source>
+<translation>दिवसभर (२४ तास)</translation>
+</message>
+<message id="editor_time_open">
+<source>Open</source>
+<translation>उघडे</translation>
+</message>
 <message id="editor_time_title">
 <source>Business Hours</source>
 <translation>व्यवसायाची वेळ</translation>
@@ -589,6 +633,34 @@
 <message id="autodownload">
 <source>Auto-download maps</source>
 <translation>स्वयं डाउनलोड</translation>
+</message>
+<message id="twentyfour_seven">
+<source>24/7</source>
+<translation>२४/७</translation>
+</message>
+<message id="day_off">
+<source>Closed</source>
+<translation>बंद</translation>
+</message>
+<message id="midnight">
+<source>Midnight</source>
+<translation>मध्यरात्र</translation>
+</message>
+<message id="noon">
+<source>Noon</source>
+<translation>मध्यान्ह</translation>
+</message>
+<message id="opens_in">
+<source>Opens in %1</source>
+<translation>आणखी %1 मध्ये उघडेल</translation>
+</message>
+<message id="closes_in">
+<source>Closes in %1</source>
+<translation>आणखी %1 मध्ये बंद होईल</translation>
+</message>
+<message id="closed">
+<source>Closed</source>
+<translation>बंद</translation>
 </message>
 <message id="login">
 <source>Login</source>
@@ -631,6 +703,11 @@
 <message id="level">
 <source>Floor</source>
 <translation>मजला</translation>
+</message>
+<message id="level_value_generic">
+<extracomment>Building level</extracomment>
+<source>Level: %1</source>
+<translation>स्तर: %1</translation>
 </message>
 <message id="downloader_search_field_hint">
 <source>Find map</source>
@@ -678,6 +755,11 @@
 <message id="editor_operator">
 <source>Operator</source>
 <translation>ऑपरेटर</translation>
+</message>
+<message id="operator">
+<extracomment>To indicate the operator of ATMs, bicycle rentals, electric vehicle charging stations…</extracomment>
+<source>Operator: %1</source>
+<translation>ऑपरेटर: %1</translation>
 </message>
 <message id="downloader_no_downloaded_maps_title">
 <source>You haven&#x27;t downloaded any maps</source>
@@ -781,6 +863,11 @@
 <message id="please_wait">
 <source>Please wait…</source>
 <translation>कृपया थांबा…</translation>
+</message>
+<message id="privacy">
+<extracomment>Settings privacy group in settings screen</extracomment>
+<source>Privacy</source>
+<translation>गोपनीयता</translation>
 </message>
 <message id="privacy_policy">
 <source>Privacy policy</source>
@@ -922,6 +1009,26 @@
 <source>No</source>
 <translation>नाही</translation>
 </message>
+<message id="yes_available">
+<extracomment>E.g. &quot;WiFi:Yes&quot;</extracomment>
+<source>Yes</source>
+<translation>होय</translation>
+</message>
+<message id="no_available">
+<extracomment>E.g. &quot;WiFi:No&quot;</extracomment>
+<source>No</source>
+<translation>नाही</translation>
+</message>
+<message id="capacity">
+<extracomment>To indicate the capacity of car parkings, bicycle parkings, electric vehicle charging stations…</extracomment>
+<source>Capacity: %1</source>
+<translation>क्षमता: %1</translation>
+</message>
+<message id="network">
+<extracomment>To indicate the network of ATMs, bicycle rentals, electric vehicle charging stations…</extracomment>
+<source>Network: %1</source>
+<translation>नेटवर्क: %1</translation>
+</message>
 <message id="ok">
 <source>OK</source>
 <translation>ठीक आहे</translation>
@@ -950,6 +1057,27 @@
 <source>Others</source>
 <translation>इतर</translation>
 </message>
+<message id="closed_now">
+<extracomment>Place Page opening hours text</extracomment>
+<source>Closed now</source>
+<translation>आता बंद</translation>
+</message>
+<message id="opens_tomorrow_at">
+<source>Opens tomorrow at %1</source>
+<translation>उद्या %1 ला उघडेल</translation>
+</message>
+<message id="opens_dayoftheweek_at">
+<source>Opens %1 at %2</source>
+<translation>%1 ला %2 वाजता उघडेल</translation>
+</message>
+<message id="opens_at">
+<source>Opens at %1</source>
+<translation>%1 ला उघडेल</translation>
+</message>
+<message id="closes_at">
+<source>Closes at %1</source>
+<translation>%1 ला बंद होईल</translation>
+</message>
 <message id="invalid_username_or_password">
 <source>Invalid username or password.</source>
 <translation>अवैध वापरकर्तानाव किंवा पासवर्ड.</translation>
@@ -961,6 +1089,10 @@
 <message id="editor_add_select_category">
 <source>Select category</source>
 <translation>प्रवर्ग निवडा</translation>
+</message>
+<message id="text_more_button">
+<source>…more</source>
+<translation>…अधिक</translation>
 </message>
 <message id="refresh">
 <source>Update</source>
@@ -1108,6 +1240,11 @@
 <extracomment>Restaurant or other food place&#x27;s menu URL field in the Editor</extracomment>
 <source>Menu Link</source>
 <translation>मेनू लिंक</translation>
+</message>
+<message id="view_menu">
+<extracomment>Button in the Place Page which opens a restaurant or other food place&#x27;s menu in a browser</extracomment>
+<source>View Menu</source>
+<translation>मेनू पहा</translation>
 </message>
 <message id="self_service">
 <extracomment>To indicate if the place proposed self service…</extracomment>
@@ -1604,6 +1741,11 @@
 <source>Coordinates</source>
 <translation>Coordinates</translation>
 </message>
+<message id="choose_on_map">
+<extracomment>Accessibility label of the icon-only button beside the search field, shown while choosing or replacing a route point; it opens a full-screen map picker with a crosshair</extracomment>
+<source>Choose on map</source>
+<translation>नकाशावर निवडा</translation>
+</message>
 <message id="choose_start_location">
 <extracomment>Search field hint and full-screen map point picker title shown while choosing the starting point of a route. Kept short because shortcut and voice-search buttons narrow the field</extracomment>
 <source>Start point</source>
@@ -1613,6 +1755,11 @@
 <extracomment>Search field hint and full-screen map point picker title shown while choosing the destination of a route. Kept short because shortcut and voice-search buttons narrow the field</extracomment>
 <source>Destination</source>
 <translation>गंतव्य</translation>
+</message>
+<message id="choose_point_on_map_hint">
+<extracomment>Hint under the title of the full-screen route point picker: a crosshair stays fixed in the centre of the screen while the user moves the map under it</extracomment>
+<source>Move and zoom the map to place the cross</source>
+<translation>क्रॉस ठेवण्यासाठी नकाशा हलवा आणि झूम करा</translation>
 </message>
 <message id="routing_coordinates_hint">
 <extracomment>Placeholder for a routing endpoint, entered as a latitude and longitude pair.</extracomment>
@@ -1693,6 +1840,16 @@
 <extracomment>About dialog: %@ placeholders are paths to license files. Preserve the Qt company name.</extracomment>
 <source>Qt 6 (C) The Qt Company Ltd. and other contributors. License texts: %1 and %2.</source>
 <translation>Qt 6 (C) The Qt Company Ltd. and other contributors. License texts: %1 and %2.</translation>
+</message>
+<message id="less">
+<extracomment>Sailfish OS: collapses the expanded Wikipedia description on the place page</extracomment>
+<source>Less</source>
+<translation>Less</translation>
+</message>
+<message id="copy_value">
+<extracomment>Sailfish OS: menu item that copies the shown value to the clipboard</extracomment>
+<source>Copy %1</source>
+<translation>Copy %1</translation>
 </message>
 <message id="mobile_data_downloads_off">
 <extracomment>Sailfish OS: a map download was not started because mobile internet is off in the settings</extracomment>
