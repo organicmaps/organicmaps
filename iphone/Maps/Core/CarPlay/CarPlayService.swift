@@ -30,6 +30,11 @@ final class CarPlayService: NSObject {
     effectiveDisplay != .device
   }
 
+  /// Routing ownership controls speech even when the shared map moves between displays.
+  @objc var isCarPlayRoutingActive: Bool {
+    routingOwner == .carPlay
+  }
+
   private var searchService: CarPlaySearchService?
   private var bookmarkListObserver: CarPlayBookmarkListObserver?
   private var router: CarPlayRouter?
