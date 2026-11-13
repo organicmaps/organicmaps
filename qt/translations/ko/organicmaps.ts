@@ -103,6 +103,16 @@
 <source>%1 download has failed</source>
 <translation>%1다운로드가 실패했습니다</translation>
 </message>
+<message id="add_new_set">
+<extracomment>&quot;Add new bookmark list&quot; dialog title</extracomment>
+<source>Add a New List</source>
+<translation>새로운 목록 추가</translation>
+</message>
+<message id="bookmark_set_name">
+<extracomment>Add Bookmark list dialog - hint when the list name is empty</extracomment>
+<source>Bookmark List Name</source>
+<translation>집합 이름을 즐겨찾기에 추가</translation>
+</message>
 <message id="bookmarks">
 <extracomment>Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied.</extracomment>
 <source>Bookmarks</source>
@@ -117,6 +127,11 @@
 <extracomment>Add bookmark dialog - bookmark name</extracomment>
 <source>Name</source>
 <translation>이름</translation>
+</message>
+<message id="list">
+<extracomment>Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell.</extracomment>
+<source>List</source>
+<translation>목록</translation>
 </message>
 <message id="settings">
 <extracomment>Settings button in system menu</extracomment>
@@ -278,6 +293,26 @@
 <source>RV Facilities</source>
 <translation>RV용</translation>
 </message>
+<message id="description">
+<extracomment>Notes field in Bookmarks view</extracomment>
+<source>Notes</source>
+<translation>메모</translation>
+</message>
+<message id="load_kmz_successful">
+<extracomment>Kmz file successful loading</extracomment>
+<source>Bookmarks loaded successfully! You can find them on the map or on the Bookmarks Manager screen.</source>
+<translation>즐겨찾기가 성공적으로 로드되었습니다! 지도 또는 즐겨찾기 관리자 화면에서 찾으실 수 있습니다.</translation>
+</message>
+<message id="load_kmz_failed">
+<extracomment>Kml file loading failed</extracomment>
+<source>Failed to load bookmarks. The file may be corrupted or defective.</source>
+<translation>즐겨찾기 업로드가 실패했습니다. 파일이 훼손되었거나 결함이 있을지도 모릅니다.</translation>
+</message>
+<message id="edit">
+<extracomment>resource for context menu</extracomment>
+<source>Edit</source>
+<translation>편집</translation>
+</message>
 <message id="unknown_current_position">
 <extracomment>Warning message when doing search around current position</extracomment>
 <source>Your location hasn&#x27;t been determined yet</source>
@@ -332,6 +367,11 @@
 <extracomment>Title for tracks category in bookmarks manager</extracomment>
 <source>Tracks</source>
 <translation>트랙</translation>
+</message>
+<message id="length">
+<extracomment>Length of track in cell that describes route</extracomment>
+<source>Length</source>
+<translation>길이</translation>
 </message>
 <message id="share_my_location">
 <source>Share My Location</source>
@@ -531,6 +571,14 @@
 <source>Update Map</source>
 <translation>지도 업데이트</translation>
 </message>
+<message id="save">
+<source>Save</source>
+<translation>저장</translation>
+</message>
+<message id="create">
+<source>create</source>
+<translation>만들기</translation>
+</message>
 <message id="version">
 <extracomment>Prints version number in About dialog</extracomment>
 <source>Organic Maps version: %1</source>
@@ -566,6 +614,14 @@
 <source>bookmark</source>
 <translation>북마크</translation>
 </message>
+<message id="dialog_routing_location_turn_wifi">
+<source>Please check your GPS signal. Enabling Wi-Fi will improve your location accuracy.</source>
+<translation>GPS 신호를 확인해주세요. Wi-Fi를 켜면 위치 정확도가 높아집니다.</translation>
+</message>
+<message id="dialog_routing_system_error">
+<source>System error</source>
+<translation>시스템 오류</translation>
+</message>
 <message id="search_without_internet_advertisement">
 <source>To start searching and creating routes, please download the map. After that you will no longer need an Internet connection.</source>
 <translation>경로를 검색하고 만들기시작하려면, 지도를 다운로드하십시오. 그러면, 더 이상 인터넷 연결이 필요하지 않습니다.</translation>
@@ -573,6 +629,16 @@
 <message id="search_select_map">
 <source>Select Map</source>
 <translation>지도 선택</translation>
+</message>
+<message id="show">
+<extracomment>«Show» context menu</extracomment>
+<source>Show</source>
+<translation>표시</translation>
+</message>
+<message id="hide">
+<extracomment>«Hide» context menu</extracomment>
+<source>Hide</source>
+<translation>숨기기</translation>
 </message>
 <message id="categories">
 <source>Categories</source>
@@ -633,6 +699,11 @@
 <message id="autodownload">
 <source>Auto-download maps</source>
 <translation>자동 다운로드</translation>
+</message>
+<message id="daily">
+<extracomment>Place Page opening hours text</extracomment>
+<source>Daily</source>
+<translation>일별</translation>
 </message>
 <message id="twentyfour_seven">
 <source>24/7</source>
@@ -769,6 +840,10 @@
 <source>Download maps to search and navigate offline.</source>
 <translation>오프라인으로 위치를 검색하려면 지도를 다운로드하세요.</translation>
 </message>
+<message id="current_location_unknown_error_title">
+<source>Current location is unknown.</source>
+<translation>현재 위치를 알 수 없습니다.</translation>
+</message>
 <message id="kilometers_per_hour">
 <extracomment>abbreviation for kilometers per hour</extracomment>
 <source>km/h</source>
@@ -803,9 +878,23 @@
 <source>More</source>
 <translation>자세히</translation>
 </message>
+<message id="placepage_edit_bookmark_button">
+<extracomment>Toolbar title of the Edit Bookmark screen.</extracomment>
+<source>Edit Bookmark</source>
+<translation>즐겨찾기 편집</translation>
+</message>
+<message id="placepage_personal_notes_hint">
+<source>Personal notes (text or html)</source>
+<translation>개인 메모 (글자 혹은 html)</translation>
+</message>
 <message id="editor_remove_place_button">
 <source>Delete</source>
 <translation>삭제</translation>
+</message>
+<message id="track_recording">
+<extracomment>Shown while a track is being recorded: the start toast, the notification title and the home screen widget status.</extracomment>
+<source>Recording the track</source>
+<translation>트랙 기록하기</translation>
 </message>
 <message id="accept">
 <extracomment>For the first routing</extracomment>
@@ -855,14 +944,43 @@
 <source>Add Stop</source>
 <translation>경유지 추가</translation>
 </message>
+<message id="bookmark_lists">
+<source>Lists</source>
+<translation>목록</translation>
+</message>
+<message id="bookmark_lists_hide_all">
+<extracomment>Do not display all bookmark lists on the map</extracomment>
+<source>Hide all</source>
+<translation>모두 숨기기</translation>
+</message>
+<message id="bookmark_lists_show_all">
+<source>Show all</source>
+<translation>모두 표시</translation>
+</message>
+<message id="bookmarks_create_new_group">
+<source>Create a new list</source>
+<translation>새 목록 만들기</translation>
+</message>
 <message id="bookmarks_import">
 <extracomment>Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files</extracomment>
 <source>Import Bookmarks and Tracks</source>
 <translation>북마크 및 트랙 가져오기</translation>
 </message>
+<message id="bookmarks_error_title_share_empty">
+<source>Sharing error</source>
+<translation>공유 오류</translation>
+</message>
+<message id="bookmarks_error_title_list_name_already_taken">
+<source>This name is already taken</source>
+<translation>이 이름은 이미 사용 중입니다.</translation>
+</message>
 <message id="please_wait">
 <source>Please wait…</source>
 <translation>잠시만 기다려주십시오…</translation>
+</message>
+<message id="restore">
+<source>Restore</source>
+<translation>복원</translation>
 </message>
 <message id="privacy">
 <extracomment>Settings privacy group in settings screen</extracomment>
@@ -905,6 +1023,24 @@
 <source>Map Styles and Layers</source>
 <translation>맵 스타일 및 레이어</translation>
 </message>
+<message id="bookmarks_empty_list_title">
+<source>This list is empty</source>
+<translation>이 목록은 비어있습니다.</translation>
+</message>
+<message id="bookmarks_empty_list_message">
+<source>To add a bookmark, tap a place on the map and then tap the star icon</source>
+<translation>북마크를 추가하려면 맵에서 장소를 탭하고 별 모양 아이콘을 탭하세요.</translation>
+</message>
+<message id="change_all_bookmarks_color">
+<extracomment>Button to change the color of all bookmarks in the current list</extracomment>
+<source>Change color of all bookmarks</source>
+<translation>모든 북마크 색상 변경</translation>
+</message>
+<message id="change_all_tracks_color">
+<extracomment>Button to change the color of all tracks in the current list</extracomment>
+<source>Change color of all tracks</source>
+<translation>모든 트랙 색상 변경</translation>
+</message>
 <message id="export_file">
 <extracomment>Menu title for exporting a file in the default KMZ format</extracomment>
 <source>Export KMZ</source>
@@ -919,6 +1055,10 @@
 <extracomment>Menu title for exporting a file in GeoJSON format</extracomment>
 <source>Export GeoJSON</source>
 <translation>GeoJSON 내보내기</translation>
+</message>
+<message id="delete_list">
+<source>Delete list</source>
+<translation>리스트 삭제</translation>
 </message>
 <message id="power_managment_title">
 <source>Power saving mode</source>
@@ -944,6 +1084,10 @@
 <extracomment>Settings/Bookmark Text Placement</extracomment>
 <source>Bookmark names on the map</source>
 <translation>지도에 북마크 이름 표시</translation>
+</message>
+<message id="bookmarks_text_placement_description">
+<source>If there are too many bookmarks, displaying their names on the map may slow down the app.</source>
+<translation>북마크가 너무 많을 경우 지도에 북마크 이름을 표시하면 앱 속도가 느려질 수 있습니다.</translation>
 </message>
 <message id="show_to_the_right">
 <source>Show to the right</source>
@@ -1033,6 +1177,11 @@
 <source>OK</source>
 <translation>확인</translation>
 </message>
+<message id="sort_bookmarks">
+<extracomment>Android, title, max 20-22 symbols</extracomment>
+<source>Sort bookmarks</source>
+<translation>북마크 분류하기</translation>
+</message>
 <message id="week_ago_sorttype">
 <source>A week ago</source>
 <translation>일주일 전</translation>
@@ -1090,6 +1239,10 @@
 <source>Select category</source>
 <translation>범주 선택</translation>
 </message>
+<message id="placepage_bookmark_name_hint">
+<source>Bookmark Name</source>
+<translation>즐겨찾기 이름</translation>
+</message>
 <message id="text_more_button">
 <source>…more</source>
 <translation>…기타</translation>
@@ -1109,6 +1262,27 @@
 <message id="downloader_applying">
 <source>Applying %1…</source>
 <translation>%1 적용 중…</translation>
+</message>
+<message id="sort_default">
+<extracomment>iOS</extracomment>
+<source>Sort by default</source>
+<translation>기본 값으로 분류</translation>
+</message>
+<message id="sort_type">
+<source>Sort by type</source>
+<translation>유형으로 분류</translation>
+</message>
+<message id="sort_distance">
+<source>Sort by distance</source>
+<translation>거리로 분류</translation>
+</message>
+<message id="sort_date">
+<source>Sort by date</source>
+<translation>날짜로 분류</translation>
+</message>
+<message id="sort_name">
+<source>Sort by name</source>
+<translation>이름별로 정렬</translation>
 </message>
 <message id="food_places">
 <source>Food</source>
@@ -1166,9 +1340,32 @@
 <source>Medicine</source>
 <translation>의료</translation>
 </message>
+<message id="search_in_the_list">
+<source>Search in the list</source>
+<translation>리스트에서 검색</translation>
+</message>
 <message id="religious_places">
 <source>Religious places</source>
 <translation>종교적 장소</translation>
+</message>
+<message id="select">
+<extracomment>Button that starts multi-selection in a bookmark list.</extracomment>
+<source>Select</source>
+<translation>선택</translation>
+</message>
+<message id="select_all">
+<extracomment>Action that selects every bookmark and track in a bookmark list.</extracomment>
+<source>Select All</source>
+<translation>모두 선택</translation>
+</message>
+<message id="deselect_all">
+<extracomment>Action that clears the multi-selection in a bookmark list.</extracomment>
+<source>Deselect All</source>
+<translation>선택 해제</translation>
+</message>
+<message id="select_list">
+<source>Select list</source>
+<translation>목록 선택</translation>
 </message>
 <message id="button_layer_terrain">
 <extracomment>Layers menu: label of the 3D terrain layer button</extracomment>
@@ -1178,6 +1375,26 @@
 <message id="isolines_location_error_dialog">
 <source>Update this region to see contour lines</source>
 <translation>이 지역을 업데이트하면 등고선을 볼 수 있습니다</translation>
+</message>
+<message id="elevation_profile_ascent">
+<source>Ascent</source>
+<translation>올라가기</translation>
+</message>
+<message id="elevation_profile_descent">
+<source>Descent</source>
+<translation>내려가기</translation>
+</message>
+<message id="elevation_profile_min_elevation">
+<source>Min. elevation</source>
+<translation>최소 높이</translation>
+</message>
+<message id="elevation_profile_max_elevation">
+<source>Max. elevation</source>
+<translation>최대 높이</translation>
+</message>
+<message id="elevation_profile_difficulty">
+<source>Difficulty</source>
+<translation>난이도</translation>
 </message>
 <message id="isolines_toast_zooms_1_10">
 <source>Zoom in to explore isolines</source>
@@ -1217,10 +1434,20 @@
 <source>https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</source>
 <translation>https://wiki.openstreetmap.org/wiki/Ko:OpenStreetMap_소개</translation>
 </message>
+<message id="comma_separated_pair">
+<extracomment>A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks</extracomment>
+<source>%1, %2</source>
+<translation>%1, %2</translation>
+</message>
 <message id="button_layer_outdoor">
 <extracomment>Outdoors/hiking map style (activity) name in the Styles and Layers dialog</extracomment>
 <source>Outdoors</source>
 <translation>아웃도어</translation>
+</message>
+<message id="bookmarks_export">
+<extracomment>Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks</extracomment>
+<source>Export all Bookmarks and Tracks</source>
+<translation>모든 북마크 및 트랙 내보내기</translation>
 </message>
 <message id="drive_through">
 <source>Drive-through</source>
@@ -1256,9 +1483,33 @@
 <source>Outdoor seating</source>
 <translation>야외 좌석</translation>
 </message>
+<message id="start_track_recording">
+<extracomment>Prompt to start recording a track.</extracomment>
+<source>Record Track</source>
+<translation>트랙 기록</translation>
+</message>
+<message id="stop_track_recording">
+<extracomment>Prompt for stopping a track recording.</extracomment>
+<source>Stop Track Recording</source>
+<translation>트랙 기록 중지</translation>
+</message>
+<message id="track_recording_title">
+<extracomment>Subtitle of the place page of the track being recorded, and the name and title of the home screen widget.</extracomment>
+<source>Track Recording</source>
+<translation>트랙 기록</translation>
+</message>
+<message id="track_recording_toast_nothing_to_save">
+<extracomment>Message for the toast when saving the track recording is finished but nothing to save.</extracomment>
+<source>Track is empty - nothing to save</source>
+<translation>경로가 비어 있음 - 저장할 항목이 없음</translation>
+</message>
 <message id="choose_color">
 <source>Choose Color</source>
 <translation>색상 선택</translation>
+</message>
+<message id="edit_track">
+<source>Edit Track</source>
+<translation>경로 편집</translation>
 </message>
 <message id="follow_system">
 <extracomment>Setting option to sync the app&#x27;s theme with the operating system&#x27;s dark/light mode</extracomment>
@@ -1280,10 +1531,60 @@
 <source>Update (%1)</source>
 <translation>업데이트(%1)</translation>
 </message>
+<message id="placepage_track_name_hint">
+<extracomment>Placeholder for track name input on track edit screen</extracomment>
+<source>Track Name</source>
+<translation>트랙 이름</translation>
+</message>
+<message id="move">
+<extracomment>move track or bookmark from the list button text</extracomment>
+<source>Move</source>
+<translation>이동</translation>
+</message>
+<message id="change_color">
+<extracomment>Text for the editing the Track&#x27;s color button.</extracomment>
+<source>Change Color</source>
+<translation>색상 변경</translation>
+</message>
+<message id="hide_track">
+<extracomment>Text for the hiding track.</extracomment>
+<source>Hide track</source>
+<translation>경로 숨기기</translation>
+</message>
+<message id="show_track">
+<extracomment>Text for the showing track.</extracomment>
+<source>Show track</source>
+<translation>경로 표시</translation>
+</message>
+<message id="backup">
+<extracomment>Title for the &quot;Enable iCloud Syncronization&quot; alert&#x27;s &quot;Backup&quot; action button.</extracomment>
+<source>Backup</source>
+<translation>백업</translation>
+</message>
+<message id="bookmarks_recently_deleted">
+<extracomment>Title for the &quot;Recently Deleted Lists&quot; button on the Bookmarks and Lists screen.</extracomment>
+<source>Recently Deleted Lists</source>
+<translation>최근 삭제한 목록</translation>
+</message>
 <message id="clear">
 <extracomment>Title for the &quot;Clear&quot; button on the Recently Deleted Lists screen.</extracomment>
 <source>Clear</source>
 <translation>지우기</translation>
+</message>
+<message id="delete_all">
+<extracomment>Title for the &quot;Delete All&quot; button on the Recently Deleted Lists screen.</extracomment>
+<source>Delete All</source>
+<translation>모두 삭제</translation>
+</message>
+<message id="recover">
+<extracomment>Title for the &quot;Recover&quot; button on the Recently Deleted Lists screen.</extracomment>
+<source>Recover</source>
+<translation>복구</translation>
+</message>
+<message id="recover_all">
+<extracomment>Title for the &quot;Recover All&quot; button on the Recently Deleted Lists screen.</extracomment>
+<source>Recover All</source>
+<translation>모두 복구</translation>
 </message>
 <message id="contribute_to_osm_add_place">
 <source>Add Place</source>
@@ -1761,6 +2062,11 @@
 <source>Move and zoom the map to place the cross</source>
 <translation>지도를 이동하고 확대/축소하여 십자선을 원하는 위치에 배치하세요</translation>
 </message>
+<message id="track_recording_stop_and_save">
+<extracomment>Track recording notification button: stops the recording and saves the recorded track.</extracomment>
+<source>Stop and Save</source>
+<translation>중지 및 저장</translation>
+</message>
 <message id="routing_coordinates_hint">
 <extracomment>Placeholder for a routing endpoint, entered as a latitude and longitude pair.</extracomment>
 <source>Latitude, longitude</source>
@@ -1851,6 +2157,46 @@
 <source>Copy %1</source>
 <translation>Copy %1</translation>
 </message>
+<message id="backup_description">
+<extracomment>Sailfish OS: explanation on the bookmarks backup settings page</extracomment>
+<source>Bookmarks and tracks are saved to KMZ files in a folder. Import a file on the bookmarks page to restore it.</source>
+<translation>Bookmarks and tracks are saved to KMZ files in a folder. Import a file on the bookmarks page to restore it.</translation>
+</message>
+<message id="backup_automatic">
+<extracomment>Sailfish OS: setting for how often bookmarks are backed up automatically</extracomment>
+<source>Automatic backup</source>
+<translation>Automatic backup</translation>
+</message>
+<message id="backup_weekly">
+<extracomment>Sailfish OS: automatic backup option</extracomment>
+<source>Weekly</source>
+<translation>Weekly</translation>
+</message>
+<message id="backup_folder">
+<extracomment>Sailfish OS: setting for the folder bookmark backups are saved to</extracomment>
+<source>Backup folder</source>
+<translation>Backup folder</translation>
+</message>
+<message id="backup_now">
+<extracomment>Sailfish OS: button that backs up all bookmarks and tracks</extracomment>
+<source>Back up now</source>
+<translation>Back up now</translation>
+</message>
+<message id="backup_last">
+<extracomment>Sailfish OS: date of the last bookmarks backup</extracomment>
+<source>Last backup: %1</source>
+<translation>Last backup: %1</translation>
+</message>
+<message id="backup_none">
+<extracomment>Sailfish OS: shown when bookmarks were never backed up</extracomment>
+<source>No backups yet</source>
+<translation>No backups yet</translation>
+</message>
+<message id="backup_failed">
+<extracomment>Sailfish OS: error when bookmarks could not be backed up</extracomment>
+<source>Backup failed</source>
+<translation>Backup failed</translation>
+</message>
 <message id="mobile_data_downloads_off">
 <extracomment>Sailfish OS: a map download was not started because mobile internet is off in the settings</extracomment>
 <source>Map downloads over mobile internet are turned off in the settings.</source>
@@ -1860,6 +2206,26 @@
 <extracomment>Sailfish OS: the maps are moved to the chosen folder when the app starts next time</extracomment>
 <source>The maps will be moved the next time Organic Maps starts. This can take several minutes.</source>
 <translation>The maps will be moved the next time Organic Maps starts. This can take several minutes.</translation>
+</message>
+<message id="elevation_profile_time">
+<extracomment>Sailfish OS: track statistics on the place page, the duration of the track</extracomment>
+<source>Time</source>
+<translation>소요 시간</translation>
+</message>
+<message id="elevation_profile_diff_level_easy">
+<extracomment>Sailfish OS: track statistics on the place page, an easy difficulty</extracomment>
+<source>Easy</source>
+<translation>쉬움</translation>
+</message>
+<message id="elevation_profile_diff_level_moderate">
+<extracomment>Sailfish OS: track statistics on the place page, a moderate difficulty</extracomment>
+<source>Moderate</source>
+<translation>보통</translation>
+</message>
+<message id="elevation_profile_diff_level_hard">
+<extracomment>Sailfish OS: track statistics on the place page, a hard difficulty</extracomment>
+<source>Hard</source>
+<translation>어려움</translation>
 </message>
 </context>
 </TS>

@@ -103,6 +103,16 @@
 <source>%1 download has failed</source>
 <translation>%1 Download fehlgeschlagen</translation>
 </message>
+<message id="add_new_set">
+<extracomment>&quot;Add new bookmark list&quot; dialog title</extracomment>
+<source>Add a New List</source>
+<translation>Neue Liste hinzufügen</translation>
+</message>
+<message id="bookmark_set_name">
+<extracomment>Add Bookmark list dialog - hint when the list name is empty</extracomment>
+<source>Bookmark List Name</source>
+<translation>Name der Lesezeichenliste</translation>
+</message>
 <message id="bookmarks">
 <extracomment>Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied.</extracomment>
 <source>Bookmarks</source>
@@ -117,6 +127,11 @@
 <extracomment>Add bookmark dialog - bookmark name</extracomment>
 <source>Name</source>
 <translation>Name</translation>
+</message>
+<message id="list">
+<extracomment>Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell.</extracomment>
+<source>List</source>
+<translation>Liste</translation>
 </message>
 <message id="settings">
 <extracomment>Settings button in system menu</extracomment>
@@ -278,6 +293,26 @@
 <source>RV Facilities</source>
 <translation>Einrichtungen für Wohnmobile</translation>
 </message>
+<message id="description">
+<extracomment>Notes field in Bookmarks view</extracomment>
+<source>Notes</source>
+<translation>Notizen</translation>
+</message>
+<message id="load_kmz_successful">
+<extracomment>Kmz file successful loading</extracomment>
+<source>Bookmarks loaded successfully! You can find them on the map or on the Bookmarks Manager screen.</source>
+<translation>Lesezeichen erfolgreich geladen! Du kannst diese nun auf deiner Karte oder im Lesezeichen-Manager anzeigen.</translation>
+</message>
+<message id="load_kmz_failed">
+<extracomment>Kml file loading failed</extracomment>
+<source>Failed to load bookmarks. The file may be corrupted or defective.</source>
+<translation>Laden der Lesezeichen fehlgeschlagen. Die Datei könnte beschädigt oder defekt sein.</translation>
+</message>
+<message id="edit">
+<extracomment>resource for context menu</extracomment>
+<source>Edit</source>
+<translation>Bearbeiten</translation>
+</message>
 <message id="unknown_current_position">
 <extracomment>Warning message when doing search around current position</extracomment>
 <source>Your location hasn&#x27;t been determined yet</source>
@@ -332,6 +367,11 @@
 <extracomment>Title for tracks category in bookmarks manager</extracomment>
 <source>Tracks</source>
 <translation>Tracks</translation>
+</message>
+<message id="length">
+<extracomment>Length of track in cell that describes route</extracomment>
+<source>Length</source>
+<translation>Länge</translation>
 </message>
 <message id="share_my_location">
 <source>Share My Location</source>
@@ -531,6 +571,14 @@
 <source>Update Map</source>
 <translation>Karte aktualisieren</translation>
 </message>
+<message id="save">
+<source>Save</source>
+<translation>Speichern</translation>
+</message>
+<message id="create">
+<source>create</source>
+<translation>erstellen</translation>
+</message>
 <message id="version">
 <extracomment>Prints version number in About dialog</extracomment>
 <source>Organic Maps version: %1</source>
@@ -566,6 +614,14 @@
 <source>bookmark</source>
 <translation>Lesezeichen</translation>
 </message>
+<message id="dialog_routing_location_turn_wifi">
+<source>Please check your GPS signal. Enabling Wi-Fi will improve your location accuracy.</source>
+<translation>Bitte prüfe dein GPS-Signal. Das Aktivieren von WLAN verbessert die Genauigkeit deiner Standortbestimmung.</translation>
+</message>
+<message id="dialog_routing_system_error">
+<source>System error</source>
+<translation>Systemfehler</translation>
+</message>
 <message id="search_without_internet_advertisement">
 <source>To start searching and creating routes, please download the map. After that you will no longer need an Internet connection.</source>
 <translation>Um mit der Suche und dem Erstellen von Routen zu beginnen, lade bitte die Karte herunter. Du benötigst danach keine Internetverbindung mehr.</translation>
@@ -573,6 +629,16 @@
 <message id="search_select_map">
 <source>Select Map</source>
 <translation>Karte auswählen</translation>
+</message>
+<message id="show">
+<extracomment>«Show» context menu</extracomment>
+<source>Show</source>
+<translation>Anzeigen</translation>
+</message>
+<message id="hide">
+<extracomment>«Hide» context menu</extracomment>
+<source>Hide</source>
+<translation>Ausblenden</translation>
 </message>
 <message id="categories">
 <source>Categories</source>
@@ -633,6 +699,11 @@
 <message id="autodownload">
 <source>Auto-download maps</source>
 <translation>Karten automatisch herunterladen</translation>
+</message>
+<message id="daily">
+<extracomment>Place Page opening hours text</extracomment>
+<source>Daily</source>
+<translation>Täglich</translation>
 </message>
 <message id="twentyfour_seven">
 <source>24/7</source>
@@ -769,6 +840,10 @@
 <source>Download maps to search and navigate offline.</source>
 <translation>Lade Karten für die Offline-Suche und Navigation herunter.</translation>
 </message>
+<message id="current_location_unknown_error_title">
+<source>Current location is unknown.</source>
+<translation>Aktueller Standort ist unbekannt.</translation>
+</message>
 <message id="kilometers_per_hour">
 <extracomment>abbreviation for kilometers per hour</extracomment>
 <source>km/h</source>
@@ -803,9 +878,23 @@
 <source>More</source>
 <translation>Mehr</translation>
 </message>
+<message id="placepage_edit_bookmark_button">
+<extracomment>Toolbar title of the Edit Bookmark screen.</extracomment>
+<source>Edit Bookmark</source>
+<translation>Lesezeichen bearbeiten</translation>
+</message>
+<message id="placepage_personal_notes_hint">
+<source>Personal notes (text or html)</source>
+<translation>Persönliche Notizen (Text oder HTML)</translation>
+</message>
 <message id="editor_remove_place_button">
 <source>Delete</source>
 <translation>Löschen</translation>
+</message>
+<message id="track_recording">
+<extracomment>Shown while a track is being recorded: the start toast, the notification title and the home screen widget status.</extracomment>
+<source>Recording the track</source>
+<translation>Aufnahme der Strecke</translation>
 </message>
 <message id="accept">
 <extracomment>For the first routing</extracomment>
@@ -855,14 +944,43 @@
 <source>Add Stop</source>
 <translation>Stopp einfügen</translation>
 </message>
+<message id="bookmark_lists">
+<source>Lists</source>
+<translation>Listen</translation>
+</message>
+<message id="bookmark_lists_hide_all">
+<extracomment>Do not display all bookmark lists on the map</extracomment>
+<source>Hide all</source>
+<translation>Alle ausblenden</translation>
+</message>
+<message id="bookmark_lists_show_all">
+<source>Show all</source>
+<translation>Alle anzeigen</translation>
+</message>
+<message id="bookmarks_create_new_group">
+<source>Create a new list</source>
+<translation>Neue Liste erstellen</translation>
+</message>
 <message id="bookmarks_import">
 <extracomment>Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files</extracomment>
 <source>Import Bookmarks and Tracks</source>
 <translation>Lesezeichen und Tracks importieren</translation>
 </message>
+<message id="bookmarks_error_title_share_empty">
+<source>Sharing error</source>
+<translation>Fehler beim Teilen</translation>
+</message>
+<message id="bookmarks_error_title_list_name_already_taken">
+<source>This name is already taken</source>
+<translation>Dieser Name ist bereits vergeben</translation>
+</message>
 <message id="please_wait">
 <source>Please wait…</source>
 <translation>Bitte warten…</translation>
+</message>
+<message id="restore">
+<source>Restore</source>
+<translation>Wiederherstellen</translation>
 </message>
 <message id="privacy">
 <extracomment>Settings privacy group in settings screen</extracomment>
@@ -905,6 +1023,24 @@
 <source>Map Styles and Layers</source>
 <translation>Kartenstile und Ebenen</translation>
 </message>
+<message id="bookmarks_empty_list_title">
+<source>This list is empty</source>
+<translation>Die Liste ist leer</translation>
+</message>
+<message id="bookmarks_empty_list_message">
+<source>To add a bookmark, tap a place on the map and then tap the star icon</source>
+<translation>Zum Hinzufügen eine Lesezeichens tippe in der Karte auf den Ort und dann unten auf das Sternchen</translation>
+</message>
+<message id="change_all_bookmarks_color">
+<extracomment>Button to change the color of all bookmarks in the current list</extracomment>
+<source>Change color of all bookmarks</source>
+<translation>Farbe aller Lesezeichen ändern</translation>
+</message>
+<message id="change_all_tracks_color">
+<extracomment>Button to change the color of all tracks in the current list</extracomment>
+<source>Change color of all tracks</source>
+<translation>Farbe aller Tracks ändern</translation>
+</message>
 <message id="export_file">
 <extracomment>Menu title for exporting a file in the default KMZ format</extracomment>
 <source>Export KMZ</source>
@@ -919,6 +1055,10 @@
 <extracomment>Menu title for exporting a file in GeoJSON format</extracomment>
 <source>Export GeoJSON</source>
 <translation>GeoJSON exportieren</translation>
+</message>
+<message id="delete_list">
+<source>Delete list</source>
+<translation>Liste löschen</translation>
 </message>
 <message id="power_managment_title">
 <source>Power saving mode</source>
@@ -944,6 +1084,10 @@
 <extracomment>Settings/Bookmark Text Placement</extracomment>
 <source>Bookmark names on the map</source>
 <translation>Lesezeichenname auf der Karte mit anzeigen</translation>
+</message>
+<message id="bookmarks_text_placement_description">
+<source>If there are too many bookmarks, displaying their names on the map may slow down the app.</source>
+<translation>Wenn du zu viele Lesezeichen hast, kann es sein, dass die App langsamer wird, wenn die Namen auf der Karte angezeigt werden.</translation>
 </message>
 <message id="show_to_the_right">
 <source>Show to the right</source>
@@ -1033,6 +1177,11 @@
 <source>OK</source>
 <translation>Ok</translation>
 </message>
+<message id="sort_bookmarks">
+<extracomment>Android, title, max 20-22 symbols</extracomment>
+<source>Sort bookmarks</source>
+<translation>Lesezeichen sortieren</translation>
+</message>
 <message id="week_ago_sorttype">
 <source>A week ago</source>
 <translation>Vor einer Woche</translation>
@@ -1090,6 +1239,10 @@
 <source>Select category</source>
 <translation>Kategorie auswählen</translation>
 </message>
+<message id="placepage_bookmark_name_hint">
+<source>Bookmark Name</source>
+<translation>Name des Lesezeichens</translation>
+</message>
 <message id="text_more_button">
 <source>…more</source>
 <translation>…mehr</translation>
@@ -1109,6 +1262,27 @@
 <message id="downloader_applying">
 <source>Applying %1…</source>
 <translation>%1 anwenden…</translation>
+</message>
+<message id="sort_default">
+<extracomment>iOS</extracomment>
+<source>Sort by default</source>
+<translation>Nach Voreinstellung sortieren</translation>
+</message>
+<message id="sort_type">
+<source>Sort by type</source>
+<translation>Nach Kategorien sortieren</translation>
+</message>
+<message id="sort_distance">
+<source>Sort by distance</source>
+<translation>Nach Entfernung sortieren</translation>
+</message>
+<message id="sort_date">
+<source>Sort by date</source>
+<translation>Nach Datum sortieren</translation>
+</message>
+<message id="sort_name">
+<source>Sort by name</source>
+<translation>Nach Name sortieren</translation>
 </message>
 <message id="food_places">
 <source>Food</source>
@@ -1166,9 +1340,32 @@
 <source>Medicine</source>
 <translation>Medizin</translation>
 </message>
+<message id="search_in_the_list">
+<source>Search in the list</source>
+<translation>In der Liste suchen</translation>
+</message>
 <message id="religious_places">
 <source>Religious places</source>
 <translation>Religiöse Orte</translation>
+</message>
+<message id="select">
+<extracomment>Button that starts multi-selection in a bookmark list.</extracomment>
+<source>Select</source>
+<translation>Auswählen</translation>
+</message>
+<message id="select_all">
+<extracomment>Action that selects every bookmark and track in a bookmark list.</extracomment>
+<source>Select All</source>
+<translation>Alle auswählen</translation>
+</message>
+<message id="deselect_all">
+<extracomment>Action that clears the multi-selection in a bookmark list.</extracomment>
+<source>Deselect All</source>
+<translation>Auswahl aufheben</translation>
+</message>
+<message id="select_list">
+<source>Select list</source>
+<translation>Liste auswählen</translation>
 </message>
 <message id="button_layer_terrain">
 <extracomment>Layers menu: label of the 3D terrain layer button</extracomment>
@@ -1178,6 +1375,26 @@
 <message id="isolines_location_error_dialog">
 <source>Update this region to see contour lines</source>
 <translation>Aktualisiere diese Region, um Höhenlinien zu sehen</translation>
+</message>
+<message id="elevation_profile_ascent">
+<source>Ascent</source>
+<translation>Bergauf</translation>
+</message>
+<message id="elevation_profile_descent">
+<source>Descent</source>
+<translation>Bergab</translation>
+</message>
+<message id="elevation_profile_min_elevation">
+<source>Min. elevation</source>
+<translation>Min. Höhe</translation>
+</message>
+<message id="elevation_profile_max_elevation">
+<source>Max. elevation</source>
+<translation>Max. Höhe</translation>
+</message>
+<message id="elevation_profile_difficulty">
+<source>Difficulty</source>
+<translation>Schwierigkeitsgrad</translation>
 </message>
 <message id="isolines_toast_zooms_1_10">
 <source>Zoom in to explore isolines</source>
@@ -1217,10 +1434,20 @@
 <source>https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</source>
 <translation>https://wiki.openstreetmap.org/wiki/DE:Über_OSM</translation>
 </message>
+<message id="comma_separated_pair">
+<extracomment>A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks</extracomment>
+<source>%1, %2</source>
+<translation>%1, %2</translation>
+</message>
 <message id="button_layer_outdoor">
 <extracomment>Outdoors/hiking map style (activity) name in the Styles and Layers dialog</extracomment>
 <source>Outdoors</source>
 <translation>Wandern</translation>
+</message>
+<message id="bookmarks_export">
+<extracomment>Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks</extracomment>
+<source>Export all Bookmarks and Tracks</source>
+<translation>Alle Lesezeichen und Tracks exportieren</translation>
 </message>
 <message id="drive_through">
 <source>Drive-through</source>
@@ -1256,9 +1483,33 @@
 <source>Outdoor seating</source>
 <translation>Sitzplätze im Freien</translation>
 </message>
+<message id="start_track_recording">
+<extracomment>Prompt to start recording a track.</extracomment>
+<source>Record Track</source>
+<translation>Track aufnehmen</translation>
+</message>
+<message id="stop_track_recording">
+<extracomment>Prompt for stopping a track recording.</extracomment>
+<source>Stop Track Recording</source>
+<translation>Aufnahme des Tracks stoppen</translation>
+</message>
+<message id="track_recording_title">
+<extracomment>Subtitle of the place page of the track being recorded, and the name and title of the home screen widget.</extracomment>
+<source>Track Recording</source>
+<translation>Track-Aufzeichnung</translation>
+</message>
+<message id="track_recording_toast_nothing_to_save">
+<extracomment>Message for the toast when saving the track recording is finished but nothing to save.</extracomment>
+<source>Track is empty - nothing to save</source>
+<translation>Track ist leer – nichts zu speichern</translation>
+</message>
 <message id="choose_color">
 <source>Choose Color</source>
 <translation>Farbe auswählen</translation>
+</message>
+<message id="edit_track">
+<source>Edit Track</source>
+<translation>Track bearbeiten</translation>
 </message>
 <message id="follow_system">
 <extracomment>Setting option to sync the app&#x27;s theme with the operating system&#x27;s dark/light mode</extracomment>
@@ -1280,10 +1531,60 @@
 <source>Update (%1)</source>
 <translation>Aktualisieren (%1)</translation>
 </message>
+<message id="placepage_track_name_hint">
+<extracomment>Placeholder for track name input on track edit screen</extracomment>
+<source>Track Name</source>
+<translation>Name des Tracks</translation>
+</message>
+<message id="move">
+<extracomment>move track or bookmark from the list button text</extracomment>
+<source>Move</source>
+<translation>Verschieben</translation>
+</message>
+<message id="change_color">
+<extracomment>Text for the editing the Track&#x27;s color button.</extracomment>
+<source>Change Color</source>
+<translation>Farbe ändern</translation>
+</message>
+<message id="hide_track">
+<extracomment>Text for the hiding track.</extracomment>
+<source>Hide track</source>
+<translation>Track ausblenden</translation>
+</message>
+<message id="show_track">
+<extracomment>Text for the showing track.</extracomment>
+<source>Show track</source>
+<translation>Track anzeigen</translation>
+</message>
+<message id="backup">
+<extracomment>Title for the &quot;Enable iCloud Syncronization&quot; alert&#x27;s &quot;Backup&quot; action button.</extracomment>
+<source>Backup</source>
+<translation>Sicherung</translation>
+</message>
+<message id="bookmarks_recently_deleted">
+<extracomment>Title for the &quot;Recently Deleted Lists&quot; button on the Bookmarks and Lists screen.</extracomment>
+<source>Recently Deleted Lists</source>
+<translation>Kürzlich gelöschte Listen</translation>
+</message>
 <message id="clear">
 <extracomment>Title for the &quot;Clear&quot; button on the Recently Deleted Lists screen.</extracomment>
 <source>Clear</source>
 <translation>Löschen</translation>
+</message>
+<message id="delete_all">
+<extracomment>Title for the &quot;Delete All&quot; button on the Recently Deleted Lists screen.</extracomment>
+<source>Delete All</source>
+<translation>Alle löschen</translation>
+</message>
+<message id="recover">
+<extracomment>Title for the &quot;Recover&quot; button on the Recently Deleted Lists screen.</extracomment>
+<source>Recover</source>
+<translation>Wiederherstellen</translation>
+</message>
+<message id="recover_all">
+<extracomment>Title for the &quot;Recover All&quot; button on the Recently Deleted Lists screen.</extracomment>
+<source>Recover All</source>
+<translation>Alles wiederherstellen</translation>
 </message>
 <message id="contribute_to_osm_add_place">
 <source>Add Place</source>
@@ -1761,6 +2062,11 @@
 <source>Move and zoom the map to place the cross</source>
 <translation>Verschiebe und zoome die Karte, um das Kreuz zu platzieren</translation>
 </message>
+<message id="track_recording_stop_and_save">
+<extracomment>Track recording notification button: stops the recording and saves the recorded track.</extracomment>
+<source>Stop and Save</source>
+<translation>Beenden und speichern</translation>
+</message>
 <message id="routing_coordinates_hint">
 <extracomment>Placeholder for a routing endpoint, entered as a latitude and longitude pair.</extracomment>
 <source>Latitude, longitude</source>
@@ -1851,6 +2157,46 @@
 <source>Copy %1</source>
 <translation>%1 kopieren</translation>
 </message>
+<message id="backup_description">
+<extracomment>Sailfish OS: explanation on the bookmarks backup settings page</extracomment>
+<source>Bookmarks and tracks are saved to KMZ files in a folder. Import a file on the bookmarks page to restore it.</source>
+<translation>Lesezeichen und Tracks werden als KMZ-Dateien in einem Ordner gespeichert. Importiere eine Datei auf der Lesezeichenseite, um sie wiederherzustellen.</translation>
+</message>
+<message id="backup_automatic">
+<extracomment>Sailfish OS: setting for how often bookmarks are backed up automatically</extracomment>
+<source>Automatic backup</source>
+<translation>Automatische Sicherung</translation>
+</message>
+<message id="backup_weekly">
+<extracomment>Sailfish OS: automatic backup option</extracomment>
+<source>Weekly</source>
+<translation>Wöchentlich</translation>
+</message>
+<message id="backup_folder">
+<extracomment>Sailfish OS: setting for the folder bookmark backups are saved to</extracomment>
+<source>Backup folder</source>
+<translation>Sicherungsordner</translation>
+</message>
+<message id="backup_now">
+<extracomment>Sailfish OS: button that backs up all bookmarks and tracks</extracomment>
+<source>Back up now</source>
+<translation>Jetzt sichern</translation>
+</message>
+<message id="backup_last">
+<extracomment>Sailfish OS: date of the last bookmarks backup</extracomment>
+<source>Last backup: %1</source>
+<translation>Letzte Sicherung: %1</translation>
+</message>
+<message id="backup_none">
+<extracomment>Sailfish OS: shown when bookmarks were never backed up</extracomment>
+<source>No backups yet</source>
+<translation>Noch keine Sicherungen</translation>
+</message>
+<message id="backup_failed">
+<extracomment>Sailfish OS: error when bookmarks could not be backed up</extracomment>
+<source>Backup failed</source>
+<translation>Sicherung fehlgeschlagen</translation>
+</message>
 <message id="mobile_data_downloads_off">
 <extracomment>Sailfish OS: a map download was not started because mobile internet is off in the settings</extracomment>
 <source>Map downloads over mobile internet are turned off in the settings.</source>
@@ -1860,6 +2206,26 @@
 <extracomment>Sailfish OS: the maps are moved to the chosen folder when the app starts next time</extracomment>
 <source>The maps will be moved the next time Organic Maps starts. This can take several minutes.</source>
 <translation>Die Karten werden beim nächsten Start von Organic Maps verschoben. Das kann einige Minuten dauern.</translation>
+</message>
+<message id="elevation_profile_time">
+<extracomment>Sailfish OS: track statistics on the place page, the duration of the track</extracomment>
+<source>Time</source>
+<translation>Dauer</translation>
+</message>
+<message id="elevation_profile_diff_level_easy">
+<extracomment>Sailfish OS: track statistics on the place page, an easy difficulty</extracomment>
+<source>Easy</source>
+<translation>Leicht</translation>
+</message>
+<message id="elevation_profile_diff_level_moderate">
+<extracomment>Sailfish OS: track statistics on the place page, a moderate difficulty</extracomment>
+<source>Moderate</source>
+<translation>Mittel</translation>
+</message>
+<message id="elevation_profile_diff_level_hard">
+<extracomment>Sailfish OS: track statistics on the place page, a hard difficulty</extracomment>
+<source>Hard</source>
+<translation>Schwer</translation>
 </message>
 </context>
 </TS>
