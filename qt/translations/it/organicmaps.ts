@@ -31,6 +31,11 @@
 <source>Miles</source>
 <translation>Miglia</translation>
 </message>
+<message id="later">
+<extracomment>Update maps later button text</extracomment>
+<source>Later</source>
+<translation>Più tardi</translation>
+</message>
 <message id="search">
 <extracomment>View and button titles for accessibility. Also used in iPhone home screen quick actions.</extracomment>
 <source>Search</source>
@@ -88,6 +93,11 @@
 <source>Download</source>
 <translation>Scarica</translation>
 </message>
+<message id="download_country_failed">
+<extracomment>Show popup notification on top of the map when country download has failed.</extracomment>
+<source>%1 download has failed</source>
+<translation>Il download di %1 è fallito</translation>
+</message>
 <message id="bookmarks">
 <extracomment>Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied.</extracomment>
 <source>Bookmarks</source>
@@ -107,6 +117,36 @@
 <extracomment>Settings button in system menu</extracomment>
 <source>Settings</source>
 <translation>Impostazioni</translation>
+</message>
+<message id="maps_storage">
+<extracomment>Header of settings activity where user defines storage path</extracomment>
+<source>Save maps to</source>
+<translation>Salva mappe in</translation>
+</message>
+<message id="maps_storage_summary">
+<extracomment>Detailed description of Maps Storage settings button</extracomment>
+<source>Select the folder to download maps to.</source>
+<translation>Seleziona la cartella in cui scaricare le mappe.</translation>
+</message>
+<message id="maps_storage_downloaded">
+<extracomment>E.g. &quot;Downloaded maps: 500Mb&quot; in Maps Storage settings</extracomment>
+<source>Downloaded maps</source>
+<translation>Mappe scaricate</translation>
+</message>
+<message id="maps_storage_free_size">
+<extracomment>Free space out of total storage size in Maps Storage settings, e.g. &quot;300 MB free of 2 GB&quot;</extracomment>
+<source>%1 free of %2</source>
+<translation>%1 liberi su %2</translation>
+</message>
+<message id="move_maps">
+<extracomment>Question dialog for transferring maps from one storage to another</extracomment>
+<source>Move maps?</source>
+<translation>Spostare le mappe?</translation>
+</message>
+<message id="move_maps_error">
+<extracomment>Error moving map files from one storage to another</extracomment>
+<source>Error moving map files</source>
+<translation>Errore durante lo spostamento delle mappe</translation>
 </message>
 <message id="measurement_units">
 <extracomment>Measurement units title in settings activity</extracomment>
@@ -420,15 +460,57 @@
 <source>Move the phone in a figure-eight motion to calibrate the compass and fix the arrow direction on the map.</source>
 <translation>Muovi il telefono con un movimento a otto per calibrare la bussola e fissare la direzione della freccia sulla mappa.</translation>
 </message>
+<message id="downloader_update_all_button">
+<extracomment>Update all button text</extracomment>
+<source>Update All</source>
+<translation>Aggiorna tutte</translation>
+</message>
+<message id="downloader_cancel_all">
+<extracomment>Cancel all button text</extracomment>
+<source>Cancel All</source>
+<translation>Annulla tutto</translation>
+</message>
+<message id="downloader_downloaded_subtitle">
+<extracomment>Downloaded maps list header</extracomment>
+<source>Downloaded</source>
+<translation>Scaricate</translation>
+</message>
 <message id="downloader_queued">
 <extracomment>Country queued for download</extracomment>
 <source>Queued</source>
 <translation>In coda</translation>
 </message>
+<message id="downloader_near_me_subtitle">
+<source>Near me</source>
+<translation>Vicino a me</translation>
+</message>
+<message id="downloader_status_maps">
+<extracomment>In maps downloader and country place page shows how many maps are downloaded / to download, e.g. &quot;Maps: 3 of 10&quot;</extracomment>
+<source>Maps</source>
+<translation>Mappe</translation>
+</message>
+<message id="downloader_download_all_button">
+<source>Download All</source>
+<translation>Scarica tutte</translation>
+</message>
+<message id="downloader_downloading">
+<source>Downloading:</source>
+<translation>Sto scaricando:</translation>
+</message>
+<message id="downloader_download_map">
+<extracomment>Context menu item for downloader.</extracomment>
+<source>Download map</source>
+<translation>Scarica mappa</translation>
+</message>
 <message id="downloader_retry">
 <extracomment>Item status in downloader.</extracomment>
 <source>Retry</source>
 <translation>Riprova</translation>
+</message>
+<message id="downloader_update_map">
+<extracomment>Item in context menu.</extracomment>
+<source>Update Map</source>
+<translation>Aggiorna mappa</translation>
 </message>
 <message id="version">
 <extracomment>Prints version number in About dialog</extracomment>
@@ -450,14 +532,37 @@
 <source>Dark</source>
 <translation>Scuro</translation>
 </message>
+<message id="downloader_available_maps">
+<extracomment>Downloaded maps category</extracomment>
+<source>Available</source>
+<translation>Disponibile</translation>
+</message>
+<message id="downloader_status_outdated">
+<extracomment>Status of outdated country in the list</extracomment>
+<source>Update</source>
+<translation>Aggiorna</translation>
+</message>
 <message id="bookmark">
 <extracomment>bookmark button text</extracomment>
 <source>bookmark</source>
 <translation>preferito</translation>
 </message>
+<message id="search_select_map">
+<source>Select Map</source>
+<translation>Seleziona mappa</translation>
+</message>
 <message id="categories">
 <source>Categories</source>
 <translation>Categorie</translation>
+</message>
+<message id="search_not_found">
+<source>Oops, no results found.</source>
+<translation>Non ho trovato nulla.</translation>
+</message>
+<message id="search_not_found_query">
+<extracomment>The message when user did not find anything in the search.</extracomment>
+<source>Download the region where you are searching or try adding a nearby town/village name.</source>
+<translation>Scarica la regione in cui stai effettuando la ricerca oppure prova ad aggiungere il nome di una città/villaggio vicino.</translation>
 </message>
 <message id="read_in_wikipedia">
 <extracomment>Place Page link to Wikipedia article (if map object has it).</extracomment>
@@ -480,6 +585,10 @@
 <message id="editor_time_title">
 <source>Business Hours</source>
 <translation>Orari di apertura</translation>
+</message>
+<message id="autodownload">
+<source>Auto-download maps</source>
+<translation>Scaricamento automatico</translation>
 </message>
 <message id="login">
 <source>Login</source>
@@ -523,6 +632,23 @@
 <source>Floor</source>
 <translation>Piano</translation>
 </message>
+<message id="downloader_search_field_hint">
+<source>Find map</source>
+<translation>Trova mappa</translation>
+</message>
+<message id="common_check_internet_connection_dialog">
+<source>Please make sure your device is connected to the Internet.</source>
+<translation>Verifica che il tuo dispositivo sia connesso a internet.</translation>
+</message>
+<message id="downloader_no_space_title">
+<source>Not enough space</source>
+<translation>Spazio insufficiente</translation>
+</message>
+<message id="downloader_no_space_message">
+<extracomment>Message shown when there is not enough space to download maps</extracomment>
+<source>Please delete any unnecessary data</source>
+<translation>Elimina i dati non necessari</translation>
+</message>
 <message id="editor_edit_place_category_title">
 <source>Category</source>
 <translation>Categoria</translation>
@@ -537,6 +663,14 @@
 <source>%1 of %2</source>
 <translation>%1 su %2</translation>
 </message>
+<message id="download_over_mobile_header">
+<source>Download over a cellular network connection?</source>
+<translation>Vuoi scaricare utilizzando una connessione di rete cellulare?</translation>
+</message>
+<message id="download_over_mobile_message">
+<source>This could be considerably expensive with some plans or if roaming.</source>
+<translation>Questa operazione potrebbe essere piuttosto costosa con alcuni piani telefonici o in roaming.</translation>
+</message>
 <message id="editor_storey_number">
 <source>Number of floors (maximum of %1)</source>
 <translation>Numero di piani (massimo %1)</translation>
@@ -544,6 +678,14 @@
 <message id="editor_operator">
 <source>Operator</source>
 <translation>Gestore</translation>
+</message>
+<message id="downloader_no_downloaded_maps_title">
+<source>You haven&#x27;t downloaded any maps</source>
+<translation>Non hai scaricato mappe</translation>
+</message>
+<message id="downloader_no_downloaded_maps_message">
+<source>Download maps to search and navigate offline.</source>
+<translation>Scarica mappe per trovare luoghi e navigare offline.</translation>
 </message>
 <message id="kilometers_per_hour">
 <extracomment>abbreviation for kilometers per hour</extracomment>
@@ -592,6 +734,27 @@
 <extracomment>For the first routing</extracomment>
 <source>Decline</source>
 <translation>Rifiuta</translation>
+</message>
+<message id="mobile_data_option_always">
+<source>Use Always</source>
+<translation>Usa sempre</translation>
+</message>
+<message id="mobile_data">
+<source>Mobile Internet</source>
+<translation>Internet mobile</translation>
+</message>
+<message id="mobile_data_description">
+<extracomment>NOTE to translators: please synchronize your translation with the English one.</extracomment>
+<source>Mobile internet is required for map update notifications and uploading edits.</source>
+<translation>L&#x27;internet mobile è necessario per ricevere notifiche sugli aggiornamenti alle mappe e per caricare modifiche alla mappa.</translation>
+</message>
+<message id="mobile_data_option_never">
+<source>Never Use</source>
+<translation>Non usare mai</translation>
+</message>
+<message id="mobile_data_option_ask">
+<source>Always Ask</source>
+<translation>Chiedi sempre</translation>
 </message>
 <message id="big_font">
 <source>Increase size for map labels</source>
@@ -965,6 +1128,21 @@
 <source>Follow the system</source>
 <translation>Segui il sistema</translation>
 </message>
+<message id="whats_new_auto_update_title">
+<extracomment>Autoupdate dialog on start</extracomment>
+<source>Update downloaded maps</source>
+<translation>Aggiorna le mappe scaricate</translation>
+</message>
+<message id="whats_new_auto_update_message">
+<extracomment>Autoupdate dialog on start</extracomment>
+<source>Updating maps keeps the information about objects up to date</source>
+<translation>L&#x27;aggiornamento delle mappe mantiene attuali le informazioni sugli oggetti</translation>
+</message>
+<message id="whats_new_auto_update_button_size">
+<extracomment>Autoupdate dialog on start</extracomment>
+<source>Update (%1)</source>
+<translation>Aggiorna (%1)</translation>
+</message>
 <message id="clear">
 <extracomment>Title for the &quot;Clear&quot; button on the Recently Deleted Lists screen.</extracomment>
 <source>Clear</source>
@@ -992,6 +1170,16 @@
 <extracomment>Default bookmark list name</extracomment>
 <source>My Places</source>
 <translation>I miei luoghi</translation>
+</message>
+<message id="maps_storage_internal">
+<extracomment>Internal storage type in Maps Storage settings (not accessible by the user)</extracomment>
+<source>Internal private storage</source>
+<translation>Memoria interna privata</translation>
+</message>
+<message id="maps_storage_removable">
+<extracomment>Removable external storage type in Maps Storage settings, e.g. an SD card</extracomment>
+<source>SD card</source>
+<translation>Scheda SD</translation>
 </message>
 <message id="category_wifi">
 <extracomment>Search category for WiFi access; any changes should be duplicated in categories.txt @category_wifi!</extracomment>
@@ -1505,6 +1693,16 @@
 <extracomment>About dialog: %@ placeholders are paths to license files. Preserve the Qt company name.</extracomment>
 <source>Qt 6 (C) The Qt Company Ltd. and other contributors. License texts: %1 and %2.</source>
 <translation>Qt 6 (C) The Qt Company Ltd. and other contributors. License texts: %1 and %2.</translation>
+</message>
+<message id="mobile_data_downloads_off">
+<extracomment>Sailfish OS: a map download was not started because mobile internet is off in the settings</extracomment>
+<source>Map downloads over mobile internet are turned off in the settings.</source>
+<translation>Map downloads over mobile internet are turned off in the settings.</translation>
+</message>
+<message id="maps_storage_restart">
+<extracomment>Sailfish OS: the maps are moved to the chosen folder when the app starts next time</extracomment>
+<source>The maps will be moved the next time Organic Maps starts. This can take several minutes.</source>
+<translation>The maps will be moved the next time Organic Maps starts. This can take several minutes.</translation>
 </message>
 </context>
 </TS>
