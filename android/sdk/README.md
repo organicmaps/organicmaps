@@ -114,9 +114,11 @@ the Google-compatible backend again. Initial acquisition remains bounded with
 approximate permission too. After any fix, including a cached one, coarse-only
 tracking has no loss deadline because Android can throttle updates beyond the
 requested interval.
-The normal update-timeout event still reaches listeners. Call
-`resumeLocationInForeground()` when the host returns to recheck tracking
-deadlines.
+The normal update-timeout event still reaches listeners. If no native provider
+is available, acquisition stops and `onLocationUnavailable()` lets the host
+offer a retry, precise permission, or location settings. Its default handler
+forwards to `onLocationUpdateTimeout()`. Call `resumeLocationInForeground()` when
+the host returns or gains precise permission to recheck tracking deadlines.
 
 Position mode and place-selection listeners are process-wide single listeners.
 Register them for the active host and remove them when that host ends. Selection

@@ -507,7 +507,8 @@ public class LocationHelperTest
     mNativeProviders.get(0).mListener.onLocationDisabled();
     assertFalse(mHelper.isActive());
     assertEquals(List.of(LocationState.ERROR_NOT_SUPPORTED), LocationStateShadow.sErrors);
-    verify(listener).onLocationUpdateTimeout();
+    verify(listener).onLocationUnavailable();
+    verify(listener, never()).onLocationUpdateTimeout();
     verify(listener, never()).onLocationDisabled();
     assertEquals(1, mNativeProviders.size());
   }

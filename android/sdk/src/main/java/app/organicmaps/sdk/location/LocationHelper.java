@@ -537,7 +537,9 @@ public class LocationHelper
     if (locationOn)
     {
       LocationState.nativeOnLocationError(LocationState.ERROR_NOT_SUPPORTED);
-      notifyLocationTimeoutListeners();
+      mListenersIterator.rewind();
+      while (mListenersIterator.hasNext())
+        mListenersIterator.next().onLocationUnavailable();
       return;
     }
 
