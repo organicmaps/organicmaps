@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "3party/succinct/bit_vector.hpp"
+#include "3party/succinct/broadword.hpp"
 
 #include <algorithm>
 #include <cstdint>
@@ -61,5 +62,23 @@ UNIT_TEST(SuccinctBitVectorBuilder_AppendsAndSwap)
   succinct::bit_vector other(&builder);
   TEST_EQUAL(other.size(), 1, ());
   TEST(!other[0], ());
+}
+
+// Check boundary and mixed words, including unsigned low-bit isolation at bit 63.
+UNIT_TEST(SuccinctBroadword_LsbMsb)
+{
+  for (int i = 0; i < 64; ++i)
+  {
+    uint64_t const bit = uint64_t{1} << i;
+    TEST_EQUAL(succinct::broadword::lsb(bit), i, ());
+    TEST_EQUAL(succinct::broadword::msb(bit), i, ());
+    // With all the bits above and below.
+    TEST_EQUAL(succinct::broadword::lsb(~(bit - 1)), i, ());
+    TEST_EQUAL(succinct::broadword::msb(bit | (bit - 1)), i, ());
+  }
+
+  unsigned long pos = 0;
+  TEST(!succinct::broadword::lsb(0, pos), ());
+  TEST(!succinct::broadword::msb(0, pos), ());
 }
 }  // namespace
