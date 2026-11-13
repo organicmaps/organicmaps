@@ -14,7 +14,6 @@ MwmContextBase::MwmContextBase(MwmValue & value, MwmSet::MwmId const & mwmId)
   , m_mwmId(mwmId)
   , m_vector(m_value.m_cont, m_value.GetHeader(), m_value.m_ftTable.get(), m_value.m_relTable.get(),
              m_value.m_metaDeserializer.get())
-  , m_index(m_value.m_cont.GetReader(INDEX_FILE_TAG))
 {}
 
 std::unique_ptr<FeatureType> MwmContextBase::GetFeature(uint32_t index) const
