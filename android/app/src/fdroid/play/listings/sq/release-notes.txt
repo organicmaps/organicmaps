@@ -1,9 +1,12 @@
-• OSM: 28 shtator; Wikipedia: 21 shtator
-• Rrugë alternative më të mira dhe vlerësime të mbërritjes
-• Caktim i ri optimizon renditjen e ndalesave
-• Butonat e rinj shtojnë ose zëvendësojnë ndalesat në rrugët e planifikuara
-• Rruga alternative e zgjedhur ruhet gjatë navigimit
-• Korrigjime dhe përmirësime në regjistrimin e gjurmëve
-• Importi i KMB-së është rregulluar
-• Rregullime dhe përmirësime të ndërfaqes
-…më shumë në omaps.org/news
+• Terren 3D, thellësi oqeanike, vija lartësie (m/ft), lartësi kudo
+• OSM: 10 nëntor
+• Import dhe shfaqje e zonave KML/KMZ/GeoJSON
+• Hollësi për linjat e transportit publik
+• Tregues i ri i shpejtësisë
+• Widget për regjistrimin e gjurmës
+• Lartësi GPS mbi nivelin e detit
+• Shigjeta drejtimi dhe theksim i gjurmëve
+• Opsione më vete për makinë, biçikletë e ecje
+• Kthim i rrugës bashkë me ndalesat
+• Rregulluar kontrollet e regjistrimit, orët e mbërritjes dhe mbylljet e Android Auto
+…omaps.org/news

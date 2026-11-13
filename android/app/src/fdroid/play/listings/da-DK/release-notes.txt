@@ -1,9 +1,12 @@
-• OSM-data: 28. september; Wikipedia-data: 21. september
-• Forbedrede alternative ruter og ankomstestimater
-• Ny indstilling optimerer rækkefølgen af mellemliggende stop
-• Nye knapper til at tilføje eller erstatte stop på en planlagt rute
-• Den valgte alternative rute forbliver valgt under navigationen
-• Sporoptagelse rettet og forbedret
-• Import af KMB-filer er rettet
-• Forbedringer og rettelser af brugergrænsefladen
-…flere detaljer på omaps.org/news
+• 3D-terræn og havdybder, højdekurver (m/ft), højde overalt
+• OSM-data pr. 10. november
+• Import og visning af KML/KMZ/GeoJSON-områder
+• Detaljer om kollektive ruter
+• Nydesignet hastighedsvisning
+• Widget til sporoptagelse
+• GPS-højde over gennemsnitlig havoverflade
+• Retningspile og fremhævning af spor
+• Separate indstillinger for bilkørsel, cykling og gang
+• Vend ruter med mellemstop om
+• Rettelser af optagelsesknapper, ankomsttider og nedbrud i Android Auto
+…mere på omaps.org/news

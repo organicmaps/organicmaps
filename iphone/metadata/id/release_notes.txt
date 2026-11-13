@@ -1,33 +1,55 @@
-## Perencanaan rute
-• Rute alternatif yang ditingkatkan beserta perkiraan waktu kedatangan
-• Ditambahkan tombol untuk menambahkan atau mengganti titik perhentian dalam rute yang telah direncanakan
-• Ditambahkan pengaturan untuk mengoptimalkan urutan titik perhentian perantara rute
-• Rute alternatif yang dipilih kini tetap dipertahankan saat navigasi menghitung ulang rute
-• Urutan titik perhentian rute kini telah dipulihkan setelah aplikasi dimulai ulang
+## Peta & medan
+• BARU: Medan 3D, kedalaman laut, garis kontur terperinci dalam meter dan kaki, serta ketinggian di titik mana pun pada peta
+• Data OpenStreetMap per 10 November, artikel Wikipedia per 1 November
+• Aliran air musiman bergaris putus-putus, label perairan lebih jelas, dan garis luar baru untuk jembatan rel
+• Ditambahkan pangkas rambut pria, studio Pilates, pemasang jendela, instalasi air, dan reservoir tertutup
+• Transliterasi dan tampilan label peta berbahasa Ibrani dan Arab diperbaiki
+• Mengurangi penggunaan memori dan memperbaiki crash saat mengganti gaya peta
 
-## Peta
-• Data OpenStreetMap per 28 September
-• Data Wikipedia per 21 September
-• Waduk kini terlihat saat peta diperkecil lebih jauh
-• Terowongan air tidak lagi ditampilkan di peta
-• Ikon stasiun dan pintu masuk Suzhou Metro telah diperbaiki
-• Telah diperbaiki kasus-kasus langka di mana label bergeser dari posisinya pada lapisan peta metro
+## Perutean & navigasi
+• Perencana rute diperbarui dengan tombol untuk membalik arah rute beserta semua perhentiannya
+• Pengaturan jalan yang ingin dihindari terpisah untuk mobil, sepeda, dan pejalan kaki
+• Hapus titik awal atau tujuan langsung dari perencana rute
+• Tambahkan tujuan baru meskipun rute sebelumnya tidak dapat dihitung
+• Peningkatan pemulihan rute, perhitungan ulang, rute alternatif, dan perkiraan durasi
+• Peningkatan perkiraan waktu kedatangan angkutan umum, rute pejalan kaki, dan penanda pintu masuk stasiun
+• Rute tersimpan tidak lagi kehilangan ruas awal atau memakai posisi lama
+• Memperbaiki peringatan kamera kecepatan yang sudah kedaluwarsa
+• Perbaikan penggantian titik rute saat mencapai batas perhentian dan indikator pengaturan rute yang terpotong
+
+## Penanda, jejak, dan area
+• BARU: Mengimpor dan menampilkan area dari berkas KML, KMZ, dan GeoJSON, termasuk area terisi, garis luar, dan lubang
+• Panah arah dan garis luar kontras untuk jejak terpilih
+• Membuka jejak dari daftar kini akan memilih titik awalnya
+• Cadangan rekaman jejak diperbarui otomatis setiap menit untuk pemulihan setelah crash
+• Berkas KML mempertahankan titik perhentian antara dan mode perjalanan dari rute yang disimpan
+• Penanda dan jejak diurutkan berdasarkan nama sesuai bahasa
+• Nama, deskripsi, dan gambar daftar penanda diperbarui saat dimuat ulang
+• Memperbaiki profil ketinggian setelah kembali ke peta dan saat melihat bagian datar atau yang diperbesar
+• Perbaikan crash saat menghapus jejak yang diedit dan kegagalan impor penanda pertama
+• Peningkatan impor berkas KML, GPX, dan GeoJSON
 
 ## CarPlay
-• Ditambahkan petunjuk manuver pada head-up display (HUD) mobil yang didukung dan dasbor CarPlay
-• Tombol CarPlay dan fitur pencarian telah diperbaiki
+• Daftar penanda diperbarui setelah diedit, dimuat ulang, atau dihapus
+• Perbaikan penanda yang hilang pada batas daftar dan crash saat memilih entri yang terhapus
 
-## Trek
-• Ditambahkan ikon mata untuk menyembunyikan trek tertentu
-• Memperbaiki bug dan meningkatkan perekaman trek
-• Masalah impor berkas KMB telah diperbaiki
+## Pencarian & unduhan
+• Saran pencarian mempertahankan aksen dan huruf kapital
+• Deteksi wilayah peta lebih baik, termasuk yang melintasi meridian 180°
+• Pembatalan, percobaan ulang, kelanjutan, dan unduhan peta di latar lebih baik
+• Memperbaiki jumlah peta yang terduplikasi dan ukuran pembaruan yang terlalu besar
+• Meningkatkan pencarian kategori di editor peta, penyortiran masakan, dan pengeditan nama dalam bahasa Norwegia Bokmål
 
-## Pencarian
-• Telah diperbaiki masalah pencarian saat area peta yang terlihat melintasi meridian 180° (±180° bujur)
-• Fitur pencarian berdasarkan kategori di Spotlight telah dipulihkan
+## Antarmuka Pengguna & terjemahan
+• Menambahkan bahasa Welsh
+• Meningkatkan penyortiran suara navigasi dan memperbaiki frasa pratinjau suara
+• Pratinjau angkutan umum lebih baik dengan lebih banyak simbol, nomor jalur yang dapat berganti baris, dan tata letak kanan ke kiri
+• Memperbaiki posisi kompas pada tata letak dari kanan ke kiri serta kontras teks rute dalam mode gelap
+• Tombol konfirmasi navigasi tetap dapat diakses dengan ukuran teks yang besar
+• Perbaikan saat menggeser dan menutup detail tempat serta membuka tautan peta berturut-turut
+• Perbaikan crash saat unduhan peta memperbarui detail tempat yang masih dimuat
+• Memperbaiki tautan menu dan Pengaturan serta penyorotan
+• Terjemahan, petunjuk suara, dan pilihan bahasa telah ditingkatkan
+• Tautan komunitas di bagian "Tentang" telah diperbaiki
 
-## UI
-• Jam operasional kini menampilkan “Tengah hari” untuk pukul 12:00 dan “Tengah malam” untuk pukul 00:00 atau 24:00
-• Berbagai bug telah diperbaiki dan antarmuka pengguna telah ditingkatkan
-• Terjemahan bahasa Inggris, Prancis, dan Asturian telah diperbaiki
-• Ditambahkan dukungan untuk memilih suara navigasi yang terpasang dan mendengarkan contohnya
+Lihat catatan rilis terperinci di organicmaps.app/id/news

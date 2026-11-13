@@ -1,9 +1,12 @@
-• OSM: 28 september; Wikipedia: 21 september
-• Betere alternatieve routes en geschatte aankomsttijden
-• Nieuwe instelling optimaliseert de volgorde van tussenstops
-• Met nieuwe knoppen kun je stops toevoegen of vervangen op geplande routes
-• De gekozen alternatieve route blijft behouden tijdens het navigeren
-• Opnemen van tracks verbeterd en fouten verholpen
-• KMB-import gerepareerd
-• UI-correcties en verbeteringen
-…meer op omaps.org/nl/news
+• 3D-terrein, oceaandieptes, hoogtelijnen (m/ft), hoogte op elk kaartpunt
+• OSM: 10 november
+• KML/KMZ/GeoJSON-gebieden importeren en bekijken
+• Details van openbaarvervoersroutes
+• Nieuwe snelheidsweergave
+• Widget voor trackopname
+• GPS-hoogte boven zeeniveau
+• Richtingspijlen en gemarkeerde tracks
+• Aparte opties voor autorijden, fietsen en wandelen
+• Routes met tussenstops omkeren
+• Opnamebediening, aankomsttijden en crashes in Android Auto verholpen
+…omaps.org/nl/news

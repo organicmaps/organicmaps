@@ -1,9 +1,12 @@
-• OSM: rugsėjo 28 d.; „Wikipedia“: rugsėjo 21 d.
-• Geresni alternatyvūs maršrutai ir numatomas atvykimo laikas
-• Naujas nustatymas optimizuoja tarpinių taškų tvarką
-• Nauji mygtukai leidžia pridėti arba pakeisti taškus planuojamuose maršrutuose
-• Naviguojant išlaikomas pasirinktas alternatyvus maršrutas
-• Trasų įrašymo pataisymai ir patobulinimai
-• Ištaisyta KMB importo klaida
-• Naudotojo sąsajos pataisymai ir patobulinimai
-…daugiau informacijos rasite omaps.org/lt/news
+• 3D reljefas, vandenynų gylis, horizontalės (m/ft), aukštis bet kur
+• Lapkričio 10 d. OSM duomenys
+• KML/KMZ/GeoJSON sričių importas ir rodymas
+• Viešojo transporto linijų detalės
+• Naujas greičio indikatorius
+• Trasos įrašymo valdiklis
+• GPS aukštis virš jūros lygio
+• Trasų krypties rodyklės ir paryškinimas
+• Atskiros parinktys automobiliui, dviračiui ir ėjimui
+• Maršruto apgręžimas su sustojimais
+• Įrašymo valdiklių, atvykimo laikų ir Android Auto strigčių pataisos
+…omaps.org/lt/news

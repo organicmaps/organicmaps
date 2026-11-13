@@ -1,33 +1,55 @@
-## Calcularea traseului
-• Rute alternative îmbunătățite și timpii de sosire estimați ai acestora
-• Au fost adăugate butoane pentru adăugarea sau înlocuirea unei opriri într-un traseu planificat
-• S-a adăugat o setare pentru optimizarea ordinii punctelor de oprire intermediare de-a lungul traseului
-• Traseul alternativ selectat este acum păstrat atunci când sistemul de navigație recalculează traseul
-• Ordinea opririlor de pe traseu este acum restabilită după repornirea aplicației
+## Hartă și teren
+• NOU: relief 3D, adâncimi oceanice, curbe de nivel detaliate în metri și picioare și altitudine în orice punct
+• Date OpenStreetMap din 10 noiembrie și articole Wikipedia din 1 noiembrie
+• Cursuri de apă intermitente trasate discontinuu, etichete de apă mai clare și contururi noi ale podurilor feroviare
+• Frizerii, studiouri de Pilates, montatori de ferestre, instalații de apă și rezervoare acoperite adăugate
+• Transliterare și afișare corectate pentru etichetele în ebraică și arabă
+• Consum redus de memorie și blocări remediate la schimbarea stilului hărții
 
-## Hartă
-• Date OpenStreetMap la data de 28 septembrie
-• Date din Wikipedia la data de 21 septembrie
-• Rezervoarele de apă sunt acum vizibile când harta este micșorată mai mult
-• Tunelurile de apă nu mai sunt afișate pe hartă
-• S-au corectat pictogramele stațiilor și intrărilor din metroul din Suzhou
-• S-au remediat cazuri rare în care etichetele se deplasau din poziția lor pe stratul hărții metroului
+## Rute și navigare
+• Planificare actualizată și buton pentru inversarea rutei, inclusiv a tuturor opririlor intermediare
+• Opțiuni de evitare separate pentru mașină, bicicletă și mers pe jos
+• Eliminați plecarea sau destinația direct din planificator
+• Alegeți o destinație nouă dacă nu se poate calcula ruta
+• Îmbunătățiri la refacerea și recalcularea rutelor, rutele alternative și estimarea duratei
+• Estimări de sosire, legături pietonale și marcaje de intrare în stații îmbunătățite pentru transportul public
+• Rutele salvate păstrează segmentul de început și folosesc poziția actualizată
+• Corectarea alertelor învechite despre radare
+• Remedierea înlocuirii punctelor la limita de opriri și a indicatorului de setări de rută trunchiat
+
+## Locuri preferate, trasee și zone
+• NOU: import și afișare de zone KML, KMZ și GeoJSON cu umpluturi, contururi și goluri
+• Săgeți de direcție și contur contrastant pentru traseele selectate
+• Deschiderea unui traseu din listă selectează începutul său
+• Copie automată a înregistrării traseului la fiecare minut pentru recuperare după o blocare
+• Fișierele KML păstrează opririle intermediare și modul de deplasare al rutelor salvate
+• Locurile preferate și traseele sunt sortate după nume conform limbii
+• Numele, descrierile și imaginile listelor de locuri preferate se actualizează la reîncărcare
+• Profiluri de altitudine corectate la revenirea la hartă și în secțiunile plane sau mărite
+• Blocări remediate la ștergerea traseelor editate și erori remediate la primul import de locuri preferate
+• Import KML, GPX și GeoJSON îmbunătățit
 
 ## CarPlay
-• Au fost adăugate instrucțiuni de manevră pe afișajele head-up (HUD) compatibile ale autovehiculelor și pe tabloul de bord CarPlay
-• S-au remediat problemele legate de butoanele CarPlay și de funcția de căutare
+• Listele de locuri preferate se actualizează după editări, reîncărcări și ștergeri
+• Remedierea intrărilor lipsă la limita listei și a blocărilor la selectarea intrărilor șterse
 
-## Trasee
-• S-a adăugat o pictogramă în formă de ochi pentru a ascunde traseele individuale
-• S-au remediat erorile și s-a îmbunătățit înregistrarea traseelor
-• S-a remediat problema importării fișierelor KMB
+## Căutare și descărcări
+• Sugestiile de căutare păstrează accentele și majusculele
+• Detectare mai bună a regiunilor de pe hartă, inclusiv dincolo de meridianul de 180°
+• Anulare, reîncercare, reluare și descărcare în fundal îmbunătățite pentru hărți
+• Corectarea numărării duble a hărților și a dimensiunilor exagerate ale actualizărilor
+• Căutare mai bună pe categorii în editor, sortare după bucătărie și editare mai bună a numelor în norvegiană bokmål
 
-## Căutare
-• S-au remediat problemele legate de căutări atunci când zona vizibilă a hărții traversează meridianul de 180° (longitudine ±180°)
-• S-a restabilit căutarea pe categorii în Spotlight
+## Interfață și traduceri
+• Limba galeză a fost adăugată
+• Sortare mai bună a vocilor de navigare și fraze de previzualizare corectate
+• Previzualizări ale transportului public cu mai multe simboluri, numere de linie pe mai multe rânduri și afișare de la dreapta la stânga
+• Poziția busolei corectată la afișarea de la dreapta la stânga și contrastul textului rutei corectat în modul întunecat
+• Butoanele de confirmare a navigării rămân accesibile cu text mare
+• Remedierea glisării și închiderii fișelor locurilor și a deschiderii consecutive a linkurilor către hartă
+• Blocare remediată când descărcarea hărții actualizează o fișă de loc încă în curs de încărcare
+• Linkuri și evidențiere corectate în meniu și în Setări
+• Traduceri îmbunătățite, indicații vocale și opțiuni de limbă
+• Linkurile comunității corectate în „Despre”
 
-## Interfața utilizatorului
-• Programul de funcționare afișează acum „Amiază” pentru ora 12:00 și „Miezul nopții” pentru ora 00:00 sau 24:00
-• S-au remediat diverse erori și s-a îmbunătățit interfața cu utilizatorul
-• Traduceri corectate în engleză, franceză și asturiană
-• S-a adăugat posibilitatea de a alege o voce de navigație instalată și de a asculta o mostră
+Notele complete de lansare la organicmaps.app/news

@@ -1,9 +1,12 @@
-• OSM: 28 sentyabr; Wikipedia: 21 sentyabr
-• Yaxshiroq muqobil yo'nalishlar va yetib kelish taxminlari
-• Yangi sozlama to'xtashlar tartibini optimallashtiradi
-• Yangi tugmalar rejalashtirilgan yo'nalishlardagi to'xtash joylarini qo'shadi yoki almashtiradi
-• Tanlangan muqobil yo'l navigatsiya paytida saqlanadi
-• Trek yozuvidagi xatolar tuzatildi va yozuv yaxshilandi
-• KMB importi tuzatildi
-• Foydalanuvchi interfeysi bo'yicha tuzatishlar va yaxshilanishlar
-…batafsil ma'lumot omaps.org/news
+• 3D relyef, okean chuqurligi, gorizontallar (m/ft), nuqta balandligi
+• 10-noyabrgacha OSM ma’lumoti
+• KML/KMZ/GeoJSON hududlarini importlash va ko‘rsatish
+• Jamoat transporti qatnovi tafsiloti
+• Yangi tezlik ko‘rsatkichi
+• Iz yozish vidjeti
+• O‘rtacha dengiz sathidan GPS balandligi
+• Yo‘nalish o‘qlari, izni ajratish
+• Mashina, velosiped, piyoda uchun alohida sozlama
+• Marshrutni bekatlari bilan teskari burish
+• Yozuv tugmalari, kelish vaqti va Android Auto yopilishi tuzatildi
+…omaps.org/news
