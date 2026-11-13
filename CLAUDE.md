@@ -23,6 +23,16 @@ The C++ core is accessed from platforms via bridging layers:
 - Android: JNI in `android/sdk/src/main/cpp/` -> Java `Framework.java` / `OrganicMaps.java`
 - See [docs/STRUCTURE.md](docs/STRUCTURE.md) for directory layout
 
+### iOS location stack
+`MWMLocationManager` (Obj-C++) is the central hub: it runs `CLLocationManager` for native GPS/heading
+and exposes `+processExternalGPSLocation:` / `+setExternalGPSActive:` for external sources.
+`ExternalGPSManager` (Swift, `iphone/Maps/Core/Location/`) connects to Bluetooth Classic GPS receivers
+via the ExternalAccessory framework, parses NMEA 0183 sentences, and feeds positions into
+`MWMLocationManager`. When an external GPS session is open, native `CLLocationManager` position updates
+are suppressed to prevent WiFi-based positions from overriding the external GPS fix.
+The MFi protocol string for each supported receiver must be listed in `UISupportedExternalAccessoryProtocols`
+in `iphone/Maps/OMaps.plist`.
+
 ## Code Style
 - C++ and Java format rules described in `.clang-format`
 - `.hpp/.cpp` files (not `.h/.cc`)
