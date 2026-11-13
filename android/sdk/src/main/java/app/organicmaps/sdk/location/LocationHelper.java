@@ -672,6 +672,9 @@ public class LocationHelper
   {
     if (isActive())
     {
+      // Coarse tracking can leave no pending check when precise permission is granted.
+      if (mFusedDeadlineNanos < 0 && mLastFreshFixNanos >= 0)
+        watchTrackingDeadline();
       checkFusedDeadline();
       return;
     }

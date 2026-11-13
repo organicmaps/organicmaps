@@ -343,6 +343,26 @@ public class LocationHelperTest
   }
 
   @Test
+  public void preciseUpgradeAfterCoarseDeadlineCancellationRestoresRecovery()
+  {
+    mUtils.when(() -> LocationUtils.checkFineLocationPermission(mContext)).thenReturn(false);
+    final Provider provider = startFused(BaseLocationProvider.StartupPhase.REGISTERED);
+    provider.emit(freshLocation(1000));
+    advance(LocationHelper.LOCATION_UPDATE_TIMEOUT_MS + 1);
+    assertTrue(mNativeProviders.isEmpty());
+    assertTrue(provider.mStarted);
+
+    mUtils.when(() -> LocationUtils.checkFineLocationPermission(mContext)).thenReturn(true);
+    mHelper.resumeLocationInForeground();
+
+    assertFalse(provider.mStarted);
+    assertEquals(1, mNativeProviders.size());
+    assertTrue(mNativeProviders.get(0).mStarted);
+    advance(LocationHelper.LOCATION_UPDATE_TIMEOUT_MS + 1);
+    assertEquals(1, mNativeProviders.size());
+  }
+
+  @Test
   public void oldHistoricalAndRepeatedFixesDoNotRefreshHealth()
   {
     advance(3_600_000);

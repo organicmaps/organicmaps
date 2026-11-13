@@ -1717,6 +1717,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (hasFineLocationPermission)
       {
         Logger.i(LOCATION_TAG, "ACCESS_FINE_LOCATION permission granted");
+        MwmApplication.from(this).getLocationHelper().resumeLocationInForeground();
       }
       else
       {
