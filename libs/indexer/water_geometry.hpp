@@ -17,7 +17,6 @@ inline char const kSectionTag[] = "water_geometry";
 inline uint32_t constexpr kVersion = 1;
 bool IsLine(std::vector<uint32_t> const & types);
 bool IsArea(std::vector<uint32_t> const & types);
-bool IsCoastline(std::vector<uint32_t> const & types);
 
 enum class Kind : uint8_t
 {

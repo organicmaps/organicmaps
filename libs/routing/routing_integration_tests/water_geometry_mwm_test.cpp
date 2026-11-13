@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "generator/coastlines_generator.hpp"
 #include "generator/feature_builder.hpp"
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 
@@ -209,19 +210,19 @@ UNIT_TEST(WaterMwm_EndpointJoinsDoNotSnapCrossOrUseClippingCuts)
   CheckStoredEndpointJoin({P(-2, -1), P(2, 1)}, {P(-2, 1), P(2, -1)}, false, 0, false, false, {0, -3, 3, 3});
 }
 
-UNIT_TEST(WaterMwm_CoastlineDoesNotMaskMappedWater)
+UNIT_TEST(WaterMwm_LandDoesNotMaskMappedWater)
 {
   classificator::Load();
-  auto const directory = base::JoinPath(GetPlatform().WritableDir(), "water_coastline_test");
+  auto const directory = base::JoinPath(GetPlatform().WritableDir(), "water_land_test");
   CHECK(Platform::MkDirRecursively(directory), ());
   SCOPE_GUARD(cleanup, [&] { Platform::RmDirRecursively(directory); });
-  platform::LocalCountryFile file(directory, platform::CountryFile("WaterCoastline"), 0);
+  platform::LocalCountryFile file(directory, platform::CountryFile("WaterLand"), 0);
   {
     tests_support::TestMwmBuilder builder(file, feature::DataHeader::MapType::Country);
     // Land background surrounds independently mapped inland water.
     feature::FeatureBuilder land;
     land.SetArea();
-    land.AddType(classif().GetTypeByPath({"natural", "coastline"}));
+    land.AddType(classif().GetTypeByPath({"natural", "land"}));
     land.AddPolygon({P(0, 0), P(3, 0), P(3, 3), P(0, 3), P(0, 0)});
     TEST(builder.Add(land), ());
     feature::FeatureBuilder lake;
@@ -245,6 +246,68 @@ UNIT_TEST(WaterMwm_CoastlineDoesNotMaskMappedWater)
   // Neither the land background nor the sea outside it supplies water geometry.
   for (auto const & finish : {P(0.5, 1.5), P(3.5, 1.5)})
     TEST(FindPath(geometry, P(1.5, 1.5), finish, false, neverCancelled, path) == ResultCode::OutsideWater, ());
+}
+
+UNIT_TEST(WaterMwm_CoastlinePreservesIslandsAndConnectsRiverMouth)
+{
+  classificator::Load();
+  auto const directory = base::JoinPath(GetPlatform().WritableDir(), "water_sea_test");
+  CHECK(Platform::MkDirRecursively(directory), ());
+  SCOPE_GUARD(cleanup, [&] { Platform::RmDirRecursively(directory); });
+  platform::LocalCountryFile file(directory, platform::CountryFile("WaterSea"), 0);
+  {
+    tests_support::TestMwmBuilder builder(file, feature::DataHeader::MapType::Country);
+    // Exercise the real land-to-sea conversion, not an assumed coastline convention.
+    CoastlineFeaturesGenerator coasts;
+    for (auto ring : std::vector<std::vector<P>>{{{-5, -5}, {0, -5}, {0, 5}, {-5, 5}, {-5, -5}},
+                                                 {{1, 1}, {2, 1}, {2, 2}, {1, 2}, {1, 1}},
+                                                 {{3, -5}, {5, -5}, {5, 5}, {2.2, 5}, {2.2, 2.2}, {3, 2.2}, {3, -5}}})
+    {
+      feature::FeatureBuilder land;
+      land.SetArea();
+      land.AddPolygon(std::move(ring));
+      coasts.AddRegionToTree(land);
+    }
+    for (auto & sea : coasts.GetFeatures(1))
+      if (sea.GetLimitRect().IsIntersect({-2, -1, 4, 4}))
+        TEST(builder.Add(sea), ());
+    auto river = Line(1, {P(-1, 0.5), P(0.5, 0.5)}, {"waterway", "river"});
+    TEST(builder.Add(river), ());
+    builder.Finish();
+  }
+  FrozenDataSource data;
+  auto const [id, status] = data.RegisterMap(file);
+  TEST(status == MwmSet::RegResult::Success, ());
+  auto const neverCancelled = [] { return false; };
+  auto geometry = routing::WaterGeometryProvider::ExtractFeatures(data, id, {-2, -1, 4, 4}, neverCancelled);
+  TEST(geometry.m_complete, ());
+  routing::water::Path path;
+  using routing::water::ResultCode;
+  auto const check = [&](P const & start, P const & finish)
+  {
+    TEST(FindPath(geometry, start, finish, false, neverCancelled, path) == ResultCode::Success, ());
+    TEST_EQUAL(path.m_landDistance, 0.0, ());
+  };
+  check(P(0.5, 0.5), P(2.5, 0.5));
+  TEST_EQUAL(path.m_points.size(), 2, ());
+  check(P(0.5, 1.5), P(2.5, 1.5));
+  TEST_GREATER(path.m_points.size(), 2, ());
+  TEST_GREATER(path.m_waterDistance, mercator::DistanceOnEarth(P(0.5, 1.5), P(2.5, 1.5)), ());
+  for (auto const & finish : {P(1.5, 1.5), P(3.5, 1.5)})
+    TEST(FindPath(geometry, P(0.5, 1.5), finish, false, neverCancelled, path) == ResultCode::OutsideWater, ());
+  // A headland blocks the diagonal, while the strait beside the island stays open.
+  check(P(2.6, 2.0), P(2.0, 2.6));
+  TEST_GREATER(path.m_points.size(), 2, ());
+  check(P(2.1, 1.5), P(2.1, 2.8));
+  TEST_EQUAL(path.m_points.size(), 2, ());
+  auto const start = geometry.m_lines.front().front().m_point;
+  check(start, P(2.5, 0.5));
+  check(P(2.5, 0.5), start);
+  // Geometry belonging to a downloaded neighbor can extend beyond its region.
+  // Sea triangles there must not override missing download coverage.
+  routing::WaterGeometryProvider::SetCoverage(geometry, {P(0.5, 0.5)},
+                                              [](auto const & rect) { return rect.maxX() < 2.0; }, neverCancelled);
+  TEST(FindPath(geometry, P(0.5, 0.5), P(2.5, 0.5), false, neverCancelled, path) == ResultCode::Unavailable, ());
 }
 
 UNIT_TEST(WaterMwm_StandardMwmPreservesIslandsWithoutInventingRiverJoins)
@@ -407,7 +470,7 @@ UNIT_TEST(WaterMwm_PreparedWaterSectionRemainsReadable)
   TEST_GREATER(path.m_waterDistance, mercator::DistanceOnEarth(checkpoints.GetStart(), checkpoints.GetFinish()), ());
 }
 
-UNIT_TEST(WaterMwm_StandardMapsShareWaterOnlyWithCombinedCoverage)
+void CheckSharedWaterCoverage(bool sea)
 {
   classificator::Load();
   auto const directory = base::JoinPath(GetPlatform().WritableDir(), "water_multi_map_test");
@@ -420,7 +483,10 @@ UNIT_TEST(WaterMwm_StandardMapsShareWaterOnlyWithCombinedCoverage)
     tests_support::TestMwmBuilder builder(file, feature::DataHeader::MapType::Country);
     feature::FeatureBuilder surface;
     surface.SetArea();
-    surface.AddType(classif().GetTypeByPath({"natural", "water", "lake"}));
+    surface.AddType(sea ? classif().GetTypeByPath({"natural", "coastline"})
+                        : classif().GetTypeByPath({"natural", "water", "lake"}));
+    if (sea)
+      surface.SetCoastCell(0);
     surface.AddPolygon({P(from, 0), P(to, 0), P(to, 1), P(from, 1), P(from, 0)});
     TEST(builder.Add(surface), ());
     builder.Finish();
@@ -497,6 +563,16 @@ UNIT_TEST(WaterMwm_StandardMapsShareWaterOnlyWithCombinedCoverage)
             .m_complete,
        ());
 }
+UNIT_TEST(WaterMwm_StandardMapsShareWaterOnlyWithCombinedCoverage)
+{
+  CheckSharedWaterCoverage(false);
+}
+
+UNIT_TEST(WaterMwm_SeaRequiresCombinedMapCoverage)
+{
+  CheckSharedWaterCoverage(true);
+}
+
 UNIT_TEST(WaterMwm_UnrelatedCityFeaturesDoNotExhaustWaterBudget)
 {
   classificator::Load();

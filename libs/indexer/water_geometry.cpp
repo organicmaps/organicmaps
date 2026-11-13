@@ -31,11 +31,6 @@ bool IsArea(std::vector<uint32_t> const & types)
   return checker(types);
 }
 
-bool IsCoastline(std::vector<uint32_t> const & types)
-{
-  return ftypes::IsCoastlineChecker::Instance()(types);
-}
-
 namespace
 {
 template <typename Sink>

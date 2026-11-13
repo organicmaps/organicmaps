@@ -358,10 +358,8 @@ water::Geometry WaterGeometryProvider::ExtractFeatures(DataSource const & dataSo
       auto const rect = feature.GetLimitRect(FeatureType::BEST_GEOMETRY);
       if (!rect.IsIntersect(bounds))
         return;
-      // Coastline polygons encode land, not missing coverage. Their bounding
-      // rectangles can contain mapped rivers and must not mask that water.
-      if (::water::IsCoastline(types))
-        return;
+      // Generated coastline cells contain sea triangles with land holes already
+      // removed. Read them like inland water; never infer water from empty space.
       // Unrelated buildings and roads must not exhaust the water geometry budget.
       if (++features > water::kMaxWaterFeatures)
       {

@@ -122,12 +122,12 @@ std::vector<m2::PointD> CheckRoute(std::string const & name, ms::LatLon const & 
   }
   auto const distances = route.GetWaterDistances();
   TEST(distances.has_value(), (name));
+  LOG(LINFO, (name, "distances", distances->m_waterMeters, distances->m_landMeters, distances->m_shortestConfirmed));
   TEST_LESS_OR_EQUAL(distances->m_landMeters, maxWalking, (name));
   TEST_GREATER_OR_EQUAL(distances->m_waterMeters, minWater, (name));
   TEST_GREATER(distances->m_waterMeters, 0.0, (name));
   if (waterOnly)
     TEST_EQUAL(distances->m_landMeters, 0.0, (name));
-  LOG(LINFO, (name, "distances", distances->m_waterMeters, distances->m_landMeters, distances->m_shortestConfirmed));
   return route.GetPoly().GetPoints();
 }
 
@@ -145,6 +145,18 @@ UNIT_TEST(WaterReported_NerisNemencia)
              {"Lithuania_East"}, true);
 }
 
+UNIT_TEST(WaterReported_LithuaniaBalticSea)
+{
+  CheckRoute("LithuaniaBalticSea", {55.58482353, 20.96625629}, {55.81964426, 20.96674091}, false, {"Lithuania_West"},
+             true);
+}
+
+UNIT_TEST(WaterReported_LithuaniaBalticSeaReverse)
+{
+  CheckRoute("LithuaniaBalticSeaReverse", {55.81964426, 20.96674091}, {55.58482353, 20.96625629}, false,
+             {"Lithuania_West"}, true);
+}
+
 UNIT_TEST(WaterReported_NerisBorderStart)
 {
   CheckRoute("NerisBorderStart", {54.82479565, 25.74941456}, {55.07294426, 24.29086921}, false, {"Lithuania_East"},
@@ -154,8 +166,8 @@ UNIT_TEST(WaterReported_NerisBorderStart)
 UNIT_TEST(WaterReported_NemunasDeltaNoFerry)
 {
   // PR #13968: two ferries via Nida were counted as 35.68 km of walking.
-  CheckRoute("NemunasDeltaNoFerry", {55.316761, 21.385615}, {55.336162, 21.219596}, false, {"Lithuania_West"}, false,
-             {}, true, 0, 8000.0, 15000.0);
+  // The stored lagoon surface permits a wholly water route instead.
+  CheckRoute("NemunasDeltaNoFerry", {55.316761, 21.385615}, {55.336162, 21.219596}, false, {"Lithuania_West"}, true);
 }
 
 UNIT_TEST(WaterReported_AlmereSouthGooimeer)

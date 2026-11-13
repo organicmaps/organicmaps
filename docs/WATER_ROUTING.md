@@ -57,10 +57,15 @@ cannot recover omitted bridge/aqueduct information.
 Bridge, aqueduct and lock restrictions are ignored for these measurements.
 Explicit tunnels and negative-layer water features are excluded from water
 geometry; nearby river endpoints may be connected by a pedestrian bypass.
-Coastline polygons describe land and do not provide ocean water. Their bounding
-rectangles are not missing coverage and must not mask independently mapped
-rivers or lakes, including near river mouths. Display geometry may be simplified,
-and underground connections may be absent from the map.
+Generated `natural-coastline` polygons in country MWMs describe sea water;
+the generator triangulates coastal cells with land and islands cut out. Water
+routing uses these best-available triangles together with river and lake geometry,
+including actual river-mouth intersections. It does not infer water from an empty
+map area, invert a feature bounding box, or use the low-detail WorldCoasts map.
+Only downloaded region coverage is usable, even where a stored coastal cell
+extends outside that region. Display geometry may be simplified, so islands or
+shore details omitted during map generation cannot be recovered by routing.
+Underground connections may also be absent from the map.
 Water routing does not assess navigability, depth, currents or access restrictions.
 A suggested portage does not establish that carrying a boat is physically necessary.
 
@@ -83,18 +88,47 @@ ends at `54.9005461209, 23.8703662445` and requires zero walking. These cases us
 explicit endpoints without intermediate points; shortest-route optimality is
 not asserted.
 
-After the border-coverage and ferry-exclusion fixes, macOS ARM64 Debug passed
-454 routing unit tests, 164 storage tests and all 62 Water integration tests
-(13 synthetic-MWM and 49 real-map tests), using a 1 MiB stack. The new near-border
-start report measured 186.15 km entirely on water with Lithuania_East alone.
-The Nemunas delta report measured 16.26 km water / 7.08 km walking, replacing
-the 35.68 km walking result that incorrectly included ferries via Nida.
+`WaterReported_LithuaniaBalticSea` preserves the marine report's exact explicit
+start `55.58482353, 20.96625629` and finish `55.81964426, 20.96674091`, without
+intermediate points, using `Lithuania_West.mwm` from catalog 260714. Its reverse
+is also retained. Both require zero walking. Excluding coastline triangles used
+to produce StartPointNotFound (code 5); including them yields 26.14 km on water.
+The forward desktop Debug check took approximately 0.2 seconds, using the
+existing direct-segment shortcut rather than constructing a visibility graph.
 
-The earlier long Neris reservoir route still measured 271.54 km water / 2.15 km
-walking forward and 247.62 km water / 0.78 km walking in reverse; the confluence
-control measured 225.34 km water with no walking. These are desktop checks;
-Android/iOS device UI testing and APK builds were not repeated for these local
-core fixes. Shortest-route optimality remains unconfirmed for the new reports.
+The Nemunas delta report now requires a wholly water route (12.31 km) through
+the stored lagoon geometry. Its previous 15 km minimum water-distance assertion
+represented the inland-only detour and has been replaced with zero allowed
+walking. Ferry exclusion remains enforced for all Water pedestrian legs.
+
+On macOS ARM64 Debug, the marine change passed all 454 routing unit tests and
+66 Water integration tests (15 synthetic-MWM and 51 real-map tests) with a 1 MiB
+stack. The `map` target also built successfully; clang-format and whitespace
+checks passed. Existing real-map routes retained their distances, apart from the
+intended Nemunas delta improvement. The near-border Neris start still produces
+186.15 km entirely on water; the long reservoir route remains 271.54 km water /
+2.15 km walking forward and 247.62 km water / 0.78 km walking in reverse.
+Fresh ARM64 Debug builds were also checked on Android 10 / API 29 Emulator
+and iPhone 16 Pro / iOS 18.6 Simulator on an Apple M2 Mac with 8 GiB RAM.
+Each platform completed ten UI route calculations: three runs each for the
+Baltic Sea, Nemunas delta and Nemenčia, plus the reverse sea route. All remained
+wholly on water. Android used the light theme and iOS the dark theme. Switching
+to Ruler during a long Neris calculation remained responsive.
+
+| Route | Android core calculation | iOS core calculation |
+| --- | --- | --- |
+| Baltic Sea, 26.14 km (both directions) | 0.038–0.160 s | 0.037–0.080 s |
+| Nemunas delta, 12.31 km | 1.784–2.542 s | 1.343–1.447 s |
+| Nemenčia control, 3.33 km | 0.133–0.281 s | 0.066–0.117 s |
+
+These are the router's internal elapsed times, excluding UI automation waits.
+The first measured run follows app launch and route/profile preparation; the
+following two are repeated calculations, not cold filesystem-cache benchmarks.
+The two test emulators ran sequentially after compilation finished. Android
+post-route PSS samples were 232–254 MiB; iOS RSS sampled once per second reached
+422 MiB. PSS and RSS are different metrics and cannot be compared directly;
+these short runs do not establish long-term memory behavior. Physical devices
+and Release-build performance have not been checked for the marine change.
 
 Checkpoints need downloaded map coverage. Packed map borders certify local
 coverage, including unions of neighboring regions; feature bounding boxes do
@@ -167,8 +201,8 @@ request's progress.
 
 `libs/routing/routing_integration_tests/water_reported_routes_test.cpp` retains
 the reported failing coordinates and My position flags, long routes in both
-directions, continuous-water controls and intermediate stops. Its 49 tests make
-50 route calculations: the Pomeranian regression runs with and without walking
+directions, continuous-water controls and intermediate stops. Its 51 tests make
+52 route calculations: the Pomeranian regression runs with and without walking
 graph reuse and compares the complete coordinate sequence. No reported route
 was removed when this duplicate calculation was consolidated.
 
@@ -180,14 +214,15 @@ Polish cases use `Poland_Pomeranian Voivodeship`; the cross-region case also
 requires `Poland_Kuyavian-Pomeranian Voivodeship`. The Nemenčia regression uses
 `Lithuania_East`; the long Neris cases use `Lithuania_East` and
 `Lithuania_West`. The border-start regression needs only `Lithuania_East`;
-the Nemunas delta ferry regression uses `Lithuania_West`.
+the Nemunas delta and Baltic Sea regressions use `Lithuania_West`.
 
 Useful phone checks include:
 
 | Start | Finish | Purpose |
 | --- | --- | --- |
 | 54.82479565, 25.74941456 | 55.07294426, 24.29086921 | Reported near-border start; require a water-only route with Lithuania_East |
-| 55.316761, 21.385615 | 55.336162, 21.219596 | Nemunas delta report; exclude the ferry detour via Nida |
+| 55.316761, 21.385615 | 55.336162, 21.219596 | Nemunas delta report; require a wholly water route through the lagoon |
+| 55.58482353, 20.96625629 | 55.81964426, 20.96674091 | Baltic Sea report; require zero walking in both directions |
 | 54.82539913135153, 25.748180598020554 | 54.900349439028986, 24.087091237306595 | Reported Neris–Kaunas Reservoir route, no intermediate points; also check reverse direction |
 | 54.82539913135153, 25.748180598020554 | 54.9005461209, 23.8703662445 | Water-only control to the Neris/Nemunas confluence |
 | 53.09396078, 18.16890286 | 54.30863264, 18.93380513 | Cross-region water-only route; also check reverse direction |
@@ -247,7 +282,7 @@ with its reverse in `WaterLong_KuyavianPomeranianReverse`. Both use ordinary
 2026-07-14 maps for Poland's Kuyavian-Pomeranian and Pomeranian voivodeships,
 explicit endpoints and no intermediate points, and require zero walking distance.
 
-After the capacity and coastline fixes, all 92 Water unit tests (with a 1 MiB
+After the earlier capacity and coverage fixes, all 92 Water unit tests (with a 1 MiB
 stack) and 53 Water integration tests (ten MWM and 43 real-map tests) passed on
 macOS ARM64. APK `2026.10.30-3-FDroid-debug` passed ten directions in the Android
 API 29 ARM64 emulator: all eight table directions and the Vistula-mouth report
@@ -261,5 +296,10 @@ The code-6 report from `53.09858890, 18.15192177` to
 `54.33892355, 18.94185916` is retained in `WaterReported_VistulaMouth` and
 `WaterLong_VistulaMouthReverse`, using the same two Polish maps, explicit
 endpoints and no intermediate points. Both require zero walking distance.
-`WaterMwm_CoastlineDoesNotMaskMappedWater` separately checks mapped water inside
-a coastline land polygon and rejects routes onto land or unsupported sea.
+`WaterMwm_LandDoesNotMaskMappedWater` checks that a land background neither
+masks independently mapped inland water nor becomes water itself.
+`WaterMwm_CoastlinePreservesIslandsAndConnectsRiverMouth` uses the actual
+coastline generator to test direct sea travel, island/headland detours, an open
+strait, river-mouth connectivity in both directions, and rejection of land and
+uncovered sea. `WaterMwm_SeaRequiresCombinedMapCoverage` checks adjacent coastal
+cells, missing neighbors, partial coverage, clipping and cancellation.
