@@ -28,6 +28,7 @@ on:
       - data/organic_maps_emoji/**
       - data/sound-strings/**
       - data/strings/**
+      - '!data/strings/types_strings.txt'
       - docs/**
       - packaging/**
       - xcode/**
@@ -67,4 +68,5 @@ jobs:
           # 29.4.2 blocks the 32-bit socket calls of the SDK tools.
           docker run --rm --security-opt seccomp=unconfined -v "$PWD:/home/mersdk/src" -w /home/mersdk/src $SDK_IMAGE bash -ec "
             sb2 -t $SDK_TARGET cmake -B build -DSAILFISH=ON -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=OFF
-            sb2 -t $SDK_TARGET cmake --build build --target platform location_service drape -j \$(nproc)"
+            sb2 -t $SDK_TARGET cmake --build build --target platform location_service drape qt_translations_check -j \$(nproc)
+            QT_QPA_PLATFORM=minimal sb2 -t $SDK_TARGET ./build/qt_translations_check"

@@ -34,6 +34,8 @@ UNIT_TEST(Translations_PreferenceOrderAndLocaleVariants)
                                              {{"de@euro"}, "de"},
                                              {{"pt_BR.UTF-8"}, "pt-BR"},
                                              {{"pt-br"}, "pt-BR"},
+                                             {{"pt-BR-u-hc-h12"}, "pt-BR"},
+                                             {{"fr-CA-u-ca-gregory"}, "fr-CA"},
                                              {{"en_GB.UTF-8"}, "en-GB"},
                                              {{"fr_CA.UTF-8"}, "fr-CA"},
                                              {{"eo", "fr"}, "fr"},
@@ -43,6 +45,7 @@ UNIT_TEST(Translations_PreferenceOrderAndLocaleVariants)
   {
     auto translator = qt::InstallTranslator(App(), test.m_preferred);
     TEST_EQUAL(translator->language().toStdString(), test.m_language, (test.m_preferred));
+    TEST_EQUAL(translator->objectName().toStdString(), test.m_language, (test.m_preferred));
     TEST_NOT_EQUAL(qt::Tr("download_maps").toStdString(), "download_maps", (test.m_language));
   }
 }
