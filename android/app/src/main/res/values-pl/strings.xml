@@ -849,8 +849,8 @@
     <string name="outdoor_seating">Siedzenia na zewnątrz</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">Aby uzyskać najbardziej dokładną nawigację, zalecamy wyłączenie trybu oszczędzania energii w ustawieniach baterii telefonu.</string>
-    <!-- Title of the one-time warning about battery optimization when starting track recording on Android. -->
-    <string name="background_recording_warning_title">Ostrzeżenie o rejestrowaniu śladu w tle</string>
+    <!-- Title of the one-time Android dialog shown when starting track recording, warning that battery restrictions may interrupt it. -->
+    <string name="background_recording_warning_title">Zapis śladu może zostać przerwany</string>
     <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
     <string name="background_recording_warning_message">Aby zapis śladu nie został przerwany przy wyłączonym ekranie, wyłącz optymalizację baterii dla Organic Maps. Na urządzeniach Samsung dodaj aplikację do listy „Nigdy nie usypiaj aplikacji automatycznie”.</string>
     <!-- Prompt to start recording a track. -->

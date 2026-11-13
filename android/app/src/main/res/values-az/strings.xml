@@ -835,8 +835,8 @@
     <string name="outdoor_seating">Çöldə oturma</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">Ən dəqiq naviqasiya üçün telefonun batareya parametrlərində enerjiyə qənaət rejimini söndürməyi tövsiyə edirik.</string>
-    <!-- Title of the one-time warning about battery optimization when starting track recording on Android. -->
-    <string name="background_recording_warning_title">Arxa planda qeyd barədə xəbərdarlıq</string>
+    <!-- Title of the one-time Android dialog shown when starting track recording, warning that battery restrictions may interrupt it. -->
+    <string name="background_recording_warning_title">Marşrut qeydi dayana bilər</string>
     <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
     <string name="background_recording_warning_message">Ekran söndürüldükdə marşrutun qeydinin dayanmaması üçün Organic Maps-i batareya optimallaşdırmasından istisna edin. Samsung cihazlarında onu «Heç vaxt yuxu rejiminə keçməyən tətbiqlər» siyahısına əlavə edin.</string>
     <!-- Prompt to start recording a track. -->
