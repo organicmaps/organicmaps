@@ -24,6 +24,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationChannelCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.app.PendingIntentCompat;
 import androidx.core.app.ServiceCompat;
 import androidx.core.content.ContextCompat;
 import app.organicmaps.sdk.Framework;
@@ -146,13 +147,11 @@ public class NavigationService extends Service implements LocationListener
     if (mNotificationBuilder != null)
       return mNotificationBuilder;
 
-    final int FLAG_IMMUTABLE = Build.VERSION.SDK_INT < Build.VERSION_CODES.M ? 0 : PendingIntent.FLAG_IMMUTABLE;
-
     final Context appContext = context.getApplicationContext();
     final Intent exitIntent = new Intent(appContext, NavigationService.class);
     exitIntent.setAction(STOP_NAVIGATION);
     final PendingIntent exitPendingIntent =
-        PendingIntent.getService(appContext, 0, exitIntent, PendingIntent.FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
+        PendingIntentCompat.getService(appContext, 0, exitIntent, PendingIntent.FLAG_UPDATE_CURRENT, false);
 
     mNotificationBuilder = new NotificationCompat.Builder(appContext, CHANNEL_ID)
                                .setCategory(NotificationCompat.CATEGORY_NAVIGATION)

@@ -4,6 +4,7 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.POST_NOTIFICATIONS;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
+import android.annotation.SuppressLint;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -22,6 +23,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationChannelCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.app.PendingIntentCompat;
 import androidx.core.app.ServiceCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LiveData;
@@ -100,9 +102,8 @@ public class TrackRecordingService
   @NonNull
   public static PendingIntent createContentPendingIntent(@NonNull Context context)
   {
-    final int FLAG_IMMUTABLE = Build.VERSION.SDK_INT < Build.VERSION_CODES.M ? 0 : PendingIntent.FLAG_IMMUTABLE;
     final Intent contentIntent = new Intent(context, MwmActivity.class);
-    return PendingIntent.getActivity(context, 0, contentIntent, PendingIntent.FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
+    return PendingIntentCompat.getActivity(context, 0, contentIntent, PendingIntent.FLAG_UPDATE_CURRENT, false);
   }
 
   private PendingIntent getPendingIntent(@NonNull Context context)
@@ -117,11 +118,10 @@ public class TrackRecordingService
     if (mExitPendingIntent != null)
       return mExitPendingIntent;
 
-    final int FLAG_IMMUTABLE = Build.VERSION.SDK_INT < Build.VERSION_CODES.M ? 0 : PendingIntent.FLAG_IMMUTABLE;
     final Intent exitIntent = new Intent(context, TrackRecordingService.class);
     exitIntent.setAction(STOP_TRACK_RECORDING);
     mExitPendingIntent =
-        PendingIntent.getService(context, 1, exitIntent, PendingIntent.FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
+        PendingIntentCompat.getService(context, 1, exitIntent, PendingIntent.FLAG_UPDATE_CURRENT, false);
     return mExitPendingIntent;
   }
 
@@ -188,6 +188,7 @@ public class TrackRecordingService
   //   super.onTaskRemoved(rootIntent);
   // }
 
+  @SuppressLint("InlinedApi") // ServiceCompat ignores the service type before API 29.
   @Override
   public int onStartCommand(@NonNull Intent intent, int flags, int startId)
   {
@@ -229,13 +230,8 @@ public class TrackRecordingService
     Logger.i(TAG, "Starting Track Recording Foreground service");
     try
     {
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
-        ServiceCompat.startForeground(this, TrackRecordingService.TRACK_REC_NOTIFICATION_ID,
-                                      getNotificationBuilder(this).build(),
-                                      ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION);
-      else
-        ServiceCompat.startForeground(this, TrackRecordingService.TRACK_REC_NOTIFICATION_ID,
-                                      getNotificationBuilder(this).build(), 0);
+      ServiceCompat.startForeground(this, TRACK_REC_NOTIFICATION_ID, getNotificationBuilder(this).build(),
+                                    ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION);
     }
     catch (IllegalStateException | SecurityException e)
     {
