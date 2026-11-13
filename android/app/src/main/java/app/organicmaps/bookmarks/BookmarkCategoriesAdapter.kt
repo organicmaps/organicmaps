@@ -24,7 +24,7 @@ class BookmarkCategoriesAdapter(
 
     private enum class RowType { HEADER, CATEGORY, ACTION }
 
-    /** The rows of the card below the lists, in the order they are shown. */
+    /** The rows of the card above the lists. */
     private enum class Action(
         @param:DrawableRes val icon: Int,
         @param:StringRes val title: Int,
@@ -51,12 +51,12 @@ class BookmarkCategoriesAdapter(
     }
 
     private fun rowTypeAt(position: Int): RowType = when {
-        position < HEADER_COUNT -> RowType.HEADER
-        position < HEADER_COUNT + categoryCount -> RowType.CATEGORY
-        else -> RowType.ACTION
+        position < Action.entries.size -> RowType.ACTION
+        position < Action.entries.size + HEADER_COUNT -> RowType.HEADER
+        else -> RowType.CATEGORY
     }
 
-    override fun getItemCount(): Int = if (categoryCount == 0) 0 else HEADER_COUNT + categoryCount + Action.entries.size
+    override fun getItemCount(): Int = if (categoryCount == 0) 0 else Action.entries.size + HEADER_COUNT + categoryCount
 
     override fun getItemViewType(position: Int): Int = rowTypeAt(position).ordinal
 
@@ -84,11 +84,10 @@ class BookmarkCategoriesAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val index = position - HEADER_COUNT
         when (rowTypeAt(position)) {
+            RowType.ACTION -> (holder as GeneralViewHolder).bindAction(position)
             RowType.HEADER -> (holder as HeaderViewHolder).bindHeader()
-            RowType.CATEGORY -> (holder as CategoryViewHolder).bindCategory(index)
-            RowType.ACTION -> (holder as GeneralViewHolder).bindAction(index - categoryCount)
+            RowType.CATEGORY -> (holder as CategoryViewHolder).bindCategory(position - Action.entries.size - HEADER_COUNT)
         }
     }
 
