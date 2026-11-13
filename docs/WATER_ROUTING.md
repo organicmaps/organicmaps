@@ -130,6 +130,12 @@ post-route PSS samples were 232–254 MiB; iOS RSS sampled once per second reach
 these short runs do not establish long-term memory behavior. Physical devices
 and Release-build performance have not been checked for the marine change.
 
+Water checks the maps containing every checkpoint before routing. Missing
+checkpoint maps use the normal download prompt; the check does not infer
+intermediate regions from a road route. Countryless sea points still require
+the water geometry coverage check. Missing coverage elsewhere remains unknown,
+and is not converted into a speculative list of maps to download.
+
 Checkpoints need downloaded map coverage. Packed map borders certify local
 coverage, including unions of neighboring regions; feature bounding boxes do
 not. Queries use packed-coordinate precision rather than requiring a large
@@ -222,6 +228,7 @@ Useful phone checks include:
 | --- | --- | --- |
 | 54.82479565, 25.74941456 | 55.07294426, 24.29086921 | Reported near-border start; require a water-only route with Lithuania_East |
 | 55.316761, 21.385615 | 55.336162, 21.219596 | Nemunas delta report; require a wholly water route through the lagoon |
+| 54.71577130, 25.27821850 (My position) | 57.24266941, 24.16273648 | Missing Latvia with Lithuania_East downloaded; require the Latvia download request |
 | 55.58482353, 20.96625629 | 55.81964426, 20.96674091 | Baltic Sea report; require zero walking in both directions |
 | 54.82539913135153, 25.748180598020554 | 54.900349439028986, 24.087091237306595 | Reported Neris–Kaunas Reservoir route, no intermediate points; also check reverse direction |
 | 54.82539913135153, 25.748180598020554 | 54.9005461209, 23.8703662445 | Water-only control to the Neris/Nemunas confluence |

@@ -508,6 +508,9 @@ void RoutingManager::SetRouterImpl(RouterType type)
     router = std::make_unique<RulerRouter>();
   else if (type == RouterType::Water)
   {
+    absentFinder = std::make_unique<AbsentRegionsFinder>([this](m2::PointD const & point)
+    { return m_callbacks.m_countryInfoGetter().GetRegionCountryId(point); }, [this](std::string const & country)
+    { return m_callbacks.m_dataSourceGetter().GetMwmIdByCountryFile(platform::CountryFile(country)).IsAlive(); });
     auto provider = std::make_shared<WaterGeometryProvider>(
         m_callbacks.m_dataSourceGetter(), [this](std::string const & country, m2::RectD const & bounds)
     { return m_callbacks.m_countryInfoGetter().IsRectCoveredByRegion(country, bounds); },

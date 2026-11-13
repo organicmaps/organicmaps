@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "routing/absent_regions_finder.hpp"
 #include "routing/index_router.hpp"
 #include "routing/route.hpp"
 #include "routing/water_geometry_provider.hpp"
@@ -22,6 +23,7 @@
 
 #include <ctime>
 #include <limits>
+#include <set>
 #include <string>
 #include <vector>
 
@@ -406,3 +408,17 @@ UNIT_TEST(WaterLong_NerisConfluence)
              {"Lithuania_East", "Lithuania_West"}, true);
 }
 }  // namespace water_reported_routes_test
+
+UNIT_TEST(WaterReported_MissingLatvia)
+{
+  using namespace routing;
+  auto info = storage::CountryInfoReader::CreateCountryInfoGetter(GetPlatform());
+  AbsentRegionsFinder finder([&](auto const & point) { return info->GetRegionCountryId(point); },
+                             [](auto const & country) { return country == "Lithuania_East"; });
+  Checkpoints checkpoints(mercator::FromLatLon(54.71577130, 25.27821850),
+                          mercator::FromLatLon(57.24266941, 24.16273648));
+  checkpoints.SetStartIsMyPosition(true);
+  RouterDelegate delegate;
+  TEST(finder.GenerateAbsentRegions(checkpoints, delegate) == RouterResultCode::NeedMoreMaps, ());
+  TEST_EQUAL(finder.GetAbsentRegions(), (std::set<std::string>{"Latvia"}), ());
+}
