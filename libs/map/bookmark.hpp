@@ -9,6 +9,9 @@
 
 #include "drape/color.hpp"
 
+#include <atomic>
+#include <memory>
+#include <mutex>
 #include <optional>
 #include <string>
 #include <vector>
@@ -120,6 +123,15 @@ public:
   friend class BookmarkManager;
 
 private:
+  // A queued save owns its data after the category is removed. Share its cancellation state and serialize
+  // deletion with an in-flight save so that neither can recreate the file after deletion has completed.
+  struct FileSaveState
+  {
+    std::mutex m_mutex;
+    std::atomic<size_t> m_pendingCount = 0;
+    bool m_cancelled = false;
+  };
+  std::shared_ptr<FileSaveState> m_fileSaveState = std::make_shared<FileSaveState>();
   // Stores file name from which bookmarks were loaded.
   std::string m_file;
   bool m_autoSave = true;

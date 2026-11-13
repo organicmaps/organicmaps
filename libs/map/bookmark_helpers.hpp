@@ -118,7 +118,8 @@ std::string RemoveInvalidSymbols(std::string const & name);
 // are returned unchanged.
 std::string TruncateToValidFileName(std::string name);
 std::string GenerateUniqueFileName(std::string const & path, std::string name, std::string_view ext = kKmlExtension);
-std::string GenerateValidAndUniqueTrashedFilePath(std::string const & fileName);
+// Moves an existing file into the trash. An absent file is already deleted.
+bool MoveBookmarkFileToTrash(std::string const & filePath);
 std::string GenerateValidAndUniqueFilePath(std::string const & fileName, FileType const fileType);
 /// @}
 
