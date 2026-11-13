@@ -1,0 +1,55 @@
+name: Car Build (fast APK)
+# Manual build of an optimized (release-like, minified) APK for an Android head unit.
+# Uses the "profileable" build type: optimized like release, signed with the debug key,
+# so no secrets are needed. Installs as app.organicmaps.web.profileable.
+on:
+  workflow_dispatch: # Run it from the Actions tab -> "Car Build (fast APK)" -> Run workflow
+
+env:
+  JAVA_HOME: /usr/lib/jvm/temurin-21-jdk-amd64
+
+jobs:
+  build:
+    name: Build ${{ matrix.arch }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [arm64, arm32] # try arm64 first; use arm32 if the head unit refuses it
+
+    steps:
+      - name: Install build tools
+        shell: bash
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y ninja-build
+
+      - name: Checkout sources
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 200 # needed by the versioning script
+
+      - name: Parallel submodules checkout
+        shell: bash
+        run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
+
+      - name: Configure ccache
+        uses: hendrikmuhs/ccache-action@v1.2.24
+        with:
+          key: car-build-${{ matrix.arch }}
+
+      - name: Compile WebProfileable (${{ matrix.arch }})
+        shell: bash
+        working-directory: android
+        env:
+          CMAKE_C_COMPILER_LAUNCHER: ccache
+          CMAKE_CXX_COMPILER_LAUNCHER: ccache
+        run: ./gradlew -P${{ matrix.arch }} assembleWebProfileable
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v7
+        with:
+          name: car-apk-${{ matrix.arch }}
+          path: android/app/build/outputs/apk/**/OrganicMaps-*.apk
+          if-no-files-found: error
+          retention-days: 30
