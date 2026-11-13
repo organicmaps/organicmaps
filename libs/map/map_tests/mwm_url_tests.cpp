@@ -42,6 +42,22 @@ UNIT_TEST(MapApiSmoke)
   TEST_EQUAL(test.GetGlobalBackUrl(), "https://organicmaps.app", ());
 }
 
+UNIT_TEST(MapApiFeatureMatching)
+{
+  ParsedMapApi test;
+  TEST_EQUAL(test.SetUrlAndParse("om://map?match=none&ll=1,2"), UrlType::Incorrect, ());
+  TEST_EQUAL(test.SetUrlAndParse("om://map?ll=1,2&match=none&ll=3,4&ll=5,6&match=unknown"), UrlType::Map, ());
+  auto const & points = test.GetMapPoints();
+  TEST_EQUAL(points.size(), 3, ());
+  TEST(!points[0].m_matchFeature, ());
+  TEST(points[1].m_matchFeature, ("The policy belongs to the preceding point only."));
+  TEST(points[2].m_matchFeature, ("Unknown values preserve the default."));
+  TEST_EQUAL(test.SetUrlAndParse("om://map?ll=1,2"), UrlType::Map, ());
+  TEST(test.GetMapPoints()[0].m_matchFeature, ("The policy must not leak into the next request."));
+  TEST_EQUAL(test.SetUrlAndParse("geo:1,2?q=1,2(Shared)"), UrlType::Map, ());
+  TEST(test.GetMapPoints()[0].m_matchFeature, ("Generic geo links retain feature matching."));
+}
+
 UNIT_TEST(RouteApiSmoke)
 {
   string const urlString = "mapswithme://route?sll=1,1&saddr=name0&dll=2,2&daddr=name1&type=vehicle";
