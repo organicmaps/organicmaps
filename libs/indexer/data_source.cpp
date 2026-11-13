@@ -40,7 +40,7 @@ public:
     /// - Refactor FeatureSource with ASSERT/CHECK inside instead of the silent skip.
     auto src = m_factory(handle);
 
-    MwmValue const * mwmValue = handle.GetValue();
+    MwmValue * mwmValue = handle.GetValue();
     if (mwmValue)
     {
       // Untouched (original) features reading. Applies covering |cov| to geometry index, gets
@@ -56,12 +56,12 @@ public:
 
       // Use last coding scale for covering (see index_builder.cpp).
       covering::Intervals const & intervals = cov.Get(lastScale);
-      ScaleIndex<ModelReaderPtr> index(mwmValue->m_cont.GetReader(INDEX_FILE_TAG));
+      auto const & index = mwmValue->GetScaleIndex();
 
       // iterate through intervals
       for (auto const & i : intervals)
       {
-        index.ForEachInIntervalAndScale(i.first, i.second, scale, [&](uint64_t /* key */, uint32_t value)
+        index.ForEachInIntervalAndScale(i.first, i.second, scale, [&](uint32_t value)
         {
           if (checkUnique(value))
             m_fn(value, *src);
