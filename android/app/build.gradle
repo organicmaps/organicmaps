@@ -368,11 +368,11 @@ tasks.register("prepareGoogleReleaseListing") {
     final targetDir = new File("${projectDir}/src/$targetFlavor/play/listings")
     final sourceFiles = fileTree(dir: sourceDir,
         include: '**/*.txt', exclude: "**/*-${targetFlavor}.txt")
-    // Locales that exist in F-Droid listings but are not supported by Google Play.
-    final googleUnsupportedLocales = ['as', 'bo', 'bs', 'jv', 'mai', 'mi', 'or', 'ug', 'uz']
+    final googleLocales = new groovy.json.JsonSlurper().parse(
+        rootProject.file('../tools/python/google_play_locales.json')) as Set
     sourceFiles.each { File sourceFile ->
       final locale = sourceFile.parentFile.getName()
-      if (locale in googleUnsupportedLocales)
+      if (!(locale in googleLocales))
         return
       final targetLocaleDir = new File(targetDir, locale)
       if (!targetLocaleDir.isDirectory())
@@ -387,6 +387,28 @@ tasks.register("prepareGoogleReleaseListing") {
       into targetDir
     }
   }
+}
+
+def googleMetadataChecker = rootProject.file('../tools/python/check_store_metadata.py')
+def validateGoogleReleaseNotes = tasks.register('validateGoogleReleaseNotes', Exec) {
+  group = 'publishing'
+  mustRunAfter 'prepareGoogleReleaseListing'
+  commandLine googleMetadataChecker, 'google'
+}
+def validateGoogleReleasePlayResources = tasks.register('validateGoogleReleasePlayResources', Exec) {
+  group = 'publishing'
+  dependsOn 'generateGoogleReleasePlayResources'
+  doFirst {
+    def resources = tasks.named('generateGoogleReleasePlayResources').get().resDir.get().asFile
+    commandLine googleMetadataChecker, 'google', '--generated', resources
+  }
+}
+tasks.matching { it.name == 'generateGoogleReleasePlayResources' }.configureEach {
+  dependsOn validateGoogleReleaseNotes
+}
+tasks.matching { it.name in ['publishGoogleReleaseBundle', 'publishGoogleReleaseApk',
+                            'publishGoogleReleaseListing', 'promoteGoogleReleaseArtifact'] }.configureEach {
+  dependsOn validateGoogleReleasePlayResources
 }
 
 play {
