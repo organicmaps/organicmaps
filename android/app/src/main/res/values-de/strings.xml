@@ -704,6 +704,8 @@
     <string name="moreyear_ago_sorttype">Vor über einem Jahr</string>
     <string name="near_me_sorttype">In meiner Nähe</string>
     <string name="others_sorttype">Sonstiges</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">Die Navigation kann nicht gestartet werden. Bitte versuche es erneut.</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Jetzt geschlossen</string>
     <string name="opens_tomorrow_at">Öffnet morgen um %s</string>

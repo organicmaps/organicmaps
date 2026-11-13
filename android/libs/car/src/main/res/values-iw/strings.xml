@@ -101,6 +101,8 @@
     <string name="by_date">לפי תאריך</string>
     <!-- Android -->
     <string name="by_name">לפי שם</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">לא ניתן להפעיל את הניווט. אנא נסה שוב.</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">מוריד</string>

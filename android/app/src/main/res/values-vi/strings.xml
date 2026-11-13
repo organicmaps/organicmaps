@@ -699,6 +699,8 @@
     <string name="moreyear_ago_sorttype">Hơn một năm trước</string>
     <string name="near_me_sorttype">Ở gần tôi</string>
     <string name="others_sorttype">Khác</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">Không thể khởi động tính năng dẫn đường. Vui lòng thử lại.</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Hiện đã đóng</string>
     <string name="opens_tomorrow_at">Mở cửa vào ngày mai tại %s</string>

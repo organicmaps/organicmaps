@@ -702,6 +702,8 @@
     <string name="moreyear_ago_sorttype">Duela urtebete baino gehiago</string>
     <string name="near_me_sorttype">Nigandik gertu</string>
     <string name="others_sorttype">Beste batzuk</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">Ezinezkoa da nabigazioa hastea. Mesedez, saiatu berriro.</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Orain itxita</string>
     <string name="opens_tomorrow_at">Bihar %sean irekiko da</string>

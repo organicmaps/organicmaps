@@ -705,6 +705,8 @@
     <string name="moreyear_ago_sorttype">Pred viac ako rokom</string>
     <string name="near_me_sorttype">Blízko mňa</string>
     <string name="others_sorttype">Iné</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">Navigáciu sa nepodarilo spustiť. Skúste to prosím znova.</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Teraz zatvorené</string>
     <string name="opens_tomorrow_at">Otvoria zajtra o %s</string>

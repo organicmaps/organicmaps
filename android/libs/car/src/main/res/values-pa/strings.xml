@@ -17,4 +17,8 @@
     <string name="bookmarks">ਬੁੱਕਮਾਰਕ</string>
     <!-- Settings button in system menu -->
     <string name="settings">ਸੈਟਿੰਗਾਂ</string>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">ਨੈਵੀਗੇਸ਼ਨ ਸ਼ੁਰੂ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
 </resources>

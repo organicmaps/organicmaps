@@ -703,6 +703,8 @@
     <string name="moreyear_ago_sorttype">Cu mai mult de un an în urmă</string>
     <string name="near_me_sorttype">Lângă mine</string>
     <string name="others_sorttype">Altele</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">Nu se poate porni navigarea. Vă rugăm să încercați din nou.</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Închis acum</string>
     <string name="opens_tomorrow_at">Deschide mâine la %s</string>

@@ -710,6 +710,8 @@
     <string name="moreyear_ago_sorttype">Více než před rokem</string>
     <string name="near_me_sorttype">Blízko mě</string>
     <string name="others_sorttype">Ostatní</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">Nelze spustit navigaci. Zkuste to prosím znovu.</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Nyní je zavřeno</string>
     <string name="opens_tomorrow_at">Otevírá zítra v %s</string>

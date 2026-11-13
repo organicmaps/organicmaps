@@ -43,6 +43,8 @@
     <string name="minute">min</string>
     <string name="driving_options_title">Opciones d’encaminamientu</string>
     <string name="trip_finished">Aportesti.</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">Nun pudo aniciase la navegación. Por favor, vuelvi intentalo.</string>
 
     <!-- SECTION: Bookmark types used for sorting -->
     <string name="downloader_loading_ios">Baxando</string>

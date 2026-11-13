@@ -709,6 +709,8 @@
     <string name="moreyear_ago_sorttype">Fa més d’un any</string>
     <string name="near_me_sorttype">Prop meu</string>
     <string name="others_sorttype">Altres</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">No s’ha pogut iniciar la navegació. Torneu-ho a provar.</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Ara és tancat</string>
     <string name="opens_tomorrow_at">Obre demà a les %s</string>

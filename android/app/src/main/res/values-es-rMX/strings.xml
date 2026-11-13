@@ -364,6 +364,8 @@
     <!-- Android, title, max 20-22 symbols -->
     <string name="sort_bookmarks">Ordenar favoritos</string>
     <string name="near_me_sorttype">Cerca a mí</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">No se pudo iniciar la navegación. Por favor, inténtelo de nuevo.</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Cerrado</string>
     <string name="opens_tomorrow_at">Abre mañana en %s</string>

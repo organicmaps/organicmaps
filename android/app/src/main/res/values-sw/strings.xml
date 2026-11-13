@@ -693,6 +693,8 @@
     <string name="moreyear_ago_sorttype">Zaidi ya mwaka mmoja uliopita</string>
     <string name="near_me_sorttype">Karibu yangu</string>
     <string name="others_sorttype">Nyingine</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">Haiwezekani kuanzisha urambazaji. Tafadhali jaribu tena.</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Imefungwa sasa</string>
     <string name="opens_tomorrow_at">Inafunguliwa kesho saa %s</string>

@@ -701,6 +701,8 @@
     <string name="moreyear_ago_sorttype">Преди повече от година</string>
     <string name="near_me_sorttype">На близо</string>
     <string name="others_sorttype">Други</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">Не е възможно да се стартира навигацията. Моля, опитайте отново.</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Затворено сега</string>
     <string name="opens_tomorrow_at">Открива се утре в %s</string>

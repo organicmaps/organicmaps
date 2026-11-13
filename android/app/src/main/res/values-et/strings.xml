@@ -705,6 +705,8 @@
     <string name="moreyear_ago_sorttype">Üle aasta tagasi</string>
     <string name="near_me_sorttype">Minu lähedal</string>
     <string name="others_sorttype">Muud</string>
+    <!-- Shown when Android refuses to start navigation; the route remains available for retry -->
+    <string name="navigation_start_error">Navigeerimist ei õnnestunud käivitada. Palun proovi uuesti.</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Praegu suletud</string>
     <string name="opens_tomorrow_at">Avatakse homme kell %s</string>
