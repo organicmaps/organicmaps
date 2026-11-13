@@ -35,7 +35,6 @@ private:
   /// @todo Make a simple stub mwmId without DataSource dependency?
   MwmSet::MwmId m_mwmId;
   FeaturesVector m_vector;
-  ScaleIndex<ModelReaderPtr> m_index;
 
 public:
   MwmContextBase(MwmValue & value, MwmSet::MwmId const & mwmId);
@@ -63,8 +62,9 @@ protected:
   void ForEachIndexImpl(covering::Intervals const & intervals, int scale, Fn && fn) const
   {
     CheckUniqueIndexes checkUnique;
+    auto const & index = m_value.GetScaleIndex();
     for (auto const & i : intervals)
-      m_index.ForEachInIntervalAndScale(i.first, i.second, scale, [&](uint64_t /* key */, uint32_t value)
+      index.ForEachInIntervalAndScale(i.first, i.second, scale, [&](uint32_t value)
       {
         if (checkUnique(value))
           fn(value);
