@@ -56,7 +56,7 @@ class BookmarkCategoriesAdapter(
         else -> RowType.CATEGORY
     }
 
-    override fun getItemCount(): Int = if (categoryCount == 0) 0 else Action.entries.size + HEADER_COUNT + categoryCount
+    override fun getItemCount(): Int = if (categoryCount == 0) 0 else HEADER_COUNT + categoryCount + Action.entries.size
 
     override fun getItemViewType(position: Int): Int = rowTypeAt(position).ordinal
 
