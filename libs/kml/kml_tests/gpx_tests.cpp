@@ -14,6 +14,8 @@
 
 #include "platform/platform.hpp"
 
+#include "base/timer.hpp"
+
 namespace gpx_tests
 {
 namespace

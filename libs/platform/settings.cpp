@@ -12,6 +12,7 @@
 #include "geometry/rect2d.hpp"
 
 #include "base/math.hpp"
+#include "base/timer.hpp"
 
 #include <iostream>
 #include <sstream>
