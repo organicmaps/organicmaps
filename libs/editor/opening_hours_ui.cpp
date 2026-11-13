@@ -57,28 +57,21 @@ bool FixTimeSpans(osmoh::Timespan openingTime, osmoh::TTimespans & spans)
   });
 
   osmoh::TTimespans result{spans.front()};
-  for (size_t i = 1, j = 0; i < spans.size(); ++i)
+  for (size_t i = 1; i < spans.size(); ++i)
   {
     auto const start2 = spans[i].GetStart().GetHourMinutes().GetDuration();
-    auto const end1 = spans[j].GetEnd().GetHourMinutes().GetDuration();
+    auto const end1 = result.back().GetEnd().GetHourMinutes().GetDuration();
     auto const end2 = spans[i].GetEnd().GetHourMinutes().GetDuration();
 
     // The first one includes the second.
     if (start2 < end1 && end2 <= end1)
-    {
       continue;
-    }
     // Two spans have non-empty intersection.
     else if (start2 <= end1)
-    {
       result.back().SetEnd(spans[i].GetEnd());
-    }
     // The scond span starts after the end of the first one.
     else
-    {
       result.push_back(spans[i]);
-      ++j;
-    }
   }
 
   // Check that all exclude time spans are included in opening time.
