@@ -524,6 +524,8 @@
 "today" = "आज";
 "opens_in" = "%@ में खुल जाएगा";
 "closes_in" = "%@ में बंद हो जाता है";
+"opens_in_less_than_a_minute" = "Opens in less than a minute";
+"closes_in_less_than_a_minute" = "Closes in less than a minute";
 "closed" = "बंद";
 "no_osm_account" = "आपके पास अभी तक OpenStreetMap खाता नहीं है?";
 "register_at_openstreetmap" = "Openstreetmap पर पंजीकरण करें";

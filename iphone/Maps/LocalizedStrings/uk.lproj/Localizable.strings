@@ -524,6 +524,8 @@
 "today" = "Сьогодні";
 "opens_in" = "Відкривається через %@";
 "closes_in" = "Зачиняється через %@";
+"opens_in_less_than_a_minute" = "Opens in less than a minute";
+"closes_in_less_than_a_minute" = "Closes in less than a minute";
 "closed" = "Зачинено";
 "no_osm_account" = "Не зареєстровані в OpenStreetMap?";
 "register_at_openstreetmap" = "Зареєструватися";

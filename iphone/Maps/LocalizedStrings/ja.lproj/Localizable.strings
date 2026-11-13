@@ -524,6 +524,8 @@
 "today" = "今日は";
 "opens_in" = "あと %@ に営業";
 "closes_in" = "あと %@ に閉店";
+"opens_in_less_than_a_minute" = "Opens in less than a minute";
+"closes_in_less_than_a_minute" = "Closes in less than a minute";
 "closed" = "閉店";
 "no_osm_account" = "OpenStreetMapのアカウントをお持ちではないですか？";
 "register_at_openstreetmap" = "OpenStreetMapのアカウントを登録";

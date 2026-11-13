@@ -524,6 +524,8 @@
 "today" = "Dzisiaj";
 "opens_in" = "Otwarcie za %@";
 "closes_in" = "Zamknięcie za %@";
+"opens_in_less_than_a_minute" = "Opens in less than a minute";
+"closes_in_less_than_a_minute" = "Closes in less than a minute";
 "closed" = "Zamknięte";
 "no_osm_account" = "Nie masz konta w OpenStreetMap?";
 "register_at_openstreetmap" = "Zarejestruj się";
