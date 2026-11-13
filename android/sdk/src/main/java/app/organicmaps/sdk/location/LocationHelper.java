@@ -80,7 +80,7 @@ public class LocationHelper
   private boolean mActive;
   private boolean mNativeFallback;
   private long mFusedAcquisitionStartedNanos = -1;
-  private long mLastFreshFixNanos = -1;
+  private long mLastUsableFusedFixNanos = -1;
   private long mFusedRequestStartedNanos = -1;
   private long mFusedDeadlineNanos = -1;
   @NonNull
@@ -155,8 +155,8 @@ public class LocationHelper
       {
         if (!isCurrent())
           return;
-        // Fresh valid output proves backend liveness even when the display retains a more accurate fix.
-        updateFusedFreshness(location);
+        // Usable output keeps acquisition alive when the display retains a more accurate fix.
+        updateFusedHealth(location);
         LocationHelper.this.onLocationChanged(location);
       }
 
@@ -233,7 +233,7 @@ public class LocationHelper
     mHandler.removeCallbacks(mFusedWatchdog);
     mFusedDeadlineNanos = -1;
     mFusedAcquisitionStartedNanos = -1;
-    mLastFreshFixNanos = -1;
+    mLastUsableFusedFixNanos = -1;
     mFusedRequestStartedNanos = -1;
   }
 
@@ -245,7 +245,7 @@ public class LocationHelper
   private boolean isCoarseFusedTracking()
   {
     // After a valid fix, coarse-only Google updates may be throttled without a promised interval.
-    return mLastFreshFixNanos >= 0 && isCoarseOnly();
+    return mLastUsableFusedFixNanos >= 0 && isCoarseOnly();
   }
 
   private void watchFusedDeadline(@NonNull String reason, long deadline)
@@ -260,7 +260,7 @@ public class LocationHelper
   private void watchTrackingDeadline()
   {
     watchFusedDeadline("fresh fixes stopped",
-                       Math.max(mLastFreshFixNanos, mFusedRequestStartedNanos) + FUSED_FIX_TIMEOUT_NANOS);
+                       Math.max(mLastUsableFusedFixNanos, mFusedRequestStartedNanos) + FUSED_FIX_TIMEOUT_NANOS);
   }
 
   private void checkFusedDeadline()
@@ -294,7 +294,7 @@ public class LocationHelper
     if (phase == BaseLocationProvider.StartupPhase.CHECKING_SETTINGS)
       mFusedRequestStartedNanos = now;
     Logger.d(TAG, "Fused location phase = " + phase + " generation = " + mProviderGeneration);
-    if (mLastFreshFixNanos >= 0)
+    if (mLastUsableFusedFixNanos >= 0)
     {
       watchTrackingDeadline();
       return;
@@ -307,17 +307,17 @@ public class LocationHelper
     watchFusedDeadline(phase.name(), deadline);
   }
 
-  private void updateFusedFreshness(@NonNull Location location)
+  private void updateFusedHealth(@NonNull Location location)
   {
     // Google reports startup before any fix; native and simulated fixes need no watchdog bookkeeping.
     if (mFusedAcquisitionStartedNanos < 0 || !LocationUtils.isAccuracySatisfied(location))
       return;
     final long timestamp = location.getElapsedRealtimeNanos();
     final long age = SystemClock.elapsedRealtimeNanos() - timestamp;
-    // Coarse fixes come from a system cache that is refreshed only every few minutes.
-    if (timestamp <= mLastFreshFixNanos || age < 0 || (age > FUSED_FIX_TIMEOUT_NANOS && !isCoarseOnly()))
+    // Coarse clients can receive cached fixes older than the precise tracking timeout.
+    if (timestamp <= mLastUsableFusedFixNanos || age < 0 || (age > FUSED_FIX_TIMEOUT_NANOS && !isCoarseOnly()))
       return;
-    mLastFreshFixNanos = timestamp;
+    mLastUsableFusedFixNanos = timestamp;
     watchTrackingDeadline();
   }
 
@@ -675,7 +675,7 @@ public class LocationHelper
     if (isActive())
     {
       // Coarse tracking can leave no pending check when precise permission is granted.
-      if (mFusedDeadlineNanos < 0 && mLastFreshFixNanos >= 0)
+      if (mFusedDeadlineNanos < 0 && mLastUsableFusedFixNanos >= 0)
         watchTrackingDeadline();
       checkFusedDeadline();
       return;
