@@ -103,6 +103,16 @@
 <source>%1 download has failed</source>
 <translation>%1: ներբեռնումը ձախողվեց</translation>
 </message>
+<message id="add_new_set">
+<extracomment>&quot;Add new bookmark list&quot; dialog title</extracomment>
+<source>Add a New List</source>
+<translation>Ավելացնել նոր ցուցակ</translation>
+</message>
+<message id="bookmark_set_name">
+<extracomment>Add Bookmark list dialog - hint when the list name is empty</extracomment>
+<source>Bookmark List Name</source>
+<translation>Էջանիշների ցուցակի անունը</translation>
+</message>
 <message id="bookmarks">
 <extracomment>Should be used in the bookmarks-only context, see bookmarks_and_tracks if tracks are also implied.</extracomment>
 <source>Bookmarks</source>
@@ -117,6 +127,11 @@
 <extracomment>Add bookmark dialog - bookmark name</extracomment>
 <source>Name</source>
 <translation>Անուն</translation>
+</message>
+<message id="list">
+<extracomment>Add Bookmark dialog/Bookmark list; Bookmarks dialog/Bookmark list cell.</extracomment>
+<source>List</source>
+<translation>Ցուցակ</translation>
 </message>
 <message id="settings">
 <extracomment>Settings button in system menu</extracomment>
@@ -278,6 +293,26 @@
 <source>RV Facilities</source>
 <translation>Քեմփինգներ</translation>
 </message>
+<message id="description">
+<extracomment>Notes field in Bookmarks view</extracomment>
+<source>Notes</source>
+<translation>Նշումներ</translation>
+</message>
+<message id="load_kmz_successful">
+<extracomment>Kmz file successful loading</extracomment>
+<source>Bookmarks loaded successfully! You can find them on the map or on the Bookmarks Manager screen.</source>
+<translation>Էջանիշները հաջողությամբ բեռնվեցին: Դուք կարող եք գտնել դրանք քարտեզի վրա կամ «Էջանիշների կառավարիչ» էկրանին:</translation>
+</message>
+<message id="load_kmz_failed">
+<extracomment>Kml file loading failed</extracomment>
+<source>Failed to load bookmarks. The file may be corrupted or defective.</source>
+<translation>Չհաջողվեց բեռնել էջանիշները: Ֆայլը կարող է վնասված կամ անսարք լինել:</translation>
+</message>
+<message id="edit">
+<extracomment>resource for context menu</extracomment>
+<source>Edit</source>
+<translation>Խմբագրել</translation>
+</message>
 <message id="unknown_current_position">
 <extracomment>Warning message when doing search around current position</extracomment>
 <source>Your location hasn&#x27;t been determined yet</source>
@@ -332,6 +367,11 @@
 <extracomment>Title for tracks category in bookmarks manager</extracomment>
 <source>Tracks</source>
 <translation>Հետագծեր</translation>
+</message>
+<message id="length">
+<extracomment>Length of track in cell that describes route</extracomment>
+<source>Length</source>
+<translation>Երկարություն</translation>
 </message>
 <message id="share_my_location">
 <source>Share My Location</source>
@@ -531,6 +571,14 @@
 <source>Update Map</source>
 <translation>Թարմացնել քարտեզը</translation>
 </message>
+<message id="save">
+<source>Save</source>
+<translation>Պահպանել</translation>
+</message>
+<message id="create">
+<source>create</source>
+<translation>ստեղծել</translation>
+</message>
 <message id="version">
 <extracomment>Prints version number in About dialog</extracomment>
 <source>Organic Maps version: %1</source>
@@ -566,6 +614,14 @@
 <source>bookmark</source>
 <translation>էջանիշ</translation>
 </message>
+<message id="dialog_routing_location_turn_wifi">
+<source>Please check your GPS signal. Enabling Wi-Fi will improve your location accuracy.</source>
+<translation>Խնդրում ենք ստուգել GPS ազդանշանը: Wi-Fi-ի միացումը կբարելավի տեղորոշման ճշգրտությունը:</translation>
+</message>
+<message id="dialog_routing_system_error">
+<source>System error</source>
+<translation>Համակարգային սխալ</translation>
+</message>
 <message id="search_without_internet_advertisement">
 <source>To start searching and creating routes, please download the map. After that you will no longer need an Internet connection.</source>
 <translation>Որոնման և երթուղիների կառուցման համար խնդրում ենք ներբեռնել քարտեզը: Դրանից հետո ինտերնետ կապ այլևս չի պահանջվի:</translation>
@@ -573,6 +629,16 @@
 <message id="search_select_map">
 <source>Select Map</source>
 <translation>Ընտրել քարտեզը</translation>
+</message>
+<message id="show">
+<extracomment>«Show» context menu</extracomment>
+<source>Show</source>
+<translation>Ցուցադրել</translation>
+</message>
+<message id="hide">
+<extracomment>«Hide» context menu</extracomment>
+<source>Hide</source>
+<translation>Թաքցնել</translation>
 </message>
 <message id="categories">
 <source>Categories</source>
@@ -633,6 +699,11 @@
 <message id="autodownload">
 <source>Auto-download maps</source>
 <translation>Քարտեզների ավտոմատ ներբեռնում</translation>
+</message>
+<message id="daily">
+<extracomment>Place Page opening hours text</extracomment>
+<source>Daily</source>
+<translation>Ամեն օր</translation>
 </message>
 <message id="twentyfour_seven">
 <source>24/7</source>
@@ -769,6 +840,10 @@
 <source>Download maps to search and navigate offline.</source>
 <translation>Ներբեռնեք քարտեզներ՝ օֆլայն որոնման և նավիգացիայի համար:</translation>
 </message>
+<message id="current_location_unknown_error_title">
+<source>Current location is unknown.</source>
+<translation>Ընթացիկ դիրքն անհայտ է:</translation>
+</message>
 <message id="kilometers_per_hour">
 <extracomment>abbreviation for kilometers per hour</extracomment>
 <source>km/h</source>
@@ -803,9 +878,23 @@
 <source>More</source>
 <translation>Ավելին</translation>
 </message>
+<message id="placepage_edit_bookmark_button">
+<extracomment>Toolbar title of the Edit Bookmark screen.</extracomment>
+<source>Edit Bookmark</source>
+<translation>Խմբագրել էջանիշը</translation>
+</message>
+<message id="placepage_personal_notes_hint">
+<source>Personal notes (text or html)</source>
+<translation>Անձնական նշումներ (տեքստ կամ html)</translation>
+</message>
 <message id="editor_remove_place_button">
 <source>Delete</source>
 <translation>Ջնջել</translation>
+</message>
+<message id="track_recording">
+<extracomment>Shown while a track is being recorded: the start toast, the notification title and the home screen widget status.</extracomment>
+<source>Recording the track</source>
+<translation>Հետագծի ձայնագրում</translation>
 </message>
 <message id="accept">
 <extracomment>For the first routing</extracomment>
@@ -855,14 +944,43 @@
 <source>Add Stop</source>
 <translation>Ավելացնել կանգառ</translation>
 </message>
+<message id="bookmark_lists">
+<source>Lists</source>
+<translation>Ցուցակներ</translation>
+</message>
+<message id="bookmark_lists_hide_all">
+<extracomment>Do not display all bookmark lists on the map</extracomment>
+<source>Hide all</source>
+<translation>Թաքցնել բոլորը</translation>
+</message>
+<message id="bookmark_lists_show_all">
+<source>Show all</source>
+<translation>Ցուցադրել բոլորը</translation>
+</message>
+<message id="bookmarks_create_new_group">
+<source>Create a new list</source>
+<translation>Ստեղծել նոր ցուցակ</translation>
+</message>
 <message id="bookmarks_import">
 <extracomment>Bookmark categories screen, button that opens folder selection dialog to import KML/KMZ/GPX/KMB files</extracomment>
 <source>Import Bookmarks and Tracks</source>
 <translation>Ներմուծել էջանիշներ և հետագծեր</translation>
 </message>
+<message id="bookmarks_error_title_share_empty">
+<source>Sharing error</source>
+<translation>Կիսվելու սխալ</translation>
+</message>
+<message id="bookmarks_error_title_list_name_already_taken">
+<source>This name is already taken</source>
+<translation>Այս անունն արդեն զբաղված է</translation>
+</message>
 <message id="please_wait">
 <source>Please wait…</source>
 <translation>Խնդրում ենք սպասել…</translation>
+</message>
+<message id="restore">
+<source>Restore</source>
+<translation>Վերականգնել</translation>
 </message>
 <message id="privacy">
 <extracomment>Settings privacy group in settings screen</extracomment>
@@ -905,6 +1023,24 @@
 <source>Map Styles and Layers</source>
 <translation>Քարտեզի ոճեր և շերտեր</translation>
 </message>
+<message id="bookmarks_empty_list_title">
+<source>This list is empty</source>
+<translation>Այս ցուցակը դատարկ է</translation>
+</message>
+<message id="bookmarks_empty_list_message">
+<source>To add a bookmark, tap a place on the map and then tap the star icon</source>
+<translation>Էջանիշ ավելացնելու համար հպեք քարտեզի որևէ կետի, ապա՝ աստղիկի պատկերակին</translation>
+</message>
+<message id="change_all_bookmarks_color">
+<extracomment>Button to change the color of all bookmarks in the current list</extracomment>
+<source>Change color of all bookmarks</source>
+<translation>Փոխել բոլոր էջանիշների գույնը</translation>
+</message>
+<message id="change_all_tracks_color">
+<extracomment>Button to change the color of all tracks in the current list</extracomment>
+<source>Change color of all tracks</source>
+<translation>Փոխել բոլոր ուղիների գույնը</translation>
+</message>
 <message id="export_file">
 <extracomment>Menu title for exporting a file in the default KMZ format</extracomment>
 <source>Export KMZ</source>
@@ -919,6 +1055,10 @@
 <extracomment>Menu title for exporting a file in GeoJSON format</extracomment>
 <source>Export GeoJSON</source>
 <translation>Արտահանել GeoJSON</translation>
+</message>
+<message id="delete_list">
+<source>Delete list</source>
+<translation>Ջնջել ցուցակը</translation>
 </message>
 <message id="power_managment_title">
 <source>Power saving mode</source>
@@ -944,6 +1084,10 @@
 <extracomment>Settings/Bookmark Text Placement</extracomment>
 <source>Bookmark names on the map</source>
 <translation>Էջանիշների անունները քարտեզի վրա</translation>
+</message>
+<message id="bookmarks_text_placement_description">
+<source>If there are too many bookmarks, displaying their names on the map may slow down the app.</source>
+<translation>Եթե էջանիշները շատ են, քարտեզի վրա դրանց անունների ցուցադրումը կարող է դանդաղեցնել հավելվածը:</translation>
 </message>
 <message id="show_to_the_right">
 <source>Show to the right</source>
@@ -1033,6 +1177,11 @@
 <source>OK</source>
 <translation>Լավ</translation>
 </message>
+<message id="sort_bookmarks">
+<extracomment>Android, title, max 20-22 symbols</extracomment>
+<source>Sort bookmarks</source>
+<translation>Դասավորել էջանիշները</translation>
+</message>
 <message id="week_ago_sorttype">
 <source>A week ago</source>
 <translation>Մեկ շաբաթ առաջ</translation>
@@ -1090,6 +1239,10 @@
 <source>Select category</source>
 <translation>Ընտրեք կատեգորիան</translation>
 </message>
+<message id="placepage_bookmark_name_hint">
+<source>Bookmark Name</source>
+<translation>Էջանիշի անունը</translation>
+</message>
 <message id="text_more_button">
 <source>…more</source>
 <translation>…ավելին</translation>
@@ -1109,6 +1262,27 @@
 <message id="downloader_applying">
 <source>Applying %1…</source>
 <translation>Կիրառվում է %1…</translation>
+</message>
+<message id="sort_default">
+<extracomment>iOS</extracomment>
+<source>Sort by default</source>
+<translation>Դասավորել լռելյայն</translation>
+</message>
+<message id="sort_type">
+<source>Sort by type</source>
+<translation>Դասավորել ըստ տեսակի</translation>
+</message>
+<message id="sort_distance">
+<source>Sort by distance</source>
+<translation>Դասավորել ըստ հեռավորության</translation>
+</message>
+<message id="sort_date">
+<source>Sort by date</source>
+<translation>Դասավորել ըստ ամսաթվի</translation>
+</message>
+<message id="sort_name">
+<source>Sort by name</source>
+<translation>Դասավորել ըստ անվան</translation>
 </message>
 <message id="food_places">
 <source>Food</source>
@@ -1166,9 +1340,32 @@
 <source>Medicine</source>
 <translation>Առողջապահություն</translation>
 </message>
+<message id="search_in_the_list">
+<source>Search in the list</source>
+<translation>Փնտրել ցուցակում</translation>
+</message>
 <message id="religious_places">
 <source>Religious places</source>
 <translation>Կրոնական վայրեր</translation>
+</message>
+<message id="select">
+<extracomment>Button that starts multi-selection in a bookmark list.</extracomment>
+<source>Select</source>
+<translation>Ընտրել</translation>
+</message>
+<message id="select_all">
+<extracomment>Action that selects every bookmark and track in a bookmark list.</extracomment>
+<source>Select All</source>
+<translation>Ընտրել բոլորը</translation>
+</message>
+<message id="deselect_all">
+<extracomment>Action that clears the multi-selection in a bookmark list.</extracomment>
+<source>Deselect All</source>
+<translation>Չեղարկել ընտրությունը</translation>
+</message>
+<message id="select_list">
+<source>Select list</source>
+<translation>Ընտրել ցուցակը</translation>
 </message>
 <message id="button_layer_terrain">
 <extracomment>Layers menu: label of the 3D terrain layer button</extracomment>
@@ -1178,6 +1375,26 @@
 <message id="isolines_location_error_dialog">
 <source>Update this region to see contour lines</source>
 <translation>Թարմացրեք այս տարածաշրջանը՝ հորիզոնականները տեսնելու համար</translation>
+</message>
+<message id="elevation_profile_ascent">
+<source>Ascent</source>
+<translation>Վերելք</translation>
+</message>
+<message id="elevation_profile_descent">
+<source>Descent</source>
+<translation>Վայրէջք</translation>
+</message>
+<message id="elevation_profile_min_elevation">
+<source>Min. elevation</source>
+<translation>Նվազգ. բարձրություն</translation>
+</message>
+<message id="elevation_profile_max_elevation">
+<source>Max. elevation</source>
+<translation>Առավել. բարձրություն</translation>
+</message>
+<message id="elevation_profile_difficulty">
+<source>Difficulty</source>
+<translation>Բարդություն</translation>
 </message>
 <message id="isolines_toast_zooms_1_10">
 <source>Zoom in to explore isolines</source>
@@ -1217,10 +1434,20 @@
 <source>https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</source>
 <translation>https://wiki.openstreetmap.org/wiki/About_OpenStreetMap</translation>
 </message>
+<message id="comma_separated_pair">
+<extracomment>A number of bookmarks and a number of tracks, separated by comma, like: 1 bookmark, 5 tracks</extracomment>
+<source>%1, %2</source>
+<translation>%1, %2</translation>
+</message>
 <message id="button_layer_outdoor">
 <extracomment>Outdoors/hiking map style (activity) name in the Styles and Layers dialog</extracomment>
 <source>Outdoors</source>
 <translation>Ակտիվ հանգիստ</translation>
+</message>
+<message id="bookmarks_export">
+<extracomment>Bookmark categories screen, button that opens share dialog to export all bookmarks and tracks</extracomment>
+<source>Export all Bookmarks and Tracks</source>
+<translation>Արտահանել բոլոր էջանիշները և հետագծերը</translation>
 </message>
 <message id="drive_through">
 <source>Drive-through</source>
@@ -1256,9 +1483,33 @@
 <source>Outdoor seating</source>
 <translation>Բացօթյա նստատեղեր</translation>
 </message>
+<message id="start_track_recording">
+<extracomment>Prompt to start recording a track.</extracomment>
+<source>Record Track</source>
+<translation>Գրանցել հետագիծը</translation>
+</message>
+<message id="stop_track_recording">
+<extracomment>Prompt for stopping a track recording.</extracomment>
+<source>Stop Track Recording</source>
+<translation>Կանգնեցնել հետագծի գրանցումը</translation>
+</message>
+<message id="track_recording_title">
+<extracomment>Subtitle of the place page of the track being recorded, and the name and title of the home screen widget.</extracomment>
+<source>Track Recording</source>
+<translation>Հետագծի գրանցում</translation>
+</message>
+<message id="track_recording_toast_nothing_to_save">
+<extracomment>Message for the toast when saving the track recording is finished but nothing to save.</extracomment>
+<source>Track is empty - nothing to save</source>
+<translation>Հետագիծը դատարկ է՝ պահպանելու ոչինչ չկա</translation>
+</message>
 <message id="choose_color">
 <source>Choose Color</source>
 <translation>Ընտրել գույն</translation>
+</message>
+<message id="edit_track">
+<source>Edit Track</source>
+<translation>Խմբագրել հետագիծը</translation>
 </message>
 <message id="follow_system">
 <extracomment>Setting option to sync the app&#x27;s theme with the operating system&#x27;s dark/light mode</extracomment>
@@ -1280,10 +1531,60 @@
 <source>Update (%1)</source>
 <translation>Թարմացնել (%1)</translation>
 </message>
+<message id="placepage_track_name_hint">
+<extracomment>Placeholder for track name input on track edit screen</extracomment>
+<source>Track Name</source>
+<translation>Հետագծի անունը</translation>
+</message>
+<message id="move">
+<extracomment>move track or bookmark from the list button text</extracomment>
+<source>Move</source>
+<translation>Տեղափոխել</translation>
+</message>
+<message id="change_color">
+<extracomment>Text for the editing the Track&#x27;s color button.</extracomment>
+<source>Change Color</source>
+<translation>Փոխել գույնը</translation>
+</message>
+<message id="hide_track">
+<extracomment>Text for the hiding track.</extracomment>
+<source>Hide track</source>
+<translation>Hide track</translation>
+</message>
+<message id="show_track">
+<extracomment>Text for the showing track.</extracomment>
+<source>Show track</source>
+<translation>Show track</translation>
+</message>
+<message id="backup">
+<extracomment>Title for the &quot;Enable iCloud Syncronization&quot; alert&#x27;s &quot;Backup&quot; action button.</extracomment>
+<source>Backup</source>
+<translation>Պահուստավորել</translation>
+</message>
+<message id="bookmarks_recently_deleted">
+<extracomment>Title for the &quot;Recently Deleted Lists&quot; button on the Bookmarks and Lists screen.</extracomment>
+<source>Recently Deleted Lists</source>
+<translation>Վերջերս ջնջված ցուցակներ</translation>
+</message>
 <message id="clear">
 <extracomment>Title for the &quot;Clear&quot; button on the Recently Deleted Lists screen.</extracomment>
 <source>Clear</source>
 <translation>Մաքրել</translation>
+</message>
+<message id="delete_all">
+<extracomment>Title for the &quot;Delete All&quot; button on the Recently Deleted Lists screen.</extracomment>
+<source>Delete All</source>
+<translation>Ջնջել բոլորը</translation>
+</message>
+<message id="recover">
+<extracomment>Title for the &quot;Recover&quot; button on the Recently Deleted Lists screen.</extracomment>
+<source>Recover</source>
+<translation>Վերականգնել</translation>
+</message>
+<message id="recover_all">
+<extracomment>Title for the &quot;Recover All&quot; button on the Recently Deleted Lists screen.</extracomment>
+<source>Recover All</source>
+<translation>Վերականգնել բոլորը</translation>
 </message>
 <message id="contribute_to_osm_add_place">
 <source>Add Place</source>
@@ -1761,6 +2062,11 @@
 <source>Move and zoom the map to place the cross</source>
 <translation>Շարժեք և մեծացրեք քարտեզը՝ խաչը տեղադրելու համար</translation>
 </message>
+<message id="track_recording_stop_and_save">
+<extracomment>Track recording notification button: stops the recording and saves the recorded track.</extracomment>
+<source>Stop and Save</source>
+<translation>Կանգնեցնել և պահպանել</translation>
+</message>
 <message id="routing_coordinates_hint">
 <extracomment>Placeholder for a routing endpoint, entered as a latitude and longitude pair.</extracomment>
 <source>Latitude, longitude</source>
@@ -1851,6 +2157,46 @@
 <source>Copy %1</source>
 <translation>Copy %1</translation>
 </message>
+<message id="backup_description">
+<extracomment>Sailfish OS: explanation on the bookmarks backup settings page</extracomment>
+<source>Bookmarks and tracks are saved to KMZ files in a folder. Import a file on the bookmarks page to restore it.</source>
+<translation>Bookmarks and tracks are saved to KMZ files in a folder. Import a file on the bookmarks page to restore it.</translation>
+</message>
+<message id="backup_automatic">
+<extracomment>Sailfish OS: setting for how often bookmarks are backed up automatically</extracomment>
+<source>Automatic backup</source>
+<translation>Automatic backup</translation>
+</message>
+<message id="backup_weekly">
+<extracomment>Sailfish OS: automatic backup option</extracomment>
+<source>Weekly</source>
+<translation>Weekly</translation>
+</message>
+<message id="backup_folder">
+<extracomment>Sailfish OS: setting for the folder bookmark backups are saved to</extracomment>
+<source>Backup folder</source>
+<translation>Backup folder</translation>
+</message>
+<message id="backup_now">
+<extracomment>Sailfish OS: button that backs up all bookmarks and tracks</extracomment>
+<source>Back up now</source>
+<translation>Back up now</translation>
+</message>
+<message id="backup_last">
+<extracomment>Sailfish OS: date of the last bookmarks backup</extracomment>
+<source>Last backup: %1</source>
+<translation>Last backup: %1</translation>
+</message>
+<message id="backup_none">
+<extracomment>Sailfish OS: shown when bookmarks were never backed up</extracomment>
+<source>No backups yet</source>
+<translation>No backups yet</translation>
+</message>
+<message id="backup_failed">
+<extracomment>Sailfish OS: error when bookmarks could not be backed up</extracomment>
+<source>Backup failed</source>
+<translation>Backup failed</translation>
+</message>
 <message id="mobile_data_downloads_off">
 <extracomment>Sailfish OS: a map download was not started because mobile internet is off in the settings</extracomment>
 <source>Map downloads over mobile internet are turned off in the settings.</source>
@@ -1860,6 +2206,26 @@
 <extracomment>Sailfish OS: the maps are moved to the chosen folder when the app starts next time</extracomment>
 <source>The maps will be moved the next time Organic Maps starts. This can take several minutes.</source>
 <translation>The maps will be moved the next time Organic Maps starts. This can take several minutes.</translation>
+</message>
+<message id="elevation_profile_time">
+<extracomment>Sailfish OS: track statistics on the place page, the duration of the track</extracomment>
+<source>Time</source>
+<translation>Ժամ.</translation>
+</message>
+<message id="elevation_profile_diff_level_easy">
+<extracomment>Sailfish OS: track statistics on the place page, an easy difficulty</extracomment>
+<source>Easy</source>
+<translation>Հեշտ</translation>
+</message>
+<message id="elevation_profile_diff_level_moderate">
+<extracomment>Sailfish OS: track statistics on the place page, a moderate difficulty</extracomment>
+<source>Moderate</source>
+<translation>Միջին</translation>
+</message>
+<message id="elevation_profile_diff_level_hard">
+<extracomment>Sailfish OS: track statistics on the place page, a hard difficulty</extracomment>
+<source>Hard</source>
+<translation>Բարդ</translation>
 </message>
 </context>
 </TS>
