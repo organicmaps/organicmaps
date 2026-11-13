@@ -261,9 +261,10 @@ public class LocationHelperTest
     final Provider provider = startFused(BaseLocationProvider.StartupPhase.REGISTERED);
     final Location first = freshLocation(1000);
     provider.emit(first);
-    for (int i = 0; i < 5; ++i)
+    final long cadenceMillis = 4000;
+    for (long elapsed = 0; elapsed <= LocationHelper.LOCATION_UPDATE_TIMEOUT_MS; elapsed += cadenceMillis)
     {
-      advance(4000);
+      advance(cadenceMillis);
       provider.emit(freshLocation(2000));
     }
     assertTrue(mNativeProviders.isEmpty());
@@ -313,6 +314,47 @@ public class LocationHelperTest
       assertNull(mHelper.getSavedLocation());
       mHelper.stop();
     }
+  }
+
+  @Test
+  public void cachedCoarseFixKeepsTheBackendDuringThrottling()
+  {
+    final long ageMillis = Duration.ofMinutes(3).toMillis();
+    advance(ageMillis);
+    mUtils.when(() -> LocationUtils.checkFineLocationPermission(mContext)).thenReturn(false);
+    final Provider provider = startFused(BaseLocationProvider.StartupPhase.CHECKING_SETTINGS);
+    provider.progress(BaseLocationProvider.StartupPhase.REGISTERING_UPDATES);
+    provider.progress(BaseLocationProvider.StartupPhase.REGISTERED);
+    final Location cached = location(SystemClock.elapsedRealtime() - ageMillis, 1000);
+    provider.emit(cached);
+
+    advance(LocationHelper.LOCATION_UPDATE_TIMEOUT_MS + 1);
+    assertTrue(mNativeProviders.isEmpty());
+    assertTrue(provider.mStarted);
+    assertSame(cached, mHelper.getSavedLocation());
+  }
+
+  @Test
+  public void restartedPreciseRequestGetsAFullTrackingGracePeriod()
+  {
+    final Provider provider = startFused(BaseLocationProvider.StartupPhase.CHECKING_SETTINGS);
+    provider.progress(BaseLocationProvider.StartupPhase.REGISTERING_UPDATES);
+    provider.progress(BaseLocationProvider.StartupPhase.REGISTERED);
+    provider.emit(freshLocation(10));
+    advance(LocationHelper.LOCATION_UPDATE_TIMEOUT_MS - 1000);
+
+    when(mRouting.isNavigating()).thenReturn(false);
+    mHelper.restartWithNewMode();
+    provider.progress(BaseLocationProvider.StartupPhase.CHECKING_SETTINGS);
+    provider.progress(BaseLocationProvider.StartupPhase.REGISTERING_UPDATES);
+    provider.progress(BaseLocationProvider.StartupPhase.REGISTERED);
+
+    advance(LocationHelper.LOCATION_UPDATE_TIMEOUT_MS - 1);
+    assertTrue(mNativeProviders.isEmpty());
+    advance(2);
+    assertEquals(1, mNativeProviders.size());
+    assertFalse(provider.mStarted);
+    assertTrue(mNativeProviders.get(0).mStarted);
   }
 
   @Test
