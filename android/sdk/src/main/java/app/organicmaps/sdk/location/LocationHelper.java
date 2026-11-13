@@ -26,6 +26,7 @@ import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.NetworkPolicy;
 import app.organicmaps.sdk.util.log.Logger;
+import java.util.concurrent.TimeUnit;
 import org.chromium.base.ObserverList;
 
 /**
@@ -45,7 +46,11 @@ public class LocationHelper
   private static final long INTERVAL_TRACK_RECORDING = 100;
 
   private static final long AGPS_EXPIRATION_TIME_MS = 16 * 60 * 60 * 1000; // 16 hours
-  private static final long LOCATION_UPDATE_TIMEOUT_MS = 30 * 1000; // 30 seconds
+  static final long LOCATION_UPDATE_TIMEOUT_MS = 30 * 1000; // 30 seconds
+  static final long FUSED_TASK_TIMEOUT_MS = 5000;
+  static final long FUSED_FIRST_FIX_TIMEOUT_MS = 15_000;
+  private static final long FUSED_STARTUP_TIMEOUT_MS = 2 * FUSED_TASK_TIMEOUT_MS + FUSED_FIRST_FIX_TIMEOUT_MS;
+  private static final long FUSED_FIX_TIMEOUT_NANOS = TimeUnit.MILLISECONDS.toNanos(LOCATION_UPDATE_TIMEOUT_MS);
 
   @NonNull
   private final Context mContext;
@@ -73,8 +78,16 @@ public class LocationHelper
   private long mInterval;
   private boolean mInFirstRun;
   private boolean mActive;
+  private boolean mNativeFallback;
+  private long mFusedAcquisitionStartedNanos = -1;
+  private long mLastUsableFusedFixNanos = -1;
+  private long mFusedRequestStartedNanos = -1;
+  private long mFusedDeadlineNanos = -1;
+  @NonNull
+  private String mFusedDeadlineReason = "";
   private final Handler mHandler = new Handler(Looper.getMainLooper());
   private final Runnable mLocationTimeoutRunnable = this::notifyLocationUpdateTimeout;
+  private final Runnable mFusedWatchdog = this::checkFusedDeadline;
 
   @NonNull
   private final GnssStatusCompat.Callback mGnssStatusCallback = new GnssStatusCompat.Callback() {
@@ -140,8 +153,11 @@ public class LocationHelper
       @Override
       public void onLocationChanged(@NonNull Location location)
       {
-        if (isCurrent())
-          LocationHelper.this.onLocationChanged(location);
+        if (!isCurrent())
+          return;
+        // Usable output keeps acquisition alive when the display retains a more accurate fix.
+        updateFusedHealth(location);
+        LocationHelper.this.onLocationChanged(location);
       }
 
       @Override
@@ -164,6 +180,13 @@ public class LocationHelper
         if (isCurrent())
           LocationHelper.this.onFusedLocationFailure();
       }
+
+      @Override
+      public void onFusedLocationProgress(@NonNull BaseLocationProvider.StartupPhase phase)
+      {
+        if (isCurrent())
+          LocationHelper.this.onFusedLocationProgress(phase);
+      }
     };
   }
 
@@ -177,6 +200,8 @@ public class LocationHelper
   @SuppressLint("MissingPermission")
   private void replaceProvider(boolean nativeOnly)
   {
+    mNativeFallback = nativeOnly;
+    clearFusedAcquisition();
     final BaseLocationProvider.Listener listener = createProviderListener();
     if (mActive)
       mLocationProvider.stop();
@@ -201,6 +226,99 @@ public class LocationHelper
   {
     if (!mSimulating)
       replaceProvider(false);
+  }
+
+  private void clearFusedAcquisition()
+  {
+    mHandler.removeCallbacks(mFusedWatchdog);
+    mFusedDeadlineNanos = -1;
+    mFusedAcquisitionStartedNanos = -1;
+    mLastUsableFusedFixNanos = -1;
+    mFusedRequestStartedNanos = -1;
+  }
+
+  private boolean isCoarseOnly()
+  {
+    return !LocationUtils.checkFineLocationPermission(mContext) && LocationUtils.checkLocationPermission(mContext);
+  }
+
+  private boolean isCoarseFusedTracking()
+  {
+    // After a valid fix, coarse-only Google updates may be throttled without a promised interval.
+    return mLastUsableFusedFixNanos >= 0 && isCoarseOnly();
+  }
+
+  private void watchFusedDeadline(@NonNull String reason, long deadline)
+  {
+    mFusedDeadlineReason = reason;
+    mFusedDeadlineNanos = deadline;
+    mHandler.removeCallbacks(mFusedWatchdog);
+    mHandler.postDelayed(mFusedWatchdog,
+                         Math.max(0, TimeUnit.NANOSECONDS.toMillis(deadline - SystemClock.elapsedRealtimeNanos()) + 1));
+  }
+
+  private void watchTrackingDeadline()
+  {
+    watchFusedDeadline("fresh fixes stopped",
+                       Math.max(mLastUsableFusedFixNanos, mFusedRequestStartedNanos) + FUSED_FIX_TIMEOUT_NANOS);
+  }
+
+  private void checkFusedDeadline()
+  {
+    mHandler.removeCallbacks(mFusedWatchdog);
+    if (mFusedDeadlineNanos < 0)
+      return;
+    if (isCoarseFusedTracking())
+    {
+      mFusedDeadlineNanos = -1;
+      return;
+    }
+    // Handler delays pause in deep sleep; foreground resume also checks this elapsed-time deadline.
+    final long remaining = mFusedDeadlineNanos - SystemClock.elapsedRealtimeNanos();
+    if (remaining > 0)
+    {
+      mHandler.postDelayed(mFusedWatchdog, TimeUnit.NANOSECONDS.toMillis(remaining) + 1);
+      return;
+    }
+    mFusedDeadlineNanos = -1;
+    Logger.w(TAG, "Fused location deadline expired: " + mFusedDeadlineReason + " generation = " + mProviderGeneration);
+    onFusedLocationFailure();
+  }
+
+  @UiThread
+  private void onFusedLocationProgress(@NonNull BaseLocationProvider.StartupPhase phase)
+  {
+    final long now = SystemClock.elapsedRealtimeNanos();
+    if (mFusedAcquisitionStartedNanos < 0)
+      mFusedAcquisitionStartedNanos = now;
+    if (phase == BaseLocationProvider.StartupPhase.CHECKING_SETTINGS)
+      mFusedRequestStartedNanos = now;
+    Logger.d(TAG, "Fused location phase = " + phase + " generation = " + mProviderGeneration);
+    if (mLastUsableFusedFixNanos >= 0)
+    {
+      watchTrackingDeadline();
+      return;
+    }
+    final long timeout =
+        phase == BaseLocationProvider.StartupPhase.REGISTERED ? FUSED_FIRST_FIX_TIMEOUT_MS : FUSED_TASK_TIMEOUT_MS;
+    final long deadline =
+        Math.min(now + TimeUnit.MILLISECONDS.toNanos(timeout),
+                 mFusedAcquisitionStartedNanos + TimeUnit.MILLISECONDS.toNanos(FUSED_STARTUP_TIMEOUT_MS));
+    watchFusedDeadline(phase.name(), deadline);
+  }
+
+  private void updateFusedHealth(@NonNull Location location)
+  {
+    // Google reports startup before any fix; native and simulated fixes need no watchdog bookkeeping.
+    if (mFusedAcquisitionStartedNanos < 0 || !LocationUtils.isAccuracySatisfied(location))
+      return;
+    final long timestamp = location.getElapsedRealtimeNanos();
+    final long age = SystemClock.elapsedRealtimeNanos() - timestamp;
+    // Coarse clients can receive cached fixes older than the precise tracking timeout.
+    if (timestamp <= mLastUsableFusedFixNanos || age < 0 || (age > FUSED_FIX_TIMEOUT_NANOS && !isCoarseOnly()))
+      return;
+    mLastUsableFusedFixNanos = timestamp;
+    watchTrackingDeadline();
   }
 
   /**
@@ -291,6 +409,11 @@ public class LocationHelper
     }
 
     Logger.d(TAG);
+    notifyLocationTimeoutListeners();
+  }
+
+  private void notifyLocationTimeoutListeners()
+  {
     mListenersIterator.rewind();
     while (mListenersIterator.hasNext())
       mListenersIterator.next().onLocationUpdateTimeout();
@@ -355,12 +478,7 @@ public class LocationHelper
   @UiThread
   private void onFusedLocationFailure()
   {
-    if (!LocationUtils.checkLocationPermission(mContext))
-    {
-      onLocationPermissionDenied();
-      return;
-    }
-    if (!LocationUtils.areLocationServicesTurnedOn(mContext))
+    if (!LocationUtils.checkLocationPermission(mContext) || !LocationUtils.areLocationServicesTurnedOn(mContext))
     {
       onLocationDisabled();
       return;
@@ -377,6 +495,7 @@ public class LocationHelper
     Logger.i(TAG);
     if (mSimulating)
       throw new IllegalStateException("Simulation is already started");
+    clearFusedAcquisition();
     final BaseLocationProvider.Listener listener = createProviderListener();
     if (mActive)
       mLocationProvider.stop();
@@ -406,10 +525,24 @@ public class LocationHelper
   @UiThread
   private void onLocationDisabled()
   {
-    Logger.d(TAG, "provider = " + mLocationProvider.getClass().getSimpleName()
-                      + " settings = " + LocationUtils.areLocationServicesTurnedOn(mContext));
+    if (!LocationUtils.checkLocationPermission(mContext))
+    {
+      onLocationPermissionDenied();
+      return;
+    }
+    final boolean locationOn = LocationUtils.areLocationServicesTurnedOn(mContext);
+    Logger.d(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() + " settings = " + locationOn);
 
     stop();
+    if (locationOn)
+    {
+      LocationState.nativeOnLocationError(LocationState.ERROR_NOT_SUPPORTED);
+      mListenersIterator.rewind();
+      while (mListenersIterator.hasNext())
+        mListenersIterator.next().onLocationUnavailable();
+      return;
+    }
+
     LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
 
     mListenersIterator.rewind();
@@ -480,6 +613,7 @@ public class LocationHelper
 
   /**
    * Starts polling and, with fine permission, compass/GNSS updates. Repeated calls while active do nothing.
+   * A new start retries the Google-compatible backend after a runtime fallback to native providers.
    * The host must already hold a coarse or fine location permission.
    */
   @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
@@ -490,6 +624,9 @@ public class LocationHelper
       Logger.d(TAG, "Already started");
       return;
     }
+
+    if (mNativeFallback && !mSimulating)
+      replaceProvider(false);
 
     Logger.i(TAG);
     checkForAgpsUpdates();
@@ -521,6 +658,7 @@ public class LocationHelper
     Logger.i(TAG);
     mActive = false;
     ++mLocationRevision;
+    clearFusedAcquisition();
     mLocationProvider.stop();
     unsubscribeFromGnssStatusUpdates();
     mSensorHelper.stop();
@@ -529,12 +667,19 @@ public class LocationHelper
 
   /**
    * Resumes polling when the renderer exists, permission is granted, and the position mode allows it.
-   * Safe to call when entering the foreground; it does nothing if these prerequisites are absent.
+   * If polling is already active, rechecks the Google-compatible backend deadlines that deep sleep may have delayed.
+   * Safe to call when entering the foreground.
    */
   public void resumeLocationInForeground()
   {
     if (isActive())
+    {
+      // Coarse tracking can leave no pending check when precise permission is granted.
+      if (mFusedDeadlineNanos < 0 && mLastUsableFusedFixNanos >= 0)
+        watchTrackingDeadline();
+      checkFusedDeadline();
       return;
+    }
     else if (!Map.isEngineCreated())
     {
       // LocationState.nativeGetMode() is initialized only after drape creation.

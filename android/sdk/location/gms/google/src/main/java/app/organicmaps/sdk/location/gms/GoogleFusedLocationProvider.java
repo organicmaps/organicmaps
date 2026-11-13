@@ -86,6 +86,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
       throw new IllegalStateException("Already started");
     final GoogleLocationCallback callback = new GoogleLocationCallback();
     mCallback = callback;
+    mListener.onFusedLocationProgress(StartupPhase.CHECKING_SETTINGS);
 
     final LocationRequest locationRequest =
         new LocationRequest
@@ -144,6 +145,7 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
   @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
   private void requestLocationUpdates(@NonNull LocationRequest request, @NonNull GoogleLocationCallback callback)
   {
+    mListener.onFusedLocationProgress(StartupPhase.REGISTERING_UPDATES);
     try
     {
       mFusedLocationClient.requestLocationUpdates(request, callback, Looper.getMainLooper())
@@ -157,7 +159,10 @@ class GoogleFusedLocationProvider extends BaseLocationProvider
             if (!task.isSuccessful())
               fail(task.getException());
             else
+            {
               Logger.d(TAG, "Location updates registered");
+              mListener.onFusedLocationProgress(StartupPhase.REGISTERED);
+            }
           });
     }
     catch (SecurityException error)
