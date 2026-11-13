@@ -62,7 +62,8 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     registerButton.setOnClickListener((v) -> Utils.openUrl(requireActivity(), Constants.Url.OSM_REGISTER));
     mProgress = view.findViewById(R.id.osm_login_progress);
 
-    if (BuildConfig.FLAVOR.equals("google") && Utils.isBrowserAvailable(requireContext()))
+    // Keep email/password entry outside the app in Google Play builds.
+    if (BuildConfig.FLAVOR.equals("google"))
     {
       // Hide login and password inputs and Forgot password button
       UiUtils.hide(view.findViewById(R.id.osm_username_container), view.findViewById(R.id.osm_password_container),
