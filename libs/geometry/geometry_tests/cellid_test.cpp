@@ -5,6 +5,7 @@
 #include "base/logging.hpp"
 
 #include <algorithm>
+#include <random>
 #include <string>
 #include <vector>
 
@@ -236,5 +237,20 @@ UNIT_TEST(CellId_ToAndFromInt64ZOrder)
 
   for (uint64_t id = 1; id <= atDepth3.size(); ++id)
     TEST_EQUAL(Id::FromInt64(id, 3), Id(atDepth3[id - 1]), ());
+
+  // Random cells of the deep trees.
+  using DeepId = m2::CellId<25>;
+  std::mt19937 rng(1);
+  for (int const depth : {11, 19, 25})
+  {
+    for (int i = 0; i < 2000; ++i)
+    {
+      int const level = rng() % depth;
+      uint64_t const bits = (uint64_t{rng()} << 32 | rng()) & ((uint64_t{1} << 2 * level) - 1);
+      auto const cell = DeepId::FromInt64(DeepId::FromBitsAndLevel(bits, level).ToInt64(depth), depth);
+      TEST_EQUAL(cell.Level(), level, (depth, bits));
+      TEST_EQUAL(cell.Bits(), bits, (depth, level));
+    }
+  }
 }
 }  // namespace cellid_test
