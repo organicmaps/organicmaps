@@ -17,12 +17,16 @@
 #include "platform/platform.hpp"
 
 #include "geometry/mercator.hpp"
+#include "geometry/rect_intersect.hpp"
 
 #include "base/file_name_utils.hpp"
 #include "base/logging.hpp"
 
+#include <algorithm>
+#include <cstdlib>
 #include <ctime>
 #include <limits>
+#include <optional>
 #include <set>
 #include <string>
 #include <vector>
@@ -147,6 +151,25 @@ UNIT_TEST(WaterReported_NerisNemencia)
   CheckRoute("NerisNemencia", {54.85352075179435, 25.45188769698143}, {54.856528849207365, 25.472672134637833}, false,
              {"Lithuania_East"}, true);
 }
+
+void TestArroyoDeRocha()
+{
+  auto const points =
+      CheckRoute("ArroyoDeRocha", {-34.513887, -54.348557}, {-34.521986, -54.346818}, false, {"Uruguay"}, true);
+  auto const bridge = mercator::RectByCenterXYAndSizeInMeters(mercator::FromLatLon(-34.5163784, -54.3506677), 15.0);
+  auto const crossing = std::adjacent_find(
+      points.begin(), points.end(), [&](m2::PointD from, m2::PointD to) { return m2::Intersect(bridge, from, to); });
+  TEST(crossing != points.end(), ("The water route must pass under the railway bridge"));
+}
+
+// Run with OMIM_TEST_ARROYO_DE_ROCHA=1, --filter=WaterManual_ArroyoDeRocha and Uruguay.mwm in --writable_path.
+// Keep manual until the test maps include the change that removed layer=-1 under the railway bridge.
+// https://github.com/organicmaps/organicmaps/pull/13968#issuecomment-6873735555
+// https://www.openstreetmap.org/changeset/191925170
+static auto const g_arroyoDeRochaTest =
+    std::getenv("OMIM_TEST_ARROYO_DE_ROCHA")
+        ? std::optional<TestRegister>(std::in_place, "WaterManual_ArroyoDeRocha", __FILE__, &TestArroyoDeRocha)
+        : std::nullopt;
 
 UNIT_TEST(WaterReported_LithuaniaBalticSea)
 {
