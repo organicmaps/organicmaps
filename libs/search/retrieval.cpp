@@ -332,10 +332,11 @@ struct RetrievePostcodeFeaturesAdaptor
 };
 
 template <typename Value>
-std::unique_ptr<Retrieval::TrieRoot<Value>> ReadTrie(ModelReaderPtr & reader)
+std::unique_ptr<Retrieval::TrieRoot<Value>> ReadTrie(ModelReaderPtr & reader,
+                                                     SingleValueSerializer<Value> const & serializer)
 {
   return trie::ReadTrie<SubReaderWrapper<Reader>, ValueList<Value>>(SubReaderWrapper<Reader>(reader.GetPtr()),
-                                                                    SingleValueSerializer<Value>());
+                                                                    serializer);
 }
 }  // namespace
 
@@ -348,17 +349,15 @@ Retrieval::Retrieval(MwmContext const & context, base::Cancellable const & cance
 
   auto const format = version::MwmTraits(value.GetMwmVersion()).GetSearchIndexFormat();
   CHECK_EQUAL(format, version::MwmTraits::SearchIndexFormat::CompressedBitVectorWithHeader, ());
+
+  SearchIndexHeader header;
   {
     FilesContainerR::TReader reader = value.m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
-
-    SearchIndexHeader header;
     header.Read(*reader.GetPtr());
-    CHECK(header.m_version == SearchIndexHeader::Version::V2, (base::Underlying(header.m_version)));
-
     m_reader = reader.SubReader(header.m_indexOffset, header.m_indexSize);
   }
 
-  m_root = ReadTrie<Uint64IndexValue>(m_reader);
+  m_root = ReadTrie(m_reader, SingleValueSerializer<Uint64IndexValue>(header.GetListFormat()));
 }
 
 Retrieval::ExtendedFeatures Retrieval::RetrieveAddressFeatures(SearchTrieRequest<UniStringDFA> const & request) const
