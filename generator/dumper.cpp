@@ -1,5 +1,6 @@
 #include "generator/dumper.hpp"
 
+#include "search/search_index_header.hpp"
 #include "search/search_index_values.hpp"
 
 #include "indexer/classificator.hpp"
@@ -176,8 +177,12 @@ void DumpSearchTokens(string const & fPath, size_t maxTokensToShow)
   FilesContainerR container(std::make_unique<FileReader>(fPath));
   feature::DataHeader header(container);
 
-  auto const trieRoot = trie::ReadTrie<ModelReaderPtr, ValueList<Value>>(container.GetReader(SEARCH_INDEX_FILE_TAG),
-                                                                         SingleValueSerializer<Value>());
+  auto reader = container.GetReader(SEARCH_INDEX_FILE_TAG);
+  search::SearchIndexHeader searchHeader;
+  searchHeader.Read(*reader.GetPtr());
+  auto const trieRoot = trie::ReadTrie<ModelReaderPtr, ValueList<Value>>(
+      reader.SubReader(searchHeader.m_indexOffset, searchHeader.m_indexSize),
+      SingleValueSerializer<Value>(searchHeader.GetListFormat()));
 
   SearchTokensCollector<Value> f;
   trie::ForEachRef(*trieRoot, f, strings::UniString());

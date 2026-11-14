@@ -20,6 +20,7 @@ set(SRC
   ranking_tests.cpp
   results_tests.cpp
   region_info_getter_tests.cpp
+  search_index_values_tests.cpp
   segment_tree_tests.cpp
   suggest_tests.cpp
   string_match_test.cpp
