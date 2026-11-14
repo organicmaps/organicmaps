@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="password">암호</string>
+    <string name="forgot_password">암호를 잊으셨나요?</string>
+    <!-- login text field -->
+    <string name="email_or_username">이메일 또는 사용자 이름</string>
+</resources>
