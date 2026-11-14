@@ -68,7 +68,9 @@ extension NavigationDashboard.ViewModel {
   }
 
   var canReverseRoutePoints: Bool {
-    guard planningMode != .navigateTrack else { return false }
+    if planningMode == .navigateTrack {
+      return routePoints.hasStartAndFinish && dashboardState == .ready && progress == 1
+    }
     // A fixed start leaves a valid preview in RouteNoFollowing, where isRouteBuilt() is false.
     return routePoints.hasStartAndFinish &&
       (dashboardState == .ready || dashboardState == .prepare) &&

@@ -86,6 +86,27 @@ final class MWMRoutePointSelectionTests: XCTestCase {
     XCTAssertFalse(viewModel.canReverseRoutePoints)
   }
 
+  func testTrackReversalRequiresACompletedPreview() {
+    XCTAssertFalse(MWMRouter.isRouteValid())
+    var viewModel = NavigationDashboard.ViewModel.initial
+    viewModel.routePoints = .init(trackName: "Track")
+    let cases: [(MWMNavigationDashboardState, CGFloat, Bool)] = [
+      (.prepare, 1, false),
+      (.planning, 0, false),
+      (.planning, 1, false),
+      (.ready, 0.5, false),
+      (.ready, 1, true),
+      (.navigation, 1, false),
+      (.error, 1, false),
+      (.closed, 1, false),
+    ]
+    for (state, progress, expected) in cases {
+      viewModel.dashboardState = state
+      viewModel.progress = progress
+      XCTAssertEqual(viewModel.canReverseRoutePoints, expected, "State: \(state), progress: \(progress)")
+    }
+  }
+
   func test_GivenRoute_WhenPointIsAppended_ThenKeepsOldFinishAsLastStop() {
     seedRoute()
 

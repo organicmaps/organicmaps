@@ -13,12 +13,14 @@ public final class FollowedTrackInfo
   @NonNull
   private final String mName;
   private final double mEntryDistanceMeters;
+  private final boolean mReversed;
 
-  private FollowedTrackInfo(long trackId, @NonNull String name, double entryDistanceMeters)
+  private FollowedTrackInfo(long trackId, @NonNull String name, double entryDistanceMeters, boolean reversed)
   {
     mTrackId = trackId;
     mName = name;
     mEntryDistanceMeters = entryDistanceMeters;
+    mReversed = reversed;
   }
 
   /** The track may have been deleted meanwhile: resolving it needs an existence check. */
@@ -37,5 +39,10 @@ public final class FollowedTrackInfo
   public double getEntryDistanceMeters()
   {
     return mEntryDistanceMeters;
+  }
+
+  public boolean isReversed()
+  {
+    return mReversed;
   }
 }

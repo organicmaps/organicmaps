@@ -282,6 +282,34 @@ public class RoutingControllerRecoveryTest
   }
 
   @Test
+  public void trackReversalKeepsTheControllerInSyncWithCore() throws Exception
+  {
+    try (ImportedTrack track = new ImportedTrack())
+    {
+      onMain(() -> assertEquals(FollowTrackResult.Ok, mController.navigateTrack(track.id)));
+      await("Track preview did not finish building", mController::isBuilt);
+      onMain(() -> {
+        assertEquals(FollowTrackResult.NoRemainingGeometry, mController.reverseFollowedTrack());
+        assertTrue(mController.isPlanning());
+        assertTrue(mController.isBuilt());
+        assertFalse(mController.getFollowedTrackInfo().isReversed());
+        assertEquals(FollowTrackResult.Ok, mController.updateFollowedTrackEntryAt(400.0));
+      });
+      await("Entry update did not finish building", mController::isBuilt);
+      onMain(() -> {
+        assertEquals(FollowTrackResult.Ok, mController.reverseFollowedTrack());
+        assertTrue(mController.isBuilding());
+        assertEquals(FollowTrackResult.Busy, mController.reverseFollowedTrack());
+      });
+      await("Reversed preview did not finish building", mController::isBuilt);
+      onMain(() -> {
+        assertTrue(mController.getFollowedTrackInfo().isReversed());
+        assertEquals(400.0, mController.getFollowedTrackInfo().getEntryDistanceMeters(), 0.0);
+      });
+    }
+  }
+
+  @Test
   public void configurationRecreationKeepsRouteRecovery() throws Exception
   {
     // A permission dialog pauses the activity and prevents ActivityScenario from recreating it.

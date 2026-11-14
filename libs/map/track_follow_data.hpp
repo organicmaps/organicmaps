@@ -44,6 +44,8 @@ std::optional<TrackSourcePosition> ResolveTrackEntry(kml::MultiGeometry const & 
 // Resolve a finite chart distance clamped to the full source length.
 TrackSourcePosition ResolveTrackEntryAt(kml::MultiGeometry const & geometry, double distanceFromBeginningM);
 
-// Prepare one connected remainder, preserving source order, stops and altitude availability.
-std::expected<routing::TrackFollowingData, FollowTrackResult> BuildTrackFollowingData(
-    kml::TrackData const & source, TrackSourcePosition const & entry);
+// Prepare the connected remainder in travel order, retaining stops and altitude availability.
+// Reverse follows the part before the entry back to its connected start.
+std::expected<routing::TrackFollowingData, FollowTrackResult> BuildTrackFollowingData(kml::TrackData const & source,
+                                                                                      TrackSourcePosition const & entry,
+                                                                                      bool reverse);

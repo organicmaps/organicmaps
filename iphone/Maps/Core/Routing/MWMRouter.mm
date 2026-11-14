@@ -47,6 +47,7 @@ using namespace routing;
     _trackId = info.m_id;
     _name = @(info.m_name.c_str());
     _entryDistanceMeters = info.m_entryDistanceM;
+    _isReversed = info.m_reversed;
   }
   return self;
 }
@@ -217,6 +218,11 @@ static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
 + (MWMFollowTrackResult)updateFollowedTrackEntryAtDistance:(double)distance
 {
   return OnFollowTrackResult(GetFramework().GetRoutingManager().UpdateFollowedTrackEntryAt(distance));
+}
+
++ (MWMFollowTrackResult)reverseFollowedTrack
+{
+  return OnFollowTrackResult(GetFramework().GetRoutingManager().ReverseFollowedTrack());
 }
 
 + (MWMFollowTrackResult)setFollowTrackProfile:(MWMRouterType)type

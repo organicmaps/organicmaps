@@ -140,7 +140,11 @@ extension NavigationDashboard {
         return showRoutePoints()
 
       case .reverseRoutePoints:
-        router.reverseRoute()
+        if router.isFollowingTrack() {
+          showTrackError(router.reverseFollowedTrack())
+        } else {
+          router.reverseRoute()
+        }
         return showRoutePoints()
 
       case .updateVisibleAreaInsets(let insets):
