@@ -119,8 +119,6 @@ sudo dnf install -y \
     gcc \
     gcc-c++ \
     ninja-build \
-    freetype-devel \
-    libicu-devel \
     libstdc++-devel \
     mesa-libGL-devel \
     libglvnd-devel \
@@ -132,6 +130,7 @@ sudo dnf install -y \
     qt6-qttranslations \
     sqlite-devel
 ```
+Please see more accurate list of dependencies in the [Dockerfile](/.devcontainer/Dockerfile).
 
 #### Alpine
 
