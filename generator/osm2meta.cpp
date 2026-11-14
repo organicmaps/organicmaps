@@ -18,6 +18,8 @@
 #include <cstdlib>
 #include <optional>
 
+#include <utf8.h>
+
 namespace
 {
 using osm::EditableMapObject;
@@ -41,6 +43,50 @@ bool Prefix2Double(std::string const & str, double & d)
   return (s != stop && math::is_finite(d));
 }
 
+// Page names in OSM Facebook URLs are often percent-encoded, e.g. %E4%BE%86 for 來. Decode them only if all
+// escapes form valid non-ASCII UTF-8 within the BMP: escaped ASCII like %2F keeps its meaning, a partly decoded
+// value would be encoded twice when opened as a link, and Android's JNI string conversions mangle characters
+// beyond U+FFFF.
+std::string DecodeNonAsciiEscapes(std::string const & s)
+{
+  auto const hexDigit = [](char c) -> int
+  {
+    if (c >= '0' && c <= '9')
+      return c - '0';
+    if (c >= 'A' && c <= 'F')
+      return c - 'A' + 10;
+    if (c >= 'a' && c <= 'f')
+      return c - 'a' + 10;
+    return -1;
+  };
+
+  std::string result;
+  result.reserve(s.size());
+  for (size_t i = 0; i < s.size();)
+  {
+    if (s[i] != '%')
+    {
+      result += s[i++];
+      continue;
+    }
+
+    // Append a run of %XX escapes and check that it forms valid UTF-8.
+    size_t const runBegin = result.size();
+    while (i < s.size() && s[i] == '%')
+    {
+      int const hi = i + 2 < s.size() ? hexDigit(s[i + 1]) : -1;
+      int const lo = i + 2 < s.size() ? hexDigit(s[i + 2]) : -1;
+      // Keep the value as is for an ASCII or malformed escape, or a lead byte of a character beyond U+FFFF.
+      if (hi < 8 || hi >= 15 || lo < 0)
+        return s;
+      result += static_cast<char>(hi * 16 + lo);
+      i += 3;
+    }
+    if (!utf8::is_valid(result.begin() + runBegin, result.end()))
+      return s;
+  }
+  return result;
+}
 }  // namespace
 
 std::string MetadataTagProcessorImpl::ValidateAndFormat_stars(std::string const & v)
@@ -492,7 +538,7 @@ void MetadataTagProcessor::operator()(std::string const & k, std::string const &
   case Metadata::FMD_WEBSITE: valid = ValidateAndFormat_url(v); break;
   case Metadata::FMD_HERITAGE_WEBSITE: valid = ValidateAndFormat_url(v); break;
   case Metadata::FMD_WEBSITE_MENU: valid = ValidateAndFormat_url(v); break;
-  case Metadata::FMD_CONTACT_FACEBOOK: valid = osm::ValidateAndFormat_facebook(v); break;
+  case Metadata::FMD_CONTACT_FACEBOOK: valid = DecodeNonAsciiEscapes(osm::ValidateAndFormat_facebook(v)); break;
   case Metadata::FMD_CONTACT_INSTAGRAM: valid = osm::ValidateAndFormat_instagram(v); break;
   case Metadata::FMD_CONTACT_TWITTER: valid = osm::ValidateAndFormat_twitter(v); break;
   case Metadata::FMD_CONTACT_VK: valid = osm::ValidateAndFormat_vk(v); break;
