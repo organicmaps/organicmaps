@@ -32,6 +32,14 @@ UNIT_TEST(AddressQuery_ApartmentAndCanadianPostcode)
 
 UNIT_TEST(AddressQuery_LongSeparatorRuns)
 {
+  for (char separator : {' ', '\t', '\n', '\r', '\v', '\f'})
+  {
+    auto const query = "123 Main Street" + std::string(4000, separator) + "X";
+    TEST_EQUAL(RemoveAddressDetails(query), query, (static_cast<int>(separator)));
+    auto const unit = "Unit 10," + std::string(3900, separator) + "123 Main Street, Springfield";
+    TEST_EQUAL(NormalizeAndTokenizeString(RemoveAddressDetails(unit)),
+               NormalizeAndTokenizeString("123 Main Street Springfield"), (static_cast<int>(separator)));
+  }
   auto const ordinary = "123 Main Street" + std::string(4000, ' ') + "X";
   TEST_EQUAL(RemoveAddressDetails(ordinary), ordinary, ());
   auto const address = "Unit 10," + std::string(3900, ' ') + "123 Main Street, Springfield";

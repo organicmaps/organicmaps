@@ -175,6 +175,7 @@ private:
   RegionInfo m_region;
   feature::TypesHolder m_types;
   std::string m_str;
+  std::vector<std::string> m_matchedLocalityTokens;
   Result::Details m_details;
 
   StoredRankingInfo m_info;

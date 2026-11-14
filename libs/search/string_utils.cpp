@@ -49,14 +49,16 @@ std::string RemoveAddressDetails(std::string const & query)
   compact.reserve(query.size());
   for (char c : query)
   {
-    bool const separator = c == ' ' || c == '\t' || c == ',';
+    if (c == '\t' || c == '\n' || c == '\r' || c == '\v' || c == '\f')
+      c = ' ';
+    bool const separator = c == ' ' || c == ',';
     if (separator && !compact.empty() && (compact.back() == ' ' || compact.back() == ','))
     {
       if (c == ',')
         compact.back() = ',';
       continue;
     }
-    compact += c == '\t' ? ' ' : c;
+    compact += c;
   }
   static std::regex const unitPrefix(R"(^\s*(?:(?:apt|apartment|unit|suite)\.?\s*#?\s*|#\s*)[0-9]+[a-z]?[,\s]+)",
                                      std::regex::icase);

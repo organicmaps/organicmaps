@@ -118,8 +118,6 @@ struct BuildInfo
   bool IsTrackMatchingEnabled() const { return m_match == Match::Everything || m_match == Match::TrackOnly; }
 
   Source m_source = Source::Other;
-  std::string m_customTitle;
-  std::string m_customSubtitle;
   m2::PointD m_mercator;
   bool m_isLongTap = false;
   bool m_isMyPosition = false;

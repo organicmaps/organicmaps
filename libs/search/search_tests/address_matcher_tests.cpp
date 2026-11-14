@@ -59,6 +59,22 @@ UNIT_TEST(AddressMatcher_PreservesExactAddress)
   TEST_EQUAL(results[0].GetString(), "6498, 131A Street", ());
 }
 
+UNIT_TEST(AddressMatcher_PreservesStreetNameOrder)
+{
+  auto const result = MakeAddress(0, 0, "Town Hall", "Sampletown", {"123", "George King Street"});
+  TEST(IsAddressResultMatchingQuery("123 George King Street Sampletown", result, "123 George King Street"), ());
+  TEST(!IsAddressResultMatchingQuery("123 King George Street Sampletown", result, "123 King George Street"), ());
+}
+
+UNIT_TEST(AddressMatcher_PreservesMappedNamesAndMatchedLocality)
+{
+  auto const result = MakeAddress(0, 0, "Town Hall", "New York City, United States",
+                                  {"123", "Rue du Port", {"Harbour Street"}, {"ny"}});
+  TEST(IsAddressResultMatchingQuery("123 Harbour Street New York City NY USA", result, "123 Harbour Street"), ());
+  TEST(!IsAddressResultMatchingQuery("123 Harbour Street New York City NJ USA", result, "123 Harbour Street"), ());
+  TEST(!IsAddressResultMatchingQuery("123 Other Street New York City NY USA", result, "123 Other Street"), ());
+}
+
 UNIT_TEST(AddressMatcher_UsesMappedAddressOfNamedBuilding)
 {
   auto result = MakeAddress(49.1234567, -122.7654321, "Named Residence", "Example City, Canada");

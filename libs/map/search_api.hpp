@@ -68,7 +68,7 @@ public:
             size_t numThreads, Delegate & delegate);
   virtual ~SearchAPI() = default;
 
-  void OnViewportChanged(m2::RectD const & viewport, int scale = 0);
+  void OnViewportChanged(m2::RectD const & viewport);
 
   struct AddressQuery
   {
@@ -78,12 +78,8 @@ public:
   };
   using AddressCallback = std::function<void(std::optional<search::Result>)>;
   // UI-thread operation, independent of interactive results and search history.
-  void ResolveAddress(uint64_t id, std::vector<AddressQuery> queries, std::string locale, bool background,
-                      AddressCallback callback);
+  void ResolveAddress(uint64_t id, std::vector<AddressQuery> queries, std::string locale, AddressCallback callback);
   void CancelAddressResolution(uint64_t id);
-  // Revision changes also notify consumers when map data changes without viewport movement.
-  using AddressViewportCallback = std::function<void(m2::RectD const &, int, uint64_t)>;
-  void SetAddressViewportCallback(AddressViewportCallback callback);
 
   void InitAfterWorldLoaded() { m_engine.InitAfterWorldLoaded(); }
 
@@ -158,7 +154,6 @@ private:
     uint64_t m_id;
     std::vector<AddressQuery> m_queries;
     std::string m_locale;
-    bool m_background;
     AddressCallback m_callback;
     size_t m_queryIndex = 0;
     base::Timer m_timer;
@@ -190,9 +185,6 @@ private:
   std::weak_ptr<search::ProcessorHandle> m_addressHandle;
   bool m_addressRunning = false;
   uint64_t m_addressGeneration = 0;
-  AddressViewportCallback m_addressViewportCallback;
-  uint64_t m_mapDataRevision = 0;
-  int m_viewportScale = 0;
   DECLARE_THREAD_CHECKER(m_threadChecker);
 
   m2::RectD m_viewport;

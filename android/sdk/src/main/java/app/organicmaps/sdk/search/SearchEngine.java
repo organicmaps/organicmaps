@@ -130,11 +130,11 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
 
   @MainThread
   public long resolveAddress(@NonNull String[] queries, @NonNull String[] expectedStreets, @NonNull String locale,
-                             boolean background, @NonNull AddressResolutionListener listener)
+                             @NonNull AddressResolutionListener listener)
   {
     final long requestId = ++mNextAddressRequestId;
     mAddressResolutionListeners.put(requestId, listener);
-    nativeResolveAddress(queries, expectedStreets, locale, requestId, background);
+    nativeResolveAddress(queries, expectedStreets, locale, requestId);
     return requestId;
   }
 
@@ -150,18 +150,6 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   {
     for (long requestId : new ArrayList<>(mAddressResolutionListeners.keySet()))
       cancelAddressResolution(requestId);
-  }
-
-  @MainThread
-  public void selectResolvedAddress(double lat, double lon, @NonNull String address)
-  {
-    selectResolvedAddress(lat, lon, address, "");
-  }
-
-  @MainThread
-  public void selectResolvedAddress(double lat, double lon, @NonNull String name, @NonNull String address)
-  {
-    nativeSelectResolvedAddress(lat, lon, name, address);
   }
 
   @Keep
@@ -407,11 +395,9 @@ public enum SearchEngine implements SearchListener, MapSearchListener,
   private static native boolean nativeRunSearchInBookmarks(byte[] bytes, long categoryId, long timestamp);
 
   private static native void nativeResolveAddress(String[] queries, String[] expectedStreets, String language,
-                                                  long requestId, boolean background);
+                                                  long requestId);
 
   private static native void nativeCancelAddressResolution(long requestId);
-
-  private static native void nativeSelectResolvedAddress(double lat, double lon, String name, String address);
 
   private static native void nativeShowResult(int index);
 

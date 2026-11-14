@@ -150,13 +150,12 @@ SearchAPI::SearchAPI(DataSource & dataSource, storage::Storage const & storage,
              Engine::Params(languages::GetCurrentMapTwine() /* locale */, numThreads))
 {}
 
-void SearchAPI::OnViewportChanged(m2::RectD const & viewport, int scale)
+void SearchAPI::OnViewportChanged(m2::RectD const & viewport)
 {
   // The map may be scrolled past the antimeridian, while the search engine works with canonical coordinates only.
   /// @todo A rect crossing the antimeridian is searched in its canonical part only: the engine (mwm selection,
   /// features collection, pivot distances) doesn't support two-parts rects.
   m_viewport = mercator::WrapRectX(viewport);
-  m_viewportScale = scale;
 
   auto const forceSearchInViewport = !m_isViewportInitialized;
   if (!m_isViewportInitialized)
@@ -175,8 +174,6 @@ void SearchAPI::OnViewportChanged(m2::RectD const & viewport, int scale)
   }
 
   PokeSearchInViewport(forceSearchInViewport);
-  if (m_addressViewportCallback)
-    m_addressViewportCallback(m_viewport, scale, m_mapDataRevision);
   StartAddressResolution();
 }
 
@@ -444,39 +441,22 @@ void SearchAPI::Search(SearchIntent & intent)
   intent.m_isDelayed = false;
 }
 
-void SearchAPI::SetAddressViewportCallback(AddressViewportCallback callback)
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  m_addressViewportCallback = std::move(callback);
-  if (m_addressViewportCallback && m_isViewportInitialized)
-    m_addressViewportCallback(m_viewport, m_viewportScale, m_mapDataRevision);
-}
-
 void SearchAPI::ClearCaches()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   SuspendAddressResolution();
   m_engine.ClearCaches();
-  ++m_mapDataRevision;
-  if (m_addressViewportCallback && m_isViewportInitialized)
-    m_addressViewportCallback(m_viewport, m_viewportScale, m_mapDataRevision);
   StartAddressResolution();
 }
 
-void SearchAPI::ResolveAddress(uint64_t id, std::vector<AddressQuery> queries, std::string locale, bool background,
+void SearchAPI::ResolveAddress(uint64_t id, std::vector<AddressQuery> queries, std::string locale,
                                AddressCallback callback)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   CHECK(callback, ());
-  auto request =
-      std::make_shared<AddressRequest>(id, std::move(queries), std::move(locale), background, std::move(callback));
-  if (background)
-    m_addressRequests.push_back(std::move(request));
-  else
-  {
-    SuspendAddressResolution();
-    m_addressRequests.push_front(std::move(request));
-  }
+  auto request = std::make_shared<AddressRequest>(id, std::move(queries), std::move(locale), std::move(callback));
+  SuspendAddressResolution();
+  m_addressRequests.push_front(std::move(request));
   StartAddressResolution();
 }
 
@@ -514,36 +494,27 @@ void SearchAPI::StartAddressResolution()
     StartAddressResolution();
     return;
   }
-  if (request->m_background && m_viewportScale < 16)
-    return;
 
   m_addressRunning = true;
   auto const generation = ++m_addressGeneration;
   auto const query = request->m_queries[request->m_queryIndex];
-  auto viewport = m_viewport;
-  if (request->m_background)
-    viewport.Inflate(viewport.SizeX() / 4.0, viewport.SizeY() / 4.0);
   SearchParams params;
-  // The viewport supplies the geographic restriction. Avoid expanding country/city tokens
-  // for every address; still validate the complete original query against the result address.
-  params.m_query =
-      (request->m_background && !query.m_expectedStreet.empty() ? query.m_expectedStreet : query.m_query) + " ";
+  params.m_query = query.m_query + " ";
   params.m_inputLocale = request->m_locale;
-  params.m_viewport = viewport;
-  params.m_mode = request->m_background ? Mode::Viewport : Mode::Everywhere;
+  params.m_viewport = m_viewport;
+  params.m_mode = Mode::Everywhere;
   params.m_needAddress = true;
   params.m_requireCompleteResults = true;
   // Use the engine's normal bounded timeout. A shorter deadline can turn a cold-cache
   // address into a false miss now that resolution waits for complete results.
-  params.m_onResults = [this, request, generation, query, viewport](Results const & results)
+  params.m_onResults = [this, request, generation, query](Results const & results)
   {
     if (!results.IsEndMarker())
       return;
     std::optional<search::Result> match;
     if (!results.IsEndedCancelled())
       if (auto const * result = search::FindUniqueAddressResult(query.m_query, results, query.m_expectedStreet))
-        if (!request->m_background || viewport.IsPointInside(result->GetFeatureCenter()))
-          match = *result;
+        match = *result;
     RunUITask([this, request, generation, match = std::move(match)]() mutable
     {
       CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -559,8 +530,8 @@ void SearchAPI::StartAddressResolution()
       }
       SuspendAddressResolution();
       m_addressRequests.pop_front();
-      LOG(LDEBUG, ("Address resolution", request->m_id, "background", request->m_background, "found", match.has_value(),
-                   "milliseconds", request->m_timer.ElapsedMilliseconds()));
+      LOG(LDEBUG, ("Address resolution", request->m_id, "found", match.has_value(), "milliseconds",
+                   request->m_timer.ElapsedMilliseconds()));
       request->m_callback(std::move(match));
       StartAddressResolution();
     });

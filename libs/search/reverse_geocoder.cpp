@@ -175,7 +175,7 @@ bool ReverseGeocoder::GetExactAddress(FeatureType & ft, Address & addr, bool pla
 
 bool ReverseGeocoder::GetExactAddress(FeatureID const & fid, Address & addr) const
 {
-  bool res;
+  bool res = false;
   m_dataSource.ReadFeature([&](FeatureType & ft) { res = GetExactAddress(ft, addr, true /* placeAsStreet */); }, fid);
   return res;
 }

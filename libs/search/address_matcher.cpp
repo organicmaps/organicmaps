@@ -235,6 +235,24 @@ bool StreetTokensMatch(std::vector<std::string> const & queryTokens, std::vector
   if (streetTokens.empty())
     return false;
 
+  // Street-type and direction placement varies, but the substantive name must retain its order.
+  auto const isModifier = [](std::string const & token)
+  {
+    return IsStreetSynonym(strings::MakeUniString(token)) || token == "n" || token == "s" || token == "e" ||
+           token == "w" || token == "north" || token == "south" || token == "east" || token == "west";
+  };
+  auto position = queryTokens.begin();
+  for (auto const & token : streetTokens)
+  {
+    if (isModifier(token))
+      continue;
+    while (position != queryTokens.end() && isModifier(*position))
+      ++position;
+    if (position == queryTokens.end() || *position != token)
+      return false;
+    ++position;
+  }
+
   std::multiset<std::string> address(addressTokens.begin(), addressTokens.end());
   for (auto const & token : remaining)
   {
@@ -277,18 +295,26 @@ std::optional<Candidate> ParseCandidate(size_t index, Result const & result, Add
   if (!identity)
     return {};
   auto const house = ParseHouseIdentifier(identity->m_houseNumber);
-  auto const streetTokens = Tokenize(identity->m_street);
-  if (!house || streetTokens.empty())
+  if (!house)
     return {};
-
-  if (!expectedStreet.empty())
+  auto addressTokens = Tokenize(result.GetAddress());
+  for (auto const & token : identity->m_matchedLocalityTokens)
   {
-    auto const expected = ParseAddress(RemoveAddressDetails(expectedStreet));
-    if (!expected || !StreetMatchesQuery(expected->m_streetTokens, streetTokens, {}))
-      return {};
+    auto normalized = Tokenize(token);
+    addressTokens.insert(addressTokens.end(), normalized.begin(), normalized.end());
   }
-
-  if (!StreetMatchesQuery(requested.m_streetAndLocalityTokens, streetTokens, Tokenize(result.GetAddress())))
+  auto const expected =
+      expectedStreet.empty() ? std::optional<ParsedAddress>{} : ParseAddress(RemoveAddressDetails(expectedStreet));
+  if (!expectedStreet.empty() && !expected)
+    return {};
+  auto const matchesStreet = [&](std::string const & name)
+  {
+    auto const streetTokens = Tokenize(name);
+    return !streetTokens.empty() && (!expected || StreetMatchesQuery(expected->m_streetTokens, streetTokens, {})) &&
+           StreetMatchesQuery(requested.m_streetAndLocalityTokens, streetTokens, addressTokens);
+  };
+  if (!matchesStreet(identity->m_street) &&
+      !std::any_of(identity->m_streetNames.begin(), identity->m_streetNames.end(), matchesStreet))
     return {};
 
   uint64_t const difference = house->first > requested.m_houseNumber ? house->first - requested.m_houseNumber

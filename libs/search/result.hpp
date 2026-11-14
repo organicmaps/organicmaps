@@ -58,6 +58,8 @@ public:
   {
     std::string m_houseNumber;
     std::string m_street;
+    std::vector<std::string> m_streetNames = {};
+    std::vector<std::string> m_matchedLocalityTokens = {};
   };
 
   // Min distance to search result when popularity label has a higher priority (in meters).

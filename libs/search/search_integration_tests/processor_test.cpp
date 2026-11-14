@@ -14,6 +14,7 @@
 #include "search/features_layer_path_finder.hpp"
 #include "search/mwm_context.hpp"
 #include "search/retrieval.hpp"
+#include "search/reverse_geocoder.hpp"
 #include "search/token_range.hpp"
 #include "search/token_slice.hpp"
 
@@ -38,6 +39,14 @@ using namespace feature;
 using namespace generator::tests_support;
 using namespace search;
 using namespace search::tests_support;
+
+Results AddressResults(std::vector<Result> const & source)
+{
+  Results results;
+  for (auto const & result : source)
+    results.AddResultNoChecks(Result(result));
+  return results;
+}
 using namespace std;
 
 class TestAirport : public TestPOI
@@ -179,7 +188,7 @@ UNIT_CLASS_TEST(ProcessorTest, ExactAddressRanksBeforeInterpolation)
 {
   std::string const lang = "en";
   TestStreet exactStreet({{0.0, 0.0}, {0.1, 0.1}, {0.11, 0.11}}, "Clifton Avenue", lang);
-  TestBuilding exact({0.1, 0.1}, {}, "20", exactStreet.GetName(lang), lang);
+  TestBuilding exact({0.1, 0.1}, {}, "36", exactStreet.GetName(lang), lang);
   TestAddrInterpol interpolation({{-0.005, -0.005}, {0.005, 0.005}}, feature::InterpolType::Even, "20", "40",
                                  exactStreet.GetName(lang));
 
@@ -191,7 +200,66 @@ UNIT_CLASS_TEST(ProcessorTest, ExactAddressRanksBeforeInterpolation)
   });
 
   SetViewport(m2::RectD(-0.02, -0.02, 0.02, 0.02));
-  TEST(ResultsMatch("20 Clifton Avenue", {ExactMatch(countryId, exact)}), ());
+  TEST(OrderedResultsMatch("36 Clifton Avenue", {ExactMatch(countryId, exact), ExactMatch(countryId, interpolation)}),
+       ());
+}
+
+UNIT_CLASS_TEST(ProcessorTest, ResolutionRejectsReversedStreetName)
+{
+  TestStreet street({{-0.01, 0}, {0.01, 0}}, "George King Street", "en");
+  TestBuilding building({0, 0}, {}, "123", street.GetName("en"), "en");
+  auto const countryId = BuildCountry("Ordered Addressland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(street);
+    builder.Add(building);
+  });
+  SetViewport(m2::RectD(-0.02, -0.02, 0.02, 0.02));
+  auto params = GetDefaultSearchParams("123 King George Street");
+  params.m_needAddress = true;
+  auto const request = MakeRequest(params);
+  TEST(ResultsMatch(request->Results(), {ExactMatch(countryId, building)}), ());
+  auto const results = AddressResults(request->Results());
+  TEST(!FindUniqueAddressResult("123 King George Street", results, "123 King George Street"), ());
+}
+
+UNIT_CLASS_TEST(ProcessorTest, ResolutionPreservesTranslatedMappedStreet)
+{
+  StringUtf8Multilang names;
+  names.AddString("default", "Rue du Port");
+  names.AddString("fr", "Rue du Port");
+  names.AddString("en", "Harbour Street");
+  TestStreet street({{-0.01, 0}, {0.01, 0}}, names);
+  TestBuilding building({0, 0}, {}, "123", "Rue du Port", "fr");
+  auto const countryId = BuildCountry("Translated Addressland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(street);
+    builder.Add(building);
+  });
+  SetViewport(m2::RectD(-0.02, -0.02, 0.02, 0.02));
+  auto params = GetDefaultSearchParams("123 Harbour Street");
+  params.m_needAddress = true;
+  auto const request = MakeRequest(params);
+  TEST(ResultsMatch(request->Results(), {ExactMatch(countryId, building)}), ());
+  auto const results = AddressResults(request->Results());
+  auto const * resolved = FindUniqueAddressResult(params.m_query, results, "123 Harbour Street");
+  TEST(resolved, ());
+}
+
+UNIT_CLASS_TEST(ProcessorTest, ExactAddressLookupRejectsDeregisteredMap)
+{
+  auto const map = BuildCountry("Removed Addressland", [&](TestMwmBuilder & builder)
+  { builder.Add(TestBuilding({0, 0}, {}, "123", "Main Street", "en")); });
+  FeatureID const id(map, 0);
+  bool visited = false;
+  m_dataSource.ReadFeature([&](FeatureType &) { visited = true; }, id);
+  TEST(visited, ());
+  DeregisterMap("Removed Addressland");
+  visited = false;
+  m_dataSource.ReadFeature([&](FeatureType &) { visited = true; }, id);
+  TEST(!visited, ());
+  ReverseGeocoder reverse(m_dataSource);
+  ReverseGeocoder::Address address;
+  TEST(!reverse.GetExactAddress(id, address), ());
 }
 
 UNIT_CLASS_TEST(ProcessorTest, NumberedStreetOrdinalSynonyms)
@@ -3921,6 +3989,13 @@ UNIT_CLASS_TEST(ProcessorTest, USAddress_WState_NY)
     TEST(ResultsMatch("636 Broadway New York City NY USA", rules), ());
     TEST(ResultsMatch("636 Broadway New York City NY United States of America", rules), ());
   }
+  auto params = GetDefaultSearchParams("636 Broadway New York City NY USA");
+  params.m_needAddress = true;
+  auto const request = MakeRequest(params);
+  auto const results = AddressResults(request->Results());
+  auto const * resolved = FindUniqueAddressResult(params.m_query, results, "636 Broadway");
+  TEST(resolved, ());
+  TEST(!FindUniqueAddressResult("636 Broadway New York City NJ USA", results, "636 Broadway"), ());
 }
 
 UNIT_CLASS_TEST(ProcessorTest, CompleteResolutionDistinguishesDeadlinesFromOrdinarySearch)

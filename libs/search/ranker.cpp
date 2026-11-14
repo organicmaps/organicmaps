@@ -259,6 +259,11 @@ public:
       return {};
 
     RankerResult res(*ft, center, std::move(name), country);
+    auto const & preInfo = preResult.GetInfo();
+    if (preInfo.m_exactMatch)
+      for (int type = Model::TYPE_VILLAGE; type <= Model::TYPE_COUNTRY; ++type)
+        for (size_t token : preInfo.m_tokenRanges[type])
+          res.m_matchedLocalityTokens.push_back(strings::ToUtf8(m_params.GetToken(token).GetOriginal()));
     res.FillDetails(*ft, m_ranker.m_typeResolver.m_isBuilding(res.GetTypes()),
                     m_ranker.m_typeResolver.m_isHotel(res.GetTypes()));
 
@@ -685,7 +690,12 @@ std::string Ranker::ResolveAddress(RankerResult const & res, Result::AddressIden
   {
     ReverseGeocoder::Address addr;
     if (res.GetID().IsValid() && m_reverseGeocoder.GetExactAddress(res.GetID(), addr))
+    {
       identity = {addr.m_building.m_name, addr.m_street.m_name};
+      addr.m_street.m_multilangName.ForEach([&](int8_t, std::string_view name)
+      { identity.m_streetNames.emplace_back(name); });
+      identity.m_matchedLocalityTokens = res.m_matchedLocalityTokens;
+    }
     else
       m_reverseGeocoder.GetNearbyAddress(res.GetCenter(), addr);
 
