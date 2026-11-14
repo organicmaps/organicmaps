@@ -76,7 +76,8 @@ public class MapButtonsController extends Fragment
 
   private final Observer<Integer> mPlacePageDistanceToTopObserver = translationY -> move(translationY, true);
   private final Observer<Integer> mRoutingBottomDistanceToTopObserver = translationY -> move(translationY, false);
-  private final Observer<Boolean> mBottomButtonHiddenObserver = this::setBottomButtonsHidden;
+  private final Observer<Boolean> mBottomButtonHiddenObserver = hidden -> updateBottomButtonsVisibility();
+  private final Observer<Boolean> mSearchEnabledObserver = enabled -> updateBottomButtonsVisibility();
   private final Observer<Integer> mSearchPageDistanceToTopObserver = this::moveForSearch;
   private final Observer<Boolean> mButtonHiddenObserver = this::setButtonsHidden;
   private final Observer<Integer> mMyPositionModeObserver = this::updateNavMyPositionButton;
@@ -178,11 +179,16 @@ public class MapButtonsController extends Fragment
     showButton(false, MapButtons.trackRecordingStatus);
     return mFrame;
   }
-  // For disabling bottom buttons which are visible in tablets
-  private void setBottomButtonsHidden(boolean hide)
+
+  // On wide portrait screens the centered search sheet leaves the start-aligned buttons visible at its side.
+  // INVISIBLE, not GONE: the first layout measures the frame for the bottom widgets offset even if it's hidden.
+  private void updateBottomButtonsVisibility()
   {
-    if (mBottomButtonsFrame != null)
-      UiUtils.showIf(!hide, mBottomButtonsFrame);
+    if (mBottomButtonsFrame == null)
+      return;
+    final boolean hidden = Boolean.TRUE.equals(mMapButtonsViewModel.getBottomButtonsHidden().getValue())
+                        || Boolean.TRUE.equals(mSearchPageViewModel.getSearchEnabled().getValue());
+    mBottomButtonsFrame.setVisibility(hidden ? View.INVISIBLE : View.VISIBLE);
   }
 
   public void showButton(boolean show, MapButtonsController.MapButtons button)
@@ -472,6 +478,7 @@ public class MapButtonsController extends Fragment
     mMapButtonsViewModel.getBottomButtonsHidden().observe(viewLifecycleOwner, mBottomButtonHiddenObserver);
     mMapButtonsViewModel.getButtonsHidden().observe(viewLifecycleOwner, mButtonHiddenObserver);
     mSearchPageViewModel.getSearchPageDistanceToTop().observe(viewLifecycleOwner, mSearchPageDistanceToTopObserver);
+    mSearchPageViewModel.getSearchEnabled().observe(viewLifecycleOwner, mSearchEnabledObserver);
     mMapButtonsViewModel.getMyPositionMode().observe(viewLifecycleOwner, mMyPositionModeObserver);
     mMapButtonsViewModel.getSearchOption().observe(viewLifecycleOwner, mSearchOptionObserver);
     mMapButtonsViewModel.getTrackRecorderState().observe(viewLifecycleOwner, mTrackRecorderObserver);
