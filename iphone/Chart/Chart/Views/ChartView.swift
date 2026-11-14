@@ -218,7 +218,7 @@ public class ChartView: UIView {
 
   public func setSelectedPoint(_ x: Double) {
     let routeLength = chartData.distance(forChartX: CGFloat(chartData.pointsCount - 1))
-    let upper = chartData.xAxisValueAt(CGFloat(chartPreviewView.maxX))
+    var upper = chartData.xAxisValueAt(CGFloat(chartPreviewView.maxX))
     var lower = chartData.xAxisValueAt(CGFloat(chartPreviewView.minX))
     let rangeLength = upper - lower
     if x < lower || x > upper, routeLength > 0 {
@@ -239,11 +239,7 @@ public class ChartView: UIView {
       chartPreviewView.setX(min: lowerIdx, max: upperIdx, notifyDelegate: false)
       updateViewport()
       lower = chartData.xAxisValueAt(CGFloat(chartPreviewView.minX))
-      let updatedUpper = chartData.xAxisValueAt(CGFloat(chartPreviewView.maxX))
-      let currentRangeLength = updatedUpper - lower
-      guard currentRangeLength > 0 else { return }
-      chartInfoView.infoX = max(0, min(1, CGFloat((x - lower) / currentRangeLength)))
-      return
+      upper = chartData.xAxisValueAt(CGFloat(chartPreviewView.maxX))
     }
     let currentRangeLength = upper - lower
     guard currentRangeLength > 0 else { return }
@@ -317,9 +313,6 @@ public class ChartView: UIView {
     }
 
     chartPreviewView.setX(min: lower, max: upper)
-    xAxisView.setBounds(lower: lower, upper: upper)
-    updateCharts(animationStyle: .none)
-    chartInfoView.update()
   }
 
   @objc func onPan(_ sender: UIPanGestureRecognizer) {
@@ -341,9 +334,6 @@ public class ChartView: UIView {
     }
 
     chartPreviewView.setX(min: lower, max: upper)
-    xAxisView.setBounds(lower: lower, upper: upper)
-    updateCharts(animationStyle: .none)
-    chartInfoView.update()
   }
 
   func updateCharts(animationStyle: ChartAnimation = .none) {
