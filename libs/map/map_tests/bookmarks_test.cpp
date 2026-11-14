@@ -1779,7 +1779,8 @@ UNIT_CLASS_TEST(VisualParamsFixture, Bookmarks_DeleteKeepsPoiSelected)
   place_page::BuildInfo poiTap;
   poiTap.m_source = place_page::BuildInfo::Source::User;
   poiTap.m_mercator = poiPoint;
-  for (uint32_t index = 0; index < 2 && (!fm.HasPlacePageInfo() || fm.GetCurrentPlacePageInfo().GetTitle() != "Shop"); ++index)
+  for (uint32_t index = 0; index < 2 && (!fm.HasPlacePageInfo() || fm.GetCurrentPlacePageInfo().GetTitle() != "Shop");
+       ++index)
   {
     poiTap.m_featureId = FeatureID(registered.first, index);
     fm.BuildAndSetPlacePageInfo(poiTap);
