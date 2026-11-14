@@ -1,9 +1,8 @@
 [[sound]]
 
-​[make_a_slight_right_turn]
+[make_a_slight_right_turn]
 en = Keep right.
 ar = الزم اليمين.
-az = Sağda qalın.
 be = Трымайцеся правей.
 bg = Дръжте се вдясно.
 ca = Manteniu-vos a la dreta.
@@ -50,20 +49,19 @@ zh-Hans = 向右前方行驶。
 zh-Hant = 向右前方行駛。
 yue = 靠右。
 
-​[make_a_slight_right_turn_street]
+[make_a_slight_right_turn_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_slight_right_turn is insufficient. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 nl = de flauwe bocht naar rechts
-​[make_a_slight_right_turn_street_verb]
+
+[make_a_slight_right_turn_street_verb]
 comment = Optionally used inside dist_direction_onto_street in position 5 when make_a_slight_right_turn_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 nl = Neem
-​[make_a_right_turn]
+
+[make_a_right_turn]
 en = Turn right.
 ar = انعطف لليمين.
-az = Sağadönün.
 be = Павярніце направа.
 bg = Завийте надясно.
 ca = Gireu a la dreta.
@@ -109,16 +107,16 @@ vi = Rẽ phải.
 zh-Hans = 右转。
 zh-Hant = 右轉。
 yue = 轉右。
-​[make_a_right_turn_street]
+
+[make_a_right_turn_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_right_turn is insufficient. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 ja = 右折です
 nl = naar rechts afslaan
-​[make_a_sharp_right_turn]
+
+[make_a_sharp_right_turn]
 en = Sharp right.
 ar = إلى أقصى اليمين.
-az = Kəskin sağa.
 be = Рэзка павярніце направа.
 bg = Завийте рязко надясно.
 ca = Gireu fortament a la dreta.
@@ -164,15 +162,15 @@ vi = Rẽ ngoặt bên phải.
 zh-Hans = 向右急转。
 zh-Hant = 向右急轉。
 yue = 向右急轉彎。
-​[make_a_sharp_right_turn_street]
+
+[make_a_sharp_right_turn_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_sharp_right_turn is insufficient. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 nl = scherp naar rechts afslaan
-​[enter_the_roundabout]
+
+[enter_the_roundabout]
 en = Enter the roundabout.
 ar = ادخل الدوار.
-az = Dairəvi kəsişməyə daxil olun.
 be = Павярніце на круг.
 bg = Влезте в кръговото движение.
 ca = Entreu a la rotonda.
@@ -220,22 +218,22 @@ vi = Đi vào vòng xoay.
 zh-Hans = 驶入环岛。
 zh-Hant = 駛入環狀交叉路口。
 yue = 駛入迴旋處。
-​[enter_the_roundabout_street]
+
+[enter_the_roundabout_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal enter_the_roundabout is insufficient. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 ja = に入ります
 nl = de rotonde
-​[enter_the_roundabout_street_verb]
+
+[enter_the_roundabout_street_verb]
 comment = Optionally used inside dist_direction_onto_street in position 5 when enter_the_roundabout_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 ja = ラウンドアバウトに入り、
 nl = Rijd
-​[leave_the_roundabout]
+
+[leave_the_roundabout]
 en = Exit the roundabout.
 ar = اخرج من الدوار.
-az = Dairəvi kəsişmədən çıxın.
 be = Збочце з круга.
 bg = Излезте от кръговото движение.
 ca = Sortiu de la rotonda.
@@ -283,22 +281,22 @@ vi = Ra khỏi vòng xoay.
 zh-Hans = 驶出环岛。
 zh-Hant = 駛出環狀交叉路口。
 yue = 駛出迴旋處。
-​[leave_the_roundabout_street]
+
+[leave_the_roundabout_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal leave_the_roundabout is insufficient. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 ja = に出ます
 nl = de rotonde
-​[leave_the_roundabout_street_verb]
+
+[leave_the_roundabout_street_verb]
 comment = Optionally used inside dist_direction_onto_street in position 5 when leave_the_roundabout_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 ja = ラウンドアバウトを出て、
 nl = Verlaat
-​[make_a_slight_left_turn]
+
+[make_a_slight_left_turn]
 en = Keep left.
 ar = الزم اليسار.
-az = Solda qalın.
 be = Трымайцеся лявей.
 bg = Дръжте се вляво.
 ca = Manteniu-vos a l'esquerra.
@@ -344,20 +342,20 @@ vi = Đi về phía trái.
 zh-Hans = 向左前方行驶。
 zh-Hant = 向左前方行駛。
 yue = 靠左。
-​[make_a_slight_left_turn_street]
+
+[make_a_slight_left_turn_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_slight_left_turn is insufficient. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 nl = de flauwe bocht naar links
-​[make_a_slight_left_turn_street_verb]
+
+[make_a_slight_left_turn_street_verb]
 comment = Optionally used inside dist_direction_onto_street in position 5 when make_a_slight_left_turn_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 nl = Neem
-​[make_a_left_turn]
+
+[make_a_left_turn]
 en = Turn left.
 ar = انعطف لليسار.
-az = Sola dönün.
 be = Павярніце налева.
 bg = Завийте наляво.
 ca = Gireu a l'esquerra.
@@ -403,16 +401,16 @@ vi = Rẽ trái.
 zh-Hans = 左转。
 zh-Hant = 左轉。
 yue = 轉左。
-​[make_a_left_turn_street]
+
+[make_a_left_turn_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_left_turn is insufficient. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 ja = 左折し
 nl = naar links afslaan
-​[make_a_sharp_left_turn]
+
+[make_a_sharp_left_turn]
 en = Sharp left.
 ar = إلى أقصى اليسار.
-az = Kəskin sola.
 be = Рэзка павярніце налева.
 bg = Завийте рязко наляво.
 ca = Gireu fortament a l'esquerra.
@@ -458,15 +456,15 @@ vi = Rẽ ngoặt bên trái.
 zh-Hans = 向左急转。
 zh-Hant = 向左急轉。
 yue = 向左急轉彎。
-​[make_a_sharp_left_turn_street]
+
+[make_a_sharp_left_turn_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_sharp_left_turn is insufficient. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 nl = scherp naar links afslaan
-​[make_a_u_turn]
+
+[make_a_u_turn]
 en = Make a u-turn.
 ar = إستدر للعودة.
-az = Geri dönün.
 be = Развярніцеся.
 bg = Направете обратен завой.
 ca = Feu un canvi de sentit.
@@ -513,20 +511,20 @@ vi = Quay đầu.
 zh-Hans = 掉头。
 zh-Hant = 掉頭。
 yue = 掉頭。
-​[make_a_u_turn_street]
+
+[make_a_u_turn_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_u_turn is insufficient. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 ja = に入ります
-​[make_a_u_turn_street_verb]
+
+[make_a_u_turn_street_verb]
 comment = Optionally used inside dist_direction_onto_street in position 5 when make_a_u_turn_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 ja = 後ろ方向して
-​[go_straight]
+
+[go_straight]
 en = Go straight.
 ar = إستمر إلى الأمام.
-az = Düz davam edin.
 be = Рухайцеся прама.
 bg = Продължете направо.
 ca = Seguiu tot recte.
@@ -572,10 +570,10 @@ vi = Đi thẳng.
 zh-Hans = 继续直行。
 zh-Hant = 繼續直行。
 yue = 直行。
-​[exit]
+
+[exit]
 en = Exit.
 ar = خروج.
-az = Çıxış.
 be = З'езд.
 bg = Изход.
 ca = Sortida.
@@ -623,11 +621,11 @@ vi = Đi theo lối ra
 zh-Hans = 驶出当前路段。
 zh-Hant = 駛出當前路段。
 yue = 駛出。
-​[onto]
+
+[onto]
 comment = Used in dist_direction_onto_street in position 3 unless take_exit_number is specified. For languages that don't have an "onto" word, (e.g. eu, ja, ko), the value should be the word NULL
 en = onto
 ar = إلى
-az = istiqamətində
 be = на
 bg = към
 ca = cap a
@@ -673,11 +671,11 @@ vi = vào
 zh-Hans = 进入
 zh-Hant = 進入
 yue = 入
-​[take_exit_number]
+
+[take_exit_number]
 comment = Used in dist_direction_onto_street instead of "Exit" when there's an exit number after. Replaces the "onto" string as well. (There is no take_exit_number_street since this string is only used when announcing street names anyway.)
 en = Take exit
 ar = خروج إلى
-az = Çıxışdan istifadə edin
 be = З'езд на
 bg = Вземете изхода
 ca = Agafeu la sortida
@@ -724,12 +722,13 @@ vi = Đi theo lối ra số
 zh-Hans = 驶出 上
 zh-Hant = 出口 上
 yue = 出口
-​[take_exit_number_street_verb]
-comment = Optionally used inside dist_direction_onto_street in position 5 when take_exit_number needs to be split into two parts. For most languages that don't have a stand-alone "onto" word but still have a %5 formatter position, it must be specified as the word NULL
+
+[take_exit_number_street_verb]
+comment = Optionally used inside dist_direction_onto_street in position 5 when take_exit_number needs to be split into two parts. For languages that don't have a stand-alone "onto" word but still have a %5 formatter position, it must be specified as the word NULL
 en = NULL
-az = NULL
 nl = Neem
-​[route_recalculating]
+
+[route_recalculating]
 en = Recalculating the route
 af = Herbereken die roete
 ar = إعادة حساب المسار
@@ -780,11 +779,11 @@ vi = Tính toán lại lộ trình
 zh-Hans = 重新计算路线
 zh-Hant = 重新計算路
 yue = 重新計算路線
-​[proceed_to_the_track]
+
+[proceed_to_the_track]
 comment = Spoken once when starting navigation away from the selected GPS track entry
 en = Proceed to the track.
 ar = توجه إلى المسار.
-az = Trekin üzrə irəliləyin.
 be = Накіруйцеся да трэку.
 bg = Насочете се към пътеката.
 ca = Adreceu-vos al recorregut.
@@ -832,12 +831,13 @@ vi = Hãy di chuyển đến tuyến đường.
 zh-Hans = 请前往轨迹。
 zh-Hant = 請前往軌跡。
 yue = 請前往軌跡。
-​[you_have_left_the_track]
+
+[you_have_left_the_track]
 comment = Spoken when leaving a followed GPS track after reaching it
 en = You have left the track.
 af = Jy het die trajek verlaat.
 ar = لقد غادرت المسار.
-az = Siz trekdən kənara çıxdınız.
+az = Trekdən kənara çıxdınız.
 be = Вы сышлі з трэку.
 bg = Излязохте от пътеката.
 ca = Heu sortit del recorregut.
@@ -884,10 +884,10 @@ vi = Bạn đã rời khỏi tuyến đường.
 zh-Hans = 您已偏离轨迹。
 zh-Hant = 您已偏離軌跡。
 yue = 你已經偏離咗軌跡。
-​[destination]
+
+[destination]
 en = You’ll arrive.
 ar = سوف تصل.
-az = Çatacaqsınız.
 be = Вы прыбудзеце ў пункт прызначэння.
 bg = Ще стигнете местоназначението си.
 ca = Arribareu a la destinació.
@@ -934,10 +934,10 @@ vi = Bạn sẽ đến.
 zh-Hans = 即将到达目的地。
 zh-Hant = 即將到達目的地。
 yue = 就嚟到目的地。
-​[you_have_reached_the_destination]
+
+[you_have_reached_the_destination]
 en = You have arrived.
 ar = لقد وصلت.
-az = Təyinat nöqtəsinə çatdınız.
 be = Вы прыбылі ў пункт прызначэння.
 bg = Пристигнахте в местоназначението си.
 ca = Heu arribat.
@@ -985,10 +985,10 @@ vi = Bạn đã đến.
 zh-Hans = 您已到达目的地。
 zh-Hant = 你已到達目的地。
 yue = 你已經到咗目的地。
-​[in_50_meters]
+
+[in_50_meters]
 en = In fifty meters
 ar = بعد خمسين متراً
-az = Əlli metrdən sonra
 be = Праз пяцьдзесят метраў
 bg = След петдесет метра
 ca = A cinquanta metres
@@ -1035,10 +1035,10 @@ vi = Trong năm mươi mét nữa
 zh-Hans = 在五十米后
 zh-Hant = 在五十公尺後
 yue = 喺五十米後
-​[in_100_meters]
+
+[in_100_meters]
 en = In one hundred meters
 ar = بعد مئة متر
-az = Yüz metrdən sonra
 be = Праз сто метраў
 bg = След сто метра
 ca = A cent metres
@@ -1085,10 +1085,10 @@ vi = Trong một trăm mét nữa
 zh-Hans = 在一百米后
 zh-Hant = 在一百公尺後
 yue = 喺一百米後
-​[in_200_meters]
+
+[in_200_meters]
 en = In two hundred meters
 ar = بعد مئتين متر
-az = İki yüz metrdən sonra
 be = Праз дзвесце метраў
 bg = След двеста метра
 ca = A dos-cents metres
@@ -1135,10 +1135,10 @@ vi = Trong hai trăm mét nữa
 zh-Hans = 在两百米后
 zh-Hant = 在兩百公尺後
 yue = 喺兩百米後
-​[in_250_meters]
+
+[in_250_meters]
 en = In two hundred and fifty meters
 ar = بعد مئتين وخمسين متراً
-az = İki yüz əlli metrdən sonra
 be = Праз дзвесце пяцьдзесят метраў
 bg = След двеста и петдесет метра
 ca = A dos-cents cinquanta metres
@@ -1185,10 +1185,10 @@ vi = Trong hai trăm năm mươi mét
 zh-Hans = 在两百五十米后
 zh-Hant = 在兩百五十公尺後
 yue = 喺兩百五十米後
-​[in_300_meters]
+
+[in_300_meters]
 en = In three hundred meters
 ar = بعد ثلاثمئة متر
-az = Üç yüz metrdən sonra
 be = Праз трыста метраў
 bg = След триста метра
 ca = A tres-cents metres
@@ -1235,10 +1235,10 @@ vi = Trong ba trăm mét nữa
 zh-Hans = 在三百米后
 zh-Hant = 在三百公尺後
 yue = 喺三百米後
-​[in_400_meters]
+
+[in_400_meters]
 en = In four hundred meters
 ar = بعد أربعمئة متر
-az = Dörd yüz metrdən sonra
 be = Праз чатырыста метраў
 bg = След четиристотин метра
 ca = A quatre-cents metres
@@ -1285,10 +1285,10 @@ vi = Trong bốn trăm mét nữa
 zh-Hans = 在四百米后
 zh-Hant = 在四百公尺後
 yue = 喺四百米後
-​[in_500_meters]
+
+[in_500_meters]
 en = In five hundred meters
 ar = بعد خمسمئة متر
-az = Beş yüz metrdən sonra
 be = Праз пяцьсот метраў
 bg = След петстотин метра
 ca = A cinc-cents metres
@@ -1335,10 +1335,10 @@ vi = Trong năm trăm mét nữa
 zh-Hans = 在五百米后
 zh-Hant = 在五百公尺後
 yue = 喺五百米後
-​[in_600_meters]
+
+[in_600_meters]
 en = In six hundred meters
 ar = بعد ستمئة متر
-az = Altı yüz metrdən sonra
 be = Праз шэсцьсот метраў
 bg = След шестстотин метра
 ca = A sis-cents metres
@@ -1385,10 +1385,10 @@ vi = Trong sáu trăm mét nữa
 zh-Hans = 在六百米后
 zh-Hant = 在六百公尺後
 yue = 喺六百米後
-​[in_700_meters]
+
+[in_700_meters]
 en = In seven hundred meters
 ar = بعد سبعمئة متر
-az = Yeddi yüz metrdən sonra
 be = Праз сямсот метраў
 bg = След седемстотин метра
 ca = A set-cents metres
@@ -1435,10 +1435,10 @@ vi = Trong bảy trăm mét nữa
 zh-Hans = 在七百米后
 zh-Hant = 在七百公尺後
 yue = 喺七百米後
-​[in_750_meters]
+
+[in_750_meters]
 en = In seven hundred and fifty meters
 ar = بعد سبعمئة وخمسين مترًا
-az = Yeddi yüz əlli metrdən sonra
 be = Праз сямсот пяцьдзясят метраў
 bg = След седемстотин и петдесет метра
 ca = A set-cents cinquanta metres
@@ -1485,10 +1485,10 @@ vi = Trong bảy trăm năm mươi mét nữa
 zh-Hans = 在七百五十米后
 zh-Hant = 在七百五十公尺後
 yue = 喺七百五十米後
-​[in_800_meters]
+
+[in_800_meters]
 en = In eight hundred meters
 ar = بعد ثمانمئة متر
-az = Səkkiz yüz metrdən sonra
 be = Праз васямсот метраў
 bg = След осемстотин метра
 ca = A vuit-cents metres
@@ -1535,10 +1535,10 @@ vi = Trong tám trăm mét nữa
 zh-Hans = 在八百米后
 zh-Hant = 在八百公尺後
 yue = 喺八百米後
-​[in_900_meters]
+
+[in_900_meters]
 en = In nine hundred meters
 ar = بعد تسعمئة متر
-az = Doqquz yüz metrdən sonra
 be = Праз дзевяцьсот метраў
 bg = След деветстотин метра
 ca = A nou-cents metres
@@ -1585,10 +1585,10 @@ vi = Trong chín trăm mét nữa
 zh-Hans = 在九百米后
 zh-Hant = 在九百公尺後
 yue = 喺九百米後
-​[in_1_kilometer]
+
+[in_1_kilometer]
 en = In one kilometer
 ar = بعد كيلومتر واحد
-az = Bir kilometrdən sonra
 be = Праз кіламетр
 bg = След един километър
 ca = A un quilòmetre
@@ -1635,10 +1635,10 @@ vi = Trong một kilômét nữa
 zh-Hans = 在一公里后
 zh-Hant = 在一公里後
 yue = 喺一公里後
-​[in_1_5_kilometers]
+
+[in_1_5_kilometers]
 en = In one and a half kilometers
 ar = بعد كيلومتر ونصف
-az = Bir yarımdan kilometrdən sonra
 be = Праз паўтара кіламетра
 bg = След километър и половина
 ca = A un quilòmetre i mig
@@ -1675,7 +1675,7 @@ ru = Через полтора километра
 sk = Po jeden a pol kilometri
 sl = Čez kilometer in pol
 sq = Në një kilometër e gjysmë
-sr = За један i по километар
+sr = За један и по километар
 sv = Om en och en halv kilometer
 sw = Kabla ya kilomita moja na nusu
 th = อีกหนึ่งกิโลเมตรครึ่ง
@@ -1685,10 +1685,10 @@ vi = Trong một kilômét rưỡi nữa
 zh-Hans = 在一点五公里后
 zh-Hant = 在一點五公里後
 yue = 喺一點五公里後
-​[in_2_kilometers]
+
+[in_2_kilometers]
 en = In two kilometers
 ar = بعد كيلومترين
-az = İki kilometrdən sonra
 be = Праз два кіламетры
 bg = След два километра
 ca = A dos quilòmetres
@@ -1735,10 +1735,10 @@ vi = Trong hai kilômét nữa
 zh-Hans = 在两公里后
 zh-Hant = 在兩公里后
 yue = 喺兩公里後
-​[in_2_5_kilometers]
+
+[in_2_5_kilometers]
 en = In two and a half kilometers
 ar = بعد كيلومترين ونصف
-az = İki yarımdan kilometrdən sonra
 be = Праз два з паловай кіламетры
 bg = След два километра и половина
 ca = A dos quilòmetres i mig
@@ -1785,10 +1785,10 @@ vi = Trong hai kilômét rưỡi nữa
 zh-Hans = 在两点五公里后
 zh-Hant = 在兩點五公里后
 yue = 喺兩點五公里後
-​[in_3_kilometers]
+
+[in_3_kilometers]
 en = In three kilometers
 ar = بعد ثلاثة كيلومترات
-az = Üç kilometrdən sonra
 be = Праз тры кіламетры
 bg = След три километра
 ca = A tres quilòmetres
@@ -1835,10 +1835,10 @@ vi = Trong ba kilômét nữa
 zh-Hans = 在三公里后
 zh-Hant = 在三公里後
 yue = 喺三公里後
-​[then]
+
+[then]
 en = Then
 ar = ثم
-az = Sonra
 be = Потым
 bg = След
 ca = Després
@@ -1884,25 +1884,25 @@ vi = Sau đó
 zh-Hans = 然后
 zh-Hant = 然後
 yue = 跟住
-​[dist_direction_onto_street]
-comment = %1s is the distance like in_500_meters, %2s is the direction like make_a_right_turn_street or make_a_right_turn if unavailable, %3s is "onto" unless the turn is an exit number, %4s is the name/number of the street/exit, and %5s is an optional turn verb particle. All languages inherit from the English default unless specified.
-en = %1s %2s %3s %4s
-az = %1s %3s %4s istiqamətində %2s
-fi = %2s %3s %4s %1s
-hi = %1s %4s %3s %2s
-hu = %1s %2s %3s %4s-re
-hy = %1s %2s %3s %4s
-ja = %1s%5s%4s%3s%2s
-mr = %1s %4s %3s %2s
-nl = %5s %1s %2s %3s %4s
-tr = %1s %4s %3s %2s
-zh-Hans = %1s%2s%3s%4s
-zh-Hant = %1s%2s%3s%4s
-yue = %1s%2s%3s%4$s
-​[take_the_1_exit]
+
+[dist_direction_onto_street]
+comment = %1$s is the distance like in_500_meters, %2$s is the direction like make_a_right_turn_street or make_a_right_turn if unavailable, %3$s is "onto" unless the turn is an exit number, %4$s is the name/number of the street/exit, and %5$s is an optional turn verb particle. All languages inherit from the English default unless specified.
+en = %1$s %2$s %3$s %4$s
+fi = %2$s %3$s %4$s %1$s
+hi = %1$s %4$s %3$s %2$s
+hu = %1$s %2$s %3$s %4$s-re
+hy = %1$s %2$s %3$s %4$s
+ja = %1$s%5$s%4$s%3$s%2$s
+mr = %1$s %4$s %3$s %2$s
+nl = %5$s %1$s %2$s %3$s %4$s
+tr = %1$s %4$s %3$s %2$s
+zh-Hans = %1$s%2$s%3$s%4$s
+zh-Hant = %1$s%2$s%3$s%4$s
+yue = %1$s%2$s%3$s%4$s
+
+[take_the_1_exit]
 en = Take the first exit.
 ar = اسلك المخرج الأول.
-az = Birinci çıxışdan çıxın.
 be = Збочце на першы з'езд.
 bg = Вземете първия изход.
 ca = Agafeu la primera sortida.
@@ -1949,22 +1949,22 @@ vi = Đi theo lối ra đầu tiên.
 zh-Hans = 从第一个出口驶出。
 zh-Hant = 從第一個出口駛出。
 yue = 喺第一個出口駛出。
-​[take_the_1_exit_street]
+
+[take_the_1_exit_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_1_exit is insufficient. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 ja = に出ます
 nl = de eerste afslag
-​[take_the_1_exit_street_verb]
+
+[take_the_1_exit_street_verb]
 comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_1_exit_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 ja = 1番出口を出て
 nl = Neem
-​[take_the_2_exit]
+
+[take_the_2_exit]
 en = Take the second exit.
 ar = اسلك المخرج الثاني.
-az = İkinci çıxışdan çıxın.
 be = Збочце на другі з'езд.
 bg = Вземете втория изход.
 ca = Agafeu la segona sortida.
@@ -2011,22 +2011,22 @@ vi = Đi theo lối ra thứ hai.
 zh-Hans = 从第二个出口驶出。
 zh-Hant = 從第二個出口駛出。
 yue = 喺第二個出口駛出。
-​[take_the_2_exit_street]
+
+[take_the_2_exit_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_2_exit is insufficient. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 ja = に出ます
 nl = de tweede afslag
-​[take_the_2_exit_street_verb]
+
+[take_the_2_exit_street_verb]
 comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_2_exit_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 ja = 2番出口を出て
 nl = Neem
-​[take_the_3_exit]
+
+[take_the_3_exit]
 en = Take the third exit.
 ar = اسلك المخرج الثالث.
-az = Üçüncü çıxışdan çıxın.
 be = Збочце на трэці з'езд.
 bg = Вземете третия изход.
 ca = Agafeu la tercera sortida.
@@ -2073,22 +2073,22 @@ vi = Đi theo lối ra thứ ba.
 zh-Hans = 从第三个出口驶出。
 zh-Hant = 從第三個出口駛出。
 yue = 喺第三個出口駛出。
-​[take_the_3_exit_street]
+
+[take_the_3_exit_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_3_exit is insufficient. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 ja = に出ます
 nl = de derde afslag
-​[take_the_3_exit_street_verb]
+
+[take_the_3_exit_street_verb]
 comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_3_exit_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 ja = 3番出口を出て
 nl = Neem
-​[take_the_4_exit]
+
+[take_the_4_exit]
 en = Take the fourth exit.
 ar = اسلك المخرج الرابع.
-az = Dördüncü çıxışdan çıxın.
 be = Збочце на чацвёрты з'езд.
 bg = Вземете четвъртия изход.
 ca = Agafeu la quarta sortida.
@@ -2112,7 +2112,7 @@ id = Ambil jalan keluar keempat
 it = Prendi la quarta uscita.
 ja = 四番目の出口を出て。
 ko = 네 번째 출구입니다.
-lo = ອອກໄປຕາມທາງອອກທີສี่.
+lo = ອອກໄປຕາມທາງອອກທີສີ່.
 lt = Išsukite į ketvirtąjį išvažiavimą.
 mr = चौथा निर्गमन घ्या
 nb = Ta fjerde avkjøring.
@@ -2135,22 +2135,22 @@ vi = Đi theo lối ra thứ tư.
 zh-Hans = 从第四个出口驶出。
 zh-Hant = 從第四個出口駛出。
 yue = 喺第四個出口駛出。
-​[take_the_4_exit_street]
+
+[take_the_4_exit_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_4_exit is insufficient. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 ja = に出ます
 nl = de vierde afslag
-​[take_the_4_exit_street_verb]
+
+[take_the_4_exit_street_verb]
 comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_4_exit_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 ja = 4番出口を出て
 nl = Neem
-​[take_the_5_exit]
+
+[take_the_5_exit]
 en = Take the fifth exit.
 ar = اسلك المخرج الخامس.
-az = Beşinci çıxışdan çıxın.
 be = Збочце на пяты з'езд.
 bg = Вземете петия изход.
 ca = Agafeu la cinquena sortida.
@@ -2197,22 +2197,22 @@ vi = Đi theo lối ra thứ năm.
 zh-Hans = 从第五个出口驶出。
 zh-Hant = 從第五個出口駛出。
 yue = 喺第五個出口駛出。
-​[take_the_5_exit_street]
+
+[take_the_5_exit_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_5_exit is insufficient. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 ja = に出ます
 nl = de vijfde afslag
-​[take_the_5_exit_street_verb]
+
+[take_the_5_exit_street_verb]
 comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_5_exit_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 ja = 5番出口を出て
 nl = Neem
-​[take_the_6_exit]
+
+[take_the_6_exit]
 en = Take the sixth exit.
 ar = اسلك المخرج السادس.
-az = Altıncı çıxışdan çıxın.
 be = Збочце на шосты з'езд.
 bg = Вземете шестия изход.
 ca = Agafeu la sisena sortida.
@@ -2259,22 +2259,22 @@ vi = Đi theo lối ra thứ sáu.
 zh-Hans = 从第六个出口驶出。
 zh-Hant = 從第六個出口駛出。
 yue = 喺第六個出口駛出。
-​[take_the_6_exit_street]
+
+[take_the_6_exit_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_6_exit is insufficient. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 ja = に出ます
 nl = de zesde afslag
-​[take_the_6_exit_street_verb]
+
+[take_the_6_exit_street_verb]
 comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_6_exit_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 ja = 6番出口を出て
 nl = Neem
-​[take_the_7_exit]
+
+[take_the_7_exit]
 en = Take the seventh exit.
 ar = اسلك المخرج السابع.
-az = Yeddinci çıxışdan çıxın.
 be = Збочце на сёмы з'езд.
 bg = Вземете седмия изход.
 ca = Agafeu la setena sortida.
@@ -2321,22 +2321,22 @@ vi = Đi theo lối ra thứ bảy.
 zh-Hans = 从第七个出口驶出。
 zh-Hant = 從第七個出口駛出。
 yue = 喺第七個出口駛出。
-​[take_the_7_exit_street]
+
+[take_the_7_exit_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_7_exit is insufficient. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 ja = に出ます
 nl = de zevende afslag
-​[take_the_7_exit_street_verb]
+
+[take_the_7_exit_street_verb]
 comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_7_exit_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 ja = 7番出口を出て
 nl = Neem
-​[take_the_8_exit]
+
+[take_the_8_exit]
 en = Take the eighth exit.
 ar = اسلك المخرج الثامن.
-az = Səkkizinci çıxışdan çıxın.
 be = Збочце на восьмы з'езд.
 bg = Вземете осмия изход.
 ca = Agafeu la vuitena sortida.
@@ -2383,22 +2383,22 @@ vi = Đi theo lối ra thứ tám.
 zh-Hans = 从第八个出口驶出。
 zh-Hant = 從第八個出口駛出。
 yue = 喺第八個出口駛出。
-​[take_the_8_exit_street]
+
+[take_the_8_exit_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_8_exit is insufficient. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 ja = に出ます
 nl = de achtste afslag
-​[take_the_8_exit_street_verb]
+
+[take_the_8_exit_street_verb]
 comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_8_exit_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 ja = 8番出口を出て
 nl = Neem
-​[take_the_9_exit]
+
+[take_the_9_exit]
 en = Take the ninth exit.
 ar = اسلك المخرج التاسع.
-az = Doqquzuncu çıxışdan çıxın.
 be = Збочце на дзявяты з'езд.
 bg = Вземете деветия изход.
 ca = Agafeu la novena sortida.
@@ -2445,22 +2445,22 @@ vi = Đi theo lối ra thứ chín.
 zh-Hans = 从第九个出口驶出。
 zh-Hant = 從第九個出口駛出。
 yue = 喺第九個出口駛出。
-​[take_the_9_exit_street]
+
+[take_the_9_exit_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_9_exit is insufficient. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 ja = に出ます
 nl = de negende afslag
-​[take_the_9_exit_street_verb]
+
+[take_the_9_exit_street_verb]
 comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_9_exit_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 ja = 9番出口を出て
 nl = Neem
-​[take_the_10_exit]
+
+[take_the_10_exit]
 en = Take the tenth exit.
 ar = اسلك المخرج العاشر.
-az = Onuncu çıxışdan çıxın.
 be = Збочце на дзясяты з'езд.
 bg = Вземете десетия изход.
 ca = Agafeu la desena sortida.
@@ -2507,22 +2507,22 @@ vi = Đi theo lối ra thứ mười.
 zh-Hans = 从第十个出口驶出。
 zh-Hant = 從第十個出口駛出。
 yue = 喺第十個出口駛出。
-​[take_the_10_exit_street]
+
+[take_the_10_exit_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_10_exit is insufficient. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 ja = に出ます
 nl = de tiende afslag
-​[take_the_10_exit_street_verb]
+
+[take_the_10_exit_street_verb]
 comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_10_exit_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 ja = 10番出口を出て
 nl = Neem
-​[take_the_11_exit]
+
+[take_the_11_exit]
 en = Take the eleventh exit.
 ar = اسلك المَخْرَج الحادي عشر.
-az = On birinci çıxışdan çıxın.
 be = Збочце на адзінаццаты з'езд.
 bg = Вземете единадесетия изход.
 ca = Agafeu la onzena sortida.
@@ -2569,22 +2569,22 @@ vi = Đi theo lối ra thứ mười một.
 zh-Hans = 从第十一个出口驶出。
 zh-Hant = 從第十一個出口駛出。
 yue = 喺第十一個出口駛出。
-​[take_the_11_exit_street]
+
+[take_the_11_exit_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal take_the_11_exit is insufficient. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 ja = に出ます
 nl = de elfde afslag
-​[take_the_11_exit_street_verb]
+
+[take_the_11_exit_street_verb]
 comment = Optionally used inside dist_direction_onto_street in position 5 when take_the_11_exit_street needs to be split into two parts. For most languages that don't need this, the value should be the word NULL
 en = NULL
-az = NULL
 ja = 11番出口を出て
 nl = Neem
-​[in_50_feet]
+
+[in_50_feet]
 en = In fifty feet
 ar = بعد خمسين قدمًا
-az = Əlli futdan sonra
 be = Праз пяцьдзесят футаў
 bg = След петдесет фута
 ca = A cinquanta peus
@@ -2631,10 +2631,10 @@ vi = Trong năm mươi feet nữa
 zh-Hans = 在五十英尺后
 zh-Hant = 在五十英尺後
 yue = 喺五十英尺後
-​[in_100_feet]
+
+[in_100_feet]
 en = In one hundred feet
 ar = بعد مئة قدم
-az = Yüz futdan sonra
 be = Праз сто футаў
 bg = След сто фута
 ca = A cent peus
@@ -2681,10 +2681,10 @@ vi = Trong một trăm feet nữa
 zh-Hans = 在一百英尺后
 zh-Hant = 在一百英尺後
 yue = 喺一百英尺後
-​[in_200_feet]
+
+[in_200_feet]
 en = In two hundred feet
 ar = بعد مئتين قدم
-az = İki yüz futdan sonra
 be = Праз дзвесце футаў
 bg = След двеста фута
 ca = A dos-cents peus
@@ -2731,10 +2731,10 @@ vi = Trong hai trăm feet nữa
 zh-Hans = 在两百英尺后
 zh-Hant = 在兩百英尺後
 yue = 喺兩百英尺後
-​[in_300_feet]
+
+[in_300_feet]
 en = In three hundred feet
 ar = بعد ثلاثمئة قدم
-az = Üç yüz futdan sonra
 be = Праз трыста футаў
 bg = След триста фута
 ca = A tres-cents peus
@@ -2775,16 +2775,16 @@ sr = За триста стопа
 sv = Om trehundra fot
 sw = Kabla ya futi mia tatu
 th = อีกสามร้อยฟุต
-tr = Üç bin fit sonra
+tr = Üç yüz fit sonra
 uk = Через триста футів
 vi = Trong ba trăm feet nữa
 zh-Hans = 在三百英尺后
 zh-Hant = 在三百英尺後
 yue = 喺三百英尺後
-​[in_400_feet]
+
+[in_400_feet]
 en = In four hundred feet
 ar = بعد أربعمئة قدم
-az = Dörd yüz futdan sonra
 be = Праз чатырыста футаў
 bg = След четиристотин фута
 ca = A quatre-cents peus
@@ -2831,10 +2831,10 @@ vi = Trong bốn trăm feet nữa
 zh-Hans = 在四百英尺后
 zh-Hant = 在四百英尺後
 yue = 喺四百英尺後
-​[in_500_feet]
+
+[in_500_feet]
 en = In five hundred feet
 ar = بعد خمسمئة قدم
-az = Beş yüz futdan sonra
 be = Праз пяцьсот футаў
 bg = След петстотин фута
 ca = A cinc-cents peus
@@ -2881,10 +2881,10 @@ vi = Trong năm trăm feet nữa
 zh-Hans = 在五百英尺后
 zh-Hant = 在五百英尺後
 yue = 喺五百英尺後
-​[in_600_feet]
+
+[in_600_feet]
 en = In six hundred feet
 ar = بعد ستمئة قدم
-az = Altı yüz futdan sonra
 be = Праз шэсцьсот футаў
 bg = След шестстотин фута
 ca = A sis-cents peus
@@ -2931,10 +2931,10 @@ vi = Trong sáu trăm feet nữa
 zh-Hans = 在六百英尺后
 zh-Hant = 在六百英尺後
 yue = 喺六百英尺後
-​[in_700_feet]
+
+[in_700_feet]
 en = In seven hundred feet
 ar = بعد سبعمئة قدم
-az = Yeddi yüz futdan sonra
 be = Праз сямсот футаў
 bg = След седемстотин фута
 ca = A set-cents peus
@@ -2981,10 +2981,10 @@ vi = Trong bảy trăm feet nữa
 zh-Hans = 在七百英尺后
 zh-Hant = 在七百英尺後
 yue = 喺七百英尺後
-​[in_800_feet]
+
+[in_800_feet]
 en = In eight hundred feet
 ar = بعد ثمانمئة قدم
-az = Səkkiz yüz futdan sonra
 be = Праз васямсот футаў
 bg = След осемстотин фута
 ca = A vuit-cents peus
@@ -3031,10 +3031,10 @@ vi = Trong tám trăm feet nữa
 zh-Hans = 在八百英尺后
 zh-Hant = 在八百英尺後
 yue = 喺八百英尺後
-​[in_900_feet]
+
+[in_900_feet]
 en = In nine hundred feet
 ar = بعد تسعمئة قدم
-az = Doqquz yüz futdan sonra
 be = Праз дзевяцьсот футаў
 bg = След деветстотин фута
 ca = A nou-cents peus
@@ -3081,10 +3081,10 @@ vi = Trong chín trăm feet nữa
 zh-Hans = 在九百英尺后
 zh-Hant = 在九百英尺後
 yue = 喺九百英尺後
-​[in_1000_feet]
+
+[in_1000_feet]
 en = In one thousand feet
 ar = بعد ألف قدم
-az = Min futdan sonra
 be = Праз тысячу футаў
 bg = След хиляда фута
 ca = A mil peus
@@ -3131,10 +3131,10 @@ vi = Trong một ngàn feet nữa
 zh-Hans = 在一千英尺后
 zh-Hant = 在一千英尺後
 yue = 喺一千英尺後
-​[in_1500_feet]
+
+[in_1500_feet]
 en = In fifteen hundred feet
 ar = بعد ألف وخمسمئة قدم
-az = Min beş yüz futdan sonra
 be = Праз тысячу пяцьсот футаў
 bg = След хиляда и петстотин фута
 ca = A mil cinc-cents peus
@@ -3181,10 +3181,10 @@ vi = Trong một ngàn năm trăm feet nữa
 zh-Hans = 在一千五百英尺后
 zh-Hant = 在一千五百英尺後
 yue = 喺一千五百英尺後
-​[in_2000_feet]
+
+[in_2000_feet]
 en = In two thousand feet
 ar = بعد ألفي قدم
-az = İki min futdan sonra
 be = Праз дзве тысячы футаў
 bg = След две хиляди фута
 ca = A dos mil peus
@@ -3231,17 +3231,17 @@ vi = Trong hai ngàn feet nữa
 zh-Hans = 在两千英尺后
 zh-Hant = 在兩千英尺後
 yue = 喺兩千英尺後
-​[in_2500_feet]
+
+[in_2500_feet]
 en = In twenty five hundred feet
 ar = بعد ألفين وخمسمئة قدم
-az = İki min beş yüz futdan sonra
 be = Праз дзве тысячы пяцьсот футаў
 bg = След две хиляди и петстотин фута
 ca = A dos mil cinc-cents peus
 cs = Po dvou tisících pěti stech stopách
 da = Om to tusinde fem hundrede fod
 de = In zweitausendfünfhundert Fuß
-el = Σε δυόμισι χιλιάδες πόδια
+el = Σε δυόμισυ χιλιάδες πόδια
 es = En dos mil quinientos pies
 et = Kahe tuhande viiesaja jala pärast
 eu = Bi mila bostehun oinetara
@@ -3281,10 +3281,10 @@ vi = Trong hai ngàn năm trăm feet nữa
 zh-Hans = 在两千五百英尺后
 zh-Hant = 在兩千五百英尺後
 yue = 喺兩千五百英尺後
-​[in_3000_feet]
+
+[in_3000_feet]
 en = In three thousand feet
 ar = بعد ثلاثة آلاف قدم
-az = Üç min futdan sonra
 be = Праз тры тысячы футаў
 bg = След три хиляди фута
 ca = A tres mil peus
@@ -3331,10 +3331,10 @@ vi = Trong ba ngàn feet nữa
 zh-Hans = 在三千英尺后
 zh-Hant = 在三千英尺後
 yue = 喺三千英尺後
-​[in_3500_feet]
+
+[in_3500_feet]
 en = In thirty five hundred feet
 ar = بعد ثلاثة آلاف وخمسمئة قدم
-az = Üç min beş yüz futdan sonra
 be = Праз тры тысячы пяцьсот футаў
 bg = След три хиляди и петстотин фута
 ca = A tres mil cinc-cents peus
@@ -3381,10 +3381,10 @@ vi = Trong ba ngàn năm trăm feet nữa
 zh-Hans = 在三千五百英尺后
 zh-Hant = 在三千五百英尺後
 yue = 喺三千五百英尺後
-​[in_4000_feet]
+
+[in_4000_feet]
 en = In four thousand feet
 ar = بعد أربعة آلاف قدم
-az = Dörd min futdan sonra
 be = Праз чатыры тысячы футаў
 bg = След четири хиляди фута
 ca = A quatre mil peus
@@ -3431,10 +3431,10 @@ vi = Trong bốn ngàn feet nữa
 zh-Hans = 在四千英尺后
 zh-Hant = 在四千英尺後
 yue = 喺四千英尺後
-​[in_4500_feet]
+
+[in_4500_feet]
 en = In forty five hundred feet
 ar = بعد أربعة آلاف وخمسمئة قدم
-az = Dörd min beş yüz futdan sonra
 be = Праз чатыры тысячы пяцьсот футаў
 bg = След четири хиляди и петстотин фута
 ca = A quatre mil cinc-cents peus
@@ -3481,10 +3481,10 @@ vi = Trong bốn ngàn năm trăm feet nữa
 zh-Hans = 在四千五百英尺后
 zh-Hant = 在四千五百英尺後
 yue = 喺四千五百英尺後
-​[in_5000_feet]
+
+[in_5000_feet]
 en = In five thousand feet
 ar = بعد خمسة آلاف قدم
-az = Beş min futdan sonra
 be = Праз пяць тысяч футаў
 bg = След пет хиляди фута
 ca = A cinc mil peus
@@ -3531,10 +3531,10 @@ vi = Trong năm ngàn feet nữa
 zh-Hans = 在五千英尺后
 zh-Hant = 在五千英尺後
 yue = 喺五千英尺後
-​[in_1_mile]
+
+[in_1_mile]
 en = In one mile
 ar = بعد ميل واحد
-az = Bir mildən sonra
 be = Праз адну мілю
 bg = След една миля
 ca = A un milla
@@ -3581,10 +3581,10 @@ vi = Trong một dặm nữa
 zh-Hans = 在一英里后
 zh-Hant = 在一英里後
 yue = 喺一英里後
-​[in_1_5_miles]
+
+[in_1_5_miles]
 en = In one and a half miles
 ar = بعد ميل ونصف
-az = Bir yarımdan mildən sonra
 be = Праз паўтары мілі
 bg = След една миля и половина
 ca = A una milla i mitja
@@ -3621,7 +3621,7 @@ ru = Через полторы мили
 sk = Po jeden a pol míli
 sl = Čez miljo in pol
 sq = Në një milje e gjysmë
-sr = За једну i по миљу
+sr = За једну и по миљу
 sv = Om en och en halv engelsk mil
 sw = Kabla ya maili moja na nusu
 th = อีกหนึ่งไมล์ครึ่ง
@@ -3631,10 +3631,10 @@ vi = Trong một dặm rưỡi nữa
 zh-Hans = 在一点五英里后
 zh-Hant = 在一點五英里後
 yue = 喺一點五英里後
-​[in_2_miles]
+
+[in_2_miles]
 en = In two miles
 ar = بعد ميلين
-az = İki mildən sonra
 be = Праз дзве мілі
 bg = След две мили
 ca = A dues milles
@@ -3681,10 +3681,10 @@ vi = Trong hai dặm nữa
 zh-Hans = 在两英里后
 zh-Hant = 在兩英里後
 yue = 喺兩英里後
-​[unknown_camera]
+
+[unknown_camera]
 en = Camera ahead
 ar = الكاميرا أمامك
-az = İrəlidə kamera var
 be = Наперадзе камера
 bg = Камера отпред
 ca = Càmera al davant
