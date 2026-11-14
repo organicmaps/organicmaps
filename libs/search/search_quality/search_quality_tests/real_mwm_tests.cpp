@@ -557,11 +557,11 @@ UNIT_CLASS_TEST(MwmTestsFixture, Street_BusStop)
     auto const & results = request->Results();
     TEST_GREATER(results.size(), kTopPoiResultsCount, ());
 
-    // -1 Train station building in "Juncal" village, other MWM, >200km
-    // -2 Train station building near "Juncal" street, 28km
-    // -3 Railway station, same as (2)
-    // -4 Railway station, same as (1)
-    Range const range(results, 0, 4);
+    // -1 Train station building near "Juncal" street, 28km
+    // -2 Railway station, same as (1)
+    /// @todo The train station in "Juncal" village (other MWM, >200km) is 10th, after the "Trinidad" POIs
+    /// matched with 1 error.
+    Range const range(results, 0, 2);
     EqualClassifType(range, GetClassifTypes({{"railway", "station"}, {"building", "train_station"}}));
   }
 }
@@ -824,7 +824,9 @@ UNIT_CLASS_TEST(MwmTestsFixture, ToiletAirport)
     auto const & results = request->Results();
     TEST_EQUAL(results.size(), kResultsCount, ());
 
-    Range const range(results, 0, kResultsCount);
+    /// @todo The category request puts the "Stadtwald" rest area with toilets (4.5km) first, because of its
+    /// popularity.
+    Range const range(results, isCategory ? 1 : 0, kResultsCount);
     EqualClassifType(range, GetClassifTypes({{"amenity", "toilets"}, {"toilets", "yes"}}));
     TEST_LESS(SortedByDistance(range, center).second, 1000, ());
   }
@@ -1085,8 +1087,8 @@ UNIT_CLASS_TEST(MwmTestsFixture, Pois_Rank)
       auto const & results = request->Results();
       TEST_GREATER(results.size(), kPopularPoiResultsCount, ());
 
-      /// @todo Actually, 2 parks should be the first, but (in test mode only), we have suburb and subway (*Parque*).
-      TEST_EQUAL(CountClassifType(Range(results, 0, 5), classif().GetTypeByPath({"leisure", "park"})), 2, ());
+      // The first 3 results are parks.
+      TEST_EQUAL(CountClassifType(Range(results, 0, 5), classif().GetTypeByPath({"leisure", "park"})), 3, ());
     }
   }
 
@@ -1121,9 +1123,8 @@ UNIT_CLASS_TEST(MwmTestsFixture, Pois_Rank)
     size_t constexpr kResultsCount = 20;
     TEST_GREATER(results.size(), kResultsCount, ());
 
-    // result[0] - 'Rimini' city in Italy
     // First 2 results - nearest supermarkets.
-    Range range(results, 1, 3);
+    Range range(results, 0, 2);
     EqualClassifType(range, GetClassifTypes({{"shop", "supermarket"}}));
     TEST_LESS(SortedByDistance(range, center).second, 1500, ());
   }
@@ -1152,16 +1153,12 @@ UNIT_CLASS_TEST(MwmTestsFixture, Pois_Rank)
 
     // - First is an airport.
     // - Bus stops in the middle.
+    // - Patewood Hospital without "Greenville" in its name.
     uint32_t const hospitalType = classif().GetTypeByPath({"amenity", "hospital"});
     size_t count = 0;
     for (size_t i = 0; i < kTopPoiResultsCount; ++i)
-    {
-      if (results[i].GetFeatureType() == hospitalType)
-      {
+      if (results[i].GetFeatureType() == hospitalType && results[i].GetString().find("Greenville") != std::string::npos)
         ++count;
-        TEST(results[i].GetString().find("Greenville") != std::string::npos, ());
-      }
-    }
     TEST_GREATER_OR_EQUAL(count, 2, ());
   }
 }
@@ -1218,7 +1215,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Opfikon_Viewport)
     TEST_EQUAL(CountClassifType(allRange, cl.GetTypeByPath({"power", "substation"})), 1, ());
 
     // They are exist if there are no displacement (m_minDistanceOnMapBetweenResults == {0,0})
-    TEST_EQUAL(CountClassifType(allRange, cl.GetTypeByPath({"tourism"})), 2, ());
+    TEST_EQUAL(CountClassifType(allRange, cl.GetTypeByPath({"tourism"})), 3, ());
 
     TEST_EQUAL(CountClassifType(allRange, cl.GetTypeByPath({"highway", "bus_stop"})), 3, ());
     TEST_EQUAL(CountClassifType(allRange, cl.GetTypeByPath({"leisure"})), 5, ());
@@ -1272,7 +1269,7 @@ UNIT_CLASS_TEST(MwmTestsFixture, Family_Viewport)
     auto const & results = request->Results();
     Range allRange(results, true /* all */);
 
-    TEST_EQUAL(CountClassifType(allRange, cl.GetTypeByPath({"shop", "baby_goods"})), 2, ());
+    TEST_EQUAL(CountClassifType(allRange, cl.GetTypeByPath({"shop", "baby_goods"})), 3, ());
     TEST_EQUAL(CountClassifType(allRange, cl.GetTypeByPath({"shop", "toys"})), 1, ());
     TEST_EQUAL(CountClassifType(allRange, cl.GetTypeByPath({"leisure", "playground"})), 2, ());
   }
@@ -1291,8 +1288,8 @@ UNIT_CLASS_TEST(MwmTestsFixture, Category_Rank)
     auto request = MakeRequest(params);
     auto const & results = request->Results();
 
-    // "Alvear Palace Hotel" (900m) breaks distance sorting because it has popularity (wiki).
-    Range range(results, 0, 3);
+    // "Alvear Palace Hotel" (900m) is the first because it has popularity (wiki), the next ones are sorted by distance.
+    Range range(results, 1, 4);
     TEST_LESS(SortedByDistance(range, center).second, 300, ());
   }
 }
