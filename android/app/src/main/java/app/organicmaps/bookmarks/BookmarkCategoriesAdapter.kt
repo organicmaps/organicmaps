@@ -1,5 +1,6 @@
 package app.organicmaps.bookmarks
 
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.DrawableRes
@@ -32,7 +33,17 @@ class BookmarkCategoriesAdapter(
     ) {
         ADD(R.drawable.ic_add_list, R.string.bookmarks_create_new_group, CategoryListCallback::onAddButtonClick),
         IMPORT(R.drawable.ic_import, R.string.bookmarks_import, CategoryListCallback::onImportButtonClick),
+        CONTACTS(
+            R.drawable.ic_import,
+            R.string.bookmarks_import_contacts,
+            CategoryListCallback::onImportContactsButtonClick,
+        ),
         EXPORT(R.drawable.ic_export, R.string.bookmarks_export, CategoryListCallback::onExportButtonClick),
+    }
+
+    private val actions = Action.entries.filter {
+        it != Action.CONTACTS ||
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
     }
 
     // Every change goes through an edit session in the core, which notifies the listener that calls setItems().
@@ -45,6 +56,13 @@ class BookmarkCategoriesAdapter(
     private val categoryCount: Int
         get() = bookmarkCategories.size
 
+    var contactImportProgress: String? = null
+        set(value) {
+            field = value
+            val index = actions.indexOf(Action.CONTACTS)
+            if (index >= 0 && categoryCount > 0) notifyItemChanged(HEADER_COUNT + categoryCount + index)
+        }
+
     fun setItems(categories: List<BookmarkCategory>) {
         bookmarkCategories = categories
         notifyDataSetChanged()
@@ -56,7 +74,7 @@ class BookmarkCategoriesAdapter(
         else -> RowType.ACTION
     }
 
-    override fun getItemCount(): Int = if (categoryCount == 0) 0 else HEADER_COUNT + categoryCount + Action.entries.size
+    override fun getItemCount(): Int = if (categoryCount == 0) 0 else HEADER_COUNT + categoryCount + actions.size
 
     override fun getItemViewType(position: Int): Int = rowTypeAt(position).ordinal
 
@@ -107,11 +125,16 @@ class BookmarkCategoriesAdapter(
     }
 
     private fun GeneralViewHolder.bindAction(index: Int) {
-        val action = Action.entries[index]
+        val action = actions[index]
         image.setImageResource(action.icon)
         text.setText(action.title)
+        if (action == Action.CONTACTS && contactImportProgress != null) {
+            text.text = contactImportProgress
+            image.setImageDrawable(android.widget.ProgressBar(itemView.context).indeterminateDrawable)
+            (image.drawable as? android.graphics.drawable.Animatable)?.start()
+        }
         itemView.setOnClickListener { action.click(categoryListCallback) }
-        bindCardPosition(index == 0, index == Action.entries.lastIndex)
+        bindCardPosition(index == 0, index == actions.lastIndex)
         // Action rows share one view type, so the gap above the first one is reset on rebind.
         (itemView.layoutParams as RecyclerView.LayoutParams).topMargin =
             if (index == 0) itemView.resources.getDimensionPixelSize(R.dimen.margin_base) else 0

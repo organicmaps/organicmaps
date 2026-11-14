@@ -130,7 +130,7 @@ public:
     }
 
     void DeleteUserMark(kml::MarkId markId);
-    void DeleteBookmark(kml::MarkId bmId);
+    void DeleteBookmark(kml::MarkId bmId, bool rememberForUndo = true);
     void DeleteTrack(kml::TrackId trackId);
 
     /// Batch counterparts of the single-item operations above, for a multi-select UI to call.
@@ -588,7 +588,7 @@ private:
   Bookmark * GetBookmarkForEdit(kml::MarkId markId);
   void AttachBookmark(kml::MarkId bmId, kml::MarkGroupId groupId);
   void DetachBookmark(kml::MarkId bmId, kml::MarkGroupId groupId);
-  void DeleteBookmark(kml::MarkId bmId);
+  void DeleteBookmark(kml::MarkId bmId, bool rememberForUndo = true);
   void DetachUserMark(kml::MarkId bmId, kml::MarkGroupId catId);
 
   Track * CreateTrack(kml::TrackData && trackData);

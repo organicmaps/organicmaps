@@ -52,6 +52,57 @@ std::string_view const kKMZMimeType = "application/vnd.google-earth.kmz";
 std::string_view const kGPXMimeType = "application/gpx+xml";
 std::string_view const kGeoJsonMimeType = "application/geo+json";
 
+bool IsContactCategory(BookmarkManager const & manager, kml::MarkGroupId groupId)
+{
+  if (!BookmarkManager::IsBookmarkCategory(groupId))
+    return false;
+  auto const & properties = manager.GetCategoryData(groupId).m_properties;
+  auto const it = properties.find("om:import:source");
+  return it != properties.end() && it->second == "android-contacts";
+}
+
+// Contacts bookmarks always use the person badge and POI caption. In-place edits, moves into the
+// list and loads from older files are forced back to the contact presentation so the list cannot
+// lose its icon.
+void ApplyContactPresentation(Bookmark & bookmark, bool force)
+{
+  kml::BookmarkData data = bookmark.GetData();
+  if (!force)
+  {
+    if (data.m_properties.contains("CustomImageOverride"))
+      return;
+    auto const image = data.m_properties.find("CustomImage");
+    if (image != data.m_properties.end() && image->second.find("contact-") == std::string::npos)
+      return;
+  }
+
+  data.m_properties.erase("CustomImageOverride");
+  data.m_properties["CustomImage"] = "14,contact-s;15,contact-m";
+  data.m_properties["CustomImageStyle"] = "poi";
+  data.m_color = {};
+  data.m_color.m_predefinedColor = kml::PredefinedColor::Blue;
+  data.m_icon = kml::BookmarkIcon::None;
+  data.m_minZoom = 14;
+  bookmark.SetData(data);
+}
+
+// A bookmark moved out of Contacts must not keep the person badge on the map.
+void RemoveContactPresentation(Bookmark & bookmark)
+{
+  kml::BookmarkData data = bookmark.GetData();
+  if (data.m_properties.contains("CustomImageOverride"))
+    return;
+  auto const image = data.m_properties.find("CustomImage");
+  if (image == data.m_properties.end() || image->second.find("contact-") == std::string::npos)
+    return;
+
+  data.m_properties.erase("CustomImage");
+  data.m_properties.erase("CustomImageStyle");
+  data.m_icon = GetBookmarkMatchInfo(data.m_featureTypes).m_icon;
+  data.m_minZoom = 1;
+  bookmark.SetData(data);
+}
+
 class FindMarkFunctor
 {
 public:
@@ -367,6 +418,10 @@ Bookmark * BookmarkManager::CreateBookmark(kml::BookmarkData && bmData, kml::Mar
   auto * group = GetBmCategory(groupId);
   group->AttachUserMark(bookmark->GetId());
   m_changesTracker.OnAttachBookmark(bookmark->GetId(), groupId);
+  if (IsContactCategory(*this, groupId))
+    ApplyContactPresentation(*bookmark, true /* force */);
+  else
+    RemoveContactPresentation(*bookmark);
   group->SetIsVisible(true);
 
   SetLastEditedBmCategory(groupId);
@@ -399,9 +454,14 @@ Bookmark * BookmarkManager::GetBookmarkForEdit(kml::MarkId markId)
 void BookmarkManager::AttachBookmark(kml::MarkId bmId, kml::MarkGroupId catId)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  GetBookmarkForEdit(bmId)->Attach(catId);
+  auto * bookmark = GetBookmarkForEdit(bmId);
+  bookmark->Attach(catId);
   GetGroup(catId)->AttachUserMark(bmId);
   m_changesTracker.OnAttachBookmark(bmId, catId);
+  if (IsContactCategory(*this, catId))
+    ApplyContactPresentation(*bookmark, true /* force */);
+  else
+    RemoveContactPresentation(*bookmark);
 }
 
 void BookmarkManager::DetachBookmark(kml::MarkId bmId, kml::MarkGroupId catId)
@@ -411,7 +471,7 @@ void BookmarkManager::DetachBookmark(kml::MarkId bmId, kml::MarkGroupId catId)
   DetachUserMark(bmId, catId);
 }
 
-void BookmarkManager::DeleteBookmark(kml::MarkId bmId)
+void BookmarkManager::DeleteBookmark(kml::MarkId bmId, bool rememberForUndo)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(IsBookmark(bmId), ());
@@ -425,7 +485,8 @@ void BookmarkManager::DeleteBookmark(kml::MarkId bmId)
   DetachUserMark(bmId, groupId);
   m_changesTracker.OnDeleteMark(bmId);
 
-  m_recentlyDeletedBookmark = std::move(it->second);
+  if (rememberForUndo)
+    m_recentlyDeletedBookmark = std::move(it->second);
   m_bookmarks.erase(it);
 }
 
@@ -2345,6 +2406,10 @@ void BookmarkManager::UpdateBookmark(kml::MarkId bmID, kml::BookmarkData const &
   auto const prevColor = bookmark->GetData().m_color;
   bookmark->SetData(bm);  // normalizes the incoming color
   ASSERT(bookmark->GetGroupId() != kml::kInvalidMarkGroupId, ());
+  if (IsContactCategory(*this, bookmark->GetGroupId()))
+    ApplyContactPresentation(*bookmark, true /* force */);
+  else
+    RemoveContactPresentation(*bookmark);
 
   // Compare the full color (preset + rgba): comparing only the preset would miss custom->custom
   // edits and leave a stale last-edited color.
@@ -2815,6 +2880,11 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
       bm->Attach(groupId);
       group->m_userMarks.insert(bm->GetId());
       m_changesTracker.OnAttachBookmark(bm->GetId(), groupId);
+      // Older Contacts files may contain points saved before the person presentation existed.
+      if (IsContactCategory(*this, groupId))
+        ApplyContactPresentation(*bm, true /* force */);
+      else
+        RemoveContactPresentation(*bm);
     }
     for (auto & trackData : fileData.m_tracksData)
     {
@@ -3552,9 +3622,9 @@ void BookmarkManager::EditSession::DeleteUserMark(kml::MarkId markId)
   m_bmManager.DeleteUserMark(markId);
 }
 
-void BookmarkManager::EditSession::DeleteBookmark(kml::MarkId bmId)
+void BookmarkManager::EditSession::DeleteBookmark(kml::MarkId bmId, bool rememberForUndo)
 {
-  m_bmManager.DeleteBookmark(bmId);
+  m_bmManager.DeleteBookmark(bmId, rememberForUndo);
 }
 
 Track * BookmarkManager::EditSession::GetTrackForEdit(kml::TrackId trackId)
@@ -3631,6 +3701,9 @@ void BookmarkManager::EditSession::SetBookmarksAndTracksColor(kml::MarkIdCollect
   {
     if (auto * bookmark = m_bmManager.GetBookmarkForEdit(markId))
     {
+      // Contacts keeps its person badge; changing the color would replace it with a generic icon.
+      if (IsContactCategory(m_bmManager, bookmark->GetGroupId()))
+        continue;
       bookmark->SetColor(color);
       recoloredBookmark = true;
     }
@@ -3737,6 +3810,10 @@ void BookmarkManager::EditSession::SetCategoryCustomProperty(kml::MarkGroupId ca
 
 void BookmarkManager::EditSession::SetCategoryBookmarksColor(kml::MarkGroupId groupId, dp::Color color)
 {
+  // Contacts keeps its person badge; category recoloring must not replace it.
+  if (IsContactCategory(m_bmManager, groupId))
+    return;
+
   auto const & markIds = m_bmManager.GetUserMarkIds(groupId);
   for (auto const markId : markIds)
     if (auto * bm = m_bmManager.GetBookmarkForEdit(markId))

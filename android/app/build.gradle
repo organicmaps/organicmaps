@@ -276,6 +276,8 @@ dependencies {
 }
 
 def allowedPermissions = [
+    // Explicit import only; never granted at install time on Android 5.
+    "sdk-23:name='android.permission.READ_CONTACTS'",
     // location
     "name='android.permission.ACCESS_COARSE_LOCATION'",
     "name='android.permission.ACCESS_FINE_LOCATION'",
@@ -306,7 +308,7 @@ def allowedPermissions = [
     // app.organicmaps.(debug|beta|profileable)
     // app.organicmaps.web
     // app.organicmaps.web.(debug|beta|profileable)
-    ~/name='app\.organicmaps(\.web)?(\.debug|\.beta|\.profileable)?\.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'/
+    ~"name='${java.util.regex.Pattern.quote(rootProject.ext.appId)}(\\.web)?(\\.debug|\\.beta|\\.profileable)?\\.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'"
 ]
 registerCheckApkPermissionsTasks(project, allowedPermissions)
 
