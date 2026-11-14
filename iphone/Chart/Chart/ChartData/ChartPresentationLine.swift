@@ -8,6 +8,8 @@ final class ChartPresentationLine {
   var maxY: CGFloat = .init(Int.min)
   var path = UIBezierPath()
   var previewPath = UIBezierPath()
+  /// The area path is open and ChartLineView closes it at the viewport bottom. Percentage area paths are already closed.
+  var fillsToBottom = false
 
   var values: [ChartValue] { chartLine.values }
   var color: UIColor { chartLine.color }
