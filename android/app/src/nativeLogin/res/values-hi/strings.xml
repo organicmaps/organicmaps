@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="password">पासवर्ड</string>
+    <string name="forgot_password">अपना पासवर्ड भूल गए?</string>
+    <!-- login text field -->
+    <string name="email_or_username">ईमेल या उपयोगकर्ता नाम</string>
+</resources>

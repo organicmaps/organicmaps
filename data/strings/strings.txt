@@ -17062,7 +17062,7 @@ zh-Hans = 登录 OpenStreetMap
 zh-Hant = 登錄 OpenStreetMap
 
 [password]
-tags = android-app,qt
+tags = android-native-login,qt
 en = Password
 af = Wagwoord
 ar = كلمة المرور
@@ -17119,7 +17119,7 @@ zh-Hans = 密码
 zh-Hant = 密碼
 
 [forgot_password]
-tags = android-app,apple-maps
+tags = android-native-login,apple-maps
 en = Forgot your password?
 af = Het u u wagwoord vergeet?
 ar = هل نسيت كلمة المرور؟
@@ -17972,7 +17972,7 @@ zh-Hant = 選擇料理
 
 [email_or_username]
 comment = login text field
-tags = android-app,apple-maps,qt
+tags = android-native-login,apple-maps,qt
 en = Email or username
 af = E-posadres of gebruikersnaam
 ar = البريد الإلكتروني أو اسم المستخدم

@@ -1,7 +1,6 @@
 package app.organicmaps.editor;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -14,30 +13,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
-import app.organicmaps.BuildConfig;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmToolbarFragment;
 import app.organicmaps.sdk.editor.OsmOAuth;
 import app.organicmaps.sdk.util.Constants;
 import app.organicmaps.sdk.util.concurrency.ThreadPool;
 import app.organicmaps.sdk.util.concurrency.UiThread;
-import app.organicmaps.util.InputUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils.ScrollableContentInsetsListener;
-import com.google.android.material.textfield.TextInputEditText;
 
-public class OsmLoginFragment extends BaseMwmToolbarFragment
+public abstract class BaseOsmLoginFragment extends BaseMwmToolbarFragment
 {
   private ProgressBar mProgress;
   private Button mLoginButton;
-  private Button mLostPasswordButton;
-  private TextInputEditText mLoginInput;
-  private TextInputEditText mPasswordInput;
   private TextView mErrorTv;
-  private boolean mIsErrorShown = false;
   private String mErrorText;
-  private static final String STATE_ERROR_SHOWN = "state_error_shown";
   private static final String STATE_ERROR_TEXT = "state_error_text";
 
   @Nullable
@@ -52,45 +43,28 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
   {
     super.onViewCreated(view, savedInstanceState);
     getToolbarController().setTitle(R.string.login);
-    mLoginInput = view.findViewById(R.id.osm_username);
-    mPasswordInput = view.findViewById(R.id.osm_password);
     mErrorTv = view.findViewById(R.id.tv_error);
     mErrorTv.setGravity(Gravity.CENTER);
     mLoginButton = view.findViewById(R.id.login);
-    mLostPasswordButton = view.findViewById(R.id.lost_password);
     Button registerButton = view.findViewById(R.id.register);
     registerButton.setOnClickListener((v) -> Utils.openUrl(requireActivity(), Constants.Url.OSM_REGISTER));
     mProgress = view.findViewById(R.id.osm_login_progress);
 
-    // Keep email/password entry outside the app in Google Play builds.
-    if (BuildConfig.FLAVOR.equals("google"))
-    {
-      // Hide login and password inputs and Forgot password button
-      UiUtils.hide(view.findViewById(R.id.osm_username_container), view.findViewById(R.id.osm_password_container),
-                   mLostPasswordButton);
-
-      mLoginButton.setOnClickListener((v) -> loginWithBrowser());
-    }
-    else
-    {
-      mLoginButton.setOnClickListener((v) -> login());
-      mLostPasswordButton.setOnClickListener(
-          (v) -> Utils.openUrl(requireActivity(), Constants.Url.OSM_RECOVER_PASSWORD));
-    }
-
-    String code = readOAuth2CodeFromArguments();
-    if (code != null && !code.isEmpty())
-      continueOAuth2Flow(code);
+    setupLogin(view);
 
     ScrollView scrollView = view.findViewById(R.id.scrollView);
     ViewCompat.setOnApplyWindowInsetsListener(scrollView, new ScrollableContentInsetsListener(scrollView));
 
     if (savedInstanceState != null)
     {
-      mErrorText = savedInstanceState.getString(STATE_ERROR_TEXT);
-      if (savedInstanceState.getBoolean(STATE_ERROR_SHOWN, false))
-        onAuthFail(mErrorText);
+      final String error = savedInstanceState.getString(STATE_ERROR_TEXT);
+      if (error != null)
+        onAuthFail(error);
     }
+
+    String code = readOAuth2CodeFromArguments();
+    if (code != null && !code.isEmpty())
+      continueOAuth2Flow(code);
   }
 
   private String readOAuth2CodeFromArguments()
@@ -102,49 +76,23 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     return arguments.getString(OsmLoginActivity.EXTRA_OAUTH2CODE);
   }
 
-  private void login()
+  protected abstract void setupLogin(@NonNull View view);
+
+  protected void enableInput(boolean enable)
   {
-    mIsErrorShown = false;
+    mLoginButton.setEnabled(enable);
+  }
+
+  protected final void onAuthStarted()
+  {
+    mErrorText = null;
     UiUtils.hide(mErrorTv);
-    InputUtils.hideKeyboard(mLoginInput);
-    final String username = mLoginInput.getText().toString().trim();
-    final String password = mPasswordInput.getText().toString();
     enableInput(false);
     UiUtils.show(mProgress);
     mLoginButton.setText("");
-
-    ThreadPool.getWorker().execute(() -> {
-      final String[] authResult = new String[1];
-      final boolean success = OsmOAuth.nativeAuthWithPassword(username, password, authResult);
-      if (success)
-      {
-        final String oauthToken = authResult[0];
-        final String osmUsername = OsmOAuth.nativeGetOsmUsername(oauthToken);
-        OsmOAuth.setAuthorization(oauthToken, osmUsername);
-        UiThread.run(() -> onAuthSuccess());
-      }
-      else
-      {
-        final String error = authResult[0];
-        UiThread.run(() -> onAuthFail(error));
-      };
-    });
   }
 
-  private void loginWithBrowser()
-  {
-    Utils.openUri(requireContext(), Uri.parse(OsmOAuth.nativeGetOAuth2Url()), R.string.browser_not_available);
-  }
-
-  private void enableInput(boolean enable)
-  {
-    mPasswordInput.setEnabled(enable);
-    mLoginInput.setEnabled(enable);
-    mLoginButton.setEnabled(enable);
-    mLostPasswordButton.setEnabled(enable);
-  }
-
-  private void onAuthFail(@NonNull String error)
+  protected final void onAuthFail(@NonNull String error)
   {
     if (!isAdded())
       return;
@@ -167,11 +115,10 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
   public void onSaveInstanceState(@NonNull Bundle outState)
   {
     super.onSaveInstanceState(outState);
-    outState.putBoolean(STATE_ERROR_SHOWN, mIsErrorShown);
     outState.putString(STATE_ERROR_TEXT, mErrorText);
   }
 
-  private void onAuthSuccess()
+  protected final void onAuthSuccess()
   {
     if (!isAdded())
       return;
@@ -186,11 +133,12 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     requireActivity().finish();
   }
 
-  // This method is called by MwmActivity & UrlProcessor when "om://oauth2/osm/callback?code=XXX" is handled
   private void continueOAuth2Flow(@NonNull String oauth2code)
   {
     if (!isAdded())
       return;
+
+    onAuthStarted();
 
     ThreadPool.getWorker().execute(() -> {
       // Finish OAuth2 auth flow and get username for UI.

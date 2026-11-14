@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="password">Пароль</string>
+    <string name="forgot_password">Забули пароль?</string>
+    <!-- login text field -->
+    <string name="email_or_username">Ел. пошта або ім\'я користувача</string>
+</resources>

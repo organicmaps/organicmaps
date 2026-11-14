@@ -400,8 +400,6 @@
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">وارد نشده‌اید</string>
     <string name="login_osm">ورود به OpenStreetMap</string>
-    <string name="password">رمز عبور</string>
-    <string name="forgot_password">رمز عبور خود را فراموش کردید؟</string>
     <string name="logout">خروج از حساب</string>
     <string name="edit_place">ویرایش مکان</string>
     <string name="add_language">افزودن یک زبان</string>
@@ -419,8 +417,6 @@
     <string name="choose_street">انتخاب یک خیابان</string>
     <string name="cuisine">غذا‌خوری</string>
     <string name="select_cuisine">انتخاب غذاخوری</string>
-    <!-- login text field -->
-    <string name="email_or_username">ایمیل یا نام کاربری</string>
     <string name="editor_add_phone">افزودن تلفن</string>
     <string name="level">طبقه</string>
     <!-- Building level -->

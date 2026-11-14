@@ -400,8 +400,6 @@
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">Mhux imdaħħal</string>
     <string name="login_osm">Illoggja f’ OpenStreetMap</string>
-    <string name="password">Password</string>
-    <string name="forgot_password">Insejt il-password tiegħek?</string>
     <string name="logout">Oħroġ</string>
     <string name="edit_place">Editja l-Post</string>
     <string name="add_language">Żid lingwa</string>
@@ -419,8 +417,6 @@
     <string name="choose_street">Agħżel triq</string>
     <string name="cuisine">Kċina</string>
     <string name="select_cuisine">Agħżel il-kċina</string>
-    <!-- login text field -->
-    <string name="email_or_username">E-mejl jew isem l-utent</string>
     <string name="editor_add_phone">Żid in-Numru tat-Telefown</string>
     <string name="level">Livell</string>
     <!-- Building level -->

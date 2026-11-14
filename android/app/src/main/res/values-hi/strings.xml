@@ -400,8 +400,6 @@
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">साइन इन नहीं किया गया है</string>
     <string name="login_osm">OpenStreetMap में लॉगिन करें</string>
-    <string name="password">पासवर्ड</string>
-    <string name="forgot_password">अपना पासवर्ड भूल गए?</string>
     <string name="logout">लॉग आउट</string>
     <string name="edit_place">स्थान संपादित करें</string>
     <string name="add_language">एक भाषा जोड़ें</string>
@@ -419,8 +417,6 @@
     <string name="choose_street">एक सड़क चुनें</string>
     <string name="cuisine">व्यंजन</string>
     <string name="select_cuisine">व्यंजन चुनें</string>
-    <!-- login text field -->
-    <string name="email_or_username">ईमेल या उपयोगकर्ता नाम</string>
     <string name="editor_add_phone">फोन नंबर डालें</string>
     <string name="level">मंजिल</string>
     <!-- Building level -->

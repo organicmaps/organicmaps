@@ -400,8 +400,6 @@
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">Pole sisse logitud</string>
     <string name="login_osm">Logi sisse OpenStreetMappi</string>
-    <string name="password">Salasõna</string>
-    <string name="forgot_password">Unustasid oma salasõna?</string>
     <string name="logout">Logi välja</string>
     <string name="edit_place">Muuda kohta</string>
     <string name="add_language">Lisa keel</string>
@@ -419,8 +417,6 @@
     <string name="choose_street">Vali tänav</string>
     <string name="cuisine">Köök</string>
     <string name="select_cuisine">Vali köök</string>
-    <!-- login text field -->
-    <string name="email_or_username">E-post või kasutajanimi</string>
     <string name="editor_add_phone">Lisa telefon</string>
     <string name="level">Korrus</string>
     <!-- Building level -->

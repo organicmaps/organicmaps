@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:parentTag="android.widget.LinearLayout">
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/MwmWidget.Editor.CustomTextInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_half"
+        android:textColorHint="?android:textColorSecondary"
+        app:endIconMode="custom">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/osm_username"
+            style="@style/MwmWidget.Editor.FieldLayout.EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="emailAddress"
+            android:hint="@string/email_or_username" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/MwmWidget.Editor.CustomTextInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_base"
+        android:textColorHint="?android:textColorSecondary"
+        app:endIconMode="password_toggle"
+        app:endIconTint="?android:textColorSecondary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/osm_password"
+            style="@style/MwmWidget.Editor.FieldLayout.EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="password"
+            android:hint="@string/password"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include layout="@layout/osm_login_actions" />
+
+    <Button
+        android:id="@+id/lost_password"
+        style="@style/MwmWidget.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:background="?clickableBackground"
+        android:padding="@dimen/margin_half"
+        android:text="@string/forgot_password"
+        android:textAppearance="@style/MwmTextAppearance.Body3" />
+
+    <include layout="@layout/osm_login_registration" />
+
+</merge>

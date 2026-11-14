@@ -400,8 +400,6 @@
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">로그인되지 않음</string>
     <string name="login_osm">OpenStreetMap에 로그인</string>
-    <string name="password">암호</string>
-    <string name="forgot_password">암호를 잊으셨나요?</string>
     <string name="logout">로그 아웃</string>
     <string name="edit_place">장소 편집</string>
     <string name="add_language">언어 추가</string>
@@ -419,8 +417,6 @@
     <string name="choose_street">거리 선택</string>
     <string name="cuisine">요리</string>
     <string name="select_cuisine">요리 선택</string>
-    <!-- login text field -->
-    <string name="email_or_username">이메일 또는 사용자 이름</string>
     <string name="editor_add_phone">전화 추가</string>
     <string name="level">층</string>
     <!-- Building level -->

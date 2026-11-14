@@ -400,8 +400,6 @@
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">Ekki skráð/ur inn</string>
     <string name="login_osm">Skrá inn á OpenStreetMap</string>
-    <string name="password">Lykilorð</string>
-    <string name="forgot_password">Gleymdirðu lykilorðinu?</string>
     <string name="logout">Skrá út</string>
     <string name="edit_place">Breyta stað</string>
     <string name="add_language">Bæta við tungumáli</string>
@@ -419,8 +417,6 @@
     <string name="choose_street">Veldu götu</string>
     <string name="cuisine">Eldhús</string>
     <string name="select_cuisine">Veldu matreiðsluhefð</string>
-    <!-- login text field -->
-    <string name="email_or_username">Tölvupóstur eða notandanafn</string>
     <string name="editor_add_phone">Bæta við símanúmeri</string>
     <string name="level">Hæð</string>
     <!-- Building level -->

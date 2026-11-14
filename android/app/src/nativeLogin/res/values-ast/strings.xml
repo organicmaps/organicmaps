@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="password">Contraseña</string>
+    <string name="forgot_password">¿Escaeciesti la contraseña?</string>
+    <!-- login text field -->
+    <string name="email_or_username">Señes o nome d’usuariu</string>
+</resources>

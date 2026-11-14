@@ -178,8 +178,6 @@
     <string name="twentyfour_seven">24/7</string>
     <string name="midnight">Medianueche</string>
     <string name="noon">Mediudía</string>
-    <string name="password">Contraseña</string>
-    <string name="forgot_password">¿Escaeciesti la contraseña?</string>
     <string name="edit_place">Editar llugar</string>
     <string name="add_language">Amestar una llingua</string>
     <string name="street">Cai</string>
@@ -193,8 +191,6 @@
     <string name="choose_language">Escueyi una llingua</string>
     <string name="choose_street">Escueyi una cai</string>
     <string name="cuisine">Cocina</string>
-    <!-- login text field -->
-    <string name="email_or_username">Señes o nome d’usuariu</string>
     <string name="editor_add_phone">Amestar teléfonu</string>
     <!-- Building level -->
     <string name="level_value_generic">Nivel: %s</string>
