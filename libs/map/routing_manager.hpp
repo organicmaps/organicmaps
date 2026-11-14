@@ -274,6 +274,9 @@ public:
   }
 
   Callbacks & GetCallbacksForTests() { return m_callbacks; }
+  /// Consume the initial track approach without polling maneuver or departure speech.
+  std::string GenerateTrackApproachNotification();
+
   /// \brief Adds to @param notifications strings - notifications, which are ready to be
   /// pronounced to end user right now.
   /// Adds notifications about turns and speed camera on the road.

@@ -124,10 +124,12 @@ final class MapTemplateBuilder {
   }
 
   class func setupLeadingNavigationBarButtons(_ mapTemplate: CPMapTemplate, positionMode: MWMMyPositionMode, isOnRoute: Bool) {
-    let isTTSEnabled = MWMTextToSpeech.isTTSEnabled()
-    let muteButton = buildBarButton(type: isTTSEnabled ? .mute : .unmute) { _ in
-      MWMTextToSpeech.setTTSEnabled(!isTTSEnabled)
-      setupLeadingNavigationBarButtons(mapTemplate, positionMode: positionMode, isOnRoute: isOnRoute)
+    let muteButton = buildBarButton(type: MWMTextToSpeech.tts().active ? .mute : .unmute) { _ in
+      CarPlayService.shared.toggleNavigationSpeech()
+    }
+    if MWMRouter.hasTrackNavigationSession() {
+      mapTemplate.leadingNavigationBarButtons = isOnRoute ? [muteButton] : []
+      return
     }
     let redirectButton = buildBarButton(type: .redirectRoute) { _ in
       let listTemplate = ListTemplateBuilder.buildListTemplate(for: .history)

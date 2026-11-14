@@ -1568,6 +1568,11 @@ bool RoutingManager::ReorderIntermediatePoints(RoutePointsLayout & layout, Route
   return changed;
 }
 
+std::string RoutingManager::GenerateTrackApproachNotification()
+{
+  return m_routingSession.GenerateTrackApproachNotification();
+}
+
 void RoutingManager::GenerateNotifications(std::vector<std::string> & turnNotifications, bool announceStreets)
 {
   m_routingSession.GenerateNotifications(turnNotifications, announceStreets);

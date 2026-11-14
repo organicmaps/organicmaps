@@ -309,6 +309,7 @@ void setShowLocationAlert(BOOL needShow)
 
   CLLocation * locationInfo = locations.lastObject;
   self.lastLocationInfo = locationInfo;
+  [MWMRouter playGuidance];
   for (Observer observer in self.observers)
     if ([observer respondsToSelector:@selector(onLocationUpdate:)])
       [observer onLocationUpdate:locationInfo];
@@ -352,7 +353,8 @@ void setShowLocationAlert(BOOL needShow)
   [manager processLocationStatus:manager.lastLocationStatus];
   if ([MWMRouter isRoutingActive])
   {
-    switch ([MWMRouter type])
+    // The render type resolves a followed track to its follow profile (never ruler/transit).
+    switch ([MWMRouter renderType])
     {
     case MWMRouterTypeVehicle: manager.geoMode = GeoMode::VehicleRouting; break;
     case MWMRouterTypePublicTransport:
