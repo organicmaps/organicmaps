@@ -400,8 +400,6 @@
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">Ikke logget inn</string>
     <string name="login_osm">Logg på OpenStreetMap</string>
-    <string name="password">Passord</string>
-    <string name="forgot_password">Glemt passordet?</string>
     <string name="logout">Logg ut</string>
     <string name="edit_place">Rediger stedet</string>
     <string name="add_language">Legg til et språk</string>
@@ -419,8 +417,6 @@
     <string name="choose_street">Velg en gate</string>
     <string name="cuisine">Matrett</string>
     <string name="select_cuisine">Velg matrett</string>
-    <!-- login text field -->
-    <string name="email_or_username">E-postadresse eller brukernavn</string>
     <string name="editor_add_phone">Legg til telefon</string>
     <string name="level">Gulv</string>
     <!-- Building level -->

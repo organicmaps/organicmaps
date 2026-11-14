@@ -400,8 +400,6 @@
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">Neautentificat</string>
     <string name="login_osm">Conectați-vă la OpenStreetMap</string>
-    <string name="password">Parola</string>
-    <string name="forgot_password">Ai uitat parola?</string>
     <string name="logout">Deconectare</string>
     <string name="edit_place">Modifică locul</string>
     <string name="add_language">Adaugă o limbă</string>
@@ -419,8 +417,6 @@
     <string name="choose_street">Alege o stradă</string>
     <string name="cuisine">Bucătărie</string>
     <string name="select_cuisine">Alege bucătăria</string>
-    <!-- login text field -->
-    <string name="email_or_username">E-mail sau nume de utilizator</string>
     <string name="editor_add_phone">Adaugă un număr</string>
     <string name="level">Etaj</string>
     <!-- Building level -->

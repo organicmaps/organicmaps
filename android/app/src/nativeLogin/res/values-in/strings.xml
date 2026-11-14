@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="password">Kata sandi</string>
+    <string name="forgot_password">Lupa kata sandi?</string>
+    <!-- login text field -->
+    <string name="email_or_username">Surel atau nama pengguna</string>
+</resources>

@@ -205,8 +205,6 @@
     <!-- Error to display when a new street name is not entered in the New street dialog -->
     <string name="empty_street_name_error">Introduzca el nombre de la calle</string>
     <string name="choose_language">Elija una lengua</string>
-    <!-- login text field -->
-    <string name="email_or_username">Correo electrónico o nombre de usuario</string>
     <string name="level">Suelo</string>
     <string name="downloader_delete_map_dialog">Todas las ediciones del mapa se eliminarán con él.</string>
     <string name="common_check_internet_connection_dialog">Asegúrate de que tu dispositivo está conectado a Internet.</string>

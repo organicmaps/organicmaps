@@ -400,8 +400,6 @@
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">Nie ste prihlásený</string>
     <string name="login_osm">Prihláste sa do OpenStreetMap</string>
-    <string name="password">Heslo</string>
-    <string name="forgot_password">Zabudli ste heslo?</string>
     <string name="logout">Odhlásiť sa</string>
     <string name="edit_place">Upraviť miesto</string>
     <string name="add_language">Pridať jazyk</string>
@@ -419,8 +417,6 @@
     <string name="choose_street">Vybrať ulicu</string>
     <string name="cuisine">Kuchyňa</string>
     <string name="select_cuisine">Vyberte si kuchyňu</string>
-    <!-- login text field -->
-    <string name="email_or_username">Email alebo používateľské meno</string>
     <string name="editor_add_phone">Pridať telefónne číslo</string>
     <string name="level">Podlaha</string>
     <!-- Building level -->

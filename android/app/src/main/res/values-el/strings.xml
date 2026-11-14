@@ -400,8 +400,6 @@
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">Δεν έχετε συνδεθεί</string>
     <string name="login_osm">Συνδεθείτε στο OpenStreetMap</string>
-    <string name="password">Κωδικός πρόσβασης</string>
-    <string name="forgot_password">Ξαχάσατε τον κωδικό πρόσβασης;</string>
     <string name="logout">Αποσύνδεση</string>
     <string name="edit_place">Επεξεργασία τοποθεσίας</string>
     <string name="add_language">Προσθήκη γλώσσας</string>
@@ -419,8 +417,6 @@
     <string name="choose_street">Επιλέξτε μια οδό</string>
     <string name="cuisine">Κουζίνα</string>
     <string name="select_cuisine">Επιλέξτε κουζίνα</string>
-    <!-- login text field -->
-    <string name="email_or_username">Email ή όνομα χρήστη</string>
     <string name="editor_add_phone">Προσθήκη Τηλεφώνου</string>
     <string name="level">Όροφος</string>
     <!-- Building level -->

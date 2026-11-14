@@ -400,8 +400,6 @@
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">Niet ingelogd</string>
     <string name="login_osm">Log in bij OpenStreetMap</string>
-    <string name="password">Wachtwoord</string>
-    <string name="forgot_password">Wachtwoord vergeten?</string>
     <string name="logout">Log uit</string>
     <string name="edit_place">Bewerk de locatie</string>
     <string name="add_language">Voeg een taal toe</string>
@@ -419,8 +417,6 @@
     <string name="choose_street">Kies een straat</string>
     <string name="cuisine">Keuken</string>
     <string name="select_cuisine">Selecteer keuken</string>
-    <!-- login text field -->
-    <string name="email_or_username">E-mailadres of gebruikersnaam</string>
     <string name="editor_add_phone">Voeg telefoonnummer toe</string>
     <string name="level">Verdieping</string>
     <!-- Building level -->

@@ -400,8 +400,6 @@
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">Et ole kirjautunut sisään</string>
     <string name="login_osm">Kirjaudu OpenStreetMapiin</string>
-    <string name="password">Salasana</string>
-    <string name="forgot_password">Unohtuiko salasana?</string>
     <string name="logout">Kirjaudu ulos</string>
     <string name="edit_place">Muokkaa kohdetta</string>
     <string name="add_language">Lisää kieli</string>
@@ -419,8 +417,6 @@
     <string name="choose_street">Valitse katu</string>
     <string name="cuisine">Ruokalaji</string>
     <string name="select_cuisine">Valitse ruokalaji</string>
-    <!-- login text field -->
-    <string name="email_or_username">Sähköposti tai käyttäjätunnus</string>
     <string name="editor_add_phone">Lisää puhelinnumero</string>
     <string name="level">Kerros</string>
     <!-- Building level -->

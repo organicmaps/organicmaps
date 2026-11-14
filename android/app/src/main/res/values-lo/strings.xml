@@ -354,8 +354,6 @@
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">ຍັງບໍ່ທັນໄດ້ເຂົ້າສູ່ລະບົບ</string>
     <string name="login_osm">ເຂົ້າສູ່ລະບົບ OpenStreetMap</string>
-    <string name="password">ລະຫັດຜ່ານ</string>
-    <string name="forgot_password">ລືມລະຫັດຜ່ານບໍ່?</string>
     <string name="logout">ອອກຈາກລະບົບ</string>
     <string name="edit_place">ແກ້ໄຂສະຖານທີ່</string>
     <string name="add_language">ເພີ່ມພາສາ</string>
@@ -373,8 +371,6 @@
     <string name="choose_street">ເລືອກຖະໜົນ</string>
     <string name="cuisine">ປະເພດອາຫານ</string>
     <string name="select_cuisine">ເລືອກປະເພດອາຫານ</string>
-    <!-- login text field -->
-    <string name="email_or_username">ອີເມລ ຫຼື ຊື່ຜູ້ໃຊ້</string>
     <string name="editor_add_phone">ເພີ່ມເບີໂທລະສັບ</string>
     <string name="level">ຊັ້ນ</string>
     <!-- Building level -->

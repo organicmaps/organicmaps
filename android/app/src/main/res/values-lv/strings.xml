@@ -400,8 +400,6 @@
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">Neierakstījāties</string>
     <string name="login_osm">Ierakstīties OpenStreetMap</string>
-    <string name="password">Parole</string>
-    <string name="forgot_password">Vai aizmirsāt paroli?</string>
     <string name="logout">Izrakstīties</string>
     <string name="edit_place">Labot vietu</string>
     <string name="add_language">Pievienot valodu</string>
@@ -419,8 +417,6 @@
     <string name="choose_street">Izvēlieties ielu</string>
     <string name="cuisine">Virtuve</string>
     <string name="select_cuisine">Atlasiet virtuvi</string>
-    <!-- login text field -->
-    <string name="email_or_username">E-pasts vai lietotājvārds</string>
     <string name="editor_add_phone">Pievienot tālruni</string>
     <string name="level">Stāvs</string>
     <!-- Building level -->
