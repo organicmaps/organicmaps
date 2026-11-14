@@ -13,10 +13,19 @@ protocol ElevationProfilePresenterProtocol:
   func configure()
   func update(with state: ElevationProfileState)
   func onSelectedPointChanged(_ distance: Double)
+  func onSelectionFinished(_ distance: Double)
+  func onSelectionCancelled()
 }
 
 protocol ElevationProfileViewControllerDelegate: AnyObject {
   func updateMapPoint(distance: Double)
+  func didFinishSelectingPoint(distance: Double)
+  func didCancelSelectingPoint()
+}
+
+extension ElevationProfileViewControllerDelegate {
+  func didFinishSelectingPoint(distance _: Double) {}
+  func didCancelSelectingPoint() {}
 }
 
 enum ElevationProfileState {
@@ -141,6 +150,14 @@ extension ElevationProfilePresenter: ElevationProfilePresenterProtocol {
 
   func onSelectedPointChanged(_ distance: Double) {
     delegate?.updateMapPoint(distance: distance)
+  }
+
+  func onSelectionFinished(_ distance: Double) {
+    delegate?.didFinishSelectingPoint(distance: distance)
+  }
+
+  func onSelectionCancelled() {
+    delegate?.didCancelSelectingPoint()
   }
 }
 
