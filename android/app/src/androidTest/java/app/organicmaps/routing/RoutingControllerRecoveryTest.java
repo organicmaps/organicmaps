@@ -1,10 +1,14 @@
 package app.organicmaps.routing;
 
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import android.app.Instrumentation;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.SystemClock;
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -30,7 +34,6 @@ import java.lang.reflect.Field;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BooleanSupplier;
 import org.junit.After;
@@ -281,6 +284,12 @@ public class RoutingControllerRecoveryTest
   @Test
   public void configurationRecreationKeepsRouteRecovery() throws Exception
   {
+    // A permission dialog pauses the activity and prevents ActivityScenario from recreating it.
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+      for (String permission : new String[] {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
+        if (mApplication.checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED)
+          mInstrumentation.getUiAutomation().grantRuntimePermission(mApplication.getPackageName(), permission);
+
     final DataChangedListener bookmarksListener = getBookmarksListener(mController);
     onMain(() -> {
       BookmarkManager.INSTANCE.removeCategoriesUpdatesListener(bookmarksListener);
@@ -294,15 +303,7 @@ public class RoutingControllerRecoveryTest
         original.set(activity);
         mController.prepare(point("Start", 1), point("Finish", 2), Router.Ruler);
       });
-      final AtomicBoolean built = new AtomicBoolean();
-      final long deadline = SystemClock.uptimeMillis() + TimeUnit.SECONDS.toMillis(30);
-      while (!built.get() && SystemClock.uptimeMillis() < deadline)
-      {
-        onMain(() -> built.set(mController.isBuilt()));
-        if (!built.get())
-          Thread.sleep(10);
-      }
-      assertTrue("Route did not finish building", built.get());
+      await("Route did not finish building", mController::isBuilt);
       onMain(() -> {
         mController.saveRoute();
         assertTrue(Framework.nativeHasSavedRoutePoints());
