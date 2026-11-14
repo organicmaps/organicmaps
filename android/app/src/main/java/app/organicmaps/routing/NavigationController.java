@@ -176,7 +176,8 @@ public class NavigationController implements TrafficManager.TrafficCallback, Nav
 
   public void update(@Nullable RoutingInfo info)
   {
-    final boolean isPedestrian = Router.get() == Router.Pedestrian;
+    // Track navigation uses its follow profile, which may differ from the selected router.
+    final boolean isPedestrian = Router.getRender() == Router.Pedestrian;
     UiUtils.showIf(!isPedestrian, mSpeedView);
 
     if (info == null)

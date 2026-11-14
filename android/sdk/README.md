@@ -152,6 +152,14 @@ previous host do not affect its replacement. Route state survives activity
 recreation; the host still owns its controls, listener cleanup, and any background
 service.
 
+After selecting a saved track on the map, `RoutingController.navigateTrack(trackId)`
+previews its remaining connected section without downloaded road maps. Call `start()`
+after the build succeeds and a current position is available. Profile changes and
+`updateFollowedTrackEntryAt(distanceMeters)` retain the captured session; refused
+updates preserve its preview. `getFollowedTrackInfo()` exposes the accepted source
+entry distance independently of later map selections, and remains valid after the
+source track is deleted during navigation.
+
 ## Release consumers
 
 The SDK packages consumer R8 rules for JNI access by name. Resource shrinking needs

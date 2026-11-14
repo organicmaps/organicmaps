@@ -20,6 +20,12 @@ public class RoutingControllerRestoreTest
     int builds;
 
     @Override
+    public boolean isFollowingTrack()
+    {
+      return false;
+    }
+
+    @Override
     public MapObject getStartPoint()
     {
       return MapObject.createMapObject(MapObject.POI, "Start", "", 1, 1);
