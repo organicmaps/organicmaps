@@ -452,6 +452,15 @@ public:
   explicit UKRoadShieldParser(std::string const & baseRoadNumber)
     : SimpleRoadShieldParser(baseRoadNumber, {{"M", RoadShieldType::Generic_Blue}, {"A", RoadShieldType::UK_Highway}})
   {}
+
+  RoadShield ParseRoadShield(std::string_view rawText) const override
+  {
+    strings::Trim(rawText);
+    // A-road motorways like "A1(M)" are signed blue, as other motorways.
+    if (rawText.size() <= kMaxRoadShieldBytesSize && rawText.starts_with('A') && rawText.ends_with("(M)"))
+      return RoadShield(RoadShieldType::Generic_Blue, rawText);
+    return SimpleRoadShieldParser::ParseRoadShield(rawText);
+  }
 };
 
 class FranceRoadShieldParser : public SimpleRoadShieldParser
