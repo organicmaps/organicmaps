@@ -207,10 +207,10 @@
 
 - (void)testDeletionCancelsPreviewWhileItsBuildIsPending
 {
-  auto const id = [self createPreview];
-  [MWMBookmarksManager.sharedManager deleteTrack:id];
+  auto const trackId = [self createPreview];
+  [MWMBookmarksManager.sharedManager deleteTrack:trackId];
   XCTAssertTrue([MWMRouter isFollowingTrack], @"Do not tear down routing inside bookmark publication");
-  XCTAssertEqual([MWMRouter routeElevationActivePointDistance].doubleValue, 0.0);
+  XCTAssertEqualObjects([MWMRouter routeElevationActivePointDistance], @0.0);
   [self drainMainQueue];
   XCTAssertFalse([MWMRouter isFollowingTrack]);
   XCTAssertEqual(MWMNavigationDashboardManager.sharedManager.state, MWMNavigationDashboardStateClosed);
