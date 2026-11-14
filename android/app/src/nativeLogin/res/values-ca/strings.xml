@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="password">Contrasenya</string>
+    <string name="forgot_password">Heu oblidat la contrasenya?</string>
+    <!-- login text field -->
+    <string name="email_or_username">Adreça electrònica o nom d’usuari</string>
+</resources>

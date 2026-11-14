@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <!-- login text field -->
+    <string name="email_or_username">Correo electrónico o nombre de usuario</string>
+</resources>

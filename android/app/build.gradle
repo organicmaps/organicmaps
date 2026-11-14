@@ -119,6 +119,14 @@ android {
     }
   }
 
+  // Direct credential entry is available only outside Google Play builds.
+  sourceSets {
+    [web, fdroid, huawei].each {
+      it.java.srcDir 'src/nativeLogin/java'
+      it.res.srcDir 'src/nativeLogin/res'
+    }
+  }
+
   splits.abi {
     boolean enabled = project.hasProperty('splitApk')
     println('Create separate apks: ' + enabled)

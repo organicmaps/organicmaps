@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="password">Password</string>
+    <string name="forgot_password">Insejt il-password tiegħek?</string>
+    <!-- login text field -->
+    <string name="email_or_username">E-mejl jew isem l-utent</string>
+</resources>

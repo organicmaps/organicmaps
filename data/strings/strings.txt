@@ -17061,8 +17061,67 @@ vi = Đăng nhập vào OpenStreetMap
 zh-Hans = 登录 OpenStreetMap
 zh-Hant = 登錄 OpenStreetMap
 
+[osm_login_error]
+comment = Error after OpenStreetMap sign-in fails. Ask the user to retry.
+tags = android-app
+en = Login failed. Please try again.
+af = Aanmelding misluk. Probeer asseblief weer.
+ar = فشل تسجيل الدخول. يرجى المحاولة مرة أخرى.
+ast = Nun se pudo aniciar sesión. Téntalo de nueves.
+az = Giriş uğursuz oldu. Zəhmət olmasa yenidən cəhd edin.
+be = Уваход не ўдаўся. Калі ласка, паспрабуйце зноў.
+bg = Влизането не успя. Моля, опитайте отново.
+ca = No s'ha pogut iniciar sessió. Torna-ho a provar.
+cs = Přihlášení se nezdařilo. Zkuste to prosím znovu.
+cy = Methu mewngofnodi. Rhowch gynnig arall arni.
+da = Login mislykkedes. Prøv igen.
+de = Die Anmeldung ist fehlgeschlagen. Bitte versuche es erneut.
+el = Η σύνδεση απέτυχε. Παρακαλώ, δοκιμάστε ξανά.
+es = El inicio de sesión ha fallado. Inténtelo de nuevo.
+es-MX = No se pudo iniciar sesión. Por favor, inténtelo de nuevo.
+et = Sisselogimine ebaõnnestus. Palun proovi uuesti.
+eu = Saioa hasteak huts egin du. Saiatu berriro.
+fa = ورود ناموفق بود. لطفاً دوباره تلاش کنید.
+fi = Kirjautuminen epäonnistui. Yritä uudelleen.
+fr = Échec de la connexion. Veuillez réessayer.
+gl = Fallou o inicio de sesión. Ténteo de novo.
+he = הכניסה נכשלה. נא לנסות שוב.
+hi = लॉगिन विफल हो गया। कृपया फिर से प्रयास करें।
+hr = Prijava nije uspjela. Molimo pokušajte ponovno.
+hu = A bejelentkezés sikertelen volt. Kérjük, próbálja meg újra.
+hy = Մուտքը ձախողվեց։ Խնդրում ենք նորից փորձել։
+id = Masuk gagal. Silakan coba lagi.
+is = Innskráning mistókst. Vinsamlegast reyndu aftur.
+it = Accesso non riuscito. Si prega di riprovare.
+ja = ログインに失敗しました。もう一度お試しください。
+ko = 로그인에 실패했습니다. 다시 시도해 주세요.
+lo = ເຂົ້າສູ່ລະບົບລົ້ມເຫລວ. ກະລຸນາລອງອີກຄັ້ງ.
+lt = Prisijungti nepavyko. Prašome pabandyti dar kartą.
+lv = Pieslēgšanās neizdevās. Lūdzu, mēģiniet vēlreiz.
+mr = लॉगिन अयशस्वी झाले. कृपया पुन्हा प्रयत्न करा.
+mt = Il-login ma rnexxiex. Jekk jogħġbok ipprova mill-ġdid.
+nb = Innloggingen mislyktes. Prøv på nytt.
+nl = Inloggen is mislukt. Probeer het alstublieft nogmaals.
+pl = Nie udało się zalogować. Proszę spróbować ponownie.
+pt = Falha no início de sessão. Por favor, tente novamente.
+pt-BR = Falha no login. Tente novamente.
+ro = Autentificarea a eșuat. Vă rugăm să încercați din nou.
+ru = Не удалось войти. Попробуйте ещё раз.
+sk = Prihlásenie sa nepodarilo. Skúste to prosím znova.
+sl = Prijava ni uspela. Poskusite znova.
+sq = Hyrja dështoi. Ju lutemi provoni përsëri.
+sr = Пријављивање није успело. Покушајте поново.
+sv = Inloggningen misslyckades. Försök igen.
+sw = Imeshindikana kuingia. Tafadhali jaribu tena.
+th = การเข้าสู่ระบบไม่สำเร็จ โปรดลองอีกครั้ง
+tr = Giriş başarısız oldu. Lütfen tekrar deneyin.
+uk = Не вдалося увійти. Спробуйте ще раз.
+vi = Đăng nhập không thành công. Vui lòng thử lại.
+zh-Hans = 登录失败。请重试。
+zh-Hant = 登入失敗。請重新嘗試。
+
 [password]
-tags = android-app,qt
+tags = android-native-login,qt
 en = Password
 af = Wagwoord
 ar = كلمة المرور
@@ -17119,7 +17178,7 @@ zh-Hans = 密码
 zh-Hant = 密碼
 
 [forgot_password]
-tags = android-app,apple-maps
+tags = android-native-login,apple-maps
 en = Forgot your password?
 af = Het u u wagwoord vergeet?
 ar = هل نسيت كلمة المرور؟
@@ -17972,7 +18031,7 @@ zh-Hant = 選擇料理
 
 [email_or_username]
 comment = login text field
-tags = android-app,apple-maps,qt
+tags = android-native-login,apple-maps,qt
 en = Email or username
 af = E-posadres of gebruikersnaam
 ar = البريد الإلكتروني أو اسم المستخدم

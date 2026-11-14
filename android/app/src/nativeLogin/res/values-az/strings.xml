@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: Strings for downloading map from search -->
+    <string name="password">Parol</string>
+    <string name="forgot_password">Parolu unutmusunuz?</string>
+    <!-- login text field -->
+    <string name="email_or_username">E-poçt və ya istifadəçi adı</string>
+</resources>

@@ -96,6 +96,7 @@ GenerateAndroidLocalesConfig
 
 # Generate Android strings
 GenerateStringResource "strings.txt" android/app/src/main/res android android-app ""
+GenerateStringResource "strings.txt" android/app/src/nativeLogin/res android android-native-login ""
 GenerateStringResource "strings.txt" android/sdk/src/main/res android android-sdk ""
 GenerateStringResource "strings.txt" android/libs/car/src/main/res android android-libs-car ""
 GenerateStringResource "strings.txt" android/libs/downloader/src/main/res android android-libs-downloader ""
