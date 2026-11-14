@@ -148,6 +148,13 @@ void ReadMetalineTask::Run()
       continue;
 
     auto points = ReadPoints(m_model, metaline);
+    // Nothing is read if the mwm was deregistered (updated or deleted) in the meantime.
+    if (points.empty())
+    {
+      m_metalines.clear();
+      return;
+    }
+
     std::map<FeatureID, std::pair<double, bool>> phases;
     double chainOffset = 0.0;
     for (size_t i = 0; i < metaline.m_features.size(); ++i)
