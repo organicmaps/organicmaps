@@ -705,6 +705,8 @@
     <string name="moreyear_ago_sorttype">بیش از یک سال قبل</string>
     <string name="near_me_sorttype">نزدیک من</string>
     <string name="others_sorttype">دیگران</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">برنامه‌ریزی مسیر ناموفق</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">اکنون تعطیل است</string>
     <string name="opens_tomorrow_at">فردا در %s باز می‌شود</string>
@@ -956,4 +958,12 @@
     <string name="error_enter_correct_level">یک شماره طبقه معتبر وارد کنید</string>
     <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
     <string name="editor_level">طبقه (همکف 0 است)</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">مسیریابی</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">آغاز مسیر</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">پایان مسیر</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">در این جهت مسیری باقی نمانده است. نقطهٔ دیگری را انتخاب کنید.</string>
 </resources>
