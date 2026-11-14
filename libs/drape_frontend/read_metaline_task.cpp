@@ -150,7 +150,15 @@ void ReadMetalineTask::Run()
     if (failed)
       continue;
 
-    auto mergedPoints = MergePoints(ReadPoints(m_model, metaline), metaline.m_features);
+    auto points = ReadPoints(m_model, metaline);
+    // Nothing is read if the mwm was deregistered (updated or deleted) in the meantime.
+    if (points.empty())
+    {
+      m_metalines.clear();
+      return;
+    }
+
+    auto mergedPoints = MergePoints(std::move(points), metaline.m_features);
     if (mergedPoints.size() < 2)
       continue;
 
