@@ -718,6 +718,8 @@
     <string name="moreyear_ago_sorttype">Mwy na blwyddyn yn ôl</string>
     <string name="near_me_sorttype">Gerllaw</string>
     <string name="others_sorttype">Eraill</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Methodd cynllunio llwybr</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Ar gau nawr</string>
     <string name="opens_tomorrow_at">Yn agor yfory am %s</string>
@@ -971,4 +973,14 @@
     <string name="transit_type_train">Trên</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tram</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Llywio</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Dechrau’r trac</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Diwedd y trac</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">Does dim trac ar ôl i\'r cyfeiriad hwn. Dewiswch bwynt arall.</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">Nid yw\'r trac ar gael mwyach</string>
 </resources>
