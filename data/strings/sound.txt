@@ -1,4 +1,5 @@
 [[sound]]
+
 ​[make_a_slight_right_turn]
 en = Keep right.
 ar = الزم اليمين.
@@ -48,6 +49,7 @@ vi = Đi về phía phải.
 zh-Hans = 向右前方行驶。
 zh-Hant = 向右前方行駛。
 yue = 靠右。
+
 ​[make_a_slight_right_turn_street]
 comment = Optionally used inside dist_direction_onto_street in position 3 when the normal make_a_slight_right_turn is insufficient. For most languages that don't need this, the value should be the word NULL
 en = NULL
