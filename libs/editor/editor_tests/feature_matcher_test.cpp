@@ -350,15 +350,15 @@ UNIT_TEST(GetBestOsmWay_SameNodesPreferMatchingTags)
       {27.557352241556003, 64.236863883114324}, {27.557765301747366, 64.236963124848614},
       {27.55768215326728, 64.237078459837136}};
 
+  // Tags as editor::ToXML writes them: it doesn't serialize the building types themselves.
   editor::XMLFeature building(editor::XMLFeature::Type::Way);
-  building.SetTagValue("building", "yes");
-  building.SetTagValue("name", "Беллесбумпром");
-  building.SetTagValue("office", "company");
+  building.SetName("Беллесбумпром");
+  building.SetHouse("16");
   auto const bestWay = matcher::GetBestOsmWayOrRelation(osmResponse, geometry, &building);
   TEST_EQUAL(bestWay.attribute("id").value(), std::string("25432677"), ());
 
   editor::XMLFeature part(editor::XMLFeature::Type::Way);
-  part.SetTagValue("building:part", "yes");
+  part.SetTagValue("building:levels", "2");
   auto const bestPart = matcher::GetBestOsmWayOrRelation(osmResponse, geometry, &part);
   TEST_EQUAL(bestPart.attribute("id").value(), std::string("1"), ());
 }
