@@ -57,6 +57,8 @@ set(SRC
   search_api.hpp
   search_mark.cpp
   search_mark.hpp
+  track_follow_data.cpp
+  track_follow_data.hpp
   track.cpp
   track.hpp
   track_statistics.cpp
