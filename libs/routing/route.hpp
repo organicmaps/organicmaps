@@ -26,6 +26,7 @@
 #include <memory>
 #include <optional>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace location
@@ -156,6 +157,8 @@ public:
   }
 
   void SetTurnExits(uint32_t exitNum) { m_turn.m_exitNum = exitNum; }
+  bool IsLandGap() const { return m_isLandGap; }
+  void SetLandGap(bool value) { m_isLandGap = value; }
 
   turns::lanes::LanesInfo & GetTurnLanes() { return m_turn.m_lanes; }
 
@@ -204,6 +207,7 @@ public:
   void MergeLanes(RouteSegment & from);
 
 private:
+  bool m_isLandGap = false;
   Segment m_segment;
 
   /// Turn (maneuver) information for the turn next to the |m_segment| if any.
@@ -249,6 +253,20 @@ private:
 class RouteBase
 {
 public:
+  struct WaterDistances
+  {
+    bool m_shortestConfirmed = true;
+    double m_waterMeters = 0.0;
+    double m_landMeters = 0.0;
+    double GetTotalMeters() const { return m_waterMeters + m_landMeters; }
+  };
+
+  std::optional<WaterDistances> const & GetWaterDistances() const { return m_waterDistances; }
+  void SetWaterDistances(WaterDistances const & distances) { m_waterDistances = distances; }
+
+  // Exit and re-entry points of internal walking transfers; checkpoint approaches are excluded.
+  std::vector<std::pair<m2::PointD, m2::PointD>> GetWaterTransfers() const;
+
   class SubrouteAttrs final
   {
   public:
@@ -398,6 +416,7 @@ protected:
   std::optional<m2::PointD> FindMaxDiffMidpointImpl(DiffFnT const & isDiff) const;
 
   std::vector<RouteSegment> m_routeSegments;
+  std::optional<WaterDistances> m_waterDistances;
   // True if every segment's end junction has a valid altitude.
   bool m_haveAltitudes = false;
   std::optional<double> m_trackStartDistanceM;

@@ -73,7 +73,8 @@ public:
   IndexRouter(VehicleType vehicleType, bool loadAltitudes, CountryParentNameGetterFn const & countryParentNameGetterFn,
               TCountryFileFn const & countryFileFn, CountryRectFn const & countryRectFn,
               std::shared_ptr<NumMwmIds> numMwmIds, std::shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
-              traffic::TrafficCache const & trafficCache, DataSource & dataSource);
+              traffic::TrafficCache const & trafficCache, DataSource & dataSource, bool cacheWalkingGraph = false);
+  ~IndexRouter() override;
 
   std::unique_ptr<WorldGraph> MakeSingleMwmWorldGraph();
 
@@ -92,6 +93,9 @@ public:
   void SwapAltRouteToActive() override;
 
   bool GetBestOutgoingEdges(m2::PointD const & checkpoint, WorldGraph & graph, std::vector<Edge> & edges);
+
+  // Additional restrictions for this router instance, without changing user preferences.
+  void SetAvoidRoads(RoutingOptions::RoadType roads) { m_avoidRoads = roads; }
 
   VehicleType GetVehicleType() const { return m_vehicleType; }
   std::shared_ptr<NumMwmIds> const & GetNumMwmIds() const { return m_numMwmIds; }
@@ -281,6 +285,8 @@ private:
 
   VehicleType m_vehicleType;
   bool m_loadAltitudes;
+  // Opt in only for pedestrian legs of one composite Water request. ClearState releases it.
+  bool m_cacheWalkingGraph = false;
   std::string const m_name;
   MwmDataSource m_dataSource;
   std::shared_ptr<VehicleModelFactoryInterface> m_vehicleModelFactory;
@@ -314,7 +320,9 @@ private:
 
   TimeGetterT m_currentTimeGetter;
 
+  RoutingOptions::RoadType m_avoidRoads = 0;
   std::optional<RoutingOptions> m_requestRoutingOptions;
   RoutingOptions::RoadType m_previousRoutingOptions = 0;
+  std::unique_ptr<WorldGraph> m_cachedWalkingGraph;
 };
 }  // namespace routing

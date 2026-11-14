@@ -332,9 +332,10 @@ IndexRouter::IndexRouter(VehicleType vehicleType, bool loadAltitudes,
                          CountryParentNameGetterFn const & countryParentNameGetterFn,
                          TCountryFileFn const & countryFileFn, CountryRectFn const & countryRectFn,
                          std::shared_ptr<NumMwmIds> numMwmIds, std::shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
-                         traffic::TrafficCache const & trafficCache, DataSource & dataSource)
+                         traffic::TrafficCache const & trafficCache, DataSource & dataSource, bool cacheWalkingGraph)
   : m_vehicleType(vehicleType)
   , m_loadAltitudes(loadAltitudes)
+  , m_cacheWalkingGraph(cacheWalkingGraph)
   , m_name("astar-bidirectional-" + ToString(m_vehicleType))
   , m_dataSource(dataSource, numMwmIds)
   , m_vehicleModelFactory(CreateVehicleModelFactory(m_vehicleType, countryParentNameGetterFn))
@@ -354,12 +355,15 @@ IndexRouter::IndexRouter(VehicleType vehicleType, bool loadAltitudes,
   , m_directionsEngine(CreateDirectionsEngine(m_vehicleType, m_numMwmIds, m_dataSource))
   , m_countryParentNameGetterFn(countryParentNameGetterFn)
 {
+  CHECK(!m_cacheWalkingGraph || m_vehicleType == VehicleType::Pedestrian, ());
   CHECK(!m_name.empty(), ());
   CHECK(m_numMwmIds, ());
   CHECK(m_numMwmTree, ());
   CHECK(m_estimator, ());
   CHECK(m_directionsEngine, ());
 }
+
+IndexRouter::~IndexRouter() = default;
 
 std::unique_ptr<WorldGraph> IndexRouter::MakeSingleMwmWorldGraph()
 {
@@ -372,11 +376,13 @@ void IndexRouter::ClearRouteCalculationState()
 {
   m_roadGraph.ClearState();
   m_directionsEngine->Clear();
-  m_dataSource.FreeHandles();
+  if (!m_cachedWalkingGraph)
+    m_dataSource.FreeHandles();
 }
 
 void IndexRouter::ClearState()
 {
+  m_cachedWalkingGraph.reset();
   ClearRouteCalculationState();
 
   // Drop the adjust-cache for both the active and the alternative route so a later (re)build
@@ -457,9 +463,10 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
 
   try
   {
-    m_requestRoutingOptions = RoutingOptions::LoadFromSettings(m_vehicleType);
+    m_requestRoutingOptions.emplace(RoutingOptions::LoadFromSettings(m_vehicleType).GetOptions() | m_avoidRoads);
     if (m_previousRoutingOptions != m_requestRoutingOptions->GetOptions())
     {
+      m_cachedWalkingGraph.reset();
       m_lastRoute.reset();
       m_lastFakeEdges.reset();
       m_lastAltRoute.reset();
@@ -728,7 +735,15 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints, 
   m_lastRoute.reset();
 
   TrafficStash::Guard guard(m_trafficStash);
-  std::unique_ptr<WorldGraph> graph = MakeWorldGraph();
+  std::unique_ptr<WorldGraph> graph = m_cachedWalkingGraph ? std::move(m_cachedWalkingGraph) : MakeWorldGraph();
+  SCOPE_GUARD(cacheWalkingGraph, [&]
+  {
+    if (m_cacheWalkingGraph && !delegate.IsCancelled())
+    {
+      graph->DropAStarParents();
+      m_cachedWalkingGraph = std::move(graph);
+    }
+  });
 
   std::vector<Segment> segments;
 
@@ -1345,7 +1360,9 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints, m2::P
 std::unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
 {
   RoutingOptions const routingOptions =
-      m_requestRoutingOptions ? *m_requestRoutingOptions : RoutingOptions::LoadFromSettings(m_vehicleType);
+      m_requestRoutingOptions
+          ? *m_requestRoutingOptions
+          : RoutingOptions(RoutingOptions::LoadFromSettings(m_vehicleType).GetOptions() | m_avoidRoads);
   /// @DebugNote
   // Add avoid roads here for debug purpose.
   // routingOptions.Add(RoutingOptions::Road::Motorway);

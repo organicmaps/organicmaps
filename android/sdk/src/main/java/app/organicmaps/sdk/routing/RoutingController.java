@@ -530,7 +530,7 @@ public class RoutingController
   public void start()
   {
     // Phone and car actions can outlive the built route they were created for.
-    if (!isPlanning() || !isBuilt())
+    if (!isPlanning() || !isBuilt() || isWaterRouterType())
       return;
     Logger.d(TAG, "start");
 
@@ -851,6 +851,16 @@ public class RoutingController
   public boolean isRulerRouterType()
   {
     return mLastRouterType == Router.Ruler;
+  }
+
+  public boolean isWaterRouterType()
+  {
+    return mLastRouterType == Router.Water;
+  }
+
+  public boolean isMeasurementRouterType()
+  {
+    return isRulerRouterType() || isWaterRouterType();
   }
 
   public boolean isNavigating()

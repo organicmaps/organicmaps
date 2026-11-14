@@ -17,6 +17,10 @@
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
+#if defined(DEBUG) && defined(OMIM_OS_ANDROID)
+#include "platform/platform.hpp"
+#endif
+
 #include "base/stl_helpers.hpp"
 
 #include <functional>
@@ -160,9 +164,10 @@ class ScaleFpsLabelHandle : public MutableLabelHandle
 
 public:
   ScaleFpsLabelHandle(uint32_t id, ref_ptr<dp::TextureManager> textures, std::string const & apiLabel,
-                      Position const & position)
+                      Position const & position, std::string const & appVersion)
     : TBase(id, position.m_anchor, position.m_pixelPivot, textures)
     , m_apiLabel(apiLabel)
+    , m_appVersion(appVersion)
   {
     SetIsVisible(true);
   }
@@ -179,6 +184,8 @@ public:
       m_fps = helper.GetFps();
       m_isPaused = helper.IsPaused();
       std::stringstream ss;
+      if (!m_appVersion.empty())
+        ss << m_appVersion << " / ";
       ss << m_apiLabel << ": Scale: " << m_scale << " / FPS: " << m_fps;
       if (m_isPaused)
         ss << " (PAUSED)";
@@ -190,6 +197,7 @@ public:
 
 private:
   std::string const m_apiLabel;
+  std::string const m_appVersion;
   int m_scale = 1;
   uint32_t m_fps = 0;
   bool m_isPaused = false;
@@ -351,13 +359,25 @@ void LayerCacher::CacheScaleFpsLabel(ref_ptr<dp::GraphicsContext> context, Posit
                                      ref_ptr<LayerRenderer> renderer, ref_ptr<dp::TextureManager> textures)
 {
   MutableLabelDrawer::Params params;
-  params.m_alphabet = "MGLFPSAUEDVcale: 1234567890/()";
-  params.m_maxLength = 50;
+  std::string appVersion;
+#if defined(DEBUG) && defined(OMIM_OS_ANDROID)
+  appVersion = GetPlatform().Version();
+  // Keep the date/build number visible on narrow screens; omit the flavor suffix.
+  auto const buildSeparator = appVersion.find('-');
+  if (buildSeparator != std::string::npos)
+  {
+    auto const flavorSeparator = appVersion.find('-', buildSeparator + 1);
+    if (flavorSeparator != std::string::npos)
+      appVersion.resize(flavorSeparator);
+  }
+#endif
+  params.m_alphabet = "MGLFPSAUEDVcale: 1234567890/()" + appVersion;
+  params.m_maxLength = 50 + appVersion.size();
   params.m_anchor = position.m_anchor;
   params.m_font = DrapeGui::GetGuiTextFont();
   params.m_pivot = position.m_pixelPivot;
   auto const apiVersion = context->GetApiVersion();
-  params.m_handleCreator = [textures, apiVersion, &position](dp::Anchor, m2::PointF const &)
+  params.m_handleCreator = [textures, apiVersion, appVersion, &position](dp::Anchor, m2::PointF const &)
   {
     std::string apiLabel;
     switch (apiVersion)
@@ -367,7 +387,8 @@ void LayerCacher::CacheScaleFpsLabel(ref_ptr<dp::GraphicsContext> context, Posit
     case dp::ApiVersion::Vulkan: apiLabel = "V"; break;
     case dp::ApiVersion::Invalid: CHECK(false, ("Invalid API version.")); break;
     }
-    return make_unique_dp<ScaleFpsLabelHandle>(EGuiHandle::GuiHandleScaleLabel, textures, apiLabel, position);
+    return make_unique_dp<ScaleFpsLabelHandle>(EGuiHandle::GuiHandleScaleLabel, textures, apiLabel, position,
+                                               appVersion);
   };
 
   drape_ptr<ShapeRenderer> scaleRenderer = make_unique_dp<ShapeRenderer>();

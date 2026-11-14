@@ -56,6 +56,8 @@ extension NavigationDashboard.ViewModel {
   }
 
   var isBottomActionsMenuHidden: Bool { presentationStep == .hidden }
+  var isStartButtonHidden: Bool { routerType == .water }
+  var isWaterCalculating: Bool { routerType == .water && dashboardState == .planning }
 
   var canReverseRoutePoints: Bool {
     // A fixed start leaves a valid preview in RouteNoFollowing, where isRouteBuilt() is false.
@@ -66,6 +68,9 @@ extension NavigationDashboard.ViewModel {
   }
 
   var startButtonState: StartRouteButton.State {
+    if routerType == .water {
+      return .disabled
+    }
     if routePoints.count < 2 ||
       routePoints.start == nil ||
       routePoints.finish == nil ||
@@ -83,7 +88,7 @@ extension NavigationDashboard.ViewModel {
     if dashboardState == .error, let errorMessage {
       return .error(errorMessage)
     }
-    if progress < 1 {
+    if progress < 1 || dashboardState == .planning {
       return .loading
     }
     return .estimates(estimates)

@@ -16,6 +16,12 @@ RouterDelegate::RouterDelegate()
   m_pointCallback = DefaultPointFn;
 }
 
+RouterDelegate::RouterDelegate(base::Cancellable const & parent) : m_cancellable(&parent)
+{
+  m_progressCallback = DefaultProgressFn;
+  m_pointCallback = DefaultPointFn;
+}
+
 void RouterDelegate::OnProgress(float progress) const
 {
   if (!m_cancellable.IsCancelled())

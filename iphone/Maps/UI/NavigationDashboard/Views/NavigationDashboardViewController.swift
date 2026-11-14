@@ -51,6 +51,8 @@ final class NavigationDashboardViewController: UIViewController {
   }
 
   private let estimatesView = EstimatesView()
+  private let waterProgressView = UIProgressView(progressViewStyle: .default)
+  private let waterActivityIndicator = UIActivityIndicatorView(style: .medium)
   private let transportTransitStepsView = TransportTransitStepsView()
   private let elevationProfileContainerView = UIView()
   private var elevationProfileViewController: ElevationProfileViewController?
@@ -245,6 +247,11 @@ final class NavigationDashboardViewController: UIViewController {
     contentScrollView.delegate = self
     contentStackView.axis = .vertical
     contentStackView.spacing = Constants.routePointsSpacing
+    waterProgressView.isHidden = true
+    waterProgressView.progressTintColor = .linkBlue
+    waterActivityIndicator.hidesWhenStopped = true
+    routeStatusStackView.addArrangedSubview(waterActivityIndicator)
+    routeStatusStackView.addArrangedSubview(waterProgressView)
   }
 
   private func setupElevationProfileView() {
@@ -599,7 +606,7 @@ extension NavigationDashboardViewController {
       navigationControlView.setTrackRecordingState(viewModel.trackRecordingState)
 
     case .error:
-      estimatesView.setState(viewModel.estimatesState)
+      estimatesView.setState(viewModel.estimatesState, multiline: viewModel.routerType == .water)
       transportTransitStepsView.setNavigationInfo(nil)
       updateElevationProfile(with: nil, activePointDistance: nil)
       saveRouteAsTrackButton.isEnabled = viewModel.canSaveRouteAsTrack
@@ -608,7 +615,7 @@ extension NavigationDashboardViewController {
     case .prepare, .ready, .planning:
       transportOptionsView.set(transportOptions: viewModel.transportOptions,
                                selectedRouterType: viewModel.routerType)
-      estimatesView.setState(viewModel.estimatesState)
+      estimatesView.setState(viewModel.estimatesState, multiline: viewModel.routerType == .water)
       transportTransitStepsView.setNavigationInfo(viewModel.entity)
       updateElevationProfile(with: viewModel.routeElevationPreviewData,
                              activePointDistance: viewModel.routeElevationActivePointDistance)
@@ -630,7 +637,15 @@ extension NavigationDashboardViewController {
     navigationInfoView.availableArea = viewModel.navigationInfo.availableArea
 
     bottomActionsMenu.setHidden(viewModel.isBottomActionsMenuHidden)
+    startRouteButton.isHidden = viewModel.isStartButtonHidden
     startRouteButton.setState(viewModel.startButtonState)
+    waterProgressView.isHidden = !viewModel.isWaterCalculating || viewModel.progress == 0
+    waterProgressView.setProgress(Float(viewModel.progress), animated: viewModel.isWaterCalculating)
+    if viewModel.isWaterCalculating, viewModel.progress == 0 {
+      waterActivityIndicator.startAnimating()
+    } else {
+      waterActivityIndicator.stopAnimating()
+    }
     reverseRoutePointsButton.isEnabled = viewModel.canReverseRoutePoints
 
     presentationStep = viewModel.presentationStep
