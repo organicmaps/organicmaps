@@ -555,11 +555,11 @@ public:
 
   /// Calculate distance and direction to POI for the given position.
   /// @param[in]  point             POI's position;
-  /// @param[in]  lat, lon, north   Current position and heading from north;
+  /// @param[in]  lat, lon          Current position;
+  /// @param[in]  north             Clockwise heading in radians;
   /// @param[out] distance          Distance to point from (lat, lon);
-  /// @param[out] azimut            Azimut to point from (lat, lon);
-  /// @return true  If the POI is near the current position (distance < 25 km);
-  bool GetDistanceAndAzimut(m2::PointD const & point, double lat, double lon, double north,
+  /// @param[out] azimut            Direction relative to the heading, in [0, 2 * pi) radians;
+  void GetDistanceAndAzimut(m2::PointD const & point, double lat, double lon, double north,
                             platform::Distance & distance, double & azimut);
 
   /// @name Screen pixel to geo point conversions.
