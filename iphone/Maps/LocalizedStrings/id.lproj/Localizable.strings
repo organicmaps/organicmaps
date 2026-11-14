@@ -813,7 +813,7 @@
 "others_sorttype" = "Lainnya";
 
 /* Failed planning route message in navigation view */
-"routing_planning_error" = "Sudah sampai di tujuan";
+"routing_planning_error" = "Gagal merencanakan rute";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Untuk membuat rute, silakan unduh dan perbarui semua peta sepanjang rute.";

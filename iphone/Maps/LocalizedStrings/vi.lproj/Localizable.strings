@@ -813,7 +813,7 @@
 "others_sorttype" = "Khác";
 
 /* Failed planning route message in navigation view */
-"routing_planning_error" = "Không thể Lập Lộ trình";
+"routing_planning_error" = "Không thể lập lộ trình";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Để tạo đường đi, vui lòng tải về và cập nhật tất cả bản đồ dọc theo tuyến đường.";

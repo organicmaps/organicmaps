@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import app.organicmaps.widget.placepage.ElevationChartUtils.YAxisBounds;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.highlight.Highlight;
 import java.util.List;
 import org.junit.Test;
 
@@ -180,6 +181,41 @@ public class ElevationChartUtilsTest
     List<Entry> entries = List.of(new Entry(0f, 100f), new Entry(5e-10f, 200f));
 
     assertEquals(100f, ElevationChartUtils.interpolateY(entries, 2.5e-10f), EPS);
+  }
+
+  @Test
+  public void highlightIsClampedToTheProfileEnds()
+  {
+    List<Entry> entries = List.of(new Entry(0f, 100f), new Entry(400f, 300f), new Entry(1000f, 0f));
+
+    assertHighlight(ElevationChartUtils.highlightAt(entries, -5f), 0f, 100f);
+    assertHighlight(ElevationChartUtils.highlightAt(entries, 1200f), 1000f, 0f);
+  }
+
+  @Test
+  public void highlightInsideTheProfileIsInterpolated()
+  {
+    List<Entry> entries = List.of(new Entry(0f, 100f), new Entry(400f, 300f), new Entry(1000f, 0f));
+
+    assertHighlight(ElevationChartUtils.highlightAt(entries, 200f), 200f, 200f);
+    assertHighlight(ElevationChartUtils.highlightAt(entries, 400f), 400f, 300f);
+    assertHighlight(ElevationChartUtils.highlightAt(entries, 700f), 700f, 150f);
+  }
+
+  @Test
+  public void highlightOnASinglePointProfileStaysOnIt()
+  {
+    List<Entry> entries = List.of(new Entry(10f, 120f));
+
+    assertHighlight(ElevationChartUtils.highlightAt(entries, 0f), 10f, 120f);
+    assertHighlight(ElevationChartUtils.highlightAt(entries, 50f), 10f, 120f);
+  }
+
+  private static void assertHighlight(Highlight highlight, float x, float y)
+  {
+    assertEquals(x, highlight.getX(), EPS);
+    assertEquals(y, highlight.getY(), EPS);
+    assertEquals(0, highlight.getDataSetIndex());
   }
 
   private static void assertBounds(YAxisBounds bounds, float lower, float upper)

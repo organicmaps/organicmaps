@@ -1235,7 +1235,7 @@
 "reverse_route" = "Rotayı tersine çevir";
 
 /* Start navigation along the selected track. */
-"navigate_track" = "Gezin";
+"navigate_track" = "Navigasyon";
 
 /* Track start point label. */
 "navigate_track_start" = "İz başlangıcı";

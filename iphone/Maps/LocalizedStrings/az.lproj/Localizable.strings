@@ -813,7 +813,7 @@
 "others_sorttype" = "Digərləri";
 
 /* Failed planning route message in navigation view */
-"routing_planning_error" = "Marşrutun Planlaşdırılması uğursuz oldu";
+"routing_planning_error" = "Marşrutun planlaşdırılması uğursuz oldu";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Marşrut hesablamaq üçün proqnozlaşdırılan yol boyunca bütün xəritəni endirin və yeniləyin.";

@@ -699,6 +699,8 @@
     <string name="moreyear_ago_sorttype">Lebih dari setahun yang lalu</string>
     <string name="near_me_sorttype">Dekat dengan saya</string>
     <string name="others_sorttype">Lainnya</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Gagal merencanakan rute</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Sekarang Tutup</string>
     <string name="opens_tomorrow_at">Dibuka besok pada pukul %s</string>
@@ -933,4 +935,14 @@
     <string name="transit_type_train">Kereta</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Trem</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Navigasi</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Awal trek</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Akhir trek</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">Tidak ada trek tersisa ke arah ini. Pilih titik lain.</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">Trek tidak tersedia lagi</string>
 </resources>

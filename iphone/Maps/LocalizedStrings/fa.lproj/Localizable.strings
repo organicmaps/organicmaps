@@ -813,7 +813,7 @@
 "others_sorttype" = "دیگران";
 
 /* Failed planning route message in navigation view */
-"routing_planning_error" = "برنامه ریزی مسیر ناموفق";
+"routing_planning_error" = "برنامه‌ریزی مسیر ناموفق";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "برای محاسبه مسیر، همه نقشه‌های مسیر پیش‌بینی‌شده را دانلود و به‌روزرسانی کنید.";

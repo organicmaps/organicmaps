@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.bookmarks.data.RoadWarningMarkType;
+import app.organicmaps.sdk.bookmarks.data.Track;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.widget.placepage.PlacePageButtons.ButtonType;
 import java.lang.reflect.Field;
@@ -39,6 +40,24 @@ public class PlacePageRoutingStateTest
         when(point.getRoadWarningMarkType()).thenReturn(warning);
         assertEquals(List.of(ButtonType.ROUTE_FROM, ButtonType.BOOKMARK_SAVE, ButtonType.ROUTE_TO), buttons(point));
       }
+    }
+  }
+
+  @Test
+  public void trackPageDoesNotOfferNavigateDuringNavigation() throws ReflectiveOperationException
+  {
+    final RoutingController routing = mock(RoutingController.class);
+    try (MockedStatic<RoutingController> singleton = mockStatic(RoutingController.class))
+    {
+      singleton.when(RoutingController::get).thenReturn(routing);
+      when(routing.isNavigating()).thenReturn(true);
+      final Track track = mock(Track.class);
+      when(track.isTrack()).thenReturn(true);
+      when(track.getRoadWarningMarkType()).thenReturn(RoadWarningMarkType.UNKNOWN);
+      // Navigation short-circuits the native track check, which a host JVM can't run.
+      assertEquals(
+          List.of(ButtonType.ROUTE_FROM, ButtonType.BOOKMARK_SAVE, ButtonType.ROUTE_TO, ButtonType.TRACK_DELETE),
+          buttons(track));
     }
   }
 
