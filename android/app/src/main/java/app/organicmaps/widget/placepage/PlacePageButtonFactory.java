@@ -39,6 +39,11 @@ public class PlacePageButtonFactory
         titleId = R.string.save;
         yield R.drawable.ic_track_recording_off;
       }
+      case TRACK_NAVIGATE ->
+      {
+        titleId = R.string.navigate_track;
+        yield R.drawable.ic_navigate_track;
+      }
       case TRACK_DELETE, TRACK_RECORDING_DELETE ->
       {
         titleId = R.string.delete;

@@ -16,6 +16,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
 import java.util.List;
 
 public final class ElevationChartUtils
@@ -217,5 +218,13 @@ public final class ElevationChartUtils
     }
 
     return entries.get(entries.size() - 1).getY();
+  }
+
+  /** @return the profile point at the given X, clamped to the profile's ends. */
+  @NonNull
+  public static Highlight highlightAt(@NonNull List<Entry> entries, float xVal)
+  {
+    final float x = Math.max(entries.get(0).getX(), Math.min(xVal, entries.get(entries.size() - 1).getX()));
+    return new Highlight(x, interpolateY(entries, x), 0);
   }
 }
