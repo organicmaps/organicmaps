@@ -584,10 +584,8 @@ public class RoutingController
   }
 
   /**
-   * Starts navigation along a track (the place-page Navigate button): the core follows the
-   * track geometry and starts the route build itself, so this method only enters the planning
-   * state; the build outcome arrives via the standard routing listener exactly like a
-   * {@code nativeBuildRoute}-driven build.
+   * Captures the selected track section and opens planning. The core reports its asynchronous
+   * preview build through the normal routing listener. Navigation begins through {@link #start}.
    *
    * @return anything but {@link FollowTrackResult#Ok} leaves the previous session, if any,
    *         untouched.

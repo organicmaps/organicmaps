@@ -48,7 +48,6 @@
     auto const & track = *bm.GetTrack(rawData.GetTrackId());
 
     _trackId = track.GetData().m_id;
-    _canNavigate = GetFramework().GetRoutingManager().CanNavigateTrack(_trackId);
 
     auto const & groupId = track.GetGroupId();
     if (groupId && bm.HasBmCategory(groupId))

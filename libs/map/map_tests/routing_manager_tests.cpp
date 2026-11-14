@@ -22,8 +22,6 @@
 #include "base/file_name_utils.hpp"
 #include "base/math.hpp"
 #include "base/scope_guard.hpp"
-#include "base/thread_safe_queue.hpp"
-#include "base/waiter.hpp"
 
 #include <algorithm>
 #include <chrono>
@@ -77,38 +75,60 @@ private:
 };
 
 // Pump only this fixture's tasks, not callbacks left by earlier Framework instances.
-class TestGuiThread final : public base::TaskLoop
+class TestGuiThread : public base::TaskLoop
 {
 public:
-  PushResult Push(Task && task) override
-  {
-    m_tasks.Push(std::move(task));
-    m_tasksReady.Notify();
-    return {true, kNoId};
-  }
-  PushResult Push(Task const & task) override { return Push(Task(task)); }
-
   template <typename Predicate>
   void RunUntil(Predicate && done)
   {
-    auto const deadline = std::chrono::steady_clock::now() + std::chrono::seconds(30);
-    while (!done())
+    TEST(PumpUntil(done, std::chrono::seconds(30)), ("GUI callback timed out"));
+  }
+  PushResult Push(Task && task) override { return Add(std::move(task)); }
+  PushResult Push(Task const & task) override { return Add(task); }
+
+  // Executes queued tasks on the calling thread until |pred| holds or |timeout| passes.
+  template <class Pred>
+  bool PumpUntil(Pred const & pred, std::chrono::steady_clock::duration timeout)
+  {
+    auto const deadline = std::chrono::steady_clock::now() + timeout;
+    std::unique_lock lock(m_mutex);
+    while (true)
     {
-      TEST(std::chrono::steady_clock::now() < deadline, ("GUI callback timed out"));
-      Task task;
-      while (!m_tasks.TryPop(task))
+      while (!m_tasks.empty())
       {
-        TEST(m_tasksReady.Wait(deadline - std::chrono::steady_clock::now()) != base::Waiter::Result::Timeout,
-             ("GUI callback timed out"));
-        m_tasksReady.Reset();
+        auto const task = std::move(m_tasks.front());
+        m_tasks.pop_front();
+        lock.unlock();
+        task();
+        lock.lock();
       }
-      task();
+      if (pred())
+        return true;
+      if (m_cv.wait_until(lock, deadline) == std::cv_status::timeout)
+        return false;
     }
   }
 
+  // Executes everything queued so far (e.g. before the owning framework is destroyed).
+  void Drain()
+  {
+    PumpUntil([]() { return true; }, {});
+  }
+
 private:
-  threads::ThreadSafeQueue<Task> m_tasks;
-  base::Waiter m_tasksReady;
+  PushResult Add(Task task)
+  {
+    {
+      std::lock_guard lock(m_mutex);
+      m_tasks.push_back(std::move(task));
+    }
+    m_cv.notify_one();
+    return {true /* m_isSuccess */, kNoId};
+  }
+
+  std::mutex m_mutex;
+  std::condition_variable m_cv;
+  std::deque<Task> m_tasks;
 };
 
 template <typename Fn>
@@ -261,6 +281,13 @@ double GetRouteLengthMeters(RoutingManager const & manager)
   return length;
 }
 
+double GetFollowedTrackLengthMeters(RoutingManager const & manager)
+{
+  auto const * route = manager.RoutingSession().GetRoute();
+  TEST(route != nullptr && route->IsTrack(), ());
+  return route->GetTotalDistanceMeters() - *route->GetTrackStartDistanceMeters();
+}
+
 kml::TrackId SaveSingleSegmentRoute(RoutingManager & manager, BookmarkManager & bookmarks,
                                     geometry::PointWithAltitude const & finish)
 {
@@ -298,68 +325,8 @@ m2::PointD MeterPoint(double x, double y)
   return {mercator::MetersToMercator(x), mercator::MetersToMercator(y)};
 }
 
-// The AsyncRouter delivers route build results via GetPlatform().RunTask(Thread::Gui, ...).
-// Async tests replace the GUI task loop with this manually pumped queue: the tasks execute on
-// the test's main thread (satisfying the thread checkers bound at Framework construction)
-// exactly when the test asks for them, and stale tasks queued by earlier tests in this binary
-// through the default GUI loop stay untouched. Tasks still queued when the loop is replaced
-// back are dropped, so nothing capturing the test's framework can run after its destruction.
-class ManualGuiLoop : public base::TaskLoop
-{
-public:
-  PushResult Push(Task && task) override { return Add(std::move(task)); }
-  PushResult Push(Task const & task) override { return Add(task); }
-
-  // Executes queued tasks on the calling thread until |pred| holds or |timeout| passes.
-  template <class Pred>
-  bool PumpUntil(Pred const & pred, std::chrono::steady_clock::duration timeout)
-  {
-    auto const deadline = std::chrono::steady_clock::now() + timeout;
-    std::unique_lock lock(m_mutex);
-    while (true)
-    {
-      while (!m_tasks.empty())
-      {
-        auto const task = std::move(m_tasks.front());
-        m_tasks.pop_front();
-        lock.unlock();
-        task();
-        lock.lock();
-      }
-      if (pred())
-        return true;
-      if (m_cv.wait_until(lock, deadline) == std::cv_status::timeout)
-        return false;
-    }
-  }
-
-  // Executes everything queued so far (e.g. before the owning framework is destroyed).
-  void Drain()
-  {
-    PumpUntil([]() { return true; }, {});
-  }
-
-private:
-  PushResult Add(Task task)
-  {
-    {
-      std::lock_guard lock(m_mutex);
-      m_tasks.push_back(std::move(task));
-    }
-    m_cv.notify_one();
-    return {true /* m_isSuccess */, kNoId};
-  }
-
-  std::mutex m_mutex;
-  std::condition_variable m_cv;
-  std::deque<Task> m_tasks;
-};
-
-// Scaffold of the async route-build tests. The member order encodes the lifetime rules: the
-// manual GUI loop must be installed before the framework is constructed, and the default GUI
-// thread is restored only after the framework is destroyed (members are destroyed in reverse
-// order). The destructor drains the queue first, so the tasks queued by the trailing
-// interactions run while the framework is still alive.
+// Install the GUI queue before Framework construction and restore it after destruction.
+// Drain queued callbacks while the owning Framework is still alive.
 struct AsyncBuildFixture
 {
   // Record the renderer notification while exercising the real routing manager and session.
@@ -375,17 +342,17 @@ struct AsyncBuildFixture
   };
 
   // Installs the manually pumped GUI loop, restoring the default GUI thread on destruction.
-  struct ScopedManualGuiLoop
+  struct ScopedTestGuiThread
   {
-    ScopedManualGuiLoop()
+    ScopedTestGuiThread()
     {
-      auto ownedGuiLoop = std::make_unique<ManualGuiLoop>();
+      auto ownedGuiLoop = std::make_unique<TestGuiThread>();
       m_loop = ownedGuiLoop.get();
       GetPlatform().SetGuiThread(std::move(ownedGuiLoop));
     }
-    ~ScopedManualGuiLoop() { GetPlatform().SetGuiThread(std::make_unique<platform::GuiThread>()); }
+    ~ScopedTestGuiThread() { GetPlatform().SetGuiThread(std::make_unique<platform::GuiThread>()); }
 
-    ManualGuiLoop * m_loop;
+    TestGuiThread * m_loop;
   };
 
   AsyncBuildFixture()
@@ -414,7 +381,7 @@ struct AsyncBuildFixture
     return code;
   }
 
-  ScopedManualGuiLoop m_guiLoop;
+  ScopedTestGuiThread m_guiLoop;
   FrameworkWithFollowDelegate m_framework{FrameworkParams(false /* m_enableDiffs */)};
   std::optional<routing::RouterResultCode> m_buildCode;
 };
@@ -1420,7 +1387,7 @@ UNIT_TEST(RoutingManager_TrackPreviewLocksEntryWhenGpsIsNearFinish)
   TEST_EQUAL(route->GetPoly().Front(), MeterPoint(900, 0), ("Retain the actual GPS position"));
   TEST_EQUAL(route->GetPoly().GetPoint(1), MeterPoint(400, 0),
              ("Approach the captured entry, not nearest later geometry"));
-  TEST_ALMOST_EQUAL_ABS(manager.GetFollowedTrackInfo()->m_lengthM, 600.0, 2.0, ());
+  TEST_ALMOST_EQUAL_ABS(GetFollowedTrackLengthMeters(manager), 600.0, 2.0, ());
   TEST_EQUAL(manager.GetRenderRouterType(), routing::RouterType::Bicycle, ());
   TEST_EQUAL(manager.GetLastUsedRouter(), routing::RouterType::Pedestrian, ("Saved profile is session-only"));
 
@@ -1430,6 +1397,7 @@ UNIT_TEST(RoutingManager_TrackPreviewLocksEntryWhenGpsIsNearFinish)
   fixture.WaitForBuildResult();
   route = manager.RoutingSession().GetRoute();
   TEST_EQUAL(route->GetPoly().GetPoint(1), MeterPoint(400, 0), ());
+  TEST_EQUAL(manager.GetFollowedTrackInfo()->m_entryDistanceM, entryDistance, ());
   TEST_EQUAL(manager.GetLastUsedRouter(), routing::RouterType::Pedestrian, ());
 
   bookmarks.SetTrackSelectionInfo(
@@ -1499,8 +1467,6 @@ UNIT_TEST(RoutingManager_TrackStartRefreshesGpsWithoutChangingEntry)
   manager.FollowRoute();
   TEST(fixture.m_framework.m_followProfiles.empty(), ());
   TEST(!manager.IsRoutingFollowing(), ("A stale approach must be refreshed before Start"));
-  if (manager.IsRoutingFollowing())
-    return;
   TEST(manager.IsRouteBuilding(), ());
   fixture.WaitForBuildResult();
   TEST_EQUAL(manager.RoutingSession().GetRoute()->GetPoly().Front(), MeterPoint(900, 0), ());
@@ -1805,7 +1771,7 @@ UNIT_TEST(RoutingManager_NavigateTrackDistinguishesGapSidesAndRefusesDegenerateT
   auto const * route = manager.RoutingSession().GetRoute();
   TEST_EQUAL(route->GetPoly().GetPoint(1), MeterPoint(500, 0), ());
   TEST_EQUAL(route->GetPoly().Back(), MeterPoint(600, 0), ());
-  TEST_ALMOST_EQUAL_ABS(manager.GetFollowedTrackInfo()->m_lengthM, 100.0, 1.0, ());
+  TEST_ALMOST_EQUAL_ABS(GetFollowedTrackLengthMeters(manager), 100.0, 1.0, ());
   auto const degenerate =
       CreateTestTrack(bookmarks, "pedestrian", {}, {{MeterPoint(0, 0), 100}, {MeterPoint(0, 0), 200}});
   TEST_EQUAL(manager.NavigateTrack(degenerate), FollowTrackResult::DegenerateTrack, ());
@@ -1844,9 +1810,10 @@ UNIT_TEST(RoutingManager_TrackPreviewEntryDistanceCommitsSelectionAndProfile)
   {
     TEST_EQUAL(manager.UpdateFollowedTrackEntryAt(distance), FollowTrackResult::Ok, ());
     TEST_EQUAL(bookmarks.GetElevationActivePoint(id), distance, ());
+    TEST_EQUAL(manager.GetFollowedTrackInfo()->m_entryDistanceM, distance, ());
     fixture.WaitForBuildResult();
     TEST_EQUAL(manager.GetRenderRouterType(), routing::RouterType::Pedestrian, ());
-    TEST_ALMOST_EQUAL_ABS(manager.GetFollowedTrackInfo()->m_lengthM, 2.0 * legLength - distance, 0.01,
+    TEST_ALMOST_EQUAL_ABS(GetFollowedTrackLengthMeters(manager), 2.0 * legLength - distance, 0.01,
                           ("Resolve the return visit using the full source distance"));
     auto const & points = manager.RoutingSession().GetRoute()->GetPoly();
     TEST(points.GetPoint(1).EqualDxDy(bookmarks.GetTrack(id)->GetPoint(distance), mercator::kPointEqualityEps), ());
@@ -1858,12 +1825,13 @@ UNIT_TEST(RoutingManager_TrackPreviewEntryDistanceCommitsSelectionAndProfile)
   TEST_EQUAL(manager.ResetFollowedTrackToPlanning(), FollowTrackResult::Ok, ());
   fixture.WaitForBuildResult();
   TEST(!manager.IsRoutingFollowing(), ());
-  TEST_ALMOST_EQUAL_ABS(manager.GetFollowedTrackInfo()->m_lengthM, 0.5 * legLength, 0.01, ());
+  TEST_ALMOST_EQUAL_ABS(GetFollowedTrackLengthMeters(manager), 0.5 * legLength, 0.01, ());
   TEST_EQUAL(manager.GetRenderRouterType(), routing::RouterType::Pedestrian, ());
 
   TEST_EQUAL(manager.UpdateFollowedTrackEntryAt(-100.0), FollowTrackResult::Ok, ());
   fixture.WaitForBuildResult();
   TEST_EQUAL(bookmarks.GetElevationActivePoint(id), 0.0, ());
+  TEST_EQUAL(manager.GetFollowedTrackInfo()->m_entryDistanceM, 0.0, ());
   TEST_EQUAL(bookmarks.GetTrackSelectionInfo(id).m_trackPoint, MeterPoint(0, 0), ());
   TEST_EQUAL(notifications.back(), 0.0, ());
   TEST_EQUAL(notifications.size(), 3, ());
@@ -1895,7 +1863,7 @@ UNIT_TEST(RoutingManager_TrackPreviewEntryDistanceRefusalsPreserveState)
     auto const selection = bookmarks.GetTrackSelectionInfo(id);
     TEST_EQUAL(manager.UpdateFollowedTrackEntryAt(distance), expected, (distance));
     TEST_EQUAL(manager.RoutingSession().GetRoute(), route, ());
-    TEST_EQUAL(manager.GetFollowedTrackInfo()->m_lengthM, info->m_lengthM, ());
+    TEST_EQUAL(manager.GetFollowedTrackInfo()->m_entryDistanceM, info->m_entryDistanceM, ());
     TEST_EQUAL(manager.GetRenderRouterType(), info->m_profile, ());
     TEST_EQUAL(bookmarks.GetTrackSelectionInfo(id).m_trackPoint, selection.m_trackPoint, ());
     TEST_EQUAL(bookmarks.GetElevationActivePoint(id), selection.m_distFromBegM, ());
@@ -1904,6 +1872,10 @@ UNIT_TEST(RoutingManager_TrackPreviewEntryDistanceRefusalsPreserveState)
 
   checkRefusal(600.0, FollowTrackResult::Busy);
   fixture.WaitForBuildResult();
+  bookmarks.SetElevationActivePoint(id, 800.0);
+  TEST_EQUAL(manager.GetFollowedTrackInfo()->m_entryDistanceM, entryDistance,
+             ("Inspection preserves the captured entry"));
+  notifications = 0;
   double const length = bookmarks.GetTrack(id)->GetLengthMeters();
   checkRefusal(length, FollowTrackResult::NoRemainingGeometry);
   checkRefusal(length + 100.0, FollowTrackResult::NoRemainingGeometry);
@@ -1958,7 +1930,7 @@ UNIT_TEST(RoutingManager_TrackPreviewEntryDistanceUsesChartGapBoundary)
   fixture.WaitForBuildResult();
   TEST_EQUAL(bookmarks.GetElevationActivePoint(id), nextEntry, ());
   TEST(bookmarks.GetTrackSelectionInfo(id).m_trackPoint.EqualDxDy(MeterPoint(550, 0), mercator::kPointEqualityEps), ());
-  TEST_ALMOST_EQUAL_ABS(manager.GetFollowedTrackInfo()->m_lengthM, 50.0, 1.0, ());
+  TEST_ALMOST_EQUAL_ABS(GetFollowedTrackLengthMeters(manager), 50.0, 1.0, ());
   TEST_EQUAL(manager.RoutingSession().GetRoute()->GetPoly().Back(), MeterPoint(600, 0), ());
 }
 

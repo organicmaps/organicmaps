@@ -4,51 +4,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.mockStatic;
 
-import app.organicmaps.sdk.Router;
-import app.organicmaps.sdk.util.log.Logger;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.List;
 import org.junit.Test;
-import org.mockito.MockedStatic;
 
 public class RoutingControllerTrackPreviewTest
 {
-  @Test
-  public void newTrackBuildDropsDeferredCancelledResult() throws ReflectiveOperationException
-  {
-    final RoutingController controller = new RoutingController() {
-      @Override
-      public boolean isFollowingTrack()
-      {
-        return false;
-      }
-    };
-    final RoutingController.Container phone = mock(RoutingController.Container.class);
-    set(controller, "mLastResultCode", ResultCodes.CANCELLED);
-    set(controller, "mContainsCachedResult", true);
-    set(controller, "mLastRouterType", Router.Pedestrian);
-    setState(controller, "PREPARE");
-    controller.attach(phone);
-    controller.onSaveState(phone);
-    controller.detach(phone);
-    // The JNI acceptance is covered by native tests; exercise its Java transaction boundary
-    // without attempting to mock uninstrumentable native methods in a host JVM.
-    Method begin = RoutingController.class.getDeclaredMethod("onCoreStartedTrackBuild");
-    begin.setAccessible(true);
-    try (MockedStatic<Logger> ignored = mockStatic(Logger.class))
-    {
-      begin.invoke(controller);
-      controller.attach(phone);
-      controller.restore();
-    }
-    assertTrue(controller.isPlanning());
-    assertTrue(controller.isBuilding());
-  }
-
   @Test
   public void roadOptionsDoNotRebuildGeometricTrackPreview() throws ReflectiveOperationException
   {

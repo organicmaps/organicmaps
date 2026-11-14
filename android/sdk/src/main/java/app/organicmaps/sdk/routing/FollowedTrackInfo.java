@@ -3,11 +3,7 @@ package app.organicmaps.sdk.routing;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
-/**
- * Everything the UI needs about the currently followed track. A snapshot taken when the follow
- * started: the session may outlive its track -- navigation continues on the frozen geometry when
- * the user deletes the track mid-session -- so this info stays valid and correct afterwards.
- */
+/** Captured track details remain valid after the source is edited or deleted. */
 // Called from JNI.
 @Keep
 @SuppressWarnings("unused")
@@ -16,13 +12,13 @@ public final class FollowedTrackInfo
   private final long mTrackId;
   @NonNull
   private final String mName;
-  private final double mLengthMeters;
+  private final double mEntryDistanceMeters;
 
-  private FollowedTrackInfo(long trackId, @NonNull String name, double lengthMeters)
+  private FollowedTrackInfo(long trackId, @NonNull String name, double entryDistanceMeters)
   {
     mTrackId = trackId;
     mName = name;
-    mLengthMeters = lengthMeters;
+    mEntryDistanceMeters = entryDistanceMeters;
   }
 
   /** The track may have been deleted meanwhile: resolving it needs an existence check. */
@@ -37,8 +33,9 @@ public final class FollowedTrackInfo
     return mName;
   }
 
-  public double getLengthMeters()
+  /** Captured distance along the source track, unaffected by later map selections. */
+  public double getEntryDistanceMeters()
   {
-    return mLengthMeters;
+    return mEntryDistanceMeters;
   }
 }

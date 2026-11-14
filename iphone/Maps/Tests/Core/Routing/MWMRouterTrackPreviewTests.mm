@@ -4,6 +4,8 @@
 #import "MWMRouter.h"
 #import "MapViewController.h"
 
+#import <objc/runtime.h>
+
 #include <CoreApi/Framework.h>
 #include <CoreApi/MWMBookmarksManager.h>
 
@@ -107,13 +109,81 @@
   auto const & point = GetFramework().GetRoutingManager().RoutingSession().GetRoute()->GetPoly().GetPoint(1);
   XCTAssertTrue(point.EqualDxDy(entry, mercator::kPointEqualityEps));
   XCTAssertEqual(bookmarks.GetElevationActivePoint(id), distance);
+  XCTAssertEqual([MWMRouter followedTrackInfo].entryDistanceMeters, distance);
+
+  bookmarks.SetElevationActivePoint(id, track->GetLengthMeters() * 0.8);
 
   auto const * route = GetFramework().GetRoutingManager().RoutingSession().GetRoute();
   XCTAssertEqual([MWMRouter updateFollowedTrackEntryAtDistance:bookmarks.GetTrack(id)->GetLengthMeters()],
                  MWMFollowTrackResultNoRemainingGeometry);
   XCTAssertEqual(GetFramework().GetRoutingManager().RoutingSession().GetRoute(), route);
   XCTAssertEqual(MWMNavigationDashboardManager.sharedManager.state, MWMNavigationDashboardStateReady);
-  XCTAssertEqual(bookmarks.GetElevationActivePoint(id), distance);
+  XCTAssertEqual([MWMRouter followedTrackInfo].entryDistanceMeters, distance);
+}
+
+- (void)testPreviewEditsKeepPhoneRoutingOwnership
+{
+  Class const serviceClass = NSClassFromString(@"MWMCarPlayService");
+  SEL const selector = NSSelectorFromString(@"preservePhoneTrackSession");
+  Method method = class_getInstanceMethod(serviceClass, selector);
+  XCTAssertTrue(method != nullptr);
+  if (method == nullptr)
+    return;
+  IMP const original = method_getImplementation(method);
+  __block NSUInteger handoffs = 0;
+  IMP replacement = imp_implementationWithBlock(^(id service) {
+    ++handoffs;
+    reinterpret_cast<void (*)(id, SEL)>(original)(service, selector);
+  });
+  method_setImplementation(method, replacement);
+  @try
+  {
+    auto const id = [self createPreview];
+    [self waitForPreview];
+    XCTAssertEqual(handoffs, 1);
+    XCTAssertEqual([MWMRouter updateFollowedTrackEntryAtDistance:100.0], MWMFollowTrackResultOk);
+    [self waitForPreview];
+    XCTAssertEqual([MWMRouter setFollowTrackProfile:MWMRouterTypeVehicle], MWMFollowTrackResultOk);
+    [self waitForPreview];
+    XCTAssertEqual(handoffs, 1);
+    XCTAssertEqual([MWMRouter followedTrackInfo].trackId, id);
+  }
+  @finally
+  {
+    method_setImplementation(method, original);
+    imp_removeBlock(replacement);
+  }
+}
+
+- (void)testStoppingTrackNotifiesRoutingOwnershipOnce
+{
+  Class const serviceClass = NSClassFromString(@"MWMCarPlayService");
+  SEL const selector = NSSelectorFromString(@"phoneTrackSessionDidEnd");
+  Method method = class_getInstanceMethod(serviceClass, selector);
+  XCTAssertTrue(method != nullptr);
+  if (method == nullptr)
+    return;
+  IMP const original = method_getImplementation(method);
+  __block NSUInteger ended = 0;
+  IMP replacement = imp_implementationWithBlock(^(id service) {
+    ++ended;
+    XCTAssertFalse([MWMRouter isFollowingTrack]);
+    reinterpret_cast<void (*)(id, SEL)>(original)(service, selector);
+  });
+  method_setImplementation(method, replacement);
+  @try
+  {
+    [self createPreview];
+    [self waitForPreview];
+    [MWMRouter stopRouting];
+    [MWMRouter stopRouting];
+    XCTAssertEqual(ended, 1);
+  }
+  @finally
+  {
+    method_setImplementation(method, original);
+    imp_removeBlock(replacement);
+  }
 }
 
 - (void)testDeletionCancelsPreviewWhileItsBuildIsPending

@@ -280,7 +280,7 @@ drape_ptr<df::Subroute> CreateDrapeSubroute(std::vector<RouteSegment> const & se
     return nullptr;
   }
 
-  // Geometry-only routes are solid; ordinary off-road connectors keep their fake-edge style.
+  // Geometry-only routes use real-segment styling; ordinary connectors keep their fake-edge style.
   if (routerType == RouterType::Ruler || followsTrack)
   {
     subroute->m_headFakeDistance = -kBias;
@@ -1127,20 +1127,26 @@ bool RoutingManager::IsFollowTrackSourceCurrent() const
 }
 
 FollowTrackResult RoutingManager::BuildFollowedTrack(std::shared_ptr<kml::TrackData const> source,
-                                                     TrackSourcePosition entry, RouterType profile, bool keepViewport)
+                                                     TrackSourcePosition entry, double entryDistanceM,
+                                                     RouterType profile, bool keepViewport)
 {
-  auto prepared = BuildTrackFollowingData(*source, entry);
-  if (!prepared)
-    return prepared.error();
-  auto data = std::make_shared<routing::TrackFollowingData const>(std::move(*prepared));
+  // Profile changes and returning to planning retain the prepared connected remainder.
+  std::shared_ptr<routing::TrackFollowingData const> data;
+  if (m_followSession && source == m_followSession->m_source && entry == m_followSession->m_entry)
+    data = m_followSession->m_data;
+  else
+  {
+    auto prepared = BuildTrackFollowingData(*source, entry);
+    if (!prepared)
+      return prepared.error();
+    data = std::make_shared<routing::TrackFollowingData const>(std::move(*prepared));
+  }
 
   FollowedTrackInfo info;
   info.m_id = source->m_id;
   info.m_name = GetPreferredBookmarkStr(source->m_name);
-  info.m_finish = data->m_points.back().GetPoint();
+  info.m_entryDistanceM = entryDistanceM;
   info.m_profile = profile;
-  for (size_t i = 1; i < data->m_points.size(); ++i)
-    info.m_lengthM += mercator::DistanceOnEarth(data->m_points[i - 1].GetPoint(), data->m_points[i].GetPoint());
 
   m_followSession.reset();
   CloseRouting(true /* removeRoutePoints */);
@@ -1196,7 +1202,8 @@ FollowTrackResult RoutingManager::RebuildFollowedTrack(RouterType profile)
     return FollowTrackResult::Busy;
   if (auto const result = CheckFollowedTrackSource(); result != FollowTrackResult::Ok)
     return result;
-  return BuildFollowedTrack(m_followSession->m_source, m_followSession->m_entry, profile);
+  return BuildFollowedTrack(m_followSession->m_source, m_followSession->m_entry,
+                            m_followSession->m_info.m_entryDistanceM, profile);
 }
 
 FollowTrackResult RoutingManager::ResetFollowedTrackToPlanning()
@@ -1206,7 +1213,8 @@ FollowTrackResult RoutingManager::ResetFollowedTrackToPlanning()
     return FollowTrackResult::Busy;
   if (auto const result = CheckFollowedTrackSource(); result != FollowTrackResult::Ok)
     return result;
-  return BuildFollowedTrack(m_followSession->m_source, m_followSession->m_entry, m_followSession->m_info.m_profile);
+  return BuildFollowedTrack(m_followSession->m_source, m_followSession->m_entry,
+                            m_followSession->m_info.m_entryDistanceM, m_followSession->m_info.m_profile);
 }
 
 FollowTrackResult RoutingManager::UpdateFollowedTrackEntryAt(double distanceM)
@@ -1227,8 +1235,8 @@ FollowTrackResult RoutingManager::UpdateFollowedTrackEntryAt(double distanceM)
   auto const entry = ResolveTrackEntry(m_followSession->m_source->m_geometry, track->GetPoint(distanceM), distanceM);
   if (!entry)
     return FollowTrackResult::InvalidSelection;
-  auto const result =
-      BuildFollowedTrack(m_followSession->m_source, *entry, m_followSession->m_info.m_profile, true /* keepViewport */);
+  auto const result = BuildFollowedTrack(m_followSession->m_source, *entry, distanceM,
+                                         m_followSession->m_info.m_profile, true /* keepViewport */);
   if (result == FollowTrackResult::Ok)
   {
     auto editSession = m_bmManager->GetEditSession();
@@ -1262,7 +1270,8 @@ FollowTrackResult RoutingManager::NavigateTrack(kml::TrackId trackId)
   auto const & savedProfile = track->GetData().m_routerType;
   auto const profile = GetFollowTrackRouterType(savedProfile.empty() ? m_lastTrackProfile.value_or(m_currentRouterType)
                                                                      : FromString(savedProfile));
-  return BuildFollowedTrack(std::make_shared<kml::TrackData const>(track->GetData()), *entry, profile);
+  return BuildFollowedTrack(std::make_shared<kml::TrackData const>(track->GetData()), *entry,
+                            m_bmManager->GetTrackSelectionInfo(trackId).m_distFromBegM, profile);
 }
 
 void RoutingManager::SetLastUsedRouter(RouterType type)

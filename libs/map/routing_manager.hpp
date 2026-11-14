@@ -61,17 +61,13 @@ struct RoutePointInfo
   m2::PointD m_position;
 };
 
-/// \brief Everything the UI needs about the currently followed track, captured when the follow
-/// started (see RoutingManager::NavigateTrack()). A snapshot on purpose: the follow session may
-/// outlive its track — navigation continues on the frozen geometry when the user deletes the
-/// track mid-session — so this info stays valid and correct after the track is gone.
+/// Captured track details remain valid after the source is edited or deleted.
 struct FollowedTrackInfo
 {
   kml::TrackId m_id = kml::kInvalidTrackId;
   std::string m_name;
-  double m_lengthM = 0.0;
-  /// The end of the selected connected section.
-  m2::PointD m_finish;
+  /// Captured distance along the full source, independent of the map selection.
+  double m_entryDistanceM = 0.0;
   /// The router type the track is followed and rendered as (never Transit or Ruler).
   routing::RouterType m_profile = routing::RouterType::Vehicle;
 };
@@ -349,7 +345,7 @@ private:
 
   bool IsFollowTrackSourceCurrent() const;
   FollowTrackResult BuildFollowedTrack(std::shared_ptr<kml::TrackData const> source, TrackSourcePosition entry,
-                                       routing::RouterType profile, bool keepViewport = false);
+                                       double entryDistanceM, routing::RouterType profile, bool keepViewport = false);
   void BuildFollowedTrackPreview(std::optional<m2::PointD> position = {});
 
   /// \brief Leaves the follow-track mode (no-op otherwise) and restores the regular router of

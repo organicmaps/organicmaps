@@ -250,8 +250,8 @@ public class Framework
   public static native void nativeDisableFollowing();
 
   /**
-   * Starts navigation along a track: the core follows the track geometry and starts the route
-   * build itself; the outcome arrives via the standard routing listener.
+   * Captures the selected track section and starts its asynchronous preview build.
+   * The outcome arrives through the standard routing listener; navigation starts separately.
    *
    * @return a {@link FollowTrackResult} ordinal.
    */

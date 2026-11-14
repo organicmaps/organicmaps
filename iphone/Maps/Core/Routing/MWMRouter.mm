@@ -44,12 +44,7 @@ using namespace routing;
   {
     _trackId = info.m_id;
     _name = @(info.m_name.c_str());
-    _lengthMeters = info.m_lengthM;
-    _finishPoint = [[MWMRoutePoint alloc] initWithPoint:info.m_finish
-                                                  title:_name
-                                               subtitle:@""
-                                                   type:MWMRoutePointTypeFinish
-                                      intermediateIndex:0];
+    _entryDistanceMeters = info.m_entryDistanceM;
   }
   return self;
 }
@@ -162,16 +157,11 @@ static MWMFollowTrackResult ToMWMFollowTrackResult(FollowTrackResult result)
   }
 }
 
-// An accepted follow transaction has already started the route build: put the dashboard into the
-// planning state and let the standard route builder events (ready/error/progress) drive it, as
-// +rebuildWithBestRouter: does. A refused one changed nothing, so there is nothing to present.
+// The accepted core build reports ready/error/progress through the regular routing callbacks.
 static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
 {
   if (result == FollowTrackResult::Ok)
-  {
-    [[MWMCarPlayService shared] preservePhoneTrackSession];
     [[MWMMapViewControlsManager manager] onRouteRebuild];
-  }
   return ToMWMFollowTrackResult(result);
 }
 
@@ -180,7 +170,10 @@ static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
   // The core validates the selection and refuses busy sessions before any teardown.
   auto const result = GetFramework().GetRoutingManager().NavigateTrack(trackId);
   if (result == FollowTrackResult::Ok)
+  {
     [self hideNavigationMapControls];
+    [[MWMCarPlayService shared] preservePhoneTrackSession];
+  }
   return OnFollowTrackResult(result);
 }
 

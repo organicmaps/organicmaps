@@ -249,11 +249,5 @@ std::expected<routing::TrackFollowingData, FollowTrackResult> BuildTrackFollowin
     if (event.m_stop)
       result.m_stopPointIndexes.push_back(result.m_points.size() - 1);
   }
-  if (result.m_points.size() < 2 ||
-      std::all_of(result.m_points.begin() + 1, result.m_points.end(), [&](PWA const & point)
-  { return point.GetPoint().EqualDxDy(result.m_points.front().GetPoint(), mercator::kPointEqualityEps); }))
-  {
-    return std::unexpected(FollowTrackResult::NoRemainingGeometry);
-  }
   return result;
 }

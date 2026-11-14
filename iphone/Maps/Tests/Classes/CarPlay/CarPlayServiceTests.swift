@@ -673,3 +673,105 @@ final class CarPlayServiceTests: XCTestCase {
     }
   }
 }
+
+/// A message-level stand-in for the connected CarPlay interface controller.
+private final class CarPlayInterfaceStub: NSObject {
+  @objc weak var delegate: CPInterfaceControllerDelegate?
+  @objc var templates: [CPTemplate] = []
+  @objc var rootTemplate: CPTemplate? { templates.first }
+  @objc var topTemplate: CPTemplate? { templates.last }
+  @objc var presentedTemplate: CPTemplate?
+  var rootChanges = 0
+  var pushes = 0
+
+  @objc func setRootTemplate(_ template: CPTemplate, animated _: Bool, completion: ((Bool, Error?) -> Void)?) {
+    rootChanges += 1
+    templates = [template]
+    completion?(true, nil)
+  }
+
+  @objc func pushTemplate(_ template: CPTemplate, animated _: Bool, completion: ((Bool, Error?) -> Void)?) {
+    pushes += 1
+    templates.append(template)
+    completion?(true, nil)
+  }
+
+  @objc(popToRootTemplateAnimated:completion:)
+  func popToRootTemplate(animated _: Bool, completion: ((Bool, Error?) -> Void)?) {
+    templates = Array(templates.prefix(1))
+    completion?(true, nil)
+  }
+
+  @objc func presentTemplate(_ template: CPTemplate, animated _: Bool, completion: ((Bool, Error?) -> Void)?) {
+    presentedTemplate = template
+    completion?(true, nil)
+  }
+
+  @objc(dismissTemplateAnimated:completion:)
+  func dismissTemplate(animated _: Bool, completion: ((Bool, Error?) -> Void)?) {
+    presentedTemplate = nil
+    completion?(true, nil)
+  }
+}
+
+private final class CarPlayWindowStub: CPWindow {
+  override var mapButtonSafeAreaLayoutGuide: UILayoutGuide { safeAreaLayoutGuide }
+}
+
+extension CarPlayServiceTests {
+  private final class TrackState {
+    var active = true
+  }
+
+  private func withPhoneTrackSession(_ body: (CarPlayInterfaceStub, TrackState) throws -> Void) throws {
+    let state = TrackState()
+    let method = try XCTUnwrap(class_getClassMethod(MWMRouter.self, #selector(MWMRouter.isFollowingTrack)))
+    let block: @convention(block) (AnyObject) -> Bool = { _ in state.active }
+    let replacement = imp_implementationWithBlock(block)
+    let original = method_setImplementation(method, replacement)
+    defer {
+      method_setImplementation(method, original)
+      imp_removeBlock(replacement)
+    }
+    carPlayService = .shared
+    carPlayService.phoneSceneDidConnect()
+    let window = CarPlayWindowStub(frame: CGRect(x: 0, y: 0, width: 800, height: 480))
+    let controller = try XCTUnwrap(UIStoryboard.instance(.carPlay).instantiateInitialViewController())
+    window.rootViewController = controller
+    window.addSubview(controller.view)
+    let interface = CarPlayInterfaceStub()
+    defer { carPlayService.destroy(window: window) }
+    carPlayService.setup(window: window, interfaceController: unsafeBitCast(interface, to: CPInterfaceController.self))
+    try body(interface, state)
+  }
+
+  func testTrackEndRestoresCarPreviewsWithoutMovingTheMap() throws {
+    try withPhoneTrackSession { interface, state in
+      state.active = false
+      carPlayService.phoneTrackSessionDidEnd()
+      carPlayService.pushTemplate(CPListTemplate(title: "Search", sections: []), animated: false)
+      let pushes = interface.pushes
+      carPlayService.preparePreview(trips: [])
+      XCTAssertEqual(interface.pushes, pushes + 1)
+    }
+  }
+
+  func testRepeatedPhoneTrackHandoffPreservesBearingAndTemplates() throws {
+    try withPhoneTrackSession { interface, _ in
+      carPlayService.preservePhoneTrackSession()
+      let roots = interface.rootChanges
+      let method = try XCTUnwrap(class_getClassMethod(FrameworkHelper.self, NSSelectorFromString("rotateMap:animated:")))
+      var rotations = 0
+      let block: @convention(block) (AnyObject, Double, Bool) -> Void = { _, _, _ in rotations += 1 }
+      let replacement = imp_implementationWithBlock(block)
+      let original = method_setImplementation(method, replacement)
+      defer {
+        method_setImplementation(method, original)
+        imp_removeBlock(replacement)
+      }
+      carPlayService.preservePhoneTrackSession()
+      XCTAssertEqual(interface.rootChanges, roots)
+      XCTAssertEqual(rotations, 0)
+    }
+  }
+}

@@ -31,16 +31,14 @@ typedef NS_ENUM(NSInteger, MWMFollowTrackResult) {
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// Everything the UI needs about the currently followed track, captured when the follow started.
-/// A snapshot on purpose: the session outlives its track — navigation continues on the frozen
-/// geometry after the track is deleted — so naming the track needs an existence check of its own.
+/// Captured track details remain valid after source deletion. Looking up the original track by
+/// its ID requires an existence check.
 @interface MWMFollowedTrackInfo : NSObject
 
 @property(nonatomic, readonly) MWMTrackID trackId;
 @property(copy, nonatomic, readonly) NSString * name;
-@property(nonatomic, readonly) double lengthMeters;
-/// The end of the selected connected section.
-@property(nonatomic, readonly) MWMRoutePoint * finishPoint;
+/// Captured distance along the full source, independent of the map selection.
+@property(nonatomic, readonly) double entryDistanceMeters;
 
 @end
 

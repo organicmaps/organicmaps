@@ -192,16 +192,24 @@ final class CarPlayService: NSObject {
   }
 
   @objc func preservePhoneTrackSession() {
+    let needsTemplateReset = routingOwner != .device || router?.previewTrip != nil ||
+      !preparedToPreviewTrips.isEmpty || (interfaceController?.templates.count ?? 0) > 1
     mapState.selectPhone()
     updateRoutingPresentation(for: .device)
     router?.previewTrip = nil
     preparedToPreviewTrips = []
     needsCarPlayRoutingRestore = false
     MWMRouter.subscribeToEvents()
-    if interfaceController != nil {
+    if needsTemplateReset, interfaceController != nil {
       applyBaseRootTemplate()
     }
     updateMapPlacement()
+  }
+
+  @objc func phoneTrackSessionDidEnd() {
+    updateRoutingPresentation(for: effectiveDisplay)
+    // An ended track leaves no road itinerary for CarPlay recovery.
+    needsCarPlayRoutingRestore = false
   }
 
   func openMainCarPlay() {
@@ -343,7 +351,7 @@ final class CarPlayService: NSObject {
   }
 
   private func updateRoutingPresentation(for display: CarPlayMapDisplay) {
-    let destination: RoutingOwner = display == .device ? .device : .carPlay
+    let destination: RoutingOwner = display == .device || MWMRouter.isFollowingTrack() ? .device : .carPlay
     guard routingOwner != destination, let router else { return }
 
     switch destination {
@@ -357,9 +365,7 @@ final class CarPlayService: NSObject {
       MWMRouter.subscribeToEvents()
       router.cancelNavigationSession()
       needsCarPlayRoutingRestore = false
-      // A followed track has no route marks, so the rebuild below would see fewer than two
-      // route points, stop the still-running follow and front an empty planning sheet. Hand the
-      // live session back to the phone dashboard instead — the only place left to stop it.
+      // Track sessions retain their phone controls when the shared map moves to the car.
       if MWMRouter.isFollowingTrack() {
         if MWMRouter.isOnRoute() {
           MWMRouter.showNavigationMapControls()
@@ -370,12 +376,6 @@ final class CarPlayService: NSObject {
         MWMRouter.rebuild(withBestRouter: true)
       }
     case .carPlay:
-      if MWMRouter.isFollowingTrack() {
-        router.setRoutingPresentationActive(false)
-        needsCarPlayRoutingRestore = false
-        MWMRouter.subscribeToEvents()
-        return
-      }
       if !isCarPlayRouterSubscribed {
         router.subscribeToEvents()
         isCarPlayRouterSubscribed = true
@@ -1280,6 +1280,7 @@ extension CarPlayService {
   }
 
   func preparePreview(trips: [CPTrip]) {
+    guard !MWMRouter.isFollowingTrack() else { return }
     let mapTemplate = MapTemplateBuilder.buildTripPreviewTemplate(forTrips: trips)
     guard let interfaceController else { return }
     mapTemplate.mapDelegate = self

@@ -12,6 +12,8 @@ struct TrackSourcePosition
   size_t m_line = 0;
   size_t m_segment = 0;
   double m_fraction = 0.0;
+
+  bool operator==(TrackSourcePosition const &) const = default;
 };
 
 /// \brief Why a follow-track request was refused. Everything but Ok leaves the routing session
