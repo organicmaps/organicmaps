@@ -286,16 +286,7 @@ void EditableMapObject::SetMetadata(MetadataID type, std::string value)
   {
   case MetadataID::FMD_WEBSITE: value = ValidateAndFormat_website(value); break;
   case MetadataID::FMD_WEBSITE_MENU: value = ValidateAndFormat_website(value); break;
-  case MetadataID::FMD_CONTACT_FACEBOOK:
-  {
-    value = ValidateAndFormat_facebook(value);
-    // Clients submit unchanged fields too, prefilled as a full URL. Keep a stored value that formats to the same
-    // page, e.g. one stored encoded by an older map, so that it is not reported as edited.
-    auto const stored = m_metadata.Get(type);
-    if (!value.empty() && !stored.empty() && ValidateAndFormat_facebook(socialContactToURL(type, stored)) == value)
-      return;
-    break;
-  }
+  case MetadataID::FMD_CONTACT_FACEBOOK: value = ValidateAndFormat_facebook(value); break;
   case MetadataID::FMD_CONTACT_INSTAGRAM: value = ValidateAndFormat_instagram(value); break;
   case MetadataID::FMD_CONTACT_TWITTER: value = ValidateAndFormat_twitter(value); break;
   case MetadataID::FMD_CONTACT_VK: value = ValidateAndFormat_vk(value); break;
