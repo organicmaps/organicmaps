@@ -27,35 +27,43 @@
                             <color key="textColor" red="1" green="1" blue="1" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="direction_mini" translatesAutoresizingMaskIntoConstraints="NO" id="yQx-g1-ALQ">
+                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="748" verticalCompressionResistancePriority="748" image="direction_mini" translatesAutoresizingMaskIntoConstraints="NO" id="yQx-g1-ALQ">
                             <rect key="frame" x="-7.3333333333333428" y="97.666666666666686" width="160" height="160"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="260" id="DPQ-m6-2rE"/>
-                                <constraint firstAttribute="width" constant="160" id="Itv-S8-i8O"/>
-                                <constraint firstAttribute="height" constant="160" id="Lqf-lc-Q24"/>
-                                <constraint firstAttribute="width" constant="260" id="mLL-K1-KUx"/>
+                                <constraint firstAttribute="width" secondItem="yQx-g1-ALQ" secondAttribute="height" id="W3e-cA-U1h"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="80" id="fPS-wK-80p"/>
+                                <constraint firstAttribute="height" constant="260" priority="749" id="DPQ-m6-2rE"/>
+                                <constraint firstAttribute="height" constant="160" priority="749" id="Lqf-lc-Q24"/>
                             </constraints>
                             <variation key="default">
                                 <mask key="constraints">
                                     <exclude reference="DPQ-m6-2rE"/>
-                                    <exclude reference="mLL-K1-KUx"/>
                                 </mask>
                             </variation>
                             <variation key="heightClass=regular-widthClass=regular" image="direction_big">
                                 <mask key="constraints">
                                     <include reference="DPQ-m6-2rE"/>
-                                    <exclude reference="Itv-S8-i8O"/>
                                     <exclude reference="Lqf-lc-Q24"/>
-                                    <include reference="mLL-K1-KUx"/>
                                 </mask>
                             </variation>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="200" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dty-4K-t4Q" propertyAccessControl="none">
-                            <rect key="frame" x="44" y="289.66666666666663" width="57.333333333333343" height="38.333333333333314"/>
-                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="32"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="mEa-su-rEs">
+                            <rect key="frame" x="44" y="289.66666666666663" width="80" height="84.66666666666663"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="200 m" textAlignment="center" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="YES" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Dty-4K-t4Q" propertyAccessControl="none">
+                                    <rect key="frame" x="0.0" y="0.0" width="80" height="38.333333333333336"/>
+                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="32"/>
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="123°" textAlignment="center" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="YES" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="bEa-ri-ngL">
+                                    <rect key="frame" x="0.0" y="46.333333333333336" width="80" height="38.333333333333336"/>
+                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="32"/>
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
                     </subviews>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
@@ -63,21 +71,23 @@
                         <constraint firstItem="yQx-g1-ALQ" firstAttribute="top" secondItem="AnD-rO-bOm" secondAttribute="bottom" constant="32" id="3OY-Ra-BkM"/>
                         <constraint firstItem="mMN-to-Xnd" firstAttribute="top" secondItem="yXW-1V-PEL" secondAttribute="top" id="8kg-GW-rzb"/>
                         <constraint firstAttribute="trailing" secondItem="mMN-to-Xnd" secondAttribute="trailing" id="GfH-sE-U19"/>
-                        <constraint firstItem="Dty-4K-t4Q" firstAttribute="centerX" secondItem="yXW-1V-PEL" secondAttribute="centerX" id="Htg-sT-i06"/>
+                        <constraint firstItem="mEa-su-rEs" firstAttribute="centerX" secondItem="yXW-1V-PEL" secondAttribute="centerX" id="Htg-sT-i06"/>
                         <constraint firstItem="mMN-to-Xnd" firstAttribute="leading" secondItem="yQx-g1-ALQ" secondAttribute="trailing" constant="40" id="Ien-Fu-Zsx"/>
-                        <constraint firstItem="Dty-4K-t4Q" firstAttribute="top" secondItem="yQx-g1-ALQ" secondAttribute="bottom" constant="80" id="Ode-yk-1hC"/>
+                        <constraint firstItem="mEa-su-rEs" firstAttribute="top" secondItem="yQx-g1-ALQ" secondAttribute="bottom" constant="80" id="Ode-yk-1hC"/>
                         <constraint firstAttribute="trailing" secondItem="mMN-to-Xnd" secondAttribute="trailing" id="PS8-J1-Ejw"/>
-                        <constraint firstItem="Dty-4K-t4Q" firstAttribute="leading" secondItem="AnD-rO-bOm" secondAttribute="leading" id="RXz-0g-mBe"/>
+                        <constraint firstItem="mEa-su-rEs" firstAttribute="leading" secondItem="AnD-rO-bOm" secondAttribute="leading" id="RXz-0g-mBe"/>
+                        <constraint firstItem="mEa-su-rEs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yXW-1V-PEL" secondAttribute="leading" id="mEa-le-adi"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="mEa-su-rEs" secondAttribute="trailing" id="mEa-tr-ail"/>
                         <constraint firstItem="AnD-rO-bOm" firstAttribute="centerX" secondItem="yXW-1V-PEL" secondAttribute="centerX" id="SNX-wh-gXF"/>
                         <constraint firstItem="yQx-g1-ALQ" firstAttribute="centerY" secondItem="yXW-1V-PEL" secondAttribute="centerY" id="TRr-fs-ngi"/>
-                        <constraint firstItem="Dty-4K-t4Q" firstAttribute="top" secondItem="yQx-g1-ALQ" secondAttribute="bottom" constant="32" id="YwQ-Oo-qlI"/>
+                        <constraint firstItem="mEa-su-rEs" firstAttribute="top" secondItem="yQx-g1-ALQ" secondAttribute="bottom" constant="32" id="YwQ-Oo-qlI"/>
                         <constraint firstAttribute="trailing" secondItem="AnD-rO-bOm" secondAttribute="trailing" id="ax9-hz-vY8"/>
                         <constraint firstItem="yQx-g1-ALQ" firstAttribute="top" secondItem="AnD-rO-bOm" secondAttribute="bottom" constant="80" id="c6v-le-4cJ"/>
                         <constraint firstItem="yQx-g1-ALQ" firstAttribute="centerX" secondItem="yXW-1V-PEL" secondAttribute="centerX" id="nch-yT-8QH"/>
                         <constraint firstItem="AnD-rO-bOm" firstAttribute="top" secondItem="mMN-to-Xnd" secondAttribute="bottom" constant="12" id="q2a-dg-BlX"/>
-                        <constraint firstAttribute="bottom" secondItem="Dty-4K-t4Q" secondAttribute="bottom" id="s21-Ou-6RT"/>
+                        <constraint firstAttribute="bottom" secondItem="mEa-su-rEs" secondAttribute="bottom" id="s21-Ou-6RT"/>
                         <constraint firstItem="AnD-rO-bOm" firstAttribute="top" secondItem="mMN-to-Xnd" secondAttribute="bottom" constant="8" id="vHI-bP-i2E"/>
-                        <constraint firstItem="Dty-4K-t4Q" firstAttribute="top" secondItem="AnD-rO-bOm" secondAttribute="bottom" constant="24" id="vc5-pN-Pif"/>
+                        <constraint firstItem="mEa-su-rEs" firstAttribute="top" secondItem="AnD-rO-bOm" secondAttribute="bottom" constant="24" id="vc5-pN-Pif"/>
                         <constraint firstItem="yQx-g1-ALQ" firstAttribute="leading" secondItem="yXW-1V-PEL" secondAttribute="leading" id="wZx-W2-VNr"/>
                         <constraint firstAttribute="trailing" secondItem="AnD-rO-bOm" secondAttribute="trailing" id="xD1-Og-f6n"/>
                         <constraint firstItem="AnD-rO-bOm" firstAttribute="leading" secondItem="mMN-to-Xnd" secondAttribute="leading" id="xyV-hl-wt9"/>
@@ -154,9 +164,10 @@
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="yXW-1V-PEL" secondAttribute="bottom" constant="40" id="q7Y-mD-MX3"/>
             </constraints>
             <connections>
-                <outlet property="contentView" destination="yXW-1V-PEL" id="0aM-CO-ndr"/>
                 <outlet property="directionArrow" destination="yQx-g1-ALQ" id="60a-Lr-OyJ"/>
                 <outlet property="distanceLabel" destination="Dty-4K-t4Q" id="CZu-VQ-R6X"/>
+                <outlet property="bearingLabel" destination="bEa-ri-ngL" id="bEa-la-bel"/>
+                <outlet property="measurementsStack" destination="mEa-su-rEs" id="mEa-st-ack"/>
                 <outlet property="titleLabel" destination="mMN-to-Xnd" id="M5A-9k-lvB"/>
                 <outlet property="typeLabel" destination="AnD-rO-bOm" id="r3h-vk-AKk"/>
                 <outletCollection property="gestureRecognizers" destination="jon-c0-OXb" appends="YES" id="rIw-dp-vZt"/>

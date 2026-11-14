@@ -1,15 +1,19 @@
 import UIKit
 
 class DirectionView: SolidTouchView {
-  @IBOutlet private var titleLabel: UILabel!
+  @IBOutlet private(set) var titleLabel: UILabel!
   @IBOutlet private var typeLabel: UILabel!
-  @IBOutlet private var distanceLabel: UILabel!
-  @IBOutlet private var directionArrow: UIImageView!
-  @IBOutlet private var contentView: UIView!
+  @IBOutlet private(set) var distanceLabel: UILabel!
+  @IBOutlet private(set) var bearingLabel: UILabel!
+  @IBOutlet private(set) var measurementsStack: UIStackView!
+  @IBOutlet private(set) var directionArrow: UIImageView!
 
   override func awakeFromNib() {
+    super.awakeFromNib()
     distanceLabel.font = alternative(iPhone: .regular32, iPad: .regular52)
+    bearingLabel.font = distanceLabel.font
     typeLabel.font = alternative(iPhone: .regular16, iPad: .regular24)
+    updateLayout()
   }
 
   override func didMoveToSuperview() {
@@ -26,16 +30,26 @@ class DirectionView: SolidTouchView {
     app.mapViewController.updateStatusBarStyle()
   }
 
-  override func layoutSubviews() {
-    var textAlignment = NSTextAlignment.center
-    if UIDevice.current.orientation == .landscapeLeft || UIDevice.current.orientation == .landscapeRight {
-      textAlignment = alternative(iPhone: .left, iPad: .center)
-    }
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    guard measurementsStack != nil,
+          previousTraitCollection?.horizontalSizeClass != traitCollection.horizontalSizeClass ||
+          previousTraitCollection?.verticalSizeClass != traitCollection.verticalSizeClass else { return }
+    updateLayout()
+  }
+
+  private func updateLayout() {
+    // The XIB lets the arrow shrink before compressing multiline text.
+    let compactHeight = traitCollection.verticalSizeClass == .compact
+    let horizontal = compactHeight || traitCollection.horizontalSizeClass == .regular
+    measurementsStack.axis = horizontal ? .horizontal : .vertical
+    measurementsStack.alignment = horizontal ? .firstBaseline : .fill
+    measurementsStack.spacing = horizontal ? 16 : 8
+    let textAlignment: NSTextAlignment = compactHeight ? .natural : .center
     titleLabel.textAlignment = textAlignment
     typeLabel.textAlignment = textAlignment
     distanceLabel.textAlignment = textAlignment
-
-    super.layoutSubviews()
+    bearingLabel.textAlignment = textAlignment
   }
 
   func show() {
@@ -57,12 +71,23 @@ class DirectionView: SolidTouchView {
     distanceLabel?.text = distance
   }
 
-  func updateHeading(_ angle: CGFloat) {
-    UIView.animate(withDuration: AppConstants.defaultAnimationDuration,
+  func updateBearing(_ bearing: Int) {
+    bearingLabel.text = "\(bearing)°"
+  }
+
+  static func arrowTransform(for angle: CGFloat) -> CGAffineTransform {
+    CGAffineTransform(rotationAngle: .pi / 2 - angle)
+  }
+
+  func updateHeading(_ angle: CGFloat?) {
+    let duration = directionArrow.isHidden ? .zero : AppConstants.defaultAnimationDuration
+    directionArrow.isHidden = angle == nil
+    guard let angle else { return }
+    UIView.animate(withDuration: duration,
                    delay: 0,
                    options: [.beginFromCurrentState, .curveEaseInOut],
                    animations: { [unowned self] in
-                     directionArrow?.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2 - angle)
+                     directionArrow?.transform = Self.arrowTransform(for: angle)
                    })
   }
 
