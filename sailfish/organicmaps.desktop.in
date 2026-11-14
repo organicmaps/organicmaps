@@ -1,0 +1,24 @@
+[Desktop Entry]
+Type=Application
+Name=Organic Maps
+Icon=@APP_NAME@
+Exec=@APP_NAME@
+X-Nemo-Application-Type=silica-qt5
+# Map links, like the Android intent filters.
+MimeType=x-scheme-handler/geo;x-scheme-handler/om;x-scheme-handler/ge0;x-scheme-handler/mapsme;x-scheme-handler/mapswithme;
+X-Maemo-Service=@DBUS_SERVICE@
+X-Maemo-Object-Path=@DBUS_PATH@
+X-Maemo-Method=@DBUS_SERVICE@.openUrl
+
+[X-Sailjail]
+# Both packages keep their data in the same place, ~/.local/share/app.organicmaps/organicmaps.
+OrganizationName=app.organicmaps
+ApplicationName=organicmaps
+# Sailjail starts the app for the launcher's openUrl calls on OrganizationName.ApplicationName, the X-Maemo-Service.
+ExecDBus=@APP_NAME@
+# RemovableMedia: maps on a memory card. Notifications and sharing are in the base permissions.
+Permissions=Internet;Location;RemovableMedia
+
+[X-HarbourBackup]
+# The settings; Platform keeps them in the config folder, apart from the maps.
+BackupPathList=.config/app.organicmaps/
