@@ -26,10 +26,13 @@ protocol IPlacePageLayout: AnyObject {
   var actionBar: ActionBarViewController? { get }
   var navigationBar: UIViewController? { get }
   var sectionSpacing: CGFloat { get }
+  /// The lowest section shown when the place page opens. Nil for the preview.
+  var openingAnchor: UIView? { get }
 
   func calculateSteps(inScrollView scrollView: UIScrollView, compact: Bool) -> [PlacePageState]
 }
 
 extension IPlacePageLayout {
   var sectionSpacing: CGFloat { 12.0 }
+  var openingAnchor: UIView? { nil }
 }
