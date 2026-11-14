@@ -54,7 +54,7 @@ public class ContactsImporterTest
   private static ContactsImporter.Entry cached(String key, String address, ContactsImporter.Location location)
   {
     String fingerprint =
-        "v2:" + ContactSourceKey.hash("address-v2:" + new ContactAddress(address, "", "").getAddressKey());
+        "v3:" + ContactSourceKey.hash("address-v3:" + new ContactAddress(address, "", "").getAddressKey());
     return new ContactsImporter.Entry(key, "", address, location, true, true, List.of(), fingerprint);
   }
 
@@ -68,7 +68,9 @@ public class ContactsImporterTest
   {
     String address = "123 Example Street, Example City";
     var people = List.of(contact("one", address));
-    for (String oldFingerprint : List.of("", "v1:" + ContactSourceKey.hash("old")))
+    for (String oldFingerprint :
+         List.of("", "v1:" + ContactSourceKey.hash("old"),
+                 "v2:" + ContactSourceKey.hash("address-v2:" + new ContactAddress(address, "", "").getAddressKey())))
     {
       int request = callbacks.size();
       importer.start(people, List.of(new ContactsImporter.Entry("one", "", address,
@@ -91,7 +93,7 @@ public class ContactsImporterTest
     String address = "123 Example Street, Canada";
     importer.start(List.of(contact("one", address)),
                    List.of(new ContactsImporter.Entry("one", "Name", address, new ContactsImporter.Location(49, -123),
-                                                      true, true, List.of(), "v2:unknown")));
+                                                      true, true, List.of(), "v3:unknown")));
     assertEquals(1, callbacks.size());
     complete(0, null);
   }
@@ -104,7 +106,7 @@ public class ContactsImporterTest
     importer.start(List.of(person));
     complete(0, new ContactsImporter.Location(49, -123));
     var previous = saved.get(0);
-    assertTrue(previous.get(0).sourceKeys().startsWith("v2:"));
+    assertTrue(previous.get(0).sourceKeys().startsWith("v3:"));
     importer.start(List.of(person), previous);
     assertEquals(1, callbacks.size());
     assertEquals(2, saved.size());

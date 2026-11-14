@@ -25,8 +25,10 @@ char const * kAppearance = "om:import:appearance";
 
 bool IsFiniteCoordinate(double value)
 {
-  // std::isfinite can be optimized away in the project's fast-math builds.
-  return (std::bit_cast<uint64_t>(value) & 0x7ff0000000000000ULL) != 0x7ff0000000000000ULL;
+  // Clang also recognizes bit-mask comparisons as floating-point classification under
+  // -ffast-math. The volatile integer read prevents that rewrite and its finite assumption.
+  uint64_t volatile exponent = std::bit_cast<uint64_t>(value) & 0x7ff0000000000000ULL;
+  return exponent != 0x7ff0000000000000ULL;
 }
 
 std::string const & Property(kml::Properties const & properties, char const * key)

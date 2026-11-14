@@ -3571,6 +3571,23 @@ UNIT_TEST(BookmarkSourceImportRejectsInvalidAndRepeatedEntries)
   TEST_EQUAL(manager.GetUserMarkIds(result.m_categoryId).size(), 1, ());
 }
 
+UNIT_TEST(BookmarkSourceImportRejectsNonFiniteLatitudeAndLongitude)
+{
+  BookmarkManager manager(BM_CALLBACKS);
+  manager.EnableTestMode(true);
+  std::vector<BookmarkImportEntry> entries;
+  for (uint64_t bits : {uint64_t{0x7ff8000000000000ULL}, uint64_t{0xfff8000000000000ULL},
+                        uint64_t{0x7ff0000000000000ULL}, uint64_t{0xfff0000000000000ULL}})
+  {
+    double const value = std::bit_cast<double>(bits);
+    entries.push_back({std::to_string(entries.size()), "Person", "Address", value, 0});
+    entries.push_back({std::to_string(entries.size()), "Person", "Address", 0, value});
+  }
+  auto const result = ImportBookmarks(manager, "contacts", "Contacts", entries);
+  TEST_EQUAL(result.m_skipped, entries.size(), ());
+  TEST_EQUAL(result.m_categoryId, kml::kInvalidMarkGroupId, ());
+}
+
 UNIT_TEST(BookmarkSourceImportRecoversChangedKeysWithoutMergingDifferentPeople)
 {
   BookmarkManager manager(BM_CALLBACKS);

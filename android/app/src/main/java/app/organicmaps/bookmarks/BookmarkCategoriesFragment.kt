@@ -281,34 +281,42 @@ class BookmarkCategoriesFragment :
             null
         }
         if (state.isRunning) {
-            if (contactsProgressHidden) return
-            if (contactsDialog == null) {
-                contactsDialog = MaterialAlertDialogBuilder(requireContext())
-                    .setTitle(R.string.bookmarks_import_contacts)
-                    .setView(R.layout.dialog_contacts_import)
-                    .setNegativeButton(R.string.cancel) { _, _ -> contactsImport.cancel() }
-                    .setNeutralButton(R.string.hide) { _, _ ->
-                        contactsProgressHidden = true
-                        contactsDialog = null
-                    }
-                    .setOnCancelListener { contactsImport.cancel() }
-                    .create()
-                contactsDialog?.show()
-                contactsDialog?.setCanceledOnTouchOutside(false)
-            }
-            val message = when (state.phase) {
-                ContactsImporter.Phase.READING -> getString(R.string.bookmarks_contacts_import_reading)
-                ContactsImporter.Phase.SAVING -> getString(R.string.bookmarks_contacts_import_saving)
-                else -> getString(R.string.bookmarks_contacts_import_resolving, state.processed, state.total)
-            }
-            contactsDialog?.findViewById<android.widget.TextView>(R.id.contacts_import_progress)?.text = message
-            contactsDialog?.setCancelable(state.phase != ContactsImporter.Phase.SAVING)
-            contactsDialog?.getButton(AlertDialog.BUTTON_NEGATIVE)?.isEnabled =
-                state.phase != ContactsImporter.Phase.SAVING
+            showContactsImportProgress(state)
             return
         }
         contactsDialog?.dismiss()
         contactsDialog = null
+        showContactsImportResult(state)
+    }
+
+    private fun showContactsImportProgress(state: ContactsImporter.State) {
+        if (contactsProgressHidden) return
+        if (contactsDialog == null) {
+            contactsDialog = MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.bookmarks_import_contacts)
+                .setView(R.layout.dialog_contacts_import)
+                .setNegativeButton(R.string.cancel) { _, _ -> contactsImport.cancel() }
+                .setNeutralButton(R.string.hide) { _, _ ->
+                    contactsProgressHidden = true
+                    contactsDialog = null
+                }
+                .setOnCancelListener { contactsImport.cancel() }
+                .create()
+            contactsDialog?.show()
+            contactsDialog?.setCanceledOnTouchOutside(false)
+        }
+        val message = when (state.phase) {
+            ContactsImporter.Phase.READING -> getString(R.string.bookmarks_contacts_import_reading)
+            ContactsImporter.Phase.SAVING -> getString(R.string.bookmarks_contacts_import_saving)
+            else -> getString(R.string.bookmarks_contacts_import_resolving, state.processed, state.total)
+        }
+        contactsDialog?.findViewById<android.widget.TextView>(R.id.contacts_import_progress)?.text = message
+        contactsDialog?.setCancelable(state.phase != ContactsImporter.Phase.SAVING)
+        contactsDialog?.getButton(AlertDialog.BUTTON_NEGATIVE)?.isEnabled =
+            state.phase != ContactsImporter.Phase.SAVING
+    }
+
+    private fun showContactsImportResult(state: ContactsImporter.State) {
         val message = when (state.phase) {
             ContactsImporter.Phase.DONE -> {
                 val result = checkNotNull(state.result)

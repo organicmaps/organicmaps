@@ -208,7 +208,7 @@ public final class ContactsImportCoordinator
       long id = SearchEngine.INSTANCE.resolveAddress(
           queries.stream().map(query -> query.query).toArray(String[] ::new),
           queries.stream().map(query -> query.expectedStreet).toArray(String[] ::new),
-          Language.getKeyboardLocale(getApplication()), false, (requestId, found, lat, lon) -> {
+          Language.getKeyboardLocale(getApplication()), (requestId, found, lat, lon) -> {
             if (requestId != activeId)
               return;
             activeId = 0;

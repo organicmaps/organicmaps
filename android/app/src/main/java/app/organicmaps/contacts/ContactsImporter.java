@@ -170,8 +170,7 @@ public final class ContactsImporter
         protectedEntries.putIfAbsent(entry.key(), entry);
         continue;
       }
-      // Older readback used six significant digits. Resolve those inputs once again rather
-      // than promoting an already-rounded point into the precise cache.
+      // Revalidate older resolutions after mapped-name and street-order matching changes.
       for (String sourceKey : decodeSourceKeys(entry.sourceKeys()))
       {
         Location existing = locations.putIfAbsent(sourceKey, entry.location());
@@ -299,7 +298,7 @@ public final class ContactsImporter
       result.add(new Entry(primaryKey, String.join(", ", group.names), group.first().address(),
                            group.first().location(), true, true,
                            previousKeys.stream().filter(key -> !key.equals(primaryKey)).toList(),
-                           "v2:"
+                           "v3:"
                                + String.join(";", group.entries.stream()
                                                       .flatMap(entry -> decodeSourceKeys(entry.sourceKeys()).stream())
                                                       .distinct()
@@ -348,7 +347,7 @@ public final class ContactsImporter
         ContactAddress address = contact.addresses.get(addressIndex++);
         if (address.getSearchQueries().isEmpty())
           continue;
-        String sourceKey = ContactSourceKey.hash("address-v2:" + address.getAddressKey());
+        String sourceKey = ContactSourceKey.hash("address-v3:" + address.getAddressKey());
         if (locations.containsKey(sourceKey))
         {
           Location cached = locations.get(sourceKey);
@@ -417,12 +416,12 @@ public final class ContactsImporter
 
   private static Entry resolvedEntry(Contact contact, ContactAddress address, Location location, String sourceKey)
   {
-    return new Entry(contact.key, contact.name, address.address, location, true, true, List.of(), "v2:" + sourceKey);
+    return new Entry(contact.key, contact.name, address.address, location, true, true, List.of(), "v3:" + sourceKey);
   }
 
   private static List<String> decodeSourceKeys(String value)
   {
-    if (!value.startsWith("v2:"))
+    if (!value.startsWith("v3:"))
       return List.of();
     List<String> keys = List.of(value.substring(3).split(";", -1));
     return keys.stream().allMatch(key -> key.matches("[0-9a-f]{64}")) ? keys : List.of();
