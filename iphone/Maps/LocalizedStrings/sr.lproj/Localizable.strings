@@ -1233,3 +1233,12 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Обрни руту";
+
+/* Start navigation along the selected track. */
+"navigate_track" = "Навигација";
+
+/* Track start point label. */
+"navigate_track_start" = "Почетак путање";
+
+/* Track finish point label. */
+"navigate_track_finish" = "Крај путање";

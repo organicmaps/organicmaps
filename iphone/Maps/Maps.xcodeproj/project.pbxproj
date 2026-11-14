@@ -700,6 +700,7 @@
 		AF1492000000000000000012 /* libtess2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AF1492000000000000000011 /* libtess2.a */; };
 		5E4F00000000000000000002 /* libsperr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E4F00000000000000000001 /* libsperr.a */; };
 		7E4A00000000000000000002 /* libterrain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E4A00000000000000000001 /* libterrain.a */; };
+		E77A4B9FBB5DAFA82825C6A4 = {isa = PBXBuildFile; fileRef = BE8A233017BA499AC6C26F5F; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1885,6 +1886,7 @@
 		AF1492000000000000000011 /* libtess2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtess2.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E4F00000000000000000001 /* libsperr.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libsperr.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E4A00000000000000000001 /* libterrain.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libterrain.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE8A233017BA499AC6C26F5F = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackNavigationFlowTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -4124,6 +4126,7 @@
 		AA01B2C3D4E5F60718293A03 /* Routing */ = {
 			isa = PBXGroup;
 			children = (
+				BE8A233017BA499AC6C26F5F,
 				A13811000000000000000001 /* TransportTransitWrappingTests.swift */,
 				A13812000000000000000001 /* TransportTransitRTLTests.swift */,
 				A13813000000000000000001 /* TransportRulerAppearanceTests.swift */,
@@ -5128,6 +5131,7 @@
 				B8D6F11836F34C7C86EFA0A1 /* MWMRouterTrackPreviewTests.mm in Sources */,
 				A13803000000000000000004 /* TransportTransitStepsTests.swift in Sources */,
 				A13729000000000000000001 /* RoutingOptionsSettingsTests.swift in Sources */,
+				E77A4B9FBB5DAFA82825C6A4,
 				D48A5E31FA0C45748F11AD48 /* MWMRoutePointSelectionTests.swift in Sources */,
 				A14130000000000000000002 /* NavigationDashboardLifecycleTests.swift in Sources */,
 				EDF838BF2C00B9D0007E4E67 /* SynchronizationStateManagerTests.swift in Sources */,

@@ -4,6 +4,7 @@ final class TransportOptionsView: UIView {
   private var segmentedControl = UISegmentedControl()
   private var routerTypes: [MWMRouterType] = []
   private var selectedRouterType: MWMRouterType = .vehicle
+  private var isTrack = false
   private let panelPanGestureRecognizer = UIPanGestureRecognizer()
 
   weak var interactor: NavigationDashboard.Interactor?
@@ -19,7 +20,8 @@ final class TransportOptionsView: UIView {
     fatalError("init(coder:) has not been implemented")
   }
 
-  func set(transportOptions: [MWMRouterType], selectedRouterType: MWMRouterType) {
+  func set(transportOptions: [MWMRouterType], selectedRouterType: MWMRouterType, isTrack: Bool = false) {
+    self.isTrack = isTrack
     let optionsChanged = routerTypes != transportOptions
     let selectionChanged = self.selectedRouterType != selectedRouterType
     guard optionsChanged || selectionChanged else { return }
@@ -32,6 +34,10 @@ final class TransportOptionsView: UIView {
     } else if selectionChanged {
       updateSelection()
     }
+  }
+
+  func setSelectionEnabled(_ enabled: Bool) {
+    segmentedControl.isEnabled = enabled
   }
 
   private func setupSegmentedControlView() {
@@ -76,10 +82,14 @@ final class TransportOptionsView: UIView {
 
   @objc private func didChangeSegment(_ sender: UISegmentedControl) {
     let index = sender.selectedSegmentIndex
-    guard index < routerTypes.count else { return }
+    guard routerTypes.indices.contains(index) else { return }
     let routerType = routerTypes[index]
     guard selectedRouterType != routerType else { return }
-    selectedRouterType = routerType
+    if isTrack {
+      updateSelection()
+    } else {
+      selectedRouterType = routerType
+    }
     interactor?.process(.selectRouterType(routerType))
   }
 

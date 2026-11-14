@@ -27,6 +27,8 @@
 #include "platform/local_country_file_utils.hpp"
 #include "platform/localization.hpp"
 
+#include <algorithm>
+
 using namespace routing;
 
 @interface MWMFollowedTrackInfo ()
@@ -80,16 +82,31 @@ using namespace routing;
 
 + (RouteElevationPreviewData *)routeElevationProfileData
 {
-  if (![self hasRouteAltitude])
-    return nil;
+  ElevationInfo routeElevationInfo;
+  ElevationInfo const * elevationInfo = nullptr;
+  auto & framework = GetFramework();
+  auto const & manager = framework.GetRoutingManager();
+  auto const followedTrack = manager.GetFollowedTrackInfo();
+  auto const * track = followedTrack && !manager.IsRoutingFollowing()
+                         ? framework.GetBookmarkManager().GetTrack(followedTrack->m_id)
+                         : nullptr;
+  if (followedTrack && !manager.IsRoutingFollowing())
+  {
+    elevationInfo = track ? track->GetElevationInfo() : nullptr;
+    if (!elevationInfo)
+      return nil;
+  }
+  else
+  {
+    if (![self hasRouteAltitude] || !manager.GetRouteElevationInfo(routeElevationInfo))
+      return nil;
+    elevationInfo = &routeElevationInfo;
+  }
 
-  ElevationInfo elevationInfo;
-  if (!GetFramework().GetRoutingManager().GetRouteElevationInfo(elevationInfo))
-    return nil;
-
-  auto const altitudesInfo = elevationInfo.CalculateAltitudesInfo(ElevationInfo::kDefThresholdMWM);
+  auto const altitudesInfo =
+      elevationInfo->CalculateAltitudesInfo(track ? ElevationInfo::kDefThresholdGPS : ElevationInfo::kDefThresholdMWM);
   // Uniform profiles can be fallback values when elevation data is unavailable.
-  if (altitudesInfo.m_maxAltitude == altitudesInfo.m_minAltitude)
+  if (!track && altitudesInfo.m_maxAltitude == altitudesInfo.m_minAltitude)
     return nil;
 
   TrackStatistics trackStatistics;
@@ -99,9 +116,17 @@ using namespace routing;
   trackStatistics.m_minElevation = altitudesInfo.m_minAltitude;
 
   TrackInfo * trackInfo = [[TrackInfo alloc] initWithTrackStatistics:trackStatistics];
-  ElevationProfileData * profileData = [[ElevationProfileData alloc] initWithTrackId:kml::kInvalidTrackId
-                                                                       elevationInfo:elevationInfo];
+  ElevationProfileData * profileData =
+      [[ElevationProfileData alloc] initWithTrackId:track ? followedTrack->m_id : kml::kInvalidTrackId
+                                      elevationInfo:*elevationInfo];
   return [[RouteElevationPreviewData alloc] initWithTrackInfo:trackInfo elevationInfo:profileData];
+}
+
++ (NSNumber *)routeElevationActivePointDistance
+{
+  auto const & manager = GetFramework().GetRoutingManager();
+  auto const info = manager.GetFollowedTrackInfo();
+  return info && !manager.IsRoutingFollowing() ? @(info->m_entryDistanceM) : nil;
 }
 
 + (void)setRouteElevationActivePointDistance:(double)distance
@@ -110,7 +135,19 @@ using namespace routing;
   if (framework.GetDrapeEngine() == nullptr)
     return;
 
-  auto const point = framework.GetRoutingManager().GetRoutePointAtDistance(distance);
+  auto const & manager = framework.GetRoutingManager();
+  auto const followedTrack = manager.GetFollowedTrackInfo();
+  std::optional<m2::PointD> point;
+  if (followedTrack && !manager.IsRoutingFollowing())
+  {
+    auto const * track = framework.GetBookmarkManager().GetTrack(followedTrack->m_id);
+    if (track)
+      point = track->GetPoint(std::clamp(distance, 0.0, track->GetLengthMeters()));
+  }
+  else
+  {
+    point = manager.GetRoutePointAtDistance(distance);
+  }
   if (!point)
     return;
 
@@ -190,12 +227,7 @@ static MWMFollowTrackResult OnFollowTrackResult(FollowTrackResult result)
 
 + (MWMFollowTrackResult)setFollowTrackProfile:(MWMRouterType)type
 {
-  auto const result =
-      OnFollowTrackResult(GetFramework().GetRoutingManager().SetFollowTrackProfile(coreRouterType(type)));
-  // Refresh presentation from the preview's effective profile.
-  if (result == MWMFollowTrackResultOk)
-    [MWMThemeManager invalidate];
-  return result;
+  return OnFollowTrackResult(GetFramework().GetRoutingManager().SetFollowTrackProfile(coreRouterType(type)));
 }
 
 + (BOOL)isFollowingTrack

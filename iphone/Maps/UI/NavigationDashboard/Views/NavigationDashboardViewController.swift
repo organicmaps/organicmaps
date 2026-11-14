@@ -64,6 +64,7 @@ final class NavigationDashboardViewController: UIViewController {
   private var searchButton: UIButton!
   private var bookmarksButton: UIButton!
   private var saveRouteAsTrackButton: UIButton!
+  private var actionButtonWidthConstraints: [NSLayoutConstraint] = []
   private let startRouteButton = StartRouteButton()
   private var navigationInfoView: NavigationInfoView!
   private var navigationControlView: NavigationControlView!
@@ -284,7 +285,9 @@ final class NavigationDashboardViewController: UIViewController {
       button.setImage(image, for: .normal)
       button.addTarget(self, action: action, for: .touchUpInside)
       button.translatesAutoresizingMaskIntoConstraints = false
-      button.widthAnchor.constraint(equalTo: button.heightAnchor, multiplier: Constants.actionButtonWidthMultiplier).isActive = true
+      let width = button.widthAnchor.constraint(equalTo: button.heightAnchor, multiplier: Constants.actionButtonWidthMultiplier)
+      actionButtonWidthConstraints.append(width)
+      width.isActive = true
       return button
     }
 
@@ -584,6 +587,19 @@ extension NavigationDashboardViewController: UIScrollViewDelegate {
 
 extension NavigationDashboardViewController {
   func render(_ viewModel: NavigationDashboard.ViewModel) {
+    let isTrack = viewModel.planningMode == .navigateTrack
+    // TODO(KK) - Show when the revert track feature will be implemented
+    reverseRoutePointsButton.isHidden = isTrack
+    settingsButton.isHidden = isTrack
+    searchButton.isHidden = isTrack
+    bookmarksButton.isHidden = isTrack
+    saveRouteAsTrackButton.isHidden = isTrack
+    let actionWidthPriority: UILayoutPriority = isTrack ? .defaultHigh : .required
+    for constraint in actionButtonWidthConstraints where constraint.priority != actionWidthPriority {
+      constraint.isActive = false
+      constraint.priority = actionWidthPriority
+      constraint.isActive = true
+    }
     switch viewModel.dashboardState {
     case .closed:
       close()
@@ -606,13 +622,14 @@ extension NavigationDashboardViewController {
       navigationControlView.isVisible = false
 
     case .prepare, .ready, .planning:
+      routePointsView.setRoutePoints(viewModel.routePoints)
       transportOptionsView.set(transportOptions: viewModel.transportOptions,
-                               selectedRouterType: viewModel.routerType)
+                               selectedRouterType: viewModel.routerType, isTrack: isTrack)
       estimatesView.setState(viewModel.estimatesState)
-      transportTransitStepsView.setNavigationInfo(viewModel.entity)
+      transportTransitStepsView.setNavigationInfo(isTrack ? nil : viewModel.entity)
       updateElevationProfile(with: viewModel.routeElevationPreviewData,
                              activePointDistance: viewModel.routeElevationActivePointDistance)
-      routePointsView.setRoutePoints(viewModel.routePoints)
+      elevationProfileViewController?.isChartZoomEnabled = !isTrack
       settingsButton.isEnabled = viewModel.routerType.hasRoutingSettings
       settingsBadge.isHidden = !viewModel.routingOptions.hasOptions
       settingsBadge.number = viewModel.routingOptions.enabledOptionsCount
@@ -632,6 +649,7 @@ extension NavigationDashboardViewController {
     bottomActionsMenu.setHidden(viewModel.isBottomActionsMenuHidden)
     startRouteButton.setState(viewModel.startButtonState)
     reverseRoutePointsButton.isEnabled = viewModel.canReverseRoutePoints
+    transportOptionsView.setSelectionEnabled(viewModel.isTransportSelectionEnabled)
 
     presentationStep = viewModel.presentationStep
     updatePresentationStep(viewModel.presentationStep)

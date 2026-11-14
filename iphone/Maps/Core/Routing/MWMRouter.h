@@ -117,6 +117,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)hasRouteAltitude;
 + (void)saveRouteAsTrack;
 + (nullable RouteElevationPreviewData *)routeElevationProfileData;
++ (nullable NSNumber *)routeElevationActivePointDistance;
 + (void)setRouteElevationActivePointDistance:(double)distance;
 + (void)resetRouteElevationActivePoint;
 
