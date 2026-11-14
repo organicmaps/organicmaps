@@ -43946,111 +43946,135 @@ zh-Hant = 紫色已下載區域
 comment = Download button: first placeholder is the region, second is the formatted size.
 tags = qt
 en = Download %@ (%@)
+sv = Hämta %@ (%@)
 
 [region_queued_for_download]
 comment = Map download status; %@ is the region name.
 tags = qt
 en = %@ is queued for download
+sv = %@ väntar på hämtning
 
 [retry_region_download]
 comment = Retry button; %@ is the region name.
 tags = qt
 en = Retry downloading %@
+sv = Försök hämta %@ igen
 
 [downloading_region_progress]
 comment = Map download progress: first placeholder is the region, second is the formatted percentage.
 tags = qt
 en = Downloading %@ (%@)
+sv = Hämtar %@ (%@)
 
 [route_along_track]
 comment = Route action for a selected track.
 tags = qt
 en = Route Along Track
+sv = Rutt längs spår
 
 [copy_link]
 comment = Copies the selected place link to the clipboard.
 tags = qt
 en = Copy Link
+sv = Kopiera länk
 
 [copy_text]
 comment = Copies the selected place details to the clipboard.
 tags = qt
 en = Copy Text
+sv = Kopiera text
 
 [select_transit_route]
 comment = Placeholder for the public transport route selector.
 tags = qt
 en = Select a route…
+sv = Välj en linje…
 
 [switch_coordinates_format]
 comment = Tooltip for cycling coordinate formats.
 tags = qt
 en = Switch coordinate format
+sv = Byt koordinatformat
 
 [bookmark_color]
 comment = Bookmark color row label.
 tags = qt
 en = Bookmark color
+sv = Bokmärkesfärg
 
 [heritage_website]
 comment = Website for the place’s heritage designation.
 tags = qt
 en = Heritage website
+sv = Kulturarvets webbplats
 
 [wikipedia_place_title]
 comment = Wikipedia description dialog title; %@ is the place name.
 tags = qt
 en = Wikipedia: %@
+sv = Wikipedia: %@
 
 [app_exit]
 tags = qt
 en = Exit
+sv = Avsluta
 
 [upload_edits]
 tags = qt
 en = Upload Edits
+sv = Skicka ändringar
 
 [welcome_to_app]
 comment = Welcome dialog title. %@ is the application name; Twine converts it to Qt's %1.
 tags = qt
 en = Welcome to %@
+sv = Välkommen till %@
 
 [looking_for_position]
 tags = qt
 en = Looking for position…
+sv = Söker position…
 
 [public_transport]
 comment = Public transport routing profile, including subway and trains.
 tags = qt
 en = Public transport
+sv = Kollektivtrafik
 
 [bookmarks_mouse_shortcuts_tooltip]
 tags = qt
 en = Show bookmarks and tracks; use ALT + RMB to add a bookmark
+sv = Visa bokmärken och spår; använd Alt + höger musknapp för att lägga till ett bokmärke
 
 [intermediate_point]
 tags = qt
 en = Intermediate point
+sv = Mellanpunkt
 
 [route_point_mouse_shortcut_tooltip]
 tags = qt
 en = Select mode and use SHIFT + LMB to set point
+sv = Välj läget och använd Skift + vänster musknapp för att ange punkt
 
 [follow_route]
 tags = qt
 en = Follow route
+sv = Följ rutt
 
 [follow_route_mouse_shortcut_tooltip]
 tags = qt
 en = Build route and use ALT + LMB to emulate current position
+sv = Skapa rutt och använd Alt + vänster musknapp för att simulera aktuell position
 
 [clear_route]
 tags = qt
 en = Clear route
+sv = Rensa rutt
 
 [routing_settings]
 tags = qt
 en = Routing settings
+sv = Ruttinställningar
 
 [create_feature]
 tags = qt
@@ -44059,62 +44083,77 @@ en = Create Feature
 [create_feature_tooltip]
 tags = qt
 en = Click to select a position, then click again to create a feature
+sv = Klicka för att välja en position och klicka sedan igen för att skapa ett objekt
 
 [roads_selection_mode]
 tags = qt
 en = Roads selection mode
+sv = Urvalsläge för vägar
 
 [city_boundaries_selection_mode]
 tags = qt
 en = City boundaries selection mode
+sv = Urvalsläge för stadsgränser
 
 [city_roads_selection_mode]
 tags = qt
 en = City roads selection mode
+sv = Urvalsläge för stadsvägar
 
 [cross_mwm_segments_selection_mode]
 tags = qt
 en = Cross MWM segments selection mode
+sv = Urvalsläge för korsande MWM-segment
 
 [mwms_borders_selection_mode]
 tags = qt
 en = MWM borders selection mode
+sv = Urvalsläge för MWM-gränser
 
 [selection_mode_mouse_tooltip]
 tags = qt
 en = Select mode and use RMB to define selection box
+sv = Välj läge och använd höger musknapp för att ange en markeringsruta
 
 [ruler]
 tags = qt
 en = Ruler
+sv = Linjal
 
 [ruler_mouse_shortcuts_tooltip]
 tags = qt
 en = Check this button and use ALT + LMB to set points
+sv = Markera den här knappen och använd Alt + vänster musknapp för att ange punkter
 
 [build_style]
 tags = qt
 en = Build style
+sv = Bygg stil
 
 [recalculate_geometry_index]
 tags = qt
 en = Recalculate geometry index
+sv = Beräkna om geometriindexet
 
 [debug_style]
 tags = qt
 en = Debug style
+sv = Felsökningsstil
 
 [get_statistics]
 tags = qt
 en = Get statistics
+sv = Hämta statistik
 
 [run_tests]
 tags = qt
 en = Run tests
+sv = Kör tester
 
 [build_phone_package]
 tags = qt
 en = Build phone package
+sv = Bygg telefonpaket
 
 [developer_mode]
 tags = qt
@@ -44123,42 +44162,52 @@ en = Developer Mode
 [enable_auto_regeneration_geometry_index]
 tags = qt
 en = Automatically regenerate the geometry index
+sv = Återskapa geometriindexet automatiskt
 
 [search_everywhere]
 tags = qt
 en = Everywhere
+sv = Överallt
 
 [search_viewport]
 tags = qt
 en = Viewport
+sv = Kartvyn
 
 [category_request]
 tags = qt
 en = Category request
+sv = Kategoriförfrågan
 
 [downloader_unuploaded_edits_delete_map]
 tags = qt
 en = Some map edits have not been uploaded yet. Delete this map anyway?
+sv = Vissa kartändringar har inte skickats ännu. Vill du ändå ta bort kartan?
 
 [downloader_country_column]
 tags = qt
 en = Country
+sv = Land
 
 [downloader_status_column]
 tags = qt
 en = Status
+sv = Status
 
 [downloader_size_column]
 tags = qt
 en = Size
+sv = Storlek
 
 [downloader_matched_by_column]
 tags = qt
 en = Matched by
+sv = Matchad av
 
 [downloader_rank_column]
 tags = qt
 en = Rank
+sv = Rang
 
 [locale_label]
 tags = qt
@@ -44167,74 +44216,92 @@ en = locale:
 [search_query_label]
 tags = qt
 en = search query:
+sv = sökfråga:
 
 [update_or_delete_region_confirmation]
 tags = qt
 en = Do you want to update or delete %@?
+sv = Vill du uppdatera eller ta bort %@?
 
 [delete_region_confirmation]
 tags = qt
 en = Do you want to delete %@?
+sv = Vill du ta bort %@?
 
 [click_to_download]
 tags = qt
 en = Click to download
+sv = Klicka för att hämta
 
 [installed_click_to_delete]
 tags = qt
 en = Installed (click to delete)
+sv = Installerad (klicka för att ta bort)
 
 [out_of_date_click_to_update_or_delete]
 tags = qt
 en = Out of date (click to update or delete)
+sv = Föråldrad (klicka för att uppdatera eller ta bort)
 
 [bookmark_files_filter]
 tags = qt
 en = KML, KMZ, GPX, JSON, GeoJSON files (*.kml *.KML *.kmz *.KMZ *.gpx *.GPX *.json *.JSON *.geojson *.GEOJSON)
+sv = KML-, KMZ-, GPX-, JSON- och GeoJSON-filer (*.kml *.KML *.kmz *.KMZ *.gpx *.GPX *.json *.JSON *.geojson *.GEOJSON)
 
 [select_bookmark_category_to_export]
 tags = qt
 en = Select one of the bookmark categories to export.
+sv = Välj en bokmärkessamling att exportera.
 
 [selected_item_not_bookmark_category]
 tags = qt
 en = Selected item is not a bookmark category.
+sv = Det valda objektet är inte en bokmärkessamling.
 
 [gpx_filter]
 tags = qt
 en = GPX files (*.gpx)
+sv = GPX-filer (*.gpx)
 
 [geojson_filter]
 tags = qt
 en = GeoJSON files (*.geojson);;JSON files (*.json)
+sv = GeoJSON-filer (*.geojson);;JSON-filer (*.json)
 
 [kmz_filter]
 tags = qt
 en = KMZ files (*.kmz)
+sv = KMZ-filer (*.kmz)
 
 [bookmarks_exported]
 tags = qt
 en = Bookmarks successfully exported.
+sv = Bokmärkena har exporterats.
 
 [bookmarks_export_error]
 tags = qt
 en = Could not export bookmarks: %@
+sv = Det gick inte att exportera bokmärkena: %@
 
 [cannot_save_selected_file]
 tags = qt
 en = Could not save the selected file.
+sv = Det gick inte att spara den valda filen.
 
 [cannot_delete_last_bookmark_category]
 tags = qt
 en = Could not delete the last category.
+sv = Det gick inte att ta bort den sista samlingen.
 
 [select_bookmark_item_to_delete]
 tags = qt
 en = Select a category, bookmark or track to delete.
+sv = Välj en samling, ett bokmärke eller ett spår att ta bort.
 
 [unnamed_track]
 tags = qt
 en = No name
+sv = Namnlöst
 
 [unnamed_area]
 comment = Placeholder for an imported polygon area without a name.
@@ -44303,11 +44370,13 @@ zh-Hant = 無名稱
 comment = Bookmark tree item or place page title. %@ is the name.
 tags = qt
 en = %@ (Bookmark)
+sv = %@ (bokmärke)
 
 [track_title_with_type]
 comment = Track tree item or place page title. %@ is the name.
 tags = qt
 en = %@ (Track)
+sv = %@ (spår)
 
 [area_title_with_type]
 comment = Bookmark tree item title. %@ is the polygon area name.
@@ -44375,38 +44444,47 @@ zh-Hant = %@ (區域)
 [mwms_borders_selection_settings]
 tags = qt
 en = MWM borders selection settings
+sv = Inställningar för urval av MWM-gränser
 
 [get_borders_from_packed_polygon]
 tags = qt
 en = Get borders from packed_polygon.bin
+sv = Hämta gränser från packed_polygon.bin
 
 [get_borders_from_poly_files]
 tags = qt
 en = Get borders from *.poly files
+sv = Hämta gränser från *.poly-filer
 
 [show_borders_with_vertices]
 tags = qt
 en = Show borders with vertices
+sv = Visa gränser med hörn
 
 [show_just_borders]
 tags = qt
 en = Show just borders
+sv = Visa endast gränser
 
 [show_bounding_box]
 tags = qt
 en = Show bounding box
+sv = Visa begränsningsruta
 
 [enter_login]
 tags = qt
 en = Enter your username or email
+sv = Ange ditt användarnamn eller din e-postadress
 
 [enter_password]
 tags = qt
 en = Enter your password
+sv = Ange ditt lösenord
 
 [authentication_failed]
 tags = qt
 en = Authentication failed: %@
+sv = Autentisering misslyckades: %@
 
 [placepage_title]
 comment = Place page dialog window title
@@ -46026,26 +46104,31 @@ zh-Hant = 反轉路線
 comment = Placeholder for a routing endpoint, entered as a latitude and longitude pair.
 tags = qt
 en = Latitude, longitude
+sv = Latitud, longitud
 
 [routing_mode]
 comment = Label of the routing profile selector, e.g. driving, walking, cycling.
 tags = qt
 en = Routing mode
+sv = Ruttläge
 
 [show_route_turns]
 comment = Routing settings checkbox to display turn markers on the map.
 tags = qt
 en = Show turns
+sv = Visa svängar
 
 [remember_routing_settings]
 comment = Routing settings checkbox to reuse the current settings after restarting the app.
 tags = qt
 en = Remember these settings for the next session
+sv = Kom ihåg de här inställningarna till nästa session
 
 [invalid_route_coordinates]
 comment = Routing error shown when a start or destination coordinate pair cannot be parsed.
 tags = qt
 en = The start or destination coordinates are invalid.
+sv = Start- eller målkoordinaterna är ogiltiga.
 
 [fax]
 comment = Fax number field in the OpenStreetMap editor.
@@ -46061,6 +46144,7 @@ en = Stars
 comment = Internet access field in the OpenStreetMap editor.
 tags = qt
 en = Internet access
+sv = Internetåtkomst
 
 [elevation]
 comment = Elevation above sea level field in the OpenStreetMap editor.
@@ -46071,6 +46155,7 @@ en = Elevation
 comment = Apartment numbers field in the OpenStreetMap address editor.
 tags = qt
 en = Apartment numbers
+sv = Lägenhetsnummer
 
 [height]
 comment = Object height field in the OpenStreetMap editor.
@@ -46081,11 +46166,13 @@ en = Height
 comment = Religious denomination field for a place of worship in the OpenStreetMap editor.
 tags = qt
 en = Religious denomination
+sv = Religionstillhörighet
 
 [not_specified]
 comment = An optional property has no value set, e.g. internet access in the OpenStreetMap editor.
 tags = qt
 en = Not specified
+sv = Inte angivet
 
 [wired_internet]
 comment = Internet access option for a wired connection in the OpenStreetMap editor.
@@ -46096,6 +46183,7 @@ en = Wired
 comment = Internet access option for a public computer in the OpenStreetMap editor.
 tags = qt
 en = Internet terminal
+sv = Internetterminal
 
 [qt_license_notice]
 comment = About dialog: %@ placeholders are paths to license files. Preserve the Qt company name.
