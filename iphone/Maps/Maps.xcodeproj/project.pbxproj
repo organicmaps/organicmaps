@@ -634,8 +634,10 @@
 		AA01B2C3D4E5F60718293A02 /* MWMRoutePointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01B2C3D4E5F60718293A01 /* MWMRoutePointTests.swift */; };
 		A8D43EE031D5000000000004 /* MWMNavigationDashboardEntityTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = A8D43EE031D5000000000003 /* MWMNavigationDashboardEntityTests.mm */; };
 		A13532000000000000000002 /* MWMFrameworkListenerTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = A13532000000000000000001 /* MWMFrameworkListenerTests.mm */; };
+		A14170000000000000000002 /* MWMRoutingSpeechOwnershipTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = A14170000000000000000001 /* MWMRoutingSpeechOwnershipTests.mm */; };
 		A14245000000000000000002 /* MWMRoutingOptionsRecoveryTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = A14245000000000000000001 /* MWMRoutingOptionsRecoveryTests.mm */; };
 		A13803000000000000000002 /* MWMRouterTransitStepInfoTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = A13803000000000000000001 /* MWMRouterTransitStepInfoTests.mm */; };
+		B8D6F11836F34C7C86EFA0A1 /* MWMRouterTrackPreviewTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = B530F7DBB10E479EBA352F49 /* MWMRouterTrackPreviewTests.mm */; };
 		A13803000000000000000004 /* TransportTransitStepsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13803000000000000000003 /* TransportTransitStepsTests.swift */; };
 		A13729000000000000000001 /* RoutingOptionsSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13729000000000000000002 /* RoutingOptionsSettingsTests.swift */; };
 		D48A5E31FA0C45748F11AD48 /* MWMRoutePointSelectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C7250731AB471A81905386 /* MWMRoutePointSelectionTests.swift */; };
@@ -702,6 +704,7 @@
 		AF1492000000000000000012 /* libtess2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AF1492000000000000000011 /* libtess2.a */; };
 		5E4F00000000000000000002 /* libsperr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E4F00000000000000000001 /* libsperr.a */; };
 		7E4A00000000000000000002 /* libterrain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E4A00000000000000000001 /* libterrain.a */; };
+		E77A4B9FBB5DAFA82825C6A4 = {isa = PBXBuildFile; fileRef = BE8A233017BA499AC6C26F5F; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1739,8 +1742,10 @@
 		AA01B2C3D4E5F60718293A01 /* MWMRoutePointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWMRoutePointTests.swift; sourceTree = "<group>"; };
 		A8D43EE031D5000000000003 /* MWMNavigationDashboardEntityTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMNavigationDashboardEntityTests.mm; sourceTree = "<group>"; };
 		A13532000000000000000001 /* MWMFrameworkListenerTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMFrameworkListenerTests.mm; sourceTree = "<group>"; };
+		A14170000000000000000001 /* MWMRoutingSpeechOwnershipTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRoutingSpeechOwnershipTests.mm; sourceTree = "<group>"; };
 		A14245000000000000000001 /* MWMRoutingOptionsRecoveryTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRoutingOptionsRecoveryTests.mm; sourceTree = "<group>"; };
 		A13803000000000000000001 /* MWMRouterTransitStepInfoTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRouterTransitStepInfoTests.mm; sourceTree = "<group>"; };
+		B530F7DBB10E479EBA352F49 /* MWMRouterTrackPreviewTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMRouterTrackPreviewTests.mm; sourceTree = "<group>"; };
 		A13803000000000000000003 /* TransportTransitStepsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportTransitStepsTests.swift; sourceTree = "<group>"; };
 		A13729000000000000000002 /* RoutingOptionsSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutingOptionsSettingsTests.swift; sourceTree = "<group>"; };
 		B9C7250731AB471A81905386 /* MWMRoutePointSelectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWMRoutePointSelectionTests.swift; sourceTree = "<group>"; };
@@ -1888,6 +1893,7 @@
 		AF1492000000000000000011 /* libtess2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtess2.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E4F00000000000000000001 /* libsperr.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libsperr.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E4A00000000000000000001 /* libterrain.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libterrain.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE8A233017BA499AC6C26F5F = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackNavigationFlowTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -4128,14 +4134,17 @@
 		AA01B2C3D4E5F60718293A03 /* Routing */ = {
 			isa = PBXGroup;
 			children = (
+				BE8A233017BA499AC6C26F5F,
 				A13811000000000000000001 /* TransportTransitWrappingTests.swift */,
 				A13812000000000000000001 /* TransportTransitRTLTests.swift */,
 				A13813000000000000000001 /* TransportRulerAppearanceTests.swift */,
 				AA01B2C3D4E5F60718293A01 /* MWMRoutePointTests.swift */,
 				A8D43EE031D5000000000003 /* MWMNavigationDashboardEntityTests.mm */,
 				A13532000000000000000001 /* MWMFrameworkListenerTests.mm */,
+				A14170000000000000000001 /* MWMRoutingSpeechOwnershipTests.mm */,
 				A14245000000000000000001 /* MWMRoutingOptionsRecoveryTests.mm */,
 				A13803000000000000000001 /* MWMRouterTransitStepInfoTests.mm */,
+				B530F7DBB10E479EBA352F49 /* MWMRouterTrackPreviewTests.mm */,
 				A13803000000000000000003 /* TransportTransitStepsTests.swift */,
 				B9C7250731AB471A81905386 /* MWMRoutePointSelectionTests.swift */,
 				A14130000000000000000001 /* NavigationDashboardLifecycleTests.swift */,
@@ -5129,10 +5138,13 @@
 				AA01B2C3D4E5F60718293A02 /* MWMRoutePointTests.swift in Sources */,
 				A8D43EE031D5000000000004 /* MWMNavigationDashboardEntityTests.mm in Sources */,
 				A13532000000000000000002 /* MWMFrameworkListenerTests.mm in Sources */,
+				A14170000000000000000002 /* MWMRoutingSpeechOwnershipTests.mm in Sources */,
 				A14245000000000000000002 /* MWMRoutingOptionsRecoveryTests.mm in Sources */,
 				A13803000000000000000002 /* MWMRouterTransitStepInfoTests.mm in Sources */,
+				B8D6F11836F34C7C86EFA0A1 /* MWMRouterTrackPreviewTests.mm in Sources */,
 				A13803000000000000000004 /* TransportTransitStepsTests.swift in Sources */,
 				A13729000000000000000001 /* RoutingOptionsSettingsTests.swift in Sources */,
+				E77A4B9FBB5DAFA82825C6A4,
 				D48A5E31FA0C45748F11AD48 /* MWMRoutePointSelectionTests.swift in Sources */,
 				A14130000000000000000002 /* NavigationDashboardLifecycleTests.swift in Sources */,
 				EDF838BF2C00B9D0007E4E67 /* SynchronizationStateManagerTests.swift in Sources */,
