@@ -1,4 +1,5 @@
 #include "map/search_api.hpp"
+#include "search/address_matcher.hpp"
 
 #include "map/bookmarks_search_params.hpp"
 #include "map/everywhere_search_params.hpp"
@@ -173,6 +174,7 @@ void SearchAPI::OnViewportChanged(m2::RectD const & viewport)
   }
 
   PokeSearchInViewport(forceSearchInViewport);
+  StartAddressResolution();
 }
 
 bool SearchAPI::SearchEverywhere(EverywhereSearchParams params)
@@ -190,11 +192,18 @@ bool SearchAPI::SearchEverywhere(EverywhereSearchParams params)
   p.m_needAddress = true;
   p.m_needHighlighting = true;
   p.m_categorialRequest = params.m_isCategory;
+  bool const prioritizeAddressMatches =
+      params.m_prioritizeAddressMatches && !params.m_isCategory && search::IsAddressQuery(p.m_query);
+  p.m_allowNearbyHouseNumbers = prioritizeAddressMatches;
   if (params.m_timeout)
     p.m_timeout = *params.m_timeout;
 
-  p.m_onResults = [this, onResults = std::move(params.m_onResults)](Results const & results)
-  { RunUITask([onResults, results]() mutable { onResults(std::move(results)); }); };
+  p.m_onResults = [this, onResults = std::move(params.m_onResults), query = p.m_query,
+                   prioritizeAddressMatches](Results const & results)
+  {
+    auto resolved = prioritizeAddressMatches ? search::RankAddressResults(query, results) : results;
+    RunUITask([onResults, results = std::move(resolved)]() mutable { onResults(std::move(results)); });
+  };
 
   return Search(std::move(p), true /* forceSearch */);
 }
@@ -289,6 +298,9 @@ void SearchAPI::CancelSearch(Mode mode)
   auto & intent = m_searchIntents[static_cast<size_t>(mode)];
   intent.m_params.Clear();
   CancelQuery(intent.m_handle);
+  intent.m_isRunning = false;
+  ++intent.m_generation;
+  StartAddressResolution();
 }
 
 void SearchAPI::CancelAllSearches()
@@ -399,14 +411,132 @@ bool SearchAPI::Search(SearchParams params, bool forceSearch)
 
 void SearchAPI::Search(SearchIntent & intent)
 {
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  SuspendAddressResolution();
+  intent.m_isRunning = true;
   if (!m_isViewportInitialized)
   {
     intent.m_isDelayed = true;
     return;
   }
 
-  intent.m_handle = m_engine.Search(intent.m_params);
+  auto params = intent.m_params;
+  auto const generation = ++intent.m_generation;
+  auto const mode = params.m_mode;
+  params.m_onResults = [this, mode, generation, callback = params.m_onResults](Results const & results)
+  {
+    callback(results);
+    if (results.IsEndMarker())
+      RunUITask([this, mode, generation]
+      {
+        CHECK_THREAD_CHECKER(m_threadChecker, ());
+        auto & current = m_searchIntents[static_cast<size_t>(mode)];
+        if (current.m_generation != generation)
+          return;
+        current.m_isRunning = false;
+        StartAddressResolution();
+      });
+  };
+  intent.m_handle = m_engine.Search(std::move(params));
   intent.m_isDelayed = false;
+}
+
+void SearchAPI::ClearCaches()
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  SuspendAddressResolution();
+  m_engine.ClearCaches();
+  StartAddressResolution();
+}
+
+void SearchAPI::ResolveAddress(uint64_t id, std::vector<AddressQuery> queries, std::string locale,
+                               AddressCallback callback)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  CHECK(callback, ());
+  auto request = std::make_shared<AddressRequest>(id, std::move(queries), std::move(locale), std::move(callback));
+  SuspendAddressResolution();
+  m_addressRequests.push_front(std::move(request));
+  StartAddressResolution();
+}
+
+void SearchAPI::CancelAddressResolution(uint64_t id)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  if (!m_addressRequests.empty() && m_addressRequests.front()->m_id == id)
+    SuspendAddressResolution();
+  std::erase_if(m_addressRequests, [id](auto const & request) { return request->m_id == id; });
+  StartAddressResolution();
+}
+
+void SearchAPI::SuspendAddressResolution()
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  ++m_addressGeneration;
+  CancelQuery(m_addressHandle);
+  m_addressRunning = false;
+}
+
+void SearchAPI::StartAddressResolution()
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  if (m_addressRunning || m_addressRequests.empty() || !m_isViewportInitialized)
+    return;
+  for (auto const & intent : m_searchIntents)
+    if (intent.m_isRunning)
+      return;
+
+  auto const request = m_addressRequests.front();
+  if (request->m_queries.empty())
+  {
+    m_addressRequests.pop_front();
+    request->m_callback({});
+    StartAddressResolution();
+    return;
+  }
+
+  m_addressRunning = true;
+  auto const generation = ++m_addressGeneration;
+  auto const query = request->m_queries[request->m_queryIndex];
+  SearchParams params;
+  params.m_query = query.m_query + " ";
+  params.m_inputLocale = request->m_locale;
+  params.m_viewport = m_viewport;
+  params.m_mode = Mode::Everywhere;
+  params.m_needAddress = true;
+  params.m_requireCompleteResults = true;
+  // Use the engine's normal bounded timeout. A shorter deadline can turn a cold-cache
+  // address into a false miss now that resolution waits for complete results.
+  params.m_onResults = [this, request, generation, query](Results const & results)
+  {
+    if (!results.IsEndMarker())
+      return;
+    std::optional<search::Result> match;
+    if (!results.IsEndedCancelled())
+      if (auto const * result = search::FindUniqueAddressResult(query.m_query, results, query.m_expectedStreet))
+        match = *result;
+    RunUITask([this, request, generation, match = std::move(match)]() mutable
+    {
+      CHECK_THREAD_CHECKER(m_threadChecker, ());
+      // Cancelled or suspended attempts must not consume a query or deliver a stale coordinate.
+      if (generation != m_addressGeneration)
+        return;
+      m_addressRunning = false;
+      // A cancelled or timed-out search cannot establish uniqueness. Suspended attempts are excluded above.
+      if (!match && ++request->m_queryIndex < request->m_queries.size())
+      {
+        StartAddressResolution();
+        return;
+      }
+      SuspendAddressResolution();
+      m_addressRequests.pop_front();
+      LOG(LDEBUG, ("Address resolution", request->m_id, "found", match.has_value(), "milliseconds",
+                   request->m_timer.ElapsedMilliseconds()));
+      request->m_callback(std::move(match));
+      StartAddressResolution();
+    });
+  };
+  m_addressHandle = m_engine.Search(std::move(params));
 }
 
 void SearchAPI::SetViewportIfPossible(SearchParams & params)
