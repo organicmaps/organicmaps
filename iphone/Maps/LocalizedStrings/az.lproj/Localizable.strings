@@ -816,7 +816,7 @@
 "others_sorttype" = "Digərləri";
 
 /* Failed planning route message in navigation view */
-"routing_planning_error" = "Marşrutun Planlaşdırılması uğursuz oldu";
+"routing_planning_error" = "Marşrutun planlaşdırılması uğursuz oldu";
 
 /* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Marşrut hesablamaq üçün proqnozlaşdırılan yol boyunca bütün xəritəni endirin və yeniləyin.";
@@ -1236,3 +1236,12 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Marşrutu tərsinə çevir";
+
+/* Start navigation along the selected track. */
+"navigate_track" = "Naviqasiya";
+
+/* Track start point label. */
+"navigate_track_start" = "İzin başlanğıcı";
+
+/* Track finish point label. */
+"navigate_track_finish" = "İzin sonu";
