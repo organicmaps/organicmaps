@@ -8,6 +8,7 @@ set(SRC
   my_position_controller_tests.cpp
   navigator_test.cpp
   path_text_test.cpp
+  read_metaline_task_tests.cpp
   screen_operations_tests.cpp
   search_mark_overlay_filter_tests.cpp
   read_cancellation_tests.cpp
