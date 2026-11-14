@@ -400,8 +400,6 @@
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">Nuk jeni i regjistruar</string>
     <string name="login_osm">Hyni në OpenStreetMap</string>
-    <string name="password">Fjalëkalimi</string>
-    <string name="forgot_password">Keni harruar fjalëkalimin?</string>
     <string name="logout">Dilni</string>
     <string name="edit_place">Ndrysho Vendin</string>
     <string name="add_language">Shto një gjuhë</string>
@@ -419,8 +417,6 @@
     <string name="choose_street">Zgjidhni një rrugë</string>
     <string name="cuisine">Kuzhina</string>
     <string name="select_cuisine">Zgjidh kuzhinën</string>
-    <!-- login text field -->
-    <string name="email_or_username">Email ose emri i përdoruesit</string>
     <string name="editor_add_phone">Shto Telefon</string>
     <string name="level">Kati</string>
     <!-- Building level -->

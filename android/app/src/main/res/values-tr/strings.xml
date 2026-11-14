@@ -400,8 +400,6 @@
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">Giriş yapılmadı</string>
     <string name="login_osm">OpenStreetMap\'e giriş yap</string>
-    <string name="password">Şifre</string>
-    <string name="forgot_password">Şifrenizi mi unuttunuz?</string>
     <string name="logout">Oturumu kapat</string>
     <string name="edit_place">Yeri Düzenle</string>
     <string name="add_language">Dil ekle</string>
@@ -419,8 +417,6 @@
     <string name="choose_street">Sokak seç</string>
     <string name="cuisine">Mutfak</string>
     <string name="select_cuisine">Mutfak Seç</string>
-    <!-- login text field -->
-    <string name="email_or_username">E-posta veya kullanıcı adı</string>
     <string name="editor_add_phone">Telefon Ekle</string>
     <string name="level">Kat</string>
     <!-- Building level -->

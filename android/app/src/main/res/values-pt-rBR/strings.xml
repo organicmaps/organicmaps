@@ -274,8 +274,6 @@
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">Não conectado</string>
     <string name="login_osm">Faça login no OpenStreetMap</string>
-    <string name="password">Senha</string>
-    <string name="forgot_password">Esqueceu sua senha?</string>
     <string name="logout">Encerrar sessão</string>
     <string name="edit_place">Editar local</string>
     <!-- Editable House Number text field (in address block). -->
@@ -286,8 +284,6 @@
     <string name="choose_language">Escolha um idioma</string>
     <string name="choose_street">Escolha uma rua</string>
     <string name="cuisine">Cozinha</string>
-    <!-- login text field -->
-    <string name="email_or_username">Email ou nome de usuário</string>
     <string name="editor_add_phone">Adicionar número de telefone</string>
     <string name="level">Piso</string>
     <!-- Building level -->

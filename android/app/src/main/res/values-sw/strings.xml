@@ -400,8 +400,6 @@
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">Hujasajiliwa</string>
     <string name="login_osm">Ingia kwa OpenStreetMap</string>
-    <string name="password">Nenosiri</string>
-    <string name="forgot_password">Umesahau nenosiri lako?</string>
     <string name="logout">Toka</string>
     <string name="edit_place">Hariri Mahali</string>
     <string name="add_language">Ongeza lugha</string>
@@ -419,8 +417,6 @@
     <string name="choose_street">Chagua barabara</string>
     <string name="cuisine">Upishi</string>
     <string name="select_cuisine">Chagua aina ya chakula</string>
-    <!-- login text field -->
-    <string name="email_or_username">Barua pepe au jina la mtumiaji</string>
     <string name="editor_add_phone">Ongeza Simu</string>
     <string name="level">Ghorofa</string>
     <!-- Building level -->

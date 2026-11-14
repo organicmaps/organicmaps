@@ -400,8 +400,6 @@
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">未登录</string>
     <string name="login_osm">登录 OpenStreetMap</string>
-    <string name="password">密码</string>
-    <string name="forgot_password">忘记密码？</string>
     <string name="logout">登出</string>
     <string name="edit_place">编辑地点</string>
     <string name="add_language">添加语言</string>
@@ -419,8 +417,6 @@
     <string name="choose_street">选择街道</string>
     <string name="cuisine">菜肴</string>
     <string name="select_cuisine">选择菜肴</string>
-    <!-- login text field -->
-    <string name="email_or_username">电子邮件或用户名</string>
     <string name="editor_add_phone">新增电话号码</string>
     <string name="level">楼层</string>
     <!-- Building level -->

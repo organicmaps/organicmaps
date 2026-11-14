@@ -400,8 +400,6 @@
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">サインインしていません</string>
     <string name="login_osm">OpenStreetMapにログイン</string>
-    <string name="password">パスワード</string>
-    <string name="forgot_password">パスワードをお忘れですか？</string>
     <string name="logout">ログアウト</string>
     <string name="edit_place">場所を編集</string>
     <string name="add_language">言語を追加</string>
@@ -419,8 +417,6 @@
     <string name="choose_street">通りを選択</string>
     <string name="cuisine">料理</string>
     <string name="select_cuisine">料理を選択</string>
-    <!-- login text field -->
-    <string name="email_or_username">メールアドレスまたはユーザー名</string>
     <string name="editor_add_phone">電話番号を追加</string>
     <string name="level">階</string>
     <!-- Building level -->

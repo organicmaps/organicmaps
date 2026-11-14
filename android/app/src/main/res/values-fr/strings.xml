@@ -400,8 +400,6 @@
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">Non connecté(e)</string>
     <string name="login_osm">Se connecter à OpenStreetMap</string>
-    <string name="password">Mot de passe</string>
-    <string name="forgot_password">Mot de passe oublié ?</string>
     <string name="logout">Déconnexion</string>
     <string name="edit_place">Modifier le lieu</string>
     <string name="add_language">Ajouter une langue</string>
@@ -419,8 +417,6 @@
     <string name="choose_street">Choisir une rue</string>
     <string name="cuisine">Cuisine</string>
     <string name="select_cuisine">Sélectionner une cuisine</string>
-    <!-- login text field -->
-    <string name="email_or_username">Email ou nom d\'utilisateur</string>
     <string name="editor_add_phone">Ajouter un numéro de téléphone</string>
     <string name="level">Étage</string>
     <!-- Building level -->

@@ -400,8 +400,6 @@
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">Heb fewngofnodi</string>
     <string name="login_osm">Mewngofnodi i OpenStreetMap</string>
-    <string name="password">Cyfrinair</string>
-    <string name="forgot_password">Wedi anghofio\'ch cyfrinair?</string>
     <string name="logout">Allgofnodi</string>
     <string name="edit_place">Golygu lle</string>
     <string name="add_language">Ychwanegu iaith</string>
@@ -419,8 +417,6 @@
     <string name="choose_street">Dewiswch stryd</string>
     <string name="cuisine">Math o fwyd</string>
     <string name="select_cuisine">Dewis math o fwyd</string>
-    <!-- login text field -->
-    <string name="email_or_username">E-bost neu enw defnyddiwr</string>
     <string name="editor_add_phone">Ychwanegu rhif ffôn</string>
     <string name="level">Llawr</string>
     <!-- Building level -->

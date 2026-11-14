@@ -400,8 +400,6 @@
     <!-- Status message indicating that user did not login to OSM profile yet. -->
     <string name="not_signed_in">Не е влязъл в системата</string>
     <string name="login_osm">Влезте в OpenStreetMap</string>
-    <string name="password">Парола</string>
-    <string name="forgot_password">Забравили сте паролата си?</string>
     <string name="logout">Изход</string>
     <string name="edit_place">Редакция на място</string>
     <string name="add_language">Добавяне на език</string>
@@ -419,8 +417,6 @@
     <string name="choose_street">Избор на улица</string>
     <string name="cuisine">Кухня</string>
     <string name="select_cuisine">Избор на кухня</string>
-    <!-- login text field -->
-    <string name="email_or_username">Имейл или потребителско име</string>
     <string name="editor_add_phone">Добави телефон</string>
     <string name="level">Етаж</string>
     <!-- Building level -->
