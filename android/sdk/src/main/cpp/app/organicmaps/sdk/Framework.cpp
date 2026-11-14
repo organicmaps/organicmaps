@@ -1019,7 +1019,7 @@ JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetDistanceAndAzimuth
                                                                                  jdouble cLon, jdouble north)
 {
   platform::Distance distance;
-  double azimut = -1.0;
+  double azimut;
   frm()->GetDistanceAndAzimut(m2::PointD(merX, merY), cLat, cLon, north, distance, azimut);
 
   static jclass const daClazz = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/bookmarks/data/DistanceAndAzimut");

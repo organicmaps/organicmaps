@@ -1167,11 +1167,8 @@ public class PlacePageView extends Fragment implements View.OnClickListener, Vie
             .nativeGetDistanceAndAzimuthFromLatLon(mMapObject.getLat(), mMapObject.getLon(), location.getLatitude(),
                                                    location.getLongitude(), north)
             .getAzimuth();
-    UiUtils.showIf(azimuth >= 0, mAvDirection);
-    if (azimuth >= 0)
-    {
-      mAvDirection.setAzimuth(azimuth);
-    }
+    UiUtils.show(mAvDirection);
+    mAvDirection.setAzimuth(azimuth);
   }
 
   void shareClickListener(View v)

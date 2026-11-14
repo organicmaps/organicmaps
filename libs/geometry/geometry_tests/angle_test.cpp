@@ -115,4 +115,10 @@ UNIT_TEST(Azimuth)
   TEST(is_equal_angle(ang::Azimuth(m2::Point<double>(0.7, 0.7), m2::Point<double>(-0.2, -0.2), math::pi2),
                       3 * math::pi4),
        ());
+
+  m2::PointD const origin(0.0, 0.0);
+  m2::PointD const east(1.0, 0.0);
+  TEST_ALMOST_EQUAL_ABS(ang::Azimuth(origin, east, -3 * math::pi2), 0.0, 1e-12, ());
+  TEST_ALMOST_EQUAL_ABS(ang::Azimuth(origin, east, -2 * math::pi), math::pi2, 1e-12, ());
+  TEST_ALMOST_EQUAL_ABS(ang::Azimuth(origin, east, 6 * math::pi), math::pi2, 1e-12, ());
 }
