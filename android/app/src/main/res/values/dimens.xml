@@ -180,7 +180,6 @@
   <dimen name="editor_height_allday">56dp</dimen>
   <dimen name="editor_height_field">64dp</dimen>
   <dimen name="editor_margin_left">56dp</dimen>
-  <dimen name="editor_auth_btn_height">@dimen/primary_button_min_height</dimen>
   <dimen name="editor_margin_timetable_left">50dp</dimen>
 
   <!-- Login -->
