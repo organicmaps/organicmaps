@@ -1751,7 +1751,7 @@ UNIT_CLASS_TEST(VisualParamsFixture, Bookmarks_TransitCustomNames)
 
 // Removing a bookmark from its Place Page must keep the POI it was put on selected (issue #13206).
 // A tap on the bookmark carries only its id, so the rebuild after the deletion has to use the feature
-// the bookmark was matched to; the tap rect alone never selects POIs and picked the building around it.
+// the bookmark was matched to; the tap rect alone never selects POIs, only a building, line or area there.
 UNIT_CLASS_TEST(VisualParamsFixture, Bookmarks_DeleteKeepsPoiSelected)
 {
   ScopedBookmarksDir scopedDir;
