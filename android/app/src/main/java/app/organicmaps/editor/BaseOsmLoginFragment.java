@@ -28,9 +28,7 @@ public abstract class BaseOsmLoginFragment extends BaseMwmToolbarFragment
   private ProgressBar mProgress;
   private Button mLoginButton;
   private TextView mErrorTv;
-  private boolean mIsErrorShown = false;
   private String mErrorText;
-  private static final String STATE_ERROR_SHOWN = "state_error_shown";
   private static final String STATE_ERROR_TEXT = "state_error_text";
 
   @Nullable
@@ -54,19 +52,19 @@ public abstract class BaseOsmLoginFragment extends BaseMwmToolbarFragment
 
     setupLogin(view);
 
-    String code = readOAuth2CodeFromArguments();
-    if (code != null && !code.isEmpty())
-      continueOAuth2Flow(code);
-
     ScrollView scrollView = view.findViewById(R.id.scrollView);
     ViewCompat.setOnApplyWindowInsetsListener(scrollView, new ScrollableContentInsetsListener(scrollView));
 
     if (savedInstanceState != null)
     {
-      mErrorText = savedInstanceState.getString(STATE_ERROR_TEXT);
-      if (savedInstanceState.getBoolean(STATE_ERROR_SHOWN, false))
-        onAuthFail(mErrorText);
+      final String error = savedInstanceState.getString(STATE_ERROR_TEXT);
+      if (error != null)
+        onAuthFail(error);
     }
+
+    String code = readOAuth2CodeFromArguments();
+    if (code != null && !code.isEmpty())
+      continueOAuth2Flow(code);
   }
 
   private String readOAuth2CodeFromArguments()
@@ -87,7 +85,7 @@ public abstract class BaseOsmLoginFragment extends BaseMwmToolbarFragment
 
   protected final void onAuthStarted()
   {
-    mIsErrorShown = false;
+    mErrorText = null;
     UiUtils.hide(mErrorTv);
     enableInput(false);
     UiUtils.show(mProgress);
@@ -117,7 +115,6 @@ public abstract class BaseOsmLoginFragment extends BaseMwmToolbarFragment
   public void onSaveInstanceState(@NonNull Bundle outState)
   {
     super.onSaveInstanceState(outState);
-    outState.putBoolean(STATE_ERROR_SHOWN, mIsErrorShown);
     outState.putString(STATE_ERROR_TEXT, mErrorText);
   }
 
@@ -136,11 +133,12 @@ public abstract class BaseOsmLoginFragment extends BaseMwmToolbarFragment
     requireActivity().finish();
   }
 
-  // This method is called by MwmActivity & UrlProcessor when "om://oauth2/osm/callback?code=XXX" is handled
   private void continueOAuth2Flow(@NonNull String oauth2code)
   {
     if (!isAdded())
       return;
+
+    onAuthStarted();
 
     ThreadPool.getWorker().execute(() -> {
       // Finish OAuth2 auth flow and get username for UI.
