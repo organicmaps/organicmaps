@@ -161,6 +161,7 @@ final class NavigationDashboardViewController: UIViewController {
     setupBottomMenuActions()
     setupTransportOptionsView()
     setupRoutePointsView()
+    setupTransportTransitStepsView()
     setupGestureRecognizers()
     impactGenerator.prepare()
   }
@@ -268,6 +269,12 @@ final class NavigationDashboardViewController: UIViewController {
     reverseRoutePointsButton.configuration = configuration
     reverseRoutePointsButton.accessibilityLabel = L("reverse_route")
     reverseRoutePointsButton.addTarget(self, action: #selector(didTapReverseRoutePointsButton), for: .touchUpInside)
+  }
+
+  private func setupTransportTransitStepsView() {
+    transportTransitStepsView.onTap = { [weak self] steps in
+      self?.interactor?.process(.transitStepsDidTap(steps))
+    }
   }
 
   private func setupTransportOptionsView() {
@@ -609,7 +616,7 @@ extension NavigationDashboardViewController {
       transportOptionsView.set(transportOptions: viewModel.transportOptions,
                                selectedRouterType: viewModel.routerType)
       estimatesView.setState(viewModel.estimatesState)
-      transportTransitStepsView.setNavigationInfo(viewModel.entity)
+      transportTransitStepsView.setNavigationInfo(viewModel.entity, isRouteReady: viewModel.dashboardState == .ready)
       updateElevationProfile(with: viewModel.routeElevationPreviewData,
                              activePointDistance: viewModel.routeElevationActivePointDistance)
       routePointsView.setRoutePoints(viewModel.routePoints)
