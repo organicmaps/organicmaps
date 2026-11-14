@@ -29921,7 +29921,7 @@ zh-Hant = 其他
 
 [routing_planning_error]
 comment = Failed planning route message in navigation view
-tags = apple-maps
+tags = android-app,apple-maps
 en = Route Planning Failed
 af = Roeteberekening het misluk
 ar = فشل في تخطيط المسار
@@ -46767,7 +46767,7 @@ zh-Hant = 樓層（一樓為0）
 
 [navigate_track]
 comment = Start navigation along the selected track.
-tags = apple-maps
+tags = android-app,apple-maps
 en = Navigate
 af = Navigeer
 ar = الملاحة
@@ -46830,7 +46830,7 @@ zh-Hant = 導航
 
 [navigate_track_start]
 comment = Track start point label.
-tags = apple-maps
+tags = android-app,apple-maps
 en = Track Start
 af = Spoorbegin
 ar = بداية المسار
@@ -46895,7 +46895,7 @@ zh-Hant = 軌跡起點
 
 [navigate_track_finish]
 comment = Track finish point label.
-tags = apple-maps
+tags = android-app,apple-maps
 en = Track Finish
 af = Spooreinde
 ar = نهاية المسار
@@ -46960,7 +46960,7 @@ zh-Hant = 軌跡終點
 
 [track_no_remaining_geometry]
 comment = Error when the selected connected track section has no geometry left in the requested direction.
-tags = apple-maps
+tags = android-app,apple-maps
 en = No track remains in this direction. Select another point.
 af = Daar is geen spoor meer in hierdie rigting nie. Kies 'n ander punt.
 ar = لم يتبقَّ أي جزء من المسار في هذا الاتجاه. اختر نقطة أخرى.

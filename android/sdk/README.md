@@ -160,14 +160,23 @@ build can return region IDs that must be downloaded before rebuilding. World
 overview maps alone do not contain the road graph for detailed routing.
 
 Enable the start action only after a successful build in planning mode. Starting
-navigation requires a usable current position and location updates. Stop or
-cancel through the controller. Detaching the UI alone does not cancel navigation.
+navigation requires a created map engine (`Map.isEngineCreated()`), a usable current
+position and location updates. Stop or cancel through the controller. Detaching the
+UI alone does not cancel navigation.
 Call `onSaveState(container)` when the host saves its UI, `restore()` after
 reattaching the active host, and `detach(container)` when that host stops. Only the
 currently attached container can save or detach its UI, so late callbacks from a
 previous host do not affect its replacement. Route state survives activity
 recreation; the host still owns its controls, listener cleanup, and any background
 service.
+
+To navigate a saved track, select a point on it and call
+`RoutingController.navigateTrack(trackId)`: it previews the connected section from
+that point without downloaded road maps. Adjust the preview with
+`setFollowTrackProfile(router)` and `updateFollowedTrackEntryAt(distanceMeters)`, then
+call `start()` after the build succeeds. Navigation can begin after the host stops;
+see `Container.onNavigationStartPending()`. Deleting the source track cancels its
+preview, while started navigation continues.
 
 ## Release consumers
 

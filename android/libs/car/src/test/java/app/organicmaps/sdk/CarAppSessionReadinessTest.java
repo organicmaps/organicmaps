@@ -174,6 +174,22 @@ public class CarAppSessionReadinessTest
   }
 
   @Test
+  public void phoneTrackSessionDismissesOnlyRouteScreens()
+  {
+    when(mRouting.isFollowingTrack()).thenReturn(true);
+    // A permission request above the map screen has no road route to dismiss.
+    when(mManager.getScreenStack()).thenReturn(List.of(mock(Screen.class), mock(Screen.class)));
+    mLifecycle.moveToState(Lifecycle.State.STARTED);
+    mReadiness.complete();
+    verify(mManager, never()).popToRoot();
+
+    when(mManager.getScreenStack()).thenReturn(List.of(mock(Screen.class), mock(PlaceScreen.class)));
+    mLifecycle.moveToState(Lifecycle.State.CREATED);
+    mLifecycle.moveToState(Lifecycle.State.STARTED);
+    verify(mManager).popToRoot();
+  }
+
+  @Test
   public void placeScreenIsNotPushedUntilRoutingIsReady()
   {
     mLifecycle.moveToState(Lifecycle.State.STARTED);
@@ -192,6 +208,19 @@ public class CarAppSessionReadinessTest
     mReadiness.complete();
     mLifecycle.moveToState(Lifecycle.State.STARTED);
     verify(mManager, never()).push(any());
+  }
+
+  @Test
+  public void placeDuringAPhoneTrackSessionIsOnlyDeselected()
+  {
+    when(mRouting.isFollowingTrack()).thenReturn(true);
+    when(mManager.getScreenStack()).thenReturn(List.of(mock(Screen.class)));
+    NativeFramework.sDeactivatedPopups = 0;
+    mLifecycle.moveToState(Lifecycle.State.STARTED);
+    mSession.onPlacePageActivated(MapObject.createMapObject(MapObject.POI, "Place", "", 1, 2));
+    mReadiness.complete();
+    verify(mManager, never()).push(any());
+    assertEquals(1, NativeFramework.sDeactivatedPopups);
   }
 
   @Test
@@ -296,6 +325,14 @@ public class CarAppSessionReadinessTest
   @Implements(Framework.class)
   public static class NativeFramework
   {
+    static int sDeactivatedPopups;
+
+    @Implementation
+    protected static boolean nativeDeactivatePopup()
+    {
+      ++sDeactivatedPopups;
+      return true;
+    }
     @Implementation
     protected static void nativePlacePageActivationListener(PlacePageActivationListener listener)
     {}
