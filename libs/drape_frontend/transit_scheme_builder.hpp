@@ -6,6 +6,7 @@
 #include "drape/render_bucket.hpp"
 #include "drape/render_state.hpp"
 #include "drape/texture_manager.hpp"
+#include "drape/transit_transfer_id.hpp"
 
 #include "transit/transit_display_info.hpp"
 
@@ -87,6 +88,8 @@ struct StopNodeParamsSubway
   m2::PointD m_pivot;
   std::map<routing::transit::ShapeId, ShapeInfoSubway> m_shapesInfo;
   std::map<uint32_t, StopInfo> m_stopsInfo;
+  // Identity of the interchange this node represents; invalid for plain stops.
+  dp::TransitTransferId m_transferId;
 };
 
 class TransitSchemeBuilder

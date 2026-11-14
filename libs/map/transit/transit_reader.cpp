@@ -15,6 +15,8 @@
 
 #include "coding/reader.hpp"
 
+#include "base/stl_helpers.hpp"
+
 #include <algorithm>
 #include <chrono>
 #include <memory>
@@ -25,6 +27,31 @@ namespace
 {
 int constexpr kMinSchemeZoomLevel = 10;
 size_t constexpr kMaxTransitCacheSizeBytes = 5 /* Mb */ * 1024 * 1024;
+
+// Collects the valid station features of every transfer of |transitInfo| from the transfer membership
+// (Transfer::GetStopIds), not from the route-keyed stop params. Feature IDs are sorted and deduplicated.
+std::map<dp::TransitTransferId, std::vector<FeatureID>> BuildTransferStations(MwmSet::MwmId const & mwmId,
+                                                                              TransitDisplayInfo const & transitInfo)
+{
+  std::map<dp::TransitTransferId, std::vector<FeatureID>> result;
+  for (auto const & [transferId, transfer] : transitInfo.m_transfersSubway)
+  {
+    std::vector<FeatureID> features;
+    for (auto const stopId : transfer.GetStopIds())
+    {
+      auto const it = transitInfo.m_stopsSubway.find(stopId);
+      if (it == transitInfo.m_stopsSubway.end())
+        continue;
+      auto const featureIndex = it->second.GetFeatureId();
+      if (featureIndex != kInvalidFeatureId)
+        features.emplace_back(mwmId, featureIndex);
+    }
+    base::SortUnique(features);
+    if (!features.empty())
+      result.emplace(dp::TransitTransferId{mwmId, transferId}, std::move(features));
+  }
+  return result;
+}
 
 size_t CalculateCacheSize(TransitDisplayInfo const & transitInfo)
 {
@@ -230,6 +257,7 @@ void TransitReadManager::EnableTransitSchemeMode(bool enable)
   {
     m_lastActiveMwms.clear();
     m_mwmCache.clear();
+    m_transferStations.clear();
     m_cacheSize = 0;
   }
   else
@@ -254,6 +282,7 @@ void TransitReadManager::BlockTransitSchemeMode(bool isBlocked)
 
     m_lastActiveMwms.clear();
     m_mwmCache.clear();
+    m_transferStations.clear();
     m_cacheSize = 0;
   }
   else
@@ -319,6 +348,11 @@ void TransitReadManager::UpdateViewport(ScreenBase const & screen)
       it->second.m_dataSize = dataSize;
       m_cacheSize += dataSize;
 
+      // Replace the MWM's interchanges wholesale so no transfer from earlier data survives a reload.
+      std::erase_if(m_transferStations, [&mwmId](auto const & entry) { return entry.first.m_mwmId == mwmId; });
+      for (auto & [id, stations] : BuildTransferStations(mwmId, *transitInfo))
+        m_transferStations.emplace(id, std::move(stations));
+
       validTransitData[mwmId] = std::move(transitInfo);
     }
 
@@ -349,7 +383,21 @@ void TransitReadManager::ClearCache(MwmSet::MwmId const & mwmId)
     return;
   m_cacheSize -= it->second.m_dataSize;
   m_mwmCache.erase(it);
+  std::erase_if(m_transferStations, [&mwmId](auto const & entry) { return entry.first.m_mwmId == mwmId; });
   m_drapeEngine.SafeCall(&df::DrapeEngine::ClearTransitSchemeCache, mwmId);
+}
+
+std::vector<FeatureID> TransitReadManager::GetTransferStationFeatures(dp::TransitTransferId const & id) const
+{
+  if (!id.IsValid())
+    return {};
+  auto const it = m_transferStations.find(id);
+  if (it == m_transferStations.end())
+    return {};
+  // Features of a deregistered MWM must not be returned: their IDs refer to freed data.
+  if (!id.m_mwmId.IsAlive())
+    return {};
+  return it->second;
 }
 
 void TransitReadManager::OnMwmDeregistered(platform::LocalCountryFile const & countryFile)
@@ -379,6 +427,7 @@ void TransitReadManager::Clear()
 {
   m_cacheSize = 0;
   m_mwmCache.clear();
+  m_transferStations.clear();
   m_drapeEngine.SafeCall(&df::DrapeEngine::ClearAllTransitSchemeCache);
 }
 
