@@ -1244,3 +1244,15 @@
 
 /* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
 "editor_level" = "Ghorofa (ghorofa ya chini ni 0)";
+
+/* Start navigation along the selected track. */
+"navigate_track" = "Uelekezi";
+
+/* Track start point label. */
+"navigate_track_start" = "Mwanzo wa njia";
+
+/* Track finish point label. */
+"navigate_track_finish" = "Mwisho wa njia";
+
+/* Error when the selected connected track section has no geometry left in the requested direction. */
+"track_no_remaining_geometry" = "Hakuna njia iliyobaki katika mwelekeo huu. Chagua sehemu nyingine.";

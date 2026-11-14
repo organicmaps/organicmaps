@@ -1244,3 +1244,15 @@
 
 /* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
 "editor_level" = "Szint (a földszint 0)";
+
+/* Start navigation along the selected track. */
+"navigate_track" = "Navigáció";
+
+/* Track start point label. */
+"navigate_track_start" = "Nyomvonal kezdete";
+
+/* Track finish point label. */
+"navigate_track_finish" = "Nyomvonal vége";
+
+/* Error when the selected connected track section has no geometry left in the requested direction. */
+"track_no_remaining_geometry" = "Ebben az irányban nem maradt több nyomvonal. Válasszon másik pontot.";
