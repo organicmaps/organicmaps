@@ -108,7 +108,8 @@ XMLFeature GetMatchingFeatureFromOSM(osm::ChangesetWrapper & cw, osm::EditableMa
 
   ASSERT_GREATER_OR_EQUAL(geometry.size(), 3, ("Is it an area feature?"));
 
-  return cw.GetMatchingAreaFeatureFromOSM(geometry);
+  // A building and its building:part often share all nodes; the tags tell which one was edited.
+  return cw.GetMatchingAreaFeatureFromOSM(geometry, editor::ToXML(o, true /* serializeType */));
 }
 
 uint64_t GetMwmCreationTimeByMwmId(MwmSet::MwmId const & mwmId)
