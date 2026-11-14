@@ -655,6 +655,8 @@
     <string name="moreyear_ago_sorttype">ຫຼາຍກວ່າໜຶ່ງປີຜ່ານມາ</string>
     <string name="near_me_sorttype">ໃກ້ຂ້ອຍ</string>
     <string name="others_sorttype">ອື່ນໆ</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">ວາງແຜນເສັ້ນທາງບໍ່ສຳເລັດ</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">ປິດຢູ່ໃນຂະນະນີ້</string>
     <string name="opens_tomorrow_at">ຈະເປີດມື້ອື່ນເວລາ %s</string>
@@ -893,4 +895,14 @@
     <string name="transit_type_train">ລົດໄຟ</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">ລົດລາງ</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">ນຳທາງ</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">ຈຸດເລີ່ມຕົ້ນເສັ້ນທາງ</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">ຈຸດສິ້ນສຸດເສັ້ນທາງ</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">ບໍ່ມີເສັ້ນທາງເຫຼືອໃນທິດທາງນີ້. ເລືອກຈຸດອື່ນ.</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">ເສັ້ນທາງນີ້ບໍ່ມີໃຫ້ໃຊ້ອີກແລ້ວ</string>
 </resources>

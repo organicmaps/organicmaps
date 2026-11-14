@@ -9,4 +9,12 @@
     <string name="route_optimization">Optimisation de l’itinéraire</string>
     <!-- Explains that route optimization automatically reorders intermediate stops -->
     <string name="route_optimization_description">Réorganise automatiquement les étapes intermédiaires afin de créer un itinéraire plus efficace.</string>
+
+    <!-- SECTION: gps strings -->
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Naviguer</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Début de la trace</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Fin de la trace</string>
 </resources>

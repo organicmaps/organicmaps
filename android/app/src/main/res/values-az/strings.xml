@@ -702,6 +702,8 @@
     <string name="moreyear_ago_sorttype">Bir ildən çox əvvəl</string>
     <string name="near_me_sorttype">Mənə yaxın</string>
     <string name="others_sorttype">Digərləri</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Marşrutun planlaşdırılması uğursuz oldu</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">İndi bağlıdır</string>
     <string name="opens_tomorrow_at">Sabah açılır %s</string>
@@ -941,4 +943,14 @@
     <string name="transit_type_train">Qatar</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tramvay</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Naviqasiya</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">İzin başlanğıcı</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">İzin sonu</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">Bu istiqamətdə iz qalmayıb. Başqa nöqtə seçin.</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">İz artıq mövcud deyil</string>
 </resources>
