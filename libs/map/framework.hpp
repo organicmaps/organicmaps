@@ -428,6 +428,8 @@ public:
   void OnLocationUpdate(location::GpsInfo const & info);
   void OnCompassUpdate(location::CompassInfo const & info);
   void SwitchMyPositionNextMode();
+  /// A hidden position mark keeps its mode and is still followed, but it is neither drawn nor tappable.
+  void SetMyPositionVisibility(bool isVisible);
   /// Should be set before Drape initialization. Guarantees that fn is called in main thread context.
   void SetMyPositionModeListener(location::TMyPositionModeChanged && fn);
 

@@ -43,6 +43,13 @@ JNIEXPORT void Java_app_organicmaps_sdk_location_LocationState_nativeRemoveListe
   g_framework->SetMyPositionModeListener(location::TMyPositionModeChanged());
 }
 
+JNIEXPORT void Java_app_organicmaps_sdk_location_LocationState_nativeSetMyPositionVisible(JNIEnv *, jclass,
+                                                                                          jboolean visible)
+{
+  ASSERT(g_framework->IsDrapeEngineCreated(), ());
+  frm()->SetMyPositionVisibility(visible);
+}
+
 JNIEXPORT void Java_app_organicmaps_sdk_location_LocationState_nativeOnLocationError(JNIEnv * env, jclass clazz,
                                                                                      int errorCode)
 {
