@@ -27,8 +27,9 @@ See also the `.reuse/dep5` and `data/copyright.html` file for a full list of cop
 
 Windows runtime packages include Qt 6 libraries and plugins, copyright The Qt Company Ltd.
 and other contributors. Qt is available under the GNU Lesser General Public License
-version 3 or the GNU General Public License version 3. Copies of both licenses are in
-`LICENSES/Windows/LGPL-3.0-only.txt` and `LICENSES/Windows/GPL-3.0-only.txt`.
+version 3 or the GNU General Public License version 3. Windows packages include both licenses
+as `licenses/LICENSES/Windows/LGPL-3.0-only.txt` and
+`licenses/LICENSES/Windows/GPL-3.0-only.txt`.
 Qt source is available from https://code.qt.io/; the bundled Qt version is recorded
 in `build-provenance.json`.
 
