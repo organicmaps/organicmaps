@@ -511,6 +511,105 @@ UNIT_CLASS_TEST(AreasTestFixture, Bookmarks_AreaExportCapabilitiesAndSnapshots)
     RunNextGuiTask();
 }
 
+void ImportBookmarkFiles(AreasTestFixture & fixture, BookmarkManager & manager, std::vector<std::string> const & paths)
+{
+  size_t imported = 0;
+  bool finished = false;
+  BookmarkManager::AsyncLoadingCallbacks callbacks;
+  callbacks.m_onFileSuccess = [&](std::string const &, bool) { ++imported; };
+  callbacks.m_onFinished = [&] { finished = true; };
+  manager.SetAsyncLoadingCallbacks(std::move(callbacks));
+  for (auto const & path : paths)
+    manager.LoadBookmark(path, false /* isTemporaryFile */);
+  manager.LoadBookmarks();
+  while (!finished)
+    fixture.RunNextGuiTask();
+  TEST_EQUAL(imported, paths.size(), ());
+}
+
+UNIT_CLASS_TEST(AreasTestFixture, Bookmarks_ImportParsesInPlace)
+{
+  std::string const unnamedKml = R"(<kml><Document>
+    <Placemark><name>Point</name><Point><coordinates>2,2</coordinates></Point></Placemark>
+  </Document></kml>)";
+  auto const unnamed = LoadKmlData(MemReader(unnamedKml.data(), unnamedKml.size()), FileType::Kml);
+  TEST(unnamed != nullptr, ());
+
+  auto const sourcePath = [](std::string const & name) { return base::JoinPath(GetPlatform().SettingsDir(), name); };
+  // Upper-case extensions, as GPS devices write them: an unnamed category takes the source's name without it.
+  for (auto const & [name, type] : {std::pair{"Route.KML", FileType::Kml},
+                                    {"Track.GEOJSON", FileType::GeoJson},
+                                    {"Places.JSON", FileType::Json},
+                                    {"Backup.KMB", FileType::Kmb}})
+    TEST(SaveKmlFileSafe(*unnamed, sourcePath(name), type), (name));
+  TEST(base::CopyFileX(GetPlatform().TestsDataPathForFile("test_data/gpx/empty_names1.gpx"),
+                       sourcePath("empty_names1.GPX")),
+       ());
+  TEST(base::CopyFileX(GetPlatform().TestsDataPathForFile("test_data/kml/test.kmz"), sourcePath("test.kmz")), ());
+
+  std::map<std::string, std::vector<uint8_t>> sources;
+  for (auto const name : {"Route.KML", "Track.GEOJSON", "Places.JSON", "Backup.KMB", "empty_names1.GPX", "test.kmz"})
+    sources.emplace(sourcePath(name), base::ReadFile(sourcePath(name)));
+
+  BookmarkManager manager(BM_CALLBACKS);
+  manager.EnableTestMode(true);
+  std::vector<std::string> paths;
+  for (auto const & [path, bytes] : sources)
+    paths.push_back(path);
+  ImportBookmarkFiles(*this, manager, paths);
+
+  for (auto const & [path, bytes] : sources)
+  {
+    TEST(Platform::IsFileExistsByFullPath(path), (path));
+    TEST(base::ReadFile(path) == bytes, (path));
+  }
+
+  for (auto const name : {"Route", "Track", "Places", "Backup", "empty_names1", "Jimmy Buffett Hawaii Tour"})
+    TEST_NOT_EQUAL(manager.GetCategoryId(name), kml::kInvalidMarkGroupId, (name));
+  std::set<std::string> trackNames;
+  for (auto const trackId : manager.GetTrackIds(manager.GetCategoryId("empty_names1")))
+    trackNames.insert(manager.GetTrack(trackId)->GetName());
+  TEST_EQUAL(trackNames, (std::set<std::string>{"empty_names1 1", "empty_names1 2"}), ());
+
+  // One storage file per imported category, plus the default category created by the initial load.
+  Platform::TFilesWithType files;
+  Platform::GetFilesByType(GetBookmarksDirectory(), Platform::Regular, files);
+  std::set<std::string> fileNames;
+  for (auto const & [name, type] : files)
+    fileNames.insert(name);
+  TEST_EQUAL(fileNames,
+             (std::set<std::string>{"Backup.kml", "Bookmarks.kml", "Places.kml", "Route.kml", "Track.kml", "doc.kml",
+                                    "empty_names1.kml"}),
+             ());
+}
+
+UNIT_CLASS_TEST(AreasTestFixture, Bookmarks_ImportKeepsSourceTimestamp)
+{
+  std::string const kml = R"(<kml><Document><name>Untimed</name>
+    <Placemark><name>Point</name><Point><coordinates>2,2</coordinates></Point></Placemark>
+  </Document></kml>)";
+  auto const data = LoadKmlData(MemReader(kml.data(), kml.size()), FileType::Kml);
+  TEST(data != nullptr, ());
+  auto const kmlPath = base::JoinPath(GetPlatform().SettingsDir(), "untimed.kml");
+  TEST(SaveKmlFileSafe(*data, kmlPath, FileType::Kml), ());
+  // test.kmz has no timestamps either; its category must not take the mtime of the extracted entry.
+  auto const kmzPath = base::JoinPath(GetPlatform().SettingsDir(), "test.kmz");
+  TEST(base::CopyFileX(GetPlatform().TestsDataPathForFile("test_data/kml/test.kmz"), kmzPath), ());
+  for (auto const & path : {kmlPath, kmzPath})
+    TEST(Platform::SetFileModificationTime(path, 5000), (path));
+
+  BookmarkManager manager(BM_CALLBACKS);
+  manager.EnableTestMode(true);
+  ImportBookmarkFiles(*this, manager, {kmlPath, kmzPath});
+
+  for (auto const name : {"Untimed", "Jimmy Buffett Hawaii Tour"})
+  {
+    auto const groupId = manager.GetCategoryId(name);
+    TEST_NOT_EQUAL(groupId, kml::kInvalidMarkGroupId, (name));
+    TEST_EQUAL(manager.GetCategoryData(groupId).m_lastModified, kml::TimestampClock::from_time_t(5000), (name));
+  }
+}
+
 UNIT_CLASS_TEST(Runner, Bookmarks_AreaCategoryBoundsPreservePolygonFootprints)
 {
   std::string const narrow = R"(<Placemark><MultiGeometry>
@@ -638,11 +737,10 @@ UNIT_TEST(BookmarkImport_CreatesDirectory)
       TEST(SaveKmlFileSafe(data, sourcePath, fileType), (fileType));
 
     TEST(!Platform::IsFileExistsByFullPath(GetBookmarksDirectory()), (fileType));
-    auto const paths = GetKMLOrGPXFilesPathsToLoad(sourcePath);
-    TEST_EQUAL(paths.size(), 1, (fileType));
-    auto const importedType = fileType == FileType::Kmz || fileType == FileType::Kmb ? FileType::Kml : fileType;
-    auto const imported = LoadKmlFile(paths[0], importedType);
-    TEST(imported != nullptr, (fileType));
+    auto const kmlDataCollection = LoadBookmarkFileForImport(sourcePath);
+    TEST(Platform::IsFileExistsByFullPath(GetBookmarksDirectory()), (fileType));
+    TEST_EQUAL(kmlDataCollection.size(), 1, (fileType));
+    auto const & imported = kmlDataCollection[0].second;
     TEST_EQUAL(imported->m_bookmarksData.size(), 1, (fileType));
     TEST_EQUAL(kml::GetDefaultStr(imported->m_bookmarksData[0].m_name), "Test point", (fileType));
   }

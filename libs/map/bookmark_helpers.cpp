@@ -519,53 +519,36 @@ static std::vector<std::string> GetFilePathsToLoadFromKmz(std::string const & fi
   return kmlFilePaths;
 }
 
-static std::vector<std::string> GetFilePathsToLoadFromKmb(std::string const & filePath)
+std::vector<std::pair<std::string, std::unique_ptr<kml::FileData>>> LoadBookmarkFileForImport(
+    std::string const & filePath)
 {
-  // Convert input KMB file and save to temp KML with unique name.
-  auto kmlData = LoadKmlFile(filePath, FileType::Kmb);
-  if (kmlData == nullptr)
-    return {};
-
-  auto fileSavePath = GenerateValidAndUniqueFilePath(base::FileNameFromFullPath(filePath), FileType::Kml);
-  if (!SaveKmlFileByExt(*kmlData, fileSavePath))
-    return {};
-  return {std::move(fileSavePath)};
-}
-
-static std::vector<std::string> GetFilePathsToLoadByType(std::string const & filePath, FileType const fileType)
-{
-  // Copy input file to temp file with unique name.
-  auto fileSavePath = GenerateValidAndUniqueFilePath(base::FileNameFromFullPath(filePath), fileType);
-  if (!base::CopyFileX(filePath, fileSavePath))
-    return {};
-  return {std::move(fileSavePath)};
-}
-
-std::vector<std::string> GetKMLOrGPXFilesPathsToLoad(std::string const & filePath)
-{
-  // Copy or convert or unpack (kmz) file from 'filePath' to GetBookmarksDirectory folder.
-  if (auto const fileType = GetFileType(filePath))
-  {
-    // An import can arrive before a bookmark save creates the directory.
-    if (!Platform::MkDirChecked(GetBookmarksDirectory()))
-      return {};
-
-    switch (*fileType)
-    {
-    case FileType::Kml:
-    case FileType::Gpx:
-    case FileType::GeoJson:
-    case FileType::Json: return GetFilePathsToLoadByType(filePath, *fileType);
-    case FileType::Kmz: return GetFilePathsToLoadFromKmz(filePath);
-    case FileType::Kmb: return GetFilePathsToLoadFromKmb(filePath);
-    }
-    UNREACHABLE();
-  }
-  else
+  std::vector<std::pair<std::string, std::unique_ptr<kml::FileData>>> result;
+  auto const fileType = GetFileType(filePath);
+  if (!fileType)
   {
     LOG(LWARNING, ("Unknown file type", filePath));
-    return {};
+    return result;
   }
+
+  // An import can arrive before a bookmark save creates the directory.
+  if (!Platform::MkDirChecked(GetBookmarksDirectory()))
+    return result;
+
+  if (*fileType != FileType::Kmz)
+  {
+    if (auto kmlData = LoadKmlFile(filePath, *fileType))
+      result.emplace_back(filePath, std::move(kmlData));
+    return result;
+  }
+
+  for (auto & kmlFilePath : GetFilePathsToLoadFromKmz(filePath))
+  {
+    auto kmlData = LoadKmlFile(kmlFilePath, FileType::Kml);
+    base::DeleteFileX(kmlFilePath);
+    if (kmlData)
+      result.emplace_back(std::move(kmlFilePath), std::move(kmlData));
+  }
+  return result;
 }
 
 std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, FileType fileType)
