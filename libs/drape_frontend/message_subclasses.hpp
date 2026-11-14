@@ -488,7 +488,9 @@ public:
   {
     SwitchNextMode,
     LoseLocation,
-    StopFollowing
+    StopFollowing,
+    PauseFollowing,
+    ResumeFollowing
   };
 
   explicit ChangeMyPositionModeMessage(EChangeType changeType) : m_changeType(changeType) {}
