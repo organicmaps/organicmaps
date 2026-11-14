@@ -1209,7 +1209,8 @@ void Framework::ShowBookmarkCategory(kml::MarkGroupId categoryId, bool animation
   ExpandRectForPreview(rect);
 
   StopLocationFollow();
-  ShowRect(rect, animation);
+  // Fit the bookmarks into the part of the map that the UI (e.g. Android Auto panels) doesn't cover.
+  ShowRect(rect, animation, true /* useVisibleViewport */);
 
   auto es = bm.GetEditSession();
   es.SetIsVisible(categoryId, true /* visible */);
