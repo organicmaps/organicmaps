@@ -799,6 +799,7 @@ public:
   TrafficManager & GetTrafficManager();
 
   TransitReadManager & GetTransitManager();
+  TransitReadManager const & GetTransitManager() const;
 
   IsolinesManager & GetIsolinesManager();
   IsolinesManager const & GetIsolinesManager() const;

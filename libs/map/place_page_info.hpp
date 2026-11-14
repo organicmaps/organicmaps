@@ -5,6 +5,8 @@
 
 #include "storage/storage_defines.hpp"
 
+#include "drape/transit_transfer_id.hpp"
+
 #include "drape_frontend/frontend_renderer.hpp"
 #include "drape_frontend/selection_shape.hpp"
 
@@ -110,6 +112,7 @@ struct BuildInfo
     , m_isMyPosition(info.m_isMyPositionTapped)
     , m_featureId(info.m_featureTapped)
     , m_userMarkId(info.m_markTapped)
+    , m_transitTransferId(info.m_transitTransferTapped)
   {}
 
   bool IsFeatureMatchingEnabled() const { return m_match == Match::Everything || m_match == Match::FeatureOnly; }
@@ -125,6 +128,8 @@ struct BuildInfo
   FeatureID m_featureId;
   Match m_match = Match::Everything;
   kml::MarkId m_userMarkId = kml::kInvalidMarkId;
+  // Interchange selected by a transit transfer marker; see dp::TransitTransferId.
+  dp::TransitTransferId m_transitTransferId;
   kml::TrackId m_trackId = kml::kInvalidTrackId;
   bool m_isGeometrySelectionAllowed = false;
   bool m_needAnimationOnSelection = true;
@@ -259,6 +264,11 @@ public:
 
   /// MapObject
   void SetFromFeatureType(FeatureType & ft);
+
+  /// Appends public-transport route relations of |ft|. Call SortUniqueRoutes() after all features are added.
+  void AddPTRoutes(FeatureType & ft);
+  void AddRoute(uint32_t relID, feature::RouteRelationBase const & rel);
+  void SortUniqueRoutes();
 
   void SetWikiDescription(std::string && description) { m_wikiDescription = std::move(description); }
   void SetOSMDescription(std::string && description) { m_osmDescription = std::move(description); }

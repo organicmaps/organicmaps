@@ -9,6 +9,8 @@
 
 #include "kml/type_utils.hpp"
 
+#include "drape/transit_transfer_id.hpp"
+
 #include "indexer/feature_decl.hpp"
 
 #include "geometry/point2d.hpp"
@@ -17,6 +19,7 @@
 
 #include "base/string_utils.hpp"
 
+#include <limits>
 #include <set>
 #include <string>
 #include <tuple>
@@ -123,6 +126,9 @@ public:
   OverlayID const & GetOverlayID() const { return m_id; }
   uint64_t GetPriority() const { return m_priority; }
 
+  TransitTransferId const & GetTransitTransferId() const { return m_transitTransferId; }
+  void SetTransitTransferId(TransitTransferId const & id) { m_transitTransferId = id; }
+
   virtual bool IsBound() const { return false; }
   virtual bool HasLinearFeatureShape() const { return false; }
 
@@ -160,6 +166,7 @@ public:
 
 protected:
   OverlayID const m_id;
+  TransitTransferId m_transitTransferId;
   dp::Anchor const m_anchor;
   uint64_t const m_priority;
 

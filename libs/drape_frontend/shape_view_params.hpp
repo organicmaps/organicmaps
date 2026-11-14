@@ -6,6 +6,7 @@
 #include "drape/drape_global.hpp"
 #include "drape/rainbow_colors.hpp"
 #include "drape/stipple_pen_resource.hpp"  // for PenPatternT
+#include "drape/transit_transfer_id.hpp"
 
 #include "kml/type_utils.hpp"
 
@@ -49,6 +50,8 @@ struct CommonOverlayViewParams : public CommonViewParams
 
   FeatureID m_featureId;
   kml::MarkId m_markId = kml::kInvalidMarkId;
+  // Set only for transit interchange labels/markers; see dp::TransitTransferId.
+  dp::TransitTransferId m_transitTransferId;
 };
 
 struct PoiSymbolViewParams : CommonOverlayViewParams

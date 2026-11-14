@@ -392,6 +392,7 @@ void TransitSchemeBuilder::CollectStopsSubway(TransitDisplayInfo const & transit
     }
     stopNode.m_isTransfer = true;
     stopNode.m_pivot = transfer.GetPoint();
+    stopNode.m_transferId = {mwmId, transfer.GetId()};
   }
 }
 
@@ -913,6 +914,7 @@ void TransitSchemeBuilder::GenerateTitles(ref_ptr<dp::GraphicsContext> context, 
 
   TextViewParams textParams;
   textParams.m_featureId = featureId;
+  textParams.m_transitTransferId = stopParams.m_transferId;
   textParams.m_tileCenter = pivot;
   textParams.m_titleDecl = titleDecl;
   textParams.m_depthTestEnabled = false;
@@ -935,6 +937,7 @@ void TransitSchemeBuilder::GenerateTitles(ref_ptr<dp::GraphicsContext> context, 
   colorParams.m_radiusInPixels = markerSizes.front().x * 0.5f;
   colorParams.m_color = dp::Color::Transparent();
   colorParams.m_featureId = featureId;
+  colorParams.m_transitTransferId = stopParams.m_transferId;
   colorParams.m_tileCenter = pivot;
   colorParams.m_depthTestEnabled = false;
   colorParams.m_depthLayer = DepthLayer::TransitSchemeLayer;
