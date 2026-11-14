@@ -1244,3 +1244,15 @@
 
 /* Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative */
 "editor_level" = "楼层（一楼为0）";
+
+/* Start navigation along the selected track. */
+"navigate_track" = "导航";
+
+/* Track start point label. */
+"navigate_track_start" = "轨迹起点";
+
+/* Track finish point label. */
+"navigate_track_finish" = "轨迹终点";
+
+/* Error when the selected connected track section has no geometry left in the requested direction. */
+"track_no_remaining_geometry" = "此方向上已没有剩余轨迹。请选择其他点。";
