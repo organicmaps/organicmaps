@@ -41,5 +41,6 @@ std::optional<TrackSourcePosition> ResolveTrackEntry(kml::MultiGeometry const & 
                                                      m2::PointD const & selectedPoint, double distanceFromBeginningM);
 
 // Prepare one connected remainder, preserving source order, stops and altitude availability.
-std::expected<routing::TrackFollowingData, FollowTrackResult> BuildTrackFollowingData(
-    kml::TrackData const & source, TrackSourcePosition const & entry);
+std::expected<routing::TrackFollowingData, FollowTrackResult> BuildTrackFollowingData(kml::TrackData const & source,
+                                                                                      TrackSourcePosition const & entry,
+                                                                                      bool reverse);
