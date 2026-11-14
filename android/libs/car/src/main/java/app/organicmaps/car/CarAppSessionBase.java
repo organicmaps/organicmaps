@@ -265,9 +265,10 @@ public abstract class CarAppSessionBase
     if (DownloadMapsScreen.MARKER.equals(mScreenManager.getTop().getMarker()))
       return;
 
-    // Don't display the PlaceScreen for 'MY_POSITION' or during navigation
+    // Don't display the PlaceScreen for 'MY_POSITION', during navigation or while the phone follows a track
     // TODO (AndrewShkrob): Implement the 'Add stop' functionality
-    if (mapObject.isMyPosition() || RoutingController.get().isNavigating())
+    final RoutingController routing = RoutingController.get();
+    if (mapObject.isMyPosition() || routing.isNavigating() || routing.isFollowingTrack())
     {
       Framework.nativeDeactivatePopup();
       return;
@@ -301,13 +302,23 @@ public abstract class CarAppSessionBase
   private void onRestoreRoute()
   {
     final RoutingController routingController = RoutingController.get();
+    // Track previews and journeys remain phone-owned until a geometric car trip is supported.
+    // Only a road-route stack is stale then; permission, download and settings screens stay.
+    if (routingController.isFollowingTrack())
+    {
+      if (hasRouteScreenInStack())
+        mScreenManager.popToRoot();
+      return;
+    }
+
     final boolean isNavigating = routingController.isNavigating();
     final boolean hasNavigatingScreen = hasNavigationScreenInStack();
 
     if (!isNavigating && hasNavigatingScreen)
       mScreenManager.popToRoot();
 
-    if (isNavigating && routingController.getLastRouterType() == PlaceScreen.ROUTER && hasNavigatingScreen)
+    final boolean isCarNavigation = isNavigating && routingController.getLastRouterType() == PlaceScreen.ROUTER;
+    if (isCarNavigation && hasNavigatingScreen)
     {
       mScreenManager.popTo(NavigationScreen.MARKER);
       return;
@@ -329,6 +340,16 @@ public abstract class CarAppSessionBase
     for (final Screen screen : mScreenManager.getScreenStack())
     {
       if (NavigationScreen.MARKER.equals(screen.getMarker()))
+        return true;
+    }
+    return false;
+  }
+
+  private boolean hasRouteScreenInStack()
+  {
+    for (final Screen screen : mScreenManager.getScreenStack())
+    {
+      if (screen instanceof PlaceScreen || NavigationScreen.MARKER.equals(screen.getMarker()))
         return true;
     }
     return false;

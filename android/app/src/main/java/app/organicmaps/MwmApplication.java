@@ -150,7 +150,13 @@ public class MwmApplication extends Application implements Application.ActivityL
     WearBridge.publishNavigating(RoutingController.get().isNavigating());
     // The service outlives phone/car UI handoffs and stops when navigation ends, including in the background.
     RoutingController.get().addNavigationStateListener(navigating -> {
-      if (!navigating)
+      if (navigating)
+      {
+        // A track Start can complete in the background, after location was stopped there.
+        if (LocationUtils.checkLocationPermission(this))
+          getLocationHelper().restartWithNewMode();
+      }
+      else
       {
         NavigationService.stopService(this);
         onNavigationOrRecordingStopped();

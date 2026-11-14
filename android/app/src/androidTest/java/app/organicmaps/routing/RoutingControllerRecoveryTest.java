@@ -15,20 +15,29 @@ import app.organicmaps.MwmActivity;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Router;
+import app.organicmaps.sdk.bookmarks.data.BookmarkCategory;
+import app.organicmaps.sdk.bookmarks.data.BookmarkManager;
+import app.organicmaps.sdk.bookmarks.data.DataChangedListener;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
+import app.organicmaps.sdk.routing.FollowTrackResult;
 import app.organicmaps.sdk.routing.ResultCodes;
 import app.organicmaps.sdk.routing.RouteMarkData;
 import app.organicmaps.sdk.routing.RouteMarkType;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingListener;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.BooleanSupplier;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -57,7 +66,9 @@ public class RoutingControllerRecoveryTest
       }
     });
     assertTrue("Core initialization did not complete", initialized.await(30, TimeUnit.SECONDS));
+    final DataChangedListener singletonBookmarksListener = getBookmarksListener(RoutingController.get());
     onMain(() -> {
+      BookmarkManager.INSTANCE.removeCategoriesUpdatesListener(singletonBookmarksListener);
       mOriginalRouter = Router.getLastUsed();
       Framework.nativeCloseRouting();
       Framework.nativeDeleteSavedRoutePoints();
@@ -72,6 +83,7 @@ public class RoutingControllerRecoveryTest
   {
     if (mController == null)
       return;
+    final DataChangedListener bookmarksListener = getBookmarksListener(mController);
     onMain(() -> {
       if (mContainer != null)
         mController.detach(mContainer);
@@ -79,6 +91,7 @@ public class RoutingControllerRecoveryTest
       Framework.nativeCloseRouting();
       Framework.nativeDeleteSavedRoutePoints();
       Router.set(mOriginalRouter);
+      BookmarkManager.INSTANCE.removeCategoriesUpdatesListener(bookmarksListener);
       RoutingController.get().initialize(mApplication.getLocationHelper());
     });
   }
@@ -222,6 +235,100 @@ public class RoutingControllerRecoveryTest
   }
 
   @Test
+  public void acceptedTrackBuildReplacesTheSavedHostsCancelledResult() throws Exception
+  {
+    try (ImportedTrack track = new ImportedTrack())
+    {
+      onMain(() -> {
+        mContainer = new RoutingController.Container() {};
+        mController.attach(mContainer);
+        mController.onSaveState(mContainer);
+        mController.prepare(point("Start", 3), point("Finish", 3), Router.Ruler);
+        mController.detach(mContainer);
+        assertEquals(FollowTrackResult.Ok, mController.navigateTrack(track.id));
+        mController.attach(mContainer);
+        mController.restore();
+        assertTrue(mController.isPlanning());
+        assertTrue(mController.isBuilding());
+        assertEquals("Trail 🏔", mController.getFollowedTrackInfo().getName());
+        assertEquals(0.0, mController.getFollowedTrackInfo().getEntryDistanceMeters(), 0.0);
+      });
+      await("Track preview did not finish building", mController::isBuilt);
+      onMain(() -> assertTrue(Framework.nativeIsRouteBuilt()));
+    }
+  }
+
+  @Test
+  public void inspectedAndRefusedSelectionsPreserveTheCapturedEntry() throws Exception
+  {
+    try (ImportedTrack track = new ImportedTrack())
+    {
+      onMain(() -> assertEquals(FollowTrackResult.Ok, mController.navigateTrack(track.id)));
+      await("Track preview did not finish building", mController::isBuilt);
+      onMain(() -> assertEquals(FollowTrackResult.Ok, mController.updateFollowedTrackEntryAt(400.0)));
+      await("Entry update did not finish building", mController::isBuilt);
+      onMain(() -> {
+        BookmarkManager.INSTANCE.setElevationActivePoint(track.id, 800.0);
+        assertEquals(FollowTrackResult.NoRemainingGeometry, mController.updateFollowedTrackEntryAt(2000.0));
+        assertEquals(400.0, mController.getFollowedTrackInfo().getEntryDistanceMeters(), 0.0);
+        assertTrue(mController.isBuilt());
+        assertEquals(FollowTrackResult.Ok, mController.setFollowTrackProfile(Router.Vehicle));
+      });
+      await("Profile update did not finish building", mController::isBuilt);
+      onMain(() -> {
+        assertEquals(400.0, mController.getFollowedTrackInfo().getEntryDistanceMeters(), 0.0);
+        assertEquals(FollowTrackResult.Ok, mController.updateFollowedTrackEntryAt(-100.0));
+        assertEquals(0.0, mController.getFollowedTrackInfo().getEntryDistanceMeters(), 0.0);
+      });
+    }
+  }
+
+  @Test
+  public void openingATrackPreviewAnnouncesItOnce() throws Exception
+  {
+    try (ImportedTrack track = new ImportedTrack())
+    {
+      onMain(() -> {
+        final List<String> events = new ArrayList<>();
+        mContainer = new RoutingController.Container() {
+          @Override
+          public void showRoutePlan(boolean show)
+          {
+            events.add("plan " + show);
+          }
+
+          @Override
+          public void updateBuildProgress(int progress, Router router)
+          {
+            events.add("progress " + progress);
+          }
+
+          @Override
+          public void onPlanningStarted()
+          {
+            events.add("planning started");
+          }
+        };
+        mController.attach(mContainer);
+        assertEquals(FollowTrackResult.Ok, mController.navigateTrack(track.id));
+        assertEquals(List.of("plan true", "progress 0", "planning started"), events);
+      });
+    }
+  }
+
+  @Test
+  public void deletingTheTrackCategoryEndsItsPreview() throws Exception
+  {
+    try (ImportedTrack track = new ImportedTrack())
+    {
+      onMain(() -> assertEquals(FollowTrackResult.Ok, mController.navigateTrack(track.id)));
+      await("Track preview did not finish building", mController::isBuilt);
+      onMain(track::deleteCategory);
+      await("Deleting the track did not end its preview", () -> !mController.isPlanning());
+    }
+  }
+
+  @Test
   public void configurationRecreationKeepsRouteRecovery() throws Exception
   {
     // A location permission dialog would pause the Activity during recreation.
@@ -230,7 +337,9 @@ public class RoutingControllerRecoveryTest
       mInstrumentation.getUiAutomation().grantRuntimePermission(mApplication.getPackageName(), ACCESS_COARSE_LOCATION);
       mInstrumentation.getUiAutomation().grantRuntimePermission(mApplication.getPackageName(), ACCESS_FINE_LOCATION);
     }
+    final DataChangedListener bookmarksListener = getBookmarksListener(mController);
     onMain(() -> {
+      BookmarkManager.INSTANCE.removeCategoriesUpdatesListener(bookmarksListener);
       mController = RoutingController.get();
       mController.initialize(mApplication.getLocationHelper());
     });
@@ -278,10 +387,84 @@ public class RoutingControllerRecoveryTest
     return MapObject.createMapObject(MapObject.API_POINT, name, "", coordinate, coordinate);
   }
 
+  private static DataChangedListener getBookmarksListener(RoutingController controller)
+      throws ReflectiveOperationException
+  {
+    final Field listener = RoutingController.class.getDeclaredField("mBookmarksListener");
+    listener.setAccessible(true);
+    return (DataChangedListener) listener.get(controller);
+  }
+
   private void onMain(Runnable action) throws Exception
   {
     final FutureTask<Void> task = new FutureTask<>(action, null);
     mInstrumentation.runOnMainSync(task);
     task.get();
+  }
+
+  private void await(String message, BooleanSupplier condition) throws Exception
+  {
+    final long deadline = SystemClock.uptimeMillis() + TimeUnit.SECONDS.toMillis(30);
+    while (true)
+    {
+      final FutureTask<Boolean> task = new FutureTask<>(condition::getAsBoolean);
+      mInstrumentation.runOnMainSync(task);
+      if (task.get())
+        return;
+      assertTrue(message, SystemClock.uptimeMillis() < deadline);
+      Thread.sleep(10);
+    }
+  }
+
+  private final class ImportedTrack implements AutoCloseable
+  {
+    private final File source = File.createTempFile("track-preview-", ".kml", mApplication.getCacheDir());
+    final long id;
+
+    ImportedTrack() throws Exception
+    {
+      try (FileWriter writer = new FileWriter(source))
+      {
+        writer.write(String.format("""
+            <kml xmlns="http://www.opengis.net/kml/2.2"><Document>
+            <name>%s</name><Placemark><name>Trail 🏔</name>
+            <LineString><coordinates>0,0,100 0.01,0,200</coordinates></LineString>
+            </Placemark></Document></kml>
+            """, source.getName()));
+      }
+      onMain(() -> BookmarkManager.INSTANCE.loadBookmarksFile(source.getAbsolutePath(), false));
+      await("Track was not imported", () -> category() != null);
+      final FutureTask<Long> selected = new FutureTask<>(() -> category().getTrackIdByPosition(0));
+      mInstrumentation.runOnMainSync(selected);
+      id = selected.get();
+      onMain(() -> BookmarkManager.INSTANCE.setElevationActivePoint(id, 0.0));
+    }
+
+    private BookmarkCategory category()
+    {
+      return BookmarkManager.INSTANCE.getCategories()
+          .stream()
+          .filter(item -> item.getName().equals(source.getName()) && item.getTracksCount() == 1)
+          .findFirst()
+          .orElse(null);
+    }
+
+    // Runs on the main thread.
+    void deleteCategory()
+    {
+      final BookmarkCategory category = category();
+      if (category != null)
+        BookmarkManager.INSTANCE.deleteCategory(category.getId());
+    }
+
+    @Override
+    public void close() throws Exception
+    {
+      onMain(() -> {
+        mController.cancel();
+        deleteCategory();
+      });
+      source.delete();
+    }
   }
 }

@@ -1050,7 +1050,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
   protected void onResumeFragments()
   {
     super.onResumeFragments();
-    RoutingController.get().restore();
+    final RoutingController routing = RoutingController.get();
+    routing.restore();
+    // Planning can end while this activity is stopped and detached, e.g. by Stop in the navigation notification after a
+    // track Start completed in the background. Nothing removed the plan from this activity then.
+    if (!routing.isPlanning() && !routing.isNavigating()
+        && getSupportFragmentManager().findFragmentByTag(RoutingPlanFragment.TAG) != null)
+    {
+      showRoutePlan(false);
+      onPlanningCancelled();
+    }
   }
 
   @Override
@@ -1405,6 +1414,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   @Override
+  public void onNavigationStartPending()
+  {
+    // Navigation can begin after the phone is locked, when the foreground service can no longer be started.
+    if (LocationUtils.checkFineLocationPermission(this))
+      NavigationService.startForegroundService(this);
+  }
+
+  @Override
   public void onPlanningCancelled()
   {
     closeFloatingToolbarsAndPanels();
@@ -1532,6 +1549,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
     // +S+F-L -> Hide
     // +S+F+L -> Hide
     final MapObject myPosition = MwmApplication.from(this).getLocationHelper().getMyPosition();
+
+    // Track navigation needs a position for its approach; show the existing notice until GPS is available.
+    if (controller.isFollowingTrack())
+    {
+      if (myPosition != null)
+        return true;
+      showStartFromCurrentPositionNotice(null /* rerouteAction */);
+      return false;
+    }
+
     if (myPosition != null && controller.getEndPoint() == null)
       return false;
     if (controller.getStartPoint() == null)
@@ -1544,22 +1571,31 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return true;
 
     final MapObject endPoint = Objects.requireNonNull(controller.getEndPoint());
+    showStartFromCurrentPositionNotice(
+        endPoint.isMyPosition() ? (dialog, which) -> controller.swapPoints() : (dialog, which) -> {
+          // The current location may change while this dialog is still shown on the screen.
+          controller.setStartPoint(myPosition);
+        });
+    return false;
+  }
+
+  /**
+   * The standard "navigation is only available from your current location" notice.
+   *
+   * @param rerouteAction what the OK button does, or {@code null} when there is nothing to
+   *                      reroute (no location fix at all): the notice is then informational.
+   */
+  private void showStartFromCurrentPositionNotice(@Nullable DialogInterface.OnClickListener rerouteAction)
+  {
     final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
-        .setTitle(R.string.p2p_only_from_current)
-        .setMessage(R.string.p2p_reroute_from_current)
-        .setCancelable(false)
-        .setNegativeButton(R.string.cancel, null)
-        .setPositiveButton(R.string.ok, endPoint.isMyPosition() ?
-            (dialog, which) -> controller.swapPoints() :
-            (dialog, which) -> {
-              // The current location may change while this dialog is still shown on the screen.
-              controller.setStartPoint(myPosition);
-            }
-        )
-        .setOnDismissListener(dialog -> mAlertDialog = null);
+                                                   .setTitle(R.string.p2p_only_from_current)
+                                                   .setCancelable(false)
+                                                   .setPositiveButton(R.string.ok, rerouteAction)
+                                                   .setOnDismissListener(dialog -> mAlertDialog = null);
+    if (rerouteAction != null)
+      builder.setMessage(R.string.p2p_reroute_from_current).setNegativeButton(R.string.cancel, null);
     dismissAlertDialog();
     mAlertDialog = builder.show();
-    return false;
   }
 
   @Override

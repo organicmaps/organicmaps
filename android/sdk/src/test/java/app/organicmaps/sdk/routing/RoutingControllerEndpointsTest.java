@@ -21,6 +21,12 @@ public class RoutingControllerEndpointsTest
     }
 
     @Override
+    public boolean isFollowingTrack()
+    {
+      return false;
+    }
+
+    @Override
     public MapObject getStartPoint()
     {
       return start;

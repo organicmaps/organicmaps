@@ -1239,6 +1239,11 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsRoutingActive(JNIE
   return frm()->GetRoutingManager().IsRoutingActive();
 }
 
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsRoutingFollowing(JNIEnv *, jclass)
+{
+  return frm()->GetRoutingManager().IsRoutingFollowing();
+}
+
 JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsRouteBuilding(JNIEnv * env, jclass)
 {
   return frm()->GetRoutingManager().IsRouteBuilding();
@@ -1267,6 +1272,60 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeFollowRoute(JNIEnv * env
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeDisableFollowing(JNIEnv * env, jclass)
 {
   frm()->GetRoutingManager().DisableFollowMode();
+}
+
+JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeNavigateTrack(JNIEnv *, jclass, jlong trackId)
+{
+  return static_cast<jint>(frm()->GetRoutingManager().NavigateTrack(static_cast<kml::TrackId>(trackId)));
+}
+
+JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeResetFollowedTrackToPlanning(JNIEnv *, jclass)
+{
+  return static_cast<jint>(frm()->GetRoutingManager().ResetFollowedTrackToPlanning());
+}
+
+JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeUpdateFollowedTrackEntryAt(JNIEnv *, jclass,
+                                                                                   jdouble distanceMeters)
+{
+  return static_cast<jint>(frm()->GetRoutingManager().UpdateFollowedTrackEntryAt(distanceMeters));
+}
+
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeStartFollowedTrack(JNIEnv *, jclass)
+{
+  auto & manager = frm()->GetRoutingManager();
+  ASSERT(manager.IsFollowingTrack(), ());
+  manager.FollowRoute();
+  return manager.IsRoutingFollowing() || manager.IsStartingFollowedTrack();
+}
+
+JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeSetFollowTrackProfile(JNIEnv *, jclass, jint routerType)
+{
+  return static_cast<jint>(
+      frm()->GetRoutingManager().SetFollowTrackProfile(static_cast<routing::RouterType>(routerType)));
+}
+
+JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsFollowingTrack(JNIEnv *, jclass)
+{
+  return frm()->GetRoutingManager().IsFollowingTrack();
+}
+
+JNIEXPORT jobject Java_app_organicmaps_sdk_Framework_nativeGetFollowedTrackInfo(JNIEnv * env, jclass)
+{
+  auto const info = frm()->GetRoutingManager().GetFollowedTrackInfo();
+  if (!info)
+    return nullptr;
+
+  static jclass const infoClass = jni::GetGlobalClassRef(env, "app/organicmaps/sdk/routing/FollowedTrackInfo");
+  static jmethodID const infoCtor = jni::GetConstructorID(env, infoClass, "(JLjava/lang/String;D)V");
+
+  jni::TScopedLocalRef const name(env, jni::ToJavaStringWithSupplementalCharsFix(env, info->m_name));
+  return env->NewObject(infoClass, infoCtor, static_cast<jlong>(info->m_id), name.get(),
+                        static_cast<jdouble>(info->m_entryDistanceM));
+}
+
+JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetRenderRouterType(JNIEnv *, jclass)
+{
+  return static_cast<jint>(frm()->GetRoutingManager().GetRenderRouterType());
 }
 
 JNIEXPORT jobjectArray Java_app_organicmaps_sdk_Framework_nativeGenerateNotifications(JNIEnv * env, jclass,
