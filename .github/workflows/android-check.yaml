@@ -17,6 +17,7 @@ on:
       - .gitignore
       - .github/**
       - '!.github/workflows/android-check.yaml'  # Run check on self change
+      - '!.github/actions/setup-gradle/**'
       - '**/*.md'
       - '**/*_tests/**'
       - CONTRIBUTORS
@@ -52,6 +53,9 @@ jobs:
     steps:
       - name: Checkout sources
         uses: actions/checkout@v6
+
+      - name: Set up Gradle
+        uses: ./.github/actions/setup-gradle
 
       - name: Lint
         shell: bash
@@ -108,6 +112,12 @@ jobs:
         with:
           # Needed for versioning script
           fetch-depth: 200 # enough to get all commits for the current day
+
+      - name: Set up Gradle
+        uses: ./.github/actions/setup-gradle
+        with:
+          # One writer covers the app, Wear and tests without duplicating dependency bundles.
+          cache-read-only: ${{ github.ref != 'refs/heads/master' || matrix.flavor != 'WebDebug' }}
 
       - name: Parallel submodules checkout
         shell: bash

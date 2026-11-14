@@ -1,0 +1,23 @@
+name: Set up Gradle
+description: Cache Gradle distributions and downloaded Android dependencies
+
+inputs:
+  cache-read-only:
+    description: Only restore caches; WebDebug on master populates them
+    default: 'true'
+
+runs:
+  using: composite
+  steps:
+    - uses: gradle/actions/setup-gradle@v5
+      with:
+        cache-read-only: ${{ inputs.cache-read-only }}
+        # setup-gradle caches wrapper distributions and dependency artifacts separately.
+        # Limit the remaining state to dependency metadata to preserve the shared quota.
+        gradle-home-cache-includes: caches/modules-2
+        # Exclude generated jars, scripts and transforms from the separate caches too.
+        gradle-home-cache-excludes: |
+          caches/[0-9]*
+          caches/jars-*
+          caches/transforms-*
+          jdks

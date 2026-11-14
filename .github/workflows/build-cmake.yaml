@@ -274,6 +274,18 @@ jobs:
             ctest --preset "$PRESET_DRAPE" --verbose
           fi
 
+      - name: Upload test failure diagnostics
+        if: ${{ failure() && matrix.environment.run-tests != 'OFF' }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: test-failure-${{ matrix.environment.os }}-${{ matrix.environment.cc }}-${{ matrix.cmake-build-type }}-${{ github.run_attempt }}
+          path: |
+            build/test_writable/**/*-actual.png
+            build/test_writable/**/*-expected.png
+            build/test_writable/**/*-difference-mask.png
+          if-no-files-found: ignore
+          retention-days: 14
+
       # Reconfigure after the existing tests so they keep their development paths.
       - name: Build Windows direct staging variant
         if: ${{ runner.os == 'Windows' && matrix.cmake-build-type == 'Release' }}
