@@ -198,7 +198,10 @@ bool IsLeftHandTraffic(storage::CountryId const & countryId)
 
 - (void)stopRoutingAndRemoveRoutePoints:(BOOL)flag
 {
+  BOOL const wasFollowingTrack = self.rm.IsFollowingTrack();
   self.rm.CloseRouting(flag);
+  if (wasFollowingTrack)
+    [[MWMCarPlayService shared] phoneTrackSessionDidEnd];
   [MWMThemeManager invalidate];
 }
 
