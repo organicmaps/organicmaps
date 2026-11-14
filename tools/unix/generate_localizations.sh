@@ -96,6 +96,20 @@ GenerateAndroidLocalesConfig
 
 # Generate Android strings
 GenerateStringResource "strings.txt" android/app/src/main/res android android-app ""
+# Twine writes into existing locale directories; mirror the main app's locale set.
+for android_strings_file in "$OMIM_PATH"/android/app/src/main/res/values*/strings.xml; do
+  native_strings_dir=$(basename "$(dirname "$android_strings_file")")
+  mkdir -p "$OMIM_PATH/android/app/src/nativeLogin/res/$native_strings_dir"
+done
+GenerateStringResource "strings.txt" android/app/src/nativeLogin/res android android-native-login ""
+# Preserve regional aliases that Twine does not generate directly (e.g. zh-MO).
+for android_strings_file in "$OMIM_PATH"/android/app/src/main/res/values*/strings.xml; do
+  if [[ -L "$android_strings_file" ]]; then
+    native_strings_dir=$(basename "$(dirname "$android_strings_file")")
+    ln -sfn "$(readlink "$android_strings_file")" \
+      "$OMIM_PATH/android/app/src/nativeLogin/res/$native_strings_dir/strings.xml"
+  fi
+done
 GenerateStringResource "strings.txt" android/sdk/src/main/res android android-sdk ""
 GenerateStringResource "strings.txt" android/libs/car/src/main/res android android-libs-car ""
 GenerateStringResource "strings.txt" android/libs/downloader/src/main/res android android-libs-downloader ""
