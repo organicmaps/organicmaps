@@ -6,16 +6,17 @@
 #include "indexer/feature_covering.hpp"
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_visibility.hpp"
-#include "indexer/interval_index_builder.hpp"
+#include "indexer/scale_index.hpp"
+#include "indexer/v2/cell_trie.hpp"
 
 #include "defines.hpp"
 
 #include "coding/dd_vector.hpp"
 #include "coding/file_sort.hpp"
-#include "coding/var_serial_vector.hpp"
 #include "coding/writer.hpp"
 
 #include "base/base.hpp"
+#include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 #include "base/scope_guard.hpp"
@@ -128,10 +129,16 @@ void IndexScales(feature::DataHeader const & header, FeaturesVector const & feat
 
   uint32_t const bucketsCount = header.GetLastScale() + 1;
 
-  std::vector<CellFeatureBucketTuple> cellsToFeaturesAllBuckets;
+  // The trie of the cells with a root for every bucket.
+  idx::v2::CellTrieBuilder builder(
+      base::checked_cast<uint8_t>(covering::GetCodingDepth<RectId::DEPTH_LEVELS>(header.GetLastScale())),
+      base::checked_cast<uint8_t>(bucketsCount));
   {
-    auto const PushCFT = [&cellsToFeaturesAllBuckets](CellFeatureBucketTuple const & v)
-    { cellsToFeaturesAllBuckets.push_back(v); };
+    auto const PushCFT = [&builder](CellFeatureBucketTuple const & v)
+    {
+      auto const & cellFeature = v.GetCellFeaturePair();
+      builder.Add(v.GetBucket(), cellFeature.GetCell(), cellFeature.GetValue());
+    };
     using TDisplacementManager = DisplacementManager<decltype(PushCFT)>;
 
     // Single-point features are heuristically rearranged and filtered to simplify
@@ -143,7 +150,6 @@ void IndexScales(feature::DataHeader const & header, FeaturesVector const & feat
     std::vector<uint32_t> cellsInBucket(bucketsCount);
     features.ForEach(FeatureCoverer<TDisplacementManager>(header, manager, featuresInBucket, cellsInBucket));
     manager.Displace();
-    std::sort(cellsToFeaturesAllBuckets.begin(), cellsToFeaturesAllBuckets.end());
 
     for (uint32_t bucket = 0; bucket < bucketsCount; ++bucket)
     {
@@ -156,31 +162,16 @@ void IndexScales(feature::DataHeader const & header, FeaturesVector const & feat
     }
   }
 
-  VarSerialVectorWriter<Writer> recordWriter(writer, bucketsCount);
-  auto it = cellsToFeaturesAllBuckets.begin();
-
-  for (uint32_t bucket = 0; bucket < bucketsCount; ++bucket)
-  {
-    /// @todo Can avoid additional vector here with the smart iterator adapter.
-    std::vector<CellFeatureBucketTuple::CellFeaturePair> cellsToFeatures;
-    while (it < cellsToFeaturesAllBuckets.end() && it->GetBucket() == bucket)
-    {
-      cellsToFeatures.push_back(it->GetCellFeaturePair());
-      ++it;
-    }
-
-    SubWriter<Writer> subWriter(writer);
-    LOG(LINFO, ("Building interval index for bucket:", bucket));
-    BuildIntervalIndex(cellsToFeatures.begin(), cellsToFeatures.end(), subWriter, RectId::DEPTH_LEVELS * 2 + 1);
-
-    recordWriter.FinishRecord();
-  }
+  LOG(LINFO, ("Building the trie of the cells."));
+  ScaleIndexBase::Header const indexHeader;
+  writer.Write(&indexHeader, sizeof(indexHeader));
+  builder.Flush(writer);
 
   // todo(@pimenov). There was an old todo here that said there were
   // features (coastlines) that have been indexed despite being invisible at the last scale.
   // This should be impossible but it is better to recheck it.
 
-  LOG(LINFO, ("All scale indexes done."));
+  LOG(LINFO, ("The scale index is done."));
 }
 
 }  // namespace covering

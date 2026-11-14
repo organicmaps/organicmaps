@@ -72,6 +72,7 @@ Automatically [generated](TRANSLATIONS.md#technical-details):
 - `tools/` - various scripts for building packages and maps, testing, managing translations etc.
 
 - `generator/` - map building tool.
+- `geo_index_benchmark/` - compares the geometry index of a map with the rebuilt one of the latest version.
 - `poly_borders/` - borders post-processing tool.
 - `skin_generator/` - a console app for building skin files with icons and symbols.
 - `topography_generator/` - generates isolines from SRTM data.

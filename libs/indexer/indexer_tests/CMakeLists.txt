@@ -6,10 +6,12 @@ set(SRC
   categories_test.cpp
   cell_coverer_test.cpp
   cell_id_test.cpp
+  cell_trie_tests.cpp
   centers_table_test.cpp
   checker_test.cpp
   cities_boundaries_serdes_tests.cpp
   classificator_tests.cpp
+  counting_reader.hpp
   custom_keyvalue_tests.cpp
   data_source_test.cpp
   drules_format_tests.cpp
@@ -22,6 +24,7 @@ set(SRC
   feature_types_test.cpp
   features_offsets_table_test.cpp
   features_vector_test.cpp
+  ids_packet_tests.cpp
   index_builder_test.cpp
   interval_index_test.cpp
   metadata_serdes_tests.cpp
@@ -31,9 +34,11 @@ set(SRC
   read_features_tests.cpp
   road_shields_parser_tests.cpp
   scale_index_reading_tests.cpp
+  scale_index_tests.cpp
   search_string_utils_test.cpp
   sort_and_merge_intervals_test.cpp
   string_slice_tests.cpp
+  succinct_wrapper_tests.cpp
   test_mwm_set.hpp
   test_type.cpp
   tmp_mwm_copy.hpp

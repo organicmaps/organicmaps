@@ -40,6 +40,13 @@ public:
     return m_level;
   }
 
+  // The bits of FromBitsAndLevel(): two per level, the child of the root in the highest ones.
+  uint64_t Bits() const
+  {
+    ASSERT(IsValid(), (m_bits, m_level));
+    return m_bits;
+  }
+
   CellId Parent() const
   {
     ASSERT(IsValid(), (m_bits, m_level));
@@ -267,13 +274,16 @@ public:
     ASSERT_LESS_OR_EQUAL(static_cast<uint64_t>(v), TreeSizeForDepth(depth), ());
     uint64_t bits = 0;
     int level = 0;
-    while (v > 1)
+    uint64_t number = static_cast<uint64_t>(v);
+    while (number > 1)
     {
-      bits <<= 2;
       ++level;
       uint64_t const subtreeSize = TreeSizeForDepth(depth - level);
-      for (--v; static_cast<uint64_t>(v) > subtreeSize; v -= subtreeSize)
-        ++bits;
+      --number;
+      // Without branches: the child of a cell is not predictable.
+      uint64_t const child = (number > subtreeSize) + (number > 2 * subtreeSize) + (number > 3 * subtreeSize);
+      bits = (bits << 2) | child;
+      number -= child * subtreeSize;
     }
     return CellId(bits, level);
   }

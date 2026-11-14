@@ -129,6 +129,9 @@ set(SRC
   unique_index.hpp
   utils.cpp
   utils.hpp
+  v2/cell_trie.hpp
+  v2/ids_packet.hpp
+  v2/succinct_wrapper.hpp
   validate_and_format_contacts.cpp
   validate_and_format_contacts.hpp
   value_set.hpp

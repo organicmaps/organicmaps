@@ -2,7 +2,9 @@
 
 namespace succinct {
 
-    void rs_bit_vector::build_indices(bool with_select_hints, bool with_select0_hints)
+    template <>
+    void rs_bit_vector_t<mapper::mappable_vector<uint64_t>>::build_indices(bool with_select_hints,
+                                                                           bool with_select0_hints)
     {
         {
             using broadword::popcount;

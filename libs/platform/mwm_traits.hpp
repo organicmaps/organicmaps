@@ -13,10 +13,10 @@ class MwmTraits
 public:
   enum class SearchIndexFormat
   {
-    // A compressed bit vector of feature indices is
-    // stored behind every node of the search trie.
+    // Feature indices are stored behind every node of the search trie.
     // This format corresponds to ValueList<Uint64IndexValue>.
-    // Section has header.
+    // Section has header, its version tells how the indices of a node are
+    // serialized: as a compressed bit vector or as an ids packet.
     CompressedBitVectorWithHeader,
   };
 

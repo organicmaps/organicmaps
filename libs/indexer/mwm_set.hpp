@@ -28,6 +28,8 @@ namespace indexer
 {
 class MetadataDeserializer;
 }
+template <class Reader>
+class ScaleIndex;
 
 /// Information about stored mwm.
 class MwmInfo : public ds::SetInfoBase
@@ -246,6 +248,7 @@ public:
 private:
   version::MwmVersion m_version;
   feature::DataHeader m_header;
+  std::unique_ptr<ScaleIndex<ModelReaderPtr>> m_scaleIndex;
 
 public:
   // m_ftTable should always present, m_relTable maybe nullptr.
@@ -259,6 +262,11 @@ public:
   ~MwmValue();
 
   void SetTable(MwmInfoEx & info);
+
+  /// The geometry index of the value, opened on the first call. Unlike the offsets tables, the
+  /// values of a map do not share it: nothing of it is loaded into memory, a lookup reads through
+  /// the reader of this value, and the values work in different threads.
+  ScaleIndex<ModelReaderPtr> const & GetScaleIndex();
 
   feature::DataHeader const & GetHeader() const { return m_header; }
   version::MwmVersion const & GetMwmVersion() const { return m_version; }
