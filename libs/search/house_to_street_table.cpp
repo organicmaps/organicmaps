@@ -16,6 +16,7 @@
 
 #include "defines.hpp"
 
+#include <algorithm>
 #include <vector>
 
 namespace search
@@ -27,7 +28,10 @@ class EliasFanoMap : public HouseToStreetTable
 public:
   using Map = MapUint32ToValue<uint32_t>;
 
-  explicit EliasFanoMap(std::unique_ptr<Reader> && reader) : m_reader(std::move(reader))
+  EliasFanoMap(std::unique_ptr<Reader> && reader, uint32_t keyOffset, uint32_t valueOffset)
+    : m_reader(std::move(reader))
+    , m_keyOffset(keyOffset)
+    , m_valueOffset(valueOffset)
   {
     ASSERT(m_reader, ());
     auto readBlockCallback = [](auto & source, uint32_t blockSize, std::vector<uint32_t> & values)
@@ -50,15 +54,20 @@ public:
   // HouseToStreetTable overrides:
   std::optional<Result> Get(uint32_t houseId) const override
   {
-    uint32_t fID;
-    if (!m_map->Get(houseId, fID))
+    if (houseId < m_keyOffset)
       return {};
-    return {{fID, StreetIdType::FeatureId}};
+
+    uint32_t fID;
+    if (!m_map->Get(houseId - m_keyOffset, fID))
+      return {};
+    return {{fID + m_valueOffset, StreetIdType::FeatureId}};
   }
 
 private:
   std::unique_ptr<Reader> m_reader;
   std::unique_ptr<Map> m_map;
+  uint32_t const m_keyOffset;
+  uint32_t const m_valueOffset;
 };
 
 class DummyTable : public HouseToStreetTable
@@ -82,11 +91,12 @@ std::unique_ptr<HouseToStreetTable> LoadHouseTableImpl(MwmValue const & value, s
     HouseToStreetTable::Header header;
     ReaderSource source(reader);
     header.Read(source);
-    CHECK(header.m_version == HouseToStreetTable::Version::V2, ());
+    CHECK(header.m_version == HouseToStreetTable::Version::V2 || header.m_version == HouseToStreetTable::Version::V3,
+          ());
 
     auto subreader = reader.GetPtr()->CreateSubReader(header.m_tableOffset, header.m_tableSize);
     CHECK(subreader, ());
-    result = std::make_unique<EliasFanoMap>(std::move(subreader));
+    result = std::make_unique<EliasFanoMap>(std::move(subreader), header.m_keyOffset, header.m_valueOffset);
   }
   catch (Reader::OpenException const & ex)
   {
@@ -112,7 +122,16 @@ std::unique_ptr<HouseToStreetTable> LoadHouseToPlaceTable(MwmValue const & value
 // HouseToStreetTableBuilder -----------------------------------------------------------------------
 void HouseToStreetTableBuilder::Put(uint32_t houseId, uint32_t streetId)
 {
-  m_builder.Put(houseId, streetId);
+  if (m_empty)
+  {
+    // Keys arrive in increasing order, so the first key is the minimum.
+    m_keyOffset = houseId;
+    m_valueOffset = streetId;
+    m_empty = false;
+  }
+  CHECK_GREATER_OR_EQUAL(houseId, m_keyOffset, ());
+  m_valueOffset = std::min(m_valueOffset, streetId);
+  m_builder.Put(houseId - m_keyOffset, streetId);
 }
 
 void HouseToStreetTableBuilder::Freeze(Writer & writer) const
@@ -121,18 +140,19 @@ void HouseToStreetTableBuilder::Freeze(Writer & writer) const
   CHECK(coding::IsAlign8(startOffset), ());
 
   HouseToStreetTable::Header header;
+  header.m_keyOffset = m_keyOffset;
+  header.m_valueOffset = m_valueOffset;
   header.Serialize(writer);
 
   uint64_t bytesWritten = writer.Pos();
   coding::WritePadding(writer, bytesWritten);
 
-  // Each street id is encoded as delta from some prediction.
-  // First street id in the block encoded as VarUint, all other street ids in the block
-  // encoded as VarInt delta from previous id
-  auto const writeBlockCallback = [](auto & w, auto begin, auto end)
+  // The first id in each block is relative to the minimum table value.
+  // Other ids are encoded as VarInt deltas from the previous id.
+  auto const writeBlockCallback = [valueOffset = header.m_valueOffset](auto & w, auto begin, auto end)
   {
     CHECK(begin != end, ());
-    WriteVarUint(w, *begin);
+    WriteVarUint(w, *begin - valueOffset);
     auto prevIt = begin;
     for (auto it = begin + 1; it != end; ++it)
     {
