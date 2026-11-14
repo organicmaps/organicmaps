@@ -705,6 +705,8 @@
     <string name="moreyear_ago_sorttype">Ավելի քան մեկ տարի առաջ</string>
     <string name="near_me_sorttype">Իմ մոտակայքում</string>
     <string name="others_sorttype">Այլ</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Երթուղու պլանավորումը ձախողվեց</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Փակ է</string>
     <string name="opens_tomorrow_at">Բացվում է վաղը %s</string>
@@ -952,4 +954,12 @@
     <string name="error_enter_correct_level">Մուտքագրեք վավեր հարկի համարը</string>
     <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
     <string name="editor_level">Հարկ (առաջին հարկը 0 է)</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Նավիգացիա</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Հետագծի սկիզբ</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Հետագծի ավարտ</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">Այս ուղղությամբ հետագիծ չի մնացել։ Ընտրեք այլ կետ։</string>
 </resources>

@@ -704,6 +704,8 @@
     <string name="moreyear_ago_sorttype">Više od godinu dana</string>
     <string name="near_me_sorttype">U mojoj blizini</string>
     <string name="others_sorttype">Drugo</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Planiranje rute nije uspjelo</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Zatvoreno sada</string>
     <string name="opens_tomorrow_at">Otvara se sutra u %s</string>
@@ -954,4 +956,12 @@
     <string name="error_enter_correct_level">Unesite valjan broj kata</string>
     <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
     <string name="editor_level">Kat (prizemlje je 0)</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Navigacija</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Početak staze</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Kraj staze</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">U ovom smjeru nema više staze. Odaberite drugu točku.</string>
 </resources>

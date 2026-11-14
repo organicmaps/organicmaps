@@ -703,6 +703,8 @@
     <string name="moreyear_ago_sorttype">Vairāk nekā pirms gada</string>
     <string name="near_me_sorttype">Man tuvumā</string>
     <string name="others_sorttype">Cits</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Maršruta plānošana neizdevās</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Šobrīd slēgts</string>
     <string name="opens_tomorrow_at">Atveras rīt %s</string>
@@ -953,4 +955,12 @@
     <string name="error_enter_correct_level">Ierakstiet derīgu stāva numuru</string>
     <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
     <string name="editor_level">Stāvs (pirmais stāvs ir 0)</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Navigēt</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Pēdojuma sākums</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Pēdojuma beigas</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">Šajā virzienā pēdojums vairs neturpinās. Izvēlieties citu punktu.</string>
 </resources>
