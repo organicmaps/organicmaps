@@ -1209,7 +1209,7 @@ void Framework::ShowBookmarkCategory(kml::MarkGroupId categoryId, bool animation
   ExpandRectForPreview(rect);
 
   StopLocationFollow();
-  // Fit the bookmarks into the part of the map that the UI (e.g. Android Auto panels) doesn't cover.
+  // Fit the bookmarks into the part of the map not covered by side or car panels (CarPlay, Android Auto).
   ShowRect(rect, animation, true /* useVisibleViewport */);
 
   auto es = bm.GetEditSession();
