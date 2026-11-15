@@ -11,6 +11,19 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven { url = 'https://www.jitpack.io' } // MPAndroidChart
+        // Vulkan validation layers are published as GitHub release archives only.
+        // @see groovy/vulkan-validation-layers.gradle
+        def repositoryHandler = delegate as RepositoryHandler
+        exclusiveContent { exclusive ->
+            exclusive.forRepository {
+                repositoryHandler.ivy { IvyArtifactRepository repository ->
+                    repository.url = 'https://github.com/KhronosGroup/Vulkan-ValidationLayers/releases/download'
+                    repository.patternLayout { it.artifact 'vulkan-sdk-[revision]/[artifact]-[revision].[ext]' }
+                    repository.metadataSources { it.artifact() }
+                }
+            }
+            exclusive.filter { it.includeGroup 'org.khronos.vulkan' }
+        }
     }
 }
 rootProject.name = 'Organic Maps'
