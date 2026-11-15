@@ -22,6 +22,9 @@
 
 #include "indexer/editable_map_object.hpp"
 
+#include "geometry/mercator.hpp"
+
+#include "platform/distance.hpp"
 #include "platform/platform.hpp"
 
 #include "coding/reader.hpp"
@@ -458,14 +461,9 @@ void DrawWidget::keyReleaseEvent(QKeyEvent * e)
 
 std::string DrawWidget::GetDistance(search::Result const & res) const
 {
-  platform::Distance dist;
   if (auto const position = m_framework.GetCurrentPosition())
-  {
-    auto const ll = mercator::ToLatLon(*position);
-    double dummy;
-    (void)m_framework.GetDistanceAndAzimut(res.GetFeatureCenter(), ll.m_lat, ll.m_lon, -1.0, dist, dummy);
-  }
-  return dist.ToString();
+    return platform::Distance::CreateFormatted(mercator::DistanceOnEarth(*position, res.GetFeatureCenter())).ToString();
+  return {};
 }
 
 void DrawWidget::CreateFeature()

@@ -144,7 +144,6 @@ public class DirectionFragment extends BaseMwmDialogFragment implements Location
     final DistanceAndAzimut da = Framework.nativeGetDistanceAndAzimuthFromLatLon(
         mMapObject.getLat(), mMapObject.getLon(), last.getLatitude(), last.getLongitude(), north);
 
-    if (da.getAzimuth() >= 0)
-      mAvDirection.setAzimuth(da.getAzimuth());
+    mAvDirection.setAzimuth(da.getAzimuth());
   }
 }

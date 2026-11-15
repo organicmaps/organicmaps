@@ -1820,7 +1820,7 @@ void Framework::FillSearchResultsMarks(SearchResultsIterT beg, SearchResultsIter
   }
 }
 
-bool Framework::GetDistanceAndAzimut(m2::PointD const & point, double lat, double lon, double north,
+void Framework::GetDistanceAndAzimut(m2::PointD const & point, double lat, double lon, double north,
                                      platform::Distance & distance, double & azimut)
 {
 #ifdef FIXED_LOCATION
@@ -1831,22 +1831,11 @@ bool Framework::GetDistanceAndAzimut(m2::PointD const & point, double lat, doubl
 
   double const d = ms::DistanceOnEarth(lat, lon, mercator::YToLat(point.y), mercator::XToLon(point.x));
 
-  // Distance may be less than 1.0
   distance = platform::Distance::CreateFormatted(d);
 
-  // We calculate azimuth even when distance is very short (d ~ 0),
-  // because return value has 2 states (near me or far from me).
-
-  azimut = ang::Azimuth(mercator::FromLatLon(lat, lon), point, north);
-
-  double const pi2 = 2.0 * math::pi;
-  if (azimut < 0.0)
-    azimut += pi2;
-  else if (azimut > pi2)
-    azimut -= pi2;
-
-  // This constant and return value is using for arrow/flag choice.
-  return (d < 25000.0);
+  auto const from = mercator::FromLatLon(lat, lon);
+  m2::PointD const to(mercator::NearestWrapX(point.x, from.x), point.y);
+  azimut = ang::Azimuth(from, to, north);
 }
 
 m2::PointD Framework::PtoG(m2::PointD const & p) const

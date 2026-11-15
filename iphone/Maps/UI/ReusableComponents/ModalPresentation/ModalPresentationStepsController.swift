@@ -79,13 +79,13 @@ final class ModalPresentationStepsController<Step: ModalPresentationStep> {
         nextStep = topStep
       } else if abs(translation.y) > Constants.maxRecognizedTranslation {
         nextStep = nearestStep(for: currentFrame.origin.y)
-      } else if velocity.y > Constants.slowSwipeVelocity && translation.y > Constants.minRecognizedTranslation {
+      } else if velocity.y > Constants.slowSwipeVelocity, translation.y > Constants.minRecognizedTranslation {
         if stepStrategy.lowerTo(currentStep) == .hidden {
           nextStep = .hidden
         } else {
           nextStep = stepStrategy.lowerTo(currentStep)
         }
-      } else if velocity.y < -Constants.slowSwipeVelocity && translation.y < -Constants.minRecognizedTranslation {
+      } else if velocity.y < -Constants.slowSwipeVelocity, translation.y < -Constants.minRecognizedTranslation {
         nextStep = stepStrategy.upperTo(currentStep)
       } else {
         nextStep = nearestStep(for: currentFrame.origin.y)
