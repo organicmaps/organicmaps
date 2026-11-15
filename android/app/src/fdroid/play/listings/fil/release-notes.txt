@@ -1,9 +1,12 @@
-• OSM: 28 Setyembre; Wikipedia: 21 Setyembre
-• Mas mahusay na alternatibong ruta at pagtataya ng pagdating
-• Bagong setting na nag-o-optimize sa pagkakasunod-sunod ng mga hintuan
-• Ang mga bagong pindutan ay nagdaragdag o pumapalit ng mga hintuan sa mga planadong ruta
-• Ang napiling alternatibong ruta ay pinananatili habang nagna-navigate
-• Mga pag-aayos at pagpapabuti sa pagre-record ng track
-• Naayos ang pag-import ng KMB
-• Pag-aayos at pagpapabuti ng UI
-…mas marami sa omaps.org/news
+• 3D na lupain, lalim ng dagat, linyang kontur (m/ft), taas sa bawat punto
+• OSM: Nobyembre 10
+• I-import at ipakita ang mga lugar sa KML/KMZ/GeoJSON
+• Detalye ng ruta ng pampublikong sasakyan
+• Bagong display ng bilis
+• Widget sa pag-record ng track
+• Taas ng GPS sa itaas ng antas ng dagat
+• Mga arrow at highlight ng track
+• Hiwalay na opsyon sa kotse, bisikleta at paglakad
+• Baliktarin ang ruta pati mga hintuan
+• Inayos ang kontrol sa recording, ETA at mga crash sa Android Auto
+…omaps.org/news

@@ -1,9 +1,12 @@
-• Údaje OSM k 28. září, Wikipedie k 21. září
-• Vylepšené alternativní trasy a jejich odhadované časy příjezdu
-• Bylo přidáno nastavení pro optimalizaci pořadí mezilehlých zastávek na trase
-• Přidána tlačítka pro přidání nebo nahrazení zastávky v naplánované trase
-• Vybraná alternativní trasa se nyní během navigace zachovává
-• Opraveno a vylepšeno zaznamenávání tras
-• Opraven import souborů KMB
-• Vylepšení a opravy uživatelského rozhraní
-…více podrobností na omaps.org/cs/news
+• 3D terén, hloubka oceánu, vrstevnice (m/ft) a výška v libovolném bodě
+• Data OSM k 10. listopadu
+• Import a zobrazení oblastí KML/KMZ/GeoJSON
+• Podrobnosti tras veřejné dopravy
+• Nové zobrazení rychlosti
+• Widget pro záznam stopy
+• Nadmořská výška podle GPS
+• Šipky směru a zvýraznění stop
+• Volby zvlášť pro auto, kolo a chůzi
+• Obrácení tras včetně mezilehlých bodů
+• Opravy ovládání záznamu, časů příjezdu a pádů v Android Auto
+…omaps.org/cs/news

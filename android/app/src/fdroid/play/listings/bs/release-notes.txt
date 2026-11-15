@@ -1,9 +1,12 @@
-• OSM podaci od 28. septembra, Wikipedija od 21. septembra
-• Poboljšane alternativne rute i njihova procijenjena vremena dolaska
-• Dodana je postavka za optimizaciju redoslijeda međutačaka na ruti
-• Dodata su dugmad za dodavanje ili zamjenu usputne tačke u planiranoj ruti
-• Odabrana alternativna ruta sada se čuva tokom navigacije
-• Popravljeno i poboljšano snimanje staze
-• Popravljen je uvoz KMB datoteka
-• Poboljšanja i ispravke korisničkog interfejsa
-…više detalja na omaps.org/news
+• 3D teren, dubine oceana, izohipse (m/ft) i visina bilo gdje na karti
+• OSM podaci od 10. novembra
+• Uvoz i prikaz KML/KMZ/GeoJSON područja
+• Detalji ruta javnog prijevoza
+• Novi prikaz brzine
+• Widget za snimanje staze
+• Visina po GPS-u iznad nivoa mora
+• Strelice smjera i isticanje staza
+• Odvojene opcije za vožnju, biciklizam i pješačenje
+• Obrtanje ruta s usputnim tačkama
+• Ispravljene kontrole snimanja, vremena dolaska i rušenja u Android Auto
+…omaps.org/news

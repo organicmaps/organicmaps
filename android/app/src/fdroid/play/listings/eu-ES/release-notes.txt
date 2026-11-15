@@ -1,9 +1,12 @@
-• OSM: irailaren 28a; Wikipedia: irailaren 21a
-• Ibilbide alternatibo hobeak eta iritsiera-estimazioak
-• Ezarpen berri batek geldialdien ordena optimizatzen du
-• Botoi berriek planifikatutako ibilbideetako geldialdiak gehitu edo ordezkatzen dituzte
-• Aukeratutako ibilbide alternatiboa nabigatzean mantentzen da
-• Arrastoen grabazioaren konponketak eta hobekuntzak
-• KMB inportazioa konpondu da
-• UIko konponketak eta hobekuntzak
-…gehiago hemen omaps.org/eu/news
+• 3Dko erliebea, itsas sakonerak, sestra-kurbak (m/ft), altuera nonahi
+• Azaroaren 10eko OSM datuak
+• KML/KMZ/GeoJSON eremuak inportatu eta ikusi
+• Garraio publikoko lineen xehetasunak
+• Abiadura-adierazle berria
+• Arrastoak grabatzeko widgeta
+• GPS altitudea itsas mailarekiko
+• Arrastoen geziak eta nabarmentzea
+• Aukera bereiziak autoz, bizikletaz eta oinez
+• Ibilbidea geralekuekin alderantzikatu
+• Grabazio-kontrolak, iritsiera-orduak eta Android Auto-ren itxierak konponduta
+…omaps.org/eu/news

@@ -1,33 +1,55 @@
-## Routing
-• Improved alternative routes and their estimated arrival times
-• Added buttons for adding or replacing a stop in a planned route
-• Added a setting to optimise the order of intermediate route stops
-• The selected alternative route is now preserved when navigation recalculates the route
-• The order of route stops is now restored after restarting the app
+## Map & terrain
+• NEW: 3D terrain and ocean depths, detailed contour lines in metres and feet, and elevation at any point on the map
+• OpenStreetMap data as of 10 November, Wikipedia articles as of 1 November
+• Dashed intermittent waterways, clearer water labels and new railway bridge outlines
+• Added barbers, Pilates studios, window installers, waterworks and covered reservoirs
+• Fixed non-working transliteration and rendering of Hebrew and Arabic map labels
+• Reduced memory use and fixed crashes when switching map styles
 
-## Map
-• OpenStreetMap data as of 28 September
-• Wikipedia data as of 21 September
-• Water reservoirs are now visible when zoomed further out
-• Waterway tunnels are no longer shown on the map
-• Fixed Suzhou Metro station and entrance icons
-• Fixed rare cases where labels shifted out of position on the metro map layer
+## Routing & navigation
+• Updated route planning and added a button to reverse a planned route, including all intermediate stops
+• Driving, cycling and walking now have separate avoidance settings
+• The start or destination can now be removed directly in the route planner
+• A new destination can be added even when the previous route could not be calculated
+• Improved route restoration, recalculation, alternative routes and duration estimates
+• Improved public transport arrival estimates, walking connections and station entrance markers
+• Fixed saved routes losing their starting segment or using an outdated current-position point
+• Fixed outdated speed-camera warnings
+• Fixed replacing route points at the stop limit and the clipped routing-settings indicator
+
+## Bookmarks, tracks & areas
+• NEW: Import and display areas from KML, KMZ and GeoJSON files, including fills, outlines and holes
+• Added track direction arrows and a contrasting outline for selected tracks
+• Opening a track from a list now selects its beginning
+• Track recordings now keep a backup updated once a minute for recovery after a crash
+• KML files preserve a saved route’s intermediate stops and travel mode
+• Bookmarks and tracks sort by name in the order expected by your language
+• Bookmark list names, descriptions and images refresh correctly after reloading
+• Fixed elevation profiles after returning to the map and when viewing flat or zoomed sections
+• Fixed crashes when deleting edited tracks and failures on the first bookmark import
+• Improved KML, GPX and GeoJSON imports
 
 ## CarPlay
-• Added manoeuvre instructions on supported car head-up displays (HUDs) and the CarPlay dashboard
-• Fixed CarPlay buttons and search
+• Bookmark lists refresh after edits, reloads and deletions
+• Fixed missing bookmarks at the list limit and crashes when selecting deleted entries
 
-## Tracks
-• Added an eye icon to hide individual tracks
-• Fixed bugs and improved track recording
-• Fixed importing KMB files
+## Search & downloads
+• Search suggestions preserve accents and capitalisation
+• Improved map-region detection, including across the 180° meridian
+• Improved map download cancellation, retries, resuming and background downloads
+• Fixed duplicate map counts and inflated update sizes
+• Improved map-editor category search, cuisine sorting and Norwegian Bokmål name edits
 
-## Search
-• Fixed searches when the visible map area crosses the 180° meridian (±180° longitude)
-• Restored category search in Spotlight
+## UI & translations
+• Added Welsh
+• Improved navigation voice sorting and fixed voice-preview phrases
+• Improved transit previews with more transport symbols, wrapping line numbers and right-to-left layouts
+• Fixed the compass position in right-to-left layouts and route text contrast in dark mode
+• Kept navigation confirmation buttons accessible with large text sizes
+• Fixed place-detail dragging, dismissal and opening consecutive map links
+• Fixed a crash when map downloads update place details before they finish loading
+• Fixed menu and Settings links and highlighting
+• Improved translations, spoken directions and language choices
+• Fixed community links in About
 
-## UI
-• Opening hours now display “Noon” for 12:00 and “Midnight” for 00:00 or 24:00
-• Fixed various bugs and improved the user interface
-• Corrected English, French and Asturian translations
-• Added support for choosing and previewing an installed navigation voice
+See the detailed release notes at organicmaps.app/news

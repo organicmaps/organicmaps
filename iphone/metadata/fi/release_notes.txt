@@ -1,33 +1,55 @@
-## Reititys
-• Parannetut vaihtoehtoiset reitit ja niiden arvioidut saapumisajat
-• Lisätty painikkeet pysähdyksen lisäämiseksi tai korvaamiseksi suunnitellulla reitillä
-• Lisätty asetus reitin välipysähdysten järjestyksen optimoimiseksi
-• Valittu vaihtoehtoinen reitti säilyy nyt, kun navigointi laskee reitin uudelleen
-• Reittipysähdysten järjestys palautuu nyt sovelluksen uudelleenkäynnistyksen jälkeen
+## Kartta ja maasto
+• UUTTA: 3D-maasto, meren syvyydet, tarkat korkeuskäyrät metreinä ja jalkoina sekä korkeus missä tahansa kartan pisteessä
+• OpenStreetMap-tiedot 10. marraskuuta, Wikipedia-artikkelit 1. marraskuuta
+• Ajoittaiset vesiuomat näkyvät katkoviivoina, vesistöjen nimet ovat selkeämpiä ja rautatiesilloilla on uudet ääriviivat
+• Lisätty parturit, pilatesstudiot, ikkuna-asentajat, vesilaitokset ja katetut vesisäiliöt
+• Korjattu heprean- ja arabiankielisten karttatekstien translitterointi ja näyttäminen
+• Vähennetty muistin käyttöä ja korjattu kaatumisia karttatyylien vaihtamisen yhteydessä
 
-## Kartta
-• OpenStreetMap-tiedot 28. syyskuuta
-• Wikipedia-tiedot 21. syyskuuta
-• Vesialtaat näkyvät nyt, kun karttaa loitonnetaan entisestään
-• Vesitunneleita ei enää näytetä kartalla
-• Korjattu Suzhou Metron asemien ja sisäänkäyntien kuvakkeet
-• Korjattu harvinaisia tapauksia, joissa merkinnät siirtyivät pois paikaltaan metrokarttakerroksessa
+## Reititys ja navigointi
+• Päivitetty reittisuunnittelu ja lisätty painike, jolla reitin voi kääntää välipisteineen
+• Erilliset vältettävien osuuksien asetukset autoilulle, pyöräilylle ja kävelylle
+• Lähtöpisteen tai määränpään voi poistaa reittisuunnittelijassa
+• Lisää uusi määränpää, vaikka edellistä reittiä ei voitu laskea
+• Parannettu reitin palautusta, uudelleenlaskentaa, vaihtoehtoreittejä ja kestoarvioita
+• Tarkemmat joukkoliikenteen saapumisarviot, paremmat kävely-yhteydet ja asemien sisäänkäyntimerkinnät
+• Tallennettu reitti ei enää menetä alkuosuuttaan eikä käytä vanhentunutta sijaintipistettä
+• Korjattu vanhentuneet nopeuskameravaroitukset
+• Korjattu reittipisteen vaihto välipisteiden enimmäismäärässä ja reittiasetusten ilmaisimen leikkautuminen
+
+## Kirjanmerkit, reittitallenteet ja alueet
+• UUTTA: Alueiden tuonti ja näyttö KML-, KMZ- ja GeoJSON-tiedostoista, mukaan lukien täytöt, ääriviivat ja aukot
+• Reittitallenteissa on suuntanuolet, ja valittu tallenne erottuu ääriviivalla
+• Reittitallenteen avaaminen luettelosta valitsee sen alkupisteen
+• Reittitallenteesta tehdään varmuuskopio kerran minuutissa kaatumisen varalta
+• KML-tiedostot säilyttävät tallennetun reitin välipisteet ja kulkutavan
+• Kirjanmerkit ja reittitallenteet lajitellaan nimen mukaan kielesi mukaisesti
+• Kirjanmerkkiluetteloiden nimet, kuvaukset ja kuvat päivittyvät oikein uudelleenlatauksessa
+• Korjattu korkeusprofiilit palattaessa kartalle sekä tasaisia tai zoomattuja osia katseltaessa
+• Korjattu kaatumiset muokattuja reittitallenteita poistettaessa ja virheet kirjanmerkkien ensimmäisessä tuonnissa
+• KML-, GPX- ja GeoJSON-tuonnin parannukset
 
 ## CarPlay
-• Lisätty ajo-ohjeet tuetuille auton head-up-näytöille (HUD) ja CarPlay-kojelautaan
-• CarPlay-painikkeet ja haku on korjattu
+• Kirjanmerkkiluettelot päivittyvät muokkausten, uudelleenlatausten ja poistojen jälkeen
+• Korjattu kirjanmerkkien puuttuminen luettelon enimmäiskoossa ja kaatumiset poistettuja merkintöjä valittaessa
 
-## Jäljet
-• Lisätty silmäkuvake yksittäisten jälkien piilottamista varten
-• Korjattu virheitä ja parannettu jälkien tallennusta
-• KMB-tiedostojen tuonti on korjattu
+## Haku ja lataukset
+• Hakuehdotukset säilyttävät tarkkeet sekä isot ja pienet kirjaimet
+• Kartta-alueet tunnistetaan paremmin myös 180° pituuspiirin yli
+• Parannettu karttalatausten perumista, uudelleenyrityksiä, jatkamista ja taustalatauksia
+• Korjattu karttojen laskeminen kahteen kertaan ja liian suuret arviot päivitysten koosta
+• Parannettu karttamuokkaimen luokkahakua, keittiötyyppien lajittelua ja norjan bokmålinkielisten nimien muokkausta
 
-## Haku
-• Korjattu hakutoiminto tilanteissa, joissa näkyvä kartta-alue ylittää 180°:n meridiaanin (pituusaste ±180°)
-• Kategoriahaku on palautettu Spotlightiin
+## Käyttöliittymä ja käännökset
+• Lisätty kymri
+• Parannettu navigointiäänien järjestystä ja korjattu ääninäytteiden lauseita
+• Joukkoliikenteen esikatselussa on lisää liikennevälineiden symboleita, linjanumerot rivittyvät ja asettelu tukee kirjoitusta oikealta vasemmalle
+• Korjattu kompassin sijainti oikealta vasemmalle luettavissa asetteluissa ja reittitekstin kontrasti tummassa tilassa
+• Navigoinnin vahvistuspainikkeet ovat käytettävissä myös suurella tekstillä
+• Korjattu paikan tietonäkymän vetäminen ja sulkeminen sekä peräkkäisten karttalinkkien avaaminen
+• Korjattu kaatuminen, kun karttalataus päivitti paikan tietoja ennen niiden latautumista
+• Korjattu valikko- ja Asetukset-linkkien toiminta sekä niiden korostus
+• Parannettu käännöksiä, ääniohjeita ja kielivalintoja
+• Korjattu yhteisölinkit ”Tietoja”-osiossa
 
-## Käyttöliittymä
-• Aukioloajoissa näytetään nyt ”Keskipäivä” klo 12.00 ja ”Keskiyö” klo 00.00 tai 24.00.
-• Korjattu useita virheitä ja parannettu käyttöliittymää
-• Korjattuja englannin-, ranskan- ja asturiankielisiä käännöksiä
-• Lisätty tuki asennetun navigointiäänen valintaan ja ääninäytteen kuunteluun
+Katso yksityiskohtaiset julkaisutiedot osoitteessa organicmaps.app/news

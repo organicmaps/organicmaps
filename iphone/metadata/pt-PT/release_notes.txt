@@ -1,33 +1,55 @@
-## Cálculo de percursos
-• Rotas alternativas melhoradas e os respetivos tempos estimados de chegada
-• Foram adicionados botões para adicionar ou substituir uma paragem numa rota planeada
-• Foi adicionada uma configuração para otimizar a ordem das paragens intermédias da rota
-• A rota alternativa selecionada é agora mantida quando a navegação recalcula a rota
-• A ordem das paragens da rota é agora restaurada após o reinício da aplicação
+## Mapa e terreno
+• NOVIDADE: relevo 3D, profundidades oceânicas, curvas de nível detalhadas em metros e pés e altitude em qualquer ponto
+• Dados do OpenStreetMap de 10 de novembro e artigos da Wikipédia de 1 de novembro
+• Cursos de água intermitentes tracejados, nomes de água mais claros e novos contornos de pontes ferroviárias
+• Adicionados barbeiros, estúdios de Pilates, instaladores de janelas, sistemas de abastecimento de água e reservatórios cobertos
+• Corrigidas a transliteração e a apresentação de etiquetas em hebraico e árabe
+• Menor consumo de memória e correção de falhas ao mudar o estilo do mapa
 
-## Mapa
-• Dados do OpenStreetMap a 28 de setembro
-• Dados da Wikipédia a 21 de setembro
-• Os reservatórios de água estão agora visíveis ao afastar ainda mais o zoom
-• Os túneis de água já não são apresentados no mapa
-• Corrigidos os ícones das estações e entradas do Metro de Suzhou
-• Corrigiram-se casos raros em que as legendas ficavam deslocadas na camada do mapa do metro
+## Planeamento e navegação
+• Planeamento atualizado e botão para inverter o percurso com todas as paragens intermédias
+• Opções distintas de vias a evitar para carro, bicicleta e deslocação a pé
+• Remova o ponto de partida ou o destino no planeador de percursos
+• Definir um novo destino após uma falha no cálculo do percurso
+• Melhoria na restauração de percursos, no recálculo, nas alternativas e nas estimativas de duração
+• Melhoraram-se as estimativas de chegada dos transportes públicos, as ligações a pé e os marcadores das entradas das estações
+• Os percursos guardados mantêm o troço inicial e usam a posição atualizada
+• Corrigidos os avisos desatualizados sobre radares de velocidade
+• Correção da substituição de pontos no limite de paragens e do indicador cortado das definições de percurso
+
+## Favoritos, trajetos e áreas
+• NOVO: Importar e apresentar áreas em KML, KMZ e GeoJSON com preenchimentos, contornos e aberturas
+• Setas de direção e contorno contrastante nos trajetos selecionados
+• Ao abrir um trajeto a partir de uma lista é selecionado o seu início
+• Cópia automática da gravação a cada minuto para recuperar o trajeto após uma falha
+• Os ficheiros KML mantêm as paragens intermédias e o modo de viagem dos percursos guardados
+• Favoritos e trajetos ordenados por nome de acordo com o idioma
+• Nomes, descrições e imagens das listas de favoritos atualizados ao recarregar
+• Corrigidos os perfis de elevação após o regresso ao mapa e em secções planas ou ampliadas
+• Corrigidas falhas ao eliminar trajetos editados e erros na primeira importação de favoritos
+• Importações melhoradas de KML, GPX e GeoJSON
 
 ## CarPlay
-• Foram adicionadas instruções de manobra nos ecrãs de visualização frontal (HUD) dos automóveis compatíveis e no painel de instrumentos do CarPlay
-• Corrigidos os botões do CarPlay e a função de pesquisa
+• As listas de favoritos são atualizadas após edições, recargas e eliminações
+• Corrigidos os favoritos em falta no limite da lista e as falhas ao selecionar entradas eliminadas
 
-## Percursos gravados
-• Foi adicionado um ícone de olho para ocultar percursos individuais
-• Corrigiram-se erros e melhorou-se o registo de percursos
-• Corrigida a importação de ficheiros KMB
+## Pesquisa e transferências
+• As sugestões de pesquisa mantêm os acentos e as maiúsculas
+• Melhor deteção de regiões do mapa, inclusive através do meridiano de 180°
+• Melhorias ao cancelar, repetir e retomar transferências de mapas e ao transferir em segundo plano
+• Corrigidas contagens duplicadas de mapas e tamanhos de atualização inflacionados
+• Melhorou-se a pesquisa por categoria no editor de mapas, a ordenação por tipo de cozinha e as edições de nomes em norueguês bokmål
 
-## Pesquisar
-• Corrigiram-se as pesquisas quando a área visível do mapa atravessa o meridiano de 180° (±180° de longitude)
-• Foi restaurada a pesquisa por categoria no Spotlight
+## Interface do utilizador e traduções
+• Adicionado o galês
+• Melhor classificação das vozes de navegação e correção das frases de pré-visualização
+• Pré-visualizações dos transportes públicos com mais símbolos, quebra de linha nos números e disposição da direita para a esquerda
+• Corrigida a posição da bússola em layouts da direita para a esquerda e o contraste do texto da rota no modo escuro
+• Botões de confirmação da navegação acessíveis com texto grande
+• Correção ao arrastar e fechar os detalhes do local e abrir ligações sucessivas para o mapa
+• Corrigida uma falha ao atualizar detalhes de um local ainda a carregar durante a transferência de mapas
+• Ligações e realce corrigidos no menu e nas Definições
+• Melhores traduções, instruções faladas e opções de idioma
+• Corrigidas as ligações da comunidade em «Sobre»
 
-## IU
-• Os horários de funcionamento passaram a apresentar «Meio-dia» para as 12:00 e «Meia-noite» para as 00:00 ou 24:00
-• Foram corrigidos vários erros e melhorada a interface do utilizador
-• Traduções corrigidas em inglês, francês e asturiano
-• Foi adicionada a possibilidade de selecionar uma voz de navegação instalada e ouvir uma amostra
+Notas completas em organicmaps.app/pt/news

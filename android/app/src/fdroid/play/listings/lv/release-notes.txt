@@ -1,9 +1,12 @@
-• OSM: 28. septembris; Vikipēdija: 21. septembris
-• Labāki alternatīvie maršruti un paredzamie ierašanās laiki
-• Jauns iestatījums optimizē starppunktu secību
-• Jaunās pogas ļauj pievienot vai aizstāt starppunktus plānotajos maršrutos
-• Navigācijas laikā tiek saglabāts izvēlētais alternatīvais maršruts
-• Pēdojumu ierakstīšanas labojumi un uzlabojumi
-• KMB importēšanas problēma novērsta
-• Lietotāja saskarnes labojumi un uzlabojumi
-…vairāk šeit omaps.org/news
+• 3D reljefs, okeānu dziļumi, augstumlīknes (m/ft), augstums jebkurā punktā
+• OSM dati līdz 10. novembrim
+• KML/KMZ/GeoJSON apgabalu imports un attēlošana
+• Sabiedriskā transporta līniju informācija
+• Jauns ātruma rādījums
+• Pēdojuma ieraksta logrīks
+• GPS augstums virs jūras līmeņa
+• Pēdojumu virzienbultas un izcelšana
+• Atsevišķi iestatījumi auto, velosipēdam un iešanai
+• Maršruta apgriešana ar pieturām
+• Labotas ieraksta pogas, ierašanās laiki un Android Auto avārijas
+…omaps.org/news

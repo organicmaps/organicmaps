@@ -1,33 +1,55 @@
-## Rota Oluşturma
-• Geliştirilmiş alternatif rotalar ve tahmini varış süreleri
-• Planlanmış bir rotaya durak eklemek veya değiştirmek için düğmeler eklendi
-• Ara rota duraklarının sırasını optimize etmek için bir ayar eklendi
-• Navigasyon rotayı yeniden hesapladığında, seçilen alternatif rota artık korunmaktadır
-• Uygulama yeniden başlatıldıktan sonra rota duraklarının sırası artık eski haline getiriliyor
+## Harita ve arazi
+• YENİ: 3D arazi ve okyanus derinlikleri, metre ve fit cinsinden ayrıntılı eş yükselti eğrileri ve haritanın her noktasında rakım
+• 10 Kasım tarihli OpenStreetMap verileri, 1 Kasım tarihli Vikipedi maddeleri
+• Mevsimsel akarsular için kesikli çizgiler, daha okunaklı su adları ve yeni demiryolu köprüsü ana hatları
+• Berberler, pilates stüdyoları, pencere montaj firmaları, su tesisleri ve kapalı su depoları eklendi
+• İbranice ve Arapça harita etiketlerinin çevriyazı ve görüntüleme hataları düzeltildi
+• Harita stilleri arasında geçiş yaparken bellek kullanımı azaltıldı ve çökme sorunları giderildi
 
-## Harita
-• 28 Eylül itibarıyla OpenStreetMap verileri
-• 21 Eylül itibarıyla Wikipedia verileri
-• Artık haritayı daha fazla uzaklaştırdığınızda su rezervuarları görünür hale geliyor
-• Su tünelleri artık haritada gösterilmiyor
-• Suzhou Metro istasyon ve giriş simgeleri düzeltildi
-• Metro harita katmanında etiketlerin yerinden kaydığı nadir durumlar düzeltildi
+## Rota planlama ve navigasyon
+• Rota planlama güncellendi ve tüm ara duraklarla birlikte rotayı tersine çeviren bir düğme eklendi
+• Araba, bisiklet ve yaya modları için ayrı kaçınma ayarları
+• Başlangıç ya da varış noktası doğrudan rota planlayıcıdan kaldırılabilir
+• Önceki rota hesaplanamadığında bile yeni bir varış noktası eklenebilir
+• Rota geri yükleme, yeniden hesaplama, alternatif rotalar ve süre tahminleri iyileştirildi
+• Toplu taşımada varış tahminleri, yaya bağlantıları ve istasyon giriş işaretleri iyileştirildi
+• Kayıtlı rotaların ilk bölümünü kaybetmesi veya eski bir konum noktası kullanması düzeltildi
+• Güncelliğini yitirmiş hız kamerası uyarıları düzeltildi
+• Ara durak sınırında rota noktalarını değiştirme ve rota ayarları göstergesinin kesilmesiyle ilgili sorunlar giderildi
+
+## Yer imleri, izler ve alanlar
+• YENİ: KML, KMZ ve GeoJSON alanları dolguları, sınır çizgileri ve boşluklarıyla içe aktarılıp görüntülenebilir
+• İzlere yön okları, seçili izlere belirgin bir dış çizgi eklendi
+• Listeden bir iz açıldığında başlangıç noktası seçilir
+• İz kayıtlarının yedeği, çökme sonrası kurtarma için dakikada bir güncellenir
+• KML dosyaları kayıtlı rotanın ara duraklarını ve ulaşım türünü korur
+• Yer imleri ve izler, dilinizin sıralama kurallarına göre ada göre sıralanır
+• Yer imi listelerinin adları, açıklamaları ve görselleri yeniden yükleme sonrasında doğru güncellenir
+• Haritaya geri döndükten sonra ve düz veya yakınlaştırılmış bölümlerdeki yükseklik profilleri düzeltildi
+• Düzenlenen izler silinirken yaşanan çökmeler ve ilk yer imi içe aktarma hataları giderildi
+• KML, GPX ve GeoJSON içe aktarma işlemleri iyileştirildi
 
 ## CarPlay
-• Desteklenen araç head-up ekranlarında (HUD'lar) ve CarPlay gösterge panelinde manevra talimatları eklendi
-• CarPlay düğmeleri ve arama özelliği düzeltildi
+• Düzenlemeler, yeniden yüklemeler ve silme işlemlerinden sonra yer imi listeleri yenilenir
+• Liste sınırına ulaşıldığında eksik yer imleri ve silinmiş öğeler seçildiğinde yaşanan çökmeler düzeltildi
 
-## İzler
-• Tek tek izleri gizlemek için bir göz simgesi eklendi
-• Hatalar düzeltildi ve iz kaydı iyileştirildi
-• KMB dosyalarının içe aktarılması sorunu düzeltildi
+## Arama ve indirmeler
+• Arama önerilerinde aksan işaretleri ve büyük ya da küçük harfler korunur
+• 180° boylamının ötesinde de harita bölgeleri daha iyi algılanıyor
+• Harita indirmelerini iptal etme, yeniden deneme, sürdürme ve arka planda indirme iyileştirildi
+• Haritaların iki kez sayılması ve güncelleme boyutlarının büyük gösterilmesi düzeltildi
+• Harita düzenleyicisindeki kategori araması, mutfak türlerine göre sıralama ve Norveççe Bokmål isim düzenlemeleri iyileştirildi
 
-## Arama
-• Görünür harita alanı 180° meridyenini (±180° boylam) geçtiğinde arama sorunları giderildi
-• Spotlight’ta kategori araması geri getirildi
+## Kullanıcı arayüzü ve çeviriler
+• Galce eklendi
+• Navigasyon seslerinin sıralaması iyileştirildi ve ses önizleme cümleleri düzeltildi
+• Toplu taşıma önizlemeleri daha fazla simge, hat numaralarının alt satıra kaydırılması ve sağdan sola düzenlerle iyileştirildi
+• Sağdan sola düzenlerde pusulanın yeri ve karanlık modda rota metninin kontrastı düzeltildi
+• Büyük yazı boyutlarında navigasyon onay düğmelerine erişim korundu
+• Yer ayrıntıları panelinin sürüklenmesi, kapatılması ve art arda harita bağlantıları açılması düzeltildi
+• Harita indirmesi, yüklenmekte olan yer ayrıntılarını güncellediğinde oluşan çökme giderildi
+• Menü ve Ayarlar bağlantıları ve vurguları düzeltildi
+• Çeviriler, sesli yol tarifleri ve dil seçenekleri iyileştirildi
+• “Hakkında” bölümündeki topluluk bağlantıları düzeltildi
 
-## Kullanıcı Arayüzü
-• Çalışma saatlerinde artık 12:00 için “Öğle”, 00:00 veya 24:00 için “Gece yarısı” ifadesi görüntülenmektedir
-• Çeşitli hatalar düzeltildi ve kullanıcı arayüzü iyileştirildi
-• İngilizce, Fransızca ve Asturya dillerindeki çeviriler düzeltildi
-• Yüklü bir navigasyon sesini seçme ve örnek olarak dinleme desteği eklendi
+Ayrıntılı sürüm notlarını organicmaps.app/tr/news adresinde inceleyin

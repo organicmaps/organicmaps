@@ -1,9 +1,12 @@
-• OSM: 28 września; Wikipedia: 21 września
-• Lepsze trasy alternatywne i szacowane czasy przyjazdu
-• Nowe ustawienie optymalizuje kolejność punktów pośrednich
-• Nowe przyciski dodają lub zastępują punkty na zaplanowanej trasie
-• Wybrana trasa alternatywna jest zachowywana podczas nawigacji
-• Poprawki i ulepszenia rejestrowania śladów
-• Naprawiono import plików KMB
-• Poprawki i ulepszenia interfejsu użytkownika
-…więcej na stronie omaps.org/pl/news
+• Teren 3D, głębokość oceanów, poziomice (m/ft), wysokość w dowolnym punkcie
+• Dane OSM z 10 listopada
+• Import i wyświetlanie obszarów KML/KMZ/GeoJSON
+• Szczegóły tras transportu publicznego
+• Nowy wskaźnik prędkości
+• Widżet nagrywania śladów
+• Wysokość GPS n.p.m.
+• Strzałki kierunku i wyróżnianie śladów
+• Osobne opcje dla kierowców, rowerzystów i pieszych
+• Odwracanie tras z punktami pośrednimi
+• Poprawki przycisków nagrywania, czasów dotarcia i awarii Android Auto
+…omaps.org/pl/news

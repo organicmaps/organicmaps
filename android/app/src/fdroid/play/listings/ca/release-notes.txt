@@ -1,9 +1,12 @@
-• OSM: 28 de setembre; Wikipedia: 21 de setembre
-• Millors rutes alternatives i estimacions d'arribada
-• Una nova configuració optimitza l'ordre de les parades
-• Nous botons per afegir o substituir parades en rutes planificades
-• Es manté la ruta alternativa escollida durant la navegació
-• Correccions i millores en l'enregistrament de traçats
-• Corregida la importació de fitxers KMB
-• Correccions i millores de la interfície d'usuari
-…més a omaps.org/ca/news
+• Relleu 3D, fons marí, corbes de nivell (m/ft), cota a cada punt
+• OSM del 10 de novembre
+• Importació i visualització d’àrees KML/KMZ/GeoJSON
+• Detalls de rutes de transport públic
+• Nou indicador de velocitat
+• Giny per gravar recorreguts
+• Altitud GPS sobre el nivell del mar
+• Fletxes de direcció i ressaltat de recorreguts
+• Opcions pròpies per a cotxe, bici i a peu
+• Inverteix rutes amb parades
+• Controls de gravació, hores d’arribada i bloquejos d’Android Auto corregits
+…omaps.org/ca/news

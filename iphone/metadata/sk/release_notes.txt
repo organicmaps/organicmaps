@@ -1,33 +1,55 @@
-## Plánovanie trasy
-• Vylepšené alternatívne trasy a ich odhadované časy príchodu
-• Pridané tlačidlá na pridanie alebo nahradenie zastávky v naplánovanej trase
-• Pridalo sa nastavenie na optimalizáciu poradia medzizastávok na trase
-• Vybraná alternatívna trasa sa teraz zachová, keď navigácia prepočíta trasu
-• Poradie zastávok na trase sa teraz po reštartovaní aplikácie obnoví
+## Mapa a terén
+• NOVINKA: 3D terén, hĺbky oceánov, podrobné vrstevnice v metroch a stopách a nadmorská výška v ľubovoľnom bode mapy
+• Údaje OpenStreetMap k 10. novembru, články na Wikipédii k 1. novembru
+• Občasné vodné toky sa zobrazujú čiarkovane, vodné plochy majú čitateľnejšie popisy a železničné mosty nové obrysy
+• Pridané boli holičstvá, štúdiá pilatesu, montéri okien, vodárne a kryté nádrže
+• Opravená transliterácia a zobrazenie hebrejských a arabských popisov na mape
+• Znížila sa spotreba pamäte a opravili sa pády aplikácie pri prepínaní štýlov máp
 
-## Mapa
-• Údaje OpenStreetMap k 28. septembru
-• Údaje z Wikipédie k 21. septembru
-• Vodné nádrže sú teraz viditeľné pri väčšom oddialení mapy
-• Vodné tunely sa už na mape nezobrazujú
-• Opravené ikony staníc a vchodov do metra v Suzhou
-• Opravené zriedkavé prípady, keď sa popisy na vrstve mapy metra posunuli mimo svojej polohy
+## Trasovanie a navigácia
+• Vylepšené plánovanie trás a nové tlačidlo na otočenie trasy so všetkými medziľahlými bodmi
+• Samostatné nastavenia úsekov, ktorým sa vyhnúť, pre jazdu autom, bicyklom a chôdzu
+• Odstráňte východiskový bod alebo cieľ priamo z plánovača trasy
+• Pridajte nový cieľ aj v prípade, že sa nepodarilo vypočítať predchádzajúcu trasu
+• Vylepšená obnova a prepočet trás, alternatívne trasy aj odhady trvania
+• Presnejšie odhady príchodov spojov, lepšie pešie prepojenia a značky vstupov do staníc
+• Uložené trasy už nestrácajú prvý úsek ani nepoužívajú neaktuálny bod polohy
+• Opravené zastarané varovania pred rýchlostnými kamerami
+• Opravená výmena bodov trasy pri dosiahnutí limitu zastávok a orezanie ukazovateľa nastavení trasy
+
+## Záložky, stopy a oblasti
+• NOVINKA: Import a zobrazenie oblastí zo súborov KML, KMZ a GeoJSON vrátane výplní, obrysov a otvorov
+• Pridané smerové šípky a kontrastný obrys vybraných stôp
+• Po otvorení stopy zo zoznamu sa vyberie jej začiatok
+• Záznam stopy sa zálohuje raz za minútu, aby sa dal obnoviť po páde aplikácie
+• Súbory KML uchovávajú medziľahlé body a spôsob dopravy uloženej trasy
+• Záložky a stopy sa zoraďujú podľa názvu a podľa pravidiel vášho jazyka
+• Názvy, popisy a obrázky zoznamov záložiek sa správne aktualizujú pri opätovnom načítaní
+• Opravené výškové profily po návrate na mapu a pri prezeraní rovných alebo zväčšených úsekov
+• Opravené pády pri mazaní upravených stôp a chyby pri prvom importe záložiek
+• Vylepšený import súborov KML, GPX a GeoJSON
 
 ## CarPlay
-• Pridané pokyny k manévrom na podporovaných head-up displejoch (HUD) v autách a na ovládacom paneli CarPlay
-• Opravené tlačidlá CarPlay a vyhľadávanie
+• Zoznamy záložiek sa aktualizujú po úpravách, opätovnom načítaní a vymazaní
+• Opravené miznutie záložiek pri limite zoznamu a pády pri výbere odstránených položiek
 
-## Záznamy trás
-• Pridaná ikona oka na skrytie jednotlivých záznamov trás
-• Opravené chyby a vylepšené zaznamenávanie trás
-• Opravený import súborov KMB
+## Vyhľadávanie a sťahovanie
+• Návrhy vyhľadávania zachovávajú diakritiku aj veľkosť písmen
+• Lepšie rozpoznávanie oblastí mapy, aj cez 180° poludník
+• Vylepšené rušenie sťahovania máp, opakovanie pokusov, pokračovanie a sťahovanie na pozadí
+• Opravené dvojité započítavanie máp a nadhodnotené veľkosti aktualizácií
+• Lepšie vyhľadávanie kategórií v editore máp, triedenie podľa typu kuchyne a úpravy názvov v nórčine (Bokmål)
 
-## Vyhľadávanie
-• Opravené vyhľadávanie v prípadoch, keď viditeľná oblasť mapy prekročí 180° poludník (±180° zemepisnej dĺžky)
-• Obnovené vyhľadávanie podľa kategórií v Spotlight
+## Používateľské rozhranie a preklady
+• Pridaná waleština
+• Lepšie zoraďovanie hlasov navigácie a opravené vety v ukážkach hlasu
+• Lepšie náhľady verejnej dopravy s viacerými symbolmi, zalamovaním čísel liniek a rozložením sprava doľava
+• Opravená poloha kompasu pri rozložení sprava doľava a kontrast textu trasy v tmavom režime
+• Tlačidlá na potvrdenie navigácie zostávajú prístupné aj pri veľkom písme
+• Opravené ťahanie a zatváranie panelu miesta aj otváranie viacerých odkazov na mapu za sebou
+• Opravený pád, keď sťahovanie mapy obnovilo ešte nenačítané údaje o mieste
+• Opravené odkazy a zvýraznenie v ponuke a nastaveniach
+• Vylepšené preklady, hlasové pokyny a výber jazykov
+• Opravené odkazy na komunitu v časti „O aplikácii“
 
-## Používateľské rozhranie
-• Otváracie hodiny teraz zobrazujú „Poludnie“ pre 12:00 a „Polnoc“ pre 00:00 alebo 24:00
-• Opravené rôzne chyby a vylepšené používateľské rozhranie
-• Opravené preklady do angličtiny, francúzštiny a astúrskeho jazyka
-• Pridaná možnosť vybrať nainštalovaný navigačný hlas a vypočuť si jeho ukážku
+Podrobné poznámky k vydaniu nájdete na stránke organicmaps.app/news
