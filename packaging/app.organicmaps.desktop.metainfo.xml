@@ -21,76 +21,59 @@
 
   <description>
     <p>
-      Organic Maps is a free Android &amp; iOS offline maps app for travelers,
-      tourists, hikers, drivers and cyclists.
-      It uses crowd-sourced OpenStreetMap data and is developed with love by
-      <em>MapsWithMe</em> (<em>MapsMe</em>) founders and our community.
-      No ads, no tracking, no data collection, no crapware.
-      Your donations and positive reviews motivate and inspire us, thanks ❤️!
+      Organic Maps is a free, privacy-focused desktop app for offline maps,
+      search and route planning, based on OpenStreetMap.
+      Download maps for the countries and regions you need, then explore places
+      and plan journeys without an internet connection.
     </p>
-    <p>## Features</p>
     <p>
-      The Linux version of Organic Maps has not reached feature parity
-      with the Android and iPhone versions yet, and has not been optimized
-      for mobile devices yet.
-      Organic Maps is the ultimate companion app for travelers, tourists,
-      hikers, and cyclists:
+      Discover hiking trails, cycling routes, useful places and detailed terrain.
+      The desktop edition does not yet include all features of the Android and iOS apps.
     </p>
     <ul>
       <li>
-        Detailed offline maps with places that don&apos;t exist on other maps,
-        thanks to OpenStreetMap
+        Detailed offline maps with address and category search, opening hours and place details
       </li>
-      <li>Cycling routes, hiking trails, and walking paths</li>
-      <li>Contour lines, elevation profiles, peaks, and slopes</li>
-      <li>Turn-by-turn walking, cycling, and car navigation with voice guidance</li>
-      <li>Fast offline search on the map</li>
-      <li>Bookmarks and tracks export and import in KML, KMZ, GPX formats</li>
-      <li>Dark Mode to protect your eyes</li>
-      <li>Countries and regions don&apos;t take a lot of space</li>
-      <li>Free and open-source</li>
-    </ul>
-    <p>## Why Organic?</p>
-    <p>Organic Maps is pure and organic, made with love:</p>
-    <ul>
-      <li>Respects your privacy</li>
-      <li>Saves your battery</li>
-      <li>No unexpected mobile data charges</li>
-    </ul>
-    <p>Organic Maps app is free from trackers and other bad stuff:</p>
-    <ul>
-      <li>No ads</li>
-      <li>No tracking</li>
-      <li>No data collection</li>
-      <li>No phoning home</li>
-      <li>No annoying registration</li>
-      <li>No mandatory tutorials</li>
-      <li>No noisy email spam</li>
-      <li>No push notifications</li>
-      <li>No crapware</li>
-      <li>N̶o̶ ̶p̶e̶s̶t̶i̶c̶i̶d̶e̶s̶  Purely organic!</li>
-    </ul>
-    <p>The application is verified by Exodus Privacy Project.</p>
-    <p>Organic Maps doesn&apos;t request excessive permissions to spy on you.</p>
-    <p>At Organic Maps, we believe that privacy is a fundamental human right:</p>
-    <ul>
-      <li>Organic Maps is an indie community-driven open-source project</li>
-      <li>We protect your privacy from Big Tech&apos;s prying eyes</li>
-      <li>Stay safe no matter wherever you are</li>
+      <li>Driving, cycling, walking and public transport route planning</li>
+      <li>Outdoors map style and hiking, cycling and subway map layers</li>
+      <li>3D terrain with hillshading, ocean depths and contour lines in meters or feet</li>
+      <li>
+        Experimental satellite imagery with a custom tile-server URL (requires internet access)
+      </li>
+      <li>Save bookmarks and view tracks with direction arrows and selection highlighting</li>
+      <li>Import bookmarks and tracks from KML, KMZ, GPX and GeoJSON files</li>
+      <li>Export bookmark and track lists as KMZ, GPX or GeoJSON</li>
+      <li>Import and display areas from KML, KMZ and GeoJSON files</li>
+      <li>Offline Wikipedia articles for places on the map</li>
+      <li>Built-in OpenStreetMap editor for adding or updating places</li>
+      <li>Share place links and copy place details and coordinates</li>
+      <li>Light and dark map themes, including automatic system-theme switching</li>
+      <li>Translated desktop interface with support for right-to-left languages</li>
     </ul>
     <p>
-      Reject surveillance - embrace your freedom.
-      <em>Give Organic Maps a try!</em>
+      Organic Maps is also available for Android, iPhone and iPad.
+      See the project homepage for download links.
+    </p>
+    <p>
+      Organic Maps is an independent, community-driven project with no ads or tracking.
+      No account is needed to browse maps or plan routes.
+      Map downloads, OpenStreetMap edits and satellite imagery use an internet connection.
+    </p>
+    <p>
+      The application source code is licensed under Apache License 2.0.
+      Binary map and terrain data are provided under the Organic Maps Binary Data License,
+      which requires attribution and written permission for
+      white-labeling or rebranding.
     </p>
   </description>
 
   <url type="homepage">https://organicmaps.app</url>
   <url type="bugtracker">https://github.com/organicmaps/organicmaps/issues</url>
   <url type="faq">https://organicmaps.app/faq/</url>
-  <url type="help">https://github.com/organicmaps/organicmaps/discussions/categories/q-a</url>
-  <url type="donation">https://organicmaps.app/donate</url>
+  <url type="help">https://organicmaps.app/faq/</url>
+  <url type="donation">https://organicmaps.app/donate/</url>
   <url type="translate">https://github.com/organicmaps/organicmaps/blob/master/docs/TRANSLATIONS.md</url>
-  <url type="contact">https://github.com/organicmaps/organicmaps#feedback=</url>
+  <url type="contact">https://organicmaps.app/#community</url>
   <url type="vcs-browser">https://github.com/organicmaps/organicmaps/</url>
   <url type="contribute">https://github.com/organicmaps/organicmaps/blob/master/docs/CONTRIBUTING.md</url>
 
