@@ -83,7 +83,7 @@
 {
   if (self.state == MWMNavigationDashboardStateClosed)
     return;
-  [self.navigationDashboardView setRouteBuilderProgress:[MWMRouter type] progress:progress / 100.];
+  [self.navigationDashboardView setRouteBuilderProgress:[MWMRouter renderType] progress:progress / 100.];
 }
 
 #pragma mark - On route updates
@@ -181,6 +181,7 @@
   // Use the cached dashboard to avoid lazy creation; clear it before notifying the retiring view.
   id<NavigationDashboardView> navigationDashboardView = _navigationDashboardView;
   _navigationDashboardView = nil;
+  _availableAreaView = nil;
   BOOL const wasSelectingRoutePoint = self.isRoutePointSelectionActive;
   [self cancelRoutePointSelection];
   // A route-point search has no valid target after the route workflow closes.
