@@ -39,36 +39,60 @@ final class TransitDetailsRowsTests: XCTestCase {
     XCTAssertEqual(TransitDetailsRows.make(steps: [walk()], destination: "", waypointNames: [:]).count, 1)
   }
 
-  func testSameStopTransferIsDrawnOnceAsTheNextRideHeading() throws {
+  func testSameStopTransferIsNamedOnceBetweenTheRides() throws {
     let rows = TransitDetailsRows.make(steps: [ride("A", "B", color: red), ride("B", "C", color: blue)],
                                        destination: nil, waypointNames: [:])
 
+    XCTAssertEqual(rows.count, 3)
     let first = try rideRow(rows[0])
-    let second = try rideRow(rows[1])
+    let second = try rideRow(rows[2])
+    guard case .transfer(let stop, let from, let to) = rows[1] else { return XCTFail("\(rows)") }
+    XCTAssertEqual(stop, "B")
+    XCTAssertEqual(from, red)
+    XCTAssertEqual(to, blue)
     XCTAssertEqual(first.boardStop, "A")
     XCTAssertNil(first.exitStop)
-    XCTAssertTrue(first.continuesIntoTransfer)
-    XCTAssertFalse(second.continuesIntoTransfer)
-    XCTAssertTrue(second.isTransfer)
-    XCTAssertEqual(second.transferFromColor, red)
+    XCTAssertFalse(first.startsAtTransfer)
+    XCTAssertTrue(first.endsAtTransfer)
+    XCTAssertTrue(second.startsAtTransfer)
+    XCTAssertFalse(second.endsAtTransfer)
     XCTAssertNil(second.boardStop)
     XCTAssertEqual(second.exitStop, "C")
+  }
+
+  func testConsecutiveTransfersEachGetTheirRow() throws {
+    let rows = TransitDetailsRows.make(steps: [ride("A", "B"), ride("B", "C"), ride("C", "D")],
+                                       destination: nil, waypointNames: [:])
+
+    XCTAssertEqual(rows.count, 5)
+    guard case .transfer(let first, _, _) = rows[1], case .transfer(let second, _, _) = rows[3] else {
+      return XCTFail("\(rows)")
+    }
+    XCTAssertEqual(first, "B")
+    XCTAssertEqual(second, "C")
+    let middle = try rideRow(rows[2])
+    XCTAssertTrue(middle.startsAtTransfer)
+    XCTAssertTrue(middle.endsAtTransfer)
+    XCTAssertNil(middle.boardStop)
+    XCTAssertNil(middle.exitStop)
   }
 
   func testTransferBetweenDifferentlyNamedStopsKeepsBothNames() throws {
     let rows = TransitDetailsRows.make(steps: [ride("A", "Incoming"), ride("Connecting", "C")],
                                        destination: nil, waypointNames: [:])
 
+    XCTAssertEqual(rows.count, 2)
     XCTAssertEqual(try rideRow(rows[0]).exitStop, "Incoming")
-    XCTAssertFalse(try rideRow(rows[1]).isTransfer)
+    XCTAssertFalse(try rideRow(rows[1]).startsAtTransfer)
     XCTAssertEqual(try rideRow(rows[1]).boardStop, "Connecting")
   }
 
   func testUnnamedStopsAreNotJoinedAndShowNoHeadings() throws {
     let rows = TransitDetailsRows.make(steps: [ride("A", ""), ride("", "C")], destination: nil, waypointNames: [:])
 
+    XCTAssertEqual(rows.count, 2)
     XCTAssertNil(try rideRow(rows[0]).exitStop)
-    XCTAssertFalse(try rideRow(rows[1]).isTransfer)
+    XCTAssertFalse(try rideRow(rows[1]).startsAtTransfer)
     XCTAssertNil(try rideRow(rows[1]).boardStop)
     XCTAssertEqual(try rideRow(rows[1]).exitStop, "C")
   }
@@ -77,8 +101,9 @@ final class TransitDetailsRowsTests: XCTestCase {
     let rows = TransitDetailsRows.make(steps: [ride("A", "B"), walk(), ride("B", "C")],
                                        destination: nil, waypointNames: [:])
 
+    XCTAssertEqual(rows.count, 3)
     XCTAssertEqual(try rideRow(rows[0]).exitStop, "B")
-    XCTAssertFalse(try rideRow(rows[2]).isTransfer)
+    XCTAssertFalse(try rideRow(rows[2]).startsAtTransfer)
     XCTAssertEqual(try rideRow(rows[2]).boardStop, "B")
   }
 
@@ -103,9 +128,7 @@ final class TransitDetailsRowsTests: XCTestCase {
   }
 
   func testTransferDrawsTheIncomingLineAboveABreakBesideTheSharedStop() throws {
-    let rows = TransitDetailsRows.make(steps: [ride("A", "B", color: red), ride("B", "C", color: blue)],
-                                       destination: nil, waypointNames: [:])
-    let view = try TransitDetailsRideView(ride: rideRow(rows[1]))
+    let view = TransitDetailsTransferView(stop: "B", from: red, to: blue)
     layOut(view)
 
     let incoming = try XCTUnwrap(bars(in: view).first { $0.backgroundColor == red })
@@ -121,15 +144,35 @@ final class TransitDetailsRowsTests: XCTestCase {
     XCTAssertEqual(outgoingFrame.maxY, view.bounds.height, accuracy: 0.5)
   }
 
-  func testLineRunningIntoATransferEndsSquareAtTheRowBottom() throws {
+  func testLinesRunSquareIntoAndOutOfATransfer() throws {
     let rows = TransitDetailsRows.make(steps: [ride("A", "B", color: red), ride("B", "C", color: blue)],
                                        destination: nil, waypointNames: [:])
-    let view = try TransitDetailsRideView(ride: rideRow(rows[0]))
-    layOut(view)
+    let incoming = try TransitDetailsRideView(ride: rideRow(rows[0]))
+    let outgoing = try TransitDetailsRideView(ride: rideRow(rows[2]))
+    layOut(incoming)
+    layOut(outgoing)
 
-    let bar = try XCTUnwrap(bars(in: view).first { $0.backgroundColor == red })
-    XCTAssertEqual(bar.convert(bar.bounds, to: view).maxY, view.bounds.height, accuracy: 0.5)
-    XCTAssertEqual(bar.layer.maskedCorners, [.layerMinXMinYCorner, .layerMaxXMinYCorner])
+    let incomingBar = try XCTUnwrap(bars(in: incoming).first)
+    XCTAssertEqual(incomingBar.convert(incomingBar.bounds, to: incoming).maxY, incoming.bounds.height, accuracy: 0.5)
+    XCTAssertEqual(incomingBar.layer.maskedCorners, [.layerMinXMinYCorner, .layerMaxXMinYCorner])
+    let outgoingBar = try XCTUnwrap(bars(in: outgoing).first)
+    XCTAssertEqual(outgoingBar.convert(outgoingBar.bounds, to: outgoing).minY, 0, accuracy: 0.5)
+    XCTAssertEqual(outgoingBar.layer.maskedCorners, [.layerMinXMaxYCorner, .layerMaxXMaxYCorner])
+  }
+
+  func testTimelineHasNoGapsAroundATransfer() throws {
+    let controller = TransitDetailsViewController(steps: [walk(), ride("A", "B"), ride("B", "C"), walk()],
+                                                  routePoints: [])
+    controller.loadViewIfNeeded()
+    let timeline = try XCTUnwrap(descendants(of: controller.view).compactMap { $0 as? UIStackView }
+      .first { $0.axis == .vertical && $0.arrangedSubviews.count == 5 })
+    let views = timeline.arrangedSubviews
+
+    XCTAssertTrue(views[2] is TransitDetailsTransferView)
+    XCTAssertEqual(timeline.customSpacing(after: views[0]), UIStackView.spacingUseDefault)
+    XCTAssertEqual(timeline.customSpacing(after: views[1]), 0)
+    XCTAssertEqual(timeline.customSpacing(after: views[2]), 0)
+    XCTAssertEqual(timeline.customSpacing(after: views[3]), UIStackView.spacingUseDefault)
   }
 
   func testUnnamedRoutePointIsShownByItsNumber() {

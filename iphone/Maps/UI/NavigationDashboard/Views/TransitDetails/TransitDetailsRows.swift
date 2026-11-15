@@ -2,6 +2,8 @@
 enum TransitDetailsRow {
   case walk(MWMRouterTransitStepInfo)
   case ride(TransitDetailsRide)
+  /// Two rides joined at a stop they share, named once between the incoming and the outgoing line.
+  case transfer(stop: String, from: UIColor, to: UIColor)
   /// A user-added intermediate point (Add Stop); the name is nil when the point has none.
   case waypoint(index: Int, name: String?)
   case destination(String)
@@ -9,37 +11,39 @@ enum TransitDetailsRow {
 
 struct TransitDetailsRide {
   let step: MWMRouterTransitStepInfo
-  /// The previous ride's line color when this ride starts at the stop where that ride ended. The shared
-  /// stop is then drawn once, as this ride's heading.
-  let transferFromColor: UIColor?
-  /// The next ride starts at this ride's exit, so this ride's line runs on into that ride's transfer heading.
-  let continuesIntoTransfer: Bool
-  /// Hidden when the next ride starts at this exit and names it, or when the stop is unnamed.
-  var exitStop: String? { continuesIntoTransfer ? nil : step.endStopName.nonEmpty }
+  /// The ride starts or ends at a transfer row, which names that stop and joins the lines.
+  let startsAtTransfer: Bool
+  let endsAtTransfer: Bool
 
-  /// Hidden on a transfer, which names the stop as a transfer heading instead, or when the stop is unnamed.
-  var boardStop: String? { transferFromColor == nil ? step.startStopName.nonEmpty : nil }
-  var isTransfer: Bool { transferFromColor != nil }
+  /// Nil when a transfer row names the stop, or when the stop is unnamed.
+  var boardStop: String? { startsAtTransfer ? nil : step.startStopName.nonEmpty }
+  var exitStop: String? { endsAtTransfer ? nil : step.endStopName.nonEmpty }
 }
 
 enum TransitDetailsRows {
   /// Maps the route steps onto timeline rows, closed by the destination when it has a name.
   static func make(steps: [MWMRouterTransitStepInfo], destination: String?,
                    waypointNames: [Int: String]) -> [TransitDetailsRow] {
-    var rows = steps.indices.compactMap { index -> TransitDetailsRow? in
-      let step = steps[index]
+    var rows: [TransitDetailsRow] = []
+    var endsAtTransfer = false
+    for (index, step) in steps.enumerated() {
+      let startsAtTransfer = endsAtTransfer
+      endsAtTransfer = false
       switch step.type {
       case .pedestrian:
-        return .walk(step)
+        rows.append(.walk(step))
       case .intermediatePoint:
-        return .waypoint(index: step.intermediateIndex, name: waypointNames[step.intermediateIndex])
+        rows.append(.waypoint(index: step.intermediateIndex, name: waypointNames[step.intermediateIndex]))
       case .ruler:
         // Only straight-line routes have rulers; they have no per-leg details.
-        return nil
+        break
       default:
-        let transferFromColor = isSameStopTransfer(steps, at: index) ? steps[index - 1].color : nil
-        return .ride(TransitDetailsRide(step: step, transferFromColor: transferFromColor,
-                                        continuesIntoTransfer: isSameStopTransfer(steps, at: index + 1)))
+        endsAtTransfer = index + 1 < steps.count && isSameStopTransfer(from: step, to: steps[index + 1])
+        rows.append(.ride(TransitDetailsRide(step: step, startsAtTransfer: startsAtTransfer,
+                                             endsAtTransfer: endsAtTransfer)))
+        if endsAtTransfer {
+          rows.append(.transfer(stop: step.endStopName, from: step.color, to: steps[index + 1].color))
+        }
       }
     }
     if let destination = destination?.nonEmpty {
@@ -50,10 +54,9 @@ enum TransitDetailsRows {
 
   /// Rides joined by a transfer edge may use differently named stops; those keep both the exit and the boarding
   /// stop. Unnamed stops can't be matched, so they never join.
-  static func isSameStopTransfer(_ steps: [MWMRouterTransitStepInfo], at index: Int) -> Bool {
-    guard index > 0, index < steps.count, isRide(steps[index - 1]), isRide(steps[index]) else { return false }
-    let stop = steps[index].startStopName
-    return !stop.isEmpty && steps[index - 1].endStopName == stop
+  private static func isSameStopTransfer(from step: MWMRouterTransitStepInfo,
+                                         to next: MWMRouterTransitStepInfo) -> Bool {
+    isRide(next) && !next.startStopName.isEmpty && step.endStopName == next.startStopName
   }
 
   private static func isRide(_ step: MWMRouterTransitStepInfo) -> Bool {

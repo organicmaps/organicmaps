@@ -33,6 +33,11 @@ extension MWMRouterTransitType {
     }
   }
 
+  /// The line badge's VoiceOver label: the transport type followed by the line number.
+  func accessibilityLabel(number: String) -> String {
+    [spokenName, number].compactMap { $0 }.filter { !$0.isEmpty }.joined(separator: " ")
+  }
+
   private static func typeName(_ key: String) -> String {
     NSLocalizedString(key, tableName: "LocalizableTypes", comment: "")
   }

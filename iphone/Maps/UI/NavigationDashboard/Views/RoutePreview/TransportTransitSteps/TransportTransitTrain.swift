@@ -101,7 +101,7 @@ final class TransportTransitTrain: TransportTransitCell {
     label.isHidden = number.isEmpty
     label.text = number
     isAccessibilityElement = true
-    accessibilityLabel = [step.type.spokenName, number].compactMap { $0 }.filter { !$0.isEmpty }.joined(separator: " ")
+    accessibilityLabel = step.type.accessibilityLabel(number: number)
   }
 
   static func foregroundColor(for color: UIColor) -> UIColor {

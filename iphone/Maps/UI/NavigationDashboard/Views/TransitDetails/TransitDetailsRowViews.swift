@@ -21,14 +21,16 @@ private enum Layout {
   static let expandAnimationDuration: TimeInterval = 0.15
 }
 
-/// Lays out a legend column at the start and the row's content beside it.
-private func makeRow(legend: UIView, content: UIView) -> UIStackView {
+/// Lays out a legend column at the start and the row's content beside it, filling the view.
+private func addRow(to view: UIView, legend: UIView, content: UIView,
+                    alignment: UIStackView.Alignment = .fill) {
   legend.widthAnchor.constraint(equalToConstant: Layout.legendWidth).isActive = true
   let row = UIStackView(arrangedSubviews: [legend, content])
   row.axis = .horizontal
-  row.alignment = .fill
+  row.alignment = alignment
   row.spacing = Layout.contentSpacing
-  return row
+  view.addSubview(row)
+  row.alignToSuperview()
 }
 
 private func makeLabel(_ text: String?, font: FontStyleSheet, color: TextColorStyleSheet) -> UILabel {
@@ -39,7 +41,15 @@ private func makeLabel(_ text: String?, font: FontStyleSheet, color: TextColorSt
   return label
 }
 
-private func makeLineBar(color: UIColor, roundTop: Bool, roundBottom: Bool) -> UIView {
+/// "first · duration", the duration last on every leg.
+private func makeSummaryText(_ first: String?, timeInSec: Int) -> String {
+  [first, DurationFormatter.routingDurationString(from: TimeInterval(timeInSec))]
+    .compactMap { $0 }
+    .joined(separator: " · ")
+}
+
+/// A line bar in the legend's center, with only the given ends rounded.
+private func addLineBar(to legend: UIView, color: UIColor, roundTop: Bool, roundBottom: Bool) -> UIView {
   let bar = UIView()
   bar.backgroundColor = color
   bar.layer.cornerRadius = Layout.barCornerRadius
@@ -51,6 +61,12 @@ private func makeLineBar(color: UIColor, roundTop: Bool, roundBottom: Bool) -> U
     corners.formUnion([.layerMinXMaxYCorner, .layerMaxXMaxYCorner])
   }
   bar.layer.maskedCorners = corners
+  legend.addSubview(bar)
+  bar.translatesAutoresizingMaskIntoConstraints = false
+  NSLayoutConstraint.activate([
+    bar.widthAnchor.constraint(equalToConstant: Layout.barWidth),
+    bar.centerXAnchor.constraint(equalTo: legend.centerXAnchor),
+  ])
   return bar
 }
 
@@ -78,17 +94,11 @@ final class TransitLineBadgeView: UIView {
     stack.isLayoutMarginsRelativeArrangement = true
     stack.directionalLayoutMargins = Layout.badgeInsets
     addSubview(stack)
-    stack.translatesAutoresizingMaskIntoConstraints = false
-    NSLayoutConstraint.activate([
-      stack.topAnchor.constraint(equalTo: topAnchor),
-      stack.bottomAnchor.constraint(equalTo: bottomAnchor),
-      stack.leadingAnchor.constraint(equalTo: leadingAnchor),
-      stack.trailingAnchor.constraint(equalTo: trailingAnchor),
-      heightAnchor.constraint(greaterThanOrEqualToConstant: Layout.badgeHeight),
-    ])
+    stack.alignToSuperview()
+    heightAnchor.constraint(greaterThanOrEqualToConstant: Layout.badgeHeight).isActive = true
 
     isAccessibilityElement = true
-    accessibilityLabel = [step.type.spokenName, number].compactMap { $0 }.filter { !$0.isEmpty }.joined(separator: " ")
+    accessibilityLabel = step.type.accessibilityLabel(number: number)
   }
 
   @available(*, unavailable)
@@ -116,13 +126,10 @@ final class TransitDetailsRideView: UIView {
     content.axis = .vertical
     content.alignment = .leading
     content.spacing = Layout.lineSpacing
-    // A transfer names the shared stop once, as this ride's heading.
-    var headingLabel: UILabel?
-    if let heading = ride.isTransfer ? step.startStopName : ride.boardStop {
-      let label = makeLabel(heading, font: .medium20, color: .blackPrimary)
+    if let boardStop = ride.boardStop {
+      let label = makeLabel(boardStop, font: .medium20, color: .blackPrimary)
       content.addArrangedSubview(label)
       content.setCustomSpacing(Layout.stopNameSpacing, after: label)
-      headingLabel = label
     }
     content.addArrangedSubview(TransitLineBadgeView(step: step))
     let summary = makeSummary(step: step)
@@ -135,48 +142,15 @@ final class TransitDetailsRideView: UIView {
       content.addArrangedSubview(makeLabel(exitStop, font: .medium20, color: .blackPrimary))
     }
 
-    // The previous ride runs straight on into a transfer, so the gap above its heading belongs to this row.
-    if ride.isTransfer {
-      content.isLayoutMarginsRelativeArrangement = true
-      content.directionalLayoutMargins = NSDirectionalEdgeInsets(top: Layout.stopNameSpacing, leading: 0, bottom: 0, trailing: 0)
-    }
-
+    // At a transfer the line runs on square into the transfer row, which draws the break.
     let legend = UIView()
-    let row = makeRow(legend: legend, content: content)
-    addSubview(row)
-    row.translatesAutoresizingMaskIntoConstraints = false
+    let bar = addLineBar(to: legend, color: step.color, roundTop: !ride.startsAtTransfer,
+                         roundBottom: !ride.endsAtTransfer)
     NSLayoutConstraint.activate([
-      row.topAnchor.constraint(equalTo: topAnchor),
-      row.bottomAnchor.constraint(equalTo: bottomAnchor),
-      row.leadingAnchor.constraint(equalTo: leadingAnchor),
-      row.trailingAnchor.constraint(equalTo: trailingAnchor),
+      bar.topAnchor.constraint(equalTo: legend.topAnchor),
+      bar.bottomAnchor.constraint(equalTo: legend.bottomAnchor),
     ])
-
-    // A line runs on square into the next ride's transfer heading, where it ends rounded just above a small
-    // break beside the shared stop; the next line starts rounded just below it.
-    let bar = makeLineBar(color: step.color, roundTop: true, roundBottom: !ride.continuesIntoTransfer)
-    addBar(bar, to: legend)
-    bar.bottomAnchor.constraint(equalTo: legend.bottomAnchor).isActive = true
-    if let incomingColor = ride.transferFromColor, let headingLabel {
-      let incoming = makeLineBar(color: incomingColor, roundTop: false, roundBottom: true)
-      addBar(incoming, to: legend)
-      NSLayoutConstraint.activate([
-        incoming.topAnchor.constraint(equalTo: legend.topAnchor),
-        incoming.bottomAnchor.constraint(equalTo: headingLabel.centerYAnchor, constant: -Layout.transferGap / 2),
-        bar.topAnchor.constraint(equalTo: headingLabel.centerYAnchor, constant: Layout.transferGap / 2),
-      ])
-    } else {
-      bar.topAnchor.constraint(equalTo: legend.topAnchor).isActive = true
-    }
-  }
-
-  private func addBar(_ bar: UIView, to legend: UIView) {
-    legend.addSubview(bar)
-    bar.translatesAutoresizingMaskIntoConstraints = false
-    NSLayoutConstraint.activate([
-      bar.widthAnchor.constraint(equalToConstant: Layout.barWidth),
-      bar.centerXAnchor.constraint(equalTo: legend.centerXAnchor),
-    ])
+    addRow(to: self, legend: legend, content: content)
   }
 
   @available(*, unavailable)
@@ -185,12 +159,8 @@ final class TransitDetailsRideView: UIView {
   }
 
   private func makeSummary(step: MWMRouterTransitStepInfo) -> UIView {
-    var parts: [String] = []
-    if step.stopCount > 0 {
-      parts.append(String(format: L("transit_stops_count"), step.stopCount))
-    }
-    parts.append(DurationFormatter.routingDurationString(from: TimeInterval(step.timeInSec)))
-    let label = makeLabel(parts.joined(separator: " · "), font: .regular16, color: .blackSecondary)
+    let stops = step.stopCount > 0 ? String(format: L("transit_stops_count"), step.stopCount) : nil
+    let label = makeLabel(makeSummaryText(stops, timeInSec: step.timeInSec), font: .regular16, color: .blackSecondary)
 
     // Only a ride with intermediate stops is an expandable disclosure.
     summaryChevron.tintColor = .blackSecondaryText
@@ -225,6 +195,35 @@ final class TransitDetailsRideView: UIView {
   }
 }
 
+/// A same-stop transfer: the shared stop named once, beside a break between the incoming and the outgoing line.
+final class TransitDetailsTransferView: UIView {
+  init(stop: String, from incomingColor: UIColor, to outgoingColor: UIColor) {
+    super.init(frame: .zero)
+    let name = makeLabel(stop, font: .medium20, color: .blackPrimary)
+    let content = UIStackView(arrangedSubviews: [name])
+    content.isLayoutMarginsRelativeArrangement = true
+    content.directionalLayoutMargins = NSDirectionalEdgeInsets(top: Layout.stopNameSpacing, leading: 0,
+                                                               bottom: Layout.stopNameSpacing, trailing: 0)
+
+    let legend = UIView()
+    let incoming = addLineBar(to: legend, color: incomingColor, roundTop: false, roundBottom: true)
+    let outgoing = addLineBar(to: legend, color: outgoingColor, roundTop: true, roundBottom: false)
+    // The bars align to the name, so both must be in the row first.
+    addRow(to: self, legend: legend, content: content)
+    NSLayoutConstraint.activate([
+      incoming.topAnchor.constraint(equalTo: legend.topAnchor),
+      incoming.bottomAnchor.constraint(equalTo: name.centerYAnchor, constant: -Layout.transferGap / 2),
+      outgoing.topAnchor.constraint(equalTo: name.centerYAnchor, constant: Layout.transferGap / 2),
+      outgoing.bottomAnchor.constraint(equalTo: legend.bottomAnchor),
+    ])
+  }
+
+  @available(*, unavailable)
+  required init?(coder _: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+}
+
 /// A walking leg: dots with a walk icon in the legend, "Walking" and "distance · duration" beside them.
 final class TransitDetailsWalkView: UIView {
   init(step: MWMRouterTransitStepInfo) {
@@ -235,54 +234,23 @@ final class TransitDetailsWalkView: UIView {
     walkIcon.contentMode = .scaleAspectFit
     walkIcon.widthAnchor.constraint(equalToConstant: Layout.walkIconSize).isActive = true
     walkIcon.heightAnchor.constraint(equalToConstant: Layout.walkIconSize).isActive = true
-    let legendStack = UIStackView(arrangedSubviews: [Self.dot(), Self.dot(), walkIcon, Self.dot(), Self.dot()])
-    legendStack.axis = .vertical
-    legendStack.alignment = .center
-    legendStack.spacing = Layout.dotSpacing
-    legendStack.setCustomSpacing(Layout.walkIconSpacing, after: legendStack.arrangedSubviews[1])
-    legendStack.setCustomSpacing(Layout.walkIconSpacing, after: walkIcon)
-    let legend = UIView()
-    legend.addSubview(legendStack)
-    legendStack.translatesAutoresizingMaskIntoConstraints = false
-    NSLayoutConstraint.activate([
-      legendStack.centerXAnchor.constraint(equalTo: legend.centerXAnchor),
-      legendStack.centerYAnchor.constraint(equalTo: legend.centerYAnchor),
-      legendStack.topAnchor.constraint(greaterThanOrEqualTo: legend.topAnchor),
-    ])
+    let legend = UIStackView(arrangedSubviews: [Self.dot(), Self.dot(), walkIcon, Self.dot(), Self.dot()])
+    legend.axis = .vertical
+    legend.alignment = .center
+    legend.spacing = Layout.dotSpacing
+    legend.setCustomSpacing(Layout.walkIconSpacing, after: legend.arrangedSubviews[1])
+    legend.setCustomSpacing(Layout.walkIconSpacing, after: walkIcon)
 
-    // Distance first, then duration, so the duration is last as on the rides ("N stops · duration").
-    var parts: [String] = []
-    if !step.distance.isEmpty {
-      parts.append("\(step.distance) \(step.distanceUnits)")
-    }
-    parts.append(DurationFormatter.routingDurationString(from: TimeInterval(step.timeInSec)))
+    let distance = step.distance.isEmpty ? nil : "\(step.distance) \(step.distanceUnits)"
     let content = UIStackView(arrangedSubviews: [
       makeLabel(L("routing_options_walking"), font: .medium16, color: .blackPrimary),
-      makeLabel(parts.joined(separator: " · "), font: .regular16, color: .blackSecondary),
+      makeLabel(makeSummaryText(distance, timeInSec: step.timeInSec), font: .regular16, color: .blackSecondary),
     ])
     content.axis = .vertical
     content.spacing = Layout.lineSpacing / 2
-    let centered = UIView()
-    centered.addSubview(content)
-    content.translatesAutoresizingMaskIntoConstraints = false
-    NSLayoutConstraint.activate([
-      content.leadingAnchor.constraint(equalTo: centered.leadingAnchor),
-      content.trailingAnchor.constraint(equalTo: centered.trailingAnchor),
-      content.centerYAnchor.constraint(equalTo: centered.centerYAnchor),
-      content.topAnchor.constraint(greaterThanOrEqualTo: centered.topAnchor),
-    ])
 
-    let row = makeRow(legend: legend, content: centered)
-    addSubview(row)
-    row.translatesAutoresizingMaskIntoConstraints = false
-    NSLayoutConstraint.activate([
-      row.topAnchor.constraint(equalTo: topAnchor),
-      row.bottomAnchor.constraint(equalTo: bottomAnchor),
-      row.leadingAnchor.constraint(equalTo: leadingAnchor),
-      row.trailingAnchor.constraint(equalTo: trailingAnchor),
-      legend.heightAnchor.constraint(greaterThanOrEqualTo: legendStack.heightAnchor),
-      legend.heightAnchor.constraint(greaterThanOrEqualToConstant: Layout.walkMinHeight),
-    ])
+    addRow(to: self, legend: legend, content: content, alignment: .center)
+    heightAnchor.constraint(greaterThanOrEqualToConstant: Layout.walkMinHeight).isActive = true
   }
 
   @available(*, unavailable)
@@ -317,29 +285,12 @@ final class TransitDetailsPointView: UIView {
 
   private init(icon: UIImage?, iconSize: CGFloat, title: String) {
     super.init(frame: .zero)
+    // Aspect fit centers the icon in the legend column's width.
     let iconView = UIImageView(image: icon)
     iconView.contentMode = .scaleAspectFit
-    let legend = UIView()
-    legend.addSubview(iconView)
-    iconView.translatesAutoresizingMaskIntoConstraints = false
-    NSLayoutConstraint.activate([
-      iconView.widthAnchor.constraint(equalToConstant: iconSize),
-      iconView.heightAnchor.constraint(equalToConstant: iconSize),
-      iconView.centerXAnchor.constraint(equalTo: legend.centerXAnchor),
-      iconView.centerYAnchor.constraint(equalTo: legend.centerYAnchor),
-      legend.heightAnchor.constraint(greaterThanOrEqualTo: iconView.heightAnchor),
-    ])
-
-    let row = makeRow(legend: legend, content: makeLabel(title, font: .medium20, color: .blackPrimary))
-    row.alignment = .center
-    addSubview(row)
-    row.translatesAutoresizingMaskIntoConstraints = false
-    NSLayoutConstraint.activate([
-      row.topAnchor.constraint(equalTo: topAnchor),
-      row.bottomAnchor.constraint(equalTo: bottomAnchor),
-      row.leadingAnchor.constraint(equalTo: leadingAnchor),
-      row.trailingAnchor.constraint(equalTo: trailingAnchor),
-    ])
+    iconView.heightAnchor.constraint(equalToConstant: iconSize).isActive = true
+    addRow(to: self, legend: iconView, content: makeLabel(title, font: .medium20, color: .blackPrimary),
+           alignment: .center)
   }
 
   @available(*, unavailable)

@@ -45,10 +45,13 @@ final class TransitDetailsViewController: MWMViewController {
                                                                  trailing: Constants.horizontalInset)
     for row in rows {
       let rowView = view(for: row)
-      stackView.addArrangedSubview(rowView)
-      // A line running on into the next ride's transfer heading stays unbroken up to that heading.
-      if case .ride(let ride) = row, ride.continuesIntoTransfer {
+      // The lines run on unbroken into a transfer row and out of it.
+      if case .transfer = row, let previous = stackView.arrangedSubviews.last {
+        stackView.setCustomSpacing(0, after: previous)
+        stackView.addArrangedSubview(rowView)
         stackView.setCustomSpacing(0, after: rowView)
+      } else {
+        stackView.addArrangedSubview(rowView)
       }
     }
 
@@ -73,6 +76,7 @@ final class TransitDetailsViewController: MWMViewController {
     switch row {
     case .walk(let step): TransitDetailsWalkView(step: step)
     case .ride(let ride): TransitDetailsRideView(ride: ride)
+    case .transfer(let stop, let from, let to): TransitDetailsTransferView(stop: stop, from: from, to: to)
     case .waypoint(let index, let name): TransitDetailsPointView(waypointIndex: index, name: name)
     case .destination(let name): TransitDetailsPointView(destination: name)
     }
