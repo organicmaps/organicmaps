@@ -1,14 +1,15 @@
 package app.organicmaps.downloader;
 
+import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ServiceInfo;
-import android.os.Build;
 import android.os.IBinder;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.PendingIntentCompat;
 import androidx.core.app.ServiceCompat;
 import androidx.core.content.ContextCompat;
 import app.organicmaps.sdk.downloader.CountryItem;
@@ -50,18 +51,18 @@ public class DownloaderService extends Service implements MapManager.StorageCall
 
   static PendingIntent buildCancelPendingIntent(Context context)
   {
-    final int FLAG_IMMUTABLE = Build.VERSION.SDK_INT < Build.VERSION_CODES.M ? 0 : PendingIntent.FLAG_IMMUTABLE;
     Intent cancelIntent = new Intent(context, DownloaderService.class);
     cancelIntent.setAction(ACTION_CANCEL_DOWNLOAD);
-    return PendingIntent.getService(context, 2, cancelIntent, PendingIntent.FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
+    return PendingIntentCompat.getService(context, 2, cancelIntent, PendingIntent.FLAG_UPDATE_CURRENT, false);
   }
 
+  @SuppressLint("InlinedApi") // ServiceCompat ignores the service type before API 29.
   @Override
   public int onStartCommand(Intent intent, int flags, int startId)
   {
     final String action = intent != null ? intent.getAction() : null;
 
-    // Cancel is sent via PendingIntent.getService(), so it has no foreground promotion deadline.
+    // Cancel uses a regular service PendingIntent, so it has no foreground promotion deadline.
     if (ACTION_CANCEL_DOWNLOAD.equals(action))
     {
       cancelDownloads(startId);
@@ -69,20 +70,15 @@ public class DownloaderService extends Service implements MapManager.StorageCall
     }
 
     // Download/retry/update actions are sent via startForegroundService().
-    // Call startForeground() immediately to satisfy the contract, then enqueue work.
-    // The download is deferred to here (instead of being started by MapManagerHelper) to
-    // eliminate the race where a fast download completes before onStartCommand() runs.
+    // Promote before enqueuing work: a fast or no-op download can finish synchronously.
     if (ACTION_START_DOWNLOAD.equals(action) || ACTION_RETRY_DOWNLOAD.equals(action)
         || ACTION_START_UPDATE.equals(action))
     {
       cancelError();
       var notification = mNotifier.buildProgressNotification();
       Logger.i(TAG, "Starting Downloader Foreground Service");
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
-        ServiceCompat.startForeground(this, DownloaderNotifier.NOTIFICATION_ID, notification,
-                                      ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC);
-      else
-        ServiceCompat.startForeground(this, DownloaderNotifier.NOTIFICATION_ID, notification, 0);
+      ServiceCompat.startForeground(this, DownloaderNotifier.NOTIFICATION_ID, notification,
+                                    ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC);
 
       // A no-op country can synchronously report an idle queue before the next country is enqueued.
       mEnqueuingDownloads = true;
@@ -142,10 +138,7 @@ public class DownloaderService extends Service implements MapManager.StorageCall
 
   private void finishForeground()
   {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-      stopForeground(Service.STOP_FOREGROUND_REMOVE);
-    else
-      stopForeground(true);
+    ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_REMOVE);
     mNotifier.cancelProgress();
   }
 
@@ -203,12 +196,6 @@ public class DownloaderService extends Service implements MapManager.StorageCall
 
     MapManager.nativeUnsubscribe(mSubscriptionSlot);
     finishForeground();
-  }
-
-  @Override
-  public void onTimeout(int startId)
-  {
-    onTimeout(startId, 0);
   }
 
   @Override

@@ -8,11 +8,11 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
+import androidx.core.app.PendingIntentCompat;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
@@ -280,10 +280,8 @@ public class MwmApplication extends Application implements Application.ActivityL
     NavigationService.createNotificationChannel(this);
     NavigationService.setOrganicMaps(getOrganicMaps());
 
-    final int FLAG_IMMUTABLE = Build.VERSION.SDK_INT < Build.VERSION_CODES.M ? 0 : PendingIntent.FLAG_IMMUTABLE;
     final Intent contentIntent = new Intent(this, MwmActivity.class);
-    final PendingIntent pendingIntent =
-        PendingIntent.getActivity(this, 0, contentIntent, PendingIntent.FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE);
-    NavigationService.setOpenAppPendingIntent(pendingIntent);
+    NavigationService.setOpenAppPendingIntent(
+        PendingIntentCompat.getActivity(this, 0, contentIntent, PendingIntent.FLAG_UPDATE_CURRENT, false));
   }
 }

@@ -15,6 +15,7 @@ import androidx.car.app.model.MessageTemplate;
 import androidx.car.app.model.Template;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.app.PendingIntentCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.lifecycle.LifecycleOwner;
@@ -107,10 +108,9 @@ public class RequestPermissionsScreenWithNotification extends BaseScreen impleme
   @RequiresPermission(value = Manifest.permission.POST_NOTIFICATIONS)
   private void sendPermissionsRequestNotification()
   {
-    final int FLAG_IMMUTABLE = Build.VERSION.SDK_INT < Build.VERSION_CODES.M ? 0 : PendingIntent.FLAG_IMMUTABLE;
     final Intent contentIntent = new Intent(getCarContext(), RequestPermissionsActivity.class);
-    final PendingIntent pendingIntent = PendingIntent.getActivity(getCarContext(), 0, contentIntent,
-                                                                  PendingIntent.FLAG_CANCEL_CURRENT | FLAG_IMMUTABLE);
+    final PendingIntent pendingIntent =
+        PendingIntentCompat.getActivity(getCarContext(), 0, contentIntent, PendingIntent.FLAG_CANCEL_CURRENT, false);
 
     final NotificationCompat.Builder builder =
         new NotificationCompat.Builder(getCarContext(), AndroidAutoService.ANDROID_AUTO_NOTIFICATION_CHANNEL_ID);
