@@ -131,12 +131,12 @@ final class TransitDetailsRideView: UIView {
       content.addArrangedSubview(label)
       content.setCustomSpacing(Layout.stopNameSpacing, after: label)
     }
-    content.addArrangedSubview(TransitLineBadgeView(step: step))
-    let summary = makeSummary(step: step)
-    content.addArrangedSubview(summary)
+    let disclosure = makeDisclosure(step: step)
+    content.addArrangedSubview(disclosure)
+    disclosure.widthAnchor.constraint(equalTo: content.widthAnchor).isActive = true
     intermediatesLabel.isHidden = true
     content.addArrangedSubview(intermediatesLabel)
-    content.setCustomSpacing(Layout.stopNameSpacing, after: summary)
+    content.setCustomSpacing(Layout.stopNameSpacing, after: disclosure)
     content.setCustomSpacing(Layout.stopNameSpacing, after: intermediatesLabel)
     if let exitStop = ride.exitStop {
       content.addArrangedSubview(makeLabel(exitStop, font: .medium20, color: .blackPrimary))
@@ -158,7 +158,9 @@ final class TransitDetailsRideView: UIView {
     fatalError("init(coder:) has not been implemented")
   }
 
-  private func makeSummary(step: MWMRouterTransitStepInfo) -> UIView {
+  /// The line badge over "N stops · duration". As on Android, the whole full-width block expands the stops.
+  private func makeDisclosure(step: MWMRouterTransitStepInfo) -> UIView {
+    let badge = TransitLineBadgeView(step: step)
     let stops = step.stopCount > 0 ? String(format: L("transit_stops_count"), step.stopCount) : nil
     let label = makeLabel(makeSummaryText(stops, timeInSec: step.timeInSec), font: .regular16, color: .blackSecondary)
 
@@ -169,13 +171,18 @@ final class TransitDetailsRideView: UIView {
     let summary = UIStackView(arrangedSubviews: [summaryChevron, label])
     summary.spacing = 4
     summary.alignment = .center
+
+    let disclosure = UIStackView(arrangedSubviews: [badge, summary])
+    disclosure.axis = .vertical
+    disclosure.alignment = .leading
+    disclosure.spacing = Layout.lineSpacing
     if hasIntermediates {
-      summary.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(toggleIntermediates)))
-      summary.isAccessibilityElement = true
-      summary.accessibilityLabel = label.text
-      summary.accessibilityTraits = .button
+      disclosure.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(toggleIntermediates)))
+      disclosure.isAccessibilityElement = true
+      disclosure.accessibilityLabel = [badge.accessibilityLabel, label.text].compactMap { $0 }.joined(separator: ", ")
+      disclosure.accessibilityTraits = .button
     }
-    return summary
+    return disclosure
   }
 
   @objc

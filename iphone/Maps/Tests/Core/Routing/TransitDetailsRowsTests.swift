@@ -127,6 +127,26 @@ final class TransitDetailsRowsTests: XCTestCase {
     XCTAssertTrue(view.isExpanded)
   }
 
+  func testBadgeAndSummaryExpandTheStopsAcrossTheFullWidth() throws {
+    let step = ride("A", "C")
+    step.intermediateStopNames = ["B"]
+    let view = TransitDetailsRideView(ride: TransitDetailsRide(step: step, startsAtTransfer: false,
+                                                               endsAtTransfer: false))
+    layOut(view)
+
+    let disclosure = try XCTUnwrap(descendants(of: view).first { hasTap($0) })
+    XCTAssertTrue(descendants(of: disclosure).contains { $0 is TransitLineBadgeView })
+    XCTAssertEqual(disclosure.convert(disclosure.bounds, to: view).maxX, view.bounds.width, accuracy: 0.5)
+    XCTAssertEqual(disclosure.accessibilityTraits, .button)
+  }
+
+  func testRideWithoutIntermediateStopsIsNotTappable() {
+    let view = TransitDetailsRideView(ride: TransitDetailsRide(step: ride("A", "B"), startsAtTransfer: false,
+                                                               endsAtTransfer: false))
+
+    XCTAssertFalse(descendants(of: view).contains { hasTap($0) })
+  }
+
   func testTransferDrawsTheIncomingLineAboveABreakBesideTheSharedStop() throws {
     let view = TransitDetailsTransferView(stop: "B", from: red, to: blue)
     layOut(view)
@@ -264,6 +284,10 @@ final class TransitDetailsRowsTests: XCTestCase {
   /// The line bars: plain views drawn in a line color, as opposed to labels, badges and icons.
   private func bars(in view: UIView) -> [UIView] {
     descendants(of: view).filter { type(of: $0) == UIView.self && ($0.backgroundColor == red || $0.backgroundColor == blue) }
+  }
+
+  private func hasTap(_ view: UIView) -> Bool {
+    view.gestureRecognizers?.contains { $0 is UITapGestureRecognizer } == true
   }
 
   private struct NotARide: Error {}
