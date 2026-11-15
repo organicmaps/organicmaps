@@ -115,6 +115,123 @@
   </screenshots>
 
   <releases>
+   <release version="2026.05.28-2" date="2026-05-28">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>OpenStreetMap data as of May 27</li>
+           <li>Tap a public transport stop and select a route number to highlight the entire transit route on the map, like in the Subway map layer</li>
+           <li>Bookmark labels on the map don't overlap</li>
+           <li>Vietnam, Malaysia, Tanzania split into smaller, individually downloadable regions. Hong Kong, Macau, and Hainan are separated from Guangdong</li>
+           <li>Two million more US addresses and smarter search</li>
+           <li>A map without edges. Organic Maps now wraps smoothly across the antimeridian (±180° longitude).</li>
+           <li>Routes between countries are created faster and no longer cause out-of-memory crashes in some cases</li>
+        </ul>
+     </description>
+    </release>
+   <release version="2026.01.16-8" date="2026-01-16">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>Higher-contrast dark theme colors</li>
+           <li>Export Bookmarks or Tracks as GeoJSON</li>
+           <li>Updated OpenStreetMap data (January 11)</li>
+           <li>Added Bulgarian search synonyms</li>
+           <li>Excluded casinos from the “Entertainment” category</li>
+           <li>Reduced the thickness of subway lines</li>
+           <li>Added capacity information to search results for motorcycle parking, bicycle rental, bicycle charging, and car charging</li>
+           <li>Show floor level in search results</li>
+        </ul>
+     </description>
+    </release>
+   <release version="2025.12.16-16" date="2025-12-16">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>NEW: Search for Christmas tree and Christmas market on the map</li>
+           <li>OpenStreetMap data as of December 14, 2025</li>
+           <li>National park borders and labels are less prominent on the world map</li>
+           <li>Display parking capacity in search results</li>
+        </ul>
+     </description>
+    </release>
+   <release version="2025.11.26-5" date="2025-11-26">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>Wikipedia articles in Turkish, Japanese, and Chinese, type ?wiki to see them on the map</li>
+           <li>OSM data as of November 23</li>
+           <li>Brighter roads in dark vehicle mode</li>
+           <li>Improved bicycle routing in Austria</li>
+        </ul>
+     </description>
+    </release>
+   <release version="2025.11.11-4" date="2025-11-11">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>Highlight downloaded regions, nature reserves, national parks, protected areas, Aboriginal lands, danger areas, lakes on the World map</li>
+           <li>Fresh OSM maps as of November 9</li>
+           <li>Routing supports road closure times</li>
+        </ul>
+     </description>
+    </release>
+    <release version="2025.10.23-22" date="2025-10-23">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>POI details now show "name | ref" format (Viktor Govako)</li>
+           <li>Dark mode automatically syncs with system settings (DeepChirp)</li>
+           <li>Fresh OpenStreetMap data from October 21, 2025 (Viktor Govako)</li>
+           <li>New map objects: monitoring stations, traffic islands, Kneipp water cure facilities, miniature railways (Viktor Govako)</li>
+           <li>New POI types and icons: camp pitches in outdoors style, airport terminals, indoor play areas, telecommunication shops, boat rental facilities, slipway facilities, updated waste disposal and landfill icons (David Martinez)</li>
+           <li>Show names of subway entrances/exits on the map (Viktor Govako)</li>
+           <li>Improved information displayed after selecting a river or waterway segment (Viktor Govako)</li>
+           <li>Better EV charging station search with improved synonyms in all languages (Alexander Borsuk)</li>
+           <li>Fixed emoji search with variant selectors (Alexander Borsuk)</li>
+           <li>No more numeric prefix suggestions after finding exact address match (Viktor Govako)</li>
+           <li>Importing/exporting GeoJSON from/to umap.openstreetmap.fr should now preserve all metadata (Shubh Kesharwani)</li>
+           <li>Additional colors are supported for waymarked trails for the Hiking Routes map layer (Viktor Govako)</li>
+        </ul>
+     </description>
+   </release>
+   <release version="2025.10.05-7" date="2025-10-05">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>New OpenStreetMap data as of October 4</li>
+           <li>Wikipedia data as of October 1</li>
+        </ul>
+       <p>Map Styles:</p>
+         <ul>
+           <li>Show bicycle rental shops tagged as amenity=bicycle + rental=shop</li>
+           <li>Show historic archaeological sites from zoom 12 and other historic sites from zoom 15 in Outdoor style</li>
+           <li>New icons for mast, communication, and power towers in Outdoors style</li>
+           <li>Increase peak icon size in Outdoors style</li>
+           <li>Add missing POI icon variants</li>
+           <li>Added more barrier types</li>
+         </ul>
+     </description>
+   </release>
+   <release version="2025.09.25-5" date="2025-09-25">
+     <description>
+       <p>Highlights:</p>
+         <ul>
+           <li>New OpenStreetMap data as of September 13</li>
+           <li>New servers</li>
+        </ul>
+       <p>Map Styles:</p>
+         <ul>
+           <li>Show ruins and archeological sites from zoom 16</li>
+           <li>New icons for outdoors style mast, comm and power towers</li>
+           <li>Increased peak icon size in outdoors style</li>
+         </ul>
+        <p>Linux:</p>
+         <ul>
+           <li>Cancellable map downloads</li>
+         </ul>
+     </description>
+   </release>
    <release version="2025.09.15-18" date="2025-09-15">
      <description>
        <p>Highlights:</p>
