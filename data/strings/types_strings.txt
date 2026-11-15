@@ -32255,7 +32255,7 @@ zh-Hant = 單軌軌道
 [type.railway.narrow_gauge]
 en = Narrow Gauge Rail
 af = Smalspoorbaan
-az = Dar dəmir yolu
+az = Dar izli dəmir yolu
 be = Вузкакалейная чыгунка
 ca = Ferrocarril de via estreta
 cs = Úzkorozchodná železnice
@@ -32295,7 +32295,7 @@ zh-Hant = 窄軌鐵路
 [type.railway.narrow_gauge.bridge]
 en = Narrow Gauge Rail Bridge
 af = Smalspoorbrug
-az = Dar dəmir yolu körpüsü
+az = Dar izli dəmir yolu körpüsü
 be = Мост вузкакалейнай чыгункі
 ca = Pont ferroviari de via estreta
 cs = Most úzkorozchodné železnice
@@ -32334,7 +32334,7 @@ zh-Hant = 窄軌鐵路橋樑
 [type.railway.narrow_gauge.tunnel]
 en = Narrow Gauge Rail Tunnel
 af = Smalspoortonnel
-az = Dar dəmir yolu tuneli
+az = Dar izli dəmir yolu tuneli
 be = Тунэль вузкакалейнай чыгункі
 ca = Túnel ferroviari de via estreta
 cs = Tunel úzkorozchodné železnice
