@@ -62,7 +62,9 @@ public enum TtsPlayer
   // while the previous one is still being played.
   // Ids superseded by QUEUE_FLUSH are dropped right away, as are all of them on stop() and on an
   // engine reload, so devices without the API 23 onStop() callback do not leak entries.
-  // Touched on the main thread only, the engine's callbacks are reposted with UiThread.runLater().
+  // This set, the counter below and the audio focus are mutated on the main thread only: the public
+  // API reposts itself to the *OnUiThread() methods and the engine's callbacks are reposted with
+  // UiThread.runLater(), so everything they call in turn runs on the main thread as well.
   @NonNull
   private final Set<String> mPendingUtterances = new HashSet<>();
   private int mUtteranceCounter;
@@ -326,12 +328,12 @@ public enum TtsPlayer
 
   public void speak(@NonNull String textToSpeak)
   {
-    if (!UiThread.isUiThread())
-    {
-      UiThread.run(() -> speak(textToSpeak));
-      return;
-    }
+    // The public API is callable from any thread, the queue and the focus are main thread state.
+    UiThread.run(() -> speakOnUiThread(textToSpeak));
+  }
 
+  private void speakOnUiThread(@NonNull String textToSpeak)
+  {
     if (!isReady())
       return;
 
@@ -341,12 +343,11 @@ public enum TtsPlayer
 
   public void playTurnNotifications(@NonNull String[] turnNotifications)
   {
-    if (!UiThread.isUiThread())
-    {
-      UiThread.run(() -> playTurnNotifications(turnNotifications));
-      return;
-    }
+    UiThread.run(() -> playTurnNotificationsOnUiThread(turnNotifications));
+  }
 
+  private void playTurnNotificationsOnUiThread(@NonNull String[] turnNotifications)
+  {
     if (!isReady())
       return;
 
@@ -386,6 +387,7 @@ public enum TtsPlayer
     if (mTts.playSilentUtterance(TTS_SPEAK_DELAY_MILLIS, TextToSpeech.QUEUE_FLUSH, id) == TextToSpeech.SUCCESS)
       return true;
 
+    // Keep the focus, the phrase this delay was meant to lead in is queued right after.
     mPendingUtterances.remove(id);
     return false;
   }
@@ -398,6 +400,7 @@ public enum TtsPlayer
 
     // The engine issues no callbacks for a rejected utterance.
     mPendingUtterances.remove(id);
+    releaseFocusIfIdle();
     Logger.d(TAG, "Failed to speak text: " + text);
     return false;
   }
@@ -417,24 +420,46 @@ public enum TtsPlayer
     return id;
   }
 
+  /**
+   * Gives the audio focus back as soon as nothing is queued anymore. Keeping this in one place makes
+   * the "focus is held only while an utterance is pending" invariant independent of the callers.
+   */
+  private void releaseFocusIfIdle()
+  {
+    if (mPendingUtterances.isEmpty() && mAudioFocusManager != null)
+      mAudioFocusManager.releaseAudioFocus();
+  }
+
   private void onUtteranceFinished(@NonNull String utteranceId)
   {
-    UiThread.run(() -> {
+    // Always post, never run inline: an engine may report an utterance as finished while the
+    // caller is still queueing the remaining phrases of the same instruction, and releasing the
+    // focus in the middle of that loop would unduck the other audio for a moment.
+    UiThread.runLater(() -> {
       // A superseded utterance may report its terminal callback after its id was dropped and the
       // set refilled with a newer phrase, remove() tells such a late callback from a tracked one.
-      if (mPendingUtterances.remove(utteranceId) && mPendingUtterances.isEmpty())
-        mAudioFocusManager.releaseAudioFocus();
+      if (mPendingUtterances.remove(utteranceId))
+        releaseFocusIfIdle();
     });
   }
 
+  /**
+   * Stops the speech and gives the audio focus back. Cleanup depends on what is owned rather than
+   * on {@link #isReady()}: the engine may have been locked down (see {@link #lockDown()}) while an
+   * utterance was playing, and the focus still has to be released.
+   */
   public void stop()
   {
-    if (!isReady())
-      return;
+    UiThread.run(this::stopOnUiThread);
+  }
 
+  private void stopOnUiThread()
+  {
     mPendingUtterances.clear();
-    mAudioFocusManager.releaseAudioFocus();
-    mTts.stop();
+    if (mAudioFocusManager != null)
+      mAudioFocusManager.releaseAudioFocus();
+    if (mTts != null)
+      mTts.stop();
   }
 
   public static boolean isEnabled()
