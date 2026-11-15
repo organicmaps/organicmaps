@@ -98,6 +98,42 @@
   </screenshots>
 
   <releases>
+   <release version="2026.11.16-3" date="2026-11-16">
+     <description>
+       <ul>
+         <li>OpenStreetMap data as of November 10, 2026</li>
+         <li>Wikipedia articles as of November 1, 2026</li>
+         <li>Added 3D terrain, ocean depths and detailed contour lines in meters and feet</li>
+         <li>Translated the desktop interface and place types, including Welsh, with improved language fallback and right-to-left layouts</li>
+         <li>Added import and display of areas from KML, KMZ and GeoJSON files, including colored outlines, fills and holes</li>
+         <li>Added arrows showing the direction of tracks on the map</li>
+         <li>Selected tracks now stand out above other tracks with a contrasting outline</li>
+         <li>Opening a track from a list now selects its beginning</li>
+         <li>Preserved saved-route stops and travel modes when importing and exporting KML files; GPX and GeoJSON exports include the stops as separate points</li>
+         <li>Improved handling of invalid coordinates in KML, GPX and GeoJSON imports, and fixed the first bookmark import</li>
+         <li>Made overwriting files safer when exporting bookmarks</li>
+         <li>Search suggestions now preserve their original spelling, including accents and capitalization</li>
+         <li>Improved hairdresser and barber searches by removing unrelated beauty-salon matches</li>
+         <li>Intermittent rivers, canals, drains and other waterways now use dashed lines, with clearer names</li>
+         <li>Improved water colors, made rivers wider and added a subtle outline to water labels</li>
+         <li>Added bridge outlines for trams, monorails, funiculars and narrow-gauge railways</li>
+         <li>Added support for barbers, Pilates studios, window installers, waterworks and covered reservoirs</li>
+         <li>Fixed gaps in filled map areas, including missing water near the Arctic</li>
+         <li>Fixed missing transliterated map names and labels containing Hebrew or Arabic combining marks</li>
+         <li>Reduced memory use and improved map loading while moving around the map</li>
+         <li>Fixed a crash and incorrect rendering when switching map styles</li>
+         <li>Corrected map download region outlines, gaps, overlaps and stale highlighting</li>
+         <li>Improved detection of the maps needed for a route or visible area, including regions crossing the 180° meridian</li>
+         <li>Improved map download cancellation, retries and resuming</li>
+         <li>Fixed crashes when cancelling network requests or closing map downloads while a search is running</li>
+         <li>Fixed place-detail links and description previews containing non-Latin text</li>
+         <li>Fixed saving cuisine choices and deleting places in the OpenStreetMap editor</li>
+         <li>Fixed Norwegian Bokmål place names and uploads of Norwegian name edits</li>
+         <li>Fixed incorrect map rendering while resizing the desktop window</li>
+         <li>Improved location updates and made the My Position button usable again after location errors</li>
+       </ul>
+     </description>
+   </release>
    <release version="2026.05.28-2" date="2026-05-28">
      <description>
        <p>Highlights:</p>
