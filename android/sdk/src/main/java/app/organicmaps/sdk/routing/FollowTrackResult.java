@@ -22,7 +22,7 @@ public enum FollowTrackResult
   Busy,
   /** The selected source geometry is unavailable or has changed. */
   InvalidSelection,
-  /** No connected track geometry remains after the selected entry. */
+  /** No connected track geometry remains in this direction. */
   NoRemainingGeometry;
 
   public static FollowTrackResult valueOf(int result)

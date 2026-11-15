@@ -277,6 +277,63 @@
   XCTAssertEqual(bookmarks.GetElevationActivePoint(trackId), distance.doubleValue);
 }
 
+- (void)testDistanceUpdateKeepsTheReversedDirectionAndRejectsTheStart
+{
+  auto const id = [self createPreview];
+  [self waitForPreview];
+  auto & framework = GetFramework();
+  auto & bookmarks = framework.GetBookmarkManager();
+  double const distance = bookmarks.GetTrack(id)->GetLengthMeters() / 2.0;
+  XCTAssertEqual([MWMRouter updateFollowedTrackEntryAtDistance:distance], MWMFollowTrackResultOk);
+  [self waitForPreview];
+  XCTAssertEqual([MWMRouter reverseFollowedTrack], MWMFollowTrackResultOk);
+  [self waitForPreview];
+  XCTAssertEqual([MWMRouter updateFollowedTrackEntryAtDistance:distance / 2.0], MWMFollowTrackResultOk);
+  [self waitForPreview];
+  auto const selection = bookmarks.GetTrackSelectionInfo(id);
+  auto const * route = framework.GetRoutingManager().RoutingSession().GetRoute();
+  XCTAssertTrue([MWMRouter followedTrackInfo].isReversed);
+  XCTAssertEqual([MWMRouter renderType], MWMRouterTypePedestrian);
+  XCTAssertTrue(route->GetPoly().GetPoint(1).EqualDxDy(selection.m_trackPoint, mercator::kPointEqualityEps));
+  XCTAssertTrue(route->GetPoly().Back().EqualDxDy(mercator::FromLatLon(45.0, 19.0), mercator::kPointEqualityEps));
+  XCTAssertEqual([MWMRouter updateFollowedTrackEntryAtDistance:0.0], MWMFollowTrackResultNoRemainingGeometry);
+  XCTAssertEqual(framework.GetRoutingManager().RoutingSession().GetRoute(), route);
+  XCTAssertTrue(
+      bookmarks.GetTrackSelectionInfo(id).m_trackPoint.EqualDxDy(selection.m_trackPoint, mercator::kPointEqualityEps));
+  XCTAssertEqual(bookmarks.GetTrackSelectionInfo(id).m_distFromBegM, selection.m_distFromBegM);
+  XCTAssertEqual([MWMRouter routeElevationActivePointDistance].doubleValue, distance / 2.0);
+}
+
+- (void)testReverseKeepsTheCapturedEntryAndProfile
+{
+  auto const id = [self createPreview];
+  [self waitForPreview];
+  XCTAssertEqual([MWMRouter setFollowTrackProfile:MWMRouterTypeVehicle], MWMFollowTrackResultOk);
+  [self waitForPreview];
+  auto & framework = GetFramework();
+  auto & bookmarks = framework.GetBookmarkManager();
+  auto const * track = bookmarks.GetTrack(id);
+  auto const & line = track->GetData().m_geometry.m_lines.front();
+  auto const start = line.front().GetPoint();
+  auto const entry = (start + line.back().GetPoint()) * 0.5;
+  XCTAssertEqual([MWMRouter updateFollowedTrackEntryAtDistance:track->GetLengthMeters() * 0.5], MWMFollowTrackResultOk);
+  [self waitForPreview];
+  XCTAssertEqual([MWMRouter reverseFollowedTrack], MWMFollowTrackResultOk);
+  XCTAssertEqual([MWMRouter reverseFollowedTrack], MWMFollowTrackResultBusy);
+  [self waitForPreview];
+  XCTAssertTrue([MWMRouter followedTrackInfo].isReversed);
+  XCTAssertEqual([MWMRouter renderType], MWMRouterTypeVehicle);
+  auto const * route = framework.GetRoutingManager().RoutingSession().GetRoute();
+  XCTAssertTrue(route->GetPoly().GetPoint(1).EqualDxDy(entry, mercator::kPointEqualityEps));
+  XCTAssertTrue(route->GetPoly().Back().EqualDxDy(start, mercator::kPointEqualityEps));
+  XCTAssertTrue(bookmarks.GetTrack(id)->GetData().m_routerType == "pedestrian");
+  // The XCTest host omits the renderer; enter the session directly to test the active-navigation guard.
+  XCTAssertTrue(framework.GetRoutingManager().RoutingSession().EnableFollowMode());
+  XCTAssertTrue([MWMRouter isOnRoute]);
+  XCTAssertEqual([MWMRouter reverseFollowedTrack], MWMFollowTrackResultBusy);
+  XCTAssertEqual(framework.GetRoutingManager().RoutingSession().GetRoute(), route);
+}
+
 - (void)testDeletionKeepsAnActiveJourneyOnItsFrozenGeometry
 {
   auto const id = [self createPreview];

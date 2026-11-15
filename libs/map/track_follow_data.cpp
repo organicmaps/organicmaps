@@ -197,16 +197,22 @@ std::optional<TrackSourcePosition> ResolveTrackEntry(kml::MultiGeometry const & 
 }
 
 std::expected<routing::TrackFollowingData, FollowTrackResult> BuildTrackFollowingData(kml::TrackData const & source,
-                                                                                      TrackSourcePosition const & entry)
+                                                                                      TrackSourcePosition const & entry,
+                                                                                      bool reverse)
 {
   routing::TrackFollowingData result;
   auto const & geometry = source.m_geometry;
   if (entry.m_line >= geometry.m_lines.size() || entry.m_segment + 1 >= geometry.m_lines[entry.m_line].size())
     return std::unexpected(FollowTrackResult::InvalidSelection);
 
+  size_t firstLine = entry.m_line;
   size_t lastLine = entry.m_line;
-  while (IsJoinedToNext(geometry, lastLine))
-    ++lastLine;
+  if (reverse)
+    while (firstLine > 0 && IsJoinedToNext(geometry, firstLine - 1))
+      --firstLine;
+  else
+    while (IsJoinedToNext(geometry, lastLine))
+      ++lastLine;
 
   struct Event
   {
@@ -218,8 +224,11 @@ std::expected<routing::TrackFollowingData, FollowTrackResult> BuildTrackFollowin
   events.push_back({entry, PointAtPosition(geometry, entry)});
 
   auto const inRemainder = [&](SourcePosition const & position)
-  { return position.m_line >= entry.m_line && position.m_line <= lastLine && !IsBefore(position, entry); };
-  for (size_t lineIndex = entry.m_line; lineIndex <= lastLine; ++lineIndex)
+  {
+    return position.m_line >= firstLine && position.m_line <= lastLine &&
+           (reverse ? !IsBefore(entry, position) : !IsBefore(position, entry));
+  };
+  for (size_t lineIndex = firstLine; lineIndex <= lastLine; ++lineIndex)
   {
     auto const & line = geometry.m_lines[lineIndex];
     for (size_t pointIndex = 0; pointIndex < line.size(); ++pointIndex)
@@ -269,12 +278,18 @@ std::expected<routing::TrackFollowingData, FollowTrackResult> BuildTrackFollowin
     events.push_back({projected->m_position, anchor, true});
   }
 
-  auto const bySourcePosition = [](Event const & lhs, Event const & rhs)
-  { return IsBefore(lhs.m_position, rhs.m_position); };
   auto const stopsBegin = events.begin() + geometryEnd;
+  if (reverse)
+  {
+    // Keep the selected entry first while reversing the remaining source samples.
+    std::reverse(events.begin() + 1, stopsBegin);
+    std::reverse(stopsBegin, events.end());
+  }
+  auto const bySourcePosition = [reverse](Event const & lhs, Event const & rhs)
+  { return reverse ? IsBefore(rhs.m_position, lhs.m_position) : IsBefore(lhs.m_position, rhs.m_position); };
   ASSERT(std::is_sorted(events.begin(), stopsBegin, bySourcePosition), ());
   ASSERT(std::is_sorted(stopsBegin, events.end(), bySourcePosition), ());
-  // Geometry and projected stops each preserve source order, including collocated events.
+  // Geometry and projected stops each follow the travel direction, including collocated events.
   std::inplace_merge(events.begin(), stopsBegin, events.end(), bySourcePosition);
   for (auto const & event : events)
   {
