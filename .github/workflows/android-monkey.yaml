@@ -50,7 +50,7 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v6
         with:
-          fetch-depth: 100 # enough to get all commits for the current day
+          fetch-depth: 100 # Bounded history for this test build.
 
       - name: Parallel submodules checkout
         shell: bash

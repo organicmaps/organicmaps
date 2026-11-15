@@ -49,7 +49,9 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v6
         with:
-          fetch-depth: 100  # Enough to get all commits for the last day.
+          # Version counters need complete ancestry, without historical blob downloads.
+          fetch-depth: 0
+          filter: blob:none
           ssh-key: ${{ secrets.RELEASE_SSH_KEY }}
 
       - name: Tag
@@ -125,15 +127,19 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v6
         with:
-          fetch-depth: 100 # enough to get all commits for the current day
+          # Version counters need complete ancestry, without historical blob downloads.
+          fetch-depth: 0
+          filter: blob:none
           ref: 'refs/tags/${{ needs.tag.outputs.tag }}'
 
       - name: Check tag
         shell: bash
+        env:
+          OM_RELEASE_TAG: ${{ needs.tag.outputs.tag }}
         run: |
           git show HEAD
-          test -n "${{ needs.tag.outputs.tag }}"
-          test "$(git tag --points-at HEAD)" = "${{ needs.tag.outputs.tag }}"
+          test -n "$OM_RELEASE_TAG"
+          test "$(git rev-parse "refs/tags/$OM_RELEASE_TAG^{commit}")" = "$(git rev-parse HEAD)"
 
       - name: Parallel submodules checkout
         shell: bash

@@ -1,0 +1,35 @@
+name: Version generation
+
+on:
+  pull_request:
+    branches: [ master ]
+    paths:
+      - '.github/workflows/version-check.yaml'
+      - '.github/workflows/android-beta.yaml'
+      - '.github/workflows/android-release.yaml'
+      - '.github/workflows/android-sdk.yaml'
+      - '.github/workflows/ios-beta.yaml'
+      - 'tools/unix/version.sh'
+      - 'tools/unix/tests/test_version.py'
+      - 'android/wear/build.gradle'
+  push:
+    branches: [ master ]
+    paths:
+      - '.github/workflows/version-check.yaml'
+      - '.github/workflows/android-beta.yaml'
+      - '.github/workflows/android-release.yaml'
+      - '.github/workflows/android-sdk.yaml'
+      - '.github/workflows/ios-beta.yaml'
+      - 'tools/unix/version.sh'
+      - 'tools/unix/tests/test_version.py'
+      - 'android/wear/build.gradle'
+
+jobs:
+  version-generation:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+      - name: Test release version generation
+        run: python3 tools/unix/tests/test_version.py -v
