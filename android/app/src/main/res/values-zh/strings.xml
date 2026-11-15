@@ -702,6 +702,8 @@
     <string name="moreyear_ago_sorttype">一年多以前</string>
     <string name="near_me_sorttype">在我附近</string>
     <string name="others_sorttype">其他</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">路线计划失败</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">现已关门</string>
     <string name="opens_tomorrow_at">明天 %s 营业</string>
@@ -946,4 +948,14 @@
     <string name="transit_type_train">火车</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">有轨电车</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">导航</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">轨迹起点</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">轨迹终点</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">此方向上已没有剩余轨迹。请选择其他点。</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">该轨迹已不可用</string>
 </resources>
