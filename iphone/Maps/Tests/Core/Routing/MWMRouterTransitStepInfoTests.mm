@@ -48,4 +48,23 @@
   }
 }
 
+- (void)testRideExposesSelectedLineAndStops
+{
+  TransitStepInfo info(TransitType::Bus, 900, 540, "1, 2", 0xFF2F6499);
+  info.m_lineNumber = "1";
+  info.m_startStopName = "A";
+  info.m_endStopName = "D";
+  info.m_intermediateStopNames = {"B", "C"};
+  info.m_stopCount = 3;
+  auto step = [[MWMRouterTransitStepInfo alloc] initWithStepInfo:info];
+
+  XCTAssertEqualObjects(step.number, @"1, 2");
+  XCTAssertEqualObjects(step.lineNumber, @"1");
+  XCTAssertEqualObjects(step.startStopName, @"A");
+  XCTAssertEqualObjects(step.endStopName, @"D");
+  XCTAssertEqualObjects(step.intermediateStopNames, (@[@"B", @"C"]));
+  XCTAssertEqual(step.stopCount, 3);
+  XCTAssertEqual(step.timeInSec, 540);
+}
+
 @end
