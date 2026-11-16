@@ -10,6 +10,7 @@
 
 #include "base/checked_cast.hpp"
 
+#include <algorithm>
 #include <utility>
 
 namespace
@@ -525,9 +526,16 @@ double RoutingSession::GetCompletionPercent() const
 void RoutingSession::PassCheckpoints()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  while (!m_checkpoints.IsFinished() && m_route->IsSubroutePassed(m_checkpoints.GetPassedIdx()))
+  // Routers emit one subroute per checkpoint pair, except RulerRouter which emits two (see ruler_router.cpp).
+  size_t const numCheckpointSubroutes = m_checkpoints.GetNumSubroutes();
+  ASSERT(numCheckpointSubroutes > 0 && m_route->GetSubrouteCount() % numCheckpointSubroutes == 0,
+         (m_route->GetSubrouteCount(), m_checkpoints));
+  size_t const subroutesPerCheckpoint = std::max<size_t>(m_route->GetSubrouteCount() / numCheckpointSubroutes, 1);
+  while (!m_checkpoints.IsFinished() &&
+         m_route->IsSubroutePassed((m_checkpoints.GetPassedIdx() + 1) * subroutesPerCheckpoint - 1))
   {
-    m_route->PassNextSubroute();
+    for (size_t i = 0; i < subroutesPerCheckpoint; ++i)
+      m_route->PassNextSubroute();
     // Keep the active RouteBase in m_lastResult in sync so a later RouteCall (e.g. drape engine
     // reinit) doesn't re-render already-passed subroutes via InsertSingleRoute's
     // route.GetCurrentSubrouteIdx() loop start.

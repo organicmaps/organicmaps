@@ -7,16 +7,19 @@
 #include "routing/routing_callbacks.hpp"
 #include "routing/routing_helpers.hpp"
 #include "routing/routing_session.hpp"
+#include "routing/routing_settings.hpp"
 #include "routing/ruler_router.hpp"
 
 #include "platform/duration.hpp"
 
+#include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/point_with_altitude.hpp"
 
 #include "base/logging.hpp"
 
 #include <chrono>
+#include <future>
 #include <initializer_list>
 #include <memory>
 #include <mutex>
@@ -873,5 +876,147 @@ UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestAlternativeEstimatesPr
     checkedSignal.Signal();
   });
   TEST(checkedSignal.WaitUntil(steady_clock::now() + kRouteBuildingMaxDuration), ("Alternative checking timeout."));
+}
+
+// RulerRouter emits two subroutes per checkpoint pair, so reaching an intermediate stop must pass
+// only that stop and keep navigating to the finish.
+UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRulerRoutePassesIntermediatePoints)
+{
+  auto const pointAt = [](double xMeters) { return m2::PointD(mercator::MetersToMercator(xMeters), 0.0); };
+
+  for (size_t const intermediateCount : {1, 2})
+  {
+    vector<m2::PointD> points;
+    for (size_t i = 0; i <= intermediateCount + 1; ++i)
+      points.push_back(pointAt(200.0 * i));
+    double const finishMeters = 200.0 * (intermediateCount + 1);
+
+    vector<size_t> passedCheckpoints;
+    auto built = make_shared<std::promise<RouterResultCode>>();
+    auto ready = built->get_future();
+    RunOnGui([&, built]
+    {
+      InitRoutingSession();
+      m_session->SetRouter(make_unique<RulerRouter>(), nullptr);
+      m_session->SetRoutingSettings(GetRoutingSettings(VehicleType::Transit));
+      m_session->SetCheckpointCallback([&passedCheckpoints](size_t passedIdx)
+      { passedCheckpoints.push_back(passedIdx); });
+      m_session->SetRoutingCallbacks([built](RoutesResult const &, RouterResultCode code) { built->set_value(code); },
+                                     nullptr, nullptr, nullptr);
+      m_session->BuildRoute(Checkpoints(CheckpointsGeometry(points)), RouterDelegate::kNoTimeout);
+    });
+    TEST(ready.wait_for(kRouteBuildingMaxDuration) == std::future_status::ready, ("Route was not built."));
+    TEST_EQUAL(ready.get(), RouterResultCode::NoError, ());
+
+    RunOnGui([&]
+    {
+      TEST(m_session->EnableFollowMode(), ());
+      location::GpsInfo info;
+      info.m_horizontalAccuracy = 5.0;
+      info.m_speed = 2.0;
+      info.m_bearing = 90.0;
+      double time = 100.0;
+      for (size_t step = 0; step * 50.0 <= finishMeters; ++step)
+      {
+        double const x = step * 50.0;
+        auto const latLon = mercator::ToLatLon(pointAt(x));
+        info.m_latitude = latLon.m_lat;
+        info.m_longitude = latLon.m_lon;
+        info.m_timestamp = time;
+        time += 5.0;
+        SessionState const state = m_session->OnLocationPositionChanged(info);
+
+        // Each stop is passed once, in order, when it is reached.
+        size_t const reachedStops = step / 4;
+        TEST_EQUAL(passedCheckpoints.size(), reachedStops, (intermediateCount, x, passedCheckpoints));
+        for (size_t i = 0; i < passedCheckpoints.size(); ++i)
+          TEST_EQUAL(passedCheckpoints[i], i + 1, (intermediateCount, x, passedCheckpoints));
+
+        if (x < finishMeters)
+          TEST_NOT_EQUAL(state, SessionState::RouteFinished, (intermediateCount, x));
+        else
+          TEST_EQUAL(state, SessionState::RouteFinished, (intermediateCount, x));
+      }
+      m_session.reset();
+    });
+  }
+}
+
+// After a ruler route is rebuilt past an intermediate stop, following it must lead to the finish.
+UNIT_CLASS_TEST(AsyncGuiThreadTestWithRoutingSession, TestRulerRouteRebuiltAfterIntermediatePoint)
+{
+  auto const pointAt = [](double xMeters, double yMeters)
+  { return m2::PointD(mercator::MetersToMercator(xMeters), mercator::MetersToMercator(yMeters)); };
+
+  vector<size_t> passedCheckpoints;
+  double time = 100.0;
+  auto const feed = [&](double x, double y)
+  {
+    location::GpsInfo info;
+    auto const latLon = mercator::ToLatLon(pointAt(x, y));
+    info.m_latitude = latLon.m_lat;
+    info.m_longitude = latLon.m_lon;
+    info.m_horizontalAccuracy = 5.0;
+    info.m_speed = 2.0;
+    info.m_timestamp = time;
+    time += 5.0;
+    return m_session->OnLocationPositionChanged(info);
+  };
+  auto const waitForBuild = [](std::future<RouterResultCode> & ready)
+  {
+    TEST(ready.wait_for(kRouteBuildingMaxDuration) == std::future_status::ready, ("Route was not built."));
+    TEST_EQUAL(ready.get(), RouterResultCode::NoError, ());
+  };
+
+  auto built = make_shared<std::promise<RouterResultCode>>();
+  auto ready = built->get_future();
+  RunOnGui([&, built]
+  {
+    InitRoutingSession();
+    m_session->SetRouter(make_unique<RulerRouter>(), nullptr);
+    m_session->SetRoutingSettings(GetRoutingSettings(VehicleType::Transit));
+    m_session->SetCheckpointCallback([&passedCheckpoints](size_t passedIdx)
+    { passedCheckpoints.push_back(passedIdx); });
+    m_session->SetRoutingCallbacks([built](RoutesResult const &, RouterResultCode code) { built->set_value(code); },
+                                   nullptr, nullptr, nullptr);
+    m_session->BuildRoute(Checkpoints(CheckpointsGeometry({pointAt(0, 0), pointAt(200, 0), pointAt(400, 0)})),
+                          RouterDelegate::kNoTimeout);
+  });
+  waitForBuild(ready);
+
+  RunOnGui([&]
+  {
+    TEST(m_session->EnableFollowMode(), ());
+    for (double x = 0.0; x <= 200.0; x += 50.0)
+      feed(x, 0);
+    TEST_EQUAL(passedCheckpoints, vector<size_t>({1}), ());
+  });
+
+  auto rebuilt = make_shared<std::promise<RouterResultCode>>();
+  auto rebuiltReady = rebuilt->get_future();
+  RunOnGui([&, rebuilt]
+  {
+    m_session->RebuildRoute(pointAt(200, 200), [rebuilt](RoutesResult const &, RouterResultCode code) {
+      rebuilt->set_value(code);
+    }, nullptr, nullptr, RouterDelegate::kNoTimeout, SessionState::RouteRebuilding, true /* adjustToPrevRoute */);
+  });
+  waitForBuild(rebuiltReady);
+
+  RunOnGui([&]
+  {
+    TEST_EQUAL(m_session->GetRoute()->GetCurrentSubrouteIdx(), 2, ());
+    // Walk from the rebuild point to the finish.
+    SessionState state = SessionState::NoValidRoute;
+    for (size_t step = 0; step <= 10; ++step)
+    {
+      double const t = step / 10.0;
+      state = feed(200.0 + 200.0 * t, 200.0 - 200.0 * t);
+      if (step < 10)
+        TEST_EQUAL(state, SessionState::OnRoute, (step));
+    }
+    TEST_EQUAL(state, SessionState::RouteFinished, ());
+    TEST_EQUAL(passedCheckpoints, vector<size_t>({1, 2}), ());
+    m_session.reset();
+  });
 }
 }  // namespace routing_session_test
