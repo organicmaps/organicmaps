@@ -66,3 +66,38 @@ UNIT_TEST(RoadShields_Smoke)
   TEST_EQUAL(shields[0].m_type, RoadShieldType::Generic_Red, ());
   TEST_EQUAL(shields[0].m_name, "26", ());
 }
+
+// https://github.com/organicmaps/organicmaps/issues/5934
+// A road with ref "CTH NN" in a route relation with ref "NN" should get one shield, not two.
+UNIT_TEST(RoadShields_RelationNumberOfWayRef)
+{
+  using namespace ftypes;
+
+  // The generated ref of the reported way: the long network "US:WI:Milwaukee" is dropped.
+  auto shields = GetRoadShields("US_Wisconsin_Milwaukee", "CTH NN;NN");
+  TEST_EQUAL(shields.size(), 1, (shields));
+  TEST_EQUAL(shields[0].m_name, "CTH NN", (shields));
+
+  // Maps can also keep the network prefix, and the number can come first.
+  shields = GetRoadShields("US_Minnesota_Minneapolis", "US:MN:Hennepin/12;CR 12");
+  TEST_EQUAL(shields.size(), 1, (shields));
+  TEST_EQUAL(shields[0].m_name, "CR 12", (shields));
+  shields = GetRoadShields("US_Minnesota_Minneapolis", "CR-12;US:MN:Hennepin/12");
+  TEST_EQUAL(shields.size(), 1, (shields));
+  TEST_EQUAL(shields[0].m_name, "CR-12", (shields));
+
+  // Different roads keep both shields.
+  shields = GetRoadShields("US_Wisconsin_Milwaukee", "CTH NN;US:WI:Milwaukee/MM");
+  TEST_EQUAL(shields.size(), 2, (shields));
+  shields = GetRoadShields("US_Minnesota_Minneapolis", "CR 112;US:MN:Hennepin/12");
+  TEST_EQUAL(shields.size(), 2, (shields));
+  // A relation shield with a network style is kept.
+  shields = GetRoadShields("US_Wisconsin_Milwaukee", "WIS 12;US:WI/12");
+  TEST_EQUAL(shields.size(), 2, (shields));
+
+  // Other countries are unchanged: separate routes and modifiers keep their shields.
+  shields = GetRoadShields("Norway", "e-road/E 12;NO:RV/12");
+  TEST_EQUAL(shields.size(), 2, (shields));
+  shields = GetRoadShields("Mexico", "BC 2;MX:MEX/MEX 2 D");
+  TEST_EQUAL(shields.size(), 2, (shields));
+}

@@ -177,6 +177,25 @@ class USRoadShieldParser : public RoadShieldParser
 {
 public:
   explicit USRoadShieldParser(std::string const & baseRoadNumber) : RoadShieldParser(baseRoadNumber) {}
+
+  RoadShieldsSetT GetRoadShields() const
+  {
+    // A county road is often tagged "CTH NN" on the way and only "NN" in its route relation (or in the
+    // generated ref, which drops long networks). Draw such a number once, as the county shield.
+    auto result = RoadShieldParser::GetRoadShields();
+    RoadShieldsSetT const shields = result;
+    result.erase_if([&shields](RoadShield const & number)
+    {
+      return number.m_type == RoadShieldType::Default &&
+             std::any_of(shields.begin(), shields.end(), [&number](RoadShield const & county)
+      {
+        return county.m_type == RoadShieldType::Default && county.m_additionalText == number.m_additionalText &&
+               IsCountyRefOf(county.m_name, number.m_name);
+      });
+    });
+    return result;
+  }
+
   RoadShield ParseRoadShield(std::string_view rawText) const override
   {
     std::string shieldText(rawText);
@@ -230,6 +249,20 @@ public:
       return RoadShield(RoadShieldType::Generic_White, roadNumber, additionalInfo);
 
     return RoadShield(RoadShieldType::Default, rawText);
+  }
+
+private:
+  static bool IsCountyRefOf(std::string_view ref, std::string_view number)
+  {
+    for (std::string_view const prefix : {"CTH", "CR"})
+    {
+      if (ref.size() > prefix.size() + 1 && ref.starts_with(prefix) &&
+          (ref[prefix.size()] == ' ' || ref[prefix.size()] == '-') && ref.substr(prefix.size() + 1) == number)
+      {
+        return true;
+      }
+    }
+    return false;
   }
 };
 
