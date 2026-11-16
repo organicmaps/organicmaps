@@ -33,6 +33,9 @@ final class AudioFocusManager
   private final OnAudioFocusLost mOnAudioFocusLost;
   @NonNull
   private final AudioFocusRequestCompat mAudioFocusRequest;
+  // The request is granted and not abandoned yet. Tells a redundant releaseAudioFocus() apart from
+  // a real one, so that cleanup paths do not reset the system-wide audio mode out of the blue.
+  private boolean mFocusHeld = false;
   private boolean mPlaybackAllowed = false;
 
   public AudioFocusManager(@NonNull Context context, @NonNull OnAudioFocusLost onAudioFocusLost)
@@ -61,6 +64,7 @@ final class AudioFocusManager
       return false;
     }
 
+    mFocusHeld = true;
     if (isBluetoothScoDeviceUsed())
     {
       Logger.d(TAG, "Bluetooth SCO device is used for audio output");
@@ -73,6 +77,10 @@ final class AudioFocusManager
 
   public void releaseAudioFocus()
   {
+    if (!mFocusHeld)
+      return;
+
+    mFocusHeld = false;
     AudioManagerCompat.abandonAudioFocusRequest(mAudioManager, mAudioFocusRequest);
     mPlaybackAllowed = false;
     mAudioManager.setMode(AudioManager.MODE_NORMAL);
