@@ -56,6 +56,9 @@ std::string GetTypeForFeature(editor::XMLFeature const & node)
     }
   }
 
+  if (node.GetTagValue("man_made") == "cross")
+    return "cross";
+
   // Did not find any known tags.
   return node.HasAnyTags() ? "unknown object" : "empty object";
 }
