@@ -1,5 +1,7 @@
 #pragma once
 
+#include "drape/transit_transfer_id.hpp"
+
 #include "indexer/feature_decl.hpp"
 
 #include "geometry/point2d.hpp"
@@ -50,6 +52,10 @@ public:
   FeatureID GetFeatureAtPoint(m2::PointD const & mercator, FeatureMatcher const & matcher = nullptr) const;
 
   void FillFeatureInfo(FeatureID const & fid, place_page::Info & info) const;
+
+  /// Adds public-transport routes of every constituent station of the interchange @p transferId to
+  /// |info|. Routes of the primary station are already in |info| and are not re-added.
+  void AddInterchangeRoutes(dp::TransitTransferId const & transferId, place_page::Info & info) const;
   void FillInfoFromFeatureType(FeatureType & ft, place_page::Info & info) const;
 
   /// @param customTitle, if not empty, overrides any other calculated name.

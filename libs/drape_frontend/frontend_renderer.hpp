@@ -1,5 +1,7 @@
 #pragma once
 
+#include "drape/transit_transfer_id.hpp"
+
 #include "drape_frontend/base_renderer.hpp"
 #include "drape_frontend/drape_api_renderer.hpp"
 #include "drape_frontend/frame_values.hpp"
@@ -64,6 +66,8 @@ struct TapInfo
   bool const m_isMyPositionTapped;
   FeatureID const m_featureTapped;
   kml::MarkId const m_markTapped;
+  // Valid only when an interchange (transit transfer) marker was tapped.
+  dp::TransitTransferId const m_transitTransferTapped;
 
   static m2::AnyRectD GetDefaultTapRect(m2::PointD const & mercator, ScreenBase const & screen);
   static m2::AnyRectD GetBookmarkTapRect(m2::PointD const & mercator, ScreenBase const & screen);
@@ -293,8 +297,14 @@ private:
 
   void OnCompassTapped();
 
-  std::pair<FeatureID, kml::MarkId> GetVisiblePOI(m2::PointD const & pixelPoint);
-  std::pair<FeatureID, kml::MarkId> GetVisiblePOI(m2::RectD const & pixelRect);
+  struct VisiblePOI
+  {
+    FeatureID m_featureId;
+    kml::MarkId m_markId = kml::kInvalidMarkId;
+    dp::TransitTransferId m_transitTransferId;
+  };
+  VisiblePOI GetVisiblePOI(m2::PointD const & pixelPoint);
+  VisiblePOI GetVisiblePOI(m2::RectD const & pixelRect);
 
   void PullToBoundArea(bool randomPlace, bool applyZoom);
 

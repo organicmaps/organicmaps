@@ -275,6 +275,11 @@ TransitReadManager & Framework::GetTransitManager()
   return m_transitManager;
 }
 
+TransitReadManager const & Framework::GetTransitManager() const
+{
+  return m_transitManager;
+}
+
 IsolinesManager & Framework::GetIsolinesManager()
 {
   return m_isolinesManager;
@@ -2733,6 +2738,8 @@ place_page::Info Framework::BuildPlacePageInfoImpl(place_page::BuildInfo const &
   if (buildInfo.m_featureId.IsValid())
   {
     sp.FillFeatureInfo(buildInfo.m_featureId, outInfo);
+    if (buildInfo.m_transitTransferId.IsValid())
+      sp.AddInterchangeRoutes(buildInfo.m_transitTransferId, outInfo);
 
     if (buildInfo.IsUserMarkMatchingEnabled() && !outInfo.IsBookmark())
     {

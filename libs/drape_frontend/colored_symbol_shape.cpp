@@ -405,6 +405,7 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::
       handle->SetSpecialLayerOverlay(true);
     }
     handle->SetOverlayRank(m_params.m_startOverlayRank);
+    handle->SetTransitTransferId(m_params.m_transitTransferId);
   }
   auto state = CreateRenderState(gpu::Program::ColoredSymbol, m_params.m_depthLayer);
   state.SetProgram3d(gpu::Program::ColoredSymbolBillboard);

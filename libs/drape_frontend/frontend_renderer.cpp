@@ -1344,7 +1344,7 @@ void FrontendRenderer::OnCompassTapped()
   m_selectionTrackInfo.reset();
 }
 
-std::pair<FeatureID, kml::MarkId> FrontendRenderer::GetVisiblePOI(m2::PointD const & pixelPoint)
+FrontendRenderer::VisiblePOI FrontendRenderer::GetVisiblePOI(m2::PointD const & pixelPoint)
 {
   double halfSize = VisualParams::Instance().GetTouchRectRadius();
   m2::PointD sizePoint(halfSize, halfSize);
@@ -1352,7 +1352,7 @@ std::pair<FeatureID, kml::MarkId> FrontendRenderer::GetVisiblePOI(m2::PointD con
   return GetVisiblePOI(selectRect);
 }
 
-std::pair<FeatureID, kml::MarkId> FrontendRenderer::GetVisiblePOI(m2::RectD const & pixelRect)
+FrontendRenderer::VisiblePOI FrontendRenderer::GetVisiblePOI(m2::RectD const & pixelRect)
 {
   m2::PointD pt = pixelRect.Center();
   ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
@@ -1372,7 +1372,7 @@ std::pair<FeatureID, kml::MarkId> FrontendRenderer::GetVisiblePOI(m2::RectD cons
     m_overlayTree->Select(pixelRect, selectResult);
 
   if (selectResult.empty())
-    return {FeatureID(), kml::kInvalidMarkId};
+    return {};
 
   double minSquaredDist = std::numeric_limits<double>::max();
   ref_ptr<dp::OverlayHandle> closestOverlayHandle;
@@ -1388,7 +1388,7 @@ std::pair<FeatureID, kml::MarkId> FrontendRenderer::GetVisiblePOI(m2::RectD cons
   CHECK(closestOverlayHandle, ());
 
   auto const & overlayId = closestOverlayHandle->GetOverlayID();
-  return {overlayId.m_featureId, overlayId.m_markId};
+  return {overlayId.m_featureId, overlayId.m_markId, closestOverlayHandle->GetTransitTransferId()};
 }
 
 void FrontendRenderer::PullToBoundArea(bool randomPlace, bool applyZoom)
@@ -2235,7 +2235,7 @@ void FrontendRenderer::OnTap(m2::PointD const & pt, bool isLongTap)
   // Long tap should show/hide the interface. There is no need to detect tapped features.
   if (isLongTap)
   {
-    m_tapEventInfoHandler({mercator, isLongTap, isMyPosition, FeatureID(), kml::kInvalidMarkId});
+    m_tapEventInfoHandler({mercator, isLongTap, isMyPosition, FeatureID(), kml::kInvalidMarkId, {}});
     return;
   }
 
@@ -2248,8 +2248,8 @@ void FrontendRenderer::OnTap(m2::PointD const & pt, bool isLongTap)
   }
 
   ASSERT(m_tapEventInfoHandler != nullptr, ());
-  auto [featureId, markId] = GetVisiblePOI(selectRect);
-  m_tapEventInfoHandler({mercator, isLongTap, isMyPosition, featureId, markId});
+  auto const poi = GetVisiblePOI(selectRect);
+  m_tapEventInfoHandler({mercator, isLongTap, isMyPosition, poi.m_featureId, poi.m_markId, poi.m_transitTransferId});
 }
 
 void FrontendRenderer::OnForceTap(m2::PointD const & pt)

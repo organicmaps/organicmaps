@@ -146,6 +146,31 @@ void SelectionProcessor::FillFeatureInfo(FeatureID const & fid, place_page::Info
   FillInfoFromFeatureType(*ft, info);
 }
 
+void SelectionProcessor::AddInterchangeRoutes(dp::TransitTransferId const & transferId, place_page::Info & info) const
+{
+  auto const stations = m_fw.GetTransitManager().GetTransferStationFeatures(transferId);
+  if (stations.empty())
+    return;
+
+  auto const & dataSource = m_fw.m_featuresFetcher.GetDataSource();
+  for (auto const & fid : stations)
+  {
+    // The primary station (already filled by FillFeatureInfo) is in the same transfer; skip only its own entry.
+    if (fid == info.GetID())
+      continue;
+
+    FeaturesLoaderGuard const guard(dataSource, fid.m_mwmId);
+    auto ft = guard.GetFeatureByIndex(fid.m_index);
+    if (!ft)
+    {
+      LOG(LWARNING, ("Interchange station can't be loaded:", fid));
+      continue;
+    }
+    info.AddPTRoutes(*ft);
+  }
+  info.SortUniqueRoutes();
+}
+
 void SelectionProcessor::FillPointInfo(place_page::Info & info, m2::PointD const & mercator,
                                        std::string const & customTitle /* = {} */,
                                        FeatureMatcher const & matcher /* = nullptr */) const

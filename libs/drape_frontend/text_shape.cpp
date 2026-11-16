@@ -337,6 +337,7 @@ void TextShape::DrawSubStringPlain(ref_ptr<dp::GraphicsContext> context, Straigh
   if (m_symbolSizes.size() > 1)
     handle->SetDynamicSymbolSizes(layout, m_symbolSizes, m_symbolAnchor);
   handle->SetPivotZ(m_params.m_posZ);
+  handle->SetTransitTransferId(m_params.m_transitTransferId);
 
   ASSERT_LESS(m_params.m_startOverlayRank + 1, dp::OverlayRanksCount, ());
   handle->SetOverlayRank(isPrimary ? m_params.m_startOverlayRank : m_params.m_startOverlayRank + 1);
@@ -389,6 +390,7 @@ void TextShape::DrawSubStringOutlined(ref_ptr<dp::GraphicsContext> context, Stra
   if (m_symbolSizes.size() > 1)
     handle->SetDynamicSymbolSizes(layout, m_symbolSizes, m_symbolAnchor);
   handle->SetPivotZ(m_params.m_posZ);
+  handle->SetTransitTransferId(m_params.m_transitTransferId);
 
   ASSERT_LESS(m_params.m_startOverlayRank + 1, dp::OverlayRanksCount, ());
   handle->SetOverlayRank(isPrimary ? m_params.m_startOverlayRank : m_params.m_startOverlayRank + 1);

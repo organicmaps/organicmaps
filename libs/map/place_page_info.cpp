@@ -261,13 +261,27 @@ void Info::SetFromFeatureType(FeatureType & ft)
   // apply to all types after checks
   m_isHotel = ftypes::IsHotelChecker::Instance()(ft);
 
+  AddPTRoutes(ft);
+  SortUniqueRoutes();
+}
+
+void Info::AddPTRoutes(FeatureType & ft)
+{
   for (uint32_t id : ft.GetRelations())
   {
     auto rel = ft.ReadRelation(id);
     if (rel.IsPTRoute())
-      m_routes.emplace_back(id, rel.GetRel());
+      AddRoute(id, rel.GetRel());
   }
+}
 
+void Info::AddRoute(uint32_t relID, feature::RouteRelationBase const & rel)
+{
+  m_routes.emplace_back(relID, rel);
+}
+
+void Info::SortUniqueRoutes()
+{
   base::SortUnique(m_routes, [](RouteRef const & l, RouteRef const & r)
   {
     if (l.m_iRef == r.m_iRef)

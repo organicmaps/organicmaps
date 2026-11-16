@@ -2,6 +2,8 @@
 
 #include "drape_frontend/drape_engine_safe_ptr.hpp"
 
+#include "drape/transit_transfer_id.hpp"
+
 #include "transit/transit_display_info.hpp"
 
 #include "indexer/data_source.hpp"
@@ -12,6 +14,7 @@
 #include "base/thread.hpp"
 #include "base/thread_pool.hpp"
 
+#include <algorithm>
 #include <chrono>
 #include <condition_variable>
 #include <cstddef>
@@ -112,6 +115,10 @@ public:
   void Invalidate();
   void Clear();
 
+  /// Returns the constituent station features of a subway interchange, or an empty list if the
+  /// transfer is unknown, its MWM is not cached, or it has no valid station features.
+  std::vector<FeatureID> GetTransferStationFeatures(dp::TransitTransferId const & id) const;
+
 private:
   void OnTaskCompleted(threads::IRoutine * task);
 
@@ -147,6 +154,8 @@ private:
   GetMwmsByRectFn m_getMwmsByRectFn;
   std::set<MwmSet::MwmId> m_lastActiveMwms;
   std::map<MwmSet::MwmId, CacheEntry> m_mwmCache;
+  // Interchange -> constituent station features, kept in sync with m_mwmCache (GUI thread only).
+  std::map<dp::TransitTransferId, std::vector<FeatureID>> m_transferStations;
   size_t m_cacheSize = 0;
   bool m_isSchemeMode = false;
   bool m_isSchemeModeBlocked = false;

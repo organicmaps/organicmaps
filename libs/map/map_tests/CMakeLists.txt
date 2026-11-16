@@ -32,6 +32,7 @@ set(SRC
   terrain_provider_tests.cpp
   track_tests.cpp
   transit_display_tests.cpp
+  transit_interchange_tests.cpp
   transit_rendering_tests.cpp
   transit_route_info_tests.cpp
 )
