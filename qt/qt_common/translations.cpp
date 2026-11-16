@@ -28,7 +28,6 @@ std::unique_ptr<QTranslator> InstallTranslator(QGuiApplication & app, std::span<
   QStringList candidates;
   for (auto const & language : preferred)
   {
-    // Prefer an exact regional catalog, then let the core parser select the language and Chinese script.
     auto original = QString::fromStdString(language);
     original.replace('_', '-');
     // Drop the charset, modifier and BCP 47 extensions, e.g. of pt_BR.UTF-8, de@euro and pt-BR-u-hc-h12.
@@ -41,9 +40,10 @@ std::unique_ptr<QTranslator> InstallTranslator(QGuiApplication & app, std::span<
         break;
       }
     }
-    candidates << subtags.join('-').toLower();
-    if (subtags.size() >= 3 && subtags[1].size() == 4 && subtags[0].compare("zh", Qt::CaseInsensitive) != 0)
-      candidates << (subtags[0] + '-' + subtags[2]).toLower();
+    // Catalogs have at most two subtags; the core parser resolves Chinese scripts.
+    if (subtags.size() >= 3 && subtags[1].size() == 4)
+      subtags.removeAt(1);
+    candidates << subtags.mid(0, 2).join('-').toLower();
     candidates << QString::fromStdString(languages::GetTwine(language)).toLower();
   }
   candidates << "en";
