@@ -255,6 +255,12 @@ void Framework::SwitchMyPositionNextMode()
     m_drapeEngine->SwitchMyPositionNextMode();
 }
 
+void Framework::SetMyPositionVisibility(bool isVisible)
+{
+  if (m_drapeEngine != nullptr)
+    m_drapeEngine->SetMyPositionVisibility(isVisible);
+}
+
 void Framework::SetMyPositionModeListener(TMyPositionModeChanged && fn)
 {
   m_myPositionListener = std::move(fn);

@@ -185,6 +185,7 @@ public:
   void SwitchMyPositionNextMode();
   void LoseLocation();
   void StopLocationFollow();
+  void SetMyPositionVisibility(bool isVisible);
 
   using TapEventInfoHandler = FrontendRenderer::TapEventInfoHandler;
   void SetTapEventInfoListener(TapEventInfoHandler && fn);
