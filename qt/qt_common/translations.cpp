@@ -41,7 +41,10 @@ std::unique_ptr<QTranslator> InstallTranslator(QGuiApplication & app, std::span<
         break;
       }
     }
-    candidates << subtags.join('-').toLower() << QString::fromStdString(languages::GetTwine(language)).toLower();
+    candidates << subtags.join('-').toLower();
+    if (subtags.size() >= 3 && subtags[1].size() == 4 && subtags[0].compare("zh", Qt::CaseInsensitive) != 0)
+      candidates << (subtags[0] + '-' + subtags[2]).toLower();
+    candidates << QString::fromStdString(languages::GetTwine(language)).toLower();
   }
   candidates << "en";
   candidates.removeDuplicates();
