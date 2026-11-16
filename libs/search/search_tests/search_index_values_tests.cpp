@@ -15,6 +15,7 @@
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 
+#include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
@@ -22,6 +23,7 @@
 
 #include <algorithm>
 #include <cstdint>
+#include <cstring>
 #include <random>
 #include <utility>
 #include <vector>
@@ -98,6 +100,28 @@ Bytes Serialize(Ids const & ids, ListFormat format)
   return bytes;
 }
 
+// The count that the trie builder stores for the list of a node with children.
+uint32_t GetCount(Ids const & ids, ListFormat format)
+{
+  size_t const count =
+      format == ListFormat::IdsPacket ? MakeList<List>(ids).Size() : MakeList<BitVectorList>(ids).Size();
+  return base::asserted_cast<uint32_t>(count);
+}
+
+// Counts the reads of a list.
+struct CountingSource
+{
+  void Read(void * p, size_t size)
+  {
+    memcpy(p, m_data, size);
+    m_data += size;
+    ++m_reads;
+  }
+
+  uint8_t const * m_data = nullptr;
+  size_t m_reads = 0;
+};
+
 Ids Range(uint64_t first, uint64_t count, uint64_t step = 1)
 {
   Ids ids;
@@ -157,6 +181,9 @@ UNIT_TEST(SearchIndexValues_ListFormats)
     {
       auto bytes = Serialize(ids, format);
       TEST_EQUAL(bytes.empty(), ids.empty(), ());
+      // The size of a packet, the flag of a bit vector.
+      uint32_t const count = GetCount(ids, format);
+      TEST_EQUAL(count, format == ListFormat::IdsPacket ? bytes.size() : (ids.empty() ? 0 : 1), ());
 
       {
         // A leaf of the trie: the list is the whole node.
@@ -170,16 +197,24 @@ UNIT_TEST(SearchIndexValues_ListFormats)
         TEST_EQUAL(GetIds(List(list)), ids, ());
       }
 
-      // An inner node: other data follow the list.
+      // An inner node: other data follow the list, the trie gives its count.
       size_t constexpr kTailSize = 100000;
       bytes.resize(bytes.size() + kTailSize, 0xAB);
       MemReader reader(bytes.data(), bytes.size());
       ReaderSource source(reader);
-      list.Deserialize(source, ids.empty() ? 0 : 1 /* valueCount */, Serializer(format));
+      list.Deserialize(source, count, Serializer(format));
       TEST_EQUAL(GetIds(list), ids, ());
       TEST_EQUAL(source.Size(), kTailSize, ());
     }
   }
+
+  // The packet of an inner node is taken by one read: its size is known, no parsing for the end.
+  auto const packet = Serialize(random, ListFormat::IdsPacket);
+  TEST_GREATER(packet.size(), 5000, ());
+  CountingSource source{packet.data()};
+  list.Deserialize(source, GetCount(random, ListFormat::IdsPacket), Serializer());
+  TEST_EQUAL(source.m_reads, 1, ());
+  TEST_EQUAL(GetIds(list), random, ());
 
   // A sparse bit vector takes eight bytes for a feature.
   TEST_EQUAL(Serialize({1000000}, ListFormat::CompressedBitVector).size(), 1 + 1 + 8, ());

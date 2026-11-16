@@ -131,12 +131,11 @@ public:
     idx::v2::IdsPacket::Write(sink, ids, ids.front());
   }
 
-  // This method returns number of values in the current instance of
-  // ValueList<Uint64IndexValue>, but as these values are actually
-  // features indices and can be dumped as a single serialized
-  // list, this method returns 1 when there're at least one
-  // feature's index in the list and 0 otherwise.
-  size_t Size() const { return IsEmpty() ? 0 : 1; }
+  // The count that the trie stores for a node with children and gives back to Deserialize().
+  // For a packet it is the size in bytes: only the parser of a packet finds its end, and with the
+  // size the packet is taken by one read. A bit vector of an old map has a flag there: 1 if the
+  // node has features.
+  size_t Size() const { return m_cbv ? 1 : m_packet.size(); }
 
   bool IsEmpty() const { return m_packet.empty() && !m_cbv; }
 
@@ -150,14 +149,8 @@ public:
       sink.Write(m_packet.data(), m_packet.size());
   }
 
-  // Note the valueCount parameter. It is here for compatibility with
-  // an old data format that was serializing FeatureWithRankAndCenter`s.
-  // They were put in a vector, this vector's size was encoded somehow
-  // and then the vector was written with a method similar to Serialize above.
-  // The deserialization code read the valueCount separately and then
-  // read each FeatureWithRankAndCenter one by one.
-  // A better approach is to make Serialize/Deserialize responsible for
-  // every part of serialization and as such it should not need valueCount.
+  // Reads the list of a node with children, other data of the node follow it. |valueCount| is
+  // the Size() of the written list.
   template <typename Source>
   void Deserialize(Source & src, uint32_t valueCount, SingleValueSerializer<Value> const & serializer)
   {
@@ -172,28 +165,18 @@ public:
       return;
     }
 
-    // Only the parser of a packet finds its end, so a copy of the source goes ahead for the size.
-    Source end(src);
-    idx::v2::IdsPacket::Skip(end, idx::v2::IdsPacket::Singleton::Split);
-    m_packet.resize(static_cast<size_t>(end.Pos() - src.Pos()));
-    src.Read(m_packet.data(), m_packet.size());
+    m_packet.resize(valueCount);
+    src.Read(m_packet.data(), valueCount);
   }
 
   // Reads the list of a leaf, which takes all the bytes of the source.
   template <typename Source>
   void Deserialize(Source & src, SingleValueSerializer<Value> const & serializer)
   {
-    size_t const size = static_cast<size_t>(src.Size());
-    if (size == 0 || serializer.GetListFormat() == ListFormat::CompressedBitVector)
-    {
-      Deserialize(src, size == 0 ? 0 : 1 /* valueCount */, serializer);
-      return;
-    }
-
-    // The bytes of a leaf are its packet: no need to parse it for the size.
-    m_cbv.reset();
-    m_packet.resize(size);
-    src.Read(m_packet.data(), size);
+    // The count of a packet is the size of the leaf, the one of a bit vector is the flag.
+    auto const size = base::asserted_cast<uint32_t>(src.Size());
+    bool const isPacket = serializer.GetListFormat() == ListFormat::IdsPacket;
+    Deserialize(src, (isPacket || size == 0) ? size : 1 /* valueCount */, serializer);
   }
 
   template <typename ToDo>

@@ -20,7 +20,8 @@ public:
     V1 = 1,
     // The features of a trie node are a serialized compressed bit vector.
     V2 = 2,
-    // The features of a trie node are an ids packet.
+    // The features of a trie node are an ids packet, a node with children has the size of
+    // its packet in bytes as the count of the values.
     V3 = 3,
     Latest = V3
   };
