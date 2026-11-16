@@ -220,6 +220,7 @@ These rules apply to all translation files: `data/strings/`, `data/categories*.t
 
 - "bookmark"/"bookmarks" (favorite place, saved by user): "метка"/"метки" (Russian), "мітка"/"міткі" (Ukrainian)
 - "track" (recorded path on the map that user walked): "трек" (Russian)
+- For imported polygon areas, read and follow [the shared terminology](docs/TRANSLATIONS.md#polygon-areas).
 - "route": "маршрут" (Russian)
 - "icon"/"icons" (place's image symbol on the map): "иконка"/"иконки" (Russian)
 - "outdoors"/"outdoors style"/"outdoors map style": "стиль для активного отдыха" (Russian), "режим Активний відпочинок" (Ukrainian)

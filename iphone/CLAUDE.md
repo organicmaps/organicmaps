@@ -112,4 +112,4 @@ Swift services/UI or legacy ObjC -> ObjC/ObjC++ wrappers (`MWM*`) -> CoreApi -> 
   2. Add it to `data/strings/strings.txt` with the `apple-maps` tag, value, and description
   3. Regenerate with `./tools/unix/generate_localizations.sh`
   4. Add translations only when explicitly requested by the user
-- When editing store metadata in `metadata/` or localized strings, follow the translation rules in [data/CLAUDE.md](../data/CLAUDE.md)
+- When editing store metadata in `metadata/` or localized strings, read and follow [the translation guide](../docs/TRANSLATIONS.md) for terminology and [data/CLAUDE.md](../data/CLAUDE.md) for the source-file workflow.
