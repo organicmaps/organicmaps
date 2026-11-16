@@ -219,7 +219,8 @@ void setShowLocationAlert(BOOL needShow)
   dispatch_async(dispatch_get_main_queue(), ^{
     MWMLocationManager * manager = [self manager];
     [manager.observers addObject:observer];
-    [manager processLocationUpdate:manager.lastLocationInfo];
+    if (CLLocation * location = manager.lastLocationInfo)
+      [manager processLocationUpdates:@[location]];
   });
 }
 
@@ -295,19 +296,26 @@ void setShowLocationAlert(BOOL needShow)
       [observer onHeadingUpdate:headingInfo];
 }
 
-- (void)processLocationUpdate:(CLLocation *)locationInfo
+- (void)processLocationUpdates:(NSArray<CLLocation *> *)locations
 {
-  if (!locationInfo || self.lastLocationStatus != MWMLocationStatusNoError)
+  CLLocation * locationInfo = locations.lastObject;
+  if (self.lastLocationStatus != MWMLocationStatusNoError)
     return;
-  [self onLocationUpdate:locationInfo source:self.locationSource];
+  [self onLocationUpdates:locations source:self.locationSource];
   if (![self.lastLocationInfo isEqual:locationInfo])
     [self.predictor reset:locationInfo];
 }
 
-- (void)onLocationUpdate:(CLLocation *)locationInfo source:(location::TLocationSource)source
+- (void)onLocationUpdates:(NSArray<CLLocation *> *)locations source:(location::TLocationSource)source
 {
-  location::GpsInfo const gpsInfo = location_util::gpsInfoFromLocation(locationInfo, source);
-  GpsTracker::Instance().OnLocationUpdated(gpsInfo);
+  ASSERT_GREATER(locations.count, 0, ());
+  CLLocation * locationInfo = locations.lastObject;
+  location::GpsInfo gpsInfo;
+  for (CLLocation * location in locations)
+  {
+    gpsInfo = location_util::gpsInfoFromLocation(location, source);
+    GpsTracker::Instance().OnLocationUpdated(gpsInfo);
+  }
   GetFramework().OnLocationUpdate(gpsInfo);
 
   self.lastLocationInfo = locationInfo;
@@ -397,7 +405,7 @@ void setShowLocationAlert(BOOL needShow)
   {
     __weak MWMLocationManager * weakSelf = self;
     _predictor = [[MWMLocationPredictor alloc] initWithOnPredictionBlock:^(CLLocation * location) {
-      [weakSelf onLocationUpdate:location source:location::EPredictor];
+      [weakSelf onLocationUpdates:@[location] source:location::EPredictor];
     }];
   }
   return _predictor;
@@ -500,16 +508,15 @@ void setShowLocationAlert(BOOL needShow)
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
-  CLLocation * location = locations.lastObject;
-  // According to documentation, lat and lon are valid only if horizontalAccuracy is non-negative.
-  // So we filter out such events completely.
-  if (location.horizontalAccuracy < 0.)
-    return;
-
-#if TARGET_OS_SIMULATOR
-  // There is no simulator < 15.0 in the new XCode.
-  if (@available(iOS 15.0, *))
+  NSMutableArray<CLLocation *> * validLocations = [NSMutableArray arrayWithCapacity:locations.count];
+  for (CLLocation * update in locations)
   {
+    // Latitude and longitude are valid only with a non-negative horizontal accuracy.
+    if (update.horizontalAccuracy < 0.)
+      continue;
+
+    CLLocation * location = update;
+#if TARGET_OS_SIMULATOR
     // iOS Simulator doesn't provide any elevation in its locations. Mock it.
     static MountainElevationGenerator generator;
     location = [[CLLocation alloc] initWithCoordinate:location.coordinate
@@ -522,12 +529,17 @@ void setShowLocationAlert(BOOL needShow)
                                         speedAccuracy:location.speedAccuracy
                                             timestamp:location.timestamp
                                            sourceInfo:location.sourceInformation];
-  }
 #endif
+
+    [validLocations addObject:location];
+  }
+
+  if (validLocations.count == 0)
+    return;
 
   self.lastLocationStatus = MWMLocationStatusNoError;
   self.locationSource = location::EAppleNative;
-  [self processLocationUpdate:location];
+  [self processLocationUpdates:validLocations];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
