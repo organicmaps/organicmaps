@@ -158,7 +158,7 @@ bool Matcher::Matches(strings::UniString const & query, Sample::Result const & g
   {
     if (ft.GetGeomType() == feature::GeomType::Line)
     {
-      for (auto const & name : ftypes::GetRoadShieldsNames(ft))
+      for (auto const & name : ftypes::GetRoadShieldsNames(ft, true /* allSpellings */))
       {
         if (StreetMatches(name, queryTokens))
         {

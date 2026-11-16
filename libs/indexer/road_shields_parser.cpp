@@ -125,9 +125,38 @@ public:
     return RoadShieldType::Default;
   }
 
-  RoadShieldsSetT GetRoadShields() const
+  // "D 106" and "D106" are the same road number, often from the way's and its route relation's ref.
+  static bool IsSameNumber(std::string_view a, std::string_view b)
+  {
+    size_t i = 0, j = 0;
+    while (true)
+    {
+      while (i < a.size() && a[i] == ' ')
+        ++i;
+      while (j < b.size() && b[j] == ' ')
+        ++j;
+      if (i == a.size() || j == b.size())
+        return i == a.size() && j == b.size();
+      if (a[i++] != b[j++])
+        return false;
+    }
+  }
+
+  static bool IsSameShield(RoadShield const & a, RoadShield const & b)
+  {
+    return a.m_type == b.m_type && a.m_additionalText == b.m_additionalText && IsSameNumber(a.m_name, b.m_name);
+  }
+
+  /// \param coalesceSpellings Treat the same number and modifier written with and without spaces as one
+  /// shield. Search keeps both spellings, so that either one finds the road.
+  RoadShieldsSetT GetRoadShields(bool coalesceSpellings = true) const
   {
     RoadShieldsSetT result, defaultShields;
+    auto const contains = [coalesceSpellings](RoadShieldsSetT const & shields, RoadShield const & shield)
+    {
+      return std::any_of(shields.begin(), shields.end(), [&](RoadShield const & other)
+      { return coalesceSpellings ? IsSameShield(other, shield) : other == shield; });
+    };
 
     strings::Tokenize(m_baseRoadNumber, ";", [&](std::string_view rawText)
     {
@@ -152,19 +181,18 @@ public:
             shield.m_type = networkType;
         }
       }
-      if (!shield.m_name.empty() && shield.m_type != RoadShieldType::Hidden)
+      if (!shield.m_name.empty() && shield.m_type != RoadShieldType::Hidden && !contains(result, shield))
       {
         if (shield.m_type != RoadShieldType::Default)
         {
-          // Schedule deletion of a shield with the same text and default style, if present.
+          // Schedule deletion of a default-style shield with the same number and modifier, if present.
           defaultShields.emplace_back(RoadShieldType::Default, shield.m_name, shield.m_additionalText);
         }
         result.push_back(std::move(shield));
       }
     });
 
-    result.erase_if([&defaultShields](RoadShield const & shield)
-    { return std::find(defaultShields.begin(), defaultShields.end(), shield) != defaultShields.end(); });
+    result.erase_if([&](RoadShield const & shield) { return contains(defaultShields, shield); });
 
     return result;
   }
@@ -717,14 +745,25 @@ RoadShieldsSetT GetRoadShields(std::string const & rawRoadNumber)
   return SimpleRoadShieldParser(rawRoadNumber, SimpleRoadShieldParser::ShieldTypes()).GetRoadShields();
 }
 
-std::vector<std::string> GetRoadShieldsNames(FeatureType & ft)
+std::vector<std::string> GetRoadShieldsNames(std::string const & rawRoadNumber, bool allSpellings)
 {
   std::vector<std::string> names;
-  auto const & ref = ft.GetRef();
-  if (!ref.empty() && IsStreetOrSquareChecker::Instance()(ft))
-    for (auto && shield : GetRoadShields(ref))
-      names.push_back(std::move(shield.m_name));
+  if (rawRoadNumber.empty())
+    return names;
+  for (auto && shield :
+       SimpleRoadShieldParser(rawRoadNumber, SimpleRoadShieldParser::ShieldTypes()).GetRoadShields(!allSpellings))
+  {
+    names.push_back(std::move(shield.m_name));
+  }
   return names;
+}
+
+std::vector<std::string> GetRoadShieldsNames(FeatureType & ft, bool allSpellings)
+{
+  auto const & ref = ft.GetRef();
+  if (ref.empty() || !IsStreetOrSquareChecker::Instance()(ft))
+    return {};
+  return GetRoadShieldsNames(ref, allSpellings);
 }
 
 std::string DebugPrint(RoadShieldType shieldType)
