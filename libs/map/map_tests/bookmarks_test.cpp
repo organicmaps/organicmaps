@@ -2,6 +2,7 @@
 
 #include "map/bookmark_helpers.hpp"
 #include "map/framework.hpp"
+#include "map/map_tests/test_gui_thread.hpp"
 #include "map/track_mark.hpp"
 
 #include "drape_frontend/drape_engine.hpp"
@@ -16,6 +17,7 @@
 #include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/preferred_languages.hpp"
 
+#include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
 #include "coding/string_utf8_multilang.hpp"
 #include "coding/zip_creator.hpp"
@@ -37,6 +39,7 @@
 #include <ctime>
 #include <map>
 #include <numeric>  // std::reduce
+#include <optional>
 #include <set>
 #include <string>
 #include <vector>
@@ -305,10 +308,10 @@ UNIT_CLASS_TEST(AreasTestFixture, Bookmarks_AreasImportSaveRestartAndDelete)
       bool imported = false;
       bool finished = false;
       BookmarkManager::AsyncLoadingCallbacks callbacks;
-      callbacks.m_onFileSuccess = [&](std::string const &, bool) { imported = true; };
       callbacks.m_onFinished = [&] { finished = true; };
       manager.SetAsyncLoadingCallbacks(std::move(callbacks));
-      manager.LoadBookmark(sourcePath, false);
+      manager.ImportBookmarks({sourcePath}, [&](BookmarkImportResult const & result)
+      { imported = result.front().m_status == BookmarkImportStatus::Success; });
       manager.LoadBookmarks();
       while (!finished)
         RunNextGuiTask();
@@ -381,7 +384,7 @@ UNIT_CLASS_TEST(AreasTestFixture, Bookmarks_AreaChangesForDrape)
   BookmarkManager::AsyncLoadingCallbacks callbacks;
   callbacks.m_onFinished = [&] { finished = true; };
   manager.SetAsyncLoadingCallbacks(std::move(callbacks));
-  manager.LoadBookmark(sourcePath, false);
+  manager.ImportBookmarks({sourcePath}, [](BookmarkImportResult const &) {});
   manager.LoadBookmarks();
   while (!finished)
     RunNextGuiTask();
@@ -505,18 +508,18 @@ UNIT_CLASS_TEST(AreasTestFixture, Bookmarks_AreaExportCapabilitiesAndSnapshots)
 
 void ImportBookmarkFiles(AreasTestFixture & fixture, BookmarkManager & manager, std::vector<std::string> const & paths)
 {
-  size_t imported = 0;
+  BookmarkImportResult result;
   bool finished = false;
   BookmarkManager::AsyncLoadingCallbacks callbacks;
-  callbacks.m_onFileSuccess = [&](std::string const &, bool) { ++imported; };
   callbacks.m_onFinished = [&] { finished = true; };
   manager.SetAsyncLoadingCallbacks(std::move(callbacks));
-  for (auto const & path : paths)
-    manager.LoadBookmark(path, false /* isTemporaryFile */);
+  manager.ImportBookmarks(paths, [&](BookmarkImportResult const & r) { result = r; });
   manager.LoadBookmarks();
   while (!finished)
     fixture.RunNextGuiTask();
-  TEST_EQUAL(imported, paths.size(), ());
+  TEST_EQUAL(result.size(), paths.size(), ());
+  for (auto const & source : result)
+    TEST_EQUAL(source.m_status, BookmarkImportStatus::Success, (source.m_filePath));
 }
 
 UNIT_CLASS_TEST(AreasTestFixture, Bookmarks_ImportParsesInPlace)
@@ -600,6 +603,189 @@ UNIT_CLASS_TEST(AreasTestFixture, Bookmarks_ImportKeepsSourceTimestamp)
     TEST_NOT_EQUAL(groupId, kml::kInvalidMarkGroupId, (name));
     TEST_EQUAL(manager.GetCategoryData(groupId).m_lastModified, kml::TimestampClock::from_time_t(5000), (name));
   }
+}
+
+std::string ImportTestKml(std::string const & name)
+{
+  return "<kml><Document><name>" + name +
+         "</name><Placemark><Point><coordinates>2,2</coordinates></Point></Placemark></Document></kml>";
+}
+
+std::string WriteImportSource(std::string const & name, std::string const & content)
+{
+  auto const path = base::JoinPath(GetPlatform().SettingsDir(), name);
+  FileWriter(path).Write(content.data(), content.size());
+  return path;
+}
+
+std::string WriteImportKmz(std::string const & name, std::vector<std::pair<std::string, std::string>> const & entries)
+{
+  std::vector<std::string> files;
+  std::vector<std::string> filesInArchive;
+  for (auto const & [entryName, content] : entries)
+  {
+    files.push_back(WriteImportSource("entry" + std::to_string(files.size()), content));
+    filesInArchive.push_back(entryName);
+  }
+  auto const path = base::JoinPath(GetPlatform().SettingsDir(), name);
+  TEST(CreateZipFromFiles(files, filesInArchive, path), (name));
+  for (auto const & file : files)
+    TEST(base::DeleteFileX(file), (file));
+  return path;
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_ImportBatchStatuses)
+{
+  auto & platform = GetPlatform();
+  auto gui = std::make_unique<map_tests::TestGuiThread>();
+  auto & guiThread = *gui;
+  platform.SetGuiThread(std::move(gui));
+  SCOPE_GUARD(restoreGui, [&platform] { platform.SetGuiThread(std::make_unique<platform::GuiThread>()); });
+
+  std::string const emptyKml = "<kml><Document><name>Empty</name></Document></kml>";
+  std::string const malformedKml = "<kml><Document></Placemark></Document></kml>";
+  // macOS Finder adds a binary AppleDouble file for every archived file.
+  std::string const appleDouble("\0\5\26\7\0\2\0\0Mac OS X        ", 24);
+
+  // Make "broken.kml" impossible to inflate: 0xFF starts a deflate block of the reserved type.
+  auto const unextractable = WriteImportKmz("unextractable.kmz", {{"first.kml", ImportTestKml("First")},
+                                                                  {"broken.kml", ImportTestKml("Broken")},
+                                                                  {"last.kml", ImportTestKml("Last")}});
+  {
+    auto bytes = base::ReadFile(unextractable);
+    std::string_view const brokenName = "broken.kml";
+    auto const nameIt = std::search(bytes.begin(), bytes.end(), brokenName.begin(), brokenName.end());
+    TEST(nameIt != bytes.end(), ());
+    // The first match is the name in the local file header. The 2-byte extra field length precedes the name,
+    // and the compressed data follows the name and the extra field.
+    size_t const nameOffset = nameIt - bytes.begin();
+    size_t const extraLength = bytes[nameOffset - 2] | (bytes[nameOffset - 1] << 8);
+    bytes[nameOffset + brokenName.size() + extraLength] = 0xFF;
+    FileWriter(unextractable).Write(bytes.data(), bytes.size());
+  }
+
+  auto const bacrnKmz = base::JoinPath(platform.SettingsDir(), "BACRNKMZ.kmz");
+  TEST(base::CopyFileX(platform.TestsDataPathForFile("test_data/kml/BACRNKMZ.kmz"), bacrnKmz), ());
+
+  struct Source
+  {
+    std::string m_path;
+    BookmarkImportStatus m_status;
+    std::set<std::string> m_categoryNames;
+  };
+  using enum BookmarkImportStatus;
+  std::vector<Source> const sources = {
+      {WriteImportSource("plain.kml", ImportTestKml("Plain")), Success, {"Plain"}},
+      {WriteImportKmz("partial.kmz", {{"good.kml", ImportTestKml("Good")}, {"bad.kml", malformedKml}}),
+       PartialSuccess,
+       {"Good"}},
+      {WriteImportSource("corrupt.gpx", "<gpx><trk></wpt></gpx>"), Failure, {}},
+      {WriteImportSource("empty.kml", emptyKml), Failure, {}},
+      // Its doc.kml only links the other entries, so it is skipped as empty.
+      {bacrnKmz,
+       Success,
+       {"Campgrounds 26may2022 green and tree icon", "Indoor Accommodations 26may2022 placemark purple and bed icon",
+        "Route 1 Canada - West-East Daily Segments2", "Route 2 Canada - West-East Daily Segments1",
+        "Route Connector Canada - West-East Daily Segments"}},
+      // An empty index is skipped as before, and AppleDouble files are not bookmark files.
+      {WriteImportKmz("finder.kmz", {{"doc.kml", emptyKml},
+                                     {"places.kml", ImportTestKml("Places")},
+                                     {"__MACOSX/._places.kml", appleDouble},
+                                     {"._doc.kml", appleDouble}}),
+       Success,
+       {"Places"}},
+      {WriteImportKmz("no_kml.kmz", {{"readme.txt", "Not a bookmark file"}}), Failure, {}},
+      {WriteImportKmz("empty_index.kmz", {{"doc.kml", emptyKml}}), Failure, {}},
+      {WriteImportSource("unreadable.kmz", "Not an archive"), Failure, {}},
+      // Extraction stops at the broken entry, so the entries after it are not imported either.
+      {unextractable, PartialSuccess, {"First"}},
+  };
+
+  BookmarkManager manager(BM_CALLBACKS);
+  manager.EnableTestMode(true);
+  manager.LoadBookmarks();
+  std::vector<std::string> paths;
+  for (auto const & source : sources)
+    paths.push_back(source.m_path);
+  std::optional<BookmarkImportResult> result;
+  manager.ImportBookmarks(paths, [&](BookmarkImportResult const & r) { result = r; });
+  guiThread.RunUntil([&] { return result.has_value(); });
+
+  TEST_EQUAL(result->size(), sources.size(), ());
+  std::set<kml::MarkGroupId> allGroupIds;
+  size_t groupIdsCount = 0;
+  for (size_t i = 0; i < sources.size(); ++i)
+  {
+    auto const & [path, status, groupIds] = (*result)[i];
+    TEST_EQUAL(path, sources[i].m_path, ());
+    TEST_EQUAL(status, sources[i].m_status, (path));
+    std::set<std::string> names;
+    for (auto const groupId : groupIds)
+    {
+      TEST(manager.HasBmCategory(groupId), (path));
+      names.insert(manager.GetCategoryName(groupId));
+    }
+    TEST_EQUAL(groupIds.size(), sources[i].m_categoryNames.size(), (path));
+    TEST_EQUAL(names, sources[i].m_categoryNames, (path));
+    allGroupIds.insert(groupIds.begin(), groupIds.end());
+    groupIdsCount += groupIds.size();
+  }
+  TEST_EQUAL(allGroupIds.size(), groupIdsCount, ());
+}
+
+UNIT_CLASS_TEST(Runner, Bookmarks_ImportQueue)
+{
+  auto & platform = GetPlatform();
+  auto gui = std::make_unique<map_tests::TestGuiThread>();
+  auto & guiThread = *gui;
+  platform.SetGuiThread(std::move(gui));
+  SCOPE_GUARD(restoreGui, [&platform] { platform.SetGuiThread(std::make_unique<platform::GuiThread>()); });
+
+  auto const firstPath = WriteImportSource("first.kml", ImportTestKml("First"));
+  auto const secondPath = WriteImportSource("second.kml", ImportTestKml("Second"));
+  // Loaded by LoadBookmarks, then reloaded inside the import chain.
+  auto const reloadedPath = base::JoinPath(GetBookmarksDirectory(), "Reloaded.kml");
+  {
+    auto const content = ImportTestKml("Reloaded");
+    FileWriter(reloadedPath).Write(content.data(), content.size());
+  }
+
+  BookmarkManager manager(BM_CALLBACKS);
+  manager.EnableTestMode(true);
+  size_t started = 0;
+  size_t finished = 0;
+  BookmarkManager::AsyncLoadingCallbacks callbacks;
+  callbacks.m_onStarted = [&] { ++started; };
+  callbacks.m_onFinished = [&] { ++finished; };
+  manager.SetAsyncLoadingCallbacks(std::move(callbacks));
+
+  std::vector<std::string> completedPaths;
+  auto const onSecondFinished = [&](BookmarkImportResult const & result)
+  {
+    TEST_EQUAL(result.size(), 1, ());
+    TEST_EQUAL(finished, 0, ());
+    completedPaths.push_back(result[0].m_filePath);
+  };
+  // Submitted before the initial load, so it must wait for it.
+  manager.ImportBookmarks({firstPath}, [&](BookmarkImportResult const & result)
+  {
+    TEST_EQUAL(result.size(), 1, ());
+    TEST_NOT_EQUAL(manager.GetCategoryId("Reloaded"), kml::kInvalidMarkGroupId, ("Initial load must finish first"));
+    TEST_EQUAL(result[0].m_groupIds.size(), 1, ());
+    TEST_EQUAL(result[0].m_groupIds[0], manager.GetCategoryId("First"), ("Categories exist before the completion"));
+    TEST_EQUAL(finished, 0, ());
+    completedPaths.push_back(result[0].m_filePath);
+    // Submitted from a completion, so it continues the running chain.
+    manager.ImportBookmarks({secondPath}, onSecondFinished);
+  });
+  manager.ReloadBookmark(reloadedPath);
+  manager.LoadBookmarks();
+  guiThread.RunUntil([&] { return finished > 0; });
+
+  TEST_EQUAL(completedPaths, (std::vector<std::string>{firstPath, secondPath}), ("A reload reports no result"));
+  TEST_EQUAL(started, 1, ());
+  TEST_EQUAL(finished, 1, ());
+  TEST_NOT_EQUAL(manager.GetCategoryId("Second"), kml::kInvalidMarkGroupId, ());
 }
 
 UNIT_CLASS_TEST(Runner, Bookmarks_AreaCategoryBoundsPreservePolygonFootprints)
@@ -729,7 +915,7 @@ UNIT_TEST(BookmarkImport_CreatesDirectory)
       TEST(SaveKmlFileSafe(data, sourcePath, fileType), (fileType));
 
     TEST(!Platform::IsFileExistsByFullPath(GetBookmarksDirectory()), (fileType));
-    auto const kmlDataCollection = LoadBookmarkFileForImport(sourcePath);
+    auto const kmlDataCollection = LoadBookmarkFileForImport(sourcePath).m_kmlData;
     TEST(Platform::IsFileExistsByFullPath(GetBookmarksDirectory()), (fileType));
     TEST_EQUAL(kmlDataCollection.size(), 1, (fileType));
     auto const & imported = kmlDataCollection[0].second;

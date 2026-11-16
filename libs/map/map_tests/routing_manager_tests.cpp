@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "map/framework.hpp"
+#include "map/map_tests/test_gui_thread.hpp"
 #include "map/routing_mark.hpp"
 #include "map/track.hpp"
 
@@ -20,11 +21,8 @@
 
 #include "base/file_name_utils.hpp"
 #include "base/scope_guard.hpp"
-#include "base/thread_safe_queue.hpp"
-#include "base/waiter.hpp"
 
 #include <algorithm>
-#include <chrono>
 #include <memory>
 #include <string>
 #include <utility>
@@ -34,6 +32,8 @@ namespace routing_manager_tests
 {
 namespace
 {
+using map_tests::TestGuiThread;
+
 // Framework reads the saved router at initialization; optimization cases need a road router.
 class ScopedVehicleRouter
 {
@@ -67,41 +67,6 @@ private:
   // Select the router before Framework reads it, and restore it after Framework is destroyed.
   ScopedVehicleRouter const m_routerSetting;
   Framework m_framework{FrameworkParams(false /* m_enableDiffs */)};
-};
-
-// Pump only this fixture's tasks, not callbacks left by earlier Framework instances.
-class TestGuiThread final : public base::TaskLoop
-{
-public:
-  PushResult Push(Task && task) override
-  {
-    m_tasks.Push(std::move(task));
-    m_tasksReady.Notify();
-    return {true, kNoId};
-  }
-  PushResult Push(Task const & task) override { return Push(Task(task)); }
-
-  template <typename Predicate>
-  void RunUntil(Predicate && done)
-  {
-    auto const deadline = std::chrono::steady_clock::now() + std::chrono::seconds(30);
-    while (!done())
-    {
-      TEST(std::chrono::steady_clock::now() < deadline, ("GUI callback timed out"));
-      Task task;
-      while (!m_tasks.TryPop(task))
-      {
-        TEST(m_tasksReady.Wait(deadline - std::chrono::steady_clock::now()) != base::Waiter::Result::Timeout,
-             ("GUI callback timed out"));
-        m_tasksReady.Reset();
-      }
-      task();
-    }
-  }
-
-private:
-  threads::ThreadSafeQueue<Task> m_tasks;
-  base::Waiter m_tasksReady;
 };
 
 template <typename Fn>

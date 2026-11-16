@@ -72,7 +72,7 @@
   private func handleFileImport(url: URL, openInPlace: Bool) -> Bool {
     LOG(.info, "handleFileImport: \(url), openInPlace: \(openInPlace)")
     guard openInPlace else {
-      DeepLinkParser.addBookmarksFile(url, isTemporaryFile: true)
+      BookmarksManager.shared().loadBookmarkFiles([url], isTemporaryFile: true)
       return true
     }
 
@@ -88,7 +88,7 @@
     var copyError: Error?
     fileCoordinator.coordinate(readingItemAt: url, options: [], error: &error) { fileURL in
       do {
-        try DeepLinkParser.addBookmarksFile(copyFileToTemporaryDirectory(fileURL), isTemporaryFile: true)
+        try BookmarksManager.shared().loadBookmarkFiles([copyFileToTemporaryDirectory(fileURL)], isTemporaryFile: true)
       } catch {
         copyError = error
       }
