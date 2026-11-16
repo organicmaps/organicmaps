@@ -144,6 +144,13 @@ void CheckAlmere(std::string const & name, ms::LatLon const & finish)
              {"Netherlands_Flevoland", "Netherlands_North Holland_Amsterdam", "Netherlands_Utrecht_Amersfoort"});
 }
 
+// PR #13968, comment 6918703730. The route exposes the transfer markers used by the tap regression.
+UNIT_TEST(WaterReported_LithuaniaTransferMarkers)
+{
+  CheckRoute("LithuaniaTransferMarkers", {54.789233, 25.115163}, {54.704392, 25.075331}, false,
+             {"Lithuania_East", "Lithuania_West"});
+}
+
 UNIT_TEST(WaterReported_NerisNemencia)
 {
   // PR #13968: ordinary-map river fragments meet at 54.8530534438, 25.4651406815.

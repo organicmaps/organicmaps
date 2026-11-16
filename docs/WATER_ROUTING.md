@@ -4,7 +4,8 @@ Water on Android and iOS plans a journey along mapped water, using pedestrian
 routes for necessary land sections. Water is solid blue; walking is dashed purple. Transfer
 icons mark where an internal portage leaves and rejoins the water. Ordinary
 walking access to start, finish and intermediate checkpoints does not create
-portage icons. Nearby icons may be hidden at overview scales.
+portage icons. Nearby icons may be hidden at overview scales. Tapping an exit
+or re-entry marker opens its location without changing the route checkpoints.
 
 The result shows water, walking and total distance in application units. Water
 has a calculation indicator but no Start button, navigation, ETA or elevation

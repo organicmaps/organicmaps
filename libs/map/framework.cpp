@@ -780,6 +780,7 @@ bool Framework::FillUserMarkInfo(UserMark const * mark, place_page::Info & outIn
   case UserMark::Type::BOOKMARK: FillBookmarkInfo(*static_cast<Bookmark const *>(mark), outInfo); break;
   case UserMark::Type::SEARCH: FillSearchResultInfo(*static_cast<SearchMarkPoint const *>(mark), outInfo); break;
   case UserMark::Type::ROUTING: FillRouteMarkInfo(*static_cast<RouteMarkPoint const *>(mark), outInfo); break;
+  case UserMark::Type::WATER_TRANSFER: GetSelectionProcessor().FillPointInfo(outInfo, mark->GetPivot()); break;
   case UserMark::Type::ROAD_WARNING: FillRoadTypeMarkInfo(*static_cast<RoadWarningMark const *>(mark), outInfo); break;
   case UserMark::Type::TRACK_INFO:
   {
