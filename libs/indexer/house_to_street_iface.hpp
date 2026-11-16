@@ -12,7 +12,9 @@ public:
     V0 = 0,
     V1 = 1,
     V2 = 2,
-    Latest = V2
+    // Table-local keys and values, with offsets restoring global feature ids.
+    V3 = 3,
+    Latest = V3
   };
 
   enum class StreetIdType
@@ -31,9 +33,14 @@ public:
     template <class Sink>
     void Serialize(Sink & sink) const
     {
-      WriteToSink(sink, static_cast<uint8_t>(Version::Latest));
+      WriteToSink(sink, static_cast<uint8_t>(m_version));
       WriteToSink(sink, m_tableOffset);
       WriteToSink(sink, m_tableSize);
+      if (m_version == Version::V3)
+      {
+        WriteToSink(sink, m_keyOffset);
+        WriteToSink(sink, m_valueOffset);
+      }
     }
 
     template <class Source>
@@ -42,12 +49,21 @@ public:
       m_version = static_cast<Version>(ReadPrimitiveFromSource<uint8_t>(source));
       m_tableOffset = ReadPrimitiveFromSource<uint32_t>(source);
       m_tableSize = ReadPrimitiveFromSource<uint32_t>(source);
+      m_keyOffset = m_valueOffset = 0;
+      if (m_version == Version::V3)
+      {
+        m_keyOffset = ReadPrimitiveFromSource<uint32_t>(source);
+        m_valueOffset = ReadPrimitiveFromSource<uint32_t>(source);
+      }
     }
 
     Version m_version = Version::Latest;
-    // All offsets are relative to the start of the section (offset of header is zero).
+    // Byte offsets are relative to the start of the section (offset of header is zero).
     uint32_t m_tableOffset = 0;
     uint32_t m_tableSize = 0;
+    // Global feature-id bases for the table-local keys and values.
+    uint32_t m_keyOffset = 0;
+    uint32_t m_valueOffset = 0;
   };
 
   virtual ~HouseToStreetTable() = default;

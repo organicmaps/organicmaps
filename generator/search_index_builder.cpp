@@ -1,5 +1,7 @@
 #include "generator/search_index_builder.hpp"
 
+#include "generator/feature_builder.hpp"
+
 #include "search/common.hpp"
 #include "search/house_to_street_table.hpp"
 #include "search/mwm_context.hpp"
@@ -86,12 +88,24 @@ SynonymsHolder::SynonymsHolder(std::string const & fPath)
   }
 }
 
-namespace
+SearchFeatureClassifier::SearchFeatureClassifier(std::pair<int, int> scaleRange)
+  : m_categories(GetDefaultCategories())
+  , m_scaleRange(scaleRange)
+{}
+
+bool SearchFeatureClassifier::IsSkipped(feature::TypesHolder const & types, StringUtf8Multilang const & names) const
 {
-template <class FnT>
-void GetCategoryTypes(CategoriesHolder const & categories, std::pair<int, int> scaleRange,
-                      feature::TypesHolder const & types, FnT const & fn)
+  return m_skipIndex.SkipAlways(types) || m_skipIndex.SkipSpecialNames(types, names.GetDefaultString());
+}
+
+buffer_vector<uint32_t, feature::kMaxTypesCount> SearchFeatureClassifier::GetCategoryTypes(feature::TypesHolder types,
+                                                                                           bool hasName) const
 {
+  if (!hasName)
+    m_skipIndex.SkipEmptyNameTypes(types);
+
+  buffer_vector<uint32_t, feature::kMaxTypesCount> result;
+  auto scaleRange = m_scaleRange;
   for (uint32_t t : types)
   {
     // Truncate |t| up to 2 levels and choose the best category match to find explicit category if
@@ -102,12 +116,12 @@ void GetCategoryTypes(CategoriesHolder const & categories, std::pair<int, int> s
     for (uint8_t level = ftype::GetLevel(t); level >= 2; --level)
     {
       ftype::TruncValue(t, level);
-      if (categories.IsTypeExist(t))
+      if (m_categories.IsTypeExist(t))
         break;
     }
 
     // Only categorized types will be added to index.
-    if (!categories.IsTypeExist(t))
+    if (!m_categories.IsTypeExist(t))
       continue;
 
     // Drawable scale must be normalized to indexer scales.
@@ -115,8 +129,45 @@ void GetCategoryTypes(CategoriesHolder const & categories, std::pair<int, int> s
 
     // Index only those types that are visible.
     if (feature::IsVisibleInRange(t, scaleRange))
-      fn(t);
+      result.push_back(t);
   }
+  return result;
+}
+
+namespace
+{
+bool UseNameAsPostcode(feature::TypesHolder const & types, StringUtf8Multilang const & names)
+{
+  if (!ftypes::IsPostBoxChecker::Instance()(types) || names.CountLangs() != 1)
+    return false;
+
+  auto const defaultName = names.GetDefaultString();
+  return !defaultName.empty() && LooksLikePostcode(defaultName, false /* isPrefix */);
+}
+
+template <class GetMetadataFn, class Fn>
+void ForEachSearchableName(feature::TypesHolder const & types, StringUtf8Multilang const & names,
+                           GetMetadataFn const & getMetadata, Fn const & fn)
+{
+  if (!UseNameAsPostcode(types, names))
+    names.ForEach([&fn](int8_t lang, std::string_view name) { fn(lang, name, true /* featureName */); });
+
+  if (ftypes::IsAirportChecker::Instance()(types))
+  {
+    auto const iata = getMetadata(feature::Metadata::FMD_AIRPORT_IATA);
+    if (!iata.empty())
+      fn(StringUtf8Multilang::kDefaultCode, iata, false /* featureName */);
+  }
+
+  // Supports queries such as "Sberbank ATM" with operator=Sberbank.
+  auto const op = getMetadata(feature::Metadata::FMD_OPERATOR);
+  if (!op.empty())
+    fn(StringUtf8Multilang::kDefaultCode, op, false /* featureName */);
+
+  auto const brand = getMetadata(feature::Metadata::FMD_BRAND);
+  if (!brand.empty())
+    ForEachLocalizedBrands(brand, [&fn](BrandsHolder::Brand::Name const & name)
+    { fn(name.m_locale, name.m_name, false /* featureName */); });
 }
 
 template <class ContT>
@@ -238,59 +289,37 @@ private:
   bool m_hasStreetType = false;
 };
 
-// Returns true iff feature name was indexed as postcode and should be ignored for name indexing.
 template <class FnT>
-bool InsertPostcodes(FeatureType & f, FnT && fn)
+void InsertPostcodes(FeatureType & f, feature::TypesHolder const & types, StringUtf8Multilang const & names, FnT && fn)
 {
-  using namespace search;
-
-  // PostBox only, not IsPostPoiChecker?
-  auto const & postBoxChecker = ftypes::IsPostBoxChecker::Instance();
   auto const postcode = f.GetMetadata(feature::Metadata::FMD_POSTCODE);
 
   if (!postcode.empty())
     ForEachNormalizedToken(postcode, fn);
 
-  bool useNameAsPostcode = false;
-  if (postBoxChecker(f))
+  if (UseNameAsPostcode(types, names))
   {
-    auto const & names = f.GetNames();
-    if (names.CountLangs() == 1)
-    {
-      std::string_view defaultName;
-      names.GetString(StringUtf8Multilang::kDefaultCode, defaultName);
-      if (!defaultName.empty() && LooksLikePostcode(defaultName, false /* isPrefix */))
-      {
-        // In UK it's common practice to set outer postcode as postcode and outer + inner as ref.
-        // We convert ref to name at FeatureBuilder.
-        ForEachNormalizedToken(defaultName, fn);
-        useNameAsPostcode = true;
-      }
-    }
+    // In UK a post box's ref commonly contains its full postcode and becomes its name.
+    ForEachNormalizedToken(names.GetDefaultString(), fn);
   }
-
-  return useNameAsPostcode;
 }
 
 template <class ContT>
 class FeatureInserter
 {
 public:
-  FeatureInserter(SynonymsHolder * synonyms, ContT & keyValuePairs, CategoriesHolder const & catHolder,
-                  std::pair<int, int> const & scales)
+  FeatureInserter(SynonymsHolder * synonyms, ContT & keyValuePairs, std::pair<int, int> const & scales)
     : m_synonyms(synonyms)
-    , m_categories(catHolder)
-    , m_scales(scales)
+    , m_classifier(scales)
     , m_inserter(keyValuePairs)
   {}
 
   void operator()(FeatureType & f, uint32_t index)
   {
     feature::TypesHolder types(f);
+    auto const & names = f.GetNames();
 
-    if (m_skipIndex.SkipAlways(types))
-      return;
-    if (m_skipIndex.SkipSpecialNames(types, f.GetName(StringUtf8Multilang::kDefaultCode)))
+    if (m_classifier.IsSkipped(types, names))
       return;
 
     SynonymsHolder const * synonyms = nullptr;
@@ -306,64 +335,36 @@ public:
     // Init inserter with Feature's index.
     m_inserter.SetFeature(index, synonyms, hasStreetType);
 
-    bool const useNameAsPostcode =
-        InsertPostcodes(f, [this](auto const & token) { m_inserter.AddToken(search::kPostcodesLang, token); });
+    InsertPostcodes(f, types, names,
+                    [this](auto const & token) { m_inserter.AddToken(search::kPostcodesLang, token); });
 
-    if (!useNameAsPostcode)
+    ForEachSearchableName(types, names, [&f](auto type) { return f.GetMetadata(type); },
+                          [this](int8_t lang, std::string_view name, bool featureName)
     {
-      m_inserter.m_statsEnabled = true;
-      f.ForEachName(m_inserter);
-      m_inserter.m_statsEnabled = false;
-    }
+      m_inserter.m_statsEnabled = featureName;
+      m_inserter(lang, name);
+    });
+    m_inserter.m_statsEnabled = false;
 
     // Road number.
     if (hasStreetType)
       for (auto const & shield : ftypes::GetRoadShieldsNames(f))
         m_inserter(StringUtf8Multilang::kDefaultCode, shield);
 
-    if (ftypes::IsAirportChecker::Instance()(types))
-    {
-      auto const iata = f.GetMetadata(feature::Metadata::FMD_AIRPORT_IATA);
-      if (!iata.empty())
-        m_inserter(StringUtf8Multilang::kDefaultCode, iata);
-    }
-
-    // Index operator to support "Sberbank ATM" for objects with amenity=atm and operator=Sberbank.
-    auto const op = f.GetMetadata(feature::Metadata::FMD_OPERATOR);
-    if (!op.empty())
-      m_inserter(StringUtf8Multilang::kDefaultCode, op);
-
-    auto const brand = f.GetMetadata(feature::Metadata::FMD_BRAND);
-    if (!brand.empty())
-    {
-      ForEachLocalizedBrands(
-          brand, [this](BrandsHolder::Brand::Name const & name) { m_inserter(name.m_locale, name.m_name); });
-    }
-
-    // Check for empty name just before categories indexing. After postcodes, and other meta ..
-    if (!f.HasName())
-      m_skipIndex.SkipEmptyNameTypes(types);
-    if (types.Empty())
-      return;
-
     Classificator const & c = classif();
-    GetCategoryTypes(m_categories, m_scales, types, [this, &c](uint32_t t)
-    { m_inserter.AddToken(search::kCategoriesLang, search::FeatureTypeToString(c.GetIndexForType(t))); });
+    for (uint32_t t : m_classifier.GetCategoryTypes(types, f.HasName()))
+      m_inserter.AddToken(search::kCategoriesLang, search::FeatureTypeToString(c.GetIndexForType(t)));
   }
 
 private:
   SynonymsHolder * m_synonyms;
 
-  CategoriesHolder const & m_categories;
-  std::pair<int, int> m_scales;
-
-  search::TypesSkipper m_skipIndex;
+  SearchFeatureClassifier m_classifier;
   FeatureNameInserter<ContT> m_inserter;
 };
 
 template <class ContT>
-void AddFeatureNameIndexPairs(FeaturesVectorTest const & features, CategoriesHolder const & categoriesHolder,
-                              ContT & keyValuePairs)
+void AddFeatureNameIndexPairs(FeaturesVectorTest const & features, ContT & keyValuePairs)
 {
   feature::DataHeader const & header = features.GetHeader();
 
@@ -371,8 +372,7 @@ void AddFeatureNameIndexPairs(FeaturesVectorTest const & features, CategoriesHol
   if (header.GetType() == feature::DataHeader::MapType::World)
     synonyms = std::make_unique<SynonymsHolder>();
 
-  features.GetVector().ForEach(
-      FeatureInserter(synonyms.get(), keyValuePairs, categoriesHolder, header.GetScaleRange()));
+  features.GetVector().ForEach(FeatureInserter(synonyms.get(), keyValuePairs, header.GetScaleRange()));
 }
 
 void ReadAddressData(std::string const & filename, std::vector<feature::AddressData> & addrs)
@@ -563,6 +563,44 @@ void BuildAddressTable(FilesContainerR & container, std::string const & addressD
 }
 }  // namespace
 
+feature::DataHeader::FeatureGroup SearchFeatureClassifier::GetFeatureGroup(feature::FeatureBuilder const & fb) const
+{
+  using Group = feature::DataHeader::FeatureGroup;
+  auto const types = fb.GetTypesHolder();
+  auto const geomType = fb.GetGeomType();
+
+  bool const lineOrArea = geomType == feature::GeomType::Line || geomType == feature::GeomType::Area;
+  if ((lineOrArea && ftypes::IsWayChecker::Instance()(types)) || ftypes::IsSquareChecker::Instance()(types))
+    return Group::Streets;
+
+  auto const & names = fb.GetMultilangName();
+  if (!IsSkipped(types, names))
+  {
+    bool searchable = !GetCategoryTypes(types, !names.IsEmpty()).empty();
+    if (!searchable)
+      ForEachSearchableName(types, names, [&fb](auto type) { return fb.GetMetadata().Get(type); },
+                            [&searchable](int8_t, std::string_view name, bool)
+      {
+        if (!searchable)
+          ForEachNormalizedToken(name, [&searchable](auto const &) { searchable = true; });
+      });
+
+    if (searchable)
+    {
+      if (ftypes::IsSuburbChecker::Instance()(types) || ftypes::IsPlaceChecker::Instance()(types))
+        return Group::Places;
+      return Group::Pois;
+    }
+  }
+
+  // Interpolation's address range is stored in ref, not in the house-number field.
+  if (!fb.GetParams().house.IsEmpty() ||
+      (geomType == feature::GeomType::Line && ftypes::IsAddressInterpolChecker::Instance()(types)))
+    return Group::Pois;
+
+  return Group::Other;
+}
+
 void BuildSearchIndex(FilesContainerR & container, Writer & indexWriter);
 
 bool BuildSearchIndexFromDataFile(std::string const & country, feature::GenerateInfo const & info, bool forceRebuild,
@@ -655,13 +693,11 @@ void BuildSearchIndex(FilesContainerR & container, Writer & indexWriter)
   LOG(LINFO, ("Start building search index for", container.GetFileName()));
   base::Timer timer;
 
-  auto const & categoriesHolder = GetDefaultCategories();
-
   FeaturesVectorTest features(container);
   SingleValueSerializer<Value> serializer;
 
   std::vector<std::pair<Key, Value>> searchIndexKeyValuePairs;
-  AddFeatureNameIndexPairs(features, categoriesHolder, searchIndexKeyValuePairs);
+  AddFeatureNameIndexPairs(features, searchIndexKeyValuePairs);
 
   std::sort(searchIndexKeyValuePairs.begin(), searchIndexKeyValuePairs.end());
   LOG(LINFO, ("End sorting strings:", timer.ElapsedSeconds()));
