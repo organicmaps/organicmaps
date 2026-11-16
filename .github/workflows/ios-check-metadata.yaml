@@ -6,6 +6,7 @@ on:
       - .github/workflows/ios-check-metadata.yaml  # Run check on self change
       - iphone/metadata/**
       - tools/python/check_store_metadata.py
+      - tools/python/google_play_locales.json
 
 jobs:
   ios-check-metadata:
@@ -19,6 +20,7 @@ jobs:
           sparse-checkout: |
             iphone/metadata
             tools/python/check_store_metadata.py
+            tools/python/google_play_locales.json
 
       - name: Check metadata
         run: ./tools/python/check_store_metadata.py ios

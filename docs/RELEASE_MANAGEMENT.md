@@ -62,6 +62,29 @@ Checking locally:
 ./tools/python/check_store_metadata.py android
 ```
 
+Google release notes are per-locale symlinks to the shared F-Droid notes, filtered
+using `tools/python/google_play_locales.json`. After adding or removing shared
+release-note locales, regenerate and commit the Google links:
+
+```bash
+python3 tools/python/google_play_release_notes.py sync
+```
+
+To export validated notes for pasting into Play Console:
+
+```bash
+./tools/unix/update_gplay_relnotes.sh > /tmp/google-play-release-notes.txt
+```
+
+The export uses production notes when present, falling back to `default.txt`.
+Pass a track name as the first argument to export notes for another track.
+
+The `fa-IR` locale reuses the shared `fa` notes when no separate translation exists.
+Google publishing tasks validate both the source and merged publishing metadata,
+including track-specific notes. For an existing draft, replace its release notes
+with the filtered export: updating or promoting through the publishing plugin can
+retain old locale entries.
+
 ### Downloading metadata and screenshots from Google Play
 
 Get `android/google-play.json` - Google Play API Key.

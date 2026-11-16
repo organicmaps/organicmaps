@@ -1,13 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
 
 # Concatenates Android release notes in all languages into a single output format
 # suitable to upload to Google Play to update existing notes.
 
-GPLAY_NOTES=android/app/src/google/play/release-notes/*/default.txt
-
-for x in $(ls $GPLAY_NOTES); do
-  l=$(basename $(dirname $x));
-  echo "<"$l">";
-  cat $x;
-  echo "</"$l">";
-done
+exec python3 "$(dirname "$0")/../python/google_play_release_notes.py" export "$@"

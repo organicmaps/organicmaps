@@ -7,101 +7,13 @@ import os
 import re
 import sys
 import glob
+import json
 import shutil
+from pathlib import Path
 from urllib.parse import urlparse
 
-os.chdir(os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", ".."))
-
 # https://support.google.com/googleplay/android-developer/answer/9844778?visit_id=637740303439369859-3116807078&rd=1#zippy=%2Cview-list-of-available-languages
-GPLAY_LOCALES = [
-    "af",    # Afrikaans
-    "sq",    # Albanian
-    "am",    # Amharic
-    "ar",    # Arabic
-    "hy-AM", # Armenian
-    "az-AZ", # Azerbaijani
-    "bn-BD", # Bangla
-    "eu-ES", # Basque
-    "be",    # Belarusian
-    "bg",    # Bulgarian
-    "my-MM", # Burmese
-    "ca",    # Catalan
-    "zh-HK", # Chinese (Hong Kong)
-    "zh-CN", # Chinese (Simplified)
-    "zh-TW", # Chinese (Traditional)
-    "hr",    # Croatian
-    "cs-CZ", # Czech
-    "da-DK", # Danish
-    "nl-NL", # Dutch
-    "en-IN", # English
-    "en-SG", # English
-    "en-ZA", # English
-    "en-AU", # English (Australia)
-    "en-CA", # English (Canada)
-    "en-GB", # English (United Kingdom)
-    "en-US", # English (United States)
-    "et",    # Estonian
-    "fil",   # Filipino
-    "fi-FI", # Finnish
-    "fr-CA", # French (Canada)
-    "fr-FR", # French (France)
-    "gl-ES", # Galician
-    "ka-GE", # Georgian
-    "de-DE", # German
-    "el-GR", # Greek
-    "gu",    # Gujarati
-    "iw-IL", # Hebrew
-    "hi-IN", # Hindi
-    "hu-HU", # Hungarian
-    "is-IS", # Icelandic
-    "id",    # Indonesian
-    "it-IT", # Italian
-    "ja-JP", # Japanese
-    "kn-IN", # Kannada
-    "kk",    # Kazakh
-    "km-KH", # Khmer
-    "ko-KR", # Korean
-    "ky-KG", # Kyrgyz
-    "lo-LA", # Lao
-    "lv",    # Latvian
-    "lt",    # Lithuanian
-    "mk-MK", # Macedonian
-    "ms",    # Malay
-    "ms-MY", # Malay (Malaysia)
-    "ml-IN", # Malayalam
-    "mr-IN", # Marathi
-    "mn-MN", # Mongolian
-    "ne-NP", # Nepali
-    "no-NO", # Norwegian
-    "fa",    # Persian
-    "fa-AE", # Persian
-    "fa-AF", # Persian
-    "fa-IR", # Persian
-    "pl-PL", # Polish
-    "pt-BR", # Portuguese (Brazil)
-    "pt-PT", # Portuguese (Portugal)
-    "pa",    # Punjabi
-    "ro",    # Romanian
-    "rm",    # Romansh
-    "ru-RU", # Russian
-    "sr",    # Serbian
-    "si-LK", # Sinhala
-    "sk",    # Slovak
-    "sl",    # Slovenian
-    "es-419", # Spanish (Latin America)
-    "es-ES", # Spanish (Spain)
-    "es-US", # Spanish (United States)
-    "sw",    # Swahili
-    "sv-SE", # Swedish
-    "ta-IN", # Tamil
-    "te-IN", # Telugu
-    "th",    # Thai
-    "tr-TR", # Turkish
-    "uk",    # Ukrainian
-    "ur",    # Urdu
-    "vi",    # Vietnamese
-    "zu",    # Zulu
-]
+GPLAY_LOCALES = json.loads(Path(__file__).with_name('google_play_locales.json').read_text())
 
 # Locales supported by Huawei AppGallery but not Google Play.
 HUAWEI_ONLY_LOCALES = [
@@ -129,8 +41,7 @@ APPSTORE_LOCALES = [
 # Combined Android locale set for O(1) membership tests in check_path().
 ANDROID_LOCALES = frozenset(GPLAY_LOCALES + HUAWEI_ONLY_LOCALES)
 
-# Char limits for files validated by check_path(). Source of truth for the
-# `files` subcommand; the bulk check_android()/check_ios() use literals inline.
+# Char limits for files validated by check_path() and check_google().
 ANDROID_LISTING_LIMITS = {
     'title.txt': 50,
     'title-google.txt': 30,
@@ -151,8 +62,8 @@ IOS_METADATA_LIMITS = {
 IOS_URL_FILES = ('support_url.txt', 'marketing_url.txt', 'privacy_url.txt')
 
 # Pre-compiled path patterns dispatched by check_path().
-_LISTINGS_RE = re.compile(r'^android/app/src/(?:fdroid|google)/play/listings/([^/]+)/([^/]+\.txt)$')
-_RELEASE_NOTES_RE = re.compile(r'^android/app/src/(?:fdroid|google)/play/release-notes/([^/]+)/([^/]+\.txt)$')
+_LISTINGS_RE = re.compile(r'^android/app/src/(fdroid|google)/play/listings/([^/]+)/([^/]+\.txt)$')
+_RELEASE_NOTES_RE = re.compile(r'^android/app/src/(fdroid|google)/play/release-notes/([^/]+)/([^/]+\.txt)$')
 _PLAY_TOPLEVEL_RE = re.compile(r'^android/app/src/(?:fdroid|google)/play/([^/]+\.txt)$')
 _IOS_METADATA_RE = re.compile(r'^iphone/metadata/([^/]+)/([^/]+\.txt)$')
 # Additional text-style symbols require VS16; plain copyright signs and arrows are valid.
@@ -261,6 +172,41 @@ def check_android():
             ok = error(locale, 'unsupported locale') and ok
             continue
         ok = check_text(locale + 'default.txt', 500) and ok
+    return check_google() and ok
+
+
+def check_google(play_dir=Path('android/app/src/google/play'), generated=False):
+    """Validate Google source or merged publishing resources without resolving symlinks."""
+    play_dir = Path(play_dir)
+    ok = True
+    notes_dir = play_dir / 'release-notes'
+    if not (notes_dir / 'en-US' / 'default.txt').is_file():
+        ok = error(str(notes_dir), 'missing en-US/default.txt')
+    for category in ('listings', 'release-notes'):
+        directory = play_dir / category
+        if not directory.exists():
+            continue
+        for locale in sorted(directory.iterdir()):
+            if locale.name.startswith('.'):
+                continue
+            # GPP can leave empty locale directories after pruning deleted notes.
+            if generated and category == 'release-notes' and locale.is_dir() and not list(locale.glob('*.txt')):
+                continue
+            if locale.name not in GPLAY_LOCALES:
+                ok = error(str(locale), 'unsupported Google Play locale') and ok
+                continue
+            if not locale.is_dir():
+                ok = error(str(locale), 'expected a locale directory (or valid symlink)') and ok
+                continue
+            files = sorted(p for p in locale.glob('*.txt') if not p.name.startswith('.'))
+            if category == 'release-notes' and not files:
+                ok = error(str(locale), 'missing release notes') and ok
+            for path in files:
+                if category == 'release-notes':
+                    ok = check_text(str(path), 500) and ok
+                elif path.name in ANDROID_LISTING_LIMITS:
+                    limit = 30 if path.name == 'title.txt' else ANDROID_LISTING_LIMITS[path.name]
+                    ok = check_text(str(path), limit) and ok
     return ok
 
 
@@ -316,23 +262,22 @@ def check_path(path, fix=False):
     """
     # Android Play Store listings (fdroid or google flavor share the same layout).
     if m := _LISTINGS_RE.match(path):
-        locale, name = m[1], m[2]
-        if locale not in ANDROID_LOCALES:
+        flavor, locale, name = m[1], m[2], m[3]
+        if locale not in (GPLAY_LOCALES if flavor == 'google' else ANDROID_LOCALES):
             return error(path, 'unsupported locale: {}', locale)
         if name in ANDROID_LISTING_LIMITS:
-            return done(path, check_raw(path, ANDROID_LISTING_LIMITS[name], fix=fix)[0])
+            limit = 30 if flavor == 'google' and name == 'title.txt' else ANDROID_LISTING_LIMITS[name]
+            return done(path, check_raw(path, limit, fix=fix)[0])
         if name == 'video-url.txt':
             return check_url(path, fix=fix)
         return True
 
     # Per-track release notes.
     if m := _RELEASE_NOTES_RE.match(path):
-        locale, name = m[1], m[2]
-        if locale not in ANDROID_LOCALES:
+        flavor, locale = m[1], m[2]
+        if locale not in (GPLAY_LOCALES if flavor == 'google' else ANDROID_LOCALES):
             return error(path, 'unsupported locale: {}', locale)
-        if name == 'default.txt':
-            return done(path, check_raw(path, 500, fix=fix)[0])
-        return True
+        return done(path, check_raw(path, 500, fix=fix)[0])
 
     # Top-level Play Store metadata.
     if m := _PLAY_TOPLEVEL_RE.match(path):
@@ -359,12 +304,19 @@ def check_path(path, fix=False):
 
 
 if __name__ == "__main__":
-    usage = f"Usage: {sys.argv[0]} android|ios|files [--fix] FILE [FILE...]"
+    os.chdir(Path(__file__).resolve().parents[2])
+    usage = f"Usage: {sys.argv[0]} android|ios|google [PLAY_DIR | --generated PLAY_DIR]|files [--fix] FILE [FILE...]"
     match sys.argv[1:]:
         case ['android']:
             sys.exit(0 if check_android() else 2)
         case ['ios']:
             sys.exit(0 if check_ios() else 2)
+        case ['google']:
+            sys.exit(0 if check_google() else 2)
+        case ['google', '--generated', play_dir]:
+            sys.exit(0 if check_google(Path(play_dir), generated=True) else 2)
+        case ['google', play_dir]:
+            sys.exit(0 if check_google(Path(play_dir)) else 2)
         case ['files', *rest] if (paths := [a for a in rest if a != '--fix']):
             fix = '--fix' in rest
             # List comp (not generator) so every path is checked even after a failure.

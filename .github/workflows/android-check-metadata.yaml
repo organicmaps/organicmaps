@@ -7,6 +7,11 @@ on:
       - android/app/src/fdroid/**
       - android/app/src/google/**
       - tools/python/check_store_metadata.py
+      - tools/python/google_play_*.py
+      - tools/python/google_play_locales.json
+      - tools/python/test_google_play_release_notes.py
+      - tools/unix/update_gplay_relnotes.sh
+      - android/app/build.gradle
 
 jobs:
   android-check-metadata:
@@ -20,6 +25,12 @@ jobs:
           sparse-checkout: |
             android
             tools/python/check_store_metadata.py
+            tools/python/google_play_release_notes.py
+            tools/python/google_play_locales.json
+            tools/python/test_google_play_release_notes.py
 
       - name: Check metadata
         run: ./tools/python/check_store_metadata.py android
+
+      - name: Test Google Play metadata tools
+        run: python3 tools/python/test_google_play_release_notes.py
