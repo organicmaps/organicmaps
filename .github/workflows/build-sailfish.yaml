@@ -11,27 +11,28 @@ on:
       - .gemini/**
       - '**/*.md'
   pull_request:
-    paths-ignore:
-      - .agents/**
-      - .claude/**
-      - .gemini/**
-      - .gitignore
-      - .github/**
-      - '!.github/workflows/build-sailfish.yaml'  # Run check on self change
-      - '**/*.md'
-      - CONTRIBUTORS
-      - LICENSE
-      - NOTICE
-      - android/**
-      - iphone/**
-      - data/countries-strings/**
-      - data/organic_maps_emoji/**
-      - data/sound-strings/**
-      - data/strings/**
-      - '!data/strings/types_strings.txt'
-      - docs/**
-      - packaging/**
-      - xcode/**
+    paths:
+      - '**'
+      - '!.agents/**'
+      - '!.claude/**'
+      - '!.gemini/**'
+      - '!.gitignore'
+      - '!.github/**'
+      - .github/workflows/build-sailfish.yaml  # Run check on self change
+      - '!**/*.md'
+      - '!CONTRIBUTORS'
+      - '!LICENSE'
+      - '!NOTICE'
+      - '!android/**'
+      - '!iphone/**'
+      - '!data/countries-strings/**'
+      - '!data/organic_maps_emoji/**'
+      - '!data/sound-strings/**'
+      - '!data/strings/**'
+      - data/strings/types_strings.txt
+      - '!docs/**'
+      - '!packaging/**'
+      - '!xcode/**'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
