@@ -1043,6 +1043,11 @@ void PostprocessElement(OsmElement * p, FeatureBuilderParams & params)
 
   auto const AddParam = [&params](ftype::CachedTypes::Type type) { params.AddType(types.Get(type)); };
 
+  // Roundabout types are meaningful only for roads (e.g. not for highway=proposed). Drop them before
+  // the address fallback, so that a stray junction tag doesn't hide an address.
+  if (!params.IsTypeExist(types.Get(CachedTypes::Highway), 1))
+    base::EraseIf(params.m_types, ftypes::IsRoundAboutChecker::Instance());
+
   if (!params.house.IsEmpty())
   {
     // Add "building-address" type if we have house number, but no "suitable" (building, POI, etc) types.
