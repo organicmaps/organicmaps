@@ -109,3 +109,8 @@ CMakeUserPresets.json
 AGENTS.override.md
 CLAUDE.local.md
 plans
+
+# Syria Organic Maps release signing (never commit)
+/Syria/keystore/
+/Syria/dist/
+/3party/

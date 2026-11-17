@@ -31,6 +31,8 @@ import app.organicmaps.sdk.location.LocationState;
 import app.organicmaps.sdk.location.LocationUtils;
 import app.organicmaps.sdk.location.SensorHelper;
 import app.organicmaps.sdk.location.TrackRecorder;
+import app.organicmaps.syria.SyriaLocale;
+import app.organicmaps.syria.tracking.ActivityTrackingService;
 import app.organicmaps.sdk.maplayer.isolines.IsolinesManager;
 import app.organicmaps.sdk.maplayer.subway.SubwayManager;
 import app.organicmaps.sdk.routing.RoutingController;
@@ -122,6 +124,7 @@ public class MwmApplication extends Application implements Application.ActivityL
   public void onCreate()
   {
     super.onCreate();
+    SyriaLocale.applyDefaultOnce(this);
     Logger.i(TAG, "Initializing application");
 
     sInstance = this;
@@ -266,6 +269,8 @@ public class MwmApplication extends Application implements Application.ActivityL
       Logger.i(LOCATION_TAG, "Navigation is in progress, keeping location in the background");
     else if (!Map.isEngineCreated() || LocationState.getMode() == LocationState.PENDING_POSITION)
       Logger.i(LOCATION_TAG, "PENDING_POSITION mode, keeping location in the background");
+    else if (ActivityTrackingService.isActive())
+      Logger.i(LOCATION_TAG, "Activity tracking is active, keeping location in the background");
     else if (TrackRecorder.nativeIsTrackRecordingEnabled())
       Logger.i(LOCATION_TAG, "Track Recordr is active, keeping location in the background");
     else

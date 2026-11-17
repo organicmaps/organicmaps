@@ -1175,8 +1175,9 @@ Storage::WorldStatus Storage::GetForceDownloadWorlds(std::vector<platform::Count
   if (storage::PrepareDirToDownloadCountry(m_currentVersion, m_dataDir).empty())
     return WorldStatus::ERROR_CREATE_FOLDER;
 
+  // A regional map server may publish no World files at all; they are then absent from countries.json.
   for (int i = 0; i < 2; ++i)
-    if (!hasWorld[i])
+    if (!hasWorld[i] && IsLeaf(worldName[i]))
       res.push_back(GetCountryFile(worldName[i]));
 
   return (anyWorldWasMoved && res.empty() ? WorldStatus::WAS_MOVED : WorldStatus::READY);
@@ -1586,10 +1587,16 @@ void Storage::NotifyStatusChangedForHierarchy(CountryId const & countryId)
 
 void Storage::NotifyStatusChangedForHierarchy(CountriesSet const & countryIds)
 {
-  CountriesSet notified = countryIds;
+  // The terrain grid may name regions that this (regional) map set does not have.
+  CountriesSet known;
   for (auto const & id : countryIds)
+    if (m_countries.FindFirst(id))
+      known.insert(id);
+
+  CountriesSet notified = known;
+  for (auto const & id : known)
     NotifyStatusChanged(id);
-  for (auto const & id : countryIds)
+  for (auto const & id : known)
     ForEachAncestorExceptForTheRoot(id, [&](CountryId const & parentId, CountryTree::Node const &)
     {
       if (notified.insert(parentId).second)

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="syria_tracking_title">تتبع النشاط</string>
+  <string name="syria_login_title">تسجيل الدخول</string>
+  <string name="syria_login_intro">سجّل الدخول برقم هاتفك لتسجيل نشاطاتك ومزامنتها مع الخادم. تعمل الخريطة من دون تسجيل الدخول.</string>
+  <string name="syria_login_phone_hint">رقم الهاتف</string>
+  <string name="syria_login_send_code">إرسال الرمز</string>
+  <string name="syria_login_code_hint">رمز الرسالة النصية</string>
+  <string name="syria_login_verify">تحقق</string>
+  <string name="syria_login_code_sent">تم إرسال الرمز إلى %s</string>
+  <string name="syria_login_invalid_phone">أدخل رقم هاتف صحيحاً</string>
+  <string name="syria_error_network">لا يوجد اتصال بالخادم</string>
+  <string name="syria_privacy_policy">سياسة الخصوصية</string>
+  <string name="syria_status_idle">التتبع متوقف</string>
+  <string name="syria_status_active">جارٍ التسجيل</string>
+  <string name="syria_status_paused">متوقف مؤقتاً</string>
+  <string name="syria_start">ابدأ</string>
+  <string name="syria_pause">إيقاف مؤقت</string>
+  <string name="syria_resume">استئناف</string>
+  <string name="syria_stop">إيقاف</string>
+  <string name="syria_stop_confirm">إيقاف هذا النشاط؟ يمكنك بدء نشاط جديد بعد ذلك.</string>
+  <string name="syria_cancel">إلغاء</string>
+  <string name="syria_distance">المسافة</string>
+  <string name="syria_moving_time">وقت الحركة</string>
+  <string name="syria_points">النقاط</string>
+  <string name="syria_km_format">%.2f كم</string>
+  <string name="syria_history">السجل</string>
+  <string name="syria_history_empty">لا توجد نشاطات بعد</string>
+  <string name="syria_sync_now">مزامنة الآن</string>
+  <string name="syria_unsynced_format">%d عناصر بانتظار المزامنة</string>
+  <string name="syria_synced_all">تمت مزامنة كل شيء</string>
+  <string name="syria_sync_status_synced">تمت المزامنة</string>
+  <string name="syria_sync_status_pending">لم تتم المزامنة</string>
+  <string name="syria_delete">حذف</string>
+  <string name="syria_delete_confirm">حذف هذا النشاط من الجهاز؟ تبقى البيانات التي تمت مزامنتها على الخادم.</string>
+  <string name="syria_pref_account">الحساب</string>
+  <string name="syria_pref_account_logged_out">غير مسجّل الدخول</string>
+  <string name="syria_pref_logout">تسجيل الخروج</string>
+  <string name="syria_pref_logout_confirm">تسجيل الخروج؟ تبقى النشاطات غير المتزامنة على هذا الجهاز.</string>
+  <string name="syria_pref_log_map_updates">تسجيل تحديثات بيانات الخريطة</string>
+  <string name="syria_pref_log_map_updates_summary">تسجيل تنزيلات الخريطة وتحديثاتها في سجل نشاطك</string>
+    <string name="syria_about_title">حول Syria Organic Maps</string>
+</resources>

@@ -455,7 +455,7 @@
 
     <activity
         android:name="app.organicmaps.help.HelpActivity"
-        android:label="@string/about_menu_title"
+        android:label="@string/syria_about_title"
         android:parentActivityName="app.organicmaps.MwmActivity"
         android:exported="false">
       <intent-filter>
@@ -604,5 +604,30 @@
     <meta-data
         android:name="androidx.car.app.minCarApiLevel"
         android:value="7" />
+    <!-- Syria Organic Maps: account, activity tracking and per-app language (Arabic by default) -->
+    <activity
+      android:name=".syria.account.LoginActivity"
+      android:exported="false"
+      android:label="@string/syria_login_title"
+      android:parentActivityName="app.organicmaps.MwmActivity"
+      android:windowSoftInputMode="adjustResize" />
+    <activity
+      android:name=".syria.tracking.TrackingActivity"
+      android:exported="false"
+      android:label="@string/syria_tracking_title"
+      android:parentActivityName="app.organicmaps.MwmActivity" />
+    <service
+      android:name=".syria.tracking.ActivityTrackingService"
+      android:exported="false"
+      android:foregroundServiceType="location"
+      android:stopWithTask="false" />
+    <service
+      android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
+      android:enabled="false"
+      android:exported="false">
+      <meta-data
+        android:name="autoStoreLocales"
+        android:value="true" />
+    </service>
   </application>
 </manifest>

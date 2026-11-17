@@ -4,6 +4,38 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools">
 
+  <androidx.preference.PreferenceCategory
+    android:key="@string/pref_syria_category"
+    android:title="@string/syria_pref_category"
+    android:order="0">
+    <Preference
+      android:key="@string/pref_syria_account"
+      android:title="@string/syria_pref_account"
+      app:singleLineTitle="false"
+      android:persistent="false"
+      android:order="0" />
+    <Preference
+      android:key="@string/pref_syria_tracking"
+      android:title="@string/syria_tracking_title"
+      app:singleLineTitle="false"
+      android:persistent="false"
+      android:order="1" />
+    <SwitchPreferenceCompat
+      android:key="@string/pref_syria_log_map_updates"
+      android:title="@string/syria_pref_log_map_updates"
+      android:summary="@string/syria_pref_log_map_updates_summary"
+      app:singleLineTitle="false"
+      android:persistent="false"
+      android:defaultValue="true"
+      android:order="2" />
+    <Preference
+      android:key="@string/pref_syria_privacy"
+      android:title="@string/syria_privacy_policy"
+      app:singleLineTitle="false"
+      android:persistent="false"
+      android:order="3" />
+  </androidx.preference.PreferenceCategory>
+
   <Preference
     android:key="@string/pref_osm_profile"
     android:title="@string/profile"

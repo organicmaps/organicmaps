@@ -64,6 +64,11 @@ import app.organicmaps.help.HelpActivity;
 import app.organicmaps.intent.Factory;
 import app.organicmaps.intent.IntentProcessor;
 import app.organicmaps.location.TrackRecordingService;
+import app.organicmaps.syria.SyriaPrefs;
+import app.organicmaps.syria.account.LoginActivity;
+import app.organicmaps.syria.tracking.ActivityTrackingService;
+import app.organicmaps.syria.tracking.MapUpdateLogger;
+import app.organicmaps.syria.tracking.TrackingActivity;
 import app.organicmaps.maplayer.MapButtonsController;
 import app.organicmaps.maplayer.MapButtonsViewModel;
 import app.organicmaps.maplayer.ToggleMapLayerFragment;
@@ -241,13 +246,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mSearchPageViewModel.setSearchEnabled(true, restored);
     }
 
-    if (TrackRecorder.nativeIsTrackRecordingEnabled() && !startTrackRecording())
+    // Activity tracking drives the recorder itself; the stock recording UI must not take it over.
+    if (TrackRecorder.nativeIsTrackRecordingEnabled() && !ActivityTrackingService.isActive()
+        && !startTrackRecording())
     {
       // The user has revoked location permissions in the system settings, causing the app to
       // restart while recording was active. Save the recorded data and stop the recording.
       saveAndStopTrackRecording();
     }
 
+    MapUpdateLogger.init(this);
     processStartupIntent();
     migrateOAuthCredentials();
   }
@@ -2152,6 +2160,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mPlacePageViewModel.setMapObject(new TrackRecording(title, getString(R.string.track_recording_title)));
   }
 
+  private void onActivityTrackingOptionSelected()
+  {
+    closeFloatingPanels();
+    startActivity(new Intent(this, SyriaPrefs.isLoggedIn(this) ? TrackingActivity.class : LoginActivity.class));
+  }
+
   public void onShareLocationOptionSelected()
   {
     closeFloatingPanels();
@@ -2173,8 +2187,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (!TextUtils.isEmpty(mDonatesUrl))
         items.add(new MenuBottomSheetItem(R.string.donate, R.drawable.ic_donate, this::onDonateOptionSelected));
       items.add(new MenuBottomSheetItem(R.string.settings, R.drawable.ic_settings, this::onSettingsOptionSelected));
-      items.add(new MenuBottomSheetItem(R.string.start_track_recording, R.drawable.ic_track_recording_off, -1,
-                                        this::onTrackRecordingOptionSelected));
+      // Replaces the stock track recorder entry: activity tracking records the route itself.
+      items.add(new MenuBottomSheetItem(R.string.syria_tracking_title, R.drawable.ic_track_recording_off, -1,
+                                        this::onActivityTrackingOptionSelected));
       items.add(new MenuBottomSheetItem(R.string.share_my_location, R.drawable.ic_share,
                                         this::onShareLocationOptionSelected));
       return items;

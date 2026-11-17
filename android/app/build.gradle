@@ -72,6 +72,9 @@ android {
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     // Should be customized in flavors.
     buildConfigField 'String', 'REVIEW_URL', '""'
+    // Syria Organic Maps tracking backend; override with -PsyriaApiUrl=http://<host>:3000
+    buildConfigField 'String', 'SYRIA_API_URL', "\"${project.findProperty('syriaApiUrl') ?: 'http://192.168.0.31:3000'}\""
+    buildConfigField 'String', 'SYRIA_PRIVACY_URL', '"https://openstreetmap.sy/privacy/"'
     resourceConfigurations += [project.ext.supportedLocalizations]
 
     base.archivesName = rootProject.name.replaceAll('\\s', '') + '-' + defaultConfig.versionCode
@@ -90,7 +93,7 @@ android {
       isDefault = true
       versionName = android.defaultConfig.versionName + '-Google'
       buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@organicmaps.app"'
-      buildConfigField 'String', 'REVIEW_URL', '"market://details?id=app.organicmaps"'
+      buildConfigField 'String', 'REVIEW_URL', '"market://details?id=sy.openstreetmap.organicmaps"'
     }
 
     web {
@@ -111,7 +114,7 @@ android {
       versionName = android.defaultConfig.versionName + '-Huawei'
       versionCode = HUAWEI_VERSION_CODE_BASE + android.defaultConfig.versionCode
       buildConfigField 'String', 'SUPPORT_MAIL', '"huawei@organicmaps.app"'
-      buildConfigField 'String', 'REVIEW_URL', '"appmarket://details?id=app.organicmaps"'
+      buildConfigField 'String', 'REVIEW_URL', '"appmarket://details?id=sy.openstreetmap.organicmaps"'
     }
   }
 
@@ -179,7 +182,7 @@ android {
 
     // Release-like build for performance/battery profiling.
     // Debug-signed so it works without secure.properties, installed as
-    // app.organicmaps.profileable to coexist with other variants.
+    // sy.openstreetmap.organicmaps.profileable to coexist with other variants.
     profileable {
       initWith release
       applicationIdSuffix '.profileable'
@@ -231,8 +234,6 @@ dependencies {
   implementation project(':sdk:widgets:lanes')
   implementation project(':sdk:widgets:speedlimit')
   // World maps
-  googleImplementation project(':sdk:maps:world')
-  huaweiImplementation project(':sdk:maps:world')
 
   webImplementation project(':sdk:location:gms:google')
   googleImplementation project(':sdk:location:gms:google')
@@ -265,6 +266,7 @@ dependencies {
   implementation libs.androidx.preference
   implementation libs.androidx.recyclerview
   implementation libs.androidx.work
+  implementation libs.okhttp
   implementation libs.androidx.lifecycle
   implementation libs.google.material
   implementation libs.devnullorthrow.mpandroidchart
@@ -305,11 +307,11 @@ def allowedPermissions = [
     "name='android.permission.RECEIVE_BOOT_COMPLETED'",
     // comes from androidx.core:core:1.17.0
     // Regex to allow it for the following app packages:
-    // app.organicmaps
-    // app.organicmaps.(debug|beta|profileable)
-    // app.organicmaps.web
-    // app.organicmaps.web.(debug|beta|profileable)
-    ~/name='app\.organicmaps(\.web)?(\.debug|\.beta|\.profileable)?\.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'/
+    // sy.openstreetmap.organicmaps
+    // sy.openstreetmap.organicmaps.(debug|beta|profileable)
+    // sy.openstreetmap.organicmaps.web
+    // sy.openstreetmap.organicmaps.web.(debug|beta|profileable)
+    ~/name='sy\.openstreetmap\.organicmaps(\.web)?(\.debug|\.beta|\.profileable)?\.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'/
 ]
 registerCheckApkPermissionsTasks(project, allowedPermissions)
 

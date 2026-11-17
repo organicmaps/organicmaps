@@ -1,7 +1,10 @@
 package app.organicmaps.settings;
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
+import app.organicmaps.BuildConfig;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -37,6 +40,12 @@ import app.organicmaps.util.ThemeSwitcher;
 import app.organicmaps.util.Utils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.ArrayList;
+import app.organicmaps.syria.ApiClient;
+import app.organicmaps.syria.SyriaPrefs;
+import app.organicmaps.syria.account.LoginActivity;
+import app.organicmaps.syria.tracking.ActivityTrackingService;
+import app.organicmaps.syria.tracking.TrackingActivity;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.List;
 import java.util.Locale;
 
@@ -75,6 +84,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
     initScreenSleepEnabledPrefsCallbacks();
     initShowOnLockScreenPrefsCallbacks();
     initNightNavigationPrefsCallbacks();
+    initSyriaPrefsCallbacks();
   }
 
   private void updateVoiceInstructionsPrefsSummary()
@@ -147,6 +157,21 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
         getSettingsActivity().stackFragment(BgTilesSettingsFragment.class, getString(R.string.pref_bg_tiles_title),
                                             null);
       }
+      else if (key.equals(getString(R.string.pref_syria_account)))
+      {
+        onSyriaAccountClicked();
+        return true;
+      }
+      else if (key.equals(getString(R.string.pref_syria_tracking)))
+      {
+        startActivity(new Intent(requireActivity(), TrackingActivity.class));
+        return true;
+      }
+      else if (key.equals(getString(R.string.pref_syria_privacy)))
+      {
+        Utils.openUrl(requireContext(), BuildConfig.SYRIA_PRIVACY_URL);
+        return true;
+      }
       else if (key.equals(getString(R.string.pref_help)))
       {
         startActivity(new Intent(requireActivity(), HelpActivity.class));
@@ -159,6 +184,55 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
       }
     }
     return super.onPreferenceTreeClick(preference);
+  }
+
+  private void initSyriaPrefsCallbacks()
+  {
+    final TwoStatePreference logPref = getPreference(getString(R.string.pref_syria_log_map_updates));
+    logPref.setChecked(SyriaPrefs.isLogMapUpdates(requireContext()));
+    logPref.setOnPreferenceChangeListener((preference, newValue) -> {
+      SyriaPrefs.setLogMapUpdates(requireContext(), (Boolean) newValue);
+      return true;
+    });
+    updateSyriaAccountSummary();
+  }
+
+  private void updateSyriaAccountSummary()
+  {
+    final Preference pref = getPreference(getString(R.string.pref_syria_account));
+    final Context context = requireContext();
+    if (!SyriaPrefs.isLoggedIn(context))
+    {
+      pref.setSummary(R.string.syria_pref_account_logged_out);
+      return;
+    }
+    final String name = SyriaPrefs.displayName(context);
+    final String phone = SyriaPrefs.phone(context);
+    pref.setSummary(TextUtils.isEmpty(name) ? phone : name + " \u00B7 " + phone);
+  }
+
+  private void onSyriaAccountClicked()
+  {
+    final Context context = requireContext();
+    if (!SyriaPrefs.isLoggedIn(context))
+    {
+      startActivity(new Intent(requireActivity(), LoginActivity.class)
+                        .putExtra(LoginActivity.EXTRA_OPEN_TRACKING, false));
+      return;
+    }
+    new MaterialAlertDialogBuilder(requireActivity())
+        .setTitle(R.string.syria_pref_logout)
+        .setMessage(R.string.syria_pref_logout_confirm)
+        .setNegativeButton(R.string.syria_cancel, null)
+        .setPositiveButton(R.string.syria_pref_logout, (dialog, which) -> {
+          if (ActivityTrackingService.isActive())
+            ActivityTrackingService.stop(context);
+          // Clears the local session right away; the server call runs in the background.
+          new Thread(() -> ApiClient.INSTANCE.logout(context)).start();
+          SyriaPrefs.clearSession(context);
+          updateSyriaAccountSummary();
+        })
+        .show();
   }
 
   private void openSystemBackupSettings()

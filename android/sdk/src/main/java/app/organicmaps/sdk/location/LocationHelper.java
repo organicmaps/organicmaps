@@ -44,6 +44,8 @@ public class LocationHelper
   private static final long INTERVAL_NOT_FOLLOW_MS = 3000;
   private static final long INTERVAL_NAVIGATION_MS = 100;
   private static final long INTERVAL_TRACK_RECORDING = 100;
+  // Interval requested by a feature outside the SDK (activity tracking) while it runs; 0 when none.
+  private static volatile long sExternalTrackingIntervalMs = 0;
 
   private static final long AGPS_EXPIRATION_TIME_MS = 16 * 60 * 60 * 1000; // 16 hours
   static final long LOCATION_UPDATE_TIMEOUT_MS = 30 * 1000; // 30 seconds
@@ -571,10 +573,19 @@ public class LocationHelper
     mListeners.removeObserver(listener);
   }
 
+  /** Sets the refresh interval wanted by activity tracking (0 to clear); apply with restartWithNewMode(). */
+  public static void setExternalTrackingInterval(long intervalMs)
+  {
+    sExternalTrackingIntervalMs = intervalMs;
+  }
+
   private long calcLocationUpdatesInterval()
   {
     if (RoutingController.get().isNavigating())
       return INTERVAL_NAVIGATION_MS;
+
+    if (sExternalTrackingIntervalMs > 0)
+      return sExternalTrackingIntervalMs;
 
     if (TrackRecorder.nativeIsTrackRecordingEnabled())
       return INTERVAL_TRACK_RECORDING;

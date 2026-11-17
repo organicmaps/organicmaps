@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical">
+
+  <include layout="@layout/toolbar_default" />
+
+  <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:padding="@dimen/margin_base_plus">
+
+      <ImageView
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/margin_base"
+        android:contentDescription="@null"
+        android:src="@drawable/logo" />
+
+      <TextView
+        android:id="@+id/login_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_base"
+        android:gravity="center_horizontal"
+        android:text="@string/syria_login_intro"
+        android:textAppearance="?android:textAppearanceMedium" />
+
+      <EditText
+        android:id="@+id/login_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints="phone"
+        android:hint="@string/syria_login_phone_hint"
+        android:inputType="phone"
+        android:textDirection="ltr" />
+
+      <Button
+        android:id="@+id/login_send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_half"
+        android:text="@string/syria_login_send_code" />
+
+      <LinearLayout
+        android:id="@+id/login_code_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_base"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <EditText
+          android:id="@+id/login_code"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:autofillHints="smsOTPCode"
+          android:hint="@string/syria_login_code_hint"
+          android:inputType="number"
+          android:maxLength="8"
+          android:textDirection="ltr" />
+
+        <Button
+          android:id="@+id/login_verify"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_half"
+          android:text="@string/syria_login_verify" />
+      </LinearLayout>
+
+      <ProgressBar
+        android:id="@+id/login_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/margin_base"
+        android:visibility="gone" />
+
+      <TextView
+        android:id="@+id/login_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_half"
+        android:gravity="center_horizontal"
+        android:textColor="@android:color/holo_red_dark" />
+
+      <TextView
+        android:id="@+id/login_privacy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/margin_double"
+        android:padding="@dimen/margin_half"
+        android:text="@string/syria_privacy_policy"
+        android:textColor="?colorAccent" />
+    </LinearLayout>
+  </ScrollView>
+</LinearLayout>

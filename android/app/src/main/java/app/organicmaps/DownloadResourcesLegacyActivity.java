@@ -72,6 +72,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
   private static final int TRY_AGAIN = 3;
   private static final int PROCEED_TO_MAP = 4;
   private static final int BTN_COUNT = 5;
+  private static final String SYRIA_COUNTRY_ID = "Syria";
 
   private View.OnClickListener[] mBtnListeners;
   private String[] mBtnNames;
@@ -194,7 +195,19 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       Utils.keepScreenOn(true, getWindow());
 
       setAction(DOWNLOAD);
+      presetSyriaDownload();
+      // Syria Organic Maps downloads its maps on the first launch without waiting for a tap.
+      onDownloadClicked();
 
+      return;
+    }
+
+    // The Syria map server publishes no World files, so nothing was fetched above: download the country map now.
+    presetSyriaDownload();
+    if (mCurrentCountry != null)
+    {
+      Utils.keepScreenOn(true, getWindow());
+      finishFilesDownload(ERR_NO_MORE_FILES);
       return;
     }
 
@@ -328,6 +341,18 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       setAction(PAUSE);
       doDownload();
     }
+  }
+
+  /** Syria is the home region: it is queued after the World maps without waiting for a location fix. */
+  private void presetSyriaDownload()
+  {
+    if (MapManager.nativeGetStatus(SYRIA_COUNTRY_ID) == CountryItem.STATUS_DONE)
+      return;
+    mCurrentCountry = SYRIA_COUNTRY_ID;
+    mChbDownloadCountry.setChecked(true);
+    mChbDownloadCountry.setText(
+        String.format(getString(R.string.download_country_ask), MapManager.nativeGetName(SYRIA_COUNTRY_ID)));
+    UiUtils.show(mChbDownloadCountry);
   }
 
   private void onProceedToMapClicked()

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Strings of the Syria Organic Maps additions. Not part of the generated Organic Maps translations. -->
+<resources>
+  <string name="syria_tracking_title">Activity tracking</string>
+  <string name="syria_login_title">Sign in</string>
+  <string name="syria_login_intro">Sign in with your phone number to record your activities and sync them to the server. The map works without signing in.</string>
+  <string name="syria_login_phone_hint">Phone number</string>
+  <string name="syria_login_send_code">Send code</string>
+  <string name="syria_login_code_hint">SMS code</string>
+  <string name="syria_login_verify">Verify</string>
+  <string name="syria_login_code_sent">Code sent to %s</string>
+  <string name="syria_login_invalid_phone">Enter a valid phone number</string>
+  <string name="syria_error_network">No connection to the server</string>
+  <string name="syria_privacy_policy">Privacy policy</string>
+  <string name="syria_status_idle">Not tracking</string>
+  <string name="syria_status_active">Recording</string>
+  <string name="syria_status_paused">Paused</string>
+  <string name="syria_start">Start</string>
+  <string name="syria_pause">Pause</string>
+  <string name="syria_resume">Resume</string>
+  <string name="syria_stop">Stop</string>
+  <string name="syria_stop_confirm">Stop this activity? You can start a new one afterwards.</string>
+  <string name="syria_cancel">Cancel</string>
+  <string name="syria_distance">Distance</string>
+  <string name="syria_moving_time">Moving time</string>
+  <string name="syria_points">Points</string>
+  <string name="syria_km_format">%.2f km</string>
+  <string name="syria_history">History</string>
+  <string name="syria_history_empty">No activities yet</string>
+  <string name="syria_sync_now">Sync now</string>
+  <string name="syria_unsynced_format">%d items waiting to sync</string>
+  <string name="syria_synced_all">Everything is synced</string>
+  <string name="syria_sync_status_synced">Synced</string>
+  <string name="syria_sync_status_pending">Not synced</string>
+  <string name="syria_delete">Delete</string>
+  <string name="syria_delete_confirm">Delete this activity from the device? Data that was already synced stays on the server.</string>
+  <string name="syria_pref_category" translatable="false">Syria Organic Maps</string>
+  <string name="syria_pref_account">Account</string>
+  <string name="syria_pref_account_logged_out">Not signed in</string>
+  <string name="syria_pref_logout">Sign out</string>
+  <string name="syria_pref_logout_confirm">Sign out? Activities that are not synced yet stay on this device.</string>
+  <string name="syria_pref_log_map_updates">Log map data updates</string>
+  <string name="syria_pref_log_map_updates_summary">Record map downloads and updates in your activity log</string>
+    <string name="syria_about_title">About Syria Organic Maps</string>
+</resources>
