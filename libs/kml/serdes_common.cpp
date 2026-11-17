@@ -13,14 +13,29 @@
 
 namespace kml
 {
+namespace
+{
+uint8_t constexpr kCoordinatePrecision = 6;
+}  // namespace
 
 std::string PointToString(m2::PointD const & org, char const separator)
 {
   double const lon = mercator::XToLon(org.x);
   double const lat = mercator::YToLat(org.y);
 
-  uint8_t constexpr kDigitsAfterComma = 6;
-  return strings::to_string_dac(lon, kDigitsAfterComma) + separator + strings::to_string_dac(lat, kDigitsAfterComma);
+  return strings::to_string_dac(lon, kCoordinatePrecision) + separator +
+         strings::to_string_dac(lat, kCoordinatePrecision);
+}
+
+m2::PointD PointAtStoragePrecision(m2::PointD const & point)
+{
+  auto const round = [](double value)
+  {
+    double rounded;
+    VERIFY(strings::to_double(strings::to_string_dac(value, kCoordinatePrecision), rounded), (value));
+    return rounded;
+  };
+  return mercator::FromLatLon(round(mercator::YToLat(point.y)), round(mercator::XToLon(point.x)));
 }
 
 std::string PointToLineString(geometry::PointWithAltitude const & pt)

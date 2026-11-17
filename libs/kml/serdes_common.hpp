@@ -14,6 +14,8 @@ auto constexpr kDefaultTrackWidth = 5.0;
 auto constexpr kDefaultTrackColor = 0x006ec7ff;
 
 std::string PointToString(m2::PointD const & org, char const separator);
+// Projects the coordinates that PointToString writes and the parsers read back.
+m2::PointD PointAtStoragePrecision(m2::PointD const & point);
 std::string PointToLineString(geometry::PointWithAltitude const & pt);
 std::string PointToGxString(geometry::PointWithAltitude const & pt);
 

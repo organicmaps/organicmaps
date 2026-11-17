@@ -317,6 +317,21 @@ UNIT_TEST(Gpx_Timestamp_Issues)
   TEST_EQUAL(times[7], base::StringToTimestamp("2024-05-04T19:00:05Z"), ());
 }
 
+UNIT_TEST(Gpx_CollectsSamplesBeforeTimestampRepair)
+{
+  auto const data = LoadGpxFromString(R"(<gpx version="1.1"><trk><trkseg>
+    <trkpt lat="45" lon="19"><time>2026-01-01T00:00:01Z</time></trkpt>
+    <trkpt lat="45" lon="19"><time>2026-01-01T00:00:01Z</time></trkpt>
+    <trkpt lat="45" lon="19"/>
+    <trkpt lat="45" lon="19.001"><time>2026-01-01T00:00:03Z</time></trkpt>
+  </trkseg></trk></gpx>)");
+  TEST_EQUAL(data.m_tracksData.size(), 1, ());
+  auto const & geometry = data.m_tracksData.front().m_geometry;
+  TEST_EQUAL(geometry.m_lines.front().size(), 4, ());
+  auto const first = base::StringToTimestamp("2026-01-01T00:00:01Z");
+  TEST_EQUAL(geometry.m_timestamps.front(), (kml::MultiGeometry::TimeT{first, first, first + 1, first + 2}), ());
+}
+
 UNIT_TEST(Gpx_Track_Invalid_Coordinates)
 {
   // Waypoints and track points with missing or out-of-range WGS84 coordinates are skipped;
@@ -356,14 +371,14 @@ UNIT_TEST(GoMap)
 {
   kml::FileData const dataFromFile = LoadGpxFromFile("test_data/gpx/go_map.gpx");
   auto const & line = dataFromFile.m_tracksData[0].m_geometry.m_lines[0];
-  TEST_EQUAL(line.size(), 101, ());
+  TEST_EQUAL(line.size(), 124, ());
 }
 
 UNIT_TEST(GpxStudio)
 {
   kml::FileData const dataFromFile = LoadGpxFromFile("test_data/gpx/gpx_studio.gpx");
   auto const & line = dataFromFile.m_tracksData[0].m_geometry.m_lines[0];
-  TEST_EQUAL(line.size(), 328, ());
+  TEST_EQUAL(line.size(), 331, ());
 }
 
 UNIT_TEST(OsmTrack)
@@ -371,8 +386,8 @@ UNIT_TEST(OsmTrack)
   kml::FileData const dataFromFile = LoadGpxFromFile("test_data/gpx/osm_track.gpx");
   auto const & line = dataFromFile.m_tracksData[0].m_geometry.m_lines[0];
   auto const & timestamps = dataFromFile.m_tracksData[0].m_geometry.m_timestamps[0];
-  TEST_EQUAL(line.size(), 182, ());
-  TEST_EQUAL(timestamps.size(), 182, ());
+  TEST_EQUAL(line.size(), 627, ());
+  TEST_EQUAL(timestamps.size(), 627, ());
 }
 
 UNIT_TEST(TowerCollector)
@@ -428,7 +443,7 @@ UNIT_TEST(Gpx_Route_Stops_Import)
   kml::FileData const dataFromText = LoadGpxFromString(input);
   TEST_EQUAL(dataFromText.m_tracksData.size(), 2, ());
   auto const & track = dataFromText.m_tracksData[0];
-  TEST_EQUAL(track.m_geometry.m_lines[0].size(), 5, ());
+  TEST_EQUAL(track.m_geometry.m_lines[0].size(), 7, ());
   std::vector<kml::TrackStopData> const expectedStops = {{mercator::FromLatLon(1, 1), "Stop at the start"},
                                                          {mercator::FromLatLon(3, 3), "Coffee break"},
                                                          {mercator::FromLatLon(1, 1), "Back at the start"},

@@ -157,10 +157,7 @@ UNIT_TEST(BuildChain_AllReversed)
   TEST_EQUAL(result.m_points[0].GetAltitude(), 70, ());
   TEST_EQUAL(result.m_points[6].GetAltitude(), 10, ());
 
-  // Walking the chain from front to back visits each member's points in source order
-  // (m3: 4→3→… no, points are (6,5,4) reversed in chain... actually each prepended
-  // member m has m.back() == chain.front(), so its forward [m.front()..m[size-2]] is
-  // prepended → chain visits each m's points in source order → m_reversed=false.
+  // Prepending preserves each member's source direction and reverses their relation order.
   TEST(CompareRelsOrder(result, {3, 2, 1}), ());
 }
 

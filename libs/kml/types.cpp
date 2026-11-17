@@ -6,7 +6,9 @@
 #include "base/random.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
+#include "base/timer.hpp"
 
+#include <algorithm>
 #include <random>
 #include <utility>
 
@@ -29,10 +31,29 @@ void SetBookmarksMinZoom(FileData & fileData, double countPerTile, int maxZoom)
   minZoomQuadtree.SetMinZoom(countPerTile, maxZoom, setMinZoom);
 }
 
+bool MultiGeometry::IsValidLine(LineT const & line)
+{
+  if (line.size() < 2)
+    return false;
+  return std::any_of(line.begin() + 1, line.end(), [&line](auto const & point)
+  { return !IsSameTrackPoint(point.GetPoint(), line.front().GetPoint()); });
+}
+
+bool MultiGeometry::IsValidTimestamps(TimeT const & timestamps, size_t pointCount)
+{
+  return timestamps.empty() ||
+         (timestamps.size() == pointCount && std::is_sorted(timestamps.begin(), timestamps.end()) &&
+          std::find(timestamps.begin(), timestamps.end(), base::INVALID_TIME_STAMP) == timestamps.end());
+}
+
 bool MultiGeometry::IsValid() const
 {
-  ASSERT_EQUAL(m_lines.size(), m_timestamps.size(), ());
-  return !m_lines.empty();
+  if (!HasLines() || m_lines.size() != m_timestamps.size())
+    return false;
+  for (size_t i = 0; i < m_lines.size(); ++i)
+    if (!IsValidLine(m_lines[i]) || !IsValidTimestamps(m_timestamps[i], m_lines[i].size()))
+      return false;
+  return true;
 }
 
 void MultiGeometry::Clear()

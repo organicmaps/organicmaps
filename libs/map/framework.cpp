@@ -967,7 +967,7 @@ std::optional<kml::TrackData> Framework::TryBuildRelationTrack(Track::TrackSelec
   auto const relationId = trackSelectionInfo.m_relationId;
   CHECK(trackSelectionInfo.IsRelation(), ());
 
-  RelationTrackBuilder builder(m_featuresFetcher.GetDataSource(), trackSelectionInfo.m_relationId, m_infoGetter.get());
+  RelationTrackBuilder builder(m_featuresFetcher.GetDataSource(), relationId, m_infoGetter.get());
   auto trackData = builder.Build(relationId);
   if (!trackData)
   {
@@ -978,15 +978,18 @@ std::optional<kml::TrackData> Framework::TryBuildRelationTrack(Track::TrackSelec
   kml::TrackData kmlTrack;
   for (auto & line : trackData->m_lines)
   {
+    // Validate the final directions: reversing a chain can make it collapse under KML filtering.
+    if (!kml::MultiGeometry::IsValidLine(line.m_points))
+      continue;
     kmlTrack.m_geometry.m_lines.push_back(std::move(line.m_points));
     kmlTrack.m_geometry.m_timestamps.emplace_back();
   }
-  kml::SetDefaultStr(kmlTrack.m_name, std::move(trackData->m_name));
+  if (!kmlTrack.m_geometry.HasLines())
+    return std::nullopt;
+  kml::SetDefaultStr(kmlTrack.m_name, trackData->m_name);
 
-  kml::TrackLayer layer;
   UpdateTrackSelectionColor(trackData->m_color);
-  layer.m_color.m_rgba = trackData->m_color.GetRGBA();
-  kmlTrack.m_layers.push_back(layer);
+  kmlTrack.m_layers.emplace_back().m_color.m_rgba = trackData->m_color.GetRGBA();
   kmlTrack.m_id = kml::kTempRelationTrackId;
 
   return kmlTrack;

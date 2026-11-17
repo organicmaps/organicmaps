@@ -1,13 +1,20 @@
 #include "testing/testing.hpp"
 
+#include "map/bookmark_helpers.hpp"
+#include "map/bookmark_manager.hpp"
 #include "map/gps_track.hpp"
 #include "map/gps_track_storage.hpp"
+#include "map/gps_tracker.hpp"
 
 #include "platform/platform.hpp"
+
+#include "coding/reader.hpp"
+#include "coding/writer.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
 
 #include "base/logging.hpp"
+#include "base/scope_guard.hpp"
 
 #include <algorithm>
 #include <chrono>
@@ -249,6 +256,41 @@ UNIT_TEST(GpsTrack_RecordsWithoutCallback)
   TEST(!track.IsEmpty(), ());
   CheckPoints(GetPoints(track), points);
   CheckPoints(file.Load(), points);
+}
+
+UNIT_TEST(GpsTracker_SaveabilitySurvivesKmlReload)
+{
+  auto & tracker = GpsTracker::Instance();
+  tracker.Clear();
+  tracker.SetEnabled(true);
+  SCOPE_GUARD(cleanup, [&]
+  {
+    tracker.SetEnabled(false);
+    tracker.Clear();
+    tracker.Finalize();
+  });
+
+  for (auto const & point : MakePoints(2))
+    tracker.OnLocationUpdated(point);
+  TEST_EQUAL(tracker.Finalize(), 2, ());
+  TEST(!tracker.IsEmpty(), ());
+
+  BookmarkManager bookmarks(BookmarkManager::Callbacks([]() -> StringsBundle const &
+  {
+    static StringsBundle const strings;
+    return strings;
+  }, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr));
+  bookmarks.EnableTestMode(true);
+  auto const id = bookmarks.SaveTrackRecording("Recorded track");
+  kml::FileData data;
+  data.m_tracksData.push_back(bookmarks.GetTrack(id)->GetData());
+  std::string text;
+  MemWriter writer(text);
+  TEST(SaveKmlData(data, writer, FileType::Kml), ());
+  auto reloaded = LoadKmlData(MemReader(text.data(), text.size()), FileType::Kml);
+  TEST(reloaded, ());
+  TEST_EQUAL(reloaded->m_tracksData.size(), 1, ());
+  TEST(reloaded->m_tracksData.front().m_geometry.IsValid(), ());
 }
 
 UNIT_TEST(GpsTrack_StartRestoresBackupOnce)

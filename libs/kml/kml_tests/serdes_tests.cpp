@@ -1005,14 +1005,17 @@ UNIT_TEST(Kml_Tracks_With_Different_Points_And_Timestamps_Order)
 UNIT_TEST(Kml_Track_Points_And_Timestamps_Sizes_Mismatch)
 {
   kml::FileData dataFromFile;
-  TEST_ANY_THROW(
+  TEST_NO_THROW(
       {
         kml::DeserializerKml des(dataFromFile);
         FileReader reader(GetPlatform().TestsDataPathForFile("test_data/kml/track_with_timestamps_mismatch.kml"));
         des.Deserialize(reader);
       },
       ());
-  TEST_EQUAL(dataFromFile.m_tracksData.size(), 0, ());
+  TEST_EQUAL(dataFromFile.m_tracksData.size(), 1, ());
+  auto const & geometry = dataFromFile.m_tracksData.front().m_geometry;
+  TEST(!geometry.m_lines.empty(), ());
+  TEST(!geometry.HasTimestamps(), ());
 }
 
 UNIT_TEST(Kml_Track_With_Non_Monotonic_Timestamps)

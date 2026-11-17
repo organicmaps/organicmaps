@@ -224,72 +224,59 @@ void ValidateKmlData(std::unique_ptr<kml::FileData> & data)
       t.m_layers.emplace_back(kml::KmlParser::GetDefaultTrackLayer());
 }
 
-/// @todo(KK): This code is a temporary solution for the filtering the duplicated points in KMLs.
-/// When the deserealizer reads the data from the KML that uses <gx:Track>
-/// as a first step will be parsed the list of the timestamps <when> and than the list of the coordinates <gx:coord>.
-/// So the filtering can be done only when all the data is parsed.
+// Filter points and capture times together once both gx:Track arrays are complete.
 void RemoveDuplicatedTrackPoints(std::unique_ptr<kml::FileData> & data)
 {
   for (auto & trackData : data->m_tracksData)
   {
-    auto const & geometry = trackData.m_geometry;
-    kml::MultiGeometry validGeometry;
-
+    auto & geometry = trackData.m_geometry;
+    ASSERT_EQUAL(geometry.m_lines.size(), geometry.m_timestamps.size(), (trackData.m_id));
+    size_t keptLines = 0;
     for (size_t lineIndex = 0; lineIndex < geometry.m_lines.size(); ++lineIndex)
     {
-      auto const & line = geometry.m_lines[lineIndex];
-      auto const & timestamps = geometry.m_timestamps[lineIndex];
-
-      if (line.empty())
+      auto & line = geometry.m_lines[lineIndex];
+      auto & timestamps = geometry.m_timestamps[lineIndex];
+      ASSERT(timestamps.empty() || timestamps.size() == line.size(),
+             (trackData.m_id, lineIndex, timestamps.size(), line.size()));
+      if (!kml::MultiGeometry::IsValidTimestamps(timestamps, line.size()))
       {
-        LOG(LWARNING, ("Empty line in track:", trackData.m_name[kml::kDefaultLang]));
+        LOG(LWARNING, ("Dropping invalid track timestamps", trackData.m_name[kml::kDefaultLang]));
+        timestamps.clear();
+      }
+      bool const hasTimestamps = !timestamps.empty();
+      size_t keptPoints = 0;
+      for (size_t i = 0; i < line.size(); ++i)
+      {
+        if (keptPoints != 0 && kml::IsSameTrackPoint(line[keptPoints - 1].GetPoint(), line[i].GetPoint()))
+          continue;
+        line[keptPoints] = line[i];
+        if (hasTimestamps)
+          timestamps[keptPoints] = timestamps[i];
+        ++keptPoints;
+      }
+      line.resize(keptPoints);
+      if (hasTimestamps)
+        timestamps.resize(keptPoints);
+      if (line.size() < 2)
+      {
+        LOG(LWARNING, ("Degenerated line in track:", trackData.m_name[kml::kDefaultLang]));
         continue;
       }
-
-      bool const hasTimestamps = geometry.HasTimestampsFor(lineIndex);
-      if (hasTimestamps && timestamps.size() != line.size())
-        MYTHROW(kml::DeserializerKml::DeserializeException,
-                ("Timestamps count", timestamps.size(), "doesn't match points count", line.size()));
-
-      validGeometry.m_lines.emplace_back();
-      validGeometry.m_timestamps.emplace_back();
-
-      auto & validLine = validGeometry.m_lines.back();
-      validLine.reserve(line.size());
-      auto & validTimestamps = validGeometry.m_timestamps.back();
-      validTimestamps.reserve(timestamps.size());
-
-      /// @todo Can rewrite with unique loop analog to filter existing geometry and avoid new vectors allocation.
-      for (size_t pointIndex = 0; pointIndex < line.size(); ++pointIndex)
+      if (keptLines != lineIndex)
       {
-        auto const & currPoint = line[pointIndex];
-
-        // We don't expect vertical surfaces, so do not compare heights here.
-        // Will get a lot of duplicating points otherwise after import some user KMLs.
-        // https://github.com/organicmaps/organicmaps/issues/3895
-        if (validLine.empty() || !AlmostEqualAbs(validLine.back().GetPoint(), currPoint.GetPoint(), kMwmPointAccuracy))
-        {
-          validLine.push_back(currPoint);
-          if (hasTimestamps)
-            validTimestamps.push_back(timestamps[pointIndex]);
-        }
+        geometry.m_lines[keptLines] = std::move(line);
+        geometry.m_timestamps[keptLines] = std::move(timestamps);
       }
-
-      if (validLine.size() < 2)
-      {
-        validGeometry.m_lines.pop_back();
-        validGeometry.m_timestamps.pop_back();
-        LOG(LWARNING, ("Degenerated line in track:", trackData.m_name[kml::kDefaultLang]));
-      }
+      ++keptLines;
     }
-
-    trackData.m_geometry = std::move(validGeometry);
+    geometry.m_lines.resize(keptLines);
+    geometry.m_timestamps.resize(keptLines);
   }
 
   std::set<kml::LocalId> removedIds;
   base::EraseIf(data->m_tracksData, [&removedIds](kml::TrackData const & td)
   {
-    if (!td.m_geometry.IsValid())
+    if (!td.m_geometry.HasLines())
     {
       removedIds.insert(td.m_localId);
       return true;

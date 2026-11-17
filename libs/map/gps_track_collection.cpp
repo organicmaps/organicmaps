@@ -1,29 +1,8 @@
 #include "map/gps_track_collection.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "base/assert.hpp"
-
-namespace
-{
-
-// Simple rollbacker which restores deque state
-template <typename T>
-class Rollbacker
-{
-public:
-  Rollbacker(std::deque<T> & cont) : m_cont(&cont), m_size(cont.size()) {}
-  ~Rollbacker()
-  {
-    if (m_cont && m_cont->size() > m_size)
-      m_cont->erase(m_cont->begin() + m_size, m_cont->end());
-  }
-  void Reset() { m_cont = nullptr; }
-
-private:
-  std::deque<T> * m_cont;
-  size_t const m_size;
-};
-
-}  // namespace
 
 GpsTrackCollection::GpsTrackCollection() : m_lastId(0), m_elevationInfoDirty(true) {}
 
@@ -31,9 +10,6 @@ std::pair<size_t, size_t> GpsTrackCollection::Add(std::vector<TItem> const & ite
 {
   size_t startId = m_lastId;
   size_t added = 0;
-
-  // Rollbacker ensure strong guarantee if exception happens while adding items
-  Rollbacker<TItem> rollbacker(m_items);
 
   for (auto const & item : items)
   {
@@ -43,12 +19,16 @@ std::pair<size_t, size_t> GpsTrackCollection::Add(std::vector<TItem> const & ite
     m_statistics.AddGpsInfoPoint(item);
 
     m_items.emplace_back(item);
+    if (!m_hasMovement)
+    {
+      auto const & first = m_items.front();
+      m_hasMovement = !kml::IsSameTrackPoint(mercator::FromLatLon(first.m_latitude, first.m_longitude),
+                                             mercator::FromLatLon(item.m_latitude, item.m_longitude));
+    }
     ++added;
   }
 
   m_elevationInfoDirty = true;
-
-  rollbacker.Reset();
 
   if (0 == added)
   {
@@ -63,6 +43,7 @@ std::pair<size_t, size_t> GpsTrackCollection::Add(std::vector<TItem> const & ite
 
 std::pair<size_t, size_t> GpsTrackCollection::Clear(bool resetIds)
 {
+  m_hasMovement = false;
   if (m_items.empty())
   {
     if (resetIds)
@@ -109,5 +90,5 @@ ElevationInfo const & GpsTrackCollection::UpdateAndGetElevationInfo()
 
 bool GpsTrackCollection::IsEmpty() const
 {
-  return m_items.size() < 2;
+  return !m_hasMovement;
 }

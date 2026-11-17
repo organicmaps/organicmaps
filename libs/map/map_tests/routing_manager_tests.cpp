@@ -254,27 +254,33 @@ double GetRouteLengthMeters(RoutingManager const & manager)
   return length;
 }
 
-kml::TrackId SaveSingleSegmentRoute(RoutingManager & manager, BookmarkManager & bookmarks,
-                                    geometry::PointWithAltitude const & finish)
+kml::TrackId SaveRouteGeometry(RoutingManager & manager, BookmarkManager & bookmarks, kml::TrackGeometry const & points)
 {
   bookmarks.EnableTestMode(true);
   SCOPE_GUARD(restoreTestMode, [&] { bookmarks.EnableTestMode(false); });
   // Saving is profile-independent; Ruler initializes without map regions.
   manager.SetRouter(routing::RouterType::Ruler);
   manager.Init(std::make_shared<routing::NumMwmIds>());
-  manager.AddRoutePoint(MakeRoutePointOnXAxis(RouteMarkType::Start, 0, 0.0), false);
+  auto const & start = points.front();
+  auto const & finish = points.back();
+  manager.AddRoutePoint(MakeRoutePointOnXAxis(RouteMarkType::Start, 0, start.GetPoint().x), false);
   manager.AddRoutePoint(MakeRoutePointOnXAxis(RouteMarkType::Finish, 0, finish.GetPoint().x), false);
 
-  geometry::PointWithAltitude const start({0.0, 0.0}, 100);
   routing::Segment const fake(routing::kFakeNumMwmId, 0, 0, false);
   std::vector<routing::RouteSegment> segments;
-  segments.emplace_back(fake, routing::turns::TurnItem(1, routing::turns::CarDirection::ReachedYourDestination), finish,
-                        routing::RouteSegment::RoadNameInfo{});
-  double const distance = mercator::DistanceOnEarth(start.GetPoint(), finish.GetPoint());
-  segments.front().SetDistancesAndTime(distance, finish.GetPoint().x, distance);
+  double distance = 0.0;
+  for (size_t i = 1; i < points.size(); ++i)
+  {
+    auto const direction = i + 1 == points.size() ? routing::turns::CarDirection::ReachedYourDestination
+                                                  : routing::turns::CarDirection::None;
+    segments.emplace_back(fake, routing::turns::TurnItem(i, direction), points[i],
+                          routing::RouteSegment::RoadNameInfo{});
+    distance += mercator::DistanceOnEarth(points[i - 1].GetPoint(), points[i].GetPoint());
+    segments.back().SetDistancesAndTime(distance, distance, distance);
+  }
   routing::Route route;
   route.SetRouteSegments(std::move(segments));
-  route.SetSubroutes(std::vector<routing::Route::SubrouteAttrs>{{start, finish, 0, 1}});
+  route.SetSubroutes(std::vector<routing::Route::SubrouteAttrs>{{start, finish, 0, points.size() - 1}});
   routing::RoutesResult result;
   result.MakeFrom("ruler", std::move(route));
   manager.RoutingSession().AssignRouteForTesting(routing::Route(result.GetActive()),
@@ -1411,7 +1417,7 @@ UNIT_TEST(RoutingManager_SaveRoutePreservesSingleSegmentGeometry)
   {
     geometry::PointWithAltitude const start({0.0, 0.0}, 100);
     geometry::PointWithAltitude const finish({0.001, 0.0}, 110);
-    auto const id = SaveSingleSegmentRoute(manager, bookmarks, finish);
+    auto const id = SaveRouteGeometry(manager, bookmarks, {start, finish});
     TEST_NOT_EQUAL(id, kml::kInvalidTrackId, ());
     auto const * track = bookmarks.GetTrack(id);
     TEST(track != nullptr, ());
@@ -1425,8 +1431,39 @@ UNIT_TEST(RoutingManager_SaveRouteRejectsCollapsedGeometry)
 {
   WithSavedRoute([](RoutingManager & manager, BookmarkManager & bookmarks, TestGuiThread &)
   {
-    geometry::PointWithAltitude const finish({1e-7, 0.0}, 100);
-    TEST_EQUAL(SaveSingleSegmentRoute(manager, bookmarks, finish), kml::kInvalidTrackId, ());
+    for (auto const x : {0.0, 1e-7})
+    {
+      for (auto const altitude : {100, 110})
+      {
+        geometry::PointWithAltitude const finish({x, 0.0}, altitude);
+        TEST_EQUAL(SaveRouteGeometry(manager, bookmarks, {{{0.0, 0.0}, 100}, finish}), kml::kInvalidTrackId,
+                   (x, altitude));
+      }
+    }
+  });
+}
+
+UNIT_TEST(RoutingManager_SaveRouteDeduplicatesWithoutLosingMovement)
+{
+  WithSavedRoute([](RoutingManager & manager, BookmarkManager & bookmarks, TestGuiThread &)
+  {
+    using Line = kml::TrackGeometry;
+    std::pair<Line, Line> const cases[] = {
+        {Line{{{0.0, 0.0}, 100}, {{0.0, 0.0}, 100}, {{0.001, 0.0}, 100}}, Line{{{0.0, 0.0}, 100}, {{0.001, 0.0}, 100}}},
+        {Line{{{19.0, 0.0}, 100}, {{19.000009, 0.0}, 100}, {{19.000017, 0.0}, 100}},
+         Line{{{19.0, 0.0}, 100}, {{19.000017, 0.0}, 100}}},
+        {Line{{{-180.0, 0.0}, 100}, {{179.999991, 0.0}, 100}, {{179.999983, 0.0}, 100}},
+         Line{{{-180.0, 0.0}, 100}, {{179.999983, 0.0}, 100}}},
+        {Line{{{-180.0, 0.0}, 100}, {{179.999991, 0.0}, 200}, {{179.999983, 0.0}, 200}},
+         Line{{{-180.0, 0.0}, 100}, {{179.999991, 0.0}, 200}, {{179.999983, 0.0}, 200}}}};
+    for (auto const & [source, expected] : cases)
+    {
+      auto const id = SaveRouteGeometry(manager, bookmarks, source);
+      TEST_NOT_EQUAL(id, kml::kInvalidTrackId, (source));
+      auto const * track = bookmarks.GetTrack(id);
+      TEST(track, (source));
+      TEST_EQUAL(track->GetGeometry(), expected, (source));
+    }
   });
 }
 }  // namespace routing_manager_tests

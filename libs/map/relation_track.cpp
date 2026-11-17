@@ -272,12 +272,8 @@ std::optional<RelationTrackBuilder::Data> RelationTrackBuilder::Build(RelationID
 
   AppendNeighbourMembers(guard, relationId.m_index, members);
 
-  auto lines = MergeAllMembers(members);
-  if (lines.empty())
-    return std::nullopt;
-
   Data data;
-  data.m_lines = std::move(lines);
+  data.m_lines = MergeAllMembers(members);
   data.m_name = std::string(rel.GetDefaultName());
   data.m_color = rel.GetColor();
   return data;

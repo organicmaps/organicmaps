@@ -24,8 +24,7 @@ namespace df
 struct RelationsDrawSettings;
 }  // namespace df
 
-/// Builds track geometry from a route relation, starting from a specific feature
-/// and growing the chain in both directions using endpoint matching.
+/// Builds track geometry from route relation members using endpoint matching.
 class RelationTrackBuilder
 {
 public:
@@ -89,7 +88,7 @@ public:
 
   /// Builds relation track candidates metadata.
   void ForEachMetadata(std::function<void(Metadata &&)> const & fn, df::RelationsDrawSettings const & sett);
-  /// Builds full relation track geometry.
+  /// Builds merged relation geometry.
   std::optional<Data> Build(RelationID const & relationId);
 
   /// Builds a SelectionInfo (ordered polylines + color) for a specific relation (by @p relID),
@@ -105,7 +104,7 @@ public:
   static Geometry BuildChain(std::vector<Geometry> const & members, size_t startIdx);
 
   /// Merges all member geometries into connected chains using endpoint matching.
-  /// Returns multiple lines when members form disconnected segments.
+  /// Returns one line per disconnected chain, ordered by endpoint proximity.
   static std::vector<Geometry> MergeAllMembers(std::vector<Geometry> const & members);
 
   /// Merges members assuming they are ordered in the relation.

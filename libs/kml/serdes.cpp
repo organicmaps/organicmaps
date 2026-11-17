@@ -924,7 +924,8 @@ void KmlParser::ParseLineString(std::string const & s)
 
 bool KmlParser::MakeValid()
 {
-  if (m_geometry.IsValid())
+  ASSERT_EQUAL(m_geometry.m_lines.size(), m_geometry.m_timestamps.size(), ());
+  if (m_geometry.HasLines())
   {
     for (size_t lineIdx = 0; lineIdx < m_geometry.m_lines.size(); ++lineIdx)
     {
@@ -939,9 +940,9 @@ bool KmlParser::MakeValid()
       size_t const pointsSize = m_geometry.m_lines[lineIdx].size();
       if (pointsSize + (skipSet ? skipSet->size() : 0) != timestamps.size())
       {
-        MYTHROW(kml::DeserializerKml::DeserializeException,
-                ("Timestamps size", timestamps.size(), "mismatch with the points size:", pointsSize,
-                 "for the track:", lineIdx));
+        LOG(LWARNING, ("Dropping mismatched track timestamps", timestamps.size(), pointsSize, lineIdx));
+        timestamps.clear();
+        continue;
       }
 
       if (skipSet)
@@ -968,7 +969,7 @@ bool KmlParser::MakeValid()
   }
   else if (GEOMETRY_TYPE_LINE == m_geometryType)
   {
-    return m_geometry.IsValid();
+    return m_geometry.HasLines();
   }
 
   return false;
@@ -1174,7 +1175,7 @@ void KmlParser::Pop(std::string_view tag)
         m_data.m_bookmarksData.push_back(std::move(data));
 
         // There is a track stored inside a bookmark
-        if (m_geometry.IsValid())
+        if (m_geometry.HasLines())
         {
           BookmarkData const & bookmarkData = m_data.m_bookmarksData.back();
           TrackData trackData;
@@ -1364,10 +1365,7 @@ void KmlParser::CharData(std::string & value)
         auto & timestamps = m_geometry.m_timestamps;
         ASSERT(!timestamps.empty(), ());
 
-        /// @todo Add INVALID_TIME_STAMP post processing like in GpxParser?
         auto const timestamp = base::StringToTimestamp(value);
-        ASSERT(timestamp != base::INVALID_TIME_STAMP, (value));
-
         timestamps.back().emplace_back(timestamp);
       }
       else if (IsCoord(currTag))

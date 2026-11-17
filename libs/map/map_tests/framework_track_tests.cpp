@@ -7,6 +7,20 @@
 
 #include "geometry/mercator.hpp"
 
+#include "generator/generator_tests_support/test_feature.hpp"
+#include "generator/generator_tests_support/test_with_custom_mwms.hpp"
+
+#include "indexer/features_offsets_table.hpp"
+#include "indexer/features_vector.hpp"
+
+#include "platform/platform_tests_support/scoped_file.hpp"
+
+#include "coding/files_container.hpp"
+#include "coding/varint.hpp"
+
+#include "defines.hpp"
+
+#include <array>
 #include <initializer_list>
 
 namespace framework_track_tests
@@ -15,6 +29,73 @@ using df::test_support::VisualParamsFixture;
 
 namespace
 {
+class RelationTrackFixture
+  : public generator::tests_support::TestWithCustomMwms
+  , public VisualParamsFixture
+{
+public:
+  RelationTrackFixture()
+  {
+    using generator::tests_support::TestRoad;
+    std::array<TestRoad, 4> const roads = {TestRoad({{19.0, 0.0}, {19.000016, 0.0}}, "outbound", "en"),
+                                           TestRoad({{19.000016, 0.0}, {19.000005, 0.0}}, "return", "en"),
+                                           TestRoad({{18.999, 0.0}, {18.998, 0.0}}, "western", "en"),
+                                           TestRoad({{19.000005, 0.0}, {19.001, 0.0}}, "continuation", "en")};
+    BuildCountry("RelationTracks", [&](generator::tests_support::TestMwmBuilder & builder)
+    {
+      for (auto const & road : roads)
+        builder.Add(road);
+      builder.Finish();
+
+      auto const path = GetPlatform().WritablePathForFile("RelationTracks.mwm");
+      std::array<uint32_t, 4> ids{};
+      size_t found = 0;
+      {
+        FeaturesVectorTest features(path);
+        features.GetVector().ForEach([&](FeatureType & ft, uint32_t index)
+        {
+          for (size_t i = 0; i < roads.size(); ++i)
+            if (roads[i].Matches(ft))
+            {
+              ids[i] = index;
+              ++found;
+            }
+        });
+      }
+      TEST_EQUAL(found, roads.size(), ());
+
+      struct HikingRelation : feature::RouteRelationBase
+      {
+        HikingRelation() { m_type = Type::Hiking; }
+      } relation;
+      feature::FeaturesOffsetsTable::Builder offsets;
+      FilesContainerW container(path, FileWriter::OP_WRITE_EXISTING);
+      {
+        auto writer = container.GetWriter(RELATIONS_FILE_TAG);
+        auto const start = writer->Pos();
+        for (auto const & members : {std::vector{ids[0], ids[1], ids[2]}, std::vector{ids[1]},
+                                     std::vector{ids[1], ids[2]}, std::vector{ids[1], ids[3]}})
+        {
+          offsets.PushOffset(base::asserted_cast<uint32_t>(writer->Pos() - start));
+          relation.Write(*writer);
+          WriteVarUint(*writer, static_cast<uint32_t>(members.size()));
+          int32_t previous = 0;
+          for (auto const id : members)
+          {
+            WriteVarInt(*writer, static_cast<int32_t>(id) - previous);
+            previous = id;
+          }
+          WriteToSink(*writer, uint8_t{0});  // No child or parent relation references.
+        }
+      }
+      platform::tests_support::ScopedFile table("RelationTracks.rel_offs",
+                                                platform::tests_support::ScopedFile::Mode::DoNotCreate);
+      feature::FeaturesOffsetsTable::Build(offsets)->Save(table.GetFullPath());
+      container.Write(table.GetFullPath(), RELATION_OFFSETS_FILE_TAG);
+    });
+  }
+};
+
 kml::TrackId CreateTrack(Framework & framework, std::initializer_list<std::initializer_list<m2::PointD>> const & lines)
 {
   kml::TrackData data;
@@ -48,6 +129,45 @@ void CheckSelection(Framework const & framework, kml::TrackId id, m2::PointD con
   TEST_ALMOST_EQUAL_ABS(selection.m_distFromBegM, distance, 1e-7, ());
 }
 }  // namespace
+
+UNIT_CLASS_TEST(RelationTrackFixture, Framework_RelationTrackFiltersFinalGeometry)
+{
+  Framework framework({}, false /* loadMaps */);
+  auto const seedId = CreateTrack(framework, {{{19.0, 0.0}, {19.001, 0.0}}});
+  auto & bookmarks = framework.GetBookmarkManager();
+  auto const [mwmId, result] = framework.RegisterMap(m_files.front());
+  TEST(result == MwmSet::RegResult::Success, ());
+  for (uint32_t const index : {0, 1, 2, 3})
+  {
+    // The public selector offers a choice between the displayed track and the relation.
+    framework.ShowTrack(seedId);
+    Track::TrackSelectionInfo selection;
+    selection.m_trackId = kml::kTempRelationTrackId;
+    selection.m_trackPoint = {19.0, 0.0};
+    selection.m_relationId = {mwmId, index};
+    framework.GetCurrentPlacePageInfo().SetTrackCandidates(
+        {selection, Track::TrackSelectionInfo(seedId, {19.0, 0.0}, 0.0)});
+    framework.SelectTrackCandidate(kml::kTempRelationTrackId, selection.m_relationId);
+
+    auto const * track = bookmarks.GetTrack(kml::kTempRelationTrackId);
+    if (index == 1)
+    {
+      TEST(!track, ("A collapsed relation has no runtime track"));
+      TEST_EQUAL(framework.GetCurrentPlacePageInfo().GetTrackId(), seedId, ());
+      continue;
+    }
+    TEST(track, (index));
+    TEST_EQUAL(framework.GetCurrentPlacePageInfo().GetTrackId(), kml::kTempRelationTrackId, (index));
+    auto const & geometry = track->GetData().m_geometry;
+    TEST(geometry.IsValid(), (index));
+    TEST_EQUAL(geometry.m_lines.size(), 1, (index));
+    if (index == 3)
+      TEST_EQUAL(geometry.m_lines.front().size(), 3, ("Keep a short member joined to a usable continuation"));
+    else
+      TEST_LESS(geometry.m_lines.front().front().GetPoint().x, 18.9995, ("Keep the usable western chain", index));
+    TEST_GREATER(track->GetLengthMeters(), 0.0, (index));
+  }
+}
 
 UNIT_CLASS_TEST(VisualParamsFixture, Framework_ShowTrackSelectsStart)
 {

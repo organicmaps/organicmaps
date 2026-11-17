@@ -1455,10 +1455,22 @@ kml::TrackId RoutingManager::SaveRoute()
   if (!RoutingSession().GetRouteJunctionPoints(junctions))
     return kml::kInvalidTrackId;
 
-  base::Unique(junctions, [](geometry::PointWithAltitude const & p1, geometry::PointWithAltitude const & p2)
-  { return AlmostEqualAbs(p1, p2, kMwmPointAccuracy); });
-  if (junctions.size() < 2)
+  size_t keptPoints = 0;
+  // Retained elevation samples must not shift the position used for geometric filtering.
+  size_t lastDistinctPoint = 0;
+  for (size_t i = 0; i < junctions.size(); ++i)
+  {
+    bool const samePosition =
+        keptPoints != 0 && kml::IsSameTrackPoint(junctions[lastDistinctPoint].GetPoint(), junctions[i].GetPoint());
+    if (samePosition && junctions[keptPoints - 1].GetAltitude() == junctions[i].GetAltitude())
+      continue;
+    if (!samePosition)
+      lastDistinctPoint = keptPoints;
+    junctions[keptPoints++] = junctions[i];
+  }
+  if (lastDistinctPoint == 0)
     return kml::kInvalidTrackId;
+  junctions.resize(keptPoints);
 
   std::string const from = GetNameFromPoint(routePoints.front());
   std::string const to = GetNameFromPoint(routePoints.back());

@@ -65,4 +65,17 @@ UNIT_TEST(GpsTrackFilter_FinalizeAppendsLastFix)
   TEST_EQUAL(out[0].m_timestamp, last.m_timestamp, ());
   TEST_EQUAL(out[0].m_longitude, last.m_longitude, ());
 }
+
+UNIT_TEST(GpsTrackFilter_FinalizeSkipsAntimeridianAlias)
+{
+  GpsTrackFilter filter;
+  Points out;
+  filter.Process({Make(100.0, 0.0, 180.0, 0.0)}, out);
+  TEST_EQUAL(out.size(), 1, ());
+  out.clear();
+  filter.Process({Make(160.0, 0.0, -179.999999, 0.0)}, out);
+  TEST(out.empty(), ());
+  filter.Finalize(out);
+  TEST(out.empty(), ("A wrapped alias does not add saved geometry"));
+}
 }  // namespace gps_track_filter_test

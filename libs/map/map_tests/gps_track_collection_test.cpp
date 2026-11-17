@@ -25,6 +25,26 @@ location::GpsInfo MakeGpsTrackInfo(double timestamp, ms::LatLon const & ll, doub
   return info;
 }
 
+UNIT_TEST(GpsTrackCollection_EmptyUntilMovement)
+{
+  GpsTrackCollection collection;
+  TEST(collection.IsEmpty(), ());
+  auto point = MakeGpsTrackInfo(1.0, {45.0, 19.0}, 0.0);
+  collection.Add({point});
+  TEST(collection.IsEmpty(), ());
+  point.m_timestamp = 2.0;
+  point.m_altitude = 100.0;
+  collection.Add({point});
+  TEST(collection.IsEmpty(), ("Repeated fixes cannot form a saved track, even at different altitudes"));
+  TEST_EQUAL(collection.GetSize(), 2, ("Keep the recorded samples"));
+  point.m_timestamp = 3.0;
+  point.m_longitude += 0.001;
+  collection.Add({point});
+  TEST(!collection.IsEmpty(), ());
+  collection.Clear();
+  TEST(collection.IsEmpty(), ());
+}
+
 UNIT_TEST(GpsTrackCollection_Simple)
 {
   time_t const t = system_clock::to_time_t(system_clock::now());
@@ -61,5 +81,24 @@ UNIT_TEST(GpsTrackCollection_Simple)
   TEST_EQUAL(res.second, 49, ());
 
   TEST_EQUAL(0, collection.GetSize(), ());
+}
+
+UNIT_TEST(GpsTrackCollection_StationaryJitterCannotEnableSaving)
+{
+  for (auto const [first, second] :
+       {std::pair{0.0, 1e-7}, std::pair{179.9999999, 179.9999990}, std::pair{-179.9999999, -179.9999990}})
+  {
+    GpsTrackCollection collection;
+    for (size_t i = 0; i < 200; ++i)
+      collection.Add({MakeGpsTrackInfo(1.0 + i, {0.0, i % 2 ? first : second}, 0.0)});
+    TEST_GREATER(collection.GetTrackStatistics().m_length, 1.0, ());
+    TEST(collection.IsEmpty(), ("Length accumulated inside the import tolerance is not usable geometry", first));
+    collection.Add({MakeGpsTrackInfo(201.0, {0.0, first + (first > 0 ? -0.001 : 0.001)}, 1.0)});
+    TEST(!collection.IsEmpty(), ());
+    collection.Add({MakeGpsTrackInfo(202.0, {0.0, first}, 1.0)});
+    TEST(!collection.IsEmpty(), ("A closed loop remains saveable"));
+    collection.Clear();
+    TEST(collection.IsEmpty(), ());
+  }
 }
 }  // namespace gps_track_collection_test
