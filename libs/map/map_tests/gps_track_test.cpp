@@ -258,7 +258,7 @@ UNIT_TEST(GpsTrack_RecordsWithoutCallback)
   CheckPoints(file.Load(), points);
 }
 
-UNIT_TEST(GpsTracker_SaveabilitySurvivesKmlReload)
+UNIT_TEST(GpsTracker_SavesTrackWithDistinctFinalFix)
 {
   auto & tracker = GpsTracker::Instance();
   tracker.Clear();
@@ -270,13 +270,12 @@ UNIT_TEST(GpsTracker_SaveabilitySurvivesKmlReload)
     tracker.Finalize();
   });
 
-  // At this latitude the final fix gains enough Mercator separation after KML rounding.
+  // A distinct fix within the recording filter's minimum distance is kept on finalization.
   auto start = MakePoint(100.0, 0.0);
-  start.m_latitude = 80.0;
-  start.m_longitude = 19.0;
+  start.m_longitude = 180.0;
   auto finish = start;
   finish.m_timestamp = 160.0;
-  finish.m_latitude = 80.0000017;
+  finish.m_longitude = -179.99998;
   tracker.OnLocationUpdated(start);
   tracker.OnLocationUpdated(finish);
   TEST_EQUAL(tracker.Finalize(), 2, ());

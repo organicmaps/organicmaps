@@ -32,7 +32,7 @@ public:
   /// pair(kInvalidId,kInvalidId) if nothing was removed
   std::pair<size_t, size_t> Clear(bool resetIds = true);
 
-  /// Returns true until the recording has geometry that survives import filtering.
+  /// Returns true until a fix is outside the import tolerance of the first fix.
   bool IsEmpty() const;
 
   /// Returns number of items in the collection

@@ -244,21 +244,15 @@ void NormalizeImportedTracks(kml::FileData & data, FileType fileType)
 
       bool const hasTimestamps = !timestamps.empty();
       size_t keptPoints = 0;
-      m2::PointD storedAnchor{};
       for (size_t i = 0; i < line.size(); ++i)
       {
-        auto const & point = line[i].GetPoint();
-        auto const storedPoint = keptPoints != 0 && line[keptPoints - 1].GetPoint() == point
-                                   ? storedAnchor
-                                   : kml::PointAtStoragePrecision(point);
-        if (keptPoints != 0 && kml::IsSameStoredTrackPoint(storedAnchor, storedPoint))
+        if (keptPoints != 0 && kml::IsSameTrackPoint(line[keptPoints - 1].GetPoint(), line[i].GetPoint()))
         {
           // A repeat may carry the first observed capture time for this position.
           if (repairGpxTimes && hasTimestamps && timestamps[keptPoints - 1] == base::INVALID_TIME_STAMP)
             timestamps[keptPoints - 1] = timestamps[i];
           continue;
         }
-        storedAnchor = storedPoint;
         line[keptPoints] = line[i];
         if (hasTimestamps)
           timestamps[keptPoints] = timestamps[i];

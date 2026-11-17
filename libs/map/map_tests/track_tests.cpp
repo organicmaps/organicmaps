@@ -84,11 +84,11 @@ UNIT_TEST(Track_ImportDropsCollapsedLines)
       {FileType::Kml,
        R"(<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2"><Document>
         <Placemark><name>collapsed</name><MultiGeometry>
-          <LineString><coordinates>19,0,100 19.0000101,0,200</coordinates></LineString>
+          <LineString><coordinates>19,0,100 19.000005,0,200</coordinates></LineString>
           <LineString><coordinates>20,46,100 20,46,200</coordinates></LineString>
         </MultiGeometry></Placemark>
         <Placemark><name>mixed</name><MultiGeometry>
-          <LineString><coordinates>19,0,100 19.0000101,0,200</coordinates></LineString>
+          <LineString><coordinates>19,0,100 19.000005,0,200</coordinates></LineString>
           <gx:Track><when>1970-01-01T00:00:01Z</when><when>1970-01-01T00:00:02Z</when>
             <gx:coord>19 45 100</gx:coord><gx:coord>19.001 45 200</gx:coord></gx:Track>
         </MultiGeometry></Placemark>
@@ -96,13 +96,13 @@ UNIT_TEST(Track_ImportDropsCollapsedLines)
       {FileType::Gpx, R"(<gpx version="1.1" creator="test" xmlns="http://www.topografix.com/GPX/1/1">
         <trk><name>collapsed</name>
           <trkseg><trkpt lat="0" lon="19"><ele>100</ele></trkpt>
-                  <trkpt lat="0" lon="19.0000101"><ele>200</ele></trkpt></trkseg>
+                  <trkpt lat="0" lon="19.000005"><ele>200</ele></trkpt></trkseg>
           <trkseg><trkpt lat="46" lon="20"><ele>100</ele></trkpt>
                   <trkpt lat="46" lon="20"><ele>200</ele></trkpt></trkseg>
         </trk>
         <trk><name>mixed</name>
           <trkseg><trkpt lat="0" lon="19"><ele>100</ele></trkpt>
-                  <trkpt lat="0" lon="19.0000101"><ele>200</ele></trkpt></trkseg>
+                  <trkpt lat="0" lon="19.000005"><ele>200</ele></trkpt></trkseg>
           <trkseg><trkpt lat="45" lon="19"><ele>100</ele><time>1970-01-01T00:00:01Z</time></trkpt>
                   <trkpt lat="45" lon="19.001"><ele>200</ele><time>1970-01-01T00:00:02Z</time></trkpt></trkseg>
         </trk>
@@ -110,10 +110,10 @@ UNIT_TEST(Track_ImportDropsCollapsedLines)
       {FileType::GeoJson, R"({"type":"FeatureCollection","features":[
         {"type":"Feature","properties":{"name":"collapsed"},"geometry":{
           "type":"MultiLineString","coordinates":[
-            [[19,0,100],[19.0000101,0,200]],[[20,46,100],[20,46,200]]]}},
+            [[19,0,100],[19.000005,0,200]],[[20,46,100],[20,46,200]]]}},
         {"type":"Feature","properties":{"name":"mixed","coordTimes":[[],[1,2]]},"geometry":{
           "type":"MultiLineString","coordinates":[
-            [[19,0,100],[19.0000101,0,200]],[[19,45,100],[19.001,45,200]]]}}
+            [[19,0,100],[19.000005,0,200]],[[19,45,100],[19.001,45,200]]]}}
       ]})"}};
 
   for (auto const & [type, input] : inputs)

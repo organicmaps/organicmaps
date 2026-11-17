@@ -9,6 +9,8 @@
 
 #include "coding/string_utf8_multilang.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include <limits>
 
 namespace kml
@@ -21,6 +23,11 @@ bool IsEqual(m2::PointD const & lhs, m2::PointD const & rhs)
 bool IsEqual(geometry::PointWithAltitude const & lhs, geometry::PointWithAltitude const & rhs)
 {
   return AlmostEqualAbs(lhs, rhs, kMwmPointAccuracy);
+}
+
+bool IsSameTrackPoint(m2::PointD const & lhs, m2::PointD const & rhs)
+{
+  return IsEqual(lhs, m2::PointD{mercator::NearestWrapX(rhs.x, lhs.x), rhs.y});
 }
 
 std::string GetPreferredBookmarkStr(LocalizableString const & name, std::string const & languageNorm)

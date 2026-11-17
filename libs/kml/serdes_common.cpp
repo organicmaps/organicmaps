@@ -13,40 +13,14 @@
 
 namespace kml
 {
-namespace
-{
-uint8_t constexpr kCoordinatePrecision = 6;
-}  // namespace
-
 std::string PointToString(m2::PointD const & org, char const separator)
 {
+  uint8_t constexpr kCoordinatePrecision = 6;
   double const lon = mercator::XToLon(org.x);
   double const lat = mercator::YToLat(org.y);
 
   return strings::to_string_dac(lon, kCoordinatePrecision) + separator +
          strings::to_string_dac(lat, kCoordinatePrecision);
-}
-
-m2::PointD PointAtStoragePrecision(m2::PointD const & point)
-{
-  auto const round = [](double value)
-  {
-    double rounded;
-    VERIFY(strings::to_double(strings::to_string_dac(value, kCoordinatePrecision), rounded), (value));
-    return rounded;
-  };
-  return mercator::FromLatLon(round(mercator::YToLat(point.y)), round(mercator::XToLon(point.x)));
-}
-
-bool IsSameStoredTrackPoint(m2::PointD const & lhs, m2::PointD rhs)
-{
-  rhs.x = mercator::NearestWrapX(rhs.x, lhs.x);
-  return IsEqual(lhs, rhs);
-}
-
-bool IsSameTrackPoint(m2::PointD const & lhs, m2::PointD const & rhs)
-{
-  return lhs == rhs || IsSameStoredTrackPoint(PointAtStoragePrecision(lhs), PointAtStoragePrecision(rhs));
 }
 
 std::string PointToLineString(geometry::PointWithAltitude const & pt)

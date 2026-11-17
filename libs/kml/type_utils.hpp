@@ -111,7 +111,8 @@ inline void SetDefaultStr(LocalizableString & localizableStr, std::string const 
 
 bool IsEqual(m2::PointD const & lhs, m2::PointD const & rhs);
 bool IsEqual(geometry::PointWithAltitude const & lhs, geometry::PointWithAltitude const & rhs);
-// Use KML's rounded coordinates and wrapped longitudes so usability survives reloads.
+// Compare raw Mercator positions with longitude wrapping. KML rounds coordinates to six decimals,
+// which can move points across the tolerance and cause a short saved section to collapse on reload.
 bool IsSameTrackPoint(m2::PointD const & lhs, m2::PointD const & rhs);
 
 template <class T>

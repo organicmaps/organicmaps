@@ -25,7 +25,6 @@ double constexpr kMaxAcceptableAcceleration = 2;  // m / sec ^ 2
 
 double constexpr kCosine45degrees = 0.70710678118;
 
-// Final fixes must add geometry at the saved coordinate precision, including across the antimeridian.
 bool IsSamePoint(location::GpsInfo const & a, location::GpsInfo const & b)
 {
   return kml::IsSameTrackPoint(mercator::FromLatLon(a.m_latitude, a.m_longitude),
