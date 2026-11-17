@@ -428,6 +428,10 @@ struct MultiGeometry
   std::vector<TimeT> m_timestamps;
 
   void Clear();
+  // Parsers may still be assembling timestamps and filtering geometry.
+  bool HasLines() const { return !m_lines.empty(); }
+  static bool IsValidLine(LineT const & line);
+  // Complete runtime geometry: usable sections and aligned, ordered timestamps.
   bool IsValid() const;
 
   bool operator==(MultiGeometry const & rhs) const

@@ -11,6 +11,8 @@
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
 
+#include "kml/types.hpp"
+
 #include "coding/point_coding.hpp"
 
 #include "geometry/spatial_hash_grid.hpp"
@@ -600,7 +602,9 @@ std::vector<RelationTrackBuilder::Geometry> RelationTrackBuilder::MergeAllMember
     if (merger.IsUsed(i))
       continue;
 
-    chains.push_back(merger.BuildChain(i));
+    auto chain = merger.BuildChain(i);
+    if (kml::MultiGeometry::IsValidLine(chain.m_points))
+      chains.push_back(std::move(chain));
   }
 
   if (chains.size() <= 1)

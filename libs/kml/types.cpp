@@ -2,11 +2,15 @@
 
 #include "kml/minzoom_quadtree.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "base/macros.hpp"
 #include "base/random.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
+#include "base/timer.hpp"
 
+#include <algorithm>
 #include <random>
 #include <utility>
 
@@ -29,10 +33,35 @@ void SetBookmarksMinZoom(FileData & fileData, double countPerTile, int maxZoom)
   minZoomQuadtree.SetMinZoom(countPerTile, maxZoom, setMinZoom);
 }
 
+bool MultiGeometry::IsValidLine(LineT const & line)
+{
+  if (line.size() < 2)
+    return false;
+  bool hasMovement = false;
+  for (auto const & point : line)
+  {
+    auto const & p = point.GetPoint();
+    if (!math::is_finite(p.x) || !math::is_finite(p.y) || !mercator::ValidX(p.x) || !mercator::ValidY(p.y))
+      return false;
+    hasMovement = hasMovement || !IsSameTrackPoint(p, line.front().GetPoint());
+  }
+  return hasMovement;
+}
+
 bool MultiGeometry::IsValid() const
 {
-  ASSERT_EQUAL(m_lines.size(), m_timestamps.size(), ());
-  return !m_lines.empty();
+  if (!HasLines() || m_lines.size() != m_timestamps.size())
+    return false;
+  for (size_t i = 0; i < m_lines.size(); ++i)
+  {
+    auto const & times = m_timestamps[i];
+    if (!IsValidLine(m_lines[i]))
+      return false;
+    if (!times.empty() && (times.size() != m_lines[i].size() || !std::is_sorted(times.begin(), times.end()) ||
+                           std::find(times.begin(), times.end(), base::INVALID_TIME_STAMP) != times.end()))
+      return false;
+  }
+  return true;
 }
 
 void MultiGeometry::Clear()

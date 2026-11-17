@@ -2,6 +2,8 @@
 
 #include "map/relation_track.hpp"
 
+#include "kml/types.hpp"
+
 #include "coding/point_coding.hpp"
 
 #include "geometry/point_with_altitude.hpp"
@@ -157,10 +159,7 @@ UNIT_TEST(BuildChain_AllReversed)
   TEST_EQUAL(result.m_points[0].GetAltitude(), 70, ());
   TEST_EQUAL(result.m_points[6].GetAltitude(), 10, ());
 
-  // Walking the chain from front to back visits each member's points in source order
-  // (m3: 4→3→… no, points are (6,5,4) reversed in chain... actually each prepended
-  // member m has m.back() == chain.front(), so its forward [m.front()..m[size-2]] is
-  // prepended → chain visits each m's points in source order → m_reversed=false.
+  // Prepending preserves each member's source direction and reverses their relation order.
   TEST(CompareRelsOrder(result, {3, 2, 1}), ());
 }
 
@@ -246,6 +245,28 @@ UNIT_TEST(BuildChain_PrefersMatchingEndpointOverNearbyEndpoint)
 }
 
 // MergeAllMembers tests.
+
+UNIT_TEST(MergeAllMembers_DropsChainsThatCollapseInStorage)
+{
+  for (double const extent : {1.01e-5, 1.04e-5})
+  {
+    auto const shortMember = MakeMember({MakePt(19.0, 0.0), MakePt(19.0 + extent, 0.0)}, 1);
+    TEST(!kml::IsEqual(shortMember.FrontPoint(), shortMember.BackPoint()), (extent));
+    TEST(!kml::MultiGeometry::IsValidLine(shortMember.m_points), (extent));
+    TEST(RelationTrackBuilder::MergeAllMembers({shortMember}).empty(), (extent));
+
+    auto const other = MakeMember({MakePt(20.0, 0.0), MakePt(20.001, 0.0)}, 2);
+    auto const mixed = RelationTrackBuilder::MergeAllMembers({shortMember, other});
+    TEST_EQUAL(mixed.size(), 1, (extent));
+    TEST(CompareRelsOrder(mixed.front(), {2}), (extent));
+
+    auto const continuation = MakeMember({MakePt(19.0 + extent, 0.0), MakePt(19.001, 0.0)}, 1);
+    auto const joined = RelationTrackBuilder::MergeAllMembers({shortMember, continuation});
+    TEST_EQUAL(joined.size(), 1, (extent));
+    TEST_EQUAL(joined.front().Size(), 3, ("Validate complete chains, not individual members", extent));
+    TEST(kml::MultiGeometry::IsValidLine(joined.front().m_points), (extent));
+  }
+}
 
 UNIT_TEST(MergeAllMembers_SingleConnectedChain)
 {

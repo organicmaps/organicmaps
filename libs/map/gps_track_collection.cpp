@@ -1,5 +1,7 @@
 #include "map/gps_track_collection.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "base/assert.hpp"
 
 namespace
@@ -34,19 +36,29 @@ std::pair<size_t, size_t> GpsTrackCollection::Add(std::vector<TItem> const & ite
 
   // Rollbacker ensure strong guarantee if exception happens while adding items
   Rollbacker<TItem> rollbacker(m_items);
+  auto statistics = m_statistics;
+  bool hasMovement = m_hasMovement;
 
   for (auto const & item : items)
   {
     if (!m_items.empty() && m_items.back().m_timestamp > item.m_timestamp)
       continue;
 
-    m_statistics.AddGpsInfoPoint(item);
+    statistics.AddGpsInfoPoint(item);
 
     m_items.emplace_back(item);
+    if (!hasMovement)
+    {
+      auto const & first = m_items.front();
+      hasMovement = !kml::IsSameTrackPoint(mercator::FromLatLon(first.m_latitude, first.m_longitude),
+                                           mercator::FromLatLon(item.m_latitude, item.m_longitude));
+    }
     ++added;
   }
 
   m_elevationInfoDirty = true;
+  m_statistics = statistics;
+  m_hasMovement = hasMovement;
 
   rollbacker.Reset();
 
@@ -63,6 +75,7 @@ std::pair<size_t, size_t> GpsTrackCollection::Add(std::vector<TItem> const & ite
 
 std::pair<size_t, size_t> GpsTrackCollection::Clear(bool resetIds)
 {
+  m_hasMovement = false;
   if (m_items.empty())
   {
     if (resetIds)
@@ -109,5 +122,5 @@ ElevationInfo const & GpsTrackCollection::UpdateAndGetElevationInfo()
 
 bool GpsTrackCollection::IsEmpty() const
 {
-  return m_items.size() < 2;
+  return !m_hasMovement;
 }

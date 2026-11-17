@@ -107,6 +107,7 @@ public:
   void Attach(kml::MarkGroupId groupId);
   void Detach();
 
+  // Clamp a finite distance to the source endpoints, using the preceding section at a gap.
   m2::PointD GetPoint(double distanceInMeters) const;
 
   kml::MultiGeometry::LineT GetGeometry() const;

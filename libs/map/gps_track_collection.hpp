@@ -32,7 +32,7 @@ public:
   /// pair(kInvalidId,kInvalidId) if nothing was removed
   std::pair<size_t, size_t> Clear(bool resetIds = true);
 
-  /// Returns true if collection is empty, otherwise returns false.
+  /// Returns true until the recording has geometry that survives import filtering.
   bool IsEmpty() const;
 
   /// Returns number of items in the collection
@@ -66,6 +66,7 @@ public:
 private:
   std::deque<TItem> m_items;  // asc. sorted by timestamp
 
+  bool m_hasMovement = false;
   size_t m_lastId;
   TrackStatistics m_statistics;
   GpsTrackElevation m_elevationInfo;

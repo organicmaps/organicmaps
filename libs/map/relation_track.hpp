@@ -105,7 +105,7 @@ public:
   static Geometry BuildChain(std::vector<Geometry> const & members, size_t startIdx);
 
   /// Merges all member geometries into connected chains using endpoint matching.
-  /// Returns multiple lines when members form disconnected segments.
+  /// Returns usable track lines, dropping collapsed chains after joining their members.
   static std::vector<Geometry> MergeAllMembers(std::vector<Geometry> const & members);
 
   /// Merges members assuming they are ordered in the relation.

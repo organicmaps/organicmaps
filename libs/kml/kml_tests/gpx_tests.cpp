@@ -576,6 +576,19 @@ UNIT_TEST(Empty)
   TEST_EQUAL(0, dataFromFile.m_tracksData.size(), ());
 }
 
+UNIT_TEST(Gpx_NonMonotonicTimestampsKeepGeometry)
+{
+  auto const data = LoadGpxFromString(R"(<gpx version="1.1" creator="test"><trk><trkseg>
+    <trkpt lat="45" lon="19"><time>2026-01-02T00:00:00Z</time></trkpt>
+    <trkpt lat="45.001" lon="19"><time>2026-01-01T00:00:00Z</time></trkpt>
+  </trkseg></trk></gpx>)");
+  TEST_EQUAL(data.m_tracksData.size(), 1, ());
+  auto const & geometry = data.m_tracksData.front().m_geometry;
+  TEST(geometry.IsValid(), ());
+  TEST_EQUAL(geometry.m_lines.front().size(), 2, ());
+  TEST(geometry.m_timestamps.front().empty(), ());
+}
+
 UNIT_TEST(ImportExportWptColor)
 {
   ImportExportCompare("test_data/gpx/point_with_predefined_color_2.gpx");

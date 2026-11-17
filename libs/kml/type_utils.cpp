@@ -1,4 +1,5 @@
 #include "kml/type_utils.hpp"
+#include "kml/serdes_common.hpp"
 #include "kml/types.hpp"
 
 #include "indexer/classificator.hpp"
@@ -8,6 +9,10 @@
 #include "platform/preferred_languages.hpp"
 
 #include "coding/string_utf8_multilang.hpp"
+
+#include "geometry/mercator.hpp"
+
+#include "base/string_utils.hpp"
 
 #include <limits>
 
@@ -21,6 +26,24 @@ bool IsEqual(m2::PointD const & lhs, m2::PointD const & rhs)
 bool IsEqual(geometry::PointWithAltitude const & lhs, geometry::PointWithAltitude const & rhs)
 {
   return AlmostEqualAbs(lhs, rhs, kMwmPointAccuracy);
+}
+
+bool IsSameTrackPoint(m2::PointD const & lhs, m2::PointD const & rhs)
+{
+  if (lhs == rhs)
+    return true;
+  auto const storedPoint = [](m2::PointD const & point)
+  {
+    auto const text = PointToString(point, ',');
+    std::string_view const coordinates(text);
+    auto const comma = coordinates.find(',');
+    double lon, lat;
+    CHECK(
+        strings::to_double(coordinates.substr(0, comma), lon) && strings::to_double(coordinates.substr(comma + 1), lat),
+        (text));
+    return mercator::FromLatLon(lat, mercator::WrapX(lon));
+  };
+  return IsEqual(storedPoint(lhs), storedPoint(rhs));
 }
 
 std::string GetPreferredBookmarkStr(LocalizableString const & name, std::string const & languageNorm)

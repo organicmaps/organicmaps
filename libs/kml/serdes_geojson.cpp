@@ -630,7 +630,8 @@ bool GeoJsonReader::Parse(std::string_view jsonContent)
         }
       }
 
-      if (track.m_geometry.IsValid())
+      ASSERT_EQUAL(track.m_geometry.m_lines.size(), track.m_geometry.m_timestamps.size(), ());
+      if (track.m_geometry.HasLines())
         m_fileData.m_tracksData.push_back(std::move(track));
       else
         LOG(LWARNING, ("GeoJson track without geometry:", GetDefaultStr(track.m_name)));

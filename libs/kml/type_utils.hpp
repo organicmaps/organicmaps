@@ -111,6 +111,8 @@ inline void SetDefaultStr(LocalizableString & localizableStr, std::string const 
 
 bool IsEqual(m2::PointD const & lhs, m2::PointD const & rhs);
 bool IsEqual(geometry::PointWithAltitude const & lhs, geometry::PointWithAltitude const & rhs);
+// Compare the horizontal positions that canonical KML storage and import will retain.
+bool IsSameTrackPoint(m2::PointD const & lhs, m2::PointD const & rhs);
 
 template <class T>
 bool IsEqual(std::vector<T> const & lhs, std::vector<T> const & rhs)

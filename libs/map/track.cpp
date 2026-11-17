@@ -13,14 +13,12 @@ Track::Track(kml::TrackData && data)
   , m_data(std::move(data))
 {
   m_data.m_id = GetId();
-  CHECK(m_data.m_geometry.IsValid(), ());
+  CHECK(m_data.m_geometry.IsValid(), (m_data.m_id));
 }
 
 void Track::CacheDataForInteraction() const
 {
-  m_interactionData = InteractionData();
-  m_interactionData->m_lengths = GetLengthsImpl();
-  m_interactionData->m_limitRect = GetLimitRectImpl();
+  m_interactionData = InteractionData{GetLengthsImpl(), GetLimitRectImpl()};
 }
 
 std::vector<Track::Lengths> Track::GetLengthsImpl() const
@@ -29,7 +27,7 @@ std::vector<Track::Lengths> Track::GetLengthsImpl() const
   std::vector<Lengths> lengths;
   for (auto const & line : m_data.m_geometry.m_lines)
   {
-    ASSERT(!line.empty(), ());
+    ASSERT_GREATER(line.size(), 1, (m_data.m_id));
     Lengths lineLengths;
     lineLengths.emplace_back(distance);
     for (size_t j = 1; j < line.size(); ++j)
@@ -95,6 +93,8 @@ void Track::SetDescription(std::string const & description)
 
 void Track::SetData(kml::TrackData const & data)
 {
+  CHECK_EQUAL(data.m_id, GetId(), ());
+  CHECK(data.m_geometry.IsValid(), (data.m_id));
   m_isDirty = true;
   m_data = data;
 
@@ -113,8 +113,7 @@ double Track::GetLengthMeters() const
 {
   if (!m_interactionData)
     CacheDataForInteraction();
-  auto const & lengths = m_interactionData->m_lengths;
-  return lengths.empty() ? 0 : lengths.back().back();
+  return m_interactionData->m_lengths.back().back();
 }
 
 double Track::GetLengthMetersImpl(size_t lineIndex, size_t ptIndex) const
@@ -229,6 +228,7 @@ void Track::Detach()
 
 m2::PointD Track::GetPoint(double distanceInMeters) const
 {
+  ASSERT(math::is_finite(distanceInMeters), (distanceInMeters));
   if (!m_interactionData)
     CacheDataForInteraction();
 

@@ -94,7 +94,7 @@ bool GpxParser::MakeValid()
   }
   else if (GEOMETRY_TYPE_LINE == m_geometryType)
   {
-    return m_geometry.IsValid();
+    return m_geometry.HasLines();
   }
 
   return false;
@@ -248,6 +248,11 @@ void GpxParser::CheckAndCorrectTimestamps()
         ++i;
     }
   }
+  if (!std::is_sorted(m_timestamps.begin(), m_timestamps.end()))
+  {
+    LOG(LWARNING, ("Non-monotonic timestamps in GPX track, dropping them"));
+    m_timestamps.clear();
+  }
 }
 
 void GpxParser::Pop(std::string_view tag)
@@ -261,12 +266,10 @@ void GpxParser::Pop(std::string_view tag)
     else
     {
       auto const p = mercator::FromLatLon(m_lat, m_lon);
-      if (m_line.empty() || !AlmostEqualAbs(m_line.back().GetPoint(), p, kMwmPointAccuracy))
+      if (m_line.empty() || !IsEqual(m_line.back().GetPoint(), p))
       {
         m_line.emplace_back(p, m_altitude);
 
-        if (!m_timestamps.empty() && m_timestamp != base::INVALID_TIME_STAMP)
-          ASSERT_LESS_OR_EQUAL(m_timestamps.back(), m_timestamp, ());
         m_timestamps.emplace_back(m_timestamp);
       }
 
@@ -335,15 +338,7 @@ void GpxParser::Pop(std::string_view tag)
       }
       else if (GEOMETRY_TYPE_LINE == m_geometryType)
       {
-#ifdef DEBUG
-        // Default gpx parser doesn't check points and timestamps count as the kml parser does.
-        for (size_t lineIndex = 0; lineIndex < m_geometry.m_lines.size(); ++lineIndex)
-        {
-          auto const pointsSize = m_geometry.m_lines[lineIndex].size();
-          auto const timestampsSize = m_geometry.m_timestamps[lineIndex].size();
-          ASSERT(!m_geometry.HasTimestampsFor(lineIndex) || pointsSize == timestampsSize, (pointsSize, timestampsSize));
-        }
-#endif
+        ASSERT_EQUAL(m_geometry.m_lines.size(), m_geometry.m_timestamps.size(), ());
 
         TrackLayer layer;
         layer.m_lineWidth = kml::kDefaultTrackWidth;

@@ -234,6 +234,8 @@ void RemoveDuplicatedTrackPoints(std::unique_ptr<kml::FileData> & data)
   {
     auto const & geometry = trackData.m_geometry;
     kml::MultiGeometry validGeometry;
+    if (geometry.m_lines.size() != geometry.m_timestamps.size())
+      MYTHROW(kml::DeserializerKml::DeserializeException, ("Track sections and timestamp arrays do not match"));
 
     for (size_t lineIndex = 0; lineIndex < geometry.m_lines.size(); ++lineIndex)
     {
@@ -246,10 +248,14 @@ void RemoveDuplicatedTrackPoints(std::unique_ptr<kml::FileData> & data)
         continue;
       }
 
-      bool const hasTimestamps = geometry.HasTimestampsFor(lineIndex);
-      if (hasTimestamps && timestamps.size() != line.size())
+      if (!timestamps.empty() && timestamps.size() != line.size())
         MYTHROW(kml::DeserializerKml::DeserializeException,
                 ("Timestamps count", timestamps.size(), "doesn't match points count", line.size()));
+      bool const hasTimestamps =
+          !timestamps.empty() && std::is_sorted(timestamps.begin(), timestamps.end()) &&
+          std::find(timestamps.begin(), timestamps.end(), base::INVALID_TIME_STAMP) == timestamps.end();
+      if (!timestamps.empty() && !hasTimestamps)
+        LOG(LWARNING, ("Dropping invalid track timestamps", trackData.m_name[kml::kDefaultLang]));
 
       validGeometry.m_lines.emplace_back();
       validGeometry.m_timestamps.emplace_back();
@@ -267,7 +273,7 @@ void RemoveDuplicatedTrackPoints(std::unique_ptr<kml::FileData> & data)
         // We don't expect vertical surfaces, so do not compare heights here.
         // Will get a lot of duplicating points otherwise after import some user KMLs.
         // https://github.com/organicmaps/organicmaps/issues/3895
-        if (validLine.empty() || !AlmostEqualAbs(validLine.back().GetPoint(), currPoint.GetPoint(), kMwmPointAccuracy))
+        if (validLine.empty() || !kml::IsEqual(validLine.back().GetPoint(), currPoint.GetPoint()))
         {
           validLine.push_back(currPoint);
           if (hasTimestamps)
@@ -275,7 +281,7 @@ void RemoveDuplicatedTrackPoints(std::unique_ptr<kml::FileData> & data)
         }
       }
 
-      if (validLine.size() < 2)
+      if (!kml::MultiGeometry::IsValidLine(validLine))
       {
         validGeometry.m_lines.pop_back();
         validGeometry.m_timestamps.pop_back();
@@ -289,11 +295,13 @@ void RemoveDuplicatedTrackPoints(std::unique_ptr<kml::FileData> & data)
   std::set<kml::LocalId> removedIds;
   base::EraseIf(data->m_tracksData, [&removedIds](kml::TrackData const & td)
   {
-    if (!td.m_geometry.IsValid())
+    if (!td.m_geometry.HasLines())
     {
       removedIds.insert(td.m_localId);
       return true;
     }
+    // Retained sections and their timestamp vectors have already been validated.
+    ASSERT(td.m_geometry.IsValid(), (td.m_id));
     return false;
   });
 

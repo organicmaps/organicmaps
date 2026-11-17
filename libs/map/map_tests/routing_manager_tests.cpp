@@ -19,6 +19,7 @@
 #include "geometry/mercator.hpp"
 
 #include "base/file_name_utils.hpp"
+#include "base/math.hpp"
 #include "base/scope_guard.hpp"
 #include "base/thread_safe_queue.hpp"
 #include "base/waiter.hpp"
@@ -34,6 +35,26 @@ namespace routing_manager_tests
 {
 namespace
 {
+struct ExpectedAssertion
+{};
+
+template <typename Fn>
+void TestAssertion(Fn && fn)
+{
+  auto const previous =
+      base::SetAssertFunction([](base::SrcPoint const &, std::string const &) -> bool { throw ExpectedAssertion{}; });
+  SCOPE_GUARD(restoreAssert, [&] { base::SetAssertFunction(previous); });
+  try
+  {
+    fn();
+  }
+  catch (ExpectedAssertion const &)
+  {
+    return;
+  }
+  TEST(false, ("Expected an assertion"));
+}
+
 // Framework reads the saved router at initialization; optimization cases need a road router.
 class ScopedVehicleRouter
 {
@@ -282,6 +303,12 @@ kml::TrackId SaveSingleSegmentRoute(RoutingManager & manager, BookmarkManager & 
   TEST(manager.IsRouteValid(), ());
   return manager.SaveRoute();
 }
+// A point near the equator built from meter offsets (one mercator unit is one degree there).
+m2::PointD MeterPoint(double x, double y)
+{
+  return {mercator::MetersToMercator(x), mercator::MetersToMercator(y)};
+}
+
 }  // namespace
 
 UNIT_TEST(RoutingManager_ReverseRoutePointsRequiresBothEndpoints)
@@ -1113,6 +1140,67 @@ UNIT_TEST(RoutingManager_RebuildClearsUnavailableAlternatives)
   TEST(session.SwapActiveAlternative(1), ("Fresh alternatives must become selectable."));
 }
 
+UNIT_TEST(RoutingManager_RuntimeTrackContracts)
+{
+  auto const makeData = []
+  {
+    kml::TrackData data;
+    data.m_layers.emplace_back();
+    data.m_geometry.AddLine({{MeterPoint(0, 0), 100}, {MeterPoint(1000, 0), 200}});
+    data.m_geometry.AddTimestamps({1, 2});
+    return data;
+  };
+  std::vector<kml::TrackData> invalid;
+  invalid.push_back(makeData());
+  invalid.back().m_geometry.Clear();
+  invalid.push_back(makeData());
+  invalid.back().m_geometry.m_lines.insert(invalid.back().m_geometry.m_lines.begin(), {{MeterPoint(-100, 0), 100}});
+  invalid.back().m_geometry.m_timestamps.insert(invalid.back().m_geometry.m_timestamps.begin(),
+                                                kml::MultiGeometry::TimeT{});
+  invalid.push_back(makeData());
+  invalid.back().m_geometry.m_lines.push_back({{MeterPoint(0, 0), 100}, {MeterPoint(0, 0), 200}});
+  invalid.back().m_geometry.m_timestamps.emplace_back();
+  invalid.push_back(makeData());
+  invalid.back().m_geometry.m_timestamps.clear();
+  invalid.push_back(makeData());
+  invalid.back().m_geometry.m_timestamps[0] = {1};
+  invalid.push_back(makeData());
+  invalid.back().m_geometry.m_timestamps[0] = {2, 1};
+  invalid.push_back(makeData());
+  invalid.back().m_geometry.m_timestamps[0] = {base::INVALID_TIME_STAMP, 2};
+  for (bool const changeY : {false, true})
+    for (double const value : {math::Nan(), math::Infinity(), 181.0})
+    {
+      invalid.push_back(makeData());
+      invalid.back().m_geometry.m_lines[0].back().SetPoint(changeY ? m2::PointD(0.0, value) : m2::PointD(value, 0.0));
+    }
+  for (auto const & data : invalid)
+  {
+    TEST(!data.m_geometry.IsValid(), ("Reject invalid geometry before constructing runtime tracks"));
+    TestAssertion([&] { Track track{kml::TrackData(data)}; });
+  }
+
+  Track track(makeData());
+  auto const original = track.GetData();
+  for (auto const & data : invalid)
+  {
+    auto changed = data;
+    changed.m_id = track.GetId();
+    TestAssertion([&] { track.SetData(changed); });
+    TEST_EQUAL(track.GetData(), original, ("Validate before changing a runtime track"));
+  }
+  auto changed = original;
+  changed.m_id = kml::kInvalidTrackId;
+  TestAssertion([&] { track.SetData(changed); });
+  TEST_EQUAL(track.GetData(), original, ());
+
+  auto measured = makeData();
+  measured.m_geometry.m_lines[0].insert(measured.m_geometry.m_lines[0].begin() + 1, {MeterPoint(0, 0), 200});
+  measured.m_geometry.m_timestamps[0] = {1, 2, 3};
+  Track const preserved(std::move(measured));
+  TEST_EQUAL(preserved.GetGeometry().size(), 3, ("Coincident altitude/time samples remain valid"));
+}
+
 // Stop names need no subtitle; only endpoint names filter unnamed-pin placeholders.
 UNIT_TEST(RoutingManager_SaveRouteKeepsStopNames)
 {
@@ -1425,8 +1513,14 @@ UNIT_TEST(RoutingManager_SaveRouteRejectsCollapsedGeometry)
 {
   WithSavedRoute([](RoutingManager & manager, BookmarkManager & bookmarks, TestGuiThread &)
   {
-    geometry::PointWithAltitude const finish({1e-7, 0.0}, 100);
-    TEST_EQUAL(SaveSingleSegmentRoute(manager, bookmarks, finish), kml::kInvalidTrackId, ());
+    for (auto const x : {0.0, 1e-7})
+    {
+      for (auto const altitude : {100, 110})
+      {
+        geometry::PointWithAltitude const finish({x, 0.0}, altitude);
+        TEST_EQUAL(SaveSingleSegmentRoute(manager, bookmarks, finish), kml::kInvalidTrackId, (x, altitude));
+      }
+    }
   });
 }
 }  // namespace routing_manager_tests
