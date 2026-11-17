@@ -3,7 +3,6 @@ package app.organicmaps.sdk.display;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.verify;
@@ -64,12 +63,6 @@ public class DisplayManagerTest
     mDisplay.init(DisplayType.Car);
     mDisplay.addListener(DisplayType.Car, mCar);
     mDisplay.addListener(DisplayType.Device, mDevice);
-    doAnswer(call -> {
-      ((Runnable) call.getArgument(0)).run();
-      return null;
-    })
-        .when(mDevice)
-        .onDisplayChangedToDevice(any());
 
     mDisplay.removeListener(DisplayType.Car);
     shadowOf(Looper.getMainLooper()).idle();
