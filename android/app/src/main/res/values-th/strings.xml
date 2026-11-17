@@ -932,4 +932,8 @@
     <string name="transit_type_train">รถไฟ</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">รถราง</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">กรุณาป้อนหมายเลขชั้นที่ถูกต้อง</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">ชั้น (ชั้นล่างคือ 0)</string>
 </resources>
