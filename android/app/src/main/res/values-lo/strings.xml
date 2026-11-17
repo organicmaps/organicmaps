@@ -376,7 +376,6 @@
     <!-- login text field -->
     <string name="email_or_username">ອີເມລ ຫຼື ຊື່ຜູ້ໃຊ້</string>
     <string name="editor_add_phone">ເພີ່ມເບີໂທລະສັບ</string>
-    <string name="level">ຊັ້ນ</string>
     <!-- Building level -->
     <string name="level_value_generic">ຊັ້ນ: %s</string>
     <string name="downloader_delete_map_dialog">ການແກ້ໄຂແຜນທີ່ທັງໝົດຂອງທ່ານຈະຖືກລຶບໄປພ້ອມກັບແຜນທີ່.</string>
@@ -899,4 +898,8 @@
     <string name="transit_type_train">ລົດໄຟ</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">ລົດລາງ</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">ປ້ອນໝາຍເລກຊັ້ນທີ່ຖືກຕ້ອງ</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">ຊັ້ນ (ຊັ້ນລຸ່ມແມ່ນ 0)</string>
 </resources>

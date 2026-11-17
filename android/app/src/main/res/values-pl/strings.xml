@@ -422,7 +422,6 @@
     <!-- login text field -->
     <string name="email_or_username">Email lub nazwa użytkownika</string>
     <string name="editor_add_phone">Dodaj numer telefonu</string>
-    <string name="level">Kondygnacja</string>
     <!-- Building level -->
     <string name="level_value_generic">Piętro: %s</string>
     <string name="downloader_delete_map_dialog">Wszystkie zmiany dotyczące mapy zostaną usunięte wraz z nią.</string>
@@ -967,4 +966,8 @@
     <string name="transit_type_train">Pociąg</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tramwaj</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">Wprowadź poprawny numer kondygnacji</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">Kondygnacja (parter to 0)</string>
 </resources>

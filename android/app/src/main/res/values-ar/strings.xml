@@ -422,7 +422,6 @@
     <!-- login text field -->
     <string name="email_or_username">البريد الإلكتروني أو اسم المستخدم</string>
     <string name="editor_add_phone">إضافة رقم هاتف</string>
-    <string name="level">طابق</string>
     <!-- Building level -->
     <string name="level_value_generic">المستوى: %s</string>
     <string name="downloader_delete_map_dialog">سيتم حذف جميع التغييرات بالخريطة بالإضافة إلى حذف الخريطة نفسها.</string>
@@ -981,4 +980,8 @@
     <string name="transit_type_train">قطار</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">ترام</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">أدخل رقم طابق صحيح</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">طابق (الطابق الأرضي هو 0)</string>
 </resources>

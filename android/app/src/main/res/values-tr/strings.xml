@@ -422,7 +422,6 @@
     <!-- login text field -->
     <string name="email_or_username">E-posta veya kullanıcı adı</string>
     <string name="editor_add_phone">Telefon Ekle</string>
-    <string name="level">Kat</string>
     <!-- Building level -->
     <string name="level_value_generic">Kat sayısı: %s</string>
     <string name="downloader_delete_map_dialog">Harita ile birlikte tüm harita değişiklikleri de silinecektir.</string>
@@ -956,4 +955,8 @@
     <string name="transit_type_train">Tren</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tramvay</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">Geçerli bir kat numarası girin</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">Kat (zemin kat 0\'dır)</string>
 </resources>

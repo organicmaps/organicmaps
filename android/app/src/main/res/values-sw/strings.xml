@@ -422,7 +422,6 @@
     <!-- login text field -->
     <string name="email_or_username">Barua pepe au jina la mtumiaji</string>
     <string name="editor_add_phone">Ongeza Simu</string>
-    <string name="level">Ghorofa</string>
     <!-- Building level -->
     <string name="level_value_generic">Kiwango: %s</string>
     <string name="downloader_delete_map_dialog">Marekebisho yako yote ya ramani yatafutwa pamoja na ramani.</string>
@@ -934,4 +933,8 @@
     <string name="transit_type_train">Treni</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tramu</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">Weka nambari halali ya ghorofa</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">Ghorofa (ghorofa ya chini ni 0)</string>
 </resources>

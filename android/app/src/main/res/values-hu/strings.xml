@@ -422,7 +422,6 @@
     <!-- login text field -->
     <string name="email_or_username">E-mail-cím vagy felhasználónév</string>
     <string name="editor_add_phone">Telefonszám hozzáadása</string>
-    <string name="level">Szint</string>
     <!-- Building level -->
     <string name="level_value_generic">%s. szint</string>
     <string name="downloader_delete_map_dialog">Az összes térképszerkesztés törlődik a térképpel együtt.</string>
@@ -958,4 +957,8 @@
     <string name="transit_type_train">Vonat</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Villamos</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">Adjon meg egy érvényes szintet</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">Szint (a földszint 0)</string>
 </resources>
