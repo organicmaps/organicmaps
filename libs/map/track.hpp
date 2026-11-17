@@ -99,6 +99,8 @@ public:
   // Relation tracks are assembled from OSM ways without a reliable direction.
   bool HasDirection() const override { return GetId() != kml::kTempRelationTrackId; }
   void SetVisibility(bool visible);
+  kml::Timestamp GetModifiedTimestamp() const;
+  void SetModifiedTimestamp(kml::Timestamp);
 
   // Runtime-only; BookmarkManager sends the rendering notification without saving the track.
   bool IsSelected() const { return m_isSelected; }
@@ -111,6 +113,9 @@ public:
 
   kml::MultiGeometry::LineT GetGeometry() const;
   bool HasAltitudes() const;
+
+protected:
+  void SetDirty(bool updateModificationTime = true);
 
 private:
   std::vector<Lengths> GetLengthsImpl() const;

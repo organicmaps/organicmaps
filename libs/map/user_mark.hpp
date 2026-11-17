@@ -97,7 +97,8 @@ public:
   virtual bool IsAvailableForSearch() const { return true; }
 
 protected:
-  void SetDirty() { m_isDirty = true; }
+  // updateModificationTime is honored by subclasses that store a modification timestamp (e.g. Bookmark).
+  virtual void SetDirty(bool updateModificationTime = true) { m_isDirty = true; }
 
   m2::PointD m_ptOrg;
 
