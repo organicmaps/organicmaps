@@ -1,19 +1,35 @@
 #include "testing/testing.hpp"
 
+#include "drape_frontend/relations_draw_info.hpp"
 #include "drape_frontend/stylist.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_visibility.hpp"
+#include "indexer/features_offsets_table.hpp"
 #include "indexer/map_object.hpp"
 #include "indexer/map_style_reader.hpp"
 
 #include "drape/hatching_decl.hpp"
 
+#include "platform/platform.hpp"
+#include "platform/settings.hpp"
+
+#include "coding/bit_streams.hpp"
+#include "coding/geometry_coding.hpp"
+#include "coding/varint.hpp"
+
+#include "base/scope_guard.hpp"
+
+#include "defines.hpp"
+
 #include <algorithm>
 #include <array>
 #include <initializer_list>
+#include <string>
+#include <utility>
+#include <vector>
 
 namespace
 {
@@ -67,6 +83,33 @@ public:
 private:
   MapStyle const m_originalStyle;
 };
+
+class SampleRelation : public feature::RouteRelationBase
+{
+public:
+  explicit SampleRelation(Type type) { m_type = type; }
+};
+
+FeatureType MakeRelationMember(feature::SharedLoadInfo const & loader, uint32_t type,
+                               std::vector<uint32_t> const & relations)
+{
+  FeatureParams params;
+  params.SetType(type);
+  params.SetGeomType(feature::GeomType::Line);
+  std::vector<uint8_t> bytes;
+  PushBackByteSink sink(bytes);
+  params.Write(sink);
+  {
+    BitWriter header(sink);
+    header.Write(2, 4);  // Two inline points.
+    header.Write(0, 1);  // No external geometry.
+    header.Write(!relations.empty(), 1);
+  }
+  serial::SaveInnerPath({{0.0, 0.0}, {0.01, 0.01}}, loader.GetDefGeometryCodingParams(), sink);
+  if (!relations.empty())
+    WriteVarUInt32SortedShortArray(relations, sink);
+  return FeatureType(&loader, std::move(bytes));
+}
 
 void TestSameRules(df::Stylist const & actual, df::Stylist const & expected)
 {
@@ -208,6 +251,191 @@ UNIT_CLASS_TEST(StyleSnapshotFixture, Stylist_ExplicitStyleIgnoresGlobalSwitches
       }
       TEST(hasRules, (style, sample.m_type));
     }
+  }
+}
+
+UNIT_CLASS_TEST(StyleSnapshotFixture, CyclingStyle_OverviewNetwork)
+{
+  auto const & cl = classif(MapStyleDefaultLight);
+  for (auto const style : {MapStyleCyclingLight, MapStyleCyclingDark})
+  {
+    for (auto const path : {"track", "path", "footway"})
+    {
+      auto feature =
+          FeatureType::CreateFromMapObject(SampleFeature(cl.GetTypeByPath({"highway", path}), feature::GeomType::Line));
+      for (uint8_t zoom = 11; zoom <= 13; ++zoom)
+      {
+        df::Stylist const ordinary(*feature, zoom, StringUtf8Multilang::kEnglishCode, style);
+        TEST(ordinary.m_lineRules.empty(), (style, path, zoom));
+      }
+      auto const defaultStyle = GetMapStyleForMode(MapStyleMode::Default, MapStyleIsDark(style));
+      for (uint8_t zoom = 14; zoom <= 19; ++zoom)
+      {
+        df::Stylist const ordinary(*feature, zoom, StringUtf8Multilang::kEnglishCode, style);
+        df::Stylist const reference(*feature, zoom, StringUtf8Multilang::kEnglishCode, defaultStyle);
+        TEST_EQUAL(ordinary.m_lineRules.size(), reference.m_lineRules.size(), (style, path, zoom));
+        for (size_t i = 0; i < ordinary.m_lineRules.size(); ++i)
+        {
+          TEST_EQUAL(ordinary.m_lineRules[i]->width, reference.m_lineRules[i]->width, (style, path, zoom));
+          TEST_EQUAL(ordinary.m_lineRules[i]->color, reference.m_lineRules[i]->color, (style, path, zoom));
+        }
+      }
+    }
+
+    for (auto const & [path, firstZoom] :
+         std::initializer_list<std::pair<base::StringIL, uint8_t>>{{{"highway", "cycleway"}, 11},
+                                                                   {{"highway", "path", "bicycle"}, 12},
+                                                                   {{"highway", "footway", "bicycle"}, 13}})
+    {
+      auto feature = FeatureType::CreateFromMapObject(SampleFeature(cl.GetTypeByPath(path), feature::GeomType::Line));
+      for (uint8_t zoom = firstZoom; zoom <= 19; ++zoom)
+      {
+        df::Stylist const cycling(*feature, zoom, StringUtf8Multilang::kEnglishCode, style);
+        TEST(!cycling.m_lineRules.empty(), (style, path, zoom));
+      }
+    }
+  }
+}
+
+UNIT_CLASS_TEST(StyleSnapshotFixture, CyclingStyle_RelationMembersAtOverviewZoom)
+{
+  using RouteType = feature::RouteRelationBase::Type;
+
+  auto const path = GetPlatform().WritablePathForFile("cycling_style_relations.mwm");
+  SCOPE_GUARD(removeFile, [&] { FileWriter::DeleteFileX(path); });
+  feature::FeaturesOffsetsTable::Builder offsets;
+  std::vector<uint8_t> relations;
+  PushBackByteSink sink(relations);
+  for (auto const type : {RouteType::Hiking, RouteType::Bicycle, RouteType::MTB})
+  {
+    offsets.PushOffset(static_cast<uint32_t>(relations.size()));
+    SampleRelation(type).Write(sink);
+  }
+  {
+    FilesContainerW writer(path);
+    writer.Write(relations, RELATIONS_FILE_TAG);
+  }
+
+  auto const & hikingKey = df::RelationsDrawSettings::kHikingEnabledKey;
+  std::string oldHikingSetting;
+  bool const hadHikingSetting = settings::Get(hikingKey, oldHikingSetting);
+  SCOPE_GUARD(restoreHiking, [&]
+  {
+    if (hadHikingSetting)
+      settings::Set(hikingKey, oldHikingSetting);
+    else
+      settings::Delete(hikingKey);
+  });
+  settings::Set(hikingKey, true);
+
+  FilesContainerR const container(path);
+  feature::DataHeader const header;
+  auto table = feature::FeaturesOffsetsTable::Build(offsets);
+  feature::SharedLoadInfo loader(container, header, table.get(), nullptr /* metaDeserializer */);
+  loader.m_version = feature::DatSectionHeader::Version::V2;
+  auto const & cl = classif(MapStyleDefaultLight);
+  auto const track = cl.GetTypeByPath({"highway", "track"});
+  auto const cycleway = cl.GetTypeByPath({"highway", "cycleway"});
+  auto bicycleMember = MakeRelationMember(loader, track, {1});
+  auto mtbMember = MakeRelationMember(loader, track, {2});
+  auto hikingMember = MakeRelationMember(loader, track, {0});
+  auto plainTrack = MakeRelationMember(loader, track, {});
+  auto hikingCycleway = MakeRelationMember(loader, cycleway, {0});
+  auto sharedMember = MakeRelationMember(loader, cycleway, {0, 1});
+
+  for (auto const style : {MapStyleCyclingLight, MapStyleCyclingDark})
+  {
+    for (uint8_t const zoom : {10, 11, 12})
+    {
+      auto const settings = df::RelationsDrawSettings::ForTile(style, zoom);
+      auto const testMember = [&](FeatureType & member, bool expected)
+      {
+        auto const styled = df::MakeLineStylist(member, zoom, StringUtf8Multilang::kEnglishCode, style, settings);
+        df::RelationsDrawInfo relationColors(settings);
+        relationColors.Init(member);
+        TEST_EQUAL(!styled.m_lineRules.empty(), expected, (style, zoom));
+        TEST_EQUAL(relationColors.HasColors(), expected, (style, zoom));
+      };
+      testMember(bicycleMember, zoom >= 11);
+      testMember(mtbMember, zoom >= 11);
+      testMember(hikingMember, zoom >= 12);
+      testMember(plainTrack, false);
+    }
+
+    uint8_t constexpr zoom = 12;
+    auto const settings = df::RelationsDrawSettings::ForTile(style, zoom);
+    for (auto * member : {&hikingCycleway, &sharedMember})
+    {
+      auto const styled = df::MakeLineStylist(*member, zoom, StringUtf8Multilang::kEnglishCode, style, settings);
+      auto const baseStyle = df::Stylist(*member, zoom, StringUtf8Multilang::kEnglishCode, style);
+      TEST(!baseStyle.m_lineRules.empty(), (style));
+      TestSameRules(styled, baseStyle);
+    }
+  }
+}
+
+UNIT_CLASS_TEST(StyleSnapshotFixture, CyclingStyle_UsefulStopsAndCityDetail)
+{
+  auto const & cl = classif(MapStyleDefaultLight);
+  for (auto const style : {MapStyleCyclingLight, MapStyleCyclingDark})
+  {
+    for (auto const & [path, zoom] :
+         std::initializer_list<std::pair<base::StringIL, uint8_t>>{{{"amenity", "drinking_water"}, 12},
+                                                                   {{"amenity", "fuel"}, 14},
+                                                                   {{"amenity", "toilets"}, 15},
+                                                                   {{"shop", "bicycle"}, 14},
+                                                                   {{"amenity", "bicycle_repair_station"}, 14},
+                                                                   {{"amenity", "bicycle_rental"}, 14},
+                                                                   {{"amenity", "bicycle_parking"}, 15},
+                                                                   {{"amenity", "compressed_air"}, 15},
+                                                                   {{"shop", "supermarket"}, 16}})
+    {
+      auto feature = FeatureType::CreateFromMapObject(SampleFeature(cl.GetTypeByPath(path), feature::GeomType::Point));
+      df::Stylist const stop(*feature, zoom, StringUtf8Multilang::kEnglishCode, style);
+      TEST(stop.m_symbolRule != nullptr, (style, path, zoom));
+    }
+
+    for (auto const & path : {base::StringIL{"amenity", "parking"},
+                              {"shop", "car"},
+                              {"shop", "clothes"},
+                              {"office", "lawyer"},
+                              {"historic", "memorial"}})
+    {
+      auto feature = FeatureType::CreateFromMapObject(SampleFeature(cl.GetTypeByPath(path), feature::GeomType::Point));
+      df::Stylist const distraction(*feature, 17, StringUtf8Multilang::kEnglishCode, style);
+      TEST(distraction.m_symbolRule == nullptr && distraction.m_captionRule == nullptr, (style, path));
+    }
+
+    for (auto const & path : {base::StringIL{"amenity", "water_point", "drinking_water_no"},
+                              {"man_made", "water_tap", "drinking_water_no"},
+                              {"man_made", "water_well", "drinking_water_no"}})
+    {
+      auto feature = FeatureType::CreateFromMapObject(SampleFeature(cl.GetTypeByPath(path), feature::GeomType::Point));
+      df::Stylist const water(*feature, 15, StringUtf8Multilang::kEnglishCode, style);
+      TEST(water.m_symbolRule != nullptr && water.m_symbolRule->name == "drinking-water-no-m", (style, path));
+    }
+
+    for (auto const & path : {base::StringIL{"shop", "clothes"}, {"office", "lawyer"}})
+    {
+      auto feature = FeatureType::CreateFromMapObject(SampleFeature(cl.GetTypeByPath(path), feature::GeomType::Point));
+      df::Stylist const closeUp(*feature, 18, StringUtf8Multilang::kEnglishCode, style);
+      TEST(closeUp.m_symbolRule != nullptr, (style, path));
+    }
+
+    for (auto const & path : {base::StringIL{"tourism", "museum"}, {"historic", "castle"}})
+    {
+      auto feature = FeatureType::CreateFromMapObject(SampleFeature(cl.GetTypeByPath(path), feature::GeomType::Point));
+      for (uint8_t zoom = 12; zoom <= 18; ++zoom)
+      {
+        df::Stylist const landmark(*feature, zoom, StringUtf8Multilang::kEnglishCode, style);
+        TEST_EQUAL(landmark.m_symbolRule != nullptr, zoom == 18, (style, path, zoom));
+      }
+    }
+
+    auto address = FeatureType::CreateFromMapObject(
+        SampleFeature(cl.GetTypeByPath({"building", "address"}), feature::GeomType::Point));
+    df::Stylist const destination(*address, 17, StringUtf8Multilang::kEnglishCode, style);
+    TEST(destination.m_houseNumberRule != nullptr, (style));
   }
 }
 }  // namespace

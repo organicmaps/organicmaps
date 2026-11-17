@@ -64,8 +64,6 @@ public enum Mode
     public void setEnabled(@NonNull Context context, boolean isEnabled)
     {
       Framework.nativeSetOutdoorsLayerEnabled(isEnabled);
-      // TODO: ThemeSwitcher is outside sdk package. Properly fix dependencies
-      // ThemeSwitcher.INSTANCE.restart(true);
     }
   },
 

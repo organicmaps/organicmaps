@@ -91,6 +91,28 @@ Framework::FixedPosition::FixedPosition()
 namespace
 {
 std::string_view constexpr kMapStyleKey = "MapStyleKeyV1";
+std::string_view constexpr kMapStyleModeKey = "MapStyleMode";
+std::string_view constexpr kLegacyCyclingEnabledKey = "CyclingEnabled";
+std::string_view constexpr kLegacyOutdoorsEnabledKey = "OutdoorsEnabled";
+
+MapStyleMode LoadMapStyleMode(MapStyle savedStyle)
+{
+  std::string mode;
+  if (settings::Get(kMapStyleModeKey, mode))
+    return MapStyleModeFromSettings(mode).value_or(MapStyleMode::Default);
+
+  // Prefer Cycling when both legacy layers were enabled. An explicit Outdoors setting
+  // takes precedence over the saved appearance, which may reflect an older selection.
+  auto migrated = GetMapStyleMode(savedStyle);
+  if (settings::IsEnabled(kLegacyCyclingEnabledKey))
+    migrated = MapStyleMode::Cycling;
+  else if (bool enabled; settings::Get(kLegacyOutdoorsEnabledKey, enabled))
+    migrated = enabled ? MapStyleMode::Outdoors : MapStyleMode::Default;
+
+  settings::Set(kMapStyleModeKey, MapStyleModeToString(migrated));
+  return migrated;
+}
+
 std::string_view constexpr kBgTilesEnabledKey = "BgTilesEnabled";          // custom raster tiles layer on/off
 std::string_view constexpr kBgTilesUrlKey = "BgTilesUrl";                  // custom raster tiles URL template
 std::string_view constexpr kBgTilesCacheSizeMBKey = "BgTilesCacheMB";      // custom raster tiles disk cache cap
@@ -103,7 +125,6 @@ std::string_view constexpr kAllowAutoZoom = "AutoZoom";
 std::string_view constexpr kTrafficEnabledKey = "TrafficEnabled";
 std::string_view constexpr kTransitSchemeEnabledKey = "TransitSchemeEnabled";
 std::string_view constexpr kIsolinesEnabledKey = "IsolinesEnabled";
-std::string_view constexpr kOutdoorsEnabledKey = "OutdoorsEnabled";
 std::string_view constexpr kTrafficSimplifiedColorsKey = "TrafficSimplifiedColors";
 std::string_view constexpr kLargeFontsSize = "LargeFontsSize";
 std::string_view constexpr kTranslitMode = "TransliterationMode";
@@ -345,12 +366,15 @@ Framework::Framework(FrameworkParams const & params, bool loadMaps)
   // to a wrong thread. So editor should be initialiazed before serach.
   osm::Editor & editor = osm::Editor::Instance();
 
-  // Restore map style before classificator loading
-  MapStyle mapStyle = kDefaultMapStyle;
+  // Restore the selected family before classificator loading. Vehicle is a session-only override,
+  // so preserve only the saved light/dark variant.
+  MapStyle savedMapStyle = kDefaultMapStyle;
   std::string mapStyleStr;
   if (settings::Get(kMapStyleKey, mapStyleStr))
-    mapStyle = MapStyleFromSettings(mapStyleStr);
-  GetStyleReader().SetCurrentStyle(mapStyle);
+    savedMapStyle = MapStyleFromSettings(mapStyleStr);
+  m_mapStyleMode = LoadMapStyleMode(savedMapStyle);
+  m_requestedMapStyle = GetMapStyleForMode(m_mapStyleMode, MapStyleIsDark(savedMapStyle));
+  GetStyleReader().SetCurrentStyle(m_requestedMapStyle);
   df::LoadTransitColors();
 
   // Init strings bundle.
@@ -2258,25 +2282,30 @@ void Framework::OnUpdateGpsTrackPointsCallback(std::vector<std::pair<size_t, loc
 
 void Framework::MarkMapStyle(MapStyle mapStyle)
 {
-  ASSERT_NOT_EQUAL(mapStyle, MapStyle::MapStyleMerged, ());
-
-  // Store current map style before classificator reloading
-  std::string mapStyleStr = MapStyleToString(mapStyle);
-  if (mapStyleStr.empty())
-  {
-    mapStyle = kDefaultMapStyle;
-    mapStyleStr = MapStyleToString(mapStyle);
-  }
-  settings::Set(kMapStyleKey, mapStyleStr);
-  // Make sure the new style's family is resident before switching (a no-op once it is loaded, so
-  // light<->dark stays zero-IO); drape worker threads observe the switch only via UpdateMapStyle.
-  classificator::EnsureStyleLoaded(mapStyle);
-  GetStyleReader().SetCurrentStyle(mapStyle);
+  PublishMapStyle(mapStyle);
+  if (m_requestedMapStyle == mapStyle)
+    return;
+  m_requestedMapStyle = mapStyle;
+  settings::Set(kMapStyleKey, MapStyleToString(mapStyle));
 }
 
 void Framework::SetMapStyle(MapStyle mapStyle)
 {
   MarkMapStyle(mapStyle);
+  RefreshMapStyle();
+}
+
+void Framework::PublishMapStyle(MapStyle mapStyle)
+{
+  ASSERT(mapStyle >= MapStyleDefaultLight && mapStyle < MapStyleCount && mapStyle != MapStyleMerged,
+         (static_cast<int>(mapStyle)));
+  // Tile workers can use a style as soon as it is published, so load its family first.
+  classificator::EnsureStyleLoaded(mapStyle);
+  GetStyleReader().SetCurrentStyle(mapStyle);
+}
+
+void Framework::RefreshMapStyle()
+{
   if (m_drapeEngine != nullptr)
     m_drapeEngine->UpdateMapStyle();
   InvalidateUserMarks();
@@ -2289,6 +2318,30 @@ void Framework::SetMapStyle(MapStyle mapStyle)
 MapStyle Framework::GetMapStyle() const
 {
   return GetStyleReader().GetCurrentStyle();
+}
+
+void Framework::SetMapStyleForCurrentMode(bool dark, bool vehicleStyle, bool updateRenderer)
+{
+  auto const style =
+      vehicleStyle ? (dark ? MapStyleVehicleDark : MapStyleVehicleLight) : GetMapStyleForMode(m_mapStyleMode, dark);
+  if (style == m_requestedMapStyle && style == GetMapStyle())
+    return;
+
+  if (updateRenderer)
+    SetMapStyle(style);
+  else
+    MarkMapStyle(style);
+}
+
+void Framework::SetMapStyleModeEnabled(MapStyleMode mode, bool enabled)
+{
+  ASSERT(mode != MapStyleMode::Default, ());
+  if (enabled == (mode == m_mapStyleMode))
+    return;
+
+  m_mapStyleMode = enabled ? mode : MapStyleMode::Default;
+  settings::Set(kMapStyleModeKey, MapStyleModeToString(m_mapStyleMode));
+  SetMapStyleForCurrentMode(MapStyleIsDark(m_requestedMapStyle), MapStyleIsVehicle(m_requestedMapStyle));
 }
 
 void Framework::SetupMeasurementSystem()
@@ -3327,17 +3380,6 @@ void Framework::SaveIsolinesEnabled(bool enabled)
   settings::Set(kIsolinesEnabledKey, enabled);
 }
 
-bool Framework::LoadOutdoorsEnabled()
-{
-  bool enabled;
-  return settings::Get(kOutdoorsEnabledKey, enabled) && enabled;
-}
-
-void Framework::SaveOutdoorsEnabled(bool enabled)
-{
-  settings::Set(kOutdoorsEnabledKey, enabled);
-}
-
 bool Framework::IsHikingEnabled()
 {
   bool enabled;
@@ -3347,18 +3389,6 @@ bool Framework::IsHikingEnabled()
 void Framework::SetHikingEnabled(bool enabled)
 {
   settings::Set(df::RelationsDrawSettings::kHikingEnabledKey, enabled);
-  Invalidate();
-}
-
-bool Framework::IsCyclingEnabled()
-{
-  bool enabled;
-  return settings::Get(df::RelationsDrawSettings::kCyclingEnabledKey, enabled) && enabled;
-}
-
-void Framework::SetCyclingEnabled(bool enabled)
-{
-  settings::Set(df::RelationsDrawSettings::kCyclingEnabledKey, enabled);
   Invalidate();
 }
 
@@ -3415,20 +3445,20 @@ bool Framework::ParseDrapeDebugCommand(std::string const & query)
     desiredStyle = MapStyleOutdoorsLight;
   else if (query == "?odark" || query == "mapstyle:outdoors_dark")
     desiredStyle = MapStyleOutdoorsDark;
+  else if (query == "?clight" || query == "mapstyle:cycling_light")
+    desiredStyle = MapStyleCyclingLight;
+  else if (query == "?cdark" || query == "mapstyle:cycling_dark")
+    desiredStyle = MapStyleCyclingDark;
 
   if (desiredStyle != MapStyleCount)
   {
+    PublishMapStyle(desiredStyle);
 #if defined(OMIM_OS_ANDROID)
-    if (m_drapeEngine->GetApiVersion() == dp::ApiVersion::Vulkan)
-    {
-      // See comment in android/jni/app/organicmaps/Framework.cpp Framework::MarkMapStyle().
-      SetMapStyle(desiredStyle);
-    }
-    else
-      MarkMapStyle(desiredStyle);
-#else
-    SetMapStyle(desiredStyle);
+    // OpenGL can pick up the preview at the next tile read.
+    if (m_drapeEngine && m_drapeEngine->GetApiVersion() != dp::ApiVersion::Vulkan)
+      return true;
 #endif
+    RefreshMapStyle();
     return true;
   }
 

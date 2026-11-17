@@ -181,12 +181,7 @@ RuleDrawer::RuleDrawer(TIsCountryLoadedByNameFn const & isLoadedFn, ref_ptr<Engi
 
   m_mapShapes[df::OverlayType].reserve(200 /* average overlays count */);
 
-  if (!MapStyleIsVehicle(m_mapStyle))
-  {
-    /// @todo Make naive implementation for now. Fetch draw settings from EngineContext.
-    /// Should refactor and generalize these settings (3D, isolines, hiking, cycling, ...)
-    m_relsSettings.Load(m_mapStyle);
-  }
+  m_relsSettings = RelationsDrawSettings::ForTile(m_mapStyle, m_zoomLevel);
 
   m_applyParams.m_insertShape = [this](drape_ptr<MapShape> && shape)
   {
@@ -432,17 +427,9 @@ void RuleDrawer::operator()(FeatureType & f)
 
   feature::GeomType const geomType = f.GetGeomType();
 
-  // Outdoors rules give hiking/cycling relation members consistent low-zoom visibility, so routes
-  // remain continuous even when their member roads have different visibility in the base style.
-  auto style = m_mapStyle;
-  if (m_applyParams.IsRelationRoutes() && geomType == feature::GeomType::Line && !m_relsSettings.IsEmpty())
-  {
-    RelationsDrawInfo drawInfo(m_relsSettings);
-    if (drawInfo.HasHikingOrCycling(f))
-      style = MapStyleIsDark(m_mapStyle) ? MapStyleOutdoorsDark : MapStyleOutdoorsLight;
-  }
-
-  Stylist const s(f, m_zoomLevel, m_deviceLang, style);
+  Stylist const s = geomType == feature::GeomType::Line
+                      ? MakeLineStylist(f, m_zoomLevel, m_deviceLang, m_mapStyle, m_relsSettings)
+                      : Stylist(f, m_zoomLevel, m_deviceLang, m_mapStyle);
 
   // No drawing rules.
   if (!s.m_symbolRule && !s.m_captionRule && !s.m_houseNumberRule && s.m_lineRules.empty() && !s.m_areaRule &&
