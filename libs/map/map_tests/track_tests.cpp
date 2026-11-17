@@ -161,9 +161,6 @@ UNIT_TEST(Track_RuntimeContracts)
   invalid.back().m_geometry.m_timestamps.insert(invalid.back().m_geometry.m_timestamps.begin(),
                                                 kml::MultiGeometry::TimeT{});
   invalid.push_back(makeData());
-  invalid.back().m_geometry.m_lines.push_back({{m2::PointD(0.0, 0.0), 100}, {m2::PointD(0.0, 0.0), 200}});
-  invalid.back().m_geometry.m_timestamps.emplace_back();
-  invalid.push_back(makeData());
   invalid.back().m_geometry.m_timestamps.clear();
   invalid.push_back(makeData());
   invalid.back().m_geometry.m_timestamps[0] = {1};
@@ -237,6 +234,19 @@ UNIT_TEST(Track_ImportDropsMalformedKmlTimestamps)
     TEST_EQUAL(geometry.m_lines.front().size(), 2, (times));
     TEST(!geometry.HasTimestamps(), (times));
   }
+}
+
+UNIT_TEST(Track_ImportDeduplicatesOsmGpx)
+{
+  auto const path = GetPlatform().TestsDataPathForFile("test_data/gpx/osm_track.gpx");
+  auto const data = LoadKmlData(FileReader(path), FileType::Gpx);
+  TEST(data, ());
+  TEST_EQUAL(data->m_tracksData.size(), 1, ());
+  auto const & geometry = data->m_tracksData.front().m_geometry;
+  TEST_EQUAL(geometry.m_lines.size(), 1, ());
+  TEST_EQUAL(geometry.m_timestamps.size(), 1, ());
+  TEST_EQUAL(geometry.m_lines.front().size(), 182, ());
+  TEST_EQUAL(geometry.m_timestamps.front().size(), geometry.m_lines.front().size(), ());
 }
 
 UNIT_TEST(Track_ImportKeepsGpxTimesAcrossUntimedDuplicates)

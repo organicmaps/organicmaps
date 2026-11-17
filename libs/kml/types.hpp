@@ -431,7 +431,7 @@ struct MultiGeometry
   // Parsers may still be assembling timestamps and filtering geometry.
   bool HasLines() const { return !m_lines.empty(); }
   static bool IsValidTimestamps(TimeT const & timestamps, size_t pointCount);
-  // Runtime sections have horizontal movement and aligned, ordered timestamps.
+  // Runtime sections have at least two points and aligned, ordered timestamps if present.
   bool IsValid() const;
 
   bool operator==(MultiGeometry const & rhs) const

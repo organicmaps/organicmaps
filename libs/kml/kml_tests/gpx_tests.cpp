@@ -388,15 +388,6 @@ UNIT_TEST(GpxStudio)
   TEST_EQUAL(line.size(), 331, ());
 }
 
-UNIT_TEST(OsmTrack)
-{
-  kml::FileData const dataFromFile = LoadGpxFromFile("test_data/gpx/osm_track.gpx");
-  auto const & line = dataFromFile.m_tracksData[0].m_geometry.m_lines[0];
-  auto const & timestamps = dataFromFile.m_tracksData[0].m_geometry.m_timestamps[0];
-  TEST_EQUAL(line.size(), 627, ());
-  TEST_EQUAL(timestamps.size(), 627, ());
-}
-
 UNIT_TEST(TowerCollector)
 {
   kml::FileData const dataFromFile = LoadGpxFromFile("test_data/gpx/tower_collector.gpx");

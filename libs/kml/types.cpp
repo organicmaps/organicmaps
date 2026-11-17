@@ -2,8 +2,6 @@
 
 #include "kml/minzoom_quadtree.hpp"
 
-#include "geometry/mercator.hpp"
-
 #include "base/macros.hpp"
 #include "base/random.hpp"
 #include "base/stl_helpers.hpp"
@@ -46,15 +44,8 @@ bool MultiGeometry::IsValid() const
     return false;
   for (size_t i = 0; i < m_lines.size(); ++i)
   {
-    auto const & line = m_lines[i];
-    if (line.size() < 2 || !IsValidTimestamps(m_timestamps[i], line.size()))
-      return false;
-    auto const & first = line.front().GetPoint();
-    if (std::none_of(line.begin() + 1, line.end(), [&first](auto const & sample)
-    {
-      auto const & point = sample.GetPoint();
-      return point.y != first.y || mercator::NearestWrapX(point.x, first.x) != first.x;
-    }))
+    auto const pointCount = m_lines[i].size();
+    if (pointCount < 2 || !IsValidTimestamps(m_timestamps[i], pointCount))
       return false;
   }
   return true;
