@@ -515,7 +515,6 @@ template <std::unsigned_integral T>
 // Both functions return false for INF, NAN, numbers like "1." and "0.4 ".
 [[nodiscard]] bool to_float(std::string_view s, float & f);
 [[nodiscard]] bool to_double(std::string_view s, double & d);
-[[nodiscard]] bool is_finite(double d);
 
 //@}
 
