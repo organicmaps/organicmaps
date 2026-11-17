@@ -72,10 +72,9 @@ public class DisplayManager
       mCar = new DisplayHolder();
       mCar.notify = true;
       mCar.listener = listener;
+      if (mDevice == null)
+        mCurrentDisplayType = DisplayType.Car;
     }
-
-    if (isCarConnected() && !isDeviceConnected())
-      mCurrentDisplayType = DisplayType.Car;
   }
 
   public void removeListener(@NonNull final DisplayType displayType)
