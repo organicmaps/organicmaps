@@ -66,13 +66,23 @@ ready. Later calls return `false` without invoking their callbacks, including
 while the first load is pending. `arePlatformAndCoreInitialized()` also does not
 mean map loading has completed.
 
-Keep readiness in the application, for example in a `LiveData<Boolean>`, and let
-activities observe it with their own lifecycle. Register the original completion
-callback against that process-owned state rather than an activity. Handle
-`IOException` from `init()` by displaying an initialization error and avoiding
-native API calls. The constructor throws `AssertionError` if its private settings
-directory cannot be created. Keeping readiness in the application also handles
-rotation during the first map load.
+Use `isRoutingReady()` to query completion or register a one-shot task with
+`RoutingReadiness.get().runWhenReady(task)`. It runs on the main thread,
+immediately if initialization has already completed. Hosts must cancel pending
+tasks with `RoutingReadiness.get().cancel(task)` when they stop, and register them again
+when they restart. This allows phone and car hosts to share startup and handles
+activity recreation during map loading. The original `init()` callback must not
+retain an activity; it runs before the queued readiness tasks.
+
+Readiness is one process-wide native fact, shared by all routing controllers.
+Hosts defer their UI actions until ready and cancel obsolete callbacks when they stop.
+Preparing, building or restoring a route before readiness is a contract error.
+The controller fails before mutating routing state; direct native routing commands
+also require readiness.
+`Router.set()` can still save a profile preference after setup while maps load.
+Handle `IOException` from `init()` by displaying an initialization error and avoiding
+native API calls. Readiness stays false after this failure. The constructor throws
+`AssertionError` if its private settings directory cannot be created.
 
 After readiness is reported, inflate a `MapView`, construct a `MapController`
 before attaching the view to a window, and register the controller:

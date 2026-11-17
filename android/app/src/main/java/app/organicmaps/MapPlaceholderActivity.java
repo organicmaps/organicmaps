@@ -17,6 +17,12 @@ public class MapPlaceholderActivity extends BaseMwmFragmentActivity implements D
   private boolean mRemoveDisplayListener = true;
 
   @Override
+  protected boolean requiresRoutingReady()
+  {
+    return false;
+  }
+
+  @Override
   protected void onSafeCreate(@Nullable Bundle savedInstanceState)
   {
     super.onSafeCreate(savedInstanceState);

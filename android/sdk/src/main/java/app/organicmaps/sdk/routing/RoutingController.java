@@ -9,6 +9,7 @@ import androidx.annotation.VisibleForTesting;
 import androidx.core.util.Pair;
 import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.Router;
+import app.organicmaps.sdk.RoutingReadiness;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.util.concurrency.UiThread;
@@ -21,6 +22,7 @@ import org.chromium.base.ObserverList;
  * call {@link #restore} when that host becomes active, and detach it when the host stops. The controller
  * retains route state across activity recreation; it does not provide the host foreground service or UI.
  * Detailed route building requires all relevant region maps. Missing-map errors are reported to the container.
+ * Wait for {@link RoutingReadiness} before preparing, building or restoring a route.
  */
 @androidx.annotation.UiThread
 public class RoutingController
@@ -182,6 +184,12 @@ public class RoutingController
   public static RoutingController get()
   {
     return sInstance;
+  }
+
+  private static void checkRoutingReady()
+  {
+    if (!RoutingReadiness.get().isReady())
+      throw new IllegalStateException("Wait for SDK routing initialization before issuing routing commands");
   }
 
   private void processRoutingEvent()
@@ -367,6 +375,7 @@ public class RoutingController
   @VisibleForTesting
   void build()
   {
+    checkRoutingReady();
     mContainsCachedResult = false;
     Logger.d(TAG, "build");
     mLastBuildProgress = 0;
@@ -388,6 +397,7 @@ public class RoutingController
    */
   public void restoreRoute()
   {
+    checkRoutingReady();
     // Recovery preserves the user's last-used router.
     if (Framework.nativeLoadRoutePoints())
       rebuildLastRoute();
@@ -488,6 +498,7 @@ public class RoutingController
    */
   public void prepare(@Nullable MapObject startPoint, @Nullable MapObject endPoint)
   {
+    checkRoutingReady();
     Logger.d(TAG, "prepare (" + (endPoint == null ? "route)" : "p2p)"));
     initLastRouteType(startPoint, endPoint);
     prepare(startPoint, endPoint, mLastRouterType);
@@ -507,6 +518,7 @@ public class RoutingController
    */
   public void prepare(final @Nullable MapObject startPoint, final @Nullable MapObject endPoint, Router routerType)
   {
+    checkRoutingReady();
     if (!cancel())
     {
       Framework.nativeRemoveRoutePoints();
@@ -515,7 +527,7 @@ public class RoutingController
     setState(State.PREPARE);
 
     mLastRouterType = routerType;
-    Router.set(mLastRouterType);
+    Router.set(routerType);
 
     if (startPoint != null || endPoint != null)
       setPointsInternal(startPoint, endPoint);
@@ -1249,7 +1261,8 @@ public class RoutingController
   }
 
   /**
-   * Changes the routing profile and rebuilds when the profile differs.
+   * Changes the routing profile and rebuilds when the profile differs and routing is ready.
+   * Before readiness, only the preference is saved for native initialization.
    */
   public void setRouterType(Router router)
   {
@@ -1262,7 +1275,7 @@ public class RoutingController
     mLastRouterType = router;
     Router.set(router);
 
-    if (getStartPoint() != null && getEndPoint() != null)
+    if (RoutingReadiness.get().isReady() && getStartPoint() != null && getEndPoint() != null)
       build();
   }
 

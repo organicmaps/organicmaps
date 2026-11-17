@@ -24,6 +24,12 @@ public class RequestPermissionsActivity extends BaseMwmFragmentActivity
   private ActivityResultLauncher<String[]> mPermissionsRequest;
 
   @Override
+  protected boolean requiresRoutingReady()
+  {
+    return false;
+  }
+
+  @Override
   protected void onSafeCreate(@Nullable Bundle savedInstanceState)
   {
     super.onSafeCreate(savedInstanceState);

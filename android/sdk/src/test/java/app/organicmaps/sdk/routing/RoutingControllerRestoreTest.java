@@ -6,8 +6,10 @@ import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import app.organicmaps.sdk.Router;
+import app.organicmaps.sdk.RoutingReadiness;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.util.log.Logger;
 import org.junit.Test;
@@ -49,9 +51,13 @@ public class RoutingControllerRestoreTest
   {
     final Controller controller = new Controller();
     final RoutingController.Container container = mock(RoutingController.Container.class);
+    final RoutingReadiness readiness = mock(RoutingReadiness.class);
+    when(readiness.isReady()).thenReturn(true);
     try (MockedStatic<Logger> ignored = mockStatic(Logger.class);
-         MockedStatic<Router> routers = mockStatic(Router.class))
+         MockedStatic<Router> routers = mockStatic(Router.class);
+         MockedStatic<RoutingReadiness> ready = mockStatic(RoutingReadiness.class))
     {
+      ready.when(RoutingReadiness::get).thenReturn(readiness);
       routers.when(() -> Router.getBest(1, 1, 2, 2)).thenReturn(Router.Vehicle);
       controller.setRouterType(Router.Bicycle);
       controller.builds = 0;

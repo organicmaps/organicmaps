@@ -3,6 +3,7 @@ package app.organicmaps.sdk;
 import android.content.Context;
 import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
+import androidx.annotation.UiThread;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ProcessLifecycleOwner;
@@ -26,6 +27,7 @@ import app.organicmaps.sdk.util.StorageUtils;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.util.log.LogsManager;
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * Process-wide entry point for the native map framework.
@@ -164,8 +166,8 @@ public final class OrganicMaps implements DefaultLifecycleObserver
    *
    * The first successful call returns {@code true}; its callback runs on the main thread after maps are registered.
    * Later calls return {@code false} and do not register or invoke their callback, even if the first load is still
-   * in progress. Hosts must retain readiness separately across activity recreation and notify new activities when
-   * the original callback completes. A {@code false} return alone does not mean map loading has completed.
+   * in progress. Use {@link RoutingReadiness#runWhenReady(Runnable)} for later consumers, and cancel
+   * their pending tasks when they stop. A {@code false} return alone does not mean map loading has completed.
    *
    * @param onComplete callback for the first initialization attempt; it must not retain a destroyed activity
    * @return whether this call initiated framework initialization
@@ -173,20 +175,31 @@ public final class OrganicMaps implements DefaultLifecycleObserver
    */
   public boolean init(@NonNull Runnable onComplete) throws IOException
   {
+    Objects.requireNonNull(onComplete);
     initNativePlatform();
     return initNativeFramework(onComplete);
   }
 
   /**
    * Reports whether platform and framework setup have run.
-   * This becomes {@code true} before asynchronous map loading finishes. Use the completion callback from
-   * {@link #init} to decide when an activity may display its map.
+   * This becomes {@code true} before asynchronous map loading finishes. Use {@link #isRoutingReady()} or
+   * {@link RoutingReadiness#runWhenReady(Runnable)} to decide when an activity may display its map.
    *
    * @return whether the platform and framework have been initialized
    */
   public boolean arePlatformAndCoreInitialized()
   {
     return mFrameworkInitialized && mPlatformInitialized;
+  }
+
+  /**
+   * Returns whether asynchronous map registration and native routing initialization have completed.
+   * Use {@link RoutingReadiness#runWhenReady(Runnable)} for a cancellable completion task.
+   */
+  @UiThread
+  public boolean isRoutingReady()
+  {
+    return RoutingReadiness.get().isReady();
   }
 
   /**
@@ -250,7 +263,7 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     if (mFrameworkInitialized)
       return false;
 
-    nativeInitFramework(onComplete);
+    nativeInitFramework(() -> RoutingReadiness.get().complete(onComplete));
 
     initNativeStrings();
     SearchEngine.INSTANCE.initialize();

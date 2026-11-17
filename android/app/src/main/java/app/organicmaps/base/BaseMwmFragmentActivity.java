@@ -40,7 +40,8 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   {
     EdgeToEdge.enable(this, getStatusBarStyle());
     super.onCreate(savedInstanceState);
-    if (!MwmApplication.from(this).getOrganicMaps().arePlatformAndCoreInitialized())
+    final var sdk = MwmApplication.from(this).getOrganicMaps();
+    if (!(requiresRoutingReady() ? sdk.isRoutingReady() : sdk.arePlatformAndCoreInitialized()))
     {
       final Intent intent = Objects.requireNonNull(getIntent());
       prepareIntentForCoreRestart(intent, savedInstanceState);
@@ -51,6 +52,12 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
     }
 
     onSafeCreate(savedInstanceState);
+  }
+
+  /** Setup-only screens can run while maps load; routing and map screens require full readiness. */
+  protected boolean requiresRoutingReady()
+  {
+    return true;
   }
 
   /**
