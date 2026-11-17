@@ -116,7 +116,6 @@ UNIT_TEST(GpsTrackFilter_ZeroAccuracyBypassesSampling)
   GpsTrackFilter::StoreMinHorizontalAccuracy(0);
   GpsTrackFilter filter;
   auto points = MakeWalk(2);
-  points.front().m_source = location::EPredictor;
   points.front().m_speed = -1;
   points.front().m_verticalAccuracy = -1;
   Points out{Make(99, 0, 0, 0)};
@@ -124,7 +123,7 @@ UNIT_TEST(GpsTrackFilter_ZeroAccuracyBypassesSampling)
   filter.Finalize(out);
   TEST_EQUAL(out.size(), 3, ());
   TEST_EQUAL(out[0].m_timestamp, 99, ());
-  TEST_EQUAL(out[1].m_source, location::EPredictor, ());
+  TEST_EQUAL(out[1].m_timestamp, points.front().m_timestamp, ());
   TEST(!out[1].HasAltitude(), ());
   TEST_EQUAL(out[2].m_timestamp, points.back().m_timestamp, ());
 }

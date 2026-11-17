@@ -722,11 +722,6 @@ public:
 
   StringsBundle const & GetStringsBundle();
 
-  /// [in] lat, lon - last known location
-  /// [out] lat, lon - predicted location
-  static void PredictLocation(double & lat, double & lon, double accuracy, double bearing, double speed,
-                              double elapsedSeconds);
-
 public:
   /// @name Api
   std::string GenerateApiBackUrl(ApiMarkPoint const & point) const;
