@@ -172,10 +172,11 @@ Format: `[subsystem] Summary in imperative mood` (max 80 chars). Examples of sub
   corruption recovery to startup registration. `Framework::RegisterAllMaps()` must log and skip
   broken map files and invalid terrain blocks so the app can start and export bookmarks. Keep Debug
   assertions for terrain invariants.
-- Use `MYTHROW` for header format or constraint failures that registration must log and skip, such as
-  unsupported versions. In trusted readers, use `CHECK` in once-per-file header or prologue loading
-  and at section offsets and lengths when Release enforcement is needed to prevent out-of-bounds
-  reads or excessive allocations. Include the value and bound in the message.
+- Use `MYTHROW` for file format or constraint failures during startup registration, such as
+  unsupported versions, so registration can log and skip the file. After registration accepts a
+  file, use `CHECK` in once-per-file header or prologue loading and at section offsets and lengths
+  when Release enforcement is needed to prevent out-of-bounds reads or excessive allocations.
+  Include the value and bound in the message.
 - Use Debug-only `ASSERT` for other invariant checks in regular map and terrain tile records and
   payloads, including stream-derived coordinates, indices and counts decoded per element.
 

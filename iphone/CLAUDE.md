@@ -82,18 +82,18 @@ Swift services/UI or legacy ObjC -> ObjC/ObjC++ wrappers (`MWM*`) -> CoreApi -> 
 
 ## Build and validation
 - Scheme: `OMaps`; workspace: `xcode/omim.xcworkspace`
-- Build iOS for `arm64` only
 - List installed iPhone simulators with `xcrun simctl list devices available | rg "iPhone"`
-- From the repository root, build with an installed iPhone simulator, preferably with the latest available runtime.
+- From the repository root on Apple Silicon, build with an installed arm64 iPhone simulator,
+  preferably with the latest available runtime. Debug builds the destination's active architecture.
   ```bash
   xcodebuild -workspace xcode/omim.xcworkspace \
     -scheme OMaps \
     -configuration Debug \
-    -destination 'platform=iOS Simulator,name=<installed iPhone>' \
-    ARCHS=arm64 \
+    -destination 'platform=iOS Simulator,name=<installed iPhone>,arch=arm64' \
     build
   ```
-- To archive for a generic simulator, run the following from the repository root.
+- For a generic simulator archive, pass `ARCHS=arm64` to produce an arm64-only archive.
+  Run from the repository root.
   ```bash
   xcodebuild archive -workspace xcode/omim.xcworkspace -configuration Debug \
     -destination 'generic/platform=iOS Simulator' -scheme OMaps \

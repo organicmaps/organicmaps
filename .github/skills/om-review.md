@@ -1379,7 +1379,7 @@ simpler memory model, but requires full copy on modification.
   the loop at line 72 computes `waypoints[i+1]` which accesses index 1 (out of bounds).
   Callers in `navigator.cpp:45` can pass a single-waypoint vector when user taps
   "navigate to" without intermediate stops.
-  🔴 Build a direct route from the current position when the user selects a single destination.
+  🔴 Fix: Build a direct route from the current position when the user selects a single destination.
 
 ### 🟡 Nits
 

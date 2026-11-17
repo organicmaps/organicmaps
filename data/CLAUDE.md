@@ -72,7 +72,7 @@ Android `strings.xml`, and iOS and Android store metadata.
 - prefer OpenStreetMap over OSM in user-facing notes (except short Android release-notes.txt with max 500 characters limit)
 - prefer contour lines over elevation isolines.
 - prefer shown on the map over technical conditions like “without nearby bus stops”.
-- use the full changelog or a news post for contributor credits in store releases.
+- keep contributor credits out of store notes. Put them in the full changelog or a news post.
 
 ## Style files (data/styles/)
 MapCSS files in `styles/default/include/`:
