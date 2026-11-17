@@ -12,7 +12,6 @@ import app.organicmaps.sdk.OrganicMaps;
 import app.organicmaps.sdk.car.CarType;
 import app.organicmaps.sdk.car.CarTypeHelper;
 import app.organicmaps.sdk.display.DisplayManager;
-import app.organicmaps.sdk.display.DisplayType;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.log.Logger;
 import java.io.IOException;
@@ -42,7 +41,6 @@ public final class AndroidAutoService extends CarAppServiceBase
   @Override
   public Session onCreateSession(@NonNull SessionInfo sessionInfo)
   {
-    mDisplayManager.init(DisplayType.Car);
     return new AndroidAutoSession(mOrganicMapsContext, mDisplayManager, sessionInfo, /* isDebug */ BuildConfig.DEBUG,
                                   mInitFailed);
   }
