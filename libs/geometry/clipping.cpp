@@ -1,136 +1,98 @@
 #include "geometry/clipping.hpp"
 
 #include "geometry/rect_intersect.hpp"
-#include "geometry/triangle2d.hpp"
+#include "geometry/robust_orientation.hpp"
 
 #include "base/buffer_vector.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <cfloat>
+#include <cmath>
+#include <utility>
 
 namespace m2
 {
 namespace
 {
-int GetRectSideIndex(int code)
+using PolygonT = buffer_vector<m2::PointD, 8>;
+
+// Sutherland-Hodgman step: keeps the part of |polygon| where x (y if !|isX|) is >= |bound| (<= if !|keepGreater|).
+void ClipPolygonBySide(PolygonT const & polygon, bool isX, double bound, bool keepGreater, PolygonT & res)
 {
-  if (code == m2::detail::LEFT)
-    return 0;
-  if (code == m2::detail::TOP)
-    return 1;
-  if (code == m2::detail::RIGHT)
-    return 2;
-  return 3;
-}
-
-using CornersT = std::array<m2::PointD, 4>;
-
-template <class AddPointFnT>
-void InsertCorners(CornersT const & corners, m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3,
-                   AddPointFnT const & addPolygonPoint, int code1, int code2)
-{
-  int cornerInd = GetRectSideIndex(code1);
-  int endCornerInd = GetRectSideIndex(code2);
-
-  if (!IsPointInsideTriangle(corners[cornerInd], p1, p2, p3))
+  // Signed distance into the kept half-plane.
+  auto const distance = [&](m2::PointD const & p)
   {
-    if (!IsPointInsideTriangle(corners[endCornerInd], p1, p2, p3))
-      return;
-    std::swap(cornerInd, endCornerInd);
-  }
+    double const d = (isX ? p.x : p.y) - bound;
+    return keepGreater ? d : -d;
+  };
 
-  while (cornerInd != endCornerInd)
+  res.clear();
+  m2::PointD const * a = &polygon.back();
+  double da = distance(*a);
+  for (m2::PointD const & b : polygon)
   {
-    addPolygonPoint(corners[cornerInd]);
-    cornerInd = (cornerInd + 1) % 4;
+    double const db = distance(b);
+    // A vertex on the side is the intersection point itself, so only strict crossings are interpolated.
+    // lerp keeps the other coordinate between the endpoints: within the rect on the sides that are not clipped.
+    if ((da < 0 && db > 0) || (da > 0 && db < 0))
+    {
+      double const t = da / (da - db);
+      if (isX)
+        res.emplace_back(bound, std::lerp(a->y, b.y, t));
+      else
+        res.emplace_back(std::lerp(a->x, b.x, t), bound);
+    }
+    if (db >= 0)
+      res.push_back(b);
+    a = &b;
+    da = db;
   }
-}
-
-template <class AddPointFnT>
-bool IntersectEdge(m2::RectD const & rect, CornersT const & corners, m2::PointD const & pp1, m2::PointD const & pp2,
-                   m2::PointD const & pp3, AddPointFnT const & addPolygonPoint, int prevClipCode, int nextClipCode,
-                   int & firstClipCode, int & lastClipCode)
-{
-  m2::PointD p1 = pp1;
-  m2::PointD p2 = pp2;
-
-  if (m2::Intersect(rect, p1, p2, firstClipCode, lastClipCode))
-  {
-    if (firstClipCode != 0 && prevClipCode != 0 && ((firstClipCode & prevClipCode) == 0))
-      InsertCorners(corners, pp1, pp2, pp3, addPolygonPoint, prevClipCode, firstClipCode);
-
-    addPolygonPoint(p1);
-    addPolygonPoint(p2);
-
-    if (lastClipCode != 0 && nextClipCode != 0 && ((lastClipCode & nextClipCode) == 0) &&
-        firstClipCode != lastClipCode && prevClipCode != nextClipCode)
-      InsertCorners(corners, pp1, pp2, pp3, addPolygonPoint, lastClipCode, nextClipCode);
-
-    return true;
-  }
-  else if (prevClipCode != 0 && nextClipCode != 0)
-  {
-    InsertCorners(corners, pp1, pp2, pp3, addPolygonPoint, prevClipCode, nextClipCode);
-  }
-  return false;
 }
 }  // namespace
 
 void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3,
                         ClipTriangleByRectResultIt const & resultIterator)
 {
+  ASSERT_LESS(robust::OrientedS(p1, p2, p3), 0, (p1, p2, p3));
+
   if (rect.IsPointInside(p1) && rect.IsPointInside(p2) && rect.IsPointInside(p3))
   {
     resultIterator(p1, p2, p3);
     return;
   }
 
-  static constexpr double kEps = 1e-8;
-  buffer_vector<m2::PointD, 8> polygon;
-  auto const addPolygonPoint = [&polygon](m2::PointD const & pt)
+  m2::RectD bbox(p1, p2);
+  bbox.Add(p3);
+  if (!rect.IsIntersect(bbox))
+    return;
+
+  // Clip by each rect side the triangle crosses (Sutherland-Hodgman). The result doesn't depend on side codes of
+  // points that lie exactly on rect corners (e.g. tiles along a tile-aligned diagonal of a WorldCoasts cell).
+  PolygonT buffer1 = {p1, p2, p3};
+  PolygonT buffer2;
+  PolygonT * polygon = &buffer1;
+  PolygonT * clipped = &buffer2;
+  auto const clip = [&](bool isX, double bound, bool keepGreater)
   {
-    if (polygon.empty() || !polygon.back().EqualDxDy(pt, kEps))
-      polygon.push_back(pt);
+    ClipPolygonBySide(*polygon, isX, bound, keepGreater, *clipped);
+    std::swap(polygon, clipped);
+    return !polygon->empty();
   };
-
-  CornersT const corners = {rect.LeftTop(), rect.RightTop(), rect.RightBottom(), rect.LeftBottom()};
-
-  int firstClipCode[3];
-  int lastClipCode[3];
-  bool intersected[3];
-
-  intersected[0] = IntersectEdge(rect, corners, p1, p2, p3, addPolygonPoint, 0, 0, firstClipCode[0], lastClipCode[0]);
-
-  intersected[1] =
-      IntersectEdge(rect, corners, p2, p3, p1, addPolygonPoint, lastClipCode[0], 0, firstClipCode[1], lastClipCode[1]);
-
-  intersected[2] = IntersectEdge(
-      rect, corners, p3, p1, p2, addPolygonPoint, lastClipCode[1] != 0 ? lastClipCode[1] : lastClipCode[0],
-      firstClipCode[0] != 0 ? firstClipCode[0] : firstClipCode[1], firstClipCode[2], lastClipCode[2]);
-
-  int const intersectCount = intersected[0] + intersected[1] + intersected[2];
-  if (intersectCount == 0)
+  if ((bbox.minX() < rect.minX() && !clip(true, rect.minX(), true)) ||
+      (bbox.maxX() > rect.maxX() && !clip(true, rect.maxX(), false)) ||
+      (bbox.minY() < rect.minY() && !clip(false, rect.minY(), true)) ||
+      (bbox.maxY() > rect.maxY() && !clip(false, rect.maxY(), false)))
   {
-    if (IsPointInsideTriangle(rect.Center(), p1, p2, p3))
-    {
-      resultIterator(rect.LeftTop(), rect.RightTop(), rect.RightBottom());
-      resultIterator(rect.RightBottom(), rect.LeftBottom(), rect.LeftTop());
-    }
     return;
   }
 
-  if (intersectCount == 1 && intersected[2])
-    InsertCorners(corners, p1, p2, p3, addPolygonPoint, lastClipCode[2], firstClipCode[2]);
-
-  if (!polygon.empty() && polygon.back().EqualDxDy(polygon[0], kEps))
-    polygon.pop_back();
-
-  if (polygon.size() < 3)
-    return;
-
-  for (size_t i = 0; i < polygon.size() - 2; ++i)
-    resultIterator(polygon[0], polygon[i + 1], polygon[i + 2]);
+  // Skip the zero-area and counter-clockwise triangles: they are fan triangles over a zero-width spike, made by an
+  // intersection that rounding puts onto another rect side, and are not part of the intersection.
+  auto const & pts = *polygon;
+  for (size_t i = 2; i < pts.size(); ++i)
+    if (robust::OrientedS(pts[0], pts[i - 1], pts[i]) < 0)
+      resultIterator(pts[0], pts[i - 1], pts[i]);
 }
 
 template <class FnT>
@@ -197,8 +159,14 @@ RectCase GetRectCase(m2::RectD const & rect, std::vector<m2::PointD> const & pat
   return RectCase::Outside;
 }
 
-std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::SharedSpline const & spline)
+namespace
 {
+std::vector<m2::SharedSpline> ClipSplineByRectImpl(m2::RectD const & rect, m2::SharedSpline const & spline,
+                                                   std::vector<m2::SplineClipInfo> * sourceRanges)
+{
+  if (sourceRanges != nullptr)
+    sourceRanges->clear();
+
   auto const & src = *spline;
   auto const & path = src.GetPath();
   size_t const sz = path.size();
@@ -206,7 +174,10 @@ std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::Share
 
   switch (GetRectCase(rect, path))
   {
-  case RectCase::Inside: return {spline};
+  case RectCase::Inside:
+    if (sourceRanges != nullptr)
+      sourceRanges->push_back({0.0, src.GetLength(), 0, sz - 2});
+    return {spline};
   case RectCase::Outside: return {};
   case RectCase::Intersect: break;
   }
@@ -224,15 +195,31 @@ std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::Share
   out.reserve(2);
 
   std::unique_ptr<m2::Spline> cur;
+  double sourceDistance = 0.0;
+  m2::SplineClipInfo range;
+  auto const emitCurrent = [&]()
+  {
+    if (cur->GetSize() > 1)
+    {
+      out.emplace_back(std::move(cur));
+      if (sourceRanges != nullptr)
+        sourceRanges->push_back(range);
+    }
+    else
+    {
+      cur->Clear();  // reuse reservation for the next sub-spline
+    }
+  };
+
   for (size_t i = 0; i + 1 < sz; ++i)
   {
     m2::PointD p1 = path[i];
     m2::PointD p2 = path[i + 1];
     int code1 = 0, code2 = 0;
+    auto const [srcDir, srcLen] = src.GetTangentAndLength(i);
 
     if (m2::Intersect(rect, p1, p2, code1, code2))
     {
-      auto const [srcDir, srcLen] = src.GetTangentAndLength(i);
       double const len = (code1 == 0 && code2 == 0) ? srcLen : DotProduct(p2 - p1, srcDir);
 
       // Start a new sub-spline if either we have no allocation yet, or the
@@ -244,6 +231,8 @@ std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::Share
         // First point of the new sub-spline. The single-arg AddPoint just
         // pushes here (m_position is empty), so it's free.
         cur->AddPoint(p1);
+        range.m_startDistance = sourceDistance + DotProduct(p1 - path[i], srcDir);
+        range.m_startSegment = i;
       }
       // else: continuation. cur->back() already equals p1 because the
       // previous segment ended cleanly (code2 == 0) and code1 == 0 here.
@@ -254,29 +243,51 @@ std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::Share
       // bare 0 so that floating-point noise from the dot-product projection
       // can't slip a sub-ULP positive value past the guard.
       if (len > DBL_EPSILON)
+      {
         cur->AddPoint(p2, srcDir, len);
+        range.m_endDistance = sourceDistance + DotProduct(p2 - path[i], srcDir);
+        range.m_endSegment = i;
+      }
 
       // Right endpoint clipped or last input segment → close out the sub-spline.
       if (code2 != 0 || i + 2 == sz)
-      {
-        if (cur->GetSize() > 1)
-          out.emplace_back(std::move(cur));
-        else
-          cur->Clear();  // reuse reservation for the next sub-spline
-      }
+        emitCurrent();
     }
     else if (cur)
     {
       // Gap: this segment didn't intersect the rect — close out whatever we
       // accumulated.
-      if (cur->GetSize() > 1)
-        out.emplace_back(std::move(cur));
-      else
-        cur->Clear();
+      emitCurrent();
     }
+
+    sourceDistance += srcLen;
   }
 
+  ASSERT(sourceRanges == nullptr || sourceRanges->size() == out.size(), ());
   return out;
+}
+}  // namespace
+
+std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::SharedSpline const & spline)
+{
+  return ClipSplineByRectImpl(rect, spline, nullptr);
+}
+
+std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::SharedSpline const & spline,
+                                               std::vector<double> & sourceOffsets)
+{
+  std::vector<m2::SplineClipInfo> ranges;
+  auto result = ClipSplineByRectImpl(rect, spline, &ranges);
+  sourceOffsets.clear();
+  for (auto const & range : ranges)
+    sourceOffsets.push_back(range.m_startDistance);
+  return result;
+}
+
+std::vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::SharedSpline const & spline,
+                                               std::vector<m2::SplineClipInfo> * sourceRanges)
+{
+  return ClipSplineByRectImpl(rect, spline, sourceRanges);
 }
 
 void ClipPathByRect(m2::RectD const & rect, std::vector<m2::PointD> const & path, std::vector<m2::SharedSpline> & out)

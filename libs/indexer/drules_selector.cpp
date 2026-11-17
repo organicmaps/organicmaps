@@ -1,4 +1,6 @@
 #include "indexer/drules_selector.hpp"
+
+#include "indexer/classificator.hpp"
 #include "indexer/drules_selector_parser.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
@@ -6,6 +8,7 @@
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
 namespace drule
 {
@@ -113,28 +116,18 @@ private:
   bool m_testHas;
 };
 
-/*
-uint32_t TagSelectorToType(string value)
-{
-  vector<string> path;
-  strings::ParseCSVRow(value, '=', path);
-  return path.size() > 0 && path.size() <= 2 ? classif().GetTypeByPathSafe(path) : 0;
-}
-
 class TypeSelector : public ISelector
 {
 public:
-  TypeSelector(uint32_t type, SelectorOperatorType op) : m_type(type)
-  {
-    m_equals = op == SelectorOperatorEqual;
-  }
+  TypeSelector(uint32_t type, SelectorOperatorType op) : m_type(type), m_equals(op == SelectorOperatorEqual) {}
 
-  bool Test(FeatureType & ft) const override
+  bool Test(FeatureType & ft, int /* zoom */) const override
   {
     bool found = false;
-    ft.ForEachType([&found, this](uint32_t type)
+    auto const level = ftype::GetLevel(m_type);
+    ft.ForEachType([&found, this, level](uint32_t type)
     {
-      ftype::TruncValue(type, ftype::GetLevel(m_type));
+      ftype::TruncValue(type, level);
       if (type == m_type)
         found = true;
     });
@@ -145,7 +138,6 @@ private:
   uint32_t m_type;
   bool m_equals;
 };
-*/
 
 // Feature tag value evaluator for tag 'population'
 bool GetPopulation(FeatureType & ft, int, uint64_t & population)
@@ -172,6 +164,11 @@ bool GetBoundingBoxArea(FeatureType & ft, int zoom, double & sqM)
 }  // namespace
 
 std::unique_ptr<ISelector> ParseSelector(std::string const & str)
+{
+  return ParseSelector(str, classif());
+}
+
+std::unique_ptr<ISelector> ParseSelector(std::string const & str, Classificator const & classificator)
 {
   SelectorExpression e;
   if (!ParseSelector(str, e))
@@ -207,18 +204,17 @@ std::unique_ptr<ISelector> ParseSelector(std::string const & str)
     }
     return std::make_unique<Selector<double>>(&GetBoundingBoxArea, e.m_operator, value);
   }
-  //  else if (e.m_tag == "extra_tag")
-  //  {
-  //    ASSERT(false, ());
-  //    uint32_t const type = TagSelectorToType(e.m_value);
-  //    if (type == Classificator::INVALID_TYPE)
-  //    {
-  //      // Type was not found.
-  //      LOG(LDEBUG, ("Invalid selector:", str));
-  //      return unique_ptr<ISelector>();
-  //    }
-  //    return make_unique<TypeSelector>(type, e.m_operator);
-  //  }
+  else if (e.m_tag == "extra_tag")
+  {
+    if ((e.m_operator != SelectorOperatorEqual && e.m_operator != SelectorOperatorNotEqual) || e.m_value.empty() ||
+        e.m_value.front() == '=' || e.m_value.back() == '=' || e.m_value.find("==") != std::string::npos)
+      return {};
+    auto const path = strings::Tokenize(e.m_value, "=");
+    auto const type = classificator.GetTypeByPathSafe(path);
+    if (type == Classificator::INVALID_TYPE)
+      return {};
+    return std::make_unique<TypeSelector>(type, e.m_operator);
+  }
 
   LOG(LERROR, ("Unrecognized selector:", str));
   return {};
@@ -226,11 +222,16 @@ std::unique_ptr<ISelector> ParseSelector(std::string const & str)
 
 std::unique_ptr<ISelector> ParseSelector(std::vector<std::string> const & strs)
 {
+  return ParseSelector(strs, classif());
+}
+
+std::unique_ptr<ISelector> ParseSelector(std::vector<std::string> const & strs, Classificator const & classificator)
+{
   std::unique_ptr<CompositeSelector> cs = std::make_unique<CompositeSelector>(strs.size());
 
   for (std::string const & str : strs)
   {
-    std::unique_ptr<ISelector> s = ParseSelector(str);
+    std::unique_ptr<ISelector> s = ParseSelector(str, classificator);
     if (nullptr == s)
     {
       LOG(LDEBUG, ("Invalid composite selector:", str));

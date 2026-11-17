@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="organicmaps cycling junction test">
+  <node id="1" lat="49" lon="-123"/>
+  <node id="2" lat="49" lon="-122.999"/>
+  <node id="3" lat="49" lon="-122.998"/>
+  <node id="4" lat="49.001" lon="-122.999"/>
+  <node id="5" lat="49" lon="-122.99"/>
+  <node id="6" lat="49" lon="-122.989"><tag k="barrier" v="gate"/></node>
+  <node id="7" lat="49" lon="-122.988"/>
+  <node id="8" lat="49.001" lon="-122.989"/>
+  <node id="9" lat="49" lon="-122.98"/>
+  <node id="10" lat="49" lon="-122.979"/>
+  <node id="11" lat="49" lon="-122.978"/>
+  <node id="12" lat="49" lon="-122.979"/>
+  <node id="13" lat="49.001" lon="-122.979"/>
+  <node id="14" lat="49" lon="-122.97"/>
+  <node id="15" lat="49" lon="-122.969"/>
+  <node id="16" lat="49" lon="-122.968"/>
+  <node id="17" lat="49.001" lon="-122.969"/>
+  <node id="18" lat="49" lon="-122.96"/>
+  <node id="19" lat="49" lon="-122.959"/>
+  <node id="20" lat="49" lon="-122.958"/>
+  <node id="21" lat="49.001" lon="-122.959"/>
+  <node id="22" lat="49" lon="-122.95"/>
+  <node id="23" lat="49" lon="-122.949"/>
+  <node id="24" lat="49" lon="-122.948"/>
+  <node id="25" lat="49.001" lon="-122.949"/>
+  <way id="10"><nd ref="1"/><nd ref="2"/><nd ref="3"/>
+    <tag k="highway" v="residential"/><tag k="cycleway:left" v="lane"/>
+    <tag k="name" v="Junction road connected"/>
+  </way>
+  <way id="11"><nd ref="5"/><nd ref="6"/><nd ref="7"/>
+    <tag k="highway" v="residential"/><tag k="cycleway:left" v="lane"/>
+    <tag k="name" v="Junction road barrier"/>
+  </way>
+  <way id="12"><nd ref="9"/><nd ref="10"/><nd ref="11"/>
+    <tag k="highway" v="residential"/><tag k="cycleway:left" v="lane"/>
+    <tag k="name" v="Junction road coincidence"/>
+  </way>
+  <way id="13"><nd ref="14"/><nd ref="15"/><nd ref="16"/>
+    <tag k="highway" v="residential"/><tag k="cycleway:left" v="lane"/>
+    <tag k="name" v="Junction road grade"/>
+  </way>
+  <way id="14"><nd ref="18"/><nd ref="19"/><nd ref="20"/>
+    <tag k="highway" v="residential"/><tag k="cycleway:left" v="lane"/>
+    <tag k="cycleway:left:oneway" v="yes"/><tag k="oneway" v="-1"/>
+    <tag k="name" v="Junction road reversed"/>
+  </way>
+  <way id="15"><nd ref="22"/><nd ref="23"/><nd ref="24"/>
+    <tag k="highway" v="residential"/><tag k="cycleway:left" v="lane"/>
+    <tag k="name" v="Junction road restricted"/>
+  </way>
+  <way id="16"><nd ref="1"/><nd ref="2"/><nd ref="3"/>
+    <tag k="highway" v="tertiary"/><tag k="cycleway" v="lane"/>
+    <tag k="cycleway:both:lane" v="exclusive"/>
+    <tag k="name" v="Junction road modifier only"/>
+  </way>
+  <way id="20"><nd ref="2"/><nd ref="4"/><tag k="highway" v="cycleway"/></way>
+  <way id="21"><nd ref="6"/><nd ref="8"/><tag k="highway" v="cycleway"/></way>
+  <way id="22"><nd ref="12"/><nd ref="13"/><tag k="highway" v="cycleway"/></way>
+  <way id="23"><nd ref="15"/><nd ref="17"/><tag k="highway" v="cycleway"/><tag k="layer" v="1"/></way>
+  <way id="24"><nd ref="19"/><nd ref="21"/><tag k="highway" v="cycleway"/></way>
+  <way id="25"><nd ref="23"/><nd ref="25"/><tag k="highway" v="cycleway"/><tag k="bicycle" v="no"/></way>
+</osm>

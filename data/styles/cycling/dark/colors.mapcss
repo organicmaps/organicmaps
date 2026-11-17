@@ -1,6 +1,27 @@
 /* Keep here changes of the base map style file only. */
 @import("../../outdoors/dark/colors.mapcss");
 
-/* Dark-theme variant of the cycling accent. Brighter so the line still
-   reads against the dark base. */
-@cycleway: #4FC3F7;
+/* Dark-theme cycling accent: same blue hue, brighter for the dark base.
+   Dedicated cycleways and protected tracks are the more luminous of the two. */
+@cycleway: #90CAF9;
+@cycleway_road: #1E88E5;
+@cycleway_casing: #000000;
+@cycleway_arrow_solid_xs: cycling-arrow-solid-xs.svg;
+@cycleway_arrow_solid_s: cycling-arrow-solid-s.svg;
+@cycleway_arrow_solid_m: cycling-arrow-solid-m.svg;
+@cycleway_arrow_patterned_xs: cycling-arrow-patterned-xs.svg;
+@cycleway_arrow_patterned_s: cycling-arrow-patterned-s.svg;
+@cycleway_arrow_patterned_m: cycling-arrow-patterned-m.svg;
+/* Local quiet colored-road experiment. */
+@trunk0: #30170A;
+@trunk1: #30190A;
+@primary0: #301B0A;
+@primary1: #301B0A;
+@primary2: #301C0A;
+@secondary0: #30220A;
+@secondary1: #30220A;
+@tertiary: #232323;
+@residential: #202020;
+@trunk_tunnel: #23130A;
+@primary_tunnel: #23150A;
+@secondary_tunnel: #231A0A;

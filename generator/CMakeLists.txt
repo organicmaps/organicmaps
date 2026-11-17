@@ -41,6 +41,8 @@ set(SRC
   collector_building_parts.hpp
   collector_camera.cpp
   collector_camera.hpp
+  cycling_junctions.cpp
+  cycling_junctions.hpp
   collector_collection.cpp
   collector_collection.hpp
   collector_interface.hpp
@@ -56,6 +58,8 @@ set(SRC
   composite_id.hpp
   cross_mwm_osm_ways_collector.cpp
   cross_mwm_osm_ways_collector.hpp
+  cycling_infrastructure.cpp
+  cycling_infrastructure.hpp
   descriptions_section_builder.cpp
   descriptions_section_builder.hpp
   dumper.cpp

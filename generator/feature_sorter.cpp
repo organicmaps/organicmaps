@@ -11,6 +11,7 @@
 
 #include "routing/routing_helpers.hpp"
 
+#include "indexer/cycling_infrastructure_section.hpp"
 #include "indexer/dat_section_header.hpp"
 #include "indexer/feature_impl.hpp"
 #include "indexer/scales.hpp"
@@ -131,6 +132,13 @@ public:
       FilesContainerW writer(m_filename, FileWriter::OP_WRITE_EXISTING);
       auto w = writer.GetWriter(METADATA_FILE_TAG);
       m_metadataBuilder.Freeze(*w);
+    }
+
+    if (!m_cyclingInfrastructure.empty())
+    {
+      FilesContainerW writer(m_filename, FileWriter::OP_WRITE_EXISTING);
+      auto w = writer.GetWriter(cycling::kSectionTag);
+      cycling::WriteSection(*w, m_cyclingInfrastructure);
     }
 
     if (m_header.GetType() == DataHeader::MapType::Country || m_header.GetType() == DataHeader::MapType::World)
@@ -284,6 +292,8 @@ public:
       fb.SerializeForMwm(buffer, m_header.GetDefGeometryCodingParams());
 
       uint32_t const featureId = WriteFeatureBase(buffer.m_buffer, fb);
+      if (!fb.GetParams().GetCyclingInfrastructure().empty())
+        m_cyclingInfrastructure.emplace_back(featureId, fb.GetParams().GetCyclingInfrastructure());
 
       // Order is important here:
 
@@ -345,6 +355,7 @@ private:
 
   generator::BoundaryPostcodesEnricher m_boundaryPostcodesEnricher;
   indexer::MetadataBuilder m_metadataBuilder;
+  std::vector<std::pair<uint32_t, std::string>> m_cyclingInfrastructure;
 
   DataHeader m_header;
   RegionData m_regionData;

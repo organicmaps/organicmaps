@@ -33,6 +33,7 @@ public:
   Reader GetDataReader() const;
   Reader GetGeometryReader(size_t ind) const;
   Reader GetTrianglesReader(size_t ind) const;
+  std::string GetCyclingInfrastructure(uint32_t featureId) const;
 
   feature::RelationReader ReadRelation(uint32_t id) const;
 

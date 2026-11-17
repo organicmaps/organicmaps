@@ -7,6 +7,8 @@
 #include "geometry/clipping.hpp"
 #include "geometry/smoothing.hpp"
 
+#include <cmath>
+
 namespace df
 {
 namespace
@@ -19,9 +21,10 @@ double constexpr kProlongingDotSqr = math::Pow2(0.995);
 double constexpr kIsolineSmoothScale = 1.6;  // same as Inflate(0.3*szX, 0.3*szY) per side
 }  // namespace
 
-void ClipSplinesBuilder::Build(FeatureType & f, int zoomLevel, bool isIsoline)
+void ClipSplinesBuilder::Build(FeatureType & f, int zoomLevel, bool isIsoline, double padding)
 {
   m_path.clear();
+  m_splineOffsets.clear();
   m_knownInside = false;
 
   // Use the feature's pre-parsed limit rect to short-circuit the read of
@@ -33,6 +36,7 @@ void ClipSplinesBuilder::Build(FeatureType & f, int zoomLevel, bool isIsoline)
   if (limitRect.IsValid())
   {
     m2::RectD checkRect = m_params.m_tileRect;
+    checkRect.Inflate(padding, padding);
     if (isIsoline)
       checkRect.Scale(kIsolineSmoothScale);
 
@@ -127,9 +131,10 @@ void ClipSplinesBuilder::Build(FeatureType & f, int zoomLevel, bool isIsoline)
   }
 }
 
-std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline)
+std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline, bool needSplineOffsets)
 {
   std::vector<m2::SharedSpline> out;
+  m_splineOffsets.clear();
   if (m_path.size() < 2)
     return out;
 
@@ -140,11 +145,22 @@ std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline)
   // the next Build() — no cleanup needed here.
   if (!isIsoline && m_knownInside)
   {
+    if (needSplineOffsets)
+      m_splineOffsets.push_back(0.0);
     out.emplace_back(std::move(m_path));
     return out;
   }
 
   out.reserve(2);
+
+  if (!isIsoline && needSplineOffsets)
+  {
+    std::vector<m2::SplineClipInfo> ranges;
+    out = m2::ClipSplineByRect(m_params.m_tileRect, m2::SharedSpline(m_path), &ranges);
+    for (auto const & range : ranges)
+      m_splineOffsets.push_back(range.m_startDistance);
+    return out;
+  }
 
   if (isIsoline)
   {
@@ -166,6 +182,15 @@ std::vector<m2::SharedSpline> ClipSplinesBuilder::Release(bool isIsoline)
   }
   else
     m2::ClipPathByRect(m_params.m_tileRect, m_path, out);
+
+  // Every clipped spline starts on the source path. Preserve its distance from
+  // the feature start so independently generated tiles use the same dash phase.
+  // Isolines do not use dashed line rules and smoothing changes their geometry,
+  // so their offsets intentionally remain zero.
+  if (!needSplineOffsets)
+    return out;
+
+  m_splineOffsets.resize(out.size(), 0.0);  // Smoothed isolines have no source-distance correspondence.
 
   return out;
 }

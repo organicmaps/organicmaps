@@ -890,6 +890,13 @@ feature::Metadata const & FeatureType::GetMetadata()
   return m_metadata;
 }
 
+std::string const & FeatureType::GetCyclingInfrastructure()
+{
+  if (!m_cyclingInfrastructure)
+    m_cyclingInfrastructure = m_loadInfo ? m_loadInfo->GetCyclingInfrastructure(m_id.m_index) : std::string{};
+  return *m_cyclingInfrastructure;
+}
+
 std::string_view FeatureType::GetMetadata(feature::Metadata::EType type)
 {
   ParseMetaIds();
