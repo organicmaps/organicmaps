@@ -1,7 +1,6 @@
 #import "MWMLocationManager.h"
 #import "MWMAlertViewController.h"
 #import "MWMLocationObserver.h"
-#import "MWMLocationPredictor.h"
 #import "MWMRouter.h"
 #import "SwiftBridge.h"
 #import "location_util.h"
@@ -161,9 +160,7 @@ void setShowLocationAlert(BOOL needShow)
 @property(nonatomic) CLLocation * lastLocationInfo;
 @property(nonatomic) MWMLocationStatus lastLocationStatus;
 @property(nonatomic) BOOL useNavigationOtherLocationActivity;
-@property(nonatomic) MWMLocationPredictor * predictor;
 @property(nonatomic) Observers * observers;
-@property(nonatomic) location::TLocationSource locationSource;
 
 @end
 
@@ -298,28 +295,20 @@ void setShowLocationAlert(BOOL needShow)
 
 - (void)processLocationUpdates:(NSArray<CLLocation *> *)locations
 {
-  CLLocation * locationInfo = locations.lastObject;
+  ASSERT_GREATER(locations.count, 0, ());
   if (self.lastLocationStatus != MWMLocationStatusNoError)
     return;
-  [self onLocationUpdates:locations source:self.locationSource];
-  if (![self.lastLocationInfo isEqual:locationInfo])
-    [self.predictor reset:locationInfo];
-}
 
-- (void)onLocationUpdates:(NSArray<CLLocation *> *)locations source:(location::TLocationSource)source
-{
-  ASSERT_GREATER(locations.count, 0, ());
-  CLLocation * locationInfo = locations.lastObject;
   location::GpsInfo gpsInfo;
   for (CLLocation * location in locations)
   {
-    gpsInfo = location_util::gpsInfoFromLocation(location, source);
+    gpsInfo = location_util::gpsInfoFromLocation(location);
     GpsTracker::Instance().OnLocationUpdated(gpsInfo);
   }
   GetFramework().OnLocationUpdate(gpsInfo);
 
+  CLLocation * locationInfo = locations.lastObject;
   self.lastLocationInfo = locationInfo;
-  self.locationSource = source;
   for (Observer observer in self.observers)
     if ([observer respondsToSelector:@selector(onLocationUpdate:)])
       [observer onLocationUpdate:locationInfo];
@@ -360,7 +349,6 @@ void setShowLocationAlert(BOOL needShow)
 {
   LOG(LINFO, ("MyPositionMode updated to", DebugPrint(mode)));
   MWMLocationManager * manager = [self manager];
-  [manager.predictor setMyPositionMode:mode];
   [manager processLocationStatus:manager.lastLocationStatus];
   if ([MWMRouter isRoutingActive])
   {
@@ -395,20 +383,6 @@ void setShowLocationAlert(BOOL needShow)
 {
   setShowLocationAlert(YES);
   [self.manager processLocationStatus:self.manager.lastLocationStatus];
-}
-
-#pragma mark - Prediction
-
-- (MWMLocationPredictor *)predictor
-{
-  if (!_predictor)
-  {
-    __weak MWMLocationManager * weakSelf = self;
-    _predictor = [[MWMLocationPredictor alloc] initWithOnPredictionBlock:^(CLLocation * location) {
-      [weakSelf onLocationUpdates:@[location] source:location::EPredictor];
-    }];
-  }
-  return _predictor;
 }
 
 #pragma mark - Device notifications
@@ -538,7 +512,6 @@ void setShowLocationAlert(BOOL needShow)
     return;
 
   self.lastLocationStatus = MWMLocationStatusNoError;
-  self.locationSource = location::EAppleNative;
   [self processLocationUpdates:validLocations];
 }
 

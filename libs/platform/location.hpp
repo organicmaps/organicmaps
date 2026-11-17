@@ -46,7 +46,6 @@ enum TLocationSource
   EGoogle,
   ETizen,  // Deprecated but left here for backward compatibility.
   EGeoClue2,
-  EPredictor,
   EUser,
   EGeoClue
 };

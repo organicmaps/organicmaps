@@ -2902,20 +2902,6 @@ UserMark const * Framework::FindUserMarkInTapPosition(place_page::BuildInfo cons
   return mark;
 }
 
-void Framework::PredictLocation(double & lat, double & lon, double accuracy, double bearing, double speed,
-                                double elapsedSeconds)
-{
-  double offsetInM = speed * elapsedSeconds;
-  double angle = math::DegToRad(90.0 - bearing);
-
-  m2::PointD mercatorPt = mercator::MetersToXY(lon, lat, accuracy).Center();
-  mercatorPt = mercator::GetSmPoint(mercatorPt, offsetInM * cos(angle), offsetInM * sin(angle));
-  // GetSmPoint may return extended coordinates past the antimeridian.
-  // Wrap back to [-180, 180] so callers (e.g. iOS CLLocation) get valid longitude.
-  lon = mercator::XToLon(mercator::WrapX(mercatorPt.x));
-  lat = mercator::YToLat(mercatorPt.y);
-}
-
 StringsBundle const & Framework::GetStringsBundle()
 {
   return m_stringsBundle;

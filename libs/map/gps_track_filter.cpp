@@ -71,7 +71,8 @@ void GpsTrackFilter::Process(GpsVectorT const & inPoints, GpsVectorT & outPoints
 
   for (location::GpsInfo const & currInfo : inPoints)
   {
-    if (currInfo.m_source == location::EPredictor || !currInfo.HasSpeed())
+    // Jump filtering needs the previous fix's speed to estimate acceleration.
+    if (!currInfo.HasSpeed())
       continue;
 
     // A replayed fix (same time and position) must not enter the history: IsGoodVector() would take a zero
