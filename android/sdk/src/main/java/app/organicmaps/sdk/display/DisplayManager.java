@@ -105,7 +105,10 @@ public class DisplayManager
       if (isDeviceConnected())
         changeDisplay(DisplayType.Device);
       else
+      {
+        // No phone host to notify; select its display for the next launch.
         mCurrentDisplayType = DisplayType.Device;
+      }
     }
   }
 
