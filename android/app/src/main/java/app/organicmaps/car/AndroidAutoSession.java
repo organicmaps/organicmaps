@@ -61,9 +61,9 @@ public final class AndroidAutoSession extends CarAppSessionBase implements Displ
 
     if (DownloaderHelpers.isWorldMapsDownloadNeeded(mOrganicMapsContext.getFlavor()))
     {
-      mScreenManager.push(new DownloadMapsScreenBuilder(getCarContext(), mOrganicMapsContext)
-                              .setDownloaderType(DownloadMapsScreenBuilder.DownloaderType.FirstLaunch)
-                              .build());
+      screensStack.add(new DownloadMapsScreenBuilder(getCarContext(), mOrganicMapsContext)
+                           .setDownloaderType(DownloadMapsScreenBuilder.DownloaderType.FirstLaunch)
+                           .build());
     }
 
     if (!LocationUtils.checkFineLocationPermission(getCarContext()))
