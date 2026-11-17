@@ -102,8 +102,10 @@ public class DisplayManager
     {
       mCar.destroy();
       mCar = null;
-      if (isDeviceConnected() && !isDeviceDisplayUsed())
+      if (isDeviceConnected())
         changeDisplay(DisplayType.Device);
+      else
+        mCurrentDisplayType = DisplayType.Device;
     }
   }
 
