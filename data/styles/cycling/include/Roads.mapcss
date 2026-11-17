@@ -1,0 +1,102 @@
+/* Keep here changes of the base map style file only. */
+@import("../../default/include/Roads.mapcss");
+
+/* Ordinary tracks keep Default's later visibility and subdued appearance.
+   Only dedicated cycleways and designated shared paths get the cycling accent. */
+
+/* Retain the base motorway/trunk visibility at z6 for regional orientation. At
+   z7-14, de-emphasize their geometry together with the suppressed labels. */
+line|z7-14[highway=motorway],
+line|z7-14[highway=trunk],
+line|z10-14[highway=motorway_link],
+line|z10-14[highway=trunk_link],
+{opacity: 0.4;}
+
+line|z7-14[highway=motorway]::bridgewhite,
+line|z7-14[highway=motorway]::bridgeblack,
+line|z7-14[highway=trunk]::bridgewhite,
+line|z7-14[highway=trunk]::bridgeblack,
+line|z10-14[highway=motorway_link]::bridgewhite,
+line|z10-14[highway=motorway_link]::bridgeblack,
+line|z10-14[highway=trunk_link]::bridgewhite,
+line|z10-14[highway=trunk_link]::bridgeblack,
+{casing-opacity: 0.4;}
+
+line|z7-14[highway=motorway][tunnel?],
+line|z7-14[highway=trunk][tunnel?],
+line|z10-14[highway=motorway_link][tunnel?],
+line|z10-14[highway=trunk_link][tunnel?],
+{opacity: 0.4; casing-opacity: 0.4;}
+
+/* Highlight cycling infrastructure from overview zooms. */
+line|z11-[highway=cycleway],
+line|z12-[highway=path][bicycle=designated]::cycleline,
+line|z13-[highway=footway][bicycle=designated]::cycleline,
+{color: @cycleway;}
+
+line|z11[highway=cycleway],
+{width: 0.9;}
+line|z12[highway=cycleway],
+{width: 1.1;}
+line|z13[highway=cycleway],
+{width: 1.3;}
+line|z14[highway=cycleway],
+{width: 1.6;}
+line|z15[highway=cycleway],
+{width: 1.9;}
+line|z16-17[highway=cycleway],
+{width: 2.3;}
+line|z18-[highway=cycleway],
+{width: 2.8;}
+
+/* Extend designated paths without promoting ordinary footpaths and tracks.
+   Keep a dashed foreground so shared paths remain distinct from cycleways. */
+line|z12-13[highway=path][bicycle=designated],
+{color: @path; opacity: 0.6; dashes: 3.5,2.7;}
+line|z12[highway=path][bicycle=designated],
+{width: 0.7;}
+line|z13[highway=path][bicycle=designated],
+{width: 0.8;}
+line|z13-14[highway=footway][bicycle=designated],
+{color: @footway; opacity: 0.6; dashes: 3.5,2.7;}
+line|z13[highway=footway][bicycle=designated],
+{width: 0.8;}
+line|z14[highway=footway][bicycle=designated],
+{width: 1.0;}
+
+line|z12[highway=path][bicycle=designated]::cycleline,
+{width: 1.0;}
+line|z13[highway=path][bicycle=designated]::cycleline,
+line|z13[highway=footway][bicycle=designated]::cycleline,
+{width: 1.1;}
+line|z14[highway=path][bicycle=designated]::cycleline,
+line|z14[highway=footway][bicycle=designated]::cycleline,
+{width: 1.3;}
+line|z15[highway=path][bicycle=designated]::cycleline,
+line|z15[highway=footway][bicycle=designated]::cycleline,
+{width: 1.5;}
+line|z16-17[highway=path][bicycle=designated]::cycleline,
+line|z16-17[highway=footway][bicycle=designated]::cycleline,
+{width: 2.0;}
+line|z18-[highway=path][bicycle=designated]::cycleline,
+line|z18-[highway=footway][bicycle=designated]::cycleline,
+{width: 2.4;}
+
+/* A lower opacity keeps dense cycling networks readable at overview zooms. */
+line|z11[highway=cycleway],
+{opacity: 0.6;}
+line|z12[highway=cycleway],
+line|z12[highway=path][bicycle=designated]::cycleline,
+{opacity: 0.7;}
+line|z13[highway=cycleway],
+line|z13[highway=path][bicycle=designated]::cycleline,
+line|z13[highway=footway][bicycle=designated]::cycleline,
+{opacity: 0.8;}
+line|z14[highway=cycleway],
+line|z14[highway=path][bicycle=designated]::cycleline,
+line|z14[highway=footway][bicycle=designated]::cycleline,
+{opacity: 0.9;}
+line|z15-[highway=cycleway],
+line|z15-[highway=path][bicycle=designated]::cycleline,
+line|z15-[highway=footway][bicycle=designated]::cycleline,
+{opacity: 1;}

@@ -1,0 +1,9 @@
+@import("colors.mapcss");
+@import("../../default/include/defaults.mapcss");
+@import("../../default/include/Basemap.mapcss");
+@import("../../default/include/Basemap_label.mapcss");
+@import("../include/Roads.mapcss");
+@import("../include/Roads_label.mapcss");
+@import("../include/Icons.mapcss");
+@import("../../default/include/Subways.mapcss");
+@import("../../common/dark/gui_colors.mapcss");
