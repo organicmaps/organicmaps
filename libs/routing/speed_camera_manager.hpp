@@ -36,7 +36,7 @@ enum class SpeedCameraManagerMode
 //   3) Never
 // In |Auto| mode we warn about cameras only if user has a risk of exceeding speed limit.
 // In |Always| mode we warn about cameras no matter user exceed speed limit or not.
-// In |Never| we just cache cameras for highlighting in UI (in |Auto|, |Always| make highlighting too).
+// |Never| silences camera notifications and skips markers when selecting a camera; tracking still runs.
 //
 // Also we use different notifications for different zones, see |enum class Interval| for more details.
 class SpeedCameraManager
@@ -129,12 +129,7 @@ private:
 
   /// \brief Returns true if we should change |m_closestCamera| to |nextCamera|. False otherwise.
   bool NeedToUpdateClosestCamera(double passedDistanceMeters, double speedMpS, SpeedCameraOnRoute const & nextCamera);
-  bool IsHighlightedCameraExpired(double distToCameraMeters) const;
   bool IsCameraCloseEnough(double distToCameraMeters) const;
-
-  /// \brief Send stat to aloha.
-  void SendNotificationStat(double passedDistanceMeters, double speedMpS, SpeedCameraOnRoute const & camera);
-  void SendEnterZoneStat(double distToCameraMeters, double speedMpS, SpeedCameraOnRoute const & camera);
 
   bool BeepSignalAvailable() const { return m_makeBeepSignal && m_beepSignalCounter < kBeepSignalNumber; }
   bool VoiceSignalAvailable() const { return m_makeVoiceSignal && m_voiceSignalCounter < kVoiceNotificationNumber; }
@@ -143,10 +138,6 @@ private:
   SpeedCameraOnRoute m_closestCamera;
   uint32_t m_beepSignalCounter;
   uint32_t m_voiceSignalCounter;
-
-  // Equals true, after the first time user appear in |Interval::ImpactZone|.
-  // And false after |m_closestCamera| become invalid.
-  bool m_hasEnteredTheZone;
 
   // Flag of doing sound notification about camera on a way.
   bool m_makeBeepSignal;
@@ -169,8 +160,6 @@ private:
 
   DECLARE_THREAD_CHECKER(m_threadChecker);
 };
-
-std::string SpeedCameraManagerModeForStat(SpeedCameraManagerMode mode);
 
 std::string DebugPrint(SpeedCameraManager::Interval interval);
 std::string DebugPrint(SpeedCameraManagerMode mode);
