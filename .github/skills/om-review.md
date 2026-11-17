@@ -552,17 +552,16 @@ is not met.
 - Exception handling gaps
 - Integer overflow / underflow in arithmetic
 
-**Downloaded map and terrain files:**
+**Error handling:**
 
-- Apply the "Error handling policy" of `CLAUDE.md`, its single statement: the files are trusted
-  after the download verification, header checks may `MYTHROW`, and the regular tile records and
-  payloads use `ASSERT`. Do not flag missing runtime checks of the latter as defects.
+- Apply the [error handling policy](../../CLAUDE.md#error-handling-policy) in the root `CLAUDE.md`,
+  including the startup registration exception for downloaded maps and terrain.
 
 **Regression detection:**
 
 Look for these concrete patterns in the diff (removed `-` vs added `+` lines):
 
-- Removed `if` / `CHECK` / `ASSERT` guards without replacement
+- Removed a guard without preserving a required guarantee it enforced
 - Changed function return type (e.g., `bool` -> `void` loses error signaling)
 - Removed `const` qualifier from parameter or method
 - Added heap allocation (`new`, `make_shared`, `make_unique`) inside a loop that didn't have one
@@ -570,7 +569,7 @@ Look for these concrete patterns in the diff (removed `-` vs added `+` lines):
 - Changed default parameter values
 - Removed `[[nodiscard]]` attribute
 - Broadened a catch clause (e.g., specific exception -> `catch (...)`)
-- Removed or weakened error handling
+- Removed or weakened handling of an expected failure
 
 If a change looks like it might break callers, use `Grep` to find call sites and verify.
 
@@ -920,7 +919,6 @@ Compare the implementation against the stated intent from Step 2.5 (PR Summary):
 
 - 🔴 Critical — confirmed bug: a specific input or call sequence triggers wrong behavior
 - 🟠 Important — likely bug: edge case not handled, requires author to confirm
-- 🟡 Nit — defensive improvement: technically correct but fragile
 
 **Output format per finding:**
 
@@ -1366,8 +1364,7 @@ simpler memory model, but requires full copy on modification.
   the loop at line 72 computes `waypoints[i+1]` which accesses index 1 (out of bounds).
   Callers in `navigator.cpp:45` can pass a single-waypoint vector when user taps
   "navigate to" without intermediate stops.
-  🔴 Fix: Add `CHECK_GREATER(waypoints.size(), 1, ())` at function entry,
-  or handle the single-waypoint case as a direct route.
+  🔴 Build a direct route from the current position when the user selects a single destination.
 
 ### 🟡 Nits
 
@@ -1407,8 +1404,8 @@ simpler memory model, but requires full copy on modification.
 - ⚠️ `CalculateRoute()` in routing_manager.cpp — needs tests
 - ✅ `ParseResponse()` in routing_manager.cpp — has tests in routing_manager_tests.cpp
 - Suggested test cases:
-    - Test CalculateRoute with empty waypoints
-    - Test CalculateRoute with invalid coordinates
+    - Select a single destination and build a direct route
+    - Build a route through intermediate waypoints
 
 ### ✅ Passed Checks
 

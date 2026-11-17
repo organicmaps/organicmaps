@@ -64,7 +64,7 @@ JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetDrawScale(JNIEnv * en
   - `data class` instead of POJOs with manual `equals`/`hashCode`/`toString`
   - Scope functions (`let`, `apply`, `also`, `with`, `run`) for single, non-nested usage — avoid chaining or nesting them
   - Kotlin null-safety (`?.`, `?:`) instead of `@Nullable`/`@NonNull` annotations and manual null checks; avoid `!!` except where the value is provably non-null
-  - `require()` for argument validation, `check()` for state validation instead of manual `if (...) throw`
+  - Where the [error handling policy](../CLAUDE.md#error-handling-policy) calls for checks, prefer `require()` for arguments and `check()` for state
   - `val` by default; `var` only when mutation is necessary
   - `listOf`/`mapOf`/`setOf` (immutable) by default; mutable variants only when needed
   - Extension functions instead of static utility methods where it improves readability

@@ -160,33 +160,40 @@ Format: `[subsystem] Summary in imperative mood` (max 80 chars). Examples of sub
 ## Main focus
 - Follow the [Android SDK ownership and release policy](android/sdk/README.md#sdk-release-consumer-checks) when changing the SDK or its CI
 - On performance, simplicity, regressions, impact and code quality
-- Tests covering most/all corner cases or changes
+- Tests covering supported behavior, reachable boundary failures and actual regressions
 - Less code/cleaner code/less changes
 - Simple architecture and design for long-term maintenance
 
 ## Error handling policy
-- Downloaded files are verified on download when a hash is available, and trusted as-is otherwise --
-  they come from our servers. On-disk corruption afterwards is out of OM scope: crashing on corrupted
-  data is fine, do not harden the code against it. Exception: `Framework::RegisterAllMaps()` must
-  survive broken map files and invalid terrain blocks (logged and skipped, terrain asserts in Debug)
-  so the app still starts and bookmarks can be exported.
-- Basic format and constraint checks when reading file headers may reject data with `MYTHROW`.
-  Regular map/terrain tile records and payloads are trusted after download verification: use
-  debug-only `ASSERT` for their invariants, not runtime validation with `MYTHROW` or corruption
-  recovery. Keep required reads and decompression outside `ASSERT` (or use `VERIFY`).
-- Exception: `CHECK` (with the value and bound in the message) is appropriate in the once-per-file
-  header/prologue loading and on the section offsets a record reads from. The repeated per-element
-  decoding (coordinates, indices, counts) keeps `ASSERT`, even for stream-derived values.
-- Fail fast: use `ASSERT` liberally to catch developer mistakes in Debug. Asserts are compiled out of
-  Release for performance, so keep them side-effect free (`VERIFY` still evaluates its expression).
-  Use `CHECK` when the condition must also hold in Release, and don't add defensive fallbacks for
-  conditions that can only come from a bug.
+- Validate user input and untrusted external data once at the owning boundary. Handle expected
+  environmental failures and cancellations normally. Inspect producer guarantees before adding
+  checks, and rely on established preconditions, ownership, lifetimes and state invariants downstream.
+- Fix internal contract violations at their source, including those exposed by valid user actions.
+  Reserve recovery paths for expected failures.
+- Use `ASSERT` for useful Debug diagnostics on non-obvious invariants or bugs under investigation.
+  Use `CHECK` only when a concrete requirement calls for Release enforcement.
+- Keep `ASSERT` expressions side-effect free because Release omits them. Perform required work,
+  including reads and decompression, outside `ASSERT` or use `VERIFY`.
+- Use `math::is_finite` when a finiteness check is required under fast-math. Successful
+  `strings::to_double` and `strings::to_float` calls guarantee finite results. Recheck only if a
+  subsequent operation can invalidate that guarantee.
+- Verify download hashes when available and trust downloaded files from OM servers. Limit on-disk
+  corruption recovery to startup registration. `Framework::RegisterAllMaps()` must log and skip
+  broken map files and invalid terrain blocks so the app can start and export bookmarks. Keep Debug
+  assertions for terrain invariants.
+- Use `MYTHROW` for header format or constraint failures that registration must log and skip, such as
+  unsupported versions. In trusted readers, use `CHECK` in once-per-file header or prologue loading
+  and at section offsets and lengths when Release enforcement is needed to prevent out-of-bounds
+  reads or excessive allocations. Include the value and bound in the message.
+- Use Debug-only `ASSERT` for other invariant checks in regular map and terrain tile records and
+  payloads, including stream-derived coordinates, indices and counts decoded per element.
 
 ## Code review guidelines
 - Use the available GitHub tooling (`gh` CLI or GitHub MCP tools) to review pull requests, leave comments and approve changes
 - Check the code locally if the same PR/branch is checked out
 - Review code for bugs, correctness, maintainability, performance, and other issues
 - Review related changes and places where the code is used
+- Validate review findings and proposed changes with relevant checks or tests before reporting them
 - Review documentation and comments for clarity and accuracy
 - Propose unit tests if needed/relevant
 - Keep the architecture, design and implementation simple and clean, avoid overengineering and unnecessary complexity
