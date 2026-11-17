@@ -32,6 +32,46 @@ Points MakeWalk(size_t count)
   return points;
 }
 
+UNIT_TEST(GpsTrackFilter_RepeatedFixKeepsNextFix)
+{
+  Points const walk = MakeWalk(4);
+  GpsTrackFilter filter;
+  Points out;
+  filter.Process({walk[0], walk[1]}, out);
+  // The same fix again, e.g. the cached location replayed to a new location observer.
+  filter.Process({walk[1]}, out);
+  filter.Process({walk[2], walk[3]}, out);
+  TEST_EQUAL(out.size(), 4, ());
+  TEST_EQUAL(out[2].m_timestamp, walk[2].m_timestamp, ());
+}
+
+UNIT_TEST(GpsTrackFilter_SameTimeDistinctFixKeepsDirection)
+{
+  auto const fix = [](double timestamp, double east, double north)
+  { return Make(timestamp, north * kDegPerMeter, east * kDegPerMeter, 15.0); };
+  GpsTrackFilter filter;
+  Points out;
+  // The fix at 30 m has the same time as the one before it, but it is not a replay: it must stay in the
+  // history, or the turn at 54 m looks like a jump from 15 m.
+  filter.Process({fix(1000, 0, 0), fix(1001, 15, 0), fix(1001, 30, 0), fix(1011, 54, 8)}, out);
+  TEST_EQUAL(out.size(), 3, ());
+  TEST_EQUAL(out[2].m_timestamp, 1011, ());
+}
+
+UNIT_TEST(GpsTrackFilter_ClockRollbackAfterRejectedFix)
+{
+  auto const fix = [](double timestamp, double meters) { return Make(timestamp, 0.0, meters * kDegPerMeter, 15.0); };
+  GpsTrackFilter filter;
+  Points out;
+  // The fix at 20 m is rejected as too close. Then the clock goes back: the fix at 1050 is older than
+  // it and is dropped, but the fixes after it must be recorded.
+  filter.Process({fix(1000, 0), fix(1001, 15), fix(1100, 20), fix(1050, 35), fix(1051, 50), fix(1052, 65)}, out);
+  filter.Finalize(out);
+  TEST_EQUAL(out.size(), 4, ());
+  TEST_EQUAL(out[2].m_timestamp, 1051, ());
+  TEST_EQUAL(out[3].m_timestamp, 1052, ());
+}
+
 UNIT_TEST(GpsTrackFilter_FinalizeSkipsRepeatedFix)
 {
   GpsTrackFilter filter;
