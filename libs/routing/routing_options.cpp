@@ -38,7 +38,7 @@ RoutingOptions::RoadType RoutingOptions::GetSupportedOptions(VehicleType vehicle
   switch (vehicleType)
   {
   case VehicleType::Car: return Toll | Motorway | Ferry | Dirty;
-  case VehicleType::Bicycle:
+  case VehicleType::Bicycle: return Ferry | Dirty;
   case VehicleType::Pedestrian: return Ferry;
   case VehicleType::Transit: return 0;
   case VehicleType::Count: break;
@@ -123,7 +123,7 @@ bool RoutingOptions::Has(RoutingOptions::Road type) const
 
 // RoutingOptionsClassifier ---------------------------------------------------------------------------
 
-RoutingOptionsClassifier::RoutingOptionsClassifier()
+RoutingOptionsClassifier::RoutingOptionsClassifier(bool includeDirtyRoadClasses)
 {
   Classificator const & c = classif();
 
@@ -134,16 +134,18 @@ RoutingOptionsClassifier::RoutingOptionsClassifier()
 
       {{"route", "ferry"}, RoutingOptions::Road::Ferry},
 
-      {{"highway", "track"}, RoutingOptions::Road::Dirty},
-      {{"highway", "road"}, RoutingOptions::Road::Dirty},
       {{"psurface", "unpaved_bad"}, RoutingOptions::Road::Dirty},
       {{"psurface", "unpaved_good"}, RoutingOptions::Road::Dirty},
 
       {{"highway", "steps"}, RoutingOptions::Road::Steps}};
 
-  m_data.Reserve(std::size(types));
+  char const * const dirtyRoadClasses[] = {"track", "road"};
+  m_data.Reserve(std::size(types) + (includeDirtyRoadClasses ? std::size(dirtyRoadClasses) : 0));
   for (auto const & data : types)
     m_data.Insert(c.GetTypeByPath(data.first), data.second);
+  if (includeDirtyRoadClasses)
+    for (auto const * roadClass : dirtyRoadClasses)
+      m_data.Insert(c.GetTypeByPath({"highway", roadClass}), RoutingOptions::Dirty);
   m_data.FinishBuilding();
 }
 
@@ -157,10 +159,20 @@ std::optional<RoutingOptions::Road> RoutingOptionsClassifier::Get(uint32_t type)
   return {};
 }
 
-RoutingOptionsClassifier const & RoutingOptionsClassifier::Instance()
+RoutingOptionsClassifier const & RoutingOptionsClassifier::Instance(VehicleType vehicleType)
 {
-  static RoutingOptionsClassifier instance;
-  return instance;
+  // Road classes alone do not establish an unpaved surface for cycling.
+  static RoutingOptionsClassifier const withRoadClasses(true);
+  static RoutingOptionsClassifier const surfaceOnly(false);
+  switch (vehicleType)
+  {
+  case VehicleType::Bicycle: return surfaceOnly;
+  case VehicleType::Car:
+  case VehicleType::Pedestrian:
+  case VehicleType::Transit: return withRoadClasses;
+  case VehicleType::Count: break;
+  }
+  UNREACHABLE();
 }
 
 std::string DebugPrint(RoutingOptions const & routingOptions)

@@ -68,11 +68,13 @@ namespace
 class GeometryLoaderImpl final : public GeometryLoader
 {
 public:
-  GeometryLoaderImpl(MwmSet::MwmHandle const & handle, VehicleModelPtrT const & vehicleModel, bool loadAltitudes)
+  GeometryLoaderImpl(MwmSet::MwmHandle const & handle, VehicleType vehicleType, VehicleModelPtrT const & vehicleModel,
+                     bool loadAltitudes)
     : m_vehicleModel(vehicleModel)
     , m_source(handle)
     , m_altitudeLoader(*handle.GetValue())
     , m_loadAltitudes(loadAltitudes)
+    , m_optionsClassifier(RoutingOptionsClassifier::Instance(vehicleType))
   {
     m_attrsGetter.Load(handle.GetValue()->m_cont);
   }
@@ -86,7 +88,7 @@ public:
     if (m_loadAltitudes)
       altitudes = m_altitudeLoader.GetAltitudes(featureId, feature->GetPointsCount());
 
-    road.Load(*m_vehicleModel, *feature, altitudes.empty() ? nullptr : &altitudes, m_attrsGetter);
+    road.Load(*m_vehicleModel, *feature, altitudes.empty() ? nullptr : &altitudes, m_attrsGetter, m_optionsClassifier);
   }
 
   Maxspeed GetSavedMaxspeed(uint32_t featureId) override { return m_attrsGetter.m_maxSpeeds.GetMaxspeed(featureId); }
@@ -97,6 +99,7 @@ private:
   FeatureSource m_source;
   feature::AltitudeLoaderBase m_altitudeLoader;
   bool const m_loadAltitudes;
+  RoutingOptionsClassifier const & m_optionsClassifier;
 };
 
 class FileGeometryLoader final : public GeometryLoader
@@ -105,6 +108,7 @@ public:
   FileGeometryLoader(std::string const & fileName, VehicleModelPtrT const & vehicleModel)
     : m_featuresVector(fileName)
     , m_vehicleModel(vehicleModel)
+    , m_optionsClassifier(RoutingOptionsClassifier::Instance(VehicleType::Car))
   {
     m_attrsGetter.Load(m_featuresVector.GetContainer());
   }
@@ -116,15 +120,15 @@ public:
     feature->SetID({{}, featureId});
     feature->ParseGeometry(FeatureType::BEST_GEOMETRY);
 
-    // Note. If FileGeometryLoader is used for generation cross mwm section for bicycle or
-    // pedestrian routing |altitudes| should be used here.
-    road.Load(*m_vehicleModel, *feature, nullptr /* altitudes */, m_attrsGetter);
+    // Standalone car tools do not need altitudes.
+    road.Load(*m_vehicleModel, *feature, nullptr /* altitudes */, m_attrsGetter, m_optionsClassifier);
   }
 
 private:
   FeaturesVectorTest m_featuresVector;
   RoadAttrsGetter m_attrsGetter;
   VehicleModelPtrT m_vehicleModel;
+  RoutingOptionsClassifier const & m_optionsClassifier;
 };
 }  // namespace
 
@@ -159,7 +163,8 @@ RoadGeometry::RoadGeometry(bool oneWay, Maxspeed const & maxspeed, Points const 
 }
 
 void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType & feature,
-                        geometry::Altitudes const * altitudes, RoadAttrsGetter & attrs)
+                        geometry::Altitudes const * altitudes, RoadAttrsGetter & attrs,
+                        RoutingOptionsClassifier const & optionsClassifier)
 {
   size_t const count = feature.GetPointsCount();
   CHECK_GREATER(count, 1, ());
@@ -197,9 +202,8 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
     }
   }
 
-  auto const & optionsClassfier = RoutingOptionsClassifier::Instance();
   for (uint32_t type : types)
-    if (auto const it = optionsClassfier.Get(type))
+    if (auto const it = optionsClassifier.Get(type))
       m_routingOptions.Add(*it);
 
   m_junctions.clear();
@@ -311,12 +315,12 @@ Maxspeed GeometryLoader::GetSavedMaxspeed(uint32_t featureId)
 }
 
 // static
-std::unique_ptr<GeometryLoader> GeometryLoader::Create(MwmSet::MwmHandle const & handle,
+std::unique_ptr<GeometryLoader> GeometryLoader::Create(MwmSet::MwmHandle const & handle, VehicleType vehicleType,
                                                        VehicleModelPtrT const & vehicleModel, bool loadAltitudes)
 {
   CHECK(handle.IsAlive(), ());
   CHECK(vehicleModel, ());
-  return std::make_unique<GeometryLoaderImpl>(handle, vehicleModel, loadAltitudes);
+  return std::make_unique<GeometryLoaderImpl>(handle, vehicleType, vehicleModel, loadAltitudes);
 }
 
 // static
