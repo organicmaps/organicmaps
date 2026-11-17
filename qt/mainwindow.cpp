@@ -284,7 +284,7 @@ void MainWindow::CreateNavigationBar()
     // TODO(AB): Are icons drawable? Fix and make different icons for different layers.
     m_layers->addAction(QIcon(":/navig64/isolines.png"), Tr("button_layer_outdoor"),
                         std::bind(&MainWindow::OnLayerEnabled, this, OUTDOORS), true);
-    m_layers->setChecked(OUTDOORS, Framework::LoadOutdoorsEnabled());
+    m_layers->setChecked(OUTDOORS, GetFramework().GetMapStyleMode() == MapStyleMode::Outdoors);
 
     m_layers->addAction(QIcon(":/navig64/isolines.png"), Tr("button_layer_hiking"),
                         std::bind(&MainWindow::OnLayerEnabled, this, HIKING), true);
@@ -292,7 +292,7 @@ void MainWindow::CreateNavigationBar()
 
     m_layers->addAction(QIcon(":/navig64/isolines.png"), Tr("button_layer_cycling"),
                         std::bind(&MainWindow::OnLayerEnabled, this, CYCLING), true);
-    m_layers->setChecked(CYCLING, Framework::IsCyclingEnabled());
+    m_layers->setChecked(CYCLING, GetFramework().GetMapStyleMode() == MapStyleMode::Cycling);
 
     pToolBar->addWidget(m_layers->create());
     m_layers->setMainIcon(QIcon(":/navig64/layers.png"));
@@ -900,15 +900,16 @@ void MainWindow::SetLayerEnabled(LayerType type, bool enable)
     frm.SetIsolinesEnabled(enable);
     frm.SaveIsolinesEnabled(enable);
     break;
-  case OUTDOORS:
-    frm.SaveOutdoorsEnabled(enable);
-    if (enable)
-      m_pDrawWidget->SetMapStyleToOutdoors();
-    else
-      m_pDrawWidget->SetMapStyleToDefault();
-    break;
+  case OUTDOORS: frm.SetMapStyleModeEnabled(MapStyleMode::Outdoors, enable); break;
   case HIKING: frm.SetHikingEnabled(enable); break;
-  case CYCLING: frm.SetCyclingEnabled(enable); break;
+  case CYCLING: frm.SetMapStyleModeEnabled(MapStyleMode::Cycling, enable); break;
+  }
+
+  if (type == OUTDOORS || type == CYCLING)
+  {
+    auto const mode = frm.GetMapStyleMode();
+    m_layers->setChecked(OUTDOORS, mode == MapStyleMode::Outdoors);
+    m_layers->setChecked(CYCLING, mode == MapStyleMode::Cycling);
   }
 }
 

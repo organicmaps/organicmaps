@@ -4,16 +4,18 @@
 #include "indexer/map_style.hpp"
 #include "indexer/route_relation.hpp"
 
+#include <cstdint>
 #include <string>
 
 class FeatureType;
 
 namespace df
 {
+class Stylist;
+
 struct RelationsDrawSettings
 {
   static std::string_view constexpr kHikingEnabledKey = "HikingEnabled";
-  static std::string_view constexpr kCyclingEnabledKey = "CyclingEnabled";
 
   bool hiking : 1 = false;
   bool cycling : 1 = false;
@@ -21,10 +23,16 @@ struct RelationsDrawSettings
   bool dark : 1 = false;
 
   void Load(MapStyle style);
+  static RelationsDrawSettings ForTile(MapStyle style, int zoom);
 
   bool IsEmpty() const { return !hiking && !cycling && !PT; }
+  bool MatchHiking(feature::RouteRelationBase::Type type) const;
+  bool MatchCycling(feature::RouteRelationBase::Type type) const;
   bool MatchHikingOrCycling(feature::RouteRelationBase::Type type) const;
 };
+
+Stylist MakeLineStylist(FeatureType & f, uint8_t zoom, int8_t deviceLang, MapStyle style,
+                        RelationsDrawSettings const & settings);
 
 class RelationsDrawInfo
 {
@@ -39,7 +47,6 @@ public:
 
   explicit RelationsDrawInfo(RelationsDrawSettings const & sett) : m_sett(sett) {}
 
-  bool HasHikingOrCycling(FeatureType & ft) const;
   void Init(FeatureType & ft);
 
   template <class FnT>

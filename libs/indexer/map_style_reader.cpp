@@ -27,6 +27,8 @@ std::string GetStyleRulesFamily(MapStyle mapStyle)
   case MapStyleVehicleLight: return "vehicle";
   case MapStyleOutdoorsLight:
   case MapStyleOutdoorsDark: return "outdoors";
+  case MapStyleCyclingLight:
+  case MapStyleCyclingDark: return "cycling";
   case MapStyleMerged: return "merged";
 
   case MapStyleCount: break;
@@ -52,20 +54,9 @@ std::string GetStyleResourcesSuffix(MapStyle mapStyle)
 #else
   // We use the same resources for all light/day and dark/night styles
   // to avoid textures duplication and package size increasing.
-  switch (mapStyle)
-  {
-  case MapStyleDefaultDark:
-  case MapStyleVehicleDark:
-  case MapStyleOutdoorsDark: return kSuffixDark;
-  case MapStyleDefaultLight:
-  case MapStyleVehicleLight:
-  case MapStyleOutdoorsLight: return kSuffixLight;
-  case MapStyleMerged: return {};
-
-  case MapStyleCount: break;
-  }
-  LOG(LWARNING, ("Unknown map style", mapStyle));
-  return kSuffixLight;
+  if (mapStyle == MapStyleMerged)
+    return {};
+  return MapStyleIsDark(mapStyle) ? kSuffixDark : kSuffixLight;
 #endif  // BUILD_DESIGNER
 }
 }  // namespace
@@ -119,7 +110,7 @@ size_t StyleReader::GetDrawingRulesVariant(MapStyle mapStyle) const
 #else
   // Family files store the light variant at index 0 and dark at index 1 (see merge_variants.py);
   // the single-variant merged file only has index 0.
-  return (mapStyle != MapStyleMerged && MapStyleIsDark(mapStyle)) ? 1 : 0;
+  return MapStyleIsDark(mapStyle) ? 1 : 0;
 #endif
 }
 

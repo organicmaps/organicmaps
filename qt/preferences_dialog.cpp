@@ -174,7 +174,7 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
     nightModeRadioBox->setLayout(layout);
 
     NightMode nightModeSetting = GetNightModeSetting();
-    if (nightModeSetting == NightMode::Off && MapStyleIsDark(framework.GetMapStyle()))
+    if (nightModeSetting == NightMode::Off && MapStyleIsDark(framework.GetRequestedMapStyle()))
       nightModeSetting = NightMode::On;
 
     if (QAbstractButton * button = nightModeGroup->button(static_cast<int>(nightModeSetting)))
@@ -190,13 +190,10 @@ PreferencesDialog::PreferencesDialog(QWidget * parent, Framework & framework)
       auto const mode = static_cast<NightMode>(i);
       SetNightModeSetting(mode);
 
-      auto const currStyle = framework.GetMapStyle();
-      switch (mode)
-      {
-      case NightMode::Off: framework.SetMapStyle(GetLightMapStyleVariant(currStyle)); break;
-      case NightMode::On: framework.SetMapStyle(GetDarkMapStyleVariant(currStyle)); break;
-      case NightMode::System: qt::common::ApplySystemNightMode(framework); break;
-      }
+      if (mode == NightMode::System)
+        qt::common::ApplySystemNightMode(framework);
+      else
+        framework.SetMapStyleForCurrentMode(mode == NightMode::On, MapStyleIsVehicle(framework.GetRequestedMapStyle()));
     });
   }
 

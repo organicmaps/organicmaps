@@ -129,11 +129,7 @@ void ApplySystemNightMode(Framework & framework)
   if (style_utils::GetNightModeSetting() != style_utils::NightMode::System)
     return;
 
-  auto const currentStyle = framework.GetMapStyle();
-  auto const useDark = IsSystemInDarkMode();
-  auto const desiredStyle = useDark ? GetDarkMapStyleVariant(currentStyle) : GetLightMapStyleVariant(currentStyle);
-  if (desiredStyle != currentStyle)
-    framework.SetMapStyle(desiredStyle);
+  framework.SetMapStyleForCurrentMode(IsSystemInDarkMode(), MapStyleIsVehicle(framework.GetRequestedMapStyle()));
 }
 
 }  // namespace qt::common

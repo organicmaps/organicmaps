@@ -10,7 +10,6 @@ import androidx.annotation.UiContext;
 import androidx.appcompat.app.AppCompatDelegate;
 import app.organicmaps.MwmApplication;
 import app.organicmaps.downloader.DownloaderStatusIcon;
-import app.organicmaps.sdk.Framework;
 import app.organicmaps.sdk.MapStyle;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.Config;
@@ -66,33 +65,20 @@ public enum ThemeSwitcher
   }
 
   /**
-   * Updates the map's visual style to match the current application theme and
-   * navigation mode. Call this method when any of the following conditions change:
-   *
-   * <ul>
-   *   <li>Application theme (light/dark mode)</li>
-   *   <li>Navigation mode</li>
-   *   <li>Outdoor map layer availability</li>
-   * </ul>
-   *
-   * <p><b>Important:</b> This method must be called on the UI thread and only
-   * when the map is rendered and visible on the screen. Incorrect parameters or calling this
-   * method at the wrong time will cause UI freezing.</p>
-   *
+   * Synchronizes the map style with the phone's appearance and navigation state.
    * @param context The activity context currently displaying the map
-   * @param isRendererActive Whether the OpenGL renderer is currently active
-   *                         and the map is visible on screen
+   * @param isRendererActive Whether the renderer is currently displaying the map
    *
    * @see #synchronizeApplicationTheme()
    */
   @androidx.annotation.UiThread
   public void synchronizeMapStyle(@UiContext @NonNull Context context, boolean isRendererActive)
   {
-    var isDarkMode = ThemeUtils.isDarkTheme(context);
-    var mapStyle = calculateMapStyle(isDarkMode);
-
-    if (MapStyle.get() != mapStyle)
-      setMapStyle(mapStyle, isRendererActive);
+    // The car display supplies its own appearance to the shared renderer.
+    if (MwmApplication.from(mContext).getDisplayManager().isCarDisplayUsed())
+      return;
+    MapStyle.setForCurrentMode(ThemeUtils.isDarkTheme(context), RoutingController.get().isVehicleNavigation(),
+                               isRendererActive);
   }
 
   private void setTheme(@NonNull Config.UiTheme theme)
@@ -125,29 +111,5 @@ public enum ThemeSwitcher
       DownloaderStatusIcon.clearCache();
     }
     mLatestTheme = theme;
-  }
-
-  private MapStyle calculateMapStyle(boolean dark)
-  {
-    if (RoutingController.get().isVehicleNavigation())
-      return dark ? MapStyle.VehicleDark : MapStyle.VehicleClear;
-    else if (Framework.nativeIsOutdoorsLayerEnabled())
-      return dark ? MapStyle.OutdoorsDark : MapStyle.OutdoorsClear;
-    else
-      return dark ? MapStyle.Dark : MapStyle.Clear;
-  }
-
-  private void setMapStyle(MapStyle style, boolean isRendererActive)
-  {
-    // Because of the distinct behavior in auto theme, Android Auto employs its own mechanism for theme switching.
-    // For the Android Auto theme switcher, please consult the app.organicmaps.car.util.ThemeUtils module.
-    if (MwmApplication.from(mContext).getDisplayManager().isCarDisplayUsed())
-      return;
-    // If rendering is not active we can mark map style, because all graphics
-    // will be recreated after rendering activation.
-    if (isRendererActive)
-      MapStyle.set(style);
-    else
-      MapStyle.mark(style);
   }
 }

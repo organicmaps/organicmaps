@@ -30,7 +30,8 @@ UNIT_TEST(TerrainIsolinesStyle)
     GetStyleReader().SetCurrentStyle(kDefaultMapStyle);
     classificator::Load();
   });
-  for (auto const style : {MapStyleDefaultLight, MapStyleDefaultDark, MapStyleOutdoorsLight, MapStyleOutdoorsDark})
+  for (auto const style : {MapStyleDefaultLight, MapStyleDefaultDark, MapStyleOutdoorsLight, MapStyleOutdoorsDark,
+                           MapStyleCyclingLight, MapStyleCyclingDark})
   {
     GetStyleReader().SetCurrentStyle(style);
     classificator::Load();
@@ -85,7 +86,7 @@ UNIT_TEST(TerrainIsolinesStyle)
             TEST(text->primary.has_value(), (zoom, altitude));
         }
       }
-      // Both tested styles do show isolines (and the zero line) somewhere in the range.
+      // All tested styles do show isolines (and the zero line) somewhere in the range.
       TEST(seenVisible, (static_cast<int>(style), static_cast<int>(units)));
       TEST(seenZero, (static_cast<int>(style), static_cast<int>(units)));
     }
