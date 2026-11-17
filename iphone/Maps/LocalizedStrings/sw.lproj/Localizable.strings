@@ -767,6 +767,9 @@
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Epuka vivuko vya feri";
+
+/* Routing option to avoid stairs on walking and cycling routes */
+"avoid_steps" = "Epuka ngazi";
 "avoid_motorways" = "Epuka barabara";
 "unable_to_calc_alert_title" = "Haiwezi kukokotoa njia";
 "unable_to_calc_alert_subtitle" = "Bahati mbaya hatukuweza kupata njia labda kwa sababu ya machaguo msingi. Tafadhali badili mipangilio na jaribu tena";

@@ -767,6 +767,9 @@
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Evita l-laneċ";
+
+/* Routing option to avoid stairs on walking and cycling routes */
+"avoid_steps" = "Evita t-taraġ";
 "avoid_motorways" = "Evita l-passaġġi ħielsa";
 "unable_to_calc_alert_title" = "Ir-rotta ma' tistax tiġi kalkulata";
 "unable_to_calc_alert_subtitle" = "Ma setgħetx tinstab rotta. Dan jista’ jkun ikkawżat mill-għażliet tar-rotta tiegħek jew mil-informazzjoni mhux kompluta ta’ OpenStreetMap. Ibdel l-għażliet tar-rotta tiegħek u erġa ’pprova.";

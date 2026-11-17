@@ -661,6 +661,8 @@
     <string name="avoid_unpaved">Vengti negrįstų kelių</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">Vengti keltų</string>
+    <!-- Routing option to avoid stairs on walking and cycling routes -->
+    <string name="avoid_steps">Vengti laiptų</string>
     <string name="avoid_motorways">Vengti greitkelių</string>
     <string name="unable_to_calc_alert_title">Nepavyko apskaičiuoti maršruto</string>
     <string name="unable_to_calc_alert_subtitle">Deja, nepavyko rasti maršruto. Tikėtina, jog taip yra dėl jūsų pasirinktų parinkčių arba trūkstamų „OpenStreetMap“ duomenų. Pakeiskite parinktis ir bandykite dar kartą.</string>

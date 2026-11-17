@@ -655,6 +655,8 @@
     <string name="avoid_unpaved">Избягвайте неасфалтирани пътища</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">Избягване на преходи с ферибот</string>
+    <!-- Routing option to avoid stairs on walking and cycling routes -->
+    <string name="avoid_steps">Избягване на стълби</string>
     <string name="avoid_motorways">Избягвайте магистралата</string>
     <string name="unable_to_calc_alert_title">Не е възможнос изчисляване на маршрут</string>
     <string name="unable_to_calc_alert_subtitle">За съжаление не успяхме да намерим маршрут, вероятно поради избраните от вас параметри. Моля, променете настройките и опитайте отново.</string>

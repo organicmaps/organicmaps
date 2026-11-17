@@ -767,6 +767,9 @@
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Forðast ferjur";
+
+/* Routing option to avoid stairs on walking and cycling routes */
+"avoid_steps" = "Forðast stiga";
 "avoid_motorways" = "Forðast hraðbrautir";
 "unable_to_calc_alert_title" = "Tókst ekki að reikna leið";
 "unable_to_calc_alert_subtitle" = "Leið fannst ekki. Það gæti stafað af stillingum þínum fyrir leiðagerð eða ófullkomnum gögnum í OpenStreetMap. Breyttu stillingum þínum fyrir leiðagerð og prófaðu aftur.";
