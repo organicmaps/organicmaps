@@ -57,10 +57,7 @@ void GpsTrackFilter::StoreMinHorizontalAccuracy(double value)
   settings::Set(kMinHorizontalAccuracyKey, value);
 }
 
-GpsTrackFilter::GpsTrackFilter()
-  : m_minAccuracy(kMinHorizontalAccuracyMeters)
-  , m_countLastInfo(0)
-  , m_countAcceptedInfo(0)
+GpsTrackFilter::GpsTrackFilter() : m_minAccuracy(kMinHorizontalAccuracyMeters)
 {
   settings::TryGet(kMinHorizontalAccuracyKey, m_minAccuracy);
 }
@@ -68,7 +65,6 @@ GpsTrackFilter::GpsTrackFilter()
 void GpsTrackFilter::Reset()
 {
   m_countLastInfo = 0;
-  m_countAcceptedInfo = 0;
 }
 
 void GpsTrackFilter::Process(GpsVectorT const & inPoints, GpsVectorT & outPoints)
@@ -102,10 +98,10 @@ void GpsTrackFilter::Process(GpsVectorT const & inPoints, GpsVectorT & outPoints
         continue;
     }
 
-    if (m_countAcceptedInfo == 0 || (IsGoodPoint(currInfo) && (m_countLastInfo < 2 || IsGoodVector(currInfo))))
+    if (m_countLastInfo == 0 || (IsGoodPoint(currInfo) && (m_countLastInfo < 2 || IsGoodVector(currInfo))))
     {
       outPoints.emplace_back(currInfo);
-      AddLastAcceptedInfo(currInfo);
+      m_lastAcceptedInfo = currInfo;
     }
 
     AddLastInfo(currInfo);
@@ -123,7 +119,7 @@ void GpsTrackFilter::Finalize(GpsVectorT & outPoints)
     if (info.m_timestamp > lastAccepted.m_timestamp && !IsSamePoint(lastAccepted, info))
     {
       outPoints.push_back(info);
-      AddLastAcceptedInfo(info);
+      m_lastAcceptedInfo = info;
     }
   }
 }
@@ -194,8 +190,8 @@ location::GpsInfo const & GpsTrackFilter::GetLastInfo() const
 
 location::GpsInfo const & GpsTrackFilter::GetLastAcceptedInfo() const
 {
-  ASSERT_GREATER(m_countAcceptedInfo, 0, ());
-  return m_lastAcceptedInfo[0];
+  ASSERT_GREATER(m_countLastInfo, 0, ());
+  return m_lastAcceptedInfo;
 }
 
 void GpsTrackFilter::AddLastInfo(location::GpsInfo const & info)
@@ -203,11 +199,4 @@ void GpsTrackFilter::AddLastInfo(location::GpsInfo const & info)
   m_lastInfo[1] = m_lastInfo[0];
   m_lastInfo[0] = info;
   ++m_countLastInfo;
-}
-
-void GpsTrackFilter::AddLastAcceptedInfo(location::GpsInfo const & info)
-{
-  m_lastAcceptedInfo[1] = m_lastAcceptedInfo[0];
-  m_lastAcceptedInfo[0] = info;
-  ++m_countAcceptedInfo;
 }
