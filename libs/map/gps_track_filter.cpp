@@ -92,6 +92,16 @@ void GpsTrackFilter::Process(GpsVectorT const & inPoints, GpsVectorT & outPoints
     if (!currInfo.HasSpeed())
       continue;
 
+    // A replayed fix (same time and position) must not enter the history: IsGoodVector() would take a zero
+    // direction from it and reject the next fix. Other fixes still do, also an older one, so the filter follows
+    // a backward clock correction.
+    if (m_countLastInfo > 0)
+    {
+      auto const & lastInfo = GetLastInfo();
+      if (currInfo.m_timestamp == lastInfo.m_timestamp && currInfo.GetLatLon() == lastInfo.GetLatLon())
+        continue;
+    }
+
     if (m_countAcceptedInfo == 0 || (IsGoodPoint(currInfo) && (m_countLastInfo < 2 || IsGoodVector(currInfo))))
     {
       outPoints.emplace_back(currInfo);
