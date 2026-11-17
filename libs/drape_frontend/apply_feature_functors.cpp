@@ -716,8 +716,7 @@ ApplyLineFeatureGeometry::ApplyLineFeatureGeometry(Params const & params, Featur
   , m_builder(params)
   , m_isIsoline(isIsoline)
 {
-  if (m_params.IsRelationRoutes())
-    m_relsInfo.Init(f);
+  m_relsInfo.Init(f);
 }
 
 void ApplyLineFeatureGeometry::BuildGeometry(int zoomLevel)

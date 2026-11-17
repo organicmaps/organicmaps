@@ -142,6 +142,10 @@ private:
   // Must be first member in Framework and must be destroyed first in Framework destructor.
   std::unique_ptr<Platform::ThreadRunner> m_threadRunner = std::make_unique<Platform::ThreadRunner>();
 
+  MapStyleMode m_mapStyleMode = MapStyleMode::Default;
+  // A debug preview changes the rendered style without changing the platform's request.
+  MapStyle m_requestedMapStyle = kDefaultMapStyle;
+
 protected:
   using TDrapeFunction = std::function<void(df::DrapeEngine *)>;
 
@@ -497,8 +501,11 @@ public:
   static ElevationInfo const & GetTrackRecordingElevationInfo();
 
   void SetMapStyle(MapStyle mapStyle);
-  void MarkMapStyle(MapStyle mapStyle);
+  void SetMapStyleForCurrentMode(bool dark, bool vehicleStyle, bool updateRenderer = true);
   MapStyle GetMapStyle() const;
+  MapStyle GetRequestedMapStyle() const { return m_requestedMapStyle; }
+  MapStyleMode GetMapStyleMode() const { return m_mapStyleMode; }
+  void SetMapStyleModeEnabled(MapStyleMode mode, bool enabled);
 
   void SetupMeasurementSystem();
 
@@ -664,6 +671,10 @@ public:
   url_scheme::InAppFeatureHighlightRequest GetInAppFeatureHighlightRequest() const;
 
 private:
+  void MarkMapStyle(MapStyle mapStyle);
+  void PublishMapStyle(MapStyle mapStyle);
+  void RefreshMapStyle();
+
   /// @returns true if command was handled by editor.
   bool ParseEditorDebugCommand(search::SearchParams const & params);
 
@@ -817,14 +828,8 @@ public:
   // Switches the isolines layer and evaluates its terrain hint for the current viewport.
   void SetIsolinesEnabled(bool enabled);
 
-  static bool LoadOutdoorsEnabled();
-  static void SaveOutdoorsEnabled(bool enabled);
-
   static bool IsHikingEnabled();
   void SetHikingEnabled(bool enabled);
-
-  static bool IsCyclingEnabled();
-  void SetCyclingEnabled(bool enabled);
 
   static dp::ApiVersion LoadPreferredGraphicsAPI();
   static void SavePreferredGraphicsAPI(dp::ApiVersion apiVersion);

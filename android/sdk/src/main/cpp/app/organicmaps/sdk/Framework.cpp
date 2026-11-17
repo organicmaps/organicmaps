@@ -420,19 +420,10 @@ void Framework::ResumeSurfaceRendering()
   LOG(LINFO, ("Resume surface rendering."));
 }
 
-void Framework::SetMapStyle(MapStyle mapStyle)
+void Framework::SetMapStyleForCurrentMode(bool dark, bool vehicleStyle, bool isRendererActive)
 {
-  m_work.SetMapStyle(mapStyle);
-}
-
-void Framework::MarkMapStyle(MapStyle mapStyle)
-{
-  // In case of Vulkan rendering we don't recreate geometry and textures data, so
-  // we need use SetMapStyle instead of MarkMapStyle in all cases.
-  if (m_vulkanContextFactory)
-    m_work.SetMapStyle(mapStyle);
-  else
-    m_work.MarkMapStyle(mapStyle);
+  // Vulkan retains geometry and textures across surface recreation.
+  m_work.SetMapStyleForCurrentMode(dark, vehicleStyle, isRendererActive || m_vulkanContextFactory);
 }
 
 MapStyle Framework::GetMapStyle() const
@@ -1707,12 +1698,12 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsIsolinesLayerEnabl
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetOutdoorsLayerEnabled(JNIEnv * env, jclass, jboolean enabled)
 {
-  Framework::SaveOutdoorsEnabled(enabled);
+  frm()->SetMapStyleModeEnabled(MapStyleMode::Outdoors, enabled);
 }
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsOutdoorsLayerEnabled(JNIEnv * env, jclass)
 {
-  return static_cast<jboolean>(Framework::LoadOutdoorsEnabled());
+  return static_cast<jboolean>(frm()->GetMapStyleMode() == MapStyleMode::Outdoors);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetHikingLayerEnabled(JNIEnv *, jclass, jboolean enabled)
@@ -1727,12 +1718,12 @@ JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsHikingLayerEnabled
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeSetCyclingLayerEnabled(JNIEnv *, jclass, jboolean enabled)
 {
-  frm()->SetCyclingEnabled(enabled);
+  frm()->SetMapStyleModeEnabled(MapStyleMode::Cycling, enabled);
 }
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeIsCyclingLayerEnabled(JNIEnv *, jclass)
 {
-  return static_cast<jboolean>(frm()->IsCyclingEnabled());
+  return static_cast<jboolean>(frm()->GetMapStyleMode() == MapStyleMode::Cycling);
 }
 
 JNIEXPORT jboolean Java_app_organicmaps_sdk_Framework_nativeNeedUpdateForRoutes(JNIEnv *, jclass)

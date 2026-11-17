@@ -1,34 +1,69 @@
 #include "relations_draw_info.hpp"
 
+#include "drape_frontend/stylist.hpp"
+
 #include "indexer/feature.hpp"
 
 #include "platform/settings.hpp"
+
+#include <algorithm>
 
 namespace df
 {
 void RelationsDrawSettings::Load(MapStyle style)
 {
   hiking = settings::IsEnabled(kHikingEnabledKey);
-  cycling = settings::IsEnabled(kCyclingEnabledKey);
+  cycling = GetMapStyleMode(style) == MapStyleMode::Cycling;
   dark = MapStyleIsDark(style);
+}
+
+RelationsDrawSettings RelationsDrawSettings::ForTile(MapStyle style, int zoom)
+{
+  RelationsDrawSettings settings;
+  // Cycling connections are needed as soon as dedicated cycleways are shown at z11.
+  if (zoom < 11 || MapStyleIsVehicle(style))
+    return settings;
+  settings.Load(style);
+  settings.hiking = settings.hiking && zoom >= 12;
+  return settings;
+}
+
+bool RelationsDrawSettings::MatchHiking(feature::RouteRelationBase::Type type) const
+{
+  using RR = feature::RouteRelationBase;
+  return hiking && (type == RR::Type::Foot || type == RR::Type::Hiking);
+}
+
+bool RelationsDrawSettings::MatchCycling(feature::RouteRelationBase::Type type) const
+{
+  using RR = feature::RouteRelationBase;
+  return cycling && (type == RR::Type::Bicycle || type == RR::Type::MTB);
 }
 
 bool RelationsDrawSettings::MatchHikingOrCycling(feature::RouteRelationBase::Type type) const
 {
-  using RR = feature::RouteRelationBase;
-  return ((hiking && (type == RR::Type::Foot || type == RR::Type::Hiking)) ||
-          (cycling && (type == RR::Type::Bicycle || type == RR::Type::MTB)));
+  return MatchHiking(type) || MatchCycling(type);
+}
+
+Stylist MakeLineStylist(FeatureType & f, uint8_t zoom, int8_t deviceLang, MapStyle style,
+                        RelationsDrawSettings const & settings)
+{
+  auto const matchesRoute = [&](uint32_t relID)
+  { return settings.MatchHikingOrCycling(f.ReadRelation(relID).GetType()); };
+  if (settings.IsEmpty() || std::ranges::none_of(f.GetRelations(), matchesRoute))
+    return {f, zoom, deviceLang, style};
+
+  // Cycling keeps the selected style for visible infrastructure and borrows Outdoors for missing connections.
+  if (settings.cycling)
+  {
+    Stylist cycling(f, zoom, deviceLang, style);
+    if (!cycling.m_lineRules.empty())
+      return cycling;
+  }
+  return {f, zoom, deviceLang, settings.dark ? MapStyleOutdoorsDark : MapStyleOutdoorsLight};
 }
 
 dp::Color constexpr kDefaultRouteColor = dp::Color::Purple();
-
-bool RelationsDrawInfo::HasHikingOrCycling(FeatureType & ft) const
-{
-  for (uint32_t relID : ft.GetRelations())
-    if (m_sett.MatchHikingOrCycling(ft.ReadRelation(relID).GetType()))
-      return true;
-  return false;
-}
 
 void RelationsDrawInfo::Init(FeatureType & ft)
 {
