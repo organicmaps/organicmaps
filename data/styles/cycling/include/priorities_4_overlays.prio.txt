@@ -384,7 +384,7 @@ tourism-gallery                                     # icon z18- (also has captio
 === 4300
 
 amenity-charging_station-motorcar                   # WARNING: no style defined (the type will be not included into map data)
-amenity-fuel                                        # WARNING: no style defined (the type will be not included into map data)
+amenity-fuel                                        # icon z14- (also has caption(optional) z14-)
 === 4270
 
 highway-services                                    # icon z14- (also has caption(optional) z14-, area z14-)
@@ -1612,6 +1612,9 @@ leisure-swimming_pool-private                       # icon z17- (also has captio
 # tourism-attraction                                # caption(optional) z18- (also has icon z18-)
 # tourism-gallery                                   # caption(optional) z18- (also has icon z18-)
 # === -5700
+
+# amenity-fuel                                      # caption(optional) z14- (also has icon z14-)
+# === -5730
 
 # highway-services                                  # caption(optional) z14- (also has icon z14-, area z14-)
 # === -5750
