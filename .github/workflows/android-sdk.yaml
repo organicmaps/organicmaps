@@ -44,6 +44,9 @@ jobs:
         shell: bash
         run: echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
 
+      - name: Set up Gradle
+        uses: ./.github/actions/setup-gradle
+
       - name: Verify native libraries in the AAR are stripped
         shell: bash
         working-directory: android

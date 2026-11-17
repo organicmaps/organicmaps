@@ -76,6 +76,9 @@ jobs:
           SECURE_PROPERTIES: ${{ secrets.SECURE_PROPERTIES }}
           RELEASE_KEYSTORE: ${{ secrets.RELEASE_KEYSTORE }}
 
+      - name: Set up Gradle
+        uses: ./.github/actions/setup-gradle
+
       - name: Compile
         shell: bash
         working-directory: android
