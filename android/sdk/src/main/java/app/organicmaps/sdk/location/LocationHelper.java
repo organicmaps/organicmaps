@@ -10,6 +10,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.SystemClock;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresPermission;
@@ -25,6 +26,7 @@ import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.NetworkPolicy;
 import app.organicmaps.sdk.util.log.Logger;
+import java.util.concurrent.TimeUnit;
 import org.chromium.base.ObserverList;
 
 /**
@@ -32,9 +34,9 @@ import org.chromium.base.ObserverList;
  * Call from the main thread. The host owns runtime location permission requests and the policy for starting
  * and stopping polling. A background navigation host also owns its foreground service and notification.
  */
-public class LocationHelper implements BaseLocationProvider.Listener
+public class LocationHelper
 {
-  // Replaced 0 with 100ms. Seems like it is not working on Lineage, EOS, MicroG, ...
+  // Use a nonzero interval because some LineageOS, /e/OS, and microG setups stall with zero.
   // https://github.com/organicmaps/organicmaps/issues/11076
   // Probably https://github.com/organicmaps/organicmaps/issues/10133
   // Probably https://github.com/organicmaps/organicmaps/issues/9018
@@ -44,7 +46,11 @@ public class LocationHelper implements BaseLocationProvider.Listener
   private static final long INTERVAL_TRACK_RECORDING = 100;
 
   private static final long AGPS_EXPIRATION_TIME_MS = 16 * 60 * 60 * 1000; // 16 hours
-  private static final long LOCATION_UPDATE_TIMEOUT_MS = 30 * 1000; // 30 seconds
+  static final long LOCATION_UPDATE_TIMEOUT_MS = 30 * 1000; // 30 seconds
+  static final long FUSED_TASK_TIMEOUT_MS = 5000;
+  static final long FUSED_FIRST_FIX_TIMEOUT_MS = 15_000;
+  private static final long FUSED_STARTUP_TIMEOUT_MS = 2 * FUSED_TASK_TIMEOUT_MS + FUSED_FIRST_FIX_TIMEOUT_MS;
+  private static final long FUSED_FIX_TIMEOUT_NANOS = TimeUnit.MILLISECONDS.toNanos(LOCATION_UPDATE_TIMEOUT_MS);
 
   @NonNull
   private final Context mContext;
@@ -58,18 +64,30 @@ public class LocationHelper implements BaseLocationProvider.Listener
 
   @Nullable
   private Location mSavedLocation;
+  // Compare accuracy within one backend while retaining the displayed location across replacements.
+  @Nullable
+  private Location mLocationForFiltering;
   private MapObject mMyPosition;
   @NonNull
-  private final LocationProviderFactory mLocationProviderFactory = new LocationProviderFactory();
+  private final LocationProviderFactory mLocationProviderFactory;
   @NonNull
   private BaseLocationProvider mLocationProvider;
-  @Nullable
-  private BaseLocationProvider mOldLocationProvider;
+  private long mProviderGeneration;
+  private long mLocationRevision;
+  private boolean mSimulating;
   private long mInterval;
   private boolean mInFirstRun;
   private boolean mActive;
-  private final Handler mHandler;
+  private boolean mNativeFallback;
+  private long mFusedAcquisitionStartedNanos = -1;
+  private long mLastUsableFusedFixNanos = -1;
+  private long mFusedRequestStartedNanos = -1;
+  private long mFusedDeadlineNanos = -1;
+  @NonNull
+  private String mFusedDeadlineReason = "";
+  private final Handler mHandler = new Handler(Looper.getMainLooper());
   private final Runnable mLocationTimeoutRunnable = this::notifyLocationUpdateTimeout;
+  private final Runnable mFusedWatchdog = this::checkFusedDeadline;
 
   @NonNull
   private final GnssStatusCompat.Callback mGnssStatusCallback = new GnssStatusCompat.Callback() {
@@ -110,10 +128,197 @@ public class LocationHelper implements BaseLocationProvider.Listener
 
   public LocationHelper(@NonNull Context context, @NonNull SensorHelper sensorHelper)
   {
+    this(context, sensorHelper, new LocationProviderFactory());
+  }
+
+  LocationHelper(@NonNull Context context, @NonNull SensorHelper sensorHelper,
+                 @NonNull LocationProviderFactory providerFactory)
+  {
     mContext = context;
     mSensorHelper = sensorHelper;
-    mLocationProvider = mLocationProviderFactory.getProvider(mContext, this);
-    mHandler = new Handler(Looper.getMainLooper());
+    mLocationProviderFactory = providerFactory;
+    mLocationProvider = createProvider(false, createProviderListener());
+  }
+
+  private BaseLocationProvider.Listener createProviderListener()
+  {
+    final long generation = ++mProviderGeneration;
+    ++mLocationRevision;
+    return new BaseLocationProvider.Listener() {
+      private boolean isCurrent()
+      {
+        return mActive && generation == mProviderGeneration;
+      }
+
+      @Override
+      public void onLocationChanged(@NonNull Location location)
+      {
+        if (!isCurrent())
+          return;
+        // Usable output keeps acquisition alive when the display retains a more accurate fix.
+        updateFusedHealth(location);
+        LocationHelper.this.onLocationChanged(location);
+      }
+
+      @Override
+      public void onLocationDisabled()
+      {
+        if (isCurrent())
+          LocationHelper.this.onLocationDisabled();
+      }
+
+      @Override
+      public void onLocationResolutionRequired(@NonNull PendingIntent pendingIntent)
+      {
+        if (isCurrent())
+          LocationHelper.this.onLocationResolutionRequired(pendingIntent);
+      }
+
+      @Override
+      public void onFusedLocationFailure()
+      {
+        if (isCurrent())
+          LocationHelper.this.onFusedLocationFailure();
+      }
+
+      @Override
+      public void onFusedLocationProgress(@NonNull BaseLocationProvider.StartupPhase phase)
+      {
+        if (isCurrent())
+          LocationHelper.this.onFusedLocationProgress(phase);
+      }
+    };
+  }
+
+  private BaseLocationProvider createProvider(boolean nativeOnly, @NonNull BaseLocationProvider.Listener listener)
+  {
+    return nativeOnly ? mLocationProviderFactory.getNativeProvider(mContext, listener)
+                      : mLocationProviderFactory.getProvider(mContext, listener);
+  }
+
+  // Permission is checked before restarting; an inactive replacement needs none.
+  @SuppressLint("MissingPermission")
+  private void replaceProvider(boolean nativeOnly)
+  {
+    mNativeFallback = nativeOnly;
+    clearFusedAcquisition();
+    final BaseLocationProvider.Listener listener = createProviderListener();
+    if (mActive)
+      mLocationProvider.stop();
+    mLocationForFiltering = null;
+    mLocationProvider = createProvider(nativeOnly, listener);
+    if (mActive)
+    {
+      if (LocationUtils.checkLocationPermission(mContext))
+      {
+        mHandler.removeCallbacks(mLocationTimeoutRunnable);
+        mHandler.postDelayed(mLocationTimeoutRunnable, LOCATION_UPDATE_TIMEOUT_MS);
+        mLocationProvider.start(mInterval);
+      }
+      else
+        onLocationPermissionDenied();
+    }
+  }
+
+  /** Applies the location backend preference without starting inactive acquisition or interrupting simulation. */
+  @UiThread
+  public void reloadProvider()
+  {
+    if (!mSimulating)
+      replaceProvider(false);
+  }
+
+  private void clearFusedAcquisition()
+  {
+    mHandler.removeCallbacks(mFusedWatchdog);
+    mFusedDeadlineNanos = -1;
+    mFusedAcquisitionStartedNanos = -1;
+    mLastUsableFusedFixNanos = -1;
+    mFusedRequestStartedNanos = -1;
+  }
+
+  private boolean isCoarseOnly()
+  {
+    return !LocationUtils.checkFineLocationPermission(mContext) && LocationUtils.checkLocationPermission(mContext);
+  }
+
+  private boolean isCoarseFusedTracking()
+  {
+    // After a usable fix, coarse-only Google updates may be throttled without a promised interval.
+    return mLastUsableFusedFixNanos >= 0 && isCoarseOnly();
+  }
+
+  private void watchFusedDeadline(@NonNull String reason, long deadline)
+  {
+    mFusedDeadlineReason = reason;
+    mFusedDeadlineNanos = deadline;
+    mHandler.removeCallbacks(mFusedWatchdog);
+    mHandler.postDelayed(mFusedWatchdog,
+                         Math.max(0, TimeUnit.NANOSECONDS.toMillis(deadline - SystemClock.elapsedRealtimeNanos()) + 1));
+  }
+
+  private void watchTrackingDeadline()
+  {
+    watchFusedDeadline("fresh fixes stopped",
+                       Math.max(mLastUsableFusedFixNanos, mFusedRequestStartedNanos) + FUSED_FIX_TIMEOUT_NANOS);
+  }
+
+  private void checkFusedDeadline()
+  {
+    mHandler.removeCallbacks(mFusedWatchdog);
+    if (mFusedDeadlineNanos < 0)
+      return;
+    if (isCoarseFusedTracking())
+    {
+      mFusedDeadlineNanos = -1;
+      return;
+    }
+    // Handler delays pause in deep sleep; foreground resume also checks this elapsed-time deadline.
+    final long remaining = mFusedDeadlineNanos - SystemClock.elapsedRealtimeNanos();
+    if (remaining > 0)
+    {
+      mHandler.postDelayed(mFusedWatchdog, TimeUnit.NANOSECONDS.toMillis(remaining) + 1);
+      return;
+    }
+    mFusedDeadlineNanos = -1;
+    Logger.w(TAG, "Fused location deadline expired: " + mFusedDeadlineReason + " generation = " + mProviderGeneration);
+    onFusedLocationFailure();
+  }
+
+  @UiThread
+  private void onFusedLocationProgress(@NonNull BaseLocationProvider.StartupPhase phase)
+  {
+    final long now = SystemClock.elapsedRealtimeNanos();
+    if (mFusedAcquisitionStartedNanos < 0)
+      mFusedAcquisitionStartedNanos = now;
+    if (phase == BaseLocationProvider.StartupPhase.CHECKING_SETTINGS)
+      mFusedRequestStartedNanos = now;
+    Logger.d(TAG, "Fused location phase = " + phase + " generation = " + mProviderGeneration);
+    if (mLastUsableFusedFixNanos >= 0)
+    {
+      watchTrackingDeadline();
+      return;
+    }
+    final long timeout =
+        phase == BaseLocationProvider.StartupPhase.REGISTERED ? FUSED_FIRST_FIX_TIMEOUT_MS : FUSED_TASK_TIMEOUT_MS;
+    final long deadline =
+        Math.min(now + TimeUnit.MILLISECONDS.toNanos(timeout),
+                 mFusedAcquisitionStartedNanos + TimeUnit.MILLISECONDS.toNanos(FUSED_STARTUP_TIMEOUT_MS));
+    watchFusedDeadline(phase.name(), deadline);
+  }
+
+  private void updateFusedHealth(@NonNull Location location)
+  {
+    // Google reports startup before any fix; native and simulated fixes need no watchdog bookkeeping.
+    if (mFusedAcquisitionStartedNanos < 0 || !LocationUtils.isAccuracySatisfied(location))
+      return;
+    final long timestamp = location.getElapsedRealtimeNanos();
+    final long age = SystemClock.elapsedRealtimeNanos() - timestamp;
+    // Coarse clients can receive cached fixes older than the precise tracking timeout.
+    if (timestamp <= mLastUsableFusedFixNanos || age < 0 || (age > FUSED_FIX_TIMEOUT_NANOS && !isCoarseOnly()))
+      return;
+    mLastUsableFusedFixNanos = timestamp;
+    watchTrackingDeadline();
   }
 
   /**
@@ -163,13 +368,20 @@ public class LocationHelper implements BaseLocationProvider.Listener
   {
     if (mSavedLocation == null)
       throw new IllegalStateException("No saved location");
+    final Location location = mSavedLocation;
+    final long locationRevision = ++mLocationRevision;
 
     mHandler.removeCallbacks(mLocationTimeoutRunnable);
     mHandler.postDelayed(mLocationTimeoutRunnable, LOCATION_UPDATE_TIMEOUT_MS); // Reset the timeout.
 
     mListenersIterator.rewind();
     while (mListenersIterator.hasNext())
-      mListenersIterator.next().onLocationUpdated(mSavedLocation);
+    {
+      mListenersIterator.next().onLocationUpdated(location);
+      // A listener can stop/restart acquisition, replace its backend, or deliver a newer fix synchronously.
+      if (locationRevision != mLocationRevision)
+        return;
+    }
 
     // If we are still in the first run mode, i.e. user is staying on the first run screens,
     // not on the map, we mustn't post location update to the core. Only this preserving allows us
@@ -180,12 +392,11 @@ public class LocationHelper implements BaseLocationProvider.Listener
       return;
     }
 
-    final LocationCompatExtractor.Altitude altitude = LocationCompatExtractor.getAltitude(mSavedLocation);
+    final LocationCompatExtractor.Altitude altitude = LocationCompatExtractor.getAltitude(location);
     LocationState.nativeLocationUpdated(
-        mSavedLocation.getTime(), mSavedLocation.getLatitude(), mSavedLocation.getLongitude(),
-        mSavedLocation.getAccuracy(), altitude != null ? altitude.altitude() : 0,
-        altitude != null ? altitude.accuracy() : -1, mSavedLocation.hasSpeed() ? mSavedLocation.getSpeed() : -1,
-        mSavedLocation.hasBearing() ? mSavedLocation.getBearing() : -1);
+        location.getTime(), location.getLatitude(), location.getLongitude(), location.getAccuracy(),
+        altitude != null ? altitude.altitude() : 0, altitude != null ? altitude.accuracy() : -1,
+        location.hasSpeed() ? location.getSpeed() : -1, location.hasBearing() ? location.getBearing() : -1);
   }
 
   private void notifyLocationUpdateTimeout()
@@ -198,13 +409,17 @@ public class LocationHelper implements BaseLocationProvider.Listener
     }
 
     Logger.d(TAG);
+    notifyLocationTimeoutListeners();
+  }
+
+  private void notifyLocationTimeoutListeners()
+  {
     mListenersIterator.rewind();
     while (mListenersIterator.hasNext())
       mListenersIterator.next().onLocationUpdateTimeout();
   }
 
   /** Adds MSL metadata to accepted provider locations in place before notifying listeners. */
-  @Override
   @UiThread
   public void onLocationChanged(@NonNull Location location)
   {
@@ -216,40 +431,40 @@ public class LocationHelper implements BaseLocationProvider.Listener
       return;
     }
 
+    // Keep fixes in time order; after a backend switch, a future-dated saved fix does not block the new backend.
+    if (mSavedLocation != null && location.getElapsedRealtimeNanos() < mSavedLocation.getElapsedRealtimeNanos()
+        && mSavedLocation.getElapsedRealtimeNanos() <= SystemClock.elapsedRealtimeNanos())
+    {
+      Logger.d(TAG, "The new " + location + " is older than the saved " + mSavedLocation);
+      return;
+    }
+
     if (!LocationUtils.isAccuracySatisfied(location))
     {
       Logger.w(TAG, "Unsatisfied accuracy for location = " + location);
       return;
     }
 
-    if (mSavedLocation != null)
+    if (mLocationForFiltering != null)
     {
-      if (!LocationUtils.isLocationBetterThanLast(location, mSavedLocation))
+      if (!LocationUtils.isLocationBetterThanLast(location, mLocationForFiltering))
       {
-        Logger.d(TAG, "The new " + location + " is worse than the last " + mSavedLocation);
+        Logger.d(TAG, "The new " + location + " is worse than the last " + mLocationForFiltering);
         return;
       }
     }
 
     MslAltitudeConverter.addMslAltitude(mContext, location);
+    mLocationForFiltering = location;
     mSavedLocation = location;
     mMyPosition = null;
     notifyLocationUpdated();
   }
 
-  // Used by GoogleFusedLocationProvider.
-  @SuppressWarnings("unused")
-  @Override
   @UiThread
-  public void onLocationResolutionRequired(@NonNull PendingIntent pendingIntent)
+  private void onLocationResolutionRequired(@NonNull PendingIntent pendingIntent)
   {
     Logger.d(TAG);
-
-    if (!isActive())
-    {
-      Logger.w(TAG, "Provider is not active");
-      return;
-    }
 
     // Stop provider until location resolution is granted.
     stop();
@@ -260,20 +475,17 @@ public class LocationHelper implements BaseLocationProvider.Listener
       mListenersIterator.next().onLocationResolutionRequired(pendingIntent);
   }
 
-  // Used by GoogleFusedLocationProvider.
-  @SuppressWarnings("unused")
-  @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
-  @Override
   @UiThread
-  public void onFusedLocationUnsupported()
+  private void onFusedLocationFailure()
   {
-    // Try to downgrade to the native provider first and restart the service before notifying the user.
-    Logger.d(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() + " is not supported,"
-                      + " downgrading to use native provider");
-    mLocationProvider.stop();
-    mLocationProvider = new AndroidNativeProvider(mContext, this);
-    mActive = true;
-    mLocationProvider.start(mInterval);
+    if (!LocationUtils.checkLocationPermission(mContext) || !LocationUtils.areLocationServicesTurnedOn(mContext))
+    {
+      onLocationDisabled();
+      return;
+    }
+    Logger.d(TAG, "provider = " + mLocationProvider.getClass().getSimpleName()
+                      + " failed, falling back to the native provider");
+    replaceProvider(true);
   }
 
   // RouteSimulationProvider doesn't really require location permissions.
@@ -281,33 +493,56 @@ public class LocationHelper implements BaseLocationProvider.Listener
   public void startNavigationSimulation(JunctionInfo[] points)
   {
     Logger.i(TAG);
-    mOldLocationProvider = mLocationProvider;
-    mLocationProvider.stop();
-    mLocationProvider = new RouteSimulationProvider(mContext, this, points);
+    if (mSimulating)
+      throw new IllegalStateException("Simulation is already started");
+    clearFusedAcquisition();
+    final BaseLocationProvider.Listener listener = createProviderListener();
+    if (mActive)
+      mLocationProvider.stop();
+    mLocationForFiltering = null;
+    mSimulating = true;
+    mLocationProvider = new RouteSimulationProvider(mContext, listener, points);
     mActive = true;
     mLocationProvider.start(mInterval);
   }
 
-  @SuppressLint("MissingPermission")
   public void stopNavigationSimulation()
   {
     Logger.i(TAG);
-    mLocationProvider.stop();
-    if (mOldLocationProvider == null)
+    if (!mSimulating)
       throw new IllegalStateException("Should be called only after startNavigationSimulation()");
-    mLocationProvider = mOldLocationProvider;
-    mActive = true;
-    mLocationProvider.start(mInterval);
+    mSimulating = false;
+    replaceProvider(false);
   }
 
-  @Override
   @UiThread
-  public void onLocationDisabled()
+  private void onLocationPermissionDenied()
   {
-    Logger.d(TAG, "provider = " + mLocationProvider.getClass().getSimpleName()
-                      + " settings = " + LocationUtils.areLocationServicesTurnedOn(mContext));
+    stop();
+    LocationState.nativeOnLocationError(LocationState.ERROR_DENIED);
+  }
+
+  @UiThread
+  private void onLocationDisabled()
+  {
+    if (!LocationUtils.checkLocationPermission(mContext))
+    {
+      onLocationPermissionDenied();
+      return;
+    }
+    final boolean locationOn = LocationUtils.areLocationServicesTurnedOn(mContext);
+    Logger.d(TAG, "provider = " + mLocationProvider.getClass().getSimpleName() + " settings = " + locationOn);
 
     stop();
+    if (locationOn)
+    {
+      LocationState.nativeOnLocationError(LocationState.ERROR_NOT_SUPPORTED);
+      mListenersIterator.rewind();
+      while (mListenersIterator.hasNext())
+        mListenersIterator.next().onLocationUnavailable();
+      return;
+    }
+
     LocationState.nativeOnLocationError(LocationState.ERROR_GPS_OFF);
 
     mListenersIterator.rewind();
@@ -378,6 +613,7 @@ public class LocationHelper implements BaseLocationProvider.Listener
 
   /**
    * Starts polling and, with fine permission, compass/GNSS updates. Repeated calls while active do nothing.
+   * A new start retries the Google-compatible backend after a runtime fallback to native providers.
    * The host must already hold a coarse or fine location permission.
    */
   @RequiresPermission(anyOf = {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION})
@@ -388,6 +624,9 @@ public class LocationHelper implements BaseLocationProvider.Listener
       Logger.d(TAG, "Already started");
       return;
     }
+
+    if (mNativeFallback && !mSimulating)
+      replaceProvider(false);
 
     Logger.i(TAG);
     checkForAgpsUpdates();
@@ -417,21 +656,30 @@ public class LocationHelper implements BaseLocationProvider.Listener
     }
 
     Logger.i(TAG);
+    mActive = false;
+    ++mLocationRevision;
+    clearFusedAcquisition();
     mLocationProvider.stop();
     unsubscribeFromGnssStatusUpdates();
     mSensorHelper.stop();
     mHandler.removeCallbacks(mLocationTimeoutRunnable);
-    mActive = false;
   }
 
   /**
    * Resumes polling when the renderer exists, permission is granted, and the position mode allows it.
-   * Safe to call when entering the foreground; it does nothing if these prerequisites are absent.
+   * If polling is already active, rechecks the Google-compatible backend deadlines that deep sleep may have delayed
+   * or coarse-only tracking suspended. Call when entering the foreground and after precise permission is granted.
    */
   public void resumeLocationInForeground()
   {
     if (isActive())
+    {
+      // Coarse tracking can leave no pending check when precise permission is granted.
+      if (mFusedDeadlineNanos < 0 && mLastUsableFusedFixNanos >= 0)
+        watchTrackingDeadline();
+      checkFusedDeadline();
       return;
+    }
     else if (!Map.isEngineCreated())
     {
       // LocationState.nativeGetMode() is initialized only after drape creation.

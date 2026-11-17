@@ -123,7 +123,7 @@ After that, every time you commit, the hook will automatically format your
 
 You can bypass the auto-formatting with `git commit --no-verify` if necessary.
 
-To configure the formatting style, edit `.clang-format`, `.swiftformat` in the project root, and `android/.editorconfig` for Kotlin.
+To configure the formatting style, edit `.clang-format`, `iphone/.swiftformat`, and `android/.editorconfig` (paths relative to the project root).
 
 To configure which files are formatted, edit `tools/hooks/format-config.bash`
 

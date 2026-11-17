@@ -1,33 +1,55 @@
-## Načrtovanje poti
-• Izboljšane alternativne poti in njihovi predvideni časi prihoda
-• Dodani so gumbi za dodajanje ali zamenjavo postanka v načrtovani poti
-• Dodana je bila nastavitev za optimizacijo vrstnega reda vmesnih postankov na poti
-• Izbrana alternativna pot se zdaj ohrani, ko navigacija ponovno izračuna pot
-• Po ponovnem zagonu aplikacije se zdaj obnovi vrstni red postankov na poti
+## Zemljevid in teren
+• NOVO: 3D teren, globine oceanov, podrobne plastnice v metrih in čevljih ter nadmorska višina v kateri koli točki zemljevida
+• Podatki OpenStreetMapa z dne 10. novembra, članki Wikipedije z dne 1. novembra
+• Občasni vodotoki so prikazani črtkano, oznake voda so čitljivejše, železniški mostovi pa imajo nove obrise
+• Dodani brivci, studii za pilates, monterji oken, vodovodni objekti in pokriti rezervoarji
+• Popravljeno prečrkovanje in prikaz hebrejskih in arabskih oznak na zemljevidu
+• Manjša poraba pomnilnika in odpravljena sesutja pri preklopu sloga zemljevida
 
-## Zemljevid
-• Podatki OpenStreetMap z dne 28. septembra
-• Podatki iz Wikipedije z dne 21. septembra
-• Vodni rezervoarji so zdaj vidni, ko se slika še bolj oddalji
-• Vodni tuneli se na zemljevidu ne prikazujejo več
-• Popravljene so bile ikone postaj in vhodov v podzemno železnico v Suzhouju
-• Popravljeni so redki primeri, ko so se oznake na sloju zemljevida podzemne železnice premaknile iz položaja
+## Načrtovanje poti in navigacija
+• Posodobljeno načrtovanje poti in gumb za obračanje poti z vsemi vmesnimi postanki
+• Ločene nastavitve izogibanja za vožnjo z avtom, kolesarjenje in hojo
+• Izhodišče ali cilj lahko odstranite neposredno iz načrtovalnika poti
+• Dodajte nov cilj, tudi če prejšnje poti ni bilo mogoče izračunati
+• Izboljšani obnovitev in ponovni izračun poti, nadomestne poti in ocene trajanja
+• Boljše ocene prihodov javnega prevoza, peš povezave in oznake vhodov v postaje
+• Shranjene poti ne izgubijo več začetnega odseka in ne uporabljajo zastarele trenutne lokacije
+• Popravljena so bila zastarela opozorila o radarjih
+• Popravljena zamenjava točk pri največjem številu postankov in odrezani prikaz nastavitev poti
+
+## Zaznamki, sledi in območja
+• NOVO: Uvoz in prikaz območij iz datotek KML, KMZ in GeoJSON s polnili, obrisi in luknjami
+• Smerne puščice na sledeh in kontrastna obroba izbranih sledi
+• Ko odprete sled s seznama, se izbere njen začetek
+• Varnostna kopija posnetka sledi se posodobi vsako minuto za obnovo po sesutju
+• Datoteke KML ohranijo vmesne postanke in način potovanja shranjene poti
+• Zaznamki in sledi se razvrstijo po imenu v skladu s pravili vašega jezika
+• Imena, opisi in slike seznamov zaznamkov se po ponovnem nalaganju pravilno osvežijo
+• Popravljeni so profili nadmorske višine po vrnitvi na zemljevid ter pri ogledu ravnih ali povečanih odsekov
+• Odpravljena sesutja pri brisanju urejenih sledi in napake pri prvem uvozu zaznamkov
+• Izboljšano uvažanje datotek KML, GPX in GeoJSON
 
 ## CarPlay
-• Dodana so navodila za manevriranje na podprtih avtomobilskih zaslonih HUD (head-up display) in na nadzorni plošči CarPlay
-• Popravljeni gumbi CarPlay in iskanje
+• Seznami zaznamkov se osvežijo po urejanju, ponovnem nalaganju in brisanju
+• Odpravljeni manjkajoči zaznamki pri omejitvi seznama in sesutja pri izbiri izbrisanih vnosov
 
-## Sledi
-• Dodana je bila ikona očesa za skritje posameznih sledi
-• Popravljene napake in izboljšano snemanje sledi
-• Popravljeno uvažanje datotek KMB
+## Iskanje in prenosi
+• Predlogi za iskanje ohranjajo diakritične znake ter velike in male črke
+• Boljše zaznavanje območij zemljevida tudi čez 180° poldnevnik
+• Izboljšani preklic, ponovitev in nadaljevanje prenosov zemljevidov ter prenosi v ozadju
+• Popravljeno dvojno štetje zemljevidov in precenjene velikosti posodobitev
+• Izboljšano iskanje po kategorijah v urejevalniku zemljevidov, razvrščanje po kuhinjah in urejanje imen v norveškem bokmålu
 
-## Iskanje
-• Popravljeno iskanje, ko vidno območje zemljevida prečka 180° poldnevnik (±180° zemljepisne dolžine)
-• V Spotlightu je bilo ponovno vzpostavljeno iskanje po kategorijah
+## Uporabniški vmesnik in prevodi
+• Dodana valižanščina
+• Boljše razvrščanje glasov za navigacijo in popravljene fraze v glasovnih vzorcih
+• Boljši predogled javnega prevoza z več simboli, prelomom številk linij in postavitvijo od desne proti levi
+• Popravljen položaj kompasa v postavitvi od desne proti levi in kontrast besedila poti v temnem načinu
+• Gumbi za potrditev navigacije so dostopni tudi pri večjem besedilu
+• Popravljeno vlečenje in zapiranje podatkov o kraju ter zaporedno odpiranje povezav na zemljevid
+• Odpravljeno sesutje, ko je prenos zemljevida osvežil podatke o kraju, ki se še niso naložili
+• Popravljene so povezave v meniju in nastavitvah ter njihovo označevanje
+• Izboljšani prevodi, glasovna navodila in izbira jezikov
+• Popravljene so povezave do skupnosti v razdelku »O aplikaciji«
 
-## Uporabniški vmesnik
-• Delovni čas zdaj prikazuje »Poldne« za 12:00 in »Polnoč« za 00:00 ali 24:00
-• Popravljene so bile različne napake in izboljšan uporabniški vmesnik
-• Popravljeni prevodi v angleščino, francoščino in asturijščino
-• Dodana je možnost izbire nameščenega navigacijskega glasu in poslušanja njegovega vzorca
+Podrobne opombe k izdaji si oglejte na organicmaps.app/news

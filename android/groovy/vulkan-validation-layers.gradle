@@ -1,0 +1,43 @@
+// Downloads Vulkan validation layers and packs them into the module as jniLibs.
+// The layers are published as GitHub release archives only, see the ivy repository in settings.gradle.
+abstract class UnpackVulkanValidationLayers extends Sync {
+  @OutputDirectory
+  abstract DirectoryProperty getOutputDir()
+}
+
+ext.EnableVulkanDiagnostics = { Project project ->
+  def android = project.extensions.getByName('android')
+  def layers = project.configurations.resolvable('vulkanValidationLayers')
+
+  project.dependencies {
+    // The release archive is not a jar, so the artifact has to be declared explicitly.
+    vulkanValidationLayers(libs.vulkan.validation.layers) {
+      artifact {
+        name = 'android-binaries'
+        type = 'zip'
+        extension = 'zip'
+      }
+    }
+  }
+
+  def unpackVulkanValidationLayers =
+      project.tasks.register('unpackVulkanValidationLayers', UnpackVulkanValidationLayers) {
+        description = 'Downloads and unpacks Vulkan validation layers into jniLibs.'
+        // Avoid packaging layers for ABIs without a matching liborganicmaps.so.
+        def abiFilters = android.defaultConfig.ndk.abiFilters
+        inputs.property('abiFilters', abiFilters)
+        outputDir = project.layout.buildDirectory.dir('vulkanValidationLayers')
+        from(project.zipTree(layers.map { it.singleFile })) {
+          include abiFilters.collect { "*/$it/**" }
+          // Strip the top-level "android-binaries-<version>" directory, jniLibs expects ABI dirs at the root.
+          eachFile { path = path.substring(path.indexOf('/') + 1) }
+          includeEmptyDirs = false
+        }
+        into(outputDir)
+      }
+
+  def androidComponents = project.extensions.getByName('androidComponents')
+  androidComponents.onVariants(androidComponents.selector().all()) { variant ->
+    variant.sources.jniLibs.addGeneratedSourceDirectory(unpackVulkanValidationLayers) { it.outputDir }
+  }
+}

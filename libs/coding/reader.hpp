@@ -43,6 +43,10 @@ template <bool WithExceptions>
 class MemReaderTemplate : public Reader
 {
 public:
+  // Tells the templates on a reader that a read is cheap here, e.g. succinct::mapper::dd_vector
+  // then reads every element by a call of its own.
+  static constexpr bool kIsMemoryReader = true;
+
   // Construct from block of memory.
   MemReaderTemplate(void const * pData, size_t size) : m_pData(static_cast<char const *>(pData)), m_size(size) {}
 
@@ -50,7 +54,8 @@ public:
 
   uint64_t Size() const override { return m_size; }
 
-  void Read(uint64_t pos, void * p, size_t size) const override
+  // Final: a template on this reader inlines the read.
+  void Read(uint64_t pos, void * p, size_t size) const final
   {
     AssertPosAndSize(pos, size);
     memcpy(p, m_pData + pos, size);

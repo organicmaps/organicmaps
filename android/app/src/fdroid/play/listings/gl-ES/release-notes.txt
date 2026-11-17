@@ -1,9 +1,12 @@
-• OSM: 28 de setembro; Wikipedia: 21 de setembro
-• Mellores rutas alternativas e estimacións de chegada
-• Unha nova configuración optimiza a orde das paradas
-• Novos botóns engaden ou substitúen paradas nas rutas planificadas
-• Consérvase a ruta alternativa escollida durante a navegación
-• Correccións e melloras na gravación de trazas
-• Arranxada a importación de KMB
-• Correccións e melloras da interface de usuario
-…máis en omaps.org/gl/news
+• Terreo 3D, fondos mariños, curvas de nivel (m/ft), cota en cada punto
+• OSM do 10 de novembro
+• Importar e amosar áreas KML/KMZ/GeoJSON
+• Detalles das rutas de transporte público
+• Novo indicador de velocidade
+• Widget para gravar traxectos
+• Altitude GPS sobre o nivel medio do mar
+• Frechas e realce dos traxectos
+• Axustes separados para coche, bici e a pé
+• Inverter rutas coas súas paradas
+• Corrixíronse controis de gravación, horas de chegada e fallos de Android Auto
+…omaps.org/gl/news

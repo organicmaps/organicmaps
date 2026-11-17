@@ -1,9 +1,12 @@
-• OSM: 28 September; Wikipedia: 21 September
-• Rute alternatif yang lebih baik dan perkiraan waktu tiba
-• Pengaturan baru mengoptimalkan urutan perhentian
-• Tombol-tombol baru memungkinkan penambahan atau penggantian titik perhentian pada rute yang direncanakan
-• Rute alternatif yang dipilih tetap dipertahankan selama navigasi
-• Perekaman trek diperbaiki dan ditingkatkan
-• Masalah impor KMB telah diperbaiki
-• Perbaikan dan peningkatan antarmuka pengguna
-…selengkapnya di omaps.org/id/news
+• Medan 3D, kedalaman laut, garis kontur (m/ft), ketinggian di mana saja
+• Data OSM per 10 November
+• Impor dan tampilkan area KML/KMZ/GeoJSON
+• Rincian rute angkutan umum
+• Tampilan kecepatan baru
+• Widget perekaman jejak
+• Ketinggian GPS di atas permukaan laut rata-rata
+• Panah arah dan sorotan jejak
+• Opsi terpisah untuk berkendara, bersepeda, dan berjalan kaki
+• Balik arah rute dan perhentiannya
+• Perbaikan kontrol rekam, waktu tiba, dan crash Android Auto
+…omaps.org/id/news

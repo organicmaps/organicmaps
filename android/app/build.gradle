@@ -53,6 +53,8 @@ android {
     resValues = true
   }
 
+  testOptions.unitTests.includeAndroidResources = true
+
   // Users are complaining that the app should be re-downloaded from the Play Store after changing the language.
   bundle {
     language {
@@ -271,6 +273,7 @@ dependencies {
   testImplementation libs.androidx.junit
   testImplementation libs.mockito.core
   testImplementation libs.mockito.inline
+  testImplementation libs.robolectric
   androidTestImplementation libs.androidx.junit
   androidTestImplementation libs.androidx.test.runner
 }
@@ -333,8 +336,6 @@ androidComponents {
         variant.applicationId.map { appId ->
           new BuildConfigField("String", "\"${appId}.provider\"", null)
         })
-    variant.manifestPlaceholders.put("FILE_PROVIDER_PLACEHOLDER",
-        variant.applicationId.map { it + ".provider" })
     variant.resValues.put(
         variant.makeResValueKey("string", "app_id"),
         variant.applicationId.map { new ResValue(it, null) })

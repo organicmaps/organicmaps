@@ -20,6 +20,8 @@
 
 namespace track_direction_gpu_test
 {
+using df::test_support::ImagesEqual;
+
 // Shift both screen axes by a quarter pixel so neither integer nor half-integer marker edges land on
 // pixel centers. This avoids fill/outline rasterization ties when comparing renders with different line widths.
 m2::PointD constexpr kPixelOffset(0.25, -0.25);
@@ -456,7 +458,7 @@ UNIT_TEST(SelectedTrackPreservesLayersAndSectionsGpuTest)
       RenderTracks("Selected track keeps its layers, gaps and tile clipping", kWidth, kHeight, {selected});
   auto const wrapped =
       RenderTracks("Selected track in a wrapped tile", kWidth, kHeight, {selected}, {.m_wrapped = true});
-  TEST(image == wrapped, ("Wrapped tile changes the selected geometry"));
+  TEST(ImagesEqual("selected-track-wrapped", wrapped, image), ("Wrapped tile changes the selected geometry"));
   for (int y = kCenterY - 30; y <= kCenterY + 30; ++y)
     for (int x = kCenterX - 30; x <= kCenterX + 30; ++x)
       TEST_EQUAL(image.pixel(x, y), QColor(Qt::white).rgba(), ("Selection bridges disconnected sections", x, y));
@@ -482,10 +484,11 @@ UNIT_TEST(SelectedTrackRespectsVisibilityGpuTest)
   auto const empty = RenderTracks("No visible tracks", 240, 120, {});
   auto const hiddenGroup =
       RenderTracks("Selected track in a hidden group", 240, 120, {selected}, {.m_groupVisible = false});
-  TEST(hiddenGroup == empty, ("Hidden group still draws a selection"));
+  TEST(ImagesEqual("selected-track-hidden-group", hiddenGroup, empty), ("Hidden group still draws a selection"));
   selected.m_visible = false;
   auto const hiddenTrack = RenderTracks("Hidden selected track", 240, 120, {selected});
-  TEST(hiddenTrack == empty, ("Hidden track still draws an outline or decorations"));
+  TEST(ImagesEqual("selected-track-hidden-track", hiddenTrack, empty),
+       ("Hidden track still draws an outline or decorations"));
 }
 
 UNIT_TEST(SelectedTrackTranslucentLayersGpuTest)
@@ -509,6 +512,9 @@ UNIT_TEST(SelectedTrackTranslucentLayersGpuTest)
     track.m_layers = {{dp::Color::Red(), 9.0f, -20.0f}, {dp::Color::Yellow(), 3.0f, 10.0f}};
     auto const opaque =
         RenderTracks("Selected opaque track layers", kWidth, kHeight, {track}, {.m_background = background});
-    TEST(image == opaque, ("Selected tracks use their original RGB colors without tinting", background));
+    TEST(ImagesEqual(
+             background == dp::Color::White() ? "selected-track-translucent-white" : "selected-track-translucent-black",
+             image, opaque),
+         ("Selected tracks use their original RGB colors without tinting", background));
   }
 }

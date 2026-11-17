@@ -18,6 +18,7 @@
 #include <QtGui/QPainter>
 
 #include <algorithm>
+#include <cstdlib>
 #include <optional>
 
 namespace df::test_support
@@ -232,6 +233,53 @@ void ShapeTestFixture::Render()
   }
 
   m_lastImage = img;
+}
+
+bool ImagesEqual(char const * name, QImage const & actual, QImage const & expected)
+{
+  if (actual == expected)
+    return true;
+
+  ASSERT(actual.size() == expected.size(), (name));
+  QImage difference(actual.size(), QImage::Format_RGB32);
+  difference.fill(Qt::black);
+  uint32_t differentPixels = 0;
+  int maxChannelDifference = 0;
+  for (int y = 0; y < actual.height(); ++y)
+  {
+    for (int x = 0; x < actual.width(); ++x)
+    {
+      auto const actualPixel = actual.pixel(x, y);
+      auto const expectedPixel = expected.pixel(x, y);
+      if (actualPixel == expectedPixel)
+        continue;
+      if (differentPixels == 0)
+        LOG(LINFO, ("First image comparison difference", name, x, y, "actual RGBA", qRed(actualPixel),
+                    qGreen(actualPixel), qBlue(actualPixel), qAlpha(actualPixel), "expected RGBA", qRed(expectedPixel),
+                    qGreen(expectedPixel), qBlue(expectedPixel), qAlpha(expectedPixel)));
+      ++differentPixels;
+      maxChannelDifference = std::max({maxChannelDifference, std::abs(qRed(actualPixel) - qRed(expectedPixel)),
+                                       std::abs(qGreen(actualPixel) - qGreen(expectedPixel)),
+                                       std::abs(qBlue(actualPixel) - qBlue(expectedPixel)),
+                                       std::abs(qAlpha(actualPixel) - qAlpha(expectedPixel))});
+      // Include alpha-only differences in the visible mask.
+      difference.setPixel(x, y, qRgb(255, 0, 255));
+    }
+  }
+
+  auto const prefix = GetPlatform().WritablePathForFile(name);
+  LOG(LINFO, ("Image comparison", name, "different pixels", differentPixels, "maximum channel difference",
+              maxChannelDifference, "images", prefix));
+  auto const save = [&](QImage const & image, char const * suffix)
+  {
+    auto const path = prefix + suffix;
+    if (!image.save(QString::fromStdString(path), "PNG"))
+      LOG(LWARNING, ("Cannot save image comparison", path));
+  };
+  save(actual, "-actual.png");
+  save(expected, "-expected.png");
+  save(difference, "-difference-mask.png");
+  return false;
 }
 
 }  // namespace df::test_support

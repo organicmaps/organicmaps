@@ -1,33 +1,55 @@
-## Útvonaltervezés
-• Továbbfejlesztett alternatív útvonalak és azok becsült érkezési idejei
-• Gombok hozzáadása a tervezett útvonalon lévő megálló hozzáadásához vagy cseréjéhez
-• Hozzáadtunk egy beállítást a köztes megállók sorrendjének optimalizálásához
-• A kiválasztott alternatív útvonal mostantól megmarad, amikor a navigáció újraszámolja az útvonalat
-• Az alkalmazás újraindítása után az útvonal-megállók sorrendje ismét helyreáll
+## Térkép és terep
+• ÚJ: 3D domborzat és óceánmélységek, részletes szintvonalak méterben és lábban, magasság a térkép bármely pontján
+• OpenStreetMap-adatok november 10-ig, Wikipédia-cikkek november 1-jéig
+• Szaggatott jelölés az időszakos vízfolyásoknál, olvashatóbb víznevek és új körvonalak a vasúti hidaknál
+• Új kategóriák: borbélyok, pilatesstúdiók, ablakszerelők, vízművek és fedett víztározók
+• Javítottuk a héber és arab térképfeliratok átírását és megjelenítését
+• Kisebb memóriaigény és javított összeomlások térképstílus-váltáskor
 
-## Térkép
-• OpenStreetMap-adatok szeptember 28-i állapot szerint
-• A Wikipedia-adatok állapota: szeptember 21
-• A víztározók mostantól akkor is láthatók, ha távolabbra kicsinyítjük a térképet
-• A vízalagutak már nem jelennek meg a térképen
-• Javítva lettek a Suzhou Metro állomás- és bejárati ikonjai
-• Kijavítottuk azokat a ritka eseteket, amikor a metró térkép rétegen a címkék elmozdultak a helyükről
+## Útvonaltervezés és navigáció
+• Megújult útvonaltervezés és új gomb az útvonal megfordítására az összes köztes ponttal együtt
+• Külön elkerülési beállítások az autós, kerékpáros és gyalogos módhoz
+• A kiindulási pont vagy a célpont közvetlen eltávolítása az útvonaltervezőből
+• Új úti cél hozzáadása akkor is, ha az előző útvonalat nem sikerült kiszámítani
+• Jobb útvonal-visszaállítás, újraszámítás, alternatív útvonalak és menetidőbecslés
+• Pontosabb tömegközlekedési érkezési idők, jobb gyalogos kapcsolatok és állomásbejárat-jelölések
+• A mentett útvonalak már nem veszítik el a kezdőszakaszt és nem használnak elavult helyzetpontot
+• Javítottuk a sebességmérő kamerák elavult figyelmeztetéseit
+• Javítottuk az útvonalpontok cseréjét a megállók maximális számánál és az útvonalbeállítások levágott jelzését
+
+## Könyvjelzők, nyomvonalak és területek
+• ÚJ: KML, KMZ és GeoJSON területek importálása és megjelenítése kitöltéssel, kontúrral és lyukakkal
+• Iránynyilak a nyomvonalakon és kontrasztos körvonal a kijelölt nyomvonalakon
+• A listából megnyitott nyomvonal kezdőpontja lesz kijelölve
+• A nyomvonalrögzítésről percenként biztonsági másolat készül az összeomlás utáni helyreállításhoz
+• A KML-fájlok megőrzik a mentett útvonal köztes pontjait és a közlekedési módot
+• A könyvjelzők és a nyomvonalak nevei a választott nyelv ábécérendjét követik
+• A könyvjelzőlisták nevei, leírásai és képei megfelelően frissülnek újratöltéskor
+• Javított magassági profilok a térképre visszatérve, valamint sík és nagyított szakaszokon
+• Javítottuk a szerkesztett nyomvonalak törlésekor fellépő összeomlásokat és az első könyvjelzőimport hibáit
+• Jobb KML-, GPX- és GeoJSON-import
 
 ## CarPlay
-• Manőverezési utasítások kerültek hozzáadásra a támogatott autó head-up kijelzőin (HUD-okon) és a CarPlay műszerfalán
-• Javítva lettek a CarPlay gombok és a keresés
+• A könyvjelzőlisták frissülnek a szerkesztések, újratöltések és törlések után
+• Javítottuk a lista korlátjánál eltűnő könyvjelzőket és a törölt elemek kijelölésekor fellépő összeomlásokat
 
-## Nyomvonalak
-• Hozzáadtunk egy szem ikont az egyes nyomvonalak elrejtéséhez
-• Hibákat javítottunk, és továbbfejlesztettük a nyomvonalak rögzítését
-• Javítva a KMB-fájlok importálása
+## Keresés és letöltések
+• A keresési javaslatok megőrzik az ékezeteket és a kis- és nagybetűket
+• Jobb térségfelismerés a térképen, a 180°-os délkörön átnyúlva is
+• Jobban működik a térképek letöltésének megszakítása, újrapróbálása, folytatása és háttérbeli letöltése
+• Javítottuk a térképek kétszeres beszámítását és a frissítések túlbecsült méretét
+• Jobb kategóriakeresés a térképszerkesztőben, konyhatípus szerinti rendezés és norvég bokmål nevek szerkesztése
 
-## Keresés
-• Javítva lett a keresés, amikor a látható térképterület átlépi a 180°-os meridiánt (±180° hosszúság)
-• Helyreállítottuk a kategóriák szerinti keresést a Spotlightban
+## Felhasználói felület és fordítások
+• Walesi nyelv hozzáadva
+• Jobb navigációshang-rendezés és javított hangmintamondatok
+• Jobb tömegközlekedési előnézetek több járműszimbólummal, a járatszámok sortörésével és jobbról balra írt elrendezéssel
+• Javított iránytűpozíció jobbról balra írt elrendezésnél és jobb útvonalszöveg-kontraszt sötét módban
+• A navigációt megerősítő gombok nagy betűmérettel is elérhetők
+• Javítottuk a helyadatlap húzását és bezárását, valamint a térképhivatkozások egymás utáni megnyitását
+• Javítottuk az összeomlást, amikor a térképletöltés a még betöltődő helyadatokat frissítette
+• Javított hivatkozások és kiemelések a menüben és a Beállításokban
+• Jobb fordítások, hangutasítások és nyelvválasztási lehetőségek
+• Javított közösségi hivatkozások a Névjegyben
 
-## Felhasználói felület
-• A nyitvatartási időknél a 12:00-t mostantól „Dél”, a 00:00-t és a 24:00-t pedig „Éjfél” jelöli
-• Különböző hibákat javítottunk, és továbbfejlesztettük a felhasználói felületet
-• Javított angol, francia és asztúriai fordítások
-• Támogatást adtunk a telepített navigációs hang kiválasztásához és előzetes meghallgatásához
+Részletes kiadási megjegyzések az organicmaps.app/hu/news oldalon

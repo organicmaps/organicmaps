@@ -105,7 +105,7 @@ public:
   bool DisableFollowMode();
 
   /// Starts navigation and queues a track approach prompt when needed.
-  /// Records that the user pressed Start; GPS matching already runs during route preview.
+  /// Track previews start matching GPS positions only after the user presses Start.
   /// Returns true when following is active.
   bool EnableFollowMode();
 
@@ -170,6 +170,7 @@ private:
   void RemoveRoute();
   void RebuildRouteOnTrafficUpdate();
   bool IsTrackRoute() const;
+  bool IsOffTrack() const;
   void ResetTrackGuidance();
 
   void PassCheckpoints();

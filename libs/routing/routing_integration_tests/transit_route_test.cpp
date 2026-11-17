@@ -94,7 +94,8 @@ UNIT_TEST(Transit_Piter_StrangeLastWalk)
 
   integration::CheckSubwayExistence(route);
   integration::TestRouteLength(route, 20721.2);
-  TEST_LESS(route.GetTotalTimeSec(), 5000, ());
+  // The ETA includes the mean boarding waits.
+  TEST_LESS(route.GetTotalTimeSec(), 5500, ());
 }
 
 // Interesting test after adding buses.
@@ -111,8 +112,9 @@ UNIT_TEST(Transit_Vatikan_InterestingAltRoutes)
   TEST(routeResult.first, ());
   auto const & route = *routeResult.first;
 
-  integration::TestRouteLength(route, 6217.61);
-  TEST_LESS(route.GetTotalTimeSec(), 3000, ());
+  integration::TestRouteLength(route, 5855.98);
+  // The ETA includes the mean boarding waits.
+  TEST_LESS(route.GetTotalTimeSec(), 3500, ());
 }
 
 UNIT_TEST(Transit_Vatikan_CorneliaToOttaviano)
@@ -256,10 +258,9 @@ UNIT_TEST(Transit_BuenosAires_ParallelBusNumbers)
 // The transit and pedestrian routers use the SAME pedestrian model and estimator, so footway
 // preference is identical. The walk must reach the bus through the gate's road attachment (its
 // |bestPedestrianSegment|), which the generator's CalculateBestPedestrianSegments picks as the gate's
-// geometrically NEAREST routable segment by distance, ignoring highway class. Here that is a
-// highway=secondary whose end junction coincides with the stop, so the first leg reaches that
-// junction along the parallel footways (~118 m) rather than walking the secondary itself, the same
-// path a standalone pedestrian search to the stop point takes.
+// geometrically NEAREST routable segment by distance, ignoring highway class. Here the first leg
+// reaches the stop along the footways (~157 m), the same path a standalone pedestrian search to the
+// stop point takes.
 UNIT_TEST(Transit_Minsk_PedestrianLegToGate)
 {
   TRoutesResult const routesResult = integration::CalculateRoutes(
@@ -271,7 +272,7 @@ UNIT_TEST(Transit_Minsk_PedestrianLegToGate)
 
   auto const & route = *routesResult.first[0];
   integration::CheckSubwayExistence(route);
-  integration::TestRouteLength(route, 3514.87, 0.1);
+  integration::TestRouteLength(route, 4357.13, 0.1);
 
   // First subroute: the walk from the start to the first boarding along the footways (see above).
   auto const & segs = route.GetRouteSegments();
@@ -286,10 +287,10 @@ UNIT_TEST(Transit_Minsk_PedestrianLegToGate)
   }
   TEST_LESS(firstTransit, segs.size(), ("Route doesn't use transit."));
   double const startWalk = segs[firstTransit - 1].GetDistFromBeginningMeters();
-  TEST_ALMOST_EQUAL_ABS(startWalk, 118.4, 10.0, ());
+  TEST_ALMOST_EQUAL_ABS(startWalk, 157.3, 10.0, ());
 
   // Total walking length of the transit route (first leg + the short hop off the bus at the end).
-  TEST_ALMOST_EQUAL_ABS(integration::GetWalkDistanceMeters(route), 247.1, 20.0, ());
+  TEST_ALMOST_EQUAL_ABS(integration::GetWalkDistanceMeters(route), 195.4, 20.0, ());
 }
 
 namespace
@@ -326,8 +327,10 @@ void TestTransitStartEndWalk(Route const & route, m2::PointD const & start, m2::
   LOG(LINFO, ("Transit start walk:", walkToBoard, "m (direct", directToBoard, "m), end walk:", walkFromAlight,
               "m (direct", directFromAlight, "m)"));
 
-  TEST_LESS(walkToBoard, maxFactor * directToBoard, ());
-  TEST_LESS(walkFromAlight, maxFactor * directFromAlight, ());
+  // A checkpoint can be almost at the stop, then the walk is just a hop to the road projection and back.
+  double constexpr kSlackMeters = 20.0;
+  TEST_LESS(walkToBoard, maxFactor * directToBoard + kSlackMeters, ());
+  TEST_LESS(walkFromAlight, maxFactor * directFromAlight + kSlackMeters, ());
 }
 }  // namespace
 

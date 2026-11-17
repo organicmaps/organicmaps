@@ -5,7 +5,10 @@
 #include "base/assert.hpp"
 #include "base/macros.hpp"
 
+#include "3party/succinct/dd_vector.hpp"
 #include "3party/succinct/mappable_vector.hpp"
+
+#include <cstdint>
 
 #include <type_traits>
 
@@ -136,6 +139,53 @@ private:
   DISALLOW_COPY_AND_MOVE(ReverseMapVisitor);
 };
 
+/// Maps a structure of succinct::mapper::dd_vector onto its frozen data in a reader. Only the
+/// simple fields are read: a vector reads its elements on demand, so the reader has to outlive
+/// the structure.
+template <typename TReader>
+class ReaderMapVisitor
+{
+public:
+  explicit ReaderMapVisitor(TReader const & reader) : m_reader(reader) {}
+
+  template <typename T>
+  std::enable_if_t<!std::is_trivial_v<T>, ReaderMapVisitor &> operator()(T & val, char const * /* name */)
+  {
+    val.map(*this);
+    return *this;
+  }
+
+  template <typename T>
+  std::enable_if_t<std::is_trivial_v<T>, ReaderMapVisitor &> operator()(T & val, char const * /* name */)
+  {
+    m_reader.Read(m_cur, &val, sizeof(T));
+    m_cur += sizeof(T);
+    m_cur += ToAlign8(m_cur);
+    return *this;
+  }
+
+  template <typename T>
+  ReaderMapVisitor & operator()(succinct::mapper::dd_vector<T, TReader> & vec, char const * /* name */)
+  {
+    vec.clear();
+    (*this)(vec.m_size, "size");
+    vec.m_reader = &m_reader;
+    vec.m_offset = m_cur;
+
+    m_cur += vec.m_size * sizeof(T);
+    m_cur += ToAlign8(m_cur);
+    return *this;
+  }
+
+  uint64_t BytesRead() const { return m_cur; }
+
+private:
+  TReader const & m_reader;
+  uint64_t m_cur = 0;
+
+  DISALLOW_COPY_AND_MOVE(ReaderMapVisitor);
+};
+
 template <typename TWriter>
 class FreezeVisitor
 {
@@ -244,6 +294,14 @@ template <typename T>
 uint64_t ReverseMap(T & value, uint8_t * base, char const * name)
 {
   ReverseMapVisitor visitor(base);
+  visitor(value, name);
+  return visitor.BytesRead();
+}
+
+template <typename T, typename TReader>
+uint64_t ReaderMap(T & value, TReader const & reader, char const * name = nullptr)
+{
+  ReaderMapVisitor<TReader> visitor(reader);
   visitor(value, name);
   return visitor.BytesRead();
 }

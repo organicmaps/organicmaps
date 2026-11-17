@@ -45,6 +45,8 @@ namespace succinct { namespace mapper {
         mappable_vector & operator=(mappable_vector &&) = default;
 
         typedef T value_type;
+        // The same kind of vector for another element type.
+        template <typename TT> using UnderlyingT = mappable_vector<TT>;
         typedef const T* iterator;
         typedef const T* const_iterator;
 

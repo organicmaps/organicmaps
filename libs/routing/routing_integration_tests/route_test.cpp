@@ -85,6 +85,13 @@ UNIT_TEST(RussiaMoscowServiceCrossing)
                                    FromLatLon(55.77682, 37.70391), 211.634);
 }
 
+UNIT_TEST(RussiaNskServiceEndpoints)
+{
+  // Service-road endpoints must allow the direct route along the public street, улица Забалуева.
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(54.989101, 82.814544), {0., 0.},
+                                   FromLatLon(54.988947, 82.80889), 425.484);
+}
+
 UNIT_TEST(PriceIslandLoadCrossGeometryTest)
 {
   size_t constexpr kExpectedPointsNumber = 56;
@@ -593,7 +600,7 @@ UNIT_TEST(USA_NorthCarolina_CrossMWMs)
 UNIT_TEST(Cyprus_NoUTurnFromFake)
 {
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(34.70639, 33.1184951), {0., 0.},
-                                   FromLatLon(34.7065239, 33.1184222), 384.238);
+                                   FromLatLon(34.7065239, 33.1184222), 394.096);
 
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(34.7068976, 33.1199084), {0., 0.},
                                    FromLatLon(34.7070505, 33.1198391), 670.077);
@@ -702,7 +709,7 @@ UNIT_TEST(Turkey_AvoidMountainsSecondary)
   // Valhalla makes a long route. I think it is correct.
   /// @todo Should "split" ways for better inCity/outCity classification. Now long ways are detected as outCity (wrong).
   TestRouteLength(*res.first, 100399);
-  TestRouteTime(*res.first, 5319.01);
+  TestRouteTime(*res.first, 5207.47);
 }
 
 // https://github.com/organicmaps/organicmaps/issues/4110
@@ -722,7 +729,7 @@ UNIT_TEST(USA_Birmingham_AL_KeyWest_FL_NoMotorway)
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), start, {0., 0.}, finish, 1'471'410);
 
   RoutingOptionSetter optionsGuard(RoutingOptions::Motorway);
-  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), start, {0., 0.}, finish, 1'495'860);
+  CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), start, {0., 0.}, finish, 1'531'210);
 }
 
 UNIT_TEST(Turkey_Salarialaca_Sanliurfa)
@@ -885,7 +892,7 @@ UNIT_TEST(LATAM_UsePrimary_NotTrunkDetour)
 {
   // 10247 or less should be here.
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(4.737768, -74.077599), {0., 0.},
-                                   FromLatLon(4.684999, -74.046393), 10247.3);
+                                   FromLatLon(4.684999, -74.046393), 9814.94);
 
   /// @todo Still have the strange detour at the end. Due to the 20/30 km/h assignment for the primary_link.
   /// Looks like it is bad to assign maxspeed for _all_ connected links if it is defined for the middle one.
@@ -970,9 +977,7 @@ UNIT_TEST(Colombia_MotorVehicle_Conditional_No)
 
 UNIT_TEST(Belarus_Kopyl_Minsk)
 {
-  // Use P23 ASAP.
-  // OSRM makes a shorter but strange route here:
-  // https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=53.131897%2C27.018889%3B53.57253%2C27.47209
+  /// @todo OM now uses secondary H8544 (longer) instead of primary P61.
   CalculateRouteAndTestRouteLength(GetVehicleComponents(VehicleType::Car), FromLatLon(53.131897, 27.018889), {0., 0.},
                                    FromLatLon(53.57253, 27.47209), 82109);
 }

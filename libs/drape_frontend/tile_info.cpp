@@ -59,9 +59,8 @@ void TileInfo::ReadFeatures(MapDataProvider const & model)
 
   /// @todo Separate visibility settings for the isolines and the hillshading.
   // No terrain in the car navigation: the driver needs only the essential information.
-  auto const style = GetStyleReader().GetCurrentStyle();
   bool const drawTerrain = GetZoomLevel() >= terrain::kMinIsolinesZoom && m_context->IsolinesEnabled() &&
-                           style != MapStyleVehicleLight && style != MapStyleVehicleDark &&
+                           !MapStyleIsVehicle(GetStyleReader().GetCurrentStyle()) &&
                            model.HasTerrain(GetTileKey().GetWrappedDataRect());
 
   if (!m_featureInfo.empty() || drawTerrain)

@@ -195,6 +195,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @SuppressWarnings("NotNullFieldNotInitialized")
   private ActivityResultLauncher<IntentSenderRequest> mLocationResolutionRequest;
   @SuppressWarnings("NotNullFieldNotInitialized")
+  private ActivityResultLauncher<Intent> mLocationSettingsRequest;
+  @SuppressWarnings("NotNullFieldNotInitialized")
   @NonNull
   private ActivityResultLauncher<SharingUtils.SharingIntent> mShareLauncher;
   @SuppressWarnings("NotNullFieldNotInitialized")
@@ -558,6 +560,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                                            this::onLocationPermissionsResult);
     mLocationResolutionRequest = registerForActivityResult(new ActivityResultContracts.StartIntentSenderForResult(),
                                                            this::onLocationResolutionResult);
+    mLocationSettingsRequest =
+        registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> retryLocation());
     mPostNotificationPermissionRequest = registerForActivityResult(new ActivityResultContracts.RequestPermission(),
                                                                    this::onPostNotificationPermissionResult);
     mPowerSaveSettings =
@@ -1104,6 +1108,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mLocationPermissionRequest = null;
     mLocationResolutionRequest.unregister();
     mLocationResolutionRequest = null;
+    mLocationSettingsRequest.unregister();
+    mLocationSettingsRequest = null;
     mPostNotificationPermissionRequest.unregister();
     mPostNotificationPermissionRequest = null;
     mPowerSaveSettings.unregister();
@@ -1644,6 +1650,44 @@ public class MwmActivity extends BaseMwmFragmentActivity
     requestBatterySaverPermission();
   }
 
+  @Override
+  @UiThread
+  public void onLocationUnavailable()
+  {
+    if (mLocationErrorDialog != null && mLocationErrorDialog.isShowing())
+      return;
+
+    final boolean precise = LocationUtils.checkFineLocationPermission(this);
+    final MaterialAlertDialogBuilder builder =
+        new MaterialAlertDialogBuilder(this, R.style.MwmTheme_AlertDialog)
+            .setTitle(R.string.current_location_unknown_error_title)
+            .setMessage(precise ? R.string.dialog_routing_location_turn_wifi
+                                : R.string.precise_location_is_disabled_long_text)
+            .setNegativeButton(R.string.close, null)
+            .setOnDismissListener(dialog -> mLocationErrorDialog = null);
+    if (precise)
+      builder.setPositiveButton(R.string.try_again, (dialog, which) -> retryLocation());
+    else
+      builder.setPositiveButton(R.string.aa_grant_permissions, (dialog, which) -> {
+        mLocationPermissionRequest.launch(new String[] {ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION});
+      });
+    final Intent settings = Utils.makeSystemLocationSettingIntent(this);
+    if (settings != null)
+      builder.setNeutralButton(R.string.location_settings,
+                               (dialog, which) -> mLocationSettingsRequest.launch(settings));
+    mLocationErrorDialog = builder.show();
+  }
+
+  private void retryLocation()
+  {
+    if (!LocationUtils.checkLocationPermission(this) || !LocationUtils.areLocationServicesTurnedOn(this))
+      return;
+    if (Map.isEngineCreated() && LocationState.getMode() == LocationState.NOT_FOLLOW_NO_POSITION)
+      LocationState.nativeSwitchToNextMode();
+    else
+      MwmApplication.from(this).getLocationHelper().resumeLocationInForeground();
+  }
+
   /**
    * Called when compass data is updated.
    * @param north offset from the north
@@ -1717,6 +1761,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       if (hasFineLocationPermission)
       {
         Logger.i(LOCATION_TAG, "ACCESS_FINE_LOCATION permission granted");
+        MwmApplication.from(this).getLocationHelper().resumeLocationInForeground();
       }
       else
       {
@@ -1840,7 +1885,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   }
 
   /**
-   * Called by AndroidNativeLocationProvider when no suitable location methods are available.
+   * Called when system location is turned off.
    */
   @Override
   @UiThread

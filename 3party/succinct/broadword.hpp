@@ -169,7 +169,8 @@ namespace succinct { namespace broadword {
         if (!x) {
             return false;
         }
-        ret = bit_position(x & -int64_t(x));
+        // The unsigned negation: -int64_t(x) overflows for the highest bit.
+        ret = bit_position(x & (uint64_t{0} - x));
         return true;
 #endif
     }

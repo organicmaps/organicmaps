@@ -11,20 +11,28 @@ import androidx.annotation.UiThread;
 
 public abstract class BaseLocationProvider
 {
+  /** Startup progress from a Play-services-compatible location provider. */
+  public enum StartupPhase
+  {
+    CHECKING_SETTINGS,
+    REGISTERING_UPDATES,
+    REGISTERED
+  }
+
   public interface Listener
   {
     @UiThread
     void onLocationChanged(@NonNull Location location);
     @UiThread
     void onLocationDisabled();
-    // Used by GoogleFusedLocationProvider.
-    @SuppressWarnings("unused")
     @UiThread
     void onLocationResolutionRequired(@NonNull PendingIntent pendingIntent);
-    // Used by GoogleFusedLocationProvider.
-    @SuppressWarnings("unused")
+    /** Reports a Google request failure; the owner decides whether acquisition can continue. */
     @UiThread
-    void onFusedLocationUnsupported();
+    void onFusedLocationFailure();
+    /** Reports progress from the Play-services-compatible backend, not the native system fused source. */
+    @UiThread
+    void onFusedLocationProgress(@NonNull StartupPhase phase);
   }
 
   @NonNull

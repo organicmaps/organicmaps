@@ -1,9 +1,12 @@
-• OSM data as of September 28, Wikipedia as of September 21
-• Improved alternative routes and their estimated arrival times
-• Added a setting to optimize the order of intermediate route stops
-• Added buttons for adding or replacing a stop in a planned route
-• The selected alternative route is now preserved during navigation
-• Fixed and improved track recording
-• Fixed importing KMB files
-• User interface improvements and fixes
-…more details at omaps.org/news
+• 3D terrain and ocean depths, contour lines in meters/feet, elevation at any map point
+• OSM data as of November 10
+• Import and display KML/KMZ/GeoJSON areas
+• Public transport route details
+• Redesigned speed display
+• Track recording widget
+• GPS elevation above mean sea level
+• Track direction arrows and highlighting
+• Separate driving, cycling, and walking options
+• Reverse routes with stops
+• Fixed recording controls, arrival times, and Android Auto crashes
+…more at omaps.org/news

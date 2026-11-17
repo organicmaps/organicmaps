@@ -75,7 +75,8 @@ UNIT_TEST(AllMwmFeaturesGetAltitudeTest)
   TestAltitudeOfAllMwmFeatures("Russia_Moscow", 50 /* altitudeLowerBoundMeters */, 300 /* altitudeUpperBoundMeters */);
   TestAltitudeOfAllMwmFeatures("Nepal_Kathmandu", 250 /* altitudeLowerBoundMeters */,
                                6000 /* altitudeUpperBoundMeters */);
+  // Paths on the Kopje van Bloemendaal dune are 55 m.
   TestAltitudeOfAllMwmFeatures("Netherlands_North Holland_Amsterdam", -25 /* altitudeLowerBoundMeters */,
-                               50 /* altitudeUpperBoundMeters */);
+                               60 /* altitudeUpperBoundMeters */);
 }
 }  // namespace get_altitude_tests

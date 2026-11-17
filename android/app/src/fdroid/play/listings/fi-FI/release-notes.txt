@@ -1,9 +1,12 @@
-• OSM-tiedot: 28. syyskuuta; Wikipedia-tiedot: 21. syyskuuta
-• Parannetut vaihtoehtoiset reitit ja arvioidut saapumisajat
-• Uusi asetus optimoi välipysähdysten järjestyksen
-• Uudet painikkeet lisäävät tai korvaavat välipysähdyksiä suunnitellulla reitillä
-• Valittu vaihtoehtoinen reitti pysyy valittuna navigoinnin aikana
-• Jälkien tallennus korjattu ja parannettu
-• KMB-tiedostojen tuonti korjattu
-• Käyttöliittymän parannukset ja korjaukset
-…lisätietoja osoitteessa omaps.org/news
+• 3D-maasto, meren syvyydet, korkeuskäyrät (m/ft) ja korkeus missä tahansa
+• OSM-tiedot 10. marraskuuta asti
+• KML-/KMZ-/GeoJSON-alueiden tuonti ja näyttö
+• Julkisen liikenteen reittitiedot
+• Uusi nopeusnäyttö
+• Reitin tallennuspienoisohjelma
+• GPS-korkeus merenpinnan yläpuolella
+• Reitin suuntanuolet ja korostus
+• Eri asetukset autoiluun, pyöräilyyn ja kävelyyn
+• Reitin kääntö välipisteineen
+• Korjattu tallennuksen painikkeet, saapumisajat ja Android Auton kaatumiset
+…omaps.org/news

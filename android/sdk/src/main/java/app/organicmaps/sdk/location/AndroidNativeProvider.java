@@ -2,6 +2,7 @@ package app.organicmaps.sdk.location;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static app.organicmaps.sdk.util.concurrency.UiThread.cancelDelayedTasks;
 import static app.organicmaps.sdk.util.concurrency.UiThread.runLater;
 
 import android.content.Context;
@@ -10,6 +11,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresPermission;
 import androidx.core.location.LocationListenerCompat;
 import androidx.core.location.LocationManagerCompat;
@@ -27,12 +29,15 @@ public class AndroidNativeProvider extends BaseLocationProvider
     @Override
     public void onLocationChanged(@NonNull Location location)
     {
-      mListener.onLocationChanged(location);
+      if (mNativeLocationListener == this)
+        mListener.onLocationChanged(location);
     }
 
     @Override
     public void onProviderDisabled(@NonNull String provider)
     {
+      if (mNativeLocationListener != this)
+        return;
       Logger.d(TAG, "Disabled location provider: " + provider);
       mProviders.remove(provider);
       if (mProviders.isEmpty())
@@ -42,6 +47,8 @@ public class AndroidNativeProvider extends BaseLocationProvider
     @Override
     public void onProviderEnabled(@NonNull String provider)
     {
+      if (mNativeLocationListener != this)
+        return;
       Logger.d(TAG, "Enabled location provider: " + provider);
       mProviders.add(provider);
     }
@@ -57,8 +64,10 @@ public class AndroidNativeProvider extends BaseLocationProvider
   private final LocationManager mLocationManager;
   private final Set<String> mProviders;
 
+  @Nullable
+  private NativeLocationListener mNativeLocationListener;
   @NonNull
-  final private NativeLocationListener mNativeLocationListener = new NativeLocationListener();
+  private final Runnable mLocationDisabledRunnable = mListener::onLocationDisabled;
 
   public AndroidNativeProvider(@NonNull Context context, @NonNull BaseLocationProvider.Listener listener)
   {
@@ -89,7 +98,7 @@ public class AndroidNativeProvider extends BaseLocationProvider
     // API 31+ provides `fused` provider which aggregates `gps` and `network` and potentially other sensors as well.
     // Unfortunately, certain LineageOS ROMs have broken `fused` provider that pretends to be enabled, but in
     // reality it does absolutely nothing and doesn't return any location updates. For this reason, we try all
-    // (`fused`, `network`, `gps`) providers here, but prefer `fused` in LocationHelper.onLocationChanged().
+    // (`fused`, `network`, `gps`) providers here so GPS remains available when `fused` is silent.
     //
     // https://developer.android.com/reference/android/location/LocationManager#FUSED_PROVIDER
     // https://issuetracker.google.com/issues/215186921#comment3
@@ -101,15 +110,17 @@ public class AndroidNativeProvider extends BaseLocationProvider
     {
       // Call this callback in the next event loop to allow LocationHelper::start() to finish.
       Logger.w(TAG, "No providers available");
-      runLater(mListener::onLocationDisabled);
+      runLater(mLocationDisabledRunnable);
       return;
     }
 
+    final NativeLocationListener listener = new NativeLocationListener();
+    mNativeLocationListener = listener;
     for (String provider : mProviders)
     {
       Logger.d(TAG, "Request Android native provider '" + provider + "' to get locations at this interval = " + interval
                         + " ms");
-      LocationManagerCompat.requestLocationUpdates(mLocationManager, provider, locationRequest, mNativeLocationListener,
+      LocationManagerCompat.requestLocationUpdates(mLocationManager, provider, locationRequest, listener,
                                                    Looper.myLooper());
     }
   }
@@ -120,7 +131,11 @@ public class AndroidNativeProvider extends BaseLocationProvider
   public void stop()
   {
     Logger.d(TAG);
+    cancelDelayedTasks(mLocationDisabledRunnable);
     mProviders.clear();
-    LocationManagerCompat.removeUpdates(mLocationManager, mNativeLocationListener);
+    final NativeLocationListener listener = mNativeLocationListener;
+    mNativeLocationListener = null;
+    if (listener != null)
+      LocationManagerCompat.removeUpdates(mLocationManager, listener);
   }
 }

@@ -1,33 +1,55 @@
-## Penyusunan laluan
-• Laluan alternatif yang dipertingkatkan dan anggaran masa ketibaan mereka
-• Butang untuk menambah atau menggantikan hentian dalam laluan yang dirancang telah ditambah
-• Telah ditambah satu tetapan untuk mengoptimumkan susunan hentian laluan pertengahan
-• Laluan alternatif yang dipilih kini dikekalkan apabila navigasi mengira semula laluan
-• Susunan hentian laluan kini dipulihkan selepas memulakan semula aplikasi
+## Peta & medan
+• BARU: medan 3D dan kedalaman lautan, garisan kontur terperinci dalam meter dan kaki, serta ketinggian di mana-mana titik pada peta
+• Data OpenStreetMap setakat 10 November, artikel Wikipedia setakat 1 November
+• Aliran air berkala ditanda dengan garis putus-putus, label air lebih jelas dan garis luar baharu bagi jambatan kereta api
+• Kedai gunting rambut, studio Pilates, pemasang tingkap, loji air dan takungan bertutup ditambah
+• Transliterasi dan paparan label peta dalam bahasa Ibrani dan Arab dibetulkan
+• Penggunaan memori dikurangkan dan ranap semasa menukar gaya peta dibetulkan
 
-## Peta
-• Data OpenStreetMap setakat 28 September
-• Data Wikipedia setakat 21 September
-• Takungan air kini dapat dilihat apabila zum keluar lebih jauh
-• Terowong air tidak lagi dipaparkan pada peta
-• Ikon stesen dan pintu masuk Metro Suzhou telah diperbetulkan
-• Diperbaiki kes jarang di mana label teralih daripada kedudukan pada lapisan peta metro
+## Laluan & navigasi
+• Perancang dikemas kini dengan butang untuk membalikkan laluan termasuk semua hentian pertengahan
+• Tetapan elakan berasingan untuk pemanduan, berbasikal dan berjalan kaki
+• Hapuskan permulaan atau destinasi terus dari perancang laluan
+• Tambah destinasi baharu walaupun laluan sebelumnya tidak dapat dikira
+• Peningkatan pemulihan laluan, pengiraan semula, laluan alternatif dan anggaran tempoh
+• Penambahbaikan anggaran ketibaan pengangkutan awam, sambungan berjalan kaki dan penanda pintu stesen
+• Laluan yang disimpan mengekalkan segmen awal dan menggunakan kedudukan terkini
+• Betulkan amaran kamera laju yang lapuk
+• Penggantian titik laluan pada had hentian dan penunjuk tetapan laluan yang terpotong dibetulkan
+
+## Penanda buku, trek & kawasan
+• BARU: Mengimport dan memaparkan kawasan daripada fail KML, KMZ dan GeoJSON, termasuk pengisian, garisan dan lubang
+• Anak panah arah dan garis luar berkontras untuk trek terpilih
+• Membuka trek daripada senarai kini memilih titik permulaannya
+• Sandaran rakaman trek dikemas kini automatik setiap minit untuk pemulihan selepas aplikasi ranap
+• Fail KML mengekalkan hentian pertengahan dan mod perjalanan laluan yang disimpan
+• Penanda buku dan trek disusun mengikut nama mengikut tertib bahasa
+• Nama, perihalan dan imej senarai penanda buku dikemas kini apabila dimuat semula
+• Profil ketinggian dibetulkan selepas kembali ke peta dan pada bahagian rata atau dizum
+• Ranap semasa memadam trek yang disunting dan kegagalan import penanda buku pertama dibetulkan
+• Peningkatan import KML, GPX dan GeoJSON
 
 ## CarPlay
-• Tambah arahan manuver pada paparan HUD kereta yang disokong dan papan pemuka CarPlay
-• Butang CarPlay dan carian telah diperbaiki
+• Senarai penanda buku dikemas kini selepas suntingan, muat semula dan pemadaman
+• Penanda buku hilang pada had senarai dan ranap ketika memilih entri yang dipadam dibetulkan
 
-## Jejak
-• Tambah ikon mata untuk menyembunyikan jejak individu
-• Diperbaiki pepijat dan dipertingkatkan rakaman jejak
-• Masalah pengimportan fail KMB telah diperbaiki
+## Carian & muat turun
+• Cadangan carian mengekalkan aksen dan huruf besar
+• Peningkatan pengesanan rantau peta, termasuk merentasi meridian 180°
+• Peningkatan pembatalan muat turun peta, percubaan semula, sambungan semula dan muat turun latar belakang
+• Betulkan kiraan peta berganda dan saiz kemas kini yang membengkak
+• Carian kategori penyunting peta, isihan mengikut jenis masakan dan suntingan nama dalam bahasa Norway Bokmål ditambah baik
 
-## Cari
-• Diperbaiki carian apabila kawasan peta yang dipaparkan melintasi meridian 180° (bujur ±180°)
-• Carian mengikut kategori dalam Spotlight telah dipulihkan
+## UI & terjemahan
+• Bahasa Wales ditambah
+• Penambahbaikan susunan suara navigasi dan pembetulan frasa pratonton suara
+• Pratonton pengangkutan awam ditambah baik dengan lebih banyak simbol, nombor laluan yang boleh dibalut ke baris baharu dan susun atur kanan ke kiri
+• Diperbaiki kedudukan kompas dalam susun atur kanan-ke-kiri dan kontras teks laluan dalam mod gelap
+• Menjaga butang pengesahan navigasi kekal boleh diakses dengan saiz teks besar
+• Isu semasa menyeret dan menutup butiran tempat serta membuka pautan peta berturut-turut dibetulkan
+• Ranap apabila muat turun peta mengemas kini butiran tempat yang masih dimuatkan dibetulkan
+• Pautan dan serlahan dalam menu dan Tetapan dibetulkan
+• Peningkatan terjemahan, arahan bertutur dan pilihan bahasa
+• Pautan komuniti dalam Mengenai telah diperbaiki
 
-## Antaramuka pengguna
-• Waktu buka kini memaparkan "Tengah hari" untuk 12:00 dan "Tengah malam" untuk 00:00 atau 24:00
-• Pelbagai pepijat telah diperbaiki dan antara muka pengguna telah dipertingkatkan
-• Terjemahan Bahasa Inggeris, Perancis dan Asturian telah diperbetulkan
-• Ditambah sokongan untuk memilih suara navigasi yang dipasang dan mendengar sampelnya
+Nota keluaran terperinci di organicmaps.app/news

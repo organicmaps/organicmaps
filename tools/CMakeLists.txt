@@ -2,6 +2,7 @@ add_subdirectory(openlr)
 add_subdirectory(poly_borders)
 add_subdirectory(track_analyzing)
 
+omim_add_tool_subdirectory(geo_index_benchmark)
 omim_add_tool_subdirectory(mwm_viewer)
 omim_add_tool_subdirectory(topography_generator)
 omim_add_tool_subdirectory(track_generator)

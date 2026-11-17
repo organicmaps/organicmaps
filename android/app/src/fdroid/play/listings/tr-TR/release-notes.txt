@@ -1,9 +1,12 @@
-• OSM verileri: 28 Eylül; Wikipedia verileri: 21 Eylül
-• Alternatif rotalar ve tahmini varış süreleri iyileştirildi
-• Yeni ayar, ara durak sırasını optimize eder
-• Yeni düğmeler, planlanan bir rotaya durak ekler veya mevcut durakları değiştirir
-• Seçilen alternatif rota, navigasyon sırasında seçili kalır
-• İz kaydı düzeltildi ve iyileştirildi
-• KMB dosyası içe aktarma sorunu düzeltildi
-• Kullanıcı arayüzü iyileştirmeleri ve düzeltmeler
-…daha fazla ayrıntı için omaps.org/tr/news
+• 3D arazi, okyanus derinlikleri, eş yükselti eğrileri (m/ft) ve her noktanın rakımı
+• OSM verileri: 10 Kasım
+• KML/KMZ/GeoJSON alanlarını içe aktarma ve gösterme
+• Toplu taşıma güzergâh ayrıntıları
+• Yeni hız göstergesi
+• İz kaydetme widget’ı
+• Ortalama deniz seviyesine göre GPS rakımı
+• İz yön okları ve vurgulama
+• Araç, bisiklet ve yaya için ayrı seçenekler
+• Ara duraklarla rotayı tersine çevirme
+• Kayıt düğmeleri, varış süreleri ve Android Auto çökmeleri düzeltildi
+…omaps.org/tr/news

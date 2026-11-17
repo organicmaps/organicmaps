@@ -3,13 +3,58 @@
 #include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
+#include "base/buffer_vector.hpp"
 
 #include <algorithm>
+#include <cmath>
 #include <limits>
 
 namespace routing
 {
 using Iter = routing::FollowedPolyline::Iter;
+namespace
+{
+// Match equivalent projections within GPS uncertainty, with a sub-metre lower bound.
+double constexpr kMinSpatialToleranceM = 0.5;
+// Ignore small bearing differences when comparing source occurrences.
+double constexpr kDirectionAlignmentTolerance = 0.1;
+// Forward-only continuation applies to a near-straight source chain.
+double constexpr kForwardChainMinCosine = 0.9;
+// Allow bearing noise while rejecting perpendicular or opposing rejoin directions.
+double constexpr kMinDirectionMatchCosine = 0.5;
+
+// Appended candidates initialize every field; leave spare inline slots untouched.
+struct TrackCandidate
+{
+  Iter m_iter;
+  double m_distanceM;
+  double m_signedChangeM;
+  double m_alignment;
+  bool m_onForwardChain;
+  bool m_afterObservedTurn;
+
+  // Prefer continuity among projections in the same spatial uncertainty band.
+  bool PreferTo(TrackCandidate const & best, double toleranceM) const
+  {
+    if (!best.m_iter.IsValid())
+      return true;
+    // Within one forward occurrence, exact proximity advances dense samples.
+    if (m_onForwardChain && best.m_onForwardChain && m_signedChangeM > 0.0 && m_distanceM < best.m_distanceM)
+      return true;
+    double const change = fabs(m_signedChangeM);
+    double const bestChange = fabs(best.m_signedChangeM);
+    if (change < bestChange - toleranceM)
+      return true;
+    if (fabs(change - bestChange) > toleranceM)
+      return false;
+    if (m_alignment > best.m_alignment + kDirectionAlignmentTolerance)
+      return true;
+    if (fabs(m_alignment - best.m_alignment) > kDirectionAlignmentTolerance)
+      return false;
+    return (m_afterObservedTurn && best.m_signedChangeM < 0.0) || change < bestChange;
+  }
+};
+}  // namespace
 
 Iter FollowedPolyline::Begin() const
 {
@@ -81,6 +126,7 @@ void FollowedPolyline::Swap(FollowedPolyline & rhs)
   m_segProj.swap(rhs.m_segProj);
   std::swap(m_current, rhs.m_current);
   std::swap(m_nextCheckpointIndex, rhs.m_nextCheckpointIndex);
+  std::swap(m_lastNonZeroSegment, rhs.m_lastNonZeroSegment);
 }
 
 void FollowedPolyline::Update()
@@ -95,12 +141,15 @@ void FollowedPolyline::Update()
   m_segProj.reserve(n);
 
   double dist = 0.0;
+  m_lastNonZeroSegment = 0;
   for (size_t i = 0; i < n; ++i)
   {
     m2::PointD const & p1 = m_poly.GetPoint(i);
     m2::PointD const & p2 = m_poly.GetPoint(i + 1);
 
     dist += mercator::DistanceOnEarth(p1, p2);
+    if (!p1.EqualDxDy(p2, mercator::kPointEqualityEps))
+      m_lastNonZeroSegment = i;
 
     m_segDistance.emplace_back(dist);
     m_segProj.emplace_back(p1, p2);
@@ -160,6 +209,150 @@ bool FollowedPolyline::UpdateMatchingProjection(m2::RectD const & posRect)
   }
 
   return false;
+}
+
+double FollowedPolyline::GetLastNonZeroSegmentStartMeters() const
+{
+  ASSERT(IsValid(), ());
+  return m_lastNonZeroSegment == 0 ? 0.0 : m_segDistance[m_lastNonZeroSegment - 1];
+}
+
+size_t FollowedPolyline::FindNextNonZeroSegment(size_t segment) const
+{
+  while (segment < m_segProj.size() &&
+         m_poly.GetPoint(segment).EqualDxDy(m_poly.GetPoint(segment + 1), mercator::kPointEqualityEps))
+    ++segment;
+  return segment;
+}
+
+size_t FollowedPolyline::GetForwardChainEnd(m2::PointD const & direction, double maxDistanceM, double toleranceM) const
+{
+  ASSERT_GREATER(direction.SquaredLength(), 0.0, ());
+  size_t end = m_current.m_ind;
+  auto const origin = m_current.m_pt;
+  double const directionLength = direction.Length();
+  double const tolerance = toleranceM * directionLength / mercator::DistanceOnEarth(origin, origin + direction);
+  double furthest = 0.0;
+  buffer_vector<m2::PointD, 64> visited{origin};
+  // Sort along movement so forward samples usually append.
+  auto const less = [&direction](m2::PointD const & lhs, m2::PointD const & rhs)
+  {
+    double const lhsProjection = m2::DotProduct(direction, lhs);
+    double const rhsProjection = m2::DotProduct(direction, rhs);
+    return lhsProjection != rhsProjection ? lhsProjection < rhsProjection : lhs < rhs;
+  };
+  auto const visit = [&visited, &less](m2::PointD const & point)
+  {
+    auto const it =
+        less(visited.back(), point) ? visited.end() : std::lower_bound(visited.begin(), visited.end(), point, less);
+    if (it != visited.end() && *it == point)
+      return false;
+    visited.insert(it, point);
+    return true;
+  };
+  // Nearby earlier vertices distinguish source revisits from recording noise.
+  // Sort them together instead of shifting the buffer on each backward insertion.
+  for (size_t i = m_current.m_ind + 1; i > 0; --i)
+  {
+    auto const & point = m_poly.GetPoint(i - 1);
+    if (mercator::DistanceOnEarth(origin, point) > toleranceM)
+      break;
+    if (visited.back() != point)
+      visited.push_back(point);
+  }
+  std::sort(visited.begin(), visited.end(), less);
+  visited.erase(std::unique(visited.begin(), visited.end()), visited.end());
+  for (size_t i = m_current.m_ind; i < m_segProj.size(); ++i)
+  {
+    auto const & point = m_poly.GetPoint(i + 1);
+    // Consecutive altitude/stop samples belong to one visit; returning to a vertex does not.
+    bool const atCurrent = i == m_current.m_ind && point.EqualDxDy(origin, mercator::kPointEqualityEps);
+    if (!point.EqualDxDy(m_poly.GetPoint(i), mercator::kPointEqualityEps) && !visit(point) && !atCurrent)
+      break;
+    auto const chord = point - origin;
+    double const projection = m2::DotProduct(direction, chord) / directionLength;
+    // Individual edges can backtrack within GPS uncertainty; sustained reversal ends this visit.
+    if (projection < furthest - tolerance)
+      break;
+    furthest = std::max(furthest, projection);
+    double const distanceM = mercator::DistanceOnEarth(origin, point);
+    if (distanceM > 2.0 * toleranceM &&
+        m2::DotProduct(direction, chord) < kForwardChainMinCosine * directionLength * chord.Length())
+      break;
+    end = i;
+    if (distanceM > maxDistanceM)
+      break;
+  }
+  return end;
+}
+
+bool FollowedPolyline::UpdateTrackMatchingProjection(TrackMatchQuery const & query)
+{
+  auto const iter = GetTrackMatchingProjection(query);
+  if (!iter.IsValid())
+    return false;
+  m_current = iter;
+  return true;
+}
+
+Iter FollowedPolyline::GetTrackMatchingProjection(TrackMatchQuery const & query) const
+{
+  ASSERT(m_current.IsValid(), ());
+  ASSERT_LESS(m_current.m_ind, m_segProj.size(), ());
+  ASSERT_GREATER_OR_EQUAL(query.m_minProgressM, 0.0, ());
+  ASSERT_LESS_OR_EQUAL(query.m_minProgressM, query.m_maxProgressM, ());
+  ASSERT_GREATER_OR_EQUAL(query.m_toleranceM, 0.0, ());
+  auto const currentDistance = GetDistanceFromStartMeters();
+  size_t const start =
+      std::lower_bound(m_segDistance.begin(), m_segDistance.end(), query.m_minProgressM) - m_segDistance.begin();
+  size_t const nextSegment = FindNextNonZeroSegment(m_current.m_ind + 1);
+  bool const confirmedTurn =
+      mercator::DistanceOnEarth(m_current.m_pt, m_poly.GetPoint(m_current.m_ind + 1)) <= query.m_toleranceM;
+  double const forwardAllowanceM = std::max(0.0, query.m_maxProgressM - currentDistance);
+  size_t const forwardEnd = query.m_forwardDirection
+                              ? GetForwardChainEnd(*query.m_forwardDirection, forwardAllowanceM, query.m_toleranceM)
+                              : m_current.m_ind;
+  TrackCandidate best;
+  buffer_vector<TrackCandidate, 64> candidates;
+  double nearestDistanceM = std::numeric_limits<double>::max();
+  for (size_t i = start; i < m_segProj.size(); ++i)
+  {
+    double const segmentStart = i == 0 ? 0.0 : m_segDistance[i - 1];
+    if (segmentStart > query.m_maxProgressM && i > forwardEnd)
+      break;
+    auto const point = m_segProj[i].ClosestPointTo(query.m_positionRect.Center());
+    if (!query.m_positionRect.IsPointInside(point))
+      continue;
+    auto const & from = m_poly.GetPoint(i);
+    auto const delta = m_poly.GetPoint(i + 1) - from;
+    double const progress = segmentStart + mercator::DistanceOnEarth(from, point);
+    bool const onForwardChain = query.m_forwardDirection && progress >= currentDistance && i >= m_current.m_ind &&
+                                i <= forwardEnd &&
+                                mercator::DistanceOnEarth(m_current.m_pt, point) <= forwardAllowanceM;
+    if (progress < query.m_minProgressM || (progress > query.m_maxProgressM && !onForwardChain))
+      continue;
+    double const change = progress - currentDistance;
+    double const alignment =
+        query.m_direction && delta.SquaredLength() > 0.0
+            ? m2::DotProduct(delta, *query.m_direction) / delta.Length() * (change < 0.0 ? -1.0 : 1.0)
+            : 0.0;
+    if (query.m_requireDirectionMatch && alignment < kMinDirectionMatchCosine)
+      continue;
+    TrackCandidate const candidate{Iter(point, i),
+                                   mercator::DistanceOnEarth(point, query.m_positionRect.Center()),
+                                   change,
+                                   alignment,
+                                   onForwardChain && !query.m_isFirstFix,
+                                   change > 0.0 && confirmedTurn && i <= nextSegment};
+    nearestDistanceM = std::min(nearestDistanceM, candidate.m_distanceM);
+    candidates.push_back(candidate);
+  }
+  // Anchor uncertainty to the nearest projection, so it cannot grow across dense samples.
+  double const distanceLimitM = nearestDistanceM + std::max(kMinSpatialToleranceM, query.m_toleranceM);
+  for (auto const & candidate : candidates)
+    if (candidate.m_distanceM <= distanceLimitM && candidate.PreferTo(best, query.m_toleranceM))
+      best = candidate;
+  return best.m_iter;
 }
 
 Iter FollowedPolyline::UpdateProjection(m2::RectD const & posRect)

@@ -54,6 +54,11 @@ bool MapStyleIsDark(MapStyle mapStyle)
   return false;
 }
 
+bool MapStyleIsVehicle(MapStyle mapStyle)
+{
+  return mapStyle == MapStyleVehicleLight || mapStyle == MapStyleVehicleDark;
+}
+
 MapStyle GetDarkMapStyleVariant(MapStyle mapStyle)
 {
   if (MapStyleIsDark(mapStyle) || mapStyle == MapStyleMerged)

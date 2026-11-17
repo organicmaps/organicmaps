@@ -1,9 +1,12 @@
-• OSM: 28 sentyabr; Wikipedia: 21 sentyabr
-• Daha yaxşı alternativ marşrutlar və gəliş təxminləri
-• Yeni parametr dayanacaqların sırasını optimallaşdırır
-• Yeni düymələr planlaşdırılmış marşrutlardakı dayanacaqları əlavə edir və ya əvəz edir
-• Seçilmiş alternativ marşrut naviqasiya zamanı saxlanılır
-• Trek yazılmasında düzəlişlər və təkmilləşdirmələr
-• KMB idxalı düzəldildi
-• UI düzəlişləri və təkmilləşdirmələri
-…daha çox omaps.org/news
+• 3D relyef, okean dərinlikləri, kontur xətləri (m/ft), nöqtə hündürlükləri
+• OSM məlumatları: 10 noyabr
+• KML/KMZ/GeoJSON sahələrini idxal edin və göstərin
+• İctimai nəqliyyat xəttinin təfərrüatı
+• Yeni sürət göstəricisi
+• Yol qeydi vidceti
+• Orta dəniz səviyyəsindən GPS hündürlüyü
+• Yol qeydinin istiqamət oxları və vurğusu
+• Avtomobil, velosiped və piyada üçün ayrı seçimlər
+• Marşrutu dayanacaqlarla tərsinə çevirin
+• Qeyd düymələri, çatma vaxtı və Android Auto çökmələri düzəldi
+…omaps.org/news

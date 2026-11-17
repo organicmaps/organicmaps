@@ -4,6 +4,7 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.POST_NOTIFICATIONS;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -51,7 +52,6 @@ public class TrackRecordingService
   private NotificationCompat.Builder mNotificationBuilder;
   private static final String TAG = TrackRecordingService.class.getSimpleName();
   private boolean mWarningNotification = false;
-  private NotificationCompat.Builder mWarningBuilder;
   private PendingIntent mPendingIntent;
   private PendingIntent mExitPendingIntent;
 
@@ -159,7 +159,6 @@ public class TrackRecordingService
   {
     Logger.d(TAG);
     mNotificationBuilder = null;
-    mWarningBuilder = null;
     // onStartCommand() bails out with stopSelf() when the core is not initialized: Android re-delivers a start
     // command that was in flight when the process crashed, even for START_NOT_STICKY.
     if (MwmApplication.from(this).getOrganicMaps().arePlatformAndCoreInitialized())
@@ -259,13 +258,10 @@ public class TrackRecordingService
     return START_NOT_STICKY;
   }
 
-  public NotificationCompat.Builder getWarningBuilder(Context context)
+  private Notification createWarningNotification(boolean unavailable)
   {
-    if (mWarningBuilder != null)
-      return mWarningBuilder;
-
-    mWarningBuilder =
-        new NotificationCompat.Builder(context, TRACK_REC_CHANNEL_ID)
+    final NotificationCompat.Builder builder =
+        new NotificationCompat.Builder(this, TRACK_REC_CHANNEL_ID)
             .setCategory(NotificationCompat.CATEGORY_SERVICE)
             .setPriority(NotificationManager.IMPORTANCE_DEFAULT)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
@@ -273,15 +269,23 @@ public class TrackRecordingService
             .setShowWhen(true)
             .setOnlyAlertOnce(true)
             .setSmallIcon(R.drawable.warning_icon)
-            .setContentTitle(context.getString(R.string.current_location_unknown_error_title))
-            .setContentText(context.getString(R.string.dialog_routing_location_turn_wifi))
-            .setStyle(new NotificationCompat.BigTextStyle().bigText(
-                context.getString(R.string.dialog_routing_location_turn_wifi)))
-            .addAction(0, context.getString(R.string.track_recording_stop_and_save), getExitPendingIntent(context))
-            .setContentIntent(getPendingIntent(context))
-            .setColor(ContextCompat.getColor(context, R.color.notification_warning));
+            .setContentTitle(getString(R.string.current_location_unknown_error_title))
+            .setContentText(getString(R.string.dialog_routing_location_turn_wifi))
+            .setStyle(
+                new NotificationCompat.BigTextStyle().bigText(getString(R.string.dialog_routing_location_turn_wifi)))
+            .addAction(0, getString(R.string.track_recording_stop_and_save), getExitPendingIntent(this))
+            .setContentIntent(getPendingIntent(this))
+            .setColor(ContextCompat.getColor(this, R.color.notification_warning));
 
-    return mWarningBuilder;
+    if (unavailable)
+    {
+      final int flags = PendingIntent.FLAG_UPDATE_CURRENT
+                      | (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_IMMUTABLE : 0);
+      final PendingIntent retry =
+          PendingIntent.getService(this, 2, new Intent(this, TrackRecordingService.class), flags);
+      builder.addAction(0, getString(R.string.try_again), retry);
+    }
+    return builder.build();
   }
 
   @Keep
@@ -299,6 +303,18 @@ public class TrackRecordingService
   public void onLocationUpdateTimeout()
   {
     Logger.i(TAG, "Location update timeout");
+    showLocationWarning(false);
+  }
+
+  @Override
+  public void onLocationUnavailable()
+  {
+    Logger.i(TAG, "No location provider is available");
+    showLocationWarning(true);
+  }
+
+  private void showLocationWarning(boolean unavailable)
+  {
     mWarningNotification = true;
     // post notification permission is not there but we will not stop the runnable because if
     // in between user gives permission then warning will not be updated until next restart
@@ -306,7 +322,7 @@ public class TrackRecordingService
         && ActivityCompat.checkSelfPermission(this, POST_NOTIFICATIONS) != PERMISSION_GRANTED)
       return;
 
-    NotificationManagerCompat.from(this).notify(TRACK_REC_NOTIFICATION_ID, getWarningBuilder(this).build());
+    NotificationManagerCompat.from(this).notify(TRACK_REC_NOTIFICATION_ID, createWarningNotification(unavailable));
   }
 
   @Override

@@ -34,10 +34,10 @@ UNIT_TEST(Russia_UsePrimaryDetour_NotSecondaryTown)
                                                 mercator::FromLatLon(50.215143, 39.4498585), {0.0, 0.0},
                                                 mercator::FromLatLon(49.9025281, 40.5213712), 123949);
 
-  /// @todo Should prefer trunk detour with maxspeed=90 than secondary with maxspeed=60.
+  // Through the town by А-289, like OSRM, GraphHopper and Valhalla (20.2-20.3 km).
   integration::CalculateRouteAndTestRouteLength(integration::GetVehicleComponents(VehicleType::Car),
                                                 mercator::FromLatLon(45.2849983, 38.2432247), {0.0, 0.0},
-                                                mercator::FromLatLon(45.237346, 38.0046459), 28534.8);
+                                                mercator::FromLatLon(45.237346, 38.0046459), 20310.7);
 }
 
 // In this case the shortest way from Belgorod oblast to Crimea is through Ukraine. But we add
@@ -62,12 +62,11 @@ UNIT_TEST(CrossCountry_Russia_Belgorod_Oblast_to_Crimea)
 // borders of the Schengen Area countries. So the route should run directly from Lithuania to Poland.
 UNIT_TEST(CrossCountry_Lithuania_to_Poland)
 {
-  // Google maps agree here with OM :)
-  // All OSM engines make shorter routes via the minor roads.
+  // Goes via the minor roads like OSRM, GraphHopper and Valhalla (179-185 km).
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents(VehicleType::Car), mercator::FromLatLon(55.10055, 22.30228) /* startPoint */,
       {0.0, 0.0} /* startDirection */, mercator::FromLatLon(54.27745, 22.33767) /* finalPoint */,
-      228'702 /* expectedRouteMeters */);
+      192'828 /* expectedRouteMeters */);
 }
 
 // In this case the shortest way from Hungary to Slovakia is through Ukraine. But we add penalty for

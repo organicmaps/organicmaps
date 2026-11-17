@@ -1,9 +1,12 @@
-• OSM-gögn frá 28. september; Wikipedia frá 21. september
-• Betri varaleiðir og áætlaður komutími
-• Ný stilling fínstillir röð viðkomustaða
-• Nýir hnappar bæta við eða skipta út viðkomustað á fyrirhugaðri leið
-• Valin varaleið helst valin meðan á leiðsögn stendur
-• Villur í skráningu ferla lagaðar og skráningin bætt
-• Innflutningur KMB-skráa lagfærður
-• Lagfæringar og umbætur á notendaviðmóti
-…nánar á omaps.org/news
+• Landslag í 3D, sjávardýpi, hæðarlínur (m/ft), hæð hvar sem er á kortinu
+• OSM-gögn frá 10. nóvember
+• Flytja inn og birta svæði í KML/KMZ/GeoJSON
+• Upplýsingar um almenningssamgönguleiðir
+• Endurhannaður hraðamælir
+• Græja fyrir ferilupptöku
+• GPS-hæð yfir meðalsjávarmáli
+• Stefnuörvar og auðkenning ferla
+• Aðskildir valkostir fyrir akstur, hjólreiðar og göngu
+• Snúa leiðum við ásamt millistoppum
+• Upptökustýringar, komutímar og hrun í Android Auto lagfærð
+…omaps.org/news

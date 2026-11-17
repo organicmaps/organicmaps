@@ -34,8 +34,15 @@ final class LocationProviderFactory
     else
     {
       Logger.d(TAG, "Use native provider");
-      return new AndroidNativeProvider(context, listener);
+      return getNativeProvider(context, listener);
     }
+  }
+
+  @NonNull
+  public BaseLocationProvider getNativeProvider(@NonNull Context context,
+                                                @NonNull BaseLocationProvider.Listener listener)
+  {
+    return new AndroidNativeProvider(context, listener);
   }
 
   @NonNull

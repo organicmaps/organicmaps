@@ -4,43 +4,41 @@ on:
   push:
     branches:
       - master
-    paths-ignore:
-      - .agents/**
-      - .claude/**
-      - .gemini/**
-      - '**/*.md'
+    # Keep common paths in sync with android-beta.yaml, ios-check.yaml and ios-beta.yaml.
+    # Keep Android paths in sync with android-beta.yaml, except workflow/setup-gradle.
+    paths: &android-paths
+      # Common inputs
+      - .gitattributes
+      - .gitmodules
+      - '*.h'
+      - '*.hpp'
+      - 3party/**
+      - data/**
+      - libs/**
+      # Android inputs
+      - .github/actions/setup-gradle/**
+      - .github/workflows/android-check.yaml
+      - android/**
+      - CMakeLists.txt
+      - cmake/**
+      - tools/unix/version.sh  # Required by Gradle version generation
+      # Common exclusions
+      - '!**/*.md'
+      - '!**/*_tests/**'
+      - '!data/borders/**'
+      - '!data/organic_maps_emoji/**'
+      - '!data/strings/**'
+      - '!data/test_data/**'
+      # Android exclusions
+      - '!android/app/src/*/play/**'
+      - '!libs/platform/*apple*'
+      - '!libs/platform/*_ios*'
+      - '!libs/platform/*_linux*'
+      - '!libs/platform/*_mac*'
+      - '!libs/platform/*qt*'
+      - '!libs/platform/*_win*'
   pull_request:
-    paths-ignore:
-      - .agents/**
-      - .claude/**
-      - .gemini/**
-      - .gitignore
-      - .github/**
-      - '!.github/workflows/android-check.yaml'  # Run check on self change
-      - '**/*.md'
-      - '**/*_tests/**'
-      - CONTRIBUTORS
-      - LICENSE
-      - NOTICE
-      - android/app/src/fdroid/**
-      - android/app/src/google/**
-      - iphone/**
-      - data/organic_maps_emoji/**
-      - data/strings/**
-      - docs/**
-      - generator/**
-      - packaging/**
-      - platform/*apple*
-      - platform/*_ios*
-      - platform/*_linux*
-      - platform/*_mac*
-      - platform/*qt*
-      - platform/*_win*
-      - qt*/**
-      - skin_generator/**
-      - tools/**
-      - track_generator/**
-      - xcode/**
+    paths: *android-paths
 
 env:
   JAVA_HOME: /usr/lib/jvm/temurin-21-jdk-amd64  # Java 21 is required by Android Gradle plugin lint
@@ -52,6 +50,9 @@ jobs:
     steps:
       - name: Checkout sources
         uses: actions/checkout@v6
+
+      - name: Set up Gradle
+        uses: ./.github/actions/setup-gradle
 
       - name: Lint
         shell: bash
@@ -109,6 +110,12 @@ jobs:
           # Needed for versioning script
           fetch-depth: 200 # enough to get all commits for the current day
 
+      - name: Set up Gradle
+        uses: ./.github/actions/setup-gradle
+        with:
+          # One writer covers the app, Wear and tests without duplicating dependency bundles.
+          cache-read-only: ${{ github.ref != 'refs/heads/master' || matrix.flavor != 'WebDebug' }}
+
       - name: Parallel submodules checkout
         shell: bash
         run: git submodule update --depth 1 --init --recursive --jobs=$(($(nproc) * 20))
@@ -165,6 +172,7 @@ jobs:
             ./gradlew -P${{ matrix.arch }} app:test${{ matrix.flavor }} sdk:testDebug
             :wear:testGoogleDebugUnitTest :libs:wear-protocol-gms:testDebugUnitTest
             :sdk:wear:core:testDebugUnitTest :sdk:wear:gms:testDebugUnitTest :libs:car:testDebugUnitTest
+            :sdk:location:gms:google:testDebugUnitTest :sdk:location:gms:foss:testDebugUnitTest
             sdk:connectedDebugAndroidTest
 
       - name: Upload ${{ matrix.flavor }} apk

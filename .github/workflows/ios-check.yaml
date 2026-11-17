@@ -4,41 +4,38 @@ on:
   push:
     branches:
       - master
-    paths-ignore:
-      - .agents/**
-      - .claude/**
-      - .gemini/**
-      - '**/*.md'
+    # Keep common paths in sync with ios-beta.yaml, android-check.yaml and android-beta.yaml.
+    # Keep iOS paths in sync with ios-beta.yaml, except workflow/version.sh.
+    paths: &ios-paths
+      # Common inputs
+      - .gitattributes
+      - .gitmodules
+      - '*.h'
+      - '*.hpp'
+      - 3party/**
+      - data/**
+      - libs/**
+      # iOS inputs
+      - .github/workflows/ios-check.yaml
+      - iphone/**
+      - xcode/**
+      # Common exclusions
+      - '!**/*.md'
+      - '!**/*_tests/**'
+      - '!data/borders/**'
+      - '!data/organic_maps_emoji/**'
+      - '!data/strings/**'
+      - '!data/test_data/**'
+      # iOS exclusions
+      - '!**/CMakeLists.txt'
+      - '!iphone/metadata/**'
+      - '!libs/platform/*_android*'
+      - '!libs/platform/*_linux*'
+      - '!libs/platform/*_mac*'
+      - '!libs/platform/*qt*'
+      - '!libs/platform/*_win*'
   pull_request:
-    paths-ignore:
-      - .agents/**
-      - .claude/**
-      - .gemini/**
-      - .gitignore
-      - .github/**
-      - '!.github/workflows/ios-check.yaml'  # Run check on self change
-      - '**/*.md'
-      - '**/*_tests/**'
-      - '**/CMakeLists.txt'
-      - CONTRIBUTORS
-      - LICENSE
-      - NOTICE
-      - android/**
-      - data/organic_maps_emoji/**
-      - data/strings/**
-      - docs/**
-      - generator/**
-      - iphone/metadata/**
-      - packaging/**
-      - platform/*_android*
-      - platform/*_linux*
-      - platform/*_mac*
-      - platform/*qt*
-      - platform/*_win*
-      - qt*/**
-      - skin_generator/**
-      - tools/**
-      - track_generator/**
+    paths: *ios-paths
 
 jobs:
   ios-check:

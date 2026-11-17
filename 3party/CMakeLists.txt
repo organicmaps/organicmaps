@@ -86,7 +86,8 @@ if (NOT WITH_SYSTEM_PROVIDED_3PARTY)
   endif()
 endif()
 
-add_subdirectory(BLAKE3/c)
+# BLAKE3 is a private static dependency; its development files are not installed.
+add_subdirectory(BLAKE3/c EXCLUDE_FROM_ALL)
 add_subdirectory(bsdiff-courgette)
 add_subdirectory(glaze)
 add_subdirectory(minizip)

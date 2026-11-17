@@ -1,33 +1,55 @@
-## Tính năng định tuyến
-• Cải thiện các lộ trình thay thế và thời gian đến dự kiến của chúng
-• Đã thêm các nút để thêm hoặc thay thế một điểm dừng trong lộ trình đã lên kế hoạch
-• Đã thêm một cài đặt để tối ưu hóa thứ tự các điểm dừng trung gian trên lộ trình
-• Lộ trình thay thế đã chọn hiện được giữ nguyên khi hệ thống định vị tính toán lại lộ trình
-• Thứ tự các điểm dừng trên lộ trình hiện đã được khôi phục sau khi khởi động lại ứng dụng
+## Bản đồ & địa hình
+• MỚI: địa hình 3D, độ sâu đại dương, đường đồng mức chi tiết tính bằng mét và feet, độ cao ở mọi điểm trên bản đồ
+• Dữ liệu OpenStreetMap tính đến 10 tháng 11 và bài viết Wikipedia tính đến 1 tháng 11
+• Nét đứt cho dòng chảy theo mùa, nhãn thủy vực rõ hơn và đường viền mới cho cầu đường sắt
+• Thêm tiệm cắt tóc nam, phòng tập Pilates, dịch vụ lắp cửa sổ, công trình cấp nước và bể chứa có mái che
+• Đã khắc phục vấn đề chuyển tự và hiển thị nhãn bản đồ bằng tiếng Do Thái và tiếng Ả Rập
+• Giảm mức tiêu thụ bộ nhớ và khắc phục các lỗi treo ứng dụng khi chuyển đổi kiểu bản đồ
 
-## Bản đồ
-• Dữ liệu OpenStreetMap tính đến ngày 28 tháng 9
-• Dữ liệu từ Wikipedia tính đến ngày 21 tháng 9
-• Các hồ chứa nước hiện đã hiển thị khi thu nhỏ bản đồ ra xa hơn
-• Các đường hầm dẫn nước không còn được hiển thị trên bản đồ
-• Đã sửa các biểu tượng trạm và lối vào của Metro Tô Châu
-• Đã khắc phục các trường hợp hiếm gặp khi nhãn bị lệch khỏi vị trí trên lớp bản đồ tàu điện ngầm
+## Lập lộ trình & điều hướng
+• Cập nhật trình lập lộ trình và thêm nút đảo chiều cả lộ trình lẫn mọi điểm dừng trung gian
+• Tùy chọn tránh đường riêng cho ô tô, xe đạp và đi bộ
+• Xóa điểm xuất phát hoặc điểm đến trực tiếp từ công cụ lập lộ trình
+• Đặt điểm đến mới sau khi tính toán lộ trình thất bại
+• Cải thiện tính năng khôi phục lộ trình, tính toán lại, lộ trình thay thế và ước tính thời gian di chuyển
+• Cải thiện dự đoán thời gian đến của phương tiện giao thông công cộng, các tuyến đường đi bộ và các điểm đánh dấu lối vào ga
+• Lộ trình đã lưu giữ đoạn đầu và dùng vị trí cập nhật
+• Đã khắc phục các cảnh báo về camera đo tốc độ đã lỗi thời
+• Sửa lỗi thay điểm khi đã đạt giới hạn điểm dừng và chỉ báo cài đặt lộ trình bị cắt
+
+## Dấu trang, hành trình & khu vực
+• MỚI: Nhập và hiển thị các khu vực từ các tệp KML, KMZ và GeoJSON, bao gồm vùng tô màu, đường viền và vùng trống
+• Mũi tên chỉ hướng và đường viền tương phản cho hành trình được chọn
+• Mở hành trình từ danh sách sẽ chọn điểm bắt đầu của nó
+• Tự sao lưu bản ghi hành trình mỗi phút để phục hồi sau sự cố
+• Các tệp KML giữ nguyên các điểm dừng trung gian và phương thức di chuyển của lộ trình đã lưu
+• Dấu trang và hành trình được xếp theo tên theo thứ tự của ngôn ngữ đang dùng
+• Tên, mô tả và ảnh của danh sách dấu trang cập nhật khi tải lại
+• Đã khắc phục các biểu đồ độ cao sau khi quay lại bản đồ và khi xem các phần bằng phẳng hoặc được phóng to
+• Sửa lỗi treo khi xóa hành trình đã sửa và lỗi nhập dấu trang lần đầu
+• Cải thiện tính năng nhập tệp KML, GPX và GeoJSON
 
 ## CarPlay
-• Đã thêm chỉ dẫn rẽ trên màn hình hiển thị trên kính lái (HUD) của xe được hỗ trợ và bảng điều khiển CarPlay
-• Đã sửa lỗi các nút và chức năng tìm kiếm trên CarPlay
+• Danh sách dấu trang được làm mới sau khi chỉnh sửa, tải lại và xóa
+• Đã khắc phục lỗi thiếu dấu trang khi đạt giới hạn danh sách và lỗi ứng dụng bị treo khi chọn các mục đã xóa
 
-## Hành trình đã ghi
-• Đã thêm biểu tượng hình con mắt để ẩn từng đường đi riêng lẻ
-• Đã sửa lỗi và cải thiện tính năng ghi lại đường đi
-• Đã khắc phục lỗi nhập tệp KMB
+## Tìm kiếm & tải xuống
+• Các đề xuất tìm kiếm giữ nguyên dấu trọng âm và chữ hoa
+• Nhận diện vùng bản đồ tốt hơn, kể cả khi vùng cắt qua kinh tuyến 180°
+• Cải thiện tính năng hủy, thử lại, tiếp tục và tải xuống nền khi tải bản đồ
+• Sửa lỗi đếm trùng bản đồ và báo dung lượng bản cập nhật quá lớn
+• Cải thiện tính năng tìm kiếm theo danh mục trong trình chỉnh sửa bản đồ, sắp xếp theo loại ẩm thực và chỉnh sửa tên bằng tiếng Na Uy (Bokmål)
 
-## Tìm kiếm
-• Đã khắc phục lỗi tìm kiếm khi khu vực bản đồ hiển thị vượt qua kinh tuyến 180° (kinh độ ±180°)
-• Đã khôi phục tính năng tìm kiếm theo danh mục trong Spotlight
+## Giao diện người dùng & bản dịch
+• Thêm tiếng Wales
+• Sắp xếp giọng nói điều hướng tốt hơn và đã khắc phục các cụm từ xem trước
+• Cải thiện bản xem trước phương tiện công cộng với nhiều biểu tượng phương tiện hơn, số tuyến được tự động xuống dòng và bố cục từ phải sang trái
+• Đã khắc phục vị trí la bàn trong bố cục từ phải sang trái và độ tương phản của văn bản lộ trình trong chế độ tối
+• Đảm bảo các nút xác nhận điều hướng vẫn dễ tiếp cận ngay cả khi sử dụng kích thước chữ lớn
+• Sửa lỗi kéo và đóng thẻ chi tiết địa điểm và mở các liên kết bản đồ liên tiếp
+• Sửa lỗi treo khi tải bản đồ cập nhật thông tin địa điểm vẫn đang tải
+• Đã khắc phục các liên kết và hiệu ứng làm nổi bật trong menu và phần Cài đặt
+• Cải thiện bản dịch, hướng dẫn bằng giọng nói và tùy chọn ngôn ngữ
+• Đã khắc phục các liên kết cộng đồng trong phần “Giới thiệu”
 
-## Giao diện người dùng (UI)
-• Giờ mở cửa hiện hiển thị “Buổi trưa” cho 12:00 và “Nửa đêm” cho 00:00 hoặc 24:00
-• Đã khắc phục các lỗi khác nhau và cải thiện giao diện người dùng
-• Đã sửa các bản dịch tiếng Anh, tiếng Pháp và tiếng Asturian
-• Đã thêm tính năng hỗ trợ chọn và nghe thử giọng nói dẫn đường đã cài đặt
+Ghi chú phát hành đầy đủ tại organicmaps.app/news

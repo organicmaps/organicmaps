@@ -1,9 +1,12 @@
-• OSM: 28 tháng 9; Wikipedia: 21 tháng 9
-• Các lộ trình thay thế tốt hơn và ước tính thời gian đến
-• Cài đặt mới tối ưu hóa thứ tự các điểm dừng
-• Các nút mới cho phép thêm hoặc thay thế các điểm dừng trên các lộ trình đã lên kế hoạch
-• Lộ trình thay thế đã chọn sẽ được duy trì trong quá trình điều hướng
-• Đã sửa lỗi và cải thiện tính năng ghi lại hành trình
-• Đã khắc phục lỗi nhập dữ liệu KMB
-• Sửa lỗi và cải tiến giao diện người dùng
-…xem thêm tại omaps.org/news
+• Địa hình 3D, độ sâu đại dương, đường đẳng cao (m/ft), độ cao các điểm trên bản đồ
+• OSM: Ngày 10 tháng 11
+• Nhập và hiển thị vùng KML/KMZ/GeoJSON
+• Chi tiết tuyến giao thông công cộng
+• Giao diện hiển thị tốc độ mới
+• Widget ghi lại hành trình
+• Độ cao GPS so với mực nước biển
+• Mũi tên chỉ hướng và tô sáng hành trình
+• Cài đặt riêng biệt cho ô tô, xe đạp và đi bộ
+• Đảo ngược lộ trình có điểm dừng
+• Sửa nút ghi hành trình, giờ đến và lỗi treo Android Auto
+…omaps.org/news

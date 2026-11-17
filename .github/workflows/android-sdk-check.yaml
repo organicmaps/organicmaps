@@ -13,6 +13,7 @@ on:
       - android/gradlew*
       - tools/unix/version.sh
       - tools/python/check_sdk_docs.py
+      - .github/actions/setup-gradle/**
       - .github/workflows/android-sdk-check.yaml
   pull_request:
     paths: *sdk-paths
@@ -38,7 +39,10 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: ./.github/actions/setup-gradle
+        with:
+          # Reuse Android Check's downloads without writing another cache snapshot.
+          cache-read-only: true
       - name: Generate and check API documentation
         working-directory: android
         run: ./gradlew -Parm64 sdkApiDocs
