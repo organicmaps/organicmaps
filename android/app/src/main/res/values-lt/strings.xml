@@ -599,7 +599,7 @@
     <string name="button_layer_traffic">Eismas</string>
     <!-- Hiking routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_hiking">Žygiavimas</string>
-    <!-- Cycling routes layer name in the Styles and Layers dialog -->
+    <!-- Name of the Cycling map style in the Styles and Layers dialog -->
     <string name="button_layer_cycling">Kelionės dviračiu</string>
     <!-- Map layers menu: toggle button for the satellite imagery layer -->
     <string name="button_layer_satellite">Palydovas</string>

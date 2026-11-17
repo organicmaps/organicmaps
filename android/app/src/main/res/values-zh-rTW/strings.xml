@@ -594,7 +594,7 @@
     <string name="button_layer_traffic">路況</string>
     <!-- Hiking routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_hiking">登山</string>
-    <!-- Cycling routes layer name in the Styles and Layers dialog -->
+    <!-- Name of the Cycling map style in the Styles and Layers dialog -->
     <string name="button_layer_cycling">單車</string>
     <!-- Map layers menu: toggle button for the satellite imagery layer -->
     <string name="button_layer_satellite">衛星</string>
