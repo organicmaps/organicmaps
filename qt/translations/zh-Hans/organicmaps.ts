@@ -477,7 +477,7 @@
 <translation>徒步</translation>
 </message>
 <message id="button_layer_cycling">
-<extracomment>Cycling routes layer name in the Styles and Layers dialog</extracomment>
+<extracomment>Name of the Cycling map style in the Styles and Layers dialog</extracomment>
 <source>Cycling</source>
 <translation>骑行</translation>
 </message>
