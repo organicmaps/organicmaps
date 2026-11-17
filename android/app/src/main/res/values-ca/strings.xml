@@ -663,6 +663,8 @@
     <string name="avoid_unpaved">Evita vies sense pavimentar</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">Evita ferris</string>
+    <!-- Routing option to avoid stairs on walking and cycling routes -->
+    <string name="avoid_steps">Evita escales</string>
     <string name="avoid_motorways">Evita autopistes</string>
     <string name="unable_to_calc_alert_title">No s’ha pogut calcular la ruta</string>
     <string name="unable_to_calc_alert_subtitle">Malauradament, no hem pogut trobar cap ruta. Probablement per les opcions que heu triat. Canvieu-les i torneu a intentar-ho.</string>

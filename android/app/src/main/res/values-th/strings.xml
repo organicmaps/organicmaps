@@ -654,6 +654,8 @@
     <string name="avoid_unpaved">เลี่ยงถนนดินทั้งหมด</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">เลี่ยงการข้ามฟากด้วยเรือ</string>
+    <!-- Routing option to avoid stairs on walking and cycling routes -->
+    <string name="avoid_steps">เลี่ยงบันได</string>
     <string name="avoid_motorways">หลีกเลี่ยงมอเตอร์เวย์</string>
     <string name="unable_to_calc_alert_title">ไม่สามารถคำนวณเส้นทาง</string>
     <string name="unable_to_calc_alert_subtitle">ขออภัย เราไม่สามารถค้นหาเส้นทาง โดยสาเหตุอาจมาจากทางเลือกที่คุณกำหนดไว้ โปรดเปลี่ยนการตั้งค่าทางเลือกและลองใหม่อีกครั้ง</string>

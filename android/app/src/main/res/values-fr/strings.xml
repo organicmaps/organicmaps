@@ -661,6 +661,8 @@
     <string name="avoid_unpaved">Éviter les routes non pavées</string>
     <!-- Recommended length for CarPlay and Android Auto is around 25-27 characters -->
     <string name="avoid_ferry">Éviter les ferries</string>
+    <!-- Routing option to avoid stairs on walking and cycling routes -->
+    <string name="avoid_steps">Éviter les escaliers</string>
     <string name="avoid_motorways">Éviter les autoroutes</string>
     <string name="unable_to_calc_alert_title">Impossible de calculer l\'itinéraire</string>
     <string name="unable_to_calc_alert_subtitle">Un tracé n\'a pu être établi. Cela peut être causé par les options choisies ou des données OpenStreetMap incomplètes. Merci de modifier vos options et de réessayer.</string>

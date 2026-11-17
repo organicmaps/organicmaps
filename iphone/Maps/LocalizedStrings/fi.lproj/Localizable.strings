@@ -767,6 +767,9 @@
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Vältä lautan käyttöä";
+
+/* Routing option to avoid stairs on walking and cycling routes */
+"avoid_steps" = "Vältä portaita";
 "avoid_motorways" = "Vältä moottoritietä";
 "unable_to_calc_alert_title" = "Reittiä ei voi luoda";
 "unable_to_calc_alert_subtitle" = "Valitettavasti emme voineet luoda reittiä valituilla vaihtoehdoilla. Vaihda asetuksia ja yritä uudelleen";

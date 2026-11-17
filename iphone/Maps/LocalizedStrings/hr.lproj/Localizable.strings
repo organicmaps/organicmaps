@@ -767,6 +767,9 @@
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Izbjegni trajekte";
+
+/* Routing option to avoid stairs on walking and cycling routes */
+"avoid_steps" = "Izbjegni stepenice";
 "avoid_motorways" = "Izbjegni autoputeve";
 "unable_to_calc_alert_title" = "Nije moguće izračunati rutu";
 "unable_to_calc_alert_subtitle" = "Nije pronađena ruta. To može biti uzrokovano vašim opcijama za rutiranje ili nepotpunim podacima OpenStreetMapa. Molimo promijenite svoje opcije za rutiranje i pokušajte ponovno.";

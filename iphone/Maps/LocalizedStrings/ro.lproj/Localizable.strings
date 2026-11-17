@@ -767,6 +767,9 @@
 
 /* Recommended length for CarPlay and Android Auto is around 25-27 characters */
 "avoid_ferry" = "Evită trecerile cu bac";
+
+/* Routing option to avoid stairs on walking and cycling routes */
+"avoid_steps" = "Evită scările";
 "avoid_motorways" = "Evitați autostrăzile";
 "unable_to_calc_alert_title" = "Nu poate fi creat un traseu";
 "unable_to_calc_alert_subtitle" = "Din păcate, nu putem elabora un traseu cu opțiunile alese. Modifică-le și încearcă din nou.";
