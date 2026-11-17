@@ -1145,13 +1145,11 @@ kml::TrackId BookmarkManager::SaveTrackRecording(std::string trackName)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto & tracker = GpsTracker::Instance();
-  CHECK(!tracker.IsEmpty(), ("Track recording should be not be empty"));
+  CHECK(!tracker.IsEmpty(), ("Cannot save an empty recording"));
 
-  kml::MultiGeometry geometry;
-  geometry.m_lines.emplace_back();
-  geometry.m_timestamps.emplace_back();
-  auto & line = geometry.m_lines.back();
-  auto & timestamps = geometry.m_timestamps.back();
+  kml::TrackData trackData;
+  auto & line = trackData.m_geometry.m_lines.emplace_back();
+  auto & timestamps = trackData.m_geometry.m_timestamps.emplace_back();
 
   auto const trackSize = tracker.Finalize();
   line.reserve(trackSize);
@@ -1166,21 +1164,11 @@ kml::TrackId BookmarkManager::SaveTrackRecording(std::string trackName)
     return true;
   });
 
-  kml::TrackData trackData;
-  trackData.m_geometry = std::move(geometry);
-
   if (trackName.empty())
     trackName = GenerateTrackRecordingName();
   kml::SetDefaultStr(trackData.m_name, trackName);
 
-  kml::ColorData colorData;
-  colorData.m_rgba = GenerateTrackRecordingColor().GetRGBA();
-  kml::TrackLayer layer;
-  layer.m_color = std::move(colorData);
-
-  std::vector<kml::TrackLayer> m_layers;
-  m_layers.emplace_back(layer);
-  trackData.m_layers = std::move(m_layers);
+  trackData.m_layers.emplace_back().m_color.m_rgba = GenerateTrackRecordingColor().GetRGBA();
   trackData.m_timestamp = kml::TimestampClock::now();
 
   auto editSession = GetEditSession();
@@ -1227,14 +1215,7 @@ kml::TrackId BookmarkManager::SaveRoute(kml::TrackGeometry points, std::string c
 
   kml::SetDefaultStr(trackData.m_name, GenerateSavedRouteName(from, to));
 
-  kml::ColorData colorData;
-  colorData.m_rgba = GenerateTrackRecordingColor().GetRGBA();
-  kml::TrackLayer layer;
-  layer.m_color = colorData;
-
-  std::vector<kml::TrackLayer> layers;
-  layers.emplace_back(layer);
-  trackData.m_layers = std::move(layers);
+  trackData.m_layers.emplace_back().m_color.m_rgba = GenerateTrackRecordingColor().GetRGBA();
 
   trackData.m_timestamp = kml::TimestampClock::now();
 
