@@ -52,8 +52,11 @@ JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetDrawScale(JNIEnv * en
 
 ## Testing
 - JUnit 4 with Mockito
-- Unit tests: `app/src/test/java/`, `sdk/src/test/java/`
-- Instrumentation tests: `sdk/src/androidTest/java/`
+- Run unit tests in `app/src/test/java/` and `sdk/src/test/java/` with
+  `cd android && ./gradlew app:testGoogleDebug sdk:testDebug`
+- Run instrumentation tests in `sdk/src/androidTest/java/` on an emulator or device with
+  `cd android && ./gradlew sdk:connectedDebugAndroidTest`
+- Run the lint checks required by CI with `cd android && ./gradlew lintAllModules`
 - If applicable, test and review landscape/portrait, dark/light mode, LTR/RTL, phone/tablet layouts, and activity state restoration ("Don't keep activities")
 
 ## Java to Kotlin porting
@@ -83,5 +86,6 @@ JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetDrawScale(JNIEnv * en
 - Deep link schemes: `geo://`, `om://`, `ge0://`, `ge0.me` (HTTP/HTTPS)
 - Permissions validated at build time via `permission-checker.gradle`
 - ProGuard: obfuscation disabled (`-dontobfuscate`), line numbers preserved
-- When editing translations in `app/src/main/res/values*/strings.xml` or store metadata, follow the translation rules in [data/CLAUDE.md](../data/CLAUDE.md)
+- When editing translations in `app/src/main/res/values*/strings.xml` or store metadata, follow the
+  [translation guidelines](../data/CLAUDE.md#when-translating-content-from-english)
 - Referencing a new `R.string.some_id` before its string resources are regenerated is allowed when a following `[strings] Regenerated` commit in the same PR supplies them. Do not flag this commit ordering as a missing-resource or compilation issue during review.

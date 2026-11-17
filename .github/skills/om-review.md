@@ -383,7 +383,8 @@ Parse the diff to identify:
 
 #### 2b: PR Metadata (for `pr` and numeric modes)
 
-Fetch PR metadata to understand the stated scope:
+Use `gh` or the available GitHub tools to fetch PR metadata and diffs. Use the local source for
+context when the checked-out branch matches the PR head.
 
 ```bash
 gh pr view <N> --json title,body,labels,baseRefName,headRefName,commits,reviews
@@ -613,6 +614,17 @@ When detected:
 
 #### Checklist 2: Conventions & Hygiene (always)
 
+**Project conventions**
+
+- Check documentation and comments for clarity and accuracy
+- Check for unnecessary complexity and verify that new library dependencies are acyclic and
+  target lower-level libraries as defined in the [architecture overview](../../CLAUDE.md#architecture-overview)
+- Check that platform-specific sources use the appropriate CMake conditionals or filename suffixes
+- Verify that generated files such as styles, localizations, and `classificator.txt` are updated through their generators
+- Check that new user-facing strings come from localization files
+- Proofread translations and suggest needed ones using the
+  [translation guidelines](../../data/CLAUDE.md#when-translating-content-from-english)
+
 **Semantic conventions** (formatters cannot check these):
 
 Indentation, line width, and brace placement are enforced by the pre-commit hook
@@ -769,7 +781,8 @@ Check against project requirements using `gh pr view <N> --json commits`:
 
 #### Checklist 4: Test Coverage (always)
 
-Check that new/changed code has appropriate test coverage:
+Check that new and changed code has appropriate test coverage. Verify that new map features have
+[classifier tests](../../generator/generator_tests/osm_type_test.cpp).
 
 **For C++ code:**
 
@@ -954,6 +967,8 @@ Compare the implementation against the stated intent from Step 2.5 (PR Summary):
 - Positive observations as inline comments (keep these in the summary body only)
 
 ### Step 4: Generate Report
+
+Validate review findings and proposed changes with relevant checks or tests before reporting them.
 
 Compile findings into a structured report with severity tags:
 
