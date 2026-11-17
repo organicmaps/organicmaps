@@ -236,7 +236,7 @@ UNIT_TEST(Track_ImportDropsMalformedKmlTimestamps)
   }
 }
 
-UNIT_TEST(Track_ImportDeduplicatesOsmGpx)
+UNIT_TEST(Track_ImportKeepsOsmGpxCaptures)
 {
   auto const path = GetPlatform().TestsDataPathForFile("test_data/gpx/osm_track.gpx");
   auto const data = LoadKmlData(FileReader(path), FileType::Gpx);
@@ -245,7 +245,7 @@ UNIT_TEST(Track_ImportDeduplicatesOsmGpx)
   auto const & geometry = data->m_tracksData.front().m_geometry;
   TEST_EQUAL(geometry.m_lines.size(), 1, ());
   TEST_EQUAL(geometry.m_timestamps.size(), 1, ());
-  TEST_EQUAL(geometry.m_lines.front().size(), 182, ());
+  TEST_EQUAL(geometry.m_lines.front().size(), 627, ());
   TEST_EQUAL(geometry.m_timestamps.front().size(), geometry.m_lines.front().size(), ());
 }
 

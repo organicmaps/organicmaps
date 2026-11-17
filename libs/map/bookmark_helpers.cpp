@@ -244,21 +244,35 @@ void NormalizeImportedTracks(kml::FileData & data, FileType fileType)
 
       bool const hasTimestamps = !timestamps.empty();
       size_t keptPoints = 0;
+      // Capture-only samples must not move the geometry anchor used for filtering.
+      size_t lastDistinctPoint = 0;
       for (size_t i = 0; i < line.size(); ++i)
       {
-        if (keptPoints != 0 && kml::IsSameTrackPoint(line[keptPoints - 1].GetPoint(), line[i].GetPoint()))
+        bool const samePosition =
+            keptPoints != 0 && kml::IsSameTrackPoint(line[lastDistinctPoint].GetPoint(), line[i].GetPoint());
+        if (samePosition && line[keptPoints - 1].GetAltitude() == line[i].GetAltitude())
         {
-          // A repeat may carry the first observed capture time for this position.
-          if (repairGpxTimes && hasTimestamps && timestamps[keptPoints - 1] == base::INVALID_TIME_STAMP)
-            timestamps[keptPoints - 1] = timestamps[i];
-          continue;
+          if (!hasTimestamps)
+            continue;
+          auto const time = timestamps[i];
+          auto & keptTime = timestamps[keptPoints - 1];
+          if (time == keptTime || time == base::INVALID_TIME_STAMP)
+            continue;
+          if (keptTime == base::INVALID_TIME_STAMP)
+          {
+            // A repeat can supply the first observed time for this position and elevation.
+            keptTime = time;
+            continue;
+          }
         }
+        if (!samePosition)
+          lastDistinctPoint = keptPoints;
         line[keptPoints] = line[i];
         if (hasTimestamps)
           timestamps[keptPoints] = timestamps[i];
         ++keptPoints;
       }
-      if (keptPoints < 2)
+      if (lastDistinctPoint == 0)
       {
         LOG(LWARNING, ("Degenerate track section", kml::GetDefaultStr(trackData.m_name)));
         continue;
