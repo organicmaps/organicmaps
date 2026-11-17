@@ -89,6 +89,11 @@ public class PlacePageButtonFactory
         titleId = R.string.avoid_ferry;
         yield R.drawable.ic_avoid_ferry;
       }
+      case ROUTE_AVOID_STEPS ->
+      {
+        titleId = R.string.avoid_steps;
+        yield R.drawable.ic_avoid_steps;
+      }
       case MORE ->
       {
         titleId = R.string.placepage_more_button;

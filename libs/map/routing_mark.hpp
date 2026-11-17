@@ -263,8 +263,8 @@ bool IsWarningShownFor(RoadWarningMarkType type, routing::RouterType router);
 // being silently dropped.
 RoadWarningMarkType ChooseRoadWarning(routing::RoutingOptions options, routing::RouterType router);
 
-// Warnings backed by road-avoidance controls: Toll/Dirty for driving and Ferry for driving/cycling/walking.
-// The caller decides whether to signal available routing options. Steps/gate/lift_gate are not avoidable.
+// Warnings backed by road-avoidance controls: Toll/Dirty for driving, Ferry for all road modes,
+// and Steps for cycling/walking. The caller decides whether to signal available routing options.
 bool IsAvoidableRoadWarning(RoadWarningMarkType type);
 
 /// \brief ETA balloon attached to a route variant (active or alternative). Tappable so the user can

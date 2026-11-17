@@ -3,6 +3,9 @@
 #include "routing/router.hpp"
 #include "routing/routing_options.hpp"
 
+#include "indexer/classificator.hpp"
+#include "indexer/classificator_loader.hpp"
+
 #include "platform/settings.hpp"
 
 #include "base/scope_guard.hpp"
@@ -146,6 +149,15 @@ UNIT_CLASS_TEST(RoutingOptionsTests, SetterRestoresAbsentKeysAndRawValues)
   TEST_EQUAL(value, "255", ());
 }
 
+UNIT_TEST(RoutingOptions_StepsSubtypes)
+{
+  classificator::Load();
+  auto const & classifier = RoutingOptionsClassifier::Instance(VehicleType::Bicycle);
+  for (auto const & path :
+       {std::vector<std::string>{"highway", "steps"}, {"highway", "steps", "bridge"}, {"highway", "steps", "tunnel"}})
+    TEST(classifier.Get(classif().GetTypeByPath(path)) == RoutingOptions::Steps, (path));
+}
+
 UNIT_TEST(RoutingOptions_StableIdsAndRouterConversion)
 {
   for (auto const road : {RoutingOptions::Usual, RoutingOptions::Toll, RoutingOptions::Motorway, RoutingOptions::Ferry,
@@ -163,8 +175,10 @@ UNIT_TEST(RoutingOptions_StableIdsAndRouterConversion)
   TEST(RoutingOptions::GetVehicleType(RouterType::Transit) == VehicleType::Transit, ());
   TEST(!RoutingOptions::GetVehicleType(RouterType::Ruler), ());
   TEST_EQUAL(RoutingOptions::GetSupportedOptions(VehicleType::Car), 30, ());
-  TEST_EQUAL(RoutingOptions::GetSupportedOptions(VehicleType::Bicycle), 24, ());
-  TEST_EQUAL(RoutingOptions::GetSupportedOptions(VehicleType::Pedestrian), 8, ());
+  TEST_EQUAL(RoutingOptions::GetSupportedOptions(VehicleType::Bicycle),
+             RoutingOptions::Dirty | RoutingOptions::Ferry | RoutingOptions::Steps, ());
+  TEST_EQUAL(RoutingOptions::GetSupportedOptions(VehicleType::Pedestrian),
+             RoutingOptions::Ferry | RoutingOptions::Steps, ());
   TEST_EQUAL(RoutingOptions::GetSupportedOptions(VehicleType::Transit), 0, ());
 }
 

@@ -1,3 +1,5 @@
+#import "MWMRouter.h"
+
 @class PlacePageData;
 @class PlacePagePhone;
 @class ElevationProfileData;
@@ -42,8 +44,6 @@
 + (void)routeTo:(PlacePageData *)data;
 + (void)routeAddStop:(PlacePageData *)data;
 + (void)routeRemoveStop:(PlacePageData *)data;
-+ (void)avoidDirty;
-+ (void)avoidFerry;
-+ (void)avoidToll;
++ (void)avoidRoadType:(MWMRoadType)type NS_SWIFT_NAME(avoidRoadType(_:));
 
 @end

@@ -31,8 +31,8 @@ final class RoutingOptionsSettingsTests: XCTestCase {
     XCTAssertFalse(RoutingOptions(routerType: .vehicle).avoidDirty)
     XCTAssertFalse(RoutingOptions(routerType: .pedestrian).avoidDirty)
     XCTAssertFalse(RoutingOptions(routerType: .pedestrian).avoidFerry)
-    XCTAssertEqual(RoutingOption.avoidanceOptions.filter { $0.isSupported(in: bike) }, [.unpavedRoads, .ferryCrossings])
-    XCTAssertEqual(RoutingOption.avoidanceOptions.filter { $0.isSupported(in: walk) }, [.ferryCrossings])
+    XCTAssertEqual(RoutingOption.avoidanceOptions.filter { $0.isSupported(in: bike) }, [.unpavedRoads, .ferryCrossings, .steps])
+    XCTAssertEqual(RoutingOption.avoidanceOptions.filter { $0.isSupported(in: walk) }, [.ferryCrossings, .steps])
     XCTAssertTrue(RoutingOptions(routerType: .publicTransport).supportedOptions.isEmpty)
     XCTAssertTrue(RoutingOptions(routerType: .ruler).supportedOptions.isEmpty)
   }
@@ -47,6 +47,28 @@ final class RoutingOptionsSettingsTests: XCTestCase {
     sameBike.avoidFerry = false
     XCTAssertEqual(bike, sameBike)
     XCTAssertEqual(bike.hash, sameBike.hash)
+  }
+
+  func test_StepsAvoidancePersistsOnlyForWalkingAndCycling() {
+    let profiles: [MWMRouterType] = [.vehicle, .bicycle, .pedestrian, .publicTransport, .ruler]
+    let saved = profiles.map { RoutingOptions(routerType: $0) }
+    defer { saved.forEach { $0.save() } }
+    for profile in [MWMRouterType.bicycle, .pedestrian] {
+      let options = RoutingOptions(routerType: profile)
+      options.avoidFerry = false
+      options.avoidSteps = true
+      options.save()
+      let reloaded = RoutingOptions(routerType: profile)
+      XCTAssertTrue(reloaded.avoidSteps)
+      XCTAssertTrue(reloaded.hasOptions)
+      XCTAssertEqual(reloaded.enabledOptionsCount, 1)
+    }
+    for profile in [MWMRouterType.vehicle, .publicTransport, .ruler] {
+      let options = RoutingOptions(routerType: profile)
+      options.avoidSteps = true
+      options.save()
+      XCTAssertFalse(RoutingOptions(routerType: profile).avoidSteps)
+    }
   }
 
   func test_TransitKeepsOnlyTheGlobalOptimizationSection() {

@@ -48,9 +48,7 @@
 - (void)routeTo:(PlacePageData *)data;
 - (void)routeAddStop:(PlacePageData *)data;
 - (void)routeRemoveStop:(PlacePageData *)data;
-- (void)avoidDirty;
-- (void)avoidFerry;
-- (void)avoidToll;
+- (void)avoidRoadType:(MWMRoadType)type;
 
 @end
 
@@ -222,19 +220,9 @@
   [[MWMMapViewControlsManager manager].placePageManager routeRemoveStop:data];
 }
 
-+ (void)avoidDirty
++ (void)avoidRoadType:(MWMRoadType)type
 {
-  [[MWMMapViewControlsManager manager].placePageManager avoidDirty];
-}
-
-+ (void)avoidFerry
-{
-  [[MWMMapViewControlsManager manager].placePageManager avoidFerry];
-}
-
-+ (void)avoidToll
-{
-  [[MWMMapViewControlsManager manager].placePageManager avoidToll];
+  [[MWMMapViewControlsManager manager].placePageManager avoidRoadType:type];
 }
 
 @end

@@ -38,8 +38,8 @@ RoutingOptions::RoadType RoutingOptions::GetSupportedOptions(VehicleType vehicle
   switch (vehicleType)
   {
   case VehicleType::Car: return Toll | Motorway | Ferry | Dirty;
-  case VehicleType::Bicycle: return Ferry | Dirty;
-  case VehicleType::Pedestrian: return Ferry;
+  case VehicleType::Bicycle: return Ferry | Dirty | Steps;
+  case VehicleType::Pedestrian: return Ferry | Steps;
   case VehicleType::Transit: return 0;
   case VehicleType::Count: break;
   }
