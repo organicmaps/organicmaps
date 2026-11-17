@@ -1,18 +1,19 @@
 package app.organicmaps.sdk;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockConstruction;
 import static org.mockito.Mockito.mockStatic;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.robolectric.Shadows.shadowOf;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Looper;
+import androidx.car.app.AppManager;
 import androidx.car.app.CarContext;
 import androidx.car.app.HandshakeInfo;
 import androidx.car.app.Screen;
@@ -29,6 +30,7 @@ import app.organicmaps.car.screens.PlaceScreen;
 import app.organicmaps.car.screens.download.DownloadMapsScreen;
 import app.organicmaps.car.util.IntentUtils;
 import app.organicmaps.car.util.ThemeUtils;
+import app.organicmaps.car.util.UserActionRequired;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
 import app.organicmaps.sdk.car.CarSensorsManager;
 import app.organicmaps.sdk.car.renderer.Renderer;
@@ -61,7 +63,7 @@ import org.robolectric.annotation.Implements;
                    CarAppSessionReadinessTest.MapStorage.class})
 public class CarAppSessionReadinessTest
 {
-  private final MapsReadiness mReadiness = new MapsReadiness();
+  private final OrganicMaps mSdk = mock(OrganicMaps.class);
   private final List<String> mDelivered = new ArrayList<>();
   private final RoutingController mRouting = mock(RoutingController.class);
   private final DisplayManager mDisplay = mock(DisplayManager.class);
@@ -71,10 +73,11 @@ public class CarAppSessionReadinessTest
   private MockedStatic<ThemeUtils> mTheme;
   private MockedStatic<Logger> mLogger;
   private MockedConstruction<CarSensorsManager> mSensors;
-  private MockedConstruction<ScreenManager> mScreens;
+  private MapsReadiness mReadiness;
   private Session mSession;
-  private SessionController mLifecycle;
-  private ScreenManager mManager;
+  private TestCarContext mContext;
+  private ScreenManager mScreens;
+  private Screen mRoot;
 
   @Before
   public void createSession()
@@ -84,36 +87,29 @@ public class CarAppSessionReadinessTest
     mLogger = mockStatic(Logger.class);
     mTheme = mockStatic(ThemeUtils.class);
     mIntents = mockStatic(IntentUtils.class);
-    mIntents.when(() -> IntentUtils.processIntent(any(), any(), any(), any(), any())).thenAnswer(call -> {
-      final String data = ((Intent) call.getArgument(4)).getDataString();
+    mIntents.when(() -> IntentUtils.requiresCarDisplay(any())).thenCallRealMethod();
+    mIntents.when(() -> IntentUtils.processIntent(any(), any(), any(), any())).thenAnswer(call -> {
+      final String data = ((Intent) call.getArgument(3)).getDataString();
       if (data != null)
         mDelivered.add(data);
       return null;
     });
-    final TestCarContext context = TestCarContext.createCarContext(RuntimeEnvironment.getApplication());
-    context.updateHandshakeInfo(new HandshakeInfo("test", CarAppApiLevels.getLatest()));
-    final OrganicMaps sdk = mock(OrganicMaps.class);
-    when(sdk.getLocationHelper()).thenReturn(mock(LocationHelper.class));
-    when(sdk.getMapsReadiness()).thenReturn(mReadiness);
+    when(mSdk.getLocationHelper()).thenReturn(mock(LocationHelper.class));
+    when(mSdk.getFlavor()).thenReturn("google");
     when(mDisplay.isCarDisplayUsed()).thenReturn(true);
     final Renderer renderer = mock(Renderer.class);
+    when(renderer.isRenderingActive()).thenReturn(true);
     mRenderers = mockStatic(RendererFactory.class);
     mRenderers.when(() -> RendererFactory.create(any(), any(), any(), any())).thenReturn(renderer);
     mSensors = mockConstruction(CarSensorsManager.class);
-    mScreens = mockConstruction(ScreenManager.class);
-    mSession = new Session(sdk, mDisplay);
-    mManager = mScreens.constructed().get(0);
-    when(mManager.getTop()).thenReturn(mock(Screen.class));
-    mLifecycle = new SessionController(mSession, context, new Intent(Intent.ACTION_MAIN));
-    mLifecycle.moveToState(Lifecycle.State.CREATED);
+    startProcess();
   }
 
   @After
   public void closeSession()
   {
-    if (mLifecycle != null)
-      mLifecycle.moveToState(Lifecycle.State.DESTROYED);
-    mScreens.close();
+    if (mRoot != null)
+      moveTo(Lifecycle.State.DESTROYED);
     mSensors.close();
     mRenderers.close();
     mIntents.close();
@@ -123,115 +119,305 @@ public class CarAppSessionReadinessTest
   }
 
   @Test
-  public void newIntentsWaitForReadinessAndKeepTheirDeliveryOrder()
+  public void launchAndLaterIntentsWaitForReadinessAndAreDeliveredOnceInOrder()
   {
+    createScreen(intent("initial"));
     mSession.onNewIntent(intent("first"));
-    mLifecycle.moveToState(Lifecycle.State.STARTED);
+    moveTo(Lifecycle.State.STARTED);
     mSession.onNewIntent(intent("second"));
     assertEquals(List.of(), mDelivered);
     mReadiness.complete();
-    assertEquals(List.of("geo:1,2?q=first", "geo:1,2?q=second"), mDelivered);
+    final List<String> expected = List.of("geo:1,2?q=initial", "geo:1,2?q=first", "geo:1,2?q=second");
+    assertEquals(expected, mDelivered);
+    moveTo(Lifecycle.State.CREATED);
+    moveTo(Lifecycle.State.STARTED);
+    assertEquals(expected, mDelivered);
   }
 
   @Test
   public void stoppedSessionWaitsUntilRestartedBeforeDeliveringItsIntents()
   {
-    mLifecycle.moveToState(Lifecycle.State.STARTED);
+    createScreen(new Intent(Intent.ACTION_MAIN));
+    moveTo(Lifecycle.State.STARTED);
     mSession.onNewIntent(intent("first"));
-    mLifecycle.moveToState(Lifecycle.State.CREATED);
+    moveTo(Lifecycle.State.CREATED);
     mSession.onNewIntent(intent("second"));
     mReadiness.complete();
     assertEquals(List.of(), mDelivered);
-    mLifecycle.moveToState(Lifecycle.State.STARTED);
+    moveTo(Lifecycle.State.STARTED);
     assertEquals(List.of("geo:1,2?q=first", "geo:1,2?q=second"), mDelivered);
-  }
-
-  @Test
-  public void displayHandoffWhileMapsLoadStillDeliversQueuedIntents()
-  {
-    mLifecycle.moveToState(Lifecycle.State.STARTED);
-    mSession.onNewIntent(intent("first"));
-    // The phone takes the display while the car host keeps the Session started.
-    when(mDisplay.isCarDisplayUsed()).thenReturn(false);
-    mSession.onStop(mSession);
-    mReadiness.complete();
-    assertEquals(List.of("geo:1,2?q=first"), mDelivered);
   }
 
   @Test
   public void stoppedSessionRestoresTheRouteOnlyAfterRestart()
   {
+    createScreen(new Intent(Intent.ACTION_MAIN));
     when(mRouting.hasSavedRoute()).thenReturn(true);
-    mLifecycle.moveToState(Lifecycle.State.STARTED);
-    mLifecycle.moveToState(Lifecycle.State.CREATED);
-    // A display handoff can call onStart without starting the AndroidX Session.
-    mSession.onStart(mSession);
+    moveTo(Lifecycle.State.STARTED);
+    moveTo(Lifecycle.State.CREATED);
     mReadiness.complete();
-    verify(mManager, never()).push(any());
+    assertSame(mRoot, mScreens.getTop());
 
-    mLifecycle.moveToState(Lifecycle.State.STARTED);
-    verify(mManager).push(any(PlaceScreen.class));
+    moveTo(Lifecycle.State.STARTED);
+    assertTrue(mScreens.getTop() instanceof PlaceScreen);
   }
 
   @Test
   public void placeScreenIsNotPushedUntilRoutingIsReady()
   {
-    mLifecycle.moveToState(Lifecycle.State.STARTED);
+    createScreen(new Intent(Intent.ACTION_MAIN));
+    moveTo(Lifecycle.State.STARTED);
     mSession.onPlacePageActivated(MapObject.createMapObject(MapObject.POI, "Place", "", 1, 2));
-    verify(mManager, never()).push(any());
+    assertSame(mRoot, mScreens.getTop());
     mReadiness.complete();
-    verify(mManager).push(any(PlaceScreen.class));
+    assertTrue(mScreens.getTop() instanceof PlaceScreen);
   }
 
   @Test
   public void stoppedSessionDiscardsItsPendingPlacePage()
   {
-    mLifecycle.moveToState(Lifecycle.State.STARTED);
+    createScreen(new Intent(Intent.ACTION_MAIN));
+    moveTo(Lifecycle.State.STARTED);
     mSession.onPlacePageActivated(MapObject.createMapObject(MapObject.POI, "Place", "", 1, 2));
-    mLifecycle.moveToState(Lifecycle.State.CREATED);
+    moveTo(Lifecycle.State.CREATED);
     mReadiness.complete();
-    mLifecycle.moveToState(Lifecycle.State.STARTED);
-    verify(mManager, never()).push(any());
+    moveTo(Lifecycle.State.STARTED);
+    assertSame(mRoot, mScreens.getTop());
   }
 
   @Test
   public void missingRegionPromptsOnlyInAStartedSessionWithLoadedMaps()
   {
-    final ScreenManager screens = mSession.getCarContext().getCarService(ScreenManager.class);
-    mLifecycle.moveToState(Lifecycle.State.STARTED);
+    createScreen(new Intent(Intent.ACTION_MAIN));
+    moveTo(Lifecycle.State.STARTED);
     MapStorage.reportCountry("Region");
-    assertFalse(screens.getTop() instanceof DownloadMapsScreen);
+    assertSame(mRoot, mScreens.getTop());
 
-    mLifecycle.moveToState(Lifecycle.State.CREATED);
+    moveTo(Lifecycle.State.CREATED);
     mReadiness.complete();
     MapStorage.reportCountry("Region");
-    assertFalse(screens.getTop() instanceof DownloadMapsScreen);
+    assertSame(mRoot, mScreens.getTop());
 
-    mLifecycle.moveToState(Lifecycle.State.STARTED);
+    moveTo(Lifecycle.State.STARTED);
     MapStorage.reportCountry("Region");
-    assertTrue(screens.getTop() instanceof DownloadMapsScreen);
+    assertTrue(mScreens.getTop() instanceof DownloadMapsScreen);
+  }
+
+  @Test
+  public void stationaryMissingRegionReportedDuringStartupIsShownWhenMapsAreReady()
+  {
+    createScreen(new Intent(Intent.ACTION_MAIN));
+    moveTo(Lifecycle.State.STARTED);
+    MapStorage.reportCountry("Region");
+    assertSame(mRoot, mScreens.getTop());
+
+    mReadiness.complete();
+
+    assertTrue(mScreens.getTop() instanceof DownloadMapsScreen);
+  }
+
+  @Test
+  public void latestViewportSupersedesAnEarlierMissingRegionBeforeReadiness()
+  {
+    createScreen(new Intent(Intent.ACTION_MAIN));
+    moveTo(Lifecycle.State.STARTED);
+    MapStorage.reportCountry("Missing");
+    MapStorage.reportCountry("Installed");
+    assertSame(mRoot, mScreens.getTop());
+
+    mReadiness.complete();
+
+    assertSame(mRoot, mScreens.getTop());
+  }
+
+  @Test
+  public void regionReportedUnderARequiredScreenIsOfferedAfterIt()
+  {
+    mReadiness.complete();
+    createScreen(new Intent(Intent.ACTION_MAIN));
+    moveTo(Lifecycle.State.STARTED);
+    final Screen required = new RequiredScreen(mContext);
+    mScreens.push(required);
+    MapStorage.reportCountry("Region");
+    assertSame(required, mScreens.getTop());
+
+    required.finish();
+    shadowOf(Looper.getMainLooper()).idle();
+
+    assertTrue(mScreens.getTop() instanceof DownloadMapsScreen);
+  }
+
+  @Test
+  public void regionReportedUnderACoveredRequiredScreenIsOfferedAfterIt()
+  {
+    mReadiness.complete();
+    createScreen(new Intent(Intent.ACTION_MAIN));
+    moveTo(Lifecycle.State.STARTED);
+    final Screen required = new RequiredScreen(mContext);
+    mScreens.push(required);
+    final Screen downloader = new Screen(mContext) {
+      @Override
+      public Template onGetTemplate()
+      {
+        return new MessageTemplate.Builder("Downloader").build();
+      }
+    };
+    downloader.setMarker(DownloadMapsScreen.MARKER);
+    mScreens.push(downloader);
+    MapStorage.reportCountry("Region");
+    assertSame(downloader, mScreens.getTop());
+
+    downloader.finish();
+    required.finish();
+    shadowOf(Looper.getMainLooper()).idle();
+
+    assertTrue(mScreens.getTop() instanceof DownloadMapsScreen);
+  }
+
+  @Test
+  public void regionLeftUnderARequiredScreenIsNotOffered()
+  {
+    mReadiness.complete();
+    createScreen(new Intent(Intent.ACTION_MAIN));
+    moveTo(Lifecycle.State.STARTED);
+    final Screen required = new RequiredScreen(mContext);
+    mScreens.push(required);
+    MapStorage.reportCountry("Region");
+    MapStorage.reportCountry("");
+
+    required.finish();
+    shadowOf(Looper.getMainLooper()).idle();
+
+    assertSame(mRoot, mScreens.getTop());
+  }
+
+  @Test
+  public void regionReenteredUnderARequiredScreenIsNotOfferedAgain()
+  {
+    mReadiness.complete();
+    createScreen(new Intent(Intent.ACTION_MAIN));
+    moveTo(Lifecycle.State.STARTED);
+    MapStorage.reportCountry("First");
+    assertTrue(mScreens.getTop() instanceof DownloadMapsScreen);
+    mScreens.getTop().finish();
+    final Screen required = new RequiredScreen(mContext);
+    mScreens.push(required);
+    MapStorage.reportCountry("Second");
+    MapStorage.reportCountry("First");
+
+    required.finish();
+    shadowOf(Looper.getMainLooper()).idle();
+
+    assertSame(mRoot, mScreens.getTop());
+  }
+
+  @Test
+  public void requestRepeatedByTheHostAfterProcessDeathIsSkipped()
+  {
+    mReadiness.complete();
+    createScreen(intent("first"));
+    moveTo(Lifecycle.State.STARTED);
+
+    // The process dies without destroying its session, and the host repeats its last request.
+    startProcess();
+    mReadiness.complete();
+    createScreen(intent("first"));
+    moveTo(Lifecycle.State.STARTED);
+    assertEquals(List.of("geo:1,2?q=first"), mDelivered);
+
+    mSession.onNewIntent(intent("first"));
+    assertEquals(List.of("geo:1,2?q=first", "geo:1,2?q=first"), mDelivered);
+  }
+
+  @Test
+  public void requestPendingWhenTheProcessDiedIsDeliveredAfterTheRestart()
+  {
+    createScreen(new Intent(Intent.ACTION_MAIN));
+    moveTo(Lifecycle.State.STARTED);
+    mSession.onNewIntent(intent("first"));
+
+    startProcess();
+    mReadiness.complete();
+    createScreen(intent("first"));
+    moveTo(Lifecycle.State.STARTED);
+    assertEquals(List.of("geo:1,2?q=first"), mDelivered);
+  }
+
+  @Test
+  public void sameRequestStartsTheNextSessionAfterACleanEnd()
+  {
+    mReadiness.complete();
+    createScreen(intent("first"));
+    moveTo(Lifecycle.State.STARTED);
+    moveTo(Lifecycle.State.DESTROYED);
+
+    startProcess();
+    mReadiness.complete();
+    createScreen(intent("first"));
+    moveTo(Lifecycle.State.STARTED);
+    assertEquals(List.of("geo:1,2?q=first", "geo:1,2?q=first"), mDelivered);
+  }
+
+  @Test
+  public void startupViewportDoesNotCoverTheRestoredRoute()
+  {
+    createScreen(new Intent(Intent.ACTION_MAIN));
+    when(mRouting.hasSavedRoute()).thenReturn(true);
+    moveTo(Lifecycle.State.STARTED);
+    MapStorage.reportCountry("Region");
+
+    mReadiness.complete();
+
+    assertTrue(mScreens.getTop() instanceof PlaceScreen);
   }
 
   @Test
   public void routeIsNotRestoredAfterThePhoneTookTheDisplay()
   {
+    createScreen(new Intent(Intent.ACTION_MAIN));
     when(mRouting.hasSavedRoute()).thenReturn(true);
-    mLifecycle.moveToState(Lifecycle.State.STARTED);
+    moveTo(Lifecycle.State.STARTED);
     // The phone owns the display, but its posted handoff callback has not stopped the session yet.
     when(mDisplay.isCarDisplayUsed()).thenReturn(false);
     mReadiness.complete();
-    verify(mManager, never()).push(any());
+    assertSame(mRoot, mScreens.getTop());
   }
 
   @Test
   public void pendingPlaceIsNotShownAfterThePhoneTookTheDisplay()
   {
-    mLifecycle.moveToState(Lifecycle.State.STARTED);
+    createScreen(new Intent(Intent.ACTION_MAIN));
+    moveTo(Lifecycle.State.STARTED);
     mSession.onPlacePageActivated(MapObject.createMapObject(MapObject.POI, "Place", "", 1, 2));
     // The phone owns the display, but its posted handoff callback has not stopped the session yet.
     when(mDisplay.isCarDisplayUsed()).thenReturn(false);
     mReadiness.complete();
-    verify(mManager, never()).push(any());
+    assertSame(mRoot, mScreens.getTop());
+  }
+
+  /** Creates the state a fresh process has: no loaded maps and a session that was not created yet. */
+  private void startProcess()
+  {
+    mReadiness = new MapsReadiness();
+    when(mSdk.getMapsReadiness()).thenReturn(mReadiness);
+    mContext = TestCarContext.createCarContext(RuntimeEnvironment.getApplication());
+    mContext.updateHandshakeInfo(new HandshakeInfo("test", CarAppApiLevels.getLatest()));
+    mContext.overrideCarService(AppManager.class, mock(AppManager.class));
+    mScreens = mContext.getCarService(ScreenManager.class);
+    mSession = new Session(mSdk, mDisplay);
+  }
+
+  private void createScreen(Intent intent)
+  {
+    final SessionController host = new SessionController(mSession, mContext, intent);
+    moveTo(Lifecycle.State.CREATED);
+    host.moveToState(Lifecycle.State.CREATED);
+    mRoot = mScreens.getTop();
+  }
+
+  private void moveTo(Lifecycle.State state)
+  {
+    mContext.getLifecycleOwner().getRegistry().setCurrentState(state);
   }
 
   private static Intent intent(String name)
@@ -256,6 +442,20 @@ public class CarAppSessionReadinessTest
           return new MessageTemplate.Builder("Root").build();
         }
       };
+    }
+  }
+
+  private static final class RequiredScreen extends Screen implements UserActionRequired
+  {
+    RequiredScreen(CarContext context)
+    {
+      super(context);
+    }
+
+    @Override
+    public Template onGetTemplate()
+    {
+      return new MessageTemplate.Builder("Required").build();
     }
   }
 
@@ -330,7 +530,7 @@ public class CarAppSessionReadinessTest
     @Implementation
     protected static void nativeGetAttributes(CountryItem country)
     {
-      country.present = false;
+      country.present = "Installed".equals(country.id);
     }
 
     @Implementation
