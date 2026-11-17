@@ -488,6 +488,32 @@ std::string SerializeKmlText(kml::FileData & data)
 }
 }  // namespace
 
+UNIT_TEST(Kml_TrackSectionOrder)
+{
+  for (size_t lineCount = 1; lineCount <= 3; ++lineCount)
+    for (uint32_t timedMask = 0; timedMask < (1u << lineCount); ++timedMask)
+    {
+      kml::FileData data;
+      auto & track = data.m_tracksData.emplace_back();
+      track.m_layers.emplace_back();
+      for (size_t i = 0; i < lineCount; ++i)
+      {
+        double const x = 1.0 + i;
+        track.m_geometry.AddLine({{{x, 0.0}, 100}, {{x + 0.001, 0.0}, 200}});
+        if (timedMask & (1u << i))
+          track.m_geometry.AddTimestamps({static_cast<time_t>(10 * i + 1), static_cast<time_t>(10 * i + 2)});
+        else
+          track.m_geometry.AddTimestamps({});
+      }
+      auto const text = SerializeKmlText(data);
+      bool const allTimed = timedMask + 1 == (1u << lineCount);
+      TEST_EQUAL(text.find("<gx:MultiTrack>") != std::string::npos, lineCount > 1 && allTimed, (lineCount, timedMask));
+      auto const reloaded = ParseKmlText(text);
+      TEST_EQUAL(reloaded.m_tracksData.size(), 1, (lineCount, timedMask));
+      TEST_EQUAL(reloaded.m_tracksData.front().m_geometry, track.m_geometry, (lineCount, timedMask));
+    }
+}
+
 // Route stops and the router type stored in a track survive the KML text round-trip. The '&' in
 // the values (cannot come from routing::ToString, but KML files are edited by hand) checks that
 // both fields are escaped on write, so the KML stays well-formed.
