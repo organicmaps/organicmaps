@@ -9,7 +9,9 @@
 #include "base/assert.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
+#include "base/timer.hpp"
 
+#include <algorithm>
 #include <limits>
 
 namespace kml
@@ -189,63 +191,40 @@ void GpxParser::ParseGarminColor(std::string const & v)
     m_color = *res;
 }
 
-void GpxParser::CheckAndCorrectTimestamps()
+void RepairTimestamps(MultiGeometry::TimeT & timestamps)
 {
-  ASSERT_EQUAL(m_line.size(), m_timestamps.size(), ());
-
-  size_t const numInvalid = std::count(m_timestamps.begin(), m_timestamps.end(), base::INVALID_TIME_STAMP);
-  if (numInvalid * 2 > m_timestamps.size())
+  size_t const missing = std::ranges::count(timestamps, base::INVALID_TIME_STAMP);
+  if (missing == 0)
+    return;
+  if (missing > timestamps.size() / 2)
   {
-    // >50% invalid
-    m_timestamps.clear();
+    timestamps.clear();
+    return;
   }
-  else if (numInvalid > 0)
+
+  for (size_t first = 0; first < timestamps.size(); ++first)
   {
-    LOG(LDEBUG, ("Invalid timestamps count =", numInvalid, "; Total timestamps count =", m_timestamps.size()));
+    if (timestamps[first] != base::INVALID_TIME_STAMP)
+      continue;
 
-    // Find INVALID_TIME_STAMP ranges and interpolate them.
-    for (size_t i = 0; i < m_timestamps.size();)
+    size_t end = first + 1;
+    while (end < timestamps.size() && timestamps[end] == base::INVALID_TIME_STAMP)
+      ++end;
+
+    // Only gaps bounded by two observations can be interpolated.
+    if (first == 0 || end == timestamps.size())
     {
-      if (m_timestamps[i] == base::INVALID_TIME_STAMP)
-      {
-        size_t j = i + 1;
-        for (; j < m_timestamps.size(); ++j)
-        {
-          if (m_timestamps[j] != base::INVALID_TIME_STAMP)
-          {
-            if (i == 0)
-            {
-              // Beginning range assign to the first valid timestamp.
-              while (i < j)
-                m_timestamps[i++] = m_timestamps[j];
-            }
-            else
-            {
-              // naive interpolation
-              auto const last = m_timestamps[i - 1];
-              auto count = j - i + 1;
-              double const delta = (m_timestamps[j] - last) / double(count);
-              for (size_t k = 1; k < count; ++k)
-                m_timestamps[i++] = last + k * delta;
-            }
-            break;
-          }
-        }
-
-        if (j == m_timestamps.size())
-        {
-          // Ending range assign to the last valid timestamp.
-          ASSERT(i > 0, ());
-          auto const last = m_timestamps[i - 1];
-          while (i < j)
-            m_timestamps[i++] = last;
-        }
-
-        i = j + 1;
-      }
-      else
-        ++i;
+      auto const nearest = first == 0 ? timestamps[end] : timestamps[first - 1];
+      std::fill(timestamps.begin() + first, timestamps.begin() + end, nearest);
     }
+    else
+    {
+      auto const before = timestamps[first - 1];
+      double const step = (timestamps[end] - before) / double(end - first + 1);
+      for (size_t i = first; i < end; ++i)
+        timestamps[i] = before + (i - first + 1) * step;
+    }
+    first = end;
   }
 }
 
@@ -261,7 +240,12 @@ void GpxParser::Pop(std::string_view tag)
     {
       auto const p = mercator::FromLatLon(m_lat, m_lon);
       m_line.emplace_back(p, m_altitude);
-      m_timestamps.emplace_back(m_timestamp);
+      if (!m_timestamps.empty() || m_timestamp != base::INVALID_TIME_STAMP)
+      {
+        if (m_timestamps.empty())
+          m_timestamps.resize(m_line.size() - 1, base::INVALID_TIME_STAMP);
+        m_timestamps.push_back(m_timestamp);
+      }
 
       if (tag == gpx::kRtePt && GetTagFromEnd(1) == gpx::kRte)
       {
@@ -279,8 +263,6 @@ void GpxParser::Pop(std::string_view tag)
   {
     if (m_line.size() > 1)
     {
-      CheckAndCorrectTimestamps();
-
       m_geometry.m_lines.push_back(std::move(m_line));
       m_geometry.m_timestamps.push_back(std::move(m_timestamps));
     }

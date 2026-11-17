@@ -4,6 +4,7 @@
 
 #include "kml/serdes.hpp"
 #include "kml/serdes_binary.hpp"
+#include "kml/serdes_common.hpp"
 #include "kml/serdes_geojson.hpp"
 #include "kml/serdes_gpx.hpp"
 
@@ -21,6 +22,7 @@
 #include "base/file_name_utils.hpp"
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"
+#include "base/timer.hpp"
 
 #include "std/target_os.hpp"
 
@@ -214,20 +216,10 @@ constexpr auto kFeatureTypeToBookmarkMatchInfo = []() consteval
   return arr;
 }();
 
-void ValidateKmlData(std::unique_ptr<kml::FileData> & data)
+void NormalizeImportedTracks(kml::FileData & data, FileType fileType)
 {
-  if (!data)
-    return;
-
-  for (auto & t : data->m_tracksData)
-    if (t.m_layers.empty())
-      t.m_layers.emplace_back(kml::KmlParser::GetDefaultTrackLayer());
-}
-
-// Filter points and capture times together once both gx:Track arrays are complete.
-void RemoveDuplicatedTrackPoints(std::unique_ptr<kml::FileData> & data)
-{
-  for (auto & trackData : data->m_tracksData)
+  bool const repairGpxTimes = fileType == FileType::Gpx;
+  for (auto & trackData : data.m_tracksData)
   {
     auto & geometry = trackData.m_geometry;
     ASSERT_EQUAL(geometry.m_lines.size(), geometry.m_timestamps.size(), (trackData.m_id));
@@ -236,32 +228,58 @@ void RemoveDuplicatedTrackPoints(std::unique_ptr<kml::FileData> & data)
     {
       auto & line = geometry.m_lines[lineIndex];
       auto & timestamps = geometry.m_timestamps[lineIndex];
-      ASSERT(timestamps.empty() || timestamps.size() == line.size(),
-             (trackData.m_id, lineIndex, timestamps.size(), line.size()));
-      if (!kml::MultiGeometry::IsValidTimestamps(timestamps, line.size()))
+      auto const dropInvalidTimestamps = [&]
       {
-        LOG(LWARNING, ("Dropping invalid track timestamps", trackData.m_name[kml::kDefaultLang]));
-        timestamps.clear();
-      }
+        if (!kml::MultiGeometry::IsValidTimestamps(timestamps, line.size()))
+        {
+          LOG(LWARNING, ("Dropping invalid track timestamps", kml::GetDefaultStr(trackData.m_name)));
+          timestamps.clear();
+        }
+      };
+      if (repairGpxTimes)
+        ASSERT(timestamps.empty() || timestamps.size() == line.size(),
+               (trackData.m_id, lineIndex, timestamps.size(), line.size()));
+      else
+        dropInvalidTimestamps();
+
       bool const hasTimestamps = !timestamps.empty();
       size_t keptPoints = 0;
+      m2::PointD storedAnchor{};
       for (size_t i = 0; i < line.size(); ++i)
       {
-        if (keptPoints != 0 && kml::IsSameTrackPoint(line[keptPoints - 1].GetPoint(), line[i].GetPoint()))
+        auto const & point = line[i].GetPoint();
+        auto const storedPoint = keptPoints != 0 && line[keptPoints - 1].GetPoint() == point
+                                   ? storedAnchor
+                                   : kml::PointAtStoragePrecision(point);
+        if (keptPoints != 0 && kml::IsSameStoredTrackPoint(storedAnchor, storedPoint))
+        {
+          // A repeat may carry the first observed capture time for this position.
+          if (repairGpxTimes && hasTimestamps && timestamps[keptPoints - 1] == base::INVALID_TIME_STAMP)
+            timestamps[keptPoints - 1] = timestamps[i];
           continue;
+        }
+        storedAnchor = storedPoint;
         line[keptPoints] = line[i];
         if (hasTimestamps)
           timestamps[keptPoints] = timestamps[i];
         ++keptPoints;
       }
-      line.resize(keptPoints);
-      if (hasTimestamps)
-        timestamps.resize(keptPoints);
-      if (line.size() < 2)
+      if (keptPoints < 2)
       {
-        LOG(LWARNING, ("Degenerated line in track:", trackData.m_name[kml::kDefaultLang]));
+        LOG(LWARNING, ("Degenerate track section", kml::GetDefaultStr(trackData.m_name)));
         continue;
       }
+      line.resize(keptPoints);
+      if (hasTimestamps)
+      {
+        timestamps.resize(keptPoints);
+        if (repairGpxTimes)
+        {
+          kml::gpx::RepairTimestamps(timestamps);
+          dropInvalidTimestamps();
+        }
+      }
+
       if (keptLines != lineIndex)
       {
         geometry.m_lines[keptLines] = std::move(line);
@@ -271,10 +289,12 @@ void RemoveDuplicatedTrackPoints(std::unique_ptr<kml::FileData> & data)
     }
     geometry.m_lines.resize(keptLines);
     geometry.m_timestamps.resize(keptLines);
+    if (geometry.HasLines() && trackData.m_layers.empty())
+      trackData.m_layers.emplace_back(kml::KmlParser::GetDefaultTrackLayer());
   }
 
   std::set<kml::LocalId> removedIds;
-  base::EraseIf(data->m_tracksData, [&removedIds](kml::TrackData const & td)
+  base::EraseIf(data.m_tracksData, [&removedIds](kml::TrackData const & td)
   {
     if (!td.m_geometry.HasLines())
     {
@@ -285,7 +305,7 @@ void RemoveDuplicatedTrackPoints(std::unique_ptr<kml::FileData> & data)
   });
 
   if (!removedIds.empty())
-    for (auto & bm : data->m_bookmarksData)
+    for (auto & bm : data.m_bookmarksData)
       base::EraseIf(bm.m_boundTracks, [&removedIds](kml::LocalId id) { return removedIds.contains(id); });
 }
 
@@ -588,8 +608,7 @@ std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, FileType fileT
     {
       CHECK(false, ("Not supported FileType"));
     }
-    ValidateKmlData(data);
-    RemoveDuplicatedTrackPoints(data);
+    NormalizeImportedTracks(*data, fileType);
   }
   catch (Reader::Exception const & e)
   {

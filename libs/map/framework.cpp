@@ -978,14 +978,9 @@ std::optional<kml::TrackData> Framework::TryBuildRelationTrack(Track::TrackSelec
   kml::TrackData kmlTrack;
   for (auto & line : trackData->m_lines)
   {
-    // Validate the final directions: reversing a chain can make it collapse under KML filtering.
-    if (!kml::MultiGeometry::IsValidLine(line.m_points))
-      continue;
     kmlTrack.m_geometry.m_lines.push_back(std::move(line.m_points));
     kmlTrack.m_geometry.m_timestamps.emplace_back();
   }
-  if (!kmlTrack.m_geometry.HasLines())
-    return std::nullopt;
   kml::SetDefaultStr(kmlTrack.m_name, trackData->m_name);
 
   UpdateTrackSelectionColor(trackData->m_color);

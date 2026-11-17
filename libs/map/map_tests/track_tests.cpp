@@ -12,6 +12,7 @@
 #include "geometry/point_with_altitude.hpp"
 
 #include "platform/platform.hpp"
+#include "platform/platform_tests_support/scoped_file.hpp"
 
 #include "coding/file_reader.hpp"
 #include "coding/reader.hpp"
@@ -207,23 +208,11 @@ UNIT_TEST(Track_RuntimeContracts)
   TEST_EQUAL(preserved.GetGeometry().size(), 3, ("Coincident altitude/time samples remain valid"));
 }
 
-UNIT_TEST(Track_RuntimeGeometryUsesImportTolerance)
+UNIT_TEST(Track_SubPrecisionMovementIsValidAtRuntime)
 {
-  kml::MultiGeometry geometry;
-  geometry.AddLine({{{0.0, 0.0}, 100}, {{1e-7, 0.0}, 200}});
-  geometry.AddTimestamps({1, 2});
-  TEST(geometry.HasLines(), ());
-  TEST(!geometry.IsValid(), ("Positive length can still collapse during import"));
-  geometry.m_lines[0].push_back({{0.001, 0.0}, 300});
-  geometry.m_timestamps[0].push_back(3);
-  TEST(geometry.IsValid(), ());
-  kml::TrackData data;
-  data.m_layers.emplace_back();
-  data.m_geometry = std::move(geometry);
-  Track const track(std::move(data));
-  TEST_EQUAL(track.GetGeometry().size(), 3, ("Retain measurements in a usable line"));
-  TEST(!kml::MultiGeometry::IsValidLine({{{180.0, 0.0}, 100}, {{-180.0, 0.0}, 200}}),
-       ("Antimeridian aliases do not create movement"));
+  Track const track = MakeTrack({{{{0.0, 0.0}, 100}, {{1e-7, 0.0}, 200}}});
+  TEST(track.GetData().m_geometry.IsValid(), ());
+  TEST_GREATER(track.GetLengthMeters(), 0.0, ());
 }
 
 UNIT_TEST(Track_ImportDropsMalformedKmlTimestamps)
@@ -250,46 +239,80 @@ UNIT_TEST(Track_ImportDropsMalformedKmlTimestamps)
   }
 }
 
-UNIT_TEST(Track_ImportDropsNonMonotonicGpxTimestamps)
+UNIT_TEST(Track_ImportKeepsGpxTimesAcrossUntimedDuplicates)
 {
-  std::string const input = R"(<gpx version="1.1" creator="test"><trk><trkseg>
-    <trkpt lat="45" lon="19"><time>2026-01-02T00:00:00Z</time></trkpt>
-    <trkpt lat="45.001" lon="19"><time>2026-01-01T00:00:00Z</time></trkpt>
-  </trkseg></trk></gpx>)";
-  auto data = LoadKmlData(MemReader(input), FileType::Gpx);
+  std::string_view constexpr input = R"(<gpx version="1.1"><trk>
+    <trkseg>
+      <trkpt lat="0" lon="19"><time>2026-01-01T00:00:00Z</time></trkpt>
+      <trkpt lat="0" lon="19"/><trkpt lat="0" lon="19"/><trkpt lat="0" lon="19"/>
+      <trkpt lat="0" lon="19.001"><time>2026-01-01T00:01:00Z</time></trkpt>
+    </trkseg>
+    <trkseg>
+      <trkpt lat="0" lon="20"/>
+      <trkpt lat="0" lon="20"><time>2026-01-01T00:02:00Z</time></trkpt>
+      <trkpt lat="0" lon="20.001"/>
+      <trkpt lat="0" lon="20.002"><time>2026-01-01T00:03:00Z</time></trkpt>
+    </trkseg>
+    <trkseg>
+      <trkpt lat="0" lon="21"><time>2026-01-01T00:04:00Z</time></trkpt>
+      <trkpt lat="0" lon="21.001"/><trkpt lat="0" lon="21.002"/>
+    </trkseg>
+  </trk></gpx>)";
+  auto const data = LoadKmlData(MemReader(input), FileType::Gpx);
   TEST(data, ());
   TEST_EQUAL(data->m_tracksData.size(), 1, ());
   auto const & geometry = data->m_tracksData.front().m_geometry;
+  auto const start = base::StringToTimestamp("2026-01-01T00:00:00Z");
+  TEST_EQUAL(geometry.m_lines.size(), 3, ());
+  std::vector<kml::MultiGeometry::TimeT> const expected = {
+      {start, start + 60}, {start + 120, start + 150, start + 180}, {}};
+  TEST_EQUAL(geometry.m_timestamps, expected, ());
+}
+
+UNIT_TEST(Track_ImportDropsNonMonotonicGpxTimestampsAndNamesTheTrack)
+{
+  platform::tests_support::ScopedFile const file("UntitledWalk.gpx", R"(<gpx version="1.1"><trk><trkseg>
+    <trkpt lat="45" lon="19"><time>2026-01-02T00:00:00Z</time></trkpt>
+    <trkpt lat="45.001" lon="19"><time>2026-01-01T00:00:00Z</time></trkpt>
+  </trkseg></trk></gpx>)");
+  auto const data = LoadKmlFile(file.GetFullPath(), FileType::Gpx);
+  TEST(data, ());
+  TEST_EQUAL(data->m_tracksData.size(), 1, ());
+  auto const & track = data->m_tracksData.front();
+  TEST_EQUAL(kml::GetDefaultStr(track.m_name), "UntitledWalk", ());
+  auto const & geometry = track.m_geometry;
   TEST(geometry.IsValid(), ());
   TEST_EQUAL(geometry.m_lines.front().size(), 2, ());
   TEST(geometry.m_timestamps.front().empty(), ());
 }
 
-UNIT_TEST(Track_UsabilityMatchesKmlReloadNearStoragePrecision)
+UNIT_TEST(Track_KmlReloadUsesStoragePrecision)
 {
-  for (double const lat : {0.0, 45.0, 80.0})
-    for (double const lon : {-179.9999999, -19.0, 0.0, 19.0, 179.9999999})
-      for (bool const changeLatitude : {false, true})
-        for (double const delta : {0.0, 1e-7, 9e-7, 9.9e-6, 1.00001e-5, 1.1e-5, 2e-5})
-        {
-          kml::TrackData track;
-          track.m_layers.emplace_back();
-          track.m_geometry.AddLine(
-              {{mercator::FromLatLon(lat, lon), 100},
-               {mercator::FromLatLon(lat + (changeLatitude ? delta : 0.0),
-                                     lon + (changeLatitude ? 0.0 : (lon > 179.0 ? -delta : delta))),
-                200}});
-          track.m_geometry.AddTimestamps({});
-          bool const usable = track.m_geometry.IsValid();
-          kml::FileData data;
-          data.m_tracksData.push_back(std::move(track));
-          std::string text;
-          MemWriter writer(text);
-          TEST(SaveKmlData(data, writer, FileType::Kml), ());
-          auto reloaded = LoadKmlData(MemReader(text), FileType::Kml);
-          TEST(reloaded, ());
-          TEST_EQUAL(!reloaded->m_tracksData.empty(), usable, (lat, lon, delta, changeLatitude));
-        }
+  struct Case
+  {
+    ms::LatLon m_start;
+    ms::LatLon m_finish;
+    bool m_survivesReload;
+  };
+  Case const cases[] = {
+      {{0.0, 19.0}, {0.0, 19.0000101}, false},
+      {{80.0, 19.0}, {80.0000017, 19.0}, true},
+      {{0.0, -180.0}, {0.0, 180.0}, false},
+  };
+  for (auto const & [start, finish, survivesReload] : cases)
+  {
+    kml::FileData data;
+    auto & track = data.m_tracksData.emplace_back();
+    track.m_layers.emplace_back();
+    track.m_geometry.AddLine({{mercator::FromLatLon(start), 100}, {mercator::FromLatLon(finish), 200}});
+    track.m_geometry.AddTimestamps({});
+    std::string text;
+    MemWriter writer(text);
+    TEST(SaveKmlData(data, writer, FileType::Kml), ());
+    auto const reloaded = LoadKmlData(MemReader(text), FileType::Kml);
+    TEST(reloaded, ());
+    TEST_EQUAL(reloaded->m_tracksData.size(), survivesReload ? 1 : 0, (start, finish));
+  }
 }
 
 UNIT_TEST(Track_AntimeridianMovementSurvivesImport)

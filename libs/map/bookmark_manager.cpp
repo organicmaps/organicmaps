@@ -2993,6 +2993,15 @@ void BookmarkManager::PrepareTrackFileForSharing(kml::TrackId trackId, SharingHa
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(handler, ());
+  // KML rounding can leave a short section within import tolerance of its first point.
+  // Before enabling relation export, handle sections that collapse after reversal and
+  // relations with no sections left after filtering the exported copy.
+  if (trackId == kml::kTempRelationTrackId)
+  {
+    handler(SharingResult({}, SharingResult::Code::FileError));
+    return;
+  }
+
   auto collection = PrepareToSaveBookmarksForTrack(trackId);
   if (m_testModeEnabled)
   {

@@ -430,10 +430,8 @@ struct MultiGeometry
   void Clear();
   // Parsers may still be assembling timestamps and filtering geometry.
   bool HasLines() const { return !m_lines.empty(); }
-  // Coordinates are validated by producers; horizontal movement determines usability.
-  static bool IsValidLine(LineT const & line);
   static bool IsValidTimestamps(TimeT const & timestamps, size_t pointCount);
-  // Complete runtime geometry: usable sections and aligned, ordered timestamps.
+  // Runtime sections have horizontal movement and aligned, ordered timestamps.
   bool IsValid() const;
 
   bool operator==(MultiGeometry const & rhs) const

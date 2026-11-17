@@ -214,7 +214,7 @@ UNIT_TEST(Gpx_Test_Track_With_Timestamps)
   TEST(geometry.HasTimestampsFor(1), ());
 }
 
-UNIT_TEST(Gpx_Test_Track_With_Timestamps_Mismatch)
+UNIT_TEST(Gpx_ParsesAlignedMissingTimestamps)
 {
   auto const fileName = GetPlatform().TestsDataPathForFile("test_data/gpx/track_with_timestamps_broken.gpx");
   std::string text;
@@ -224,9 +224,14 @@ UNIT_TEST(Gpx_Test_Track_With_Timestamps_Mismatch)
   kml::DeserializerGpx(data).Deserialize(MemReader(text));
 
   TEST_EQUAL(data.m_tracksData.size(), 1, ());
-  TEST_EQUAL(data.m_tracksData[0].m_geometry.m_timestamps.size(), 2, ());
-  TEST(data.m_tracksData[0].m_geometry.HasTimestampsFor(0), ());
-  TEST(data.m_tracksData[0].m_geometry.HasTimestampsFor(1), ());
+  auto const & geometry = data.m_tracksData.front().m_geometry;
+  TEST_EQUAL(geometry.m_lines.size(), 2, ());
+  TEST_EQUAL(geometry.m_timestamps.size(), 2, ());
+  for (size_t i = 0; i < geometry.m_lines.size(); ++i)
+  {
+    TEST_EQUAL(geometry.m_timestamps[i].size(), geometry.m_lines[i].size(), (i));
+    TEST_EQUAL(geometry.m_timestamps[i].back(), base::INVALID_TIME_STAMP, (i));
+  }
 }
 
 UNIT_TEST(Gpx_Altitude_Issues)
@@ -283,7 +288,7 @@ UNIT_TEST(Gpx_Export_MixedAltitudes)
   TEST(exported.find("-32768") == std::string::npos, (exported));
 }
 
-UNIT_TEST(Gpx_Timestamp_Issues)
+UNIT_TEST(Gpx_RepairsTimestampGaps)
 {
   std::string_view constexpr input = R"(<?xml version="1.0" encoding="UTF-8"?>
 <gpx version="1.0">
@@ -305,7 +310,8 @@ UNIT_TEST(Gpx_Timestamp_Issues)
 )";
 
   kml::FileData const dataFromText = LoadGpxFromString(input);
-  auto const & times = dataFromText.m_tracksData[0].m_geometry.m_timestamps[0];
+  auto times = dataFromText.m_tracksData[0].m_geometry.m_timestamps[0];
+  kml::gpx::RepairTimestamps(times);
   TEST_EQUAL(times.size(), 8, ());
   TEST_EQUAL(times[0], base::StringToTimestamp("2024-05-04T19:00:00Z"), ());
   TEST_EQUAL(times[1], base::StringToTimestamp("2024-05-04T19:00:00Z"), ());
@@ -317,7 +323,7 @@ UNIT_TEST(Gpx_Timestamp_Issues)
   TEST_EQUAL(times[7], base::StringToTimestamp("2024-05-04T19:00:05Z"), ());
 }
 
-UNIT_TEST(Gpx_CollectsSamplesBeforeTimestampRepair)
+UNIT_TEST(Gpx_ParsesCoincidentSamplesWithCaptureTimes)
 {
   auto const data = LoadGpxFromString(R"(<gpx version="1.1"><trk><trkseg>
     <trkpt lat="45" lon="19"><time>2026-01-01T00:00:01Z</time></trkpt>
@@ -329,7 +335,8 @@ UNIT_TEST(Gpx_CollectsSamplesBeforeTimestampRepair)
   auto const & geometry = data.m_tracksData.front().m_geometry;
   TEST_EQUAL(geometry.m_lines.front().size(), 4, ());
   auto const first = base::StringToTimestamp("2026-01-01T00:00:01Z");
-  TEST_EQUAL(geometry.m_timestamps.front(), (kml::MultiGeometry::TimeT{first, first, first + 1, first + 2}), ());
+  TEST_EQUAL(geometry.m_timestamps.front(),
+             (kml::MultiGeometry::TimeT{first, first, base::INVALID_TIME_STAMP, first + 2}), ());
 }
 
 UNIT_TEST(Gpx_Track_Invalid_Coordinates)

@@ -17,6 +17,9 @@ namespace kml
 namespace gpx
 {
 
+// Fill missing capture times after choosing the track points to keep.
+void RepairTimestamps(MultiGeometry::TimeT & timestamps);
+
 class GpxWriter
 {
 public:
@@ -74,7 +77,6 @@ private:
   void ParseGarminColor(std::string const & value);
   void ParseOsmandColor(std::string const & value);
   bool IsValidCoordinatesPosition() const;
-  void CheckAndCorrectTimestamps();
 
   FileData & m_data;
 

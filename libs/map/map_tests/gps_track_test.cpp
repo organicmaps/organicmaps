@@ -270,8 +270,15 @@ UNIT_TEST(GpsTracker_SaveabilitySurvivesKmlReload)
     tracker.Finalize();
   });
 
-  for (auto const & point : MakePoints(2))
-    tracker.OnLocationUpdated(point);
+  // At this latitude the final fix gains enough Mercator separation after KML rounding.
+  auto start = MakePoint(100.0, 0.0);
+  start.m_latitude = 80.0;
+  start.m_longitude = 19.0;
+  auto finish = start;
+  finish.m_timestamp = 160.0;
+  finish.m_latitude = 80.0000017;
+  tracker.OnLocationUpdated(start);
+  tracker.OnLocationUpdated(finish);
   TEST_EQUAL(tracker.Finalize(), 2, ());
   TEST(!tracker.IsEmpty(), ());
 

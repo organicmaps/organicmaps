@@ -16,6 +16,8 @@ auto constexpr kDefaultTrackColor = 0x006ec7ff;
 std::string PointToString(m2::PointD const & org, char const separator);
 // Projects the coordinates that PointToString writes and the parsers read back.
 m2::PointD PointAtStoragePrecision(m2::PointD const & point);
+// Both points are already at KML precision.
+bool IsSameStoredTrackPoint(m2::PointD const & lhs, m2::PointD rhs);
 std::string PointToLineString(geometry::PointWithAltitude const & pt);
 std::string PointToGxString(geometry::PointWithAltitude const & pt);
 

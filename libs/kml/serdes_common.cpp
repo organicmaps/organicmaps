@@ -38,6 +38,17 @@ m2::PointD PointAtStoragePrecision(m2::PointD const & point)
   return mercator::FromLatLon(round(mercator::YToLat(point.y)), round(mercator::XToLon(point.x)));
 }
 
+bool IsSameStoredTrackPoint(m2::PointD const & lhs, m2::PointD rhs)
+{
+  rhs.x = mercator::NearestWrapX(rhs.x, lhs.x);
+  return IsEqual(lhs, rhs);
+}
+
+bool IsSameTrackPoint(m2::PointD const & lhs, m2::PointD const & rhs)
+{
+  return lhs == rhs || IsSameStoredTrackPoint(PointAtStoragePrecision(lhs), PointAtStoragePrecision(rhs));
+}
+
 std::string PointToLineString(geometry::PointWithAltitude const & pt)
 {
   char constexpr kSeparator = ',';

@@ -2,6 +2,8 @@
 
 #include "kml/minzoom_quadtree.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include "base/macros.hpp"
 #include "base/random.hpp"
 #include "base/stl_helpers.hpp"
@@ -31,14 +33,6 @@ void SetBookmarksMinZoom(FileData & fileData, double countPerTile, int maxZoom)
   minZoomQuadtree.SetMinZoom(countPerTile, maxZoom, setMinZoom);
 }
 
-bool MultiGeometry::IsValidLine(LineT const & line)
-{
-  if (line.size() < 2)
-    return false;
-  return std::any_of(line.begin() + 1, line.end(), [&line](auto const & point)
-  { return !IsSameTrackPoint(point.GetPoint(), line.front().GetPoint()); });
-}
-
 bool MultiGeometry::IsValidTimestamps(TimeT const & timestamps, size_t pointCount)
 {
   return timestamps.empty() ||
@@ -51,8 +45,18 @@ bool MultiGeometry::IsValid() const
   if (!HasLines() || m_lines.size() != m_timestamps.size())
     return false;
   for (size_t i = 0; i < m_lines.size(); ++i)
-    if (!IsValidLine(m_lines[i]) || !IsValidTimestamps(m_timestamps[i], m_lines[i].size()))
+  {
+    auto const & line = m_lines[i];
+    if (line.size() < 2 || !IsValidTimestamps(m_timestamps[i], line.size()))
       return false;
+    auto const & first = line.front().GetPoint();
+    if (std::none_of(line.begin() + 1, line.end(), [&first](auto const & sample)
+    {
+      auto const & point = sample.GetPoint();
+      return point.y != first.y || mercator::NearestWrapX(point.x, first.x) != first.x;
+    }))
+      return false;
+  }
   return true;
 }
 
