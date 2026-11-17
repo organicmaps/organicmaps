@@ -10,6 +10,7 @@
 #include "indexer/features_offsets_table.hpp"
 #include "indexer/map_object.hpp"
 #include "indexer/map_style_reader.hpp"
+#include "indexer/shared_load_info.hpp"
 
 #include "drape/hatching_decl.hpp"
 
@@ -282,10 +283,7 @@ UNIT_CLASS_TEST(StyleSnapshotFixture, CyclingStyle_OverviewNetwork)
       }
     }
 
-    for (auto const & [path, firstZoom] :
-         std::initializer_list<std::pair<base::StringIL, uint8_t>>{{{"highway", "cycleway"}, 11},
-                                                                   {{"highway", "path", "bicycle"}, 12},
-                                                                   {{"highway", "footway", "bicycle"}, 13}})
+    auto const testCycleway = [&](base::StringIL path, uint8_t firstZoom)
     {
       auto feature = FeatureType::CreateFromMapObject(SampleFeature(cl.GetTypeByPath(path), feature::GeomType::Line));
       for (uint8_t zoom = firstZoom; zoom <= 19; ++zoom)
@@ -293,7 +291,10 @@ UNIT_CLASS_TEST(StyleSnapshotFixture, CyclingStyle_OverviewNetwork)
         df::Stylist const cycling(*feature, zoom, StringUtf8Multilang::kEnglishCode, style);
         TEST(!cycling.m_lineRules.empty(), (style, path, zoom));
       }
-    }
+    };
+    testCycleway({"highway", "cycleway"}, 11);
+    testCycleway({"highway", "path", "bicycle"}, 12);
+    testCycleway({"highway", "footway", "bicycle"}, 13);
   }
 }
 
@@ -379,21 +380,21 @@ UNIT_CLASS_TEST(StyleSnapshotFixture, CyclingStyle_UsefulStopsAndCityDetail)
   auto const & cl = classif(MapStyleDefaultLight);
   for (auto const style : {MapStyleCyclingLight, MapStyleCyclingDark})
   {
-    for (auto const & [path, zoom] :
-         std::initializer_list<std::pair<base::StringIL, uint8_t>>{{{"amenity", "drinking_water"}, 12},
-                                                                   {{"amenity", "fuel"}, 14},
-                                                                   {{"amenity", "toilets"}, 15},
-                                                                   {{"shop", "bicycle"}, 14},
-                                                                   {{"amenity", "bicycle_repair_station"}, 14},
-                                                                   {{"amenity", "bicycle_rental"}, 14},
-                                                                   {{"amenity", "bicycle_parking"}, 15},
-                                                                   {{"amenity", "compressed_air"}, 15},
-                                                                   {{"shop", "supermarket"}, 16}})
+    auto const testStop = [&](base::StringIL path, uint8_t zoom)
     {
       auto feature = FeatureType::CreateFromMapObject(SampleFeature(cl.GetTypeByPath(path), feature::GeomType::Point));
       df::Stylist const stop(*feature, zoom, StringUtf8Multilang::kEnglishCode, style);
       TEST(stop.m_symbolRule != nullptr, (style, path, zoom));
-    }
+    };
+    testStop({"amenity", "drinking_water"}, 12);
+    testStop({"amenity", "fuel"}, 14);
+    testStop({"amenity", "toilets"}, 15);
+    testStop({"shop", "bicycle"}, 14);
+    testStop({"amenity", "bicycle_repair_station"}, 14);
+    testStop({"amenity", "bicycle_rental"}, 14);
+    testStop({"amenity", "bicycle_parking"}, 15);
+    testStop({"amenity", "compressed_air"}, 15);
+    testStop({"shop", "supermarket"}, 16);
 
     for (auto const & path : {base::StringIL{"amenity", "parking"},
                               {"shop", "car"},
