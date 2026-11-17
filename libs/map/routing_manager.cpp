@@ -1,6 +1,7 @@
 #include "routing_manager.hpp"
 
 #include "map/routing_mark.hpp"
+#include "map/track.hpp"
 
 #include "routing/absent_regions_finder.hpp"
 #include "routing/checkpoint_predictor.hpp"
@@ -10,6 +11,7 @@
 #include "routing/routing_options.hpp"
 #include "routing/ruler_router.hpp"
 #include "routing/speed_camera.hpp"
+#include "routing/track_router.hpp"
 
 #include "storage/country_info_getter.hpp"
 #include "storage/routing_helpers.hpp"
@@ -29,12 +31,13 @@
 #include "platform/platform.hpp"
 
 #include "geometry/algorithm.hpp"
-#include "geometry/mercator.hpp"  // kPointEqualityEps
+#include "geometry/mercator.hpp"
 #include "geometry/parametrized_segment.hpp"
 
 #include "coding/file_writer.hpp"
 
 #include "base/logging.hpp"
+#include "base/math.hpp"
 #include "base/scope_guard.hpp"
 #include "base/small_map.hpp"
 #include "base/stl_helpers.hpp"
@@ -42,7 +45,9 @@
 
 #include <glaze/json.hpp>
 
+#include <algorithm>
 #include <map>
+#include <utility>
 
 using namespace routing;
 
@@ -184,6 +189,23 @@ std::vector<RouteMarkData> DeserializeRoutePoints(std::string const & data)
   return result;
 }
 
+// The router type a track is followed (and its route rendered) as.
+RouterType GetFollowTrackRouterType(RouterType routerType)
+{
+  switch (routerType)
+  {
+  case RouterType::Vehicle:
+  case RouterType::Bicycle: return routerType;
+  // Transit and Ruler can't be followed (Start is disabled for them on all platforms),
+  // so a track is followed with the pedestrian profile instead.
+  case RouterType::Pedestrian:
+  case RouterType::Transit:
+  case RouterType::Ruler: return RouterType::Pedestrian;
+  case RouterType::Count: break;
+  }
+  UNREACHABLE();
+}
+
 // Maps a barrier point-feature classificator type (stored in routing::Route::GetWarnings) to a UI
 // warning mark type. Mirrors ftypes::IsWayChecker; this is the single place to extend when adding
 // a new barrier warning kind.
@@ -223,7 +245,8 @@ private:
 };
 
 drape_ptr<df::Subroute> CreateDrapeSubroute(std::vector<RouteSegment> const & segments, m2::PointD const & startPt,
-                                            double baseDistance, double baseDepth, routing::RouterType routerType)
+                                            double baseDistance, double baseDepth, routing::RouterType routerType,
+                                            std::optional<double> trackApproachMerc)
 {
   auto subroute = make_unique_dp<df::Subroute>();
   subroute->m_baseDistance = baseDistance;
@@ -251,11 +274,12 @@ drape_ptr<df::Subroute> CreateDrapeSubroute(std::vector<RouteSegment> const & se
     return nullptr;
   }
 
-  if (routerType == RouterType::Ruler)
+  // Geometry-only routes use real-segment styling; ordinary connectors keep their fake-edge style.
+  if (routerType == RouterType::Ruler || trackApproachMerc)
   {
-    auto const subrouteLen = segments.back().GetDistFromBeginningMerc() - baseDistance;
-    subroute->m_headFakeDistance = -kBias;
-    subroute->m_tailFakeDistance = subrouteLen + kBias;
+    // The straight approach to a track entry is the only dashed head of a geometric route.
+    subroute->m_headFakeDistance = trackApproachMerc && *trackApproachMerc > 0.0 ? *trackApproachMerc : -kBias;
+    subroute->m_tailFakeDistance = segments.back().GetDistFromBeginningMerc() - baseDistance + kBias;
     subroute->m_polyline = m2::PolylineD(std::move(points));
     return subroute;
   }
@@ -282,9 +306,6 @@ drape_ptr<df::Subroute> CreateDrapeSubroute(std::vector<RouteSegment> const & se
   }
   else
   {
-    CHECK_NOT_EQUAL(firstReal, kInvalidId, ());
-    CHECK_NOT_EQUAL(lastReal, kInvalidId, ());
-
     auto constexpr kEps = 1e-5;
 
     // To prevent visual artefacts, in the case when all head segments are real
@@ -405,13 +426,22 @@ void RoutingManager::OnBuildRouteReady(RoutesResult const & result, RouterResult
   HidePreviewSegments();
 
   auto const hasWarnings = InsertRoute(result);
-  m_drapeEngine.SafeCall(&df::DrapeEngine::StopLocationFollow);
+
+  bool const followsTrack = IsFollowingTrack();
+  bool keepViewport = false;
+  if (followsTrack)
+    keepViewport = std::exchange(m_followSession->m_keepViewport, false);
+  if (!keepViewport)
+    m_drapeEngine.SafeCall(&df::DrapeEngine::StopLocationFollow);
 
   // Validate route (in case of bicycle routing it can be invalid).
   ASSERT(result.IsValid(), ());
   auto const & active = result.GetActive();
-  // Do not show the full route if one or more stops were added, for easier multi-stop trip planning.
-  if (active.IsValid() && active.GetSubrouteCount() < 2 && m_currentRouterType != routing::RouterType::Ruler)
+
+  // An overview helps plan a track even when it contains stops. When adding stops to a road
+  // route, keep the local view so the user can continue editing.
+  if (active.IsValid() && !keepViewport &&
+      (followsTrack || (active.GetSubrouteCount() < 2 && m_currentRouterType != routing::RouterType::Ruler)))
   {
     m2::RectD routeRect = active.GetLimitRect();
     routeRect.Scale(kRouteScaleMultiplier);
@@ -419,6 +449,13 @@ void RoutingManager::OnBuildRouteReady(RoutesResult const & result, RouterResult
                            true /* isAnim */, true /* useVisibleViewport */);
   }
 
+  if (followsTrack && std::exchange(m_followSession->m_startWhenReady, false))
+  {
+    FollowRoute();
+    // A fresh fix can require another approach build before the requested Start is ready.
+    if (IsRouteBuilding())
+      return;
+  }
   CallRouteBuilded(hasWarnings ? RouterResultCode::HasWarnings : code, storage::CountriesSet());
 }
 
@@ -446,6 +483,8 @@ void RoutingManager::OnNeedMoreMaps(uint64_t routeId, storage::CountriesSet cons
 
 void RoutingManager::OnRemoveRoute(routing::RouterResultCode code)
 {
+  if (m_followSession)
+    m_followSession->m_startWhenReady = false;
   HidePreviewSegments();
   RemoveRoute(true /* deactivateFollowing */);
   CallRouteBuilded(code, storage::CountriesSet());
@@ -453,6 +492,10 @@ void RoutingManager::OnRemoveRoute(routing::RouterResultCode code)
 
 void RoutingManager::OnRoutePointPassed(RouteMarkType type, size_t intermediateIndex)
 {
+  // Track checkpoints belong to the frozen geometry, not editable route marks or road-route recovery.
+  if (IsFollowingTrack())
+    return;
+
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(*m_bmManager);
   routePoints.PassRoutePoint(type, intermediateIndex);
@@ -494,7 +537,7 @@ void RoutingManager::SetRouterImpl(RouterType type)
   // Ruler has no road profile and uses Transit session settings.
   VehicleType const vehicleType = RoutingOptions::GetVehicleType(type).value_or(VehicleType::Transit);
 
-  m_loadAltitudes = vehicleType != VehicleType::Car;
+  bool const loadAltitudes = vehicleType != VehicleType::Car;
 
   std::unique_ptr<IRouter> router;
   std::unique_ptr<AbsentRegionsFinder> absentFinder;
@@ -526,7 +569,7 @@ void RoutingManager::SetRouterImpl(RouterType type)
     auto const getMwmRectByName = [this](std::string const & countryId)
     { return m_callbacks.m_countryInfoGetter().GetLimitRectForLeaf(countryId); };
 
-    router = std::make_unique<IndexRouter>(vehicleType, m_loadAltitudes, m_callbacks.m_countryParentNameGetterFn,
+    router = std::make_unique<IndexRouter>(vehicleType, loadAltitudes, m_callbacks.m_countryParentNameGetterFn,
                                            countryFileGetter, getMwmRectByName, m_numMwmIDs, m_numMwmTree,
                                            m_routingSession, dataSource);
     absentFinder = std::make_unique<AbsentRegionsFinder>(countryFileGetter, localFileChecker, m_numMwmIDs, dataSource);
@@ -742,6 +785,11 @@ MwmSet::MwmId RoutingManager::GetMwmId(routing::NumMwmId numMwmId) const
   return m_callbacks.m_dataSourceGetter().GetMwmIdByCountryFile(m_numMwmIDs->GetFile(numMwmId));
 }
 
+RouterType RoutingManager::GetRenderRouterType() const
+{
+  return m_followSession ? m_followSession->m_info.m_profile : m_currentRouterType;
+}
+
 bool RoutingManager::InsertRoute(RoutesResult const & result)
 {
   if (!m_drapeEngine || result.m_routes.empty())
@@ -752,7 +800,7 @@ bool RoutingManager::InsertRoute(RoutesResult const & result)
 
   RoadWarningsCollection roadWarnings;
 
-  bool const isTransitRoute = (m_currentRouterType == RouterType::Transit);
+  bool const isTransitRoute = (GetRenderRouterType() == RouterType::Transit);
   auto const makeTransitRouteDisplay = [this]()
   {
     // clang-format off
@@ -787,7 +835,7 @@ bool RoutingManager::InsertRoute(RoutesResult const & result)
   // The offset must exceed the per-route subroute count (count is typically 1, so 10 is plenty).
   InsertSingleRoute(result.GetActive(), true /* isActive */, 10.0 /* depthOffset */, transitRouteDisplay, roadWarnings);
 
-  if (!isFollowing && m_currentRouterType != RouterType::Ruler && result.m_routes.size() >= 2)
+  if (!isFollowing && GetRenderRouterType() != RouterType::Ruler && result.m_routes.size() >= 2)
     CreateRouteAltMarks(result);
 
   {
@@ -822,6 +870,7 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
     return;
 
   float const alphaMul = isActive ? 1.0f : kAlternativeRouteAlphaMul;
+  auto const renderRouterType = GetRenderRouterType();
 
   std::vector<RouteSegment> segments;
   double distance = 0.0;
@@ -830,15 +879,23 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
   {
     route.GetSubrouteInfo(subrouteIndex, segments);
 
-    auto const startPt = route.GetSubrouteAttrs(subrouteIndex).GetStart().GetPoint();
-    auto subroute =
-        CreateDrapeSubroute(segments, startPt, distance,
-                            static_cast<double>(subroutesCount - subrouteIndex - 1) + depthOffset, m_currentRouterType);
+    auto const & attrs = route.GetSubrouteAttrs(subrouteIndex);
+    auto const startPt = attrs.GetStart().GetPoint();
+    std::optional<double> trackApproachMerc;
+    if (route.IsTrack())
+    {
+      trackApproachMerc = 0.0;
+      if (*route.GetTrackStartDistanceMeters() > 0.0 && attrs.GetBeginSegmentIdx() == 0)
+        trackApproachMerc = route.GetRouteSegments().front().GetDistFromBeginningMerc();
+    }
+    auto subroute = CreateDrapeSubroute(segments, startPt, distance,
+                                        static_cast<double>(subroutesCount - subrouteIndex - 1) + depthOffset,
+                                        renderRouterType, trackApproachMerc);
     if (!subroute)
       continue;
     subroute->m_alphaMul = alphaMul;
     distance = segments.back().GetDistFromBeginningMerc();
-    switch (m_currentRouterType)
+    switch (renderRouterType)
     {
     case RouterType::Vehicle:
     {
@@ -898,14 +955,43 @@ void RoutingManager::InsertSingleRoute(RouteBase const & route, bool isActive, d
 
 void RoutingManager::FollowRoute()
 {
+  if (IsFollowingTrack())
+  {
+    auto const & position = m_bmManager->MyPositionMark();
+    if (!position.HasPosition())
+      return;
+    if (IsRouteBuilding())
+    {
+      m_followSession->m_startWhenReady = true;
+      return;
+    }
+    if (!IsRouteBuilt())
+      return;
+    if (!IsRoutingFollowing())
+    {
+      auto const & start = m_routingSession.GetRoute()->GetPoly().Front();
+      auto const vehicleType = RoutingOptions::GetVehicleType(m_followSession->m_info.m_profile).value();
+      if (mercator::DistanceOnEarth(start, position.GetPivot()) > GetRoutingSettings(vehicleType).m_matchingThresholdM)
+      {
+        m_followSession->m_keepViewport = true;
+        m_followSession->m_startWhenReady = true;
+        BuildFollowedTrackPreview();
+        return;
+      }
+    }
+  }
   if (!m_routingSession.EnableFollowMode())
     return;
 
   m_transitReadManager->BlockTransitSchemeMode(true /* isBlocked */);
 
+  // The follow profile, not the persisted router type: a followed track is navigated (speed,
+  // thresholds, route colour) as GetRenderRouterType(), and its navigation camera, auto-zoom
+  // and position arrow must match.
+  auto const renderRouterType = GetRenderRouterType();
   // Switching on the extrapolator only for following mode in car and bicycle navigation.
-  m_extrapolator.Enable(m_currentRouterType == RouterType::Vehicle || m_currentRouterType == RouterType::Bicycle);
-  m_delegate.OnRouteFollow(m_currentRouterType);
+  m_extrapolator.Enable(renderRouterType == RouterType::Vehicle || renderRouterType == RouterType::Bicycle);
+  m_delegate.OnRouteFollow(renderRouterType);
 
   m_bmManager->GetEditSession().ClearGroup(UserMark::Type::ROAD_WARNING);
   HideRoutePoint(RouteMarkType::Start);
@@ -978,6 +1064,13 @@ bool RoutingManager::TryTapOnAlternativeRoute(m2::PointD const & mercator, doubl
   return targetIdx >= 0 ? SwapActiveAlternative(targetIdx) : false;
 }
 
+void RoutingManager::ResetRoutingSession()
+{
+  // Track following is geometric and independent of downloaded map data.
+  if (!IsFollowingTrack())
+    m_routingSession.Reset();
+}
+
 void RoutingManager::CloseRouting(bool removeRoutePoints)
 {
   m_extrapolator.Enable(false);
@@ -990,7 +1083,163 @@ void RoutingManager::CloseRouting(bool removeRoutePoints)
   RemoveRoute(true /* deactivateFollowing */);
 
   if (removeRoutePoints)
+  {
+    m_routePointsTransactions.clear();
     RemoveRoutePoints();
+  }
+
+  // Restore the regular router unless InstallFollowedTrack() or SetRouter() is replacing it.
+  if (IsFollowingTrack())
+  {
+    m_followSession.reset();
+    SetRouterImpl(m_currentRouterType);
+  }
+}
+
+std::expected<RoutingManager::SelectedTrack, FollowTrackResult> RoutingManager::CheckTrackFollowable(
+    kml::TrackId trackId) const
+{
+  auto const * track = m_bmManager->GetTrack(trackId);
+  if (!track)
+    return std::unexpected(FollowTrackResult::NoTrack);
+  auto const selection = m_bmManager->GetTrackSelectionInfo(trackId);
+  if (!selection.IsValid())
+    return std::unexpected(FollowTrackResult::InvalidSelection);
+  auto const entry = ResolveTrackEntry(track->GetData().m_geometry, selection.m_trackPoint, selection.m_distFromBegM);
+  if (!entry)
+    return std::unexpected(FollowTrackResult::InvalidSelection);
+  return SelectedTrack{track, *entry, selection.m_distFromBegM};
+}
+
+bool RoutingManager::HasNavigableTrackSelection(kml::TrackId trackId) const
+{
+  if (!m_numMwmIDs)
+    return false;
+  auto const selected = CheckTrackFollowable(trackId);
+  return selected && HasRemainingTrackGeometry(selected->m_track->GetData().m_geometry, selected->m_entry);
+}
+
+FollowTrackResult RoutingManager::BuildFollowedTrack(std::shared_ptr<Track const> source, TrackSourcePosition entry,
+                                                     double entryDistanceM, RouterType profile, bool keepViewport)
+{
+  // Re-selecting the same source occurrence retains its prepared connected remainder.
+  std::shared_ptr<routing::TrackFollowingData const> data;
+  if (m_followSession && source == m_followSession->m_source && entry == m_followSession->m_entry)
+    data = m_followSession->m_data;
+  else
+  {
+    auto prepared = BuildTrackFollowingData(source->GetData(), entry);
+    if (!prepared)
+      return FollowTrackResult::NoRemainingGeometry;
+    data = std::make_shared<routing::TrackFollowingData const>(std::move(*prepared));
+  }
+
+  FollowedTrackInfo info;
+  info.m_id = source->GetId();
+  info.m_name = source->GetName();
+  info.m_entryDistanceM = entryDistanceM;
+  info.m_profile = profile;
+
+  InstallFollowedTrack(FollowSession{std::move(info), std::move(source), entry, std::move(data)}, keepViewport);
+  return FollowTrackResult::Ok;
+}
+
+void RoutingManager::InstallFollowedTrack(FollowSession session, bool keepViewport)
+{
+  CHECK(session.m_source && session.m_data, ());
+  CHECK_EQUAL(session.m_info.m_id, session.m_source->GetId(), ());
+  auto const profile = session.m_info.m_profile;
+  CHECK(profile == RouterType::Vehicle || profile == RouterType::Bicycle || profile == RouterType::Pedestrian,
+        (profile));
+  auto const vehicleType = RoutingOptions::GetVehicleType(profile).value();
+  auto router = std::make_unique<TrackRouter>(vehicleType, session.m_data);
+
+  m_followSession.reset();
+  CloseRouting(true /* removeRoutePoints */);
+  DeleteSavedRoutePoints();
+  m_routingSession.SetRoutingSettings(GetRoutingSettings(vehicleType));
+  m_routingSession.SetRouter(std::move(router), nullptr);
+  session.m_keepViewport = keepViewport;
+  session.m_startWhenReady = false;
+  m_followSession = std::move(session);
+  BuildFollowedTrackPreview();
+}
+
+void RoutingManager::BuildFollowedTrackPreview()
+{
+  ASSERT(m_followSession, ());
+  std::vector<m2::PointD> checkpoints;
+  auto const & myPosition = m_bmManager->MyPositionMark();
+  bool const hasPosition = myPosition.HasPosition();
+  checkpoints.push_back(hasPosition ? myPosition.GetPivot() : m_followSession->m_data->m_points.front().GetPoint());
+  for (auto const index : m_followSession->m_data->m_stopPointIndexes)
+    checkpoints.push_back(m_followSession->m_data->m_points[index].GetPoint());
+  checkpoints.push_back(m_followSession->m_data->m_points.back().GetPoint());
+  m_routingSession.ClearPositionAccumulator();
+  if (hasPosition)
+    m_routingSession.SetUserCurrentPosition(myPosition.GetPivot());
+  m_routingSession.BuildRoute(Checkpoints(std::move(checkpoints)), RouterDelegate::kNoTimeout);
+}
+
+FollowTrackResult RoutingManager::CheckFollowedTrackEditable(bool allowFollowing) const
+{
+  CHECK(m_followSession, ("A captured track session is required"));
+  // A requested Start must complete against its captured profile and entry.
+  if (m_followSession->m_startWhenReady || (!allowFollowing && IsRoutingFollowing()))
+    return FollowTrackResult::Busy;
+  return FollowTrackResult::Ok;
+}
+
+FollowTrackResult RoutingManager::ResetFollowedTrackToPlanning()
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  if (auto const result = CheckFollowedTrackEditable(true /* allowFollowing */); result != FollowTrackResult::Ok)
+    return result;
+  InstallFollowedTrack(*m_followSession);
+  return FollowTrackResult::Ok;
+}
+
+FollowTrackResult RoutingManager::UpdateFollowedTrackEntryAt(double distanceM)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  ASSERT(math::is_finite(distanceM), (distanceM));
+  if (auto const result = CheckFollowedTrackEditable(); result != FollowTrackResult::Ok)
+    return result;
+
+  auto const source = m_followSession->m_source;
+  distanceM = std::clamp(distanceM, 0.0, source->GetLengthMeters());
+  auto const entry = ResolveTrackEntryAt(source->GetData().m_geometry, distanceM);
+  return BuildFollowedTrack(source, entry, distanceM, m_followSession->m_info.m_profile, true /* keepViewport */);
+}
+
+FollowTrackResult RoutingManager::SetFollowTrackProfile(RouterType type)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  ASSERT(type == RouterType::Vehicle || type == RouterType::Bicycle || type == RouterType::Pedestrian, (type));
+  if (auto const result = CheckFollowedTrackEditable(); result != FollowTrackResult::Ok)
+    return result;
+  auto session = *m_followSession;
+  session.m_info.m_profile = type;
+  InstallFollowedTrack(std::move(session));
+  m_lastTrackProfile = type;
+  return FollowTrackResult::Ok;
+}
+
+FollowTrackResult RoutingManager::NavigateTrack(kml::TrackId trackId)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  CHECK(m_numMwmIDs, ("Initialize routing before navigating a track", trackId));
+  if (IsRoutingFollowing() || IsStartingFollowedTrack())
+    return FollowTrackResult::Busy;
+  auto const selected = CheckTrackFollowable(trackId);
+  if (!selected)
+    return selected.error();
+  auto const & source = selected->m_track->GetData();
+  auto const & savedProfile = source.m_routerType;
+  auto const profile = GetFollowTrackRouterType(savedProfile.empty() ? m_lastTrackProfile.value_or(m_currentRouterType)
+                                                                     : FromString(savedProfile));
+  return BuildFollowedTrack(std::make_shared<Track const>(kml::TrackData(source)), selected->m_entry,
+                            selected->m_distanceM, profile);
 }
 
 void RoutingManager::SetLastUsedRouter(RouterType type)
@@ -1033,11 +1282,17 @@ bool RoutingManager::CouldAddIntermediatePoint() const
   if (!IsRoutingActive())
     return false;
 
+  // The track defines the followed route by itself; route points cannot be edited until the
+  // session is closed (AddRoutePoint() and BuildRoute() require a regular routing mode).
+  if (IsFollowingTrack())
+    return false;
+
   return m_bmManager->GetUserMarkIds(UserMark::Type::ROUTING).size() < RoutePointsLayout::kMaxRoutePointsCount;
 }
 
 bool RoutingManager::AddRoutePoint(RouteMarkData && markData, bool optimize)
 {
+  CHECK(!IsFollowingTrack(), ("Leave track following before editing route points"));
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(*m_bmManager);
   bool const isIntermediate = markData.m_pointType == RouteMarkType::Intermediate;
@@ -1069,6 +1324,7 @@ bool RoutingManager::AddRoutePoint(RouteMarkData && markData, bool optimize)
 
 void RoutingManager::ReplaceRoutePoint(RouteMarkType type, size_t intermediateIndex, RouteMarkData && markData)
 {
+  CHECK(!IsFollowingTrack(), ("Leave track following before editing route points"));
   ASSERT(m_bmManager != nullptr, ());
   RoutePointsLayout routePoints(*m_bmManager);
   auto * target = routePoints.GetRoutePointForEdit(type, intermediateIndex);
@@ -1344,6 +1600,7 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
   CHECK(m_numMwmIDs, ("Initialize routing before building a route"));
+  CHECK(!IsFollowingTrack(), ("Select a regular routing mode before BuildRoute"));
 
   // Retire the previous build before notifying observers, including on validation failures.
   CloseRouting(false /* remove route points */);
@@ -1491,7 +1748,7 @@ void RoutingManager::CheckLocationForRouting(location::GpsInfo const & info)
     return;
 
   SessionState const state = m_routingSession.OnLocationPositionChanged(info);
-  if (state == SessionState::RouteNeedRebuild)
+  if (state == SessionState::RouteNeedRebuild && !IsFollowingTrack())
   {
     m_routingSession.RebuildRoute(mercator::FromLatLon(info.m_latitude, info.m_longitude),
                                   [this](RoutesResult const & result, RouterResultCode code)
@@ -1514,6 +1771,7 @@ void RoutingManager::MatchLocationToRoute(location::GpsInfo & location, location
 
   bool const matchedToRoute = m_routingSession.MatchLocationToRoute(location, routeMatchingInfo);
 
+  // TrackRouter rejects road-graph projections; ordinary car routes may use this fallback.
   if (!matchedToRoute && m_currentRouterType == RouterType::Vehicle)
     m_routingSession.MatchLocationToRoadGraph(location);
 }
@@ -1570,25 +1828,51 @@ void RoutingManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine, bool is3dAl
 
 bool RoutingManager::HasRouteAltitude() const
 {
-  return m_loadAltitudes && m_routingSession.HasRouteAltitude();
+  if (m_followSession && !IsRoutingFollowing())
+    return m_followSession->m_source->HasAltitudes();
+  // A TrackRouter route always carries the track altitudes, whatever the follow profile is.
+  auto const profile = GetRenderRouterType();
+  return (IsFollowingTrack() || profile == RouterType::Pedestrian || profile == RouterType::Bicycle) &&
+         m_routingSession.HasRouteAltitude();
 }
 
-bool RoutingManager::GetRouteElevationInfo(ElevationInfo & ei) const
+std::optional<RouteElevationData> RoutingManager::GetRouteElevationData() const
 {
+  if (!HasRouteAltitude())
+    return std::nullopt;
+
+  RouteElevationData data;
+  if (m_followSession && !IsRoutingFollowing())
+  {
+    auto const & source = *m_followSession->m_source;
+    data.m_elevationInfo = *source.GetElevationInfo();
+    data.m_statistics = source.GetStatistics();
+    data.m_trackId = source.GetId();
+    return data;
+  }
+
   auto const * route = m_routingSession.GetRoute();
-  if (!route || !route->IsValid() || !route->HaveAltitudes())
-    return false;
+  if (!route || !route->IsValid())
+    return std::nullopt;
 
   geometry::Altitudes altitudes;
   route->GetAltitudes(altitudes);
 
-  ei.Assign(route->GetSegDistanceMeters(), altitudes);
-  ei.Simplify();
-  return true;
+  data.m_elevationInfo.Assign(route->GetSegDistanceMeters(), altitudes);
+  data.m_elevationInfo.Simplify();
+  auto const info = data.m_elevationInfo.CalculateAltitudesInfo(ElevationInfo::kDefThresholdMWM);
+  data.m_statistics.m_ascent = info.GetTotalAscent();
+  data.m_statistics.m_descent = info.GetTotalDescent();
+  data.m_statistics.m_minElevation = info.m_minAltitude;
+  data.m_statistics.m_maxElevation = info.m_maxAltitude;
+  return data;
 }
 
 std::optional<m2::PointD> RoutingManager::GetRoutePointAtDistance(double distanceMeters) const
 {
+  if (m_followSession && !IsRoutingFollowing())
+    return m_followSession->m_source->GetPoint(distanceMeters);
+  ASSERT(math::is_finite(distanceMeters), (distanceMeters));
   auto const * route = m_routingSession.GetRoute();
   if (!route || !route->IsValid())
     return std::nullopt;
@@ -1610,7 +1894,13 @@ void RoutingManager::SetRouter(RouterType type)
     return;
   }
 
-  if (m_currentRouterType == type)
+  // Close track navigation before installing the regular router, even when its type is unchanged.
+  if (IsFollowingTrack())
+  {
+    m_followSession.reset();
+    CloseRouting(false /* removeRoutePoints */);
+  }
+  else if (m_currentRouterType == type)
     return;
 
   // Hide preview.
@@ -1634,6 +1924,7 @@ uint32_t RoutingManager::GenerateRoutePointsTransactionId() const
 
 uint32_t RoutingManager::OpenRoutePointsTransaction()
 {
+  CHECK(!IsFollowingTrack(), ("Route-point transactions require regular route planning"));
   auto const id = GenerateRoutePointsTransactionId();
   m_routePointsTransactions[id].m_routeMarks = GetRoutePoints();
   return id;
