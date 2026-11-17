@@ -828,8 +828,8 @@
     <string name="outdoor_seating">Chỗ ngồi ngoài trời</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">Để điều hướng chính xác nhất, chúng tôi khuyên bạn nên tắt chế độ tiết kiệm năng lượng trong cài đặt pin của điện thoại.</string>
-    <!-- Title of the one-time warning about battery optimization when starting track recording on Android. -->
-    <string name="background_recording_warning_title">Cảnh báo ghi lộ trình trong nền</string>
+    <!-- Title of the one-time Android dialog shown when starting track recording, warning that battery restrictions may interrupt it. -->
+    <string name="background_recording_warning_title">Việc ghi lại hành trình có thể bị gián đoạn</string>
     <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
     <string name="background_recording_warning_message">Để tránh việc ghi lộ trình bị gián đoạn khi màn hình tắt, hãy loại trừ Organic Maps khỏi tính năng tối ưu hóa pin. Trên thiết bị Samsung, hãy thêm ứng dụng vào danh sách “Ứng dụng không bao giờ ngủ”.</string>
     <!-- Prompt to start recording a track. -->

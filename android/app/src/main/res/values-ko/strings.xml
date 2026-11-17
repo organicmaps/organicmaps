@@ -830,8 +830,8 @@
     <string name="outdoor_seating">야외 좌석</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">가장 정확한 내비게이션을 위해 휴대폰의 배터리 설정에서 절전 모드를 비활성화하는 것이 좋습니다.</string>
-    <!-- Title of the one-time warning about battery optimization when starting track recording on Android. -->
-    <string name="background_recording_warning_title">백그라운드 트랙 기록 알림</string>
+    <!-- Title of the one-time Android dialog shown when starting track recording, warning that battery restrictions may interrupt it. -->
+    <string name="background_recording_warning_title">트랙 기록이 중단될 수 있습니다</string>
     <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
     <string name="background_recording_warning_message">화면이 꺼져 있을 때 트랙 기록이 중단되지 않도록 Organic Maps를 배터리 최적화 대상에서 제외해 주세요. Samsung 기기에서는 ‘절전 예외 앱’ 목록에 추가해 주세요.</string>
     <!-- Prompt to start recording a track. -->

@@ -832,8 +832,8 @@
     <string name="outdoor_seating">Scaune în aer liber</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">Pentru o navigare cât mai precisă, vă recomandăm să dezactivați modul de economisire a energiei în setările pentru baterie ale telefonului.</string>
-    <!-- Title of the one-time warning about battery optimization when starting track recording on Android. -->
-    <string name="background_recording_warning_title">Alertă privind înregistrarea în fundal</string>
+    <!-- Title of the one-time Android dialog shown when starting track recording, warning that battery restrictions may interrupt it. -->
+    <string name="background_recording_warning_title">Înregistrarea traseului se poate opri</string>
     <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
     <string name="background_recording_warning_message">Pentru a evita întreruperea înregistrării traseului când ecranul este stins, excludeți Organic Maps de la optimizarea bateriei. Pe dispozitivele Samsung, adăugați aplicația la lista „Aplicații care nu intră niciodată în repaus”.</string>
     <!-- Prompt to start recording a track. -->

@@ -842,8 +842,8 @@
     <string name="outdoor_seating">Açık oturma alanı</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">En doğru navigasyon için telefonunuzun pil ayarlarından güç tutum kipini devre dışı bırakmanızı öneririz.</string>
-    <!-- Title of the one-time warning about battery optimization when starting track recording on Android. -->
-    <string name="background_recording_warning_title">Arka Planda İz Kaydı Uyarısı</string>
+    <!-- Title of the one-time Android dialog shown when starting track recording, warning that battery restrictions may interrupt it. -->
+    <string name="background_recording_warning_title">İz kaydı durabilir</string>
     <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
     <string name="background_recording_warning_message">Ekran kapalıyken iz kaydının durmasını önlemek için Organic Maps\'i pil optimizasyonundan hariç tutun. Samsung cihazlarda uygulamayı “Hiç uyumayan uygulamalar” listesine ekleyin.</string>
     <!-- Prompt to start recording a track. -->

@@ -842,8 +842,8 @@
     <string name="outdoor_seating">Εξωτερικά καθίσματα</string>
     <!-- Disclaimer summary shown when Power Saving Mode is enabled -->
     <string name="power_save_dialog_summary">Για την πιο ακριβή πλοήγηση, συνιστούμε να απενεργοποιήσετε τη λειτουργία εξοικονόμησης ενέργειας στις ρυθμίσεις μπαταρίας του τηλεφώνου.</string>
-    <!-- Title of the one-time warning about battery optimization when starting track recording on Android. -->
-    <string name="background_recording_warning_title">Ειδοποίηση εγγραφής στο παρασκήνιο</string>
+    <!-- Title of the one-time Android dialog shown when starting track recording, warning that battery restrictions may interrupt it. -->
+    <string name="background_recording_warning_title">Η καταγραφή διαδρομής ενδέχεται να διακοπεί</string>
     <!-- One-time warning when starting track recording on Android. "Never sleeping apps" is a Samsung setting. The Settings button opens Samsung's list when available, with fallbacks to Android battery optimization settings or general settings. -->
     <string name="background_recording_warning_message">Για να αποτρέψετε τη διακοπή της καταγραφής διαδρομής όταν η οθόνη είναι απενεργοποιημένη, παρακαλούμε να εξαιρέσετε το Organic Maps από τη βελτιστοποίηση της μπαταρίας. Στις συσκευές Samsung, προσθέστε την εφαρμογή στη λίστα «Εφαρμογές που δεν τίθενται ποτέ σε κατάσταση αναστολής λειτουργίας».</string>
     <!-- Prompt to start recording a track. -->
