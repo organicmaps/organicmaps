@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Lit lamp of the recording traffic light: glow halo, lamp and a small reflection. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+  android:width="32dp"
+  android:height="32dp"
+  android:viewportWidth="32"
+  android:viewportHeight="32">
+  <path
+    android:fillAlpha="0.35"
+    android:fillColor="#FF3B30"
+    android:pathData="M16,16m-15.5,0a15.5,15.5 0,1 1,31 0a15.5,15.5 0,1 1,-31 0" />
+  <path
+    android:fillColor="#FF3B30"
+    android:pathData="M16,16m-12,0a12,12 0,1 1,24 0a12,12 0,1 1,-24 0" />
+  <path
+    android:fillAlpha="0.55"
+    android:fillColor="#FFFFFF"
+    android:pathData="M11.5,10.5m-3.5,0a3.5,3.5 0,1 1,7 0a3.5,3.5 0,1 1,-7 0" />
+</vector>

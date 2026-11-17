@@ -15,6 +15,7 @@ import app.organicmaps.sdk.util.log.Logger
 import app.organicmaps.syria.ApiClient
 import app.organicmaps.syria.ApiException
 import app.organicmaps.syria.SyriaPrefs
+import app.organicmaps.syria.SyriaStatus
 import java.io.IOException
 import java.time.Instant
 import java.util.concurrent.TimeUnit
@@ -30,19 +31,36 @@ class SyncWorker(context: Context, params: WorkerParameters) : CoroutineWorker(c
         val context = applicationContext
         if (!SyriaPrefs.isLoggedIn(context)) return@withContext Result.success()
         val db = TrackingDb.get(context)
+        SyriaStatus.setSyncing(context, true)
         try {
-            var rounds = 0
-            var more = true
-            while (more && rounds++ < MAX_ROUNDS) more = uploadRound(context, db)
-            SyriaPrefs.setLastSyncAt(context, System.currentTimeMillis())
-            Result.success()
-        } catch (e: ApiException) {
-            Logger.w(TAG, "Sync rejected: HTTP ${e.status} ${e.message}")
-            // 4xx answers will not change on retry (expired login, malformed batch); 5xx may.
-            if (e.status in 400..499) Result.failure() else retryOrFail()
-        } catch (e: IOException) {
-            Logger.w(TAG, "Sync failed: ${e.message}")
-            retryOrFail()
+            var error: String? = null
+            val result = try {
+                val total = db.unsyncedCount()
+                SyriaStatus.setProgress(context, 0, total)
+                var rounds = 0
+                var more = true
+                while (more && rounds++ < MAX_ROUNDS) {
+                    more = uploadRound(context, db)
+                    SyriaStatus.setProgress(context, total - db.unsyncedCount(), total)
+                }
+                SyriaPrefs.setLastSyncAt(context, System.currentTimeMillis())
+                Result.success()
+            } catch (e: ApiException) {
+                Logger.w(TAG, "Sync rejected: HTTP ${e.status} ${e.message}")
+                // A proxy in front of a stopped API answers 502-504: for the user that is the same as no server.
+                error = if (e.status in 502..504) SyriaPrefs.SYNC_ERROR_UNREACHABLE else "HTTP ${e.status}: ${e.message}"
+                // 4xx answers will not change on retry (expired login, malformed batch); 5xx may.
+                if (e.status in 400..499) Result.failure() else retryOrFail()
+            } catch (e: IOException) {
+                Logger.w(TAG, "Sync failed: ${e.message}")
+                // No route, refused connection, timeout, unknown host: the server is not reachable.
+                error = SyriaPrefs.SYNC_ERROR_UNREACHABLE
+                retryOrFail()
+            }
+            SyriaPrefs.setLastSyncResult(context, error)
+            result
+        } finally {
+            SyriaStatus.setSyncing(context, false)
         }
     }
 
@@ -147,6 +165,19 @@ class SyncWorker(context: Context, params: WorkerParameters) : CoroutineWorker(c
                 .build()
             WorkManager.getInstance(context)
                 .enqueueUniqueWork(UNIQUE_NOW, ExistingWorkPolicy.APPEND_OR_REPLACE, request)
+        }
+
+        /**
+         * The "Sync now" button and the one-minute sync (SyriaStatus): starts right away, replacing a queued run that may be waiting out a
+         * retry backoff after an earlier failure. Uploads are idempotent, so cutting a running one short is safe.
+         */
+        @JvmStatic
+        fun syncNowManually(context: Context) {
+            val request = OneTimeWorkRequestBuilder<SyncWorker>()
+                .setConstraints(constraints)
+                .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 30, TimeUnit.SECONDS)
+                .build()
+            WorkManager.getInstance(context).enqueueUniqueWork(UNIQUE_NOW, ExistingWorkPolicy.REPLACE, request)
         }
 
         /** Catches up every 15 minutes while points keep coming in (e.g. a long offline recording). */

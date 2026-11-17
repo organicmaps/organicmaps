@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import app.organicmaps.syria.SyriaStatus
 
 data class Session(
     val id: String,
@@ -49,7 +50,11 @@ data class TrackEvent(
  * Local outbox of tracking data. Every row has a client-generated UUID and a `synced` flag; the sync
  * worker uploads unsynced rows and flips the flag when the server acknowledges them.
  */
-class TrackingDb private constructor(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
+class TrackingDb private constructor(private val appContext: Context) :
+    SQLiteOpenHelper(appContext, DB_NAME, null, DB_VERSION) {
+
+    /** The outbox changed: the sync status shown on the map follows, debounced. */
+    private fun changed() = SyriaStatus.refreshSoon(appContext)
 
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(
@@ -87,6 +92,7 @@ class TrackingDb private constructor(context: Context) : SQLiteOpenHelper(contex
 
     fun insertSession(s: Session) {
         writableDatabase.insertOrThrow("session", null, s.toValues())
+        changed()
     }
 
     fun updateSessionProgress(id: String, distanceM: Double, movingTimeS: Long, pointCount: Int) {
@@ -121,9 +127,13 @@ class TrackingDb private constructor(context: Context) : SQLiteOpenHelper(contex
             .query("session", null, "status <> ?", arrayOf(STATUS_STOPPED), null, null, "started_at DESC", "1")
             .use { c -> if (c.moveToFirst()) c.toSession() else null }
 
-    fun listSessions(limit: Int): List<Session> =
-        readableDatabase.query("session", null, null, null, null, null, "started_at DESC", limit.toString())
+    fun listSessions(limit: Int, offset: Int = 0): List<Session> =
+        readableDatabase.query("session", null, null, null, null, null, "started_at DESC", "$offset,$limit")
             .use { c -> c.mapAll { it.toSession() } }
+
+    fun countSessions(): Int =
+        readableDatabase.rawQuery("SELECT count(*) FROM session", null)
+            .use { c -> if (c.moveToFirst()) c.getInt(0) else 0 }
 
     fun deleteSession(id: String) {
         val db = writableDatabase
@@ -136,6 +146,7 @@ class TrackingDb private constructor(context: Context) : SQLiteOpenHelper(contex
         } finally {
             db.endTransaction()
         }
+        changed()
     }
 
     // ---- segments
@@ -182,6 +193,7 @@ class TrackingDb private constructor(context: Context) : SQLiteOpenHelper(contex
             if (p.batteryPct != null) put("battery", p.batteryPct)
         }
         writableDatabase.insertOrThrow("point", null, values)
+        changed()
     }
 
     fun lastPoint(segmentId: String): TrackPoint? =
@@ -199,6 +211,7 @@ class TrackingDb private constructor(context: Context) : SQLiteOpenHelper(contex
             put("payload", e.payload)
         }
         writableDatabase.insertOrThrow("event", null, values)
+        changed()
     }
 
     // ---- sync outbox

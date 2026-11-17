@@ -24,6 +24,14 @@
       android:layout_alignParentBottom="true"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent" />
+    <include
+      layout="@layout/map_buttons_syria_connectivity"
+      android:layout_width="32dp"
+      android:layout_height="32dp"
+      android:layout_marginTop="@dimen/margin_half"
+      app:layout_constraintEnd_toEndOf="@+id/layers_button"
+      app:layout_constraintStart_toStartOf="@+id/layers_button"
+      app:layout_constraintTop_toBottomOf="@+id/layers_button" />
   </androidx.constraintlayout.widget.ConstraintLayout>
   <include
     layout="@layout/map_status_track_recording"
@@ -32,12 +40,19 @@
     android:layout_height="wrap_content"
     android:layout_alignParentTop="true"
     android:layout_alignParentEnd="true" />
+  <include
+    layout="@layout/map_buttons_syria_stack"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentEnd="true"
+    android:layout_marginTop="@dimen/action_bar_extended_height" />
   <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/map_buttons_inner_right"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:layout_alignParentEnd="true"
-    android:layout_marginTop="@dimen/action_bar_extended_height"
+    android:layout_below="@+id/syria_buttons_stack"
     android:layout_marginBottom="@dimen/map_buttons_bottom_margin"
     android:clipChildren="false"
     android:clipToPadding="false"

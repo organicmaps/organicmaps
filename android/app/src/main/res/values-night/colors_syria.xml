@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dark theme: light tones on the dark background, dark text on the light buttons. -->
+<resources>
+  <color name="syria_sync_green">#81C784</color>
+  <color name="syria_sync_orange">#FFB74D</color>
+  <color name="syria_sync_red">#EF9A9A</color>
+  <color name="syria_btn_start">#81C784</color>
+  <color name="syria_btn_on_start">#0A2E0F</color>
+  <color name="syria_btn_pause">#FFB74D</color>
+  <color name="syria_btn_on_pause">#3D2000</color>
+  <color name="syria_btn_stop">#EF9A9A</color>
+  <color name="syria_btn_on_stop">#4A0D0D</color>
+  <color name="syria_btn_sync">#90CAF9</color>
+  <color name="syria_btn_on_sync">#0B2B4A</color>
+  <color name="syria_close_bg">#ECEFF1</color>
+  <color name="syria_close_icon">#1B1F22</color>
+</resources>

@@ -47,6 +47,7 @@ import app.organicmaps.sdk.search.SearchResult;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.Language;
 import app.organicmaps.sdk.util.SharedPropertiesUtils;
+import app.organicmaps.syria.SearchLogger;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.widget.PlaceholderView;
 import app.organicmaps.widget.SearchShimmerView;
@@ -618,6 +619,8 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
   @Override
   public void onDestroyView()
   {
+    if (!requireActivity().isChangingConfigurations())
+      SearchLogger.onClosed(requireContext());
     mSearchDebounceHandler.removeCallbacks(mDebouncedRunSearch);
     SearchEngine.INSTANCE.removeListener(this);
     if (mPickerActionsAnimator != null)
@@ -666,6 +669,9 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
   void showSingleResultOnMap(@NonNull SearchResult result, int resultIndex)
   {
+    SearchLogger.onResultSelected(requireContext(), result.name,
+                                  result.description == null ? null : result.description.localizedFeatureType,
+                                  result.lat, result.lon, resultIndex);
     final String query = getQuery();
     if (Config.isSearchHistoryEnabled())
     {
@@ -759,6 +765,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
       stopSearch();
       return;
     }
+    SearchLogger.onQuery(getQuery(), locale, isCategory(), hasLocation, lat, lon);
 
     mSearchRunning = true;
     mToolbarController.showProgress(true);
@@ -803,6 +810,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
 
   private void refreshSearchResults(@NonNull SearchResult[] results)
   {
+    SearchLogger.onResults(results.length);
     mSearchRunning = true;
     hideShimmer();
     updateFrames();
@@ -1094,6 +1102,7 @@ public class SearchFragment extends Fragment implements SearchListener, Categori
         mSearchViewModel.notifyHistoryChanged();
       }
       deactivate();
+      SearchLogger.onShowAll(requireContext());
       mSearchFragmentListener.onQuerySubmitted();
       // During navigation the map follows the current position, so the viewport is not overridden;
       // the results are still drawn as marks on the map.

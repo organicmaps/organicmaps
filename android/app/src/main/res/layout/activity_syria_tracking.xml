@@ -1,179 +1,299 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/tracking_root"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:orientation="vertical">
 
   <include layout="@layout/toolbar_default" />
 
-  <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="@dimen/margin_base">
-
-    <TextView
-      android:id="@+id/tracking_status"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:gravity="center_horizontal"
-      android:textAppearance="?android:textAppearanceMedium"
-      android:textStyle="bold" />
-
-    <TextView
-      android:id="@+id/tracking_elapsed"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:gravity="center_horizontal"
-      android:textSize="44sp"
-      android:textStyle="bold" />
-
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/margin_half"
-      android:orientation="horizontal">
-
-      <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <TextView
-          android:id="@+id/tracking_distance"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:textAppearance="?android:textAppearanceLarge"
-          android:textStyle="bold" />
-
-        <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@string/syria_distance"
-          android:textAppearance="?android:textAppearanceSmall" />
-      </LinearLayout>
-
-      <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <TextView
-          android:id="@+id/tracking_moving"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:textAppearance="?android:textAppearanceLarge"
-          android:textStyle="bold" />
-
-        <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@string/syria_moving_time"
-          android:textAppearance="?android:textAppearanceSmall" />
-      </LinearLayout>
-
-      <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <TextView
-          android:id="@+id/tracking_points"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:textAppearance="?android:textAppearanceLarge"
-          android:textStyle="bold" />
-
-        <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@string/syria_points"
-          android:textAppearance="?android:textAppearanceSmall" />
-      </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/margin_base"
-      android:orientation="horizontal">
-
-      <Button
-        android:id="@+id/tracking_start"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/syria_start" />
-
-      <Button
-        android:id="@+id/tracking_pause"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_half"
-        android:layout_weight="1"
-        android:text="@string/syria_pause"
-        android:visibility="gone" />
-
-      <Button
-        android:id="@+id/tracking_stop"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/syria_stop"
-        android:visibility="gone" />
-    </LinearLayout>
-
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/margin_base"
-      android:gravity="center_vertical"
-      android:orientation="horizontal">
-
-      <TextView
-        android:id="@+id/tracking_sync_status"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textAppearance="?android:textAppearanceSmall" />
-
-      <Button
-        android:id="@+id/tracking_sync_now"
-        style="?attr/borderlessButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/syria_sync_now" />
-    </LinearLayout>
-
-    <TextView
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/margin_half"
-      android:text="@string/syria_history"
-      android:textAppearance="?android:textAppearanceMedium"
-      android:textStyle="bold" />
-
-    <TextView
-      android:id="@+id/tracking_history_empty"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:paddingTop="@dimen/margin_half"
-      android:text="@string/syria_history_empty"
-      android:textAppearance="?android:textAppearanceSmall"
-      android:visibility="gone" />
-  </LinearLayout>
-
-  <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/tracking_history"
+  <androidx.core.widget.NestedScrollView
+    android:id="@+id/tracking_scroll"
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:layout_weight="1"
-    android:clipToPadding="false"
-    android:paddingBottom="@dimen/margin_base" />
+    android:clipToPadding="false">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:padding="@dimen/margin_base">
+
+      <!-- Current recording: the same traffic light as on the map -->
+      <ImageView
+        android:id="@+id/tracking_light"
+        android:layout_width="44dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/bg_syria_traffic_housing"
+        android:contentDescription="@null"
+        android:padding="6dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_syria_lamp_red" />
+
+      <TextView
+        android:id="@+id/tracking_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textStyle="bold" />
+
+      <TextView
+        android:id="@+id/tracking_elapsed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textDirection="ltr"
+        android:textSize="44sp"
+        android:textStyle="bold" />
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_half"
+        android:orientation="horizontal">
+
+        <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:gravity="center_horizontal"
+          android:orientation="vertical">
+
+          <TextView
+            android:id="@+id/tracking_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textStyle="bold" />
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/syria_distance"
+            android:textAppearance="?android:textAppearanceSmall" />
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:gravity="center_horizontal"
+          android:orientation="vertical">
+
+          <TextView
+            android:id="@+id/tracking_moving"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textDirection="ltr"
+            android:textStyle="bold" />
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/syria_moving_time"
+            android:textAppearance="?android:textAppearanceSmall" />
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:gravity="center_horizontal"
+          android:orientation="vertical">
+
+          <TextView
+            android:id="@+id/tracking_points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textStyle="bold" />
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/syria_points"
+            android:textAppearance="?android:textAppearanceSmall" />
+        </LinearLayout>
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_base"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+          android:id="@+id/tracking_start"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:text="@string/syria_start"
+          android:textColor="@color/syria_btn_on_start"
+          app:backgroundTint="@color/syria_btn_start"
+          app:icon="@drawable/ic_track_recording_on"
+          app:iconGravity="textStart"
+          app:iconSize="24dp"
+          app:iconTint="@color/syria_btn_on_start" />
+
+        <com.google.android.material.button.MaterialButton
+          android:id="@+id/tracking_pause"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/margin_half"
+          android:layout_weight="1"
+          android:text="@string/syria_pause"
+          android:textColor="@color/syria_btn_on_pause"
+          android:visibility="gone"
+          app:backgroundTint="@color/syria_btn_pause" />
+
+        <com.google.android.material.button.MaterialButton
+          android:id="@+id/tracking_stop"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:text="@string/syria_stop"
+          android:textColor="@color/syria_btn_on_stop"
+          android:visibility="gone"
+          app:backgroundTint="@color/syria_btn_stop" />
+      </LinearLayout>
+
+      <!-- Sync status: tinted like the recording button on the map -->
+      <com.google.android.material.card.MaterialCardView
+        android:id="@+id/tracking_sync_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_base"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp">
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:padding="@dimen/margin_base">
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center_vertical"
+          android:orientation="horizontal">
+
+          <ImageView
+            android:id="@+id/tracking_sync_icon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_syria_sync_done" />
+
+          <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_base"
+            android:layout_marginEnd="@dimen/margin_half"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+              android:id="@+id/tracking_sync_status"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:textAppearance="?android:textAppearanceSmall"
+              android:textStyle="bold" />
+
+            <TextView
+              android:id="@+id/tracking_sync_last"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:textAppearance="?android:textAppearanceSmall" />
+          </LinearLayout>
+
+          <com.google.android.material.button.MaterialButton
+            android:id="@+id/tracking_sync_now"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/syria_sync_now"
+            android:textColor="@color/syria_btn_on_sync"
+            app:backgroundTint="@color/syria_btn_sync"
+            app:icon="@drawable/ic_syria_sync"
+            app:iconGravity="textStart"
+            app:iconSize="20dp"
+            app:iconTint="@color/syria_btn_on_sync" />
+        </LinearLayout>
+
+        <!-- Upload progress, shown while a sync runs. -->
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+          android:id="@+id/tracking_sync_progress"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_half"
+          android:visibility="gone"
+          app:trackCornerRadius="2dp" />
+        </LinearLayout>
+      </com.google.android.material.card.MaterialCardView>
+
+      <!-- Recordings, 10 per page -->
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_base"
+        android:text="@string/syria_history"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textStyle="bold" />
+
+      <TextView
+        android:id="@+id/tracking_history_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/margin_half"
+        android:text="@string/syria_history_empty"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:visibility="gone" />
+
+      <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/tracking_history"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-16dp"
+        android:layout_marginEnd="-16dp"
+        android:nestedScrollingEnabled="false" />
+
+      <LinearLayout
+        android:id="@+id/tracking_pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <ImageButton
+          android:id="@+id/tracking_page_prev"
+          android:layout_width="48dp"
+          android:layout_height="48dp"
+          android:background="?attr/selectableItemBackgroundBorderless"
+          android:contentDescription="@string/syria_page_previous"
+          android:src="@drawable/ic_syria_chevron_left" />
+
+        <TextView
+          android:id="@+id/tracking_page_label"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/margin_half"
+          android:layout_marginEnd="@dimen/margin_half"
+          android:textAppearance="?android:textAppearanceSmall" />
+
+        <ImageButton
+          android:id="@+id/tracking_page_next"
+          android:layout_width="48dp"
+          android:layout_height="48dp"
+          android:background="?attr/selectableItemBackgroundBorderless"
+          android:contentDescription="@string/syria_page_next"
+          android:src="@drawable/ic_syria_chevron_right" />
+      </LinearLayout>
+    </LinearLayout>
+  </androidx.core.widget.NestedScrollView>
 </LinearLayout>

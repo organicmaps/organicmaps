@@ -28,6 +28,7 @@ import app.organicmaps.sdk.location.LocationUtils;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.concurrency.UiThread;
 import app.organicmaps.sdk.util.log.Logger;
+import app.organicmaps.syria.SyriaLocale;
 import app.organicmaps.util.SharingUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils.BaselinePaddingInsetsListener;
@@ -59,6 +60,8 @@ public class SplashActivity extends AppCompatActivity
   protected void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
+    // Arabic before the first-run download screen; recreates this screen if it was not applied yet.
+    SyriaLocale.ensureDefault(this);
     UiThread.cancelDelayedTasks(mInitCoreDelayedTask);
     setContentView(R.layout.activity_splash);
     adjustBrandingInfoPadding();

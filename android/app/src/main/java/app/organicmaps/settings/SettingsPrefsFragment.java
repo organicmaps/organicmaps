@@ -41,6 +41,8 @@ import app.organicmaps.util.Utils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.ArrayList;
 import app.organicmaps.syria.ApiClient;
+import app.organicmaps.syria.SyriaFormat;
+import app.organicmaps.syria.SyriaLocale;
 import app.organicmaps.syria.SyriaPrefs;
 import app.organicmaps.syria.account.LoginActivity;
 import app.organicmaps.syria.tracking.ActivityTrackingService;
@@ -130,6 +132,10 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
     updateVoiceInstructionsPrefsSummary();
     updateRoutingSettingsPrefsSummary();
     updateMapLanguageCodeSummary();
+    // The account can change on the login screen opened from here.
+    updateSyriaAccountSummary();
+    // Offers the restart right here after the app language was changed above.
+    SyriaLocale.checkChanged(requireActivity());
   }
 
   @Override
@@ -195,6 +201,13 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
       return true;
     });
     updateSyriaAccountSummary();
+
+    final ListPreference languagePref = getPreference(getString(R.string.pref_syria_app_language));
+    languagePref.setValue(SyriaLocale.currentLanguage(requireContext()));
+    languagePref.setOnPreferenceChangeListener((preference, newValue) -> {
+      SyriaLocale.setAppLanguage((String) newValue);
+      return true;
+    });
   }
 
   private void updateSyriaAccountSummary()
@@ -207,7 +220,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
       return;
     }
     final String name = SyriaPrefs.displayName(context);
-    final String phone = SyriaPrefs.phone(context);
+    final String phone = SyriaFormat.phone(SyriaPrefs.phone(context));
     pref.setSummary(TextUtils.isEmpty(name) ? phone : name + " \u00B7 " + phone);
   }
 

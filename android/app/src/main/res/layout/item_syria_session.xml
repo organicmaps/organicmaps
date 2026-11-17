@@ -27,7 +27,21 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:textAppearance="?android:textAppearanceSmall" />
+
+    <TextView
+      android:id="@+id/session_times"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textAppearance="?android:textAppearanceSmall" />
   </LinearLayout>
+
+  <ImageView
+    android:id="@+id/session_state_icon"
+    android:layout_width="20dp"
+    android:layout_height="20dp"
+    android:layout_marginStart="@dimen/margin_half"
+    android:layout_marginEnd="4dp"
+    android:contentDescription="@null" />
 
   <TextView
     android:id="@+id/session_state"

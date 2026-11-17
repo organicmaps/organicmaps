@@ -84,4 +84,5 @@
   <string name="pref_syria_tracking" translatable="false">pref_syria_tracking</string>
   <string name="pref_syria_log_map_updates" translatable="false">pref_syria_log_map_updates</string>
   <string name="pref_syria_privacy" translatable="false">pref_syria_privacy</string>
+  <string name="pref_syria_app_language" translatable="false">pref_syria_app_language</string>
 </resources>

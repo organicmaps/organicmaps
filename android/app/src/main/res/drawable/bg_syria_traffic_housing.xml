@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Traffic-light housing behind the recording lamp: dark in both themes, with a light rim so it stands out
+     on light and dark maps. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+  android:color="#33FFFFFF">
+  <item>
+    <shape android:shape="rectangle">
+      <corners android:radius="18dp" />
+      <solid android:color="#212B30" />
+      <stroke
+        android:width="2dp"
+        android:color="#CFD8DC" />
+    </shape>
+  </item>
+</ripple>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Colours of the Syria Organic Maps additions; values-night has the dark theme variants. -->
+<resources>
+  <!-- Sync status (icons, card tint, status text). -->
+  <color name="syria_sync_green">#2E7D32</color>
+  <color name="syria_sync_orange">#E65100</color>
+  <color name="syria_sync_red">#C62828</color>
+  <!-- Lamps of the traffic-light recording icon (same in both themes; also tint the recording screen). -->
+  <color name="syria_traffic_red">#FF3B30</color>
+  <color name="syria_traffic_green">#34C759</color>
+  <!-- Filled buttons of the recording screen and the text on them (WCAG AA contrast). -->
+  <color name="syria_btn_start">#2E7D32</color>
+  <color name="syria_btn_on_start">#FFFFFF</color>
+  <color name="syria_btn_pause">#A84300</color>
+  <color name="syria_btn_on_pause">#FFFFFF</color>
+  <color name="syria_btn_stop">#C62828</color>
+  <color name="syria_btn_on_stop">#FFFFFF</color>
+  <color name="syria_btn_sync">#1565C0</color>
+  <color name="syria_btn_on_sync">#FFFFFF</color>
+  <color name="syria_close_bg">#37474F</color>
+  <color name="syria_close_icon">#FFFFFF</color>
+</resources>

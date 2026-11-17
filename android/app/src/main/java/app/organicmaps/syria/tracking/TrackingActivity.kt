@@ -1,8 +1,12 @@
 package app.organicmaps.syria.tracking
 
 import android.Manifest
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
+import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -12,32 +16,47 @@ import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.LinearInterpolator
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.ColorUtils
+import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.work.WorkInfo
-import androidx.work.WorkManager
 import app.organicmaps.R
 import app.organicmaps.base.BaseMwmFragmentActivity
+import app.organicmaps.syria.SyriaFormat
+import app.organicmaps.syria.SyriaMapButtons
 import app.organicmaps.syria.SyriaPrefs
+import app.organicmaps.syria.SyriaStatus
 import app.organicmaps.syria.account.LoginActivity
 import app.organicmaps.util.UiUtils
 import app.organicmaps.util.Utils
+import app.organicmaps.util.WindowInsetUtils
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.progressindicator.LinearProgressIndicator
 import java.util.Date
 
-/** Start/pause/resume/stop screen with live distance and time, plus the local history. */
+/** Start/pause/resume/stop screen with live distance and time, the sync status and the recordings. */
 class TrackingActivity : BaseMwmFragmentActivity() {
     private val handler = Handler(Looper.getMainLooper())
     private var snapshot: TrackingEngine.Snapshot? = null
     private var snapshotReceivedAt = 0L
+    private var page = 0
+    private var syncSpin: ObjectAnimator? = null
+    private var manualSyncAt = 0L
+    private lateinit var syncLastDefaultColors: ColorStateList
 
     private lateinit var status: TextView
+    private lateinit var light: ImageView
     private lateinit var elapsed: TextView
     private lateinit var distance: TextView
     private lateinit var moving: TextView
@@ -45,18 +64,24 @@ class TrackingActivity : BaseMwmFragmentActivity() {
     private lateinit var startButton: Button
     private lateinit var pauseButton: Button
     private lateinit var stopButton: Button
+    private lateinit var root: View
+    private lateinit var syncCard: MaterialCardView
+    private lateinit var syncIcon: ImageView
     private lateinit var syncStatus: TextView
+    private lateinit var syncLast: TextView
+    private lateinit var syncNow: MaterialButton
+    private lateinit var syncProgress: LinearProgressIndicator
     private lateinit var historyEmpty: TextView
+    private lateinit var pager: View
+    private lateinit var pageLabel: TextView
+    private lateinit var pagePrev: View
+    private lateinit var pageNext: View
     private val adapter = SessionAdapter()
 
+    // The answer only lists the permissions that were asked: often just notifications, when location was
+    // granted before. So the real permission state decides, not the answer.
     private val permissionRequest =
-        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { result ->
-            if (result[Manifest.permission.ACCESS_FINE_LOCATION] == true) {
-                startTracking()
-            } else {
-                Toast.makeText(this, R.string.location_is_disabled_long_text, Toast.LENGTH_LONG).show()
-            }
-        }
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { onPermissionsAnswered() }
 
     private val ticker = object : Runnable {
         override fun run() {
@@ -78,8 +103,16 @@ class TrackingActivity : BaseMwmFragmentActivity() {
         toolbar.setTitle(R.string.syria_tracking_title)
         UiUtils.showHomeUpButton(toolbar)
         toolbar.setNavigationOnClickListener { finish() }
+        // Like BaseToolbarActivity: keeps the toolbar (and its back arrow) below the status bar.
+        ViewCompat.setOnApplyWindowInsetsListener(toolbar, WindowInsetUtils.PaddingInsetsListener.excludeBottom())
+        ViewCompat.setOnApplyWindowInsetsListener(
+            findViewById(R.id.tracking_scroll),
+            WindowInsetUtils.PaddingInsetsListener.excludeTop(),
+        )
 
+        root = findViewById(R.id.tracking_root)
         status = findViewById(R.id.tracking_status)
+        light = findViewById(R.id.tracking_light)
         elapsed = findViewById(R.id.tracking_elapsed)
         distance = findViewById(R.id.tracking_distance)
         moving = findViewById(R.id.tracking_moving)
@@ -87,8 +120,18 @@ class TrackingActivity : BaseMwmFragmentActivity() {
         startButton = findViewById(R.id.tracking_start)
         pauseButton = findViewById(R.id.tracking_pause)
         stopButton = findViewById(R.id.tracking_stop)
+        syncCard = findViewById(R.id.tracking_sync_card)
+        syncIcon = findViewById(R.id.tracking_sync_icon)
         syncStatus = findViewById(R.id.tracking_sync_status)
+        syncLast = findViewById(R.id.tracking_sync_last)
+        syncLastDefaultColors = syncLast.textColors
+        syncNow = findViewById(R.id.tracking_sync_now)
+        syncProgress = findViewById(R.id.tracking_sync_progress)
         historyEmpty = findViewById(R.id.tracking_history_empty)
+        pager = findViewById(R.id.tracking_pager)
+        pageLabel = findViewById(R.id.tracking_page_label)
+        pagePrev = findViewById(R.id.tracking_page_prev)
+        pageNext = findViewById(R.id.tracking_page_next)
 
         startButton.setOnClickListener { requestPermissionsThenStart() }
         pauseButton.setOnClickListener {
@@ -99,21 +142,35 @@ class TrackingActivity : BaseMwmFragmentActivity() {
             }
         }
         stopButton.setOnClickListener { confirmStop() }
-        findViewById<View>(R.id.tracking_sync_now).setOnClickListener { SyncWorker.enqueueNow(this) }
+        syncNow.setOnClickListener { onSyncNow() }
+        pagePrev.setOnClickListener {
+            page--
+            loadHistory()
+        }
+        pageNext.setOnClickListener {
+            page++
+            loadHistory()
+        }
 
         val history = findViewById<RecyclerView>(R.id.tracking_history)
         history.layoutManager = LinearLayoutManager(this)
         history.adapter = adapter
 
         ActivityTrackingService.state().observe(this) {
+            val statusChanged = it?.status != snapshot?.status
             snapshot = it
             snapshotReceivedAt = System.currentTimeMillis()
             render()
+            // The current recording is on the first page; other pages only change when one starts or stops.
+            if (page == 0 || statusChanged) loadHistory()
+        }
+        SyriaStatus.sync().observe(this) {
+            renderSync(it)
             loadHistory()
         }
-        WorkManager.getInstance(this).getWorkInfosForUniqueWorkLiveData(SyncWorker.UNIQUE_NOW).observe(this) { infos ->
-            if (infos.any { it.state == WorkInfo.State.SUCCEEDED || it.state == WorkInfo.State.FAILED }) loadHistory()
-        }
+        // The state LiveData may have no value yet when nothing was recorded since the app started.
+        render()
+        SyriaStatus.refresh(this)
         ActivityTrackingService.resumeIfNeeded(this)
     }
 
@@ -130,16 +187,45 @@ class TrackingActivity : BaseMwmFragmentActivity() {
         super.onPause()
     }
 
+    override fun onSafeDestroy() {
+        syncSpin?.cancel()
+        super.onSafeDestroy()
+    }
+
+    private fun onSyncNow() {
+        manualSyncAt = System.currentTimeMillis()
+        // Queued either way: WorkManager starts it as soon as the network is back.
+        SyncWorker.syncNowManually(this)
+        if (SyriaStatus.online().value == false) {
+            Toast.makeText(this, R.string.syria_sync_offline, Toast.LENGTH_LONG).show()
+        }
+    }
+
     private fun requestPermissionsThenStart() {
         val missing = ArrayList<String>()
         if (!granted(Manifest.permission.ACCESS_FINE_LOCATION)) {
             missing.add(Manifest.permission.ACCESS_COARSE_LOCATION)
             missing.add(Manifest.permission.ACCESS_FINE_LOCATION)
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !granted(Manifest.permission.POST_NOTIFICATIONS)) {
+        // Notifications only show the recording in the status bar; it records without them. Asked once.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+            !granted(Manifest.permission.POST_NOTIFICATIONS) &&
+            !SyriaPrefs.isNotificationPermissionAsked(this)
+        ) {
+            SyriaPrefs.markNotificationPermissionAsked(this)
             missing.add(Manifest.permission.POST_NOTIFICATIONS)
         }
         if (missing.isEmpty()) startTracking() else permissionRequest.launch(missing.toTypedArray())
+    }
+
+    private fun onPermissionsAnswered() {
+        when {
+            granted(Manifest.permission.ACCESS_FINE_LOCATION) -> startTracking()
+            // Approximate location (about 2 km) cannot record a route.
+            granted(Manifest.permission.ACCESS_COARSE_LOCATION) ->
+                Toast.makeText(this, R.string.precise_location_is_disabled_long_text, Toast.LENGTH_LONG).show()
+            else -> Toast.makeText(this, R.string.location_is_disabled_long_text, Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun granted(permission: String): Boolean =
@@ -173,6 +259,12 @@ class TrackingActivity : BaseMwmFragmentActivity() {
         pauseButton.visibility = if (st == TrackingEngine.Status.IDLE) View.GONE else View.VISIBLE
         stopButton.visibility = pauseButton.visibility
         pauseButton.setText(if (st == TrackingEngine.Status.ACTIVE) R.string.syria_pause else R.string.syria_resume)
+        // Same light as the map button: green while recording, red otherwise.
+        val recording = SyriaMapButtons.isRecording(st)
+        light.setImageResource(if (recording) R.drawable.ic_syria_lamp_green else R.drawable.ic_syria_lamp_red)
+        val lamp = ContextCompat.getColor(this, if (recording) R.color.syria_traffic_green else R.color.syria_traffic_red)
+        val background = MaterialColors.getColor(root, android.R.attr.colorBackground)
+        root.setBackgroundColor(ColorUtils.compositeColors(ColorUtils.setAlphaComponent(lamp, SCREEN_ALPHA), background))
         distance.text = ActivityTrackingService.formatKm(this, s?.distanceM ?: 0.0)
         points.text = (s?.pointCount ?: 0).toString()
         renderLive()
@@ -181,49 +273,153 @@ class TrackingActivity : BaseMwmFragmentActivity() {
     private fun renderLive() {
         val s = snapshot
         if (s == null || s.status == TrackingEngine.Status.IDLE) {
-            elapsed.text = DateUtils.formatElapsedTime(0)
-            moving.text = DateUtils.formatElapsedTime(0)
+            elapsed.text = SyriaFormat.clock(this, 0)
+            moving.text = SyriaFormat.clock(this, 0)
             return
         }
         val now = System.currentTimeMillis()
-        elapsed.text = DateUtils.formatElapsedTime((now - s.startedAtMs) / 1000)
+        elapsed.text = SyriaFormat.clock(this, (now - s.startedAtMs) / 1000)
         val extra = if (s.status == TrackingEngine.Status.ACTIVE) (now - snapshotReceivedAt) / 1000 else 0L
-        moving.text = DateUtils.formatElapsedTime(s.movingTimeS + extra)
+        moving.text = SyriaFormat.clock(this, s.movingTimeS + extra)
+    }
+
+    /** The sync colours stay inside the sync card; the screen itself follows the traffic light. */
+    private fun renderSync(sync: SyriaStatus.Sync) {
+        val lastError = SyriaPrefs.lastSyncError(this)
+        val unreachable =
+            sync.state == SyriaStatus.SyncState.FAILED && lastError == SyriaPrefs.SYNC_ERROR_UNREACHABLE
+        // A "Sync now" tap that ended with the server out of reach also gets a message, once.
+        if (unreachable && manualSyncAt != 0L && SyriaPrefs.lastSyncResultAt(this) >= manualSyncAt) {
+            manualSyncAt = 0L
+            Toast.makeText(this, R.string.syria_sync_unreachable_toast, Toast.LENGTH_LONG).show()
+        } else if (sync.state == SyriaStatus.SyncState.SYNCED) {
+            manualSyncAt = 0L
+        }
+        val color = ContextCompat.getColor(this, SyriaMapButtons.colorOf(sync.state))
+        syncCard.setCardBackgroundColor(ColorUtils.setAlphaComponent(color, CARD_ALPHA))
+        syncIcon.imageTintList = ColorStateList.valueOf(color)
+        syncIcon.setImageResource(
+            when (sync.state) {
+                SyriaStatus.SyncState.SYNCED -> R.drawable.ic_syria_sync_done
+                SyriaStatus.SyncState.SYNCING -> R.drawable.ic_syria_sync
+                SyriaStatus.SyncState.PENDING -> R.drawable.ic_syria_sync_pending
+                SyriaStatus.SyncState.FAILED, SyriaStatus.SyncState.SIGNED_OUT -> R.drawable.ic_syria_sync_failed
+            },
+        )
+        syncStatus.text = when (sync.state) {
+            SyriaStatus.SyncState.SYNCED -> getString(R.string.syria_synced_all)
+            SyriaStatus.SyncState.PENDING -> getString(R.string.syria_unsynced_format, sync.unsynced)
+            SyriaStatus.SyncState.SYNCING ->
+                if (sync.total > 0) {
+                    getString(R.string.syria_sync_progress, sync.done, sync.total)
+                } else {
+                    getString(R.string.syria_syncing)
+                }
+            SyriaStatus.SyncState.FAILED ->
+                getString(if (unreachable) R.string.syria_sync_unreachable else R.string.syria_sync_failed)
+            SyriaStatus.SyncState.SIGNED_OUT -> getString(R.string.syria_sync_signed_out)
+        }
+        val lastSync = SyriaPrefs.lastSyncAt(this)
+        // Highlighted in the status colour: syncing needs the internet, the data is not lost.
+        if (unreachable) {
+            syncLast.setTextColor(color)
+            syncLast.setTypeface(null, Typeface.BOLD)
+        } else {
+            syncLast.setTextColor(syncLastDefaultColors)
+            syncLast.setTypeface(null, Typeface.NORMAL)
+        }
+        syncLast.text = if (unreachable) {
+            getString(R.string.syria_sync_internet_needed)
+        } else if (sync.state == SyriaStatus.SyncState.FAILED && lastError != null) {
+            getString(R.string.syria_sync_failed_reason, lastError)
+        } else if (lastSync == 0L) {
+            getString(R.string.syria_never_synced)
+        } else {
+            getString(
+                R.string.syria_last_synced,
+                DateUtils.getRelativeTimeSpanString(lastSync, System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS),
+            )
+        }
+        val syncing = sync.state == SyriaStatus.SyncState.SYNCING
+        syncNow.isEnabled = !syncing
+        spinSyncIcon(syncing)
+        syncProgress.visibility = if (syncing) View.VISIBLE else View.GONE
+        if (syncing) {
+            if (sync.total > 0) {
+                syncProgress.isIndeterminate = false
+                syncProgress.max = sync.total
+                syncProgress.setProgressCompat(sync.done, true)
+            } else {
+                syncProgress.isIndeterminate = true
+            }
+        }
+    }
+
+    /** Rotates the status icon while an upload runs. */
+    private fun spinSyncIcon(spin: Boolean) {
+        if (spin) {
+            if (syncSpin != null) return
+            // Counter-clockwise like the arrows of the sync icon.
+            syncSpin = ObjectAnimator.ofFloat(syncIcon, View.ROTATION, 360f, 0f).apply {
+                duration = SPIN_MS
+                repeatCount = ValueAnimator.INFINITE
+                interpolator = LinearInterpolator()
+                start()
+            }
+        } else {
+            syncSpin?.cancel()
+            syncSpin = null
+            syncIcon.rotation = 0f
+        }
     }
 
     private fun loadHistory() {
         Thread {
             val db = TrackingDb.get(this)
-            val sessions = db.listSessions(HISTORY_LIMIT)
-            val unsynced = db.unsyncedCount()
+            val total = db.countSessions()
+            val pages = maxOf(1, (total + PAGE_SIZE - 1) / PAGE_SIZE)
+            val current = page.coerceIn(0, pages - 1)
+            val sessions = db.listSessions(PAGE_SIZE, current * PAGE_SIZE)
             runOnUiThread {
                 if (isFinishing) return@runOnUiThread
+                page = current
                 adapter.submit(sessions)
-                historyEmpty.visibility = if (sessions.isEmpty()) View.VISIBLE else View.GONE
-                syncStatus.text = if (unsynced == 0) {
-                    getString(R.string.syria_synced_all)
-                } else {
-                    getString(R.string.syria_unsynced_format, unsynced)
-                }
+                historyEmpty.visibility = if (total == 0) View.VISIBLE else View.GONE
+                pager.visibility = if (pages > 1) View.VISIBLE else View.GONE
+                pageLabel.text = getString(R.string.syria_page_format, current + 1, pages)
+                pagePrev.isEnabled = current > 0
+                pagePrev.alpha = if (current > 0) 1f else DISABLED_ALPHA
+                pageNext.isEnabled = current < pages - 1
+                pageNext.alpha = if (current < pages - 1) 1f else DISABLED_ALPHA
             }
         }.start()
     }
 
+    private fun totalSeconds(session: Session): Long {
+        val end = session.endedAt ?: System.currentTimeMillis()
+        return (end - session.startedAt).coerceAtLeast(0) / 1000
+    }
+
+    private fun startedText(session: Session): String {
+        val date = Date(session.startedAt)
+        return DateFormat.getMediumDateFormat(this).format(date) + " " + DateFormat.getTimeFormat(this).format(date)
+    }
+
     private fun showSession(session: Session) {
-        val started = DateFormat.getMediumDateFormat(this).format(Date(session.startedAt)) + " " +
-            DateFormat.getTimeFormat(this).format(Date(session.startedAt))
         val km = ActivityTrackingService.formatKm(this, session.distanceM)
         val syncState =
             getString(if (session.synced) R.string.syria_sync_status_synced else R.string.syria_sync_status_pending)
         val message = buildString {
             append(getString(R.string.syria_distance)).append(": ").append(km).append('\n')
+            append(getString(R.string.syria_total_time)).append(": ")
+                .append(SyriaFormat.duration(this@TrackingActivity, totalSeconds(session))).append('\n')
             append(getString(R.string.syria_moving_time)).append(": ")
-                .append(DateUtils.formatElapsedTime(session.movingTimeS)).append('\n')
+                .append(SyriaFormat.duration(this@TrackingActivity, session.movingTimeS)).append('\n')
             append(getString(R.string.syria_points)).append(": ").append(session.pointCount).append('\n')
             append(syncState)
         }
         val builder = MaterialAlertDialogBuilder(this)
-            .setTitle(started)
+            .setTitle(startedText(session))
             .setMessage(message)
             .setPositiveButton(android.R.string.ok, null)
         if (session.status == TrackingDb.STATUS_STOPPED) {
@@ -262,18 +458,28 @@ class TrackingActivity : BaseMwmFragmentActivity() {
 
         override fun onBindViewHolder(holder: SessionHolder, position: Int) {
             val session = items[position]
-            val date = Date(session.startedAt)
-            holder.title.text = DateFormat.getMediumDateFormat(holder.itemView.context).format(date) + " " +
-                DateFormat.getTimeFormat(holder.itemView.context).format(date)
-            holder.subtitle.text = ActivityTrackingService.formatKm(holder.itemView.context, session.distanceM) +
-                " · " + DateUtils.formatElapsedTime(session.movingTimeS)
+            val context = this@TrackingActivity
+            holder.title.text = startedText(session)
+            holder.subtitle.text = ActivityTrackingService.formatKm(context, session.distanceM) + " · " +
+                getString(R.string.syria_points) + " " + session.pointCount
+            holder.times.text = getString(R.string.syria_total_time) + ": " +
+                SyriaFormat.duration(context, totalSeconds(session)) + "  ·  " +
+                getString(R.string.syria_moving_time) + ": " + SyriaFormat.duration(context, session.movingTimeS)
+            val recording = session.status != TrackingDb.STATUS_STOPPED
             holder.state.setText(
                 when {
-                    session.status != TrackingDb.STATUS_STOPPED -> R.string.syria_status_active
+                    recording -> R.string.syria_status_active
                     session.synced -> R.string.syria_sync_status_synced
                     else -> R.string.syria_sync_status_pending
                 },
             )
+            val (icon, color) = when {
+                recording -> R.drawable.ic_track_recording_on to R.color.syria_sync_red
+                session.synced -> R.drawable.ic_syria_sync_done to R.color.syria_sync_green
+                else -> R.drawable.ic_syria_sync_pending to R.color.syria_sync_orange
+            }
+            holder.stateIcon.setImageResource(icon)
+            holder.stateIcon.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(context, color))
             holder.itemView.setOnClickListener { showSession(session) }
         }
     }
@@ -281,10 +487,16 @@ class TrackingActivity : BaseMwmFragmentActivity() {
     private class SessionHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = view.findViewById(R.id.session_title)
         val subtitle: TextView = view.findViewById(R.id.session_subtitle)
+        val times: TextView = view.findViewById(R.id.session_times)
         val state: TextView = view.findViewById(R.id.session_state)
+        val stateIcon: ImageView = view.findViewById(R.id.session_state_icon)
     }
 
     private companion object {
-        const val HISTORY_LIMIT = 200
+        const val PAGE_SIZE = 10
+        const val CARD_ALPHA = 0x33
+        const val SCREEN_ALPHA = 0x1F
+        const val DISABLED_ALPHA = 0.3f
+        const val SPIN_MS = 1000L
     }
 }

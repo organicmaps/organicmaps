@@ -53,6 +53,8 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     if (osmPresentationView != null)
       osmPresentationView.setText(getString(R.string.osm_presentation, dataVersion));
 
+    root.findViewById(R.id.syria_about_website)
+        .setOnClickListener(v -> Utils.openUrl(requireContext(), BuildConfig.SYRIA_WEBSITE_URL));
     setupItem(R.id.news, true, root);
     setupItem(R.id.web, true, root);
     setupItem(R.id.email, true, root);

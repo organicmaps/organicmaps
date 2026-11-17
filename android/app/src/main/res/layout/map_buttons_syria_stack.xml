@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Syria Organic Maps: help (on-screen guide) and the recording traffic light. Fixed at the top end of the
+     map, outside the button column that slides up under the place page, so the light stays visible while a
+     place is selected, while planning a route and while navigating (see SyriaMapButtons). -->
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/syria_buttons_stack"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:clipChildren="false"
+  android:clipToPadding="false"
+  android:gravity="center_horizontal"
+  android:orientation="vertical"
+  android:padding="@dimen/nav_frame_padding">
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+    android:id="@+id/syria_help_button"
+    style="@style/MwmWidget.MapButton"
+    android:contentDescription="@string/syria_tutorial_help"
+    app:srcCompat="@drawable/ic_question_mark" />
+  <include
+    layout="@layout/map_buttons_syria_recording"
+    android:layout_width="@dimen/map_button_size"
+    android:layout_height="76dp"
+    android:layout_marginTop="@dimen/margin_half" />
+</LinearLayout>

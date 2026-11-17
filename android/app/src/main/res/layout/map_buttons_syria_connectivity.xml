@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Internet connectivity indicator on the main map (see SyriaMapButtons). -->
+<ImageView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/syria_connectivity"
+  android:layout_width="32dp"
+  android:layout_height="32dp"
+  android:background="@drawable/bg_syria_status_chip"
+  android:contentDescription="@string/syria_offline"
+  android:padding="7dp"
+  android:src="@drawable/ic_syria_offline" />

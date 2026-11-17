@@ -32,6 +32,7 @@ import app.organicmaps.sdk.location.LocationUtils;
 import app.organicmaps.sdk.location.SensorHelper;
 import app.organicmaps.sdk.location.TrackRecorder;
 import app.organicmaps.syria.SyriaLocale;
+import app.organicmaps.syria.SyriaStatus;
 import app.organicmaps.syria.tracking.ActivityTrackingService;
 import app.organicmaps.sdk.maplayer.isolines.IsolinesManager;
 import app.organicmaps.sdk.maplayer.subway.SubwayManager;
@@ -125,6 +126,7 @@ public class MwmApplication extends Application implements Application.ActivityL
   {
     super.onCreate();
     SyriaLocale.applyDefaultOnce(this);
+    SyriaStatus.init(this);
     Logger.i(TAG, "Initializing application");
 
     sInstance = this;

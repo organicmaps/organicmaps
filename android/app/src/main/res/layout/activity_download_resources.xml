@@ -6,24 +6,76 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:background="?cardBackground">
-  <androidx.constraintlayout.widget.ConstraintLayout
+  <androidx.core.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_above="@+id/button_container"
-    android:layout_gravity="center">
+    android:fillViewport="true">
     <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_gravity="center_vertical"
-      android:gravity="center"
+      android:layout_height="wrap_content"
+      android:gravity="center_horizontal"
       android:orientation="vertical"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintTop_toTopOf="parent">
+      android:padding="@dimen/margin_base">
       <ImageView
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        app:srcCompat="@drawable/ic_download"
-        app:tint="?android:colorAccent"/>
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:contentDescription="@null"
+        app:srcCompat="@drawable/logo" />
+      <!-- Syria Organic Maps: welcome message, read aloud with the spoken word highlighted (WelcomeNarrator). -->
+      <com.google.android.material.card.MaterialCardView
+        android:id="@+id/syria_welcome_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_base"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="2dp">
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:padding="@dimen/margin_base">
+          <TextView
+            style="?fontHeadline6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/syria_welcome_title" />
+          <TextView
+            android:id="@+id/syria_welcome_text"
+            style="?fontBody1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_half"
+            android:lineSpacingMultiplier="1.25"
+            android:textColor="?android:textColorPrimary"
+            tools:text="@string/syria_welcome_message_en" />
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_half"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <com.google.android.material.button.MaterialButton
+              android:id="@+id/syria_welcome_play"
+              style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/syria_welcome_listen"
+              app:icon="@drawable/ic_voice_on"
+              app:iconGravity="textStart" />
+            <Space
+              android:layout_width="0dp"
+              android:layout_height="0dp"
+              android:layout_weight="1" />
+            <com.google.android.material.button.MaterialButton
+              android:id="@+id/syria_welcome_language"
+              style="@style/Widget.MaterialComponents.Button.TextButton"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/syria_language_en" />
+          </LinearLayout>
+        </LinearLayout>
+      </com.google.android.material.card.MaterialCardView>
       <TextView
         android:id="@+id/head_message"
         style="?fontHeadline6"
@@ -37,14 +89,23 @@
         style="?fontBody2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_base"
-        android:layout_marginTop="@dimen/margin_base"
-        android:layout_marginEnd="@dimen/margin_base"
+        android:layout_marginTop="@dimen/margin_half"
         android:gravity="center"
         android:textColor="?android:textColorSecondary"
         tools:text="@string/download_resources" />
+      <!-- Download progress as a number, next to the bar at the bottom. -->
+      <TextView
+        android:id="@+id/download_percent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_half"
+        android:gravity="center"
+        android:textColor="?android:colorAccent"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        tools:text="45%" />
     </LinearLayout>
-  </androidx.constraintlayout.widget.ConstraintLayout>
+  </androidx.core.widget.NestedScrollView>
   <include
     android:id="@+id/button_container"
     layout="@layout/button_with_progress"
@@ -52,4 +113,3 @@
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true" />
 </RelativeLayout>
-

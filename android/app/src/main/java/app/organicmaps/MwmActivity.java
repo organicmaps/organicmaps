@@ -64,6 +64,8 @@ import app.organicmaps.help.HelpActivity;
 import app.organicmaps.intent.Factory;
 import app.organicmaps.intent.IntentProcessor;
 import app.organicmaps.location.TrackRecordingService;
+import app.organicmaps.syria.SyriaDefaults;
+import app.organicmaps.syria.SyriaLocale;
 import app.organicmaps.syria.SyriaPrefs;
 import app.organicmaps.syria.account.LoginActivity;
 import app.organicmaps.syria.tracking.ActivityTrackingService;
@@ -256,6 +258,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     MapUpdateLogger.init(this);
+    SyriaDefaults.applyOnce(this);
     processStartupIntent();
     migrateOAuthCredentials();
   }
@@ -869,6 +872,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
     case help -> showHelp();
     case trackRecordingStatus -> toggleTrackRecordingPP();
+    case syriaRecording -> onActivityTrackingOptionSelected();
     }
   }
 
@@ -1023,6 +1027,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
     ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
     makeNavigationBarTransparentInLightMode();
+    SyriaLocale.checkChanged(this);
     // The pick lives in RoutingController, which clears it without touching the chooser, and can do so while
     // this Activity is stopped and detached from it. Only the mode survives, so re-check it on the way in.
     ChoosePositionMode mode = ChoosePositionMode.get();

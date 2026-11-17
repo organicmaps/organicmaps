@@ -113,4 +113,8 @@ plans
 # Syria Organic Maps release signing (never commit)
 /Syria/keystore/
 /Syria/dist/
+
+# Third-party code is pinned by upstream Organic Maps (submodules and vendored files); local builds
+# and experiments there are never committed. Submodule noise is also hidden locally with
+# `git config submodule.<name>.ignore all` (set for every 3party submodule on this machine).
 /3party/

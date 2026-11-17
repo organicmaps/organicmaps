@@ -38,12 +38,14 @@ import app.organicmaps.sdk.location.LocationListener;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.ConnectionState;
 import app.organicmaps.sdk.util.StringUtils;
+import app.organicmaps.syria.WelcomeNarrator;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
 import app.organicmaps.util.WindowInsetUtils.PaddingInsetsListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 @SuppressLint("StringFormatMatches")
@@ -53,6 +55,8 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 
   private TextView mTvMessage;
   private LinearProgressIndicator mProgress;
+  private TextView mTvPercent;
+  private WelcomeNarrator mNarrator;
   private Button mBtnDownload;
   private CheckBox mChbDownloadCountry;
 
@@ -120,7 +124,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
         public void onProgress(final int percent)
         {
           if (!isFinishing())
-            mProgress.setProgressCompat(percent, true);
+            setProgressValue(percent);
         }
 
         @Override
@@ -171,7 +175,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       if (!countryId.equals(mCurrentCountry) || progress.mwmTotal == 0)
         return;
 
-      mProgress.setProgressCompat((int) (progress.mwmDownloaded * 1000 / progress.mwmTotal), true);
+      setProgressValue((int) (progress.mwmDownloaded * 1000 / progress.mwmTotal));
     }
   };
 
@@ -219,6 +223,8 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
   protected void onSafeDestroy()
   {
     super.onSafeDestroy();
+    if (mNarrator != null)
+      mNarrator.release();
     mApiRequest.unregister();
     mApiRequest = null;
     Utils.keepScreenOn(Config.isKeepScreenOnEnabled(), getWindow());
@@ -236,16 +242,28 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     super.onResume();
     if (!isFinishing())
       MwmApplication.from(this).getLocationHelper().addListener(mLocationListener);
+    // The maps finished while the welcome message was cut short in the background.
+    if (mAreResourcesDownloaded && mNarrator != null && !mNarrator.isSpeaking())
+      showMap();
   }
 
   @Override
   protected void onPause()
   {
     super.onPause();
+    if (mNarrator != null)
+      mNarrator.silence();
     MwmApplication.from(this).getLocationHelper().removeListener(mLocationListener);
     if (mAlertDialog != null && mAlertDialog.isShowing())
       mAlertDialog.dismiss();
     mAlertDialog = null;
+  }
+
+  private void setProgressValue(int value)
+  {
+    mProgress.setProgressCompat(value, true);
+    final int max = mProgress.getMax();
+    mTvPercent.setText(max > 0 ? String.format(Locale.getDefault(), "%d%%", (int) ((long) value * 100 / max)) : "");
   }
 
   private void setDownloadMessage(int bytesToDownload)
@@ -270,7 +288,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       setDownloadMessage(bytes);
 
       mProgress.setMax(bytes);
-      mProgress.setProgressCompat(0, true);
+      setProgressValue(0);
     }
     else
       finishFilesDownload(bytes);
@@ -282,6 +300,9 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
   {
     mTvMessage = findViewById(R.id.download_message);
     mProgress = findViewById(R.id.progressbar);
+    mTvPercent = findViewById(R.id.download_percent);
+    mNarrator = new WelcomeNarrator(this, findViewById(R.id.syria_welcome_text), findViewById(R.id.syria_welcome_play),
+                                    findViewById(R.id.syria_welcome_language));
     mBtnDownload = findViewById(R.id.btn_download_resources);
     mChbDownloadCountry = findViewById(R.id.chb_download_country);
 
@@ -358,6 +379,8 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
   private void onProceedToMapClicked()
   {
     mAreResourcesDownloaded = true;
+    if (mNarrator != null)
+      mNarrator.release();
     showMap();
   }
 
@@ -378,6 +401,15 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
   {
     if (!mAreResourcesDownloaded)
       return;
+
+    // Lets the welcome message end first; the button below still opens the map right away.
+    if (mNarrator != null && mNarrator.isSpeaking())
+    {
+      mTvMessage.setText(R.string.syria_welcome_maps_ready);
+      setProgressValue(mProgress.getMax());
+      mNarrator.runWhenFinished(this::showMap);
+      return;
+    }
 
     // Re-use original intent to retain all flags and payload.
     // https://github.com/organicmaps/organicmaps/issues/6944
@@ -412,7 +444,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
         UiUtils.hide(mChbDownloadCountry);
         mTvMessage.setText(getString(R.string.downloading_country_can_proceed, item.name));
         mProgress.setMax(1000);
-        mProgress.setProgressCompat(0, true);
+        setProgressValue(0);
 
         mCountryDownloadListenerSlot = MapManager.nativeSubscribe(mCountryDownloadListener);
         MapManagerHelper.startDownload(this, mCurrentCountry);

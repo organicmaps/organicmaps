@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Strings of the Syria Organic Maps additions. Not part of the generated Organic Maps translations. -->
 <resources>
-  <string name="syria_tracking_title">Activity tracking</string>
+  <string name="syria_tracking_title">Activity recording</string>
   <string name="syria_login_title">Sign in</string>
   <string name="syria_login_intro">Sign in with your phone number to record your activities and sync them to the server. The map works without signing in.</string>
   <string name="syria_login_phone_hint">Phone number</string>
+  <string name="syria_login_phone_prefix" translatable="false">00963</string>
   <string name="syria_login_send_code">Send code</string>
   <string name="syria_login_code_hint">SMS code</string>
   <string name="syria_login_verify">Verify</string>
@@ -12,34 +13,109 @@
   <string name="syria_login_invalid_phone">Enter a valid phone number</string>
   <string name="syria_error_network">No connection to the server</string>
   <string name="syria_privacy_policy">Privacy policy</string>
-  <string name="syria_status_idle">Not tracking</string>
+  <string name="syria_status_idle">Not recording</string>
   <string name="syria_status_active">Recording</string>
   <string name="syria_status_paused">Paused</string>
-  <string name="syria_start">Start</string>
+  <string name="syria_start">Start recording</string>
   <string name="syria_pause">Pause</string>
   <string name="syria_resume">Resume</string>
   <string name="syria_stop">Stop</string>
-  <string name="syria_stop_confirm">Stop this activity? You can start a new one afterwards.</string>
+  <string name="syria_stop_confirm">Stop this recording? You can start a new one afterwards.</string>
   <string name="syria_cancel">Cancel</string>
   <string name="syria_distance">Distance</string>
   <string name="syria_moving_time">Moving time</string>
+  <string name="syria_total_time">Duration</string>
   <string name="syria_points">Points</string>
   <string name="syria_km_format">%.2f km</string>
-  <string name="syria_history">History</string>
-  <string name="syria_history_empty">No activities yet</string>
+  <string name="syria_history">Recordings</string>
+  <string name="syria_history_empty">No recordings yet</string>
+  <string name="syria_page_format">Page %1$d of %2$d</string>
+  <string name="syria_page_previous">Previous page</string>
+  <string name="syria_page_next">Next page</string>
+  <string name="syria_duration_days">%dd</string>
+  <string name="syria_duration_hours">%dh</string>
+  <string name="syria_duration_minutes">%dm</string>
+  <string name="syria_duration_seconds">%ds</string>
   <string name="syria_sync_now">Sync now</string>
   <string name="syria_unsynced_format">%d items waiting to sync</string>
   <string name="syria_synced_all">Everything is synced</string>
+  <string name="syria_syncing">Syncing…</string>
+  <string name="syria_sync_failed">Last sync failed, it will be retried</string>
+  <string name="syria_sync_failed_reason">Error: %s</string>
+  <string name="syria_sync_unreachable">Server not reachable</string>
+  <string name="syria_sync_internet_needed">An internet connection is needed for syncing. Your data stays safe on this phone and syncs later.</string>
+  <string name="syria_sync_unreachable_toast">Server not reachable. An internet connection is needed for syncing.</string>
+  <string name="syria_sync_progress">Syncing… %1$d of %2$d</string>
+  <string name="syria_sync_offline">No internet connection. Syncing will start when you are back online.</string>
+  <string name="syria_sync_signed_out">Sign in to sync your data</string>
+  <string name="syria_last_synced">Last synced %s</string>
+  <string name="syria_never_synced">Not synced yet</string>
   <string name="syria_sync_status_synced">Synced</string>
   <string name="syria_sync_status_pending">Not synced</string>
+  <string name="syria_online">Connected to the internet</string>
+  <string name="syria_offline">No internet connection</string>
   <string name="syria_delete">Delete</string>
-  <string name="syria_delete_confirm">Delete this activity from the device? Data that was already synced stays on the server.</string>
+  <string name="syria_delete_confirm">Delete this recording from the device? Data that was already synced stays on the server.</string>
   <string name="syria_pref_category" translatable="false">Syria Organic Maps</string>
   <string name="syria_pref_account">Account</string>
   <string name="syria_pref_account_logged_out">Not signed in</string>
   <string name="syria_pref_logout">Sign out</string>
-  <string name="syria_pref_logout_confirm">Sign out? Activities that are not synced yet stay on this device.</string>
+  <string name="syria_pref_logout_confirm">Sign out? Recordings that are not synced yet stay on this device.</string>
   <string name="syria_pref_log_map_updates">Log map data updates</string>
   <string name="syria_pref_log_map_updates_summary">Record map downloads and updates in your activity log</string>
-    <string name="syria_about_title">About Syria Organic Maps</string>
+  <string name="syria_pref_app_language">App language</string>
+  <!-- Each language is shown in its own script, so a user can find it whatever the current language. -->
+  <string-array name="syria_app_language_entries" translatable="false">
+    <item>العربية</item>
+    <item>English</item>
+  </string-array>
+  <string-array name="syria_app_language_values" translatable="false">
+    <item>ar</item>
+    <item>en</item>
+  </string-array>
+  <string name="syria_language_changed_title">Language changed</string>
+  <string name="syria_language_changed_message">Restart the app so that the map, search and voice guidance use the new language.</string>
+  <string name="syria_restart_now">Restart now</string>
+  <string name="syria_later">Later</string>
+  <!-- First-launch welcome on the map download screen. Both languages are kept here because the
+       message can be read and played in either one, whatever the app language. -->
+  <string name="syria_welcome_title">About this app</string>
+  <string name="syria_welcome_listen">Listen</string>
+  <string name="syria_welcome_stop">Stop</string>
+  <string name="syria_welcome_no_voice">This phone has no %s voice installed. You can add one in Android settings → Text-to-speech output.</string>
+  <string name="syria_welcome_maps_ready">The maps are ready. Tap the button below, or the map opens when the message ends.</string>
+  <string name="syria_welcome_message_ar" translatable="false">أهلاً بك في تطبيق خرائط سوريا. يتيح لك هذا التطبيق التنقّل مجاناً في كل سوريا، حتى من دون إنترنت، باستخدام بيانات خريطة أوبن ستريت ماب سوريا. ندعوك إلى دعم المجتمع والمشاركة معنا: عندما تسجّل رحلاتك وتبحث في التطبيق، تساعدنا على فهم حركة التنقّل في سوريا وتحسين خريطة أوبن ستريت ماب سوريا للجميع. شكراً لمشاركتك! يجري الآن تنزيل خريطة العالم وخريطة سوريا.</string>
+  <string name="syria_welcome_message_en" translatable="false">Welcome to Syria Organic Maps. This app lets you navigate all of Syria for free, even without internet, using OpenStreetMap Syria map data. We invite you to support the community and collaborate with us: when you record your trips and search in the app, you help us understand how people travel in Syria and improve the OpenStreetMap Syria map for everyone. Thank you for taking part! The world map and the Syria map are downloading now.</string>
+  <string name="syria_language_ar" translatable="false">العربية</string>
+  <string name="syria_language_en" translatable="false">English</string>
+  <!-- On-screen guide of the main map (SyriaTutorial). -->
+  <string name="syria_tutorial_help">Show the guide to this screen</string>
+  <string name="syria_tutorial_step">%1$d of %2$d</string>
+  <string name="syria_tutorial_next">Next</string>
+  <string name="syria_tutorial_back">Back</string>
+  <string name="syria_tutorial_skip">Skip</string>
+  <string name="syria_tutorial_done">Done</string>
+  <string name="syria_tutorial_dont_show">Don\'t show again</string>
+  <string name="syria_tutorial_recording_title">Record your trip</string>
+  <string name="syria_tutorial_recording_text">Red means you are not recording. Tap it to start recording your trip; it turns green while recording. Your trips help the community improve the Syria map.</string>
+  <string name="syria_tutorial_internet_title">Internet</string>
+  <string name="syria_tutorial_internet_text">Shows whether you are online. Recordings and searches are kept on the phone and sync when you are back online.</string>
+  <string name="syria_tutorial_search_title">Search</string>
+  <string name="syria_tutorial_search_text">Find places, streets and addresses. Search works without internet.</string>
+  <string name="syria_tutorial_layers_title">Map styles and layers</string>
+  <string name="syria_tutorial_layers_text">Switch to the outdoors style, or show subway, cycling and hiking layers.</string>
+  <string name="syria_tutorial_zoom_title">Zoom</string>
+  <string name="syria_tutorial_zoom_text">Zoom in and out. You can also pinch the map with two fingers.</string>
+  <string name="syria_tutorial_position_title">My location</string>
+  <string name="syria_tutorial_position_text">Shows where you are. Tap again to follow your direction.</string>
+  <string name="syria_tutorial_bookmarks_title">Saved places</string>
+  <string name="syria_tutorial_bookmarks_text">Your bookmarks and tracks.</string>
+  <string name="syria_tutorial_menu_title">Menu</string>
+  <string name="syria_tutorial_menu_text">Download maps, settings, activity recording, and sharing your location.</string>
+  <string name="syria_tutorial_help_title">Help</string>
+  <string name="syria_tutorial_help_text">Tap here any time to see this guide again.</string>
+  <string name="syria_about_title">About Syria Organic Maps</string>
+  <string name="syria_about_fork">This app is a fork of the open-source Organic Maps app, customised for Syria with local Syria OpenStreetMap data. It is developed and maintained by the OpenStreetMap Syria community.</string>
+  <string name="syria_about_proposition_1">No ads. Your activity is recorded only when you start a recording.</string>
+  <string name="syria_about_website">Website and privacy policy</string>
 </resources>

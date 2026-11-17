@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One step of the main map guide (SyriaTutorial), shown next to the highlighted button. -->
+<com.google.android.material.card.MaterialCardView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  app:cardCornerRadius="16dp"
+  app:cardElevation="8dp">
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/margin_base">
+    <TextView
+      android:id="@+id/tutorial_step"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textAppearance="?android:textAppearanceSmall"
+      android:textColor="?android:textColorSecondary" />
+    <TextView
+      android:id="@+id/tutorial_title"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="4dp"
+      android:textAppearance="?android:textAppearanceMedium"
+      android:textStyle="bold" />
+    <TextView
+      android:id="@+id/tutorial_text"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="4dp"
+      android:lineSpacingMultiplier="1.15"
+      android:textAppearance="?android:textAppearanceSmall"
+      android:textColor="?android:textColorPrimary" />
+    <CheckBox
+      android:id="@+id/tutorial_dont_show"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin_half"
+      android:text="@string/syria_tutorial_dont_show" />
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center_vertical"
+      android:orientation="horizontal">
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/tutorial_skip"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/syria_tutorial_skip" />
+      <Space
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/tutorial_back"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/syria_tutorial_back" />
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/tutorial_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_half"
+        android:text="@string/syria_tutorial_next" />
+    </LinearLayout>
+  </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

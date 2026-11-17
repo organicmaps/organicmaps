@@ -159,21 +159,21 @@
         <com.google.android.material.button.MaterialButton
           android:id="@+id/close_button"
           style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-          android:layout_width="@dimen/place_page_top_button"
-          android:layout_height="@dimen/place_page_top_button"
-          android:layout_marginStart="@dimen/margin_quarter"
-          android:background="?attr/selectableItemBackgroundBorderless"
+          android:layout_width="44dp"
+          android:layout_height="44dp"
+          android:layout_marginStart="@dimen/margin_half"
           android:contentDescription="@string/close"
           android:insetLeft="0dp"
           android:insetTop="0dp"
           android:insetRight="0dp"
           android:insetBottom="0dp"
           android:padding="0dp"
+          app:backgroundTint="@color/syria_close_bg"
           app:icon="@drawable/ic_close"
           app:iconGravity="textStart"
           app:iconPadding="0dp"
-          app:iconSize="24dp"
-          app:iconTint="?iconTint"
+          app:iconSize="26dp"
+          app:iconTint="@color/syria_close_icon"
           app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Button.Round" />
       </LinearLayout>
 

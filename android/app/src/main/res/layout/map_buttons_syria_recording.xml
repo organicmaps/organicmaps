@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Activity recording entry on the main map: a tall traffic light with one lamp, red when not recording and
+     green while recording (see SyriaMapButtons). -->
+<ImageButton
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/syria_recording_button"
+  android:layout_width="@dimen/map_button_size"
+  android:layout_height="76dp"
+  android:background="@drawable/bg_syria_traffic_housing"
+  android:contentDescription="@string/syria_status_idle"
+  android:elevation="4dp"
+  android:padding="6dp"
+  android:scaleType="fitCenter"
+  android:src="@drawable/ic_syria_lamp_red" />

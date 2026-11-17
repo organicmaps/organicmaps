@@ -7,15 +7,19 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.ViewCompat
 import app.organicmaps.BuildConfig
 import app.organicmaps.R
 import app.organicmaps.base.BaseMwmFragmentActivity
 import app.organicmaps.sdk.util.log.Logger
 import app.organicmaps.syria.ApiClient
 import app.organicmaps.syria.ApiException
+import app.organicmaps.syria.SyriaFormat
+import app.organicmaps.syria.tracking.SyncWorker
 import app.organicmaps.syria.tracking.TrackingActivity
 import app.organicmaps.util.UiUtils
 import app.organicmaps.util.Utils
+import app.organicmaps.util.WindowInsetUtils
 import java.io.IOException
 import java.util.concurrent.Executors
 
@@ -41,6 +45,11 @@ class LoginActivity : BaseMwmFragmentActivity() {
         toolbar.setTitle(R.string.syria_login_title)
         UiUtils.showHomeUpButton(toolbar)
         toolbar.setNavigationOnClickListener { finish() }
+        ViewCompat.setOnApplyWindowInsetsListener(toolbar, WindowInsetUtils.PaddingInsetsListener.excludeBottom())
+        ViewCompat.setOnApplyWindowInsetsListener(
+            findViewById(R.id.login_scroll),
+            WindowInsetUtils.PaddingInsetsListener.excludeTop(),
+        )
 
         phoneInput = findViewById(R.id.login_phone)
         codeInput = findViewById(R.id.login_code)
@@ -51,7 +60,6 @@ class LoginActivity : BaseMwmFragmentActivity() {
         error = findViewById(R.id.login_error)
         info = findViewById(R.id.login_info)
 
-        if (phoneInput.text.isNullOrEmpty()) phoneInput.setText(DEFAULT_PREFIX)
         sendButton.setOnClickListener { sendCode() }
         verifyButton.setOnClickListener { verifyCode() }
         findViewById<View>(R.id.login_privacy).setOnClickListener { Utils.openUrl(this, BuildConfig.SYRIA_PRIVACY_URL) }
@@ -63,19 +71,19 @@ class LoginActivity : BaseMwmFragmentActivity() {
     }
 
     private fun sendCode() {
-        val phone = phoneInput.text.toString().trim()
-        if (phone.length < MIN_PHONE_LENGTH) {
+        val typed = phoneInput.text.toString()
+        if (typed.count { it.isDigit() } < MIN_PHONE_LENGTH) {
             error.setText(R.string.syria_login_invalid_phone)
             return
         }
         setBusy(true)
         executor.execute {
             try {
-                val res = ApiClient.requestOtp(phone)
+                val res = ApiClient.requestOtp(SyriaFormat.normalizePhoneInput(typed))
                 val normalized = res.getString("phone")
                 runOnUiThread {
                     phoneE164 = normalized
-                    info.text = getString(R.string.syria_login_code_sent, normalized)
+                    info.text = getString(R.string.syria_login_code_sent, SyriaFormat.phone(normalized))
                     codeGroup.visibility = View.VISIBLE
                     codeInput.requestFocus()
                     setBusy(false)
@@ -97,6 +105,8 @@ class LoginActivity : BaseMwmFragmentActivity() {
         executor.execute {
             try {
                 ApiClient.verifyOtp(this, phone, code)
+                // Uploads what was queued before signing in (searches, map updates).
+                SyncWorker.enqueueNow(this)
                 runOnUiThread {
                     if (intent.getBooleanExtra(EXTRA_OPEN_TRACKING, true)) {
                         startActivity(Intent(this, TrackingActivity::class.java))
@@ -130,7 +140,6 @@ class LoginActivity : BaseMwmFragmentActivity() {
     companion object {
         private const val TAG = "SyriaLogin"
         const val EXTRA_OPEN_TRACKING = "open_tracking"
-        private const val DEFAULT_PREFIX = "+963"
         private const val MIN_PHONE_LENGTH = 7
     }
 }

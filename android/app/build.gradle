@@ -75,6 +75,7 @@ android {
     // Syria Organic Maps tracking backend; override with -PsyriaApiUrl=http://<host>:3000
     buildConfigField 'String', 'SYRIA_API_URL', "\"${project.findProperty('syriaApiUrl') ?: 'http://192.168.0.31:3000'}\""
     buildConfigField 'String', 'SYRIA_PRIVACY_URL', '"https://openstreetmap.sy/privacy/"'
+    buildConfigField 'String', 'SYRIA_WEBSITE_URL', '"https://openstreetmap.sy/"'
     resourceConfigurations += [project.ext.supportedLocalizations]
 
     base.archivesName = rootProject.name.replaceAll('\\s', '') + '-' + defaultConfig.versionCode

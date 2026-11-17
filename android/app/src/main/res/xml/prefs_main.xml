@@ -28,12 +28,21 @@
       android:persistent="false"
       android:defaultValue="true"
       android:order="2" />
+    <ListPreference
+      android:key="@string/pref_syria_app_language"
+      android:title="@string/syria_pref_app_language"
+      android:entries="@array/syria_app_language_entries"
+      android:entryValues="@array/syria_app_language_values"
+      app:singleLineTitle="false"
+      app:useSimpleSummaryProvider="true"
+      android:persistent="false"
+      android:order="3" />
     <Preference
       android:key="@string/pref_syria_privacy"
       android:title="@string/syria_privacy_policy"
       app:singleLineTitle="false"
       android:persistent="false"
-      android:order="3" />
+      android:order="4" />
   </androidx.preference.PreferenceCategory>
 
   <Preference

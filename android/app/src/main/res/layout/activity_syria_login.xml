@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:orientation="vertical">
@@ -7,6 +8,7 @@
   <include layout="@layout/toolbar_default" />
 
   <ScrollView
+    android:id="@+id/login_scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -33,14 +35,24 @@
         android:text="@string/syria_login_intro"
         android:textAppearance="?android:textAppearanceMedium" />
 
-      <EditText
-        android:id="@+id/login_phone"
+      <!-- Laid out LTR so that the fixed 00963 prefix stays before the number in Arabic too. -->
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/login_phone_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:autofillHints="phone"
         android:hint="@string/syria_login_phone_hint"
-        android:inputType="phone"
-        android:textDirection="ltr" />
+        android:layoutDirection="ltr"
+        app:prefixText="@string/syria_login_phone_prefix">
+
+        <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/login_phone"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:autofillHints="phone"
+          android:inputType="phone"
+          android:textDirection="ltr" />
+      </com.google.android.material.textfield.TextInputLayout>
 
       <Button
         android:id="@+id/login_send"

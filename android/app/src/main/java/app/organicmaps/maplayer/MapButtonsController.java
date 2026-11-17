@@ -34,6 +34,7 @@ import app.organicmaps.sdk.maplayer.traffic.TrafficManager;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.search.SearchPageViewModel;
+import app.organicmaps.syria.SyriaMapButtons;
 import app.organicmaps.util.ThemeUtils;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.Utils;
@@ -175,6 +176,12 @@ public class MapButtonsController extends Fragment
       mButtonsMap.put(MapButtons.help, helpButton);
     if (mTrackRecordingStatusButton != null)
       mButtonsMap.put(MapButtons.trackRecordingStatus, mTrackRecordingStatusButton);
+    final View syriaRecording = mFrame.findViewById(R.id.syria_recording_button);
+    if (syriaRecording != null)
+    {
+      syriaRecording.setOnClickListener(v -> mMapButtonClickListener.onMapButtonClick(MapButtons.syriaRecording));
+      mButtonsMap.put(MapButtons.syriaRecording, syriaRecording);
+    }
     showButton(false, MapButtons.trackRecordingStatus);
     return mFrame;
   }
@@ -208,6 +215,9 @@ public class MapButtonsController extends Fragment
     case trackRecordingStatus:
       UiUtils.showIf(show, buttonView);
       animateIconBlinking(show, (FloatingActionButton) buttonView);
+      break;
+    // Stays visible while planning and navigating: it is outside the sliding columns.
+    case syriaRecording: UiUtils.showIf(show, buttonView); break;
     }
   }
 
@@ -237,6 +247,7 @@ public class MapButtonsController extends Fragment
 
   private void updateTopButtonsMargin(int margin)
   {
+    SyriaMapButtons.placeBelowTopPanel(mFrame, margin, mTrackRecordingStatusButton);
     if (margin == -1 || mTrackRecordingStatusButton == null)
       return;
     ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) mTrackRecordingStatusButton.getLayoutParams();
@@ -459,6 +470,7 @@ public class MapButtonsController extends Fragment
     ViewCompat.setOnApplyWindowInsetsListener(
         view, WindowInsetUtils.PaddingInsetsListener.allSides(WindowInsetsCompat.Type.systemBars()
                                                               | WindowInsetsCompat.Type.displayCutout()));
+    SyriaMapButtons.bind(getViewLifecycleOwner(), view);
   }
 
   @Override
@@ -524,7 +536,8 @@ public class MapButtonsController extends Fragment
     bookmarks,
     menu,
     help,
-    trackRecordingStatus
+    trackRecordingStatus,
+    syriaRecording
   }
 
   public interface MapButtonClickListener
