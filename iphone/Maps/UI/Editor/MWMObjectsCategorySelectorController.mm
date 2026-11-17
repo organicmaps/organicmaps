@@ -25,7 +25,7 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
   EditableMapObject m_createdObject;
 }
 
-@property(nonatomic) UISearchController * searchViewController;
+@property(nonatomic) NavigationSearch * navigationSearch;
 
 @property(nonatomic) NSString * selectedType;
 @property(nonatomic) BOOL isSearch;
@@ -75,19 +75,15 @@ NSString * const kToEditorSegue = @"CategorySelectorToEditorSegue";
 }
 - (void)configSearchBar
 {
-  self.searchViewController = [[UISearchController alloc] initWithSearchResultsController:nil];
-  self.searchViewController.obscuresBackgroundDuringPresentation = NO;
-  self.searchViewController.hidesNavigationBarDuringPresentation = NO;
-  self.searchViewController.searchBar.placeholder = L(@"search");
-  self.searchViewController.searchBar.delegate = self;
-  [self.searchViewController.searchBar applyTheme];
-  self.navigationItem.hidesSearchBarWhenScrolling = YES;
-  self.navigationItem.searchController = self.searchViewController;
+  BOOL hidesSearchBarWhenScrolling = NO;
   if (@available(iOS 26.0, *))
     // The search bar will appear at the bottom of the iPhone screen and cannot be hidden.
-    self.navigationItem.hidesSearchBarWhenScrolling = YES;
-  else
-    self.navigationItem.hidesSearchBarWhenScrolling = NO;
+    hidesSearchBarWhenScrolling = YES;
+  self.navigationSearch = [[NavigationSearch alloc] initWithViewController:self
+                                                                  delegate:self
+                                                               placeholder:L(@"search")
+                                      hidesNavigationBarDuringPresentation:NO
+                                               hidesSearchBarWhenScrolling:hidesSearchBarWhenScrolling];
 }
 
 - (void)configEmptySearchResultsDisclaimer
