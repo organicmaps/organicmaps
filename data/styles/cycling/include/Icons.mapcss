@@ -1,0 +1,142 @@
+/* Keep here changes of the base map style file only. */
+@import("../../default/include/Icons.mapcss");
+
+/* Useful stops while planning a ride. Keep non-potable water clearly marked. */
+node|z12-14[amenity=drinking_water],
+area|z12-14[amenity=drinking_water],
+node|z12-14[amenity=water_point][drinking_water!=not],
+area|z12-14[amenity=water_point][drinking_water!=not],
+node|z12-14[man_made=water_tap][drinking_water!=not],
+area|z12-14[man_made=water_tap][drinking_water!=not],
+node|z12-14[man_made=water_well][drinking_water!=not],
+area|z12-14[man_made=water_well][drinking_water!=not],
+{icon-image: drinking-water-s.svg; icon-min-distance: 48;}
+
+node|z15-[amenity=drinking_water],
+area|z15-[amenity=drinking_water],
+node|z15-[amenity=water_point][drinking_water!=not],
+area|z15-[amenity=water_point][drinking_water!=not],
+node|z15-[man_made=water_tap][drinking_water!=not],
+area|z15-[man_made=water_tap][drinking_water!=not],
+node|z15-[man_made=water_well][drinking_water!=not],
+area|z15-[man_made=water_well][drinking_water!=not],
+{icon-image: drinking-water-m.svg; icon-min-distance: 24;}
+
+node|z14-[amenity=water_point][drinking_water=not],
+area|z14-[amenity=water_point][drinking_water=not],
+node|z14-[man_made=water_tap][drinking_water=not],
+area|z14-[man_made=water_tap][drinking_water=not],
+node|z14-[man_made=water_well][drinking_water=not],
+area|z14-[man_made=water_well][drinking_water=not],
+{icon-image: drinking-water-no-s.svg;}
+node|z15-[amenity=water_point][drinking_water=not],
+area|z15-[amenity=water_point][drinking_water=not],
+node|z15-[man_made=water_tap][drinking_water=not],
+area|z15-[man_made=water_tap][drinking_water=not],
+node|z15-[man_made=water_well][drinking_water=not],
+area|z15-[man_made=water_well][drinking_water=not],
+{icon-image: drinking-water-no-m.svg;}
+
+node|z15-[amenity=toilets],
+area|z15-[amenity=toilets],
+{icon-image: toilets-m.svg; font-size: 11;}
+
+/* The wider bicycle-service ranges require regenerated maps. */
+node|z14-15[shop=bicycle],
+area|z14-15[shop=bicycle],
+{icon-image: shop-bicycle-m.svg; icon-min-distance: 10; text: name; text-color: @poi_label; text-offset: 1; font-size: 10;}
+
+node|z14-16[amenity=bicycle_rental][bicycle_rental=shop],
+area|z14-16[amenity=bicycle_rental][bicycle_rental=shop],
+{icon-image: shop-rental-bicycle-m.svg; icon-min-distance: 10; text: name; text-color: @poi_label; text-offset: 1; font-size: 10;}
+node|z14-16[amenity=bicycle_rental][bicycle_rental!=shop],
+area|z14-16[amenity=bicycle_rental][bicycle_rental!=shop],
+{icon-image: bicycle-rental-m.svg; icon-min-distance: 10; text: name; text-color: @poi_label; text-offset: 1; font-size: 10;}
+
+node|z14-16[amenity=bicycle_repair_station],
+area|z14-16[amenity=bicycle_repair_station],
+{icon-image: bicycle-repair-station-m.svg; icon-min-distance: 10; text: name; text-color: @poi_label; text-offset: 1; font-size: 10;}
+
+node|z15-16[amenity=bicycle_parking],
+area|z15-16[amenity=bicycle_parking],
+{icon-image: bicycle-parking-m.svg; icon-min-distance: 10; text: name; text-color: @poi_label; text-offset: 1; font-size: 10;}
+node|z15-16[amenity=bicycle_parking][covered=yes],
+area|z15-16[amenity=bicycle_parking][covered=yes],
+{icon-image: bicycle-parking-covered-m.svg;}
+
+node|z15-17[amenity=compressed_air],
+area|z15-17[amenity=compressed_air],
+{icon-image: compressed_air-m.svg; icon-min-distance: 10; text: name; text-color: @poi_label; text-offset: 1; font-size: 10;}
+/* The imported icon resumes at z18, one zoom before its caption. Keep the
+   promoted caption continuous without overriding the icon settings. */
+node|z18[amenity=compressed_air],
+area|z18[amenity=compressed_air],
+{text: name; text-color: @poi_label; text-offset: 1; font-size: 10;}
+
+/* Motorist-only services remain available in Default. */
+node|z14-[amenity=charging_station][motorcar?],
+area|z14-[amenity=charging_station][motorcar?],
+{icon-image: none; text: none;}
+
+node|z16-[amenity=parking],
+area|z16-[amenity=parking],
+{icon-image: none; text: none;}
+
+node|z16-[shop=car],
+area|z16-[shop=car],
+node|z16-[shop=car_parts],
+area|z16-[shop=car_parts],
+node|z15-[shop=car_repair],
+area|z15-[shop=car_repair],
+node|z15-[shop=tyres],
+area|z15-[shop=tyres],
+{icon-image: none; text: none;}
+
+/* At planning zooms, leave room for bike services, food and outdoor supplies.
+   Specialty retail and offices return when zoomed in to individual buildings. */
+node|z14-17[shop=~/^(?!(bicycle|supermarket|convenience|general|bakery|greengrocer|butcher|deli|pastry|beverages|outdoor|sports)$).+/],
+area|z14-17[shop=~/^(?!(bicycle|supermarket|convenience|general|bakery|greengrocer|butcher|deli|pastry|beverages|outdoor|sports)$).+/],
+node|z14-17[office],
+area|z14-17[office],
+{icon-image: none; text: none;}
+
+/* Defer landmarks with overview icons until building-level zooms. */
+node|z-17[historic],
+area|z-17[historic],
+node|z-17[tourism=museum],
+area|z-17[tourism=museum],
+{icon-image: none; text: none;}
+
+/* Leave room for cycling stops at planning zooms. */
+node|z14-17[tourism=artwork],
+area|z14-17[tourism=artwork],
+node|z14-17[tourism=gallery],
+area|z14-17[tourism=gallery],
+node|z14-17[tourism=attraction],
+area|z14-17[tourism=attraction],
+node|z14-17[amenity=place_of_worship],
+area|z14-17[amenity=place_of_worship],
+node|z14-17[amenity=school],
+area|z14-17[amenity=school],
+node|z14-17[amenity=college],
+area|z14-17[amenity=college],
+node|z14-17[amenity=university],
+area|z14-17[amenity=university],
+node|z14-17[amenity=library],
+area|z14-17[amenity=library],
+node|z14-17[amenity=cinema],
+area|z14-17[amenity=cinema],
+node|z14-17[amenity=theatre],
+area|z14-17[amenity=theatre],
+{icon-image: none; text: none;}
+
+/* Show food stops without filling a city view with adjacent restaurant icons. */
+node|z14-17[amenity=restaurant],
+area|z14-17[amenity=restaurant],
+node|z14-17[amenity=cafe],
+area|z14-17[amenity=cafe],
+node|z14-17[amenity=fast_food],
+area|z14-17[amenity=fast_food],
+node|z14-17[amenity=pub],
+area|z14-17[amenity=pub],
+{icon-min-distance: 40;}
