@@ -4,11 +4,13 @@ set(SRC
   area_pattern_gpu_test.cpp
   area_shape_tests.cpp
   clip_splines_builder_tests.cpp
+  cycling_offset_geometry_tests.cpp
   frame_values_tests.cpp
   message_queue_tests.cpp
   navigator_test.cpp
   path_text_test.cpp
   rainbow_line_gpu_test.cpp
+  read_metaline_task_tests.cpp
   relations_draw_info_tests.cpp
   screen_operations_tests.cpp
   shape_test_fixture.cpp

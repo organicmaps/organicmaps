@@ -211,7 +211,7 @@ private:
     std::unique_ptr<ISelector> selector;
     if (!applyIf.empty())
     {
-      selector = ParseSelector(applyIf);
+      selector = ParseSelector(applyIf, m_classif);
       if (selector == nullptr)
       {
         LOG(LERROR, ("Runtime selector has not been created:", applyIf));

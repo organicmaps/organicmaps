@@ -57,6 +57,7 @@ auto constexpr TMP_OFFSETS_EXT = OFFSET_EXT EXTENSION_TMP;
 #define POPULARITY_RANKS_FILE_TAG "popularity"
 #define REGION_INFO_FILE_TAG "rgninfo"
 #define METALINES_FILE_TAG "metalines"
+#define METALINES_OFFSETS_FILE_TAG "metalines_offsets"
 #define CAMERAS_INFO_FILE_TAG "speedcams"
 #define ISOLINES_INFO_FILE_TAG "isolines_info"
 #define TRAFFIC_KEYS_FILE_TAG "traffic"

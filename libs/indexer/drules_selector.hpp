@@ -6,6 +6,8 @@
 #include <string>
 #include <vector>
 
+class Classificator;
+
 namespace drule
 {
 
@@ -22,8 +24,10 @@ public:
 
 // Factory method which builds ISelector from a string.
 std::unique_ptr<ISelector> ParseSelector(std::string const & str);
+std::unique_ptr<ISelector> ParseSelector(std::string const & str, Classificator const & classificator);
 
 // Factory method which builds composite ISelector from a set of string.
 std::unique_ptr<ISelector> ParseSelector(std::vector<std::string> const & strs);
+std::unique_ptr<ISelector> ParseSelector(std::vector<std::string> const & strs, Classificator const & classificator);
 
 }  // namespace drule

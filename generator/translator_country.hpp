@@ -25,7 +25,7 @@ class TranslatorCountry : public Translator
 public:
   TranslatorCountry(std::shared_ptr<FeatureProcessorInterface> const & processor,
                     std::shared_ptr<cache::IntermediateData> const & cache, feature::GenerateInfo const & info,
-                    AffiliationInterfacePtr affiliation);
+                    AffiliationInterfacePtr affiliation, bool collectCrossMwm = true);
 
   // TranslatorInterface overrides:
   void Preprocess(OsmElement & element) override;
