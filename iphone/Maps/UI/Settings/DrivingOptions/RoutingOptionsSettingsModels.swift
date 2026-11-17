@@ -9,10 +9,11 @@ enum RoutingOption: String {
   case unpavedRoads
   case ferryCrossings
   case motorways
+  case steps
 }
 
 extension RoutingOption {
-  static let avoidanceOptions: [RoutingOption] = [.tollRoads, .unpavedRoads, .ferryCrossings, .motorways]
+  static let avoidanceOptions: [RoutingOption] = [.tollRoads, .unpavedRoads, .ferryCrossings, .motorways, .steps]
 
   func isSupported(in options: RoutingOptions) -> Bool {
     switch self {
@@ -21,6 +22,7 @@ extension RoutingOption {
     case .unpavedRoads: return options.supportedOptions.contains(.dirty)
     case .ferryCrossings: return options.supportedOptions.contains(.ferry)
     case .motorways: return options.supportedOptions.contains(.motorway)
+    case .steps: return options.supportedOptions.contains(.steps)
     }
   }
 
@@ -31,6 +33,7 @@ extension RoutingOption {
     case .unpavedRoads: return L("avoid_unpaved")
     case .ferryCrossings: return L("avoid_ferry")
     case .motorways: return L("avoid_motorways")
+    case .steps: return L("avoid_steps")
     }
   }
 
@@ -49,6 +52,7 @@ extension RoutingOption {
     case .unpavedRoads: return \.avoidDirty
     case .ferryCrossings: return \.avoidFerry
     case .motorways: return \.avoidMotorway
+    case .steps: return \.avoidSteps
     }
   }
 }

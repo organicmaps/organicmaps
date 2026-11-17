@@ -244,21 +244,9 @@ using namespace storage;
   [self.ownerViewController openFullPlaceDescriptionWithHtml:htmlString];
 }
 
-- (void)avoidDirty
+- (void)avoidRoadType:(MWMRoadType)type
 {
-  [MWMRouter avoidRoadTypeAndRebuild:MWMRoadTypeDirty];
-  [self closePlacePage];
-}
-
-- (void)avoidFerry
-{
-  [MWMRouter avoidRoadTypeAndRebuild:MWMRoadTypeFerry];
-  [self closePlacePage];
-}
-
-- (void)avoidToll
-{
-  [MWMRouter avoidRoadTypeAndRebuild:MWMRoadTypeToll];
+  [MWMRouter avoidRoadTypeAndRebuild:type];
   [self closePlacePage];
 }
 

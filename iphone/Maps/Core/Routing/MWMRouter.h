@@ -7,7 +7,8 @@ typedef NS_ENUM(NSInteger, MWMRoadType) {
   MWMRoadTypeToll,
   MWMRoadTypeDirty,
   MWMRoadTypeFerry,
-  MWMRoadTypeMotorway
+  MWMRoadTypeMotorway,
+  MWMRoadTypeSteps
 };
 
 NS_ASSUME_NONNULL_BEGIN

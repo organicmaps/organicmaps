@@ -4,10 +4,13 @@
 
 #include "routing/routing_options.hpp"
 
+#include <bit>
+
 static_assert(MWMRoutingAvoidanceToll == static_cast<NSUInteger>(routing::RoutingOptions::Toll));
 static_assert(MWMRoutingAvoidanceMotorway == static_cast<NSUInteger>(routing::RoutingOptions::Motorway));
 static_assert(MWMRoutingAvoidanceFerry == static_cast<NSUInteger>(routing::RoutingOptions::Ferry));
 static_assert(MWMRoutingAvoidanceDirty == static_cast<NSUInteger>(routing::RoutingOptions::Dirty));
+static_assert(MWMRoutingAvoidanceSteps == static_cast<NSUInteger>(routing::RoutingOptions::Steps));
 
 @interface MWMRoutingOptions ()
 {
@@ -77,7 +80,22 @@ static_assert(MWMRoutingAvoidanceDirty == static_cast<NSUInteger>(routing::Routi
 
 - (BOOL)hasOptions
 {
-  return self.avoidToll || self.avoidDirty || self.avoidFerry || self.avoidMotorway;
+  return _options.GetOptions() != 0;
+}
+
+- (NSInteger)enabledOptionsCount
+{
+  return std::popcount(_options.GetOptions());
+}
+
+- (BOOL)avoidSteps
+{
+  return _options.Has(routing::RoutingOptions::Road::Steps);
+}
+
+- (void)setAvoidSteps:(BOOL)avoid
+{
+  [self setOption:(routing::RoutingOptions::Road::Steps) enabled:avoid];
 }
 
 - (BOOL)routeOptimizationEnabled

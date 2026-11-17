@@ -102,9 +102,3 @@ extension CGRect {
     UIScreen.main.bounds
   }
 }
-
-extension RoutingOptions {
-  var enabledOptionsCount: Int {
-    [avoidToll, avoidDirty, avoidFerry, avoidMotorway].filter { $0 }.count
-  }
-}

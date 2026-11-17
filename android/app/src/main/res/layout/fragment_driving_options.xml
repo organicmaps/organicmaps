@@ -50,6 +50,7 @@
           android:paddingTop="@dimen/margin_half"
           android:paddingBottom="@dimen/margin_half">
           <TextView
+            android:labelFor="@id/route_optimization_btn"
             android:text="@string/route_optimization"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="match_parent"
@@ -115,6 +116,7 @@
           android:paddingEnd="@dimen/margin_base"
           android:paddingStart="@dimen/margin_base">
           <TextView
+            android:labelFor="@id/avoid_tolls_btn"
             android:text="@string/avoid_tolls"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="0dp"
@@ -136,6 +138,7 @@
           android:paddingEnd="@dimen/margin_base"
           android:paddingStart="@dimen/margin_base">
           <TextView
+            android:labelFor="@id/avoid_dirty_roads_btn"
             android:text="@string/avoid_unpaved"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="0dp"
@@ -157,6 +160,7 @@
           android:paddingEnd="@dimen/margin_base"
           android:paddingStart="@dimen/margin_base">
           <TextView
+            android:labelFor="@id/avoid_ferries_btn"
             android:text="@string/avoid_ferry"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="0dp"
@@ -178,6 +182,7 @@
           android:paddingEnd="@dimen/margin_base"
           android:paddingStart="@dimen/margin_base">
           <TextView
+            android:labelFor="@id/avoid_motorways_btn"
             android:text="@string/avoid_motorways"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="0dp"
@@ -190,6 +195,28 @@
             android:layout_width="wrap_content"
             android:padding="@dimen/margin_half_double_plus"
             android:layout_height="match_parent"/>
+        </LinearLayout>
+        <LinearLayout
+          android:orientation="horizontal"
+          android:minHeight="@dimen/height_block_base"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:paddingEnd="@dimen/margin_base"
+          android:paddingStart="@dimen/margin_base">
+          <TextView
+            android:labelFor="@id/avoid_steps_btn"
+            android:text="@string/avoid_steps"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textColor="?android:attr/textColorPrimary"/>
+          <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/avoid_steps_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="@dimen/margin_half_double_plus"/>
         </LinearLayout>
       </LinearLayout>
     </LinearLayout>

@@ -802,8 +802,8 @@ bool RoutingManager::InsertRoute(RoutesResult const & result)
   }
 
   // HasWarnings signals avoidable car-road warnings. Walking and cycling still render their warning
-  // marks and expose ferry avoidance directly.
-  // Steps/gate/lift_gate have no avoidance control.
+  // marks and expose ferry/steps avoidance directly.
+  // Gate/lift_gate have no avoidance control.
   bool const hasDrivingOptionsWarning =
       m_currentRouterType == RouterType::Vehicle &&
       base::AnyOf(roadWarnings, [](auto const & w) { return IsAvoidableRoadWarning(w.first); });
