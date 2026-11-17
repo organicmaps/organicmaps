@@ -596,8 +596,8 @@
     <string name="button_layer_traffic">Verkehr</string>
     <!-- Hiking routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_hiking">Wanderrouten</string>
-    <!-- Cycling routes layer name in the Styles and Layers dialog -->
-    <string name="button_layer_cycling">Fahrradrouten</string>
+    <!-- Name of the Cycling map style in the Styles and Layers dialog -->
+    <string name="button_layer_cycling">Radfahren</string>
     <!-- Map layers menu: toggle button for the satellite imagery layer -->
     <string name="button_layer_satellite">Satellit</string>
     <!-- Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges. -->

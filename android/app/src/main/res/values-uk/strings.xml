@@ -603,8 +603,8 @@
     <string name="button_layer_traffic">Затор</string>
     <!-- Hiking routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_hiking">Піші прогулянки</string>
-    <!-- Cycling routes layer name in the Styles and Layers dialog -->
-    <string name="button_layer_cycling">Велоспорт</string>
+    <!-- Name of the Cycling map style in the Styles and Layers dialog -->
+    <string name="button_layer_cycling">Веломапа</string>
     <!-- Map layers menu: toggle button for the satellite imagery layer -->
     <string name="button_layer_satellite">Супутник</string>
     <!-- Subway map layer button; also the spoken name of the subway (metro, underground) transport type, read by screen readers before a line number on transit line badges. -->

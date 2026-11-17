@@ -593,7 +593,7 @@
     <string name="button_layer_traffic">Трафик</string>
     <!-- Hiking routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_hiking">Пешеходен туризъм</string>
-    <!-- Cycling routes layer name in the Styles and Layers dialog -->
+    <!-- Name of the Cycling map style in the Styles and Layers dialog -->
     <string name="button_layer_cycling">Велосипеден туризъм</string>
     <!-- Map layers menu: toggle button for the satellite imagery layer -->
     <string name="button_layer_satellite">Сателит</string>

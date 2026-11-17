@@ -597,7 +597,7 @@
     <string name="button_layer_traffic">Verkeer</string>
     <!-- Hiking routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_hiking">Wandel</string>
-    <!-- Cycling routes layer name in the Styles and Layers dialog -->
+    <!-- Name of the Cycling map style in the Styles and Layers dialog -->
     <string name="button_layer_cycling">Fiets</string>
     <!-- Map layers menu: toggle button for the satellite imagery layer -->
     <string name="button_layer_satellite">Satelliet</string>

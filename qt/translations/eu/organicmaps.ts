@@ -477,7 +477,7 @@
 <translation>Mendi-ibilaldiak</translation>
 </message>
 <message id="button_layer_cycling">
-<extracomment>Cycling routes layer name in the Styles and Layers dialog</extracomment>
+<extracomment>Name of the Cycling map style in the Styles and Layers dialog</extracomment>
 <source>Cycling</source>
 <translation>Txirrindularitza</translation>
 </message>

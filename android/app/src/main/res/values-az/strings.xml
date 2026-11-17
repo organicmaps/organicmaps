@@ -594,7 +594,7 @@
     <string name="button_layer_traffic">Nəqliyyat</string>
     <!-- Hiking routes layer name in the Styles and Layers dialog -->
     <string name="button_layer_hiking">Piyada gəzinti</string>
-    <!-- Cycling routes layer name in the Styles and Layers dialog -->
+    <!-- Name of the Cycling map style in the Styles and Layers dialog -->
     <string name="button_layer_cycling">Velosiped gəzintisi</string>
     <!-- Map layers menu: toggle button for the satellite imagery layer -->
     <string name="button_layer_satellite">Peyk</string>
