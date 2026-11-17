@@ -41,12 +41,10 @@ public class DisplayManagerTest
   @Test
   public void disconnectWithoutAPhoneListenerRestoresDeviceSelectionAndAllowsReconnection()
   {
-    mDisplay.init(DisplayType.Car);
     mDisplay.addListener(DisplayType.Car, mCar);
 
     mDisplay.removeListener(DisplayType.Car);
     shadowOf(Looper.getMainLooper()).idle();
-    mDisplay.init(DisplayType.Device);
 
     assertFalse(mDisplay.isCarConnected());
     assertTrue(mDisplay.isDeviceDisplayUsed());
@@ -60,7 +58,6 @@ public class DisplayManagerTest
   @Test
   public void disconnectHandsTheDisplayBackToTheConnectedPhone()
   {
-    mDisplay.init(DisplayType.Car);
     mDisplay.addListener(DisplayType.Car, mCar);
     mDisplay.addListener(DisplayType.Device, mDevice);
 
@@ -76,7 +73,6 @@ public class DisplayManagerTest
   @Test
   public void disconnectDoesNotRestartTheAlreadySelectedPhoneDisplay()
   {
-    mDisplay.init(DisplayType.Device);
     mDisplay.addListener(DisplayType.Device, mDevice);
     mDisplay.addListener(DisplayType.Car, mCar);
 
