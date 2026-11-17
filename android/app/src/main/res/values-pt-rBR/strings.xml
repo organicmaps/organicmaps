@@ -289,7 +289,6 @@
     <!-- login text field -->
     <string name="email_or_username">Email ou nome de usuário</string>
     <string name="editor_add_phone">Adicionar número de telefone</string>
-    <string name="level">Piso</string>
     <!-- Building level -->
     <string name="level_value_generic">Andar: %s</string>
     <string name="downloader_delete_map_dialog">Todas as edições no mapa serão excluídas juntamente com o mapa.</string>
@@ -660,4 +659,8 @@
     <string name="transit_type_train">Trem</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Bonde</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">Informe um número de andar válido</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">Andar (o térreo é 0)</string>
 </resources>

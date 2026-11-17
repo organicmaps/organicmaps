@@ -422,7 +422,6 @@
     <!-- login text field -->
     <string name="email_or_username">Adreça electrònica o nom d’usuari</string>
     <string name="editor_add_phone">Afegeix un telèfon</string>
-    <string name="level">Planta</string>
     <!-- Building level -->
     <string name="level_value_generic">Nivell: %s</string>
     <string name="downloader_delete_map_dialog">Totes les vostres edicions del mapa se suprimiran conjuntament amb aquest.</string>
@@ -964,4 +963,8 @@
     <string name="transit_type_train">Tren</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tramvia</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">Introduïu un número de planta vàlid</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">Planta (la planta baixa és 0)</string>
 </resources>

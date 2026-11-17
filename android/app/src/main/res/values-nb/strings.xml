@@ -422,7 +422,6 @@
     <!-- login text field -->
     <string name="email_or_username">E-postadresse eller brukernavn</string>
     <string name="editor_add_phone">Legg til telefon</string>
-    <string name="level">Gulv</string>
     <!-- Building level -->
     <string name="level_value_generic">Nivå: %s</string>
     <string name="downloader_delete_map_dialog">Alle endringer i kartet vil slettes sammen med kartet.</string>
@@ -943,4 +942,8 @@
     <string name="transit_type_train">Tog</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Trikk</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">Angi et gyldig etasjenummer</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">Etasje (første etasje er 0)</string>
 </resources>

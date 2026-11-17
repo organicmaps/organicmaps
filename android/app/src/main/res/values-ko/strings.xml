@@ -422,7 +422,6 @@
     <!-- login text field -->
     <string name="email_or_username">이메일 또는 사용자 이름</string>
     <string name="editor_add_phone">전화 추가</string>
-    <string name="level">층</string>
     <!-- Building level -->
     <string name="level_value_generic">레벨: %s</string>
     <string name="downloader_delete_map_dialog">모든 지도의 변경 사항은 지도와 함께 삭제됩니다.</string>
@@ -939,4 +938,8 @@
     <string name="transit_type_train">기차</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">트램</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">유효한 층 번호를 입력하십시오</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">층 (1층은 0)</string>
 </resources>

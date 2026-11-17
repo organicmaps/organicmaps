@@ -422,7 +422,6 @@
     <!-- login text field -->
     <string name="email_or_username">Surel atau nama pengguna</string>
     <string name="editor_add_phone">Tambahkan Telepon</string>
-    <string name="level">Tingkat</string>
     <!-- Building level -->
     <string name="level_value_generic">Tingkat: %s</string>
     <string name="downloader_delete_map_dialog">Semua perubahan peta akan dihapus bersama dengan peta.</string>
@@ -939,4 +938,8 @@
     <string name="transit_type_train">Kereta</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Trem</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">Masukkan nomor lantai yang valid</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">Lantai (lantai dasar adalah 0)</string>
 </resources>

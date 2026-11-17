@@ -422,7 +422,6 @@
     <!-- login text field -->
     <string name="email_or_username">E-mail sau nume de utilizator</string>
     <string name="editor_add_phone">Adaugă un număr</string>
-    <string name="level">Etaj</string>
     <!-- Building level -->
     <string name="level_value_generic">Nivel: %s</string>
     <string name="downloader_delete_map_dialog">Toate modificările aduse hărții vor fi șterse împreună cu harta.</string>
@@ -947,4 +946,8 @@
     <string name="transit_type_train">Tren</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tramvai</string>
+    <!-- Error message in Editor when a user enters an invalid floor (level) of a place -->
+    <string name="error_enter_correct_level">Introdu un număr de etaj valid</string>
+    <!-- Hint for the floor (level) field in the place editor. In OpenStreetMap the ground floor is level 0, basements are negative -->
+    <string name="editor_level">Etaj (parterul este 0)</string>
 </resources>
