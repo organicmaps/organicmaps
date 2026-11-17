@@ -54,12 +54,12 @@ private:
 class RoutingOptionsClassifier
 {
 public:
-  RoutingOptionsClassifier();
-
   std::optional<RoutingOptions::Road> Get(uint32_t type) const;
-  static RoutingOptionsClassifier const & Instance();
+  static RoutingOptionsClassifier const & Instance(VehicleType vehicleType);
 
 private:
+  explicit RoutingOptionsClassifier(bool includeDirtyRoadClasses);
+
   base::SmallMap<uint32_t, RoutingOptions::Road> m_data;
 };
 

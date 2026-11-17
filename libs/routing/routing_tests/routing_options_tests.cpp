@@ -163,7 +163,7 @@ UNIT_TEST(RoutingOptions_StableIdsAndRouterConversion)
   TEST(RoutingOptions::GetVehicleType(RouterType::Transit) == VehicleType::Transit, ());
   TEST(!RoutingOptions::GetVehicleType(RouterType::Ruler), ());
   TEST_EQUAL(RoutingOptions::GetSupportedOptions(VehicleType::Car), 30, ());
-  TEST_EQUAL(RoutingOptions::GetSupportedOptions(VehicleType::Bicycle), 8, ());
+  TEST_EQUAL(RoutingOptions::GetSupportedOptions(VehicleType::Bicycle), 24, ());
   TEST_EQUAL(RoutingOptions::GetSupportedOptions(VehicleType::Pedestrian), 8, ());
   TEST_EQUAL(RoutingOptions::GetSupportedOptions(VehicleType::Transit), 0, ());
 }

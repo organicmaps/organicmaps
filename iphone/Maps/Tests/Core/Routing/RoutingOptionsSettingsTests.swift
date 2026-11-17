@@ -16,6 +16,7 @@ final class RoutingOptionsSettingsTests: XCTestCase {
     let walk = RoutingOptions(routerType: .pedestrian)
     car.avoidFerry = false
     car.avoidToll = true
+    car.avoidDirty = false
     car.save()
     bike.avoidFerry = true
     bike.avoidDirty = true
@@ -26,9 +27,11 @@ final class RoutingOptionsSettingsTests: XCTestCase {
     XCTAssertTrue(RoutingOptions(routerType: .vehicle).avoidToll)
     XCTAssertFalse(RoutingOptions(routerType: .vehicle).avoidFerry)
     XCTAssertTrue(RoutingOptions(routerType: .bicycle).avoidFerry)
-    XCTAssertFalse(RoutingOptions(routerType: .bicycle).avoidDirty)
+    XCTAssertTrue(RoutingOptions(routerType: .bicycle).avoidDirty)
+    XCTAssertFalse(RoutingOptions(routerType: .vehicle).avoidDirty)
+    XCTAssertFalse(RoutingOptions(routerType: .pedestrian).avoidDirty)
     XCTAssertFalse(RoutingOptions(routerType: .pedestrian).avoidFerry)
-    XCTAssertEqual(RoutingOption.avoidanceOptions.filter { $0.isSupported(in: bike) }, [.ferryCrossings])
+    XCTAssertEqual(RoutingOption.avoidanceOptions.filter { $0.isSupported(in: bike) }, [.unpavedRoads, .ferryCrossings])
     XCTAssertEqual(RoutingOption.avoidanceOptions.filter { $0.isSupported(in: walk) }, [.ferryCrossings])
     XCTAssertTrue(RoutingOptions(routerType: .publicTransport).supportedOptions.isEmpty)
     XCTAssertTrue(RoutingOptions(routerType: .ruler).supportedOptions.isEmpty)
