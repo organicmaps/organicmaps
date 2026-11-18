@@ -1025,14 +1025,8 @@ UNIT_TEST(RoutingManager_OptimizeRoutePointsPreservesPassedStops)
 }
 UNIT_TEST(RoutingManager_RebuildClearsUnavailableAlternatives)
 {
-  Platform::ThreadRunner const threadRunner;
   df::VisualParams::Init(1.0, 1024);
 
-  class Delegate final : public RoutingManager::Delegate
-  {
-  public:
-    void OnRouteFollow(routing::RouterType) override {}
-  } delegate;
   class Router final : public routing::IRouter
   {
   public:
@@ -1067,13 +1061,13 @@ UNIT_TEST(RoutingManager_RebuildClearsUnavailableAlternatives)
   auto * guiThread = gui.get();
   platform.SetGuiThread(std::move(gui));
   SCOPE_GUARD(restoreGui, [&platform] { platform.SetGuiThread(std::make_unique<platform::GuiThread>()); });
-  BookmarkManager bookmarks(BookmarkManager::Callbacks([]() -> StringsBundle const &
-  {
-    static StringsBundle const bundle;
-    return bundle;
-  }, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr));
-  RoutingManager manager(RoutingManager::Callbacks(nullptr, nullptr, nullptr, nullptr, nullptr), delegate);
-  manager.SetBookmarkManager(&bookmarks);
+  TestFramework framework;
+  auto & bookmarks = framework.GetBookmarkManager();
+  auto & manager = framework.GetRoutingManager();
+  auto const previousRouter = manager.GetLastUsedRouter();
+  SCOPE_GUARD(restoreRouter, [&] { manager.SetLastUsedRouter(previousRouter); });
+  manager.SetRouter(routing::RouterType::Ruler);
+  manager.Init(routing::CreateNumMwmIds(framework.GetStorage()));
   auto & session = manager.RoutingSession();
   session.SetRouter(std::make_unique<Router>(), nullptr);
   bool built = false;
@@ -1120,8 +1114,6 @@ UNIT_TEST(RoutingManager_RebuildClearsUnavailableAlternatives)
   TEST(session.SwapActiveAlternative(1), ("Fresh alternatives must become selectable."));
   bookmarks.GetEditSession().CreateUserMark<WaterTransferMark>({3, 4})->SetDirection(
       WaterTransferMark::Direction::Exit);
-  auto const previousRouter = manager.GetLastUsedRouter();
-  SCOPE_GUARD(restoreRouter, [&] { manager.SetLastUsedRouter(previousRouter); });
   manager.SetRouter(routing::RouterType::Pedestrian);
   TEST(bookmarks.GetUserMarkIds(UserMark::Type::WATER_TRANSFER).empty(), ());
 }

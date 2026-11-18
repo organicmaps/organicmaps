@@ -1422,6 +1422,7 @@ void RoutingManager::GenerateNotifications(std::vector<std::string> & turnNotifi
 void RoutingManager::BuildRoute(uint32_t timeoutSec)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
+  CHECK(m_numMwmIDs, ("Initialize routing before building a route"));
 
   // Retire the previous build before notifying observers, including on validation failures.
   CloseRouting(false /* remove route points */);
@@ -1682,6 +1683,14 @@ void RoutingManager::SetRouter(RouterType type)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ("SetRouter"));
 
+  // A profile preference can be saved after SDK setup, before asynchronous routing initialization.
+  // Init() installs GetLastUsedRouter().
+  if (!m_numMwmIDs)
+  {
+    SetLastUsedRouter(type);
+    return;
+  }
+
   if (m_currentRouterType == type)
     return;
 
@@ -1691,16 +1700,6 @@ void RoutingManager::SetRouter(RouterType type)
   HidePreviewSegments();
 
   SetLastUsedRouter(type);
-
-  // m_numMwmIDs is initialized in Init(), which runs on the GUI thread after async map loading
-  // completes (Framework::InitRouting). An API/deep-link RoutingController.prepare() can call
-  // Router.set before maps finish loading.
-  // Deferring is safe: Init() calls SetRouterImpl(GetLastUsedRouter()), picking up the type saved above.
-  /// @TODO(AB): The proper fix is to not set mFrameworkInitialized=true in Android's OrganicMaps.java
-  /// until the async native callback fires, so Java subsystems never see a half-initialized core.
-  if (!m_numMwmIDs)
-    return;
-
   SetRouterImpl(type);
 }
 

@@ -35,10 +35,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.core.app.NavUtils;
 import androidx.core.os.BundleCompat;
-import androidx.fragment.app.Fragment;
 import app.organicmaps.BuildConfig;
 import app.organicmaps.MwmActivity;
-import app.organicmaps.MwmApplication;
 import app.organicmaps.R;
 import app.organicmaps.sdk.util.Config;
 import app.organicmaps.sdk.util.Constants;
@@ -385,16 +383,6 @@ public class Utils
     }
   }
 
-  public static void detachFragmentIfCoreNotInitialized(@NonNull Context context, @NonNull Fragment fragment)
-  {
-    if (MwmApplication.from(context).getOrganicMaps().arePlatformAndCoreInitialized())
-      return;
-
-    if (!fragment.isAdded())
-      return;
-
-    fragment.getParentFragmentManager().beginTransaction().detach(fragment).commit();
-  }
   public static String getLocalizedLevel(@NonNull Context context, @Nullable String level)
   {
     if (TextUtils.isEmpty(level))

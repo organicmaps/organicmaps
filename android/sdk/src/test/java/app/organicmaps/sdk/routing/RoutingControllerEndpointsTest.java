@@ -15,6 +15,11 @@ public class RoutingControllerEndpointsTest
     MapObject start;
     MapObject finish;
 
+    Controller()
+    {
+      markInitializedForTesting();
+    }
+
     @Override
     public MapObject getStartPoint()
     {
