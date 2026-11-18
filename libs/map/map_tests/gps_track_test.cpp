@@ -352,6 +352,40 @@ UNIT_TEST(GpsTrack_RestoresRawFilterHistory)
   CheckPoints(file.Load(), rawPoints);
 }
 
+UNIT_TEST(GpsTrack_KeepsRecordingAfterClockGoesBack)
+{
+  TrackFile file("clock_back");
+  // Eastward fixes 15 m apart. The clock goes back by 40 s before the third fix.
+  Points const raw = {MakePoint(1000.0, 0.0), MakePoint(1020.0, 15.0), MakePoint(980.0, 30.0), MakePoint(1000.0, 45.0),
+                      MakePoint(1040.0, 60.0)};
+  // The fixes after it continue 1 s after the last fix and keep their own intervals.
+  std::vector<double> const expectedTimes = {1000.0, 1020.0, 1021.0, 1041.0, 1081.0};
+  auto const checkTimes = [](Points const & points, std::vector<double> const & times)
+  {
+    TEST_EQUAL(points.size(), times.size(), ());
+    for (size_t i = 0; i < times.size(); ++i)
+      TEST_EQUAL(points[i].m_timestamp, times[i], (i));
+  };
+  {
+    GpsTrack track(file.m_path, std::make_unique<GpsTrackFilter>(), 1h);
+    track.Start();
+    for (auto const & point : raw)
+      track.AddPoint(point);
+    TEST_EQUAL(track.Finalize(), raw.size(), ());
+    checkTimes(GetPoints(track), expectedTimes);
+    checkTimes(file.Load(), expectedTimes);
+  }
+
+  // The clock is still behind the restored track.
+  GpsTrack restored(file.m_path, std::make_unique<GpsTrackFilter>(), 1h);
+  restored.Start();
+  restored.AddPoint(MakePoint(1001.0, 75.0));
+  TEST_EQUAL(restored.Finalize(), raw.size() + 1, ());
+  auto times = expectedTimes;
+  times.push_back(1082.0);
+  checkTimes(GetPoints(restored), times);
+}
+
 UNIT_TEST(GpsTrack_StartReplacesUnreadableBackup)
 {
   base::ScopedLogAbortLevelChanger const expectedError(LCRITICAL);

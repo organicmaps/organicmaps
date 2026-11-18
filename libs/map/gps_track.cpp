@@ -2,6 +2,12 @@
 
 #include "base/assert.hpp"
 
+namespace
+{
+// Assumed time between the fixes before and after the clock went back, sec.
+double constexpr kClockStepBackInterval = 1.0;
+}  // namespace
+
 GpsTrack::GpsTrack(std::string const & filePath, std::unique_ptr<IGpsTrackFilter> && filter,
                    std::chrono::milliseconds backupInterval)
   : m_backupInterval(backupInterval)
@@ -145,13 +151,22 @@ void GpsTrack::ProcessPoints()
     evictedIds = m_collection.Clear(false /* resetIds */);
     m_filter->Reset();
     m_backupPoints.clear();
+    m_timeShift = 0.0;
+    m_lastTimestamp.reset();
     if (m_needClear)
+    {
       ClearBackup();
+    }
     else
-      m_filter->Process(m_storage.Load(), points);
+    {
+      auto restored = m_storage.Load();
+      KeepTimeOrder(restored);
+      m_filter->Process(restored, points);
+    }
     m_needClear = m_needRestore = false;
   }
 
+  KeepTimeOrder(m_points);
   m_filter->Process(m_points, points);
   auto const addedIds = m_collection.Add(points);
 
@@ -162,6 +177,25 @@ void GpsTrack::ProcessPoints()
 
   NotifyCallback(addedIds, evictedIds);
   NotifyStatisticsCallback(needReset || addedIds.first != kInvalidId);
+}
+
+void GpsTrack::KeepTimeOrder(std::vector<location::GpsInfo> & points)
+{
+  // The device clock can go back during recording, e.g. after a network time correction. The filter and
+  // the collection drop every fix older than the last one, so the track would lose all fixes until the
+  // clock catches up. Shift such fixes and all later ones to continue right after the last fix instead.
+  // A fix with the same timestamp is a repeated fix, not a clock change, so it is left as is.
+  for (auto & point : points)
+  {
+    point.m_timestamp += m_timeShift;
+    if (m_lastTimestamp && point.m_timestamp < *m_lastTimestamp)
+    {
+      double const shift = *m_lastTimestamp + kClockStepBackInterval - point.m_timestamp;
+      m_timeShift += shift;
+      point.m_timestamp += shift;
+    }
+    m_lastTimestamp = point.m_timestamp;
+  }
 }
 
 void GpsTrack::SaveBackup()

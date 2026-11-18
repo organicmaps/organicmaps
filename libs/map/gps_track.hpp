@@ -11,6 +11,7 @@
 #include <functional>
 #include <memory>
 #include <mutex>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -85,6 +86,7 @@ private:
   // Called with m_threadGuard held.
   void ScheduleTask();
   void ProcessPoints();
+  void KeepTimeOrder(std::vector<location::GpsInfo> & points);
   void SaveBackup();
   void ClearBackup();
   void NotifyCallback(std::pair<size_t, size_t> const & addedIds, std::pair<size_t, size_t> const & evictedIds);
@@ -108,6 +110,9 @@ private:
   std::unique_ptr<IGpsTrackFilter> m_filter;
   std::vector<location::GpsInfo> m_points;
   std::vector<location::GpsInfo> m_backupPoints;
+  // Added to fix timestamps after the device clock went back, see KeepTimeOrder().
+  double m_timeShift = 0.0;
+  std::optional<double> m_lastTimestamp;
   Clock::time_point m_nextBackup;
   bool m_recording = false;
   bool m_needRestore = false;
