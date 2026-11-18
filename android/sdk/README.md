@@ -58,21 +58,19 @@ providers. Wear bridge modules are not part of this publication set.
 
 Loading the `OrganicMaps` class loads the native library. Create one instance in
 your `Application` to configure application-private settings. Call `init()` on
-the main thread to create the framework and load maps asynchronously.
+the main thread to create the framework and load maps asynchronously. Repeated
+calls share the same map load. `arePlatformAndCoreInitialized()` reports the
+initial platform and framework setup. The SDK publishes readiness after maps load.
 
-The first successful `init(callback)` call returns `true`. The callback runs on
-the main thread after maps, search, editor state, and routing initialization are
-ready. Later calls return `false` without invoking their callbacks, including
-while the first load is pending. `arePlatformAndCoreInitialized()` also does not
-mean map loading has completed.
+`sdk.getMapsReadiness()` tracks map registration, search, editor and routing setup.
+Query it with `isReady()` or register a one-shot task with `runWhenReady(task)`.
+Tasks run on the main thread once maps are loaded, immediately if already ready.
+Cancel pending tasks with `cancel(task)` when the activity or car session stops,
+and register them again when it returns, including after recreation.
 
-Keep readiness in the application, for example in a `LiveData<Boolean>`, and let
-activities observe it with their own lifecycle. Register the original completion
-callback against that process-owned state rather than an activity. Handle
-`IOException` from `init()` by displaying an initialization error and avoiding
-native API calls. The constructor throws `AssertionError` if its private settings
-directory cannot be created. Keeping readiness in the application also handles
-rotation during the first map load.
+Handle `IOException` from `init()` by displaying an initialization error and avoiding
+native API calls; readiness stays false after this failure. The constructor throws
+`AssertionError` if its private settings directory cannot be created.
 
 After readiness is reported, inflate a `MapView`, construct a `MapController`
 before attaching the view to a window, and register the controller:

@@ -32,7 +32,8 @@ JNIEXPORT jint Java_app_organicmaps_sdk_Framework_nativeGetDrawScale(JNIEnv * en
 
 ## Activity lifecycle
 - Extend `BaseMwmFragmentActivity` and override `onSafeCreate()` (not `onCreate()`)
-  -- ensures C++ core is initialized before activity code runs
+  -- defers activity code until maps are loaded; setup-only screens return `false` from
+  `requiresMapsReady()` to run once the C++ core is initialized
 - Use `BaseMwmFragment` with `OnBackPressListener` interface
 - Thread safety: use `Handler(Looper.getMainLooper())` for UI updates from native callbacks
 

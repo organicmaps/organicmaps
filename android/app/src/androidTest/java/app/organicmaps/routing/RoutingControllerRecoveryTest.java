@@ -1,10 +1,13 @@
 package app.organicmaps.routing;
 
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import android.app.Instrumentation;
+import android.os.Build;
 import android.os.SystemClock;
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -45,8 +48,8 @@ public class RoutingControllerRecoveryTest
     onMain(() -> {
       try
       {
-        if (!mApplication.initOrganicMaps(initialized::countDown))
-          initialized.countDown();
+        mApplication.initOrganicMaps();
+        mApplication.getMapsReadiness().runWhenReady(initialized::countDown);
       }
       catch (IOException e)
       {
@@ -221,6 +224,12 @@ public class RoutingControllerRecoveryTest
   @Test
   public void configurationRecreationKeepsRouteRecovery() throws Exception
   {
+    // A location permission dialog would pause the Activity during recreation.
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
+    {
+      mInstrumentation.getUiAutomation().grantRuntimePermission(mApplication.getPackageName(), ACCESS_COARSE_LOCATION);
+      mInstrumentation.getUiAutomation().grantRuntimePermission(mApplication.getPackageName(), ACCESS_FINE_LOCATION);
+    }
     onMain(() -> {
       mController = RoutingController.get();
       mController.initialize(mApplication.getLocationHelper());

@@ -43,7 +43,7 @@ class TrackRecordingStartActivity : Activity() {
         val app = MwmApplication.from(this)
         if (!app.organicMaps.arePlatformAndCoreInitialized()) {
             try {
-                app.initOrganicMaps(null)
+                app.initOrganicMaps()
             } catch (e: IOException) {
                 Logger.e(TAG, "Failed to initialize the app", e)
                 return false
