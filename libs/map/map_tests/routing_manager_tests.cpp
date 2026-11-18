@@ -1636,6 +1636,32 @@ UNIT_TEST(RoutingManager_TrackChartUsesCapturedSourceUntilNavigation)
   checkPreview();
 }
 
+UNIT_TEST(RoutingManager_TrackChartKeepsMapEntryOnSparseSegment)
+{
+  AsyncBuildFixture fixture;
+  auto & manager = fixture.m_framework.GetRoutingManager();
+  auto & bookmarks = fixture.m_framework.GetBookmarkManager();
+  auto const from = mercator::FromLatLon(45.0, 19.0);
+  auto const to = mercator::FromLatLon(45.25, 19.25);
+  auto const selectedPoint = (from + to) / 2.0;
+  auto const id = CreateTestTrack(bookmarks, "pedestrian", {}, {{from, 100}, {to, 200}});
+  auto const * track = bookmarks.GetTrack(id);
+  Track::TrackSelectionInfo selection;
+  track->UpdateSelectionInfo(selectedPoint, selection);
+  bookmarks.SetTrackSelectionInfo(selection, false);
+  TEST_EQUAL(manager.NavigateTrack(id), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+
+  double const distance = manager.GetFollowedTrackInfo()->m_entryDistanceM;
+  TEST_ALMOST_EQUAL_ABS(distance, track->GetLengthMeters() * 0.5, 0.01, ());
+  auto const marker = manager.GetRoutePointAtDistance(distance);
+  TEST(marker && marker->EqualDxDy(selectedPoint, mercator::kPointEqualityEps), ());
+  TEST_EQUAL(manager.UpdateFollowedTrackEntryAt(distance), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  auto const & route = manager.RoutingSession().GetRoute()->GetPoly();
+  TEST(route.GetPoint(1).EqualDxDy(selectedPoint, mercator::kPointEqualityEps), ());
+}
+
 UNIT_TEST(RoutingManager_SetRouterReplacesTrackRouter)
 {
   for (bool const sameProfile : {false, true})
@@ -2332,6 +2358,11 @@ UNIT_TEST(RoutingManager_NavigateTrackDistinguishesGapSides)
   TEST_EQUAL(route->GetPoly().GetPoint(1), MeterPoint(500, 0), ());
   TEST_EQUAL(route->GetPoly().Back(), MeterPoint(600, 0), ());
   TEST_ALMOST_EQUAL_ABS(GetFollowedTrackLengthMeters(manager), 100.0, 1.0, ());
+  TEST_EQUAL(manager.GetRoutePointAtDistance(boundary), std::optional(MeterPoint(500, 0)), ());
+  TEST_EQUAL(manager.UpdateFollowedTrackEntryAt(boundary), FollowTrackResult::Ok, ());
+  fixture.WaitForBuildResult();
+  route = manager.RoutingSession().GetRoute();
+  TEST_EQUAL(route->GetPoly().GetPoint(1), MeterPoint(500, 0), ());
   TestAssertion([&]
   { CreateTestTrack(bookmarks, "pedestrian", {}, {{MeterPoint(0, 0), 100}, {MeterPoint(0, 0), 200}}); });
   TEST_EQUAL(manager.RoutingSession().GetRoute(), route, ("Invalid track creation must fail before publication"));
@@ -2470,6 +2501,7 @@ UNIT_TEST(RoutingManager_TrackPreviewEntryDistanceUsesChartGapBoundary)
 
   double const boundary = mercator::DistanceOnEarth(MeterPoint(0, 0), MeterPoint(100, 0));
   auto const * route = manager.RoutingSession().GetRoute();
+  TEST_EQUAL(manager.GetRoutePointAtDistance(boundary), std::optional(MeterPoint(100, 0)), ());
   TEST_EQUAL(manager.UpdateFollowedTrackEntryAt(boundary), FollowTrackResult::NoRemainingGeometry, ());
   TEST_EQUAL(manager.RoutingSession().GetRoute(), route, ());
   TEST_EQUAL(bookmarks.GetElevationActivePoint(id), 0.0, ());

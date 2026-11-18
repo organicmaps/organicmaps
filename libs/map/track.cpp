@@ -7,6 +7,7 @@
 #include "geometry/parametrized_segment.hpp"
 
 #include <algorithm>
+#include <cmath>
 
 Track::Track(kml::TrackData && data)
   : Base(data.m_id == kml::kInvalidTrackId ? UserMarkIdStorage::Instance().GetNextTrackId() : data.m_id)
@@ -148,8 +149,15 @@ void Track::UpdateSelectionInfo(m2::PointD const & tapPoint, TrackSelectionInfo 
       info.m_trackId = m_data.m_id;
       info.m_trackPoint = closestPoint;
 
-      auto const segDistInMeters = mercator::DistanceOnEarth(line[ptIndex].GetPoint(), closestPoint);
-      info.m_distFromBegM = segDistInMeters + GetLengthMetersImpl(lineIndex, ptIndex);
+      auto const direction = seg.GetP1() - seg.GetP0();
+      double const lengthSquared = direction.SquaredLength();
+      double const fraction =
+          lengthSquared > 0.0
+              ? std::clamp(m2::DotProduct(closestPoint - seg.GetP0(), direction) / lengthSquared, 0.0, 1.0)
+              : 0.0;
+      // Interpolate cumulative chart distance with the same segment fraction as GetPoint().
+      info.m_distFromBegM =
+          std::lerp(GetLengthMetersImpl(lineIndex, ptIndex), GetLengthMetersImpl(lineIndex, ptIndex + 1), fraction);
     }
   }
 }

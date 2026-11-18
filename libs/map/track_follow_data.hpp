@@ -33,7 +33,7 @@ enum class FollowTrackResult
 
 std::string DebugPrint(FollowTrackResult result);
 
-// Resolve the selected source occurrence using both its coordinate and finite distance.
+// Resolve the selected source occurrence using both its coordinate and finite chart distance.
 std::optional<TrackSourcePosition> ResolveTrackEntry(kml::MultiGeometry const & geometry,
                                                      m2::PointD const & selectedPoint, double distanceFromBeginningM);
 
