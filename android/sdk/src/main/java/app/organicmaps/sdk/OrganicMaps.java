@@ -258,13 +258,15 @@ public final class OrganicMaps implements DefaultLifecycleObserver
     if (mFrameworkInitialized)
       return;
 
-    nativeInitFramework(mMapsReadiness::complete);
+    nativeInitFramework(() -> {
+      RoutingController.get().initialize(mLocationHelper);
+      mMapsReadiness.complete();
+    });
 
     initNativeStrings();
     SearchEngine.INSTANCE.initialize();
     BookmarkManager.loadBookmarks();
     TtsPlayer.INSTANCE.initialize(mContext);
-    RoutingController.get().initialize(mLocationHelper);
     TrafficManager.INSTANCE.initialize();
     mSubwayManager.initialize();
     mIsolinesManager.initialize();

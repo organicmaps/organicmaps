@@ -2,10 +2,13 @@ package app.organicmaps.sdk;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
+import app.organicmaps.sdk.bookmarks.data.MapObject;
+import app.organicmaps.sdk.routing.RoutingController;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -36,11 +39,19 @@ public class OrganicMapsReadinessTest
         assertFalse(maps.isReady());
         final Runnable oldPhone = () -> events.add("destroyed phone");
         maps.runWhenReady(oldPhone);
+        final RoutingController controller = RoutingController.get();
+        final MapObject start = MapObject.createMapObject(MapObject.POI, "Origin", "", 1, 1);
+        final MapObject finish = MapObject.createMapObject(MapObject.POI, "Destination", "", 2, 2);
         maps.runWhenReady(() -> {
           try
           {
             assertTrue(sdk.arePlatformAndCoreInitialized());
             assertTrue(maps.isReady());
+            assertEquals(Router.getLastUsed(), Router.get());
+            assertEquals(Router.get(), controller.getLastRouterType());
+            controller.prepare(start, finish, Router.Ruler);
+            assertTrue(controller.isBuilding());
+            controller.cancel();
             events.add("ready");
           }
           catch (Throwable error)
@@ -54,6 +65,10 @@ public class OrganicMapsReadinessTest
         assertTrue(sdk.arePlatformAndCoreInitialized());
         assertFalse(maps.isReady());
         assertTrue(events.isEmpty());
+        assertRoutingCommandsWaitForMaps(controller, start, finish);
+        final Router profile = Router.getLastUsed() == Router.Bicycle ? Router.Pedestrian : Router.Bicycle;
+        Router.set(profile);
+        assertEquals(profile, Router.getLastUsed());
         sdk.init();
         maps.cancel(oldPhone);
         maps.runWhenReady(() -> {
@@ -73,5 +88,21 @@ public class OrganicMapsReadinessTest
     assertEquals(List.of("ready", "car", "replacement phone"), events);
     instrumentation.runOnMainSync(() -> readiness.get().runWhenReady(() -> events.add("late")));
     assertEquals(List.of("ready", "car", "replacement phone", "late"), events);
+  }
+
+  private static void assertRoutingCommandsWaitForMaps(RoutingController controller, MapObject start, MapObject finish)
+  {
+    assertThrows(IllegalStateException.class, () -> controller.addStop(finish));
+    assertEquals(0, Framework.nativeGetRoutePoints().length);
+    assertThrows(IllegalStateException.class, () -> controller.setStartPoint(start));
+    assertThrows(IllegalStateException.class, () -> controller.setEndPoint(finish));
+    assertThrows(IllegalStateException.class, () -> controller.prepare(start, finish));
+    assertThrows(IllegalStateException.class, () -> controller.prepare(start, finish, Router.Ruler));
+    assertThrows(IllegalStateException.class, controller::restoreRoute);
+    assertThrows(IllegalStateException.class, controller::rebuildLastRoute);
+    assertThrows(IllegalStateException.class, controller::launchPlanning);
+    assertEquals(0, Framework.nativeGetRoutePoints().length);
+    assertEquals(RoutingController.BuildState.NONE, controller.getBuildState());
+    assertFalse(controller.isPlanning());
   }
 }

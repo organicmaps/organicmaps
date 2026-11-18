@@ -68,6 +68,10 @@ Tasks run on the main thread once maps are loaded, immediately if already ready.
 Cancel pending tasks with `cancel(task)` when the activity or car session stops,
 and register them again when it returns, including after recreation.
 
+Preparing, editing, building or restoring a route before readiness is a contract error:
+`RoutingController` throws before changing routing state, and native route building
+also requires readiness. `Router.set()` can save a profile preference while maps load.
+Until readiness, read it with `Router.getLastUsed()`: `Router.get()` requires initialized routing.
 Handle `IOException` from `init()` by displaying an initialization error and avoiding
 native API calls; readiness stays false after this failure. The constructor throws
 `AssertionError` if its private settings directory cannot be created.
