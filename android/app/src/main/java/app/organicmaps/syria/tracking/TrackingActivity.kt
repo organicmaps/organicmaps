@@ -241,7 +241,7 @@ class TrackingActivity : BaseMwmFragmentActivity() {
         renderLiveToggle()
     }
 
-    /** Live location toggle: filled red while on (like a "live" sign), outlined when off. */
+    /** Live location toggle: filled green while on (like the live badge on the map), outlined when off. */
     private fun renderLiveToggle() {
         val online = SyriaStatus.online().value == true
         val on = SyriaPrefs.isLiveEnabled(this)
@@ -253,8 +253,8 @@ class TrackingActivity : BaseMwmFragmentActivity() {
                 else -> R.string.syria_live_paused
             },
         )
-        val fill = ContextCompat.getColor(this, R.color.syria_btn_stop)
-        val onFill = ContextCompat.getColor(this, R.color.syria_btn_on_stop)
+        val fill = ContextCompat.getColor(this, R.color.syria_btn_start)
+        val onFill = ContextCompat.getColor(this, R.color.syria_btn_on_start)
         val text = MaterialColors.getColor(liveButton, android.R.attr.textColorPrimary)
         liveButton.backgroundTintList = ColorStateList.valueOf(if (on) fill else Color.TRANSPARENT)
         liveButton.setTextColor(if (on) onFill else text)

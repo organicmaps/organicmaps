@@ -158,8 +158,9 @@ class LiveLocationService : Service(), LocationListener {
         private const val ACTION_STOP = "app.organicmaps.syria.live.STOP"
         const val INTERVAL_MS = 5000L
 
-        // Location updates may come a little early; this keeps about one point per 5 seconds.
-        private const val MIN_GAP_MS = 4500L
+        // Fixes come about every 5 seconds but some a little early: a 4.5 s minimum dropped every other one
+        // (7-9 s apart on a Pixel). This only guards against bursts of fixes.
+        private const val MIN_GAP_MS = 3000L
 
         private val running = MutableLiveData(false)
 
