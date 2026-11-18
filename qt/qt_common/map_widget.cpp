@@ -6,6 +6,8 @@
 
 #include "map/framework.hpp"
 
+#include "drape_frontend/visual_params.hpp"
+
 #include "routing/maxspeeds.hpp"
 
 #include "geometry/point2d.hpp"
@@ -441,7 +443,36 @@ void MapWidget::initializeGL()
 
 void MapWidget::paintGL()
 {
+#if QT_VERSION < QT_VERSION_CHECK(6, 6, 0)
+  // Qt repaints after a scale change, also when the size stays the same and resizeGL() isn't called.
+  UpdateRatio();
+#endif
   m_frameBlit->Draw(m_contextFactory->AcquireFrameTexture());
+}
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
+bool MapWidget::event(QEvent * event)
+{
+  if (event->type() == QEvent::DevicePixelRatioChange && m_contextFactory)
+    UpdateRatio();
+  return QOpenGLWidget::event(event);
+}
+#endif
+
+// Wayland reports the screen scale only after the context is created, and moving to another screen changes it.
+void MapWidget::UpdateRatio()
+{
+  auto const ratio = static_cast<float>(devicePixelRatio());
+  if (m_screenshotMode || m_ratio == ratio)
+    return;
+  m_ratio = ratio;
+  // Unlike the scale at startup, a new visual scale must be in this range.
+  auto const visualScale = std::clamp(ratio, 1.0f, static_cast<float>(df::kMaxVisualScale));
+  if (visualScale != ratio)
+    LOG(LWARNING, ("Visual scale", visualScale, "instead of the device pixel ratio", ratio));
+  m_framework.UpdateVisualScale(visualScale);
+  m_skin.reset(new gui::Skin(gui::ResolveGuiSkinFile("default"), visualScale));
+  resizeGL(width(), height());
 }
 
 void MapWidget::resizeGL(int width, int height)
