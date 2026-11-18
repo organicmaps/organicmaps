@@ -1,13 +1,16 @@
 import UIKit
 
-private class ChartXAxisInnerView: UIView {
+class ChartXAxisView: UIView {
   private static let minLabelSpacing: CGFloat = 4
 
-  var labels: [UILabel] = []
+  var lowerBound = 0
+  var upperBound = 0
+  var chartData: ChartPresentationData!
 
   var font: UIFont = .systemFont(ofSize: 12, weight: .regular) {
     didSet {
       labels.forEach { $0.font = font }
+      setNeedsLayout()
     }
   }
 
@@ -17,117 +20,60 @@ private class ChartXAxisInnerView: UIView {
     }
   }
 
-  override func layoutSubviews() {
-    super.layoutSubviews()
-    updateLabels()
-  }
-
-  private func makeLabel(text: String) -> UILabel {
-    let label = UILabel()
-    label.font = font
-    label.textColor = textColor
-    label.text = text
-    label.frame = CGRect(x: 0, y: 0, width: 60, height: 15)
-    return label
-  }
-
-  func setLabels(_ steps: [String]) {
-    labels.forEach { $0.removeFromSuperview() }
-    labels.removeAll()
-
-    for i in 0 ..< steps.count {
-      let step = steps[i]
-      let label = makeLabel(text: step)
-      if i == 0 {
-        label.textAlignment = .left
-      } else if i == steps.count - 1 {
-        label.textAlignment = .right
-      } else {
-        label.textAlignment = .center
-      }
-      labels.append(label)
-      addSubview(label)
-    }
-
-    setNeedsLayout()
-  }
-
-  private func updateLabels() {
-    guard bounds.width > 0 else { return }
-    for i in 0 ..< labels.count {
-      let fraction = labels.count > 1 ? CGFloat(i) / CGFloat(labels.count - 1) : 0
-      let x = bounds.width * fraction
-      let l = labels[i]
-      var f = l.frame
-      switch l.textAlignment {
-      case .left: f.origin.x = x
-      case .right: f.origin.x = x - f.width
-      default: f.origin.x = x - f.width / 2
-      }
-      f.origin.y = 0
-      l.frame = f
-    }
-
-    // Hide interior labels that would overlap an edge label.
-    guard labels.count > 2, let first = labels.first, let last = labels.last else { return }
-    let minX = first.frame.minX + first.intrinsicContentSize.width + Self.minLabelSpacing
-    let maxX = last.frame.maxX - last.intrinsicContentSize.width - Self.minLabelSpacing
-    for l in labels.dropFirst().dropLast() {
-      let halfWidth = l.intrinsicContentSize.width / 2
-      l.isHidden = l.frame.midX - halfWidth < minX || l.frame.midX + halfWidth > maxX
-    }
-  }
-}
-
-class ChartXAxisView: UIView {
-  var lowerBound = 0
-  var upperBound = 0
-  var chartData: ChartPresentationData!
-
-  var font: UIFont = .systemFont(ofSize: 12, weight: .regular) {
-    didSet {
-      labelsView?.font = font
-    }
-  }
-
-  var textColor: UIColor = .init(white: 0, alpha: 0.3) {
-    didSet {
-      labelsView?.textColor = textColor
-    }
-  }
-
-  private var labelsView: ChartXAxisInnerView?
+  private var labels: [UILabel] = []
+  private var positions: [CGFloat] = []
 
   func setBounds(lower: Int, upper: Int) {
     lowerBound = lower
     upperBound = upper
+    let lowerDistance = chartData.distance(forChartX: CGFloat(lower))
+    let upperDistance = chartData.distance(forChartX: CGFloat(upper))
+    let ticks = chartData.formatter.xAxisLabels(lowerBound: lowerDistance, upperBound: upperDistance)
+    positions = ticks.map { tick in
+      guard upperDistance > lowerDistance else { return 0 }
+      return (chartData.chartX(forDistance: tick.value) - CGFloat(lower)) / CGFloat(upper - lower)
+    }
+    labels.forEach { $0.removeFromSuperview() }
+    labels = ticks.map { tick in
+      let label = UILabel()
+      label.font = font
+      label.textColor = textColor
+      label.text = tick.text
+      addSubview(label)
+      return label
+    }
+    setNeedsLayout()
+  }
 
-    // Keep a single label if even the two edge labels repeat (e.g. a zero-length profile).
-    var labels = [chartData.labelAt(CGFloat(lower))]
-    // Reduce tick density when formatting would repeat the same distance.
-    for intervalCount in (1 ... 5).reversed() {
-      let steps = (0 ... intervalCount).map { i in
-        let chartX = CGFloat(lower) + CGFloat(upper - lower) * CGFloat(i) / CGFloat(intervalCount)
-        return chartData.labelAt(chartX)
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    for (label, position) in zip(labels, positions) {
+      let size = label.intrinsicContentSize
+      let x: CGFloat
+      // Only boundary ticks are edge-aligned; interior labels stay centered on their distance.
+      if abs(position) < 1e-8 {
+        x = 0
+      } else if abs(position - 1) < 1e-8 {
+        x = bounds.width - size.width
+      } else {
+        x = bounds.width * position - size.width / 2
       }
-      if Set(steps).count == steps.count {
-        labels = steps
-        break
-      }
+      label.frame = CGRect(origin: CGPoint(x: x, y: 0), size: size)
+      label.isHidden = x < 0 || label.frame.maxX > bounds.width
     }
 
-    let lv = ChartXAxisInnerView()
-    lv.frame = bounds
-    lv.font = font
-    lv.textColor = textColor
-    lv.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    addSubview(lv)
-
-    if let labelsView = labelsView {
-      labelsView.removeFromSuperview()
+    // Thin the axis uniformly, including when edge-aligned labels need more room.
+    let labelStride = (1 ... max(1, labels.count)).first { step in
+      var previousMaxX = -CGFloat.infinity
+      for index in stride(from: 0, to: labels.count, by: step) where !labels[index].isHidden {
+        let frame = labels[index].frame
+        guard frame.minX >= previousMaxX + Self.minLabelSpacing else { return false }
+        previousMaxX = frame.maxX
+      }
+      return true
+    }!
+    for (index, label) in labels.enumerated() {
+      label.isHidden = label.isHidden || index % labelStride != 0
     }
-
-    lv.setLabels(labels)
-    labelsView = lv
   }
 }

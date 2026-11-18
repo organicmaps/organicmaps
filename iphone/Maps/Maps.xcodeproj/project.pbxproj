@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A14192000000000000000002 /* ElevationXAxisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14192000000000000000001 /* ElevationXAxisTests.swift */; };
 		C01F84D927D2414E9A530001 /* BookmarksListSortingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01F84D927D2414E9A530002 /* BookmarksListSortingTests.swift */; };
 		0F13484A0000000000000002 /* UITableViewCell+SeparatorInset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F13484A0000000000000001 /* UITableViewCell+SeparatorInset.swift */; };
 		C50A71010000000000000001 /* MWMSearchSpotlightTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = C50A71010000000000000002 /* MWMSearchSpotlightTests.mm */; };
@@ -776,6 +777,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A14192000000000000000001 /* ElevationXAxisTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevationXAxisTests.swift; sourceTree = "<group>"; };
 		C01F84D927D2414E9A530002 /* BookmarksListSortingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksListSortingTests.swift; sourceTree = "<group>"; };
 		0F13484A0000000000000001 /* UITableViewCell+SeparatorInset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+SeparatorInset.swift"; sourceTree = "<group>"; };
 		C50A71010000000000000002 /* MWMSearchSpotlightTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSearchSpotlightTests.mm; sourceTree = "<group>"; };
@@ -2156,6 +2158,7 @@
 			children = (
 				E8C536FD39F5842BE26742A9 /* ActionBarViewControllerTests.swift */,
 				ED1A0C0F2E9B10A400C0FFEE /* OpeningHoursTests.swift */,
+				A14192000000000000000001 /* ElevationXAxisTests.swift */,
 				4584F20AAF794B9683B14087 /* PlacePageUserDescriptionWebViewTests.swift */,
 			);
 			path = PlacePageTests;
@@ -5076,6 +5079,7 @@
 				A13418010000000000000004 /* CarPlayManeuverMapperTests.swift in Sources */,
 				B26883EF0814407A8B1D73AF /* PlacePageUserDescriptionWebViewTests.swift in Sources */,
 				ED1A0C102E9B10A400C0FFEE /* OpeningHoursTests.swift in Sources */,
+				A14192000000000000000002 /* ElevationXAxisTests.swift in Sources */,
 				15CCDA1EC17F04F7D89CA086 /* ActionBarViewControllerTests.swift in Sources */,
 				EDF838C12C00B9D6007E4E67 /* iCloudDirectoryMonitorTests.swift in Sources */,
 				EDF838C02C00B9D0007E4E67 /* DefaultLocalDirectoryMonitorTests.swift in Sources */,

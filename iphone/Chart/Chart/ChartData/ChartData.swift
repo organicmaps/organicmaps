@@ -12,6 +12,7 @@ public enum ChartLineType: String {
 
 public protocol ChartFormatter {
   func xAxisString(from value: Double) -> String
+  func xAxisLabels(lowerBound: Double, upperBound: Double) -> [(value: Double, text: String)]
   func yAxisString(from value: Double) -> String
   func yAxisLowerBound(from value: CGFloat) -> CGFloat
   func yAxisUpperBound(from value: CGFloat) -> CGFloat
