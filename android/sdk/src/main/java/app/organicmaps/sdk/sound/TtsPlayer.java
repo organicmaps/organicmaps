@@ -214,7 +214,7 @@ public enum TtsPlayer
     // TextToSpeech.OnInitListener() can be called from a non-main thread
     // on LineageOS '20.0-20231127-RELEASE-thyme' 'Xiaomi/thyme/thyme'.
     // https://github.com/organicmaps/organicmaps/issues/6903
-    mTts = new TextToSpeech(context, status -> UiThread.run(() -> {
+    mTts = new TextToSpeech(context, status -> UiThread.runLater(() -> {
       // Stale callback from a TextToSpeech we've already shut down via onChange();
       // mTts now points to the new engine, so running this body would clobber its
       // in-flight initialization.
