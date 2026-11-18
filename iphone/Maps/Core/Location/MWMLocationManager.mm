@@ -219,7 +219,9 @@ void setShowLocationAlert(BOOL needShow)
   dispatch_async(dispatch_get_main_queue(), ^{
     MWMLocationManager * manager = [self manager];
     [manager.observers addObject:observer];
-    [manager processLocationUpdate:manager.lastLocationInfo];
+    if (manager.lastLocationInfo && manager.lastLocationStatus == MWMLocationStatusNoError &&
+        [observer respondsToSelector:@selector(onLocationUpdate:)])
+      [observer onLocationUpdate:manager.lastLocationInfo];
     // Replay after registration so heading changes while this block was queued are not missed.
     if ([observer respondsToSelector:@selector(onHeadingUpdate:)])
       [observer onHeadingUpdate:[self lastHeading]];

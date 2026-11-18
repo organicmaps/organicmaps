@@ -65,7 +65,9 @@ CLHeading * MakeHeading(CLLocationDirection direction, CLLocationDirection accur
 
 @interface HeadingLossTestObserver : NSObject <MWMLocationObserver>
 @property(nonatomic, nullable) CLHeading * heading;
+@property(nonatomic, nullable) CLLocation * location;
 @property(nonatomic) NSUInteger headingUpdates;
+@property(nonatomic) NSUInteger locationUpdates;
 @end
 
 @implementation HeadingLossTestObserver
@@ -73,6 +75,12 @@ CLHeading * MakeHeading(CLLocationDirection direction, CLLocationDirection accur
 {
   self.heading = heading;
   ++_headingUpdates;
+}
+
+- (void)onLocationUpdate:(CLLocation *)location
+{
+  self.location = location;
+  ++_locationUpdates;
 }
 @end
 
@@ -221,5 +229,20 @@ CLHeading * MakeHeading(CLLocationDirection direction, CLLocationDirection accur
   XCTAssertNil(first.heading);
   XCTAssertNil([HeadingLossTestLocationManager lastHeading]);
   XCTAssertNil([self registerObserver].heading);
+}
+
+- (void)testRegistrationReplaysLocationOnlyToNewObserver
+{
+  CLLocation * location = [[CLLocation alloc] initWithLatitude:52 longitude:13];
+  [g_testManager locationManager:self.coreLocation didUpdateLocations:@[location]];
+
+  HeadingLossTestObserver * first = [self registerObserver];
+  XCTAssertEqual(first.locationUpdates, 1u);
+
+  HeadingLossTestObserver * second = [self registerObserver];
+  XCTAssertEqual(first.locationUpdates, 1u);
+  XCTAssertEqual(second.locationUpdates, 1u);
+  XCTAssertEqual(second.location.coordinate.latitude, location.coordinate.latitude);
+  XCTAssertEqual(second.location.coordinate.longitude, location.coordinate.longitude);
 }
 @end
