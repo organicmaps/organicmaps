@@ -218,7 +218,7 @@ public abstract class CarAppSessionBase
 
   private boolean canShowCarScreen()
   {
-    // The phone can take the display before the posted handoff stops this session.
+    // Display ownership can change before the handoff callback runs.
     return isStarted() && mDisplayManager.isCarDisplayUsed();
   }
 
@@ -261,7 +261,7 @@ public abstract class CarAppSessionBase
     mPendingPlace = null;
     if (!canShowCarScreen())
       return;
-    // TODO: How maps downloading can trigger place page activation?
+    // A place queued during startup can be delivered while a download prompt is visible.
     if (DownloadMapsScreen.MARKER.equals(mScreenManager.getTop().getMarker()))
       return;
 

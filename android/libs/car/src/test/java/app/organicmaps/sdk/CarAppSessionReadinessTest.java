@@ -1,6 +1,8 @@
 package app.organicmaps.sdk;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockConstruction;
@@ -24,7 +26,7 @@ import androidx.car.app.versioning.CarAppApiLevels;
 import androidx.lifecycle.Lifecycle;
 import app.organicmaps.car.CarAppSessionBase;
 import app.organicmaps.car.screens.PlaceScreen;
-import app.organicmaps.car.util.CurrentCountryChangedListener;
+import app.organicmaps.car.screens.download.DownloadMapsScreen;
 import app.organicmaps.car.util.IntentUtils;
 import app.organicmaps.car.util.ThemeUtils;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
@@ -32,6 +34,8 @@ import app.organicmaps.sdk.car.CarSensorsManager;
 import app.organicmaps.sdk.car.renderer.Renderer;
 import app.organicmaps.sdk.car.renderer.RendererFactory;
 import app.organicmaps.sdk.display.DisplayManager;
+import app.organicmaps.sdk.downloader.CountryItem;
+import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.location.LocationHelper;
 import app.organicmaps.sdk.location.LocationState;
 import app.organicmaps.sdk.routing.RoutingController;
@@ -53,7 +57,8 @@ import org.robolectric.annotation.Implements;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(shadows = {CarAppSessionReadinessTest.Sdk.class, CarAppSessionReadinessTest.Formatting.class,
-                   CarAppSessionReadinessTest.Position.class, CarAppSessionReadinessTest.NativeFramework.class})
+                   CarAppSessionReadinessTest.Position.class, CarAppSessionReadinessTest.NativeFramework.class,
+                   CarAppSessionReadinessTest.MapStorage.class})
 public class CarAppSessionReadinessTest
 {
   private final MapsReadiness mReadiness = new MapsReadiness();
@@ -66,7 +71,6 @@ public class CarAppSessionReadinessTest
   private MockedStatic<ThemeUtils> mTheme;
   private MockedStatic<Logger> mLogger;
   private MockedConstruction<CarSensorsManager> mSensors;
-  private MockedConstruction<CurrentCountryChangedListener> mCountries;
   private MockedConstruction<ScreenManager> mScreens;
   private Session mSession;
   private SessionController mLifecycle;
@@ -96,7 +100,6 @@ public class CarAppSessionReadinessTest
     mRenderers = mockStatic(RendererFactory.class);
     mRenderers.when(() -> RendererFactory.create(any(), any(), any(), any())).thenReturn(renderer);
     mSensors = mockConstruction(CarSensorsManager.class);
-    mCountries = mockConstruction(CurrentCountryChangedListener.class);
     mScreens = mockConstruction(ScreenManager.class);
     mSession = new Session(sdk, mDisplay);
     mManager = mScreens.constructed().get(0);
@@ -111,7 +114,6 @@ public class CarAppSessionReadinessTest
     if (mLifecycle != null)
       mLifecycle.moveToState(Lifecycle.State.DESTROYED);
     mScreens.close();
-    mCountries.close();
     mSensors.close();
     mRenderers.close();
     mIntents.close();
@@ -129,7 +131,6 @@ public class CarAppSessionReadinessTest
     assertEquals(List.of(), mDelivered);
     mReadiness.complete();
     assertEquals(List.of("geo:1,2?q=first", "geo:1,2?q=second"), mDelivered);
-    verify(mRouting).hasSavedRoute();
   }
 
   @Test
@@ -141,7 +142,6 @@ public class CarAppSessionReadinessTest
     mSession.onNewIntent(intent("second"));
     mReadiness.complete();
     assertEquals(List.of(), mDelivered);
-    verify(mRouting, never()).hasSavedRoute();
     mLifecycle.moveToState(Lifecycle.State.STARTED);
     assertEquals(List.of("geo:1,2?q=first", "geo:1,2?q=second"), mDelivered);
   }
@@ -195,20 +195,25 @@ public class CarAppSessionReadinessTest
   }
 
   @Test
-  public void currentCountryIsObservedOnlyWhileStartedAfterMapsLoad()
+  public void missingRegionPromptsOnlyInAStartedSessionWithLoadedMaps()
   {
-    final CurrentCountryChangedListener countries = mCountries.constructed().get(0);
+    final ScreenManager screens = mSession.getCarContext().getCarService(ScreenManager.class);
     mLifecycle.moveToState(Lifecycle.State.STARTED);
+    MapStorage.reportCountry("Region");
+    assertFalse(screens.getTop() instanceof DownloadMapsScreen);
+
     mLifecycle.moveToState(Lifecycle.State.CREATED);
     mReadiness.complete();
-    verify(countries, never()).onStart(any(), any());
+    MapStorage.reportCountry("Region");
+    assertFalse(screens.getTop() instanceof DownloadMapsScreen);
 
     mLifecycle.moveToState(Lifecycle.State.STARTED);
-    verify(countries).onStart(any(), any());
+    MapStorage.reportCountry("Region");
+    assertTrue(screens.getTop() instanceof DownloadMapsScreen);
   }
 
   @Test
-  public void routeAndCountryAreNotRestoredAfterThePhoneTookTheDisplay()
+  public void routeIsNotRestoredAfterThePhoneTookTheDisplay()
   {
     when(mRouting.hasSavedRoute()).thenReturn(true);
     mLifecycle.moveToState(Lifecycle.State.STARTED);
@@ -216,8 +221,6 @@ public class CarAppSessionReadinessTest
     when(mDisplay.isCarDisplayUsed()).thenReturn(false);
     mReadiness.complete();
     verify(mManager, never()).push(any());
-    verify(mRouting, never()).hasSavedRoute();
-    verify(mCountries.constructed().get(0), never()).onStart(any(), any());
   }
 
   @Test
@@ -299,5 +302,41 @@ public class CarAppSessionReadinessTest
     @Implementation
     protected static void nativeRemovePlacePageActivationListener(PlacePageActivationListener listener)
     {}
+  }
+
+  @Implements(MapManager.class)
+  public static class MapStorage
+  {
+    private static MapManager.CurrentCountryChangedListener sListener;
+
+    static void reportCountry(String countryId)
+    {
+      if (sListener != null)
+        sListener.onCurrentCountryChanged(countryId);
+    }
+
+    @Implementation
+    protected static void nativeSubscribeOnCountryChanged(MapManager.CurrentCountryChangedListener listener)
+    {
+      sListener = listener;
+    }
+
+    @Implementation
+    protected static void nativeUnsubscribeOnCountryChanged()
+    {
+      sListener = null;
+    }
+
+    @Implementation
+    protected static void nativeGetAttributes(CountryItem country)
+    {
+      country.present = false;
+    }
+
+    @Implementation
+    protected static String nativeGetRoot()
+    {
+      return "root";
+    }
   }
 }

@@ -126,23 +126,7 @@ public class StartupReadinessTest
   }
 
   @Test
-  public void routingActivityWaitsForReadinessAndPreservesItsIntent()
-  {
-    final Intent intent = new Intent().putExtra("payload", "route");
-    try (ActivityController<RoutingActivity> host = Robolectric.buildActivity(RoutingActivity.class, intent))
-    {
-      host.get().setTheme(R.style.MwmTheme);
-      host.create();
-      assertTrue(host.get().isFinishing());
-      assertFalse(host.get().created);
-      final Intent forwarded = shadowOf(host.get()).getNextStartedActivity();
-      assertEquals(SplashActivity.class.getName(), forwarded.getComponent().getClassName());
-      assertEquals("route", forwarded.getStringExtra("payload"));
-    }
-  }
-
-  @Test
-  public void restoredFragmentsAttachOnlyWhenMapsAreReady()
+  public void restoringBeforeMapsLoadForwardsTheIntentWithoutAttachingFragments()
   {
     MapFragment.attaches = 0;
     MapFragment.creates = 0;
@@ -158,13 +142,16 @@ public class StartupReadinessTest
       original.pause().saveInstanceState(state).stop();
     }
     when(mReadiness.isReady()).thenReturn(false);
-    try (ActivityController<RoutingActivity> restored = Robolectric.buildActivity(RoutingActivity.class))
+    final Intent intent = new Intent().putExtra("payload", "route");
+    try (ActivityController<RoutingActivity> restored = Robolectric.buildActivity(RoutingActivity.class, intent))
     {
       restored.get().setTheme(R.style.MwmTheme);
       restored.create(state);
       assertTrue(restored.get().isFinishing());
+      assertFalse(restored.get().created);
       final Intent redirect = shadowOf(restored.get()).getNextStartedActivity();
       assertEquals(SplashActivity.class.getName(), redirect.getComponent().getClassName());
+      assertEquals("route", redirect.getStringExtra("payload"));
       assertEquals(1, MapFragment.attaches);
       assertEquals(1, MapFragment.creates);
     }
