@@ -17,23 +17,13 @@ std::string const kParallelLinearAnim = "ParallelLinear";
 
 drape_ptr<SequenceAnimation> GetPrettyMoveAnimation(ScreenBase const & startScreen, ScreenBase const & endScreen)
 {
-  return GetPrettyMoveAnimation(startScreen, startScreen.GetScale(), endScreen.GetScale(), startScreen.GetOrg(),
-                                endScreen.GetOrg());
-}
+  double const startScale = startScreen.GetScale();
+  double const endScale = endScreen.GetScale();
+  m2::PointD const & startPt = startScreen.GetOrg();
+  m2::PointD const & endPt = endScreen.GetOrg();
 
-drape_ptr<SequenceAnimation> GetPrettyMoveAnimation(ScreenBase const & screen, m2::AnyRectD const & startRect,
-                                                    m2::AnyRectD const & endRect)
-{
-  double const startScale = CalculateScale(screen.PixelRect(), startRect.GetLocalRect());
-  double const endScale = CalculateScale(screen.PixelRect(), endRect.GetLocalRect());
-
-  return GetPrettyMoveAnimation(screen, startScale, endScale, startRect.GlobalCenter(), endRect.GlobalCenter());
-}
-
-drape_ptr<SequenceAnimation> GetPrettyMoveAnimation(ScreenBase const & screen, double startScale, double endScale,
-                                                    m2::PointD const & startPt, m2::PointD const & endPt)
-{
-  double const moveDuration = PositionInterpolator::GetMoveDuration(startPt, endPt, screen.PixelRectIn3d(), startScale);
+  double const moveDuration =
+      PositionInterpolator::GetMoveDuration(startPt, endPt, startScreen.PixelRectIn3d(), startScale);
   ASSERT_GREATER(moveDuration, 0.0, ());
 
   double const scaleFactor = moveDuration / kMaxAnimationTimeSec * 2.0;
@@ -47,7 +37,9 @@ drape_ptr<SequenceAnimation> GetPrettyMoveAnimation(ScreenBase const & screen, d
 
   // TODO (in future): Pass fixed duration instead of screen.
   auto moveAnim = make_unique_dp<MapLinearAnimation>();
-  moveAnim->SetMove(startPt, endPt, screen);
+  moveAnim->SetMove(startPt, endPt, startScreen);
+  // Turn to the target angle while moving, otherwise the map ends with the start angle.
+  moveAnim->SetRotate(startScreen.GetAngle(), endScreen.GetAngle());
   moveAnim->SetMaxDuration(kMaxAnimationTimeSec);
 
   auto zoomInAnim = make_unique_dp<MapLinearAnimation>();
@@ -112,22 +104,6 @@ drape_ptr<MapLinearAnimation> GetRectAnimation(ScreenBase const & startScreen, S
   anim->SetMove(startScreen.GetOrg(), endScreen.GetOrg(), startScreen.PixelRectIn3d(),
                 (startScreen.GetScale() + endScreen.GetScale()) / 2.0);
   anim->SetScale(startScreen.GetScale(), endScreen.GetScale());
-  anim->SetMaxScaleDuration(kMaxAnimationTimeSec);
-
-  return anim;
-}
-
-drape_ptr<MapLinearAnimation> GetSetRectAnimation(ScreenBase const & screen, m2::AnyRectD const & startRect,
-                                                  m2::AnyRectD const & endRect)
-{
-  auto anim = make_unique_dp<MapLinearAnimation>();
-
-  double const startScale = CalculateScale(screen.PixelRect(), startRect.GetLocalRect());
-  double const endScale = CalculateScale(screen.PixelRect(), endRect.GetLocalRect());
-
-  anim->SetRotate(startRect.Angle().val(), endRect.Angle().val());
-  anim->SetMove(startRect.GlobalCenter(), endRect.GlobalCenter(), screen);
-  anim->SetScale(startScale, endScale);
   anim->SetMaxScaleDuration(kMaxAnimationTimeSec);
 
   return anim;
