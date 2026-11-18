@@ -51,62 +51,34 @@ using namespace routing;
 
 + (BOOL)hasRouteAltitude
 {
-  switch ([self type])
-  {
-  case MWMRouterTypeVehicle:
-  case MWMRouterTypePublicTransport:
-  case MWMRouterTypeRuler: return NO;
-  case MWMRouterTypePedestrian:
-  case MWMRouterTypeBicycle: return GetFramework().GetRoutingManager().HasRouteAltitude();
-  }
+  return GetFramework().GetRoutingManager().HasRouteAltitude();
 }
 
 + (RouteElevationPreviewData *)routeElevationProfileData
 {
-  if (![self hasRouteAltitude])
+  auto const data = GetFramework().GetRoutingManager().GetRouteElevationData();
+  if (!data)
     return nil;
 
-  ElevationInfo elevationInfo;
-  if (!GetFramework().GetRoutingManager().GetRouteElevationInfo(elevationInfo))
+  auto const & statistics = data->m_statistics;
+  // Uniform route profiles can be fallback values when elevation data is unavailable.
+  if (data->m_trackId == kml::kInvalidTrackId && statistics.m_maxElevation == statistics.m_minElevation)
     return nil;
 
-  auto const altitudesInfo = elevationInfo.CalculateAltitudesInfo(ElevationInfo::kDefThresholdMWM);
-  // Uniform profiles can be fallback values when elevation data is unavailable.
-  if (altitudesInfo.m_maxAltitude == altitudesInfo.m_minAltitude)
-    return nil;
-
-  TrackStatistics trackStatistics;
-  trackStatistics.m_ascent = altitudesInfo.GetTotalAscent();
-  trackStatistics.m_descent = altitudesInfo.GetTotalDescent();
-  trackStatistics.m_maxElevation = altitudesInfo.m_maxAltitude;
-  trackStatistics.m_minElevation = altitudesInfo.m_minAltitude;
-
-  TrackInfo * trackInfo = [[TrackInfo alloc] initWithTrackStatistics:trackStatistics];
-  ElevationProfileData * profileData = [[ElevationProfileData alloc] initWithTrackId:kml::kInvalidTrackId
-                                                                       elevationInfo:elevationInfo];
+  TrackInfo * trackInfo = [[TrackInfo alloc] initWithTrackStatistics:statistics];
+  ElevationProfileData * profileData = [[ElevationProfileData alloc] initWithTrackId:data->m_trackId
+                                                                       elevationInfo:data->m_elevationInfo];
   return [[RouteElevationPreviewData alloc] initWithTrackInfo:trackInfo elevationInfo:profileData];
 }
 
 + (void)setRouteElevationActivePointDistance:(double)distance
 {
-  auto & framework = GetFramework();
-  if (framework.GetDrapeEngine() == nullptr)
-    return;
-
-  auto const point = framework.GetRoutingManager().GetRoutePointAtDistance(distance);
-  if (!point)
-    return;
-
-  framework.GetDrapeEngine()->SelectObject(df::SelectionShape::ESelectedObject::OBJECT_TRACK, *point, FeatureID(),
-                                           false /* isAnim */, false /* isGeometrySelectionAllowed */,
-                                           true /* isSelectionShapeVisible */);
+  GetFramework().SetRouteElevationActivePoint(distance);
 }
 
 + (void)resetRouteElevationActivePoint
 {
-  auto & framework = GetFramework();
-  if (!framework.HasPlacePageInfo())
-    framework.DeactivateMapSelectionCircle(false /* restoreViewport */);
+  GetFramework().ResetRouteElevationActivePoint();
 }
 
 + (void)saveRouteAsTrack
