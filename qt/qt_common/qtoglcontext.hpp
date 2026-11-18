@@ -30,7 +30,6 @@ public:
   // Called by one consumer with its shared GL context current; the frame stays valid until its next acquisition.
   bool AcquireFrame();
   GLuint GetTextureHandle() const;
-  QRectF const & GetTexRect() const;
   // The listener runs on the render thread under the frame mutex after each new frame.
   void SetPresentListener(std::function<void()> fn);
 

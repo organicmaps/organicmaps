@@ -46,12 +46,6 @@ bool QtOGLContextFactory::AcquireFrame()
   return m_drawContext->AcquireFrame();
 }
 
-QRectF const & QtOGLContextFactory::GetTexRect() const
-{
-  ASSERT(m_drawContext != nullptr, ());
-  return m_drawContext->GetTexRect();
-}
-
 GLuint QtOGLContextFactory::GetTextureHandle() const
 {
   ASSERT(m_drawContext != nullptr, ());

@@ -26,7 +26,6 @@ public:
 
   bool AcquireFrame();
   GLuint GetTextureHandle() const;
-  QRectF const & GetTexRect() const;
 
   // dp::GraphicsContextFactory overrides:
   dp::GraphicsContext * GetDrawContext() override;
