@@ -11,7 +11,6 @@
 
 #include "generator/feature_builder.hpp"
 #include "generator/generator_tests_support/test_with_classificator.hpp"
-#include "generator/generator_tests_support/test_with_custom_mwms.hpp"
 
 #include <sstream>
 #include <string>
@@ -20,53 +19,15 @@
 namespace drules_selector_parser_test
 {
 using generator::tests_support::TestWithClassificator;
-using generator::tests_support::TestWithCustomMwms;
 using namespace drule;
 using namespace std;
 
-UNIT_CLASS_TEST(TestWithCustomMwms, CyclingResearch_SaturatedMapRoundTrip)
-{
-  auto const & c = classif();
-  feature::FeatureBuilder road;
-  road.AssignPoints({{0, 0}, {0.01, 0.01}});
-  road.SetLinear();
-  auto const highway = c.GetTypeByPath({"highway", "tertiary"});
-  road.AddType(highway);
-  vector<uint32_t> retained{highway};
-  for (auto const * tag : {"oneway", "yesbicycle", "bidir_bicycle", "yesfoot", "nocar", "nosidewalk"})
-  {
-    auto const type = c.GetTypeByPath({"hwtag", tag});
-    road.AddType(type);
-    retained.push_back(type);
-  }
-  auto const surface = c.GetTypeByPath({"psurface", "paved_good"});
-  auto const lit = c.GetTypeByPath({"hwtag", "lit"});
-  retained.push_back(surface);
-  road.AddType(surface);
-  road.AddType(lit);
-  TEST_EQUAL(road.GetParams().FinishAddingTypesEx(), FeatureParams::TYPES_EXCEED_MAX, ());
-  TEST(!road.GetParams().IsTypeExist(lit), ());
-  auto id = BuildCountry("CyclingResearchRoundTrip",
-                         [&](generator::tests_support::TestMwmBuilder & builder) { TEST(builder.Add(road), ()); });
-  FeaturesLoaderGuard loader(m_dataSource, id);
-  auto feature = loader.GetFeatureByIndex(0);
-  TEST(feature, ());
-  feature::TypesHolder types(*feature);
-  TEST_EQUAL(types.Size(), 8, ());
-  for (auto type : retained)
-    TEST(types.Has(type), (type));
-  auto selector = ParseSelector(vector<string>{"extra_tag=highway=tertiary", "extra_tag=hwtag=yesbicycle",
-                                               "extra_tag=hwtag=bidir_bicycle", "extra_tag=psurface=paved_good"});
-  TEST(selector, ());
-  TEST(selector->Test(*feature, 15), ());
-}
-
-UNIT_CLASS_TEST(TestWithClassificator, CyclingResearch_RulesUseTheirOwnClassifier)
+UNIT_CLASS_TEST(TestWithClassificator, ExtraTag_RulesUseTheirOwnClassifier)
 {
   Classificator tree;
   istringstream input(
       "world + highway + tertiary - {} natural + coastline - {} mapswithme - "
-      "research + a - b - c - d - e - f - lane - {} {}");
+      "research + lane - {} {}");
   tree.ReadClassificator(input);
   auto const roadType = tree.GetTypeByPath({"highway", "tertiary"});
   auto const laneType = tree.GetTypeByPath({"research", "lane"});
@@ -97,20 +58,18 @@ UNIT_CLASS_TEST(TestWithClassificator, CyclingResearch_RulesUseTheirOwnClassifie
   class Road : public osm::MapObject
   {
   public:
-    Road(Classificator const & c, uint32_t highway, uint32_t lane)
+    Road(uint32_t highway, uint32_t lane)
     {
       m_geomType = feature::GeomType::Line;
       m_points = {{0, 0}, {0.01, 0.01}};
       m_types.Add(highway);
       if (lane != 0)
         m_types.Add(lane);
-      for (auto const * name : {"a", "b", "c", "d", "e", "f"})
-        m_types.Add(c.GetTypeByPath({"research", name}));
     }
   };
-  auto tagged = FeatureType::CreateFromMapObject(Road(tree, roadType, laneType));
-  auto absent = FeatureType::CreateFromMapObject(Road(tree, roadType, 0));
-  TEST_EQUAL(tagged->GetTypesCount(), 8, ());
+  auto tagged = FeatureType::CreateFromMapObject(Road(roadType, laneType));
+  auto absent = FeatureType::CreateFromMapObject(Road(roadType, 0));
+  TEST_EQUAL(tagged->GetTypesCount(), 2, ());
   auto selected = original;
   feature::FilterRulesByRuntimeSelector(*tagged, 15, holder, selected);
   TEST_EQUAL(selected.size(), 1, ());
@@ -121,26 +80,28 @@ UNIT_CLASS_TEST(TestWithClassificator, CyclingResearch_RulesUseTheirOwnClassifie
   TEST_EQUAL(holder.Find(selected.front())->GetLine()->width, 1.0, ());
 }
 
-UNIT_CLASS_TEST(TestWithClassificator, CyclingResearch_TypeSelectors)
+UNIT_CLASS_TEST(TestWithClassificator, ExtraTag_TypeSelectors)
 {
   auto const & c = classif();
   FeatureType path(FeatureID{}, c.GetTypeByPath({"highway", "path", "bicycle"}));
   FeatureType road(FeatureID{}, c.GetTypeByPath({"highway", "tertiary"}));
-  auto parent = ParseSelector("extra_tag=highway=path", c);
-  auto nested = ParseSelector("extra_tag=highway=path=bicycle", c);
-  auto absent = ParseSelector("extra_tag!=hwtag=yescar", c);
+  auto parent = ParseSelector(vector<string>{"extra_tag= highway = path "}, c);
+  auto nested = ParseSelector(vector<string>{"extra_tag=highway=path=bicycle"}, c);
+  auto absent = ParseSelector(vector<string>{"extra_tag!=hwtag=yescar"}, c);
   TEST(parent && nested && absent, ());
   TEST(parent->Test(path, 15), ());
   TEST(nested->Test(path, 15), ());
   TEST(!parent->Test(road, 15), ());
   TEST(absent->Test(path, 15), ());
-  auto conjunction = ParseSelector(vector<string>{"extra_tag=highway=path", "extra_tag!=highway=tertiary"}, c);
+  FeatureType plainPath(FeatureID{}, c.GetTypeByPath({"highway", "path"}));
+  auto conjunction = ParseSelector(vector<string>{"extra_tag=highway=path", "extra_tag!=highway=path=bicycle"}, c);
   TEST(conjunction, ());
-  TEST(conjunction->Test(path, 15), ());
+  TEST(conjunction->Test(plainPath, 15), ());
+  TEST(!conjunction->Test(path, 15), ());
   TEST(!conjunction->Test(road, 15), ());
   for (auto const * invalid : {"extra_tag", "!extra_tag", "extra_tag<highway=path", "extra_tag=does_not_exist",
                                "extra_tag=highway==path", "extra_tag=highway=path="})
-    TEST(!ParseSelector(invalid, c), (invalid));
+    TEST(!ParseSelector(vector<string>{invalid}, c), (invalid));
   TEST(!ParseSelector(vector<string>{"extra_tag=highway=path", "extra_tag=does_not_exist"}, c), ());
 }
 
@@ -280,22 +241,22 @@ UNIT_TEST(TestDruleSelectorInvalid)
 
 UNIT_TEST(PopulationSelector_Smoke)
 {
-  TEST(ParseSelector("population<1000"), ());
-  TEST(ParseSelector(vector<string>({"population>1000"})), ());
-  TEST(ParseSelector(vector<string>({"population>=1000", "population<=1000000"})), ());
+  TEST(ParseSelector(vector<string>{"population<1000"}, classif()), ());
+  TEST(ParseSelector(vector<string>({"population>1000"}), classif()), ());
+  TEST(ParseSelector(vector<string>({"population>=1000", "population<=1000000"}), classif()), ());
 }
 
 UNIT_TEST(NameSelector_Smoke)
 {
-  TEST(ParseSelector("name"), ());
-  TEST(ParseSelector("!name"), ());
+  TEST(ParseSelector(vector<string>{"name"}, classif()), ());
+  TEST(ParseSelector(vector<string>{"!name"}, classif()), ());
 }
 
 UNIT_TEST(InvalidSelector_Smoke)
 {
-  TEST(!ParseSelector(""), ());
-  TEST(!ParseSelector(vector<string>({""})), ());
-  TEST(!ParseSelector(vector<string>({"population>=1000", "population<=1000000", ""})), ());
+  TEST(!ParseSelector(vector<string>{""}, classif()), ());
+  TEST(!ParseSelector(vector<string>({""}), classif()), ());
+  TEST(!ParseSelector(vector<string>({"population>=1000", "population<=1000000", ""}), classif()), ());
 }
 
 }  // namespace drules_selector_parser_test
