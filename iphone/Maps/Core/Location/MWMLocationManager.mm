@@ -219,6 +219,7 @@ void setShowLocationAlert(BOOL needShow)
   dispatch_async(dispatch_get_main_queue(), ^{
     MWMLocationManager * manager = [self manager];
     [manager.observers addObject:observer];
+    // A place page opened while stopped needs this fix if heading resumes before GPS.
     if (manager.lastLocationInfo && manager.lastLocationStatus == MWMLocationStatusNoError &&
         [observer respondsToSelector:@selector(onLocationUpdate:)])
       [observer onLocationUpdate:manager.lastLocationInfo];
@@ -281,8 +282,7 @@ void setShowLocationAlert(BOOL needShow)
   self.lastLocationStatus = locationStatus;
   if (self.lastLocationStatus != MWMLocationStatusNoError)
   {
-    if (self.lastHeadingInfo)
-      [self processHeadingUpdate:nil];
+    [self processHeadingUpdate:nil];
     GetFramework().OnLocationError((location::TLocationError)self.lastLocationStatus);
   }
   for (Observer observer in self.observers)
@@ -293,7 +293,11 @@ void setShowLocationAlert(BOOL needShow)
 - (void)processHeadingUpdate:(nullable CLHeading *)headingInfo
 {
   if (!location_util::isValidHeading(headingInfo))
+  {
+    if (!self.lastHeadingInfo)
+      return;
     headingInfo = nil;
+  }
   self.lastHeadingInfo = headingInfo;
   if (headingInfo)
     GetFramework().OnCompassUpdate(location_util::compassInfoFromHeading(headingInfo));
@@ -646,8 +650,7 @@ void setShowLocationAlert(BOOL needShow)
   [locationManager stopUpdatingLocation];
   if ([CLLocationManager headingAvailable])
     [locationManager stopUpdatingHeading];
-  if (self.lastHeadingInfo)
-    [self processHeadingUpdate:nil];
+  [self processHeadingUpdate:nil];
 }
 
 #pragma mark - Location alert

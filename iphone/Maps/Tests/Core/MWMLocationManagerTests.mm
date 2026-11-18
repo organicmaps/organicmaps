@@ -129,7 +129,7 @@ CLHeading * MakeHeading(CLLocationDirection direction, CLLocationDirection accur
                 didFailWithError:[NSError errorWithDomain:kCLErrorDomain code:code userInfo:nil]];
 }
 
-- (void)testInvalidHeadingClearsLiveAndCachedHeading
+- (void)testInvalidHeadingClearsAndReportsLossOnce
 {
   CLHeading * valid = MakeHeading(0);
   [self deliverHeading:valid];
@@ -140,6 +140,10 @@ CLHeading * MakeHeading(CLLocationDirection direction, CLLocationDirection accur
 
   XCTAssertNil(observer.heading);
   XCTAssertNil([HeadingLossTestLocationManager lastHeading]);
+
+  [self deliverHeading:MakeHeading(90, -1)];
+  [self deliverError:kCLErrorHeadingFailure];
+  XCTAssertEqual(observer.headingUpdates, 2u);
 }
 
 - (void)testValidHeadingAfterLossReachesExistingObserver
