@@ -1,0 +1,1278 @@
+[[public_holidays]]
+
+[_2nd_day_of_christmas]
+comment = Countries: DE, LT, LV, PL
+tags = android-sdk
+en = 2nd Day of Christmas
+de = 2. Weihnachtsfeiertag
+lt = Šv. Kalėdos
+lv = Otrie Ziemassvētki
+pl = Drugi Dzień Bożego Narodzenia
+
+[all_saints_day]
+comment = Countries: AD, AT, BE, ES, FR, HR, HU, IT, LI, LT, MC, PL, PT, SE, SK, SM
+tags = android-sdk
+en = All Saints' Day
+ca = Tots Sants
+de = Allerheiligen
+fr = Toussaint
+nl = Allerheiligen
+es = Todos los Santos
+hr = Svi sveti
+hu = Mindenszentek
+it = Ognissanti
+lt = Visų šventųjų diena
+pl = Wszystkich Świętych
+pt = Todos-os-Santos
+sv = Alla helgons dag
+sk = Sviatok všetkých svätých
+
+[all_souls_day]
+comment = Countries: LT, SM
+tags = android-sdk
+en = All Souls' Day
+lt = Vėlinės
+de = Allerseelen
+it = Commemorazione dei defunti
+
+[anniversary_of_the_1906_arengo_and_commemoration_of_the_militia]
+comment = Countries: SM
+tags = android-sdk
+en = Anniversary of the 1906 Arengo and commemoration of the Militia
+it = Anniversario dell’Arengo
+de = Jahrestag von Arengo
+
+[anniversary_of_the_fall_of_fascism_and_day_of_freedom]
+comment = Countries: SM
+tags = android-sdk
+en = Anniversary of the Fall of Fascism and Day of Freedom
+it = Anniversario della Caduta del Fascismo e Festa della Libertà
+de = Jahrestag des Sturzes des Faschismus
+
+[anti_fascist_struggle_day]
+comment = Countries: HR
+tags = android-sdk
+en = Anti-Fascist Struggle Day
+hr = Dan antifašističke borbe
+de = Tag des antifaschistischen Kampfes
+
+[armistice_day]
+comment = Countries: BE, FR, RS
+tags = android-sdk
+en = Armistice Day
+fr = Armistice de 1918
+nl = Wapenstilstand van 1918
+de = Waffenstillstand
+sr = Дан примирја у Првом светском рату
+
+[ascension_day]
+comment = Countries: AT, BE, CH, DE, FR, LI, NL, SE
+tags = android-sdk
+en = Ascension Day
+de = Christi Himmelfahrt
+fr = Ascension
+nl = O.L.H. Hemelvaart
+it = Ascensione
+sv = Kristi himmelsfärds dag
+
+[ascensions_day]
+comment = Countries: MC
+tags = android-sdk
+en = Ascension's Day
+fr = L’Ascension
+de = Christi Himmelfahrt
+
+[assumption_of_mary]
+comment = Countries: AD, AT, BE, ES, FR, HR, IT, LT, MC, MT, PL, PT, RO, SI, SM
+tags = android-sdk
+en = Assumption of Mary
+ca = Assumpció
+de = Mariä Himmelfahrt
+fr = Assomption
+nl = O.L.V. Hemelvaart
+es = Asunción de la Virgen
+hr = Velika Gospa
+it = Ferragosto
+lt = Žolinė
+mt = Il-Festa ta’ Santa Marija
+pl = Wniebowzięcie Najświętszej Maryi Panny
+pt = Assunção de Nossa Senhora
+ro = Adormirea Maicii Domnului
+sl = Marijino vnebovzetje
+
+[august_holiday]
+comment = Countries: IE
+tags = android-sdk
+en = August Holiday
+de = Feiertag im August
+
+[benito_juarezs_birthday]
+comment = Countries: MX
+tags = android-sdk
+en = Benito Juárez's birthday
+es = Natalicio de Benito Juárez
+de = Benito Juárez Geburtstag
+
+[birth_of_jesus_christ_christmas_in_a_new_style]
+comment = Countries: MD
+tags = android-sdk
+en = Birth of Jesus Christ (Christmas in a new style)
+ro = Naşterea lui Iisus Hristos (Crăciunul pe stil nou)
+de = Geburt Jesu Christi (Weihnachten im neuen Stil)
+
+[birth_of_jesus_christ_christmas_in_the_old_style]
+comment = Countries: MD
+tags = android-sdk
+en = Birth of Jesus Christ (Christmas in the old style)
+ro = Naşterea lui Iisus Hristos (Crăciunul pe stil vechi)
+de = Geburt Jesu Christi (Weihnachten im alten Stil)
+
+[boxing_day]
+comment = Countries: EE, NL, SE
+tags = android-sdk
+en = Boxing Day
+de = Zweiter Weihnachtsfeiertag
+nl = Tweede kerstdag
+sv = Annandag jul
+
+[bulgarian_education_and_culture_and_slavic_script_day]
+comment = Countries: BG
+tags = android-sdk
+en = Bulgarian Education and Culture, and Slavic Script Day
+bg = Ден на Българската просвета и култура и на славянската писменост
+de = Tag der bulgarischen Aufklärung und Kultur, Tag der slawischen Literatur
+
+[bulgarias_liberation_from_the_ottoman_empire]
+comment = Countries: BG
+tags = android-sdk
+en = Bulgaria’s Liberation from the Ottoman Empire
+bg = Ден на Освобождението на България от османско иго
+de = Tag der Befreiung Bulgariens von der osmanischen Herrschaft
+
+[carnival]
+comment = Countries: AD
+tags = android-sdk
+en = Carnival
+ca = Carnaval
+de = Karnevel
+
+[childrens_day]
+comment = Countries: MD, RO
+tags = android-sdk
+en = Children's Day
+ro = Ziua ocrotirii copilului
+de = Weltkindertag
+
+[christmas_day_catholic]
+comment = Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MT, MX, NL, PL, PT, SE, SI, SK, SM, ZA
+tags = android-sdk
+en = Christmas Day (Catholic)
+ca = Nadal
+de = Weihnachten
+sq = Krishtlindjet
+fr = Noël
+nl = Kerstmis
+bg = Рождество Христово
+be = Каталіцкае Раство
+ru = Католическое Рождество
+it = Natale
+cs = 1. svátek vánoční
+es = Navidad
+hr = Božić
+hu = Karácsony
+lt = Šv. Kalėdos
+lv = Pirmie Ziemassvētki
+mt = Il-Milied​
+pl = Boże Narodzenie
+pt = Natal
+sv = Juldagen
+sl = božič
+sk = Prvý sviatok vianočný
+
+[christmas_day_orthodox]
+comment = Countries: BY, RS
+tags = android-sdk
+en = Christmas Day (Orthodox)
+be = Праваслаўнае Раство
+ru = Православное Рождество
+de = Orthodoxe Weihnachten
+sr = Први дан Божића
+
+[christmas_eve_catholic]
+comment = Countries: BG, CZ, EE, LT, LV, PL, SK
+tags = android-sdk
+en = Christmas Eve (Catholic)
+bg = Бъдни вечер
+de = Heilig Abend
+cs = Štědrý den
+lt = Šv. Kūčios
+lv = Ziemassvētku vakars
+pl = Wigilia Bożego Narodzenia
+sk = Štedrý deň
+
+[commemoration_day_radonitsa]
+comment = Countries: MD
+tags = android-sdk
+en = Commemoration Day (Radonitsa)
+ro = Ziua Comemorarii (Pastele Blajinilor)
+de = Gedenktag (Raduniza)
+
+[constitution_day]
+comment = Countries: AD, ES, MX, PL
+tags = android-sdk
+en = Constitution Day
+ca = Dia de la Constitució
+de = Tag der Konstitution
+es = Día de la Constitución Española
+pl = Święto Narodowe Trzeciego Maja
+
+[corpus_christi]
+comment = Countries: AT, HR, LI, MC, PL, PT, SM
+tags = android-sdk
+en = Corpus Christi
+de = Fronleichnam
+hr = Tijelovo
+fr = La Fête Dieu
+pl = Boże Ciało
+pt = Corpo de Deus
+it = Corpus Domini
+
+[czech_statehood_day]
+comment = Countries: CZ
+tags = android-sdk
+en = Czech Statehood Day
+cs = Den české státnosti
+de = Tag der tschechischen Staatlichkeit
+
+[day_of_german_unity]
+comment = Countries: DE
+tags = android-sdk
+en = Day of German Unity
+de = Tag der Deutschen Einheit
+
+[day_of_goodwill]
+comment = Countries: ZA
+tags = android-sdk
+en = Day of Goodwill
+de = Tag des gegenseitigen Verständnisses
+
+[day_of_our_lady_of_the_seven_sorrows]
+comment = Countries: SK
+tags = android-sdk
+en = Day of Our Lady of the Seven Sorrows
+sk = Sedembolestná Panna Mária
+de = Unserer lieben Frau von den sieben Schmerzen
+
+[day_of_reconciliation]
+comment = Countries: ZA
+tags = android-sdk
+en = Day of Reconciliation
+de = Versöhnungstag
+
+[day_of_remembrance_for_the_dead]
+comment = Countries: SI
+tags = android-sdk
+en = Day of Remembrance for the Dead
+sl = dan spomina na mrtve
+de = Tag der Toten
+
+[day_of_restoration_of_independence]
+comment = Countries: EE
+tags = android-sdk
+en = Day of Restoration of Independence
+de = Tag der Wiedererlangung der Unabhängigkeit
+
+[day_of_restoration_of_independence_of_lithuania]
+comment = Countries: LT
+tags = android-sdk
+en = Day of Restoration of Independence of Lithuania
+lt = Lietuvos nepriklausomybės atkūrimo diena
+de = Tag der Wiederherstellung der Unabhängigkeit Litauens
+
+[day_of_restoration_of_the_lithuanian_state]
+comment = Countries: LT
+tags = android-sdk
+en = Day of restoration of the Lithuanian state
+lt = Lietuvos valstybės atkūrimo diena
+de = Tag der Wiederherstellung des litauischen Staates
+
+[day_of_struggle_for_freedom_and_democracy]
+comment = Countries: CZ, SK
+tags = android-sdk
+en = Day of Struggle for Freedom and Democracy
+cs = Den boje za svobodu a demokracii a Mezinárodní den studentstva
+de = Tag des Kampfes für Freiheit und Demokratie
+sk = Deň boja za slobodu a demokraciu
+
+[day_of_the_burning_of_jan_hus]
+comment = Countries: CZ
+tags = android-sdk
+en = Day of the Burning of Jan Hus
+cs = Den upálení mistra Jana Husa
+de = Tag der Verbrennung von Jan Hus
+
+[day_of_the_proclamation_of_the_republic_of_latvia]
+comment = Countries: LV
+tags = android-sdk
+en = Day of the Proclamation of the Republic of Latvia
+lv = Latvijas Republikas Proklamēšanas diena
+de = Tag der Ausrufung der Republik Lettland
+
+[day_of_the_republic]
+comment = Countries: BY
+tags = android-sdk
+en = Day of the Republic
+be = Дзень Рэспублікі
+ru = День Республики
+de = Tag der Republik
+
+[day_of_the_restoration_of_independence]
+comment = Countries: LV
+tags = android-sdk
+en = Day of the Restoration of Independence
+lv = Latvijas Republikas Neatkarības atjaunošanas diena
+de = Tag der Wiederherstellung der Unabhängigkeit
+
+[day_of_the_restoration_of_the_independent_czech_state]
+comment = Countries: CZ
+tags = android-sdk
+en = Day of the Restoration of the Independent Czech State
+cs = Den obnovy samostatného českého státu
+de = Tag der Wiederherstellung des unabhängigen tschechischen Staates
+
+[day_of_the_slovak_republic]
+comment = Countries: SK
+tags = android-sdk
+en = Day of the Slovak Republic
+sk = Deň vzniku Slovenskej republiky
+de = Tag der Slowakischen Republik
+
+[day_of_the_unification_of_the_romanian_principalities]
+comment = Countries: RO
+tags = android-sdk
+en = Day of the Unification of the Romanian Principalities
+ro = Ziua Unirii Principatelor Române
+de = Tag der Vereinigung der rumänischen Fürstentümer
+
+[day_of_uprising_against_the_occupation]
+comment = Countries: SI
+tags = android-sdk
+en = Day of Uprising Against the Occupation
+sl = dan upora proti okupatorju
+de = Tag des Aufstands gegen die Besetzung
+
+[day_of_victory_over_fascism]
+comment = Countries: SK
+tags = android-sdk
+en = Day of Victory over fascism
+sk = Deň víťazstva nad fašizmom
+de = Tag des Sieges über den Faschismus
+
+[easter]
+comment = Countries: BE, SM
+tags = android-sdk
+en = Easter
+fr = Pâques
+nl = Pasen
+de = Ostern
+it = Pasqua
+
+[easter_monday]
+comment = Countries: AD, AL, AT, BE, BG, CZ, DE, ES-CT, ES-IB, ES-NC, ES-PV, ES-VC, FR, HR, HU, IE, IT, LI, LT, LV, MC, NL, PL, SE, SI, SK, SM
+tags = android-sdk
+en = Easter Monday
+ca = Dilluns de Pasqua
+de = Ostermontag
+sq = Hënen e Pashkët Katolike
+fr = Lundi de Pâques
+nl = Paasmaandag
+bg = Велики понеделник
+cs = Velikonoční pondělí
+es = Lunes de Pascua
+hr = Uskrsni ponedjeljak
+hu = Húsvéthétfő
+it = Lunedì di Pasqua
+lt = Antroji Velykų diena
+lv = Otrās Lieldienas
+pl = Drugi Dzień Wielkanocy
+sv = Annandag påsk
+sl = velikonočni ponedeljek
+sk = Veľkonočný pondelok
+
+[easter_monday_orthodox]
+comment = Countries: RS
+tags = android-sdk
+en = Easter Monday (Orthodox)
+sr = Ускршњи понедељак
+de = Ostermontag (Orthodox)
+
+[easter_saturday_orthodox]
+comment = Countries: RS
+tags = android-sdk
+en = Easter Saturday (Orthodox)
+sr = Ускршња субота
+de = Ostersamstag (Orthodox)
+
+[easter_sunday]
+comment = Countries: AL, BG, EE, LT, LV, NL, PL, PT, SE, SI
+tags = android-sdk
+en = Easter Sunday
+sq = Pashkët Katolike
+de = Ostersonntag (katholisch)
+bg = Великден
+lt = Velykos
+lv = Pirmās Lieldienas
+nl = Eerste paasdag
+pl = Wielkanoc
+pt = Domingo de Páscoa
+sv = Påskdagen
+sl = velikonočna nedelja
+
+[easter_sunday_orthodox]
+comment = Countries: RS
+tags = android-sdk
+en = Easter Sunday (Orthodox)
+sr = Ускрс
+de = Ostersonntag (Orthodox)
+
+[eid_al_fitr_holiday_of_breaking_the_fast]
+comment = Countries: AL
+tags = android-sdk
+en = Eid al-Fitr (Holiday of Breaking the Fast)
+sq = Dita e Bajramit të Madh
+de = Eid al-Fitr (Zuckerfest)
+
+[eid_ul_adha_feast_of_sacrifice]
+comment = Countries: AL
+tags = android-sdk
+en = Eid ul-Adha (Feast of Sacrifice)
+sq = Dita e Kurban Bajramit
+de = Eid ul-Adha (Opferfest)
+
+[end_of_ramadan_eid_al_fitr]
+comment = Countries: ES-CE, ES-ML
+tags = android-sdk
+en = End of Ramadan (Eid al-Fitr)
+es = Fiesta del fin del Ramadán (Eid al-Fitr)
+ca = Festa de la fi del Ramadà (Eid al-Fitr)
+de = Ende des Ramadan (Eid al-Fitr)
+
+[epiphany]
+comment = Countries: AD, AT, ES, HR, IT, LI, PL, RO, SE, SK, SM
+tags = android-sdk
+en = Epiphany
+ca = Reis
+de = Dreikönigsfest
+es = Epifanía del Señor
+hr = Bogojavljanje ili Sveta tri kralja
+it = Epifania
+pl = Święto Trzech Króli
+ro = Bobotează
+sv = Trettondedag jul
+sk = Zjavenie Pána
+
+[euro_adoption_day]
+comment = Countries: BG
+tags = android-sdk
+en = Euro Adoption Day
+bg = Ден на приемане на еврото
+de = Tag der Euro-Einführung
+
+[europe_day]
+comment = Countries: MD
+tags = android-sdk
+en = Europe Day
+ro = Ziua Europei
+de = Europatag
+
+[family_day]
+comment = Countries: ZA
+tags = android-sdk
+en = Family Day
+de = Tag der Familie
+
+[feast_of_our_lady_of_victories]
+comment = Countries: MT
+tags = android-sdk
+en = Feast of Our Lady of Victories
+mt = Jum il-Vittorja
+de = Maria vom Siege
+
+[feast_of_sacrifice_eid_al_adha]
+comment = Countries: ES-CE, ES-ML
+tags = android-sdk
+en = Feast of Sacrifice (Eid al-Adha)
+es = Fiesta del Sacrificio (Eid al-Adha)
+ca = Festa del Sacrifici (Eid al-Adha)
+de = Opferfest (Eid al-Adha)
+
+[feast_of_saints_peter_and_paul]
+comment = Countries: MT
+tags = android-sdk
+en = Feast of Saints Peter and Paul
+mt = Il-Festa ta’ San Pietru u San Pawl
+de = Peter und Paul
+
+[feast_of_st_joseph]
+comment = Countries: MT
+tags = android-sdk
+en = Feast of St. Joseph
+mt = Il-Festa ta’ San Ġużepp
+de = Josefstag
+
+[feast_of_st_pauls_shipwreck]
+comment = Countries: MT
+tags = android-sdk
+en = Feast of St. Paul's Shipwreck
+mt = Il-Festa tan-Nawfraġju ta’ San Pawl
+de = Feier des Schiffswracks des Apostels Paulus
+
+[feast_of_the_immaculate_conception]
+comment = Countries: AD, AT, ES, IT, LI, MC, MT, PT, SM
+tags = android-sdk
+en = Feast of the Immaculate Conception
+ca = Immaculada Concepció
+de = Mariä Empfängnis
+es = Inmaculada Concepción
+it = Immacolata Concezione
+fr = L’Immaculée Conception
+mt = Il-Festa tal-Immakulata Kunċizzjoni
+pt = Imaculada Conceição
+
+[first_christmas_day]
+comment = Countries: RO
+tags = android-sdk
+en = First Christmas Day
+ro = Prima zi de Crăciun
+de = Erster Weihnachtstag
+
+[flag_and_independence_day]
+comment = Countries: AL
+tags = android-sdk
+en = Flag and Independence Day
+sq = Dita e Flamurit dhe e Pavarësisë
+de = Tag der Unabhängigkeit und der Flagge
+
+[freedom_day]
+comment = Countries: MT, ZA
+tags = android-sdk
+en = Freedom Day
+mt = Jum il-Ħelsien
+de = Tag der Freiheit
+
+[good_friday]
+comment = Countries: AD, BG, CZ, DE, EE, ES, HU, LV, MT, NL, PT, RS, SE, SK, ZA
+tags = android-sdk
+en = Good Friday
+ca = Divendres Sant
+de = Karfreitag
+bg = Разпети петък
+cs = Velký pátek
+es = Viernes Santo
+hu = Nagypéntek
+lv = Lielā Piektdiena
+mt = Il-Ġimgħa l-Kbira
+nl = Goede vrijdag
+pt = Sexta-feira Santa
+sr = Добар петак
+sv = Långfredagen
+sk = Veľký piatok
+
+[heritage_day]
+comment = Countries: ZA
+tags = android-sdk
+en = Heritage Day
+de = Tag des Kulturerbes
+
+[holy_saturday]
+comment = Countries: BG
+tags = android-sdk
+en = Holy Saturday
+bg = Велика събота
+de = Karsamstag
+
+[human_rights_day]
+comment = Countries: ZA
+tags = android-sdk
+en = Human Rights Day
+de = Tag der Menschenrechte
+
+[independence_and_unity_day]
+comment = Countries: SI
+tags = android-sdk
+en = Independence and Unity Day
+sl = dan samostojnosti in enotnosti
+de = Tag der Unabhängigkeit und Einheit
+
+[independence_day]
+comment = Countries: BG, CH, CZ, EE, MD, MT, MX, PL, PT
+tags = android-sdk
+en = Independence Day
+bg = Ден на независимостта на България
+de = Unabhängigkeitstag
+fr = Fête nationale suisse
+it = Festa nazionale
+cs = Den vzniku samostatného československého státu
+ro = Ziua independenţei Republicii Moldova
+mt = Jum l-Indipendenza
+es = Día de la Independencia
+pl = Narodowe Święto Niepodległości
+pt = Restauração da Independência
+
+[international_womens_day]
+comment = Countries: BY, MD, ZA
+tags = android-sdk
+en = International Women's Day
+be = Дзень жанчын
+ru = День женщин
+de = Frauentag
+ro = Ziua internaţională a femeii
+
+[international_workers_day]
+comment = Countries: MT, ZA
+tags = android-sdk
+en = International Workers' Day
+mt = Jum il-Ħaddiem
+de = Tag der Arbeit
+
+[investiture_of_the_captains_regent_heads_of_state]
+comment = Countries: SM
+tags = android-sdk
+en = Investiture of the Captains Regent (Heads of State)
+it = Investitura Capitani Reggenti
+de = Amsteinführung der Staatsoberhäupter
+
+[june_holiday]
+comment = Countries: IE
+tags = android-sdk
+en = June Holiday
+de = Feiertag im Juni
+
+[kings_day]
+comment = Countries: NL
+tags = android-sdk
+en = King's Day
+nl = Koningsdag
+de = Königstag
+
+[labour_day]
+comment = Countries: AD, AL, AT, BE, BG, BY, CZ, DE, ES, FR, HR, HU, IT, LI, LT, LV, MC, MD, MX, PL, PT, RO, RS, SE, SI, SK, SM
+tags = android-sdk
+en = Labour Day
+ca = Festa del Treball
+de = Tag der Arbeit
+sq = Dita ndërkombëtare e punonjësve
+fr = Fête du Travail
+nl = Dag van de Arbeid
+bg = Ден на труда
+be = Свята працы
+ru = Праздник труда
+cs = Svátek práce
+es = Día del Trabajador
+hr = Praznik rada
+hu = A munka ünnepe
+it = Festa del lavoro
+lt = Tarptautinė darbo diena
+lv = Darba svētki
+ro = Ziua internaţională a solidarităţii oamenilor muncii
+pl = Święto Pracy
+pt = Dia do Trabalhador
+sr = Празник рада
+sv = Första maj
+sl = praznik dela
+sk = Sviatok práce
+
+[liberation_day]
+comment = Countries: AL, CZ, IT, NL
+tags = android-sdk
+en = Liberation Day
+sq = Dita e Çlirimit të Shqipërisë nga pushtuesit nazifashistë
+de = Tag der Befreiung
+cs = Den vítězství
+it = Anniversario della liberazione d'Italia
+nl = Bevrijdingsdag
+
+[liberty_day]
+comment = Countries: PT
+tags = android-sdk
+en = Liberty Day
+pt = Dia da Liberdade
+de = Tag der Freiheit
+
+[maundy_thursday]
+comment = Countries: ES-CE, ES-CN, ES-IB, ES-ML, ES-NC, ES-PV
+tags = android-sdk
+en = Maundy Thursday
+es = Jueves Santo
+ca = Dijous Sant
+de = Gründonnerstag
+
+[may_day]
+comment = Countries: IE
+tags = android-sdk
+en = May Day
+de = May Day
+
+[midsummer_day]
+comment = Countries: EE, LT, LV, SE
+tags = android-sdk
+en = Midsummer Day
+de = Mittsommertag
+lt = Rasos ir Joninių diena
+lv = Jāņu diena
+sv = Midsommardagen
+
+[midsummers_eve]
+comment = Countries: LV
+tags = android-sdk
+en = Midsummer's Eve
+lv = Līgo diena
+de = Mittsommernacht
+
+[monday_following_all_saints_day]
+comment = Countries: ES-CN, ES-NC
+tags = android-sdk
+en = Monday following All Saints' Day
+es = Lunes siguiente a Todos los Santos
+ca = Dilluns següent a Tots Sants
+de = Montag nach Allerheiligen
+
+[monday_following_constitution_day]
+comment = Countries: ES-ML
+tags = android-sdk
+en = Monday following Constitution Day
+es = Lunes siguiente al Día de la Constitución Española
+ca = Dilluns següent al Dia de la Constitució Espanyola
+de = Montag nach dem Tag der spanischen Verfassung
+
+[mother_teresa_day]
+comment = Countries: AL
+tags = android-sdk
+en = Mother Teresa Day
+sq = Dita e Lumturimit te Nene Terezës
+de = Tag der Seligsprechung von Mutter Teresa
+
+[mothers_day]
+comment = Countries: LV
+tags = android-sdk
+en = Mother's Day
+lv = Mātes diena
+de = Muttertag
+
+[national_day]
+comment = Countries: AT, BE, FR, HU, LT, SE
+tags = android-sdk
+en = National Day
+de = Nationalfeiertag
+fr = Fête nationale
+nl = Nationale feestdag
+hu = Nemzeti ünnep
+lt = Valstybės diena
+sv = Nationaldagen
+
+[national_day_assumption]
+comment = Countries: LI
+tags = android-sdk
+en = National Day (Assumption)
+de = Staatsfeiertag (Maria Himmelfahrt)
+
+[national_day_of_catalonia]
+comment = Countries: ES-CT
+tags = android-sdk
+en = National Day of Catalonia
+es = Fiesta Nacional de Cataluña
+ca = Diada Nacional de Catalunya
+de = Nationalfeiertag Katalonien
+
+[national_day_of_romania]
+comment = Countries: RO
+tags = android-sdk
+en = National Day of Romania
+ro = Ziua Națională a României
+de = Nationalfeiertag von Rumänien
+
+[national_holiday]
+comment = Countries: AD
+tags = android-sdk
+en = National Holiday
+ca = Mare de Déu de Meritxell
+de = Nationalfeiertag
+
+[national_language_day]
+comment = Countries: MD
+tags = android-sdk
+en = National Language Day
+ro = Sărbătoarea "Limba noastră"
+de = Nationaler Tag der Sprache
+
+[nativity_of_mary]
+comment = Countries: LI
+tags = android-sdk
+en = Nativity of Mary
+de = Mariä Geburt
+
+[new_years_day]
+comment = Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MD, MT, MX, NL, PL, PT, RO, RS, SE, SI, ZA
+tags = android-sdk
+en = New Year's Day
+ca = Any nou
+de = Neujahr
+sq = Viti i Ri
+fr = Jour de l'an
+nl = Nieuwjaarsdag
+bg = Нова година
+be = Новы год
+ru = Новый год
+it = Capodanno
+cs = Nový rok
+es = Año Nuevo
+hr = Nova Godina
+hu = Újév
+lt = Naujieji metai
+lv = Jaungada diena
+ro = Anul Nou
+mt = L-Ewwel tas-Sena
+pl = Nowy Rok
+pt = Ano Novo
+sr = Нова Година
+sv = Nyårsdagen
+sl = novo leto
+
+[new_years_eve]
+comment = Countries: LV
+tags = android-sdk
+en = New Year's Eve
+lv = Vecgada diena
+de = Silvester
+
+[nowruz_persian_new_year]
+comment = Countries: AL
+tags = android-sdk
+en = Nowruz (Persian New Year)
+sq = Dita e Nevruzit
+de = Nouruz (persisches Frühlingsfest)
+
+[october_holiday]
+comment = Countries: IE
+tags = android-sdk
+en = October Holiday
+de = Feiertag im Oktober
+
+[october_revolution_day]
+comment = Countries: BY
+tags = android-sdk
+en = October Revolution Day
+be = Дзень Кастрычніцкай рэвалюцыі
+ru = День Октябрьской революции
+de = Tag der Oktoberrevolution
+
+[orthodox_easter_monday]
+comment = Countries: AL, MD, RO
+tags = android-sdk
+en = Orthodox Easter Monday
+sq = Hënen e Pashkët Ortodokse
+de = Ostermontag (orthodox)
+ro = A doua zi de Paște conform calendarului bisericesc
+
+[orthodox_easter_sunday]
+comment = Countries: AL, MD, RO
+tags = android-sdk
+en = Orthodox Easter Sunday
+sq = Pashkët Ortodokse
+de = Ostersonntag (orthodox)
+ro = Prima zi de Paşti conform calendarului bisericesc
+
+[orthodox_good_friday]
+comment = Countries: RO
+tags = android-sdk
+en = Orthodox Good Friday
+ro = Vinerea Mare
+de = Orthodoxer Karfreitag
+
+[orthodox_pentecost_monday]
+comment = Countries: RO
+tags = android-sdk
+en = Orthodox Pentecost Monday
+ro = A doua zi de Rusalii
+de = Orthodoxer Pfingstmontag
+
+[orthodox_pentecost_sunday]
+comment = Countries: RO
+tags = android-sdk
+en = Orthodox Pentecost Sunday
+ro = Prima zi de Rusalii
+de = Orthodoxer Pfingstsonntag
+
+[pentecost]
+comment = Countries: BE, EE, LV, PL
+tags = android-sdk
+en = Pentecost
+fr = Pentecôte
+nl = Pinksteren
+de = Pfingsten
+lv = Vasarsvētki
+pl = Zielone Świątki
+
+[pentecost_monday]
+comment = Countries: AD, AT, BE, DE, FR, HU, LI
+tags = android-sdk
+en = Pentecost Monday
+ca = Dilluns de Pentecosta
+de = Pfingstmontag
+fr = Lundi de Pentecôte
+nl = Pinkstermaandag
+hu = Pünkösdhétfő
+
+[portugal_day]
+comment = Countries: PT
+tags = android-sdk
+en = Portugal Day
+pt = Dia de Portugal / de Camões e das Comunidades Portuguesas
+de = Portugiesischer Nationalfeiertag
+
+[preseren_day]
+comment = Countries: SI
+tags = android-sdk
+en = Prešeren Day
+sl = Prešernov dan
+de = Prešeren-Tag
+
+[princes_day]
+comment = Countries: MC
+tags = android-sdk
+en = Prince's Day
+fr = La Fête du Prince
+de = Fest des Prinzen
+
+[radunitsa]
+comment = Countries: BY
+tags = android-sdk
+en = Radunitsa
+be = Радаўніца
+ru = Радуница
+de = Raduniza
+
+[reformation_day]
+comment = Countries: SI
+tags = android-sdk
+en = Reformation Day
+sl = dan reformacije
+de = Reformationstag
+
+[regional_holiday_in_ceuta]
+comment = Countries: ES-CE
+tags = android-sdk
+en = Regional Holiday in Ceuta
+es = Día de Ceuta
+ca = Dia de Ceuta
+de = Regionaler Feiertag in Ceuta
+
+[regional_holiday_in_meilla]
+comment = Countries: ES-ML
+tags = android-sdk
+en = Regional Holiday in Meilla
+es = Día de Melilla
+ca = Dia de Melilla
+de = Regionaler Feiertag in Meilla
+
+[regional_holiday_in_melilla]
+comment = Countries: ES-ML
+tags = android-sdk
+en = Regional Holiday in Melilla
+es = Estatuto de Autonomía de Melilla
+ca = Estatut d'Autonomia de Melilla
+de = Regionaler Feiertag in Melilla
+
+[regional_holiday_in_valencia]
+comment = Countries: ES-VC
+tags = android-sdk
+en = Regional Holiday in Valencia
+es = Día de la Comunitat Valenciana
+ca = Dia de la Comunitat Valenciana
+de = Regionaler Feiertag in Valencia
+
+[regional_holiday_on_the_balearic_islands]
+comment = Countries: ES-IB
+tags = android-sdk
+en = Regional Holiday on the Balearic Islands
+es = Día siguiente del Día de les Illes Balears
+ca = Dia següent del Dia de les Illes Balears
+de = Regionaler Feiertag auf den Balearen
+
+[regional_holiday_on_the_canary_islands]
+comment = Countries: ES-CN
+tags = android-sdk
+en = Regional Holiday on the Canary Islands
+es = Día de Canarias
+ca = Dia de les Canàries
+de = Regionaler Feiertag auf den Kanarischen Inseln
+
+[remembrance_day]
+comment = Countries: HR
+tags = android-sdk
+en = Remembrance Day
+hr = Dan sjećanja na žrtve Domovinskog rata i Dan sjećanja na žrtvu Vukovara i Škabrnje
+de = Tag des Gedenkens
+
+[republic_day]
+comment = Countries: IT, MT, PT
+tags = android-sdk
+en = Republic Day
+it = Festa della Repubblica
+de = Tag der Republik
+mt = Jum ir-Repubblika
+pt = Implantação da República
+
+[revolution_day]
+comment = Countries: MX
+tags = android-sdk
+en = Revolution Day
+es = Revolución Mexicana
+de = Revolutionstag
+
+[saint_agathas_day]
+comment = Countries: SM
+tags = android-sdk
+en = Saint Agatha's Day
+it = Sant'Agata / Compatrona della Repubblica
+de = Tag der Hl. Agatha von Catania
+
+[saint_andrews_day]
+comment = Countries: RO
+tags = android-sdk
+en = Saint Andrew's Day
+ro = Sfântul Apostol Andrei
+de = Tag des Heiligen Andreas
+
+[saint_brigids_day]
+comment = Countries: IE
+tags = android-sdk
+en = Saint Brigid's Day
+de = St Brigid’s Day
+
+[saint_devotes_day]
+comment = Countries: MC
+tags = android-sdk
+en = Saint Dévote's Day
+fr = La Sainte Dévote
+de = Tag der Heiligen Devota
+
+[saint_james_day]
+comment = Countries: ES-NC, ES-PV
+tags = android-sdk
+en = Saint James' Day
+es = Santiago Apóstol
+ca = Santiago Apòstol
+de = Jakobstag
+
+[saint_john_the_baptist_day]
+comment = Countries: RO
+tags = android-sdk
+en = Saint John the Baptist Day
+ro = Sfântul Ion
+de = Tag des Heiligen Johannes des Täufers
+
+[saint_patricks_day]
+comment = Countries: IE
+tags = android-sdk
+en = Saint Patrick's Day
+de = Saint Patrick’s Day
+
+[saint_stephens_day]
+comment = Countries: SM
+tags = android-sdk
+en = Saint Stephen’s Day
+it = Santo Stefano
+de = Stefanitag
+
+[san_francisco_javier]
+comment = Countries: ES-NC
+tags = android-sdk
+en = San Francisco Javier
+es = San Francisco Javier
+ca = Sant Francesc Xavier
+de = San Francisco Javier
+
+[san_marino_national_holiday_foundation_of_the_republic_301_ad]
+comment = Countries: SM
+tags = android-sdk
+en = San Marino National Holiday / Foundation of the Republic (301 A.D.)
+it = San Marino / Patrono e Fondatore della Repubblica
+de = San Marino-Tag / Gründung der Republik
+
+[second_christmas_day]
+comment = Countries: CZ, RO, SK
+tags = android-sdk
+en = Second Christmas Day
+cs = 2. svátek vánoční
+de = Zweiter Weihnachtsfeiertag
+ro = A doua zi de Crăciun
+sk = Druhý sviatok vianočný
+
+[second_day_of_christmas]
+comment = Countries: HU
+tags = android-sdk
+en = Second Day of Christmas
+hu = Karácsony másnapja
+de = 2. Weihnachtstag
+
+[sette_giugno]
+comment = Countries: MT
+tags = android-sdk
+en = Sette Giugno
+mt = Sette Giugno
+de = Siebter Juni
+
+[slovak_national_uprising_anniversary]
+comment = Countries: SK
+tags = android-sdk
+en = Slovak National Uprising anniversary
+sk = Výročie Slovenského národného povstania
+de = Jahrestag des Slowakischen Nationalaufstands
+
+[solemnity_of_mary_the_holy_mother_of_god]
+comment = Countries: SM
+tags = android-sdk
+en = Solemnity of Mary, the Holy Mother of God
+it = Maria Santissima Madre di Dio
+de = Maria, heiligste Mutter Gottes
+
+[sovereignty_day]
+comment = Countries: RS
+tags = android-sdk
+en = Sovereignty Day
+sr = Дан државности Србије
+de = Unabhängigkeitstag
+
+[spanish_national_day]
+comment = Countries: ES
+tags = android-sdk
+en = Spanish National Day
+es = Fiesta Nacional de España
+ca = Diada Nacional d'Espanya
+de = Spanischer Nationalfeiertag
+
+[spring_day]
+comment = Countries: EE
+tags = android-sdk
+en = Spring Day
+de = Frühlingstag
+
+[st_anthony]
+comment = Countries: ES-CE
+tags = android-sdk
+en = St Anthony
+es = San Antonio
+ca = Sant Antoni
+de = St. Antonius
+
+[st_cyril_and_methodius_day]
+comment = Countries: CZ, SK
+tags = android-sdk
+en = St. Cyril and Methodius Day
+cs = Den slovanských věrozvěstů Cyrila a Metoděje
+de = Tag der Heiligen Kyrill und Methodius
+sk = Sviatok svätého Cyrila a Metoda
+
+[st_georges_day_and_the_bulgarian_armys_day]
+comment = Countries: BG
+tags = android-sdk
+en = St. George's Day, and the Bulgarian Army’s Day
+bg = Гергьовден, Ден на храбростта и Българската армия
+de = St. Georgstag, Tag der bulgarischen Armee
+
+[st_johns_day]
+comment = Countries: ES-CT, ES-VC
+tags = android-sdk
+en = St. John's Day
+es = San Juan
+ca = Sant Joan
+de = Johannistag
+
+[st_josephs_day]
+comment = Countries: ES-NC, ES-PV, ES-VC
+tags = android-sdk
+en = St Joseph's Day
+es = Día de San José
+ca = Dia de Sant Josep
+de = Josefstag
+
+[st_stephens_day]
+comment = Countries: AD, AT, ES-CT, ES-IB, IE, IT, LI
+tags = android-sdk
+en = St. Stephen's Day
+ca = Sant Esteve
+de = Stefanstag
+es = San Esteban
+it = Santo Stefano
+
+[state_foundation_day]
+comment = Countries: HU
+tags = android-sdk
+en = State Foundation Day
+hu = Az államalapítás ünnepe
+de = Staatsfeiertag
+
+[statehood_day]
+comment = Countries: HR, SI
+tags = android-sdk
+en = Statehood Day
+hr = Dan državnosti
+de = Staatsfeiertag
+sl = dan državnosti
+
+[summer_day]
+comment = Countries: AL
+tags = android-sdk
+en = Summer Day
+sq = Dita e Verës
+de = Tag des Sommers
+
+[unification_day]
+comment = Countries: BG
+tags = android-sdk
+en = Unification Day
+bg = Ден на Съединението
+de = Tag der Wiedervereinigung
+
+[victory_and_homeland_thanksgiving_day_and_the_day_of_croatian_defenders]
+comment = Countries: HR
+tags = android-sdk
+en = Victory and Homeland Thanksgiving Day and the Day of Croatian Defenders
+hr = Dan pobjede i domovinske zahvalnosti i Dan hrvatskih branitelja
+de = Tag des Sieges und der heimatlichen Dankbarkeit und Tag der kroatischen Verteidiger
+
+[victory_day]
+comment = Countries: BY, EE, FR, MD
+tags = android-sdk
+en = Victory Day
+be = Дзень Перамогі
+ru = День Победы
+de = Tag des Sieges
+fr = Victoire 1945
+ro = Ziua Victoriei şi a comemorării eroilor căzuţi pentru Independenţa Patriei
+
+[whit_monday]
+comment = Countries: MC, NL
+tags = android-sdk
+en = Whit Monday
+fr = Le lundi de Pentecôte
+de = Pfingstmontag
+nl = Tweede pinksterdag
+
+[whit_sunday]
+comment = Countries: NL, SE, SI
+tags = android-sdk
+en = Whit Sunday
+nl = Eerste pinksterdag
+de = Pfingstsonntag
+sv = Pingstdagen
+sl = binkoštna nedelja
+
+[youth_day]
+comment = Countries: AL, ZA
+tags = android-sdk
+en = Youth Day
+sq = Dita Kombëtare e Rinisë
+de = Tag der Jugend
+

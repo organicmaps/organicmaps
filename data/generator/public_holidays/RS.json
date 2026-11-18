@@ -1,0 +1,70 @@
+{
+  "2026-01-01": [
+    "NewYearsDay"
+  ],
+  "2026-01-02": [
+    "NewYearsDay"
+  ],
+  "2026-01-07": [
+    "ChristmasDayOrthodox"
+  ],
+  "2026-02-15": [
+    "SovereigntyDay"
+  ],
+  "2026-02-16": [
+    "SovereigntyDay"
+  ],
+  "2026-04-10": [
+    "GoodFriday"
+  ],
+  "2026-04-11": [
+    "EasterSaturdayOrthodox"
+  ],
+  "2026-04-12": [
+    "EasterSundayOrthodox"
+  ],
+  "2026-04-13": [
+    "EasterMondayOrthodox"
+  ],
+  "2026-05-01": [
+    "LabourDay"
+  ],
+  "2026-05-02": [
+    "LabourDay"
+  ],
+  "2026-11-11": [
+    "ArmisticeDay"
+  ],
+  "2027-01-01": [
+    "NewYearsDay"
+  ],
+  "2027-01-02": [
+    "NewYearsDay"
+  ],
+  "2027-01-07": [
+    "ChristmasDayOrthodox"
+  ],
+  "2027-02-15": [
+    "SovereigntyDay"
+  ],
+  "2027-02-16": [
+    "SovereigntyDay"
+  ],
+  "2027-04-30": [
+    "GoodFriday"
+  ],
+  "2027-05-01": [
+    "EasterSaturdayOrthodox",
+    "LabourDay"
+  ],
+  "2027-05-02": [
+    "EasterSundayOrthodox",
+    "LabourDay"
+  ],
+  "2027-05-03": [
+    "EasterMondayOrthodox"
+  ],
+  "2027-11-11": [
+    "ArmisticeDay"
+  ]
+}

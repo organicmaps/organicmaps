@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: public_holidays -->
+    <!-- Countries: AD, AT, BE, ES, FR, HR, IT, LT, MC, MT, PL, PT, RO, SI, SM -->
+    <string name="assumption_of_mary">Il-Festa ta’ Santa Marija</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MT, MX, NL, PL, PT, SE, SI, SK, SM, ZA -->
+    <string name="christmas_day_catholic">Il-Milied​</string>
+    <!-- Countries: MT -->
+    <string name="feast_of_our_lady_of_victories">Jum il-Vittorja</string>
+    <!-- Countries: MT -->
+    <string name="feast_of_saints_peter_and_paul">Il-Festa ta’ San Pietru u San Pawl</string>
+    <!-- Countries: MT -->
+    <string name="feast_of_st_joseph">Il-Festa ta’ San Ġużepp</string>
+    <!-- Countries: MT -->
+    <string name="feast_of_st_pauls_shipwreck">Il-Festa tan-Nawfraġju ta’ San Pawl</string>
+    <!-- Countries: AD, AT, ES, IT, LI, MC, MT, PT, SM -->
+    <string name="feast_of_the_immaculate_conception">Il-Festa tal-Immakulata Kunċizzjoni</string>
+    <!-- Countries: MT, ZA -->
+    <string name="freedom_day">Jum il-Ħelsien</string>
+    <!-- Countries: AD, BG, CZ, DE, EE, ES, HU, LV, MT, NL, PT, RS, SE, SK, ZA -->
+    <string name="good_friday">Il-Ġimgħa l-Kbira</string>
+    <!-- Countries: BG, CH, CZ, EE, MD, MT, MX, PL, PT -->
+    <string name="independence_day">Jum l-Indipendenza</string>
+    <!-- Countries: MT, ZA -->
+    <string name="international_workers_day">Jum il-Ħaddiem</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MD, MT, MX, NL, PL, PT, RO, RS, SE, SI, ZA -->
+    <string name="new_years_day">L-Ewwel tas-Sena</string>
+    <!-- Countries: IT, MT, PT -->
+    <string name="republic_day">Jum ir-Repubblika</string>
+    <!-- Countries: MT -->
+    <string name="sette_giugno">Sette Giugno</string>
+</resources>

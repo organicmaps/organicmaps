@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: public_holidays -->
+    <!-- Countries: AD, AT, BE, ES, FR, HR, HU, IT, LI, LT, MC, PL, PT, SE, SK, SM -->
+    <string name="all_saints_day">Tots Sants</string>
+    <!-- Countries: AD, AT, BE, ES, FR, HR, IT, LT, MC, MT, PL, PT, RO, SI, SM -->
+    <string name="assumption_of_mary">Assumpció</string>
+    <!-- Countries: AD -->
+    <string name="carnival">Carnaval</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MT, MX, NL, PL, PT, SE, SI, SK, SM, ZA -->
+    <string name="christmas_day_catholic">Nadal</string>
+    <!-- Countries: AD, ES, MX, PL -->
+    <string name="constitution_day">Dia de la Constitució</string>
+    <!-- Countries: AD, AL, AT, BE, BG, CZ, DE, ES-CT, ES-IB, ES-NC, ES-PV, ES-VC, FR, HR, HU, IE, IT, LI, LT, LV, MC, NL, PL, SE, SI, SK, SM -->
+    <string name="easter_monday">Dilluns de Pasqua</string>
+    <!-- Countries: ES-CE, ES-ML -->
+    <string name="end_of_ramadan_eid_al_fitr">Festa de la fi del Ramadà (Eid al-Fitr)</string>
+    <!-- Countries: AD, AT, ES, HR, IT, LI, PL, RO, SE, SK, SM -->
+    <string name="epiphany">Reis</string>
+    <!-- Countries: ES-CE, ES-ML -->
+    <string name="feast_of_sacrifice_eid_al_adha">Festa del Sacrifici (Eid al-Adha)</string>
+    <!-- Countries: AD, AT, ES, IT, LI, MC, MT, PT, SM -->
+    <string name="feast_of_the_immaculate_conception">Immaculada Concepció</string>
+    <!-- Countries: AD, BG, CZ, DE, EE, ES, HU, LV, MT, NL, PT, RS, SE, SK, ZA -->
+    <string name="good_friday">Divendres Sant</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CZ, DE, ES, FR, HR, HU, IT, LI, LT, LV, MC, MD, MX, PL, PT, RO, RS, SE, SI, SK, SM -->
+    <string name="labour_day">Festa del Treball</string>
+    <!-- Countries: ES-CE, ES-CN, ES-IB, ES-ML, ES-NC, ES-PV -->
+    <string name="maundy_thursday">Dijous Sant</string>
+    <!-- Countries: ES-CN, ES-NC -->
+    <string name="monday_following_all_saints_day">Dilluns següent a Tots Sants</string>
+    <!-- Countries: ES-ML -->
+    <string name="monday_following_constitution_day">Dilluns següent al Dia de la Constitució Espanyola</string>
+    <!-- Countries: ES-CT -->
+    <string name="national_day_of_catalonia">Diada Nacional de Catalunya</string>
+    <!-- Countries: AD -->
+    <string name="national_holiday">Mare de Déu de Meritxell</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MD, MT, MX, NL, PL, PT, RO, RS, SE, SI, ZA -->
+    <string name="new_years_day">Any nou</string>
+    <!-- Countries: AD, AT, BE, DE, FR, HU, LI -->
+    <string name="pentecost_monday">Dilluns de Pentecosta</string>
+    <!-- Countries: ES-CE -->
+    <string name="regional_holiday_in_ceuta">Dia de Ceuta</string>
+    <!-- Countries: ES-ML -->
+    <string name="regional_holiday_in_meilla">Dia de Melilla</string>
+    <!-- Countries: ES-ML -->
+    <string name="regional_holiday_in_melilla">Estatut d\'Autonomia de Melilla</string>
+    <!-- Countries: ES-VC -->
+    <string name="regional_holiday_in_valencia">Dia de la Comunitat Valenciana</string>
+    <!-- Countries: ES-IB -->
+    <string name="regional_holiday_on_the_balearic_islands">Dia següent del Dia de les Illes Balears</string>
+    <!-- Countries: ES-CN -->
+    <string name="regional_holiday_on_the_canary_islands">Dia de les Canàries</string>
+    <!-- Countries: ES-NC, ES-PV -->
+    <string name="saint_james_day">Santiago Apòstol</string>
+    <!-- Countries: ES-NC -->
+    <string name="san_francisco_javier">Sant Francesc Xavier</string>
+    <!-- Countries: ES -->
+    <string name="spanish_national_day">Diada Nacional d\'Espanya</string>
+    <!-- Countries: ES-CE -->
+    <string name="st_anthony">Sant Antoni</string>
+    <!-- Countries: ES-CT, ES-VC -->
+    <string name="st_johns_day">Sant Joan</string>
+    <!-- Countries: ES-NC, ES-PV, ES-VC -->
+    <string name="st_josephs_day">Dia de Sant Josep</string>
+    <!-- Countries: AD, AT, ES-CT, ES-IB, IE, IT, LI -->
+    <string name="st_stephens_day">Sant Esteve</string>
+</resources>

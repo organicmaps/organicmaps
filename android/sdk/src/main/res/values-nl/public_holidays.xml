@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- SECTION: public_holidays -->
+    <!-- Countries: AD, AT, BE, ES, FR, HR, HU, IT, LI, LT, MC, PL, PT, SE, SK, SM -->
+    <string name="all_saints_day">Allerheiligen</string>
+    <!-- Countries: BE, FR, RS -->
+    <string name="armistice_day">Wapenstilstand van 1918</string>
+    <!-- Countries: AT, BE, CH, DE, FR, LI, NL, SE -->
+    <string name="ascension_day">O.L.H. Hemelvaart</string>
+    <!-- Countries: AD, AT, BE, ES, FR, HR, IT, LT, MC, MT, PL, PT, RO, SI, SM -->
+    <string name="assumption_of_mary">O.L.V. Hemelvaart</string>
+    <!-- Countries: EE, NL, SE -->
+    <string name="boxing_day">Tweede kerstdag</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MT, MX, NL, PL, PT, SE, SI, SK, SM, ZA -->
+    <string name="christmas_day_catholic">Kerstmis</string>
+    <!-- Countries: BE, SM -->
+    <string name="easter">Pasen</string>
+    <!-- Countries: AD, AL, AT, BE, BG, CZ, DE, ES-CT, ES-IB, ES-NC, ES-PV, ES-VC, FR, HR, HU, IE, IT, LI, LT, LV, MC, NL, PL, SE, SI, SK, SM -->
+    <string name="easter_monday">Paasmaandag</string>
+    <!-- Countries: AL, BG, EE, LT, LV, NL, PL, PT, SE, SI -->
+    <string name="easter_sunday">Eerste paasdag</string>
+    <!-- Countries: AD, BG, CZ, DE, EE, ES, HU, LV, MT, NL, PT, RS, SE, SK, ZA -->
+    <string name="good_friday">Goede vrijdag</string>
+    <!-- Countries: NL -->
+    <string name="kings_day">Koningsdag</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CZ, DE, ES, FR, HR, HU, IT, LI, LT, LV, MC, MD, MX, PL, PT, RO, RS, SE, SI, SK, SM -->
+    <string name="labour_day">Dag van de Arbeid</string>
+    <!-- Countries: AL, CZ, IT, NL -->
+    <string name="liberation_day">Bevrijdingsdag</string>
+    <!-- Countries: AT, BE, FR, HU, LT, SE -->
+    <string name="national_day">Nationale feestdag</string>
+    <!-- Countries: AD, AL, AT, BE, BG, BY, CH, CZ, DE, EE, ES, FR, HR, HU, IE, IT, LI, LT, LV, MC, MD, MT, MX, NL, PL, PT, RO, RS, SE, SI, ZA -->
+    <string name="new_years_day">Nieuwjaarsdag</string>
+    <!-- Countries: BE, EE, LV, PL -->
+    <string name="pentecost">Pinksteren</string>
+    <!-- Countries: AD, AT, BE, DE, FR, HU, LI -->
+    <string name="pentecost_monday">Pinkstermaandag</string>
+    <!-- Countries: MC, NL -->
+    <string name="whit_monday">Tweede pinksterdag</string>
+    <!-- Countries: NL, SE, SI -->
+    <string name="whit_sunday">Eerste pinksterdag</string>
+</resources>
