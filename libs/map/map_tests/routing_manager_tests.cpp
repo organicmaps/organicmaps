@@ -1454,6 +1454,37 @@ UNIT_TEST(RoutingManager_RepeatedStopsPreferLaterSourceVisit)
   TEST_EQUAL(duplicates->m_stopPointIndexes[0], duplicates->m_stopPointIndexes[1], ("Keep true collocated duplicates"));
 }
 
+UNIT_TEST(RoutingManager_RepeatedOffVertexStopsWaitForReturnVisit)
+{
+  kml::TrackData source;
+  source.m_geometry.AddLine({{MeterPoint(0, 0), 100},
+                             {MeterPoint(100, 0), 100},
+                             {MeterPoint(101.2, 0), 100},
+                             {MeterPoint(104, 0), 100},
+                             {MeterPoint(200, 0), 100},
+                             {MeterPoint(200, 2), 100},
+                             {MeterPoint(0, 2), 100}});
+  source.m_geometry.AddTimestamps({});
+  source.m_stops = {{MeterPoint(100, 1.9), "Outbound"}, {MeterPoint(100, 1.9), "Return"}};
+
+  auto const full = BuildTrackFollowingData(source, {0, 0, 0.0});
+  TEST(full, ());
+  TEST_EQUAL(full->m_stopPointIndexes.size(), 2, ());
+  TEST(
+      full->m_points[full->m_stopPointIndexes[0]].GetPoint().EqualDxDy(MeterPoint(100, 0), mercator::kPointEqualityEps),
+      ());
+  TEST(
+      full->m_points[full->m_stopPointIndexes[1]].GetPoint().EqualDxDy(MeterPoint(100, 2), mercator::kPointEqualityEps),
+      ());
+
+  auto const remainder = BuildTrackFollowingData(source, {0, 3, 0.5});
+  TEST(remainder, ());
+  TEST_EQUAL(remainder->m_stopPointIndexes.size(), 1, ());
+  TEST(remainder->m_points[remainder->m_stopPointIndexes.front()].GetPoint().EqualDxDy(MeterPoint(100, 2),
+                                                                                       mercator::kPointEqualityEps),
+       ());
+}
+
 UNIT_TEST(RoutingManager_TrackPreparationSkipsDistantStops)
 {
   kml::TrackData source;

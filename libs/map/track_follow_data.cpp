@@ -22,7 +22,7 @@ using PWA = geometry::PointWithAltitude;
 double constexpr kEndpointFractionEps = 1e-12;
 // Map/graph distance rounding must still identify the same source occurrence.
 double constexpr kSelectionDistanceToleranceM = 0.01;
-// A repeated stop needs real movement away from its previous visit.
+// Separate visits to the same source vertex must include movement away from it.
 double constexpr kDistinctStopVisitM = 1.0;
 // Repeated stops may differ slightly in their proximity to the source on separate visits.
 double constexpr kStopProjectionToleranceM = 0.5;
@@ -90,8 +90,10 @@ std::optional<StopProjection> ProjectStop(kml::MultiGeometry const & geometry, m
   ASSERT_GREATER(geometry.m_lines[bound.m_line].size(), 1, ());
   ASSERT_LESS(bound.m_segment, geometry.m_lines[bound.m_line].size() - 1, ());
   ASSERT(math::is_finite(bound.m_fraction) && bound.m_fraction >= 0.0 && bound.m_fraction <= 1.0, (bound.m_fraction));
-  auto const previousAnchor = PointAtPosition(geometry, bound).GetPoint();
-  bool leftPrevious = false;
+  // An off-vertex visit continues until the track leaves the stop's projection radius.
+  auto const departureCenter = requireReturn && isSourceVertex ? PointAtPosition(geometry, bound).GetPoint() : point;
+  double const departureRadiusM = isSourceVertex ? kDistinctStopVisitM : kMaxStopDistanceM;
+  bool canProject = !requireReturn;
   for (size_t lineIndex = bound.m_line; lineIndex < geometry.m_lines.size(); ++lineIndex)
   {
     auto const & line = geometry.m_lines[lineIndex];
@@ -108,10 +110,10 @@ std::optional<StopProjection> ProjectStop(kml::MultiGeometry const & geometry, m
               : minFraction;
       auto const projected = from + direction * fraction;
       auto const fromBound = from + direction * minFraction;
-      if (requireReturn)
-        leftPrevious = leftPrevious || mercator::DistanceOnEarth(previousAnchor, fromBound) > kDistinctStopVisitM;
+      if (!canProject)
+        canProject = mercator::DistanceOnEarth(departureCenter, fromBound) > departureRadiusM;
       double const distanceM = mercator::DistanceOnEarth(projected, point);
-      if (distanceM <= kMaxStopDistanceM && (!requireReturn || leftPrevious) &&
+      if (canProject && distanceM <= kMaxStopDistanceM &&
           (!isSourceVertex || projected.EqualDxDy(point, mercator::kPointEqualityEps)) &&
           (!best || distanceM < best->m_distanceM))
       {
@@ -120,8 +122,8 @@ std::optional<StopProjection> ProjectStop(kml::MultiGeometry const & geometry, m
       // Vertices identify exact source occurrences; noisy interpolated stops use the first nearby visit.
       if (best && (isSourceVertex || mercator::DistanceOnEarth(to, point) > kMaxStopDistanceM))
         return best;
-      if (requireReturn)
-        leftPrevious = leftPrevious || mercator::DistanceOnEarth(previousAnchor, to) > kDistinctStopVisitM;
+      if (!canProject)
+        canProject = mercator::DistanceOnEarth(departureCenter, to) > departureRadiusM;
     }
     if (best && !IsJoinedToNext(geometry, lineIndex))
       return best;
