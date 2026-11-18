@@ -201,7 +201,7 @@ public:
   FollowTrackResult ResetFollowedTrackToPlanning();
   // Update from a finite distance along the full source track, clamped to its endpoints.
   // Retain the profile and viewport; the entry belongs to the captured source, not the map selection.
-  // At a disconnected boundary, the distance selects the preceding section's endpoint.
+  // At a gap, keep the accepted entry at its distance. Other gap distances select the preceding endpoint.
   FollowTrackResult UpdateFollowedTrackEntryAt(double distanceM);
   // Change this preview's profile (Vehicle, Bicycle or Pedestrian) without writing global defaults.
   FollowTrackResult SetFollowTrackProfile(routing::RouterType type);
@@ -332,6 +332,7 @@ public:
   std::optional<RouteElevationData> GetRouteElevationData() const;
 
   // Resolve a finite chart distance on the same geometry as GetRouteElevationData().
+  // The accepted preview entry identifies its section at a shared boundary distance.
   std::optional<m2::PointD> GetRoutePointAtDistance(double distanceMeters) const;
 
   uint32_t OpenRoutePointsTransaction();

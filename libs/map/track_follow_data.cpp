@@ -8,6 +8,7 @@
 #include "base/math.hpp"
 
 #include <algorithm>
+#include <cmath>
 #include <tuple>
 #include <unordered_map>
 #include <utility>
@@ -186,16 +187,14 @@ std::optional<TrackSourcePosition> ResolveTrackEntry(kml::MultiGeometry const & 
       double const fraction = delta.SquaredLength() > 0.0
                                 ? math::Clamp(m2::DotProduct(projected - from, delta) / delta.SquaredLength(), 0.0, 1.0)
                                 : 0.0;
-      // Map taps accumulate geodesic distance to the selected coordinate; graph scrubs use
-      // a fraction of the complete segment's length. Both identify the same source occurrence.
-      double const selectedDistance = distance + mercator::DistanceOnEarth(from, projected);
+      double const end = distance + length;
+      double const selectedDistance = std::lerp(distance, end, fraction);
       if (projected.EqualDxDy(selectedPoint, mercator::kPointEqualityEps) &&
-          (AlmostEqualAbs(distanceFromBeginningM, selectedDistance, kSelectionDistanceToleranceM) ||
-           AlmostEqualAbs(distanceFromBeginningM, distance + length * fraction, kSelectionDistanceToleranceM)))
+          AlmostEqualAbs(distanceFromBeginningM, selectedDistance, kSelectionDistanceToleranceM))
       {
         return NormalizePosition(geometry, {lineIndex, segment, fraction});
       }
-      distance += length;
+      distance = end;
     }
   }
   return std::nullopt;

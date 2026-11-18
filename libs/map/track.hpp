@@ -77,7 +77,7 @@ public:
     std::string m_title;
     dp::Color m_color = dp::Color::Transparent();
 
-    // Distance in meters from the beginning to m_trackPoint.
+    // Cumulative chart distance in meters at m_trackPoint.
     double m_distFromBegM;
     // Mercator square distance, used to select nearest track.
     double m_squareDist = std::numeric_limits<double>::max();

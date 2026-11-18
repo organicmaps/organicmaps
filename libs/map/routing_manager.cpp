@@ -1208,7 +1208,10 @@ FollowTrackResult RoutingManager::UpdateFollowedTrackEntryAt(double distanceM)
 
   auto const source = m_followSession->m_source;
   distanceM = std::clamp(distanceM, 0.0, source->GetLengthMeters());
-  auto const entry = ResolveTrackEntryAt(source->GetData().m_geometry, distanceM);
+  // Both ends of a gap share a chart distance.
+  auto const entry = distanceM == m_followSession->m_info.m_entryDistanceM
+                       ? m_followSession->m_entry
+                       : ResolveTrackEntryAt(source->GetData().m_geometry, distanceM);
   return BuildFollowedTrack(source, entry, distanceM, m_followSession->m_info.m_profile, true /* keepViewport */);
 }
 
@@ -1891,9 +1894,13 @@ std::optional<RouteElevationData> RoutingManager::GetRouteElevationData() const
 
 std::optional<m2::PointD> RoutingManager::GetRoutePointAtDistance(double distanceMeters) const
 {
-  if (m_followSession && !IsRoutingFollowing())
-    return m_followSession->m_source->GetPoint(distanceMeters);
   ASSERT(math::is_finite(distanceMeters), (distanceMeters));
+  if (m_followSession && !IsRoutingFollowing())
+  {
+    if (distanceMeters == m_followSession->m_info.m_entryDistanceM)
+      return m_followSession->m_data->m_points.front().GetPoint();
+    return m_followSession->m_source->GetPoint(distanceMeters);
+  }
   auto const * route = m_routingSession.GetRoute();
   if (!route || !route->IsValid())
     return std::nullopt;
