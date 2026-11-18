@@ -439,17 +439,26 @@ void RuleDrawer::operator()(FeatureType & f)
   feature::GeomType const geomType = f.GetGeomType();
 
   auto style = m_mapStyle;
-  // Hiking routes use Outdoors rules for consistent low-zoom visibility. Bicycle and MTB routes use
-  // the Cycling family while that mode is active, so their infrastructure treatment is not replaced
-  // by Outdoors rules.
+  std::optional<Stylist> selected;
   if (m_applyParams.IsRelationRoutes() && geomType == feature::GeomType::Line && !m_relsSettings.IsEmpty())
   {
     RelationsDrawInfo drawInfo(m_relsSettings);
     auto const routes = drawInfo.GetActiveHikingCyclingRoutes(f);
-    style = GetMapStyleForRoute(style, routes);
+    if (!routes.IsEmpty() && GetMapStyleMode(style) == MapStyleMode::Cycling)
+    {
+      // Preserve Cycling's own strokes, borrowing Outdoors only for missing connections.
+      selected.emplace(f, m_zoomLevel, m_deviceLang, style);
+      if (!selected->HasLineRules())
+        selected.emplace(f, m_zoomLevel, m_deviceLang,
+                         MapStyleIsDark(style) ? MapStyleOutdoorsDark : MapStyleOutdoorsLight);
+    }
+    else
+      style = GetMapStyleForRoute(style, routes);
   }
 
-  Stylist const s(f, m_zoomLevel, m_deviceLang, style);
+  if (!selected)
+    selected.emplace(f, m_zoomLevel, m_deviceLang, style);
+  auto const & s = *selected;
 
   // No drawing rules.
   if (!s.m_symbolRule && !s.m_captionRule && !s.m_houseNumberRule && !s.HasLineRules() && !s.m_areaRule &&
