@@ -497,12 +497,6 @@ void MapWidget::paintGL()
     int const samplerLocation = m_program->uniformLocation("u_sampler");
     m_program->setUniformValue(samplerLocation, 0);
 
-    QRectF const & texRect = m_contextFactory->GetTexRect();
-    QVector2D const samplerSize(texRect.width(), texRect.height());
-
-    int const samplerSizeLocation = m_program->uniformLocation("u_samplerSize");
-    m_program->setUniformValue(samplerSizeLocation, samplerSize);
-
     funcs->glClearColor(0.0, 0.0, 0.0, 1.0);
     funcs->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

@@ -111,12 +111,6 @@ bool QtRenderOGLContext::AcquireFrame()
   return true;
 }
 
-QRectF const & QtRenderOGLContext::GetTexRect() const
-{
-  static QRectF const kUnitRect(0.0, 0.0, 1.0, 1.0);
-  return kUnitRect;
-}
-
 GLuint QtRenderOGLContext::GetTextureHandle() const
 {
   if (!m_acquiredFrame)
