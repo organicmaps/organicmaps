@@ -49,7 +49,8 @@
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/syria_tutorial_skip" />
+        android:text="@string/syria_tutorial_skip"
+        android:textColor="?android:textColorSecondary" />
       <Space
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -59,13 +60,16 @@
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/syria_tutorial_back" />
+        android:text="@string/syria_tutorial_back"
+        android:textColor="?android:textColorPrimary" />
       <com.google.android.material.button.MaterialButton
         android:id="@+id/tutorial_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_half"
-        android:text="@string/syria_tutorial_next" />
+        android:text="@string/syria_tutorial_next"
+        android:textColor="@color/syria_btn_on_sync"
+        app:backgroundTint="@color/syria_btn_sync" />
     </LinearLayout>
   </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

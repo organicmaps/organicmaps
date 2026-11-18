@@ -56,6 +56,8 @@
 
       <Button
         android:id="@+id/login_send"
+        android:backgroundTint="@color/syria_btn_sync"
+        android:textColor="@color/syria_btn_on_sync"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_half"
@@ -81,6 +83,8 @@
 
         <Button
           android:id="@+id/login_verify"
+          android:backgroundTint="@color/syria_btn_start"
+          android:textColor="@color/syria_btn_on_start"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/margin_half"
