@@ -54,6 +54,26 @@ Validated against `config.xsd` schema. See the XSD for field definitions.
 
 After editing, run `tools/unix/generate_localizations.sh` and commit generated files separately.
 
+## When translating content from English
+
+Follow these rules for all translation files, including `data/strings/`, `data/categories*.txt`,
+Android `strings.xml`, and iOS and Android store metadata.
+
+- "bookmark"/"bookmarks" (favorite place, saved by user): "метка"/"метки" (Russian), "мітка"/"міткі" (Ukrainian)
+- "track" (recorded path on the map that user walked): "трек" (Russian)
+- "route": "маршрут" (Russian)
+- "icon"/"icons" (place's image symbol on the map): "иконка"/"иконки" (Russian)
+- "outdoors"/"outdoors style"/"outdoors map style": "стиль для активного отдыха" (Russian), "режим Активний відпочинок" (Ukrainian)
+- "map": "мапа" (Ukrainian, Belarusian)
+- use the ellipsis character "…" (U+2026) instead of three dots "..."
+- use ё instead е in Russian where applicable
+- do not translate "Organic Maps" and "ID Editor"
+- do not replace amounts like 5K with zeroes (5.000), either leave it (if it is a normal language practice) or use "5 thousands" equivalent (like 5 тыс. in Russian)
+- prefer OpenStreetMap over OSM in user-facing notes (except short Android release-notes.txt with max 500 characters limit)
+- prefer contour lines over elevation isolines.
+- prefer shown on the map over technical conditions like “without nearby bus stops”.
+- keep contributor credits out of store notes. Put them in the full changelog or a news post.
+
 ## Style files (data/styles/)
 MapCSS files in `styles/default/include/`:
 - `Basemap.mapcss`, `Basemap_label.mapcss` -- terrain, buildings, water

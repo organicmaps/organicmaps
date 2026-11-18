@@ -383,7 +383,8 @@ Parse the diff to identify:
 
 #### 2b: PR Metadata (for `pr` and numeric modes)
 
-Fetch PR metadata to understand the stated scope:
+Use `gh` or the available GitHub tools to fetch PR metadata and diffs. Use the local source for
+context when the checked-out branch matches the PR head.
 
 ```bash
 gh pr view <N> --json title,body,labels,baseRefName,headRefName,commits,reviews
@@ -552,17 +553,16 @@ is not met.
 - Exception handling gaps
 - Integer overflow / underflow in arithmetic
 
-**Downloaded map and terrain files:**
+**Error handling:**
 
-- Apply the "Error handling policy" of `CLAUDE.md`, its single statement: the files are trusted
-  after the download verification, header checks may `MYTHROW`, and the regular tile records and
-  payloads use `ASSERT`. Do not flag missing runtime checks of the latter as defects.
+- Apply the [error handling policy](../../CLAUDE.md#error-handling-policy) in the root `CLAUDE.md`,
+  including the startup registration exception for downloaded maps and terrain.
 
 **Regression detection:**
 
 Look for these concrete patterns in the diff (removed `-` vs added `+` lines):
 
-- Removed `if` / `CHECK` / `ASSERT` guards without replacement
+- Removed a guard without preserving a required guarantee it enforced
 - Changed function return type (e.g., `bool` -> `void` loses error signaling)
 - Removed `const` qualifier from parameter or method
 - Added heap allocation (`new`, `make_shared`, `make_unique`) inside a loop that didn't have one
@@ -570,7 +570,7 @@ Look for these concrete patterns in the diff (removed `-` vs added `+` lines):
 - Changed default parameter values
 - Removed `[[nodiscard]]` attribute
 - Broadened a catch clause (e.g., specific exception -> `catch (...)`)
-- Removed or weakened error handling
+- Removed or weakened handling of an expected failure
 
 If a change looks like it might break callers, use `Grep` to find call sites and verify.
 
@@ -613,6 +613,17 @@ When detected:
 - 🟣 Pre-existing — issue existed before this PR (visible in context, not in diff)
 
 #### Checklist 2: Conventions & Hygiene (always)
+
+**Project conventions**
+
+- Check documentation and comments for clarity and accuracy
+- Check for unnecessary complexity and verify that new library dependencies are acyclic and
+  target lower-level libraries as defined in the [architecture overview](../../CLAUDE.md#architecture-overview)
+- Check that platform-specific sources use the appropriate CMake conditionals or filename suffixes
+- Verify that generated files such as styles, localizations, and `classificator.txt` are updated through their generators
+- Check that new user-facing strings come from localization files
+- Proofread translations and suggest needed ones using the
+  [translation guidelines](../../data/CLAUDE.md#when-translating-content-from-english)
 
 **Semantic conventions** (formatters cannot check these):
 
@@ -770,7 +781,8 @@ Check against project requirements using `gh pr view <N> --json commits`:
 
 #### Checklist 4: Test Coverage (always)
 
-Check that new/changed code has appropriate test coverage:
+Check that new and changed code has appropriate test coverage. Verify that new map features have
+[classifier tests](../../generator/generator_tests/osm_type_test.cpp).
 
 **For C++ code:**
 
@@ -920,7 +932,6 @@ Compare the implementation against the stated intent from Step 2.5 (PR Summary):
 
 - 🔴 Critical — confirmed bug: a specific input or call sequence triggers wrong behavior
 - 🟠 Important — likely bug: edge case not handled, requires author to confirm
-- 🟡 Nit — defensive improvement: technically correct but fragile
 
 **Output format per finding:**
 
@@ -956,6 +967,8 @@ Compare the implementation against the stated intent from Step 2.5 (PR Summary):
 - Positive observations as inline comments (keep these in the summary body only)
 
 ### Step 4: Generate Report
+
+Validate review findings and proposed changes with relevant checks or tests before reporting them.
 
 Compile findings into a structured report with severity tags:
 
@@ -1366,8 +1379,7 @@ simpler memory model, but requires full copy on modification.
   the loop at line 72 computes `waypoints[i+1]` which accesses index 1 (out of bounds).
   Callers in `navigator.cpp:45` can pass a single-waypoint vector when user taps
   "navigate to" without intermediate stops.
-  🔴 Fix: Add `CHECK_GREATER(waypoints.size(), 1, ())` at function entry,
-  or handle the single-waypoint case as a direct route.
+  🔴 Fix: Build a direct route from the current position when the user selects a single destination.
 
 ### 🟡 Nits
 
@@ -1407,8 +1419,8 @@ simpler memory model, but requires full copy on modification.
 - ⚠️ `CalculateRoute()` in routing_manager.cpp — needs tests
 - ✅ `ParseResponse()` in routing_manager.cpp — has tests in routing_manager_tests.cpp
 - Suggested test cases:
-    - Test CalculateRoute with empty waypoints
-    - Test CalculateRoute with invalid coordinates
+    - Select a single destination and build a direct route
+    - Build a route through intermediate waypoints
 
 ### ✅ Passed Checks
 

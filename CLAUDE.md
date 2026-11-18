@@ -123,18 +123,10 @@ ctest -j --test-dir build-$YOUR_NAME --stop-on-failure --output-on-failure -R te
 - `<lib>_tests` -- test binary for a library (e.g., `base_tests`, `search_tests`, `routing_tests`)
 - `skin_generator_tool`, `track_generator_tool`, `topography_generator_tool` -- auxiliary tools
 
-## Build for iOS Simulator
-```
-xcodebuild archive -workspace xcode/omim.xcworkspace -configuration Debug -destination generic/platform='iOS Simulator' \
-    -scheme OMaps MARKETING_VERSION="$(date +%Y.%m.%d)" CURRENT_PROJECT_VERSION=1 EXCLUDED_ARCHS=x86_64
-```
-CI builds iOS but does not run its tests yet, see [#9867](https://github.com/organicmaps/organicmaps/issues/9867).
-
-## Build for Android
-- Build: `cd android && ./gradlew assembleGoogleDebug -Parm64`
-- Unit tests: `cd android && ./gradlew app:testGoogleDebug sdk:testDebug`
-- Instrumented tests (needs an emulator or device): `cd android && ./gradlew sdk:connectedDebugAndroidTest`
-- Lint (gates CI): `cd android && ./gradlew lintAllModules`
+## Mobile builds and CI
+- Read the [Android guide](android/CLAUDE.md) for Android work, including CI. For changes to the
+  SDK or its CI, also read the [SDK guide](android/sdk/CLAUDE.md).
+- Read the [iOS guide](iphone/CLAUDE.md) for iOS builds and changes to `iphone/`, `xcode/`, or iOS CI.
 
 ## Commit messages
 Format: `[subsystem] Summary in imperative mood` (max 80 chars). Examples of subsystems:
@@ -158,77 +150,49 @@ Format: `[subsystem] Summary in imperative mood` (max 80 chars). Examples of sub
 - See [docs/PR_GUIDE.md](docs/PR_GUIDE.md) for full guide
 
 ## Main focus
-- Follow the [Android SDK ownership and release policy](android/sdk/README.md#sdk-release-consumer-checks) when changing the SDK or its CI
 - On performance, simplicity, regressions, impact and code quality
-- Tests covering most/all corner cases or changes
+- Tests covering supported behavior, reachable boundary failures and actual regressions
 - Less code/cleaner code/less changes
 - Simple architecture and design for long-term maintenance
 
 ## Error handling policy
-- Downloaded files are verified on download when a hash is available, and trusted as-is otherwise --
-  they come from our servers. On-disk corruption afterwards is out of OM scope: crashing on corrupted
-  data is fine, do not harden the code against it. Exception: `Framework::RegisterAllMaps()` must
-  survive broken map files and invalid terrain blocks (logged and skipped, terrain asserts in Debug)
-  so the app still starts and bookmarks can be exported.
-- Basic format and constraint checks when reading file headers may reject data with `MYTHROW`.
-  Regular map/terrain tile records and payloads are trusted after download verification: use
-  debug-only `ASSERT` for their invariants, not runtime validation with `MYTHROW` or corruption
-  recovery. Keep required reads and decompression outside `ASSERT` (or use `VERIFY`).
-- Exception: `CHECK` (with the value and bound in the message) is appropriate in the once-per-file
-  header/prologue loading and on the section offsets a record reads from. The repeated per-element
-  decoding (coordinates, indices, counts) keeps `ASSERT`, even for stream-derived values.
-- Fail fast: use `ASSERT` liberally to catch developer mistakes in Debug. Asserts are compiled out of
-  Release for performance, so keep them side-effect free (`VERIFY` still evaluates its expression).
-  Use `CHECK` when the condition must also hold in Release, and don't add defensive fallbacks for
-  conditions that can only come from a bug.
+- Validate user input and untrusted external data once at the owning boundary. Handle expected
+  environmental failures and cancellations normally. Inspect producer guarantees before adding
+  checks, and rely on established preconditions, ownership, lifetimes and state invariants downstream.
+- Fix internal contract violations at their source, including those exposed by valid user actions.
+  Reserve recovery paths for expected failures.
+- Use `ASSERT` for useful Debug diagnostics on non-obvious invariants or bugs under investigation.
+  Use `CHECK` only when a concrete requirement calls for Release enforcement.
+- Keep `ASSERT` expressions side-effect free because Release omits them. Perform required work,
+  including reads and decompression, outside `ASSERT` or use `VERIFY`.
+- Use `math::is_finite` when a finiteness check is required under fast-math. Successful
+  `strings::to_double` and `strings::to_float` calls guarantee finite results. Recheck only if a
+  subsequent operation can invalidate that guarantee.
+- Verify download hashes when available and trust downloaded files from OM servers. Limit on-disk
+  corruption recovery to startup registration. `Framework::RegisterAllMaps()` must log and skip
+  broken map files and invalid terrain blocks so the app can start and export bookmarks. Keep Debug
+  assertions for terrain invariants.
+- Use `MYTHROW` for file format or constraint failures during startup registration, such as
+  unsupported versions, so registration can log and skip the file. After registration accepts a
+  file, use `CHECK` in once-per-file header or prologue loading and at section offsets and lengths
+  when Release enforcement is needed to prevent out-of-bounds reads or excessive allocations.
+  Include the value and bound in the message.
+- Use Debug-only `ASSERT` for other invariant checks in regular map and terrain tile records and
+  payloads, including stream-derived coordinates, indices and counts decoded per element.
 
 ## Code review guidelines
-- Use the available GitHub tooling (`gh` CLI or GitHub MCP tools) to review pull requests, leave comments and approve changes
-- Check the code locally if the same PR/branch is checked out
-- Review code for bugs, correctness, maintainability, performance, and other issues
-- Review related changes and places where the code is used
-- Review documentation and comments for clarity and accuracy
-- Propose unit tests if needed/relevant
-- Keep the architecture, design and implementation simple and clean, avoid overengineering and unnecessary complexity
-- Verify no new circular dependencies between library layers
-- Check that platform-specific code uses proper CMake conditionals or platform-suffixed files
-- Verify auto-generated files are NOT modified by hand (styles, localizations, `classificator.txt`)
-- Check that new strings go into translation files, not hardcoded
-- Verify new map features have classifier tests in `generator/generator_tests/osm_type_test.cpp`
-- Proofread translations and suggest missing ones, following "When translating content from English"
+
+For code reviews, read and follow the [om-review skill](.github/skills/om-review.md).
 
 ## Translation, map styles, and new map features workflows
-See [data/CLAUDE.md](data/CLAUDE.md) for:
-- Translation workflow (editing `data/strings/`, regenerating)
-- Map styles workflow (editing MapCSS in `data/styles/`, regenerating)
-- Adding a new map feature / search category (full checklist)
+
+Read the [data guide](data/CLAUDE.md) for translations (including store metadata), map styles,
+new map features, or search categories.
 
 ## Debug commands
-Enter in the search bar to activate (see [docs/DEBUG_COMMANDS.md](docs/DEBUG_COMMANDS.md)):
-- `?dark`/`?light`/`?olight`/`?odark` -- switch map themes
-- `?debug-info` -- show zoom, FPS, renderer info
-- `?debug-rect` -- show icon/label bounding boxes
-- `?edits` -- list local map edits
-- `?gl`/`?vulkan`/`?metal` -- force graphics backend (requires restart)
+
+See the [debug command guide](docs/DEBUG_COMMANDS.md) for commands you can enter in the search bar.
 
 ## Code ownership
 See `.github/CODEOWNERS` for team assignments. Key teams:
 `@organicmaps/android`, `@organicmaps/ios`, `@organicmaps/qt`, `@organicmaps/rendering`, `@organicmaps/data`, `@organicmaps/styles`
-
-## When translating content from English
-These rules apply to all translation files: `data/strings/`, `data/categories*.txt`, Android `strings.xml`, iOS/Android store metadata.
-
-- "bookmark"/"bookmarks" (favorite place, saved by user): "метка"/"метки" (Russian), "мітка"/"міткі" (Ukrainian)
-- "track" (recorded path on the map that user walked): "трек" (Russian)
-- "route": "маршрут" (Russian)
-- "icon"/"icons" (place's image symbol on the map): "иконка"/"иконки" (Russian)
-- "outdoors"/"outdoors style"/"outdoors map style": "стиль для активного отдыха" (Russian), "режим Активний відпочинок" (Ukrainian)
-- "map": "мапа" (Ukrainian, Belarusian)
-- use the ellipsis character "…" (U+2026) instead of three dots "..."
-- use ё instead е in Russian where applicable
-- do not translate "Organic Maps" and "ID Editor"
-- do not replace amounts like 5K with zeroes (5.000), either leave it (if it is a normal language practice) or use "5 thousands" equivalent (like 5 тыс. in Russian)
-- prefer OpenStreetMap over OSM in user-facing notes (except short Android release-notes.txt with max 500 characters limit)
-- prefer contour lines over elevation isolines.
-- prefer shown on the map over technical conditions like “without nearby bus stops”.
-- keep contributor credits out of store notes; they are better suited to a full changelog or news post.
