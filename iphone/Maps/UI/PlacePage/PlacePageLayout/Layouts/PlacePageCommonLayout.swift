@@ -141,10 +141,6 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
     LocationManager.add(observer: self)
     if let lastLocation = LocationManager.lastLocation() {
       onLocationUpdate(lastLocation)
-      self.lastLocation = lastLocation
-    }
-    if let lastHeading = LocationManager.lastHeading() {
-      onHeadingUpdate(lastHeading)
     }
 
     placePageData.onMapNodeStatusUpdate = { [weak self] in
@@ -187,10 +183,17 @@ class PlacePageCommonLayout: NSObject, IPlacePageLayout {
 // MARK: - MWMLocationObserver
 
 extension PlacePageCommonLayout: MWMLocationObserver {
-  func onHeadingUpdate(_ heading: CLHeading) {
-    if !placePageData.isMyPosition {
-      updateHeading(heading.trueHeading)
+  func onHeadingUpdate(_ heading: CLHeading?) {
+    guard !placePageData.isMyPosition else { return }
+    // A magnetic heading would introduce declination error into the true-north target direction.
+    guard let location = lastLocation, let heading, heading.trueHeading >= 0 else {
+      previewViewController.updateHeading(nil)
+      return
     }
+
+    let rad = heading.trueHeading * Double.pi / 180
+    let angle = GeoUtil.angle(atPoint: location.coordinate, toPoint: placePageData.locationCoordinate)
+    previewViewController.updateHeading(CGFloat(angle) + CGFloat(rad))
   }
 
   func onLocationUpdate(_ location: CLLocation) {
@@ -215,14 +218,4 @@ extension PlacePageCommonLayout: MWMLocationObserver {
   }
 
   func onLocationError(_: MWMLocationStatus) {}
-
-  private func updateHeading(_ heading: CLLocationDirection) {
-    guard let location = lastLocation, heading >= 0 else {
-      return
-    }
-
-    let rad = heading * Double.pi / 180
-    let angle = GeoUtil.angle(atPoint: location.coordinate, toPoint: placePageData.locationCoordinate)
-    previewViewController.updateHeading(CGFloat(angle) + CGFloat(rad))
-  }
 }

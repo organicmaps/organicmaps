@@ -8,6 +8,8 @@ class DirectionView: SolidTouchView {
   @IBOutlet private var contentView: UIView!
 
   override func awakeFromNib() {
+    super.awakeFromNib()
+    directionArrow.isHidden = true
     distanceLabel.font = alternative(iPhone: .regular32, iPad: .regular52)
     typeLabel.font = alternative(iPhone: .regular16, iPad: .regular24)
   }
@@ -54,16 +56,32 @@ class DirectionView: SolidTouchView {
   }
 
   func updateDistance(_ distance: String?) {
-    distanceLabel?.text = distance
+    distanceLabel.text = distance
   }
 
-  func updateHeading(_ angle: CGFloat) {
-    UIView.animate(withDuration: AppConstants.defaultAnimationDuration,
-                   delay: 0,
-                   options: [.beginFromCurrentState, .curveEaseInOut],
-                   animations: { [unowned self] in
-                     directionArrow?.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2 - angle)
-                   })
+  static func updateArrow(_ arrow: UIImageView, angle: CGFloat?, animated: Bool = true) {
+    guard let angle else {
+      arrow.isHidden = true
+      // Clear any pending rotation so the arrow can reappear at the recovered angle.
+      arrow.layer.removeAllAnimations()
+      return
+    }
+    let animate = animated && !arrow.isHidden
+    arrow.isHidden = false
+    let transform = CGAffineTransform(rotationAngle: .pi / 2 - angle)
+    if animate {
+      UIView.animate(withDuration: AppConstants.defaultAnimationDuration,
+                     delay: 0,
+                     options: [.beginFromCurrentState, .curveEaseInOut]) {
+        arrow.transform = transform
+      }
+    } else {
+      arrow.transform = transform
+    }
+  }
+
+  func updateHeading(_ angle: CGFloat?) {
+    Self.updateArrow(directionArrow, angle: angle)
   }
 
   @IBAction func onTap(_: Any) {

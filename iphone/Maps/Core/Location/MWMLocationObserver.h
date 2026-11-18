@@ -13,7 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol MWMLocationObserver <NSObject>
 
 @optional
-- (void)onHeadingUpdate:(CLHeading *)heading;
+/// Reports the current compass reading on registration and on updates. Nil means the reading is unavailable.
+/// A compass reading can have a magnetic heading without a true heading.
+- (void)onHeadingUpdate:(nullable CLHeading *)heading;
 - (void)onLocationUpdate:(CLLocation *)location;
 - (void)onLocationError:(MWMLocationStatus)locationError;
 
