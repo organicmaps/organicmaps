@@ -451,6 +451,8 @@ bool UserEventStream::OnSetCenter(ref_ptr<SetCenterEvent> centerEvent)
     GetTargetScreen(screen);
     screen.MatchGandP3d(center, m_visibleViewport.Center());
   }
+  // Near the poles, centering the point can move the view beyond the world, which the navigator doesn't accept.
+  ShrinkAndScaleInto(screen, GetWorldRect());
 
   return SetScreen(screen, centerEvent->IsAnim(), centerEvent->GetParallelAnimCreator());
 }
