@@ -14,7 +14,7 @@ Organic Maps səyahət, piyada yürüş və velosiped səfərləri üçün sür�
 
 <b>YERLƏRİ KƏŞF EDİN:</b> Ünvan, ad və ya kateqoriya üzrə axtarın. Milyonlarla məkan tapın, iş saatlarına, Vikipediya məqalələrinə, təkərli oturacaq üçün əlçatanlıq məlumatlarına və digər təfərrüatlara baxın.
 
-<b>GPS NAVİQASİYASI:</b> Səsli, addım-addım göstərişlərdən istifadə edin. Piyada yürüş, velosiped və avtomobil marşrutları, şəhərlər və ölkələr arasında çoxsaylı dayanacaqları olan səfərlər planlaşdırın. İctimai nəqliyyatla gündəlik gediş-gəliş marşrutlarını tapın. Android Auto dəstəklənir.
+<b>GPS NAVİQATOR:</b> Səsli, addım-addım göstərişlərdən istifadə edin. Piyada yürüş, velosiped və avtomobil marşrutları, şəhərlər və ölkələr arasında çoxsaylı dayanacaqları olan səfərlər planlaşdırın. İctimai nəqliyyatla gündəlik gediş-gəliş marşrutlarını tapın. Android Auto dəstəklənir.
 
 <b>DÜNYANIN PİYADA VƏ VELOSİPED MARŞRUTLARI:</b> OpenStreetMap-dən götürülmüş məşhur piyada və velosiped yollarını kəşf etmək üçün xüsusi qatları aktivləşdirin. Rəngli velosiped və dağ velosipedi (MTB) marşrutlarını, eləcə də rəsmi piyada cığırlarını görün.
 
