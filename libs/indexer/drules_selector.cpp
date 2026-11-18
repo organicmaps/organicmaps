@@ -10,6 +10,8 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
+#include <ranges>
+
 namespace drule
 {
 namespace
@@ -119,16 +121,14 @@ private:
 class TypeSelector : public ISelector
 {
 public:
-  TypeSelector(uint32_t type, SelectorOperatorType op) : m_type(type), m_equals(op == SelectorOperatorEqual) {}
+  TypeSelector(uint32_t type, bool equals) : m_type(type), m_level(ftype::GetLevel(type)), m_equals(equals) {}
 
   bool Test(FeatureType & ft, int /* zoom */) const override
   {
     bool found = false;
-    auto const level = ftype::GetLevel(m_type);
-    ft.ForEachType([&found, this, level](uint32_t type)
+    ft.ForEachType([&found, this](uint32_t type)
     {
-      ftype::TruncValue(type, level);
-      if (type == m_type)
+      if (ftype::Trunc(type, m_level) == m_type)
         found = true;
     });
     return found == m_equals;
@@ -136,6 +136,7 @@ public:
 
 private:
   uint32_t m_type;
+  decltype(ftype::GetLevel(uint32_t{})) m_level;
   bool m_equals;
 };
 
@@ -163,12 +164,7 @@ bool GetBoundingBoxArea(FeatureType & ft, int zoom, double & sqM)
 }
 }  // namespace
 
-std::unique_ptr<ISelector> ParseSelector(std::string const & str)
-{
-  return ParseSelector(str, classif());
-}
-
-std::unique_ptr<ISelector> ParseSelector(std::string const & str, Classificator const & classificator)
+static std::unique_ptr<ISelector> ParseSelector(std::string const & str, Classificator const & classificator)
 {
   SelectorExpression e;
   if (!ParseSelector(str, e))
@@ -206,27 +202,32 @@ std::unique_ptr<ISelector> ParseSelector(std::string const & str, Classificator 
   }
   else if (e.m_tag == "extra_tag")
   {
-    if ((e.m_operator != SelectorOperatorEqual && e.m_operator != SelectorOperatorNotEqual) || e.m_value.empty() ||
-        e.m_value.front() == '=' || e.m_value.back() == '=' || e.m_value.find("==") != std::string::npos)
+    if ((e.m_operator != SelectorOperatorEqual && e.m_operator != SelectorOperatorNotEqual) || e.m_value.empty())
       return {};
-    auto const path = strings::Tokenize(e.m_value, "=");
+    std::vector<std::string_view> path;
+    for (auto const component : e.m_value | std::views::split('='))
+    {
+      std::string_view name(component);
+      strings::Trim(name);
+      if (name.empty())
+        return {};
+      path.push_back(name);
+    }
     auto const type = classificator.GetTypeByPathSafe(path);
     if (type == Classificator::INVALID_TYPE)
       return {};
-    return std::make_unique<TypeSelector>(type, e.m_operator);
+    return std::make_unique<TypeSelector>(type, e.m_operator == SelectorOperatorEqual);
   }
 
   LOG(LERROR, ("Unrecognized selector:", str));
   return {};
 }
 
-std::unique_ptr<ISelector> ParseSelector(std::vector<std::string> const & strs)
-{
-  return ParseSelector(strs, classif());
-}
-
 std::unique_ptr<ISelector> ParseSelector(std::vector<std::string> const & strs, Classificator const & classificator)
 {
+  if (strs.size() == 1)
+    return ParseSelector(strs.front(), classificator);
+
   std::unique_ptr<CompositeSelector> cs = std::make_unique<CompositeSelector>(strs.size());
 
   for (std::string const & str : strs)
