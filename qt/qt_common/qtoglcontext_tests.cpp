@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "qt/qt_common/frame_blit.hpp"
 #include "qt/qt_common/qtoglcontext.hpp"
 
 #include "qt_tstfrm/test_main_loop.hpp"
@@ -9,11 +10,18 @@
 #include <QOpenGLFunctions>
 #include <QOpenGLShaderProgram>
 #include <QOpenGLVertexArrayObject>
+#include <QtResource>
 
 #include <array>
 
+static void InitFrameBlitResources()
+{
+  Q_INIT_RESOURCE(resources_common);
+}
+
 namespace qtoglcontext_tests
 {
+using qt::common::FrameBlit;
 using qt::common::QtRenderOGLContext;
 
 struct Environment
@@ -55,7 +63,7 @@ struct Environment
 
   void CheckFrame(GLuint texture, GLint width, GLint height, bool red)
   {
-    TEST(texture != 0, ());
+    TEST_NOT_EQUAL(texture, 0u, ());
     auto * functions = root->extraFunctions();
     functions->glBindTexture(GL_TEXTURE_2D, texture);
     GLint actualWidth = 0;
@@ -79,6 +87,47 @@ struct Environment
     TEST_EQUAL(pixel[2], red ? 0 : 255, ());
   }
 };
+
+UNIT_TEST(QtFrameBlit_PaintsAcquiredTextureAndClearsWithoutOne)
+{
+  InitFrameBlitResources();
+  RunTestInOpenGLOffscreenEnvironment("Blit acquired frame", []
+  {
+    int constexpr kWidth = 13;
+    int constexpr kHeight = 29;
+    Environment env;
+    env.Resize(kWidth, kHeight);
+    env.context.SetFramebuffer(nullptr);
+
+    auto * producer = QOpenGLContext::currentContext()->functions();
+    producer->glDisable(GL_SCISSOR_TEST);
+    producer->glClearColor(0.0, 0.0, 1.0, 1.0);
+    producer->glClear(GL_COLOR_BUFFER_BIT);
+    producer->glEnable(GL_SCISSOR_TEST);
+    producer->glScissor(0, kHeight / 2, kWidth, kHeight - kHeight / 2);
+    producer->glClearColor(1.0, 0.0, 0.0, 1.0);
+    producer->glClear(GL_COLOR_BUFFER_BIT);
+    producer->glDisable(GL_SCISSOR_TEST);
+    env.context.Present();
+
+    GLuint const texture = env.Acquire();
+    TEST_NOT_EQUAL(texture, 0u, ());
+    QOpenGLFramebufferObject output(kWidth, kHeight);
+    TEST(output.bind(), ());
+    env.root->functions()->glViewport(0, 0, kWidth, kHeight);
+    FrameBlit blit;
+    blit.Draw(texture);
+    auto const image = output.toImage();
+    TEST_EQUAL(image.pixel(0, 0), qRgb(255, 0, 0), ());
+    TEST_EQUAL(image.pixel(kWidth - 1, kHeight - 1), qRgb(0, 0, 255), ());
+
+    TEST(output.bind(), ());
+    blit.Draw(0);
+    auto const cleared = output.toImage();
+    TEST_EQUAL(cleared.pixel(0, 0), qRgb(0, 0, 0), ());
+    TEST_EQUAL(cleared.pixel(kWidth - 1, kHeight - 1), qRgb(0, 0, 0), ());
+  });
+}
 
 UNIT_TEST(QtRenderContext_KeepsAcquiredFrameUntilReplacementIsPresented)
 {
@@ -145,7 +194,7 @@ UNIT_TEST(QtRenderContext_FinishesConsumerSamplingBeforeRecycling)
     env.Resize(64, 64);
     env.Present(true);
     GLuint const texture = env.Acquire();
-    TEST(texture != 0, ());
+    TEST_NOT_EQUAL(texture, 0u, ());
 
     QOpenGLFramebufferObject output(QSize(512, 512));
     TEST(output.isValid(), ());
@@ -199,7 +248,8 @@ UNIT_TEST(QtRenderContext_FinishesConsumerSamplingBeforeRecycling)
     GLuint const nextTexture = env.context.AcquireFrameTexture();
     auto const status = functions->glClientWaitSync(completion, 0, 0);
     functions->glDeleteSync(completion);
-    TEST(nextTexture != 0, ());
+    TEST_NOT_EQUAL(nextTexture, 0u, ());
+    TEST_NOT_EQUAL(nextTexture, texture, ());
     TEST(status == GL_ALREADY_SIGNALED || status == GL_CONDITION_SATISFIED, (status));
     program.release();
     vao.release();

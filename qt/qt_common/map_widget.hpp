@@ -17,11 +17,10 @@ class Framework;
 class QMouseEvent;
 class QWidget;
 class ScreenBase;
-class QOpenGLShaderProgram;
-class QOpenGLVertexArrayObject;
 
 namespace qt::common
 {
+class FrameBlit;
 class ScaleSlider;
 
 class MapWidget : public QOpenGLWidget
@@ -117,10 +116,7 @@ protected:
   std::unique_ptr<QTimer> m_updateTimer;
 
 private:
-  void InitFrameBlit();
-
-  std::unique_ptr<QOpenGLShaderProgram> m_program;
-  std::unique_ptr<QOpenGLVertexArrayObject> m_vao;
+  std::unique_ptr<FrameBlit> m_frameBlit;
 };
 
 }  // namespace qt::common

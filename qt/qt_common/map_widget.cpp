@@ -1,5 +1,6 @@
 #include "qt/qt_common/map_widget.hpp"
 
+#include "qt/qt_common/frame_blit.hpp"
 #include "qt/qt_common/helpers.hpp"
 #include "qt/qt_common/scale_slider.hpp"
 
@@ -16,8 +17,6 @@
 #include <functional>
 #include <string>
 
-#include <QOpenGLShaderProgram>
-#include <QOpenGLVertexArrayObject>
 #include <QTouchEvent>
 
 #include <QtGui/QAction>
@@ -323,28 +322,6 @@ void MapWidget::UpdateScaleControl()
   m_slider->SetPosWithBlockedSignals(m_framework.GetDrawScale());
 }
 
-void MapWidget::InitFrameBlit()
-{
-#if defined(OMIM_OS_LINUX)
-  auto constexpr kVertexShader = ":common/shaders/gles_300.vsh.glsl";
-  auto constexpr kFragmentShader = ":common/shaders/gles_300.fsh.glsl";
-#else
-  auto constexpr kVertexShader = ":common/shaders/gl_150.vsh.glsl";
-  auto constexpr kFragmentShader = ":common/shaders/gl_150.fsh.glsl";
-#endif
-
-  m_program = std::make_unique<QOpenGLShaderProgram>(this);
-  CHECK(m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, kVertexShader),
-        (kVertexShader, m_program->log().toStdString()));
-  CHECK(m_program->addShaderFromSourceFile(QOpenGLShader::Fragment, kFragmentShader),
-        (kFragmentShader, m_program->log().toStdString()));
-  CHECK(m_program->link(), (kVertexShader, kFragmentShader, m_program->log().toStdString()));
-
-  // Desktop core OpenGL requires a VAO even when the shader generates the vertices.
-  m_vao = std::make_unique<QOpenGLVertexArrayObject>(this);
-  CHECK(m_vao->create(), ("Cannot create the map frame VAO"));
-}
-
 namespace
 {
 search::ReverseGeocoder::Address GetFeatureAddressInfo(Framework const & framework, FeatureType & ft)
@@ -450,7 +427,7 @@ void MapWidget::initializeGL()
   }
 #endif
 
-  InitFrameBlit();
+  m_frameBlit = std::make_unique<FrameBlit>();
   m_contextFactory.reset(new QtOGLContextFactory(context()));
 
   emit BeforeEngineCreation();
@@ -464,22 +441,7 @@ void MapWidget::initializeGL()
 
 void MapWidget::paintGL()
 {
-  GLuint const texture = m_contextFactory->AcquireFrameTexture();
-  if (texture == 0)
-    return;
-
-  m_vao->bind();
-  m_program->bind();
-
-  QOpenGLFunctions * funcs = context()->functions();
-  funcs->glActiveTexture(GL_TEXTURE0);  // The linked sampler defaults to unit 0.
-  funcs->glBindTexture(GL_TEXTURE_2D, texture);
-  funcs->glClearColor(0.0, 0.0, 0.0, 1.0);
-  funcs->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  funcs->glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-
-  m_program->release();
-  m_vao->release();
+  m_frameBlit->Draw(m_contextFactory->AcquireFrameTexture());
 }
 
 void MapWidget::resizeGL(int width, int height)

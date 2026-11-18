@@ -106,7 +106,6 @@ GLuint QtRenderOGLContext::AcquireFrameTexture()
     std::swap(m_acquiredFrame, m_frontFrame);
     m_frameUpdated = false;
   }
-  lock.unlock();
   return m_acquiredFrame ? m_acquiredFrame->texture() : 0;
 }
 
