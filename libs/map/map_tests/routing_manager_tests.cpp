@@ -2303,6 +2303,7 @@ UNIT_TEST(RoutingManager_ExplicitTrackProfileSurvivesLaterSessions)
   auto & bookmarks = fixture.m_framework.GetBookmarkManager();
   auto const withoutProfile = CreateTestTrack(bookmarks);
   auto const withProfile = CreateTestTrack(bookmarks, "bicycle");
+  auto const withUnknownProfile = CreateTestTrack(bookmarks, "walking");
   auto const start = bookmarks.GetTrack(withoutProfile)->GetGeometry().front().GetPoint();
   auto const preview = [&](kml::TrackId id)
   {
@@ -2325,6 +2326,8 @@ UNIT_TEST(RoutingManager_ExplicitTrackProfileSurvivesLaterSessions)
   preview(withoutProfile);
   TEST_EQUAL(manager.GetRenderRouterType(), routing::RouterType::Pedestrian,
              ("Remember the explicit choice, not the last track's KML profile"));
+  preview(withUnknownProfile);
+  TEST_EQUAL(manager.GetRenderRouterType(), routing::RouterType::Pedestrian, ());
   TEST_EQUAL(manager.GetRouter(), routing::RouterType::Vehicle, ());
   TEST_EQUAL(manager.GetLastUsedRouter(), routing::RouterType::Vehicle, ());
   TEST(bookmarks.GetTrack(withoutProfile)->GetData().m_routerType.empty(), ());
