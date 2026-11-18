@@ -93,7 +93,12 @@ protected:
 
   void OnViewportChanged(ScreenBase const & screen);
 
+  void UpdateRatio();
+
   // QOpenGLWidget overrides:
+#if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
+  bool event(QEvent * event) override;
+#endif
   void initializeGL() override;
   void paintGL() override;
   void resizeGL(int width, int height) override;

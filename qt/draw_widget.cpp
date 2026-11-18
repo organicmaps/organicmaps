@@ -194,7 +194,7 @@ void DrawWidget::initializeGL()
 bool DrawWidget::event(QEvent * event)
 {
 #if !defined(OMIM_OS_LINUX)
-  return QOpenGLWidget::event(event);
+  return TBase::event(event);
 #else
   // TouchScreen
   if (auto dfTouchEventType = qtTouchEventTypeToDfTouchEventType(event->type());
@@ -237,7 +237,7 @@ bool DrawWidget::event(QEvent * event)
     }
   }
   // Everything else
-  return QOpenGLWidget::event(event);
+  return TBase::event(event);
 #endif
 }
 
