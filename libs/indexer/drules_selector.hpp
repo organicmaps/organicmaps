@@ -22,12 +22,7 @@ public:
   virtual bool Test(FeatureType & ft, int zoom) const = 0;
 };
 
-// Factory method which builds ISelector from a string.
-std::unique_ptr<ISelector> ParseSelector(std::string const & str);
-std::unique_ptr<ISelector> ParseSelector(std::string const & str, Classificator const & classificator);
-
-// Factory method which builds composite ISelector from a set of string.
-std::unique_ptr<ISelector> ParseSelector(std::vector<std::string> const & strs);
+// Builds a selector that requires every expression to match.
 std::unique_ptr<ISelector> ParseSelector(std::vector<std::string> const & strs, Classificator const & classificator);
 
 }  // namespace drule
