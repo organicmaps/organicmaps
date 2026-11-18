@@ -2,6 +2,7 @@
 
 #include "indexer/features_offsets_table.hpp"
 #include "indexer/metadata_serdes.hpp"  // needed for MwmValue dtor
+#include "indexer/scale_index.hpp"
 #include "indexer/scales.hpp"
 
 #include "platform/local_country_file_utils.hpp"
@@ -235,6 +236,13 @@ void MwmValue::SetTable(MwmInfoEx & info)
     m_relTable = feature::FeaturesOffsetsTable::Load(m_cont, RELATION_OFFSETS_FILE_TAG);
     info.m_relTable = m_relTable;
   }
+}
+
+ScaleIndex<ModelReaderPtr> const & MwmValue::GetScaleIndex()
+{
+  if (!m_scaleIndex)
+    m_scaleIndex = std::make_unique<ScaleIndex<ModelReaderPtr>>(m_cont.GetReader(INDEX_FILE_TAG));
+  return *m_scaleIndex;
 }
 
 std::string DebugPrint(MwmSet::RegResult result)

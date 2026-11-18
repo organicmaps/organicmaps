@@ -8,11 +8,11 @@
 #include <span>
 #include <string>
 
-class QApplication;
+class QGuiApplication;
 
 namespace qt
 {
-std::unique_ptr<QTranslator> InstallTranslator(QApplication & app, std::span<std::string const> preferred);
+std::unique_ptr<QTranslator> InstallTranslator(QGuiApplication & app, std::span<std::string const> preferred);
 // Unit names follow the selected catalog; compatible regional formatting is retained.
 QLocale GetDataSizeLocale(QTranslator const & translator, QLocale const & regionalLocale = QLocale());
 QString Tr(char const * id, int n = -1);

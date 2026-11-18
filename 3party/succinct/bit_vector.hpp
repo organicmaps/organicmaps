@@ -31,8 +31,6 @@ namespace succinct {
         }
     }
 
-    class bit_vector;
-
     class bit_vector_builder : boost::noncopyable {
     public:
 
@@ -191,14 +189,17 @@ namespace succinct {
         uint64_t m_size;
     };
 
-    class bit_vector {
+    // TContainer is the vector of the words: mapper::mappable_vector for a structure in memory,
+    // mapper::dd_vector for a structure that is read from a reader.
+    template <class TContainer>
+    class bit_vector_t {
     public:
-        bit_vector()
+        bit_vector_t()
             : m_size(0)
         {}
 
         template <class Range>
-        bit_vector(Range const& from) {
+        bit_vector_t(Range const& from) {
             std::vector<uint64_t> bits;
             const uint64_t first_mask = uint64_t(1);
             uint64_t mask = first_mask;
@@ -224,7 +225,7 @@ namespace succinct {
             m_bits.steal(bits);
         }
 
-        bit_vector(bit_vector_builder* from) {
+        bit_vector_t(bit_vector_builder* from) {
             m_size = from->size();
             m_bits.steal(from->move_bits());
         }
@@ -236,7 +237,7 @@ namespace succinct {
                 (m_bits, "m_bits");
         }
 
-        void swap(bit_vector& other) {
+        void swap(bit_vector_t& other) {
             std::swap(other.m_size, m_size);
             other.m_bits.swap(m_bits);
         }
@@ -351,7 +352,7 @@ namespace succinct {
             return block * 64 + ret;
         }
 
-        mapper::mappable_vector<uint64_t> const& data() const
+        TContainer const& data() const
         {
             return m_bits;
         }
@@ -362,7 +363,7 @@ namespace succinct {
                 , m_pos(uint64_t(-1))
             {}
 
-            enumerator(bit_vector const& bv, uint64_t pos)
+            enumerator(bit_vector_t const& bv, uint64_t pos)
                 : m_bv(&bv)
                 , m_pos(pos)
                 , m_buf(0)
@@ -428,7 +429,7 @@ namespace succinct {
                 m_avail = 64;
             }
 
-            bit_vector const* m_bv;
+            bit_vector_t const* m_bv;
             uint64_t m_pos;
             uint64_t m_buf;
             uint64_t m_avail;
@@ -441,11 +442,11 @@ namespace succinct {
                 , m_buf(0)
             {}
 
-            unary_enumerator(bit_vector const& bv, uint64_t pos)
+            unary_enumerator(bit_vector_t const& bv, uint64_t pos)
             {
-                m_data = bv.data().data();
+                m_data = &bv.data();
                 m_position = pos;
-                m_buf = m_data[pos / 64];
+                m_buf = (*m_data)[pos / 64];
                 // clear low bits
                 m_buf &= uint64_t(-1) << (pos % 64);
             }
@@ -461,7 +462,7 @@ namespace succinct {
                 uint64_t buf = m_buf;
                 while (!broadword::lsb(buf, pos_in_word)) {
                     m_position += 64;
-                    buf = m_data[m_position / 64];
+                    buf = (*m_data)[m_position / 64];
                 }
 
                 m_buf = buf & (buf - 1); // clear LSB
@@ -478,7 +479,7 @@ namespace succinct {
                 while (skipped + (w = broadword::popcount(buf)) <= k) {
                     skipped += w;
                     m_position += 64;
-                    buf = m_data[m_position / 64];
+                    buf = (*m_data)[m_position / 64];
                 }
                 assert(buf);
                 uint64_t pos_in_word = broadword::select_in_word(buf, k - skipped);
@@ -496,7 +497,7 @@ namespace succinct {
                 while (skipped + (w = broadword::popcount(buf)) <= k) {
                     skipped += w;
                     m_position += 64;
-                    buf = ~m_data[m_position / 64];
+                    buf = ~(*m_data)[m_position / 64];
                 }
                 assert(buf);
                 pos_in_word = broadword::select_in_word(buf, k - skipped);
@@ -505,16 +506,17 @@ namespace succinct {
             }
 
         private:
-            uint64_t const* m_data;
+            TContainer const* m_data;
             uint64_t m_position;
             uint64_t m_buf;
         };
 
     protected:
         uint64_t m_size;
-        mapper::mappable_vector<uint64_t> m_bits;
+        TContainer m_bits;
     };
 
+    typedef bit_vector_t<mapper::mappable_vector<uint64_t>> bit_vector;
 }
 
 #if defined(__clang__)

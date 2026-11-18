@@ -10,9 +10,10 @@
 
 namespace succinct {
 
-    class elias_fano {
+    template <class TContainer>
+    class elias_fano_t {
     public:
-        elias_fano()
+        elias_fano_t()
             : m_size(0)
         {}
 
@@ -42,7 +43,7 @@ namespace succinct {
                 assert(m_pos <= m_m); (void)m_m;
             }
 
-            friend class elias_fano;
+            friend class elias_fano_t;
         private:
             uint64_t m_n;
             uint64_t m_m;
@@ -54,7 +55,7 @@ namespace succinct {
         };
 
 
-        elias_fano(bit_vector_builder* bvb, bool with_rank_index = true)
+        elias_fano_t(bit_vector_builder* bvb, bool with_rank_index = true)
         {
             bit_vector_builder::bits_type& bits = bvb->move_bits();
             uint64_t n = bvb->size();
@@ -64,7 +65,7 @@ namespace succinct {
                 m += broadword::popcount(bits[i]);
             }
 
-            bit_vector bv(bvb);
+            bit_vector_t<TContainer> bv(bvb);
             elias_fano_builder builder(n, m);
 
             uint64_t i = 0;
@@ -77,7 +78,7 @@ namespace succinct {
             build(builder, with_rank_index);
         }
 
-        elias_fano(elias_fano_builder* builder, bool with_rank_index = true)
+        elias_fano_t(elias_fano_builder* builder, bool with_rank_index = true)
         {
             build(*builder, with_rank_index);
         }
@@ -94,7 +95,7 @@ namespace succinct {
                 ;
         }
 
-        void swap(elias_fano& other) {
+        void swap(elias_fano_t& other) {
             std::swap(other.m_size, m_size);
             other.m_high_bits.swap(m_high_bits);
             other.m_high_bits_d1.swap(m_high_bits_d1);
@@ -205,7 +206,7 @@ namespace succinct {
 
         struct select_enumerator {
 
-            select_enumerator(elias_fano const& ef, uint64_t i)
+            select_enumerator(elias_fano_t const& ef, uint64_t i)
                 : m_ef(&ef)
                 , m_i(i)
                 , m_l(ef.m_l)
@@ -222,7 +223,7 @@ namespace succinct {
 
                 if (!m_ef->num_ones()) return;
                 uint64_t pos = m_ef->m_high_bits_d1.select(m_ef->m_high_bits, m_i);
-                m_high_enum =  bit_vector::unary_enumerator(m_ef->m_high_bits, pos);
+                m_high_enum = typename bit_vector_t<TContainer>::unary_enumerator(m_ef->m_high_bits, pos);
                 assert(m_l < 64);
             }
 
@@ -246,10 +247,10 @@ namespace succinct {
 
         private:
 
-            elias_fano const* m_ef;
+            elias_fano_t const* m_ef;
             uint64_t m_i;
             uint64_t m_l;
-            bit_vector::unary_enumerator m_high_enum;
+            typename bit_vector_t<TContainer>::unary_enumerator m_high_enum;
             uint64_t m_low_buf;
             uint64_t m_low_mask;
             uint64_t m_chunks_in_word;
@@ -257,24 +258,29 @@ namespace succinct {
         };
 
     protected:
+        typedef detail::darray<detail::identity_getter, TContainer> darray1;
+        typedef detail::darray<detail::negating_getter, TContainer> darray0;
+
         void build(elias_fano_builder& builder, bool with_rank_index) {
             m_size = builder.m_n;
             m_l = builder.m_l;
-            bit_vector(&builder.m_high_bits).swap(m_high_bits);
+            bit_vector_t<TContainer>(&builder.m_high_bits).swap(m_high_bits);
             darray1(m_high_bits).swap(m_high_bits_d1);
             if (with_rank_index) {
                 darray0(m_high_bits).swap(m_high_bits_d0);
             }
-            bit_vector(&builder.m_low_bits).swap(m_low_bits);
+            bit_vector_t<TContainer>(&builder.m_low_bits).swap(m_low_bits);
         }
 
         uint64_t m_size;
-        bit_vector m_high_bits;
+        bit_vector_t<TContainer> m_high_bits;
         darray1 m_high_bits_d1;
         darray0 m_high_bits_d0;
-        bit_vector m_low_bits;
+        bit_vector_t<TContainer> m_low_bits;
         uint8_t m_l;
     };
+
+    typedef elias_fano_t<mapper::mappable_vector<uint64_t>> elias_fano;
 }
 
 #if defined(__clang__)

@@ -17,6 +17,9 @@ protected:
   }
 
 public:
+  /// A part of a reader of memory is a reader of memory, @see MemReaderTemplate.
+  static constexpr bool kIsMemoryReader = requires { requires ReaderT::kIsMemoryReader; };
+
   explicit SubReaderWrapper(ReaderT * p) : m_p(p), m_pos(0), m_size(p->Size()) {}
 
   uint64_t Size() const { return m_size; }

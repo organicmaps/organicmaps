@@ -8,6 +8,7 @@ set(SRC
   cartesian_tree.hpp
   darray.hpp
   darray64.hpp
+  dd_vector.hpp
   elias_fano_compressed_list.hpp
   elias_fano_list.hpp
   elias_fano.hpp

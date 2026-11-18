@@ -3,19 +3,18 @@
 #include "map/features_fetcher.hpp"
 
 #include "indexer/data_header.hpp"
-#include "indexer/interval_index.hpp"
+#include "indexer/scale_index.hpp"
 
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
-#include "coding/var_serial_vector.hpp"
+#include "coding/files_container.hpp"
 
 #include "base/logging.hpp"
 
 #include <cstdint>
 #include <map>
-#include <memory>
 #include <vector>
 
 #include "defines.hpp"
@@ -60,27 +59,22 @@ UNIT_TEST(CheckMWM_GeomIndex)
   FilesContainerR cont(GetPlatform().GetReader("minsk-pass.mwm"));
 
   // Initialize index reader section inside mwm.
-  typedef ModelReaderPtr ReaderT;
-  ReaderT reader = cont.GetReader(INDEX_FILE_TAG);
-  ReaderSource<ReaderT> source(reader);
-  VarSerialVectorReader<ReaderT> treesReader(source);
-
-  // Make interval index objects for each scale bucket.
-  vector<unique_ptr<IntervalIndex<ReaderT, uint32_t>>> scale2Index;
-  for (size_t i = 0; i < treesReader.Size(); ++i)
-  {
-    scale2Index.emplace_back(
-        make_unique<IntervalIndex<ReaderT, uint32_t>>(treesReader.SubReader(static_cast<uint32_t>(i))));
-  }
+  ScaleIndex<ModelReaderPtr> const index(cont.GetReader(INDEX_FILE_TAG));
 
   // Pass full coverage as input for test.
   uint64_t beg = 0;
   uint64_t end = static_cast<uint64_t>((1ULL << 63) - 1);
 
-  // Count objects for each scale bucket.
-  map<size_t, uint64_t> resCount;
-  for (size_t i = 0; i < scale2Index.size(); ++i)
-    scale2Index[i]->ForEach([i, &resCount](uint64_t, uint32_t) { ++resCount[i]; }, beg, end);
+  // Count objects visible on each scale.
+  map<int, uint64_t> resCount;
+  int const lastScale = feature::DataHeader(cont).GetLastScale();
+  for (int scale = 0; scale <= lastScale; ++scale)
+    index.ForEachInIntervalAndScale(beg, end, scale, [scale, &resCount](uint32_t) { ++resCount[scale]; });
+
+  // A scale has the objects of the previous ones.
+  TEST_GREATER(resCount[lastScale], 0, ());
+  for (int scale = 1; scale <= lastScale; ++scale)
+    TEST_GREATER_OR_EQUAL(resCount[scale], resCount[scale - 1], (scale));
 
   // Print results.
   LOG(LINFO, (resCount));

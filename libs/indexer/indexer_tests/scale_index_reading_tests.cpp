@@ -48,7 +48,7 @@ public:
     for (auto const & interval : covering.Get(scaleForIntervals))
     {
       index.ForEachInIntervalAndScale(interval.first, interval.second, scaleForZoomLevels,
-                                      [&](uint64_t /* key */, uint32_t value) { indices.push_back(value); });
+                                      [&](uint32_t value) { indices.push_back(value); });
     }
 
     FeaturesLoaderGuard loader(m_dataSource, id);
@@ -92,6 +92,7 @@ UNIT_CLASS_TEST(ScaleIndexReadingTest, Mmap)
   feature::DataHeader header(cont);
 
   ScaleIndex index(cont.GetReader(INDEX_FILE_TAG));
+  TEST(index.GetVersion() == ScaleIndexBase::Version::Latest, ());
 
   auto collectNames = [&](m2::RectD const & rect)
   { return CollectNames(id, index, header.GetLastScale(), header.GetLastScale(), rect); };
@@ -110,5 +111,35 @@ UNIT_CLASS_TEST(ScaleIndexReadingTest, Mmap)
   TEST_EQUAL(collectNamesForExactScale(m2::RectD{0.5, -0.5, 1.5, 1.5}, drawableScale), Names({"B", "C"}), ());
   TEST_EQUAL(collectNamesForExactScale(m2::RectD{-0.5, -0.5, 1.5, 1.5}, drawableScale), Names({"A", "B", "C", "D"}),
              ());
+}
+
+// Every handle of a map has its own value with its own index, which reads through the reader of
+// the value: the handles work in different threads.
+UNIT_CLASS_TEST(ScaleIndexReadingTest, OwnForEveryValue)
+{
+  TestPOI a(m2::PointD{0, 0}, "A", "en");
+  TestPOI b(m2::PointD{1, 0}, "B", "en");
+
+  auto id = BuildCountry("Wonderland", [&](TestMwmBuilder & builder)
+  {
+    builder.Add(a);
+    builder.Add(b);
+  });
+  TEST(id.IsAlive(), ());
+
+  auto const handle1 = m_dataSource.GetMwmHandleById(id);
+  auto const handle2 = m_dataSource.GetMwmHandleById(id);
+  TEST(handle1.GetValue() != handle2.GetValue(), ());
+
+  auto const & index1 = handle1.GetValue()->GetScaleIndex();
+  auto const & index2 = handle2.GetValue()->GetScaleIndex();
+  TEST(&index1 != &index2, ());
+  // The value keeps its index.
+  TEST(&index1 == &handle1.GetValue()->GetScaleIndex(), ());
+
+  int const scale = handle1.GetValue()->GetHeader().GetLastScale();
+  m2::RectD const rect{-0.5, -0.5, 1.5, 0.5};
+  TEST_EQUAL(CollectNames(id, index1, scale, scale, rect), Names({"A", "B"}), ());
+  TEST_EQUAL(CollectNames(id, index2, scale, scale, rect), Names({"A", "B"}), ());
 }
 }  // namespace scale_index_reading_tests

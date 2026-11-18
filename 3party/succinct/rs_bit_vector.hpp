@@ -8,24 +8,25 @@
 
 namespace succinct {
 
-    class rs_bit_vector : public bit_vector {
+    template <class TContainer>
+    class rs_bit_vector_t : public bit_vector_t<TContainer> {
     public:
-        rs_bit_vector()
-            : bit_vector()
+        rs_bit_vector_t()
+            : bit_vector_t<TContainer>()
         {}
 
         template <class Range>
-        rs_bit_vector(Range const& from,
-                      bool with_select_hints = false,
-                      bool with_select0_hints = false)
-            : bit_vector(from)
+        rs_bit_vector_t(Range const& from,
+                        bool with_select_hints = false,
+                        bool with_select0_hints = false)
+            : bit_vector_t<TContainer>(from)
         {
             build_indices(with_select_hints, with_select0_hints);
         }
 
         template <typename Visitor>
         void map(Visitor& visit) {
-            bit_vector::map(visit);
+            bit_vector_t<TContainer>::map(visit);
             visit
                 (m_block_rank_pairs, "m_block_rank_pairs")
                 (m_select_hints, "m_select_hints")
@@ -33,24 +34,24 @@ namespace succinct {
                 ;
         }
 
-        void swap(rs_bit_vector& other) {
-            bit_vector::swap(other);
+        void swap(rs_bit_vector_t& other) {
+            bit_vector_t<TContainer>::swap(other);
             m_block_rank_pairs.swap(other.m_block_rank_pairs);
             m_select_hints.swap(other.m_select_hints);
             m_select0_hints.swap(other.m_select0_hints);
         }
 
         inline uint64_t num_ones() const {
-            return *(m_block_rank_pairs.end() - 2);
+            return m_block_rank_pairs[m_block_rank_pairs.size() - 2];
         }
 
         inline uint64_t num_zeros() const {
-            return size() - num_ones();
+            return this->size() - num_ones();
         }
 
         inline uint64_t rank(uint64_t pos) const {
-            assert(pos <= size());
-            if (pos == size()) {
+            assert(pos <= this->size());
+            if (pos == this->size()) {
                 return num_ones();
             }
 
@@ -58,7 +59,7 @@ namespace succinct {
             uint64_t r = sub_block_rank(sub_block);
             uint64_t sub_left = pos % 64;
             if (sub_left) {
-                r += broadword::popcount(m_bits[sub_block] << (64 - sub_left));
+                r += broadword::popcount(this->m_bits[sub_block] << (64 - sub_left));
             }
             return r;
         }
@@ -106,7 +107,7 @@ namespace succinct {
             assert(cur_rank <= n);
 
             uint64_t word_offset = block_offset + sub_block_offset;
-            return word_offset * 64 + select_in_word(m_bits[word_offset], n - cur_rank);
+            return word_offset * 64 + select_in_word(this->m_bits[word_offset], n - cur_rank);
         }
 
         // TODO(ot): share code between select and select0
@@ -148,7 +149,7 @@ namespace succinct {
             assert(cur_rank0 <= n);
 
             uint64_t word_offset = block_offset + sub_block_offset;
-            return word_offset * 64 + select_in_word(~m_bits[word_offset], n - cur_rank0);
+            return word_offset * 64 + select_in_word(~this->m_bits[word_offset], n - cur_rank0);
         }
 
     protected:
@@ -184,9 +185,15 @@ namespace succinct {
         static const uint64_t select_ones_per_hint = 64 * block_size * 2; // must be > block_size * 64
         static const uint64_t select_zeros_per_hint = select_ones_per_hint;
 
-        typedef mapper::mappable_vector<uint64_t> uint64_vec;
-        uint64_vec m_block_rank_pairs;
-        uint64_vec m_select_hints;
-        uint64_vec m_select0_hints;
+        TContainer m_block_rank_pairs;
+        TContainer m_select_hints;
+        TContainer m_select0_hints;
     };
+
+    typedef rs_bit_vector_t<mapper::mappable_vector<uint64_t>> rs_bit_vector;
+
+    // The indices are built in memory only, see rs_bit_vector.cpp.
+    template <>
+    void rs_bit_vector_t<mapper::mappable_vector<uint64_t>>::build_indices(bool with_select_hints,
+                                                                           bool with_select0_hints);
 }
