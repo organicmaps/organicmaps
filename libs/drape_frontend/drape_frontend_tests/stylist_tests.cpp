@@ -11,9 +11,12 @@
 
 #include "drape/hatching_decl.hpp"
 
+#include "platform/platform.hpp"
+
 #include <algorithm>
 #include <array>
 #include <initializer_list>
+#include <string_view>
 
 namespace
 {
@@ -41,15 +44,64 @@ public:
 class SampleFeature : public osm::MapObject
 {
 public:
-  SampleFeature(uint32_t type, feature::GeomType geomType)
+  SampleFeature(uint32_t type, feature::GeomType geomType) : SampleFeature({type}, geomType, true) {}
+
+  SampleFeature(std::initializer_list<uint32_t> types, feature::GeomType geomType, bool named)
   {
     m_geomType = geomType;
     m_points = {{0.0, 0.0}, {0.01, 0.01}};
     m_triangles = {{0.0, 0.0}, {0.01, 0.0}, {0.0, 0.01}};
-    m_types.Add(type);
-    m_name.Add("en", "Sample");
+    for (auto type : types)
+      m_types.Add(type);
+    if (named)
+      m_name.Add("en", "Sample");
     m_houseNumber = "12";
   }
+};
+
+class GuardedOverlayFixture
+{
+public:
+  GuardedOverlayFixture() : m_originalStyle(GetStyleReader().GetCurrentStyle())
+  {
+    GetStyleReader().SetCurrentStyle(MapStyleDefaultLight);
+    LoadTypes();
+  }
+
+  ~GuardedOverlayFixture()
+  {
+    GetStyleReader().SetCurrentStyle(m_originalStyle);
+    classificator::Load();
+  }
+
+protected:
+  void LoadTypes(bool shiftAddressType = false)
+  {
+    auto & platform = GetPlatform();
+    std::string classificatorText;
+    std::string typesText;
+    platform.GetReader("classificator.txt")->ReadAsString(classificatorText);
+    platform.GetReader("types.txt")->ReadAsString(typesText);
+    if (shiftAddressType)
+    {
+      // Siblings are sorted by name, so inserting an earlier one changes the encoded address type.
+      std::string_view constexpr kBuilding = "\n    building  +\n";
+      auto const position = classificatorText.find(kBuilding);
+      TEST_NOT_EQUAL(position, std::string::npos, ());
+      classificatorText.insert(position + kBuilding.size(), "        0  -\n");
+    }
+    classificator::LoadTypes(classificatorText, typesText);
+  }
+
+  void LoadRules(drule::DrulesFormat const & format)
+  {
+    auto & cl = classif(MapStyleDefaultLight);
+    drule::GetRules(MapStyleDefaultLight).LoadFromFormat(format, 0, cl);
+    cl.SetLoaded(true);
+  }
+
+private:
+  MapStyle const m_originalStyle;
 };
 
 class StyleSnapshotFixture
@@ -209,5 +261,103 @@ UNIT_CLASS_TEST(StyleSnapshotFixture, Stylist_ExplicitStyleIgnoresGlobalSwitches
       TEST(hasRules, (style, sample.m_type));
     }
   }
+}
+
+UNIT_CLASS_TEST(GuardedOverlayFixture, Stylist_FallsBackWhenMainOverlayIsRejected)
+{
+  drule::Element primary;
+  primary.scale = 15;
+  primary.applyIf = {"name"};
+  primary.symbol.emplace().name = "primary";
+  primary.symbol->priority = 200;
+
+  auto rejected = primary;
+  rejected.symbol->name = "rejected";
+  rejected.symbol->priority = 175;
+
+  drule::Element fallback;
+  fallback.scale = 15;
+  fallback.symbol.emplace().name = "fallback";
+  fallback.symbol->priority = 150;
+
+  auto lower = fallback;
+  lower.symbol->name = "lower";
+  lower.symbol->priority = 100;
+  auto earlier = lower;
+  earlier.scale = 14;
+
+  drule::DrulesFormat format;
+  format.variants = {"light"};
+  format.colors = {{0}};
+  format.ruleCounts[drule::kRuleSymbols] = 5;
+  format.types = {{"amenity-cafe", {primary}},
+                  {"amenity-restaurant", {rejected}},
+                  {"shop-supermarket", {earlier, lower}},
+                  {"tourism-hotel", {fallback}}};
+  LoadRules(format);
+
+  auto const & cl = classif(MapStyleDefaultLight);
+  auto const cafe = cl.GetTypeByPath({"amenity", "cafe"});
+  auto const restaurant = cl.GetTypeByPath({"amenity", "restaurant"});
+  auto const supermarket = cl.GetTypeByPath({"shop", "supermarket"});
+  auto const hotel = cl.GetTypeByPath({"tourism", "hotel"});
+  auto const types = {cafe, restaurant, supermarket, hotel};
+  auto named = FeatureType::CreateFromMapObject(SampleFeature(types, feature::GeomType::Point, true));
+  auto unnamed = FeatureType::CreateFromMapObject(SampleFeature(types, feature::GeomType::Point, false));
+  auto constexpr kLang = StringUtf8Multilang::kEnglishCode;
+
+  df::Stylist const namedAt15(*named, 15, kLang, MapStyleDefaultLight);
+  TEST(namedAt15.m_symbolRule, ());
+  TEST_EQUAL(namedAt15.m_symbolRule->name, "primary", ());
+  df::Stylist const unnamedAt15(*unnamed, 15, kLang, MapStyleDefaultLight);
+  TEST(unnamedAt15.m_symbolRule, ());
+  TEST_EQUAL(unnamedAt15.m_symbolRule->name, "fallback", ());
+  auto reordered = FeatureType::CreateFromMapObject(
+      SampleFeature({cafe, hotel, supermarket, restaurant}, feature::GeomType::Point, false));
+  df::Stylist const reorderedAt15(*reordered, 15, kLang, MapStyleDefaultLight);
+  TEST(reorderedAt15.m_symbolRule, ());
+  TEST_EQUAL(reorderedAt15.m_symbolRule->name, "fallback", ());
+  df::Stylist const unnamedAt14(*unnamed, 14, kLang, MapStyleDefaultLight);
+  TEST(!unnamedAt14.m_symbolRule, ());
+}
+
+UNIT_CLASS_TEST(GuardedOverlayFixture, Stylist_FiltersFallbackHouseNumberRules)
+{
+  drule::Element main;
+  main.scale = 18;
+  main.caption.emplace().primary.emplace().height = 14;
+  main.caption->secondary.emplace().height = 10;
+  auto unnamedRule = main;
+  unnamedRule.applyIf = {"!name"};
+  unnamedRule.caption->primary->height = 10;
+  auto namedRule = unnamedRule;
+  namedRule.applyIf = {"name"};
+  namedRule.caption->primary->height = 12;
+
+  drule::DrulesFormat format;
+  format.variants = {"light"};
+  format.colors = {{0}};
+  format.ruleCounts[drule::kRuleCaptions] = 3;
+  format.types = {{"amenity-cafe", {main}}, {"building-address", {unnamedRule, namedRule}}};
+  LoadRules(format);
+
+  auto const & cl = classif(MapStyleDefaultLight);
+  auto const originalAddressType = cl.GetTypeByPath({"building", "address"});
+  auto const cafe = cl.GetTypeByPath({"amenity", "cafe"});
+  auto const checkHeight = [cafe](bool named, int height)
+  {
+    auto feature = FeatureType::CreateFromMapObject(SampleFeature({cafe}, feature::GeomType::Point, named));
+    df::Stylist stylist(*feature, 18, StringUtf8Multilang::kEnglishCode, MapStyleDefaultLight);
+    TEST(stylist.m_houseNumberRule, (named));
+    TEST_EQUAL(stylist.m_houseNumberRule->primary->height, height, (named));
+  };
+  checkHeight(true, 12);
+  checkHeight(false, 10);
+
+  LoadTypes(true /* shiftAddressType */);
+  LoadRules(format);
+  TEST_NOT_EQUAL(originalAddressType, cl.GetTypeByPath({"building", "address"}), ());
+  checkHeight(true, 12);
+  checkHeight(false, 10);
 }
 }  // namespace

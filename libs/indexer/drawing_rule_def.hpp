@@ -85,6 +85,11 @@ enum TypeT
   count_of_rules
 };
 
+constexpr bool IsOverlay(int type)
+{
+  return type == symbol || type == caption || type == shield || type == pathtext;
+}
+
 typedef buffer_vector<Key, 16> KeysT;
 void MakeUnique(KeysT & keys);
 double CalcAreaBySizeDepth(FeatureType & f);
