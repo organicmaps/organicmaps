@@ -11,18 +11,21 @@
 #include "drape_frontend/user_event_stream.hpp"
 #include "drape_frontend/visual_params.hpp"
 
+#include "indexer/feature_utils.hpp"
 #include "indexer/map_style.hpp"
 
 #include "platform/platform.hpp"
 #include "platform/settings.hpp"
 
 #include "geometry/angles.hpp"
+#include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "base/math.hpp"
 
 #include <QCompass>
+#include <QDateTime>
 #include <QGuiApplication>
 #include <QOpenGLContext>
 #include <QPointer>
@@ -40,6 +43,8 @@ namespace
 {
 // Bit mask of the layers tapped in the layers sheet.
 std::string_view constexpr kSeenLayersSetting = "SailfishSeenLayers";
+// Below it, in m/s, the speed of a standing phone is GPS noise.
+double constexpr kMinShownSpeed = 0.5;
 // QCompassReading::calibrationLevel() thresholds of the two calibration notices.
 double constexpr kCalibrationRecommended = 0.67;
 double constexpr kCalibrationRequired = 0.34;
@@ -139,6 +144,7 @@ int MapItem::enabledLayers() const
   set(Hiking, Framework::IsHikingEnabled());
   set(Cycling, Framework::IsCyclingEnabled());
   set(Subway, Framework::LoadTransitSchemeEnabled());
+  set(Satellite, Framework::IsBackgroundTilesEnabled());
   return mask;
 }
 
@@ -162,6 +168,7 @@ void MapItem::setLayerEnabled(int layer, bool enabled)
     m_framework.SetIsolinesEnabled(enabled);
     Framework::SaveIsolinesEnabled(enabled);
     break;
+  case Satellite: m_framework.SetBackgroundTilesEnabled(enabled); break;
   case Hiking: m_framework.SetHikingEnabled(enabled); break;
   case Cycling: m_framework.SetCyclingEnabled(enabled); break;
   case Subway:
@@ -213,7 +220,21 @@ void MapItem::OnLocationError(location::TLocationError errorCode)
 void MapItem::OnLocationUpdated(location::GpsInfo const & info)
 {
   m_locationErrorShown = false;
+  m_hasAltitude = info.HasAltitude();
+  m_altitude = info.m_altitude;
+  m_speed = info.m_speed;
+  // The cover shows it while the app is put aside; the address lookup needn't follow every fix.
+  if (m_inBackground && QDateTime::currentMSecsSinceEpoch() - m_positionInfoMs > 10000)
+    UpdatePositionInfo(mercator::FromLatLon(info.m_latitude, info.m_longitude));
   m_framework.OnLocationUpdate(info);
+}
+
+QString MapItem::myPositionShareText() const
+{
+  auto const position = m_framework.GetCurrentPosition();
+  if (!position)
+    return {};
+  return QString::fromStdString(m_framework.GetShareDataForMyPosition(mercator::ToLatLon(*position)).m_text);
 }
 
 bool MapItem::needUpdateForRoutes() const
@@ -225,6 +246,27 @@ bool MapItem::isolinesNeedZoom() const
 {
   auto const & manager = m_framework.GetIsolinesManager();
   return !manager.IsVisible() && manager.GetState() == IsolinesManager::IsolinesState::Enabled;
+}
+
+void MapItem::UpdatePositionInfo(std::optional<m2::PointD> const & position)
+{
+  m_positionInfoMs = QDateTime::currentMSecsSinceEpoch();
+  QVariantMap info;
+  if (position)
+  {
+    auto const latLon = mercator::ToLatLon(*position);
+    info["address"] = QString::fromStdString(m_framework.GetAddressAtPoint(*position).FormatAddress());
+    info["coordinates"] = FormatLatLon(latLon.m_lat, latLon.m_lon);
+    if (m_hasAltitude)
+      info["altitude"] = QString::fromStdString(feature::FormatElevation(m_altitude));
+    if (m_speed > kMinShownSpeed)
+      info["speed"] = FormatSpeed(m_speed);
+  }
+  if (info != m_positionInfo)
+  {
+    m_positionInfo = info;
+    emit positionInfoChanged();
+  }
 }
 
 void MapItem::OnCompassReading()
@@ -267,6 +309,7 @@ void MapItem::OnApplicationStateChanged(Qt::ApplicationState state)
   LOG(LINFO, (inBackground ? "Entering background" : "Entering foreground"));
   if (inBackground)
   {
+    UpdatePositionInfo(m_framework.GetCurrentPosition());
     UpdateLocationService();
     m_framework.SetRenderingDisabled(false /* destroySurface */);
     m_framework.EnterBackground();

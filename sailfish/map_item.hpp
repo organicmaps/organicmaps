@@ -7,9 +7,13 @@
 
 #include "platform/location_service/location_service.hpp"
 
+#include "geometry/point2d.hpp"
+
 #include <QQuickItem>
+#include <QVariantMap>
 
 #include <memory>
+#include <optional>
 
 class Framework;
 class QCompass;
@@ -32,6 +36,8 @@ class MapItem
   // Width hidden by the camera cutout on each side, which the map is drawn under in landscape.
   Q_PROPERTY(qreal leftInset READ leftInset WRITE setLeftInset NOTIFY horizontalInsetsChanged)
   Q_PROPERTY(qreal rightInset READ rightInset WRITE setRightInset NOTIFY horizontalInsetsChanged)
+  // {address, coordinates, altitude, speed} for the app cover; empty without a position.
+  Q_PROPERTY(QVariantMap positionInfo READ positionInfo NOTIFY positionInfoChanged)
   // The scale line and attribution stay above it.
   Q_PROPERTY(
       qreal bottomWidgetsOffset READ bottomWidgetsOffset WRITE setBottomWidgetsOffset NOTIFY bottomWidgetsOffsetChanged)
@@ -45,7 +51,9 @@ public:
     Isolines,
     Hiking,
     Cycling,
-    Subway
+    Subway,
+    // Offered once a tile server is set in the settings.
+    Satellite
   };
   Q_ENUM(Layer)
 
@@ -68,6 +76,8 @@ public:
   Q_INVOKABLE void switchMyPositionMode();
 
   Q_INVOKABLE void setLayerEnabled(int layer, bool enabled);
+  // Empty without a position.
+  Q_INVOKABLE QString myPositionShareText() const;
 
   // Hiking and cycling routes need newer maps here.
   Q_INVOKABLE bool needUpdateForRoutes() const;
@@ -79,6 +89,7 @@ public:
   void setLeftInset(qreal inset);
   qreal rightInset() const { return m_rightInset; }
   void setRightInset(qreal inset);
+  QVariantMap positionInfo() const { return m_positionInfo; }
   qreal bottomWidgetsOffset() const { return m_bottomWidgetsOffset; }
   void setBottomWidgetsOffset(qreal offset);
   qreal topWidgetsOffset() const { return m_topWidgetsOffset; }
@@ -92,6 +103,7 @@ signals:
   void layersChanged();
   void bottomWidgetsOffsetChanged();
   void topWidgetsOffsetChanged();
+  void positionInfoChanged();
   void notice(QString const & message);
   void horizontalInsetsChanged();
 
@@ -120,6 +132,8 @@ private:
   // it stopped itself on an error.
   void UpdateLocationService(bool restart = false);
   void OnCompassReading();
+  // The drawn position mark doesn't move while the app is in the background, so fixes then pass their own.
+  void UpdatePositionInfo(std::optional<m2::PointD> const & position);
 
   // location::LocationObserver
   void OnLocationError(location::TLocationError errorCode) override;
@@ -141,6 +155,12 @@ private:
   bool m_inBackground = false;
   bool m_locationActive = false;
   bool m_locationErrorShown = false;
+  QVariantMap m_positionInfo;
+  // The last fix for the cover, and when positionInfo was updated.
+  bool m_hasAltitude = false;
+  double m_altitude = 0;
+  double m_speed = -1;
+  qint64 m_positionInfoMs = 0;
   bool m_calibrationShown = false;
 };
 }  // namespace sailfish

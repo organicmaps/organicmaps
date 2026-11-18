@@ -23,12 +23,54 @@ LAYERS = [
     "ic_layers_hiking",
     "ic_layers_cycling",
     "ic_layers_subway",
+    "ic_layers_satellite",
 ]
 # My position button states.
 MY_POSITION = ["ic_location_off", "ic_not_follow", "ic_follow", "ic_follow_and_rotate"]
+# The logo of the help button and the about page, and the icons of the about page rows, as in about.xml on Android.
+# Donate and the social networks of the editor are reused from the menu and editor copies. The Telegram and
+# Mastodon logos keep their colors, as on Android.
+HELP = [
+    "logo",
+    "ic_question_mark",
+    "ic_report_a_bug",
+    "ic_news",
+    "ic_telegram",
+    "ic_github",
+    "ic_website",
+    "ic_matrix",
+    "ic_mastodon",
+    "ic_openstreetmap",
+]
+# The New Year promo of the help button keeps its colors.
+HELP_PROMO = ["ic_christmas_tree"]
+# Main menu entries. Android tints them at runtime, so they are made white (WHITE) for Silica to colorize.
+MENU = [
+    "ic_donate",
+]
+# Place editor icons that other pages reuse. The social networks only have white variants for the dark theme on
+# Android.
+EDITOR = [
+    "ic_email",
+]
+SOCIAL = {
+    "ic_facebook": "ic_facebook_white",
+    "ic_instagram": "ic_instagram_white",
+    "ic_twitterx": "ic_twitterx_white",
+}
+WHITE = (
+    {
+        "ic_donate",
+    }
+    | set(EDITOR)
+    | set(HELP) - {"ic_telegram", "ic_mastodon"}
+)
 OUTPUTS = [
     ("layers", LAYERS),
     ("myposition", MY_POSITION),
+    ("help", HELP + HELP_PROMO),
+    ("menu", MENU),
+    ("editor", EDITOR + list(SOCIAL)),
 ]
 
 
@@ -38,14 +80,15 @@ def main():
         os.makedirs(out_dir, exist_ok=True)
         for variant, suffix in (("drawable", ""), ("drawable-night", "_night")):
             for name in names:
-                paths = [os.path.join(res, variant, name + ".xml") for res in RES_DIRS]
+                source = SOCIAL.get(name, name)
+                paths = [os.path.join(res, variant, source + ".xml") for res in RES_DIRS]
                 path = next((p for p in paths if os.path.exists(p)), None)
                 # Every icon has a day variant.
                 if not path and not suffix:
-                    raise FileNotFoundError(name)
+                    raise FileNotFoundError(source)
                 if path:
                     try:
-                        tree = to_svg(ET.parse(path).getroot())
+                        tree = to_svg(ET.parse(path).getroot(), "#ffffff" if name in WHITE else None)
                     except ValueError as e:
                         raise ValueError("%s: %s" % (path, e)) from e
                     tree.write(os.path.join(out_dir, name + suffix + ".svg"), encoding="unicode")

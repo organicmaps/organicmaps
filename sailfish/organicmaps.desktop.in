@@ -16,6 +16,7 @@ OrganizationName=app.organicmaps
 ApplicationName=organicmaps
 # Sailjail starts the app for the launcher's openUrl calls on OrganizationName.ApplicationName, the X-Maemo-Service.
 ExecDBus=@APP_NAME@
+# Sharing is in the base permissions.
 Permissions=Internet;Location
 
 [X-HarbourBackup]
