@@ -8,6 +8,7 @@
 
 #include <QtCore/QDir>
 #include <QtCore/QFile>
+#include <QtCore/QTemporaryDir>
 
 namespace build_style
 {
@@ -23,6 +24,22 @@ void BuildVariant(QString const & mapcssFile, QString const & outputDir, QString
   QString const outputTemplate = JoinPathQt({outputDir, baseName});
   QString const outputFile = outputTemplate + ".bin";
 
+  // Kothic rewrites priority files in place.
+  QDir const include(includeDir);
+  auto const files = include.entryList({"priorities_*.prio.txt"}, QDir::Files);
+  if (files.isEmpty())
+    throw std::runtime_error("No priority files in " + include.absolutePath().toStdString());
+  QTemporaryDir const priorities;
+  if (!priorities.isValid())
+    throw std::runtime_error("Cannot create priority staging directory: " + priorities.errorString().toStdString());
+  for (auto const & file : files)
+  {
+    auto const source = include.filePath(file);
+    auto const staged = priorities.filePath(file);
+    if (!CopyQtFile(source, staged) || !QFile::setPermissions(staged, QFileDevice::ReadOwner | QFileDevice::WriteOwner))
+      throw std::runtime_error("Cannot stage priority file " + source.toStdString());
+  }
+
   (void)ExecProcess(kPythonExecutable, {
                                            GetScriptPath("libkomwm.py", "../tools/kothic/src"),
                                            "-s",
@@ -30,7 +47,7 @@ void BuildVariant(QString const & mapcssFile, QString const & outputDir, QString
                                            "-o",
                                            outputTemplate,
                                            "-p",
-                                           includeDir,
+                                           priorities.path(),
                                            "-d",
                                            outputDir,
                                        });

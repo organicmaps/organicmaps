@@ -141,6 +141,58 @@ UNIT_TEST(Designer_StylePublicationKeepsTypeDefinitionsFixed)
   }
 }
 
+UNIT_TEST(Designer_CompilationPreservesSourcePriorities)
+{
+  EnsureApp();
+  StyleFixture fixture;
+  auto const data = fixture.m_dir.path() + "/data";
+  auto & platform = GetPlatform();
+  auto const oldResources = platform.ResourcesDir();
+  auto const oldWritable = platform.WritableDir();
+  SCOPE_GUARD(restore, [&]
+  {
+    platform.SetResourceDir(oldResources);
+    platform.SetWritableDirForTests(oldWritable);
+  });
+  platform.SetResourceDir(data.toStdString());
+  platform.SetWritableDirForTests(data.toStdString());
+  for (auto const * name : {"mapcss-mapping.csv", "mapcss-dynamic.txt", "colors.txt", "patterns.txt"})
+    Write(data + "/" + name, "compiler input");
+
+  auto const tools = fixture.m_dir.path() + "/tools/kothic/src";
+  Write(tools + "/libkomwm.py",
+        "from pathlib import Path\nimport sys\n"
+        "family = Path(sys.argv[sys.argv.index('-s') + 1]).parents[1].name\n"
+        "priorities = Path(sys.argv[sys.argv.index('-p') + 1], 'priorities_0_overlays.prio.txt')\n"
+        "assert priorities.read_text(encoding='utf-8').startswith(family)\n"
+        "priorities.write_text(family + ' rewritten', encoding='utf-8')\n"
+        "Path(sys.argv[sys.argv.index('-o') + 1] + '.bin').write_bytes(b'rules')\n");
+  for (auto const * script : {"merge_variants.py", "merge_styles.py"})
+    Write(tools + "/" + script,
+          "from pathlib import Path\nimport sys\n"
+          "output = sys.argv[1] + '.bin' if len(sys.argv) == 6 else sys.argv[-1]\n"
+          "Path(output).write_bytes(b'merged rules')\n");
+
+  auto const priorityPath = [&](QString const & family)
+  { return fixture.m_info.m_stylesRoot + "/" + family + "/include/priorities_0_overlays.prio.txt"; };
+  for (QString const family : {"default", "outdoors", "vehicle"})
+  {
+    auto const path = priorityPath(family);
+    Write(path, family.toUtf8());
+    TEST(QFile::setPermissions(path, QFileDevice::ReadOwner), ());
+  }
+
+  build_style::BuildDrawingRules(fixture.m_output, fixture.m_info);
+  build_style::BuildMergedDrawingRules(fixture.m_output, fixture.m_info);
+
+  for (QString const family : {"default", "outdoors", "vehicle"})
+  {
+    QFile source(priorityPath(family));
+    TEST(source.open(QIODevice::ReadOnly), (family.toStdString()));
+    TEST_EQUAL(source.readAll().toStdString(), family.toStdString(), ());
+  }
+}
+
 UNIT_TEST(Designer_ProcessOutputPreservesReportsAndFailures)
 {
   EnsureApp();
@@ -272,6 +324,8 @@ UNIT_TEST(Designer_RecalculationPreservesUnicodePathsAndDirectoryOverrides)
   }
 
   // Keep the real Qt launch path; stub compilation and capture the reindex script's input.
+  for (QString const family : {"outdoors", "vehicle"})
+    Write(fixture.m_info.m_stylesRoot + "/" + family + "/include/priorities_0_overlays.prio.txt", "priorities");
   auto const tools = fixture.m_dir.path() + "/tools";
   Write(tools + "/kothic/src/libkomwm.py",
         "from pathlib import Path\nimport sys\n"
