@@ -702,6 +702,8 @@
     <string name="moreyear_ago_sorttype">More than a year ago</string>
     <string name="near_me_sorttype">Near me</string>
     <string name="others_sorttype">Others</string>
+    <!-- Failed planning route message in navigation view -->
+    <string name="routing_planning_error">Route Planning Failed</string>
     <!-- Place Page opening hours text -->
     <string name="closed_now">Closed now</string>
     <string name="opens_tomorrow_at">Opens tomorrow at %s</string>
@@ -947,4 +949,14 @@
     <string name="transit_type_train">Train</string>
     <!-- Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). -->
     <string name="transit_type_tram">Tram</string>
+    <!-- Start navigation along the selected track. -->
+    <string name="navigate_track">Navigate</string>
+    <!-- Track start point label. -->
+    <string name="navigate_track_start">Track start</string>
+    <!-- Track finish point label. -->
+    <string name="navigate_track_finish">Track finish</string>
+    <!-- Error when the selected connected track section has no geometry left in the requested direction. -->
+    <string name="track_no_remaining_geometry">No track remains in this direction. Select another point.</string>
+    <!-- Message shown when the track being followed is not available anymore (e.g. deleted). -->
+    <string name="track_is_not_available">The track is no longer available</string>
 </resources>

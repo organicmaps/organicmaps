@@ -7,6 +7,7 @@ import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.withSettings;
 
 import androidx.car.app.CarContext;
@@ -36,6 +37,12 @@ public class RoutingControllerCarLifecycleTest
   {
     final MapObject destination = MapObject.createMapObject(MapObject.POI, "Finish", "", 1, 2);
     final RoutingController controller = new RoutingController() {
+      @Override
+      public boolean isFollowingTrack()
+      {
+        return false;
+      }
+
       @Override
       public boolean isPlanning()
       {
@@ -81,7 +88,62 @@ public class RoutingControllerCarLifecycleTest
   @Test
   public void destroyedCarScreenLeavesPhoneResultsAndNavigationServiceAlone() throws ReflectiveOperationException
   {
+    checkDestroyedCarScreen(false, true);
+  }
+
+  @Test
+  public void destroyedCarScreenLeavesPhoneTrackAndNavigationServiceAlone() throws ReflectiveOperationException
+  {
+    checkDestroyedCarScreen(true, true);
+  }
+
+  @Test
+  public void rejectedCarScreenDoesNotEndNavigationLifecycle() throws ReflectiveOperationException
+  {
+    checkDestroyedCarScreen(true, false);
+  }
+
+  @Test
+  public void queuedCarCallbacksLeaveThePhoneTrackAlone() throws ReflectiveOperationException
+  {
+    final RoutingController controller = mock(RoutingController.class);
+    when(controller.isFollowingTrack()).thenReturn(true);
+    final NavigationScreen navigation = mock(NavigationScreen.class);
+    setField(navigation, NavigationScreen.class, "mRoutingController", controller);
+    doCallRealMethod().when(navigation).onStopNavigation();
+    doCallRealMethod().when(navigation).onAutoDriveEnabled();
+    navigation.onStopNavigation();
+    navigation.onAutoDriveEnabled();
+    verify(navigation).finish();
+    verify(controller, never()).cancel(false);
+
+    final PlaceScreen place = mock(PlaceScreen.class);
+    setField(place, PlaceScreen.class, "mRoutingController", controller);
+    doCallRealMethod().when(place).onBackPressed();
+    doCallRealMethod().when(place).showNavigation(true);
+    place.onBackPressed();
+    place.showNavigation(true);
+    verify(place).finish();
+    verify(controller, never()).cancel();
+    verify(place, never()).getScreenManager();
+  }
+
+  private void checkDestroyedCarScreen(boolean followingTrack, boolean lifecycleStarted)
+      throws ReflectiveOperationException
+  {
     final RoutingController controller = new RoutingController() {
+      @Override
+      public boolean isFollowingTrack()
+      {
+        return followingTrack;
+      }
+
+      @Override
+      public Router getLastRouterType()
+      {
+        return Router.Vehicle;
+      }
+
       @Override
       public boolean isNavigating()
       {
@@ -102,7 +164,9 @@ public class RoutingControllerCarLifecycleTest
       };
     }));
     setField(screen, NavigationScreen.class, "mRoutingController", controller);
-    setField(screen, NavigationScreen.class, "mNavigationManager", mock(NavigationManager.class));
+    final NavigationManager navigationManager = mock(NavigationManager.class);
+    setField(screen, NavigationScreen.class, "mNavigationManager", navigationManager);
+    setField(screen, NavigationScreen.class, "mNavigationLifecycleStarted", lifecycleStarted);
     doCallRealMethod().when(screen).onDestroy(any());
     final RoutingController.Container phone = mock(RoutingController.Container.class);
     controller.attach(screen);
@@ -119,6 +183,11 @@ public class RoutingControllerCarLifecycleTest
       verify(phone).onCommonBuildError(ResultCodes.NEED_MORE_MAPS, MISSING_MAPS);
       service.verifyNoInteractions();
     }
+
+    verify(navigationManager, times(lifecycleStarted ? 1 : 0)).navigationEnded();
+    verify(navigationManager, times(lifecycleStarted ? 1 : 0)).clearNavigationManagerCallback();
+    verify(renderer).setSpeedLimit(null);
+    verify(renderer).setAlertForced(false);
   }
 
   private static void setField(Object target, Class<?> type, String name, Object value)
