@@ -27,9 +27,9 @@ public:
   void SetFramebuffer(ref_ptr<dp::BaseFramebuffer> framebuffer) override;
   void Resize(uint32_t w, uint32_t h) override;
 
-  // Called by one consumer with its shared GL context current; the frame stays valid until its next acquisition.
-  bool AcquireFrame();
-  GLuint GetTextureHandle() const;
+  // Called by one consumer with its shared GL context current. The texture stays valid until the next acquisition.
+  // Returns zero when no texture is available.
+  GLuint AcquireFrameTexture();
   // The listener runs on the render thread under the frame mutex after each new frame.
   void SetPresentListener(std::function<void()> fn);
 

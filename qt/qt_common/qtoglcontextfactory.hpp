@@ -24,8 +24,7 @@ public:
   // The listener runs on the render thread under the frame mutex; queue work without re-entering the context.
   void SetPresentListener(std::function<void()> fn);
 
-  bool AcquireFrame();
-  GLuint GetTextureHandle() const;
+  GLuint AcquireFrameTexture();
 
   // dp::GraphicsContextFactory overrides:
   dp::GraphicsContext * GetDrawContext() override;

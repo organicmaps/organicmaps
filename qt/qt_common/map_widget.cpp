@@ -16,7 +16,6 @@
 #include <functional>
 #include <string>
 
-#include <QOpenGLBuffer>
 #include <QOpenGLShaderProgram>
 #include <QOpenGLVertexArrayObject>
 #include <QTouchEvent>
@@ -324,43 +323,26 @@ void MapWidget::UpdateScaleControl()
   m_slider->SetPosWithBlockedSignals(m_framework.GetDrawScale());
 }
 
-void MapWidget::Build()
+void MapWidget::InitFrameBlit()
 {
-  std::string_view vertexSrc;
-  std::string_view fragmentSrc;
 #if defined(OMIM_OS_LINUX)
-  vertexSrc = ":common/shaders/gles_300.vsh.glsl";
-  fragmentSrc = ":common/shaders/gles_300.fsh.glsl";
+  auto constexpr kVertexShader = ":common/shaders/gles_300.vsh.glsl";
+  auto constexpr kFragmentShader = ":common/shaders/gles_300.fsh.glsl";
 #else
-  vertexSrc = ":common/shaders/gl_150.vsh.glsl";
-  fragmentSrc = ":common/shaders/gl_150.fsh.glsl";
+  auto constexpr kVertexShader = ":common/shaders/gl_150.vsh.glsl";
+  auto constexpr kFragmentShader = ":common/shaders/gl_150.fsh.glsl";
 #endif
 
   m_program = std::make_unique<QOpenGLShaderProgram>(this);
-  m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, vertexSrc.data());
-  m_program->addShaderFromSourceFile(QOpenGLShader::Fragment, fragmentSrc.data());
-  m_program->link();
+  CHECK(m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, kVertexShader),
+        (kVertexShader, m_program->log().toStdString()));
+  CHECK(m_program->addShaderFromSourceFile(QOpenGLShader::Fragment, kFragmentShader),
+        (kFragmentShader, m_program->log().toStdString()));
+  CHECK(m_program->link(), (kVertexShader, kFragmentShader, m_program->log().toStdString()));
 
+  // Desktop core OpenGL requires a VAO even when the shader generates the vertices.
   m_vao = std::make_unique<QOpenGLVertexArrayObject>(this);
-  m_vao->create();
-  m_vao->bind();
-
-  m_vbo = std::make_unique<QOpenGLBuffer>(QOpenGLBuffer::VertexBuffer);
-  m_vbo->setUsagePattern(QOpenGLBuffer::StaticDraw);
-  m_vbo->create();
-  m_vbo->bind();
-
-  QVector4D vertices[4] = {QVector4D(-1.0, 1.0, 0.0, 1.0), QVector4D(1.0, 1.0, 1.0, 1.0),
-                           QVector4D(-1.0, -1.0, 0.0, 0.0), QVector4D(1.0, -1.0, 1.0, 0.0)};
-  m_vbo->allocate(static_cast<void *>(vertices), sizeof(vertices));
-  QOpenGLFunctions * f = QOpenGLContext::currentContext()->functions();
-  // 0-index of the buffer is linked to "a_position" attribute in vertex shader.
-  // Introduced in https://github.com/organicmaps/organicmaps/pull/9814
-  f->glEnableVertexAttribArray(0);
-  f->glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(QVector4D), nullptr);
-
-  m_program->release();
-  m_vao->release();
+  CHECK(m_vao->create(), ("Cannot create the map frame VAO"));
 }
 
 namespace
@@ -468,6 +450,7 @@ void MapWidget::initializeGL()
   }
 #endif
 
+  InitFrameBlit();
   m_contextFactory.reset(new QtOGLContextFactory(context()));
 
   emit BeforeEngineCreation();
@@ -481,30 +464,22 @@ void MapWidget::initializeGL()
 
 void MapWidget::paintGL()
 {
-  if (m_program == nullptr)
-    Build();
+  GLuint const texture = m_contextFactory->AcquireFrameTexture();
+  if (texture == 0)
+    return;
 
-  if (m_contextFactory->AcquireFrame())
-  {
-    m_vao->bind();
-    m_program->bind();
+  m_vao->bind();
+  m_program->bind();
 
-    QOpenGLFunctions * funcs = context()->functions();
-    funcs->glActiveTexture(GL_TEXTURE0);
-    GLuint const image = m_contextFactory->GetTextureHandle();
-    funcs->glBindTexture(GL_TEXTURE_2D, image);
+  QOpenGLFunctions * funcs = context()->functions();
+  funcs->glActiveTexture(GL_TEXTURE0);  // The linked sampler defaults to unit 0.
+  funcs->glBindTexture(GL_TEXTURE_2D, texture);
+  funcs->glClearColor(0.0, 0.0, 0.0, 1.0);
+  funcs->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  funcs->glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
-    int const samplerLocation = m_program->uniformLocation("u_sampler");
-    m_program->setUniformValue(samplerLocation, 0);
-
-    funcs->glClearColor(0.0, 0.0, 0.0, 1.0);
-    funcs->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    funcs->glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-
-    m_program->release();
-    m_vao->release();
-  }
+  m_program->release();
+  m_vao->release();
 }
 
 void MapWidget::resizeGL(int width, int height)

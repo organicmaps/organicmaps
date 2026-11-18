@@ -38,18 +38,12 @@ void QtOGLContextFactory::SetPresentListener(std::function<void()> fn)
   m_onPresent = std::move(fn);
 }
 
-bool QtOGLContextFactory::AcquireFrame()
+GLuint QtOGLContextFactory::AcquireFrameTexture()
 {
   if (m_preparedToShutdown || !m_drawContext)
-    return false;
+    return 0;
 
-  return m_drawContext->AcquireFrame();
-}
-
-GLuint QtOGLContextFactory::GetTextureHandle() const
-{
-  ASSERT(m_drawContext != nullptr, ());
-  return m_drawContext->GetTextureHandle();
+  return m_drawContext->AcquireFrameTexture();
 }
 
 dp::GraphicsContext * QtOGLContextFactory::GetDrawContext()
