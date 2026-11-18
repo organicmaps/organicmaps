@@ -24,6 +24,7 @@ import app.organicmaps.downloader.DownloaderNotifier;
 import app.organicmaps.location.TrackRecordingService;
 import app.organicmaps.routing.NavigationService;
 import app.organicmaps.sdk.Map;
+import app.organicmaps.sdk.MapsReadiness;
 import app.organicmaps.sdk.OrganicMaps;
 import app.organicmaps.sdk.display.DisplayManager;
 import app.organicmaps.sdk.location.LocationHelper;
@@ -95,6 +96,12 @@ public class MwmApplication extends Application implements Application.ActivityL
   }
 
   @NonNull
+  public MapsReadiness getMapsReadiness()
+  {
+    return getOrganicMaps().getMapsReadiness();
+  }
+
+  @NonNull
   public DisplayManager getDisplayManager()
   {
     return mDisplayManager;
@@ -129,6 +136,10 @@ public class MwmApplication extends Application implements Application.ActivityL
     PreferenceManager.setDefaultValues(this, R.xml.prefs_main, false);
     mOrganicMaps = new OrganicMaps(getApplicationContext(), BuildConfig.FLAVOR, BuildConfig.APPLICATION_ID,
                                    BuildConfig.VERSION_CODE, BuildConfig.VERSION_NAME);
+    getMapsReadiness().runWhenReady(() -> {
+      ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
+      ProcessLifecycleOwner.get().getLifecycle().addObserver(mProcessLifecycleObserver);
+    });
 
     DownloaderNotifier.createNotificationChannel(this);
     initNavigationService();
@@ -153,15 +164,10 @@ public class MwmApplication extends Application implements Application.ActivityL
     mDisplayManager = new DisplayManager();
   }
 
-  public boolean initOrganicMaps(@Nullable Runnable onComplete) throws IOException
+  public void initOrganicMaps() throws IOException
   {
     ThemeSwitcher.INSTANCE.initialize(this);
-    return mOrganicMaps.init(() -> {
-      ThemeSwitcher.INSTANCE.synchronizeApplicationTheme();
-      ProcessLifecycleOwner.get().getLifecycle().addObserver(mProcessLifecycleObserver);
-      if (onComplete != null)
-        onComplete.run();
-    });
+    mOrganicMaps.init();
   }
 
   private final LifecycleObserver mProcessLifecycleObserver = new DefaultLifecycleObserver() {

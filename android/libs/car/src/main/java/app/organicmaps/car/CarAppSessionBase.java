@@ -11,6 +11,7 @@ import androidx.car.app.ScreenManager;
 import androidx.car.app.Session;
 import androidx.car.app.SessionInfo;
 import androidx.lifecycle.DefaultLifecycleObserver;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 import app.organicmaps.car.screens.NavigationScreen;
 import app.organicmaps.car.screens.PlaceScreen;
@@ -19,6 +20,7 @@ import app.organicmaps.car.util.CurrentCountryChangedListener;
 import app.organicmaps.car.util.IntentUtils;
 import app.organicmaps.car.util.ThemeUtils;
 import app.organicmaps.sdk.Framework;
+import app.organicmaps.sdk.MapsReadiness;
 import app.organicmaps.sdk.OrganicMaps;
 import app.organicmaps.sdk.PlacePageActivationListener;
 import app.organicmaps.sdk.bookmarks.data.MapObject;
@@ -34,6 +36,9 @@ import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.StringUtils;
 import app.organicmaps.sdk.util.log.Logger;
 import app.organicmaps.sdk.widget.placepage.PlacePageData;
+import java.util.ArrayDeque;
+import java.util.Objects;
+import java.util.Queue;
 
 public abstract class CarAppSessionBase
     extends Session implements DefaultLifecycleObserver, LocationState.ModeChangeListener, PlacePageActivationListener
@@ -62,11 +67,23 @@ public abstract class CarAppSessionBase
   @NonNull
   private final LocationListener mSpeedLocationListener = this::updateSpeed;
   private boolean mSpeedLimitSignTypeInitialized;
+  @NonNull
+  private final MapsReadiness mMapsReadiness;
+  private final Queue<Intent> mPendingIntents = new ArrayDeque<>();
+  @Nullable
+  private MapObject mPendingPlace;
+  @NonNull
+  private final Runnable mCarDisplayWhenReady = this::onCarDisplayReady;
+  @NonNull
+  private final Runnable mIntentWhenReady = this::processPendingIntents;
+  @NonNull
+  private final Runnable mPlaceWhenReady = this::showPendingPlace;
 
   public CarAppSessionBase(@NonNull OrganicMaps organicMapsContext, @NonNull DisplayManager displayManager,
                            @NonNull SessionInfo sessionInfo, boolean isDebug)
   {
     mOrganicMapsContext = organicMapsContext;
+    mMapsReadiness = organicMapsContext.getMapsReadiness();
     mSessionInfo = sessionInfo;
     mDisplayManager = displayManager;
     mIsDebug = isDebug;
@@ -114,13 +131,29 @@ public abstract class CarAppSessionBase
   public final void onNewIntent(@NonNull Intent intent)
   {
     Logger.d(TAG, intent.toString());
-    IntentUtils.processIntent(getCarContext(), mOrganicMapsContext, mSurfaceRenderer, mDisplayManager, intent);
+    mPendingIntents.add(intent);
+    if (isStarted())
+      mMapsReadiness.runWhenReady(mIntentWhenReady);
+  }
+
+  private void processPendingIntents()
+  {
+    // Preserve host delivery order, including intents received while stopped or maps are loading.
+    while (isStarted() && !mPendingIntents.isEmpty())
+    {
+      final Intent intent = mPendingIntents.remove();
+      IntentUtils.processIntent(getCarContext(), mOrganicMapsContext, mSurfaceRenderer, mDisplayManager, intent);
+    }
   }
 
   @CallSuper
   @Override
   public void onStart(@NonNull LifecycleOwner owner)
   {
+    // A display handoff can call onStart() while the car host has stopped the Session.
+    if (!isStarted())
+      return;
+
     Logger.d(TAG);
     mSpeedLimitSignTypeInitialized = false;
     updateSpeed(mOrganicMapsContext.getLocationHelper().getSavedLocation());
@@ -129,7 +162,6 @@ public abstract class CarAppSessionBase
     {
       LocationState.nativeSetListener(this);
       Framework.nativePlacePageActivationListener(this);
-      mCurrentCountryChangedListener.onStart(getCarContext(), mOrganicMapsContext);
     }
 
     if (LocationUtils.checkFineLocationPermission(getCarContext()))
@@ -138,8 +170,10 @@ public abstract class CarAppSessionBase
     if (mDisplayManager.isCarDisplayUsed())
     {
       ThemeUtils.update(getCarContext(), mSurfaceRenderer.isRenderingActive());
-      onRestoreRoute();
+      mMapsReadiness.runWhenReady(mCarDisplayWhenReady);
     }
+    if (!mPendingIntents.isEmpty())
+      mMapsReadiness.runWhenReady(mIntentWhenReady);
   }
 
   @CallSuper
@@ -147,6 +181,12 @@ public abstract class CarAppSessionBase
   public void onStop(@NonNull LifecycleOwner owner)
   {
     Logger.d(TAG);
+    mMapsReadiness.cancel(mCarDisplayWhenReady);
+    // A display handoff keeps the host Session started, so its queued intents still run once maps load.
+    if (!isStarted())
+      mMapsReadiness.cancel(mIntentWhenReady);
+    mMapsReadiness.cancel(mPlaceWhenReady);
+    mPendingPlace = null;
 
     mOrganicMapsContext.getLocationHelper().removeListener(mSpeedLocationListener);
 
@@ -159,6 +199,27 @@ public abstract class CarAppSessionBase
     }
 
     mCurrentCountryChangedListener.onStop();
+  }
+
+  private void onCarDisplayReady()
+  {
+    if (!canShowCarScreen())
+      return;
+
+    // Downloaded regions look missing to the download prompt until maps are registered.
+    mCurrentCountryChangedListener.onStart(getCarContext(), mOrganicMapsContext);
+    onRestoreRoute();
+  }
+
+  private boolean isStarted()
+  {
+    return getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED);
+  }
+
+  private boolean canShowCarScreen()
+  {
+    // Display ownership can change before the handoff callback runs.
+    return isStarted() && mDisplayManager.isCarDisplayUsed();
   }
 
   @NonNull
@@ -188,11 +249,22 @@ public abstract class CarAppSessionBase
   @Override
   public final void onPlacePageActivated(@NonNull PlacePageData data)
   {
-    // TODO: How maps downloading can trigger place page activation?
+    if (!canShowCarScreen())
+      return;
+    mPendingPlace = (MapObject) data;
+    mMapsReadiness.runWhenReady(mPlaceWhenReady);
+  }
+
+  private void showPendingPlace()
+  {
+    final MapObject mapObject = Objects.requireNonNull(mPendingPlace);
+    mPendingPlace = null;
+    if (!canShowCarScreen())
+      return;
+    // A place queued during startup can be delivered while a download prompt is visible.
     if (DownloadMapsScreen.MARKER.equals(mScreenManager.getTop().getMarker()))
       return;
 
-    final MapObject mapObject = (MapObject) data;
     // Don't display the PlaceScreen for 'MY_POSITION' or during navigation
     // TODO (AndrewShkrob): Implement the 'Add stop' functionality
     if (mapObject.isMyPosition() || RoutingController.get().isNavigating())
@@ -211,9 +283,11 @@ public abstract class CarAppSessionBase
   @Override
   public final void onPlacePageDeactivated()
   {
+    mPendingPlace = null;
+    mMapsReadiness.cancel(mPlaceWhenReady);
     // The function is called when we close the PlaceScreen or when we enter the navigation mode.
     // We only need to handle the first case.
-    if (!(mScreenManager.getTop() instanceof PlaceScreen))
+    if (!canShowCarScreen() || !(mScreenManager.getTop() instanceof PlaceScreen))
       return;
 
     // Do NOT cancel routing here. This callback fires synchronously from the C++ tap handler

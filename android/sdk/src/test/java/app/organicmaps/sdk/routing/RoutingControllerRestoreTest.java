@@ -19,6 +19,11 @@ public class RoutingControllerRestoreTest
   {
     int builds;
 
+    Controller()
+    {
+      markInitializedForTesting();
+    }
+
     @Override
     public MapObject getStartPoint()
     {

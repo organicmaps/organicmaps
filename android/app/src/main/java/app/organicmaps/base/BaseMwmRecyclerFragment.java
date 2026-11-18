@@ -1,6 +1,5 @@
 package app.organicmaps.base;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,13 +50,6 @@ public abstract class BaseMwmRecyclerFragment<T extends RecyclerView.Adapter> ex
   protected T getAdapter()
   {
     return mAdapter;
-  }
-
-  @Override
-  public void onAttach(Context context)
-  {
-    super.onAttach(context);
-    Utils.detachFragmentIfCoreNotInitialized(context, this);
   }
 
   @Override

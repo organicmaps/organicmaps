@@ -82,6 +82,7 @@ androidx-appcompat-resources = { module = "androidx.appcompat:appcompat-resource
 androidx-car-app = { module = "androidx.car.app:app", version.ref = "androidx-car" }
 androidx-car-app-automotive = { module = "androidx.car.app:app-automotive", version.ref = "androidx-car" }
 androidx-car-app-projected = { module = "androidx.car.app:app-projected", version.ref = "androidx-car" }
+androidx-car-app-testing = { module = "androidx.car.app:app-testing", version.ref = "androidx-car" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidx-constraintlayout" }
 androidx-core = { module = "androidx.core:core", version.ref = "androidx-core" }
 androidx-fragment = { module = "androidx.fragment:fragment", version.ref = "androidx-fragment" }

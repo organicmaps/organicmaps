@@ -32,8 +32,10 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/map_placeholder_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:accessibilityLiveRegion="polite"
         android:text="@string/car_used_on_the_car_screen"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />

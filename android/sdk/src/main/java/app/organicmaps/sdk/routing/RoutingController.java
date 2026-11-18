@@ -21,6 +21,7 @@ import org.chromium.base.ObserverList;
  * call {@link #restore} when that host becomes active, and detach it when the host stops. The controller
  * retains route state across activity recreation; it does not provide the host foreground service or UI.
  * Detailed route building requires all relevant region maps. Missing-map errors are reported to the container.
+ * Wait for {@link app.organicmaps.sdk.MapsReadiness} before preparing, editing, building or restoring a route.
  */
 @androidx.annotation.UiThread
 public class RoutingController
@@ -118,6 +119,8 @@ public class RoutingController
 
   @Nullable
   private Container mContainer;
+  // The SDK initializes the controller on the same call stack right before it publishes maps readiness.
+  private boolean mInitialized;
 
   @NonNull
   private final ObserverList<NavigationStateListener> mNavigationStateListeners = new ObserverList<>();
@@ -182,6 +185,12 @@ public class RoutingController
   public static RoutingController get()
   {
     return sInstance;
+  }
+
+  private void checkMapsReady()
+  {
+    if (!mInitialized)
+      throw new IllegalStateException("Wait for SDK maps to load before issuing routing commands");
   }
 
   private void processRoutingEvent()
@@ -293,12 +302,12 @@ public class RoutingController
   }
 
   /**
-   * Installs native routing callbacks using the application location helper. Called automatically by SDK
-   * initialization.
+   * Reads the installed profile and registers routing callbacks after native routing initialization.
+   * Called automatically before the SDK publishes maps readiness.
    */
   public void initialize(@NonNull LocationHelper locationHelper)
   {
-    mLastRouterType = Router.getLastUsed();
+    mLastRouterType = Router.get();
 
     Framework.nativeSetRoutingListener(mRoutingListener);
     Framework.nativeSetRouteProgressListener(mRoutingProgressListener);
@@ -306,6 +315,7 @@ public class RoutingController
       if (recommendation == RouteRecommendationType.RebuildAfterPointsLoading)
         setStartPoint(locationHelper.getMyPosition());
     }));
+    mInitialized = true;
   }
 
   /**
@@ -365,6 +375,12 @@ public class RoutingController
   }
 
   @VisibleForTesting
+  void markInitializedForTesting()
+  {
+    mInitialized = true;
+  }
+
+  @VisibleForTesting
   void build()
   {
     mContainsCachedResult = false;
@@ -388,6 +404,7 @@ public class RoutingController
    */
   public void restoreRoute()
   {
+    checkMapsReady();
     // Recovery preserves the user's last-used router.
     if (Framework.nativeLoadRoutePoints())
       rebuildLastRoute();
@@ -439,6 +456,7 @@ public class RoutingController
    */
   public boolean optimizeRoutePoints()
   {
+    checkMapsReady();
     return Framework.nativeOptimizeRoutePoints();
   }
 
@@ -475,6 +493,7 @@ public class RoutingController
    */
   public void rebuildLastRoute()
   {
+    checkMapsReady();
     mContainsCachedResult = false;
     setState(State.PREPARE);
     setBuildState(BuildState.NONE);
@@ -488,6 +507,7 @@ public class RoutingController
    */
   public void prepare(@Nullable MapObject startPoint, @Nullable MapObject endPoint)
   {
+    checkMapsReady();
     Logger.d(TAG, "prepare (" + (endPoint == null ? "route)" : "p2p)"));
     initLastRouteType(startPoint, endPoint);
     prepare(startPoint, endPoint, mLastRouterType);
@@ -507,6 +527,7 @@ public class RoutingController
    */
   public void prepare(final @Nullable MapObject startPoint, final @Nullable MapObject endPoint, Router routerType)
   {
+    checkMapsReady();
     if (!cancel())
     {
       Framework.nativeRemoveRoutePoints();
@@ -554,6 +575,7 @@ public class RoutingController
    */
   public void replaceStop(@NonNull MapObject mapObject)
   {
+    checkMapsReady();
     final PendingPoiPick pick = requirePendingPoiPick();
     if (!pick.isReplacement())
       throw new IllegalStateException("A route point replacement was not requested");
@@ -566,6 +588,7 @@ public class RoutingController
    */
   public void addStop(@NonNull MapObject mapObject)
   {
+    checkMapsReady();
     if (!addRoutePoint(RouteMarkType.Intermediate, mapObject))
     {
       if (mContainer != null)
@@ -597,6 +620,7 @@ public class RoutingController
    */
   public void commitStopPick(@NonNull MapObject mapObject)
   {
+    checkMapsReady();
     switch (getPoiPickMode())
     {
     case REPLACE -> replaceStop(mapObject);
@@ -634,6 +658,7 @@ public class RoutingController
    */
   public void removeStop(@NonNull RouteMarkType type, int intermediateIndex)
   {
+    checkMapsReady();
     if (Framework.nativeGetRoutePoints().length == 1)
     {
       cancel();
@@ -654,6 +679,7 @@ public class RoutingController
    */
   public void launchPlanning()
   {
+    checkMapsReady();
     build();
     setState(State.PREPARE);
     showRoutePlan();
@@ -1070,6 +1096,7 @@ public class RoutingController
    */
   public void checkAndBuildRoute()
   {
+    checkMapsReady();
     // showRoutePlan() runs while POI-pick is still pending on purpose: the plan sheet lands underneath the
     // search/PP overlay that finalizePendingPoiPick() dismisses right after (via set{Start,End}Point's outer
     // wrapper). Flipping this order would visibly pop the sheet up post-close instead of revealing it seamlessly.
@@ -1093,6 +1120,7 @@ public class RoutingController
   @SuppressWarnings("Duplicates")
   public boolean setStartPoint(@Nullable MapObject point)
   {
+    checkMapsReady();
     final boolean result = setStartPointInternal(point);
     finalizePendingPoiPick();
     return result;
@@ -1140,6 +1168,7 @@ public class RoutingController
   @SuppressWarnings("Duplicates")
   public boolean setEndPoint(@Nullable MapObject point)
   {
+    checkMapsReady();
     final boolean result = setEndPointInternal(point);
     finalizePendingPoiPick();
     return result;
@@ -1223,6 +1252,7 @@ public class RoutingController
    */
   public void swapPoints()
   {
+    checkMapsReady();
     Logger.d(TAG, "swapPoints");
 
     MapObject startPoint = getStartPoint();
@@ -1242,6 +1272,7 @@ public class RoutingController
    */
   public void reverseRoute()
   {
+    checkMapsReady();
     Logger.d(TAG, "reverseRoute");
 
     if (Framework.nativeReverseRoutePoints())
@@ -1253,6 +1284,7 @@ public class RoutingController
    */
   public void setRouterType(Router router)
   {
+    checkMapsReady();
     Logger.d(TAG, "setRouterType: " + mLastRouterType + " -> " + router);
 
     // Nothing to rebuild when the already selected router type is tapped again.
