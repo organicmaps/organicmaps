@@ -1238,9 +1238,8 @@ FollowTrackResult RoutingManager::NavigateTrack(kml::TrackId trackId)
   if (!selected)
     return selected.error();
   auto const & source = selected->m_track->GetData();
-  auto const & savedProfile = source.m_routerType;
-  auto const profile = GetFollowTrackRouterType(savedProfile.empty() ? m_lastTrackProfile.value_or(m_currentRouterType)
-                                                                     : FromString(savedProfile));
+  auto const fallback = m_lastTrackProfile.value_or(m_currentRouterType);
+  auto const profile = GetFollowTrackRouterType(FromString(source.m_routerType, fallback));
   return BuildFollowedTrack(std::make_shared<Track const>(kml::TrackData(source)), selected->m_entry,
                             selected->m_distanceM, profile);
 }
