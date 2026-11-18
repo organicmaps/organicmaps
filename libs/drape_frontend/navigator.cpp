@@ -7,6 +7,8 @@
 #include "geometry/angles.hpp"
 #include "geometry/point2d.hpp"
 
+#include <cmath>
+
 namespace df
 {
 double const kDefault3dScale = 1.0;
@@ -304,11 +306,14 @@ void Navigator::Disable3dMode()
 
 m2::AnyRectD ToRotated(Navigator const & navigator, m2::RectD const & rect)
 {
-  double const dx = rect.SizeX();
-  double const dy = rect.SizeY();
+  // The bounds of the rect in the screen axes, so that the whole rect fits on a rotated map.
+  double const angle = navigator.Screen().GetAngle();
+  double const cosA = std::fabs(std::cos(angle));
+  double const sinA = std::fabs(std::sin(angle));
+  double const halfX = (cosA * rect.SizeX() + sinA * rect.SizeY()) / 2;
+  double const halfY = (sinA * rect.SizeX() + cosA * rect.SizeY()) / 2;
 
-  return m2::AnyRectD(rect.Center(), ang::Angle<double>(navigator.Screen().GetAngle()),
-                      m2::RectD(-dx / 2, -dy / 2, dx / 2, dy / 2));
+  return m2::AnyRectD(rect.Center(), ang::Angle<double>(angle), m2::RectD(-halfX, -halfY, halfX, halfY));
 }
 
 void CheckMinGlobalRect(m2::RectD & rect, uint32_t tileSize, double visualScale, double scale3d)
