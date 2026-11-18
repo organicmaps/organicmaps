@@ -1,6 +1,5 @@
 #import "MWMStorage.h"
 #import "MWMMapNodeAttributes+Core.h"
-#import "MWMMapUpdateInfo+Core.h"
 
 #include <CoreApi/Framework.h>
 
@@ -335,17 +334,6 @@ using namespace storage;
   if (!IsCountryIdValid(country))
     return nil;
   return [NSString stringWithCString:country.c_str() encoding:NSUTF8StringEncoding];
-}
-
-- (MWMMapUpdateInfo *)updateInfoWithParent:(nullable NSString *)countryId
-{
-  auto const & s = GetFramework().GetStorage();
-  Storage::UpdateInfo updateInfo;
-  if (countryId.length > 0)
-    s.GetUpdateInfo(countryId.UTF8String, updateInfo);
-  else
-    s.GetUpdateInfo(s.GetRootId(), updateInfo);
-  return [[MWMMapUpdateInfo alloc] initWithUpdateInfo:updateInfo];
 }
 
 @end
