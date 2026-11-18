@@ -7,7 +7,8 @@ NS_SWIFT_NAME(MapUpdateInfo)
 
 @property(nonatomic, readonly) uint32_t numberOfFiles;
 @property(nonatomic, readonly) uint64_t updateSize;
-@property(nonatomic, readonly) uint64_t differenceSize;
+/// Net change in disk usage, in bytes.
+@property(nonatomic, readonly) int64_t differenceSize;
 
 @end
 
