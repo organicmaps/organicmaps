@@ -1129,32 +1129,52 @@ inline bool time_selector_is_immutable_full_day(TimeSelector const & ts)
   return true;
 }
 
-/// Resolve a `Time` to a concrete extended time (`nullopt` for a sun event that
-/// does not occur that day).
+inline bool time_selector_may_start_previous_day(TimeSelector const & ts)
+{
+  return std::any_of(ts.time.begin(), ts.time.end(), [](TimeSpan const & span)
+  {
+    return (span.start.tag == Time::Variable && span.start.variable.offset < 0) ||
+           (span.end.tag == Time::Variable && span.end.variable.offset < 0);
+  });
+}
+
+/// Resolve a `Time` to minutes relative to its selected date. An offset may
+/// move a sun event into the previous day; `nullopt` means the event is absent.
 template <class L>
   requires Localize<L>
-std::optional<ExtendedTime> time_as_naive(Time const & t, Context<L> const & ctx, NaiveDate date)
+std::optional<int> time_as_naive(Time const & t, Context<L> const & ctx, NaiveDate date)
 {
   if (t.tag == Time::Fixed)
-    return t.fixed;
+    return t.fixed.mins_from_midnight();
   auto ev = ctx.locale.event_time(date, t.variable.event);
   if (!ev)
     return std::nullopt;
-  return et_add_minutes(*ev, t.variable.offset);
+  return int(ev->mins_from_midnight()) + t.variable.offset;
 }
+
+struct MinuteRange
+{
+  int start;
+  int end;
+};
 
 /// Project a `TimeSpan` onto a day as a naive interval (time_filter.rs:73-146).
 /// Handles the past-midnight wrap and the polar-day/night seasonal fallback.
 template <class L>
   requires Localize<L>
-std::optional<ETRange> timespan_as_naive(TimeSpan const & span, Context<L> const & ctx, NaiveDate date)
+std::optional<MinuteRange> timespan_as_naive(TimeSpan const & span, Context<L> const & ctx, NaiveDate date)
 {
   auto start_opt = time_as_naive(span.start, ctx, date);
   auto end_opt = time_as_naive(span.end, ctx, date);
   std::pair<unsigned, unsigned> md{date.month(), date.day()};
   bool is_summer = md >= std::pair<unsigned, unsigned>{3, 20} && md < std::pair<unsigned, unsigned>{9, 22};
+  // A missing sun event means polar day or night. The date-only season is
+  // inverted south of the equator.
+  if constexpr (requires { ctx.locale.get_coords(); })
+    if (auto const & coords = ctx.locale.get_coords(); coords && coords->lat() < 0.0)
+      is_summer = !is_summer;
 
-  ExtendedTime start{}, end{};
+  int start = 0, end = 0;
   if (start_opt && end_opt)
   {
     start = *start_opt;
@@ -1162,12 +1182,12 @@ std::optional<ETRange> timespan_as_naive(TimeSpan const & span, Context<L> const
   }
   else if (!start_opt && end_opt)
   {
-    // Missing start: it must be a (non-occurring) sun event.
+    // Only a variable time can fail to resolve.
     if (span.start.tag != Time::Variable)
       return std::nullopt;
     bool is_morning = span.start.variable.event == TimeEvent::Sunrise || span.start.variable.event == TimeEvent::Dawn;
     if (is_morning == is_summer)
-      start = ExtendedTime::midnight_00();
+      start = 0;
     else
       return std::nullopt;
     end = *end_opt;
@@ -1180,7 +1200,7 @@ std::optional<ETRange> timespan_as_naive(TimeSpan const & span, Context<L> const
     if (is_morning == is_summer)
       return std::nullopt;
     else
-      end = ExtendedTime::midnight_24();
+      end = 24 * 60;
     start = *start_opt;
   }
   else
@@ -1188,8 +1208,8 @@ std::optional<ETRange> timespan_as_naive(TimeSpan const & span, Context<L> const
     // Both missing: full day iff the ordering agrees with the season.
     if ((span.start <= span.end) == is_summer)
     {
-      start = ExtendedTime::midnight_00();
-      end = ExtendedTime::midnight_24();
+      start = 0;
+      end = 24 * 60;
     }
     else
     {
@@ -1197,57 +1217,38 @@ std::optional<ETRange> timespan_as_naive(TimeSpan const & span, Context<L> const
     }
   }
 
-  // If end <= start the span wraps into the next day. An end already past
-  // 24:00 cannot wrap again: a variable start resolving past a fixed extended
-  // end ("(sunset+07:00)-25:00") leaves the span empty, not the app crashed.
-  if (!(start < end))
+  // An end at or before the start wraps forward once. An end already past
+  // 24:00 cannot wrap again within the 48-hour schedule window.
+  if (end <= start)
   {
-    auto const wrapped = et_add_minutes(end, 24 * 60);
-    if (!wrapped)
+    if (end > 24 * 60)
       return std::nullopt;
-    end = *wrapped;
+    end += 24 * 60;
   }
-  return ETRange{start, end};
+  if (end <= start)
+    return std::nullopt;
+  return MinuteRange{start, end};
 }
 
-/// Intervals of a time selector clipped to the current day [00:00, 24:00).
+/// Project intervals belonging to `date` into its previous, current, or next
+/// day. The returned extended times are always within [00:00, 24:00].
 template <class L>
   requires Localize<L>
-std::vector<ETRange> time_selector_intervals_at(Context<L> const & ctx, TimeSelector const & ts, NaiveDate date)
+std::vector<ETRange> time_selector_intervals_at(Context<L> const & ctx, TimeSelector const & ts, NaiveDate date,
+                                                int dayOffset)
 {
   std::vector<ETRange> ranges;
-  ETRange full_day{ExtendedTime::midnight_00(), ExtendedTime::midnight_24()};
+  int const first = dayOffset * 24 * 60;
+  int const last = first + 24 * 60;
   for (auto const & span : ts.time)
   {
     auto r = timespan_as_naive(span, ctx, date);
     if (!r)
       continue;
-    if (auto clipped = range_intersection(*r, full_day))
-      ranges.push_back(*clipped);
-  }
-  return ranges_union(std::move(ranges));
-}
-
-/// Intervals of a time selector that spill into [24:00, 48:00), shifted −24h so
-/// they can be merged into the *following* day.
-template <class L>
-  requires Localize<L>
-std::vector<ETRange> time_selector_intervals_at_next_day(Context<L> const & ctx, TimeSelector const & ts,
-                                                         NaiveDate date)
-{
-  std::vector<ETRange> ranges;
-  ETRange next_day{ExtendedTime::midnight_24(), ExtendedTime::midnight_48()};
-  for (auto const & span : ts.time)
-  {
-    auto r = timespan_as_naive(span, ctx, date);
-    if (!r)
-      continue;
-    auto clipped = range_intersection(*r, next_day);
-    if (!clipped)
-      continue;
-    ExtendedTime start = et_add_hours(clipped->start, -24);
-    ExtendedTime end = et_add_hours(clipped->end, -24);
-    ranges.push_back(ETRange{start, end});
+    int const start = std::max(r->start, first);
+    int const end = std::min(r->end, last);
+    if (start < end)
+      ranges.push_back({*ExtendedTime::from_mins(start - first), *ExtendedTime::from_mins(end - first)});
   }
   return ranges_union(std::move(ranges));
 }
@@ -1834,8 +1835,8 @@ inline bool expr_is_constant(OpeningHoursExpression const & expr)
 // Evaluator core  (opening-hours/src/opening_hours.rs)  — Milestones 2 & 5
 // ============================================================================
 
-/// Build the schedule for a single rule sequence at a date, merging today's
-/// intervals with yesterday's past-midnight spill (opening_hours.rs:374-433).
+/// Build the schedule for a single rule sequence at a date, merging intervals
+/// that cross midnight from either adjacent date.
 template <class L>
   requires Localize<L>
 std::optional<Schedule> rule_sequence_schedule_at(RuleSequence const & rs, NaiveDate date, Context<L> const & ctx)
@@ -1848,17 +1849,28 @@ std::optional<Schedule> rule_sequence_schedule_at(RuleSequence const & rs, Naive
     return Schedule::from_ranges(intervals, kind, rule_comment(rs));
   };
 
-  std::optional<Schedule> today = build(date, time_selector_intervals_at(ctx, rs.time_selector, date));
+  std::optional<Schedule> today = build(date, time_selector_intervals_at(ctx, rs.time_selector, date, 0));
 
   NaiveDate yesterday_date = date.pred();
   std::optional<Schedule> yesterday =
-      build(yesterday_date, time_selector_intervals_at_next_day(ctx, rs.time_selector, yesterday_date));
+      build(yesterday_date, time_selector_intervals_at(ctx, rs.time_selector, yesterday_date, 1));
+
+  std::optional<Schedule> tomorrow;
+  if (time_selector_may_start_previous_day(rs.time_selector))
+  {
+    NaiveDate const tomorrow_date = date.succ();
+    tomorrow = build(tomorrow_date, time_selector_intervals_at(ctx, rs.time_selector, tomorrow_date, -1));
+  }
 
   if (today && yesterday)
-    return today->addition(*yesterday);
+    today = today->addition(*yesterday);
+  else if (yesterday)
+    today = std::move(yesterday);
+  if (today && tomorrow)
+    return today->addition(*tomorrow);
   if (today)
     return today;
-  return yesterday;
+  return tomorrow;
 }
 
 /// Fold all rule sequences into the day's schedule, applying operator/kind
@@ -1877,6 +1889,7 @@ Schedule compute_schedule_at(OpeningHoursExpression const & expr, Context<L> con
   {
     bool curr_match = day_selector_filter(ctx, rs.day_selector, date);
     std::optional<Schedule> curr_eval = rule_sequence_schedule_at(rs, date, ctx);
+    bool const hasSpill = !curr_match && curr_eval && !curr_eval->is_empty();
 
     bool new_match;
     std::optional<Schedule> new_eval;
@@ -1887,9 +1900,14 @@ Schedule compute_schedule_at(OpeningHoursExpression const & expr, Context<L> con
 
     if (normal_open_unknown)
     {
-      // Whole-day REPLACE (unless the current rule doesn't match today).
-      new_match = curr_match || prev_match;
+      // A rule matching the day replaces it; intervals carried from an
+      // adjacent date overlay only their actual hours.
+      new_match = curr_match || prev_match || hasSpill;
       if (curr_match)
+        new_eval = std::move(curr_eval);
+      else if (hasSpill && prev_eval)
+        new_eval = prev_eval->addition(*curr_eval);
+      else if (hasSpill)
         new_eval = std::move(curr_eval);
       else if (prev_eval && !prev_eval->is_always_closed_with_no_comments())
         new_eval = std::move(prev_eval);
@@ -1950,7 +1968,11 @@ std::optional<NaiveDate> compute_next_change_hint(OpeningHoursExpression const &
   {
     std::optional<NaiveDate> h;
     if (time_selector_is_immutable_full_day(rs.time_selector) || !day_selector_filter(ctx, rs.day_selector, date))
+    {
       h = day_selector_next_change_hint(ctx, rs.day_selector, date);
+      if (h && time_selector_may_start_previous_day(rs.time_selector))
+        h = std::max(date.succ(), h->pred());
+    }
     else
       h = date.succ();
     if (first)
@@ -1999,6 +2021,13 @@ public:
 
     while (curr_schedule_.peek() && !range_contains(*curr_schedule_.peek(), start_time))
       curr_schedule_.next();
+  }
+
+  std::optional<RuleKind> current_kind() const
+  {
+    if (auto const * current = curr_schedule_.peek())
+      return current->kind;
+    return std::nullopt;
   }
 
   std::optional<DateTimeRange<NaiveDateTime>> next()
