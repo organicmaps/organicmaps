@@ -69,18 +69,22 @@ object SyriaFormat {
     }
 
     /**
-     * Turns what the user typed after the fixed "00963" prefix into an international number:
-     * "0944 123 456" and "944123456" -> "+963944123456"; "00…" and "+…" are kept as typed.
+     * International number from the country code field (Syria by default) and the number field:
+     * "0944 123 456" and "944123456" with code 963 -> "+963944123456". A number typed with "+" or "00"
+     * keeps its own country code, whatever the code field says.
      */
     @JvmStatic
-    fun normalizePhoneInput(input: String): String {
+    @JvmOverloads
+    fun normalizePhoneInput(input: String, countryCode: String = SYRIA_CODE): String {
         val trimmed = input.trim()
         val digits = trimmed.filter { it.isDigit() }
+        val code = countryCode.filter { it.isDigit() }.ifEmpty { SYRIA_CODE }
         return when {
             trimmed.startsWith("+") -> "+$digits"
             digits.startsWith("00") -> "+" + digits.substring(2)
-            digits.startsWith(SYRIA_CODE) && digits.length > SYRIA_LOCAL_LENGTH -> "+$digits"
-            else -> "+$SYRIA_CODE" + digits.trimStart('0')
+            // "963944…" typed in full; Syrian national numbers never start with 963.
+            code == SYRIA_CODE && digits.startsWith(SYRIA_CODE) && digits.length > SYRIA_LOCAL_LENGTH -> "+$digits"
+            else -> "+$code" + digits.trimStart('0')
         }
     }
 

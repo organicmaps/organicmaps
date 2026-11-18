@@ -35,61 +35,122 @@
         android:text="@string/syria_login_intro"
         android:textAppearance="?android:textAppearanceMedium" />
 
-      <!-- Laid out LTR so that the fixed 00963 prefix stays before the number in Arabic too. -->
+      <!-- Phone number: country code (Syria by default) + number, laid out LTR in Arabic too.
+           The number field is the "username" for Android autofill and password managers. -->
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layoutDirection="ltr"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+          style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+          android:layout_width="104dp"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/margin_half"
+          android:hint="@string/syria_login_country_code"
+          app:prefixText="+">
+
+          <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/login_country"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            android:inputType="phone"
+            android:maxLength="4"
+            android:text="963"
+            android:textDirection="ltr" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+          style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:hint="@string/syria_login_phone_hint">
+
+          <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/login_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="username"
+            android:importantForAutofill="yes"
+            android:inputType="phone"
+            android:textDirection="ltr" />
+        </com.google.android.material.textfield.TextInputLayout>
+      </LinearLayout>
+
+      <!-- 6-digit PIN: the "password" for autofill, so the phone's password manager can save it. -->
       <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/login_phone_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/syria_login_phone_hint"
+        android:layout_marginTop="@dimen/margin_half"
+        android:hint="@string/syria_login_pin_hint"
         android:layoutDirection="ltr"
-        app:prefixText="@string/syria_login_phone_prefix">
+        app:endIconMode="password_toggle"
+        app:helperText="@string/syria_login_pin_help">
 
         <com.google.android.material.textfield.TextInputEditText
-          android:id="@+id/login_phone"
+          android:id="@+id/login_pin"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:autofillHints="phone"
-          android:inputType="phone"
+          android:autofillHints="password"
+          android:importantForAutofill="yes"
+          android:inputType="numberPassword"
+          android:maxLength="6"
           android:textDirection="ltr" />
       </com.google.android.material.textfield.TextInputLayout>
 
+      <!-- Errors (e.g. a wrong PIN) right under the PIN box. -->
+      <TextView
+        android:id="@+id/login_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_horizontal"
+        android:textColor="@color/syria_sync_red"
+        android:textStyle="bold" />
+
       <Button
-        android:id="@+id/login_send"
-        android:backgroundTint="@color/syria_btn_sync"
-        android:textColor="@color/syria_btn_on_sync"
+        android:id="@+id/login_sign_in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_half"
-        android:text="@string/syria_login_send_code" />
+        android:backgroundTint="@color/syria_btn_start"
+        android:text="@string/syria_login_sign_in"
+        android:textColor="@color/syria_btn_on_start" />
 
-      <LinearLayout
-        android:id="@+id/login_code_group"
+      <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_base"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:layout_marginBottom="@dimen/margin_half"
+        android:gravity="center_horizontal"
+        android:text="@string/syria_login_or"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:textColor="?android:textColorSecondary" />
 
-        <EditText
-          android:id="@+id/login_code"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:autofillHints="smsOTPCode"
-          android:hint="@string/syria_login_code_hint"
-          android:inputType="number"
-          android:maxLength="8"
-          android:textDirection="ltr" />
+      <!-- Sign-in through the Telegram bot: also the way back in after a forgotten PIN. -->
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/login_telegram"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/syria_login_telegram"
+        android:textColor="@android:color/white"
+        app:backgroundTint="@color/syria_telegram"
+        app:icon="@drawable/ic_syria_telegram"
+        app:iconGravity="textStart"
+        app:iconTint="@android:color/white" />
 
-        <Button
-          android:id="@+id/login_verify"
-          android:backgroundTint="@color/syria_btn_start"
-          android:textColor="@color/syria_btn_on_start"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/margin_half"
-          android:text="@string/syria_login_verify" />
-      </LinearLayout>
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_horizontal"
+        android:text="@string/syria_login_telegram_hint"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:textColor="?android:textColorSecondary" />
 
       <ProgressBar
         android:id="@+id/login_progress"
@@ -98,14 +159,6 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/margin_base"
         android:visibility="gone" />
-
-      <TextView
-        android:id="@+id/login_error"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_half"
-        android:gravity="center_horizontal"
-        android:textColor="@android:color/holo_red_dark" />
 
       <TextView
         android:id="@+id/login_privacy"

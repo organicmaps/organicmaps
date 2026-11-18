@@ -45,6 +45,7 @@ import app.organicmaps.syria.SyriaFormat;
 import app.organicmaps.syria.SyriaLocale;
 import app.organicmaps.syria.SyriaPrefs;
 import app.organicmaps.syria.account.LoginActivity;
+import app.organicmaps.syria.account.PinDialog;
 import app.organicmaps.syria.tracking.ActivityTrackingService;
 import app.organicmaps.syria.tracking.TrackingActivity;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -168,6 +169,11 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
         onSyriaAccountClicked();
         return true;
       }
+      else if (key.equals(getString(R.string.pref_syria_pin)))
+      {
+        PinDialog.show(requireActivity());
+        return true;
+      }
       else if (key.equals(getString(R.string.pref_syria_tracking)))
       {
         startActivity(new Intent(requireActivity(), TrackingActivity.class));
@@ -214,6 +220,8 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
   {
     final Preference pref = getPreference(getString(R.string.pref_syria_account));
     final Context context = requireContext();
+    // The PIN belongs to the signed-in account.
+    getPreference(getString(R.string.pref_syria_pin)).setVisible(SyriaPrefs.isLoggedIn(context));
     if (!SyriaPrefs.isLoggedIn(context))
     {
       pref.setSummary(R.string.syria_pref_account_logged_out);

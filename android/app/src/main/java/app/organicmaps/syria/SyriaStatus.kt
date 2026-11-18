@@ -45,6 +45,10 @@ object SyriaStatus {
     @JvmStatic
     fun sync(): LiveData<Sync> = sync
 
+    /** From any thread; true until the network is known to be down. */
+    @JvmStatic
+    fun isOnline(): Boolean = lastOnline != false
+
     @JvmStatic
     fun online(): LiveData<Boolean> = online
 

@@ -622,6 +622,11 @@
       android:foregroundServiceType="location"
       android:stopWithTask="false" />
     <service
+      android:name=".syria.tracking.LiveLocationService"
+      android:exported="false"
+      android:foregroundServiceType="location"
+      android:stopWithTask="false" />
+    <service
       android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
       android:enabled="false"
       android:exported="false">

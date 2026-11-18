@@ -34,6 +34,7 @@ import app.organicmaps.sdk.location.TrackRecorder;
 import app.organicmaps.syria.SyriaLocale;
 import app.organicmaps.syria.SyriaStatus;
 import app.organicmaps.syria.tracking.ActivityTrackingService;
+import app.organicmaps.syria.tracking.LiveLocationService;
 import app.organicmaps.sdk.maplayer.isolines.IsolinesManager;
 import app.organicmaps.sdk.maplayer.subway.SubwayManager;
 import app.organicmaps.sdk.routing.RoutingController;
@@ -273,6 +274,8 @@ public class MwmApplication extends Application implements Application.ActivityL
       Logger.i(LOCATION_TAG, "PENDING_POSITION mode, keeping location in the background");
     else if (ActivityTrackingService.isActive())
       Logger.i(LOCATION_TAG, "Activity tracking is active, keeping location in the background");
+    else if (LiveLocationService.isRunning())
+      Logger.i(LOCATION_TAG, "Live location is on, keeping location in the background");
     else if (TrackRecorder.nativeIsTrackRecordingEnabled())
       Logger.i(LOCATION_TAG, "Track Recordr is active, keeping location in the background");
     else

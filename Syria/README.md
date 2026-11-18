@@ -2,7 +2,12 @@
 
 A branded fork of [Organic Maps](https://organicmaps.app) for Syria with:
 
-- phone number + SMS code login (login is only needed for recording; the map works without it);
+- sign-in (only needed for recording; the map works without it) with phone number + a 6-digit PIN the user
+  chooses (a new number registers right away, marked "unverified" until confirmed by Telegram or SMS, which
+  then takes the account over) or the Telegram bot (also the way back after a forgotten PIN); the PIN fields
+  work with Android autofill / password managers; Syria (+963) is the default country code. SMS codes stay
+  switched off on the server until a real SMS provider is set (`ALLOW_FAKE_OTP=true` re-enables the fixed
+  test code for local development only). The sign-in screen opens with spoken instructions (? icon);
 - activity recording: one GPS point every 5 s, works offline, pause/resume, live km and time, local history
   (10 per page, durations in days/hours/minutes/seconds);
 - a traffic-light recording button above the zoom buttons (green: recording; red, gently pulsing to invite a
@@ -17,7 +22,8 @@ A branded fork of [Organic Maps](https://organicmaps.app) for Syria with:
 - Arabic UI by default; English through Settings → "App language" or the system per-app language setting (the
   app offers a restart afterwards so the map, search and voice switch too). "Map language" only changes map
   labels, and only where OpenStreetMap has a name in that language;
-- route optimization on by default; About screen with the fork / OSM Syria notice.
+- route optimization, larger map labels ("Increase font size on the map") and "Keep screen on" (while the map
+  is shown) on by default; About screen with the fork / OSM Syria notice.
 
 The Arabic website and privacy policy are in `Syria/website/` (`index.html`, `privacy.html`, self-contained)
 for upload to openstreetmap.sy.

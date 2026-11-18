@@ -87,7 +87,8 @@ class ActivityTrackingService : Service(), LocationListener {
     }
 
     override fun onDestroy() {
-        LocationHelper.setExternalTrackingInterval(0)
+        // Live location keeps the 5-second interval for itself.
+        if (!LiveLocationService.isRunning()) LocationHelper.setExternalTrackingInterval(0)
         val app = MwmApplication.from(this)
         app.locationHelper.removeListener(this)
         if (app.organicMaps.arePlatformAndCoreInitialized()) app.onNavigationOrRecordingStopped()
@@ -214,7 +215,7 @@ class ActivityTrackingService : Service(), LocationListener {
 
     private fun updateLocationMode() {
         val active = engine.status == TrackingEngine.Status.ACTIVE
-        LocationHelper.setExternalTrackingInterval(if (active) INTERVAL_MS else 0)
+        LocationHelper.setExternalTrackingInterval(if (active || LiveLocationService.isRunning()) INTERVAL_MS else 0)
         val helper = MwmApplication.from(this).locationHelper
         if (active) helper.addListener(this) else helper.removeListener(this)
         if (LocationUtils.checkLocationPermission(this)) helper.restartWithNewMode()
@@ -331,6 +332,10 @@ class ActivityTrackingService : Service(), LocationListener {
         /** Null while no session is active or paused. */
         @JvmStatic
         fun state(): LiveData<TrackingEngine.Snapshot?> = state
+
+        /** A recording is running (not paused). */
+        @JvmStatic
+        fun isRecording(): Boolean = state.value?.status == TrackingEngine.Status.ACTIVE
 
         @JvmStatic
         fun isActive(): Boolean {

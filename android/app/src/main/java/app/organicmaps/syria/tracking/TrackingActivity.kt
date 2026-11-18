@@ -6,6 +6,7 @@ import android.animation.ValueAnimator
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
@@ -30,6 +31,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import app.organicmaps.R
 import app.organicmaps.base.BaseMwmFragmentActivity
+import app.organicmaps.syria.NarrationDialog
 import app.organicmaps.syria.SyriaFormat
 import app.organicmaps.syria.SyriaMapButtons
 import app.organicmaps.syria.SyriaPrefs
@@ -70,6 +72,7 @@ class TrackingActivity : BaseMwmFragmentActivity() {
     private lateinit var syncStatus: TextView
     private lateinit var syncLast: TextView
     private lateinit var syncNow: MaterialButton
+    private lateinit var liveButton: MaterialButton
     private lateinit var syncProgress: LinearProgressIndicator
     private lateinit var historyEmpty: TextView
     private lateinit var pager: View
@@ -82,6 +85,15 @@ class TrackingActivity : BaseMwmFragmentActivity() {
     // granted before. So the real permission state decides, not the answer.
     private val permissionRequest =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { onPermissionsAnswered() }
+
+    private val livePermissionRequest =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+            if (granted(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                enableLive()
+            } else {
+                Toast.makeText(this, R.string.precise_location_is_disabled_long_text, Toast.LENGTH_LONG).show()
+            }
+        }
 
     private val ticker = object : Runnable {
         override fun run() {
@@ -103,6 +115,8 @@ class TrackingActivity : BaseMwmFragmentActivity() {
         toolbar.setTitle(R.string.syria_tracking_title)
         UiUtils.showHomeUpButton(toolbar)
         toolbar.setNavigationOnClickListener { finish() }
+        // Instructions: by themselves on the first visit, then with the "?" icon.
+        NarrationDialog.attach(this, toolbar, NarrationDialog.RECORDING, savedInstanceState == null)
         // Like BaseToolbarActivity: keeps the toolbar (and its back arrow) below the status bar.
         ViewCompat.setOnApplyWindowInsetsListener(toolbar, WindowInsetUtils.PaddingInsetsListener.excludeBottom())
         ViewCompat.setOnApplyWindowInsetsListener(
@@ -126,6 +140,11 @@ class TrackingActivity : BaseMwmFragmentActivity() {
         syncLast = findViewById(R.id.tracking_sync_last)
         syncLastDefaultColors = syncLast.textColors
         syncNow = findViewById(R.id.tracking_sync_now)
+        liveButton = findViewById(R.id.tracking_live)
+        liveButton.setOnClickListener { onLiveClicked() }
+        // Offered with internet; while it is on, it stays visible offline too so it can be turned off.
+        SyriaStatus.online().observe(this) { renderLiveToggle() }
+        LiveLocationService.running().observe(this) { renderLiveToggle() }
         syncProgress = findViewById(R.id.tracking_sync_progress)
         historyEmpty = findViewById(R.id.tracking_history_empty)
         pager = findViewById(R.id.tracking_pager)
@@ -180,6 +199,8 @@ class TrackingActivity : BaseMwmFragmentActivity() {
         if (!::status.isInitialized) return
         handler.post(ticker)
         loadHistory()
+        // Live location that was on when the app was closed starts again here.
+        LiveLocationService.startIfEnabled(this)
     }
 
     override fun onPause() {
@@ -199,6 +220,46 @@ class TrackingActivity : BaseMwmFragmentActivity() {
         if (SyriaStatus.online().value == false) {
             Toast.makeText(this, R.string.syria_sync_offline, Toast.LENGTH_LONG).show()
         }
+    }
+
+    private fun onLiveClicked() {
+        if (SyriaPrefs.isLiveEnabled(this)) {
+            LiveLocationService.disable(this)
+        } else if (granted(Manifest.permission.ACCESS_FINE_LOCATION)) {
+            enableLive()
+        } else {
+            livePermissionRequest.launch(
+                arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION),
+            )
+        }
+        renderLiveToggle()
+    }
+
+    private fun enableLive() {
+        LiveLocationService.enable(this)
+        Toast.makeText(this, R.string.syria_live_enabled, Toast.LENGTH_LONG).show()
+        renderLiveToggle()
+    }
+
+    /** Live location toggle: filled red while on (like a "live" sign), outlined when off. */
+    private fun renderLiveToggle() {
+        val online = SyriaStatus.online().value == true
+        val on = SyriaPrefs.isLiveEnabled(this)
+        liveButton.visibility = if (online || on) View.VISIBLE else View.GONE
+        liveButton.setText(
+            when {
+                !on -> R.string.syria_live_off
+                online -> R.string.syria_live_on
+                else -> R.string.syria_live_paused
+            },
+        )
+        val fill = ContextCompat.getColor(this, R.color.syria_btn_stop)
+        val onFill = ContextCompat.getColor(this, R.color.syria_btn_on_stop)
+        val text = MaterialColors.getColor(liveButton, android.R.attr.textColorPrimary)
+        liveButton.backgroundTintList = ColorStateList.valueOf(if (on) fill else Color.TRANSPARENT)
+        liveButton.setTextColor(if (on) onFill else text)
+        liveButton.iconTint = ColorStateList.valueOf(if (on) onFill else text)
+        liveButton.strokeColor = ColorStateList.valueOf(if (on) fill else text)
     }
 
     private fun requestPermissionsThenStart() {

@@ -15,6 +15,13 @@
       android:persistent="false"
       android:order="0" />
     <Preference
+      android:key="@string/pref_syria_pin"
+      android:title="@string/syria_pref_pin"
+      android:summary="@string/syria_pref_pin_summary"
+      app:singleLineTitle="false"
+      android:persistent="false"
+      android:order="0" />
+    <Preference
       android:key="@string/pref_syria_tracking"
       android:title="@string/syria_tracking_title"
       app:singleLineTitle="false"

@@ -1,41 +1,60 @@
 package app.organicmaps.syria.account
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.os.SystemClock
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
+import androidx.lifecycle.Lifecycle
 import app.organicmaps.BuildConfig
 import app.organicmaps.R
 import app.organicmaps.base.BaseMwmFragmentActivity
 import app.organicmaps.sdk.util.log.Logger
 import app.organicmaps.syria.ApiClient
 import app.organicmaps.syria.ApiException
+import app.organicmaps.syria.NarrationDialog
 import app.organicmaps.syria.SyriaFormat
 import app.organicmaps.syria.tracking.SyncWorker
 import app.organicmaps.syria.tracking.TrackingActivity
 import app.organicmaps.util.UiUtils
 import app.organicmaps.util.Utils
 import app.organicmaps.util.WindowInsetUtils
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.io.IOException
 import java.util.concurrent.Executors
+import org.json.JSONObject
 
-/** Phone number + SMS code login. Opens the tracking screen afterwards unless told otherwise. */
+/**
+ * Sign-in: phone number + 6-digit PIN (a new number registers right away) or Telegram (also the way back
+ * after a forgotten PIN). Opens the tracking screen afterwards unless told otherwise.
+ */
 class LoginActivity : BaseMwmFragmentActivity() {
     private val executor = Executors.newSingleThreadExecutor()
 
+    private lateinit var countryInput: EditText
     private lateinit var phoneInput: EditText
-    private lateinit var codeInput: EditText
-    private lateinit var sendButton: Button
-    private lateinit var verifyButton: Button
-    private lateinit var codeGroup: View
+    private lateinit var pinInput: EditText
+    private lateinit var signInButton: Button
     private lateinit var progress: View
     private lateinit var error: TextView
     private lateinit var info: TextView
-    private var phoneE164: String? = null
+
+    // Telegram sign-in in progress: collected by polling while this screen is in front.
+    private lateinit var telegramButton: Button
+    private val handler = Handler(Looper.getMainLooper())
+    private var telegramLoginId: String? = null
+    private var telegramSecret: String? = null
+    private var telegramDeadline = 0L
+    private val pollRunnable = Runnable { pollTelegram() }
 
     override fun getContentLayoutResId(): Int = R.layout.activity_syria_login
 
@@ -51,75 +70,209 @@ class LoginActivity : BaseMwmFragmentActivity() {
             WindowInsetUtils.PaddingInsetsListener.excludeTop(),
         )
 
+        countryInput = findViewById(R.id.login_country)
         phoneInput = findViewById(R.id.login_phone)
-        codeInput = findViewById(R.id.login_code)
-        sendButton = findViewById(R.id.login_send)
-        verifyButton = findViewById(R.id.login_verify)
-        codeGroup = findViewById(R.id.login_code_group)
+        pinInput = findViewById(R.id.login_pin)
+        signInButton = findViewById(R.id.login_sign_in)
         progress = findViewById(R.id.login_progress)
         error = findViewById(R.id.login_error)
         info = findViewById(R.id.login_info)
+        telegramButton = findViewById(R.id.login_telegram)
 
-        sendButton.setOnClickListener { sendCode() }
-        verifyButton.setOnClickListener { verifyCode() }
+        signInButton.setOnClickListener { signInWithPin() }
+        telegramButton.setOnClickListener { startTelegram() }
         findViewById<View>(R.id.login_privacy).setOnClickListener { Utils.openUrl(this, BuildConfig.SYRIA_PRIVACY_URL) }
+        // Instructions: by themselves on the first visit, then with the "?" icon.
+        NarrationDialog.attach(this, toolbar, NarrationDialog.LOGIN, savedInstanceState == null)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Back from Telegram: check right away whether the number was shared.
+        if (telegramLoginId != null) schedulePoll(0)
+    }
+
+    override fun onPause() {
+        handler.removeCallbacks(pollRunnable)
+        super.onPause()
     }
 
     override fun onSafeDestroy() {
+        handler.removeCallbacks(pollRunnable)
         executor.shutdownNow()
         super.onSafeDestroy()
     }
 
-    private fun sendCode() {
+    /** The number from the country code and number fields, or null (with the error shown) if too short. */
+    private fun typedPhone(): String? {
         val typed = phoneInput.text.toString()
         if (typed.count { it.isDigit() } < MIN_PHONE_LENGTH) {
             error.setText(R.string.syria_login_invalid_phone)
+            return null
+        }
+        return SyriaFormat.normalizePhoneInput(typed, countryInput.text.toString())
+    }
+
+    // ---- phone + PIN
+
+    private fun signInWithPin() {
+        val phone = typedPhone() ?: return
+        val pin = pinInput.text.toString()
+        if (pin.length != PIN_LENGTH || !pin.all { it.isDigit() }) {
+            error.setText(R.string.syria_pin_invalid)
             return
         }
         setBusy(true)
         executor.execute {
             try {
-                val res = ApiClient.requestOtp(SyriaFormat.normalizePhoneInput(typed))
-                val normalized = res.getString("phone")
+                val res = ApiClient.pinLogin(this, phone, pin)
+                SyncWorker.enqueueNow(this)
                 runOnUiThread {
-                    phoneE164 = normalized
-                    info.text = getString(R.string.syria_login_code_sent, SyriaFormat.phone(normalized))
-                    codeGroup.visibility = View.VISIBLE
-                    codeInput.requestFocus()
-                    setBusy(false)
+                    if (isFinishing) return@runOnUiThread
+                    // The fields hold the number and PIN: Android / the password manager offers to save them.
+                    PinDialog.commitAutofill(this)
+                    if (res.optBoolean("created")) {
+                        Toast.makeText(this, R.string.syria_pin_account_created, Toast.LENGTH_LONG).show()
+                    }
+                    finishSignedIn()
                 }
             } catch (e: ApiException) {
-                showError(e.message ?: e.toString())
+                runOnUiThread { onPinRefused(e) }
             } catch (e: IOException) {
-                Logger.w(TAG, "OTP request failed: $e")
+                Logger.w(TAG, "PIN sign-in failed: $e")
                 showError(getString(R.string.syria_error_network))
             }
         }
     }
 
-    private fun verifyCode() {
-        val phone = phoneE164 ?: return
-        val code = codeInput.text.toString().trim()
-        if (code.isEmpty()) return
+    private fun onPinRefused(e: ApiException) {
+        if (isFinishing) return
+        setBusy(false)
+        when (e.status) {
+            HTTP_UNAUTHORIZED -> error.setText(R.string.syria_pin_wrong)
+            HTTP_CONFLICT -> {
+                error.text = ""
+                MaterialAlertDialogBuilder(this)
+                    .setMessage(R.string.syria_pin_not_set)
+                    .setNegativeButton(R.string.syria_cancel, null)
+                    .setPositiveButton(R.string.syria_login_telegram) { _, _ -> startTelegram() }
+                    .show()
+            }
+            HTTP_TOO_MANY -> {
+                val minutes = Regex("(\\d+) min").find(e.message.orEmpty())?.groupValues?.get(1)?.toIntOrNull()
+                error.text = getString(R.string.syria_pin_locked, minutes ?: DEFAULT_LOCK_MINUTES)
+            }
+            HTTP_BAD_REQUEST -> error.setText(R.string.syria_login_invalid_phone)
+            else -> error.text = e.message ?: e.toString()
+        }
+    }
+
+    // ---- Telegram
+
+    private fun startTelegram() {
         setBusy(true)
         executor.execute {
             try {
-                ApiClient.verifyOtp(this, phone, code)
-                // Uploads what was queued before signing in (searches, map updates).
-                SyncWorker.enqueueNow(this)
+                val res = ApiClient.startTelegram()
                 runOnUiThread {
-                    if (intent.getBooleanExtra(EXTRA_OPEN_TRACKING, true)) {
-                        startActivity(Intent(this, TrackingActivity::class.java))
-                    }
-                    finish()
+                    if (isFinishing) return@runOnUiThread
+                    telegramLoginId = res.getString("loginId")
+                    telegramSecret = res.getString("pollSecret")
+                    telegramDeadline = SystemClock.elapsedRealtime() + res.optLong("expiresInS", 600) * 1000
+                    info.setText(R.string.syria_login_telegram_waiting)
+                    progress.visibility = View.VISIBLE
+                    openTelegram(res.getString("botUrl"))
                 }
             } catch (e: ApiException) {
-                showError(e.message ?: e.toString())
+                showError(
+                    if (e.status == HTTP_UNAVAILABLE) getString(R.string.syria_login_telegram_unavailable) else e.message ?: e.toString(),
+                )
             } catch (e: IOException) {
-                Logger.w(TAG, "OTP verification failed: $e")
+                Logger.w(TAG, "Telegram sign-in start failed: $e")
                 showError(getString(R.string.syria_error_network))
             }
         }
+    }
+
+    /** t.me links open the Telegram app when installed, otherwise the browser page that leads to it. */
+    private fun openTelegram(url: String) {
+        try {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+        } catch (e: ActivityNotFoundException) {
+            clearTelegram()
+            showError(getString(R.string.syria_login_telegram_unavailable))
+        }
+    }
+
+    private fun schedulePoll(delayMs: Long) {
+        handler.removeCallbacks(pollRunnable)
+        handler.postDelayed(pollRunnable, delayMs)
+    }
+
+    private fun pollTelegram() {
+        val loginId = telegramLoginId ?: return
+        val secret = telegramSecret ?: return
+        if (SystemClock.elapsedRealtime() > telegramDeadline) {
+            clearTelegram()
+            showError(getString(R.string.syria_login_telegram_expired))
+            return
+        }
+        executor.execute {
+            try {
+                val user = ApiClient.pollTelegram(this, loginId, secret)
+                if (user != null) {
+                    // Uploads what was queued before signing in (searches, map updates).
+                    SyncWorker.enqueueNow(this)
+                    runOnUiThread {
+                        clearTelegram()
+                        signedInWithoutPin(user)
+                    }
+                } else {
+                    runOnUiThread { pollAgainIfShown() }
+                }
+            } catch (e: ApiException) {
+                if (e.status == HTTP_NOT_FOUND || e.status == HTTP_GONE) {
+                    runOnUiThread { clearTelegram() }
+                    showError(getString(R.string.syria_login_telegram_expired))
+                } else {
+                    runOnUiThread { pollAgainIfShown() }
+                }
+            } catch (e: IOException) {
+                Logger.w(TAG, "Telegram sign-in poll failed: $e")
+                runOnUiThread { pollAgainIfShown() }
+            }
+        }
+    }
+
+    private fun pollAgainIfShown() {
+        if (!isFinishing && lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) schedulePoll(POLL_MS)
+    }
+
+    private fun clearTelegram() {
+        handler.removeCallbacks(pollRunnable)
+        telegramLoginId = null
+        telegramSecret = null
+    }
+
+    // ---- common
+
+    /** After Telegram: an account without a PIN (new, or a forgotten one) is offered to set one. */
+    private fun signedInWithoutPin(user: JSONObject) {
+        if (isFinishing) return
+        if (user.optBoolean("hasPin", true) || user.optString("role") == "admin") {
+            finishSignedIn()
+            return
+        }
+        setBusy(false)
+        PinDialog.show(this) { finishSignedIn() }
+    }
+
+    private fun finishSignedIn() {
+        if (isFinishing) return
+        if (intent.getBooleanExtra(EXTRA_OPEN_TRACKING, true)) {
+            startActivity(Intent(this, TrackingActivity::class.java))
+        }
+        finish()
     }
 
     private fun showError(message: String) {
@@ -133,13 +286,23 @@ class LoginActivity : BaseMwmFragmentActivity() {
     private fun setBusy(busy: Boolean) {
         if (busy) error.text = ""
         progress.visibility = if (busy) View.VISIBLE else View.GONE
-        sendButton.isEnabled = !busy
-        verifyButton.isEnabled = !busy
+        signInButton.isEnabled = !busy
+        telegramButton.isEnabled = !busy
     }
 
     companion object {
         private const val TAG = "SyriaLogin"
         const val EXTRA_OPEN_TRACKING = "open_tracking"
         private const val MIN_PHONE_LENGTH = 7
+        private const val PIN_LENGTH = 6
+        private const val DEFAULT_LOCK_MINUTES = 15
+        private const val POLL_MS = 2000L
+        private const val HTTP_BAD_REQUEST = 400
+        private const val HTTP_UNAUTHORIZED = 401
+        private const val HTTP_NOT_FOUND = 404
+        private const val HTTP_CONFLICT = 409
+        private const val HTTP_GONE = 410
+        private const val HTTP_TOO_MANY = 429
+        private const val HTTP_UNAVAILABLE = 503
     }
 }

@@ -23,4 +23,17 @@
     android:layout_width="@dimen/map_button_size"
     android:layout_height="76dp"
     android:layout_marginTop="@dimen/margin_half" />
+  <!-- Shown only while live location is on (LiveLocationService); opens the recording screen. -->
+  <ImageButton
+    android:id="@+id/syria_live_indicator"
+    android:layout_width="36dp"
+    android:layout_height="36dp"
+    android:layout_marginTop="@dimen/margin_half"
+    android:background="@drawable/bg_syria_live_indicator"
+    android:contentDescription="@string/syria_live_notification_title"
+    android:elevation="4dp"
+    android:padding="7dp"
+    android:scaleType="fitCenter"
+    android:src="@drawable/ic_syria_live"
+    android:visibility="gone" />
 </LinearLayout>

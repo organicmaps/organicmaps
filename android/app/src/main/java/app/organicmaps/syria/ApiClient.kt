@@ -10,6 +10,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONArray
 import org.json.JSONObject
 
 /** Error answered by the tracking API (HTTP status + server message). */
@@ -39,25 +40,55 @@ object ApiClient {
             .put("osVersion", Build.VERSION.RELEASE)
             .put("appVersion", BuildConfig.VERSION_NAME)
 
+    /** Starts a Telegram sign-in: open `botUrl`, then call [pollTelegram] with `loginId` and `pollSecret`. */
     @WorkerThread
-    fun requestOtp(phone: String): JSONObject = post("/auth/otp/request", JSONObject().put("phone", phone), null)
+    fun startTelegram(): JSONObject = post("/auth/telegram/start", JSONObject(), null)
 
-    /** Verifies the code and stores the session on success. */
+    /**
+     * The signed-in user (`hasPin`, `phone`, ...) once the user shared their number with the bot, the session
+     * is stored then; null while waiting.
+     */
     @WorkerThread
-    fun verifyOtp(context: Context, phone: String, code: String): JSONObject {
-        val body = JSONObject().put("phone", phone).put("code", code).put("device", deviceJson(context))
-        val res = post("/auth/otp/verify", body, null)
+    fun pollTelegram(context: Context, loginId: String, pollSecret: String): JSONObject? {
+        val body = JSONObject()
+            .put("loginId", loginId)
+            .put("pollSecret", pollSecret)
+            .put("device", deviceJson(context))
+        val res = post("/auth/telegram/poll", body, null)
+        if (res.optString("status") != "verified") return null
+        storeSession(context, res, null)
+        return res.getJSONObject("user")
+    }
+
+    /**
+     * Phone number + 6-digit PIN. Registers a new number right away (`created` is true then), otherwise
+     * checks the PIN. Throws ApiException 401 (wrong PIN), 409 (number without a PIN yet), 429 (locked).
+     */
+    @WorkerThread
+    fun pinLogin(context: Context, phone: String, pin: String): JSONObject {
+        val body = JSONObject().put("phone", phone).put("pin", pin).put("device", deviceJson(context))
+        val res = post("/auth/pin/login", body, null)
+        storeSession(context, res, phone)
+        return res
+    }
+
+    /** Sets or changes the PIN of the signed-in user. */
+    @WorkerThread
+    fun setPin(context: Context, pin: String): JSONObject = authed(context) { token ->
+        put("/me/pin", JSONObject().put("pin", pin), token)
+    }
+
+    private fun storeSession(context: Context, res: JSONObject, fallbackPhone: String?) {
         val user = res.getJSONObject("user")
         val name = user.optString("displayName").takeIf { it.isNotEmpty() && it != "null" }
         val session = SyriaPrefs.Session(
             accessToken = res.getString("accessToken"),
             refreshToken = res.getString("refreshToken"),
             userId = user.getString("id"),
-            phone = user.optString("phone", phone),
+            phone = user.optString("phone").takeIf { it.isNotEmpty() && it != "null" } ?: fallbackPhone,
             displayName = name,
         )
         SyriaPrefs.setSession(context, session)
-        return res
     }
 
     /** Rotates the tokens. Returns false and clears the session when the refresh token was rejected. */
@@ -84,6 +115,12 @@ object ApiClient {
         }
     }
 
+    /** Live location points (provider "live" on the server); not queued when this fails. */
+    @WorkerThread
+    fun sendLivePoints(context: Context, points: List<JSONObject>): JSONObject = authed(context) { token ->
+        post("/live/points", JSONObject().put("points", JSONArray(points)), token)
+    }
+
     @WorkerThread
     fun syncBatch(context: Context, batch: JSONObject): JSONObject = authed(context) { token ->
         post("/sync/batch", batch, token)
@@ -98,6 +135,11 @@ object ApiClient {
             val fresh = if (e.status == 401 && refresh(context)) SyriaPrefs.accessToken(context) else null
             call(fresh ?: throw e)
         }
+    }
+
+    private fun put(path: String, body: JSONObject, token: String?): JSONObject {
+        val builder = Request.Builder().url(baseUrl + path).put(body.toString().toRequestBody(JSON))
+        return execute(builder, token)
     }
 
     private fun post(path: String, body: JSONObject, token: String?): JSONObject {

@@ -6,6 +6,7 @@ import android.animation.ValueAnimator
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +17,10 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import app.organicmaps.R
+import app.organicmaps.syria.account.LoginActivity
 import app.organicmaps.syria.tracking.ActivityTrackingService
+import app.organicmaps.syria.tracking.LiveLocationService
+import app.organicmaps.syria.tracking.TrackingActivity
 import app.organicmaps.syria.tracking.TrackingEngine
 
 /**
@@ -42,6 +46,14 @@ object SyriaMapButtons {
             ActivityTrackingService.state().observe(owner) { renderRecording(button, pulse, it?.status) }
         }
         val activity = frame.context.findActivity()
+        frame.findViewById<View>(R.id.syria_live_indicator)?.let { live ->
+            LiveLocationService.running().observe(owner) { live.visibility = if (it == true) View.VISIBLE else View.GONE }
+            live.setOnClickListener {
+                val context = it.context
+                val screen = if (SyriaPrefs.isLoggedIn(context)) TrackingActivity::class.java else LoginActivity::class.java
+                context.startActivity(Intent(context, screen))
+            }
+        }
         frame.findViewById<View>(R.id.syria_help_button)?.let { help ->
             if (activity != null) {
                 help.setOnClickListener { SyriaTutorial.show(activity, frame) }

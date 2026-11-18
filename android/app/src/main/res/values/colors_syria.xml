@@ -17,6 +17,8 @@
   <color name="syria_btn_on_stop">#FFFFFF</color>
   <color name="syria_btn_sync">#1565C0</color>
   <color name="syria_btn_on_sync">#FFFFFF</color>
+  <!-- Telegram sign-in button (white text keeps AA contrast on it in both themes). -->
+  <color name="syria_telegram">#0077B5</color>
   <color name="syria_close_bg">#37474F</color>
   <color name="syria_close_icon">#FFFFFF</color>
 </resources>

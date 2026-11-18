@@ -31,6 +31,9 @@ object SyriaPrefs {
     private const val KEY_ROUTE_OPTIMIZATION_DEFAULT = "route_optimization_default_applied"
     private const val KEY_NOTIFICATION_PERMISSION_ASKED = "notification_permission_asked"
     private const val KEY_TUTORIAL_DONE = "tutorial_done"
+    private const val KEY_LIVE = "live_location"
+    private const val KEY_LARGE_FONTS_DEFAULT = "large_fonts_default_applied"
+    private const val KEY_KEEP_SCREEN_ON_DEFAULT = "keep_screen_on_default_applied"
 
     private val loggedIn = MutableLiveData<Boolean>()
 
@@ -155,6 +158,42 @@ object SyriaPrefs {
     @JvmStatic
     fun setAppLanguage(context: Context, tag: String) {
         prefs(context).edit().putString(KEY_APP_LANGUAGE, tag).apply()
+    }
+
+    @JvmStatic
+    fun isKeepScreenOnDefaultApplied(context: Context): Boolean =
+        prefs(context).getBoolean(KEY_KEEP_SCREEN_ON_DEFAULT, false)
+
+    @JvmStatic
+    fun markKeepScreenOnDefaultApplied(context: Context) {
+        prefs(context).edit().putBoolean(KEY_KEEP_SCREEN_ON_DEFAULT, true).apply()
+    }
+
+    @JvmStatic
+    fun isLargeFontsDefaultApplied(context: Context): Boolean =
+        prefs(context).getBoolean(KEY_LARGE_FONTS_DEFAULT, false)
+
+    @JvmStatic
+    fun markLargeFontsDefaultApplied(context: Context) {
+        prefs(context).edit().putBoolean(KEY_LARGE_FONTS_DEFAULT, true).apply()
+    }
+
+    /** Whether the instructions of a screen were shown once (see NarrationDialog). */
+    @JvmStatic
+    fun isIntroSeen(context: Context, key: String): Boolean = prefs(context).getBoolean(key, false)
+
+    @JvmStatic
+    fun markIntroSeen(context: Context, key: String) {
+        prefs(context).edit().putBoolean(key, true).apply()
+    }
+
+    /** Live location (LiveLocationService): off until the user switches it on on the recording screen. */
+    @JvmStatic
+    fun isLiveEnabled(context: Context): Boolean = prefs(context).getBoolean(KEY_LIVE, false)
+
+    @JvmStatic
+    fun setLiveEnabled(context: Context, enabled: Boolean) {
+        prefs(context).edit().putBoolean(KEY_LIVE, enabled).apply()
     }
 
     @JvmStatic

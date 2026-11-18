@@ -5,11 +5,44 @@
   <string name="syria_login_title">Sign in</string>
   <string name="syria_login_intro">Sign in with your phone number to record your activities and sync them to the server. The map works without signing in.</string>
   <string name="syria_login_phone_hint">Phone number</string>
-  <string name="syria_login_phone_prefix" translatable="false">00963</string>
-  <string name="syria_login_send_code">Send code</string>
-  <string name="syria_login_code_hint">SMS code</string>
-  <string name="syria_login_verify">Verify</string>
-  <string name="syria_login_code_sent">Code sent to %s</string>
+  <string name="syria_login_country_code">Code</string>
+  <string name="syria_login_pin_hint">6-digit PIN</string>
+  <string name="syria_login_pin_help">New number? Choose any 6 digits: your account is created right away.</string>
+  <string name="syria_login_sign_in">Sign in</string>
+  <string name="syria_login_or">or</string>
+  <string name="syria_login_telegram_hint">Forgot your PIN? Sign in with Telegram and choose a new one.</string>
+  <string name="syria_pin_invalid">The PIN must be exactly 6 digits</string>
+  <string name="syria_pin_wrong">Wrong PIN</string>
+  <string name="syria_pin_locked">Too many wrong PINs. Try again in %d minutes, or sign in with Telegram.</string>
+  <string name="syria_pin_not_set">This number already has an account. Sign in with Telegram once, then choose your PIN.</string>
+  <string name="syria_pin_account_created">Account created. Your PIN is saved.</string>
+  <string name="syria_pin_set_title">Choose a 6-digit PIN</string>
+  <string name="syria_pin_set_message">Use it with your phone number to sign in quickly next time.</string>
+  <string name="syria_pin_save">Save</string>
+  <string name="syria_pin_skip">Not now</string>
+  <string name="syria_pin_saved">PIN saved</string>
+  <string name="syria_pref_pin">Sign-in PIN</string>
+  <string name="syria_pref_pin_summary">Set or change your 6-digit PIN</string>
+  <!-- Instructions pop-up of the sign-in screen, read aloud (LoginIntroDialog). Both languages are kept
+       here because it can be read and played in either one, whatever the app language. -->
+  <string name="syria_login_intro_title">Before you sign in</string>
+  <string name="syria_login_instructions">Instructions</string>
+  <string name="syria_close">Close</string>
+  <string name="syria_login_intro_message_ar" translatable="false">تذكّر: لا تكتب أثناء القيادة! شكراً لمساهمتك في تحسين خريطة سوريا المفتوحة. يمكنك تسجيل الدخول عبر تيليغرام بضغطتين، أو برقم هاتفك ورمز سري من ستة أرقام. بعد ذلك، كل نشاط تسجّله يساعد الآخرين على فهم التنقّل وحركة المرور في سوريا. نخطّط مستقبلاً لدعم المساهمين بحوافز، وأن نعرض لك تقديرات حركة المرور على الخريطة.</string>
+  <string name="syria_login_intro_message_en" translatable="false">Remember: do not type while driving! Thank you for helping improve the open map of Syria. You can sign in with Telegram in a couple of taps, or with your phone number and a six-digit password. After that, every activity you record helps others understand how people travel and how traffic moves in Syria. In the future we plan to support contributors with incentives, and to show you traffic estimates on the map.</string>
+  <string name="syria_recording_intro_title">Record your drives</string>
+  <string name="syria_recording_intro_message_ar" translatable="false">هنا يمكنك تسجيل رحلاتك أثناء قيادة سيارتك حتى من دون إنترنت! عندما نسجّل جميعاً رحلاتنا بالسيارة، نساعد بعضنا على فهم التنقّل وحركة المرور في سوريا. اضغط «ابدأ التسجيل» قبل أن تنطلق، وتذكّر أن تضغط «إيقاف» عندما لا تكون تقود.</string>
+  <string name="syria_recording_intro_message_en" translatable="false">Here you can record your trips while driving your vehicle, even without internet! When we all record our drives, we help each other understand navigation and traffic in Syria. Tap “Start recording” before you set off, and remember to tap “Stop” when you are not driving.</string>
+  <string name="syria_live_off">Send live location</string>
+  <string name="syria_live_on">Live: sending every 5 seconds</string>
+  <string name="syria_live_enabled">Live location is on: your position is sent every 5 seconds while you are online, even when you are not recording. Turn it off here or from the notification.</string>
+  <string name="syria_live_paused">Live: waiting for internet</string>
+  <string name="syria_live_notification_title">Live location is on</string>
+  <string name="syria_live_notification_text">Sending your position every 5 seconds while online</string>
+  <string name="syria_login_telegram">Sign in with Telegram</string>
+  <string name="syria_login_telegram_waiting">In Telegram, tap “Share my phone number”, then come back here.</string>
+  <string name="syria_login_telegram_expired">The Telegram sign-in expired. Please try again.</string>
+  <string name="syria_login_telegram_unavailable">Telegram sign-in is not available right now. Use your phone number and PIN instead.</string>
   <string name="syria_login_invalid_phone">Enter a valid phone number</string>
   <string name="syria_error_network">No connection to the server</string>
   <string name="syria_privacy_policy">Privacy policy</string>

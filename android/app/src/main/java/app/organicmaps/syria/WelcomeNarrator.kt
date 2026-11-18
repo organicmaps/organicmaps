@@ -11,6 +11,7 @@ import android.text.style.BackgroundColorSpan
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.core.graphics.ColorUtils
 import app.organicmaps.R
 import com.google.android.material.button.MaterialButton
@@ -18,16 +19,18 @@ import com.google.android.material.color.MaterialColors
 import java.util.Locale
 
 /**
- * Reads the first-launch welcome message aloud with the phone's text-to-speech and highlights the word
+ * Reads a message (by default the first-launch welcome) aloud with the phone's text-to-speech and highlights the word
  * being spoken (the sentence gets a lighter shade, which is all that older Android versions report).
  * Starts by itself in the app language; the language button switches text and voice between Arabic and
  * English.
  */
-class WelcomeNarrator(
+class WelcomeNarrator @JvmOverloads constructor(
     private val activity: Activity,
     private val textView: TextView,
     private val playButton: MaterialButton,
     private val languageButton: MaterialButton,
+    @StringRes private val messageAr: Int = R.string.syria_welcome_message_ar,
+    @StringRes private val messageEn: Int = R.string.syria_welcome_message_en,
 ) : TextToSpeech.OnInitListener {
     private val handler = Handler(Looper.getMainLooper())
     private var tts: TextToSpeech? = TextToSpeech(activity.applicationContext, this)
@@ -116,7 +119,7 @@ class WelcomeNarrator(
     }
 
     private fun showText() {
-        text = activity.getString(if (language == AR) R.string.syria_welcome_message_ar else R.string.syria_welcome_message_en)
+        text = activity.getString(if (language == AR) messageAr else messageEn)
         sentences = splitSentences(text)
         // The message keeps its own direction whatever the app language.
         textView.layoutDirection = if (language == AR) View.LAYOUT_DIRECTION_RTL else View.LAYOUT_DIRECTION_LTR

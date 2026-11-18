@@ -57,4 +57,15 @@ class SyriaFormatTest {
         assertEquals("+963944123456", SyriaFormat.normalizePhoneInput("963944123456"))
         assertEquals("+4915112345678", SyriaFormat.normalizePhoneInput("004915112345678"))
     }
+
+    @Test
+    fun normalizePhoneInputWithCountryCode() {
+        assertEquals("+447911123456", SyriaFormat.normalizePhoneInput("07911 123456", "44"))
+        assertEquals("+447911123456", SyriaFormat.normalizePhoneInput("7911123456", "+44"))
+        // A number typed with + or 00 keeps its own code.
+        assertEquals("+963944123456", SyriaFormat.normalizePhoneInput("+963944123456", "44"))
+        assertEquals("+963944123456", SyriaFormat.normalizePhoneInput("00963944123456", "44"))
+        // An empty code field falls back to Syria.
+        assertEquals("+963944123456", SyriaFormat.normalizePhoneInput("0944123456", ""))
+    }
 }

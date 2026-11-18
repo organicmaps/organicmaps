@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Red "live" badge with a light rim, visible on light and dark maps. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+  android:color="#33FFFFFF">
+  <item>
+    <shape android:shape="oval">
+      <solid android:color="#E53935" />
+      <stroke
+        android:width="2dp"
+        android:color="#FFFFFF" />
+    </shape>
+  </item>
+</ripple>
