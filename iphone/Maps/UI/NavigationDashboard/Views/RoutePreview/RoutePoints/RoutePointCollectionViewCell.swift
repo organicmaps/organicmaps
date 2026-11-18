@@ -19,6 +19,7 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
     let isPlaceholder: Bool
     let showSeparator: Bool
     let onCloseHandler: (() -> Void)?
+    var showReorderButton = true
   }
 
   private enum Constants {
@@ -116,6 +117,7 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
 
     reorderButton.setImage(UIImage(resource: .icMoveList), for: .normal)
     reorderButton.setStyle(.gray)
+    reorderButton.isUserInteractionEnabled = false
 
     closeButton.setImage(UIImage(resource: .icSearchClear), for: .normal)
     closeButton.setStyle(.gray)
@@ -176,10 +178,13 @@ final class RoutePointCollectionViewCell: UICollectionViewCell {
       didTapClose = viewModel.onCloseHandler
       titleLabel.setFontStyleAndApply(Constants.fontStyle, color: viewModel.isPlaceholder ? .blackSecondary : .blackPrimary)
       closeButton.isHidden = !viewModel.showCloseButton
-      reorderButton.isHidden = false
+      reorderButton.isHidden = !viewModel.showReorderButton
+      isAccessibilityElement = !viewModel.showReorderButton
+      accessibilityLabel = viewModel.title
       contentBackgroundView.layer.maskedCorners = viewModel.maskedCorners
       separatorView.isHidden = !viewModel.showSeparator
     case .addPoint:
+      isAccessibilityElement = false
       titleLabel.text = L("route_add_destination")
       logoImageView.image = UIImage(resource: .icAddButton)
       logoImageView.setStyleAndApply(.blue)
