@@ -955,21 +955,6 @@ WaterTransferMark::WaterTransferMark(m2::PointD const & point) : UserMark(point,
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> WaterTransferMark::GetSymbolNames() const
 {
   auto symbols = make_unique_dp<SymbolNameZoomInfo>();
-  symbols->emplace(1, "transfer_arrow");
-  return symbols;
-}
-
-drape_ptr<df::UserPointMark::ColoredSymbolZoomInfo> WaterTransferMark::GetColoredSymbols() const
-{
-  auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
-  df::ColoredSymbolViewParams params;
-  params.m_color = dp::Color::White();
-  params.m_shape = df::ColoredSymbolViewParams::Shape::Circle;
-  params.m_radiusInPixels = 10.0f * vs;
-  auto const color = df::GetColorConstant(df::kRouteRuler);
-  params.m_outlineColor = dp::Color(color.GetRed(), color.GetGreen(), color.GetBlue());
-  params.m_outlineWidth = 2.0f * vs;
-  auto symbols = make_unique_dp<ColoredSymbolZoomInfo>();
-  symbols->m_zoomInfo[1] = params;
+  symbols->emplace(1, m_direction == Direction::Exit ? "water_exit" : "water_entry");
   return symbols;
 }

@@ -779,8 +779,8 @@ void RoutingManager::CreateWaterTransferMarks(RoutesResult const & result)
     es.ClearGroup(UserMark::Type::WATER_TRANSFER);
     for (auto const & [exit, entry] : transfers)
     {
-      es.CreateUserMark<WaterTransferMark>(exit);
-      es.CreateUserMark<WaterTransferMark>(entry);
+      es.CreateUserMark<WaterTransferMark>(exit)->SetDirection(WaterTransferMark::Direction::Exit);
+      es.CreateUserMark<WaterTransferMark>(entry)->SetDirection(WaterTransferMark::Direction::Entry);
     }
   });
 }

@@ -2,7 +2,10 @@
 
 Water on Android and iOS plans a journey along mapped water, using pedestrian
 routes for necessary land sections. Water is solid blue; walking is dashed purple. Transfer
-icons mark where an internal portage leaves and rejoins the water. Ordinary
+icons mark where an internal portage leaves and rejoins the water: a yellow upward
+arrow means exit onto land, and a blue downward arrow means entry into water.
+The arrows identify the transition, not a compass direction; both themes use a
+contrasting circular background. Ordinary
 walking access to start, finish and intermediate checkpoints does not create
 portage icons. Nearby icons may be hidden at overview scales. Tapping an exit
 or re-entry marker opens its location without changing the route checkpoints.

@@ -59,7 +59,9 @@ UNIT_CLASS_TEST(VisualParamsFixture, Framework_SelectsWaterTransferMarks)
   m2::PointD const points[] = {{10, 10}, {11, 11}};
   for (auto const & point : points)
   {
-    auto const id = bookmarks.GetEditSession().CreateUserMark<WaterTransferMark>(point)->GetId();
+    auto * mark = bookmarks.GetEditSession().CreateUserMark<WaterTransferMark>(point);
+    mark->SetDirection(point == points[0] ? WaterTransferMark::Direction::Exit : WaterTransferMark::Direction::Entry);
+    auto const id = mark->GetId();
     place_page::BuildInfo info;
     info.m_userMarkId = id;
     info.m_mercator = point;

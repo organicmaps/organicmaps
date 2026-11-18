@@ -1089,8 +1089,8 @@ UNIT_TEST(RoutingManager_RebuildClearsUnavailableAlternatives)
     auto edit = bookmarks.GetEditSession();
     edit.CreateUserMark<RouteAltMark>({1, 2});
     edit.CreateUserMark<RouteAltMark>({2, 5});
-    edit.CreateUserMark<WaterTransferMark>({3, 4});
-    edit.CreateUserMark<WaterTransferMark>({4, 5});
+    edit.CreateUserMark<WaterTransferMark>({3, 4})->SetDirection(WaterTransferMark::Direction::Exit);
+    edit.CreateUserMark<WaterTransferMark>({4, 5})->SetDirection(WaterTransferMark::Direction::Entry);
   }
   TEST_EQUAL(bookmarks.GetUserMarkIds(UserMark::Type::ROUTE_ALT).size(), 2, ());
 
@@ -1118,7 +1118,8 @@ UNIT_TEST(RoutingManager_RebuildClearsUnavailableAlternatives)
   }, nullptr, nullptr, routing::RouterDelegate::kNoTimeout, routing::SessionState::RouteRebuilding, false);
   guiThread->RunUntil([&] { return recovered; });
   TEST(session.SwapActiveAlternative(1), ("Fresh alternatives must become selectable."));
-  bookmarks.GetEditSession().CreateUserMark<WaterTransferMark>({3, 4});
+  bookmarks.GetEditSession().CreateUserMark<WaterTransferMark>({3, 4})->SetDirection(
+      WaterTransferMark::Direction::Exit);
   auto const previousRouter = manager.GetLastUsedRouter();
   SCOPE_GUARD(restoreRouter, [&] { manager.SetLastUsedRouter(previousRouter); });
   manager.SetRouter(routing::RouterType::Pedestrian);
@@ -1127,11 +1128,15 @@ UNIT_TEST(RoutingManager_RebuildClearsUnavailableAlternatives)
 UNIT_TEST(WaterTransferMark_IsSeparateFromRouteCheckpoints)
 {
   WaterTransferMark mark({1, 2});
+  mark.SetDirection(WaterTransferMark::Direction::Exit);
   TEST_EQUAL(mark.GetMarkType(), UserMark::Type::WATER_TRANSFER, ());
   TEST_EQUAL(mark.GetPivot(), m2::PointD(1, 2), ());
   TEST(!mark.IsAvailableForSearch(), ());
   TEST(!mark.IsSymbolSelectable(), ());
-  TEST_EQUAL(mark.GetSymbolNames()->begin()->second, "transfer_arrow", ());
+  TEST_EQUAL(mark.GetSymbolNames()->begin()->second, "water_exit", ());
+  WaterTransferMark entry({1, 2});
+  entry.SetDirection(WaterTransferMark::Direction::Entry);
+  TEST_EQUAL(entry.GetSymbolNames()->begin()->second, "water_entry", ());
 }
 
 // Stop names need no subtitle; only endpoint names filter unnamed-pin placeholders.

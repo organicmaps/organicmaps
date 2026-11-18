@@ -271,7 +271,17 @@ bool IsAvoidableRoadWarning(RoadWarningMarkType type);
 class WaterTransferMark : public UserMark
 {
 public:
+  enum class Direction
+  {
+    Exit,
+    Entry
+  };
   explicit WaterTransferMark(m2::PointD const & point);
+  void SetDirection(Direction direction)
+  {
+    m_direction = direction;
+    SetDirty();
+  }
 
   bool IsAvailableForSearch() const override { return false; }
   bool SymbolIsPOI() const override { return true; }
@@ -279,7 +289,9 @@ public:
   uint16_t GetPriority() const override { return static_cast<uint16_t>(Priority::TransitTransfer); }
   df::SpecialDisplacement GetDisplacement() const override { return df::SpecialDisplacement::SpecialModeUserMark; }
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
-  drape_ptr<ColoredSymbolZoomInfo> GetColoredSymbols() const override;
+
+private:
+  Direction m_direction = Direction::Exit;
 };
 
 /// \brief ETA balloon attached to a route variant (active or alternative). Tappable so the user can
