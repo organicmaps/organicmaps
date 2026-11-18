@@ -29,6 +29,7 @@ BuildRequires:  pkgconfig(glesv2)
 # QML modules, the linked Qt libraries are found automatically. Harbour allows no Requires for the other
 # imported modules, which are on every device.
 Requires:       sailfishsilica-qt5
+Requires:       libkeepalive
 %if %{without harbour}
 # They share the data and the D-Bus name.
 Conflicts:      harbour-organicmaps

@@ -10,12 +10,16 @@ Rectangle {
     // The accessible name.
     property string description
     property bool highlighted
+    // False for full color icons, which the theme color would turn into a light gray blob.
+    property bool monochrome: true
+    // A rounded square instead of a circle, for the buttons along the bottom edge.
+    property bool square
     property alias busy: busyIndicator.running
     signal clicked()
 
     width: size
     height: size
-    radius: width / 2
+    radius: square ? Theme.paddingMedium : width / 2
     color: Theme.rgba(Theme.overlayBackgroundColor, Theme.opacityOverlay)
     opacity: enabled ? 1.0 : Theme.opacityLow
 
@@ -34,7 +38,7 @@ Rectangle {
         icon.width: Theme.iconSizeMedium
         icon.height: Theme.iconSizeMedium
         icon.sourceSize: Qt.size(Theme.iconSizeMedium, Theme.iconSizeMedium)
-        icon.color: Theme.primaryColor
+        icon.color: button.monochrome ? Theme.primaryColor : undefined
         highlighted: button.highlighted || down
         Accessible.name: button.description
         onClicked: button.clicked()

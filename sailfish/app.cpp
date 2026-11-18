@@ -1,3 +1,4 @@
+#include "sailfish/app_info.hpp"
 #include "sailfish/app_settings.hpp"
 #include "sailfish/framework_access.hpp"
 #include "sailfish/map_item.hpp"
@@ -57,6 +58,7 @@ void SetupPlatform()
   QDir().mkpath(writableDir);
   SetEnvIfUnset("MWM_WRITABLE_DIR", writableDir);
 
+  sailfish::AppSettings::InitLogging();
   LOG(LINFO, ("Resources:", GetPlatform().ResourcesDir(), "Writable:", GetPlatform().WritableDir(),
               "Settings:", GetPlatform().SettingsDir()));
 }
@@ -64,6 +66,7 @@ void SetupPlatform()
 void RegisterQmlTypes()
 {
   qmlRegisterType<sailfish::MapItem>("app.organicmaps", 1, 0, "MapItem");
+  qmlRegisterUncreatableType<sailfish::AppSettings>("app.organicmaps", 1, 0, "AppSettings", "Use appSettings");
 }
 }  // namespace
 
@@ -109,10 +112,12 @@ __attribute__((visibility("default"))) int OrganicMapsMain(int argc, char * argv
   RegisterQmlTypes();
 
   // Declared before the view, which uses them until it is destroyed.
+  sailfish::AppInfo appInfo;
   sailfish::AppSettings appSettings(framework);
   sailfish::UrlHandler urlHandler(framework);
   dbusInbox.SetHandler(urlHandler);
   std::unique_ptr<QQuickView> view(SailfishApp::createView());
+  view->rootContext()->setContextProperty(QStringLiteral("appInfo"), &appInfo);
   view->rootContext()->setContextProperty(QStringLiteral("appSettings"), &appSettings);
   view->rootContext()->setContextProperty(QStringLiteral("urlHandler"), &urlHandler);
   // A local file loads synchronously.

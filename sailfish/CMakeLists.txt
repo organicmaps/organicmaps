@@ -19,8 +19,14 @@ pkg_check_modules(SAILFISHAPP REQUIRED sailfishapp)
 
 set(SRC
   app.cpp
+  app_info.cpp
+  app_info.hpp
   app_settings.cpp
   app_settings.hpp
+  bundled_html.cpp
+  bundled_html.hpp
+  file_log.cpp
+  file_log.hpp
   framework_access.hpp
   helpers.cpp
   helpers.hpp
@@ -77,8 +83,8 @@ target_link_options(${PROJECT_NAME} PRIVATE -Wl,--disable-new-dtags -Wl,--export
 target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_lib)
 
 file(STRINGS "${OMIM_ROOT}/qt/runtime_resources.txt" RUNTIME_RESOURCES)
-# The desktop app copies the ICU data separately.
-list(APPEND RUNTIME_RESOURCES icudt78l.dat)
+# The desktop app copies the ICU data separately and doesn't install the FAQ.
+list(APPEND RUNTIME_RESOURCES icudt78l.dat faq.html)
 foreach(resource ${RUNTIME_RESOURCES})
   if (IS_DIRECTORY "${OMIM_ROOT}/data/${resource}")
     install(DIRECTORY "${OMIM_ROOT}/data/${resource}" DESTINATION ${APP_DATA_DIR}/data)
@@ -110,6 +116,8 @@ add_dependencies(${PROJECT_NAME} ${PROJECT_NAME}_icons)
 install(DIRECTORY "${SVG_ICONS_DIR}/" DESTINATION ${APP_DATA_DIR}/icons PATTERN .stamp EXCLUDE)
 set(ANDROID_RES "${OMIM_ROOT}/android/app/src/main/res")
 # Icons that are bitmaps on Android too.
+install(FILES "${ANDROID_RES}/drawable/ic_openstreetmap_color.webp" "${ANDROID_RES}/drawable/ic_crowdfunding.png"
+        DESTINATION ${APP_DATA_DIR}/icons/help)
 install(FILES "${ANDROID_RES}/drawable-xxxhdpi/ic_layers_isoline.webp" DESTINATION ${APP_DATA_DIR}/icons/layers)
 install(FILES "${ANDROID_RES}/drawable-night-xxxhdpi/ic_layers_isoline.webp" DESTINATION ${APP_DATA_DIR}/icons/layers
         RENAME ic_layers_isoline_night.webp)
