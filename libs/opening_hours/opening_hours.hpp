@@ -29,6 +29,8 @@
 #include <chrono>
 #include <iostream>
 #include <memory>
+#include <optional>
+#include <span>
 #include <string>
 #include <string_view>
 #include <type_traits>
@@ -732,6 +734,14 @@ inline std::string DebugPrint(RuleState state)
   return "Unknown";
 }
 
+struct PublicHolidays
+{
+  // Local holiday dates in the covered interval [m_from, m_until). An empty interval means unavailable.
+  std::chrono::sys_days m_from{};
+  std::chrono::sys_days m_until{};
+  std::span<std::chrono::sys_days const> m_dates{};
+};
+
 class OpeningHours
 {
 public:
@@ -745,13 +755,19 @@ public:
 
   struct InfoT
   {
-    RuleState state;
-    /// Calculated only if state != RuleState::Unknown.
-    time_t nextTimeOpen;
-    time_t nextTimeClosed;
+    RuleState state = RuleState::Unknown;
+    /// Calculated only if state != RuleState::Unknown. A missing transition within the
+    /// scan is reported as std::numeric_limits<time_t>::max().
+    time_t nextTimeOpen = 0;
+    time_t nextTimeClosed = 0;
   };
 
-  InfoT GetInfo(time_t dateTime, std::optional<om::tz::TimeZone> const & timeZone = std::nullopt) const;
+  // Holiday dates are local to timeZone, or to the device zone if none is specified.
+  // With a supplied calendar, the current state is Unknown if its holiday dates or
+  // school holidays are unavailable. Transitions are searched within coverage.
+  // Without a calendar, PH and SH never match.
+  InfoT GetInfo(time_t dateTime, std::optional<om::tz::TimeZone> const & timeZone = std::nullopt,
+                std::optional<PublicHolidays> const & publicHolidays = std::nullopt) const;
 
   bool IsValid() const;
 

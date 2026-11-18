@@ -6,10 +6,15 @@
 
 #include "base/logging.hpp"
 
+#include <array>
+#include <chrono>
 #include <ctime>
 #include <fstream>
+#include <limits>
+#include <optional>
 #include <sstream>
 #include <string>
+#include <vector>
 
 namespace
 {
@@ -22,11 +27,17 @@ std::string ToStr(std::string const & oh)
 
 // GetInfo() with no timezone evaluates in device local time; the helper builds
 // the instant with mktime, keeping the test deterministic on any machine.
-osmoh::RuleState StateAt(std::string const & oh, int y, int mo, int d, int h, int mi)
+time_t TimeAt(int y, int mo, int d, int h, int mi)
 {
   auto const month = static_cast<osmoh::MonthDay::Month>(mo);
-  return OpeningHours(oh).GetInfo(platform::tests_support::GetUnixtimeByDate(y, month, d, h, mi)).state;
+  return platform::tests_support::GetUnixtimeByDate(y, month, d, h, mi);
 }
+
+osmoh::RuleState StateAt(std::string const & oh, int y, int mo, int d, int h, int mi)
+{
+  return OpeningHours(oh).GetInfo(TimeAt(y, mo, d, h, mi)).state;
+}
+
 }  // namespace
 
 UNIT_TEST(OpeningHours_Validity)
@@ -78,6 +89,141 @@ UNIT_TEST(OpeningHours_SuPHOff_ClosedOnSunday)
   TEST_EQUAL(StateAt(oh, 2026, 7, 5, 12, 0), osmoh::RuleState::Closed, ());  // Sunday
   TEST_EQUAL(StateAt(oh, 2026, 7, 6, 12, 0), osmoh::RuleState::Open, ());    // Monday
   TEST_EQUAL(StateAt(oh, 2026, 7, 6, 6, 0), osmoh::RuleState::Closed, ());   // Monday, before open
+}
+
+UNIT_TEST(OpeningHours_PublicHoliday_Closure)
+{
+  using namespace std::chrono;
+  using osmoh::PublicHolidays, osmoh::RuleState;
+
+  std::array<sys_days, 1> const dates = {2026y / July / 6};  // Monday.
+  PublicHolidays const holidays{2026y / January / 1, 2028y / January / 1, dates};
+  PublicHolidays const knownEmpty{holidays.m_from, holidays.m_until, {}};
+  OpeningHours const oh("Mo-Sa 08:00-20:00; Su,PH off");
+  auto const monday = TimeAt(2026, 7, 6, 12, 0);
+
+  auto const closed = oh.GetInfo(monday, std::nullopt, holidays);
+  TEST_EQUAL(closed.state, RuleState::Closed, ());
+  TEST_EQUAL(closed.nextTimeOpen, TimeAt(2026, 7, 7, 8, 0), ());
+
+  auto const open = oh.GetInfo(monday, std::nullopt, knownEmpty);
+  TEST_EQUAL(open.state, RuleState::Open, ());
+  TEST_EQUAL(open.nextTimeClosed, TimeAt(2026, 7, 6, 20, 0), ());
+}
+
+UNIT_TEST(OpeningHours_PublicHoliday_SpecialHours)
+{
+  using namespace std::chrono;
+  using osmoh::PublicHolidays, osmoh::RuleState;
+
+  std::array<sys_days, 1> const dates = {2026y / July / 6};  // Monday.
+  PublicHolidays const holidays{2026y / January / 1, 2028y / January / 1, dates};
+  OpeningHours const oh("Mo-Fr 08:00-20:00; PH 09:00-13:00");
+
+  auto const before = oh.GetInfo(TimeAt(2026, 7, 6, 8, 30), std::nullopt, holidays);
+  TEST_EQUAL(before.state, RuleState::Closed, ());
+  TEST_EQUAL(before.nextTimeOpen, TimeAt(2026, 7, 6, 9, 0), ());
+
+  auto const after = oh.GetInfo(TimeAt(2026, 7, 6, 14, 0), std::nullopt, holidays);
+  TEST_EQUAL(after.state, RuleState::Closed, ());
+  TEST_EQUAL(after.nextTimeOpen, TimeAt(2026, 7, 7, 8, 0), ());
+}
+
+UNIT_TEST(OpeningHours_PublicHoliday_Unavailable)
+{
+  using namespace std::chrono;
+  using osmoh::PublicHolidays, osmoh::RuleState;
+
+  auto const monday = TimeAt(2026, 7, 6, 12, 0);
+  PublicHolidays const unavailable;
+  PublicHolidays const knownEmpty{2026y / January / 1, 2028y / January / 1, {}};
+
+  OpeningHours const oh("Mo-Fr 08:00-20:00; PH off");
+  TEST_EQUAL(oh.GetInfo(monday, std::nullopt, unavailable).state, RuleState::Unknown, ());
+  TEST_EQUAL(oh.GetInfo(monday).state, RuleState::Open, ());
+  TEST_EQUAL(OpeningHours("Mo-Fr 08:00-20:00").GetInfo(monday, std::nullopt, unavailable).state, RuleState::Open, ());
+  TEST_EQUAL(OpeningHours("Mo-Fr 08:00-20:00; SH off").GetInfo(monday, std::nullopt, knownEmpty).state,
+             RuleState::Unknown, ());
+}
+
+UNIT_TEST(OpeningHours_PublicHoliday_FutureCoverage)
+{
+  using namespace std::chrono;
+  using osmoh::PublicHolidays, osmoh::RuleState;
+
+  std::array<sys_days, 1> const dates = {2029y / January / 1};
+  PublicHolidays const shortCalendar{2025y / January / 1, 2029y / January / 1, {}};
+  PublicHolidays const fullCalendar{2025y / January / 1, 2032y / January / 1, dates};
+  OpeningHours const oh("2029 PH 09:00-13:00");
+  auto const now = TimeAt(2026, 11, 18, 12, 0);
+
+  auto const limited = oh.GetInfo(now, std::nullopt, shortCalendar);
+  TEST_EQUAL(limited.state, RuleState::Closed, ());
+  TEST_EQUAL(limited.nextTimeOpen, std::numeric_limits<time_t>::max(), ());
+
+  auto const info = oh.GetInfo(now, std::nullopt, fullCalendar);
+  TEST_EQUAL(info.state, RuleState::Closed, ());
+  TEST_EQUAL(info.nextTimeOpen, TimeAt(2029, 1, 1, 9, 0), ());
+}
+
+UNIT_TEST(OpeningHours_PublicHoliday_CalendarEnd)
+{
+  using namespace std::chrono;
+  using osmoh::PublicHolidays, osmoh::RuleState;
+
+  std::array<sys_days, 1> const dates = {2026y / December / 25};
+  PublicHolidays const through2027{2025y / January / 1, 2028y / January / 1, dates};
+  OpeningHours const explicitYear("Mo-Sa 08:00-20:00; 2026 Dec 24 10:00-14:00; PH off");
+  auto const open = explicitYear.GetInfo(TimeAt(2026, 11, 18, 12, 0), std::nullopt, through2027);
+  TEST_EQUAL(open.state, RuleState::Open, ());
+  TEST_EQUAL(open.nextTimeClosed, TimeAt(2026, 11, 18, 20, 0), ());
+
+  OpeningHours const regular("Mo-Sa 08:00-20:00; PH off");
+  auto const sunday = regular.GetInfo(TimeAt(2026, 12, 20, 12, 0), std::nullopt, through2027);
+  TEST_EQUAL(sunday.state, RuleState::Closed, ());
+  TEST_EQUAL(sunday.nextTimeOpen, TimeAt(2026, 12, 21, 8, 0), ());
+
+  PublicHolidays const throughDec22{2025y / January / 1, 2026y / December / 23, {}};
+  auto const closed = regular.GetInfo(TimeAt(2026, 12, 22, 21, 0), std::nullopt, throughDec22);
+  TEST_EQUAL(closed.state, RuleState::Closed, ());
+  TEST_EQUAL(closed.nextTimeOpen, std::numeric_limits<time_t>::max(), ());
+  TEST_EQUAL(regular.GetInfo(TimeAt(2026, 12, 23, 12, 0), std::nullopt, throughDec22).state, RuleState::Unknown, ());
+}
+
+UNIT_TEST(OpeningHours_PublicHoliday_OffsetAndOvernight)
+{
+  using namespace std::chrono;
+  using osmoh::PublicHolidays, osmoh::RuleState;
+
+  std::array<sys_days, 1> const dates = {2025y / December / 31};
+  PublicHolidays const fullCalendar{2025y / December / 31, 2028y / January / 1, dates};
+  PublicHolidays const shortCalendar{2026y / January / 1, 2028y / January / 1, {}};
+  OpeningHours const oh("PH +1 day 22:00-02:00");
+  auto const overnight = TimeAt(2026, 1, 2, 1, 0);
+
+  TEST_EQUAL(oh.GetInfo(overnight, std::nullopt, shortCalendar).state, RuleState::Unknown, ());
+  auto const info = oh.GetInfo(overnight, std::nullopt, fullCalendar);
+  TEST_EQUAL(info.state, RuleState::Open, ());
+  TEST_EQUAL(info.nextTimeClosed, TimeAt(2026, 1, 2, 2, 0), ());
+}
+
+UNIT_TEST(OpeningHours_PublicHoliday_PoiLocalDate)
+{
+  using namespace std::chrono;
+  using osmoh::PublicHolidays, osmoh::RuleState;
+
+  sys_days const holiday = 2026y / July / 6;
+  std::array const dates = {holiday};
+  PublicHolidays const holidays{2026y / January / 1, 2028y / January / 1, dates};
+  OpeningHours const oh("PH 00:00-03:00");
+  auto const now = duration_cast<seconds>((holiday - 90min).time_since_epoch()).count();
+
+  om::tz::TimeZone const utc{.base_offset = 64};
+  om::tz::TimeZone const utcPlusTwo{.base_offset = 72};
+  TEST_EQUAL(oh.GetInfo(now, utc, holidays).state, RuleState::Closed, ());
+  auto const info = oh.GetInfo(now, utcPlusTwo, holidays);
+  TEST_EQUAL(info.state, RuleState::Open, ());
+  TEST_EQUAL(info.nextTimeClosed, duration_cast<seconds>((holiday + 1h).time_since_epoch()).count(), ());
 }
 
 // #3117: additive rules with a comma unite the ranges.

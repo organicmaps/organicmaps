@@ -822,9 +822,43 @@ RuleState ToRuleState(oh::RuleKind k)
   return RuleState::Unknown;
 }
 
-oh::OpeningHours<> MakeEval(std::shared_ptr<oh::OpeningHoursExpression const> const & expr)
+std::optional<oh::NaiveDateTime> ApplyPublicHolidays(oh::OpeningHoursExpression const & expr,
+                                                     PublicHolidays const & holidays, oh::NaiveDate today,
+                                                     oh::NaiveDateTime until, oh::Context<oh::NoLocation> & ctx)
 {
-  return oh::OpeningHours<>(expr, oh::Context<oh::NoLocation>{});
+  // Each rule tests the holiday calendar at its date minus the offset.
+  // Today's schedule can also include yesterday's overnight hours.
+  auto firstCoveredDay = std::chrono::sys_days::min();
+  auto firstUncoveredDay = std::chrono::sys_days::max();
+  for (auto const & rule : expr.rules)
+  {
+    for (auto const & weekday : rule.day_selector.weekday)
+    {
+      if (weekday.kind != oh::WeekDayRangeKind::Holiday)
+        continue;
+      if (weekday.holiday_kind == oh::HolidayKind::School)
+        return std::nullopt;
+
+      std::chrono::days const offset{weekday.offset};
+      firstCoveredDay = std::max(firstCoveredDay, holidays.m_from + offset + std::chrono::days{1});
+      firstUncoveredDay = std::min(firstUncoveredDay, holidays.m_until + offset);
+    }
+  }
+
+  if (firstCoveredDay == std::chrono::sys_days::min())
+    return until;
+  if (today.d < firstCoveredDay || today.d >= firstUncoveredDay)
+    return std::nullopt;
+
+  if (!holidays.m_dates.empty())
+  {
+    auto calendar = std::make_shared<oh::CompactCalendar>();
+    for (auto const date : holidays.m_dates)
+      calendar->insert(oh::NaiveDate{date});
+    ctx.holidays.public_ = std::move(calendar);
+  }
+
+  return std::min(until, oh::NaiveDateTime{oh::NaiveDate{firstUncoveredDay}, 0});
 }
 
 // A value that did not parse has no state to report, which is Unknown -- the
@@ -833,7 +867,7 @@ RuleState EvalState(std::shared_ptr<oh::OpeningHoursExpression const> const & ex
 {
   if (!expr)
     return RuleState::Unknown;
-  return ToRuleState(MakeEval(expr).state(ToNaive(ToZonedSeconds(dateTime, std::nullopt))).first);
+  return ToRuleState(oh::OpeningHours<>(expr, {}).state(ToNaive(ToZonedSeconds(dateTime, std::nullopt))).first);
 }
 }  // namespace
 
@@ -866,26 +900,19 @@ bool OpeningHours::IsUnknown(time_t const dateTime) const
   return EvalState(m_expr, dateTime) == RuleState::Unknown;
 }
 
-OpeningHours::InfoT OpeningHours::GetInfo(time_t const dateTime, std::optional<om::tz::TimeZone> const & timeZone) const
+OpeningHours::InfoT OpeningHours::GetInfo(time_t const dateTime, std::optional<om::tz::TimeZone> const & timeZone,
+                                          std::optional<PublicHolidays> const & publicHolidays) const
 {
   InfoT info;
   if (!m_expr)
-  {
-    info.state = RuleState::Unknown;
     return info;
-  }
 
   int64_t const baseZoned = ToZonedSeconds(dateTime, timeZone);
   oh::NaiveDateTime const now = ToNaive(baseZoned);
-  auto const eval = MakeEval(m_expr);
-  info.state = ToRuleState(eval.state(now).first);
-
-  if (info.state == RuleState::Unknown)
-    return info;
 
   // First transition to `target` state at or after `now`, back in time_t.
   // Scanning a bounded window keeps seasonal schedules cheap; kTimeTMax means
-  // "no change found" (consumers render this as "never"). Iterate lazily and
+  // no change was found within that window. Iterate lazily and
   // stop at the first matching interval -- for typical schedules that is 1-3
   // intervals, while materializing the whole window costs hundreds of
   // allocations per call (and GetInfo runs for every search result).
@@ -893,7 +920,7 @@ OpeningHours::InfoT OpeningHours::GetInfo(time_t const dateTime, std::optional<o
 
   // The default window covers a full seasonal cycle; schedules pinned to
   // explicit future years ("2028 Jan 01 10:00-11:00") extend it through their
-  // last mentioned year, otherwise they would report "never opens".
+  // last mentioned year so their next opening is not missed.
   oh::NaiveDateTime to = now.add_minutes(static_cast<int64_t>(400) * 24 * 60);
   {
     int lastYear = 0;
@@ -952,6 +979,19 @@ OpeningHours::InfoT OpeningHours::GetInfo(time_t const dateTime, std::optional<o
     }
   }
 
+  oh::Context<oh::NoLocation> ctx;
+  if (publicHolidays)
+  {
+    auto const coveredEnd = ApplyPublicHolidays(*m_expr, *publicHolidays, now.date(), to, ctx);
+    if (!coveredEnd)
+      return info;
+    to = *coveredEnd;
+  }
+
+  info.state = ToRuleState(oh::OpeningHours<>(m_expr, ctx).state(now).first);
+  if (info.state == RuleState::Unknown)
+    return info;
+
   // Convert a zoned wall-clock instant back to time_t. The naive delta is off
   // by the DST shift when a transition lies between `now` and the target;
   // correcting through the forward conversion handles the device zone and an
@@ -991,7 +1031,7 @@ OpeningHours::InfoT OpeningHours::GetInfo(time_t const dateTime, std::optional<o
 
   auto nextTimeOf = [&](oh::RuleKind target) -> time_t
   {
-    oh::TimeDomainIterator<oh::NoLocation> it(m_expr, oh::Context<oh::NoLocation>{}, now, to);
+    oh::TimeDomainIterator<oh::NoLocation> it(m_expr, ctx, now, to);
     while (auto const interval = it.next())
     {
       if (!(interval->start < to))
