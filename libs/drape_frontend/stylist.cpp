@@ -15,15 +15,6 @@
 
 namespace df
 {
-namespace
-{
-bool IsOverlay(drule::Key const & key)
-{
-  return key.m_type == drule::caption || key.m_type == drule::symbol || key.m_type == drule::shield ||
-         key.m_type == drule::pathtext;
-}
-}  // namespace
-
 IsHatchingTerritoryChecker::TwoLevel45::TwoLevel45()
   : ftypes::BaseCheckerEx({{"amenity", "prison"},
                            {"boundary", "aboriginal_lands"},
@@ -269,7 +260,7 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, MapStyle
       if (types.Size() > 1 && k.m_type == drule::area && areaPatternChecker.IsIntermittentWater(t))
         k.m_priority += kIntermittentWaterSelectionBoost;
 
-      if (IsOverlay(k))
+      if (drule::IsOverlay(k.m_type))
       {
         if (t != mainOverlayType)
           continue;
@@ -284,7 +275,8 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, MapStyle
   feature::FilterRulesByRuntimeSelector(f, zoomLevel, rules, keys);
 
   // Keep the same overlay type across zooms unless its selectors reject every candidate at this zoom.
-  if (mainTypeHasOverlays && types.Size() > 1 && std::none_of(keys.begin(), keys.end(), IsOverlay))
+  if (mainTypeHasOverlays && types.Size() > 1 &&
+      std::none_of(keys.begin(), keys.end(), [](auto const & key) { return drule::IsOverlay(key.m_type); }))
   {
     auto const rejectedType = mainOverlayType;
     int fallbackPriority = std::numeric_limits<int>::min();
@@ -298,7 +290,7 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, MapStyle
 
       drule::KeysT candidates;
       object->GetSuitable(zoomLevel, geomType, candidates);
-      candidates.erase_if([](drule::Key const & key) { return !IsOverlay(key); });
+      candidates.erase_if([](drule::Key const & key) { return !drule::IsOverlay(key.m_type); });
       feature::FilterRulesByRuntimeSelector(f, zoomLevel, rules, candidates);
       if (candidates.empty())
         continue;
@@ -342,8 +334,8 @@ Stylist::Stylist(FeatureType & f, uint8_t zoomLevel, int8_t deviceLang, MapStyle
 
       if (isGood)
       {
+        auto const addressType = cl.GetBuildingAddressType();
         // Use building-address' caption drule to display house numbers.
-        auto const addressType = cl.GetTypeByPath({"building", "address"});
         if (mainOverlayType == addressType)
         {
           // Optimization: just duplicate the drule if the main type is building-address.

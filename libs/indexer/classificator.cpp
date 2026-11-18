@@ -55,8 +55,7 @@ void ClassifObject::AddDrawRule(drule::Key const & k)
       return;  // already exists
   m_drawRules.insert(i, k);
 
-  if (k.m_priority > m_maxOverlaysPriority && (k.m_type == drule::symbol || k.m_type == drule::caption ||
-                                               k.m_type == drule::shield || k.m_type == drule::pathtext))
+  if (k.m_priority > m_maxOverlaysPriority && drule::IsOverlay(k.m_type))
     m_maxOverlaysPriority = k.m_priority;
 }
 
@@ -359,6 +358,7 @@ void Classificator::ReadClassificator(std::istream & s)
 
   m_coastType = GetTypeByPath({"natural", "coastline"});
   m_stubType = GetTypeByPath({"mapswithme"});
+  m_buildingAddressType = GetTypeByPath({"building", "address"});
 }
 
 template <typename Iter>
