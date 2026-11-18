@@ -39,7 +39,7 @@ public:
 
   /// @param[in] altitudes May be nullptr.
   void Load(VehicleModelInterface const & vehicleModel, FeatureType & feature, geometry::Altitudes const * altitudes,
-            RoadAttrsGetter & attrs);
+            RoadAttrsGetter & attrs, RoutingOptionsClassifier const & optionsClassifier);
 
   SpeedKMpH GetSpeed(bool forward, time_t time = 0) const;
   std::optional<HighwayType> GetHighwayType() const { return m_highwayType; }
@@ -106,12 +106,11 @@ public:
 
   using VehicleModelPtrT = std::shared_ptr<VehicleModelInterface>;
 
-  /// @param[in] handle should be alive, its caller responsibility to check it.
-  static std::unique_ptr<GeometryLoader> Create(MwmSet::MwmHandle const & handle, VehicleModelPtrT const & vehicleModel,
-                                                bool loadAltitudes);
+  /// @param[in] handle Must be alive. It is stored by reference, so this exact object must outlive the loader.
+  static std::unique_ptr<GeometryLoader> Create(MwmSet::MwmHandle const & handle, VehicleType vehicleType,
+                                                VehicleModelPtrT const & vehicleModel, bool loadAltitudes);
 
-  /// This is for stand-alone work.
-  /// Use in generator_tool and unit tests.
+  /// Loads standalone car routing geometry for generator and track tools.
   static std::unique_ptr<GeometryLoader> CreateFromFile(std::string const & filePath,
                                                         VehicleModelPtrT const & vehicleModel);
 };

@@ -5533,6 +5533,11 @@
 				);
 				MARKETING_VERSION = 2022.11.17;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-weak_framework",
+					ActivityKit,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.debug.widgetextension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -5561,6 +5566,11 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 2022.11.17;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-weak_framework",
+					ActivityKit,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = app.organicmaps.widgetextension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
