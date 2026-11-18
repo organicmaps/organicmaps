@@ -16,6 +16,7 @@
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/features_vector.hpp"
+#include "indexer/map_style_reader.hpp"
 #include "indexer/postcodes_matcher.hpp"
 #include "indexer/road_shields_parser.hpp"
 #include "indexer/scales_patch.hpp"
@@ -109,9 +110,6 @@ void GetCategoryTypes(CategoriesHolder const & categories, std::pair<int, int> s
     // Only categorized types will be added to index.
     if (!categories.IsTypeExist(t))
       continue;
-
-    // Drawable scale must be normalized to indexer scales.
-    scaleRange.second = scales::PatchMaxDrawableScale(scaleRange.second);
 
     // Index only those types that are visible.
     if (feature::IsVisibleInRange(t, scaleRange))
@@ -280,7 +278,8 @@ public:
                   std::pair<int, int> const & scales)
     : m_synonyms(synonyms)
     , m_categories(catHolder)
-    , m_scales(scales)
+    , m_scales(scales.first,
+               static_cast<int>(scales::PatchMaxDrawableScale(scales.second, GetStyleReader().IsDesignerMode())))
     , m_inserter(keyValuePairs)
   {}
 

@@ -21,7 +21,7 @@ inline void ParsePatternsList(std::string const & patternsFile, ToDo && toDo)
   while (std::getline(is, line))
   {
     buffer_vector<double, 8> pattern;
-    strings::Tokenize(line, " ", [&](std::string_view token)
+    strings::Tokenize(line, " \t\r", [&](std::string_view token)
     {
       double d = 0.0;
       VERIFY(strings::to_double(token, d), ());
