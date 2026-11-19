@@ -172,4 +172,13 @@
     <item quantity="many">حُذف %d تسجيلاً</item>
     <item quantity="other">حُذف %d تسجيل</item>
   </plurals>
+
+  <!-- Recording screen: the app's battery setting -->
+  <string name="syria_battery_unrestricted">التسجيل في الخلفية: غير مقيَّد</string>
+  <string name="syria_battery_optimized">التسجيل في الخلفية: محسَّن</string>
+  <string name="syria_battery_restricted">التسجيل في الخلفية: مقيَّد</string>
+  <string name="syria_battery_unrestricted_hint">يستمر التسجيل عند إطفاء الشاشة.</string>
+  <string name="syria_battery_optimized_hint">قد يوقف أندرويد التسجيل عند إطفاء الشاشة. اضغط «إصلاح»، ثم افتح استخدام التطبيق للبطارية واختر «غير مقيَّد».</string>
+  <string name="syria_battery_restricted_hint">يتوقف التسجيل عندما يكون التطبيق في الخلفية. اضغط «إصلاح»، ثم افتح استخدام التطبيق للبطارية واختر «غير مقيَّد».</string>
+  <string name="syria_battery_fix">إصلاح</string>
 </resources>

@@ -34,6 +34,8 @@ import org.json.JSONObject
 class ActivityTrackingService : Service(), LocationListener {
     private val engine = TrackingEngine()
     private lateinit var db: TrackingDb
+    private var backgroundMode: BackgroundMode? = null
+    private var backgroundModeCheckedAt = 0L
 
     override fun onBind(intent: Intent?): IBinder? = null
 
@@ -106,7 +108,8 @@ class ActivityTrackingService : Service(), LocationListener {
         engine.start(sessionId, segmentId, now)
         db.insertSession(Session(sessionId, TrackingDb.STATUS_ACTIVE, now, null, null, 0.0, 0, 0, false, now))
         db.insertSegment(Segment(segmentId, sessionId, 0, now, null))
-        logEvent("tracking_start", null)
+        backgroundMode = BackgroundMode.current(this)
+        logEvent("tracking_start", BackgroundMode.payload(this, backgroundMode!!))
         mirrorMapLine(true)
         SyncWorker.schedulePeriodic(this)
         Logger.i(TAG, "Session $sessionId started")
@@ -135,6 +138,7 @@ class ActivityTrackingService : Service(), LocationListener {
         db.insertSegment(Segment(segmentId, sessionId, seq, now, null))
         db.updateSessionStatus(sessionId, TrackingDb.STATUS_ACTIVE, null)
         logEvent("tracking_resume", null)
+        checkBackgroundMode(force = true)
         mirrorMapLine(true)
     }
 
@@ -150,6 +154,7 @@ class ActivityTrackingService : Service(), LocationListener {
             .put("distanceM", result.distanceM)
             .put("movingTimeS", result.movingTimeS)
             .put("points", result.pointCount)
+            .put("batteryMode", BackgroundMode.current(this).key)
         db.insertEvent(TrackEvent(UUID.randomUUID().toString(), "tracking_stop", now, sessionId, payload.toString()))
         saveMapLine()
         SyncWorker.enqueueNow(this)
@@ -178,6 +183,9 @@ class ActivityTrackingService : Service(), LocationListener {
             ),
         )
         if (activeSegment != null) mirrorMapLine(true)
+        // Android killed the process and restarted the service: a likely gap in the route.
+        backgroundMode = BackgroundMode.current(this)
+        logEvent("tracking_restored", BackgroundMode.payload(this, backgroundMode!!).put("status", engine.status.name))
         Logger.i(TAG, "Session ${open.id} restored as ${engine.status}")
     }
 
@@ -206,6 +214,7 @@ class ActivityTrackingService : Service(), LocationListener {
                     ),
                 )
                 persistProgress()
+                checkBackgroundMode(force = false)
                 publish()
                 NotificationManagerCompat.from(this).notify(NOTIFICATION_ID, buildNotification())
             }
@@ -230,6 +239,19 @@ class ActivityTrackingService : Service(), LocationListener {
 
     private fun publish() {
         state.postValue(engine.snapshot(now()))
+    }
+
+    /** Logs a change of the battery setting during the recording; checked at most once a minute. */
+    private fun checkBackgroundMode(force: Boolean) {
+        val now = now()
+        if (!force && now - backgroundModeCheckedAt < MODE_CHECK_MS) return
+        backgroundModeCheckedAt = now
+        val mode = BackgroundMode.current(this)
+        val previous = backgroundMode
+        backgroundMode = mode
+        if (previous == null || previous == mode) return
+        logEvent("battery_mode_changed", BackgroundMode.payload(this, mode).put("previous", previous.key))
+        Logger.i(TAG, "Battery mode changed from $previous to $mode")
     }
 
     private fun logEvent(type: String, payload: JSONObject?) {
@@ -326,6 +348,7 @@ class ActivityTrackingService : Service(), LocationListener {
 
         /** Requested refresh interval while a session is active. */
         const val INTERVAL_MS = 5000L
+        private const val MODE_CHECK_MS = 60_000L
 
         private val state = MutableLiveData<TrackingEngine.Snapshot?>()
 

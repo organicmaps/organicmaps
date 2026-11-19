@@ -68,6 +68,11 @@ class TrackingActivity : BaseMwmFragmentActivity() {
     private lateinit var stopButton: Button
     private lateinit var root: View
     private lateinit var syncCard: MaterialCardView
+    private lateinit var batteryCard: MaterialCardView
+    private lateinit var batteryIcon: ImageView
+    private lateinit var batteryStatus: TextView
+    private lateinit var batteryHint: TextView
+    private lateinit var batteryFix: MaterialButton
     private lateinit var syncIcon: ImageView
     private lateinit var syncStatus: TextView
     private lateinit var syncLast: TextView
@@ -138,6 +143,12 @@ class TrackingActivity : BaseMwmFragmentActivity() {
         pauseButton = findViewById(R.id.tracking_pause)
         stopButton = findViewById(R.id.tracking_stop)
         syncCard = findViewById(R.id.tracking_sync_card)
+        batteryCard = findViewById(R.id.tracking_battery_card)
+        batteryIcon = findViewById(R.id.tracking_battery_icon)
+        batteryStatus = findViewById(R.id.tracking_battery_status)
+        batteryHint = findViewById(R.id.tracking_battery_hint)
+        batteryFix = findViewById(R.id.tracking_battery_fix)
+        batteryFix.setOnClickListener { BackgroundMode.openSettings(this) }
         syncIcon = findViewById(R.id.tracking_sync_icon)
         syncStatus = findViewById(R.id.tracking_sync_status)
         syncLast = findViewById(R.id.tracking_sync_last)
@@ -206,6 +217,8 @@ class TrackingActivity : BaseMwmFragmentActivity() {
         if (!::status.isInitialized) return
         handler.post(ticker)
         loadHistory()
+        // Also when coming back from the battery settings.
+        renderBattery()
         // Live location that was on when the app was closed starts again here.
         LiveLocationService.startIfEnabled(this)
     }
@@ -352,6 +365,38 @@ class TrackingActivity : BaseMwmFragmentActivity() {
     }
 
     /** The sync colours stay inside the sync card; the screen itself follows the traffic light. */
+    private fun renderBattery() {
+        val mode = BackgroundMode.current(this)
+        val color = ContextCompat.getColor(
+            this,
+            when (mode) {
+                BackgroundMode.UNRESTRICTED -> R.color.syria_sync_green
+                BackgroundMode.OPTIMIZED -> R.color.syria_sync_orange
+                BackgroundMode.RESTRICTED -> R.color.syria_sync_red
+            },
+        )
+        batteryCard.setCardBackgroundColor(ColorUtils.setAlphaComponent(color, CARD_ALPHA))
+        batteryIcon.imageTintList = ColorStateList.valueOf(color)
+        batteryStatus.setText(
+            when (mode) {
+                BackgroundMode.UNRESTRICTED -> R.string.syria_battery_unrestricted
+                BackgroundMode.OPTIMIZED -> R.string.syria_battery_optimized
+                BackgroundMode.RESTRICTED -> R.string.syria_battery_restricted
+            },
+        )
+        batteryHint.setText(
+            when (mode) {
+                BackgroundMode.UNRESTRICTED -> R.string.syria_battery_unrestricted_hint
+                BackgroundMode.OPTIMIZED -> R.string.syria_battery_optimized_hint
+                BackgroundMode.RESTRICTED -> R.string.syria_battery_restricted_hint
+            },
+        )
+        // In the status colour: the default outline is hard to see on the tinted card in dark mode.
+        batteryFix.setTextColor(color)
+        batteryFix.strokeColor = ColorStateList.valueOf(color)
+        batteryFix.visibility = if (mode == BackgroundMode.UNRESTRICTED) View.GONE else View.VISIBLE
+    }
+
     private fun renderSync(sync: SyriaStatus.Sync) {
         val lastError = SyriaPrefs.lastSyncError(this)
         val unreachable =

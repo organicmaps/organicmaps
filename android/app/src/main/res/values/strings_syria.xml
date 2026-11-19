@@ -188,4 +188,13 @@
     <item quantity="one">%d recording deleted</item>
     <item quantity="other">%d recordings deleted</item>
   </plurals>
+
+  <!-- Recording screen: the app's battery setting -->
+  <string name="syria_battery_unrestricted">Background recording: Unrestricted</string>
+  <string name="syria_battery_optimized">Background recording: Optimized</string>
+  <string name="syria_battery_restricted">Background recording: Restricted</string>
+  <string name="syria_battery_unrestricted_hint">Recording continues with the screen off.</string>
+  <string name="syria_battery_optimized_hint">Android may stop the recording when the screen is off. Tap Fix, open the app\'s battery usage and choose Unrestricted.</string>
+  <string name="syria_battery_restricted_hint">Recording stops when the app is in the background. Tap Fix, open the app\'s battery usage and choose Unrestricted.</string>
+  <string name="syria_battery_fix">Fix</string>
 </resources>
