@@ -44099,8 +44099,40 @@ en = Looking for position…
 
 [public_transport]
 comment = Public transport routing profile, including subway and trains.
-tags = qt
+tags = qt,android-app,apple-maps
 en = Public transport
+
+[transit_mode_options]
+comment = Heading for the types of public transport that routing may use.
+tags = android-app,apple-maps
+en = Allowed transport
+
+[transit_mode_rail]
+comment = Routing setting that covers trains and light rail.
+tags = android-app,apple-maps
+en = Train and light rail
+
+[transit_mode_ferry]
+comment = Routing setting that covers ferries and other public water services.
+tags = android-app,apple-maps
+en = Ferries
+
+[transit_mode_trolleybus]
+tags = android-app,apple-maps
+en = Trolleybus
+
+[transit_mode_monorail]
+tags = android-app,apple-maps
+en = Monorail
+
+[transit_mode_cable]
+comment = Routing setting that covers funiculars, cable trams and aerial lifts.
+tags = android-app,apple-maps
+en = Funiculars and cable transport
+
+[transit_mode_air]
+tags = android-app,apple-maps
+en = Air services
 
 [bookmarks_mouse_shortcuts_tooltip]
 tags = qt
@@ -46426,7 +46458,7 @@ zh-Hant:other = %d 站
 
 [transit_type_bus]
 comment = Spoken name of the bus transport type, read by screen readers before a line number on transit line badges (route summary and details).
-tags = android-app
+tags = android-app,apple-maps
 en = Bus
 af = Bus
 ar = حافلة
@@ -46542,7 +46574,7 @@ zh-Hant = 火車
 
 [transit_type_tram]
 comment = Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details).
-tags = android-app
+tags = android-app,apple-maps
 en = Tram
 af = Trem
 ar = ترام
