@@ -31,6 +31,12 @@ NS_SWIFT_NAME(LocationManager)
 
 + (void)enableLocationAlert;
 
+/// Called by ExternalGPSManager to inject a location from a Bluetooth GPS accessory.
++ (void)processExternalGPSLocation:(CLLocation *)location;
+
+/// When YES, native CLLocationManager position updates are suppressed in favour of the external GPS.
++ (void)setExternalGPSActive:(BOOL)active;
+
 - (instancetype)init __attribute__((unavailable("call +manager instead")));
 - (instancetype)copy __attribute__((unavailable("call +manager instead")));
 - (instancetype)copyWithZone:(NSZone *)zone __attribute__((unavailable("call +manager instead")));

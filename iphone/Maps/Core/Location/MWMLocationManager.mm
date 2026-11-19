@@ -137,6 +137,10 @@ NSString * const kLocationPermissionRequestedKey = @"kLocationPermissionRequeste
 NSString * const kLocationAlertNeedShowKey = @"kLocationAlertNeedShowKey";
 NSString * const kNavigationOtherLocationActivityKey = @"kNavigationOtherLocationActivityKey";
 
+// Prefer an external GPS fix while it is this fresh; past this gap the receiver is treated as having
+// lost its fix (indoors, a garage, cold start) and native internal/Wi-Fi positions are used instead.
+NSTimeInterval const kExternalGPSFreshnessSeconds = 5;
+
 BOOL needShowLocationAlert()
 {
   NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
@@ -155,6 +159,8 @@ void setShowLocationAlert(BOOL needShow)
 @interface MWMLocationManager () <CLLocationManagerDelegate>
 
 @property(nonatomic) BOOL started;
+@property(nonatomic) BOOL externalGPSActive;
+@property(nonatomic) NSDate * lastExternalGPSFixDate;
 @property(nonatomic) CLLocationManager * locationManager;
 @property(nonatomic) GeoMode geoMode;
 @property(nonatomic) CLHeading * lastHeadingInfo;
@@ -233,6 +239,7 @@ void setShowLocationAlert(BOOL needShow)
 + (void)applicationDidBecomeActive
 {
   [self start];
+  [ExternalGPSManager.shared start];
 }
 
 + (void)applicationWillResignActive
@@ -243,6 +250,8 @@ void setShowLocationAlert(BOOL needShow)
   if ([locationManager respondsToSelector:@selector(setAllowsBackgroundLocationUpdates:)])
     [locationManager setAllowsBackgroundLocationUpdates:keepRunning];
   manager.started = keepRunning;
+  if (!keepRunning)
+    [ExternalGPSManager.shared stop];
 }
 
 #pragma mark - Getters
@@ -315,6 +324,27 @@ void setShowLocationAlert(BOOL needShow)
   for (Observer observer in self.observers)
     if ([observer respondsToSelector:@selector(onLocationUpdate:)])
       [observer onLocationUpdate:locationInfo];
+}
+
+#pragma mark - External GPS
+
++ (void)processExternalGPSLocation:(CLLocation *)location
+{
+  if (!location || location.horizontalAccuracy < 0.)
+    return;
+  MWMLocationManager * manager = [self manager];
+  manager.lastLocationStatus = MWMLocationStatusNoError;
+  manager.lastExternalGPSFixDate = [NSDate date];
+  [manager onLocationUpdate:location source:location::EAppleNative];
+  if (![manager.lastLocationInfo isEqual:location])
+    [manager.predictor reset:location];
+}
+
++ (void)setExternalGPSActive:(BOOL)active
+{
+  LOG(LINFO, ("External GPS", active ? "active — suppressing native location updates"
+                                     : "inactive — resuming native location updates"));
+  [self manager].externalGPSActive = active;
 }
 
 #pragma mark - Location Status
@@ -501,6 +531,32 @@ void setShowLocationAlert(BOOL needShow)
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
   CLLocation * location = locations.lastObject;
+
+  // If iOS is delivering the fix from an external MFi accessory via a working Core Location path,
+  // prefer the native feed and retire our redundant ExternalAccessory reader so the same device is not
+  // parsed twice. For the XGPS160 this never fires: its firmware has a GPS week-rollover bug and
+  // reports a 2007 date, so Core Location rejects every fix as stale and never delivers one —
+  // ExternalGPSManager feeds OM directly (correcting the rollover) and stays the active source.
+  // externalGPSActive is checked first so users without a receiver (nearly everyone) short-circuit
+  // here and never inspect sourceInformation.
+  if (self.externalGPSActive)
+  {
+    if (@available(iOS 15.0, *))
+    {
+      if (location.sourceInformation.isProducedByAccessory)
+      {
+        [ExternalGPSManager.shared standDownForNativeAccessory];
+        self.externalGPSActive = NO;
+      }
+    }
+  }
+
+  // Prefer the external GPS fix while it is fresh; if the receiver has no recent fix (indoors, a
+  // garage, cold start) fall back to the native internal/Wi-Fi position so the blue dot isn't lost.
+  if (self.externalGPSActive && self.lastExternalGPSFixDate &&
+      -self.lastExternalGPSFixDate.timeIntervalSinceNow < kExternalGPSFreshnessSeconds)
+    return;
+
   // According to documentation, lat and lon are valid only if horizontalAccuracy is non-negative.
   // So we filter out such events completely.
   if (location.horizontalAccuracy < 0.)

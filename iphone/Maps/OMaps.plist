@@ -208,6 +208,10 @@
 			<string>app.organicmaps.3daction.report_bug</string>
 		</dict>
 	</array>
+	<key>UISupportedExternalAccessoryProtocols</key>
+	<array>
+		<string>com.dualav.xgps150</string>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>
