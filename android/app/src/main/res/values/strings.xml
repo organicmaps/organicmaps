@@ -897,6 +897,21 @@
     <!-- Short label of the user's position marker on the elevation profile chart. Where a bare pronoun would be unnatural or gendered, a location noun ("My location") is preferred. -->
     <string name="you">You</string>
 
+    <!-- SECTION: Qt UI strings -->
+    <!-- Public transport routing profile, including subway and trains. -->
+    <string name="public_transport">Public transport</string>
+    <!-- Heading for the types of public transport that routing may use. -->
+    <string name="transit_mode_options">Allowed transport</string>
+    <!-- Routing setting that covers trains and light rail. -->
+    <string name="transit_mode_rail">Train and light rail</string>
+    <!-- Routing setting that covers ferries and other public water services. -->
+    <string name="transit_mode_ferry">Ferries</string>
+    <string name="transit_mode_trolleybus">Trolleybus</string>
+    <string name="transit_mode_monorail">Monorail</string>
+    <!-- Routing setting that covers funiculars, cable trams and aerial lifts. -->
+    <string name="transit_mode_cable">Funiculars and cable transport</string>
+    <string name="transit_mode_air">Air services</string>
+
     <!-- SECTION: gps strings -->
     <!-- Editor section title that shows recently used categories (types of objects) when adding a place on the map -->
     <string name="editor_add_select_category_recent_subtitle">Recently Used</string>

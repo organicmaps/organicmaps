@@ -1204,6 +1204,28 @@
 "show_downloaded_regions" = "Vùng đã tải về màu tím";
 
 
+/********** Qt UI strings **********/
+
+
+/* Public transport routing profile, including subway and trains. */
+"public_transport" = "Public transport";
+
+/* Heading for the types of public transport that routing may use. */
+"transit_mode_options" = "Allowed transport";
+
+/* Routing setting that covers trains and light rail. */
+"transit_mode_rail" = "Train and light rail";
+
+/* Routing setting that covers ferries and other public water services. */
+"transit_mode_ferry" = "Ferries";
+"transit_mode_trolleybus" = "Trolleybus";
+"transit_mode_monorail" = "Monorail";
+
+/* Routing setting that covers funiculars, cable trams and aerial lifts. */
+"transit_mode_cable" = "Funiculars and cable transport";
+"transit_mode_air" = "Air services";
+
+
 /********** gps strings **********/
 
 
@@ -1248,3 +1270,9 @@
 
 /* Accessibility label for the button that reverses the complete planned route, including intermediate stops. */
 "reverse_route" = "Đảo ngược tuyến đường";
+
+/* Spoken name of the bus transport type, read by screen readers before a line number on transit line badges (route summary and details). */
+"transit_type_bus" = "Xe buýt";
+
+/* Spoken name of the tram (streetcar) transport type, read by screen readers before a line number on transit line badges (route summary and details). */
+"transit_type_tram" = "Xe điện";
