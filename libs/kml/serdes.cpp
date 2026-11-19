@@ -13,6 +13,7 @@
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
+#include <algorithm>
 #include <unordered_set>
 
 #include <glaze/util/zmij.hpp>
@@ -432,100 +433,44 @@ void SaveTrackLayer(Writer & writer, TrackLayer const & layer, std::string_view 
   writer << indent << "<width>" << strings::to_string(layer.m_lineWidth) << "</width>\n";
 }
 
-void SaveLineStrings(Writer & writer, MultiGeometry const & geom)
-{
-  auto linesIndent = kIndent4;
-  auto const lineStringsSize = geom.GetNumberOfLinesWithouTimestamps();
-
-  if (lineStringsSize > 1)
-  {
-    linesIndent = kIndent8;
-    writer << kIndent4 << "<MultiGeometry>\n";
-  }
-
-  for (size_t lineIndex = 0; lineIndex < geom.m_lines.size(); ++lineIndex)
-  {
-    auto const & line = geom.m_lines[lineIndex];
-    if (line.empty())
-    {
-      LOG(LERROR, ("Unexpected empty Track"));
-      continue;
-    }
-
-    // Skip the tracks with the timestamps when writing the <LineString> points.
-    if (geom.HasTimestampsFor(lineIndex))
-      continue;
-
-    writer << linesIndent << "<LineString><coordinates>";
-
-    writer << PointToLineString(line[0]);
-    for (size_t pointIndex = 1; pointIndex < line.size(); ++pointIndex)
-      writer << " " << PointToLineString(line[pointIndex]);
-
-    writer << "</coordinates></LineString>\n";
-  }
-
-  if (lineStringsSize > 1)
-    writer << kIndent4 << "</MultiGeometry>\n";
-}
-
-void SaveGxTracks(Writer & writer, MultiGeometry const & geom)
-{
-  auto linesIndent = kIndent4;
-  auto const gxTracksSize = geom.GetNumberOfLinesWithTimestamps();
-
-  if (gxTracksSize > 1)
-  {
-    linesIndent = kIndent8;
-    writer << kIndent4 << "<gx:MultiTrack>\n";
-    /// @TODO(KK): add the <altitudeMode>absolute</altitudeMode> if needed
-  }
-
-  for (size_t lineIndex = 0; lineIndex < geom.m_lines.size(); ++lineIndex)
-  {
-    auto const & line = geom.m_lines[lineIndex];
-    if (line.empty())
-    {
-      LOG(LERROR, ("Unexpected empty Track"));
-      continue;
-    }
-
-    // Skip the tracks without the timestamps when writing the <gx:Track> points.
-    if (!geom.HasTimestampsFor(lineIndex))
-      continue;
-
-    writer << linesIndent << "<gx:Track>\n";
-    /// @TODO(KK): add the <altitudeMode>absolute</altitudeMode> if needed
-
-    auto const & timestamps = geom.m_timestamps[lineIndex];
-    CHECK_EQUAL(line.size(), timestamps.size(), ());
-
-    for (auto const & time : timestamps)
-      writer << linesIndent << kIndent4 << "<when>" << base::SecondsSinceEpochToString(time) << "</when>\n";
-
-    for (auto const & point : line)
-      writer << linesIndent << kIndent4 << "<gx:coord>" << PointToGxString(point) << "</gx:coord>\n";
-
-    writer << linesIndent << "</gx:Track>\n";
-  }
-
-  if (gxTracksSize > 1)
-    writer << kIndent4 << "</gx:MultiTrack>\n";
-}
-
 void SaveTrackGeometry(Writer & writer, MultiGeometry const & geom)
 {
-  size_t const sz = geom.m_lines.size();
-  if (sz == 0)
+  size_t const size = geom.m_lines.size();
+  ASSERT_GREATER(size, 0, ());
+  CHECK_EQUAL(size, geom.m_timestamps.size(), ("Number of coordinates and timestamps should match"));
+
+  // gx:MultiTrack accepts only gx:Track; mixed sections need MultiGeometry to keep their order.
+  bool const allTimed = std::ranges::all_of(geom.m_timestamps, [](auto const & times) { return !times.empty(); });
+  auto const tag = allTimed ? "gx:MultiTrack" : "MultiGeometry";
+  auto const indent = size > 1 ? kIndent8 : kIndent4;
+  if (size > 1)
+    writer << kIndent4 << "<" << tag << ">\n";
+
+  for (size_t i = 0; i < size; ++i)
   {
-    LOG(LERROR, ("Unexpected empty MultiGeometry"));
-    return;
+    auto const & line = geom.m_lines[i];
+    ASSERT_GREATER(line.size(), 1, (i));
+    auto const & times = geom.m_timestamps[i];
+    if (times.empty())
+    {
+      writer << indent << "<LineString><coordinates>" << PointToLineString(line.front());
+      for (size_t j = 1; j < line.size(); ++j)
+        writer << " " << PointToLineString(line[j]);
+      writer << "</coordinates></LineString>\n";
+    }
+    else
+    {
+      CHECK_EQUAL(line.size(), times.size(), ());
+      writer << indent << "<gx:Track>\n";
+      for (auto const time : times)
+        writer << indent << kIndent4 << "<when>" << base::SecondsSinceEpochToString(time) << "</when>\n";
+      for (auto const & point : line)
+        writer << indent << kIndent4 << "<gx:coord>" << PointToGxString(point) << "</gx:coord>\n";
+      writer << indent << "</gx:Track>\n";
+    }
   }
-
-  CHECK_EQUAL(geom.m_lines.size(), geom.m_timestamps.size(), ("Number of coordinates and timestamps should match"));
-
-  SaveLineStrings(writer, geom);
-  SaveGxTracks(writer, geom);
+  if (size > 1)
+    writer << kIndent4 << "</" << tag << ">\n";
 }
 
 void SaveTrackExtendedData(Writer & writer, TrackData const & trackData)

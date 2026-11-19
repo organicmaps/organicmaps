@@ -58,21 +58,6 @@ bool MultiGeometry::HasTimestampsFor(size_t lineIndex) const
   return !m_timestamps[lineIndex].empty();
 }
 
-size_t MultiGeometry::GetNumberOfLinesWithouTimestamps() const
-{
-  return m_lines.size() - GetNumberOfLinesWithTimestamps();
-}
-
-size_t MultiGeometry::GetNumberOfLinesWithTimestamps() const
-{
-  ASSERT_EQUAL(m_lines.size(), m_timestamps.size(), ());
-  size_t size = 0;
-  for (auto const & timestamp : m_timestamps)
-    if (!timestamp.empty())
-      ++size;
-  return size;
-}
-
 void MultiGeometry::FromPoints(std::vector<m2::PointD> const & points)
 {
   LineT line;

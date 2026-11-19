@@ -452,9 +452,6 @@ struct MultiGeometry
 
   bool HasTimestamps() const;
   bool HasTimestampsFor(size_t lineIndex) const;
-
-  size_t GetNumberOfLinesWithouTimestamps() const;
-  size_t GetNumberOfLinesWithTimestamps() const;
 };
 
 // Intermediate route stop. KML preserves it; GPX imports named rtepts and exports waypoints,
