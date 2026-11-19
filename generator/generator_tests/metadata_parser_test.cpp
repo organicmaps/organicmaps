@@ -322,16 +322,37 @@ UNIT_CLASS_TEST(TestWithClassificator, ValidateAndFormat_facebook)
   TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_FACEBOOK), "238702340219158/posts/284664265622965", ());
   md.Drop(Metadata::FMD_CONTACT_FACEBOOK);
 
-  p("contact:facebook", "https://facebook.com/238702340219158/posts/284664265622965");
-  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_FACEBOOK), "238702340219158/posts/284664265622965", ());
-  md.Drop(Metadata::FMD_CONTACT_FACEBOOK);
-
   p("contact:facebook", "https://fr-fr.facebook.com/people/Paillote-Lgm/100012630853826/");
   TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_FACEBOOK), "people/Paillote-Lgm/100012630853826", ());
   md.Drop(Metadata::FMD_CONTACT_FACEBOOK);
 
   p("contact:facebook", "https://www.sandwichparlour.com.au/");
   TEST(md.Empty(), ());
+
+  // https://github.com/organicmaps/organicmaps/issues/4840
+  // Percent-encoded non-ASCII page names are shown to users, so they are decoded.
+  auto const facebook = [&](std::string const & value)
+  {
+    p("contact:facebook", value);
+    std::string result(md.Get(Metadata::FMD_CONTACT_FACEBOOK));
+    md.Drop(Metadata::FMD_CONTACT_FACEBOOK);
+    return result;
+  };
+  TEST_EQUAL(facebook("https://www.facebook.com/"
+                      "%E4%BE%86%E5%8E%BB%E5%81%A5%E8%BA%AB-LuckyGym-%E5%A4%A7%E9%87%8C%E5%BA%97-880179549008233"),
+             "來去健身-LuckyGym-大里店-880179549008233", ());
+  TEST_EQUAL(facebook("https://facebook.com/people/Caf%C3%A9-Ol%C3%A9/1000123456789"), "people/Café-Olé/1000123456789",
+             ());
+  TEST_EQUAL(facebook("https://facebook.com/Caf%c3%a9+Ol%c3%a9"), "Café+Olé", ());
+  // A literal '+' is kept. ASCII or malformed escapes, invalid UTF-8 and characters beyond U+FFFF keep the whole
+  // path unchanged.
+  TEST_EQUAL(facebook("https://facebook.com/Caf%C3%A9-Gym-%F0%9F%8F%8B"), "Caf%C3%A9-Gym-%F0%9F%8F%8B", ());
+  TEST_EQUAL(facebook("https://facebook.com/Caf%C3%A9%G0"), "Caf%C3%A9%G0", ());
+  TEST_EQUAL(facebook("https://facebook.com/Caf%C3%A9%8G"), "Caf%C3%A9%8G", ());
+  TEST_EQUAL(facebook("https://facebook.com/a%2Fb+c%20d"), "a%2Fb+c%20d", ());
+  TEST_EQUAL(facebook("https://facebook.com/bad%E4%BE-%FF%C3"), "bad%E4%BE-%FF%C3", ());
+  TEST_EQUAL(facebook("https://facebook.com/end%E4%B"), "end%E4%B", ());
+  TEST_EQUAL(facebook("https://facebook.com/%E4%BE%86%20Gym"), "%E4%BE%86%20Gym", ());
 }
 
 UNIT_CLASS_TEST(TestWithClassificator, ValidateAndFormat_instagram)
@@ -536,10 +557,6 @@ UNIT_CLASS_TEST(TestWithClassificator, ValidateAndFormat_contactLine)
 
   p("contact:line", "http://line.me/R/home/public/profile?id=5qll5dyqqu");
   TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_LINE), "5qll5dyqqu", ());
-  md.Drop(Metadata::FMD_CONTACT_LINE);
-
-  p("contact:line", "https://line.me/R/home/public/profile?id=r90ck7n1rq");
-  TEST_EQUAL(md.Get(Metadata::FMD_CONTACT_LINE), "r90ck7n1rq", ());
   md.Drop(Metadata::FMD_CONTACT_LINE);
 
   p("contact:line", "https://line.me/R/home/public/profile?id=r90ck7n1rq");
