@@ -4,7 +4,9 @@ A branded fork of [Organic Maps](https://organicmaps.app) for Syria with:
 
 - sign-in (only needed for recording; the map works without it) with phone number + a 6-digit PIN the user
   chooses (a new number registers right away, marked "unverified" until confirmed by Telegram or SMS, which
-  then takes the account over) or the Telegram bot (also the way back after a forgotten PIN); the PIN fields
+  then takes the account over), the Telegram bot (also the way back after a forgotten PIN), or anonymously
+  ("Record anonymously": no phone number, recordings and live location are kept under the device ID shown in
+  Settings, proven by a secret only the app holds; `POST /auth/device`); the PIN fields
   work with Android autofill / password managers; Syria (+963) is the default country code. SMS codes stay
   switched off on the server until a real SMS provider is set (`ALLOW_FAKE_OTP=true` re-enables the fixed
   test code for local development only). The sign-in screen opens with spoken instructions (? icon);
@@ -41,8 +43,8 @@ so upstream Organic Maps changes stay easy to merge.
 |---|---|
 | App id / name | `android/build.gradle` (`appId`), `android/settings.gradle`, `android/libs/branding/.../donottranslate.xml` |
 | Icons | `android/libs/branding/src/main/res/` (generated from `Syria/assets/osm-syria-logo.svg`) |
-| Tracking API URL | `-PsyriaApiUrl=http://host:3000` at build time (default `http://192.168.0.31:3000`, see `android/app/build.gradle`) |
-| Map server | `private.h`: `DEFAULT_URLS_JSON` (default `http://192.168.0.31:8080/`), `METASERVER_URL` empty |
+| API + map server | Public builds (Google Play, APK): always `https://organicmaps.openstreetmap.sy` (`SYRIA_API_URL` / `SYRIA_MAPS_URL` in `android/app/build.gradle`; `DEFAULT_URLS_JSON` in `private.h` for the other platforms) |
+| Development server | Debug builds, and release builds made with `-PsyriaDevSettings`, show Settings → "Data server (development)": production or the local Docker server (`http://192.168.0.31:3000` API, `:8080` maps; change the host with `-PsyriaLocalHost=<LAN IP>`). Switching signs out and restarts the app |
 | Privacy policy / website | `SYRIA_PRIVACY_URL`, `SYRIA_WEBSITE_URL` in `android/app/build.gradle` |
 | Release signing | `Syria/keystore/release.jks` + `android/app/secure.properties` (both ignored by git, see `Syria/keystore/README.md`) |
 | Languages | `supportedLocalizations=ar,en` in `android/gradle.properties` |
@@ -52,7 +54,8 @@ so upstream Organic Maps changes stay easy to merge.
 ```bash
 cd android
 ./gradlew assembleGoogleDebug -Parm64                  # Pixel / any phone with Google services
-./gradlew assembleGoogleRelease -Parm64                # signed with Syria/keystore/release.jks
+./gradlew assembleGoogleRelease -Parm64                # signed with Syria/keystore/release.jks (production server only)
+./gradlew assembleGoogleRelease -Parm64 -PsyriaDevSettings   # same, plus the server choice in Settings (test APKs)
 ./gradlew assembleHuaweiRelease -Parm64                # Huawei build (same code, AppGallery id/version code)
 ./gradlew :app:testGoogleDebugUnitTest --tests "app.organicmaps.syria.*"
 ```

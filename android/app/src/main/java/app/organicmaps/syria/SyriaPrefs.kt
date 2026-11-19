@@ -2,8 +2,10 @@ package app.organicmaps.syria
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Base64
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import java.security.SecureRandom
 import java.util.UUID
 
 /**
@@ -13,6 +15,9 @@ import java.util.UUID
 object SyriaPrefs {
     private const val FILE = "syria_prefs"
     private const val KEY_DEVICE_ID = "device_id"
+    private const val KEY_DEVICE_SECRET = "device_secret"
+    private const val KEY_ANONYMOUS = "anonymous"
+    private const val KEY_SERVER = "server"
     private const val KEY_ACCESS = "access_token"
     private const val KEY_REFRESH = "refresh_token"
     private const val KEY_USER_ID = "user_id"
@@ -35,6 +40,8 @@ object SyriaPrefs {
     private const val KEY_LARGE_FONTS_DEFAULT = "large_fonts_default_applied"
     private const val KEY_KEEP_SCREEN_ON_DEFAULT = "keep_screen_on_default_applied"
 
+    private const val DEVICE_SECRET_BYTES = 32
+
     private val loggedIn = MutableLiveData<Boolean>()
 
     private fun prefs(context: Context): SharedPreferences =
@@ -50,8 +57,25 @@ object SyriaPrefs {
         return id
     }
 
+    /**
+     * Proves this install to the server for anonymous recording (the device id alone is shown to the user).
+     * Never displayed; generated on first use.
+     */
+    fun deviceSecret(context: Context): String {
+        val p = prefs(context)
+        p.getString(KEY_DEVICE_SECRET, null)?.let { return it }
+        val bytes = ByteArray(DEVICE_SECRET_BYTES).also { SecureRandom().nextBytes(it) }
+        val secret = Base64.encodeToString(bytes, Base64.NO_WRAP or Base64.NO_PADDING or Base64.URL_SAFE)
+        p.edit().putString(KEY_DEVICE_SECRET, secret).apply()
+        return secret
+    }
+
     @JvmStatic
     fun isLoggedIn(context: Context): Boolean = prefs(context).getString(KEY_REFRESH, null) != null
+
+    /** Signed in anonymously: recordings go to this install's account, without a phone number. */
+    @JvmStatic
+    fun isAnonymous(context: Context): Boolean = isLoggedIn(context) && prefs(context).getBoolean(KEY_ANONYMOUS, false)
 
     @JvmStatic
     fun loggedIn(context: Context): LiveData<Boolean> {
@@ -76,6 +100,7 @@ object SyriaPrefs {
         val userId: String,
         val phone: String?,
         val displayName: String?,
+        val anonymous: Boolean,
     )
 
     fun setSession(context: Context, session: Session) {
@@ -85,6 +110,7 @@ object SyriaPrefs {
             .putString(KEY_USER_ID, session.userId)
             .putString(KEY_PHONE, session.phone)
             .putString(KEY_NAME, session.displayName)
+            .putBoolean(KEY_ANONYMOUS, session.anonymous)
             .apply()
         loggedIn.postValue(true)
         SyriaStatus.refresh(context)
@@ -102,9 +128,34 @@ object SyriaPrefs {
             .remove(KEY_USER_ID)
             .remove(KEY_PHONE)
             .remove(KEY_NAME)
+            .remove(KEY_ANONYMOUS)
             .apply()
         loggedIn.postValue(false)
         SyriaStatus.refresh(context)
+    }
+
+    /** Development builds: the server chosen in Settings (SyriaServer.PRODUCTION / LOCAL), null if never chosen. */
+    @JvmStatic
+    fun server(context: Context): String? = prefs(context).getString(KEY_SERVER, null)
+
+    /**
+     * Stores another server and signs out of the current one in one synchronous write: the app restarts right
+     * after, before an asynchronous write could finish.
+     */
+    fun switchServer(context: Context, server: String) {
+        prefs(context).edit()
+            .putString(KEY_SERVER, server)
+            .remove(KEY_ACCESS)
+            .remove(KEY_REFRESH)
+            .remove(KEY_USER_ID)
+            .remove(KEY_PHONE)
+            .remove(KEY_NAME)
+            .remove(KEY_ANONYMOUS)
+            .remove(KEY_LAST_SYNC)
+            .remove(KEY_LAST_SYNC_FAILED)
+            .remove(KEY_LAST_SYNC_ERROR)
+            .remove(KEY_LAST_SYNC_RESULT_AT)
+            .commit()
     }
 
     @JvmStatic

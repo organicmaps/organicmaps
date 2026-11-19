@@ -29,7 +29,7 @@ object ApiClient {
     }
 
     val baseUrl: String
-        get() = BuildConfig.SYRIA_API_URL.trimEnd('/')
+        get() = SyriaServer.apiUrl
 
     @JvmStatic
     fun deviceJson(context: Context): JSONObject =
@@ -72,6 +72,18 @@ object ApiClient {
         return res
     }
 
+    /**
+     * Anonymous recording: signs this install in without a phone number. Its recordings and live location
+     * are kept under the device id; the same account comes back after signing out and in again.
+     */
+    @WorkerThread
+    fun deviceLogin(context: Context): JSONObject {
+        val body = JSONObject().put("secret", SyriaPrefs.deviceSecret(context)).put("device", deviceJson(context))
+        val res = post("/auth/device", body, null)
+        storeSession(context, res, null)
+        return res
+    }
+
     /** Sets or changes the PIN of the signed-in user. */
     @WorkerThread
     fun setPin(context: Context, pin: String): JSONObject = authed(context) { token ->
@@ -87,6 +99,7 @@ object ApiClient {
             userId = user.getString("id"),
             phone = user.optString("phone").takeIf { it.isNotEmpty() && it != "null" } ?: fallbackPhone,
             displayName = name,
+            anonymous = user.optBoolean("anonymous"),
         )
         SyriaPrefs.setSession(context, session)
     }

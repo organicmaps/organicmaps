@@ -74,9 +74,12 @@ class TrackingActivity : BaseMwmFragmentActivity() {
     private lateinit var syncNow: MaterialButton
     private lateinit var liveButton: MaterialButton
     private lateinit var syncProgress: LinearProgressIndicator
+    private lateinit var historyTitle: TextView
     private lateinit var historyEmpty: TextView
+    private lateinit var clearAll: View
     private lateinit var pager: View
     private lateinit var pageLabel: TextView
+    private lateinit var pageRange: TextView
     private lateinit var pagePrev: View
     private lateinit var pageNext: View
     private val adapter = SessionAdapter()
@@ -146,9 +149,13 @@ class TrackingActivity : BaseMwmFragmentActivity() {
         SyriaStatus.online().observe(this) { renderLiveToggle() }
         LiveLocationService.running().observe(this) { renderLiveToggle() }
         syncProgress = findViewById(R.id.tracking_sync_progress)
+        historyTitle = findViewById(R.id.tracking_history_title)
         historyEmpty = findViewById(R.id.tracking_history_empty)
+        clearAll = findViewById(R.id.tracking_clear_all)
+        clearAll.setOnClickListener { confirmClearAll() }
         pager = findViewById(R.id.tracking_pager)
         pageLabel = findViewById(R.id.tracking_page_label)
+        pageRange = findViewById(R.id.tracking_page_range)
         pagePrev = findViewById(R.id.tracking_page_prev)
         pageNext = findViewById(R.id.tracking_page_next)
 
@@ -441,17 +448,68 @@ class TrackingActivity : BaseMwmFragmentActivity() {
             val pages = maxOf(1, (total + PAGE_SIZE - 1) / PAGE_SIZE)
             val current = page.coerceIn(0, pages - 1)
             val sessions = db.listSessions(PAGE_SIZE, current * PAGE_SIZE)
+            val hasFinished = sessions.any { it.status == TrackingDb.STATUS_STOPPED } || total > sessions.size
             runOnUiThread {
                 if (isFinishing) return@runOnUiThread
                 page = current
                 adapter.submit(sessions)
+                historyTitle.text =
+                    if (total == 0) getString(R.string.syria_history) else getString(R.string.syria_history_count, total)
                 historyEmpty.visibility = if (total == 0) View.VISIBLE else View.GONE
-                pager.visibility = if (pages > 1) View.VISIBLE else View.GONE
+                clearAll.visibility = if (hasFinished) View.VISIBLE else View.GONE
+                pager.visibility = if (total > 0) View.VISIBLE else View.GONE
                 pageLabel.text = getString(R.string.syria_page_format, current + 1, pages)
+                val first = current * PAGE_SIZE + 1
+                pageRange.text = getString(R.string.syria_page_range, first, first + sessions.size - 1, total)
+                // A single page needs no buttons, only where the list starts and ends.
+                val buttons = if (pages > 1) View.VISIBLE else View.INVISIBLE
+                pagePrev.visibility = buttons
+                pageNext.visibility = buttons
                 pagePrev.isEnabled = current > 0
                 pagePrev.alpha = if (current > 0) 1f else DISABLED_ALPHA
                 pageNext.isEnabled = current < pages - 1
                 pageNext.alpha = if (current < pages - 1) 1f else DISABLED_ALPHA
+            }
+        }.start()
+    }
+
+    /** Deletes every finished recording from the device after a confirmation that says what will be lost. */
+    private fun confirmClearAll() {
+        Thread {
+            val db = TrackingDb.get(this)
+            val finished = db.countSessions() - (if (db.getOpenSession() != null) 1 else 0)
+            val unsynced = db.countUnsyncedStoppedSessions()
+            runOnUiThread {
+                if (isFinishing || finished <= 0) return@runOnUiThread
+                val message = buildString {
+                    append(resources.getQuantityString(R.plurals.syria_history_clear_all_confirm, finished, finished))
+                    if (unsynced > 0) {
+                        append("\n\n")
+                        append(resources.getQuantityString(R.plurals.syria_history_clear_unsynced, unsynced, unsynced))
+                    }
+                }
+                MaterialAlertDialogBuilder(this)
+                    .setTitle(R.string.syria_history_clear_all_title)
+                    .setMessage(message)
+                    .setNegativeButton(R.string.syria_cancel, null)
+                    .setPositiveButton(R.string.syria_history_clear_all) { _, _ -> clearAllRecordings() }
+                    .show()
+            }
+        }.start()
+    }
+
+    private fun clearAllRecordings() {
+        Thread {
+            val deleted = TrackingDb.get(this).deleteStoppedSessions()
+            runOnUiThread {
+                if (isFinishing) return@runOnUiThread
+                page = 0
+                loadHistory()
+                Toast.makeText(
+                    this,
+                    resources.getQuantityString(R.plurals.syria_history_cleared, deleted, deleted),
+                    Toast.LENGTH_SHORT,
+                ).show()
             }
         }.start()
     }

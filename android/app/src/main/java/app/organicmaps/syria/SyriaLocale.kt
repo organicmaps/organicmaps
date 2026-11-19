@@ -93,7 +93,9 @@ object SyriaLocale {
             .show()
     }
 
-    private fun restart(activity: Activity) {
+    /** Restarts the app from its launcher screen (a new process, so the core starts afresh). */
+    @JvmStatic
+    fun restart(activity: Activity) {
         val launch = activity.packageManager.getLaunchIntentForPackage(activity.packageName) ?: return
         activity.startActivity(Intent.makeRestartActivityTask(launch.component))
         Runtime.getRuntime().exit(0)

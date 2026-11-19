@@ -32,6 +32,7 @@ import app.organicmaps.sdk.location.LocationUtils;
 import app.organicmaps.sdk.location.SensorHelper;
 import app.organicmaps.sdk.location.TrackRecorder;
 import app.organicmaps.syria.SyriaLocale;
+import app.organicmaps.syria.SyriaServer;
 import app.organicmaps.syria.SyriaStatus;
 import app.organicmaps.syria.tracking.ActivityTrackingService;
 import app.organicmaps.syria.tracking.LiveLocationService;
@@ -135,6 +136,8 @@ public class MwmApplication extends Application implements Application.ActivityL
     PreferenceManager.setDefaultValues(this, R.xml.prefs_main, false);
     mOrganicMaps = new OrganicMaps(getApplicationContext(), BuildConfig.FLAVOR, BuildConfig.APPLICATION_ID,
                                    BuildConfig.VERSION_CODE, BuildConfig.VERSION_NAME);
+    // API and map server (production, or the local one in development builds), before the core starts.
+    SyriaServer.init(this);
 
     DownloaderNotifier.createNotificationChannel(this);
     initNavigationService();

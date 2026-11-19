@@ -153,7 +153,7 @@ std::string Platform::MetaServerUrl() const
 
 std::string Platform::DefaultUrlsJSON() const
 {
-  return DEFAULT_URLS_JSON;
+  return m_defaultUrlsJSON.empty() ? DEFAULT_URLS_JSON : m_defaultUrlsJSON;
 }
 
 bool Platform::RemoveFileIfExists(std::string const & filePath)

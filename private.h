@@ -10,7 +10,7 @@
 #define METASERVER_URL ""
 #define DIFF_LIST_URL ""
 #define DEFAULT_URLS_JSON \
-  R"({"servers":["http://192.168.0.31:8080/"],"terrainServers":["http://192.168.0.31:8080/"]})"
+  R"({"servers":["https://organicmaps.openstreetmap.sy/"],"terrainServers":["https://organicmaps.openstreetmap.sy/"]})"
 #define DEFAULT_CONNECTION_CHECK_IP "162.55.100.169"  // For now the IP of cdn.organicmaps.app
 #define TRAFFIC_DATA_BASE_URL ""
 #define USER_BINDING_PKCS12 ""

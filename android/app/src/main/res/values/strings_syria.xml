@@ -153,4 +153,39 @@
   <string name="syria_about_website">Website and privacy policy</string>
   <!-- Downloader list: when a downloaded map was last downloaded or updated on this phone. -->
   <string name="syria_downloader_updated">Last updated: %s</string>
+
+  <!-- Anonymous recording: no phone number, data kept under the device id. -->
+  <string name="syria_login_anonymous">Record anonymously (no phone number)</string>
+  <string name="syria_login_anonymous_hint">Your recordings and live location are saved under this phone\'s device ID only, without a phone number or name.</string>
+  <string name="syria_pref_account_anonymous">Anonymous (this device only)</string>
+  <string name="syria_pref_device_id">Device ID</string>
+  <string name="syria_pref_device_id_copied">Device ID copied</string>
+
+  <!-- Development builds only: server for the tracking API and the map downloads. -->
+  <string name="syria_pref_server">Data server (development)</string>
+  <string name="syria_server_production">Organic Maps Syria (%s)</string>
+  <string name="syria_server_local">Local development server (%s)</string>
+  <string name="syria_server_switch_confirm">Switch the server for the API and the map downloads? You will be signed out (recordings not synced yet stay on this phone) and the app restarts.</string>
+  <string name="syria_server_stop_recording_first">Stop the recording before switching the server.</string>
+
+  <!-- Recordings list: count, pages and deleting all of them from the phone. -->
+  <string name="syria_history_count">Recordings (%d)</string>
+  <string name="syria_page_range">%1$d–%2$d of %3$d</string>
+  <string name="syria_page_previous_short">Previous</string>
+  <string name="syria_page_next_short">Next</string>
+  <string name="syria_history_clear_all">Delete all</string>
+  <string name="syria_history_clear_all_long">Delete all recordings from this phone</string>
+  <string name="syria_history_clear_all_title">Delete all recordings?</string>
+  <plurals name="syria_history_clear_all_confirm">
+    <item quantity="one">%d finished recording will be deleted from this phone. This cannot be undone. Data already synced stays on the server.</item>
+    <item quantity="other">%d finished recordings will be deleted from this phone. This cannot be undone. Data already synced stays on the server.</item>
+  </plurals>
+  <plurals name="syria_history_clear_unsynced">
+    <item quantity="one">%d of them is not synced yet and will be lost.</item>
+    <item quantity="other">%d of them are not synced yet and will be lost.</item>
+  </plurals>
+  <plurals name="syria_history_cleared">
+    <item quantity="one">%d recording deleted</item>
+    <item quantity="other">%d recordings deleted</item>
+  </plurals>
 </resources>

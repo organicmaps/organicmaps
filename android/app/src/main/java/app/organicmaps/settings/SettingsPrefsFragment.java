@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.ListPreference;
@@ -44,6 +45,7 @@ import app.organicmaps.syria.ApiClient;
 import app.organicmaps.syria.SyriaFormat;
 import app.organicmaps.syria.SyriaLocale;
 import app.organicmaps.syria.SyriaPrefs;
+import app.organicmaps.syria.SyriaServer;
 import app.organicmaps.syria.account.LoginActivity;
 import app.organicmaps.syria.account.PinDialog;
 import app.organicmaps.syria.tracking.ActivityTrackingService;
@@ -184,6 +186,12 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
         Utils.openUrl(requireContext(), BuildConfig.SYRIA_PRIVACY_URL);
         return true;
       }
+      else if (key.equals(getString(R.string.pref_syria_device_id)))
+      {
+        Utils.copyTextToClipboard(requireContext(), SyriaPrefs.deviceId(requireContext()));
+        Toast.makeText(requireContext(), R.string.syria_pref_device_id_copied, Toast.LENGTH_SHORT).show();
+        return true;
+      }
       else if (key.equals(getString(R.string.pref_help)))
       {
         startActivity(new Intent(requireActivity(), HelpActivity.class));
@@ -207,6 +215,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
       return true;
     });
     updateSyriaAccountSummary();
+    getPreference(getString(R.string.pref_syria_device_id)).setSummary(SyriaPrefs.deviceId(requireContext()));
 
     final ListPreference languagePref = getPreference(getString(R.string.pref_syria_app_language));
     languagePref.setValue(SyriaLocale.currentLanguage(requireContext()));
@@ -214,17 +223,55 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment implements La
       SyriaLocale.setAppLanguage((String) newValue);
       return true;
     });
+    initSyriaServerPref();
+  }
+
+  /** Development builds only: production or the local server, for both the tracking API and the maps. */
+  private void initSyriaServerPref()
+  {
+    if (!SyriaServer.isSelectable())
+      return;
+    final ListPreference serverPref = getPreference(getString(R.string.pref_syria_server));
+    serverPref.setVisible(true);
+    serverPref.setEntries(new CharSequence[] {
+        getString(R.string.syria_server_production, SyriaServer.host(SyriaServer.PRODUCTION)),
+        getString(R.string.syria_server_local, SyriaServer.host(SyriaServer.LOCAL))});
+    serverPref.setEntryValues(new CharSequence[] {SyriaServer.PRODUCTION, SyriaServer.LOCAL});
+    serverPref.setValue(SyriaServer.current());
+    serverPref.setSummary(serverPref.getEntry());
+    // Applied only after the confirmation: it signs out and restarts the app.
+    serverPref.setOnPreferenceChangeListener((preference, newValue) -> {
+      final String server = (String) newValue;
+      if (server.equals(SyriaServer.current()))
+        return false;
+      new MaterialAlertDialogBuilder(requireActivity())
+          .setTitle(R.string.syria_pref_server)
+          .setMessage(R.string.syria_server_switch_confirm)
+          .setNegativeButton(R.string.syria_cancel, null)
+          .setPositiveButton(R.string.syria_restart_now, (dialog, which) -> {
+            if (!SyriaServer.switchTo(requireActivity(), server))
+              Toast.makeText(requireContext(), R.string.syria_server_stop_recording_first, Toast.LENGTH_LONG).show();
+          })
+          .show();
+      return false;
+    });
   }
 
   private void updateSyriaAccountSummary()
   {
     final Preference pref = getPreference(getString(R.string.pref_syria_account));
     final Context context = requireContext();
-    // The PIN belongs to the signed-in account.
-    getPreference(getString(R.string.pref_syria_pin)).setVisible(SyriaPrefs.isLoggedIn(context));
+    // The PIN belongs to an account with a phone number.
+    getPreference(getString(R.string.pref_syria_pin))
+        .setVisible(SyriaPrefs.isLoggedIn(context) && !SyriaPrefs.isAnonymous(context));
     if (!SyriaPrefs.isLoggedIn(context))
     {
       pref.setSummary(R.string.syria_pref_account_logged_out);
+      return;
+    }
+    if (SyriaPrefs.isAnonymous(context))
+    {
+      pref.setSummary(R.string.syria_pref_account_anonymous);
       return;
     }
     final String name = SyriaPrefs.displayName(context);

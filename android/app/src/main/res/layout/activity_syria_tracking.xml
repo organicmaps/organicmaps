@@ -248,12 +248,14 @@
         </LinearLayout>
       </com.google.android.material.card.MaterialCardView>
 
-      <!-- Recordings, 10 per page -->
+      <!-- Recordings, 10 per page: title with the count -->
       <TextView
+        android:id="@+id/tracking_history_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_base"
         android:text="@string/syria_history"
+        android:textAlignment="viewStart"
         android:textAppearance="?android:textAppearanceMedium"
         android:textStyle="bold" />
 
@@ -274,38 +276,73 @@
         android:layout_marginEnd="-16dp"
         android:nestedScrollingEnabled="false" />
 
+      <!-- Pager: shown whenever there are recordings, so the range ("1–10 of 25") is always visible. -->
       <LinearLayout
         android:id="@+id/tracking_pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_marginTop="@dimen/margin_half"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         android:visibility="gone">
 
-        <ImageButton
+        <com.google.android.material.button.MaterialButton
           android:id="@+id/tracking_page_prev"
-          android:layout_width="48dp"
-          android:layout_height="48dp"
-          android:background="?attr/selectableItemBackgroundBorderless"
-          android:contentDescription="@string/syria_page_previous"
-          android:src="@drawable/ic_syria_chevron_left" />
-
-        <TextView
-          android:id="@+id/tracking_page_label"
+          style="@style/Widget.MaterialComponents.Button.OutlinedButton"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginStart="@dimen/margin_half"
-          android:layout_marginEnd="@dimen/margin_half"
-          android:textAppearance="?android:textAppearanceSmall" />
+          android:text="@string/syria_page_previous_short"
+          android:contentDescription="@string/syria_page_previous"
+          app:icon="@drawable/ic_syria_chevron_left" />
 
-        <ImageButton
+        <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:gravity="center_horizontal"
+          android:orientation="vertical">
+
+          <TextView
+            android:id="@+id/tracking_page_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textStyle="bold" />
+
+          <TextView
+            android:id="@+id/tracking_page_range"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:textColor="?android:textColorSecondary" />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
           android:id="@+id/tracking_page_next"
-          android:layout_width="48dp"
-          android:layout_height="48dp"
-          android:background="?attr/selectableItemBackgroundBorderless"
+          style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/syria_page_next_short"
           android:contentDescription="@string/syria_page_next"
-          android:src="@drawable/ic_syria_chevron_right" />
+          app:icon="@drawable/ic_syria_chevron_right"
+          app:iconGravity="end" />
       </LinearLayout>
+
+      <!-- At the bottom, away from the list, so it is not tapped by mistake; asks before deleting. -->
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/tracking_clear_all"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_double"
+        android:layout_marginBottom="@dimen/margin_base"
+        android:text="@string/syria_history_clear_all_long"
+        android:textColor="@color/syria_sync_red"
+        android:visibility="gone"
+        app:icon="@drawable/ic_delete"
+        app:iconGravity="textStart"
+        app:iconTint="@color/syria_sync_red"
+        app:strokeColor="@color/syria_sync_red" />
     </LinearLayout>
   </androidx.core.widget.NestedScrollView>
 </LinearLayout>

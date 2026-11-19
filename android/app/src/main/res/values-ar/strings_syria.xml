@@ -128,4 +128,48 @@
   <string name="syria_about_proposition_1">بلا إعلانات. لا يُسجَّل نشاطك إلا عندما تبدأ التسجيل بنفسك.</string>
   <string name="syria_about_website">الموقع وسياسة الخصوصية</string>
   <string name="syria_downloader_updated">آخر تحديث: %s</string>
+
+  <string name="syria_login_anonymous">سجّل المسارات دون رقم هاتف (مجهول الهوية)</string>
+  <string name="syria_login_anonymous_hint">تُحفظ تسجيلاتك وموقعك المباشر باسم معرّف هذا الجهاز فقط، دون رقم هاتف أو اسم.</string>
+  <string name="syria_pref_account_anonymous">مجهول الهوية (هذا الجهاز فقط)</string>
+  <string name="syria_pref_device_id">معرّف الجهاز</string>
+  <string name="syria_pref_device_id_copied">تم نسخ معرّف الجهاز</string>
+
+  <string name="syria_pref_server">خادم البيانات (للتطوير)</string>
+  <string name="syria_server_production">خادم Organic Maps سوريا (%s)</string>
+  <string name="syria_server_local">خادم التطوير المحلي (%s)</string>
+  <string name="syria_server_switch_confirm">تغيير خادم الواجهة البرمجية وتنزيل الخرائط؟ سيتم تسجيل خروجك (تبقى التسجيلات غير المتزامنة على هذا الهاتف) وسيُعاد تشغيل التطبيق.</string>
+  <string name="syria_server_stop_recording_first">أوقف التسجيل قبل تغيير الخادم.</string>
+
+  <string name="syria_history_count">التسجيلات (%d)</string>
+  <string name="syria_page_range">%1$d–%2$d من %3$d</string>
+  <string name="syria_page_previous_short">السابق</string>
+  <string name="syria_page_next_short">التالي</string>
+  <string name="syria_history_clear_all">حذف الكل</string>
+  <string name="syria_history_clear_all_long">حذف كل التسجيلات من هذا الهاتف</string>
+  <string name="syria_history_clear_all_title">حذف كل التسجيلات؟</string>
+  <plurals name="syria_history_clear_all_confirm">
+    <item quantity="zero">لا توجد تسجيلات منتهية للحذف.</item>
+    <item quantity="one">سيُحذف تسجيل منتهٍ واحد من هذا الهاتف. لا يمكن التراجع عن ذلك. تبقى البيانات التي تمت مزامنتها على الخادم.</item>
+    <item quantity="two">سيُحذف تسجيلان منتهيان من هذا الهاتف. لا يمكن التراجع عن ذلك. تبقى البيانات التي تمت مزامنتها على الخادم.</item>
+    <item quantity="few">ستُحذف %d تسجيلات منتهية من هذا الهاتف. لا يمكن التراجع عن ذلك. تبقى البيانات التي تمت مزامنتها على الخادم.</item>
+    <item quantity="many">سيُحذف %d تسجيلاً منتهياً من هذا الهاتف. لا يمكن التراجع عن ذلك. تبقى البيانات التي تمت مزامنتها على الخادم.</item>
+    <item quantity="other">سيُحذف %d تسجيل منتهٍ من هذا الهاتف. لا يمكن التراجع عن ذلك. تبقى البيانات التي تمت مزامنتها على الخادم.</item>
+  </plurals>
+  <plurals name="syria_history_clear_unsynced">
+    <item quantity="zero">كل التسجيلات تمت مزامنتها.</item>
+    <item quantity="one">تسجيل واحد منها لم تتم مزامنته بعد وسيُفقد.</item>
+    <item quantity="two">تسجيلان منها لم تتم مزامنتهما بعد وسيُفقدان.</item>
+    <item quantity="few">%d تسجيلات منها لم تتم مزامنتها بعد وستُفقد.</item>
+    <item quantity="many">%d تسجيلاً منها لم تتم مزامنتها بعد وستُفقد.</item>
+    <item quantity="other">%d تسجيل منها لم تتم مزامنتها بعد وستُفقد.</item>
+  </plurals>
+  <plurals name="syria_history_cleared">
+    <item quantity="zero">لم يُحذف أي تسجيل</item>
+    <item quantity="one">حُذف تسجيل واحد</item>
+    <item quantity="two">حُذف تسجيلان</item>
+    <item quantity="few">حُذفت %d تسجيلات</item>
+    <item quantity="many">حُذف %d تسجيلاً</item>
+    <item quantity="other">حُذف %d تسجيل</item>
+  </plurals>
 </resources>

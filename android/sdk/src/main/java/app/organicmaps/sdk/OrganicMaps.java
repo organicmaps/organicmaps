@@ -300,6 +300,12 @@ public final class OrganicMaps implements DefaultLifecycleObserver
 
   private static native void nativeInitFramework(@NonNull Runnable onComplete);
 
+  /**
+   * Map and terrain servers to use instead of the ones built into the core (DEFAULT_URLS_JSON), as
+   * {@code {"servers":[...],"terrainServers":[...]}}. Call before the core starts, e.g. in Application.onCreate().
+   */
+  public static native void nativeSetDefaultUrls(@NonNull String json);
+
   private static native void nativeAddLocalization(String name, String value);
 
   private static native void nativeOnTransit(boolean foreground);

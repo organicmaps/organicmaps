@@ -25,6 +25,12 @@ JNIEXPORT void Java_app_organicmaps_sdk_OrganicMaps_nativeInitPlatform(JNIEnv * 
                                            buildType, isTablet);
 }
 
+// static void nativeSetDefaultUrls(String json);
+JNIEXPORT void Java_app_organicmaps_sdk_OrganicMaps_nativeSetDefaultUrls(JNIEnv * env, jclass, jstring json)
+{
+  android::Platform::Instance().SetDefaultUrlsJSON(jni::ToNativeString(env, json));
+}
+
 // static void nativeInitFramework(@NonNull Runnable onComplete);
 JNIEXPORT void Java_app_organicmaps_sdk_OrganicMaps_nativeInitFramework(JNIEnv * env, jclass clazz, jobject onComplete)
 {

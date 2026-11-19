@@ -152,6 +152,25 @@
         android:textAppearance="?android:textAppearanceSmall"
         android:textColor="?android:textColorSecondary" />
 
+      <!-- Anonymous recording: no phone number, recordings and live location are kept per device id. -->
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/login_anonymous"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_base"
+        android:text="@string/syria_login_anonymous"
+        android:textColor="@color/syria_btn_on_anonymous"
+        app:backgroundTint="@color/syria_btn_anonymous" />
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_horizontal"
+        android:text="@string/syria_login_anonymous_hint"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:textColor="?android:textColorSecondary" />
+
       <ProgressBar
         android:id="@+id/login_progress"
         android:layout_width="wrap_content"

@@ -149,6 +149,34 @@ class TrackingDb private constructor(private val appContext: Context) :
         changed()
     }
 
+    /** Finished recordings with something not uploaded yet: lost if they are deleted now. */
+    fun countUnsyncedStoppedSessions(): Int =
+        readableDatabase.rawQuery(
+            """SELECT count(*) FROM session s WHERE s.status = ? AND (s.synced = 0
+                OR EXISTS (SELECT 1 FROM segment g WHERE g.session_id = s.id AND g.synced = 0)
+                OR EXISTS (SELECT 1 FROM point p WHERE p.session_id = s.id AND p.synced = 0))""",
+            arrayOf(STATUS_STOPPED),
+        ).use { c -> if (c.moveToFirst()) c.getInt(0) else 0 }
+
+    /** Deletes every finished recording (the one in progress stays). Returns how many were deleted. */
+    fun deleteStoppedSessions(): Int {
+        val db = writableDatabase
+        val stopped = "SELECT id FROM session WHERE status = ?"
+        val args = arrayOf(STATUS_STOPPED)
+        val deleted: Int
+        db.beginTransaction()
+        try {
+            db.delete("point", "session_id IN ($stopped)", args)
+            db.delete("segment", "session_id IN ($stopped)", args)
+            deleted = db.delete("session", "status = ?", args)
+            db.setTransactionSuccessful()
+        } finally {
+            db.endTransaction()
+        }
+        changed()
+        return deleted
+    }
+
     // ---- segments
 
     fun insertSegment(seg: Segment) {

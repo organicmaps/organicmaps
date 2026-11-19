@@ -86,4 +86,6 @@
   <string name="pref_syria_privacy" translatable="false">pref_syria_privacy</string>
   <string name="pref_syria_app_language" translatable="false">pref_syria_app_language</string>
   <string name="pref_syria_pin" translatable="false">pref_syria_pin</string>
+  <string name="pref_syria_device_id" translatable="false">pref_syria_device_id</string>
+  <string name="pref_syria_server" translatable="false">pref_syria_server</string>
 </resources>

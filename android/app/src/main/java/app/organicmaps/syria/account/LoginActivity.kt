@@ -34,8 +34,9 @@ import java.util.concurrent.Executors
 import org.json.JSONObject
 
 /**
- * Sign-in: phone number + 6-digit PIN (a new number registers right away) or Telegram (also the way back
- * after a forgotten PIN). Opens the tracking screen afterwards unless told otherwise.
+ * Sign-in: phone number + 6-digit PIN (a new number registers right away), Telegram (also the way back
+ * after a forgotten PIN) or anonymously (per device, no phone number). Opens the tracking screen afterwards
+ * unless told otherwise.
  */
 class LoginActivity : BaseMwmFragmentActivity() {
     private val executor = Executors.newSingleThreadExecutor()
@@ -47,6 +48,8 @@ class LoginActivity : BaseMwmFragmentActivity() {
     private lateinit var progress: View
     private lateinit var error: TextView
     private lateinit var info: TextView
+
+    private lateinit var anonymousButton: Button
 
     // Telegram sign-in in progress: collected by polling while this screen is in front.
     private lateinit var telegramButton: Button
@@ -78,9 +81,11 @@ class LoginActivity : BaseMwmFragmentActivity() {
         error = findViewById(R.id.login_error)
         info = findViewById(R.id.login_info)
         telegramButton = findViewById(R.id.login_telegram)
+        anonymousButton = findViewById(R.id.login_anonymous)
 
         signInButton.setOnClickListener { signInWithPin() }
         telegramButton.setOnClickListener { startTelegram() }
+        anonymousButton.setOnClickListener { signInAnonymously() }
         findViewById<View>(R.id.login_privacy).setOnClickListener { Utils.openUrl(this, BuildConfig.SYRIA_PRIVACY_URL) }
         // Instructions: by themselves on the first visit, then with the "?" icon.
         NarrationDialog.attach(this, toolbar, NarrationDialog.LOGIN, savedInstanceState == null)
@@ -164,6 +169,25 @@ class LoginActivity : BaseMwmFragmentActivity() {
             }
             HTTP_BAD_REQUEST -> error.setText(R.string.syria_login_invalid_phone)
             else -> error.text = e.message ?: e.toString()
+        }
+    }
+
+    // ---- anonymous
+
+    private fun signInAnonymously() {
+        setBusy(true)
+        executor.execute {
+            try {
+                ApiClient.deviceLogin(this)
+                // Uploads what was queued before (searches, map updates) under this device.
+                SyncWorker.enqueueNow(this)
+                runOnUiThread { finishSignedIn() }
+            } catch (e: ApiException) {
+                showError(e.message ?: e.toString())
+            } catch (e: IOException) {
+                Logger.w(TAG, "Anonymous sign-in failed: $e")
+                showError(getString(R.string.syria_error_network))
+            }
         }
     }
 
@@ -288,6 +312,7 @@ class LoginActivity : BaseMwmFragmentActivity() {
         progress.visibility = if (busy) View.VISIBLE else View.GONE
         signInButton.isEnabled = !busy
         telegramButton.isEnabled = !busy
+        anonymousButton.isEnabled = !busy
     }
 
     companion object {

@@ -98,6 +98,9 @@ protected:
   /// Used in Android only to get corret GUI elements layout.
   bool m_isTablet = false;
 
+  /// Replaces DEFAULT_URLS_JSON when not empty, see SetDefaultUrlsJSON().
+  std::string m_defaultUrlsJSON;
+
   /// Returns last system call error as EError.
   static EError ErrnoToError();
 
@@ -263,6 +266,9 @@ public:
 
   /// @return JSON-encoded list of urls if metaserver is unreachable
   std::string DefaultUrlsJSON() const;
+  /// Map servers chosen at run time instead of DEFAULT_URLS_JSON (e.g. a development server).
+  /// Call before the core requests anything from them: the downloader keeps the list once loaded.
+  void SetDefaultUrlsJSON(std::string json) { m_defaultUrlsJSON = std::move(json); }
 
   bool IsTablet() const { return m_isTablet; }
 

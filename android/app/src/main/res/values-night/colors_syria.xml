@@ -12,6 +12,8 @@
   <color name="syria_btn_on_stop">#4A0D0D</color>
   <color name="syria_btn_sync">#90CAF9</color>
   <color name="syria_btn_on_sync">#0B2B4A</color>
+  <color name="syria_btn_anonymous">#CFD8DC</color>
+  <color name="syria_btn_on_anonymous">#1B1F22</color>
   <color name="syria_close_bg">#ECEFF1</color>
   <color name="syria_close_icon">#1B1F22</color>
 </resources>

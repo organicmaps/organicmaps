@@ -27,6 +27,13 @@
       app:singleLineTitle="false"
       android:persistent="false"
       android:order="1" />
+    <!-- Summary set in code; a tap copies it (e.g. to find anonymous recordings on the dashboard). -->
+    <Preference
+      android:key="@string/pref_syria_device_id"
+      android:title="@string/syria_pref_device_id"
+      app:singleLineTitle="false"
+      android:persistent="false"
+      android:order="2" />
     <SwitchPreferenceCompat
       android:key="@string/pref_syria_log_map_updates"
       android:title="@string/syria_pref_log_map_updates"
@@ -34,7 +41,7 @@
       app:singleLineTitle="false"
       android:persistent="false"
       android:defaultValue="true"
-      android:order="2" />
+      android:order="3" />
     <ListPreference
       android:key="@string/pref_syria_app_language"
       android:title="@string/syria_pref_app_language"
@@ -43,13 +50,21 @@
       app:singleLineTitle="false"
       app:useSimpleSummaryProvider="true"
       android:persistent="false"
-      android:order="3" />
+      android:order="4" />
     <Preference
       android:key="@string/pref_syria_privacy"
       android:title="@string/syria_privacy_policy"
       app:singleLineTitle="false"
       android:persistent="false"
-      android:order="4" />
+      android:order="5" />
+    <!-- Development builds only (BuildConfig.SYRIA_DEV_SETTINGS): entries and visibility set in code. -->
+    <ListPreference
+      android:key="@string/pref_syria_server"
+      android:title="@string/syria_pref_server"
+      app:singleLineTitle="false"
+      app:isPreferenceVisible="false"
+      android:persistent="false"
+      android:order="6" />
   </androidx.preference.PreferenceCategory>
 
   <Preference
