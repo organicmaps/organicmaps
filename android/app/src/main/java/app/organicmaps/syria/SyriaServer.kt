@@ -41,6 +41,11 @@ object SyriaServer {
     val apiUrl: String
         get() = (if (current == LOCAL) BuildConfig.SYRIA_LOCAL_API_URL else BuildConfig.SYRIA_API_URL).trimEnd('/')
 
+    /** Latest app release for [app.organicmaps.syria.update.ServerUpdateCheck]: on the website, or the local map server. */
+    val appVersionUrl: String
+        get() = (if (current == LOCAL) BuildConfig.SYRIA_LOCAL_MAPS_URL else BuildConfig.SYRIA_WEBSITE_URL) +
+            "apps/version.json"
+
     private fun mapsUrl(): String = if (current == LOCAL) BuildConfig.SYRIA_LOCAL_MAPS_URL else BuildConfig.SYRIA_MAPS_URL
 
     /** Host shown in Settings next to each choice. */

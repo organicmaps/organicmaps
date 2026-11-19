@@ -64,12 +64,14 @@ import app.organicmaps.help.HelpActivity;
 import app.organicmaps.intent.Factory;
 import app.organicmaps.intent.IntentProcessor;
 import app.organicmaps.location.TrackRecordingService;
+import app.organicmaps.syria.NarrationDialog;
 import app.organicmaps.syria.SyriaDefaults;
 import app.organicmaps.syria.SyriaLocale;
 import app.organicmaps.syria.SyriaPrefs;
 import app.organicmaps.syria.account.LoginActivity;
 import app.organicmaps.syria.tracking.ActivityTrackingService;
 import app.organicmaps.syria.tracking.TrackingActivity;
+import app.organicmaps.syria.update.AppUpdates;
 import app.organicmaps.maplayer.MapButtonsController;
 import app.organicmaps.maplayer.MapButtonsViewModel;
 import app.organicmaps.maplayer.ToggleMapLayerFragment;
@@ -258,6 +260,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     // New map data is published on our server without an app update.
     MapManager.nativeCheckForUpdates();
+    // A new app version: Google Play's prompt, or our server's for other installs.
+    AppUpdates.check(this);
     SyriaDefaults.applyOnce(this);
     processStartupIntent();
     migrateOAuthCredentials();
@@ -1028,6 +1032,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     ThemeSwitcher.INSTANCE.synchronizeMapStyle(this, mMapController.isRenderingActive());
     makeNavigationBarTransparentInLightMode();
     SyriaLocale.checkChanged(this);
+    AppUpdates.onResume(this);
     // The pick lives in RoutingController, which clears it without touching the chooser, and can do so while
     // this Activity is stopped and detached from it. Only the mode survives, so re-check it on the way in.
     ChoosePositionMode mode = ChoosePositionMode.get();
@@ -1501,6 +1506,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   public boolean showRoutingDisclaimer()
   {
+    // Syria: car navigation always shows the narrated notice, which includes this disclaimer.
+    if (RoutingController.get().getLastRouterType() == Router.Vehicle)
+    {
+      showDriveSafelyNotice();
+      return false;
+    }
     if (Config.isRoutingDisclaimerAccepted())
       return true;
 
@@ -1520,14 +1531,31 @@ public class MwmActivity extends BaseMwmFragmentActivity
                        .setPositiveButton(R.string.accept,
                                           (dlg, which) -> {
                                             Config.acceptRoutingDisclaimer();
-                                            closeFloatingPanels();
-                                            setFullscreen(false);
-                                            RoutingController.get().start();
+                                            startNavigation();
                                           })
                        .setOnDismissListener(dialog -> mAlertDialog = null)
                        .show();
 
     return false;
+  }
+
+  /**
+   * Syria: before every car navigation, "do not text while driving" and the routing disclaimer are read aloud;
+   * navigation starts from its button, which also counts as accepting the disclaimer.
+   */
+  private void showDriveSafelyNotice()
+  {
+    NarrationDialog.showThenContinue(this, NarrationDialog.DRIVE_SAFELY, R.string.syria_drive_safe_start, () -> {
+      Config.acceptRoutingDisclaimer();
+      startNavigation();
+    });
+  }
+
+  private void startNavigation()
+  {
+    closeFloatingPanels();
+    setFullscreen(false);
+    RoutingController.get().start();
   }
 
   @Override

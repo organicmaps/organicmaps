@@ -40,6 +40,15 @@ object NarrationDialog {
         "recording_intro_seen",
     )
 
+    /** Read before every car navigation: no texting or phone use while driving. */
+    @JvmField
+    val DRIVE_SAFELY = Intro(
+        R.string.syria_drive_safe_title,
+        R.string.syria_drive_safe_message_ar,
+        R.string.syria_drive_safe_message_en,
+        "drive_safe_seen",
+    )
+
     /** Adds the "?" icon to the screen's toolbar and opens the instructions if the screen is new to the user. */
     @JvmStatic
     fun attach(activity: Activity, toolbar: Toolbar, intro: Intro, firstCreate: Boolean) {
@@ -56,6 +65,19 @@ object NarrationDialog {
 
     @JvmStatic
     fun show(activity: Activity, intro: Intro) {
+        build(activity, intro).setPositiveButton(R.string.syria_close, null).show()
+    }
+
+    /** The instructions with a button that goes on, e.g. starts navigation, and one that cancels. */
+    @JvmStatic
+    fun showThenContinue(activity: Activity, intro: Intro, @StringRes continueText: Int, onContinue: Runnable) {
+        build(activity, intro)
+            .setPositiveButton(continueText) { _, _ -> onContinue.run() }
+            .setNegativeButton(R.string.syria_cancel, null)
+            .show()
+    }
+
+    private fun build(activity: Activity, intro: Intro): MaterialAlertDialogBuilder {
         val view = LayoutInflater.from(activity).inflate(R.layout.dialog_syria_narration, null)
         val narrator = WelcomeNarrator(
             activity,
@@ -65,14 +87,12 @@ object NarrationDialog {
             intro.messageAr,
             intro.messageEn,
         )
-        MaterialAlertDialogBuilder(activity)
+        return MaterialAlertDialogBuilder(activity)
             .setTitle(intro.title)
             .setView(view)
-            .setPositiveButton(R.string.syria_close, null)
             .setOnDismissListener {
                 narrator.release()
                 SyriaPrefs.markIntroSeen(activity, intro.seenKey)
             }
-            .show()
     }
 }

@@ -181,4 +181,18 @@
   <string name="syria_battery_optimized_hint">قد يوقف أندرويد التسجيل عند إطفاء الشاشة. اضغط «إصلاح»، ثم افتح استخدام التطبيق للبطارية واختر «غير مقيَّد».</string>
   <string name="syria_battery_restricted_hint">يتوقف التسجيل عندما يكون التطبيق في الخلفية. اضغط «إصلاح»، ثم افتح استخدام التطبيق للبطارية واختر «غير مقيَّد».</string>
   <string name="syria_battery_fix">إصلاح</string>
+
+  <!-- Before every car navigation -->
+  <string name="syria_drive_safe_title">قُد بأمان</string>
+  <string name="syria_drive_safe_start">ابدأ الملاحة</string>
+
+  <!-- New app version -->
+  <string name="syria_update_title">يتوفر إصدار جديد</string>
+  <string name="syria_update_required_title">التحديث مطلوب</string>
+  <string name="syria_update_message">الإصدار %s من التطبيق جاهز. ستبقى خرائطك وتسجيلاتك وإعداداتك كما هي.</string>
+  <string name="syria_update_download">تنزيل</string>
+  <string name="syria_update_later">لاحقاً</string>
+  <string name="syria_update_downloaded_title">تم تنزيل التحديث</string>
+  <string name="syria_update_downloaded_message">أعد تشغيل التطبيق لإكمال تثبيت الإصدار الجديد.</string>
+  <string name="syria_update_restart">إعادة التشغيل</string>
 </resources>

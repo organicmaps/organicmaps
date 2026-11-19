@@ -197,4 +197,25 @@
   <string name="syria_battery_optimized_hint">Android may stop the recording when the screen is off. Tap Fix, open the app\'s battery usage and choose Unrestricted.</string>
   <string name="syria_battery_restricted_hint">Recording stops when the app is in the background. Tap Fix, open the app\'s battery usage and choose Unrestricted.</string>
   <string name="syria_battery_fix">Fix</string>
+
+  <!-- Before every car navigation, read aloud with the spoken word highlighted like the other intros: the
+       "do not text while driving" notice followed by Organic Maps' routing disclaimer (dialog_routing_disclaimer_*) -->
+  <string name="syria_drive_safe_title">Drive safely</string>
+  <string name="syria_drive_safe_start">Start navigation</string>
+  <string name="syria_drive_safe_message_ar" translatable="false">سلامتك أهم من أي رحلة. لا تكتب الرسائل ولا تستخدم الهاتف أثناء القيادة. ضع الهاتف في حامل قبل أن تنطلق، واستمع إلى الإرشادات الصوتية. إذا احتجت إلى تغيير الوجهة أو الرد على رسالة، توقّف أولاً في مكان آمن.
+
+وتذكّر أن ظروف الطريق وقوانين وإشارات المرور لها الأولوية دائماً على إرشادات الملاحة. قد تكون الخريطة غير دقيقة، وقد لا يكون المسار المقترح هو الأفضل دائماً، فتعامل معه كتوصية فقط. انتبه في المناطق الحدودية، فقد تعبر المسارات أحياناً الحدود في أماكن غير مسموح بها. ابقَ يقظاً وآمناً على الطريق!</string>
+  <string name="syria_drive_safe_message_en" translatable="false">Your safety matters more than any trip. Do not text or use your phone while driving. Put the phone in a holder before you set off, and listen to the voice guidance. If you need to change the destination or reply to a message, first stop in a safe place.
+
+Remember that road conditions, traffic laws and road signs always take priority over navigation hints. The map might be inaccurate, and the suggested route is not always the best one, so take it as a recommendation only. Be careful near borders: routes may sometimes cross them in places where it is not allowed. Stay alert and safe on the road!</string>
+
+  <!-- New app version (Google Play in-app update, or our server for APK installs) -->
+  <string name="syria_update_title">New version available</string>
+  <string name="syria_update_required_title">Update required</string>
+  <string name="syria_update_message">Version %s of the app is ready. Your maps, recordings and settings stay as they are.</string>
+  <string name="syria_update_download">Download</string>
+  <string name="syria_update_later">Later</string>
+  <string name="syria_update_downloaded_title">Update downloaded</string>
+  <string name="syria_update_downloaded_message">Restart the app to finish installing the new version.</string>
+  <string name="syria_update_restart">Restart</string>
 </resources>
