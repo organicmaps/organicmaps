@@ -381,6 +381,7 @@ public:
 
   void EnableTestMode(bool enable);
   df::UserMarksProvider const & GetDrapeChangesForTests() const { return m_drapeChangesTracker; }
+  void ResetDrapeChangesForTests() { m_drapeChangesTracker.ResetChanges(); }
   bool SaveBookmarkCategory(kml::MarkGroupId groupId);
   bool SaveBookmarkCategory(kml::MarkGroupId groupId, Writer & writer, FileType fileType) const;
 

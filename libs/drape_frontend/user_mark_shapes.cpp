@@ -212,16 +212,15 @@ void AlignVertical(float halfHeight, dp::Anchor anchor, glsl::vec2 & up, glsl::v
 
 struct UserPointVertex : public gpu::BaseVertex
 {
-  using TNormalAndAnimateOrZ = glsl::vec3;
+  using TNormalAndDefaultDepth = glsl::vec3;
   using TTexCoord = glsl::vec4;
   using TColor = glsl::vec4;
-  using TAnimateOrZ = float;
 
   UserPointVertex() = default;
-  UserPointVertex(TPosition const & pos, TNormalAndAnimateOrZ const & normalAndAnimateOrZ, TTexCoord const & texCoord,
-                  TColor const & color)
+  UserPointVertex(TPosition const & pos, TNormalAndDefaultDepth const & normalAndDefaultDepth,
+                  TTexCoord const & texCoord, TColor const & color)
     : m_position(pos)
-    , m_normalAndAnimateOrZ(normalAndAnimateOrZ)
+    , m_normalAndDefaultDepth(normalAndDefaultDepth)
     , m_texCoord(texCoord)
     , m_color(color)
   {}
@@ -231,7 +230,7 @@ struct UserPointVertex : public gpu::BaseVertex
     dp::BindingInfo info(4);
     uint8_t offset = 0;
     offset += dp::FillDecl<TPosition, UserPointVertex>(0, "a_position", info, offset);
-    offset += dp::FillDecl<TNormalAndAnimateOrZ, UserPointVertex>(1, "a_normalAndAnimateOrZ", info, offset);
+    offset += dp::FillDecl<TNormalAndDefaultDepth, UserPointVertex>(1, "a_normalAndDefaultDepth", info, offset);
     offset += dp::FillDecl<TTexCoord, UserPointVertex>(2, "a_texCoords", info, offset);
     /*offset += */ dp::FillDecl<TColor, UserPointVertex>(3, "a_color", info, offset);
 
@@ -239,7 +238,7 @@ struct UserPointVertex : public gpu::BaseVertex
   }
 
   TPosition m_position;
-  TNormalAndAnimateOrZ m_normalAndAnimateOrZ;
+  TNormalAndDefaultDepth m_normalAndDefaultDepth;
   TTexCoord m_texCoord;
   TColor m_color;
 };
@@ -734,7 +733,6 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
         dp::Anchor const anchor = renderInfo.m_anchor;
         m2::PointD const pt = MapShape::ConvertToLocal(renderInfo.m_pivot, tileCenter, kShapeCoordScalar);
         glsl::vec3 const pos = glsl::vec3(glsl::ToVec2(pt), renderInfo.m_depth);
-        bool const runAnim = renderInfo.m_hasCreationAnimation && renderInfo.m_justCreated;
 
         glsl::vec2 left, right, up, down;
         AlignHorizontal(pxSize.x * 0.5f, anchor, left, right);
@@ -750,40 +748,30 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
           color = df::GetColorConstant(renderInfo.m_color);
 
         glsl::vec4 maskColor(color.GetRedF(), color.GetGreenF(), color.GetBlueF(), renderInfo.m_symbolOpacity);
-        float animateOrZ = 0.0f;
-        if (!renderInfo.m_customDepth)
-          animateOrZ = runAnim ? 1.0f : -1.0f;
+        float const useDefaultDepth = renderInfo.m_customDepth ? 0.0f : 1.0f;
 
-        buffer.emplace_back(pos, glsl::vec3(left + down + offset, animateOrZ),
+        buffer.emplace_back(pos, glsl::vec3(left + down + offset, useDefaultDepth),
                             glsl::ToVec4(m2::PointD(texRect.LeftTop()), m2::PointD(bgTexRect.LeftTop())), maskColor);
-        buffer.emplace_back(pos, glsl::vec3(left + up + offset, animateOrZ),
+        buffer.emplace_back(pos, glsl::vec3(left + up + offset, useDefaultDepth),
                             glsl::ToVec4(m2::PointD(texRect.LeftBottom()), m2::PointD(bgTexRect.LeftBottom())),
                             maskColor);
-        buffer.emplace_back(pos, glsl::vec3(right + down + offset, animateOrZ),
+        buffer.emplace_back(pos, glsl::vec3(right + down + offset, useDefaultDepth),
                             glsl::ToVec4(m2::PointD(texRect.RightTop()), m2::PointD(bgTexRect.RightTop())), maskColor);
-        buffer.emplace_back(pos, glsl::vec3(right + up + offset, animateOrZ),
+        buffer.emplace_back(pos, glsl::vec3(right + up + offset, useDefaultDepth),
                             glsl::ToVec4(m2::PointD(texRect.RightBottom()), m2::PointD(bgTexRect.RightBottom())),
                             maskColor);
 
         m2::RectD rect;
         for (auto const & vertex : buffer)
-          rect.Add(glsl::FromVec2(glsl::vec2(vertex.m_normalAndAnimateOrZ)));
+          rect.Add(glsl::FromVec2(glsl::vec2(vertex.m_normalAndDefaultDepth)));
 
         drape_ptr<dp::OverlayHandle> overlayHandle = CreateUserMarkOverlayHandle(renderInfo, tileKey, rect);
 
-        gpu::Program program;
-        gpu::Program program3d;
-        if (renderInfo.m_isMarkAboveText)
-        {
-          program = runAnim ? gpu::Program::BookmarkAnimAboveText : gpu::Program::BookmarkAboveText;
-          program3d = runAnim ? gpu::Program::BookmarkAnimAboveTextBillboard : gpu::Program::BookmarkAboveTextBillboard;
-        }
-        else
-        {
-          program = runAnim ? gpu::Program::BookmarkAnim : gpu::Program::Bookmark;
-          program3d = runAnim ? gpu::Program::BookmarkAnimBillboard : gpu::Program::BookmarkBillboard;
-        }
-        auto state = CreateRenderState(program, renderInfo.m_depthLayer);
+        auto const program = renderInfo.m_isMarkAboveText ? gpu::Program::BookmarkAboveText : gpu::Program::Bookmark;
+        auto const program3d =
+            renderInfo.m_isMarkAboveText ? gpu::Program::BookmarkAboveTextBillboard : gpu::Program::BookmarkBillboard;
+        auto state =
+            CreateRenderState(program, renderInfo.m_depthLayer, std::exchange(renderInfo.m_animateCreation, false));
         state.SetProgram3d(program3d);
         state.SetColorTexture(symbolRegion.GetTexture());
         state.SetTextureFilter(dp::TextureFilter::Nearest);
@@ -800,8 +788,6 @@ void CacheUserMarks(ref_ptr<dp::GraphicsContext> context, TileKey const & tileKe
 
     if (renderInfo.m_titleDecl != nullptr)
       GenerateTextShapes(context, textures, renderInfo, tileKey, tileCenter, symbolOffset, symbolSize, batcher);
-
-    renderInfo.m_justCreated = false;
   });
 }
 

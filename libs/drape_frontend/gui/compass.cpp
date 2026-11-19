@@ -1,6 +1,7 @@
 #include "drape_frontend/gui/compass.hpp"
 
 #include "drape_frontend/animation/show_hide_animation.hpp"
+#include "drape_frontend/animation_constants.hpp"
 #include "drape_frontend/batcher_bucket.hpp"
 #include "drape_frontend/gui/drape_gui.hpp"
 
@@ -37,7 +38,7 @@ public:
   CompassHandle(uint32_t id, m2::PointF const & pivot, m2::PointF const & size, Shape::TTapHandler const & tapHandler)
     : TappableHandle(id, dp::Center, pivot, size)
     , m_tapHandler(tapHandler)
-    , m_animation(false, 0.25)
+    , m_animation(false, df::kOverlayAnimationTimeSec)
   {}
 
   void OnTap() override
@@ -53,32 +54,17 @@ public:
 
     auto const angle = static_cast<float>(ang::AngleIn2PI(screen.GetAngle()));
 
-    bool isVisiblePrev = IsVisible();
-    bool isVisibleAngle = angle > kVisibleStartAngle && angle < kVisibleEndAngle;
+    bool const rotated = angle > kVisibleStartAngle && angle < kVisibleEndAngle;
+    m_animation.AnimateVisibility(rotated || (IsVisible() && DrapeGui::Instance().IsInUserAction()));
+    SetIsVisible(m_animation.IsVisible());
+    if (!IsVisible())
+      return false;
 
-    bool isVisible = isVisibleAngle || (isVisiblePrev && DrapeGui::Instance().IsInUserAction());
-
-    if (isVisible)
-    {
-      m_animation.ShowAnimated();
-      SetIsVisible(true);
-    }
-    else
-      m_animation.HideAnimated();
-
-    if (IsVisible())
-    {
-      TBase::Update(screen);
-
-      glsl::mat4 r = glsl::rotate(glsl::mat4(1.f), angle, glsl::vec3(0.0, 0.0, 1.0));
-      glsl::mat4 m = glsl::translate(glsl::mat4(1.f), glsl::vec3(m_pivot, 0.0));
-      m_params.m_modelView = glsl::transpose(m * r);
-      m_params.m_opacity = static_cast<float>(m_animation.GetT());
-    }
-
-    if (m_animation.IsFinished())
-      SetIsVisible(isVisible);
-
+    TBase::Update(screen);
+    auto const rotation = glsl::rotate(glsl::mat4(1.f), angle, glsl::vec3(0.0, 0.0, 1.0));
+    auto const translation = glsl::translate(glsl::mat4(1.f), glsl::vec3(m_pivot, 0.0));
+    m_params.m_modelView = glsl::transpose(translation * rotation);
+    m_params.m_opacity = static_cast<float>(m_animation.GetVisibility());
     return true;
   }
 

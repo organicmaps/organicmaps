@@ -1387,8 +1387,8 @@ JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRouteSetElevationActiveP
   if (frm()->GetDrapeEngine() == nullptr)
     return;
   if (auto const pt = frm()->GetRoutingManager().GetRoutePointAtDistance(distanceMeters))
-    frm()->GetDrapeEngine()->SelectObject(df::SelectionShape::ESelectedObject::OBJECT_TRACK, *pt, FeatureID(), false,
-                                          false, true);
+    frm()->GetDrapeEngine()->SelectObject(df::SelectionShape::ESelectedObject::OBJECT_TRACK, *pt, FeatureID(),
+                                          false /* isGeometrySelectionAllowed */, false /* animateSelection */);
 }
 
 JNIEXPORT void Java_app_organicmaps_sdk_Framework_nativeRouteRemoveElevationActivePoint(JNIEnv * env, jclass)

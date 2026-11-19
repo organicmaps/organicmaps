@@ -280,7 +280,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     if (key.m_zoomLevel == GetCurrentZoom() && CheckTileGenerations(key))
     {
       PrepareBucket(state, bucket);
-      AddToRenderGroup<RenderGroup>(state, std::move(bucket), key);
+      AddToRenderGroup(state, std::move(bucket), key);
     }
     break;
   }
@@ -295,8 +295,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
           CheckTileGenerations(overlayRenderData.m_tileKey))
       {
         PrepareBucket(overlayRenderData.m_state, overlayRenderData.m_bucket);
-        AddToRenderGroup<RenderGroup>(overlayRenderData.m_state, std::move(overlayRenderData.m_bucket),
-                                      overlayRenderData.m_tileKey);
+        AddToRenderGroup(overlayRenderData.m_state, std::move(overlayRenderData.m_bucket), overlayRenderData.m_tileKey);
       }
     }
     UpdateCanBeDeletedStatus();
@@ -354,7 +353,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       if (renderData.m_tileKey.m_zoomLevel == GetCurrentZoom() && CheckTileGenerations(renderData.m_tileKey))
       {
         PrepareBucket(renderData.m_state, renderData.m_bucket);
-        AddToRenderGroup<UserMarkRenderGroup>(renderData.m_state, std::move(renderData.m_bucket), renderData.m_tileKey);
+        AddToRenderGroup(renderData.m_state, std::move(renderData.m_bucket), renderData.m_tileKey);
       }
     }
     break;
@@ -472,9 +471,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     m_overlayTree->SetSelectedFeature(msg->IsDismiss() ? FeatureID() : msg->GetFeatureID());
     if (m_selectionShape == nullptr)
     {
-      m_selectObjectMessage = make_unique_dp<SelectObjectMessage>(
-          msg->GetSelectedObject(), msg->GetPosition(), msg->GetFeatureID(), msg->IsAnim(),
-          msg->IsGeometrySelectionAllowed(), true /* isSelectionShapeVisible */);
+      m_selectObjectMessage = make_unique_dp<SelectObjectMessage>(*msg);
     }
     else
     {
@@ -1272,7 +1269,6 @@ void FrontendRenderer::OnResize(ScreenBase const & screen)
   RefreshPivotTransform(screen);
 }
 
-template <typename TRenderGroup>
 void FrontendRenderer::AddToRenderGroup(dp::RenderState const & state, drape_ptr<dp::RenderBucket> && renderBucket,
                                         TileKey const & newTile)
 {
@@ -1287,7 +1283,7 @@ void FrontendRenderer::AddToRenderGroup(dp::RenderState const & state, drape_ptr
     }
   }
 
-  drape_ptr<TRenderGroup> group = make_unique_dp<TRenderGroup>(state, newTile);
+  auto group = make_unique_dp<RenderGroup>(state, newTile);
   group->AddBucket(std::move(renderBucket));
 
   layer.m_renderGroups.push_back(std::move(group));
@@ -1433,14 +1429,11 @@ void FrontendRenderer::ProcessSelection(ref_ptr<SelectObjectMessage> msg)
         offsetZ = std::max(offsetZ, handle->GetPivotZ());
     }
 
-    if (msg->IsSelectionShapeVisible())
-      m_selectionShape->Show(msg->GetSelectedObject(), msg->GetPosition(), offsetZ, msg->IsAnim());
-    else
-      m_selectionShape->Hide();
+    m_selectionShape->Show(msg->GetSelectedObject(), msg->GetPosition(), offsetZ, msg->ShouldAnimateSelection());
 
     if (!m_myPositionController->IsModeChangeViewport())
     {
-      if (auto const startPosition = m_selectionShape->GetPixelPosition(modelView, GetCurrentZoom()))
+      if (auto const startPosition = m_selectionShape->GetPixelPosition(modelView))
         m_selectionTrackInfo = SelectionTrackInfo(modelView.GlobalRect(), *startPosition);
     }
 
@@ -1606,7 +1599,17 @@ bool FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
   }
 
   if (m_guiRenderer && !m_screenshotMode)
+  {
+    auto & gui = gui::DrapeGui::Instance();
+    using CopyrightState = gui::DrapeGui::CopyrightState;
+    if (gui.GetCopyrightState() == CopyrightState::Pending && m_guiRenderer->HasWidget(gui::WIDGET_COPYRIGHT))
+    {
+      gui.SetCopyrightState(CopyrightState::Visible);
+      m_notifier->Notify(ThreadsCommutator::RenderThread, std::chrono::seconds(10), false /* repeating */,
+                         [](uint64_t) { gui::DrapeGui::Instance().SetCopyrightState(CopyrightState::Fading); });
+    }
     m_guiRenderer->Render(m_context, make_ref(m_gpuProgramManager), m_myPositionController->IsInRouting(), modelView);
+  }
 
 #if defined(OMIM_OS_DESKTOP)
   if (m_graphicsStage == GraphicsStage::WaitRendering)
@@ -2115,9 +2118,8 @@ void FrontendRenderer::PrepareBucket(dp::RenderState const & state, drape_ptr<dp
 }
 
 void FrontendRenderer::RenderSingleGroup(ref_ptr<dp::GraphicsContext> context, ScreenBase const & modelView,
-                                         ref_ptr<BaseRenderGroup> group)
+                                         ref_ptr<RenderGroup> group)
 {
-  group->UpdateAnimation();
   group->Render(context, make_ref(m_gpuProgramManager), modelView, m_frameValues, make_ref(m_debugRectRenderer));
 }
 
@@ -2369,7 +2371,7 @@ bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport, m2::R
 
   // The event stream applies the correction to the target, so project the selection there.
   auto const screen = m_userEventStream.GetTargetScreen();
-  auto const pos = m_selectionShape->GetPixelPosition(screen, GetCurrentZoom());
+  auto const pos = m_selectionShape->GetPixelPosition(screen);
   if (!pos)
     return false;
 
@@ -2676,6 +2678,12 @@ void FrontendRenderer::Routine::Do()
 
 void FrontendRenderer::ReleaseResources()
 {
+  auto & gui = gui::DrapeGui::Instance();
+  using CopyrightState = gui::DrapeGui::CopyrightState;
+  // Engine teardown has already stopped delayed work, so the next engine can start a fresh timer.
+  if (gui.GetCopyrightState() == CopyrightState::Visible)
+    gui.SetCopyrightState(CopyrightState::Pending);
+
   for (RenderLayer & layer : m_layers)
     layer.m_renderGroups.clear();
 

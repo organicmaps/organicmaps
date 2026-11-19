@@ -1,39 +1,25 @@
 #pragma once
 
-#include "drape/pointers.hpp"
+#include "drape_frontend/animation/opacity_animation.hpp"
 
-#include <array>
+#include <optional>
 
 namespace df
 {
 class ShowHideAnimation
 {
 public:
-  enum EState
-  {
-    STATE_INVISIBLE,
-    STATE_VISIBLE,
-    STATE_SHOW_DIRECTION,
-    STATE_HIDE_DIRECTION
-  };
+  ShowHideAnimation(bool visible, double duration) : m_duration(duration), m_visible(visible) {}
 
-  ShowHideAnimation(bool isInitialVisible, double fullDuration);
-  ~ShowHideAnimation();
-
-  void Show();
-  void ShowAnimated();
-  void Hide();
-  void HideAnimated();
-  EState GetState() const;
-  double GetT() const;
-  bool IsFinished() const;
+  void SetVisible(bool visible);
+  void AnimateVisibility(bool visible);
+  bool IsVisible() const { return m_visible || !IsFinished(); }
+  bool IsFinished() const { return !m_fade || m_fade->IsFinished(); }
+  double GetVisibility() const;
 
 private:
-  void RefreshInterpolator(std::array<EState, 2> validStates, double endValue);
-  class ShowHideInterpolator;
-
-  drape_ptr<ShowHideInterpolator> m_interpolator;
-  ShowHideAnimation::EState m_state;
-  double m_fullDuration;
+  double const m_duration;
+  bool m_visible;
+  std::optional<OpacityAnimation> m_fade;
 };
 }  // namespace df

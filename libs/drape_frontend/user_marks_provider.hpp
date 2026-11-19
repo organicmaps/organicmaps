@@ -94,7 +94,7 @@ public:
   virtual int GetMinZoom() const = 0;
   virtual int GetMinTitleZoom() const = 0;
   virtual FeatureID GetFeatureID() const = 0;
-  virtual bool HasCreationAnimation() const = 0;
+  virtual bool HasCreationAnimation() const { return false; }
   virtual df::ColorConstant GetColorConstant() const = 0;
   /// Explicit theme-independent color; only Bookmark overrides it for custom (non-preset) colors.
   virtual std::optional<dp::Color> GetCustomColor() const { return std::nullopt; }

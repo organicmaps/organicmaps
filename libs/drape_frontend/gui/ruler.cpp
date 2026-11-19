@@ -1,6 +1,7 @@
 #include "drape_frontend/gui/ruler.hpp"
 
 #include "drape_frontend/animation/show_hide_animation.hpp"
+#include "drape_frontend/animation_constants.hpp"
 #include "drape_frontend/batcher_bucket.hpp"
 #include "drape_frontend/gui/drape_gui.hpp"
 #include "drape_frontend/gui/gui_text.hpp"
@@ -47,57 +48,27 @@ template <typename TBase>
 class BaseRulerHandle : public TBase
 {
 public:
-  BaseRulerHandle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot, bool isAppearing)
+  BaseRulerHandle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot)
     : TBase(id, anchor, pivot)
-    , m_isAppearing(isAppearing)
-    , m_isVisibleAtEnd(true)
-    , m_animation(false, 0.4)
+    , m_animation(false, df::kOverlayAnimationTimeSec)
   {}
 
-  bool Update(ScreenBase const & screen)
+  bool Update(ScreenBase const & screen) override
   {
-    RulerHelper & helper = DrapeGui::GetRulerHelper();
+    m_animation.AnimateVisibility(RulerHelper::IsVisible(screen));
+    TBase::SetIsVisible(m_animation.IsVisible());
+    if (!TBase::IsVisible() || !TBase::Update(screen))
+      return false;
 
-    TBase::SetIsVisible(true);
-    bool isVisible = RulerHelper::IsVisible(screen);
-    if (!isVisible)
-    {
-      m_animation.HideAnimated();
-      m_isVisibleAtEnd = false;
-    }
-    else if (helper.IsTextDirty())
-    {
-      m_isAppearing = !m_isAppearing;
-      if (m_isAppearing)
-      {
-        m_animation.ShowAnimated();
-        m_isVisibleAtEnd = true;
-      }
-      else
-      {
-        m_animation.HideAnimated();
-        m_isVisibleAtEnd = false;
-      }
-    }
-
-    bool const result = TBase::Update(screen);
-    UpdateImpl(screen, helper);
-
-    if (m_animation.IsFinished())
-      TBase::SetIsVisible(m_isVisibleAtEnd);
-
-    return result;
+    UpdateImpl(DrapeGui::GetRulerHelper());
+    TBase::m_params.m_opacity = static_cast<float>(m_animation.GetVisibility());
+    return true;
   }
 
 protected:
-  virtual void UpdateImpl(ScreenBase const & /*screen*/, RulerHelper const & /*helper*/) {}
-
-  bool IsAppearing() const { return m_isAppearing; }
-  float GetOpacity() const { return static_cast<float>(m_animation.GetT()); }
+  virtual void UpdateImpl(RulerHelper const & /*helper*/) {}
 
 private:
-  bool m_isAppearing;
-  bool m_isVisibleAtEnd;
   df::ShowHideAnimation m_animation;
 };
 
@@ -106,20 +77,13 @@ class RulerHandle : public BaseRulerHandle<Handle>
   using TBase = BaseRulerHandle<Handle>;
 
 public:
-  RulerHandle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot, bool appearing)
-    : TBase(id, anchor, pivot, appearing)
-  {}
+  RulerHandle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot) : TBase(id, anchor, pivot) {}
 
 private:
-  void UpdateImpl(ScreenBase const & screen, RulerHelper const & helper) override
+  void UpdateImpl(RulerHelper const & helper) override
   {
-    if (!IsVisible())
-      return;
-
-    if (IsAppearing())
-      m_params.m_length = helper.GetRulerPixelLength();
+    m_params.m_length = helper.GetRulerPixelLength();
     m_params.m_position = m_pivot;
-    m_params.m_opacity = GetOpacity();
   }
 };
 
@@ -128,18 +92,15 @@ class RulerTextHandle : public BaseRulerHandle<MutableLabelHandle>
   using TBase = BaseRulerHandle<MutableLabelHandle>;
 
 public:
-  RulerTextHandle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot, bool isAppearing,
-                  ref_ptr<dp::TextureManager> textures)
-    : TBase(id, anchor, pivot, isAppearing)
-    , m_firstUpdate(true)
+  RulerTextHandle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot, ref_ptr<dp::TextureManager> textures)
+    : TBase(id, anchor, pivot)
   {
     SetTextureManager(textures);
   }
 
   bool Update(ScreenBase const & screen) override
   {
-    SetIsVisible(RulerHelper::IsVisible(screen));
-    if (IsVisible() && (DrapeGui::GetRulerHelper().IsTextDirty() || m_firstUpdate))
+    if (RulerHelper::IsVisible(screen) && (DrapeGui::GetRulerHelper().IsTextDirty() || m_firstUpdate))
     {
       SetContent(DrapeGui::GetRulerHelper().GetRulerText());
       m_firstUpdate = false;
@@ -153,33 +114,24 @@ public:
     TBase::SetPivot(pivot + glsl::vec2(0.0, RulerHelper::GetVerticalTextOffset() - RulerHelper::GetRulerHalfHeight()));
   }
 
-protected:
-  void UpdateImpl(ScreenBase const & /*screen*/, RulerHelper const & /*helper*/) override
-  {
-    if (IsVisible())
-      m_params.m_opacity = GetOpacity();
-  }
-
 private:
-  bool m_firstUpdate;
+  bool m_firstUpdate = true;
 };
 }  // namespace
 
 drape_ptr<ShapeRenderer> Ruler::Draw(ref_ptr<dp::GraphicsContext> context, ref_ptr<dp::TextureManager> tex) const
 {
   ShapeControl control;
-  DrawRuler(context, control, tex, true);
-  DrawRuler(context, control, tex, false);
-  DrawText(context, control, tex, true);
-  DrawText(context, control, tex, false);
+  DrawRuler(context, control, tex);
+  DrawText(context, control, tex);
 
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
   renderer->AddShapeControl(std::move(control));
   return renderer;
 }
 
-void Ruler::DrawRuler(ref_ptr<dp::GraphicsContext> context, ShapeControl & control, ref_ptr<dp::TextureManager> tex,
-                      bool isAppearing) const
+void Ruler::DrawRuler(ref_ptr<dp::GraphicsContext> context, ShapeControl & control,
+                      ref_ptr<dp::TextureManager> tex) const
 {
   buffer_vector<RulerVertex, 4> data;
 
@@ -216,14 +168,14 @@ void Ruler::DrawRuler(ref_ptr<dp::GraphicsContext> context, ShapeControl & contr
     dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);
     batcher.SetBatcherHash(static_cast<uint64_t>(df::BatcherBucket::Default));
     dp::SessionGuard guard(context, batcher, std::bind(&ShapeControl::AddShape, &control, _1, _2));
-    batcher.InsertTriangleStrip(context, state, make_ref(&provider),
-                                make_unique_dp<RulerHandle>(EGuiHandle::GuiHandleRuler, m_position.m_anchor,
-                                                            m_position.m_pixelPivot, isAppearing));
+    batcher.InsertTriangleStrip(
+        context, state, make_ref(&provider),
+        make_unique_dp<RulerHandle>(EGuiHandle::GuiHandleRuler, m_position.m_anchor, m_position.m_pixelPivot));
   }
 }
 
-void Ruler::DrawText(ref_ptr<dp::GraphicsContext> context, ShapeControl & control, ref_ptr<dp::TextureManager> tex,
-                     bool isAppearing) const
+void Ruler::DrawText(ref_ptr<dp::GraphicsContext> context, ShapeControl & control,
+                     ref_ptr<dp::TextureManager> tex) const
 {
   std::string alphabet;
   uint32_t maxTextLength;
@@ -235,8 +187,8 @@ void Ruler::DrawText(ref_ptr<dp::GraphicsContext> context, ShapeControl & contro
   params.m_maxLength = maxTextLength;
   params.m_font = DrapeGui::GetGuiTextFont();
   params.m_pivot = m_position.m_pixelPivot + m2::PointF(0.0f, RulerHelper::GetVerticalTextOffset());
-  params.m_handleCreator = [isAppearing, tex](dp::Anchor anchor, m2::PointF const & pivot)
-  { return make_unique_dp<RulerTextHandle>(EGuiHandle::GuiHandleRulerLabel, anchor, pivot, isAppearing, tex); };
+  params.m_handleCreator = [tex](dp::Anchor anchor, m2::PointF const & pivot)
+  { return make_unique_dp<RulerTextHandle>(EGuiHandle::GuiHandleRulerLabel, anchor, pivot, tex); };
 
   MutableLabelDrawer::Draw(context, params, tex, std::bind(&ShapeControl::AddShape, &control, _1, _2));
 }

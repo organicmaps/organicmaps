@@ -1,6 +1,8 @@
 #include "testing/testing.hpp"
 
 #include "drape_frontend/animation/arrow_animation.hpp"
+#include "drape_frontend/animation/interpolation_holder.hpp"
+#include "drape_frontend/animation/show_hide_animation.hpp"
 #include "drape_frontend/animation_system.hpp"
 #include "drape_frontend/drape_frontend_tests/visual_params_fixture.hpp"
 #include "drape_frontend/screen_operations.hpp"
@@ -335,6 +337,18 @@ UNIT_CLASS_TEST(CameraAnimationFixture, FlingKeepsReleaseSpeedAndSettlesWithin35
   fling->Apply(sample);
   double const distance = sample.GetOrg().Length(screen.GetOrg()) / scale;
   TEST_GREATER(distance, 70.0, ());
+}
+
+UNIT_TEST(OverlayFadeReachesEndpointAfterStalledFrame)
+{
+  df::ShowHideAnimation fade(false, 0.10);
+  fade.AnimateVisibility(true);
+  df::InterpolationHolder::Instance().Advance(df::AnimationClock::now() + 120ms);
+  TEST_EQUAL(fade.GetVisibility(), 1.0, ());
+  fade.AnimateVisibility(false);
+  fade.AnimateVisibility(true);
+  TEST(fade.IsFinished(), ());
+  TEST_EQUAL(fade.GetVisibility(), 1.0, ());
 }
 
 #ifdef DEBUG
