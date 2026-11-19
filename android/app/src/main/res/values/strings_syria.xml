@@ -151,4 +151,6 @@
   <string name="syria_about_fork">This app is a fork of the open-source Organic Maps app, customised for Syria with local Syria OpenStreetMap data. It is developed and maintained by the OpenStreetMap Syria community.</string>
   <string name="syria_about_proposition_1">No ads. Your activity is recorded only when you start a recording.</string>
   <string name="syria_about_website">Website and privacy policy</string>
+  <!-- Downloader list: when a downloaded map was last downloaded or updated on this phone. -->
+  <string name="syria_downloader_updated">Last updated: %s</string>
 </resources>

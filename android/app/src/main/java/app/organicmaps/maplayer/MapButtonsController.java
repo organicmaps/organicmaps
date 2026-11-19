@@ -46,6 +46,7 @@ import com.google.android.material.badge.BadgeUtils;
 import com.google.android.material.badge.ExperimentalBadgeUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MapButtonsController extends Fragment
@@ -64,6 +65,19 @@ public class MapButtonsController extends Fragment
   private MyPositionButton mNavMyPosition;
   private SearchWheel mSearchWheel;
   private BadgeDrawable mBadgeDrawable;
+  // Map updates can show up while the map is open (MapManager.nativeCheckForUpdates).
+  private int mStorageSlot = 0;
+  private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback() {
+    @Override
+    public void onStatusChanged(List<MapManager.StorageCallbackData> data)
+    {
+      updateMenuBadge();
+    }
+
+    @Override
+    public void onProgress(String countryId, MapManager.Progress progress)
+    {}
+  };
   @Nullable
   private ObjectAnimator mBlinkingAnimator;
   private float mContentHeight;
@@ -499,6 +513,18 @@ public class MapButtonsController extends Fragment
     updateMenuBadge();
     updateLayerButton();
     updateHelpButtonIcon();
+    mStorageSlot = MapManager.nativeSubscribe(mStorageCallback);
+  }
+
+  @Override
+  public void onPause()
+  {
+    super.onPause();
+    if (mStorageSlot != 0)
+    {
+      MapManager.nativeUnsubscribe(mStorageSlot);
+      mStorageSlot = 0;
+    }
   }
 
   @Override

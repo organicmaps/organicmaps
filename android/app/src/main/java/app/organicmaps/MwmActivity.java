@@ -258,6 +258,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
 
     MapUpdateLogger.init(this);
+    // New map data is published on our server without an app update.
+    MapManager.nativeCheckForUpdates();
     SyriaDefaults.applyOnce(this);
     processStartupIntent();
     migrateOAuthCredentials();

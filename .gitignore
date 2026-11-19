@@ -110,9 +110,10 @@ AGENTS.override.md
 CLAUDE.local.md
 plans
 
-# Syria Organic Maps release signing (never commit)
+# Syria Organic Maps: release signing and private docs (never commit)
 /Syria/keystore/
 /Syria/dist/
+/Syria/CONCEPT_NOTE.md
 
 # Third-party code is pinned by upstream Organic Maps (submodules and vendored files); local builds
 # and experiments there are never committed. Submodule noise is also hidden locally with

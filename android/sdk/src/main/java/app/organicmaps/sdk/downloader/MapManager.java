@@ -294,6 +294,18 @@ public final class MapManager
   private static native boolean nativeIsLeaf(@NonNull String countryId);
 
   /**
+   * Asks the map server (its data_version.json) for a newer map version. When there is one, its countries list is
+   * applied, the downloaded maps become updatable and subscribers get a status change. Main thread only.
+   */
+  public static native void nativeCheckForUpdates();
+
+  /**
+   * When the map of leaf {@code countryId} was downloaded or updated on this device, in seconds since the epoch;
+   * 0 when it isn't downloaded.
+   */
+  public static native long nativeGetUpdatedTime(@NonNull String countryId);
+
+  /**
    * Registers {@code callback} of storage status changed. Returns slot ID which should be used to unsubscribe in {@link
    * #nativeUnsubscribe(int)}.
    */

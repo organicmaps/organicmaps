@@ -42,6 +42,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:textAppearance="@style/MwmTextAppearance.Body4"
+      android:textAlignment="viewStart"
       android:maxLines="1"
       tools:text="Крымск"
       tools:background="#60FF00FF"/>
@@ -51,6 +52,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:textAppearance="@style/MwmTextAppearance.Body1"
+      android:textAlignment="viewStart"
       tools:text="Донецкая область"
       tools:background="#40FF0000"/>
 
@@ -59,7 +61,18 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:textAppearance="@style/MwmTextAppearance.Body4"
+      android:textAlignment="viewStart"
       tools:text="Украина"
       tools:background="#60FFFF00"/>
+
+    <TextView
+      android:id="@+id/updated"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textAppearance="@style/MwmTextAppearance.Body4"
+      android:textAlignment="viewStart"
+      android:visibility="gone"
+      tools:visibility="visible"
+      tools:text="Updated: 19 Nov 2026, 15:25"/>
   </LinearLayout>
 </RelativeLayout>

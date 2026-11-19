@@ -16,6 +16,7 @@
 #include "platform/downloader_utils.hpp"
 #include "platform/local_country_file_utils.hpp"
 #include "platform/mwm_version.hpp"
+#include "platform/platform.hpp"
 
 #include <array>
 #include <functional>
@@ -412,6 +413,22 @@ JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeRetry(JNIEnv
   StartBatchingCallbacks();
   GetStorage().RetryDownloadNode(jni::ToNativeString(env, root));
   EndBatchingCallbacks(env);
+}
+
+// static long nativeGetUpdatedTime(String countryId);
+JNIEXPORT jlong Java_app_organicmaps_sdk_downloader_MapManager_nativeGetUpdatedTime(JNIEnv * env, jclass,
+                                                                                    jstring countryId)
+{
+  auto const localFile = GetStorage().GetLatestLocalFile(jni::ToNativeString(env, countryId));
+  if (!localFile || !localFile->OnDisk(MapFileType::Map))
+    return 0;
+  return static_cast<jlong>(Platform::GetFileModificationTime(localFile->GetPath(MapFileType::Map)));
+}
+
+// static void nativeCheckForUpdates();
+JNIEXPORT void Java_app_organicmaps_sdk_downloader_MapManager_nativeCheckForUpdates(JNIEnv *, jclass)
+{
+  GetStorage().RunCountriesCheckAsync();
 }
 
 // static void nativeUpdate(String root);

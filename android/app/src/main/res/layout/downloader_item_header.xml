@@ -15,6 +15,7 @@
     android:layout_marginEnd="@dimen/margin_base"
     android:background="?cardBackground"
     android:textAppearance="@style/MwmTextAppearance.Caption"
+    android:textAlignment="viewStart"
     tools:text="Downloaded"
     tools:background="#80FF0000"/>
 </FrameLayout>

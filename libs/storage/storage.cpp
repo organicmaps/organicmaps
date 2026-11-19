@@ -2141,7 +2141,7 @@ void Storage::RunCountriesCheckAsync()
     if (dataVersion <= m_currentVersion)
       return false;
 
-    LOG(LDEBUG, ("Try download", COUNTRIES_FILE, "for", dataVersion));
+    LOG(LINFO, ("New data version on the server:", dataVersion, "current:", m_currentVersion));
 
     m_downloader->DownloadAsString(downloader::GetFileDownloadUrl(COUNTRIES_FILE, dataVersion),
                                    [this, dataVersion](std::string const & buffer)
@@ -2236,7 +2236,16 @@ void Storage::ApplyCountries(std::string const & countriesBuffer, Storage & stor
   // m_affiliations = std::move(storage.m_affiliations);
   // m_countryNameSynonyms = std::move(storage.m_countryNameSynonyms);
 
-  LOG(LDEBUG, ("Version", m_currentVersion, "is applied"));
+  LOG(LINFO, ("Countries version", m_currentVersion, "is applied"));
+
+  // Downloaded maps are outdated now: refresh the update badges and the downloader.
+  CountriesSet leaves;
+  ForEachInSubtree(GetRootId(), [&leaves](CountryId const & id, bool groupNode)
+  {
+    if (!groupNode)
+      leaves.insert(id);
+  });
+  NotifyStatusChangedForHierarchy(leaves);
 
   // LoadDiffScheme();
 

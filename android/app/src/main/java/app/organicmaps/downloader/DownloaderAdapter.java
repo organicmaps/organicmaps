@@ -25,6 +25,7 @@ import app.organicmaps.sdk.downloader.CountryItem;
 import app.organicmaps.sdk.downloader.MapManager;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.util.StringUtils;
+import app.organicmaps.syria.SyriaDownloader;
 import app.organicmaps.util.UiUtils;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetFragment;
 import app.organicmaps.util.bottomsheet.MenuBottomSheetItem;
@@ -368,6 +369,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
     private final TextView mSubtitle;
     private final TextView mFoundName;
     private final TextView mSize;
+    private final TextView mUpdated;
 
     private void processClick(boolean clickOnStatus)
     {
@@ -430,6 +432,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       mSubtitle = frame.findViewById(R.id.subtitle);
       mFoundName = frame.findViewById(R.id.found_name);
       mSize = frame.findViewById(R.id.size);
+      mUpdated = frame.findViewById(R.id.updated);
 
       frame.setOnClickListener(v -> {
         if (mItem.isExpandable())
@@ -486,6 +489,8 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       }
 
       UiUtils.showIf(mSearchResultsMode && !TextUtils.isEmpty(found), mFoundName);
+      UiUtils.setTextAndHideIfEmpty(mUpdated,
+                                    mItem.isExpandable() ? null : SyriaDownloader.updatedText(mActivity, mItem.id));
 
       long size = mItem.getDisplaySize(!mSearchResultsMode && mMyMapsMode);
       mSize.setText(StringUtils.getFileSizeString(mFragment.requireContext(), size));

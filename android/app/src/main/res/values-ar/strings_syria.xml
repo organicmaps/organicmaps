@@ -127,4 +127,5 @@
   <string name="syria_about_fork">هذا التطبيق نسخة مشتقّة من تطبيق Organic Maps مفتوح المصدر، مخصّصة لسوريا وتستخدم بيانات OpenStreetMap المحلية لسوريا، ويطوّرها ويصونها مجتمع OpenStreetMap سوريا.</string>
   <string name="syria_about_proposition_1">بلا إعلانات. لا يُسجَّل نشاطك إلا عندما تبدأ التسجيل بنفسك.</string>
   <string name="syria_about_website">الموقع وسياسة الخصوصية</string>
+  <string name="syria_downloader_updated">آخر تحديث: %s</string>
 </resources>

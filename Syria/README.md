@@ -18,6 +18,8 @@ A branded fork of [Organic Maps](https://organicmaps.app) for Syria with:
   uploaded under the account once signed in (backend view `search_logs`);
 - background sync of sessions, points and activity events to the `syria-om-api` backend (LoopBack 4 + PostGIS);
 - an activity log entry whenever the user downloads or updates map data (switchable in Settings);
+- new map data without an app update: on start the app reads `data_version.json` from the map server and offers
+  "Update all" when a newer version is published; the downloader shows when each map was last updated on the phone;
 - Syria map data downloaded automatically on the first launch from our own map server;
 - Arabic UI by default; English through Settings → "App language" or the system per-app language setting (the
   app offers a restart afterwards so the map, search and voice switch too). "Map language" only changes map
@@ -30,7 +32,7 @@ for upload to openstreetmap.sy.
 
 Everything added by the fork lives in `android/app/src/main/java/app/organicmaps/syria/` plus small hooks in
 `LocationHelper`, `MwmApplication`, `MwmActivity`, `SettingsPrefsFragment`, `DownloadResourcesLegacyActivity`,
-`MapButtonsController`, `SearchFragment`, `HelpFragment` and the map buttons / about layouts,
+`MapButtonsController`, `SearchFragment`, `HelpFragment`, `DownloaderAdapter` and the map buttons / about / downloader layouts,
 so upstream Organic Maps changes stay easy to merge.
 
 ## Configuration
@@ -67,15 +69,18 @@ APKs land in `android/app/build/outputs/apk/<flavor>/<type>/`; signed release bu
    `data/packed_polygons.bin` is Syria-only (the pipeline README explains how both are regenerated when countries
    are added).
 3. Phone on the same Wi-Fi: install the APK, first launch downloads World + Syria from `http://<PC IP>:8080/`.
-4. Recording button above zoom (or Menu → "Activity recording") → sign in with any Syrian number and code `123456` (fake SMS provider).
+4. Recording button above zoom (or Menu → "Activity recording") → sign in with any number and a new 6-digit PIN
+   (the account is created on the spot), or with the Telegram bot.
 5. Admin dashboard: `http://<PC IP>:3000/admin/`.
 
 ## Test checklist (device on the same Wi-Fi as the PC)
 
 1. Fresh install → the first screen downloads World + Syria automatically; the map, search and routing work without
    any login.
-2. The traffic-light button above zoom is red; it opens the login screen. Enter the number after the fixed `00963`
-   prefix (a leading 0 is fine) and code `123456`. Settings → Account shows `00963 9xx xxx xxx` right away.
+2. The traffic-light button above zoom is red; it opens the login screen. Keep the country code `963` (or change it),
+   enter the number (a leading 0 is fine) and a new 6-digit PIN: the account is created and Android offers to save the
+   PIN. Settings → Account shows `00963 9xx xxx xxx` right away. Sign out and back in with autofill; a wrong PIN 5 times
+   shows the lockout message; Telegram sign-in on a number without a PIN asks to set one; Settings → "Change PIN".
 3. Start tracking, walk/drive (or play a GPX with a mock-location app), switch to airplane mode, pause, resume, stop. The
    notification and the tracking screen show elapsed time and km; the history list keeps the session.
 4. Network back → "Sync now" (or wait ≤15 min). The session, segments, points and events appear in the admin dashboard with the
