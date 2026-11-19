@@ -128,7 +128,6 @@ static_assert(MWMRoutingAvoidanceSteps == static_cast<NSUInteger>(routing::Routi
   if (![object isMemberOfClass:self.class])
     return NO;
   MWMRoutingOptions * another = (MWMRoutingOptions *)object;
-  // Only avoidance options: +[MWMRouter updateRoute] must not rebuild when route optimization changes.
   return another.routerType == self.routerType && another->_options.GetOptions() == _options.GetOptions();
 }
 

@@ -457,7 +457,9 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints, m2
 
   try
   {
-    m_requestRoutingOptions = RoutingOptions::LoadFromSettings(m_vehicleType);
+    m_requestRoutingOptions = delegate.GetRoutingOptions();
+    if (!m_requestRoutingOptions)
+      m_requestRoutingOptions = RoutingOptions::LoadFromSettings(m_vehicleType);
     if (m_previousRoutingOptions != m_requestRoutingOptions->GetOptions())
     {
       m_lastRoute.reset();

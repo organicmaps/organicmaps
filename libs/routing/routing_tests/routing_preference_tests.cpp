@@ -295,6 +295,20 @@ UNIT_CLASS_TEST(StepsRoutingFixture, StepsAvoidanceIsIndependent)
   }
 }
 
+UNIT_CLASS_TEST(StepsRoutingFixture, SubmittedOptionsOverrideSettingsForTheWholeRequest)
+{
+  auto const vehicle = VehicleType::Pedestrian;
+  auto router = Router(vehicle);
+  for (bool const avoid : {false, true, false})
+  {
+    RoutingOptions::SaveToSettings(vehicle, RoutingOptions(avoid ? 0 : RoutingOptions::Steps));
+    RouterDelegate const delegate{RoutingOptions(avoid ? RoutingOptions::Steps : 0)};
+    RoutesResult result;
+    TEST_EQUAL(Calculate(*router, result, delegate, true, true), RouterResultCode::NoError, (avoid));
+    TEST_EQUAL(UsesRoadType(result.GetActive(), RoutingOptions::Steps), !avoid, (avoid));
+  }
+}
+
 UNIT_CLASS_TEST(StepsRoutingFixture, RequiredStepsFailTheRoute)
 {
   // Small isolated approaches fail endpoint snapping; larger components reach the path search.
