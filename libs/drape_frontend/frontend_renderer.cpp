@@ -301,12 +301,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     }
     UpdateCanBeDeletedStatus();
 
-    m_firstTilesReady = true;
-    if (m_firstLaunchAnimationTriggered)
-    {
-      CheckAndRunFirstLaunchAnimation();
-      m_firstLaunchAnimationTriggered = false;
-    }
     break;
   }
 
@@ -993,9 +987,11 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::RunFirstLaunchAnimation:
   {
-    ref_ptr<RunFirstLaunchAnimationMessage> msg = message;
-    m_firstLaunchAnimationTriggered = true;
-    CheckAndRunFirstLaunchAnimation();
+    if (m_firstLaunchViewport == FirstLaunchViewport::Idle)
+    {
+      m_firstLaunchViewport = FirstLaunchViewport::WaitingForPosition;
+      CenterFirstLaunchViewportIfReady();
+    }
     break;
   }
 
@@ -2291,6 +2287,7 @@ bool FrontendRenderer::OnSingleTouchFiltrate(m2::PointD const & pt, TouchEvent::
 
 void FrontendRenderer::OnDragStarted()
 {
+  m_firstLaunchViewport = FirstLaunchViewport::Done;
   m_myPositionController->DragStarted();
 }
 
@@ -2298,11 +2295,11 @@ void FrontendRenderer::OnDragEnded(m2::PointD const & distance)
 {
   m_myPositionController->DragEnded(distance);
   PullToBoundArea(false /* randomPlace */, false /* applyZoom */);
-  m_firstLaunchAnimationInterrupted = true;
 }
 
 void FrontendRenderer::OnScaleStarted()
 {
+  m_firstLaunchViewport = FirstLaunchViewport::Done;
   m_myPositionController->ScaleStarted();
 }
 
@@ -2335,14 +2332,13 @@ void FrontendRenderer::OnScaleEnded()
 {
   m_myPositionController->ScaleEnded();
   PullToBoundArea(false /* randomPlace */, false /* applyZoom */);
-  m_firstLaunchAnimationInterrupted = true;
   m_selectionTrackInfo.reset();
 }
 
 void FrontendRenderer::OnScaleRequested()
 {
   m_myPositionController->ResetBlockAutoZoomTimer();
-  m_firstLaunchAnimationInterrupted = true;
+  m_firstLaunchViewport = FirstLaunchViewport::Done;
   m_selectionTrackInfo.reset();
 }
 
@@ -2549,8 +2545,6 @@ void FrontendRenderer::OnContextDestroy()
   m_context = nullptr;
 
   m_needRestoreSize = true;
-  m_firstTilesReady = false;
-  m_firstLaunchAnimationInterrupted = false;
 
   m_finishTexturesInitialization = false;
 }
@@ -2752,6 +2746,8 @@ void FrontendRenderer::CompleteScenarioViewport(bool ready)
 void FrontendRenderer::PositionChanged(m2::PointD const & position, bool hasPosition)
 {
   m_userPositionChangedHandler(position, hasPosition);
+  if (hasPosition)
+    CenterFirstLaunchViewportIfReady();
 }
 
 void FrontendRenderer::ChangeModelView(m2::PointD const & center, int zoomLevel,
@@ -2891,10 +2887,11 @@ void FrontendRenderer::CollectShowOverlaysEvents()
   m_overlaysShowStatsCallback(m_overlaysTracker->Collect());
 }
 
-void FrontendRenderer::CheckAndRunFirstLaunchAnimation()
+void FrontendRenderer::CenterFirstLaunchViewportIfReady()
 {
-  if (!m_firstTilesReady || m_firstLaunchAnimationInterrupted || !m_myPositionController->IsModeHasPosition())
+  if (m_firstLaunchViewport != FirstLaunchViewport::WaitingForPosition || !m_myPositionController->IsModeHasPosition())
     return;
+  m_firstLaunchViewport = FirstLaunchViewport::Done;
 
   int constexpr kDesiredZoomLevel = 13;
   m2::PointD const pos = m_myPositionController->GetDrawablePosition();

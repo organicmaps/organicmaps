@@ -305,7 +305,7 @@ private:
 
   void CollectShowOverlaysEvents();
 
-  void CheckAndRunFirstLaunchAnimation();
+  void CenterFirstLaunchViewportIfReady();
 
   void ScheduleOverlayCollecting();
 
@@ -445,9 +445,13 @@ private:
   ScreenBase m_scenarioViewportScreen;
 #endif
 
-  bool m_firstTilesReady = false;
-  bool m_firstLaunchAnimationTriggered = false;
-  bool m_firstLaunchAnimationInterrupted = false;
+  enum class FirstLaunchViewport
+  {
+    Idle,
+    WaitingForPosition,
+    Done
+  };
+  FirstLaunchViewport m_firstLaunchViewport = FirstLaunchViewport::Idle;
 
 #if defined(OMIM_OS_DESKTOP)
   GraphicsReadyHandler m_graphicsReadyFn;
