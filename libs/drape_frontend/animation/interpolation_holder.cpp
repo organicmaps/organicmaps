@@ -16,12 +16,12 @@ bool InterpolationHolder::IsActive() const
   return !m_interpolations.empty();
 }
 
-void InterpolationHolder::Advance(double elapsedSeconds)
+void InterpolationHolder::Advance(AnimationClock::time_point now)
 {
   auto iter = m_interpolations.begin();
   while (iter != m_interpolations.end())
   {
-    (*iter)->Advance(elapsedSeconds);
+    (*iter)->Advance(now);
     if ((*iter)->IsFinished())
       iter = m_interpolations.erase(iter);
     else

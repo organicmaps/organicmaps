@@ -1,7 +1,9 @@
 #include "testing/testing.hpp"
 
+#include "drape_frontend/animation_system.hpp"
 #include "drape_frontend/drape_frontend_tests/visual_params_fixture.hpp"
 #include "drape_frontend/my_position_controller.hpp"
+#include "drape_frontend/user_event_stream.hpp"
 
 #include "geometry/screenbase.hpp"
 
@@ -20,11 +22,12 @@ UNIT_CLASS_TEST(VisualParamsFixture, StopFollowModesAndFirstFix)
   fix.m_horizontalAccuracy = 5;
   fix.m_timestamp = 1;
 
+  df::AnimationSystem animations;
   for (auto mode : {location::Follow, location::FollowAndRotate, location::NotFollow})
   {
     df::MyPositionController controller(
-        {mode, 0.0 /* timeInBackground */, {}, false /* isRoutingActive */, false /* isAutozoomEnabled */, {}},
-        nullptr);
+        {mode, 0.0 /* timeInBackground */, {}, false /* isRoutingActive */, false /* isAutozoomEnabled */, {}}, nullptr,
+        animations);
     controller.OnUpdateScreen(screen);
     controller.OnLocationUpdate(fix, false /* isNavigable */, screen);
     TEST_EQUAL(controller.GetCurrentMode(), mode, ());
@@ -38,11 +41,71 @@ UNIT_CLASS_TEST(VisualParamsFixture, StopFollowModesAndFirstFix)
                                     false /* isRoutingActive */,
                                     false /* isAutozoomEnabled */,
                                     {}},
-                                   nullptr);
+                                   nullptr, animations);
   pending.OnUpdateScreen(screen);
   TEST_EQUAL(pending.GetCurrentMode(), location::PendingPosition, ());
   pending.StopLocationFollow();
   pending.OnLocationUpdate(fix, false /* isNavigable */, screen);
   TEST_EQUAL(pending.GetCurrentMode(), location::NotFollow, ());
+}
+namespace
+{
+class PositionListener : public df::MyPositionController::Listener
+{
+public:
+  void PositionChanged(m2::PointD const &, bool) override {}
+  void ChangeModelView(m2::PointD const &, int, std::optional<df::ArrowPose> const & target) override
+  {
+    m_arrowTarget = target;
+  }
+  void ChangeModelView(double, std::optional<df::ArrowPose> const &) override {}
+  void ChangeModelView(m2::RectD const &, std::optional<df::ArrowPose> const &) override {}
+  void ChangeModelView(m2::PointD const &, double, m2::PointD const &, int,
+                       std::optional<df::ArrowPose> const &) override
+  {}
+  void ChangeModelView(double, m2::PointD const &, double, m2::PointD const &,
+                       std::optional<df::ArrowPose> const &) override
+  {}
+
+  std::optional<df::ArrowPose> m_arrowTarget;
+};
+}  // namespace
+
+UNIT_CLASS_TEST(VisualParamsFixture, DistantCameraJumpSnapsPendingArrow)
+{
+  df::AnimationSystem animations;
+  df::UserEventStream stream(animations);
+  stream.AddEvent(make_unique_dp<df::ResizeEvent>(800, 600));
+  stream.AddEvent(
+      make_unique_dp<df::SetRectEvent>(m2::RectD(-2.0, -2.0, 2.0, 2.0), false, df::kDoNotChangeZoom, false, false));
+  bool changed, resized, active;
+  ScreenBase const screen = stream.ProcessEvents(changed, resized, active, df::AnimationClock::now());
+
+  PositionListener listener;
+  df::MyPositionController controller({location::Follow, 0.0, {}, false, false, {}}, nullptr, animations);
+  controller.SetListener(make_ref(&listener));
+  controller.OnUpdateScreen(screen);
+  location::GpsInfo fix;
+  fix.m_latitude = 10.0;
+  fix.m_longitude = 80.0;
+  fix.m_horizontalAccuracy = 5.0;
+  fix.m_timestamp = 1.0;
+  controller.OnLocationUpdate(fix, false, screen);
+  auto const position = controller.Position();
+  animations.HoldArrowPose({position, 0.0});
+  animations.AnimateArrowTo({position + m2::PointD(0.005, 0.0), 0.0}, df::AnimationClock::now(), 0.2);
+  fix.m_longitude += 0.01;
+  fix.m_timestamp += 1.0;
+  controller.OnLocationUpdate(fix, false, screen);
+  controller.UpdatePosition();
+  TEST(listener.m_arrowTarget.has_value(), ());
+  TEST(animations.GetArrowPose().has_value(), ());
+
+  stream.AddEvent(make_unique_dp<df::SetCenterEvent>(controller.Position(), df::kDoNotChangeZoom, true, false,
+                                                     listener.m_arrowTarget));
+  auto const & settled = stream.ProcessEvents(changed, resized, active, df::AnimationClock::now());
+  TEST(settled.GetOrg().EqualDxDy(controller.Position(), 1e-6), ());
+  TEST(!animations.GetArrowPose().has_value(), ());
+  TEST(controller.GetDrawablePosition().EqualDxDy(controller.Position(), 1e-6), ());
 }
 }  // namespace my_position_controller_tests

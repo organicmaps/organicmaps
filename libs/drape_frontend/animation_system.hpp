@@ -1,19 +1,11 @@
 #pragma once
 
-#include "drape_frontend/animation/animation.hpp"
-
-#include "drape/drape_diagnostics.hpp"
-
-#include "geometry/screenbase.hpp"
+#include "drape_frontend/animation/arrow_animation.hpp"
+#include "drape_frontend/screen_animations.hpp"
 
 #include "base/macros.hpp"
 
-#include <cstring>
-#include <deque>
-#include <functional>
-#include <list>
-#include <memory>
-#include <string>
+#include <optional>
 #include <utility>
 
 namespace df
@@ -21,78 +13,29 @@ namespace df
 class AnimationSystem
 {
 public:
-  static AnimationSystem & Instance();
+  AnimationSystem() = default;
+  DISALLOW_COPY_AND_MOVE(AnimationSystem);
 
-  void UpdateLastScreen(ScreenBase const & currentScreen);
-  bool GetScreen(ScreenBase const & currentScreen, ScreenBase & screen);
-  void GetTargetScreen(ScreenBase const & currentScreen, ScreenBase & screen);
+  bool HasAnimations() const { return m_map.has_value() || m_arrow.has_value(); }
+  bool IsCameraMoving() const { return m_map && !m_map->IsFinished(); }
+  bool HasMapAnimation(MapAnimation::Type type) const { return m_map && m_map->GetType() == type; }
+  double GetRemainingCameraTime(AnimationClock::time_point now) const;
 
-  bool GetArrowPosition(m2::PointD & position);
-  bool GetArrowAngle(double & angle);
+  std::optional<ScreenBase> GetScreen(ScreenBase const & currentScreen) const;
+  ScreenBase GetTargetScreen(ScreenBase const & currentScreen) const;
+  std::optional<ArrowPose> GetArrowPose() const;
 
-  bool AnimationExists(Animation::Object object) const;
-  bool HasAnimations() const;
-  bool HasMapAnimations() const;
-
-  void CombineAnimation(drape_ptr<Animation> && animation);
-  void PushAnimation(drape_ptr<Animation> && animation);
-
-  void FinishAnimations(Animation::Type type, bool rewind, bool finishAll);
-  void FinishAnimations(Animation::Type type, std::string const & customType, bool rewind, bool finishAll);
-  void FinishObjectAnimations(Animation::Object object, bool rewind, bool finishAll);
-
-  template <typename T>
-  T const * FindAnimation(Animation::Type type, char const * customType = nullptr) const
-  {
-    for (auto & pList : m_animationChain)
-    {
-      auto & lst = *pList;
-      for (auto const & anim : lst)
-      {
-        if ((anim->GetType() == type) &&
-            (customType == nullptr || strcmp(anim->GetCustomType().c_str(), customType) == 0))
-        {
-          ASSERT(dynamic_cast<T const *>(anim.get()) != nullptr, ());
-          return static_cast<T const *>(anim.get());
-        }
-      }
-    }
-    return nullptr;
-  }
-
-  void Advance(double elapsedSeconds);
-
-  ScreenBase const & GetLastScreen() { return m_lastScreen; }
-  void SaveAnimationResult(Animation const & animation);
+  void StartMapAnimation(MapAnimation && animation) { m_map.emplace(std::move(animation)); }
+  void HoldArrowPose(ArrowPose const & pose) { m_heldArrowPose = pose; }
+  void ReleaseArrowHold() { m_heldArrowPose.reset(); }
+  void AnimateArrowTo(ArrowPose const & target, AnimationClock::time_point requestedAt, double duration);
+  void CancelMapAnimation() { m_map.reset(); }
+  void CancelArrowAnimation();
+  void Advance(AnimationClock::time_point now);
 
 private:
-  AnimationSystem() = default;
-
-  using TGetPropertyFn = std::function<bool(Animation::Object object, Animation::ObjectProperty property,
-                                            Animation::PropertyValue & value)>;
-  bool GetScreen(ScreenBase const & currentScreen, TGetPropertyFn const & getPropertyFn, ScreenBase & screen);
-
-  bool GetProperty(Animation::Object object, Animation::ObjectProperty property,
-                   Animation::PropertyValue & value) const;
-  bool GetTargetProperty(Animation::Object object, Animation::ObjectProperty property,
-                         Animation::PropertyValue & value) const;
-  void StartNextAnimations();
-  void FinishAnimations(std::function<bool(std::shared_ptr<Animation> const &)> const & predicate, bool rewind,
-                        bool finishAll);
-
-#ifdef DEBUG_ANIMATIONS
-  void Print();
-#endif
-
-  using TAnimationList = std::list<std::shared_ptr<Animation>>;
-  using TAnimationChain = std::deque<std::shared_ptr<TAnimationList>>;
-  using TPropertyCache = std::map<std::pair<Animation::Object, Animation::ObjectProperty>, Animation::PropertyValue>;
-
-  TAnimationChain m_animationChain;
-  mutable TPropertyCache m_propertyCache;
-
-  ScreenBase m_lastScreen;
-
-  DISALLOW_COPY_AND_MOVE(AnimationSystem);
+  std::optional<MapAnimation> m_map;
+  std::optional<ArrowAnimation> m_arrow;
+  std::optional<ArrowPose> m_heldArrowPose;
 };
 }  // namespace df

@@ -1,38 +1,23 @@
 project(drape_frontend)
 
 set(SRC
-  animation/animation.cpp
   animation/animation.hpp
   animation/arrow_animation.cpp
   animation/arrow_animation.hpp
   animation/base_interpolator.cpp
   animation/base_interpolator.hpp
-  animation/follow_animation.cpp
-  animation/follow_animation.hpp
   animation/interpolation_holder.cpp
   animation/interpolation_holder.hpp
   animation/interpolations.cpp
   animation/interpolations.hpp
-  animation/interpolators.cpp
-  animation/interpolators.hpp
-  animation/linear_animation.cpp
-  animation/linear_animation.hpp
   animation/opacity_animation.cpp
   animation/opacity_animation.hpp
-  animation/parallel_animation.cpp
-  animation/parallel_animation.hpp
-  animation/scale_animation.cpp
-  animation/scale_animation.hpp
-  animation/sequence_animation.cpp
-  animation/sequence_animation.hpp
   animation/show_hide_animation.cpp
   animation/show_hide_animation.hpp
   animation/value_mapping.hpp
   animation_constants.hpp
   animation_system.cpp
   animation_system.hpp
-  animation_utils.cpp
-  animation_utils.hpp
   apply_feature_functors.cpp
   apply_feature_functors.hpp
   apply_feature_params.cpp

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "drape_frontend/animation_constants.hpp"
+
 #include "base/macros.hpp"
 
 #include <set>
@@ -13,7 +15,7 @@ class InterpolationHolder
 public:
   static InterpolationHolder & Instance();
   bool IsActive() const;
-  void Advance(double elapsedSeconds);
+  void Advance(AnimationClock::time_point now);
 
 private:
   InterpolationHolder() = default;
