@@ -78,6 +78,7 @@ final class BookmarksListViewController: MWMViewController {
     sortToolbarItem.setTitleTextAttributes(toolbarItemAttributes, for: .normal)
     moreToolbarItem.setTitleTextAttributes(toolbarItemAttributes, for: .normal)
     sortToolbarItem.title = L("sort")
+    moreToolbarItem.title = L("placepage_more_button") + "…"
     defaultToolbarItems = toolBar.items ?? []
 
     extendedLayoutIncludesOpaqueBars = true
