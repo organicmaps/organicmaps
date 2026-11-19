@@ -1,130 +1,101 @@
 import UIKit
 
-private class ChartXAxisInnerView: UIView {
+class ChartXAxisView: UIView {
+  private static let minLabelSpacing: CGFloat = 4
+  private static let tickHeight: CGFloat = 3
+  private static let labelTopInset: CGFloat = 5
+
+  override class var layerClass: AnyClass { CAShapeLayer.self }
+
   var lowerBound = 0
   var upperBound = 0
-  var steps: [String] = []
-  var labels: [UILabel] = []
+  var chartData: ChartPresentationData!
 
   var font: UIFont = .systemFont(ofSize: 12, weight: .regular) {
     didSet {
       labels.forEach { $0.font = font }
+      setNeedsLayout()
     }
   }
 
   var textColor: UIColor = .init(white: 0, alpha: 0.3) {
     didSet {
       labels.forEach { $0.textColor = textColor }
+      setNeedsLayout()
     }
   }
 
-  override var frame: CGRect {
-    didSet {
-      if upperBound > 0 {
-        updateLabels()
-      }
-    }
-  }
-
-  private func makeLabel(text: String) -> UILabel {
-    let label = UILabel()
-    label.font = font
-    label.textColor = textColor
-    label.text = text
-    label.frame = CGRect(x: 0, y: 0, width: 60, height: 15)
-    return label
-  }
-
-  func setBounds(lower: Int, upper: Int, steps: [String]) {
-    lowerBound = lower
-    upperBound = upper
-    self.steps = steps
-
-    labels.forEach { $0.removeFromSuperview() }
-    labels.removeAll()
-
-    for i in 0 ..< steps.count {
-      let step = steps[i]
-      let label = makeLabel(text: step)
-      if i == 0 {
-        label.textAlignment = .left
-      } else if i == steps.count - 1 {
-        label.textAlignment = .right
-      } else {
-        label.textAlignment = .center
-      }
-      labels.append(label)
-      addSubview(label)
-    }
-
-    updateLabels()
-  }
-
-  private func updateLabels() {
-    let step = CGFloat(upperBound - lowerBound) / CGFloat(labels.count - 1)
-    for i in 0 ..< labels.count {
-      let x = bounds.width * step * CGFloat(i) / CGFloat(upperBound - lowerBound)
-      let l = labels[i]
-      var f = l.frame
-      let adjust = bounds.width > 0 ? x / bounds.width : 0
-      f.origin = CGPoint(x: x - f.width * adjust, y: 0)
-      l.frame = f
-    }
-  }
-}
-
-class ChartXAxisView: UIView {
-  struct Value {
-    let index: Int
-    let value: Double
-    let text: String
-  }
-
-  var lowerBound = 0
-  var upperBound = 0
-  var values: [Value] = []
-
-  var font: UIFont = .systemFont(ofSize: 12, weight: .regular) {
-    didSet {
-      labelsView?.font = font
-    }
-  }
-
-  var textColor: UIColor = .init(white: 0, alpha: 0.3) {
-    didSet {
-      labelsView?.textColor = textColor
-    }
-  }
-
-  private var labelsView: ChartXAxisInnerView?
+  private var labels: [UILabel] = []
+  private var positions: [CGFloat] = []
 
   func setBounds(lower: Int, upper: Int) {
     lowerBound = lower
     upperBound = upper
-
-    let begin = values[lower].value
-    let end = values[upper].value
-    let step = CGFloat(end - begin) / 5
-    var labels: [String] = []
-    for i in 0 ..< 5 {
-      if let x = values.first(where: { $0.value >= (begin + step * CGFloat(i)) }) {
-        labels.append(x.text)
-      }
+    let lowerDistance = chartData.distance(forChartX: CGFloat(lower))
+    let upperDistance = chartData.distance(forChartX: CGFloat(upper))
+    let ticks = chartData.formatter.xAxisLabels(lowerBound: lowerDistance, upperBound: upperDistance)
+    positions = ticks.map { tick in
+      guard upperDistance > lowerDistance else { return 0 }
+      return CGFloat((tick.value - lowerDistance) / (upperDistance - lowerDistance))
     }
-    labels.append(values[upper].text)
+    labels.forEach { $0.removeFromSuperview() }
+    labels = ticks.map { tick in
+      let label = UILabel()
+      label.font = font
+      label.textColor = textColor
+      label.text = tick.text
+      addSubview(label)
+      return label
+    }
+    setNeedsLayout()
+  }
 
-    let lv = ChartXAxisInnerView()
-    lv.frame = bounds
-    lv.font = font
-    lv.textColor = textColor
-    lv.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    addSubview(lv)
-
-    if let labelsView = labelsView {
-      labelsView.removeFromSuperview()
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    // Tick generation tolerates conversion roundoff at the viewport boundaries.
+    let tickPositions = positions.map { bounds.width * min(max($0, 0), 1) }
+    for (label, tickX) in zip(labels, tickPositions) {
+      let size = label.intrinsicContentSize
+      // Keep the text inside the chart; the separate tick marks its actual distance.
+      let x = min(max(tickX - size.width / 2, 0), max(0, bounds.width - size.width))
+      label.frame = CGRect(origin: CGPoint(x: x, y: Self.labelTopInset), size: size)
+      label.isHidden = size.width > bounds.width
     }
 
-    lv.setBounds(lower: lower, upper: upper, steps: labels)
-    labelsView = lv
+    // Thin uniformly from the last tick so the end label survives collisions.
+    var labelStride = 1
+    while !labelsFit(stride: labelStride) {
+      labelStride += 1
+    }
+    for (index, label) in labels.enumerated() {
+      label.isHidden = label.isHidden || (labels.count - 1 - index) % labelStride != 0
+    }
+
+    let path = UIBezierPath()
+    for (label, tickX) in zip(labels, tickPositions) where !label.isHidden {
+      path.move(to: CGPoint(x: tickX, y: 0))
+      path.addLine(to: CGPoint(x: tickX, y: Self.tickHeight))
+    }
+    let ticksLayer = layer as! CAShapeLayer
+    ticksLayer.path = path.cgPath
+    ticksLayer.fillColor = nil
+    ticksLayer.strokeColor = textColor.resolvedColor(with: traitCollection).cgColor
+  }
+
+  private func labelsFit(stride step: Int) -> Bool {
+    var nextMinX = CGFloat.infinity
+    for index in stride(from: labels.count - 1, through: 0, by: -step) where !labels[index].isHidden {
+      let frame = labels[index].frame
+      guard frame.maxX + Self.minLabelSpacing <= nextMinX else { return false }
+      nextMinX = frame.minX
+    }
+    return true
+  }
+
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+      setNeedsLayout()
+    }
   }
 }
