@@ -28113,6 +28113,11 @@ vi = Tránh bến phà
 zh-Hans = 避开轮渡
 zh-Hant = 避開渡輪
 
+[avoid_difficult_trails]
+comment = Walking routing option to avoid paths mapped as difficult, expert, or hard to see.
+tags = android-app,apple-maps
+en = Avoid difficult trails
+
 [avoid_steps]
 comment = Routing option to avoid stairs on walking and cycling routes
 tags = android-app,apple-maps
