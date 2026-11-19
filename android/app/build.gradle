@@ -74,16 +74,17 @@ android {
     buildConfigField 'String', 'REVIEW_URL', '""'
     // Syria Organic Maps servers: tracking API and map files on the same host. Public builds (Google Play, APK)
     // always use them; SYRIA_DEV_SETTINGS builds can switch to the local development server in Settings.
-    buildConfigField 'String', 'SYRIA_API_URL', '"https://organicmaps.openstreetmap.sy"'
-    buildConfigField 'String', 'SYRIA_MAPS_URL', '"https://organicmaps.openstreetmap.sy/"'
+    // On the VPS nginx serves the website at /, the API at /api/ and the map files at /mapdata/.
+    buildConfigField 'String', 'SYRIA_API_URL', '"https://organicmaps.openstreetmap.sy/api"'
+    buildConfigField 'String', 'SYRIA_MAPS_URL', '"https://organicmaps.openstreetmap.sy/mapdata/"'
     // Local development server (Docker Compose in syria-om-api); override with -PsyriaLocalHost=<LAN IP>.
     def syriaLocalHost = project.findProperty('syriaLocalHost') ?: '192.168.0.31'
     buildConfigField 'String', 'SYRIA_LOCAL_API_URL', "\"http://${syriaLocalHost}:3000\""
     buildConfigField 'String', 'SYRIA_LOCAL_MAPS_URL', "\"http://${syriaLocalHost}:8080/\""
     // The server choice in Settings: debug builds, and release builds made with -PsyriaDevSettings (test APKs).
     buildConfigField 'boolean', 'SYRIA_DEV_SETTINGS', project.hasProperty('syriaDevSettings') ? 'true' : 'false'
-    buildConfigField 'String', 'SYRIA_PRIVACY_URL', '"https://openstreetmap.sy/privacy/"'
-    buildConfigField 'String', 'SYRIA_WEBSITE_URL', '"https://openstreetmap.sy/"'
+    buildConfigField 'String', 'SYRIA_PRIVACY_URL', '"https://organicmaps.openstreetmap.sy/privacy.html"'
+    buildConfigField 'String', 'SYRIA_WEBSITE_URL', '"https://organicmaps.openstreetmap.sy/"'
     resourceConfigurations += [project.ext.supportedLocalizations]
 
     base.archivesName = rootProject.name.replaceAll('\\s', '') + '-' + defaultConfig.versionCode

@@ -119,3 +119,4 @@ plans
 # and experiments there are never committed. Submodule noise is also hidden locally with
 # `git config submodule.<name>.ignore all` (set for every 3party submodule on this machine).
 /3party/
+tools/kothic
