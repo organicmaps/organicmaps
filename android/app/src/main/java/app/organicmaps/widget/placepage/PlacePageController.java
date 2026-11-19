@@ -66,6 +66,8 @@ public class PlacePageController
   private static final String COLOR_TARGET_INITIAL = "ColorTargetInitial";
   // Slide offset threshold below collapsed (0.0) at which the sheet is dismissed.
   private static final float EASY_DISMISS_SLIDE_THRESHOLD = -0.15f;
+  // Syria: the place page opens with all its details visible, up to this share of the screen.
+  private static final float MAX_OPEN_HEIGHT_RATIO = 0.6f;
 
   private BottomSheetBehavior<View> mPlacePageBehavior;
   private NestedScrollView mPlacePage;
@@ -452,6 +454,10 @@ public class PlacePageController
     {
       peekHeight += plusDetailsContainer.getHeight();
     }
+    // Show the whole content without dragging; a longer one still expands to the top.
+    // The frame already leaves room at its bottom for the buttons drawn over it.
+    final int fullHeight = mFrameHeight;
+    peekHeight = Math.max(peekHeight, Math.min(fullHeight, (int) (mCoordinator.getHeight() * MAX_OPEN_HEIGHT_RATIO)));
     final int topInset =
         (mCurrentWindowInsets != null) ? mCurrentWindowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).top : 0;
     return Math.min(peekHeight + (isLandscape ? bottomInsets : 0), mCoordinator.getHeight() - topInset);

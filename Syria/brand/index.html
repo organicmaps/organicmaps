@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>دليل الهوية — Syria Organic Maps</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Readex+Pro:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #21242A; --road: #404E5E; --teal: #0C7C70; --teal-deep: #006560; --leaf: #006C35; --red: #C1272D;
+    --paper: #F7F5F0; --line: #DAD6CC; --muted: #5F6672; --mint: #6FD3C3;
+    --display: "Readex Pro", "IBM Plex Sans Arabic", sans-serif;
+    --body: "IBM Plex Sans Arabic", "Readex Pro", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #E9E5DC; color: var(--ink); font: 400 15px/1.7 var(--body); }
+  h1, h2, h3 { font-family: var(--display); margin: 0; line-height: 1.3; }
+  p { margin: 0; }
+  bdi { unicode-bidi: isolate; }
+  a { color: inherit; }
+
+  header { background: var(--ink); color: #fff; position: relative; padding: 40px 24px 76px; }
+  header .wrap { max-width: 1180px; margin: 0 auto; display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+  header img { width: 92px; }
+  header h1 { font-size: clamp(26px, 4vw, 40px); }
+  header h1 span { color: var(--mint); }
+  header p { color: #C9CFD8; margin-top: 6px; max-width: 60ch; }
+  .road { position: absolute; left: 0; right: 0; bottom: 0; height: 40px; background: var(--road); }
+  .road::after { content: ""; position: absolute; left: 0; right: 0; top: 18px; height: 4px;
+                 background: repeating-linear-gradient(to left, #F2F2F2 0 26px, transparent 26px 48px); }
+
+  .downloads { max-width: 1180px; margin: -22px auto 0; padding: 0 24px; position: relative; display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font: 600 14px/1 var(--display);
+         padding: 12px 16px; border-radius: 12px; background: #fff; border: 1px solid var(--line); color: var(--ink); }
+  .btn:hover { border-color: var(--teal); }
+  .btn.primary { background: var(--teal); border-color: var(--teal); color: #fff; }
+  .btn svg { width: 18px; height: 18px; flex: none; }
+  .btn small { font: 500 12px var(--body); opacity: .75; }
+
+  main { max-width: 1180px; margin: 0 auto; padding: 28px 24px 60px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 22px; }
+  .card { background: var(--paper); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column;
+          box-shadow: 0 12px 30px -22px rgba(33,36,42,.45); }
+  .thumb { display: grid; place-items: center; background: #fff; border-bottom: 1px solid var(--line); height: 250px; padding: 16px; overflow: hidden; }
+  .thumb.dark { background: var(--ink); }
+  .thumb.checker { background: repeating-conic-gradient(#EEE 0 25%, #fff 0 50%) 0 0 / 18px 18px; }
+  .thumb img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
+  .thumb.pages { display: flex; gap: 8px; justify-content: center; }
+  .thumb.pages img { height: 100%; max-width: 23%; box-shadow: 0 4px 12px -6px rgba(0,0,0,.4); }
+  .body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .body h3 { font-size: 17px; }
+  .body p { color: var(--muted); font-size: 13.5px; line-height: 1.6; }
+  .links { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; }
+  .links a { font: 600 12.5px/1 var(--display); text-decoration: none; padding: 8px 11px; border-radius: 9px;
+             background: #fff; border: 1px solid var(--line); }
+  .links a:hover { border-color: var(--teal); color: var(--teal-deep); }
+  .links a.open { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .note { margin-top: 30px; font-size: 13.5px; color: var(--muted); background: var(--paper); border-radius: 14px; padding: 16px 18px; }
+  .note code { direction: ltr; display: inline-block; background: #fff; border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px; font-size: 12.5px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <img src="mark-dark.svg" alt="رمز الحملة">
+    <div>
+      <h1>دليل الهوية <span>Syria Organic Maps</span></h1>
+      <p>كل تصاميم حملة «كل مشوار يرسم الخريطة» في مكان واحد: افتح التصميم، أو نزّله صورة أو <bdi>PDF</bdi>، أو نزّل كل شيء دفعة واحدة.</p>
+    </div>
+  </div>
+  <div class="road"></div>
+</header>
+
+<div class="downloads">
+  <a class="btn primary" href="export/syria-om-brand-kit.zip" download>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16"/></svg>
+    تنزيل الكل <small>صور + PDF · ZIP</small></a>
+  <a class="btn" href="export/syria-om-brand-images.zip" download>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 16l5-5 4 4 3-3 6 6"/></svg>
+    كل الصور <small>PNG + SVG · ZIP</small></a>
+  <a class="btn" href="export/syria-om-brand-pdf.zip" download>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6"/></svg>
+    كل ملفات PDF <small>للطباعة · ZIP</small></a>
+</div>
+
+<main>
+  <div class="grid">
+
+    <article class="card">
+      <div class="thumb pages">
+        <img src="export/brochure-a5-page1.png" alt="الغلاف"><img src="export/brochure-a5-page2.png" alt="الصفحة 2">
+        <img src="export/brochure-a5-page3.png" alt="الصفحة 3"><img src="export/brochure-a5-page4.png" alt="الصفحة 4">
+      </div>
+      <div class="body">
+        <h3>كتيّب السائقين A5</h3>
+        <p>4 صفحات بالعربية لسائقي السرافيس والتكاسي: لماذا نسجّل، وكيف، والبطارية، والموقع المباشر، والخصوصية. يُطبع على ورقة A4 مطوية.</p>
+        <div class="links">
+          <a class="open" href="brochure-a5.html">فتح</a>
+          <a href="export/brochure-a5.pdf" download>PDF</a>
+          <a href="export/brochure-a5-page1.png" download>PNG ص1</a>
+          <a href="export/brochure-a5-page2.png" download>PNG ص2</a>
+          <a href="export/brochure-a5-page3.png" download>PNG ص3</a>
+          <a href="export/brochure-a5-page4.png" download>PNG ص4</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb"><img src="export/identity-board.png" alt="لوحة الهوية البصرية" style="object-position:top;height:100%;object-fit:cover;width:100%"></div>
+      <div class="body">
+        <h3>لوحة الهوية البصرية</h3>
+        <p>من أين جاءت الهوية، والشعار المركّب، والألوان، والخطوط، ونبرة الكلام، والعناصر البصرية.</p>
+        <div class="links">
+          <a class="open" href="identity.html">فتح</a>
+          <a href="export/identity-board.pdf" download>PDF</a>
+          <a href="export/identity-board.png" download>PNG</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb checker" style="gap:24px;display:flex;justify-content:center">
+        <img src="mark.svg" alt="الرمز" style="height:200px"><img src="mark-dark.svg" alt="الرمز للخلفيات الداكنة" style="height:200px;background:#21242A;border-radius:12px;padding:8px">
+      </div>
+      <div class="body">
+        <h3>رمز الحملة</h3>
+        <p>دبوس <bdi>Organic Maps</bdi> بانقسام شعار <bdi>OSM</bdi> سوريا وطريقه ودوّاره. نسخة بحدّ فاتح للخلفيات الداكنة. صور بخلفية شفافة.</p>
+        <div class="links">
+          <a href="mark.svg" download>SVG</a>
+          <a href="export/mark.png" download>PNG</a>
+          <a href="mark-dark.svg" download>SVG داكن</a>
+          <a href="export/mark-dark.png" download>PNG داكن</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb dark"><img src="export/sticker-200x100mm.png" alt="ملصق السيارة"></div>
+      <div class="body">
+        <h3>ملصق السيارة</h3>
+        <p>«هذه السيارة ترسم خريطة سوريا» للزجاج الخلفي، 20 × 10 سم.</p>
+        <div class="links">
+          <a class="open" href="designs/sticker.html">فتح</a>
+          <a href="export/sticker-200x100mm.pdf" download>PDF</a>
+          <a href="export/sticker-200x100mm.png" download>PNG</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb checker"><img src="export/badge-80mm.png" alt="شارة سائق الخريطة"></div>
+      <div class="body">
+        <h3>شارة «سائق الخريطة»</h3>
+        <p>شارة دائرية للسائقين المشاركين، 8 سم، بخلفية شفافة.</p>
+        <div class="links">
+          <a class="open" href="designs/badge.html">فتح</a>
+          <a href="export/badge-80mm.pdf" download>PDF</a>
+          <a href="export/badge-80mm.png" download>PNG</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb"><img src="export/post-1080.png" alt="منشور مربّع"></div>
+      <div class="body">
+        <h3>منشور تلغرام وفيسبوك</h3>
+        <p>«طريق حارتك مو عالخريطة؟» منشور مربّع 1080 × 1080.</p>
+        <div class="links">
+          <a class="open" href="designs/post.html">فتح</a>
+          <a href="export/post-1080.png" download>PNG</a>
+          <a href="export/post-1080.pdf" download>PDF</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb"><img src="qr-website.svg" alt="رمز QR" style="height:200px"></div>
+      <div class="body">
+        <h3>رمز QR للموقع</h3>
+        <p>يفتح <bdi>organicmaps.openstreetmap.sy</bdi>. بصيغة متّجهة للطباعة بأي حجم.</p>
+        <div class="links"><a href="qr-website.svg" download>SVG</a></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb" style="gap:28px;display:flex;justify-content:center">
+        <img src="../assets/osm-syria-logo.svg" alt="شعار OSM سوريا" style="height:200px">
+        <img src="../assets/organic-maps-logo.svg" alt="شعار Organic Maps" style="height:120px">
+      </div>
+      <div class="body">
+        <h3>الشعاران الأصليان</h3>
+        <p>شعار <bdi>OpenStreetMap</bdi> سوريا وشعار <bdi>Organic Maps</bdi> اللذان أُخذت منهما الهوية. شعار <bdi>Organic Maps</bdi> © مطوّروه (<bdi>Apache 2.0</bdi>).</p>
+        <div class="links">
+          <a href="../assets/osm-syria-logo.svg" download>SVG OSM سوريا</a>
+          <a href="../assets/organic-maps-logo.svg" download>SVG Organic Maps</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <p class="note">بعد تعديل أي تصميم، أعد توليد الصور وملفات <bdi>PDF</bdi> والملفات المضغوطة بالأمر <code>python Syria/brand/export.py</code> (يحتاج Chrome واتصالاً بالإنترنت للخطوط).</p>
+</main>
+</body>
+</html>

@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>كتيّب السائقين — Syria Organic Maps</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Readex+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* A5 brochure: 4 pages (cover, why, how to record, battery + live + download).
+     Print: A5 pages, or 2 pages per A4 sheet double-sided and folded. */
+  @page { size: 148mm 210mm; margin: 0; }
+  :root {
+    --ink: #21242A; --road: #404E5E; --teal: #0C7C70; --teal-deep: #006560; --leaf: #006C35;
+    --red: #C1272D; --paper: #F7F5F0; --cloud: #F2F2F2; --line: #DAD6CC; --muted: #5F6672; --mint: #6FD3C3;
+    --display: "Readex Pro", "IBM Plex Sans Arabic", sans-serif;
+    --body: "IBM Plex Sans Arabic", "Readex Pro", sans-serif;
+  }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html { background: #D9D4C9; }
+  body { margin: 0; color: var(--ink); font: 400 9.6pt/1.6 var(--body); }
+  .pages { display: flex; flex-wrap: wrap; justify-content: center; gap: 28px; padding: 28px 12px; }
+  .page { width: 148mm; height: 210mm; background: var(--paper); position: relative; overflow: hidden;
+          box-shadow: 0 18px 40px -24px rgba(0,0,0,.5); }
+  @media print {
+    html { background: none; }
+    .pages { display: block; padding: 0; }
+    .page { box-shadow: none; break-after: page; }
+  }
+  @media screen and (max-width: 600px) { body:not(.single) .page { zoom: .62; } }
+  /* ?page=N shows that page alone, edge to edge (used for the PNG exports). */
+  body.single .pages { padding: 0; gap: 0; display: block; }
+  body.single .page { display: none; box-shadow: none; }
+  body.single .page.on { display: block; }
+  h1, h2, h3 { font-family: var(--display); margin: 0; line-height: 1.25; }
+  p { margin: 0; }
+  bdi { unicode-bidi: isolate; }
+  .inner { position: absolute; inset: 11mm 10mm 10mm; }
+
+  /* Road ribbon */
+  .road { position: absolute; left: 0; right: 0; height: 11mm; background: var(--road); }
+  .road::after { content: ""; position: absolute; left: 0; right: 0; top: calc(50% - 0.6mm); height: 1.2mm;
+                 background: repeating-linear-gradient(to left, var(--cloud) 0 6mm, transparent 6mm 11mm); }
+
+  /* Roundabout bullet */
+  .dot { width: 9mm; height: 9mm; border-radius: 50%; background: #fff; box-shadow: 0 0 0 1.6mm var(--road);
+         display: grid; place-items: center; flex: none; font: 700 11pt/1 var(--display); color: #fff; position: relative; }
+  .dot::before { content: ""; position: absolute; inset: 1.4mm; border-radius: 50%; background: var(--red); }
+  .dot span { position: relative; }
+
+  /* Phone frame */
+  .phone { background: #0E0F12; border-radius: 7mm; padding: 2.2mm; box-shadow: 0 10px 26px -12px rgba(0,0,0,.6); }
+  .phone img { display: block; width: 100%; border-radius: 5mm; }
+  .shot { display: block; border-radius: 3mm; box-shadow: 0 0 0 .6mm var(--ink), 0 8px 18px -10px rgba(0,0,0,.6); }
+
+  .kicker { font: 600 8pt/1 var(--display); color: var(--teal); display: flex; align-items: center; gap: 2mm; }
+  .kicker::before { content: ""; width: 2.6mm; height: 2.6mm; border-radius: 50%; background: var(--red);
+                    box-shadow: 0 0 0 .7mm #fff, 0 0 0 1.3mm var(--road); }
+  .stars { display: inline-flex; gap: 1mm; vertical-align: middle; }
+  .stars svg { width: 3.2mm; height: 3.2mm; fill: var(--red); }
+
+  /* ---------- Page 1: cover ---------- */
+  .cover { background: var(--ink); color: #fff; }
+  .cover .top { position: absolute; top: 10mm; right: 10mm; left: 10mm; display: flex; align-items: center; gap: 3mm; }
+  .cover .top svg { width: 9mm; height: auto; }
+  .cover .top b { font: 700 11pt/1.1 var(--display); direction: ltr; }
+  .cover .top b span { color: var(--mint); }
+  .cover .top small { display: block; font: 500 7.5pt var(--display); color: #AEB6C2; }
+  .cover h1 { position: absolute; top: 30mm; right: 10mm; left: 10mm; font-size: 33pt; line-height: 1.12; font-weight: 700; }
+  .cover h1 em { font-style: normal; color: var(--mint); }
+  .cover .sub { position: absolute; top: 73mm; right: 10mm; width: 70mm; font-size: 10.5pt; line-height: 1.65; color: #D5DAE1; }
+  .cover .sub b { color: #fff; }
+  .cover .phone { position: absolute; left: 9mm; top: 70mm; width: 46mm; transform: rotate(-6deg); z-index: 2; }
+  .cover .bigroad { position: absolute; left: -10mm; right: -10mm; top: 150mm; height: 16mm; transform: rotate(-4deg); }
+  .cover .bigroad.road { height: 16mm; }
+  .cover .bottom { position: absolute; left: 0; right: 0; bottom: 0; height: 46mm; background: var(--paper); color: var(--ink);
+                   padding: 15mm 10mm 0; display: flex; align-items: center; justify-content: space-between; gap: 4mm; }
+  .cover .bottom img { height: 34mm; width: auto; margin: -6mm -6mm -6mm -4mm; }
+  .cover .chips { display: flex; flex-wrap: wrap; gap: 1.6mm; max-width: 70mm; }
+  .chip { font: 600 7.6pt/1 var(--display); padding: 1.8mm 2.6mm; border-radius: 10mm; background: #E3F2EE; color: var(--teal-deep); }
+  .cover .cta { font: 600 8.5pt var(--display); color: var(--muted); margin-top: 2.5mm; }
+  .cover .pin { position: absolute; right: 14mm; top: 128mm; width: 17mm; z-index: 3; filter: drop-shadow(0 4px 6px rgba(0,0,0,.4)); }
+
+  /* ---------- Page 2: why ---------- */
+  .why h2 { font-size: 22pt; margin-top: 4mm; }
+  .why h2 em { font-style: normal; color: var(--teal); }
+  .why .lead { font-size: 10pt; margin-top: 3mm; color: #353A42; }
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; margin-top: 5mm; }
+  .card { background: #fff; border-radius: 4mm; padding: 3.6mm 3.6mm 3.2mm; border: .3mm solid var(--line); }
+  .card svg { width: 9mm; height: 9mm; }
+  .card h3 { font-size: 10.5pt; margin-top: 1.6mm; }
+  .card p { font-size: 8.6pt; line-height: 1.55; margin-top: 1mm; color: #3A3F47; }
+  .card.hl { background: var(--teal); color: #fff; border-color: var(--teal); }
+  .card.hl p { color: #E2F4F1; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.4mm; margin-top: 4.5mm; }
+  .stat { background: var(--ink); color: #fff; border-radius: 4mm; padding: 3mm; text-align: center; }
+  .stat b { font: 700 17pt/1 var(--display); color: var(--mint); display: block; }
+  .stat span { font-size: 7.8pt; line-height: 1.4; display: block; margin-top: 1.4mm; color: #D5DAE1; }
+  .why .goal { margin-top: 4.5mm; display: flex; align-items: center; gap: 3mm; background: #FBEDEE; border-radius: 4mm; padding: 3mm 3.6mm; }
+  .why .goal p { font-size: 9pt; }
+  .why .goal b { font-family: var(--display); color: var(--red); }
+  .why .road { bottom: 0; height: 8mm; }
+  .flow { margin-top: 4.5mm; display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: center; gap: 1.6mm; text-align: center; }
+  .flow div { font: 600 8.2pt/1.35 var(--display); }
+  .flow svg { display: block; width: 100%; height: 13mm; margin-bottom: 1mm; }
+  .flow i { font-style: normal; font: 700 13pt var(--display); color: var(--road); }
+
+  /* ---------- Page 3: how ---------- */
+  .how h2 { font-size: 20pt; margin-top: 3mm; }
+  .how .grid { display: grid; grid-template-columns: 1fr 41mm; gap: 5mm; margin-top: 4mm; }
+  .steps { position: relative; display: grid; gap: 4mm; }
+  .steps::before { content: ""; position: absolute; right: 3.6mm; top: 6mm; bottom: 6mm; width: 1.8mm; background: var(--road);
+                   background-image: repeating-linear-gradient(to bottom, transparent 0 2mm, var(--cloud) 2mm 4mm, transparent 4mm 6mm);
+                   background-size: .5mm 100%; background-repeat: no-repeat; background-position: center; }
+  .step { display: flex; gap: 3.4mm; align-items: flex-start; position: relative; }
+  .step h3 { font-size: 10.5pt; }
+  .step p { font-size: 8.6pt; line-height: 1.55; color: #3A3F47; margin-top: .6mm; }
+  .step img { margin-top: 1.8mm; }
+  .step .opts { display: flex; flex-wrap: wrap; gap: 1.2mm; margin-top: 1.4mm; }
+  .step .opts span { font: 500 7.4pt/1 var(--display); padding: 1.4mm 2mm; border-radius: 8mm; background: #fff; border: .3mm solid var(--line); }
+  .how .side { display: flex; flex-direction: column; gap: 3mm; }
+  .how .side .phone { width: 41mm; }
+  .how .side small { font: 500 7.4pt/1.4 var(--display); color: var(--muted); text-align: center; }
+  .tips { margin-top: 5mm; background: var(--ink); color: #fff; border-radius: 4mm; padding: 3.6mm 4mm; }
+  .tips h3 { font-size: 10.5pt; color: var(--mint); }
+  .tips ul { margin: 1.6mm 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 1.6mm 4mm; }
+  .tips li { font-size: 8.4pt; line-height: 1.5; padding-inline-start: 4mm; position: relative; color: #E4E8ED; }
+  .tips li::before { content: ""; position: absolute; right: 0; top: 1.7mm; width: 2mm; height: 2mm; border-radius: 50%;
+                     background: var(--red); box-shadow: 0 0 0 .5mm #fff; }
+
+  /* ---------- Page 4: back ---------- */
+  .back .block { border-radius: 4mm; padding: 3.6mm 4mm; }
+  .back h2 { font-size: 12.5pt; }
+  .back p { font-size: 8.6pt; line-height: 1.55; margin-top: 1.2mm; color: #3A3F47; }
+  .back .battery { background: #FFF3E0; }
+  .back .battery img { width: 100%; margin-top: 2.4mm; }
+  .back .live { background: #E3F2EE; margin-top: 3mm; display: grid; grid-template-columns: 1fr 34mm; gap: 3mm; align-items: center; }
+  .back .live img { width: 100%; }
+  .back .why-live { font-weight: 600; color: var(--teal-deep) !important; }
+  .back .privacy { margin-top: 3mm; border: .4mm solid var(--line); background: #fff; display: grid; grid-template-columns: 8mm 1fr; gap: 3mm; }
+  .back .privacy ul { margin: 1mm 0 0; padding-inline-start: 4mm; font-size: 8.3pt; line-height: 1.55; color: #3A3F47; columns: 2; column-gap: 5mm; }
+  .back .dl { position: absolute; left: 0; right: 0; bottom: 0; height: 52mm; background: var(--ink); color: #fff; }
+  .back .dl .road { top: 0; height: 8mm; }
+  .back .dl .row { position: absolute; inset: 13mm 10mm 7mm; display: flex; gap: 5mm; align-items: center; }
+  .back .qr { background: #fff; padding: 2.4mm; border-radius: 3mm; width: 31mm; height: 31mm; flex: none; }
+  .back .qr img { width: 100%; height: 100%; display: block; }
+  .back .dl h2 { font-size: 16pt; color: #fff; }
+  .back .dl h2 em { font-style: normal; color: var(--mint); }
+  .back .dl .url { font: 600 9.5pt var(--display); direction: ltr; text-align: right; color: var(--mint); margin-top: 1.6mm; }
+  .back .dl small { display: block; font-size: 7.6pt; color: #AEB6C2; margin-top: 1.6mm; line-height: 1.5; }
+  .back .credit { position: absolute; left: 10mm; right: 10mm; bottom: 2.4mm; font-size: 6.4pt; color: #8C94A0; text-align: center; }
+</style>
+</head>
+<body data-images="export/brochure-a5-page1.png,export/brochure-a5-page2.png,export/brochure-a5-page3.png,export/brochure-a5-page4.png" data-labels="ص1,ص2,ص3,ص4" data-pdf="export/brochure-a5.pdf" data-home="index.html">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <clipPath id="pinclip"><path d="M120 292C120 292 22 196 22 110a98 98 0 0 1 196 0c0 86-98 182-98 182z"/></clipPath>
+    <symbol id="mark" viewBox="0 0 240 300">
+      <g clip-path="url(#pinclip)">
+        <rect width="120" height="300" fill="#21242A"/>
+        <rect x="120" width="120" height="300" fill="#0C7C70"/>
+        <path d="M-10 52C40 50 92 70 112 112" fill="none" stroke="#404E5E" stroke-width="22"/>
+        <path d="M-10 52C40 50 92 70 112 112" fill="none" stroke="#F2F2F2" stroke-width="4" stroke-dasharray="10 9"/>
+        <path d="M120 0V112" stroke="#404E5E" stroke-width="22"/>
+        <path d="M120 4V100" stroke="#F2F2F2" stroke-width="4" stroke-dasharray="10 9"/>
+        <path d="M120 130V300" stroke="#404E5E" stroke-width="22"/>
+        <path d="M120 140V300" stroke="#FFFFFF" stroke-width="8"/>
+        <path d="M144 190c5-26 28-40 52-38-3 24-24 41-52 38z" fill="#006C35"/>
+        <path d="M149 186c14-11 27-21 41-30" fill="none" stroke="#0C7C70" stroke-width="3" stroke-linecap="round"/>
+      </g>
+      <circle cx="120" cy="124" r="36" fill="#404E5E"/>
+      <circle cx="120" cy="124" r="28" fill="#FFFFFF"/>
+      <circle cx="120" cy="124" r="17" fill="#C1272D"/>
+      <g fill="#C1272D">
+        <path d="M42 8l3.5 10.8h11.3l-9.2 6.7 3.5 10.8-9.1-6.7-9.2 6.7 3.5-10.8-9.2-6.7h11.4z" transform="rotate(-12 42 22)"/>
+        <path d="M70 30l2.8 8.6h9l-7.3 5.3 2.8 8.6-7.3-5.3-7.3 5.3 2.8-8.6-7.3-5.3h9z" transform="rotate(-8 70 41)"/>
+        <path d="M92 52l2.1 6.5h6.8l-5.5 4 2.1 6.5-5.5-4-5.5 4 2.1-6.5-5.5-4h6.8z"/>
+      </g>
+    </symbol>
+    <symbol id="mark-dark" viewBox="0 0 240 300">
+      <path d="M120 292C120 292 22 196 22 110a98 98 0 0 1 196 0c0 86-98 182-98 182z" fill="none" stroke="#F2F2F2" stroke-width="10"/>
+      <use href="#mark"/>
+    </symbol>
+    <symbol id="star" viewBox="0 0 24 24"><path d="M12 1.5l3.1 9.4h9.9l-8 5.8 3.1 9.4-8.1-5.8-8 5.8 3.1-9.4-8-5.8h9.9z"/></symbol>
+    <symbol id="leaf" viewBox="0 0 40 40"><path d="M5 35C8 16 22 6 37 5c-1 17-14 31-32 30z" fill="#006C35"/><path d="M8 32C17 24 25 17 32 10" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/></symbol>
+  </defs>
+</svg>
+
+<main class="pages">
+
+  <!-- ===== Page 1: Cover ===== -->
+  <section class="page cover">
+    <div class="top">
+      <svg viewBox="0 0 240 300"><use href="#mark-dark"/></svg>
+      <div><b>Syria <span>Organic Maps</span></b><small>مع مجتمع OpenStreetMap سوريا</small></div>
+    </div>
+    <h1>كل مشوار<br><em>يرسم الخريطة</em></h1>
+    <p class="sub">يا <b>سائق السرفيس والتكسي</b>، إنت بتعرف طرق المدينة أكثر من أي خريطة.<br><br>سجّل مشاويرك بالتطبيق، وساعدنا نرسم <b>خريطة سوريا المفتوحة</b>: طرق أوضح، وإسعاف يوصل أسرع.</p>
+    <div class="phone"><img src="screens/map.png" alt="خريطة التطبيق وعليها زر التسجيل الأحمر"></div>
+    <div class="road bigroad"></div>
+    <svg class="pin" viewBox="0 0 240 300"><use href="#mark-dark"/></svg>
+    <div class="bottom">
+      <div>
+        <div class="chips">
+          <span class="chip">مجاني</span><span class="chip">بالعربي</span><span class="chip">بيشتغل بلا إنترنت</span><span class="chip">بلا إعلانات</span>
+        </div>
+        <p class="cta">امسح الرمز بالصفحة الأخيرة ونزّل التطبيق ←</p>
+      </div>
+      <img src="../assets/osm-syria-logo.svg" alt="OpenStreetMap سوريا">
+    </div>
+  </section>
+
+  <!-- ===== Page 2: Why ===== -->
+  <section class="page why">
+    <div class="inner">
+      <p class="kicker">ليش مشوارك مهم؟</p>
+      <h2>طرق حارتك <em>بتستاهل</em><br>تنحط عالخريطة</h2>
+      <p class="lead">كثير من طرق الأحياء السكنية بسوريا مو مرسومة عالخريطة أو مرسومة غلط، وما في معلومات مفتوحة عن الزحمة. إنت بتمشي هالطرق كل يوم، ومسارك بيكشف الناقص.</p>
+
+      <div class="cards">
+        <div class="card hl">
+          <svg viewBox="0 0 36 36"><rect x="4" y="9" width="28" height="18" rx="4" fill="#fff"/><rect x="15" y="12" width="6" height="12" fill="#C1272D"/><rect x="12" y="15" width="12" height="6" fill="#C1272D"/></svg>
+          <h3>إسعاف بيوصل أسرع</h3>
+          <p>لما نعرف أوقات التنقّل الحقيقية والزحمة، بيصير فيه يختار الإسعاف والدفاع المدني أسرع طريق.</p>
+        </div>
+        <div class="card">
+          <svg viewBox="0 0 36 36"><path d="M2 26C12 26 16 10 34 10" fill="none" stroke="#404E5E" stroke-width="7"/><path d="M2 26C12 26 16 10 34 10" fill="none" stroke="#F2F2F2" stroke-width="1.4" stroke-dasharray="3 3"/></svg>
+          <h3>طرق الحارات عالخريطة</h3>
+          <p>متطوعو <bdi>OpenStreetMap</bdi> سوريا بيضيفوا الطرق الناقصة ويصلّحوا الغلط اعتماداً على مساراتك.</p>
+        </div>
+        <div class="card">
+          <svg viewBox="0 0 36 36"><rect x="12" y="2" width="12" height="32" rx="5" fill="#21242A"/><circle cx="18" cy="9" r="3.2" fill="#C1272D"/><circle cx="18" cy="18" r="3.2" fill="#E8A33B"/><circle cx="18" cy="27" r="3.2" fill="#2FA37A"/></svg>
+          <h3>نفهم الزحمة</h3>
+          <p>وين وإيمتى بتصير الزحمة، لنخطّط لنقل أفضل للسرافيس والباصات والتكاسي.</p>
+        </div>
+        <div class="card">
+          <svg viewBox="0 0 36 36"><use href="#leaf"/></svg>
+          <h3>خريطة مجانية إلك</h3>
+          <p>خرائط وملاحة بالعربي، بتشتغل بلا إنترنت، بلا إعلانات، ومفتوحة للكل.</p>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><b>5 ثوانٍ</b><span>نقطة وحدة من مسارك كل 5 ثوانٍ</span></div>
+        <div class="stat"><b>0</b><span>إنترنت لازم وقت التسجيل</span></div>
+        <div class="stat"><b>1</b><span>زر أحمر لتبدأ</span></div>
+      </div>
+
+      <div class="flow">
+        <div><svg viewBox="0 0 90 40"><g fill="#C1272D"><circle cx="8" cy="32" r="3"/><circle cx="20" cy="29" r="3"/><circle cx="32" cy="24" r="3"/><circle cx="44" cy="20" r="3"/><circle cx="56" cy="17" r="3"/><circle cx="68" cy="12" r="3"/><circle cx="80" cy="9" r="3"/></g></svg>إنت بتسجّل مشوارك</div>
+        <i>←</i>
+        <div><svg viewBox="0 0 90 40"><g fill="#0C7C70"><rect x="14" y="22" width="10" height="16" rx="2"/><rect x="30" y="14" width="10" height="24" rx="2"/><rect x="46" y="6" width="10" height="32" rx="2"/><rect x="62" y="18" width="10" height="20" rx="2"/></g></svg>منجمع ومنحلّل المسارات</div>
+        <i>←</i>
+        <div><svg viewBox="0 0 90 40"><path d="M2 34C30 34 44 8 88 8" fill="none" stroke="#404E5E" stroke-width="9"/><path d="M2 34C30 34 44 8 88 8" fill="none" stroke="#F2F2F2" stroke-width="1.6" stroke-dasharray="4 3"/></svg>الطريق عالخريطة للكل</div>
+      </div>
+
+      <div class="goal">
+        <span class="stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span>
+        <p><b>هدفنا: 100 سائق</b> بدمشق وريفها يرسموا الخريطة سوا. كن واحد منهم!</p>
+      </div>
+    </div>
+    <div class="road"></div>
+  </section>
+
+  <!-- ===== Page 3: How to record ===== -->
+  <section class="page how">
+    <div class="inner">
+      <p class="kicker">سجّل مشوارك</p>
+      <h2>4 خطوات وبتبلّش</h2>
+      <div class="grid">
+        <div class="steps">
+          <div class="step"><div class="dot"><span>1</span></div><div>
+            <h3>نزّل التطبيق وافتحه</h3>
+            <p>خريطة سوريا بتتنزّل لحالها من أول تشغيل.</p>
+          </div></div>
+          <div class="step"><div class="dot"><span>2</span></div><div>
+            <h3>اضغط الزر الأحمر</h3>
+            <p>على طرف الخريطة، أو من القائمة ← «تسجيل النشاط».</p>
+            <img class="shot" src="screens/record-button.png" alt="زر التسجيل الأحمر" style="width:15mm">
+          </div></div>
+          <div class="step"><div class="dot"><span>3</span></div><div>
+            <h3>ادخل بالطريقة يلي بتريحك</h3>
+            <div class="opts"><span>رقم الهاتف + رمز من 6 أرقام</span><span>تيليغرام</span><span>بلا رقم (مجهول الهوية)</span></div>
+          </div></div>
+          <div class="step"><div class="dot"><span>4</span></div><div>
+            <h3>اضغط «ابدأ التسجيل»</h3>
+            <p>الضوء بيصير أخضر. «إيقاف مؤقت» وقت الاستراحة، و«إيقاف» بآخر الوردية.</p>
+            <img class="shot" src="screens/start.png" alt="زر ابدأ التسجيل" style="width:100%">
+          </div></div>
+        </div>
+        <div class="side">
+          <div class="phone"><img src="screens/recording.png" alt="شاشة تسجيل النشاط"></div>
+          <small>شاشة «تسجيل النشاط»: المسافة والوقت وحالة المزامنة</small>
+        </div>
+      </div>
+
+      <div class="tips">
+        <h3>نصائح السائق</h3>
+        <ul>
+          <li>حط الموبايل عالشاحن بالسيارة.</li>
+          <li>ما بدك إنترنت: التسجيل بينحفظ عالموبايل وبيترسل لحاله لما يرجع النت.</li>
+          <li>سجّل الوردية كلها، مو بس المشاوير الطويلة.</li>
+          <li>خلّي الموقع (<bdi>GPS</bdi>) شغّال ودقيق.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Page 4: Battery, live, privacy, download ===== -->
+  <section class="page back">
+    <div class="inner">
+      <div class="block battery">
+        <h2>خلّي التسجيل شغّال والشاشة مطفية</h2>
+        <p>إذا شفت «محسَّن» بالبرتقالي، اضغط «إصلاح» ← استخدام التطبيق للبطارية ← اختار <b>«غير مقيَّد»</b>. هيك ما بيوقّف أندرويد التسجيل.</p>
+        <img class="shot" src="screens/battery.png" alt="بطاقة إعداد البطارية مع زر إصلاح">
+      </div>
+
+      <div class="block live">
+        <div>
+          <h2>شارك موقعك مباشرة</h2>
+          <p>زر «إرسال الموقع مباشرة» بيبعت موقعك كل 5 ثوانٍ طالما في إنترنت.</p>
+          <p class="why-live">ليش؟ لنشوف حركة السير لحظة بلحظة ونعرف وين الزحمة هلّق.</p>
+          <p>شغّله وقت الشغل، وطفيه من الإشعار متى ما بدك.</p>
+        </div>
+        <img class="shot" src="screens/live.png" alt="زر إرسال الموقع مباشرة">
+      </div>
+
+      <div class="block privacy">
+        <svg viewBox="0 0 40 40"><use href="#leaf"/></svg>
+        <div>
+          <h2>بياناتك بأمان</h2>
+          <ul>
+            <li>التسجيل بس لما إنت تبدأه</li>
+            <li>بتوقّفه متى ما بدك</li>
+            <li>ما منطلب اسم ولا جهات اتصال</li>
+            <li>ما منبيع البيانات وما في إعلانات</li>
+            <li>منشارك بس أرقام مجمّعة بلا هوية</li>
+            <li>الخريطة بتشتغل بلا حساب</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="dl">
+      <div class="road"></div>
+      <div class="row">
+        <div class="qr"><img src="qr-website.svg" alt="رمز QR لموقع التطبيق"></div>
+        <div>
+          <h2>نزّل التطبيق<br><em>وابدأ مشوارك الأول</em></h2>
+          <p class="url">organicmaps.openstreetmap.sy</p>
+          <small>لأجهزة أندرويد. للسؤال أو المساعدة، تواصل مع فريق <bdi>OpenStreetMap</bdi> سوريا.</small>
+        </div>
+      </div>
+      <p class="credit">بيانات الخريطة © مساهمو <bdi>OpenStreetMap</bdi> (<bdi>ODbL</bdi>) · مبني على <bdi>Organic Maps</bdi> (<bdi>Apache 2.0</bdi>)، وليس تابعاً له رسمياً.</p>
+    </div>
+  </section>
+
+</main>
+<script>
+  const n = Number(new URLSearchParams(location.search).get('page'));
+  const pages = document.querySelectorAll('.page');
+  if (n >= 1 && n <= pages.length) { document.body.classList.add('single'); pages[n - 1].classList.add('on'); }
+</script>
+<script src="toolbar.js"></script>
+</body>
+</html>

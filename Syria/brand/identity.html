@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الهوية البصرية — Syria Organic Maps</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Readex+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #21242A;        /* OSM Syria charcoal */
+    --road: #404E5E;       /* OSM Syria road */
+    --teal: #0C7C70;       /* OSM Syria teal */
+    --teal-deep: #006560;  /* OSM Syria wordmark */
+    --leaf: #006C35;       /* Organic Maps green */
+    --red: #C1272D;        /* stars and roundabout */
+    --paper: #F7F5F0;
+    --cloud: #F2F2F2;
+    --line: #DAD6CC;
+    --muted: #5F6672;
+    --display: "Readex Pro", "IBM Plex Sans Arabic", sans-serif;
+    --body: "IBM Plex Sans Arabic", "Readex Pro", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #E9E5DC; color: var(--ink); font: 400 16px/1.7 var(--body); }
+  .canvas { max-width: 1280px; margin: 0 auto; padding: 40px 24px 80px; display: grid; gap: 28px;
+            grid-template-columns: repeat(12, 1fr); }
+  .board { background: var(--paper); border-radius: 20px; padding: 28px; grid-column: span 12; position: relative;
+           box-shadow: 0 1px 0 rgba(0,0,0,.04), 0 12px 32px -20px rgba(33,36,42,.35); }
+  .s6 { grid-column: span 6; } .s4 { grid-column: span 4; } .s8 { grid-column: span 8; } .s3 { grid-column: span 3; }
+  @media (max-width: 900px) { .s6, .s4, .s8, .s3 { grid-column: span 12; } }
+  .label { font: 600 12px/1 var(--display); letter-spacing: .04em; color: var(--muted); margin: 0 0 18px;
+           display: flex; align-items: center; gap: 8px; }
+  .label::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--red);
+                   box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--road); }
+  h1, h2, h3 { font-family: var(--display); margin: 0; line-height: 1.25; }
+  p { margin: 0; }
+  .muted { color: var(--muted); }
+  bdi { unicode-bidi: isolate; }
+
+  /* Hero */
+  .hero { background: var(--ink); color: #fff; overflow: hidden; min-height: 360px; display: grid;
+          grid-template-columns: 1.3fr 1fr; align-items: center; gap: 24px; padding: 40px; }
+  @media (max-width: 900px) { .hero { grid-template-columns: 1fr; } }
+  .hero .label { color: #AEB6C2; }
+  .hero h1 { font-size: clamp(34px, 5vw, 60px); font-weight: 700; }
+  .hero h1 em { font-style: normal; color: #6FD3C3; }
+  .hero p { color: #C9CFD8; margin-top: 14px; max-width: 46ch; }
+  .hero .mark { width: min(260px, 70%); justify-self: center; filter: drop-shadow(0 18px 30px rgba(0,0,0,.45)); }
+  .hero-road { position: absolute; inset: auto 0 0 0; height: 46px; background: var(--road); }
+  .hero-road::after { content: ""; position: absolute; inset: 21px 0 auto; height: 4px;
+                      background: repeating-linear-gradient(to left, var(--cloud) 0 26px, transparent 26px 48px); }
+
+  /* Origins */
+  .origins { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: center; gap: 16px; text-align: center; }
+  @media (max-width: 700px) { .origins { grid-template-columns: 1fr; } .op { transform: rotate(90deg); } }
+  .origins figure { margin: 0; }
+  .origins img, .origins svg.big { height: 150px; width: auto; max-width: 100%; }
+  .origins figcaption { font: 500 14px var(--display); margin-top: 10px; }
+  .origins small { display: block; color: var(--muted); font: 400 13px var(--body); }
+  .op { font: 700 34px var(--display); color: var(--road); }
+  .om-tile { width: 150px; height: 150px; border-radius: 34px; background: var(--leaf); display: grid; place-items: center; margin: 0 auto; }
+  .om-tile svg { width: 100px; height: 100px; }
+  .dna { margin-top: 22px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  .dna div { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; font-size: 14px; }
+  .dna b { font-family: var(--display); font-weight: 600; display: block; }
+
+  /* Lockups */
+  .lockup { display: flex; align-items: center; gap: 16px; }
+  .lockup svg { width: 74px; height: auto; flex: none; }
+  .lockup .name { font: 700 26px/1.1 var(--display); direction: ltr; }
+  .lockup .name span { color: var(--teal-deep); }
+  .lockup .tag { font: 500 15px var(--display); color: var(--muted); margin-top: 4px; }
+  .lockups { display: grid; gap: 14px; }
+  .lockups > div { border-radius: 14px; padding: 22px; }
+  .on-paper { background: #fff; border: 1px solid var(--line); }
+  .on-ink { background: var(--ink); color: #fff; }
+  .on-ink .name span { color: #6FD3C3; }
+  .on-ink .tag { color: #AEB6C2; }
+  .on-teal { background: var(--teal); color: #fff; }
+  .on-teal .name span { color: #CDEFE9; }
+  .on-teal .tag { color: #DDF3EF; }
+
+  /* Palette */
+  .palette { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
+  .sw { border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: #fff; }
+  .sw i { display: block; height: 92px; }
+  .sw div { padding: 10px 12px; font-size: 13px; line-height: 1.5; }
+  .sw b { font: 600 14px var(--display); display: block; }
+  .sw code { direction: ltr; display: inline-block; font: 500 12px ui-monospace, Consolas, monospace; color: var(--muted); }
+  .ratio { display: flex; height: 18px; border-radius: 9px; overflow: hidden; margin-top: 16px; }
+  .ratio span { display: block; }
+
+  /* Type */
+  .type-display { font: 700 54px/1.15 var(--display); }
+  .type-h { font: 600 28px/1.3 var(--display); margin-top: 14px; }
+  .type-b { font: 400 17px/1.8 var(--body); margin-top: 10px; max-width: 52ch; }
+  .specs { margin-top: 18px; display: grid; gap: 8px; font-size: 13px; color: var(--muted); }
+  .specs div { display: flex; justify-content: space-between; border-top: 1px dashed var(--line); padding-top: 8px; }
+  .specs b { color: var(--ink); font-family: var(--display); font-weight: 500; }
+
+  /* Elements */
+  .elements { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; }
+  .el { border: 1px solid var(--line); border-radius: 14px; background: #fff; padding: 16px; text-align: center; }
+  .el svg { height: 90px; width: 100%; }
+  .el b { font: 600 14px var(--display); display: block; margin-top: 8px; }
+  .el small { color: var(--muted); font-size: 12.5px; line-height: 1.5; display: block; }
+
+  /* Voice */
+  .voice { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 700px) { .voice { grid-template-columns: 1fr; } }
+  .voice div { border-radius: 14px; padding: 16px 18px; }
+  .voice .yes { background: #E3F2EE; }
+  .voice .no { background: #F8E4E4; }
+  .voice h3 { font-size: 16px; margin-bottom: 8px; }
+  .voice ul { margin: 0; padding-inline-start: 18px; font-size: 14.5px; }
+
+  /* Applications */
+  .apps { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 18px; align-items: start; }
+  @media (max-width: 900px) { .apps { grid-template-columns: 1fr; } }
+  .sticker { background: var(--ink); color: #fff; border-radius: 22px; padding: 22px 24px 0; position: relative; overflow: hidden;
+             display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: center; min-height: 200px; }
+  .sticker svg.m { width: 92px; height: auto; margin-bottom: 52px; }
+  .sticker h3 { font-size: 25px; line-height: 1.3; }
+  .sticker h3 em { font-style: normal; color: #6FD3C3; }
+  .sticker p { color: #AEB6C2; font-size: 13px; margin-top: 6px; direction: ltr; text-align: right; }
+  .sticker .road { position: absolute; inset: auto 0 0; height: 34px; background: var(--road); }
+  .sticker .road::after { content: ""; position: absolute; inset: 15px 0 auto; height: 4px;
+                          background: repeating-linear-gradient(to left, var(--cloud) 0 20px, transparent 20px 36px); }
+  .badge { width: 220px; height: 220px; border-radius: 50%; margin: 0 auto; background: var(--teal); color: #fff; position: relative;
+           display: grid; place-items: center; text-align: center; box-shadow: inset 0 0 0 10px var(--road), inset 0 0 0 14px #fff; }
+  .badge svg { width: 70px; height: auto; }
+  .badge b { font: 700 22px/1.2 var(--display); display: block; margin-top: 6px; }
+  .badge small { font: 500 12px var(--display); color: #DDF3EF; }
+  .post { aspect-ratio: 1; border-radius: 18px; background: var(--teal); color: #fff; padding: 22px; position: relative; overflow: hidden; }
+  .post h3 { font-size: 26px; line-height: 1.3; position: relative; }
+  .post p { position: relative; font-size: 13.5px; margin-top: 8px; color: #DDF3EF; }
+  .post svg.r { position: absolute; inset: auto -20px -10px -20px; width: calc(100% + 40px); height: 60%; }
+  .caption { font: 500 13px var(--display); color: var(--muted); margin-top: 10px; text-align: center; }
+  @media print { body { background: #fff; } .board { break-inside: avoid; box-shadow: none; } }
+  footer { grid-column: span 12; text-align: center; color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body data-images="export/identity-board.png" data-pdf="export/identity-board.pdf" data-home="index.html">
+
+<!-- Reusable symbols -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <clipPath id="pinclip"><path d="M120 292C120 292 22 196 22 110a98 98 0 0 1 196 0c0 86-98 182-98 182z"/></clipPath>
+    <symbol id="mark" viewBox="0 0 240 300">
+      <g clip-path="url(#pinclip)">
+        <rect width="120" height="300" fill="#21242A"/>
+        <rect x="120" width="120" height="300" fill="#0C7C70"/>
+        <path d="M-10 52C40 50 92 70 112 112" fill="none" stroke="#404E5E" stroke-width="22"/>
+        <path d="M-10 52C40 50 92 70 112 112" fill="none" stroke="#F2F2F2" stroke-width="4" stroke-dasharray="10 9"/>
+        <path d="M120 0V112" stroke="#404E5E" stroke-width="22"/>
+        <path d="M120 4V100" stroke="#F2F2F2" stroke-width="4" stroke-dasharray="10 9"/>
+        <path d="M120 130V300" stroke="#404E5E" stroke-width="22"/>
+        <path d="M120 140V300" stroke="#FFFFFF" stroke-width="8"/>
+        <path d="M144 190c5-26 28-40 52-38-3 24-24 41-52 38z" fill="#006C35"/>
+        <path d="M149 186c14-11 27-21 41-30" fill="none" stroke="#0C7C70" stroke-width="3" stroke-linecap="round"/>
+      </g>
+      <circle cx="120" cy="124" r="36" fill="#404E5E"/>
+      <circle cx="120" cy="124" r="28" fill="#FFFFFF"/>
+      <circle cx="120" cy="124" r="17" fill="#C1272D"/>
+      <g fill="#C1272D">
+        <path d="M42 8l3.5 10.8h11.3l-9.2 6.7 3.5 10.8-9.1-6.7-9.2 6.7 3.5-10.8-9.2-6.7h11.4z" transform="rotate(-12 42 22)"/>
+        <path d="M70 30l2.8 8.6h9l-7.3 5.3 2.8 8.6-7.3-5.3-7.3 5.3 2.8-8.6-7.3-5.3h9z" transform="rotate(-8 70 41)"/>
+        <path d="M92 52l2.1 6.5h6.8l-5.5 4 2.1 6.5-5.5-4-5.5 4 2.1-6.5-5.5-4h6.8z"/>
+      </g>
+    </symbol>
+    <!-- On dark backgrounds: the same mark with a light outline so the charcoal half stays visible. -->
+    <symbol id="mark-dark" viewBox="0 0 240 300">
+      <path d="M120 292C120 292 22 196 22 110a98 98 0 0 1 196 0c0 86-98 182-98 182z" fill="none" stroke="#F2F2F2" stroke-width="10"/>
+      <use href="#mark"/>
+    </symbol>
+    <symbol id="om" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M21.9369 4.64122C22.4556 6.03794 19.6833 9.43555 17.0406 10.3077C12.2592 8.62838 12.1032 11.4494 8.19014 14.1292C12.8156 17.3725 17.6627 14.847 17.5708 11.6541C13.9301 13.7703 11.6502 14.0009 10.3404 13.9359C14.7459 13.0508 19.5011 10.3077 20.4974 9.15296C20.499 9.20493 20.499 9.25528 20.499 9.30725C20.499 14.8211 12.1032 23 12.1032 23C12.1032 23 7.70757 18.7319 5.27829 14.2737C4.93852 14.2689 2.89333 15.0224 2.13992 14.0123C1.29788 12.8851 4.41983 9.10261 7.12815 7.97387C11.9736 10.2054 14.6294 4.42359 16.146 4.10202C11.624 1.38491 7.15441 2.50066 6.64886 6.53817C9.16185 5.08947 12.246 4.2693 13.6708 4.33427C9.6674 5.16256 5.08132 8.16713 3.70746 9.30887C3.70746 4.7208 7.46628 1 12.1032 1C14.846 1 17.2802 2.3009 18.8133 4.31315C18.8133 4.31315 21.5495 3.41016 21.9385 4.64122H21.9369ZM20.9783 5.05212C20.6189 4.55515 19.3648 5.13495 19.3648 5.13495C19.5405 5.43378 19.698 5.74398 19.8359 6.06393C19.9754 6.38875 20.0936 6.72494 20.1921 7.06925C20.1921 7.06925 21.4724 5.73099 20.98 5.05212H20.9783ZM3.0706 13.5445C3.45961 14.0821 4.81541 13.4536 4.81541 13.4536C4.62501 13.1304 4.45594 12.7958 4.30657 12.4499C4.15557 12.0991 4.02754 11.7353 3.92249 11.3634C3.92249 11.3634 2.53878 12.8104 3.0706 13.5445Z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<main class="canvas">
+
+  <!-- 1. Hero -->
+  <section class="board hero">
+    <div>
+      <p class="label">الهوية البصرية · نوفمبر 2026</p>
+      <h1>كل مشوار<br><em>يرسم الخريطة</em></h1>
+      <p>هوية حملة <bdi>Syria Organic Maps</bdi> للسائقين، مأخوذة من شعار <bdi>OpenStreetMap</bdi> سوريا وشعار <bdi>Organic Maps</bdi>: الطريق ودوّار الوصول والنجوم الثلاث من الأول، والدبوس والورقة الخضراء من الثاني.</p>
+    </div>
+    <svg class="mark" viewBox="0 0 240 300" role="img" aria-label="رمز الحملة"><use href="#mark-dark"/></svg>
+    <div class="hero-road"></div>
+  </section>
+
+  <!-- 2. Origins -->
+  <section class="board">
+    <p class="label">المصدر</p>
+    <div class="origins">
+      <figure>
+        <img src="../assets/osm-syria-logo.svg" alt="شعار OpenStreetMap سوريا">
+        <figcaption><bdi>OpenStreetMap</bdi> سوريا<small>الطريق، الدوّار الأحمر، النجوم، الفحمي والأخضر المائي</small></figcaption>
+      </figure>
+      <div class="op">+</div>
+      <figure>
+        <div class="om-tile"><svg style="color:#fff"><use href="#om"/></svg></div>
+        <figcaption><bdi>Organic Maps</bdi><small>الدبوس، الورقة، الأخضر العضوي</small></figcaption>
+      </figure>
+      <div class="op">=</div>
+      <figure>
+        <svg class="big" viewBox="0 0 240 300" role="img" aria-label="رمز الحملة"><use href="#mark"/></svg>
+        <figcaption>رمز الحملة<small>دبوس منقسم يصل إليه الطريق</small></figcaption>
+      </figure>
+    </div>
+    <div class="dna">
+      <div><b>الانقسام</b>نصف فحمي ونصف أخضر مائي، كما في شعار <bdi>OSM</bdi> سوريا.</div>
+      <div><b>الطريق</b>شريط رمادي بخط أبيض متقطع: المسار الذي يسجّله السائق.</div>
+      <div><b>الدوّار</b>نقطة حمراء في حلقة بيضاء: موقعك الآن، وزر التسجيل في التطبيق.</div>
+      <div><b>الدبوس والورقة</b>من <bdi>Organic Maps</bdi>: خريطة مفتوحة، بلا إعلانات، تحترم المستخدم.</div>
+      <div><b>النجوم الثلاث</b>بالأحمر نفسه، تُستعمل بقلّة كعلامة سورية.</div>
+    </div>
+  </section>
+
+  <!-- 3. Lockups -->
+  <section class="board s6">
+    <p class="label">الشعار المركّب</p>
+    <div class="lockups">
+      <div class="on-paper lockup">
+        <svg viewBox="0 0 240 300"><use href="#mark"/></svg>
+        <div><div class="name">Syria <span>Organic Maps</span></div><div class="tag">كل مشوار يرسم الخريطة</div></div>
+      </div>
+      <div class="on-ink lockup">
+        <svg viewBox="0 0 240 300"><use href="#mark-dark"/></svg>
+        <div><div class="name">Syria <span>Organic Maps</span></div><div class="tag">كل مشوار يرسم الخريطة</div></div>
+      </div>
+      <div class="on-teal lockup">
+        <svg viewBox="0 0 240 300"><use href="#mark-dark"/></svg>
+        <div><div class="name">Syria <span>Organic Maps</span></div><div class="tag">كل مشوار يرسم الخريطة</div></div>
+      </div>
+    </div>
+    <p class="muted" style="margin-top:14px;font-size:13.5px">اسم التطبيق يُكتب دائماً بالحروف اللاتينية <bdi>Syria Organic Maps</bdi> كما يظهر على الهاتف، والشعار العربي تحته. على الخلفيات الداكنة نستعمل الرمز بحدّ فاتح.</p>
+  </section>
+
+  <!-- 4. Palette -->
+  <section class="board s6">
+    <p class="label">الألوان</p>
+    <div class="palette">
+      <div class="sw"><i style="background:#21242A"></i><div><b>فحمي الأسفلت</b><code>#21242A</code><br>النصوص والخلفيات الداكنة</div></div>
+      <div class="sw"><i style="background:#0C7C70"></i><div><b>أخضر مائي</b><code>#0C7C70</code><br>اللون الرئيسي</div></div>
+      <div class="sw"><i style="background:#404E5E"></i><div><b>رمادي الطريق</b><code>#404E5E</code><br>الطرق والحدود</div></div>
+      <div class="sw"><i style="background:#006C35"></i><div><b>أخضر عضوي</b><code>#006C35</code><br>الورقة والنجاح</div></div>
+      <div class="sw"><i style="background:#C1272D"></i><div><b>أحمر الدوّار</b><code>#C1272D</code><br>تنبيه ونقطة الموقع فقط</div></div>
+      <div class="sw"><i style="background:#F7F5F0"></i><div><b>ورقي</b><code>#F7F5F0</code><br>خلفية المطبوعات</div></div>
+    </div>
+    <div class="ratio" title="نسب الاستعمال">
+      <span style="flex:40;background:#F7F5F0"></span><span style="flex:25;background:#21242A"></span>
+      <span style="flex:18;background:#0C7C70"></span><span style="flex:9;background:#404E5E"></span>
+      <span style="flex:5;background:#006C35"></span><span style="flex:3;background:#C1272D"></span>
+    </div>
+    <p class="muted" style="font-size:13px;margin-top:6px">النسب التقريبية: الأحمر للنقطة والنجوم فقط، لا للنصوص الطويلة.</p>
+  </section>
+
+  <!-- 5. Typography -->
+  <section class="board s8">
+    <p class="label">الخطوط</p>
+    <div class="type-display">طرق حارتك بتستاهل تنحط عالخريطة</div>
+    <div class="type-h">سجّل مشوارك، ونحن نضيف الطريق</div>
+    <p class="type-b">الخط <bdi>Readex Pro</bdi> للعناوين: هندسي ومستدير مثل كلمة «Syria» في الشعار. والخط <bdi>IBM Plex Sans Arabic</bdi> للنصوص: واضح على الورق وعلى شاشات الهواتف الصغيرة.</p>
+    <div class="specs">
+      <div><span>عنوان كبير</span><b><bdi>Readex Pro</bdi> Bold · 54</b></div>
+      <div><span>عنوان فرعي</span><b><bdi>Readex Pro</bdi> SemiBold · 28</b></div>
+      <div><span>نص</span><b><bdi>IBM Plex Sans Arabic</bdi> Regular · 16–17</b></div>
+      <div><span>أرقام</span><b>أرقام لاتينية 0–9 كما في التطبيق</b></div>
+    </div>
+  </section>
+
+  <!-- 6. Voice -->
+  <section class="board s4">
+    <p class="label">نبرة الكلام</p>
+    <div class="voice" style="grid-template-columns:1fr">
+      <div class="yes"><h3>نقول</h3><ul>
+        <li>مشوارك، حارتك، طريقك</li>
+        <li>جمل قصيرة وأفعال واضحة: سجّل، شغّل، أوقف</li>
+        <li>الفائدة للناس: إسعاف أسرع، طرق أوضح</li>
+        <li>بياناتك بيدك: توقف متى شئت</li>
+      </ul></div>
+      <div class="no"><h3>لا نقول</h3><ul>
+        <li>مصطلحات تقنية: <bdi>GPS</bdi> و<bdi>API</bdi> و<bdi>Sync</bdi></li>
+        <li>وعود غير مؤكّدة أو أرقام غير موثّقة</li>
+        <li>لهجة رسمية جامدة</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <!-- 7. Graphic elements -->
+  <section class="board">
+    <p class="label">العناصر البصرية</p>
+    <div class="elements">
+      <div class="el">
+        <svg viewBox="0 0 200 90"><path d="M0 60C60 60 90 20 200 24" fill="none" stroke="#404E5E" stroke-width="18"/><path d="M0 60C60 60 90 20 200 24" fill="none" stroke="#F2F2F2" stroke-width="3" stroke-dasharray="9 8"/></svg>
+        <b>الطريق</b><small>فاصل بين الأقسام وخط يربط الخطوات</small>
+      </div>
+      <div class="el">
+        <svg viewBox="0 0 200 90"><circle cx="100" cy="45" r="34" fill="#404E5E"/><circle cx="100" cy="45" r="26" fill="#fff"/><circle cx="100" cy="45" r="15" fill="#C1272D"/></svg>
+        <b>الدوّار</b><small>نقطة البداية، وترقيم الخطوات</small>
+      </div>
+      <div class="el">
+        <svg viewBox="0 0 200 90"><g fill="#C1272D"><path d="M70 22l5 15h16l-13 9 5 15-13-9-13 9 5-15-13-9h16z"/><path d="M110 34l3.6 11h11.6l-9.4 6.8 3.6 11-9.4-6.8-9.4 6.8 3.6-11-9.4-6.8h11.6z"/><path d="M142 44l2.6 8h8.4l-6.8 5 2.6 8-6.8-5-6.8 5 2.6-8-6.8-5h8.4z"/></g></svg>
+        <b>النجوم</b><small>لمسة سورية صغيرة، لا أكثر من مرة في الصفحة</small>
+      </div>
+      <div class="el">
+        <svg viewBox="0 0 200 90"><path d="M70 70c8-38 42-58 76-55-4 35-36 60-76 55z" fill="#006C35"/><path d="M76 64c22-17 40-31 62-45" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>
+        <b>الورقة</b><small>للفوائد والمجتمع والخصوصية</small>
+      </div>
+      <div class="el">
+        <svg viewBox="0 0 200 90"><rect x="40" y="10" width="60" height="70" rx="14" fill="#21242A"/><rect x="100" y="10" width="60" height="70" rx="14" fill="#0C7C70"/><rect x="88" y="10" width="24" height="70" fill="#404E5E"/><path d="M100 14v62" stroke="#F2F2F2" stroke-width="3" stroke-dasharray="7 6"/></svg>
+        <b>الانقسام</b><small>كتل لونية للأغلفة والملصقات</small>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Applications -->
+  <section class="board">
+    <p class="label">أمثلة الاستعمال</p>
+    <div class="apps">
+      <div>
+        <div class="sticker">
+          <svg class="m" viewBox="0 0 240 300"><use href="#mark-dark"/></svg>
+          <div style="margin-bottom:52px">
+            <h3>هذه السيارة<br><em>ترسم خريطة سوريا</em></h3>
+            <p>Syria Organic Maps · OpenStreetMap</p>
+          </div>
+          <div class="road"></div>
+        </div>
+        <p class="caption">ملصق للزجاج الخلفي للسرفيس والتكسي (20 × 10 سم)</p>
+      </div>
+      <div>
+        <div class="badge"><div>
+          <svg viewBox="0 0 240 300"><use href="#mark-dark"/></svg>
+          <b>سائق<br>الخريطة</b>
+          <small>OSM سوريا</small>
+        </div></div>
+        <p class="caption">شارة للسائقين المشاركين</p>
+      </div>
+      <div>
+        <div class="post">
+          <h3>طريق حارتك<br>مو عالخريطة؟</h3>
+          <p>سجّل مشوارك، ونحن نضيفه.</p>
+          <svg class="r" viewBox="0 0 300 160" preserveAspectRatio="none"><path d="M-10 150C80 140 120 60 310 40" fill="none" stroke="#404E5E" stroke-width="30"/><path d="M-10 150C80 140 120 60 310 40" fill="none" stroke="#F2F2F2" stroke-width="4" stroke-dasharray="14 12"/><circle cx="214" cy="66" r="22" fill="#404E5E"/><circle cx="214" cy="66" r="16" fill="#fff"/><circle cx="214" cy="66" r="9" fill="#C1272D"/></svg>
+        </div>
+        <p class="caption">منشور مربّع لتلغرام وفيسبوك</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>مجتمع <bdi>OpenStreetMap</bdi> سوريا · الشعار الأصلي لـ <bdi>Organic Maps</bdi> © مطوّرو Organic Maps (<bdi>Apache 2.0</bdi>). هذه النسخة ليست تابعة رسمياً لمشروع Organic Maps.</footer>
+</main>
+<script src="toolbar.js"></script>
+</body>
+</html>

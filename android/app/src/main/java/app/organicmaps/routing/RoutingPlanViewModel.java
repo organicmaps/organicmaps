@@ -18,7 +18,8 @@ public class RoutingPlanViewModel extends ViewModel
   private final MutableLiveData<int[]> mBuildProgress = new MutableLiveData<>();
   private final MutableLiveData<Integer> mDrivingOptionsCount = new MutableLiveData<>(0);
   private final SingleLiveEvent<Void> mDrivingOptionsError = new SingleLiveEvent<>();
-  private int mBottomSheetState = BottomSheetBehavior.STATE_COLLAPSED;
+  // Syria: the route panel opens expanded, with all the route details visible.
+  private int mBottomSheetState = BottomSheetBehavior.STATE_EXPANDED;
 
   public int getBottomSheetState()
   {

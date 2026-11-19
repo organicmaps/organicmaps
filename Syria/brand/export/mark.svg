@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 300" role="img" aria-label="كل مشوار يرسم الخريطة">
+  <!-- Campaign mark: the Organic Maps pin, split charcoal | teal like the OSM Syria logo,
+       with the OSM Syria road running into its red roundabout, an Organic Maps leaf and the three stars. -->
+  <defs>
+    <clipPath id="pin">
+      <path d="M120 292C120 292 22 196 22 110a98 98 0 0 1 196 0c0 86-98 182-98 182z"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#pin)">
+    <rect x="0" y="0" width="120" height="300" fill="#21242A"/>
+    <rect x="120" y="0" width="120" height="300" fill="#0C7C70"/>
+    <!-- Curved road from the top left -->
+    <path d="M-10 52C40 50 92 70 112 112" fill="none" stroke="#404E5E" stroke-width="22"/>
+    <path d="M-10 52C40 50 92 70 112 112" fill="none" stroke="#F2F2F2" stroke-width="4" stroke-dasharray="10 9"/>
+    <!-- Straight road from the top -->
+    <path d="M120 0V112" stroke="#404E5E" stroke-width="22"/>
+    <path d="M120 4V100" stroke="#F2F2F2" stroke-width="4" stroke-dasharray="10 9"/>
+    <!-- Road down to the tip -->
+    <path d="M120 130V300" stroke="#404E5E" stroke-width="22"/>
+    <path d="M120 140V300" stroke="#FFFFFF" stroke-width="8"/>
+    <!-- Organic Maps leaf on the teal side -->
+    <path d="M144 190c5-26 28-40 52-38-3 24-24 41-52 38z" fill="#006C35"/>
+    <path d="M149 186c14-11 27-21 41-30" fill="none" stroke="#0C7C70" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <!-- Roundabout -->
+  <circle cx="120" cy="124" r="36" fill="#404E5E"/>
+  <circle cx="120" cy="124" r="28" fill="#FFFFFF"/>
+  <circle cx="120" cy="124" r="17" fill="#C1272D"/>
+  <!-- Three stars -->
+  <g fill="#C1272D">
+    <path d="M42 8l3.5 10.8h11.3l-9.2 6.7 3.5 10.8-9.1-6.7-9.2 6.7 3.5-10.8-9.2-6.7h11.4z" transform="rotate(-12 42 22)"/>
+    <path d="M70 30l2.8 8.6h9l-7.3 5.3 2.8 8.6-7.3-5.3-7.3 5.3 2.8-8.6-7.3-5.3h9z" transform="rotate(-8 70 41)"/>
+    <path d="M92 52l2.1 6.5h6.8l-5.5 4 2.1 6.5-5.5-4-5.5 4 2.1-6.5-5.5-4h6.8z"/>
+  </g>
+</svg>

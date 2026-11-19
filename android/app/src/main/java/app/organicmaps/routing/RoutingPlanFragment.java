@@ -35,6 +35,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   public static final String TAG = RoutingPlanFragment.class.getSimpleName();
 
   private static final Router[] ROUTERS = Router.values();
+  private static final float MAX_HEIGHT_RATIO = 0.75f;
 
   private RoutingPlanViewModel mViewModel;
   private View mChartPanel;
@@ -285,8 +286,9 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
   {
     final View parent = (View) mFrame.getParent();
     final int parentHeight = parent == null ? 0 : parent.getHeight();
+    // Syria: expanded by default, so keep a part of the map with the route visible above it.
     if (parentHeight > 0)
-      mSheetBehavior.setMaxHeight(parentHeight);
+      mSheetBehavior.setMaxHeight((int) (parentHeight * MAX_HEIGHT_RATIO));
     // Peek excludes the scrollable steps/list: it ends at the steps' top (or the full header when there are
     // none), while setMaxHeight caps a long list to scroll inside the sheet instead of covering the map.
     final boolean stepsVisible = mTransitStepsView.getVisibility() == View.VISIBLE;
@@ -423,7 +425,7 @@ public class RoutingPlanFragment extends Fragment implements View.OnLayoutChange
 
   private void restoreRoutingPanelState(@NonNull Bundle state)
   {
-    mViewModel.setBottomSheetState(state.getInt(TAG + "_bottom_sheet_state", BottomSheetBehavior.STATE_COLLAPSED));
+    mViewModel.setBottomSheetState(state.getInt(TAG + "_bottom_sheet_state", BottomSheetBehavior.STATE_EXPANDED));
     if (mRoutingBottomMenuController != null)
       mRoutingBottomMenuController.restoreRoutingPanelState(state);
     updateRoutingOptions(RoutingController.get().getLastRouterType());

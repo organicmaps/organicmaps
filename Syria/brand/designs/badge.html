@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>شارة سائق الخريطة — Syria Organic Maps</title>
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  /* Round badge for participating drivers, 80 mm (800 × 800 px). */
+  @page { size: 80mm 80mm; margin: 0; }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { margin: 0; background: transparent; }
+  .badge { width: 800px; height: 800px; border-radius: 50%; background: #0C7C70; color: #fff; position: relative;
+           display: grid; place-items: center; text-align: center; font-family: "Readex Pro", sans-serif;
+           box-shadow: inset 0 0 0 36px #404E5E, inset 0 0 0 50px #fff; }
+  @media print { .badge { zoom: .378; } }
+  .badge img { width: 250px; display: block; margin: 0 auto; }
+  b { display: block; font-size: 84px; line-height: 1.15; font-weight: 700; margin-top: 14px; }
+  small { display: block; font-size: 36px; color: #DDF3EF; font-weight: 500; margin-top: 10px; }
+  /* Dashed centre line on the outer road ring. */
+  .ring { position: absolute; inset: 15px; border-radius: 50%; border: 6px dashed #F2F2F2; }
+</style>
+</head>
+<body data-images="../export/badge-80mm.png" data-pdf="../export/badge-80mm.pdf" data-home="../index.html">
+<div class="badge">
+  <div class="ring"></div>
+  <div>
+    <img src="../mark-dark.svg" alt="">
+    <b>سائق<br>الخريطة</b>
+    <small>OSM سوريا</small>
+  </div>
+</div>
+<script src="../toolbar.js"></script>
+</body>
+</html>

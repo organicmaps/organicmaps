@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>ملصق السيارة — Syria Organic Maps</title>
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  /* Rear-window sticker, 200 × 100 mm (1000 × 500 px). */
+  @page { size: 200mm 100mm; margin: 0; }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { margin: 0; background: #21242A; }
+  .sticker { width: 1000px; height: 500px; position: relative; overflow: hidden; background: #21242A; color: #fff;
+             font-family: "Readex Pro", sans-serif; }
+  @media print { .sticker { zoom: .7559; } }  /* 1000 px = 264.6 mm, so 200 mm wide */
+  .mark { position: absolute; right: 64px; top: 52px; width: 230px; }
+  .text { position: absolute; right: 330px; left: 50px; top: 110px; }
+  h1 { margin: 0; font-size: 60px; line-height: 1.2; font-weight: 700; }
+  h1 em { font-style: normal; color: #6FD3C3; }
+  p { margin: 18px 0 0; font-size: 24px; color: #AEB6C2; direction: ltr; text-align: right; font-weight: 500; }
+  .road { position: absolute; left: 0; right: 0; bottom: 0; height: 84px; background: #404E5E; }
+  .road::after { content: ""; position: absolute; left: 0; right: 0; top: 39px; height: 8px;
+                 background: repeating-linear-gradient(to left, #F2F2F2 0 52px, transparent 52px 92px); }
+</style>
+</head>
+<body data-images="../export/sticker-200x100mm.png" data-pdf="../export/sticker-200x100mm.pdf" data-home="../index.html">
+<div class="sticker">
+  <img class="mark" src="../mark-dark.svg" alt="">
+  <div class="text">
+    <h1>هذه السيارة<br><em>ترسم خريطة سوريا</em></h1>
+    <p>Syria Organic Maps · OpenStreetMap</p>
+  </div>
+  <div class="road"></div>
+</div>
+<script src="../toolbar.js"></script>
+</body>
+</html>
