@@ -11,6 +11,7 @@ static_assert(MWMRoutingAvoidanceMotorway == static_cast<NSUInteger>(routing::Ro
 static_assert(MWMRoutingAvoidanceFerry == static_cast<NSUInteger>(routing::RoutingOptions::Ferry));
 static_assert(MWMRoutingAvoidanceDirty == static_cast<NSUInteger>(routing::RoutingOptions::Dirty));
 static_assert(MWMRoutingAvoidanceSteps == static_cast<NSUInteger>(routing::RoutingOptions::Steps));
+static_assert(MWMRoutingAvoidanceDifficultTrail == static_cast<NSUInteger>(routing::RoutingOptions::DifficultTrail));
 
 @interface MWMRoutingOptions ()
 {
@@ -96,6 +97,16 @@ static_assert(MWMRoutingAvoidanceSteps == static_cast<NSUInteger>(routing::Routi
 - (void)setAvoidSteps:(BOOL)avoid
 {
   [self setOption:(routing::RoutingOptions::Road::Steps) enabled:avoid];
+}
+
+- (BOOL)avoidDifficultTrails
+{
+  return _options.Has(routing::RoutingOptions::DifficultTrail);
+}
+
+- (void)setAvoidDifficultTrails:(BOOL)avoid
+{
+  [self setOption:routing::RoutingOptions::DifficultTrail enabled:avoid];
 }
 
 - (BOOL)routeOptimizationEnabled

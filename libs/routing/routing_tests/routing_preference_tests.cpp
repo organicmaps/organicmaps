@@ -365,4 +365,44 @@ UNIT_CLASS_TEST(TrailDifficultyFixture, WalkingRouteRetainsTrailGrades)
   // Trail classification preserves the separately mapped gravel surface.
   TEST(unpavedDifficultTrail, ());
 }
+UNIT_CLASS_TEST(TrailDifficultyFixture, WalkingCanAvoidBothTrailGrades)
+{
+  auto router = Router(VehicleType::Pedestrian);
+  auto constexpr avoidTrail = RoutingOptions::DifficultTrail;
+  for (bool const avoid : {false, true, false})
+  {
+    RoutingOptions::SaveToSettings(VehicleType::Pedestrian, RoutingOptions(avoid ? avoidTrail : 0));
+    RoutesResult result;
+    TEST_EQUAL(Calculate(*router, result, {}, true, true), RouterResultCode::NoError, (avoid));
+    for (auto const grade : {RoutingOptions::DifficultTrail, RoutingOptions::ExpertTrail})
+    {
+      if (avoid)
+        for (auto const & variant : result.m_routes)
+          TEST(!UsesRoadType(variant, grade), (grade));
+      else
+        TEST(UsesRoadType(result.GetActive(), grade), (grade));
+    }
+  }
+}
+
+UNIT_CLASS_TEST(TrailDifficultyFixture, RequiredExpertTrailFailsWithAvoidanceOn)
+{
+  auto router = Router(VehicleType::Pedestrian);
+  auto const calculate = [&](RoutesResult & result)
+  {
+    return router->CalculateRoute(Checkpoints(mercator::FromLatLon(2, 1.01), mercator::FromLatLon(2, 1.09)), {}, false,
+                                  true, {}, result);
+  };
+  RoutesResult before;
+  TEST_EQUAL(calculate(before), RouterResultCode::NoError, ());
+  TEST(UsesRoadType(before.GetActive(), RoutingOptions::ExpertTrail), ());
+
+  RoutingOptions::SaveToSettings(VehicleType::Pedestrian, RoutingOptions(RoutingOptions::DifficultTrail));
+  RoutesResult after;
+  auto const code = calculate(after);
+  TEST(code == RouterResultCode::StartPointNotFound || code == RouterResultCode::EndPointNotFound ||
+           code == RouterResultCode::RouteNotFound,
+       (code));
+  TEST(after.m_routes.empty(), ());
+}
 }  // namespace routing_preference_tests

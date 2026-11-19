@@ -1346,8 +1346,11 @@ RouterResultCode IndexRouter::AdjustRoute(Checkpoints const & checkpoints, m2::P
 
 std::unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
 {
-  RoutingOptions const routingOptions =
+  auto routingOptions =
       m_requestRoutingOptions ? *m_requestRoutingOptions : RoutingOptions::LoadFromSettings(m_vehicleType);
+  // Expand the single walking setting when applying it to the graph.
+  if (routingOptions.Has(RoutingOptions::DifficultTrail))
+    routingOptions.Add(RoutingOptions::ExpertTrail);
   /// @DebugNote
   // Add avoid roads here for debug purpose.
   // routingOptions.Add(RoutingOptions::Road::Motorway);
