@@ -31,9 +31,12 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
   private static final String BUNDLE_ROUTER = "router_type";
   private static final String BUNDLE_ROAD_TYPES = "road_type_ids";
   private static final String BUNDLE_ROUTE_OPTIMIZATION = "route_optimization";
-  // Road types of every mode, as the route mode can change while this screen is open (e.g. by Android Auto).
+  private static final String BUNDLE_PREFER_TRACKS = "prefer_saved_tracks_";
+  // The route mode can change while this screen is open (e.g. by Android Auto).
   @NonNull
   private final Map<Router, Set<RoadType>> mRoadTypes = new EnumMap<>(Router.class);
+  @NonNull
+  private final Map<Router, Boolean> mPreferTracksOnLoad = new EnumMap<>(Router.class);
   private boolean mOptimizationEnabledOnLoad;
   @NonNull
   private Router mRouter = Router.Vehicle;
@@ -54,6 +57,10 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
       mRoadTypes.put(router, savedInstanceState != null && savedInstanceState.containsKey(key)
                                  ? makeRouteTypes(savedInstanceState, key)
                                  : RoutingOptions.getActiveRoadTypes(router));
+      final String tracksKey = BUNDLE_PREFER_TRACKS + router.name();
+      mPreferTracksOnLoad.put(router, savedInstanceState != null && savedInstanceState.containsKey(tracksKey)
+                                          ? savedInstanceState.getBoolean(tracksKey)
+                                          : RoutingOptions.prefersSavedTracks(router));
     }
     mOptimizationEnabledOnLoad = savedInstanceState != null ? savedInstanceState.getBoolean(BUNDLE_ROUTE_OPTIMIZATION)
                                                             : RoutingOptions.isRouteOptimizationEnabled();
@@ -97,6 +104,8 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
       outState.putIntegerArrayList(roadTypesKey(entry.getKey()), savedRoadTypes);
     }
     outState.putBoolean(BUNDLE_ROUTE_OPTIMIZATION, mOptimizationEnabledOnLoad);
+    for (Map.Entry<Router, Boolean> entry : mPreferTracksOnLoad.entrySet())
+      outState.putBoolean(BUNDLE_PREFER_TRACKS + entry.getKey().name(), entry.getValue());
   }
 
   @Override
@@ -108,7 +117,8 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
       return;
 
     final Router router = RoutingController.get().getLastRouterType();
-    final boolean changed = !RoutingOptions.getActiveRoadTypes(router).equals(mRoadTypes.get(router));
+    final boolean changed = !RoutingOptions.getActiveRoadTypes(router).equals(mRoadTypes.get(router))
+                         || RoutingOptions.prefersSavedTracks(router) != mPreferTracksOnLoad.get(router);
     // A temporary switch to On must not reorder stops if the user switches back before leaving this screen.
     final boolean enabled = RoutingOptions.isRouteOptimizationEnabled();
     final boolean reordered = enabled && !mOptimizationEnabledOnLoad && RoutingController.get().optimizeRoutePoints();
@@ -116,7 +126,10 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
       RoutingController.get().onRoutingOptionsChanged();
     // Re-baseline so leaving this screen again (e.g. after Home) reports only what changed since.
     for (Router each : Router.values())
+    {
       mRoadTypes.put(each, RoutingOptions.getActiveRoadTypes(each));
+      mPreferTracksOnLoad.put(each, RoutingOptions.prefersSavedTracks(each));
+    }
     mOptimizationEnabledOnLoad = enabled;
   }
 
@@ -151,6 +164,14 @@ public class DrivingOptionsFragment extends BaseMwmToolbarFragment
     bindOption(root, R.id.avoid_motorways_btn, RoadType.Motorway);
     bindOption(root, R.id.avoid_ferries_btn, RoadType.Ferry);
     bindOption(root, R.id.avoid_dirty_roads_btn, RoadType.Dirty);
+
+    final Router router = mRouter;
+    SwitchCompat tracks = root.findViewById(R.id.prefer_saved_tracks_btn);
+    UiUtils.showIf(RoutingOptions.supportsSavedTracks(router), (View) tracks.getParent());
+    tracks.setOnCheckedChangeListener(null);
+    tracks.setChecked(RoutingOptions.prefersSavedTracks(router));
+    tracks.jumpDrawablesToCurrentState();
+    tracks.setOnCheckedChangeListener((unused, isChecked) -> RoutingOptions.setPreferSavedTracks(router, isChecked));
   }
 
   private void bindOption(@NonNull View root, @IdRes int buttonId, @NonNull RoadType roadType)

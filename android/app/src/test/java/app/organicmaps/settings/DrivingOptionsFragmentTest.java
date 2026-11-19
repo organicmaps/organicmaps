@@ -44,6 +44,15 @@ public class DrivingOptionsFragmentTest
   }
 
   @Test
+  public void onlyTheActiveModeSavedTracksPreferenceRebuildsTheRoute() throws ReflectiveOperationException
+  {
+    verify(stop(Map.of(), Router.Pedestrian, Map.of(), Set.of(), Set.of(Router.Bicycle)), never())
+        .onRoutingOptionsChanged();
+    verify(stop(Map.of(), Router.Pedestrian, Map.of(), Set.of(), Set.of(Router.Pedestrian))).onRoutingOptionsChanged();
+    verify(stop(Map.of(), Router.Bicycle, Map.of(), Set.of(Router.Bicycle), Set.of())).onRoutingOptionsChanged();
+  }
+
+  @Test
   public void modesWithoutAvoidOptionsOpenTheDrivingTab() throws ReflectiveOperationException
   {
     assertEquals(Router.Vehicle, initialRouter(Router.Ruler));
@@ -69,9 +78,20 @@ public class DrivingOptionsFragmentTest
   private static RoutingController stop(Map<Router, Set<RoadType>> loaded, Router route,
                                         Map<Router, Set<RoadType>> current) throws ReflectiveOperationException
   {
+    return stop(loaded, route, current, Set.of(), Set.of());
+  }
+
+  private static RoutingController stop(Map<Router, Set<RoadType>> loaded, Router route,
+                                        Map<Router, Set<RoadType>> current, Set<Router> loadedTrackPreferences,
+                                        Set<Router> currentTrackPreferences) throws ReflectiveOperationException
+  {
     DrivingOptionsFragment fragment = mock(DrivingOptionsFragment.class, CALLS_REAL_METHODS);
     doReturn(mock(FragmentActivity.class)).when(fragment).requireActivity();
     setField(fragment, "mRoadTypes", withAllModes(loaded));
+    Map<Router, Boolean> trackPreferences = new EnumMap<>(Router.class);
+    for (Router each : Router.values())
+      trackPreferences.put(each, loadedTrackPreferences.contains(each));
+    setField(fragment, "mPreferTracksOnLoad", trackPreferences);
     RoutingController controller = mock(RoutingController.class);
     when(controller.getLastRouterType()).thenReturn(route);
 
@@ -80,7 +100,12 @@ public class DrivingOptionsFragmentTest
     {
       routing.when(RoutingController::get).thenReturn(controller);
       for (Map.Entry<Router, Set<RoadType>> each : withAllModes(current).entrySet())
-        options.when(() -> RoutingOptions.getActiveRoadTypes(each.getKey())).thenReturn(each.getValue());
+      {
+        Router profile = each.getKey();
+        options.when(() -> RoutingOptions.getActiveRoadTypes(profile)).thenReturn(each.getValue());
+        options.when(() -> RoutingOptions.prefersSavedTracks(profile))
+            .thenReturn(currentTrackPreferences.contains(profile));
+      }
       fragment.onStop();
     }
     return controller;

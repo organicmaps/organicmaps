@@ -5,6 +5,7 @@
 #include "map/framework.hpp"
 
 #include "routing/router.hpp"
+#include "routing/routing_options.hpp"
 
 #include "platform/settings.hpp"
 
@@ -138,6 +139,14 @@ RoutingSettings::RoutingSettings(QWidget * parent, Framework & framework, kml::T
     m_routerType->insertItem(static_cast<int>(RouterType::Ruler), Tr("ruler"));
     form->addRow(Tr("routing_mode"), m_routerType);
 
+    m_preferWalkingTracksCheckbox = new QCheckBox(Tr("prefer_saved_tracks_walking"), frame);
+    m_preferCyclingTracksCheckbox = new QCheckBox(Tr("prefer_saved_tracks_cycling"), frame);
+    auto const trackDescription = Tr("prefer_saved_tracks_description");
+    m_preferWalkingTracksCheckbox->setToolTip(trackDescription);
+    m_preferCyclingTracksCheckbox->setToolTip(trackDescription);
+    form->addRow(m_preferWalkingTracksCheckbox);
+    form->addRow(m_preferCyclingTracksCheckbox);
+
     m_showTurnsCheckbox = new QCheckBox({}, frame);
     form->addRow(Tr("show_route_turns"), m_showTurnsCheckbox);
 
@@ -196,15 +205,27 @@ bool RoutingSettings::ValidateAndSaveCoordsFromInput()
 
 bool RoutingSettings::SaveSettings()
 {
+  if (!ValidateAndSaveCoordsFromInput())
+    return false;
+  auto walkingOptions = routing::RoutingOptions::LoadFromSettings(routing::VehicleType::Pedestrian);
+  walkingOptions.SetPreferSavedTracks(m_preferWalkingTracksCheckbox->isChecked());
+  routing::RoutingOptions::SaveToSettings(routing::VehicleType::Pedestrian, walkingOptions);
+  auto cyclingOptions = routing::RoutingOptions::LoadFromSettings(routing::VehicleType::Bicycle);
+  cyclingOptions.SetPreferSavedTracks(m_preferCyclingTracksCheckbox->isChecked());
+  routing::RoutingOptions::SaveToSettings(routing::VehicleType::Bicycle, cyclingOptions);
   settings::Set(kShowTurnsSettings, m_showTurnsCheckbox->isChecked());
   settings::Set(kUseDebugGuideSettings, m_useDebugGuideCheckbox->isChecked());
   settings::Set(kUseCachedRoutingSettings, m_saveSessionCheckbox->isChecked());
   settings::Set(kRouterTypeCachedSettings, m_routerType->currentIndex());
-  return ValidateAndSaveCoordsFromInput();
+  return true;
 }
 
 void RoutingSettings::LoadSettings()
 {
+  m_preferWalkingTracksCheckbox->setChecked(
+      routing::RoutingOptions::LoadFromSettings(routing::VehicleType::Pedestrian).PreferSavedTracks());
+  m_preferCyclingTracksCheckbox->setChecked(
+      routing::RoutingOptions::LoadFromSettings(routing::VehicleType::Bicycle).PreferSavedTracks());
   std::string startCoordsText;
   settings::TryGet(kStartCoordsCachedSettings, startCoordsText);
   m_startInput->setText(startCoordsText.c_str());
