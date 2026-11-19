@@ -1487,7 +1487,7 @@ void FrontendRenderer::EndUpdateOverlayTree()
   }
 }
 
-bool FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFrame)
+bool FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFrame, AnimationClock::time_point now)
 {
   TRACE_SECTION("[drape] RenderScene");
   CHECK(m_context != nullptr, ());
@@ -1601,8 +1601,8 @@ bool FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
       clearBits |= dp::ClearBits::StencilBit;
     m_context->Clear(clearBits, dp::kClearBitsStoreAll);
 
-    m_myPositionController->Render(m_context, make_ref(m_gpuProgramManager), modelView, GetCurrentZoom(),
-                                   m_frameValues);
+    m_myPositionController->Render(m_context, make_ref(m_gpuProgramManager), modelView, GetCurrentZoom(), m_frameValues,
+                                   now);
   }
 
   if (m_guiRenderer && !m_screenshotMode)
@@ -1919,9 +1919,9 @@ void FrontendRenderer::RenderFrame()
     m_overlayTree->InvalidateOnNextFrame();
     m_searchMarkTextOverlayTree->InvalidateOnNextFrame();
   }
-  bool const sceneRendered = RenderScene(modelView, isActiveFrameForScene || readyRequest != nullptr);
+  bool const sceneRendered = RenderScene(modelView, isActiveFrameForScene || readyRequest != nullptr, now);
 #else
-  RenderScene(modelView, isActiveFrameForScene);
+  RenderScene(modelView, isActiveFrameForScene, now);
 #endif
 
   if (m_renderInjectionHandler)
@@ -2288,7 +2288,7 @@ bool FrontendRenderer::OnSingleTouchFiltrate(m2::PointD const & pt, TouchEvent::
 void FrontendRenderer::OnDragStarted()
 {
   m_firstLaunchViewport = FirstLaunchViewport::Done;
-  m_myPositionController->DragStarted();
+  m_myPositionController->DragStarted(m_userEventStream.GetCurrentScreen());
 }
 
 void FrontendRenderer::OnDragEnded(m2::PointD const & distance)

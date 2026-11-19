@@ -178,7 +178,7 @@ protected:
 
 private:
   void OnResize(ScreenBase const & screen);
-  bool RenderScene(ScreenBase const & modelView, bool activeFrame);
+  bool RenderScene(ScreenBase const & modelView, bool activeFrame, AnimationClock::time_point now);
   void PrepareBucket(dp::RenderState const & state, drape_ptr<dp::RenderBucket> & bucket);
   void RenderSingleGroup(ref_ptr<dp::GraphicsContext> context, ScreenBase const & modelView,
                          ref_ptr<BaseRenderGroup> group);
