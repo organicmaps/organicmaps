@@ -70,6 +70,7 @@ public:
   MyPositionController(Params && params, ref_ptr<DrapeNotifier> notifier, AnimationSystem & animationSystem);
 
   void UpdatePosition();
+  void UpdateViewportForLocation(AnimationClock::time_point now);
   void OnUpdateScreen(ScreenBase const & screen);
   void SetVisibleViewport(m2::RectD const & rect);
 
@@ -81,7 +82,7 @@ public:
 
   bool IsModeHasPosition() const;
 
-  void DragStarted();
+  void DragStarted(ScreenBase const & screen);
   void DragEnded(m2::PointD const & distance);
 
   void ScaleStarted();
@@ -121,7 +122,7 @@ public:
   void OnCompassUpdate(location::CompassInfo const & info, ScreenBase const & screen);
 
   void Render(ref_ptr<dp::GraphicsContext> context, ref_ptr<gpu::ProgramManager> mng, ScreenBase const & screen,
-              int zoomLevel, FrameValues const & frameValues);
+              int zoomLevel, FrameValues const & frameValues, AnimationClock::time_point now);
 
   bool IsRotationAvailable() const { return m_isDirectionAssigned; }
   bool IsInRouting() const { return m_isInRouting; }
@@ -154,7 +155,7 @@ private:
   bool AlmostCurrentAzimut(double azimut) const;
 
   void CheckNotFollowRouting();
-  void CheckBlockAutoZoom();
+  void CheckBlockAutoZoom(AnimationClock::time_point now);
   void CheckUpdateLocation();
 
   ref_ptr<DrapeNotifier> m_notifier;
@@ -183,11 +184,12 @@ private:
   bool m_enableAutoZoomInRouting;
   double m_autoScale2d;
   double m_autoScale3d;
+  double m_lastAutoScale = 0.0;
 
   base::Timer m_lastGPSBearingTimer;
   base::Timer m_routingNotFollowTimer;
   bool m_blockRoutingNotFollowTimer = false;
-  base::Timer m_blockAutoZoomTimer;
+  std::optional<AnimationClock::time_point> m_autoZoomBlockedUntil;
   base::Timer m_updateLocationTimer;
   double m_lastLocationTimestamp;
 
@@ -204,7 +206,6 @@ private:
   bool m_isCompassAvailable;
 
   bool m_positionIsObsolete;
-  bool m_needBlockAutoZoom;
 
   uint64_t m_routingNotFollowNotifyId;
   uint64_t m_blockAutoZoomNotifyId;
