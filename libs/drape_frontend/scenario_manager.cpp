@@ -160,9 +160,9 @@ void ScenarioManager::ThreadRoutine()
       }
       else
 #endif
-        m_frontendRenderer->AddUserEvent(make_unique_dp<SetCenterEvent>(
-            centerViewportAction->GetCenter(), centerViewportAction->GetZoomLevel(), centerViewportAction->IsAnimated(),
-            false /* trackVisibleViewport */, nullptr /* parallelAnimCreator */));
+        m_frontendRenderer->AddUserEvent(
+            make_unique_dp<SetCenterEvent>(centerViewportAction->GetCenter(), centerViewportAction->GetZoomLevel(),
+                                           centerViewportAction->IsAnimated(), false /* trackVisibleViewport */));
 #ifdef SCENARIO_ENABLE
       ++viewportIndex;
 #endif

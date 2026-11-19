@@ -18,9 +18,9 @@ public:
     m_state = m_endT > m_startT ? ShowHideAnimation::STATE_SHOW_DIRECTION : ShowHideAnimation::STATE_HIDE_DIRECTION;
   }
 
-  void Advance(double elapsedSeconds) override
+  void Advance(AnimationClock::time_point now) override
   {
-    BaseInterpolator::Advance(elapsedSeconds);
+    BaseInterpolator::Advance(now);
     if (IsFinished())
       m_state = m_endT > m_startT ? ShowHideAnimation::STATE_VISIBLE : ShowHideAnimation::STATE_INVISIBLE;
   }
@@ -102,6 +102,12 @@ void ShowHideAnimation::RefreshInterpolator(std::array<EState, 2> validStates, d
 
   double start = GetT();
   double end = endValue;
+  if (start == end)
+  {
+    m_interpolator.reset();
+    m_state = endValue == 1.0 ? STATE_VISIBLE : STATE_INVISIBLE;
+    return;
+  }
   double duration = fabs(end - start) * m_fullDuration;
   m_interpolator.reset(new ShowHideInterpolator(m_state, start, end, duration));
 }

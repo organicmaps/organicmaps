@@ -1,20 +1,366 @@
 #include "testing/testing.hpp"
 
+#include "drape_frontend/animation/arrow_animation.hpp"
+#include "drape_frontend/animation_system.hpp"
 #include "drape_frontend/drape_frontend_tests/visual_params_fixture.hpp"
+#include "drape_frontend/screen_operations.hpp"
 #include "drape_frontend/user_event_stream.hpp"
 
 #include "base/scope_guard.hpp"
 #include "base/thread.hpp"
 
+#include <chrono>
 #include <cmath>
 #include <cstring>
 #include <functional>
 #include <list>
+#include <utility>
 
 namespace user_event_stream_test
 {
 using df::test_support::VisualParamsFixture;
 using namespace std::placeholders;
+using namespace std::chrono_literals;
+
+class CameraAnimationFixture : public VisualParamsFixture
+{
+public:
+  CameraAnimationFixture()
+  {
+    AddEvent<df::ResizeEvent>(800, 600);
+    auto const time =
+        AddEvent<df::SetRectEvent>(m2::RectD(-2.0, -2.0, 2.0, 2.0), false, df::kDoNotChangeZoom, false, false);
+    Process(time);
+  }
+
+  template <typename Event, typename... Args>
+  df::AnimationClock::time_point AddEvent(Args &&... args)
+  {
+    auto event = make_unique_dp<Event>(std::forward<Args>(args)...);
+    auto const time = event->GetRequestTime();
+    m_stream.AddEvent(std::move(event));
+    return time;
+  }
+
+  void Finger(df::TouchEvent::ETouchType type, float x = 300, float y = 300)
+  {
+    auto touch = make_unique_dp<df::TouchEvent>();
+    touch->SetTouchType(type);
+    touch->SetFirstTouch({m2::PointF(x, y), 1});
+    touch->SetFirstMaskedPointer(0);
+    m_stream.AddEvent(std::move(touch));
+  }
+
+  ScreenBase const & Process(df::AnimationClock::time_point time)
+  {
+    bool changed, resized, active;
+    return m_stream.ProcessEvents(changed, resized, active, time);
+  }
+
+protected:
+  df::AnimationSystem m_animations;
+  df::UserEventStream m_stream{m_animations};
+};
+
+UNIT_CLASS_TEST(CameraAnimationFixture, QueuedZoomReachesTargetInFirstLateFrame)
+{
+  ScreenBase const start = m_stream.GetCurrentScreen();
+  m2::PointD const pixel(205, 227);
+  auto const point = start.PtoG(pixel);
+  auto const requestedAt = AddEvent<df::ScaleEvent>(2.0, pixel, true);
+
+  auto const & screen = Process(requestedAt + 500ms);
+  TEST_ALMOST_EQUAL_ABS(screen.GetScale(), start.GetScale() / 2.0, 1e-10, ());
+  TEST(screen.GtoP(point).EqualDxDy(pixel, 1e-6), (screen.GtoP(point), pixel));
+  TEST(!m_animations.IsCameraMoving(), ());
+}
+
+UNIT_CLASS_TEST(CameraAnimationFixture, RepeatedZoomAccumulatesBeforeFirstFrame)
+{
+  ScreenBase const start = m_stream.GetCurrentScreen();
+  m2::PointD const pixel(290, 335);
+  auto const point = start.PtoG(pixel);
+  AddEvent<df::ScaleEvent>(2.0, pixel, true);
+  auto const requestedAt = AddEvent<df::ScaleEvent>(2.0, pixel, true);
+
+  auto const & intermediate = Process(requestedAt + 70ms);
+  TEST_LESS(intermediate.GetScale(), start.GetScale(), ());
+  TEST_GREATER(intermediate.GetScale(), start.GetScale() / 4.0, ());
+  TEST(intermediate.GtoP(point).EqualDxDy(pixel, 1e-6), (intermediate.GtoP(point), pixel));
+
+  auto const & settled = Process(requestedAt + 200ms);
+  TEST_ALMOST_EQUAL_ABS(settled.GetScale(), start.GetScale() / 4.0, 1e-10, ());
+  TEST(settled.GtoP(point).EqualDxDy(pixel, 1e-6), (settled.GtoP(point), pixel));
+}
+
+UNIT_CLASS_TEST(CameraAnimationFixture, PanStepsReplaceThePreviousDestinationAndAccumulate)
+{
+  auto const centerTime = AddEvent<df::SetCenterEvent>(m2::PointD(3.0, 0.0), df::kDoNotChangeZoom, true, false);
+  ScreenBase expected = Process(centerTime + 60ms);
+  TEST(m_animations.IsCameraMoving(), ());
+
+  double constexpr kStep = 0.15;
+  AddEvent<df::MoveEvent>(kStep, 0.0, true);
+  auto const panTime = AddEvent<df::MoveEvent>(kStep, 0.0, true);
+  expected.Move(2.0 * kStep * expected.PixelRectIn3d().SizeX(), 0.0);
+
+  auto const & screen = Process(panTime + 200ms);
+  TEST(screen.GetOrg().EqualDxDy(expected.GetOrg(), 1e-9), (screen.GetOrg(), expected.GetOrg()));
+}
+
+UNIT_CLASS_TEST(CameraAnimationFixture, DragStopsFollowAtDisplayedPosition)
+{
+  auto const & start = m_stream.GetCurrentScreen();
+  auto const anchor = start.PixelRect().Center();
+  auto const position = start.PtoG(anchor + m2::PointD(100, 0));
+  int const zoom = static_cast<int>(df::GetZoomLevel(start.GetScale())) + 1;
+  auto const requestedAt = AddEvent<df::FollowAndRotateEvent>(position, anchor, 0.4, zoom);
+
+  ScreenBase const displayed = Process(requestedAt + 50ms);
+  TEST(m_animations.IsCameraMoving(), ());
+  Finger(df::TouchEvent::TOUCH_DOWN);
+  Finger(df::TouchEvent::TOUCH_MOVE, 330, 300);
+  Finger(df::TouchEvent::TOUCH_MOVE, 350, 300);
+  auto const & screen = Process(requestedAt + 65ms);
+  TEST(m_stream.IsInUserAction(), ());
+  TEST(screen == displayed, (screen.GetOrg(), displayed.GetOrg()));
+  TEST(!m_animations.IsCameraMoving(), ());
+}
+
+UNIT_CLASS_TEST(CameraAnimationFixture, TapLetsAutoZoomFinish)
+{
+  ScreenBase const start = m_stream.GetCurrentScreen();
+  double const target = start.GetScale() * 0.7;
+  auto const time = AddEvent<df::FollowAndRotateEvent>(start.GetOrg(), start.PixelRect().Center(), 0.0, target);
+  Process(time + 60ms);
+  Finger(df::TouchEvent::TOUCH_DOWN);
+  Finger(df::TouchEvent::TOUCH_UP);
+  Process(time + 85ms);
+  TEST(m_animations.IsCameraMoving(), ());
+  TEST_ALMOST_EQUAL_ABS(Process(time + 1200ms).GetScale(), target, 1e-10, ());
+}
+
+UNIT_CLASS_TEST(CameraAnimationFixture, DoubleTapAndHoldTakesOverFromFollow)
+{
+  ScreenBase const start = m_stream.GetCurrentScreen();
+  Finger(df::TouchEvent::TOUCH_DOWN);
+  Finger(df::TouchEvent::TOUCH_UP);
+  Finger(df::TouchEvent::TOUCH_DOWN);
+  auto const time =
+      AddEvent<df::FollowAndRotateEvent>(start.GetOrg(), start.PixelRect().Center(), 0.0, start.GetScale() * 0.8);
+  Finger(df::TouchEvent::TOUCH_MOVE, 300, 335);
+  Finger(df::TouchEvent::TOUCH_MOVE, 300, 360);
+  auto const & screen = Process(time + 70ms);
+  TEST(m_stream.IsInUserAction(), ());
+  TEST(!m_animations.IsCameraMoving(), ());
+  TEST_LESS(screen.GetScale(), start.GetScale() * 0.5, ());
+}
+
+UNIT_CLASS_TEST(CameraAnimationFixture, UnchangedVisibleViewportPreservesCameraAnimation)
+{
+  auto const viewport = m_stream.GetVisibleViewport();
+  m2::PointD const destination(1.0, 0.0);
+  auto const time = AddEvent<df::SetCenterEvent>(destination, df::kDoNotChangeZoom, true, true);
+  AddEvent<df::SetVisibleViewportEvent>(viewport);
+
+  auto const & moving = Process(time + 50ms);
+  TEST(m_animations.IsCameraMoving(), ());
+  TEST_LESS(moving.GetOrg().x, destination.x, ());
+  TEST(Process(time + 220ms).GetOrg().EqualDxDy(destination, 1e-6), ());
+}
+
+UNIT_CLASS_TEST(CameraAnimationFixture, ChangedVisibleViewportKeepsTheOriginalDeadline)
+{
+  m2::PointD const destination(1.0, 0.0);
+  auto const time = AddEvent<df::SetCenterEvent>(destination, df::kDoNotChangeZoom, true, true);
+  Process(time + 50ms);
+  threads::Sleep(10);
+
+  m2::RectD const viewport(0.0, 0.0, 800.0, 420.0);
+  auto const layoutTime = AddEvent<df::SetVisibleViewportEvent>(viewport);
+  auto const & moving = Process(layoutTime + 30ms);
+  TEST(m_animations.IsCameraMoving(), ());
+  TEST_LESS(moving.GetOrg().x, destination.x, ());
+
+  auto const & settled = Process(time + 201ms);
+  TEST(!m_animations.IsCameraMoving(), ());
+  TEST(settled.GtoP(destination).EqualDxDy(viewport.Center(), 1e-6), ());
+}
+
+namespace
+{
+struct SelectionOffsetListener : df::UserEventStream::Listener
+{
+  void OnTap(m2::PointD const &, bool) override {}
+  void OnForceTap(m2::PointD const &) override {}
+  void OnDoubleTap(m2::PointD const &) override {}
+  void OnTwoFingersTap() override {}
+  bool OnSingleTouchFiltrate(m2::PointD const &, df::TouchEvent::ETouchType) override { return false; }
+  void OnDragStarted() override {}
+  void OnDragEnded(m2::PointD const &) override {}
+  void OnScaleStarted() override {}
+  void OnRotated() override {}
+  void OnScrolled(m2::PointD const &) override {}
+  void CorrectScalePoint(m2::PointD &) const override {}
+  void CorrectGlobalScalePoint(m2::PointD &) const override {}
+  void CorrectScalePoint(m2::PointD &, m2::PointD &) const override {}
+  void OnScaleEnded() override {}
+  void OnScaleRequested() override {}
+  void OnTouchMapAction(df::TouchEvent::ETouchType, bool) override {}
+  bool OnNewVisibleViewport(m2::RectD const &, m2::RectD const &, bool needOffset, m2::PointD & offset) override
+  {
+    offset = m_offset;
+    return needOffset;
+  }
+
+  m2::PointD const m_offset{0.1, 0.05};
+};
+}  // namespace
+
+UNIT_CLASS_TEST(CameraAnimationFixture, SelectionOffsetMovesTheCameraDestination)
+{
+  SelectionOffsetListener listener;
+  m_stream.SetListener(make_ref(&listener));
+  m2::PointD const destination(1.0, 0.0);
+  auto const time = AddEvent<df::SetCenterEvent>(destination, df::kDoNotChangeZoom, true, false);
+  Process(time + 50ms);
+  auto const layoutTime = AddEvent<df::SetVisibleViewportEvent>(m2::RectD(0.0, 0.0, 800.0, 420.0));
+  Process(layoutTime + 10ms);
+  TEST(m_animations.IsCameraMoving(), ());
+  auto const & settled = Process(time + 205ms);
+  TEST(settled.GetOrg().EqualDxDy(destination - listener.m_offset, 1e-6), ());
+  m_stream.SetListener(nullptr);
+}
+
+UNIT_CLASS_TEST(CameraAnimationFixture, CenterAnimatesPanAndZoomAtTwoViewports)
+{
+  ScreenBase const start = m_stream.GetCurrentScreen();
+  auto const & viewport = start.PixelRect();
+  auto const destination = start.PtoG(viewport.Center() + m2::PointD(2.0 * viewport.SizeX(), 0.0));
+  double const targetScale = start.GetScale() / 4.0;
+  auto const time = AddEvent<df::SetCenterEvent>(4.0, destination, true, false);
+
+  auto const & moving = Process(time + 70ms);
+  TEST_GREATER(moving.GetOrg().x, start.GetOrg().x, ());
+  TEST_LESS(moving.GetOrg().x, destination.x, ());
+  TEST_GREATER(moving.GetScale(), targetScale, ());
+  TEST_LESS(moving.GetScale(), start.GetScale(), ());
+
+  auto const & settled = Process(time + 200ms);
+  TEST(settled.GetOrg().EqualDxDy(destination, 1e-9), ());
+  TEST_ALMOST_EQUAL_ABS(settled.GetScale(), targetScale, 1e-10, ());
+  TEST(!m_animations.IsCameraMoving(), ());
+}
+
+UNIT_CLASS_TEST(CameraAnimationFixture, CenterJumpsBeyondTwoViewportsOrTwoZoomLevels)
+{
+  for (auto const & [heights, zoomFactor] : {std::pair{2.01, 2.0}, {0.0, 8.0}})
+  {
+    ScreenBase const start = m_stream.GetCurrentScreen();
+    auto const & viewport = start.PixelRect();
+    auto const destination = start.PtoG(viewport.Center() + m2::PointD(0.0, heights * viewport.SizeY()));
+    auto const time = AddEvent<df::SetCenterEvent>(zoomFactor, destination, true, false);
+    auto const & screen = Process(time);
+    TEST(screen.GetOrg().EqualDxDy(destination, 1e-9), (heights, zoomFactor));
+    TEST_ALMOST_EQUAL_ABS(screen.GetScale(), start.GetScale() / zoomFactor, 1e-10, (heights, zoomFactor));
+    TEST(!m_animations.IsCameraMoving(), (heights, zoomFactor));
+  }
+}
+
+UNIT_CLASS_TEST(CameraAnimationFixture, RotateEventUsesTheSameDirectionInBothProjections)
+{
+  for (bool perspective : {false, true})
+  {
+    AddEvent<df::SetCenterEvent>(m2::PointD::Zero(), 17, false, false);
+    auto const mode = AddEvent<df::SetAutoPerspectiveEvent>(perspective);
+    TEST_EQUAL(Process(mode).isPerspective(), perspective, ());
+
+    for (double angle : {0.3, -0.2})
+    {
+      auto const time = AddEvent<df::RotateEvent>(angle, false);
+      TEST_ALMOST_EQUAL_ABS(Process(time).GetAngle(), angle, 1e-9, (perspective));
+    }
+  }
+}
+
+UNIT_CLASS_TEST(CameraAnimationFixture, AutoZoomKeepsTheCameraAndArrowTogether)
+{
+  ScreenBase const start = m_stream.GetCurrentScreen();
+  auto const anchor = start.PixelRect().Center();
+  auto const position = start.PtoG(anchor + m2::PointD(30, 35));
+  double const endScale = start.GetScale() * 0.8;
+  m_animations.HoldArrowPose({start.GetOrg(), 0.0});
+  auto const requestedAt =
+      AddEvent<df::FollowAndRotateEvent>(position, anchor, 0.4, endScale, df::ArrowPose{position, 0.4});
+
+  auto const & intermediate = Process(requestedAt + 100ms);
+  auto const arrowPose = m_animations.GetArrowPose();
+  TEST(arrowPose.has_value(), ());
+  TEST(intermediate.GtoP(arrowPose->m_position).EqualDxDy(anchor, 1e-6),
+       (intermediate.GtoP(arrowPose->m_position), anchor));
+  TEST_GREATER(intermediate.GetScale(), endScale, ());
+
+  auto const & settled = Process(requestedAt + 1200ms);
+  TEST(!m_animations.IsCameraMoving(), ());
+  TEST_ALMOST_EQUAL_ABS(settled.GetScale(), endScale, 1e-10, ());
+  TEST_ALMOST_EQUAL_ABS(settled.GetAngle(), -0.4, 1e-10, ());
+  auto const settledArrow = m_animations.GetArrowPose();
+  TEST(settledArrow.has_value(), ());
+  TEST(settledArrow->m_position.EqualDxDy(position, 1e-9), (settledArrow->m_position, position));
+}
+
+UNIT_CLASS_TEST(CameraAnimationFixture, QueuedArrowTargetStartsAtThePreviousEndpoint)
+{
+  auto const origin = m_stream.GetCurrentScreen().GetOrg();
+  df::ArrowPose const previousTarget{origin + m2::PointD(0.2, 0.0), 0.3};
+  auto const previousTime = df::AnimationClock::now() - 300ms;
+  m_animations.HoldArrowPose({origin, 0.0});
+  m_animations.AnimateArrowTo(previousTarget, previousTime, 0.2);
+  Process(previousTime + 50ms);
+  auto const moving = m_animations.GetArrowPose();
+  TEST(moving.has_value(), ());
+  m_animations.HoldArrowPose(*moving);
+  Process(previousTime + 200ms);
+  Process(previousTime + 205ms);
+
+  df::ArrowPose const nextTarget{origin + m2::PointD(0.4, 0.0), 0.6};
+  auto const time = AddEvent<df::SetCenterEvent>(nextTarget.m_position, df::kDoNotChangeZoom, true, false, nextTarget);
+  Process(time);
+  auto const start = m_animations.GetArrowPose();
+  TEST(start.has_value(), ());
+  TEST_EQUAL(start->m_position, previousTarget.m_position, ());
+  TEST_EQUAL(start->m_azimuth, previousTarget.m_azimuth, ());
+  Process(time + 200ms);
+  auto const settled = m_animations.GetArrowPose();
+  TEST(settled.has_value(), ());
+  TEST_EQUAL(settled->m_position, nextTarget.m_position, ());
+  TEST_EQUAL(settled->m_azimuth, nextTarget.m_azimuth, ());
+}
+
+UNIT_CLASS_TEST(CameraAnimationFixture, FlingKeepsReleaseSpeedAndReachesTarget)
+{
+  df::KineticScroller scroller;
+  ScreenBase screen = m_stream.GetCurrentScreen();
+  auto const start = df::AnimationClock::now();
+  scroller.Init(screen, start);
+  double const scale = screen.GetScale();
+  screen.SetOrg(screen.GetOrg() + m2::PointD(10.0 * scale, 0));
+  scroller.Update(screen, start + 20ms);
+  auto fling = scroller.CreateKineticAnimation(screen, start + 20ms);
+  TEST(fling.has_value(), ());
+
+  ScreenBase sample = screen;
+  fling->Advance(start + 21ms);
+  fling->Apply(sample);
+  double const initialSpeed = sample.GetOrg().Length(screen.GetOrg()) / scale / 0.001;
+  TEST_ALMOST_EQUAL_ABS(initialSpeed, 500.0, 5.0, ());
+
+  fling->Advance(start + 1520ms);
+  TEST(fling->IsFinished(), ());
+  fling->Apply(sample);
+  double const distance = sample.GetOrg().Length(screen.GetOrg()) / scale;
+  TEST_GREATER(distance, 70.0, ());
+}
 
 #ifdef DEBUG
 
@@ -44,7 +390,7 @@ public:
   void CorrectGlobalScalePoint(m2::PointD & pt) const override {}
   void OnScaleEnded() override {}
   void OnTouchMapAction(df::TouchEvent::ETouchType touchType, bool isMapTouch) override {}
-  void OnAnimatedScaleEnded() override {}
+  void OnScaleRequested() override {}
   bool OnNewVisibleViewport(m2::RectD const & oldViewport, m2::RectD const & newViewport, bool needOffset,
                             m2::PointD & gOffset) override
   {
@@ -56,8 +402,7 @@ public:
   void SetRect(m2::RectD const & r)
   {
     m_stream.AddEvent(make_unique_dp<df::SetRectEvent>(r, false /* rotate */, -1, false /* isAnim */,
-                                                       false /* useVisibleViewport */,
-                                                       nullptr /* parallelAnimCreator */));
+                                                       false /* useVisibleViewport */));
   }
 
   void AddResizeEvent(uint32_t w, uint32_t h) { m_stream.AddEvent(make_unique_dp<df::ResizeEvent>(w, h)); }
@@ -69,8 +414,7 @@ public:
 
   void AddSetCenter(m2::PointD const & center, int zoom, bool trackVisibleViewport)
   {
-    m_stream.AddEvent(make_unique_dp<df::SetCenterEvent>(center, zoom, false /* isAnim */, trackVisibleViewport,
-                                                         nullptr /* parallelAnimCreator */));
+    m_stream.AddEvent(make_unique_dp<df::SetCenterEvent>(center, zoom, false /* isAnim */, trackVisibleViewport));
   }
 
   ScreenBase const & GetScreen() const { return m_stream.GetCurrentScreen(); }
@@ -80,7 +424,7 @@ public:
   void RunTest()
   {
     bool dummy1, dummy2, dummy3;
-    m_stream.ProcessEvents(dummy1, dummy2, dummy3);
+    m_stream.ProcessEvents(dummy1, dummy2, dummy3, df::AnimationClock::now());
     TEST_EQUAL(m_expectation.empty(), true, ());
   }
 
@@ -94,7 +438,8 @@ private:
   }
 
 private:
-  df::UserEventStream m_stream;
+  df::AnimationSystem m_animations;
+  df::UserEventStream m_stream{m_animations};
   std::list<char const *> m_expectation;
   bool m_filtrate;
 };

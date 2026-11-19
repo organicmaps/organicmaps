@@ -15,9 +15,9 @@ OpacityAnimation::OpacityAnimation(double duration, double delay, double startOp
   , m_opacity(startOpacity)
 {}
 
-void OpacityAnimation::Advance(double elapsedSeconds)
+void OpacityAnimation::Advance(AnimationClock::time_point now)
 {
-  TBase::Advance(elapsedSeconds);
+  TBase::Advance(now);
   m_opacity = InterpolateDouble(m_startOpacity, m_endOpacity, GetT());
 }
 
