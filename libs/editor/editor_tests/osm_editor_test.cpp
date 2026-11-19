@@ -460,6 +460,62 @@ void EditorTest::DeleteFeatureTest()
   });
 }
 
+void EditorTest::DeleteUploadedFeatureTest()
+{
+  auto & editor = osm::Editor::Instance();
+
+  auto const mwmId = ConstructTestMwm([](TestMwmBuilder & builder)
+  { builder.Add(TestCafe(m2::PointD(1.0, 1.0), "London Cafe", "en")); });
+
+  FeatureID fid;
+  ForEachCafeAtPoint(m_dataSource, m2::PointD(1.0, 1.0), [&fid](FeatureType & ft)
+  {
+    SetBuildingLevelsToOne(ft);
+    fid = ft.GetID();
+  });
+  TEST(editor.HaveMapEditsToUpload(mwmId), ());
+
+  // Pretend that the modification was uploaded to OSM.
+  editor.SaveUploadedInformation(fid, FeatureStatus::Modified, {time(nullptr), "Uploaded", {}});
+  TEST(editor.IsFeatureUploaded(mwmId, fid.m_index), ());
+  TEST(!editor.HaveMapEditsToUpload(mwmId), ());
+
+  // Deleting an already uploaded feature is a new operation and must be uploaded too.
+  editor.DeleteFeature(fid);
+  TEST_EQUAL(editor.GetFeatureStatus(fid), FeatureStatus::Deleted, ());
+  TEST(!editor.IsFeatureUploaded(mwmId, fid.m_index), ());
+  TEST(editor.HaveMapEditsToUpload(mwmId), ());
+}
+
+void EditorTest::StaleUploadResultTest()
+{
+  auto & editor = osm::Editor::Instance();
+
+  auto const mwmId = ConstructTestMwm([](TestMwmBuilder & builder)
+  { builder.Add(TestCafe(m2::PointD(1.0, 1.0), "London Cafe", "en")); });
+
+  FeatureID fid;
+  ForEachCafeAtPoint(m_dataSource, m2::PointD(1.0, 1.0), [&fid](FeatureType & ft)
+  {
+    SetBuildingLevelsToOne(ft);
+    fid = ft.GetID();
+  });
+
+  // The feature is deleted while its modification is still being uploaded.
+  editor.DeleteFeature(fid);
+  TEST(editor.HaveMapEditsToUpload(mwmId), ());
+
+  // The modification's result must not be applied to the deletion, which was not uploaded yet.
+  editor.SaveUploadedInformation(fid, FeatureStatus::Modified, {time(nullptr), "Uploaded", {}});
+  TEST(!editor.IsFeatureUploaded(mwmId, fid.m_index), ());
+  TEST(editor.HaveMapEditsToUpload(mwmId), ());
+
+  // The deletion's own result is applied.
+  editor.SaveUploadedInformation(fid, FeatureStatus::Deleted, {time(nullptr), "Uploaded", {}});
+  TEST(editor.IsFeatureUploaded(mwmId, fid.m_index), ());
+  TEST(!editor.HaveMapEditsToUpload(mwmId), ());
+}
+
 void EditorTest::ClearAllLocalEditsTest()
 {
   auto & editor = osm::Editor::Instance();
@@ -1341,6 +1397,16 @@ UNIT_CLASS_TEST(EditorTest, IsFeatureUploadedTest)
 UNIT_CLASS_TEST(EditorTest, DeleteFeatureTest)
 {
   EditorTest::DeleteFeatureTest();
+}
+
+UNIT_CLASS_TEST(EditorTest, DeleteUploadedFeatureTest)
+{
+  EditorTest::DeleteUploadedFeatureTest();
+}
+
+UNIT_CLASS_TEST(EditorTest, StaleUploadResultTest)
+{
+  EditorTest::StaleUploadResultTest();
 }
 
 UNIT_CLASS_TEST(EditorTest, ClearAllLocalEditsTest)
