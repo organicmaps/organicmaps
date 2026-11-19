@@ -390,6 +390,29 @@ UNIT_CLASS_TEST(RoutingPreferenceFixture, RecreatedGraphsUseTheRequestSnapshot)
   TEST(!graph->IsRoutingOptionsGood(Segment(0, m_ferryFeature, 0, true)), ());
 }
 
+UNIT_CLASS_TEST(RoutingPreferenceFixture, TransitModeFilterAlsoExcludesRoadFerries)
+{
+  std::string_view constexpr key = "TransitAllowedModes";
+  std::string saved;
+  bool const existed = settings::Get(key, saved);
+  SCOPE_GUARD(restore, [&]
+  {
+    if (existed)
+      settings::Set(key, saved);
+    else
+      settings::Delete(key);
+  });
+
+  auto router = Router(VehicleType::Transit);
+  auto const ferry = Segment(0, m_ferryFeature, 0, true);
+  // Walking settings are independent of the transit graph's road ferry rule.
+  RoutingOptions::SaveToSettings(VehicleType::Pedestrian, RoutingOptions(RoutingOptions::Ferry));
+  SaveTransitModes(transit::kAllModes);
+  TEST(router->MakeSingleMwmWorldGraph()->IsRoutingOptionsGood(ferry), ());
+  SaveTransitModes(static_cast<transit::ModeMask>(transit::Mode::Bus));
+  TEST(!router->MakeSingleMwmWorldGraph()->IsRoutingOptionsGood(ferry), ());
+}
+
 class StepsRoutingFixture : public RoutingPreferenceFixture
 {
 public:

@@ -431,6 +431,17 @@ JNIEXPORT void Java_app_organicmaps_sdk_routing_RoutingOptions_nativeSetBicycleS
       static_cast<routing::BicycleSurfacePreference>(preference));
 }
 
+JNIEXPORT jint Java_app_organicmaps_sdk_routing_RoutingOptions_nativeGetTransitModes(JNIEnv *, jclass)
+{
+  return routing::LoadTransitModes();
+}
+
+JNIEXPORT void Java_app_organicmaps_sdk_routing_RoutingOptions_nativeSetTransitModes(JNIEnv *, jclass, jint modes)
+{
+  CHECK(modes > 0 && modes <= routing::transit::kAllModes, (modes));
+  routing::SaveTransitModes(static_cast<routing::transit::ModeMask>(modes));
+}
+
 JNIEXPORT jboolean Java_app_organicmaps_sdk_routing_RoutingOptions_nativeIsRouteOptimizationEnabled(JNIEnv *, jclass)
 {
   return static_cast<jboolean>(routing::RoutingOptions::LoadRouteOptimizationFromSettings());

@@ -105,7 +105,10 @@ final class RoutingOptionsSettingsTests: XCTestCase {
     }
   }
 
-  func test_TransitKeepsOnlyTheGlobalOptimizationSection() {
+  func test_TransitKeepsOneModeAndGlobalOptimization() {
+    let saved = RoutingOptions.transitModes
+    defer { RoutingOptions.transitModes = saved }
+    RoutingOptions.transitModes = .subway
     XCTAssertTrue(MWMRouterType.publicTransport.hasRoutingSettings)
     XCTAssertFalse(MWMRouterType.ruler.hasRoutingSettings)
     let presenter = RoutingOptionsSettingsPresenter(viewController: RoutingOptionsSettingsViewController())
@@ -113,9 +116,19 @@ final class RoutingOptionsSettingsTests: XCTestCase {
                                             canChangeOptimization: true,
                                             bicycleSurface: .any)
     let sections = presenter.sections(from: state)
-    XCTAssertEqual(sections.map(\.section), [.optimization])
-    XCTAssertEqual(sections.first?.header, L("routing_options_all_modes"))
-    XCTAssertEqual(sections.first?.items.map(\.item), [.routeOptimization])
+    XCTAssertEqual(sections.map(\.section), [.transitModes, .optimization])
+    XCTAssertEqual(sections.first?.items.first { $0.item == .transitMode(.subway) }?.kind,
+                   .switcher(isOn: true, isEnabled: false))
+    XCTAssertEqual(sections.last?.header, L("routing_options_all_modes"))
+    XCTAssertEqual(sections.last?.items.map(\.item), [.routeOptimization])
+
+    let interactor = RoutingOptionsSettingsInteractor(routerType: .publicTransport)
+    interactor.handle(.didLoad)
+    interactor.handle(.didChangeSwitch(.transitMode(.subway), isOn: false))
+    XCTAssertEqual(RoutingOptions.transitModes, .subway)
+    interactor.handle(.didChangeSwitch(.transitMode(.bus), isOn: true))
+    interactor.handle(.didChangeSwitch(.transitMode(.subway), isOn: false))
+    XCTAssertEqual(RoutingOptions.transitModes, .bus)
   }
 
   func test_DashboardKeepsSettingsVisibleAndDisablesRulerSettings() throws {

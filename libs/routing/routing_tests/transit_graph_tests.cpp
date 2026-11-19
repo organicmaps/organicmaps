@@ -46,9 +46,9 @@ struct Fixture
         {"id": 1, "interval": 60, "network_id": 1, "number": "1", "stop_ids": [1, 2, 3],
          "type": "subway", "color": "red"},
         {"id": 2, "interval": 91, "network_id": 1, "number": "2", "stop_ids": [3, 4, 5],
-         "type": "subway", "color": "green"},
+         "type": "bus", "color": "green"},
         {"id": 3, "interval": 0, "network_id": 1, "number": "3", "stop_ids": [5, 6],
-         "type": "subway", "color": "blue"}
+         "type": "water_service", "color": "blue"}
       ],
       "networks": [{"id": 1, "title": "Transit test"}]
     })",
@@ -60,10 +60,11 @@ struct Fixture
     m_endings.emplace(m_data.GetGates().front().GetOsmId(), ending);
   }
 
-  std::unique_ptr<routing::TransitGraph> MakeGraph(routing::NumMwmId mwmId = 0)
+  std::unique_ptr<routing::TransitGraph> MakeGraph(routing::NumMwmId mwmId = 0,
+                                                   routing::transit::ModeMask modes = routing::transit::kAllModes)
   {
     auto graph = std::make_unique<routing::TransitGraph>(mwmId, m_estimator);
-    graph->Fill(m_data, m_endings);
+    graph->Fill(m_data, m_endings, modes);
     return graph;
   }
 
@@ -107,6 +108,45 @@ routing::Segment Gate(routing::TransitGraph const & graph, bool isEntrance)
   return {};
 }
 }  // namespace
+
+UNIT_TEST(TransitGraph_ModeFiltersKeepIdsAndRemoveConnectionsInBothDirections)
+{
+  using namespace routing::transit;
+  Fixture fixture;
+  auto const all = fixture.MakeGraph();
+  auto const subway = fixture.MakeGraph(0, static_cast<ModeMask>(Mode::Subway));
+  auto const bus = fixture.Edge(3, 5);
+  auto const subwayRide = fixture.Edge(2, 3);
+  auto const ferry = fixture.Edge(5, 6);
+  TEST(all->GetFakeEdges(subwayRide, true).contains(bus), ());
+  TEST(all->GetFakeEdges(bus, true).contains(ferry), ());
+  TEST(all->GetFakeEdges(bus, false).contains(subwayRide), ());
+  TEST_EQUAL(all->FindEdge(bus)->GetLineId(), subway->FindEdge(bus)->GetLineId(), ());
+  TEST(!subway->IsRideAllowed(bus), ());
+  TEST(!subway->IsRideAllowed(ferry), ());
+  TEST(subway->IsRideAllowed(subwayRide), ());
+  TEST(!subway->GetFakeEdges(subwayRide, true).contains(bus), ());
+  TEST(subway->GetFakeEdges(bus, true).empty(), ());
+  TEST(subway->GetFakeEdges(bus, false).empty(), ());
+  TEST(subway->GetFakeEdges(Gate(*subway, true), true).contains(fixture.Edge(1, 2)), ());
+
+  auto const busAndFerry = fixture.MakeGraph(0, static_cast<ModeMask>(Mode::Bus) | static_cast<ModeMask>(Mode::Ferry));
+  TEST(!busAndFerry->GetFakeEdges(Gate(*busAndFerry, true), true).contains(fixture.Edge(1, 2)), ());
+  TEST(!busAndFerry->GetFakeEdges(bus, false).contains(subwayRide), ());
+  TEST(busAndFerry->GetFakeEdges(bus, true).contains(ferry), ());
+}
+
+UNIT_TEST(TransitGraph_NormalizesModeGroups)
+{
+  using namespace routing::transit;
+  TEST(GetTransitType("") == TransitType::Subway, ());
+  TEST(GetTransitType("rail") == TransitType::Train, ());
+  TEST(GetMode(*GetTransitType("light_rail")) == Mode::Rail, ());
+  TEST(GetMode(*GetTransitType("water_service")) == Mode::Ferry, ());
+  TEST(GetMode(*GetTransitType("aerial_lift")) == Mode::Cable, ());
+  TEST(GetMode(*GetTransitType("air_service")) == Mode::Air, ());
+  TEST(!GetTransitType("unknown transit service"), ());
+}
 
 UNIT_TEST(TransitGraph_GateMetadataPreservesTraversal)
 {

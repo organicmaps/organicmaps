@@ -2,6 +2,8 @@
 
 #include "routing/vehicle_mask.hpp"
 
+#include "transit/transit_mode.hpp"
+
 #include "base/small_map.hpp"
 
 #include <optional>
@@ -68,10 +70,14 @@ enum class BicycleSurfacePreference : int64_t
   AvoidUnpaved = 3
 };
 
+transit::ModeMask LoadTransitModes();
+void SaveTransitModes(transit::ModeMask modes);
+
 struct RoutePlanningOptions
 {
   RoutingOptions m_avoid;
   BicycleSurfaceBias m_bicycleSurface = BicycleSurfaceBias::Any;
+  transit::ModeMask m_transitModes = transit::kAllModes;
 
   static RoutePlanningOptions LoadFromSettings(VehicleType vehicle);
   static BicycleSurfacePreference LoadBicycleSurfacePreference();

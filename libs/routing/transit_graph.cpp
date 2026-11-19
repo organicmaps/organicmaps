@@ -119,13 +119,26 @@ bool TransitGraph::FindReal(Segment const & fake, Segment & real) const
   return m_fake.FindReal(fake, real);
 }
 
-void TransitGraph::Fill(transit::GraphData const & transitData, Endings const & gateEndings)
+bool TransitGraph::IsRideAllowed(Segment const & segment) const
+{
+  ASSERT(IsTransitSegment(segment), (segment));
+  auto const id = segment.GetFeatureId() - FakeFeatureIds::kTransitGraphFeaturesStart;
+  return id >= m_blockedRides.size() || !m_blockedRides[id];
+}
+
+void TransitGraph::Fill(transit::GraphData const & transitData, Endings const & gateEndings, transit::ModeMask modes)
 {
   // Line has information about transit interval.
   // We assume arrival time has uniform distribution with min value |0| and max value |line.GetInterval()|.
   // Expected value of time to wait transport for particular line is |line.GetInterval() / 2|.
+  std::set<transit::LineId> blockedLines;
   for (auto const & line : transitData.GetLines())
+  {
     m_transferPenaltiesSubway[line.GetId()] = line.GetInterval() / 2.0;
+    auto const type = transit::GetTransitType(line.GetType());
+    if (!type || !transit::HasMode(modes, transit::GetMode(*type)))
+      blockedLines.insert(line.GetId());
+  }
 
   std::map<transit::StopId, LatLonWithAltitude> stopCoords;
   for (auto const & stop : transitData.GetStops())
@@ -145,10 +158,20 @@ void TransitGraph::Fill(transit::GraphData const & transitData, Endings const & 
   {
     auto const & edge = edges[i];
     CHECK_NOT_EQUAL(edge.GetWeight(), transit::kInvalidWeight, ("Edge should have valid weight."));
-    auto const edgeSegment = AddEdge(edge, stopCoords, stopToBack, stopToFront);
+    auto const edgeSegment = AddEdge(edge, stopCoords);
     // Checks fake feature ids have consecutive numeration starting from
     // FakeFeatureIds::kTransitGraphFeaturesStart.
     CHECK_EQUAL(edgeSegment.GetFeatureId(), i + FakeFeatureIds::kTransitGraphFeaturesStart, (i, edge));
+    // Keep every vertex so the cross-map transit IDs remain stable.
+    if (!edge.GetTransfer() && blockedLines.contains(edge.GetLineId()))
+    {
+      if (m_blockedRides.empty())
+        m_blockedRides.resize(edges.size());
+      m_blockedRides[i] = true;
+      continue;
+    }
+    stopToBack[edge.GetStop1Id()].insert(edgeSegment);
+    stopToFront[edge.GetStop2Id()].insert(edgeSegment);
     outgoing[edge.GetStop1Id()].insert(edgeSegment);
     ingoing[edge.GetStop2Id()].insert(edgeSegment);
   }
@@ -259,8 +282,7 @@ void TransitGraph::AddGate(transit::Gate const & gate, FakeEnding const & ending
 }
 
 Segment TransitGraph::AddEdge(transit::Edge const & edge,
-                              std::map<transit::StopId, LatLonWithAltitude> const & stopCoords,
-                              StopToSegmentsMap & stopToBack, StopToSegmentsMap & stopToFront)
+                              std::map<transit::StopId, LatLonWithAltitude> const & stopCoords)
 {
   auto const edgeSegment = GetNewTransitSegment();
   auto const stopFromId = edge.GetStop1Id();
@@ -269,8 +291,6 @@ Segment TransitGraph::AddEdge(transit::Edge const & edge,
                         FakeVertex::Type::PureFake);
   m_fake.AddStandaloneVertex(edgeSegment, edgeVertex);
   m_segmentToEdgeSubway[edgeSegment] = edge;
-  stopToBack[stopFromId].insert(edgeSegment);
-  stopToFront[stopToId].insert(edgeSegment);
   return edgeSegment;
 }
 
@@ -292,12 +312,15 @@ void TransitGraph::AddConnections(StopToSegmentsMap const & connections, StopToS
 }
 
 void MakeGateEndings(std::vector<transit::Gate> const & gates, NumMwmId mwmId, IndexGraph & indexGraph,
-                     TransitGraph::Endings & gateEndings)
+                     TransitGraph::Endings & gateEndings, bool avoidFerries)
 {
   for (auto const & gate : gates)
   {
     auto const & gateSegment = gate.GetBestPedestrianSegment();
     if (!gateSegment.IsValid())
+      continue;
+    if (avoidFerries &&
+        indexGraph.GetRoadGeometry(gateSegment.GetFeatureId()).GetRoutingOptions().Has(RoutingOptions::Ferry))
       continue;
 
     Segment const real(mwmId, gateSegment.GetFeatureId(), gateSegment.GetSegmentIdx(), gateSegment.GetForward());

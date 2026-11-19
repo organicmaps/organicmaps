@@ -45,10 +45,10 @@ public class DrivingOptionsFragmentTest
   }
 
   @Test
-  public void modesWithoutAvoidOptionsOpenTheDrivingTab() throws ReflectiveOperationException
+  public void routesOpenTheirTabAndRulerOpensDriving() throws ReflectiveOperationException
   {
     assertEquals(Router.Vehicle, initialRouter(Router.Ruler));
-    assertEquals(Router.Vehicle, initialRouter(Router.Transit));
+    assertEquals(Router.Transit, initialRouter(Router.Transit));
     assertEquals(Router.Vehicle, initialRouter(Router.Vehicle));
     assertEquals(Router.Pedestrian, initialRouter(Router.Pedestrian));
     assertEquals(Router.Bicycle, initialRouter(Router.Bicycle));
@@ -60,6 +60,14 @@ public class DrivingOptionsFragmentTest
     verify(stop(Map.of(), Router.Vehicle, Map.of(), BicycleSurfacePreference.PreferPaved), never())
         .onRoutingOptionsChanged();
     verify(stop(Map.of(), Router.Bicycle, Map.of(), BicycleSurfacePreference.PreferPaved)).onRoutingOptionsChanged();
+  }
+
+  @Test
+  public void transitModeChangesRebuildOnlyTransit() throws ReflectiveOperationException
+  {
+    verify(stop(Map.of(), Router.Bicycle, Map.of(), BicycleSurfacePreference.Any, 1), never())
+        .onRoutingOptionsChanged();
+    verify(stop(Map.of(), Router.Transit, Map.of(), BicycleSurfacePreference.Any, 1)).onRoutingOptionsChanged();
   }
 
   private static Router initialRouter(Router requested) throws ReflectiveOperationException
@@ -85,10 +93,18 @@ public class DrivingOptionsFragmentTest
                                         Map<Router, Set<RoadType>> current, BicycleSurfacePreference surface)
       throws ReflectiveOperationException
   {
+    return stop(loaded, route, current, surface, 511);
+  }
+
+  private static RoutingController stop(Map<Router, Set<RoadType>> loaded, Router route,
+                                        Map<Router, Set<RoadType>> current, BicycleSurfacePreference surface,
+                                        int transitModes) throws ReflectiveOperationException
+  {
     DrivingOptionsFragment fragment = mock(DrivingOptionsFragment.class, CALLS_REAL_METHODS);
     doReturn(mock(FragmentActivity.class)).when(fragment).requireActivity();
     setField(fragment, "mRoadTypes", withAllModes(loaded));
     setField(fragment, "mBicycleSurfaceOnLoad", BicycleSurfacePreference.Any);
+    setField(fragment, "mTransitModesOnLoad", 511);
     RoutingController controller = mock(RoutingController.class);
     when(controller.getLastRouterType()).thenReturn(route);
 
@@ -97,6 +113,7 @@ public class DrivingOptionsFragmentTest
     {
       routing.when(RoutingController::get).thenReturn(controller);
       options.when(RoutingOptions::getBicycleSurfacePreference).thenReturn(surface);
+      options.when(RoutingOptions::getTransitModes).thenReturn(transitModes);
       for (Map.Entry<Router, Set<RoadType>> each : withAllModes(current).entrySet())
         options.when(() -> RoutingOptions.getActiveRoadTypes(each.getKey())).thenReturn(each.getValue());
       fragment.onStop();
