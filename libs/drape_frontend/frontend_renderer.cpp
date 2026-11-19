@@ -524,13 +524,24 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     break;
   }
 
+  case Message::Type::AddSubroute:
+  {
+    ref_ptr<AddSubrouteMessage> msg = message;
+    auto const subroute = msg->GetSubroute();
+    if (m_myPositionController->IsInRouting() && subroute->IsAlternative())
+      break;
+
+    m_subrouteDescriptions.emplace(msg->GetSubrouteId(), subroute);
+    m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                              make_unique_dp<AddSubrouteMessage>(msg->GetSubrouteId(), subroute, m_lastRecacheRouteId),
+                              MessagePriority::Normal);
+    break;
+  }
+
   case Message::Type::FlushSubroute:
   {
     ref_ptr<FlushSubrouteMessage> msg = message;
     auto subrouteData = msg->AcceptRenderData();
-
-    if (subrouteData->m_recacheId < 0)
-      subrouteData->m_recacheId = m_lastRecacheRouteId;
 
     if (!CheckRouteRecaching(make_ref(subrouteData)))
       break;
@@ -579,9 +590,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   {
     ref_ptr<FlushSubrouteMarkersMessage> msg = message;
     drape_ptr<SubrouteMarkersData> markersData = msg->AcceptRenderData();
-    if (markersData->m_recacheId < 0)
-      markersData->m_recacheId = m_lastRecacheRouteId;
-
     if (CheckRouteRecaching(make_ref(markersData)))
     {
       CHECK(m_context != nullptr, ());
@@ -595,6 +603,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     ref_ptr<RemoveSubrouteMessage> msg = message;
     if (msg->NeedDeactivateFollowing())
     {
+      m_subrouteDescriptions.clear();
+      m_pendingFollowRoute.reset();
       CHECK(m_context != nullptr, ());
       m_routeRenderer->SetFollowingEnabled(false);
       m_routeRenderer->Clear();
@@ -606,14 +616,19 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     }
     else
     {
+      m_subrouteDescriptions.erase(msg->GetSegmentId());
       m_routeRenderer->RemoveSubrouteData(msg->GetSegmentId());
     }
+    m_commutator->PostMessage(
+        ThreadsCommutator::ResourceUploadThread,
+        make_unique_dp<RemoveSubrouteMessage>(msg->GetSegmentId(), msg->NeedDeactivateFollowing()),
+        MessagePriority::Normal);
     break;
   }
 
   case Message::Type::RemoveAlternativeSubroutes:
   {
-    m_routeRenderer->RemoveAlternativeSubroutes();
+    RemoveAlternativeSubroutes();
     break;
   }
 
@@ -638,6 +653,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::Type::DeactivateRouteFollowing:
   {
+    m_pendingFollowRoute.reset();
     m_myPositionController->DeactivateRouting();
     CHECK(m_context != nullptr, ());
     m_postprocessRenderer->OnChangedRouteFollowingMode(m_context, false /* active */);
@@ -1172,9 +1188,9 @@ void FrontendRenderer::UpdateContextDependentResources()
 {
   ++m_lastRecacheRouteId;
 
-  for (auto const & subroute : m_routeRenderer->GetSubroutes())
+  for (auto const & [id, subroute] : m_subrouteDescriptions)
   {
-    auto msg = make_unique_dp<AddSubrouteMessage>(subroute.m_subrouteId, subroute.m_subroute, m_lastRecacheRouteId);
+    auto msg = make_unique_dp<AddSubrouteMessage>(id, subroute, m_lastRecacheRouteId);
     m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, std::move(msg), MessagePriority::Normal);
   }
 
@@ -1200,6 +1216,8 @@ void FrontendRenderer::UpdateContextDependentResources()
 void FrontendRenderer::FollowRoute(int preferredZoomLevel, int preferredZoomLevelIn3d, bool enableAutoZoom,
                                    bool isArrowGlued)
 {
+  // A deferred follow can receive new alternatives after the earlier high-priority clear.
+  RemoveAlternativeSubroutes();
   m_myPositionController->ActivateRouting(
       !m_enablePerspectiveInNavigation ? preferredZoomLevel : preferredZoomLevelIn3d, enableAutoZoom, isArrowGlued);
 
@@ -1211,9 +1229,16 @@ void FrontendRenderer::FollowRoute(int preferredZoomLevel, int preferredZoomLeve
   m_postprocessRenderer->OnChangedRouteFollowingMode(m_context, true /* active */);
 }
 
+void FrontendRenderer::RemoveAlternativeSubroutes()
+{
+  std::erase_if(m_subrouteDescriptions, [](auto const & entry) { return entry.second->IsAlternative(); });
+  m_routeRenderer->RemoveAlternativeSubroutes();
+}
+
 bool FrontendRenderer::CheckRouteRecaching(ref_ptr<BaseSubrouteData> subrouteData)
 {
-  return subrouteData->m_recacheId >= m_lastRecacheRouteId;
+  return subrouteData->m_recacheId >= m_lastRecacheRouteId &&
+         m_subrouteDescriptions.contains(subrouteData->m_subrouteId);
 }
 
 void FrontendRenderer::InvalidateRect(m2::RectD const & gRect)

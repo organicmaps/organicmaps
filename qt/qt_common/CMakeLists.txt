@@ -41,4 +41,7 @@ target_link_libraries(${PROJECT_NAME}
 if (BUILD_TESTING AND BUILD_OPENGL_TESTS)
   omim_add_test(qt_drape_tests qtoglcontext_tests.cpp NO_PLATFORM_INIT)
   target_link_libraries(qt_drape_tests PRIVATE qt_common qt_tstfrm)
+
+  omim_add_test(qt_route_drape_tests route_rendering_tests.cpp)
+  target_link_libraries(qt_route_drape_tests PRIVATE qt_common qt_tstfrm)
 endif()

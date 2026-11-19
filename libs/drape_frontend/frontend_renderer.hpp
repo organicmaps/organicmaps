@@ -36,6 +36,7 @@
 
 #include <array>
 #include <functional>
+#include <map>
 #include <memory>
 #include <optional>
 #include <vector>
@@ -178,6 +179,8 @@ protected:
   void OnRenderingDisabled() override;
 
 private:
+  friend class RouteRenderingTest;
+
   void OnResize(ScreenBase const & screen);
   bool RenderScene(ScreenBase const & modelView, bool activeFrame);
   void PrepareBucket(dp::RenderState const & state, drape_ptr<dp::RenderBucket> & bucket);
@@ -284,6 +287,7 @@ private:
   void RemoveRenderGroupsLater(TRenderGroupRemovePredicate const & predicate);
 
   void FollowRoute(int preferredZoomLevel, int preferredZoomLevelIn3d, bool enableAutoZoom, bool isArrowGlued);
+  void RemoveAlternativeSubroutes();
 
   bool CheckRouteRecaching(ref_ptr<BaseSubrouteData> subrouteData);
 
@@ -390,6 +394,8 @@ private:
   uint64_t m_maxUserMarksGeneration;
 
   int m_lastRecacheRouteId = 0;
+  // Descriptions survive disposable GPU flushes; ID order keeps recaching deterministic.
+  std::map<dp::DrapeID, SubrouteConstPtr> m_subrouteDescriptions;
 
   struct FollowRouteData
   {
