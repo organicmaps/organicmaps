@@ -77,12 +77,6 @@ void SetBoolean(ScopedEnv & env, jobject params, jfieldID const fieldId, bool co
   RethrowOnJniException(env);
 }
 
-void SetInt(ScopedEnv & env, jobject params, jfieldID const fieldId, int const value)
-{
-  env->SetIntField(params, fieldId, value);
-  RethrowOnJniException(env);
-}
-
 void SetLong(ScopedEnv & env, jobject params, jfieldID const fieldId, int64_t const value)
 {
   env->SetLongField(params, fieldId, static_cast<jlong>(value));
@@ -147,7 +141,6 @@ public:
                   {"followRedirects", GetHttpParamsFieldId(env, "followRedirects", "Z")},
                   {"loadHeaders", GetHttpParamsFieldId(env, "loadHeaders", "Z")},
                   {"httpResponseCode", GetHttpParamsFieldId(env, "httpResponseCode", "I")},
-                  {"timeoutMillisec", GetHttpParamsFieldId(env, "timeoutMillisec", "I")},
                   {"outputFileIsSegment", GetHttpParamsFieldId(env, "outputFileIsSegment", "Z")},
                   {"outputFileOffset", GetHttpParamsFieldId(env, "outputFileOffset", "J")},
                   {"outputFileSegmentBytes", GetHttpParamsFieldId(env, "outputFileSegmentBytes", "J")},
@@ -365,10 +358,11 @@ HttpClient::RequestHandle HttpClient::RunHttpRequestAsync(CompletionHandler hand
     return handle;
 
   static jmethodID const httpParamsConstructor =
-      jni::GetConstructorID(env.get(), g_httpParamsClazz, "(Ljava/lang/String;)V");
+      jni::GetConstructorID(env.get(), g_httpParamsClazz, "(Ljava/lang/String;I)V");
 
+  auto const timeoutMillisec = static_cast<jint>(m_timeoutSec * 1000);
   jni::ScopedLocalRef<jobject> const httpParamsObject(
-      env.get(), env->NewObject(g_httpParamsClazz, httpParamsConstructor, jniUrl.get()));
+      env.get(), env->NewObject(g_httpParamsClazz, httpParamsConstructor, jniUrl.get(), timeoutMillisec));
   if (jni::HandleJavaException(env.get()))
     return handle;
 
@@ -400,7 +394,6 @@ HttpClient::RequestHandle HttpClient::RunHttpRequestAsync(CompletionHandler hand
     SetString(env, httpParamsObject.get(), ids.GetId("cookies"), m_cookies);
     SetBoolean(env, httpParamsObject.get(), ids.GetId("followRedirects"), m_followRedirects);
     SetBoolean(env, httpParamsObject.get(), ids.GetId("loadHeaders"), m_loadHeaders);
-    SetInt(env, httpParamsObject.get(), ids.GetId("timeoutMillisec"), static_cast<int>(m_timeoutSec * 1000));
 
     // Segment mode: stream the response body into an existing file at the given offset
     // with pre-write validation of 206 + Content-Range. Takes precedence over
