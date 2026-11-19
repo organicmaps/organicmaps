@@ -31,6 +31,15 @@ class RoadAttrsGetter;
 class RoadGeometry final
 {
 public:
+  enum class Surface : uint8_t
+  {
+    Unknown,
+    PavedGood,
+    PavedBad,
+    UnpavedGood,
+    UnpavedBad
+  };
+
   RoadGeometry() : m_isOneWay(false), m_valid(false), m_inCity(false) {}
 
   /// Used in tests.
@@ -39,10 +48,11 @@ public:
 
   /// @param[in] altitudes May be nullptr.
   void Load(VehicleModelInterface const & vehicleModel, FeatureType & feature, geometry::Altitudes const * altitudes,
-            RoadAttrsGetter & attrs, RoutingOptionsClassifier const & optionsClassifier);
+            RoadAttrsGetter & attrs, RoutingOptionsClassifier const & optionsClassifier, bool loadSurface);
 
   SpeedKMpH GetSpeed(bool forward, time_t time = 0) const;
   std::optional<HighwayType> GetHighwayType() const { return m_highwayType; }
+  Surface GetSurface() const { return m_surface; }
   bool IsOneWay() const { return m_isOneWay; }
   bool IsInCity() const { return m_inCity; }
 
@@ -89,6 +99,7 @@ private:
 
   std::optional<HighwayType> m_highwayType;
   RoutingOptions m_routingOptions;
+  Surface m_surface = Surface::Unknown;
   bool m_isOneWay : 1;
   bool m_valid : 1;
   bool m_inCity : 1;

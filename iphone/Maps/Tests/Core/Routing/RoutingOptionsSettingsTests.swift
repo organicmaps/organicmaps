@@ -49,6 +49,31 @@ final class RoutingOptionsSettingsTests: XCTestCase {
     XCTAssertEqual(bike.hash, sameBike.hash)
   }
 
+  func test_CyclingSurfaceSelectionKeepsOneCoherentChoice() {
+    let savedBike = RoutingOptions(routerType: .bicycle)
+    let savedSurface = RoutingOptions.bicycleSurfacePreference
+    defer {
+      RoutingOptions.bicycleSurfacePreference = savedSurface
+      savedBike.save()
+    }
+
+    let bike = RoutingOptions(routerType: .bicycle)
+    bike.avoidDirty = true
+    bike.save()
+    let presenter = RoutingOptionsSettingsPresenter(viewController: RoutingOptionsSettingsViewController())
+    let state = RoutingOptionsSettingsState(options: bike, canChangeOptimization: true)
+    let sections = presenter.sections(from: state)
+    XCTAssertFalse(sections.flatMap(\.items).contains { $0.item == .unpavedRoads })
+    XCTAssertEqual(sections.first { $0.section == .bicycleSurface }?.items
+      .first { $0.kind == .selectable(isSelected: true) }?.item, .bicycleSurface(.avoidUnpaved))
+
+    let interactor = RoutingOptionsSettingsInteractor(routerType: .bicycle)
+    interactor.handle(.didLoad)
+    interactor.handle(.didSelect(.bicycleSurface(.preferUnpaved)))
+    XCTAssertEqual(RoutingOptions.bicycleSurfacePreference, .preferUnpaved)
+    XCTAssertFalse(RoutingOptions(routerType: .bicycle).avoidDirty)
+  }
+
   func test_StepsAvoidancePersistsOnlyForWalkingAndCycling() {
     let profiles: [MWMRouterType] = [.vehicle, .bicycle, .pedestrian, .publicTransport, .ruler]
     let saved = profiles.map { RoutingOptions(routerType: $0) }

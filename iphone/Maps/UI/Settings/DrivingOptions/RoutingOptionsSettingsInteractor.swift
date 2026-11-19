@@ -60,6 +60,14 @@ extension RoutingOptionsSettingsInteractor: SettingsViewControllerInteractor {
       loadSettings()
     case .didChangeSwitch(let item, isOn: let isOn):
       set(item, enabled: isOn)
+    case .didSelect(.bicycleSurface(let preference)):
+      guard let state else { return }
+      precondition(state.options.routerType == .bicycle)
+      RoutingOptions.bicycleSurfacePreference = preference
+      let updated = RoutingOptionsSettingsState(options: routingOptionsProvider(),
+                                                canChangeOptimization: canChangeOptimization)
+      self.state = updated
+      present(updated, animatingDifferences: false)
     case .didDisappear:
       applyOptimization()
     default:

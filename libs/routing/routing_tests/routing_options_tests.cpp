@@ -203,4 +203,29 @@ UNIT_TEST(RouteOptimizationSettingDefaultsOffAndPersists)
     TEST_EQUAL(RoutingOptions::LoadRouteOptimizationFromSettings(), enabled, ());
   }
 }
+
+UNIT_CLASS_TEST(RoutingOptionsTests, BicycleSurfaceChoicePreservesTheSavedHardAvoid)
+{
+  using enum BicycleSurfacePreference;
+  std::string_view constexpr key = "BicycleSurfacePreference";
+  std::string saved;
+  bool const existed = settings::Get(key, saved);
+  SCOPE_GUARD(restore, [&]
+  {
+    if (existed)
+      settings::Set(key, saved);
+    else
+      settings::Delete(key);
+  });
+
+  settings::Set(key, 256u);
+  TEST(LoadBicycleSurfacePreference() == Any, ());
+  settings::Set(key, 2u);
+  RoutingOptions::SaveToSettings(VehicleType::Bicycle, RoutingOptions(RoutingOptions::Dirty | RoutingOptions::Ferry));
+  TEST(LoadBicycleSurfacePreference() == AvoidUnpaved, ());
+  SaveBicycleSurfacePreference(PreferUnpaved);
+  TEST(LoadBicycleSurfacePreference() == PreferUnpaved, ());
+  TEST_EQUAL(RoutingOptions::LoadFromSettings(VehicleType::Bicycle).GetOptions(), RoutingOptions::Ferry, ());
+  TEST(RoutePlanningOptions::LoadFromSettings(VehicleType::Car).m_bicycleSurface == Any, ());
+}
 }  // namespace

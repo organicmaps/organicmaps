@@ -11,11 +11,15 @@
 #include "indexer/feature.hpp"
 
 #include "platform/platform.hpp"
+#include "platform/settings.hpp"
 
 #include "geometry/mercator.hpp"
 
 #include "traffic/traffic_cache.hpp"
 
+#include "base/scope_guard.hpp"
+
+#include <array>
 #include <functional>
 #include <map>
 #include <utility>
@@ -149,6 +153,91 @@ UNIT_CLASS_TEST(SurfaceRoutingFixture, CarDirtyMatchesRoadClassesAndSurfaces)
     TEST_EQUAL(graph->GetRoutingOptions(segment).Has(RoutingOptions::Dirty), dirty, (name));
     TEST_EQUAL(graph->IsRoutingOptionsGood(segment), !dirty, (name));
   }
+}
+
+UNIT_CLASS_TEST(SurfaceRoutingFixture, BicyclePreferencePricesMappedSurfacesWithoutChangingEta)
+{
+  using enum BicycleSurfacePreference;
+  using enum EdgeEstimator::Purpose;
+  std::array const names{"Paved track", "Rough paved track", "Unpaved cycleway", "Bad unpaved cycleway",
+                         "Unknown track"};
+  std::array<double, names.size()> baselineWeights{};
+  std::array<double, names.size()> baselineEtas{};
+  auto router = Router(VehicleType::Bicycle);
+  for (auto const preference : {Any, PreferPaved, PreferUnpaved})
+  {
+    bool checked = false;
+    m_onCountryLookup = [&]
+    {
+      if (checked)
+        return;
+      checked = true;
+      auto graph = router->MakeSingleMwmWorldGraph();
+      for (size_t i = 0; i < names.size(); ++i)
+      {
+        auto const segment = NamedSegment(names[i]);
+        for (auto const direction : {segment, Segment(segment.GetMwmId(), segment.GetFeatureId(), 0, false)})
+        {
+          auto const weight = graph->CalcSegmentWeight(direction, Weight).GetWeight();
+          auto const eta = graph->CalcSegmentWeight(direction, ETA).GetWeight();
+          if (preference == Any)
+          {
+            baselineWeights[i] = weight;
+            baselineEtas[i] = eta;
+          }
+          else
+          {
+            bool const penalized =
+                (preference == PreferPaved && (i == 2 || i == 3)) || (preference == PreferUnpaved && i < 2);
+            if (penalized)
+              TEST_GREATER(weight, baselineWeights[i], (names[i]));
+            else
+              TEST_EQUAL(weight, baselineWeights[i], (names[i]));
+            TEST_EQUAL(eta, baselineEtas[i], (names[i]));
+          }
+        }
+      }
+    };
+    RouterDelegate const delegate{RoutePlanningOptions{{}, preference}};
+    RoutesResult result;
+    TEST_EQUAL(Calculate(*router, result, delegate), RouterResultCode::NoError, ());
+    TEST(checked, ());
+  }
+}
+
+UNIT_CLASS_TEST(SurfaceRoutingFixture, BicycleSurfaceChoiceChangesTheRouteAndKeepsRequiredConnectors)
+{
+  using enum BicycleSurfacePreference;
+  auto router = Router(VehicleType::Bicycle);
+  std::string_view constexpr key = "BicycleSurfacePreference";
+  std::string saved;
+  bool const existed = settings::Get(key, saved);
+  SCOPE_GUARD(restore, [&]
+  {
+    if (existed)
+      settings::Set(key, saved);
+    else
+      settings::Delete(key);
+  });
+
+  for (auto const preference : {Any, PreferPaved, PreferUnpaved, AvoidUnpaved})
+  {
+    SaveBicycleSurfacePreference(preference);
+    TEST(LoadBicycleSurfacePreference() == preference, ());
+    RoutesResult result;
+    TEST_EQUAL(router->CalculateRoute(Checkpoints(mercator::FromLatLon(4, 1.01), mercator::FromLatLon(4, 1.14)), {},
+                                      true, true, {}, result),
+               RouterResultCode::NoError, ());
+    TEST_EQUAL(UsesRoadType(result.GetActive(), RoutingOptions::Dirty),
+               preference == Any || preference == PreferUnpaved, ());
+    if (preference == AvoidUnpaved)
+      for (auto const & route : result.m_routes)
+        TEST(!UsesRoadType(route, RoutingOptions::Dirty), ());
+  }
+  SaveBicycleSurfacePreference(PreferPaved);
+  RoutesResult required;
+  TEST_EQUAL(CalculateRequiredRoad(*router, required), RouterResultCode::NoError, ());
+  TEST(UsesRoadType(required.GetActive(), RoutingOptions::Dirty), ());
 }
 
 UNIT_CLASS_TEST(SurfaceRoutingFixture, BicycleUnpavedAvoidanceIsIndependentAndReversible)
@@ -302,7 +391,7 @@ UNIT_CLASS_TEST(StepsRoutingFixture, SubmittedOptionsOverrideSettingsForTheWhole
   for (bool const avoid : {false, true, false})
   {
     RoutingOptions::SaveToSettings(vehicle, RoutingOptions(avoid ? 0 : RoutingOptions::Steps));
-    RouterDelegate const delegate{RoutingOptions(avoid ? RoutingOptions::Steps : 0)};
+    RouterDelegate const delegate{RoutePlanningOptions{RoutingOptions(avoid ? RoutingOptions::Steps : 0)}};
     RoutesResult result;
     TEST_EQUAL(Calculate(*router, result, delegate, true, true), RouterResultCode::NoError, (avoid));
     TEST_EQUAL(UsesRoadType(result.GetActive(), RoutingOptions::Steps), !avoid, (avoid));

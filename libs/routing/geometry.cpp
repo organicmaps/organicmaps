@@ -4,6 +4,7 @@
 #include "routing/maxspeeds.hpp"
 
 #include "indexer/altitude_loader.hpp"
+#include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_source.hpp"
 
@@ -65,17 +66,34 @@ public:
 
 namespace
 {
+RoadGeometry::Surface GetMappedSurface(feature::TypesHolder const & types)
+{
+  using Surface = RoadGeometry::Surface;
+  auto const & c = classif();
+  static std::pair<uint32_t, Surface> const surfaces[] = {
+      {c.GetTypeByPath({"psurface", "paved_good"}), Surface::PavedGood},
+      {c.GetTypeByPath({"psurface", "paved_bad"}), Surface::PavedBad},
+      {c.GetTypeByPath({"psurface", "unpaved_good"}), Surface::UnpavedGood},
+      {c.GetTypeByPath({"psurface", "unpaved_bad"}), Surface::UnpavedBad},
+  };
+  for (auto const & [type, surface] : surfaces)
+    if (types.Has(type))
+      return surface;
+  return Surface::Unknown;
+}
+
 class RoadGeometryLoader : public GeometryLoader
 {
 protected:
   RoadGeometryLoader(VehicleType vehicleType, VehicleModelPtrT const & vehicleModel)
     : m_vehicleModel(vehicleModel)
     , m_optionsClassifier(RoutingOptionsClassifier::Instance(vehicleType))
+    , m_loadSurface(vehicleType == VehicleType::Bicycle)
   {}
 
   void LoadRoad(FeatureType & feature, geometry::Altitudes const * altitudes, RoadGeometry & road)
   {
-    road.Load(*m_vehicleModel, feature, altitudes, m_attrsGetter, m_optionsClassifier);
+    road.Load(*m_vehicleModel, feature, altitudes, m_attrsGetter, m_optionsClassifier, m_loadSurface);
   }
 
   RoadAttrsGetter m_attrsGetter;
@@ -83,6 +101,7 @@ protected:
 private:
   VehicleModelPtrT m_vehicleModel;
   RoutingOptionsClassifier const & m_optionsClassifier;
+  bool const m_loadSurface;
 };
 
 class MwmHandleGeometryLoader final : public RoadGeometryLoader
@@ -176,7 +195,7 @@ RoadGeometry::RoadGeometry(bool oneWay, Maxspeed const & maxspeed, Points const 
 
 void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType & feature,
                         geometry::Altitudes const * altitudes, RoadAttrsGetter & attrs,
-                        RoutingOptionsClassifier const & optionsClassifier)
+                        RoutingOptionsClassifier const & optionsClassifier, bool loadSurface)
 {
   size_t const count = feature.GetPointsCount();
   CHECK_GREATER(count, 1, ());
@@ -184,6 +203,7 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
 
   feature::TypesHolder types(feature);
   m_highwayType = vehicleModel.GetHighwayType(types);
+  m_surface = loadSurface ? GetMappedSurface(types) : Surface::Unknown;
 
   m_valid = vehicleModel.IsRoad(types);
   m_isOneWay = vehicleModel.IsOneWay(types);

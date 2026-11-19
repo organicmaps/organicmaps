@@ -13,11 +13,25 @@ final class RoutingOptionsSettingsPresenter {
   }
 
   func sections(from state: RoutingOptionsSettingsState) -> [RoutingOptionsSettingsSectionViewModel] {
-    let avoidances = RoutingOption.avoidanceOptions.filter { $0.isSupported(in: state.options) }
+    let isCycling = state.options.routerType == .bicycle
+    let avoidances = RoutingOption.avoidanceOptions.filter {
+      $0.isSupported(in: state.options) && (!isCycling || $0 != .unpavedRoads)
+    }
     var sections: [RoutingOptionsSettingsSectionViewModel] = []
     if !avoidances.isEmpty {
       sections.append(SettingsSectionViewModel(section: .options,
                                                items: avoidances.map { item($0, state: state) }))
+    }
+    if isCycling {
+      let selected = RoutingOptions.bicycleSurfacePreference
+      let preferences: [BicycleSurfacePreference] = [.any, .preferPaved, .preferUnpaved, .avoidUnpaved]
+      let items = preferences.map { preference in
+        let option = RoutingOption.bicycleSurface(preference)
+        return RoutingOptionsSettingsItemViewModel(item: option,
+                                                   title: option.title,
+                                                   kind: .selectable(isSelected: selected == preference))
+      }
+      sections.append(SettingsSectionViewModel(section: .bicycleSurface, header: L("bicycle_surface"), items: items))
     }
     sections.append(SettingsSectionViewModel(section: .optimization,
                                              header: L("routing_options_all_modes"),

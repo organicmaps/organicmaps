@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentActivity;
 import app.organicmaps.sdk.Router;
 import app.organicmaps.sdk.routing.RoutingController;
 import app.organicmaps.sdk.routing.RoutingOptions;
+import app.organicmaps.sdk.routing.RoutingOptions.BicycleSurfacePreference;
 import app.organicmaps.sdk.settings.RoadType;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -53,6 +54,14 @@ public class DrivingOptionsFragmentTest
     assertEquals(Router.Bicycle, initialRouter(Router.Bicycle));
   }
 
+  @Test
+  public void surfaceChoiceRebuildsOnlyTheCyclingRoute() throws ReflectiveOperationException
+  {
+    verify(stop(Map.of(), Router.Vehicle, Map.of(), BicycleSurfacePreference.PreferPaved), never())
+        .onRoutingOptionsChanged();
+    verify(stop(Map.of(), Router.Bicycle, Map.of(), BicycleSurfacePreference.PreferPaved)).onRoutingOptionsChanged();
+  }
+
   private static Router initialRouter(Router requested) throws ReflectiveOperationException
   {
     RoutingController controller = mock(RoutingController.class);
@@ -69,9 +78,17 @@ public class DrivingOptionsFragmentTest
   private static RoutingController stop(Map<Router, Set<RoadType>> loaded, Router route,
                                         Map<Router, Set<RoadType>> current) throws ReflectiveOperationException
   {
+    return stop(loaded, route, current, BicycleSurfacePreference.Any);
+  }
+
+  private static RoutingController stop(Map<Router, Set<RoadType>> loaded, Router route,
+                                        Map<Router, Set<RoadType>> current, BicycleSurfacePreference surface)
+      throws ReflectiveOperationException
+  {
     DrivingOptionsFragment fragment = mock(DrivingOptionsFragment.class, CALLS_REAL_METHODS);
     doReturn(mock(FragmentActivity.class)).when(fragment).requireActivity();
     setField(fragment, "mRoadTypes", withAllModes(loaded));
+    setField(fragment, "mBicycleSurfaceOnLoad", BicycleSurfacePreference.Any);
     RoutingController controller = mock(RoutingController.class);
     when(controller.getLastRouterType()).thenReturn(route);
 
@@ -79,6 +96,7 @@ public class DrivingOptionsFragmentTest
          MockedStatic<RoutingOptions> options = mockStatic(RoutingOptions.class))
     {
       routing.when(RoutingController::get).thenReturn(controller);
+      options.when(RoutingOptions::getBicycleSurfacePreference).thenReturn(surface);
       for (Map.Entry<Router, Set<RoadType>> each : withAllModes(current).entrySet())
         options.when(() -> RoutingOptions.getActiveRoadTypes(each.getKey())).thenReturn(each.getValue());
       fragment.onStop();

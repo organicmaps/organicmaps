@@ -15,6 +15,7 @@ namespace routing
 // RoutingOptions -------------------------------------------------------------------------------------
 
 std::string_view constexpr kRouteOptimizationEnabledKey = "RouteOptimizationEnabled";
+std::string_view constexpr kBicycleSurfacePreferenceKey = "BicycleSurfacePreference";
 
 namespace
 {
@@ -92,6 +93,46 @@ void RoutingOptions::SaveToSettings(VehicleType vehicleType, RoutingOptions opti
   auto const key = SettingsKey(vehicleType);
   if (!key.empty())
     settings::Set(key, static_cast<uint32_t>(options.GetOptions() & GetSupportedOptions(vehicleType)));
+}
+
+RoutePlanningOptions RoutePlanningOptions::LoadFromSettings(VehicleType vehicle)
+{
+  RoutePlanningOptions options{RoutingOptions::LoadFromSettings(vehicle)};
+  if (vehicle != VehicleType::Bicycle)
+    return options;
+
+  if (options.m_avoid.Has(RoutingOptions::Dirty))
+  {
+    options.m_bicycleSurface = BicycleSurfacePreference::AvoidUnpaved;
+    return options;
+  }
+
+  uint32_t value = 0;
+  if (settings::Get(kBicycleSurfacePreferenceKey, value) &&
+      value <= static_cast<uint32_t>(BicycleSurfacePreference::PreferUnpaved))
+    options.m_bicycleSurface = static_cast<BicycleSurfacePreference>(value);
+  return options;
+}
+
+BicycleSurfacePreference LoadBicycleSurfacePreference()
+{
+  return RoutePlanningOptions::LoadFromSettings(VehicleType::Bicycle).m_bicycleSurface;
+}
+
+void SaveBicycleSurfacePreference(BicycleSurfacePreference preference)
+{
+  auto const value = static_cast<uint32_t>(preference);
+  CHECK_LESS_OR_EQUAL(value, static_cast<uint32_t>(BicycleSurfacePreference::AvoidUnpaved), ());
+  auto avoids = RoutingOptions::LoadFromSettings(VehicleType::Bicycle);
+  bool const avoidUnpaved = preference == BicycleSurfacePreference::AvoidUnpaved;
+  if (avoidUnpaved)
+    avoids.Add(RoutingOptions::Dirty);
+  else
+    avoids.Remove(RoutingOptions::Dirty);
+  // Keep the existing hard avoid in the bicycle road mask.
+  settings::Update({{std::string(kBicycleSurfacePreferenceKey), settings::ToString(avoidUnpaved ? 0u : value)},
+                    {std::string(SettingsKey(VehicleType::Bicycle)),
+                     settings::ToString(static_cast<uint32_t>(avoids.GetOptions()))}});
 }
 
 // static

@@ -46,9 +46,30 @@ public:
   bool Has(Road type) const;
 
   RoadType GetOptions() const { return m_options; }
+  bool operator==(RoutingOptions const &) const = default;
 
 private:
   RoadType m_options = 0;
+};
+
+enum class BicycleSurfacePreference : uint8_t
+{
+  Any = 0,
+  PreferPaved = 1,
+  PreferUnpaved = 2,
+  AvoidUnpaved = 3
+};
+
+BicycleSurfacePreference LoadBicycleSurfacePreference();
+void SaveBicycleSurfacePreference(BicycleSurfacePreference preference);
+
+struct RoutePlanningOptions
+{
+  RoutingOptions m_avoid;
+  BicycleSurfacePreference m_bicycleSurface = BicycleSurfacePreference::Any;
+
+  static RoutePlanningOptions LoadFromSettings(VehicleType vehicle);
+  bool operator==(RoutePlanningOptions const &) const = default;
 };
 
 class RoutingOptionsClassifier
