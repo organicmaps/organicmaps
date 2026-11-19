@@ -1,42 +1,47 @@
 #pragma once
 
 #include "drape_frontend/animation/animation.hpp"
-#include "drape_frontend/screen_operations.hpp"
 
-#include <string>
+#include "geometry/screenbase.hpp"
+
+#include <optional>
 
 namespace df
 {
+class MapAnimation : public Animation
+{
+public:
+  enum class Type
+  {
+    Camera,
+    Pan,
+    Zoom,
+    Fling
+  };
 
-extern std::string const kPrettyMoveAnim;
-extern std::string const kPrettyFollowAnim;
-extern std::string const kParallelFollowAnim;
-extern std::string const kParallelLinearAnim;
+  MapAnimation(Type type, ScreenBase const & start, ScreenBase const & end, AnimationClock::time_point requestedAt,
+               double duration, std::optional<m2::PointD> pixelAnchor = std::nullopt);
 
-class SequenceAnimation;
-class MapLinearAnimation;
-class MapFollowAnimation;
-class MapScaleAnimation;
+  Type GetType() const { return m_type; }
+  void Apply(ScreenBase & screen) const;
+  void ApplyTarget(ScreenBase & screen) const { Apply(screen, 1.0); }
 
-drape_ptr<SequenceAnimation> GetPrettyMoveAnimation(ScreenBase const & startScreen, ScreenBase const & endScreen);
-drape_ptr<SequenceAnimation> GetPrettyMoveAnimation(ScreenBase const & screen, m2::AnyRectD const & startRect,
-                                                    m2::AnyRectD const & endRect);
-drape_ptr<SequenceAnimation> GetPrettyMoveAnimation(ScreenBase const & screen, double startScale, double endScale,
-                                                    m2::PointD const & startPt, m2::PointD const & endPt);
+private:
+  struct Pose
+  {
+    m2::PointD m_position;
+    double m_scale;
+    double m_angle;
+  };
 
-drape_ptr<SequenceAnimation> GetPrettyFollowAnimation(ScreenBase const & startScreen, m2::PointD const & userPos,
-                                                      double targetScale, double targetAngle,
-                                                      m2::PointD const & endPixelPos);
+  static Pose GetPose(ScreenBase const & screen, std::optional<m2::PointD> const & pixelAnchor);
+  void Apply(ScreenBase & screen, double progress) const;
 
-drape_ptr<MapLinearAnimation> GetRectAnimation(ScreenBase const & startScreen, ScreenBase const & endScreen);
-drape_ptr<MapLinearAnimation> GetSetRectAnimation(ScreenBase const & screen, m2::AnyRectD const & startRect,
-                                                  m2::AnyRectD const & endRect);
+  Type const m_type;
+  std::optional<m2::PointD> const m_pixelAnchor;
+  Pose const m_start;
+  Pose const m_end;
+};
 
-drape_ptr<MapFollowAnimation> GetFollowAnimation(ScreenBase const & startScreen, m2::PointD const & userPos,
-                                                 double targetScale, double targetAngle, m2::PointD const & endPixelPos,
-                                                 bool isAutoZoom);
-
-drape_ptr<MapScaleAnimation> GetScaleAnimation(ScreenBase const & startScreen, m2::PointD pxScaleCenter,
-                                               m2::PointD glbScaleCenter, double factor);
-
+bool IsWithinAnimationDistance(ScreenBase const & screen, m2::PointD const & from, m2::PointD const & to);
 }  // namespace df

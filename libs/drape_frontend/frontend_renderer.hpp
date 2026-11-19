@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape_frontend/animation_system.hpp"
 #include "drape_frontend/base_renderer.hpp"
 #include "drape_frontend/drape_api_renderer.hpp"
 #include "drape_frontend/frame_values.hpp"
@@ -150,15 +151,13 @@ public:
 
   // MyPositionController::Listener
   void PositionChanged(m2::PointD const & position, bool hasPosition) override;
-  void ChangeModelView(m2::PointD const & center, int zoomLevel,
-                       TAnimationCreator const & parallelAnimCreator) override;
-  void ChangeModelView(double azimuth, TAnimationCreator const & parallelAnimCreator) override;
-  void ChangeModelView(m2::RectD const & rect, TAnimationCreator const & parallelAnimCreator) override;
+  void ChangeModelView(m2::PointD const & center, int zoomLevel, std::optional<ArrowPose> const & arrowTarget) override;
+  void ChangeModelView(double azimuth, std::optional<ArrowPose> const & arrowTarget) override;
+  void ChangeModelView(m2::RectD const & rect, std::optional<ArrowPose> const & arrowTarget) override;
   void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero, int preferredZoomLevel,
-                       Animation::TAction const & onFinishAction,
-                       TAnimationCreator const & parallelAnimCreator) override;
+                       std::optional<ArrowPose> const & arrowTarget) override;
   void ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero,
-                       TAnimationCreator const & parallelAnimCreator) override;
+                       std::optional<ArrowPose> const & arrowTarget) override;
 
   drape_ptr<ScenarioManager> const & GetScenarioManager() const { return m_scenarioManager; }
   location::EMyPositionMode GetMyPositionMode() const { return m_myPositionController->GetCurrentMode(); }
@@ -211,7 +210,8 @@ private:
   bool HasTransitRouteData() const;
   bool HasRouteData() const;
 
-  ScreenBase const & ProcessEvents(bool & modelViewChanged, bool & viewportChanged, bool & needActiveFrame);
+  ScreenBase const & ProcessEvents(bool & modelViewChanged, bool & viewportChanged, bool & needActiveFrame,
+                                   AnimationClock::time_point now);
   void PrepareScene(ScreenBase const & modelView);
   void UpdateScene(ScreenBase const & modelView);
   void BuildOverlayTree(ScreenBase const & modelView);
@@ -250,7 +250,7 @@ private:
   void CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) const override;
   void CorrectGlobalScalePoint(m2::PointD & pt) const override;
   void OnScaleEnded() override;
-  void OnAnimatedScaleEnded() override;
+  void OnScaleRequested() override;
   void OnTouchMapAction(TouchEvent::ETouchType touchType, bool isMapTouch) override;
   bool OnNewVisibleViewport(m2::RectD const & oldViewport, m2::RectD const & newViewport, bool needOffset,
                             m2::PointD & gOffset) override;
@@ -317,6 +317,7 @@ private:
 
   drape_ptr<gui::LayerRenderer> m_guiRenderer;
   gui::TWidgetsLayoutInfo m_lastWidgetsLayout;
+  AnimationSystem m_animationSystem;
   drape_ptr<MyPositionController> m_myPositionController;
 
   drape_ptr<SelectionShape> m_selectionShape;

@@ -198,7 +198,7 @@ void DrapeEngine::Scroll(double distanceX, double distanceY)
 
 void DrapeEngine::Rotate(double azimuth, bool isAnim)
 {
-  AddUserEvent(make_unique_dp<RotateEvent>(azimuth, isAnim, nullptr /* parallelAnimCreator */));
+  AddUserEvent(make_unique_dp<RotateEvent>(azimuth, isAnim));
 }
 
 void DrapeEngine::MakeFrameActive()
@@ -209,21 +209,18 @@ void DrapeEngine::MakeFrameActive()
 void DrapeEngine::ScaleAndSetCenter(m2::PointD const & centerPt, double scaleFactor, bool isAnim,
                                     bool trackVisibleViewport)
 {
-  PostUserEvent(make_unique_dp<SetCenterEvent>(scaleFactor, centerPt, isAnim, trackVisibleViewport,
-                                               nullptr /* parallelAnimCreator */));
+  PostUserEvent(make_unique_dp<SetCenterEvent>(scaleFactor, centerPt, isAnim, trackVisibleViewport));
 }
 
 void DrapeEngine::SetModelViewCenter(m2::PointD const & centerPt, int zoom, bool isAnim, bool trackVisibleViewport)
 {
-  PostUserEvent(
-      make_unique_dp<SetCenterEvent>(centerPt, zoom, isAnim, trackVisibleViewport, nullptr /* parallelAnimCreator */));
+  PostUserEvent(make_unique_dp<SetCenterEvent>(centerPt, zoom, isAnim, trackVisibleViewport));
 }
 
 void DrapeEngine::SetModelViewRect(m2::RectD const & rect, bool applyRotation, int zoom, bool isAnim,
                                    bool useVisibleViewport)
 {
-  PostUserEvent(make_unique_dp<SetRectEvent>(rect, applyRotation, zoom, isAnim, useVisibleViewport,
-                                             nullptr /* parallelAnimCreator */));
+  PostUserEvent(make_unique_dp<SetRectEvent>(rect, applyRotation, zoom, isAnim, useVisibleViewport));
 }
 
 void DrapeEngine::SetModelViewAnyRect(m2::AnyRectD const & rect, bool isAnim, bool useVisibleViewport)
