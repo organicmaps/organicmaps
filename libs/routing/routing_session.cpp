@@ -101,13 +101,15 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint, ReadyCallback c
 
   Checkpoints checkpoints(m_checkpoints);
   checkpoints.SetPointFrom(startPoint);
+  // Traffic updates reuse the preview options. Rerouting during navigation uses current settings.
+  auto const options = m_isFollowing ? std::nullopt : m_routePlanningOptions;
   // RoutingManager::InsertRoute draws alternatives only outside navigation, don't pay for them.
   m_router->CalculateRoute(checkpoints, direction, adjustToPrevRoute, !m_isFollowing /* needAlternatives */,
                            [this, readyCallback](std::shared_ptr<RoutesResult> const & result, RouterResultCode code)
   {
     AssignRoute(result, code);
     readyCallback(result ? *result : RoutesResult{}, code);
-  }, needMoreMapsCallback, removeRouteCallback, m_progressCallback, timeoutSec);
+  }, needMoreMapsCallback, removeRouteCallback, m_progressCallback, timeoutSec, options);
 }
 
 m2::PointD RoutingSession::GetEndPoint() const
@@ -233,6 +235,7 @@ void RoutingSession::Reset()
   RemoveRoute();
   SetState(SessionState::NoValidRoute);
   m_router->ClearState();
+  m_routePlanningOptions.reset();
 
   m_passedDistanceOnRouteMeters = 0.0;
   m_isFollowing = false;
